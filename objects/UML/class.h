@@ -25,13 +25,15 @@
 
 #include "uml.h"
 
+#define UMLCLASS_CONNECTIONPOINTS 8
+
 typedef struct _UMLClass UMLClass;
 typedef struct _UMLClassDialog UMLClassDialog;
 
 struct _UMLClass {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[UMLCLASS_CONNECTIONPOINTS];
 
   /* Class info: */
 

@@ -1,3 +1,16 @@
+2002-06-28  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	Patch from Tim Ellis <Tim.Ellis@gamet.com>:
+	
+	* objects/UML/class.[ch]:
+	* objects/UML/class_dialog.c:
+	changed the number of connection points from a hardcoded value of
+	8 to a #defined constant
+
+	(I changed the constant back from 20 to 8, until we better know
+	how we'll handle more connection points on the UML class in the
+	future -- but Tim's patch is a welcome clean-up).
+
 2002-06-26  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* shapes/MSE/demultiplexer.xpm:

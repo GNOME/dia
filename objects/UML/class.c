@@ -185,7 +185,7 @@ umlclass_move_handle(UMLClass *umlclass, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  assert(handle->id < 8);
+  assert(handle->id < UMLCLASS_CONNECTIONPOINTS);
 }
 
 static void
@@ -444,26 +444,56 @@ umlclass_update_data(UMLClass *umlclass)
   Object *obj = &elem->object;
   real x,y;
   GList *list;
+  int i;
+  int pointswide;
+  int lowerleftcorner;
+  real pointspacing;
 
   x = elem->corner.x;
   y = elem->corner.y;
   
   /* Update connections: */
   umlclass->connections[0].pos = elem->corner;
-  umlclass->connections[1].pos.x = x + elem->width / 2.0;
-  umlclass->connections[1].pos.y = y;
-  umlclass->connections[2].pos.x = x + elem->width;
-  umlclass->connections[2].pos.y = y;
-  umlclass->connections[3].pos.x = x;
-  umlclass->connections[3].pos.y = y + umlclass->namebox_height/2.0;
-  umlclass->connections[4].pos.x = x + elem->width;
-  umlclass->connections[4].pos.y = y + umlclass->namebox_height/2.0;
-  umlclass->connections[5].pos.x = x;
-  umlclass->connections[5].pos.y = y + elem->height;
-  umlclass->connections[6].pos.x = x + elem->width / 2.0;
-  umlclass->connections[6].pos.y = y + elem->height;
-  umlclass->connections[7].pos.x = x + elem->width;
-  umlclass->connections[7].pos.y = y + elem->height;
+
+  /* there are four corner points and two side points, thus all
+   * remaining points are on the top/bottom width
+   */
+  pointswide = (UMLCLASS_CONNECTIONPOINTS - 6) / 2;
+  pointspacing = elem->width / (pointswide + 1.0);
+
+  /* across the top connection points */
+  for (i=1;i<=pointswide;i++) {
+    umlclass->connections[i].pos.x = x + (pointspacing * i);
+    umlclass->connections[i].pos.y = y;
+  }
+
+  i = (UMLCLASS_CONNECTIONPOINTS / 2) - 2;
+  umlclass->connections[i].pos.x = x + elem->width;
+  umlclass->connections[i].pos.y = y;
+
+  i = (UMLCLASS_CONNECTIONPOINTS / 2) - 1;
+  umlclass->connections[i].pos.x = x;
+  umlclass->connections[i].pos.y = y + umlclass->namebox_height / 2.0;
+
+  i = (UMLCLASS_CONNECTIONPOINTS / 2);
+  umlclass->connections[i].pos.x = x + elem->width;
+  umlclass->connections[i].pos.y = y + umlclass->namebox_height / 2.0;
+
+  i = (UMLCLASS_CONNECTIONPOINTS / 2) + 1;
+  umlclass->connections[i].pos.x = x;
+  umlclass->connections[i].pos.y = y + elem->height;
+
+  /* across the bottom connection points */
+  lowerleftcorner = (UMLCLASS_CONNECTIONPOINTS / 2) + 1;
+  for (i=1;i<=pointswide;i++) {
+    umlclass->connections[lowerleftcorner + i].pos.x = x + (pointspacing * i);
+    umlclass->connections[lowerleftcorner + i].pos.y = y + elem->height;
+  }
+
+  /* bottom-right corner */
+  i = (UMLCLASS_CONNECTIONPOINTS) - 1;
+  umlclass->connections[i].pos.x = x + elem->width;
+  umlclass->connections[i].pos.y = y + elem->height;
 
   y += umlclass->namebox_height + 0.1 + umlclass->font_height/2;
 
@@ -740,7 +770,7 @@ umlclass_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  element_init(elem, 8, 8); /* No attribs or ops => 0 extra connectionpoints. */
+  element_init(elem, 8, UMLCLASS_CONNECTIONPOINTS); /* No attribs or ops => 0 extra connectionpoints. */
 
   umlclass->properties_dialog = NULL;
   fill_in_fontdata(umlclass);
@@ -774,7 +804,7 @@ umlclass_create(Point *startpoint,
 
   umlclass_calculate_data(umlclass);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<UMLCLASS_CONNECTIONPOINTS;i++) {
     obj->connections[i] = &umlclass->connections[i];
     umlclass->connections[i].object = obj;
     umlclass->connections[i].connected = NULL;
@@ -990,7 +1020,7 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->operations_strings = NULL;
   newumlclass->templates_strings = NULL;
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<UMLCLASS_CONNECTIONPOINTS;i++) {
     newobj->connections[i] = &newumlclass->connections[i];
     newumlclass->connections[i].object = newobj;
     newumlclass->connections[i].connected = NULL;
@@ -1000,7 +1030,7 @@ umlclass_copy(UMLClass *umlclass)
 
   umlclass_calculate_data(newumlclass);
 
-  i = 8;
+  i = UMLCLASS_CONNECTIONPOINTS;
   if ( (newumlclass->visible_attributes) &&
        (!newumlclass->suppress_attributes)) {
     list = newumlclass->attributes;
@@ -1291,7 +1321,7 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
        (umlclass->suppress_operations))
     num_ops = 0;
   
-  element_init(elem, 8, 8 + num_attr*2 + num_ops*2);
+  element_init(elem, 8, UMLCLASS_CONNECTIONPOINTS + num_attr*2 + num_ops*2);
 
   umlclass->properties_dialog = NULL;
   fill_in_fontdata(umlclass);
@@ -1303,13 +1333,13 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
 
   umlclass_calculate_data(umlclass);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<UMLCLASS_CONNECTIONPOINTS;i++) {
     obj->connections[i] = &umlclass->connections[i];
     umlclass->connections[i].object = obj;
     umlclass->connections[i].connected = NULL;
   }
 
-  i = 8;
+  i = UMLCLASS_CONNECTIONPOINTS;
 
   if ( (umlclass->visible_attributes) &&
        (!umlclass->suppress_attributes)) {

@@ -2592,17 +2592,17 @@ umlclass_apply_properties(UMLClass *umlclass)
   else
     num_ops = 0;
   obj = &umlclass->element.object;
-  obj->num_connections = 8 + num_attrib*2 + num_ops*2;
+  obj->num_connections = UMLCLASS_CONNECTIONPOINTS + num_attrib*2 + num_ops*2;
   obj->connections =
     g_realloc(obj->connections,
 	      obj->num_connections*sizeof(ConnectionPoint *));
   
   /* Read from dialog and put in object: */
   class_read_from_dialog(umlclass, prop_dialog);
-  attributes_read_from_dialog(umlclass, prop_dialog, 8);
+  attributes_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS);
   /* ^^^ attribs must be called before ops, to get the right order of the
      connectionpoints. */
-  operations_read_from_dialog(umlclass, prop_dialog, 8+num_attrib*2);
+  operations_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS+num_attrib*2);
   templates_read_from_dialog(umlclass, prop_dialog);
 
   /* unconnect from all deleted connectionpoints. */
@@ -2805,12 +2805,12 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
     num_ops = 0;
   
   obj = &umlclass->element.object;
-  obj->num_connections = 8 + num_attrib*2 + num_ops*2;
+  obj->num_connections = UMLCLASS_CONNECTIONPOINTS + num_attrib*2 + num_ops*2;
   obj->connections =
     g_realloc(obj->connections,
 	      obj->num_connections*sizeof(ConnectionPoint *));
 
-  connection_index = 8;
+  connection_index = UMLCLASS_CONNECTIONPOINTS;
   
   list = umlclass->attributes;
   while (list != NULL) {
