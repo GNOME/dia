@@ -92,6 +92,12 @@ static void draw_rounded_rect(Renderer *renderer,
 static void fill_rounded_rect(Renderer *renderer, 
 			      Point *ul_corner, Point *lr_corner,
 			      Color *color, real rounding);
+static void draw_line_with_arrows(Renderer *renderer, 
+				  Point *start, Point *end, 
+				  real line_width,
+				  Color *line_color,
+				  Arrow *start_arrow,
+				  Arrow *end_arrow);
 static void draw_bezier_with_arrows(Renderer *renderer, 
 				    BezPoint *points,
 				    int num_points,
@@ -152,7 +158,7 @@ static RenderOps AbstractRenderOps = {
   fill_rounded_rect,
 
   /* placeholders */
-  NULL, /* DrawLineWithArrowsFunc */
+  draw_line_with_arrows, /* DrawLineWithArrowsFunc */
   NULL, /* DrawPolyLineWithArrowsFunc */
   NULL, /* DrawArcWithArrowsFunc */
   draw_bezier_with_arrows,
@@ -332,6 +338,67 @@ static void fill_rounded_rect(Renderer *renderer,
 }
 
 static void
+draw_line_with_arrows(Renderer *renderer, 
+		      Point *startpoint, 
+		      Point *endpoint,
+		      real line_width,
+		      Color *color,
+		      Arrow *start_arrow,
+		      Arrow *end_arrow)
+{
+  Point oldstart = *startpoint;
+  printf("Start draw arrow type %d, end %d\n", start_arrow->type, end_arrow->type);
+  if (start_arrow->type != ARROW_NONE) {
+    Point move;
+    Point arrow_head;
+    calculate_arrow_point(start_arrow, startpoint, endpoint, &move,
+			  line_width);
+    point_sub(startpoint, &move);
+    arrow_head = *startpoint;
+    point_sub(startpoint, &move);
+    arrow_draw(renderer, start_arrow->type,
+	       &arrow_head, endpoint,
+	       start_arrow->length, start_arrow->width,
+	       line_width,
+	       &color_black, &color_white);
+#ifdef STEM
+      Point line_start = startpoint;
+      startpoint = arrow_head;
+      point_normalize(&move);
+      point_scale(&move, start_arrow->length);
+      point_sub(startpoint, &move);
+      renderer->ops->draw_line(renderer, &line_start, startpoint, color);
+#endif
+  }
+  if (end_arrow->type != ARROW_NONE) {
+    Point move;
+    Point arrow_head;
+    calculate_arrow_point(end_arrow, endpoint, startpoint, &move,
+			  line_width);
+    point_sub(endpoint, &move);
+    arrow_head = *endpoint;
+    point_sub(endpoint, &move);
+    arrow_draw(renderer, end_arrow->type,
+	       &arrow_head, endpoint,
+	       end_arrow->length, end_arrow->width,
+	       line_width,
+	       &color_black, &color_white);
+#ifdef STEM
+      Point line_start = endpoint;
+      endpoint = arrow_head;
+      point_normalize(&move);
+      point_scale(&move, end_arrow->length);
+      point_sub(endpoint, &move);
+      renderer->ops->draw_line(renderer, &line_start, endpoint, color);
+#endif
+  }
+  renderer->ops->draw_line(renderer, startpoint, endpoint, color);
+  printf("Draw arrow type %d, end %d\n", start_arrow->type, end_arrow->type);
+
+  *startpoint = oldstart;
+}
+
+static void
 draw_bezier_with_arrows(Renderer *renderer, 
 			BezPoint *points,
 			int num_points,
@@ -348,8 +415,7 @@ draw_bezier_with_arrows(Renderer *renderer,
   if (start_arrow->type != ARROW_NONE) {
     Point move;
     Point arrow_head;
-    calculate_arrow_point(&points[0].p1, &points[1].p1, &move,
-			  start_arrow->length, start_arrow->width,
+    calculate_arrow_point(start_arrow, &points[0].p1, &points[1].p1, &move,
 			  line_width);
     point_sub(&points[0].p1, &move);
     arrow_head = points[0].p1;

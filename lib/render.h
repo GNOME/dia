@@ -246,7 +246,8 @@ typedef void (*FillPixelRectangleFunc) (Renderer *renderer,
  */
 typedef void (*DrawLineWithArrowsFunc) (Renderer *renderer,
 					Point *from, Point *to,
-					Color color,
+					real line_width,
+					Color *color,
 					Arrow *start_arrow,
 					Arrow *end_arrow);
 

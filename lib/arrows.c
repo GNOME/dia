@@ -67,22 +67,26 @@ calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,
 }
 
 void
-calculate_arrow_point(Point *to, Point *from, Point *move,
-		      real length, real width, real linewidth)
+calculate_arrow_point(Arrow *arrow, Point *to, Point *from, Point *move,
+		      real linewidth)
 {
   real add_len;
   real angle;
 
-
-  if (width < 0.0000001) return;
-  angle = atan(length/(width/2));
-  add_len = .5*linewidth/cos(angle);
-
-  *move = *to;
-  point_sub(move, from);
-  point_normalize(move);
-  
-  point_scale(move, add_len);
+  switch (arrow->type) {
+  case ARROW_LINES:
+    if (arrow->width < 0.0000001) return;
+    angle = atan(arrow->length/(arrow->width/2));
+    add_len = .5*linewidth/cos(angle);
+    
+    *move = *to;
+    point_sub(move, from);
+    point_normalize(move);
+    
+    point_scale(move, add_len);
+    return;
+  default: return;
+  }
 }
 
 static void
@@ -109,7 +113,6 @@ calculate_crow(Point *poly/*[3]*/, Point *to, Point *from,
 
   point_scale(&delta, length);
   point_scale(&orth_delta, width/2.0);
-
 
   poly[0] = *to;
   point_sub(&poly[0], &delta);

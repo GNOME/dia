@@ -65,8 +65,8 @@ void arrow_draw(Renderer *renderer, ArrowType type,
 		Color *fg_color, Color *bg_color);
 
 void
-calculate_arrow_point(Point *to, Point *from, Point *move,
-		      real length, real width, real linewidth);
+calculate_arrow_point(Arrow *arrow, Point *to, Point *from, Point *move,
+		      real linewidth);
 
 /* Transforms 'start' to be at the back end of the arrow, and puts the
  * tip of the arrow into 'arrowtip'.

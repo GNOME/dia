@@ -1,4 +1,15 @@
+2002-07-22  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/render.h: 
+	* lib/arrows.c (calculate_arrow_point): 
+	* lib/arrows.h: 
+	* lib/render.c: 
+	* objects/standard/line.c: Work towards better arrow drawing.
+
 2002-07-21  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/UML/state.c: Starting phase-out of State object as
+	initial/final state (which never worked right).
 
 	* app/app_procs.c (app_init): --version command line option for
 	non-Gnome.
