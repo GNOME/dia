@@ -37,6 +37,7 @@ extern void layer_dialog_update_diagram_list(void);
 extern void layer_dialog_show(void);
 extern void layer_dialog_set_diagram(Diagram *dia);
 
+
 /* DiaLayerWidget: */
 #define DIA_LAYER_WIDGET(obj)          \
   GTK_CHECK_CAST (obj, dia_layer_widget_get_type (), DiaLayerWidget)
@@ -47,6 +48,7 @@ extern void layer_dialog_set_diagram(Diagram *dia);
 
 typedef struct _DiaLayerWidget      DiaLayerWidget;
 typedef struct _DiaLayerWidgetClass  DiaLayerWidgetClass;
+typedef struct _EditLayerDialog EditLayerDialog;
 
 struct _DiaLayerWidget
 {
@@ -57,7 +59,16 @@ struct _DiaLayerWidget
   
   GtkWidget *visible;
   GtkWidget *label;
+
+  EditLayerDialog *edit_dialog;
 };
+
+struct _EditLayerDialog {
+  GtkWidget *dialog;
+  GtkWidget *name_entry;
+  DiaLayerWidget *layer_widget;
+};
+
 
 struct _DiaLayerWidgetClass
 {

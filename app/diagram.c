@@ -490,6 +490,8 @@ diagram_set_filename(Diagram *dia, char *filename)
     
     l = g_slist_next(l);
   }
+
+  layer_dialog_update_diagram_list();
 }
 
 

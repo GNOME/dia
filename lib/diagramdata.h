@@ -55,7 +55,11 @@ extern void diagram_data_destroy(DiagramData *data);
 extern Layer *new_layer(char *name);
 extern void layer_destroy(Layer *layer);
 
+extern void data_raise_layer(DiagramData *data, Layer *layer);
+extern void data_lower_layer(DiagramData *data, Layer *layer);
+
 extern void data_add_layer(DiagramData *data, Layer *layer);
+extern void data_add_layer_at(DiagramData *data, Layer *layer, int pos);
 extern void data_set_active_layer(DiagramData *data, Layer *layer);
 extern void data_delete_active_layer(DiagramData *data);
 extern void data_add_selected(DiagramData *data, Object *obj);

@@ -90,9 +90,73 @@ layer_destroy(Layer *layer)
 }
 
 void
+data_raise_layer(DiagramData *data, Layer *layer)
+{
+  int i;
+  int layer_nr = -1;
+  Layer *tmp;
+  
+  for (i=0;i<data->layers->len;i++) {
+    if (g_ptr_array_index(data->layers, i)==layer)
+      layer_nr = i;
+  }
+
+  assert(layer_nr>=0);
+
+  if (layer_nr < data->layers->len-1) {
+    tmp = g_ptr_array_index(data->layers, layer_nr+1);
+    g_ptr_array_index(data->layers, layer_nr+1) =
+      g_ptr_array_index(data->layers, layer_nr);
+    g_ptr_array_index(data->layers, layer_nr) = tmp;
+  }
+}
+
+void
+data_lower_layer(DiagramData *data, Layer *layer)
+{
+  int i;
+  int layer_nr = -1;
+  Layer *tmp;
+  
+  for (i=0;i<data->layers->len;i++) {
+    if (g_ptr_array_index(data->layers, i)==layer)
+      layer_nr = i;
+  }
+
+  assert(layer_nr>=0);
+
+  if (layer_nr > 0) {
+    tmp = g_ptr_array_index(data->layers, layer_nr-1);
+    g_ptr_array_index(data->layers, layer_nr-1) =
+      g_ptr_array_index(data->layers, layer_nr);
+    g_ptr_array_index(data->layers, layer_nr) = tmp;
+  }
+}
+
+
+void
 data_add_layer(DiagramData *data, Layer *layer)
 {
   g_ptr_array_add(data->layers, layer);
+  layer_update_extents(layer);
+  data_update_extents(data);
+}
+void
+data_add_layer_at(DiagramData *data, Layer *layer, int pos)
+{
+  int len;
+  int i;
+  
+  g_ptr_array_add(data->layers, layer);
+  len = data->layers->len;
+
+  if ( (pos>=0) && (pos < len)) {
+    for (i=len-1;i>pos;i--) {
+      g_ptr_array_index(data->layers, i) = g_ptr_array_index(data->layers, i-1);
+    }
+    g_ptr_array_index(data->layers, pos) = layer;
+  }
+  
   layer_update_extents(layer);
   data_update_extents(data);
 }

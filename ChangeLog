@@ -1,3 +1,17 @@
+1999-01-10  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/layer_dialog.[ch]:
+	Fixed the rest of the layers dialog.
+
+	* app/dialog.c:
+	Added call to redo layer dialogs diagram list when changing
+	diagram name.
+
+	* lib/diagramdata.[ch]:
+	Added data_raise_layer and data_lower_layer functions for
+	raising/lowering layers. Added data_add_layer_at for adding a
+	layer at a specified index.
+
 1999-01-05  Alexander Larsson  <alla@lysator.liu.se>
 
 	This is the asierra-990105 patch done by asierra@servidor.unam.mx.
