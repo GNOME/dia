@@ -12,8 +12,9 @@ dia-0.90.RC1:  13-May-2002
   other sane possible way.
 
 * Metapost renderer
+* Unicode builds are now mandatory. The software internally always talks UTF-8.
 * Updated Python interface.
-* Faster Postscript files when using an Unicode-enabled build.
+* Faster Postscript files.
 * More options in the UML Class dialog.
 * An optional menu bar can be added to each display window, in
   addition to the popup menu.
