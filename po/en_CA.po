@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-20 11:20-0500\n"
-"PO-Revision-Date: 2005-02-20 16:52-0500\n"
+"POT-Creation-Date: 2005-02-22 03:46-0500\n"
+"PO-Revision-Date: 2005-02-22 16:52-0500\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +53,7 @@ msgstr "Select the filter/format out of: %s"
 msgid "Export loaded file and exit"
 msgstr "Export loaded file and exit"
 
-#: app/app_procs.c:412 app/app_procs.c:433
+#: app/app_procs.c:412 app/app_procs.c:433 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
@@ -88,7 +88,7 @@ msgstr "Display credits list and exit"
 msgid "Display version and exit"
 msgstr "Display version and exit"
 
-#: app/app_procs.c:447
+#: app/app_procs.c:447 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Show this help message"
 
@@ -107,7 +107,8 @@ msgstr "Dia version %s, compiled %s %s\n"
 msgid "Dia version %s\n"
 msgstr "Dia version %s\n"
 
-#: app/app_procs.c:587 app/app_procs.c:589
+#: app/app_procs.c:587 app/app_procs.c:589 app/diaconv.c:201 app/diaconv.c:203
+#, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
@@ -158,15 +159,15 @@ msgstr ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 
-#: app/app_procs.c:789
+#: app/app_procs.c:789 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objects and filters internal to dia"
 
-#: app/app_procs.c:830
+#: app/app_procs.c:830 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FILE...]"
 
-#: app/app_procs.c:833
+#: app/app_procs.c:833 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -401,6 +402,62 @@ msgstr "Y position"
 #: app/diacanvas.c:132
 msgid "Y position of child widget"
 msgstr "Y position of child widget"
+
+#. &export_file_format
+#: app/diaconv.c:92
+msgid "Export format to use"
+msgstr "Export format to use"
+
+#: app/diaconv.c:92
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "EPS,PNG,WMF,CGM,DXF,FIG"
+
+#. &export_file_name
+#: app/diaconv.c:94
+msgid "Export file name to use"
+msgstr "Export file name to use"
+
+#: app/diaconv.c:96
+msgid "Quiet operation"
+msgstr "Quiet operation"
+
+#: app/diaconv.c:149
+#, c-format
+msgid ""
+"Error: No arguments found.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Error: No arguments found.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+
+#: app/diaconv.c:159
+#, c-format
+msgid "%s error: can specify only one of -t or -o."
+msgstr "%s error: can specify only one of -t or -o."
+
+#: app/diaconv.c:165
+#, c-format
+msgid ""
+"%s error: must specify only one of -t or -o.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"%s error: must specify only one of -t or -o.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+
+#: app/diaconv.c:174
+#, c-format
+msgid "%s error: no input file."
+msgstr "%s error: no input file."
+
+#: app/diaconv.c:227
+#, c-format
+msgid "%s error: only one input file expected."
+msgstr "%s error: only one input file expected."
+
+#: app/diaconv.c:240
+#, c-format
+msgid "%s error: popt library not available on this system"
+msgstr "%s error: popt library not available on this system"
 
 #: app/diagram_tree_menu.c:45
 msgid "/_Sort objects"
@@ -2333,6 +2390,11 @@ msgstr ""
 "Could not open `%s'\n"
 "`%s'"
 
+#: lib/prop_text.c:466
+#, c-format
+msgid "Group with %d objects"
+msgstr "Group with %d objects"
+
 #: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:639
 msgid "Left"
 msgstr "Left"
@@ -2404,6 +2466,11 @@ msgstr "Fill colour"
 #: lib/properties.h:539
 msgid "Text colour"
 msgstr "Text colour"
+
+#: lib/proplist.c:163
+#, c-format
+msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
+msgstr "No attribute '%s' (%p) or no data (%p) in this attribute"
 
 #: lib/widgets.c:378
 msgid "Other fonts"
@@ -2512,7 +2579,8 @@ msgstr "Total:"
 #: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:457
 #: objects/UML/association.c:725 objects/UML/component_feature.c:183
 #: objects/UML/dependency.c:372 objects/UML/generalization.c:368
-#: objects/UML/realizes.c:359 objects/standard/zigzagline.c:346
+#: objects/UML/realizes.c:359 objects/UML/transition.c:156
+#: objects/standard/zigzagline.c:346
 msgid "Add segment"
 msgstr "Add segment"
 
@@ -2520,7 +2588,8 @@ msgstr "Add segment"
 #: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:458
 #: objects/UML/association.c:726 objects/UML/component_feature.c:184
 #: objects/UML/dependency.c:373 objects/UML/generalization.c:369
-#: objects/UML/realizes.c:360 objects/standard/zigzagline.c:347
+#: objects/UML/realizes.c:360 objects/UML/transition.c:157
+#: objects/standard/zigzagline.c:347
 msgid "Delete segment"
 msgstr "Delete segment"
 
@@ -4286,6 +4355,30 @@ msgstr ""
 msgid "Is final"
 msgstr "Is final"
 
+#: objects/UML/transition.c:129
+msgid "Trigger"
+msgstr "Trigger"
+
+#: objects/UML/transition.c:130
+msgid "The event that causes this transition to be taken"
+msgstr "The event that causes this transition to be taken"
+
+#: objects/UML/transition.c:131
+msgid "Action"
+msgstr "Action"
+
+#: objects/UML/transition.c:132
+msgid "Action to perform when this transition is taken"
+msgstr "Action to perform when this transition is taken"
+
+#: objects/UML/transition.c:133
+msgid "Guard"
+msgstr "Guard"
+
+#: objects/UML/transition.c:134
+msgid "Condition for taking this transition when the event is fired"
+msgstr "Condition for taking this transition when the event is fired"
+
 #: objects/UML/uml.c:65
 msgid "Unified Modelling Language diagram objects"
 msgstr "Unified Modelling Language diagram objects"
@@ -4841,6 +4934,33 @@ msgstr "Unknown dxf code %d\n"
 #: plug-ins/dxf/dxf.c:50
 msgid "Drawing Interchange File import and export filters"
 msgstr "Drawing Interchange File import and export filters"
+
+#: plug-ins/gprint/diagnomeprint.c:79
+#, c-format
+msgid ""
+"Gome Print Backend\n"
+" '%s'\n"
+" not available"
+msgstr ""
+"GNOME Print Backend\n"
+" '%s'\n"
+" not available"
+
+#: plug-ins/gprint/diagnomeprint.c:110
+msgid "GNOME PostScript"
+msgstr "GNOME PostScript"
+
+#: plug-ins/gprint/diagnomeprint.c:119
+msgid "GNOME Portable Document Format"
+msgstr "GNOME Portable Document Format"
+
+#: plug-ins/gprint/diagnomeprint.c:128
+msgid "GNOME Scalable Vector Graphic"
+msgstr "GNOME Scalable Vector Graphic"
+
+#: plug-ins/gprint/diagnomeprint.c:159
+msgid "GNOME Print based Rendering"
+msgstr "GNOME Print-based Rendering"
 
 #: plug-ins/hpgl/hpgl.c:758
 msgid "HP Graphics Language"
