@@ -1,0 +1,33 @@
+/* XPM */
+static char *jackson_requirement_xpm[] = {
+/* width height ncolors chars_per_pixel */
+"22 22 3 1",
+/* colors */
+"` c black",
+"a c none",
+"b c white",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaab````baaaaaaaa",
+"aaaaaa`bbbbbbbb``aaaaa",
+"aaaa``bbbbbbbbbbb`aaaa",
+"aaabbbbbbbbbbbbbbbbaaa",
+"aaabbbbbbbbbbbbbbbbaaa",
+"aa`bbbbbbbbbbbbbbbb`aa",
+"aa`bbbbbbbbbbbbbbbb`aa",
+"aa`bbbbbbbbbbbbbbbb`aa",
+"aaabbbbbbbbbbbbbbbbaaa",
+"aaabbbbbbbbbbbbbbbbaaa",
+"aaaa``bbbbbbbbbbb`aaaa",
+"aaaaaa`bbbbbbbb``aaaaa",
+"aaaaaaaab````baaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa"
+};
+

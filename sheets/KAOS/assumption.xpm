@@ -1,0 +1,33 @@
+/* XPM */
+static char *kaos_assumption_xpm[] = {
+/* width height ncolors chars_per_pixel */
+"22 22 3 1",
+/* colors */
+"` c black",
+"a c none",
+"b c white",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaa```````````````aa",
+"aaaaa```````````````aa",
+"aaaaa``bb``bbbbbbb``aa",
+"aaaa``bb``bbbbbbbb`aaa",
+"aaaa``b``bbbbbbbb``aaa",
+"aaaa````bbbbbbbbb``aaa",
+"aaaa```bbbbbbbbbb``aaa",
+"aaa```bbbbbbbbbb``aaaa",
+"aaa``bbbbbbbbbbb``aaaa",
+"aaa``bbbbbbbbbbb``aaaa",
+"aaa`bbbbbbbbbbbb``aaaa",
+"aa``bbbbbbbbbbb``aaaaa",
+"aa```````````````aaaaa",
+"aa```````````````aaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa"
+};
+

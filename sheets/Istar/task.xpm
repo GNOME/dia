@@ -1,0 +1,33 @@
+/* XPM */
+static char *istar_task_xpm[] = {
+/* width height ncolors chars_per_pixel */
+"22 22 3 1",
+/* colors */
+"` c black",
+"a c none",
+"b c white",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaa````````````aaaaa",
+"aaaaa`bbbbbbbbbb`aaaaa",
+"aaaa`bbbbbbbbbbbb`aaaa",
+"aaaa`bbbbbbbbbbbb`aaaa",
+"aaa`bbbbbbbbbbbbbb`aaa",
+"aaa`bbbbbbbbbbbbbb`aaa",
+"aa`bbbbbbbbbbbbbbbb`aa",
+"aa`bbbbbbbbbbbbbbbb`aa",
+"aaa`bbbbbbbbbbbbbb`aaa",
+"aaa`bbbbbbbbbbbbbb`aaa",
+"aaaa`bbbbbbbbbbbb`aaaa",
+"aaaa`bbbbbbbbbbbb`aaaa",
+"aaaaa`bbbbbbbbbb`aaaaa",
+"aaaaa````````````aaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa"
+};
+

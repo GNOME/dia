@@ -1,4 +1,4 @@
-SUBDIRS = UML ER GRAFCET
+SUBDIRS = UML ER GRAFCET Jackson Istar KAOS
 
 sheet_in_files = \
   UML.sheet.in ER.sheet.in sybase.sheet.in FS.sheet.in network.sheet.in \
@@ -7,7 +7,8 @@ sheet_in_files = \
   civil.sheet.in jigsaw.sheet.in MSE.sheet.in SDL.sheet.in Logic.sheet.in \
   EML.sheet.in Misc.sheet.in Assorted.sheet.in ciscocomputer.sheet.in \
   ciscohub.sheet.in ciscomisc.sheet.in cisconetwork.sheet.in \
-  ciscorouter.sheet.in Cybernetics.sheet.in IsometricMap.sheet.in
+  ciscorouter.sheet.in Cybernetics.sheet.in IsometricMap.sheet.in \
+  Istar.sheet.in Jackson.sheet.in KAOS.sheet.in
 
 SHEETS = $(sheet_in_files:.sheet.in=.sheet)
 

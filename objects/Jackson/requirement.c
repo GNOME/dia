@@ -1,0 +1,439 @@
+/* Dia -- an diagram creation/manipulation program
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <assert.h>
+#include <math.h>
+#include <string.h>
+
+#include "intl.h"
+#include "object.h"
+#include "element.h"
+#include "diarenderer.h"
+#include "attributes.h"
+#include "text.h"
+#include "properties.h"
+
+#include "pixmaps/requirement.xpm"
+
+typedef struct _RequirementPropertiesDialog RequirementPropertiesDialog;
+typedef struct _Requirement Requirement;
+typedef struct _RequirementState RequirementState;
+
+struct _Requirement {
+  Element element;
+
+  ConnectionPoint connections[8];
+
+  Text *text;
+  int text_outside;
+  int collaboration;
+  TextAttributes attrs;
+
+  int init;
+};
+
+
+struct _RequirementPropertiesDialog {
+  GtkWidget *dialog;
+
+  GtkToggleButton *text_out;
+  GtkToggleButton *collaboration;
+};
+
+
+#define REQ_FONT 0.7
+#define REQ_WIDTH 3.25
+#define REQ_HEIGHT 2
+#define REQ_MIN_RATIO 1.5
+#define REQ_MAX_RATIO 3
+#define REQ_LINEWIDTH 0.09
+#define REQ_MARGIN_Y 0.3
+#define REQ_DASHLEN 0.5
+
+static real req_distance_from(Requirement *req, Point *point);
+static void req_select(Requirement *req, Point *clicked_point,
+			   DiaRenderer *interactive_renderer);
+static void req_move_handle(Requirement *req, Handle *handle,
+				Point *to, ConnectionPoint *cp,
+				HandleMoveReason reason, ModifierKeys modifiers);
+static void req_move(Requirement *req, Point *to);
+static void req_draw(Requirement *req, DiaRenderer *renderer);
+static DiaObject *req_create(Point *startpoint,
+			      void *user_data,
+			      Handle **handle1,
+			      Handle **handle2);
+static void req_destroy(Requirement *req);
+static DiaObject *req_load(ObjectNode obj_node, int version,
+			    const char *filename);
+static void req_update_data(Requirement *req);
+static PropDescription *req_describe_props(Requirement *req);
+static void req_get_props(Requirement *req, GPtrArray *props);
+static void req_set_props(Requirement *req, GPtrArray *props);
+
+static ObjectTypeOps req_type_ops =
+{
+  (CreateFunc) req_create,
+  (LoadFunc)   req_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
+};
+
+DiaObjectType jackson_requirement_type =
+{
+  "Jackson - requirement",   /* name */
+  0,                      /* version */
+  (char **)jackson_requirement_xpm,  /* pixmap */
+
+  &req_type_ops       /* ops */
+};
+
+static ObjectOps req_ops = {
+  (DestroyFunc)         req_destroy,
+  (DrawFunc)            req_draw,
+  (DistanceFunc)        req_distance_from,
+  (SelectFunc)          req_select,
+  (CopyFunc)            object_copy_using_properties,
+  (MoveFunc)            req_move,
+  (MoveHandleFunc)      req_move_handle,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   req_describe_props,
+  (GetPropsFunc)        req_get_props,
+  (SetPropsFunc)        req_set_props
+};
+
+static PropDescription req_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+//  { "text_outside", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+//  N_("Text outside"), NULL, NULL },
+//  { "collaboration", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+//  N_("Collaboration"), NULL, NULL },
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
+
+  PROP_DESC_END
+};
+
+static PropDescription *
+req_describe_props(Requirement *req)
+{
+  return req_props;
+}
+
+static PropOffset req_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+//  {"text_outside", PROP_TYPE_BOOL, offsetof(Requirement, text_outside) },
+//  {"collaboration", PROP_TYPE_BOOL, offsetof(Requirement, collaboration) },
+  {"text",PROP_TYPE_TEXT,offsetof(Requirement,text)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Requirement,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(Requirement,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Requirement,attrs.color)},
+  { NULL, 0, 0 },
+};
+
+static void
+req_get_props(Requirement * req, GPtrArray *props)
+{
+  text_get_attributes(req->text,&req->attrs);
+  object_get_props_from_offsets(&req->element.object,
+                                req_offsets,props);
+}
+
+static void
+req_set_props(Requirement *req, GPtrArray *props)
+{
+  if (req->init==-1) { req->init++; return; }   // workaround init bug
+
+  object_set_props_from_offsets(&req->element.object,
+                                req_offsets,props);
+  apply_textattr_properties(props,req->text,"text",&req->attrs);
+  req_update_data(req);
+}
+
+static real
+req_distance_from(Requirement *req, Point *point)
+{
+  DiaObject *obj = &req->element.object;
+  return distance_rectangle_point(&obj->bounding_box, point);
+}
+
+static void
+req_select(Requirement *req, Point *clicked_point,
+	       DiaRenderer *interactive_renderer)
+{
+  text_set_cursor(req->text, clicked_point, interactive_renderer);
+  text_grab_focus(req->text, &req->element.object);
+  element_update_handles(&req->element);
+}
+
+static void
+req_move_handle(Requirement *req, Handle *handle,
+                Point *to, ConnectionPoint *cp,
+		HandleMoveReason reason, ModifierKeys modifiers)
+{
+  assert(req!=NULL);
+  assert(handle!=NULL);
+  assert(to!=NULL);
+
+  assert(handle->id < 8);
+}
+
+static void
+req_move(Requirement *req, Point *to)
+{
+  real h;
+  Point p;
+
+  req->element.corner = *to;
+  h = req->text->height*req->text->numlines;
+
+  p = *to;
+  p.x += req->element.width/2.0;
+  if (req->text_outside) {
+      p.y += req->element.height - h + req->text->ascent;
+  } else {
+      p.y += (req->element.height - h)/2.0 + req->text->ascent;
+  }
+  text_set_position(req->text, &p);
+  req_update_data(req);
+}
+
+/** draw is here */
+static void
+req_draw(Requirement *req, DiaRenderer *renderer)
+{
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
+  Element *elem;
+  real x, y, w, h;
+  Point c;
+
+  assert(req != NULL);
+  assert(renderer != NULL);
+
+  elem = &req->element;
+
+  x = elem->corner.x;
+  y = elem->corner.y;
+
+/*
+  if (req->text_outside) {
+      w = REQ_WIDTH;
+      h = REQ_HEIGHT;
+      c.x = x + elem->width/2.0;
+      c.y = y + REQ_HEIGHT / 2.0;
+   } else {
+*/
+
+  w = elem->width;
+  h = elem->height;
+  c.x = x + w/2.0;
+  c.y = y + h/2.0;
+
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, REQ_LINEWIDTH);
+
+//  if (req->collaboration)
+    renderer_ops->set_dashlength(renderer, REQ_DASHLEN);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
+//  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+
+  renderer_ops->fill_ellipse(renderer, &c, w, h, &color_white);
+  renderer_ops->draw_ellipse(renderer, &c, w, h, &color_black);
+
+  text_draw(req->text, renderer);
+}
+
+
+static void
+req_update_data(Requirement *req)
+{
+  real w, h, ratio;
+  Point c, half, r,p;
+
+  Element *elem = &req->element;
+  DiaObject *obj = &elem->object;
+
+  text_calc_boundingbox(req->text, NULL);
+  w = req->text->max_width;
+  h = req->text->height*req->text->numlines;
+
+  if (!req->text_outside) {
+      ratio = w/h;
+
+      if (ratio > REQ_MAX_RATIO)
+        ratio = REQ_MAX_RATIO;
+
+      if (ratio < REQ_MIN_RATIO) {
+        ratio = REQ_MIN_RATIO;
+        r.y = w / ratio + h;
+        r.x = r.y * ratio;
+      } else {
+        r.x = ratio*h + w;
+        r.y = r.x / ratio;
+      }
+      if (r.x < REQ_WIDTH)
+        r.x = REQ_WIDTH;
+      if (r.y < REQ_HEIGHT)
+        r.y = REQ_HEIGHT;
+  } else {
+      r.x = REQ_WIDTH;
+      r.y = REQ_HEIGHT;
+  }
+
+  elem->width = r.x;
+  elem->height = r.y;
+
+  if (req->text_outside) {
+   elem->width = MAX(elem->width, w);
+   elem->height += h + REQ_MARGIN_Y;
+  }
+
+  r.x /= 2.0;
+  r.y /= 2.0;
+  c.x = elem->corner.x + elem->width / 2.0;
+  c.y = elem->corner.y + r.y;
+  half.x = r.x * M_SQRT1_2;
+  half.y = r.y * M_SQRT1_2;
+
+  /* Update connections: */
+  req->connections[0].pos.x = c.x - half.x;
+  req->connections[0].pos.y = c.y - half.y;
+  req->connections[1].pos.x = c.x;
+  req->connections[1].pos.y = elem->corner.y;
+  req->connections[2].pos.x = c.x + half.x;
+  req->connections[2].pos.y = c.y - half.y;
+  req->connections[3].pos.x = c.x - r.x;
+  req->connections[3].pos.y = c.y;
+  req->connections[4].pos.x = c.x + r.x;
+  req->connections[4].pos.y = c.y;
+
+  if (req->text_outside) {
+      req->connections[5].pos.x = elem->corner.x;
+      req->connections[5].pos.y = elem->corner.y + elem->height;
+      req->connections[6].pos.x = c.x;
+      req->connections[6].pos.y = elem->corner.y + elem->height;
+      req->connections[7].pos.x = elem->corner.x + elem->width;
+      req->connections[7].pos.y = elem->corner.y + elem->height;
+  } else {
+      req->connections[5].pos.x = c.x - half.x;
+      req->connections[5].pos.y = c.y + half.y;
+      req->connections[6].pos.x = c.x;
+      req->connections[6].pos.y = elem->corner.y + elem->height;
+      req->connections[7].pos.x = c.x + half.x;
+      req->connections[7].pos.y = c.y + half.y;
+  }
+
+  h = req->text->height*req->text->numlines;
+  p = req->element.corner;
+  p.x += req->element.width/2.0;
+  if (req->text_outside) {
+      p.y += req->element.height - h + req->text->ascent;
+  } else {
+      p.y += (req->element.height - h)/2.0 + req->text->ascent;
+  }
+  text_set_position(req->text, &p);
+
+  element_update_boundingbox(elem);
+
+  obj->position = elem->corner;
+
+  element_update_handles(elem);
+
+}
+
+/** creation here */
+static DiaObject *
+req_create(Point *startpoint,
+        void *user_data,
+        Handle **handle1,
+        Handle **handle2)
+{
+  Requirement *req;
+  Element *elem;
+  DiaObject *obj;
+  Point p;
+  DiaFont *font;
+  int i;
+
+  req = g_malloc0(sizeof(Requirement));
+  elem = &req->element;
+  obj = &elem->object;
+
+  obj->type = &jackson_requirement_type;
+  obj->ops = &req_ops;
+
+  elem->corner = *startpoint;
+  elem->width = REQ_WIDTH;
+  elem->height = REQ_HEIGHT;
+
+  font = dia_font_new_from_style(DIA_FONT_SANS, REQ_FONT);
+  p = *startpoint;
+  p.x += REQ_WIDTH/2.0;
+  p.y += REQ_HEIGHT/2.0;
+
+  req->text = new_text("", font, REQ_FONT, &p, &color_black, ALIGN_CENTER);
+  dia_font_unref(font);
+  text_get_attributes(req->text,&req->attrs);
+  req->text_outside = 0;
+  req->collaboration = 0;
+  element_init(elem, 8, 8);
+
+  for (i=0;i<8;i++) {
+    obj->connections[i] = &req->connections[i];
+    req->connections[i].object = obj;
+    req->connections[i].connected = NULL;
+  }
+  elem->extra_spacing.border_trans = 0.0;
+  req_update_data(req);
+
+  for (i=0;i<8;i++) {
+    obj->handles[i]->type = HANDLE_NON_MOVABLE;
+  }
+
+  *handle1 = NULL;
+  *handle2 = NULL;
+
+  if (GPOINTER_TO_INT(user_data)!=0) req->init=-1; else req->init=0;
+
+  return &req->element.object;
+}
+
+static void
+req_destroy(Requirement *req)
+{
+  text_destroy(req->text);
+
+  element_destroy(&req->element);
+}
+
+static DiaObject *
+req_load(ObjectNode obj_node, int version, const char *filename)
+{
+  return object_load_using_properties(&jackson_requirement_type,
+                                      obj_node,version,filename);
+}
+
+

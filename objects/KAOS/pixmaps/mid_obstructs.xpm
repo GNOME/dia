@@ -1,0 +1,27 @@
+/* XPM */
+static char *mid_obstructs_xpm[] = {
+/* width height ncolors chars_per_pixel */
+"16 16 3 1",
+/* colors */
+"` c black",
+"a c none",
+"b c red",
+/* pixels */
+"aaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaa",
+"aabaaaaaabbaaaaa",
+"aabbaaaabbbaaaaa",
+"aabbbaaabbaaaaaa",
+"aaabbbabbaaaaaaa",
+"aaaabbbbbaaaaaaa",
+"aaaaabbbaaaaaaaa",
+"aaaabbbbbaaaaaaa",
+"aaabbbbbbbaaaaaa",
+"aabbbaaabbbaaaaa",
+"abbbaaaaabbbaaaa",
+"abbaaaaaaabbbaaa",
+"abaaaaaaaaabbaaa",
+"aaaaaaaaaaaabaaa",
+"aaaaaaaaaaaaaaaa"
+};
+

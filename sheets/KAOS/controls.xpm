@@ -1,0 +1,32 @@
+/* XPM */
+static char *iconforge_xpm[] = {
+/* width height ncolors chars_per_pixel */
+"22 22 2 1",
+/* colors */
+"` c black",
+"a c none",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaa``aaaaaaaaaaaaaaaaa",
+"aa````aaaaaaaaaaaaaaaa",
+"a``````aaaaaaaaaaaaaaa",
+"aaa``aaaaaaaaaaaaaaaaa",
+"aaa``aaaaaaaaaaaaaaaaa",
+"aaa``aaaaaaaaaaaaaaaaa",
+"aaa``aaaaaaaaaaaaaaaaa",
+"aaa``aaaaaaaaaaaaaaaaa",
+"aaa``aa```aaaaaaaaaaaa",
+"aaa``a`aaaa`aaaaaa`aaa",
+"aaa``a`aaaa`aaaaaa`aaa",
+"aaa``a`aaaa``a```a`aaa",
+"aaa``a`aaaa`aa`aaa`aaa",
+"aaa``a`aaaa`aa`aaa`aaa",
+"aaa``a`aaaa`aa`aaa`aaa",
+"aaa``aa```a``a`aaa``aa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa"
+};
+

@@ -1,3 +1,24 @@
+2004-06-17  Lars Clausen  <larsrc@linux.local>
+
+	* samples/Istar.dia:
+	* samples/Jackson.dia:
+	* samples/KAOS.dia:
+	* sheets/Istar.sheet.in:
+	* sheets/Jackson.sheet.in:
+	* sheets/KAOS.sheet.in:
+	* sheets/Istar/*:
+	* sheets/Jackson/*:
+	* sheets/KAOS/*:
+	* objects/Istar/*:
+	* objects/Jackson/*:
+	* objects/KAOS/*:
+	* configure.in: 
+	* objects/Makefile.am (SUBDIRS): 
+	* sheets/Makefile.am (SUBDIRS): 
+	* samples/Makefile.am: Additions from Christophe Ponsard
+	<cp@cetic.be>: Jackson, I* and KAOS diagram support.  Needs a bit
+	of hacking still.
+
 2004-06-12  Lars Clausen  <lars@raeder.dk>
 
 	* lib/properties.h: 

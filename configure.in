@@ -424,6 +424,9 @@ objects/ER/Makefile
 objects/flowchart/Makefile
 objects/FS/Makefile
 objects/GRAFCET/Makefile
+objects/Istar/Makefile
+objects/Jackson/Makefile
+objects/KAOS/Makefile
 objects/Misc/Makefile
 objects/network/Makefile
 objects/SADT/Makefile

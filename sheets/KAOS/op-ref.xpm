@@ -1,0 +1,33 @@
+/* XPM */
+static char *kaos_op_ref_xpm[] = {
+/* width height ncolors chars_per_pixel */
+"22 22 3 1",
+/* colors */
+"` c black",
+"a c none",
+"b c white",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaa`aaaaaaaaaaa",
+"aaaaaaaaaa`aaaaaaaaaaa",
+"aaaaaaaaaa`aaaaaaaaaaa",
+"aaaaaaa```````aaaaaaaa",
+"aaaaaa`bbbbbbb`aaaaaaa",
+"aaaaaa`bbbbbbb`aaaaaaa",
+"aaaaa`bbb```bbb`aaaaaa",
+"aaaa`bbbb```bbbb`aaaaa",
+"aaaa`bbbbb`bbbbb`aaaaa",
+"aaa`bbbb`````bbbb`aaaa",
+"aaa`bbbbbb`bbbbbb`aaaa",
+"aaaa`bbbbb`bbbbb`aaaaa",
+"aaaa`bbbb`b`bbbb`aaaaa",
+"aaaaa`bb`bbb`bb`aaaaaa",
+"aaaaaa`bbbbbbb`aaaaaaa",
+"aaaaaa`bbbbbbb`aaaaaaa",
+"aaaaaaa```````aaaaaaaa",
+"aaaaaaaaaa`aaaaaaaaaaa",
+"aaaaaaaaaa`aaaaaaaaaaa",
+"aaaaaaaaaa`aaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa"
+};
+

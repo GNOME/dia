@@ -1,0 +1,33 @@
+/* XPM */
+static char *kaos_goal_xpm[] = {
+/* width height ncolors chars_per_pixel */
+"22 22 3 1",
+/* colors */
+"` c black",
+"a c none",
+"b c white",
+/* pixels */
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaa```````````````aa",
+"aaaaa`bbbbbbbbbbbbb`aa",
+"aaaaa`bbbbbbbbbbbbb`aa",
+"aaaa`bbbbbbbbbbbbb`aaa",
+"aaaa`bbbbbbbbbbbbb`aaa",
+"aaaa`bbbbbbbbbbbbb`aaa",
+"aaaa`bbbbbbbbbbbbb`aaa",
+"aaa`bbbbbbbbbbbbb`aaaa",
+"aaa`bbbbbbbbbbbbb`aaaa",
+"aaa`bbbbbbbbbbbbb`aaaa",
+"aaa`bbbbbbbbbbbbb`aaaa",
+"aa`bbbbbbbbbbbbb`aaaaa",
+"aa`bbbbbbbbbbbbb`aaaaa",
+"aa```````````````aaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaaaaaaaaa"
+};
+
