@@ -1,3 +1,12 @@
+1999-06-11  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* objects/FS/Makefile.am
+	* objects/sybase/Makefile.am
+	Now uses GNOME_CFLAGS.
+
+	* app/app_procs.c
+	Now compiles with GNOME even if popt.h isn't available.
+
 1999-06-10  Alexander Larsson  <alla@lysator.liu.se>
 
 	* configure.in
