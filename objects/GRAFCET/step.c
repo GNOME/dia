@@ -57,7 +57,9 @@ typedef enum {
   STEP_NORMAL,
   STEP_INITIAL,
   STEP_MACROENTRY,
-  STEP_MACROEXIT } StepType;
+  STEP_MACROEXIT,
+  STEP_MACROCALL,
+  STEP_SUBPCALL} StepType;
 
 typedef struct _Step Step;
 typedef struct _StepPropertiesDialog StepPropertiesDialog;
@@ -250,6 +252,8 @@ PropDlgEnumEntry step_style[] = {
   { N_("Initial step"),STEP_INITIAL,NULL },
   { N_("Macro entry step"),STEP_MACROENTRY, NULL },
   { N_("Macro exit step"),STEP_MACROEXIT, NULL },
+  { N_("Macro call step"),STEP_MACROCALL, NULL },
+  { N_("Subprogram call step"), STEP_SUBPCALL, NULL },
   { NULL}};
 
 static PROPDLG_TYPE
@@ -409,7 +413,9 @@ step_draw(Step *step, Renderer *renderer)
   renderer->ops->draw_polyline(renderer,pts,sizeof(pts)/sizeof(pts[0]),
 			       &color_black);
 
-  if (step->type == STEP_INITIAL) {
+  if ((step->type == STEP_INITIAL) ||
+      (step->type == STEP_MACROCALL) ||
+      (step->type == STEP_SUBPCALL)) {
     renderer->ops->fill_rect(renderer, &step->I, &step->J, &color_white);
     renderer->ops->draw_rect(renderer, &step->I, &step->J, &color_black);
   } else {
@@ -451,16 +457,39 @@ step_update_data(Step *step)
   step->E.x = 0.0; step->E.y = 0.5;
   step->F.x = STEP_WIDTH; step->F.y = STEP_HEIGHT- 0.5;
 
-  step->I.x = step->E.x - 2 * STEP_LINE_WIDTH; 
-  step->I.y = step->E.y - 2 * STEP_LINE_WIDTH;
-  step->J.x = step->F.x + 2 * STEP_LINE_WIDTH; 
-  step->J.y = step->F.y + 2 * STEP_LINE_WIDTH;
   
-  if (step->type == STEP_INITIAL) {
+  switch(step->type) {
+  case STEP_INITIAL:
+    step->I.x = step->E.x - 2 * STEP_LINE_WIDTH; 
+    step->I.y = step->E.y - 2 * STEP_LINE_WIDTH;
+    step->J.x = step->F.x + 2 * STEP_LINE_WIDTH; 
+    step->J.y = step->F.y + 2 * STEP_LINE_WIDTH;
+
     step->B.x = step->A.x; step->B.y = step->I.y;
     step->C.x = step->D.x; step->C.y = step->J.y;
     step->Z.x = step->J.x; step->Z.y = STEP_HEIGHT / 2;
-  } else { /* regular or macro end steps */
+    break;
+  case STEP_MACROCALL:
+    step->I.x = step->E.x; 
+    step->I.y = step->E.y - 2 * STEP_LINE_WIDTH;
+    step->J.x = step->F.x; 
+    step->J.y = step->F.y + 2 * STEP_LINE_WIDTH;
+
+    step->B.x = step->A.x; step->B.y = step->I.y;
+    step->C.x = step->D.x; step->C.y = step->J.y;
+    step->Z.x = step->J.x; step->Z.y = STEP_HEIGHT / 2;
+    break;
+  case STEP_SUBPCALL:
+    step->I.x = step->E.x - 2 * STEP_LINE_WIDTH; 
+    step->I.y = step->E.y;
+    step->J.x = step->F.x + 2 * STEP_LINE_WIDTH; 
+    step->J.y = step->F.y;
+
+    step->B.x = step->A.x; step->B.y = step->I.y;
+    step->C.x = step->D.x; step->C.y = step->J.y;
+    step->Z.x = step->J.x; step->Z.y = STEP_HEIGHT / 2;
+    break;
+  default: /* regular or macro end steps */
     step->B.x = step->A.x; step->B.y = step->E.y;
     step->C.x = step->D.x; step->C.y = step->F.y;
     step->Z.x = step->F.x; step->Z.y = STEP_HEIGHT / 2;
@@ -510,7 +539,7 @@ step_update_data(Step *step)
   obj->bounding_box.bottom += STEP_LINE_WIDTH/2;
   obj->bounding_box.right += STEP_LINE_WIDTH/2;
 
-  if (step->type == STEP_INITIAL) {
+  if ((step->type == STEP_INITIAL) || (step->type == STEP_SUBPCALL)) {
     obj->bounding_box.left -= 2*STEP_LINE_WIDTH;
     obj->bounding_box.right += 2*STEP_LINE_WIDTH;
   }  
@@ -597,6 +626,8 @@ step_create(Point *startpoint,
   case STEP_INITIAL:
   case STEP_MACROENTRY:
   case STEP_MACROEXIT:
+  case STEP_MACROCALL:
+  case STEP_SUBPCALL:
     step->type = type;
     break;
   default:

@@ -9,8 +9,8 @@ libgrafcet_objects_la_SOURCES = \
 			action_text_draw.h \
 			action_text_draw.c \
 			transition.c \
-			receptivity.h \
-			receptivity.c \
+			boolequation.h \
+			boolequation.c \
 			vergent.c \
 			vector.c
 

@@ -362,10 +362,12 @@ vergent_update_data(Vergent *vergent)
     obj->bounding_box.right += VERGENT_LINE_WIDTH/2;
     
     /* place the CPLs */
-    connpointline_update(vergent->north,&p0,&p1);
+    connpointline_update(vergent->north);
+    connpointline_putonaline(vergent->north,&p0,&p1);
     vergent->northwest.pos = p0;
     vergent->northeast.pos = p1;
-    connpointline_update(vergent->south,&p0,&p1);
+    connpointline_update(vergent->south);
+    connpointline_putonaline(vergent->south,&p0,&p1);
     vergent->southwest.pos = p0;
     vergent->southeast.pos = p1;    
     break;
@@ -378,11 +380,13 @@ vergent_update_data(Vergent *vergent)
     
     /* place the connection points */
     p0.y = p1.y = p0.y - VERGENT_LINE_WIDTH;
-    connpointline_update(vergent->north,&p0,&p1);
+    connpointline_update(vergent->north);
+    connpointline_putonaline(vergent->north,&p0,&p1);
     vergent->northwest.pos = p0;
     vergent->northeast.pos = p1;
     p0.y = p1.y = p0.y + 2.0 *VERGENT_LINE_WIDTH;
-    connpointline_update(vergent->south,&p0,&p1);
+    connpointline_update(vergent->south);
+    connpointline_putonaline(vergent->south,&p0,&p1);
     vergent->southwest.pos = p0;
     vergent->southeast.pos = p1;
     break;

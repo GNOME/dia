@@ -465,11 +465,14 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   sw.y = se.y;
   sw.x = nw.x;
   
-  connpointline_update(box->north,&ne,&nw);
-  connpointline_update(box->west,&nw,&sw);
-  connpointline_update(box->south,&sw,&se);
-  connpointline_update(box->east,&se,&ne);
-
+  connpointline_update(box->north);
+  connpointline_putonaline(box->north,&ne,&nw);
+  connpointline_update(box->west);
+  connpointline_putonaline(box->west,&nw,&sw);
+  connpointline_update(box->south);
+  connpointline_putonaline(box->south,&sw,&se);
+  connpointline_update(box->east);
+  connpointline_putonaline(box->east,&se,&ne);
 }
 
 

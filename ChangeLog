@@ -1,3 +1,24 @@
+2000-01-30  Cyrille Chepelov  <chepelov@calixo.net>
+	
+	* sheets/GRAFCET.sheet:
+	* sheets/GRAFCET/etapemc.xpm: (NEW)
+	* sheets/GRAFCET/etapesp.xpm: (NEW)
+	* objects/GRAFCET/step.c: Added the macro and
+	sub-program call step types.
+
+	* objects/GRAFCET/receptivity.[ch]: renamed to 
+	objects/GRAFCET/boolequation.[ch]. 
+	* objects/GRAFCET/transition.c: changed (Receptivity *) to 
+	(BoolEquation *)
+
+	* lib/connpoint_line.[ch]: 
+	* objects/chronogram/chronoline.c:
+	* objects/chronogram/chronoref.c:
+	* objects/GRAFCET/vergent.c:
+	* objects/standard/line.c:
+	* objects/SADT/box.c: Minor CPL interface changes, factored out the
+	point count adjustment code into the CPL object.
+	
 2000-01-29  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/render_libart.c:

@@ -21,7 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include "receptivity.h"
+#include "boolequation.h"
 
 #define OVERLINE_RATIO .1
 
@@ -34,10 +34,10 @@ typedef enum {BLOCK_COMPOUND, BLOCK_OPERATOR, BLOCK_OVERLINE,
 	      BLOCK_PARENS, BLOCK_TEXT} BlockType;
 typedef enum {OP_AND, OP_OR, OP_XOR, OP_RISE, OP_FALL } OperatorType;
 
-typedef void (*BlockGetBBFunc)(Block *block, Point *relpos, Receptivity *rcep,
+typedef void (*BlockGetBBFunc)(Block *block, Point *relpos, Boolequation *booleq,
 			       Rectangle *rect);
 typedef void (*BlockDrawFunc)(Block *block, 
-			      Receptivity *rcep, 
+			      Boolequation *booleq, 
 			      Renderer *render);
 typedef void (*BlockDestroyFunc)(Block *block);
 
@@ -84,17 +84,17 @@ inline static gboolean isspecial(char c)
 /* Text block definition */
 static void 
 textblock_get_boundingbox(Block *block, Point *relpos, 
-			  Receptivity *rcep, Rectangle *rect)
+			  Boolequation *booleq, Rectangle *rect)
 {
   g_assert(block); g_assert(block->type == BLOCK_TEXT);
 
   block->pos = *relpos;
   block->bl.x = block->pos.x;
-  block->bl.y = block->pos.y + rcep->descent;
-  block->ur.y = block->bl.y - rcep->fontheight;
+  block->bl.y = block->pos.y + booleq->descent;
+  block->ur.y = block->bl.y - booleq->fontheight;
   block->ur.x = block->bl.x + font_string_width(block->d.text,
-						rcep->font,
-						rcep->fontheight);
+						booleq->font,
+						booleq->fontheight);
   rect->left = block->bl.x;
   rect->top = block->ur.y;
   rect->bottom = block->bl.y;
@@ -102,12 +102,12 @@ textblock_get_boundingbox(Block *block, Point *relpos,
 }
 
 static void 
-textblock_draw(Block *block,Receptivity *rcep,Renderer *renderer)
+textblock_draw(Block *block,Boolequation *booleq,Renderer *renderer)
 {
   g_assert(block); g_assert(block->type == BLOCK_TEXT);
-  renderer->ops->set_font(renderer,rcep->font,rcep->fontheight);
+  renderer->ops->set_font(renderer,booleq->font,booleq->fontheight);
   renderer->ops->draw_string(renderer,block->d.text,
-			     &block->pos,ALIGN_LEFT,&rcep->color);
+			     &block->pos,ALIGN_LEFT,&booleq->color);
 }
 
 static void 
@@ -164,18 +164,18 @@ static const gchar *opstring(OperatorType optype)
 
 static void
 opblock_get_boundingbox(Block *block, Point *relpos,
-			Receptivity *rcep, Rectangle *rect)
+			Boolequation *booleq, Rectangle *rect)
 {
   g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
   
   
   block->pos = *relpos;
   block->bl.x = block->pos.x;
-  block->bl.y = block->pos.y + font_descent(symbol,rcep->fontheight);
-  block->ur.y = block->bl.y - rcep->fontheight;
+  block->bl.y = block->pos.y + font_descent(symbol,booleq->fontheight);
+  block->ur.y = block->bl.y - booleq->fontheight;
   block->ur.x = block->bl.x + font_string_width(opstring(block->d.operator),
 						symbol,
-						rcep->fontheight);
+						booleq->fontheight);
   rect->left = block->bl.x;
   rect->top = block->ur.y;
   rect->bottom = block->bl.y;
@@ -183,12 +183,12 @@ opblock_get_boundingbox(Block *block, Point *relpos,
 }
 
 static void 
-opblock_draw(Block *block, Receptivity *rcep,Renderer *renderer)
+opblock_draw(Block *block, Boolequation *booleq,Renderer *renderer)
 {
   g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
-  renderer->ops->set_font(renderer,symbol,rcep->fontheight);
+  renderer->ops->set_font(renderer,symbol,booleq->fontheight);
   renderer->ops->draw_string(renderer,opstring(block->d.operator),&block->pos,
-			     ALIGN_LEFT,&rcep->color);
+			     ALIGN_LEFT,&booleq->color);
 }
     
 static void opblock_destroy(Block *block)
@@ -240,16 +240,16 @@ static Block *opblock_create(const char **str)
 /* Overlineblock : */
 static void
 overlineblock_get_boundingbox(Block *block, Point *relpos,
-			      Receptivity *rcep, Rectangle *rect)
+			      Boolequation *booleq, Rectangle *rect)
 {
   g_assert(block); g_assert(block->type == BLOCK_OVERLINE);
   
-  block->d.inside->ops->get_boundingbox(block->d.inside,relpos,rcep,rect);
+  block->d.inside->ops->get_boundingbox(block->d.inside,relpos,booleq,rect);
 
   block->bl = block->d.inside->bl;
   block->ur.x = block->d.inside->ur.x;
   block->ur.y = 
-    block->d.inside->ur.y - (3.0 * OVERLINE_RATIO * rcep->fontheight);
+    block->d.inside->ur.y - (3.0 * OVERLINE_RATIO * booleq->fontheight);
 
   /*rect->left = bl.x; */
   rect->top = block->ur.y;
@@ -258,16 +258,17 @@ overlineblock_get_boundingbox(Block *block, Point *relpos,
 }
 
 static void 
-overlineblock_draw(Block *block,Receptivity *rcep,Renderer *renderer)
+overlineblock_draw(Block *block,Boolequation *booleq,Renderer *renderer)
 {
-  Point ul;
+  Point ul,ur;
   g_assert(block); g_assert(block->type == BLOCK_OVERLINE);
-  block->d.inside->ops->draw(block->d.inside,rcep,renderer);
+  block->d.inside->ops->draw(block->d.inside,booleq,renderer);
   renderer->ops->set_linestyle(renderer,LINESTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer,rcep->fontheight * OVERLINE_RATIO);
+  renderer->ops->set_linewidth(renderer,booleq->fontheight * OVERLINE_RATIO);
   ul.x = block->bl.x;
-  ul.y = block->ur.y;
-  renderer->ops->draw_line(renderer,&ul,&block->ur,&rcep->color);
+  ur.y = ul.y = block->ur.y;
+  ur.x = block->ur.x - (font_string_width(" ",booleq->font,booleq->fontheight) / 1);
+  renderer->ops->draw_line(renderer,&ul,&ur,&booleq->color);
 }
 
 static void
@@ -299,21 +300,21 @@ static Block *overlineblock_create(Block *inside)
 /* Parensblock : */
 static void
 parensblock_get_boundingbox(Block *block, Point *relpos,
-			    Receptivity *rcep, Rectangle *rect)
+			    Boolequation *booleq, Rectangle *rect)
 {
   real pheight,pwidth;
   Point temppos;
   g_assert(block); g_assert(block->type == BLOCK_PARENS);
 
   temppos = block->pos = *relpos;
-  block->d.inside->ops->get_boundingbox(block->d.inside,&temppos,rcep,rect);
+  block->d.inside->ops->get_boundingbox(block->d.inside,&temppos,booleq,rect);
   pheight = 1.1 * (block->d.inside->bl.y - block->d.inside->ur.y);
-  pwidth = font_string_width("()",rcep->font,pheight) / 2;
+  pwidth = font_string_width("()",booleq->font,pheight) / 2;
   temppos.x += pwidth;
-  block->d.inside->ops->get_boundingbox(block->d.inside,&temppos,rcep,rect);
+  block->d.inside->ops->get_boundingbox(block->d.inside,&temppos,booleq,rect);
   
   block->bl.x = block->pos.x;
-  block->bl.y = block->pos.y + font_descent(rcep->font,pheight);
+  block->bl.y = block->pos.y + font_descent(booleq->font,pheight);
   block->ur.x = block->d.inside->ur.x + pwidth;
   block->ur.y = block->bl.y - pheight;
 
@@ -324,7 +325,7 @@ parensblock_get_boundingbox(Block *block, Point *relpos,
 }
 
 static void 
-parensblock_draw(Block *block,Receptivity *rcep,Renderer *renderer)
+parensblock_draw(Block *block,Boolequation *booleq,Renderer *renderer)
 {
   Point pt;
   real pheight;
@@ -332,14 +333,14 @@ parensblock_draw(Block *block,Receptivity *rcep,Renderer *renderer)
   g_assert(block); g_assert(block->type == BLOCK_PARENS);
 
   pheight = block->d.inside->bl.y - block->d.inside->ur.y;
-  block->d.inside->ops->draw(block->d.inside,rcep,renderer);
+  block->d.inside->ops->draw(block->d.inside,booleq,renderer);
 
-  renderer->ops->set_font(renderer,rcep->font,pheight);
+  renderer->ops->set_font(renderer,booleq->font,pheight);
   pt.y = block->pos.y;
   pt.x = block->d.inside->ur.x;
 
-  renderer->ops->draw_string(renderer,"(",&block->pos,ALIGN_LEFT,&rcep->color);
-  renderer->ops->draw_string(renderer,")",&pt,ALIGN_LEFT,&rcep->color);
+  renderer->ops->draw_string(renderer,"(",&block->pos,ALIGN_LEFT,&booleq->color);
+  renderer->ops->draw_string(renderer,")",&pt,ALIGN_LEFT,&booleq->color);
 }
  
 static void
@@ -371,7 +372,7 @@ static Block *parensblock_create(Block *inside)
 /* Compoundblock : */
 static void 
 compoundblock_get_boundingbox(Block *block, Point *relpos,
-			      Receptivity *rcep, Rectangle *rect)
+			      Boolequation *booleq, Rectangle *rect)
 {
   GSList *elem;
   Block *inblk;
@@ -392,7 +393,7 @@ compoundblock_get_boundingbox(Block *block, Point *relpos,
     inblk = (Block *)(elem->data);
     if (!inblk) break;
     
-    inblk->ops->get_boundingbox(inblk,&pos,rcep,&inrect);
+    inblk->ops->get_boundingbox(inblk,&pos,booleq,&inrect);
     rectangle_union(rect,&inrect);
     
     pos.x = inblk->ur.x;
@@ -406,7 +407,7 @@ compoundblock_get_boundingbox(Block *block, Point *relpos,
 }
 
 static void compoundblock_draw(Block *block,
-			       Receptivity *rcep,
+			       Boolequation *booleq,
 			       Renderer *renderer)
 {
   GSList *elem;
@@ -418,7 +419,7 @@ static void compoundblock_draw(Block *block,
     inblk = (Block *)(elem->data);
     if (!inblk) break;
     
-    inblk->ops->draw(inblk,rcep,renderer);
+    inblk->ops->draw(inblk,booleq,renderer);
     
     elem = g_slist_next(elem);
   }
@@ -502,91 +503,91 @@ compoundblock_create(const char **str)
 }
 
 
-/* Receptivity : */
+/* Boolequation : */
 void 
-receptivity_set_value(Receptivity *rcep, const gchar *value)
+boolequation_set_value(Boolequation *booleq, const gchar *value)
 {
-  if (rcep->value) g_free((char *)rcep->value);
-  if (rcep->rootblock) rcep->rootblock->ops->destroy(rcep->rootblock);
+  if (booleq->value) g_free((char *)booleq->value);
+  if (booleq->rootblock) booleq->rootblock->ops->destroy(booleq->rootblock);
 
-  rcep->value = g_strdup(value);
-  rcep->rootblock = compoundblock_create(&value);
+  booleq->value = g_strdup(value);
+  booleq->rootblock = compoundblock_create(&value);
   /* a good bounding box recalc here would be nice. */
 }
 
 
-Receptivity *
-receptivity_create(const gchar *value, Font *font, real fontheight,
+Boolequation *
+boolequation_create(const gchar *value, Font *font, real fontheight,
 		   Color *color)
 {
-  Receptivity *rcep;
+  Boolequation *booleq;
 
   init_symbolfont();
 
-  rcep = g_new0(Receptivity,1);
-  rcep->font = font;
-  rcep->fontheight = fontheight;
-  rcep->color = *color;
-  receptivity_set_value(rcep,value);
+  booleq = g_new0(Boolequation,1);
+  booleq->font = font;
+  booleq->fontheight = fontheight;
+  booleq->color = *color;
+  boolequation_set_value(booleq,value);
 
-  return rcep;
+  return booleq;
 }
 
 void 
-receptivity_destroy(Receptivity *rcep)
+boolequation_destroy(Boolequation *booleq)
 {
-  if (rcep->value) g_free((char *)rcep->value);
-  if (rcep->rootblock) rcep->rootblock->ops->destroy(rcep->rootblock);
-  g_free(rcep);
+  if (booleq->value) g_free((char *)booleq->value);
+  if (booleq->rootblock) booleq->rootblock->ops->destroy(booleq->rootblock);
+  g_free(booleq);
 }
 
-extern void save_receptivity(ObjectNode *obj_node, const gchar *attrname,
-			     Receptivity *rcep)
+extern void save_boolequation(ObjectNode *obj_node, const gchar *attrname,
+			     Boolequation *booleq)
 {
-  save_string(obj_node,attrname,(char *)rcep->value);
+  save_string(obj_node,attrname,(char *)booleq->value);
 }
 
-Receptivity *
-load_receptivity(ObjectNode *obj_node,
+Boolequation *
+load_boolequation(ObjectNode *obj_node,
 		 const gchar *attrname,
 		 const gchar *defaultvalue,
 		 Font *font,
 		 real fontheight, Color *color)
 {
   const gchar *value = NULL;
-  Receptivity *rcep;
+  Boolequation *booleq;
 
   init_symbolfont();
 
-  rcep = receptivity_create(NULL,font,fontheight,color);
+  booleq = boolequation_create(NULL,font,fontheight,color);
   value = load_string(obj_node,attrname,(char *)defaultvalue);
-  if (value) receptivity_set_value(rcep,value);
+  if (value) boolequation_set_value(booleq,value);
   g_free((char *)value);
-  return rcep;
+  return booleq;
 }
  
 void 
-receptivity_draw(Receptivity *rcep, Renderer *renderer)
+boolequation_draw(Boolequation *booleq, Renderer *renderer)
 {
-  if (rcep->rootblock) {
-    rcep->rootblock->ops->draw(rcep->rootblock,rcep,renderer);
+  if (booleq->rootblock) {
+    booleq->rootblock->ops->draw(booleq->rootblock,booleq,renderer);
   }
 }
 
-void receptivity_calc_boundingbox(Receptivity *rcep, Rectangle *box)
+void boolequation_calc_boundingbox(Boolequation *booleq, Rectangle *box)
 {
-  rcep->ascent = font_ascent(rcep->font,rcep->fontheight);
-  rcep->descent = font_descent(rcep->font,rcep->fontheight);
+  booleq->ascent = font_ascent(booleq->font,booleq->fontheight);
+  booleq->descent = font_descent(booleq->font,booleq->fontheight);
 
-  box->left = box->right = rcep->pos.x;
-  box->top = box->bottom = rcep->pos.y;
+  box->left = box->right = booleq->pos.x;
+  box->top = box->bottom = booleq->pos.y;
 
-  if (rcep->rootblock) {
-    rcep->rootblock->ops->get_boundingbox(rcep->rootblock,&rcep->pos,rcep,box);
+  if (booleq->rootblock) {
+    booleq->rootblock->ops->get_boundingbox(booleq->rootblock,&booleq->pos,booleq,box);
   }  
 
-  rcep->width = box->right - box->left;
-  rcep->height = box->bottom - box->top;
+  booleq->width = box->right - box->left;
+  booleq->height = box->bottom - box->top;
 }
 
 

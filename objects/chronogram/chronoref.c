@@ -483,7 +483,7 @@ chronoref_update_data(Chronoref *chronoref)
   real time_span,t;
   Point p1,p2;
   Point ur_corner;
-  int shouldbe,delta,i;
+  int shouldbe,i;
   real labelwidth;
   char biglabel[10];
 
@@ -549,36 +549,19 @@ chronoref_update_data(Chronoref *chronoref)
   ur_corner.x = elem->corner.x + elem->width;
   ur_corner.y = elem->corner.y;
 
-  shouldbe = rint(ceil((chronoref->end_time-chronoref->firstmin)/
+  shouldbe = (int)(ceil((chronoref->end_time-chronoref->firstmin)/
 			   chronoref->time_lstep));
   if (shouldbe == 0) shouldbe++;
   if (shouldbe < 0) shouldbe = 0;
   shouldbe++; /* off by one.. */
-  delta = shouldbe - chronoref->scale->num_connections;
-  /* if (delta) g_message("going to adjust %d (to be %d)",delta,shouldbe);
-   */
 
-  if (delta != 0) {
-    ObjectChange *change;
-    if (delta > 0)
-      change = connpointline_add_points(chronoref->scale,
-					&ur_corner,
-					delta);
-    else 
-      change = connpointline_remove_points(chronoref->scale,
-					   &ur_corner,
-					   -delta);
-    /* we could have relied here on the fact that 
-       cpl_remove_points(foo,bar,baz) is the same as 
-       cpl_add_points(foo,bar,-baz); this would have been bad. */
-    if (change->free) change->free(change);
-    g_free(change); /* we don't really need this change object. */
-  }    
+  connpointline_adjust_count(chronoref->scale,shouldbe,&ur_corner);
+  connpointline_update(chronoref->scale);
 
   point_copy(&p1,&elem->corner); point_copy(&p2,&ur_corner);
   p1.x -= chronoref->mingrad;
   p2.x += chronoref->mingrad; 
-  connpointline_update(chronoref->scale,&p1,&p2);
+  connpointline_putonaline(chronoref->scale,&p1,&p2);
 }
 
 static void chronoref_alloc(Chronoref **chronoref,

@@ -37,7 +37,7 @@
 #include "text.h"
 
 #include "grafcet.h"
-#include "receptivity.h"
+#include "boolequation.h"
 
 #include "pixmaps/transition.xpm"
 
@@ -69,7 +69,7 @@ struct _TransitionState {
 typedef struct _Transition {
   Element element;
   
-  Receptivity *receptivity;
+  Boolequation *receptivity;
   Font *rcep_font;
   real rcep_fontheight;
   Color rcep_color;
@@ -188,7 +188,7 @@ transition_apply_properties(Transition *transition)
   PROPDLG_APPLY_FONTHEIGHT(dlg,rcep_fontheight);
   PROPDLG_APPLY_COLOR(dlg,rcep_color);
   
-  receptivity_set_value(transition->receptivity,transition->rcep_value);
+  boolequation_set_value(transition->receptivity,transition->rcep_value);
   transition->receptivity->font = transition->rcep_font;
   transition->receptivity->fontheight = transition->rcep_fontheight;
   transition->receptivity->color = transition->rcep_color;
@@ -289,7 +289,7 @@ transition_set_state(Transition *transition, TransitionState *state)
   OBJECT_SET_FONT(transition,state,rcep_font);
   OBJECT_SET_COLOR(transition,state,rcep_color);
   OBJECT_SET_FONTHEIGHT(transition,state,rcep_fontheight);
-  receptivity_set_value(transition->receptivity,transition->rcep_value);
+  boolequation_set_value(transition->receptivity,transition->rcep_value);
   transition->receptivity->font = transition->rcep_font;
   transition->receptivity->fontheight = transition->rcep_fontheight;
   transition->receptivity->color = transition->rcep_color;
@@ -367,7 +367,7 @@ transition_update_data(Transition *transition)
   obj->bounding_box.right += TRANSITION_LINE_WIDTH/2;
 
   /* compute the rcept's width and bounding box, then merge. */
-  receptivity_calc_boundingbox(transition->receptivity,&transition->rceptbb);
+  boolequation_calc_boundingbox(transition->receptivity,&transition->rceptbb);
 
   rectangle_union(&obj->bounding_box,&transition->rceptbb);
   element_update_handles(elem);
@@ -466,7 +466,7 @@ transition_draw(Transition *transition, Renderer *renderer)
 			     &transition->C,&transition->D,
 			     &color_black);
   
-  receptivity_draw(transition->receptivity,renderer);
+  boolequation_draw(transition->receptivity,renderer);
 }
 
 static Object *
@@ -495,7 +495,7 @@ transition_create(Point *startpoint,
   element_init(elem, 10,2);
 
   
-  transition->receptivity = receptivity_create("",
+  transition->receptivity = boolequation_create("",
 					       defaults.font,
 					       defaults.font_size,
 					       &defaults.font_color);
@@ -535,7 +535,7 @@ transition_create(Point *startpoint,
 static void
 transition_destroy(Transition *transition)
 {
-  receptivity_destroy(transition->receptivity);
+  boolequation_destroy(transition->receptivity);
   element_destroy(&transition->element);
 }
 
@@ -555,7 +555,7 @@ transition_copy(Transition *transition)
 
   element_copy(elem, newelem);
 
-  newtransition->receptivity = receptivity_create(transition->rcep_value,
+  newtransition->receptivity = boolequation_create(transition->rcep_value,
 						  transition->rcep_font,
 						  transition->rcep_fontheight,
 						  &transition->rcep_color);
@@ -596,7 +596,7 @@ transition_save(Transition *transition, ObjectNode obj_node,
 {
   element_save(&transition->element, obj_node);
 
-  save_receptivity(obj_node,"receptivity",transition->receptivity);
+  save_boolequation(obj_node,"receptivity",transition->receptivity);
   save_font(obj_node,"rcep_font",transition->rcep_font);
   save_real(obj_node,"rcep_fontheight",transition->rcep_fontheight);
   save_color(obj_node,"rcep_color",&transition->rcep_color);
@@ -633,7 +633,7 @@ transition_load(ObjectNode obj_node, int version, const char *filename)
   load_color(obj_node,"rcep_color",&transition->rcep_color,
 	     &defaults.font_color);
 
-  transition->receptivity = load_receptivity(obj_node,"receptivity",NULL,
+  transition->receptivity = load_boolequation(obj_node,"receptivity",NULL,
 					     transition->rcep_font,
 					     transition->rcep_fontheight,
 					     &transition->rcep_color);

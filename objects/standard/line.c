@@ -643,7 +643,8 @@ line_update_data(Line *line)
 
   obj->position = conn->endpoints[0];
 
-  connpointline_update(line->cpl,&conn->endpoints[0],&conn->endpoints[1]);
+  connpointline_update(line->cpl);
+  connpointline_putonaline(line->cpl,&conn->endpoints[0],&conn->endpoints[1]);
   
   connection_update_handles(conn);
 }

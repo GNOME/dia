@@ -24,6 +24,17 @@
       <description>A macro exit step</description>
       <icon>GRAFCET/etapems.xpm</icon>
     </object>
+    <object name="GRAFCET - Step" intdata="4">
+      <description xml:lang="fr">Une étape d'appel de macro</description>
+      <description>A macro call step</description>
+      <icon>GRAFCET/etapemc.xpm</icon>
+    </object>
+    <object name="GRAFCET - Step" intdata="5">
+      <description xml:lang="fr">Une étape d'appel de sous-programme
+      </description>
+      <description>A macro sub-program call step</description>
+      <icon>GRAFCET/etapesp.xpm</icon>
+    </object>
     <object name="GRAFCET - Action">
       <description xml:lang="fr">Une action à associer à une étape
       </description>

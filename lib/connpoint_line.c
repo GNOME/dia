@@ -186,8 +186,13 @@ connpointline_copy(Object *newobj,ConnPointLine *cpl, int *realconncount)
   return cpl_inplacecreate(newobj,cpl->num_connections,realconncount);
 }
 
+void connpointline_update(ConnPointLine *cpl)
+{
+
+}
+
 void 
-connpointline_update(ConnPointLine *cpl,Point *start,Point *end)
+connpointline_putonaline(ConnPointLine *cpl,Point *start,Point *end)
 {
   Point se_vector;
   real se_len,pseudopoints;
@@ -482,5 +487,33 @@ connpointline_remove_points(ConnPointLine *cpl,
 
   change->apply(change, (Object *)cpl);
   return change;
+}
+
+int 
+connpointline_adjust_count(ConnPointLine *cpl,
+			   int newcount, Point *where)
+{
+  int oldcount,delta;
+
+  oldcount = cpl->num_connections;
+
+  if (newcount < 0) newcount = 0;
+
+  delta = newcount - oldcount;
+  if (delta != 0) {
+    ObjectChange *change;
+    /*g_message("going to adjust %d (to be %d)",delta,shouldbe);*/
+   
+    if (delta > 0) {
+      change = connpointline_add_points(cpl, where, delta);
+    } else { 
+      change = connpointline_remove_points(cpl, where, -delta);
+    }
+    if (change->free) change->free(change);
+    g_free(change); /* we don't really need this change object. */
+  }    
+
+
+  return oldcount;
 }
 

@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * This code renders boolean equations, as needed by the transitions' 
- * receptivities.
+ * receptivities and the conditional actions.
  *
  * Copyright (C) 2000 Cyrille Chepelov
  *
@@ -22,8 +22,8 @@
  */
 
 
-#ifndef __RECEPTIVITY_TEXT_DRAW_H
-#define __RECEPTIVITY_TEXT_DRAW_H
+#ifndef __BOOLEQUATION_H
+#define __BOOLEQUATION_H
 
 #include <glib.h>
 #include "geometry.h"
@@ -46,23 +46,23 @@ typedef struct {
   real height;
   real ascent;
   real descent;
-} Receptivity;
+} Boolequation;
 
   
-extern Receptivity *receptivity_create(const gchar *value, Font *font, 
+extern Boolequation *boolequation_create(const gchar *value, Font *font, 
 				       real fontheight, Color *color);
-extern void receptivity_destroy(Receptivity *rcep);
-extern void receptivity_set_value(Receptivity *rcep, const gchar *value);
-extern void save_receptivity(ObjectNode *obj_node, const gchar *attrname,
-			     Receptivity *rcep);
-extern Receptivity *load_receptivity(ObjectNode *obj_node,
+extern void boolequation_destroy(Boolequation *rcep);
+extern void boolequation_set_value(Boolequation *rcep, const gchar *value);
+extern void save_boolequation(ObjectNode *obj_node, const gchar *attrname,
+			     Boolequation *rcep);
+extern Boolequation *load_boolequation(ObjectNode *obj_node,
 				     const gchar *attrname,
 				     const gchar *defaultvalue,
 				     Font *font,
 				     real fontheight,
 				     Color *color);
-extern void receptivity_set_pos(Receptivity *rcep, Point *pos);
-extern void receptivity_draw(Receptivity *rcep, Renderer *renderer);
-extern void receptivity_calc_boundingbox(Receptivity *rcep, Rectangle *box);
+extern void boolequation_set_pos(Boolequation *rcep, Point *pos);
+extern void boolequation_draw(Boolequation *rcep, Renderer *renderer);
+extern void boolequation_calc_boundingbox(Boolequation *rcep, Rectangle *box);
  
-#endif __RECEPTIVITY_TEXT_DRAW_H
+#endif __BOOLEQUATION_H

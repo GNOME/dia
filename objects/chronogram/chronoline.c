@@ -748,9 +748,8 @@ chronoline_update_data(Chronoline *chronoline)
   Element *elem = &chronoline->element;
   Object *obj = (Object *) chronoline;
   real time_span;
-  Point p1,p2;
   Point ur_corner;
-  int shouldbe,delta,i;
+  int shouldbe,i;
   real realheight;
   CLEventList *lst;
   CLEvent *evt;  
@@ -819,28 +818,9 @@ chronoline_update_data(Chronoline *chronoline)
     lst = g_slist_next(lst);
   }
 
-  if (shouldbe < 0) shouldbe = 0;
-
-  delta = shouldbe - (signed)chronoline->snap->num_connections;
-  if (delta != 0) {
-    ObjectChange *change;
-    /*g_message("going to adjust %d (to be %d)",delta,shouldbe);*/
-   
-    if (delta > 0) {
-      change = connpointline_add_points(chronoline->snap,
-					&ur_corner,
-					delta);
-    } else { 
-      change = connpointline_remove_points(chronoline->snap,
-					   &ur_corner,
-					   -delta);
-    }
-    if (change->free) change->free(change);
-    g_free(change); /* we don't really need this change object. */
-  }    
-
-  point_copy(&p1,&elem->corner); point_copy(&p2,&ur_corner);
-  connpointline_update(chronoline->snap,&p1,&p2);
+  connpointline_adjust_count(chronoline->snap,shouldbe,&ur_corner);
+  connpointline_update(chronoline->snap);
+  /* connpointline_putonaline(chronoline->snap,&elem->corner,&ur_corner); */
 
   /* Now fix the actual connection point positions : */
   lst = chronoline->evtlist;

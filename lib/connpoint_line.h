@@ -48,7 +48,8 @@ typedef struct {
 extern ConnPointLine *connpointline_create(Object *parent, 
 					   int num_connections);
 extern void connpointline_destroy(ConnPointLine *cpl);
-extern void connpointline_update(ConnPointLine *cpl,Point *start,Point *end);
+extern void connpointline_update(ConnPointLine *cpl);
+extern void connpointline_putonaline(ConnPointLine *cpl,Point *start,Point *end);
 extern int connpointline_can_add_point(ConnPointLine *cpl,
 				       Point *clicked);
 extern int connpointline_can_remove_point(ConnPointLine *cpl,
@@ -80,6 +81,9 @@ connpointline_remove_point(ConnPointLine *cpl, Point *clickedpoint)
   return connpointline_remove_points(cpl,clickedpoint,1);
 }
 
+
+extern int connpointline_adjust_count(ConnPointLine *cpl,
+				      int newcount, Point *where);
 
 #endif __CONNPOINT_LINE_H
 
