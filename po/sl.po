@@ -39,8 +39,9 @@ msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Napaka pri mo¾nosti %s: %s.\n"
-"Po¾enite '%s --help', da boste videli seznam vse opcije ukazne vrstice.\n"
+"Napaka ob mo¾nosti %s: %s.\n"
+"Po¾enite '%s --help', èe ¾elite videti popoln seznam mo¾nosti ukazne vrstice.\n" 
+
 
 #: app/app_procs.c:230 app/app_procs.c:232
 msgid ""
@@ -435,7 +436,7 @@ msgstr "Poligon"
 
 #: app/interface.c:77
 msgid "Create Beziergon"
-msgstr "Ustvari Bezierjev poligon"
+msgstr "Ustvari bezierjev poligon"
 
 #: app/interface.c:78 app/menus.c:190
 msgid "Beziergon"
@@ -475,7 +476,7 @@ msgstr "Lomljena èrta"
 
 #: app/interface.c:102
 msgid "Create Bezierline"
-msgstr "Ustvari Bezierjevo krivuljo"
+msgstr "Ustvari bezierjevo krivuljo"
 
 #: app/interface.c:103 app/menus.c:195
 msgid "Bezierline"
@@ -798,11 +799,11 @@ msgstr "Spodaj"
 
 #: app/menus.c:171
 msgid "Send to _Back"
-msgstr "Po¹lji na _Dno"
+msgstr "Po¹lji na _dno"
 
 #: app/menus.c:172
 msgid "Bring to _Front"
-msgstr "Prinesi na _Vrh"
+msgstr "Prinesi na _vrh"
 
 #: app/menus.c:174
 msgid "_Group"
@@ -814,11 +815,11 @@ msgstr "_Odgrupiraj"
 
 #: app/menus.c:177
 msgid "Align _Horizontal"
-msgstr "Poravnaj _Vodoravno"
+msgstr "Poravnaj _vodoravno"
 
 #: app/menus.c:178
 msgid "Align _Vertical"
-msgstr "Poravnaj _Navpièno"
+msgstr "Poravnaj _navpièno"
 
 #: app/menus.c:201
 msgid "_Properties"
@@ -942,11 +943,11 @@ msgstr "/Uredi/_Obnovi"
 
 #: app/menus.c:274
 msgid "/Edit/Copy Text"
-msgstr "/Uredi/Kopiraj Besedilo"
+msgstr "/Uredi/Kopiraj besedilo"
 
 #: app/menus.c:275
 msgid "/Edit/Cut Text"
-msgstr "/Uredi/Izre¾i Besedilo"
+msgstr "/Uredi/Izre¾i besedilo"
 
 #: app/menus.c:276
 msgid "/Edit/Paste _Text"
@@ -1132,23 +1133,23 @@ msgstr "/Predmeti/Poravnaj _vodoravno"
 
 #: app/menus.c:323
 msgid "/Objects/Align Horizontal/Left"
-msgstr "/Predmeti/Poravnaj Vodoravno/Levo"
+msgstr "/Predmeti/Poravnaj vodoravno/Levo"
 
 #: app/menus.c:324
 msgid "/Objects/Align Horizontal/Center"
-msgstr "/Predmeti/Poravnaj Vodoravno/Po Sredini"
+msgstr "/Predmeti/Poravnaj vodoravno/Po sredini"
 
 #: app/menus.c:325
 msgid "/Objects/Align Horizontal/Right"
-msgstr "/Predmeti/Poravnaj Vodoravno/Desno"
+msgstr "/Predmeti/Poravnaj vodoravno/Desno"
 
 #: app/menus.c:326
 msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Predmeti/Poravnaj Vodoravno/Enake Razdalje"
+msgstr "/Predmeti/Poravnaj vodoravno/Enake razdalje"
 
 #: app/menus.c:327
 msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/Predmeti/Poravnaj Vodoravno/Skupaj"
+msgstr "/Predmeti/Poravnaj vodoravno/Skupaj"
 
 #: app/menus.c:328
 msgid "/Objects/Align _Vertical"
@@ -1156,23 +1157,23 @@ msgstr "/Predmeti/Poravnaj _navpièno"
 
 #: app/menus.c:329
 msgid "/Objects/Align Vertical/Top"
-msgstr "/Predmeti/Poravnaj Navpièno/Zgoraj"
+msgstr "/Predmeti/Poravnaj navpièno/Zgoraj"
 
 #: app/menus.c:330
 msgid "/Objects/Align Vertical/Center"
-msgstr "/Predmeti/Poravnaj Navpièno/Po Sredini"
+msgstr "/Predmeti/Poravnaj navpièno/Po sredini"
 
 #: app/menus.c:331
 msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Predmeti/Poravnaj Navpièno/Spodaj"
+msgstr "/Predmeti/Poravnaj navpièno/Spodaj"
 
 #: app/menus.c:332
 msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Predmeti/Poravnaj Navpièno/Enake Razdalje"
+msgstr "/Predmeti/Poravnaj navpièno/Enake razdalje"
 
 #: app/menus.c:333
 msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/Predmeti/Poravnaj Navpièno/Skupaj"
+msgstr "/Predmeti/Poravnaj navpièno/Skupaj"
 
 #: app/menus.c:335
 msgid "/_Tools"
@@ -1252,11 +1253,11 @@ msgstr "NULL tooldata podatki v tool_menu_select"
 
 #: app/menus.c:809
 msgid "Diagram Menu"
-msgstr "Menu Diagramov"
+msgstr "Menu diagrama"
 
 #: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
-msgstr "Natisni Diagram"
+msgstr "Natisni diagram"
 
 #: app/paginate_gnomeprint.c:175
 msgid "An error occured while creating the print context"
@@ -1264,7 +1265,7 @@ msgstr "Ob ustvarjanju konteksta tiskanja se je zgodila napaka"
 
 #: app/paginate_psprint.c:195
 msgid "Select Printer"
-msgstr "Izberi Tiskalnik"
+msgstr "Izberi tiskalnik"
 
 #: app/paginate_psprint.c:207
 msgid "Printer"
@@ -1317,11 +1318,11 @@ msgstr "Odstrani"
 
 #: app/preferences.c:87
 msgid "User Interface"
-msgstr "Uporabni¹Ki Vmesnik"
+msgstr "Uporabni¹ki vmesnik"
 
 #: app/preferences.c:88
 msgid "View Defaults"
-msgstr "Poglej Privzete Nastavitve"
+msgstr "Poglej privzete nastavitve"
 
 #: app/preferences.c:89
 msgid "Grid Lines"
@@ -1365,7 +1366,7 @@ msgstr "Poveèaj:"
 
 #: app/preferences.c:112
 msgid "Connection Points:"
-msgstr "Toèke Povezav:"
+msgstr "Toèke povezav:"
 
 #: app/preferences.c:113 app/preferences.c:116 app/preferences.c:124
 msgid "Visible:"
@@ -1418,7 +1419,7 @@ msgstr "Ta predmet nima lastnosti."
 
 #: app/render_eps.c:1142
 msgid "Encapsulated Postscript"
-msgstr "Enkapsuliran Postskript"
+msgstr "Enkapsuliran Postscript"
 
 #. remove recent files if list get's too long
 #: app/recent_files.c:69
@@ -1457,7 +1458,7 @@ msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
 msgstr ""
-"Opozorilo, Nobena X Pisava za %s ni bila najdena, \n"
+"Opozorilo, nobena pisava X za %s ni bila najdena, \n"
 "Namesto tega uporabljam %s.\n"
 
 #: lib/font.c:441
