@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.88.1\n"
-"POT-Creation-Date: 2001-07-14 21:29+0200\n"
+"POT-Creation-Date: 2001-07-28 06:59+0200\n"
 "PO-Revision-Date: 2000-08-06 13:23+0200\n"
 "Last-Translator: Burak Ilgicioglu <ilgici@turk.net>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -93,66 +93,55 @@ msgstr ""
 msgid "Objects and filters internal to dia"
 msgstr "Dia'nýn iç nesne ve filtreleri"
 
-#: app/color_area.c:264 lib/widgets.c:515
+#: app/color_area.c:264 lib/widgets.c:518
 msgid "Select color"
 msgstr "Rengi seçiniz"
 
-#: app/commands.c:105
-#, c-format
-msgid ""
-"No such file found\n"
-"%s\n"
-msgstr ""
-"Böyle bir dosya bulunamadý\n"
-"%s\n"
-
-#: app/commands.c:125
-msgid "Import from XFig"
-msgstr "XFig'den dosyayý al"
-
-#: app/commands.c:181
+#: app/commands.c:128
 #, c-format
 msgid "Untitled-%d"
 msgstr "Ýsimsiz-%d"
 
-#: app/commands.c:242
+#: app/commands.c:189
 msgid "No existing object to paste.\n"
 msgstr "Yapýþtýrýlanacak nesne yok .\n"
 
-#: app/commands.c:501 app/commands.c:524
+#: app/commands.c:448 app/commands.c:471
 msgid "Could not find help directory"
 msgstr "Yardým dizini bulunamadý"
 
-#: app/commands.c:571
+#: app/commands.c:518
 msgid "About Dia"
 msgstr "Dia hakkýnda"
 
-#: app/commands.c:614
+#: app/commands.c:561
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Alexander Larsson'un Dia v, sürüm %s"
 
-#: app/commands.c:619
+#: app/commands.c:566
 msgid "Maintainer: James Henstridge"
 msgstr "Sürdüren : James Henstridge"
 
-#: app/commands.c:623
+#: app/commands.c:570
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
-msgstr "Lütfen daha fazla bilgi için http://www.lysator.liu.se/~alla/dia 'yý ziyaret ediniz"
+msgstr ""
+"Lütfen daha fazla bilgi için http://www.lysator.liu.se/~alla/dia 'yý ziyaret "
+"ediniz"
 
-#: app/commands.c:628
+#: app/commands.c:575
 msgid "Contributors:"
 msgstr "Destekleyenler:"
 
 #. setup buttons
-#: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:592 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
 #: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "Tamam"
 
-#: app/commands.c:731
+#: app/commands.c:678
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -167,12 +156,12 @@ msgid "Object defaults"
 msgstr "Nesne öntanýmlý ayarlarý"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:620 app/properties.c:101
+#: app/preferences.c:691 app/properties.c:101
 msgid "Apply"
 msgstr "Uygula"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:629
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:700
 #: app/properties.c:111
 msgid "Close"
 msgstr "Kapat"
@@ -318,13 +307,13 @@ msgstr ""
 "Diyagram henüz kaydedilmedi.\n"
 "Deðiþiklikler þimdi kaydedilsin mi?"
 
-#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:351
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: lib/properties.c:411
 msgid "Yes"
 msgstr "Evet"
 
-#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:353 lib/properties.c:370
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/preferences.c:585 lib/properties.c:413 lib/properties.c:486
 msgid "No"
 msgstr "Hayýr"
 
@@ -428,8 +417,8 @@ msgstr "Kaydýr"
 msgid "Create Text"
 msgstr "Metin yarat"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1794
-#: lib/properties.h:406
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1946
+#: lib/properties.h:455
 msgid "Text"
 msgstr "Metin"
 
@@ -522,9 +511,9 @@ msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
-"Önalan ve ardalan renkleri. Ufak siyah ve beyaz kareler renkleri ilk haline getir"
-"Ufak oklar renkleri deðiþtirir. Çift-týklayýp "
-"renkleri deðiþtirebilirsiniz."
+"Önalan ve ardalan renkleri. Ufak siyah ve beyaz kareler renkleri ilk haline "
+"getirUfak oklar renkleri deðiþtirir. Çift-týklayýp renkleri "
+"deðiþtirebilirsiniz."
 
 #: app/interface.c:1081
 msgid "Diagram Editor"
@@ -580,9 +569,9 @@ msgstr "Detaylar..."
 
 #: app/lineprops_area.c:920
 msgid "Line Style Properties"
-msgstr "Çizgi Stil Özellikleri" 
+msgstr "Çizgi Stil Özellikleri"
 
-#: app/linewidth_area.c:216 lib/properties.h:382
+#: app/linewidth_area.c:216 lib/properties.h:431
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Çizgi Geniþliði"
@@ -670,7 +659,7 @@ msgstr "Eklentiler"
 
 #: app/menus.c:63
 msgid "_Export..."
-msgstr "_Dýþarý gönder ..." 
+msgstr "_Dýþarý gönder ..."
 
 #: app/menus.c:67
 msgid "Page Set_up..."
@@ -776,7 +765,7 @@ msgstr "Dönüþtür"
 msgid "All"
 msgstr "Hepsi"
 
-#: app/menus.c:153 lib/widgets.c:656 objects/UML/association.c:1001
+#: app/menus.c:153 lib/widgets.c:659 objects/UML/association.c:1001
 msgid "None"
 msgstr "Hiçbiri"
 
@@ -792,18 +781,18 @@ msgstr "Geçiþli"
 msgid "Same Type"
 msgstr "Ayný tip"
 
-#: app/menus.c:164 lib/properties.c:1779 lib/properties.h:370
-#: lib/widgets.c:199
+#: app/menus.c:164 lib/properties.c:1931 lib/properties.h:419
+#: lib/widgets.c:202
 msgid "Left"
 msgstr "Sol"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1780 lib/properties.h:371
-#: lib/widgets.c:205
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1932 lib/properties.h:420
+#: lib/widgets.c:208
 msgid "Center"
 msgstr "Orta"
 
-#: app/menus.c:166 lib/properties.c:1781 lib/properties.h:372
-#: lib/widgets.c:211
+#: app/menus.c:166 lib/properties.c:1933 lib/properties.h:421
+#: lib/widgets.c:214
 msgid "Right"
 msgstr "Sað"
 
@@ -912,7 +901,7 @@ msgstr "/Dosya/Çý_k"
 
 #: app/menus.c:259
 msgid "/_Help"
-msgstr "/_Yardým" 
+msgstr "/_Yardým"
 
 #: app/menus.c:261
 #, fuzzy
@@ -1374,31 +1363,36 @@ msgstr "Yükle"
 msgid "Unload"
 msgstr "Kaldýr"
 
-#: app/preferences.c:89
+#: app/preferences.c:115
 msgid "User Interface"
 msgstr "Kullanýcý arayüzü"
 
-#: app/preferences.c:90
+#: app/preferences.c:116
+#, fuzzy
+msgid "Diagram Defaults"
+msgstr "Diyagram menüsü"
+
+#: app/preferences.c:117
 msgid "View Defaults"
 msgstr "Öntanýmlý ayarlarý göster"
 
-#: app/preferences.c:91
+#: app/preferences.c:118
 msgid "Grid Lines"
 msgstr "Çizgiler"
 
-#: app/preferences.c:105
+#: app/preferences.c:132
 msgid "Reset tools after create:"
 msgstr "Yarattýktan sonra araçlarý önayarlara dönüþtür"
 
-#: app/preferences.c:106
+#: app/preferences.c:133
 msgid "Compress saved files:"
 msgstr "Kaydedilen dosyalarý sýkýþtýr :"
 
-#: app/preferences.c:107
+#: app/preferences.c:134
 msgid "Number of undo levels:"
 msgstr "Geri alma seviyesi:"
 
-#: app/preferences.c:108
+#: app/preferences.c:135
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1406,68 +1400,78 @@ msgstr ""
 "Ters tarafa çekme \n"
 "nesnelerin kesimlerini belirtir :"
 
-#: app/preferences.c:109
+#: app/preferences.c:138
+#, fuzzy
+msgid "New diagram:"
+msgstr "_Yeni diyagram"
+
+#: app/preferences.c:139
+#, fuzzy
+msgid "Paper type:"
+msgstr "Ileti tipi:"
+
+#: app/preferences.c:142
 msgid "New window:"
 msgstr "Yeni pencere:"
 
-#: app/preferences.c:110
+#: app/preferences.c:143
 msgid "Width:"
 msgstr "Geniþlik:"
 
-#: app/preferences.c:111
+#: app/preferences.c:144
 msgid "Height:"
 msgstr "Yükseklik:"
 
-#: app/preferences.c:112
+#: app/preferences.c:145
 msgid "Magnify:"
 msgstr "Büyüt:"
 
-#: app/preferences.c:113
+#: app/preferences.c:146
 msgid "Use menu bar:"
 msgstr "Menü çubuðunu kullan:"
 
-#: app/preferences.c:115
+#: app/preferences.c:148
 msgid "Connection Points:"
 msgstr "Baðlantý noktalarý:"
 
-#: app/preferences.c:116 app/preferences.c:119 app/preferences.c:127
+#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:160
 msgid "Visible:"
 msgstr "Görünebilinirlik:"
 
-#: app/preferences.c:118
+#: app/preferences.c:151
 msgid "Grid:"
 msgstr "Çizgi:"
 
-#: app/preferences.c:120
+#: app/preferences.c:153
 msgid "Snap to:"
 msgstr "Yakalama hedefi:"
 
-#: app/preferences.c:121
+#: app/preferences.c:154
 msgid "X Size:"
 msgstr "X boyutu:"
 
-#: app/preferences.c:122
+#: app/preferences.c:155
 msgid "Y Size:"
 msgstr "Y boyutu:"
 
-#: app/preferences.c:123 app/preferences.c:128
+#: app/preferences.c:156 app/preferences.c:161
 msgid "Colour:"
 msgstr "Renk:"
 
-#: app/preferences.c:124 app/preferences.c:129
+#: app/preferences.c:157 app/preferences.c:162
 msgid "Solid lines:"
 msgstr "Dolgun çizgileri:"
 
-#: app/preferences.c:126
+#: app/preferences.c:159
 msgid "Page breaks:"
 msgstr "Sayfa kýrýlýmlara:"
 
-#: app/preferences.c:243
+#: app/preferences.c:282
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "`%s''yi yazmak için açamadým"
 
-#: app/preferences.c:579 app/preferences.c:588
+#: app/preferences.c:650 app/preferences.c:659
 msgid "Preferences"
 msgstr "Tercihler"
 
@@ -1519,22 +1523,22 @@ msgstr "Yükleniyor..."
 msgid "Dia v %s"
 msgstr ""
 
-#: lib/properties.c:1788 lib/properties.h:385
+#: lib/properties.c:1940 lib/properties.h:434
 #, fuzzy
 msgid "Line colour"
 msgstr "Çizgi rengi:"
 
-#: lib/properties.c:1789 lib/properties.h:388
+#: lib/properties.c:1941 lib/properties.h:437
 #, fuzzy
 msgid "Line style"
 msgstr "Çizgi biçemi"
 
-#: lib/properties.c:1790 lib/properties.h:392
+#: lib/properties.c:1942 lib/properties.h:441
 #, fuzzy
 msgid "Fill colour"
 msgstr "Yazý rengi:"
 
-#: lib/properties.c:1791 lib/properties.h:395
+#: lib/properties.c:1943 lib/properties.h:444
 #: objects/custom/custom_object.c:364 objects/flowchart/box.c:317
 #: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
 #: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
@@ -1543,36 +1547,36 @@ msgstr "Yazý rengi:"
 msgid "Draw background"
 msgstr "Ardalaný boya"
 
-#: lib/properties.c:1792 lib/properties.h:399
+#: lib/properties.c:1944 lib/properties.h:448
 #, fuzzy
 msgid "Start arrow"
 msgstr "Noktalý ok"
 
-#: lib/properties.c:1793 lib/properties.h:402
+#: lib/properties.c:1945 lib/properties.h:451
 #, fuzzy
 msgid "End arrow"
 msgstr "Noktalý ok"
 
-#: lib/properties.c:1795 lib/properties.h:409
+#: lib/properties.c:1947 lib/properties.h:458
 #, fuzzy
 msgid "Text alignment"
 msgstr "Metin hizalama:"
 
-#: lib/properties.c:1796 lib/properties.h:412 objects/GRAFCET/condition.c:131
+#: lib/properties.c:1948 lib/properties.h:461 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 #, fuzzy
 msgid "Font"
 msgstr "Yazý tipi"
 
-#: lib/properties.c:1797 lib/properties.h:415 objects/GRAFCET/condition.c:133
+#: lib/properties.c:1949 lib/properties.h:464 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 #, fuzzy
 msgid "Font size"
 msgstr "Yazý tipi boyutu"
 
-#: lib/properties.c:1798 lib/properties.h:418 objects/GRAFCET/step.c:167
+#: lib/properties.c:1950 lib/properties.h:467 objects/GRAFCET/step.c:167
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 #, fuzzy
 msgid "Text colour"
@@ -1610,13 +1614,13 @@ msgstr "`%s' bir dizin deðil"
 #: lib/plug-ins.c:313
 #, c-format
 msgid "Could not open `%s'"
-msgstr "`%s''yi açamadým" 
+msgstr "`%s''yi açamadým"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Iç hata: Bezyer çizgisinin bitiþ noktasýnýn köþe tipini belirtirken"
 
-#: lib/font.c:394
+#: lib/font.c:412
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1625,143 +1629,155 @@ msgstr ""
 "Uyarý: %s için X yazý tipi bulunamadý,\n"
 "O'nun yerine %s'yi kullanýyorum .\n"
 
-#: lib/font.c:449
+#: lib/font.c:517
+#, c-format
+msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
+msgstr ""
+
+#: lib/font.c:526
+#, fuzzy
+msgid "Warning: No X fonts found.  The world is ending."
+msgstr ""
+"Uyarý: %s için X yazý tipi bulunamadý,\n"
+"O'nun yerine %s'yi kullanýyorum .\n"
+
+#: lib/font.c:612 lib/font.c:637
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Yazý tipi %s bulunamadý, o'nun yerine Courier'i kullanýyorum.\n"
 
-#: lib/properties.c:437 lib/properties.c:466
+#: lib/properties.c:559 lib/properties.c:597
 msgid "No edit widget"
 msgstr "Deðiþtirilebilir bir widget deðildir"
 
-#: lib/message.c:140
+#: lib/message.c:149
 msgid "Notice"
 msgstr "Not"
 
-#: lib/message.c:151
+#: lib/message.c:160
 msgid "Warning"
 msgstr "Uyarý"
 
-#: lib/message.c:163
+#: lib/message.c:172
 msgid "Error"
 msgstr "Hata"
 
-#: lib/widgets.c:319 objects/FS/function.c:807
+#: lib/widgets.c:322 objects/FS/function.c:807
 msgid "Solid"
 msgstr "Katý"
 
-#: lib/widgets.c:325
+#: lib/widgets.c:328
 msgid "Dashed"
 msgstr "Tireli"
 
-#: lib/widgets.c:331
+#: lib/widgets.c:334
 msgid "Dash-Dot"
 msgstr "Tire-noktalý"
 
-#: lib/widgets.c:337
+#: lib/widgets.c:340
 msgid "Dash-Dot-Dot"
 msgstr "Tire-nokta-noktalý"
 
-#: lib/widgets.c:343
+#: lib/widgets.c:346
 msgid "Dotted"
 msgstr "Noktalý"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:361
+#: lib/widgets.c:364
 msgid "Dash length: "
 msgstr "Tire uzunluðu:"
 
-#: lib/widgets.c:657
+#: lib/widgets.c:660
 msgid "Lines"
 msgstr "Çizgiler"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:661
 msgid "Hollow Triangle"
 msgstr "Boþ üçgen"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:662
 msgid "Filled Triangle"
 msgstr "Dolgulu üçgen"
 
-#: lib/widgets.c:660
+#: lib/widgets.c:663
 #, fuzzy
 msgid "Unfilled Triangle"
 msgstr "Boþ üçgen"
 
-#: lib/widgets.c:661
+#: lib/widgets.c:664
 msgid "Filled Diamond"
 msgstr "Dolgulu mücevher"
 
-#: lib/widgets.c:662
+#: lib/widgets.c:665
 msgid "Half Head"
 msgstr "Yarým baþ"
 
-#: lib/widgets.c:663
+#: lib/widgets.c:666
 msgid "Slashed Cross"
 msgstr "Karþýlýklý çarpý"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:667
 msgid "Filled Ellipse"
 msgstr "Dolgulu elips"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:668
 msgid "Hollow Ellipse"
 msgstr "Boþ elips"
 
-#: lib/widgets.c:666
+#: lib/widgets.c:669
 #, fuzzy
 msgid "Filled Dot"
 msgstr "Dolgulu nokta"
 
-#: lib/widgets.c:667
+#: lib/widgets.c:670
 msgid "Dimension Origin"
 msgstr "Boyut kökü"
 
-#: lib/widgets.c:668
+#: lib/widgets.c:671
 msgid "Blanked Dot"
 msgstr "Boþluklu nokta"
 
-#: lib/widgets.c:669
+#: lib/widgets.c:672
 #, fuzzy
 msgid "Double Hollow triangle"
 msgstr "Çift Boþ üçgen"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:673
 #, fuzzy
 msgid "Double Filled triangle"
 msgstr "Çift Dolgulu Üçgen"
 
-#: lib/widgets.c:671
+#: lib/widgets.c:674
 #, fuzzy
 msgid "Filled Box"
 msgstr "Dolgulu Kutu"
 
-#: lib/widgets.c:672
+#: lib/widgets.c:675
 msgid "Blanked Box"
 msgstr "Boþluklu Kutu"
 
-#: lib/widgets.c:673
+#: lib/widgets.c:676
 #, fuzzy
 msgid "Slashed"
 msgstr "Tireli"
 
-#: lib/widgets.c:674
+#: lib/widgets.c:677
 msgid "Integral Symbol"
 msgstr "Ýntegral iþareti"
 
-#: lib/widgets.c:710
+#: lib/widgets.c:713
 msgid "Length: "
 msgstr "Uzunluk:"
 
-#: lib/widgets.c:723
+#: lib/widgets.c:726
 msgid "Width: "
 msgstr "Geniþlik:"
 
-#: lib/widgets.c:849 objects/standard/image.c:538
+#: lib/widgets.c:852 objects/standard/image.c:538
 msgid "Select image file"
 msgstr "Resim dosyasýný seç"
 
-#: lib/widgets.c:879
+#: lib/widgets.c:882
 msgid "Browse"
 msgstr "Gözat"
 
@@ -1950,7 +1966,7 @@ msgstr "Ýzin ver"
 
 #: objects/FS/function.c:616
 msgid "Form Entrance"
-msgstr "Form Giriþi" 
+msgstr "Form Giriþi"
 
 #: objects/FS/function.c:617 objects/FS/function.c:734
 #, fuzzy
@@ -2992,9 +3008,7 @@ msgstr "Dikey oklarý otomatikman grileþtir:"
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
-msgstr ""
-"Okumayý kolaylaþtýrmak için baþlangýç ve bitiþ akýþ" 
-"grileþtirilebilir"
+msgstr "Okumayý kolaylaþtýrmak için baþlangýç ve bitiþ akýþgrileþtirilebilir"
 
 #: objects/SADT/arrow.c:555
 msgid "SADT Arrow"
@@ -3399,7 +3413,7 @@ msgstr "Olaylar"
 msgid "Event specification"
 msgstr "Olay koþullarý"
 
-#: objects/chronogram/chronoline.c:156 
+#: objects/chronogram/chronoline.c:156
 #, fuzzy
 msgid ""
 "@ time    set the pointer at an absolute time.\n"
@@ -3653,7 +3667,7 @@ msgstr "Standart nesneler"
 msgid "Fontsize:"
 msgstr "Yazý tipi boyutu:"
 
-#: plug-ins/cgm/cgm.c:1086 
+#: plug-ins/cgm/cgm.c:1086
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -3689,11 +3703,11 @@ msgstr "TeX Pstricks dýþarý gönderme filtresi"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makrolarý"
 
-#: plug-ins/shape/shape-export.c:924
+#: plug-ins/shape/shape-export.c:925
 msgid "Can't export png without libart!"
 msgstr "libart olmadan png dýþarý gönderilemez"
 
-#: plug-ins/shape/shape-export.c:947
+#: plug-ins/shape/shape-export.c:952
 msgid "dia shape file"
 msgstr "Dia þekil dosyasý"
 
@@ -3735,7 +3749,9 @@ msgstr "Patern'ler henüz Dia tarafýndan desteklenmiyor"
 
 #: plug-ins/xfig/xfig-import.c:75
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr "Üç noktalý çizgiler henüz Dia tarafýndan desteklenmiyor, iki noktalý çizgi kullanýlacak"
+msgstr ""
+"Üç noktalý çizgiler henüz Dia tarafýndan desteklenmiyor, iki noktalý çizgi "
+"kullanýlacak"
 
 #: plug-ins/xfig/xfig-import.c:76
 msgid "Negative corner radius, negating"
@@ -3778,7 +3794,7 @@ msgstr "Flipped bit okunamadý: %s\n"
 #: plug-ins/xfig/xfig-import.c:645 plug-ins/xfig/xfig-import.c:729
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
-msgstr "Bilinmeyen polyline alt-tipi\n"
+msgstr "Bilinmeyen polyline alt-tipi: %d\n"
 
 #: plug-ins/xfig/xfig-import.c:707
 #, fuzzy, c-format
@@ -3825,7 +3841,7 @@ msgid "Error reading paper size: %s\n"
 msgstr "Kaðýt boyutu okunurken hata oluþtu: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:950
-#, c-format
+#, fuzzy, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Bilinmeyen kaðýt boyutu, öntanýmlý ölçu kullanýlýyor\n"
 
@@ -3881,9 +3897,18 @@ msgstr "FIG dosyasý gibi görünmüyor: %s\n"
 #: plug-ins/xfig/xfig-import.c:1075
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
-msgstr "Bu %d FIG versiyonu, analamayabilirim\n"
+msgstr "Bu %d.%d FIG versiyonu, analamayabilirim\n"
 
 #: plug-ins/xfig/xfig-import.c:1116
 msgid "XFig File Format"
 msgstr "XFig dosya tipi"
 
+#~ msgid ""
+#~ "No such file found\n"
+#~ "%s\n"
+#~ msgstr ""
+#~ "Böyle bir dosya bulunamadý\n"
+#~ "%s\n"
+
+#~ msgid "Import from XFig"
+#~ msgstr "XFig'den dosyayý al"
