@@ -325,7 +325,7 @@ prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
 			      (gfloat) (*((real *)ptr)));
     break;
   case PREF_COLOUR:
-    dia_color_selector_set_color(DIACOLORSELECTOR(widget), (Color *)ptr);
+    dia_color_selector_set_color(widget, (Color *)ptr);
     break;
   case PREF_CHOICE: {
     GList *names = (data->choice_list_function)();
@@ -367,7 +367,7 @@ prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
       gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(widget));
     break;
   case PREF_COLOUR:
-    dia_color_selector_get_color(DIACOLORSELECTOR(widget), (Color *)ptr);
+    dia_color_selector_get_color(widget, (Color *)ptr);
     break;
   case PREF_CHOICE: {
     int index = gtk_option_menu_get_history(GTK_OPTION_MENU(widget));

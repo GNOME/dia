@@ -1,5 +1,11 @@
 2004-10-10  Lars Clausen  <lars@raeder.dk>
 
+	* lib/widgets.c: Better labels for color selector menu.
+
+	* app/dia-props.c (diagram_properties_respond): 
+	* app/preferences.c (prefs_get_value_from_widget): Don't assume
+	that a dia color selector is of type DiaColorSelector:)
+
 	* lib/widgets.[ch]: Color selector changed to dynamic menu.
 
 	* lib/prop_attr.c (colorprop_set_from_widget): Don't assume
