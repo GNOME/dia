@@ -1,3 +1,8 @@
+2004-02-29  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* fr.po: Patch from luc@handhelds.org: Use case translation (bug
+	#134456)
+
 2004-02-29  Christophe Merlet  <redfox@redfoxcenter.org>
 
 	* fr.po: Updated French translation.

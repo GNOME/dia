@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: dia 0.92.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-02-29 14:30+0100\n"
-"PO-Revision-Date: 2004-02-29 13:44+0100\n"
+"PO-Revision-Date: 2004-02-29 18:55+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -5731,7 +5731,7 @@ msgstr "UML"
 
 #: sheets/UML.sheet.in.h:31
 msgid "Use case"
-msgstr "Utiliser le cas"
+msgstr "Cas d'utilisation"
 
 #: sheets/chronogram.sheet.in.h:1
 msgid "Chronogram"

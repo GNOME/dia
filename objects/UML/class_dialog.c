@@ -256,7 +256,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   /* Class page: */
-  page_label = gtk_label_new (_("Class"));
+  page_label = gtk_label_new_with_mnemonic (_("_Class"));
   
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
@@ -810,7 +810,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   /* Attributes page: */
-  page_label = gtk_label_new (_("Attributes"));
+  page_label = gtk_label_new_with_mnemonic (_("_Attributes"));
   
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
@@ -838,13 +838,13 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   vbox2 = gtk_vbox_new(FALSE, 5);
 
-  button = gtk_button_new_with_label (_("New"));
+  button = gtk_button_new_with_mnemonic (_("_New"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(attributes_list_new_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label (_("Delete"));
+  button = gtk_button_new_with_mnemonic (_("_Delete"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(attributes_list_delete_callback),
 		      umlclass);
@@ -1737,7 +1737,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   /* Operations page: */
-  page_label = gtk_label_new (_("Operations"));
+  page_label = gtk_label_new_with_mnemonic (_("_Operations"));
   
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
@@ -1765,13 +1765,13 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   vbox2 = gtk_vbox_new(FALSE, 5);
 
-  button = gtk_button_new_with_label (_("New"));
+  button = gtk_button_new_with_mnemonic (_("_New"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(operations_list_new_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label (_("Delete"));
+  button = gtk_button_new_with_mnemonic (_("_Delete"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(operations_list_delete_callback),
 		      umlclass);
@@ -1993,14 +1993,14 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   vbox3 = gtk_vbox_new(FALSE, 5);
 
-  button = gtk_button_new_with_label (_("New"));
+  button = gtk_button_new_with_mnemonic (_("_New"));
   prop_dialog->param_new_button = button;
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(parameters_list_new_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label (_("Delete"));
+  button = gtk_button_new_with_mnemonic (_("_Delete"));
   prop_dialog->param_delete_button = button;
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(parameters_list_delete_callback),
@@ -2478,7 +2478,7 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   /* Templates page: */
-  page_label = gtk_label_new (_("Templates"));
+  page_label = gtk_label_new_with_mnemonic (_("_Templates"));
   
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
@@ -2512,13 +2512,13 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   vbox2 = gtk_vbox_new(FALSE, 5);
 
-  button = gtk_button_new_with_label (_("New"));
+  button = gtk_button_new_with_mnemonic (_("_New"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(templates_list_new_callback),
 		      umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label (_("Delete"));
+  button = gtk_button_new_with_mnemonic (_("_Delete"));
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(templates_list_delete_callback),
 		      umlclass);

@@ -41,7 +41,6 @@
 
 static void plugin_callback (GtkWidget *widget, gpointer data);
 
-
 #define MRU_MENU_ENTRY_SIZE (strlen ("/File/MRU00 ") + 1)
 #define MRU_MENU_ACCEL_SIZE sizeof ("<control>0")
 
@@ -721,4 +720,3 @@ plugin_callback (GtkWidget *widget, gpointer data)
     cbf->callback (diadata, 0, cbf->user_data);
   }
 }
-

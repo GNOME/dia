@@ -1,5 +1,8 @@
 2004-02-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/UML/class_dialog.c: Patch from luc@handhelds.org:
+	Accelerators for class dialog.  Bug #130995.
+
 	* app/dia-props.c:
 	* app/preferences.c:
 	* lib/properties.c:
@@ -9,10 +12,7 @@
 	* objects/chronogram/chronoref.c:
 	Change to american spelling (color, not colour) to ease
 	translators job.  Note that a number of translations may need an
-	update now.
-
-	* app/render_libart.c: Include fix from papadopo@shfj.cea.fr for
-	Solaris build.
+	update now.  Bug #120466.
 
 2004-02-29  Lars Clausen  <lars@raeder.dk>
 
