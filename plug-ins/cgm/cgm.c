@@ -324,7 +324,7 @@ set_linejoin(RendererCGM *renderer, LineJoin mode)
 static void
 set_linestyle(RendererCGM *renderer, LineStyle mode)
 {
-    /* cgm's line style selection is quite small
+    /* cgm's line style selection is quite small */
 
     /* line type */
     write_elhead(renderer->file, 5, 2, 2);

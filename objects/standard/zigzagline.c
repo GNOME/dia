@@ -28,26 +28,13 @@
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
+#include "properties.h"
 
 #include "pixmaps/zigzag.xpm"
 
 #define DEFAULT_WIDTH 0.15
 
 #define HANDLE_MIDDLE HANDLE_CUSTOM1
-
-typedef struct _ZigzaglinePropertiesDialog ZigzaglinePropertiesDialog;
-typedef struct _ZigzaglineDefaultsDialog ZigzaglineDefaultsDialog;
-typedef struct _ZigzaglineState ZigzaglineState;
-
-struct _ZigzaglineState {
-  ObjectState obj_state;
-  
-  Color line_color;
-  LineStyle line_style;
-  real dashlength;
-  real line_width;
-  Arrow start_arrow, end_arrow;
-};
 
 typedef struct _Zigzagline {
   OrthConn orth;
@@ -58,40 +45,6 @@ typedef struct _Zigzagline {
   real line_width;
   Arrow start_arrow, end_arrow;
 } Zigzagline;
-
-struct _ZigzaglinePropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkSpinButton *line_width;
-  DiaColorSelector *color;
-  DiaLineStyleSelector *line_style;
-
-  DiaArrowSelector *start_arrow;
-  DiaArrowSelector *end_arrow;
-
-  Zigzagline *zigzagline;
-};
-
-typedef struct _ZigzaglineProperties {
-  Color line_color;
-  real line_width;
-  LineStyle line_style;  
-  real dashlength;
-  Arrow start_arrow, end_arrow;
-} ZigzaglineProperties;
-
-/*struct _ZigzaglineDefaultsDialog {
-  GtkWidget *vbox;
-
-  DiaLineStyleSelector *line_style;
-  DiaArrowSelector *start_arrow;
-  DiaArrowSelector *end_arrow;
-  };*/
-
-
-static ZigzaglinePropertiesDialog *zigzagline_properties_dialog;
-/* static ZigzaglineDefaultsDialog *zigzagline_defaults_dialog;
-   static ZigzaglineProperties default_properties; */
 
 
 static void zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
@@ -108,13 +61,14 @@ static real zigzagline_distance_from(Zigzagline *zigzagline, Point *point);
 static void zigzagline_update_data(Zigzagline *zigzagline);
 static void zigzagline_destroy(Zigzagline *zigzagline);
 static Object *zigzagline_copy(Zigzagline *zigzagline);
-static GtkWidget *zigzagline_get_properties(Zigzagline *zigzagline);
-static ObjectChange *zigzagline_apply_properties(Zigzagline *zigzagline);
 static DiaMenu *zigzagline_get_object_menu(Zigzagline *zigzagline,
 					   Point *clickedpoint);
 
-static ZigzaglineState *zigzagline_get_state(Zigzagline *zigzagline);
-static void zigzagline_set_state(Zigzagline *zigzagline, ZigzaglineState *state);
+static PropDescription *zigzagline_describe_props(Zigzagline *zigzagline);
+static void zigzagline_get_props(Zigzagline *zigzagline, Property *props,
+				 guint nprops);
+static void zigzagline_set_props(Zigzagline *zigzagline, Property *props,
+				 guint nprops);
 
 static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 			    const char *filename);
@@ -128,7 +82,7 @@ static ObjectTypeOps zigzagline_type_ops =
   (CreateFunc)zigzagline_create,   /* create */
   (LoadFunc)  zigzagline_load,     /* load */
   (SaveFunc)  zigzagline_save,      /* save */
-  (GetDefaultsFunc)   NULL /*zigzagline_get_defaults*/,
+  (GetDefaultsFunc)   NULL,/*zigzagline_get_defaults*/
   (ApplyDefaultsFunc) NULL /*zigzagline_apply_defaults*/
 };
 
@@ -152,237 +106,57 @@ static ObjectOps zigzagline_ops = {
   (CopyFunc)            zigzagline_copy,
   (MoveFunc)            zigzagline_move,
   (MoveHandleFunc)      zigzagline_move_handle,
-  (GetPropertiesFunc)   zigzagline_get_properties,
-  (ApplyPropertiesFunc) zigzagline_apply_properties,
-  (ObjectMenuFunc)      zigzagline_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      zigzagline_get_object_menu,
+  (DescribePropsFunc)   zigzagline_describe_props,
+  (GetPropsFunc)        zigzagline_get_props,
+  (SetPropsFunc)        zigzagline_set_props,
 };
 
-static ObjectChange *
-zigzagline_apply_properties(Zigzagline *zigzagline)
+static PropDescription zigzagline_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_LINE_STYLE,
+  PROP_STD_START_ARROW,
+  PROP_STD_END_ARROW,
+  PROP_DESC_END
+};
+
+static PropDescription *
+zigzagline_describe_props(Zigzagline *zigzagline)
 {
-  ObjectState *old_state;
+  if (zigzagline_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(zigzagline_props);
+  return zigzagline_props;
+}
 
-  if (zigzagline != zigzagline_properties_dialog->zigzagline) {
-    message_warning("Zigzagline dialog problem:  %p != %p\n",
-		    zigzagline, zigzagline_properties_dialog->zigzagline);
-    zigzagline = zigzagline_properties_dialog->zigzagline;
-  }
-  
-  old_state = (ObjectState *)zigzagline_get_state(zigzagline);
+static PropOffset zigzagline_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Zigzagline, line_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Zigzagline, line_color) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Zigzagline, line_style), offsetof(Zigzagline, dashlength) },
+  { "start_arrow", PROP_TYPE_ARROW, offsetof(Zigzagline, start_arrow) },
+  { "end_arrow", PROP_TYPE_ARROW, offsetof(Zigzagline, end_arrow) },
+  { NULL, 0, 0 }
+};
 
-  zigzagline->line_width = gtk_spin_button_get_value_as_float(zigzagline_properties_dialog->line_width);
-  dia_color_selector_get_color(zigzagline_properties_dialog->color, &zigzagline->line_color);
-  dia_line_style_selector_get_linestyle(zigzagline_properties_dialog->line_style, &zigzagline->line_style, &zigzagline->dashlength);
+static void
+zigzagline_get_props(Zigzagline *zigzagline, Property *props, guint nprops)
+{
+  object_get_props_from_offsets((Object *)zigzagline, zigzagline_offsets,
+				props, nprops);
+}
 
-  zigzagline->start_arrow = dia_arrow_selector_get_arrow(zigzagline_properties_dialog->start_arrow);
-  zigzagline->end_arrow = dia_arrow_selector_get_arrow(zigzagline_properties_dialog->end_arrow);
-  
+static void
+zigzagline_set_props(Zigzagline *zigzagline, Property *props, guint nprops)
+{
+  object_set_props_from_offsets((Object *)zigzagline, zigzagline_offsets,
+				props, nprops);
   zigzagline_update_data(zigzagline);
-  return new_object_state_change((Object *)zigzagline, old_state, 
-				 (GetStateFunc)zigzagline_get_state,
-				 (SetStateFunc)zigzagline_set_state);
 }
-
-static GtkWidget *
-zigzagline_get_properties(Zigzagline *zigzagline)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *linestyle;
-  GtkWidget *arrow;
-  GtkWidget *line_width;
-  GtkWidget *align;
-  GtkAdjustment *adj;
-
-  if (zigzagline_properties_dialog == NULL) {
-  
-    zigzagline_properties_dialog = g_new(ZigzaglinePropertiesDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    zigzagline_properties_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
-    line_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(line_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(line_width), TRUE);
-    zigzagline_properties_dialog->line_width = GTK_SPIN_BUTTON(line_width);
-    gtk_box_pack_start(GTK_BOX (hbox), line_width, TRUE, TRUE, 0);
-    gtk_widget_show (line_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    zigzagline_properties_dialog->color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    linestyle = dia_line_style_selector_new();
-    zigzagline_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Start arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    zigzagline_properties_dialog->start_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("End arrow:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    arrow = dia_arrow_selector_new();
-    zigzagline_properties_dialog->end_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  zigzagline_properties_dialog->zigzagline = zigzagline;
-    
-  zigzagline_properties_dialog->zigzagline = zigzagline;
-    
-  gtk_spin_button_set_value(zigzagline_properties_dialog->line_width,
-			    zigzagline->line_width);
-  dia_color_selector_set_color(zigzagline_properties_dialog->color,
-			       &zigzagline->line_color);
-  dia_line_style_selector_set_linestyle(zigzagline_properties_dialog->line_style,
-					zigzagline->line_style, zigzagline->dashlength);
-  dia_arrow_selector_set_arrow(zigzagline_properties_dialog->start_arrow,
-					 zigzagline->start_arrow);
-  dia_arrow_selector_set_arrow(zigzagline_properties_dialog->end_arrow,
-					 zigzagline->end_arrow);
-  
-  return zigzagline_properties_dialog->vbox;
-}
-
-/*
-static void
-zigzagline_init_defaults() {
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    default_properties.start_arrow.length = 0.8;
-    default_properties.start_arrow.width = 0.8;
-    default_properties.end_arrow.length = 0.8;
-    default_properties.end_arrow.width = 0.8;
-    default_properties.dashlength = 1.0;
-    defaults_initialized = 1;
-  }
-}
-
-static void
-zigzagline_apply_defaults()
-{
-   dia_line_style_selector_get_linestyle(zigzagline_defaults_dialog->line_style, &default_properties.line_style, &default_properties.dashlength);
-  default_properties.start_arrow = dia_arrow_selector_get_arrow(zigzagline_defaults_dialog->start_arrow);
-  default_properties.end_arrow = dia_arrow_selector_get_arrow(zigzagline_defaults_dialog->end_arrow);
-}
-
-static GtkWidget *
-zigzagline_get_defaults()
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *arrow;
-  GtkWidget *align;
-  GtkWidget *linestyle;
-
-  if (zigzagline_defaults_dialog == NULL) {
-    zigzagline_init_defaults();
-  
-    zigzagline_defaults_dialog = g_new(ZigzaglineDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    zigzagline_defaults_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    zigzagline_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Start arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    zigzagline_defaults_dialog->start_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("End arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    zigzagline_defaults_dialog->end_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  dia_line_style_selector_set_linestyle(zigzagline_defaults_dialog->line_style,
-					default_properties.line_style, default_properties.dashlength);
-  dia_arrow_selector_set_arrow(zigzagline_defaults_dialog->start_arrow,
-					 default_properties.start_arrow);
-  dia_arrow_selector_set_arrow(zigzagline_defaults_dialog->end_arrow,
-					 default_properties.end_arrow);
-
-  return zigzagline_defaults_dialog->vbox;
-}
-*/
 
 static real
 zigzagline_distance_from(Zigzagline *zigzagline, Point *point)
@@ -514,38 +288,6 @@ zigzagline_copy(Zigzagline *zigzagline)
   newzigzagline->end_arrow = zigzagline->end_arrow;
 
   return (Object *)newzigzagline;
-}
-
-static ZigzaglineState *
-zigzagline_get_state(Zigzagline *zigzagline)
-{
-  ZigzaglineState *state = g_new(ZigzaglineState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->line_color = zigzagline->line_color;
-  state->line_style = zigzagline->line_style;
-  state->dashlength = zigzagline->dashlength;
-  state->line_width = zigzagline->line_width;
-  state->start_arrow = zigzagline->start_arrow;
-  state->end_arrow = zigzagline->end_arrow;
-
-  return state;
-}
-
-static void
-zigzagline_set_state(Zigzagline *zigzagline, ZigzaglineState *state)
-{
-  zigzagline->line_color = state->line_color;
-  zigzagline->line_style = state->line_style;
-  zigzagline->dashlength = state->dashlength;
-  zigzagline->line_width = state->line_width;
-  zigzagline->start_arrow = state->start_arrow;
-  zigzagline->end_arrow = state->end_arrow;
-
-  g_free(state);
-  
-  zigzagline_update_data(zigzagline);
 }
 
 static void

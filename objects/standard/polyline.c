@@ -29,24 +29,11 @@
 #include "widgets.h"
 #include "diamenu.h"
 #include "message.h"
+#include "properties.h"
 
 #include "pixmaps/polyline.xpm"
 
 #define DEFAULT_WIDTH 0.15
-
-typedef struct _PolylinePropertiesDialog PolylinePropertiesDialog;
-typedef struct _PolylineDefaultsDialog PolylineDefaultsDialog;
-typedef struct _PolylineState PolylineState;
-
-struct _PolylineState {
-  ObjectState obj_state;
-
-  Color line_color;
-  real line_width;
-  LineStyle line_style;
-  real dashlength;
-  Arrow start_arrow, end_arrow;
-};
 
 
 typedef struct _Polyline {
@@ -58,40 +45,6 @@ typedef struct _Polyline {
   real line_width;
   Arrow start_arrow, end_arrow;
 } Polyline;
-
-typedef struct _PolylineProperties {
-  Color line_color;
-  real line_width;
-  LineStyle line_style;
-  real dashlength;
-  Arrow start_arrow, end_arrow;
-} PolylineProperties;
-
-struct _PolylinePropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkSpinButton *line_width;
-  DiaColorSelector *color;
-  DiaLineStyleSelector *line_style;
-
-  DiaArrowSelector *start_arrow;
-  DiaArrowSelector *end_arrow;
-
-  Polyline *polyline;
-};
-
-/*struct _PolylineDefaultsDialog {
-  GtkWidget *vbox;
-
-  DiaLineStyleSelector *line_style;
-  DiaArrowSelector *start_arrow;
-  DiaArrowSelector *end_arrow;
-  };*/
-
-
-static PolylinePropertiesDialog *polyline_properties_dialog;
-/* static PolylineDefaultsDialog *polyline_defaults_dialog;
-   static PolylineProperties default_properties; */
 
 
 static void polyline_move_handle(Polyline *polyline, Handle *handle,
@@ -108,19 +61,18 @@ static real polyline_distance_from(Polyline *polyline, Point *point);
 static void polyline_update_data(Polyline *polyline);
 static void polyline_destroy(Polyline *polyline);
 static Object *polyline_copy(Polyline *polyline);
-static GtkWidget *polyline_get_properties(Polyline *polyline);
-static ObjectChange *polyline_apply_properties(Polyline *polyline);
 
-static PolylineState *polyline_get_state(Polyline *polyline);
-static void polyline_set_state(Polyline *polyline, PolylineState *state);
+static PropDescription *polyline_describe_props(Polyline *polyline);
+static void polyline_get_props(Polyline *polyline, Property *props,
+			       guint nprops);
+static void polyline_set_props(Polyline *polyline, Property *props,
+			       guint nprops);
 
 static void polyline_save(Polyline *polyline, ObjectNode obj_node,
 			  const char *filename);
 static Object *polyline_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static DiaMenu *polyline_get_object_menu(Polyline *polyline, Point *clickedpoint);
-/* static GtkWidget *polyline_get_defaults();
-   static void polyline_apply_defaults(); */
 
 static ObjectTypeOps polyline_type_ops =
 {
@@ -151,237 +103,57 @@ static ObjectOps polyline_ops = {
   (CopyFunc)            polyline_copy,
   (MoveFunc)            polyline_move,
   (MoveHandleFunc)      polyline_move_handle,
-  (GetPropertiesFunc)   polyline_get_properties,
-  (ApplyPropertiesFunc) polyline_apply_properties,
-  (ObjectMenuFunc)      polyline_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      polyline_get_object_menu,
+  (DescribePropsFunc)   polyline_describe_props,
+  (GetPropsFunc)        polyline_get_props,
+  (SetPropsFunc)        polyline_set_props,
 };
 
-static ObjectChange *
-polyline_apply_properties(Polyline *polyline)
+static PropDescription polyline_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_LINE_STYLE,
+  PROP_STD_START_ARROW,
+  PROP_STD_END_ARROW,
+  PROP_DESC_END
+};
+
+static PropDescription *
+polyline_describe_props(Polyline *polyline)
 {
-  ObjectState *old_state;
-  
-  if (polyline != polyline_properties_dialog->polyline) {
-    message_warning("Polyline dialog problem:  %p != %p\n",
-		    polyline, polyline_properties_dialog->polyline);
-    polyline = polyline_properties_dialog->polyline;
-  }
+  if (polyline_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(polyline_props);
+  return polyline_props;
+}
 
-  old_state = (ObjectState *)polyline_get_state(polyline);
+static PropOffset polyline_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Polyline, line_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Polyline, line_color) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Polyline, line_style), offsetof(Polyline, dashlength) },
+  { "start_arrow", PROP_TYPE_ARROW, offsetof(Polyline, start_arrow) },
+  { "end_arrow", PROP_TYPE_ARROW, offsetof(Polyline, end_arrow) },
+  { NULL, 0, 0 }
+};
 
-  polyline->line_width = 
-    gtk_spin_button_get_value_as_float(polyline_properties_dialog->line_width);
-  dia_color_selector_get_color(polyline_properties_dialog->color,
-			       &polyline->line_color);
-  dia_line_style_selector_get_linestyle(polyline_properties_dialog->line_style, &polyline->line_style, &polyline->dashlength);
-  polyline->start_arrow = dia_arrow_selector_get_arrow(polyline_properties_dialog->start_arrow);
-  polyline->end_arrow = dia_arrow_selector_get_arrow(polyline_properties_dialog->end_arrow);
+static void
+polyline_get_props(Polyline *polyline, Property *props, guint nprops)
+{
+  object_get_props_from_offsets((Object *)polyline, polyline_offsets,
+				props, nprops);
+}
 
+static void
+polyline_set_props(Polyline *polyline, Property *props, guint nprops)
+{
+  object_set_props_from_offsets((Object *)polyline, polyline_offsets,
+				props, nprops);
   polyline_update_data(polyline);
-  return new_object_state_change((Object *)polyline, old_state, 
-				 (GetStateFunc)polyline_get_state,
-				 (SetStateFunc)polyline_set_state);
-
 }
-
-static GtkWidget *
-polyline_get_properties(Polyline *polyline)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *linestyle;
-  GtkWidget *arrow;
-  GtkWidget *line_width;
-  GtkWidget *align;
-  GtkAdjustment *adj;
-
-  if (polyline_properties_dialog == NULL) {
-    polyline_properties_dialog = g_new(PolylinePropertiesDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    polyline_properties_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
-    line_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(line_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(line_width), TRUE);
-    polyline_properties_dialog->line_width = GTK_SPIN_BUTTON(line_width);
-    gtk_box_pack_start(GTK_BOX (hbox), line_width, TRUE, TRUE, 0);
-    gtk_widget_show (line_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    polyline_properties_dialog->color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    polyline_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Start arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    polyline_properties_dialog->start_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("End arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    polyline_properties_dialog->end_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  polyline_properties_dialog->polyline = polyline;
-    
-  gtk_spin_button_set_value(polyline_properties_dialog->line_width,
-			    polyline->line_width);
-  dia_color_selector_set_color(polyline_properties_dialog->color,
-			       &polyline->line_color);
-  dia_line_style_selector_set_linestyle(polyline_properties_dialog->line_style,
-					polyline->line_style,
-					polyline->dashlength);
-  dia_arrow_selector_set_arrow(polyline_properties_dialog->start_arrow,
-					 polyline->start_arrow);
-  dia_arrow_selector_set_arrow(polyline_properties_dialog->end_arrow,
-					 polyline->end_arrow);
-  
-  return polyline_properties_dialog->vbox;
-}
-
-/*
-static void
-polyline_init_defaults()
-{
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    default_properties.start_arrow.length = 0.5;
-    default_properties.start_arrow.width = 0.5;
-    default_properties.end_arrow.length = 0.5;
-    default_properties.end_arrow.width = 0.5;
-    defaults_initialized = 1;
-  }
-}
-
-static void
-polyline_apply_defaults()
-{
-  polyline_init_defaults();
-  dia_line_style_selector_get_linestyle(polyline_defaults_dialog->line_style, &default_properties.line_style, NULL);
-  default_properties.start_arrow = dia_arrow_selector_get_arrow(polyline_defaults_dialog->start_arrow);
-  default_properties.end_arrow = dia_arrow_selector_get_arrow(polyline_defaults_dialog->end_arrow);
-}
-
-static GtkWidget *
-polyline_get_defaults()
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *arrow;
-  GtkWidget *align;
-  GtkWidget *linestyle;
-
-  if (polyline_defaults_dialog == NULL) {
-  
-    polyline_defaults_dialog = g_new(PolylineDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    polyline_defaults_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    polyline_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Start arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    polyline_defaults_dialog->start_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("End arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    polyline_defaults_dialog->end_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  dia_line_style_selector_set_linestyle(polyline_defaults_dialog->line_style,
-					default_properties.line_style, 1.0);
-  dia_arrow_selector_set_arrow(polyline_defaults_dialog->start_arrow,
-					 default_properties.start_arrow);
-  dia_arrow_selector_set_arrow(polyline_defaults_dialog->end_arrow,
-					 default_properties.end_arrow);
-
-  return polyline_defaults_dialog->vbox;
-}
-*/
 
 static real
 polyline_distance_from(Polyline *polyline, Point *point)
@@ -530,38 +302,6 @@ polyline_copy(Polyline *polyline)
   return (Object *)newpolyline;
 }
 
-
-static PolylineState *
-polyline_get_state(Polyline *polyline)
-{
-  PolylineState *state = g_new(PolylineState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->line_color = polyline->line_color;
-  state->line_width = polyline->line_width;
-  state->line_style = polyline->line_style;
-  state->dashlength = polyline->dashlength;
-  state->start_arrow = polyline->start_arrow;
-  state->end_arrow = polyline->end_arrow;
-
-  return state;
-}
-
-static void
-polyline_set_state(Polyline *polyline, PolylineState *state)
-{
-  polyline->line_color = state->line_color;
-  polyline->line_width = state->line_width;
-  polyline->line_style = state->line_style;
-  polyline->dashlength = state->dashlength;
-  polyline->start_arrow = state->start_arrow;
-  polyline->end_arrow = state->end_arrow;
-
-  g_free(state);
-  
-  polyline_update_data(polyline);
-}
 
 static void
 polyline_update_data(Polyline *polyline)

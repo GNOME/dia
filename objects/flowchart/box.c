@@ -154,28 +154,19 @@ static ObjectOps box_ops = {
 
 static PropDescription box_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "border_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
-    N_("Border width"), NULL, NULL},
-  { "border_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
-    N_("Border colour"), NULL, NULL},
-  { "inner_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
-    N_("Inner colour"), NULL, NULL},
-  { "show_background", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
-    N_("Draw background"), NULL, NULL},
-  { "line_style", PROP_TYPE_LINESTYLE, PROP_FLAG_VISIBLE,
-    N_("Line style"), NULL, NULL},
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_SHOW_BACKGROUND,
+  PROP_STD_LINE_STYLE,
   { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Corner radius"), NULL, NULL},
   { "padding", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Text padding"), NULL, NULL},
-  { "text_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE,
-    N_("Font"), NULL, NULL},
-  { "text_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE,
-    N_("Font size"), NULL, NULL},
-  { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE,
-    N_("Font colour"), NULL, NULL},
-  { "text", PROP_TYPE_STRING, PROP_FLAG_DONT_SAVE,
-    N_("Text"), NULL, NULL},
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
 };
@@ -190,9 +181,9 @@ box_describe_props(Box *box)
 
 static PropOffset box_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "border_width", PROP_TYPE_REAL, offsetof(Box, border_width) },
-  { "border_color", PROP_TYPE_COLOUR, offsetof(Box, border_color) },
-  { "inner_color", PROP_TYPE_COLOUR, offsetof(Box, inner_color) },
+  { "line_width", PROP_TYPE_REAL, offsetof(Box, border_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Box, border_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Box, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Box, show_background) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Box, line_style), offsetof(Box, dashlength) },
@@ -810,7 +801,35 @@ box_copy(Box *box)
 static void
 box_save(Box *box, ObjectNode obj_node, const char *filename)
 {
-  object_save_props((Object *)box, obj_node);
+  element_save(&box->element, obj_node);
+
+  if (box->border_width != 0.1)
+    data_add_real(new_attribute(obj_node, "border_width"),
+		  box->border_width);
+  
+  if (!color_equals(&box->border_color, &color_black))
+    data_add_color(new_attribute(obj_node, "border_color"),
+		   &box->border_color);
+   
+  if (!color_equals(&box->inner_color, &color_white))
+    data_add_color(new_attribute(obj_node, "inner_color"),
+		   &box->inner_color);
+  
+  data_add_boolean(new_attribute(obj_node, "show_background"), box->show_background);
+
+  if (box->line_style != LINESTYLE_SOLID)
+    data_add_enum(new_attribute(obj_node, "line_style"),
+		  box->line_style);
+  
+  if (box->line_style != LINESTYLE_SOLID &&
+      box->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+    data_add_real(new_attribute(obj_node, "dashlength"),
+                  box->dashlength);
+  if (box->corner_radius > 0.0)
+    data_add_real(new_attribute(obj_node, "corner_radius"),
+		  box->corner_radius);
+
+  data_add_real(new_attribute(obj_node, "padding"), box->padding);
   
   data_add_text(new_attribute(obj_node, "text"), box->text);
 }
@@ -831,14 +850,52 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   obj->type = &fc_box_type;
   obj->ops = &box_ops;
 
-  /* this property is not handled by the standard property code */
+  element_load(elem, obj_node);
+
+  box->border_width = 0.1;
+  attr = object_find_attribute(obj_node, "border_width");
+  if (attr != NULL)
+    box->border_width =  data_real( attribute_first_data(attr) );
+  box->border_color = color_black;
+  attr = object_find_attribute(obj_node, "border_color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &box->border_color);
+  
+  box->inner_color = color_white;
+  attr = object_find_attribute(obj_node, "inner_color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &box->inner_color);
+  
+  box->show_background = TRUE;
+  attr = object_find_attribute(obj_node, "show_background");
+  if (attr != NULL)
+    box->show_background = data_boolean( attribute_first_data(attr) );
+
+  box->line_style = LINESTYLE_SOLID;
+  attr = object_find_attribute(obj_node, "line_style");
+  if (attr != NULL)
+    box->line_style =  data_enum( attribute_first_data(attr) );
+
+  box->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute(obj_node, "dashlength");
+  if (attr != NULL)
+    box->dashlength = data_real(attribute_first_data(attr));
+
+  box->corner_radius = 0.0;
+  attr = object_find_attribute(obj_node, "corner_radius");
+  if (attr != NULL)
+    box->corner_radius =  data_real( attribute_first_data(attr) );
+
+  box->padding = default_properties.padding;
+  attr = object_find_attribute(obj_node, "padding");
+  if (attr != NULL)
+    box->padding =  data_real( attribute_first_data(attr) );
+  
+
   box->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     box->text = data_text(attribute_first_data(attr));
-
-  /* load properties using the properties APIs */
-  object_load_props(obj, obj_node);
 
   element_init(elem, 8, 16);
 

@@ -30,32 +30,11 @@
 #include "widgets.h"
 #include "arrows.h"
 #include "connpoint_line.h"
+#include "properties.h"
 
 #include "pixmaps/line.xpm"
 
 #define DEFAULT_WIDTH 0.25
-
-typedef struct _LinePropertiesDialog LinePropertiesDialog;
-typedef struct _LineDefaultsDialog LineDefaultsDialog;
-typedef struct _LineState LineState;
-
-struct _LineState {
-  ObjectState obj_state;
-  
-  Color line_color;
-  real line_width;
-  LineStyle line_style;
-  real dashlength;
-  Arrow start_arrow, end_arrow;
-};
-
-typedef struct _LineProperties {
-  Color line_color;
-  real line_width;
-  LineStyle line_style;
-  real dashlength;
-  Arrow start_arrow, end_arrow;
-} LineProperties;
 
 typedef struct _Line {
   Connection connection;
@@ -68,32 +47,6 @@ typedef struct _Line {
   Arrow start_arrow, end_arrow;
   real dashlength;
 } Line;
-
-struct _LinePropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkSpinButton *line_width;
-  DiaColorSelector *color;
-  DiaLineStyleSelector *line_style;
-
-  DiaArrowSelector *start_arrow;
-  DiaArrowSelector *end_arrow;
-
-  Line *line;
-};
-/*
-struct _LineDefaultsDialog {
-  GtkWidget *vbox;
-
-  DiaLineStyleSelector *line_style;
-  DiaArrowSelector *start_arrow;
-  DiaArrowSelector *end_arrow;
-};
-*/
-
-static LinePropertiesDialog *line_properties_dialog;
-/* static LineDefaultsDialog *line_defaults_dialog;
-   static LineProperties default_properties; */
 
 static void line_move_handle(Line *line, Handle *handle,
 			     Point *to, HandleMoveReason reason, 
@@ -110,13 +63,10 @@ static real line_distance_from(Line *line, Point *point);
 static void line_update_data(Line *line);
 static void line_destroy(Line *line);
 static Object *line_copy(Line *line);
-static GtkWidget *line_get_properties(Line *line);
-static ObjectChange *line_apply_properties(Line *line);
-/* static GtkWidget *line_get_defaults();
-   static void line_apply_defaults(); */
 
-static LineState *line_get_state(Line *line);
-static void line_set_state(Line *line, LineState *state);
+static PropDescription *line_describe_props(Line *line);
+static void line_get_props(Line *line, Property *props, guint nprops);
+static void line_set_props(Line *line, Property *props, guint nprops);
 
 static void line_save(Line *line, ObjectNode obj_node, const char *filename);
 static Object *line_load(ObjectNode obj_node, int version, const char *filename);
@@ -149,236 +99,55 @@ static ObjectOps line_ops = {
   (CopyFunc)            line_copy,
   (MoveFunc)            line_move,
   (MoveHandleFunc)      line_move_handle,
-  (GetPropertiesFunc)   line_get_properties,
-  (ApplyPropertiesFunc) line_apply_properties,
-  (ObjectMenuFunc)      line_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      line_get_object_menu,
+  (DescribePropsFunc)   line_describe_props,
+  (GetPropsFunc)        line_get_props,
+  (SetPropsFunc)        line_set_props
 };
 
-static ObjectChange *
-line_apply_properties(Line *line)
+static PropDescription line_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_LINE_STYLE,
+  PROP_STD_START_ARROW,
+  PROP_STD_END_ARROW,
+  PROP_DESC_END
+};
+
+static PropDescription *
+line_describe_props(Line *line)
 {
-  ObjectState *old_state;
+  if (line_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(line_props);
+  return line_props;
+}
 
-  if (line != line_properties_dialog->line) {
-    printf("Dialog problem:  %p != %p\n", line, line_properties_dialog->line);
-    line = line_properties_dialog->line;
-  }
+static PropOffset line_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Line, line_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Line, line_color) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Line, line_style), offsetof(Line, dashlength) },
+  { "start_arrow", PROP_TYPE_ARROW, offsetof(Line, start_arrow) },
+  { "end_arrow", PROP_TYPE_ARROW, offsetof(Line, end_arrow) },
+  { NULL, 0, 0 }
+};
 
-  old_state = (ObjectState *)line_get_state(line);
+static void
+line_get_props(Line *line, Property *props, guint nprops)
+{
+  object_get_props_from_offsets((Object *)line, line_offsets, props, nprops);
+}
 
-  line->line_width = gtk_spin_button_get_value_as_float(line_properties_dialog->line_width);
-  dia_color_selector_get_color(line_properties_dialog->color, &line->line_color);
-  dia_line_style_selector_get_linestyle(line_properties_dialog->line_style,
-					&line->line_style, &line->dashlength);
-
-  line->start_arrow = dia_arrow_selector_get_arrow(line_properties_dialog->start_arrow);
-  line->end_arrow = dia_arrow_selector_get_arrow(line_properties_dialog->end_arrow);
-  
+static void
+line_set_props(Line *line, Property *props, guint nprops)
+{
+  object_set_props_from_offsets((Object *)line, line_offsets, props, nprops);
   line_update_data(line);
-  return new_object_state_change((Object *)line, old_state, 
-				 (GetStateFunc)line_get_state,
-				 (SetStateFunc)line_set_state);
 }
-
-static GtkWidget *
-line_get_properties(Line *line)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *linestyle;
-  GtkWidget *arrow;
-  GtkWidget *line_width;
-  GtkWidget *align;
-  GtkAdjustment *adj;
-
-  if (line_properties_dialog == NULL) {
-  
-    line_properties_dialog = g_new(LinePropertiesDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    line_properties_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
-    line_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(line_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(line_width), TRUE);
-    line_properties_dialog->line_width = GTK_SPIN_BUTTON(line_width);
-    gtk_box_pack_start(GTK_BOX (hbox), line_width, TRUE, TRUE, 0);
-    gtk_widget_show (line_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    line_properties_dialog->color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    line_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Start arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    line_properties_dialog->start_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("End arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    line_properties_dialog->end_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  line_properties_dialog->line = line;
-
-  gtk_spin_button_set_value(line_properties_dialog->line_width, line->line_width);
-  dia_color_selector_set_color(line_properties_dialog->color, &line->line_color);
-  dia_line_style_selector_set_linestyle(line_properties_dialog->line_style,
-					line->line_style, line->dashlength);
-  dia_arrow_selector_set_arrow(line_properties_dialog->start_arrow,
-			       line->start_arrow);
-  dia_arrow_selector_set_arrow(line_properties_dialog->end_arrow,
-			       line->end_arrow);
-  
-  return line_properties_dialog->vbox;
-}
-
-/*
-static void
-line_init_defaults() {
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    default_properties.start_arrow.length = 0.8;
-    default_properties.start_arrow.width = 0.8;
-    default_properties.end_arrow.length = 0.8;
-    default_properties.end_arrow.width = 0.8;
-    default_properties.dashlength = 1.0;
-    defaults_initialized = 1;
-  }
-}
-
-static void
-line_apply_defaults()
-{
-  dia_line_style_selector_get_linestyle(line_defaults_dialog->line_style,
-					&default_properties.line_style, 
-					&default_properties.dashlength);
-  default_properties.start_arrow = dia_arrow_selector_get_arrow(line_defaults_dialog->start_arrow);
-  default_properties.end_arrow = dia_arrow_selector_get_arrow(line_defaults_dialog->end_arrow);
-}
-
-static GtkWidget *
-line_get_defaults()
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *arrow;
-  GtkWidget *linestyle;
-  GtkWidget *align;
-
-  if (line_defaults_dialog == NULL) {
-    line_init_defaults();
-  
-    line_defaults_dialog = g_new(LineDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    line_defaults_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    line_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Start arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    line_defaults_dialog->start_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("End arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    line_defaults_dialog->end_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  dia_line_style_selector_set_linestyle(line_defaults_dialog->line_style,
-					default_properties.line_style,
-					default_properties.dashlength);
-  dia_arrow_selector_set_arrow(line_defaults_dialog->start_arrow,
-					 default_properties.start_arrow);
-  dia_arrow_selector_set_arrow(line_defaults_dialog->end_arrow,
-					 default_properties.end_arrow);
-
-  return line_defaults_dialog->vbox;
-}
-*/
 
 static ObjectChange *
 line_add_connpoint_callback(Object *obj, Point *clicked, gpointer data) 
@@ -581,38 +350,6 @@ line_copy(Line *line)
   line_update_data(line);
 
   return (Object *)newline;
-}
-
-static LineState *
-line_get_state(Line *line)
-{
-  LineState *state = g_new(LineState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->line_color = line->line_color;
-  state->line_width = line->line_width;
-  state->line_style = line->line_style;
-  state->dashlength = line->dashlength;
-  state->start_arrow = line->start_arrow;
-  state->end_arrow = line->end_arrow;
-
-  return state;
-}
-
-static void
-line_set_state(Line *line, LineState *state)
-{
-  line->line_color = state->line_color;
-  line->line_width = state->line_width;
-  line->line_style = state->line_style;
-  line->dashlength = state->dashlength;
-  line->start_arrow = state->start_arrow;
-  line->end_arrow = state->end_arrow;
-
-  g_free(state);
-  
-  line_update_data(line);
 }
 
 static void

@@ -28,6 +28,7 @@
 #include "attributes.h"
 #include "widgets.h"
 #include "arrows.h"
+#include "properties.h"
 
 #include "pixmaps/arc.xpm"
 
@@ -35,22 +36,9 @@
 
 #define HANDLE_MIDDLE HANDLE_CUSTOM1
 
-typedef struct _ArcPropertiesDialog ArcPropertiesDialog;
-typedef struct _ArcDefaultsDialog ArcDefaultsDialog;
-typedef struct _ArcState ArcState;
+typedef struct _Arc Arc;
 
-struct _ArcState {
-  ObjectState obj_state;
-  
-  Color arc_color;
-  real curve_distance;
-  real line_width;
-  LineStyle line_style;
-  real dashlength;
-  Arrow start_arrow, end_arrow;
-};
-
-typedef struct _Arc {
+struct _Arc {
   Connection connection;
 
   Handle middle_handle;
@@ -67,39 +55,7 @@ typedef struct _Arc {
   Point center;
   real angle1, angle2;
 
-} Arc;
-
-typedef struct _ArcProperties {
-  Color line_color;
-  real line_width;
-  LineStyle line_style;
-  real dashlength;
-  Arrow start_arrow, end_arrow;
-} ArcProperties;
-
-
-struct _ArcPropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkSpinButton *line_width;
-  DiaColorSelector *color;
-  DiaLineStyleSelector *line_style;
-  DiaArrowSelector *start_arrow;
-  DiaArrowSelector *end_arrow;
 };
-
-/*struct _ArcDefaultsDialog {
-  GtkWidget *vbox;
-
-  DiaLineStyleSelector *line_style;
-  DiaArrowSelector *start_arrow;
-  DiaArrowSelector *end_arrow;
-  };*/
-
-static ArcPropertiesDialog *arc_properties_dialog;
-/* static ArcDefaultsDialog *arc_defaults_dialog;
-   static ArcProperties default_properties; */
-
 
 static void arc_move_handle(Arc *arc, Handle *handle,
 			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
@@ -116,11 +72,10 @@ static void arc_update_data(Arc *arc);
 static void arc_update_handles(Arc *arc);
 static void arc_destroy(Arc *arc);
 static Object *arc_copy(Arc *arc);
-static GtkWidget *arc_get_properties(Arc *arc);
-static ObjectChange *arc_apply_properties(Arc *arc);
 
-static ArcState *arc_get_state(Arc *arc);
-static void arc_set_state(Arc *arc, ArcState *state);
+static PropDescription *arc_describe_props(Arc *arc);
+static void arc_get_props(Arc *arc, Property *props, guint nprops);
+static void arc_set_props(Arc *arc, Property *props, guint nprops);
 
 static void arc_save(Arc *arc, ObjectNode obj_node, const char *filename);
 static Object *arc_load(ObjectNode obj_node, int version, const char *filename);
@@ -155,230 +110,55 @@ static ObjectOps arc_ops = {
   (CopyFunc)            arc_copy,
   (MoveFunc)            arc_move,
   (MoveHandleFunc)      arc_move_handle,
-  (GetPropertiesFunc)   arc_get_properties,
-  (ApplyPropertiesFunc) arc_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   arc_describe_props,
+  (GetPropsFunc)        arc_get_props,
+  (SetPropsFunc)        arc_set_props,
 };
 
-static ObjectChange *
-arc_apply_properties(Arc *arc)
-{
-  ObjectState *old_state;
+static PropDescription arc_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_LINE_STYLE,
+  PROP_STD_START_ARROW,
+  PROP_STD_END_ARROW,
+  PROP_DESC_END
+};
 
-  old_state = (ObjectState *)arc_get_state(arc);
-  
-  arc->line_width = gtk_spin_button_get_value_as_float(arc_properties_dialog->line_width);
-  dia_color_selector_get_color(arc_properties_dialog->color, &arc->arc_color);
-  dia_line_style_selector_get_linestyle(arc_properties_dialog->line_style,
-					&arc->line_style, &arc->dashlength);
-  arc->start_arrow = dia_arrow_selector_get_arrow(arc_properties_dialog->start_arrow);
-  arc->end_arrow = dia_arrow_selector_get_arrow(arc_properties_dialog->end_arrow);
-  
-  
+static PropDescription *
+arc_describe_props(Arc *arc)
+{
+  if (arc_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(arc_props);
+  return arc_props;
+}
+
+static PropOffset arc_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Arc, line_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Arc, arc_color) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Arc, line_style), offsetof(Arc, dashlength) },
+  { "start_arrow", PROP_TYPE_ARROW, offsetof(Arc, start_arrow) },
+  { "end_arrow", PROP_TYPE_ARROW, offsetof(Arc, end_arrow) },
+  { NULL, 0, 0 }
+};
+
+static void
+arc_get_props(Arc *arc, Property *props, guint nprops)
+{
+  object_get_props_from_offsets((Object *)arc, arc_offsets, props, nprops);
+}
+
+static void
+arc_set_props(Arc *arc, Property *props, guint nprops)
+{
+  object_set_props_from_offsets((Object *)arc, arc_offsets, props, nprops);
   arc_update_data(arc);
-  return new_object_state_change((Object *)arc, old_state, 
-				 (GetStateFunc)arc_get_state,
-				 (SetStateFunc)arc_set_state);
 }
-
-static GtkWidget *
-arc_get_properties(Arc *arc)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *linestyle;
-  GtkWidget *arrow;
-  GtkWidget *line_width;
-  GtkWidget *align;
-  GtkAdjustment *adj;
-
-  if (arc_properties_dialog == NULL) {
-  
-    arc_properties_dialog = g_new(ArcPropertiesDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    arc_properties_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
-    line_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(line_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(line_width), TRUE);
-    arc_properties_dialog->line_width = GTK_SPIN_BUTTON(line_width);
-    gtk_box_pack_start(GTK_BOX (hbox), line_width, TRUE, TRUE, 0);
-    gtk_widget_show (line_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    arc_properties_dialog->color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    arc_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Start arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    arc_properties_dialog->start_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("End arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    arc_properties_dialog->end_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-
-    gtk_widget_show (vbox);
-  }
-
-  gtk_spin_button_set_value(arc_properties_dialog->line_width, arc->line_width);
-  dia_color_selector_set_color(arc_properties_dialog->color, &arc->arc_color);
-  dia_line_style_selector_set_linestyle(arc_properties_dialog->line_style,
-					arc->line_style, arc->dashlength);
-  dia_arrow_selector_set_arrow(arc_properties_dialog->start_arrow,
-			       arc->start_arrow);
-  dia_arrow_selector_set_arrow(arc_properties_dialog->end_arrow,
-			       arc->end_arrow);
-  
-  return arc_properties_dialog->vbox;
-}
-
-/*
-static void
-arc_init_defaults(void)
-{
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    default_properties.start_arrow.length = 0.5;
-    default_properties.start_arrow.width = 0.5;
-    default_properties.end_arrow.length = 0.5;
-    default_properties.end_arrow.width = 0.5;
-    defaults_initialized = 1;
-  }
-}
-
-static void
-arc_apply_defaults(void)
-{
-  arc_init_defaults();
-  dia_line_style_selector_get_linestyle(arc_defaults_dialog->line_style,
-					&default_properties.line_style, NULL);
-  default_properties.start_arrow = dia_arrow_selector_get_arrow(arc_defaults_dialog->start_arrow);
-  default_properties.end_arrow = dia_arrow_selector_get_arrow(arc_defaults_dialog->end_arrow);
-}
-
-static GtkWidget *
-arc_get_defaults()
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *arrow;
-  GtkWidget *align;
-  GtkWidget *linestyle;
-
-  if (arc_defaults_dialog == NULL) {
-  
-    arc_init_defaults();
-
-    arc_defaults_dialog = g_new(ArcDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    arc_defaults_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    arc_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Start arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    arc_defaults_dialog->start_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("End arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    arc_defaults_dialog->end_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  dia_line_style_selector_set_linestyle(arc_defaults_dialog->line_style,
-					default_properties.line_style, 1.0);
-  dia_arrow_selector_set_arrow(arc_defaults_dialog->start_arrow,
-					 default_properties.start_arrow);
-  dia_arrow_selector_set_arrow(arc_defaults_dialog->end_arrow,
-					 default_properties.end_arrow);
-
-  return arc_defaults_dialog->vbox;
-}
-*/
 
 static int
 in_angle(real angle, real startangle, real endangle)
@@ -667,40 +447,6 @@ arc_copy(Arc *arc)
   newarc->middle_handle = arc->middle_handle;
 
   return (Object *)newarc;
-}
-
-static ArcState *
-arc_get_state(Arc *arc)
-{
-  ArcState *state = g_new(ArcState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->line_width = arc->line_width;
-  state->arc_color = arc->arc_color;
-  state->curve_distance = arc->curve_distance;
-  state->line_style = arc->line_style;
-  state->dashlength = arc->dashlength;
-  state->start_arrow = arc->start_arrow;
-  state->end_arrow = arc->end_arrow;
-
-  return state;
-}
-
-static void
-arc_set_state(Arc *arc, ArcState *state)
-{
-  arc->line_width = state->line_width;
-  arc->arc_color = state->arc_color;
-  arc->curve_distance = state->curve_distance;
-  arc->line_style = state->line_style;
-  arc->dashlength = state->dashlength;
-  arc->start_arrow = state->start_arrow;
-  arc->end_arrow = state->end_arrow;
-
-  g_free(state);
-  
-  arc_update_data(arc);
 }
 
 static void

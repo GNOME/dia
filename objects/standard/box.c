@@ -28,6 +28,7 @@
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
+#include "properties.h"
 
 #include "pixmaps/box.xpm"
 
@@ -36,21 +37,8 @@
 #define DEFAULT_BORDER 0.25
 
 typedef struct _Box Box;
-typedef struct _BoxPropertiesDialog BoxPropertiesDialog;
+typedef struct _BoxProperties BoxProperties;
 typedef struct _BoxDefaultsDialog BoxDefaultsDialog;
-typedef struct _BoxState BoxState;
-
-struct _BoxState {
-  ObjectState obj_state;
-  
-  real border_width;
-  Color border_color;
-  Color inner_color;
-  gboolean show_background;
-  LineStyle line_style;
-  real dashlength;
-  real corner_radius;
-};
 
 struct _Box {
   Element element;
@@ -66,7 +54,7 @@ struct _Box {
   real corner_radius;
 };
 
-typedef struct _BoxProperties {
+struct _BoxProperties {
   Color *fg_color;
   Color *bg_color;
   gboolean show_background;
@@ -74,19 +62,6 @@ typedef struct _BoxProperties {
   LineStyle line_style;
   real dashlength;
   real corner_radius;
-} BoxProperties;
-
-struct _BoxPropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkSpinButton *border_width;
-  DiaColorSelector *fg_color;
-  DiaColorSelector *bg_color;
-  GtkToggleButton *show_background;
-  DiaLineStyleSelector *line_style;
-  GtkSpinButton *corner_radius;
-
-  Box *box;
 };
 
 struct _BoxDefaultsDialog {
@@ -97,7 +72,6 @@ struct _BoxDefaultsDialog {
 };
 
 
-static BoxPropertiesDialog *box_properties_dialog;
 static BoxDefaultsDialog *box_defaults_dialog;
 static BoxProperties default_properties;
 
@@ -116,11 +90,10 @@ static Object *box_create(Point *startpoint,
 			  Handle **handle2);
 static void box_destroy(Box *box);
 static Object *box_copy(Box *box);
-static GtkWidget *box_get_properties(Box *box);
-static ObjectChange *box_apply_properties(Box *box);
 
-static BoxState *box_get_state(Box *box);
-static void box_set_state(Box *box, BoxState *state);
+static PropDescription *box_describe_props(Box *box);
+static void box_get_props(Box *box, Property *props, guint nprops);
+static void box_set_props(Box *box, Property *props, guint nprops);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
 static Object *box_load(ObjectNode obj_node, int version, const char *filename);
@@ -155,145 +128,59 @@ static ObjectOps box_ops = {
   (CopyFunc)            box_copy,
   (MoveFunc)            box_move,
   (MoveHandleFunc)      box_move_handle,
-  (GetPropertiesFunc)   box_get_properties,
-  (ApplyPropertiesFunc) box_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   box_describe_props,
+  (GetPropsFunc)        box_get_props,
+  (SetPropsFunc)        box_set_props,
 };
 
-static ObjectChange *
-box_apply_properties(Box *box)
-{
-  ObjectState *old_state;
-  if (box != box_properties_dialog->box) {
-    message_warning("Box dialog problem:  %p != %p\n", box,
-		    box_properties_dialog->box);
-    box = box_properties_dialog->box;
-  }
+static PropDescription box_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_SHOW_BACKGROUND,
+  PROP_STD_LINE_STYLE,
+  { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Corner radius"), NULL, NULL },
+  PROP_DESC_END
+};
 
-  old_state = (ObjectState *)box_get_state(box);
-  
-  box->border_width = gtk_spin_button_get_value_as_float(box_properties_dialog->border_width);
-  dia_color_selector_get_color(box_properties_dialog->fg_color, &box->border_color);
-  dia_color_selector_get_color(box_properties_dialog->bg_color, &box->inner_color);
-  box->show_background = gtk_toggle_button_get_active(box_properties_dialog->show_background);
-  dia_line_style_selector_get_linestyle(box_properties_dialog->line_style, &box->line_style, &box->dashlength);
-  box->corner_radius = gtk_spin_button_get_value_as_float(box_properties_dialog->corner_radius);
-  
+static PropDescription *
+box_describe_props(Box *box)
+{
+  if (box_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(box_props);
+  return box_props;
+}
+
+static PropOffset box_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Box, border_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Box, border_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Box, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Box, show_background) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Box, line_style), offsetof(Box, dashlength) },
+  { "corner_radius", PROP_TYPE_REAL, offsetof(Box, corner_radius) },
+  { NULL, 0, 0 }
+};
+
+static void
+box_get_props(Box *box, Property *props, guint nprops)
+{
+  object_get_props_from_offsets((Object *)box, box_offsets, props, nprops);
+}
+
+static void
+box_set_props(Box *box, Property *props, guint nprops)
+{
+  object_set_props_from_offsets((Object *)box, box_offsets, props, nprops);
   box_update_data(box);
-  return new_object_state_change((Object *)box, old_state, 
-				 (GetStateFunc)box_get_state,
-				 (SetStateFunc)box_set_state);
 }
 
-static GtkWidget *
-box_get_properties(Box *box)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *checkbox;
-  GtkWidget *linestyle;
-  GtkWidget *border_width;
-  GtkAdjustment *adj;
-
-  if (box_properties_dialog == NULL) {
-    box_properties_dialog = g_new(BoxPropertiesDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    box_properties_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Border width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
-    border_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    box_properties_dialog->border_width = GTK_SPIN_BUTTON(border_width);
-    gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
-    gtk_widget_show (border_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Foreground color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    box_properties_dialog->fg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Background color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    box_properties_dialog->bg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Draw background"));
-    box_properties_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    box_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Corner rounding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);
-    border_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    box_properties_dialog->corner_radius = GTK_SPIN_BUTTON(border_width);
-    gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
-    gtk_widget_show (border_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-    gtk_widget_show (vbox);
-  }
-
-  box_properties_dialog->box = box;
-    
-  gtk_spin_button_set_value(box_properties_dialog->border_width,
-			    box->border_width);
-  dia_color_selector_set_color(box_properties_dialog->fg_color,
-			       &box->border_color);
-  dia_color_selector_set_color(box_properties_dialog->bg_color,
-			       &box->inner_color);
-  gtk_toggle_button_set_active(box_properties_dialog->show_background, 
-			       box->show_background);
-  dia_line_style_selector_set_linestyle(box_properties_dialog->line_style,
-					box->line_style, box->dashlength);
-  gtk_spin_button_set_value(box_properties_dialog->corner_radius,
-			    box->corner_radius);
-  
-  return box_properties_dialog->vbox;
-}
 static void
 box_apply_defaults()
 {
@@ -535,40 +422,6 @@ box_draw(Box *box, Renderer *renderer)
 			   &lr_corner, 
 			   &box->border_color);
   }
-}
-
-static BoxState *
-box_get_state(Box *box)
-{
-  BoxState *state = g_new(BoxState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->border_width = box->border_width;
-  state->border_color = box->border_color;
-  state->inner_color = box->inner_color;
-  state->show_background = box->show_background;
-  state->line_style = box->line_style;
-  state->dashlength = box->dashlength;
-  state->corner_radius = box->corner_radius;
-
-  return state;
-}
-
-static void
-box_set_state(Box *box, BoxState *state)
-{
-  box->border_width = state->border_width;
-  box->border_color = state->border_color;
-  box->inner_color = state->inner_color;
-  box->show_background = state->show_background;
-  box->line_style = state->line_style;
-  box->dashlength = state->dashlength;
-  box->corner_radius = state->corner_radius;
-
-  g_free(state);
-  
-  box_update_data(box);
 }
 
 

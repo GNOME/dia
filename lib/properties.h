@@ -80,6 +80,8 @@ struct _PropDescription {
 #define PROP_FLAG_VISIBLE   0x0001
 #define PROP_FLAG_DONT_SAVE 0x0002
 
+#define PROP_DESC_END { NULL, 0, 0, NULL, NULL, NULL, 0 }
+
 struct _Property {
   const gchar *name;
   PropType type;
@@ -274,5 +276,49 @@ ObjectChange *object_apply_props_from_dialog (Object *obj, GtkWidget *table);
 void          object_load_props(Object *obj, ObjectNode obj_node);
 void          object_save_props(Object *obj, ObjectNode obj_node);
 
+
+/* standard properties.  By using these, the intersection of the properties
+ * of a number of objects should be greater, making setting properties on
+ * groups better. */
+
+#define PROP_STD_LINE_WIDTH \
+  { "line_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \
+    N_("Line width"), NULL, NULL }
+#define PROP_STD_LINE_COLOUR \
+  { "line_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE, \
+    N_("Line colour"), NULL, NULL }
+#define PROP_STD_LINE_STYLE \
+  { "line_style", PROP_TYPE_LINESTYLE, PROP_FLAG_VISIBLE, \
+    N_("Line style"), NULL, NULL }
+
+#define PROP_STD_FILL_COLOUR \
+  { "fill_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE, \
+    N_("Fill colour"), NULL, NULL }
+#define PROP_STD_SHOW_BACKGROUND \
+  { "show_background", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE, \
+    N_("Draw background"), NULL, NULL }
+
+#define PROP_STD_START_ARROW \
+  { "start_arrow", PROP_TYPE_ARROW, PROP_FLAG_VISIBLE, \
+    N_("Start arrow"), NULL, NULL }
+#define PROP_STD_END_ARROW \
+  { "end_arrow", PROP_TYPE_ARROW, PROP_FLAG_VISIBLE, \
+    N_("End arrow"), NULL, NULL }
+
+#define PROP_STD_TEXT \
+  { "text", PROP_TYPE_STRING, PROP_FLAG_DONT_SAVE, \
+    N_("Text"), NULL, NULL }
+#define PROP_STD_TEXT_ALIGNMENT \
+  { "text_alignment", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
+    N_("Text alignment"), NULL, NULL }
+#define PROP_STD_TEXT_FONT \
+  { "text_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
+    N_("Font"), NULL, NULL }
+#define PROP_STD_TEXT_HEIGHT \
+  { "text_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
+    N_("Font size"), NULL, NULL }
+#define PROP_STD_TEXT_COLOUR \
+  { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
+    N_("Text colour"), NULL, NULL }
 
 #endif

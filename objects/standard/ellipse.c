@@ -28,6 +28,7 @@
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
+#include "properties.h"
 
 #include "pixmaps/ellipse.xpm"
 
@@ -36,20 +37,7 @@
 #define DEFAULT_BORDER 0.15
 
 typedef struct _Ellipse Ellipse;
-typedef struct _EllipsePropertiesDialog EllipsePropertiesDialog;
 typedef struct _EllipseDefaultsDialog EllipseDefaultsDialog;
-typedef struct _EllipseState EllipseState;
-
-struct _EllipseState {
-  ObjectState obj_state;
-  
-  real border_width;
-  Color border_color;
-  Color inner_color;
-  gboolean show_background;
-  LineStyle line_style;
-  real dashlength;
-};
 
 struct _Ellipse {
   Element element;
@@ -74,26 +62,13 @@ typedef struct _EllipseProperties {
   real dashlength;
 } EllipseProperties;
 
-struct _EllipsePropertiesDialog {
+struct _EllipseDefaultsDialog {
   GtkWidget *vbox;
 
-  GtkSpinButton *border_width;
-  DiaColorSelector *fg_color;
-  DiaColorSelector *bg_color;
   GtkToggleButton *show_background;
-  DiaLineStyleSelector *line_style;
-
-  Ellipse *ellipse;
 };
 
- struct _EllipseDefaultsDialog {
-   GtkWidget *vbox;
  
-   GtkToggleButton *show_background;
- };
-
- 
-static EllipsePropertiesDialog *ellipse_properties_dialog;
 static EllipseDefaultsDialog *ellipse_defaults_dialog;
 static EllipseProperties default_properties;
 
@@ -111,11 +86,10 @@ static Object *ellipse_create(Point *startpoint,
 			      Handle **handle2);
 static void ellipse_destroy(Ellipse *ellipse);
 static Object *ellipse_copy(Ellipse *ellipse);
-static GtkWidget *ellipse_get_properties(Ellipse *ellipse);
-static ObjectChange *ellipse_apply_properties(Ellipse *ellipse);
 
-static EllipseState *ellipse_get_state(Ellipse *ellipse);
-static void ellipse_set_state(Ellipse *ellipse, EllipseState *state);
+static PropDescription *ellipse_describe_props(Ellipse *ellipse);
+static void ellipse_get_props(Ellipse *ellipse, Property *props, guint nprops);
+static void ellipse_set_props(Ellipse *ellipse, Property *props, guint nprops);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
 static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename);
@@ -150,131 +124,56 @@ static ObjectOps ellipse_ops = {
   (CopyFunc)            ellipse_copy,
   (MoveFunc)            ellipse_move,
   (MoveHandleFunc)      ellipse_move_handle,
-  (GetPropertiesFunc)   ellipse_get_properties,
-  (ApplyPropertiesFunc) ellipse_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   ellipse_describe_props,
+  (GetPropsFunc)        ellipse_get_props,
+  (SetPropsFunc)        ellipse_set_props,
 };
 
-static ObjectChange *
-ellipse_apply_properties(Ellipse *ellipse)
+static PropDescription ellipse_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_SHOW_BACKGROUND,
+  PROP_STD_LINE_STYLE,
+  PROP_DESC_END
+};
+
+static PropDescription *
+ellipse_describe_props(Ellipse *ellipse)
 {
-  ObjectState *old_state;
-
-  if (ellipse != ellipse_properties_dialog->ellipse) {
-    message_warning("Ellipse dialog problem:  %p != %p\n",
-		    ellipse, ellipse_properties_dialog->ellipse);
-    ellipse = ellipse_properties_dialog->ellipse;
-  }
-
-  old_state = (ObjectState *)ellipse_get_state(ellipse);
-
-  ellipse->border_width = gtk_spin_button_get_value_as_float(ellipse_properties_dialog->border_width);
-  dia_color_selector_get_color(ellipse_properties_dialog->fg_color, &ellipse->border_color);
-  dia_color_selector_get_color(ellipse_properties_dialog->bg_color, &ellipse->inner_color);
-  ellipse->show_background = gtk_toggle_button_get_active(ellipse_properties_dialog->show_background);
-  dia_line_style_selector_get_linestyle(ellipse_properties_dialog->line_style,
-					&ellipse->line_style, &ellipse->dashlength);
-  
-  ellipse_update_data(ellipse);
-  return new_object_state_change((Object *)ellipse, old_state, 
-				 (GetStateFunc)ellipse_get_state,
-				 (SetStateFunc)ellipse_set_state);
+  if (ellipse_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(ellipse_props);
+  return ellipse_props;
 }
 
-static GtkWidget *
-ellipse_get_properties(Ellipse *ellipse)
+static PropOffset ellipse_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Ellipse, border_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Ellipse, border_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Ellipse, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Ellipse, show_background) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Ellipse, line_style), offsetof(Ellipse, dashlength) },
+  { NULL, 0, 0 }
+};
+
+static void
+ellipse_get_props(Ellipse *ellipse, Property *props, guint nprops)
 {
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *linestyle;
-  GtkWidget *border_width;
-  GtkWidget *checkbox;
-  GtkAdjustment *adj;
+  object_get_props_from_offsets((Object *)ellipse, ellipse_offsets,
+				props, nprops);
+}
 
-  if (ellipse_properties_dialog == NULL) {
-  
-    ellipse_properties_dialog = g_new(EllipsePropertiesDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    ellipse_properties_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Border width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
-    border_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    ellipse_properties_dialog->border_width = GTK_SPIN_BUTTON(border_width);
-    gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
-    gtk_widget_show (border_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Foreground color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    ellipse_properties_dialog->fg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Background color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    ellipse_properties_dialog->bg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Draw background"));
-    ellipse_properties_dialog->show_background = GTK_TOGGLE_BUTTON(checkbox);
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
- 
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    ellipse_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  ellipse_properties_dialog->ellipse = ellipse;
-    
-  gtk_spin_button_set_value(ellipse_properties_dialog->border_width,
-			    ellipse->border_width);
-  dia_color_selector_set_color(ellipse_properties_dialog->fg_color,
-			       &ellipse->border_color);
-  dia_color_selector_set_color(ellipse_properties_dialog->bg_color,
-			       &ellipse->inner_color);
-  gtk_toggle_button_set_active(ellipse_properties_dialog->show_background,
-			       ellipse->show_background);
-  dia_line_style_selector_set_linestyle(ellipse_properties_dialog->line_style,
-					ellipse->line_style, ellipse->dashlength);
-  
-  return ellipse_properties_dialog->vbox;
+static void
+ellipse_set_props(Ellipse *ellipse, Property *props, guint nprops)
+{
+  object_set_props_from_offsets((Object *)ellipse, ellipse_offsets,
+				props, nprops);
+  ellipse_update_data(ellipse);
 }
 
 static void
@@ -394,38 +293,6 @@ ellipse_draw(Ellipse *ellipse, Renderer *renderer)
 			  &center,
 			  elem->width, elem->height,
 			  &ellipse->border_color);
-}
-
-static EllipseState *
-ellipse_get_state(Ellipse *ellipse)
-{
-  EllipseState *state = g_new(EllipseState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->border_width = ellipse->border_width;
-  state->border_color = ellipse->border_color;
-  state->inner_color = ellipse->inner_color;
-  state->show_background = ellipse->show_background;
-  state->line_style = ellipse->line_style;
-  state->dashlength = ellipse->dashlength;
-
-  return state;
-}
-
-static void
-ellipse_set_state(Ellipse *ellipse, EllipseState *state)
-{
-  ellipse->border_width = state->border_width;
-  ellipse->border_color = state->border_color;
-  ellipse->inner_color = state->inner_color;
-  ellipse->show_background = state->show_background;
-  ellipse->line_style = state->line_style;
-  ellipse->dashlength = state->dashlength;
-
-  g_free(state);
-  
-  ellipse_update_data(ellipse);
 }
 
 static void

@@ -1,3 +1,29 @@
+2000-02-17  James Henstridge  <james@daa.com.au>
+
+	* objects/flowchart/box.c: reverted load/save functions back to
+	previous implementations.  Made box use standard property names.
+
+	* plug-ins/cgm/cgm.c (set_linestyle): was missing a */
+
+	* app/grid.c: add more digits to the grid edit dialog.  This patch
+	was also from Lars Clausen.
+
+	* objects/standard/zigzagline.c: 
+	* objects/standard/textobj.c:
+	* objects/standard/polyline.c:
+	* objects/standard/line.c:
+	* objects/standard/ellipse.c:
+	* objects/standard/box.c: 
+	* objects/standard/bezier.c: 
+	* objects/standard/arc.c: patches to add properties code to standard
+	objects.  Based on patches from Lars Clausen.  I have also removed
+	some dead code from the files.
+
+	* lib/properties.h (PROP_STD_*): define a number of standard
+	properties.  Where appropriate, objects should include these
+	properties in their PropDescription list.  This way, the intersection
+	of properties of two different shapes will be greater.
+
 2000-02-14  James Henstridge  <james@daa.com.au>
 
 	* objects/flowchart/box.c (box_load, box_save): use property save

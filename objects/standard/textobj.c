@@ -28,21 +28,14 @@
 #include "text.h"
 #include "attributes.h"
 #include "widgets.h"
+#include "properties.h"
 
 #include "pixmaps/text.xpm"
 
 #define HANDLE_TEXT HANDLE_CUSTOM1
 
 typedef struct _Textobj Textobj;
-typedef struct _TextobjPropertiesDialog TextobjPropertiesDialog;
 typedef struct _TextobjDefaultsDialog TextobjDefaultsDialog;
-typedef struct _TextobjState TextobjState;
-
-struct _TextobjState {
-  ObjectState obj_state;
-
-  TextAttributes text_attrib;
-};
 
 struct _Textobj {
   Object object;
@@ -50,8 +43,6 @@ struct _Textobj {
   Handle text_handle;
 
   Text *text;
-
-  TextobjPropertiesDialog *properties_dialog;
 };
 
 typedef struct _TextobjProperties {
@@ -60,15 +51,6 @@ typedef struct _TextobjProperties {
   Alignment alignment;
   Color color;
 } TextobjProperties;
-
-struct _TextobjPropertiesDialog {
-  GtkWidget *vbox;
-  
-  DiaAlignmentSelector *alignment;
-  DiaFontSelector *font;
-  GtkSpinButton *font_size;
-  DiaColorSelector *color;
-};
 
 struct _TextobjDefaultsDialog {
   GtkWidget *vbox;
@@ -96,11 +78,10 @@ static Object *textobj_create(Point *startpoint,
 			      Handle **handle2);
 static void textobj_destroy(Textobj *textobj);
 static Object *textobj_copy(Textobj *textobj);
-static GtkWidget *textobj_get_properties(Textobj *textobj);
-static ObjectChange *textobj_apply_properties(Textobj *textobj);
 
-static TextobjState *textobj_get_state(Textobj *textobj);
-static void textobj_set_state(Textobj *textobj, TextobjState *state);
+static PropDescription *textobj_describe_props(Textobj *textobj);
+static void textobj_get_props(Textobj *textobj, Property *props, guint nprops);
+static void textobj_set_props(Textobj *textobj, Property *props, guint nprops);
 
 static void textobj_save(Textobj *textobj, ObjectNode obj_node,
 			 const char *filename);
@@ -137,123 +118,108 @@ static ObjectOps textobj_ops = {
   (CopyFunc)            textobj_copy,
   (MoveFunc)            textobj_move,
   (MoveHandleFunc)      textobj_move_handle,
-  (GetPropertiesFunc)   textobj_get_properties,
-  (ApplyPropertiesFunc) textobj_apply_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   textobj_describe_props,
+  (GetPropsFunc)        textobj_get_props,
+  (SetPropsFunc)        textobj_set_props,
 };
 
-static ObjectChange *
-textobj_apply_properties(Textobj *textobj)
+static PropDescription textobj_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
+  PROP_DESC_END
+};
+
+static PropDescription *
+textobj_describe_props(Textobj *textobj)
 {
-  TextobjPropertiesDialog *prop_dialog;
-  Alignment align;
-  Font *font;
-  real font_size;
-  Color col;
-  ObjectState *old_state;
-  
-  old_state = (ObjectState *)textobj_get_state(textobj);
-
-  prop_dialog = textobj->properties_dialog;
-
-  align = dia_alignment_selector_get_alignment(prop_dialog->alignment);
-  text_set_alignment(textobj->text, align);
-
-  font = dia_font_selector_get_font(prop_dialog->font);
-  text_set_font(textobj->text, font);
-
-  font_size = gtk_spin_button_get_value_as_float(prop_dialog->font_size);;
-  text_set_height(textobj->text, font_size);
-
-  dia_color_selector_get_color(prop_dialog->color, &col);
-  text_set_color(textobj->text, &col);
-  
-  textobj_update_data(textobj);
-  return new_object_state_change((Object *)textobj, old_state, 
-				 (GetStateFunc)textobj_get_state,
-				 (SetStateFunc)textobj_set_state);
+  if (textobj_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(textobj_props);
+  return textobj_props;
 }
 
-static GtkWidget *
-textobj_get_properties(Textobj *textobj)
+static PropOffset textobj_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { NULL, 0, 0 }
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_alignment" },
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
+};
+
+static void
+textobj_get_props(Textobj *textobj, Property *props, guint nprops)
 {
-  TextobjPropertiesDialog *prop_dialog;
-  GtkWidget *alignment;
-  GtkWidget *font;
-  GtkWidget *font_size;
-  GtkWidget *color;
-  GtkWidget *hbox;
-  GtkWidget *vbox;
-  GtkWidget *label;
-  GtkAdjustment *adj;
+  guint i;
 
-  if (textobj->properties_dialog == NULL) {
-    prop_dialog = g_new(TextobjPropertiesDialog, 1);
-    textobj->properties_dialog = prop_dialog;
-    
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    prop_dialog->vbox = vbox;
+  if (object_get_props_from_offsets((Object *)textobj, textobj_offsets,
+				    props, nprops))
+    return;
+  if (quarks[0].q == 0)
+    for (i = 0; i < 4; i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+ 
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
 
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Alignment:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    alignment = dia_alignment_selector_new();
-    prop_dialog->alignment = DIAALIGNMENTSELECTOR(alignment);
-    gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
-    gtk_widget_show (alignment);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    font = dia_font_selector_new();
-    prop_dialog->font = DIAFONTSELECTOR(font);
-    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
-    gtk_widget_show (font);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Fontsize:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 0.0, 0.0);
-    font_size = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);
-    prop_dialog->font_size = GTK_SPIN_BUTTON(font_size);
-    gtk_box_pack_start(GTK_BOX (hbox), font_size, TRUE, TRUE, 0);
-    gtk_widget_show (font_size);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    prop_dialog->color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_ENUM;
+      PROP_VALUE_ENUM(props[i]) = textobj->text->alignment;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = textobj->text->font;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = textobj->text->height;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = textobj->text->color;
+    } else if (pquark == quarks[4].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(textobj->text);
+    }
   }
-  
-  prop_dialog = textobj->properties_dialog;
-    
-  dia_alignment_selector_set_alignment(prop_dialog->alignment, textobj->text->alignment);
-  dia_font_selector_set_font(prop_dialog->font, textobj->text->font);
-  gtk_spin_button_set_value(prop_dialog->font_size, textobj->text->height);
-  dia_color_selector_set_color(prop_dialog->color, &textobj->text->color);
-  
-  return textobj->properties_dialog->vbox;
+}
+
+static void
+textobj_set_props(Textobj *textobj, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)textobj, textobj_offsets,
+                                     props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < 4; i++)
+        quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_ENUM) {
+	text_set_alignment(textobj->text, PROP_VALUE_ENUM(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_FONT) {
+        text_set_font(textobj->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_REAL) {
+        text_set_height(textobj->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_COLOUR) {
+        text_set_color(textobj->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[4].q && props[i].type == PROP_TYPE_STRING) {
+        text_set_string(textobj->text, PROP_VALUE_STRING(props[i]));
+      }
+    }
+  }
+  textobj_update_data(textobj);
 }
 
 static void
@@ -266,7 +232,7 @@ textobj_apply_defaults()
   default_properties.height = gtk_spin_button_get_value_as_float(textobj_defaults_dialog->font_size);
 }
 
-void
+static void
 init_defaults()
 {
   if (default_properties.font == NULL)
@@ -384,28 +350,6 @@ textobj_draw(Textobj *textobj, Renderer *renderer)
   text_draw(textobj->text, renderer);
 }
 
-static TextobjState *
-textobj_get_state(Textobj *textobj)
-{
-  TextobjState *state = g_new(TextobjState, 1);
-
-  state->obj_state.free = NULL;
-  
-  text_get_attributes(textobj->text, &state->text_attrib);
-
-  return state;
-}
-
-static void
-textobj_set_state(Textobj *textobj, TextobjState *state)
-{
-  text_set_attributes(textobj->text, &state->text_attrib);
-
-  g_free(state);
-  
-  textobj_update_data(textobj);
-}
-
 static void
 textobj_update_data(Textobj *textobj)
 {
@@ -441,8 +385,6 @@ textobj_create(Point *startpoint,
   textobj->text = new_text("", default_properties.font, default_properties.height,
 			   startpoint, &col, default_properties.alignment );
   
-  textobj->properties_dialog = NULL;
-  
   object_init(obj, 1, 0);
 
   obj->handles[0] = &textobj->text_handle;
@@ -461,10 +403,6 @@ textobj_create(Point *startpoint,
 static void
 textobj_destroy(Textobj *textobj)
 {
-  if (textobj->properties_dialog != NULL) {
-    gtk_widget_destroy(textobj->properties_dialog->vbox);
-    g_free(textobj->properties_dialog);
-  }
   text_destroy(textobj->text);
   object_destroy(&textobj->object);
 }
@@ -488,8 +426,6 @@ textobj_copy(Textobj *textobj)
   
   newtext->text_handle = textobj->text_handle;
   newtext->text_handle.connected_to = NULL;
-
-  newtext->properties_dialog = NULL;
 
   return (Object *)newtext;
 }
@@ -526,8 +462,6 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
     textobj->text = new_text("", font_getfont("Courier"), 1.0,
 			     &startpoint, &color_black, ALIGN_CENTER);
 
-  textobj->properties_dialog = NULL;
-  
   object_init(obj, 1, 0);
 
   obj->handles[0] = &textobj->text_handle;

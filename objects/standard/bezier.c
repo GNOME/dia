@@ -32,27 +32,15 @@
 #include "widgets.h"
 #include "diamenu.h"
 #include "message.h"
+#include "properties.h"
 
 #include "pixmaps/bezier.xpm"
 
 #define DEFAULT_WIDTH 0.15
 
-typedef struct _BezierlinePropertiesDialog BezierlinePropertiesDialog;
-typedef struct _BezierlineDefaultsDialog BezierlineDefaultsDialog;
-typedef struct _BezierlineState BezierlineState;
+typedef struct _Bezierline Bezierline;
 
-struct _BezierlineState {
-  ObjectState obj_state;
-
-  Color line_color;
-  real line_width;
-  LineStyle line_style;
-  real dashlength;
-  Arrow start_arrow, end_arrow;
-};
-
-
-typedef struct _Bezierline {
+struct _Bezierline {
   BezierConn bez;
 
   Color line_color;
@@ -60,41 +48,7 @@ typedef struct _Bezierline {
   real dashlength;
   real line_width;
   Arrow start_arrow, end_arrow;
-} Bezierline;
-
-typedef struct _BezierlineProperties {
-  Color line_color;
-  real line_width;
-  LineStyle line_style;
-  real dashlength;
-  Arrow start_arrow, end_arrow;
-} BezierlineProperties;
-
-struct _BezierlinePropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkSpinButton *line_width;
-  DiaColorSelector *color;
-  DiaLineStyleSelector *line_style;
-
-  DiaArrowSelector *start_arrow;
-  DiaArrowSelector *end_arrow;
-
-  Bezierline *bezierline;
 };
-
-/*struct _BezierlineDefaultsDialog {
-  GtkWidget *vbox;
-
-  DiaLineStyleSelector *line_style;
-  DiaArrowSelector *start_arrow;
-  DiaArrowSelector *end_arrow;
-  };*/
-
-
-static BezierlinePropertiesDialog *bezierline_properties_dialog;
-/* static BezierlineDefaultsDialog *bezierline_defaults_dialog;
-   static BezierlineProperties default_properties; */
 
 
 static void bezierline_move_handle(Bezierline *bezierline, Handle *handle,
@@ -111,11 +65,12 @@ static real bezierline_distance_from(Bezierline *bezierline, Point *point);
 static void bezierline_update_data(Bezierline *bezierline);
 static void bezierline_destroy(Bezierline *bezierline);
 static Object *bezierline_copy(Bezierline *bezierline);
-static GtkWidget *bezierline_get_properties(Bezierline *bezierline);
-static ObjectChange *bezierline_apply_properties(Bezierline *bezierline);
 
-static BezierlineState *bezierline_get_state(Bezierline *bezierline);
-static void bezierline_set_state(Bezierline *bezierline, BezierlineState *state);
+static PropDescription *bezierline_describe_props(Bezierline *bezierline);
+static void bezierline_get_props(Bezierline *bezierline,
+				 Property *props, guint nprops);
+static void bezierline_set_props(Bezierline *bezierline,
+				 Property *props, guint nprops);
 
 static void bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 			  const char *filename);
@@ -154,237 +109,57 @@ static ObjectOps bezierline_ops = {
   (CopyFunc)            bezierline_copy,
   (MoveFunc)            bezierline_move,
   (MoveHandleFunc)      bezierline_move_handle,
-  (GetPropertiesFunc)   bezierline_get_properties,
-  (ApplyPropertiesFunc) bezierline_apply_properties,
-  (ObjectMenuFunc)      bezierline_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      bezierline_get_object_menu,
+  (DescribePropsFunc)   bezierline_describe_props,
+  (GetPropsFunc)        bezierline_get_props,
+  (SetPropsFunc)        bezierline_set_props,
 };
 
-static ObjectChange *
-bezierline_apply_properties(Bezierline *bezierline)
+static PropDescription bezierline_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_LINE_STYLE,
+  PROP_STD_START_ARROW,
+  PROP_STD_END_ARROW,
+  PROP_DESC_END
+};
+
+static PropDescription *
+bezierline_describe_props(Bezierline *bezierline)
 {
-  ObjectState *old_state;
-  
-  if (bezierline != bezierline_properties_dialog->bezierline) {
-    g_message("Bezierline dialog problem:  %p != %p",
-		    bezierline, bezierline_properties_dialog->bezierline);
-    bezierline = bezierline_properties_dialog->bezierline;
-  }
+  if (bezierline_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(bezierline_props);
+  return bezierline_props;
+}
 
-  old_state = (ObjectState *)bezierline_get_state(bezierline);
+static PropOffset bezierline_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Bezierline, line_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Bezierline, line_color) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Bezierline, line_style), offsetof(Bezierline, dashlength) },
+  { "start_arrow", PROP_TYPE_ARROW, offsetof(Bezierline, start_arrow) },
+  { "end_arrow", PROP_TYPE_ARROW, offsetof(Bezierline, end_arrow) },
+  { NULL, 0, 0 }
+};
 
-  bezierline->line_width = 
-    gtk_spin_button_get_value_as_float(bezierline_properties_dialog->line_width);
-  dia_color_selector_get_color(bezierline_properties_dialog->color,
-			       &bezierline->line_color);
-  dia_line_style_selector_get_linestyle(bezierline_properties_dialog->line_style, &bezierline->line_style, &bezierline->dashlength);
-  bezierline->start_arrow = dia_arrow_selector_get_arrow(bezierline_properties_dialog->start_arrow);
-  bezierline->end_arrow = dia_arrow_selector_get_arrow(bezierline_properties_dialog->end_arrow);
+static void
+bezierline_get_props(Bezierline *bezierline, Property *props, guint nprops)
+{
+  object_get_props_from_offsets((Object *)bezierline, bezierline_offsets,
+				props, nprops);
+}
 
+static void
+bezierline_set_props(Bezierline *bezierline, Property *props, guint nprops)
+{
+  object_set_props_from_offsets((Object *)bezierline, bezierline_offsets,
+				props, nprops);
   bezierline_update_data(bezierline);
-  return new_object_state_change((Object *)bezierline, old_state, 
-				 (GetStateFunc)bezierline_get_state,
-				 (SetStateFunc)bezierline_set_state);
-
 }
-
-static GtkWidget *
-bezierline_get_properties(Bezierline *bezierline)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *linestyle;
-  GtkWidget *arrow;
-  GtkWidget *line_width;
-  GtkWidget *align;
-  GtkAdjustment *adj;
-
-  if (bezierline_properties_dialog == NULL) {
-    bezierline_properties_dialog = g_new(BezierlinePropertiesDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    bezierline_properties_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
-    line_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(line_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(line_width), TRUE);
-    bezierline_properties_dialog->line_width = GTK_SPIN_BUTTON(line_width);
-    gtk_box_pack_start(GTK_BOX (hbox), line_width, TRUE, TRUE, 0);
-    gtk_widget_show (line_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    bezierline_properties_dialog->color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    bezierline_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Start arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    bezierline_properties_dialog->start_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("End arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    bezierline_properties_dialog->end_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  bezierline_properties_dialog->bezierline = bezierline;
-    
-  gtk_spin_button_set_value(bezierline_properties_dialog->line_width,
-			    bezierline->line_width);
-  dia_color_selector_set_color(bezierline_properties_dialog->color,
-			       &bezierline->line_color);
-  dia_line_style_selector_set_linestyle(bezierline_properties_dialog->line_style,
-					bezierline->line_style,
-					bezierline->dashlength);
-  dia_arrow_selector_set_arrow(bezierline_properties_dialog->start_arrow,
-					 bezierline->start_arrow);
-  dia_arrow_selector_set_arrow(bezierline_properties_dialog->end_arrow,
-					 bezierline->end_arrow);
-  
-  return bezierline_properties_dialog->vbox;
-}
-
-/*
-static void
-bezierline_init_defaults()
-{
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    default_properties.start_arrow.length = 0.5;
-    default_properties.start_arrow.width = 0.5;
-    default_properties.end_arrow.length = 0.5;
-    default_properties.end_arrow.width = 0.5;
-    defaults_initialized = 1;
-  }
-}
-
-static void
-bezierline_apply_defaults()
-{
-  bezierline_init_defaults();
-  dia_line_style_selector_get_linestyle(bezierline_defaults_dialog->line_style, &default_properties.line_style, NULL);
-  default_properties.start_arrow = dia_arrow_selector_get_arrow(bezierline_defaults_dialog->start_arrow);
-  default_properties.end_arrow = dia_arrow_selector_get_arrow(bezierline_defaults_dialog->end_arrow);
-}
-
-static GtkWidget *
-bezierline_get_defaults()
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *arrow;
-  GtkWidget *align;
-  GtkWidget *linestyle;
-
-  if (bezierline_defaults_dialog == NULL) {
-  
-    bezierline_defaults_dialog = g_new(BezierlineDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    bezierline_defaults_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    bezierline_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Start arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    bezierline_defaults_dialog->start_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("End arrow:"));
-    align = gtk_alignment_new(0.0,0.0,0.0,0.0);
-    gtk_container_add(GTK_CONTAINER(align), label);
-    gtk_box_pack_start (GTK_BOX (hbox), align, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show(align);
-    arrow = dia_arrow_selector_new();
-    bezierline_defaults_dialog->end_arrow = DIAARROWSELECTOR(arrow);
-    gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
-    gtk_widget_show (arrow);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  dia_line_style_selector_set_linestyle(bezierline_defaults_dialog->line_style,
-					default_properties.line_style, 1.0);
-  dia_arrow_selector_set_arrow(bezierline_defaults_dialog->start_arrow,
-					 default_properties.start_arrow);
-  dia_arrow_selector_set_arrow(bezierline_defaults_dialog->end_arrow,
-					 default_properties.end_arrow);
-
-  return bezierline_defaults_dialog->vbox;
-}
-*/
 
 static real
 bezierline_distance_from(Bezierline *bezierline, Point *point)
@@ -553,38 +328,6 @@ bezierline_copy(Bezierline *bezierline)
   return (Object *)newbezierline;
 }
 
-
-static BezierlineState *
-bezierline_get_state(Bezierline *bezierline)
-{
-  BezierlineState *state = g_new(BezierlineState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->line_color = bezierline->line_color;
-  state->line_width = bezierline->line_width;
-  state->line_style = bezierline->line_style;
-  state->dashlength = bezierline->dashlength;
-  state->start_arrow = bezierline->start_arrow;
-  state->end_arrow = bezierline->end_arrow;
-
-  return state;
-}
-
-static void
-bezierline_set_state(Bezierline *bezierline, BezierlineState *state)
-{
-  bezierline->line_color = state->line_color;
-  bezierline->line_width = state->line_width;
-  bezierline->line_style = state->line_style;
-  bezierline->dashlength = state->dashlength;
-  bezierline->start_arrow = state->start_arrow;
-  bezierline->end_arrow = state->end_arrow;
-
-  g_free(state);
-  
-  bezierline_update_data(bezierline);
-}
 
 static void
 bezierline_update_data(Bezierline *bezierline)
