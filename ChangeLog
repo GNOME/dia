@@ -1,11 +1,26 @@
 2003-02-03  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* configure.in: Better finite() check from Mårten Svantesson
+	<f95-msv@nada.kth.se>.  Doesn't seem to generate strange dangly
+	if's. 
+	
+2003-02-03  Lars Clausen  <lrclause@cs.uiuc.edu>
+
 	* app/app_procs.c (debug_break): Added some code to avoid
 	over-eager optimizations removing the call.  Surely there's a
 	nicer way, but I'm not sure how.
 
 	* app/diapsft2renderer.c (draw_bezier_outline): Removed paps relic
 	that set text to black.
+
+2003-02-02  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* NEWS: Mention of Twiki as doc source for Python.
+
+	* plug-ins/pixbuf/pixbuf.c: Export with pixbuf if
+	libart/libpng is not available.  Later when we have a way of
+	letting the user pick options in the file select dialog we shall
+	allow the choice when applicable.
 
 2003-02-02  Steffen Macke <sdteffen@web.de>
 
@@ -14,9 +29,21 @@
 	James K. Lowden <jklowden@schemamania.org> to fix
 	some docbook errors
 	
+2003-02-01  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/Makefile.am (SUBDIRS): 
+	* plug-ins/pixbuf/pixbuf.c: 
+	* plug-ins/pixbuf/Makefile.am: 
+	* configure.in: 
+	Added pixbuf plugin to Makefile.am, but for import only.  PNG
+	export handled by libart, which is better. JPG export is
+	discouraged.  BMP is not much used on Unix.  Next release will
+	integrate libart to allow all outputs.
+
 2003-02-01  Hans Breuer  <hans@breuer.org>
 
-	* app/preferences.c app/pagesetup.c :
+	* app/preferences.c :
+	* app/pagesetup.c :
 	the last two dialogs with 'old' button order finally
 	are converted to gtk2, no GnomeDialog in all of Dia 
 	anymore :-) 
@@ -71,9 +98,9 @@
 
 2003-01-31  Steffen Macke <sdteffen@web.de>
 
-	 objects/UML/class.c (umlclass_calculate_data): fixed crash
-	 when comments were visible, no class comment available and
-	 a attribute comment
+	* objects/UML/class.c (umlclass_calculate_data): fixed crash
+	when comments were visible, no class comment available and
+	a attribute comment
 	 
 2003-01-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
