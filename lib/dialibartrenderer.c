@@ -1061,7 +1061,7 @@ draw_string (DiaRenderer *self,
    
    font = pango_context_load_font(pango_ft2_get_context(75, 75),
 				  self->font->pfd);
-   face = pango_ft2_font_get_face(font);
+   face = (FT_Face *)pango_ft2_font_get_face(font);
 
    graybitmap = (guint8*)g_new0(guint8, height*rowstride);
 
@@ -1183,7 +1183,7 @@ get_text_width(DiaRenderer *object,
   if (length != strlen(text)) {
     char *othertx;
     int ulen;
-    /* A couple UTF8-chars: æblegrød Š Ť Ž ę ć ń уфхцНОПРЄ є Ґ Њ Ћ Џ */
+    /* A couple UTF8-chars: æblegrød Š Ť Ž ę ć ń уфхц�?ОПРЄ є �? Њ Ћ �? */
     ulen = g_utf8_offset_to_pointer(text, length)-text;
     if (!g_utf8_validate(text, ulen, NULL)) {
       g_warning ("Text at char %d not valid\n", length);

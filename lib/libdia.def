@@ -163,6 +163,7 @@ EXPORTS
  dia_font_ascent
  dia_font_build_layout
  dia_font_descent
+ dia_font_get_context
  dia_font_get_family
  dia_font_get_height
  dia_font_get_legacy_name

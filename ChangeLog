@@ -1,3 +1,10 @@
+2004-01-11  Steffen Macke <sdteffen@web.de>
+
+	* app/diapsftrenderer.c: including ftoutln.h
+	* app/makefile.msc: updated for freetype build
+	* lib/libdia.def: added dia_font_get_context()
+	* lib/dialibartrenderer.c (draw_string): added cast
+	
 2004-01-10  Hans Breuer  <hans@breuer.org>
 
 	* lib/diagdkrenderer.c (draw_string) : gdk_draw_line with

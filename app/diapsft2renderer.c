@@ -28,6 +28,7 @@
 #include <pango/pangoft2.h>
 /* I'd really rather avoid this */
 #include <freetype/ftglyph.h>
+#include <freetype/ftoutln.h>
 
 #define DPI 300
 
