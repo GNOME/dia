@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2000-08-06 10:12+0800\n"
+"POT-Creation-Date: 2000-08-08 14:16+0000\n"
 "PO-Revision-Date: 2000-08-07 14:53+0100\n"
 "Last-Translator: Daniel Egger <egger@suse.de>\n"
 "Language-Team: de <de@li.org>\n"
@@ -150,7 +150,7 @@ msgid ""
 msgstr ""
 "Der Zeichenalgorithmus für geglättete Kanten ist noch fehlerhaft\n"
 "und könnte Abstürze verursachen. Wir wissen über die Fehler bescheid\n"
-"und würden sie bitten KEINE Meldung darüber zu erstattten.\n"
+"und würden sie bitten KEINE Meldung darüber zu erstattten."
 
 #: app/defaults.c:48 app/defaults.c:56
 msgid "Object defaults"
@@ -359,11 +359,11 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Das Diagramm wurde verändert!"
 
-#: app/display.c:756 app/display.c:762
+#: app/display.c:753 app/display.c:759
 msgid "Really close?"
 msgstr "Wirklich schließen?"
 
-#: app/display.c:767
+#: app/display.c:764
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -371,33 +371,33 @@ msgstr ""
 "Dieses Diagramm wurde nicht gespeichert.\n"
 "Sind Sie sicher, daß Sie das Fenster schließen möchten?"
 
-#: app/display.c:785 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
+#: app/display.c:782 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:795 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
+#: app/display.c:792 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
 #: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Nein"
 
-#: app/display.c:831
+#: app/display.c:828
 msgid "/View/Show Rulers"
 msgstr "/Ansicht/Lineale anzeigen"
 
-#: app/display.c:833
+#: app/display.c:830
 msgid "/View/Visible Grid"
 msgstr "/Ansicht/Gitter sichtbar"
 
-#: app/display.c:835
+#: app/display.c:832
 msgid "/View/Snap To Grid"
 msgstr "/Ansicht/Am Gitter einrasten"
 
-#: app/display.c:837
+#: app/display.c:834
 msgid "/View/Show Connection Points"
 msgstr "/Ansicht/Verbindungspunkte anzeigen"
 
-#: app/display.c:840
+#: app/display.c:837
 msgid "/View/AntiAliased"
 msgstr "/Ansicht/Kantenglättung"
 
@@ -2719,6 +2719,6 @@ msgstr "Datei: %s Typ/Version nicht unterstützt.\n"
 msgid "WordPerfect Graphics export filter"
 msgstr "Wordperfect Grafik Exportfilter"
 
-#: plug-ins/svg/render_svg.c:820
+#: plug-ins/svg/render_svg.c:821
 msgid "Scalable Vector Graphics"
 msgstr "Skalierbare Vektorgrafiken"
