@@ -201,8 +201,6 @@ set_linewidth(DiaRenderer *object, real linewidth)
 static void
 set_linecaps(DiaRenderer *object, LineCaps mode)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-
     DIAG_NOTE(g_message("set_linecaps %d", mode));
 
     switch(mode) {
@@ -220,8 +218,6 @@ set_linecaps(DiaRenderer *object, LineCaps mode)
 static void
 set_linejoin(DiaRenderer *object, LineJoin mode)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-
     DIAG_NOTE(g_message("set_join %d", mode));
 
     switch(mode) {
@@ -282,8 +278,6 @@ set_dashlength(DiaRenderer *object, real length)
 static void
 set_fillstyle(DiaRenderer *object, FillStyle mode)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-
     DIAG_NOTE(g_message("set_fillstyle %d", mode));
 
     switch(mode) {
@@ -372,8 +366,6 @@ fill_polygon(DiaRenderer *object,
 	     Point *points, int num_points, 
 	     Color *colour)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-
     DIAG_NOTE(g_message("fill_polygon n:%d %f,%f ...", 
               num_points, points->x, points->y));
     draw_polyline(object,points,num_points,colour);
@@ -552,8 +544,6 @@ fill_ellipse(DiaRenderer *object,
 	     real width, real height,
 	     Color *colour)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-
     DIAG_NOTE(g_message("fill_ellipse %fx%f center @ %f,%f", 
               width, height, center->x, center->y));
 }
@@ -564,8 +554,6 @@ fill_bezier(DiaRenderer *object,
 	    int numpoints,
 	    Color *colour)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-
     DIAG_NOTE(g_message("fill_bezier n:%d %fx%f ...", 
               numpoints, points->p1.x, points->p1.y));
 }
@@ -627,8 +615,6 @@ draw_image(DiaRenderer *object,
 	   real width, real height,
 	   DiaImage image)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-
     DIAG_NOTE(g_message("draw_image %fx%f @%f,%f", 
               width, height, point->x, point->y));
     g_warning("HPGL: images unsupported!");

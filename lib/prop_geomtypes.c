@@ -37,6 +37,8 @@
 #include "connpoint_line.h"
 #include "prop_geomtypes.h"
 
+static void fontsizeprop_reset_widget(FontsizeProperty *prop, WIDGET *widget);
+
 /****************************/
 /* The REAL property type.  */
 /****************************/

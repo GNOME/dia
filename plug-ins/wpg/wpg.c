@@ -324,6 +324,7 @@ end_render(DiaRenderer *self)
 
   WriteRecHead(renderer, WPG_END, 0); /* no data following */
   fclose(renderer->file);
+  renderer->file = NULL;
 }
 
 static void
@@ -339,8 +340,6 @@ set_linewidth(DiaRenderer *self, real linewidth)
 static void
 set_linecaps(DiaRenderer *self, LineCaps mode)
 {
-  WpgRenderer *renderer = WPG_RENDERER (self);
-
   DIAG_NOTE(g_message("set_linecaps %d", mode));
 
   switch(mode) {
@@ -358,8 +357,6 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
 static void
 set_linejoin(DiaRenderer *self, LineJoin mode)
 {
-  WpgRenderer *renderer = WPG_RENDERER (self);
-
   DIAG_NOTE(g_message("set_join %d", mode));
 
   switch(mode) {
@@ -998,6 +995,10 @@ static void
 wpg_renderer_finalize (GObject *object)
 {
   WpgRenderer *wpg_renderer = WPG_RENDERER (object);
+
+  if (wpg_renderer->file)
+    fclose(wpg_renderer->file);
+  wpg_renderer->file = NULL;
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }

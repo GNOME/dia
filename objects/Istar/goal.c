@@ -147,8 +147,6 @@ static ObjectOps goal_ops = {
   (SetPropsFunc)        goal_set_props
 };
 
-//static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };
-
 static PropDescription goal_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
@@ -157,10 +155,6 @@ static PropDescription goal_props[] = {
     prop_goal_type_data},
 
   { "text", PROP_TYPE_TEXT, 0,NULL,NULL},
-//  PROP_STD_TEXT_ALIGNMENT,
-//  PROP_STD_TEXT_FONT,
-//  PROP_STD_TEXT_HEIGHT,
-//  PROP_STD_TEXT_COLOUR,
   PROP_DESC_END
 };
 
@@ -176,13 +170,7 @@ goal_describe_props(Goal *goal)
 static PropOffset goal_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "type", PROP_TYPE_ENUM, offsetof(Goal,type)},
-//  { "padding",PROP_TYPE_REAL,offsetof(Goal,padding)},
   { "text", PROP_TYPE_TEXT, offsetof(Goal,text)},
-//  { "text_alignment",PROP_TYPE_ENUM,offsetof(Goal,attrs.alignment)},
-//  { "text_font",PROP_TYPE_FONT,offsetof(Goal,attrs.font)},
-//  { "text_height",PROP_TYPE_REAL,offsetof(Goal,attrs.height)},
-//  { "text_colour",PROP_TYPE_COLOUR,offsetof(Goal,attrs.color)},
-//  { "id", PROP_TYPE_STRING, offsetof(Goal,id)},
 };
 
 static void
@@ -196,7 +184,7 @@ goal_get_props(Goal *goal, GPtrArray *props)
 static void
 goal_set_props(Goal *goal, GPtrArray *props)
 {
-  if (goal->init==-1) { goal->init++; return; }    // workaround init bug
+  if (goal->init==-1) { goal->init++; return; }    /* workaround init bug */
 
   object_set_props_from_offsets(&goal->element.object,
                                 goal_offsets,props);
@@ -328,7 +316,7 @@ goal_draw(Goal *goal, DiaRenderer *renderer)
   BezPoint bpl[5];
   Element *elem;
 
-  // some asserts
+  /* some asserts */
   assert(goal != NULL);
   assert(renderer != NULL);
 
@@ -338,21 +326,21 @@ goal_draw(Goal *goal, DiaRenderer *renderer)
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linewidth(renderer, GOAL_LINE_WIDTH);
 
-  if (goal->type==GOAL) {  // goal
+  if (goal->type==GOAL) {  /* goal */
     p1.x=elem->corner.x;
     p1.y= elem->corner.y;
     p2.x=p1.x+elem->width;
     p2.y=p1.y+elem->height;
     renderer_ops->fill_rounded_rect(renderer,&p1,&p2, &GOAL_BG_COLOR, elem->height/2.0);
     renderer_ops->draw_rounded_rect(renderer,&p1,&p2, &GOAL_FG_COLOR, elem->height/2.0);
-  } else {                 // softgoal
+  } else {                 /* softgoal */
      compute_cloud(goal,bpl);
      renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
      renderer_ops->fill_bezier(renderer,bpl,5,&GOAL_BG_COLOR);
      renderer_ops->draw_bezier(renderer,bpl,5,&GOAL_FG_COLOR);
   }
 
-  // drawing text
+  /* drawing text */
   text_draw(goal->text, renderer);
 }
 
@@ -378,9 +366,7 @@ goal_update_data(Goal *goal, AnchorShape horiz, AnchorShape vert)
   w = goal->text->max_width + goal->padding*2;
   h = goal->text->height * goal->text->numlines + goal->padding*2;
 
-  //autoscale here
-  //if (width>DEFAULT_WIDTH) elem->width = width;
-  //if (height>DEFAULT_HEIGHT) elem->height = height;
+  /* autoscale here */
   if (w > elem->width) elem->width = w;
   if (h > elem->height) elem->height = h;
   if (elem->width<elem->height) elem->width=elem->height;
@@ -428,47 +414,63 @@ goal_update_data(Goal *goal, AnchorShape horiz, AnchorShape vert)
 }
 
 static void update_softgoal_connectors(ConnectionPoint *c, Point p, double w, double h) {
-  // lateral
+  /* lateral */
   c[0].pos.x=p.x;
   c[0].pos.y=p.y+h/2;
+  c[0].directions = DIR_WEST;
   c[1].pos.x=p.x+w;
   c[1].pos.y=p.y+h/2;
-  // top
+  c[1].directions = DIR_EAST;
+  /* top */
   c[2].pos.x=p.x+w/6;
   c[2].pos.y=p.y;
+  c[2].directions = DIR_NORTH;
   c[3].pos.x=p.x+w/2;
   c[3].pos.y=p.y+w/20;
+  c[3].directions = DIR_NORTH;
   c[4].pos.x=p.x+5*w/6;
   c[4].pos.y=p.y;
-  // bottom
+  c[4].directions = DIR_NORTH;
+  /* bottom */
   c[5].pos.x=p.x+w/6;
   c[5].pos.y=p.y+h;
+  c[5].directions = DIR_SOUTH;
   c[6].pos.x=p.x+w/2;
   c[6].pos.y=p.y+h-w/20;
+  c[6].directions = DIR_SOUTH;
   c[7].pos.x=p.x+5*w/6;
   c[7].pos.y=p.y+h;
+  c[7].directions = DIR_SOUTH;
 }
 
 static void update_goal_connectors(ConnectionPoint *c, Point p, double w, double h) {
-  // lateral
+  /* lateral */
   c[0].pos.x=p.x;
   c[0].pos.y=p.y+h/2;
+  c[0].directions = DIR_WEST;
   c[1].pos.x=p.x+w;
   c[1].pos.y=p.y+h/2;
-  // top
+  c[1].directions = DIR_EAST;
+  /* top */
   c[2].pos.x=p.x+w/6;
   c[2].pos.y=p.y;
+  c[2].directions = DIR_NORTH;
   c[3].pos.x=p.x+w/2;
   c[3].pos.y=p.y;
+  c[3].directions = DIR_NORTH;
   c[4].pos.x=p.x+5*w/6;
   c[4].pos.y=p.y;
-  // bottom
+  c[4].directions = DIR_NORTH;
+  /* bottom */
   c[5].pos.x=p.x+w/6;
   c[5].pos.y=p.y+h;
+  c[5].directions = DIR_SOUTH;
   c[6].pos.x=p.x+w/2;
   c[6].pos.y=p.y+h;
+  c[6].directions = DIR_SOUTH;
   c[7].pos.x=p.x+5*w/6;
   c[7].pos.y=p.y+h;
+  c[7].directions = DIR_SOUTH;
 }
 
 inline static ObjectChange *
@@ -530,7 +532,7 @@ goal_create(Point *startpoint,
   *handle1 = NULL;
   *handle2 = obj->handles[7];
 
-  // handling type info
+  /* handling type info */
   switch (GPOINTER_TO_INT(user_data)) {
     case 1:  goal->type=SOFTGOAL; break;
     case 2:  goal->type=GOAL; break;

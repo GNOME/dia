@@ -262,11 +262,11 @@ message_draw(Message *message, DiaRenderer *renderer)
   int n1 = 1, n2 = 0;
   gchar *mname = g_strdup(message->text);
 
-  // some asserts
+  /* some asserts */
   assert(message != NULL);
   assert(renderer != NULL);
 
-  // arrow type
+  /* arrow type */
   endpoints = &message->connection.endpoints[0];
 
   renderer_ops->set_linewidth(renderer, MESSAGE_WIDTH);
@@ -284,14 +284,14 @@ message_draw(Message *message, DiaRenderer *renderer)
   arrow.length = MESSAGE_ARROWLEN;
   arrow.width = MESSAGE_ARROWWIDTH;
 
-  // could reverse direction here
+  /* could reverse direction here */
   p1 = endpoints[n1];
   p2 = endpoints[n2];
 
-  // drawing directed line
+  /* drawing directed line */
   renderer_ops->draw_line_with_arrows(renderer, &p1, &p2, MESSAGE_WIDTH, &color_black, &arrow, NULL);
 
-  // writing text on arrow (maybe not a good idea)
+  /* writing text on arrow (maybe not a good idea) */
   renderer_ops->set_font(renderer, message_font, MESSAGE_FONTHEIGHT);
 
   if (mname && strlen(mname) != 0)
@@ -351,7 +351,7 @@ message_create(Point *startpoint,
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
 
-  // init type
+  /* init type */
   switch (GPOINTER_TO_INT(user_data)) {
     case 1: message->type=MSG_SHARED; break;
     case 2: message->type=MSG_REQ; break;

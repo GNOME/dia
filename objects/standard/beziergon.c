@@ -169,17 +169,6 @@ beziergon_set_props(Beziergon *beziergon, GPtrArray *props)
   beziergon_update_data(beziergon);
 }
 
-static void
-beziergon_init_defaults() {
-  static gboolean initialized = FALSE;
-
-  if (initialized) return;
-
-  default_properties.show_background = TRUE;
-
-  initialized = TRUE;
-}
-
 static real
 beziergon_distance_from(Beziergon *beziergon, Point *point)
 {

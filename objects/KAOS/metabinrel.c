@@ -65,7 +65,6 @@ typedef enum {
 
 struct _Mbr {
   Connection connection;
-//  ConnectionPoint connector;
 
   MbrType type;
 
@@ -91,10 +90,6 @@ struct _Mbr {
 #define MBR_RED_COLOR color_red
 
 #define MBR_DEC_SIZE 1.0
-//#define MBR_ICON_WIDTH 1.0
-//#define MBR_ICON_HEIGHT 1.0
-//#define MBR_REF_WIDTH 1.0
-//#define MBR_REF_HEIGHT 1.0
 
 static Color color_red = { 1.0f, 0.0f, 0.0f };
 
@@ -139,11 +134,6 @@ DiaObjectType kaos_mbr_type =
   (char **)contributes_xpm,  /* pixmap */
   &mbr_type_ops              /* ops */
 };
-
-// static images list (lazy init later on)
-//static DiaImage IMG_OBSTRUCTS   = NULL;
-//static DiaImage IMG_MONITORS    = NULL;
-//static DiaImage IMG_CONTROLS    = NULL;
 
 static ObjectOps mbr_ops = {
   (DestroyFunc)         mbr_destroy,
@@ -281,27 +271,6 @@ mbr_move(Mbr *mbr, Point *to)
   return NULL;
 }
 
-/* this is replicated from dia_image.c -- bad design -- ask for constructor based on xpm char** */
-struct _DiaImage {
-  GdkPixbuf *image;
-  gchar *filename;
-//#ifdef SCALING_CACHE
-  GdkPixbuf *scaled; /* a cache of the last scaled version */
-  int scaled_width, scaled_height;
-//#endif
-};
-
-// TODO not used -- check this
-static DiaImage lazy_init(DiaImage * img, char** xpm) {
-  if (*img!=NULL) return *img;
-
-  (*img)= g_new(struct _DiaImage, 1);
-  (*img)->image = gdk_pixbuf_new_from_xpm_data((const char **)xpm);
-  (*img)->filename = g_strdup("internal");
-  (*img)->scaled=NULL;
-  return *img;
-}
-
 static void
 compute_line(Point* p1, Point* p2, Point *pm, BezPoint* line) {
   double dx,dy,k;
@@ -391,11 +360,11 @@ mbr_draw(Mbr *mbr, DiaRenderer *renderer)
   gchar *annot;
   double k,dx,dy,dxn,dyn,dxp,dyp;
 
-  // some asserts
+  /* some asserts */
   assert(mbr != NULL);
   assert(renderer != NULL);
 
-  // arrow type
+  /* arrow type */
   if (mbr->type!=MBR_CONFLICTS)
     arrow.type = ARROW_FILLED_TRIANGLE;
   else
@@ -405,29 +374,14 @@ mbr_draw(Mbr *mbr, DiaRenderer *renderer)
 
   endpoints = &mbr->connection.endpoints[0];
 
-  // assigning a mid-range bitmap for some metarelations
-  img=NULL; // no image
-/*
-  switch (mbr->type) {
-    case MBR_MONITORS:
-      img=lazy_init(&IMG_MONITORS,mid_monitors_xpm);
-      break;
-    case MBR_CONTROLS:
-      img=lazy_init(&IMG_CONTROLS,mid_controls_xpm);
-      break;
-    case MBR_OBSTRUCTS:
-    case MBR_CONTRIBUTES:  // no image
-    default:
-      img=NULL;
-      break;
-  }
-*/
+  /* assigning a mid-range bitmap for some metarelations */
+  img=NULL; /* no image */
 
-  // some computations
-  p1 = endpoints[0];     // could reverse direction here
+  /* some computations */
+  p1 = endpoints[0];     /* could reverse direction here */
   p2 = endpoints[1];
 
-  //** drawing directed line **/
+  /** drawing directed line **/
   renderer_ops->set_linewidth(renderer, MBR_WIDTH);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
@@ -436,20 +390,15 @@ mbr_draw(Mbr *mbr, DiaRenderer *renderer)
   dy=p1.y-p2.y;
   k=sqrt(dx*dx+dy*dy)*2/MBR_DEC_SIZE;
 
-  if (k<0.05) {  // bug fix for closed bezier
+  if (k<0.05) {  /* bug fix for closed bezier */
     renderer_ops->draw_line_with_arrows(renderer,&p1,&p2,MBR_WIDTH,&MBR_FG_COLOR,NULL, &arrow);
   } else {
     renderer_ops->draw_bezier_with_arrows(renderer, mbr->line, 3, MBR_WIDTH, &MBR_FG_COLOR, NULL, &arrow);
   }
 
-  //** drawing bitmap decoration (eg. mid icon for controls) **//
-//  if (img!=NULL) {
-//    renderer_ops->draw_image(renderer,&pic,MBR_ICON_WIDTH,MBR_ICON_HEIGHT,img);
-//  }
+  /** drawing vector decoration  **/
 
-  //** drawing vector decoration  **//
-
-  // red line for obstruction
+  /* red line for obstruction */
   k=k*2/MBR_DEC_SIZE;
   dxn=dx/k;
   dyn=dy/k;
@@ -484,15 +433,15 @@ mbr_draw(Mbr *mbr, DiaRenderer *renderer)
   }
 
 
-  //** writing decoration text **//
+  /** writing decoration text **/
   annot=compute_text(mbr);
   renderer_ops->set_font(renderer, mbr_font, MBR_DECFONTHEIGHT);
 
   if (annot && strlen(annot) != 0) {
       pa1.x=mbr->pm.x-mbr->text_width/2;
-      pa1.y=mbr->pm.y-mbr->text_ascent +0.1;  // with some fix...
+      pa1.y=mbr->pm.y-mbr->text_ascent +0.1;  /* with some fix... */
       pa2.x=pa1.x+mbr->text_width;
-      pa2.y=pa1.y+MBR_DECFONTHEIGHT    +0.1;  // with some fix...
+      pa2.y=pa1.y+MBR_DECFONTHEIGHT    +0.1;  /* with some fix... */
       renderer_ops->fill_rect(renderer,&pa1,&pa2,&color_white);
       renderer_ops->draw_string(renderer,annot,&mbr->pm,ALIGN_CENTER,&MBR_FG_COLOR);
   }
@@ -539,7 +488,7 @@ mbr_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle
   obj->type = &kaos_mbr_type;
   obj->ops = &mbr_ops;
 
-  // connectionpoint init
+  /* connectionpoint init */
   connection_init(conn, 3, 0);
 
   mbr->text_width = 0.0;
@@ -565,7 +514,7 @@ mbr_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
 
-  // bug workaround
+  /* bug workaround */
   if (GPOINTER_TO_INT(user_data)!=0) mbr->init=-1; else mbr->init=0;
 
   return &mbr->connection.object;
@@ -594,7 +543,7 @@ mbr_update_data(Mbr *mbr)
   connection_update_handles(conn);
   connection_update_boundingbox(conn);
 
-  // text width
+  /* text width */
   text=compute_text(mbr);
   mbr->text_width = dia_font_string_width(text, mbr_font, MBR_DECFONTHEIGHT);
   mbr->text_ascent = dia_font_ascent(text, mbr_font, MBR_DECFONTHEIGHT);
@@ -605,10 +554,6 @@ mbr_update_data(Mbr *mbr)
 
  /* bezier */
   compute_line(&p1,&p2,&mbr->pm,mbr->line);
-
-  /* connection point */
-//  mbr->connector.pos.x=p1.x;
-//  mbr->connector.pos.y=p1.y+MBR_DEC_SIZE/2;
 
   /* Add boundingbox for mid decoration (slightly overestimated) : */
   p3.x=mbr->pm.x-MBR_DEC_SIZE;
@@ -621,34 +566,6 @@ mbr_update_data(Mbr *mbr)
   rect.bottom=p4.y;
   rectangle_union(&obj->bounding_box, &rect);
 
-  /* Add boundingbox for mid image: */
-/*
-  p3.x=(p1.x+p2.x)/2.0-MBR_ICON_WIDTH/2;
-  p3.y=(p1.y+p2.y)/2.0-MBR_ICON_HEIGHT/2;
-  p4.x=p3.x+MBR_ICON_WIDTH;
-  p4.y=p3.y+MBR_ICON_HEIGHT;
-  rect.left=p3.x;
-  rect.right=p4.x;
-  rect.top=p3.y;
-  rect.bottom=p4.y;
-  rectangle_union(&obj->bounding_box, &rect);
-*/
-
-  /* Add boundingbox for end image: */
-/*
-  p1 = conn->endpoints[0];
-  p2 = conn->endpoints[1];
-  p3.x=p1.x-MBR_REF_WIDTH*1.1/2;    // 1.1 factor to be safe (fix for or)
-  p3.y=p1.y-MBR_REF_HEIGHT*1.1/2;
-  p4.x=p3.x+MBR_REF_WIDTH*1.1;
-  p4.y=p3.y+MBR_REF_HEIGHT*1.1;
-  rect.left=p3.x;
-  rect.right=p4.x;
-  rect.top=p3.y;
-  rect.bottom=p4.y;
-  rectangle_union(&obj->bounding_box, &rect);
-*/
-
   /* Add boundingbox for text: */
   rect.left = mbr->pm.x-mbr->text_width/2;
   rect.right = rect.left + mbr->text_width;
@@ -656,7 +573,7 @@ mbr_update_data(Mbr *mbr)
   rect.bottom = rect.top + MBR_DECFONTHEIGHT;
   rectangle_union(&obj->bounding_box, &rect);
 
-  g_free(text);   // free auxilliary text
+  g_free(text);   /* free auxilliary text */
 }
 
 static DiaObject *

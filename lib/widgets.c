@@ -311,10 +311,10 @@ dia_font_selector_class_init (DiaFontSelectorClass *class)
 }
 
 static int
-dia_font_selector_sort_fonts(const void **p1, const void **p2)
+dia_font_selector_sort_fonts(const void *p1, const void *p2)
 {
-  const gchar *n1 = pango_font_family_get_name(PANGO_FONT_FAMILY(*p1));
-  const gchar *n2 = pango_font_family_get_name(PANGO_FONT_FAMILY(*p2));
+  const gchar *n1 = pango_font_family_get_name(PANGO_FONT_FAMILY(*(void**)p1));
+  const gchar *n2 = pango_font_family_get_name(PANGO_FONT_FAMILY(*(void**)p2));
   return g_strcasecmp(n1, n2);
 }
 
@@ -347,6 +347,7 @@ dia_font_selector_init (DiaFontSelector *fs)
     fontnames = g_list_append(fontnames, 
 			      pango_font_family_get_name(families[i]));
   }
+  g_free (families);
 
   fs->font_omenu = 
     GTK_OPTION_MENU

@@ -40,7 +40,7 @@
 #include "properties.h"
 #include "dia_image.h"
 
-#include "pixmaps/link.xpm"  // generic "unspecified" link
+#include "pixmaps/link.xpm"  /* generic "unspecified" link */
 
 typedef struct _Link Link;
 
@@ -80,8 +80,6 @@ struct _Link {
 #define LINK_DEP_HEIGHT 0.6
 #define LINK_REF_WIDTH 1.0
 #define LINK_REF_HEIGHT 1.0
-
-//static Color color_red = { 1.0f, 0.0f, 0.0f };
 
 static DiaFont *link_font = NULL;
 
@@ -267,16 +265,6 @@ link_move(Link *link, Point *to)
   return NULL;
 }
 
-/* this is replicated from dia_image.c -- bad design -- ask for constructor based on xpm char** */
-struct _DiaImage {
-  GdkPixbuf *image;
-  gchar *filename;
-//#ifdef SCALING_CACHE
-  GdkPixbuf *scaled; /* a cache of the last scaled version */
-  int scaled_width, scaled_height;
-//#endif
-};
-
 static void
 bernstein_develop(const real p[4],real *A,real *B,real *C,real *D)
 {
@@ -352,7 +340,7 @@ static Point compute_annot(Point* p1, Point* p2, Point* pm, double f, double d) 
   Point res;
   double dx,dy,k;
 
-  // computing position
+  /* computing position */
   if (f<0.5) {
     f=f*2;
     dx=pm->x - p1->x;
@@ -367,14 +355,14 @@ static Point compute_annot(Point* p1, Point* p2, Point* pm, double f, double d) 
     res.y=pm->y+dy*f;
   }
 
-  // some orthogonal shift
+  /* some orthogonal shift */
   k=sqrt(dx*dx+dy*dy);
   if (k!=0) {
     res.x+=dy/k*d;
     res.y-=dx/k*d;
   }
 
-  // centering text
+  /* centering text */
   res.y+=0.25;
 
   return res;
@@ -386,7 +374,7 @@ static void compute_dependency(BezPoint *line, BezPoint *bpl) {
   double dx,dy,dxp,dyp,k;
   real bx[4],by[4];
 
-  // computing anchor point and tangent
+  /* computing anchor point and tangent */
   bx[0]=line[1].p3.x;
   bx[1]=line[2].p1.x;
   bx[2]=line[2].p2.x;
@@ -403,7 +391,7 @@ static void compute_dependency(BezPoint *line, BezPoint *bpl) {
   dy=bezier_eval_tangent(by,0.25);
   k=sqrt(dx*dx+dy*dy);
 
-  // normalizing
+  /* normalizing */
   if (k!=0) {
     dx=dx/k;
     dy=dy/k;
@@ -416,11 +404,11 @@ static void compute_dependency(BezPoint *line, BezPoint *bpl) {
     dyp=0;
   }
 
-  //  more offset for origin
+  /*  more offset for origin */
   ref.x -= LINK_DEP_HEIGHT * dx;
   ref.y -= LINK_DEP_HEIGHT * dy;
 
-  // bezier
+  /* bezier */
   bpl[0].type=BEZ_MOVE_TO;
   bpl[0].p1.x = ref.x + LINK_DEP_WIDTH/2.0 * dxp;
   bpl[0].p1.y = ref.y + LINK_DEP_WIDTH/2.0 * dyp;
@@ -519,17 +507,17 @@ link_draw(Link *link, DiaRenderer *renderer)
   double w;
   BezPoint bpl[4];
 
-  // some asserts
+  /* some asserts */
   assert(link != NULL);
   assert(renderer != NULL);
 
-  // some point computations
+  /* some point computations */
   endpoints = &link->connection.endpoints[0];
-  p1 = endpoints[0];     // could reverse direction here
+  p1 = endpoints[0];     /* could reverse direction here */
   p2 = endpoints[1];
   pa = compute_annot(&p1,&p2,&link->pm,0.75,0.75);
 
-  //** computing properties **//
+  /** computing properties **/
   w=LINK_WIDTH;
   annot=NULL;
   arrow.type = ARROW_FILLED_TRIANGLE;
@@ -556,25 +544,24 @@ link_draw(Link *link, DiaRenderer *renderer)
       arrow.type = ARROW_LINES;
       annot = g_strdup("");
       break;
-    case UNSPECIFIED: // use above defaults
+    case UNSPECIFIED: /* use above defaults */
       annot = g_strdup("");
       break;
   }
 
-  //** drawing line **//
+  /** drawing line **/
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, w);
-//  renderer_ops->draw_line_with_arrows(renderer, &p1, &p2, w, &LINK_FG_COLOR, NULL, &arrow);
   renderer_ops->draw_bezier_with_arrows(renderer, link->line, 3, w, &LINK_FG_COLOR, NULL, &arrow);
 
-  //** drawing decoration **//
+  /** drawing decoration **/
   renderer_ops->set_font(renderer, link_font, LINK_FONTHEIGHT);
   if ((annot!=NULL)&& strlen(annot) != 0)
     renderer_ops->draw_string(renderer, annot, &pa, ALIGN_CENTER, &color_black);
   if (annot!=NULL) g_free(annot);
 
-  //** special stuff for dependency **//
+  /** special stuff for dependency **/
   if (link->type==DEPENDENCY) {
     compute_dependency(link->line,bpl);
     renderer_ops->draw_bezier(renderer, bpl, 4, &LINK_FG_COLOR);
@@ -620,8 +607,8 @@ link_create(Point *startpoint,
   obj->type = &istar_link_type;
   obj->ops = &link_ops;
 
-  // connectionpoint init
-  connection_init(conn, 3, 0);   // with mid-control
+  /* connectionpoint init */
+  connection_init(conn, 3, 0);   /* with mid-control */
 
   link->pm.x=0.5*(conn->endpoints[0].x + conn->endpoints[1].x);
   link->pm.y=0.5*(conn->endpoints[0].y + conn->endpoints[1].y);
@@ -643,7 +630,7 @@ link_create(Point *startpoint,
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
 
-  // bug workaround
+  /* bug workaround */
   if (GPOINTER_TO_INT(user_data)!=0) link->init=-1; else link->init=0;
 
   return &link->connection.object;
@@ -653,7 +640,6 @@ static void
 link_destroy(Link *link)
 {
   connection_destroy(&link->connection);
-//  g_free(link->text);
 }
 
 static void
@@ -663,7 +649,6 @@ link_update_data(Link *link)
   DiaObject *obj = &conn->object;
   Rectangle rect;
   Point p1,p2,p3,p4,pa;
-//  double dx,dy,k;
 
   obj->position = conn->endpoints[0];
 
@@ -671,9 +656,6 @@ link_update_data(Link *link)
 
   connection_update_handles(conn);
   connection_update_boundingbox(conn);
-
-//  link->text_width =
-//    dia_font_string_width(link->text, link_font, LINK_FONTHEIGHT);
 
   /* endpoint */
   p1 = conn->endpoints[0];

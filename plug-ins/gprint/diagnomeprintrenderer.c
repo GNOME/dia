@@ -38,15 +38,15 @@
 #include "dia_image.h"
 
 #ifndef P_
-//FIXME:
+/* FIXME: how ? */
 #define P_(s) s
 #endif
 
 #include "diagnomeprintrenderer.h"
 #include <libgnomeprint/gnome-print-pango.h>
 
- /* FIXME: I don't get it ;) */
- static const real magic = 72.0 / 2.54;
+/* FIXME: I don't get it ;) */
+static const real magic = 72.0 / 2.54;
  
 /* DiaRenderer implementation */
 static void
@@ -872,6 +872,8 @@ dia_gnome_print_renderer_class_init (DiaGnomePrintRendererClass *klass)
   renderer_class->fill_bezier   = fill_bezier;
 
   /* highest level functions */
-  //renderer_class->draw_rounded_rect = draw_rounded_rect;
-  //renderer_class->fill_rounded_rect = fill_rounded_rect;
+#if 0 /* maybe these should be implemented by pathes, but why not in diarenderer.c ? */
+  renderer_class->draw_rounded_rect = draw_rounded_rect;
+  renderer_class->fill_rounded_rect = fill_rounded_rect;
+#endif
 }

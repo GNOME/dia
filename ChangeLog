@@ -1,3 +1,41 @@
+2004-12-10  Hans Breuer  <hans@breuer.org>
+
+	* **/*.c : fixed a bunch of warnings, not only for -ansi
+	(still too many of them, but -ansi works)
+	lib/
+	prop_geomtypes.h prop_geomtypes.c:306: warning: static 
+	declaration for `fontsizeprop_reset_widget' follows non-static
+	dia_dirs.c:196: warning: return discards qualifiers from 
+	pointer target type
+
+	objects/custom/
+	shape_info.c:121: warning: static declaration for `parse_path' 
+	follows non-static
+
+	objects/SADT/
+	arrow.c:228: warning: `draw_arrowhead' declared `static' but never defined
+	arrow.c:244: warning: unused variable `i'
+	arrow.c:245: warning: unused variable `p'
+	arrow.c:246: warning: unused variable `zzr'
+	
+	object/Istar/*.c object/Jackson/*.c  object/KAOS/*.c : 
+	finally removed c++ comments
+	
+	objects/Istar/goal.c : initialize connections::directions
+	while I was there - helps autorouting
+
+	* objects/KAOS/metaandorrel.c objects/Istar/link.c 
+	  objects/KAOS/metabinrel.c : removed struct _DiaImage hack
+	(it would be quite simple to add image-from-memory support
+	to lib/ if needed)
+
+	* pydia-*.h : warning: no newline at end of file
+	
+	* plug-ins/gprint/diagnomeprint.c : allow to unregister
+	and follow new unique name naming convention
+	* plug-ins/gprint/diagnomeprintrenderer.c : no c++ comments
+	here either
+
 2004-12-07  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/message.c : better default for initial text placement

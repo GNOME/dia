@@ -111,7 +111,7 @@ static DiaExportFilter ps_export_filter = {
     ps_extensions,
     export_data,
     (void*)0,
-    "ps-gnome" /* unique name */
+    "gnome-ps" /* unique name */
 };
 
 static const gchar *pdf_extensions[] = { "pdf", NULL };
@@ -120,7 +120,7 @@ static DiaExportFilter pdf_export_filter = {
     pdf_extensions,
     export_data,
     (void*)1,
-    "pdf-gnome"
+    "gnome-pdf"
 };
 
 static const gchar *svg_extensions[] = { "svg", NULL };
@@ -129,22 +129,23 @@ static DiaExportFilter svg_export_filter = {
     svg_extensions,
     export_data,
     (void*)2,
-    "svg-gnome"
+    "gnome-svg"
 };
 
 static gboolean
 _plugin_can_unload (PluginInfo *info)
 {
-    /* XXX: to make this work something like filter_unregister() would 
-     * be required, but is it worth the trouble ?
-     */
-    return FALSE;
+    return TRUE;
 }
 
-static gboolean
+static void
 _plugin_unload (PluginInfo *info)
 {
-    return TRUE;
+  filter_unregister_export(&ps_export_filter);
+  filter_unregister_export(&pdf_export_filter);
+  filter_unregister_export(&svg_export_filter);
+
+  /* anything more to do? */
 }
 
 /* --- dia plug-in interface --- */

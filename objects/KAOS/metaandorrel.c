@@ -272,16 +272,6 @@ maor_move(Maor *maor, Point *to)
   return NULL;
 }
 
-/* this is replicated from dia_image.c -- bad design -- ask for constructor based on xpm char** */
-struct _DiaImage {
-  GdkPixbuf *image;
-  gchar *filename;
-//#ifdef SCALING_CACHE
-  GdkPixbuf *scaled; /* a cache of the last scaled version */
-  int scaled_width, scaled_height;
-//#endif
-};
-
 static void compute_and(Point *p, double w, double h, BezPoint *bpl) {
      Point ref;
      ref.x=p->x-w/2;
@@ -389,33 +379,33 @@ static void draw_agent_icon(Maor *maor, double w, double h, DiaRenderer *rendere
      rx=ref.x;
      ry=ref.y-h*0.2;
 
-     // head
+     /* head */
      c.x=rx;
      c.y=ry;
      renderer_ops->fill_ellipse(renderer,&c,h/5,h/5,&MAOR_FG_COLOR);
 
-     // body
+     /* body */
      p1.x=rx;
      p1.y=ry;
      p2.x=p1.x;
      p2.y=p1.y+3.5*h/10;
      renderer_ops->draw_line(renderer,&p1,&p2,&MAOR_FG_COLOR);
 
-     // arms
+     /* arms */
      p1.x=rx-1.5*h/10;
      p1.y=ry+2.2*h/10;
      p2.x=rx+1.5*h/10;
      p2.y=p1.y;
      renderer_ops->draw_line(renderer,&p1,&p2,&MAOR_FG_COLOR);
 
-     // left leg
+     /* left leg */
      p1.x=rx;
      p1.y=ry+3.5*h/10;
      p2.x=p1.x-h/10;
      p2.y=p1.y+2*h/10;
      renderer_ops->draw_line(renderer,&p1,&p2,&MAOR_FG_COLOR);
 
-     // right leg
+     /* right leg */
      p1.x=rx;
      p1.y=ry+3.5*h/10;
      p2.x=p1.x+h/10;
@@ -434,31 +424,31 @@ maor_draw(Maor *maor, DiaRenderer *renderer)
   Point pl[7];
   gchar *mname = g_strdup(maor->text);
 
-  // some asserts
+  /* some asserts */
   assert(maor != NULL);
   assert(renderer != NULL);
 
-  // arrow type
+  /* arrow type */
   arrow.type = ARROW_FILLED_TRIANGLE;
   arrow.length = MAOR_ARROWLEN;
   arrow.width = MAOR_ARROWWIDTH;
 
   endpoints = &maor->connection.endpoints[0];
 
-  // some computations
-  p1 = endpoints[0];     // could reverse direction here
+  /* some computations */
+  p1 = endpoints[0];     /* could reverse direction here */
   p2 = endpoints[1];
   pm.x=(p1.x+p2.x)/2;
   pm.y=(p1.y+p2.y)/2;
 
-  //** drawing directed line **/
+  /** drawing directed line **/
   renderer_ops->set_linewidth(renderer, MAOR_WIDTH);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer_ops->draw_line_with_arrows(renderer,&p1,&p2,MAOR_WIDTH,&MAOR_FG_COLOR,NULL,&arrow);
 
-  //** drawing vector decoration  **//
-  // and ref
+  /** drawing vector decoration  **/
+  /* and ref */
   switch (maor->type) {
     case MAOR_AND_REF:
       compute_and(&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
@@ -490,7 +480,7 @@ maor_draw(Maor *maor, DiaRenderer *renderer)
       break;
   }
 
-  //** writing text on arrow (maybe not a good idea) **//
+  /** writing text on arrow (maybe not a good idea) **/
   renderer_ops->set_font(renderer,maor_font,MAOR_FONTHEIGHT);
 
   if (mname && strlen(mname) != 0)
@@ -539,8 +529,8 @@ maor_create(Point *startpoint,
   obj->type = &kaos_maor_type;
   obj->ops = &maor_ops;
 
-  // connectionpoint init
-  connection_init(conn, 3, 1);      // added one connection point (3rd handle for text move)
+  /* connectionpoint init */
+  connection_init(conn, 3, 1);      /* added one connection point (3rd handle for text move) */
   obj->connections[0] = &maor->connector;
   maor->connector.object = obj;
   maor->connector.connected = NULL;
@@ -566,7 +556,7 @@ maor_create(Point *startpoint,
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
 
-  // bug workaround
+  /* bug workaround */
   if (GPOINTER_TO_INT(user_data)!=0) maor->init=-1; else maor->init=0;
 
   return &maor->connection.object;
@@ -620,7 +610,7 @@ maor_update_data(Maor *maor)
   /* Add boundingbox for end image: */
   p1 = conn->endpoints[0];
   p2 = conn->endpoints[1];
-  p3.x=p1.x-MAOR_REF_WIDTH*1.1/2;    // 1.1 factor to be safe (fix for or)
+  p3.x=p1.x-MAOR_REF_WIDTH*1.1/2;    /* 1.1 factor to be safe (fix for or) */
   p3.y=p1.y-MAOR_REF_HEIGHT*1.1/2;
   p4.x=p3.x+MAOR_REF_WIDTH*1.1;
   p4.y=p3.y+MAOR_REF_HEIGHT*1.1;

@@ -151,8 +151,6 @@ static ObjectOps goal_ops = {
   (SetPropsFunc)        goal_set_props
 };
 
-//static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };
-
 static PropDescription goal_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
@@ -161,10 +159,6 @@ static PropDescription goal_props[] = {
     prop_goal_type_data},
 
   { "text", PROP_TYPE_TEXT, 0,NULL,NULL},
-//  PROP_STD_TEXT_ALIGNMENT,
-//  PROP_STD_TEXT_FONT,
-//  PROP_STD_TEXT_HEIGHT,
-//  PROP_STD_TEXT_COLOUR,
 
   { "cpl_north",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},
   { "cpl_west",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},
@@ -185,13 +179,7 @@ goal_describe_props(Goal *goal)
 static PropOffset goal_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "type", PROP_TYPE_ENUM, offsetof(Goal,type)},
-//  { "padding",PROP_TYPE_REAL,offsetof(Goal,padding)},
   { "text", PROP_TYPE_TEXT, offsetof(Goal,text)},
-//  { "text_alignment",PROP_TYPE_ENUM,offsetof(Goal,attrs.alignment)},
-//  { "text_font",PROP_TYPE_FONT,offsetof(Goal,attrs.font)},
-//  { "text_height",PROP_TYPE_REAL,offsetof(Goal,attrs.height)},
-//  { "text_colour",PROP_TYPE_COLOUR,offsetof(Goal,attrs.color)},
-//  { "id", PROP_TYPE_STRING, offsetof(Goal,id)},
   { "cpl_north",PROP_TYPE_CONNPOINT_LINE, offsetof(Goal,north)},
   { "cpl_west",PROP_TYPE_CONNPOINT_LINE, offsetof(Goal,west)},
   { "cpl_south",PROP_TYPE_CONNPOINT_LINE, offsetof(Goal,south)},
@@ -210,7 +198,7 @@ goal_get_props(Goal *goal, GPtrArray *props)
 static void
 goal_set_props(Goal *goal, GPtrArray *props)
 {
-  if (goal->init==-1) { goal->init++; return; }    // workaround init bug
+  if (goal->init==-1) { goal->init++; return; }    /* workaround init bug */
 
   object_set_props_from_offsets(&goal->element.object,
                                 goal_offsets,props);
@@ -323,7 +311,7 @@ static void compute_cloud(Goal *goal, BezPoint* bpl) {
      bpl[3].p2.x=bpl[3].p3.x+wd/2.0;
      bpl[3].p2.y=bpl[3].p3.y-hd*1.45;
 
-     // bottom of cloud starts here
+     /* bottom of cloud starts here */
      bpl[4].type=BEZ_CURVE_TO;
      bpl[4].p3.x=bpl[3].p3.x;
      bpl[4].p3.y=bpl[0].p1.y+2*hd;
@@ -375,13 +363,13 @@ goal_draw(Goal *goal, DiaRenderer *renderer)
   BezPoint bpl[9];
   Element *elem;
 
-  // some asserts
+  /* some asserts */
   assert(goal != NULL);
   assert(renderer != NULL);
 
   elem = &goal->element;
 
-  // drawing polygon
+  /* drawing polygon */
   switch (goal->type) {
     case REQUIREMENT:
     case GOAL:
@@ -424,10 +412,10 @@ goal_draw(Goal *goal, DiaRenderer *renderer)
 
     renderer_ops->draw_polygon(renderer, pl, 4, &GOAL_FG_COLOR);
 
-    // adding decoration for assumption
+    /* adding decoration for assumption */
     if (goal->type==ASSUMPTION) {
       dx=GOAL_OFFSET+elem->height/10;
-      if (dx+GOAL_OFFSET>elem->height) dx=elem->height-GOAL_OFFSET; // min size
+      if (dx+GOAL_OFFSET>elem->height) dx=elem->height-GOAL_OFFSET; /* min size */
       p1.x=elem->corner.x+ GOAL_OFFSET + dx;
       p1.y=elem->corner.y;
       ix=GOAL_OFFSET*(GOAL_OFFSET+dx-elem->height)/(GOAL_OFFSET-elem->height);
@@ -435,14 +423,14 @@ goal_draw(Goal *goal, DiaRenderer *renderer)
       p2.y=elem->corner.y+GOAL_OFFSET+dx-ix;
       renderer_ops->draw_line(renderer,&p1,&p2,&GOAL_FG_COLOR);
     }
-  } else { // SOFTGOAL IS HERE
+  } else { /* SOFTGOAL IS HERE */
      compute_cloud(goal,bpl);
      renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
      renderer_ops->fill_bezier(renderer,bpl,9,&GOAL_BG_COLOR);
      renderer_ops->draw_bezier(renderer,bpl,9,&GOAL_FG_COLOR);
   }
 
-  // drawing text
+  /* drawing text */
   text_draw(goal->text, renderer);
 }
 
@@ -468,9 +456,6 @@ goal_update_data(Goal *goal, AnchorShape horiz, AnchorShape vert)
   width = goal->text->max_width + goal->padding*2;
   height = goal->text->height * goal->text->numlines + goal->padding*2;
 
-  //autoscale here
-  //if (width>DEFAULT_WIDTH) elem->width = width;
-  //if (height>DEFAULT_HEIGHT) elem->height = height;
   if (width<2*GOAL_OFFSET) width=2*GOAL_OFFSET;
   if (width > elem->width) elem->width = width;
   if (height > elem->height) elem->height = height;
@@ -660,7 +645,7 @@ goal_create(Point *startpoint,
   *handle1 = NULL;
   *handle2 = obj->handles[7];
 
-  // handling type info
+  /* handling type info */
   switch (GPOINTER_TO_INT(user_data)) {
     case 1:  goal->type=GOAL; break;
     case 2:  goal->type=SOFTGOAL; break;

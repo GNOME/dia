@@ -82,5 +82,4 @@ typedef struct {
 
 void prop_geomtypes_register(void);
 
-void fontsizeprop_reset_widget(FontsizeProperty *prop, WIDGET *widget);
 #endif

@@ -142,8 +142,6 @@ static ObjectOps other_ops = {
   (SetPropsFunc)        other_set_props
 };
 
-//static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };
-
 static PropDescription other_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
@@ -152,11 +150,6 @@ static PropDescription other_props[] = {
     prop_other_type_data},
 
   { "text", PROP_TYPE_TEXT, 0,NULL,NULL},
-//  PROP_STD_TEXT_ALIGNMENT,
-//  PROP_STD_TEXT_FONT,
-//  PROP_STD_TEXT_HEIGHT,
-//  PROP_STD_TEXT_COLOUR,
-
   { "cpl_north",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},
   { "cpl_west",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},
   { "cpl_south",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},
@@ -176,13 +169,7 @@ other_describe_props(Other *other)
 static PropOffset other_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "type", PROP_TYPE_ENUM, offsetof(Other,type)},
-//  { "padding",PROP_TYPE_REAL,offsetof(Other,padding)},
   { "text", PROP_TYPE_TEXT, offsetof(Other,text)},
-//  { "text_alignment",PROP_TYPE_ENUM,offsetof(Other,attrs.alignment)},
-//  { "text_font",PROP_TYPE_FONT,offsetof(Other,attrs.font)},
-//  { "text_height",PROP_TYPE_REAL,offsetof(Other,attrs.height)},
-//  { "text_colour",PROP_TYPE_COLOUR,offsetof(Other,attrs.color)},
-//  { "id", PROP_TYPE_STRING, offsetof(Other,id)},
   { "cpl_north",PROP_TYPE_CONNPOINT_LINE, offsetof(Other,north)},
   { "cpl_west",PROP_TYPE_CONNPOINT_LINE, offsetof(Other,west)},
   { "cpl_south",PROP_TYPE_CONNPOINT_LINE, offsetof(Other,south)},
@@ -201,8 +188,7 @@ other_get_props(Other *other, GPtrArray *props)
 static void
 other_set_props(Other *other, GPtrArray *props)
 {
-//fprintf(stdout,"INIT %d\n",other->init);
-  if (other->init==-1) { other->init++; return; }    // workaround init bug
+  if (other->init==-1) { other->init++; return; }    /* workaround init bug */
 
   object_set_props_from_offsets(&other->element.object,
                                 other_offsets,props);
@@ -311,7 +297,7 @@ other_draw(Other *other, DiaRenderer *renderer)
   Point pl[6],p1,p2;
   Element *elem;
 
-  // some asserts
+  /* some asserts */
   assert(other != NULL);
   assert(renderer != NULL);
 
@@ -339,7 +325,7 @@ other_draw(Other *other, DiaRenderer *renderer)
       break;
   }
 
-  // drawing text
+  /* drawing text */
   text_draw(other->text, renderer);
 }
 
@@ -365,7 +351,7 @@ other_update_data(Other *other, AnchorShape horiz, AnchorShape vert)
   width = other->text->max_width + other->padding*2;
   height = other->text->height * other->text->numlines + other->padding*2;
 
-  //autoscale here
+  /* autoscale here */
   if (width > elem->width) elem->width = width;
   if (height > elem->height) elem->height = height;
   if (elem->width<elem->height*1.5) elem->width=elem->height*1.5;
@@ -556,7 +542,7 @@ other_create(Point *startpoint,
   *handle1 = NULL;
   *handle2 = obj->handles[7];
 
-  // handling type info
+  /* handling type info */
   switch (GPOINTER_TO_INT(user_data)) {
     case 1:  other->type=RESOURCE; break;
     case 2:  other->type=TASK;     break;

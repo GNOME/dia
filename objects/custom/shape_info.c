@@ -739,7 +739,6 @@ load_shape_info(const gchar *filename)
   xmlNodePtr node, root, ext_node = NULL;
   ShapeInfo *info;
   char *tmp;
-  int ext_size = 0;
   
   if (!doc) {
     g_warning("parse error for %s", filename);

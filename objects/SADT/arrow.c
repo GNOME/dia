@@ -224,8 +224,6 @@ sadtarrow_move(Sadtarrow *sadtarrow, Point *to)
   return change;
 }
 
-static void draw_arrowhead(DiaRenderer *renderer,
-			   Point *end, Point *vect, Color *col);
 static void draw_dot(DiaRenderer *renderer,
 		     Point *end, Point *vect, Color *col);
 static void draw_tunnel(DiaRenderer *renderer,
@@ -241,9 +239,6 @@ sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
   NewOrthConn *orth = &sadtarrow->orth;
   Point *points;
   int n;
-  int i;
-  Point *p;
-  real zzr;
   Color col;
   Arrow arrow;
 

@@ -134,10 +134,6 @@ static ObjectOps req_ops = {
 
 static PropDescription req_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-//  { "text_outside", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
-//  N_("Text outside"), NULL, NULL },
-//  { "collaboration", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
-//  N_("Collaboration"), NULL, NULL },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
@@ -154,8 +150,6 @@ req_describe_props(Requirement *req)
 
 static PropOffset req_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-//  {"text_outside", PROP_TYPE_BOOL, offsetof(Requirement, text_outside) },
-//  {"collaboration", PROP_TYPE_BOOL, offsetof(Requirement, collaboration) },
   {"text",PROP_TYPE_TEXT,offsetof(Requirement,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Requirement,attrs.font)},
   {"text_height",PROP_TYPE_REAL,offsetof(Requirement,attrs.height)},
@@ -174,7 +168,7 @@ req_get_props(Requirement * req, GPtrArray *props)
 static void
 req_set_props(Requirement *req, GPtrArray *props)
 {
-  if (req->init==-1) { req->init++; return; }   // workaround init bug
+  if (req->init==-1) { req->init++; return; }   /* workaround init bug */
 
   object_set_props_from_offsets(&req->element.object,
                                 req_offsets,props);
@@ -266,10 +260,8 @@ req_draw(Requirement *req, DiaRenderer *renderer)
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, REQ_LINEWIDTH);
 
-//  if (req->collaboration)
-    renderer_ops->set_dashlength(renderer, REQ_DASHLEN);
-    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
-//  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer_ops->set_dashlength(renderer, REQ_DASHLEN);
+  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED);
 
   renderer_ops->fill_ellipse(renderer, &c, w, h, &color_white);
   renderer_ops->draw_ellipse(renderer, &c, w, h, &color_black);

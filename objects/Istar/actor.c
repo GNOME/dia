@@ -100,7 +100,6 @@ static PropDescription *actor_describe_props(Actor *actor);
 static void actor_get_props(Actor *actor, GPtrArray *props);
 static void actor_set_props(Actor *actor, GPtrArray *props);
 
-//static void actor_save(Actor *actor, ObjectNode obj_node, const char *filename);
 static DiaObject *actor_load(ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps actor_type_ops =
@@ -177,7 +176,7 @@ actor_get_props(Actor *actor, GPtrArray *props)
 static void
 actor_set_props(Actor *actor, GPtrArray *props)
 {
-  if (actor->init==-1) { actor->init++; return; } // init bug workaround
+  if (actor->init==-1) { actor->init++; return; } /* init bug workaround */
 
   object_set_props_from_offsets(&actor->element.object,
                                 actor_offsets,props);
@@ -223,7 +222,6 @@ actor_distance_from(Actor *actor, Point *point)
   rad = actor_radius(actor, point->x, point->y) + ACTOR_BORDER_WIDTH/2;
 
 
-//fprintf(stdout,"dist rad %lf %lf\n",dist,rad);
   if (dist <= rad)
     return 0;
   return dist - rad;
@@ -285,7 +283,7 @@ actor_move(Actor *actor, Point *to)
   return NULL;
 }
 
-// drawing stuff */
+/* drawing stuff */
 static void
 actor_draw(Actor *actor, DiaRenderer *renderer)
 {
@@ -303,20 +301,20 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   center.x = elem->corner.x + elem->width/2;
   center.y = elem->corner.y + elem->height/2;
 
-  // background
+  /* background */
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
 
   renderer_ops->fill_ellipse(renderer, &center, elem->width, elem->height, &ACTOR_BG_COLOR);
 
-  // foreground
+  /* foreground */
   renderer_ops->set_linewidth(renderer, ACTOR_BORDER_WIDTH);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->draw_ellipse(renderer, &center, elem->width, elem->height, &ACTOR_FG_COLOR);
 
-  // text
+  /* text */
   text_draw(actor->text, renderer);
 
-  // computing and drawing decorations
+  /* computing and drawing decorations */
   r  = elem->height/2.0;
   th = actor->text->height;
   dy = r - th;
@@ -331,8 +329,6 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   pi1.y=elem->corner.y + elem->height - th;
   pi2.x=ps2.x;
   pi2.y=pi1.y;
-
-//fprintf(stdout,"TYPE: %d %lf %lf \n",actor->type,dx,dy);
 
   renderer_ops->set_linewidth(renderer, ACTOR_BORDER_WIDTH);
   switch (actor->type) {
@@ -372,22 +368,22 @@ actor_update_data(Actor *actor, AnchorShape horiz, AnchorShape vert)
 
   text_calc_boundingbox(actor->text, NULL);
   width = actor->text->max_width+0.5;
-  height = actor->text->height * (actor->text->numlines + 3); // added 3 blank lines for top
+  height = actor->text->height * (actor->text->numlines + 3); /* added 3 blank lines for top */
 
-  // minimal radius
+  /* minimal radius */
   mradius=width;
   if (mradius<height) mradius=height;
   if (mradius<ACTOR_RADIUS) mradius=ACTOR_RADIUS;
   
-  // radius
+  /* radius */
   radius=elem->width;
   if (radius<elem->height) radius=elem->height;
   
-  // enforce (minimal or resized) radius
+  /* enforce (minimal or resized) radius */
   if (radius<mradius) radius=mradius;
   elem->width=elem->height=radius;
 
-  // move shape if necessary ... (untouched)
+  /* move shape if necessary ... (untouched) */
   switch (horiz) {
     case ANCHOR_MIDDLE:
       elem->corner.x = center.x - elem->width/2; break;
@@ -411,7 +407,7 @@ actor_update_data(Actor *actor, AnchorShape horiz, AnchorShape vert)
     actor->text->ascent;
   text_set_position(actor->text, &p);
 
-  // compute connection positions
+  /* compute connection positions */
   c.x = elem->corner.x + elem->width / 2;
   c.y = elem->corner.y + elem->height / 2;
   dw = elem->width  / 2.0;
@@ -430,7 +426,7 @@ actor_update_data(Actor *actor, AnchorShape horiz, AnchorShape vert)
   element_update_handles(elem);
 }
 
-// creation stuff
+/* creation stuff */
 static DiaObject 
 *actor_create(Point *startpoint,
 	   void *user_data,
@@ -443,7 +439,6 @@ static DiaObject
   Point p;
   int i;
   DiaFont *font = NULL;
-//  real font_height;
 
   actor = g_malloc0(sizeof(Actor));
   elem = &actor->element;
@@ -458,7 +453,6 @@ static DiaObject
   elem->height = ACTOR_RADIUS;
 
   font = dia_font_new_from_style( DIA_FONT_SANS, ACTOR_FONT);
-//  attributes_get_default_font(&font, &font_height);
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + ACTOR_FONT / 2;
@@ -474,7 +468,7 @@ static DiaObject
     actor->connections[i].connected = NULL;
   }
 
-  // init
+  /* init */
   switch (GPOINTER_TO_INT(user_data)) {
     case 1: actor->type=ACTOR_UNSPECIFIED; break;
     case 2:  actor->type=ACTOR_AGENT; break;

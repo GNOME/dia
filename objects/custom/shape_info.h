@@ -166,7 +166,6 @@ ShapeInfo *shape_info_getbyname(const gchar *name);
 
 void shape_info_realise(ShapeInfo* info);
 void shape_info_print(ShapeInfo *info);
-void parse_path(ShapeInfo *info, const char *path_str, DiaSvgGraphicStyle *s);
 
 /*MC 11/03 handy g_new0 variant for struct with variable size */
 #define g_new0_ext(struct_type, ext_size)		\

@@ -67,7 +67,7 @@ typedef enum {
   ANCHOR_END
 } AnchorShape;
 
-// Domain Type
+/* Domain Type */
 
 typedef enum {
   DOMAIN_GIVEN,
@@ -82,7 +82,7 @@ static PropEnumData prop_domain_type_data[] = {
   { NULL, 0}
 };
 
-// Domain qualifier
+/* Domain qualifier */
 
 typedef enum {
   DOMAIN_NONE,
@@ -111,7 +111,7 @@ typedef struct _Box {
   DomainKind domkind;
 
   TextAttributes attrs;
-  int init;  // workaround for property bug
+  int init;  /* workaround for property bug */
 } Box;
 
 static real jackson_box_distance_from(Box *box, Point *point);
@@ -169,8 +169,6 @@ static ObjectOps jackson_box_ops = {
   (SetPropsFunc)        jackson_box_set_props
 };
 
-//static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };
-
 static PropDescription box_props[] = {
   ELEMENT_COMMON_PROPERTIES,
 
@@ -217,7 +215,6 @@ static PropOffset box_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "domtype", PROP_TYPE_ENUM, offsetof(Box,domtype)},
   { "domkind", PROP_TYPE_ENUM, offsetof(Box,domkind)},
-//  { "padding",PROP_TYPE_REAL,offsetof(Box,padding)},
   { "text", PROP_TYPE_TEXT, offsetof(Box,text)},
   { "text_alignment",PROP_TYPE_ENUM,offsetof(Box,attrs.alignment)},
   { "text_font",PROP_TYPE_FONT,offsetof(Box,attrs.font)},
@@ -241,8 +238,7 @@ jackson_box_get_props(Box *box, GPtrArray *props)
 static void
 jackson_box_set_props(Box *box, GPtrArray *props)
 {
-//  fprintf(stdout,"SET PROPS CALLED - type was: %d \n",box->domtype);
-  if (box->init==-1) { box->init++; return; }   // workaround init bug
+  if (box->init==-1) { box->init++; return; }   /* workaround init bug */
 
   object_set_props_from_offsets(&box->element.object,
                                 box_offsets,props);
@@ -250,7 +246,6 @@ jackson_box_set_props(Box *box, GPtrArray *props)
   apply_textattr_properties(props,box->text,"text",&box->attrs);
   jackson_box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
-//  fprintf(stdout,"DRAW TYPE IS NOW %d \n",box->domtype);
 }
 
 static real
@@ -332,11 +327,11 @@ jackson_box_draw(Box *box, DiaRenderer *renderer)
   real idfontheight;
   char* s;
 
-  // some asserts
+  /* some asserts */
   assert(box != NULL);
   assert(renderer != NULL);
 
-  // computing positions
+  /* computing positions */
   elem = &box->element;
 
   b0.x = elem->corner.x;
@@ -354,7 +349,7 @@ jackson_box_draw(Box *box, DiaRenderer *renderer)
   p2b.x= p2t.x;
   p2b.y= p1b.y;
 
-  // drawing main box
+  /* drawing main box */
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->fill_rect(renderer, &b0, &b1, &JACKSON_BOX_BG_COLOR);
 
@@ -364,9 +359,7 @@ jackson_box_draw(Box *box, DiaRenderer *renderer)
 
   renderer_ops->draw_rect(renderer, &b0, &b1, &JACKSON_BOX_FG_COLOR);
 
-// fprintf(stdout,"DRAW TYPE IS %d \n",box->domtype);
-
-  // adding lines for designed/machine domains
+  /* adding lines for designed/machine domains */
   if (box->domtype!=DOMAIN_GIVEN) {
       renderer_ops->draw_line(renderer, &p1t, &p1b, &JACKSON_BOX_FG_COLOR);
   }
@@ -375,7 +368,7 @@ jackson_box_draw(Box *box, DiaRenderer *renderer)
       renderer_ops->draw_line(renderer, &p2t, &p2b, &JACKSON_BOX_FG_COLOR);
   }
 
-  // adding corner for optional qualifier
+  /* adding corner for optional qualifier */
   idfontheight = box->text->height;
   renderer_ops->set_font(renderer, box->text->font, idfontheight);
   b2 = b3 = b1;
@@ -396,7 +389,6 @@ jackson_box_draw(Box *box, DiaRenderer *renderer)
     renderer_ops->draw_string(renderer, &(*s), &b2, ALIGN_RIGHT, &box->text->color);
   }
 
-  // drawing text
   text_draw(box->text, renderer);
 }
 
@@ -586,7 +578,7 @@ jackson_box_create(Point *startpoint,
 
   box->padding = DEFAULT_PADDING;
 
-  // text stuff
+  /* text stuff */
   p = *startpoint;
   p.x += (LEFT_SPACE +elem->width) / 2.0;
   p.y += elem->height / 2.0 + DEFAULT_FONT / 2;
@@ -612,9 +604,7 @@ jackson_box_create(Point *startpoint,
   *handle1 = NULL;
   *handle2 = obj->handles[7];
 
-  // template information here
-
-//  fprintf(stdout,"USER DATA IS %d \n",GPOINTER_TO_INT(user_data));
+  /* template information here */
 
   switch (GPOINTER_TO_INT(user_data)) {
     case 1:  box->domtype=DOMAIN_GIVEN; break;
@@ -622,8 +612,6 @@ jackson_box_create(Point *startpoint,
     case 3:  box->domtype=DOMAIN_MACHINE; break;
     default: box->domtype=DOMAIN_GIVEN; break;
   }
-
-//  fprintf(stdout,"TYPE IS SET TO %d \n",box->domtype);
 
   box->domkind=DOMAIN_NONE;
 
