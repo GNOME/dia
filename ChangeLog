@@ -1,5 +1,8 @@
 2001-06-10  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* app/app_procs.c: commented out the call to
+	bind_textdomain_codeset(): it's premature.
+	
 	* lib/connpoint_line.c: a NULL point can be given to
 	connpointline_adjust_count(), in case there's not really a clicked
 	point.

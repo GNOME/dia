@@ -171,7 +171,7 @@ app_init (int argc, char **argv)
 
   bindtextdomain(PACKAGE, LOCALEDIR);
 #ifdef UNICODE_WORK_IN_PROGRESS
-  bind_textdomain_codeset(PACKAGE,"UTF-8");
+  /*  bind_textdomain_codeset(PACKAGE,"UTF-8"); */ /* only for GTK2 -- CC */
 #endif
   textdomain(PACKAGE);
 
