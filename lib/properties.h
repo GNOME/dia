@@ -19,8 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef PROPERTIES_H
-#define PROPERTIES_H
+#ifndef LIB_PROPERTIES_H
+#define LIB_PROPERTIES_H
 
 #include <gtk/gtk.h>
 #ifdef HAVE_STDDEF_H

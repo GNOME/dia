@@ -36,6 +36,14 @@ void edit_paste_callback(GtkWidget *widget, gpointer data);
 void edit_delete_callback(GtkWidget *widget, gpointer data);
 void edit_undo_callback(GtkWidget *widget, gpointer data);
 void edit_redo_callback(GtkWidget *widget, gpointer data);
+void edit_paste_text_callback(GtkWidget *widget, gpointer data);
+void edit_copy_text_callback(GtkWidget *widget, gpointer data);
+void edit_cut_text_callback(GtkWidget *widget, gpointer data);
+
+void received_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
+				gpointer data);
+void get_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
+			   gpointer data);
 
 extern void view_zoom_in_callback(GtkWidget *widget, gpointer data);
 extern void view_zoom_out_callback(GtkWidget *widget, gpointer data);

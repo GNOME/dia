@@ -123,6 +123,9 @@ void diagram_update_menu_sensitivity(Diagram *dia)
 #ifndef GNOME
   static GtkWidget *delete;
 #endif
+  static GtkWidget *copy_text;
+  static GtkWidget *cut_text;
+  static GtkWidget *paste_text;
 
   static GtkWidget *send_to_back;
   static GtkWidget *bring_to_front;
@@ -159,6 +162,13 @@ void diagram_update_menu_sensitivity(Diagram *dia)
     g_string_append (g_string_assign(path, display),_("/Edit/Delete"));
     delete = menus_get_item_from_path(path->str);
 #   endif
+
+    g_string_append (g_string_assign(path, display),_("/Edit/Copy Text"));
+    copy_text = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Edit/Cut Text"));
+    cut_text = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Edit/Paste Text"));
+    paste_text = menus_get_item_from_path(path->str);
 
     g_string_append (g_string_assign(path, display),_("/Objects/Send to Back"));
     send_to_back = menus_get_item_from_path(path->str);
@@ -201,6 +211,10 @@ void diagram_update_menu_sensitivity(Diagram *dia)
 #ifndef GNOME
   gtk_widget_set_sensitive(delete, dia->data->selected_count > 0);
 #endif
+
+  gtk_widget_set_sensitive(copy_text, active_focus() != NULL);
+  gtk_widget_set_sensitive(cut_text, 0); /* Not implemented */
+  gtk_widget_set_sensitive(paste_text, active_focus() != NULL);
 
   gtk_widget_set_sensitive(send_to_back, dia->data->selected_count > 0);
   gtk_widget_set_sensitive(bring_to_front, dia->data->selected_count > 0);

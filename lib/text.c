@@ -809,10 +809,10 @@ text_key_event(Focus *focus, guint keyval, char *str, int strlen,
     }
     break;
   }  
-
+  
   return return_val;
 }
-  
+
 int text_is_empty(Text *text)
 {
   int i;

@@ -78,6 +78,9 @@ static GnomeUIInfo editmenu[] = {
     GDK_D, GDK_CONTROL_MASK },
   GNOMEUIINFO_MENU_UNDO_ITEM(edit_undo_callback, NULL),
   GNOMEUIINFO_MENU_REDO_ITEM(edit_redo_callback, NULL),
+  GNOMEUIINFO_ITEM_NONE(N_("Copy Text"), NULL, edit_copy_text_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("Cut Text"), NULL, edit_cut_text_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("Paste _Text"), NULL, edit_paste_text_callback),
   GNOMEUIINFO_END
 };
 
@@ -250,8 +253,11 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Edit/C_ut"),              "<control>X", edit_cut_callback,          0},
   {N_("/Edit/_Paste"),            "<control>V", edit_paste_callback,        0},
   {N_("/Edit/_Delete"),           "<control>D", edit_delete_callback,       0},
-  {N_("/Edit/_Undo"),             "<control>Z", edit_undo_callback,        0},
-  {N_("/Edit/_Redo"),             "<control>R", edit_redo_callback,        0},
+  {N_("/Edit/_Undo"),             "<control>Z", edit_undo_callback,         0},
+  {N_("/Edit/_Redo"),             "<control>R", edit_redo_callback,         0},
+  {N_("/Edit/Copy Text"),         NULL,         edit_copy_text_callback,    0},
+  {N_("/Edit/Cut Text"),          NULL,         edit_cut_text_callback,     0},
+  {N_("/Edit/Paste _Text"),       NULL,         edit_paste_text_callback,   0},
   {N_("/_View"),                  NULL,         NULL,                       0, "<Branch>"},
   /*  {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" }, */
   {N_("/View/Zoom _In"),          NULL,          view_zoom_in_callback,     0},

@@ -53,6 +53,10 @@
 #include "undo.h"
 #include "pagesetup.h"
 #include "dia_dirs.h"
+#include "focus.h"
+#include "gdk/gdk.h"
+#include "gdk/gdkkeysyms.h"
+#include "lib/properties.h"
 
 GdkImlibImage *logo;
 
@@ -238,6 +242,130 @@ edit_paste_callback(GtkWidget *widget, gpointer data)
   diagram_select_list(ddisp->diagram, paste_list);
 
   diagram_flush(ddisp->diagram);
+}
+
+/* Signal handler for getting the selection from whoever */
+void
+received_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
+			   gpointer data)
+{
+  Focus *focus = active_focus();
+  gchar *text;
+  int i;
+  ObjectChange *change = NULL;
+  int modified, any_modified = FALSE;
+  Object *obj;
+  DDisplay *ddisp = ddisplay_active();
+
+  if ((focus == NULL) || (!focus->has_focus)) return;
+
+  obj = focus->obj;
+
+  /* **** IMPORTANT **** Check to see if retrieval succeeded  */
+  if (selection->length < 0)
+  {
+    g_print ("Selection retrieval failed\n");
+    return;
+  }
+  /* Make sure we got the data in the expected form */
+  if (selection->type != GDK_SELECTION_TYPE_STRING)
+  {
+    g_print ("Selection \"STRING\" was not returned as a string!\n");
+    return;
+  }
+
+  text = (gchar *)selection->data;
+  for (i = 0; i < selection->length; i++) {
+    if (text[i] == '\n') {
+      modified = (*focus->key_event)(focus, GDK_Return, "\n", 1, &change);
+    } else {
+      modified = (*focus->key_event)(focus, GDK_A, &text[i], 1, &change);
+    }
+    { /* Make sure object updates its data: */
+      Point p = obj->position;
+      (obj->ops->move)(obj,&p);  }
+
+    /* Perhaps this can be improved */
+    object_add_updates(obj, ddisp->diagram);
+    
+    if (modified && (change != NULL)) {
+      undo_object_change(ddisp->diagram, obj, change);
+      any_modified = TRUE;
+    }
+    
+    diagram_flush(ddisp->diagram);
+  }
+
+  if (any_modified) 
+    undo_set_transactionpoint(ddisp->diagram->undo);
+}
+
+static char *current_clipboard;
+
+void
+get_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
+		      gpointer data) {
+  if (current_clipboard) {
+    gtk_selection_data_set(selection, GDK_TARGET_STRING,
+			   8, current_clipboard, strlen(current_clipboard));
+  }
+}
+
+void
+edit_copy_text_callback(GtkWidget *widget, gpointer data)
+{
+  Focus *focus = active_focus();
+  DDisplay *ddisp;
+  Object *obj;
+  Property textprop;
+
+  if ((focus == NULL) || (!focus->has_focus)) return;
+
+  ddisp = ddisplay_active();
+
+  obj = focus->obj;
+
+  if (obj->ops->get_props == NULL) 
+    return;
+
+  textprop.name = "text";
+  textprop.type = PROP_TYPE_INVALID;
+  PROP_VALUE_STRING(textprop) = NULL;
+
+  /* Get the first text property */
+  obj->ops->get_props(obj, &textprop, 1);
+  
+  if (current_clipboard) g_free(current_clipboard);
+
+  if (textprop.type != PROP_TYPE_STRING)
+    return;
+
+  current_clipboard = g_strdup(PROP_VALUE_STRING(textprop));
+
+  prop_free(&textprop);
+
+  gtk_selection_owner_set(GTK_WIDGET(ddisp->shell),
+			  GDK_SELECTION_PRIMARY,
+			  GDK_CURRENT_TIME);
+  gtk_selection_add_target(GTK_WIDGET(ddisp->shell),
+			   GDK_SELECTION_PRIMARY,
+			   GDK_TARGET_STRING, 0);
+}
+
+void
+edit_cut_text_callback(GtkWidget *widget, gpointer data)
+{
+}
+
+void
+edit_paste_text_callback(GtkWidget *widget, gpointer data)
+{
+  DDisplay *ddisp;
+
+  ddisp = ddisplay_active();
+
+  gtk_selection_convert(ddisp->shell, GDK_SELECTION_PRIMARY, GDK_TARGET_STRING,
+			GDK_CURRENT_TIME);
 }
 
 void
