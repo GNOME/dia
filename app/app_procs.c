@@ -30,17 +30,18 @@
 
 #include "config.h"
 
-#if defined (HAVE_LIBPOPT) && defined (HAVE_POPT_H)
+#if (defined (HAVE_LIBPOPT) && defined (HAVE_POPT_H)) || defined (GNOME)
 #define HAVE_POPT
 #endif
 
 #ifdef GNOME
 #include <gnome.h>
 #else
-#ifdef HAVE_POPT
+#ifdef HAVE_POPT_H
 #include <popt.h>
 #endif
 #endif
+
 #include "intl.h"
 #include "app_procs.h"
 #include "object.h"
