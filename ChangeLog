@@ -1,5 +1,8 @@
 2005-03-19  Hans Breuer  <hans@breuer.org>
 
+	* objects/UML/state.c : ("UML - State")::type is PROP_FLAG_OPTIONAL,
+	or better not used any longer. Fixes bug #169142.
+
 	* lib/element.c(element_update_connections_rectangle): don't initialize 
 	the eighth point twice but instead the nineth once
 

@@ -130,7 +130,7 @@ static PropDescription state_props[] = {
       /* see below for the next field.
 
       Warning: break this and you'll get angry UML users after you. */
-  { "type", PROP_TYPE_INT, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY,
+  { "type", PROP_TYPE_INT, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL,
     "hack", NULL, NULL },
   
   PROP_STD_LINE_COLOUR_OPTIONAL, 
