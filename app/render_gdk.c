@@ -178,6 +178,8 @@ draw_pixel_line(DiaRenderer *object,
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
   GdkGC *gc = renderer->gc;
   GdkColor gdkcolor;
+
+  dia_gdk_renderer_set_dashes(renderer, x1+y1);
   
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
@@ -195,6 +197,8 @@ draw_pixel_rect(DiaRenderer *object,
   GdkGC *gc = renderer->gc;
   GdkColor gdkcolor;
     
+  dia_gdk_renderer_set_dashes(renderer, x+y);
+
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
 

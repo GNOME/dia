@@ -1,3 +1,14 @@
+2004-04-30  Lars Clausen  <larsrc@linux.local>
+
+	* app/undo.c: Undoing broken undo stuff for diagram properties and
+	page setup.  Shouldn't be mixed into undo at all.
+
+	* app/render_gdk.c (draw_pixel_line): Use the dash-setting
+	function to avoid in particular the grid crawling.
+
+	* lib/diagdkrenderer.[ch] (dia_gdk_renderer_set_dashes): Function
+	to allow aligning dashes, so they don't crawl.
+
 2004-04-28  Lars Clausen  <lars@raeder.dk>
 
 	* app/Makefile.am: New files diacanvas.[ch]

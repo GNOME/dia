@@ -329,27 +329,27 @@ set_linejoin (DiaRenderer *object, LineJoin mode)
 			     renderer->join_style);
 }
 
-static void 
-set_linestyle (DiaRenderer *object, LineStyle mode)
+/** Set the dashes for this renderer.
+ * offset determines where in the pattern the dashes will start.
+ * It is used by the grid in particular to make the grid dashes line up.
+ */
+void
+dia_gdk_renderer_set_dashes(DiaGdkRenderer *renderer, int offset)
 {
-  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
-
   char dash_list[6];
   int hole_width;
+  int pattern_length;
   
-  renderer->saved_line_style = mode;
-  switch(mode) {
+  switch(renderer->saved_line_style) {
   case LINESTYLE_SOLID:
-    renderer->line_style = GDK_LINE_SOLID;
     break;
   case LINESTYLE_DASHED:
-    renderer->line_style = GDK_LINE_ON_OFF_DASH;
     dash_list[0] = renderer->dash_length;
     dash_list[1] = renderer->dash_length;
-    gdk_gc_set_dashes(renderer->gc, 0, dash_list, 2);
+    pattern_length = renderer->dash_length*2;
+    gdk_gc_set_dashes(renderer->gc, offset, dash_list, 2);
     break;
   case LINESTYLE_DASH_DOT:
-    renderer->line_style = GDK_LINE_ON_OFF_DASH;
     hole_width = (renderer->dash_length - renderer->dot_length) / 2;
     if (hole_width==0)
       hole_width = 1;
@@ -357,10 +357,10 @@ set_linestyle (DiaRenderer *object, LineStyle mode)
     dash_list[1] = hole_width;
     dash_list[2] = renderer->dot_length;
     dash_list[3] = hole_width;
-    gdk_gc_set_dashes(renderer->gc, 0, dash_list, 4);
+    pattern_length = renderer->dash_length+renderer->dot_length+2*hole_width;
+    gdk_gc_set_dashes(renderer->gc, offset, dash_list, 2);
     break;
   case LINESTYLE_DASH_DOT_DOT:
-    renderer->line_style = GDK_LINE_ON_OFF_DASH;
     hole_width = (renderer->dash_length - 2*renderer->dot_length) / 3;
     if (hole_width==0)
       hole_width = 1;
@@ -370,13 +370,44 @@ set_linestyle (DiaRenderer *object, LineStyle mode)
     dash_list[3] = hole_width;
     dash_list[4] = renderer->dot_length;
     dash_list[5] = hole_width;
-    gdk_gc_set_dashes(renderer->gc, 0, dash_list, 6);
+    pattern_length = renderer->dash_length+2*renderer->dot_length+3*hole_width;
+    gdk_gc_set_dashes(renderer->gc, offset, dash_list, 2);
+    break;
+  case LINESTYLE_DOTTED:
+    dash_list[0] = renderer->dot_length;
+    dash_list[1] = renderer->dot_length;
+    pattern_length = renderer->dot_length;
+    gdk_gc_set_dashes(renderer->gc, offset, dash_list, 2);
+    break;
+  }
+
+}
+
+static void 
+set_linestyle (DiaRenderer *object, LineStyle mode)
+{
+  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
+
+  renderer->saved_line_style = mode;
+  switch(mode) {
+  case LINESTYLE_SOLID:
+    renderer->line_style = GDK_LINE_SOLID;
+    break;
+  case LINESTYLE_DASHED:
+    renderer->line_style = GDK_LINE_ON_OFF_DASH;
+    dia_gdk_renderer_set_dashes(renderer, 0);
+    break;
+  case LINESTYLE_DASH_DOT:
+    renderer->line_style = GDK_LINE_ON_OFF_DASH;
+    dia_gdk_renderer_set_dashes(renderer, 0);
+    break;
+  case LINESTYLE_DASH_DOT_DOT:
+    renderer->line_style = GDK_LINE_ON_OFF_DASH;
+    dia_gdk_renderer_set_dashes(renderer, 0);
     break;
   case LINESTYLE_DOTTED:
     renderer->line_style = GDK_LINE_ON_OFF_DASH;
-    dash_list[0] = renderer->dot_length;
-    dash_list[1] = renderer->dot_length;
-    gdk_gc_set_dashes(renderer->gc, 0, dash_list, 2);
+    dia_gdk_renderer_set_dashes(renderer, 0);
     break;
   }
   gdk_gc_set_line_attributes(renderer->gc,
