@@ -483,6 +483,15 @@ box_update_data(Box *box)
   box->connections[7].pos.x = elem->corner.x + elem->width - radius;
   box->connections[7].pos.y = elem->corner.y + elem->height - radius;
 
+  box->connections[0].directions = DIR_NORTH|DIR_WEST;
+  box->connections[1].directions = DIR_NORTH;
+  box->connections[2].directions = DIR_NORTH|DIR_EAST;
+  box->connections[3].directions = DIR_WEST;
+  box->connections[4].directions = DIR_EAST;
+  box->connections[5].directions = DIR_SOUTH|DIR_WEST;
+  box->connections[6].directions = DIR_SOUTH;
+  box->connections[7].directions = DIR_SOUTH|DIR_EAST;
+
   extra->border_trans = box->border_width / 2.0;
   element_update_boundingbox(elem);
   

@@ -174,6 +174,12 @@ zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
   orthconn_update_data(&zigzagline->orth);
 }
 
+static gboolean
+zigzagline_check_orientation(ConnectionPoint *p1, ConnectionPoint *p2)
+{
+  return TRUE;
+}
+
 static void
 zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
@@ -183,6 +189,14 @@ zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
   assert(to!=NULL);
 
   orthconn_move_handle(&zigzagline->orth, handle, to, reason);
+  if (reason == HANDLE_MOVE_CREATE || reason == HANDLE_MOVE_CREATE_FINAL) {
+    gboolean horizontal;
+    OrthConn *orth = &zigzagline->orth;
+
+    printf("Final move reason %d\n", reason);
+    horizontal = zigzagline_check_orientation(orth->object.connections[0],
+					      orth->object.connections[orth->numpoints-1]);
+  }
   zigzagline_update_data(zigzagline);
 }
 

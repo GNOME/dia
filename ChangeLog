@@ -1,3 +1,9 @@
+2002-07-27  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/standard/box.c: 
+	* objects/standard/zigzagline.c (zigzagline_move): 
+	More work on zigzagline hints.
+
 2002-07-26  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 	* lib/connectionpoint.h: 
 	Hints for zigzaglines.
