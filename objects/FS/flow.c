@@ -72,12 +72,6 @@ struct _Flow {
 
 static DiaFont *flow_font = NULL;
 
-/* Remember the most recently applied flow type and use it to
-   set the type for any newly created flows
- */
-static FlowType flow_most_recent_type = FLOW_ENERGY ;
-static Text* flow_default_label = 0 ;
-
 static void flow_move_handle(Flow *flow, Handle *handle,
 			     Point *to, HandleMoveReason reason);
 static void flow_move(Flow *flow, Point *to);
@@ -152,7 +146,8 @@ static PropDescription flow_props[] = {
   PROP_STD_TEXT_ALIGNMENT,
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
-  PROP_STD_TEXT_COLOUR,
+  /* Colour determined from type, don't show */
+  { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_DONT_SAVE, },
   PROP_DESC_END
 };
 
@@ -368,6 +363,7 @@ flow_create(Point *startpoint,
   LineBBExtras *extra;
   Point p ;
   Point n ;
+  DiaFont *font;
 
   flow = g_malloc0(sizeof(Flow));
 
@@ -383,8 +379,6 @@ flow_create(Point *startpoint,
   obj->ops = &flow_ops;
   
   connection_init(conn, 3, 0);
-
-  flow->type = flow_most_recent_type ;
 
   p = conn->endpoints[1] ;
   point_sub( &p, &conn->endpoints[0] ) ;
@@ -403,32 +397,11 @@ flow_create(Point *startpoint,
   point_add( &p, &conn->endpoints[0] ) ;
   flow->textpos = p;
 
-  if ( flow_default_label ) {
-    flow->text = text_copy( flow_default_label ) ;
-    text_set_position( flow->text, &conn->endpoints[1] ) ;
-  } else {
-    Color* color = NULL;
+  font = dia_font_new_from_style(DIA_FONT_SANS, 0.8);
 
-    if (flow_font == NULL) {
-	    flow_font = dia_font_new_from_style (DIA_FONT_SANS|DIA_FONT_ITALIC,
-                                           FLOW_FONTHEIGHT);
-    }
-
-    switch (flow->type) {
-    case FLOW_ENERGY:
-      color = &flow_color_energy ;
-      break ;
-    case FLOW_MATERIAL:
-      color = &flow_color_material ;
-      break ;
-    case FLOW_SIGNAL:
-      color = &flow_color_signal ;
-      break ;
-    }
-
-    flow->text = new_text("", flow_font, FLOW_FONTHEIGHT, 
-                          &conn->endpoints[0], color, ALIGN_CENTER);
-  }
+  flow->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  dia_font_unref(font);  
+  text_get_attributes(flow->text, &flow->attrs);
 
   flow->text_handle.id = HANDLE_MOVE_TEXT;
   flow->text_handle.type = HANDLE_MINOR_CONTROL;

@@ -780,7 +780,7 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
   for (tmp = sheet->objects; tmp != NULL; tmp = tmp->next) {
     SheetObject *sheet_obj = tmp->data;
     GdkPixmap *pixmap;
-    GdkBitmap *mask;
+    GdkBitmap *mask = NULL;
     GtkWidget *pixmapwidget;
     GtkWidget *button;
     ToolButtonData *data;

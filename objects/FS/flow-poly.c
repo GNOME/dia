@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -42,7 +41,6 @@ Color flow_color_material = { 0.8f, 0.0f, 0.8f };
 Color flow_color_signal   = { 0.0f, 0.0f, 1.0f };
 
 typedef struct _Flow Flow;
-typedef struct _FlowDialog FlowDialog;
 
 typedef enum {
     FLOW_ENERGY,
@@ -59,16 +57,6 @@ struct _Flow {
   FlowType type;
 };
 
-struct _FlowDialog {
-  GtkWidget *dialog;
-  
-  GtkWidget *text;
-
-  GtkWidget *m_energy;
-  GtkWidget *m_material;
-  GtkWidget *m_signal;
-};
-  
 #define FLOW_WIDTH 0.1
 #define FLOW_MATERIAL_WIDTH 0.2
 #define FLOW_DASHLEN 0.4
@@ -76,17 +64,6 @@ struct _FlowDialog {
 #define FLOW_ARROWLEN 0.8
 #define FLOW_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
-
-static DiaFont *flow_font = NULL;
-
-static FlowDialog *properties_dialog;
-static FlowDialog *defaults_dialog;
-
-/* Remember the most recently applied flow type and use it to
-   set the type for any newly created flows
- */
-static FlowType flow_most_recent_type = FLOW_ENERGY ;
-static Text* flow_default_label = 0 ;
 
 static void flow_move_handle(Flow *flow, Handle *handle,
 				   Point *to, HandleMoveReason reason);
@@ -102,10 +79,6 @@ static real flow_distance_from(Flow *flow, Point *point);
 static void flow_update_data(Flow *flow);
 static void flow_destroy(Flow *flow);
 static Object *flow_copy(Flow *flow);
-static GtkWidget *flow_get_properties(Flow *flow, gboolean is_default);
-static ObjectChange *flow_apply_properties(Flow *flow);
-static GtkWidget *flow_get_defaults();
-static void flow_apply_defaults();
 static void flow_save(Flow *flow, ObjectNode obj_node,
 			 const char *filename);
 static Object *flow_load(ObjectNode obj_node, int version,
@@ -118,8 +91,8 @@ static ObjectTypeOps flow_type_ops =
   (CreateFunc)		flow_create,
   (LoadFunc)		flow_load,
   (SaveFunc)		flow_save,
-  (GetDefaultsFunc)	flow_get_defaults,
-  (ApplyDefaultsFunc)	flow_apply_defaults
+  (GetDefaultsFunc)	NULL,
+  (ApplyDefaultsFunc)	NULL,
 } ;
 
 ObjectType flow_type =
@@ -138,10 +111,70 @@ static ObjectOps flow_ops = {
   (CopyFunc)            flow_copy,
   (MoveFunc)            flow_move,
   (MoveHandleFunc)      flow_move_handle,
-  (GetPropertiesFunc)   flow_get_properties,
-  (ApplyPropertiesFunc) flow_apply_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      flow_get_object_menu,
+  (DescribePropsFunc)   flow_describe_props,
+  (GetPropsFunc)        flow_get_props,
+  (SetPropsFunc)        flow_set_props,
 };
+
+static PropEnumData prop_flow_type_data[] = {
+  { N_("Energy"),FLOW_ENERGY },
+  { N_("Material"),FLOW_MATERIAL },
+  { N_("Signal"),FLOW_SIGNAL },
+  { NULL, 0 } 
+};
+
+static PropDescription flow_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+    N_("Type:"), NULL, prop_flow_type_data },
+  { "text", PROP_TYPE_TEXT, PROP_FLAG_VISIBLE, NULL, NULL },
+  PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  /* Colour determined from type, don't show */
+  { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_DONT_SAVE, },
+  PROP_DESC_END
+};
+
+static PropDescription *
+flow_describe_props(Flow *mes)
+{
+  if (flow_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(flow_props);
+  return flow_props;
+
+}
+
+static PropOffset flow_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "type", PROP_TYPE_ENUM, offsetof(Flow, type) },
+  { "text", PROP_TYPE_TEXT, offsetof (Flow, text) },
+  { "text_alignment", PROP_TYPE_ENUM, offsetof (Flow, attrs.alignment) },
+  { "text_font", PROP_TYPE_FONT, offsetof (Flow, attrs.font) },
+  { "text_height", PROP_TYPE_REAL, offsetof (Flow, attrs.height) },
+  { "text_colour", PROP_TYPE_COLOUR, offsetof (Flow, attrs.color) },
+  { NULL, 0, 0 }
+};
+
+static void
+flow_get_props(Flow * flow, GPtrArray *props)
+{
+  text_get_attributes (flow->text, &flow->attrs);
+  object_get_props_from_offsets(&flow->connection.object, 
+                                flow_offsets, props);
+}
+
+static void
+flow_set_props(Flow *flow, GPtrArray *props)
+{
+  object_set_props_from_offsets(&flow->connection.object, 
+                                flow_offsets, props);
+  apply_textattr_properties (props, flow->text, "text", &flow->attrs);
+  flow_update_data(flow);
+}
 
 static real
 flow_distance_from(Flow *flow, Point *point)
@@ -337,8 +370,6 @@ flow_create(Point *startpoint,
   
   connection_init(conn, 3, 0);
 
-  flow->type = flow_most_recent_type ;
-
   p = conn->endpoints[1] ;
   point_sub( &p, &conn->endpoints[0] ) ;
   point_scale( &p, 0.5 ) ;
@@ -353,34 +384,7 @@ flow_create(Point *startpoint,
   point_scale( &n, 0.5*FLOW_FONTHEIGHT ) ;
   point_add( &p, &n ) ;
   point_add( &p, &conn->endpoints[0] ) ;
-
-  if ( flow_default_label ) {
-    flow->text = text_copy( flow_default_label ) ;
-    text_set_position( flow->text, &p ) ;
-  } else {
-    Color* color ;
-
-    if (flow_font == NULL) {
-	    /* choose default font name for your locale. see also font_data structure
-	       in lib/font.c. */
-	    flow_font = font_getfont (_("Helvetica-Oblique"));
-    }
-
-    switch (flow->type) {
-    case FLOW_ENERGY:
-      color = &flow_color_energy ;
-      break ;
-    case FLOW_MATERIAL:
-      color = &flow_color_material ;
-      break ;
-    case FLOW_SIGNAL:
-      color = &flow_color_signal ;
-      break ;
-    }
-
-    flow->text = new_text("", flow_font, FLOW_FONTHEIGHT, 
-			  &p, color, ALIGN_CENTER);
-  }
+  flow->textpos = p;
 
   flow->text_handle.id = HANDLE_MOVE_TEXT;
   flow->text_handle.type = HANDLE_MINOR_CONTROL;
@@ -533,182 +537,6 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   return &flow->connection.object;
 }
 
-
-static ObjectChange *
-flow_apply_properties(Flow *flow)
-{
-  FlowDialog *prop_dialog;
-  
-  prop_dialog = properties_dialog;
-
-  text_set_string(flow->text,
-                  gtk_editable_get_chars( GTK_EDITABLE(prop_dialog->text),
-                                                 0, -1));
-
-  if (GTK_TOGGLE_BUTTON(prop_dialog->m_energy)->active)
-      flow->type = FLOW_ENERGY;
-  else if (GTK_TOGGLE_BUTTON( prop_dialog->m_material )->active) 
-      flow->type = FLOW_MATERIAL;
-  else if (GTK_TOGGLE_BUTTON( prop_dialog->m_signal )->active) 
-      flow->type = FLOW_SIGNAL;
-
-  flow_update_data(flow);
-
-  return NULL;
-}
-
-static void
-fill_in_dialog(Flow *flow)
-{
-  FlowDialog *prop_dialog;
-  char *str;
-  GtkToggleButton *button=NULL;
-
-  prop_dialog = properties_dialog;
-
-  gtk_text_set_point( GTK_TEXT(prop_dialog->text), 0 ) ;
-  gtk_text_forward_delete( GTK_TEXT(prop_dialog->text), 
-			     gtk_text_get_length(GTK_TEXT(prop_dialog->text))) ;
-  gtk_text_insert( GTK_TEXT(prop_dialog->text),
-                   NULL, NULL, NULL,
-                   text_get_string_copy(flow->text),
-                   -1);
-
-  switch (flow->type) {
-  case FLOW_ENERGY:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_energy);
-      break;
-  case FLOW_MATERIAL:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_material);
-      break;
-  case FLOW_SIGNAL:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_signal);
-      break;
-  }
-  if (button)
-    gtk_toggle_button_set_active(button, TRUE);
-}
-
-
-static void
-fill_in_defaults_dialog()
-{
-  FlowDialog *prop_dialog;
-  char *str;
-  GtkToggleButton *button=NULL;
-
-  prop_dialog = defaults_dialog;
-
-  if ( flow_default_label ) {
-    gtk_text_set_point( GTK_TEXT(prop_dialog->text), 0 ) ;
-    gtk_text_forward_delete( GTK_TEXT(prop_dialog->text), 
-			     gtk_text_get_length(GTK_TEXT(prop_dialog->text))) ;
-    gtk_text_insert( GTK_TEXT(prop_dialog->text),
-		     NULL, NULL, NULL,
-		     text_get_string_copy(flow_default_label),
-		     -1) ;
-  }
-
-  switch (flow_most_recent_type) {
-  case FLOW_ENERGY:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_energy);
-      break;
-  case FLOW_MATERIAL:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_material);
-      break;
-  case FLOW_SIGNAL:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->m_signal);
-      break;
-  }
-  if (button)
-    gtk_toggle_button_set_active(button, TRUE);
-}
-
-
-static GtkWidget *
-flow_get_properties(Flow *flow, gboolean is_default)
-{
-  FlowDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GSList *group;
-
-  if (properties_dialog == NULL) {
-
-    prop_dialog = g_new(FlowDialog, 1);
-    properties_dialog = prop_dialog;
-    
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Flow:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_text_new(NULL, NULL);
-    prop_dialog->text = entry ;
-    gtk_text_set_editable(GTK_TEXT(entry), TRUE);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    label = gtk_hseparator_new ();
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-
-    label = gtk_label_new(_("Flow type:"));
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-
-    /* */
-    prop_dialog->m_energy = gtk_radio_button_new_with_label (NULL, _("Energy"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_energy, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_energy);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prop_dialog->m_energy), TRUE);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_energy));
-
-    prop_dialog->m_material = gtk_radio_button_new_with_label(group, _("Material"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_material, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_material);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_material));
-
-    prop_dialog->m_signal = gtk_radio_button_new_with_label(group, _("Signal"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_signal, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_signal);
-
-#if 0
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_signal));
-#endif
-  }
-  
-  fill_in_dialog(flow);
-  gtk_widget_show (properties_dialog->dialog);
-
-  return properties_dialog->dialog;
-}
-
-static void
-flow_update_defaults( Flow* flow, char update_text )
-{
-  FlowDialog *prop_dialog = defaults_dialog ;
-
-  flow_most_recent_type = flow->type ;
-
-  if (update_text) {
-    if ( flow_default_label )
-      text_destroy( flow_default_label ) ;
-    flow_default_label = text_copy( flow->text ) ;
-  }
-}
-
 static ObjectChange *
 flow_set_type_callback (Object* obj, Point* clicked, gpointer data)
 {
@@ -741,113 +569,3 @@ flow_get_object_menu(Flow *flow, Point *clickedpoint)
   flow_menu_items[0].active = 1;
   return &flow_menu;
 }
-
-static GtkWidget *
-flow_get_defaults()
-{
-  FlowDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GSList *group;
-
-  if (defaults_dialog == NULL) {
-
-    prop_dialog = g_new(FlowDialog, 1);
-    defaults_dialog = prop_dialog;
-    
-    dialog = gtk_vbox_new(FALSE, 0);
-    prop_dialog->dialog = dialog;
-
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Flow:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_text_new(NULL, NULL);
-    prop_dialog->text = entry ;
-    gtk_text_set_editable(GTK_TEXT(entry), TRUE);
-    gtk_widget_set_usize( GTK_WIDGET(entry), 100, 50 ) ;
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    label = gtk_hseparator_new ();
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-
-    label = gtk_label_new(_("Flow type:"));
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-
-    /* */
-    prop_dialog->m_energy = gtk_radio_button_new_with_label (NULL, _("Energy"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_energy, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_energy);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prop_dialog->m_energy), TRUE);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_energy));
-
-    prop_dialog->m_material = gtk_radio_button_new_with_label(group, _("Material"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_material, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_material);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->m_material));
-
-    prop_dialog->m_signal = gtk_radio_button_new_with_label(group, _("Signal"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_signal, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->m_signal);
-  }
-  
-  fill_in_defaults_dialog();
-  gtk_widget_show (defaults_dialog->dialog);
-
-  return defaults_dialog->dialog;
-}
-
-static void
-flow_apply_defaults()
-{
-  FlowDialog *prop_dialog;
-  Color* color = 0 ;
-
-  prop_dialog = defaults_dialog;
-
-  if (GTK_TOGGLE_BUTTON(prop_dialog->m_energy)->active) {
-    flow_most_recent_type = FLOW_ENERGY;
-    color = &flow_color_energy ;
-  } else if (GTK_TOGGLE_BUTTON( prop_dialog->m_material )->active) {
-    flow_most_recent_type = FLOW_MATERIAL;
-    color = &flow_color_material ;
-  } else if (GTK_TOGGLE_BUTTON( prop_dialog->m_signal )->active) {
-    flow_most_recent_type = FLOW_SIGNAL;
-    color = &flow_color_signal ;
-  }
-
-  if ( ! flow_default_label ) {
-    Point p ;
-
-    if (flow_font == NULL) {
-	    /* choose default font name for your locale. see also font_data structure
-	       in lib/font.c. */
-	    flow_font = font_getfont (_("Helvetica-Oblique"));
-    }
-    flow_default_label =
-      new_text(
-	       gtk_editable_get_chars( GTK_EDITABLE(prop_dialog->text),0,-1), 
-	       flow_font, FLOW_FONTHEIGHT, &p, color, ALIGN_CENTER
-	       ) ;
-  } else {
-    text_set_string(flow_default_label,
-		    gtk_editable_get_chars( GTK_EDITABLE(prop_dialog->text),
-					    0, -1));
-    text_set_color( flow_default_label, color ) ;
-  }
-
-}
-

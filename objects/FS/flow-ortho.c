@@ -93,12 +93,6 @@ Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f };
 
 static DiaFont *orthflow_font = NULL;
 
-/* Remember the most recently applied orthflow type and use it to
-   set the type for any newly created orthflows
- */
-static OrthflowType orthflow_most_recent_type = ORTHFLOW_ENERGY ;
-static Text* orthflow_default_label = 0 ;
-
 static void orthflow_move_handle(Orthflow *orthflow, Handle *handle,
 				 Point *to, HandleMoveReason reason);
 static void orthflow_move(Orthflow *orthflow, Point *to);
@@ -174,7 +168,8 @@ static PropDescription orthflow_props[] = {
   PROP_STD_TEXT_ALIGNMENT,
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
-  PROP_STD_TEXT_COLOUR,
+  /* Colour determined from type, don't show */
+  { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_DONT_SAVE, },
   PROP_DESC_END
 };
 
@@ -400,8 +395,9 @@ orthflow_create(Point *startpoint,
   Object *obj;
   Point p;
   PolyBBExtras *extra;
-  orthflow = g_new0(Orthflow,1);
+  DiaFont *font;
 
+  orthflow = g_new0(Orthflow,1);
   orth = &orthflow->orth ;
   orthconn_init( orth, startpoint ) ;
  
@@ -411,13 +407,17 @@ orthflow_create(Point *startpoint,
   obj->type = &orthflow_type;
   obj->ops = &orthflow_ops;
 
-  orthflow->type = orthflow_most_recent_type ;
-
   /* Where to put the text */
   p = *startpoint ;
   p.y += 0.1 * ORTHFLOW_FONTHEIGHT ;
   orthflow->textpos = p;
+  font = dia_font_new_from_style(DIA_FONT_SANS, 0.8);
 
+  orthflow->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  dia_font_unref(font);  
+  text_get_attributes(orthflow->text, &orthflow->attrs);
+
+#if 0
   if ( orthflow_default_label ) {
     orthflow->text = text_copy( orthflow_default_label ) ;
     text_set_position( orthflow->text, &p ) ;
@@ -444,6 +444,7 @@ orthflow_create(Point *startpoint,
     orthflow->text = new_text("", orthflow_font, ORTHFLOW_FONTHEIGHT, 
                               &p, color, ALIGN_CENTER);
   }
+#endif
 
   orthflow->text_handle.id = HANDLE_MOVE_TEXT;
   orthflow->text_handle.type = HANDLE_MINOR_CONTROL;
