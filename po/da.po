@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
-"POT-Creation-Date: 2000-04-15 04:52+0200\n"
-"PO-Revision-Date: 2000-04-14 01:27+0200\n"
+"POT-Creation-Date: 2000-04-16 14:58+0200\n"
+"PO-Revision-Date: 2000-04-16 01:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -531,7 +531,7 @@ msgstr "Opret nyt diagram"
 
 #: app/menus.c:42
 msgid "Plug-ins"
-msgstr ""
+msgstr "Indstik"
 
 #: app/menus.c:56
 msgid "_Export..."
@@ -750,9 +750,8 @@ msgid "/File/_Preferences..."
 msgstr "/Filer/_Indstillinger..."
 
 #: app/menus.c:232
-#, fuzzy
 msgid "/File/P_lugins"
-msgstr "/Filer/_Afslut"
+msgstr "/Filer/_Indstik"
 
 #: app/menus.c:233 app/menus.c:248
 msgid "/File/sep1"
@@ -1329,15 +1328,17 @@ msgstr "Ingen redigér-widget"
 msgid "Actor"
 msgstr "Aktør"
 
-#: objects/ER/participation.c:451 objects/UML/association.c:608
-#: objects/UML/dependency.c:288 objects/UML/generalization.c:280
-#: objects/UML/realizes.c:283 objects/standard/zigzagline.c:343
+#: objects/ER/participation.c:451 objects/FS/flow-ortho.c:726
+#: objects/UML/association.c:608 objects/UML/dependency.c:288
+#: objects/UML/generalization.c:280 objects/UML/realizes.c:283
+#: objects/standard/zigzagline.c:343
 msgid "Add segment"
 msgstr "Tilføj segment"
 
-#: objects/ER/participation.c:452 objects/UML/association.c:609
-#: objects/UML/dependency.c:289 objects/UML/generalization.c:281
-#: objects/UML/realizes.c:284 objects/standard/zigzagline.c:344
+#: objects/ER/participation.c:452 objects/FS/flow-ortho.c:727
+#: objects/UML/association.c:609 objects/UML/dependency.c:289
+#: objects/UML/generalization.c:281 objects/UML/realizes.c:284
+#: objects/standard/zigzagline.c:344
 msgid "Delete segment"
 msgstr "Slet segment"
 
@@ -1731,7 +1732,7 @@ msgstr "Netværksdiagram-objekter"
 msgid "Corner radius"
 msgstr "Hjørneradius:"
 
-#: objects/custom/custom_object.c:346 objects/flowchart/box.c:310
+#: objects/custom/custom_object.c:348 objects/flowchart/box.c:310
 #: objects/flowchart/diamond.c:280 objects/flowchart/diamond.c:420
 #: objects/flowchart/ellipse.c:280 objects/flowchart/ellipse.c:420
 #: objects/flowchart/parallelogram.c:288 objects/flowchart/parallelogram.c:447
@@ -1751,11 +1752,11 @@ msgstr "Tilføj forbindelsespunkt"
 msgid "Delete connection point"
 msgstr "Slet forbindelsespunkt"
 
-#: objects/custom/custom_object.c:369 objects/standard/textobj.c:260
+#: objects/custom/custom_object.c:371 objects/standard/textobj.c:260
 msgid "Alignment:"
 msgstr "Justering:"
 
-#: objects/custom/custom_object.c:380 objects/flowchart/box.c:346
+#: objects/custom/custom_object.c:382 objects/flowchart/box.c:346
 #: objects/flowchart/diamond.c:313 objects/flowchart/diamond.c:442
 #: objects/flowchart/ellipse.c:313 objects/flowchart/ellipse.c:442
 #: objects/flowchart/parallelogram.c:336 objects/flowchart/parallelogram.c:483
@@ -1815,38 +1816,38 @@ msgstr "Tilføj hjørne"
 msgid "Delete Corner"
 msgstr "Slet hjørne"
 
-#: objects/FS/flow-ortho.c:561 objects/FS/flow.c:624 objects/FS/flow.c:739
+#: objects/FS/flow-ortho.c:638 objects/FS/flow.c:624 objects/FS/flow.c:739
 msgid "Flow:"
 msgstr "Flyd:"
 
-#: objects/FS/flow-ortho.c:576 objects/FS/flow.c:639 objects/FS/flow.c:755
+#: objects/FS/flow-ortho.c:653 objects/FS/flow.c:639 objects/FS/flow.c:755
 msgid "Flow type:"
 msgstr "Flydtype:"
 
 #.
-#: objects/FS/flow-ortho.c:581 objects/FS/flow-ortho.c:634
-#: objects/FS/flow-ortho.c:694 objects/FS/flow.c:644 objects/FS/flow.c:699
+#: objects/FS/flow-ortho.c:658 objects/FS/flow-ortho.c:723
+#: objects/FS/flow-ortho.c:785 objects/FS/flow.c:644 objects/FS/flow.c:699
 #: objects/FS/flow.c:760
 msgid "Energy"
 msgstr "Energi"
 
-#: objects/FS/flow-ortho.c:588 objects/FS/flow-ortho.c:635
-#: objects/FS/flow-ortho.c:701 objects/FS/flow.c:651 objects/FS/flow.c:700
+#: objects/FS/flow-ortho.c:665 objects/FS/flow-ortho.c:724
+#: objects/FS/flow-ortho.c:792 objects/FS/flow.c:651 objects/FS/flow.c:700
 #: objects/FS/flow.c:767
 msgid "Material"
 msgstr "Materiale"
 
-#: objects/FS/flow-ortho.c:594 objects/FS/flow-ortho.c:636
-#: objects/FS/flow-ortho.c:707 objects/FS/flow.c:657 objects/FS/flow.c:701
-#: objects/FS/flow.c:773 objects/FS/function.c:588
+#: objects/FS/flow-ortho.c:671 objects/FS/flow-ortho.c:725
+#: objects/FS/flow-ortho.c:798 objects/FS/flow.c:657 objects/FS/flow.c:701
+#: objects/FS/flow.c:773 objects/FS/function.c:661
 msgid "Signal"
 msgstr "Signal"
 
-#: objects/FS/flow-ortho.c:673
+#: objects/FS/flow-ortho.c:764
 msgid "Orthflow:"
 msgstr "Ortflyd:"
 
-#: objects/FS/flow-ortho.c:689
+#: objects/FS/flow-ortho.c:780
 msgid "Orthflow type:"
 msgstr "OrtFlydtype:"
 
@@ -1854,167 +1855,167 @@ msgstr "OrtFlydtype:"
 msgid "Function structure diagram objects"
 msgstr "Diagramobjekter for funktionsstruktur"
 
-#: objects/FS/function.c:500
+#: objects/FS/function.c:572
 msgid "Function:"
 msgstr "Funktion:"
 
-#: objects/FS/function.c:510
+#: objects/FS/function.c:582
 msgid "Wish function"
 msgstr "Ønskefunktion"
 
-#: objects/FS/function.c:515
+#: objects/FS/function.c:587
 msgid "User function"
 msgstr "Brugerfunktion"
 
-#: objects/FS/function.c:554
+#: objects/FS/function.c:627
 msgid "Channel"
 msgstr "Kanal"
 
-#: objects/FS/function.c:555
+#: objects/FS/function.c:628
 msgid "   Import"
 msgstr "   Importér"
 
-#: objects/FS/function.c:556
+#: objects/FS/function.c:629
 msgid "   Export"
 msgstr "   Eksportér"
 
-#: objects/FS/function.c:557
+#: objects/FS/function.c:630
 msgid "   Transfer"
 msgstr "   Overfør"
 
-#: objects/FS/function.c:558
+#: objects/FS/function.c:631
 msgid "      Transport"
 msgstr "    Transportér"
 
-#: objects/FS/function.c:559
+#: objects/FS/function.c:632
 msgid "      Transmit"
 msgstr "       Overfør"
 
-#: objects/FS/function.c:560
+#: objects/FS/function.c:633
 msgid "   Guide"
 msgstr "   Guide"
 
-#: objects/FS/function.c:561
+#: objects/FS/function.c:634
 msgid "      Translate"
 msgstr "        Oversæt"
 
-#: objects/FS/function.c:562
+#: objects/FS/function.c:635
 msgid "      Rotate"
 msgstr "      Rotér"
 
-#: objects/FS/function.c:563
+#: objects/FS/function.c:636
 msgid "      Allow DOF"
 msgstr "     Tillad DOF"
 
-#: objects/FS/function.c:564
+#: objects/FS/function.c:637
 msgid "Support"
 msgstr "Support"
 
-#: objects/FS/function.c:565
+#: objects/FS/function.c:638
 msgid "   Stop"
 msgstr "   Stop"
 
-#: objects/FS/function.c:566
+#: objects/FS/function.c:639
 msgid "   Stabilize"
 msgstr "   Stabilisér"
 
-#: objects/FS/function.c:567
+#: objects/FS/function.c:640
 msgid "   Secure"
 msgstr "   Sikker"
 
-#: objects/FS/function.c:568
+#: objects/FS/function.c:641
 msgid "   Position"
 msgstr "   Placering"
 
-#: objects/FS/function.c:569
+#: objects/FS/function.c:642
 msgid "Connect"
 msgstr "Forbind"
 
-#: objects/FS/function.c:570
+#: objects/FS/function.c:643
 msgid "   Couple"
 msgstr "      Par"
 
-#: objects/FS/function.c:571
+#: objects/FS/function.c:644
 msgid "   Mix"
 msgstr "  Miks"
 
-#: objects/FS/function.c:572
+#: objects/FS/function.c:645
 msgid "Branch"
 msgstr "Gren"
 
-#: objects/FS/function.c:573
+#: objects/FS/function.c:646
 msgid "   Separate"
 msgstr "   Separat"
 
-#: objects/FS/function.c:574
+#: objects/FS/function.c:647
 msgid "      Remove"
 msgstr "      Fjern"
 
-#: objects/FS/function.c:575
+#: objects/FS/function.c:648
 msgid "   Refine"
 msgstr "    Raffinér"
 
-#: objects/FS/function.c:576
+#: objects/FS/function.c:649
 msgid "   Distribute"
 msgstr "   Distribuér"
 
-#: objects/FS/function.c:577
+#: objects/FS/function.c:650
 msgid "   Dissipate"
 msgstr "   Spred"
 
-#: objects/FS/function.c:578
+#: objects/FS/function.c:651
 msgid "Provision"
 msgstr "Provision"
 
-#: objects/FS/function.c:579
+#: objects/FS/function.c:652
 msgid "   Store"
 msgstr "     Gem"
 
-#: objects/FS/function.c:580
+#: objects/FS/function.c:653
 msgid "   Supply"
 msgstr "   Indsæt"
 
-#: objects/FS/function.c:581
+#: objects/FS/function.c:654
 msgid "   Extract"
 msgstr "    Udtræk"
 
-#: objects/FS/function.c:582
+#: objects/FS/function.c:655
 msgid "Control Magnitude"
 msgstr "Kontroller størrelse"
 
-#: objects/FS/function.c:583
+#: objects/FS/function.c:656
 msgid "   Actuate"
 msgstr "   Påvirk"
 
-#: objects/FS/function.c:584
+#: objects/FS/function.c:657
 msgid "   Regulate"
 msgstr "   Regulér"
 
-#: objects/FS/function.c:585
+#: objects/FS/function.c:658
 msgid "   Change"
 msgstr "   Ændr"
 
-#: objects/FS/function.c:586
+#: objects/FS/function.c:659
 msgid "   Form"
 msgstr "   Form"
 
-#: objects/FS/function.c:587
+#: objects/FS/function.c:660
 msgid "Convert"
 msgstr "Konvertér"
 
-#: objects/FS/function.c:589
+#: objects/FS/function.c:662
 msgid "   Sense"
 msgstr "   Mærk"
 
-#: objects/FS/function.c:590
+#: objects/FS/function.c:663
 msgid "   Indicate"
 msgstr "   Indikér"
 
-#: objects/FS/function.c:591
+#: objects/FS/function.c:664
 msgid "   Display"
 msgstr "   Skærm"
 
-#: objects/FS/function.c:592
+#: objects/FS/function.c:665
 msgid "   Measure"
 msgstr "   Mål"
 
@@ -2026,14 +2027,14 @@ msgstr "Diagramobjekter for Sybase replikeringsdomæner"
 msgid "Text padding"
 msgstr "Tekstspaltefyld"
 
-#: objects/custom/custom_object.c:355 objects/flowchart/box.c:332
+#: objects/custom/custom_object.c:357 objects/flowchart/box.c:332
 #: objects/flowchart/diamond.c:299 objects/flowchart/diamond.c:428
 #: objects/flowchart/ellipse.c:299 objects/flowchart/ellipse.c:428
 #: objects/flowchart/parallelogram.c:322 objects/flowchart/parallelogram.c:469
 msgid "Text padding:"
 msgstr "Tekstspaltefyld:"
 
-#: objects/custom/custom_object.c:391 objects/flowchart/box.c:357
+#: objects/custom/custom_object.c:393 objects/flowchart/box.c:357
 #: objects/flowchart/diamond.c:324 objects/flowchart/diamond.c:453
 #: objects/flowchart/ellipse.c:324 objects/flowchart/ellipse.c:453
 #: objects/flowchart/parallelogram.c:347 objects/flowchart/parallelogram.c:494
@@ -2058,19 +2059,19 @@ msgstr "Rutediagram objekter"
 msgid "Shear angle:"
 msgstr "Forskydningsvinkel:"
 
-#: objects/custom/custom_object.c:173 objects/custom/custom_object.c:191
+#: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
 msgid "Flip horizontal"
 msgstr "Rotér vandret"
 
-#: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
+#: objects/custom/custom_object.c:177 objects/custom/custom_object.c:195
 msgid "Flip vertical"
 msgstr "Rotér lodret"
 
-#: objects/custom/custom_object.c:1218
+#: objects/custom/custom_object.c:1337
 msgid "Flip Horizontal"
 msgstr "Rotér vandret"
 
-#: objects/custom/custom_object.c:1219
+#: objects/custom/custom_object.c:1338
 msgid "Flip Vertical"
 msgstr "Rotér lodret"
 
