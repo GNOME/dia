@@ -292,17 +292,21 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
 {
     PangoLayout* layout;
     PangoAttrList* list;
-    gint ranges[2];
+    PangoAttribute* attr;
+    guint length;
 
     dia_font_set_height(font,height);
     layout = pango_layout_new(pango_context);
 
-    ranges[0] = 0;
-    ranges[1] = string ? strlen(string) : 0;
-    pango_layout_set_text(layout,string,ranges[1]);
+    length = string ? strlen(string) : 0;
+    pango_layout_set_text(layout,string,length);
         
     list = pango_attr_list_new();
-    pango_attr_list_insert(list,pango_attr_font_desc_new(font->pfd));
+
+    attr = pango_attr_font_desc_new(font->pfd);
+    attr->start_index = 0;
+    attr->end_index = length;
+    pango_attr_list_insert(list,attr); // eats attr
     
     pango_layout_set_attributes(layout,list);
     pango_attr_list_unref(list);
