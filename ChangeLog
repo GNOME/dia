@@ -1,7 +1,7 @@
 2004-01-10  Hans Breuer  <hans@breuer.org>
 
 	* objects/UML/class.c objects/UML/class_dialog.c : 
-	handle umlclass->name being empty to avoid, i.e. fix #127988
+	handle umlclass->name being empty to avoid, i.e. fix #127968
 
 	[plugging memleaks, thanks valgrind :-]
 	
