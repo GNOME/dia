@@ -1,4 +1,6 @@
 sheetdir = $(pkgdatadir)/sheets
+UMLsheetdir = $(sheetdir)/UML
+ERsheetdir = $(sheetdir)/ER
 
 SHEETS = \
 	UML.sheet  \
@@ -6,13 +8,17 @@ SHEETS = \
 	sybase.sheet \
 	FS.sheet \
 	network.sheet \
-	Flowchart.sheet
+	Flowchart.sheet \
+	Circuit.sheet
 
 PIX = \
-	UML/umlclass_template.xpm \
-	UML/aggregation.xpm \
-	ER/weakentity.xpm
+	umlclass_template.xpm \
+	aggregation.xpm \
+	weakentity.xpm
 
 EXTRA_DIST = $(SHEETS) $(PIX)
 
-sheet_DATA = $(SHEETS) $(PIX)
+sheet_DATA = $(SHEETS)
+
+UMLsheet_DATA = umlclass_template.xpm aggregation.xpm
+ERsheet_DATA = weakentity.xpm

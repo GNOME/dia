@@ -1,3 +1,10 @@
+1999-11-17  James Henstridge  <james@daa.com.au>
+
+	* sheets/Makefile.am: fixed makefile so that install actually works
+	if the directories $(pkgdatadir)/sheets/UML and $(pkgdatadir)/sheets/ER
+	don't exist.
+	(SHEETS): install Circuit.sheet
+
 1999-11-15  Alexander Larsson  <alla@lysator.liu.se>
 	Patch from Cyrille Chepelov <chepelov@rmcnet.fr>
 
