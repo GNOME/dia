@@ -1226,7 +1226,7 @@ fig_read_paper_size(FILE *file, DiagramData *dia) {
 
   buf[strlen(buf)-1] = 0; /* Remove trailing newline */
   if ((paper = find_paper(buf)) != -1) {
-    get_paper_info(&dia->paper, paper);
+    get_paper_info(&dia->paper, paper, NULL);
     return TRUE;
   }
 

@@ -107,7 +107,7 @@ get_default_paper(void)
 void
 get_paper_info(PaperInfo *paper, int i, NewDiagramData *prefs)
 {
-  if (i == -1)
+  if (i == -1 && prefs != NULL)
     i = find_paper(prefs->papertype);
   if (i == -1)
     i = get_default_paper();

@@ -22,12 +22,22 @@
 
 typedef struct _DiagramData DiagramData;
 typedef struct _Layer Layer;
+typedef struct _NewDiagramData NewDiagramData;
 
 /* #include "object.h" later after declaring types */
 #include "color.h"
 #include "geometry.h"
-#include "paper.h"
 #include "diavar.h"
+#include "paper.h"
+
+struct _NewDiagramData {
+  gchar *papertype;
+  gfloat tmargin, bmargin, lmargin, rmargin;
+  gboolean is_portrait;
+  gfloat scaling;
+  gboolean fitto;
+  gint fitwidth, fitheight;
+};
 
 struct _DiagramData {
   Rectangle extents;      /* The extents of the diagram        */
@@ -73,15 +83,6 @@ struct _Layer {
 				  to the diagram, and accessed via
 				  layer_get_parent_diagram() */
 };
-
-typedef struct {
-  gchar *papertype;
-  gfloat tmargin, bmargin, lmargin, rmargin;
-  gboolean is_portrait;
-  gfloat scaling;
-  gboolean fitto;
-  gint fitwidth, fitheight;
-} NewDiagramData;
 
 #include "object.h"
 
