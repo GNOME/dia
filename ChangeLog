@@ -1,3 +1,11 @@
+1999-03-11  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/standard/line.c: 
+	* objects/standard/arc.c: 
+	* objects/standard/polyline.c: 
+	* objects/standard/zigzagline.c:
+	Loading of arrow data fixed.
+
 1999-03-09  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/commands.c:
