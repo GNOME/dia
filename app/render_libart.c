@@ -42,7 +42,8 @@
 #include <libart_lgpl/art_rgb.h>
 #include <libart_lgpl/art_rgb_svp.h>
 #include <libart_lgpl/art_rgb_affine.h>
-#include "libart_lgpl/art_rgb_bitmap_affine.h"
+#include <libart_lgpl/art_rgb_rgba_affine.h>
+#include <libart_lgpl/art_rgb_bitmap_affine.h>
 #include <libart_lgpl/art_filterlevel.h>
 
 static void begin_render(RendererLibart *renderer, DiagramData *data);
@@ -441,8 +442,8 @@ set_fillstyle(RendererLibart *renderer, FillStyle mode)
 static void
 set_font(RendererLibart *renderer, DiaFont *font, real height)
 {
-  renderer->font_height =
-    ddisplay_transform_length(renderer->ddisp, height);
+  renderer->font_height = height;
+  //    ddisplay_transform_length(renderer->ddisp, height);
 
   if (renderer->font)
     dia_font_unref(renderer->font);
@@ -1153,20 +1154,30 @@ draw_string (RendererLibart *renderer,
   /* Not working with Pango */
   DDisplay *ddisp = renderer->ddisp;
   guint8 *bitmap = NULL;
-  int x,y;
+  double x,y;
   Point start_pos;
   PangoLayout* layout;
   int width, height;
-  int i, dx;
+  int i, j;
   int iwidth;
   int len;
-  double affine[6];
+  double affine[6], tmpaffine[6];
   double xpos, ypos;
   guint32 rgba;
   int rowstride;
+  double old_zoom;
+  double font_height;
 
   point_copy(&start_pos,pos);
 
+  /* Something's screwed up with the zooming for fonts.
+     It's like it zooms double.  Yet removing some of the zooms
+     don't seem to work, either.
+  */
+  /*
+  old_zoom = ddisp->zoom_factor;
+  ddisp->zoom_factor = ddisp->zoom_factor;
+  */
   switch (alignment) {
   case ALIGN_LEFT:
     break;
@@ -1181,12 +1192,20 @@ draw_string (RendererLibart *renderer,
 						ddisp->zoom_factor);
     break;
   }
-  
-  ddisplay_transform_coords(ddisp, start_pos.x, start_pos.y, &x, &y);
+ 
+  font_height = ddisplay_transform_length(ddisp, renderer->font_height);
+
+  start_pos.y -= dia_font_ascent(text, renderer->font,
+				 font_height);
+  ddisplay_transform_coords_double(ddisp, start_pos.x, start_pos.y, &x, &y);
+
 
   layout = dia_font_scaled_build_layout(text,renderer->font,
-                                        renderer->font_height,
+                                        font_height,
                                         ddisp->zoom_factor);
+  /*
+  ddisp->zoom_factor = old_zoom;
+  */
   pango_layout_get_pixel_size(layout, &width, &height);
   /* Pango doesn't have a 'render to raw bits' function, so we have
    * to render based on what other engines are available.
@@ -1201,7 +1220,7 @@ draw_string (RendererLibart *renderer,
    guint8 *graybitmap;
    rowstride = 32*((width+31)/31);
    
-   graybitmap = (guint8*)g_new(guint8, height*rowstride);
+   graybitmap = (guint8*)g_new0(guint8, height*rowstride);
 
    ftbitmap.rows = height;
    ftbitmap.width = width;
@@ -1211,15 +1230,18 @@ draw_string (RendererLibart *renderer,
    ftbitmap.pixel_mode = ft_pixel_mode_grays;
    ftbitmap.palette_mode = 0;
    ftbitmap.palette = 0;
-   printf("Rendering %s onto bitmap of size %dx%d\n", text, width, height);
+   printf("Rendering %s onto bitmap of size %dx%d row %d\n", text, width, height, rowstride);
    pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
-
-   bitmap = (guint8*)g_new(guint8, 4*height*rowstride);
-   for (i = 0; i < height*rowstride; i++) {
-     bitmap[4*i] = graybitmap[i];
-     bitmap[4*i+1] = graybitmap[i];
-     bitmap[4*i+2] = graybitmap[i];
-     bitmap[4*i+3] = graybitmap[i];
+#define DEPTH 4
+   bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
+   for (i = 0; i < height; i++) {
+     for (j = 0; j < width; j++) {
+       bitmap[DEPTH*(i*rowstride+j)] = color->red;
+       bitmap[DEPTH*(i*rowstride+j)+1] = color->green;
+       bitmap[DEPTH*(i*rowstride+j)+2] = color->blue;
+       bitmap[DEPTH*(i*rowstride+j)+3] = graybitmap[i*rowstride+j];
+     }
+     //     bitmap[4*i+3] = graybitmap[i];
    }
    g_free(graybitmap);
  }
@@ -1233,7 +1255,10 @@ draw_string (RendererLibart *renderer,
 
   rgba = color_to_rgba(color);
 
-  art_affine_translate (affine, x, y);
+  art_affine_identity(affine);
+  art_affine_translate(tmpaffine, x, y);
+  art_affine_multiply(affine, affine, tmpaffine);
+  
   if (bitmap != NULL)
     art_rgb_rgba_affine (renderer->rgb_buffer,
 		    0, 0,
@@ -1243,7 +1268,7 @@ draw_string (RendererLibart *renderer,
 		    bitmap,
 		    width,
 		    height,
-		    rowstride>>3,
+		    rowstride*DEPTH,
 		    //rgba,
 		    affine,
 		    ART_FILTER_NEAREST, NULL);

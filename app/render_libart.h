@@ -53,7 +53,7 @@ struct _RendererLibart {
   double dot_length;
 
   DiaFont *font;
-  int font_height;
+  real font_height;
 #endif  
 };
 
