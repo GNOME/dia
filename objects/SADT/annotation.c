@@ -36,54 +36,21 @@
 #include "render.h"
 #include "handle.h"
 #include "arrows.h"
-#include "lazyprops.h"
+#include "properties.h"
 #include "text.h"
 
 #include "pixmaps/annotation.xpm"
 
-typedef struct _Annotation Annotation;
-typedef struct _AnnotationState AnnotationState;
-typedef struct _AnnotationDialog AnnotationDialog;
-typedef struct _AnnotationDefaultsDialog AnnotationDefaultsDialog;
-typedef struct _AnnotationDefaults AnnotationDefaults;
-
-struct _AnnotationState {
-  ObjectState obj_state;
-
-  TextAttributes text_attrib;
-};
-
-struct _Annotation {
+typedef struct _Annotation {
   Connection connection;
 
   Handle text_handle;
 
   Text *text;
-};
 
-struct _AnnotationDialog {
-  AttributeDialog dialog;
-  Annotation *parent;
-  
-  TextFontAttribute text_font;
-  TextFontHeightAttribute text_fontheight;
-  TextColorAttribute text_color;  
-};
-  
-struct _AnnotationDefaults {
-  Font *text_font;
-  real text_fontheight;
-  Color text_color;
-};
+  TextAttributes attrs; 
+} Annotation;
 
-struct _AnnotationDefaultsDialog {
-  AttributeDialog dialog;
-  AnnotationDefaults *parent;
-  
-  FontAttribute text_font;
-  FontHeightAttribute text_fontheight;
-  TextColorAttribute text_color;  
-};
   
 #define ANNOTATION_LINE_WIDTH 0.05
 #define ANNOTATION_BORDER 0.2
@@ -91,11 +58,6 @@ struct _AnnotationDefaultsDialog {
 #define ANNOTATION_ZLEN .25
 
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
-
-
-static AnnotationDefaults annotation_defaults;
-static AnnotationDialog *annotation_dialog;
-static AnnotationDefaultsDialog *annotation_defaults_dialog;
 
 static void annotation_move_handle(Annotation *annotation, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
@@ -110,31 +72,21 @@ static Object *annotation_create(Point *startpoint,
 static real annotation_distance_from(Annotation *annotation, Point *point);
 static void annotation_update_data(Annotation *annotation);
 static void annotation_destroy(Annotation *annotation);
-static Object *annotation_copy(Annotation *annotation);
-static PROPDLG_TYPE annotation_get_properties(Annotation *annotation);
-static ObjectChange *annotation_apply_properties(Annotation *annotation);
-
-static void annotation_init_defaults(void);
-static PROPDLG_TYPE annotation_get_defaults(void);
-static void annotation_apply_defaults(void);
-
-static AnnotationState *annotation_get_state(Annotation *annotation);
-static void annotation_set_state(Annotation *annotation,
-				 AnnotationState *state);
-
-static void annotation_save(Annotation *annotation, ObjectNode obj_node,
-			    const char *filename);
 static Object *annotation_load(ObjectNode obj_node, int version,
 			       const char *filename);
-
+static PropDescription *annotation_describe_props(Annotation *annotation);
+static void annotation_get_props(Annotation *annotation, 
+                                 Property *props, guint nprops);
+static void annotation_set_props(Annotation *annotation, 
+                                 Property *props, guint nprops);
 
 static ObjectTypeOps annotation_type_ops =
 {
   (CreateFunc) annotation_create,
-  (LoadFunc)   annotation_load,
-  (SaveFunc)   annotation_save,
-  (GetDefaultsFunc)   annotation_get_defaults,
-  (ApplyDefaultsFunc) annotation_apply_defaults
+  (LoadFunc)   annotation_load,/*using_properties*/
+  (SaveFunc)   object_save_using_properties,
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType sadtannotation_type =
@@ -150,13 +102,78 @@ static ObjectOps annotation_ops = {
   (DrawFunc)            annotation_draw,
   (DistanceFunc)        annotation_distance_from,
   (SelectFunc)          annotation_select,
-  (CopyFunc)            annotation_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            annotation_move,
   (MoveHandleFunc)      annotation_move_handle,
-  (GetPropertiesFunc)   annotation_get_properties,
-  (ApplyPropertiesFunc) annotation_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   annotation_describe_props,
+  (GetPropsFunc)        annotation_get_props,
+  (SetPropsFunc)        annotation_set_props
 };
+
+static PropDescription annotation_props[] = {
+  CONNECTION_COMMON_PROPERTIES,
+  { "text", PROP_TYPE_TEXT, 0,NULL,NULL},
+  PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  {"pos", PROP_TYPE_POINT, PROP_FLAG_DONT_SAVE},
+  PROP_DESC_END
+};
+
+static PropDescription *
+annotation_describe_props(Annotation *annotation) 
+{
+  if (annotation_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(annotation_props);
+  }
+  return annotation_props;
+}    
+
+static PropOffset annotation_offsets[] = {
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
+  {"text",PROP_TYPE_TEXT,offsetof(Annotation,text)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Annotation,attrs.alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Annotation,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(Annotation,attrs.height)},
+  {"text_color",PROP_TYPE_COLOUR,offsetof(Annotation,attrs.color)},
+  {"pos", PROP_TYPE_POINT, offsetof(Annotation,text_handle.pos)},
+  { NULL,0,0 }
+};
+
+static void
+annotation_get_props(Annotation *annotation, Property *props, guint nprops)
+{  
+  text_get_attributes(annotation->text,&annotation->attrs);
+  object_get_props_from_offsets(&annotation->connection.object,
+                                annotation_offsets,props,nprops);
+}
+
+static void
+annotation_set_props(Annotation *annotation, Property *props, guint nprops)
+{
+  int i;
+  Property *textprop = NULL;
+
+  object_set_props_from_offsets(&annotation->connection.object,
+                                annotation_offsets,props,nprops);
+  for (i=0;i<nprops;i++) {
+    if (0 == strcmp(props[i].name,"text")) {
+      textprop = &props[i];
+      break;
+    }
+  }
+
+  if ((!textprop) || (!PROP_VALUE_TEXT(*textprop).enabled)) {
+    /* most likely we're called after the dialog box has been applied */
+    text_set_attributes(annotation->text,&annotation->attrs);
+    text_set_position(annotation->text,&annotation->text_handle.pos);
+  }
+  annotation_update_data(annotation);
+}
 
 static real
 annotation_distance_from(Annotation *annotation, Point *point)
@@ -298,8 +315,6 @@ annotation_create(Point *startpoint,
   Point offs;
   Point defaultlen = { 1.0, 1.0 };
 
-  annotation_init_defaults();
-  
   annotation = g_malloc0(sizeof(Annotation));
 
   conn = &annotation->connection;
@@ -315,11 +330,20 @@ annotation_create(Point *startpoint,
   
   connection_init(conn, 3, 0);
 
+#if 0
   annotation->text = new_text("", annotation_defaults.text_font,
 			      annotation_defaults.text_fontheight,
 			      &conn->endpoints[1],
 			      &annotation_defaults.text_color,
 			      ALIGN_CENTER);
+#else
+  annotation->text = new_text("", font_getfont("Helvetica"),
+			      ANNOTATION_FONTHEIGHT,
+			      &conn->endpoints[1],
+			      &color_black,
+			      ALIGN_CENTER);
+#endif
+
   offs.x = .3 * ANNOTATION_FONTHEIGHT;
   if (conn->endpoints[1].y < conn->endpoints[0].y)
     offs.y = 1.3 * ANNOTATION_FONTHEIGHT;
@@ -353,50 +377,6 @@ annotation_destroy(Annotation *annotation)
   g_free(annotation->text);
 }
 
-static Object *
-annotation_copy(Annotation *annotation)
-{
-  Annotation *newannotation;
-  Connection *conn, *newconn;
-  Object *newobj;
-  
-  conn = &annotation->connection;
-  
-  newannotation = g_malloc0(sizeof(Annotation));
-  newconn = &newannotation->connection;
-  newobj = &newconn->object;
-
-  connection_copy(conn, newconn);
-
-  newannotation->text_handle = annotation->text_handle;
-  newobj->handles[2] = &newannotation->text_handle;
-
-
-  newannotation->text = text_copy(annotation->text);
-
-  return &newannotation->connection.object;
-}
-
-static AnnotationState *
-annotation_get_state(Annotation *annotation)
-{
-  AnnotationState *state = g_new0(AnnotationState, 1);
-  state->obj_state.free = NULL;
-  text_get_attributes(annotation->text, &state->text_attrib);
-
-  return state;
-}
-
-static void
-annotation_set_state(Annotation *annotation, AnnotationState *state)
-{
-  text_set_attributes(annotation->text, &state->text_attrib);
-  g_free(state);
-  
-  annotation_update_data(annotation);
-}
-
-
 static void
 annotation_update_data(Annotation *annotation)
 {
@@ -415,134 +395,12 @@ annotation_update_data(Annotation *annotation)
   rectangle_union(&obj->bounding_box, &textrect);
 }
 
-
-static void
-annotation_save(Annotation *annotation, ObjectNode obj_node,
-		const char *filename)
-{
-  connection_save(&annotation->connection, obj_node);
-
-  data_add_text(new_attribute(obj_node, "text"),
-		  annotation->text);
-}
-
 static Object *
 annotation_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Annotation *annotation;
-  Connection *conn;
-  LineBBExtras *extra;
-  Object *obj;
-
-  annotation_init_defaults();
-  
-  annotation = g_malloc0(sizeof(Annotation));
-
-  conn = &annotation->connection;
-  obj = &conn->object;
-  extra = &conn->extra_spacing;
-
-  obj->type = &sadtannotation_type;
-  obj->ops = &annotation_ops;
-
-  connection_load(conn, obj_node);
-  
-  connection_init(conn, 3, 0);
-
-  annotation->text = load_text(obj_node,"text",NULL);
-  if (!annotation->text) {
-    annotation->text = new_text("", annotation_defaults.text_font,
-				annotation_defaults.text_fontheight,
-				&conn->endpoints[1],
-				&annotation_defaults.text_color,
-				ALIGN_CENTER);
-  }
-  
-  annotation->text_handle.id = HANDLE_MOVE_TEXT;
-  annotation->text_handle.type = HANDLE_MINOR_CONTROL;
-  annotation->text_handle.connect_type = HANDLE_NONCONNECTABLE;
-  annotation->text_handle.connected_to = NULL;
-  obj->handles[2] = &annotation->text_handle;
-  
-  extra->start_trans = 
-    extra->end_trans = ANNOTATION_ZLEN;
-  extra->start_long = 
-    extra->end_long = ANNOTATION_LINE_WIDTH/2.0;
-  annotation_update_data(annotation);
-  
-  return &annotation->connection.object;
+  return object_load_using_properties(&sadtannotation_type,
+                                      obj_node,version,filename);
 }
-
-static void 
-annotation_init_defaults(void) {
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    annotation_defaults.text_font = font_getfont("Helvetica");
-    annotation_defaults.text_fontheight = ANNOTATION_FONTHEIGHT;
-    annotation_defaults.text_color = color_black;
-    defaults_initialized = 1;
-  }
-}
-
-static PROPDLG_TYPE
-annotation_get_defaults(void)
-{
-  AnnotationDefaultsDialog *dlg = annotation_defaults_dialog;
-
-  annotation_init_defaults();
-  PROPDLG_CREATE(dlg, &annotation_defaults);
-  PROPDLG_SHOW_FONT(dlg,text_font,_("Font:"));
-  PROPDLG_SHOW_FONTHEIGHT(dlg,text_fontheight,_("Font size:"));
-  PROPDLG_SHOW_COLOR(dlg,text_color,_("Font color:"));
-  PROPDLG_READY(dlg);
-  annotation_defaults_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
-}
-
-static void annotation_apply_defaults(void)
-{
-  AnnotationDefaultsDialog *dlg = annotation_defaults_dialog;
-
-  PROPDLG_APPLY_FONT(dlg,text_font);
-  PROPDLG_APPLY_FONTHEIGHT(dlg,text_fontheight);
-  PROPDLG_APPLY_COLOR(dlg,text_color);
-}
-    
-static ObjectChange *
-annotation_apply_properties(Annotation *annotation)
-{
-  AnnotationDialog *dlg = annotation_dialog;
-  ObjectState *old_state;
-  
-  old_state = (ObjectState *)annotation_get_state(annotation);
-
-  PROPDLG_APPLY_TEXTFONT(dlg,text);
-  PROPDLG_APPLY_TEXTFONTHEIGHT(dlg,text);
-  PROPDLG_APPLY_TEXTCOLOR(dlg,text);
-
-  annotation_update_data(annotation);
-  return new_object_state_change(&annotation->connection.object, old_state, 
-				 (GetStateFunc)annotation_get_state,
-				 (SetStateFunc)annotation_set_state);
-}
-
-static PROPDLG_TYPE 
-annotation_get_properties(Annotation *annotation)
-{
-  AnnotationDialog *dlg = annotation_dialog;
-
-  PROPDLG_CREATE(dlg,annotation);
-  PROPDLG_SHOW_TEXTFONT(dlg,text,_("Font:"));
-  PROPDLG_SHOW_TEXTFONTHEIGHT(dlg,text,_("Font size:"));
-  PROPDLG_SHOW_TEXTCOLOR(dlg,text,_("Font color:"));
-  PROPDLG_READY(dlg);
-  annotation_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
-}
-
 
 
 

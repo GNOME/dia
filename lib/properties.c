@@ -614,13 +614,22 @@ prop_load(Property *prop, ObjectNode obj_node)
     PROP_VALUE_TEXT(*prop).enabled = TRUE;
     break;
   case PROP_TYPE_INTARRAY:
-  case PROP_TYPE_ENUMARRAY:
-    PROP_VALUE_INTARRAY(*prop).nvals = attribute_num_data(attr);
     g_free(PROP_VALUE_INTARRAY(*prop).vals);
-    PROP_VALUE_INTARRAY(*prop).vals = g_new(gint,
-                                            PROP_VALUE_INTARRAY(*prop).nvals);
+    PROP_VALUE_INTARRAY(*prop).nvals = attribute_num_data(attr);
+    PROP_VALUE_INTARRAY(*prop).vals = g_new0(gint,
+                                             PROP_VALUE_INTARRAY(*prop).nvals);
     for (i = 0; i < PROP_VALUE_INTARRAY(*prop).nvals; i++) {
       PROP_VALUE_INTARRAY(*prop).vals[i] = data_int(data);
+      data = data_next(data);
+    }
+    break;
+  case PROP_TYPE_ENUMARRAY:
+    g_free(PROP_VALUE_INTARRAY(*prop).vals);
+    PROP_VALUE_INTARRAY(*prop).nvals = attribute_num_data(attr);
+    PROP_VALUE_INTARRAY(*prop).vals = g_new0(gint,
+                                             PROP_VALUE_INTARRAY(*prop).nvals);
+    for (i = 0; i < PROP_VALUE_INTARRAY(*prop).nvals; i++) {
+      PROP_VALUE_INTARRAY(*prop).vals[i] = data_enum(data);
       data = data_next(data);
     }
     break;
@@ -771,9 +780,12 @@ prop_save(Property *prop, ObjectNode obj_node)
     data_add_point(attr, &PROP_VALUE_POINT(*prop));
     break;
   case PROP_TYPE_ENUMARRAY:
+    for (i = 0; i < PROP_VALUE_INTARRAY(*prop).nvals; i++)
+      data_add_enum(attr, PROP_VALUE_INTARRAY(*prop).vals[i]);
+    break;
   case PROP_TYPE_INTARRAY:
     for (i = 0; i < PROP_VALUE_INTARRAY(*prop).nvals; i++)
-      data_add_int(attr, &PROP_VALUE_INTARRAY(*prop).vals[i]);
+      data_add_int(attr, PROP_VALUE_INTARRAY(*prop).vals[i]);
     break;
   case PROP_TYPE_POINTARRAY:
     for (i = 0; i < PROP_VALUE_POINTARRAY(*prop).npts; i++)
@@ -1107,7 +1119,7 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
       g_free(struct_member(obj, offsets[j].offset, gint *));
       struct_member(obj, offsets[j].offset, gint *) =
 	g_memdup(PROP_VALUE_INTARRAY(props[i]).vals,
-		 sizeof(Point) * PROP_VALUE_INTARRAY(props[i]).nvals);
+		 sizeof(gint) * PROP_VALUE_INTARRAY(props[i]).nvals);
       struct_member(obj, offsets[j].offset2, gint) =
 	PROP_VALUE_INTARRAY(props[i]).nvals;
       break;

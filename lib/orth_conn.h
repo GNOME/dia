@@ -1,4 +1,4 @@
-/* Dia -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program -*- c -*- 
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -41,7 +41,11 @@ struct _OrthConn {
 
   int numpoints; /* >= 3 */
   Point *points; /* [numpoints] */
+
+  int numorient; /* always numpoints-1 */
   Orientation *orientation; /*[numpoints - 1]*/
+
+  int numhandles; /* should be == numorient */
   Handle **handles; /*[numpoints - 1] */
   /* Each line segment has one handle. The first and last handles
    * are placed in the end of their segment, the other in the middle.
@@ -72,6 +76,20 @@ int orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint);
 int orthconn_can_add_segment(OrthConn *orth, Point *clickedpoint);
 ObjectChange *orthconn_delete_segment(OrthConn *orth, Point *clickedpoint);
 ObjectChange *orthconn_add_segment(OrthConn *orth, Point *clickedpoint);
+
+/* base property stuff... */
+#define ORTHCONN_COMMON_PROPERTIES \
+  OBJECT_COMMON_PROPERTIES, \
+  { "orth_points", PROP_TYPE_POINTARRAY, 0, "orthconn points", NULL}, \
+  { "orth_orient", PROP_TYPE_ENUMARRAY, 0, "orthconn orientations", NULL} \
+
+#define ORTHCONN_COMMON_PROPERTIES_OFFSETS \
+  OBJECT_COMMON_PROPERTIES_OFFSETS, \
+  { "orth_points", PROP_TYPE_POINTARRAY, \
+     offsetof(OrthConn,points), offsetof(OrthConn,numpoints)}, \
+  { "orth_orient", PROP_TYPE_ENUMARRAY, \
+     offsetof(OrthConn,orientation), offsetof(OrthConn,numorient)} \
+
 #endif /* ORTH_CONN_H */
 
 

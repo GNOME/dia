@@ -1,10 +1,16 @@
 2001-06-11  Cyrille Chepelov  <chepelov@calixo.net>
 
-	* objects/GRAFCET/boolequation.[ch]: zap lazyprops.
+	* objects/GRAFCET/boolequation.[ch]: zap lazyprops. Add standard props.
 	* objects/GRAFCET/step.c: ditto.
-
+	* objects/GRAFCET/vector.c: ditto.
+	* objects/SADT/annotation.c: ditto.
+	
 	* lib/properties.[ch]: two more non-visible types
 	(PROP_TYPE_ENUMARRAY and PROP_TYPE_INTARRAY).
+
+	* lib/neworthconn.[ch]:
+	* lib/orthconn.[ch]: added support for manipulation through
+	standard properties.
 	
 	* charconv.[ch]: more functions from unicode.h.
 	get_local_charset() wasn't working properly, fixed now.

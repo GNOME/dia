@@ -28,6 +28,9 @@
 #include "diamenu.h"
 #include "handle.h"
 
+static void place_handle_by_swapping(OrthConn *orth, 
+                                     int index, Handle *handle);
+
 enum change_type {
   TYPE_ADD_SEGMENT,
   TYPE_REMOVE_SEGMENT
@@ -230,13 +233,60 @@ orthconn_distance_from(OrthConn *orth, Point *point, real line_width)
 }
 
 
+static void
+adjust_handle_count_to(OrthConn *orth, guint count) {
+  /* This will shrink or expand orth->handles as necessary (so that 
+     orth->numhandles matches orth->numpoints-1, most probably), by adding or
+     removing minor handles and keeping the endpoint handles at the 
+     extremities of the array. */
+
+  if (orth->numhandles == count) return;
+  if (orth->numhandles < count) { /* adding */
+    int i;
+    orth->handles = g_realloc(orth->handles,
+                              (count)*sizeof(Handle *));
+    orth->handles[count-1] = orth->handles[orth->numhandles-1];
+    orth->handles[orth->numhandles-1] = NULL; 
+    for (i=orth->numhandles-1; i<count-1; i++) {  
+      Handle *handle = g_new0(Handle,1);
+      setup_midpoint_handle(handle);
+      object_add_handle(&orth->object,handle);
+      orth->handles[i] = handle;
+    }
+  } else {  /* removing */
+    int i;
+    for (i=count-1; i<orth->numhandles-1; i++) {
+      Handle *handle = orth->handles[i];
+      object_remove_handle(&orth->object,handle);
+      g_free(handle);
+      orth->handles[i] = NULL;
+    }
+    orth->handles[count-1] = orth->handles[orth->numhandles-1];
+    orth->handles[orth->numhandles-1] = NULL;
+    orth->handles = g_realloc(orth->handles,
+			  (count)*sizeof(Handle *));
+  }
+  orth->numhandles = count;
+  /* handles' positions will be set now */ 
+}
+
 void
 orthconn_update_data(OrthConn *orth)
 {
   int i;
   Object *obj = (Object *)orth;
   
+  if (!orth->points) {
+    g_warning("very sick OrthConn object...");
+    return;
+  }
   obj->position = orth->points[0];
+
+  adjust_handle_count_to(orth,orth->numpoints-1);
+
+  /* Make sure start-handle is first and end-handle is second. */
+  place_handle_by_swapping(orth, 0, orth->handles[0]);
+  place_handle_by_swapping(orth, 1, orth->handles[orth->numpoints-2]);
 
   /* Update handles: */
   orth->handles[0]->pos = orth->points[0];
@@ -265,6 +315,10 @@ orthconn_simple_draw(OrthConn *orth, Renderer *renderer, real width)
   assert(orth != NULL);
   assert(renderer != NULL);
 
+  if (!orth->points) {
+    g_warning("very sick OrthConn object...");
+    return;
+  }
   points = &orth->points[0];
   
   renderer->ops->set_linewidth(renderer, width);
@@ -331,12 +385,14 @@ orthconn_init(OrthConn *orth, Point *startpoint)
   object_init(obj, 3, 0);
   
   orth->numpoints = 4;
+  orth->numorient = orth->numpoints - 1;
 
-  orth->points = g_malloc(4*sizeof(Point));
+  orth->points = g_malloc0(4*sizeof(Point));
 
-  orth->orientation = g_malloc(3*sizeof(Orientation));
+  orth->orientation = g_malloc0(3*sizeof(Orientation));
 
-  orth->handles = g_malloc(3*sizeof(Handle *));
+  orth->numhandles = 3;
+  orth->handles = g_malloc0(3*sizeof(Handle *));
 
   orth->handles[0] = g_new(Handle, 1);
   setup_endpoint_handle(orth->handles[0], HANDLE_MOVE_STARTPOINT);
@@ -378,15 +434,17 @@ orthconn_copy(OrthConn *from, OrthConn *to)
   object_copy(fromobj, toobj);
 
   to->numpoints = from->numpoints;
+  to->numorient = from->numorient;
 
-  to->points = g_malloc((to->numpoints)*sizeof(Point));
+  to->points = g_malloc0((to->numpoints)*sizeof(Point));
 
   for (i=0;i<to->numpoints;i++) {
     to->points[i] = from->points[i];
   }
 
-  to->orientation = g_malloc((to->numpoints-1)*sizeof(Orientation));
-  to->handles = g_malloc((to->numpoints-1)*sizeof(Handle *));
+  to->orientation = g_malloc0((to->numpoints-1)*sizeof(Orientation));
+  to->numhandles = from->numhandles;
+  to->handles = g_malloc0((to->numpoints-1)*sizeof(Handle *));
 
   for (i=0;i<to->numpoints-1;i++) {
     to->orientation[i] = from->orientation[i];
@@ -480,10 +538,12 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
   else
     orth->numpoints = 0;
 
+  orth->numorient = orth->numpoints - 1;
+
   object_init(obj, orth->numpoints-1, 0);
 
   data = attribute_first_data(attr);
-  orth->points = g_malloc((orth->numpoints)*sizeof(Point));
+  orth->points = g_malloc0((orth->numpoints)*sizeof(Point));
   for (i=0;i<orth->numpoints;i++) {
     data_point(data, &orth->points[i]);
     data = data_next(data);
@@ -492,13 +552,13 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
   attr = object_find_attribute(obj_node, "orth_orient");
 
   data = attribute_first_data(attr);
-  orth->orientation = g_malloc((orth->numpoints-1)*sizeof(Orientation));
+  orth->orientation = g_malloc0((orth->numpoints-1)*sizeof(Orientation));
   for (i=0;i<orth->numpoints-1;i++) {
     orth->orientation[i] = data_enum(data);
     data = data_next(data);
   }
 
-  orth->handles = g_malloc((orth->numpoints-1)*sizeof(Handle *));
+  orth->handles = g_malloc0((orth->numpoints-1)*sizeof(Handle *));
 
   orth->handles[0] = g_new(Handle, 1);
   setup_endpoint_handle(orth->handles[0], HANDLE_MOVE_STARTPOINT);
@@ -516,6 +576,7 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
     setup_midpoint_handle(orth->handles[i]);
     obj->handles[i+1] = orth->handles[i];
   }
+  orth->numhandles = orth->numpoints-1;
 
   orthconn_update_data(orth);
 }
@@ -620,6 +681,7 @@ delete_point(OrthConn *orth, int pos)
   int i;
   
   orth->numpoints--;
+  orth->numorient = orth->numpoints - 1;
 
   for (i=pos;i<orth->numpoints;i++) {
     orth->points[i] = orth->points[i+1];
@@ -650,6 +712,7 @@ remove_handle(OrthConn *orth, int segment)
 			  (orth->numpoints-1)*sizeof(Handle *));
   
   object_remove_handle(&orth->object, handle);
+  orth->numhandles = orth->numpoints-1;
 }
 
 
@@ -659,6 +722,7 @@ add_point(OrthConn *orth, int pos, Point *point)
   int i;
   
   orth->numpoints++;
+  orth->numorient = orth->numpoints-1;
 
   orth->points = g_realloc(orth->points, orth->numpoints*sizeof(Point));
   for (i=orth->numpoints-1;i>pos;i--) {
@@ -688,6 +752,7 @@ insert_handle(OrthConn *orth, int segment,
   orth->orientation[segment] = orient;
   
   object_add_handle(&orth->object, handle);
+  orth->numhandles = orth->numpoints-1;
 }
 
 

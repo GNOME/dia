@@ -37,7 +37,7 @@
 #include "attributes.h"
 #include "widgets.h"
 #include "message.h"
-#include "lazyprops.h"
+#include "properties.h"
 
 #include "grafcet.h"
 #include "pixmaps/vector.xpm"
@@ -49,45 +49,11 @@
 
 #define HANDLE_MIDDLE HANDLE_CUSTOM1
 
-typedef struct _ArcPropertiesDialog ArcPropertiesDialog;
-typedef struct _ArcDefaultsDialog ArcDefaultsDialog;
-typedef struct _ArcDefaults ArcDefaults;
-typedef struct _ArcState ArcState;
-
-struct _ArcState {
-  ObjectState obj_state;
-
-  gboolean uparrow;
-};
-
 typedef struct _Arc {
   OrthConn orth;
 
   gboolean uparrow;
 } Arc;
-
-struct _ArcPropertiesDialog {
-  AttributeDialog dialog;
-  Arc *parent;
-
-  BoolAttribute uparrow;
-};
-
-struct _ArcDefaults {
-  gboolean uparrow;
-};
-
-struct _ArcDefaultsDialog {
-  AttributeDialog dialog;
-  ArcDefaults *parent;
-
-  BoolAttribute uparrow;
-};
-
-
-static ArcPropertiesDialog *arc_properties_dialog;
-static ArcDefaultsDialog *arc_defaults_dialog;
-static ArcDefaults defaults; 
 
 static void arc_move_handle(Arc *arc, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
@@ -102,29 +68,24 @@ static Object *arc_create(Point *startpoint,
 static real arc_distance_from(Arc *arc, Point *point);
 static void arc_update_data(Arc *arc);
 static void arc_destroy(Arc *arc);
-static Object *arc_copy(Arc *arc);
-static PROPDLG_TYPE arc_get_properties(Arc *arc);
-static ObjectChange *arc_apply_properties(Arc *arc);
 static DiaMenu *arc_get_object_menu(Arc *arc,
 					   Point *clickedpoint);
 
-static ArcState *arc_get_state(Arc *arc);
-static void arc_set_state(Arc *arc, ArcState *state);
-
-static void arc_save(Arc *arc, ObjectNode obj_node,
-			    const char *filename);
 static Object *arc_load(ObjectNode obj_node, int version,
 			       const char *filename);
-static PROPDLG_TYPE arc_get_defaults(void);
-static void arc_apply_defaults(void); 
+static PropDescription *arc_describe_props(Arc *arc);
+static void arc_get_props(Arc *arc, 
+                                 Property *props, guint nprops);
+static void arc_set_props(Arc *arc, 
+                                 Property *props, guint nprops);
 
 static ObjectTypeOps arc_type_ops =
 {
   (CreateFunc)arc_create,   /* create */
-  (LoadFunc)  arc_load,     /* load */
-  (SaveFunc)  arc_save,      /* save */
-  (GetDefaultsFunc)   arc_get_defaults,
-  (ApplyDefaultsFunc) arc_apply_defaults
+  (LoadFunc)  arc_load,/* using_properties */     /* load */
+  (SaveFunc)  object_save_using_properties,
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL,
 };
 
 ObjectType old_arc_type =
@@ -150,77 +111,52 @@ static ObjectOps arc_ops = {
   (DrawFunc)            arc_draw,
   (DistanceFunc)        arc_distance_from,
   (SelectFunc)          arc_select,
-  (CopyFunc)            arc_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            arc_move,
   (MoveHandleFunc)      arc_move_handle,
-  (GetPropertiesFunc)   arc_get_properties,
-  (ApplyPropertiesFunc) arc_apply_properties,
-  (ObjectMenuFunc)      arc_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      arc_get_object_menu,
+  (DescribePropsFunc)   arc_describe_props,
+  (GetPropsFunc)        arc_get_props,
+  (SetPropsFunc)        arc_set_props
 };
 
-static ObjectChange *
-arc_apply_properties(Arc *arc)
+static PropDescription arc_props[] = {
+  ORTHCONN_COMMON_PROPERTIES,
+  { "uparrow",PROP_TYPE_BOOL,PROP_FLAG_VISIBLE,
+    N_("Draw arrow heads on upward arcs:"),NULL},
+  PROP_DESC_END
+};
+
+static PropDescription *
+arc_describe_props(Arc *arc) 
 {
-  ObjectState *old_state;
-  ArcPropertiesDialog *dlg = arc_properties_dialog;
-  
-  PROPDLG_SANITY_CHECK(dlg,arc);
-  
-  old_state = (ObjectState *)arc_get_state(arc);
-
-  PROPDLG_APPLY_BOOL(dlg,uparrow);
-
-  arc_update_data(arc);
-  return new_object_state_change(&arc->orth.object, old_state, 
-				 (GetStateFunc)arc_get_state,
-				 (SetStateFunc)arc_set_state);
-}
-
-static PROPDLG_TYPE
-arc_get_properties(Arc *arc)
-{
-  ArcPropertiesDialog *dlg = arc_properties_dialog;
-  
-  PROPDLG_CREATE(dlg,arc);
-  PROPDLG_SHOW_BOOL(dlg,uparrow,_("Draw arrow heads on upward arcs:"));
-  PROPDLG_READY(dlg);
-
-  arc_properties_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
-}
-
-static void
-arc_init_defaults(void) {
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    defaults.uparrow = TRUE;
-    defaults_initialized = 1;
+  if (arc_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(arc_props);
   }
-} 
+  return arc_props;
+}    
+
+static PropOffset arc_offsets[] = {
+  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  { "uparrow",PROP_TYPE_BOOL,offsetof(Arc,uparrow)},
+  { NULL,0,0 }
+};
 
 static void
-arc_apply_defaults(void)
-{
-  ArcDefaultsDialog *dlg = arc_defaults_dialog;  
-
-  PROPDLG_APPLY_BOOL(dlg,uparrow);  
+arc_get_props(Arc *arc, Property *props, guint nprops)
+{  
+  object_get_props_from_offsets(&arc->orth.object,
+                                arc_offsets,props,nprops);
 }
 
-
-static PROPDLG_TYPE
-arc_get_defaults()
+static void
+arc_set_props(Arc *arc, Property *props, guint nprops)
 {
-  ArcDefaultsDialog *dlg = arc_defaults_dialog;
-  arc_init_defaults();
-
-  PROPDLG_CREATE(dlg, &defaults);
-  PROPDLG_SHOW_BOOL(dlg,uparrow,_("Draw arrow heads on upward arcs:"));
-  PROPDLG_READY(dlg);
-
-  arc_defaults_dialog = dlg;
-  PROPDLG_RETURN(dlg);
+  object_set_props_from_offsets(&arc->orth.object,
+                                arc_offsets,props,nprops);
+  arc_update_data(arc);
 }
 
 static real
@@ -301,7 +237,6 @@ arc_create(Point *startpoint,
   OrthConn *orth;
   Object *obj;
 
-  arc_init_defaults();
   arc = g_malloc0(sizeof(Arc));
   orth = &arc->orth;
   obj = &orth->object;
@@ -312,11 +247,11 @@ arc_create(Point *startpoint,
   orthconn_init(orth, startpoint);
   
 
-  arc->uparrow = defaults.uparrow;
+  arc->uparrow = TRUE;
   arc_update_data(arc);
   
   *handle1 = orth->handles[0];
-  *handle2 = orth->handles[orth->numpoints-2];
+  *handle2 = orth->handles[orth->numhandles-1];
   return &arc->orth.object;
 }
 
@@ -324,48 +259,6 @@ static void
 arc_destroy(Arc *arc)
 {
   orthconn_destroy(&arc->orth);
-}
-
-static Object *
-arc_copy(Arc *arc)
-{
-  Arc *newarc;
-  OrthConn *orth, *neworth;
-  Object *newobj;
-  
-  orth = &arc->orth;
- 
-  newarc = g_malloc0(sizeof(Arc));
-  neworth = &newarc->orth;
-  newobj = &neworth->object;
-
-  orthconn_copy(orth, neworth);
-
-  newarc->uparrow = arc->uparrow;
-
-  return &newarc->orth.object;
-}
-
-static ArcState *
-arc_get_state(Arc *arc)
-{
-  ArcState *state = g_new0(ArcState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->uparrow = arc->uparrow;
-
-  return state;
-}
-
-static void
-arc_set_state(Arc *arc, ArcState *state)
-{
-  arc->uparrow = state->uparrow;
-
-  g_free(state);
-  
-  arc_update_data(arc);
 }
 
 static void
@@ -433,37 +326,9 @@ arc_get_object_menu(Arc *arc, Point *clickedpoint)
 }
 
 
-static void
-arc_save(Arc *arc, ObjectNode obj_node,
-		const char *filename)
-{
-  orthconn_save(&arc->orth, obj_node);
-
-  save_boolean(obj_node,"uparrow",arc->uparrow);
-}
-
 static Object *
 arc_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Arc *arc;
-  OrthConn *orth;
-  Object *obj;
-
-  arc_init_defaults();
-
-  arc = g_malloc0(sizeof(Arc));
-
-  orth = &arc->orth;
-  obj = &orth->object;
-  
-  obj->type = &grafcet_arc_type;
-  obj->ops = &arc_ops;
-
-  orthconn_load(orth, obj_node);
-
-  arc->uparrow = load_boolean(obj_node,"uparrow",TRUE);
-
-  arc_update_data(arc);
-
-  return &arc->orth.object;
+  return object_load_using_properties(&grafcet_arc_type,
+                                      obj_node,version,filename);
 }

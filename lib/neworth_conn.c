@@ -32,6 +32,9 @@
 #include "diamenu.h"
 #include "handle.h"
 
+static void place_handle_by_swapping(NewOrthConn *orth, 
+                                     int index, Handle *handle);
+
 enum change_type {
   TYPE_ADD_SEGMENT,
   TYPE_REMOVE_SEGMENT
@@ -252,18 +255,65 @@ neworthconn_update_midpoints(NewOrthConn *orth)
   set_midpoint(&(((ConnectionPoint *)(elem->data))->pos),orth,i);
 }
 
+
+
+
+static void
+adjust_handle_count_to(NewOrthConn *orth, guint count) {
+  /* This will shrink or expand orth->handles as necessary (so that 
+     orth->numhandles matches orth->numpoints-1, most probably), by adding or
+     removing minor handles and keeping the endpoint handles at the 
+     extremities of the array. */
+
+  if (orth->numhandles == count) return;
+  if (orth->numhandles < count) { /* adding */
+    int i;
+    orth->handles = g_realloc(orth->handles,
+                              (count)*sizeof(Handle *));
+    orth->handles[count-1] = orth->handles[orth->numhandles-1];
+    orth->handles[orth->numhandles-1] = NULL; 
+    for (i=orth->numhandles-1; i<count-1; i++) {  
+      Handle *handle = g_new0(Handle,1);
+      setup_midpoint_handle(handle);
+      object_add_handle(&orth->object,handle);
+      orth->handles[i] = handle;
+    }
+  } else {  /* removing */
+    int i;
+    for (i=count-1; i<orth->numhandles-1; i++) {
+      Handle *handle = orth->handles[i];
+      object_remove_handle(&orth->object,handle);
+      g_free(handle);
+      orth->handles[i] = NULL;
+    }
+    orth->handles[count-1] = orth->handles[orth->numhandles-1];
+    orth->handles[orth->numhandles-1] = NULL;
+    orth->handles = g_realloc(orth->handles,
+                         (count)*sizeof(Handle *));
+  }
+  orth->numhandles = count;
+  /* handles' positions will be set now */ 
+}
+
+
 void
 neworthconn_update_data(NewOrthConn *orth)
 {
   int i;
   Object *obj = (Object *)orth;
-  
+
+  if (!orth->points) {
+    g_warning("This NewOrthConn object is very sick !");
+    return;
+  }
   obj->position = orth->points[0];
 
-  /* 
-     connpointline_update(orth->midpoints,orth->points[0],
-                          orth->points[orth->numpoints-1]); 
-  */
+  adjust_handle_count_to(orth,orth->numpoints-1);
+
+  /* Make sure start-handle is first and end-handle is second. */
+  place_handle_by_swapping(orth, 0, orth->handles[0]);
+  place_handle_by_swapping(orth, 1, orth->handles[orth->numpoints-2]);
+
   /* Update handles : */
   orth->handles[0]->pos = orth->points[0];
   orth->handles[orth->numpoints-2]->pos = orth->points[orth->numpoints-1];
@@ -292,6 +342,11 @@ neworthconn_simple_draw(NewOrthConn *orth, Renderer *renderer, real width)
   
   assert(orth != NULL);
   assert(renderer != NULL);
+
+  if (!orth->points) {
+    g_warning("This NewOrthConn object is very sick !");
+    return;
+  }
 
   points = &orth->points[0];
   
@@ -358,11 +413,11 @@ neworthconn_init(NewOrthConn *orth, Point *startpoint)
   object_init(obj, 3, 0);
   
   orth->numpoints = 4;
+  orth->numorient = orth->numpoints - 1;
+  orth->numhandles = 3;
 
   orth->points = g_malloc(4*sizeof(Point));
-
   orth->orientation = g_malloc(3*sizeof(Orientation));
-
   orth->handles = g_malloc(3*sizeof(Handle *));
 
   orth->handles[0] = g_new(Handle, 1);
@@ -407,6 +462,8 @@ neworthconn_copy(NewOrthConn *from, NewOrthConn *to)
   object_copy(fromobj, toobj);
 
   to->numpoints = from->numpoints;
+  to->numorient = from->numorient;
+  to->numhandles = from->numhandles;
 
   to->points = g_malloc((to->numpoints)*sizeof(Point));
 
@@ -515,6 +572,8 @@ neworthconn_load(NewOrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_in
 
   object_init(obj, orth->numpoints-1,0);
 
+  orth->numorient = orth->numpoints - 1;
+
   data = attribute_first_data(attr);
   orth->points = g_malloc((orth->numpoints)*sizeof(Point));
   for (i=0;i<orth->numpoints;i++) {
@@ -549,7 +608,7 @@ neworthconn_load(NewOrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_in
     setup_midpoint_handle(orth->handles[i]);
     obj->handles[i+1] = orth->handles[i];
   }
-
+  orth->numhandles = orth->numpoints-1;
   orth->midpoints = connpointline_create(obj,orth->numpoints-1);
 
   neworthconn_update_data(orth);
@@ -655,6 +714,7 @@ delete_point(NewOrthConn *orth, int pos)
   int i;
   
   orth->numpoints--;
+  orth->numorient = orth->numpoints - 1;
 
   for (i=pos;i<orth->numpoints;i++) {
     orth->points[i] = orth->points[i+1];
@@ -685,6 +745,7 @@ remove_handle(NewOrthConn *orth, int segment)
 			  (orth->numpoints-1)*sizeof(Handle *));
   
   object_remove_handle(&orth->object, handle);
+  orth->numhandles = orth->numpoints-1;
 }
 
 
@@ -694,6 +755,7 @@ add_point(NewOrthConn *orth, int pos, Point *point)
   int i;
   
   orth->numpoints++;
+  orth->numorient = orth->numpoints-1;
 
   orth->points = g_realloc(orth->points, orth->numpoints*sizeof(Point));
   for (i=orth->numpoints-1;i>pos;i--) {
@@ -723,6 +785,7 @@ insert_handle(NewOrthConn *orth, int segment,
   orth->orientation[segment] = orient;
   
   object_add_handle(&orth->object, handle);
+  orth->numhandles = orth->numpoints-1;
 }
 
 
