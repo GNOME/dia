@@ -28,6 +28,7 @@
 #include <glib.h>
 #include "geometry.h"
 #include "render.h"
+#include "charconv.h"
 #include "lazyprops.h"
 
 typedef struct _Block Block;
@@ -49,15 +50,15 @@ typedef struct {
 } Boolequation;
 
   
-extern Boolequation *boolequation_create(const gchar *value, Font *font, 
+extern Boolequation *boolequation_create(const utfchar *value, Font *font, 
 				       real fontheight, Color *color);
 extern void boolequation_destroy(Boolequation *rcep);
-extern void boolequation_set_value(Boolequation *rcep, const gchar *value);
+extern void boolequation_set_value(Boolequation *rcep, const utfchar *value);
 extern void save_boolequation(ObjectNode *obj_node, const gchar *attrname,
 			     Boolequation *rcep);
 extern Boolequation *load_boolequation(ObjectNode *obj_node,
 				     const gchar *attrname,
-				     const gchar *defaultvalue,
+				     const utfchar *defaultvalue,
 				     Font *font,
 				     real fontheight,
 				     Color *color);

@@ -36,7 +36,7 @@
 #include "widgets.h"
 #include "message.h"
 #include "color.h"
-#include "lazyprops.h"
+#include "properties.h"
 #include "geometry.h"
 #include "text.h"
 #include "connpoint_line.h"
@@ -51,17 +51,6 @@
 #define ACTION_FONT_HEIGHT 0.8
 #define ACTION_HEIGHT (2.0)
 
-typedef struct _ActionPropertiesDialog ActionPropertiesDialog;
-typedef struct _ActionDefaultsDialog ActionDefaultsDialog;
-typedef struct _ActionState ActionState;
-
-struct _ActionState {
-  ObjectState obj_state;
-  
-  TextAttributes text_attrib;
-  gboolean macro_call;
-};
-
 typedef struct _Action {
   Connection connection;
   
@@ -74,38 +63,9 @@ typedef struct _Action {
   Rectangle labelbb; /* The bounding box of the label itself */
   Point labelstart;
 
+  TextAttributes attrs; 
   ConnPointLine *cps; /* aaahrg ! again one ! */
 } Action;
-
-struct _ActionPropertiesDialog {
-  AttributeDialog dialog;
-  Action *parent;
-
-  BoolAttribute macro_call;
-  TextFontAttribute text_font;
-  TextFontHeightAttribute text_fontheight;
-  TextColorAttribute text_color;
-};
-
-typedef struct _ActionDefaults {
-  Font *font;
-  real font_size;
-  Color font_color;
-  /* macro_call is not here ; that's voluntary. */
-} ActionDefaults;
-
-struct _ActionDefaultsDialog {
-  AttributeDialog dialog;
-  ActionDefaults *parent;
-
-  FontAttribute font;
-  FontHeightAttribute font_size;
-  ColorAttribute font_color;
-};
-
-static ActionPropertiesDialog *action_properties_dialog;
-static ActionDefaultsDialog *action_defaults_dialog;
-static ActionDefaults defaults;
 
 static void action_move_handle(Action *action, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
@@ -120,28 +80,22 @@ static Object *action_create(Point *startpoint,
 static real action_distance_from(Action *action, Point *point);
 static void action_update_data(Action *action);
 static void action_destroy(Action *action);
-static Object *action_copy(Action *action);
-static GtkWidget *action_get_properties(Action *action);
-static ObjectChange *action_apply_properties(Action *action);
-
-static ActionState *action_get_state(Action *action);
-static void action_set_state(Action *action, ActionState *state);
-
-static void action_save(Action *action, ObjectNode obj_node,
-			    const char *filename);
 static Object *action_load(ObjectNode obj_node, int version,
 			       const char *filename);
+static PropDescription *action_describe_props(Action *action);
+static void action_get_props(Action *action, 
+                                 Property *props, guint nprops);
+static void action_set_props(Action *action, 
+                                 Property *props, guint nprops);
 
-static GtkWidget *action_get_defaults(void);
-static void action_apply_defaults(void);
 
 static ObjectTypeOps action_type_ops =
 {
   (CreateFunc)action_create,   /* create */
-  (LoadFunc)  action_load,     /* load */
-  (SaveFunc)  action_save,      /* save */
-  (GetDefaultsFunc)   action_get_defaults, 
-  (ApplyDefaultsFunc) action_apply_defaults
+  (LoadFunc)  action_load,/*using_properties*/     /* load */
+  (SaveFunc)  object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType action_type =
@@ -159,90 +113,77 @@ static ObjectOps action_ops = {
   (DrawFunc)            action_draw,
   (DistanceFunc)        action_distance_from,
   (SelectFunc)          action_select,
-  (CopyFunc)            action_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            action_move,
   (MoveHandleFunc)      action_move_handle,
-  (GetPropertiesFunc)   action_get_properties,
-  (ApplyPropertiesFunc) action_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   action_describe_props,
+  (GetPropsFunc)        action_get_props,
+  (SetPropsFunc)        action_set_props
 };
 
-static ObjectChange *
-action_apply_properties(Action *action)
+static PropDescription action_props[] = {
+  CONNECTION_COMMON_PROPERTIES,
+  { "text", PROP_TYPE_TEXT, 0,NULL,NULL},
+  PROP_STD_TEXT_ALIGNMENT,
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  { "macro_call", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Macro call"),N_("This action is a call to a macro-step")},
+  PROP_DESC_END
+};
+
+static PropDescription *
+action_describe_props(Action *action) 
 {
-  ObjectState *old_state;
-  ActionPropertiesDialog *dlg = action_properties_dialog;
+  if (action_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(action_props);
+  }
+  return action_props;
+}    
 
-  PROPDLG_SANITY_CHECK(dlg,action);
-  
-  old_state = (ObjectState *)action_get_state(action);
+static PropOffset action_offsets[] = {
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
+  {"text",PROP_TYPE_TEXT,offsetof(Action,text)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Action,attrs.alignment)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Action,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(Action,attrs.height)},
+  {"text_color",PROP_TYPE_COLOUR,offsetof(Action,attrs.color)},
+  {"macro_call",PROP_TYPE_BOOL,offsetof(Action,macro_call)},
+  { NULL,0,0 }
+};
 
-  PROPDLG_APPLY_TEXTFONT(dlg,text);
-  PROPDLG_APPLY_TEXTFONTHEIGHT(dlg,text);
-  PROPDLG_APPLY_TEXTCOLOR(dlg,text);
-  PROPDLG_APPLY_BOOL(dlg,macro_call);
-  
-  action_update_data(action);
-  return new_object_state_change(&action->connection.object, old_state, 
-				 (GetStateFunc)action_get_state,
-				 (SetStateFunc)action_set_state);
-}
-
-static PROPDLG_TYPE
-action_get_properties(Action *action)
-{
-  ActionPropertiesDialog *dlg = action_properties_dialog;
-  
-  PROPDLG_CREATE(dlg,action);
-  PROPDLG_SHOW_TEXTFONT(dlg,text,_("Font:"));
-  PROPDLG_SHOW_TEXTFONTHEIGHT(dlg,text,_("Font size:"));
-  PROPDLG_SHOW_TEXTCOLOR(dlg,text,_("Text color:"));
-  PROPDLG_SHOW_BOOL(dlg,macro_call,_("Macro call"));
-  PROPDLG_READY(dlg);
-  
-  action_properties_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
-}
-
-static void 
-action_apply_defaults(void)
-{
-  ActionDefaultsDialog *dlg = action_defaults_dialog;  
-
-  PROPDLG_APPLY_FONT(dlg,font);
-  PROPDLG_APPLY_FONTHEIGHT(dlg,font_size);
-  PROPDLG_APPLY_COLOR(dlg,font_color);
+static void
+action_get_props(Action *action, Property *props, guint nprops)
+{  
+  text_get_attributes(action->text,&action->attrs);
+  object_get_props_from_offsets(&action->connection.object,
+                                action_offsets,props,nprops);
 }
 
 static void
-init_default_values(void) {
-  static int defaults_initialized = 0;
-  
-  if (!defaults_initialized) {
-    defaults.font = font_getfont(ACTION_FONT);
-    defaults.font_size = ACTION_FONT_HEIGHT;
-    defaults.font_color = color_black;
-
-    defaults_initialized = 1;
-  }
-}
-
-static PROPDLG_TYPE
-action_get_defaults(void)
+action_set_props(Action *action, Property *props, guint nprops)
 {
-  ActionDefaultsDialog *dlg = action_defaults_dialog;
-  init_default_values();
-  PROPDLG_CREATE(dlg, &defaults);
+  int i;
+  Property *textprop = NULL;
 
-  PROPDLG_SHOW_FONT(dlg,font,_("Font:"));
-  PROPDLG_SHOW_FONTHEIGHT(dlg,font_size,_("Font size:"));
-  PROPDLG_SHOW_COLOR(dlg,font_color,_("Text color:"));
-  PROPDLG_READY(dlg);
+  object_set_props_from_offsets(&action->connection.object,
+                                action_offsets,props,nprops);
+  for (i=0;i<nprops;i++) {
+    if (0 == strcmp(props[i].name,"text")) {
+      textprop = &props[i];
+      break;
+    }
+  }
 
-  action_defaults_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
+  if ((!textprop) || (!PROP_VALUE_TEXT(*textprop).enabled)) {
+    /* most likely we're called after the dialog box has been applied */
+    text_set_attributes(action->text,&action->attrs);
+  }
+  action_update_data(action);
 }
 
 
@@ -463,7 +404,6 @@ action_create(Point *startpoint,
   LineBBExtras *extra;
   Point defaultlen  = {1.0,0.0}, pos;
 
-  init_default_values();
   action = g_malloc0(sizeof(Action));
   conn = &action->connection;
   obj = &conn->object;
@@ -480,9 +420,18 @@ action_create(Point *startpoint,
   action->cps = connpointline_create(obj,0);
 
   pos = conn->endpoints[1];
+#if 0
   action->text = new_text("",defaults.font,defaults.font_size,
 			  &pos, /* never used */
 			  &defaults.font_color, ALIGN_LEFT);
+#else
+  action->text = new_text("",font_getfont(ACTION_FONT),ACTION_FONT_HEIGHT,
+			  &pos, /* never used */
+			  &color_black, ALIGN_LEFT);
+#endif
+
+  text_get_attributes(action->text,&action->attrs);
+
   action->macro_call = FALSE;
 
   extra->start_long =
@@ -509,103 +458,10 @@ action_destroy(Action *action)
 }
 
 static Object *
-action_copy(Action *action)
-{
-  Action *newaction;
-  Connection *conn, *newconn;
-  Object *newobj;
-  int rcc;
-
-  conn = &action->connection;
- 
-  newaction = g_malloc0(sizeof(Action));
-  newconn = &newaction->connection;
-  newobj = &newconn->object;
-
-  connection_copy(conn, newconn);
-
-  rcc = newobj->num_connections - action->cps->num_connections;
-  g_assert(rcc == 0);
-  newaction->cps = connpointline_copy(newobj,action->cps,&rcc);
-  /* g_assert(rcc == newaction->cps->num_connections); */
-  newaction->text = text_copy(action->text);
-  newaction->macro_call = action->macro_call;
-
-  return &newaction->connection.object;
-}
-
-static ActionState *
-action_get_state(Action *action)
-{
-  ActionState *state = g_new0(ActionState, 1);
-
-  state->obj_state.free = NULL;
-  text_get_attributes(action->text, &state->text_attrib);
-  state->macro_call = action->macro_call;
-
-  return state;
-}
-
-static void
-action_set_state(Action *action, ActionState *state)
-{
-  text_set_attributes(action->text, &state->text_attrib);
-  action->macro_call = state->macro_call;
-
-  g_free(state);
-  
-  action_update_data(action);
-}
-
-
-static void
-action_save(Action *action, ObjectNode obj_node,
-		const char *filename)
-{
-  connection_save(&action->connection, obj_node);
-
-  save_text(obj_node,"text",action->text);
-  save_boolean(obj_node,"macro_call",action->macro_call);
-}
-
-static Object *
 action_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Action *action;
-  Connection *conn;
-  Object *obj;
-  LineBBExtras *extra;
-
-  init_default_values();
-  action = g_malloc0(sizeof(Action));
-
-  conn = &action->connection;
-  obj = &conn->object;
-  extra = &conn->extra_spacing;
-
-  obj->type = &action_type;
-  obj->ops = &action_ops;
-
-  connection_load(conn, obj_node);
-  connection_init(conn, 2,0);
-
-  action->cps = connpointline_create(obj,0);
-  action->text = load_text(obj_node,"text",NULL);
-  if (!action->text) {
-    action->text = new_text("",defaults.font,defaults.font_size,
-			    &conn->endpoints[1], /* never used */
-			    &defaults.font_color, ALIGN_LEFT);
-  }
-  action->macro_call = load_boolean(obj_node,"macro_call",FALSE);
-
-  extra->start_long =
-    extra->start_trans = 
-    extra->end_trans =
-    extra->end_long = ACTION_LINE_WIDTH/2.0;
-
-  action_update_data(action);
-
-  return &action->connection.object;
+  return object_load_using_properties(&action_type,
+                                      obj_node,version,filename);
 }
 
 

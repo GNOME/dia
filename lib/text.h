@@ -18,11 +18,11 @@
 #ifndef TEXT_H
 #define TEXT_H
 
-typedef struct _Text Text;
-typedef struct _TextAttributes TextAttributes;
-
-#include "font.h"
+#include "textattr.h"
 #include "focus.h"
+
+typedef struct _Text Text;
+
 
 struct _Text {
   /* don't change these values directly, use the text_set* functions */
@@ -52,14 +52,6 @@ struct _Text {
   real *row_width;
 };
 
-
-struct _TextAttributes {
-  Font *font;
-  real height;
-  Point position;
-  Color color;
-  Alignment alignment;
-};
 
 /* makes an internal copy of the string */
 Text *new_text(const char *string, Font *font, real height,

@@ -31,6 +31,7 @@
 #include "arrows.h"
 #include "color.h"
 #include "font.h"
+#include "text.h"
 
 #include "intl.h"
 #include "widgets.h"
@@ -209,6 +210,16 @@ prop_copy(Property *dest, Property *src)
       g_memdup(PROP_VALUE_BEZPOINTARRAY(*src).pts,
 	       sizeof(BezPoint) * PROP_VALUE_BEZPOINTARRAY(*src).npts);
     break;
+  case PROP_TYPE_TEXT:
+    g_free(PROP_VALUE_TEXT(*dest).string);
+    dest->d = src->d;
+    if (PROP_VALUE_TEXT(*src).string) {
+      PROP_VALUE_TEXT(*dest).string = g_strdup(PROP_VALUE_TEXT(*src).string);
+    } else {
+      PROP_VALUE_TEXT(*dest).string = NULL;
+    }
+    PROP_VALUE_TEXT(*dest).enabled = TRUE;
+    break;
   default:
     if (custom_props == NULL || src->type - PROP_LAST >= custom_props->len) {
       g_warning("prop type id %d out of range!!!", src->type);
@@ -257,6 +268,9 @@ prop_free(Property *prop)
     break;
   case PROP_TYPE_BEZPOINTARRAY:
     g_free(PROP_VALUE_BEZPOINTARRAY(*prop).pts);
+    break;
+  case PROP_TYPE_TEXT:
+    g_free(PROP_VALUE_TEXT(*prop).string);
     break;
   default:
     if (custom_props == NULL || prop->type - PROP_LAST >= custom_props->len) {
@@ -382,6 +396,7 @@ prop_get_widget(Property *prop)
   case PROP_TYPE_BEZPOINTARRAY:
   case PROP_TYPE_ENDPOINTS:
   case PROP_TYPE_CONNPOINT_LINE:
+  case PROP_TYPE_TEXT:
   case PROP_TYPE_RECT:
     ret = gtk_label_new(_("No edit widget"));
     break;
@@ -465,6 +480,9 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
   case PROP_TYPE_RECT:
     /* nothing */
     break;
+  case PROP_TYPE_TEXT:
+    PROP_VALUE_TEXT(*prop).enabled = FALSE;
+    break;
   case PROP_TYPE_LINESTYLE:
     dia_line_style_selector_get_linestyle(DIALINESTYLESELECTOR(widget),
 					  &PROP_VALUE_LINESTYLE(*prop).style,
@@ -506,6 +524,7 @@ prop_load(Property *prop, ObjectNode obj_node)
   DataNode data = NULL;
   gchar *str;
   guint i;
+  Text *text;
 
   g_return_if_fail(prop != NULL);
 
@@ -569,6 +588,14 @@ prop_load(Property *prop, ObjectNode obj_node)
     break;
   case PROP_TYPE_POINT:
     data_point(data, &PROP_VALUE_POINT(*prop));
+    break;
+  case PROP_TYPE_TEXT:
+    g_free(PROP_VALUE_TEXT(*prop).string);
+    text = data_text(data);
+    text_get_attributes(text,&PROP_VALUE_TEXT(*prop).attr);
+    PROP_VALUE_TEXT(*prop).string = text_get_string_copy(text);
+    text_destroy(text);
+    PROP_VALUE_TEXT(*prop).enabled = TRUE;
     break;
   case PROP_TYPE_POINTARRAY:
     PROP_VALUE_POINTARRAY(*prop).npts = attribute_num_data(attr);
@@ -659,6 +686,7 @@ prop_save(Property *prop, ObjectNode obj_node)
   AttributeNode attr = NULL;
   gchar buf[32], *str;
   guint i;
+  Text *text;
 
   g_return_if_fail(prop != NULL);
 
@@ -685,6 +713,17 @@ prop_save(Property *prop, ObjectNode obj_node)
     break;
   case PROP_TYPE_BOOL:
     data_add_boolean(attr, PROP_VALUE_BOOL(*prop));
+    break;
+  case PROP_TYPE_TEXT:
+    text = new_text(PROP_VALUE_TEXT(*prop).string,
+                    PROP_VALUE_TEXT(*prop).attr.font,
+                    PROP_VALUE_TEXT(*prop).attr.height,
+                    &PROP_VALUE_TEXT(*prop).attr.position,
+                    &PROP_VALUE_TEXT(*prop).attr.color,
+                    PROP_VALUE_TEXT(*prop).attr.alignment);
+    data_add_text(attr,text);
+    text_destroy(text);
+    PROP_VALUE_TEXT(*prop).enabled = TRUE;
     break;
   case PROP_TYPE_INT:
     data_add_int(attr, PROP_VALUE_INT(*prop));
@@ -940,6 +979,14 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
       PROP_VALUE_FONT(props[i]) =
 	struct_member(obj, offsets[j].offset, Font *);
       break;
+    case PROP_TYPE_TEXT:
+      g_free(PROP_VALUE_TEXT(props[i]).string);
+      PROP_VALUE_TEXT(props[i]).string = 
+        text_get_string_copy(struct_member(obj,offsets[j].offset,Text *));
+      text_get_attributes(struct_member(obj,offsets[j].offset,Text *),
+                          &PROP_VALUE_TEXT(props[i]).attr);
+      PROP_VALUE_TEXT(props[i]).enabled = TRUE;
+      break;
     case PROP_TYPE_FILE:
       g_free(PROP_VALUE_FILE(props[i]));
       PROP_VALUE_FILE(props[i]) =
@@ -1060,6 +1107,13 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
       g_free(struct_member(obj, offsets[j].offset, gchar *));
       struct_member(obj, offsets[j].offset, gchar *) =
 	g_strdup(PROP_VALUE_FILE(props[i]));
+      break;
+    case PROP_TYPE_TEXT:
+      text_set_string(struct_member(obj,offsets[j].offset,Text *),
+                      PROP_VALUE_TEXT(props[i]).string);
+      text_set_attributes(struct_member(obj,offsets[j].offset,Text *),
+                          &PROP_VALUE_TEXT(props[i]).attr);
+      /* we might be enabled, we might be not. */
       break;
     default:
       g_warning("Prop %s: type == %d not supported", props[i].name,

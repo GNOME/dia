@@ -35,6 +35,8 @@
 #include "object.h"
 #include "dia_xml.h"
 #include "intl.h"
+#include "textattr.h"
+#include "charconv.h"
 
 #ifndef _prop_typedefs_defined
 #define _prop_typedefs_defined
@@ -62,6 +64,7 @@ typedef enum {
   PROP_TYPE_FILE,
   PROP_TYPE_ENDPOINTS,
   PROP_TYPE_CONNPOINT_LINE,
+  PROP_TYPE_TEXT, /* can't be visible */
 
   PROP_LAST
 } PropType;
@@ -120,6 +123,11 @@ struct _Property {
       Point endpoints[2];
     } endpoints_data;
     gint connpoint_line_data;
+    struct {
+      utfchar *string; /* malloc'd string owned by Property structure */
+      TextAttributes attr;
+      gboolean enabled;
+    } text_data;
     gpointer other_data;
   } d;
 };
@@ -154,6 +162,7 @@ struct _PropEnumData {
 #define PROP_VALUE_OTHER(prop)         ((prop).d.other_data)
 #define PROP_VALUE_ENDPOINTS(prop)     ((prop).d.endpoints_data)
 #define PROP_VALUE_CONNPOINT_LINE(prop) ((prop).d.connpoint_line_data)
+#define PROP_VALUE_TEXT(prop)          ((prop).d.text_data)
 
 /* Copy the data member of the property
  * If NULL, then just copy data member straight */

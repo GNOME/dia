@@ -3,8 +3,14 @@
 	* lib/connpoint_line.c: a NULL point can be given to
 	connpointline_adjust_count(), in case there's not really a clicked
 	point.
-	* lib/properties.[ch]: added support for CONNPOINT_LINE properties.
 
+	* lib/textattr.h(NEW): moved the definition of TextAttributes to sort
+	#include order troubles. #included by lib/text.h, so there is no 
+	impact outside lib/.
+	* lib/properties.[ch]: added support for CONNPOINT_LINE and
+	(nonvisible) TEXT properties.
+
+	* objects/GRAFCET/action.c:
 	* objects/GRAFCET/vergent.c: dropped lazyprops for standard
 	properties.
 	
@@ -12,7 +18,10 @@
 	standard properties code). Grafted a dynamic number of connection
 	points (heavily inspired from what Vergent does). This is the real
 	fix for #55863.
-	
+
+	* objects/GRAFCET/boolequation.[ch]: audited for UTF-8
+
+	* lib/fonts.c: some hardening (mostly g_assert())
 2001-06-09  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/app_procs.c (app_init): added a call to

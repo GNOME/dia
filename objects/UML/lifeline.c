@@ -483,6 +483,7 @@ lifeline_create(Point *startpoint,
     lifeline->connections[i].connected = NULL;
   }
 
+  /* **must** be the same init order as in the property descriptors */
   lifeline->northwest = connpointline_create(obj,1);
   lifeline->southwest = connpointline_create(obj,1);
   lifeline->northeast = connpointline_create(obj,1);

@@ -22,7 +22,7 @@
  */
 
 #include <config.h>
-
+#include "charconv.h"
 #include "boolequation.h"
 
 #define OVERLINE_RATIO .1
@@ -56,7 +56,7 @@ struct _Block {
   Point bl, ur, pos;
   union {
     Block *inside; /* overline, parens */
-    const gchar *text;
+    const utfchar *text;
     GSList *contained;
     OperatorType operator;
   } d;
@@ -64,7 +64,7 @@ struct _Block {
 
 
 /* utility */
-inline static gboolean isspecial(char c) 
+inline static gboolean isspecial(unichar c) 
 {
   switch (c) {
   case '!':
@@ -127,13 +127,17 @@ static BlockOps text_block_ops = {
   textblock_draw,
   textblock_destroy};
   
-static Block *textblock_create(const char **str) 
+static Block *textblock_create(const utfchar **str) 
 {
-  const char *p = *str;
+  const utfchar *p = *str;
   Block *block;
 
-  g_assert(!isspecial(**str));
-  while (**str && (!isspecial(**str))) (*str)++;
+  while (**str) {
+    unichar c;
+    utfchar *p1 = uni_get_utf8(*str, &c);
+    if (isspecial(c)) break;
+    *str = p1;
+  }
   
   block = g_new0(Block,1);
   block->type = BLOCK_TEXT;
@@ -144,16 +148,23 @@ static Block *textblock_create(const char **str)
 }
 
 /* Operator block */
+#ifndef UNICODE_WORK_IN_PROGRESS
 static const gchar xor_symbol[] = { 197, 0 };
-static const gchar or_symbol[] = { 43, 0 };
 static const gchar and_symbol[] = { 215,0 };
 static const gchar rise_symbol[] = { 173,0 };
 static const gchar fall_symbol[] = { 175,0 };
-static const gchar lt_symbol[] = { 60,0 };
-static const gchar equal_symbol[] = { 61,0 };
-static const gchar gt_symbol[] = { 62,0 };
+#else
+static const utfchar xor_symbol[] = { 226, 138, 149, 0 }; # 0x2295
+static const utfchar and_symbol[] = { 226, 136, 153, 0 }; # 0x2219
+static const utfchar rise_symbol[] = { 226, 134, 145, 0 }; # 0x2191
+static const utfchar fall_symbol[] = { 226, 134, 147, 0 }; # 0x2193
+#endif
+static const utfchar or_symbol[] = { 43, 0 };
+static const utfchar lt_symbol[] = { 60,0 };
+static const utfchar equal_symbol[] = { 61,0 };
+static const utfchar gt_symbol[] = { 62,0 };
 
-static const gchar *opstring(OperatorType optype)
+static const utfchar *opstring(OperatorType optype)
 {
   switch (optype) {
   case OP_AND: return and_symbol;
@@ -195,7 +206,9 @@ static void
 opblock_draw(Block *block, Boolequation *booleq,Renderer *renderer)
 {
   g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
+#ifndef UNICODE_WORK_IN_PROGRESS 
   renderer->ops->set_font(renderer,symbol,booleq->fontheight);
+#endif
   renderer->ops->draw_string(renderer,opstring(block->d.operator),&block->pos,
 			     ALIGN_LEFT,&booleq->color);
 }
@@ -212,16 +225,17 @@ static BlockOps operator_block_ops = {
   opblock_draw,
   opblock_destroy};
 
-static Block *opblock_create(const char **str) 
+static Block *opblock_create(const utfchar **str) 
 {
-  const char *p = *str;
   Block *block;
+  unichar c;
 
-  (*str)++;
+  *str = uni_get_utf8(*str,&c);
+
   block = g_new0(Block,1);
   block->type = BLOCK_OPERATOR;
   block->ops = &operator_block_ops;
-  switch(*p) {
+  switch(c) {
   case '&': 
   case '.':
     block->d.operator = OP_AND;
@@ -472,7 +486,7 @@ static BlockOps compound_block_ops = {
   compoundblock_destroy};
 
 static Block *
-compoundblock_create(const char **str) 
+compoundblock_create(const utfchar **str) 
 {
   Block *block, *inblk;
   
@@ -482,8 +496,11 @@ compoundblock_create(const char **str)
   block->d.contained = NULL;
 
   while (*str && **str) {
+    unichar c;
+    utfchar *p = uni_get_utf8(*str,&c);
+
     inblk = NULL;
-    switch (**str) {
+    switch (c) {
     case '&':
     case '^':
     case '|':
@@ -498,20 +515,21 @@ compoundblock_create(const char **str)
       inblk = opblock_create(str);
       break;
     case '(':
-      (*str)++;
+      *str = p;
       inblk = parensblock_create(compoundblock_create(str));
       break;
     case '!':
-      (*str)++;
-      if ((**str) == '(') {
-	(*str)++;
+      *str = p;
+      p = uni_get_utf8(*str,&c);
+      if (c == '(') {
+	*str = p;
 	inblk = overlineblock_create(compoundblock_create(str));
       } else { /* single identifier "not" */
 	inblk = overlineblock_create(textblock_create(str));
       }
       break;
     case ')': /* Whooops ! outta here ! */
-      (*str)++;
+      *str = p;
       return block;
     default:
       inblk = textblock_create(str);
@@ -527,10 +545,10 @@ compoundblock_create(const char **str)
 
 /* Boolequation : */
 void 
-boolequation_set_value(Boolequation *booleq, const gchar *value)
+boolequation_set_value(Boolequation *booleq, const utfchar *value)
 {
   g_return_if_fail(booleq);
-  if (booleq->value) g_free((char *)booleq->value);
+  if (booleq->value) g_free((utfchar *)booleq->value);
   if (booleq->rootblock) booleq->rootblock->ops->destroy(booleq->rootblock);
 
   booleq->value = g_strdup(value);
@@ -540,7 +558,7 @@ boolequation_set_value(Boolequation *booleq, const gchar *value)
 
 
 Boolequation *
-boolequation_create(const gchar *value, Font *font, real fontheight,
+boolequation_create(const utfchar *value, Font *font, real fontheight,
 		   Color *color)
 {
   Boolequation *booleq;
@@ -560,7 +578,7 @@ void
 boolequation_destroy(Boolequation *booleq)
 {
   g_return_if_fail(booleq);
-  if (booleq->value) g_free((char *)booleq->value);
+  if (booleq->value) g_free((utfchar *)booleq->value);
   if (booleq->rootblock) booleq->rootblock->ops->destroy(booleq->rootblock);
   g_free(booleq);
 }
@@ -568,25 +586,25 @@ boolequation_destroy(Boolequation *booleq)
 extern void save_boolequation(ObjectNode *obj_node, const gchar *attrname,
 			     Boolequation *booleq)
 {
-  save_string(obj_node,attrname,(char *)booleq->value);
+  save_string(obj_node,attrname,(utfchar *)booleq->value);
 }
 
 Boolequation *
 load_boolequation(ObjectNode *obj_node,
 		 const gchar *attrname,
-		 const gchar *defaultvalue,
+		 const utfchar *defaultvalue,
 		 Font *font,
 		 real fontheight, Color *color)
 {
-  const gchar *value = NULL;
+  const utfchar *value = NULL;
   Boolequation *booleq;
 
   init_symbolfont();
 
   booleq = boolequation_create(NULL,font,fontheight,color);
-  value = load_string(obj_node,attrname,(char *)defaultvalue);
+  value = load_string(obj_node,attrname,(utfchar *)defaultvalue);
   if (value) boolequation_set_value(booleq,value);
-  g_free((char *)value);
+  g_free((utfchar *)value);
   return booleq;
 }
  
@@ -613,5 +631,9 @@ void boolequation_calc_boundingbox(Boolequation *booleq, Rectangle *box)
   booleq->width = box->right - box->left;
   booleq->height = box->bottom - box->top;
 }
+
+
+
+
 
 

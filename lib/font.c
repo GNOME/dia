@@ -341,7 +341,12 @@ GHashTable *fonts_hash = NULL;
 
 char *last_resort_fonts[] = {
   "-adobe-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+#ifndef G_OS_WIN32
+  "system" /* Must be last. This is guaranteed to exist on a MS-Windows 
+              system. */
+#else
   "fixed" /* Must be last. This is guaranteed to exist on an X11 system. */
+#endif
 };
 #define NUM_LAST_RESORT_FONTS (sizeof(last_resort_fonts)/sizeof(char *))
 
@@ -433,6 +438,7 @@ font_getfont(const char *name)
 {
   FontPrivate *font;
 
+  g_assert(name!=NULL);
   font = (FontPrivate *)g_hash_table_lookup(fonts_hash, (char *)name);
 
   if (font == NULL) {
@@ -454,6 +460,8 @@ static FontCacheItem *
 font_get_cache(FontPrivate *font, int height)
 {
   int index;
+
+  g_assert(font!=NULL);
 
   if (height<=0)
     height = 1;
@@ -499,6 +507,8 @@ font_get_gdkfont(Font *font, int height)
   FontCacheItem *cache_item;
   FontPrivate *fontprivate;
 
+  g_assert(font!=NULL);
+
   fontprivate = (FontPrivate *)font;
 
   cache_item = font_get_cache(fontprivate, height);
@@ -518,6 +528,8 @@ font_get_suckfont(Font *font, int height)
 {
   FontCacheItem *cache_item;
   FontPrivate *fontprivate;
+
+  g_assert(font!=NULL);
 
   fontprivate = (FontPrivate *)font;
 
@@ -540,6 +552,8 @@ char *
 font_get_psfontname(Font *font)
 {
   FontPrivate *fontprivate;
+
+  g_assert(font!=NULL);
 
   fontprivate = (FontPrivate *)font;
   
