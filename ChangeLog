@@ -1,3 +1,7 @@
+2000-11-13 Kevin Breit <battery841@mypad.com>
+ 	* doc/en/dia-manual.sgml
+		Commited manual changes from Henry House <hajhouse@houseag.com>
+
 2000-10-21 Hans Breuer <Hans@Breuer.Org>
 	* lib/beziershape.c :
 		The previous code was accessing unowned memory due to IHMO
