@@ -5,22 +5,22 @@
   <name>Flowchart - Terminal</name>
   <description>Terminal</description>
   <connections>
-    <point x="2"   y="0"/>
-    <point x="4"   y="0"/>
-    <point x="6"   y="0"/>
-    <point x="8"   y="0"/>
-    <point x="10"  y="0"/>
-    <point x="0.5858" y="0.5858"/>
-    <point x="0"   y="2"/>
-    <point x="0.5858" y="3.4142"/>
-    <point x="2"   y="4"/>
+    <point x="2"       y="0"/>
+    <point x="4"       y="0"/>
+    <point x="6"       y="0"/>
+    <point x="8"       y="0"/>
+    <point x="10"      y="0"/>
+    <point x="0.5858"  y="0.5858"/>
+    <point x="0"       y="2"/>
+    <point x="0.5858"  y="3.4142"/>
+    <point x="2"       y="4"/>
     <point x="11.4142" y="0.5858"/>
-    <point x="12"  y="2"/>
-    <point x="114142" y="3.4142"/>
-    <point x="10"  y="4"/>
-    <point x="4"   y="4"/>
-    <point x="6"   y="4"/>
-    <point x="8"   y="4"/>
+    <point x="12"      y="2"/>
+    <point x="11.4142" y="3.4142"/>
+    <point x="10"      y="4"/>
+    <point x="4"       y="4"/>
+    <point x="6"       y="4"/>
+    <point x="8"       y="4"/>
   </connections>
   <textbox x1="2" y1="0" x2="10" y2="4"/>
   <svg:svg width="12" height="4">

@@ -29,6 +29,16 @@
 #include "pixmaps/manualinput.xpm"
 #include "pixmaps/predefdproc.xpm"
 #include "pixmaps/terminal.xpm"
+#include "pixmaps/magdisk.xpm"
+#include "pixmaps/magtape.xpm"
+#include "pixmaps/intstorage.xpm"
+#include "pixmaps/merge.xpm"
+#include "pixmaps/extract.xpm"
+#include "pixmaps/delay.xpm"
+#include "pixmaps/sumjunction.xpm"
+#include "pixmaps/collate.xpm"
+#include "pixmaps/sort.xpm"
+#include "pixmaps/or.xpm"
 
 extern ObjectType fc_box_type;
 extern ObjectType pgram_type;
@@ -43,6 +53,16 @@ static ObjectType *preparation_type = NULL;
 static ObjectType *manualinput_type = NULL;
 static ObjectType *predefdproc_type = NULL;
 static ObjectType *terminal_type = NULL;
+static ObjectType *collate_type = NULL;
+static ObjectType *delay_type = NULL;
+static ObjectType *extract_type = NULL;
+static ObjectType *intstorage_type = NULL;
+static ObjectType *magdisk_type = NULL;
+static ObjectType *magtape_type = NULL;
+static ObjectType *merge_type = NULL;
+static ObjectType *or_type = NULL;
+static ObjectType *sort_type = NULL;
+static ObjectType *sumjunction_type = NULL;
 
 extern SheetObject box_sheetobj;
 extern SheetObject pgram_sheetobj;
@@ -57,6 +77,16 @@ static SheetObject *preparation_sheetobj = NULL;
 static SheetObject *manualinput_sheetobj = NULL;
 static SheetObject *predefdproc_sheetobj = NULL;
 static SheetObject *terminal_sheetobj = NULL;
+static SheetObject *collate_sheetobj = NULL;
+static SheetObject *delay_sheetobj = NULL;
+static SheetObject *extract_sheetobj = NULL;
+static SheetObject *intstorage_sheetobj = NULL;
+static SheetObject *magdisk_sheetobj = NULL;
+static SheetObject *magtape_sheetobj = NULL;
+static SheetObject *merge_sheetobj = NULL;
+static SheetObject *or_sheetobj = NULL;
+static SheetObject *sort_sheetobj = NULL;
+static SheetObject *sumjunction_sheetobj = NULL;
 
 int get_version(void) {
   return 0;
@@ -121,6 +151,66 @@ void register_objects(void) {
   terminal_sheetobj->pixmap = terminal_xpm;
   object_register_type(terminal_type);
 
+  custom_object_load(SHAPE_DIR "/magdisk.shape", &magdisk_type,
+		     &magdisk_sheetobj);
+  magdisk_type->pixmap = magdisk_xpm;
+  magdisk_sheetobj->pixmap = magdisk_xpm;
+  object_register_type(magdisk_type);
+
+  custom_object_load(SHAPE_DIR "/magtape.shape", &magtape_type,
+		     &magtape_sheetobj);
+  magtape_type->pixmap = magtape_xpm;
+  magtape_sheetobj->pixmap = magtape_xpm;
+  object_register_type(magtape_type);
+
+  custom_object_load(SHAPE_DIR "/intstorage.shape", &intstorage_type,
+		     &intstorage_sheetobj);
+  intstorage_type->pixmap = intstorage_xpm;
+  intstorage_sheetobj->pixmap = intstorage_xpm;
+  object_register_type(intstorage_type);
+
+  custom_object_load(SHAPE_DIR "/merge.shape", &merge_type,
+		     &merge_sheetobj);
+  merge_type->pixmap = merge_xpm;
+  merge_sheetobj->pixmap = merge_xpm;
+  object_register_type(merge_type);
+
+  custom_object_load(SHAPE_DIR "/extract.shape", &extract_type,
+		     &extract_sheetobj);
+  extract_type->pixmap = extract_xpm;
+  extract_sheetobj->pixmap = extract_xpm;
+  object_register_type(extract_type);
+
+  custom_object_load(SHAPE_DIR "/delay.shape", &delay_type,
+		     &delay_sheetobj);
+  delay_type->pixmap = delay_xpm;
+  delay_sheetobj->pixmap = delay_xpm;
+  object_register_type(delay_type);
+
+  custom_object_load(SHAPE_DIR "/sumjunction.shape", &sumjunction_type,
+		     &sumjunction_sheetobj);
+  sumjunction_type->pixmap = sumjunction_xpm;
+  sumjunction_sheetobj->pixmap = sumjunction_xpm;
+  object_register_type(sumjunction_type);
+
+  custom_object_load(SHAPE_DIR "/collate.shape", &collate_type,
+		     &collate_sheetobj);
+  collate_type->pixmap = collate_xpm;
+  collate_sheetobj->pixmap = collate_xpm;
+  object_register_type(collate_type);
+
+  custom_object_load(SHAPE_DIR "/sort.shape", &sort_type,
+		     &sort_sheetobj);
+  sort_type->pixmap = sort_xpm;
+  sort_sheetobj->pixmap = sort_xpm;
+  object_register_type(sort_type);
+
+  custom_object_load(SHAPE_DIR "/or.shape", &or_type,
+		     &or_sheetobj);
+  or_type->pixmap = or_xpm;
+  or_sheetobj->pixmap = or_xpm;
+  object_register_type(or_type);
+
 }
 
 void register_sheets(void) {
@@ -141,6 +231,16 @@ void register_sheets(void) {
   sheet_append_sheet_obj(sheet, manualinput_sheetobj);
   sheet_append_sheet_obj(sheet, predefdproc_sheetobj);
   sheet_append_sheet_obj(sheet, terminal_sheetobj);
+  sheet_append_sheet_obj(sheet, magdisk_sheetobj);
+  sheet_append_sheet_obj(sheet, magtape_sheetobj);
+  sheet_append_sheet_obj(sheet, intstorage_sheetobj);
+  sheet_append_sheet_obj(sheet, merge_sheetobj);
+  sheet_append_sheet_obj(sheet, extract_sheetobj);
+  sheet_append_sheet_obj(sheet, delay_sheetobj);
+  sheet_append_sheet_obj(sheet, sumjunction_sheetobj);
+  sheet_append_sheet_obj(sheet, collate_sheetobj);
+  sheet_append_sheet_obj(sheet, sort_sheetobj);
+  sheet_append_sheet_obj(sheet, or_sheetobj);
 
   register_sheet(sheet);
 }

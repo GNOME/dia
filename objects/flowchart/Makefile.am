@@ -23,7 +23,17 @@ shape_DATA = \
 	preparation.shape \
 	manualinput.shape \
 	predefdproc.shape \
-	terminal.shape
+	terminal.shape \
+	magdisk.shape \
+	magtape.shape \
+	intstorage.shape \
+	merge.shape \
+	extract.shape \
+	delay.shape \
+	sumjunction.shape \
+	collate.shape \
+	sort.shape \
+	or.shape
 
 EXTRA_DIST = \
 	$(shape_DATA) \
@@ -39,4 +49,14 @@ EXTRA_DIST = \
 	pixmaps/preparation.xpm \
 	pixmaps/manualinput.xpm \
 	pixmaps/predefdproc.xpm \
-	pixmaps/terminal.xpm
+	pixmaps/terminal.xpm \
+	pixmaps/magdisk.xpm \
+	pixmaps/magtape.xpm \
+	pixmaps/intstorage.xpm \
+	pixmaps/merge.xpm \
+	pixmaps/extract.xpm \
+	pixmaps/delay.xpm \
+	pixmaps/sumjunction.xpm \
+	pixmaps/collate.xpm \
+	pixmaps/sort.xpm \
+	pixmaps/or.xpm

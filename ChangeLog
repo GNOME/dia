@@ -1,3 +1,20 @@
+1999-10-15  James Henstridge  <james@daa.com.au>
+
+	* objects/flowchart/flowchart.c: add new shapes to flowchart sheet.
+
+	* object/flowchart/pixmaps/...: corresponding pixmaps for new shapes.
+
+	* objects/flowchart/collate.shape:
+	* objects/flowchart/delay.shape:
+	* objects/flowchart/extract.shape:
+	* objects/flowchart/intstorage.shape:
+	* objects/flowchart/magdisk.shape:
+	* objects/flowchart/magtape.shape:
+	* objects/flowchart/merge.shape:
+	* objects/flowchart/or.shape:
+	* objects/flowchart/sort.shape:
+	* objects/flowchart/sumjunction.shape: new shapes.
+
 1999-10-15  Alexander Larsson  <alla@lysator.liu.se>
 
 	* TODO (BUGS):
