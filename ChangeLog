@@ -1,3 +1,11 @@
+2000-07-29  James Henstridge  <james@daa.com.au>
+
+	* app/commands.c (view_aa_callback): show a warning dialog if
+	you start AA mode.
+
+	* app/interface.c (fill_sheet_menu): don't add a menu item for
+	empty sheets.
+
 2000-07-26  James Henstridge  <james@daa.com.au>
 
 	* plug-ins/dxf/dxf-export.c: updates from Steffen to fix bug #18677

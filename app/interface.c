@@ -610,8 +610,12 @@ fill_sheet_menu(void)
   gtk_option_menu_remove_menu(GTK_OPTION_MENU(sheet_option_menu));
   for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
     Sheet *sheet = tmp->data;
-    GtkWidget *menuitem = gtk_menu_item_new_with_label(gettext(sheet->name));
+    GtkWidget *menuitem;
 
+    if (sheet->objects == NULL)
+      continue;
+
+    menuitem = gtk_menu_item_new_with_label(gettext(sheet->name));
     gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
 		       GTK_SIGNAL_FUNC(fill_sheet_wbox), sheet);
     gtk_container_add(GTK_CONTAINER(sheet_menu), menuitem);
