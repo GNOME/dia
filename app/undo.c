@@ -560,3 +560,81 @@ undo_delete_objects(Diagram *dia, GList *obj_list)
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }
+
+/******** Insert object list: */
+
+struct InsertObjectsChange {
+  Change change;
+
+  Layer *layer;
+  GList *obj_list; /* Owning reference when applied */
+  int applied;
+};
+
+static void
+insert_objects_apply(struct InsertObjectsChange *change, Diagram *dia)
+{
+  printf("insert_objects_revert()\n");
+  change->applied = 1;
+  layer_add_objects(change->layer, g_list_copy(change->obj_list));
+  object_add_updates_list(change->obj_list, dia);
+}
+
+static void
+insert_objects_revert(struct InsertObjectsChange *change, Diagram *dia)
+{
+  GList *list;
+  
+  printf("insert_objects_apply()\n");
+  change->applied = 0;
+  diagram_unselect_objects(dia, change->obj_list);
+  layer_remove_objects(change->layer, change->obj_list);
+  object_add_updates_list(change->obj_list, dia);
+  
+  list = change->obj_list;
+  while (list != NULL) {
+    Object *obj = (Object *)list->data;
+
+  /* Have to hide any open properties dialog
+     if it contains some object in cut_list */
+    properties_hide_if_shown(dia, obj);
+
+    /* Remove focus if active */
+    if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
+      remove_focus();
+    }
+    
+    list = g_list_next(list);
+  }
+}
+
+static void
+insert_objects_free(struct InsertObjectsChange *change)
+{
+  printf("insert_objects_free()\n");
+  if (!change->applied)
+    destroy_object_list(change->obj_list);
+  else
+    g_list_free(change->obj_list);
+}
+
+Change *
+undo_insert_objects(Diagram *dia, GList *obj_list, int applied)
+{
+  struct InsertObjectsChange *change;
+
+  change = g_new(struct InsertObjectsChange, 1);
+  
+  change->change.apply = (UndoApplyFunc) insert_objects_apply;
+  change->change.revert = (UndoRevertFunc) insert_objects_revert;
+  change->change.free = (UndoFreeFunc) insert_objects_free;
+
+  change->layer = dia->data->active_layer;
+  change->obj_list = obj_list;
+  change->applied = applied;
+
+  printf("UNDO: Push new delete objects at %d\n", depth(dia->undo));
+  undo_push_change(dia->undo, (Change *) change);
+  return (Change *)change;
+}
+

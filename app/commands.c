@@ -520,6 +520,7 @@ edit_paste_callback(GtkWidget *widget, gpointer data)
   DDisplay *ddisp;
   Point paste_corner;
   Point delta;
+  Change *change;
   
   ddisp = ddisplay_active();
 
@@ -528,8 +529,7 @@ edit_paste_callback(GtkWidget *widget, gpointer data)
     return;
   }
   
-  paste_list = cnp_get_stored_objects();
-
+  paste_list = cnp_get_stored_objects(); /* Gets a copy */
 
   paste_corner = object_list_corner(paste_list);
   
@@ -542,12 +542,13 @@ edit_paste_callback(GtkWidget *widget, gpointer data)
 
   object_list_move_delta(paste_list, &delta);
 
-  paste_corner = object_list_corner(paste_list);
+  change = undo_insert_objects(ddisp->diagram, paste_list, 0);
+  (change->apply)(change, ddisp->diagram);
 
+  undo_set_transactionpoint(ddisp->diagram->undo);
+  
   diagram_remove_all_selected(ddisp->diagram, TRUE);
   diagram_select_list(ddisp->diagram, paste_list);
-  diagram_add_object_list(ddisp->diagram, paste_list);
-  object_add_updates_list(paste_list, ddisp->diagram);
 
   diagram_flush(ddisp->diagram);
 }

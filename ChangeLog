@@ -1,3 +1,13 @@
+1999-06-16  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/commands.c:
+	* app/create_object.c:
+	* app/undo.[ch]:
+	Finished undo for create and paste.
+	
+	* lib/object.h:
+	Started properties undo.
+
 1999-06-14  Alexander Larsson  <alla@lysator.liu.se>
 
 	* TODO:

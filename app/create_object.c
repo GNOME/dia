@@ -20,6 +20,7 @@
 #include "handle_ops.h"
 #include "object_ops.h"
 #include "preferences.h"
+#include "undo.h"
 
 static void create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 				     DDisplay *ddisp);
@@ -93,6 +94,7 @@ static void
 create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
 			     DDisplay *ddisp)
 {
+  GList *list = NULL;
   if (tool->moving) {
     gdk_pointer_ungrab (event->time);
 
@@ -101,7 +103,13 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
 				HANDLE_MOVE_USER_FINAL,0);
     object_add_updates(tool->obj, ddisp->diagram);
 
+  }
 
+  list = g_list_prepend(list, tool->obj);
+
+  undo_insert_objects(ddisp->diagram, list, 1); 
+
+  if (tool->moving) {
     if (tool->handle->connect_type != HANDLE_NONCONNECTABLE) {
       object_connect_display(ddisp, tool->obj, tool->handle);
       diagram_update_connections_selection(ddisp->diagram);
@@ -111,8 +119,12 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
     tool->handle = NULL;
     tool->obj = NULL;
   }
+  
   diagram_update_extents(ddisp->diagram);
   diagram_modified(ddisp->diagram);
+
+  undo_set_transactionpoint(ddisp->diagram->undo);
+  
   if (prefs.reset_tools_after_create)
       tool_reset();
 }

@@ -22,6 +22,7 @@
 
 typedef guint16 ObjectId; /* The id of an objecttype */
 typedef struct _Object Object;
+typedef struct _ObjectState ObjectState;
 typedef struct _ObjectOps ObjectOps;
 typedef struct _ObjectType ObjectType;
 typedef struct _ObjectTypeOps ObjectTypeOps;
@@ -222,6 +223,26 @@ typedef void (*ApplyDefaultsFunc) ();
 typedef int  (*IsEmptyFunc) (Object* obj);
 
 /*
+  Gets the internal state from the object.
+  This is used to snapshot the object state
+  so that it can be stored for undo/redo.
+
+  Called before/after properties apply and
+  object menu callbacks.
+*/
+typedef ObjectState * (*GetStateFunc) (Object* obj);
+
+/*
+  Sets the internal state from the object.
+  This is used to snapshot the object state
+  so that it can be stored for undo/redo.
+
+  Called before/after properties apply and
+  object menu callbacks.
+*/
+typedef void (*SetStateFunc) (Object* obj, ObjectState *state);
+
+/*
   Return an object-specific menu with toggles etc. properly set.
 */
 typedef DiaMenu *(*ObjectMenuFunc) (Object* obj, Point *position);
@@ -258,7 +279,12 @@ extern void object_return_void(Object *obj); /* Just an empty function */
 /*****************************************
  **  The structures used to define an object
  *****************************************/
-  
+
+struct _ObjectState {
+  void (*free)(ObjectState *state);
+};
+
+
 /*
   This structure gives access to the functions used to manipulate an object
   See information above on the use of the functions
@@ -276,13 +302,15 @@ struct _ObjectOps {
   ApplyPropertiesFunc apply_properties;
   IsEmptyFunc         is_empty;
   ObjectMenuFunc      get_object_menu;
+  GetStateFunc        get_state;
+  SetStateFunc        set_state;
   /*
     Unused places (for extension).
     These should be NULL for now. In the future they might be used.
     Then an older object will be binary compatible, because all new code
     checks if new ops are supported (!= NULL)
   */
-  void      (*(unused[9]))(Object *obj,...); 
+  void      (*(unused[7]))(Object *obj,...); 
 };
 
 /*
