@@ -279,7 +279,9 @@ AC_CHECK_HEADERS(math.h,
 
 if test "$have_isinf" = "no"; then
         AC_CHECK_HEADERS(ieeefp.h,
-                AC_CHECK_FUNC(finite, ,
+                AC_CHECK_FUNC(finite, 
+		        AC_DEFINE([HAVE_IEEEFP_H], 1,
+			          [Define if finite() is defined in ieeefp.h])
                         AC_MSG_ERROR(Can't find a definition of neither 
                                      finite nor isinf)),
                 AC_MSG_ERROR(Can't find a definition of neither finite 

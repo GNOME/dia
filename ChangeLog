@@ -2,6 +2,7 @@
 
 	* configure.in (HAVE_FREETYPE): Better test for freetype version
 	using neat macro.
+	Now actually sets HAVE_IEEEFP_H, needed for Solaris.
 
 	* lib/font.c: Renamed global_size_one to global_zoom_factor to
 	avoid confusion, and added comment.  Set scale factor in
