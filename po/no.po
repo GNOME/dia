@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.41\n"
-"POT-Creation-Date: 1999-08-22 22:26+0200\n"
-"PO-Revision-Date: 1999-08-22 22:54+02:00\n"
+"POT-Creation-Date: 1999-08-25 01:12+0200\n"
+"PO-Revision-Date: 1999-08-25 01:13+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,7 @@ msgstr ""
 "Kunne ikke finne register_sheets i biblioteket:\n"
 "%s"
 
-#: app/color_area.c:260 lib/widgets.c:491
+#: app/color_area.c:260 lib/widgets.c:492
 msgid "Select color"
 msgstr "Velg farge"
 
@@ -134,12 +134,12 @@ msgstr ""
 "Filen '%s' eksisterer allerede.\n"
 "Vil du overskrive den?"
 
-#: app/commands.c:204 app/commands.c:375 app/commands.c:493 app/display.c:722
+#: app/commands.c:204 app/commands.c:375 app/commands.c:493 app/display.c:732
 #: app/preferences.c:451
 msgid "Yes"
 msgstr "Ja"
 
-#: app/commands.c:217 app/commands.c:388 app/commands.c:506 app/display.c:733
+#: app/commands.c:217 app/commands.c:388 app/commands.c:506 app/display.c:743
 #: app/preferences.c:451 app/preferences.c:462
 msgid "No"
 msgstr "Nei"
@@ -298,11 +298,11 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagrammet er endret!"
 
-#: app/display.c:710
+#: app/display.c:720
 msgid "Really close?"
 msgstr "Virkelig lukke?"
 
-#: app/display.c:713
+#: app/display.c:723
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -310,79 +310,79 @@ msgstr ""
 "Dette diagrammet har ikke blitt lagret.\n"
 "Er du sikker på at du vil lukke dette vinduet?"
 
-#: app/display.c:766
+#: app/display.c:776
 msgid "/View/Show Rulers"
 msgstr "/Vis/Vis linjaler"
 
-#: app/display.c:768
+#: app/display.c:778
 msgid "/View/Visible Grid"
 msgstr "/Vis/Synlig rutenett"
 
-#: app/display.c:770
+#: app/display.c:780
 msgid "/View/Snap To Grid"
 msgstr "/Vis/Fest til rutenett"
 
-#: app/display.c:772
+#: app/display.c:782
 msgid "/View/Show Connection Points"
 msgstr "/Vis/Vis forbindelsespunkter"
 
-#: app/grid.c:144
+#: app/grid.c:147
 msgid "Grid options"
 msgstr "Alternativer for rutenett"
 
-#: app/grid.c:153
+#: app/grid.c:156
 msgid "Grid x size:"
 msgstr "Rutenett x-størrelse"
 
-#: app/grid.c:171
+#: app/grid.c:174
 msgid "Grid y size:"
 msgstr "Rutenett y-størrelse:"
 
-#: app/interface.c:57
+#: app/interface.c:59
 msgid "Modify object(s)"
 msgstr "Modifiser objekt(er)"
 
-#: app/interface.c:61
+#: app/interface.c:63
 msgid "Magnify"
 msgstr "Forstørr"
 
-#: app/interface.c:65
+#: app/interface.c:67
 msgid "Scroll around the diagram"
 msgstr "Rull rundt i diagrammet"
 
-#: app/interface.c:69
+#: app/interface.c:71
 msgid "Create Text"
 msgstr "Lag tekst"
 
-#: app/interface.c:73
+#: app/interface.c:75
 msgid "Create Box"
 msgstr "Lag boks"
 
-#: app/interface.c:77
+#: app/interface.c:79
 msgid "Create Ellipse"
 msgstr "Lag elipse"
 
-#: app/interface.c:81
+#: app/interface.c:83
 msgid "Create Line"
 msgstr "Lag linje"
 
-#: app/interface.c:85
+#: app/interface.c:87
 msgid "Create Arc"
 msgstr "Lag bue"
 
-#: app/interface.c:89
+#: app/interface.c:91
 msgid "Create Zigzagline"
 msgstr "Lag sikksakk-linje"
 
-#: app/interface.c:93
+#: app/interface.c:95
 msgid "Create Polyline"
 msgstr "Lag polilinje"
 
-#: app/interface.c:97
+#: app/interface.c:99
 msgid "Create Image"
 msgstr "Lag bilde"
 
-#: app/interface.c:544
+#: app/interface.c:546
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -390,7 +390,7 @@ msgstr ""
 "Forgrunns- og bakgrunnsfarger. De små sorte og hvite rutene tilbakesetter "
 "farger. De små pilene bytter farger. Dobbeltklikk for å endre farger."
 
-#: app/interface.c:590
+#: app/interface.c:630
 msgid "Diagram Editor"
 msgstr "Diagramredigering"
 
@@ -965,47 +965,47 @@ msgstr "Prikket"
 msgid "Dash length: "
 msgstr "Lengde på strek: "
 
-#: lib/widgets.c:653 objects/UML/association.c:866
+#: lib/widgets.c:654 objects/UML/association.c:866
 msgid "None"
 msgstr "Ingen"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:660
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:666
 msgid "Hollow Triangle"
 msgstr "Hult triangel"
 
-#: lib/widgets.c:671
+#: lib/widgets.c:672
 msgid "Filled Triangle"
 msgstr "Fylt triangel"
 
-#: lib/widgets.c:677
+#: lib/widgets.c:678
 msgid "Hollow Diamond"
 msgstr "Hul diamant"
 
-#: lib/widgets.c:683
+#: lib/widgets.c:684
 msgid "Filled Diamond"
 msgstr "Fylt diamant"
 
-#: lib/widgets.c:689
+#: lib/widgets.c:690
 msgid "Half Head"
 msgstr "Halvhodet"
 
-#: lib/widgets.c:705
+#: lib/widgets.c:706
 msgid "Length: "
 msgstr "Lengde: "
 
-#: lib/widgets.c:718
+#: lib/widgets.c:719
 msgid "Width: "
 msgstr "Bredde: "
 
-#: lib/widgets.c:834
+#: lib/widgets.c:835
 msgid "Select image file"
 msgstr "Velg bildefil"
 
-#: lib/widgets.c:864
+#: lib/widgets.c:865
 msgid "Browse"
 msgstr "Bla gjennom"
 
@@ -1040,24 +1040,24 @@ msgid "Multivalue"
 msgstr "Multiverdi"
 
 #: objects/ER/attribute.c:246 objects/ER/entity.c:222
-#: objects/ER/relationship.c:303 objects/flowchart/box.c:250
-#: objects/flowchart/diamond.c:244 objects/flowchart/parallelogram.c:252
+#: objects/ER/relationship.c:303 objects/flowchart/box.c:256
+#: objects/flowchart/diamond.c:251 objects/flowchart/parallelogram.c:259
 #: objects/standard/box.c:205 objects/standard/ellipse.c:198
 #: objects/standard/image.c:262
 msgid "Border width:"
 msgstr "Grensebredde:"
 
 #: objects/ER/attribute.c:257 objects/ER/entity.c:233
-#: objects/ER/relationship.c:314 objects/flowchart/box.c:265
-#: objects/flowchart/diamond.c:259 objects/flowchart/parallelogram.c:267
+#: objects/ER/relationship.c:314 objects/flowchart/box.c:271
+#: objects/flowchart/diamond.c:266 objects/flowchart/parallelogram.c:274
 #: objects/standard/box.c:220 objects/standard/ellipse.c:213
 #: objects/standard/image.c:277
 msgid "Foreground color:"
 msgstr "Forgrunnsfarge:"
 
 #: objects/ER/attribute.c:265 objects/ER/entity.c:241
-#: objects/ER/relationship.c:322 objects/flowchart/box.c:276
-#: objects/flowchart/diamond.c:270 objects/flowchart/parallelogram.c:278
+#: objects/ER/relationship.c:322 objects/flowchart/box.c:282
+#: objects/flowchart/diamond.c:277 objects/flowchart/parallelogram.c:285
 #: objects/standard/box.c:231 objects/standard/ellipse.c:224
 msgid "Background color:"
 msgstr "Bakgrunnsfarge:"
@@ -1093,11 +1093,11 @@ msgstr "Lag en deltakelse"
 msgid "Total:"
 msgstr "Total:"
 
-#: objects/ER/participation.c:459 objects/standard/zigzagline.c:598
+#: objects/ER/participation.c:459 objects/standard/zigzagline.c:599
 msgid "Add segment"
 msgstr "Legg til segment"
 
-#: objects/ER/participation.c:460 objects/standard/zigzagline.c:599
+#: objects/ER/participation.c:460 objects/standard/zigzagline.c:600
 msgid "Delete segment"
 msgstr "Slett segment"
 
@@ -1740,60 +1740,58 @@ msgstr "Tekst utenfor:"
 msgid "Collaboration"
 msgstr "Samarbeid"
 
-#: objects/flowchart/box.c:173
+#: objects/flowchart/box.c:179
 msgid "A box with text inside."
 msgstr "En boks med tekst inni."
 
-#: objects/flowchart/box.c:287 objects/flowchart/box.c:448
-#: objects/flowchart/diamond.c:281 objects/flowchart/diamond.c:423
-#: objects/flowchart/parallelogram.c:289 objects/flowchart/parallelogram.c:451
+#: objects/flowchart/box.c:293 objects/flowchart/box.c:454
+#: objects/flowchart/diamond.c:288 objects/flowchart/diamond.c:430
+#: objects/flowchart/parallelogram.c:296 objects/flowchart/parallelogram.c:458
 #: objects/standard/box.c:242 objects/standard/box.c:333
 msgid "Draw background"
 msgstr "Tegn bakgrunn"
 
-#: objects/flowchart/box.c:295 objects/flowchart/box.c:456
-#: objects/flowchart/diamond.c:289 objects/flowchart/diamond.c:431
-#: objects/flowchart/parallelogram.c:297 objects/flowchart/parallelogram.c:459
-#: objects/standard/arc.c:227 objects/standard/arc.c:325
-#: objects/standard/box.c:250 objects/standard/box.c:341
-#: objects/standard/ellipse.c:235 objects/standard/ellipse.c:287
-#: objects/standard/image.c:288 objects/standard/image.c:383
-#: objects/standard/line.c:226 objects/standard/line.c:324
-#: objects/standard/polyline.c:229 objects/standard/polyline.c:327
-#: objects/standard/zigzagline.c:232 objects/standard/zigzagline.c:332
+#: objects/flowchart/box.c:301 objects/flowchart/box.c:462
+#: objects/flowchart/diamond.c:296 objects/flowchart/diamond.c:438
+#: objects/flowchart/parallelogram.c:304 objects/flowchart/parallelogram.c:466
+#: objects/standard/arc.c:230 objects/standard/box.c:250
+#: objects/standard/box.c:341 objects/standard/ellipse.c:235
+#: objects/standard/ellipse.c:287 objects/standard/image.c:288
+#: objects/standard/image.c:383 objects/standard/line.c:227
+#: objects/standard/polyline.c:232 objects/standard/zigzagline.c:232
 msgid "Line style:"
 msgstr "Linjestil:"
 
-#: objects/flowchart/box.c:306 objects/flowchart/box.c:467
+#: objects/flowchart/box.c:312 objects/flowchart/box.c:473
 #: objects/standard/box.c:261 objects/standard/box.c:352
 msgid "Corner rounding:"
 msgstr "Avrunding av hjørner:"
 
-#: objects/flowchart/box.c:321 objects/flowchart/box.c:481
-#: objects/flowchart/diamond.c:300 objects/flowchart/diamond.c:442
-#: objects/flowchart/parallelogram.c:323 objects/flowchart/parallelogram.c:484
+#: objects/flowchart/box.c:327 objects/flowchart/box.c:487
+#: objects/flowchart/diamond.c:307 objects/flowchart/diamond.c:449
+#: objects/flowchart/parallelogram.c:330 objects/flowchart/parallelogram.c:491
 msgid "Text padding:"
 msgstr "Tekstfyll:"
 
-#: objects/flowchart/box.c:335 objects/flowchart/box.c:495
-#: objects/flowchart/diamond.c:314 objects/flowchart/diamond.c:456
-#: objects/flowchart/parallelogram.c:337 objects/flowchart/parallelogram.c:498
+#: objects/flowchart/box.c:341 objects/flowchart/box.c:501
+#: objects/flowchart/diamond.c:321 objects/flowchart/diamond.c:463
+#: objects/flowchart/parallelogram.c:344 objects/flowchart/parallelogram.c:505
 #: objects/standard/textobj.c:207 objects/standard/textobj.c:301
 msgid "Font:"
 msgstr "Skrifttype:"
 
-#: objects/flowchart/box.c:346 objects/flowchart/box.c:506
-#: objects/flowchart/diamond.c:325 objects/flowchart/diamond.c:467
-#: objects/flowchart/parallelogram.c:348 objects/flowchart/parallelogram.c:509
+#: objects/flowchart/box.c:352 objects/flowchart/box.c:512
+#: objects/flowchart/diamond.c:332 objects/flowchart/diamond.c:474
+#: objects/flowchart/parallelogram.c:355 objects/flowchart/parallelogram.c:516
 msgid "Font size:"
 msgstr "Størrelse på skrifttype:"
 
-#: objects/flowchart/box.c:360 objects/flowchart/diamond.c:339
-#: objects/flowchart/parallelogram.c:362
+#: objects/flowchart/box.c:366 objects/flowchart/diamond.c:346
+#: objects/flowchart/parallelogram.c:369
 msgid "Font color:"
 msgstr "Skriftfarge:"
 
-#: objects/flowchart/diamond.c:168
+#: objects/flowchart/diamond.c:175
 msgid "A diamond with text inside."
 msgstr "En diamant med tekst inni."
 
@@ -1805,13 +1803,13 @@ msgstr "Flytdiagram"
 msgid "Objects to draw flowcharts"
 msgstr "Objekter for å tegne flytdiagrammer"
 
-#: objects/flowchart/parallelogram.c:173
+#: objects/flowchart/parallelogram.c:180
 msgid "A parallelogram with text inside."
 msgstr "Et parallellogram med tekst inni."
 
-#: objects/flowchart/parallelogram.c:308 objects/flowchart/parallelogram.c:470
+#: objects/flowchart/parallelogram.c:315 objects/flowchart/parallelogram.c:477
 msgid "Shear angle:"
-msgstr ""
+msgstr "Klippevinkel:"
 
 #. type
 #: objects/network/antenna.c:56
@@ -1885,28 +1883,24 @@ msgstr "En RJ45 vegg-plugg"
 msgid "A Wall-Plug for the scEAD Cabling System"
 msgstr "En vegg plugg for scEAD kablingssystemet"
 
-#: objects/standard/arc.c:202 objects/standard/line.c:201
-#: objects/standard/polyline.c:204 objects/standard/zigzagline.c:207
+#: objects/standard/arc.c:205 objects/standard/line.c:202
+#: objects/standard/polyline.c:207 objects/standard/zigzagline.c:207
 msgid "Line width:"
 msgstr "Linjebredde:"
 
-#: objects/standard/arc.c:216 objects/standard/line.c:215
-#: objects/standard/polyline.c:218 objects/standard/textobj.c:232
+#: objects/standard/arc.c:219 objects/standard/line.c:216
+#: objects/standard/polyline.c:221 objects/standard/textobj.c:232
 #: objects/standard/zigzagline.c:221
 msgid "Color:"
 msgstr "Farge:"
 
-#: objects/standard/arc.c:238 objects/standard/arc.c:336
-#: objects/standard/line.c:237 objects/standard/line.c:335
-#: objects/standard/polyline.c:240 objects/standard/polyline.c:338
-#: objects/standard/zigzagline.c:246 objects/standard/zigzagline.c:343
+#: objects/standard/arc.c:241 objects/standard/line.c:238
+#: objects/standard/polyline.c:243 objects/standard/zigzagline.c:246
 msgid "Start arrow:"
 msgstr "Startpil:"
 
-#: objects/standard/arc.c:252 objects/standard/arc.c:350
-#: objects/standard/line.c:251 objects/standard/line.c:349
-#: objects/standard/polyline.c:254 objects/standard/polyline.c:352
-#: objects/standard/zigzagline.c:260 objects/standard/zigzagline.c:357
+#: objects/standard/arc.c:255 objects/standard/line.c:252
+#: objects/standard/polyline.c:257 objects/standard/zigzagline.c:260
 msgid "End arrow:"
 msgstr "Sluttpil:"
 
@@ -1946,11 +1940,11 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "Bildefilen '%s' ble ikke funnet.\n"
 
-#: objects/standard/polyline.c:721
+#: objects/standard/polyline.c:741
 msgid "Add Corner"
 msgstr "Legg til hjørne"
 
-#: objects/standard/polyline.c:722
+#: objects/standard/polyline.c:742
 msgid "Delete Corner"
 msgstr "Slett hjørne"
 
