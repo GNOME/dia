@@ -16,113 +16,116 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-17 02:41+0100\n"
-"PO-Revision-Date: 2004-11-17 01:31-0200\n"
+"POT-Creation-Date: 2004-11-29 18:42+0100\n"
+"PO-Revision-Date: 2004-11-29 22:00-0200\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.,br>\n"
-"Language-Team: Português/Brasil <gnome-l10n-br@listas.cipsga.org.br>\n"
+"Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"Content-Transfer-Encoding: 8bit"
 
-#: app/app_procs.c:219
+#: app/app_procs.c:220
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "erro %s: não é possível exportar para %s\n"
 
-#: app/app_procs.c:228
+#: app/app_procs.c:229
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "erro %s: os nomes dos arquivos de entrada e saída são idênticos: %s"
 
-#: app/app_procs.c:235
+#: app/app_procs.c:236
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "erro %s: é necessário um arquivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:255
+#: app/app_procs.c:256
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:307
+#: app/app_procs.c:308
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Impossível localizar o formato de filtro %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:394
+#: app/app_procs.c:392
 #, c-format
-msgid "Select the filter/format.  Supported are: %s"
-msgstr "Selecione o formato de filtro. Os formatos suportados são: %s"
+msgid "Select the filter/format out of: %s"
+msgstr "Selecione o filtro/formato fora de: %s"
 
 #. &export_file_name
-#: app/app_procs.c:411
+#: app/app_procs.c:411 app/app_procs.c:432
 msgid "Export loaded file and exit"
 msgstr "Exportar o arquivo carregado e sair"
 
-#: app/app_procs.c:411
+#: app/app_procs.c:411 app/app_procs.c:432
 msgid "OUTPUT"
 msgstr "SAÍDA"
 
 #. &export_file_format
-#: app/app_procs.c:413
+#. &export_format_string
+#. &export_file_format
+#: app/app_procs.c:413 app/app_procs.c:434
 msgid "TYPE"
 msgstr "TIPO"
 
-#: app/app_procs.c:416
+#: app/app_procs.c:416 app/app_procs.c:437
 msgid "Export graphics size"
 msgstr "Tamanho do gráfico exportado"
 
-#: app/app_procs.c:416
+#: app/app_procs.c:416 app/app_procs.c:437
 msgid "WxH"
 msgstr "LxA"
 
-#: app/app_procs.c:418
+#: app/app_procs.c:418 app/app_procs.c:439
 msgid "Don't show the splash screen"
 msgstr "Não mostrar a tela de abertura"
 
-#: app/app_procs.c:420
+#: app/app_procs.c:420 app/app_procs.c:441
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Enviar mensagens de erro pra stderr ao contrário de mostrar diálogos."
 
-#: app/app_procs.c:422
+#: app/app_procs.c:422 app/app_procs.c:443
 msgid "Display credits list and exit"
 msgstr "Mostrar a lista de créditos e sair"
 
-#: app/app_procs.c:424
+#: app/app_procs.c:424 app/app_procs.c:445
 msgid "Display version and exit"
 msgstr "Mostrar a versão e sair"
 
-#: app/app_procs.c:425
+#: app/app_procs.c:446
 msgid "Show this help message"
 msgstr "Mostrar esta mensagem de ajuda"
 
-#: app/app_procs.c:466
+#: app/app_procs.c:492
 msgid "Can't connect to session manager!\n"
 msgstr "Impossível se conectar ao gerenciador de sessão!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:493
+#: app/app_procs.c:517
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versão do Dia %s, compilado %s %s\n"
 
-#: app/app_procs.c:495
+#: app/app_procs.c:519
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versão do Dia %s\n"
 
-#: app/app_procs.c:554 app/app_procs.c:556
-msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
-msgstr "Impossível encontrar os objetos padrão ao procurar object-libs, saindo...\n"
+#: app/app_procs.c:578 app/app_procs.c:580
+msgid ""
+"Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgstr ""
+"Impossível encontrar os objetos padrão ao procurar object-libs, saindo...\n"
 
-#: app/app_procs.c:597
+#: app/app_procs.c:621
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
-#: app/app_procs.c:639
+#: app/app_procs.c:663
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -131,7 +134,7 @@ msgstr ""
 "bugzilla.gnome.org descrevendo a situação que gerou esta mensagem.\n"
 
 #. no standard buttons
-#: app/app_procs.c:651
+#: app/app_procs.c:675
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -141,21 +144,21 @@ msgstr ""
 "Tem certeza de que deseja sair do Dia\n"
 "sem salvá-los?"
 
-#: app/app_procs.c:655
+#: app/app_procs.c:678
 msgid "Quit Dia"
 msgstr "Sair do Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:707
+#: app/app_procs.c:730
 msgid "Thank you for using Dia.\n"
 msgstr "Obrigado por utilizar o Dia.\n"
 
-#: app/app_procs.c:724 app/app_procs.c:731
+#: app/app_procs.c:747 app/app_procs.c:754
 msgid "Could not create per-user Dia config directory"
 msgstr "Não foi possível criar o diretório de configuração pessoal do Dia"
 
-#: app/app_procs.c:733
+#: app/app_procs.c:756
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -164,15 +167,15 @@ msgstr ""
 "Certifique-se de que a variável de ambiente HOME aponta para um diretório "
 "existente."
 
-#: app/app_procs.c:755
+#: app/app_procs.c:778
 msgid "Objects and filters internal to dia"
 msgstr "Objetos e filtros internos do Dia"
 
-#: app/app_procs.c:794
+#: app/app_procs.c:819
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPÇÃO...] [ARQUIVO...]"
 
-#: app/app_procs.c:797
+#: app/app_procs.c:822
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -181,7 +184,16 @@ msgstr ""
 "Erro na opção %s: %s.\n"
 "Execute '%s --help' para obter uma lista completa das opções disponíveis.\n"
 
-#: app/app_procs.c:882
+#: app/app_procs.c:846
+msgid "[FILE...]"
+msgstr "[ARQUIVO...]"
+
+#: app/app_procs.c:858
+#, c-format
+msgid "'%s' not found!\n"
+msgstr "'%s' não encontrado!\n"
+
+#: app/app_procs.c:928
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -189,7 +201,7 @@ msgstr ""
 "O autor original do Dia foi:\n"
 "\n"
 
-#: app/app_procs.c:887
+#: app/app_procs.c:933
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -199,7 +211,7 @@ msgstr ""
 "Os mantenedores atuais do Dia são:\n"
 "\n"
 
-#: app/app_procs.c:892
+#: app/app_procs.c:938
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -209,7 +221,7 @@ msgstr ""
 "Os outros autores são:\n"
 "\n"
 
-#: app/app_procs.c:897
+#: app/app_procs.c:943
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -308,7 +320,8 @@ msgstr "Mantenedores: Lars Clausen e Cyrille Chepelov"
 
 #: app/commands.c:715
 msgid "Please visit http://www.gnome.org/projects/dia for more information"
-msgstr "Por favor, visite http://www.gnome.org/projects/dia/ para mais informações"
+msgstr ""
+"Por favor, visite http://www.gnome.org/projects/dia/ para mais informações"
 
 #: app/commands.c:720
 msgid "Contributors:"
@@ -493,7 +506,7 @@ msgstr "Árvore de diagramas"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1006 app/paginate_psprint.c:291
+#: app/dialogs.c:52 app/layer_dialog.c:1006 app/paginate_psprint.c:292
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -645,23 +658,23 @@ msgstr "Altura da imagem:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:122 app/filedlg.c:435
+#: app/filedlg.c:126 app/filedlg.c:450
 msgid "By extension"
 msgstr "Por extensão"
 
-#: app/filedlg.c:213
+#: app/filedlg.c:217
 msgid "Open Diagram"
 msgstr "Abrir Diagrama"
 
-#: app/filedlg.c:243
+#: app/filedlg.c:249
 msgid "Open Options"
 msgstr "Opções de Abertura"
 
-#: app/filedlg.c:251 app/filedlg.c:559
+#: app/filedlg.c:257 app/filedlg.c:578
 msgid "Determine file type:"
 msgstr "Determinar o tipo de arquivo:"
 
-#: app/filedlg.c:288
+#: app/filedlg.c:294
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
@@ -670,7 +683,7 @@ msgstr ""
 "local.\n"
 "Algumas partes do diagrama apresentarão defeito."
 
-#: app/filedlg.c:294 app/filedlg.c:480
+#: app/filedlg.c:300 app/filedlg.c:495
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -679,21 +692,21 @@ msgstr ""
 "O arquivo '%s' já existe.\n"
 "Deseja sobrescrevê-lo?"
 
-#: app/filedlg.c:302 app/filedlg.c:487
+#: app/filedlg.c:308 app/filedlg.c:502
 msgid "File already exists"
 msgstr "O arquivo já existe"
 
-#: app/filedlg.c:335
+#: app/filedlg.c:341
 msgid "Save Diagram"
 msgstr "Salvar o Diagrama"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:345
+#: app/filedlg.c:352
 msgid "Compress diagram files"
 msgstr "Comprimir os arquivos de diagramas"
 
-#: app/filedlg.c:354
+#: app/filedlg.c:361
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -702,7 +715,7 @@ msgstr ""
 "velocidade de leitura e gravação. Alguns programas texto não podem manipular "
 "arquivos comprimidos."
 
-#: app/filedlg.c:506
+#: app/filedlg.c:521
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -711,11 +724,11 @@ msgstr ""
 "Impossível determinar qual filtro de\n"
 "exportação utilizar para salvar '%s'"
 
-#: app/filedlg.c:525
+#: app/filedlg.c:540
 msgid "Export Diagram"
 msgstr "Exportar o Diagrama"
 
-#: app/filedlg.c:551
+#: app/filedlg.c:570
 msgid "Export Options"
 msgstr "Opções de Exportação"
 
@@ -915,7 +928,7 @@ msgstr "Editar Atributos da Camada"
 msgid "Layer name:"
 msgstr "Nome da camada:"
 
-#: app/layer_dialog.c:996 app/paginate_psprint.c:283
+#: app/layer_dialog.c:996 app/paginate_psprint.c:284
 msgid "OK"
 msgstr "OK"
 
@@ -1002,7 +1015,7 @@ msgstr ""
 msgid "Failed to save file '%s'.\n"
 msgstr "Impossível salvar o arquivo '%s'.\n"
 
-#: app/load_save.c:1008 app/load_save.c:1013
+#: app/load_save.c:1009 app/load_save.c:1014
 msgid "Dia Diagram File"
 msgstr "Arquivo de Diagrama Dia"
 
@@ -1475,34 +1488,34 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Impossível obter definições GTK"
 
-#: app/paginate_psprint.c:242
+#: app/paginate_psprint.c:243
 msgid "Select Printer"
 msgstr "Selecionar Impressora"
 
-#: app/paginate_psprint.c:254 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:255 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "Impressora"
 
-#: app/paginate_psprint.c:268 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:269 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Arquivo"
 
-#: app/paginate_psprint.c:378
+#: app/paginate_psprint.c:379
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Impossível executar o comando '%s': %s"
 
-#: app/paginate_psprint.c:381
+#: app/paginate_psprint.c:382
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Impossível abrir '%s' para escrita: %s"
 
-#: app/paginate_psprint.c:398
+#: app/paginate_psprint.c:399
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Erro de impressão: o comando '%s' retornou %d\n"
 
-#: app/paginate_psprint.c:409
+#: app/paginate_psprint.c:410
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Erro de impressão: o comando '%s' causou um sigpipe."
@@ -2119,7 +2132,8 @@ msgstr "Barra invertida"
 
 #: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "Erro interno ao configurar tipo de canto do ponto final da curva de bézier"
+msgstr ""
+"Erro interno ao configurar tipo de canto do ponto final da curva de bézier"
 
 #: lib/dia_xml.c:154
 #, c-format
@@ -2263,12 +2277,12 @@ msgstr ""
 msgid "???"
 msgstr "???"
 
-#: lib/plug-ins.c:228
+#: lib/plug-ins.c:227
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Impossível deduzir o caminho correto para '%s'"
 
-#: lib/plug-ins.c:234
+#: lib/plug-ins.c:233
 #, c-format
 msgid ""
 "Could not load plugin '%s'\n"
@@ -2277,25 +2291,25 @@ msgstr ""
 "Impossível carregar o plugin '%s'.\n"
 "%s"
 
-#: lib/plug-ins.c:247
+#: lib/plug-ins.c:246
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Impossível encontrar a função de inicialização de plugin em `%s'"
 
-#: lib/plug-ins.c:249
+#: lib/plug-ins.c:248
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "Símbolo 'dia_plugin_init' faltando"
 
-#: lib/plug-ins.c:257 lib/plug-ins.c:265
+#: lib/plug-ins.c:256 lib/plug-ins.c:264
 msgid "dia_plugin_init() call failed"
 msgstr "A chamada dia_plugin_init() falhou"
 
-#: lib/plug-ins.c:284
+#: lib/plug-ins.c:283
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "Impossível descarregar o plugin %s"
 
-#: lib/plug-ins.c:372
+#: lib/plug-ins.c:371
 #, c-format
 msgid ""
 "Could not open `%s'\n"
@@ -4703,7 +4717,7 @@ msgstr "Manter a mesma taxa de proporção"
 
 #. Found file in same dir as diagram.
 #. Found file in current dir.
-#: objects/standard/image.c:669 objects/standard/image.c:680
+#: objects/standard/image.c:671 objects/standard/image.c:682
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -4713,7 +4727,7 @@ msgstr ""
 "Utilizando o arquivo '%s' ao invés daquele.\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:686 objects/standard/image.c:714
+#: objects/standard/image.c:688 objects/standard/image.c:710
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "O arquivo de imagem '%s' não foi encontrado.\n"
@@ -4868,7 +4882,7 @@ msgstr "Codificação UTF8 inválida"
 msgid "TeX PSTricks macros"
 msgstr "Macros TeX PSTricks"
 
-#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1186
+#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1182
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Impossível abrir '%s' para escrita.\n"
@@ -4921,13 +4935,14 @@ msgstr "elemento raíz era '%s' -- esperava-se 'svg'."
 
 #: plug-ins/svg/svg.c:37
 msgid "Scalable Vector Graphics import and export filters"
-msgstr "Filtros de importação e exportação para o formato Scalable Vector Graphics"
+msgstr ""
+"Filtros de importação e exportação para o formato Scalable Vector Graphics"
 
-#: plug-ins/wmf/wmf.cpp:1253
+#: plug-ins/wmf/wmf.cpp:1249
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:1269
+#: plug-ins/wmf/wmf.cpp:1265
 msgid "WMF export filter"
 msgstr "Filtro de exportação para WMF"
 
@@ -6533,7 +6548,8 @@ msgstr "Terminal tático de comunicações via satélite"
 
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr "Componentes de Equipamento Móvel de Comunicações do Exército dos E.U.A."
+msgstr ""
+"Componentes de Equipamento Móvel de Comunicações do Exército dos E.U.A."
 
 #: sheets/Misc.sheet.in.h:2
 msgid "Folder"
