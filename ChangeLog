@@ -1,3 +1,7 @@
+2002-12-12  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/dialibartrenderer.c (draw_string): Removed extra 'is'.
+
 2002-12-08  Hans Breuer  <hans@breuer.org>
 
 	* app/commands.c : fixed bug #85315 'give diagram properties, 

@@ -1114,7 +1114,7 @@ draw_string (DiaRenderer *self,
  {
    static int warned_no_text = 0;
    if (!warned_no_text) {
-     message_warning(_("This is Dia version is compiled without libart/text support."));
+     message_warning(_("This Dia version is compiled without libart/text support."));
      warned_no_text = 1;
    }
  }
