@@ -102,10 +102,10 @@ begin_render(DiaRenderer *self)
   /* pango_ft2_get_context API docs :
    * ... Use of this function is discouraged, ...
    */
-  dia_font_init(pango_ft2_get_context(10, 10));
+  dia_font_push_context(pango_ft2_get_context(10, 10));
 # define FONT_SCALE (1.0)
 #elif defined G_OS_WIN32
-  dia_font_init(pango_win32_get_context());
+  dia_font_push_context(pango_win32_get_context());
   /* we need to scale but can't as simple as with ft2 */
 # define FONT_SCALE (1.0 / 22.0)
 #endif
@@ -116,7 +116,7 @@ end_render(DiaRenderer *self)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
 
-  dia_font_init(gdk_pango_context_get());
+  dia_font_pop_context();
 }
 
 

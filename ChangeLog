@@ -1,5 +1,8 @@
 2002-10-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/dialibartrenderer.c (begin_render):
+	(end_render): Correct pushing and popping of font contexts.
+
 	* app/render_eps.c (export_eps): 
 	* app/diapsrenderer.c (dia_ps_renderer_finalize): 
 	Fixed file closing confusion, no longer dependent on PS/EPS.
