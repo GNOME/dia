@@ -2,10 +2,10 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>ER</name>
-  <description xml:lang="no">Editor for enhetsrelasjonsdiagrammer.</description>
-  <description xml:lang="fr">Editeur de diagrammes Entités-Relations.</description>
-  <description xml:lang="de">Editor für Zwischenbeziehungs-Diagramme.</description>
-  <description>Editor for Entity Relations Diagrams.</description>
+  <description xml:lang="no">Editor for enhetsrelasjonsdiagrammer</description>
+  <description xml:lang="fr">Editeur de diagrammes Entités-Relations</description>
+  <description xml:lang="de">Editor für Zwischenbeziehungs-Diagramme</description>
+  <description>Editor for Entity Relations Diagrams</description>
   <contents>
     <object name="ER - Entity" intdata="0">
       <description xml:lang="no">Enhet</description>

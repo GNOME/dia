@@ -2,64 +2,80 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Pneumatic/Hydraulic</name>
+  <name xml:lang="de">Pneumatik/Hydraulik</name>
   <description xml:lang="fr">Composants de schémas pneumatiques et 
     hydrauliques</description>
-  <description>Components for pneumatic and hydraulic circuits.</description>
+  <description xml:lang="de">Komponenten für pneumatische und hydraulische
+    Kreise</description>
+  <description>Components for pneumatic and hydraulic circuits</description>
   <contents>
     <object name="Pneum - DEJack">
       <description xml:lang="fr">Un vérin double-effet</description>
+      <description xml:lang="de">Eine Doppeleffektbuchse</description>
       <description>A double-effect jack</description>
     </object>
     <object name="Pneum - SEIJack">
       <description xml:lang="fr">Un vérin simple-effet, normalement rentré</description>
+      <description xml:lang="de">Eine normale hereinlassen Einwegbuchse</description>
       <description>A normally-in simple-effect jack</description>
     </object>
     <object name="Pneum - SEOJack">
       <description xml:lang="fr">Un vérin simple-effet, normalement sorti</description>
-      <description>A normally-in simple-effect jack</description>
+      <description xml:lang="de">Eine normale auslassende Einwegbuchse</description>
+      <description>A normally-out simple-effect jack</description>
     </object>
     <!-- TODO : shaftless double-effect jacks, shock-absorbed jacks 
     (all types, with fixed and variable shock absorption), rotary jacks ... -->
     <br/>
     <object name="Pneum - press">
       <description xml:lang="fr">Une source de pression (générique)</description>
+      <description xml:lang="de">Eine generische Druckquelle</description>
       <description>A generic pressure source</description>
     </object>
     <object name="Pneum - presshy">
       <description xml:lang="fr">Une source de pression hydraulique</description>
+      <description xml:lang="de">Eine hydraulische Druckquelle</description>
       <description>A hydraulic pressure source</description>
     </object>
     <object name="Pneum - presspn">
       <description xml:lang="fr">Une source de pression pneumatique</description>
+      <description xml:lang="de">Eine pneumatische Druckquelle</description>
       <description>A pneumatic pressure source</description>
     </object>
     <object name="Pneum - drain">
       <description xml:lang="fr">Un orifice d'évacuation d'air</description>
+      <description xml:lang="de">Ein Druckablaßventil</description>
       <description>An air exhaust orifice</description>
     </object>
       <br/>
     <object name="Pneum - dist22">
       <description xml:lang="fr">Un distributeur 2/2</description>
+      <description xml:lang="de">Ein 2/2 Verteiler</description>
       <description>A 2/2 distributor</description>
     </object>
     <object name="Pneum - dist32">
       <description xml:lang="fr">Un distributeur 3/2</description>
+      <description xml:lang="de">Ein 3/2 Verteiler</description>
       <description>A 3/2 distributor</description>
     </object>
     <object name="Pneum - dist33">
       <description xml:lang="fr">Un distributeur 3/3</description>
+      <description xml:lang="de">Ein 3/3 Verteiler</description>
       <description>A 3/3 distributor</description>
     </object>
     <object name="Pneum - dist42">
       <description xml:lang="fr">Un distributeur 4/2</description>
+      <description xml:lang="de">Ein 4/2 Verteiler</description>
       <description>A 4/2 distributor</description>
     </object>
     <object name="Pneum - dist52">
       <description xml:lang="fr">Un distributeur 5/2</description>
+      <description xml:lang="de">Ein 5/2 Verteiler</description>
       <description>A 5/2 distributor</description>
     </object>
     <object name="Pneum - dist53">
       <description xml:lang="fr">Un distributeur 5/3</description>
+      <description xml:lang="de">Ein 5/3 Verteiler</description>
       <description>A 5/3 distributor</description>
     </object>    
       <br/>

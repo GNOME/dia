@@ -2,82 +2,83 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Network</name>
-  <description xml:lang="no">Objekter til utforming av nettverksdiagrammer.</description>
-  <description xml:lang="fr">Objets pour dessiner des diagrammes réseau.</description>
-  <description xml:lang="de">Objekte für Netzwerkdiagrammentwurf.</description>
-  <description>Objects to design network diagrams with.</description>
+  <name xml:lang="de">Netzwerke</name>
+  <description xml:lang="no">Objekter til utforming av nettverksdiagrammer</description>
+  <description xml:lang="fr">Objets pour dessiner des diagrammes réseau</description>
+  <description xml:lang="de">Objekte für Netzwerkdiagrammentwurf</description>
+  <description>Objects to design network diagrams with</description>
   <contents>
     <object name="Network - General Computer (Tower)">
-      <description xml:lang="no">En datamaskin med tårnkasse.</description>
-      <description xml:lang="fr">Un ordinateur en boîtier tour.</description>
-      <description xml:lang="de">Ein Computer.</description>
-      <description>A Computer.</description>
+      <description xml:lang="no">En datamaskin med tårnkasse</description>
+      <description xml:lang="fr">Un ordinateur en boîtier tour</description>
+      <description xml:lang="de">Ein Computer</description>
+      <description>A Computer</description>
     </object>
     <object name="Network - General Monitor (With Stand)">
-      <description xml:lang="no">En skjerm.</description>
-      <description xml:lang="fr">Un moniteur.</description>
-      <description xml:lang="de">Ein Monitor.</description>
-      <description>A monitor.</description>
+      <description xml:lang="no">En skjerm</description>
+      <description xml:lang="fr">Un moniteur</description>
+      <description xml:lang="de">Ein Monitor</description>
+      <description>A monitor</description>
     </object>
     <object name="Network - Storage">
-      <description xml:lang="no">Lagring.</description>
-      <description xml:lang="fr">Stockage.</description>
-      <description xml:lang="de">Speicher.</description>
-      <description>Storage.</description>
+      <description xml:lang="no">Lagring</description>
+      <description xml:lang="fr">Stockage</description>
+      <description xml:lang="de">Speicher</description>
+      <description>Storage</description>
     </object>
     <object name="Network - Bus">
-      <description xml:lang="no">Ethernet buss.</description>
-      <description xml:lang="fr">Un bus Ethernet.</description>
-      <description xml:lang="de">Ein Ethernetbus.</description>
-      <description>An Ethernet bus.</description>
+      <description xml:lang="no">Ethernet buss</description>
+      <description xml:lang="fr">Un bus Ethernet</description>
+      <description xml:lang="de">Ein Ethernetbus</description>
+      <description>An Ethernet bus</description>
     </object>
     <object name="Network - General Printer">
-      <description xml:lang="no">En enkel skriver.</description>
-      <description xml:lang="fr">Une imprimante simple.</description>
-      <description xml:lang="de">Ein einfacher Drucker.</description>
-      <description>A simple printer.</description>
+      <description xml:lang="no">En enkel skriver</description>
+      <description xml:lang="fr">Une imprimante simple</description>
+      <description xml:lang="de">Ein einfacher Drucker</description>
+      <description>A simple printer</description>
     </object>
     <object name="Network - WAN Connection">
-      <description xml:lang="no">En WAN-forbindelse.</description>
-      <description xml:lang="fr">Une connexion WAN.</description>
-      <description xml:lang="de">Eine WAN Verbindung.</description>
-      <description>A WAN Connection.</description>
+      <description xml:lang="no">En WAN-forbindelse</description>
+      <description xml:lang="fr">Une connexion WAN</description>
+      <description xml:lang="de">Eine WAN Verbindung</description>
+      <description>A WAN Connection</description>
     </object>
     <object name="Network - Hub">
-      <description xml:lang="no">En hub eller switch som kan stables.</description>
-      <description xml:lang="fr">Un hub ou commutateur empilable.</description>
-      <description xml:lang="de">Ein stapelbarer Hub oder Switch.</description>
-      <description>A stackable hub or switch.</description>
+      <description xml:lang="no">En hub eller switch som kan stables</description>
+      <description xml:lang="fr">Un hub ou commutateur empilable</description>
+      <description xml:lang="de">Ein stapelbarer Hub oder Switch</description>
+      <description>A stackable hub or switch</description>
     </object>
     <object name="Network - Modular Switch">
-      <description xml:lang="no">Et modulært switchesystem.</description>
-      <description xml:lang="fr">Un système de commutation modulaire.</description>
-      <description xml:lang="de">Ein modulares Switchsystem.</description>
-      <description>A modular switching system.</description>
+      <description xml:lang="no">Et modulært switchesystem</description>
+      <description xml:lang="fr">Un système de commutation modulaire</description>
+      <description xml:lang="de">Ein modulares Switchsystem</description>
+      <description>A modular switching system</description>
     </object>
     <object name="Network - RJ45 Wall-Plug">
-      <description xml:lang="no">RJ45 veggplugg.</description>
-      <description xml:lang="fr">Une prise murale RJ45.</description>
-      <description xml:lang="de">Eine RJ45 Steckdose.</description>
-      <description>A RJ45 Wall-Plug.</description>
+      <description xml:lang="no">RJ45 veggplugg</description>
+      <description xml:lang="fr">Une prise murale RJ45</description>
+      <description xml:lang="de">Eine RJ45 Steckdose</description>
+      <description>A RJ45 Wall-Plug</description>
     </object>
     <object name="Network - scEAD Wall-Plug">
-      <description xml:lang="no">En veggplugg for scEAD kablingsystemet.</description>
-      <description xml:lang="fr">Une prise murale pour le système de câblage scEAD.</description>
-      <description xml:lang="de">Eine Steckdose für das scEAD Verkabelungssystem.</description>
-      <description>A Wall-Plug for the scEAD Cabling System.</description>
+      <description xml:lang="no">En veggplugg for scEAD kablingsystemet</description>
+      <description xml:lang="fr">Une prise murale pour le système de câblage scEAD</description>
+      <description xml:lang="de">Eine Steckdose für das scEAD Verkabelungssystem</description>
+      <description>A Wall-Plug for the scEAD Cabling System</description>
     </object>
     <object name="Network - Modem">
-      <description xml:lang="no">Et enkelt modem.</description>
-      <description xml:lang="fr">Un modem simple.</description>
-      <description xml:lang="de">Ein einfaches Modem.</description>
-      <description>A simple Modem.</description>
+      <description xml:lang="no">Et enkelt modem</description>
+      <description xml:lang="fr">Un modem simple</description>
+      <description xml:lang="de">Ein einfaches Modem</description>
+      <description>A simple Modem</description>
     </object>
     <object name="Network - Antenna">
-      <description xml:lang="no">En antenne for trådløs overføring.</description>
-      <description xml:lang="fr">Une antenne pour transmissions sans fil.</description>
-      <description xml:lang="de">Eine Antenne für Drahtlosübertragung.</description>
-      <description>An antenna for wireless transmission.</description>
+      <description xml:lang="no">En antenne for trådløs overføring</description>
+      <description xml:lang="fr">Une antenne pour transmissions sans fil</description>
+      <description xml:lang="de">Eine Antenne für Drahtlosübertragung</description>
+      <description>An antenna for wireless transmission</description>
     </object>
     <object name="Network - Cloud">
       <description xml:lang="no">Nettverkssky</description>

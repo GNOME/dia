@@ -2,9 +2,9 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>UML</name>
-  <description xml:lang="fr">Editeur de diagrammes de structures statiques UML.</description>
-  <description xml:lang="de">Editor für UML Strukturdiagramme.</description>
-  <description>Editor for UML Static Structure Diagrams.</description>
+  <description xml:lang="fr">Editeur de diagrammes de structures statiques UML</description>
+  <description xml:lang="de">Editor für UML Strukturdiagramme</description>
+  <description>Editor for UML Static Structure Diagrams</description>
   <contents>
     <object name="UML - Class" intdata="0">
       <description xml:lang="fr">Créer une classe</description>
@@ -28,35 +28,35 @@
       <description>Create a dependency</description>
     </object>
     <object name="UML - Realizes">
-      <description xml:lang="fr">Réalise, implémente une interface spécifique.</description>
-      <description xml:lang="de">Realisiert, implementiert eine Schnittstelle.</description>
-      <description>Realizes, implements a specific interface.</description>
+      <description xml:lang="fr">Réalise, implémente une interface spécifique</description>
+      <description xml:lang="de">Realisiert, implementiert eine Schnittstelle</description>
+      <description>Realizes, implements a specific interface</description>
     </object>
     <object name="UML - Generalization">
-      <description xml:lang="fr">Généralisation, héritage de classe.</description>
-      <description xml:lang="de">Verallgemeinerung, Klassenvererbung.</description>
-      <description>Generalization, class inheritance.</description>
+      <description xml:lang="fr">Généralisation, héritage de classe</description>
+      <description xml:lang="de">Verallgemeinerung, Klassenvererbung</description>
+      <description>Generalization, class inheritance</description>
     </object>
     <object name="UML - Association" intdata="0">
-      <description xml:lang="fr">Association, deux classes sont associées.</description>
-      <description xml:lang="de">Ähnlichkeit, zwei Klassen sind ähnlich.</description>
-      <description>Association, two classes are associated.</description>
+      <description xml:lang="fr">Association, deux classes sont associées</description>
+      <description xml:lang="de">Ähnlichkeit, zwei Klassen sind ähnlich</description>
+      <description>Association, two classes are associated</description>
     </object>
     <object name="UML - Association" intdata="1">
-      <description xml:lang="fr">Agrégation, une classe est une partie d'une autre.</description>
-      <description xml:lang="de">Aggregation, eine Klasse ist Teil einer Anderen.</description>
-      <description>Aggregation, one class is part of another.</description>
-      <icon>UML/aggregation.xpm</icon>
+      <description xml:lang="fr">Agrégation, une classe est une partie d'une autre</description>
+      <description xml:lang="de">Aggregation, eine Klasse ist Teil einer Anderen</description>
+      <description>Aggregation, one class is part of another</description>
+      <icon>UML/aggregationxpm</icon>
     </object>
     <object name="UML - Implements">
-      <description xml:lang="fr">Implémente, une classe implémente une interface spécifique.</description>
-      <description xml:lang="de">Implementiert, Klasse implementiert eine Schnittstelle.</description>
-      <description>Implements, class implements a specific interface.</description>
+      <description xml:lang="fr">Implémente, une classe implémente une interface spécifique</description>
+      <description xml:lang="de">Implementiert, Klasse implementiert eine Schnittstelle</description>
+      <description>Implements, class implements a specific interface</description>
     </object>
     <object name="UML - Constraint">
-      <description xml:lang="fr">Placer une contrainte sur quelque chose.</description>
-      <description xml:lang="de">Einschränkung, schränkt etwas ein.</description>
-      <description>Constraint, place a constraint on something.</description>
+      <description xml:lang="fr">Placer une contrainte sur quelque chose</description>
+      <description xml:lang="de">Einschränkung, schränkt etwas ein</description>
+      <description>Constraint, place a constraint on something</description>
     </object>
     <object name="UML - SmallPackage">
       <description xml:lang="fr">Créer un (petit) paquetage</description>

@@ -2,41 +2,51 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Electric</name>
+  <name xml:lang="de">Stromkreis</name>
   <description xml:lang="fr">Composants de circuits électriques</description>
-  <description>Components for electric circuits.</description>
+  <description xml:lang="de">Komponenten für Stromkreise</description>
+  <description>Components for electric circuits</description>
   <contents>
     <object name="Electric - contact_o">
       <description xml:lang="fr">Un contact normalement ouvert</description>
+      <description xml:lang="de">Ein normalerweise offener Kontakt</description>
       <description>A normally open contact</description>
     </object>
     <object name="Electric - contact_f">
       <description xml:lang="fr">Un contact normalement fermé</description>
+      <description xml:lang="de">Ein normalerweise geschlossener Kontakt<description>
       <description>A normally closed contact</description>
     </object>
     <object name="Electric - intpos_o">
       <description xml:lang="fr">Un interrupteur de position normalement ouvert</description>
+      <description xml:lang="de">Ein normalerweise offener Schalter</description>
       <description>A normally open position switch</description>
     </object>
     <object name="Electric - intpos_f">
       <description xml:lang="fr">Un interrupteur de position normalement fermé</description>
+      <description xml:lang="de">Ein normalerweise geschlossener Schalter</description>
       <description>A normally closed position switch</description>
     </object>
     <br/>
     <object name="Electric - command">
       <description xml:lang="fr">Organe de commande d'un relais</description>
+      <description xml:lang="de">Der schaltende Teil eines Relais</description>
       <description>The command organ of a relay</description>
     </object>
     <object name="Electric - relay">
       <description xml:lang="fr">Un relais</description>
+      <description xml:lang="de">Ein Relais</description>
       <description>A relay</description>
     </object>
     <object name="Electric - lamp">
       <description xml:lang="fr">Une lampe ou un voyant</description>
+      <description xml:lang="de">Eine Lampe oder Indikatorleuchte</description>
       <description>A lamp or indicator light</description>
     </object>
     <br/>
     <object name="Electric - connpoint">
       <description xml:lang="fr">Un point de connexion</description>
+      <description xml:lang="de">Ein Verbindungspunkt</description>
       <description>A connection point</description>
     </object>
     

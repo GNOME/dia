@@ -2,9 +2,9 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>GRAFCET</name>
-  <description xml:lang="fr">Objets pour l'écriture de Grafcets.</description>
-  <description xml:lang="de">Objekte für GRAFCET Design.</description>
-  <description>Objects to design GRAFCET charts.</description>
+  <description xml:lang="fr">Objets pour l'écriture de Grafcets</description>
+  <description xml:lang="de">Objekte für GRAFCET Design</description>
+  <description>Objects to design GRAFCET charts</description>
   <contents>
     <object name="GRAFCET - Step" intdata="0">
       <description xml:lang="fr">Une étape normale</description>

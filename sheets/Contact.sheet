@@ -3,7 +3,7 @@
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Ladder</name>
   <description xml:lang="fr">Composants de diagrammes LADDER</description>
-  <description>Components for LADDER circuits.</description>
+  <description>Components for LADDER circuits</description>
   <contents>
     <object name="LADDER - if">
       <description xml:lang="fr">Un contact ladder normalement ouvert "si"</description>
@@ -56,7 +56,7 @@
       <description>A power-saved "reset" output variable</description>
     </object>
     <!-- TODO : OPERATE, COMPARE, PULSE, TXT, TIMER and various sizes of 
-         general-purpose blocks. 
+         general-purpose blocks 
          -->
   </contents>
 </sheet>

@@ -2,34 +2,35 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Flowchart</name>
-  <description xml:lang="no">Objekter som brukes til å tegne flytdiagrammer.</description>
-  <description xml:lang="fr">Objets pour dessiner des graphes de flux.</description>
-  <description xml:lang="de">Objekte um Flußdiagramme zu zeichnen.</description>
-  <description>Objects to draw flowcharts.</description>
+  <name xml:lang="de">Flußdiagramm</name>
+  <description xml:lang="no">Objekter som brukes til å tegne flytdiagrammer</description>
+  <description xml:lang="fr">Objets pour dessiner des graphes de flux</description>
+  <description xml:lang="de">Objekte um Flußdiagramme zu zeichnen</description>
+  <description>Objects to draw flowcharts</description>
   <contents>
     <object name="Flowchart - Box">
-      <description xml:lang="no">En boks med tekstinnhold.</description>
-      <description xml:lang="fr">Une boîte contenant du texte.</description>
-      <description xml:lang="de">Ein Kasten mit Textinhalt.</description>
+      <description xml:lang="no">En boks med tekstinnhold</description>
+      <description xml:lang="fr">Une boîte contenant du texte</description>
+      <description xml:lang="de">Ein Kasten mit Textinhalt</description>
       <description>A box with text inside</description>
     </object>
     <object name="Flowchart - Parallelogram">
-      <description xml:lang="no">Et parallellogram med tekstinnhold.</description>
-      <description xml:lang="fr">Un parallélogramme contenant du texte.</description>
-      <description xml:lang="de">Ein Parallelogram mit Textinhalt.</description>
-      <description>A parallelogram with text inside.</description>
+      <description xml:lang="no">Et parallellogram med tekstinnhold</description>
+      <description xml:lang="fr">Un parallélogramme contenant du texte</description>
+      <description xml:lang="de">Ein Parallelogram mit Textinhalt</description>
+      <description>A parallelogram with text inside</description>
     </object>
     <object name="Flowchart - Diamond">
-      <description xml:lang="no">En diamant med tekstinnhold.</description>
-      <description xml:lang="fr">Un diamant contenant du texte.</description>
-      <description xml:lang="de">Ein Diamant mit Textinhalt.</description>
-      <description>A diamond with text inside.</description>
+      <description xml:lang="no">En diamant med tekstinnhold</description>
+      <description xml:lang="fr">Un diamant contenant du texte</description>
+      <description xml:lang="de">Ein Diamant mit Textinhalt</description>
+      <description>A diamond with text inside</description>
     </object>
     <object name="Flowchart - Ellipse">
-      <description xml:lang="no">En elipse med tekstinnhold.</description>
-      <description xml:lang="fr">Une ellipse contenant du texte.</description>
-      <description xml:lang="de">Eine Ellipse mit Textinhalt.</description>
-      <description>A ellipse with text inside.</description>
+      <description xml:lang="no">En elipse med tekstinnhold</description>
+      <description xml:lang="fr">Une ellipse contenant du texte</description>
+      <description xml:lang="de">Eine Ellipse mit Textinhalt</description>
+      <description>A ellipse with text inside</description>
     </object>
     <object name="Flowchart - Display">
       <description xml:lang="no">Vis</description>

@@ -33,6 +33,7 @@
     </object>
     <object name="Civil - Vertical Compressor">
 	<description>Vertically aligned compressor</description>
+	<description xml:lang="de">Ein vertikal ausgerichteter Verdichter</description>
     </object>
     <object name="Civil - Water Level">
 	<description>Water Level</description>
