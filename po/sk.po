@@ -1,0 +1,5452 @@
+# Slovak translation of dia
+# Slovenský preklad dia
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# Zdenko Podobný <zdpo@mailbox.sk>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Dia VERSION\n"
+"POT-Creation-Date: 2002-03-07 19:29-0500\n"
+"PO-Revision-Date: 2002-03-15 17:47+0100\n"
+"Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
+"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+#: app/app_procs.c:157
+#, c-format
+msgid "%s error: input and output file name is identical: %s"
+msgstr "%s chyba: názov vstupného a názov výstupného súboru je rovnaký: %s"
+
+#: app/app_procs.c:168
+#, c-format
+msgid "%s error: need valid input file %s\n"
+msgstr "%s chyba: potrebný je správny vstupný súbor %s\n"
+
+#: app/app_procs.c:175
+#, c-format
+msgid "%s error: don't know how to export into %s\n"
+msgstr "%s chyba: neviem ako exportova» do %s\n"
+
+#. if (!quiet)
+#: app/app_procs.c:181
+#, c-format
+msgid "%s --> %s\n"
+msgstr "%s --> %s\n"
+
+#. &export_file_name
+#: app/app_procs.c:219
+msgid "Export loaded file and exit"
+msgstr "Export naèítal súbor a skonèil"
+
+#: app/app_procs.c:219 app/diaconv.c:97
+msgid "OUTPUT"
+msgstr "VÝSTUP"
+
+#. &export_file_format
+#: app/app_procs.c:221
+msgid "Export to file format and exit"
+msgstr "Exportova» do formátu súboru a ukonèi»"
+
+#: app/app_procs.c:221 app/diaconv.c:95
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "eps,png,wmf,cgm,dxf,fig"
+
+#: app/app_procs.c:223
+msgid "Don't show the splash screen"
+msgstr "Nezobrazova» úvodný obrázok"
+
+#: app/app_procs.c:225 app/diaconv.c:98
+msgid "Show this help message"
+msgstr "Zobrazi» túto pomoc"
+
+#: app/app_procs.c:258
+msgid "Can't connect to session manager!\n"
+msgstr "Nemô¾em sa spoji» s mana¾érom sedenia!\n"
+
+#: app/app_procs.c:269 app/diaconv.c:126
+msgid "[OPTION...] [FILE...]"
+msgstr "[VO¥BA...] [SÚBOR...]"
+
+#: app/app_procs.c:273 app/diaconv.c:133
+#, c-format
+msgid ""
+"Error on option %s: %s.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Chyba vo voµbe %s: %s.\n"
+"Spustite '%s --help' pre zobrazenie úplného zoznamu mo¾ností príkazového "
+"riadku.\n"
+
+#: app/app_procs.c:286
+#, c-format
+msgid "%s error: can specify only one of -f or -o."
+msgstr "%s chyba: mô¾ete urèi» buï -f alebo -o."
+
+#: app/app_procs.c:330 app/app_procs.c:332 app/diaconv.c:206 app/diaconv.c:208
+msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgstr ""
+"Nie je mo¾né nájs» ¹tandardné objekty, keï hµadám objekty - kni¾nice, "
+"konèím...\n"
+
+#: app/app_procs.c:453 app/app_procs.c:459
+msgid "Quit, are you sure?"
+msgstr "Ste si istý, ¾e chcete skonèi»?"
+
+#: app/app_procs.c:466
+msgid ""
+"Modified diagrams exists.\n"
+"Are you sure you want to quit?"
+msgstr ""
+"Existujú zmenené diagramy.\n"
+"Ste si istý, ¾e chcete skonèi»?"
+
+#: app/app_procs.c:476 app/app_procs.c:481
+msgid "Quit"
+msgstr "Ukonèi»"
+
+#: app/app_procs.c:493 app/display.c:966 app/export_png.c:253
+#: app/layer_dialog.c:1015 app/lineprops_area.c:771 app/lineprops_area.c:971
+#: app/linewidth_area.c:246 app/paginate_psprint.c:268
+msgid "Cancel"
+msgstr "Zru¹i»"
+
+#: app/app_procs.c:568 app/app_procs.c:575
+msgid "Could not create per-user Dia config directory"
+msgstr "Nie je mo¾né vytvori» pre pou¾ívateµa Dia konfiguraèný prieèinok"
+
+#: app/app_procs.c:577
+msgid ""
+"Could not create per-user Dia config directory. Please make sure that the "
+"environment variable HOME points to an existing directory."
+msgstr ""
+"Nie je mo¾né vytvori» pre pou¾ívateµa Dia konfiguraèný prieèinok. Uistite sa "
+"prosím, ¾e premenná HOME ukazuje na existujúci prieèinok."
+
+#: app/app_procs.c:599 app/diaconv.c:256
+msgid "Objects and filters internal to dia"
+msgstr "Interné objekty a filtre pre Dia"
+
+#: app/color_area.c:264 lib/widgets.c:692
+msgid "Select color"
+msgstr "Výber farby"
+
+#: app/commands.c:139
+#, c-format
+msgid "Untitled-%d"
+msgstr "Bez mena-%d"
+
+#: app/commands.c:201
+msgid "No existing object to paste.\n"
+msgstr "Nedá sa vlo¾i» neexistujúci objekt.\n"
+
+#: app/commands.c:472 app/commands.c:496
+msgid "Could not find help directory"
+msgstr "Nemô¾em nájs» pomocný prieèinok"
+
+#: app/commands.c:543
+msgid "About Dia"
+msgstr "O Dia"
+
+#: app/commands.c:586
+#, c-format
+msgid "Dia v %s by Alexander Larsson"
+msgstr "Dia v %s od Alexandera Larssona"
+
+#: app/commands.c:591
+msgid "Maintainer: James Henstridge"
+msgstr "Správca: James Henstridge"
+
+#: app/commands.c:595
+msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
+msgstr ""
+"Prosím nav¹tívte http://www.lysator.liu.se/~alla/dia, kde je viacej "
+"informácií"
+
+#: app/commands.c:600
+msgid "Contributors:"
+msgstr "Prispievatelia:"
+
+#. setup buttons
+#: app/commands.c:617 app/dia-props.c:86 app/layer_dialog.c:1005
+#: app/lineprops_area.c:762 app/lineprops_area.c:961 app/linewidth_area.c:237
+#: app/pagesetup.c:72 app/paginate_psprint.c:260 app/preferences.c:717
+#: app/properties.c:92 lib/message.c:87
+msgid "OK"
+msgstr "OK"
+
+#: app/commands.c:703
+msgid ""
+"The anti aliased renderer is buggy, and may cause\n"
+"crashes.  We know there are bugs in it, so don't\n"
+"bother submitting another report if it crashes"
+msgstr ""
+"Generátor vyhladzovania je chybný a mô¾e spôsobi»\n"
+"pády. Vieme, ¾e sú v òom chyby, a tak sa neunúvajte\n"
+"posiela» správy o páde programu"
+
+#: app/defaults.c:50 app/defaults.c:58
+msgid "Object defaults"
+msgstr "©tandardy objektu"
+
+#: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
+#: app/preferences.c:726 app/properties.c:101
+msgid "Apply"
+msgstr "Pou¾i»"
+
+#: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
+#: app/pagesetup.c:83 app/plugin-manager.c:160 app/preferences.c:735
+#: app/properties.c:111
+msgid "Close"
+msgstr "Zavrie»"
+
+#: app/defaults.c:98
+msgid "This object has no defaults."
+msgstr "Tento objekt nemá ¹tandardy."
+
+#: app/dia-props.c:60 app/dia-props.c:67
+msgid "Diagram Properties"
+msgstr "Nastavenia Diagramu"
+
+#: app/dia-props.c:130
+msgid "x"
+msgstr "x"
+
+#: app/dia-props.c:134
+msgid "y"
+msgstr "y"
+
+#: app/dia-props.c:139
+msgid "Spacing"
+msgstr "Riadkovanie"
+
+#: app/dia-props.c:159
+msgid "Visible spacing"
+msgstr "Viditeµné medzery"
+
+#: app/dia-props.c:179
+msgid "Grid"
+msgstr "Mrie¾ka"
+
+#: app/dia-props.c:189
+msgid "Background Colour"
+msgstr "Farba pozadia"
+
+#: app/dia-props.c:200 lib/diagramdata.c:61 lib/diagramdata.c:63
+msgid "Background"
+msgstr "Pozadie"
+
+#: app/dia_embedd.c:352
+msgid "Could not initialize Bonobo!"
+msgstr "Nie je mo¾né inicializova» Bonobo!"
+
+#. &export_file_format
+#: app/diaconv.c:95
+msgid "Export format to use"
+msgstr "Exportova» do formátu súboru a ukonèi»"
+
+#. &export_file_name
+#: app/diaconv.c:97
+msgid "Export file name to use"
+msgstr "Exportova» do formátu súboru a ukonèi»"
+
+#: app/diaconv.c:99
+msgid "Quiet operation"
+msgstr "Zakázané operácie"
+
+#: app/diaconv.c:154
+#, c-format
+msgid ""
+"Error: No arguments found.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Chyba: Nebol nájdený argument.\n"
+"Spustite '%s --help' pre zobrazenie úplného zoznamu mo¾ností príkazového "
+"riadku.\n"
+
+#: app/diaconv.c:164
+#, c-format
+msgid "%s error: can specify only one of -t or -o."
+msgstr "%s chyba: mô¾ete urèi» buï -f alebo -o."
+
+#: app/diaconv.c:170
+#, c-format
+msgid ""
+"%s error: must specify only one of -t or -o.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"%s chyba: musíte urèi» buï -t alebo -o.\n"
+"Spustite '%s --help' pre zobrazenie úplného zoznamu mo¾ností príkazového "
+"riadku.\n"
+
+#: app/diaconv.c:179
+#, c-format
+msgid "%s error: no input file."
+msgstr "%s chyba:  nie je ¾iadny vstupný súbor."
+
+#: app/diaconv.c:232
+#, c-format
+msgid "%s error: only one input file expected."
+msgstr "%s chyba: oèakáva sa iba jeden vstupný súbor."
+
+#: app/diaconv.c:245
+#, c-format
+msgid "%s error: popt library not available on this system"
+msgstr "%s chyba: popt kni¾nica nie je dostupná na tomto systéme"
+
+#: app/diagram_tree_menu.c:45
+msgid "/_Sort objects"
+msgstr "/_Triedenie objektov"
+
+#: app/diagram_tree_menu.c:46
+msgid "/Sort objects/by _name"
+msgstr "/Triedenie objektov/podµa me_na"
+
+#: app/diagram_tree_menu.c:48
+msgid "/Sort objects/by _type"
+msgstr "/Triedenie objektov/podµa _typu"
+
+#: app/diagram_tree_menu.c:50
+msgid "/Sort objects/as _inserted"
+msgstr "/Triedenie objektov/ako sú vklad_ané"
+
+#: app/diagram_tree_menu.c:53
+msgid "/Sort objects/All by name"
+msgstr "/Triedenie objektov/V¹etko podµa názvu"
+
+#: app/diagram_tree_menu.c:55
+msgid "/Sort objects/All by type"
+msgstr "/Triedenie objektov/V¹etko podµa typu"
+
+#: app/diagram_tree_menu.c:57
+msgid "/Sort objects/All as inserted"
+msgstr "/Triedenie objektov/V¹etko tak, ako je vkladané"
+
+#: app/diagram_tree_menu.c:59
+msgid "/Sort objects/_Default"
+msgstr "/Triedenie objektov/©tan_dardné"
+
+#: app/diagram_tree_menu.c:60
+msgid "/Sort objects/Default/by _name"
+msgstr "/Triedenie objektov/©tandardné/podµa _názvu"
+
+#: app/diagram_tree_menu.c:62
+msgid "/Sort objects/Default/by _type"
+msgstr "/Triedenie objektov/©tandardné/podµa _typu"
+
+#: app/diagram_tree_menu.c:64
+msgid "/Sort objects/Default/as _inserted"
+msgstr "/Triedenie objektov/©tandardné/tak ako sú vklad_ané"
+
+#: app/diagram_tree_menu.c:66
+msgid "/Sort _diagrams"
+msgstr "/Triedenie _diagramov"
+
+#: app/diagram_tree_menu.c:67
+msgid "/Sort _diagrams/by _name"
+msgstr "/Triedenie _diagramov/podµa me_na"
+
+#: app/diagram_tree_menu.c:69
+msgid "/Sort _diagrams/as _inserted"
+msgstr "/Triedenie _diagramov/ako sú _vkladané"
+
+#: app/diagram_tree_menu.c:71
+msgid "/Sort diagrams/_Default"
+msgstr "/Triedenie diagramov/©tan_dardne"
+
+#: app/diagram_tree_menu.c:72
+msgid "/Sort diagrams/Default/by _name"
+msgstr "/Triedenie diagramov/©tandardné/podµa _názvu"
+
+#: app/diagram_tree_menu.c:74
+msgid "/Sort diagrams/Default/as _inserted"
+msgstr "/Triedenie diagramov/©tandardné/ako sú vkl_adané"
+
+#: app/diagram_tree_menu.c:82 app/diagram_tree_menu.c:93
+msgid "/_Locate"
+msgstr "/_Lokalizova»"
+
+#: app/diagram_tree_menu.c:83
+msgid "/_Properties"
+msgstr "_Vlastnosti"
+
+#: app/diagram_tree_menu.c:84
+msgid "/_Hide this type"
+msgstr "/Skry» t_ento typ"
+
+#: app/diagram_tree_window.c:75
+msgid "Diagram tree"
+msgstr "Strom diagramu"
+
+#. paper size
+#: app/diapagelayout.c:112
+msgid "Paper Size"
+msgstr "Veµkos» papiera"
+
+#. orientation
+#: app/diapagelayout.c:145
+msgid "Orientation"
+msgstr "Orientácia"
+
+#. margins
+#: app/diapagelayout.c:183
+msgid "Margins"
+msgstr "Okraje"
+
+#: app/diapagelayout.c:195
+msgid "Top:"
+msgstr "Horný:"
+
+#: app/diapagelayout.c:208
+msgid "Bottom:"
+msgstr "Dolný:"
+
+#: app/diapagelayout.c:221
+msgid "Left:"
+msgstr "¥avý:"
+
+#: app/diapagelayout.c:234
+msgid "Right:"
+msgstr "Pravý:"
+
+#. Scaling
+#: app/diapagelayout.c:248
+msgid "Scaling"
+msgstr "Mierka"
+
+#: app/diapagelayout.c:259
+msgid "Scale:"
+msgstr "Mierka:"
+
+#: app/diapagelayout.c:271
+msgid "Fit to:"
+msgstr "Prispôsobi» k:"
+
+#: app/diapagelayout.c:283
+msgid "by"
+msgstr "podµa"
+
+#: app/diapagelayout.c:678
+#, c-format
+msgid "%0.3gcm x %0.3gcm"
+msgstr "%0.3gcm x %0.3gcm"
+
+#: app/diapagelayout.c:780 app/pagesetup.c:60 app/pagesetup.c:68
+msgid "Page Setup"
+msgstr "Nastavenie strany"
+
+#: app/disp_callbacks.c:75 app/properties.c:176
+msgid ""
+"This object doesn't support Undo/Redo.\n"
+"Undo information erased."
+msgstr ""
+"Tento objekt nepodporuje Spä»/Opakova» vrátené\n"
+"Informácie pre funkciu Spä» sú odstránené."
+
+#: app/disp_callbacks.c:196
+msgid "No object menu"
+msgstr "®iadna ponuka pre objekt"
+
+#: app/display.c:141 app/display.c:142 app/interface.c:452
+msgid "Zoom"
+msgstr "Lupa"
+
+#: app/display.c:162
+msgid "Diagram modified!"
+msgstr "Diagram je zmenený!"
+
+#: app/display.c:916
+msgid "Close Diagram?"
+msgstr "Zavrie» diagram?"
+
+#: app/display.c:922
+msgid "Really close?"
+msgstr "Skutoène zavrie»?"
+
+#: app/display.c:927
+msgid ""
+"This diagram has not been saved.\n"
+"Save changes now?"
+msgstr ""
+"Tento diagram nebol ulo¾ený.\n"
+"Ulo¾i» ho teraz?"
+
+#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:607
+#: lib/prop_inttypes.c:191
+msgid "Yes"
+msgstr "Áno"
+
+#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:607
+#: app/preferences.c:618 lib/prop_inttypes.c:193 lib/prop_inttypes.c:219
+msgid "No"
+msgstr "Nie"
+
+#: app/export_png.c:114 app/load_save.c:616 app/render_eps.c:625
+#: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
+#: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:199
+#: plug-ins/pstricks/render_pstricks.c:188 plug-ins/python/pydia-render.c:671
+#: plug-ins/shape/shape-export.c:193 plug-ins/svg/render_svg.c:180
+#: plug-ins/wmf/wmf.cpp:897 plug-ins/wpg/wpg.c:930
+#: plug-ins/xfig/xfig-export.c:743
+#, c-format
+msgid "Couldn't open: '%s' for writing.\n"
+msgstr "Nie je mo¾né otvori» '%s' pre zápis.\n"
+
+#: app/export_png.c:122
+msgid "Could not create PNG write structure"
+msgstr "Nie je mo¾né vytvori» zapisovaciu ¹truktúru PNG hlavièky"
+
+#: app/export_png.c:131
+msgid "Could not create PNG header info structure"
+msgstr "Nie je mo¾né vytvori» informaènú ¹truktúru PNG hlavièky"
+
+#: app/export_png.c:139
+msgid "Error occurred while writing PNG"
+msgstr "Poèas zapisovanie PNG sa vyskytla chyba."
+
+#: app/export_png.c:252
+msgid "Ok"
+msgstr "Ok"
+
+#. Create a dialog
+#: app/export_png.c:301
+msgid "PNG Export Options"
+msgstr "Nastavenie exportu PNG"
+
+#: app/export_png.c:302 objects/FS/function.c:631 objects/FS/function.c:632
+msgid "Export"
+msgstr "Export"
+
+#: app/export_png.c:307
+msgid "Image width:"
+msgstr "©írka obrázku:"
+
+#: app/export_png.c:310
+msgid "Image height:"
+msgstr "Vý¹ka obrázku:"
+
+#: app/export_png.c:355
+msgid "Portable Network Graphics"
+msgstr "Portable Network Graphics"
+
+#: app/filedlg.c:99 app/filedlg.c:373
+msgid "By extension"
+msgstr "Podµa prípony"
+
+#: app/filedlg.c:158
+msgid "Open Diagram"
+msgstr "Otvori» diagram"
+
+#: app/filedlg.c:184
+msgid "Open Options"
+msgstr "Otvori» nastavenia"
+
+#: app/filedlg.c:192 app/filedlg.c:526
+msgid "Determine file type:"
+msgstr "Zisti» typ súboru:"
+
+#: app/filedlg.c:232 app/filedlg.c:420
+msgid "File already exists"
+msgstr "Súbor u¾ existuje"
+
+#: app/filedlg.c:236 app/filedlg.c:423
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to overwrite it?"
+msgstr ""
+"Súbor '%s' u¾ existuje.\n"
+"Chcete ho prepísa»?"
+
+#: app/filedlg.c:300
+msgid "Save Diagram"
+msgstr "Ulo¾i» diagram"
+
+#: app/filedlg.c:480
+#, c-format
+msgid ""
+"Could not determine which export filter\n"
+"to use to save '%s'"
+msgstr ""
+"Neviem urèi», aký filter sa má pou¾i»\n"
+"pre ulo¾enie '%s'"
+
+#: app/filedlg.c:498
+msgid "Export Diagram"
+msgstr "Exportova» diagram"
+
+#: app/filedlg.c:518
+msgid "Export Options"
+msgstr "Exportova» nastavenia"
+
+#: app/interface.c:44
+msgid "Modify object(s)"
+msgstr "Zmeni» objekt(y)"
+
+#: app/interface.c:45 app/menus.c:203
+msgid "Modify"
+msgstr "Zmeni»"
+
+#: app/interface.c:49 app/interface.c:50 app/menus.c:204
+#: objects/FS/function.c:776
+msgid "Magnify"
+msgstr "Zväè¹enie"
+
+#: app/interface.c:54
+msgid "Scroll around the diagram"
+msgstr "Posun okolo diagramu"
+
+#: app/interface.c:55 app/menus.c:205
+msgid "Scroll"
+msgstr "Posunú»"
+
+#: app/interface.c:59
+msgid "Create Text"
+msgstr "Vytvori»text"
+
+#. PROP_STD_TEXT_ALIGNMENT,
+#. PROP_STD_TEXT_FONT,
+#. PROP_STD_TEXT_HEIGHT,
+#. PROP_STD_TEXT_COLOUR,
+#: app/interface.c:60 app/menus.c:206 lib/properties.c:77 lib/properties.h:501
+#: lib/properties.h:504 objects/UML/actor.c:115 objects/UML/classicon.c:137
+#: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
+#: objects/UML/object.c:142 objects/UML/small_package.c:120
+#: objects/UML/state.c:137 objects/UML/usecase.c:130
+msgid "Text"
+msgstr "Text"
+
+#: app/interface.c:64
+msgid "Create Box"
+msgstr "Vytvori» blok"
+
+#: app/interface.c:65 app/menus.c:207
+msgid "Box"
+msgstr "Blok"
+
+#: app/interface.c:69
+msgid "Create Ellipse"
+msgstr "Vytvori» elipsu"
+
+#: app/interface.c:70 app/menus.c:208
+msgid "Ellipse"
+msgstr "Elipsa"
+
+#: app/interface.c:74
+msgid "Create Polygon"
+msgstr "Vytvori» mnohouholník"
+
+#: app/interface.c:75 app/menus.c:209
+msgid "Polygon"
+msgstr "Mnohouholník"
+
+#: app/interface.c:79
+msgid "Create Beziergon"
+msgstr "Vytvori» Beziergon"
+
+#: app/interface.c:80 app/menus.c:210
+msgid "Beziergon"
+msgstr "Beziergon"
+
+#: app/interface.c:84
+msgid "Create Line"
+msgstr "Vytvori» èiaru"
+
+#: app/interface.c:85 app/menus.c:211 objects/standard/line.c:188
+msgid "Line"
+msgstr "Èiara"
+
+#: app/interface.c:89
+msgid "Create Arc"
+msgstr "Vytvori» oblúk"
+
+#: app/interface.c:90 app/menus.c:212
+msgid "Arc"
+msgstr "Oblúk"
+
+#: app/interface.c:94
+msgid "Create Zigzagline"
+msgstr "Vytvori» cik-cak-èiaru"
+
+#: app/interface.c:95 app/menus.c:213
+msgid "Zigzagline"
+msgstr "Èiara cik-cak"
+
+#: app/interface.c:99
+msgid "Create Polyline"
+msgstr "Vytvori» lomenú èiaru"
+
+#: app/interface.c:100 app/menus.c:214
+msgid "Polyline"
+msgstr "Lomená èiara"
+
+#: app/interface.c:104
+msgid "Create Bezierline"
+msgstr "Vytvori» Bézierovú èiaru"
+
+#: app/interface.c:105 app/menus.c:215
+msgid "Bezierline"
+msgstr "Bézierová èiara"
+
+#: app/interface.c:109
+msgid "Create Image"
+msgstr "Vytvori» obrázok"
+
+#: app/interface.c:110 app/menus.c:216
+msgid "Image"
+msgstr "Obrázok"
+
+#: app/interface.c:499
+msgid "NULL tooldata in tool_select_update"
+msgstr "®iadne nástrojové údaje v tool_select_update"
+
+#: app/interface.c:961
+msgid ""
+"Foreground & background colors.  The small black and white squares reset "
+"colors.  The small arrows swap colors.  Double click to change colors."
+msgstr ""
+"Farby popredia a pozadia. Malé èierne a biele ¹tvorèeky znovanastavenia "
+"farby. Malé ¹ípky zamenia farby. Dvojité kliknutie zmení farby."
+
+#: app/interface.c:1107
+msgid "Diagram Editor"
+msgstr "Editor diagramov"
+
+#: app/layer_dialog.c:69
+msgid "New Layer"
+msgstr "Nová vrstva"
+
+#: app/layer_dialog.c:70
+msgid "Raise Layer"
+msgstr "Zvý¹i» vrstvu"
+
+#: app/layer_dialog.c:71
+msgid "Lower Layer"
+msgstr "Zní¾i» vrstvy"
+
+#: app/layer_dialog.c:72
+msgid "Delete Layer"
+msgstr "Zmaza» vrstvu"
+
+#: app/layer_dialog.c:206
+msgid "Layers"
+msgstr "Vrstvy"
+
+#: app/layer_dialog.c:219
+msgid "Diagrams:"
+msgstr "Diagramy:"
+
+#: app/layer_dialog.c:311 app/layer_dialog.c:313
+msgid "New layer"
+msgstr "Nová vrstva"
+
+#: app/layer_dialog.c:518
+msgid "none"
+msgstr "¾iadna"
+
+#: app/layer_dialog.c:974
+msgid "Edit Layer Attributes"
+msgstr "Úpravy vlastností vrstvy"
+
+#: app/layer_dialog.c:990
+msgid "Layer name:"
+msgstr "Názov vrstvy:"
+
+#: app/lineprops_area.c:751
+msgid "Arrow Properties"
+msgstr "Nastavenie ¹ípka"
+
+#: app/lineprops_area.c:808 app/lineprops_area.c:994
+msgid "Details..."
+msgstr "Detaily..."
+
+#: app/lineprops_area.c:950
+msgid "Line Style Properties"
+msgstr "Nastavenia ¹týlu èiary"
+
+#: app/linewidth_area.c:216 lib/properties.h:477
+#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
+msgid "Line width"
+msgstr "©írka èiary"
+
+#: app/linewidth_area.c:224
+msgid "Line width:"
+msgstr "©írka èiary:"
+
+#: app/load_save.c:127
+msgid "Error reading diagram file\n"
+msgstr "Chyba pri èítaní súboru s diagramom\n"
+
+#: app/load_save.c:195
+msgid ""
+"Error loading diagram.\n"
+"Linked object not found in document."
+msgstr ""
+"Chyba poèas naèítavania diagramu.\n"
+"Prilinkované objekty neboli nájdené v dokumente."
+
+#: app/load_save.c:198
+msgid ""
+"Error loading diagram.\n"
+"connection point does not exist."
+msgstr ""
+"Chyba pri naèítavaní diagramu.\n"
+"Bod spojenia neexistuje."
+
+#: app/load_save.c:201
+msgid ""
+"Error loading diagram.\n"
+"connection handle does not exist."
+msgstr ""
+"Chyba pri naèítavaní diagramu.\n"
+"deskriptor spojenia neexistuje."
+
+#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:629 plug-ins/wpg/wpg.c:1036
+#: plug-ins/xfig/xfig-import.c:1152
+#, c-format
+msgid "Couldn't open: '%s' for reading.\n"
+msgstr "Nie je mo¾né otvori» '%s' pre èítanie.\n"
+
+#: app/load_save.c:251
+msgid "You must specify a file, not a directory.\n"
+msgstr "Musíte ¹peficikova» súbor, a nie prieèinok.\n"
+
+#: app/load_save.c:260 app/load_save.c:265
+#, c-format
+msgid ""
+"Error loading diagram %s.\n"
+"Unknown file type."
+msgstr ""
+"Chyba pri naèítavaní diagramu %s.\n"
+" Neznámy súbor typ."
+
+#: app/load_save.c:272
+#, c-format
+msgid ""
+"Error loading diagram %s.\n"
+"Not a Dia file."
+msgstr ""
+"Chyba pri naèítavaní diagramu %s.\n"
+"Toto nie je Dia súbor."
+
+#: app/load_save.c:744
+#, c-format
+msgid "Failed to save file '%s'.\n"
+msgstr "Nepodarilo sa ulo¾i» súbor '%s'.\n"
+
+#: app/load_save.c:764 app/load_save.c:769
+msgid "Native Dia Diagram"
+msgstr "Pôvodný Dia Diagram"
+
+#: app/menus.c:49 app/menus.c:65
+msgid "_New diagram"
+msgstr "_Nový diagram"
+
+#: app/menus.c:49 app/menus.c:65
+msgid "Create new diagram"
+msgstr "Vytvori» nový diagram"
+
+#: app/menus.c:54
+msgid "_Diagram tree"
+msgstr "Strom _diagramu"
+
+#: app/menus.c:54
+msgid "Show diagram tree"
+msgstr "Zobrazi» strom diagramu"
+
+#: app/menus.c:56
+msgid "P_lugins"
+msgstr "Zásuvné modu_ly"
+
+#: app/menus.c:72
+msgid "_Export..."
+msgstr "_Export..."
+
+#: app/menus.c:76
+msgid "Page Set_up..."
+msgstr "Nastavenie _strany..."
+
+#: app/menus.c:78
+msgid "_Print Diagram..."
+msgstr "_Tlaèi» diagram..."
+
+#: app/menus.c:93
+msgid "_Delete"
+msgstr "O_dstráni»"
+
+#: app/menus.c:99
+msgid "Copy Text"
+msgstr "Kopírova» text"
+
+#: app/menus.c:100
+msgid "Cut Text"
+msgstr "Vystrihnú» text"
+
+#: app/menus.c:101
+msgid "Paste _Text"
+msgstr "Vlo¾i» _Text"
+
+#: app/menus.c:124
+msgid "Zoom _In"
+msgstr "Z_väè¹i»"
+
+#: app/menus.c:124
+msgid "Zoom in 50%"
+msgstr "Zmen¹i» na 50%"
+
+#: app/menus.c:125
+msgid "Zoom _Out"
+msgstr "Z_men¹i»"
+
+#: app/menus.c:125
+msgid "Zoom out 50%"
+msgstr "Zväè¹i» o 50%"
+
+#: app/menus.c:126
+msgid "_Zoom"
+msgstr "_Lupa"
+
+#: app/menus.c:127
+msgid "Diagram Properties..."
+msgstr "Vlastnosti diagramu..."
+
+#: app/menus.c:129
+msgid "_AntiAliased"
+msgstr "_Vyhladené"
+
+#: app/menus.c:132
+msgid "_Visible Grid"
+msgstr "_Viditeµná mrie¾ka"
+
+#: app/menus.c:134
+msgid "_Snap To Grid"
+msgstr "_Pritiahnu» k mrie¾ke"
+
+#: app/menus.c:136
+msgid "Show _Rulers"
+msgstr "Zobrazi» _pravítka"
+
+#: app/menus.c:138
+msgid "Show _Connection Points"
+msgstr "Zobrazi» _body spojenia"
+
+#: app/menus.c:141
+msgid "New _View"
+msgstr "No_vý pohµad"
+
+#: app/menus.c:142
+msgid "Show _All"
+msgstr "Zobraz _v¹etko"
+
+#: app/menus.c:147
+msgid "Replace"
+msgstr "Nahradi»"
+
+#: app/menus.c:149
+msgid "Union"
+msgstr "Spojenie"
+
+#: app/menus.c:151
+msgid "Intersect"
+msgstr "Prienik"
+
+#: app/menus.c:153 objects/FS/function.c:636 objects/FS/function.c:712
+#: objects/FS/function.c:713
+msgid "Remove"
+msgstr "Odstráni»"
+
+#: app/menus.c:155 app/menus.c:163
+msgid "Invert"
+msgstr "Opak"
+
+#: app/menus.c:161
+msgid "All"
+msgstr "V¹etko"
+
+#: app/menus.c:162 lib/widgets.c:833 objects/UML/association.c:1040
+msgid "None"
+msgstr "®iadny"
+
+#: app/menus.c:164
+msgid "Connected"
+msgstr "Pripojené objekty"
+
+#: app/menus.c:165
+msgid "Transitive"
+msgstr "Tranzitívne objekty"
+
+#: app/menus.c:166
+msgid "Same Type"
+msgstr "Taký istý typ"
+
+#: app/menus.c:173 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:376
+msgid "Left"
+msgstr "Vµavo"
+
+#: app/menus.c:174 app/menus.c:183 lib/properties.c:63 lib/properties.h:466
+#: lib/widgets.c:382
+msgid "Center"
+msgstr "Na stred"
+
+#: app/menus.c:175 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:388
+msgid "Right"
+msgstr "Vpravo"
+
+#: app/menus.c:176 app/menus.c:185
+msgid "Equal Distance"
+msgstr "Rovnaká vzdialenos»"
+
+#: app/menus.c:177 app/menus.c:186
+msgid "Adjacent"
+msgstr "Priµahlý"
+
+#: app/menus.c:182
+msgid "Top"
+msgstr "Hore"
+
+#: app/menus.c:184
+msgid "Bottom"
+msgstr "Dole"
+
+#: app/menus.c:191
+msgid "Send to _Back"
+msgstr "Po_sla» do pozadia"
+
+#: app/menus.c:192
+msgid "Bring to _Front"
+msgstr "Prinies» do p_opredia"
+
+#: app/menus.c:194
+msgid "_Group"
+msgstr "_Zoskupi»"
+
+#: app/menus.c:195
+msgid "_Ungroup"
+msgstr "Z_ru¹i» zoskupenie"
+
+#: app/menus.c:197
+msgid "Align _Horizontal"
+msgstr "Zarovna» _horizontálne"
+
+#: app/menus.c:198
+msgid "Align _Vertical"
+msgstr "Zaro_vna» vertikálne"
+
+#: app/menus.c:221
+msgid "_Properties"
+msgstr "_Vlastnosti"
+
+#: app/menus.c:222
+msgid "_Layers"
+msgstr "_Vrstvy"
+
+#: app/menus.c:243
+msgid "_Select"
+msgstr "_Vybra»"
+
+#: app/menus.c:244
+msgid "_Objects"
+msgstr "_Objekty"
+
+#: app/menus.c:245
+msgid "_Tools"
+msgstr "_Nástroje"
+
+#: app/menus.c:246
+msgid "_Dialogs"
+msgstr "_Dialógy"
+
+#: app/menus.c:257 app/menus.c:284
+msgid "/_File"
+msgstr "/_Súbor"
+
+#: app/menus.c:259 app/menus.c:286
+msgid "/File/_New"
+msgstr "/Súbor/_Nový"
+
+#: app/menus.c:260 app/menus.c:287
+msgid "/File/_Open"
+msgstr "/Súbor/_Otvori»"
+
+#. recent file list is dynamically inserted here
+#: app/menus.c:261 app/menus.c:266 app/menus.c:268 app/menus.c:291
+#: app/menus.c:294
+msgid "/File/---"
+msgstr "/Súbor/---"
+
+#: app/menus.c:262
+msgid "/File/_Diagram tree"
+msgstr "/Súbor/Strom _diagramu"
+
+#: app/menus.c:264
+msgid "/File/_Preferences..."
+msgstr "/Súbor/_Vlastnosti..."
+
+#: app/menus.c:265
+msgid "/File/P_lugins"
+msgstr "/Súbor/Zásuvné modu_ly"
+
+#: app/menus.c:269 app/menus.c:297
+msgid "/File/_Quit"
+msgstr "/Súbor/_Koniec"
+
+#: app/menus.c:270
+msgid "/_Help"
+msgstr "/_Pomoc"
+
+#: app/menus.c:272
+msgid "/Help/_Manual"
+msgstr "/Pomocník/_Manuál"
+
+#: app/menus.c:273
+msgid "/Help/---"
+msgstr "/Pomocník/---"
+
+#: app/menus.c:274
+msgid "/Help/_About"
+msgstr "/Pomocník/_O programe"
+
+#: app/menus.c:288
+msgid "/File/_Save"
+msgstr "/Súbor/_Ulo¾i»"
+
+#: app/menus.c:289
+msgid "/File/Save _As..."
+msgstr "/Súbor/Ulo¾i» _ako..."
+
+#: app/menus.c:290
+msgid "/File/_Export..."
+msgstr "/Súbor/_Export..."
+
+#: app/menus.c:292
+msgid "/File/Page Set_up..."
+msgstr "/Súbor/Nastavenie st_rany..."
+
+#: app/menus.c:293
+msgid "/File/_Print Diagram..."
+msgstr "/Súbor/_Tlaèi» diagram..."
+
+#: app/menus.c:295
+msgid "/File/_Close"
+msgstr "/Súbor/_Zavrie»"
+
+#: app/menus.c:298
+msgid "/_Edit"
+msgstr "/_Upravi»"
+
+#: app/menus.c:300
+msgid "/Edit/_Copy"
+msgstr "/Upravi»/_Kopírova»"
+
+#: app/menus.c:301
+msgid "/Edit/C_ut"
+msgstr "/Upravi»/Vy_strihnú»"
+
+#: app/menus.c:302
+msgid "/Edit/_Paste"
+msgstr "/Upravi»/_Vlo¾i»"
+
+#: app/menus.c:303
+msgid "/Edit/_Delete"
+msgstr "/Upravi»/_Zmaza»"
+
+#: app/menus.c:304
+msgid "/Edit/_Undo"
+msgstr "/Upravi»/_Spä»"
+
+#: app/menus.c:305
+msgid "/Edit/_Redo"
+msgstr "/Upravi»/_Opakova» vrátené"
+
+#: app/menus.c:306
+msgid "/Edit/Copy Text"
+msgstr "/Upravi»/Kopírova» text"
+
+#: app/menus.c:307
+msgid "/Edit/Cut Text"
+msgstr "/Upravi»/Vystrihnú» text"
+
+#: app/menus.c:308
+msgid "/Edit/Paste _Text"
+msgstr "/Upravi»/Vlo¾i» _text"
+
+#: app/menus.c:309
+msgid "/_View"
+msgstr "/Zobra_zenie"
+
+#: app/menus.c:311
+msgid "/View/Zoom _In"
+msgstr "/Zobrazenie/Zmen¹en_ie"
+
+#: app/menus.c:312
+msgid "/View/Zoom _Out"
+msgstr "/Zobrazenie/Zväè¹_enie"
+
+#: app/menus.c:313
+msgid "/View/_Zoom"
+msgstr "/Zobrazenie/_Lupa"
+
+#: app/menus.c:315
+msgid "/View/Zoom/400%"
+msgstr "/Zobrazenie/Lupa/400%"
+
+#: app/menus.c:316
+msgid "/View/Zoom/283%"
+msgstr "/Zobrazenie/Lupa/283%"
+
+#: app/menus.c:317
+msgid "/View/Zoom/200%"
+msgstr "/Zobrazenie/Lupa/200%"
+
+#: app/menus.c:318
+msgid "/View/Zoom/141%"
+msgstr "/Zobrazenie/Lupa/141%"
+
+#: app/menus.c:319
+msgid "/View/Zoom/100%"
+msgstr "/Zobrazenie/Lupa/100%"
+
+#: app/menus.c:320
+msgid "/View/Zoom/85%"
+msgstr "/Zobrazenie/Lupa/85%"
+
+#: app/menus.c:321
+msgid "/View/Zoom/70.7%"
+msgstr "/Zobrazenie/Lupa/70.7%"
+
+#: app/menus.c:322
+msgid "/View/Zoom/50%"
+msgstr "/Zobrazenie/Lupa/50%"
+
+#: app/menus.c:323
+msgid "/View/Zoom/35.4%"
+msgstr "/Zobrazenie/Lupa/35.4%"
+
+#: app/menus.c:324
+msgid "/View/Zoom/25%"
+msgstr "/Zobrazenie/Lupa/25%"
+
+#: app/menus.c:325
+msgid "/View/Diagram Properties..."
+msgstr "/Zobrazenie/Vlastnosti diagramu..."
+
+#: app/menus.c:327
+msgid "/View/_AntiAliased"
+msgstr "/Zobrazenie/_Vyhladené"
+
+#: app/menus.c:329
+msgid "/View/_Visible Grid"
+msgstr "/Zobrazenie/_Viditeµná mrie¾ka"
+
+#: app/menus.c:330
+msgid "/View/_Snap To Grid"
+msgstr "/Zobrazenie/Pri_tiahnu» k mrie¾ke"
+
+#: app/menus.c:331
+msgid "/View/Show _Rulers"
+msgstr "/Zobrazenie/Zobrazi» p_ravítka"
+
+#: app/menus.c:332
+msgid "/View/Show _Connection Points"
+msgstr "/Zobrazenie/Zobrazi» spojova_cie body"
+
+#: app/menus.c:333
+msgid "/View/---"
+msgstr "/Zobrazenie/---"
+
+#: app/menus.c:334
+msgid "/View/New _View"
+msgstr "/Zobrazenie/No_vý pohµad"
+
+#: app/menus.c:335
+msgid "/View/Show _All"
+msgstr "/Zobrazenie/Zobr_azi» v¹etko"
+
+#: app/menus.c:336
+msgid "/_Select"
+msgstr "/_Vybra»"
+
+#: app/menus.c:338
+msgid "/Select/All"
+msgstr "/Vybra»/V¹etko"
+
+#: app/menus.c:339
+msgid "/Select/None"
+msgstr "/Vybra»/Niè"
+
+#: app/menus.c:340 app/menus.c:353
+msgid "/Select/Invert"
+msgstr "/Vybra»/Opak"
+
+#: app/menus.c:341
+msgid "/Select/Connected"
+msgstr "/Vybra»/Pripojené objekty"
+
+#: app/menus.c:342
+msgid "/Select/Transitive"
+msgstr "/Vybra»/Tranzitívne objekty"
+
+#: app/menus.c:343
+msgid "/Select/Same Type"
+msgstr "/Vybra»/Ten istý typ"
+
+#: app/menus.c:344
+msgid "/Select/---"
+msgstr "/Vybra»/---"
+
+#: app/menus.c:345
+msgid "/Select/Replace"
+msgstr "/Vybra»/Nahradi»"
+
+#: app/menus.c:347
+msgid "/Select/Union"
+msgstr "/Vybra»/Spojenie"
+
+#: app/menus.c:349
+msgid "/Select/Intersect"
+msgstr "/Vybra»/Prienik"
+
+#: app/menus.c:351
+msgid "/Select/Remove"
+msgstr "/Vybra»/Odstráni»"
+
+#: app/menus.c:355
+msgid "/_Objects"
+msgstr "/_Objekty"
+
+#: app/menus.c:357
+msgid "/Objects/Send to _Back"
+msgstr "/Objekty/Posla» _dozadu"
+
+#: app/menus.c:358
+msgid "/Objects/Bring to _Front"
+msgstr "/Objekty/Prinies» do _popredia"
+
+#: app/menus.c:359 app/menus.c:362
+msgid "/Objects/---"
+msgstr "/Objekty/---"
+
+#: app/menus.c:360
+msgid "/Objects/_Group"
+msgstr "/Objekty/Zo_skupenie"
+
+#: app/menus.c:361
+msgid "/Objects/_Ungroup"
+msgstr "/Objekty/_Zru¹i» zoskupenie"
+
+#: app/menus.c:363
+msgid "/Objects/Align _Horizontal"
+msgstr "/Objekty/_Horizontálne zarovna»"
+
+#: app/menus.c:365
+msgid "/Objects/Align Horizontal/Left"
+msgstr "/Objekty/Horizontálne zarovna»/Doµava"
+
+#: app/menus.c:366
+msgid "/Objects/Align Horizontal/Center"
+msgstr "/Objekty/Horizontálne zarovna»/Na stred"
+
+#: app/menus.c:367
+msgid "/Objects/Align Horizontal/Right"
+msgstr "/Objekty/Horizontálne zarovna»/Doprava"
+
+#: app/menus.c:368
+msgid "/Objects/Align Horizontal/Equal Distance"
+msgstr "/Objekty/Horizontálne zarovna»/Rovnaká vzdialenos»"
+
+#: app/menus.c:369
+msgid "/Objects/Align Horizontal/Adjacent"
+msgstr "/Objekty/Horizontálne zarovna»/Priµahlé"
+
+#: app/menus.c:370
+msgid "/Objects/Align _Vertical"
+msgstr "/Objekty/_Vertikálne zarovna»"
+
+#: app/menus.c:372
+msgid "/Objects/Align Vertical/Top"
+msgstr "/Objekty/Vertikálne zarovna»/Hore"
+
+#: app/menus.c:373
+msgid "/Objects/Align Vertical/Center"
+msgstr "/Objekty/Vertikálne zarovna»/Na stred"
+
+#: app/menus.c:374
+msgid "/Objects/Align Vertical/Bottom"
+msgstr "/Objekty/Vertikálne zarovna»/Dole"
+
+#: app/menus.c:375
+msgid "/Objects/Align Vertical/Equal Distance"
+msgstr "/Objekty/Vertikálne zarovna»/Rovnaká vzdialenos»"
+
+#: app/menus.c:376
+msgid "/Objects/Align Vertical/Adjacent"
+msgstr "/Objekty/Vertikálne zarovna»/Priµahlé"
+
+#: app/menus.c:378
+msgid "/_Tools"
+msgstr "/_Nástroje"
+
+#: app/menus.c:380
+msgid "/Tools/Modify"
+msgstr "/Nástroje/Upravi»"
+
+#: app/menus.c:381
+msgid "/Tools/Magnify"
+msgstr "/Nástroje/Lupa"
+
+#: app/menus.c:382
+msgid "/Tools/Scroll"
+msgstr "/Nástroje/Posunutie"
+
+#: app/menus.c:383
+msgid "/Tools/Text"
+msgstr "/Nástroje/Text"
+
+#: app/menus.c:384
+msgid "/Tools/Box"
+msgstr "/Nástroje/Blok"
+
+#: app/menus.c:385
+msgid "/Tools/Ellipse"
+msgstr "/Nástroje/Elipsa"
+
+#: app/menus.c:386
+msgid "/Tools/Polygon"
+msgstr "/Nástroje/Polygón"
+
+#: app/menus.c:387
+msgid "/Tools/Beziergon"
+msgstr "/Nástroje/Beziergon"
+
+#: app/menus.c:388
+msgid "/Tools/Line"
+msgstr "/Nástroje/Èiara"
+
+#: app/menus.c:389
+msgid "/Tools/Arc"
+msgstr "/Nástroje/Oblúk"
+
+#: app/menus.c:390
+msgid "/Tools/Zigzagline"
+msgstr "/Nástroje/Cik-cak èiara"
+
+#: app/menus.c:391
+msgid "/Tools/Polyline"
+msgstr "/Nástroje/Lomená èiara"
+
+#: app/menus.c:392
+msgid "/Tools/Bezierline"
+msgstr "/Nástroje/Bézierová èiara"
+
+#: app/menus.c:393
+msgid "/Tools/Image"
+msgstr "/Nástroje/Obrázok"
+
+#: app/menus.c:395
+msgid "/_Dialogs"
+msgstr "/_Dialógy"
+
+#: app/menus.c:397
+msgid "/Dialogs/_Properties"
+msgstr "/Dialógy/_Vlastnosti"
+
+#: app/menus.c:398
+msgid "/Dialogs/_Layers"
+msgstr "/Dialógy/_Vrstvy"
+
+#: app/menus.c:570
+msgid "NULL tooldata in tool_menu_select"
+msgstr "®iadne nástrojové údaje v tool_menu_select"
+
+#: app/menus.c:736
+msgid "Diagram Menu"
+msgstr "Ponuka diagramu"
+
+#: app/paginate_gnomeprint.c:156
+msgid "Print Diagram"
+msgstr "Tlaèi» diagram"
+
+#: app/paginate_gnomeprint.c:183
+msgid "An error occured while creating the print context"
+msgstr "Vyskytla sa chyba poèas vytvárania kontextu tlaèe"
+
+#: app/paginate_psprint.c:220
+msgid "Select Printer"
+msgstr "Vybra» tlaèiareò"
+
+#: app/paginate_psprint.c:232
+msgid "Printer"
+msgstr "Tlaèiareò"
+
+#: app/paginate_psprint.c:245
+msgid "File"
+msgstr "Súbor"
+
+#: app/paginate_psprint.c:334
+#, c-format
+msgid "Could not run command '%s'"
+msgstr "Nie je mo¾né spusti» príkaz '%s'"
+
+#: app/paginate_psprint.c:337
+#, c-format
+msgid "Could not open '%s' for writing"
+msgstr "Nie je otvori» '%s' pre èítanie"
+
+#: app/paginate_psprint.c:361
+msgid "Error occured while printing"
+msgstr "Vyskytla sa chyba poèas tlaèe"
+
+#: app/plugin-manager.c:76
+msgid "yes"
+msgstr "áno"
+
+#: app/plugin-manager.c:76
+msgid "no"
+msgstr "nie"
+
+#: app/plugin-manager.c:143 app/plugin-manager.c:149
+msgid "Plug-ins"
+msgstr "Zásuvné moduly"
+
+#: app/plugin-manager.c:195 objects/EML/process_dialog.c:637
+#: objects/ER/attribute.c:148 objects/ER/entity.c:126
+#: objects/ER/relationship.c:135 objects/UML/association.c:1018
+#: objects/UML/class_dialog.c:907 objects/UML/class_dialog.c:1922
+#: objects/UML/class_dialog.c:2141 objects/UML/class_dialog.c:2700
+#: objects/UML/dependency.c:125 objects/UML/generalization.c:121
+#: objects/UML/realizes.c:122
+msgid "Name:"
+msgstr "Názov:"
+
+#: app/plugin-manager.c:207
+msgid "File name:"
+msgstr "Meno súboru:"
+
+#: app/plugin-manager.c:219
+msgid "Description:"
+msgstr "Popis:"
+
+#: app/plugin-manager.c:233
+msgid "Loaded:"
+msgstr "Naèítané:"
+
+#: app/plugin-manager.c:246
+msgid "Autoload at startup"
+msgstr "Automaticky naèíta» pri spustení"
+
+#: app/plugin-manager.c:257
+msgid "Load"
+msgstr "Naèíta»"
+
+#: app/plugin-manager.c:262
+msgid "Unload"
+msgstr "Odstráni» (z pamäte)"
+
+#: app/preferences.c:121
+msgid "User Interface"
+msgstr "U¾ívateµské rozhranie"
+
+#: app/preferences.c:122
+msgid "Diagram Defaults"
+msgstr "©tandardy diagramu"
+
+#: app/preferences.c:123
+msgid "View Defaults"
+msgstr "Zobrazi» ¹tandardy"
+
+#: app/preferences.c:124
+msgid "Grid Lines"
+msgstr "Èiary mrie¾ky"
+
+#: app/preferences.c:125
+msgid "Diagram Tree"
+msgstr "Strom diagramu"
+
+#: app/preferences.c:139
+msgid "Reset tools after create:"
+msgstr "Obnovi» nástroje po vytvorení:"
+
+#: app/preferences.c:140
+msgid "Compress saved files:"
+msgstr "Komprimova» ulo¾ené súbory:"
+
+#: app/preferences.c:141
+msgid "Number of undo levels:"
+msgstr "Poèet úrovní funkcie Spä»:"
+
+#: app/preferences.c:142
+msgid ""
+"Reverse dragging selects\n"
+"intersecting objects:"
+msgstr ""
+"Reverzné »ahanie zvolených\n"
+"prelínajúcich sa objektov:"
+
+#: app/preferences.c:143
+msgid "Recent documents list size:"
+msgstr "Aktuálna veµkos» zoznamu dokumentov:"
+
+#: app/preferences.c:146
+msgid "New diagram:"
+msgstr "Nový diagram:"
+
+#: app/preferences.c:147
+msgid "Paper type:"
+msgstr "Typ papiera:"
+
+#: app/preferences.c:150
+msgid "New window:"
+msgstr "Nové okno:"
+
+#: app/preferences.c:151
+msgid "Width:"
+msgstr "©írka:"
+
+#: app/preferences.c:152
+msgid "Height:"
+msgstr "Vý¹ka:"
+
+#: app/preferences.c:153
+msgid "Magnify:"
+msgstr "Zväè¹enie:"
+
+#: app/preferences.c:154
+msgid "Use menu bar:"
+msgstr "Pou¾i» panel ponuky:"
+
+#: app/preferences.c:156
+msgid "Connection Points:"
+msgstr "Body spojenia:"
+
+#. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
+#: app/preferences.c:157 app/preferences.c:160 app/preferences.c:165
+msgid "Visible:"
+msgstr "Viditeµná:"
+
+#: app/preferences.c:159
+msgid "Page breaks:"
+msgstr "Zalomenie strany:"
+
+#: app/preferences.c:161 app/preferences.c:169
+msgid "Colour:"
+msgstr "Farba:"
+
+#: app/preferences.c:162 app/preferences.c:170
+msgid "Solid lines:"
+msgstr "Celé èiary:"
+
+#: app/preferences.c:166
+msgid "Snap to:"
+msgstr "Pritiahnu» k:"
+
+#: app/preferences.c:167
+msgid "X Size:"
+msgstr "X veµkos»:"
+
+#: app/preferences.c:168
+msgid "Y Size:"
+msgstr "Y veµkos»:"
+
+#: app/preferences.c:181
+msgid "Diagram tree window:"
+msgstr "Okno stromu diagramu:"
+
+#: app/preferences.c:183
+msgid "Show at startup:"
+msgstr "Zobrazi» pri ¹tarte:"
+
+#: app/preferences.c:185
+msgid "Default width:"
+msgstr "©tandardná ¹írka:"
+
+#: app/preferences.c:187
+msgid "Default height:"
+msgstr "©tandardná vý¹ka:"
+
+#: app/preferences.c:189
+msgid "Remember last size:"
+msgstr "Zapamäta» si poslednú veµkos»:"
+
+#: app/preferences.c:191
+msgid "Save hidden object types:"
+msgstr "Ulo¾i» skryté typy objektov:"
+
+#: app/preferences.c:314
+#, c-format
+msgid "Could not open `%s' for writing"
+msgstr "Nie je mo¾né otvori» `%s' pre zápis"
+
+#: app/preferences.c:685 app/preferences.c:694
+msgid "Preferences"
+msgstr "Nastavenia"
+
+#: app/properties.c:62 app/properties.c:70
+msgid "Object properties"
+msgstr "Vlastnosti objektu"
+
+#: app/properties.c:124
+msgid "This object has no properties."
+msgstr "Tento objekt nemá vlastnosti."
+
+#: app/properties.c:215
+msgid "Properties: "
+msgstr "Vlastnosti: "
+
+#: app/properties.c:219
+msgid "Object properties:"
+msgstr "Vlastnosti objektu:"
+
+#. Use the Plugins menu item to get a pointer to the File menu,
+#. but any item on the File menu will do
+#: app/recent_files.c:140
+msgid "<Toolbox>/File/Plugins"
+msgstr "<Toolbox>/Súbor/Zásuvné moduly"
+
+#: app/recent_files.c:265
+msgid "<Toolbox>/File/Exit"
+msgstr "<Toolbox>/Súbor/Koniec"
+
+#: app/recent_files.c:267
+msgid "<Toolbox>/File/Quit"
+msgstr "<Toolbox>/Súbor/Koniec"
+
+#: app/recent_files.c:304
+msgid "Can't open history file for writing."
+msgstr "Nie je mo¾né otvori» súbor s históriou pre zápis."
+
+#: app/render_eps.c:1706
+msgid "Encapsulated Postscript"
+msgstr "Zapúzdrený Postscript"
+
+#: app/splash.c:58
+msgid "Loading ..."
+msgstr "Naèítavam..."
+
+#: app/splash.c:75
+#, c-format
+msgid "Dia v %s"
+msgstr "Dia v %s"
+
+#: dia.desktop.in.h:1
+msgid "A Diagram Editor"
+msgstr "Editor diagramov"
+
+#: dia.desktop.in.h:2
+msgid "Dia"
+msgstr "Dia"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c. if "Courier" works for you, it would be better.
+#: lib/attributes.c:130 lib/render_object.c:149 lib/text.c:998
+#: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
+#: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
+#: objects/EML/interaction.c:496 objects/EML/process.c:511
+#: objects/ER/attribute.c:391 objects/ER/attribute.c:556
+#: objects/ER/entity.c:343 objects/ER/entity.c:485
+#: objects/ER/relationship.c:421 objects/ER/relationship.c:601
+#: objects/UML/association.c:556 objects/UML/association.c:741
+#: objects/UML/class.c:674 objects/UML/constraint.c:269
+#: objects/UML/dependency.c:371 objects/UML/generalization.c:364
+#: objects/UML/implements.c:284 objects/UML/large_package.c:333
+#: objects/UML/note.c:301 objects/UML/realizes.c:367
+#: objects/UML/small_package.c:341 objects/custom/shape_info.h:67
+#: objects/network/antenna.c:91 objects/network/computer.c:92
+#: objects/network/disc.c:92 objects/network/flash.c:88
+#: objects/network/hub.c:92 objects/network/modem.c:90
+#: objects/network/modularswitch.c:94 objects/network/monitor.c:91
+#: objects/network/printer.c:91 objects/network/rj45plug.c:90
+#: objects/network/scead-plug.c:89 objects/standard/textobj.c:388
+#: objects/sybase/client.c:90 objects/sybase/dataserver.c:89
+#: objects/sybase/ltm.c:91 objects/sybase/repserver.c:90
+#: objects/sybase/rsm.c:102 objects/sybase/stableq.c:92
+#: plug-ins/dxf/dxf-import.c:545
+msgid "Courier"
+msgstr "Courier"
+
+#: lib/bezier_conn.c:528
+msgid "Internal error: Setting corner type of endpoint of bezier"
+msgstr "Interná chyba: Nastavenie typu uhla koncového Bézierového bodu"
+
+#: lib/dia_xml.c:146
+#, c-format
+msgid ""
+"The file %s has no encoding specification;\n"
+"assuming it is encoded in %s"
+msgstr ""
+"Súbor %s neobsahuje ¹pecifikáciu kódovania;\n"
+"prepokladám, ¾e je kódované v %s"
+
+#: lib/dia_xml.c:476
+msgid "Taking point value of non-point node."
+msgstr ""
+
+#: lib/dia_xml.c:488
+#, c-format
+msgid "Incorrect x Point value \"%s\" %f; discarding it."
+msgstr "Nesprávna hodnota bodu x \"%s\" %f; bude odmietnutá."
+
+#: lib/dia_xml.c:496
+msgid "Error parsing point."
+msgstr "Chyba pri analýze bodu."
+
+#. don't bother with useless warnings (see above)
+#: lib/dia_xml.c:504
+#, c-format
+msgid "Incorrect y Point value \"%s\" %f; discarding it."
+msgstr "Nesprávna hodnota bodu y \"%s\" %f; bude odmietnutá."
+
+#: lib/dia_xml.c:862
+msgid ""
+"Your local character set is UTF-8. Because of issues with libxml1 and the "
+"support of files generated by previous versions of dia, you will encounter  "
+"problems. Please report to dia-list@gnome.org if you see this message."
+msgstr ""
+"Va¹a lokálna znaková sada je nastavená na UTF-8. Kvôli zále¾itostiam s "
+"libxml1 a podpore súborov generovaných predchádzajúcimi verziami dia sa "
+"preto budete stretáva» s problémami. Po¹lite prosím správu na dia-list@gnome."
+"org, ak vidíte túto správu."
+
+#: lib/font.c:513
+#, c-format
+msgid ""
+"Warning no X Font for %s found, \n"
+"using %s instead.\n"
+msgstr ""
+"Varovanie nebolo nájdené X Písmo pre %s,\n"
+"pou¾ijem %s.\n"
+
+#: lib/font.c:623
+#, c-format
+msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
+msgstr "Varovanie: Bolo zvolené FreeType, ale kni¾nica nebude naèítaná: %d\n"
+
+#: lib/font.c:632
+msgid "Warning: No X fonts found.  The world is ending."
+msgstr "Varovanie: Nebolo nájdené ani jedno X písmo. Nastal koniec sveta."
+
+#: lib/font.c:934
+msgid "Error, couldn't locate font. Shouldn't happen.\n"
+msgstr "Chyba, nie je mo¾né nájs» písmo. To by sa nemalo sta».\n"
+
+#: lib/font.c:936 lib/font.c:970
+#, c-format
+msgid "Font %s not found, using Courier instead.\n"
+msgstr "Nebolo nájdené písmo %s.  Namiesto neho sa pou¾ije Courier.\n"
+
+#: lib/font.c:946
+#, c-format
+msgid "Font %s has no style %s, using %s\n"
+msgstr "Písmo %s nemá ¹týl %s, a tak je pou¾ité %s\n"
+
+#: lib/message.c:129
+msgid "Notice"
+msgstr "Poznámka"
+
+#: lib/message.c:140
+msgid "Warning"
+msgstr "Varovanie"
+
+#: lib/message.c:152
+msgid "Error"
+msgstr "Chyba"
+
+#: lib/plug-ins.c:226
+#, c-format
+msgid "Could not deduce correct path for `%s'"
+msgstr "Nie je mo¾né vydedukova» cestu pre `%s'"
+
+#: lib/plug-ins.c:231
+#, c-format
+msgid ""
+"Could not load plugin `%s'\n"
+"%s"
+msgstr ""
+"Nie je mo¾né naèíta» modul `%s'\n"
+"%s"
+
+#: lib/plug-ins.c:242
+#, c-format
+msgid "Could not find plugin init function in `%s'"
+msgstr "Nie je mo¾né nájs» inicializáciu funkcie zásuvného modulu v `%s'"
+
+#: lib/plug-ins.c:269
+#, c-format
+msgid "%s Plugin could not be unloaded"
+msgstr "%s Modul nie je mo¾né odstráni» z pamäte"
+
+#: lib/plug-ins.c:350
+#, c-format
+msgid "`%s' is not a directory"
+msgstr "`%s' nie je adresár"
+
+#: lib/plug-ins.c:356
+#, c-format
+msgid "Could not open `%s'"
+msgstr "Nie je mo¾né otvori» `%s'"
+
+#: lib/properties.c:71 lib/properties.h:480
+msgid "Line colour"
+msgstr "Farba èiary"
+
+#: lib/properties.c:72 lib/properties.h:483
+msgid "Line style"
+msgstr "©týl èiary"
+
+#: lib/properties.c:73 lib/properties.h:487
+msgid "Fill colour"
+msgstr "Farba výplne"
+
+#: lib/properties.c:74 lib/properties.h:490 objects/custom/custom_object.c:311
+#: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
+#: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
+#: objects/standard/beziergon.c:221 objects/standard/box.c:232
+#: objects/standard/ellipse.c:220 objects/standard/polygon.c:227
+msgid "Draw background"
+msgstr "Kresli» pozadie"
+
+#: lib/properties.c:75 lib/properties.h:494
+msgid "Start arrow"
+msgstr "Zaèiatok ¹ípky"
+
+#: lib/properties.c:76 lib/properties.h:497
+msgid "End arrow"
+msgstr "Koniec ¹ípky"
+
+#: lib/properties.c:78 lib/properties.h:507
+msgid "Text alignment"
+msgstr "Zarovnanie textu"
+
+#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
+#: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
+msgid "Font"
+msgstr "Písmo"
+
+#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:135
+#: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
+#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
+msgid "Font size"
+msgstr "Veµkos» písma"
+
+#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:169
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
+msgid "Text colour"
+msgstr "Farba textu"
+
+#: lib/widgets.c:496 objects/FS/function.c:820
+msgid "Solid"
+msgstr "Vyplnené"
+
+#: lib/widgets.c:502
+msgid "Dashed"
+msgstr "Èiarky"
+
+#: lib/widgets.c:508
+msgid "Dash-Dot"
+msgstr "Èiarka-bodka"
+
+#: lib/widgets.c:514
+msgid "Dash-Dot-Dot"
+msgstr "Èiarka-bodka-bodka"
+
+#: lib/widgets.c:520
+msgid "Dotted"
+msgstr "Bodky"
+
+#. fs->sizebox = GTK_HBOX(box);
+#: lib/widgets.c:538
+msgid "Dash length: "
+msgstr "Då¾ka èiarok: "
+
+#: lib/widgets.c:834
+msgid "Lines"
+msgstr "Riadky"
+
+#: lib/widgets.c:835
+msgid "Hollow Triangle"
+msgstr "Dutý trojuholník"
+
+#: lib/widgets.c:836
+msgid "Filled Triangle"
+msgstr "Vyplnený trojuholník"
+
+#: lib/widgets.c:837
+msgid "Unfilled Triangle"
+msgstr "Nevyplnený trojuholník"
+
+#: lib/widgets.c:838
+msgid "Filled Diamond"
+msgstr "Vyplnený diamant"
+
+#: lib/widgets.c:839
+msgid "Half Head"
+msgstr "Polkruh"
+
+#: lib/widgets.c:840
+msgid "Slashed Cross"
+msgstr "©ikmý krí¾"
+
+#: lib/widgets.c:841
+msgid "Filled Ellipse"
+msgstr "Vyplnená elipsa"
+
+#: lib/widgets.c:842
+msgid "Hollow Ellipse"
+msgstr "Dutá elipsa"
+
+#: lib/widgets.c:843
+msgid "Filled Dot"
+msgstr "Vyplnený kruh"
+
+#: lib/widgets.c:844
+msgid "Dimension Origin"
+msgstr "Pôvodný rozmer"
+
+#: lib/widgets.c:845
+msgid "Blanked Dot"
+msgstr "Prázdny kruh"
+
+#: lib/widgets.c:846
+msgid "Double Hollow triangle"
+msgstr "Dvojitý dutý trojuholník"
+
+#: lib/widgets.c:847
+msgid "Double Filled triangle"
+msgstr "Dvojitý vyplnený trojuholník"
+
+#: lib/widgets.c:848
+msgid "Filled Box"
+msgstr "Vyplnený blok"
+
+#: lib/widgets.c:849
+msgid "Blanked Box"
+msgstr "Prázdny blok"
+
+#: lib/widgets.c:850
+msgid "Slashed"
+msgstr "©ikmý"
+
+#: lib/widgets.c:851
+msgid "Integral Symbol"
+msgstr "Symbol integrálu"
+
+#: lib/widgets.c:852
+msgid "Crow Foot"
+msgstr "Stopa vrany"
+
+#: lib/widgets.c:853
+msgid "Cross"
+msgstr "Krí¾"
+
+#: lib/widgets.c:889
+msgid "Length: "
+msgstr "Då¾ka: "
+
+#: lib/widgets.c:902
+msgid "Width: "
+msgstr "©írka: "
+
+#: lib/widgets.c:1028 objects/standard/image.c:536
+msgid "Select image file"
+msgstr "Zvoµte súbor s obrázkom"
+
+#: lib/widgets.c:1058
+msgid "Browse"
+msgstr "Prechádza»"
+
+#: objects/EML/eml.c:40
+msgid "Event Modelling Language diagram"
+msgstr "Udalos» modelovacieho jazyka diagramu"
+
+#: objects/EML/instantiation.c:130
+msgid "Number of processes:"
+msgstr "Poèet procesov:"
+
+#: objects/EML/instantiation.c:132 objects/EML/interaction-ortho.c:548
+msgid "multiple"
+msgstr "viacnásobné"
+
+#: objects/EML/instantiation.c:433
+msgid "Single"
+msgstr "Jednoduché"
+
+#: objects/EML/instantiation.c:435
+msgid "Multiple"
+msgstr "Násobenie"
+
+#: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:288
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
+#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
+#: objects/UML/association.c:620 objects/UML/dependency.c:335
+#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
+#: objects/standard/zigzagline.c:337
+msgid "Add segment"
+msgstr "Prida» segment"
+
+#: objects/EML/instantiation.c:438 objects/EML/interaction-ortho.c:289
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
+#: objects/UML/association.c:621 objects/UML/dependency.c:336
+#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
+#: objects/standard/zigzagline.c:338
+msgid "Delete segment"
+msgstr "Zmaza» segment"
+
+#: objects/EML/instantiation.c:442
+msgid "Instantiation"
+msgstr "Konkretizácia"
+
+#: objects/EML/interaction-ortho.c:286 objects/EML/interaction.c:454
+msgid "Unidirectional"
+msgstr "Jednosmerne"
+
+#: objects/EML/interaction-ortho.c:287 objects/EML/interaction.c:455
+msgid "Bidirectional"
+msgstr "Obojsmerne"
+
+#: objects/EML/interaction.c:612
+msgid "Interaction name:"
+msgstr "Názov interakcie:"
+
+#: objects/EML/interaction.c:623
+msgid "bidirectional"
+msgstr "obojsmerne"
+
+#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:870
+#: objects/UML/class_dialog.c:1882 objects/UML/class_dialog.c:2099
+#: objects/UML/class_dialog.c:2663
+msgid "New"
+msgstr "Nový"
+
+#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:876
+#: objects/UML/class_dialog.c:1888 objects/UML/class_dialog.c:2106
+#: objects/UML/class_dialog.c:2669
+msgid "Delete"
+msgstr "Zmaza»"
+
+#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:882
+#: objects/UML/class_dialog.c:1894 objects/UML/class_dialog.c:2113
+#: objects/UML/class_dialog.c:2675
+msgid "Move up"
+msgstr "Posunú» vy¹¹ie"
+
+#: objects/EML/nlist.c:52
+msgid "Move Down"
+msgstr "Posunú» ni¾¹ie"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/EML/process.c:514 objects/EML/process.c:515
+#: objects/EML/process.c:516 objects/EML/process.c:517
+#: objects/FS/function.c:416 objects/SADT/annotation.c:357
+#: objects/UML/actor.c:331 objects/UML/classicon.c:414
+#: objects/UML/component.c:347 objects/UML/message.c:369
+#: objects/UML/node.c:325 objects/UML/object.c:446 objects/UML/state.c:339
+#: objects/UML/usecase.c:386 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
+msgid "Helvetica"
+msgstr "Helvetica"
+
+#: objects/EML/process_dialog.c:625
+msgid "relation"
+msgstr "relácia"
+
+#: objects/EML/process_dialog.c:882
+msgid "Interface functions"
+msgstr "Funkcia pou¾ívateµského rozhrania"
+
+#: objects/EML/process_dialog.c:883
+msgid "Function"
+msgstr "Funkcia"
+
+#: objects/EML/process_dialog.c:899
+msgid "Function module:"
+msgstr "Funkèný modul:"
+
+#: objects/EML/process_dialog.c:908 objects/EML/process_dialog.c:1304
+msgid "Function name:"
+msgstr "Názov funkcie:"
+
+#: objects/EML/process_dialog.c:1097
+msgid "Interfaces"
+msgstr "Rozhrania"
+
+#: objects/EML/process_dialog.c:1098
+msgid "Interface"
+msgstr "Rozhranie"
+
+#: objects/EML/process_dialog.c:1114
+msgid "Interface name:"
+msgstr "Názov rozhrania:"
+
+#: objects/EML/process_dialog.c:1132
+msgid "Interface messages"
+msgstr "Správa rozhrania"
+
+#: objects/EML/process_dialog.c:1133
+msgid "Message"
+msgstr "Správa"
+
+#: objects/EML/process_dialog.c:1134
+msgid "Message parameters"
+msgstr "Parametre správy"
+
+#: objects/EML/process_dialog.c:1135
+msgid "Message parameter"
+msgstr "Parameter správy"
+
+#: objects/EML/process_dialog.c:1148
+msgid "Functions"
+msgstr "Funkcie"
+
+#: objects/EML/process_dialog.c:1151
+msgid "Messages"
+msgstr "Správy"
+
+#: objects/EML/process_dialog.c:1238 objects/FS/function.c:799
+msgid "Process"
+msgstr "Proces"
+
+#: objects/EML/process_dialog.c:1242
+msgid "Process name:"
+msgstr "Názov procesu:"
+
+#: objects/EML/process_dialog.c:1246
+msgid "Process reference name:"
+msgstr "Názov procesnej referencia:"
+
+#: objects/EML/process_dialog.c:1251
+msgid "Process lifetime:"
+msgstr ""
+
+#: objects/EML/process_dialog.c:1299
+msgid "Module name:"
+msgstr "Názov modulu:"
+
+#: objects/EML/process_dialog.c:1311
+msgid "Function parameters"
+msgstr "Parametre funkcie"
+
+#: objects/EML/process_dialog.c:1312
+msgid "Parameter"
+msgstr "Parameter"
+
+#: objects/EML/process_dialog.c:1313
+msgid "Relation members"
+msgstr "Èlen relácie"
+
+#: objects/EML/process_dialog.c:1314
+msgid "Relation member"
+msgstr "Èlen relácie"
+
+#: objects/ER/attribute.c:150
+msgid "Key:"
+msgstr "Klúè:"
+
+#: objects/ER/attribute.c:152
+msgid "Weak key:"
+msgstr "Slabý kµúè:"
+
+#: objects/ER/attribute.c:154
+msgid "Derived:"
+msgstr "Odvodené:"
+
+#: objects/ER/attribute.c:156
+msgid "Multivalue:"
+msgstr "Multihodnota:"
+
+#: objects/ER/attribute.c:393 objects/ER/attribute.c:395
+#: sheets/ER.sheet.in.h:1
+msgid "Attribute"
+msgstr "Atribút"
+
+#: objects/ER/entity.c:128
+msgid "Weak:"
+msgstr "Slabá:"
+
+#: objects/ER/entity.c:345 objects/ER/entity.c:347 objects/UML/classicon.c:124
+#: sheets/ER.sheet.in.h:4
+msgid "Entity"
+msgstr "Entita"
+
+#: objects/ER/er.c:44
+msgid "Entity/Relationship diagram objects"
+msgstr "Objekty Entito-relaèného diagramu"
+
+#: objects/ER/participation.c:113
+msgid "Total:"
+msgstr "Celkom:"
+
+#: objects/ER/relationship.c:137
+msgid "Left Cardinality:"
+msgstr "¥avá kardinalita:"
+
+#: objects/ER/relationship.c:139
+msgid "Right Cardinality:"
+msgstr "Pravá kardinalita:"
+
+#: objects/ER/relationship.c:141
+msgid "Rotate:"
+msgstr "Otoèi»:"
+
+#: objects/ER/relationship.c:143
+msgid "Identifying:"
+msgstr "Identifikovanie:"
+
+#: objects/ER/relationship.c:423 objects/ER/relationship.c:425
+#: sheets/ER.sheet.in.h:6
+msgid "Relationship"
+msgstr "Vz»ah"
+
+#.
+#: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
+#: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
+#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
+#: objects/FS/flow-poly.c:789 objects/FS/flow.c:155 objects/FS/flow.c:658
+#: objects/FS/flow.c:722 objects/FS/function.c:831
+msgid "Energy"
+msgstr "Energia"
+
+#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
+#: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
+#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
+#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:659
+#: objects/FS/flow.c:729 objects/FS/function.c:819
+msgid "Material"
+msgstr "Materiál"
+
+#: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
+#: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
+#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
+#: objects/FS/flow-poly.c:802 objects/FS/flow.c:157 objects/FS/flow.c:660
+#: objects/FS/flow.c:735 objects/FS/function.c:800 objects/FS/function.c:801
+#: objects/FS/function.c:869 objects/FS/function.c:870
+msgid "Signal"
+msgstr "Signál"
+
+#: objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
+#: objects/UML/class_dialog.c:919 objects/UML/class_dialog.c:1934
+#: objects/UML/class_dialog.c:2153 objects/UML/class_dialog.c:2712
+msgid "Type:"
+msgstr "Typ:"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
+#: objects/FS/flow-ortho.c:926 objects/FS/flow-poly.c:366
+#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:430
+#: objects/FS/flow.c:559 objects/FS/flow.c:771
+msgid "Helvetica-Oblique"
+msgstr "Helvetica-Oblique"
+
+#: objects/FS/flow-ortho.c:726 objects/FS/flow-poly.c:650
+#: objects/FS/flow-poly.c:768 objects/FS/flow.c:701
+msgid "Flow:"
+msgstr "Tok:"
+
+#: objects/FS/flow-ortho.c:741 objects/FS/flow-poly.c:665
+#: objects/FS/flow-poly.c:784 objects/FS/flow.c:717
+msgid "Flow type:"
+msgstr "Typ toku"
+
+#: objects/FS/flow-ortho.c:856
+msgid "Orthflow:"
+msgstr "Ortogonálny tok:"
+
+#: objects/FS/flow-ortho.c:872
+msgid "Orthflow type:"
+msgstr "Typ ortogonálneho toku:"
+
+#: objects/FS/fs.c:43
+msgid "Function structure diagram objects"
+msgstr "Objekty ©truktúrovaného diagramu funkcií"
+
+#: objects/FS/function.c:137
+msgid "Wish function"
+msgstr "®elaná funkcia"
+
+#: objects/FS/function.c:139
+msgid "User function"
+msgstr "Pou¾ívateµská funkcia"
+
+#: objects/FS/function.c:621
+msgid "Verb"
+msgstr "Sloveso"
+
+#: objects/FS/function.c:622 objects/FS/function.c:623
+#: objects/FS/function.c:643
+msgid "Channel"
+msgstr "Kanál"
+
+#: objects/FS/function.c:624 objects/FS/function.c:625
+msgid "Import"
+msgstr "Import"
+
+#: objects/FS/function.c:626
+msgid "Input"
+msgstr "Vstup"
+
+#: objects/FS/function.c:627
+msgid "Receive"
+msgstr "Obdr¾a»"
+
+#: objects/FS/function.c:628 objects/FS/function.c:764
+msgid "Allow"
+msgstr "Povoli»"
+
+#: objects/FS/function.c:629
+msgid "Form Entrance"
+msgstr ""
+
+#: objects/FS/function.c:630 objects/FS/function.c:747
+msgid "Capture"
+msgstr "Snímanie"
+
+#: objects/FS/function.c:633
+msgid "Discharge"
+msgstr "Vyprázdnenie"
+
+#: objects/FS/function.c:634
+msgid "Eject"
+msgstr "Vysunú»"
+
+#: objects/FS/function.c:635
+msgid "Dispose"
+msgstr "Disponovanie"
+
+#: objects/FS/function.c:637 objects/FS/function.c:638
+#: objects/FS/function.c:647
+msgid "Transfer"
+msgstr "Prenos"
+
+#: objects/FS/function.c:639 objects/FS/function.c:640
+msgid "Transport"
+msgstr "Doprava"
+
+#: objects/FS/function.c:641
+msgid "Lift"
+msgstr "Vý»ah"
+
+#: objects/FS/function.c:642
+msgid "Move"
+msgstr "Presunú»"
+
+#: objects/FS/function.c:644 objects/FS/function.c:645
+msgid "Transmit"
+msgstr "Prenos"
+
+#: objects/FS/function.c:646
+msgid "Conduct"
+msgstr "Pripoji»"
+
+#: objects/FS/function.c:648
+msgid "Convey"
+msgstr "Preprava"
+
+#: objects/FS/function.c:649 objects/FS/function.c:650
+#: objects/FS/function.c:651
+msgid "Guide"
+msgstr "Vedenie"
+
+#: objects/FS/function.c:652
+msgid "Direct"
+msgstr "Smerovanie"
+
+#: objects/FS/function.c:653
+msgid "Straighten"
+msgstr "Priame"
+
+#: objects/FS/function.c:654
+msgid "Steer"
+msgstr "Riadenie"
+
+#: objects/FS/function.c:655
+msgid "Translate"
+msgstr "Preklad"
+
+#: objects/FS/function.c:656 objects/FS/function.c:657
+msgid "Rotate"
+msgstr "Otoèenie"
+
+#: objects/FS/function.c:658
+msgid "Turn"
+msgstr "Otoèi»"
+
+#: objects/FS/function.c:659
+msgid "Spin"
+msgstr "Toèi»"
+
+#: objects/FS/function.c:660 objects/FS/function.c:661
+msgid "Allow DOF"
+msgstr "Povoli» DOF"
+
+#: objects/FS/function.c:662
+msgid "Constrain"
+msgstr "Ohranièenie"
+
+#: objects/FS/function.c:663
+msgid "Unlock"
+msgstr "Odblokova»"
+
+#: objects/FS/function.c:664 objects/FS/function.c:665
+msgid "Support"
+msgstr "Podpora"
+
+#: objects/FS/function.c:666 objects/FS/function.c:667
+#: sheets/SDL.sheet.in.h:19
+msgid "Stop"
+msgstr "Zastavi»"
+
+#: objects/FS/function.c:668
+msgid "Insulate"
+msgstr "Izolova»"
+
+#: objects/FS/function.c:669
+msgid "Protect"
+msgstr "Chráni»"
+
+#: objects/FS/function.c:670 objects/FS/function.c:765
+msgid "Prevent"
+msgstr "Zamedzi»"
+
+#: objects/FS/function.c:671
+msgid "Shield"
+msgstr "Chráni»"
+
+#: objects/FS/function.c:672
+msgid "Inhibit"
+msgstr "Potlaèi»"
+
+#: objects/FS/function.c:673 objects/FS/function.c:674
+msgid "Stabilize"
+msgstr "Stabilizova»"
+
+#: objects/FS/function.c:675
+msgid "Steady"
+msgstr "Spevni»"
+
+#: objects/FS/function.c:676 objects/FS/function.c:677
+msgid "Secure"
+msgstr "Zabezpeèi»"
+
+#: objects/FS/function.c:678 objects/FS/function.c:694
+msgid "Attach"
+msgstr "Prilo¾i»"
+
+#: objects/FS/function.c:679
+msgid "Mount"
+msgstr "Pripoji»"
+
+#: objects/FS/function.c:680
+msgid "Lock"
+msgstr "Zablokuj"
+
+#: objects/FS/function.c:681
+msgid "Fasten"
+msgstr "Pripevni»"
+
+#: objects/FS/function.c:682
+msgid "Hold"
+msgstr "Pozdr¾ané"
+
+#: objects/FS/function.c:683 objects/FS/function.c:684
+msgid "Position"
+msgstr "Pozícia"
+
+#: objects/FS/function.c:685
+msgid "Orient"
+msgstr "Orientova»"
+
+#: objects/FS/function.c:686
+msgid "Align"
+msgstr "Zarovna»"
+
+#: objects/FS/function.c:687 objects/FS/function.c:808
+msgid "Locate"
+msgstr "Lokalizova»"
+
+#: objects/FS/function.c:688 objects/FS/function.c:689
+msgid "Connect"
+msgstr "Pripoji»"
+
+#: objects/FS/function.c:690 objects/FS/function.c:691
+msgid "Couple"
+msgstr "Spárova»"
+
+#: objects/FS/function.c:692
+msgid "Join"
+msgstr "Spája»"
+
+#: objects/FS/function.c:693
+msgid "Assemble"
+msgstr "Montova»"
+
+#: objects/FS/function.c:695 objects/FS/function.c:696
+msgid "Mix"
+msgstr "Mix"
+
+#: objects/FS/function.c:697
+msgid "Combine"
+msgstr "Kombinova»"
+
+#: objects/FS/function.c:698
+msgid "Blend"
+msgstr "Prechody"
+
+#: objects/FS/function.c:699
+msgid "Add"
+msgstr "Prida»"
+
+#: objects/FS/function.c:700
+msgid "Pack"
+msgstr "Zhusti»"
+
+#: objects/FS/function.c:701
+msgid "Coalesce"
+msgstr "Zluèova»"
+
+#: objects/FS/function.c:702 objects/FS/function.c:703
+msgid "Branch"
+msgstr "Vetva"
+
+#: objects/FS/function.c:704 objects/FS/function.c:705
+#: objects/FS/function.c:706
+msgid "Separate"
+msgstr "Separova»"
+
+#: objects/FS/function.c:707
+msgid "Switch"
+msgstr "Prepnú»"
+
+#: objects/FS/function.c:708
+msgid "Divide"
+msgstr "Vydeli»"
+
+#: objects/FS/function.c:709
+msgid "Release"
+msgstr "Vydanie"
+
+#: objects/FS/function.c:710
+msgid "Detach"
+msgstr "Oddeµovaè"
+
+#: objects/FS/function.c:711
+msgid "Disconnect"
+msgstr "Odpoji»"
+
+#: objects/FS/function.c:714
+msgid "Cut"
+msgstr "Vystrihnú»"
+
+#: objects/FS/function.c:715
+msgid "Polish"
+msgstr "Le¹tidlo"
+
+#: objects/FS/function.c:716
+msgid "Sand"
+msgstr "Piesok"
+
+#: objects/FS/function.c:717
+msgid "Drill"
+msgstr "Vrták"
+
+#: objects/FS/function.c:718
+msgid "Lathe"
+msgstr "Sústruh"
+
+#: objects/FS/function.c:719 objects/FS/function.c:720
+msgid "Refine"
+msgstr "Zu¹µach»ova»"
+
+#: objects/FS/function.c:721
+msgid "Purify"
+msgstr "Oèis»ovanie"
+
+#: objects/FS/function.c:722
+msgid "Strain"
+msgstr ""
+
+#: objects/FS/function.c:723
+msgid "Filter"
+msgstr "Filter"
+
+#: objects/FS/function.c:724
+msgid "Percolate"
+msgstr "Presakovanie"
+
+#: objects/FS/function.c:725
+msgid "Clear"
+msgstr "Oèisti»"
+
+#: objects/FS/function.c:726 objects/FS/function.c:727
+msgid "Distribute"
+msgstr "Distribuova»"
+
+#: objects/FS/function.c:728
+msgid "Diverge"
+msgstr "Rozbiehavos»"
+
+#: objects/FS/function.c:729
+msgid "Scatter"
+msgstr "Výbuch"
+
+#: objects/FS/function.c:730
+msgid "Disperse"
+msgstr "Dispergova»"
+
+#: objects/FS/function.c:731 objects/FS/function.c:738
+msgid "Diffuse"
+msgstr "Difundova»"
+
+#: objects/FS/function.c:732
+msgid "Empty"
+msgstr "Vyprázdni»"
+
+#: objects/FS/function.c:733 objects/FS/function.c:734
+msgid "Dissipate"
+msgstr "Premárni»"
+
+#: objects/FS/function.c:735
+msgid "Absorb"
+msgstr "Absorbova»"
+
+#: objects/FS/function.c:736
+msgid "Dampen"
+msgstr "Stlmi»"
+
+#: objects/FS/function.c:737
+msgid "Dispel"
+msgstr "Rozptýli»"
+
+#: objects/FS/function.c:739
+msgid "Resist"
+msgstr "Odporova»"
+
+#: objects/FS/function.c:740 objects/FS/function.c:741
+msgid "Provision"
+msgstr "Zabezpeèovanie"
+
+#: objects/FS/function.c:742 objects/FS/function.c:743
+msgid "Store"
+msgstr "Uchováva»"
+
+#: objects/FS/function.c:744
+msgid "Contain"
+msgstr "Obsahova»"
+
+#: objects/FS/function.c:745
+msgid "Collect"
+msgstr "Zhroma¾ïova»"
+
+#: objects/FS/function.c:746
+msgid "Reserve"
+msgstr "Rezervova»"
+
+#: objects/FS/function.c:748 objects/FS/function.c:749
+msgid "Supply"
+msgstr "Dodáva»"
+
+#: objects/FS/function.c:750
+msgid "Fill"
+msgstr "Vyplni»"
+
+#: objects/FS/function.c:751
+msgid "Provide"
+msgstr "Poskytova»"
+
+#: objects/FS/function.c:752
+msgid "Replenish"
+msgstr "Doplni»"
+
+#: objects/FS/function.c:753
+msgid "Expose"
+msgstr "Exponova»"
+
+#: objects/FS/function.c:754 sheets/Flowchart.sheet.in.h:9
+msgid "Extract"
+msgstr "Získa»"
+
+#: objects/FS/function.c:755 objects/FS/function.c:756
+msgid "Control Magnitude"
+msgstr "Ovládanie magnitúdy"
+
+#: objects/FS/function.c:757 objects/FS/function.c:758
+msgid "Actuate"
+msgstr "Aktivizova»"
+
+#: objects/FS/function.c:759
+msgid "Start"
+msgstr "Zaèiatok"
+
+#: objects/FS/function.c:760
+msgid "Initiate"
+msgstr "Inicializova»"
+
+#: objects/FS/function.c:761 objects/FS/function.c:762
+msgid "Regulate"
+msgstr "Regulova»"
+
+#: objects/FS/function.c:763 objects/FS/function.c:872
+#: objects/UML/classicon.c:122
+msgid "Control"
+msgstr "Ovládanie"
+
+#: objects/FS/function.c:766
+msgid "Enable"
+msgstr "Povoli»"
+
+#: objects/FS/function.c:767
+msgid "Disable"
+msgstr "Zakáza»"
+
+#: objects/FS/function.c:768
+msgid "Limit"
+msgstr "Obmedzenie"
+
+#: objects/FS/function.c:769
+msgid "Interrupt"
+msgstr "Preru¹enie"
+
+#: objects/FS/function.c:770 objects/FS/function.c:771
+msgid "Change"
+msgstr "Zmeò"
+
+#: objects/FS/function.c:772
+msgid "Increase"
+msgstr "Nárast/zvý¹enie"
+
+#: objects/FS/function.c:773
+msgid "Decrease"
+msgstr "Zní¾enie"
+
+#: objects/FS/function.c:774
+msgid "Amplify"
+msgstr " Zosilòova»"
+
+#: objects/FS/function.c:775
+msgid "Reduce"
+msgstr "Redukova»"
+
+#: objects/FS/function.c:777
+msgid "Normalize"
+msgstr "Normalizova»"
+
+#: objects/FS/function.c:778
+msgid "Multiply"
+msgstr "Násobenie"
+
+#: objects/FS/function.c:779
+msgid "Scale"
+msgstr "©kála"
+
+#: objects/FS/function.c:780
+msgid "Rectify"
+msgstr "Destilova»"
+
+#: objects/FS/function.c:781
+msgid "Adjust"
+msgstr "Upravi»"
+
+#: objects/FS/function.c:782 objects/FS/function.c:783
+msgid "Form"
+msgstr "Z"
+
+#: objects/FS/function.c:784
+msgid "Compact"
+msgstr "Kompaktná"
+
+#: objects/FS/function.c:785
+msgid "Crush"
+msgstr "Drvenie"
+
+#: objects/FS/function.c:786
+msgid "Shape"
+msgstr "Tvar"
+
+#: objects/FS/function.c:787
+msgid "Compress"
+msgstr "Stláèa»"
+
+#: objects/FS/function.c:788
+msgid "Pierce"
+msgstr "Prepichova»"
+
+#: objects/FS/function.c:789 objects/FS/function.c:790
+msgid "Convert"
+msgstr "Konverzia"
+
+#: objects/FS/function.c:791
+msgid "Transform"
+msgstr "Transformova»"
+
+#: objects/FS/function.c:792
+msgid "Liquefy"
+msgstr "Skvapalòova»"
+
+#: objects/FS/function.c:793
+msgid "Solidify"
+msgstr "Tuhnú»"
+
+#: objects/FS/function.c:794
+msgid "Evaporate"
+msgstr "Odparova»"
+
+#: objects/FS/function.c:795
+msgid "Sublimate"
+msgstr "Sublimova»"
+
+#: objects/FS/function.c:796
+msgid "Condense"
+msgstr "Kondenzova»"
+
+#: objects/FS/function.c:797
+msgid "Integrate"
+msgstr "Integrova»"
+
+#: objects/FS/function.c:798
+msgid "Differentiate"
+msgstr "Rozli¹ova»"
+
+#: objects/FS/function.c:802 objects/FS/function.c:803
+msgid "Sense"
+msgstr "Cíti»"
+
+#: objects/FS/function.c:804
+msgid "Perceive"
+msgstr "Vníma»"
+
+#: objects/FS/function.c:805
+msgid "Recognize"
+msgstr "Zisti»"
+
+#: objects/FS/function.c:806
+msgid "Discern"
+msgstr "Rozozna»"
+
+#: objects/FS/function.c:807
+msgid "Check"
+msgstr "©ek-kontrola?"
+
+#: objects/FS/function.c:809
+msgid "Verify"
+msgstr "Skontrolova»"
+
+#: objects/FS/function.c:810 objects/FS/function.c:811
+msgid "Indicate"
+msgstr "Indikova»"
+
+#: objects/FS/function.c:812
+msgid "Mark"
+msgstr "Oznaèi»"
+
+#: objects/FS/function.c:813 sheets/Flowchart.sheet.in.h:7
+msgid "Display"
+msgstr "Obrazovka"
+
+#: objects/FS/function.c:814 objects/FS/function.c:815
+msgid "Measure"
+msgstr "Miera"
+
+#: objects/FS/function.c:816
+msgid "Calculate"
+msgstr "Kalkulova»"
+
+#: objects/FS/function.c:817
+msgid "Represent"
+msgstr "Predstavova»"
+
+#: objects/FS/function.c:818
+msgid "Noun"
+msgstr "Podstatné meno"
+
+#: objects/FS/function.c:821
+msgid "Liquid"
+msgstr "Kvapalný"
+
+#: objects/FS/function.c:822
+msgid "Gas"
+msgstr "Plynný"
+
+#: objects/FS/function.c:823 objects/FS/function.c:824
+#: objects/FS/function.c:866
+msgid "Human"
+msgstr "Èlovek"
+
+#: objects/FS/function.c:825
+msgid "Hand"
+msgstr "Ruka"
+
+#: objects/FS/function.c:826
+msgid "Foot"
+msgstr "Noha"
+
+#: objects/FS/function.c:827
+msgid "Head"
+msgstr "Hlava"
+
+#: objects/FS/function.c:828
+msgid "Finger"
+msgstr "Prst"
+
+#: objects/FS/function.c:829
+msgid "Toe"
+msgstr "Prst"
+
+#: objects/FS/function.c:830
+msgid "Biological"
+msgstr "Biologický"
+
+#: objects/FS/function.c:832
+msgid "Mechanical"
+msgstr "Mechanický"
+
+#: objects/FS/function.c:833
+msgid "Mech. Energy"
+msgstr "Mech. energia"
+
+#: objects/FS/function.c:834
+msgid "Translation"
+msgstr "Translaèný"
+
+#: objects/FS/function.c:835
+msgid "Force"
+msgstr "Vynúti»"
+
+#: objects/FS/function.c:836
+msgid "Rotation"
+msgstr "Otáèanie"
+
+#: objects/FS/function.c:837
+msgid "Torque"
+msgstr "Krútiaci moment"
+
+#: objects/FS/function.c:838
+msgid "Random Motion"
+msgstr "Náhodný pohyb"
+
+#: objects/FS/function.c:839
+msgid "Vibration"
+msgstr "Vibrácia"
+
+#: objects/FS/function.c:840
+msgid "Rotational Energy"
+msgstr "Rotaèná energia"
+
+#: objects/FS/function.c:841
+msgid "Translational Energy"
+msgstr "Translaèná energia"
+
+#: objects/FS/function.c:842
+msgid "Electrical"
+msgstr "Elektrický"
+
+#: objects/FS/function.c:843
+msgid "Electricity"
+msgstr "Elektrina"
+
+#: objects/FS/function.c:844
+msgid "Voltage"
+msgstr "Napätie"
+
+#: objects/FS/function.c:845
+msgid "Current"
+msgstr "Aktuálny"
+
+#: objects/FS/function.c:846
+msgid "Hydraulic"
+msgstr "Hydraulický"
+
+#: objects/FS/function.c:847
+msgid "Pressure"
+msgstr "Tlak"
+
+#: objects/FS/function.c:848
+msgid "Volumetric Flow"
+msgstr "Volumetrický tok"
+
+#: objects/FS/function.c:849
+msgid "Thermal"
+msgstr "Termálny"
+
+#: objects/FS/function.c:850
+msgid "Heat"
+msgstr "Teplo"
+
+#: objects/FS/function.c:851
+msgid "Conduction"
+msgstr "Vodivos»"
+
+#: objects/FS/function.c:852
+msgid "Convection"
+msgstr "Konvekcia"
+
+#: objects/FS/function.c:853 objects/FS/function.c:857
+msgid "Radiation"
+msgstr "Radiaèné"
+
+#: objects/FS/function.c:854
+msgid "Pneumatic"
+msgstr "Pneumatické"
+
+#: objects/FS/function.c:855
+msgid "Chemical"
+msgstr "Chemické"
+
+#: objects/FS/function.c:856
+msgid "Radioactive"
+msgstr "Rádioaktivita"
+
+#: objects/FS/function.c:858
+msgid "Microwaves"
+msgstr "Mikrovlny"
+
+#: objects/FS/function.c:859
+msgid "Radio waves"
+msgstr "Rádiové vlny"
+
+#: objects/FS/function.c:860
+msgid "X-Rays"
+msgstr "Röntgénové lúèe"
+
+#: objects/FS/function.c:861
+msgid "Gamma Rays"
+msgstr "Gama lúèe"
+
+#: objects/FS/function.c:862
+msgid "Acoustic Energy"
+msgstr "Akustická energia"
+
+#: objects/FS/function.c:863
+msgid "Optical Energy"
+msgstr "Optická energia"
+
+#: objects/FS/function.c:864
+msgid "Solar Energy"
+msgstr "Solárna energia"
+
+#: objects/FS/function.c:865
+msgid "Magnetic Energy"
+msgstr "Magnetická energia"
+
+#: objects/FS/function.c:867
+msgid "Human Motion"
+msgstr "¥udský pohyb"
+
+#: objects/FS/function.c:868
+msgid "Human Force"
+msgstr "¥udská sila"
+
+#: objects/FS/function.c:871
+msgid "Status"
+msgstr "Stav"
+
+#: objects/FS/function.c:874
+msgid "User/Device Fn"
+msgstr "Pou¾ívateµ/Zariadenie Fn"
+
+#: objects/FS/function.c:875
+msgid "Wish Fn"
+msgstr "®elaná funkcia"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/GRAFCET/action.c:52 objects/GRAFCET/condition.c:51
+#: objects/GRAFCET/step.c:48 objects/GRAFCET/transition.c:55
+#: objects/SADT/box.c:500 objects/UML/class.c:686
+msgid "Helvetica-Bold"
+msgstr "Helvetica-Bold"
+
+#: objects/GRAFCET/action.c:136 sheets/SDL.sheet.in.h:9
+msgid "Macro call"
+msgstr "Volanie makra"
+
+#: objects/GRAFCET/action.c:136
+msgid "This action is a call to a macro-step"
+msgstr "Tento proces volá krok makra"
+
+#: objects/GRAFCET/condition.c:131
+msgid "Condition"
+msgstr "Podmienka"
+
+#: objects/GRAFCET/condition.c:131
+msgid "The boolean equation of the condition"
+msgstr "Logická rovnos» podmienky"
+
+#: objects/GRAFCET/condition.c:133
+msgid "The condition's font"
+msgstr "Písmo podmienok"
+
+#: objects/GRAFCET/condition.c:135
+msgid "The condition's font size"
+msgstr "Veµkos» písma podmienok"
+
+#: objects/GRAFCET/condition.c:138 objects/GRAFCET/transition.c:147
+msgid "Color"
+msgstr "Farba"
+
+#: objects/GRAFCET/condition.c:138
+msgid "The condition's color"
+msgstr "Farba podmienok"
+
+#: objects/GRAFCET/grafcet.c:45
+msgid "GRAFCET diagram objects"
+msgstr "Objekty GRAFCET diagramu"
+
+#: objects/GRAFCET/step.c:148
+msgid "Regular step"
+msgstr "Be¾ný krok"
+
+#: objects/GRAFCET/step.c:149
+msgid "Initial step"
+msgstr "Poèiatoèný krok"
+
+#: objects/GRAFCET/step.c:150
+msgid "Macro entry step"
+msgstr "Krok polo¾ka makra"
+
+#: objects/GRAFCET/step.c:151
+msgid "Macro exit step"
+msgstr "Krok ukonèenia makra"
+
+#: objects/GRAFCET/step.c:152
+msgid "Macro call step"
+msgstr "Krok volania makra"
+
+#: objects/GRAFCET/step.c:153
+msgid "Subprogram call step"
+msgstr "Krok volania podprogramu"
+
+#: objects/GRAFCET/step.c:159
+msgid "Step name"
+msgstr "Názov kroku"
+
+#: objects/GRAFCET/step.c:159
+msgid "The name of the step"
+msgstr "Pomenovanie kroku"
+
+#: objects/GRAFCET/step.c:161
+msgid "Step type"
+msgstr "Typ kroku"
+
+#: objects/GRAFCET/step.c:161
+msgid "The kind of step"
+msgstr "Druh kroku"
+
+#: objects/GRAFCET/step.c:163
+msgid "Active"
+msgstr "Aktívny"
+
+#: objects/GRAFCET/step.c:163
+msgid "Shows a red dot to figure the step's activity"
+msgstr "Zobrazi» èervenú bodku na obrázku pri krokovej aktivite"
+
+#: objects/GRAFCET/transition.c:140
+msgid "Receptivity"
+msgstr "Kapacita"
+
+#: objects/GRAFCET/transition.c:140
+msgid "The boolean equation of the receptivity"
+msgstr "Logická rovnos» kapacity"
+
+#: objects/GRAFCET/transition.c:142
+msgid "The receptivity's font"
+msgstr "Písmo kapacity"
+
+#: objects/GRAFCET/transition.c:144
+msgid "The receptivity's font size"
+msgstr "Veµkos» písma kapacity"
+
+#: objects/GRAFCET/transition.c:147
+msgid "The receptivity's color"
+msgstr "Farba kapacity"
+
+#: objects/GRAFCET/transition.c:148
+msgid "North point"
+msgstr "Severný bod"
+
+#: objects/GRAFCET/transition.c:149
+msgid "South point"
+msgstr "Ju¾ný bod"
+
+#: objects/GRAFCET/vector.c:128
+msgid "Draw arrow heads on upward arcs:"
+msgstr "Vykresli» hlavièku ¹ípky na oblúku orientovanom nahor:"
+
+#: objects/GRAFCET/vergent.c:122
+msgid "OR"
+msgstr "ALEBO"
+
+#: objects/GRAFCET/vergent.c:123
+msgid "AND"
+msgstr "A"
+
+#: objects/GRAFCET/vergent.c:134
+msgid "Vergent type:"
+msgstr ""
+
+#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:438
+#: objects/standard/line.c:182
+msgid "Add connection point"
+msgstr "Prida» spojovací bod"
+
+#: objects/GRAFCET/vergent.c:391
+msgid "Delete  connection point"
+msgstr "Odstráni» spojovací bod"
+
+#: objects/GRAFCET/vergent.c:395
+msgid "GRAFCET OR/AND vergent"
+msgstr ""
+
+#: objects/SADT/arrow.c:134 objects/UML/state.c:124
+msgid "Normal"
+msgstr "Normálne"
+
+#: objects/SADT/arrow.c:135
+msgid "Import resource (not shown upstairs)"
+msgstr "Import zásob (nezobrazova» hore)"
+
+#: objects/SADT/arrow.c:136
+msgid "Imply resource (not shown downstairs)"
+msgstr "Získa» zdroje"
+
+#: objects/SADT/arrow.c:137
+msgid "Dotted arrow"
+msgstr "Bodkovaná ¹ípka"
+
+#: objects/SADT/arrow.c:138
+msgid "disable arrow heads"
+msgstr "zakáza» hlavièky ¹ípiek"
+
+#: objects/SADT/arrow.c:144
+msgid "Flow style:"
+msgstr "©týl toku:"
+
+#: objects/SADT/arrow.c:146
+msgid "Automatically gray vertical flows:"
+msgstr "Automaticky ¹edé vertikálne toky:"
+
+#: objects/SADT/arrow.c:147
+msgid ""
+"To improve the ease of reading, flows which begin and end vertically can be "
+"rendered gray"
+msgstr ""
+"Na zlep¹enie èitateµnosti toky, ktoré zaèínajú a konèia vertikálne, mô¾u by» "
+"vykreslené ¹edou farbou"
+
+#: objects/SADT/arrow.c:555
+msgid "SADT Arrow"
+msgstr "SADT ¹ípka"
+
+#: objects/SADT/box.c:137 objects/flowchart/box.c:169
+#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
+#: objects/flowchart/parallelogram.c:171
+msgid "Text padding"
+msgstr "Textový výplò"
+
+#: objects/SADT/box.c:144
+msgid "Activity/Data identifier"
+msgstr "Identifikátor aktivity/dát"
+
+#: objects/SADT/box.c:145
+msgid "The identifier which appears in the lower right corner of the Box"
+msgstr "Identifikátor, ktorý sa objaví vpravom dolnom rohu bloku"
+
+#: objects/SADT/box.c:439 objects/standard/line.c:183
+msgid "Delete connection point"
+msgstr "Odstráni» spojovací bod"
+
+#: objects/SADT/box.c:444
+msgid "SADT box"
+msgstr "SADT blok"
+
+#: objects/SADT/sadt.c:41
+msgid "SADT diagram objects"
+msgstr "SADT objekty diagramu"
+
+#: objects/UML/actor.c:337 objects/UML/actor.c:339
+msgid "Actor"
+msgstr ""
+
+#: objects/UML/association.c:1030 objects/UML/class_dialog.c:2177
+msgid "Direction:"
+msgstr "Smer:"
+
+#: objects/UML/association.c:1047
+msgid "From A to B"
+msgstr "Od A po B"
+
+#: objects/UML/association.c:1054
+msgid "From B to A"
+msgstr "Od B po A"
+
+#: objects/UML/association.c:1078 objects/UML/association.c:1086
+msgid "Side A"
+msgstr "Strana A"
+
+#: objects/UML/association.c:1080 objects/UML/association.c:1088
+msgid "Side B"
+msgstr "Strana B"
+
+#: objects/UML/association.c:1094
+msgid "Role:"
+msgstr "Rola:"
+
+#: objects/UML/association.c:1106
+msgid "Multiplicity:"
+msgstr "Poèetnos»:"
+
+#. Show arrow:
+#: objects/UML/association.c:1117
+msgid "Show arrow"
+msgstr "Zobrazi» ¹ípku"
+
+#. Aggregate
+#: objects/UML/association.c:1123
+msgid "Aggregate"
+msgstr "Agregát"
+
+#. Composition
+#: objects/UML/association.c:1131
+msgid "Composition"
+msgstr "Kompozícia"
+
+#: objects/UML/class.c:102 objects/UML/large_package.c:120
+msgid "Name"
+msgstr "Meno"
+
+#: objects/UML/class.c:104 objects/UML/classicon.c:131
+#: objects/UML/component.c:116 objects/UML/large_package.c:118
+#: objects/UML/object.c:144 objects/UML/small_package.c:116
+msgid "Stereotype"
+msgstr "Stereotyp"
+
+#: objects/UML/class.c:106 objects/UML/class_dialog.c:257
+#: objects/UML/class_dialog.c:2023
+msgid "Abstract"
+msgstr "Výòatok"
+
+#: objects/UML/class.c:108 objects/UML/class_dialog.c:269
+msgid "Suppress Attributes"
+msgstr "Zakázané atribúty"
+
+#: objects/UML/class.c:110
+msgid "Suppress Operations"
+msgstr "Zakázané operácie"
+
+#: objects/UML/class.c:112
+msgid "Visible Attributes"
+msgstr "Viditeµné atribúty"
+
+#: objects/UML/class.c:114
+msgid "Visible Operations"
+msgstr "Viditeµné operátory"
+
+#: objects/UML/class.c:120
+msgid "Template"
+msgstr "©ablóna"
+
+#. choose default font name for abstract for your locale. see also font_data
+#. structure in lib/font.c.
+#: objects/UML/class.c:680
+msgid "Courier-Oblique"
+msgstr "Courier-Oblique"
+
+#. choose default font name for abstract class name for your locale. see also font_data
+#. structure in lib/font.c.
+#: objects/UML/class.c:692
+msgid "Helvetica-BoldOblique"
+msgstr "Helvetica-BoldOblique"
+
+#. Class page:
+#: objects/UML/class.c:723 objects/UML/class.c:725
+#: objects/UML/class_dialog.c:229
+msgid "Class"
+msgstr "Trieda"
+
+#: objects/UML/class_dialog.c:235
+msgid "Class name:"
+msgstr "Meno triedy:"
+
+#: objects/UML/class_dialog.c:246 objects/UML/class_dialog.c:1946
+#: objects/UML/dependency.c:127 objects/UML/generalization.c:123
+#: objects/UML/realizes.c:124
+msgid "Stereotype:"
+msgstr "Stereotyp:"
+
+#: objects/UML/class_dialog.c:265
+msgid "Attributes visible"
+msgstr "Viditeµné atribúty"
+
+#: objects/UML/class_dialog.c:277
+msgid "Operations visible"
+msgstr "Viditeµné operácie"
+
+#: objects/UML/class_dialog.c:281
+msgid "Suppress operations"
+msgstr "Zakázané operácie"
+
+#: objects/UML/class_dialog.c:292
+msgid "Normal Font"
+msgstr "Normálne písmo"
+
+#: objects/UML/class_dialog.c:300
+msgid "Normal Font Size"
+msgstr "Normálna veµkos» písma"
+
+#: objects/UML/class_dialog.c:309
+msgid "Abstract Font"
+msgstr "Abstraktné písmo"
+
+#: objects/UML/class_dialog.c:317
+msgid "Abstract Font Size"
+msgstr "Abstraktná veµkos» písma"
+
+#: objects/UML/class_dialog.c:326
+msgid "Class name Font"
+msgstr "Názov triedy písma"
+
+#: objects/UML/class_dialog.c:334
+msgid "Class name Font Size"
+msgstr "Názov triedy veµkosti písma"
+
+#: objects/UML/class_dialog.c:343
+msgid "Abstract Class name Font"
+msgstr "Abstraktný názov triedy písma"
+
+#: objects/UML/class_dialog.c:351
+msgid "Abstract Class name Font Size"
+msgstr "Abstraktný názov triedy veµkosti písma"
+
+#: objects/UML/class_dialog.c:360
+msgid "Foreground Color"
+msgstr "Farba popredia"
+
+#: objects/UML/class_dialog.c:368
+msgid "Background Color"
+msgstr "Farba pozadia"
+
+#. Attributes page:
+#: objects/UML/class_dialog.c:842 objects/UML/object.c:148
+msgid "Attributes"
+msgstr "Atribúty"
+
+#: objects/UML/class_dialog.c:888 objects/UML/class_dialog.c:1900
+#: objects/UML/class_dialog.c:2120 objects/UML/class_dialog.c:2681
+msgid "Move down"
+msgstr "Posunú» ni¾¹ie"
+
+#: objects/UML/class_dialog.c:899
+msgid "Attribute data"
+msgstr "Atribúty dát"
+
+#: objects/UML/class_dialog.c:931
+msgid "Value:"
+msgstr "Hodnota:"
+
+#: objects/UML/class_dialog.c:943 objects/UML/class_dialog.c:1959
+msgid "Visibility:"
+msgstr "Viditeµnos»:"
+
+#: objects/UML/class_dialog.c:952 objects/UML/class_dialog.c:1968
+msgid "Public"
+msgstr "Public"
+
+#: objects/UML/class_dialog.c:960 objects/UML/class_dialog.c:1976
+msgid "Private"
+msgstr "Private"
+
+#: objects/UML/class_dialog.c:968 objects/UML/class_dialog.c:1984
+msgid "Protected"
+msgstr "Protected"
+
+#: objects/UML/class_dialog.c:976 objects/UML/class_dialog.c:1992
+msgid "Implementation"
+msgstr "Implementácia"
+
+#: objects/UML/class_dialog.c:992 objects/UML/class_dialog.c:2008
+msgid "Class scope"
+msgstr "Rozsah triedy"
+
+#. Operations page:
+#: objects/UML/class_dialog.c:1854
+msgid "Operations"
+msgstr "Operácie"
+
+#: objects/UML/class_dialog.c:1912
+msgid "Operation data"
+msgstr "Dáta operácie"
+
+#: objects/UML/class_dialog.c:2014
+msgid "Inheritance type:"
+msgstr "Typ dedenia:"
+
+#: objects/UML/class_dialog.c:2031
+msgid "Polymorphic (virtual)"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2039
+msgid "Leaf (final)"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2057
+msgid "Query"
+msgstr "Po¾iadavka"
+
+#: objects/UML/class_dialog.c:2070
+msgid "Parameters:"
+msgstr "Parametre:"
+
+#: objects/UML/class_dialog.c:2132
+msgid "Parameter data"
+msgstr "Dáta parametra"
+
+#: objects/UML/class_dialog.c:2165
+msgid "Def. value:"
+msgstr "©tand. hodnota:"
+
+#: objects/UML/class_dialog.c:2186
+msgid "Undefined"
+msgstr "Nedefinované"
+
+#: objects/UML/class_dialog.c:2194
+msgid "In"
+msgstr "Dnu"
+
+#: objects/UML/class_dialog.c:2203
+msgid "Out"
+msgstr "Von"
+
+#: objects/UML/class_dialog.c:2212
+msgid "In & Out"
+msgstr "Vstup a výstup"
+
+#. Templates page:
+#: objects/UML/class_dialog.c:2629
+msgid "Templates"
+msgstr "©ablóny"
+
+#: objects/UML/class_dialog.c:2635
+msgid "Template class"
+msgstr "©ablóna triedy"
+
+#: objects/UML/class_dialog.c:2692
+msgid "Formal parameter data"
+msgstr "Formálny parameter dát"
+
+#: objects/UML/classicon.c:123
+msgid "Boundary"
+msgstr "Okraj"
+
+#: objects/UML/classicon.c:133
+msgid "Is object"
+msgstr "je objekt"
+
+#: objects/UML/constraint.c:120
+msgid "Constraint:"
+msgstr "Obmedzenie:"
+
+#: objects/UML/dependency.c:129
+msgid "Show arrow:"
+msgstr "Zobrazi» ¹ípku:"
+
+#: objects/UML/implements.c:121
+msgid "Interface:"
+msgstr "Rozhranie:"
+
+#: objects/UML/lifeline.c:138
+msgid "Draw focus of control:"
+msgstr "Kresli» fokus ovládania:"
+
+#: objects/UML/lifeline.c:140
+msgid "Draw destruction mark:"
+msgstr "Kresli» znaèku de¹trukcie:"
+
+#: objects/UML/lifeline.c:403
+msgid "Add connection points"
+msgstr "Prida» spojovacie body"
+
+#: objects/UML/lifeline.c:404
+msgid "Remove connection points"
+msgstr "Odstráni» spojovacie body"
+
+#: objects/UML/lifeline.c:408
+msgid "UML Lifeline"
+msgstr ""
+
+#: objects/UML/message.c:131
+msgid "Call"
+msgstr "Volanie"
+
+#: objects/UML/message.c:132
+msgid "Create"
+msgstr "Vytvori»"
+
+#: objects/UML/message.c:133
+msgid "Destroy"
+msgstr "Znièi»"
+
+#: objects/UML/message.c:134
+msgid "Simple"
+msgstr "Jednoduché"
+
+#: objects/UML/message.c:135
+msgid "Return"
+msgstr "Enter"
+
+#: objects/UML/message.c:136
+msgid "Send"
+msgstr "Posla»"
+
+#: objects/UML/message.c:137
+msgid "Recursive"
+msgstr "Rekurzívny"
+
+#: objects/UML/message.c:144
+msgid "Message:"
+msgstr "Správa:"
+
+#: objects/UML/message.c:146
+msgid "Message type:"
+msgstr "Typ správy:"
+
+#: objects/UML/object.c:146
+msgid "Explicit state"
+msgstr "Explicitný stav"
+
+#: objects/UML/object.c:151
+msgid "Active object"
+msgstr "Aktívny objekt"
+
+#: objects/UML/object.c:153
+msgid "Show attributes"
+msgstr "Zobrazi» atribúty"
+
+#: objects/UML/object.c:155
+msgid "Multiple instance"
+msgstr "Viacnásobné in¹tancie"
+
+#: objects/UML/state.c:125
+msgid "Begin"
+msgstr "Zaèiatok"
+
+#: objects/UML/state.c:126
+msgid "End"
+msgstr "Koniec"
+
+#: objects/UML/state.c:133
+msgid "State Type"
+msgstr "Typ stavu"
+
+#: objects/UML/uml.c:60
+msgid "Unified Modelling Language diagram objects"
+msgstr "Objekty diagramu Unifikovaného Modelovacieho Jazyka (UML)"
+
+#. Characters used to start/end stereotypes:
+#. start stereotype symbol(like \xab) for local locale
+#: objects/UML/uml.h:94
+msgid "<<"
+msgstr "<<"
+
+#. end stereotype symbol(like \xbb) for local locale
+#: objects/UML/uml.h:96
+msgid ">>"
+msgstr ">>"
+
+#: objects/UML/usecase.c:124
+msgid "Text outside"
+msgstr "Vonkaj¹í text"
+
+#: objects/UML/usecase.c:126
+msgid "Collaboration"
+msgstr "Spolupráca"
+
+#: objects/chronogram/chronogram.c:40
+msgid "Chronogram diagram objects"
+msgstr "Objekty chronogramového diagramu"
+
+#: objects/chronogram/chronoline.c:148
+msgid "Data"
+msgstr "Údaj"
+
+#: objects/chronogram/chronoline.c:150
+msgid "Data name"
+msgstr "Názov údajov"
+
+#: objects/chronogram/chronoline.c:152
+msgid "Events"
+msgstr "Udalosti"
+
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr "©pecifikácia udalosti"
+
+#: objects/chronogram/chronoline.c:156
+msgid ""
+"@ time    set the pointer at an absolute time.\n"
+"( duration  sets the signal up, then wait 'duration'.\n"
+") duration  sets the signal down, then wait 'duration'.\n"
+"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
+"example : @ 1.0 (2.0)1.0(2.0)\n"
+msgstr ""
+"@ èas     nastaví ukazovateµ na absolútny èas.\n"
+"( trvanie  nastaví signál, potom èaká na 'då¾ku trvania'.\n"
+") trvanie  zlo¾í signál, potom èaká na 'då¾ku trvania'.\n"
+"u trvanie  nastaví signál do stavu \"neznámy\", potom èaká na'då¾ku "
+"trvania' .\n"
+"príklad : @ 1.0 (2.0)1.0(2.0)\n"
+
+#: objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "Parametre"
+
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+msgid "Start time"
+msgstr "Èas ¹tartu"
+
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+msgid "End time"
+msgstr "Koneèný èas"
+
+#: objects/chronogram/chronoline.c:168
+msgid "Rise time"
+msgstr "Èas vzostupu"
+
+#: objects/chronogram/chronoline.c:170
+msgid "Fall time"
+msgstr "Èas zostupu"
+
+#: objects/chronogram/chronoline.c:171
+msgid "Multi-bit data"
+msgstr "Multi-Bitové údaje"
+
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+msgid "Aspect"
+msgstr "Aspekt"
+
+#: objects/chronogram/chronoline.c:175
+msgid "Data color"
+msgstr "Farba dát"
+
+#: objects/chronogram/chronoline.c:177
+msgid "Data line width"
+msgstr "©írka èiary dát"
+
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
+msgid "Line color"
+msgstr "Farba èiary"
+
+#: objects/chronogram/chronoref.c:144
+msgid "Time data"
+msgstr "Èasové dáta"
+
+#: objects/chronogram/chronoref.c:150
+msgid "Major time step"
+msgstr "Hlavný èasový krok"
+
+#: objects/chronogram/chronoref.c:152
+msgid "Minor time step"
+msgstr "Vedµaj¹í èasový krok"
+
+#: objects/chronogram/chronoref.c:162
+msgid "Minor step line width"
+msgstr ""
+
+#: objects/custom/custom.c:124
+msgid "Custom"
+msgstr "Vlastné"
+
+#: objects/custom/custom.c:124
+msgid "Custom XML shapes loader"
+msgstr "Zavádzací program pre vlastné XML tvary"
+
+#: objects/custom/custom_object.c:188 objects/custom/custom_object.c:207
+msgid "Flip horizontal"
+msgstr "Horizontálne zameni»"
+
+#: objects/custom/custom_object.c:190 objects/custom/custom_object.c:209
+msgid "Flip vertical"
+msgstr "Vertikálne zameni»"
+
+#: objects/custom/custom_object.c:320 objects/flowchart/box.c:293
+#: objects/flowchart/diamond.c:272 objects/flowchart/ellipse.c:272
+#: objects/flowchart/parallelogram.c:296
+msgid "Text padding:"
+msgstr "Textová výplò:"
+
+#: objects/custom/custom_object.c:334 objects/standard/textobj.c:206
+msgid "Alignment:"
+msgstr "Zarovnanie:"
+
+#: objects/custom/custom_object.c:345 objects/flowchart/box.c:307
+#: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
+#: objects/flowchart/parallelogram.c:310 objects/standard/textobj.c:217
+msgid "Font:"
+msgstr "Písmo:"
+
+#: objects/custom/custom_object.c:356 objects/flowchart/box.c:318
+#: objects/flowchart/diamond.c:297 objects/flowchart/ellipse.c:297
+#: objects/flowchart/parallelogram.c:321
+msgid "Font size:"
+msgstr "Veµkos» písma:"
+
+#: objects/custom/custom_object.c:1516
+msgid "Flip Horizontal"
+msgstr "Horizontálna zameni»"
+
+#: objects/custom/custom_object.c:1517
+msgid "Flip Vertical"
+msgstr "Vertikálne zameni»"
+
+#: objects/custom/custom_object.c:1554
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr "Nie je mo¾né otvori» súbor s ikonou %s pre typ objektu '%s'."
+
+#: objects/flowchart/box.c:167 objects/standard/box.c:153
+msgid "Corner radius"
+msgstr "Zaoblenie rohu"
+
+#: objects/flowchart/box.c:279 objects/standard/box.c:240
+msgid "Corner rounding:"
+msgstr "Zaokrúhlenie hrán:"
+
+#: objects/flowchart/flowchart.c:37
+msgid "Flowchart objects"
+msgstr "Objekty vývojového diagramu"
+
+#: objects/flowchart/parallelogram.c:169
+msgid "Shear angle"
+msgstr "Uhol skosenia"
+
+#: objects/flowchart/parallelogram.c:282
+msgid "Shear angle:"
+msgstr "Uhol skosenia:"
+
+#: objects/network/bus.c:574
+msgid "Add Handle"
+msgstr ""
+
+#: objects/network/bus.c:575
+msgid "Delete Handle"
+msgstr ""
+
+#: objects/network/network.c:41
+msgid "Network diagram objects"
+msgstr "Objekty sie»ového diagramu"
+
+#: objects/standard/arc.c:133
+msgid "Curve distance"
+msgstr "Vzdialenos» krivky"
+
+#: objects/standard/bezier.c:524 objects/standard/beziergon.c:543
+msgid "Add Segment"
+msgstr "Prida» segment"
+
+#: objects/standard/bezier.c:525 objects/standard/beziergon.c:544
+msgid "Delete Segment"
+msgstr "Zmaza» segment"
+
+#: objects/standard/bezier.c:527 objects/standard/beziergon.c:546
+msgid "Symmetric control"
+msgstr "Symetrické riadenie"
+
+#: objects/standard/bezier.c:529 objects/standard/beziergon.c:548
+msgid "Smooth control"
+msgstr "Jemné ovládanie"
+
+#: objects/standard/bezier.c:531 objects/standard/beziergon.c:550
+msgid "Cusp control"
+msgstr ""
+
+#: objects/standard/image.c:168
+msgid "Image file"
+msgstr "Súbor s obrázkom"
+
+#: objects/standard/image.c:170
+msgid "Draw border"
+msgstr "Kresli» ohranièenie"
+
+#: objects/standard/image.c:172
+msgid "Keep aspect ratio"
+msgstr "Udr¾a» pomer strán"
+
+#: objects/standard/image.c:271
+msgid "Image file:"
+msgstr "Súbor s obrázkom:"
+
+#: objects/standard/image.c:282
+msgid "Keep aspect ratio:"
+msgstr "Udr¾a» pomer strán:"
+
+#: objects/standard/image.c:290
+msgid "Show border:"
+msgstr "Zobrazi» hranice:"
+
+#. Found file in same dir as diagram.
+#: objects/standard/image.c:849 objects/standard/image.c:860
+#, c-format
+msgid ""
+"The image file '%s' was not found in that directory.\n"
+"Using the file '%s' instead\n"
+msgstr ""
+"Súbor s obrázkom '%s' nebol nájdený v prieèinku.\n"
+"Namiesto neho bude pou¾itý súbor '%s'.\n"
+
+#. Didn't find file in current dir.
+#: objects/standard/image.c:866 objects/standard/image.c:892
+#, c-format
+msgid "The image file '%s' was not found.\n"
+msgstr "Súbor s obrázkom '%s' nebol nájdený.\n"
+
+#: objects/standard/line.c:121
+msgid "Start point"
+msgstr "Poèiatoèný bod"
+
+#: objects/standard/line.c:123
+msgid "End point"
+msgstr "Koncový bod"
+
+#: objects/standard/polygon.c:526 objects/standard/polyline.c:498
+msgid "Add Corner"
+msgstr "Prida» roh"
+
+#: objects/standard/polygon.c:527 objects/standard/polyline.c:499
+msgid "Delete Corner"
+msgstr "Zmaza» roh"
+
+#: objects/standard/standard.c:45
+msgid "Standard objects"
+msgstr "©tandardné objekty"
+
+#: objects/standard/textobj.c:228
+msgid "Fontsize:"
+msgstr "Veµkos» písma:"
+
+#: objects/sybase/sybase.c:44
+msgid "Sybase replication domain diagram objects"
+msgstr "Objekty pre návrh diagramov Sybase replikaènej domény s"
+
+#: plug-ins/cgm/cgm.c:1086
+msgid ""
+"Image row length larger than maximum cell array.\n"
+"Image not exported to CGM."
+msgstr ""
+"Då¾ka riadku obrázka je väè¹ia ako maximálne pole bunky.\n"
+"Obrázok nebude exportovaný do CGM."
+
+#: plug-ins/cgm/cgm.c:1261
+msgid "Computer Graphics Metafile"
+msgstr "Computer Graphics Metafile"
+
+#: plug-ins/cgm/cgm.c:1275
+msgid "Computer Graphics Metafile export filter"
+msgstr "Exportný filter Computer Graphics Metafile"
+
+#: plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:683
+msgid "Drawing Interchange File"
+msgstr "Drawing Interchange File"
+
+#: plug-ins/dxf/dxf.c:37
+msgid "Drawing Interchange File import and export filters"
+msgstr "Filter pre export a import Drawing Interchange File"
+
+#: plug-ins/hpgl/hpgl.c:616
+msgid "HP Graphics Language export filter"
+msgstr "Exportný filter Grafického Jazyka HP"
+
+#: plug-ins/metapost/metapost.c:34
+msgid "TeX Metapost export filter"
+msgstr "Exportný filter TeX Metapost"
+
+#: plug-ins/metapost/render_metapost.c:726
+msgid "TeX Metapost macros"
+msgstr "TeX Metapost makrá"
+
+#: plug-ins/pstricks/pstricks.c:14
+msgid "TeX Pstricks export filter"
+msgstr "Exportný filter TeX Pstricks"
+
+#: plug-ins/pstricks/render_pstricks.c:763
+msgid "TeX PSTricks macros"
+msgstr "TeX PSTricks makrá"
+
+#: plug-ins/python/python.c:76
+msgid "Python scripting support"
+msgstr "Podpora Python skriptov"
+
+#: plug-ins/shape/shape-export.c:937
+msgid "Can't export png without libart!"
+msgstr "Nie je mo¾né exportova» png bez libart-u!"
+
+#: plug-ins/shape/shape-export.c:964
+msgid "dia shape file"
+msgstr "súbor s dia tvarom"
+
+#: plug-ins/shape/shape.c:36
+msgid "dia shape export filter"
+msgstr "exportný filter dia tvaru"
+
+#: plug-ins/svg/render_svg.c:860
+msgid "Scalable Vector Graphics"
+msgstr "Scalable Vector Graphics"
+
+#: plug-ins/svg/svg.c:36
+msgid "Scalable Vector Graphics export filter"
+msgstr "Exportný filter pre Scalable Vector Graphics"
+
+#: plug-ins/wmf/wmf.cpp:959
+msgid "Windows Meta File"
+msgstr "Windows Meta File"
+
+#: plug-ins/wmf/wmf.cpp:973
+msgid "WMF export filter"
+msgstr "Exportný filter WMF"
+
+#: plug-ins/wpg/wpg.c:1048
+#, c-format
+msgid "File: %s type/version unsupported.\n"
+msgstr "Súbor: '%s' - nepodporovaný typ/verzia.\n"
+
+#: plug-ins/wpg/wpg.c:1197
+msgid "WordPerfect Graphics export filter"
+msgstr "Exportný filter WordPerfect Grafiky"
+
+#: plug-ins/xfig/xfig-export.c:369
+msgid "No more user-definable colors - using black"
+msgstr "Dos» bolo pou¾ívateµom definovaných farieb - pou¾ívam èiernu"
+
+#: plug-ins/xfig/xfig-export.c:794
+msgid "XFig format"
+msgstr "XFig formát"
+
+#: plug-ins/xfig/xfig-import.c:75
+msgid "Polygon import is not implemented yet"
+msgstr "Import mnohouholníkov nie je e¹te implementovaný"
+
+#: plug-ins/xfig/xfig-import.c:76
+msgid "Patterns are not supported by Dia"
+msgstr "Vzorky nie sú podporované v Dia"
+
+#: plug-ins/xfig/xfig-import.c:77
+msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
+msgstr "Trojbodkové èiary nie sú podporované v Dia, pou¾ité budú dvojbodkové"
+
+#: plug-ins/xfig/xfig-import.c:79
+msgid "Negative corner radius, negating"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:80
+msgid "Spline import is not implemented yet"
+msgstr "Spline import e¹te nie je implementovaný"
+
+#: plug-ins/xfig/xfig-import.c:406
+#, c-format
+msgid "Line style %d should not appear\n"
+msgstr "©týl èiary %d by sa nemal objavi»\n"
+
+#: plug-ins/xfig/xfig-import.c:474
+#, c-format
+msgid "Error while reading %dth of %d points: %s\n"
+msgstr "Chyba poèas naèítavania %d z %d bodov: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:493
+msgid "Error while reading arrowhead\n"
+msgstr "Chyba poèas èítania hlavièky ¹ípky\n"
+
+#: plug-ins/xfig/xfig-import.c:584
+#, c-format
+msgid "Couldn't read ellipse info: %s\n"
+msgstr "Nedá sa preèíta» informácia o elipse: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:652
+#, c-format
+msgid "Couldn't read polyline info: %s\n"
+msgstr "Nedá sa preèíta» informácia o lomenej èiare: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:667
+#, c-format
+msgid "Couldn't read flipped bit: %s\n"
+msgstr "Nie je mo¾né èíta»prevrátený bit %s\n"
+
+#: plug-ins/xfig/xfig-import.c:723 plug-ins/xfig/xfig-import.c:809
+#, c-format
+msgid "Unknown polyline subtype: %d\n"
+msgstr "Neznámy podtyp lomenej èiary: %d\n"
+
+#: plug-ins/xfig/xfig-import.c:787
+#, c-format
+msgid "Couldn't read arc info: %s\n"
+msgstr "Nedá sa preèíta» informácia o oblúku: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:876
+#, c-format
+msgid "Couldn't read text info: %s\n"
+msgstr "Nedá sa preèíta» informácia o texte: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:917
+#, c-format
+msgid "Couldn't identify FIG object: %s\n"
+msgstr "Nie je mo¾né identifikova» FIG objekt: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:924
+msgid "Compound end outside compound\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:943
+#, c-format
+msgid "Couldn't read color: %s\n"
+msgstr "Nie je mo¾né preèíta» farbu: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:985
+#, c-format
+msgid "Couldn't read group extend: %s\n"
+msgstr "Nie je mo¾né preèíta» roz¹írenie skupiny: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:996
+#, c-format
+msgid "Unknown object type %d\n"
+msgstr "Neznámy typ objektu %d\n"
+
+#: plug-ins/xfig/xfig-import.c:1019
+#, c-format
+msgid "`%s' is not one of `%s' or `%s'\n"
+msgstr "`%s' nie je jedným z `%s' alebo `%s'\n"
+
+#: plug-ins/xfig/xfig-import.c:1029
+#, c-format
+msgid "Error reading paper size: %s\n"
+msgstr "Chyba pri èítaní veµkosti papiera: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1039
+#, c-format
+msgid "Unknown paper size `%s', using default\n"
+msgstr "Neznáma veµkos» papiera `%s', pou¾ije sa ¹tandard\n"
+
+#: plug-ins/xfig/xfig-import.c:1051
+#, c-format
+msgid "Error reading paper orientation: %s\n"
+msgstr "Chyba pri èítaní orientácie papiera: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1061
+#, c-format
+msgid "Error reading justification: %s\n"
+msgstr "Chyba pri èítaní zarovnávania: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1071
+#, c-format
+msgid "Error reading units: %s\n"
+msgstr "Chyba pri èítaní jednotiek: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1085
+#, c-format
+msgid "Error reading magnification: %s\n"
+msgstr "Chyba prièítaní zväè¹enia: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1096
+#, c-format
+msgid "Error reading multipage indicator: %s\n"
+msgstr "Chyba pri èítaní viacstranového indikátora: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1107
+#, c-format
+msgid "Error reading transparent color: %s\n"
+msgstr "Chyba èítaní transparentnej farby: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1116 plug-ins/xfig/xfig-import.c:1171
+#, c-format
+msgid "Error reading FIG file: %s\n"
+msgstr "Chyba èítaní FIG súbor: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1118 plug-ins/xfig/xfig-import.c:1173
+msgid "Premature end of FIG file\n"
+msgstr "Predèasný koniec FIG súboru\n"
+
+#: plug-ins/xfig/xfig-import.c:1127
+#, c-format
+msgid "Error reading resolution: %s\n"
+msgstr "Chyba pri èítaní rozlí¹enia: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1158
+#, c-format
+msgid "Doesn't look like a Fig file: %s\n"
+msgstr "Súbor sa nezdá by» FIG súborom: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:1164
+#, c-format
+msgid "This is a FIG version %d.%d file, I may not understand it\n"
+msgstr "Toto je FIG verzia %d. %d súbor, nemusím mu rozumie»\n"
+
+#: plug-ins/xfig/xfig-import.c:1205
+msgid "XFig File Format"
+msgstr "XFig formát súboru"
+
+#: plug-ins/xfig/xfig.c:39
+msgid "Fig Format import and export filter"
+msgstr "Exportný a importný filter formát Fig"
+
+#: sheets/Circuit.sheet.in.h:1
+msgid "A Horizontal Jumper"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:2
+msgid "A Horizontally aligned inductor"
+msgstr "Horizontálne zarovnaný induktor"
+
+#: sheets/Circuit.sheet.in.h:3
+msgid "A Horizontally aligned inductor (European)"
+msgstr "Horizontálne orientovaný induktor (Európsky)"
+
+#: sheets/Circuit.sheet.in.h:4
+msgid "A Horizontally aligned resistor"
+msgstr "Horizontálne orientovaný rezistor"
+
+#: sheets/Circuit.sheet.in.h:5
+msgid "A Horizontally aligned resistor (European)"
+msgstr "Horizontálne orientovaný rezistor (Európsky)"
+
+#: sheets/Circuit.sheet.in.h:6
+msgid "A Microphone"
+msgstr "Mikrofón"
+
+#: sheets/Circuit.sheet.in.h:7
+msgid "A PMOS transistor"
+msgstr "PMOS tranzistor"
+
+#: sheets/Circuit.sheet.in.h:8
+msgid "A Speaker"
+msgstr "Reproduktor"
+
+#: sheets/Circuit.sheet.in.h:9
+msgid "A Vertically aligned inductor"
+msgstr "Vertikálne orientovaný induktor"
+
+#: sheets/Circuit.sheet.in.h:10
+msgid "A Vertically aligned inductor (European)"
+msgstr "Vertikálne orientovaný induktor (Európsky)"
+
+#: sheets/Circuit.sheet.in.h:11
+msgid "A Vertically aligned resistor"
+msgstr "Vertikálne orientovaný rezistor"
+
+#: sheets/Circuit.sheet.in.h:12
+msgid "A Vertically aligned resistor (European)"
+msgstr "Vertikálne orientovaný rezistor (Európsky)"
+
+#: sheets/Circuit.sheet.in.h:13
+msgid "A ground point"
+msgstr "Uzemnenie"
+
+#: sheets/Circuit.sheet.in.h:14
+msgid "A horizontally aligned LED"
+msgstr "Horizontálne orientovaná LED"
+
+#: sheets/Circuit.sheet.in.h:15
+msgid "A horizontally aligned capacitor"
+msgstr "Horizontálne orientovaný kondenzátor"
+
+#: sheets/Circuit.sheet.in.h:16
+msgid "A horizontally aligned diode"
+msgstr "Horizontálne orientovaná dióda"
+
+#: sheets/Circuit.sheet.in.h:17
+msgid "A horizontally aligned fuse"
+msgstr "Horizontálne orientovaná poistka"
+
+#: sheets/Circuit.sheet.in.h:18
+msgid "A horizontally aligned powersource"
+msgstr "Horizontálne orientovaný zdroj napätia"
+
+#: sheets/Circuit.sheet.in.h:19
+msgid "A horizontally aligned zener diode"
+msgstr "Horizontálne orientovaná zenerova dióda"
+
+#: sheets/Circuit.sheet.in.h:20
+msgid "A lamp"
+msgstr "®iarovka"
+
+#: sheets/Circuit.sheet.in.h:21
+msgid "A npn bipolar transistor"
+msgstr "npn bipolárny tranzistor"
+
+#: sheets/Circuit.sheet.in.h:22
+msgid "A pnp bipolar transistor"
+msgstr "pnp bipolárny tranzistor"
+
+#: sheets/Circuit.sheet.in.h:23
+msgid "A vertically aligned LED"
+msgstr "Vertikálne orientovaná LED"
+
+#: sheets/Circuit.sheet.in.h:24
+msgid "A vertically aligned capacitor"
+msgstr "Vertikálne orientovaný kondenzátor"
+
+#: sheets/Circuit.sheet.in.h:25
+msgid "A vertically aligned diode"
+msgstr "Vertikálne orientovaná dióda"
+
+#: sheets/Circuit.sheet.in.h:26
+msgid "A vertically aligned fuse"
+msgstr "Vertikálne orientovaná poistka"
+
+#: sheets/Circuit.sheet.in.h:27
+msgid "A vertically aligned powersource"
+msgstr "Vertikálne orientovaný zdroj napätia"
+
+#: sheets/Circuit.sheet.in.h:28
+msgid "A vertically aligned zener diode"
+msgstr "Vertikálne orientovaná zenerova dióda"
+
+#: sheets/Circuit.sheet.in.h:29
+msgid "An NMOS transistor"
+msgstr "Tranzistor NMOS"
+
+#: sheets/Circuit.sheet.in.h:30
+msgid "An operational amplifier"
+msgstr "Operaèný zosilòovaè"
+
+#: sheets/Circuit.sheet.in.h:31
+msgid "Circuit"
+msgstr "Obvod"
+
+#: sheets/Circuit.sheet.in.h:32
+msgid "Components for circuit diagrams"
+msgstr "Komponenty pre schémy elektrických obvodov"
+
+#: sheets/Contact.sheet.in.h:1
+msgid "A 'if not' (normally closed) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:2
+msgid "A 'if' (normally open) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:3
+msgid "A 'jump' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:4
+msgid "A 'reset' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:5
+msgid "A 'set' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:6
+msgid "A negative output variable"
+msgstr "Negatívna výstupná premenná"
+
+#: sheets/Contact.sheet.in.h:7
+msgid "A power-saved 'reset' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:8
+msgid "A power-saved 'set' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:9
+msgid "A power-saved negative output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:10
+msgid "A power-saved simple output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:11
+msgid "A receptivity output variable"
+msgstr "Kapacitná výstupná premenná"
+
+#: sheets/Contact.sheet.in.h:12
+msgid "A simple output variable"
+msgstr "Jednoduchá výstupná premenná"
+
+#: sheets/Contact.sheet.in.h:13
+msgid "Components for LADDER circuits"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:14
+msgid "Ladder"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:1
+msgid "Create a process"
+msgstr "Vytvori» proces"
+
+#: sheets/EML.sheet.in.h:2
+msgid "EML"
+msgstr "EML"
+
+#: sheets/EML.sheet.in.h:3
+msgid "Editor for EML Static Structure Diagrams."
+msgstr "Editor pre Statické ¹truktúrované diagramy EML."
+
+#: sheets/EML.sheet.in.h:4
+msgid "Instantiation. One process create others"
+msgstr "Konkretizácia. Jeden proces vytvára ostatné"
+
+#: sheets/EML.sheet.in.h:5
+msgid "Interaction between processes."
+msgstr "Vzájomné pôsobenie medzi procesmi."
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr "Entito-relaèný model"
+
+#: sheets/ER.sheet.in.h:3
+msgid "Editor for Entity Relations Diagrams"
+msgstr "Editor Entito-relaèného diagramu"
+
+#: sheets/ER.sheet.in.h:5
+msgid "Participation"
+msgstr "Úèas»"
+
+#: sheets/ER.sheet.in.h:7
+msgid "Weak Entity"
+msgstr "Slabá entita"
+
+#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
+msgid "A connection point"
+msgstr "Bod spojenia"
+
+#: sheets/Electric.sheet.in.h:2
+msgid "A lamp or indicator light"
+msgstr "®iarovka alebo indikátor svetla"
+
+#: sheets/Electric.sheet.in.h:3
+msgid "A normally closed contact"
+msgstr "Be¾ne uzavretý kontakt"
+
+#: sheets/Electric.sheet.in.h:4
+msgid "A normally closed position switch"
+msgstr "Be¾ne uzavretá pozícia prepínaèa"
+
+#: sheets/Electric.sheet.in.h:5
+msgid "A normally open contact"
+msgstr "Be¾ne otvorený kontakt"
+
+#: sheets/Electric.sheet.in.h:6
+msgid "A normally open position switch"
+msgstr "Be¾ne otvorená pozícia prepínaèa"
+
+#: sheets/Electric.sheet.in.h:7
+msgid "A relay"
+msgstr "Relé"
+
+#: sheets/Electric.sheet.in.h:8
+msgid "Components for electric circuits"
+msgstr "Komponenty pre elektronické obvody"
+
+#: sheets/Electric.sheet.in.h:9
+msgid "Electric"
+msgstr "Elektrické"
+
+#: sheets/Electric.sheet.in.h:10
+msgid "The command organ of a relay"
+msgstr "Príkazová zlo¾ka pre relé"
+
+#: sheets/FS.sheet.in.h:1
+msgid "Create a flow"
+msgstr "Vytvorenie toku"
+
+#: sheets/FS.sheet.in.h:2
+msgid "Create a function"
+msgstr "Vytvorenie funkcie"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Create an orthogonal polyline flow"
+msgstr "Vytvori» pravouhlú lomenú èiaru toku"
+
+#: sheets/FS.sheet.in.h:4
+msgid "Editor for Function Structure Diagrams."
+msgstr "Editor pre ©truktúrované diagramy funkcií."
+
+#: sheets/FS.sheet.in.h:5
+msgid "FS"
+msgstr "FS"
+
+#: sheets/Flowchart.sheet.in.h:1
+msgid "A box with text inside"
+msgstr "Blok s textom vo vnútri"
+
+#: sheets/Flowchart.sheet.in.h:2
+msgid "A diamond with text inside"
+msgstr "Diamant s textom vo vnútri"
+
+#: sheets/Flowchart.sheet.in.h:3
+msgid "A ellipse with text inside"
+msgstr "Elipsa s textom vo vnútri"
+
+#: sheets/Flowchart.sheet.in.h:4
+msgid "A parallelogram with text inside"
+msgstr "Rovnobe¾ník s textom vo vnútri"
+
+#: sheets/Flowchart.sheet.in.h:5
+msgid "Collate"
+msgstr "Usporiada»"
+
+#: sheets/Flowchart.sheet.in.h:6
+msgid "Delay"
+msgstr "Pauza"
+
+#: sheets/Flowchart.sheet.in.h:8
+msgid "Document"
+msgstr "Dokument"
+
+#: sheets/Flowchart.sheet.in.h:10
+msgid "Flowchart"
+msgstr "Vývojový diagram"
+
+#: sheets/Flowchart.sheet.in.h:11
+msgid "Internal Storage"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:12
+msgid "Magnetic Disk"
+msgstr "Magnetický disk"
+
+#: sheets/Flowchart.sheet.in.h:13
+msgid "Magnetic Drum"
+msgstr "Magnetický bubon"
+
+#: sheets/Flowchart.sheet.in.h:14
+msgid "Magnetic Tape"
+msgstr "Magnetická páska"
+
+#: sheets/Flowchart.sheet.in.h:15
+msgid "Manual Input"
+msgstr "Manuálny vstup"
+
+#: sheets/Flowchart.sheet.in.h:16
+msgid "Manual Operation"
+msgstr "Manuálna operácia"
+
+#: sheets/Flowchart.sheet.in.h:17
+msgid "Merge"
+msgstr "Doplni»"
+
+#: sheets/Flowchart.sheet.in.h:18
+msgid "Objects to draw flowcharts"
+msgstr "Objekty na kreslenie vývojových diagramov"
+
+#: sheets/Flowchart.sheet.in.h:19
+msgid "Off Page Connector"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:20
+msgid "Offline Storage"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:21
+msgid "Or"
+msgstr "Alebo"
+
+#: sheets/Flowchart.sheet.in.h:22
+msgid "Predefined Process"
+msgstr "Preddefinovaný proces"
+
+#: sheets/Flowchart.sheet.in.h:23
+msgid "Preparation"
+msgstr "Príprava"
+
+#: sheets/Flowchart.sheet.in.h:24
+msgid "Punched Card"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:25
+msgid "Punched Tape"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:26
+msgid "Sort"
+msgstr "Triedenie"
+
+#: sheets/Flowchart.sheet.in.h:27
+msgid "Summing Junction"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:28
+msgid "Terminal"
+msgstr "Terminál"
+
+#: sheets/Flowchart.sheet.in.h:29
+msgid "Transaction File"
+msgstr "Transakèný súbor"
+
+#: sheets/Flowchart.sheet.in.h:30
+msgid "Transmittal Tape"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:1
+msgid "A AND vergent"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:2
+msgid "A OR vergent"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:3
+msgid "A condition (of an action)"
+msgstr "Podmienka (èinnosti)"
+
+#: sheets/GRAFCET.sheet.in.h:4
+msgid "A macro call step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:5
+msgid "A macro entry step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:6
+msgid "A macro exit step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:7
+msgid "A macro sub-program call step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:8
+msgid "A regular step"
+msgstr "Pravidelný krok"
+
+#: sheets/GRAFCET.sheet.in.h:9
+msgid "A transition"
+msgstr "Premena"
+
+#: sheets/GRAFCET.sheet.in.h:10
+msgid "An action to associate to a step"
+msgstr "Èinnos» spojená s krokom"
+
+#: sheets/GRAFCET.sheet.in.h:11
+msgid "An arc (upward)"
+msgstr "Oblúk (smerom hore)"
+
+#: sheets/GRAFCET.sheet.in.h:12
+msgid "An initial step"
+msgstr "Poèiatoèný krok"
+
+#: sheets/GRAFCET.sheet.in.h:13
+msgid "GRAFCET"
+msgstr "GRAFCET"
+
+#: sheets/GRAFCET.sheet.in.h:14
+msgid "Objects to design GRAFCET charts"
+msgstr "Objekty pre návrh GRAFCET grafov"
+
+#: sheets/Logic.sheet.in.h:1
+msgid "A Nand gate"
+msgstr "Hradlo NAND"
+
+#: sheets/Logic.sheet.in.h:2
+msgid "A Nor gate"
+msgstr "Hradlo NOR"
+
+#: sheets/Logic.sheet.in.h:3
+msgid "A Not"
+msgstr "Negácia"
+
+#: sheets/Logic.sheet.in.h:4
+msgid "A Xor gate"
+msgstr "Hradlo XOR"
+
+#: sheets/Logic.sheet.in.h:5
+msgid "A crossconnector"
+msgstr "Krí¾ový konektor"
+
+#: sheets/Logic.sheet.in.h:6
+msgid "A simple Buffer"
+msgstr "Jednoduchá medzipamä»"
+
+#: sheets/Logic.sheet.in.h:7
+msgid "An And gate"
+msgstr "Hradlo AND"
+
+#: sheets/Logic.sheet.in.h:8
+msgid "An Inverter"
+msgstr "Prevodník"
+
+#: sheets/Logic.sheet.in.h:9
+msgid "An Or gate"
+msgstr "Hradlo OR"
+
+#: sheets/Logic.sheet.in.h:10
+msgid "Boolean Logic"
+msgstr "Logická hodnota"
+
+#: sheets/Logic.sheet.in.h:11
+msgid "Logic"
+msgstr "Logické"
+
+#: sheets/MSE.sheet.in.h:1
+msgid "Demultiplexer"
+msgstr "Demultiplexer"
+
+#: sheets/MSE.sheet.in.h:2
+msgid "Large Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:3
+msgid "MSE"
+msgstr "MSE"
+
+#: sheets/MSE.sheet.in.h:4
+msgid "Multiplexer"
+msgstr "Multiplexer"
+
+#: sheets/MSE.sheet.in.h:5
+msgid "Node Center"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:6
+msgid "Small Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:7
+msgid "Tactical Satellite Communications Terminal"
+msgstr "Terminál pre taktickú satelitnú komunikáciu"
+
+#: sheets/MSE.sheet.in.h:8
+msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:1
+msgid "A 2/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:2
+msgid "A 3/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:3
+msgid "A 3/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:4
+msgid "A 4/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:5
+msgid "A 5/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:6
+msgid "A 5/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:8
+msgid "A double-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:9
+msgid "A generic pressure source"
+msgstr "Zdroj generického tlaku"
+
+#: sheets/Pneumatic.sheet.in.h:10
+msgid "A hydraulic pressure source"
+msgstr "Zdroj hydraulického tlaku"
+
+#: sheets/Pneumatic.sheet.in.h:11
+msgid "A normally-in simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:12
+msgid "A normally-out simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "A pneumatic pressure source"
+msgstr "Zdroj preumatického tlaku"
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "An air exhaust orifice"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:15
+msgid "Components for pneumatic and hydraulic circuits"
+msgstr "Komponenty pre pneumatické a hydraulické obvody"
+
+#: sheets/Pneumatic.sheet.in.h:16
+msgid "Electric command (double coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:17
+msgid "Electric command (single coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:18
+msgid "Indirect command by hydraulic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:19
+msgid "Indirect command by pneumatic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Mechanical command by spring"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Mechanical command by tappet"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Muscular command"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:23
+msgid "Pneumatic/Hydraulic"
+msgstr "Pneumatické/Hydraulické"
+
+#: sheets/Pneumatic.sheet.in.h:24
+msgid "Push-button command"
+msgstr "Príkaz tlaèítka Tlaèi»"
+
+#: sheets/SADT.sheet.in.h:1
+msgid "A activity/data flow arrow"
+msgstr "©ípka toku èinnosti/dát"
+
+#: sheets/SADT.sheet.in.h:2
+msgid "A flow label"
+msgstr "Oznaèenie toku"
+
+#: sheets/SADT.sheet.in.h:3
+msgid "An activity/data box"
+msgstr "Blok èinnosti/dát"
+
+#: sheets/SADT.sheet.in.h:4
+msgid "Objects to design SADT diagrams"
+msgstr "Objekty na návrh SADT diagramov"
+
+#: sheets/SADT.sheet.in.h:5
+msgid "SADT/IDEF0"
+msgstr "SADT/IDEF0"
+
+#: sheets/SDL.sheet.in.h:1
+msgid "Action being executed"
+msgstr "Akcia bola vykonaná"
+
+#: sheets/SDL.sheet.in.h:2
+msgid "Block Type Reference"
+msgstr "Referencia blokového typu"
+
+#: sheets/SDL.sheet.in.h:3
+msgid "Comment"
+msgstr "Komentár"
+
+#: sheets/SDL.sheet.in.h:4
+msgid "Decision"
+msgstr "Rozhodnutie"
+
+#: sheets/SDL.sheet.in.h:5
+msgid "Function Header"
+msgstr "Hlavièka funkcie"
+
+#: sheets/SDL.sheet.in.h:6
+msgid "Function call"
+msgstr "Funkèné volanie"
+
+#: sheets/SDL.sheet.in.h:7
+msgid "Generic Text Note"
+msgstr "V¹eobecná textová poznámka"
+
+#: sheets/SDL.sheet.in.h:8
+msgid "In/Out Connector"
+msgstr "Vstupný/Výstupný konektor"
+
+#: sheets/SDL.sheet.in.h:10
+msgid "Procedure Return"
+msgstr "Návrat procedúry"
+
+#: sheets/SDL.sheet.in.h:11
+msgid "Process Type Reference"
+msgstr "Referencia procesného typu"
+
+#: sheets/SDL.sheet.in.h:12
+msgid "Receive message"
+msgstr "Prija» správu"
+
+#: sheets/SDL.sheet.in.h:13
+msgid "SDL"
+msgstr "SDL"
+
+#: sheets/SDL.sheet.in.h:14
+msgid "Save State"
+msgstr "Stav ukladania"
+
+#: sheets/SDL.sheet.in.h:15
+msgid "Send message"
+msgstr "Posla» správu"
+
+#: sheets/SDL.sheet.in.h:16
+msgid "Service Type Reference"
+msgstr "Referencia typu slu¾ieb"
+
+#: sheets/SDL.sheet.in.h:17
+msgid "Specification and Description Language."
+msgstr "©pecifikáèný a popisný jazyk."
+
+#: sheets/SDL.sheet.in.h:18
+msgid "State"
+msgstr "Stav"
+
+#: sheets/UML.sheet.in.h:1
+msgid "Aggregation, one class is part of another"
+msgstr "Agregácia, jedna trieda je èas»ou druhej"
+
+#: sheets/UML.sheet.in.h:2
+msgid "Association, two classes are associated"
+msgstr "Asociácia, dve triedy sú asociované"
+
+#: sheets/UML.sheet.in.h:3
+msgid "Constraint, place a constraint on something"
+msgstr "Obmedzenie, miesto obmedzené na nieèo"
+
+#: sheets/UML.sheet.in.h:4
+msgid "Create a (large) package"
+msgstr "Vytvori» (veµký) balík"
+
+#: sheets/UML.sheet.in.h:5
+msgid "Create a (small) package"
+msgstr "Vytvori» (malý) balík"
+
+#: sheets/UML.sheet.in.h:6
+msgid "Create a branch"
+msgstr "Vytvori» vetvu"
+
+#: sheets/UML.sheet.in.h:7
+msgid "Create a class"
+msgstr "Vytvori» triedu"
+
+#: sheets/UML.sheet.in.h:8
+msgid "Create a class stereotype icon"
+msgstr "Vytvori» triedu stereotypných ikón"
+
+#: sheets/UML.sheet.in.h:9
+msgid "Create a component"
+msgstr "Vytvori» komponent"
+
+#: sheets/UML.sheet.in.h:10
+msgid "Create a dependency"
+msgstr "Vytvori» závislos»"
+
+#: sheets/UML.sheet.in.h:11
+msgid "Create a lifeline"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:12
+msgid "Create a message"
+msgstr "Vytvori» správu"
+
+#: sheets/UML.sheet.in.h:13
+msgid "Create a node"
+msgstr "Vytvori» styèný bod"
+
+#: sheets/UML.sheet.in.h:14
+msgid "Create a note"
+msgstr "Vytvori» poznámku"
+
+#: sheets/UML.sheet.in.h:15
+msgid "Create a state machine"
+msgstr "Vytvori» stavový stroj"
+
+#: sheets/UML.sheet.in.h:16
+msgid "Create a template class"
+msgstr "Vytvori» vzorovú triedu"
+
+#: sheets/UML.sheet.in.h:17
+msgid "Create a use case"
+msgstr "Vytvori» prípad pou¾itia"
+
+#: sheets/UML.sheet.in.h:18
+msgid "Create an actor"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:19
+msgid "Create an object"
+msgstr "Vytvori» objekt"
+
+#: sheets/UML.sheet.in.h:20
+msgid "Editor for UML Static Structure Diagrams"
+msgstr "Editor pre Statické ¹truktúrované diagramy UML"
+
+#: sheets/UML.sheet.in.h:21
+msgid "Generalization, class inheritance"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:22
+msgid "Implements, class implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:23
+msgid "Realizes, implements a specific interface"
+msgstr "Realizuje, implementuje ¹pecifikované rozhranie"
+
+#: sheets/UML.sheet.in.h:24
+msgid "UML"
+msgstr "UML"
+
+#: sheets/chronogram.sheet.in.h:1
+msgid "A data line"
+msgstr "Dátový riadok"
+
+#: sheets/chronogram.sheet.in.h:2
+msgid "A time scale"
+msgstr "Èasová mierka"
+
+#: sheets/chronogram.sheet.in.h:3
+msgid "Chronogram"
+msgstr "Chronogram"
+
+#: sheets/chronogram.sheet.in.h:4
+msgid "Objects to design chronogram charts"
+msgstr "Objekty na návrh chronogramových grafov"
+
+#: sheets/civil.sheet.in.h:1
+msgid "A Backflow Preventer"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:2
+msgid "A Basin"
+msgstr "Nádr¾"
+
+#: sheets/civil.sheet.in.h:3
+msgid "A Container"
+msgstr "Kontajner"
+
+#: sheets/civil.sheet.in.h:4
+msgid "A Frequency Converter"
+msgstr "Frekvenèný konvertor"
+
+#: sheets/civil.sheet.in.h:5
+msgid "A Gas Bottle"
+msgstr "Plynová fµa¹a"
+
+#: sheets/civil.sheet.in.h:6
+msgid "A Motor"
+msgstr "Motor"
+
+#: sheets/civil.sheet.in.h:7
+msgid "A Preliminary Clarification Tank"
+msgstr "Prípravná èistiacia nádr¾"
+
+#: sheets/civil.sheet.in.h:8
+msgid "A Rotor"
+msgstr "Rotor"
+
+#: sheets/civil.sheet.in.h:9
+msgid "A final-settling Basin"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:10
+msgid "A horizontal limiting line"
+msgstr "Horizontálne ohranièená èiara"
+
+#: sheets/civil.sheet.in.h:11
+msgid "A horizontally aligned Arrow"
+msgstr "Horizontálne orientovaná ¹ípka"
+
+#: sheets/civil.sheet.in.h:12
+msgid "A vertical limiting line"
+msgstr "Vertikálne ohranièená èiara"
+
+#: sheets/civil.sheet.in.h:13
+msgid "A vertically aligned Arrow"
+msgstr "Vertikálne orientovaná ¹írka"
+
+#: sheets/civil.sheet.in.h:14
+msgid "An Aerator with bubbles"
+msgstr "Aerátor s bublinkami"
+
+#: sheets/civil.sheet.in.h:15
+msgid "Bivalent Vertical Rest"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:16
+msgid "Civil"
+msgstr "Civilné"
+
+#: sheets/civil.sheet.in.h:17
+msgid "Civil Engineering Components"
+msgstr "Civilné in¾inierske komponenty"
+
+#: sheets/civil.sheet.in.h:18
+msgid "Horizontal Rest"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:19
+msgid "Horizontally aligned Valve"
+msgstr "Horizontálne zarovnaná klapka"
+
+#: sheets/civil.sheet.in.h:20
+msgid "Horizontally aligned compressor"
+msgstr "Horizontálne orientovaný kompresor"
+
+#: sheets/civil.sheet.in.h:21
+msgid "Horizontally aligned pump"
+msgstr "Horizontálne orientovaná pumpa"
+
+#: sheets/civil.sheet.in.h:22
+msgid "Reference Line"
+msgstr "Referenèná èiara"
+
+#: sheets/civil.sheet.in.h:23
+msgid "Soil"
+msgstr "Pôda"
+
+#: sheets/civil.sheet.in.h:24
+msgid "Vertical Rest"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:25
+msgid "Vertically aligned Propeller"
+msgstr "Vertikálne orientovaná vrtuµa"
+
+#: sheets/civil.sheet.in.h:26
+msgid "Vertically aligned Valve"
+msgstr "Vertikálne zarovnaná klapka"
+
+#: sheets/civil.sheet.in.h:27
+msgid "Vertically aligned compressor"
+msgstr "Vertikálne orientovaný kompresor"
+
+#: sheets/civil.sheet.in.h:28
+msgid "Vertically aligned pump"
+msgstr "Vertikálne orientovaná pumpa"
+
+#: sheets/civil.sheet.in.h:29
+msgid "Water Level"
+msgstr "Úroveò vody"
+
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr "Skladaèka"
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr "Skladaèka - èas» iiii"
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr "Skladaèka - èas» iiio"
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr "Skladaèka - èas» iioi"
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr "Skladaèka - èas» iioo"
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr "Skladaèka - èas» ioii"
+
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr "Skladaèka - èas» ioio"
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr "Skladaèka - èas» iooi"
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr "Skladaèka - èas» iooo"
+
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr "Skladaèka - èas» oiii"
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr "Skladaèka - èas» oiio"
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr "Skladaèka - èas» oioi"
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr "Skladaèka - èas» oioo"
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr "Skladaèka - èas» ooii"
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr "Skladaèka - èas» ooio"
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr "Skladaèka - èas» oooi"
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr "Skladaèka - èas» oooo"
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr "Èasti skladaèky"
+
+#: sheets/network.sheet.in.h:1
+msgid "A 3 1/2 inch diskette"
+msgstr "3 1/2 palcová disketa"
+
+#: sheets/network.sheet.in.h:2
+msgid "A Bigtower PC"
+msgstr "Bigtower PC"
+
+#: sheets/network.sheet.in.h:3
+msgid "A Computer"
+msgstr "Poèítaè"
+
+#: sheets/network.sheet.in.h:4
+msgid "A Desktop PC"
+msgstr "Desktopové PC"
+
+#: sheets/network.sheet.in.h:5
+msgid "A Firewall router"
+msgstr "Firewalový router"
+
+#: sheets/network.sheet.in.h:6
+msgid "A Miditower PC"
+msgstr "Miditower PC"
+
+#: sheets/network.sheet.in.h:7
+msgid "A Minitower PC"
+msgstr "Minitower PC"
+
+#: sheets/network.sheet.in.h:8
+msgid "A Mobile Phone"
+msgstr "Mobilný telefón"
+
+#: sheets/network.sheet.in.h:9
+msgid "A RJ45 Wall-Plug"
+msgstr "Zásuvka RJ45 na stene"
+
+#: sheets/network.sheet.in.h:10
+msgid "A UNIX Workstation"
+msgstr "UNIXová pracovná stanica"
+
+#: sheets/network.sheet.in.h:11
+msgid "A WAN Connection"
+msgstr "WAN spojenie"
+
+#: sheets/network.sheet.in.h:12
+msgid "A WAN Link"
+msgstr "WAN linka"
+
+#: sheets/network.sheet.in.h:13
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr ""
+
+#: sheets/network.sheet.in.h:14
+msgid "A Workstation Monitor"
+msgstr "Monitor pracovnej stanice"
+
+#: sheets/network.sheet.in.h:15
+msgid "A ZIP Disk"
+msgstr "ZIP disk"
+
+#: sheets/network.sheet.in.h:16
+msgid "A modular switching system"
+msgstr "Modulárny prepínací systém"
+
+#: sheets/network.sheet.in.h:17
+msgid "A monitor"
+msgstr "Monitor"
+
+#: sheets/network.sheet.in.h:18
+msgid "A simple Modem"
+msgstr "Jednoduchý modem"
+
+#: sheets/network.sheet.in.h:19
+msgid "A simple printer"
+msgstr "Jednoduchá tlaèiareò"
+
+#: sheets/network.sheet.in.h:20
+msgid "A speaker with integrated amplifier"
+msgstr "Reproduktor s integrovaným zosilòovaèom"
+
+#: sheets/network.sheet.in.h:21
+msgid "A speaker without amplifier"
+msgstr "Reproduktor bez zosilòovaèa"
+
+#: sheets/network.sheet.in.h:22
+msgid "A stackable hub or switch"
+msgstr "Stohovateµný hub alebo prepínaè"
+
+#: sheets/network.sheet.in.h:23
+msgid "ATM Switch Symbol"
+msgstr "Symbol prepínaèa ATM"
+
+#: sheets/network.sheet.in.h:24
+msgid "An Ethernet bus"
+msgstr "Eternetová zbernica"
+
+#: sheets/network.sheet.in.h:25
+msgid "An antenna for wireless transmission"
+msgstr "Anténa pre rádiový prenos"
+
+#: sheets/network.sheet.in.h:26
+msgid "An external DAT drive"
+msgstr "Externá DAT mechanika"
+
+#: sheets/network.sheet.in.h:27
+msgid "Network"
+msgstr "Poèítaèová sie»"
+
+#: sheets/network.sheet.in.h:28
+msgid "Network Cloud"
+msgstr ""
+
+#: sheets/network.sheet.in.h:29
+msgid "Objects to design network diagrams with"
+msgstr "Objekty pre návrh diagramov sietí s"
+
+#: sheets/network.sheet.in.h:30
+msgid "Router Symbol"
+msgstr "Symbol routera"
+
+#: sheets/network.sheet.in.h:31
+msgid "Storage"
+msgstr "Disky"
+
+#: sheets/network.sheet.in.h:32
+msgid "Switch Symbol"
+msgstr "Symbol prepínaèa"
+
+#: sheets/sybase.sheet.in.h:1
+msgid "A Sybase Client Application"
+msgstr "Sybase klientska aplikácia"
+
+#: sheets/sybase.sheet.in.h:2
+msgid "A Sybase Dataserver"
+msgstr "Dátový server Sybase"
+
+#: sheets/sybase.sheet.in.h:3
+msgid "A Sybase Replication Server"
+msgstr "Sybase replikaèný server"
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Log Transfer Manager or Rep Agent"
+msgstr "Rep agent alebo správca log prenosov"
+
+#: sheets/sybase.sheet.in.h:5
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr "Objekty pre návrh  diagramov Sybase replikaènej domény s"
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Replication Server Manager"
+msgstr "Správca replikaèného servera"
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Stable Storage Device"
+msgstr "Stabilné úlo¾né zariadenia"
+
+#: sheets/sybase.sheet.in.h:8
+msgid "Sybase"
+msgstr "Sybase"
+
