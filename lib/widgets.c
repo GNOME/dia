@@ -333,7 +333,7 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   gtk_widget_show(GTK_WIDGET(fs->omenu));
 
   box = gtk_hbox_new(FALSE,0);
-  //  fs->sizebox = GTK_HBOX(box);
+  /*  fs->sizebox = GTK_HBOX(box); */
 
   label = gtk_label_new(_("Dash length: "));
   fs->lengthlabel = GTK_LABEL(label);

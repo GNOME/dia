@@ -23,10 +23,6 @@
 
 typedef struct _RenderStore RenderStore;
 
-struct _RenderStore {
-  
-};
-
 extern RenderStore *new_render_store(void);
 extern void destroy_render_store(RenderStore *store);
 extern void render_store_render(RenderStore *store,

@@ -22,9 +22,6 @@
 #include "message.h"
 #include "dia_image.h"
 
-typedef struct _RenderStorePrivate RenderStorePrivate;
-
-
 typedef enum _Command {
   CMD_SET_LINEWIDTH,
   CMD_SET_LINECAPS,
@@ -56,9 +53,7 @@ typedef union _Data {
   void *ptr_data;
 } Data;
 
-struct _RenderStorePrivate {
-  RenderStore public;
-
+struct _RenderStore {
   Data *data;
   int max_num_data;
   int num_data;
@@ -71,23 +66,19 @@ struct _RenderStorePrivate {
 RenderStore *
 new_render_store(void)
 {
-  RenderStorePrivate *store;
+  RenderStore *store;
 
-  store = g_new(RenderStorePrivate, 1);
+  store = g_new(RenderStore, 1);
   store->data = NULL;
   store->num_data = 0;
 
-  return (RenderStore *)store;
+  return store;
 }
 
 void
 destroy_render_store(RenderStore *store)
 {
-  RenderStorePrivate *private;
-
-  private = (RenderStorePrivate *)store;
-
-  g_free(private->data);
+  g_free(store->data);
   g_free(store);
 }
 
@@ -95,7 +86,7 @@ destroy_render_store(RenderStore *store)
 /* Adding: */
 
 static void
-add_data(RenderStorePrivate *store, Data *data)
+add_data(RenderStore *store, Data *data)
 {
   if (store->data == NULL) {
     store->max_num_data = 30;
@@ -112,7 +103,7 @@ add_data(RenderStorePrivate *store, Data *data)
 }
 
 static void
-help_add_point(RenderStorePrivate *store, Point *point)
+help_add_point(RenderStore *store, Point *point)
 {
   Data data;
   data.real_data = point->x;
@@ -122,7 +113,7 @@ help_add_point(RenderStorePrivate *store, Point *point)
 }
 
 static void
-help_add_color(RenderStorePrivate *store, Color *color)
+help_add_color(RenderStore *store, Color *color)
 {
   Data data;
   data.real_data = color->red;
@@ -134,7 +125,7 @@ help_add_color(RenderStorePrivate *store, Color *color)
 }
 
 static void
-add_point_point_color(RenderStorePrivate *store, Command command,
+add_point_point_color(RenderStore *store, Command command,
 		      Point *start, Point *end, Color *color)
 {
   Data data;
@@ -147,7 +138,7 @@ add_point_point_color(RenderStorePrivate *store, Command command,
 }
 
 static void
-add_real(RenderStorePrivate *store, Command command, real real_val)
+add_real(RenderStore *store, Command command, real real_val)
 {
   Data data;
 
@@ -158,7 +149,7 @@ add_real(RenderStorePrivate *store, Command command, real real_val)
 }
 
 static void
-add_int(RenderStorePrivate *store, Command command, int int_val)
+add_int(RenderStore *store, Command command, int int_val)
 {
   Data data;
 
@@ -169,7 +160,7 @@ add_int(RenderStorePrivate *store, Command command, int int_val)
 }
 
 static void
-add_font_real(RenderStorePrivate *store, Command command,
+add_font_real(RenderStore *store, Command command,
 	      Font *font, real real_val)
 {
   Data data;
@@ -183,7 +174,7 @@ add_font_real(RenderStorePrivate *store, Command command,
 }
 
 static void
-add_points_numpoints_color(RenderStorePrivate *store, Command command,
+add_points_numpoints_color(RenderStore *store, Command command,
 			   Point *points, int num_points, Color *color)
 {
   Data data;
@@ -203,7 +194,7 @@ add_points_numpoints_color(RenderStorePrivate *store, Command command,
 }
 
 static void
-add_bezpoints_numpoints_color(RenderStorePrivate *store, Command command,
+add_bezpoints_numpoints_color(RenderStore *store, Command command,
 			      BezPoint *points, int num_points, Color *color)
 {
   Data data;
@@ -223,7 +214,7 @@ add_bezpoints_numpoints_color(RenderStorePrivate *store, Command command,
 }
 
 static void
-add_point_r4_color(RenderStorePrivate *store, Command command,
+add_point_r4_color(RenderStore *store, Command command,
 		   Point *point,
 		   real r1, real r2, real r3, real r4,
 		   Color *color)
@@ -248,7 +239,7 @@ add_point_r4_color(RenderStorePrivate *store, Command command,
 }
 
 static void
-add_point_r2_color(RenderStorePrivate *store, Command command,
+add_point_r2_color(RenderStore *store, Command command,
 		   Point *point,
 		   real r1, real r2,
 		   Color *color)
@@ -269,7 +260,7 @@ add_point_r2_color(RenderStorePrivate *store, Command command,
 }
 
 static void
-add_ptr_point_int_color(RenderStorePrivate *store, Command command,
+add_ptr_point_int_color(RenderStore *store, Command command,
 			void *ptr,
 			Point *point,
 			int int_val,
@@ -294,49 +285,49 @@ add_ptr_point_int_color(RenderStorePrivate *store, Command command,
 void
 rs_add_set_linewidth(RenderStore *store, real linewidth)
 {
-  add_real((RenderStorePrivate *)store, CMD_SET_LINEWIDTH, linewidth);
+  add_real((RenderStore *)store, CMD_SET_LINEWIDTH, linewidth);
 }
 
 void
 rs_add_set_linecaps(RenderStore *store, LineCaps mode)
 {
-  add_int((RenderStorePrivate *)store, CMD_SET_LINECAPS, mode);
+  add_int((RenderStore *)store, CMD_SET_LINECAPS, mode);
 }
 
 void
 rs_add_set_linejoin(RenderStore *store, LineJoin mode)
 {
-  add_int((RenderStorePrivate *)store, CMD_SET_LINEJOIN, mode);
+  add_int((RenderStore *)store, CMD_SET_LINEJOIN, mode);
 }
 
 void
 rs_add_set_linestyle(RenderStore *store, LineStyle mode)
 {
-  add_int((RenderStorePrivate *)store, CMD_SET_LINESTYLE, mode);
+  add_int((RenderStore *)store, CMD_SET_LINESTYLE, mode);
 }
 
 void
 rs_add_set_dashlength(RenderStore *store, real length)
 {
-  add_real((RenderStorePrivate *)store, CMD_SET_DASHLENGTH, length);
+  add_real((RenderStore *)store, CMD_SET_DASHLENGTH, length);
 }
 
 void
 rs_add_set_fillstyle(RenderStore *store, FillStyle mode)
 {
-  add_int((RenderStorePrivate *)store, CMD_SET_FILLSTYLE, mode);
+  add_int((RenderStore *)store, CMD_SET_FILLSTYLE, mode);
 }
 
 void
 rs_add_set_font(RenderStore *store, Font *font, real height)
 {
-  add_font_real((RenderStorePrivate *)store, CMD_SET_FONT, font, height);
+  add_font_real((RenderStore *)store, CMD_SET_FONT, font, height);
 }
 
 void
 rs_add_draw_line(RenderStore *store, Point *start, Point *end, Color *color)
 {
-  add_point_point_color((RenderStorePrivate *)store, CMD_DRAW_LINE,
+  add_point_point_color((RenderStore *)store, CMD_DRAW_LINE,
 			start, end, color);
 }
 		   
@@ -345,7 +336,7 @@ rs_add_draw_polyline(RenderStore *store,
 		     Point *points, int num_points,
 		     Color *color)
 {
-  add_points_numpoints_color((RenderStorePrivate *)store, CMD_DRAW_POLYLINE,
+  add_points_numpoints_color((RenderStore *)store, CMD_DRAW_POLYLINE,
 			     points, num_points, color);
 }
 
@@ -354,7 +345,7 @@ rs_add_draw_polygon(RenderStore *store,
 		    Point *points, int num_points,
 		    Color *color)
 {
-  add_points_numpoints_color((RenderStorePrivate *)store, CMD_DRAW_POLYGON,
+  add_points_numpoints_color((RenderStore *)store, CMD_DRAW_POLYGON,
 			     points, num_points, color);
 }
 
@@ -363,7 +354,7 @@ rs_add_fill_polygon(RenderStore *store,
 		    Point *points, int num_points,
 		    Color *color)
 {
-  add_points_numpoints_color((RenderStorePrivate *)store, CMD_FILL_POLYGON,
+  add_points_numpoints_color((RenderStore *)store, CMD_FILL_POLYGON,
 			     points, num_points, color);
 }
 
@@ -372,7 +363,7 @@ rs_add_draw_rect(RenderStore *store,
 		 Point *ul_corner, Point *lr_corner,
 		 Color *color)
 {
-  add_point_point_color((RenderStorePrivate *)store, CMD_DRAW_RECT,
+  add_point_point_color((RenderStore *)store, CMD_DRAW_RECT,
 			ul_corner, lr_corner, color);
 }
 
@@ -381,7 +372,7 @@ rs_add_fill_rect(RenderStore *store,
 		 Point *ul_corner, Point *lr_corner,
 		 Color *color)
 {
-  add_point_point_color((RenderStorePrivate *)store, CMD_FILL_RECT,
+  add_point_point_color((RenderStore *)store, CMD_FILL_RECT,
 			ul_corner, lr_corner, color);
 }
 
@@ -393,7 +384,7 @@ rs_add_draw_arc(RenderStore *store,
 		real angle1, real angle2,
 		Color *color)
 {
-  add_point_r4_color((RenderStorePrivate *)store, CMD_DRAW_ARC,
+  add_point_r4_color((RenderStore *)store, CMD_DRAW_ARC,
 		     center,
 		     width, height,
 		     angle1, angle2,
@@ -407,7 +398,7 @@ rs_add_fill_arc(RenderStore *store,
 		real angle1, real angle2,
 		Color *color)
 {
-  add_point_r4_color((RenderStorePrivate *)store, CMD_FILL_ARC,
+  add_point_r4_color((RenderStore *)store, CMD_FILL_ARC,
 		     center,
 		     width, height,
 		     angle1, angle2,
@@ -420,7 +411,7 @@ rs_add_draw_ellipse(RenderStore *store,
 		    real width, real height,
 		    Color *color)
 {
-  add_point_r2_color((RenderStorePrivate *)store, CMD_DRAW_ELLIPSE,
+  add_point_r2_color((RenderStore *)store, CMD_DRAW_ELLIPSE,
 		     center,
 		     width, height,
 		     color);
@@ -432,7 +423,7 @@ rs_add_fill_ellipse(RenderStore *store,
 		    real width, real height,
 		    Color *color)
 {
-  add_point_r2_color((RenderStorePrivate *)store, CMD_FILL_ELLIPSE,
+  add_point_r2_color((RenderStore *)store, CMD_FILL_ELLIPSE,
 		     center,
 		     width, height,
 		     color);
@@ -444,7 +435,7 @@ rs_add_draw_bezier(RenderStore *store,
 		   int num_points,
 		   Color *color)
 {
-  add_bezpoints_numpoints_color((RenderStorePrivate *)store,
+  add_bezpoints_numpoints_color((RenderStore *)store,
 				CMD_DRAW_BEZIER,
 				points, num_points, color);
 }
@@ -455,7 +446,7 @@ rs_add_fill_bezier(RenderStore *store,
 		   int num_points,
 		   Color *color)
 {
-  add_bezpoints_numpoints_color((RenderStorePrivate *)store,
+  add_bezpoints_numpoints_color((RenderStore *)store,
 				CMD_FILL_BEZIER,
 				points, num_points, color);
 }
@@ -471,7 +462,7 @@ rs_add_draw_string(RenderStore *store,
 
   str = strdup(text);
   
-  add_ptr_point_int_color((RenderStorePrivate *)store,
+  add_ptr_point_int_color((RenderStore *)store,
 			  CMD_DRAW_STRING,
 			  str, pos, alignment, color);
 }
@@ -487,7 +478,7 @@ rs_add_draw_image(Renderer *store,
 /* Rendering: */
 
 static void
-scale_point(RenderStorePrivate *store, Point *point)
+scale_point(RenderStore *store, Point *point)
 {
   point->x *= store->magnify;
   point->x += store->corner.x;
@@ -500,7 +491,7 @@ render_point_point_color(Renderer *renderer,
 			 void (*render_function)(Renderer *renderer, 
 						 Point *p1, Point *p2,
 						 Color *color),
-			 RenderStorePrivate *store,
+			 RenderStore *store,
 			 int pos)
 {
   Point p1, p2;
@@ -525,7 +516,7 @@ render_point_point_color(Renderer *renderer,
 static int
 render_real(Renderer *renderer,
 	    void (*render_function)(Renderer *renderer, real real_val),
-	    RenderStorePrivate *store, int pos)
+	    RenderStore *store, int pos)
 {
   real real_val;
   
@@ -538,7 +529,7 @@ render_real(Renderer *renderer,
 static int
 render_int(Renderer *renderer,
 	    void (*render_function)(Renderer *renderer, int int_val),
-	    RenderStorePrivate *store, int pos)
+	    RenderStore *store, int pos)
 {
   int int_val;
   
@@ -552,7 +543,7 @@ static int
 render_font_real(Renderer *renderer,
 		 void (*render_function)(Renderer *renderer,
 					 Font *font, real real_val),
-		 RenderStorePrivate *store, int pos)
+		 RenderStore *store, int pos)
 {
   Font *font;
   real real_val;
@@ -570,7 +561,7 @@ render_points_numpoints_color(Renderer *renderer,
 						      Point *point,
 						      int num_points,
 						      Color *color),
-			      RenderStorePrivate *store, int pos)
+			      RenderStore *store, int pos)
 {
   static Point *points = NULL;
   static int maxsize = 0;
@@ -610,7 +601,7 @@ render_bezpoints_numpoints_color(Renderer *renderer,
 							 BezPoint *point,
 							 int num_points,
 							 Color *color),
-				 RenderStorePrivate *store, int pos)
+				 RenderStore *store, int pos)
 {
   static BezPoint *points = NULL;
   static int maxsize = 0;
@@ -653,7 +644,7 @@ render_point_sreal2_real2_color(Renderer *renderer,
 				     real r1_scaled, real r2_scaled,
 				     real r3, real r4,
 				     Color *color),
-				RenderStorePrivate *store, int pos)
+				RenderStore *store, int pos)
 {
   Point p;
   Color color;
@@ -686,7 +677,7 @@ render_point_sreal2_color(Renderer *renderer,
 				     Point *point,
 				     real r1_scaled, real r2_scaled,
 				     Color *color),
-				RenderStorePrivate *store, int pos)
+				RenderStore *store, int pos)
 {
   Point p;
   Color color;
@@ -717,7 +708,7 @@ render_ptr_point_int_color(Renderer *renderer,
 				     Point *point,
 				     int int_val,
 				     Color *color),
-			   RenderStorePrivate *store, int pos)
+			   RenderStore *store, int pos)
 {
   void *ptr;
   Point p;
@@ -746,99 +737,96 @@ void render_store_render(RenderStore *store,
 			 Renderer *renderer,
 			 Point *pos, real magnify)
 {
-  RenderStorePrivate *private;
   int i;
   Command command;
 
-  private = (RenderStorePrivate *)store;
-
-  private->corner = *pos;
-  private->magnify = magnify;  
+  store->corner = *pos;
+  store->magnify = magnify;  
   i=0;
-  while (i<private->num_data){
-    command = private->data[i].command;
+  while (i<store->num_data){
+    command = store->data[i].command;
     i++;
     
     switch (command) {
     case CMD_SET_LINEWIDTH:
-      i = render_real(renderer, renderer->ops->set_linewidth, private, i);
+      i = render_real(renderer, renderer->ops->set_linewidth, store, i);
       break;
     case CMD_SET_LINECAPS:
-      i = render_int(renderer, renderer->ops->set_linecaps, private, i);
+      i = render_int(renderer, renderer->ops->set_linecaps, store, i);
       break;
     case CMD_SET_LINEJOIN:
-      i = render_int(renderer, renderer->ops->set_linejoin, private, i);
+      i = render_int(renderer, renderer->ops->set_linejoin, store, i);
       break;
     case CMD_SET_LINESTYLE:
-      i = render_int(renderer, renderer->ops->set_linestyle, private, i);
+      i = render_int(renderer, renderer->ops->set_linestyle, store, i);
       break;
     case CMD_SET_DASHLENGTH:
-      i = render_real(renderer, renderer->ops->set_dashlength, private, i);
+      i = render_real(renderer, renderer->ops->set_dashlength, store, i);
       break;
     case CMD_SET_FILLSTYLE:
-      i = render_int(renderer, renderer->ops->set_fillstyle, private, i);
+      i = render_int(renderer, renderer->ops->set_fillstyle, store, i);
       break;
     case CMD_SET_FONT:
-      i = render_font_real(renderer, renderer->ops->set_font, private, i);
+      i = render_font_real(renderer, renderer->ops->set_font, store, i);
       break;
     case CMD_DRAW_LINE:
       i = render_point_point_color(renderer, renderer->ops->draw_line,
-				   private, i);
+				   store, i);
       break;
     case CMD_DRAW_POLYLINE:
       i = render_points_numpoints_color(renderer, renderer->ops->draw_polyline,
-					private, i);
+					store, i);
       break;
     case CMD_DRAW_POLYGON:
       i = render_points_numpoints_color(renderer, renderer->ops->draw_polygon,
-					private, i);
+					store, i);
       break;
     case CMD_FILL_POLYGON:
       i = render_points_numpoints_color(renderer, renderer->ops->fill_polygon,
-					private, i);
+					store, i);
       break;
     case CMD_FILL_RECT:
       i = render_point_point_color(renderer, renderer->ops->fill_rect,
-				   private, i);
+				   store, i);
       break;
     case CMD_DRAW_RECT:
       i = render_point_point_color(renderer, renderer->ops->draw_rect,
-				   private, i);
+				   store, i);
       break;
     case CMD_DRAW_ARC:
       i = render_point_sreal2_real2_color(renderer,
 					  renderer->ops->draw_arc,
-					  private, i);
+					  store, i);
       break;
     case CMD_FILL_ARC:
       i = render_point_sreal2_real2_color(renderer,
 					  renderer->ops->fill_arc,
-					  private, i);
+					  store, i);
       break;
     case CMD_DRAW_ELLIPSE:
       i = render_point_sreal2_color(renderer,
 				    renderer->ops->draw_ellipse,
-				    private, i);
+				    store, i);
       break;
     case CMD_FILL_ELLIPSE:
       i = render_point_sreal2_color(renderer,
 				    renderer->ops->fill_ellipse,
-				    private, i);
+				    store, i);
       break;
     case CMD_DRAW_BEZIER:
       i = render_bezpoints_numpoints_color(renderer,
 					   renderer->ops->draw_bezier,
-					   private, i);
+					   store, i);
       break;
     case CMD_FILL_BEZIER:
       i = render_bezpoints_numpoints_color(renderer,
 					   renderer->ops->fill_bezier,
-					   private, i);
+					   store, i);
       break;
     case CMD_DRAW_STRING:
       i = render_ptr_point_int_color(renderer,
 				     renderer->ops->draw_string,
-				     private, i);
+				     store, i);
       break;
     case CMD_DRAW_IMAGE:
       message_error("Images not supported yet!\n");

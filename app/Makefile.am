@@ -94,9 +94,10 @@ INCLUDES = \
 	@DEBUG_FLAGS@ \
 	@XML_CFLAGS@ \
 	@GTK_CFLAGS@ \
+	@GDK_IMLIB_CFLAGS@ \
         @GNOME_CFLAGS@
 
-LDFLAGS = --export-dynamic
+LDFLAGS = -export-dynamic
 
 EXTRA_DIST = \
 	pixmaps/arrow.xpm \

@@ -299,7 +299,7 @@ message_draw(Message *message, Renderer *renderer)
 
   if (mname) 
       renderer->ops->draw_string(renderer,
-				 mname, //message->text,
+				 mname, /*message->text,*/
 				 &message->text_pos, ALIGN_CENTER,
 				 &color_black);
 }

@@ -1,3 +1,17 @@
+1999-10-19  Alexander Larsson  <alla@lysator.liu.se>
+
+	* lib/Makefile.am:
+	* app/Makefile.am: 
+	Add GDK_IMLIB_CFLAGS to includes.
+	Changed --export-dynamic to -export-dynamic
+
+	* lib/widgets.c:
+	* objects/UML/message.c:
+	Removed c++ comment.
+
+	* lib/render_store.[ch]:
+	Don't use empty structure. That is not Ansi C.
+
 1999-10-19  James Henstridge  <james@daa.com.au>
 
 	* app/diapagelayout.c (dia_page_layout_init): use DiaUnitSpinner's for
