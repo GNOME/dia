@@ -1,3 +1,11 @@
+2001-05-30  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* app/interface.c:
+	* app/menus.c: patch from Hubert Figuiere <hfiguiere@teaser.fr> ;
+	removes a translation of menus (in a place where there shouldn't
+	have been), which gets rid of a waterfall of warnings if LANG!=C,
+	and a fix to #55047.
+
 2001-05-29  Steffen Macke     <sdteffen@yahoo.com>
 
 	* lib/charconv.c : added #include <errno.h>

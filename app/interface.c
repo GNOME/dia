@@ -398,16 +398,16 @@ create_display_shell(DDisplay *ddisp,
     gtk_box_pack_start (GTK_BOX (root_vbox), ddisp->menu_bar, FALSE, TRUE, 0);
 
     path = g_string_new (display);
-    g_string_append (path,_("/View/Show Rulers"));
+    g_string_append (path,"/View/Show Rulers");
     ddisp->rulers       = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
-    g_string_append (g_string_assign(path, display),_("/View/Visible Grid"));
+    g_string_append (g_string_assign(path, display),"/View/Visible Grid");
     ddisp->visible_grid = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
-    g_string_append (g_string_assign(path, display),_("/View/Snap To Grid"));
+    g_string_append (g_string_assign(path, display),"/View/Snap To Grid");
     ddisp->snap_to_grid = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
-    g_string_append (g_string_assign(path, display),_("/View/Show Connection Points"));
+    g_string_append (g_string_assign(path, display),"/View/Show Connection Points");
     ddisp->show_cx_pts_mitem  = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
 #ifdef HAVE_LIBART
-    g_string_append(g_string_assign(path, display),_("/View/AntiAliased"));
+    g_string_append(g_string_assign(path, display),"/View/AntiAliased");
     ddisp->antialiased = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
 #endif
 

@@ -599,8 +599,13 @@ static void
 dia_menu_signal_connect_func (GnomeUIInfo *uiinfo, gchar *signal_name,
 			     GnomeUIBuilderData *uibdata)
 {
-  gtk_signal_connect (GTK_OBJECT(uiinfo->widget), signal_name,
-		      GTK_SIGNAL_FUNC(dia_menu_signal_proxy), uiinfo);
+    /* only connect the signal if uiinfo->moreinfo not NULL */
+    /* otherwise it is non sens and generate extraneous warnings */
+    /* see bug 55047 <http://bugzilla.gnome.org/show_bug.cgi?id=55047> */
+    if (uiinfo->moreinfo != NULL) {
+        gtk_signal_connect (GTK_OBJECT(uiinfo->widget), signal_name,
+                            GTK_SIGNAL_FUNC(dia_menu_signal_proxy), uiinfo);
+    }
 }
 
 static GnomeUIBuilderData dia_menu_uibdata = {
@@ -623,7 +628,7 @@ menus_set_tools_callback (const char * menu_name, GtkItemFactory *item_factory)
     GtkWidget *menuitem;
     
     path = g_string_new(menu_name);
-    g_string_append(path, _("/Tools/"));
+    g_string_append(path, "/Tools/");
     len = path->len;
     for (i = 0; i < num_tools; i++) {
 	g_string_append(path, tool_data[i].menuitem_name);
@@ -632,6 +637,8 @@ menus_set_tools_callback (const char * menu_name, GtkItemFactory *item_factory)
 	    gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
 			       GTK_SIGNAL_FUNC(tool_menu_select),
 			       &tool_data[i].callback_data);
+        else
+            g_warning ("couldn't find tool menu item %s", path->str);
 	g_string_truncate(path, len);
     }
     g_string_free(path, TRUE);
@@ -647,7 +654,6 @@ menus_init(void)
   GtkWidget *menuitem;
 #endif
   gchar *accelfilename;
-  gint i, len;
   GList *cblist;
 
   if (!initialise)
@@ -788,7 +794,6 @@ menus_get_image_menubar (GtkWidget **menu, GtkItemFactory **display_mbar_item_fa
 				       display_nmenu_items - 1,
 				       &(display_menu_items[1]), NULL);
 
-	menus_set_tools_callback ("<DisplayMBar>", *display_mbar_item_factory);
 	*menu = gtk_item_factory_get_widget (*display_mbar_item_factory, "<DisplayMBar>");
 #else
 	GtkWidget *menuitem;
@@ -803,6 +808,7 @@ menus_get_image_menubar (GtkWidget **menu, GtkItemFactory **display_mbar_item_fa
 	/*	gtk_menu_bar_prepend(GTK_MENU_BAR(*menu), menuitem);
 		gtk_widget_show (menuitem);*/
 #endif
+	menus_set_tools_callback ("<DisplayMBar>", *display_mbar_item_factory);
     }
 }
 
@@ -1059,9 +1065,9 @@ menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
   path ++; /* move past the / */
 
   if (strncmp(menu_name, "<Display>", strlen("<Display>")) == 0) {
-    ddisp = ddisplay_active ();
-    if (! ddisp)
-      return NULL;
+/*    ddisp = ddisplay_active ();
+      if (! ddisp)
+      return NULL; */
     widget = dia_gnome_menu_get_widget(display_menu, path);
   } else if  (strncmp(menu_name, "<DisplayMBar>", strlen("<DisplayMBar>"))  == 0) {
       /* finding this requires an item factory*/
@@ -1107,53 +1113,53 @@ menus_initialize_updatable_items (UpdatableMenuItems *items,
     }
 #   endif
     path = g_string_new (display);
-    g_string_append (path,_("/Edit/Copy"));
+    g_string_append (path,"/Edit/Copy");
     items->copy = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Edit/Cut"));
+    g_string_append (g_string_assign(path, display),"/Edit/Cut");
     items->cut = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Edit/Paste"));
+    g_string_append (g_string_assign(path, display),"/Edit/Paste");
     items->paste = menus_get_item_from_path(path->str, factory);
 #   ifndef GNOME
-    g_string_append (g_string_assign(path, display),_("/Edit/Delete"));
+    g_string_append (g_string_assign(path, display),"/Edit/Delete");
     items->delete = menus_get_item_from_path(path->str, factory);
 #   endif
 
-    g_string_append (g_string_assign(path, display),_("/Edit/Copy Text"));
+    g_string_append (g_string_assign(path, display),"/Edit/Copy Text");
     items->copy_text = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Edit/Cut Text"));
+    g_string_append (g_string_assign(path, display),"/Edit/Cut Text");
     items->cut_text = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Edit/Paste Text"));
+    g_string_append (g_string_assign(path, display),"/Edit/Paste Text");
     items->paste_text = menus_get_item_from_path(path->str, factory);
 
-    g_string_append (g_string_assign(path, display),_("/Objects/Send to Back"));
+    g_string_append (g_string_assign(path, display),"/Objects/Send to Back");
     items->send_to_back = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Objects/Bring to Front"));
+    g_string_append (g_string_assign(path, display),"/Objects/Bring to Front");
     items->bring_to_front = menus_get_item_from_path(path->str, factory);
   
-    g_string_append (g_string_assign(path, display),_("/Objects/Group"));
+    g_string_append (g_string_assign(path, display),"/Objects/Group");
     items->group = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Objects/Ungroup"));
+    g_string_append (g_string_assign(path, display),"/Objects/Ungroup");
     items->ungroup = menus_get_item_from_path(path->str, factory);
 
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Left"));
+    g_string_append (g_string_assign(path, display),"/Objects/Align Horizontal/Left");
     items->align_h_l = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Center"));
+    g_string_append (g_string_assign(path, display),"/Objects/Align Horizontal/Center");
     items->align_h_c = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Right"));
+    g_string_append (g_string_assign(path, display),"/Objects/Align Horizontal/Right");
     items->align_h_r = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Equal Distance"));
+    g_string_append (g_string_assign(path, display),"/Objects/Align Horizontal/Equal Distance");
     items->align_h_e = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Adjacent"));
+    g_string_append (g_string_assign(path, display),"/Objects/Align Horizontal/Adjacent");
     items->align_h_a = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Top"));
+    g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Top");
     items->align_v_t = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Center"));
+    g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Center");
     items->align_v_c = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Bottom"));
+    g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Bottom");
     items->align_v_b = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Equal Distance"));
+    g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Equal Distance");
     items->align_v_e = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Adjacent"));
+    g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Adjacent");
     items->align_v_a = menus_get_item_from_path(path->str, factory);
     
     g_string_free (path,FALSE);
