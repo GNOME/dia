@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?> <!-- -*- xml -*- -->
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <_name>Misc</_name>
   <_description>Miscellaneous Shapes</_description>
@@ -8,6 +8,9 @@
     </object>
     <object name="Filesystem - File">
       <_description>A File</_description>
+    </object>
+    <object name="Misc - Analog Clock">
+      <_description>A traditional clock</_description>
     </object>
   </contents>
 </sheet>

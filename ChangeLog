@@ -8,7 +8,21 @@
 
 	* app/menus.c: patch from Alan Horkan <horkana@tcd.ie>: review
 	the menu shortcuts towards better GNOME HIG compliance (Closes: #87157)
+
+	* app/menus.c:
+	* app/display.c: updated menu item paths Alan's patch had moved.
 	
+	* app/interface.c: Fixed a crash when gdk-pixbuf doesn't want to
+	load the sheet-provided icon (libpng versions mismatch, grrr.).
+	
+	* configure.in:
+	* objects/Makefile.am:
+	* objects/Misc/Makefile.am (NEW):
+	* objects/Misc/libmisc.c (NEW):
+	* objects/Misc/analog_clock.c (NEW):
+	* objects/Misc/pixmaps/analog_clock.xpm (NEW):
+	* sheets/Misc.sheet.in: just a little experiment...
+
 2002-09-23  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* plug-ins/xlst/Makefile.am: found a way to silence automake while

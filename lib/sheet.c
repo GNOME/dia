@@ -352,7 +352,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
       /* nothing */
     } else if (!strcmp(node->name,"shape")) {
       g_message("%s: you should use object tags rather than shape tags now",
-		filename);
+                filename);
     } else if (!strcmp(node->name,"br")) {
       /* Line break tag. */
       set_line_break = TRUE;
@@ -396,10 +396,10 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
 	}
 	  
       } else if (subnode->ns == ns && !strcmp(subnode->name,"icon")) {
-	tmp = xmlNodeGetContent(subnode);
-	iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S,tmp,NULL);
-	has_icon_on_sheet = TRUE;
-	if (tmp) xmlFree(tmp);
+          tmp = xmlNodeGetContent(subnode);
+          iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S,tmp,NULL);
+          has_icon_on_sheet = TRUE;
+          if (tmp) xmlFree(tmp);
       }
     }
 
