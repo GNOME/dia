@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2000-06-27 23:45+0200\n"
+"POT-Creation-Date: 2000-07-16 00:45+0200\n"
 "PO-Revision-Date: 2000-06-27 23:46+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -13,27 +13,27 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:133
+#: app/app_procs.c:135
 msgid "Export loaded file and exit"
 msgstr "Eksporter innlest fil og avslutt"
 
-#: app/app_procs.c:134
+#: app/app_procs.c:136
 msgid "OUTPUT"
 msgstr "UTSKRIFT"
 
-#: app/app_procs.c:136
+#: app/app_procs.c:138
 msgid "Show this help message"
 msgstr "Vis denne hjelpeteksten"
 
-#: app/app_procs.c:156
+#: app/app_procs.c:158
 msgid "Can't connect to session manager!\n"
 msgstr "Kan ikke koble til sesjonsbehandleren!\n"
 
-#: app/app_procs.c:167
+#: app/app_procs.c:169
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAGG...] [FIL...]"
 
-#: app/app_procs.c:170
+#: app/app_procs.c:172
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -43,22 +43,22 @@ msgstr ""
 "Kjør '%s --help' for å se en full liste over tilgjengelige "
 "kommandolinjeflagg.\n"
 
-#: app/app_procs.c:213 app/app_procs.c:215
+#: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Kunne ikke finne standardobjekter under søk etter objektbibliotek, "
 "avslutter...\n"
 
-#: app/app_procs.c:232
+#: app/app_procs.c:238
 msgid "Need valid input file\n"
 msgstr "Trenger gyldig innfil\n"
 
-#: app/app_procs.c:291 app/app_procs.c:297
+#: app/app_procs.c:297 app/app_procs.c:303
 msgid "Quit, are you sure?"
 msgstr "Avslutt, er du sikker?"
 
-#: app/app_procs.c:304
+#: app/app_procs.c:310
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -66,21 +66,21 @@ msgstr ""
 "Endret diagram eksisterer.\n"
 "Er du sikker på at du vil avslutte?"
 
-#: app/app_procs.c:314 app/app_procs.c:319
+#: app/app_procs.c:320 app/app_procs.c:325
 msgid "Quit"
 msgstr "Avslutt"
 
-#: app/app_procs.c:331 app/layer_dialog.c:986 app/lineprops_area.c:549
+#: app/app_procs.c:337 app/layer_dialog.c:986 app/lineprops_area.c:549
 #: app/lineprops_area.c:747 app/linewidth_area.c:239
 #: app/paginate_psprint.c:242
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: app/app_procs.c:399
+#: app/app_procs.c:405
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunne ikke opprette per-bruker konfigurasjonskatalog for Dia"
 
-#: app/app_procs.c:419
+#: app/app_procs.c:425
 msgid "Objects and filters internal to dia"
 msgstr "Interne bjekter og filtre for dia"
 
@@ -389,8 +389,8 @@ msgstr "/Vis/Vis forbindelsespunkter"
 msgid "/View/AntiAliased"
 msgstr "/Vis/Antialiased"
 
-#: app/export_png.c:78 app/load_save.c:501 app/render_eps.c:162
-#: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
+#: app/export_png.c:78 app/load_save.c:504 app/render_eps.c:162
+#: app/render_svg.c:150 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
 #: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
 #: plug-ins/wpg/wpg.c:937
 #, c-format
@@ -661,11 +661,11 @@ msgstr "Linjebredde"
 msgid "Line width:"
 msgstr "Linjebredde::"
 
-#: app/load_save.c:92
+#: app/load_save.c:95
 msgid "Error reading diagram file\n"
 msgstr "Feil under lesing av diagramfilen\n"
 
-#: app/load_save.c:143
+#: app/load_save.c:146
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -673,7 +673,7 @@ msgstr ""
 "Feil under lesing av diagram.\n"
 "Lenket objekt ikke funnet i dokumentet."
 
-#: app/load_save.c:146
+#: app/load_save.c:149
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -681,7 +681,7 @@ msgstr ""
 "Feil under lasting av diagram.\n"
 "Punkt for forbindelse eksisterer ikke."
 
-#: app/load_save.c:149
+#: app/load_save.c:152
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -689,16 +689,16 @@ msgstr ""
 "Feil under lasting av diagram.\n"
 "Håndtak for forbindelse eksisterer ikke."
 
-#: app/load_save.c:193 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
+#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunne ikke åpne: '%s' for lesing.\n"
 
-#: app/load_save.c:199
+#: app/load_save.c:202
 msgid "You must specify a file, not a directory.\n"
 msgstr "Du må spesifiserer en fil ikke en katalog.\n"
 
-#: app/load_save.c:208 app/load_save.c:213
+#: app/load_save.c:211 app/load_save.c:216
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -707,7 +707,7 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ukjent filtype."
 
-#: app/load_save.c:220
+#: app/load_save.c:223
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -716,12 +716,12 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ikke en dia fil."
 
-#: app/load_save.c:599
+#: app/load_save.c:602
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Klarte ikke å lagre file '%s'.\n"
 
-#: app/load_save.c:619 app/load_save.c:624
+#: app/load_save.c:622 app/load_save.c:627
 msgid "Native Dia Diagram"
 msgstr "Dia diagram"
 
@@ -1506,7 +1506,7 @@ msgstr "Dette objektet har ingen egenskaper."
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postskript"
 
-#: app/render_svg.c:789
+#: app/render_svg.c:793
 msgid "Scalable Vector Graphics"
 msgstr "Skalerbar vektorgrafikk"
 
@@ -1544,12 +1544,12 @@ msgstr "Advarsel"
 msgid "Error"
 msgstr "Feil"
 
-#: lib/plug-ins.c:201
+#: lib/plug-ins.c:205
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Kunne ikke finne korrekt sti for `%s'"
 
-#: lib/plug-ins.c:206
+#: lib/plug-ins.c:210
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1558,22 +1558,22 @@ msgstr ""
 "Kunne ikke laste tillegg `%s'\n"
 "%s"
 
-#: lib/plug-ins.c:217
+#: lib/plug-ins.c:221
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Kunne ikke finne initialiseringsfunksjon for tillegg i `%s'"
 
-#: lib/plug-ins.c:244
+#: lib/plug-ins.c:248
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "%s tillegg kunne ikke lastes ut"
 
-#: lib/plug-ins.c:297
+#: lib/plug-ins.c:301
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "`%s' er ikke en katalog"
 
-#: lib/plug-ins.c:303
+#: lib/plug-ins.c:307
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åpne `%s'"
@@ -2528,8 +2528,9 @@ msgstr "Vend vertikalt"
 
 #: objects/custom/custom_object.c:349 objects/flowchart/box.c:309
 #: objects/flowchart/diamond.c:303 objects/flowchart/ellipse.c:303
-#: objects/flowchart/parallelogram.c:314 objects/standard/box.c:223
-#: objects/standard/ellipse.c:214 objects/standard/polygon.c:219
+#: objects/flowchart/parallelogram.c:314 objects/standard/beziergon.c:215
+#: objects/standard/box.c:223 objects/standard/ellipse.c:214
+#: objects/standard/polygon.c:219
 msgid "Draw background"
 msgstr "Tegn bakgrunn"
 
@@ -2582,23 +2583,23 @@ msgstr "Slett håndtak"
 msgid "Network diagram objects"
 msgstr "Objekter for nettverksdiagram"
 
-#: objects/standard/bezier.c:526
+#: objects/standard/bezier.c:526 objects/standard/beziergon.c:541
 msgid "Add Segment"
 msgstr "Legg til segment"
 
-#: objects/standard/bezier.c:527
+#: objects/standard/bezier.c:527 objects/standard/beziergon.c:542
 msgid "Delete Segment"
 msgstr "Slett segment"
 
-#: objects/standard/bezier.c:529
+#: objects/standard/bezier.c:529 objects/standard/beziergon.c:544
 msgid "Symmetric control"
 msgstr "Symmetrisk kontroll"
 
-#: objects/standard/bezier.c:531
+#: objects/standard/bezier.c:531 objects/standard/beziergon.c:546
 msgid "Smooth control"
 msgstr "Jevn kontroll"
 
-#: objects/standard/bezier.c:533
+#: objects/standard/bezier.c:533 objects/standard/beziergon.c:548
 msgid "Cusp control"
 msgstr "Cusp kontroll"
 
