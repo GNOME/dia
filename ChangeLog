@@ -130,7 +130,7 @@
 	* plug-ins/python/makefile.msc : updated for GTK2/Python2.2
 
 
-2002-05-03  Hams Breuer  <hans@breuer.org>
+2002-05-03  Hans Breuer  <hans@breuer.org>
 
 	* lib/dia_xml.c : make the well formed utf8 check
 	actually work for &#251; (non 7-bit ascii encoding)
