@@ -1,3 +1,8 @@
+2002-07-05  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/render_eps.c: Non-crashing printing (made the right
+	context).  Font output still fscked up.
+
 2002-07-05  Andrew Ferrier  <andrew@new-destiny.co.uk>
 
 	* app/authors.h: Added file --- now master

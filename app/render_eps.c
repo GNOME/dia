@@ -144,6 +144,44 @@ static void init_eps_renderer();
 
 static void null_func() {}
 
+/* These routines stolen mercilessly from PAPS
+ * http://imagic.weizmann.ac.il/~dov/freesw/paps
+ */
+/* Information passed in user data when drawing outlines */
+typedef struct _OutlineInfo OutlineInfo;
+struct _OutlineInfo {
+  FILE *OUT;
+  FT_Vector glyph_origin;
+  int dpi;
+};
+
+void postscript_contour_headers(FILE *OUT, int dpi_x, int dpi_y);
+void postscript_draw_contour(FILE *OUT,
+			     int dpi_x,
+			     PangoLayoutLine *pango_line,
+			     double x_pos,
+			     double y_pos
+			     );
+void draw_bezier_outline(FILE *OUT,
+			 int dpi_x,
+			 FT_Face face,
+			 FT_UInt glyph_index,
+			 double pos_x,
+			 double pos_y
+			 );
+/* Countour traveling functions */
+static int paps_move_to( FT_Vector* to,
+			 void *user_data);
+static int paps_line_to( FT_Vector*  to,
+			 void *user_data);
+static int paps_conic_to( FT_Vector*  control,
+			  FT_Vector*  to,
+			  void *user_data);
+static int paps_cubic_to( FT_Vector*  control1,
+			  FT_Vector*  control2,
+			  FT_Vector*  to,
+			  void *user_data);
+
 static RenderOps *EpsRenderOps;
 static RenderOps *EpsPrologOps;
 
@@ -333,6 +371,7 @@ begin_prolog(RendererEPS *renderer)
 	    "image\n"
 	    "} bind def\n\n"
 	  */);
+  postscript_contour_headers(renderer->file, 150, 150 /* dpi_x, dpi_y */);
 }
 
 static void
@@ -345,7 +384,7 @@ prolog_define_font(RendererEPS *renderer, DiaFont *font, real height)
         /* FIXME: check the lifetime of the return value of
          dia_font_get_psfontname(). If needed, copy it (and
         g_free() it when font_table is deleted) */
-  g_hash_table_insert(font_table, dia_font_get_psfontname(font), font);
+  /*  g_hash_table_insert(font_table, dia_font_get_psfontname(font), font);*/
 }
 
 static void
@@ -371,9 +410,7 @@ prolog_check_string(RendererEPS *renderer,
   /* In here we can grab all the chars needed, to allow incremental
    * font defs (or even just partial font defs).
    */
-  /* But we won't do that just yet.
-     
-   */
+    
 }
 
 /* This function switches the RendererEPS into render mode */
@@ -446,19 +483,19 @@ create_eps_renderer(DiagramData *data, const char *filename,
   time_now  = time(NULL);
   extent = &data->extents;
   
-  renderer->context = pango_ft2_get_context (300, 300/*dpi_x, dpi_y*/);
+  renderer->context = pango_ft2_get_context (150, 150/*dpi_x, dpi_y*/);
   
   /* Setup pango */
   pango_context_set_language (renderer->context, pango_language_from_string ("en_US"));
   pango_context_set_base_dir (renderer->context, PANGO_DIRECTION_LTR);
 
   font_description = pango_font_description_new ();
-  pango_font_description_set_family (font_description, "sans");
+  pango_font_description_set_family (font_description, g_strdup("sans"));
   pango_font_description_set_style (font_description, PANGO_STYLE_NORMAL);
   pango_font_description_set_variant (font_description, PANGO_VARIANT_NORMAL);
   pango_font_description_set_weight (font_description, PANGO_WEIGHT_NORMAL);
   pango_font_description_set_stretch (font_description, PANGO_STRETCH_NORMAL);
-  pango_font_description_set_size (font_description, PANGO_SCALE);
+  pango_font_description_set_size (font_description, 12*PANGO_SCALE);
 
   pango_context_set_font_description (renderer->context, font_description);
 
@@ -698,6 +735,7 @@ draw_line(RendererEPS *renderer,
 {
   lazy_setcolor(renderer,line_color);
 
+  printf("Drawing line at %f, %f\n", start->x, start->y);
   fprintf(renderer->file, "n %f %f m %f %f l s\n",
 	  start->x, start->y, end->x, end->y);
 }
@@ -924,44 +962,6 @@ fill_bezier(RendererEPS *renderer,
 /* ********************************************************* */
 /* Such a big mark really is a sign that this should go in its own file:) */
 
-/* These routines stolen mercilessly from PAPS
- * http://imagic.weizmann.ac.il/~dov/freesw/paps
- */
-/* Information passed in user data when drawing outlines */
-typedef struct _OutlineInfo OutlineInfo;
-struct _OutlineInfo {
-  FILE *OUT;
-  FT_Vector glyph_origin;
-  int dpi;
-};
-
-void postscript_contour_headers(FILE *OUT, int dpi_x, int dpi_y);
-void postscript_draw_contour(FILE *OUT,
-			     int dpi_x,
-			     PangoLayoutLine *pango_line,
-			     double x_pos,
-			     double y_pos
-			     );
-void draw_bezier_outline(FILE *OUT,
-			 int dpi_x,
-			 FT_Face face,
-			 FT_UInt glyph_index,
-			 double pos_x,
-			 double pos_y
-			 );
-/* Countour traveling functions */
-static int paps_move_to( FT_Vector* to,
-			 void *user_data);
-static int paps_line_to( FT_Vector*  to,
-			 void *user_data);
-static int paps_conic_to( FT_Vector*  control,
-			  FT_Vector*  to,
-			  void *user_data);
-static int paps_cubic_to( FT_Vector*  control1,
-			  FT_Vector*  control2,
-			  FT_Vector*  to,
-			  void *user_data);
-
 /*======================================================================
 //  outline traversing functions.
 //----------------------------------------------------------------------*/
@@ -1055,6 +1055,10 @@ void postscript_draw_contour(FILE *OUT,
 {
   GSList *runs_list;
   int num_runs = 0;
+  PangoRectangle ink_rect, logical_rect;
+  int byte_width;
+  FT_Bitmap bitmap;
+  guchar *buf;
 
   /* First calculate number of runs in text */
   runs_list = pango_line->runs;
@@ -1104,8 +1108,8 @@ void postscript_draw_contour(FILE *OUT,
 
 	  line_start_pos_x += 1.0 * geometry.width * scale;
 
-	  printf("Drawing glyph %d: index %d\n", glyph_idx, 
-		 glyphs->glyphs[glyph_idx].glyph);
+	  printf("Drawing glyph %d: index %d at %f, %f\n", glyph_idx, 
+		 glyphs->glyphs[glyph_idx].glyph, pos_x, pos_y);
 
 	  draw_bezier_outline(OUT,
 			      dpi_x,
@@ -1165,58 +1169,6 @@ void draw_bezier_outline(FILE *OUT,
 }
 
 
-/* Note: we don't need to play with LC_NUMERIC locale settings in the 
-   PSUnicoder callback functions ; the locale is set to "C" once, by 
-   draw_string. */
-
-static void 
-eps_destroy_ps_font(gpointer usrdata, const gchar *fontname)
-{
-  RendererEPS *renderer = (RendererEPS *)usrdata;
-  
-  fprintf(renderer->file,"/%s undefinefont\n",fontname);
-}
-
-static void eps_build_ps_encoding(gpointer usrdata, 
-                                  const gchar *name,
-                                  const gunichar table[PSEPAGE_SIZE])
-{
-  /* the table starts at PSEPAGE_BEGIN. Before that, we'll emit
-     /xi (just as /notdef's) */
-  RendererEPS *renderer = (RendererEPS *)usrdata;
-  int i;
-  
-  fprintf(renderer->file, " [");
-  for (i = 0; i<PSEPAGE_BEGIN; i++) {
-    fprintf(renderer->file," /xi");
-    if (!((i+1) % 16)) fprintf(renderer->file,"\n");
-  }
-  for (i=0; i<PSEPAGE_SIZE; i++) {
-    fprintf(renderer->file," /%s",unicode_to_ps_name(table[i]));
-    if (!((i+1) % 16)) fprintf(renderer->file,"\n");
-  }
-  fprintf(renderer->file,"] /%s exch def\n",name);
-}
-
-static void 
-eps_build_ps_font(gpointer usrdata,
-                  const gchar *name,
-                  const gchar *face,
-                  const gchar *encoding_name)
-{
-  RendererEPS *renderer = (RendererEPS *)usrdata;
-  
-  fprintf(renderer->file,
-          "/%s\n"
-          "  /%s findfont\n"
-          "  dup length dict begin\n"
-          "  {1 index /FID ne {def} {pop pop} ifelse} forall\n"
-          "  /Encoding %s def\n"
-          "  currentdict end\n"
-          "definefont pop\n", name, face, encoding_name);
-}
-
-
 static void
 set_font(RendererEPS *renderer, DiaFont *font, real height)
 {
@@ -1235,37 +1187,51 @@ draw_string(RendererEPS *renderer,
   int width;
   int line, linecount;
   double xpos = pos->x, ypos = pos->y;
+  PangoAttrList* list;
+  PangoAttribute* attr;
+  guint length;
 
   if ((!text)||(text == (const char *)(1))) return;
 
   lazy_setcolor(renderer,color);
 
-  layout = dia_font_build_layout(text, renderer->current_font,
-				 renderer->current_height);
+  dia_font_set_height(renderer->current_font, renderer->current_height/25.4);
+  layout = pango_layout_new(renderer->context);
 
-  pango_layout_get_size(layout, &width, NULL);
-  /*
+  length = text ? strlen(text) : 0;
+  pango_layout_set_text(layout,text,length);
+        
+  list = pango_attr_list_new();
+
+  attr = pango_attr_font_desc_new(renderer->current_font->pfd);
+  attr->start_index = 0;
+  attr->end_index = length;
+  pango_attr_list_insert(list,attr); /* eats attr */
+    
+  pango_layout_set_attributes(layout,list);
+  pango_attr_list_unref(list);
+
+  pango_layout_set_indent(layout,0);
+  pango_layout_set_justify(layout,FALSE);
   switch (alignment) {
   case ALIGN_LEFT:
-    fprintf(renderer->file, "%f %f m ", pos->x, pos->y);
+    pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
     break;
   case ALIGN_CENTER:
-    if (!strlen(utf8_buffer)) {
-      g_warning("null string.");
-    }
-    fprintf(renderer->file, "2 div %f ex sub %f m ",
-	    pos->x, pos->y);
+    pango_layout_set_alignment(layout,PANGO_ALIGN_CENTER);
     break;
   case ALIGN_RIGHT:
-    fprintf(renderer->file, "%f ex sub %f m ",
-	    pos->x, pos->y);
+    pango_layout_set_alignment(layout,PANGO_ALIGN_RIGHT);
     break;
-    }*/
+  }
+    
+  pango_layout_get_size(layout, &width, NULL);
   /*
   fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
   */
   linecount = pango_layout_get_line_count(layout);
   for (line = 0; line < linecount; line++) {
+    printf("Rendering line at %f, %f\n", xpos, ypos);
     postscript_draw_contour(renderer->file,
 			    300, /* dpi_x */
 			    pango_layout_get_line(layout, line),
