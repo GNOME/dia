@@ -1,3 +1,22 @@
+1999-08-23  Alexander Larsson  <alla@lysator.liu.se>
+
+        * app/display.[ch]:
+	Generate rectangle with the union of the damaged regions.
+	This is used to optimize the grid paint and the object rendering.
+	display_render_pixmap passes this info to grid_draw() and data_render().
+
+	* app/grid.[ch]:
+	grid_draw doesn't draw grid lines outside of damaged rectangle.
+	Sets dashlength when drawing non-solid grid.
+	
+	* lib/diagramdata.[ch]:
+	data_render() and layer_render() takes an optional damaged rectangle
+	argument. No objects not intersecting this are drawn.
+
+	* app/diagram.c:
+	Fix warning.
+	Call data_render with NULL update rectangle.
+	
 1999-08-23  James Henstridge  <james@daa.com.au>
 
 	* objects/custom/custom_object.c (custom_update_data): if the aspect

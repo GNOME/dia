@@ -95,7 +95,7 @@ extern void ddisplay_resize_canvas(DDisplay *ddisp,
 				   int width,
 				   int height);
 
-extern void ddisplay_render_pixmap(DDisplay *ddisp);
+extern void ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update);
 
 extern DDisplay *ddisplay_active(void);
 

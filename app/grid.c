@@ -25,7 +25,7 @@
 #include "preferences.h"
 
 void
-grid_draw(DDisplay *ddisp)
+grid_draw(DDisplay *ddisp, Rectangle *update)
 {
   Grid *grid = &ddisp->grid;
   Renderer *renderer = &ddisp->renderer->renderer;
@@ -42,14 +42,17 @@ grid_draw(DDisplay *ddisp)
     int x,y;
 
     (renderer->ops->set_linewidth)(renderer, 0.0);
-    if (prefs.grid.solid)
+    if (prefs.grid.solid) {
       (renderer->ops->set_linestyle)(renderer, LINESTYLE_SOLID);
-    else
+    } else {
+      (renderer->ops->set_dashlength)(renderer,
+      		    ddisplay_untransform_length(ddisp, 31));
       (renderer->ops->set_linestyle)(renderer, LINESTYLE_DOTTED);
+    }
     
     /* Vertical lines: */
-    pos = ceil( ddisp->visible.left / grid->width_x )*grid->width_x;
-    while (pos <= ddisp->visible.right) {
+    pos = ceil( update->left / grid->width_x )*grid->width_x;
+    while (pos <= update->right) {
       ddisplay_transform_coords(ddisp, pos,0,&x,&y);
       (renderer->interactive_ops->draw_pixel_line)(renderer,
 						   x, 0,
@@ -59,8 +62,8 @@ grid_draw(DDisplay *ddisp)
     }
 
     /* Horizontal lines: */
-    pos = ceil( ddisp->visible.top / grid->width_y )*grid->width_y;
-    while (pos <= ddisp->visible.bottom) {
+    pos = ceil( update->top / grid->width_y )*grid->width_y;
+    while (pos <= update->bottom) {
       ddisplay_transform_coords(ddisp, 0,pos,&x,&y);
       (renderer->interactive_ops->draw_pixel_line)(renderer,
 						   0, y,

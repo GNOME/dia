@@ -295,7 +295,7 @@ ddisplay_flush(DDisplay *ddisp)
 {
   GSList *l;
   IRectangle *ir;
-  Rectangle *r;
+  Rectangle *r, totrect;
   Renderer *renderer;
 
   /* Renders updates to pixmap + copies display_areas to canvas(screen) */
@@ -303,21 +303,32 @@ ddisplay_flush(DDisplay *ddisp)
   renderer = &ddisp->renderer->renderer;
 
   (renderer->interactive_ops->clip_region_clear)(renderer);
-  
+
   l = ddisp->update_areas;
+  if (l==NULL)
+    totrect = ddisp->visible;
+  else 
+    totrect = *(Rectangle *) l->data;
+
   while(l!=NULL) {
     r = (Rectangle *) l->data;
 
+    rectangle_union(&totrect, r);
     (renderer->interactive_ops->clip_region_add_rect)(renderer,  r);
     
     l = g_slist_next(l);
   }
+  
   /* Free list: */
   g_slist_free(ddisp->update_areas);
   ddisp->update_areas = NULL;
 
-  ddisplay_render_pixmap(ddisp);
+  totrect.left -= 0.1;
+  totrect.right += 0.1;
+  totrect.top -= 0.1;
+  totrect.bottom += 0.1;
   
+  ddisplay_render_pixmap(ddisp, &totrect);
 
   l = ddisp->display_areas;
   while(l!=NULL) {
@@ -351,21 +362,20 @@ ddisplay_obj_render(Object *obj, Renderer *renderer,
 }
 
 void
-ddisplay_render_pixmap(DDisplay *ddisp)
+ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
 {
   GList *list;
   Object *obj;
   int i;
   Renderer *renderer;
-
+  
   if (ddisp->renderer==NULL) {
     printf("ERROR! Renderer was NULL!!\n");
     return;
   }
 
   renderer = &ddisp->renderer->renderer;
-  
-    
+
   /* Erase background */
   (renderer->interactive_ops->fill_pixel_rect)(renderer,
 					       0, 0,
@@ -374,9 +384,9 @@ ddisplay_render_pixmap(DDisplay *ddisp)
 					       &ddisp->diagram->data->bg_color);
 
   /* Draw grid */
-  grid_draw(ddisp);
+  grid_draw(ddisp, update);
 
-  data_render(ddisp->diagram->data, (Renderer *)ddisp->renderer,
+  data_render(ddisp->diagram->data, (Renderer *)ddisp->renderer, update,
 	      ddisplay_obj_render, (gpointer) ddisp);
   
   /* Draw handles for all selected objects */

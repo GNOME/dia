@@ -389,7 +389,7 @@ diagram_redraw_all()
 
     list = g_list_next(list);
   }
-  return FALSE;
+  return;
 }
 
 void
@@ -752,7 +752,7 @@ diagram_export_to_eps(Diagram *dia, char *filename)
  
   renderer = new_eps_renderer(dia, filename);
 
-  data_render(dia->data, (Renderer *)renderer, NULL, NULL);
+  data_render(dia->data, (Renderer *)renderer, NULL, NULL, NULL);
 }
 
 void
@@ -762,7 +762,7 @@ diagram_export_to_svg(Diagram *dia, char *filename)
 
   renderer = new_svg_renderer(dia, filename);
 
-  data_render(dia->data, (Renderer *)renderer, NULL, NULL);
+  data_render(dia->data, (Renderer *)renderer, NULL, NULL, NULL);
 }
 
 int diagram_modified_exists(void)

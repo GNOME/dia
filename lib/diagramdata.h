@@ -73,10 +73,10 @@ extern GList *data_get_sorted_selected_remove(DiagramData *data);
 typedef void (*ObjectRenderer)(Object *obj, Renderer *renderer,
 			       int active_layer,
 			       gpointer data);
-extern void data_render(DiagramData *data, Renderer *renderer,
+extern void data_render(DiagramData *data, Renderer *renderer, Rectangle *update,
 			ObjectRenderer obj_renderer /* Can be NULL */,
 			gpointer gdata);  
-extern void layer_render(Layer *layer, Renderer *renderer,
+extern void layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
 			 ObjectRenderer obj_renderer /* Can be NULL */,
 			 gpointer data,
 			 int active_layer);

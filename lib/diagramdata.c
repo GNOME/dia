@@ -292,7 +292,7 @@ data_get_sorted_selected_remove(DiagramData *data)
 }
 
 void
-data_render(DiagramData *data, Renderer *renderer,
+data_render(DiagramData *data, Renderer *renderer, Rectangle *update,
 	    ObjectRenderer obj_renderer /* Can be NULL */,
 	    gpointer gdata)
 {
@@ -306,7 +306,7 @@ data_render(DiagramData *data, Renderer *renderer,
     layer = (Layer *) g_ptr_array_index(data->layers, i);
     active_layer = (layer == data->active_layer);
     if (layer->visible)
-      layer_render(layer, renderer, obj_renderer, gdata, active_layer);
+      layer_render(layer, renderer, update, obj_renderer, gdata, active_layer);
   }
   
   (renderer->ops->end_render)(renderer);
@@ -322,7 +322,7 @@ normal_render(Object *obj, Renderer *renderer,
 
 /* If obj_renderer is NULL normal_render is used. */
 void
-layer_render(Layer *layer, Renderer *renderer,
+layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
 	     ObjectRenderer obj_renderer,
 	     gpointer data,
 	     int active_layer)
@@ -338,7 +338,8 @@ layer_render(Layer *layer, Renderer *renderer,
   while (list!=NULL) {
     obj = (Object *) list->data;
 
-    (*obj_renderer)(obj, renderer, active_layer, data);
+    if (update==NULL || rectangle_intersects(update, &obj->bounding_box))
+	(*obj_renderer)(obj, renderer, active_layer, data);
     
     list = g_list_next(list);
   }
