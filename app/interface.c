@@ -220,12 +220,14 @@ create_display_shell(DDisplay *ddisp,
   /*  the popup menu  */
 #ifdef GNOME
   ddisp->popup = gnome_display_menus_create ();
+  ddisp->accel_group = gnome_popup_menu_get_accel_group(GTK_MENU(ddisp->popup));
 #else
   menus_get_image_menu (&ddisp->popup, &ddisp->accel_group);
+#endif
 
   /*  the accelerator table/group for the popup */
   gtk_window_add_accel_group (GTK_WINDOW(ddisp->shell), ddisp->accel_group);
-#endif
+
 
   /* the statusbars */
   status_hbox = gtk_hbox_new (FALSE, 2);
