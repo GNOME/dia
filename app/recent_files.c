@@ -134,8 +134,8 @@ recent_file_filemenu_get(void)
 	/* Use the Plugins menu item to get a pointer to the File menu,
 	   but any item on the File menu will do */
 
-	return menus_get_item_from_path(N_("<Toolbox>/File/Plugins"),
-	                                NULL)->parent;
+	return GTK_WIDGET(menus_get_item_from_path(N_("<Toolbox>/File/Plugins"),
+	                                NULL))->parent;
 }
 
 void
@@ -239,7 +239,8 @@ recent_file_history_init() {
 	FILE *fp;
 	char *buffer, *history_filename, *filename;
 	DiaImportFilter *ifilter;
-	GtkWidget *file_menu, *menu_item;
+	GtkWidget *file_menu;
+	GtkMenuItem *menu_item;
 	GList *list_item;
 	
 	/* should be ~/.dia/history */

@@ -62,7 +62,7 @@ void menus_get_toolbox_menubar (GtkWidget **menubar, GtkAccelGroup **accel);
 void menus_get_image_menu      (GtkWidget **menu,    GtkAccelGroup **accel);
 void menus_get_image_menubar   (GtkWidget **menu, GtkItemFactory **display_mbar_item_factory);
 
-GtkWidget *menus_get_item_from_path(char *path, GtkItemFactory *item_factory);
+GtkMenuItem *menus_get_item_from_path(char *path, GtkItemFactory *item_factory);
 GtkWidget *menus_add_path           (const gchar *path);
 void menus_initialize_updatable_items (UpdatableMenuItems *items, 
 				       GtkItemFactory *factory, const char *display);

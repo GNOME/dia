@@ -105,7 +105,7 @@ new_display(Diagram *dia)
   char *filename;
   int embedded = app_is_embedded();
   Rectangle visible;
-  GtkWidget* im_menu_item;
+  GtkMenuItem* im_menu_item;
   GtkWidget* im_menu;
   GtkWidget* im_menu_tearoff;
   static gboolean input_methods_done = FALSE;
@@ -200,7 +200,6 @@ new_display(Diagram *dia)
           im_menu = gtk_menu_new();
           im_menu_tearoff = gtk_tearoff_menu_item_new();
           gtk_menu_shell_append(GTK_MENU_SHELL(im_menu),im_menu_tearoff);
-                                
           gtk_im_multicontext_append_menuitems(
               GTK_IM_MULTICONTEXT(ddisp->im_context),
               GTK_MENU_SHELL(im_menu));

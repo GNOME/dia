@@ -1123,10 +1123,10 @@ menus_add_path (const gchar *path)
   In case of an item in the <DisplayMBar> menu bar, provide the corresponding 
   item factory: ddisp->mbar_item_factory.
  */
-GtkWidget *
+GtkMenuItem *
 menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
 {
-  GtkWidget *widget = NULL;
+  GtkMenuItem *widget = NULL;
 
 # ifdef GNOME
       /* DDisplay *ddisp; */
