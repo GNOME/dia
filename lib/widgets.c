@@ -27,6 +27,7 @@
 #include "diaarrowchooser.h"
 #include "dialinechooser.h"
 #include "persistence.h"
+#include "dia-lib-icons.h"
 
 #include <stdlib.h>
 #include <glib.h>
@@ -50,7 +51,6 @@ struct _DiaSizeSelector
   GtkToggleButton *aspect_locked;
   real ratio;
   GtkAdjustment *last_adjusted;
-  GtkWidget *unbroken_link, *broken_link;
 };
 
 struct _DiaSizeSelectorClass
@@ -115,33 +115,11 @@ dia_size_selector_ratio_callback(GtkAdjustment *limits, gpointer userdata)
 }
 
 static void
-dia_size_selector_destroy_callback(GtkWidget *widget) 
-{
-  DiaSizeSelector *ss = DIA_SIZE_SELECTOR(widget);
-
-  if (ss->broken_link)
-    g_object_unref(ss->broken_link);
-  ss->broken_link = NULL;
-  if (ss->unbroken_link)
-    g_object_unref(ss->unbroken_link);
-  ss->unbroken_link = NULL;
-}
-
-static void
 dia_size_selector_lock_pressed(GtkWidget *widget, gpointer data)
 {
   DiaSizeSelector *ss = DIA_SIZE_SELECTOR(data);
 
-  if (gtk_bin_get_child(GTK_BIN(ss->aspect_locked)))
-    gtk_container_remove(GTK_CONTAINER(ss->aspect_locked), 
-    gtk_bin_get_child(GTK_BIN(ss->aspect_locked)));
-
-  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ss->aspect_locked))) {
-    gtk_container_add(GTK_CONTAINER(ss->aspect_locked), ss->unbroken_link);
-    dia_size_selector_ratio_callback(ss->last_adjusted, (gpointer)ss);
-  } else {
-    gtk_container_add(GTK_CONTAINER(ss->aspect_locked), ss->broken_link);
-  }
+  dia_size_selector_ratio_callback(ss->last_adjusted, (gpointer)ss);
 }
 
 /* Possible args:  Init width, init height, digits */
@@ -171,17 +149,10 @@ dia_size_selector_init (DiaSizeSelector *ss)
   /* should make sure they're both unallocated when the widget dies. 
   * That should happen in the "destroy" handler, where both should
   * be unref'd */
-  ss->broken_link = dia_get_image_from_file("broken-chain.xpm");
-  g_object_ref(ss->broken_link);
-  gtk_misc_set_padding(GTK_MISC(ss->broken_link), 0, 0);
-  gtk_widget_show(ss->broken_link);
-  ss->unbroken_link = dia_get_image_from_file("unbroken-chain.xpm");
-  g_object_ref(ss->unbroken_link);
-  gtk_misc_set_padding(GTK_MISC(ss->unbroken_link), 0, 0);
-  gtk_widget_show(ss->unbroken_link);
-
-  ss->aspect_locked = GTK_TOGGLE_BUTTON(gtk_toggle_button_new());
-  gtk_container_add(GTK_CONTAINER(ss->aspect_locked), ss->unbroken_link);
+  ss->aspect_locked = 
+    GTK_TOGGLE_BUTTON(dia_toggle_button_new_with_icons
+		      (dia_unbroken_chain_icon,
+		       dia_broken_chain_icon));
   gtk_container_set_border_width(GTK_CONTAINER(ss->aspect_locked), 0);
 
   gtk_box_pack_start(GTK_BOX(ss), GTK_WIDGET(ss->aspect_locked), FALSE, TRUE, 0); 
@@ -198,8 +169,6 @@ dia_size_selector_init (DiaSizeSelector *ss)
   g_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(ss->height)), 
 		   "value_changed",
 		   G_CALLBACK(dia_size_selector_ratio_callback), (gpointer)ss);
-  g_signal_connect(GTK_OBJECT(ss), "destroy",
-		   G_CALLBACK(dia_size_selector_destroy_callback), NULL);
 }
 
 GtkType
@@ -2030,25 +1999,26 @@ dia_toggle_button_destroy(GtkWidget *widget, gpointer data)
   images = NULL;
 }
 
-/** Create a toggle button with two images switching (on and off) */
-GtkWidget *
-dia_toggle_button_new_with_images(gchar *on_image, gchar *off_image)
+/** Create a toggle button given two image widgets for on and off */
+static GtkWidget *
+dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
 {
   GtkWidget *button = gtk_toggle_button_new();
-  struct image_pair *images = g_new0(struct image_pair, 1);
   GtkRcStyle *rcstyle;
   GtkStyle *style;
   GValue *prop;
   gint i;
+  struct image_pair *images;
 
+  images = g_new(struct image_pair, 1);
   /* Since these may not be added at any point, make sure to
    * sink them. */
-  images->on = dia_get_image_from_file(on_image);
+  images->on = on_widget;
   g_object_ref(G_OBJECT(images->on));
   gtk_object_sink(GTK_OBJECT(images->on));
   gtk_widget_show(images->on);
 
-  images->off = dia_get_image_from_file(off_image);
+  images->off = off_widget;
   g_object_ref(G_OBJECT(images->off));
   gtk_object_sink(GTK_OBJECT(images->off));
   gtk_widget_show(images->off);
@@ -2082,4 +2052,27 @@ dia_toggle_button_new_with_images(gchar *on_image, gchar *off_image)
 		   dia_toggle_button_destroy, images);
 
   return button;
+}
+
+/** Create a toggle button with two images switching (on and off) */
+GtkWidget *
+dia_toggle_button_new_with_images(gchar *on_image, gchar *off_image)
+{
+  return dia_toggle_button_new(dia_get_image_from_file(on_image),
+			       dia_get_image_from_file(off_image));
+}
+
+/** Create a toggle button with two icons (created with gdk-pixbuf-csource,
+ * for instance).  The icons represent on and off.
+ */
+GtkWidget *
+dia_toggle_button_new_with_icons(guint8 *on_icon, guint8 *off_icon)
+{
+  GdkPixbuf *p1, *p2;
+
+  p1 = gdk_pixbuf_new_from_inline(-1, on_icon, FALSE, NULL);
+  p2 = gdk_pixbuf_new_from_inline(-1, off_icon, FALSE, NULL);
+
+  return dia_toggle_button_new(gtk_image_new_from_pixbuf(p1),
+			       gtk_image_new_from_pixbuf(p2));
 }

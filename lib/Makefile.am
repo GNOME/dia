@@ -29,6 +29,19 @@ stdprop_files = \
 
 pkglib_LTLIBRARIES =     libdia.la
 
+ICON_PNG_PAIRS= \
+	dia_broken_icon pixmaps/broken.png \
+	dia_broken_chain_icon pixmaps/broken-chain.png \
+	dia_unbroken_chain_icon pixmaps/unbroken-chain.png
+
+# Note that this doesn't seem to get run automatically.  It should, but
+# I'm not gonna chase goblins right now.
+dia-lib-icons.h:
+	gdk-pixbuf-csource --build-list \
+	$(ICON_PNG_PAIRS) > dia-lib-icons.h
+
+nodist_include_HEADERS = dia-lib-icons.h
+
 libdia_la_SOURCES =  \
 		diatypes.h \
 		diavar.h \
@@ -142,7 +155,8 @@ libdia_la_SOURCES =  \
 		diaerror.c \
 		diaerror.h \
 		diamarshal.c \
-		diamarshal.h
+		diamarshal.h \
+		dia-lib-icons.h
 
 #		charconv.c \
 #		charconv.h 
@@ -184,6 +198,4 @@ $(srcdir)/diamarshal.c: $(srcdir)/diamarshal.h
 	&& rm -f xgen-gwmc xgen-gwmc~
 
 
-EXTRA_DIST = \
-	pixmaps/broken.xpm \
-	libdia.def makefile.msc
+EXTRA_DIST = libdia.def makefile.msc

@@ -34,6 +34,7 @@
 #include "../lib/plug-ins.h"
 #include "../lib/sheet.h"
 #include "../lib/message.h"
+#include "../app/pixmaps/missing.xpm"
 
 #include "interface.h"
 #include "sheets.h"
@@ -338,8 +339,14 @@ create_object_pixmap(SheetObject *so, GtkWidget *parent,
         gdk_pixbuf_render_pixmap_and_mask(pixbuf, pixmap, mask, 1.0);
         gdk_pixbuf_unref(pixbuf);
       } else {
-        g_warning (error->message);
+        message_warning (error->message);
         g_error_free (error);
+	*pixmap = gdk_pixmap_colormap_create_from_xpm_d
+	  (NULL,
+	   gtk_widget_get_colormap(parent),
+	   mask, 
+	   &style->bg[GTK_STATE_NORMAL],
+	   missing);
       }
     }
     else

@@ -24,7 +24,7 @@
 #include <gtk/gtkwidget.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-#include "pixmaps/broken.xpm"
+#include "dia-lib-icons.h"
 
 #define SCALING_CACHE
 
@@ -55,7 +55,7 @@ dia_image_get_broken(void)
 
   if (broken == NULL) {
     broken = g_new(struct _DiaImage, 1);
-    broken->image = gdk_pixbuf_new_from_xpm_data((const char **)broken_xpm);
+    broken->image = gdk_pixbuf_new_from_inline(-1, dia_broken_icon, FALSE, NULL);
   } else {
     gdk_pixbuf_ref(broken->image);
   }

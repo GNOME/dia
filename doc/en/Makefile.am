@@ -7,6 +7,8 @@ entities=
 include $(top_srcdir)/xmldocs.make
 dist-hook: app-dist-hook
 
+nodist_include_EXTRAS = dia.1
+
 EXTRA_DIST += \
 	dia.1 \
 	dia.dbk \

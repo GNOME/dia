@@ -33,6 +33,37 @@ endif
 
 bin_PROGRAMS = dia $(dia_embedd)
 
+ICON_PNG_PAIRS= \
+	dia_connectable_icon pixmaps/connectable.png \
+	dia_connectable_empty_icon pixmaps/connectable-empty.png \
+	dia_selectable_icon pixmaps/selectable.png \
+	dia_selectable_empty_icon pixmaps/selectable-empty.png \
+	dia_on_grid_icon pixmaps/on-grid.png \
+	dia_off_grid_icon pixmaps/off-grid.png \
+	dia_visible_icon pixmaps/visible.png \
+	dia_visible_empty_icon pixmaps/visible-empty.png \
+        dia_diagram_icon ../dia-diagram.png \
+	dia_app_icon ../dia_gnome_icon.png
+
+# Needed for EXTRA_DIST
+ICON_PNGS= \
+	pixmaps/connectable.png \
+	pixmaps/connectable-empty.png \
+	pixmaps/selectable.png \
+	pixmaps/selectable-empty.png \
+	pixmaps/on-grid.png \
+	pixmaps/off-grid.png \
+	pixmaps/visible.png \
+	pixmaps/visible-empty.png \
+	../dia-diagram.png \
+	../dia_gnome_icon.png
+
+dia-app-icons.h:
+	gdk-pixbuf-csource --build-list \
+	$(ICON_PNG_PAIRS) > dia-app-icons.h
+
+nodist_include_HEADERS = dia-app-icons.h
+
 oafinfodir = $(datadir)/oaf
 oafinfo_DATA = $(dia_oafinfo)
 
@@ -203,6 +234,7 @@ EXTRA_DIST = \
 	dia.def \
 	dia.ico \
 	dia.rc \
+	$(ICON_PNGS) \
 	pixmaps/arrow.xpm \
 	pixmaps/default.xpm \
 	pixmaps/delete.xpm \
@@ -226,9 +258,7 @@ EXTRA_DIST = \
 	pixmaps/scroll.xpm \
 	pixmaps/snap-to-grid.xpm \
 	pixmaps/snap-to-grid-mask.xpm \
-	pixmaps/swap.xpm \
-	pixmaps/on-grid.xpm \
-	pixmaps/off-grid.xpm
+	pixmaps/swap.xpm
 
 run_dia.sh$(EXEEXT): Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh

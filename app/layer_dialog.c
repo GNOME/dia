@@ -29,6 +29,7 @@
 #include <assert.h>
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
+#include <gtk/gtk.h>
 
 #include "intl.h"
 
@@ -40,6 +41,8 @@
 #include "pixmaps/lower.xpm"
 #include "pixmaps/raise.xpm"
 #include "pixmaps/delete.xpm"
+
+#include "dia-app-icons.h"
 
 static struct LayerDialog *layer_dialog = NULL;
 
@@ -798,8 +801,7 @@ dia_layer_widget_init(DiaLayerWidget *lw)
   lw->connect_off = FALSE;
  
   lw->visible = visible = 
-    dia_toggle_button_new_with_images("visible.png",
-				      "visible-empty.png");
+    dia_toggle_button_new_with_icons(dia_visible_icon, dia_visible_empty_icon);
 
   g_signal_connect(G_OBJECT(visible), "button-release-event",
 		   dia_layer_widget_button_event, lw);
@@ -810,9 +812,11 @@ dia_layer_widget_init(DiaLayerWidget *lw)
   gtk_box_pack_start (GTK_BOX (hbox), visible, FALSE, TRUE, 2);
   gtk_widget_show(visible);
 
+  /*gtk_image_new_from_stock(GTK_STOCK_CONNECT, 
+			    GTK_ICON_SIZE_BUTTON), */
   lw->connectable = connectable = 
-    dia_toggle_button_new_with_images("connectable.png", 
-				      "connectable-empty.png");
+    dia_toggle_button_new_with_icons(dia_connectable_icon,
+				     dia_connectable_empty_icon);
 
   g_signal_connect(G_OBJECT(connectable), "button-release-event",
 		   dia_layer_widget_button_event, lw);

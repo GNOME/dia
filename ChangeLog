@@ -1,9 +1,42 @@
+2005-03-01  Lars Clausen  <lars@raeder.dk>
+
+	* lib/Makefile.am (nodist_include_HEADERS): 
+	* app/Makefile.am: Correctly generate these files from PNGs with
+	automake.
+
+	* lib/widgets.h: 
+	* lib/libdia.def:
+	* lib/widgets.c: Refactor toggle button factory to allow inline
+	data.
+
+	* lib/pixmaps/Makefile.am: Unify lib pixmaps.
+
+	* app/makefile.msc (ICON_PNG_PAIRS): 
+	* app/dia-app-icons.h: Updated with more icons.
+
+	* lib/Makefile.am: 
+	* app/Makefile.am: Use gdk_pixbuf_csource to create inline data
+	from pngs.
+
+	* app/interface.c (create_display_shell): 
+	* app/layer_dialog.c (dia_layer_widget_init): 
+	* lib/dia_image.c (dia_image_get_broken): Use inlined data
+	generated from png.
+
+	* app/display.c (ddisplay_close): Removed unused includes.
+
+2005-03-01  Lars Clausen  <lars@raeder.dk>
+
+	* app/sheets.c (create_object_pixmap): Create a placeholder image
+	for when the real image is missing.  Better than crashing:)
+	Closes bug #166786.
+
 2005-02-25  Hans Breuer  <hans@breuer.org>
 
 	* app/app_procs.c : don't requets to open a default display with
 	g_option_context_add_group (crux@gorodmasterov.com, bug #168523)
 
-2005-02-22  Lars Clausen  <lars@LittlePooter.local.>
+2005-02-22  Lars Clausen  <lars@raeder.dk>
 
 	* plug-ins/gprint/diagnomeprint.c (export_data): GNOME, not Gome.
 	Fixes bug #168125.
@@ -17,7 +50,7 @@
 	* app/layer_dialog.c (create_layer_dialog): Bug #159598: Clean up
 	the layers dialog.
 
-2005-02-14  Lars Clausen  <lars@LittlePooter.local.>
+2005-02-14  Lars Clausen  <lars@raeder.dk>
 
 	* INSTALL (ftp): Fixed Pango release typo (bug #153007)
 

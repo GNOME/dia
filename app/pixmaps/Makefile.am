@@ -11,4 +11,6 @@ IMAGES = \
 	visible-empty.png
 
 EXTRA_DIST = $(IMAGES)
+
 image_DATA = $(IMAGES)
+

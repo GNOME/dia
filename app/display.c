@@ -49,9 +49,6 @@
 #include "render_gdk.h"
 #include "render_libart.h"
 
-#include "pixmaps/on-grid.xpm"
-#include "pixmaps/off-grid.xpm"
-
 static GHashTable *display_ht = NULL;
 static GdkCursor *current_cursor = NULL;
 

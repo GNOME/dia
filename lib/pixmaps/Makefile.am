@@ -1,8 +1,9 @@
 imagedir = $(pkgdatadir)/images
 
 IMAGES = \
-	broken-chain.xpm \
-	unbroken-chain.xpm
+	broken.png \
+	broken-chain.png \
+	unbroken-chain.png
 
 EXTRA_DIST = $(IMAGES)
 image_DATA = $(IMAGES)

@@ -88,10 +88,21 @@ OBJECTS = \
 	win32print.obj \
 	winmain.obj \
 
+ICON_PNG_PAIRS = \
+	dia_connectable_icon pixmaps\connectable.png \
+	dia_connectable_empty_icon pixmaps\connectable-empty.png \
+	dia_selectable_icon pixmaps\selectable.png \
+	dia_selectable_empty_icon pixmaps\selectable-empty.png \
+	dia_on_grid_icon pixmaps\on-grid.png \
+	dia_off_grid_icon pixmaps\off-grid.png \
+	dia_visible_icon pixmaps\visible.png \
+	dia_visible_empty_icon pixmaps\visible-empty.png \
+        dia_diagram_icon ..\dia-diagram.png \
+	dia_app_icon ..\dia_gnome_icon.png
+
 dia-app-icons.h :
 	gdk-pixbuf-csource --build-list \
-	dia_diagram_icon ..\dia-diagram.png \
-	dia_app_icon ..\dia_gnome_icon.png > dia-app-icons.h
+	$(ICON_PNG_PAIRS) > dia-app-icons.h
 
 ## common stuff
 ## compiler and linker switches
