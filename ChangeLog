@@ -1,3 +1,17 @@
+1999-11-20  Alexander Larsson  <alla@lysator.liu.se>
+
+        Patch from Patrick Reynolds <reynolds@cs.duke.edu>
+	
+	* app/app_procs.c:
+	Interprets command-line arguments as files to open even when
+	HAVE_POPT is not defined.
+
+	* app/magnify.c:	
+	Shift-clicking when zooming zooms out, like the Gimp.
+
+	* app/menus.c:
+	Has hotkeys for zoom-100% and snap-to-grid.
+
 1999-11-17  James Henstridge  <james@daa.com.au>
 
 	* app/scroll_tool.c (scroll_motion): fixed shift style scrolling so

@@ -133,6 +133,7 @@ app_init (int argc, char **argv)
     {(char *) NULL, '\0', 0, NULL, 0}
   };
 #endif
+  int i;
 
   gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
@@ -227,6 +228,21 @@ app_init (int argc, char **argv)
     }
   }
   poptFreeContext(poptCtx);
+#else
+  for (i=1; i<argc; i++) {
+    Diagram *diagram;
+    DDisplay *ddisp;
+  
+    diagram = diagram_load(argv[i]);
+
+    if (diagram != NULL) {
+      diagram_update_extents(diagram);
+      layer_dialog_set_diagram(diagram);
+  
+      ddisp = new_display(diagram);
+    }
+    /* Error messages are done in diagram_load() */
+  }
 #endif
 
   active_tool = create_modify_tool();

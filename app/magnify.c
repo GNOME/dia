@@ -77,7 +77,10 @@ magnify_button_release(MagnifyTool *tool, GdkEventButton *event,
       ddisplay_zoom(ddisp, &tl, factor);
     }
   } else {
-    ddisplay_zoom(ddisp, &tl, 2.0);
+    if (event->state & GDK_SHIFT_MASK)
+      ddisplay_zoom(ddisp, &tl, 0.5);
+    else
+      ddisplay_zoom(ddisp, &tl, 2.0);
   }
 
   gdk_pointer_ungrab (event->time);
