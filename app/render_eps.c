@@ -158,6 +158,8 @@ new_eps_renderer(Diagram *dia, char *filename)
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
 
+  renderer->is_ps = 0;
+  renderer->pagenum = 1;
   renderer->file = file;
 
   renderer->dash_length = 1.0;
@@ -356,6 +358,214 @@ new_eps_renderer(Diagram *dia, char *filename)
   return renderer;
 }
 
+RendererEPS *
+new_psprint_renderer(Diagram *dia, FILE *file, const gchar *paper_name)
+{
+  RendererEPS *renderer;
+  time_t time_now;
+  double scale;
+  Rectangle *extent;
+  char *name;
+ 
+  renderer = g_new(RendererEPS, 1);
+  renderer->renderer.ops = &EpsRenderOps;
+  renderer->renderer.is_interactive = 0;
+  renderer->renderer.interactive_ops = NULL;
+
+  renderer->is_ps = 1;
+  renderer->pagenum = 1;
+  renderer->file = file;
+
+  renderer->dash_length = 1.0;
+  renderer->dot_length = 0.2;
+  renderer->saved_line_style = LINESTYLE_SOLID;
+  
+  time_now  = time(NULL);
+  extent = &dia->data->extents;
+  
+  scale = 28.346;
+  
+  name = getlogin();
+  if (name==NULL)
+    name = "a user";
+  
+  fprintf(file,
+	  "%%!PS-Adobe-2.0\n"
+	  "%%%%Title: %s\n"
+	  "%%%%Creator: Dia v%s\n"
+	  "%%%%CreationDate: %s"
+	  "%%%%For: %s\n"
+	  "%%%%DocumentPaperSizes: %s\n"
+	  "%%%%Orientation: Portrait\n"
+	  "%%%%BeginSetup\n"
+	  "%%%%EndSetup\n"
+	  "%%%%EndComments\n",
+	  dia->filename,
+	  VERSION,
+	  ctime(&time_now),
+	  name,
+	  paper_name);
+
+  fprintf(file, "%%%%BeginProlog\n");
+  fprintf(file,
+	  "[ /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright\n"
+	  "/parenleft /parenright /asterisk /plus /comma /hyphen /period /slash /zero /one\n"
+	  "/two /three /four /five /six /seven /eight /nine /colon /semicolon\n"
+	  "/less /equal /greater /question /at /A /B /C /D /E\n"
+	  "/F /G /H /I /J /K /L /M /N /O\n"
+	  "/P /Q /R /S /T /U /V /W /X /Y\n"
+	  "/Z /bracketleft /backslash /bracketright /asciicircum /underscore /quoteleft /a /b /c\n"
+	  "/d /e /f /g /h /i /j /k /l /m\n"
+	  "/n /o /p /q /r /s /t /u /v /w\n"
+	  "/x /y /z /braceleft /bar /braceright /asciitilde /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/space /exclamdown /cent /sterling /currency /yen /brokenbar /section /dieresis /copyright\n"
+	  "/ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron /degree /plusminus /twosuperior /threesuperior\n"
+	  "/acute /mu /paragraph /periodcentered /cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf\n"
+	  "/threequarters /questiondown /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla\n"
+	  "/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde\n"
+	  "/Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash /Ugrave /Uacute /Ucircumflex\n"
+	  "/Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring\n"
+	  "/ae /ccedilla /egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis\n"
+	  "/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide /oslash /ugrave\n"
+	  "/uacute /ucircumflex /udieresis /yacute /thorn /ydieresis] /isolatin1encoding exch def\n");
+
+  print_reencode_font(file, "Times-Roman");
+  print_reencode_font(file, "Times-Italic");
+  print_reencode_font(file, "Times-Bold");
+  print_reencode_font(file, "Times-BoldItalic");
+  print_reencode_font(file, "AvantGarde-Book");
+  print_reencode_font(file, "AvantGarde-BookOblique");
+  print_reencode_font(file, "AvantGarde-Demi");
+  print_reencode_font(file, "AvantGarde-DemiOblique");
+  print_reencode_font(file, "Bookman-Light");
+  print_reencode_font(file, "Bookman-LightItalic");
+  print_reencode_font(file, "Bookman-Demi");
+  print_reencode_font(file, "Bookman-DemiItalic");
+  print_reencode_font(file, "Courier");
+  print_reencode_font(file, "Courier-Oblique");
+  print_reencode_font(file, "Courier-Bold");
+  print_reencode_font(file, "Courier-BoldOblique");
+  print_reencode_font(file, "Helvetica");
+  print_reencode_font(file, "Helvetica-Oblique");
+  print_reencode_font(file, "Helvetica-Bold");
+  print_reencode_font(file, "Helvetica-BoldOblique");
+  print_reencode_font(file, "Helvetica-Narrow");
+  print_reencode_font(file, "Helvetica-Narrow-Oblique");
+  print_reencode_font(file, "Helvetica-Narrow-Bold");
+  print_reencode_font(file, "Helvetica-Narrow-BoldOblique");
+  print_reencode_font(file, "NewCenturySchoolbook-Roman");
+  print_reencode_font(file, "NewCenturySchoolbook-Italic");
+  print_reencode_font(file, "NewCenturySchoolbook-Bold");
+  print_reencode_font(file, "NewCenturySchoolbook-BoldItalic");
+  print_reencode_font(file, "Palatino-Roman");
+  print_reencode_font(file, "Palatino-Italic");
+  print_reencode_font(file, "Palatino-Bold");
+  print_reencode_font(file, "Palatino-BoldItalic");
+  print_reencode_font(file, "Symbol");
+  print_reencode_font(file, "ZapfChancery-MediumItalic");
+  print_reencode_font(file, "ZapfDingbats");
+
+  fprintf(file,
+	  "/cp {closepath} bind def\n"
+	  "/c {curveto} bind def\n"
+	  "/f {fill} bind def\n"
+	  "/a {arc} bind def\n"
+	  "/ef {eofill} bind def\n"
+	  "/ex {exch} bind def\n"
+	  "/gr {grestore} bind def\n"
+	  "/gs {gsave} bind def\n"
+	  "/sa {save} bind def\n"
+	  "/rs {restore} bind def\n"
+	  "/l {lineto} bind def\n"
+	  "/m {moveto} bind def\n"
+	  "/rm {rmoveto} bind def\n"
+	  "/n {newpath} bind def\n"
+	  "/s {stroke} bind def\n"
+	  "/sh {show} bind def\n"
+	  "/slc {setlinecap} bind def\n"
+	  "/slj {setlinejoin} bind def\n"
+	  "/slw {setlinewidth} bind def\n"
+	  "/srgb {setrgbcolor} bind def\n"
+	  "/rot {rotate} bind def\n"
+	  "/sc {scale} bind def\n"
+	  "/sd {setdash} bind def\n"
+	  "/ff {findfont} bind def\n"
+	  "/sf {setfont} bind def\n"
+	  "/scf {scalefont} bind def\n"
+	  "/sw {stringwidth pop} bind def\n"
+	  "/tr {translate} bind def\n"
+
+	  "\n/ellipsedict 8 dict def\n"
+	  "ellipsedict /mtrx matrix put\n"
+	  "/ellipse\n"
+	  "{ ellipsedict begin\n"
+          "   /endangle exch def\n"
+          "   /startangle exch def\n"
+          "   /yrad exch def\n"
+          "   /xrad exch def\n"
+          "   /y exch def\n"
+          "   /x exch def"
+	  "   /savematrix mtrx currentmatrix def\n"
+          "   x y tr xrad yrad sc\n"
+          "   0 0 1 startangle endangle arc\n"
+          "   savematrix setmatrix\n"
+          "   end\n"
+	  "} def\n\n"
+
+
+	  "/colortogray {\n"
+	  "/rgbdata exch store\n"
+	  "rgbdata length 3 idiv\n"
+	  "/npixls exch store\n"
+	  "/rgbindx 0 store\n"
+	  "0 1 npixls 1 sub {\n"
+	  "grays exch\n"
+	  "rgbdata rgbindx       get 20 mul\n"
+	  "rgbdata rgbindx 1 add get 32 mul\n"
+	  "rgbdata rgbindx 2 add get 12 mul\n"
+	  "add add 64 idiv\n"
+	  "put\n"
+	  "/rgbindx rgbindx 3 add store\n"
+	  "} for\n"
+	  "grays 0 npixls getinterval\n"
+	  "} bind def\n"
+	  
+	  "/mergeprocs {\n"
+	  "dup length\n"
+	  "3 -1 roll\n"
+	  "dup\n"
+	  "length\n"
+	  "dup\n"
+	  "5 1 roll\n"
+	  "3 -1 roll\n"
+	  "add\n"
+	  "array cvx\n"
+	  "dup\n"
+	  "3 -1 roll\n"
+	  "0 exch\n"
+	  "putinterval\n"
+	  "dup\n"
+	  "4 2 roll\n"
+	  "putinterval\n"
+	  "} bind def\n"
+	  
+	  "/colorimage {\n"
+	  "pop pop\n"
+	  "{colortogray} mergeprocs\n"
+	  "image\n"
+	  "} bind def\n\n"
+	  
+	  "%%%%EndProlog\n\n\n");
+  
+  return renderer;
+}
+
 static void
 begin_render(RendererEPS *renderer, DiagramData *data)
 {
@@ -364,8 +574,10 @@ begin_render(RendererEPS *renderer, DiagramData *data)
 static void
 end_render(RendererEPS *renderer)
 {
-  fprintf(renderer->file, "showpage\n");
-  fclose(renderer->file);
+  if (!renderer->is_ps) {
+    fprintf(renderer->file, "showpage\n");
+    fclose(renderer->file);
+  }
 }
 
 static void

@@ -12,4 +12,6 @@ void paginate_gnomeprint (Diagram *dia,
 			  const gchar *paper_name,
 			  gdouble scale);
 
+void diagram_print_gnome (Diagram *dia);
+
 #endif

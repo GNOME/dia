@@ -30,7 +30,8 @@
 #endif
 #ifdef GNOME_PRINT
 #include "paginate_gnomeprint.h"
-#include <libgnomeprint/gnome-printer-dialog.h>
+#else
+#include "paginate_psprint.h"
 #endif
 #include "intl.h"
 #include "commands.h"
@@ -572,98 +573,18 @@ file_export_to_svg_callback(GtkWidget *widget, gpointer data)
   gtk_grab_add(window);
 }
 
-#ifdef GNOME_PRINT
 void
-file_gnome_print_callback(GtkWidget *widget, gpointer data)
+file_print_callback(GtkWidget *widget, gpointer data)
 {
-  GtkWidget *dialog, *notebook;
-  GtkWidget *printersel, *papersel, *scalewid;
-  GtkWidget *label, *box, *frame;
-
-  int btn;
-  GnomePrinter *printer;
-  gchar *paper;
-  gdouble scale;
-  GnomePrintContext *ctx;
   Diagram *dia;
 
-  dialog = gnome_dialog_new(_("Print Diagram"), GNOME_STOCK_BUTTON_OK,
-			    GNOME_STOCK_BUTTON_CANCEL, NULL);
-  notebook = gtk_notebook_new();
-  gtk_box_pack_start(GTK_BOX(GNOME_DIALOG(dialog)->vbox), notebook,
-		     TRUE, TRUE, 0);
-  gtk_widget_show(notebook);
-
-  box = gtk_vbox_new(FALSE, GNOME_PAD);
-  gtk_container_set_border_width(GTK_CONTAINER(box), GNOME_PAD);
-  label = gtk_label_new(_("Printer"));
-  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), box, label);
-  gtk_widget_show(box);
-  gtk_widget_show(label);
-
-  printersel = gnome_printer_widget_new();
-  gtk_box_pack_start(GTK_BOX(box), printersel, FALSE, TRUE, 0);
-  gtk_widget_show(printersel);
-
-  box = gtk_vbox_new(FALSE, GNOME_PAD);
-  gtk_container_set_border_width(GTK_CONTAINER(box), GNOME_PAD);
-  label = gtk_label_new(_("Scaling"));
-  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), box, label);
-  gtk_widget_show(box);
-  gtk_widget_show(label);
-
-  frame = gtk_frame_new(_("Scaling"));
-  gtk_box_pack_start(GTK_BOX(box), frame, FALSE, TRUE, 0);
-  gtk_widget_show(frame);
-  box = gtk_vbox_new(FALSE, GNOME_PAD);
-  gtk_container_set_border_width(GTK_CONTAINER(box), GNOME_PAD_SMALL);
-  gtk_container_add(GTK_CONTAINER(frame), box);
-  gtk_widget_show(box);
-  scalewid = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1.0,0.1,10.0,0.1,0.1,1.0)), 0, 3);
-  gtk_box_pack_start(GTK_BOX(box), scalewid, FALSE, TRUE, 0);
-  gtk_widget_show(scalewid);
-
-  box = gtk_vbox_new(FALSE, GNOME_PAD);
-  gtk_container_set_border_width(GTK_CONTAINER(box), GNOME_PAD);
-  label = gtk_label_new(_("Paper Size"));
-  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), box, label);
-  gtk_widget_show(box);
-  gtk_widget_show(label);
-
-  frame = gtk_frame_new(_("Paper Size"));
-  gtk_box_pack_start(GTK_BOX(box), frame, FALSE, TRUE, 0);
-  gtk_widget_show(frame);
-  papersel = gnome_paper_selector_new();
-  gtk_container_set_border_width(GTK_CONTAINER(papersel), GNOME_PAD_SMALL);
-  gtk_container_add(GTK_CONTAINER(frame), papersel);
-  gtk_widget_show(papersel);
-
-  gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
-  btn = gnome_dialog_run(GNOME_DIALOG(dialog));
-  if (btn < 0)
-    return;
-
-  /* cancel was pressed */
-  if (btn == 1) {
-    gtk_widget_destroy(dialog);
-    return;
-  }
-
-  /* get the printer name */
-  printer = gnome_printer_widget_get_printer(GNOME_PRINTER_WIDGET(printersel));
-  scale = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(scalewid));
-  paper = gnome_paper_selector_get_name(GNOME_PAPER_SELECTOR(papersel));
-
-  ctx = gnome_print_context_new_with_paper_size(printer, paper);
-
   dia = ddisplay_active()->diagram;
-  paginate_gnomeprint(dia, ctx, paper, scale);
-
-  gtk_object_unref(GTK_OBJECT(printer));
-  gtk_widget_destroy(dialog);
-}
+#ifdef GNOME_PRINT
+  diagram_print_gnome(dia);
+#else
+  diagram_print_ps(dia);
 #endif
+}
 
 void
 file_close_callback(GtkWidget *widget, gpointer data)

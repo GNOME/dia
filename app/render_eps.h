@@ -30,6 +30,8 @@ struct _RendererEPS {
   Renderer renderer;
 
   FILE *file;
+  int is_ps;
+  int pagenum;
 
   LineStyle saved_line_style;
   real dash_length;
@@ -37,6 +39,9 @@ struct _RendererEPS {
 };
 
 extern RendererEPS *new_eps_renderer(Diagram *dia, char *filename);
+extern RendererEPS *new_psprint_renderer(Diagram *dia, FILE *file,
+					 const gchar *paper_name);
+
 #endif /* RENDER_EPS_H */
 
 

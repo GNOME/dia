@@ -1,3 +1,30 @@
+1999-09-12  James Henstridge  <james@daa.com.au>
+
+	* app/menus.c (display_menu_items): added print menu item.
+	(filemenu): always add print menu item -- even if gnome-print is
+	not installed.
+
+	* app/commands.h, app/commands.c (file_print_callback): the print
+	menu item is now available for both gnome-print and non gnome-print
+	setups.
+
+	* app/paginate_psprint.c (diagram_print_ps): show a dialog to let you
+	print with the non gnome-print driver.
+
+1999-09-11  James Henstridge  <james@daa.com.au>
+
+	* app/paginate_gnomeprint.c (diagram_print_gnome): moved the gnome
+	printer dialog code out of commands.c.
+
+	* app/paginate_psprint.c: new file containing the pagination code for
+	psprint.
+
+	* app/render_eps.c: made a few modifications so as well as producing
+	EPS files, this renderer can be set up to do postscript printing.
+	This basically entailed adding an extra function to create a RenderEPS
+	renderer which did not bother setting the viewport for the document.
+	That was left for the pagination code.
+
 1999-09-10  James Henstridge  <james@daa.com.au>
 
 	* app/render_gnomeprint.c (draw_ellipse, fill_ellipse): since
