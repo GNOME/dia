@@ -1005,12 +1005,12 @@ export_native(DiagramData *data, const gchar *filename,
 
 static const gchar *extensions[] = { "dia", NULL };
 DiaExportFilter dia_export_filter = {
-  N_("Native Dia Diagram"),
+  N_("Dia Diagram File"),
   extensions,
   export_native
 };
 DiaImportFilter dia_import_filter = {
-  N_("Native Dia Diagram"),
+  N_("Dia Diagram File"),
   extensions,
   diagram_data_load
 };

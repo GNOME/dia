@@ -24,6 +24,7 @@
 #include "diagramdata.h"
 #include "object.h"
 #include "object_ops.h"
+#include "group.h"
 
 /* One could argue that the actual setting of the object's field
  * should happen inside lib rather than app.  I think that'd be overkill.
@@ -66,14 +67,14 @@ highlight_object_off(DiaObject *obj, Diagram *dia)
  * highlight_reset_all
  */
 static void
-highlight_reset_layer(Layer *layer, Diagram *dia)
+highlight_reset_objects(GList *objects, Diagram *dia)
 {
-  GList *objects;
-
-  for (objects = layer->objects; objects != NULL;
-       objects = g_list_next(objects)) {
+  for (; objects != NULL; objects = g_list_next(objects)) {
     DiaObject *object = (DiaObject*)objects->data;
     highlight_object_off(object, dia);
+    if (IS_GROUP(object)) {
+      highlight_reset_objects(group_objects(object), dia);
+    }
   }
 }
 
@@ -87,6 +88,6 @@ void
 highlight_reset_all(Diagram *dia) {
   int i;
   for (i = 0; i < dia->data->layers->len; i++) {
-    highlight_reset_layer((Layer*)g_ptr_array_index(dia->data->layers, i), dia);
+    highlight_reset_objects(((Layer*)g_ptr_array_index(dia->data->layers, i))->objects, dia);
   }
 }

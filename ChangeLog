@@ -1,5 +1,21 @@
 2004-08-07  Lars Clausen  <lars@raeder.dk>
 
+	* configure.in:
+	* config.h.win32: 
+	* doc/pl/dia.xml: 
+	* doc/en/dia.xml: 
+	* dia.spec (Release): 
+	* NEWS: New release 0.94-pre6
+
+2004-08-07  Lars Clausen  <lars@raeder.dk>
+
+	* app/highlight.c (highlight_reset_objects): Unhighlight inside
+	groups as well.
+
+	* app/load_save.c: 
+	* plug-ins/shape/shape-export.c: String capitalization fix from
+	Alan Horkan <horkana@tcd.ie>
+
 	* objects/UML/class.c (umlclass_show_comments_callback): Make UML
 	Class object menu kinda work, rather than blow up.  Doesn't do a
 	proper undoable change yet.

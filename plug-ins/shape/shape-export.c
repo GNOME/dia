@@ -494,7 +494,7 @@ export_shape(DiagramData *data, const gchar *filename,
 
 static const gchar *extensions[] = { "shape", NULL };
 DiaExportFilter shape_export_filter = {
-    N_("dia shape file"),
+    N_("Dia Shape File"),
     extensions,
     export_shape
 };

@@ -61,7 +61,7 @@ When a new version is about to be released:
 
 4) once the new release is complete and uploaded, announcements on
    freshmeat, the dia web site, the dia mailing list,
-   gnome-announce-list@gnome.org and maybe a gnotices story
+   gnome-announce-list@gnome.org, gnomefiles.org and maybe a gnotices story
    (news.gnome.org) are made.  Alerting the package maintainers for the
    various distributions is also a good idea, get names from MAINTAINERS
    and update those who have changed.
