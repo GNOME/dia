@@ -4,6 +4,7 @@
  *
  * svg-import.c: SVG import filter for dia
  * Copyright (C) 2002 Steffen Macke
+ * Copyright (C) 2005 Hans Breuer
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +30,6 @@
 #include <math.h>
 #include <glib.h>
 #include <stdlib.h>
-#include <locale.h>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
@@ -46,15 +46,16 @@
 #include "intl.h"
 #include "dia_svg.h"
 #include "create.h"
+#include "group.h"
 #include "font.h"
 
 gboolean import_svg(const gchar *filename, DiagramData *dia, void* user_data);
-static void read_ellipse_svg(xmlNodePtr node, DiagramData *dia);
-static void read_rect_svg(xmlNodePtr node, DiagramData *dia);
-static void read_line_svg(xmlNodePtr node, DiagramData *dia);
-static void read_poly_svg(xmlNodePtr node, DiagramData *dia, char *object_type);
-static void read_text_svg(xmlNodePtr node, DiagramData *dia);
-static void read_path_svg(xmlNodePtr node, DiagramData *dia);
+static GList *read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
+static GList *read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
+static GList *read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
+static GList *read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *object_type);
+static GList *read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
+static GList *read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list);
 static GPtrArray *make_element_props(real xpos, real ypos, real width, real height);
 
 /* TODO: use existing implementation in dia source */
@@ -122,22 +123,19 @@ static PropDescription svg_text_prop_descs[] = {
 
 /* apply SVG style to object */
 static void
-apply_style(xmlNodePtr node, DiaObject *obj) {
-      DiaSvgGraphicStyle *gs;
+apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style) 
+{
+      DiaSvgStyle *gs;
       GPtrArray *props;
       LinestyleProperty *lsprop;
       ColorProperty *cprop;
       RealProperty *rprop;
       BoolProperty *bprop;
       
-      gs = g_new(DiaSvgGraphicStyle, 1);
+      gs = g_new0(DiaSvgStyle, 1);
       /* SVG defaults */
-      gs->stroke = (-1);
-      gs->line_width = 0.0;
-      gs->linestyle = LINESTYLE_SOLID;
-      gs->dashlength = 1;
-      gs->fill = (-1);
-      
+      dia_svg_style_init (gs, parent_style);
+            
       dia_svg_parse_style(node, gs);
       props = prop_list_from_descs(svg_style_prop_descs, pdtpp_true);
       g_assert(props->len == 5);
@@ -149,7 +147,7 @@ apply_style(xmlNodePtr node, DiaObject *obj) {
 	if(gs->fill == (-1)) {
 	  cprop->color_data = get_colour(0x000000);
 	} else {
-	  cprop->color_data = get_colour(gs->stroke);
+	  cprop->color_data = get_colour(gs->fill);
 	}
       }
       rprop = g_ptr_array_index(props,1);
@@ -171,12 +169,14 @@ apply_style(xmlNodePtr node, DiaObject *obj) {
 
       obj->ops->set_props(obj, props);
       
+      if (gs->font)
+        dia_font_unref (gs->font);
       g_free(gs);
 }
 
 /* read a path */
-static void
-read_path_svg(xmlNodePtr node, DiagramData *dia) 
+static GList *
+read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
 {
     DiaObjectType *otype;
     DiaObject *new_obj;
@@ -206,8 +206,8 @@ read_path_svg(xmlNodePtr node, DiagramData *dia)
 	bcd->points = &(g_array_index(bezpoints, BezPoint, 0));	
 	new_obj = otype->ops->create(NULL, bcd, &h1, &h2);
 	g_free(bcd);
-	apply_style(node, new_obj);
-	layer_add_object(dia->active_layer, new_obj);
+	apply_style(new_obj, node, parent_style);
+	list = g_list_append (list, new_obj);
 
         g_array_set_size (bezpoints, 0);
       }
@@ -217,12 +217,15 @@ read_path_svg(xmlNodePtr node, DiagramData *dia)
 
     g_array_free(bezpoints, TRUE);
     xmlFree (str);
+
+    return list;
 }
 
 
 /* read a text */
-void
-read_text_svg(xmlNodePtr node, DiagramData *dia) {
+static GList *
+read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
+{
     DiaObjectType *otype = object_get_type("Standard - Text");
     DiaObject *new_obj;
     Handle *h1, *h2;
@@ -230,10 +233,9 @@ read_text_svg(xmlNodePtr node, DiagramData *dia) {
     GPtrArray *props;
     TextProperty *prop;
     xmlChar *str;
-    char *old_locale;
-    DiaSvgGraphicStyle *gs;
+    DiaSvgStyle *gs;
 
-    gs = g_new(DiaSvgGraphicStyle, 1);
+    gs = g_new(DiaSvgStyle, 1);
     gs->font = NULL;
     gs->font_height = 1.0;
     gs->alignment = ALIGN_CENTER;
@@ -243,17 +245,13 @@ read_text_svg(xmlNodePtr node, DiagramData *dia) {
 
     str = xmlGetProp(node, "x");
     if (str) {
-      old_locale = setlocale(LC_NUMERIC, "C");
-      point.x = strtod(str, NULL);
-      setlocale(LC_NUMERIC, old_locale);
+      point.x = g_ascii_strtod(str, NULL);
       xmlFree(str);
     }
 
     str = xmlGetProp(node, "y");
     if (str) {
-      old_locale = setlocale(LC_NUMERIC, "C");
-      point.y = strtod(str, NULL);
-      setlocale(LC_NUMERIC, old_locale);
+      point.y = g_ascii_strtod(str, NULL);
       xmlFree(str);
     }
 
@@ -261,7 +259,7 @@ read_text_svg(xmlNodePtr node, DiagramData *dia) {
     if(str) {
       new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-      layer_add_object(dia->active_layer, new_obj);
+      list = g_list_append (list, new_obj);
 
       props = prop_list_from_descs(svg_text_prop_descs, pdtpp_true);
       g_assert(props->len == 1);
@@ -269,7 +267,7 @@ read_text_svg(xmlNodePtr node, DiagramData *dia) {
       dia_svg_parse_style(node, gs);
     
       if(gs->font == NULL) {
-	gs->font = dia_font_new_from_legacy_name(_("Courier"));
+	gs->font = dia_font_new_from_legacy_name("Courier");
       }
       prop = g_ptr_array_index(props, 0);
       g_free(prop->text_data);
@@ -283,12 +281,17 @@ read_text_svg(xmlNodePtr node, DiagramData *dia) {
       new_obj->ops->set_props(new_obj, props);
       prop_list_free(props);
     }
+    if (gs->font)
+      dia_font_unref (gs->font);
     g_free(gs);
+
+    return list;
 }
 
 /* read a polygon or a polyline */
-void
-read_poly_svg(xmlNodePtr node, DiagramData *dia, char *object_type) {
+static GList *
+read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *object_type) 
+{
     DiaObjectType *otype = object_get_type(object_type);
     DiaObject *new_obj;
     Handle *h1, *h2;
@@ -299,7 +302,6 @@ read_poly_svg(xmlNodePtr node, DiagramData *dia, char *object_type) {
     xmlChar *str;
     char *tmp;
     int i;
-    char *old_locale;
     
     tmp = str = xmlGetProp(node, "points");
     while (tmp[0] != '\0') {
@@ -307,9 +309,7 @@ read_poly_svg(xmlNodePtr node, DiagramData *dia, char *object_type) {
       while (tmp[0] != '\0' && !g_ascii_isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
 	tmp++;
       if (tmp[0] == '\0') break;
-      old_locale = setlocale(LC_NUMERIC, "C");
-      val = strtod(tmp, &tmp);
-      setlocale(LC_NUMERIC, old_locale);
+      val = g_ascii_strtod(tmp, &tmp);
       g_array_append_val(arr, val);
     }
     xmlFree(str);
@@ -330,76 +330,65 @@ read_poly_svg(xmlNodePtr node, DiagramData *dia, char *object_type) {
     pcd->points = points;
     new_obj = otype->ops->create(NULL, pcd,
 				 &h1, &h2);
-    apply_style(node, new_obj);
-    layer_add_object(dia->active_layer, new_obj);
+    apply_style(new_obj, node, parent_style);
+    list = g_list_append (list, new_obj);
     g_free(pcd);
+
+    return list;
 }
 
 /* read an ellipse */
-void
-read_ellipse_svg(xmlNodePtr node, DiagramData *dia) {
-xmlChar *str;
+static GList *
+read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
+{
+  xmlChar *str;
   real width, height;
   DiaObjectType *otype = object_get_type("Standard - Ellipse");
   DiaObject *new_obj;
   Handle *h1, *h2;
   GPtrArray *props;
   Point start;
-  char *old_locale;
   
-  old_locale = setlocale(LC_NUMERIC, "C");
   str = xmlGetProp(node, "cx");
   if (str) {
-    start.x = strtod(str, NULL);
+    start.x = g_ascii_strtod(str, NULL);
     xmlFree(str);
   }
-  else {
-    setlocale(LC_NUMERIC, old_locale);
-    return;
-  }
+  else return list;
   str = xmlGetProp(node, "cy");
   if (str) {
-    start.y = strtod(str, NULL);
+    start.y = g_ascii_strtod(str, NULL);
     xmlFree(str);
   }
-  else {
-    setlocale(LC_NUMERIC, old_locale);
-    return;
-  }
+  else return list;
   str = xmlGetProp(node, "rx");
   if (str) {
-    width = strtod(str, NULL)*2;
+    width = g_ascii_strtod(str, NULL)*2;
     xmlFree(str);
   }
-  else {
-    setlocale(LC_NUMERIC, old_locale);
-    return;
-  }
+  else return list;
   str = xmlGetProp(node, "ry");
   if (str) {
-    height = strtod(str, NULL)*2;
+    height = g_ascii_strtod(str, NULL)*2;
     xmlFree(str);
   }
-  else {
-    setlocale(LC_NUMERIC, old_locale);
-    return;
-  }
-  setlocale(LC_NUMERIC, old_locale);
+  else return list;
 
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
-  apply_style(node, new_obj);			
+  apply_style(new_obj, node, parent_style);			
 	 
   props = make_element_props(start.x-(width/2), start.y-(height/2),
                              width, height);
   new_obj->ops->set_props(new_obj, props);
   prop_list_free(props);
-  layer_add_object(dia->active_layer, new_obj);
+  return g_list_append (list, new_obj);
 }
 
 /* read a line */
-void
-read_line_svg(xmlNodePtr node, DiagramData *dia) {
+static GList *
+read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
+{
   xmlChar *str;
   DiaObjectType *otype = object_get_type("Standard - Line");
   DiaObject *new_obj;
@@ -407,40 +396,31 @@ read_line_svg(xmlNodePtr node, DiagramData *dia) {
   PointProperty *ptprop;
   GPtrArray *props;
   Point start, end;
-  char *old_locale;
 
   str = xmlGetProp(node, "x1");
   if (str) {
-    old_locale = setlocale(LC_NUMERIC, "C");
-    start.x = strtod(str, NULL);
-    setlocale(LC_NUMERIC, old_locale);
+    start.x = g_ascii_strtod(str, NULL);
     xmlFree(str);
   }
-  else return;
+  else return list;
   str = xmlGetProp(node, "y1");
   if (str) {
-    old_locale = setlocale(LC_NUMERIC, "C");
-    start.y = strtod(str, NULL);
-    setlocale(LC_NUMERIC, old_locale);
+    start.y = g_ascii_strtod(str, NULL);
     xmlFree(str);
   }
-  else return;
+  else return list;
   str = xmlGetProp(node, "x2");
   if (str) {
-    old_locale = setlocale(LC_NUMERIC, "C");
-    end.x = strtod(str, NULL);
-    setlocale(LC_NUMERIC, old_locale);
+    end.x = g_ascii_strtod(str, NULL);
     xmlFree(str);
   }
-  else return;
+  else return list;
   str = xmlGetProp(node, "y2");
   if (str) {
-    old_locale = setlocale(LC_NUMERIC, "C");
-    end.y = strtod(str, NULL);
-    setlocale(LC_NUMERIC, old_locale);
+    end.y = g_ascii_strtod(str, NULL);
     xmlFree(str);
   }
-  else return;
+  else return list;
 
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
@@ -458,14 +438,15 @@ read_line_svg(xmlNodePtr node, DiagramData *dia) {
   
   prop_list_free(props);
 
-  apply_style(node, new_obj);
+  apply_style(new_obj, node, parent_style);
   
-  layer_add_object(dia->active_layer, new_obj);
+  return g_list_append (list, new_obj);
 }
 
 /* read a rectangle */
-void
-read_rect_svg(xmlNodePtr node, DiagramData *dia) {
+static GList *
+read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
+{
   xmlChar *str;
   real width, height;
   DiaObjectType *otype = object_get_type("Standard - Box");
@@ -475,64 +456,51 @@ read_rect_svg(xmlNodePtr node, DiagramData *dia) {
   RealProperty *rprop;
   GPtrArray *props;
   Point start,end;
-  char *old_locale;
   real corner_radius = 0.0;
 
   str = xmlGetProp(node, "x");
   if (str) {
-    old_locale = setlocale(LC_NUMERIC, "C");
-    start.x = strtod(str, NULL);
-    setlocale(LC_NUMERIC, old_locale);
+    start.x = g_ascii_strtod(str, NULL);
     xmlFree(str);
   }
-  else return;
+  else return list;
   str = xmlGetProp(node, "y");
   if (str) {
-    old_locale = setlocale(LC_NUMERIC, "C");
-    start.y = strtod(str, NULL);
-    setlocale(LC_NUMERIC, old_locale);
+    start.y = g_ascii_strtod(str, NULL);
     xmlFree(str);
   }
-  else return;
+  else return list;
   str = xmlGetProp(node, "width");
   if (str) {
-    old_locale = setlocale(LC_NUMERIC, "C");
-    width = strtod(str, NULL);
-    setlocale(LC_NUMERIC, old_locale);
+    width = g_ascii_strtod(str, NULL);
     xmlFree(str);
   }
-  else return;
+  else return list;
   str = xmlGetProp(node, "height");
   if (str) {
-    old_locale = setlocale(LC_NUMERIC, "C");
-    height = strtod(str, NULL);
-    setlocale(LC_NUMERIC, old_locale);
+    height = g_ascii_strtod(str, NULL);
     xmlFree(str);
   }
-  else return;
+  else return list;
   str = xmlGetProp(node, "rx");
   if (str) {
-    old_locale = setlocale(LC_NUMERIC, "C");
-    corner_radius = strtod(str, NULL);
-    setlocale(LC_NUMERIC, old_locale);
+    corner_radius = g_ascii_strtod(str, NULL);
     xmlFree(str);
   }
   str = xmlGetProp(node, "ry");
   if (str) {
-    old_locale = setlocale(LC_NUMERIC, "C");
     if(corner_radius != 0.0) {
       /* calculate the mean value of rx and ry */
-      corner_radius = (corner_radius+strtod(str, NULL))/2;
+      corner_radius = (corner_radius+g_ascii_strtod(str, NULL))/2;
     } else {
-      corner_radius = strtod(str, NULL);
+      corner_radius = g_ascii_strtod(str, NULL);
     }
-    setlocale(LC_NUMERIC, old_locale);
     xmlFree(str);
   }
   
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
-  layer_add_object(dia->active_layer, new_obj);
+  list = g_list_append (list, new_obj);
   props = prop_list_from_descs(svg_rect_prop_descs, pdtpp_true);
   g_assert(props->len == 3);
 
@@ -552,19 +520,94 @@ read_rect_svg(xmlNodePtr node, DiagramData *dia) {
   props = make_element_props(start.x,start.y,width,height);
   new_obj->ops->set_props(new_obj, props);
   
-  apply_style(node, new_obj);
+  apply_style(new_obj, node, parent_style);
   prop_list_free(props);
+
+  return list;
+}
+
+/*!
+ * Fill a GList* with objects which is to be put in a
+ * diagram or a group by the caller. 
+ * Can be called recusively to allow groups in groups.
+ */
+static GList*
+read_items (xmlNodePtr startnode, DiaSvgStyle *parent_gs)
+{
+  xmlNodePtr node;
+  GList *items = NULL;
+
+  for (node = startnode; node != NULL; node = node->next) {
+    if (xmlIsBlankNode(node)) continue;
+    if (node->type != XML_ELEMENT_NODE) continue;
+
+    if (!strcmp(node->name, "g")) {
+      GList *moreitems;
+      DiaSvgStyle *group_gs;
+
+      /* We need to have/apply the groups style before the objects style */
+      group_gs = g_new0 (DiaSvgStyle, 1);
+      dia_svg_style_init (group_gs, parent_gs);
+      dia_svg_parse_style (node, group_gs);
+
+      moreitems = read_items (node->xmlChildrenNode, group_gs);
+
+      if (moreitems) {
+        DiaObject *group = group_create (moreitems);
+	/* group eats list */
+        items = g_list_append (items, group);
+      }
+      if (group_gs->font)
+        dia_font_unref (group_gs->font);
+      g_free (group_gs);
+      continue;
+    }
+    if (!strcmp(node->name, "rect")) {
+      items = read_rect_svg(node, parent_gs, items);
+      continue;
+    }
+    if (!strcmp(node->name, "line")) {
+      items = read_line_svg(node, parent_gs, items);
+      continue;
+    }
+    if (!strcmp(node->name, "ellipse")) {
+      items = read_ellipse_svg(node, parent_gs, items);
+      continue;
+    }
+    if (!strcmp(node->name, "polyline")) {
+      /* Uh, oh, no : apparently a fill="" in a group above make this a polygon */
+      items = read_poly_svg(node, parent_gs, items, parent_gs && parent_gs->fill >= 0 ?
+                            "Standard - Polygon" : "Standard - PolyLine");
+      continue;
+    }
+    if (!strcmp(node->name, "polygon")) {
+      items = read_poly_svg(node, parent_gs, items, "Standard - Polygon");
+      continue;
+    }
+    if(!strcmp(node->name, "text")) {
+      items = read_text_svg(node, parent_gs, items);
+      continue;
+    }
+    if(!strcmp(node->name, "path")) {
+      items = read_path_svg(node, parent_gs, items);
+      continue;
+    }
+  }
+  return items;
 }
 
 /* imports the given SVG file, returns TRUE if successful */
 gboolean
-import_svg(const gchar *filename, DiagramData *dia, void* user_data) {
+import_svg(const gchar *filename, DiagramData *dia, void* user_data) 
+{
   xmlDocPtr doc = xmlDoParseFile(filename);
   xmlNsPtr svg_ns;
-  xmlNodePtr node, root;
+  xmlNodePtr root;
+  GList *items, *item;
+  DiaObject *obj;
 
   if (!doc) {
-    g_warning("parse error for %s", filename);
+    message_warning("parse error for %s", filename);
     return FALSE;
   }
   /* skip (emacs) comments */
@@ -574,49 +617,38 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data) {
   if (xmlIsBlankNode(root)) return FALSE;
 
   if (!(svg_ns = xmlSearchNsByHref(doc, root, "http://www.w3.org/2000/svg"))) {
-   g_warning(_("Could not find SVG namespace."));
     /* correct filetype vs. robust import */
     /*xmlFreeDoc(doc);
     return FALSE;*/
   }
+  /* search for some svg in the file, this allows us to read the
+   * svg part of our own shape file ...
+   */
+  if (svg_ns && root->ns != svg_ns) {
+    xmlNodePtr node = root->xmlChildrenNode;
+
+    while (node) {
+      if (node->ns == svg_ns)
+        break;
+      node = node->next;
+    }
+    /* changing 'root' to svg */
+    if (node)
+      root = node;
+  }
+
   if (root->ns != svg_ns && 0 != strcmp(root->name, "svg")) {
-    g_warning(_("root element was '%s' -- expecting 'svg'."), root->name);
+    message_warning(_("root element was '%s' -- expecting 'svg'."), root->name);
     xmlFreeDoc(doc);
     return FALSE;
   }
 
-  for (node = root->xmlChildrenNode; node != NULL; node = node->next) {
-    if (xmlIsBlankNode(node)) continue;
-    if (node->type != XML_ELEMENT_NODE) continue;
-    if (!strcmp(node->name, "rect")) {
-      read_rect_svg(node, dia);
-      continue;
-    }
-    if (!strcmp(node->name, "line")) {
-      read_line_svg(node, dia);
-      continue;
-    }
-    if (!strcmp(node->name, "ellipse")) {
-      read_ellipse_svg(node, dia);
-      continue;
-    }
-    if (!strcmp(node->name, "polyline")) {
-      read_poly_svg(node, dia, "Standard - PolyLine");
-      continue;
-    }
-    if (!strcmp(node->name, "polygon")) {
-      read_poly_svg(node, dia, "Standard - Polygon");
-      continue;
-    }
-    if(!strcmp(node->name, "text")) {
-      read_text_svg(node, dia);
-      continue;
-    }
-    if(!strcmp(node->name, "path")) {
-      read_path_svg(node, dia);
-      continue;
-    }
+  items = read_items (root->xmlChildrenNode, NULL);
+  for (item = items; item != NULL; item = g_list_next (item)) {
+    DiaObject *obj = (DiaObject *)item->data;
+    layer_add_object(dia->active_layer, obj);
   }
+  g_list_free (items);
   xmlFreeDoc(doc);
   return TRUE;
 }

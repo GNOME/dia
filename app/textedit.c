@@ -38,6 +38,10 @@
 static void
 textedit_end_edit(DDisplay *ddisp, Focus *focus) 
 {
+  /* During destruction of the diagram the display may already be gone */
+  if (!ddisp)
+    return;
+
   /* Leak of focus highlight color here, but should it be handled
      by highlight or by us?
   */
@@ -102,11 +106,13 @@ textedit_activate_focus(DDisplay *ddisp, Focus *focus, Point *clicked)
 void
 textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked)
 {
+  Focus *new_focus;
+
   if (active_focus()) {
     Focus *focus = active_focus();
     textedit_end_edit(ddisp, focus);
   }
-  Focus *new_focus = focus_get_first_on_object(obj);
+  new_focus = focus_get_first_on_object(obj);
   if (new_focus != NULL) {
     give_focus(new_focus); 
     if (clicked) {

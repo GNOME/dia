@@ -285,6 +285,8 @@ EXPORTS
  dia_size_selector_set_size
  dia_size_selector_get_size
 
+ dia_svg_style_init
+ dia_svg_style_copy
  dia_svg_parse_style
  dia_svg_parse_path
 
@@ -379,7 +381,7 @@ EXPORTS
  group_type
 
  give_focus
- give_focus_to_object
+; give_focus_to_object
  
  identity_matrix
  int_rectangle_union
@@ -531,6 +533,8 @@ EXPORTS
  point_scale
  point_sub
  transform_point
+
+ point_get_perp
 
  polybezier_bbox
 

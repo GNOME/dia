@@ -39,8 +39,8 @@ enum DiaSvgLineDefaults
   DIA_SVG_LINESTYLE_DEFAULT = 20
 };
 
-typedef struct _DiaSvgGraphicStyle DiaSvgGraphicStyle;
-struct _DiaSvgGraphicStyle {
+typedef struct _DiaSvgStyle DiaSvgStyle;
+struct _DiaSvgStyle {
   real line_width;
   gint32 stroke;
   gint32 fill;
@@ -55,7 +55,9 @@ struct _DiaSvgGraphicStyle {
   Alignment alignment;
 };
 
-void dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s);
+void dia_svg_style_init (DiaSvgStyle *gs, DiaSvgStyle *parent_style);
+void dia_svg_style_copy (DiaSvgStyle *dest, DiaSvgStyle *src);
+void dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s);
 /* parse the svg sub format for pathes int an array of BezPoint */
 GArray* dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed);
 

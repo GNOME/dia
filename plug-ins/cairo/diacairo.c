@@ -992,7 +992,8 @@ export_data(DiagramData *data, const gchar *filename,
                                                   150, 150);
     break;
 #endif
-#ifdef CAIRO_HAS_WIN32_SURFACE
+  /* the default Cairo/win32 surface isn't able to do such ... */
+#ifdef CAIRO_HAS_WIN32X_SURFACE
   case OUTPUT_EMF :
     renderer->scale = 72.0;
     renderer->surface = cairo_win32_surface_create (filename, NULL, CAIRO_WIN32_TARGET_EMF, 0, 0);
@@ -1108,7 +1109,7 @@ _plugin_unload (PluginInfo *info)
   filter_unregister_export(&png_export_filter);
   filter_unregister_export(&pnga_export_filter);
 #endif
-#ifdef CAIRO_HAS_WIN32_SURFACE
+#ifdef CAIRO_HAS_WIN32X_SURFACE
   filter_unregister_export(&emf_export_filter);
   filter_unregister_export(&wmf_export_filter);
   filter_unregister_export(&cb_export_filter);
@@ -1138,7 +1139,7 @@ dia_plugin_init(PluginInfo *info)
   filter_register_export(&png_export_filter);
   filter_register_export(&pnga_export_filter);
 #endif
-#ifdef CAIRO_HAS_WIN32_SURFACE
+#ifdef CAIRO_HAS_WIN32X_SURFACE
   filter_register_export(&emf_export_filter);
   filter_register_export(&wmf_export_filter);
   filter_register_export(&cb_export_filter);

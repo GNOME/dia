@@ -1,3 +1,39 @@
+2005-03-13  Hans Breuer  <hans@breuer.org>
+
+	* lib/dia_svg.[hc] objects/custom/shape_info.[hc] plug-ins/svg/svg-import.c :
+	s/DiaSvgGraphicStyle/DiaSvgStyle/, added and use convenience functions 
+	dia_svg_style_copy(), dia_svg_style_init()
+
+	* objects/custom/shape_info.c : use dia_svg_parse_path() from lib/ (it got
+	moved out of this)
+
+	* lib/dia_svg.c(dia_svg_parse_path) : also handle style properties which are
+	not wrapped in the style attribute
+
+	* plug-ins/svg/svg-import.c : implement nested group handling and style
+	'style inheritance'. Still no transformations, no <image/>, no <style/> 
+	<defs/>...
+
+	* plug-ins/svg/svg-import.c(import_svg) : use message_warning instead of g_warning,
+	the latter is for programmers.
+	Also be more tolerant if the document root namespace is not 'svg'. If the svg 
+	namespace is defined in the file search for the top node including svg. This
+	allows us to re-read the svg part of our own shape format.
+
+	* lib/libdia.def : there is no give_focus_to_object
+	* app/textedit.c : still no C99,  aka. error C2275: 'Focus' : illegal use of this 
+	type as an expression
+
+	* lib/geometry. c : use G_IMPLEMENT_INLINES
+	* lib/libdia.def : export point_get_perp (used by xfig plug-in)
+
+	* app/textedit.c(textedit_end_edit) : don't crash if the display is already
+	gone when trying to remove the focus
+
+	* plug-ins/cairo/diacairo.c : CAIRO_HAS_WIN32_SURFACE does not any longer mean
+	it has *my* Cairo Win32 Backend. [The official one isn't useful for the use
+	case of this plug-in, i.e. producing output files]
+
 2005-03-13  Lars Clausen  <lars@raeder.dk>
 
 	* lib/Makefile.am (BUILT_SOURCES): 

@@ -113,312 +113,60 @@ void shape_info_realise(ShapeInfo* info)
 }
 
 
-/* routine to chomp off the start of the string */
-#define path_chomp(path) while (path[0]!='\0'&&strchr(" \t\n\r,", path[0])) path++
-
 static void
-parse_path(ShapeInfo *info, const char *path_str, DiaSvgGraphicStyle *s)
+parse_path(ShapeInfo *info, const char *path_str, DiaSvgStyle *s)
 {
-  enum {
-    PATH_MOVE, PATH_LINE, PATH_HLINE, PATH_VLINE, PATH_CURVE,
-    PATH_SMOOTHCURVE, PATH_CLOSE } last_type = PATH_MOVE;
-  Point last_open = {0.0, 0.0};
-  Point last_point = {0.0, 0.0};
-  Point last_control = {0.0, 0.0};
-  gboolean last_relative = FALSE;
-  static GArray *points = NULL;
-  BezPoint bez;
-  gchar *path = (gchar *)path_str;
+  GArray *points;
+  gchar *pathdata = (gchar *)path_str, *unparsed;
+  gboolean closed = FALSE;
 
-  if (!points)
-    points = g_array_new(FALSE, FALSE, sizeof(BezPoint));
-  g_array_set_size(points, 0);
+  do {
+    points = dia_svg_parse_path (pathdata, &unparsed, &closed);
 
-  path_chomp(path);
-  while (path[0] != '\0') {
-#ifdef DEBUG_CUSTOM
-    g_print("Path: %s\n", path);
-#endif
-    /* check for a new command */
-    switch (path[0]) {
-    case 'M':
-      path++;
-      path_chomp(path);
-      last_type = PATH_MOVE;
-      last_relative = FALSE;
-      break;
-    case 'm':
-      path++;
-      path_chomp(path);
-      last_type = PATH_MOVE;
-      last_relative = TRUE;
-      break;
-    case 'L':
-      path++;
-      path_chomp(path);
-      last_type = PATH_LINE;
-      last_relative = FALSE;
-      break;
-    case 'l':
-      path++;
-      path_chomp(path);
-      last_type = PATH_LINE;
-      last_relative = TRUE;
-      break;
-    case 'H':
-      path++;
-      path_chomp(path);
-      last_type = PATH_HLINE;
-      last_relative = FALSE;
-      break;
-    case 'h':
-      path++;
-      path_chomp(path);
-      last_type = PATH_HLINE;
-      last_relative = TRUE;
-      break;
-    case 'V':
-      path++;
-      path_chomp(path);
-      last_type = PATH_VLINE;
-      last_relative = FALSE;
-      break;
-    case 'v':
-      path++;
-      path_chomp(path);
-      last_type = PATH_VLINE;
-      last_relative = TRUE;
-      break;
-    case 'C':
-      path++;
-      path_chomp(path);
-      last_type = PATH_CURVE;
-      last_relative = FALSE;
-      break;
-    case 'c':
-      path++;
-      path_chomp(path);
-      last_type = PATH_CURVE;
-      last_relative = TRUE;
-      break;
-    case 'S':
-      path++;
-      path_chomp(path);
-      last_type = PATH_SMOOTHCURVE;
-      last_relative = FALSE;
-      break;
-    case 's':
-      path++;
-      path_chomp(path);
-      last_type = PATH_SMOOTHCURVE;
-      last_relative = TRUE;
-      break;
-    case 'Z':
-    case 'z':
-      path++;
-      path_chomp(path);
-      last_type = PATH_CLOSE;
-      last_relative = FALSE;
-      break;
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-    case '.':
-    case '+':
-    case '-':
-      if (last_type == PATH_CLOSE) {
-	g_warning("parse_path: argument given for implicite close path");
-	/* consume one number so we don't fall into an infinite loop */
-	while (path != '\0' && strchr("0123456789.+-", path[0])) path++;
-	path_chomp(path);
-      }
-      break;
-    default:
-      g_warning("unsupported path code '%c'", path[0]);
-      path++;
-      path_chomp(path);
-      break;
-    }
-    /* actually parse the path component */
-    switch (last_type) {
-    case PATH_MOVE:
-      bez.type = BEZ_MOVE_TO;
-      bez.p1.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p1.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      if (last_relative) {
-	bez.p1.x += last_point.x;
-	bez.p1.y += last_point.y;
-      }
-      last_point = bez.p1;
-      last_control = bez.p1;
-      last_open = bez.p1;
-
-      /* if there is some unclosed commands, add them as a GE_PATH,
-       * except if the previous command was also a move */
-      if (points->len > 0 &&
-	  g_array_index(points, BezPoint, points->len).type != BEZ_MOVE_TO) {
-	GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
-					  points->len * sizeof(BezPoint));
-	el->type = GE_PATH;
-	el->s = *s;
-	el->npoints = points->len;
-	memcpy((char *)el->points, points->data, points->len*sizeof(BezPoint));
-	info->display_list = g_list_append(info->display_list, el);
-      }
-      g_array_set_size(points, 0);
-      g_array_append_val(points, bez);
-      break;
-    case PATH_LINE:
-      bez.type = BEZ_LINE_TO;
-      bez.p1.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p1.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      if (last_relative) {
-	bez.p1.x += last_point.x;
-	bez.p1.y += last_point.y;
-      }
-      last_point = bez.p1;
-      last_control = bez.p1;
-
-      g_array_append_val(points, bez);
-      break;
-    case PATH_HLINE:
-      bez.type = BEZ_LINE_TO;
-      bez.p1.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p1.y = last_point.y;
-      if (last_relative)
-	bez.p1.x += last_point.x;
-      last_point = bez.p1;
-      last_control = bez.p1;
-
-      g_array_append_val(points, bez);
-      break;
-    case PATH_VLINE:
-      bez.type = BEZ_LINE_TO;
-      bez.p1.x = last_point.x;
-      bez.p1.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      if (last_relative)
-	bez.p1.y += last_point.y;
-      last_point = bez.p1;
-      last_control = bez.p1;
-
-      g_array_append_val(points, bez);
-      break;
-    case PATH_CURVE:
-      bez.type = BEZ_CURVE_TO;
-      bez.p1.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p1.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p2.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p2.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p3.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p3.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      if (last_relative) {
-	bez.p1.x += last_point.x;
-	bez.p1.y += last_point.y;
-	bez.p2.x += last_point.x;
-	bez.p2.y += last_point.y;
-	bez.p3.x += last_point.x;
-	bez.p3.y += last_point.y;
-      }
-      last_point = bez.p3;
-      last_control = bez.p2;
-
-      g_array_append_val(points, bez);
-      break;
-    case PATH_SMOOTHCURVE:
-      bez.type = BEZ_CURVE_TO;
-      bez.p1.x = 2 * last_point.x - last_control.x;
-      bez.p1.y = 2 * last_point.y - last_control.y;
-      bez.p2.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p2.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p3.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p3.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      if (last_relative) {
-	bez.p2.x += last_point.x;
-	bez.p2.y += last_point.y;
-	bez.p3.x += last_point.x;
-	bez.p3.y += last_point.y;
-      }
-      last_point = bez.p3;
-      last_control = bez.p2;
-
-      g_array_append_val(points, bez);
-      break;
-    case PATH_CLOSE:
-      /* close the path with a line */
-      if (last_open.x != last_point.x || last_open.y != last_point.y) {
-	bez.type = BEZ_LINE_TO;
-	bez.p1 = last_open;
-	g_array_append_val(points, bez);
-      }
+    if (points->len > 0) {
       /* if there is some unclosed commands, add them as a GE_SHAPE */
-      if (points->len > 0) {
+      if (closed) {
 	GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
-					  points->len * sizeof(BezPoint));
+					    points->len * sizeof(BezPoint));
 	el->type = GE_SHAPE;
-	el->s = *s;
+	dia_svg_style_init (&el->s, s);
+	el->npoints = points->len;
+	memcpy((char *)el->points, points->data, points->len*sizeof(BezPoint));
+	info->display_list = g_list_append(info->display_list, el);
+      } else {
+        /* if there is some unclosed commands, add them as a GE_PATH */
+	GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
+				          points->len * sizeof(BezPoint));
+	el->type = GE_PATH;
+	dia_svg_style_init (&el->s, s);
 	el->npoints = points->len;
 	memcpy((char *)el->points, points->data, points->len*sizeof(BezPoint));
 	info->display_list = g_list_append(info->display_list, el);
       }
-      g_array_set_size(points, 0);
-      last_point = last_open;
-      last_control = last_open;
-      break;
+      g_array_set_size (points, 0);
     }
-    /* get rid of any ignorable characters */
-    path_chomp(path);
-  }
-  /* if there is some unclosed commands, add them as a GE_PATH */
-  if (points->len > 0) {
-    GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
-				      points->len * sizeof(BezPoint));
-    el->type = GE_PATH;
-    el->s = *s;
-    el->npoints = points->len;
-    memcpy((char *)el->points, points->data, points->len*sizeof(BezPoint));
-    info->display_list = g_list_append(info->display_list, el);
-  }
-  g_array_set_size(points, 0);
+    pathdata = unparsed;
+    unparsed = NULL;
+  } while (pathdata);
+
+  g_array_free (points, TRUE);
 }
 
 static void
 parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
-               DiaSvgGraphicStyle *style, const gchar *filename)
+               DiaSvgStyle *style, const gchar *filename)
 {
   xmlChar *str;
 
       /* walk SVG node ... */
   for (node = node->xmlChildrenNode; node != NULL; node = node->next) {
     GraphicElement *el = NULL;
-    DiaSvgGraphicStyle s;
+    DiaSvgStyle s;
 
     if (xmlIsBlankNode(node)) continue;
     if (node->type != XML_ELEMENT_NODE || node->ns != svg_ns)
       continue;
-    s = *style;
+    dia_svg_style_init (&s, style);
     dia_svg_parse_style(node, &s);
     if (!strcmp(node->name, "line")) {
       GraphicElementLine *line = g_new0(GraphicElementLine, 1);
@@ -655,6 +403,8 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       el->any.s = s;
       info->display_list = g_list_append(info->display_list, el);
     }
+    if (s.font)
+      dia_font_unref (s.font);
   }
 }
 
@@ -889,7 +639,7 @@ load_shape_info(const gchar *filename)
 	xmlFree(tmp);
       }
     } else if (node->ns == svg_ns && !strcmp(node->name, "svg")) {
-      DiaSvgGraphicStyle s = {
+      DiaSvgStyle s = {
 	1.0, DIA_SVG_COLOUR_FOREGROUND, DIA_SVG_COLOUR_NONE,
 	DIA_SVG_LINECAPS_DEFAULT, DIA_SVG_LINEJOIN_DEFAULT, DIA_SVG_LINESTYLE_DEFAULT, 1.0
       };

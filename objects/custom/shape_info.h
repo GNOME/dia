@@ -54,7 +54,7 @@ typedef struct _GraphicElementImage GraphicElementImage;
 
 #define SHAPE_INFO_COMMON  \
   GraphicElementType type; \
-  DiaSvgGraphicStyle s
+  DiaSvgStyle s
 
 struct _GraphicElementAny {
   SHAPE_INFO_COMMON;
