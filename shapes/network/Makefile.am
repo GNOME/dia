@@ -33,7 +33,9 @@ SHAPES = \
 	workstation.shape \
 	workstation.xpm \
 	zip-disk.shape \
-	zip-disk.xpm
+	zip-disk.xpm \
+	disc.shape \
+	disc.xpm
 
 EXTRA_DIST = $(SHAPES)
 
