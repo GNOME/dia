@@ -1,3 +1,27 @@
+2000-05-25  James Henstridge  <james@daa.com.au>
+
+	* app/filedlg.c (file_open_ok_callback): use diagram_load here.
+
+	* app/app_procs.c (app_init): add extra NULL argument to call of
+	diagram_load.
+
+	* app/load_save.h: remove prototype.
+
+	* app/load_save.c: remove diagram_data function here.
+
+	* app/diagram.h: added prototype.
+
+	* app/diagram.c (diagram_load): new function here, which uses import
+	filters.
+
+	* plug-ins/dxf/dxf.c: register the import filter as well.
+
+	* plug-ins/dxf/dxf-import.c: added (unfinished) DXF import filter from
+	Steffen Macke <macke@heini.fbbwu.fh-lueneburg.de>
+
+	* objects/standard/line.c: add start_point and end_point properties
+	to standard line object.
+
 2000-05-21  James Henstridge  <james@daa.com.au>
 
 	* app/paginate_psprint.c: added missing include of locale.h.

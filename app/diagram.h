@@ -29,6 +29,7 @@ typedef struct _Diagram Diagram;
 #include "display.h"
 #include "diagramdata.h"
 #include "undo.h"
+#include "filter.h"
 
 struct _Diagram {
   char *filename;
@@ -45,54 +46,55 @@ struct _Diagram {
 
 extern GList *open_diagrams; /* Read only! */
 
-extern Diagram *new_diagram(const char *filename); /*Note: filename is copied*/
-extern void diagram_destroy(Diagram *dia);
-extern void diagram_modified(Diagram *dia);
-extern void diagram_set_modified(Diagram *dia, int modified);
-extern void diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp);
-extern void diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp);
-extern void diagram_add_object(Diagram *dia, Object *obj);
-extern void diagram_add_object_list(Diagram *dia, GList *list);
-extern void diagram_selected_break_external(Diagram *dia);
-extern void diagram_remove_all_selected(Diagram *diagram, int delete_empty);
-extern void diagram_unselect_object(Diagram *diagram, Object *obj);
-extern void diagram_unselect_objects(Diagram *dia, GList *obj_list);
-extern void diagram_select(Diagram *diagram, Object *obj);
-extern void diagram_select_list(Diagram *diagram, GList *list);
-extern int diagram_is_selected(Diagram *diagram, Object *obj);
-extern GList *diagram_get_sorted_selected(Diagram *dia);
+Diagram *diagram_load(const char *filename, DiaImportFilter *ifilter);
+Diagram *new_diagram(const char *filename); /*Note: filename is copied*/
+void diagram_destroy(Diagram *dia);
+void diagram_modified(Diagram *dia);
+void diagram_set_modified(Diagram *dia, int modified);
+void diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp);
+void diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp);
+void diagram_add_object(Diagram *dia, Object *obj);
+void diagram_add_object_list(Diagram *dia, GList *list);
+void diagram_selected_break_external(Diagram *dia);
+void diagram_remove_all_selected(Diagram *diagram, int delete_empty);
+void diagram_unselect_object(Diagram *diagram, Object *obj);
+void diagram_unselect_objects(Diagram *dia, GList *obj_list);
+void diagram_select(Diagram *diagram, Object *obj);
+void diagram_select_list(Diagram *diagram, GList *list);
+int diagram_is_selected(Diagram *diagram, Object *obj);
+GList *diagram_get_sorted_selected(Diagram *dia);
 /* Removes selected from objects list, NOT selected list: */
-extern GList *diagram_get_sorted_selected_remove(Diagram *dia);
-extern void diagram_add_update(Diagram *dia, Rectangle *update);
-extern void diagram_add_update_all(Diagram *dia);
-extern void diagram_add_update_all_all_and_flush();
-extern void diagram_add_update_pixels(Diagram *dia, Point *point,
-				      int pixel_width, int pixel_height);
-extern void diagram_flush(Diagram *dia);
-extern Object *diagram_find_clicked_object(Diagram *dia,
-					   Point *pos,
-					   real maxdist);
-extern real diagram_find_closest_handle(Diagram *dia, Handle **handle,
-					Object **obj, Point *pos);
-extern real diagram_find_closest_connectionpoint(Diagram *dia,
-						 ConnectionPoint **cp,
-						 Point *pos);
-extern void diagram_update_extents(Diagram *dia);
+GList *diagram_get_sorted_selected_remove(Diagram *dia);
+void diagram_add_update(Diagram *dia, Rectangle *update);
+void diagram_add_update_all(Diagram *dia);
+void diagram_add_update_all_all_and_flush();
+void diagram_add_update_pixels(Diagram *dia, Point *point,
+			       int pixel_width, int pixel_height);
+void diagram_flush(Diagram *dia);
+Object *diagram_find_clicked_object(Diagram *dia,
+				    Point *pos,
+				    real maxdist);
+real diagram_find_closest_handle(Diagram *dia, Handle **handle,
+				 Object **obj, Point *pos);
+real diagram_find_closest_connectionpoint(Diagram *dia,
+					  ConnectionPoint **cp,
+					  Point *pos);
+void diagram_update_extents(Diagram *dia);
 
-extern void diagram_update_menu_sensitivity(Diagram *dia);
+void diagram_update_menu_sensitivity(Diagram *dia);
 
-extern void diagram_place_under_selected(Diagram *dia);
-extern void diagram_place_over_selected(Diagram *dia);
-extern void diagram_group_selected(Diagram *dia);
-extern void diagram_ungroup_selected(Diagram *dia);
+void diagram_place_under_selected(Diagram *dia);
+void diagram_place_over_selected(Diagram *dia);
+void diagram_group_selected(Diagram *dia);
+void diagram_ungroup_selected(Diagram *dia);
 
-extern void diagram_set_filename(Diagram *dia, char *filename);
+void diagram_set_filename(Diagram *dia, char *filename);
 
-extern void diagram_import_from_xfig(Diagram *dia, char *filename);
+void diagram_import_from_xfig(Diagram *dia, char *filename);
 
-extern int diagram_modified_exists(void);
+int diagram_modified_exists(void);
 
-extern void diagram_redraw_all();
+void diagram_redraw_all();
 
 #endif /* DIAGRAM_H */
 

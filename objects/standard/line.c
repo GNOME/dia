@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#include <stdio.h>
+
 #include <assert.h>
 #include <gtk/gtk.h>
 #include <math.h>
@@ -114,6 +114,10 @@ static PropDescription line_props[] = {
   PROP_STD_LINE_STYLE,
   PROP_STD_START_ARROW,
   PROP_STD_END_ARROW,
+  { "start_point", PROP_TYPE_POINT, 0,
+    N_("Start point"), NULL },
+  { "end_point", PROP_TYPE_POINT, 0,
+    N_("End point"), NULL },
   PROP_DESC_END
 };
 
@@ -133,6 +137,8 @@ static PropOffset line_offsets[] = {
     offsetof(Line, line_style), offsetof(Line, dashlength) },
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Line, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Line, end_arrow) },
+  { "start_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[0]) },
+  { "end_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[1]) },
   { NULL, 0, 0 }
 };
 

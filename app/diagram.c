@@ -32,8 +32,29 @@
 #include "layer_dialog.h"
 #include "app_procs.h"
 #include "dia_dirs.h"
+#include "load_save.h"
 
 GList *open_diagrams = NULL;
+
+Diagram *
+diagram_load(const char *filename, DiaImportFilter *ifilter)
+{
+  Diagram *diagram;
+
+  if (!ifilter)
+    ifilter = filter_guess_import_filter(filename);
+  if (!ifilter)  /* default to native format */
+    ifilter = &dia_import_filter;
+  diagram = new_diagram(filename);
+  if (ifilter->import(filename, diagram->data)) {
+    diagram->unsaved = FALSE;
+    diagram_set_modified(diagram, FALSE);
+  } else {
+    diagram_destroy(diagram);
+    diagram = NULL;
+  }
+  return diagram;
+}
 
 Diagram *
 new_diagram(const char *filename)  /* Note: filename is copied */

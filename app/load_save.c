@@ -347,22 +347,6 @@ diagram_data_load(const char *filename, DiagramData *data)
   return TRUE;
 }
 
-Diagram *
-diagram_load(const char *filename)
-{
-  Diagram *dia;
-
-  dia = new_diagram(filename);
-  if (diagram_data_load(filename, dia->data)) {
-    dia->unsaved = FALSE;
-    diagram_set_modified(dia, FALSE);
-  } else {
-    diagram_destroy(dia);
-    dia = NULL;
-  }
-  return dia;
-}
-
 static void
 write_objects(GList *objects, xmlNodePtr objects_node,
 	      GHashTable *objects_hash, int *obj_nr, const char *filename)

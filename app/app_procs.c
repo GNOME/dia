@@ -225,7 +225,7 @@ app_init (int argc, char **argv)
 #ifdef HAVE_POPT
     while (poptPeekArg(poptCtx)) {
       in_file_name = (char *)poptGetArg(poptCtx);
-      diagram = diagram_load (in_file_name);
+      diagram = diagram_load (in_file_name, NULL);
       if (export_file_name) {
 	DiaExportFilter *ef;
 	if (!diagram) {
@@ -249,7 +249,7 @@ app_init (int argc, char **argv)
       Diagram *diagram;
       DDisplay *ddisp;
       
-      diagram = diagram_load(argv[i]);
+      diagram = diagram_load(argv[i], NULL);
       
       if (diagram != NULL) {
 	diagram_update_extents(diagram);

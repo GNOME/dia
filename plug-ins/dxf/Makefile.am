@@ -4,7 +4,8 @@ pkglib_LTLIBRARIES = libdxf_filter.la
 
 libdxf_filter_la_SOURCES = \
 	dxf.c \
-	dxf-export.c
+	dxf-export.c \
+	dxf-import.c
 
 libdxf_filter_la_LDFLAGS = -export-dynamic -module -avoid-version
 libdxf_filter_la_LIBADD = @GTK_LIBS@

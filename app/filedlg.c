@@ -127,20 +127,7 @@ file_open_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 
   ifilter = gtk_object_get_user_data(GTK_OBJECT(GTK_OPTION_MENU(open_omenu)
 						->menu_item));
-  if (!ifilter)
-    ifilter = filter_guess_import_filter(filename);
-  if (ifilter) {
-    diagram = new_diagram(filename);
-    if (ifilter->import(filename, diagram->data)) {
-      diagram->unsaved = FALSE;
-      diagram_set_modified(diagram, FALSE);
-    } else {
-      diagram_destroy(diagram);
-      diagram = NULL;
-    }
-  } else
-    message_error(_("Could not determine which import filter\n"
-		    "to use to open '%s'"), filename);
+  diagram = diagram_load(filename, ifilter);
 
   if (diagram != NULL) {
     diagram_update_extents(diagram);
