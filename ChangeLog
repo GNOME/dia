@@ -1,5 +1,9 @@
 2001-03-09  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* samples/Makefile.am: included all samples in the distribution....
+	
+2001-03-09  Cyrille Chepelov  <chepelov@calixo.net>
+
 	* configure.in: removed premature test for DPS. Added -*- m4 -*-
 	at the beginning. Made HAVE_UNICODE non-default. po/es_ES.po has
 	vanished, removed it from ALL_LINGUAS.
