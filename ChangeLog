@@ -1,3 +1,8 @@
+2000-03-16  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* dia.1
+	Fixed man page so whatis parsing works.
+
 2000-03-12  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/render_libart.c (new_libart_renderer):
