@@ -814,12 +814,36 @@ draw_arc_with_arrows(DiaRenderer *self,
 		     Arrow *end_arrow) 
 {
   Point center;
+  Point t1, t2;
+  Point l1, l2;
+  Point p1, p2;
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
   if (renderer->color_pass) {
     figCheckColor(renderer, color);
     return;
   }
+
+  /* Since the lines between points on the circle form tangents, the
+   * intersection between the perpendiculars to those give the center.
+   */
+  
+  t1 = t2 = *midpoint;
+  point_sub(&t1, startpoint);
+  point_sub(&t2, endpoint);
+  point_scale(&t1, .5);
+  point_scale(&t2, .5);
+  p1 = p2 = *midpoint;
+  point_add(&p1, &t1);
+  point_add(&p2, &t2);
+  /* Now p1 and p2 are the midpoints of the tangents */
+  point_normalize(&t1);
+  point_normalize(&t2);
+  point_get_perp(&l1, &t1);
+  point_get_perp(&l2, &t2);
+  /* Now p1->t1 and p2->t2 give vectors crossing at the center.
+   * The direction of the vector (in or out) doesn't matter. */
+  
 
   center.x = 0.0;
   center.y = 0.0;
