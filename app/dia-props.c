@@ -33,8 +33,8 @@
 #include "intl.h"
 #include "display.h"
 #include "widgets.h"
+#include "display.h"
 
-static Diagram *active_diagram = NULL;
 static GtkWidget *dialog = NULL;
 static GtkWidget *width_x_entry, *width_y_entry;
 static GtkWidget *visible_x_entry, *visible_y_entry;
@@ -208,8 +208,7 @@ diagram_properties_show(Diagram *dia)
 {
   if (!dialog)
     create_diagram_properties_dialog();
-  if (active_diagram != dia) {
-    active_diagram = dia;
+  if (ddisplay_active_diagram() != dia) {
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_x_entry),
 			      dia->data->grid.width_x);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_y_entry),
@@ -227,6 +226,8 @@ diagram_properties_show(Diagram *dia)
 static void
 diagram_properties_apply(GtkWidget *dialog)
 {
+  Diagram *active_diagram = ddisplay_active_diagram();
+
   if (active_diagram) {
     active_diagram->data->grid.width_x =
       gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(width_x_entry));

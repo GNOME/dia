@@ -435,7 +435,12 @@ static void create_user_dirs(void)
 #endif
   dir = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia", NULL);
   if (mkdir(dir, 0755) && errno != EEXIST)
+#ifndef G_OS_WIN32
     g_error(_("Could not create per-user Dia config directory"));
+#else /* HB: it this really a reason to exit the program on *nix ? */
+    g_warning(_("Could not create per-user Dia config directory. Please make "
+        "sure that the environment variable HOME points to an existing directory."));
+#endif
 
   /* it is no big deal if these directories can't be created */
   subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "objects", NULL);

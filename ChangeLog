@@ -1,3 +1,26 @@
+<<<<<<< ChangeLog
+2001-03-23  Hans Breuer  <hans@breuer.org>
+
+	* app/app_procs.c : don't g_error () if the config directory
+	can't be created (at least not on windoze) because it's quite
+	common that the user don't read or understand the FAQ ...
+
+	* app/cursor.c : use ddisplay_active () instead of active_display
+	from app/display.c
+
+	* app/display.[hc] : made active_display var static and provide
+	an accessor funtion ddisplay_active_diagram ()
+
+	* app/dia-props.c : don't store the active_diagram, but ask
+	for it everytime it needed.
+
+	* lib/properties.h : #include "intl.h"
+
+	* lib/makefile.msc : need to take care of inclusion order to
+	avoid clashes with gtk+2.0's gdk-pixbuf
+
+	* objects/makefile.msc : added uml/stereotype.c to build
+
 2001-03-23  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* **/*.c: Added config.h to the remaining .c files, and changed

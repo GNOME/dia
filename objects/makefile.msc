@@ -177,7 +177,8 @@ OBJECTS = \
 	classicon.obj \
 	state.obj \
 	branch.obj \
-	node.obj
+	node.obj \
+	stereotype.obj
 
 !ENDIF
 

@@ -34,6 +34,7 @@
 #include "font.h"
 #include "object.h"
 #include "dia_xml.h"
+#include "intl.h"
 
 #ifndef _prop_typedefs_defined
 #define _prop_typedefs_defined

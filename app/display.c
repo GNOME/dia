@@ -52,7 +52,7 @@ static GdkCursor *current_cursor = NULL;
 
 GdkCursor *default_cursor = NULL;
 
-DDisplay *active_display = NULL;
+static DDisplay *active_display = NULL;
 
 
 typedef struct _IRectangle {
@@ -802,6 +802,15 @@ DDisplay *
 ddisplay_active(void)
 {
   return active_display;
+}
+
+Diagram *
+ddisplay_active_diagram(void)
+{
+  DDisplay *ddisp = ddisplay_active ();
+
+  if (!ddisp) return NULL;
+  return ddisp->diagram;
 }
 
 static void

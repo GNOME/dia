@@ -81,6 +81,7 @@ get_cursor(DiaCursorType ctype) {
     if (cursors[ctype].gdk_cursor_number != DIA_CURSOR) {
       new_cursor = gdk_cursor_new(cursors[ctype].gdk_cursor_number);
     } else {
+      DDisplay *active_display = ddisplay_active (); 
       if (active_display != NULL) 
 	new_cursor = create_cursor(active_display->canvas->window,
 				   cursors[ctype].data,

@@ -73,8 +73,6 @@ struct _DDisplay {
 
 extern GdkCursor *default_cursor;
 
-extern DDisplay *active_display;
-
 DDisplay *new_display(Diagram *dia);
 /* Normal destroy is done through shell widget destroy event. */
 void ddisplay_really_destroy(DDisplay *ddisp); 
@@ -111,6 +109,7 @@ void ddisplay_resize_canvas(DDisplay *ddisp,
 void ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update);
 
 DDisplay *ddisplay_active(void);
+Diagram *ddisplay_active_diagram(void);
 
 void ddisplay_close(DDisplay *ddisp);
 
