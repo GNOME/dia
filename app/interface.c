@@ -18,8 +18,10 @@
 /* $Header$ */
 
 #include "config.h"
+#ifdef GNOME
+#include <gnome.h>
+#endif
 #include "intl.h"
-
 #include "interface.h"
 #include "menus.h"
 #include "disp_callbacks.h"
@@ -211,10 +213,14 @@ create_display_shell(DDisplay *ddisp,
                     GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
 
   /*  the popup menu  */
+#ifdef GNOME
+  ddisp->popup = gnome_display_menus_create ();
+#else
   menus_get_image_menu (&ddisp->popup, &ddisp->accel_group);
 
   /*  the accelerator table/group for the popup */
   gtk_window_add_accel_group (GTK_WINDOW(ddisp->shell), ddisp->accel_group);
+#endif
 
   gtk_widget_show (ddisp->hsb);
   gtk_widget_show (ddisp->vsb);
@@ -562,6 +568,7 @@ create_toolbox ()
   gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
   gtk_window_set_wmclass (GTK_WINDOW (window), "toolbox_window",
 			  "Dia");
+#endif
 
   gtk_signal_connect (GTK_OBJECT (window), "delete_event",
 		      GTK_SIGNAL_FUNC (toolbox_delete),
@@ -570,7 +577,6 @@ create_toolbox ()
   gtk_signal_connect (GTK_OBJECT (window), "destroy",
 		      GTK_SIGNAL_FUNC (toolbox_destroy),
 		      NULL);
-#endif
 
   main_vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
@@ -582,7 +588,7 @@ create_toolbox ()
   gtk_widget_show (main_vbox);
 
 #ifdef GNOME
-  gnome_menus_create(window);
+  gnome_toolbox_menus_create(window);
 #else
   menus_get_toolbox_menubar(&menubar, &accel_group);
   gtk_accel_group_attach (accel_group, GTK_OBJECT (window));

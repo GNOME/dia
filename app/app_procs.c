@@ -59,6 +59,10 @@ static void register_all_sheets(void);
 static int name_is_lib(char *name);
 
 #ifdef GNOME
+static struct poptOption options[] = {
+  {NULL, '\0', 0, NULL, 0}
+};
+
 static void
 session_die (gpointer client_data)
 {
@@ -74,75 +78,25 @@ save_state (GnomeClient        *client,
 	    gint                fast,
 	    gpointer            client_data)
 {
-  /*
   gchar *argv[20];
-  gchar *s;
-  gint i = 0, j;
-  HelpWindow win;
-  gint xpos, ypos;
-  gint xsize, ysize;
+  gint i = 0;
+  GList *l;
+  Diagram *dia;
 
-  g_message("Saving myself");
-  gdk_window_get_origin(appwin->window, &xpos, &ypos);
-  gdk_window_get_size(appwin->window, &xsize, &ysize);
+  argv[i++] = "dia";
 
-  argv[i++] = program_invocation_name;
-  argv[i++] = (char *) "-x";
-  s = alloca(20);
-  snprintf(s, 20, "%d", xpos);
-  argv[i++] = s;
-  argv[i++] = (char *) "-y";
-  s = alloca(20);
-  snprintf(s, 20, "%d", ypos);
-  argv[i++] = s;
-  argv[i++] = (char *) "-w";
-  s = alloca(20);
-  snprintf(s, 20, "%d", xsize);
-  argv[i++] = s;
-  argv[i++] = (char *) "-h";
-  s = alloca(20);
-  snprintf(s, 20, "%d", ysize);
-  argv[i++] = s;
-
-  s = alloca(512);
-  snprintf(s, 512, "restart command is");
-  for (j=0; j<i; j++) {
-    strncat(s, " ", 511);
-    strncat(s, argv[j], 511);
+  for(l = open_diagrams; l != NULL; l = g_list_next(l)) {
+    dia = (Diagram *)l->data;
+    if(!dia->unsaved) {
+      argv[i++] = dia->filename;
+    }
   }
-  g_message("%s", s);
 
   gnome_client_set_restart_command (client, i, argv);
-  gnome_client_set_clone_command (client, 0, NULL);
-  */
+  gnome_client_set_clone_command (client, i, argv);
 
   return TRUE;
-} 
-
-static GnomeClient
-*new_gnome_client()
-{
-  gchar *buf[1024];
-  GnomeClient *client;
-
-  client = gnome_client_new();
-
-  if (!client)
-    return NULL;
-
-  getcwd((char *)buf, sizeof(buf));
-  gnome_client_set_current_directory(client, (char *)buf);
-
-  gtk_object_ref(GTK_OBJECT(client));
-  gtk_object_sink(GTK_OBJECT(client));
-
-  gtk_signal_connect (GTK_OBJECT (client), "save_yourself",
-		      GTK_SIGNAL_FUNC (save_state), NULL);
-  gtk_signal_connect (GTK_OBJECT (client), "die",
-		      GTK_SIGNAL_FUNC (session_die), NULL);
-  return client;
 }
-
 #endif
 
 static int current_version = 0;
@@ -153,19 +107,31 @@ app_init (int argc, char **argv)
   Diagram *diagram;
   DDisplay *ddisp;
 #ifdef GNOME
-  GnomeClient client;
-  GtkWidget *app;
+  GnomeClient *client;
+  poptContext poptCtx;
 #endif
   int i;
-        
-  gtk_set_locale ();
+
+  gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
   
   bindtextdomain(PACKAGE, LOCALEDIR);
   textdomain(PACKAGE);
 
 #ifdef GNOME
-  gnome_init (PACKAGE, VERSION, argc, argv);
+  gnome_init_with_popt_table(PACKAGE, VERSION, argc, argv, options,
+			     0, &poptCtx);
+
+  client = gnome_master_client();
+  if(client == NULL) {
+    g_warning("Can't connect to session manager!\n");
+  }
+  else {
+    gtk_signal_connect(GTK_OBJECT (client), "save_yourself",
+		       GTK_SIGNAL_FUNC (save_state), NULL);
+    gtk_signal_connect(GTK_OBJECT (client), "die",
+		       GTK_SIGNAL_FUNC (session_die), NULL);
+  }
 #else
   gtk_init (&argc, &argv);
   gdk_imlib_init();
@@ -206,7 +172,17 @@ app_init (int argc, char **argv)
   create_toolbox();
 
   create_layer_dialog();
-    
+
+#ifdef GNOME
+  while (poptPeekArg(poptCtx)) {
+    diagram = diagram_load(poptGetArg(poptCtx));
+    if (diagram != NULL) {
+      diagram_update_extents(diagram);
+      ddisp = new_display(diagram);
+      diagram_add_ddisplay(diagram, ddisp);
+    }
+  }
+#else
   /* In case argc > 1 load diagram files */
   i = 1;
   while (i < argc) {
@@ -218,6 +194,7 @@ app_init (int argc, char **argv)
     }
     i++;
   }
+#endif
 }
 
 static void

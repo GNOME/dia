@@ -20,6 +20,17 @@
 
 #include <gtk/gtk.h>
 
+#include "config.h"
+#ifdef GNOME
+#include <gnome.h>
+#endif
+
+#ifdef GNOME
+extern void gnome_toolbox_menus_create(GtkWidget* app);
+
+extern GtkWidget * gnome_display_menus_create();
+#endif
+
 extern void menus_get_toolbox_menubar (GtkWidget         **menubar,
 				       GtkAccelGroup **accel);
 extern void menus_get_image_menu (GtkWidget         **menu,

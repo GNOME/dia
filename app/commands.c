@@ -24,7 +24,7 @@
 
 #include "config.h"
 #ifdef GNOME
-#include "gnome.h"
+#include <gnome.h>
 #endif
 #include "intl.h"
 #include "commands.h"
@@ -450,11 +450,13 @@ help_about_callback(GtkWidget *widget, gpointer data)
 #ifdef GNOME
   const gchar *authors[] = { "Alexander Larsson", NULL };
 
-  GtkWidget *about = gnome_about_new (PACKAGE, VERSION,
-				      _("Copyright (C) 1999"),
-				      authors,
-				      _("Comment line 1\nLine 2"),
-				      "/usr/share/pixmaps/gnome-unknown.xpm");
+  GtkWidget *about = 
+    gnome_about_new (PACKAGE, VERSION,
+		     _("Copyright (C) 1999"),
+		     authors,
+		     _("Please visit http://www.lysator.liu.se/~alla/dia "
+		       "for more info"),
+		     NULL);
   gtk_widget_show(about);
 #else
   dialog = gtk_dialog_new ();
@@ -482,7 +484,7 @@ help_about_callback(GtkWidget *widget, gpointer data)
 			   "for more info"));
   gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, TRUE, 2);
 
-  button = gtk_button_new_with_label (_("Ok"));
+  button = gtk_button_new_with_label (_("OK"));
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
 		      button, FALSE, FALSE, 0);
   gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
@@ -540,9 +542,7 @@ view_zoom_set_callback(GtkWidget *widget, gpointer data)
   percent = (int) data;
   scale = ((real) percent)/1000.0 * DDISPLAY_NORMAL_ZOOM;
 
-  ddisplay_zoom(ddisp, &middle, scale / ddisp->zoom_factor);
-  
-  
+  ddisplay_zoom(ddisp, &middle, scale / ddisp->zoom_factor);  
 }
 
 void
@@ -717,6 +717,7 @@ objects_align_h_callback(GtkWidget *widget, gpointer data)
   GList *objects;
 
   align = GPOINTER_TO_INT(data);
+
   dia = ddisplay_active()->diagram;
   objects = dia->data->selected;
   

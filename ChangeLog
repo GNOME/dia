@@ -1,3 +1,17 @@
+1999-02-07  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* app/app_procs.c
+	Rudimentary GNOME session management.
+	
+	* app/disp_callbacks.c
+	* app/interface.c
+	* app/menus.c
+	* app/menus.h
+	GNOME menus. Problems: 
+	Callbacks doesn't get user_data.
+	Weird warnings when creating popup menus.
+	menus_set_sensitive(), menus_set_state() doesn't work.
+
 1999-02-05  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
 	* configure.in:

@@ -19,13 +19,129 @@
 #include <string.h>
 
 #include "config.h"
-#include "intl.h"
 #ifdef GNOME
 #include <gnome.h>
 #endif
+#include "intl.h"
 #include "menus.h"
 #include "commands.h"
 #include "message.h"
+
+#if GNOME
+static GnomeUIInfo toolbox_filemenu[] = {
+  GNOMEUIINFO_MENU_NEW_ITEM(N_("_New diagram"), N_("Create new diagram"),
+			    file_new_callback, NULL),
+  GNOMEUIINFO_MENU_OPEN_ITEM(file_open_callback, NULL),
+  GNOMEUIINFO_SEPARATOR,
+  GNOMEUIINFO_MENU_EXIT_ITEM(file_quit_callback, NULL),
+  GNOMEUIINFO_END  
+};
+
+static GnomeUIInfo filemenu[] = {
+  GNOMEUIINFO_MENU_NEW_ITEM(N_("_New diagram"), N_("Create new diagram"),
+			    file_new_callback, NULL),
+  GNOMEUIINFO_MENU_OPEN_ITEM(file_open_callback, NULL),
+  GNOMEUIINFO_MENU_SAVE_ITEM(file_save_callback, NULL),
+  GNOMEUIINFO_MENU_SAVE_AS_ITEM(file_save_as_callback, NULL),
+  GNOMEUIINFO_SEPARATOR,
+  GNOMEUIINFO_MENU_CLOSE_ITEM(file_close_callback, NULL),
+  GNOMEUIINFO_MENU_EXIT_ITEM(file_quit_callback, NULL),
+  GNOMEUIINFO_END
+};
+
+static GnomeUIInfo editmenu[] = {
+  GNOMEUIINFO_MENU_COPY_ITEM(edit_copy_callback, NULL),
+  GNOMEUIINFO_MENU_CUT_ITEM(edit_cut_callback, NULL),
+  GNOMEUIINFO_MENU_PASTE_ITEM(edit_paste_callback, NULL),
+  GNOMEUIINFO_END
+};
+
+#define GNOMEUIINFO_ITEM_NONE_DATA(label, tooltip, callback, user_data) \
+        { GNOME_APP_UI_ITEM, label, tooltip, callback, GINT_TO_POINTER(user_data), \
+          NULL, GNOME_APP_PIXMAP_NONE, NULL, 0, (GdkModifierType) 0, NULL }
+
+static GnomeUIInfo zoommenu[] = {
+  GNOMEUIINFO_ITEM_NONE_DATA("400%", NULL, view_zoom_set_callback, 4000),
+  GNOMEUIINFO_ITEM_NONE_DATA("283%", NULL, view_zoom_set_callback, 2828),
+  GNOMEUIINFO_ITEM_NONE_DATA("200%", NULL, view_zoom_set_callback, 2000),
+  GNOMEUIINFO_ITEM_NONE_DATA("141%", NULL, view_zoom_set_callback, 1414),
+  GNOMEUIINFO_ITEM_NONE_DATA("100%", NULL, view_zoom_set_callback, 1000),
+  GNOMEUIINFO_ITEM_NONE_DATA("85%", NULL, view_zoom_set_callback, 850),
+  GNOMEUIINFO_ITEM_NONE_DATA("70.7%", NULL, view_zoom_set_callback, 707),
+  GNOMEUIINFO_ITEM_NONE_DATA("50%", NULL, view_zoom_set_callback, 500),
+  GNOMEUIINFO_ITEM_NONE_DATA("35.4%", NULL, view_zoom_set_callback, 354),
+  GNOMEUIINFO_ITEM_NONE_DATA("25%", NULL, view_zoom_set_callback, 250),
+  GNOMEUIINFO_END
+};
+
+static GnomeUIInfo viewmenu[] = {
+  GNOMEUIINFO_ITEM_NONE(N_("Zoom _In"), N_("Zoom in 50%"), view_zoom_in_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("Zoom _Out"), N_("Zoom out 50%"), view_zoom_out_callback),
+  GNOMEUIINFO_SUBTREE(N_("_Zoom"), zoommenu),
+  GNOMEUIINFO_ITEM_NONE(N_("Edit Grid..."), NULL, view_edit_grid_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("_Visible Grid"), NULL, view_visible_grid_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("_Snap To Grid"), NULL, view_snap_to_grid_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("Toggle _Rulers"), NULL, view_toggle_rulers_callback),
+  GNOMEUIINFO_SEPARATOR,
+  GNOMEUIINFO_ITEM_NONE(N_("New _View"), NULL, view_new_view_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("Show_All"), NULL, view_show_all_callback),
+  GNOMEUIINFO_END
+};
+
+static GnomeUIInfo objects_align_h[] = {
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Top"), NULL, objects_align_h_callback, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_h_callback, 1),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_h_callback, 2),
+  GNOMEUIINFO_END
+};
+
+static GnomeUIInfo objects_align_v[] = {
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Top"), NULL, objects_align_v_callback, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_v_callback, 1),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_v_callback, 2),
+  GNOMEUIINFO_END
+};
+
+static GnomeUIInfo objectsmenu[] = {
+  GNOMEUIINFO_ITEM_NONE(N_("Place _Under"), NULL, objects_place_under_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("Place _Over"), NULL, objects_place_over_callback),
+  GNOMEUIINFO_SEPARATOR,
+  GNOMEUIINFO_ITEM_NONE(N_("_Group"), NULL, objects_group_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("_Ungrop"), NULL, objects_ungroup_callback),
+  GNOMEUIINFO_SEPARATOR,
+  GNOMEUIINFO_SUBTREE(N_("Align _Horizontal"), objects_align_h),
+  GNOMEUIINFO_SUBTREE(N_("Align _Vertical"), objects_align_v),
+  GNOMEUIINFO_END
+};
+
+static GnomeUIInfo dialogsmenu[] = {
+  GNOMEUIINFO_ITEM_NONE(N_("_Properties"), NULL, dialogs_properties_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("_Layers"), NULL, dialogs_layers_callback),
+  GNOMEUIINFO_END
+};
+
+static GnomeUIInfo helpmenu[] = {
+  GNOMEUIINFO_MENU_ABOUT_ITEM(help_about_callback, NULL),
+  GNOMEUIINFO_SEPARATOR,
+  GNOMEUIINFO_HELP("help-browser"),
+  GNOMEUIINFO_END
+};
+
+static GnomeUIInfo toolbox_menu[] = {
+  GNOMEUIINFO_SUBTREE(N_("File"), toolbox_filemenu),
+  GNOMEUIINFO_SUBTREE(N_("Help"), helpmenu),
+  GNOMEUIINFO_END
+};
+
+static GnomeUIInfo display_menu[] = {
+  GNOMEUIINFO_MENU_FILE_TREE(filemenu),
+  GNOMEUIINFO_MENU_EDIT_TREE(editmenu),
+  GNOMEUIINFO_MENU_VIEW_TREE(viewmenu),
+  GNOMEUIINFO_SUBTREE(N_("Objects"), objectsmenu),
+  GNOMEUIINFO_SUBTREE(N_("Dialogs"), dialogsmenu),
+  GNOMEUIINFO_END
+};
+#endif
 
 static GtkItemFactoryEntry toolbox_menu_items[] =
 {
@@ -37,50 +153,6 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {N_("/_Help"),        NULL,         NULL,               0, "<LastBranch>" },
   {N_("/Help/_About"),  NULL,         help_about_callback,0 },
 };
-
-#if GNOME
-static GnomeUIInfo filemenu[] = {
-  {
-    GNOME_APP_UI_ITEM, 
-    N_("About"), N_("Info about this program"),
-    help_about_callback, NULL, NULL, 
-    GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ABOUT,
-    0, 0, NULL
-  },
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_HELP("help-browser"),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo helpmenu[] = {
-  {
-    GNOME_APP_UI_ITEM, 
-    N_("About"), N_("Info about this program"),
-    help_about_callback, NULL, NULL, 
-    GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ABOUT,
-    0, 0, NULL
-  },
-  GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_HELP("help-browser"),
-  GNOMEUIINFO_END
-};
-
-static GnomeUIInfo mainmenu[] = {
-  GNOMEUIINFO_SUBTREE(N_("File"), filemenu),
-  GNOMEUIINFO_SUBTREE(N_("Help"), helpmenu),
-  GNOMEUIINFO_END
-};
-#endif
-
-#if 0
-static void
-tearoff (gpointer             callback_data,
-	 guint                callback_action,
-	 GtkWidget           *widget)
-{
-  g_message ("ItemFactory: activated \"%s\"", gtk_item_factory_path_from_widget (widget));
-}
-#endif
 
 static GtkItemFactoryEntry display_menu_items[] =
 {
@@ -155,9 +227,25 @@ static GtkAccelGroup *display_accel_group = NULL;
 
 #ifdef GNOME
 void
-gnome_menus_create(GtkWidget* app)
+gnome_toolbox_menus_create(GtkWidget* app)
 {
-  gnome_app_create_menus(GNOME_APP(app), mainmenu);
+  gnome_app_create_menus(GNOME_APP(app), toolbox_menu);
+}
+
+GtkWidget *
+gnome_display_menus_create()
+{
+  return gnome_popup_menu_new(display_menu);
+}
+#endif
+
+#if 0
+static void
+tearoff (gpointer             callback_data,
+	 guint                callback_action,
+	 GtkWidget           *widget)
+{
+  g_message ("ItemFactory: activated \"%s\"", gtk_item_factory_path_from_widget (widget));
 }
 #endif
 
@@ -167,7 +255,7 @@ translate_entries (const GtkItemFactoryEntry *entries, gint n)
   gint i;
   GtkItemFactoryEntry *ret;
 
-  ret=g_malloc( sizeof(GtkItemFactoryEntry) * n );
+  ret=g_malloc(sizeof(GtkItemFactoryEntry) * n);
   for (i=0; i<n; i++) {
     /* Translation. Note the explicit use of gettext(). */
     ret[i].path=g_strdup( gettext(entries[i].path) );
@@ -229,9 +317,13 @@ menus_set_sensitive (char *path,
 {
   GtkWidget *widget;
     
+#ifdef GNOME
+  widget = NULL;
+#else
   widget = gtk_item_factory_get_widget(display_item_factory, path);
   if (widget == NULL)
     widget = gtk_item_factory_get_widget(toolbox_item_factory, path);
+#endif
 
   if (widget != NULL) 
     gtk_widget_set_sensitive (widget, sensitive);
@@ -244,10 +336,14 @@ menus_set_state (char *path,
                  int   state)
 {
   GtkWidget *widget;
-    
+
+#ifdef GNOME
+  widget = NULL;
+#else
   widget = gtk_item_factory_get_widget(display_item_factory, path);
   if (widget == NULL)
     widget = gtk_item_factory_get_widget(toolbox_item_factory, path);
+#endif
 
   if (widget != NULL) {
     if (GTK_IS_CHECK_MENU_ITEM (widget))

@@ -20,6 +20,10 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
+#include "config.h"
+#ifdef GNOME
+#include <gnome.h>
+#endif
 #include "display.h"
 #include "tool.h"
 #include "interface.h"
@@ -221,9 +225,12 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
 	case 3:
 	  popup_shell = ddisp->shell;
+#ifdef GNOME
+	  gnome_popup_menu_do_popup(ddisp->popup, NULL, NULL, bevent, NULL);
+#else
           display_set_menu_sensitivity(ddisp);
 	  gtk_menu_popup(GTK_MENU(ddisp->popup), NULL, NULL, NULL, NULL, 0, 0);
-	  
+#endif  
  	  break;
 
 	default:
