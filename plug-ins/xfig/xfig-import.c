@@ -589,8 +589,6 @@ create_standard_text(real xpos, real ypos, char *text,
 				 &h1, &h2);
     layer_add_object(dia->active_layer, new_obj);
 
-    message_warning("Creating text '%s'\n", text);
-
     props[0].name = "text";
     props[0].type = PROP_TYPE_STRING;
     PROP_VALUE_STRING(props[0]) = strdup(text);
@@ -607,9 +605,6 @@ create_standard_ellipse(real xpos, real ypos, real width, real height,
     Handle *h1, *h2;
     Property props[4];
     Point point;
-
-    message_warning("Creating standard ellipse at %lf, %lf, size %lf x %lf\n", 
-		    xpos, ypos, width, height);
 
     point.x = xpos;
     point.y = ypos;
