@@ -35,6 +35,14 @@
 #define DIR_SOUTH 4
 #define DIR_WEST  8
 
+/* Convenience directions */
+#define DIR_NORTHEAST DIR_NORTH|DIR_EAST
+#define DIR_SOUTHEAST DIR_SOUTH|DIR_EAST
+#define DIR_NORTHWEST DIR_NORTH|DIR_WEST
+#define DIR_SOUTHWEST DIR_SOUTH|DIR_WEST
+#define DIR_NONE      0
+#define DIR_ALL       DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST
+
 struct _ConnectionPoint {
   Point pos;         /* position of this connection point */
   Point last_pos;    /* Used by update_connections_xxx only. */

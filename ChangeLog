@@ -1,5 +1,7 @@
 2003-08-12  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/connectionpoint.h: Convenience DIR_ macros.
+
 	* app/preferences.c (prefs_data): Make pretty formatted XML the
 	default.
 
