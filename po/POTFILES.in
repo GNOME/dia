@@ -27,12 +27,12 @@ app/render_svg.c
 app/select.c
 lib/bezier_conn.c
 lib/diagramdata.c
+lib/filter.c
 lib/font.c
 lib/message.c
 lib/plug-ins.c
-lib/widgets.c
-lib/properties.h
 lib/properties.c
+lib/properties.h
 lib/widgets.c
 objects/ER/attribute.c
 objects/ER/entity.c
@@ -96,3 +96,8 @@ objects/standard/textobj.c
 objects/standard/zigzagline.c
 objects/sybase/sybase.c
 plug-ins/cgm/cgm.c
+plug-ins/dxf/dxf-export.c
+plug-ins/dxf/dxf.c
+plug-ins/pstricks/pstricks.c
+plug-ins/pstricks/render_pstricks.c
+

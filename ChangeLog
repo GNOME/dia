@@ -1,5 +1,9 @@
 2000-05-18  James Henstridge  <james@daa.com.au>
 
+	* po/POTFILES.in: updated POTFILES.in.
+
+	* dia.spec: incremented version number in spec file.
+
 	* NEWS: added (lots of) news items for the 0.85 release.
 
 	* app/preferences.c (prefs_save): set LC_NUMERIC to C while writing
