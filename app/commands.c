@@ -494,27 +494,22 @@ edit_cut_callback(GtkWidget *widget, gpointer data)
 {
   GList *cut_list;
   DDisplay *ddisp;
+  Change *change;
 
   ddisp = ddisplay_active();
 
-  /* Test: */
   diagram_selected_break_external(ddisp->diagram);
 
-  cut_list = diagram_get_sorted_selected_remove(ddisp->diagram);
-  diagram_remove_all_selected(ddisp->diagram, FALSE);
-
-  object_add_updates_list(cut_list, ddisp->diagram);
+  cut_list = diagram_get_sorted_selected(ddisp->diagram);
 
   cnp_store_objects(object_copy_list(cut_list));
 
-  undo_delete_objects(ddisp->diagram, cut_list);
-  
-  /* Have to close any open properties dialog
-     if it contains some object in cut_list */
-  /* TODO: ^^^^ */
+  change = undo_delete_objects(ddisp->diagram, cut_list);
+  (change->apply)(change, ddisp->diagram);
   
   diagram_update_menu_sensitivity(ddisp->diagram);
   diagram_flush(ddisp->diagram);
+
   undo_set_transactionpoint(ddisp->diagram->undo);
 }
 
@@ -550,7 +545,7 @@ edit_paste_callback(GtkWidget *widget, gpointer data)
   paste_corner = object_list_corner(paste_list);
 
   diagram_remove_all_selected(ddisp->diagram, TRUE);
-  diagram_add_selected_list(ddisp->diagram, paste_list);
+  diagram_select_list(ddisp->diagram, paste_list);
   diagram_add_object_list(ddisp->diagram, paste_list);
   object_add_updates_list(paste_list, ddisp->diagram);
 
@@ -563,14 +558,21 @@ edit_delete_callback(GtkWidget *widget, gpointer data)
   GList *delete_list;
   DDisplay *ddisp;
 
+  Change *change;
+
   ddisp = ddisplay_active();
-  delete_list = diagram_get_sorted_selected_remove(ddisp->diagram);
-  diagram_remove_all_selected(ddisp->diagram, FALSE);
 
-  object_add_updates_list(delete_list, ddisp->diagram);
-  destroy_object_list(delete_list);
+  diagram_selected_break_external(ddisp->diagram);
 
+  delete_list = diagram_get_sorted_selected(ddisp->diagram);
+
+  change = undo_delete_objects(ddisp->diagram, delete_list);
+  (change->apply)(change, ddisp->diagram);
+  
+  diagram_update_menu_sensitivity(ddisp->diagram);
   diagram_flush(ddisp->diagram);
+
+  undo_set_transactionpoint(ddisp->diagram->undo);
 } 
 
 void

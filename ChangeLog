@@ -1,3 +1,25 @@
+1999-06-14  Alexander Larsson  <alla@lysator.liu.se>
+
+	* TODO:
+	Added resizeable groups.
+
+	* app/app_procs.c:
+	Removed unused variable.
+
+	* app/commands.c:
+	* app/undo.[ch]:
+	Undo/redo for cut/delete done.
+
+	* app/create_object.c:
+	* app/modify_tool.c:
+	* lib/diagramdata.[ch]:
+	* app/diagram.[ch]:
+	renamed diagram_add_selected -> diagram_select
+	renamed diagram_remove_selected -> diagram_unselect
+	
+	* app/properties.[ch]:
+	Added properties_hide_if_shown() function.
+
 1999-06-13  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/undo.[ch]:

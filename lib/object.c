@@ -47,7 +47,7 @@ void
 object_destroy(Object *obj)
 {
   object_unconnect_all(obj);
-
+  
   if (obj->handles)
     g_free(obj->handles);
 

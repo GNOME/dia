@@ -19,6 +19,7 @@ general:
 * Accelerators for buttons in the toolbar.
 * Fix the transitive selection
 * User selectable grid color.
+* resizable groups.
 
 functions:
 * Turn on/off showing of connectionpoints

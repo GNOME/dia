@@ -18,7 +18,10 @@
 
 #include "undo.h"
 #include "object_ops.h"
+#include "properties.h"
 #include "connectionpoint_ops.h"
+#include "focus.h"
+
 static void
 transaction_point_pointer(Change *change, Diagram *dia)
 {
@@ -320,6 +323,7 @@ move_handle_apply(struct MoveHandleChange *change, Diagram *dia)
 				 &change->dest_pos,
 				 HANDLE_MOVE_USER_FINAL,0);
   object_add_updates(change->obj, dia);
+  diagram_update_connections_object(dia, change->obj, TRUE);
 }
 
 static void
@@ -330,6 +334,7 @@ move_handle_revert(struct MoveHandleChange *change, Diagram *dia)
 				 &change->orig_pos,
 				 HANDLE_MOVE_USER_FINAL,0);
   object_add_updates(change->obj, dia);
+  diagram_update_connections_object(dia, change->obj, TRUE);
 }
 
 static void
@@ -484,30 +489,59 @@ struct DeleteObjectsChange {
   Change change;
 
   Layer *layer;
-  GList *obj_list;
+  GList *obj_list; /* Owning reference when applied */
+  int applied;
 };
 
 static void
 delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
 {
+  GList *list;
+  
+  printf("delete_objects_apply()\n");
+  change->applied = 1;
+  diagram_unselect_objects(dia, change->obj_list);
   layer_remove_objects(change->layer, change->obj_list);
   object_add_updates_list(change->obj_list, dia);
+  
+  list = change->obj_list;
+  while (list != NULL) {
+    Object *obj = (Object *)list->data;
+
+  /* Have to hide any open properties dialog
+     if it contains some object in cut_list */
+    properties_hide_if_shown(dia, obj);
+
+    /* Remove focus if active */
+    if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
+      remove_focus();
+    }
+    
+    list = g_list_next(list);
+  }
+  
 }
 
 static void
 delete_objects_revert(struct DeleteObjectsChange *change, Diagram *dia)
 {
-  layer_add_objects(change->layer, change->obj_list);
+  printf("delete_objects_revert()\n");
+  change->applied = 0;
+  layer_add_objects(change->layer, g_list_copy(change->obj_list));
   object_add_updates_list(change->obj_list, dia);
 }
 
 static void
 delete_objects_free(struct DeleteObjectsChange *change)
 {
-  destroy_object_list(change->obj_list);
+  printf("delete_objects_free()\n");
+  if (change->applied)
+    destroy_object_list(change->obj_list);
+  else
+    g_list_free(change->obj_list);
 }
 
-extern Change *
+Change *
 undo_delete_objects(Diagram *dia, GList *obj_list)
 {
   struct DeleteObjectsChange *change;
@@ -520,6 +554,7 @@ undo_delete_objects(Diagram *dia, GList *obj_list)
 
   change->layer = dia->data->active_layer;
   change->obj_list = obj_list;
+  change->applied = 0;
 
   printf("UNDO: Push new delete objects at %d\n", depth(dia->undo));
   undo_push_change(dia->undo, (Change *) change);

@@ -63,8 +63,8 @@ extern void data_add_layer(DiagramData *data, Layer *layer);
 extern void data_add_layer_at(DiagramData *data, Layer *layer, int pos);
 extern void data_set_active_layer(DiagramData *data, Layer *layer);
 extern void data_delete_active_layer(DiagramData *data);
-extern void data_add_selected(DiagramData *data, Object *obj);
-extern void data_remove_selected(DiagramData *data, Object *obj);
+extern void data_select(DiagramData *data, Object *obj);
+extern void data_unselect(DiagramData *data, Object *obj);
 extern void data_remove_all_selected(DiagramData *data);
 extern int data_update_extents(DiagramData *data); /* returns true if changed. */
 extern GList *data_get_sorted_selected(DiagramData *data);

@@ -303,11 +303,11 @@ diagram_remove_all_selected(Diagram *diagram, int delete_empty)
 }
 
 void
-diagram_remove_selected(Diagram *diagram, Object *obj)
+diagram_unselect_object(Diagram *diagram, Object *obj)
 {
   object_add_updates(obj, diagram);
   
-  data_remove_selected(diagram->data, obj);
+  data_unselect(diagram->data, obj);
   
   if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
     remove_focus();
@@ -322,20 +322,38 @@ diagram_remove_selected(Diagram *diagram, Object *obj)
 }
 
 void
-diagram_add_selected(Diagram *diagram, Object *obj)
+diagram_unselect_objects(Diagram *dia, GList *obj_list)
 {
-  data_add_selected(diagram->data, obj);
+  GList *list;
+  Object *obj;
+
+  list = obj_list;
+  while (list != NULL) {
+    obj = (Object *) list->data;
+
+    if (g_list_find(dia->data->selected, obj) != NULL){
+      diagram_unselect_object(dia, obj);
+    }
+
+    list = g_list_next(list);
+  }
+}
+
+void
+diagram_select(Diagram *diagram, Object *obj)
+{
+  data_select(diagram->data, obj);
   object_add_updates(obj, diagram);
 }
 
 void
-diagram_add_selected_list(Diagram *dia, GList *list)
+diagram_select_list(Diagram *dia, GList *list)
 {
 
   while (list != NULL) {
     Object *obj = (Object *)list->data;
 
-    diagram_add_selected(dia, obj);
+    diagram_select(dia, obj);
 
     list = g_list_next(list);
   }
@@ -528,7 +546,7 @@ void diagram_group_selected(Diagram *dia)
   
   group = group_create(group_list);
   diagram_add_object(dia, group);
-  diagram_add_selected(dia, group);
+  diagram_select(dia, group);
 
   diagram_modified(dia);
   diagram_flush(dia);
@@ -548,14 +566,14 @@ void diagram_ungroup_selected(Diagram *dia)
   group = (Object *)dia->data->selected->data;
 
   if (IS_GROUP(group)) {
-    diagram_remove_selected(dia, group);
+    diagram_unselect_object(dia, group);
     
     group_list = group_objects(group);
     list = group_list;
     while (list != NULL) {
       Object *obj = (Object *)list->data;
       object_add_updates(obj, dia);
-      diagram_add_selected(dia, obj);
+      diagram_select(dia, obj);
 
       list = g_list_next(list);
     }

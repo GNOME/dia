@@ -115,7 +115,6 @@ app_init (int argc, char **argv)
 {
   Diagram *diagram = NULL;
   DDisplay *ddisp = NULL;
-  int i;
 #ifdef GNOME
   GnomeClient *client;
 #endif

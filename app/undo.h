@@ -61,5 +61,6 @@ extern Change *undo_move_handle(Diagram *dia,
 extern Change *undo_connect(Diagram *dia, Object *obj, Handle *handle,
 			    ConnectionPoint *connectionpoint);
 extern Change *undo_unconnect(Diagram *dia, Object *obj, Handle *handle);
+extern Change *undo_delete_objects(Diagram *dia, GList *obj_list);
   
 #endif /* UNDO_H */

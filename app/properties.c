@@ -121,7 +121,8 @@ properties_apply(GtkWidget *canvas, gpointer data)
   return 0;
 }
 
-void properties_show(Diagram *dia, Object *obj)
+void
+properties_show(Diagram *dia, Object *obj)
 {
   GtkWidget *properties;
 
@@ -154,6 +155,19 @@ void properties_show(Diagram *dia, Object *obj)
   current_obj = obj;
   current_dia = dia;
 }
+
+void
+properties_hide_if_shown(Diagram *dia, Object *obj)
+{
+  if (current_obj == obj) {
+    properties_show(dia, NULL);
+  }
+}
+
+
+
+
+
 
 
 

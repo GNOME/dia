@@ -189,14 +189,14 @@ data_delete_active_layer(DiagramData *data)
 }
 
 void
-data_add_selected(DiagramData *data, Object *obj)
+data_select(DiagramData *data, Object *obj)
 {
   data->selected = g_list_prepend(data->selected, obj);
   data->selected_count++;
 }
 
 void
-data_remove_selected(DiagramData *data, Object *obj)
+data_unselect(DiagramData *data, Object *obj)
 {
   data->selected = g_list_remove(data->selected, obj);
   data->selected_count--;

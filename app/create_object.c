@@ -54,7 +54,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
     /* Not Multi-select => remove current selection */
     diagram_remove_all_selected(ddisp->diagram, TRUE);
   }
-  diagram_add_selected(ddisp->diagram, obj);
+  diagram_select(ddisp->diagram, obj);
 
   obj->ops->select(obj, &clickedpoint,
 		   (Renderer *)ddisp->renderer);

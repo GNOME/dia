@@ -80,7 +80,7 @@ transitive_select(DDisplay *ddisp, Point *clickedpoint, Object *obj)
     printf("%d\n", i);
     j = obj->connections[i]->connected;
     while(j != NULL && (obj1 = (Object *)j->data) != NULL) {
-      diagram_add_selected(ddisp->diagram, obj1);
+      diagram_select(ddisp->diagram, obj1);
       obj1->ops->select(obj1, clickedpoint,
 			(Renderer *)ddisp->renderer);
       transitive_select(ddisp, clickedpoint, obj1);
@@ -121,7 +121,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
 	diagram_remove_all_selected(diagram, TRUE);
       }
       
-      diagram_add_selected(diagram, obj);
+      diagram_select(diagram, obj);
       obj->ops->select(obj, clickedpoint,
 		       (Renderer *)ddisp->renderer);
 
@@ -147,7 +147,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       if (event->state & GDK_SHIFT_MASK) { /* Multi-select */
 	/* Remove the selected selected */
 	diagram_update_menu_sensitivity(diagram);
-	diagram_remove_selected(ddisp->diagram, (Object *)already->data);
+	diagram_unselect_object(ddisp->diagram, (Object *)already->data);
 	diagram_flush(ddisp->diagram);
       } else {
 	return obj;
@@ -530,7 +530,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 	obj = (Object *)list->data;
 
 	if (!diagram_is_selected(ddisp->diagram, obj))
-	  diagram_add_selected(ddisp->diagram, obj);
+	  diagram_select(ddisp->diagram, obj);
 	
 	list = g_list_next(list);
       }

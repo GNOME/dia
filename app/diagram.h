@@ -55,9 +55,10 @@ extern void diagram_add_object(Diagram *dia, Object *obj);
 extern void diagram_add_object_list(Diagram *dia, GList *list);
 extern void diagram_selected_break_external(Diagram *dia);
 extern void diagram_remove_all_selected(Diagram *diagram, int delete_empty);
-extern void diagram_remove_selected(Diagram *diagram, Object *obj);
-extern void diagram_add_selected(Diagram *diagram, Object *obj);
-extern void diagram_add_selected_list(Diagram *diagram, GList *list);
+extern void diagram_unselect_object(Diagram *diagram, Object *obj);
+extern void diagram_unselect_objects(Diagram *dia, GList *obj_list);
+extern void diagram_select(Diagram *diagram, Object *obj);
+extern void diagram_select_list(Diagram *diagram, GList *list);
 extern int diagram_is_selected(Diagram *diagram, Object *obj);
 extern GList *diagram_get_sorted_selected(Diagram *dia);
 /* Removes selected from objects list, NOT selected list: */
