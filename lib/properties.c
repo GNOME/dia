@@ -325,7 +325,7 @@ prop_get_widget(Property *prop)
 	gtk_widget_show(item);
       }
       gtk_option_menu_set_menu(GTK_OPTION_MENU(ret), menu);
-      gtk_option_menu_set_history(GTK_OPTION_MENU(ret), i);
+      gtk_option_menu_set_history(GTK_OPTION_MENU(ret), pos);
     } else {
       ret = gtk_entry_new(); /* should use spin button/option menu */
       g_snprintf(buf, sizeof(buf), "%d", PROP_VALUE_ENUM(*prop));

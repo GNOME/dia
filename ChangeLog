@@ -1,3 +1,8 @@
+2000-03-07  James Henstridge  <james@daa.com.au>
+
+	* lib/properties.c (prop_get_widget): set the position in the option
+	menu correctly.
+
 2000-03-06  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/display.c:
