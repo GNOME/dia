@@ -1,5 +1,13 @@
 2004-10-09  Lars Clausen  <lars@raeder.dk>
 
+	* lib/diaarrowchooser.c (dia_arrow_preview_init): Slightly wider
+	arrow preview to avoid long arrow heads flipping.
+
+	* lib/arrows.[ch]: Support for getting from name to arrow type,
+	and for listing all arrow names.
+	
+	* lib/widgets.[ch]: Changed arrow selector to use dynamic menu.
+
 	* lib/libdia.def: Added new global functions.
 
 	* lib/persistence.[ch]: Two of the persistent_list functions to

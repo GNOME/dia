@@ -19,7 +19,7 @@
 #include <config.h>
 #include <string.h>
 #include "intl.h"
-#undef GTK_DISABLE_DEPRECATED /* GtkOptinMenu, ... */
+#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, ... */
 #include "widgets.h"
 #include "message.h"
 #include "dia_dirs.h"
@@ -266,13 +266,7 @@ struct _DiaFontSelector
 
   GtkOptionMenu *font_omenu;
   GtkOptionMenu *style_omenu;
-  GtkMenu *font_menu;
   GtkMenu *style_menu;
-  gint old_font; /* The menu item # that was previously selected, for
-		    when the Other Fonts dialog is cancelled */
-
-
-  gchar *textsample;
 };
 
 struct _DiaFontSelectorClass
@@ -298,150 +292,15 @@ struct _DiaFontSelectorClass
  * +----------------+
  */
 
-typedef struct {
-  const gchar *name;
-  PangoFontFamily *family;
-  time_t last_select;
-  int entry_nr;
-} FontSelectorEntry;
-
-/* Hash table from font name to FontSelectorEntry */
-static GHashTable *font_hash_table = NULL;
-
-static void dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data);
-static void dia_font_selector_menu_callback(GtkWidget *button, gpointer data);
+static void dia_font_selector_fontmenu_callback(DiaDynamicMenu *button,
+						gchar *fontname,
+						gpointer data);
 static void dia_font_selector_set_styles(DiaFontSelector *fs,
-			     FontSelectorEntry *fse,
-			     DiaFontStyle dia_style);
-
-static FontSelectorEntry *
-dia_font_selector_add_font(const char *lowername, const gchar *fontname,
-			   gboolean is_other_font) {
-  FontSelectorEntry *fse;
-  fse = g_new(FontSelectorEntry, 1);
-  /* Not using LRU yet, so each line is but a name */
-  fse->name = fontname;
-  fse->family = NULL;
-  fse->last_select = time(0);
-  g_hash_table_insert(font_hash_table, g_strdup(lowername), fse);
-  if (!is_other_font) {
-    if (!g_strcasecmp(fontname, "sans")) fse->entry_nr = 0;
-    if (!g_strcasecmp(fontname, "serif")) fse->entry_nr = 1;
-    if (!g_strcasecmp(fontname, "monospace")) fse->entry_nr = 2;
-  }
-  return fse;
-}
-
-static
-gboolean strcase_equal(gconstpointer s1, gconstpointer s2)
-{
-  return !(g_strcasecmp((char *)s1, (char *)s2));
-}
-
-/** Add a menu item to the menu of known fonts.
- * Sets the font of the item using marking -- using gtk_widget_modify_font 
- * didn't always set the font.
- *
- * @param fontname A string corresponding to a valid font.  This string will
- * be retained by the menu item and should not be freed after the call.
- * @param group A group of menu items that this belongs to (usually contains
- * all other items made this way)
- * @param menu A menu to add this item to.
- * @return The new menu item
- */
-static GtkWidget *
-dia_font_selector_add_menu_item(gchar *fontname, GSList **group, GtkWidget *menu) 
-{
-  GtkWidget *menuitem;
-  GtkWidget *label;
-  gchar *markup;
-
-  menuitem = gtk_radio_menu_item_new_with_label (*group, fontname);
-  label = gtk_bin_get_child(GTK_BIN(menuitem));
-  markup = g_strdup_printf("<span face=\"%s\">%s</span>",
-			   fontname, fontname);
-  gtk_label_set_markup(GTK_LABEL(label), markup);
-#if TOOL_TIPS_AVAILABLE
-  if (tool_tips)
-    gtk_tooltips_set_tip(tool_tips, label, fontname, NULL);
-#endif
-  *group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), fontname);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-  return menuitem;
-}
-
-static void
-dia_font_selector_build_font_menu(DiaFontSelector *fs) {
-  GtkWidget *menu;
-  GtkWidget *omenu;
-  GtkWidget *menuitem;
-  GSList *group;
-  GList *entry;
-  int i;
-
-  if (fs->font_omenu != NULL) {
-    gtk_option_menu_remove_menu(fs->font_omenu);
-    omenu = GTK_WIDGET(fs->font_omenu);
-  } else {
-    omenu = gtk_option_menu_new();
-    fs->font_omenu = GTK_OPTION_MENU(omenu);
-  }
-  menu = gtk_menu_new ();
-  fs->font_menu = GTK_MENU(menu);
-
-  group = NULL;
-
-  menuitem = dia_font_selector_add_menu_item("sans", &group, menu);
-  menuitem = dia_font_selector_add_menu_item("serif", &group, menu);
-  menuitem = dia_font_selector_add_menu_item("monospace", &group, menu);
-
-  menuitem = gtk_separator_menu_item_new();
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  for (i = 4, entry = persistent_list_get_glist("font-menu");
-       entry != NULL; entry = entry->next, i++) {
-    gchar *fontname = (gchar*)entry->data;
-    gchar *lowername = g_utf8_strdown(fontname, -1);
-    FontSelectorEntry *fse = 
-      (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
-    fse->entry_nr = i;
-    menuitem = dia_font_selector_add_menu_item((gchar *)entry->data, &group, menu);
-    g_free(lowername);
-  }
-  menuitem = gtk_separator_menu_item_new();
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_widget_show (menuitem);
-
-  menuitem = gtk_menu_item_new_with_label(_("Other fonts..."));
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), NULL);
-  gtk_widget_show (menuitem);
-
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->font_omenu), menu);
-  gtk_widget_show(menu);
-  gtk_widget_show(omenu);
-
-  gtk_signal_connect(GTK_OBJECT(menu), "unmap", 
-                     GTK_SIGNAL_FUNC(dia_font_selector_menu_callback), fs);
-}
-
-static FontSelectorEntry *
-dia_font_selector_get_new_font(DiaFontSelector *fs, const gchar *fontname)
-{
-  gchar *lowername = g_utf8_strdown(fontname, -1);
-  FontSelectorEntry *fse = 
-    (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
-  if (fse == NULL) {
-    fse = dia_font_selector_add_font(lowername, fontname, TRUE);
-    persistent_list_add("font-menu", fontname);
-    dia_font_selector_build_font_menu(fs);
-  }
-  g_free(lowername);
-  return fse;
-}
+					 gchar *name,
+					 DiaFontStyle dia_style);
+static void dia_font_selector_set_style_menu(DiaFontSelector *fs,
+					     PangoFontFamily *pff,
+					     DiaFontStyle dia_style);
 
 static void
 dia_font_selector_class_init (DiaFontSelectorClass *class)
@@ -451,44 +310,66 @@ dia_font_selector_class_init (DiaFontSelectorClass *class)
   object_class = (GtkObjectClass*) class;
 }
 
+static int
+dia_font_selector_sort_fonts(const void **p1, const void **p2)
+{
+  const gchar *n1 = pango_font_family_get_name(PANGO_FONT_FAMILY(*p1));
+  const gchar *n2 = pango_font_family_get_name(PANGO_FONT_FAMILY(*p2));
+  return g_strcasecmp(n1, n2);
+}
+
+static GtkWidget *
+dia_font_selector_create_string_item(DiaDynamicMenu *ddm, gchar *string)
+{
+  GtkWidget *item = gtk_menu_item_new_with_label(string);
+  gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))),
+		       g_strdup_printf("<span face=\"%s\" size=\"medium\">%s</span>",
+				       string, string));
+  return item;
+}
+
 static void
 dia_font_selector_init (DiaFontSelector *fs)
 {
   GtkWidget *menu;
   GtkWidget *omenu;
 
-  persistence_register_list("font-menu");
-
-  if (font_hash_table == NULL) {
-    GList *other_fonts;
-    font_hash_table = g_hash_table_new(g_str_hash, strcase_equal);
-
-    dia_font_selector_add_font("sans", "Sans", FALSE);
-    dia_font_selector_add_font("serif", "Serif", FALSE);
-    dia_font_selector_add_font("monospace", "Monospace", FALSE);
-
-    other_fonts = persistent_list_get_glist("font-menu");
-
-    for (other_fonts = g_list_last(other_fonts);
-	 other_fonts != NULL; other_fonts = g_list_previous(other_fonts)) {
-      
-      const gchar *name = other_fonts->data;
-      gchar *lowername = g_ascii_strdown (name, -1);
-      dia_font_selector_add_font(lowername, name, TRUE);
-
-      g_free(lowername);
-    }
+  PangoFontFamily **families;
+  int n_families,i;
+  GList *fontnames = NULL;
+    
+  pango_context_list_families (dia_font_get_context(),
+			       &families, &n_families);
+  qsort(families, n_families, sizeof(PangoFontFamily*),
+	dia_font_selector_sort_fonts);
+  /* Doing it the slow way until I find a better way */
+  for (i = 0; i < n_families; i++) {
+    fontnames = g_list_append(fontnames, 
+			      pango_font_family_get_name(families[i]));
   }
 
-  dia_font_selector_build_font_menu(fs);
-  
+  fs->font_omenu = 
+    GTK_OPTION_MENU
+    (dia_dynamic_menu_new_listbased(dia_font_selector_create_string_item,
+				    dia_font_selector_fontmenu_callback,
+				    fs,
+				    _("Other fonts"),
+				    fontnames,
+				    "font-menu"));
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(fs->font_omenu),
+				     "sans");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(fs->font_omenu),
+				     "serif");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(fs->font_omenu),
+				     "monospace");
+  gtk_widget_show(GTK_WIDGET(fs->font_omenu));
+
   /* Now build the style menu button */
   omenu = gtk_option_menu_new();
   fs->style_omenu = GTK_OPTION_MENU(omenu);
   menu = gtk_menu_new ();
   fs->style_menu = GTK_MENU(menu);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->style_omenu), menu);
-  fs->old_font = 0;
 
   gtk_widget_show(menu);
   gtk_widget_show(omenu);
@@ -547,83 +428,11 @@ dia_font_selector_get_family_from_name(GtkWidget *widget, const gchar *fontname)
   return NULL;
 }
 
-/** Called when a font selection dialog is closed */
 static void
-dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data)
-{
-  DiaGtkFontSelectionDialog *fs = (DiaGtkFontSelectionDialog*)widget;
-  DiaFontSelector *dfs = (DiaFontSelector*)data;
-  const gchar *fontname;
-  PangoFontDescription *pfd;
-  DiaFont *diafont;
-
-  switch (id) {
-  case GTK_RESPONSE_OK:
-    fontname = dia_gtk_font_selection_dialog_get_font_name(fs);
-    pfd = pango_font_description_from_string(fontname);
-    fontname = pango_font_description_get_family(pfd);
-    
-    dia_font_selector_get_new_font(dfs, fontname);
-    diafont = dia_font_new(fontname, DIA_FONT_NORMAL | DIA_FONT_WEIGHT_NORMAL, 1.0);
-    dia_font_selector_set_font(dfs, diafont);
-    break;
-  default: {
-    /* Must set menu back to old font */
-    FontSelectorEntry *fse;
-    gchar *lowername;
-    GtkWidget *active;
-    gchar *fontname;
-
-    gtk_option_menu_set_history(GTK_OPTION_MENU(dfs->font_omenu), 
-				dfs->old_font);
-    gtk_menu_set_active(dfs->font_menu, dfs->old_font);
-    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM (gtk_menu_get_active(dfs->font_menu)), 
-                                   TRUE);
-
-    active = gtk_menu_get_active(dfs->font_menu);
-    if (active == NULL) {
-      message_error("Can't find font entry for old font %d\n", dfs->old_font);
-      return;
-    }
-    fontname = (gchar *)gtk_object_get_user_data(GTK_OBJECT(active));
-    lowername = g_utf8_strdown(fontname, -1);
-    fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
-    g_free(lowername);
-    dia_font_selector_set_styles(dfs, fse, -1);
-    dfs->old_font = fse->entry_nr;
-  }
-  }
-  gtk_widget_hide(GTK_WIDGET(fs));
-}
-
-static void
-dia_font_selector_menu_callback(GtkWidget *button, gpointer data)
+dia_font_selector_fontmenu_callback(DiaDynamicMenu *ddm, gchar *fontname, gpointer data) 
 {
   DiaFontSelector *fs = DIAFONTSELECTOR(data);
-  gchar *fontname;
-
-  GtkWidget *active = gtk_menu_get_active(fs->font_menu);
-  if (active == NULL) return;
-  fontname = (gchar *)gtk_object_get_user_data(GTK_OBJECT(active));
-  if (fontname == NULL) {
-    /* We hit the Other fonts... entry */
-    GtkWidget *fsd = dia_gtk_font_selection_dialog_new(_("Select font"));
-    dia_gtk_font_selection_dialog_set_context
-      (DIA_GTK_FONT_SELECTION_DIALOG(fsd),
-      dia_font_get_context());
-    gtk_signal_connect(GTK_OBJECT(fsd), "response", 
-		   GTK_SIGNAL_FUNC(dia_font_selector_dialog_callback), data);
-    if (fs->textsample != NULL)
-      dia_gtk_font_selection_dialog_set_preview_text(DIA_GTK_FONT_SELECTION_DIALOG(fsd), fs->textsample);
-    gtk_widget_show(fsd);
-  } else {
-    FontSelectorEntry *fse;
-    gchar *lowername = g_utf8_strdown(fontname, -1);
-    fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
-    g_free(lowername);
-    dia_font_selector_set_styles(fs, fse, -1);
-    fs->old_font = fse->entry_nr;
-  }
+  dia_font_selector_set_styles(fs, fontname, -1);
 }
 
 static char *style_labels[] = {
@@ -653,9 +462,10 @@ static char *style_labels[] = {
   "Heavy-Italic"
 };
 
-void
-dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
-                             DiaFontStyle dia_style)
+static void
+dia_font_selector_set_style_menu(DiaFontSelector *fs,
+				 PangoFontFamily *pff,
+				 DiaFontStyle dia_style)
 {
   int i=0, select = 0;
   PangoFontFace **faces = NULL;
@@ -665,16 +475,8 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
   int menu_item_nr = 0;
   GSList *group = NULL;
 
-  if (fse->family == NULL) {
-    PangoFontFamily *pff;
-    pff = dia_font_selector_get_family_from_name(GTK_WIDGET(fs), fse->name);
-    fse->family = pff;
-    if (fse->family == NULL)
-      return;
-  }
-
   menu = gtk_menu_new ();
-  pango_font_family_list_faces(fse->family, &faces, &nfaces);
+  pango_font_family_list_faces(pff, &faces, &nfaces);
 
   for (i = 0; i < nfaces; i++) {
     PangoFontDescription *pfd = pango_font_face_describe(faces[i]);
@@ -726,14 +528,23 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_menu_get_active(fs->style_menu)), TRUE);
 }
 
+static void
+dia_font_selector_set_styles(DiaFontSelector *fs,
+			     gchar *name, DiaFontStyle dia_style)
+{
+  PangoFontFamily *pff;
+  pff = dia_font_selector_get_family_from_name(GTK_WIDGET(fs), name);
+  dia_font_selector_set_style_menu(fs, pff, dia_style);
+} 
+
+
 /* API functions */
 /** Set a string to be used for preview in the GTK font selector dialog.
  * The start of this string will be copied.
+ * This function is now obsolete.
  */
 void
 dia_font_selector_set_preview(DiaFontSelector *fs, gchar *text) {
-  if (fs->textsample != NULL) g_free(fs->textsample);
-  fs->textsample = g_strndup(text, 15);
 }
 
 /** Set the current font to be shown in the font selector.
@@ -741,20 +552,8 @@ dia_font_selector_set_preview(DiaFontSelector *fs, gchar *text) {
 void
 dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 {
-  int font_nr = 0;
-  FontSelectorEntry *fse;
-  gchar *fontname = g_utf8_strdown(dia_font_get_family(font), -1);
-
-  fse = dia_font_selector_get_new_font(fs, fontname);
-  fse->last_select = time(0);
-  dia_font_selector_set_styles(fs, fse, dia_font_get_style(font));
-
-  font_nr = fse->entry_nr;
-  gtk_option_menu_set_history(GTK_OPTION_MENU(fs->font_omenu), font_nr);
-       /*  gtk_menu_set_active(fs->font_menu, font_nr);*/
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_menu_get_active(fs->font_menu)), TRUE);
-  fs->old_font = font_nr;
-  g_free(fontname);
+  gchar *fontname = dia_font_get_family(font);
+  dia_dynamic_menu_add_entry(DIA_DYNAMIC_MENU(fs->font_omenu), fontname);
 }
 
 DiaFont *
@@ -763,15 +562,7 @@ dia_font_selector_get_font(DiaFontSelector *fs)
   GtkWidget *menuitem;
   char *fontname;
   DiaFontStyle style;
-  FontSelectorEntry *fse;
-  gchar *lowername;
-
-  menuitem = gtk_menu_get_active(fs->font_menu);
-  fontname = (gchar *)gtk_object_get_user_data(GTK_OBJECT(menuitem));
-  lowername = g_utf8_strdown(fontname, -1);
-  fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
-  g_free(lowername);
-  fse->last_select = time(0);
+  fontname = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(fs->font_omenu));
   menuitem = gtk_menu_get_active(fs->style_menu);
   style = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)));
   return dia_font_new(fontname,style,1.0);
@@ -1282,7 +1073,6 @@ struct _DiaArrowSelector
   DiaSizeSelector *size;
   
   GtkOptionMenu *omenu;
-  GtkMenu *arrow_type_menu;
 };
 
 struct _DiaArrowSelectorClass
@@ -1299,76 +1089,52 @@ static void
 set_size_sensitivity(DiaArrowSelector *as)
 {
   int state;
-  GtkWidget *menuitem;
-  if (!as->arrow_type_menu) return;
-  menuitem = gtk_menu_get_active(as->arrow_type_menu);
-  state = (GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)))
-	   != ARROW_NONE);
+  gchar *entryname = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(as->omenu));
+
+  state = (entryname != NULL) && (!g_strcasecmp(entryname, "None"));
 
   gtk_widget_set_sensitive(GTK_WIDGET(as->sizelabel), state);
   gtk_widget_set_sensitive(GTK_WIDGET(as->size), state);
 }
 
 static void
-arrow_type_change_callback(GtkObject *as, gboolean arg1, gpointer data)
+arrow_type_change_callback(DiaDynamicMenu *ddm, gchar *name, gpointer userdata)
 {
-  set_size_sensitivity(DIA_ARROW_SELECTOR(as));
+  set_size_sensitivity(DIA_ARROW_SELECTOR(userdata));
 }
 
-/* This is actually quite general, but only used here */
-static void dia_arrow_fill_menu(GtkMenu *menu, GSList **group, 
-                      const struct menudesc *menudesc)
+static GtkWidget *
+create_arrow_menu_item(DiaDynamicMenu *ddm, gchar *name)
 {
-  GtkWidget *mi, *ar;
-  const struct menudesc *md = menudesc;
-
-  while (md->name) {
-    mi = gtk_menu_item_new();
-    gtk_object_set_user_data(GTK_OBJECT(mi),
-			GINT_TO_POINTER(md->enum_value));
-#if 0
-    if (tool_tips) {
-      gtk_tooltips_set_tip(tool_tips, mi, md->name, NULL);
-    }
-#endif
-    ar = dia_arrow_preview_new(md->enum_value, FALSE);
-
-    gtk_container_add(GTK_CONTAINER(mi), ar);
-    gtk_widget_show(ar);
-    gtk_menu_shell_append (GTK_MENU_SHELL(menu), mi);
-    gtk_widget_show(mi);
-
-    md++;
-  }
+  ArrowType atype = arrow_type_from_name(name);
+  GtkWidget *item = gtk_menu_item_new();
+  GtkWidget *preview = dia_arrow_preview_new(atype, FALSE);
+  
+  gtk_widget_show(preview);
+  gtk_container_add(GTK_CONTAINER(item), preview);
+  gtk_widget_show(item);
+  return item;
 }
-
 
 static void
 dia_arrow_selector_init (DiaArrowSelector *as,
 			 gpointer g_class)
 {
   GtkWidget *omenu;
-  GtkWidget *menu;
-  GtkWidget *submenu;
   GtkWidget *box;
   GtkWidget *label;
   GtkWidget *size;
-  GSList *group;
   
-  omenu = gtk_option_menu_new();
+  GList *arrow_names = get_arrow_names();
+  omenu = dia_dynamic_menu_new_listbased(create_arrow_menu_item,
+					 arrow_type_change_callback, as,
+					 _("More arrows"),
+					 arrow_names,
+					 "arrow-menu");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(omenu), "None");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(omenu), "Lines");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(omenu), "Filled Concave");
   as->omenu = GTK_OPTION_MENU(omenu);
-
-  menu = gtk_menu_new ();
-  as->arrow_type_menu = GTK_MENU(menu);
-  submenu = NULL;
-  group = NULL;
-
-  dia_arrow_fill_menu(GTK_MENU(menu),&group,arrow_types);
-
-  gtk_menu_set_active(GTK_MENU (menu), DEFAULT_ARROW);
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
-  gtk_signal_connect_object(GTK_OBJECT(menu), "selection-done", 
-			    GTK_SIGNAL_FUNC(arrow_type_change_callback), (gpointer)as);
   gtk_box_pack_start(GTK_BOX(as), omenu, FALSE, TRUE, 0);
   gtk_widget_show(omenu);
 
@@ -1435,11 +1201,9 @@ dia_arrow_selector_new ()
 Arrow 
 dia_arrow_selector_get_arrow(DiaArrowSelector *as)
 {
-  GtkWidget *menuitem;
   Arrow at;
 
-  menuitem = gtk_menu_get_active(as->arrow_type_menu);
-  at.type = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)));
+  at.type = arrow_type_from_name(dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(as->omenu)));
   dia_size_selector_get_size(as->size, &at.width, &at.length);
   return at;
 }
@@ -1448,12 +1212,8 @@ void
 dia_arrow_selector_set_arrow (DiaArrowSelector *as,
 			      Arrow arrow)
 {
-  int arrow_type_index = arrow_index_from_type(arrow.type);
-
-  gtk_menu_set_active(GTK_MENU (as->arrow_type_menu), arrow_type_index);
-  gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), arrow_type_index);
-/* TODO: restore CheckMenu version of menu */
-/*  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(as->arrow_type_menu))), TRUE);*/
+  dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(as->omenu),
+				arrow_types[arrow_index_from_type(arrow.type)].name);
   set_size_sensitivity(as);
   dia_size_selector_set_size(DIA_SIZE_SELECTOR(as->size), arrow.width, arrow.length);
 }
@@ -1888,7 +1648,6 @@ dia_dynamic_menu_init(DiaDynamicMenu *self)
 
 /** Create a new dynamic menu.  The entries are represented with
  * gpointers.
- * @param comp A comparison function for the values in the menu.
  * @param create A function that creates menuitems from gpointers.
  * @param otheritem A menuitem that can be selected by the user to
  * add more entries, for instance making a dialog box or a submenu.
@@ -1897,8 +1656,8 @@ dia_dynamic_menu_init(DiaDynamicMenu *self)
  * @return A new menu
  */
 GtkWidget *
-dia_dynamic_menu_new(GCompareFunc comp, DDMCreateItemFunc create, 
-		     DDMCallbackFunc activate,
+dia_dynamic_menu_new(DDMCreateItemFunc create, 
+		     DDMCallbackFunc activate, gpointer userdata,
 		     GtkMenuItem *otheritem, gchar *persist)
 {
   DiaDynamicMenu *ddm;
@@ -1907,9 +1666,9 @@ dia_dynamic_menu_new(GCompareFunc comp, DDMCreateItemFunc create,
 
   ddm = DIA_DYNAMIC_MENU ( gtk_type_new (dia_dynamic_menu_get_type ()));
   
-  ddm->compare_func = comp;
   ddm->create_func = create;
   ddm->activate_func = activate;
+  ddm->userdata = userdata;
   ddm->other_item = otheritem;
   ddm->persistent_name = persist;
   ddm->cols = 1;
@@ -1921,18 +1680,17 @@ dia_dynamic_menu_new(GCompareFunc comp, DDMCreateItemFunc create,
   return GTK_WIDGET(ddm);
 }
 
-static void
-dia_dynamic_menu_activate(GtkWidget *item, gpointer userdata)
+/** Select the given entry, adding it if necessary */
+void
+dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, gchar *name)
 {
-  DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
-  gchar *name = g_object_get_data(G_OBJECT(item), "ddm_name");
   gint add_result = dia_dynamic_menu_add_entry(ddm, name);
   if (add_result == 0) {
       GList *tmp;
       int i = 0;
       for (tmp = ddm->default_entries; tmp != NULL;
 	   tmp = g_list_next(tmp), i++) {
-	if (!ddm->compare_func(tmp->data, name))
+	if (!g_strcasecmp(tmp->data, name))
 	  gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), i);
       }
       /* Not there after all? */
@@ -1944,16 +1702,22 @@ dia_dynamic_menu_activate(GtkWidget *item, gpointer userdata)
       gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), 0);
   }
   if (ddm->activate_func != NULL) {
-    (ddm->activate_func)(ddm, name);
+    (ddm->activate_func)(ddm, name, ddm->userdata);
   }
+}
+
+static void
+dia_dynamic_menu_activate(GtkWidget *item, gpointer userdata)
+{
+  DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
+  gchar *name = g_object_get_data(G_OBJECT(item), "ddm_name");
+  dia_dynamic_menu_select_entry(ddm, name);
 }
 
 static GtkWidget *
 dia_dynamic_menu_create_string_item(DiaDynamicMenu *ddm, gchar *string)
 {
   GtkWidget *item = gtk_menu_item_new_with_label(string);
-  g_object_set_data(G_OBJECT(item), "ddm_name", string);
-  g_signal_connect(G_OBJECT(item), "activate", dia_dynamic_menu_activate, ddm);
   return item;
 }
 
@@ -1963,11 +1727,11 @@ dia_dynamic_menu_create_string_item(DiaDynamicMenu *ddm, gchar *string)
 GtkWidget *
 dia_dynamic_menu_new_stringbased(GtkMenuItem *otheritem, 
 				 DDMCallbackFunc activate,
+				 gpointer userdata,
 				 gchar *persist)
 {
-  GtkWidget *ddm = dia_dynamic_menu_new(g_strcasecmp, 
-					dia_dynamic_menu_create_string_item,
-					activate,
+  GtkWidget *ddm = dia_dynamic_menu_new(dia_dynamic_menu_create_string_item,
+					activate, userdata,
 					otheritem, persist);
   return ddm;
 }
@@ -1977,18 +1741,19 @@ dia_dynamic_menu_new_stringbased(GtkMenuItem *otheritem,
  * subset menu out of a set too large to be easily handled by a menu.
  */
 GtkWidget *
-dia_dynamic_menu_new_listbased(GCompareFunc comp, DDMCreateItemFunc create,
+dia_dynamic_menu_new_listbased(DDMCreateItemFunc create,
 			       DDMCallbackFunc activate,
+			       gpointer userdata,
 			       gchar *other_label, GList *items, 
 			       gchar *persist)
 {
   GtkWidget *item = gtk_menu_item_new_with_label(other_label);
-  GtkWidget *ddm = dia_dynamic_menu_new(comp, create, activate,
+  GtkWidget *ddm = dia_dynamic_menu_new(create, activate, userdata,
 					GTK_MENU_ITEM(item), persist);
   dia_dynamic_menu_create_sublist(DIA_DYNAMIC_MENU(ddm), items,  create);
 
   gtk_widget_show(item);
-  return item;
+  return ddm;
 }
 
 /** Utility function for dynamic menus that allow selection from a large
@@ -1998,17 +1763,12 @@ GtkWidget *
 dia_dynamic_menu_new_stringlistbased(gchar *other_label, 
 				     GList *items,
 				     DDMCallbackFunc activate,
+				     gpointer userdata,
 				     gchar *persist)
 {
-  GtkWidget *item = gtk_menu_item_new_with_label(other_label);
-  GtkWidget *ddm = dia_dynamic_menu_new(g_strcasecmp, 
-					dia_dynamic_menu_create_string_item,
-					activate, 
-					GTK_MENU_ITEM(item), persist);
-  dia_dynamic_menu_create_sublist
-    (DIA_DYNAMIC_MENU(ddm), items, dia_dynamic_menu_create_string_item);
-  gtk_widget_show(item);
-  return ddm;
+  return dia_dynamic_menu_new_listbased(dia_dynamic_menu_create_string_item,
+					activate, userdata,
+					other_label, items, persist);
 }
 
 static void
@@ -2076,8 +1836,11 @@ dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, gchar *entry)
 {
   GList *tmp;
   gboolean existed;
+
+  ddm->active = entry;
+
   for (tmp = ddm->default_entries; tmp != NULL; tmp = g_list_next(tmp)) {
-    if (!ddm->compare_func(tmp->data, entry))
+    if (!g_strcasecmp(tmp->data, entry))
       return 0;
   }
   existed = persistent_list_add(ddm->persistent_name, entry);
@@ -2085,6 +1848,13 @@ dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, gchar *entry)
   dia_dynamic_menu_create_menu(ddm);
   
   return existed?1:2;
+}
+
+/** Returns the currently selected entry. */
+gchar *
+dia_dynamic_menu_get_entry(DiaDynamicMenu *ddm)
+{
+  return ddm->active;
 }
 
 /** Rebuild the actual menu of a DDM.
@@ -2096,6 +1866,7 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
   GtkWidget *sep;
   GList *tmplist;
   GtkWidget *menu;
+  GtkWidget *item;
 
   g_object_ref(G_OBJECT(ddm->other_item));
   menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(ddm));
@@ -2140,6 +1911,11 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
   /* Eventually reset item here */
   gtk_widget_show(menu);
 
+  item = gtk_menu_item_new_with_label(_("Reset menu"));
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+  g_signal_connect(G_OBJECT(item), "activate", dia_dynamic_menu_reset, ddm);
+  gtk_widget_show(item);
+
   gtk_option_menu_set_menu(GTK_OPTION_MENU(ddm), menu);
 
   gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), 0);
@@ -2157,12 +1933,14 @@ dia_dynamic_menu_set_sorting_method(DiaDynamicMenu *ddm, DdmSortType sort)
 /** Reset the non-default entries of a menu
  */
 void
-dia_dynamic_menu_reset(DiaDynamicMenu *ddm)
+dia_dynamic_menu_reset(GtkWidget *item, gpointer userdata)
 {
+  DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
   PersistentList *plist = persistent_list_get(ddm->persistent_name);
   g_list_free(plist->glist);
   plist->glist = NULL;
   dia_dynamic_menu_create_menu(ddm);
+  dia_dynamic_menu_select_entry(ddm, ddm->active);
 }
 
 /** Set the maximum number of non-default entries.

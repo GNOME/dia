@@ -1043,10 +1043,10 @@ create_sheets(GtkWidget *parent)
     GList *sheet_names = get_sheet_names();
     GtkWidget *item = gtk_menu_item_new_with_label("Other sheets");
     gtk_widget_show(item);
-    sheet_option_menu = dia_dynamic_menu_new_stringlistbased(_("Other sheets"),
-							     sheet_names, 
-							     fill_sheet_wbox_from_string,
-							     "sheets");
+    sheet_option_menu =
+      dia_dynamic_menu_new_stringlistbased(_("Other sheets"), sheet_names, 
+					   fill_sheet_wbox_from_string,
+					   NULL, "sheets");
     dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
 				       "Misc");
     dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),

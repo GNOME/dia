@@ -106,5 +106,7 @@ void arrow_transform_points(Arrow *arrow, Point *start, Point *to,
 ArrowType arrow_type_from_name(gchar *name);
 /** Returns the index in arrow_types of the given arrow type. */
 gint arrow_index_from_type(ArrowType type);
+gchar *arrow_get_name_from_type(ArrowType type);
+GList *get_arrow_names();
 
 #endif /* ARROWS_H */

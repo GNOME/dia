@@ -1481,3 +1481,15 @@ arrow_index_from_type(ArrowType atype)
   printf("Can't find arrow index for type %d\n", atype);
   return 0;
 }
+
+GList *
+get_arrow_names()
+{
+  int i = 0;
+  GList *arrows = NULL;
+
+  for (i = 0; arrow_types[i].name != NULL; i++) {
+    arrows = g_list_append(arrows, arrow_types[i].name);
+  }
+  return arrows;
+}

@@ -11,6 +11,8 @@ EXPORTS
  apply_textattr_properties
  apply_textstr_properties
  arrow_draw
+ arrow_type_from_name
+ get_arrow_names
 
  attribute_first_data
  attribute_num_data
@@ -171,8 +173,7 @@ EXPORTS
  dia_dynamic_menu_reset
  dia_dynamic_menu_set_max_entries
  dia_dynamic_menu_set_columns
-
- arrow_type_from_name
+ dia_dynamic_menu_get_entry
 
  dia_file_selector_get_file
  dia_file_selector_get_type

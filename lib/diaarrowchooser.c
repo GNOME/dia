@@ -76,7 +76,7 @@ dia_arrow_preview_init (DiaArrowPreview *arrow)
 {
   GTK_WIDGET_SET_FLAGS (arrow, GTK_NO_WINDOW);
 
-  GTK_WIDGET (arrow)->requisition.width = 30 + GTK_MISC (arrow)->xpad * 2;
+  GTK_WIDGET (arrow)->requisition.width = 40 + GTK_MISC (arrow)->xpad * 2;
   GTK_WIDGET (arrow)->requisition.height = 20 + GTK_MISC (arrow)->ypad * 2;
 
   arrow->atype = ARROW_NONE;

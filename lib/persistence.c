@@ -764,7 +764,7 @@ persistent_list_add(const gchar *role, const gchar *item)
   } else {
     gboolean existed = FALSE;
     GList *tmplist = plist->glist;
-    GList *old_elem = g_list_find_custom(tmplist, item, strcmp);
+    GList *old_elem = g_list_find_custom(tmplist, item, g_strcasecmp);
     while (old_elem != NULL) {
       tmplist = g_list_remove_link(tmplist, old_elem);
       /* Don't free this, as it makes recent_files go boom after
@@ -773,7 +773,7 @@ persistent_list_add(const gchar *role, const gchar *item)
        */
       /*g_free(old_elem->data);*/
       g_list_free_1(old_elem);
-      old_elem = g_list_find_custom(tmplist, item, strcmp);
+      old_elem = g_list_find_custom(tmplist, item, g_strcasecmp);
       existed = TRUE;
     }
     tmplist = g_list_prepend(tmplist, g_strdup(item));
