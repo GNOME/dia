@@ -1,3 +1,8 @@
+2001-05-09  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/xfig/xfig-import.c: Improvements to error handling and
+	group manipulation.
+
 2001-05-09  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/ps-utf8.[ch]:

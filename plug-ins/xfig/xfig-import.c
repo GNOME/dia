@@ -824,8 +824,6 @@ fig_read_object(FILE *file, DiagramData *dia) {
 	  return FALSE;
       }
 
-      message_warning("Creating compound with %d objects\n", g_list_length(compound_stack->data));
-
       /* Make group item with these items */
       item = create_standard_group((GList*)compound_stack->data, dia);
       compound_stack = g_slist_remove(compound_stack, compound_stack->data);
