@@ -433,7 +433,7 @@ msgstr "Д╕аграми:"
 #: app/defaults.c:52 app/layer_dialog.c:261 app/preferences.c:564
 #: app/properties.c:73
 msgid "Close"
-msgstr "Закрить"
+msgstr "Закрити"
 
 #: app/layer_dialog.c:306
 msgid "New layer"
@@ -656,7 +656,7 @@ msgstr "Об'╓кти"
 
 #: app/menus.c:171
 msgid "Dialogs"
-msgstr "Д╕алог╕"
+msgstr "Д╕алоги"
 
 #: app/menus.c:178 app/menus.c:190
 msgid "/_File"
@@ -1844,6 +1844,8 @@ msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
+"Довжина рядка зображення б╕льши максимальною╖ к╕лькост╕ ком╕рок масиву.\n"
+"Зображення не ехпортовано в CGM."
 
 #: plug-ins/cgm/cgm.c:919
 msgid "Computer Graphics Metafile"
