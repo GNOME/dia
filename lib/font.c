@@ -67,7 +67,6 @@
 #include "message.h"
 #include "charconv.h" 
 
-
 #ifndef LARS_TRACE_MESSAGES
 #define LC_DEBUG(op)
 #else
@@ -803,7 +802,7 @@ freetype_copy_glyph_bitmap(GdkPixmap *pixmap, GdkGC *gc,
   gdk_draw_gray_image(pixmap, gc, pen_x, pen_y,
 		      bitmap->width, bitmap->rows,
 		      GDK_RGB_DITHER_NONE,
-		      bitmap->buffer, rowstride);
+		      buffer, rowstride);
 }
 
 void
@@ -825,9 +824,9 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
     int glyph_index = FT_Get_Char_Index( face, string[i] );
     int error;
 
-    LC_DEBUG (fprintf(stderr, "Rendering for %c\n", string[i]));
+    LC_DEBUG (fprintf(stderr, "Rendering for %c: %d\n", string[i], glyph_index));
 
-    if (glyph_index == -1) {
+    if (glyph_index == 0) {
       LC_DEBUG (fprintf(stderr, "FT_Get_Char_Index: Couldn't find glyph\n"));
       continue;
     }
@@ -852,10 +851,12 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
     */                      
     
     // load glyph image into the slot. DO NOT RENDER IT !!
-    error = FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP );
+    error = FT_Load_Glyph( face, glyph_index, FT_LOAD_DEFAULT );
     if (error) continue;  // ignore errors, jump to next glyph
 
-    error = FT_Render_Glyph( face, ft_render_mode_normal );
+    LC_DEBUG (fprintf(stderr, "Glyph loaded\n"));
+
+    error = FT_Render_Glyph( face->glyph, ft_render_mode_normal );
     if (error) continue;  // ignore errors, jump to next glyph
 
     LC_DEBUG (fprintf(stderr, "Copy bitmap\n"));
