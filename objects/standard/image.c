@@ -442,7 +442,7 @@ image_move_handle(Image *image, Handle *handle,
     case HANDLE_RESIZE_NW:
       new_width = -(to->x-image->element.corner.x)+width;
       new_height = -(to->y-image->element.corner.y)+height;
-      if (new_width/new_height > width/height) {
+      if (new_height == 0 || new_width/new_height > width/height) {
 	new_height = new_width*height/width;
       } else {
 	new_width = new_height*width/height;
@@ -459,7 +459,7 @@ image_move_handle(Image *image, Handle *handle,
     case HANDLE_RESIZE_NE:
       new_width = to->x-image->element.corner.x;
       new_height = -(to->y-image->element.corner.y)+height;
-      if (new_width/new_height > width/height) {
+      if (new_height == 0 || new_width/new_height > width/height) {
 	new_height = new_width*height/width;
       } else {
 	new_width = new_height*width/height;
@@ -476,7 +476,7 @@ image_move_handle(Image *image, Handle *handle,
     case HANDLE_RESIZE_SE:
       new_width = to->x-image->element.corner.x;
       new_height = to->y-image->element.corner.y;
-      if (new_width/new_height > width/height) {
+      if (new_height == 0 || new_width/new_height > width/height) {
 	new_height = new_width*height/width;
       } else {
 	new_width = new_height*width/height;
@@ -493,7 +493,7 @@ image_move_handle(Image *image, Handle *handle,
     case HANDLE_RESIZE_SW:
       new_width = -(to->x-image->element.corner.x)+width;
       new_height = to->y-image->element.corner.y;
-      if (new_width/new_height > width/height) {
+      if (new_height == 0 || new_width/new_height > width/height) {
 	new_height = new_width*height/width;
       } else {
 	new_width = new_height*width/height;
