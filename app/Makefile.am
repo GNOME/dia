@@ -211,24 +211,26 @@ EXTRA_DIST = \
 	pixmaps/default.xpm \
 	pixmaps/delete.xpm \
 	pixmaps/eye.xbm \
-	pixmaps/lower.xpm \
-	pixmaps/magnify.xpm \
-	pixmaps/new.xpm \
-	pixmaps/raise.xpm \
-	pixmaps/scroll.xpm \
-	pixmaps/swap.xpm \
-	pixmaps/portrait.xpm \
-	pixmaps/landscape.xpm \
 	pixmaps/hand-open-data.xbm \
 	pixmaps/hand-open-mask.xbm \
 	pixmaps/hand-closed-data.xbm \
 	pixmaps/hand-closed-mask.xbm \
-	pixmaps/snap-to-grid.xpm \
-	pixmaps/snap-to-grid-mask.xpm \
+	pixmaps/landscape.xpm \
+	pixmaps/line_break.xpm \
+	pixmaps/lower.xpm \
+	pixmaps/magnify.xpm \
 	pixmaps/magnify-plus-data.xbm \
 	pixmaps/magnify-plus-mask.xbm \
 	pixmaps/magnify-minus-data.xbm \
-	pixmaps/magnify-minus-mask.xbm
+	pixmaps/magnify-minus-mask.xbm \
+	pixmaps/n_a.xpm \
+	pixmaps/new.xpm \
+	pixmaps/portrait.xpm \
+	pixmaps/raise.xpm \
+	pixmaps/scroll.xpm \
+	pixmaps/snap-to-grid.xpm \
+	pixmaps/snap-to-grid-mask.xpm \
+	pixmaps/swap.xpm
 
 run_dia.sh: Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh

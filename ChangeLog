@@ -15,6 +15,8 @@
 	the snapshots bad).
 
 	Made --enable-unicode, previously an option, the mandatory case.
+
+	* app/Makefile.am: updated EXTRA_DIST
 	
 	* NEWS:
 	* app/makefile.mingw:

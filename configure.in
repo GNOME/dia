@@ -125,15 +125,11 @@ AM_LANGINFO_CODESET
 AM_ICONV
 
 dnl check for libunicode 
-AC_ARG_ENABLE(unicode, 
-[  --enable-unicode        enable (LIMITED, EXPERIMENTAL) unicode support],,
-        enable_unicode=yes)
 UNICODE_CFLAGS=
 UNICODE_LIBS=
 have_unicode=false
 yn_have_unicode=no
 
-if test "$enable_unicode" = "yes"; then
   AC_MSG_CHECKING(for libunicode)
   if unicode-config --libs > /dev/null 2>&1; then
     vers=`unicode-config --version`
@@ -146,9 +142,6 @@ if test "$enable_unicode" = "yes"; then
   else
     AC_MSG_RESULT([not found])
   fi
-else
-  have_unicode=false
-fi
 AC_SUBST(UNICODE_CFLAGS)
 AC_SUBST(UNICODE_LIBS)
 AM_CONDITIONAL(HAVE_UNICODE,$have_unicode)
@@ -476,15 +469,10 @@ Configuration:
         Gnome-print support (not recommended):  ${enable_gnome_print}
 
 	Python support:				${with_python}
-        (LIMITED) Unicode support:              ${yn_have_unicode}
         (LIMITED) Freetype support:             ${yn_have_freetype}
 "
 if test "$yn_have_unicode" != "yes" ; then
-  echo "WARNING: Unicode support disabled or support libraries missing.
-We contemplate making these mandatory in the future; if this upsets you, please
-speak up *NOW* (summer 2001), in the dia mailing list 
-<dia-list@lists.gnome.org>. Thank you very much.
-"
+  echo "Unicode not present. This will NOT build."
 fi
 
 echo "Now type make to build dia."
