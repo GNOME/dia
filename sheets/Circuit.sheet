@@ -2,10 +2,12 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Circuit</name>
+  <description xml:lang="no">Komponenter for kretsdiagrammer</description>
   <description xml:lang="fr">Composants de circuits</description>
   <description>Components for circuit diagrams.</description>
   <contents>
     <shape name="Circuit - Vertical Resistor">
+      <description xml:lang="no">En vertikalt plassert motstand</description>
       <description xml:lang="fr">Une résistance alignée verticalement</description>
       <description>A Vertically aligned resistor</description>
     </shape>
