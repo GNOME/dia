@@ -68,6 +68,8 @@ connection_update_boundingbox(Connection *conn)
   vec = endpoints[1];
   point_sub(&vec,&endpoints[0]);
   point_normalize(&vec);
+  bb->right = endpoints[1].x;
+  bb->bottom = endpoints[1].y;
 
   check_bb_x(bb,endpoints[0].x - extra->start_long * vec.x,vec.x);
   check_bb_y(bb,endpoints[0].y - extra->start_long * vec.y,vec.y);
