@@ -2,6 +2,27 @@
 
 	* makefile.msc: added target po to update the translations
 
+2003-09-27  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* config.h.win32: 
+	* dia.spec (Release): 
+	* NEWS: 
+	* doc/pl/dia-manual.sgml: 
+	* doc/en/dia-manual.xml: 
+	Pre4 is given a short try.
+	
+	* configure.in: Give all necessary libs to PNG test.
+
+	* lib/font.c: Added legacy entries for sans, serif and monospace.
+
+	* app/app_procs.c (internal_plugin_init): 
+	* app/render_eps.h: 
+	* app/render_eps.c: 
+	Added PS fonts output for Unix.
+
+	* app/diapsrenderer.c (set_font): Adjusted height by the magic .7
+	factor to make PS fonts stay in boxes.
+	
 2003-08-03  Hans Breuer  <hans@breuer.org>
 
 	* config.h.win32 : close the version string

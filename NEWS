@@ -1,3 +1,10 @@
+dia-0.92-pre4: 27-Sep-2003
+
+* Use Win32 PS font EPS rendering on Unix as well, to allow the various
+  manipulation tools to work.
+* Libart rendering is back on win32.
+* Icon fix.
+
 dia-0.92-pre3: 22-Sep-2003
 
 * Working caching of Pango context removes huge slowdown from pre2.

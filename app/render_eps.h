@@ -28,6 +28,7 @@ DiaRenderer *new_eps_renderer(Diagram *dia, char *filename);
 DiaRenderer *new_psprint_renderer(Diagram *dia, FILE *file);
 void eps_renderer_prolog_done(DiaRenderer *renderer);
 
+extern DiaExportFilter eps_ft2_export_filter;
 extern DiaExportFilter eps_export_filter;
 
 #endif /* RENDER_EPS_H */

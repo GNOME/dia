@@ -240,7 +240,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
 
   fprintf(renderer->file, "/%s-latin1 ff %f scf sf\n",
-          dia_font_get_psfontname(font), (double)height);
+          dia_font_get_psfontname(font), (double)height*0.7);
 }
 
 static void

@@ -1,6 +1,6 @@
 dnl Process this -*- autoconf -*- file with autoconf to produce a 
 dnl configure script.
-AC_INIT(dia, 0.92-pre3, http://bugzilla.gnome.org/enter_bug.cgi?product=dia)
+AC_INIT(dia, 0.92-pre4, http://bugzilla.gnome.org/enter_bug.cgi?product=dia)
 AC_CONFIG_SRCDIR(app/diagram.c)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME,AC_PACKAGE_VERSION)
 
@@ -162,7 +162,7 @@ dnl this likely already comes from GTK
 dnl Something in here pollutes $LIBS with -lpng.  Make sure to
 dnl avoid that.
 
-old_LIBS="$LIBS"
+old_LIBS="${LIBS}"
 
 png_ok=no
 AC_CHECK_HEADER(png.h, png_ok=yes, png_ok=no)
@@ -170,7 +170,8 @@ AC_CHECK_LIB(png, png_read_info, ,png_ok=no, -lz -lm)
 if test "$png_ok" = yes; then
   AC_MSG_CHECKING([for png_structp in png.h])
   dnl Why can't AC_LINK_IFELSE take extra libs?
-  LIBS="${LIBS} -lz -lm"
+  old_LDFLAGS="${LDFLAGS}"
+  LDFLAGS="${LDFLAGS} -lz -lm"
   AC_LINK_IFELSE([#include <png.h>
                   png_structp pp;
 		  png_infop info; 
@@ -178,6 +179,7 @@ if test "$png_ok" = yes; then
 		  main() { void*foo = png_create_read_struct; }],
                  png_ok=yes,
                  png_ok=no)
+  LDFLAGS="${old_LDFLAGS}"
   AC_MSG_RESULT($png_ok)
   if test "$png_ok" = yes; then
     PNG_LIBS='-lpng -lz -lm'

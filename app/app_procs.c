@@ -667,9 +667,16 @@ internal_plugin_init(PluginInfo *info)
   filter_register_import(&dia_import_filter);
 
   /* register export filters */
+  /* Standard Dia format */
   filter_register_export(&dia_export_filter);
+  /* EPS with PS fonts */
   filter_register_export(&eps_export_filter);
+#ifdef HAVE_FREETYPE
+  /* EPS with Pango rendering */
+  filter_register_export(&eps_ft2_export_filter);
+#endif
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
+  /* PNG with libart rendering */
   filter_register_export(&png_export_filter);
 #endif
 

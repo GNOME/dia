@@ -66,18 +66,38 @@
 #include "diapsft2renderer.h"
 #endif
 
+static void export_eps(DiagramData *data, const gchar *filename, 
+		       const gchar *diafilename, void* user_data);
+static void export_render_eps(DiaPsRenderer *renderer, 
+			      DiagramData *data, const gchar *filename, 
+			      const gchar *diafilename, void* user_data);
+
+#ifdef HAVE_FREETYPE
+static void export_ft2_eps(DiagramData *data, const gchar *filename, 
+		    const gchar *diafilename, void* user_data);
+static void
+export_ft2_eps(DiagramData *data, const gchar *filename, 
+	       const gchar *diafilename, void* user_data) {
+  export_render_eps(g_object_new (DIA_TYPE_PS_FT2_RENDERER, NULL),
+		    data, filename, diafilename, user_data);
+}
+#endif
+
 static void
 export_eps(DiagramData *data, const gchar *filename, 
            const gchar *diafilename, void* user_data)
 {
-  DiaPsRenderer *renderer;
+  export_render_eps(g_object_new (DIA_TYPE_PS_RENDERER, NULL),
+		    data, filename, diafilename, user_data);
+}
+
+static void
+export_render_eps(DiaPsRenderer *renderer, 
+		  DiagramData *data, const gchar *filename, 
+		  const gchar *diafilename, void* user_data)
+{
   FILE *outfile;
 
-#ifdef HAVE_FREETYPE
-  renderer = g_object_new (DIA_TYPE_PS_FT2_RENDERER, NULL);
-#else
-  renderer = g_object_new (DIA_TYPE_PS_RENDERER, NULL);
-#endif
   outfile = fopen(filename, "w");
   if (outfile == NULL) {
     message_error(_("Can't open output file %s: %s\n"), filename, strerror(errno));
@@ -114,9 +134,17 @@ new_psprint_renderer(Diagram *dia, FILE *file)
   return DIA_RENDERER(renderer);
 }
 
+#ifdef HAVE_FREETYPE
 static const gchar *extensions[] = { "eps", "epsi", NULL };
+DiaExportFilter eps_ft2_export_filter = {
+  N_("Encapsulated Postscript (using Pango fonts)"),
+  extensions,
+  export_ft2_eps
+};
+#endif
+
 DiaExportFilter eps_export_filter = {
-  N_("Encapsulated Postscript"),
+  N_("Encapsulated Postscript (using builtin PS fonts)"),
   extensions,
   export_eps
 };
