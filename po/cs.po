@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-23 03:07+0200\n"
-"PO-Revision-Date: 2004-06-23 10:57+0200\n"
+"POT-Creation-Date: 2004-07-02 19:16+0200\n"
+"PO-Revision-Date: 2004-07-03 00:10+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -107,17 +107,17 @@ msgstr "Dia verze %s, sestavená %s %s\n"
 msgid "Dia version %s\n"
 msgstr "Dia verze %s\n"
 
-#: app/app_procs.c:546 app/app_procs.c:548 app/diaconv.c:201 app/diaconv.c:203
+#: app/app_procs.c:540 app/app_procs.c:542 app/diaconv.c:201 app/diaconv.c:203
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
-#: app/app_procs.c:589
+#: app/app_procs.c:583
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: app/app_procs.c:628
+#: app/app_procs.c:622
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -126,7 +126,7 @@ msgstr ""
 "a popište, jak jste způsobili zobrazení této zprávy.\n"
 
 #. no standard buttons
-#: app/app_procs.c:640
+#: app/app_procs.c:634
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -136,22 +136,22 @@ msgstr ""
 "Jste si jisti, že chcete ukončit program Dia\n"
 "bez uložení těchto změn?"
 
-#: app/app_procs.c:644
+#: app/app_procs.c:638
 msgid "Quit Dia"
 msgstr "Ukončit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:695
+#: app/app_procs.c:689
 #, c-format
 msgid "Thank you for using Dia.\n"
 msgstr "Děkujeme vám, že používáte Dia.\n"
 
-#: app/app_procs.c:711 app/app_procs.c:718
+#: app/app_procs.c:705 app/app_procs.c:712
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: app/app_procs.c:720
+#: app/app_procs.c:714
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -159,15 +159,15 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: app/app_procs.c:742 app/diaconv.c:251
+#: app/app_procs.c:736 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
-#: app/app_procs.c:781 app/diaconv.c:121
+#: app/app_procs.c:775 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[VOLBA...] [SOUBOR...]"
 
-#: app/app_procs.c:785 app/diaconv.c:128
+#: app/app_procs.c:779 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -241,10 +241,10 @@ msgstr "Copyright © 1998-2002 The Free Software Foundation a autoři"
 #: app/commands.c:623
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
-"Please visit http://www.lysator.liu.se/~alla/dia for more information."
+"Please visit http://www.gnome.org/projects/dia for more information."
 msgstr ""
 "Dia je program pro kreslení strukturovaných diagramů.\n"
-"Pro více informací prosím navštivte http://www.lysator.liu.se/~alla/dia."
+"Pro více informací prosím navštivte http://www.gnome.org/projects/dia ."
 
 #: app/commands.c:662
 msgid "About Dia"
@@ -261,9 +261,8 @@ msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Udržují: Lars Clausen a Cyrille Chépélov"
 
 #: app/commands.c:715
-msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
-msgstr ""
-"Více informací naleznete při návštěvě http://www.lysator.liu.se/~alla/dia"
+msgid "Please visit http://www.gnome.org/projects/dia for more information"
+msgstr "Pro více informací prosím navštivte http://www.gnome.org/projects/dia"
 
 #: app/commands.c:720
 msgid "Contributors:"
@@ -281,52 +280,61 @@ msgstr "Tento objekt nemá žádné implicitní atributy."
 msgid "Defaults: "
 msgstr "Implicitní: "
 
-#: app/dia-props.c:75
+#: app/dia-props.c:89
 msgid "Diagram Properties"
 msgstr "Vlastnosti diagramu"
 
-#: app/dia-props.c:110
+#: app/dia-props.c:124
 msgid "Dynamic grid"
 msgstr "Dynamická mřížka"
 
-#: app/dia-props.c:118
+#: app/dia-props.c:132
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:122
+#: app/dia-props.c:136
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:127
+#: app/dia-props.c:141
 msgid "Spacing"
 msgstr "Odstup"
 
-#: app/dia-props.c:147
+#: app/dia-props.c:161
 msgid "Visible spacing"
 msgstr "Viditelný odstup"
 
-#: app/dia-props.c:167
+#. Hexes!
+#: app/dia-props.c:182 app/preferences.c:162
+msgid "Hex grid"
+msgstr "Šesterečková mřížka"
+
+#: app/dia-props.c:190
+msgid "Hex grid size"
+msgstr "Velikost šesterečkové mřížky"
+
+#: app/dia-props.c:203
 msgid "Grid"
 msgstr "Mřížka"
 
-#: app/dia-props.c:178 lib/diagramdata.c:124
+#: app/dia-props.c:214 lib/diagramdata.c:127
 msgid "Background"
 msgstr "Pozadí"
 
-#: app/dia-props.c:189 app/preferences.c:105
+#: app/dia-props.c:225 app/preferences.c:105
 msgid "Grid Lines"
 msgstr "Linie mřížky"
 
-#: app/dia-props.c:200
+#: app/dia-props.c:236
 msgid "Page Breaks"
 msgstr "Zalomení stránky"
 
-#: app/dia-props.c:211
+#: app/dia-props.c:247
 msgid "Colors"
 msgstr "Barvy"
 
 #. Can we be sure that the filename is the 'proper title'?
-#: app/dia-props.c:230
+#: app/dia-props.c:266
 #, c-format
 msgid "Diagram Properties: %s"
 msgstr "Vlastnosti diagramu: %s"
@@ -571,7 +579,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Vlastnosti..."
 
-#: app/disp_callbacks.c:908
+#: app/disp_callbacks.c:904
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -604,7 +612,7 @@ msgstr "Zavřít diagram"
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
-#: app/export_png.c:134 app/load_save.c:890 app/render_eps.c:103
+#: app/export_png.c:134 app/load_save.c:893 app/render_eps.c:103
 #: plug-ins/cairo/diacairo.c:908 plug-ins/cgm/cgm.c:1157
 #: plug-ins/dxf/dxf-export.c:505 plug-ins/hpgl/hpgl.c:732
 #: plug-ins/metapost/render_metapost.c:964
@@ -751,7 +759,7 @@ msgstr "Posunovat"
 #: objects/UML/component.c:126 objects/UML/component_feature.c:154
 #: objects/UML/node.c:125 objects/UML/note.c:119 objects/UML/object.c:145
 #: objects/UML/small_package.c:126 objects/UML/state.c:139
-#: objects/UML/usecase.c:136 objects/Jackson/requirement.c:135
+#: objects/UML/usecase.c:136 objects/Jackson/requirement.c:144
 #: objects/network/basestation.c:131 objects/network/radiocell.c:146
 msgid "Text"
 msgstr "Text"
@@ -976,7 +984,7 @@ msgstr ""
 "Chyba při načítání diagramu %s.\n"
 "Toto není soubor Dia."
 
-#: app/load_save.c:572
+#: app/load_save.c:575
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -987,12 +995,12 @@ msgstr ""
 "%s.\n"
 "Platný soubor ve formátu Dia obsahuje alespoň jednu vrstvu."
 
-#: app/load_save.c:923
+#: app/load_save.c:926
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Selhalo uložení souboru '%s'.\n"
 
-#: app/load_save.c:994 app/load_save.c:999
+#: app/load_save.c:997 app/load_save.c:1002
 msgid "Native Dia Diagram"
 msgstr "Původní diagram Dia"
 
@@ -1639,24 +1647,28 @@ msgstr "Velikost Y:"
 msgid "Lines per major line"
 msgstr "Čar na hlavní čáru"
 
-#: app/preferences.c:179
+#: app/preferences.c:163
+msgid "Hex Size:"
+msgstr "Velikost šesterečku:"
+
+#: app/preferences.c:182
 msgid "Diagram tree window:"
 msgstr "Okno se stromem diagramů:"
 
-#: app/preferences.c:181
+#: app/preferences.c:184
 msgid "Save hidden object types"
 msgstr "Ukládat skryté typy souborů"
 
-#: app/preferences.c:388 lib/prop_inttypes.c:158
+#: app/preferences.c:391 lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Ano"
 
-#: app/preferences.c:388 app/preferences.c:399 lib/prop_inttypes.c:160
+#: app/preferences.c:391 app/preferences.c:402 lib/prop_inttypes.c:160
 #: lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Ne"
 
-#: app/preferences.c:501
+#: app/preferences.c:504
 msgid "Preferences"
 msgstr "Nastavení"
 
@@ -1778,8 +1790,8 @@ msgid "New"
 msgstr "Nový"
 
 #: app/sheets_dialog.c:362 app/sheets_dialog.c:794 objects/Istar/actor.c:143
-#: objects/Istar/actor.c:144 objects/Istar/other.c:167
-#: objects/Istar/other.c:168 objects/KAOS/other.c:169 objects/KAOS/other.c:170
+#: objects/Istar/actor.c:144 objects/Istar/other.c:150
+#: objects/Istar/other.c:151 objects/KAOS/other.c:151 objects/KAOS/other.c:152
 msgid "Type"
 msgstr "Typ"
 
@@ -1817,10 +1829,10 @@ msgid "Description:"
 msgstr "Popis:"
 
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/UML/class_dialog.c:890 objects/UML/class_dialog.c:1824
-#: objects/UML/class_dialog.c:2053 objects/UML/class_dialog.c:2569
-#: objects/Istar/link.c:167 objects/Jackson/phenomenon.c:135
-#: objects/KAOS/metaandorrel.c:154 objects/KAOS/metabinrel.c:171
+#: objects/UML/class_dialog.c:911 objects/UML/class_dialog.c:1845
+#: objects/UML/class_dialog.c:2074 objects/UML/class_dialog.c:2590
+#: objects/Istar/link.c:167 objects/Jackson/phenomenon.c:144
+#: objects/KAOS/metaandorrel.c:164 objects/KAOS/metabinrel.c:181
 msgid "Type:"
 msgstr "Typ:"
 
@@ -1830,9 +1842,9 @@ msgstr "List"
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:133
 #: objects/ER/relationship.c:138 objects/UML/association.c:200
-#: objects/UML/association.c:1126 objects/UML/class_dialog.c:879
-#: objects/UML/class_dialog.c:1813 objects/UML/class_dialog.c:2042
-#: objects/UML/class_dialog.c:2558 objects/UML/dependency.c:133
+#: objects/UML/association.c:1126 objects/UML/class_dialog.c:900
+#: objects/UML/class_dialog.c:1834 objects/UML/class_dialog.c:2063
+#: objects/UML/class_dialog.c:2579 objects/UML/dependency.c:133
 #: objects/UML/generalization.c:129 objects/UML/realizes.c:130
 msgid "Name:"
 msgstr "Název:"
@@ -1965,7 +1977,7 @@ msgstr "Dia v %s"
 msgid "Diagram editor"
 msgstr "Editor diagramů"
 
-#: lib/arrows.c:40 objects/UML/association.c:1149 objects/Jackson/domain.c:113
+#: lib/arrows.c:40 objects/UML/association.c:1149 objects/Jackson/domain.c:96
 msgid "None"
 msgstr "Nic"
 
@@ -2286,15 +2298,15 @@ msgstr ""
 "Nelze otevřít `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:789
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:792
 msgid "Left"
 msgstr "Vlevo"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:795
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:798
 msgid "Center"
 msgstr "Uprostřed"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:801
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:804
 msgid "Right"
 msgstr "Vpravo"
 
@@ -2329,7 +2341,7 @@ msgstr "Zarovnání textu"
 
 #: lib/properties.c:79 lib/properties.h:525 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/UML/class_dialog.c:330 objects/chronogram/chronoline.c:183
+#: objects/UML/class_dialog.c:351 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Písmo"
@@ -2357,59 +2369,59 @@ msgstr "Barva výplně"
 msgid "Text colour"
 msgstr "Barva textu"
 
-#: lib/widgets.c:390
+#: lib/widgets.c:395
 msgid "Other fonts..."
 msgstr "Jiná písma..."
 
-#: lib/widgets.c:520
+#: lib/widgets.c:523
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Nelze nalézt rodinu písma pro %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:585
+#: lib/widgets.c:588
 msgid "Select font"
 msgstr "Vyberte písmo"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:937 objects/FS/function.c:1063
+#: lib/widgets.c:940 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Nepřerušovaná"
 
-#: lib/widgets.c:943
+#: lib/widgets.c:946
 msgid "Dashed"
 msgstr "Čárkovaná"
 
-#: lib/widgets.c:949
+#: lib/widgets.c:952
 msgid "Dash-Dot"
 msgstr "Čárka - tečka"
 
-#: lib/widgets.c:955
+#: lib/widgets.c:958
 msgid "Dash-Dot-Dot"
 msgstr "Čárka - tečka - tečka"
 
-#: lib/widgets.c:961
+#: lib/widgets.c:964
 msgid "Dotted"
 msgstr "Tečkovaná"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:980
+#: lib/widgets.c:983
 msgid "Dash length: "
 msgstr "Délka čárky:"
 
-#: lib/widgets.c:1135
+#: lib/widgets.c:1138
 msgid "Select color"
 msgstr "Vyberte barvu"
 
-#: lib/widgets.c:1353
+#: lib/widgets.c:1356
 msgid "Size: "
 msgstr "Velikost: "
 
-#: lib/widgets.c:1502
+#: lib/widgets.c:1505
 msgid "Select image file"
 msgstr "Vyberte soubor s obrázkem"
 
-#: lib/widgets.c:1538
+#: lib/widgets.c:1541
 msgid "Browse"
 msgstr "Probírat"
 
@@ -2454,18 +2466,18 @@ msgid "Total:"
 msgstr "Celkem:"
 
 #: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
-#: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:566
+#: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:462
 #: objects/UML/association.c:752 objects/UML/component_feature.c:183
 #: objects/UML/dependency.c:372 objects/UML/generalization.c:368
-#: objects/UML/realizes.c:359 objects/standard/zigzagline.c:337
+#: objects/UML/realizes.c:359 objects/standard/zigzagline.c:346
 msgid "Add segment"
 msgstr "Přidat segment"
 
 #: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
-#: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:567
+#: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:463
 #: objects/UML/association.c:753 objects/UML/component_feature.c:184
 #: objects/UML/dependency.c:373 objects/UML/generalization.c:369
-#: objects/UML/realizes.c:360 objects/standard/zigzagline.c:338
+#: objects/UML/realizes.c:360 objects/standard/zigzagline.c:347
 msgid "Delete segment"
 msgstr "Odstranit segment"
 
@@ -2544,7 +2556,7 @@ msgid "Import"
 msgstr "Import"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: objects/FS/function.c:675 objects/KAOS/metabinrel.c:163
+#: objects/FS/function.c:675 objects/KAOS/metabinrel.c:173
 msgid "Input"
 msgstr "Vložit"
 
@@ -3676,8 +3688,8 @@ msgid "Vergent type:"
 msgstr "Typ krajnice:"
 
 #: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
-#: objects/Istar/other.c:498 objects/Jackson/domain.c:554
-#: objects/KAOS/goal.c:602 objects/KAOS/other.c:551
+#: objects/Istar/other.c:483 objects/Jackson/domain.c:539
+#: objects/KAOS/goal.c:587 objects/KAOS/other.c:535
 #: objects/standard/line.c:228
 msgid "Add connection point"
 msgstr "Přidat bod připojení"
@@ -3715,7 +3727,7 @@ msgid "Miscellaneous objects"
 msgstr "Ostatní objekty"
 
 #. property rows
-#: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:336
+#: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:357
 msgid "Normal"
 msgstr "Normální"
 
@@ -3751,7 +3763,7 @@ msgstr ""
 "Aby se zlepšila čitelnost, mohou být toky začínající a končící vertikálně "
 "kresleny šedě"
 
-#: objects/SADT/arrow.c:572
+#: objects/SADT/arrow.c:468
 msgid "SADT Arrow"
 msgstr "Šipka SADT"
 
@@ -3769,9 +3781,9 @@ msgstr "Identifikátor Aktivity / Dat"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Identifikátor objevující se v pravém dolním rohu zařízení"
 
-#: objects/SADT/box.c:446 objects/Istar/other.c:499
-#: objects/Jackson/domain.c:555 objects/KAOS/goal.c:603
-#: objects/KAOS/other.c:552 objects/standard/line.c:229
+#: objects/SADT/box.c:446 objects/Istar/other.c:484
+#: objects/Jackson/domain.c:540 objects/KAOS/goal.c:588
+#: objects/KAOS/other.c:536 objects/standard/line.c:229
 msgid "Delete connection point"
 msgstr "Odstranit přípojný bod"
 
@@ -3793,7 +3805,7 @@ msgstr "Helvetica"
 msgid "Actor"
 msgstr "Účinkující"
 
-#: objects/UML/association.c:1139 objects/UML/class_dialog.c:2086
+#: objects/UML/association.c:1139 objects/UML/class_dialog.c:2107
 msgid "Direction:"
 msgstr "Směr:"
 
@@ -3842,17 +3854,17 @@ msgstr "Kompozice"
 msgid "Stereotype"
 msgstr "Stereotyp"
 
-#: objects/UML/class.c:111 objects/UML/class_dialog.c:361
+#: objects/UML/class.c:111 objects/UML/class_dialog.c:382
 #: sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Komentář"
 
-#: objects/UML/class.c:113 objects/UML/class_dialog.c:290
-#: objects/UML/class_dialog.c:346 objects/UML/class_dialog.c:1912
+#: objects/UML/class.c:113 objects/UML/class_dialog.c:296
+#: objects/UML/class_dialog.c:367 objects/UML/class_dialog.c:1933
 msgid "Abstract"
 msgstr "Abstraktní"
 
-#: objects/UML/class.c:115 objects/UML/class_dialog.c:299
+#: objects/UML/class.c:115 objects/UML/class_dialog.c:305
 msgid "Suppress Attributes"
 msgstr "Potlačit atributy"
 
@@ -3872,216 +3884,224 @@ msgstr "Viditelné operace"
 msgid "Visible Comments"
 msgstr "Viditelné komentáře"
 
-#: objects/UML/class.c:126 objects/UML/object.c:151
+#: objects/UML/class.c:125 objects/UML/class_dialog.c:321
+msgid "Wrap Operations"
+msgstr "Operace zalamování"
+
+#: objects/UML/class.c:127
+msgid "Wrap after char"
+msgstr "Zalamovat po znaku"
+
+#: objects/UML/class.c:130 objects/UML/object.c:151
 msgid "Attributes"
 msgstr "Atributy"
 
-#: objects/UML/class.c:128
+#: objects/UML/class.c:132
 msgid "Operations"
 msgstr "Operace"
 
-#: objects/UML/class.c:131
+#: objects/UML/class.c:135
 msgid "Template"
 msgstr "Šablona"
 
-#: objects/UML/class.c:179 objects/UML/class.c:943 sheets/UML.sheet.in.h:6
+#: objects/UML/class.c:185 objects/UML/class.c:1088 sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Třída"
 
-#: objects/UML/class.c:185
+#: objects/UML/class.c:191
 msgid "Show comments"
 msgstr "Zobrazit komentář"
 
 #. Class page:
-#: objects/UML/class_dialog.c:259
+#: objects/UML/class_dialog.c:265
 msgid "_Class"
 msgstr "_Třída"
 
-#: objects/UML/class_dialog.c:267
+#: objects/UML/class_dialog.c:273
 msgid "Class name:"
 msgstr "Název třídy:"
 
-#: objects/UML/class_dialog.c:275 objects/UML/class_dialog.c:1835
+#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1856
 #: objects/UML/dependency.c:135 objects/UML/generalization.c:131
 #: objects/UML/realizes.c:132
 msgid "Stereotype:"
 msgstr "Stereotyp:"
 
-#: objects/UML/class_dialog.c:282 objects/UML/class_dialog.c:912
-#: objects/UML/class_dialog.c:1953 objects/UML/class_dialog.c:2075
+#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:933
+#: objects/UML/class_dialog.c:1974 objects/UML/class_dialog.c:2096
 msgid "Comment:"
 msgstr "Komentář:"
 
-#: objects/UML/class_dialog.c:296
+#: objects/UML/class_dialog.c:302
 msgid "Attributes visible"
 msgstr "Viditelné atributy"
 
-#: objects/UML/class_dialog.c:305
+#: objects/UML/class_dialog.c:311
 msgid "Operations visible"
 msgstr "Viditelné operace"
 
-#: objects/UML/class_dialog.c:308
+#: objects/UML/class_dialog.c:314
 msgid "Suppress operations"
 msgstr "Potlačit operace"
 
-#: objects/UML/class_dialog.c:314
+#: objects/UML/class_dialog.c:335
 msgid "Comments visible"
 msgstr "Viditelné komentáře"
 
 #. head line
-#: objects/UML/class_dialog.c:327
+#: objects/UML/class_dialog.c:348
 msgid "Kind"
 msgstr "Druh"
 
-#: objects/UML/class_dialog.c:332
+#: objects/UML/class_dialog.c:353
 msgid "Size"
 msgstr "Velikost"
 
-#: objects/UML/class_dialog.c:341
+#: objects/UML/class_dialog.c:362
 msgid "Polymorphic"
 msgstr "Polymorfní"
 
-#: objects/UML/class_dialog.c:351
+#: objects/UML/class_dialog.c:372
 msgid "Class Name"
 msgstr "Název třídy"
 
-#: objects/UML/class_dialog.c:356
+#: objects/UML/class_dialog.c:377
 msgid "Abstract Class"
 msgstr "Abstraktní třída"
 
 #. should probably be refactored too.
-#: objects/UML/class_dialog.c:373
+#: objects/UML/class_dialog.c:394
 msgid "Text Color"
 msgstr "Barva textu"
 
-#: objects/UML/class_dialog.c:381
+#: objects/UML/class_dialog.c:402
 msgid "Foreground Color"
 msgstr "Barva popředí"
 
-#: objects/UML/class_dialog.c:389
+#: objects/UML/class_dialog.c:410
 msgid "Background Color"
 msgstr "Barva pozadí"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:812
+#: objects/UML/class_dialog.c:833
 msgid "_Attributes"
 msgstr "_Atributy"
 
-#: objects/UML/class_dialog.c:840 objects/UML/class_dialog.c:1771
-#: objects/UML/class_dialog.c:1999 objects/UML/class_dialog.c:2519
+#: objects/UML/class_dialog.c:861 objects/UML/class_dialog.c:1792
+#: objects/UML/class_dialog.c:2020 objects/UML/class_dialog.c:2540
 msgid "_New"
 msgstr "_Nový"
 
-#: objects/UML/class_dialog.c:846 objects/UML/class_dialog.c:1777
-#: objects/UML/class_dialog.c:2006 objects/UML/class_dialog.c:2525
+#: objects/UML/class_dialog.c:867 objects/UML/class_dialog.c:1798
+#: objects/UML/class_dialog.c:2027 objects/UML/class_dialog.c:2546
 msgid "_Delete"
 msgstr "_Odstranit"
 
-#: objects/UML/class_dialog.c:852 objects/UML/class_dialog.c:1783
-#: objects/UML/class_dialog.c:2013 objects/UML/class_dialog.c:2531
+#: objects/UML/class_dialog.c:873 objects/UML/class_dialog.c:1804
+#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2552
 msgid "Move up"
 msgstr "Posun nahoru"
 
-#: objects/UML/class_dialog.c:858 objects/UML/class_dialog.c:1789
-#: objects/UML/class_dialog.c:2020 objects/UML/class_dialog.c:2537
+#: objects/UML/class_dialog.c:879 objects/UML/class_dialog.c:1810
+#: objects/UML/class_dialog.c:2041 objects/UML/class_dialog.c:2558
 msgid "Move down"
 msgstr "Posun dolů"
 
-#: objects/UML/class_dialog.c:869
+#: objects/UML/class_dialog.c:890
 msgid "Attribute data"
 msgstr "Data atributu"
 
-#: objects/UML/class_dialog.c:901
+#: objects/UML/class_dialog.c:922
 msgid "Value:"
 msgstr "Hodnota:"
 
-#: objects/UML/class_dialog.c:924 objects/UML/class_dialog.c:1848
+#: objects/UML/class_dialog.c:945 objects/UML/class_dialog.c:1869
 msgid "Visibility:"
 msgstr "Viditelnost:"
 
-#: objects/UML/class_dialog.c:933 objects/UML/class_dialog.c:1857
+#: objects/UML/class_dialog.c:954 objects/UML/class_dialog.c:1878
 msgid "Public"
 msgstr "Veřejný"
 
-#: objects/UML/class_dialog.c:941 objects/UML/class_dialog.c:1865
+#: objects/UML/class_dialog.c:962 objects/UML/class_dialog.c:1886
 msgid "Private"
 msgstr "Soukromý"
 
-#: objects/UML/class_dialog.c:949 objects/UML/class_dialog.c:1873
+#: objects/UML/class_dialog.c:970 objects/UML/class_dialog.c:1894
 msgid "Protected"
 msgstr "Chráněný"
 
-#: objects/UML/class_dialog.c:957 objects/UML/class_dialog.c:1881
+#: objects/UML/class_dialog.c:978 objects/UML/class_dialog.c:1902
 msgid "Implementation"
 msgstr "Implementace"
 
-#: objects/UML/class_dialog.c:978 objects/UML/class_dialog.c:1897
+#: objects/UML/class_dialog.c:999 objects/UML/class_dialog.c:1918
 msgid "Class scope"
 msgstr "Pole působnosti třídy"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1743
+#: objects/UML/class_dialog.c:1764
 msgid "_Operations"
 msgstr "_Operace"
 
-#: objects/UML/class_dialog.c:1801
+#: objects/UML/class_dialog.c:1822
 msgid "Operation data"
 msgstr "Data operace"
 
-#: objects/UML/class_dialog.c:1903
+#: objects/UML/class_dialog.c:1924
 msgid "Inheritance type:"
 msgstr "Typ dědičnosti:"
 
-#: objects/UML/class_dialog.c:1920
+#: objects/UML/class_dialog.c:1941
 msgid "Polymorphic (virtual)"
 msgstr "Polymorfní (virtuální)"
 
-#: objects/UML/class_dialog.c:1928
+#: objects/UML/class_dialog.c:1949
 msgid "Leaf (final)"
 msgstr "Listová (konečná)"
 
-#: objects/UML/class_dialog.c:1946
+#: objects/UML/class_dialog.c:1967
 msgid "Query"
 msgstr "Dotaz"
 
-#: objects/UML/class_dialog.c:1970
+#: objects/UML/class_dialog.c:1991
 msgid "Parameters:"
 msgstr "Parametry:"
 
-#: objects/UML/class_dialog.c:2032
+#: objects/UML/class_dialog.c:2053
 msgid "Parameter data"
 msgstr "Data parametrů"
 
-#: objects/UML/class_dialog.c:2064
+#: objects/UML/class_dialog.c:2085
 msgid "Def. value:"
 msgstr "Implicitní hodnota:"
 
-#: objects/UML/class_dialog.c:2095
+#: objects/UML/class_dialog.c:2116
 msgid "Undefined"
 msgstr "Nedefinovaná"
 
-#: objects/UML/class_dialog.c:2103
+#: objects/UML/class_dialog.c:2124
 msgid "In"
 msgstr "In"
 
-#: objects/UML/class_dialog.c:2112
+#: objects/UML/class_dialog.c:2133
 msgid "Out"
 msgstr "Out"
 
-#: objects/UML/class_dialog.c:2121
+#: objects/UML/class_dialog.c:2142
 msgid "In & Out"
 msgstr "In & Out"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2485
+#: objects/UML/class_dialog.c:2506
 msgid "_Templates"
 msgstr "_Šablony"
 
-#: objects/UML/class_dialog.c:2491 sheets/UML.sheet.in.h:29
+#: objects/UML/class_dialog.c:2512 sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Třída šablony"
 
-#: objects/UML/class_dialog.c:2548
+#: objects/UML/class_dialog.c:2569
 msgid "Formal parameter data"
 msgstr "Data formálních parametrů"
 
@@ -4169,7 +4189,7 @@ msgstr "Poslat"
 msgid "Recursive"
 msgstr "Rekurzivní"
 
-#: objects/UML/message.c:150 objects/Jackson/phenomenon.c:133
+#: objects/UML/message.c:150 objects/Jackson/phenomenon.c:142
 msgid "Message:"
 msgstr "Zpráva:"
 
@@ -4341,6 +4361,7 @@ msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Nelze otevřít soubor s ikonou %s pro typ objektu '%s'."
 
 #: objects/flowchart/box.c:148 objects/standard/box.c:148
+#: objects/standard/polyline.c:130 objects/standard/zigzagline.c:129
 msgid "Corner radius"
 msgstr "Poloměr rohu"
 
@@ -4356,7 +4377,7 @@ msgstr "Úhel střihu"
 msgid "Unspecified"
 msgstr "Nespecifikováno"
 
-#: objects/Istar/actor.c:67 objects/KAOS/other.c:93
+#: objects/Istar/actor.c:67 objects/KAOS/other.c:75
 msgid "Agent"
 msgstr "Agent"
 
@@ -4364,20 +4385,20 @@ msgstr "Agent"
 msgid "Role"
 msgstr "Role"
 
-#: objects/Istar/goal.c:91 objects/KAOS/goal.c:96
+#: objects/Istar/goal.c:74 objects/KAOS/goal.c:79
 msgid "Softgoal"
 msgstr ""
 
-#: objects/Istar/goal.c:92 objects/KAOS/goal.c:97
+#: objects/Istar/goal.c:75 objects/KAOS/goal.c:80
 msgid "Goal"
 msgstr "Cíl"
 
-#: objects/Istar/goal.c:172 objects/Istar/goal.c:173 objects/KAOS/goal.c:176
-#: objects/KAOS/goal.c:177
+#: objects/Istar/goal.c:155 objects/Istar/goal.c:156 objects/KAOS/goal.c:159
+#: objects/KAOS/goal.c:160
 msgid "Goal Type"
 msgstr "Typ cíle"
 
-#: objects/Istar/istar.c:39
+#: objects/Istar/istar.c:46
 msgid "Istar diagram"
 msgstr "Diagram istar"
 
@@ -4401,145 +4422,145 @@ msgstr "Dekompozice"
 msgid "Means-Ends"
 msgstr "Prostředky-cíle"
 
-#: objects/Istar/other.c:90
+#: objects/Istar/other.c:73
 msgid "Resource"
 msgstr "Zdroj"
 
-#: objects/Istar/other.c:91
+#: objects/Istar/other.c:74
 msgid "Task"
 msgstr "Úkol"
 
-#: objects/Istar/other.c:504
+#: objects/Istar/other.c:489
 msgid "i* other"
 msgstr "i* ostatní"
 
-#: objects/Jackson/domain.c:96
+#: objects/Jackson/domain.c:79
 msgid "Given Domain"
 msgstr "Zadaná doména"
 
-#: objects/Jackson/domain.c:97
+#: objects/Jackson/domain.c:80
 msgid "Designed Domain"
 msgstr "Navržená doména"
 
-#: objects/Jackson/domain.c:98
+#: objects/Jackson/domain.c:81
 msgid "Machine Domain"
 msgstr "Doména stroje"
 
-#: objects/Jackson/domain.c:114
+#: objects/Jackson/domain.c:97
 #, fuzzy
 msgid "Causal"
 msgstr "Volání"
 
-#: objects/Jackson/domain.c:115
+#: objects/Jackson/domain.c:98
 #, fuzzy
 msgid "Biddable"
 msgstr "Doprostřed"
 
-#: objects/Jackson/domain.c:116
+#: objects/Jackson/domain.c:99
 msgid "Lexical"
 msgstr "Lexikální"
 
-#: objects/Jackson/domain.c:195 objects/Jackson/domain.c:196
+#: objects/Jackson/domain.c:178 objects/Jackson/domain.c:179
 msgid "Domain Type"
 msgstr "Typ domény"
 
-#: objects/Jackson/domain.c:200
+#: objects/Jackson/domain.c:183
 msgid "Domain Kind"
 msgstr "Typ domény"
 
-#: objects/Jackson/domain.c:201
+#: objects/Jackson/domain.c:184
 msgid "Optional kind which appears in the lower right corner of the Domain"
 msgstr "Nepovinný typ objevující se v pravém dolním rohu domény"
 
-#: objects/Jackson/domain.c:560
+#: objects/Jackson/domain.c:545
 msgid "Jackson domain"
 msgstr "Jacksonova doména"
 
-#: objects/Jackson/jackson.c:37
+#: objects/Jackson/jackson.c:47
 msgid "Jackson diagram"
 msgstr "Jacksonův diagram"
 
-#: objects/Jackson/phenomenon.c:125
+#: objects/Jackson/phenomenon.c:134
 msgid "Shared"
 msgstr "Sdíleno"
 
-#: objects/Jackson/phenomenon.c:126 objects/KAOS/goal.c:98
+#: objects/Jackson/phenomenon.c:135 objects/KAOS/goal.c:81
 msgid "Requirement"
 msgstr "Požadavek"
 
-#: objects/KAOS/goal.c:99
+#: objects/KAOS/goal.c:82
 msgid "Assumption"
 msgstr "Předpoklad"
 
-#: objects/KAOS/goal.c:100
+#: objects/KAOS/goal.c:83
 msgid "Obstacle"
 msgstr "Překážka"
 
-#: objects/KAOS/goal.c:608
+#: objects/KAOS/goal.c:593
 msgid "KAOS goal"
 msgstr "Cíl KAOS"
 
-#: objects/KAOS/kaos.c:38
+#: objects/KAOS/kaos.c:49
 msgid "KAOS diagram"
 msgstr "KAOS diagram"
 
-#: objects/KAOS/metaandorrel.c:141
+#: objects/KAOS/metaandorrel.c:151
 msgid "AND Refinement"
 msgstr "Vylepšení A"
 
-#: objects/KAOS/metaandorrel.c:142
+#: objects/KAOS/metaandorrel.c:152
 msgid "Complete AND Refinement"
 msgstr "Dokončení A vylepšení"
 
-#: objects/KAOS/metaandorrel.c:143
+#: objects/KAOS/metaandorrel.c:153
 msgid "OR Refinement"
 msgstr "Vylepšení NEBO"
 
-#: objects/KAOS/metaandorrel.c:144
+#: objects/KAOS/metaandorrel.c:154
 msgid "Operationalization"
 msgstr "Operacionalizace"
 
-#: objects/KAOS/metaandorrel.c:151
+#: objects/KAOS/metaandorrel.c:161
 msgid "Text:"
 msgstr "Text:"
 
-#: objects/KAOS/metabinrel.c:155
+#: objects/KAOS/metabinrel.c:165
 msgid "Contributes"
 msgstr "Přispívá"
 
-#: objects/KAOS/metabinrel.c:156
+#: objects/KAOS/metabinrel.c:166
 msgid "Obstructs"
 msgstr "Překáží"
 
-#: objects/KAOS/metabinrel.c:157
+#: objects/KAOS/metabinrel.c:167
 msgid "Conflicts"
 msgstr "Koliduje s"
 
-#: objects/KAOS/metabinrel.c:158
+#: objects/KAOS/metabinrel.c:168
 msgid "Responsibility"
 msgstr "Odpovědnost"
 
-#: objects/KAOS/metabinrel.c:159
+#: objects/KAOS/metabinrel.c:169
 msgid "Monitors"
 msgstr "Sleduje"
 
-#: objects/KAOS/metabinrel.c:160
+#: objects/KAOS/metabinrel.c:170
 msgid "Controls"
 msgstr "Řídí"
 
-#: objects/KAOS/metabinrel.c:161
+#: objects/KAOS/metabinrel.c:171
 msgid "CapableOf"
 msgstr "Schopen"
 
-#: objects/KAOS/metabinrel.c:162
+#: objects/KAOS/metabinrel.c:172
 msgid "Performs"
 msgstr "Provádí"
 
-#: objects/KAOS/metabinrel.c:164
+#: objects/KAOS/metabinrel.c:174
 msgid "Output"
 msgstr "Výstup"
 
-#: objects/KAOS/other.c:557
+#: objects/KAOS/other.c:541
 msgid "KAOS other"
 msgstr "KAOS ostatní"
 
@@ -4700,11 +4721,11 @@ msgstr "Relativní začátek mezery"
 msgid "Fractional end gap"
 msgstr "Relativní konec mezery"
 
-#: objects/standard/polygon.c:460 objects/standard/polyline.c:496
+#: objects/standard/polygon.c:460 objects/standard/polyline.c:515
 msgid "Add Corner"
 msgstr "Přidat roh"
 
-#: objects/standard/polygon.c:461 objects/standard/polyline.c:497
+#: objects/standard/polygon.c:461 objects/standard/polyline.c:516
 msgid "Delete Corner"
 msgstr "Odstranit roh"
 
@@ -4716,11 +4737,11 @@ msgstr "Standardní objekty"
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: plug-ins/cairo/diacairo.c:970
+#: plug-ins/cairo/diacairo.c:971
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: plug-ins/cairo/diacairo.c:996
+#: plug-ins/cairo/diacairo.c:998
 msgid "Cairo based Rendering"
 msgstr "Vykreslování založené na Cairo"
 
@@ -4801,7 +4822,7 @@ msgstr "GdkPixbuf - nevyhlazováno"
 msgid "GdkPixbuf bitmap"
 msgstr "Bitmapa GdkPixbuf"
 
-#: plug-ins/pixbuf/pixbuf.c:182
+#: plug-ins/pixbuf/pixbuf.c:183
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "export/import bitmapy založené na gdk-pixbuf"
 
@@ -5311,6 +5332,226 @@ msgstr "Šipka nahoru-dolů-doleva"
 #: sheets/Assorted.sheet.in.h:46
 msgid "Vertical parallelogram"
 msgstr "Svislý rovnoběžník"
+
+#: sheets/ChemEng.sheet.in.h:1
+msgid "AC Generator"
+msgstr "Generátor střídavého proudu"
+
+#: sheets/ChemEng.sheet.in.h:2
+msgid "Air Cooler"
+msgstr "Chladič vzduchu"
+
+#: sheets/ChemEng.sheet.in.h:3
+msgid "Autoclave"
+msgstr "Autokláv"
+
+#: sheets/ChemEng.sheet.in.h:4
+#, fuzzy
+msgid "Axial Flow Fan"
+msgstr "Povolit DOF"
+
+#: sheets/ChemEng.sheet.in.h:5
+msgid "Basic Filter"
+msgstr "Základní filtr"
+
+#: sheets/ChemEng.sheet.in.h:6
+msgid "Centrifugal Pump or Fan"
+msgstr "Centrifugální pumpa nebo větrák"
+
+#: sheets/ChemEng.sheet.in.h:7
+msgid "Centrifuge"
+msgstr "Odstředivka"
+
+#. For: zenith
+#: sheets/ChemEng.sheet.in.h:9
+msgid "ChemEng"
+msgstr "ChemInž"
+
+#: sheets/ChemEng.sheet.in.h:10
+msgid "Clarifier or Settling Tank"
+msgstr "Usazovací nádrž"
+
+#: sheets/ChemEng.sheet.in.h:11
+msgid "Collection for chemical engineering"
+msgstr "Sbírka pro chemické inženýrství"
+
+#: sheets/ChemEng.sheet.in.h:12
+msgid "Compressor or Turbine"
+msgstr "Kompresor nebo turbína"
+
+#: sheets/ChemEng.sheet.in.h:13
+#, fuzzy
+msgid "Covered tank"
+msgstr "Převést"
+
+#: sheets/ChemEng.sheet.in.h:14
+msgid "Cyclone and hydrocyclone"
+msgstr "Cyklon a hydrocyklon"
+
+#: sheets/ChemEng.sheet.in.h:15
+#, fuzzy
+msgid "Double-Pipe Exchanger"
+msgstr "Dvojitý plný trojúhelník"
+
+#: sheets/ChemEng.sheet.in.h:16
+msgid "Ejector or Injector"
+msgstr "Proudové čerpadlo"
+
+#: sheets/ChemEng.sheet.in.h:17
+msgid "Fan or Stirrer"
+msgstr "Ventilátor nemo vířidlo"
+
+#: sheets/ChemEng.sheet.in.h:18
+msgid "Fixed-Sheet Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:19
+msgid "Floating-Head or U-Tube Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:20
+msgid "Fluid Contacting Vessel, simple"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:21
+msgid "Forced-Flow Air Cooler"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:22
+msgid "Gas Holder, basic"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:23
+msgid "Heating/Cooling Coil"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:24
+msgid "Heating/Cooling Coil, vertical"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:25
+msgid "Induced-Flow Air Cooler"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:26
+msgid "Kettle Reboiler"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:27
+msgid "Knock-out Drum (with demister pad)"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:28
+msgid "Measurement"
+msgstr "Měření"
+
+#: sheets/ChemEng.sheet.in.h:29
+msgid "Mixer"
+msgstr "Mixér"
+
+#: sheets/ChemEng.sheet.in.h:30
+#, fuzzy
+msgid "Open Tank"
+msgstr "Otevřený kulatý"
+
+#: sheets/ChemEng.sheet.in.h:31
+msgid "Plate Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:32
+#, fuzzy
+msgid "Pneumatic Line"
+msgstr "Pneumatická"
+
+#: sheets/ChemEng.sheet.in.h:33
+msgid "Pneumatic Line, vertical"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:34
+msgid "Positive Displacement Rotary Pump or Compressor"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:35
+msgid "Reactor or Absorption Vessel, simple"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:36
+msgid "Reciprocating Compressor or Pump"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:37
+msgid "Regulable Valve"
+msgstr "Regulovatelný ventil"
+
+#: sheets/ChemEng.sheet.in.h:38
+msgid "Regulable Valve, vertical"
+msgstr "Regulovatelný ventil, svislý"
+
+#: sheets/ChemEng.sheet.in.h:39
+msgid "Sealed Tank"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:40
+#, fuzzy
+msgid "Simple Furnace"
+msgstr "Jednoduchá tiskárna"
+
+#: sheets/ChemEng.sheet.in.h:41
+msgid "Simple Heat Exchanger"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:42
+msgid "Simple Heat Exchanger, vertical"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:43
+msgid "Simple Vessel"
+msgstr "Jednoduchá nádrž"
+
+#: sheets/ChemEng.sheet.in.h:44
+msgid "Spray Drier"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:45
+msgid "Spraying Device"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:46
+#, fuzzy
+msgid "Storage Sphere"
+msgstr "Směrovač úložiště"
+
+#: sheets/ChemEng.sheet.in.h:47
+msgid "Tank with Fixed Roof"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:48
+msgid "Tank with Floating Roof"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:49
+msgid "Tray Column, detailed"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:50
+msgid "Tray Column, simple"
+msgstr ""
+
+#: sheets/ChemEng.sheet.in.h:51
+msgid "Valve"
+msgstr "Ventil"
+
+#: sheets/ChemEng.sheet.in.h:52
+msgid "Valve, vertical"
+msgstr "Ventil, svilý"
+
+#: sheets/ChemEng.sheet.in.h:53
+msgid "Water Cooler"
+msgstr "Chladič vody"
+
+#: sheets/ChemEng.sheet.in.h:54
+msgid "Water Cooler, vertical"
+msgstr "Chladič vody, svislý"
 
 #: sheets/Circuit.sheet.in.h:1
 msgid "Circuit"
