@@ -1,4 +1,21 @@
-1998-11-25  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+1998-11-30  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/UML/actor.c:
+	* objects/UML/usecase.c:
+	* objects/UML/pixmaps/actor.xpm:
+	* objects/UML/pixmaps/case.xpm:
+	New files. Implements usecase and actor UML objects.
+	These objects are done by Alejandro Aguilar Sierra
+	<asierra@servidor.unam.mx>.
+	
+	* objects/UML/Makefile.am:
+	* objects/UML/pixmaps/Makefile.am:
+	Added usecase and actor to makefile.
+	
+	* AUTHORS:
+	Added Alejandro and Jerome to autors list.
+	
+1998-11-25  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/UML/class.c (umlclass_load):
 	Fixed typo. Reported by Jerome.Abela@solsoft.fr
