@@ -139,6 +139,8 @@ static void prefs_set_value_in_widget(GtkWidget * widget, enum DiaPrefType type,
 static void prefs_get_value_from_widget(GtkWidget * widget, enum DiaPrefType type, char *ptr);
 static void prefs_update_dialog_from_prefs(void);
 static void prefs_update_prefs_from_dialog(void);
+static gint prefs_apply(GtkWidget *widget, gpointer data);
+
 
 static GtkWidget *prefs_dialog = NULL;
 
