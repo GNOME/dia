@@ -18,7 +18,7 @@
 	update the dependencies.
 
 	* configure.in: put in notes about what will change shortly.
-	upped the version to 0.90+cvs (did also in config.h.in)
+	upped the version to 0.90+cvs (did also in config.h.win32)
 	upped the minimum version for intltools (now 0.21)
 	
 2002-06-01  Cyrille Chepelov  <cyrille@chepelov.org>
