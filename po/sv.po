@@ -383,7 +383,7 @@ msgstr "Skapa linje med flera noder"
 
 #: app/interface.c:99
 msgid "Create Bezierline"
-msgstr ""
+msgstr "Skapa beizerlinje"
 
 #: app/interface.c:103
 msgid "Create Image"
@@ -471,6 +471,8 @@ msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
+"Fel vid laddning av diagram.\n"
+"anslutningshandtag existerar inte."
 
 #: app/load_save.c:183
 #, c-format
@@ -507,7 +509,7 @@ msgstr "Kunde inte öppna: '%s' för skrivning.\n"
 
 #: app/load_save.c:554
 msgid "Native Dia Diagram"
-msgstr ""
+msgstr "Inhemsk Dia diagram"
 
 #: app/menus.c:35 app/menus.c:45
 msgid "_New diagram"
@@ -523,7 +525,7 @@ msgstr "_Exportera..."
 
 #: app/menus.c:56
 msgid "Page Set_up..."
-msgstr ""
+msgstr "Inställningar för sida"
 
 #: app/menus.c:58
 msgid "_Print Diagram..."
@@ -601,7 +603,7 @@ msgstr "Lika avstånd"
 
 #: app/menus.c:124 app/menus.c:133
 msgid "Adjacent"
-msgstr ""
+msgstr "Närliggande"
 
 #: app/menus.c:129
 msgid "Top"
@@ -698,7 +700,7 @@ msgstr "/Arkiv/_Exportera..."
 
 #: app/menus.c:198
 msgid "/File/Page Set_up..."
-msgstr ""
+msgstr "/File/Inställningar för sida"
 
 #: app/menus.c:199
 msgid "/File/_Print Diagram..."
@@ -900,7 +902,7 @@ msgstr "Detta objekt har inga egenskaper."
 
 #: app/render_eps.c:1101
 msgid "Encapsulated Postscript"
-msgstr ""
+msgstr "Inkapslat postskript"
 
 #: app/defaults.c:43
 msgid "Object defaults"
@@ -1150,12 +1152,12 @@ msgstr "Visa pil"
 #. Aggregate
 #: objects/UML/association.c:1072
 msgid "Aggregate"
-msgstr ""
+msgstr "Aggregat"
 
 #. Composition
 #: objects/UML/association.c:1080
 msgid "Composition"
-msgstr ""
+msgstr "Komposition"
 
 #. Class page:
 #: objects/UML/class.c:608 objects/UML/class_dialog.c:171
@@ -1170,11 +1172,11 @@ msgstr "Klassnamn:"
 #: objects/UML/generalization.c:592 objects/UML/large_package.c:572
 #: objects/UML/object.c:765 objects/UML/realizes.c:590
 msgid "Stereotype:"
-msgstr ""
+msgstr "Stereotyp:"
 
 #: objects/UML/class_dialog.c:199
 msgid "Abstract"
-msgstr ""
+msgstr "Abstrakt"
 
 #: objects/UML/class_dialog.c:207
 msgid "Attributes visible"
@@ -1219,7 +1221,7 @@ msgstr "Flytta ner"
 
 #: objects/UML/class_dialog.c:697
 msgid "Attribute data"
-msgstr ""
+msgstr "Attribut data"
 
 #: objects/UML/class_dialog.c:717 objects/UML/class_dialog.c:1593
 #: objects/UML/class_dialog.c:1755 objects/UML/class_dialog.c:2211
@@ -1236,11 +1238,11 @@ msgstr "Synlighet:"
 
 #: objects/UML/class_dialog.c:750 objects/UML/class_dialog.c:1614
 msgid "Public"
-msgstr ""
+msgstr "Allmän"
 
 #: objects/UML/class_dialog.c:758 objects/UML/class_dialog.c:1622
 msgid "Private"
-msgstr ""
+msgstr "Privat"
 
 #: objects/UML/class_dialog.c:766 objects/UML/class_dialog.c:1630
 msgid "Protected"
@@ -1252,7 +1254,7 @@ msgstr "Implementation"
 
 #: objects/UML/class_dialog.c:790 objects/UML/class_dialog.c:1654
 msgid "Class scope"
-msgstr ""
+msgstr "Klassräckvidd"
 
 #. Operations page:
 #: objects/UML/class_dialog.c:1513
@@ -1261,11 +1263,11 @@ msgstr "Operationer"
 
 #: objects/UML/class_dialog.c:1571
 msgid "Operation data"
-msgstr ""
+msgstr "Operationsdata"
 
 #: objects/UML/class_dialog.c:1660
 msgid "abstract"
-msgstr ""
+msgstr "abstrakt"
 
 #: objects/UML/class_dialog.c:1672
 msgid "Parameters:"
@@ -1277,7 +1279,7 @@ msgstr "Parameter data"
 
 #: objects/UML/class_dialog.c:1767
 msgid "Def. value:"
-msgstr "Std. värde:"
+msgstr "Stnd. värde:"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2128
@@ -1306,7 +1308,7 @@ msgstr "Gränssnitt:"
 
 #: objects/UML/usecase.c:542
 msgid "Text outside:"
-msgstr ""
+msgstr "Text utanför:"
 
 #: objects/UML/usecase.c:547
 msgid "Collaboration"
@@ -1391,7 +1393,7 @@ msgstr "Sluta"
 
 #: objects/UML/classicon.c:606
 msgid "Control"
-msgstr ""
+msgstr "Kontroll"
 
 #: objects/UML/classicon.c:612
 msgid "Boundary"
@@ -1407,19 +1409,19 @@ msgstr "Är ett objekt"
 
 #: objects/ER/attribute.c:212
 msgid "Key"
-msgstr ""
+msgstr "Nyckel"
 
 #: objects/ER/attribute.c:218
 msgid "Weak key"
-msgstr ""
+msgstr "Svag nyckel"
 
 #: objects/ER/attribute.c:224
 msgid "Derived"
-msgstr ""
+msgstr "Ärvd"
 
 #: objects/ER/attribute.c:230
 msgid "Multivalue"
-msgstr ""
+msgstr "Multivärde"
 
 #: objects/ER/attribute.c:236 objects/ER/entity.c:202
 #: objects/ER/relationship.c:294 objects/custom/custom_object.c:271
@@ -1481,11 +1483,11 @@ msgstr "Förhållande"
 
 #: objects/network/bus.c:569
 msgid "Add Handle"
-msgstr ""
+msgstr "Lägg till handtag"
 
 #: objects/network/bus.c:570
 msgid "Delete Handle"
-msgstr ""
+msgstr "Ta bort handtag"
 
 #: objects/standard/arc.c:205 objects/standard/line.c:202
 #: objects/standard/polyline.c:207 objects/standard/zigzagline.c:207
@@ -1597,11 +1599,11 @@ msgstr "Ta bort nod"
 
 #: objects/FS/flow-ortho.c:559 objects/FS/flow.c:622 objects/FS/flow.c:737
 msgid "Flow:"
-msgstr ""
+msgstr "Flöde:"
 
 #: objects/FS/flow-ortho.c:574 objects/FS/flow.c:637 objects/FS/flow.c:753
 msgid "Flow type:"
-msgstr ""
+msgstr "Flödetyp:"
 
 #.
 #: objects/FS/flow-ortho.c:579 objects/FS/flow-ortho.c:632
@@ -1716,7 +1718,7 @@ msgstr "   Mix"
 
 #: objects/FS/function.c:570
 msgid "Branch"
-msgstr ""
+msgstr "Bransch"
 
 #: objects/FS/function.c:571
 msgid "   Separate"
@@ -1748,7 +1750,7 @@ msgstr "   Lagra"
 
 #: objects/FS/function.c:578
 msgid "   Supply"
-msgstr ""
+msgstr "   Leverera"
 
 #: objects/FS/function.c:579
 msgid "   Extract"
