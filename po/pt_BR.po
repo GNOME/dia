@@ -8,13 +8,12 @@
 # Afonso Celso Medina <medina@maua.br>, 2004, 2005.
 # 
 # 
-#: app/sheets.c:453
 msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-03 18:40+0100\n"
-"PO-Revision-Date: 2005-01-03 22:17-0200\n"
+"POT-Creation-Date: 2005-02-20 11:45+0100\n"
+"PO-Revision-Date: 2005-02-20 14:37-0300\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -503,7 +502,7 @@ msgstr "Árvore de diagramas"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1006 app/paginate_psprint.c:292
+#: app/dialogs.c:52 app/paginate_psprint.c:292
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -598,11 +597,11 @@ msgstr "Seleção de %d objetos"
 msgid "Selected '%s'"
 msgstr "Selecionado '%s'"
 
-#: app/display.c:1025
+#: app/display.c:1027
 msgid "<unnamed>"
 msgstr "<semnome>"
 
-#: app/display.c:1027
+#: app/display.c:1029
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -611,16 +610,16 @@ msgstr ""
 "O diagrama '%s' não foi salvo.\n"
 "Salvar as alterações agora?"
 
-#: app/display.c:1038
+#: app/display.c:1040
 msgid "Close Diagram"
 msgstr "Fechar o Diagrama"
 
-#: app/display.c:1043
+#: app/display.c:1045
 msgid "Discard Changes"
 msgstr "Descartar as Alterações"
 
 #: app/export_png.c:134 app/load_save.c:913 app/render_eps.c:103
-#: plug-ins/cairo/diacairo.c:929 plug-ins/cgm/cgm.c:1157
+#: plug-ins/cairo/diacairo.c:943 plug-ins/cgm/cgm.c:1157
 #: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:718
 #: plug-ins/metapost/render_metapost.c:964
 #: plug-ins/pstricks/render_pstricks.c:804 plug-ins/shape/shape-export.c:135
@@ -681,11 +680,11 @@ msgstr "Opções de Abertura"
 msgid "Determine file type:"
 msgstr "Determinar o tipo de arquivo:"
 
-#: app/filedlg.c:252 app/filedlg.c:640
+#: app/filedlg.c:252 app/filedlg.c:641
 msgid "All Files"
 msgstr "Todos os Arquivos"
 
-#: app/filedlg.c:257 app/filedlg.c:645
+#: app/filedlg.c:257 app/filedlg.c:646
 msgid "Supported Formats"
 msgstr "Formatos Suportados"
 
@@ -770,7 +769,7 @@ msgid "Scroll"
 msgstr "Mudar Enquadramento"
 
 #: app/interface.c:69 app/interface.c:70 lib/properties.c:77
-#: lib/properties.h:516 objects/UML/activity.c:122 objects/UML/actor.c:120
+#: lib/properties.h:516 objects/UML/activity.c:126 objects/UML/actor.c:120
 #: objects/UML/classicon.c:141 objects/UML/component.c:126
 #: objects/UML/component_feature.c:154 objects/UML/node.c:125
 #: objects/UML/note.c:119 objects/UML/object.c:145
@@ -840,20 +839,20 @@ msgstr "Alterna entre alinhar na grade ou não para esta janela."
 msgid "NULL tooldata in tool_select_update"
 msgstr "Dados de ferramenta NULOS em tool_select_update"
 
-#: app/interface.c:957
+#: app/interface.c:858
 #, c-format
 msgid "No sheet named %s"
 msgstr "Nenhuma folha nomeada %s"
 
-#: app/interface.c:989
+#: app/interface.c:890
 msgid "Other sheets"
 msgstr "Outras folhas"
 
-#: app/interface.c:1047 sheets/Misc.sheet.in.h:3
+#: app/interface.c:948 sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
-#: app/interface.c:1108
+#: app/interface.c:1009
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -863,7 +862,7 @@ msgstr ""
 "preto e branco restauram as cores. As setas pequenas trocam as cores. Clique "
 "duplo para mudar as cores."
 
-#: app/interface.c:1123
+#: app/interface.c:1024
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -872,7 +871,7 @@ msgstr ""
 "padrão para novos objetos.  Clique duplo para definir a largura de linha "
 "mais precisamente."
 
-#: app/interface.c:1163
+#: app/interface.c:1064
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -880,7 +879,7 @@ msgstr ""
 "Estilo de seta no início de novas linhas.  Clique para escolher um seta, ou "
 "defina os parâmetros de estilo de seta através da opção Detalhes..."
 
-#: app/interface.c:1168
+#: app/interface.c:1069
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -888,7 +887,7 @@ msgstr ""
 "Estilo de linha para novas linhas.  Clique para escolher um estilo de linha, "
 "ou defina os parâmetros de estilo de linha através da opção Detalhes..."
 
-#: app/interface.c:1182
+#: app/interface.c:1083
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -896,7 +895,7 @@ msgstr ""
 "Estilo de seta no final de novas linhas.  Clique para escolher um seta ou "
 "defina os parâmetros de estilo de seta através da opção Detalhes..."
 
-#: app/interface.c:1289
+#: app/interface.c:1190
 msgid "Diagram Editor"
 msgstr "Editor de Diagramas"
 
@@ -921,32 +920,25 @@ msgid "Layers"
 msgstr "Camadas"
 
 #: app/layer_dialog.c:226
-msgid "Diagrams:"
-msgstr "Diagramas:"
+msgid "Diagram:"
+msgstr "Diagrama:"
 
-#: app/layer_dialog.c:271
-msgid "Close"
-msgstr "Fechar"
+#: app/layer_dialog.c:332
+#, c-format
+msgid "New layer %d"
+msgstr "Nova camada %d"
 
-#: app/layer_dialog.c:331
-msgid "New layer"
-msgstr "Nova camada"
-
-#: app/layer_dialog.c:537
+#: app/layer_dialog.c:540
 msgid "none"
 msgstr "nenhuma"
 
-#: app/layer_dialog.c:968
+#: app/layer_dialog.c:971
 msgid "Edit Layer Attributes"
 msgstr "Editar Atributos da Camada"
 
-#: app/layer_dialog.c:987
+#: app/layer_dialog.c:990
 msgid "Layer name:"
 msgstr "Nome da camada:"
-
-#: app/layer_dialog.c:996 app/paginate_psprint.c:284
-msgid "OK"
-msgstr "OK"
 
 #: app/linewidth_area.c:246 lib/properties.h:480 lib/properties.h:483
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
@@ -1035,463 +1027,480 @@ msgstr "Impossível salvar o arquivo '%s'.\n"
 msgid "Dia Diagram File"
 msgstr "Arquivo de Diagrama Dia"
 
-#: app/menus.c:49 app/menus.c:84
+#: app/menus.c:49 app/menus.c:87
 msgid "/_File"
 msgstr "/_Arquivo"
 
-#: app/menus.c:51 app/menus.c:86
+#: app/menus.c:51 app/menus.c:89
 msgid "/File/_New"
 msgstr "/Arquivo/_Novo"
 
-#: app/menus.c:53 app/menus.c:88
+#: app/menus.c:53 app/menus.c:91
 msgid "/File/_Open..."
 msgstr "/Arquivo/_Abrir..."
 
+#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
+#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
 #. recent file list is dynamically inserted here
-#: app/menus.c:55 app/menus.c:60 app/menus.c:64 app/menus.c:66 app/menus.c:95
-#: app/menus.c:99
+#. {N_("/Open _Recent"),           NULL,         NULL,           0, "<Branch>"},
+#. {   "/Open Recent/tearoff",     NULL,         NULL,         0, "<Tearoff>" },
+#: app/menus.c:57 app/menus.c:62 app/menus.c:67 app/menus.c:69 app/menus.c:95
+#: app/menus.c:102 app/menus.c:106
 msgid "/File/---"
 msgstr "/Arquivo/---"
 
-#: app/menus.c:56
+#: app/menus.c:58
 msgid "/File/_Diagram tree"
 msgstr "/Arquivo/Árvore de _Diagramas"
 
-#: app/menus.c:58
+#: app/menus.c:60
 msgid "/File/Sheets and Objects..."
 msgstr "/Arquivo/Folhas e Objetos..."
 
-#: app/menus.c:61
+#: app/menus.c:63
 msgid "/File/_Preferences..."
 msgstr "/Arquivo/_Preferências..."
 
-#: app/menus.c:63
+#: app/menus.c:65
 msgid "/File/P_lugins..."
 msgstr "/Arquivo/P_lugins..."
 
-#: app/menus.c:67 app/menus.c:103
+#: app/menus.c:70 app/menus.c:110
 msgid "/File/_Quit"
 msgstr "/Arquivo/_Sair"
 
-#: app/menus.c:69 app/menus.c:231
+#: app/menus.c:72 app/menus.c:257
 msgid "/_Help"
 msgstr "/_Ajuda"
 
-#: app/menus.c:71 app/menus.c:233
+#: app/menus.c:74 app/menus.c:259
 msgid "/Help/_Manual"
 msgstr "/Ajuda/_Manual"
 
-#: app/menus.c:73 app/menus.c:235
+#: app/menus.c:76 app/menus.c:261
 msgid "/Help/---"
 msgstr "/Ajuda/---"
 
-#: app/menus.c:74 app/menus.c:236
+#: app/menus.c:77 app/menus.c:262
 msgid "/Help/_About..."
 msgstr "/Ajuda/_Sobre..."
 
-#: app/menus.c:90
+#: app/menus.c:96
 msgid "/File/_Save"
 msgstr "/Arquivo/_Salvar"
 
-#: app/menus.c:92
+#: app/menus.c:98
 msgid "/File/Save _As..."
 msgstr "/Arquivo/Salvar _Como..."
 
-#: app/menus.c:94
+#: app/menus.c:100
 msgid "/File/_Export..."
 msgstr "/Arquivo/_Exportar..."
 
-#: app/menus.c:96
+#: app/menus.c:103
 msgid "/File/Page Set_up..."
 msgstr "/Arquivo/C_onfigurar Página..."
 
-#: app/menus.c:97
+#: app/menus.c:104
 msgid "/File/_Print Diagram..."
 msgstr "/Arquivo/_Imprimir Diagrama..."
 
-#: app/menus.c:100
+#: app/menus.c:107
 msgid "/File/_Close"
 msgstr "/Arquivo/_Fechar"
 
-#: app/menus.c:105
+#: app/menus.c:112
 msgid "/_Edit"
 msgstr "/_Editar"
 
-#: app/menus.c:107
+#: app/menus.c:114
 msgid "/Edit/_Undo"
 msgstr "/Editar/_Desfazer"
 
-#: app/menus.c:109
+#: app/menus.c:116
 msgid "/Edit/_Redo"
 msgstr "/Editar/_Refazer"
 
-#: app/menus.c:111 app/menus.c:121
+#: app/menus.c:118 app/menus.c:128
 msgid "/Edit/---"
 msgstr "/Editar/---"
 
-#: app/menus.c:112
+#: app/menus.c:119
 msgid "/Edit/_Copy"
 msgstr "/Editar/_Copiar"
 
-#: app/menus.c:114
+#: app/menus.c:121
 msgid "/Edit/C_ut"
 msgstr "/Editar/C_ortar"
 
-#: app/menus.c:116
+#: app/menus.c:123
 msgid "/Edit/_Paste"
 msgstr "/Editar/Co_lar"
 
-#: app/menus.c:118
+#: app/menus.c:125
 msgid "/Edit/_Duplicate"
 msgstr "/Editar/_Duplicar"
 
-#: app/menus.c:119
+#: app/menus.c:126
 msgid "/Edit/_Delete"
 msgstr "/Editar/_Excluir"
 
-#: app/menus.c:122
+#: app/menus.c:129
 msgid "/Edit/Copy Text"
 msgstr "/Editar/Copiar Texto"
 
-#: app/menus.c:123
+#: app/menus.c:131
 msgid "/Edit/Cut Text"
 msgstr "/Editar/Cortar Texto"
 
-#: app/menus.c:124
+#: app/menus.c:133
 msgid "/Edit/Paste _Text"
 msgstr "/Editar/Colar _Texto"
 
-#: app/menus.c:125
+#: app/menus.c:135
 msgid "/_Diagram"
 msgstr "/_Diagrama"
 
-#: app/menus.c:127
+#: app/menus.c:137
 msgid "/Diagram/_Properties..."
 msgstr "/Diagrama/_Propriedades..."
 
-#: app/menus.c:128
+#: app/menus.c:139
 msgid "/Diagram/_Layers..."
 msgstr "/Diagrama/_Camadas..."
 
-#: app/menus.c:129
+#: app/menus.c:140
 msgid "/_View"
 msgstr "/_Ver"
 
-#: app/menus.c:131
+#: app/menus.c:142
 msgid "/View/Zoom _In"
 msgstr "/Ver/_Aproximar"
 
-#: app/menus.c:133
+#: app/menus.c:144
 msgid "/View/Zoom _Out"
 msgstr "/Ver/_Afastar"
 
-#: app/menus.c:135
+#: app/menus.c:146
 msgid "/View/_Zoom"
 msgstr "/Ver/_Zoom"
 
-#: app/menus.c:137
+#: app/menus.c:148
+msgid "/View/Zoom/1600%"
+msgstr "/Ver/Zoom/1600%"
+
+#: app/menus.c:149
+msgid "/View/Zoom/800%"
+msgstr "/Ver/Zoom/800%"
+
+#: app/menus.c:150
 msgid "/View/Zoom/400%"
 msgstr "/Ver/Zoom/400%"
 
-#: app/menus.c:138
+#: app/menus.c:151
 msgid "/View/Zoom/283%"
 msgstr "/Ver/Zoom/283%"
 
-#: app/menus.c:139
+#: app/menus.c:152
 msgid "/View/Zoom/200%"
 msgstr "/Ver/Zoom/200%"
 
-#: app/menus.c:140
+#: app/menus.c:153
 msgid "/View/Zoom/141%"
 msgstr "/Ver/Zoom/141%"
 
-#: app/menus.c:141
+#: app/menus.c:154
 msgid "/View/Zoom/100%"
 msgstr "/Ver/Zoom/100%"
 
-#: app/menus.c:143
+#: app/menus.c:156
 msgid "/View/Zoom/85%"
 msgstr "/Ver/Zoom/85%"
 
-#: app/menus.c:144
+#: app/menus.c:157
 msgid "/View/Zoom/70.7%"
 msgstr "/Ver/Zoom/70.7%"
 
-#: app/menus.c:145
+#: app/menus.c:158
 msgid "/View/Zoom/50%"
 msgstr "/Ver/Zoom/50%"
 
-#: app/menus.c:146
+#: app/menus.c:159
 msgid "/View/Zoom/35.4%"
 msgstr "/Ver/Zoom/35.4%"
 
-#: app/menus.c:147
+#: app/menus.c:160
 msgid "/View/Zoom/25%"
 msgstr "/Ver/Zoom/25%"
 
-#: app/menus.c:148 app/menus.c:157
+#: app/menus.c:161 app/menus.c:170
 msgid "/View/---"
 msgstr "/Ver/---"
 
-#: app/menus.c:149
+#: app/menus.c:162
 msgid "/View/Fullscr_een"
 msgstr "/Ver/_Tela Cheia"
 
-#: app/menus.c:151
+#: app/menus.c:164
 msgid "/View/_AntiAliased"
 msgstr "/Ver/_AntiAlisamento"
 
-#: app/menus.c:153
+#: app/menus.c:166
 msgid "/View/Show _Grid"
 msgstr "/Ver/Mostrar _Grade"
 
-#: app/menus.c:154
+#: app/menus.c:167
 msgid "/View/_Snap To Grid"
 msgstr "/Ver/Al_inhar à Grade"
 
-#: app/menus.c:155
+#: app/menus.c:168
 msgid "/View/Show _Rulers"
 msgstr "/Ver/Mostrar _Réguas"
 
-#: app/menus.c:156
+#: app/menus.c:169
 msgid "/View/Show _Connection Points"
 msgstr "/Ver/Mostrar _Pontos de Conexão"
 
-#: app/menus.c:158
+#: app/menus.c:171
 msgid "/View/New _View"
 msgstr "/Ver/Nova _Vista"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:160
+#: app/menus.c:173
 msgid "/View/Show _All"
 msgstr "/Ver/_Mostrar Tudo"
 
-#: app/menus.c:161
+#: app/menus.c:175
 msgid "/View/Re_draw"
 msgstr "/Ver/Re_desenhar"
 
-#: app/menus.c:162
+#: app/menus.c:177
 msgid "/_Objects"
 msgstr "/_Objetos"
 
-#: app/menus.c:164
+#: app/menus.c:179
 msgid "/Objects/Send to _Back"
 msgstr "/Objetos/Enviar para _Trás"
 
-#: app/menus.c:165
+#: app/menus.c:181
 msgid "/Objects/Bring to _Front"
 msgstr "/Objetos/Enviar para _Frente"
 
-#: app/menus.c:166
+#: app/menus.c:183
 msgid "/Objects/Send Backwards"
 msgstr "/Objetos/Recuar o Objeto"
 
-#: app/menus.c:167
+#: app/menus.c:185
 msgid "/Objects/Bring Forwards"
 msgstr "/Objetos/Avançar o Objeto"
 
-#: app/menus.c:168 app/menus.c:172 app/menus.c:176 app/menus.c:190
+#: app/menus.c:187 app/menus.c:191 app/menus.c:195 app/menus.c:213
 msgid "/Objects/---"
 msgstr "/Objetos/---"
 
-#: app/menus.c:169
+#: app/menus.c:188
 msgid "/Objects/_Group"
 msgstr "/Objetos/_Agrupar"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:171
+#: app/menus.c:190
 msgid "/Objects/_Ungroup"
 msgstr "/Objetos/_Desagrupar"
 
-#: app/menus.c:173
+#: app/menus.c:192
 msgid "/Objects/_Parent"
 msgstr "/Objetos/_Pai"
 
-#: app/menus.c:174
+#: app/menus.c:193
 msgid "/Objects/_Unparent"
 msgstr "/Objetos/_Remover do Pai"
 
-#: app/menus.c:175
+#: app/menus.c:194
 msgid "/Objects/_Unparent Children"
 msgstr "/Objetos/Remover _Filho do Pai"
 
-#: app/menus.c:177
+#: app/menus.c:196
 msgid "/Objects/Align"
 msgstr "/Objetos/Alinhar"
 
-#: app/menus.c:179
+#: app/menus.c:198
 msgid "/Objects/Align/Left"
 msgstr "/Objetos/Alinhar/Esquerda"
 
-#: app/menus.c:180
+#: app/menus.c:200
 msgid "/Objects/Align/Center"
 msgstr "/Objetos/Alinhar/Centrar"
 
-#: app/menus.c:181
+#: app/menus.c:202
 msgid "/Objects/Align/Right"
 msgstr "/Objetos/Alinhar/Direita"
 
-#: app/menus.c:182
-msgid "/Objects/Align/Top"
-msgstr "/Objetos/Alinhar/Superior"
-
-#: app/menus.c:183
-msgid "/Objects/Align/Middle"
-msgstr "/Objetos/Alinhar/Centro"
-
-#: app/menus.c:184
-msgid "/Objects/Align/Bottom"
-msgstr "/Objetos/Alinhar/Inferior"
-
-#: app/menus.c:185
+#: app/menus.c:204 app/menus.c:208
 msgid "/Objects/Align/---"
 msgstr "/Objetos/Alinhar/---"
 
-#: app/menus.c:186
+#: app/menus.c:205
+msgid "/Objects/Align/Top"
+msgstr "/Objetos/Alinhar/Superior"
+
+#: app/menus.c:206
+msgid "/Objects/Align/Middle"
+msgstr "/Objetos/Alinhar/Centro"
+
+#: app/menus.c:207
+msgid "/Objects/Align/Bottom"
+msgstr "/Objetos/Alinhar/Inferior"
+
+#: app/menus.c:209
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/Objetos/Alinhar/Distribuir _Horizontalmente"
 
-#: app/menus.c:187
+#: app/menus.c:210
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/Objetos/Alinhar/Distribuir _Verticalmente"
 
-#: app/menus.c:188
+#: app/menus.c:211
 msgid "/Objects/Align/Adjacent"
 msgstr "/Objetos/Alinhar/_Adjacente"
 
-#: app/menus.c:189
+#: app/menus.c:212
 msgid "/Objects/Align/Stacked"
 msgstr "/Objetos/Alinhar/_Empilhar"
 
-#: app/menus.c:191
+#: app/menus.c:214
 msgid "/Objects/_Properties..."
 msgstr "/Objetos/_Propriedades..."
 
-#: app/menus.c:192
+#: app/menus.c:216
 msgid "/_Select"
 msgstr "/_Selecionar"
 
-#: app/menus.c:194
+#: app/menus.c:218
 msgid "/Select/All"
 msgstr "/Selecionar/Tudo"
 
-#: app/menus.c:195
+#: app/menus.c:219
 msgid "/Select/None"
 msgstr "/Selecionar/Nada"
 
-#: app/menus.c:196 app/menus.c:209
+#: app/menus.c:220
 msgid "/Select/Invert"
 msgstr "/Selecionar/Inverter"
 
-#: app/menus.c:197
-msgid "/Select/Connected"
-msgstr "/Selecionar/Conectados"
-
-#: app/menus.c:198
-msgid "/Select/Transitive"
-msgstr "/Selecionar/Transitivo"
-
-#: app/menus.c:199
-msgid "/Select/Same Type"
-msgstr "/Selecionar/Mesmo Tipo"
-
-#: app/menus.c:200
+#: app/menus.c:221 app/menus.c:225
 msgid "/Select/---"
 msgstr "/Selecionar/---"
 
-#: app/menus.c:201
+#: app/menus.c:222
+msgid "/Select/Transitive"
+msgstr "/Selecionar/Transitivo"
+
+#: app/menus.c:223
+msgid "/Select/Connected"
+msgstr "/Selecionar/Conectados"
+
+#: app/menus.c:224
+msgid "/Select/Same Type"
+msgstr "/Selecionar/Mesmo Tipo"
+
+#: app/menus.c:226
 msgid "/Select/Replace"
 msgstr "/Selecionar/Substituir"
 
-#: app/menus.c:203
+#: app/menus.c:228
 msgid "/Select/Union"
 msgstr "/Selecionar/União"
 
-#: app/menus.c:205
-msgid "/Select/Intersect"
-msgstr "/Selecionar/Intersecção"
+#: app/menus.c:230
+msgid "/Select/Intersection"
+msgstr "/Selecionar/Intersecção "
 
-#: app/menus.c:207
+#: app/menus.c:232
 msgid "/Select/Remove"
 msgstr "/Selecionar/Remover"
 
-#: app/menus.c:211
+#. Cannot also be called Invert, duplicate names caused keybinding problems
+#: app/menus.c:235
+msgid "/Select/Inverse"
+msgstr "/Selecionar/Inverso"
+
+#: app/menus.c:237
 msgid "/_Tools"
 msgstr "/_Ferramentas"
 
-#: app/menus.c:213
+#: app/menus.c:239
 msgid "/Tools/Modify"
 msgstr "/Ferramentas/Modificar"
 
-#: app/menus.c:214
+#: app/menus.c:240
 msgid "/Tools/Magnify"
 msgstr "/Ferramentas/Aproximar"
 
-#: app/menus.c:215
+#: app/menus.c:241
 msgid "/Tools/Scroll"
 msgstr "/Ferramentas/Rolar"
 
-#: app/menus.c:216
+#: app/menus.c:242
 msgid "/Tools/Text"
 msgstr "/Ferramentas/Texto"
 
-#: app/menus.c:217
+#: app/menus.c:243
 msgid "/Tools/Box"
 msgstr "/Ferramentas/Caixa"
 
-#: app/menus.c:218
+#: app/menus.c:244
 msgid "/Tools/Ellipse"
 msgstr "/Ferramentas/Elipse"
 
-#: app/menus.c:219
+#: app/menus.c:245
 msgid "/Tools/Polygon"
 msgstr "/Ferramentas/Polígono"
 
-#: app/menus.c:220
+#: app/menus.c:246
 msgid "/Tools/Beziergon"
 msgstr "/Ferramentas/Curva de Bézier Fechada"
 
-#: app/menus.c:221 app/menus.c:227
+#: app/menus.c:247 app/menus.c:253
 msgid "/Tools/---"
 msgstr "/Ferramentas/---"
 
-#: app/menus.c:222
+#: app/menus.c:248
 msgid "/Tools/Line"
 msgstr "/Ferramentas/Linha"
 
-#: app/menus.c:223
+#: app/menus.c:249
 msgid "/Tools/Arc"
 msgstr "/Ferramentas/Arco"
 
-#: app/menus.c:224
+#: app/menus.c:250
 msgid "/Tools/Zigzagline"
 msgstr "/Ferramentas/Linha em Zigue-Zague"
 
-#: app/menus.c:225
+#: app/menus.c:251
 msgid "/Tools/Polyline"
 msgstr "/Ferramentas/Polilinha"
 
-#: app/menus.c:226
+#: app/menus.c:252
 msgid "/Tools/Bezierline"
 msgstr "/Ferramentas/Curva de Bézier"
 
-#: app/menus.c:228
+#: app/menus.c:254
 msgid "/Tools/Image"
 msgstr "/Ferramentas/Imagem"
 
-#: app/menus.c:229
+#: app/menus.c:255
 msgid "/_Input Methods"
 msgstr "/_Métodos de Entrada"
 
-#: app/menus.c:400
+#: app/menus.c:427
 msgid "NULL tooldata in tool_menu_select"
 msgstr "Não há dados de ferramenta em tool_menu_select"
 
-#: app/menus.c:498
+#: app/menus.c:525
 msgid "Diagram Menu"
 msgstr "Menu do Diagrama"
 
-#: app/menus.c:633
+#: app/menus.c:660
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1515,6 +1524,10 @@ msgstr "Impressora"
 #: app/paginate_psprint.c:269 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "Arquivo"
+
+#: app/paginate_psprint.c:284
+msgid "OK"
+msgstr "OK"
 
 #: app/paginate_psprint.c:379
 #, c-format
@@ -2334,15 +2347,15 @@ msgstr ""
 "Impossível abrir `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:622
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:639
 msgid "Left"
 msgstr "Esquerda"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:628
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:645
 msgid "Center"
 msgstr "Centralizar"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:634
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:651
 msgid "Right"
 msgstr "Direita"
 
@@ -2406,66 +2419,66 @@ msgstr "Cor de preenchimento"
 msgid "Text colour"
 msgstr "Cor do texto"
 
-#: lib/widgets.c:361
+#: lib/widgets.c:378
 msgid "Other fonts"
 msgstr "Outras fontes"
 
-#: lib/widgets.c:431
+#: lib/widgets.c:448
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Impossível encontrar a família da fonte para %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:770 objects/FS/function.c:1063
+#: lib/widgets.c:787 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Sólido"
 
-#: lib/widgets.c:776
+#: lib/widgets.c:793
 msgid "Dashed"
 msgstr "Tracejado"
 
-#: lib/widgets.c:782
+#: lib/widgets.c:799
 msgid "Dash-Dot"
 msgstr "Traço-Ponto"
 
-#: lib/widgets.c:788
+#: lib/widgets.c:805
 msgid "Dash-Dot-Dot"
 msgstr "Traço-Ponto-Ponto"
 
-#: lib/widgets.c:794
+#: lib/widgets.c:811
 msgid "Dotted"
 msgstr "Pontilhado"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:813
+#: lib/widgets.c:830
 msgid "Dash length: "
 msgstr "Tamanho do traço: "
 
-#: lib/widgets.c:941
+#: lib/widgets.c:958
 msgid "Select color"
 msgstr "Selecionar cor"
 
-#: lib/widgets.c:1007
+#: lib/widgets.c:1024
 msgid "More colors..."
 msgstr "Mais cores..."
 
-#: lib/widgets.c:1132
+#: lib/widgets.c:1149
 msgid "More arrows"
 msgstr "Mais setas"
 
-#: lib/widgets.c:1145
+#: lib/widgets.c:1162
 msgid "Size: "
 msgstr "Tamanho: "
 
-#: lib/widgets.c:1290
+#: lib/widgets.c:1307
 msgid "Select image file"
 msgstr "Selecione o arquivo de imagem"
 
-#: lib/widgets.c:1326
+#: lib/widgets.c:1343
 msgid "Browse"
 msgstr "Navegar"
 
-#: lib/widgets.c:1922
+#: lib/widgets.c:1939
 msgid "Reset menu"
 msgstr "Redefine o menu"
 
@@ -4772,35 +4785,35 @@ msgstr "Apagar Canto"
 msgid "Standard objects"
 msgstr "Objetos padrão"
 
-#: plug-ins/cairo/diacairo.c:1012
+#: plug-ins/cairo/diacairo.c:1026
 msgid "Cairo PostScript"
 msgstr "PostScript Cairo"
 
-#: plug-ins/cairo/diacairo.c:1021
+#: plug-ins/cairo/diacairo.c:1035
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Portable Document Format"
 
-#: plug-ins/cairo/diacairo.c:1030
+#: plug-ins/cairo/diacairo.c:1044
 msgid "Cairo PNG"
 msgstr "PNG Cairo"
 
-#: plug-ins/cairo/diacairo.c:1038
+#: plug-ins/cairo/diacairo.c:1052
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (com alpha)"
 
-#: plug-ins/cairo/diacairo.c:1047
+#: plug-ins/cairo/diacairo.c:1061
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: plug-ins/cairo/diacairo.c:1056
+#: plug-ins/cairo/diacairo.c:1070
 msgid "Cairo old WMF"
 msgstr "Cairo WMF antigo"
 
-#: plug-ins/cairo/diacairo.c:1065
+#: plug-ins/cairo/diacairo.c:1079
 msgid "Cairo Clipboard"
 msgstr "Cairo Bloco de Notas"
 
-#: plug-ins/cairo/diacairo.c:1108
+#: plug-ins/cairo/diacairo.c:1122
 msgid "Cairo based Rendering"
 msgstr "Renderização baseada no Cairo"
 
@@ -8126,6 +8139,9 @@ msgstr "Servidor de dados Sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Servidor de replicação Sybase"
+
+#~ msgid "Close"
+#~ msgstr "Fechar"
 
 #~ msgid "GdkPixbuf - not antialiased"
 #~ msgstr "GdkPixbuf - sem antialisamento"
