@@ -1,3 +1,9 @@
+2004-01-28  Hans Breuer  <hans@breuer.org>
+
+	* objects/UML/transition.c : fill out the extra_spacing struct 
+	in the OrtConn member, in order to avoid artifacts when draggin 
+	the transition. (patch by Peter Allin, bug #144956)
+
 2004-01-15  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/diacairo.c : initialized the renderers default dash_length

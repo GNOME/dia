@@ -216,14 +216,6 @@ transition_create(Point *startpoint,
   transition->trigger_text = NULL;
   transition->action_text = NULL;
   
-  /* TODO, fill out the extra_spacing struct in the OrtConn member, in order to
-     avoid artifacts when draggin the transition. The stuff below here doesn't
-     quite work 
-  orth->extra_spacing.start_long = orth->extra_spacing.start_trans
-                                  = orth->extra_spacing.end_long = TRANSITION_WIDTH/2.0;
-  orth->extra_spacing.end_trans = MAX(TRANSITION_WIDTH, TRANSITION_ARROWLEN)/2.0;
-  */
-  
   uml_transition_update_data(transition);
    
   *handle1 = obj->handles[0];
@@ -494,6 +486,7 @@ uml_transition_update_data(Transition *transition)
   /* Setup helpful pointers as shortcuts */
   OrthConn *orth = &transition->orth;
   DiaObject *obj = &orth->object;
+  PolyBBExtras *extra = &orth->extra_spacing;
   points = &orth->points[0];
   
   /* Set the transitions position */
@@ -503,7 +496,13 @@ uml_transition_update_data(Transition *transition)
   
   /* Update the orthogonal connection to match the new data */
   orthconn_update_data(orth);
-  
+
+  extra->start_long = extra->end_long 
+                    = extra->middle_trans
+                    = TRANSITION_WIDTH/2.0;
+  extra->start_trans = extra->end_trans
+                     = MAX(TRANSITION_ARROWLEN, TRANSITION_WIDTH/2.0);
+
   /* Update the bounding box to match the new connection data */
   orthconn_update_boundingbox(orth);
   /* Update the bounding box to match the new trigger text size and position */
