@@ -6,6 +6,10 @@
 	good idea: tearoffs seem to be an endangered species nowadays.
 	Anyway, the IM menu seems to be working now.
 
+	* app/interface.c: hinted the window manager that the toolbox window
+	is a toolbox window. Not that my (fairly default configuration)
+	sawfish cares, but anyway.
+	
 2002-11-12  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/diagdkrenderer.c (get_text_width, draw_string):
