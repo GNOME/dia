@@ -1,5 +1,15 @@
 2002-11-27  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/prop_widgets.h: Two (currently unused) settings for frame
+	foldability.
+
+	* lib/prop_widgets.c (frame_beginprop_get_widget): Frames are now
+	(by default) foldable. 
+
+	* lib/propinternals.h: 
+	* lib/propdialogs.c (prop_dialog_add_raw_with_flags): Way to add
+	widgets in a more controlled manner.
+
 	* objects/standard/line.c (line_update_data): Line gap things
 	inserted.  Can do xeyes now:)
 

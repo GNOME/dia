@@ -40,6 +40,8 @@ typedef struct {
 
 typedef struct {
   Property common;
+  gboolean collapsible;
+  gboolean collapsed;
 } FrameProperty;
 
 typedef struct {

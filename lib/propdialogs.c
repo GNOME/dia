@@ -100,6 +100,17 @@ prop_dialog_add_raw(PropDialog *dialog, GtkWidget *widget)
   gtk_container_add(GTK_CONTAINER(dialog->lastcont),widget);
 }
 
+void 
+prop_dialog_add_raw_with_flags(PropDialog *dialog, GtkWidget *widget,
+			       gboolean expand, gboolean fill)
+{
+  g_return_if_fail(GTK_IS_BOX(dialog->lastcont));
+
+  dialog->curtable = NULL;
+  if (!widget) return;
+  gtk_box_pack_start(GTK_BOX(dialog->lastcont),widget, expand, fill, 0);
+}
+
 static void
 prop_dialog_make_curtable(PropDialog *dialog) 
 {

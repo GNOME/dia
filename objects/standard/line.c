@@ -130,12 +130,15 @@ static PropDescription line_props[] = {
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
+  PROP_FRAME_BEGIN("arrows",PROP_FLAG_STANDARD,N_("Arrows")),
   PROP_STD_START_ARROW,
   PROP_STD_END_ARROW,
+  PROP_FRAME_END("arrows",PROP_FLAG_STANDARD),
   { "start_point", PROP_TYPE_POINT, 0,
     N_("Start point"), NULL },
   { "end_point", PROP_TYPE_POINT, 0,
     N_("End point"), NULL },
+  PROP_FRAME_BEGIN("gaps",0,N_("Line gaps")),
   { "absolute_start_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Absolute start gap"), NULL, &gap_range },
   { "absolute_end_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
@@ -144,6 +147,7 @@ static PropDescription line_props[] = {
     N_("Fractional start gap"), NULL, &gap_range },
   { "fractional_end_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Fractional end gap"), NULL, &gap_range },
+  PROP_FRAME_END("gaps",0),
   PROP_DESC_END
 };
 

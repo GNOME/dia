@@ -55,6 +55,8 @@ Property *find_prop_by_name_and_type(const GPtrArray *props, const gchar *name,
 /* Add a widget without a title. This will restart a new title+widget table 
    afterwards. */
 void prop_dialog_add_raw(PropDialog *dialog, GtkWidget *widget);
+void prop_dialog_add_raw_with_flags(PropDialog *dialog, GtkWidget *widget
+				    gboolean expand, gboolean fill);
 /* Register a new container widget (which won't be automatically added) */
 void prop_dialog_container_push(PropDialog *dialog, GtkWidget *container);
 /* De-register the last container of the stack. */
