@@ -1,3 +1,11 @@
+2002-02-15  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	Changes contributed by Matts Kivik <kivik@firstlinux.net>:
+	
+	* shapes/Circuit/microphone_de.(shape|xpm) (NEW):
+	* sheets/Circuit.sheet.in: added new shape microphone
+	* shapes/Circuit/speaker_de.shape: Added a connection point.
+	
 2002-02-13  Akira TAGOH  <tagoh@redhat.com>
 
 	* app/render_libart.c (draw_string): fixed build issue for Win32.

@@ -84,6 +84,9 @@
     <object name="Circuit - Speaker (European)">
       <_description>A Speaker</_description>
     </object>
+    <object name="Circuit - Microphone (European)">
+      <_description>A Microphone</_description>
+    </object>
     <br/>
     <object name="Circuit - Horizontal Led (European)">
       <_description>A horizontally aligned LED</_description>
