@@ -649,24 +649,6 @@ dia_layer_widget_visible_redraw(DiaLayerWidget *layer_widget)
   gdk_window_set_background (layer_widget->visible->window, color);
 
   if (layer_widget->layer->visible) {
-    if (!eye_pixmap[NORMAL]) {
-      eye_pixmap[NORMAL] =
-	gdk_pixmap_create_from_data (layer_widget->visible->window,
-				     (gchar*) eye_bits, eye_width, eye_height, -1,
-				     &layer_widget->visible->style->fg[GTK_STATE_NORMAL],
-				     &layer_widget->visible->style->white);
-      eye_pixmap[SELECTED] =
-	gdk_pixmap_create_from_data (layer_widget->visible->window,
-				     (gchar*) eye_bits, eye_width, eye_height, -1,
-				     &layer_widget->visible->style->fg[GTK_STATE_SELECTED],
-				     &layer_widget->visible->style->bg[GTK_STATE_SELECTED]);
-      eye_pixmap[INSENSITIVE] =
-	gdk_pixmap_create_from_data (layer_widget->visible->window,
-				     (gchar*) eye_bits, eye_width, eye_height, -1,
-				     &layer_widget->visible->style->fg[GTK_STATE_INSENSITIVE],
-				     &layer_widget->visible->style->bg[GTK_STATE_INSENSITIVE]);
-    }
-
     if (GTK_WIDGET_IS_SENSITIVE (GTK_WIDGET(layer_widget))) {
       if (state == GTK_STATE_SELECTED)
 	pixmap = eye_pixmap[SELECTED];
@@ -702,13 +684,6 @@ dia_layer_widget_exclusive_visible(DiaLayerWidget *layer_widget)
   }
 
   /*  Now, toggle the visibility for all layers except the specified one  */
-  for (i=0;i<layer_widget->dia->data->layers->len;i++) {
-    layer = g_ptr_array_index(layer_widget->dia->data->layers, i);
-    if (layer_widget->layer != layer) {
-	visible |= layer->visible;
-    }
-  }
-
   list = GTK_LIST(layer_dialog->layer_list)->children;
   while (list) {
     lw = DIA_LAYER_WIDGET(list->data);
@@ -835,6 +810,24 @@ dia_layer_widget_init(DiaLayerWidget *lw)
   gtk_box_pack_start (GTK_BOX (hbox), alignment, FALSE, TRUE, 2);
   gtk_widget_show(alignment);
   
+  if (!eye_pixmap[NORMAL]) {
+    eye_pixmap[NORMAL] =
+      gdk_pixmap_create_from_data (lw->visible->window,
+				   (gchar*) eye_bits, eye_width, eye_height, -1,
+				   &lw->visible->style->fg[GTK_STATE_NORMAL],
+				   &lw->visible->style->white);
+    eye_pixmap[SELECTED] =
+      gdk_pixmap_create_from_data (lw->visible->window,
+				   (gchar*) eye_bits, eye_width, eye_height, -1,
+				   &lw->visible->style->fg[GTK_STATE_SELECTED],
+				   &lw->visible->style->bg[GTK_STATE_SELECTED]);
+    eye_pixmap[INSENSITIVE] =
+      gdk_pixmap_create_from_data (lw->visible->window,
+				   (gchar*) eye_bits, eye_width, eye_height, -1,
+				   &lw->visible->style->fg[GTK_STATE_INSENSITIVE],
+				   &lw->visible->style->bg[GTK_STATE_INSENSITIVE]);
+  }
+
   lw->label = label = gtk_label_new("layer_default_label");
   gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, TRUE, 0);

@@ -240,6 +240,7 @@ box_move_handle(Box *box, Handle *handle,
     float new_width, new_height;
     float to_width, aspect_width;
     Point corner = box->element.corner;
+    Point nw_to, se_to;
 
     width = box->element.width;
     height = box->element.height;
@@ -269,7 +270,6 @@ box_move_handle(Box *box, Handle *handle,
       break;
     }
 	
-    Point nw_to, se_to;
     se_to.x = corner.x + new_width;
     se_to.y = corner.y + new_height;
         

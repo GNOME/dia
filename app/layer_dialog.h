@@ -58,6 +58,7 @@ struct _DiaLayerWidget
   Layer *layer;
   
   GtkWidget *visible;
+  GtkWidget *selectable;
   GtkWidget *label;
 
   EditLayerDialog *edit_dialog;

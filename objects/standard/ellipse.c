@@ -208,6 +208,7 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
 		    HandleMoveReason reason, ModifierKeys modifiers)
 {
   Element *elem = &ellipse->element;
+  Point nw_to, se_to;
 
   assert(ellipse!=NULL);
   assert(handle!=NULL);
@@ -226,9 +227,9 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
         float width, height;
         float new_width, new_height;
         float to_width, aspect_width;
+        Point center;
         width = ellipse->element.width;
         height = ellipse->element.height;
-        Point center;
         center.x = elem->corner.x + width/2;
         center.y = elem->corner.y + height/2;
         switch (handle->id) {
@@ -257,7 +258,6 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
 	    break;
         }
 	
-        Point nw_to, se_to;
         nw_to.x = center.x - new_width/2;
         nw_to.y = center.y - new_height/2;
         se_to.x = center.x + new_width/2;
@@ -267,9 +267,9 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
         element_move_handle(&ellipse->element, HANDLE_RESIZE_SE, &se_to, cp, reason, modifiers);
     } else {
         Point center;
+        Point opposite_to;
         center.x = elem->corner.x + elem->width/2;
         center.y = elem->corner.y + elem->height/2;
-        Point opposite_to;
         opposite_to.x = center.x - (to->x-center.x);
         opposite_to.y = center.y - (to->y-center.y);
 
@@ -469,6 +469,10 @@ ellipse_copy(Ellipse *ellipse)
   newellipse->show_background = ellipse->show_background;
   newellipse->aspect = ellipse->aspect;
   newellipse->line_style = ellipse->line_style;
+
+  newobj->handles[8] = &newellipse->center_handle;
+  newellipse->center_handle = ellipse->center_handle;
+  newellipse->center_handle.connected_to = NULL;
 
   for (i=0;i<9;i++) {
     newobj->connections[i] = &newellipse->connections[i];

@@ -1,4 +1,4 @@
-2004-04-28  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+2004-04-28  Lars Clausen  <lars@raeder.dk>
 
 	* app/Makefile.am: New files diacanvas.[ch]
 
@@ -25,7 +25,7 @@
 	Starting work on new text editing model.  Guarded by #ifdef so
 	far. 
 
-2004-04-07  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+2004-04-07  Lars Clausen  <lars@raeder.dk>
 
 	* app/recent_files.c (open_recent_file_callback): 
 	* app/interface.c (origin_button_press): 
@@ -51,6 +51,14 @@
 	* app/interface.c (create_lineprops_area): 
 	Make line style persistent as well.  Added function to directly
 	set the style and dashlength of a dialinechooser. 
+
+2004-04-03  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/ellipse.c (ellipse_move_handle, ellipse_copy):
+	Copy the ellipse extra handle correctly.
+
+	* objects/standard/box.c (box_move_handle): Move definitions
+	according to bug #138925.
 
 2004-04-02  Lars Clausen  <lars@raeder.dk>
 

@@ -94,7 +94,9 @@ struct _Layer {
 			     objects can ONLY be connected to objects
 			     in the same layer! */
 
-  int visible;
+  gboolean visible;
+  gboolean connectable;   /* Whether the layer can currently be connected to.
+			     The selected layer is by default connectable */
 
   DiagramData *parent_diagram; /* Back-pointer to the diagram.  This
 				  must only be set by functions internal

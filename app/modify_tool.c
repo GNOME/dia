@@ -825,7 +825,7 @@ modify_start_text_edit(DDisplay *ddisp, Text *text, Object *obj, Point *clickedp
 #ifdef NEW_TEXT_EDIT
   gtk_signal_connect(GTK_OBJECT(view), "focus-out-event",
 		     modify_edit_end, obj);
-£endif
+#endif
   gtk_widget_grab_focus(view);
   gtk_widget_show(view);
 }
