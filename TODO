@@ -9,25 +9,32 @@ general:
 * If you hold down shift while moving the handle of an 'Element',
   scale while keeping same proportions.
 * Must be able to change background color.
-* Maye be able to set a default linestyle, much like the current linewidth
+* Maybe be able to set a default linestyle, much like the current linewidth
   widget.
+* save more stuff in the diagram file. grid, bg etc.
+* is there a better way to calculate font-properties. Rendering 100 pixel hig fonts
+  is very slow.
 
 gtk:
  keyboard accelerators can be better:
 *  They don't work at all on 1.1.x
 *  On 1.0.x you have to open the pop-up menu once in a window befor you
     can use them
+* move to gtk 1.1.5 (soon 1.2), needs some scrolled window updates.
 
 functions:
- undo
+* undo, see event model later in this file.
  
 renderer:
- images
+* images
+* add begin/end rendering methods.
 
 objects:
- render_object: better distance_from that can be specified by the object programmer.
- Bitmapped image object
- Vector image object (for maps and stuff). CGM?
+* finish the network objects
+* add new object-lib: Entity-Relationship modeling.
+* render_object: better distance_from that can be specified by the object programmer.
+* Bitmapped image object
+* Vector image object (for maps and stuff). CGM?
 
 UML:
  Class: * class can be object => underlined name
@@ -37,9 +44,16 @@ UML:
           (Mostly stereotypes)
 
 Big stuff:
- * load/save in xml-format. Needs much support so objects can easily save their variables and so the format is easy for other programs to generate.
+ * load/save in xml-format. Needs much support so objects can easily
+   save their variables and so the format is easy for other programs to generate.
  * some kind of 'plug-in api' so that libraries like uml can add new
-   functions to the menus (like: load UMX)
+   functions to the menus (like: load UMX). This means some parts of
+   the Diagram struct has to move to lib/blahblah.h so that object-libraries
+   can handle/create whole diagrams (for ie. exporting/importing).
+ * Add a clean event model so that all modifications of the diagram and objects
+   goes by a well known path. This makes it possible to have a history of
+   modifications which means UNDO is easy!
+ * Add a layer dialog and a layer rendering system. Also add layer-effects?
 
 ---------------------------------------------------------------
 
@@ -48,12 +62,16 @@ BUGS:
 * selecting with rubberband and draggin mouse to other window with same diagram
   gives ugly box left on screen.
 
+* Toggling rulers changes the size of the window to the default size.
+
 * pressing '+' and '-' when a focus is activated it gets both to the focus and zooms.
 
 * doesn't use latin-1 or some other well-known 8-bit encoding in eps_renderer
 
 * If you move an object outside the visible screen, scroll there move the object back
   and then scroll back, the (now) unused area is not removed.
+
+* Deleting/Cutting a newly created empty text-object gives a seg-fault.
 
 * If you double-click on the color-selector as the first thing you do
   sometimes the program crashes.
