@@ -28,6 +28,7 @@
 
 #include <string.h>
 
+#undef GTK_DISABLE_DEPRECATED /* gtk_signal_connect, ... */
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
 #include "widgets.h"

@@ -18,6 +18,7 @@
 
 #include <config.h>
 #include "intl.h"
+#undef GTK_DISABLE_DEPRECATED /* ... */
 #include "widgets.h"
 #include "message.h"
 
@@ -602,7 +603,7 @@ dia_line_style_selector_get_linestyle(DiaLineStyleSelector *fs,
   align = gtk_object_get_user_data(GTK_OBJECT(menuitem));
   *ls = GPOINTER_TO_INT(align);
   if (dl!=NULL) {
-    *dl = gtk_spin_button_get_value_as_float(fs->dashlength);
+    *dl = gtk_spin_button_get_value(fs->dashlength);
   }
 }
 

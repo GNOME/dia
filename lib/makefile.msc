@@ -5,6 +5,7 @@ PACKAGE = libdia
 
 PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 	-I.. \
+	-DGTK_DISABLE_DEPRECATED \
 	$(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(ZLIB_CFLAGS) \
@@ -58,6 +59,7 @@ OBJECTS = \
 	propobject.obj \
 	propoffsets.obj \
 	propregistry.obj \
+	ps-utf8.obj \
 	render.obj \
 	sheet.obj \
 	text.obj \

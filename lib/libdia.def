@@ -425,3 +425,11 @@ EXPORTS
  dia_sort_sheets
  sheet_append_sheet_obj
  register_sheet
+
+ ps_unicoder_destroy
+ ps_unicoder_new
+ psu_check_string_encodings
+ psu_get_string_width
+ psu_set_font_face
+ psu_show_string
+ unicode_to_ps_name

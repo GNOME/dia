@@ -19,31 +19,23 @@
 #include <config.h>
 
 #include <stdio.h>
+#include <string.h>
 #include <stdarg.h>
-#ifdef GNOME
-#include <gnome.h>
-#else
 #include <gtk/gtk.h>
-#endif
 
 #include "intl.h"
 #include "utils.h"
 #include "message.h"
 
 static void
-gtk_message_internal(char *title, const char *fmt,
-		 va_list *args,  va_list *args2)
+gtk_message_internal(const char* title, const char *fmt,
+                     va_list *args,  va_list *args2)
 {
   static gchar *buf = NULL;
   static gint   alloc = 0;
-  GtkWidget *dialog_window = NULL;
-  GtkWidget *vbox;
-  GtkWidget *label;
-#ifndef GNOME
-  GtkWidget *button;
-  GtkWidget *bbox;
-#endif
   gint len;
+  GtkWidget *dialog;
+  GtkMessageType type = GTK_MESSAGE_INFO;
 
   len = format_string_length_upper_bound (fmt, args);
 
@@ -58,43 +50,29 @@ gtk_message_internal(char *title, const char *fmt,
   
   vsprintf (buf, fmt, *args2);
 
-#ifdef GNOME
-  dialog_window = gnome_dialog_new(title, GNOME_STOCK_BUTTON_OK, NULL);
-  vbox = GNOME_DIALOG(dialog_window)->vbox;
-#else
-  dialog_window = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (dialog_window), title);
-  gtk_container_set_border_width (GTK_CONTAINER (dialog_window), 0);
-  vbox = GTK_DIALOG(dialog_window)->vbox;
-#endif
+  /* quite dirty to not change Dia's message api */
+  if (title) {
+    if (0 == strcmp (title, _("Error")))
+      type = GTK_MESSAGE_ERROR;
+    else if (0 == strcmp (title, _("Warning")))
+      type = GTK_MESSAGE_WARNING;
+  }
+  dialog = gtk_message_dialog_new (NULL, /* no parent window */
+                                   0,    /* GtkDialogFlags */
+                                   type,
+                                   GTK_BUTTONS_CLOSE,
+                                   buf);
+  if (title) {
+    gchar *real_title;
 
-  label = gtk_label_new (buf);
-  gtk_misc_set_padding (GTK_MISC (label), 10, 10);
-  gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
-  gtk_widget_show (label);
-
-#ifdef GNOME
-  gnome_dialog_set_close(GNOME_DIALOG(dialog_window), TRUE);
-#else
-  bbox = gtk_hbutton_box_new();
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog_window)->action_area), 
-		     bbox, TRUE, TRUE, 0);
-  gtk_button_box_set_child_size(GTK_BUTTON_BOX(bbox), 80, 0);
-  gtk_button_box_set_spacing(GTK_BUTTON_BOX(bbox), 10);
-  gtk_widget_show(bbox);
-  
-  button = gtk_button_new_with_label (_("OK"));
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_container_add(GTK_CONTAINER(bbox), button);
-  gtk_widget_grab_default (button);
-  gtk_widget_show (button);
-
-  gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
-			    GTK_SIGNAL_FUNC(gtk_widget_destroy),
-			    GTK_OBJECT(dialog_window));
-#endif
-
-  gtk_widget_show (dialog_window);
+    real_title = g_strdup_printf ("Dia: %s", title);
+    gtk_window_set_title (GTK_WINDOW(dialog), real_title);
+    g_free (real_title);
+  }
+  gtk_widget_show (dialog);
+  g_signal_connect (G_OBJECT (dialog), "response",
+		        G_CALLBACK (gtk_widget_destroy),
+		        NULL);
 }
 
 static MessageInternal message_internal = gtk_message_internal;

@@ -27,6 +27,7 @@
 #endif
 
 #include <glib.h>
+#undef GTK_DISABLE_DEPRECATED /* GtkList */
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
 #include "widgets.h"

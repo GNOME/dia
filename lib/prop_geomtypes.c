@@ -96,7 +96,7 @@ realprop_reset_widget(RealProperty *prop, WIDGET *widget)
 static void 
 realprop_set_from_widget(RealProperty *prop, WIDGET *widget) 
 {
-  prop->real_data = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(widget));
+  prop->real_data = gtk_spin_button_get_value(GTK_SPIN_BUTTON(widget));
 }
 
 static void 

@@ -29,6 +29,7 @@
 
 #include <stdlib.h> /* strtol */
 
+#undef GTK_DISABLE_DEPRECATED /* gtk_signal_connect, gtk_object_set_user_data */
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
 #include "properties.h"
@@ -147,9 +148,9 @@ static void
 bool_toggled(GtkWidget *wid)
 {
   if (GTK_TOGGLE_BUTTON(wid)->active)
-    gtk_label_set(GTK_LABEL(GTK_BIN(wid)->child), _("Yes"));
+    gtk_label_set_text(GTK_LABEL(GTK_BIN(wid)->child), _("Yes"));
   else
-    gtk_label_set(GTK_LABEL(GTK_BIN(wid)->child), _("No"));
+    gtk_label_set_text(GTK_LABEL(GTK_BIN(wid)->child), _("No"));
 }
 
 static Property *

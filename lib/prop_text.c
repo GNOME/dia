@@ -28,6 +28,7 @@
 #endif
 
 #define GTK_ENABLE_BROKEN /* GtkText */
+#undef GTK_DISABLE_DEPRECATED /* for GtkText */
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
 #include "widgets.h"
