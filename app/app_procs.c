@@ -170,6 +170,9 @@ app_init (int argc, char **argv)
 #endif 
 
   bindtextdomain(PACKAGE, LOCALEDIR);
+#ifdef UNICODE_WORK_IN_PROGRESS
+  bind_textdomain_codeset(PACKAGE,"UTF-8");
+#endif
   textdomain(PACKAGE);
 
   if (argv) {

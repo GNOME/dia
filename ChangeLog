@@ -1,3 +1,9 @@
+2001-06-09  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* app/app_procs.c (app_init): added a call to
+	bind_textdomain_codeset() so that gettext gives us UTF-8 strings
+	(UNICODE_WORK_IN_PROGRESS).
+	
 2001-06-08  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* plug-ins/xfig/xfig-import.c: corrected a typo (fixes #55910)
