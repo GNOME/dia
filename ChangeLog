@@ -1,3 +1,14 @@
+2002-02-28  Akira TAGOH  <tagoh@redhat.com>
+
+	* objects/UML/class_dialog.c (class_read_from_dialog)
+	(class_fill_in_dialog), (class_create_page): add the font selector and
+	the font size selector.
+
+	* objects/UML/class.c (umlclass_draw): uses each font_height.
+	(umlclass_calculate_data): ditto.
+	(fill_in_fontdata): add initial value of new font_height.
+	(umlclass_copy): add new font_height.
+
 2002-02-27  Cyrille Chepelov  <chepelov@calixo.net>
 
 	Patch from Geoff Gerrietts <ggerrietts@yahoo.com>:

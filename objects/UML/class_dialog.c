@@ -148,6 +148,14 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   umlclass->suppress_operations = prop_dialog->op_supp->active;
   umlclass->color_foreground = prop_dialog->fg_color->col;
   umlclass->color_background = prop_dialog->bg_color->col;
+  umlclass->normal_font = dia_font_selector_get_font (prop_dialog->normal_font);
+  umlclass->abstract_font = dia_font_selector_get_font (prop_dialog->abstract_font);
+  umlclass->classname_font = dia_font_selector_get_font (prop_dialog->classname_font);
+  umlclass->abstract_classname_font = dia_font_selector_get_font (prop_dialog->abstract_classname_font);
+  umlclass->font_height = gtk_spin_button_get_value_as_float (prop_dialog->normal_font_height);
+  umlclass->abstract_font_height = gtk_spin_button_get_value_as_float (prop_dialog->abstract_font_height);
+  umlclass->classname_font_height = gtk_spin_button_get_value_as_float (prop_dialog->classname_font_height);
+  umlclass->abstract_classname_font_height = gtk_spin_button_get_value_as_float (prop_dialog->abstract_classname_font_height);
 }
 
 static void
@@ -186,6 +194,14 @@ class_fill_in_dialog(UMLClass *umlclass)
   gtk_toggle_button_set_active(prop_dialog->op_supp, umlclass->suppress_operations);
   dia_color_selector_set_color(prop_dialog->fg_color, &umlclass->color_foreground);
   dia_color_selector_set_color(prop_dialog->bg_color, &umlclass->color_background);
+  dia_font_selector_set_font (prop_dialog->normal_font, umlclass->normal_font);
+  dia_font_selector_set_font (prop_dialog->abstract_font, umlclass->abstract_font);
+  dia_font_selector_set_font (prop_dialog->classname_font, umlclass->classname_font);
+  dia_font_selector_set_font (prop_dialog->abstract_classname_font, umlclass->abstract_classname_font);
+  gtk_spin_button_set_value (prop_dialog->normal_font_height, umlclass->font_height);
+  gtk_spin_button_set_value (prop_dialog->abstract_font_height, umlclass->abstract_font_height);
+  gtk_spin_button_set_value (prop_dialog->classname_font_height, umlclass->classname_font_height);
+  gtk_spin_button_set_value (prop_dialog->abstract_classname_font_height, umlclass->abstract_classname_font_height);
 }
 
 static void 
@@ -200,6 +216,12 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *checkbox;
   GtkWidget *color_background;
   GtkWidget *color_foreground;
+  GtkWidget *normal_font, *normal_font_height;
+  GtkWidget *abstract_font, *abstract_font_height;
+  GtkWidget *classname_font, *classname_font_height;
+  GtkWidget *abstract_classname_font, *abstract_classname_font_height;
+  GtkWidget *table;
+  GtkAdjustment *adj;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -263,25 +285,93 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox),
 		      hbox, FALSE, TRUE, 0);
 
-  hbox = gtk_hbox_new(FALSE, 5);
+  table = gtk_table_new (10, 2, TRUE);
+  gtk_box_pack_start (GTK_BOX (vbox),
+		      table, FALSE, TRUE, 0);
+
+  label = gtk_label_new (_("Normal Font"));
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 0, 1);
+  normal_font = dia_font_selector_new ();
+  dia_font_selector_set_font (DIAFONTSELECTOR (normal_font), umlclass->normal_font);
+  prop_dialog->normal_font = DIAFONTSELECTOR (normal_font);
+  gtk_table_attach_defaults (GTK_TABLE (table), normal_font, 1, 2, 0, 1);
+
+  label = gtk_label_new (_("Normal Font Size"));
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 1, 2);
+  adj = gtk_adjustment_new (umlclass->font_height, 0.1, 10.0, 0.1, 1.0, 1.0);
+  normal_font_height = gtk_spin_button_new (adj, 1.0, 2);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (normal_font_height), TRUE);
+  prop_dialog->normal_font_height = GTK_SPIN_BUTTON (normal_font_height);
+  gtk_table_attach_defaults (GTK_TABLE (table), normal_font_height, 1, 2, 1, 2);
+
+  label = gtk_label_new (_("Abstract Font"));
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 2, 3);
+  abstract_font = dia_font_selector_new ();
+  dia_font_selector_set_font (DIAFONTSELECTOR (abstract_font), umlclass->abstract_font);
+  prop_dialog->abstract_font = DIAFONTSELECTOR (abstract_font);
+  gtk_table_attach_defaults (GTK_TABLE (table), abstract_font, 1, 2, 2, 3);
+
+  label = gtk_label_new (_("Abstract Font Size"));
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 3, 4);
+  adj = gtk_adjustment_new (umlclass->abstract_font_height, 0.1, 10.0, 0.1, 1.0, 1.0);
+  abstract_font_height = gtk_spin_button_new (adj, 1.0, 2);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (abstract_font_height), TRUE);
+  prop_dialog->abstract_font_height = GTK_SPIN_BUTTON (abstract_font_height);
+  gtk_table_attach_defaults (GTK_TABLE (table), abstract_font_height, 1, 2, 3, 4);
+
+  label = gtk_label_new (_("Class name Font"));
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 4, 5);
+  classname_font = dia_font_selector_new ();
+  dia_font_selector_set_font (DIAFONTSELECTOR (classname_font), umlclass->classname_font);
+  prop_dialog->classname_font = DIAFONTSELECTOR (classname_font);
+  gtk_table_attach_defaults (GTK_TABLE (table), classname_font, 1, 2, 4, 5);
+
+  label = gtk_label_new (_("Class name Font Size"));
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 5, 6);
+  adj = gtk_adjustment_new (umlclass->classname_font_height, 0.1, 10.0, 0.1, 1.0, 1.0);
+  classname_font_height = gtk_spin_button_new (adj, 1.0, 2);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (classname_font_height), TRUE);
+  prop_dialog->classname_font_height = GTK_SPIN_BUTTON (classname_font_height);
+  gtk_table_attach_defaults (GTK_TABLE (table), classname_font_height, 1, 2, 5, 6);
+
+  label = gtk_label_new (_("Abstract Class name Font"));
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 6, 7);
+  abstract_classname_font = dia_font_selector_new ();
+  dia_font_selector_set_font (DIAFONTSELECTOR (abstract_classname_font), umlclass->abstract_classname_font);
+  prop_dialog->abstract_classname_font = DIAFONTSELECTOR (abstract_classname_font);
+  gtk_table_attach_defaults (GTK_TABLE (table), abstract_classname_font, 1, 2, 6, 7);
+
+  label = gtk_label_new (_("Abstract Class name Font Size"));
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 7, 8);
+  adj = gtk_adjustment_new (umlclass->abstract_classname_font_height, 0.1, 10.0, 0.1, 1.0, 1.0);
+  abstract_classname_font_height = gtk_spin_button_new (adj, 1.0, 2);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (abstract_classname_font_height), TRUE);
+  prop_dialog->abstract_classname_font_height = GTK_SPIN_BUTTON (abstract_classname_font_height);
+  gtk_table_attach_defaults (GTK_TABLE (table), abstract_classname_font_height, 1, 2, 7, 8);
+
   label = gtk_label_new(_("Foreground Color"));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_box_pack_start( GTK_BOX(hbox), label, TRUE, TRUE, 0);
+  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 8, 9, GTK_EXPAND | GTK_FILL, 0, 0, 0);
   color_foreground = dia_color_selector_new();
   dia_color_selector_set_color((DiaColorSelector *)color_foreground, &umlclass->color_foreground);
   prop_dialog->fg_color = (DiaColorSelector *)color_foreground;
-  gtk_box_pack_end( GTK_BOX(hbox), color_foreground, TRUE, TRUE,0);
-  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
+  gtk_table_attach (GTK_TABLE (table), color_foreground, 1, 2, 8, 9, GTK_EXPAND | GTK_FILL, 0, 0, 0);
   
-  hbox = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Background Color"));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_box_pack_start( GTK_BOX(hbox), label, TRUE, TRUE, 0);
+  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 9, 10, GTK_EXPAND | GTK_FILL, 0, 0, 0);
   color_background = dia_color_selector_new();
   dia_color_selector_set_color((DiaColorSelector *)color_background, &umlclass->color_background);
   prop_dialog->bg_color = (DiaColorSelector *)color_background;
-  gtk_box_pack_end( GTK_BOX(hbox), color_background, TRUE, TRUE,0);
-  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
+  gtk_table_attach (GTK_TABLE (table), color_background, 1, 2, 9, 10, GTK_EXPAND | GTK_FILL, 0, 0, 0);
 
   gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);

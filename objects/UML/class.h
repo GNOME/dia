@@ -34,7 +34,10 @@ struct _UMLClass {
   ConnectionPoint connections[8];
 
   real font_height;
+  real abstract_font_height;
   real classname_font_height;
+  real abstract_classname_font_height;
+
   DiaFont *normal_font;
   DiaFont *abstract_font;
   DiaFont *classname_font;
@@ -94,6 +97,14 @@ struct _UMLClassDialog {
   GtkToggleButton *attr_supp;
   GtkToggleButton *op_vis;
   GtkToggleButton *op_supp;
+  DiaFontSelector *normal_font;
+  DiaFontSelector *abstract_font;
+  DiaFontSelector *classname_font;
+  DiaFontSelector *abstract_classname_font;
+  GtkSpinButton *normal_font_height;
+  GtkSpinButton *abstract_font_height;
+  GtkSpinButton *classname_font_height;
+  GtkSpinButton *abstract_classname_font_height;
   DiaColorSelector *fg_color;
   DiaColorSelector *bg_color;
 
