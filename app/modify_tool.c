@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -213,7 +213,6 @@ modify_double_click(ModifyTool *tool, GdkEventButton *event,
 {
   Point clickedpoint;
   Object *clicked_obj;
-  GtkWidget *properties;
   
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
@@ -265,7 +264,8 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     /* Move to ConnectionPoint if near: */
     connectionpoint =
       object_find_connectpoint_display(ddisp, &to);
-    if ( (tool->handle->connectable) && (connectionpoint != NULL) ) {
+    if ( (tool->handle->connect_type != HANDLE_NONCONNECTABLE) &&
+	 (connectionpoint != NULL) ) {
       to = connectionpoint->pos;
     } else {
       /* No connectionopoint near, then snap to grid (if enabled) */
@@ -352,7 +352,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     object_add_updates(tool->object, ddisp->diagram);
 
     /* Connect if possible: */
-    if (tool->handle->connectable) {
+    if (tool->handle->connect_type != HANDLE_NONCONNECTABLE) {
       object_connect_display(ddisp, tool->object, tool->handle);
       diagram_update_connections_selection(ddisp->diagram);
     }

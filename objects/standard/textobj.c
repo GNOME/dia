@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -277,7 +277,7 @@ textobj_create(Point *startpoint,
   obj->handles[0] = &textobj->text_handle;
   textobj->text_handle.id = HANDLE_TEXT;
   textobj->text_handle.type = HANDLE_MAJOR_CONTROL;
-  textobj->text_handle.connectable = TRUE;
+  textobj->text_handle.connect_type = HANDLE_CONNECTABLE;
   textobj->text_handle.connected_to = NULL;
 
   textobj_update_data(textobj);
@@ -354,7 +354,7 @@ textobj_load(int fd, int version)
   obj->handles[0] = &textobj->text_handle;
   textobj->text_handle.id = HANDLE_TEXT;
   textobj->text_handle.type = HANDLE_MINOR_CONTROL;
-  textobj->text_handle.connectable = TRUE;
+  textobj->text_handle.connect_type = HANDLE_CONNECTABLE;
   textobj->text_handle.connected_to = NULL;
 
   textobj_update_data(textobj);

@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -286,7 +286,7 @@ arc_create(Point *startpoint,
   obj->handles[2] = &arc->middle_handle;
   arc->middle_handle.id = HANDLE_MIDDLE;
   arc->middle_handle.type = HANDLE_MINOR_CONTROL;
-  arc->middle_handle.connectable = FALSE;
+  arc->middle_handle.connect_type = HANDLE_NONCONNECTABLE;
   arc->middle_handle.connected_to = NULL;
 
   arc_update_data(arc);
@@ -437,7 +437,7 @@ arc_load(int fd, int version)
   obj->handles[2] = &arc->middle_handle;
   arc->middle_handle.id = HANDLE_MIDDLE;
   arc->middle_handle.type = HANDLE_MINOR_CONTROL;
-  arc->middle_handle.connectable = FALSE;
+  arc->middle_handle.connect_type = HANDLE_NONCONNECTABLE;
   arc->middle_handle.connected_to = NULL;
 
   arc_update_data(arc);

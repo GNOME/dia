@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -59,7 +59,8 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 		   (Renderer *)ddisp->renderer);
 
   /* Connect first handle if possible: */
-  if ((handle1!= NULL) && (handle1->connectable)) {
+  if ((handle1!= NULL) &&
+      (handle1->connect_type != HANDLE_NONCONNECTABLE)) {
     object_connect_display(ddisp, obj, handle1);
   }
 
@@ -99,7 +100,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
     object_add_updates(tool->obj, ddisp->diagram);
 
 
-    if (tool->handle->connectable) {
+    if (tool->handle->connect_type != HANDLE_NONCONNECTABLE) {
       object_connect_display(ddisp, tool->obj, tool->handle);
       diagram_update_connections_selection(ddisp->diagram);
       diagram_flush(ddisp->diagram);
@@ -126,7 +127,8 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
   /* Move to ConnectionPoint if near: */
   connectionpoint =
     object_find_connectpoint_display(ddisp, &to);
-  if ( (tool->handle->connectable) && (connectionpoint != NULL) ) {
+  if ( (tool->handle->connect_type != HANDLE_NONCONNECTABLE) &&
+       (connectionpoint != NULL) ) {
     to = connectionpoint->pos;
   } else {
     /* No connectionopoint near, then snap to grid (if enabled) */

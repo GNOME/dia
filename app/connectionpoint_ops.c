@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -135,8 +135,9 @@ ddisplay_connect_selected(DDisplay *ddisp)
     selected_obj = (Object *) list->data;
     
     for (i=0; i<selected_obj->num_handles; i++) {
-      if (selected_obj->handles[i]->connectable)
+      if (selected_obj->handles[i]->connect_type != HANDLE_NONCONNECTABLE) {
 	object_connect_display(ddisp, selected_obj, selected_obj->handles[i]);
+      }
     }
     
     list = g_list_next(list);
@@ -159,7 +160,9 @@ diagram_unconnect_selected(Diagram *dia)
     for (i=0; i<selected_obj->num_handles; i++) {
       handle = selected_obj->handles[i];
       
-      if (handle->connected_to != NULL) {
+      if ((handle->connected_to != NULL) &&
+	  (handle->connect_type == HANDLE_CONNECTABLE)){
+	  /* don't do this if type is HANDLE_CONNECTABLE_BREAK */
 	if (!diagram_is_selected(dia, handle->connected_to->object)) {
 	  object_unconnect(selected_obj, handle);
 	}

@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -83,7 +83,7 @@ handle_draw(Handle *handle, DDisplay *ddisp)
 		      HANDLE_SIZE-1, HANDLE_SIZE-1);
 
   
-  if (handle->connectable) {
+  if (handle->connect_type != HANDLE_NONCONNECTABLE) {
     gdk_draw_line (ddisp->pixmap,
 		   handle_gc,
 		   x - HANDLE_SIZE/2, y - HANDLE_SIZE/2,

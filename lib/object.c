@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -126,8 +126,8 @@ void
 object_connect(Object *obj, Handle *handle,
 	       ConnectionPoint *connectionpoint)
 {
-  if (!handle->connectable) {
-    message_error("Error? trying to connect a non conectable handle.\n"
+  if (handle->connect_type==HANDLE_NONCONNECTABLE) {
+    message_error("Error? trying to connect a non connectable handle.\n"
 		  "Check this out...\n");
     return;
   }

@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -95,7 +95,7 @@ connection_init(Connection *conn, int num_handles, int num_connections)
   for (i=0;i<2;i++) {
     obj->handles[i] = &conn->endpoint_handles[i];
     obj->handles[i]->type = HANDLE_MAJOR_CONTROL;
-    obj->handles[i]->connectable = TRUE;
+    obj->handles[i]->connect_type = HANDLE_CONNECTABLE;
     obj->handles[i]->connected_to = NULL;
   }
 }

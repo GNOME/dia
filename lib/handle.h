@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,6 +22,7 @@ typedef struct _Handle Handle;
 typedef enum _HandleId HandleId;
 typedef enum _HandleType HandleType;
 typedef enum _HandleMoveReason HandleMoveReason;
+typedef enum _HandleConnectType HandleConnectType;
 
 /* Is this needed? */
 enum _HandleId {
@@ -62,6 +63,12 @@ enum _HandleMoveReason {
   HANDLE_MOVE_CONNECTED
 };
 
+enum _HandleConnectType {
+  HANDLE_NONCONNECTABLE,
+  HANDLE_CONNECTABLE,
+  HANDLE_CONNECTABLE_NOBREAK /* Don't break connection on object move */
+};
+
 #include "geometry.h"
 #include "object.h"
 
@@ -70,7 +77,7 @@ struct _Handle {
   HandleType type;
   Point pos;
   
-  int connectable;
+  HandleConnectType connect_type;
   ConnectionPoint *connected_to; /* NULL if not connected */
 };
 

@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -281,7 +281,7 @@ zigzagline_create(Point *startpoint,
   obj->handles[2] = &zigzagline->middle_handle;
   zigzagline->middle_handle.id = HANDLE_MIDDLE;
   zigzagline->middle_handle.type = HANDLE_MINOR_CONTROL;
-  zigzagline->middle_handle.connectable = FALSE;
+  zigzagline->middle_handle.connect_type = HANDLE_NONCONNECTABLE;
   zigzagline->middle_handle.connected_to = NULL;
   
   zigzagline_update_data(zigzagline);
@@ -381,7 +381,7 @@ zigzagline_load(int fd, int version)
   obj->handles[2] = &zigzagline->middle_handle;
   zigzagline->middle_handle.id = HANDLE_MIDDLE;
   zigzagline->middle_handle.type = HANDLE_MINOR_CONTROL;
-  zigzagline->middle_handle.connectable = FALSE;
+  zigzagline->middle_handle.connect_type = HANDLE_NONCONNECTABLE;
   zigzagline->middle_handle.connected_to = NULL;
   
   zigzagline_update_data(zigzagline);

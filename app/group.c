@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -307,7 +307,7 @@ group_create(GList *objects)
   for (i=0;i<8;i++) {
     obj->handles[i] = &group->resize_handles[i];
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
-    obj->handles[i]->connectable = FALSE;
+    obj->handles[i]->connect_type = HANDLE_NONCONNECTABLE;
     obj->handles[i]->connected_to = NULL;
   }
   

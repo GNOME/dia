@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -268,13 +268,13 @@ implements_create(Point *startpoint,
 
   implements->text_handle.id = HANDLE_MOVE_TEXT;
   implements->text_handle.type = HANDLE_MINOR_CONTROL;
-  implements->text_handle.connectable = FALSE;
+  implements->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   implements->text_handle.connected_to = NULL;
   obj->handles[2] = &implements->text_handle;
   
   implements->circle_handle.id = HANDLE_CIRCLE_SIZE;
   implements->circle_handle.type = HANDLE_MINOR_CONTROL;
-  implements->circle_handle.connectable = FALSE;
+  implements->circle_handle.connect_type = HANDLE_NONCONNECTABLE;
   implements->circle_handle.connected_to = NULL;
   obj->handles[3] = &implements->circle_handle;
 
@@ -435,13 +435,13 @@ implements_load(int fd, int version)
 
   implements->text_handle.id = HANDLE_MOVE_TEXT;
   implements->text_handle.type = HANDLE_MINOR_CONTROL;
-  implements->text_handle.connectable = FALSE;
+  implements->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   implements->text_handle.connected_to = NULL;
   obj->handles[2] = &implements->text_handle;
   
   implements->circle_handle.id = HANDLE_CIRCLE_SIZE;
   implements->circle_handle.type = HANDLE_MINOR_CONTROL;
-  implements->circle_handle.connectable = FALSE;
+  implements->circle_handle.connect_type = HANDLE_NONCONNECTABLE;
   implements->circle_handle.connected_to = NULL;
   obj->handles[3] = &implements->circle_handle;
 

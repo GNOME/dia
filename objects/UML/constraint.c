@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -256,7 +256,7 @@ constraint_create(Point *startpoint,
 
   constraint->text_handle.id = HANDLE_MOVE_TEXT;
   constraint->text_handle.type = HANDLE_MINOR_CONTROL;
-  constraint->text_handle.connectable = FALSE;
+  constraint->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   constraint->text_handle.connected_to = NULL;
   obj->handles[2] = &constraint->text_handle;
   
@@ -381,7 +381,7 @@ constraint_load(int fd, int version)
 
   constraint->text_handle.id = HANDLE_MOVE_TEXT;
   constraint->text_handle.type = HANDLE_MINOR_CONTROL;
-  constraint->text_handle.connectable = FALSE;
+  constraint->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   constraint->text_handle.connected_to = NULL;
   obj->handles[2] = &constraint->text_handle;
   

@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -38,7 +38,7 @@ static void setup_midpoint_handle(Handle *handle)
 {
   handle->id = HANDLE_MIDPOINT;
   handle->type = HANDLE_MINOR_CONTROL;
-  handle->connectable = FALSE;
+  handle->connect_type = HANDLE_NONCONNECTABLE;
   handle->connected_to = NULL;
 }
 
@@ -416,13 +416,13 @@ orthconn_init(OrthConn *orth, Point *startpoint)
   orth->orientation = g_malloc(2*sizeof(Orientation));
 
   obj->handles[0] = &orth->endpoint_handles[0];
-  obj->handles[0]->connectable = TRUE;
+  obj->handles[0]->connect_type = HANDLE_CONNECTABLE;
   obj->handles[0]->connected_to = NULL;
   obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[0]->id = HANDLE_MOVE_STARTPOINT;
   
   obj->handles[1] = &orth->endpoint_handles[1];
-  obj->handles[1]->connectable = TRUE;
+  obj->handles[1]->connect_type = HANDLE_CONNECTABLE;
   obj->handles[1]->connected_to = NULL;
   obj->handles[1]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[1]->id = HANDLE_MOVE_ENDPOINT;
@@ -544,14 +544,14 @@ orthconn_load(OrthConn *orth, int fd) /* NOTE: Does object_init() */
   }
 
   obj->handles[0] = &orth->endpoint_handles[0];
-  obj->handles[0]->connectable = TRUE;
+  obj->handles[0]->connect_type = HANDLE_CONNECTABLE;
   obj->handles[0]->connected_to = NULL;
   obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[0]->id = HANDLE_MOVE_STARTPOINT;
   obj->handles[0]->pos = orth->points[0];
   
   obj->handles[1] = &orth->endpoint_handles[1];
-  obj->handles[1]->connectable = TRUE;
+  obj->handles[1]->connect_type = HANDLE_CONNECTABLE;
   obj->handles[1]->connected_to = NULL;
   obj->handles[1]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[1]->id = HANDLE_MOVE_ENDPOINT;
