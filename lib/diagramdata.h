@@ -21,14 +21,27 @@
 #include <glib.h>
 
 typedef struct _DiagramData DiagramData;
+typedef struct _PaperInfo PaperInfo;
 typedef struct _Layer Layer;
 
 #include "object.h"
+
+struct _PaperInfo {
+  gchar *name;      /* name of the paper */
+  gfloat tmargin, bmargin, lmargin, rmargin; /* margin widths in centimeters */
+  gboolean is_portrait;   /* page is in portrait orientation? */
+  gfloat scaling;         /* scaling factor for image on page */
+
+  gfloat width, height;   /* usable width/height -- calculated from paper type,
+			   * margin widths and paper orientation */
+};
 
 struct _DiagramData {
   Rectangle extents;      /* The extents of the diagram        */
 
   Color bg_color;
+
+  PaperInfo paper;       /* info about the page info for the diagram */
 
   GPtrArray *layers;     /* Layers ordered by decreasing z-order */
   Layer *active_layer;

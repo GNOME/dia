@@ -1,3 +1,25 @@
+1999-10-25  James Henstridge  <james@daa.com.au>
+
+	* app/commands.[ch] (file_pagesetup_callback): added callback for
+	the page setup dialog.
+
+	* app/menus.c: added page setup menu item.
+
+	* app/pagesetup.[ch]: implementation of the page setup dialog.
+
+	* app/diapagelayout.[ch]: added accessors for the scaling factor.
+	
+	* app/load_save.c (diagram_load): load paper information from save
+	file.
+	(diagram_save): save the paper info.
+
+	* lib/diagramdata.c (new_diagram_data): initialise paper info section
+	of DiagramData structure.
+	(diagram_data_destroy): free the paper name.
+
+	* lib/diagramdata.h: added a paper member to the DiagramData structure
+	that holds the page layout info for a diagram.
+
 1999-10-21  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/flowchart/box.c:

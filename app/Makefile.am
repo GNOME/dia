@@ -78,6 +78,12 @@ dia_SOURCES = \
 	    tool.c \
 	    tool.h \
 	    pixmaps.h \
+	    diapagelayout.c \
+	    diapagelayout.h \
+	    diaunitspinner.c \
+	    diaunitspinner.h \
+	    pagesetup.c \
+	    pagesetup.h \
 	    $(print_files)
 
 dia_LDADD = ../lib/libdia.a ../objects/custom/libcustom_objects.a \

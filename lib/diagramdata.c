@@ -36,6 +36,14 @@ new_diagram_data(void)
  
   data->bg_color = color_white;
 
+  data->paper.name = g_strdup("A4");
+  data->paper.tmargin = data->paper.bmargin =
+    data->paper.lmargin = data->paper.rmargin = 2.82;
+  data->paper.is_portrait = TRUE;
+  data->paper.scaling = 1.0;
+  data->paper.width = 21.0 - 2 * 2.82;
+  data->paper.height = 29.7 - 2 * 2.82;
+
   first_layer = new_layer(g_strdup(_("Background")));
   data->layers = g_ptr_array_new();
   g_ptr_array_add(data->layers, first_layer);
@@ -51,6 +59,8 @@ void
 diagram_data_destroy(DiagramData *data)
 {
   int i;
+
+  g_free(data->paper.name);
   for (i=0;i<data->layers->len;i++) {
     layer_destroy(g_ptr_array_index(data->layers, i));
   }

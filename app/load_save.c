@@ -35,6 +35,7 @@
 #include "group.h"
 #include "message.h"
 #include "preferences.h"
+#include "diapagelayout.h"
 
 static GList *
 read_objects(xmlNodePtr objects, GHashTable *objects_hash, char *filename)
@@ -149,6 +150,7 @@ diagram_load(char *filename)
   Diagram *dia;
   xmlDocPtr doc;
   xmlNodePtr diagramdata;
+  xmlNodePtr paperinfo;
   xmlNodePtr layer_node;
   AttributeNode attr;
   Layer *layer;
@@ -205,6 +207,64 @@ diagram_load(char *filename)
   attr = composite_find_attribute(diagramdata, "background");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &dia->data->bg_color);
+
+  /* load paper information from diagramdata section */
+  attr = composite_find_attribute(diagramdata, "paper");
+  if (attr != NULL) {
+    paperinfo = attribute_first_data(attr);
+
+    attr = composite_find_attribute(paperinfo, "name");
+    if (attr != NULL) {
+      g_free(dia->data->paper.name);
+      dia->data->paper.name = data_string(attribute_first_data(attr));
+    }
+    /* set default margins for paper size ... */
+    dia_page_layout_get_default_margins(dia->data->paper.name,
+					&dia->data->paper.tmargin,
+					&dia->data->paper.bmargin,
+					&dia->data->paper.lmargin,
+					&dia->data->paper.rmargin);
+    
+    attr = composite_find_attribute(paperinfo, "tmargin");
+    if (attr != NULL)
+      dia->data->paper.tmargin = data_real(attribute_first_data(attr));
+    attr = composite_find_attribute(paperinfo, "bmargin");
+    if (attr != NULL)
+      dia->data->paper.bmargin = data_real(attribute_first_data(attr));
+    attr = composite_find_attribute(paperinfo, "lmargin");
+    if (attr != NULL)
+      dia->data->paper.lmargin = data_real(attribute_first_data(attr));
+    attr = composite_find_attribute(paperinfo, "rmargin");
+    if (attr != NULL)
+      dia->data->paper.rmargin = data_real(attribute_first_data(attr));
+
+    attr = composite_find_attribute(paperinfo, "is_portrait");
+    dia->data->paper.is_portrait = TRUE;
+    if (attr != NULL)
+      dia->data->paper.is_portrait = data_boolean(attribute_first_data(attr));
+
+    attr = composite_find_attribute(paperinfo, "scaling");
+    dia->data->paper.scaling = 1.0;
+    if (attr != NULL)
+      dia->data->paper.scaling = data_real(attribute_first_data(attr));
+
+    /* calculate effective width/height */
+    dia_page_layout_get_paper_size(dia->data->paper.name,
+				   &dia->data->paper.width,
+				   &dia->data->paper.height);
+    if (!dia->data->paper.is_portrait) {
+      gfloat tmp = dia->data->paper.width;
+
+      dia->data->paper.width = dia->data->paper.height;
+      dia->data->paper.height = tmp;
+    }
+    dia->data->paper.width -= dia->data->paper.lmargin;
+    dia->data->paper.width -= dia->data->paper.rmargin;
+    dia->data->paper.height -= dia->data->paper.tmargin;
+    dia->data->paper.height -= dia->data->paper.bmargin;
+    dia->data->paper.width /= dia->data->paper.scaling;
+    dia->data->paper.height /= dia->data->paper.scaling;
+  }
 
   /* Read in all layers: */
   layer_node = diagramdata->next;
@@ -362,6 +422,7 @@ diagram_save(Diagram *dia, char *filename)
   FILE *file;
   xmlDocPtr doc;
   xmlNodePtr tree;
+  xmlNodePtr pageinfo;
   xmlNodePtr layer_node;
   GHashTable *objects_hash;
   int res;
@@ -391,6 +452,23 @@ diagram_save(Diagram *dia, char *filename)
   
   attr = new_attribute((ObjectNode)tree, "background");
   data_add_color(attr, &dia->data->bg_color);
+
+  attr = new_attribute((ObjectNode)tree, "paper");
+  pageinfo = data_add_composite(attr, "paper");
+  data_add_string(composite_add_attribute(pageinfo, "name"),
+		  dia->data->paper.name);
+  data_add_real(composite_add_attribute(pageinfo, "tmargin"),
+		dia->data->paper.tmargin);
+  data_add_real(composite_add_attribute(pageinfo, "bmargin"),
+		dia->data->paper.bmargin);
+  data_add_real(composite_add_attribute(pageinfo, "lmargin"),
+		dia->data->paper.lmargin);
+  data_add_real(composite_add_attribute(pageinfo, "rmargin"),
+		dia->data->paper.rmargin);
+  data_add_boolean(composite_add_attribute(pageinfo, "is_portrait"),
+		   dia->data->paper.is_portrait);
+  data_add_real(composite_add_attribute(pageinfo, "scaling"),
+		dia->data->paper.scaling);
 
   objects_hash = g_hash_table_new(g_direct_hash, g_direct_equal);
 

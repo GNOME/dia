@@ -59,6 +59,13 @@ void         dia_page_layout_set_margins (DiaPageLayout *pl,
 DiaPageOrientation dia_page_layout_get_orientation (DiaPageLayout *pl);
 void         dia_page_layout_set_orientation (DiaPageLayout *pl,
 					      DiaPageOrientation orient);
+gfloat       dia_page_layout_get_scaling (DiaPageLayout *self);
+void         dia_page_layout_set_scaling (DiaPageLayout *self,
+					  gfloat scaling);
+
+void         dia_page_layout_get_effective_area (DiaPageLayout *self,
+						 gfloat *width,
+						 gfloat *height);
 
 /* get paper sizes and default margins ... */
 void dia_page_layout_get_paper_size      (const gchar *paper,

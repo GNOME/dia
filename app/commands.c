@@ -50,6 +50,7 @@
 #include "layer_dialog.h"
 #include "connectionpoint_ops.h"
 #include "undo.h"
+#include "pagesetup.h"
 
 GdkImlibImage *logo;
 
@@ -572,6 +573,15 @@ file_export_to_svg_callback(GtkWidget *widget, gpointer data)
   /* Make dialog modal: */
   gtk_widget_grab_focus(window);
   gtk_grab_add(window);
+}
+
+void
+file_pagesetup_callback(GtkWidget *widget, gpointer data)
+{
+  Diagram *dia;
+
+  dia = ddisplay_active()->diagram;
+  create_page_setup_dlg(dia);
 }
 
 void
