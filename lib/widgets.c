@@ -85,6 +85,7 @@ dia_font_selector_init (DiaFontSelector *fs)
   // Go through hash table and build menu
   GtkWidget *menu;
   GtkWidget *omenu;
+  GtkWidget *hbox;
   
   omenu = gtk_option_menu_new();
   fs->font_omenu = GTK_OPTION_MENU(omenu);
@@ -95,11 +96,20 @@ dia_font_selector_init (DiaFontSelector *fs)
 		       menu);
   
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->font_omenu), menu);
+  gtk_widget_show(menu);
+  gtk_widget_show(omenu);
 
   omenu = gtk_option_menu_new();
   fs->style_omenu = GTK_OPTION_MENU(omenu);
   menu = gtk_menu_new ();
   fs->style_menu = GTK_MENU(menu);
+  gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->style_omenu), menu);
+
+  gtk_widget_show(menu);
+  gtk_widget_show(omenu);
+
+  gtk_box_pack_start_defaults(GTK_BOX(fs), GTK_WIDGET(fs->font_omenu));
+  gtk_box_pack_start_defaults(GTK_BOX(fs), GTK_WIDGET(fs->style_omenu));
 #else
   GtkWidget *menu;
   GtkWidget *submenu;
@@ -159,7 +169,11 @@ dia_font_selector_get_type        (void)
       (GtkArgGetFunc) NULL
     };
     
+#ifdef HAVE_FREETYPE
+    dfs_type = gtk_type_unique (gtk_hbox_get_type (), &dfs_info);
+#else
     dfs_type = gtk_type_unique (gtk_option_menu_get_type (), &dfs_info);
+#endif
 
     /* Init the font hash_table: */
     font_nr_hashtable = g_hash_table_new(g_str_hash, g_str_equal);
@@ -208,8 +222,13 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
     font_nr = GPOINTER_TO_INT(font_nr_ptr);
   }
   
+#ifdef HAVE_FREETYPE
+  gtk_option_menu_set_history(GTK_OPTION_MENU(fs->font_omenu), font_nr);
+  gtk_menu_set_active(fs->font_menu, font_nr);
+#else
   gtk_option_menu_set_history(GTK_OPTION_MENU(fs), font_nr);
   gtk_menu_set_active(fs->font_menu, font_nr);
+#endif
 }
 
 DiaFont *

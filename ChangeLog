@@ -1,3 +1,9 @@
+2002-01-30  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
+
+	* lib/widgets.c: 
+	* lib/widgets.h: New font selector separating font and style.
+	Style not functional yet.
+
 2002-01-30  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/text.c: 

@@ -18,6 +18,8 @@
 #ifndef WIDGETS_H
 #define WIDGETS_H
 
+#include <config.h>
+
 #include <gdk/gdk.h>
 #include <gtk/gtkmenu.h>
 #include <gtk/gtkoptionmenu.h>
@@ -59,7 +61,7 @@ struct _DiaFontSelector
 struct _DiaFontSelectorClass
 {
 #ifdef HAVE_FREETYPE
-  GtkWidgetClass parent_class;
+  GtkHBoxClass parent_class;
 #else
   GtkOptionMenuClass parent_class;
 #endif
