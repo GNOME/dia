@@ -14,12 +14,16 @@ INCLUDES = -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@ \
   -DSHAPE_DIR=\""$(shapedir)"\"
 
 shapedir = $(pkgdatadir)/shape-internal/flowchart
-shape_DATA = document.shape
+shape_DATA = display.shape document.shape transaction.shape
 
 EXTRA_DIST = \
+	display.shape \
 	document.shape \
+	transaction.shape \
 	pixmaps/box.xpm \
 	pixmaps/diamond.xpm \
 	pixmaps/ellipse.xpm \
 	pixmaps/pgram.xpm \
-	pixmaps/document.xpm
+	pixmaps/display.xpm \
+	pixmaps/document.xpm \
+	pixmaps/transaction.xpm

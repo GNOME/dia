@@ -1,3 +1,19 @@
+1999-10-12  James Henstridge  <james@daa.com.au>
+
+	* objects/flowchart/flowchart.c: added new shapes to sheet.
+
+	* objects/flowchart/display.shape:
+	* objects/flowchart/transaction.shape: new shapes.
+
+	* AUTHORS: added my name to the spec file.
+
+	* dia.spec: include the dia desktop entry to the spec file.
+
+	* Makefile.am: install the dia.desktop file.
+
+	* dia.desktop: added a gnome desktop entry so you can start dia
+	from the gnome panel menu.
+
 1999-10-11  James Henstridge  <james@daa.com.au>
 
 	* objects/custom/custom_object.c:
