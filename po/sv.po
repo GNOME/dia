@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-11-19 21:50+0100\n"
-"PO-Revision-Date: 2002-11-19 21:51+0100\n"
+"POT-Creation-Date: 2002-11-26 18:18+0100\n"
+"PO-Revision-Date: 2002-11-26 18:19+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -157,7 +157,7 @@ msgstr ""
 "Det finns automatiskt sparade filer.\n"
 "Välj de du vill återställa."
 
-#: app/color_area.c:301 lib/widgets.c:836
+#: app/color_area.c:301 lib/widgets.c:841
 msgid "Select color"
 msgstr "Välj färg"
 
@@ -732,7 +732,7 @@ msgstr "Beziergon"
 msgid "Create Line"
 msgstr "Skapa linje"
 
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:187
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:226
 msgid "Line"
 msgstr "Linje"
 
@@ -1079,7 +1079,7 @@ msgstr "Invertera"
 msgid "All"
 msgstr "Allt"
 
-#: app/menus.c:171 lib/widgets.c:978 objects/UML/association.c:1071
+#: app/menus.c:171 lib/widgets.c:983 objects/UML/association.c:1071
 msgid "None"
 msgstr "Ingen"
 
@@ -1095,15 +1095,15 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samma typ"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:520
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:525
 msgid "Left"
 msgstr "Vänster"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:526
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:531
 msgid "Center"
 msgstr "Mittpunkt"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:532
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:537
 msgid "Right"
 msgstr "Höger"
 
@@ -1623,7 +1623,7 @@ msgstr "NULL-tooldata i tool_menu_select"
 msgid "Diagram Menu"
 msgstr "Diagrammeny"
 
-#: app/menus.c:1168
+#: app/menus.c:1172
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1871,7 +1871,7 @@ msgstr "Kunde inte öppna historikfilen för skrivning."
 msgid "Encapsulated Postscript"
 msgstr "Inkapslad Postscript"
 
-#: app/render_libart.c:319 lib/dialibartrenderer.c:266
+#: app/render_libart.c:321 lib/dialibartrenderer.c:266
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Fyllnadsläge som inte stöds angivet!\n"
 
@@ -2171,6 +2171,49 @@ msgstr ""
 "stöta på problem. Rapportera till dia-list@gnome.org om du ser detta "
 "meddelande."
 
+#. This is the default text shown in the preview entry, though the user
+#. can set it. Remember that some fonts only have capital letters.
+#: lib/diagtkfontsel.c:72
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijklmnopqrstuvxyzåäö ABCDEFGHIJKLMNOPQRSTUVXYZÅÄÖ"
+
+#: lib/diagtkfontsel.c:207
+msgid "Font name"
+msgstr "Typsnittsnamn"
+
+#: lib/diagtkfontsel.c:208
+msgid "The X string that represents this font."
+msgstr "X-strängen som representerar detta typsnitt."
+
+#: lib/diagtkfontsel.c:214
+msgid "Preview text"
+msgstr "Förhandsvisningstext"
+
+#: lib/diagtkfontsel.c:215
+msgid "The text to display in order to demonstrate the selected font."
+msgstr "Texten att visa för att demonstrera det valda typsnittet."
+
+#: lib/diagtkfontsel.c:319
+msgid "_Family:"
+msgstr "_Familj:"
+
+#: lib/diagtkfontsel.c:325
+msgid "_Style:"
+msgstr "_Stil:"
+
+#: lib/diagtkfontsel.c:331
+msgid "Si_ze:"
+msgstr "Sto_rlek:"
+
+#. create the text entry widget
+#: lib/diagtkfontsel.c:460
+msgid "_Preview:"
+msgstr "Förhands_visning:"
+
+#: lib/diagtkfontsel.c:1250
+msgid "Font Selection"
+msgstr "Typsnittsval"
+
 #: lib/message.c:86
 msgid "There is one similar message."
 msgstr "Det finns ett liknande meddelande."
@@ -2298,149 +2341,154 @@ msgstr "Typsnittsstorlek"
 msgid "Text colour"
 msgstr "Textfärg"
 
-#: lib/widgets.c:211
+#: lib/widgets.c:213
 msgid "Other fonts..."
 msgstr "Andra typsnitt..."
 
-#: lib/widgets.c:299
+#: lib/widgets.c:301
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Kunde inte hitta typsnittsfamiljen för %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:346
+#: lib/widgets.c:348
 msgid "Select font"
 msgstr "Välj typsnitt"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:641 objects/FS/function.c:1039
+#: lib/widgets.c:646 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "Heldragen"
 
-#: lib/widgets.c:647
+#: lib/widgets.c:652
 msgid "Dashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:653
+#: lib/widgets.c:658
 msgid "Dash-Dot"
 msgstr "Streck-prick"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:664
 msgid "Dash-Dot-Dot"
 msgstr "Streck-prick-prick"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:670
 msgid "Dotted"
 msgstr "Punktmarkerad"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:683
+#: lib/widgets.c:688
 msgid "Dash length: "
 msgstr "Linjelängd: "
 
-#: lib/widgets.c:979
+#: lib/widgets.c:984
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:980
+#: lib/widgets.c:985
 msgid "Hollow Triangle"
 msgstr "Ihålig triangel"
 
-#: lib/widgets.c:981
+#: lib/widgets.c:986
 msgid "Filled Triangle"
 msgstr "Fylld triangel"
 
-#: lib/widgets.c:982
+#: lib/widgets.c:987
 msgid "Unfilled Triangle"
 msgstr "Ofylld triangel"
 
-#: lib/widgets.c:983
+#: lib/widgets.c:988
 msgid "Filled Diamond"
 msgstr "Fylld romb"
 
-#: lib/widgets.c:984
+#: lib/widgets.c:989
 msgid "Half Head"
 msgstr "Halvt huvud"
 
-#: lib/widgets.c:985
+#: lib/widgets.c:990
 msgid "Slashed Cross"
 msgstr "Kors med snedstreck"
 
-#: lib/widgets.c:986
+#: lib/widgets.c:991
 msgid "Filled Ellipse"
 msgstr "Fylld ellips"
 
-#: lib/widgets.c:987
+#: lib/widgets.c:992
 msgid "Hollow Ellipse"
 msgstr "Ihålig ellips"
 
-#: lib/widgets.c:988
+#: lib/widgets.c:993
 msgid "Filled Dot"
 msgstr "Fylld punkt"
 
-#: lib/widgets.c:989
+#: lib/widgets.c:994
 msgid "Dimension Origin"
 msgstr "Dimensionsursprung"
 
-#: lib/widgets.c:990
+#: lib/widgets.c:995
 msgid "Blanked Dot"
 msgstr "Tom punkt"
 
-#: lib/widgets.c:991
+#: lib/widgets.c:996
 msgid "Double Hollow triangle"
 msgstr "Dubbel ihålig triangel"
 
-#: lib/widgets.c:992
+#: lib/widgets.c:997
 msgid "Double Filled triangle"
 msgstr "Dubbel fylld triangel"
 
-#: lib/widgets.c:993
+#: lib/widgets.c:998
 msgid "Filled Box"
 msgstr "Fylld ruta"
 
-#: lib/widgets.c:994
+#: lib/widgets.c:999
 msgid "Blanked Box"
 msgstr "Tom ruta"
 
-#: lib/widgets.c:995
+#: lib/widgets.c:1000
 msgid "Slashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:996
+#: lib/widgets.c:1001
 msgid "Integral Symbol"
 msgstr "Integralsymbol"
 
-#: lib/widgets.c:997
+#: lib/widgets.c:1002
 msgid "Crow Foot"
 msgstr "Kråkfot"
 
-#: lib/widgets.c:998
+#: lib/widgets.c:1003
 msgid "Cross"
 msgstr "Kors"
 
-#: lib/widgets.c:999
+#: lib/widgets.c:1004
 msgid "Filled Concave"
 msgstr "Fylld konkav"
 
-#: lib/widgets.c:1000
+#: lib/widgets.c:1005
 msgid "Blanked Concave"
 msgstr "Tom konkav"
 
-#: lib/widgets.c:1037
+#: lib/widgets.c:1042
 msgid "Length: "
 msgstr "Längd: "
 
-#: lib/widgets.c:1050
+#: lib/widgets.c:1055
 msgid "Width: "
 msgstr "Bredd: "
 
-#: lib/widgets.c:1177
+#: lib/widgets.c:1182
 msgid "Select image file"
 msgstr "Välj bildfil"
 
-#: lib/widgets.c:1207
+#: lib/widgets.c:1212
 msgid "Browse"
 msgstr "Bläddra"
+
+# Vad är "bond" här?
+#: objects/bondgraph/bondgraph.c:39
+msgid "Bond graph objects"
+msgstr "Bindningsgrafobjekt"
 
 #: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
@@ -2549,15 +2597,15 @@ msgstr "Vänd horisontellt"
 msgid "Flip vertical"
 msgstr "Vänd vertikalt"
 
-#: objects/custom/custom_object.c:1391
+#: objects/custom/custom_object.c:1406
 msgid "Flip Horizontal"
 msgstr "Vänd horisontellt"
 
-#: objects/custom/custom_object.c:1392
+#: objects/custom/custom_object.c:1407
 msgid "Flip Vertical"
 msgstr "Vänd vertikalt"
 
-#: objects/custom/custom_object.c:1429
+#: objects/custom/custom_object.c:1444
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Kan inte öppna ikonfilen %s för objekttypen \"%s\"."
@@ -2600,7 +2648,7 @@ msgstr "Totalt:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
-#: objects/standard/zigzagline.c:429 objects/UML/association.c:686
+#: objects/standard/zigzagline.c:495 objects/UML/association.c:686
 #: objects/UML/dependency.c:351 objects/UML/generalization.c:347
 #: objects/UML/realizes.c:340
 msgid "Add segment"
@@ -2608,7 +2656,7 @@ msgstr "Lägg till segment"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
 #: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
-#: objects/standard/zigzagline.c:430 objects/UML/association.c:687
+#: objects/standard/zigzagline.c:496 objects/UML/association.c:687
 #: objects/UML/dependency.c:352 objects/UML/generalization.c:348
 #: objects/UML/realizes.c:341
 msgid "Delete segment"
@@ -3790,7 +3838,7 @@ msgid "Vergent type:"
 msgstr "Kanttyp:"
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:181
+#: objects/standard/line.c:220
 msgid "Add connection point"
 msgstr "Lägg till anslutningspunkt"
 
@@ -3887,7 +3935,7 @@ msgstr "Aktivitet/Dataidentifierare"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Identifieraren som visas i nedre högra hörnet i rutan"
 
-#: objects/SADT/box.c:440 objects/standard/line.c:182
+#: objects/SADT/box.c:440 objects/standard/line.c:221
 msgid "Delete connection point"
 msgstr "Ta bort anslutningsspunkt"
 
@@ -3951,13 +3999,29 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "Kunde inte hitta bildfilen \"%s\".\n"
 
-#: objects/standard/line.c:120
+#: objects/standard/line.c:134
 msgid "Start point"
 msgstr "Startpunkt"
 
-#: objects/standard/line.c:122
+#: objects/standard/line.c:136
 msgid "End point"
 msgstr "Slutpunkt"
+
+#: objects/standard/line.c:138
+msgid "Start gap"
+msgstr "Startavstånd"
+
+#: objects/standard/line.c:140
+msgid "End gap"
+msgstr "Slutavstånd"
+
+#: objects/standard/line.c:142
+msgid "Start fractional gap"
+msgstr "Startdelavstånd"
+
+#: objects/standard/line.c:144
+msgid "End fractional gap"
+msgstr "Slutdelavstånd"
 
 #: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"
@@ -6337,9 +6401,6 @@ msgstr "UML"
 #~ msgid "Instantiation"
 #~ msgstr "Instantiering"
 
-#~ msgid "Unidirectional"
-#~ msgstr "Enkelriktad"
-
 #~ msgid "Bidirectional"
 #~ msgstr "Tvåriktad"
 
@@ -6360,9 +6421,6 @@ msgstr "UML"
 
 #~ msgid "Function module:"
 #~ msgstr "Funktionsmodul:"
-
-#~ msgid "Function name:"
-#~ msgstr "Funktionsnamn:"
 
 #~ msgid "Interfaces"
 #~ msgstr "Gränssnitt"
