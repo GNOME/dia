@@ -33,10 +33,12 @@
 static PangoContext* pango_context = NULL;
 static real global_size_one = 20.0;
 
-void
+PangoContext *
 dia_font_init(PangoContext* pcontext)
 {
-    pango_context = pcontext;
+  PangoContext *old = pango_context;
+  pango_context = pcontext;
+  return old;
 }
 
     /* dia centimetres to pango device units */
