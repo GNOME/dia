@@ -335,7 +335,7 @@ largepackage_create(Point *startpoint,
   
   pkg->stereotype = NULL;
   pkg->st_stereotype = NULL;
-  pkg->name = strdup("");
+  pkg->name = g_strdup("");
 
   pkg->topwidth = 2.0;
   pkg->topheight = LARGEPACKAGE_FONTHEIGHT*2 + 0.1*2;

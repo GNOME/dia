@@ -126,6 +126,9 @@ paginate_psprint(Diagram *dia, FILE *file)
   guint nobjs = 0;
   char *old_locale;
 
+#if !defined(HAVE_FREETYPE)
+  message_error ("The Postscript renderer wasn't built.");
+#else
   old_locale = setlocale(LC_NUMERIC, "C");
   rend = new_psprint_renderer(dia, file);
 
@@ -163,6 +166,7 @@ paginate_psprint(Diagram *dia, FILE *file)
   destroy_eps_renderer(rend);
 
   setlocale(LC_NUMERIC, old_locale);
+#endif
 }
 
 static void

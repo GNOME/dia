@@ -852,7 +852,7 @@ image_load(ObjectNode obj_node, int version, const char *filename)
 	    message_warning(_("The image file '%s' was not found in that directory.\n"
 			    "Using the file '%s' instead\n"), image->file, image_file_name);
 	    tmp = image->file;
-	    image->file = strdup(image_file_name);
+	    image->file = g_strdup(image_file_name);
 	    g_free(tmp);
 	  } else {
 	    message_warning(_("The image file '%s' was not found.\n"),

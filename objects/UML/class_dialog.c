@@ -970,8 +970,10 @@ parameters_set_values(UMLClassDialog *prop_dialog, UMLParameter *param)
     gtk_entry_set_text(prop_dialog->param_value, param->value);
   else
     gtk_entry_set_text(prop_dialog->param_value, "");
-
-  gtk_entry_set_text(prop_dialog->param_comment, param->comment);
+  if (param->comment != NULL)
+    gtk_entry_set_text(prop_dialog->param_comment, param->comment);
+  else
+    gtk_entry_set_text(prop_dialog->param_comment, "");
 
   gtk_option_menu_set_history(prop_dialog->param_kind_button,
 			      (gint)param->kind);

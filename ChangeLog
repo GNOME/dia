@@ -1,3 +1,42 @@
+2002-07-06  Hans Breuer  <hans@breuer.org>
+
+	* makefile.am app/makefile.am lib/makefile.am
+	  objects/makefile.am plug-ins/makefile.am 
+	  plug-ins/python/makefile.am :
+	added required files for win32 build to EXTRA_DIST
+
+	* app/paginate_psprint.c app/render_eps.c 
+	  app/app_procs.c :
+	wrap (E)PS Renderer into HAVE_FREETYPE, no FreeType
+	on Pango as currently is on win32 => no PostScript 
+	anymore.
+
+	* lib/widgets.c : undef GTK_DISABLE_DEPRECATED;
+	use '/* noop */;' for empty case labels; replace
+	debug spew printf with g_print which is guaranteed 
+	to work on win32, too.
+
+	* lib/font.c (dia_pfd_set_weight) : set 'intermediate' values 
+	for DIA_FONT_MEDIUM and DIA_FONT_DEMIBOLD as explicit allowed 
+	in the pango_font_description_set_weight() api documentation
+	Take care for them in dia_font_get_style() too.
+
+	* lib/font.[hc] lib/widget.c objects/custom/shape_info.c
+	  plug-ins/shape/shape-export.c plug-ins/svg/render_svg.c :
+	rename Obliquity to Slant which appears to be the usual name,
+	also rename dia_font_get_style_string -> dia_font_get_slant_string
+
+	* plug-ins/wmf/wmf.cpp : finally ported to new font api
+
+	* lib/prop_attr.c app/render_gdk.c : dont *_unref if NULL
+
+	* objects/uml/association.c class.c large_package.c message.c
+	if g_free() is used g_strdup needs to be used.
+	* objects/custom/shape_info.c
+	  objects/ER/attribute.c entity.c
+	  objects/standard/image.c 
+	  app/sheets_dialog_callbacks.c : more strdup cleaning
+
 2002-07-05  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_eps.c: Non-crashing printing (made the right

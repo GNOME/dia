@@ -31,7 +31,7 @@
 #include "font.h"
 
 static PangoContext* pango_context = NULL;
-real global_size_one = 20.0;
+static real global_size_one = 20.0;
 
 void
 dia_font_init(PangoContext* pcontext)
@@ -127,10 +127,15 @@ dia_pfd_set_weight(PangoFontDescription* pfd, DiaFontWeight fw) {
     pango_font_description_set_weight(pfd, PANGO_WEIGHT_LIGHT);
     break;
   case DIA_FONT_WEIGHT_NORMAL :
-  case DIA_FONT_MEDIUM : /* Pango doesn't have this */
     pango_font_description_set_weight(pfd, PANGO_WEIGHT_NORMAL);
     break;
-  case DIA_FONT_DEMIBOLD : /* Pango doesn't have this */
+  case DIA_FONT_MEDIUM : /* Pango doesn't have this, but 
+                            'intermediate values are possible' */
+    pango_font_description_set_weight(pfd, 500);
+    break;
+  case DIA_FONT_DEMIBOLD : /* Pango doesn't have this, ... */
+    pango_font_description_set_weight(pfd, 600);
+    break;
   case DIA_FONT_BOLD :
     pango_font_description_set_weight(pfd, PANGO_WEIGHT_BOLD);
     break;
@@ -146,7 +151,7 @@ dia_pfd_set_weight(PangoFontDescription* pfd, DiaFontWeight fw) {
 }
 
 static void
-dia_pfd_set_obliquity(PangoFontDescription* pfd, DiaFontObliquity fo) {
+dia_pfd_set_slant(PangoFontDescription* pfd, DiaFontSlant fo) {
   switch (fo) {
   case DIA_FONT_NORMAL :
     pango_font_description_set_style(pfd,PANGO_STYLE_NORMAL);
@@ -179,7 +184,7 @@ dia_font_new_from_style(DiaFontStyle style, real height)
   PangoFontDescription* pfd = pango_font_description_new();
   dia_pfd_set_family(pfd,DIA_FONT_STYLE_GET_FAMILY(style));
   dia_pfd_set_weight(pfd,DIA_FONT_STYLE_GET_WEIGHT(style));
-  dia_pfd_set_obliquity(pfd,DIA_FONT_STYLE_GET_OBLIQUITY(style));
+  dia_pfd_set_slant(pfd,DIA_FONT_STYLE_GET_SLANT(style));
   dia_pfd_set_size(pfd,height);
   
   retval = DIA_FONT(g_type_create_instance(dia_font_get_type()));
@@ -221,6 +226,13 @@ dia_font_get_style(const DiaFont* font)
 {
   guint style;
 
+  static int weight_map[] = {
+    DIA_FONT_ULTRALIGHT, DIA_FONT_LIGHT,
+    DIA_FONT_WEIGHT_NORMAL, /* intentionaly ==0 */
+    DIA_FONT_MEDIUM, DIA_FONT_DEMIBOLD, /* not yet in Pango */
+    DIA_FONT_BOLD, DIA_FONT_ULTRABOLD, DIA_FONT_HEAVY
+  };
+
   PangoStyle pango_style = pango_font_description_get_style(font->pfd);
   PangoWeight pango_weight = pango_font_description_get_weight(font->pfd);
 
@@ -229,10 +241,7 @@ dia_font_get_style(const DiaFont* font)
   g_assert(PANGO_WEIGHT_NORMAL == 400);
   g_assert(PANGO_WEIGHT_BOLD == 700);
 
-  style  = ((pango_weight - PANGO_WEIGHT_ULTRALIGHT)/100) << 4;
-  /* Hack to make DIA_FONT_WEIGHT_NORMAL be 0 */
-  if (style <= DIA_FONT_LIGHT) 
-    style = (style+DIA_FONT_ULTRALIGHT)%DIA_FONT_MEDIUM;
+  style  = weight_map[(pango_weight - PANGO_WEIGHT_ULTRALIGHT) / 100] << 4;
   style |= (pango_style << 2);
 
   return style;
@@ -300,10 +309,10 @@ void dia_font_set_weight(DiaFont* font, DiaFontWeight weight)
   dia_pfd_set_weight(font->pfd,weight);
 }
 
-void dia_font_set_obliquity(DiaFont* font, DiaFontObliquity obliquity)
+void dia_font_set_slant(DiaFont* font, DiaFontSlant slant)
 {
   g_assert(font != NULL);    
-  dia_pfd_set_obliquity(font->pfd,obliquity);
+  dia_pfd_set_slant(font->pfd,slant);
 }
 
 
@@ -346,40 +355,42 @@ void dia_font_set_weight_from_string(DiaFont* font, const char* weight) {
 }
 
 
-struct obliquity_name { DiaFontObliquity fo; const char *name; };    
-static const struct obliquity_name obliquity_names[] = {
+struct slant_name { DiaFontSlant fo; const char *name; };    
+static const struct slant_name slant_names[] = {
     { DIA_FONT_NORMAL, "normal"},
     { DIA_FONT_OBLIQUE, "oblique"},
     { DIA_FONT_ITALIC, "italic"},
     { 0, NULL} };
 
-G_CONST_RETURN char *dia_font_get_style_string(const DiaFont* font) {
-    const struct obliquity_name* p;
-    DiaFontObliquity fo =
-    DIA_FONT_STYLE_GET_OBLIQUITY(dia_font_get_style(font));
+G_CONST_RETURN char *
+dia_font_get_slant_string(const DiaFont* font)
+{
+    const struct slant_name* p;
+    DiaFontSlant fo =
+    DIA_FONT_STYLE_GET_SLANT(dia_font_get_style(font));
     
-    for (p = obliquity_names; p->name != NULL; ++p) {
+    for (p = slant_names; p->name != NULL; ++p) {
         if (p->fo == fo) return p->name;
     }
     return "normal";
 }
 
-void dia_font_set_obliquity_from_string(DiaFont* font, const char* obli) {
-    DiaFontObliquity fo = DIA_FONT_NORMAL;
-    const struct obliquity_name* p;
+void dia_font_set_slant_from_string(DiaFont* font, const char* obli) {
+    DiaFontSlant fo = DIA_FONT_NORMAL;
+    const struct slant_name* p;
 
     DiaFontStyle old_style;
-    DiaFontObliquity old_fo;
+    DiaFontSlant old_fo;
     old_style = dia_font_get_style(font);
-    old_fo = DIA_FONT_STYLE_GET_OBLIQUITY(old_style);
+    old_fo = DIA_FONT_STYLE_GET_SLANT(old_style);
     
-    for (p = obliquity_names; p->name != NULL; ++p) {
+    for (p = slant_names; p->name != NULL; ++p) {
         if (0 == strncmp(obli,p->name,8)) {
             fo = p->fo;
             break;
         }
     }
-    dia_font_set_obliquity(font,fo);
+    dia_font_set_slant(font,fo);
 }
 
 

@@ -941,14 +941,14 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->abstract_classname_font =
           dia_font_ref(umlclass->abstract_classname_font);
 
-  newumlclass->name = strdup(umlclass->name);
+  newumlclass->name = g_strdup(umlclass->name);
   if (umlclass->stereotype != NULL)
-    newumlclass->stereotype = strdup(umlclass->stereotype);
+    newumlclass->stereotype = g_strdup(umlclass->stereotype);
   else
     newumlclass->stereotype = NULL;
 
   if (umlclass->comment != NULL)
-    newumlclass->comment = strdup(umlclass->comment);
+    newumlclass->comment = g_strdup(umlclass->comment);
   else
     newumlclass->comment = NULL;
 

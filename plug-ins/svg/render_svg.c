@@ -179,7 +179,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
   gchar buf[512];
   time_t time_now;
   Rectangle *extent;
-  char *name;
+  const char *name;
  
   file = fopen(filename, "w");
 
@@ -811,7 +811,7 @@ draw_string(RendererSVG *renderer,
      tmp = g_strdup_printf("%s; font-family: %s; font-style: %s; "
                            "font-weight: %s",style,
                            dia_font_get_family(renderer->font),
-                           dia_font_get_style_string(renderer->font),
+                           dia_font_get_slant_string(renderer->font),
                            dia_font_get_weight_string(renderer->font));
      g_free(style);
      style = tmp;

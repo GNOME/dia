@@ -738,7 +738,7 @@ association_copy(Association *assoc)
 
   orthconn_copy(orth, neworth);
 
-  newassoc->name = (assoc->name != NULL)? strdup(assoc->name):NULL;
+  newassoc->name = (assoc->name != NULL)? g_strdup(assoc->name):NULL;
   newassoc->direction = assoc->direction;
   for (i=0;i<2;i++) {
     newassoc->end[i] = assoc->end[i];
@@ -920,7 +920,7 @@ association_apply_properties(Association *assoc)
     g_free(end->multiplicity);
     str = gtk_entry_get_text(prop_dialog->end[i].multiplicity);
     if (strlen (str) != 0)
-      end->multiplicity = strdup(str);
+      end->multiplicity = g_strdup(str);
     else
       end->multiplicity = NULL;
 

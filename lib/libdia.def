@@ -166,6 +166,9 @@ EXPORTS
  dia_font_get_family
  dia_font_get_legacy_name
  dia_font_get_psfontname
+ dia_font_get_slant_string
+ dia_font_get_style
+ dia_font_get_weight_string
  dia_font_init
  dia_font_new
  dia_font_new_from_legacy_name
@@ -173,6 +176,9 @@ EXPORTS
  dia_font_ref
  dia_font_scaled_build_layout
  dia_font_scaled_string_width
+ dia_font_set_any_family
+ dia_font_set_weight_from_string
+ dia_font_set_slant_from_string
  dia_font_string_width
  dia_font_unref
 

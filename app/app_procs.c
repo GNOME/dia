@@ -606,7 +606,9 @@ internal_plugin_init(PluginInfo *info)
 
   /* register export filters */
   filter_register_export(&dia_export_filter);
+#ifdef HAVE_FREETYPE
   filter_register_export(&eps_export_filter);
+#endif
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
   filter_register_export(&png_export_filter);
 #endif

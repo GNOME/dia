@@ -202,7 +202,8 @@ new_gdk_renderer(DDisplay *ddisp)
 void
 destroy_gdk_renderer(RendererGdk *renderer)
 {
-  dia_font_unref(renderer->font);
+  if (renderer->font)
+    dia_font_unref(renderer->font);
 
   if (renderer->pixmap != NULL)
     gdk_pixmap_unref(renderer->pixmap);
@@ -423,7 +424,8 @@ set_font(RendererGdk *renderer, DiaFont *font, real height)
 {
   renderer->font_height = height;
   
-  dia_font_unref(renderer->font);
+  if (renderer->font)
+    dia_font_unref(renderer->font);
   renderer->font = dia_font_ref(font);
 }
 
@@ -926,8 +928,8 @@ abuse_layout_object(PangoLayout* layout, const char* text)
     do {
         PangoLayoutRun* run = pango_layout_iter_get_run(iter);
         PangoFontDescription* pfd = NULL;
-        const char *fname = NULL;
-        const gchar* gs = NULL;
+        gchar *fname = NULL;
+        gchar* gs = NULL;
         gint j = 0;
         
         g_message("Run #%u. Got %p",i++,run);
@@ -973,7 +975,7 @@ abuse_layout_object(PangoLayout* layout, const char* text)
     } while (pango_layout_iter_next_run(iter));
 
 
-    pango_layout_iter_free(layout);
+    pango_layout_iter_free(iter);
     
     g_message("*** END OF abuse_layout_object for %s",text);
 }

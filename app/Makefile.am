@@ -179,6 +179,7 @@ EXTRA_DIST = \
 	win32print.h \
 	winmain.c \
 	makefile.msc \
+	dia.def \
 	pixmaps/arrow.xpm \
 	pixmaps/default.xpm \
 	pixmaps/delete.xpm \

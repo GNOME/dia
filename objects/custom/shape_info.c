@@ -286,7 +286,7 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
          g_free(family);
      }
      if (style) {
-         dia_font_set_obliquity_from_string(s->font,style);
+         dia_font_set_slant_from_string(s->font,style);
          g_free(style);
      }
      if (weight) {
@@ -770,7 +770,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 
       str = xmlNodeGetContent(node);
       if (str) {
-	    text->string = strdup(str);
+	    text->string = g_strdup(str);
 	    xmlFree(str);
       } else text->string = "";
     } else if (!strcmp(node->name, "circle")) {

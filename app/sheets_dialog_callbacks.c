@@ -851,7 +851,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     sm = gtk_object_get_data(GTK_OBJECT(wrapbox), "sheet_mod");
     som = sheets_append_sheet_object_mod(sheet_obj, sm);
     som->mod = SHEET_OBJECT_MOD_NEW;
-    som->svg_filename = strdup(file_name);
+    som->svg_filename = g_strdup(file_name);
     if (sm->mod == SHEETMOD_MOD_NONE)
       sm->mod = SHEETMOD_MOD_CHANGED;
 

@@ -61,6 +61,11 @@
 #include "diagramdata.h"
 #include "font.h"
 
+/* Using FT2 with Pango is currently broken on win32 
+ * as a result the whole eps renderer vanishes
+ */
+#if defined (HAVE_FREETYPE)
+
 #include <pango/pango.h>
 #include <pango/pangoft2.h>
 /* I'd really rather avoid this */
@@ -1633,3 +1638,4 @@ DiaExportFilter eps_export_filter = {
   extensions,
   export_eps
 };
+#endif /* HAVE_FREETYPE */

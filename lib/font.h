@@ -69,7 +69,7 @@ typedef enum
   DIA_FONT_NORMAL  = (0<<2),
   DIA_FONT_OBLIQUE = (1<<2),
   DIA_FONT_ITALIC  = (2<<2)
-} DiaFontObliquity; /* Don't call this Style, better names ? */
+} DiaFontSlant;
 
 typedef enum
 {
@@ -85,7 +85,7 @@ typedef enum
 
 /* macros to get a specific style info */
 #define DIA_FONT_STYLE_GET_FAMILY(st)    ((st) & (0x3))
-#define DIA_FONT_STYLE_GET_OBLIQUITY(st) ((st) & (0x3<<2))
+#define DIA_FONT_STYLE_GET_SLANT(st)     ((st) & (0x3<<2))
 #define DIA_FONT_STYLE_GET_WEIGHT(st)    ((st) & (0x7<<4))
 
 typedef struct _DiaFont DiaFont;
@@ -151,8 +151,8 @@ real dia_font_get_height(const DiaFont* font);
     /* Change the height inside a font record. */
 void dia_font_set_height(DiaFont* font, real height);
 
-    /* Changes the obliquity of an existing font */
-void dia_font_set_obliquity(DiaFont* font, DiaFontObliquity obliquity);
+    /* Changes the slant of an existing font */
+void dia_font_set_slant(DiaFont* font, DiaFontSlant slant);
     /* Changes the weight of an existing font */
 void dia_font_set_weight(DiaFont* font, DiaFontWeight weight);
     /* Changes the family of an existing font to one of the three standard
@@ -170,13 +170,13 @@ G_CONST_RETURN char *dia_font_get_psfontname(const DiaFont *font);
 G_CONST_RETURN char *dia_font_get_weight_string(const DiaFont* font);
 
     /* returns a static string suitable for SVG */
-G_CONST_RETURN char *dia_font_get_style_string(const DiaFont* font);
+G_CONST_RETURN char *dia_font_get_slant_string(const DiaFont* font);
 
     /* uses an SVG style string */
 void dia_font_set_weight_from_string(DiaFont* font, const char* weight);
 
     /* uses an SVG style string */
-void dia_font_set_obliquity_from_string(DiaFont* font, const char* obli);
+void dia_font_set_slant_from_string(DiaFont* font, const char* slant);
 
 /* -------- Font and string functions - unscaled versions.
    Use these version in Objects, primarily. */

@@ -191,8 +191,9 @@ new_shape_renderer(DiagramData *data, const char *filename)
   xmlNodePtr xml_node_ptr;
   gint i;
   gchar *png_filename;
-  char *shapename, *dirname, *sheetname, *fullname;
- 
+  char *shapename, *dirname, *fullname;
+  const char *sheetname;
+
   file = fopen(filename, "w");
 
   if (file==NULL) {
@@ -884,7 +885,7 @@ draw_string(RendererShape *renderer,
      tmp = g_strdup_printf("%s; font-family: %s; font-style: %s; "
                            "font-weight: %s",style,
                            dia_font_get_family(renderer->font),
-                           dia_font_get_style_string(renderer->font),
+                           dia_font_get_slant_string(renderer->font),
                            dia_font_get_weight_string(renderer->font));
      g_free(style);
      style = tmp;

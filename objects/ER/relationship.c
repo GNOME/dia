@@ -481,11 +481,11 @@ relationship_copy(Relationship *relationship)
 
   newrelationship->font = dia_font_ref(relationship->font);
   newrelationship->font_height = relationship->font_height;
-  newrelationship->name = strdup(relationship->name);
+  newrelationship->name = g_strdup(relationship->name);
   newrelationship->left_cardinality =
-    strdup(relationship->left_cardinality);
+    g_strdup(relationship->left_cardinality);
   newrelationship->right_cardinality =
-    strdup(relationship->right_cardinality);
+    g_strdup(relationship->right_cardinality);
   newrelationship->name_width = relationship->name_width;
   newrelationship->left_card_width = relationship->left_card_width;
   newrelationship->right_card_width = relationship->right_card_width;

@@ -399,7 +399,7 @@ entity_copy(Entity *entity)
 
   newentity->font = dia_font_ref(entity->font);
   newentity->font_height = entity->font_height;
-  newentity->name = strdup(entity->name);
+  newentity->name = g_strdup(entity->name);
   newentity->name_width = entity->name_width;
 
   newentity->weak = entity->weak;

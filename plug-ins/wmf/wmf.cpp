@@ -313,33 +313,28 @@ set_font(MyRenderer *renderer, DiaFont *font, real height)
     W32::LPCTSTR sFace;
     W32::DWORD dwItalic = 0;
     W32::DWORD dwWeight = FW_DONTCARE;
+    DiaFontStyle style;
 
-    DIAG_NOTE(renderer, "set_font %s %f\n", font->name, height);
+    DIAG_NOTE(renderer, "set_font %s %f\n", 
+              dia_font_get_family (font), height);
     if (renderer->hFont)
 	W32::DeleteObject(renderer->hFont);
 
-    /* An ugly hack to map font names. It has to be
-     * changed if Dia's fonts ever get changed.
-     * See: lib/font.c
-     *
-     * Wouldn't it be better to provide this info in
-     * a Font field ?
-     */
-    if (strstr(font->name, "Courier"))
-	sFace = "Courier New";
-    else if (strstr(font->name, "Times"))
-	sFace = "Times New Roman";
-    else
-	sFace = "Arial";
+    sFace = dia_font_get_family (font);
+    style = dia_font_get_style(font);
+    dwItalic = DIA_FONT_STYLE_GET_SLANT(style) != DIA_FONT_NORMAL;
 
-    dwItalic = !!(    strstr(font->name, "Italic") 
-                   || strstr(font->name, "Oblique")); //?
-    if (strstr(font->name, "Bold"))
-	dwWeight = FW_BOLD;
-    else if (strstr(font->name, "Demi"))
-	dwWeight = FW_DEMIBOLD;
-    else if (strstr(font->name, "Light"))
-	dwWeight = FW_LIGHT;
+    /* although there is a known algorithm avoid it for cleanness */
+    switch (DIA_FONT_STYLE_GET_WEIGHT(style)) {
+    case DIA_FONT_ULTRALIGHT    : dwWeight = FW_ULTRALIGHT; break;
+    case DIA_FONT_LIGHT         : dwWeight = FW_LIGHT; break;
+    case DIA_FONT_MEDIUM        : dwWeight = FW_MEDIUM; break;
+    case DIA_FONT_DEMIBOLD      : dwWeight = FW_DEMIBOLD; break;
+    case DIA_FONT_BOLD          : dwWeight = FW_BOLD; break;
+    case DIA_FONT_ULTRABOLD     : dwWeight = FW_ULTRABOLD; break;
+    case DIA_FONT_HEAVY         : dwWeight = FW_HEAVY; break;
+    default : dwWeight = FW_NORMAL; break;
+    }
 
     renderer->hFont = (W32::HFONT)W32::CreateFont( 
 	- SC (height),  // logical height of font 

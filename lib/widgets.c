@@ -17,7 +17,9 @@
  */
 
 #include <config.h>
+#include <string.h>
 #include "intl.h"
+#undef GTK_DISABLE_DEPRECATED /* ... */
 #include "widgets.h"
 #include "message.h"
 #include "dia_dirs.h"
@@ -319,6 +321,7 @@ dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data)
   case GTK_RESPONSE_NONE:
   case GTK_RESPONSE_CANCEL:
   default:
+    /* noop */;
   }
   gtk_widget_hide(GTK_WIDGET(fs));
 }
@@ -418,10 +421,10 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
      * bad hack continued ...
      */
     int weight = DIA_FONT_STYLE_GET_WEIGHT(i) >> 4;
-    int obliquity = DIA_FONT_STYLE_GET_OBLIQUITY(i) >> 2;
-    if (DIA_FONT_STYLE_GET_OBLIQUITY(i) > DIA_FONT_ITALIC) continue;
-    if (!(stylebits & (1 << (3*weight + obliquity)))) continue;
-    menuitem = gtk_menu_item_new_with_label (style_labels[3*weight+obliquity]);
+    int slant = DIA_FONT_STYLE_GET_SLANT(i) >> 2;
+    if (DIA_FONT_STYLE_GET_SLANT(i) > DIA_FONT_ITALIC) continue;
+    if (!(stylebits & (1 << (3*weight + slant)))) continue;
+    menuitem = gtk_menu_item_new_with_label (style_labels[3*weight+slant]);
     gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
     if (dia_style == i) {
       select = menu_item_nr;
@@ -452,7 +455,7 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 
   fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, fontname);
   if (fse == NULL) {
-    printf("Adding %s\n", fontname);
+    g_print("Adding %s\n", fontname);
     fse = dia_font_selector_add_font(fontname, TRUE);
     dia_font_selector_build_font_menu(fs);
     dia_font_selector_write_persistence_file();

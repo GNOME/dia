@@ -365,7 +365,7 @@ message_create(Point *startpoint,
   
   connection_init(conn, 3, 0);
 
-  message->text = strdup("");
+  message->text = g_strdup("");
   message->text_width = 0.0;
   message->text_pos.x = 0.5*(conn->endpoints[0].x + conn->endpoints[1].x);
   message->text_pos.y = 0.5*(conn->endpoints[0].y + conn->endpoints[1].y);

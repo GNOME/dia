@@ -450,7 +450,7 @@ attribute_copy(Attribute *attribute)
   
   newattribute->font = dia_font_ref(attribute->font);
   newattribute->font_height = attribute->font_height;
-  newattribute->name = strdup(attribute->name);
+  newattribute->name = g_strdup(attribute->name);
   newattribute->name_width = attribute->name_width;
 
   newattribute->key = attribute->key;
