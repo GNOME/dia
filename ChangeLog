@@ -1,3 +1,8 @@
+2002-08-06  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/FS/flow-ortho.c: 
+	* objects/FS/flow.c: Made the label behave again.
+
 2002-08-05  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* configure.in: added ro to ALL_LINGUAS

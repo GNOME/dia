@@ -65,6 +65,7 @@ struct _Orthflow {
   Text* text;
   TextAttributes attrs;
   OrthflowType type;
+  Point textpos; /* This is the master position, only overridden in load */
 };
 
 struct _OrthflowDialog {
@@ -317,18 +318,18 @@ orthflow_move_handle(Orthflow *orthflow, Handle *handle,
   assert(to!=NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
-    orthflow->text->position = *to;
+    orthflow->textpos = *to;
   } else {
     Point along ;
 
-    along = orthflow->text->position ;
+    along = orthflow->textpos ;
     point_sub( &along, &(orthconn_get_middle_handle(&orthflow->orth)->pos) ) ;
 
     orthconn_move_handle( &orthflow->orth, handle, to, reason );
     orthconn_update_data( &orthflow->orth ) ;
 
-    orthflow->text->position = orthconn_get_middle_handle(&orthflow->orth)->pos ;
-    point_add( &orthflow->text->position, &along ) ;
+    orthflow->textpos = orthconn_get_middle_handle(&orthflow->orth)->pos ;
+    point_add( &orthflow->textpos, &along ) ;
   }
 
   orthflow_update_data(orthflow);
@@ -342,7 +343,7 @@ orthflow_move(Orthflow *orthflow, Point *to)
 
   delta = *to;
   point_sub(&delta, &points[0]);
-  point_add(&orthflow->text->position, &delta);
+  point_add(&orthflow->textpos, &delta);
 
   orthconn_move( &orthflow->orth, to ) ;
 
@@ -432,6 +433,7 @@ orthflow_create(Point *startpoint,
   /* Where to put the text */
   p = *startpoint ;
   p.y += 0.1 * ORTHFLOW_FONTHEIGHT ;
+  orthflow->textpos = p;
 
   if ( orthflow_default_label ) {
     orthflow->text = text_copy( orthflow_default_label ) ;
@@ -534,7 +536,8 @@ orthflow_update_data(Orthflow *orthflow)
   }
   text_set_color( orthflow->text, color ) ;
 
-  orthflow->text_handle.pos = orthflow->text->position;
+  text_set_position( orthflow->text, &orthflow->textpos ) ;
+  orthflow->text_handle.pos = orthflow->textpos;
 
   orthconn_update_data(orth);
   obj->position = orth->points[0];
@@ -606,7 +609,8 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
     extra->middle_trans = ORTHFLOW_WIDTH/2.0;
   extra->end_long = 
     extra->end_trans = ORTHFLOW_WIDTH/2 + ORTHFLOW_ARROWLEN;
-  
+  orthflow->textpos = orthflow->text->position;
+
   orthflow_update_data(orthflow);
   
   return &orthflow->orth.object;

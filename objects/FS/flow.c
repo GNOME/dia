@@ -40,13 +40,6 @@
 #include "connection.h"
 #include "properties.h"
 
-#if 1
-/* no debug spew */
-#define D(op)
-#else
-#define D(op) op
-#endif
-
 #include "pixmaps/flow.xpm"
 
 Color flow_color_energy   = { 1.0f, 0.0f, 0.0f };
@@ -70,6 +63,7 @@ struct _Flow {
   Text* text;
   TextAttributes attrs;
   FlowType type;
+  Point textpos; /* This is the master position, but overridden in load */
 };
 
 struct _FlowDialog {
@@ -257,7 +251,7 @@ flow_move_handle(Flow *flow, Handle *handle,
   assert(to!=NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
-    flow->text->position = *to;
+    flow->textpos = *to;
   } else  {
     real dest_length ;
     real orig_length2 ;
@@ -265,7 +259,7 @@ flow_move_handle(Flow *flow, Handle *handle,
     Point along ;
 
     endpoints = &flow->connection.endpoints[0]; 
-    p1 = flow->text->position ;
+    p1 = flow->textpos ;
     point_sub( &p1, &endpoints[0] ) ;
 
     p2 = endpoints[1] ;
@@ -289,7 +283,7 @@ flow_move_handle(Flow *flow, Handle *handle,
 
     p2 = endpoints[1] ;
     point_sub( &p2, &endpoints[0] ) ;
-    flow->text->position = endpoints[0] ;
+    flow->textpos = endpoints[0] ;
     along = p2 ;
     p2.x = -along.y ;
     p2.y = along.x ;
@@ -301,8 +295,8 @@ flow_move_handle(Flow *flow, Handle *handle,
     }
     point_scale( &p2, norm_mag ) ;
     point_scale( &along, along_mag ) ;
-    point_add( &flow->text->position, &p2 ) ;
-    point_add( &flow->text->position, &along ) ;
+    point_add( &flow->textpos, &p2 ) ;
+    point_add( &flow->textpos, &along ) ;
   }
 
   flow_update_data(flow);
@@ -324,8 +318,8 @@ flow_move(Flow *flow, Point *to)
   endpoints[1] = endpoints[0] = *to;
   point_add(&endpoints[1], &start_to_end);
 
-  point_add(&flow->text->position, &delta);
-  
+  point_add(&flow->textpos, &delta);
+
   flow_update_data(flow);
 }
 
@@ -422,10 +416,10 @@ flow_create(Point *startpoint,
     point_normalize( &n ) ;
   }
   point_scale( &n, 0.5*FLOW_FONTHEIGHT ) ;
-  D(g_print("p = %f, %f, n = %f, %f\n", p.x, p.y, n.x, n.y));
+
   point_add( &p, &n ) ;
   point_add( &p, &conn->endpoints[0] ) ;
-  D(g_print("p = %f, %f\n", p.x, p.y));
+  flow->textpos = p;
 
   if ( flow_default_label ) {
     flow->text = text_copy( flow_default_label ) ;
@@ -468,7 +462,6 @@ flow_create(Point *startpoint,
   flow_update_data(flow);
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  D(g_print("%f, %f\n", flow->text->position.x, flow->text->position.y));
   return &flow->connection.object;
 }
 
@@ -497,7 +490,7 @@ flow_copy(Flow *flow)
 
   newflow->text_handle = flow->text_handle;
   newobj->handles[2] = &newflow->text_handle;
-
+  newflow->textpos = flow->textpos;
   newflow->text = text_copy(flow->text);
   newflow->type = flow->type;
 
@@ -528,7 +521,8 @@ flow_update_data(Flow *flow)
   }
   text_set_color( flow->text, color ) ;
 
-  flow->text_handle.pos = flow->text->position;
+  flow->text->position = flow->textpos;
+  flow->text_handle.pos = flow->textpos;
 
   connection_update_handles(conn);
 
@@ -599,6 +593,7 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
     extra->start_trans = FLOW_WIDTH/2.0;
   extra->end_trans = MAX(FLOW_WIDTH, FLOW_ARROWLEN) / 2.0;
   
+  flow->textpos = flow->text->position;
   flow_update_data(flow);
   
   return &flow->connection.object;
