@@ -154,13 +154,29 @@ static void render_to_store(void)
   rs_add_draw_rect(store, &p1, &p2, &color_black);
 
     
-  points = g_new(Point, 1);
+  points = g_new(Point, 9);
   points[0].x = HUB_WIDTH * 0.5;
   points[0].y =
     HUB_HEIGHT + HUB_UNDER1 + HUB_UNDER2;
+  points[1].x = HUB_WIDTH * 0.125;
+  points[1].y = HUB_HEIGHT * 0.58;
+  points[2].x = HUB_WIDTH * 0.225;
+  points[2].y = HUB_HEIGHT * 0.58;
+  points[3].x = HUB_WIDTH * 0.325;
+  points[3].y = HUB_HEIGHT * 0.58;
+  points[4].x = HUB_WIDTH * 0.425;
+  points[4].y = HUB_HEIGHT * 0.58;
+  points[5].x = HUB_WIDTH * 0.525;
+  points[5].y = HUB_HEIGHT * 0.58;
+  points[6].x = HUB_WIDTH * 0.625;
+  points[6].y = HUB_HEIGHT * 0.58;
+  points[7].x = HUB_WIDTH * 0.725;
+  points[7].y = HUB_HEIGHT * 0.58;
+  points[8].x = HUB_WIDTH * 0.825;
+  points[8].y = HUB_HEIGHT * 0.58;
     
   hub_desc.connection_points = points;
-  hub_desc.num_connection_points = 1;
+  hub_desc.num_connection_points = 9;
   hub_desc.store = store;
 }
 
