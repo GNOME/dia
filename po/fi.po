@@ -1476,7 +1476,7 @@ msgstr "Ei pystynyt v‰hent‰m‰‰n oikeata polkua tiedostolle '%s'"
 msgid ""
 "Could not load plugin `%s'\n"
 "%s"
-msgstr "Liit‰nn‰isen '%s' lataaminen ei onnistunut\n"
+msgstr "Liit‰nn‰isen '%s' lataaminen ei onnistunut\n%s"
 
 
 #: lib/plug-ins.c:208
