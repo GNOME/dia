@@ -8,114 +8,116 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-07 11:05-0500\n"
-"PO-Revision-Date: 2004-11-07 22:44-0400\n"
+"POT-Creation-Date: 2004-11-24 21:03-0500\n"
+"PO-Revision-Date: 2004-11-24 22:44-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:219
+#: app/app_procs.c:220
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s error: do not know how to export into %s\n"
 
-#: app/app_procs.c:228
+#: app/app_procs.c:229
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s error: input and output file name is identical: %s"
 
-#: app/app_procs.c:235
+#: app/app_procs.c:236
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s error: need valid input file %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:255
+#: app/app_procs.c:256
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:307
+#: app/app_procs.c:308
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Cannot find output format/filter %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:394
+#: app/app_procs.c:392
 #, c-format
-msgid "Select the filter/format.  Supported are: %s"
-msgstr "Select the filter/format.  Supported are: %s"
+msgid "Select the filter/format out of: %s"
+msgstr "Select the filter/format out of: %s"
 
 #. &export_file_name
-#: app/app_procs.c:411
+#: app/app_procs.c:411 app/app_procs.c:432
 msgid "Export loaded file and exit"
 msgstr "Export loaded file and exit"
 
-#: app/app_procs.c:411
+#: app/app_procs.c:411 app/app_procs.c:432
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
 #. &export_file_format
-#: app/app_procs.c:413
+#. &export_format_string
+#. &export_file_format
+#: app/app_procs.c:413 app/app_procs.c:434
 msgid "TYPE"
 msgstr "TYPE"
 
-#: app/app_procs.c:416
+#: app/app_procs.c:416 app/app_procs.c:437
 msgid "Export graphics size"
 msgstr "Export graphics size"
 
-#: app/app_procs.c:416
+#: app/app_procs.c:416 app/app_procs.c:437
 msgid "WxH"
 msgstr "WxH"
 
-#: app/app_procs.c:418
+#: app/app_procs.c:418 app/app_procs.c:439
 msgid "Don't show the splash screen"
 msgstr "Do not show the splash screen"
 
-#: app/app_procs.c:420
+#: app/app_procs.c:420 app/app_procs.c:441
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Send error messages to stderr instead of showing dialogues."
 
-#: app/app_procs.c:422
+#: app/app_procs.c:422 app/app_procs.c:443
 msgid "Display credits list and exit"
 msgstr "Display credits list and exit"
 
-#: app/app_procs.c:424
+#: app/app_procs.c:424 app/app_procs.c:445
 msgid "Display version and exit"
 msgstr "Display version and exit"
 
-#: app/app_procs.c:425
+#: app/app_procs.c:446
 msgid "Show this help message"
 msgstr "Show this help message"
 
-#: app/app_procs.c:466
+#: app/app_procs.c:492
 msgid "Can't connect to session manager!\n"
 msgstr "Cannot connect to session manager!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:493
+#: app/app_procs.c:517
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia version %s, compiled %s %s\n"
 
-#: app/app_procs.c:495
+#: app/app_procs.c:519
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia version %s\n"
 
-#: app/app_procs.c:554 app/app_procs.c:556
+#: app/app_procs.c:578 app/app_procs.c:580
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Could not find standard objects when looking for object-libs, exiting...\n"
 
-#: app/app_procs.c:597
+#: app/app_procs.c:621
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: app/app_procs.c:639
+#: app/app_procs.c:663
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -123,7 +125,7 @@ msgstr ""
 "This should not happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 
-#: app/app_procs.c:651
+#: app/app_procs.c:675
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -133,21 +135,21 @@ msgstr ""
 "Are you sure you want to quit Dia\n"
 "without saving them?"
 
-#: app/app_procs.c:655
+#: app/app_procs.c:679
 msgid "Quit Dia"
 msgstr "Quit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:707
+#: app/app_procs.c:731
 msgid "Thank you for using Dia.\n"
 msgstr "Thank you for using Dia.\n"
 
-#: app/app_procs.c:724 app/app_procs.c:731
+#: app/app_procs.c:748 app/app_procs.c:755
 msgid "Could not create per-user Dia config directory"
 msgstr "Could not create per-user Dia config directory"
 
-#: app/app_procs.c:733
+#: app/app_procs.c:757
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -155,15 +157,15 @@ msgstr ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 
-#: app/app_procs.c:755
+#: app/app_procs.c:779
 msgid "Objects and filters internal to dia"
 msgstr "Objects and filters internal to dia"
 
-#: app/app_procs.c:794
+#: app/app_procs.c:820
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FILE...]"
 
-#: app/app_procs.c:797
+#: app/app_procs.c:823
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -172,7 +174,16 @@ msgstr ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 
-#: app/app_procs.c:882
+#: app/app_procs.c:847
+msgid "[FILE...]"
+msgstr "[FILE...]"
+
+#: app/app_procs.c:859
+#, c-format
+msgid "'%s' not found!\n"
+msgstr "'%s' not found!\n"
+
+#: app/app_procs.c:929
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -180,7 +191,7 @@ msgstr ""
 "The original author of Dia was:\n"
 "\n"
 
-#: app/app_procs.c:887
+#: app/app_procs.c:934
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -190,7 +201,7 @@ msgstr ""
 "The current maintainers of Dia are:\n"
 "\n"
 
-#: app/app_procs.c:892
+#: app/app_procs.c:939
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -200,7 +211,7 @@ msgstr ""
 "Other authors are:\n"
 "\n"
 
-#: app/app_procs.c:897
+#: app/app_procs.c:944
 msgid ""
 "\n"
 "Dia is documented by:\n"
