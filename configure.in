@@ -285,6 +285,7 @@ objects/Makefile
 objects/standard/Makefile
 objects/network/Makefile
 objects/UML/Makefile
+objects/EML/Makefile
 objects/ER/Makefile
 objects/FS/Makefile
 objects/sybase/Makefile
