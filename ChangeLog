@@ -1,3 +1,7 @@
+2002-05-12  Steffen Macke <sdteffen@web.de>
+
+	* sheets/Makefile.am: re-added Misc sheet to make process
+	
 2002-05-12  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/FS/function.c: Added comments to humungous list of menu
