@@ -410,6 +410,7 @@ layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
 	col.green = 0x00;
 	col.blue = 0xff;
 
+        renderer->ops->set_linewidth(renderer,0.01);
 	renderer->ops->draw_rect(renderer, &p1, &p2, &col);
       }
       (*obj_renderer)(obj, renderer, active_layer, data);

@@ -161,14 +161,16 @@ line_bbox(const Point *p1, const Point *p2,
 
 void 
 ellipse_bbox(const Point *centre, real width, real height,
+             const ElementBBExtras *extra,
              Rectangle *rect)
 {
-  rect->left = centre->x - width/2;
-  rect->right = centre->x + width/2;
-  rect->top = centre->y - height/2;
-  rect->bottom = centre->y + height/2;
-  
-  g_assert_not_reached(); /*"unfinished"); */
+  Rectangle rin;
+  rin.left = centre->x - width/2;
+  rin.right = centre->x + width/2;
+  rin.top = centre->y - height/2;
+  rin.bottom = centre->y + height/2;
+
+  rectangle_bbox(&rin,extra,rect);
 }
 
 static BezPoint *

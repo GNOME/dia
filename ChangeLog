@@ -1,22 +1,30 @@
 2001-05-27  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* lib/ps-utf8.c: Strings in Symbol fonts were incorrectly rendered.
+	Added a special case for Symbol strings, so that they're not
+	re-encoded using the LN encoding (we use the bare Adobe encoding
+	instead).
+
+	* objects/custom/custom_object.c: Now that #52912 is fixed,
+	I could remove the ugly hack I wrote to squash the shape bounding box
+	problem shown by Ben A. Hetland a few months ago, and fix it
+	properly this time.
+	
 	* lib/text.c: enlarged a little the bounding box to account for
 	the cursor in rightmost position.
 	
 	* lib/diagramdata.c: draw bounding boxes only if the relevant
 	variable is set (as before), but also only if the rendere is
 	interactive (ie, don't bother rendering bounding boxes on Postscript...)
-
+	Made the bounding box's line width a fixed value, 0.01
+	
 	* lib/boundingbox.c: fixed the "pointy corners" code for polylines
-	and assymmetric control beziers.
-
+	and assymmetric control beziers. Implemented ellipse_bbox().
+	
 	* Makefile.am: incantations to get po/dia.pot build, as suggested
 	by Hubert in #55075.
 	
-	* lib/ps-utf8.c: Strings in Symbol fonts were incorrectly rendered.
-	Added a special case for Symbol strings, so that they're not
-	re-encoded using the LN encoding (we use the bare Adobe encoding
-	instead).
+	* shapes/network/computer.shape: typo fixed.
 
 2001-05-26  Cyrille Chepelov  <chepelov@calixo.net>
 

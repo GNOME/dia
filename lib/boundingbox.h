@@ -58,7 +58,8 @@ void rectangle_bbox(const Rectangle *rin,
 void circle_bbox(const Point *centre, real radius, 
                  Rectangle *rect);
 
-void ellipse_bbox(const Point *centre, real radiusx, real radiusy,
+void ellipse_bbox(const Point *centre, real width, real height,
+                  const ElementBBExtras *extra,
                   Rectangle *rect);
 void polyline_bbox(const Point *pts, int numpoints,
                    const PolyBBExtras *extra, gboolean closed,

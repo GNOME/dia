@@ -885,7 +885,8 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   Point center, bottom_right;
   Point p;
   Rectangle tb;
-  ElementBBExtras *extra = &elem->extra_spacing;
+  static GArray *arr = NULL, *barr = NULL;
+  
   int i;
   GList *tmp;
   
@@ -1022,33 +1023,149 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     transform_coord(custom, &info->connections[i],&custom->connections[i].pos);
 
 
-  extra->border_trans = custom->border_width/2;
-
-  {
-    /* FIXME: this block is a bad hack, see BugZilla #52912.
-     I want that crap to go away ASAP after 0.87 is released -- CC */
-    GList *utmp;
-    real worst_lw = 0.0;
-
-    for (utmp = info->display_list; utmp; utmp = utmp->next) {
-      GraphicElement *el = utmp->data;
-      if (el->any.s.line_width > worst_lw) worst_lw = el->any.s.line_width;
-    }
-    extra->border_trans += worst_lw * custom->border_width * 5.24  - custom->border_width/2; 
-  }
-
+  elem->extra_spacing.border_trans = 0; /*custom->border_width/2; */
   element_update_boundingbox(elem);
 
+  /* Merge in the bounding box of every individual element */
+  if (!arr)
+    arr = g_array_new(FALSE, FALSE, sizeof(Point));
+  if (!barr)
+    barr = g_array_new(FALSE, FALSE, sizeof(BezPoint));
+
+  for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
+    GraphicElement *el = tmp->data;
+    Rectangle rect;
+    real lwfactor = custom->border_width / 2;
+
+    switch(el->type) {
+    case GE_LINE: {
+      LineBBExtras extra;
+      Point p1,p2;
+      extra.start_trans = extra.end_trans = el->line.s.line_width * lwfactor;
+      extra.start_long = extra.end_long = 0;
+
+      transform_coord(custom, &el->line.p1, &p1);
+      transform_coord(custom, &el->line.p2, &p2);
+
+      line_bbox(&p1,&p2,&extra,&rect);
+      break; 
+    }
+    case GE_POLYLINE: {
+      PolyBBExtras extra;
+
+      extra.start_trans = extra.end_trans = extra.middle_trans = 
+        el->polyline.s.line_width * lwfactor;
+      extra.start_long = extra.end_long = 0;
+
+      g_array_set_size(arr, el->polyline.npoints);
+      for (i = 0; i < el->polyline.npoints; i++)
+        transform_coord(custom, &el->polyline.points[i],
+                        &g_array_index(arr, Point, i));
+     
+      polyline_bbox(&g_array_index(arr,Point,0),el->polyline.npoints,
+                    &extra,FALSE,&rect);
+      break;
+    }
+    case GE_POLYGON: {
+      PolyBBExtras extra;
+      extra.start_trans = extra.end_trans = extra.middle_trans = 
+        el->polygon.s.line_width * lwfactor;
+      extra.start_long = extra.end_long = 0;
+
+      g_array_set_size(arr, el->polygon.npoints);
+      for (i = 0; i < el->polygon.npoints; i++)
+        transform_coord(custom, &el->polygon.points[i],
+                        &g_array_index(arr, Point, i));
+     
+      polyline_bbox(&g_array_index(arr,Point,0),el->polyline.npoints,
+                    &extra,TRUE,&rect);
+      break;
+    }
+    case GE_PATH: {
+      PolyBBExtras extra;
+      extra.start_trans = extra.end_trans = extra.middle_trans = 
+        el->path.s.line_width * lwfactor;
+      extra.start_long = extra.end_long = 0;
+
+      g_array_set_size(barr, el->path.npoints);
+      for (i = 0; i < el->path.npoints; i++)
+        switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
+        case BEZ_CURVE_TO:
+          transform_coord(custom, &el->path.points[i].p3,
+                          &g_array_index(barr, BezPoint, i).p3);
+          transform_coord(custom, &el->path.points[i].p2,
+                          &g_array_index(barr, BezPoint, i).p2);
+        case BEZ_MOVE_TO:
+        case BEZ_LINE_TO:
+          transform_coord(custom, &el->path.points[i].p1,
+                          &g_array_index(barr, BezPoint, i).p1);
+        }
+
+      polybezier_bbox(&g_array_index(barr,BezPoint,0),el->path.npoints,
+                      &extra,FALSE,&rect);
+      break;
+    }
+    case GE_SHAPE: {
+      PolyBBExtras extra;
+      extra.start_trans = extra.end_trans = extra.middle_trans = 
+        el->shape.s.line_width * lwfactor;
+      extra.start_long = extra.end_long = 0;
+
+      g_array_set_size(barr, el->shape.npoints);
+      for (i = 0; i < el->shape.npoints; i++)
+        switch (g_array_index(barr,BezPoint,i).type=el->shape.points[i].type) {
+        case BEZ_CURVE_TO:
+          transform_coord(custom, &el->shape.points[i].p3,
+                          &g_array_index(barr, BezPoint, i).p3);
+          transform_coord(custom, &el->shape.points[i].p2,
+                          &g_array_index(barr, BezPoint, i).p2);
+        case BEZ_MOVE_TO:
+        case BEZ_LINE_TO:
+          transform_coord(custom, &el->shape.points[i].p1,
+                          &g_array_index(barr, BezPoint, i).p1);
+        }
+      polybezier_bbox(&g_array_index(barr,BezPoint,0),el->shape.npoints,
+                      &extra,TRUE,&rect);
+      break;
+    }
+    case GE_ELLIPSE: {
+      ElementBBExtras extra;
+      Point centre;
+      extra.border_trans = el->ellipse.s.line_width * lwfactor;
+      transform_coord(custom, &el->ellipse.center, &centre);
+    
+      ellipse_bbox(&centre,
+                   el->ellipse.width * fabs(custom->xscale),
+                   el->ellipse.height * fabs(custom->yscale),
+                   &extra,&rect);
+      break; 
+    }
+    case GE_RECT: {
+      ElementBBExtras extra;
+      Rectangle rin,trin;
+      rin.left = el->rect.corner1.x;
+      rin.top = el->rect.corner1.y;
+      rin.right = el->rect.corner2.x;
+      rin.bottom = el->rect.corner2.y;
+      transform_rect(custom, &rin, &trin);
+
+      extra.border_trans = el->rect.s.line_width * lwfactor;
+      rectangle_bbox(&trin,&extra,&rect);
+      break; 
+    }
+    case GE_TEXT:
+      //text_calc_boundingbox(el->text.object,&rect);
+      rect = el->text.text_bounds;
+      break;
+    }
+    rectangle_union(&obj->bounding_box,&rect);
+  }
+
+  
   /* extend bouding box to include text bounds ... */
   if (info->has_text) {
     text_calc_boundingbox(custom->text, &tb);
     rectangle_union(&obj->bounding_box, &tb);
-  }
-
-  for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
-       GraphicElement *el = tmp->data;
-       if (el->type == GE_TEXT)
-            rectangle_union(&obj->bounding_box, &el->text.text_bounds);
   }
 
   obj->position = elem->corner;
