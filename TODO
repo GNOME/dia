@@ -8,6 +8,9 @@ general:
 * Tab order in properties dialogs. (How do you specify this in gtk?)
 * If you hold down shift while moving the handle of an 'Element',
   scale while keeping same proportions.
+* Must be able to change background color.
+* Maye be able to set a default linestyle, much like the current linewidth
+  widget.
 
 gtk:
  keyboard accelerators can be better:
@@ -22,11 +25,9 @@ renderer:
  images
 
 objects:
- text_object: Add font to properties dialog.
  render_object: better distance_from that can be specified by the object programmer.
  Bitmapped image object
  Vector image object (for maps and stuff). CGM?
- properties dialogs in all object-types, see textobj
 
 UML:
  Class: * class can be object => underlined name

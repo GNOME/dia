@@ -1,11 +1,16 @@
 #include "widgets.h"
+#include "message.h"
 
+#include <glib.h>
 #include <gdk/gdk.h>
 #include <gtk/gtkradiomenuitem.h>
 #include <gtk/gtklabel.h>
 #include <gtk/gtksignal.h>
 
 /************* DiaFontSelector: ***************/
+
+static GHashTable *font_nr_hashtable = NULL;
+
 static void
 dia_font_selector_class_init (DiaFontSelectorClass *class)
 {
@@ -46,10 +51,14 @@ dia_font_selector_init (DiaFontSelector *fs)
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs), menu);
 }
 
+
 guint
 dia_font_selector_get_type        (void)
 {
   static guint dfs_type = 0;
+  GList *list;
+  char *fontname;
+  int i;
 
   if (!dfs_type) {
     GtkTypeInfo dfs_info = {
@@ -63,6 +72,24 @@ dia_font_selector_get_type        (void)
     };
     
     dfs_type = gtk_type_unique (gtk_option_menu_get_type (), &dfs_info);
+
+
+    /* Init the font hash_table: */
+    font_nr_hashtable = g_hash_table_new(g_str_hash, g_str_equal);
+
+    i=0;
+    list = font_names;
+    while (list != NULL) {
+      fontname = (char *) list->data;
+      
+      g_hash_table_insert(font_nr_hashtable,
+			  fontname,
+			  GINT_TO_POINTER(i));
+  
+      list = g_list_next(list);
+      i++;
+    }
+    
   }
   
   return dfs_type;
@@ -72,6 +99,26 @@ GtkWidget *
 dia_font_selector_new ()
 {
   return GTK_WIDGET ( gtk_type_new (dia_font_selector_get_type ()));
+}
+
+void
+dia_font_selector_set_font(DiaFontSelector *fs, Font *font)
+{
+  void *font_nr_ptr;
+  int font_nr;
+
+  font_nr_ptr = g_hash_table_lookup(font_nr_hashtable,
+				    font->name);
+
+  if (font_nr_ptr==NULL) {
+    message_error("Trying to set invalid font!\n");
+    font_nr = 0;
+  } else {
+    font_nr = GPOINTER_TO_INT(font_nr_ptr);
+  }
+  
+  gtk_option_menu_set_history(GTK_OPTION_MENU(fs), font_nr);
+  gtk_menu_set_active(fs->font_menu, font_nr);
 }
 
 Font *

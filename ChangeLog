@@ -1,3 +1,19 @@
+1998-11-02  Alexander Larsson  <alla@lysator.liu.se>
+
+	* lib/widgets.[ch]:
+	Added suppot for setting the font of a
+	DiaFontSelector widget.
+	Also fixed some typos in the header.
+
+	* lib/object.h: 
+	Added a comment about the GetPRoperties method call.
+	You have to make sure to update widget state when
+	this method is called. (Not all objects do this yet,
+	to be fixed.)
+
+	* TODO:
+	Some small updates
+
 1998-11-01  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/font.c

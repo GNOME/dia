@@ -157,6 +157,9 @@ typedef void (*MoveHandleFunc) (Object*          obj,
   Function called when the user has double clicked on an Object.
   This function should return a dialog to edit the properties
   of the object.
+  When this function is called and the dialog already is created,
+  make sure to update the values in the widgets so that it
+  accurately describes the current state of the object.
   Remember to destroy this dialog when the object is destroyed!
 */
 typedef GtkWidget *(*GetPropertiesFunc) (Object* obj);

@@ -31,9 +31,10 @@ struct _DiaFontSelectorClass
   GtkOptionMenuClass parent_class;
 };
 
-guint          dia_font_selector_get_type        (void);
-GtkWidget*     dia_font_selector_new             (void);
-Font *         dia_font_selector_get_font        (DiaFontSelector *fs);
+guint      dia_font_selector_get_type        (void);
+GtkWidget* dia_font_selector_new             (void);
+void       dia_font_selector_set_font        (DiaFontSelector *fs, Font *font);
+Font *     dia_font_selector_get_font        (DiaFontSelector *fs);
 
 /* DiaAlignmentSelector: */
 #define DIAALIGNMENTSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_alignment_selector_get_type (), DiaAlignmentSelector)
@@ -62,8 +63,8 @@ void       dia_alignment_selector_set_alignment (DiaAlignmentSelector *as,
 						 Alignment align);
 
 /* DiaLineStyleSelector: */
-#define DIALINESTYLESELECTOR(obj)          GTK_CHECK_CAST (obj, dia_line_style_selector_get_type (), DiaLinestyleSelector)
-#define DIALINESTYLESELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_line_style_selector_get_type (), DiaLinestyleSelectorClass)
+#define DIALINESTYLESELECTOR(obj)          GTK_CHECK_CAST (obj, dia_line_style_selector_get_type (), DiaLineStyleSelector)
+#define DIALINESTYLESELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_line_style_selector_get_type (), DiaLineStyleSelectorClass)
 #define IS_DIALINESTYLESELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_line_style_selector_get_type ())
 
 typedef struct _DiaLineStyleSelector       DiaLineStyleSelector;
