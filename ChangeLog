@@ -1,3 +1,8 @@
+2003-02-28  Steffen Macke <sdteffen@web.de>
+
+	* samples/all_objects.dia: New sheet containing all dia shapes
+	and objects; one layer per sheet
+	
 2003-02-28  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* configure.in: Slightly more informative error message for isinf.
