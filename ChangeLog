@@ -1,5 +1,9 @@
 2002-08-04  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/commands.c (received_selection_handler): Got utf8 handling
+	on paste, and individual char handling out of commands.c.  Pasting
+	non-ASCII is still broken, somehow.  It's all lib/text.c's fault.
+
 	* lib/message.c (gtk_message_internal): Message dialog re-shown
 	when new message appears.  Maybe it should even move to top?
 

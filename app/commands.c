@@ -229,7 +229,7 @@ received_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
 {
   Focus *focus = active_focus();
   gchar *text;
-  int i;
+  int i, strlen;
   ObjectChange *change = NULL;
   int modified, any_modified = FALSE;
   Object *obj;
@@ -253,11 +253,29 @@ received_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
   }
 
   text = (gchar *)selection->data;
-  for (i = 0; i < selection->length; i++) {
-    if (text[i] == '\n') {
-      modified = (*focus->key_event)(focus, GDK_Return, "\n", 1, &change);
+  if (!g_utf8_validate(text, -1, NULL)) {
+    /* Try to convert from locale */
+    gchar *newtext = g_locale_to_utf8(text, -1, NULL, NULL, NULL);
+    if (newtext == NULL) {
+      message_error("Can't convert selection to utf8\n");
+      return;
     } else {
-      modified = (*focus->key_event)(focus, GDK_A, &text[i], 1, &change);
+      text = newtext;
+    }
+  }
+
+  modified = FALSE;
+  while (text != NULL) {
+    gchar *next_line = g_utf8_strchr(text, -1, '\n');
+    if (next_line != text) {
+      gint len = g_utf8_strlen(text, (next_line-text));
+      modified = (*focus->key_event)(focus, GDK_A, text, len, &change);
+    }
+    if (next_line != NULL) {
+      modified = (*focus->key_event)(focus, GDK_Return, "\n", 1, &change);
+      text = g_utf8_next_char(next_line);
+    } else {
+      text = NULL;
     }
     { /* Make sure object updates its data: */
       Point p = obj->position;
