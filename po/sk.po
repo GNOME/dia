@@ -1,87 +1,91 @@
-# Slovak translation of @PACKAGE 
-# translation of dia.HEAD.sk.po to Slovak
-# translation of dia.HEAD.po to Slovak
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# Zdenko Podobný <zdpo@mailbox.sk>, 2003
+# Slovak translation of dia.HEAD.pot
+# Copyright (C) 1999,2003 Free Software Foundation, Inc.
+# Zdenko Podobný <zdpo@mailbox.sk>, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia-0.92.robota.sk\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-02 01:11+0200\n"
-"PO-Revision-Date: 2003-09-03 20:27+0100\n"
+"Project-Id-Version: dia.HEAD.sk.po\n"
+"Report-Msgid-Bugs-To: Zdenko Podobný <zdpo@mailbox.sk>\n"
+"POT-Creation-Date: 2003-12-04 14:10+0100\n"
+"PO-Revision-Date: 2003-12-04 21:06+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.2\n"
+"X-Generator: KBabel 1.2beta3\n"
 
-#: app/app_procs.c:162
-#, c-format
-msgid "%s error: input and output file name is identical: %s"
-msgstr "%s chyba: názov vstupného a výstupného súboru je rovnaký: %s"
-
-#: app/app_procs.c:173
-#, c-format
-msgid "%s error: need valid input file %s\n"
-msgstr "%s chyba: potrebný je správny vstupný súbor %s\n"
-
-#: app/app_procs.c:180
+#: app/app_procs.c:169
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s chyba: neviem ako exportovať do %s\n"
 
+#: app/app_procs.c:179
+#, c-format
+msgid "%s error: input and output file name is identical: %s"
+msgstr "%s chyba: názov vstupného a výstupného súboru je rovnaký: %s"
+
+#: app/app_procs.c:187
+#, c-format
+msgid "%s error: need valid input file %s\n"
+msgstr "%s chyba: potrebný je správny vstupný súbor %s\n"
+
 #. if (!quiet)
-#: app/app_procs.c:186
+#: app/app_procs.c:193
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
+#: app/app_procs.c:235
+#, c-format
+msgid "Can't find output format %s\n"
+msgstr "Nie je možné nájsť výstupný formát %s\n"
+
+#. Translators:  The argument is a list of options, not to be translated
+#: app/app_procs.c:319
+#, c-format
+msgid "Export to file format and exit.  Supported formats are: %s"
+msgstr "Exportovať do formátu súboru a skončiť. Podporované formáty sú: %s"
+
 #. &export_file_name
-#: app/app_procs.c:244
+#: app/app_procs.c:328
 msgid "Export loaded file and exit"
 msgstr "Export načítal súbor a skončil"
 
-#: app/app_procs.c:244 app/diaconv.c:94
+#: app/app_procs.c:328 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "VÝSTUP"
 
 #. &export_file_format
-#: app/app_procs.c:246
-msgid "Export to file format and exit"
-msgstr "Exportovať do formátu súboru a ukončiť"
+#: app/app_procs.c:330
+msgid "FORMAT"
+msgstr "FORMÁT"
 
-#: app/app_procs.c:246 app/diaconv.c:92
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#: app/app_procs.c:248
+#: app/app_procs.c:333
 msgid "Don't show the splash screen"
 msgstr "Nezobrazovať úvodný obrázok"
 
-#: app/app_procs.c:250
+#: app/app_procs.c:335
 msgid "Display credits list and exit"
 msgstr "Zobraziť zoznam poďakovaní a ukončiť"
 
-#: app/app_procs.c:252
+#: app/app_procs.c:337
 msgid "Display version and exit"
 msgstr "Zobraziť verziu a skončiť"
 
-#: app/app_procs.c:254 app/diaconv.c:95
+#: app/app_procs.c:339 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Zobraziť túto pomoc"
 
-#: app/app_procs.c:286
+#: app/app_procs.c:371
 msgid "Can't connect to session manager!\n"
 msgstr "Nemôžem sa spojiť s manažérom sedenia!\n"
 
-#: app/app_procs.c:301 app/diaconv.c:119
+#: app/app_procs.c:386 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[VOĽBA...] [SÚBOR...]"
 
-#: app/app_procs.c:305 app/diaconv.c:126
+#: app/app_procs.c:390 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -91,29 +95,24 @@ msgstr ""
 "Spustite '%s --help' pre zobrazenie úplného zoznamu možností príkazového "
 "riadku.\n"
 
-#: app/app_procs.c:318
-#, c-format
-msgid "%s error: can specify only one of -f or -o."
-msgstr "%s chyba: môžete určiť buď -f alebo -o."
-
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:331
+#: app/app_procs.c:409
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia verzia %s, zostavená %s %s\n"
 
-#: app/app_procs.c:333
+#: app/app_procs.c:411
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia verzia %s\n"
 
-#: app/app_procs.c:419 app/app_procs.c:421 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:491 app/app_procs.c:493 app/diaconv.c:199 app/diaconv.c:201
 msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Nie je možné nájsť štandardné objekty, keď hľadám objektové knižnice, "
 "končím...\n"
 
-#: app/app_procs.c:549
+#: app/app_procs.c:585
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -122,7 +121,7 @@ msgstr ""
 "a popíšte ako ste dostali túto chybovú správu.\n"
 
 #. no standard buttons
-#: app/app_procs.c:561
+#: app/app_procs.c:597
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -132,21 +131,21 @@ msgstr ""
 "Ste si istý, že chcete skončiť Dia\n"
 "bez ich uloženia?"
 
-#: app/app_procs.c:565
+#: app/app_procs.c:601
 msgid "Quit Dia"
 msgstr "Ukončiť Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:620
+#: app/app_procs.c:656
 msgid "Thank you for using Dia.\n"
 msgstr "Vďaka za používanie Dia.\n"
 
-#: app/app_procs.c:634 app/app_procs.c:641
+#: app/app_procs.c:670 app/app_procs.c:677
 msgid "Could not create per-user Dia config directory"
 msgstr "Nie je možné vytvoriť pre používateľa Dia konfiguračný priečinok"
 
-#: app/app_procs.c:643
+#: app/app_procs.c:679
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -154,7 +153,7 @@ msgstr ""
 "Nie je možné vytvoriť pre používateľa Dia konfiguračný priečinok. Uistite sa "
 "prosím, že premenná HOME ukazuje na existujúci priečinok."
 
-#: app/app_procs.c:665 app/diaconv.c:249
+#: app/app_procs.c:701 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Interné objekty a filtre pre Dia"
 
@@ -320,6 +319,10 @@ msgstr "Nie je možné inicializovať Bonobo!"
 #: app/diaconv.c:92
 msgid "Export format to use"
 msgstr "Exportný formát, ktorý sa použije"
+
+#: app/diaconv.c:92
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "eps,png,wmf,cgm,dxf,fig"
 
 #. &export_file_name
 #: app/diaconv.c:94
@@ -532,7 +535,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "Žiadna ponuka pre objekt"
 
-#: app/disp_callbacks.c:865
+#: app/disp_callbacks.c:856
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -544,11 +547,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Diagram je zmenený!"
 
-#: app/display.c:992
+#: app/display.c:991
 msgid "<unnamed>"
 msgstr "<bez názvu>"
 
-#: app/display.c:994
+#: app/display.c:993
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -557,18 +560,18 @@ msgstr ""
 "Diagram '%s'\n"
 "nebol uložený. Uložiť ho teraz?"
 
-#: app/display.c:1005
+#: app/display.c:1004
 msgid "Close Diagram"
 msgstr "Zavrieť diagram"
 
-#: app/display.c:1010
+#: app/display.c:1009
 msgid "Discard Changes"
 msgstr "Zahodiť zmeny"
 
-#: app/export_png.c:116 app/load_save.c:806 app/render_eps.c:83
+#: app/export_png.c:116 app/load_save.c:867 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
-#: plug-ins/pstricks/render_pstricks.c:797 plug-ins/shape/shape-export.c:135
+#: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
 #: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
 #, c-format
@@ -609,7 +612,7 @@ msgstr "Výška obrázka:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:113 app/filedlg.c:383
+#: app/filedlg.c:113 app/filedlg.c:380
 msgid "By extension"
 msgstr "Podľa prípony"
 
@@ -621,7 +624,7 @@ msgstr "Otvoriť diagram"
 msgid "Open Options"
 msgstr "Otvoriť nastavenia"
 
-#: app/filedlg.c:208 app/filedlg.c:498
+#: app/filedlg.c:208 app/filedlg.c:495
 msgid "Determine file type:"
 msgstr "Zistiť typ súboru:"
 
@@ -634,7 +637,7 @@ msgstr ""
 "kódovaní.\n"
 "Niečo sa pokazí."
 
-#: app/filedlg.c:251 app/filedlg.c:425
+#: app/filedlg.c:251 app/filedlg.c:422
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -643,7 +646,7 @@ msgstr ""
 "Súbor '%s' už existuje.\n"
 "Chcete ho prepísať?"
 
-#: app/filedlg.c:259 app/filedlg.c:431
+#: app/filedlg.c:259 app/filedlg.c:428
 msgid "File already exists"
 msgstr "Súbor už existuje"
 
@@ -653,11 +656,11 @@ msgstr "Uložiť diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:300
+#: app/filedlg.c:297
 msgid "Compress diagram files"
 msgstr "Komprimovať súbory diagramov:"
 
-#: app/filedlg.c:309
+#: app/filedlg.c:306
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -666,7 +669,7 @@ msgstr ""
 "urýchľuje načítavanie a ukladanie. Niektoré programy pre spracovanie textu "
 "však nevedia pracovať s komprimovanými súbormi."
 
-#: app/filedlg.c:450
+#: app/filedlg.c:447
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -675,33 +678,33 @@ msgstr ""
 "Neviem určiť, aký exportný filter sa má použiť\n"
 "pre uloženie '%s'"
 
-#: app/filedlg.c:468
+#: app/filedlg.c:465
 msgid "Export Diagram"
 msgstr "Exportovať diagram"
 
-#: app/filedlg.c:490
+#: app/filedlg.c:487
 msgid "Export Options"
 msgstr "Exportovať nastavenia"
 
-#: app/interface.c:43
+#: app/interface.c:45
 msgid "Modify object(s)"
 msgstr "Zmeniť objekt(y)"
 
-#: app/interface.c:44 app/menus.c:221
+#: app/interface.c:46 app/menus.c:221
 msgid "Modify"
 msgstr "Zmeniť"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:48 app/interface.c:49 app/menus.c:222
+#: app/interface.c:50 app/interface.c:51 app/menus.c:222
 #: objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Zväčšenie"
 
-#: app/interface.c:53
+#: app/interface.c:55
 msgid "Scroll around the diagram"
 msgstr "Posun okolo diagramu"
 
-#: app/interface.c:54 app/menus.c:223
+#: app/interface.c:56 app/menus.c:223
 msgid "Scroll"
 msgstr "Posunúť"
 
@@ -709,74 +712,74 @@ msgstr "Posunúť"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/interface.c:59 app/menus.c:224 lib/properties.c:77
+#: app/interface.c:60 app/interface.c:61 app/menus.c:224 lib/properties.c:77
 #: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:124
 #: objects/UML/actor.c:115 objects/UML/classicon.c:137
-#: objects/UML/component.c:121 objects/UML/component_feature.c:146
+#: objects/UML/component.c:121 objects/UML/component_feature.c:154
 #: objects/UML/node.c:120 objects/UML/note.c:114 objects/UML/object.c:142
 #: objects/UML/small_package.c:121 objects/UML/state.c:134
 #: objects/UML/usecase.c:131
 msgid "Text"
 msgstr "Text"
 
-#: app/interface.c:63 app/interface.c:64 app/menus.c:225
+#: app/interface.c:65 app/interface.c:66 app/menus.c:225
 msgid "Box"
 msgstr "Obdĺžnik"
 
-#: app/interface.c:68 app/interface.c:69 app/menus.c:226
+#: app/interface.c:70 app/interface.c:71 app/menus.c:226
 msgid "Ellipse"
 msgstr "Elipsa"
 
-#: app/interface.c:73 app/interface.c:74 app/menus.c:227
+#: app/interface.c:75 app/interface.c:76 app/menus.c:227
 msgid "Polygon"
 msgstr "Mnohouholník"
 
-#: app/interface.c:78 app/interface.c:79 app/menus.c:228
+#: app/interface.c:80 app/interface.c:81 app/menus.c:228
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: app/interface.c:83 app/interface.c:84 app/menus.c:230
+#: app/interface.c:85 app/interface.c:86 app/menus.c:230
 #: objects/standard/line.c:247
 msgid "Line"
 msgstr "Čiara"
 
-#: app/interface.c:88 app/interface.c:89 app/menus.c:231
+#: app/interface.c:90 app/interface.c:91 app/menus.c:231
 msgid "Arc"
 msgstr "Oblúk"
 
-#: app/interface.c:93 app/interface.c:94 app/menus.c:232
+#: app/interface.c:95 app/interface.c:96 app/menus.c:232
 msgid "Zigzagline"
 msgstr "Čiara cik-cak"
 
-#: app/interface.c:98 app/interface.c:99 app/menus.c:233
+#: app/interface.c:100 app/interface.c:101 app/menus.c:233
 msgid "Polyline"
 msgstr "Lomená čiara"
 
-#: app/interface.c:103 app/interface.c:104 app/menus.c:234
+#: app/interface.c:105 app/interface.c:106 app/menus.c:234
 msgid "Bezierline"
 msgstr "Bézierová čiara"
 
-#: app/interface.c:108 app/interface.c:109 app/menus.c:236
+#: app/interface.c:110 app/interface.c:111 app/menus.c:236
 msgid "Image"
 msgstr "Obrázok"
 
-#: app/interface.c:371
+#: app/interface.c:373
 msgid "Diagram menu."
 msgstr "Diagram ponuka."
 
-#: app/interface.c:480
+#: app/interface.c:482
 msgid "Zoom"
 msgstr "Lupa"
 
-#: app/interface.c:494
+#: app/interface.c:496
 msgid "Toggles snap-to-grid for this window."
 msgstr "Prepína pritiahnuť-k-vodítkam v tomto okne"
 
-#: app/interface.c:538
+#: app/interface.c:540
 msgid "NULL tooldata in tool_select_update"
 msgstr "Dáta s hodnotou NULL v tool_select_update"
 
-#: app/interface.c:1020
+#: app/interface.c:1023
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -785,7 +788,7 @@ msgstr ""
 "Farba popredia a pozadia v nových objektoch. Malý čierny a biely štvorček "
 "obnovuje farby. Malé šípky prehodia farby. Dvojklikom zmeníte farby."
 
-#: app/interface.c:1035
+#: app/interface.c:1038
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -793,7 +796,7 @@ msgstr ""
 "Šírka čiary.  Kliknutie na čiaru nastaví štandardnú šírku čiary pre nový "
 "objekt.  Dvojklik nastaví šírku čiary presne."
 
-#: app/interface.c:1067
+#: app/interface.c:1070
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -801,7 +804,7 @@ msgstr ""
 "Štýl šípky na začiatku nových čiar. Kliknutím vyberte šípku alebo nastavte "
 "parametre šípky v Detailoch..."
 
-#: app/interface.c:1072
+#: app/interface.c:1075
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -809,7 +812,7 @@ msgstr ""
 "Štýl čiary pre nové čiary. Kliknutím vyberte štýl čiary alebo nastavte jeho "
 "parametre v Detailoch..."
 
-#: app/interface.c:1077
+#: app/interface.c:1080
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -817,7 +820,7 @@ msgstr ""
 "Štýl šípky na konci nových čiar. Kliknutím vyberte šípku alebo nastavte "
 "parametre šípky v Detailoch..."
 
-#: app/interface.c:1185
+#: app/interface.c:1188
 msgid "Diagram Editor"
 msgstr "Editor diagramov"
 
@@ -891,7 +894,7 @@ msgstr "Šírka čiary"
 msgid "Line width:"
 msgstr "Šírka čiary:"
 
-#: app/load_save.c:220
+#: app/load_save.c:245
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -899,7 +902,7 @@ msgstr ""
 "Chyba počas načítavania diagramu.\n"
 "Prilinkované objekty neboli nájdené v dokumente."
 
-#: app/load_save.c:223
+#: app/load_save.c:248
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -907,7 +910,7 @@ msgstr ""
 "Chyba pri načítavaní diagramu.\n"
 "Bod spojenia neexistuje."
 
-#: app/load_save.c:226
+#: app/load_save.c:251
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -915,17 +918,22 @@ msgstr ""
 "Chyba pri načítavaní diagramu.\n"
 "deskriptor spojenia neexistuje."
 
-#: app/load_save.c:276
+#: app/load_save.c:273
+#, c-format
+msgid "Can't find parent %s of %s object\n"
+msgstr "Nie je možné nájsť rodičov %s objektu %s\n"
+
+#: app/load_save.c:318
 msgid "You must specify a file, not a directory.\n"
 msgstr "Musíte špecifikovať súbor, a nie priečinok.\n"
 
-#: app/load_save.c:283 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
-#: plug-ins/xfig/xfig-import.c:1505 plug-ins/xslt/xslt.c:78
+#: app/load_save.c:325 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: plug-ins/xfig/xfig-import.c:1517 plug-ins/xslt/xslt.c:78
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nie je možné otvoriť '%s' pre čítanie.\n"
 
-#: app/load_save.c:300 app/load_save.c:305
+#: app/load_save.c:342 app/load_save.c:347
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -934,7 +942,7 @@ msgstr ""
 "Chyba pri načítavaní diagramu %s.\n"
 "Neznámy typ súbora."
 
-#: app/load_save.c:312
+#: app/load_save.c:354
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -943,7 +951,7 @@ msgstr ""
 "Chyba pri načítavaní diagramu %s.\n"
 "Toto nie je Dia súbor."
 
-#: app/load_save.c:509
+#: app/load_save.c:551
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -954,12 +962,12 @@ msgstr ""
 "%s.\n"
 "Platný Dia súbor definuje najmenej jednu vrstvu."
 
-#: app/load_save.c:839
+#: app/load_save.c:900
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Nepodarilo sa uložiť súbor '%s'.\n"
 
-#: app/load_save.c:909 app/load_save.c:914
+#: app/load_save.c:970 app/load_save.c:975
 msgid "Native Dia Diagram"
 msgstr "Pôvodný Dia diagram"
 
@@ -1707,17 +1715,17 @@ msgstr "Tlačiareň"
 msgid "File"
 msgstr "Súbor"
 
-#: app/paginate_psprint.c:342
+#: app/paginate_psprint.c:353
 #, c-format
 msgid "Could not run command '%s'"
 msgstr "Nie je možné spustiť príkaz '%s'"
 
-#: app/paginate_psprint.c:345
+#: app/paginate_psprint.c:356
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "Nie je otvoriť '%s' pre zápis"
 
-#: app/paginate_psprint.c:370
+#: app/paginate_psprint.c:381
 msgid "Error occured while printing"
 msgstr "Vyskytla sa chyba počas tlače"
 
@@ -1923,11 +1931,15 @@ msgstr "<Toolbox>/Súbor/Koniec"
 msgid "Can't open history file for writing."
 msgstr "Nie je možné otvoriť súbor s históriou pre zápis."
 
-#: app/render_eps.c:119
-msgid "Encapsulated Postscript"
-msgstr "Zapuzdrený Postscript"
+#: app/render_eps.c:140
+msgid "Encapsulated Postscript (using Pango fonts)"
+msgstr "Zapuzdrený Postscript (používajúci písma Pango)"
 
-#: app/render_libart.c:318 lib/dialibartrenderer.c:269
+#: app/render_eps.c:149
+msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
+msgstr "Zapuzdrený Postscript (používajúci písma PostScript Latin-1)"
+
+#: app/render_libart.c:318 lib/dialibartrenderer.c:268
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Bol zadaný nepodporovaný typ výplne!\n"
 
@@ -2209,76 +2221,84 @@ msgid "Filled Diamond"
 msgstr "Vyplnený diamant"
 
 #: lib/arrows.c:45
+msgid "Half Diamond"
+msgstr "Polovica diamantu"
+
+#: lib/arrows.c:46
 msgid "Half Head"
 msgstr "Polovica hlavičky"
 
-#: lib/arrows.c:46
+#: lib/arrows.c:47
 msgid "Slashed Cross"
 msgstr "Preškrtnutý kríž"
 
-#: lib/arrows.c:47
+#: lib/arrows.c:48
 msgid "Filled Ellipse"
 msgstr "Vyplnená elipsa"
 
-#: lib/arrows.c:48
+#: lib/arrows.c:49
 msgid "Hollow Ellipse"
 msgstr "Dutá elipsa"
 
-#: lib/arrows.c:49
+#: lib/arrows.c:50
 msgid "Filled Dot"
 msgstr "Vyplnená bodka"
 
-#: lib/arrows.c:50
+#: lib/arrows.c:51
 msgid "Dimension Origin"
 msgstr "Začiatok rozmeru"
 
-#: lib/arrows.c:51
+#: lib/arrows.c:52
 msgid "Blanked Dot"
 msgstr "Prázdna bodka"
 
-#: lib/arrows.c:52
+#: lib/arrows.c:53
 msgid "Double Hollow triangle"
 msgstr "Dvojitý dutý trojuholník"
 
-#: lib/arrows.c:53
+#: lib/arrows.c:54
 msgid "Double Filled triangle"
 msgstr "Dvojitý vyplnený trojuholník"
 
-#: lib/arrows.c:54
+#: lib/arrows.c:55
 msgid "Filled Box"
 msgstr "Vyplnený obdĺžnik"
 
-#: lib/arrows.c:55
+#: lib/arrows.c:56
 msgid "Blanked Box"
 msgstr "Prázdny obdĺžnik"
 
-#: lib/arrows.c:56
+#: lib/arrows.c:57
 msgid "Slashed"
 msgstr "Preškrtnutý"
 
-#: lib/arrows.c:57
+#: lib/arrows.c:58
 msgid "Integral Symbol"
 msgstr "Symbol integrálu"
 
-#: lib/arrows.c:58
+#: lib/arrows.c:59
 msgid "Crow Foot"
 msgstr "Stopa vrany"
 
-#: lib/arrows.c:59
+#: lib/arrows.c:60
 msgid "Cross"
 msgstr "Kríž"
 
-#: lib/arrows.c:60
+#: lib/arrows.c:61
 msgid "Filled Concave"
 msgstr "Vyplnená konkáva"
 
-#: lib/arrows.c:61
+#: lib/arrows.c:62
 msgid "Blanked Concave"
 msgstr "Prázdna konkáva"
 
-#: lib/arrows.c:62
+#: lib/arrows.c:63
 msgid "Round"
 msgstr "Okrúhla"
+
+#: lib/arrows.c:64
+msgid "Open Round"
+msgstr "Otvorený gulatý"
 
 #: lib/bezier_conn.c:533
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2366,9 +2386,10 @@ msgstr "_Náhľad:"
 msgid "Font Selection"
 msgstr "Výber písma"
 
-#: lib/dialibartrenderer.c:1115
-msgid "This Dia version is compiled without libart/text support."
-msgstr "Táto verzia Dia je skompilovaná bez podpory libart/text."
+#: lib/filter.c:120
+#, c-format
+msgid "Multiple export filters with unique name %s"
+msgstr "Viac exportných filtrov s jedinečným názvom %s"
 
 #: lib/font.c:87
 #, c-format
@@ -2598,7 +2619,7 @@ msgstr "Celkom:"
 
 #: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
 #: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:566
-#: objects/UML/association.c:747 objects/UML/component_feature.c:169
+#: objects/UML/association.c:747 objects/UML/component_feature.c:177
 #: objects/UML/dependency.c:365 objects/UML/generalization.c:361
 #: objects/UML/realizes.c:352 objects/standard/zigzagline.c:337
 msgid "Add segment"
@@ -2606,7 +2627,7 @@ msgstr "Pridať segment"
 
 #: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
 #: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:567
-#: objects/UML/association.c:748 objects/UML/component_feature.c:170
+#: objects/UML/association.c:748 objects/UML/component_feature.c:178
 #: objects/UML/dependency.c:366 objects/UML/generalization.c:362
 #: objects/UML/realizes.c:353 objects/standard/zigzagline.c:338
 msgid "Delete segment"
@@ -3976,7 +3997,7 @@ msgid "Template"
 msgstr "Šablóna"
 
 #. Class page:
-#: objects/UML/class.c:178 objects/UML/class.c:936
+#: objects/UML/class.c:178 objects/UML/class.c:938
 #: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Trieda"
@@ -4162,19 +4183,19 @@ msgstr "Hranice"
 msgid "Is object"
 msgstr "Je objekt"
 
-#: objects/UML/component_feature.c:133 sheets/UML.sheet.in.h:14
+#: objects/UML/component_feature.c:141 sheets/UML.sheet.in.h:14
 msgid "Facet"
 msgstr "Aspekt"
 
-#: objects/UML/component_feature.c:134 sheets/UML.sheet.in.h:26
+#: objects/UML/component_feature.c:142 sheets/UML.sheet.in.h:26
 msgid "Receptacle"
 msgstr "Objímka"
 
-#: objects/UML/component_feature.c:135 sheets/UML.sheet.in.h:13
+#: objects/UML/component_feature.c:143 sheets/UML.sheet.in.h:13
 msgid "Event Source"
 msgstr "Zdroj udalostí"
 
-#: objects/UML/component_feature.c:136 sheets/UML.sheet.in.h:12
+#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:12
 msgid "Event Sink"
 msgstr "Ciel udalostí"
 
@@ -4393,23 +4414,23 @@ msgstr "Vlastné"
 msgid "Custom XML shapes loader"
 msgstr "Zavádzací program pre vlastné XML tvary"
 
-#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
+#: objects/custom/custom_object.c:177 objects/custom/custom_object.c:196
 msgid "Flip horizontal"
 msgstr "Vodorovne prevrátiť"
 
-#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:200
+#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:198
 msgid "Flip vertical"
 msgstr "Zvislo prevrátiť"
 
-#: objects/custom/custom_object.c:1418
+#: objects/custom/custom_object.c:1328
 msgid "Flip Horizontal"
 msgstr "Vodorovne prevrátiť"
 
-#: objects/custom/custom_object.c:1419
+#: objects/custom/custom_object.c:1329
 msgid "Flip Vertical"
 msgstr "Zvislo prevrátiť"
 
-#: objects/custom/custom_object.c:1456
+#: objects/custom/custom_object.c:1366
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Nie je možné otvoriť súbor s ikonou %s pre typ objektu '%s'."
@@ -4583,11 +4604,11 @@ msgstr ""
 "%s\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:172
+#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:174
 msgid "GdkPixbuf bitmap"
 msgstr "Bitmapa GdkPixbuf"
 
-#: plug-ins/pixbuf/pixbuf.c:185
+#: plug-ins/pixbuf/pixbuf.c:187
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "export/import bitmapy založenej na gdk-pixbuf"
 
@@ -4595,15 +4616,15 @@ msgstr "export/import bitmapy založenej na gdk-pixbuf"
 msgid "TeX Pstricks export filter"
 msgstr "Exportný filter TeX Pstricks"
 
-#: plug-ins/pstricks/render_pstricks.c:650
+#: plug-ins/pstricks/render_pstricks.c:653
 msgid "Not valid UTF8"
 msgstr "Neplatné UTF8"
 
-#: plug-ins/pstricks/render_pstricks.c:868
+#: plug-ins/pstricks/render_pstricks.c:871
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makrá"
 
-#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1030
+#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1041
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Nie je možné otvoriť '%s' pre zápis.\n"
@@ -4612,11 +4633,11 @@ msgstr "Nie je možné otvoriť '%s' pre zápis.\n"
 msgid "Python scripting support"
 msgstr "Podpora Python skriptov"
 
-#: plug-ins/shape/shape-export.c:471
+#: plug-ins/shape/shape-export.c:470
 msgid "Can't export png without libart!"
 msgstr "Nie je možné exportovať png bez libart-u!"
 
-#: plug-ins/shape/shape-export.c:498
+#: plug-ins/shape/shape-export.c:497
 msgid "dia shape file"
 msgstr "súbor s dia tvarom"
 
@@ -4624,16 +4645,16 @@ msgstr "súbor s dia tvarom"
 msgid "dia shape export filter"
 msgstr "exportný filter dia tvaru"
 
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:299 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
 #: plug-ins/svg/svg-import.c:204 plug-ins/svg/svg-import.c:218
-#: plug-ins/xfig/xfig-import.c:97 plug-ins/xfig/xfig-import.c:148
-#: plug-ins/xfig/xfig-import.c:177 plug-ins/xfig/xfig-import.c:213
-#: plug-ins/xfig/xfig-import.c:250 plug-ins/xfig/xfig-import.c:278
-#: plug-ins/xfig/xfig-import.c:315 plug-ins/xfig/xfig-import.c:351
-#: plug-ins/xfig/xfig-import.c:392
+#: plug-ins/xfig/xfig-import.c:108 plug-ins/xfig/xfig-import.c:159
+#: plug-ins/xfig/xfig-import.c:188 plug-ins/xfig/xfig-import.c:224
+#: plug-ins/xfig/xfig-import.c:261 plug-ins/xfig/xfig-import.c:289
+#: plug-ins/xfig/xfig-import.c:326 plug-ins/xfig/xfig-import.c:362
+#: plug-ins/xfig/xfig-import.c:403
 msgid "Can't find standard object"
 msgstr "Nie je možné nájsť štandardné objekty"
 
@@ -4658,11 +4679,11 @@ msgstr "koreňový element bol '%s' -- očakávalo sa 'svg'."
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Exportný a importný filter pre Scalable Vector Graphics"
 
-#: plug-ins/wmf/wmf.cpp:1089
+#: plug-ins/wmf/wmf.cpp:1100
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:1103
+#: plug-ins/wmf/wmf.cpp:1114
 msgid "WMF export filter"
 msgstr "Exportný filter WMF"
 
@@ -4696,177 +4717,178 @@ msgstr "K dispozícií nie je viac používateľom definovaných farieb - použ�
 msgid "XFig format"
 msgstr "XFig formát"
 
-#: plug-ins/xfig/xfig-import.c:461
+#: plug-ins/xfig/xfig-import.c:472
 msgid "Patterns are not supported by Dia"
 msgstr "Vzorky nie sú podporované v Dia"
 
-#: plug-ins/xfig/xfig-import.c:489
+#: plug-ins/xfig/xfig-import.c:500
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgstr "Trojbodové čiary nie sú podporované v Dia, použité budú dvojbodové"
 
-#: plug-ins/xfig/xfig-import.c:493
+#: plug-ins/xfig/xfig-import.c:504
 #, c-format
 msgid "Line style %d should not appear\n"
 msgstr "Štýl čiary %d by sa nemal objaviť\n"
 
-#: plug-ins/xfig/xfig-import.c:562
+#: plug-ins/xfig/xfig-import.c:573
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Chyba počas načítavania %d z %d bodov: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:584
+#: plug-ins/xfig/xfig-import.c:595
 msgid "Error while reading arrowhead\n"
 msgstr "Chyba počas čítania hlavičky šípky\n"
 
-#: plug-ins/xfig/xfig-import.c:604
+#: plug-ins/xfig/xfig-import.c:615
 #, c-format
 msgid "Unknown arrow type %d\n"
 msgstr "Neznámy typ šípky %d\n"
 
-#: plug-ins/xfig/xfig-import.c:701
+#: plug-ins/xfig/xfig-import.c:712
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Nedá sa prečítať informácia o elipse: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:769
+#: plug-ins/xfig/xfig-import.c:780
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Nedá sa prečítať informácia o lomenej čiare: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:784
+#: plug-ins/xfig/xfig-import.c:795
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Nie je možné čítať prevrátený bit %s\n"
 
-#: plug-ins/xfig/xfig-import.c:802
+#: plug-ins/xfig/xfig-import.c:813
 msgid "Negative corner radius, negating"
 msgstr "Negatívny rádius rohu, negujem"
 
-#: plug-ins/xfig/xfig-import.c:846 plug-ins/xfig/xfig-import.c:1162
+#: plug-ins/xfig/xfig-import.c:857 plug-ins/xfig/xfig-import.c:1173
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Neznámy podtyp lomenej čiary: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:996 plug-ins/xfig/xfig-import.c:1028
+#: plug-ins/xfig/xfig-import.c:1007 plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr "Nedá sa prečítať informácia o lomenej čiare: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:1015 plug-ins/xfig/xfig-import.c:1033
+#: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1044
 msgid "Cannot convert approximated spline yet."
 msgstr "Nie je možné zatiaľ previesť aproximovanou krivku."
 
-#: plug-ins/xfig/xfig-import.c:1073
+#: plug-ins/xfig/xfig-import.c:1084
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Neznámy podtyp lomenej čiary: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1136
+#: plug-ins/xfig/xfig-import.c:1147
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Nedá sa prečítať informácia o oblúku: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1226
+#: plug-ins/xfig/xfig-import.c:1237
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Nedá sa prečítať informácia o texte: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1267
+#: plug-ins/xfig/xfig-import.c:1278
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Nie je možné identifikovať FIG objekt: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1274
+#: plug-ins/xfig/xfig-import.c:1286
 msgid "Compound end outside compound\n"
 msgstr "Zložený objekt končí mimo zloženého objektu\n"
 
-#: plug-ins/xfig/xfig-import.c:1293
+#: plug-ins/xfig/xfig-import.c:1305
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Nie je možné prečítať farbu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1338
+#: plug-ins/xfig/xfig-import.c:1350
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Nie je možné prečítať rozšírenie skupiny: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1349
+#: plug-ins/xfig/xfig-import.c:1361
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Neznámy typ objektu %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1372
+#: plug-ins/xfig/xfig-import.c:1384
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' nie je jedným z `%s' alebo `%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:1382
+#: plug-ins/xfig/xfig-import.c:1394
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Chyba pri čítaní veľkosti papiera: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1392
+#: plug-ins/xfig/xfig-import.c:1404
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Neznáma veľkosť papiera `%s', použije sa štandard\n"
 
-#: plug-ins/xfig/xfig-import.c:1404
+#: plug-ins/xfig/xfig-import.c:1416
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Chyba pri čítaní orientácie papiera: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1414
+#: plug-ins/xfig/xfig-import.c:1426
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Chyba pri čítaní zarovnávania: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1424
+#: plug-ins/xfig/xfig-import.c:1436
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Chyba pri čítaní jednotiek: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1438
+#: plug-ins/xfig/xfig-import.c:1450
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Chyba pričítaní zväčšenia: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1449
+#: plug-ins/xfig/xfig-import.c:1461
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Chyba pri čítaní viacstranového indikátora: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1460
+#: plug-ins/xfig/xfig-import.c:1472
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Chyba čítaní transparentnej farby: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1469 plug-ins/xfig/xfig-import.c:1524
+#: plug-ins/xfig/xfig-import.c:1481 plug-ins/xfig/xfig-import.c:1536
+#: plug-ins/xfig/xfig-import.c:1554
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Chyba čítaní súbora FIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1471 plug-ins/xfig/xfig-import.c:1526
+#: plug-ins/xfig/xfig-import.c:1483 plug-ins/xfig/xfig-import.c:1538
 msgid "Premature end of FIG file\n"
 msgstr "Predčasný koniec súbora FIG\n"
 
-#: plug-ins/xfig/xfig-import.c:1480
+#: plug-ins/xfig/xfig-import.c:1492
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Chyba pri čítaní rozlíšenia: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1511
+#: plug-ins/xfig/xfig-import.c:1523
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Súbor sa nezdá byť FIG súborom: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1517
+#: plug-ins/xfig/xfig-import.c:1529
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Toto je FIG verzia %d. %d súbor, nemusím mu rozumieť\n"
 
-#: plug-ins/xfig/xfig-import.c:1558
+#: plug-ins/xfig/xfig-import.c:1577
 msgid "XFig File Format"
 msgstr "XFig formát súboru"
 
@@ -5074,18 +5096,22 @@ msgid "Trapezoid"
 msgstr "Lichobežník"
 
 #: sheets/Assorted.sheet.in.h:38
+msgid "Turn-up arrow"
+msgstr "Šípka doľava-hore"
+
+#: sheets/Assorted.sheet.in.h:39
 msgid "Up arrow"
 msgstr "Šípka hore"
 
-#: sheets/Assorted.sheet.in.h:39
+#: sheets/Assorted.sheet.in.h:40
 msgid "Up-down arrow"
 msgstr "Šípka hore-dole"
 
-#: sheets/Assorted.sheet.in.h:40
+#: sheets/Assorted.sheet.in.h:41
 msgid "Up-down-left arrow"
 msgstr "Šípka hore-dole-doľava"
 
-#: sheets/Assorted.sheet.in.h:41
+#: sheets/Assorted.sheet.in.h:42
 msgid "Vertical parallelogram"
 msgstr "Vertikálny rovnobežník"
 
@@ -5313,7 +5339,7 @@ msgstr "Príkazová zložka pre relé"
 msgid "Components for electric circuits"
 msgstr "Komponenty pre elektronické obvody"
 
-#: sheets/Electric.sheet.in.h:3
+#: sheets/Electric.sheet.in.h:3 sheets/Pneumatic.sheet.in.h:9
 msgid "Connection point"
 msgstr "Prípojný bod"
 
@@ -5630,14 +5656,10 @@ msgid "5/3 distributor"
 msgstr "Rozvádzač 5/3"
 
 #: sheets/Pneumatic.sheet.in.h:7
-msgid "A connection point"
-msgstr "Prípojný bod"
-
-#: sheets/Pneumatic.sheet.in.h:8
 msgid "Air exhaust orifice"
 msgstr "Ústie odsávania"
 
-#: sheets/Pneumatic.sheet.in.h:9
+#: sheets/Pneumatic.sheet.in.h:8
 msgid "Components for pneumatic and hydraulic circuits"
 msgstr "Komponenty pre pneumatické a hydraulické obvody"
 
@@ -7152,6 +7174,15 @@ msgstr "Dátový server Sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Replikačný server Sybase"
+
+#~ msgid "%s error: can specify only one of -f or -o."
+#~ msgstr "%s chyba: môžete určiť buď -f alebo -o."
+
+#~ msgid "This Dia version is compiled without libart/text support."
+#~ msgstr "Táto verzia Dia je skompilovaná bez podpory libart/text."
+
+#~ msgid "A connection point"
+#~ msgstr "Prípojný bod"
 
 #~ msgid "Create Text"
 #~ msgstr "Vytvoriť text"
