@@ -97,6 +97,7 @@ static const gchar *authors[] =	{
     "Luc Pionchon <luc@handhelds.org>",
     "Maurizio Tidei <tidei@compal.de>",
     "Sampo Kellomaki <sampo@iki.fi>",
+    "Grégoire Dooms <dooms@info.ucl.ac.be>",
     NULL
 };
 

@@ -1,5 +1,7 @@
 2005-03-17  Lars Clausen  <lars@raeder.dk>
 
+	* app/authors.h: Added Gregoire Dooms for gap stuff.
+
 	* objects/standard/polyline.c: Patch from Grégoire Dooms
 	<dooms@info.ucl.ac.be>: Autogap and absolute gap for polyline.
 	
