@@ -13,7 +13,7 @@ plugin_sources =
 endif
 plugin_extra_dist=$(XSLT_XSL)
 
-EXTRA_DIST = $(plugin_extra_dist)
+EXTRA_DIST = $(plugin_extra_dist) stylesheets.xml.in
 
 pkglib_LTLIBRARIES = libxslt_filter.la
 

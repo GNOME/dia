@@ -1,5 +1,8 @@
 2003-02-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/xslt/Makefile.am (EXTRA_DIST): Also dist
+	stylesheets.xml.in 
+
 	* app/commands.c (help_manual_callback): More correct URL for help
 	page (include file://, was broken on Dillo without it).
 
