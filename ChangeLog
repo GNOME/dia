@@ -1,5 +1,9 @@
 1999-10-31  Alexander Larsson  <alla@lysator.liu.se>
 
+        * dia.spec:
+	* configure.in:
+	Update version to 0.81.
+	
 	* NEWS:
 	Update with news for 0.81.
 	

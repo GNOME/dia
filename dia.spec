@@ -2,7 +2,7 @@
 
 Summary: A gtk+ based diagram creation program.
 Name: dia
-Version: 0.80
+Version: 0.81
 Release: 1
 Copyright: GPL
 Group: Applications/

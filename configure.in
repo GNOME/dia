@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(app/diagram.c)
 
-AM_INIT_AUTOMAKE(dia, 0.80cvs)
+AM_INIT_AUTOMAKE(dia, 0.81)
 
 dnl Specify a header configuration file
 AM_CONFIG_HEADER(config.h)
@@ -152,7 +152,6 @@ objects/flowchart/Makefile
 objects/custom/Makefile
 shapes/Makefile
 shapes/Circuit/Makefile
-shapes/Circuit_eu/Makefile
 app/Makefile
 samples/Makefile
 )
