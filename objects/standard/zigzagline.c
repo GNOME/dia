@@ -213,15 +213,21 @@ zigzagline_draw(Zigzagline *zigzagline, Renderer *renderer)
   renderer->ops->draw_polyline(renderer, points, n, &zigzagline->line_color);
   
   if (zigzagline->start_arrow.type != ARROW_NONE) {
+    int next_point = 1;
+    if (distance_point_point_manhattan(&points[0], &points[1]) < 0.000000001)
+      next_point++;
     arrow_draw(renderer, zigzagline->start_arrow.type,
-	       &points[0], &points[1],
+	       &points[0], &points[next_point],
 	       zigzagline->start_arrow.length, zigzagline->start_arrow.width, 
 	       zigzagline->line_width,
 	       &zigzagline->line_color, &color_white);
   }
   if (zigzagline->end_arrow.type != ARROW_NONE) {
+    int next_point = n-2;
+    if (distance_point_point_manhattan(&points[n-1], &points[n-2]) < 0.000000001)
+      next_point--;
     arrow_draw(renderer, zigzagline->end_arrow.type,
-	       &points[n-1], &points[n-2],
+	       &points[n-1], &points[next_point],
 	       zigzagline->end_arrow.length, zigzagline->end_arrow.width, 
 	       zigzagline->line_width,
 	       &zigzagline->line_color, &color_white);
