@@ -14,9 +14,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: app/app_procs.c:117
-#, fuzzy
 msgid "Export loaded file to postscript and exit"
-msgstr "Postscript-be exportálás"
+msgstr "Postscript-be exportálás és kilépés"
 
 #: app/app_procs.c:118
 msgid "OUTPUT"
@@ -106,7 +105,7 @@ msgstr ""
 
 #: app/color_area.c:260 lib/widgets.c:433
 msgid "Select color"
-msgstr ""
+msgstr "Válassz ki egy színt"
 
 #: app/commands.c:124
 msgid "Open diagram"
@@ -164,82 +163,68 @@ msgid "OK"
 msgstr ""
 
 #: app/diagram.c:126
-#, fuzzy
 msgid "<Display>/Edit/Copy"
-msgstr "/Szerkeszt/_Másol"
+msgstr "<Display>/Szerkeszt/Másol"
 
 #: app/diagram.c:127
-#, fuzzy
 msgid "<Display>/Edit/Cut"
-msgstr "/Szerkeszt/_Kivág"
+msgstr "<Display>/Szerkeszt/Kivág"
 
 #: app/diagram.c:128
-#, fuzzy
 msgid "<Display>/Edit/Paste"
-msgstr "/Szerkeszt/_Beilleszt"
+msgstr "<Display>/Szerkeszt/Beilleszt"
 
 #: app/diagram.c:130
-#, fuzzy
 msgid "<Display>/Edit/Delete"
-msgstr "/Szerkeszt/_Töröl"
+msgstr "<Display>/Szerkeszt/Töröl"
 
 #: app/diagram.c:133
 msgid "<Display>/Objects/Send to Back"
-msgstr ""
+msgstr "<Display>/Objektumok/Háttérbe küld"
 
 #: app/diagram.c:134
 msgid "<Display>/Objects/Bring to Front"
-msgstr ""
+msgstr "<Display>/Objektumok/Elõtérbe hoz"
 
 #: app/diagram.c:136
-#, fuzzy
 msgid "<Display>/Objects/Group"
-msgstr "/Objektumok/_Csoport"
+msgstr "<Display>/Objektumok/Csoport"
 
 #: app/diagram.c:137
-#, fuzzy
 msgid "<Display>/Objects/Ungroup"
-msgstr "/Objektumok/Csoport f_elbonása"
+msgstr "<Display>/Objektumok/Csoport felbonása"
 
 #: app/diagram.c:139
-#, fuzzy
 msgid "<Display>/Objects/Align Horizontal/Left"
-msgstr "/Objektumok/Vizszintes/Középre"
+msgstr "<Display>/Objektumok/Vizszintes/Középre"
 
 #: app/diagram.c:140
-#, fuzzy
 msgid "<Display>/Objects/Align Horizontal/Center"
-msgstr "/Objektumok/Vizszintes/Középre"
+msgstr "<Display>/Objektumok/Vizszintes/Középre"
 
 #: app/diagram.c:141
-#, fuzzy
 msgid "<Display>/Objects/Align Horizontal/Right"
-msgstr "/Objektumok/_Vizszintes"
+msgstr "<Display>/Objektumok/Vizszintes"
 
 #: app/diagram.c:142
-#, fuzzy
 msgid "<Display>/Objects/Align Horizontal/Equal Distance"
-msgstr "/Objektumok/Vizszintes/Középre"
+msgstr "<Display>/Objektumok/Vizszintes/Egyenlõ távolság"
 
 #: app/diagram.c:143
-#, fuzzy
 msgid "<Display>/Objects/Align Vertical/Top"
-msgstr "/Objektumok/_Függõleges"
+msgstr "<Display>/Objektumok/Függõleges/Fönt"
 
 #: app/diagram.c:144
-#, fuzzy
 msgid "<Display>/Objects/Align Vertical/Center"
-msgstr "/Objektumok/Függõleges/Középre"
+msgstr "<Display>/Objektumok/Függõleges/Középre"
 
 #: app/diagram.c:145
-#, fuzzy
 msgid "<Display>/Objects/Align Vertical/Bottom"
-msgstr "/Objektumok/Függõleges/Balra"
+msgstr "<Display>/Objektumok/Függõleges/Lent"
 
 #: app/diagram.c:146
-#, fuzzy
 msgid "<Display>/Objects/Align Vertical/Equal Distance"
-msgstr "/Objektumok/Függõleges/Jobbra"
+msgstr "<Display>/Objektumok/Függõleges/Egyenlõ távolság"
 
 #: app/diagram.c:475
 msgid "Trying to ungroup with more or less that one selected object."
@@ -264,7 +249,7 @@ msgstr ""
 
 #: app/display.c:59 app/display.c:60
 msgid "Zoom"
-msgstr ""
+msgstr "Közelítés"
 
 #: app/display.c:79
 msgid "Diagram modified!"
@@ -275,48 +260,44 @@ msgid "Really close?"
 msgstr ""
 
 #: app/display.c:711
-#, fuzzy
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
 msgstr ""
 "Módosított diagramm van a rajztáblán.\n"
-"Tényleg ki akarsz lépni?"
+"Tényleg be akarod zárni?"
 
 #: app/display.c:760
-#, fuzzy
 msgid "<Display>/View/Toggle Rulers"
-msgstr "/Nézet/Vonalzó ki-be"
+msgstr "<Display>/Nézet/Vonalzó ki-be"
 
 #: app/display.c:761
-#, fuzzy
 msgid "<Display>/View/Visible Grid"
-msgstr "/Nézet/_Látható rács"
+msgstr "<Display>/Nézet/Látható rács"
 
 #: app/display.c:762
-#, fuzzy
 msgid "<Display>/View/Snap To Grid"
-msgstr "/Nézet/_Rácsra illeszt"
+msgstr "<Display>/Nézet/Rácsra illeszt"
 
 #: app/grid.c:141
 msgid "Grid options"
-msgstr ""
+msgstr "Rács opciók"
 
 #: app/grid.c:150
 msgid "Grid x size:"
-msgstr ""
+msgstr "Rács x méret:"
 
 #: app/grid.c:168
 msgid "Grid y size:"
-msgstr ""
+msgstr "Rács y méret:"
 
 #: app/interface.c:57
 msgid "Modify object(s)"
-msgstr ""
+msgstr "Objektum(ok) módosítása"
 
 #: app/interface.c:61
 msgid "Magnify"
-msgstr ""
+msgstr "Nagyítás"
 
 #: app/interface.c:65
 msgid "Scroll around the diagram"
@@ -324,35 +305,35 @@ msgstr ""
 
 #: app/interface.c:69
 msgid "Create Text"
-msgstr ""
+msgstr "Szöveg készítése"
 
 #: app/interface.c:73
 msgid "Create Box"
-msgstr ""
+msgstr "Doboz készítése"
 
 #: app/interface.c:77
 msgid "Create Ellipse"
-msgstr ""
+msgstr "Ellipszis készítése"
 
 #: app/interface.c:81
 msgid "Create Line"
-msgstr ""
+msgstr "Vonal készítése"
 
 #: app/interface.c:85
 msgid "Create Arc"
-msgstr ""
+msgstr "Körcikk készítése"
 
 #: app/interface.c:89
 msgid "Create Zigzagline"
-msgstr ""
+msgstr "Cikkcakkvonal készítése"
 
 #: app/interface.c:93
 msgid "Create Polyline"
-msgstr ""
+msgstr "Poligon készítése"
 
 #: app/interface.c:97
 msgid "Create Image"
-msgstr ""
+msgstr "Kép készítése"
 
 #: app/interface.c:544
 msgid ""
@@ -362,11 +343,11 @@ msgstr ""
 
 #: app/interface.c:590
 msgid "Diagram Editor"
-msgstr ""
+msgstr "Diagramm szerkesztõ"
 
 #: app/layer_dialog.c:57
 msgid "New Layer"
-msgstr ""
+msgstr "Új réteg"
 
 #: app/layer_dialog.c:58
 msgid "Raise Layer"
@@ -382,36 +363,36 @@ msgstr ""
 
 #: app/layer_dialog.c:194
 msgid "Layers"
-msgstr ""
+msgstr "Rétegek"
 
 #: app/layer_dialog.c:207
 msgid "Diagrams:"
-msgstr ""
+msgstr "Diagrammok:"
 
 #: app/defaults.c:52 app/layer_dialog.c:252 app/preferences.c:485
 #: app/properties.c:51
 msgid "Close"
-msgstr ""
+msgstr "Bezár"
 
 #: app/layer_dialog.c:297
 msgid "New layer"
-msgstr ""
+msgstr "Új réteg"
 
 #: app/layer_dialog.c:485
 msgid "none"
-msgstr ""
+msgstr "semmi"
 
 #: app/layer_dialog.c:921
 msgid "Edit Layer Attributes"
-msgstr ""
+msgstr "Réteg jellemzõk szerkesztése"
 
 #: app/layer_dialog.c:937
 msgid "Layer name:"
-msgstr ""
+msgstr "Réteg neve:"
 
 #: app/layer_dialog.c:956
 msgid "Cancel"
-msgstr ""
+msgstr "Mégsem"
 
 #: app/load_save.c:76
 msgid "Error reading diagram file\n"
@@ -458,135 +439,118 @@ msgid "Couldn't open: '%s' for writing.\n"
 msgstr ""
 
 #: app/menus.c:34 app/menus.c:44
-#, fuzzy
 msgid "_New diagram"
-msgstr "Diagramm megnyitása"
+msgstr "Új diagramm"
 
 #: app/menus.c:34 app/menus.c:44
-#, fuzzy
 msgid "Create new diagram"
-msgstr "Diagramm megnyitása"
+msgstr "Diagramm készítése"
 
 #: app/menus.c:51
-#, fuzzy
 msgid "_Export To EPS"
-msgstr "/Fájl/_Export EPS-be"
+msgstr "_Export EPS-be"
 
 #: app/menus.c:86
-#, fuzzy
 msgid "Zoom _In"
-msgstr "/Nézet/_Nagyít"
+msgstr "_Nagyít"
 
 #: app/menus.c:86
 #, c-format
 msgid "Zoom in 50%"
-msgstr ""
+msgstr "50%-t nagyít"
 
 #: app/menus.c:87
-#, fuzzy
 msgid "Zoom _Out"
-msgstr "/Nézet/_Kicsinyít"
+msgstr "_Kicsinyít"
 
 #: app/menus.c:87
 #, c-format
 msgid "Zoom out 50%"
-msgstr ""
+msgstr "50%-t kicsinyít"
 
 #: app/menus.c:88
-#, fuzzy
 msgid "_Zoom"
-msgstr "/Nézet/Nagyí_tás"
+msgstr "Nagyí_tás"
 
 #: app/menus.c:89
-#, fuzzy
 msgid "Edit Grid..."
-msgstr "/Nézet/Szerkesztõrács..."
+msgstr "Rács szerkesztése..."
 
 #: app/menus.c:90
-#, fuzzy
 msgid "_Visible Grid"
-msgstr "/Nézet/_Látható rács"
+msgstr "_Látható rács"
 
 #: app/menus.c:92
-#, fuzzy
 msgid "_Snap To Grid"
-msgstr "/Nézet/_Rácsra illeszt"
+msgstr "_Rácsra illeszt"
 
 #: app/menus.c:94
-#, fuzzy
 msgid "Toggle _Rulers"
-msgstr "/Nézet/Vonalzó ki-be"
+msgstr "Vonalzó ki-be"
 
 #: app/menus.c:97
-#, fuzzy
 msgid "New _View"
-msgstr "/Nézet/Új _nézet"
+msgstr "Új _nézet"
 
 #: app/menus.c:98
-#, fuzzy
 msgid "Show _All"
-msgstr "/Nézet/Mutat _Mindent"
+msgstr "Mutat _Mindent"
 
 #: app/menus.c:103 lib/widgets.c:176 objects/UML/association.c:883
 msgid "Left"
-msgstr ""
+msgstr "Balra"
 
 #: app/menus.c:104 app/menus.c:112 lib/widgets.c:182
 msgid "Center"
-msgstr ""
+msgstr "Középre"
 
 #: app/menus.c:105 lib/widgets.c:188 objects/UML/association.c:876
 msgid "Right"
-msgstr ""
+msgstr "Jobbra"
 
 #: app/menus.c:106 app/menus.c:114
 msgid "Equal Distance"
-msgstr ""
+msgstr "Egyenlõ távolság"
 
 #: app/menus.c:111
 msgid "Top"
-msgstr ""
+msgstr "Fönt"
 
 #: app/menus.c:113
 msgid "Bottom"
-msgstr ""
+msgstr "Lent"
 
 #: app/menus.c:119
 msgid "Send to _Back"
-msgstr ""
+msgstr "_Háttérbe küld"
 
 #: app/menus.c:120
 msgid "Bring to _Front"
-msgstr ""
+msgstr "_Elõtérbe hoz"
 
 #: app/menus.c:122
 msgid "_Group"
-msgstr ""
+msgstr "_Csoportosít"
 
 #: app/menus.c:123
-#, fuzzy
 msgid "_Ungroup"
-msgstr "/Objektumok/Csoport f_elbonása"
+msgstr "Cso_port felbonása"
 
 #: app/menus.c:125
-#, fuzzy
 msgid "Align _Horizontal"
-msgstr "/Objektumok/_Vizszintes"
+msgstr "_Vizszintes"
 
 #: app/menus.c:126
-#, fuzzy
 msgid "Align _Vertical"
-msgstr "/Objektumok/_Függõleges"
+msgstr "_Függõleges"
 
 #: app/menus.c:131
-#, fuzzy
 msgid "_Properties"
-msgstr "/Dialógusok/_Tulajdonságok"
+msgstr "_Tulajdonságok"
 
 #: app/menus.c:132
-#, fuzzy
 msgid "_Layers"
-msgstr "/Dialógusok/_Rétegek"
+msgstr "_Rétegek"
 
 #: app/menus.c:142
 msgid "File"
@@ -597,18 +561,16 @@ msgid "Help"
 msgstr "Súgó"
 
 #: app/menus.c:151
-#, fuzzy
 msgid "Objects"
-msgstr "/_Objektumok"
+msgstr "Objektumok"
 
 #: app/menus.c:152
-#, fuzzy
 msgid "Dialogs"
-msgstr "/_Dialógusok"
+msgstr "Dialógusok"
 
 #: app/menus.c:159 app/menus.c:171
 msgid "/_File"
-msgstr "/:_Fájl"
+msgstr "/_Fájl"
 
 #. {"/File/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:160 app/menus.c:173
@@ -621,7 +583,7 @@ msgstr "/Fájl/_Megnyit"
 
 #: app/menus.c:162
 msgid "/File/_Preferences..."
-msgstr ""
+msgstr "/Fájl/_Tulajdonságok"
 
 #: app/menus.c:163 app/menus.c:178
 msgid "/File/sep1"
