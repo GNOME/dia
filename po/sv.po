@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2003-02-07 12:46+0100\n"
-"PO-Revision-Date: 2003-02-07 12:48+0100\n"
+"POT-Creation-Date: 2003-02-10 14:49+0100\n"
+"PO-Revision-Date: 2003-02-10 14:51+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -396,7 +396,7 @@ msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1006 app/lineprops_area.c:453
 #: app/lineprops_area.c:679 app/linewidth_area.c:252
-#: app/paginate_psprint.c:274
+#: app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -828,7 +828,7 @@ msgid "Layer name:"
 msgstr "Lagernamn:"
 
 #: app/layer_dialog.c:996 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:243 app/paginate_psprint.c:266
+#: app/linewidth_area.c:243 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
@@ -1459,7 +1459,7 @@ msgstr "/Objekt/Skicka bakåt"
 msgid "/Objects/Bring Forwards"
 msgstr "/Objekt/Skicka framåt"
 
-#: app/menus.c:411 app/menus.c:415 app/menus.c:421 app/menus.c:429
+#: app/menus.c:411 app/menus.c:415
 msgid "/Objects/---"
 msgstr "/Objekt/---"
 
@@ -1488,6 +1488,10 @@ msgstr "/Objekt/Justera horisontellt/Mittpunkt"
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objekt/Justera horisontellt/Höger"
 
+#: app/menus.c:421
+msgid "/Objects/Align Horizontal/---"
+msgstr "/Objekt/Justera horisontellt/---"
+
 #: app/menus.c:422
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objekt/Justera horisontellt/Lika avstånd"
@@ -1511,6 +1515,10 @@ msgstr "/Objekt/Justera vertikalt/Mitt"
 #: app/menus.c:428
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objekt/Justera vertikalt/Undersida"
+
+#: app/menus.c:429
+msgid "/Objects/Align Vertical/---"
+msgstr "/Objekt/Justera vertikalt/---"
 
 #: app/menus.c:430
 msgid "/Objects/Align Vertical/Equal Distance"
@@ -1621,29 +1629,29 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Kunde inte få tag i GTK-inställningar"
 
-#: app/paginate_psprint.c:226
+#: app/paginate_psprint.c:228
 msgid "Select Printer"
 msgstr "Välj skrivare"
 
-#: app/paginate_psprint.c:238
+#: app/paginate_psprint.c:240
 msgid "Printer"
 msgstr "Skrivare"
 
-#: app/paginate_psprint.c:251
+#: app/paginate_psprint.c:253
 msgid "File"
 msgstr "Fil"
 
-#: app/paginate_psprint.c:340
+#: app/paginate_psprint.c:342
 #, c-format
 msgid "Could not run command '%s'"
 msgstr "Kunde inte köra kommandot \"%s\""
 
-#: app/paginate_psprint.c:343
+#: app/paginate_psprint.c:345
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/paginate_psprint.c:368
+#: app/paginate_psprint.c:370
 msgid "Error occured while printing"
 msgstr "Fel uppstod under utskrift"
 
@@ -1835,11 +1843,11 @@ msgstr "Objektegenskaper"
 msgid "This object has no properties."
 msgstr "Detta objekt har inga egenskaper."
 
-#: app/properties.c:169
+#: app/properties.c:175
 msgid "Properties: "
 msgstr "Egenskaper: "
 
-#: app/properties.c:173
+#: app/properties.c:179
 msgid "Object properties:"
 msgstr "Objektegenskaper:"
 
