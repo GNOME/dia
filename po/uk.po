@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.82\n"
-"POT-Creation-Date: 2000-08-01 23:16+0800\n"
+"POT-Creation-Date: 2000-08-06 10:12+0800\n"
 "PO-Revision-Date: 1999-12-28 09:11+0200\n"
 "Last-Translator: Yuri Syrota <rasta@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -399,8 +399,8 @@ msgstr "/Вигляд/Згладжування"
 
 #: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
 #: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
-#: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:937
+#: plug-ins/hpgl/hpgl.c:555 plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:926
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не вдилось в╕дкрити: \"%s\" для записування.\n"
@@ -686,7 +686,7 @@ msgstr ""
 "Помилка завантаження д╕аграми.\n"
 "обробника з'╓днання не ╕сну╓."
 
-#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
+#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1020
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Не вдилось в╕дкрити: \"%s\" для зчитування.\n"
@@ -2694,7 +2694,7 @@ msgstr "DIF (формат файлу обм╕ну зображеннями)"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Ф╕льтр експорту/╕мпорту DIF (Drawing Interchange File)"
 
-#: plug-ins/hpgl/hpgl.c:624
+#: plug-ins/hpgl/hpgl.c:612
 msgid "HP Graphics Language export filter"
 msgstr "Ф╕льтр експорту в HP Graphics Language"
 
@@ -2706,12 +2706,12 @@ msgstr "Ф╕льтр експорту фал╕в TeX PSTricks"
 msgid "TeX PSTricks macros"
 msgstr "Макроси TeX PSTricks"
 
-#: plug-ins/wpg/wpg.c:1043
+#: plug-ins/wpg/wpg.c:1032
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Файл: тип/верс╕я %s не п╕дтриму╓ться.\n"
 
-#: plug-ins/wpg/wpg.c:1192
+#: plug-ins/wpg/wpg.c:1181
 msgid "WordPerfect Graphics export filter"
 msgstr "Ф╕льтр експорту в WordPerfect Graphics"
 

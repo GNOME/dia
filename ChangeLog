@@ -1,5 +1,7 @@
 2000-08-06  James Henstridge  <james@daa.com.au>
 
+	* shapes/Makefile.am (SUBDIRS): add Civil back to list.
+
 	* NEWS: fixed date in NEWS file, as I will release today.
 
 	* README: updated the README a little.  Added note that Dia is now

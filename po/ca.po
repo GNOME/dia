@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2000-08-02 20:33+0200\n"
+"POT-Creation-Date: 2000-08-06 10:12+0800\n"
 "PO-Revision-Date: 2000-08-02 19:02+0200\n"
 "Last-Translator: Quico Llach <quico@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
@@ -402,8 +402,8 @@ msgstr "/Visualitza/AntiAliased"
 
 #: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
 #: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
-#: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:937
+#: plug-ins/hpgl/hpgl.c:555 plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:926
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "No s'ha pogut obrir: '%s' per a la seva escriptura.\n"
@@ -689,7 +689,7 @@ msgstr ""
 "S'ha produït un error mentre es carregava el diagrama.\n"
 "La connexió associada no existeix"
 
-#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
+#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1020
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "No s'ha pogut obrir: '%s' per a la seva lectura.\n"
@@ -2696,7 +2696,7 @@ msgstr "Drawing Interchange File"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Filtres d'importació i exportació de Drawing Interchange File"
 
-#: plug-ins/hpgl/hpgl.c:624
+#: plug-ins/hpgl/hpgl.c:612
 msgid "HP Graphics Language export filter"
 msgstr "Filtre d'exportació de l'HP Graphics Language"
 
@@ -2708,12 +2708,12 @@ msgstr "Filtre d'exportació del TeX Pstricks"
 msgid "TeX PSTricks macros"
 msgstr "Macros de TeX PSTricks"
 
-#: plug-ins/wpg/wpg.c:1043
+#: plug-ins/wpg/wpg.c:1032
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Fitxer: %s tipus/versió no suportada.\n"
 
-#: plug-ins/wpg/wpg.c:1192
+#: plug-ins/wpg/wpg.c:1181
 msgid "WordPerfect Graphics export filter"
 msgstr "Filtre d'exportació de WordPerfect Graphics"
 

@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2000-08-01 23:16+0800\n"
+"POT-Creation-Date: 2000-08-06 10:12+0800\n"
 "PO-Revision-Date: 2000-07-12 22:55+02:00\n"
 "Last-Translator: Benedikt Roth <Benedikt.Roth@gmx.net>\n"
 "Language-Team: de <de@li.org>\n"
@@ -400,8 +400,8 @@ msgstr "/Ansicht/Kantenglättung"
 
 #: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
 #: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
-#: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:937
+#: plug-ins/hpgl/hpgl.c:555 plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:926
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Die Datei '%s' konnte nicht zum Schreiben geöffnet werden.\n"
@@ -687,7 +687,7 @@ msgstr ""
 "Fehler beim Laden des Diagramms.\n"
 "Verbindung existiert nicht."
 
-#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
+#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1020
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kann '%s' nicht zum Lesen öffnen.\n"
@@ -2696,7 +2696,7 @@ msgstr "Zeichne Austauschs-Datei"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Zeichne Austauschs-Datei Import- und Exportfilter"
 
-#: plug-ins/hpgl/hpgl.c:624
+#: plug-ins/hpgl/hpgl.c:612
 msgid "HP Graphics Language export filter"
 msgstr "HP Grafik Sprach Exportfilter"
 
@@ -2708,12 +2708,12 @@ msgstr "TeX Pstricks Exportfilter"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTrick Makros"
 
-#: plug-ins/wpg/wpg.c:1043
+#: plug-ins/wpg/wpg.c:1032
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Datei: %s Typ/Version nicht unterstützt.\n"
 
-#: plug-ins/wpg/wpg.c:1192
+#: plug-ins/wpg/wpg.c:1181
 msgid "WordPerfect Graphics export filter"
 msgstr "Wordperfect Grafik Exportfilter"
 

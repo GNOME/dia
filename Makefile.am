@@ -17,6 +17,9 @@ dia.keys: $(srcdir)/dia.keys.in Makefile
 	sed -e 's^\@icondir\@^$(pixmapdir)^g' $(srcdir)/dia.keys.in > dia.keys.tmp \
 	&& mv dia.keys.tmp dia.keys
 
+distclean-local:
+	rm -f dia.keys
+
 mimedir = $(gnomedatadir)/mime-info
 mime_DATA = dia.mime dia.keys
 
