@@ -1,3 +1,8 @@
+2002-04-03  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* objects/standard/zigzagline.c (zigzagline_draw): Fixed
+	directionality problem for zero-length line segments.
+
 2002-03-28  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/diagram.c (diagram_ungroup_selected) 
