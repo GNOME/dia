@@ -8,117 +8,126 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-22 16:49-0500\n"
-"PO-Revision-Date: 2005-02-22 16:52-0500\n"
+"POT-Creation-Date: 2005-03-06 10:13-0500\n"
+"PO-Revision-Date: 2005-03-06 16:52-0500\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
-"Language-Team: Canadian English <adamw@FreeBSD.org>\n"
+"Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:220
+#: app/app_procs.c:223
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s error: do not know how to export into %s\n"
 
-#: app/app_procs.c:229
+#: app/app_procs.c:232
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s error: input and output file name is identical: %s"
 
-#: app/app_procs.c:237
+#: app/app_procs.c:240
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s error: need valid input file %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:257
+#: app/app_procs.c:285
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:309
+#: app/app_procs.c:338
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Cannot find output format/filter %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:393
+#: app/app_procs.c:424
 #, c-format
 msgid "Select the filter/format out of: %s"
 msgstr "Select the filter/format out of: %s"
 
 #. &export_file_name
-#: app/app_procs.c:412 app/app_procs.c:433
+#: app/app_procs.c:443 app/app_procs.c:464
 msgid "Export loaded file and exit"
 msgstr "Export loaded file and exit"
 
-#: app/app_procs.c:412 app/app_procs.c:433 app/diaconv.c:94
+#: app/app_procs.c:443 app/app_procs.c:464 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "OUTPUT"
 
 #. &export_file_format
 #. &export_format_string
 #. &export_file_format
-#: app/app_procs.c:414 app/app_procs.c:435
+#: app/app_procs.c:445 app/app_procs.c:466
 msgid "TYPE"
 msgstr "TYPE"
 
-#: app/app_procs.c:417 app/app_procs.c:438
+#: app/app_procs.c:448 app/app_procs.c:469
 msgid "Export graphics size"
 msgstr "Export graphics size"
 
-#: app/app_procs.c:417 app/app_procs.c:438
+#: app/app_procs.c:448 app/app_procs.c:469
 msgid "WxH"
 msgstr "WxH"
 
-#: app/app_procs.c:419 app/app_procs.c:440
+#: app/app_procs.c:450 app/app_procs.c:473
 msgid "Don't show the splash screen"
 msgstr "Do not show the splash screen"
 
-#: app/app_procs.c:421 app/app_procs.c:442
+#: app/app_procs.c:452 app/app_procs.c:475
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Send error messages to stderr instead of showing dialogues."
 
-#: app/app_procs.c:423 app/app_procs.c:444
+#: app/app_procs.c:454 app/app_procs.c:477
 msgid "Display credits list and exit"
 msgstr "Display credits list and exit"
 
-#: app/app_procs.c:425 app/app_procs.c:446
+#: app/app_procs.c:456 app/app_procs.c:479
 msgid "Display version and exit"
 msgstr "Display version and exit"
 
-#: app/app_procs.c:447 app/diaconv.c:95
+#. 13.3.2004 sampo@iki.fi
+#: app/app_procs.c:471
+msgid "Show only specified layers (e.g. when exporting)"
+msgstr "Show only specified layers (e.g. when exporting)"
+
+#: app/app_procs.c:471
+msgid "LAYER,LAYER,..."
+msgstr "LAYER,LAYER,..."
+
+#: app/app_procs.c:480 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Show this help message"
 
-#: app/app_procs.c:493
+#: app/app_procs.c:527
 msgid "Can't connect to session manager!\n"
 msgstr "Cannot connect to session manager!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:525
+#: app/app_procs.c:559
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia version %s, compiled %s %s\n"
 
-#: app/app_procs.c:527
+#: app/app_procs.c:561
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia version %s\n"
 
-#: app/app_procs.c:587 app/app_procs.c:589 app/diaconv.c:201 app/diaconv.c:203
+#: app/app_procs.c:621 app/app_procs.c:623 app/diaconv.c:201 app/diaconv.c:203
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Could not find standard objects when looking for object-libs, exiting...\n"
 
-#: app/app_procs.c:630
+#: app/app_procs.c:664
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: app/app_procs.c:672
+#: app/app_procs.c:706
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -127,7 +136,7 @@ msgstr ""
 "describing how you can cause this message to appear.\n"
 
 #. no standard buttons
-#: app/app_procs.c:685
+#: app/app_procs.c:719
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -137,21 +146,21 @@ msgstr ""
 "Are you sure you want to quit Dia\n"
 "without saving them?"
 
-#: app/app_procs.c:688
+#: app/app_procs.c:722
 msgid "Quit Dia"
 msgstr "Quit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:741
+#: app/app_procs.c:775
 msgid "Thank you for using Dia.\n"
 msgstr "Thank you for using Dia.\n"
 
-#: app/app_procs.c:758 app/app_procs.c:765
+#: app/app_procs.c:792 app/app_procs.c:799
 msgid "Could not create per-user Dia config directory"
 msgstr "Could not create per-user Dia config directory"
 
-#: app/app_procs.c:767
+#: app/app_procs.c:801
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -159,15 +168,15 @@ msgstr ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 
-#: app/app_procs.c:789 app/diaconv.c:251
+#: app/app_procs.c:823 app/diaconv.c:251
 msgid "Objects and filters internal to dia"
 msgstr "Objects and filters internal to dia"
 
-#: app/app_procs.c:830 app/diaconv.c:121
+#: app/app_procs.c:865 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FILE...]"
 
-#: app/app_procs.c:833 app/diaconv.c:128
+#: app/app_procs.c:868 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -176,16 +185,16 @@ msgstr ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 
-#: app/app_procs.c:857
+#: app/app_procs.c:892
 msgid "[FILE...]"
 msgstr "[FILE...]"
 
-#: app/app_procs.c:874
+#: app/app_procs.c:907
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' not found!\n"
 
-#: app/app_procs.c:944
+#: app/app_procs.c:986
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -193,7 +202,7 @@ msgstr ""
 "The original author of Dia was:\n"
 "\n"
 
-#: app/app_procs.c:949
+#: app/app_procs.c:991
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -203,7 +212,7 @@ msgstr ""
 "The current maintainers of Dia are:\n"
 "\n"
 
-#: app/app_procs.c:954
+#: app/app_procs.c:996
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -213,7 +222,7 @@ msgstr ""
 "Other authors are:\n"
 "\n"
 
-#: app/app_procs.c:959
+#: app/app_procs.c:1001
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -628,25 +637,25 @@ msgstr ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
 
-#: app/display.c:95
+#: app/display.c:92
 msgid "Diagram modified!"
 msgstr "Diagram modified!"
 
-#: app/display.c:119
+#: app/display.c:116
 #, c-format
 msgid "Selection of %d objects"
 msgstr "Selection of %d objects"
 
-#: app/display.c:129
+#: app/display.c:126
 #, c-format
 msgid "Selected '%s'"
 msgstr "Selected '%s'"
 
-#: app/display.c:1027
+#: app/display.c:1024
 msgid "<unnamed>"
 msgstr "<unnamed>"
 
-#: app/display.c:1029
+#: app/display.c:1026
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -655,11 +664,11 @@ msgstr ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 
-#: app/display.c:1040
+#: app/display.c:1037
 msgid "Close Diagram"
 msgstr "Close Diagram"
 
-#: app/display.c:1045
+#: app/display.c:1042
 msgid "Discard Changes"
 msgstr "Discard Changes"
 
@@ -875,28 +884,28 @@ msgstr "Pops up the Navigation window."
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/interface.c:526
+#: app/interface.c:527
 msgid "Toggles snap-to-grid for this window."
 msgstr "Toggles snap-to-grid for this window."
 
-#: app/interface.c:589
+#: app/interface.c:590
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:858
+#: app/interface.c:859
 #, c-format
 msgid "No sheet named %s"
 msgstr "No sheet named %s"
 
-#: app/interface.c:890
+#: app/interface.c:891
 msgid "Other sheets"
 msgstr "Other sheets"
 
-#: app/interface.c:948 sheets/Misc.sheet.in.h:3
+#: app/interface.c:949 sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr "Misc"
 
-#: app/interface.c:1009
+#: app/interface.c:1010
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -906,7 +915,7 @@ msgstr ""
 "squares reset colours.  The small arrows swap colours.  Double click to "
 "change colours."
 
-#: app/interface.c:1024
+#: app/interface.c:1025
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -914,7 +923,7 @@ msgstr ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 
-#: app/interface.c:1064
+#: app/interface.c:1065
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -922,7 +931,7 @@ msgstr ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 
-#: app/interface.c:1069
+#: app/interface.c:1070
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -930,7 +939,7 @@ msgstr ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 
-#: app/interface.c:1083
+#: app/interface.c:1084
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -938,48 +947,48 @@ msgstr ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 
-#: app/interface.c:1190
+#: app/interface.c:1191
 msgid "Diagram Editor"
 msgstr "Diagram Editor"
 
-#: app/layer_dialog.c:70
+#: app/layer_dialog.c:69
 msgid "New Layer"
 msgstr "New Layer"
 
-#: app/layer_dialog.c:71
+#: app/layer_dialog.c:70
 msgid "Raise Layer"
 msgstr "Raise Layer"
 
-#: app/layer_dialog.c:72
+#: app/layer_dialog.c:71
 msgid "Lower Layer"
 msgstr "Lower Layer"
 
-#: app/layer_dialog.c:73
+#: app/layer_dialog.c:72
 msgid "Delete Layer"
 msgstr "Delete Layer"
 
-#: app/layer_dialog.c:212
+#: app/layer_dialog.c:193
 msgid "Layers"
 msgstr "Layers"
 
-#: app/layer_dialog.c:226
+#: app/layer_dialog.c:207
 msgid "Diagram:"
 msgstr "Diagram:"
 
-#: app/layer_dialog.c:332
+#: app/layer_dialog.c:313
 #, c-format
 msgid "New layer %d"
 msgstr "New layer %d"
 
-#: app/layer_dialog.c:540
+#: app/layer_dialog.c:521
 msgid "none"
 msgstr "none"
 
-#: app/layer_dialog.c:971
+#: app/layer_dialog.c:953
 msgid "Edit Layer Attributes"
 msgstr "Edit Layer Attributes"
 
-#: app/layer_dialog.c:990
+#: app/layer_dialog.c:972
 msgid "Layer name:"
 msgstr "Layer name:"
 
@@ -1805,7 +1814,7 @@ msgstr "Encapsulated Postscript (using PostScript Latin-1 fonts)"
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Unsupported fill mode specified!\n"
 
-#: app/sheets.c:154
+#: app/sheets.c:155
 #, c-format
 msgid ""
 "%s\n"
@@ -1814,7 +1823,7 @@ msgstr ""
 "%s\n"
 "System sheet"
 
-#: app/sheets.c:156
+#: app/sheets.c:157
 #, c-format
 msgid ""
 "%s\n"
@@ -1823,7 +1832,7 @@ msgstr ""
 "%s\n"
 "User sheet"
 
-#: app/sheets.c:271
+#: app/sheets.c:272
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
@@ -1831,16 +1840,16 @@ msgstr ""
 "Cannot get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
 
-#: app/sheets.c:373
+#: app/sheets.c:380
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Widget not found: %s"
 
-#: app/sheets.c:448
+#: app/sheets.c:455
 msgid "SVG Shape"
 msgstr "SVG Shape"
 
-#: app/sheets.c:450
+#: app/sheets.c:457
 msgid "Programmed DiaObject"
 msgstr "Programmed DiaObject"
 
@@ -1932,8 +1941,8 @@ msgid "Sheet"
 msgstr "Sheet"
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:133
-#: objects/ER/relationship.c:138 objects/UML/association.c:200
-#: objects/UML/association.c:1099 objects/UML/class_dialog.c:907
+#: objects/ER/relationship.c:138 objects/UML/association.c:237
+#: objects/UML/association.c:1162 objects/UML/class_dialog.c:907
 #: objects/UML/class_dialog.c:1841 objects/UML/class_dialog.c:2070
 #: objects/UML/class_dialog.c:2586 objects/UML/dependency.c:133
 #: objects/UML/generalization.c:129 objects/UML/realizes.c:130
@@ -2072,7 +2081,7 @@ msgstr "Dia Diagram Editor"
 msgid "Edit your Diagrams"
 msgstr "Edit your Diagrams"
 
-#: lib/arrows.c:40 objects/UML/association.c:1122 objects/Jackson/domain.c:96
+#: lib/arrows.c:40 objects/UML/association.c:1185 objects/Jackson/domain.c:96
 msgid "None"
 msgstr "None"
 
@@ -2395,15 +2404,15 @@ msgstr ""
 msgid "Group with %d objects"
 msgstr "Group with %d objects"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:639
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:608
 msgid "Left"
 msgstr "Left"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:645
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:614
 msgid "Center"
 msgstr "Centre"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:651
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:620
 msgid "Right"
 msgstr "Right"
 
@@ -2472,66 +2481,66 @@ msgstr "Text colour"
 msgid "No attribute '%s' (%p) or no data(%p) in this attribute"
 msgstr "No attribute '%s' (%p) or no data (%p) in this attribute"
 
-#: lib/widgets.c:378
+#: lib/widgets.c:347
 msgid "Other fonts"
 msgstr "Other fonts"
 
-#: lib/widgets.c:448
+#: lib/widgets.c:417
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Could not find font family for %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:787 objects/FS/function.c:1063
+#: lib/widgets.c:756 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Solid"
 
-#: lib/widgets.c:793
+#: lib/widgets.c:762
 msgid "Dashed"
 msgstr "Dashed"
 
-#: lib/widgets.c:799
+#: lib/widgets.c:768
 msgid "Dash-Dot"
 msgstr "Dash-Dot"
 
-#: lib/widgets.c:805
+#: lib/widgets.c:774
 msgid "Dash-Dot-Dot"
 msgstr "Dash-Dot-Dot"
 
-#: lib/widgets.c:811
+#: lib/widgets.c:780
 msgid "Dotted"
 msgstr "Dotted"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:830
+#: lib/widgets.c:799
 msgid "Dash length: "
 msgstr "Dash length: "
 
-#: lib/widgets.c:958
+#: lib/widgets.c:927
 msgid "Select color"
 msgstr "Select colour"
 
-#: lib/widgets.c:1024
+#: lib/widgets.c:993
 msgid "More colors..."
 msgstr "More colours..."
 
-#: lib/widgets.c:1149
+#: lib/widgets.c:1118
 msgid "More arrows"
 msgstr "More arrows"
 
-#: lib/widgets.c:1162
+#: lib/widgets.c:1131
 msgid "Size: "
 msgstr "Size: "
 
-#: lib/widgets.c:1307
+#: lib/widgets.c:1276
 msgid "Select image file"
 msgstr "Select image file"
 
-#: lib/widgets.c:1343
+#: lib/widgets.c:1312
 msgid "Browse"
 msgstr "Browse"
 
-#: lib/widgets.c:1939
+#: lib/widgets.c:1908
 msgid "Reset menu"
 msgstr "Reset menu"
 
@@ -2577,7 +2586,7 @@ msgstr "Total:"
 
 #: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
 #: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:457
-#: objects/UML/association.c:725 objects/UML/component_feature.c:183
+#: objects/UML/association.c:774 objects/UML/component_feature.c:183
 #: objects/UML/dependency.c:372 objects/UML/generalization.c:368
 #: objects/UML/realizes.c:359 objects/UML/transition.c:156
 #: objects/standard/zigzagline.c:346
@@ -2586,7 +2595,7 @@ msgstr "Add segment"
 
 #: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
 #: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:458
-#: objects/UML/association.c:726 objects/UML/component_feature.c:184
+#: objects/UML/association.c:775 objects/UML/component_feature.c:184
 #: objects/UML/dependency.c:373 objects/UML/generalization.c:369
 #: objects/UML/realizes.c:360 objects/UML/transition.c:157
 #: objects/standard/zigzagline.c:347
@@ -3912,46 +3921,71 @@ msgstr "SADT diagram objects"
 msgid "Actor"
 msgstr "Actor"
 
-#: objects/UML/association.c:1112 objects/UML/class_dialog.c:2114
+#: objects/UML/association.c:1175 objects/UML/class_dialog.c:2114
 msgid "Direction:"
 msgstr "Direction:"
 
-#: objects/UML/association.c:1129
+#: objects/UML/association.c:1192
 msgid "From A to B"
 msgstr "From A to B"
 
-#: objects/UML/association.c:1136
+#: objects/UML/association.c:1199
 msgid "From B to A"
 msgstr "From B to A"
 
-#: objects/UML/association.c:1160 objects/UML/association.c:1168
+#: objects/UML/association.c:1223 objects/UML/association.c:1231
 msgid "Side A"
 msgstr "Side A"
 
-#: objects/UML/association.c:1162 objects/UML/association.c:1170
+#: objects/UML/association.c:1225 objects/UML/association.c:1233
 msgid "Side B"
 msgstr "Side B"
 
-#: objects/UML/association.c:1176
+#: objects/UML/association.c:1239
 msgid "Role:"
 msgstr "Role:"
 
-#: objects/UML/association.c:1188
+#: objects/UML/association.c:1251
 msgid "Multiplicity:"
 msgstr "Multiplicity:"
 
+#: objects/UML/association.c:1262 objects/UML/class_dialog.c:952
+#: objects/UML/class_dialog.c:1876
+msgid "Visibility:"
+msgstr "Visibility:"
+
+#: objects/UML/association.c:1271 objects/UML/class_dialog.c:961
+#: objects/UML/class_dialog.c:1885
+msgid "Public"
+msgstr "Public"
+
+#: objects/UML/association.c:1281 objects/UML/class_dialog.c:969
+#: objects/UML/class_dialog.c:1893
+msgid "Private"
+msgstr "Private"
+
+#: objects/UML/association.c:1291 objects/UML/class_dialog.c:977
+#: objects/UML/class_dialog.c:1901
+msgid "Protected"
+msgstr "Protected"
+
+#: objects/UML/association.c:1301 objects/UML/class_dialog.c:985
+#: objects/UML/class_dialog.c:1909
+msgid "Implementation"
+msgstr "Implementation"
+
 #. Show arrow:
-#: objects/UML/association.c:1199
+#: objects/UML/association.c:1320
 msgid "Show arrow"
 msgstr "Show arrow"
 
 #. Aggregate
-#: objects/UML/association.c:1205
+#: objects/UML/association.c:1326
 msgid "Aggregate"
 msgstr "Aggregate"
 
 #. Composition
-#: objects/UML/association.c:1213
+#: objects/UML/association.c:1334
 msgid "Composition"
 msgstr "Composition"
 
@@ -4140,26 +4174,6 @@ msgstr "Attribute data"
 #: objects/UML/class_dialog.c:929
 msgid "Value:"
 msgstr "Value:"
-
-#: objects/UML/class_dialog.c:952 objects/UML/class_dialog.c:1876
-msgid "Visibility:"
-msgstr "Visibility:"
-
-#: objects/UML/class_dialog.c:961 objects/UML/class_dialog.c:1885
-msgid "Public"
-msgstr "Public"
-
-#: objects/UML/class_dialog.c:969 objects/UML/class_dialog.c:1893
-msgid "Private"
-msgstr "Private"
-
-#: objects/UML/class_dialog.c:977 objects/UML/class_dialog.c:1901
-msgid "Protected"
-msgstr "Protected"
-
-#: objects/UML/class_dialog.c:985 objects/UML/class_dialog.c:1909
-msgid "Implementation"
-msgstr "Implementation"
 
 #: objects/UML/class_dialog.c:1006 objects/UML/class_dialog.c:1925
 msgid "Class scope"
@@ -5359,138 +5373,142 @@ msgid "Eight point star"
 msgstr "Eight point star"
 
 #: sheets/Assorted.sheet.in.h:13
+msgid "Five point star"
+msgstr "Five point star"
+
+#: sheets/Assorted.sheet.in.h:14
 msgid "Four point star"
 msgstr "Four point star"
 
-#: sheets/Assorted.sheet.in.h:14
+#: sheets/Assorted.sheet.in.h:15
 msgid "Heart"
 msgstr "Heart"
 
-#: sheets/Assorted.sheet.in.h:15
+#: sheets/Assorted.sheet.in.h:16
 msgid "Heptagon. Seven sided shape"
 msgstr "Heptagon. Seven sided shape"
 
-#: sheets/Assorted.sheet.in.h:16
+#: sheets/Assorted.sheet.in.h:17
 msgid "Hexagon. Six sided shape"
 msgstr "Hexagon. Six sided shape"
 
-#: sheets/Assorted.sheet.in.h:17
+#: sheets/Assorted.sheet.in.h:18
 msgid "Horizontal parallelogram"
 msgstr "Horizontal parallelogram"
 
-#: sheets/Assorted.sheet.in.h:18
+#: sheets/Assorted.sheet.in.h:19
 msgid "Isoceles triangle"
 msgstr "Isoceles triangle"
 
-#: sheets/Assorted.sheet.in.h:19
+#: sheets/Assorted.sheet.in.h:20
 msgid "Left arrow"
 msgstr "Left arrow"
 
-#: sheets/Assorted.sheet.in.h:20
+#: sheets/Assorted.sheet.in.h:21
 msgid "Left-right arrow"
 msgstr "Left-right arrow"
 
-#: sheets/Assorted.sheet.in.h:21
+#: sheets/Assorted.sheet.in.h:22
 msgid "Left-right-up arrow"
 msgstr "Left-right-up arrow"
 
-#: sheets/Assorted.sheet.in.h:22
+#: sheets/Assorted.sheet.in.h:23
 msgid "Left-up arrow"
 msgstr "Left-up arrow"
 
-#: sheets/Assorted.sheet.in.h:23
+#: sheets/Assorted.sheet.in.h:24
 msgid "Maltese cross"
 msgstr "Maltese cross"
 
-#: sheets/Assorted.sheet.in.h:24
+#: sheets/Assorted.sheet.in.h:25
 msgid "Notched left arrow"
 msgstr "Notched left arrow"
 
-#: sheets/Assorted.sheet.in.h:25
+#: sheets/Assorted.sheet.in.h:26
 msgid "Notched right arrow"
 msgstr "Notched right arrow"
 
-#: sheets/Assorted.sheet.in.h:26
+#: sheets/Assorted.sheet.in.h:27
 msgid "Octogon. Eight sided shape"
 msgstr "Octogon. Eight sided shape"
 
-#: sheets/Assorted.sheet.in.h:27
+#: sheets/Assorted.sheet.in.h:28
 msgid "Pentagon block arrow"
 msgstr "Pentagon block arrow"
 
-#: sheets/Assorted.sheet.in.h:28
+#: sheets/Assorted.sheet.in.h:29
 msgid "Pentagon. Five sided shape"
 msgstr "Pentagon. Five sided shape"
 
-#: sheets/Assorted.sheet.in.h:29
+#: sheets/Assorted.sheet.in.h:30
 msgid "Perfect circle"
 msgstr "Perfect circle"
 
-#: sheets/Assorted.sheet.in.h:30
+#: sheets/Assorted.sheet.in.h:31
 msgid "Perfect square, height equals width"
 msgstr "Perfect square, height equals width"
 
-#: sheets/Assorted.sheet.in.h:31
+#: sheets/Assorted.sheet.in.h:32
 msgid "Quad arrow"
 msgstr "Quad arrow"
 
-#: sheets/Assorted.sheet.in.h:32
+#: sheets/Assorted.sheet.in.h:33
 msgid "Quarter circle"
 msgstr "Quarter circle"
 
-#: sheets/Assorted.sheet.in.h:33
+#: sheets/Assorted.sheet.in.h:34
 msgid "Quarter moon"
 msgstr "Quarter moon"
 
-#: sheets/Assorted.sheet.in.h:34
+#: sheets/Assorted.sheet.in.h:35
 msgid "Right angle triangle"
 msgstr "Right angle triangle"
 
-#: sheets/Assorted.sheet.in.h:35
+#: sheets/Assorted.sheet.in.h:36
 msgid "Right arrow"
 msgstr "Right arrow"
 
-#: sheets/Assorted.sheet.in.h:36
+#: sheets/Assorted.sheet.in.h:37
 msgid "Seven point star"
 msgstr "Seven point star"
 
-#: sheets/Assorted.sheet.in.h:37
+#: sheets/Assorted.sheet.in.h:38
 msgid "Sharp eight point star"
 msgstr "Sharp eight point star"
 
-#: sheets/Assorted.sheet.in.h:38
+#: sheets/Assorted.sheet.in.h:39
 msgid "Six point star"
 msgstr "Six point star"
 
-#: sheets/Assorted.sheet.in.h:39
+#: sheets/Assorted.sheet.in.h:40
 msgid "Sun"
 msgstr "Sun"
 
-#: sheets/Assorted.sheet.in.h:40
+#: sheets/Assorted.sheet.in.h:41
 msgid "Swiss cross"
 msgstr "Swiss cross"
 
-#: sheets/Assorted.sheet.in.h:41
+#: sheets/Assorted.sheet.in.h:42
 msgid "Trapezoid"
 msgstr "Trapezoid"
 
-#: sheets/Assorted.sheet.in.h:42
+#: sheets/Assorted.sheet.in.h:43
 msgid "Turn-up arrow"
 msgstr "Turn-up arrow"
 
-#: sheets/Assorted.sheet.in.h:43
+#: sheets/Assorted.sheet.in.h:44
 msgid "Up arrow"
 msgstr "Up arrow"
 
-#: sheets/Assorted.sheet.in.h:44
+#: sheets/Assorted.sheet.in.h:45
 msgid "Up-down arrow"
 msgstr "Up-down arrow"
 
-#: sheets/Assorted.sheet.in.h:45
+#: sheets/Assorted.sheet.in.h:46
 msgid "Up-down-left arrow"
 msgstr "Up-down-left arrow"
 
-#: sheets/Assorted.sheet.in.h:46
+#: sheets/Assorted.sheet.in.h:47
 msgid "Vertical parallelogram"
 msgstr "Vertical parallelogram"
 
