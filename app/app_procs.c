@@ -312,7 +312,7 @@ handle_initial_diagram(const char *in_file_name,
     if (diagram != NULL) {
       diagram_update_extents(diagram);
       if (app_is_interactive()) {
-	layer_dialog_set_diagram(diagram);
+	diagram_set_current(diagram);
 	ddisp = new_display(diagram);
       }
     }
@@ -544,6 +544,9 @@ app_init (int argc, char **argv)
     persistence_register_window_create("layer_window",
 				       (NullaryFunc*)&create_layer_dialog);
 
+    persistence_register_window_create("diagram_properties",
+				       (NullaryFunc*)create_diagram_properties_dialog());
+
     /*fill recent file menu */
     recent_file_history_init();
 
@@ -554,6 +557,7 @@ app_init (int argc, char **argv)
 
     persistence_register_window_create("sheets_main_dialog",
 				       (NullaryFunc*)&sheets_dialog_create);
+
 
     /* In current setup, we can't find the autosaved files. */
     /*autosave_restore_documents();*/

@@ -205,7 +205,8 @@ recent_file_history_remove (const char *fname)
 }
     
 static void
-open_recent_file_callback (GtkWidget *widget, gpointer data) {
+open_recent_file_callback(GtkWidget *widget, gpointer data)
+{
 	DiaImportFilter *ifilter = NULL;
 	Diagram *diagram = NULL;
 	gchar *filename = (gchar *)data;
@@ -215,7 +216,7 @@ open_recent_file_callback (GtkWidget *widget, gpointer data) {
 	diagram = diagram_load(filename, ifilter);
 	if (diagram != NULL) {
 	    diagram_update_extents(diagram);
-	    layer_dialog_set_diagram(diagram);
+	    diagram_set_current(diagram);
 	    new_display(diagram);
 	} else
 	    recent_file_history_remove (filename);

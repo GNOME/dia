@@ -1,3 +1,22 @@
+2004-04-07  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+
+	* app/recent_files.c (open_recent_file_callback): 
+	* app/interface.c (origin_button_press): 
+	* app/filedlg.c (file_open_ok_callback): 
+	* app/display.c: 
+	* app/diagram.[ch]: 
+	* app/commands.c (dialogs_layers_callback): Using new
+	diagram_set_current() function to ensure auxilliary windows are
+	updated. 
+
+	* app/layer_dialog.c: Trying to unify with dia-props.  Diagram
+	menu now borken.  *sniff*
+
+	* app/dia-props.c: Diagram properties window attempted
+	persistentified.  Trying to make more like layer dialog (since it
+	already changes when the diagram changes), but some things still
+	borken.	
+
 2004-04-06  Lars Clausen  <lars@raeder.dk>
 
 	* lib/dialinechooser.[ch] (dia_line_chooser_set_line_style): 

@@ -1023,7 +1023,8 @@ dialogs_properties_callback(gpointer data, guint action, GtkWidget *widget)
 void
 dialogs_layers_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  layer_dialog_set_diagram(ddisplay_active()->diagram);
+  /* This shouldn't really be necessary */
+  diagram_set_current(ddisplay_active()->diagram);
   layer_dialog_show();
 }
 

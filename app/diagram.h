@@ -61,6 +61,8 @@ GList *dia_open_diagrams(void); /* Read only! */
 Diagram *diagram_load(const char *filename, DiaImportFilter *ifilter);
 int diagram_load_into (Diagram *dest, const char *filename, DiaImportFilter *ifilter);
 Diagram *new_diagram(const char *filename); /*Note: filename is copied*/
+/** Perform updates related to getting a new current diagram */
+void diagram_set_current(Diagram *diagram);
 void diagram_destroy(Diagram *dia);
 gboolean diagram_is_modified(Diagram *dia);
 void diagram_modified(Diagram *dia);

@@ -1129,7 +1129,7 @@ create_lineprops_area(GtkWidget *parent)
   gtk_tooltips_set_tip(tool_tips, chooser, _("Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."), NULL);
   style = persistence_register_integer("line-style", LINESTYLE_SOLID);
   dash_length = persistence_register_real("dash-length", DEFAULT_LINESTYLE_DASHLEN);
-  dia_line_chooser_set_line_style(chooser, style, dash_length);
+  dia_line_chooser_set_line_style(DIA_LINE_CHOOSER(chooser), style, dash_length);
   gtk_widget_show(chooser);
 
   chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL, tool_tips);
@@ -1224,7 +1224,7 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
 
           if (diagram != NULL) {
             diagram_update_extents(diagram);
-            layer_dialog_set_diagram(diagram);
+	    diagram_set_current(diagram);
             
             ddisp = new_display(diagram);
           }

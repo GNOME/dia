@@ -76,8 +76,9 @@ diagram_init(Diagram *dia, const char *filename)
   if (!g_list_find(open_diagrams, dia))
     open_diagrams = g_list_prepend(open_diagrams, dia);
 
-  if (app_is_interactive())
-    layer_dialog_update_diagram_list();
+  if (app_is_interactive()) {
+    diagram_set_current(dia);
+  }
 }
 
 int
@@ -129,16 +130,29 @@ new_diagram(const char *filename)  /* Note: filename is copied */
 }
 
 void
+diagram_set_current(Diagram *dia) {
+  layer_dialog_set_diagram(dia);
+  diagram_properties_set_diagram(dia);
+}
+
+void
 diagram_destroy(Diagram *dia)
 {
+  Diagram *other_diagram;
+
   assert(dia->displays==NULL);
 
   diagram_data_destroy(dia->data);
   
   g_free(dia->filename);
 
+  other_diagram = g_list_find(open_diagrams, dia);
+  if (g_list_next(other_diagram) != NULL) other_diagram = g_list_next(other_diagram);
+  else if (g_list_previous(other_diagram) != NULL) other_diagram = g_list_previous(other_diagram);
+  else other_diagram = NULL;
+  printf("Found other diagram %p for %p\n", other_diagram, dia);
   open_diagrams = g_list_remove(open_diagrams, dia);
-  layer_dialog_update_diagram_list();
+  diagram_set_current(other_diagram);
 
   undo_destroy(dia->undo);
   
@@ -1204,7 +1218,7 @@ diagram_set_filename(Diagram *dia, char *filename)
 
   g_free(title);
 
-  layer_dialog_update_diagram_list();
+  diagram_set_current(dia);
   recent_file_history_add((const char *)filename);
 
   diagram_tree_update_name(diagram_tree(), dia);
