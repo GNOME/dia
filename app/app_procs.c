@@ -23,7 +23,6 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <string.h>
-#include <dlfcn.h>
 #include <signal.h>
 #include <locale.h>
 

@@ -1,3 +1,8 @@
+1999-10-18  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/app_procs.c:
+	Removed include of dlfcn.h
+
 1999-10-18  James Henstridge  <james@daa.com.au>
 
 	* app/diapagelayout.c (paper_size_change, orient_changed): set upper
