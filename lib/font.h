@@ -116,6 +116,7 @@ void freetype_add_font(char *dirname, char *filename);
 void freetype_scan_directory(char *dirname);
 void font_init_freetype();
 char *font_get_freetypefontname(DiaFont *font);
+DiaFont *font_getfont_with_style(const char *name, const char *style);
 #endif
 real font_string_width(const char *string, DiaFont *font, real height);
 real font_ascent(DiaFont *font, real height);

@@ -1,3 +1,8 @@
+2002-01-31  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/widgets.c: Style now functional on font selector.  Some leak
+	possible, but doesn't show up under stress test.
+
 2002-01-31  Akira TAGOH  <tagoh@redhat.com>
 
 	* app/plugin-manager.c (clist_select_row): name and description needs to

@@ -63,6 +63,32 @@ dia_font_selector_class_init (DiaFontSelectorClass *class)
 }
 
 #ifdef HAVE_FREETYPE
+/* This function is stolen from dillo.
+ */
+static void
+dia_font_selector_scroll_popup(GtkWidget *widget)
+{
+  /*
+   * todo:
+   *   1) Scrolling menues should rather be the task of Gtk+. This is
+   *      a hack, and I don't know if it does not break anything.
+   *   2) It could be improved, e.g. a timeout could be added for
+   *      better mouse navigation.
+    */
+  int y, h, mx, my, sh;
+
+  y = widget->allocation.y;
+  h = widget->allocation.height;
+  gdk_window_get_geometry (widget->parent->parent->window,
+			   &mx, &my, NULL, NULL, NULL);
+  sh = gdk_screen_height ();
+
+  if (y + my < 0)
+    gdk_window_move (widget->parent->parent->window, mx, - y + 1);
+  else if (y + my > sh - h)
+    gdk_window_move (widget->parent->parent->window, mx, sh - h - y - 1);
+}
+
 static void
 dia_font_selector_set_font_menu (gpointer key, gpointer value, gpointer user_data)
 {
@@ -72,11 +98,21 @@ dia_font_selector_set_font_menu (gpointer key, gpointer value, gpointer user_dat
 
   menuitem = gtk_menu_item_new_with_label (fontname);
   gtk_object_set_user_data(GTK_OBJECT(menuitem), fontname);
-  // group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_signal_connect(GTK_OBJECT(menuitem), "select", dia_font_selector_scroll_popup, NULL);
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 }
 #endif
+
+static void
+dia_font_selector_font_selected(GtkWidget *button, gpointer data) {
+  DiaFontSelector *fs = DIAFONTSELECTOR(data);
+
+  GtkWidget *active = gtk_menu_get_active(fs->font_menu);
+  char *fontname = (char *)gtk_object_get_user_data(GTK_OBJECT(active));
+  dia_font_selector_set_styles(fs, font_getfont(fontname));
+}
+
 
 static void
 dia_font_selector_init (DiaFontSelector *fs)
@@ -97,6 +133,8 @@ dia_font_selector_init (DiaFontSelector *fs)
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->font_omenu), menu);
   gtk_widget_show(menu);
   gtk_widget_show(omenu);
+
+  gtk_signal_connect(GTK_OBJECT(menu), "unmap", dia_font_selector_font_selected, fs);
 
   omenu = gtk_option_menu_new();
   fs->style_omenu = GTK_OPTION_MENU(omenu);
@@ -211,11 +249,21 @@ dia_font_selector_set_styles(DiaFontSelector *fs, DiaFont *font)
   int i=0;
   GList *style_list = font->family->diafonts;
 
+  GtkWidget *menu = gtk_menu_new();
+
   while (style_list != NULL) {
     DiaFont *font = (DiaFont *)style_list->data;
-    printf("Possible style: %s\n", font->style);
+    GtkWidget *menuitem = gtk_menu_item_new_with_label (font->style);
+    gtk_object_set_user_data(GTK_OBJECT(menuitem), font->style);
+    gtk_menu_append (GTK_MENU (menu), menuitem);
+    gtk_widget_show (menuitem);
     style_list = g_list_next(style_list);
   }
+  gtk_widget_show(menu);
+  // Need to dealloc the menu, methings
+  gtk_option_menu_remove_menu(fs->style_omenu);
+  gtk_option_menu_set_menu(fs->style_omenu, menu);
+  fs->style_menu = menu;
 }
 
 void
@@ -238,7 +286,7 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
   gtk_option_menu_set_history(GTK_OPTION_MENU(fs->font_omenu), font_nr);
   gtk_menu_set_active(fs->font_menu, font_nr);
 
-  dia_font_set_styles(fs, font);
+  dia_font_selector_set_styles(fs, font);
 #else
   gtk_option_menu_set_history(GTK_OPTION_MENU(fs), font_nr);
   gtk_menu_set_active(fs->font_menu, font_nr);
@@ -250,11 +298,20 @@ dia_font_selector_get_font(DiaFontSelector *fs)
 {
   GtkWidget *menuitem;
   char *fontname;
-  
+#ifdef HAVE_FREETYPE
+  char *stylename;
+#endif
+
   menuitem = gtk_menu_get_active(fs->font_menu);
   fontname = gtk_object_get_user_data(GTK_OBJECT(menuitem));
 
+#ifdef HAVE_FREETYPE
+  menuitem = gtk_menu_get_active(fs->style_menu);
+  stylename = gtk_object_get_user_data(GTK_OBJECT(menuitem));
+  return font_getfont_with_style(fontname, stylename);
+#else
   return font_getfont(fontname);
+#endif
 }
 
 /************* DiaAlignmentSelector: ***************/
