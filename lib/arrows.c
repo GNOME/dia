@@ -32,6 +32,34 @@
 
 #include "arrows.h"
 #include "diarenderer.h"
+#include "intl.h"
+
+struct menudesc arrow_types[] =
+  {{N_("None"),ARROW_NONE},
+   {N_("Lines"),ARROW_LINES},
+   {N_("Hollow Triangle"),ARROW_HOLLOW_TRIANGLE},
+   {N_("Filled Triangle"),ARROW_FILLED_TRIANGLE},
+   {N_("Unfilled Triangle"),ARROW_UNFILLED_TRIANGLE},
+   {N_("Filled Diamond"),ARROW_FILLED_DIAMOND},
+   {N_("Half Head"),ARROW_HALF_HEAD},
+   {N_("Slashed Cross"),ARROW_SLASHED_CROSS},
+   {N_("Filled Ellipse"),ARROW_FILLED_ELLIPSE},
+   {N_("Hollow Ellipse"),ARROW_HOLLOW_ELLIPSE},
+   {N_("Filled Dot"),ARROW_FILLED_DOT},
+   {N_("Dimension Origin"),ARROW_DIMENSION_ORIGIN},
+   {N_("Blanked Dot"),ARROW_BLANKED_DOT},
+   {N_("Double Hollow triangle"),ARROW_DOUBLE_HOLLOW_TRIANGLE},
+   {N_("Double Filled triangle"),ARROW_DOUBLE_FILLED_TRIANGLE},
+   {N_("Filled Box"),ARROW_FILLED_BOX},
+   {N_("Blanked Box"),ARROW_BLANKED_BOX},
+   {N_("Slashed"),ARROW_SLASH_ARROW},
+   {N_("Integral Symbol"),ARROW_INTEGRAL_SYMBOL},
+   {N_("Crow Foot"),ARROW_CROW_FOOT},
+   {N_("Cross"),ARROW_CROSS},
+   {N_("Filled Concave"),ARROW_FILLED_CONCAVE},
+   {N_("Blanked Concave"),ARROW_BLANKED_CONCAVE},
+   {NULL,0}};
+
 
 static void
 calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,

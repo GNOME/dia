@@ -54,6 +54,14 @@ typedef enum {
   ARROW_BLANKED_CONCAVE,
 } ArrowType;
 
+struct menudesc {
+  char *name;
+  int enum_value;
+};
+
+/* These are used to fill menus.  See dia_arrow_fill_menu in widgets.c */
+extern struct menudesc arrow_types[];
+
 struct _Arrow {
   ArrowType type;
   real length;

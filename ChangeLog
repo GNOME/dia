@@ -1,5 +1,9 @@
 2003-01-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/arrows.[ch]: 
+	* lib/widgets.[ch]: Moved arrow name list into arrows.[ch] to
+	unify with rendered menu.
+
 	* lib/diarenderer.c (draw_line_with_arrows)
 	(draw_polyline_with_arrows, draw_arc_with_arrows)
 	(draw_bezier_with_arrows): Fixed linestyle change bug (#104488)
