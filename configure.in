@@ -59,6 +59,16 @@ AM_CONDITIONAL(HAVE_GNOME_PRINT,
 AC_SUBST(GNOME_CFLAGS)
 AC_SUBST(GNOME_LIBS)
 
+dnl Check if this Gnome has Bonobo
+OLDCPPFLAGS=$CPPFLAGS
+CPPFLAGS="$CPPFLAGS `glib-config --cflags`"
+
+AC_CHECK_HEADERS(bonobo/bonobo.h)
+AM_CONDITIONAL(HAVE_BONOBO, 
+       test "$GNOME" = "yes" && test "$HAVE_BONOBO_H" = yes)
+
+CPPFLAGS=$OLDCPPFLAGS
+
 dnl
 dnl Popt
 dnl

@@ -12,9 +12,20 @@ print_files = \
 	paginate_psprint.h
 endif
 
+if HAVE_BONOBO
+bonobo_files = dia_embedd.c
+else
+bonobo_files = 
+endif
+
 noinst_PROGRAMS = run_dia.sh
 run_dia_sh_SOURCES = 
+
+if HAVE_BONOBO
 bin_PROGRAMS = dia dia_embedd
+else
+bin_PROGRAMS = dia
+endif
 
 dia_core_files = \
 	    connectionpoint_ops.h \
@@ -137,7 +148,7 @@ INCLUDES = \
 LDFLAGS = -export-dynamic
 
 EXTRA_DIST = \
-	dia_embedd.c \
+	$(bonobo_files) \
 	dia.gnorba \
 	render_gnomeprint.c \
 	render_gnomeprint.h \
