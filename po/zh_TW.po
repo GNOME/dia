@@ -5,95 +5,63 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.88.1\n"
-"POT-Creation-Date: 2001-09-02 22:50+0200\n"
-"PO-Revision-Date: 2001-07-28 01:59+0800\n"
+"Project-Id-Version: dia 0.89\n"
+"POT-Creation-Date: 2001-09-01 19:02+0800\n"
+"PO-Revision-Date: 2001-09-05 19:31+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: traditional chinese <zh-l10n@linux.org.hk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=Big5\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:153
-#, c-format
-msgid "%s error: input and output file name is identical: %s"
-msgstr ""
-
-#: app/app_procs.c:164
-#, fuzzy, c-format
-msgid "%s error: need valid input file %s\n"
-msgstr "需要合法的輸入檔\n"
-
-#: app/app_procs.c:171
-#, c-format
-msgid "%s error: don't know how to export into %s\n"
-msgstr ""
-
-#. if (!quiet)
-#: app/app_procs.c:177
-#, c-format
-msgid "%s --> %s\n"
-msgstr ""
-
 #. &export_file_name
-#: app/app_procs.c:209
+#: app/app_procs.c:151
 msgid "Export loaded file and exit"
 msgstr "匯出所載入的檔案並離開"
 
-#: app/app_procs.c:209
+#: app/app_procs.c:151
 msgid "OUTPUT"
 msgstr "輸出"
 
-#. &export_file_format
-#: app/app_procs.c:211
-#, fuzzy
-msgid "Export to file format and exit"
-msgstr "匯出所載入的檔案並離開"
-
-#: app/app_procs.c:211
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr ""
-
-#: app/app_procs.c:213
+#: app/app_procs.c:153
 msgid "Don't show the splash screen"
-msgstr ""
+msgstr "不顯示啟動畫面"
 
-#: app/app_procs.c:215
+#: app/app_procs.c:155
 msgid "Show this help message"
 msgstr "顯示此說明訊息"
 
-#: app/app_procs.c:248
+#: app/app_procs.c:185
 msgid "Can't connect to session manager!\n"
 msgstr "無法連接作業階段管理程式！\n"
 
-#: app/app_procs.c:259
+#: app/app_procs.c:196
 msgid "[OPTION...] [FILE...]"
 msgstr "[選項...] [檔案...]"
 
-#: app/app_procs.c:263
+#: app/app_procs.c:199
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "選項 %s 發生錯誤：%s。\n"
-"執行 '%s --help' 以查看完整的選項列表。\n"
+"執行 '%s --help' 以列出完整的選項。\n"
 
-#: app/app_procs.c:276
-#, c-format
-msgid "%s error: can specify only one of -f or -o."
-msgstr ""
-
-#: app/app_procs.c:321 app/app_procs.c:323
+#: app/app_procs.c:247 app/app_procs.c:249
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
-msgstr "當找尋物件函式中找不到標準物件，離開程式...\n"
+msgstr "找尋物件函式時找不到標準物件，離開程式...\n"
 
-#: app/app_procs.c:444 app/app_procs.c:450
+#: app/app_procs.c:274
+msgid "Need valid input file\n"
+msgstr "需要合法的輸入檔\n"
+
+#: app/app_procs.c:340 app/app_procs.c:346
 msgid "Quit, are you sure?"
 msgstr "是否確定離開？"
 
-#: app/app_procs.c:457
+#: app/app_procs.c:353
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -101,29 +69,29 @@ msgstr ""
 "圖表已被修改。\n"
 "是否確定離開？"
 
-#: app/app_procs.c:467 app/app_procs.c:472
+#: app/app_procs.c:363 app/app_procs.c:368
 msgid "Quit"
 msgstr "離開"
 
-#: app/app_procs.c:484 app/display.c:966 app/layer_dialog.c:989
+#: app/app_procs.c:380 app/display.c:966 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "取消"
 
-#: app/app_procs.c:559 app/app_procs.c:566
+#: app/app_procs.c:455 app/app_procs.c:462
 msgid "Could not create per-user Dia config directory"
-msgstr "無法建立使用者組態目錄"
+msgstr "無法建立 Dia 使用者組態目錄"
 
-#: app/app_procs.c:568
+#: app/app_procs.c:464
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
-msgstr "無法建立使用者組態目錄。請確定 HOME 環境變數指向一個已存在的目錄。"
+msgstr "無法建立 Dia 使用者組態目錄。請確定 HOME 環境變數指向一個已存在的目錄。"
 
-#: app/app_procs.c:590
+#: app/app_procs.c:486
 msgid "Objects and filters internal to dia"
-msgstr "dia 內部的物件與過濾器"
+msgstr "dia 內部物件與過濾器"
 
 #: app/color_area.c:264 lib/widgets.c:519
 msgid "Select color"
@@ -157,11 +125,11 @@ msgstr "維護者：James Henstridge"
 
 #: app/commands.c:580
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
-msgstr "請到 http://www.lysator.liu.se/~alla/dia 查詢更多訊息"
+msgstr "請到 http://www.lysator.liu.se/~alla/dia 取得更多資料"
 
 #: app/commands.c:585
 msgid "Contributors:"
-msgstr "有貢獻者："
+msgstr "貢獻者："
 
 #. setup buttons
 #: app/commands.c:602 app/dia-props.c:86 app/layer_dialog.c:979
@@ -206,7 +174,7 @@ msgstr "無法初始化 Banobo！"
 
 #: app/dia-props.c:60 app/dia-props.c:67
 msgid "Diagram Properties"
-msgstr "圖表內容"
+msgstr "圖表特性"
 
 #: app/dia-props.c:130
 msgid "x"
@@ -217,14 +185,13 @@ msgid "y"
 msgstr "y"
 
 #: app/dia-props.c:139
-#, fuzzy
 msgid "Spacing"
-msgstr "縮放比例"
+msgstr "間隔"
 
 #: app/dia-props.c:159
 #, fuzzy
 msgid "Visible spacing"
-msgstr "顯示格線[_V]"
+msgstr "顯示格線(_V)"
 
 #: app/dia-props.c:179
 msgid "Grid"
@@ -272,7 +239,7 @@ msgstr "右："
 #. Scaling
 #: app/diapagelayout.c:248
 msgid "Scaling"
-msgstr "縮放比例"
+msgstr "縮放"
 
 #: app/diapagelayout.c:259
 msgid "Scale:"
@@ -280,11 +247,11 @@ msgstr "比例："
 
 #: app/diapagelayout.c:271
 msgid "Fit to:"
-msgstr "符合到："
+msgstr "符合："
 
 #: app/diapagelayout.c:283
 msgid "by"
-msgstr "經由"
+msgstr "比"
 
 #: app/diapagelayout.c:678
 #, c-format
@@ -301,19 +268,19 @@ msgid ""
 "Undo information erased."
 msgstr ""
 "此物件不支援 復原/取消復原。\n"
-"復原資訊已清除"
+"復原資訊已清除。"
 
 #: app/disp_callbacks.c:195
 msgid "No object menu"
 msgstr "沒有物件選單"
 
-#: app/display.c:141 app/display.c:142 app/interface.c:447
+#: app/display.c:141 app/display.c:142 app/interface.c:442
 msgid "Zoom"
 msgstr "縮放"
 
 #: app/display.c:162
 msgid "Diagram modified!"
-msgstr "圖表已變更!!"
+msgstr "圖表已變更！"
 
 #: app/display.c:916
 msgid "Close Diagram?"
@@ -329,7 +296,7 @@ msgid ""
 "Save changes now?"
 msgstr ""
 "圖表尚未儲存。\n"
-"是否要儲存？"
+"是否現在儲存？"
 
 #: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
 msgid "Yes"
@@ -347,7 +314,7 @@ msgstr "否"
 #: plug-ins/wpg/wpg.c:930
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr "無法寫入：'%s'。\n"
+msgstr "無法寫入 '%s'。\n"
 
 #: app/export_png.c:87
 msgid "Could not create PNG write structure"
@@ -363,7 +330,7 @@ msgstr "當寫入 PNG 時發生錯誤"
 
 #: app/export_png.c:157
 msgid "Portable Network Graphics"
-msgstr "可攜帶網路圖形（PNG）"
+msgstr "可攜帶網絡圖像（PNG）"
 
 #: app/filedlg.c:99 app/filedlg.c:373
 msgid "By extension"
@@ -530,19 +497,20 @@ msgstr "建立圖像"
 msgid "Image"
 msgstr "圖像"
 
-#: app/interface.c:494
+#: app/interface.c:489
 msgid "NULL tooldata in tool_select_update"
-msgstr "tool_select_update 中有空的工具資料"
+msgstr "tool_select_update 中有空白的工具資料"
 
-#: app/interface.c:942
+#: app/interface.c:937
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
-msgstr "前景與背景色。用黑白小方塊重設顏色。用小箭頭交換顏色。雙擊以變更顏色。"
+msgstr ""
+"前景與背景色。用黑白小方塊重設顏色。用小箭頭交換顏色。按兩下滑鼠鍵變更顏色。"
 
-#: app/interface.c:1088
+#: app/interface.c:1083
 msgid "Diagram Editor"
-msgstr "圖表編輯者"
+msgstr "圖表編輯器"
 
 #: app/layer_dialog.c:69
 msgid "New Layer"
@@ -586,7 +554,7 @@ msgstr "圖層名稱："
 
 #: app/lineprops_area.c:721
 msgid "Arrow Properties"
-msgstr "箭頭內容"
+msgstr "箭頭特性"
 
 #: app/lineprops_area.c:778 app/lineprops_area.c:964
 msgid "Details..."
@@ -594,7 +562,7 @@ msgstr "細節..."
 
 #: app/lineprops_area.c:920
 msgid "Line Style Properties"
-msgstr "線段款式內容"
+msgstr "線段款式特性"
 
 #: app/linewidth_area.c:216 lib/properties.h:475
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
@@ -607,14 +575,14 @@ msgstr "線段寬度："
 
 #: app/load_save.c:127
 msgid "Error reading diagram file\n"
-msgstr "讀取檔案發生錯誤\n"
+msgstr "讀取圖表檔案發生錯誤\n"
 
 #: app/load_save.c:195
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
-"圖表載入錯誤。\n"
+"圖表載入發生錯誤。\n"
 "文件內找不到連結物件。"
 
 #: app/load_save.c:198
@@ -622,7 +590,7 @@ msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
-"圖表載入錯誤。\n"
+"圖表載入發生錯誤。\n"
 "連接點不存在。"
 
 #: app/load_save.c:201
@@ -630,7 +598,7 @@ msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
-"圖表載入錯誤。\n"
+"圖表載入發生錯誤。\n"
 "連接控制不存在。"
 
 #: app/load_save.c:245 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
@@ -673,7 +641,7 @@ msgstr "原生 Dia 圖表"
 
 #: app/menus.c:45 app/menus.c:56
 msgid "_New diagram"
-msgstr "新圖表[_N]"
+msgstr "新增圖表(_N)"
 
 #: app/menus.c:45 app/menus.c:56
 msgid "Create new diagram"
@@ -685,19 +653,19 @@ msgstr "Plug-in"
 
 #: app/menus.c:63
 msgid "_Export..."
-msgstr "匯出[_E]..."
+msgstr "匯出(_E)..."
 
 #: app/menus.c:67
 msgid "Page Set_up..."
-msgstr "頁面設定[_u]..."
+msgstr "頁面設定(_u)..."
 
 #: app/menus.c:69
 msgid "_Print Diagram..."
-msgstr "列印圖表[_P]..."
+msgstr "列印圖表(_P)..."
 
 #: app/menus.c:84
 msgid "_Delete"
-msgstr "刪除[_D]"
+msgstr "刪除(_D)"
 
 #: app/menus.c:90
 msgid "Copy Text"
@@ -709,11 +677,11 @@ msgstr "剪下文字"
 
 #: app/menus.c:92
 msgid "Paste _Text"
-msgstr "貼上文字[_T]"
+msgstr "貼上文字(_T)"
 
 #: app/menus.c:115
 msgid "Zoom _In"
-msgstr "拉近[_I]"
+msgstr "拉近(_I)"
 
 #: app/menus.c:115
 #, c-format
@@ -722,48 +690,48 @@ msgstr "拉近 50%"
 
 #: app/menus.c:116
 msgid "Zoom _Out"
-msgstr "拉遠 [_O]"
+msgstr "拉遠(_O)"
 
 #: app/menus.c:116
 #, c-format
 msgid "Zoom out 50%"
-msgstr "拉遠50%"
+msgstr "拉遠 50%"
 
 #: app/menus.c:117
 msgid "_Zoom"
-msgstr "縮放[_Z]"
+msgstr "縮放(_Z)"
 
 #: app/menus.c:118
 msgid "Diagram Properties..."
-msgstr "圖表內容..."
+msgstr "圖表特性..."
 
 #: app/menus.c:120
 msgid "_AntiAliased"
-msgstr "反鋸齒[_A]"
+msgstr "反鋸齒(_A)"
 
 #: app/menus.c:123
 msgid "_Visible Grid"
-msgstr "顯示格線[_V]"
+msgstr "顯示格線(_V)"
 
 #: app/menus.c:125
 msgid "_Snap To Grid"
-msgstr "貼齊格線[_S]"
+msgstr "貼齊格線(_S)"
 
 #: app/menus.c:127
 msgid "Show _Rulers"
-msgstr "顯示尺規[_R]"
+msgstr "顯示尺規(_R)"
 
 #: app/menus.c:129
 msgid "Show _Connection Points"
-msgstr "顯示連接點[_C]"
+msgstr "顯示連接點(_C)"
 
 #: app/menus.c:132
 msgid "New _View"
-msgstr "新檢視[_V]"
+msgstr "新檢視模式(_V)"
 
 #: app/menus.c:133
 msgid "Show _All"
-msgstr "顯示全部[_A]"
+msgstr "顯示全部(_A)"
 
 #: app/menus.c:138
 msgid "Replace"
@@ -783,7 +751,6 @@ msgid "Remove"
 msgstr "移除"
 
 #: app/menus.c:146 app/menus.c:154
-#, fuzzy
 msgid "Invert"
 msgstr "反向"
 
@@ -839,81 +806,79 @@ msgstr "靠下"
 
 #: app/menus.c:182
 msgid "Send to _Back"
-msgstr "送到下層[_B]"
+msgstr "送到下層(_B)"
 
 #: app/menus.c:183
 msgid "Bring to _Front"
-msgstr "移到前層[_F]"
+msgstr "移到前層(_F)"
 
 #: app/menus.c:185
 msgid "_Group"
-msgstr "組成群組[_G]"
+msgstr "組成群組(_G)"
 
 #: app/menus.c:186
 msgid "_Ungroup"
-msgstr "取消群組[_U]"
+msgstr "取消群組(_U)"
 
 #: app/menus.c:188
 msgid "Align _Horizontal"
-msgstr "水平對齊[_H]"
+msgstr "水平對齊(_H)"
 
 #: app/menus.c:189
 msgid "Align _Vertical"
-msgstr "垂直對齊[_V]"
+msgstr "垂直對齊(_V)"
 
 #: app/menus.c:212
 msgid "_Properties"
-msgstr "內容[_P]"
+msgstr "特性(_P)"
 
 #: app/menus.c:213
 msgid "_Layers"
-msgstr "圖層[_L]"
+msgstr "圖層(_L)"
 
 #: app/menus.c:234
 msgid "_Select"
-msgstr "選擇[_S]"
+msgstr "選擇(_S)"
 
 #: app/menus.c:235
 msgid "_Objects"
-msgstr "物件[_O]"
+msgstr "物件(_O)"
 
 #: app/menus.c:236
 msgid "_Tools"
-msgstr "工具[_T]"
+msgstr "工具(_T)"
 
 #: app/menus.c:237
 msgid "_Dialogs"
-msgstr "對話窗[_D]"
+msgstr "對話窗(_D)"
 
 #: app/menus.c:248 app/menus.c:273
 msgid "/_File"
-msgstr "/檔案[_F]"
+msgstr "/檔案(_F)"
 
 #: app/menus.c:250 app/menus.c:275
 msgid "/File/_New"
-msgstr "/檔案/開新檔案[_N]"
+msgstr "/檔案/新增(_N)"
 
 #: app/menus.c:251 app/menus.c:276
 msgid "/File/_Open"
-msgstr "/檔案/開啟舊檔[_O]"
+msgstr "/檔案/開啟(_O)"
 
 #: app/menus.c:252
-#, fuzzy
 msgid "/File/Open _Recent"
-msgstr "/檔案/開啟舊檔[_R]"
+msgstr "/檔案/最近開啟檔案(_R)"
 
 #: app/menus.c:253
-#, fuzzy
 msgid "/File/Open Recent/---"
-msgstr "/檔案/開啟舊檔"
+msgstr "/檔案/最近開啟檔案/---"
 
 #: app/menus.c:255
 msgid "/File/_Preferences..."
-msgstr "/檔案/偏好設定[_P]"
+msgstr "/檔案/偏好設定(_P)..."
 
 #: app/menus.c:256
 msgid "/File/P_lugins"
-msgstr "/檔案/Plugin[_l]"
+msgstr "/檔案/Plugin(_l)"
 
 #: app/menus.c:257 app/menus.c:280 app/menus.c:283
 msgid "/File/---"
@@ -921,15 +886,15 @@ msgstr "/檔案/---"
 
 #: app/menus.c:258 app/menus.c:286
 msgid "/File/_Quit"
-msgstr "/檔案/離開[_Q]"
+msgstr "/檔案/離開(_Q)"
 
 #: app/menus.c:259
 msgid "/_Help"
-msgstr "/說明[_H]"
+msgstr "/說明(_H)"
 
 #: app/menus.c:261
 msgid "/Help/_Manual"
-msgstr "/說明/手冊[_M]"
+msgstr "/說明/手冊(_M)"
 
 #: app/menus.c:262
 msgid "/Help/---"
@@ -937,19 +902,19 @@ msgstr "/說明/---"
 
 #: app/menus.c:263
 msgid "/Help/_About"
-msgstr "/說明/關於[_A]"
+msgstr "/說明/關於(_A)"
 
 #: app/menus.c:277
 msgid "/File/_Save"
-msgstr "/檔案/存檔[_S]"
+msgstr "/檔案/儲存(_S)"
 
 #: app/menus.c:278
 msgid "/File/Save _As..."
-msgstr "/檔案/另存新檔[_A]"
+msgstr "/檔案/另存新檔(_A)..."
 
 #: app/menus.c:279
 msgid "/File/_Export..."
-msgstr "/檔案/匯出[_E]..."
+msgstr "/檔案/匯出(_E)..."
 
 #: app/menus.c:281
 msgid "/File/Page Set_up..."
@@ -957,39 +922,39 @@ msgstr "/檔案/頁面設定..."
 
 #: app/menus.c:282
 msgid "/File/_Print Diagram..."
-msgstr "/檔案/列印圖表[_P]..."
+msgstr "/檔案/列印圖表(_P)..."
 
 #: app/menus.c:284
 msgid "/File/_Close"
-msgstr "/檔案/關閉[_C]"
+msgstr "/檔案/關閉(_C)"
 
 #: app/menus.c:287
 msgid "/_Edit"
-msgstr "/編輯[_E]"
+msgstr "/編輯(_E)"
 
 #: app/menus.c:289
 msgid "/Edit/_Copy"
-msgstr "/編輯/複製[_C]"
+msgstr "/編輯/複製(_C)"
 
 #: app/menus.c:290
 msgid "/Edit/C_ut"
-msgstr "/編輯/剪下[_u]"
+msgstr "/編輯/剪下(_u)"
 
 #: app/menus.c:291
 msgid "/Edit/_Paste"
-msgstr "/編輯/貼上[_P]"
+msgstr "/編輯/貼上(_P)"
 
 #: app/menus.c:292
 msgid "/Edit/_Delete"
-msgstr "/編輯/刪除[_D]"
+msgstr "/編輯/刪除(_D)"
 
 #: app/menus.c:293
 msgid "/Edit/_Undo"
-msgstr "/編輯/復原[_U]"
+msgstr "/編輯/復原(_U)"
 
 #: app/menus.c:294
 msgid "/Edit/_Redo"
-msgstr "/編輯/取消復原[_R]"
+msgstr "/編輯/取消復原(_R)"
 
 #: app/menus.c:295
 msgid "/Edit/Copy Text"
@@ -1001,23 +966,23 @@ msgstr "/編輯/剪下文字"
 
 #: app/menus.c:297
 msgid "/Edit/Paste _Text"
-msgstr "/編輯/貼上文字[_T]"
+msgstr "/編輯/貼上文字(_T)"
 
 #: app/menus.c:298
 msgid "/_View"
-msgstr "/檢視[_V]"
+msgstr "/檢視(_V)"
 
 #: app/menus.c:300
 msgid "/View/Zoom _In"
-msgstr "/檢視/拉近[_I]"
+msgstr "/檢視/拉近(_I)"
 
 #: app/menus.c:301
 msgid "/View/Zoom _Out"
-msgstr "/檢視/拉遠[_O]"
+msgstr "/檢視/拉遠(_O)"
 
 #: app/menus.c:302
 msgid "/View/_Zoom"
-msgstr "/檢視/縮放[_Z]"
+msgstr "/檢視/縮放(_Z)"
 
 #: app/menus.c:304
 #, c-format
@@ -1070,29 +1035,28 @@ msgid "/View/Zoom/25%"
 msgstr "/檢視/縮放/25%"
 
 #: app/menus.c:314
-#, fuzzy
 msgid "/View/Diagram Properties..."
-msgstr "/檢視/圖表內容"
+msgstr "/檢視/圖表特性..."
 
 #: app/menus.c:316
 msgid "/View/_AntiAliased"
-msgstr "/檢視/反鋸齒[_A]"
+msgstr "/檢視/反鋸齒(_A)"
 
 #: app/menus.c:318
 msgid "/View/_Visible Grid"
-msgstr "/檢視/顯示格線[_V]"
+msgstr "/檢視/顯示格線(_V)"
 
 #: app/menus.c:319
 msgid "/View/_Snap To Grid"
-msgstr "/檢視/貼齊格線[_S]"
+msgstr "/檢視/貼齊格線(_S)"
 
 #: app/menus.c:320
 msgid "/View/Show _Rulers"
-msgstr "/檢視/顯示尺規[_R]"
+msgstr "/檢視/顯示尺規(_R)"
 
 #: app/menus.c:321
 msgid "/View/Show _Connection Points"
-msgstr "/檢視/顯示連接點[_C]"
+msgstr "/檢視/顯示連接點(_C)"
 
 #: app/menus.c:322
 msgid "/View/---"
@@ -1100,15 +1064,15 @@ msgstr "/檢視/---"
 
 #: app/menus.c:323
 msgid "/View/New _View"
-msgstr "/檢視/新檢視[_V]"
+msgstr "/檢視/新檢視模式(_V)"
 
 #: app/menus.c:324
 msgid "/View/Show _All"
-msgstr "/檢視/顯示全部[_A]"
+msgstr "/檢視/顯示全部(_A)"
 
 #: app/menus.c:325
 msgid "/_Select"
-msgstr "/選擇[_S]"
+msgstr "/選擇(_S)"
 
 #: app/menus.c:327
 msgid "/Select/All"
@@ -1119,7 +1083,6 @@ msgid "/Select/None"
 msgstr "/選擇/無"
 
 #: app/menus.c:329 app/menus.c:342
-#, fuzzy
 msgid "/Select/Invert"
 msgstr "/選擇/反向"
 
@@ -1158,15 +1121,15 @@ msgstr "/選擇/移除"
 
 #: app/menus.c:344
 msgid "/_Objects"
-msgstr "/物件[_O]"
+msgstr "/物件(_O)"
 
 #: app/menus.c:346
 msgid "/Objects/Send to _Back"
-msgstr "/物件/向後移[_B]"
+msgstr "/物件/送到後層(_B)"
 
 #: app/menus.c:347
 msgid "/Objects/Bring to _Front"
-msgstr "/物件/向前移[_F]"
+msgstr "/物件/送到前層(_F)"
 
 #: app/menus.c:348 app/menus.c:351
 msgid "/Objects/---"
@@ -1174,15 +1137,15 @@ msgstr "/物件/---"
 
 #: app/menus.c:349
 msgid "/Objects/_Group"
-msgstr "/物件/組成群組[_G]"
+msgstr "/物件/組成群組(_G)"
 
 #: app/menus.c:350
 msgid "/Objects/_Ungroup"
-msgstr "/物件/取消群組[_U]"
+msgstr "/物件/取消群組(_U)"
 
 #: app/menus.c:352
 msgid "/Objects/Align _Horizontal"
-msgstr "/物件/水平對齊[_H]"
+msgstr "/物件/水平對齊(_H)"
 
 #: app/menus.c:354
 msgid "/Objects/Align Horizontal/Left"
@@ -1206,7 +1169,7 @@ msgstr "/物件/水平對齊/貼緊"
 
 #: app/menus.c:359
 msgid "/Objects/Align _Vertical"
-msgstr "/物件/垂直對齊[_V]"
+msgstr "/物件/垂直對齊(_V)"
 
 #: app/menus.c:361
 msgid "/Objects/Align Vertical/Top"
@@ -1230,7 +1193,7 @@ msgstr "/物件/垂直對齊/貼緊"
 
 #: app/menus.c:367
 msgid "/_Tools"
-msgstr "/工具[_T]"
+msgstr "/工具(_T)"
 
 #: app/menus.c:369
 msgid "/Tools/Modify"
@@ -1290,15 +1253,15 @@ msgstr "/工具/圖像"
 
 #: app/menus.c:384
 msgid "/_Dialogs"
-msgstr "/對話窗[_D]"
+msgstr "/對話窗(_D)"
 
 #: app/menus.c:386
 msgid "/Dialogs/_Properties"
-msgstr "/對話窗/內容[_P]"
+msgstr "/對話窗/特性(_P)"
 
 #: app/menus.c:387
 msgid "/Dialogs/_Layers"
-msgstr "/對話窗/圖層[_L]"
+msgstr "/對話窗/圖層(_L)"
 
 #: app/menus.c:559
 msgid "NULL tooldata in tool_menu_select"
@@ -1313,9 +1276,8 @@ msgid "Print Diagram"
 msgstr "列印圖表"
 
 #: app/paginate_gnomeprint.c:183
-#, fuzzy
 msgid "An error occured while creating the print context"
-msgstr "當寫入 PNG 時發生錯誤"
+msgstr "建立列印資料時發生錯誤"
 
 #: app/paginate_psprint.c:216
 msgid "Select Printer"
@@ -1453,9 +1415,8 @@ msgid "Connection Points:"
 msgstr "連接點："
 
 #: app/preferences.c:149 app/preferences.c:152 app/preferences.c:160
-#, fuzzy
 msgid "Visible:"
-msgstr "顯示:"
+msgstr "顯示："
 
 #: app/preferences.c:151
 msgid "Grid:"
@@ -1496,21 +1457,22 @@ msgstr "偏好設定"
 
 #: app/properties.c:62 app/properties.c:70
 msgid "Object properties"
-msgstr "物件內容"
+msgstr "物件特性"
 
 #: app/properties.c:124
 msgid "This object has no properties."
-msgstr "此物件沒有相關內容。"
+msgstr "此物件沒有任何特性。"
 
 #: app/properties.c:211
 msgid "Properties: "
-msgstr "內容："
+msgstr "特性："
 
 #: app/properties.c:219
 msgid "Object properties:"
-msgstr "物件內容："
+msgstr "物件特性："
 
 #: app/render_eps.c:1651
+#, fuzzy
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postscript"
 
@@ -1521,9 +1483,8 @@ msgstr "/檔案/Plugin"
 
 #: app/recent_files.c:81 app/recent_files.c:83 app/recent_files.c:112
 #: app/recent_files.c:114
-#, fuzzy
 msgid "/File/Open Recent/"
-msgstr "/檔案/開啟舊檔"
+msgstr "/檔案/最近開啟檔案/"
 
 #: app/recent_files.c:163
 msgid "Can't open history file for writing."
@@ -1631,7 +1592,7 @@ msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
 msgstr ""
-"警告：沒有給 %s 用的 X 字型，\n"
+"警告：找不到給 %s 用的 X 字型，\n"
 "改用 %s。\n"
 
 #: lib/font.c:532
@@ -1641,11 +1602,11 @@ msgstr "警告：選擇了 FreeType，但無法載入函式庫：%d\n"
 
 #: lib/font.c:541
 msgid "Warning: No X fonts found.  The world is ending."
-msgstr "警告：沒有給 %s 用的 X 字型。這次完了。"
+msgstr "警告：沒有 X 可用的字型。這次完了。"
 
 #: lib/font.c:848
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
-msgstr ""
+msgstr "錯誤，找不到任何字型。這是不應該發生的事。\n"
 
 #: lib/font.c:850 lib/font.c:851 lib/font.c:884
 #, c-format
@@ -1655,7 +1616,7 @@ msgstr "沒有找到字型 %s，改用 Courier。\n"
 #: lib/font.c:861
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
-msgstr ""
+msgstr "字型 %s 沒有 %s 款式，會使用 %s\n"
 
 #: lib/message.c:149
 msgid "Notice"
@@ -1707,18 +1668,16 @@ msgid "Filled Triangle"
 msgstr "實心三角形"
 
 #: lib/widgets.c:664
-#, fuzzy
 msgid "Unfilled Triangle"
-msgstr "實心三角形"
+msgstr "不填色三角形"
 
 #: lib/widgets.c:665
 msgid "Filled Diamond"
 msgstr "實心菱形"
 
 #: lib/widgets.c:666
-#, fuzzy
 msgid "Half Head"
-msgstr "半個頭"
+msgstr "半邊箭頭"
 
 #: lib/widgets.c:667
 msgid "Slashed Cross"
@@ -1742,7 +1701,7 @@ msgstr ""
 
 #: lib/widgets.c:672
 msgid "Blanked Dot"
-msgstr ""
+msgstr "空心點"
 
 #: lib/widgets.c:673
 #, fuzzy
@@ -1760,7 +1719,7 @@ msgstr "實心方塊"
 
 #: lib/widgets.c:676
 msgid "Blanked Box"
-msgstr ""
+msgstr "空心方塊"
 
 #: lib/widgets.c:677
 #, fuzzy
@@ -1793,6 +1752,8 @@ msgid ""
 "The file %s has no encoding specification;\n"
 "assuming it is encoded in %s"
 msgstr ""
+"檔案 %s 沒有編碼規格；\n"
+"假設它的編碼是 %s"
 
 #: lib/dia_xml.c:458
 msgid "Taking point value of non-point node."
@@ -1854,7 +1815,7 @@ msgstr "本體"
 
 #: objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
-msgstr "本體/關係 圖表物件"
+msgstr "「本體/關係」圖表物件"
 
 #: objects/ER/participation.c:113
 msgid "Total:"
@@ -1980,16 +1941,15 @@ msgstr "接收"
 
 #: objects/FS/function.c:615 objects/FS/function.c:751
 msgid "Allow"
-msgstr "全部"
+msgstr "允許"
 
 #: objects/FS/function.c:616
 msgid "Form Entrance"
 msgstr ""
 
 #: objects/FS/function.c:617 objects/FS/function.c:734
-#, fuzzy
 msgid "Capture"
-msgstr "建立"
+msgstr ""
 
 #: objects/FS/function.c:618 objects/FS/function.c:619
 msgid "Export"
@@ -2017,38 +1977,33 @@ msgid "Transport"
 msgstr "輸送"
 
 #: objects/FS/function.c:628
-#, fuzzy
 msgid "Lift"
-msgstr "靠左"
+msgstr ""
 
 #: objects/FS/function.c:629
 msgid "Move"
 msgstr "移動"
 
 #: objects/FS/function.c:631 objects/FS/function.c:632
-#, fuzzy
 msgid "Transmit"
-msgstr "移動"
+msgstr ""
 
 #: objects/FS/function.c:633
-#, fuzzy
 msgid "Conduct"
-msgstr "連接"
+msgstr ""
 
 #: objects/FS/function.c:635
-#, fuzzy
 msgid "Convey"
-msgstr "轉換"
+msgstr ""
 
 #: objects/FS/function.c:636 objects/FS/function.c:637
 #: objects/FS/function.c:638
-#, fuzzy
 msgid "Guide"
-msgstr "   引導"
+msgstr ""
 
 #: objects/FS/function.c:639
 msgid "Direct"
-msgstr "方向"
+msgstr ""
 
 #: objects/FS/function.c:640
 msgid "Straighten"
@@ -2067,19 +2022,16 @@ msgid "Rotate"
 msgstr "旋轉"
 
 #: objects/FS/function.c:645
-#, fuzzy
 msgid "Turn"
-msgstr "返回"
+msgstr ""
 
 #: objects/FS/function.c:646
-#, fuzzy
 msgid "Spin"
-msgstr "縮放比例"
+msgstr ""
 
 #: objects/FS/function.c:647 objects/FS/function.c:648
-#, fuzzy
 msgid "Allow DOF"
-msgstr "允許DOF"
+msgstr "允許 DOF"
 
 #: objects/FS/function.c:649
 msgid "Constrain"
@@ -2111,7 +2063,6 @@ msgid "Prevent"
 msgstr "防止"
 
 #: objects/FS/function.c:658
-#, fuzzy
 msgid "Shield"
 msgstr "防護"
 
@@ -2136,9 +2087,8 @@ msgid "Attach"
 msgstr ""
 
 #: objects/FS/function.c:666
-#, fuzzy
 msgid "Mount"
-msgstr "字型:"
+msgstr ""
 
 #: objects/FS/function.c:667
 msgid "Lock"
@@ -2149,9 +2099,8 @@ msgid "Fasten"
 msgstr "固定"
 
 #: objects/FS/function.c:669
-#, fuzzy
 msgid "Hold"
-msgstr "實心"
+msgstr ""
 
 #: objects/FS/function.c:670 objects/FS/function.c:671
 msgid "Position"
@@ -2207,9 +2156,8 @@ msgid "Pack"
 msgstr ""
 
 #: objects/FS/function.c:688
-#, fuzzy
 msgid "Coalesce"
-msgstr "關閉"
+msgstr ""
 
 #: objects/FS/function.c:689 objects/FS/function.c:690
 msgid "Branch"
@@ -2246,7 +2194,7 @@ msgstr "剪下"
 
 #: objects/FS/function.c:702
 msgid "Polish"
-msgstr ""
+msgstr "打磨"
 
 #: objects/FS/function.c:703
 msgid "Sand"
@@ -2254,7 +2202,7 @@ msgstr "沙"
 
 #: objects/FS/function.c:704
 msgid "Drill"
-msgstr ""
+msgstr "鑽"
 
 #: objects/FS/function.c:705
 msgid "Lathe"
@@ -2269,18 +2217,16 @@ msgid "Purify"
 msgstr "淨化"
 
 #: objects/FS/function.c:709
-#, fuzzy
 msgid "Strain"
-msgstr "縮放比例"
+msgstr ""
 
 #: objects/FS/function.c:710
 msgid "Filter"
 msgstr "過濾"
 
 #: objects/FS/function.c:711
-#, fuzzy
 msgid "Percolate"
-msgstr "私用"
+msgstr ""
 
 #: objects/FS/function.c:712
 msgid "Clear"
@@ -2295,9 +2241,8 @@ msgid "Diverge"
 msgstr ""
 
 #: objects/FS/function.c:716
-#, fuzzy
 msgid "Scatter"
-msgstr "比例:"
+msgstr ""
 
 #: objects/FS/function.c:717
 msgid "Disperse"
@@ -2320,9 +2265,8 @@ msgid "Absorb"
 msgstr "吸收"
 
 #: objects/FS/function.c:723
-#, fuzzy
 msgid "Dampen"
-msgstr "名稱:"
+msgstr ""
 
 #: objects/FS/function.c:724
 msgid "Dispel"
@@ -2349,47 +2293,40 @@ msgid "Collect"
 msgstr "收集"
 
 #: objects/FS/function.c:733
-#, fuzzy
 msgid "Reserve"
-msgstr "循環"
+msgstr ""
 
 #: objects/FS/function.c:735 objects/FS/function.c:736
 msgid "Supply"
 msgstr "供應"
 
 #: objects/FS/function.c:737
-#, fuzzy
 msgid "Fill"
-msgstr "檔案"
+msgstr "填充"
 
 #: objects/FS/function.c:738
 msgid "Provide"
 msgstr "提供"
 
 #: objects/FS/function.c:739
-#, fuzzy
 msgid "Replenish"
-msgstr "取代"
+msgstr ""
 
 #: objects/FS/function.c:740
-#, fuzzy
 msgid "Expose"
-msgstr "橢圓"
+msgstr ""
 
 #: objects/FS/function.c:741 sheets/Flowchart.sheet.in.h:9
-#, fuzzy
 msgid "Extract"
-msgstr "   濃縮"
+msgstr ""
 
 #: objects/FS/function.c:742 objects/FS/function.c:743
-#, fuzzy
 msgid "Control Magnitude"
-msgstr "控制量質"
+msgstr ""
 
 #: objects/FS/function.c:744 objects/FS/function.c:745
-#, fuzzy
 msgid "Actuate"
-msgstr "   開動"
+msgstr ""
 
 #: objects/FS/function.c:746
 msgid "Start"
@@ -2445,33 +2382,28 @@ msgid "Reduce"
 msgstr "減少"
 
 #: objects/FS/function.c:764
-#, fuzzy
 msgid "Normalize"
-msgstr "一般"
+msgstr ""
 
 #: objects/FS/function.c:765
-#, fuzzy
 msgid "Multiply"
-msgstr "複雜度:"
+msgstr ""
 
 #: objects/FS/function.c:766
-#, fuzzy
 msgid "Scale"
-msgstr "比例:"
+msgstr ""
 
 #: objects/FS/function.c:767
-#, fuzzy
 msgid "Rectify"
-msgstr "相容性:"
+msgstr ""
 
 #: objects/FS/function.c:768
 msgid "Adjust"
 msgstr "調校"
 
 #: objects/FS/function.c:769 objects/FS/function.c:770
-#, fuzzy
 msgid "Form"
-msgstr "   來源"
+msgstr ""
 
 #: objects/FS/function.c:771
 msgid "Compact"
@@ -2498,7 +2430,6 @@ msgid "Convert"
 msgstr "轉換"
 
 #: objects/FS/function.c:778
-#, fuzzy
 msgid "Transform"
 msgstr "變形"
 
@@ -2524,11 +2455,11 @@ msgstr "凝結"
 
 #: objects/FS/function.c:784
 msgid "Integrate"
-msgstr "積分"
+msgstr ""
 
 #: objects/FS/function.c:785
 msgid "Differentiate"
-msgstr "微分"
+msgstr ""
 
 #: objects/FS/function.c:786
 msgid "Process"
@@ -2633,9 +2564,8 @@ msgid "Mech. Energy"
 msgstr "機械能量"
 
 #: objects/FS/function.c:821
-#, fuzzy
 msgid "Translation"
-msgstr "移動"
+msgstr ""
 
 #: objects/FS/function.c:822
 msgid "Force"
@@ -2674,7 +2604,6 @@ msgid "Electricity"
 msgstr "電力"
 
 #: objects/FS/function.c:831
-#, fuzzy
 msgid "Voltage"
 msgstr "伏特"
 
@@ -2684,7 +2613,7 @@ msgstr "電流"
 
 #: objects/FS/function.c:833
 msgid "Hydraulic"
-msgstr ""
+msgstr "水力"
 
 #: objects/FS/function.c:834
 msgid "Pressure"
@@ -2704,19 +2633,16 @@ msgid "Heat"
 msgstr "熱"
 
 #: objects/FS/function.c:838
-#, fuzzy
 msgid "Conduction"
-msgstr "條件:"
+msgstr "傳導"
 
 #: objects/FS/function.c:839
-#, fuzzy
 msgid "Convection"
-msgstr "連接"
+msgstr ""
 
 #: objects/FS/function.c:840 objects/FS/function.c:844
-#, fuzzy
 msgid "Radiation"
-msgstr "條件:"
+msgstr "輻射"
 
 #: objects/FS/function.c:841
 msgid "Pneumatic"
@@ -2868,9 +2794,8 @@ msgid "Shows a red dot to figure the step's activity"
 msgstr "以一紅點顯示每步的進行"
 
 #: objects/GRAFCET/transition.c:138
-#, fuzzy
 msgid "Receptivity"
-msgstr "相容性:"
+msgstr ""
 
 #: objects/GRAFCET/transition.c:138
 msgid "The boolean equation of the receptivity"
@@ -2925,9 +2850,8 @@ msgid "Delete  connection point"
 msgstr "刪除連接點"
 
 #: objects/GRAFCET/vergent.c:395
-#, fuzzy
 msgid "GRAFCET OR/AND vergent"
-msgstr "GRAFCET OR/AND vergent"
+msgstr ""
 
 #: objects/SADT/arrow.c:134 objects/UML/state.c:124
 msgid "Normal"
@@ -2978,11 +2902,11 @@ msgstr "插入文字"
 
 #: objects/SADT/box.c:144
 msgid "Activity/Data identifier"
-msgstr "活動/資料 識別"
+msgstr "「活動/資料」識別"
 
 #: objects/SADT/box.c:145
 msgid "The identifier which appears in the lower right corner of the Box"
-msgstr ""
+msgstr "在方塊右下角顯示的識別資料"
 
 #: objects/SADT/box.c:439 objects/standard/line.c:183
 msgid "Delete connection point"
@@ -3025,9 +2949,8 @@ msgid "Role:"
 msgstr "角色："
 
 #: objects/UML/association.c:1067
-#, fuzzy
 msgid "Multiplicity:"
-msgstr "複雜度:"
+msgstr ""
 
 #. Show arrow:
 #: objects/UML/association.c:1078
@@ -3162,14 +3085,12 @@ msgid "Protected"
 msgstr "保護"
 
 #: objects/UML/class_dialog.c:803 objects/UML/class_dialog.c:1667
-#, fuzzy
 msgid "Implementation"
-msgstr "實作"
+msgstr ""
 
 #: objects/UML/class_dialog.c:819 objects/UML/class_dialog.c:1683
-#, fuzzy
 msgid "Class scope"
-msgstr "階層能力"
+msgstr ""
 
 #. Operations page:
 #: objects/UML/class_dialog.c:1542
@@ -3203,7 +3124,7 @@ msgstr "模板"
 
 #: objects/UML/class_dialog.c:2163
 msgid "Template class"
-msgstr "模板階層"
+msgstr ""
 
 #: objects/UML/class_dialog.c:2220
 msgid "Formal parameter data"
@@ -3218,9 +3139,8 @@ msgid "Is object"
 msgstr "是一個物件"
 
 #: objects/UML/constraint.c:120
-#, fuzzy
 msgid "Constraint:"
-msgstr "強制:"
+msgstr "限制："
 
 #: objects/UML/dependency.c:129
 msgid "Show arrow:"
@@ -3251,9 +3171,8 @@ msgid "UML Lifeline"
 msgstr ""
 
 #: objects/UML/message.c:135
-#, fuzzy
 msgid "Call"
-msgstr "聯絡"
+msgstr ""
 
 #: objects/UML/message.c:136
 msgid "Create"
@@ -3288,9 +3207,8 @@ msgid "Message type:"
 msgstr "訊息種類："
 
 #: objects/UML/object.c:146
-#, fuzzy
 msgid "Explicit state"
-msgstr "完成日期;"
+msgstr ""
 
 #: objects/UML/object.c:151
 msgid "Active object"
@@ -3320,7 +3238,7 @@ msgstr "狀態類別"
 #: objects/UML/uml.c:60
 #, fuzzy
 msgid "Unified Modelling Language diagram objects"
-msgstr "統一模型語言 圖表物件"
+msgstr "「統一模型語言」圖表物件"
 
 #: objects/UML/usecase.c:124
 #, fuzzy
@@ -3328,13 +3246,12 @@ msgid "Text outside"
 msgstr "文字外觀:"
 
 #: objects/UML/usecase.c:126
-#, fuzzy
 msgid "Collaboration"
-msgstr "協力"
+msgstr ""
 
 #: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
-msgstr "Chronogram 圖表物件"
+msgstr "「年代表」圖表物件"
 
 #: objects/chronogram/chronoline.c:148
 msgid "Data"
@@ -3350,9 +3267,10 @@ msgstr "事件"
 
 #: objects/chronogram/chronoline.c:155
 msgid "Event specification"
-msgstr ""
+msgstr "事件規格"
 
 #: objects/chronogram/chronoline.c:156
+#, fuzzy
 msgid ""
 "@ time    set the pointer at an absolute time.\n"
 "( duration  sets the signal up, then wait 'duration'.\n"
@@ -3361,9 +3279,9 @@ msgid ""
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
 "@ 時間      設定指標於絕對時間。\n"
-"( 經過時間  設定信號啟動，並等待 '經過時間'。\n"
-") 經過時間  設定信號停止，並等待 '經過時間'。\n"
-"u 經過時間  設定信號為 '未知'，並等待 '經過時間'。\n"
+"( 經過時間  設定信號啟動，並等待「經過時間」。\n"
+") 經過時間  設定信號停止，並等待「經過時間」。\n"
+"u 經過時間  設定信號為「未知」，並等待「經過時間」。\n"
 "例子： @ 1.0 (2.0)1.0(2.0)\n"
 
 #: objects/chronogram/chronoline.c:162
@@ -3391,9 +3309,8 @@ msgid "Multi-bit data"
 msgstr "多位元資料"
 
 #: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
-#, fuzzy
 msgid "Aspect"
-msgstr "外觀"
+msgstr ""
 
 #: objects/chronogram/chronoline.c:175
 msgid "Data color"
@@ -3431,9 +3348,8 @@ msgid "Custom"
 msgstr "自訂"
 
 #: objects/custom/custom.c:124
-#, fuzzy
 msgid "Custom XML shapes loader"
-msgstr "自訂 XML 形式載入器"
+msgstr "自訂 XML 圖形載入器"
 
 #: objects/custom/custom_object.c:188 objects/custom/custom_object.c:207
 msgid "Flip horizontal"
@@ -3446,9 +3362,8 @@ msgstr "垂直翻轉"
 #: objects/custom/custom_object.c:320 objects/flowchart/box.c:293
 #: objects/flowchart/diamond.c:272 objects/flowchart/ellipse.c:272
 #: objects/flowchart/parallelogram.c:296
-#, fuzzy
 msgid "Text padding:"
-msgstr "插入文字:"
+msgstr ""
 
 #: objects/custom/custom_object.c:334 objects/standard/textobj.c:206
 msgid "Alignment:"
@@ -3477,7 +3392,7 @@ msgstr "垂直翻轉"
 #: objects/custom/custom_object.c:1554
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
-msgstr "無法開啟物件類別 '%2$s' 的圖示檔 %1$s。"
+msgstr "無法開啟物件類別 '%2$s' 所用的圖示檔 %1$s。"
 
 #: objects/flowchart/box.c:167 objects/standard/box.c:153
 msgid "Corner radius"
@@ -3492,14 +3407,12 @@ msgid "Flowchart objects"
 msgstr "流程圖物件"
 
 #: objects/flowchart/parallelogram.c:169
-#, fuzzy
 msgid "Shear angle"
-msgstr "分離角"
+msgstr ""
 
 #: objects/flowchart/parallelogram.c:282
-#, fuzzy
 msgid "Shear angle:"
-msgstr "分離角:"
+msgstr ""
 
 #: objects/network/bus.c:574
 msgid "Add Handle"
@@ -3533,7 +3446,7 @@ msgstr "柔軟控制"
 #: objects/standard/bezier.c:531 objects/standard/beziergon.c:550
 #, fuzzy
 msgid "Cusp control"
-msgstr " 尖銳控制"
+msgstr "尖銳控制"
 
 #: objects/standard/arc.c:133
 msgid "Curve distance"
@@ -3704,7 +3617,7 @@ msgstr "讀取 %2$d 點中的第 %1$d 點時出現錯誤：%3$s\n"
 
 #: plug-ins/xfig/xfig-import.c:493
 msgid "Error while reading arrowhead\n"
-msgstr "讀取箭頭時錯誤\n"
+msgstr "讀取箭頭時發生錯誤\n"
 
 #: plug-ins/xfig/xfig-import.c:584
 #, c-format
@@ -3712,11 +3625,9 @@ msgid "Couldn't read ellipse info: %s\n"
 msgstr "無法讀取橢圓資料：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:652
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read polyline info: %s\n"
-msgstr ""
-"無法載入 plugin '%s'\n"
-"%s"
+msgstr "無法讀取自由線段資料：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:667
 #, c-format
@@ -3726,7 +3637,7 @@ msgstr "無法讀取翻轉有關的位元：%s\n"
 #: plug-ins/xfig/xfig-import.c:723 plug-ins/xfig/xfig-import.c:809
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
-msgstr ""
+msgstr "不明的自由線段副類型：%d\n"
 
 #: plug-ins/xfig/xfig-import.c:787
 #, c-format
@@ -3753,9 +3664,9 @@ msgid "Couldn't read color: %s\n"
 msgstr "無法讀取顏色：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:985
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read group extend: %s\n"
-msgstr "無法開啟 '%s'."
+msgstr ""
 
 #: plug-ins/xfig/xfig-import.c:996
 #, c-format
@@ -3770,7 +3681,7 @@ msgstr "`%s' 不是 `%s' 或 `%s' 其中之一\n"
 #: plug-ins/xfig/xfig-import.c:1029
 #, c-format
 msgid "Error reading paper size: %s\n"
-msgstr "讀取紙張大小發生錯誤：%s\n"
+msgstr "讀取紙張大小時發生錯誤：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:1039
 #, c-format
@@ -3780,37 +3691,37 @@ msgstr "不明的紙張大小 `%s'，使用預設值\n"
 #: plug-ins/xfig/xfig-import.c:1051
 #, c-format
 msgid "Error reading paper orientation: %s\n"
-msgstr "讀取紙張方向發生錯誤：%s\n"
+msgstr "讀取紙張方向時發生錯誤：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:1061
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading justification: %s\n"
-msgstr "讀取檔案錯誤\n"
+msgstr "讀取對齊資料時發生錯誤：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:1071
 #, c-format
 msgid "Error reading units: %s\n"
-msgstr "讀取單位發生錯誤：%s\n"
+msgstr "讀取量度單位時發生錯誤：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:1085
 #, c-format
 msgid "Error reading magnification: %s\n"
-msgstr "讀取縮放倍率發生錯誤：%s\n"
+msgstr "讀取縮放倍率時發生錯誤：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:1096
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
-msgstr "讀取頁數指示發生錯誤：%s\n"
+msgstr "讀取頁數指示時發生錯誤：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:1107
 #, c-format
 msgid "Error reading transparent color: %s\n"
-msgstr "讀取透明顏色發生錯誤：%s\n"
+msgstr "讀取透明顏色時發生錯誤：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:1116 plug-ins/xfig/xfig-import.c:1171
 #, c-format
 msgid "Error reading FIG file: %s\n"
-msgstr "讀取 FIG 檔案發生錯誤：%s\n"
+msgstr "讀取 FIG 檔案時發生錯誤：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:1118 plug-ins/xfig/xfig-import.c:1173
 msgid "Premature end of FIG file\n"
@@ -3819,7 +3730,7 @@ msgstr "FIG 檔案過早完結\n"
 #: plug-ins/xfig/xfig-import.c:1127
 #, c-format
 msgid "Error reading resolution: %s\n"
-msgstr "讀取解析度發生錯誤：%s\n"
+msgstr "讀取解析度時發生錯誤：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:1158
 #, c-format
@@ -3836,9 +3747,8 @@ msgid "XFig File Format"
 msgstr "XFig 檔案格式"
 
 #: sheets/chronogram.sheet.in.h:1
-#, fuzzy
 msgid "A data line"
-msgstr "資料行寬度"
+msgstr "資料行"
 
 #: sheets/chronogram.sheet.in.h:2
 msgid "A time scale"
@@ -3846,202 +3756,170 @@ msgstr ""
 
 #: sheets/chronogram.sheet.in.h:3
 msgid "Chronogram"
-msgstr ""
+msgstr "年代表"
 
 #: sheets/chronogram.sheet.in.h:4
-#, fuzzy
 msgid "Objects to design chronogram charts"
-msgstr "Sybase 回覆網域 圖表物件"
+msgstr "設計年代表所用的物件"
 
 #: sheets/Circuit.sheet.in.h:1
-#, fuzzy
 msgid "A Horizontal Jumper"
-msgstr "水平對齊[_H]"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:2
-#, fuzzy
 msgid "A Horizontally aligned inductor"
-msgstr "水平對齊[_H]"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:3
-#, fuzzy
 msgid "A Horizontally aligned inductor (European)"
-msgstr "水平對齊[_H]"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:4
-#, fuzzy
 msgid "A Horizontally aligned resistor"
-msgstr "水平翻轉"
+msgstr "水平對齊的電阻"
 
 #: sheets/Circuit.sheet.in.h:5
-#, fuzzy
 msgid "A Horizontally aligned resistor (European)"
-msgstr "水平翻轉"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:6
-#, fuzzy
 msgid "A PMOS transistor"
-msgstr "移動"
+msgstr "PMOS 電晶體"
 
 #: sheets/Circuit.sheet.in.h:7
 msgid "A Speaker"
-msgstr ""
+msgstr "揚聲器"
 
 #: sheets/Circuit.sheet.in.h:8
-#, fuzzy
 msgid "A Vertically aligned inductor"
-msgstr "水平對齊[_H]"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:9
-#, fuzzy
 msgid "A Vertically aligned inductor (European)"
-msgstr "水平對齊[_H]"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:10
-#, fuzzy
 msgid "A Vertically aligned resistor"
-msgstr "水平翻轉"
+msgstr "垂直對齊的電阻"
 
 #: sheets/Circuit.sheet.in.h:11
-#, fuzzy
 msgid "A Vertically aligned resistor (European)"
-msgstr "水平翻轉"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:12
-#, fuzzy
 msgid "A ground point"
-msgstr "結束點"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:13
-#, fuzzy
 msgid "A horizontally aligned LED"
-msgstr "水平對齊[_H]"
+msgstr "水平對齊的 LED"
 
 #: sheets/Circuit.sheet.in.h:14
-#, fuzzy
 msgid "A horizontally aligned capacitor"
-msgstr "水平翻轉"
+msgstr "水平對齊的電容"
 
 #: sheets/Circuit.sheet.in.h:15
-#, fuzzy
 msgid "A horizontally aligned diode"
-msgstr "水平對齊[_H]"
+msgstr "水平對齊的二極管"
 
 #: sheets/Circuit.sheet.in.h:16
-#, fuzzy
 msgid "A horizontally aligned fuse"
-msgstr "水平對齊[_H]"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:17
-#, fuzzy
 msgid "A horizontally aligned powersource"
-msgstr "水平對齊[_H]"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:18
-#, fuzzy
 msgid "A horizontally aligned zener diode"
-msgstr "水平對齊[_H]"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:19
-#, fuzzy
 msgid "A lamp"
-msgstr "顯示"
+msgstr "燈"
 
 #: sheets/Circuit.sheet.in.h:20
-#, fuzzy
 msgid "A npn bipolar transistor"
-msgstr "移動"
+msgstr "npn 二極電晶體"
 
 #: sheets/Circuit.sheet.in.h:21
-#, fuzzy
 msgid "A pnp bipolar transistor"
-msgstr "移動"
+msgstr "pnp 二極電晶體"
 
 #: sheets/Circuit.sheet.in.h:22
-#, fuzzy
 msgid "A vertically aligned LED"
-msgstr "水平對齊[_H]"
+msgstr "垂直對齊的 LED"
 
 #: sheets/Circuit.sheet.in.h:23
-#, fuzzy
 msgid "A vertically aligned capacitor"
-msgstr "水平翻轉"
+msgstr "垂直對齊的電容"
 
 #: sheets/Circuit.sheet.in.h:24
-#, fuzzy
 msgid "A vertically aligned diode"
-msgstr "水平對齊[_H]"
+msgstr "垂直對齊的二極管"
 
 #: sheets/Circuit.sheet.in.h:25
 #, fuzzy
 msgid "A vertically aligned fuse"
-msgstr "水平對齊[_H]"
+msgstr "垂直對齊"
 
 #: sheets/Circuit.sheet.in.h:26
 #, fuzzy
 msgid "A vertically aligned powersource"
-msgstr "水平翻轉"
+msgstr "垂直對齊"
 
 #: sheets/Circuit.sheet.in.h:27
 #, fuzzy
 msgid "A vertically aligned zener diode"
-msgstr "水平翻轉"
+msgstr "垂直對齊"
 
 #: sheets/Circuit.sheet.in.h:28
-#, fuzzy
 msgid "An NMOS transistor"
-msgstr "移動"
+msgstr "NMOS 電晶體"
 
 #: sheets/Circuit.sheet.in.h:29
-#, fuzzy
 msgid "An operational amplifier"
-msgstr "水平對齊[_H]"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:30
-#, fuzzy
 msgid "Circuit"
-msgstr "方向"
+msgstr "電路"
 
 #: sheets/Circuit.sheet.in.h:31
 msgid "Components for circuit diagrams"
-msgstr ""
+msgstr "電路圖的元件"
 
 #: sheets/civil.sheet.in.h:1
 msgid "A Backflow Preventer"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:2
-#, fuzzy
 msgid "A Basin"
-msgstr "移動"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:3
-#, fuzzy
 msgid "A Container"
-msgstr "包含"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:4
-#, fuzzy
 msgid "A Frequency Converter"
-msgstr "反向"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:5
 msgid "A Gas Bottle"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:6
-#, fuzzy
 msgid "A Motor"
-msgstr "相關角色"
+msgstr "馬達"
 
 #: sheets/civil.sheet.in.h:7
 msgid "A Preliminary Clarification Tank"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:8
-#, fuzzy
 msgid "A Rotor"
-msgstr "相關角色"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:9
 msgid "A final-settling Basin"
@@ -4050,31 +3928,28 @@ msgstr ""
 #: sheets/civil.sheet.in.h:10
 #, fuzzy
 msgid "A horizontal limiting line"
-msgstr "水平對齊[_H]"
+msgstr "水平對齊(_H)"
 
 #: sheets/civil.sheet.in.h:11
-#, fuzzy
 msgid "A horizontally aligned Arrow"
-msgstr "水平對齊[_H]"
+msgstr "水平對齊的箭頭"
 
 #: sheets/civil.sheet.in.h:12
 #, fuzzy
 msgid "A vertical limiting line"
-msgstr "水平對齊[_H]"
+msgstr "水平對齊(_H)"
 
 #: sheets/civil.sheet.in.h:13
-#, fuzzy
 msgid "A vertically aligned Arrow"
-msgstr "水平翻轉"
+msgstr "垂直對齊的箭頭"
 
 #: sheets/civil.sheet.in.h:14
 msgid "An Aerator with bubbles"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:15
-#, fuzzy
 msgid "Bivalent Vertical Rest"
-msgstr "垂直翻轉"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:16
 msgid "Civil"
@@ -4090,29 +3965,25 @@ msgid "Horizontal Rest"
 msgstr "水平翻轉"
 
 #: sheets/civil.sheet.in.h:19
-#, fuzzy
 msgid "Horizontally aligned Valve"
-msgstr "水平對齊[_H]"
+msgstr "水平對齊的活塞"
 
 #: sheets/civil.sheet.in.h:20
 #, fuzzy
 msgid "Horizontally aligned compressor"
-msgstr "水平對齊[_H]"
+msgstr "水平對齊(_H)"
 
 #: sheets/civil.sheet.in.h:21
-#, fuzzy
 msgid "Horizontally aligned pump"
-msgstr "水平對齊[_H]"
+msgstr "水平對齊的泵"
 
 #: sheets/civil.sheet.in.h:22
-#, fuzzy
 msgid "Reference Line"
-msgstr "建立直線"
+msgstr "基準線"
 
 #: sheets/civil.sheet.in.h:23
-#, fuzzy
 msgid "Soil"
-msgstr "實心"
+msgstr "泥土"
 
 #: sheets/civil.sheet.in.h:24
 #, fuzzy
@@ -4120,24 +3991,21 @@ msgid "Vertical Rest"
 msgstr "垂直翻轉"
 
 #: sheets/civil.sheet.in.h:25
-#, fuzzy
 msgid "Vertically aligned Propeller"
-msgstr "水平對齊[_H]"
+msgstr "垂直對齊的推進器"
 
 #: sheets/civil.sheet.in.h:26
-#, fuzzy
 msgid "Vertically aligned Valve"
-msgstr "水平對齊[_H]"
+msgstr "垂直對齊的活塞"
 
 #: sheets/civil.sheet.in.h:27
 #, fuzzy
 msgid "Vertically aligned compressor"
-msgstr "水平對齊[_H]"
+msgstr "垂直對齊(_H)"
 
 #: sheets/civil.sheet.in.h:28
-#, fuzzy
 msgid "Vertically aligned pump"
-msgstr "水平對齊[_H]"
+msgstr "垂直對齊的泵"
 
 #: sheets/civil.sheet.in.h:29
 msgid "Water Level"
@@ -4152,72 +4020,60 @@ msgid "A 'if' (normally open) ladder contact"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:3
-#, fuzzy
 msgid "A 'jump' output variable"
-msgstr "選擇印表機"
+msgstr ""
 
 #: sheets/Contact.sheet.in.h:4
-#, fuzzy
 msgid "A 'reset' output variable"
-msgstr "選擇印表機"
+msgstr ""
 
 #: sheets/Contact.sheet.in.h:5
-#, fuzzy
 msgid "A 'set' output variable"
-msgstr "選擇印表機"
+msgstr ""
 
 #: sheets/Contact.sheet.in.h:6
-#, fuzzy
 msgid "A negative output variable"
-msgstr "選擇印表機"
+msgstr ""
 
 #: sheets/Contact.sheet.in.h:7
-#, fuzzy
 msgid "A power-saved 'reset' output variable"
-msgstr "選擇印表機"
+msgstr ""
 
 #: sheets/Contact.sheet.in.h:8
-#, fuzzy
 msgid "A power-saved 'set' output variable"
-msgstr "選擇印表機"
+msgstr ""
 
 #: sheets/Contact.sheet.in.h:9
-#, fuzzy
 msgid "A power-saved negative output variable"
-msgstr "選擇印表機"
+msgstr ""
 
 #: sheets/Contact.sheet.in.h:10
-#, fuzzy
 msgid "A power-saved simple output variable"
-msgstr "選擇印表機"
+msgstr ""
 
 #: sheets/Contact.sheet.in.h:11
-#, fuzzy
 msgid "A receptivity output variable"
-msgstr "選擇印表機"
+msgstr ""
 
 #: sheets/Contact.sheet.in.h:12
-#, fuzzy
 msgid "A simple output variable"
-msgstr "選擇印表機"
+msgstr ""
 
 #: sheets/Contact.sheet.in.h:13
 msgid "Components for LADDER circuits"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:14
-#, fuzzy
 msgid "Ladder"
-msgstr "圖層"
+msgstr ""
 
 #: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
-#, fuzzy
 msgid "A connection point"
-msgstr "增加連接點"
+msgstr "連接點"
 
 #: sheets/Electric.sheet.in.h:2
 msgid "A lamp or indicator light"
-msgstr ""
+msgstr "燈或指示光源"
 
 #: sheets/Electric.sheet.in.h:3
 msgid "A normally closed contact"
@@ -4236,16 +4092,14 @@ msgid "A normally open position switch"
 msgstr ""
 
 #: sheets/Electric.sheet.in.h:7
-#, fuzzy
 msgid "A relay"
-msgstr "顯示"
+msgstr "繼電器"
 
 #: sheets/Electric.sheet.in.h:8
 msgid "Components for electric circuits"
 msgstr ""
 
 #: sheets/Electric.sheet.in.h:9
-#, fuzzy
 msgid "Electric"
 msgstr "電力"
 
@@ -4254,13 +4108,12 @@ msgid "The command organ of a relay"
 msgstr ""
 
 #: sheets/EML.sheet.in.h:1
-#, fuzzy
 msgid "Create a process"
-msgstr "建立弧線"
+msgstr ""
 
 #: sheets/EML.sheet.in.h:2
 msgid "EML"
-msgstr ""
+msgstr "EML"
 
 #: sheets/EML.sheet.in.h:3
 #, fuzzy
@@ -4277,63 +4130,55 @@ msgstr ""
 
 #: sheets/ER.sheet.in.h:2
 msgid "ER"
-msgstr ""
+msgstr "ER"
 
 #: sheets/ER.sheet.in.h:3
-#, fuzzy
 msgid "Editor for Entity Relations Diagrams"
-msgstr "本體/關係 圖表物件"
+msgstr "「本體/關係」圖表編輯器"
 
 #: sheets/ER.sheet.in.h:5
-#, fuzzy
 msgid "Participation"
-msgstr "條件:"
+msgstr "參與"
 
 #: sheets/ER.sheet.in.h:7
-#, fuzzy
 msgid "Weak Entity"
-msgstr "本體"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "A box with text inside"
-msgstr ""
+msgstr "內有文字的方塊"
 
 #: sheets/Flowchart.sheet.in.h:2
 msgid "A diamond with text inside"
-msgstr ""
+msgstr "內有文字的菱形"
 
 #: sheets/Flowchart.sheet.in.h:3
 msgid "A ellipse with text inside"
-msgstr ""
+msgstr "內有文字的橢圓"
 
 #: sheets/Flowchart.sheet.in.h:4
 msgid "A parallelogram with text inside"
-msgstr ""
+msgstr "內有文字的平形四邊形"
 
 #: sheets/Flowchart.sheet.in.h:5
-#, fuzzy
 msgid "Collate"
-msgstr "計算"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:6
-#, fuzzy
 msgid "Delay"
-msgstr "顯示"
+msgstr "延遲"
 
 #: sheets/Flowchart.sheet.in.h:8
-#, fuzzy
 msgid "Document"
-msgstr "字型:"
+msgstr "文件"
 
 #: sheets/Flowchart.sheet.in.h:10
-#, fuzzy
 msgid "Flowchart"
-msgstr "流程圖物件"
+msgstr "流程圖"
 
 #: sheets/Flowchart.sheet.in.h:11
-#, fuzzy
 msgid "Internal Storage"
-msgstr "積分符號"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:12
 #, fuzzy
@@ -4341,58 +4186,48 @@ msgid "Magnetic Disk"
 msgstr "電磁能量"
 
 #: sheets/Flowchart.sheet.in.h:13
-#, fuzzy
 msgid "Magnetic Drum"
-msgstr "電磁能量"
+msgstr "磁鼓"
 
 #: sheets/Flowchart.sheet.in.h:14
-#, fuzzy
 msgid "Magnetic Tape"
-msgstr "電磁能量"
+msgstr "磁帶"
 
 #: sheets/Flowchart.sheet.in.h:15
-#, fuzzy
 msgid "Manual Input"
-msgstr "運作"
+msgstr "人手輸入"
 
 #: sheets/Flowchart.sheet.in.h:16
-#, fuzzy
 msgid "Manual Operation"
-msgstr "運作"
+msgstr "人手操作"
 
 #: sheets/Flowchart.sheet.in.h:17
-#, fuzzy
 msgid "Merge"
-msgstr "量度"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:18
-#, fuzzy
 msgid "Objects to draw flowcharts"
-msgstr "Sybase 回覆網域 圖表物件"
+msgstr "繪畫流程圖用的物件"
 
 #: sheets/Flowchart.sheet.in.h:19
-#, fuzzy
 msgid "Off Page Connector"
-msgstr "連接"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:20
-#, fuzzy
 msgid "Offline Storage"
-msgstr "積分符號"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:21
 msgid "Or"
-msgstr ""
+msgstr "或"
 
 #: sheets/Flowchart.sheet.in.h:22
-#, fuzzy
 msgid "Predefined Process"
-msgstr "偏好設定"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:23
-#, fuzzy
 msgid "Preparation"
-msgstr "運作"
+msgstr "準備"
 
 #: sheets/Flowchart.sheet.in.h:24
 msgid "Punched Card"
@@ -4403,97 +4238,80 @@ msgid "Punched Tape"
 msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:26
-#, fuzzy
 msgid "Sort"
-msgstr "支援"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:27
-#, fuzzy
 msgid "Summing Junction"
-msgstr "預期功能"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:28
-#, fuzzy
 msgid "Terminal"
-msgstr "一般"
+msgstr "終端機"
 
 #: sheets/Flowchart.sheet.in.h:29
-#, fuzzy
 msgid "Transaction File"
-msgstr "移動"
+msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:30
-#, fuzzy
 msgid "Transmittal Tape"
-msgstr "移動"
+msgstr ""
 
 #: sheets/FS.sheet.in.h:1
-#, fuzzy
 msgid "Create a flow"
-msgstr "建立方格"
+msgstr ""
 
 #: sheets/FS.sheet.in.h:2
-#, fuzzy
 msgid "Create a function"
-msgstr "使用者功能"
+msgstr ""
 
 #: sheets/FS.sheet.in.h:3
 msgid "Create an orthogonal polyline flow"
 msgstr ""
 
 #: sheets/FS.sheet.in.h:4
-#, fuzzy
 msgid "Editor for Function Structure Diagrams."
-msgstr "「功能結構」圖表物件"
+msgstr "「功能結構」圖表編輯器"
 
 #: sheets/FS.sheet.in.h:5
 msgid "FS"
 msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:1
-#, fuzzy
 msgid "A AND vergent"
-msgstr "GRAFCET OR/AND vergent"
+msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:2
-#, fuzzy
 msgid "A OR vergent"
-msgstr "GRAFCET OR/AND vergent"
+msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:3
-#, fuzzy
 msgid "A condition (of an action)"
-msgstr "條件所用的字型"
+msgstr "（動作的）條件"
 
 #: sheets/GRAFCET.sheet.in.h:4
-#, fuzzy
 msgid "A macro call step"
-msgstr "巨集呼叫步驟"
+msgstr "呼叫巨集步驟"
 
 #: sheets/GRAFCET.sheet.in.h:5
-#, fuzzy
 msgid "A macro entry step"
-msgstr "巨集進入步驟"
+msgstr "進入巨集步驟"
 
 #: sheets/GRAFCET.sheet.in.h:6
-#, fuzzy
 msgid "A macro exit step"
-msgstr "巨集離開步驟"
+msgstr "離開巨集步驟"
 
 #: sheets/GRAFCET.sheet.in.h:7
-#, fuzzy
 msgid "A macro sub-program call step"
-msgstr "副程式呼叫步驟"
+msgstr "巨集呼叫副程式步驟"
 
 #: sheets/GRAFCET.sheet.in.h:8
-#, fuzzy
 msgid "A regular step"
 msgstr "標準步驟"
 
 #: sheets/GRAFCET.sheet.in.h:9
-#, fuzzy
 msgid "A transition"
-msgstr "移動"
+msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:10
 msgid "An action to associate to a step"
@@ -4501,25 +4319,23 @@ msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:11
 msgid "An arc (upward)"
-msgstr ""
+msgstr "弧線（向上）"
 
 #: sheets/GRAFCET.sheet.in.h:12
-#, fuzzy
 msgid "An initial step"
-msgstr "初始化步驟"
+msgstr "初始步驟"
 
 #: sheets/GRAFCET.sheet.in.h:13
 msgid "GRAFCET"
-msgstr ""
+msgstr "GRAFCET"
 
 #: sheets/GRAFCET.sheet.in.h:14
-#, fuzzy
 msgid "Objects to design GRAFCET charts"
-msgstr "Sybase 回覆網域 圖表物件"
+msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
-msgstr ""
+msgstr "拼圖"
 
 #: sheets/jigsaw.sheet.in.h:2
 msgid "Jigsaw - part_iiii"
@@ -4590,64 +4406,52 @@ msgid "Pieces of a jigsaw"
 msgstr ""
 
 #: sheets/Logic.sheet.in.h:1
-#, fuzzy
 msgid "A Nand gate"
-msgstr "聚集"
+msgstr "反及閘"
 
 #: sheets/Logic.sheet.in.h:2
-#, fuzzy
 msgid "A Nor gate"
-msgstr "聚集"
+msgstr "反或閘"
 
 #: sheets/Logic.sheet.in.h:3
-#, fuzzy
 msgid "A Not"
-msgstr "聚集"
+msgstr "反閘"
 
 #: sheets/Logic.sheet.in.h:4
-#, fuzzy
 msgid "A Xor gate"
-msgstr "聚集"
+msgstr "互斥或閘"
 
 #: sheets/Logic.sheet.in.h:5
-#, fuzzy
 msgid "A crossconnector"
-msgstr "斷線"
+msgstr ""
 
 #: sheets/Logic.sheet.in.h:6
-#, fuzzy
 msgid "A simple Buffer"
-msgstr "選擇印表機"
+msgstr ""
 
 #: sheets/Logic.sheet.in.h:7
-#, fuzzy
 msgid "An And gate"
-msgstr "聚集"
+msgstr "及閘"
 
 #: sheets/Logic.sheet.in.h:8
-#, fuzzy
 msgid "An Inverter"
-msgstr "反向"
+msgstr ""
 
 #: sheets/Logic.sheet.in.h:9
-#, fuzzy
 msgid "An Or gate"
-msgstr "聚集"
+msgstr "或閘"
 
 #: sheets/Logic.sheet.in.h:10
-#, fuzzy
 msgid "Boolean Logic"
-msgstr "生物"
+msgstr "布林邏輯"
 
 #: sheets/Logic.sheet.in.h:11
-#, fuzzy
 msgid "Logic"
-msgstr "鎖定"
+msgstr "邏輯"
 
 #: sheets/MSE.sheet.in.h:1
-#, fuzzy
 msgid "Demultiplexer"
-msgstr "複雜度:"
+msgstr ""
 
 #: sheets/MSE.sheet.in.h:2
 msgid "Large Extension Node"
@@ -4655,17 +4459,15 @@ msgstr ""
 
 #: sheets/MSE.sheet.in.h:3
 msgid "MSE"
-msgstr ""
+msgstr "MSE"
 
 #: sheets/MSE.sheet.in.h:4
-#, fuzzy
 msgid "Multiplexer"
-msgstr "複雜度:"
+msgstr ""
 
 #: sheets/MSE.sheet.in.h:5
-#, fuzzy
 msgid "Node Center"
-msgstr "置中"
+msgstr ""
 
 #: sheets/MSE.sheet.in.h:6
 msgid "Small Extension Node"
@@ -4673,7 +4475,7 @@ msgstr ""
 
 #: sheets/MSE.sheet.in.h:7
 msgid "Tactical Satellite Communications Terminal"
-msgstr ""
+msgstr "戰略衛星通訊終端機"
 
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
@@ -4681,16 +4483,15 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:1
 msgid "A 3 1/2 inch diskette"
-msgstr ""
+msgstr "3.5 吋軟磁片"
 
 #: sheets/network.sheet.in.h:2
 msgid "A Bigtower PC"
 msgstr ""
 
 #: sheets/network.sheet.in.h:3
-#, fuzzy
 msgid "A Computer"
-msgstr "增加角落"
+msgstr "電腦"
 
 #: sheets/network.sheet.in.h:4
 msgid "A Desktop PC"
@@ -4705,13 +4506,12 @@ msgid "A Miditower PC"
 msgstr ""
 
 #: sheets/network.sheet.in.h:7
-#, fuzzy
 msgid "A Minitower PC"
-msgstr "相關角色"
+msgstr ""
 
 #: sheets/network.sheet.in.h:8
 msgid "A Mobile Phone"
-msgstr ""
+msgstr "手提電話"
 
 #: sheets/network.sheet.in.h:9
 msgid "A RJ45 Wall-Plug"
@@ -4719,17 +4519,15 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:10
 msgid "A UNIX Workstation"
-msgstr ""
+msgstr "UNIX 工作站"
 
 #: sheets/network.sheet.in.h:11
-#, fuzzy
 msgid "A WAN Connection"
-msgstr "連接"
+msgstr ""
 
 #: sheets/network.sheet.in.h:12
-#, fuzzy
 msgid "A WAN Link"
-msgstr "連接"
+msgstr ""
 
 #: sheets/network.sheet.in.h:13
 msgid "A Wall-Plug for the scEAD Cabling System"
@@ -4737,49 +4535,43 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:14
 msgid "A Workstation Monitor"
-msgstr ""
+msgstr "工作站螢幕"
 
 #: sheets/network.sheet.in.h:15
 msgid "A ZIP Disk"
-msgstr ""
+msgstr "ZIP 碟"
 
 #: sheets/network.sheet.in.h:16
 msgid "A modular switching system"
 msgstr ""
 
 #: sheets/network.sheet.in.h:17
-#, fuzzy
 msgid "A monitor"
-msgstr "相關角色"
+msgstr "螢幕"
 
 #: sheets/network.sheet.in.h:18
-#, fuzzy
 msgid "A simple Modem"
-msgstr "選擇印表機"
+msgstr "普通數據機"
 
 #: sheets/network.sheet.in.h:19
-#, fuzzy
 msgid "A simple printer"
-msgstr "選擇印表機"
+msgstr "普通印表機"
 
 #: sheets/network.sheet.in.h:20
-#, fuzzy
 msgid "A speaker with integrated amplifier"
-msgstr "水平對齊[_H]"
+msgstr "內置增幅器的揚聲器"
 
 #: sheets/network.sheet.in.h:21
-#, fuzzy
 msgid "A speaker without amplifier"
-msgstr "水平對齊[_H]"
+msgstr "沒有增幅器的揚聲器"
 
 #: sheets/network.sheet.in.h:22
 msgid "A stackable hub or switch"
 msgstr ""
 
 #: sheets/network.sheet.in.h:23
-#, fuzzy
 msgid "ATM Switch Symbol"
-msgstr "轉換"
+msgstr ""
 
 #: sheets/network.sheet.in.h:24
 msgid "An Ethernet bus"
@@ -4791,37 +4583,31 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:26
 msgid "An external DAT drive"
-msgstr ""
+msgstr "外置 DAT 磁帶機"
 
 #: sheets/network.sheet.in.h:27
-#, fuzzy
 msgid "Network"
-msgstr "新增"
+msgstr "網絡"
 
 #: sheets/network.sheet.in.h:28
-#, fuzzy
 msgid "Network Cloud"
-msgstr "新增"
+msgstr ""
 
 #: sheets/network.sheet.in.h:29
-#, fuzzy
 msgid "Objects to design network diagrams with"
-msgstr "Sybase 回覆網域 圖表物件"
+msgstr "設計網絡圖表用的物件"
 
 #: sheets/network.sheet.in.h:30
-#, fuzzy
 msgid "Router Symbol"
-msgstr "積分符號"
+msgstr "路由器符號"
 
 #: sheets/network.sheet.in.h:31
-#, fuzzy
 msgid "Storage"
-msgstr "儲存"
+msgstr ""
 
 #: sheets/network.sheet.in.h:32
-#, fuzzy
 msgid "Switch Symbol"
-msgstr "轉換"
+msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A 2/2 distributor"
@@ -4853,11 +4639,11 @@ msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:9
 msgid "A generic pressure source"
-msgstr ""
+msgstr "壓力來源"
 
 #: sheets/Pneumatic.sheet.in.h:10
 msgid "A hydraulic pressure source"
-msgstr ""
+msgstr "水壓來源"
 
 #: sheets/Pneumatic.sheet.in.h:11
 msgid "A normally-in simple-effect jack"
@@ -4916,23 +4702,20 @@ msgid "Push-button command"
 msgstr ""
 
 #: sheets/SADT.sheet.in.h:1
-#, fuzzy
 msgid "A activity/data flow arrow"
-msgstr "活動/資料 識別"
+msgstr ""
 
 #: sheets/SADT.sheet.in.h:2
 msgid "A flow label"
 msgstr ""
 
 #: sheets/SADT.sheet.in.h:3
-#, fuzzy
 msgid "An activity/data box"
-msgstr "活動/資料 識別"
+msgstr ""
 
 #: sheets/SADT.sheet.in.h:4
-#, fuzzy
 msgid "Objects to design SADT diagrams"
-msgstr "Sybase 回覆網域 圖表物件"
+msgstr "設計 SADT 圖表所用的物件"
 
 #: sheets/SADT.sheet.in.h:5
 msgid "SADT/IDEF0"
@@ -4943,88 +4726,76 @@ msgid "Action being executed"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:2
-#, fuzzy
 msgid "Block Type Reference"
-msgstr "偏好設定"
+msgstr ""
 
 #: sheets/SDL.sheet.in.h:3
-#, fuzzy
 msgid "Comment"
-msgstr "置中"
+msgstr "註解"
 
 #: sheets/SDL.sheet.in.h:4
-#, fuzzy
 msgid "Decision"
-msgstr "描述："
+msgstr "決定"
 
 #: sheets/SDL.sheet.in.h:5
-#, fuzzy
 msgid "Function Header"
-msgstr "巨集呼叫"
+msgstr ""
 
 #: sheets/SDL.sheet.in.h:6
-#, fuzzy
 msgid "Function call"
-msgstr "巨集呼叫"
+msgstr "函式呼叫"
 
 #: sheets/SDL.sheet.in.h:7
 msgid "Generic Text Note"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:8
-#, fuzzy
 msgid "In/Out Connector"
-msgstr "連接"
+msgstr ""
 
 #: sheets/SDL.sheet.in.h:10
 msgid "Procedure Return"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:11
-#, fuzzy
 msgid "Process Type Reference"
-msgstr "偏好設定"
+msgstr ""
 
 #: sheets/SDL.sheet.in.h:12
-#, fuzzy
 msgid "Receive message"
-msgstr "接收"
+msgstr ""
 
 #: sheets/SDL.sheet.in.h:13
 msgid "SDL"
-msgstr ""
+msgstr "SDL"
 
 #: sheets/SDL.sheet.in.h:14
-#, fuzzy
 msgid "Save State"
-msgstr "開始"
+msgstr ""
 
 #: sheets/SDL.sheet.in.h:15
-#, fuzzy
 msgid "Send message"
-msgstr "訊息："
+msgstr ""
 
 #: sheets/SDL.sheet.in.h:16
-#, fuzzy
 msgid "Service Type Reference"
-msgstr "偏好設定"
+msgstr ""
 
 #: sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:18
-#, fuzzy
 msgid "State"
-msgstr "開始"
+msgstr ""
 
 #: sheets/sybase.sheet.in.h:1
 msgid "A Sybase Client Application"
-msgstr ""
+msgstr "Sybase 用戶端程式"
 
 #: sheets/sybase.sheet.in.h:2
 msgid "A Sybase Dataserver"
-msgstr ""
+msgstr "Sybase 資料伺服器"
 
 #: sheets/sybase.sheet.in.h:3
 msgid "A Sybase Replication Server"
@@ -5035,9 +4806,8 @@ msgid "Log Transfer Manager or Rep Agent"
 msgstr ""
 
 #: sheets/sybase.sheet.in.h:5
-#, fuzzy
 msgid "Objects to design Sybase replication domain diagrams with"
-msgstr "Sybase 回覆網域 圖表物件"
+msgstr ""
 
 #: sheets/sybase.sheet.in.h:6
 msgid "Replication Server Manager"
@@ -5048,9 +4818,8 @@ msgid "Stable Storage Device"
 msgstr ""
 
 #: sheets/sybase.sheet.in.h:8
-#, fuzzy
 msgid "Sybase"
-msgstr "直線"
+msgstr "Sybase"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Aggregation, one class is part of another"
@@ -5065,64 +4834,52 @@ msgid "Constraint, place a constraint on something"
 msgstr ""
 
 #: sheets/UML.sheet.in.h:4
-#, fuzzy
 msgid "Create a (large) package"
-msgstr "建立圖像"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:5
-#, fuzzy
 msgid "Create a (small) package"
-msgstr "建立圖像"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:6
-#, fuzzy
 msgid "Create a branch"
-msgstr "建立弧線"
+msgstr "建立分支"
 
 #: sheets/UML.sheet.in.h:7
-#, fuzzy
 msgid "Create a class"
-msgstr "模板階層"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:8
-#, fuzzy
 msgid "Create a class stereotype icon"
-msgstr "模板階層"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:9
-#, fuzzy
 msgid "Create a component"
-msgstr "建立多邊形"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:10
-#, fuzzy
 msgid "Create a dependency"
-msgstr "建立貝茲（Bezier）曲線"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:11
-#, fuzzy
 msgid "Create a lifeline"
-msgstr "建立貝茲（Bezier）曲線"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:12
-#, fuzzy
 msgid "Create a message"
-msgstr "建立圖像"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:13
-#, fuzzy
 msgid "Create a node"
-msgstr "建立直線"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:14
-#, fuzzy
 msgid "Create a note"
-msgstr "建立直線"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:15
-#, fuzzy
 msgid "Create a state machine"
-msgstr "建立直線"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:16
 #, fuzzy
@@ -5130,19 +4887,16 @@ msgid "Create a template class"
 msgstr "模板階層"
 
 #: sheets/UML.sheet.in.h:17
-#, fuzzy
 msgid "Create a use case"
-msgstr "建立圖像"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:18
-#, fuzzy
 msgid "Create an actor"
-msgstr "建立新圖表"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:19
-#, fuzzy
 msgid "Create an object"
-msgstr "建立直線"
+msgstr "建立物件"
 
 #: sheets/UML.sheet.in.h:20
 #, fuzzy
@@ -5163,7 +4917,7 @@ msgstr ""
 
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
-msgstr ""
+msgstr "UML"
 
 #: dia.desktop.in.h:1
 msgid "A Diagram Editor"
