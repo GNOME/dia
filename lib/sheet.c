@@ -28,8 +28,9 @@
 #include <dirent.h>
 #endif
 #include <glib.h>
-#include <tree.h>
-#include <parser.h>
+#include <libxml/tree.h>
+#include <libxml/parser.h>
+#include <libxml/xmlmemory.h>
 #include <string.h>
 
 #include "intl.h"
@@ -38,22 +39,24 @@
 #include "message.h"
 #include "object.h"
 #include "dia_dirs.h"
-
-#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
-#define root children
-#define childs children
-#endif
+#include "charconv.h"
 
 static GSList *sheets = NULL;
 
 Sheet *
-new_sheet(char *name, char *description)
+new_sheet(char *name, utfchar *description)
 {
   Sheet *sheet;
 
   sheet = g_new(Sheet, 1);
-  sheet->name = name;
-  sheet->description = description;
+
+#ifdef UNICODE_WORK_IN_PROGRESS
+  sheet->name = g_strdup(name);
+  sheet->description = g_strdup(description);
+#else
+  sheet->name = charconv_utf8_to_local8(name);
+  sheet->description = charconv_utf8_to_local8(description);
+#endif
 
   sheet->objects = NULL;
   return sheet;
@@ -191,11 +194,12 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 
   /* the XML fun begins here. */
 
-  doc = xmlParseFile(filename);
+  doc = xmlDoParseFile(filename);
   if (!doc) return;
-  root = doc->root;
+  root = doc->xmlRootNode;
   while (root && (root->type != XML_ELEMENT_NODE)) root=root->next;
   if (!root) return;
+  if (xmlIsBlankNode(root)) return;
 
   if (!(ns = xmlSearchNsByHref(doc,root,
 	   "http://www.lysator.liu.se/~alla/dia/dia-sheet-ns"))) {
@@ -203,15 +207,16 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
     xmlFreeDoc(doc); 
     return;
   }
-  
-  if ((root->ns != ns) || (strcmp(root->name,"sheet"))) {
-    g_warning("root element was %s -- expecting sheet", doc->root->name);
+    if ((root->ns != ns) || (strcmp(root->name,"sheet"))) {
+    g_warning("root element was %s -- expecting sheet", 
+              doc->xmlRootNode->name);
     xmlFreeDoc(doc);
     return;
   }
 
   contents = NULL;
-  for (node = root->childs; node != NULL; node = node->next) {
+  for (node = root->xmlChildrenNode; node != NULL; node = node->next) {
+    if (xmlIsBlankNode(node)) continue;
     if (node->type != XML_ELEMENT_NODE)
       continue;
 
@@ -224,11 +229,11 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
       tmp = xmlGetProp(node, "xml:lang");
       if (!tmp) tmp = xmlGetProp(node, "lang");
       score = intl_score_locale(tmp);
-      if (tmp) free(tmp);
+      if (tmp) xmlFree(tmp);
 
       if (name_score < 0 || score < name_score) {
         name_score = score;
-        if (name) free(name);
+        if (name) xmlFree(name);
         name = xmlNodeGetContent(node);
       }      
     } else if (node->ns == ns && !strcmp(node->name, "description")) {
@@ -240,11 +245,11 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
       tmp = xmlGetProp(node, "xml:lang");
       if (!tmp) tmp = xmlGetProp(node, "lang");
       score = intl_score_locale(tmp);
-      if (tmp) free(tmp);
+      if (tmp) xmlFree(tmp);
 
       if (descr_score < 0 || score < descr_score) {
         descr_score = score;
-        if (description) free(description);
+        if (description) xmlFree(description);
         description = xmlNodeGetContent(node);
       }
       
@@ -256,8 +261,8 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
   if (!contents) {
     g_warning("no contents in sheet %s.", filename);
     xmlFreeDoc(doc);
-    if (name) free(name);
-    if (description) free(description);
+    if (name) xmlFree(name);
+    if (description) xmlFree(description);
     return;
   }
 
@@ -270,10 +275,13 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
     sheetp = sheetp->next;
   }
   
-  if (!sheet)
+  if (!sheet) 
     sheet = new_sheet(name,description);
-  
-  for (node = contents->childs ; node != NULL; node = node->next) {
+   
+  xmlFree(name);
+  xmlFree(description);
+
+  for (node = contents->xmlChildrenNode ; node != NULL; node = node->next) {
     SheetObject *sheet_obj;
     ObjectType *otype;
     gchar *iconname = NULL;
@@ -283,6 +291,8 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 
     gint intdata = 0;
     gchar *chardata = NULL;
+
+    if (xmlIsBlankNode(node)) continue;
 
     if (node->type != XML_ELEMENT_NODE) 
       continue;
@@ -304,13 +314,17 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
       char *p;
       intdata = (gint)strtol(tmp,&p,0);
       if (*p != 0) intdata = 0;
-      free(tmp);
+      xmlFree(tmp);
     }
     chardata = xmlGetProp(node,"chardata");
     /* TODO.... */
-    if (chardata) free(chardata);
+    if (chardata) xmlFree(chardata);
     
-    for (subnode = node->childs; subnode != NULL ; subnode = subnode->next) {
+    for (subnode = node->xmlChildrenNode; 
+         subnode != NULL ; 
+         subnode = subnode->next) {
+      if (xmlIsBlankNode(subnode)) continue;
+
       if (subnode->ns == ns && !strcmp(subnode->name, "description")) {
 	gint score;
 
@@ -321,18 +335,18 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 	tmp = xmlGetProp(subnode, "xml:lang");
 	if (!tmp) tmp = xmlGetProp(subnode, "lang");
 	score = intl_score_locale(tmp);
-	if (tmp) free(tmp);
+	if (tmp) xmlFree(tmp);
 
 	if (subdesc_score < 0 || score < subdesc_score) {
 	  subdesc_score = score;
-	  if (objdesc) free(objdesc);
+	  if (objdesc) xmlFree(objdesc);
 	  objdesc = xmlNodeGetContent(subnode);
 	}
 	  
       } else if (subnode->ns == ns && !strcmp(subnode->name,"icon")) {
 	tmp = xmlNodeGetContent(subnode);
 	iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S,tmp,NULL);
-	if (tmp) free(tmp);
+	if (tmp) xmlFree(tmp);
       }
     }
 
@@ -340,7 +354,13 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 
     sheet_obj = g_new(SheetObject,1);
     sheet_obj->object_type = g_strdup(tmp);
-    sheet_obj->description = objdesc;
+#ifdef UNICODE_WORK_IN_PROGRESS   
+    sheet_obj->description = g_strdup(objdesc);
+#else
+    sheet_obj->description = charconv_utf8_to_local8(objdesc);
+#endif
+    xmlFree(objdesc); objdesc = NULL;
+
     sheet_obj->pixmap = NULL;
     sheet_obj->user_data = (void *)intdata; /* XXX modify user_data type ? */
     sheet_obj->pixmap_file = iconname; 
@@ -348,11 +368,11 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
     set_line_break = FALSE;
 
     if ((otype = object_get_type(tmp)) == NULL) {
-      if (sheet_obj->description) free (sheet_obj->description);
+      if (sheet_obj->description) g_free(sheet_obj->description);
       g_free(sheet_obj->pixmap_file);
       g_free(sheet_obj->object_type);
       g_free(sheet_obj);
-      if (tmp) free(tmp);
+      if (tmp) xmlFree(tmp);
       continue; 
     }	  
 
@@ -363,7 +383,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
     }
     if (sheet_obj->user_data == NULL)
       sheet_obj->user_data = otype->default_user_data;
-    if (tmp) free(tmp);
+    if (tmp) xmlFree(tmp);
       
     /* we don't need to fix up the icon and descriptions for simple objects,
        since they don't have their own description, and their icon is 

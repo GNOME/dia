@@ -31,10 +31,6 @@
 #include <locale.h>
 
 #include <entities.h>
-#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
-#define root children
-#define childs children
-#endif
 
 /* the dots per centimetre to render this diagram at */
 /* this matches the setting `100%' setting in dia. */
@@ -213,7 +209,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
   name_space = xmlNewGlobalNs(renderer->doc, "http://www.daa.com.au/~james/dia-shape-ns", NULL);
   renderer->root = xmlNewDocNode(renderer->doc, name_space, "shape", NULL);
   renderer->svg_name_space = xmlNewNs(renderer->root, "http://www.w3.org/2000/svg", "svg");
-  renderer->doc->root = renderer->root;
+  renderer->doc->xmlRootNode = renderer->root;
 
   dirname = g_dirname(filename);
   sheetname = g_basename(dirname);

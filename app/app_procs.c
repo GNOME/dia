@@ -211,9 +211,7 @@ app_init (int argc, char **argv)
 #endif
   }
    
-#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
-  xmlKeepBlanksDefault(0);
-#endif
+  LIBXML_TEST_VERSION;
 
   stdprops_init();
 

@@ -31,11 +31,6 @@
 #include "custom_util.h"
 #include "intl.h"
 
-#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
-#define root children
-#define childs children
-#endif
-
 static ShapeInfo *load_shape_info(const gchar *filename);
 
 static GHashTable *name_to_info = NULL;
@@ -545,10 +540,11 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
   char *old_locale;
 
   /* walk SVG node ... */
-  for (node = node->childs; node != NULL; node = node->next) {
+  for (node = node->xmlChildrenNode; node != NULL; node = node->next) {
     GraphicElement *el = NULL;
     GraphicStyle s;
 
+    if (xmlIsBlankNode(node)) continue;
     if (node->type != XML_ELEMENT_NODE || node->ns != svg_ns)
       continue;
     s = *style;
@@ -855,7 +851,7 @@ update_bounds(ShapeInfo *info)
 static ShapeInfo *
 load_shape_info(const gchar *filename)
 {
-  xmlDocPtr doc = xmlParseFile(filename);
+  xmlDocPtr doc = xmlDoParseFile(filename);
   xmlNsPtr shape_ns, svg_ns;
   xmlNodePtr node,root;
   ShapeInfo *info;
@@ -870,9 +866,10 @@ load_shape_info(const gchar *filename)
     return NULL;
   }
   /* skip (emacs) comments */
-  root = doc->root;
+  root = doc->xmlRootNode;
   while (root && (root->type != XML_ELEMENT_NODE)) root = root->next;
   if (!root) return NULL;
+  if (xmlIsBlankNode(root)) return NULL;
 
   if (!(shape_ns = xmlSearchNsByHref(doc, root,
 		"http://www.daa.com.au/~james/dia-shape-ns"))) {
@@ -898,9 +895,9 @@ load_shape_info(const gchar *filename)
   info->shape_bounds.right = -DBL_MAX;
   info->aspect_type = SHAPE_ASPECT_FREE; 
 
-  for (node = root->childs; node != NULL; node = node->next) {
-    if (node->type != XML_ELEMENT_NODE)
-      continue;
+  for (node = root->xmlChildrenNode; node != NULL; node = node->next) {
+    if (xmlIsBlankNode(node)) continue;
+    if (node->type != XML_ELEMENT_NODE) continue;
     if (node->ns == shape_ns && !strcmp(node->name, "name")) {
       tmp = xmlNodeGetContent(node);
       g_free(info->name);
@@ -935,7 +932,11 @@ load_shape_info(const gchar *filename)
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(Point));
       xmlNodePtr pt_node;
 
-      for (pt_node = node->childs; pt_node != NULL; pt_node = pt_node->next) {
+      for (pt_node = node->xmlChildrenNode; 
+           pt_node != NULL; 
+           pt_node = pt_node->next) {
+        if (xmlIsBlankNode(pt_node)) continue;
+
 	if (pt_node->ns == shape_ns && !strcmp(pt_node->name, "point")) {
 	  Point pt = { 0.0, 0.0 };
 	  xmlChar *str;

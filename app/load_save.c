@@ -32,10 +32,7 @@
 
 #include <tree.h>
 #include <parser.h>
-#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
-#define root children
-#define childs children
-#endif
+#include <xmlmemory.h>
 
 #include "load_save.h"
 #include "dia_xml.h"
@@ -43,6 +40,10 @@
 #include "message.h"
 #include "preferences.h"
 #include "diapagelayout.h"
+
+#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
+#define XML2
+#endif
 
 #ifdef G_OS_WIN32
 #include <io.h>
@@ -84,9 +85,13 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
 
   list = NULL;
 
-  obj_node = objects->childs;
+  obj_node = objects->xmlChildrenNode;
   
   while ( obj_node != NULL) {
+    if (xmlIsBlankNode(obj_node)) {
+      obj_node = obj_node->next;
+      continue;
+    }
 
     if (strcmp(obj_node->name, "object")==0) {
       typestr = xmlGetProp(obj_node, "type");
@@ -96,7 +101,7 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
       version = 0;
       if (versionstr != NULL) {
 	version = atoi(versionstr);
-	free(versionstr);
+	xmlFree(versionstr);
       }
 
       type = object_get_type((char *)typestr);
@@ -112,7 +117,7 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
       
         g_hash_table_insert(objects_hash, (char *)id, obj);
       }
-      if (typestr) free(typestr);
+      if (typestr) xmlFree(typestr);
     } else if (strcmp(obj_node->name, "group")==0) {
       obj = group_create(read_objects(obj_node, objects_hash, filename));
       list = g_list_append(list, obj);
@@ -150,20 +155,27 @@ read_connections(GList *objects, xmlNodePtr layer_node,
   Object *to;
   
   list = objects;
-  obj_node = layer_node->childs;
-  while (list != NULL) {
+  obj_node = layer_node->xmlChildrenNode;
+  while ((list != NULL) && (obj_node != NULL)) {
     Object *obj = (Object *) list->data;
-
+    
+    while (obj_node && xmlIsBlankNode(obj_node)) obj_node = obj_node->next;
+    if (!obj_node) break;
+    
     if IS_GROUP(obj) {
       read_connections(group_objects(obj), obj_node, objects_hash);
     } else {
-      connections = obj_node->childs;
+      connections = obj_node->xmlChildrenNode;
       while ((connections!=NULL) &&
 	     (strcmp(connections->name, "connections")!=0))
 	connections = connections->next;
       if (connections != NULL) {
-	connection = connections->childs;
+	connection = connections->xmlChildrenNode;
 	while (connection != NULL) {
+          if (xmlIsBlankNode(connection)) {
+            connection = connection->next;
+            continue;
+          }
 	  handlestr = xmlGetProp(connection, "handle");
 	  tostr = xmlGetProp(connection, "to");
 	  connstr = xmlGetProp(connection, "connection");
@@ -173,9 +185,9 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	  
 	  to = g_hash_table_lookup(objects_hash, tostr);
 
-	  if (handlestr) free(handlestr);
-	  if (connstr) free(connstr);
-	  if (tostr) free(tostr);
+	  if (handlestr) xmlFree(handlestr);
+	  if (connstr) xmlFree(connstr);
+	  if (tostr) xmlFree(tostr);
 
 	  if (to == NULL) {
 	    message_error(_("Error loading diagram.\n"
@@ -240,21 +252,21 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   
   close(fd);
 
-  doc = xmlParseFile(filename);
+  doc = xmlDiaParseFile(filename);
 
   if (doc == NULL){
     message_error(_("Error loading diagram %s.\nUnknown file type."),filename);
     return FALSE;
   }
   
-  if (doc->root == NULL) {
+  if (doc->xmlRootNode == NULL) {
     message_error(_("Error loading diagram %s.\nUnknown file type."),filename);
     xmlFreeDoc (doc);
     return FALSE;
   }
 
-  namespace = xmlSearchNs(doc, doc->root, "dia");
-  if (strcmp (doc->root->name, "diagram") || (namespace == NULL)){
+  namespace = xmlSearchNs(doc, doc->xmlRootNode, "dia");
+  if (strcmp (doc->xmlRootNode->name, "diagram") || (namespace == NULL)){
     message_error(_("Error loading diagram %s.\nNot a Dia file."), filename);
     xmlFreeDoc (doc);
     return FALSE;
@@ -264,7 +276,9 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   g_ptr_array_remove(data->layers, data->active_layer);
   layer_destroy(data->active_layer);
   
-  diagramdata = doc->root->childs;
+  diagramdata = doc->xmlRootNode->xmlChildrenNode;
+  while (diagramdata && xmlIsBlankNode(diagramdata)) 
+    diagramdata = diagramdata->next;
 
   /* Read in diagram data: */
   data->bg_color = color_white;
@@ -396,17 +410,30 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
 
   while (layer_node != NULL) {
-    char *name;
+    utfchar *name;
     char *visible;
+    
+    if (xmlIsBlankNode(layer_node)) {
+      layer_node = layer_node->next;
+      continue;
+    }
+    
     name = (char *)xmlGetProp(layer_node, "name");
     visible = (char *)xmlGetProp(layer_node, "visible");
+
+#ifndef UNICODE_WORK_IN_PROGRESS
+    { gchar *locname = charconv_utf8_to_local8(name);
+    layer = new_layer(locname);
+    }
+#else
     layer = new_layer(g_strdup(name));
-    if (name) free(name);
-    
+#endif
+    if (name) xmlFree(name);
+
     layer->visible = FALSE;
     if ((visible) && (strcmp(visible, "true")==0))
       layer->visible = TRUE;
-    if (visible) free(visible);
+    if (visible) xmlFree(visible);
 
     /* Read in all objects: */
     
@@ -482,9 +509,12 @@ write_connections(GList *objects, xmlNodePtr layer_node,
   int i;
 
   list = objects;
-  obj_node = layer_node->childs;
-  while (list != NULL) {
+  obj_node = layer_node->xmlChildrenNode;
+  while ((list != NULL) && (obj_node != NULL)) {
     Object *obj = (Object *) list->data;
+
+    while (obj_node && xmlIsBlankNode(obj_node)) obj_node = obj_node->next;
+    if (!obj_node) break;
 
     if IS_GROUP(obj) {
       write_connections(group_objects(obj), obj_node, objects_hash);
@@ -588,13 +618,14 @@ diagram_data_save(DiagramData *data, const char *filename)
 
   doc = xmlNewDoc("1.0");
 
-  doc->root = xmlNewDocNode(doc, NULL, "diagram", NULL);
+  doc->xmlRootNode = xmlNewDocNode(doc, NULL, "diagram", NULL);
 
-  name_space = xmlNewNs(doc->root, "http://www.lysator.liu.se/~alla/dia/",
+  name_space = xmlNewNs(doc->xmlRootNode, 
+                        "http://www.lysator.liu.se/~alla/dia/",
 			"dia");
-  xmlSetNs(doc->root, name_space);
+  xmlSetNs(doc->xmlRootNode, name_space);
 
-  tree = xmlNewChild(doc->root, name_space, "diagramdata", NULL);
+  tree = xmlNewChild(doc->xmlRootNode, name_space, "diagramdata", NULL);
   
   attr = new_attribute((ObjectNode)tree, "background");
   data_add_color(attr, &data->bg_color);
@@ -649,9 +680,17 @@ diagram_data_save(DiagramData *data, const char *filename)
   obj_nr = 0;
 
   for (i = 0; i < data->layers->len; i++) {
-    layer_node = xmlNewChild(doc->root, name_space, "layer", NULL);
+    layer_node = xmlNewChild(doc->xmlRootNode, name_space, "layer", NULL);
     layer = (Layer *) g_ptr_array_index(data->layers, i);
+#if ((!defined(UNICODE_WORK_IN_PROGRESS)) && (defined(XML2)))
+    { gchar *layername = charconv_local8_to_utf8(layer->name);
+    xmlSetProp(layer_node, "name", layername);
+    g_free(layername);
+    }
+#else
     xmlSetProp(layer_node, "name", layer->name);
+#endif
+
     if (layer->visible)
       xmlSetProp(layer_node, "visible", "true");
     else
@@ -671,7 +710,34 @@ diagram_data_save(DiagramData *data, const char *filename)
   else
     xmlSetDocCompressMode(doc, 0);
     
+#ifdef XML2
+  ret = xmlSaveFileEnc (tmpname, doc, "UTF-8");
+#else
+  { 
+    char *local_encoding = NULL;
+    if (get_local_charset(&local_encoding)) {
+      warn_about_broken_libxml1();
+    }
+    doc->encoding = strdup(local_encoding);
+    /* We have to do this, because if the character encoding set is set to 
+       UTF-8, libxml1 will NOT put an encoding declaration in the XML header.
+       This sucks, because we have to support older non-standard files dia
+       was generating, where files were stored encoded in the local charset
+       *without* writing an encoding header. So, we store in local encoding
+       and let libxml{1|2} handle the problem.
+
+    The libxml folks, Daniel Veillard in particular, declared that libxml1 is 
+    totally obsolete, and have expressed no intention in helping us solve
+    cleanly the issue (despite the fact that it's libxml1's brokenness which 
+    brought the problem in the first place). Well, their help will stop at 
+    letting us touch the libxml1 CVS branch. 
+
+    As of this writing, several other libraries prevent us from going to 
+    libxml2, which is the proper way to do. */
+  }
   ret = xmlSaveFile (tmpname, doc);
+#endif
+
   xmlFreeDoc(doc);
 
   if (ret < 0) {

@@ -121,7 +121,7 @@ dnl This is required to play character set games
 AM_LANGINFO_CODESET
 AM_ICONV
 
-dnl check for libunicode FIXME: the --enable test doesn't work.
+dnl check for libunicode 
 AC_ARG_ENABLE(unicode, 
 [  --enable-unicode    enable (LIMITED, EXPERIMENTAL) unicode support],,
         enable_unicode=yes)
@@ -261,23 +261,65 @@ AC_SUBST(localedir)
 dnl	
 dnl Locate the gnome-xml library
 dnl
-AC_CHECK_PROG(XML_CONFIG, xml-config, xml-config)
-if test "$XML_CONFIG" != "" 
+
+AC_CHECK_PROG(XML2_CONFIG, xml2-config, xml2-config)
+if test "$XML2_CONFIG" != ""
 then
-  AC_MSG_CHECKING(for libxml >= 1.8.5)
-  vers=`$XML_CONFIG --version | sed -e "s/libxml //" | awk 'BEGIN {FS=".";} { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
-  if test "$vers" -ge 1008005; then
+  AC_MSG_CHECKING(for libxml >= 2.3.9)
+  vers=`$XML2_CONFIG --version | sed -e "s/libxml //" | awk 'BEGIN {FS=".";} { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
+  if test "$vers" -ge 2003009; then
     AC_MSG_RESULT(found)
+    XML_LIBS="`$XML2_CONFIG --libs`"
+    XML_CFLAGS="`$XML2_CONFIG --cflags`"
+
+    if test "$enable_gnome_print" = "yes"
+    then
+        gnome-config --cflags print | \
+        grep gnome-xml 2>&1 >/dev/null && \
+        AC_MSG_ERROR(libxml2 found but gnome-print uses libxml1 ; this is a conflict.\nPlease do either provide libxml1 or disable gnome-print.)
+    fi
+    echo $GNOME_CFLAGS | \
+    grep gnome-xml 2>&1 >/dev/null && \
+    AC_MSG_ERROR(libxml2 found but one GNOME component uses libxml1 ; this is a conflict.\nPlease do either provide libxml1 or disable the offending GNOME component.)
+        
   else
-    AC_MSG_ERROR(you need libxml >= 1.8.5 for this version of dia)
+    AC_MSG_RESULT(not found)
   fi
-  XML_LIBS="`$XML_CONFIG --libs`"
-  XML_CFLAGS="`$XML_CONFIG --cflags`"
-else
-  AC_MSG_ERROR(Can't find libxml library.)
 fi
+if test "$XML_CONFIG" = ""
+then
+  AC_CHECK_PROG(XML_CONFIG, xml-config, xml-config)
+  if test "$XML_CONFIG" != "" 
+  then
+    AC_MSG_CHECKING(for libxml >= 1.8.14)
+    vers=`$XML_CONFIG --version | sed -e "s/libxml //" | awk 'BEGIN {FS=".";} { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
+    if test "$vers" -ge 1008014; then
+      dnl 1.18.14 is required for xmlUseNewParser()    
+      AC_MSG_RESULT(found)
+    else
+      AC_MSG_ERROR(you need libxml >= 1.8.14 for this version of dia)
+    fi
+    XML_LIBS="`$XML_CONFIG --libs`"
+    XML_CFLAGS="`$XML_CONFIG --cflags`"
+  else 
+    AC_MSG_RESULT(not found)
+  fi
+fi
+
+if test "$XML_CONFIG" != "" -a "$XML2_CONFIG" != ""
+then
+    AC_MSG_ERROR(Both libxml1 and libxml2 found. You need to choose one or face crashes.\nWe advise you use only libxml1 for the moment.)
+fi
+
+if test "$XML_CONFIG" = "" -a "$XML2_CONFIG" = ""
+then
+    AC_MSG_ERROR(Neither libxml1 or libxml2 found. You must install one (libxml1, preferably))
+fi
+
 AC_SUBST(XML_LIBS)
 AC_SUBST(XML_CFLAGS)
+
+CFLAGS="$XML_CFLAGS $CFLAGS"
 
 dnl Checks for header files.
 AC_HEADER_DIRENT
@@ -293,7 +335,7 @@ AC_CHECK_FUNCS(select strcspn strdup strtol snprintf)
 dnl Set some variables we'll need for the UTF-8 transition.
 gtk_advancement=initial
 
-if $gtk_advancement=initial ; then
+if $gtk_advancement = initial ; then
    AC_DEFINE(GTK_DOESNT_SPEAK_UTF8_NEITHER_DO_WE,,
           We haven't begun the transition yet)
 elif $gtk_advancement=dia_talks_utf8 ; then
@@ -301,13 +343,13 @@ elif $gtk_advancement=dia_talks_utf8 ; then
    AC_DEFINE(GTK_DOESNT_TALK_UTF8_WE_DO,,...)
    AC_DEFINE(GTK_CHARSET_MISMATCH,,     
              Mismatch between the charset dia uses and the charset GTK uses)
-elif $gtk_advancement=dia_under_win32 ; then
+elif $gtk_advancement = dia_under_win32 ; then
    dnl please check this with Hans. I believe this is true -- CC
    AC_DEFINE(GTK_TALKS_UTF8,,...)
    AC_DEFINE(GTK_TALKS_UTF8_WE_DONT,,...)
    AC_DEFINE(GTK_CHARSET_MISMATCH,,     
              Mismatch between the charset dia uses and the charset GTK uses)
-elif $gtk_advancement=gtk2 ; then
+elif $gtk_advancement = gtk2 ; then
    AC_DEFINE(GTK_TALKS_UTF8,,...)
    AC_DEFINE(UNICODE_WORK_IN_PROGRESS,,Cyrille's work towards UTF-8)
    dnl the latter shouldn't appear anymore by then (manually compiled)

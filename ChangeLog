@@ -1,5 +1,24 @@
 2001-08-15  Cyrille Chepelov <chepelov@calixo.net>
 
+	* app/app_procs.c:
+	* app/load_save.c:
+	* lib/dia_xml.c:
+	* lib/plug-ins.c:
+	* lib/sheet.c:
+	* objects/custom/shape_info.c:
+	* plug-ins/shape/shape-export.c:
+	* plug-ins/svg/render_svg.c: used the libxml1/libxml2
+	compatibility macros as taught by http://xmlsoft.org/upgrade.html;
+	removed xmlKeepBlanksDefault(0) in favour for proper
+	xmlIsBlankNode() testing. Lots of other fixups to use the
+	"libxml1.5" (libxml2 parser embedded in recent libxml1), and to
+	make libxml1 output correct files.
+
+	* configure.in: use libxml2 (>= 2.3.9) if it's found, or
+	libxml1 (>= 1.8.14). Exactly one of these must be installed (devel
+        packages). If both devel packages are found, the build will stop 
+        (Fredrik: please add a Build-Conflicts: on libxml2-dev for the moment) 
+
 	* lib/bezier_conn.c: (bezierconn_init): Lars, you forgot to
 	allocate the first handle :-)
 	

@@ -36,15 +36,17 @@
 
 #include <parser.h>
 #include <tree.h>
-#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
-#define root children
-#define childs children
-#endif
 
+#include "charconv.h"
 #include "plug-ins.h"
 #include "intl.h"
 #include "message.h"
 #include "dia_dirs.h"
+#include "dia_xml.h"
+
+#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
+#define XML2
+#endif
 
 #if defined(G_OS_WIN32) || defined(__EMX__)
 #  define PLUG_IN_EXT ".dll"
@@ -408,7 +410,7 @@ ensure_pluginrc(void)
     return;
 
   filename = dia_config_filename("pluginrc");
-  pluginrc = xmlParseFile(filename);
+  pluginrc = xmlDiaParseFile(filename);
   g_free(filename);
 
   if (!pluginrc) {
@@ -434,8 +436,12 @@ plugin_load_inhibited(const gchar *filename)
   xmlNodePtr node;
 
   ensure_pluginrc();
-  for (node = pluginrc->root->childs; node != NULL; node = node->next) {
+  for (node = pluginrc->xmlRootNode->xmlChildrenNode; 
+       node != NULL; 
+       node = node->next) {
     xmlChar *node_filename;
+
+    if (xmlIsBlankNode(node)) continue;
 
     if (node->type != XML_ELEMENT_NODE || strcmp(node->name, "plugin") != 0)
       continue;
@@ -444,7 +450,10 @@ plugin_load_inhibited(const gchar *filename)
       xmlNodePtr node2;
 
       free(node_filename);
-      for (node2 = node->childs; node2 != NULL; node2 = node2->next) {
+      for (node2 = node->xmlChildrenNode; 
+           node2 != NULL; 
+           node2 = node2->next) {
+        if (xmlIsBlankNode(node2)) continue;
 	if (node2->type == XML_ELEMENT_NODE &&
 	    !strcmp(node2->name, "inhibit-load"))
 	  return TRUE;
@@ -471,8 +480,12 @@ info_fill_from_pluginrc(PluginInfo *info)
   info->unload_func = NULL;
 
   ensure_pluginrc();
-  for (node = pluginrc->root->childs; node != NULL; node = node->next) {
+  for (node = pluginrc->xmlRootNode->xmlChildrenNode; 
+       node != NULL; 
+       node = node->next) {
     xmlChar *node_filename;
+
+    if (xmlIsBlankNode(node)) continue;
 
     if (node->type != XML_ELEMENT_NODE || strcmp(node->name, "plugin") != 0)
       continue;
@@ -481,8 +494,12 @@ info_fill_from_pluginrc(PluginInfo *info)
       xmlNodePtr node2;
 
       free(node_filename);
-      for (node2 = node->childs; node2 != NULL; node2 = node2->next) {
+      for (node2 = node->xmlChildrenNode; 
+           node2 != NULL; 
+           node2 = node2->next) {
 	char *content;
+
+        if (xmlIsBlankNode(node2)) continue;
 
 	if (node2->type != XML_ELEMENT_NODE)
 	  continue;
@@ -492,7 +509,11 @@ info_fill_from_pluginrc(PluginInfo *info)
 	  info->name = g_strdup(content);
 	} else if (!strcmp(node2->name, "description")) {
 	  g_free(info->description);
+#ifdef UNICODE_WORK_IN_PROGRESS
 	  info->description = g_strdup(content);
+#else
+          info->description = charconv_utf8_to_local8(content);
+#endif
 	}
 	free(content);
       }
@@ -519,12 +540,22 @@ dia_pluginrc_write(void)
 
     pluginnode = xmlNewNode(NULL, "plugin");
     datanode = xmlNewChild(pluginnode, NULL, "name", info->name);
+#if (!defined(XML2) || defined(UNICODE_WORK_IN_PROGRESS))
     datanode = xmlNewChild(pluginnode, NULL, "description", info->description);
+#else
+    {gchar *desc = charconv_local8_to_utf8(info->description);
+    datanode = xmlNewChild(pluginnode, NULL, "description", desc);
+    g_free(desc);}
+#endif
     if (info->inhibit_load)
       datanode = xmlNewChild(pluginnode, NULL, "inhibit-load", NULL);
 
-    for (node = pluginrc->root->childs; node != NULL; node = node->next) {
+    for (node = pluginrc->xmlRootNode->xmlChildrenNode; 
+         node != NULL; 
+         node = node->next) {
       xmlChar *node_filename;
+
+      if (xmlIsBlankNode(node)) continue;
 
       if (node->type != XML_ELEMENT_NODE || strcmp(node->name, "plugin") != 0)
 	continue;
@@ -539,13 +570,26 @@ dia_pluginrc_write(void)
     }
     /* node wasn't in document ... */
     if (!node)
-      xmlAddChild(pluginrc->root, pluginnode);
+      xmlAddChild(pluginrc->xmlRootNode, pluginnode);
     /* have to call this after adding node to document */
     xmlSetProp(pluginnode, "filename", info->filename);
   }
 
   filename = dia_config_filename("pluginrc");
+#ifdef XML2
+  xmlSaveFileEnc(filename, pluginrc,"UTF-8");
+#else
+  {
+    char *local_encoding = NULL;
+    if (get_local_charset(&local_encoding)) {
+      warn_about_broken_libxml1();
+    }
+    pluginrc->encoding = strdup(local_encoding);
+  }
   xmlSaveFile(filename, pluginrc);
+#endif
   g_free(filename);
   free_pluginrc();
 }
+
+

@@ -30,10 +30,6 @@
 #include <locale.h>
 
 #include <entities.h>
-#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
-#define root children
-#define childs children
-#endif
 
 #include <tree.h>
 #include "geometry.h"
@@ -200,7 +196,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
 		     "-//W3C//DTD SVG 20000802//EN",
 		     "http://www.w3.org/TR/2000/CR-SVG-20000802/DTD/svg-20000802.dtd");
   renderer->root = xmlNewDocNode(renderer->doc, NULL, "svg", NULL);
-  renderer->doc->root = renderer->root;
+  renderer->doc->xmlRootNode = renderer->root;
 
   /* set the extents of the SVG document */
   extent = &data->extents;

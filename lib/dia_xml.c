@@ -24,20 +24,168 @@
 #include <locale.h>
 #include <math.h>
 
-#include <parser.h>
-#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
-#define childs children
-#endif
+#include <libxml/parser.h>
+#include <libxml/parserInternals.h>
+#include <libxml/xmlmemory.h>
+
+#include <zlib.h>
 
 #include "intl.h"
 #include "utils.h"
 #include "dia_xml.h"
 #include "message.h"
+#include "charconv.h"
+
+
+#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
+#define XML2
+#endif
+
 
 #ifdef _MSC_VER
 #include <float.h>
 #define isinf(a) (!_finite(a))
 #endif
+
+
+#define BUFLEN 1024
+
+
+static const gchar *
+xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
+{
+  /* If all files produced by dia were good XML files, we wouldn't have to do 
+     this little gymnastic. Alas, during the libxml1 days, we were outputting 
+     files with no encoding specification (which means UTF-8 if we're in an
+     asciish encoding) and strings encoded in local charset (so, we wrote
+     broken files). 
+
+     The following logic finds if we have a broken file, and attempts to fix 
+     it if it's possible. If the file is correct or is unrecognisable, we pass
+     it untouched to libxml2.
+  */
+
+  gzFile zf = gzopen(filename,"rb");  
+  gchar *buf;
+  gchar *p,*pmax;
+  int len;
+  gchar *tmp,*res;
+  int uf;
+
+  static char magic_xml[] = 
+  {0x3c,0x3f,0x78,0x6d,0x6c,0x00}; /* "<?xml" in ASCII */
+
+  if (!zf) {
+    /*    message_error(_("The file %s can not be opened for reading"),filename); */ 
+    /* XXX perhaps we can just chicken out to libxml ? -- CC */ 
+    return NULL;
+  }
+  p = buf = g_malloc0(BUFLEN);  
+  len = gzread(zf,buf,BUFLEN);
+  pmax = p + len;
+
+  /* first, we expect the magic <?xml string */
+  if ((0 != strncmp(p,magic_xml,5)) || (len < 5)) {
+    gzclose(zf);
+    return filename; /* let libxml figure out what this is. */
+  }
+  /* now, we're sure we have some asciish XML file. */
+  p += 5;
+  while (((*p == 0x20)||(*p == 0x09)||(*p == 0x0d)||(*p == 0x0a))
+         && (p<pmax)) p++;
+  if (p>=pmax) { /* whoops ? */
+    gzclose(zf);
+    return filename;
+  }
+  if (0 != strncmp(p,"version=\"",9)) {
+    gzclose(zf); /* chicken out. */
+    return filename;
+  }
+  p += 9;
+  /* The header is rather well formed. */
+  if (p>=pmax) { /* whoops ? */
+    gzclose(zf);
+    return filename;
+  }
+  while ((*p != '"') && (p < pmax)) p++;
+  p++;
+  while (((*p == 0x20)||(*p == 0x09)||(*p == 0x0d)||(*p == 0x0a))
+         && (p<pmax)) p++;
+  if (p>=pmax) { /* whoops ? */
+    gzclose(zf);
+    return filename;
+  }
+  if (0 == strncmp(p,"encoding=\"",10)) {
+    gzclose(zf); /* this file has an encoding string. Good. */
+    return filename;
+  }
+  if (0 != strcmp(default_enc,"UTF-8")) {
+    message_warning(_("The file %s has no encoding specification;\n"
+                      "assuming it is encoded in %s"),filename,default_enc);
+  } else {
+    gzclose(zf); /* we apply the standard here. */
+    return filename;
+  }
+
+  tmp = getenv("TMP"); 
+  if (!tmp) tmp = getenv("TEMP");
+  if (!tmp) tmp = "/tmp";
+
+  res = g_strconcat(tmp,G_DIR_SEPARATOR_S,"dia-xml-fix-encodingXXXXXX",NULL);
+  uf = mkstemp(res);
+  write(uf,buf,p-buf);
+  write(uf," encoding=\"",11);
+  write(uf,default_enc,strlen(default_enc));
+  write(uf,"\" ",2);
+  write(uf,p,pmax - p);
+
+  while (1) {
+    len = gzread(zf,buf,BUFLEN);
+    if (len <= 0) break;
+    write(uf,buf,len);
+  }
+  gzclose(zf);
+  close(uf);
+  return res; /* caller frees the name and unlinks the file. */
+}
+
+
+
+xmlDocPtr
+xmlDiaParseFile(const char *filename) {
+  char *local_charset = NULL;
+  
+  if (!get_local_charset(&local_charset)) {
+    /* we're not in an UTF-8 environment. */ 
+    const gchar *fname = xml_file_check_encoding(filename,local_charset);
+    if (fname != filename) {
+      /* We've got a corrected file to parse. */
+      xmlDocPtr ret = xmlDoParseFile(fname);
+      unlink(fname);
+      /* printf("has read %s instead of %s\n",fname,filename); */
+      g_free((void *)fname);
+      return ret;
+    } else {
+      /* the XML file is good. libxml is "old enough" to handle it correctly.
+       */
+      return xmlDoParseFile(filename);        
+    }
+  } else {
+    return xmlDoParseFile(filename);
+  }
+}
+
+xmlDocPtr
+xmlDoParseFile(const char *filename) {
+#ifdef XML2
+  return xmlParseFile(filename);
+#else
+  int state = xmlUseNewParser(1); /* use the libxml2 parser in libxml1 */
+  xmlDocPtr doc = xmlParseFile(filename);
+  xmlUseNewParser(state);
+  return doc;
+#endif
+}
 
 AttributeNode
 object_find_attribute(ObjectNode obj_node,
@@ -46,15 +194,23 @@ object_find_attribute(ObjectNode obj_node,
   AttributeNode attr;
   char *name;
 
-  attr =  obj_node->childs;
+  while (obj_node && xmlIsBlankNode(obj_node)) 
+    obj_node = obj_node->next;
+  if (!obj_node) return NULL;
+
+  attr =  obj_node->xmlChildrenNode;
   while (attr != NULL) {
+    if (xmlIsBlankNode(attr)) {
+      attr = attr->next;
+      continue;
+    }
 
     name = xmlGetProp(attr, "name");
     if ( (name!=NULL) && (strcmp(name, attrname)==0) ) {
-      free(name);
+      xmlFree(name);
       return attr;
     }
-    if (name) free(name);
+    if (name) xmlFree(name);
     
     attr = attr->next;
   }
@@ -68,15 +224,23 @@ composite_find_attribute(DataNode composite_node,
   AttributeNode attr;
   char *name;
 
-  attr =  composite_node->childs;
+  while (composite_node && xmlIsBlankNode(composite_node)) 
+    composite_node = composite_node->next;
+  if (!composite_node) return NULL;
+
+  attr =  composite_node->xmlChildrenNode;
   while (attr != NULL) {
+    if (xmlIsBlankNode(attr)) {
+      attr = attr->next;
+      continue;
+    }
 
     name = xmlGetProp(attr, "name");
     if ( (name!=NULL) && (strcmp(name, attrname)==0) ) {
-      free(name);
+      xmlFree(name);
       return attr;
     }
-    if (name) free(name);
+    if (name) xmlFree(name);
     
     attr = attr->next;
   }
@@ -89,8 +253,12 @@ attribute_num_data(AttributeNode attribute)
   xmlNode *data;
   int nr=0;
 
-  data =  attribute->childs;
+  data =  attribute->xmlChildrenNode;
   while (data != NULL) {
+    if (xmlIsBlankNode(data)) {
+      data = data->next;
+      continue;
+    }
     nr++;
     data = data->next;
   }
@@ -100,13 +268,20 @@ attribute_num_data(AttributeNode attribute)
 DataNode
 attribute_first_data(AttributeNode attribute)
 {
-  return (DataNode) attribute->childs;
+  xmlNode *data = attribute->xmlChildrenNode;
+  while (data && xmlIsBlankNode(data)) data = data->next;
+  return (DataNode) data;
 }
 
 DataNode
 data_next(DataNode data)
 {
-  return (DataNode) data->next;
+  
+  if (data) { 
+    data = data->next;
+    while (data && xmlIsBlankNode(data)) data = data->next;
+  }
+  return (DataNode) data;
 }
 
 DataType
@@ -155,7 +330,7 @@ data_int(DataNode data)
 
   val = xmlGetProp(data, "val");
   res = atoi(val);
-  if (val) free(val);
+  if (val) xmlFree(val);
   
   return res;
 }
@@ -172,7 +347,7 @@ int data_enum(DataNode data)
 
   val = xmlGetProp(data, "val");
   res = atoi(val);
-  if (val) free(val);
+  if (val) xmlFree(val);
   
   return res;
 }
@@ -193,7 +368,7 @@ data_real(DataNode data)
   old_locale = setlocale(LC_NUMERIC, "C");
   res = strtod(val, NULL);
   setlocale(LC_NUMERIC, old_locale);
-  if (val) free(val);
+  if (val) xmlFree(val);
   
   return res;
 }
@@ -216,7 +391,7 @@ data_boolean(DataNode data)
   else 
     res = FALSE;
 
-  if (val) free(val);
+  if (val) xmlFree(val);
 
   return res;
 }
@@ -254,7 +429,7 @@ data_color(DataNode data, Color *col)
     b = hex_digit(val[5])*16 + hex_digit(val[6]);
   }
 
-  if (val) free(val);
+  if (val) xmlFree(val);
   
   col->red = ((float)r)/255.0;
   col->green = ((float)g)/255.0;
@@ -291,7 +466,7 @@ data_point(DataNode data, Point *point)
     setlocale(LC_NUMERIC, old_locale);
     point->y = 0.0;
     g_error(_("Error parsing point."));
-    free(val);
+    xmlFree(val);
     return;
   }
   point->y = strtod(str+1, NULL);
@@ -302,7 +477,7 @@ data_point(DataNode data, Point *point)
     point->y = 0.0;
   }
   setlocale(LC_NUMERIC, old_locale);
-  free(val);
+  xmlFree(val);
 }
 
 void
@@ -328,7 +503,7 @@ data_rectangle(DataNode data, Rectangle *rect)
 
   if (*str==0){
     message_error("Error parsing rectangle.");
-    free(val);
+    xmlFree(val);
     return;
   }
     
@@ -341,7 +516,7 @@ data_rectangle(DataNode data, Rectangle *rect)
 
   if (*str==0){
     message_error("Error parsing rectangle.");
-    free(val);
+    xmlFree(val);
     return;
   }
 
@@ -354,7 +529,7 @@ data_rectangle(DataNode data, Rectangle *rect)
 
   if (*str==0){
     message_error("Error parsing rectangle.");
-    free(val);
+    xmlFree(val);
     return;
   }
 
@@ -362,14 +537,14 @@ data_rectangle(DataNode data, Rectangle *rect)
   rect->bottom = strtod(str+1, NULL);
   setlocale(LC_NUMERIC, old_locale);
   
-  free(val);
+  xmlFree(val);
 }
 
-char *
+utfchar *
 data_string(DataNode data)
 {
-  char *val;
-  char *str, *p;
+  utfchar *val;
+  utfchar *str, *p,*str2;
   int len;
   
   if (data_type(data)!=DATATYPE_STRING) {
@@ -379,8 +554,8 @@ data_string(DataNode data)
 
   val = xmlGetProp(data, "val");
   if (val != NULL) { /* Old kind of string. Left for backwards compatibility */
-    str  = g_malloc(sizeof(char)*(strlen(val)+1));
-    
+    str  = g_malloc(4 * (sizeof(char)*(strlen(val)+1))); /* extra room 
+                                                            for UTF8 */
     p = str;
     while (*val) {
       if (*val == '\\') {
@@ -407,13 +582,19 @@ data_string(DataNode data)
       val++;
     }
     *p = 0;
-    free(val);
-    return str;
+    xmlFree(val);
+#ifdef UNICODE_WORK_IN_PROGRESS
+    str2 = g_strdup(str);  /* to remove the extra space */
+#else
+    str2 = charconv_utf8_to_local8(str);
+#endif
+    g_free(str);
+    return str2;
   }
 
-  if (data->childs!=NULL) {
-    p = xmlNodeListGetString(data->doc, data->childs, TRUE);
-
+  if (data->xmlChildrenNode!=NULL) {
+    p = xmlNodeListGetString(data->doc, data->xmlChildrenNode, TRUE);
+    
     if (*p!='#')
       message_error("Error in file, string not starting with #\n");
     
@@ -426,9 +607,13 @@ data_string(DataNode data)
 
     str[strlen(str)-1] = 0; /* Remove last '#' */
     
-    free(p);
-
+#ifdef UNICODE_WORK_IN_PROGRESS
     return str;
+#else
+    str2 = charconv_utf8_to_local8(str);
+    g_free(str);
+    return str2;
+#endif
   }
     
   return NULL;
@@ -447,7 +632,7 @@ data_font(DataNode data)
 
   name = xmlGetProp(data, "name");
   font = font_getfont(name);
-  if (name) free(name);
+  if (name) xmlFree(name);
   
   return font;
 }
@@ -591,17 +776,18 @@ data_add_rectangle(AttributeNode attr, const Rectangle *rect)
 }
 
 static int
-escaped_str_len(const char *str)
+escaped_str_len(const utfchar *str)
 {
   int len;
-  char c;
+  unichar c;
   
   if (str==NULL)
     return 0;
   
   len = 0;
-
-  while ((c=*str++) != 0) {
+  
+  while (*str) {
+    str = uni_get_utf8(str,&c);
     switch (c) {
     case '&':
       len += 5; /* "&amp;" */
@@ -619,10 +805,11 @@ escaped_str_len(const char *str)
 }
 
 static void
-escape_string(char *buffer, const char *str)
+escape_string(utfchar *buffer, const utfchar *str)
 {
   int len;
-  char c;
+  unichar c;
+  const utfchar *nxtstr;
   
   *buffer = 0;
   
@@ -631,7 +818,13 @@ escape_string(char *buffer, const char *str)
   
   len = 0;
 
-  while ((c=*str++) != 0) {
+  while (*str) {
+#ifdef XML2
+    nxtstr = uni_get_utf8(str,&c);
+#else
+    c = *str;
+    nxtstr = str + 1;
+#endif
     switch (c) {
     case '&':
       strcpy(buffer, "&amp;");
@@ -646,29 +839,43 @@ escape_string(char *buffer, const char *str)
       buffer += 4;
      break;
     default:
-      *buffer = c;
-      buffer++;
+#ifdef XML2
+      uni_strncpy(buffer,str,1);
+      buffer = uni_next(buffer);
+#else
+      *buffer++ = *str++;
+#endif
     }
+    str = nxtstr;
   }
   *buffer = 0;
 }
 
 void
-data_add_string(AttributeNode attr, const char *str)
+data_add_string(AttributeNode attr, const utfchar *str)
 {
   DataNode data_node;
-  char *escaped_str;
+  utfchar *escaped_str;
   int len;
+
+#if (defined(XML2) && !defined(UNICODE_WORK_IN_PROGRESS))
+  str = charconv_local8_to_utf8(str);
+  /* IF WE'RE STILL USING LIBXML1, WE'RE STILL STORING AS LOCAL CHARSET */
+#endif
 
   if (str==NULL) {
     data_node = xmlNewChild(attr, NULL, "string", NULL);
   } else {
     len = 2+escaped_str_len(str);
-    escaped_str = g_malloc(len+1);
+    escaped_str = g_malloc0(len+1);
     *escaped_str='#';
     escape_string(escaped_str+1, str);
     strcat(escaped_str, "#");
-    
+
+#if (defined(XML2) && !defined(UNICODE_WORK_IN_PROGRESS))
+    g_free(str);
+#endif
+
     data_node = xmlNewChild(attr, NULL, "string", escaped_str);
   
     g_free(escaped_str);
@@ -697,4 +904,13 @@ data_add_composite(AttributeNode attr, const char *type)
   return data_node;
 }
 
+void 
+warn_about_broken_libxml1(void) 
+{
+  message_warning(_("Your local character set is UTF-8. Because of issues"
+                    " with libxml1 and the support of files generated by"
+                    " previous versions of dia, you will encounter "
+                    " problems. Please report to dia-list@gnome.org if you"
+                    " see this message."));
+}
 
