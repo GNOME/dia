@@ -601,6 +601,8 @@ classicon_get_properties(Classicon *cicon)
     properties_dialog = prop_dialog;
 
     dialog = gtk_vbox_new(FALSE, 0);
+    gtk_object_ref(GTK_OBJECT(dialog));
+    gtk_object_sink(GTK_OBJECT(dialog));
     prop_dialog->dialog = dialog;
     
     prop_dialog->m_control = gtk_radio_button_new_with_label (NULL, _("Control"));

@@ -158,9 +158,7 @@ properties_show(Diagram *dia, Object *obj)
   }
 
   if (object_part != NULL) {
-    gtk_widget_ref(object_part);
     gtk_container_remove(GTK_CONTAINER(dialog_vbox), object_part);
-    gtk_widget_unparent(object_part);
     object_part = NULL;
     current_obj = NULL;
     current_dia = NULL;

@@ -200,6 +200,8 @@ typedef struct {
   if (!propdlg) { \
      (propdlg) = g_malloc0(sizeof(*(propdlg)) ); \
      (propdlg)->dialog.d = gtk_vbox_new(FALSE,5);  \
+     gtk_object_ref(GTK_OBJECT((propdlg)->dialog.d)); \
+     gtk_object_sink(GTK_OBJECT((propdlg)->dialog.d)); \
      gtk_container_set_border_width(GTK_CONTAINER((propdlg)->dialog.d), 10); \
      /* (propdlg)->dialog.ready = FALSE; */ \
   } \

@@ -1,5 +1,17 @@
 2000-02-04  James Henstridge  <james@daa.com.au>
 
+	* lib/lazyprops.h (PROPDLG_CREATE): ref and sink properties dialogs
+	created this way as well.
+
+	* objects/*/*.c: ref and sink the properties dialog window for each
+	widget.  It can't rely on ref count being incremented by
+	properties_show anymore.
+
+	* app/properties.c (properties_show): don't ref the widget before
+	removing it, or its ref count will increase each time you open the
+	properties dialog.  Don't unparent the widget, as container_remove
+	does that for us.
+
 	* lib/object.h: fixed up prototypes for new object methods.
 
 	* lib/properties.[ch]: added functions for automatically creating

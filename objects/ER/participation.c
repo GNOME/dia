@@ -410,6 +410,8 @@ participation_get_properties(Participation *participation)
     participation->properties_dialog = prop_dialog;
 
     vbox = gtk_vbox_new(FALSE, 0);
+    gtk_object_ref(GTK_OBJECT(vbox));
+    gtk_object_sink(GTK_OBJECT(vbox));
     prop_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);

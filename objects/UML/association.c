@@ -960,6 +960,8 @@ association_get_properties(Association *assoc)
     assoc->properties_dialog = prop_dialog;
 
     dialog = gtk_vbox_new(FALSE, 0);
+    gtk_object_ref(GTK_OBJECT(dialog));
+    gtk_object_sink(GTK_OBJECT(dialog));
     prop_dialog->dialog = dialog;
     
     /* Name entry: */

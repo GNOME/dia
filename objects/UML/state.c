@@ -496,6 +496,8 @@ state_get_properties(State *state)
     properties_dialog = prop_dialog;
 
     dialog = gtk_vbox_new(FALSE, 0);
+    gtk_object_ref(GTK_OBJECT(dialog));
+    gtk_object_sink(GTK_OBJECT(dialog));
     prop_dialog->dialog = dialog;
     
     prop_dialog->normal = gtk_radio_button_new_with_label (NULL, _("Normal"));

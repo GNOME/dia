@@ -182,6 +182,8 @@ entity_get_properties(Entity *entity)
     entity->properties_dialog = prop_dialog;
 
     vbox = gtk_vbox_new(FALSE, 5);
+    gtk_object_ref(GTK_OBJECT(vbox));
+    gtk_object_sink(GTK_OBJECT(vbox));
     prop_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);

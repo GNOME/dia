@@ -201,6 +201,8 @@ zigzagline_get_properties(Zigzagline *zigzagline)
     zigzagline_properties_dialog = g_new(ZigzaglinePropertiesDialog, 1);
 
     vbox = gtk_vbox_new(FALSE, 5);
+    gtk_object_ref(GTK_OBJECT(vbox));
+    gtk_object_sink(GTK_OBJECT(vbox));
     zigzagline_properties_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
