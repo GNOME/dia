@@ -2,6 +2,10 @@
 
 	* app/disp_callbacks.c (ddisplay_canvas_events): Take into account
 	wheel mouses for scrolling (from Patrick Sung <phsung@ualberta.ca>)
+
+	* app/display.c (ddisplay_update_scrollbars): from Patrick's
+	suggestion, remove the extra scrollable area (it was only visible
+	to the scrollbars). This is experimental.
 	
 	* objects/custom/custom_object.c: If a shape's icon file doesn't 
 	exist, warn and substitute a default icon, instead of crashing.

@@ -556,7 +556,12 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
 
   extra_border_x = (visible->right - visible->left);
   extra_border_y = (visible->bottom - visible->top);
-  
+
+  /* FIXME: either remove the extra_border stuff (as Patrick Sung proposes),
+     or make ddisp_scroll aware of it ; but don't leave the current 
+     inconsistent behaviour. Maybe leave it up to the user ? */
+  extra_border_x = extra_border_y = 0;
+
   hsbdata = ddisp->hsbdata;
   /* Horizontal: */
   hsbdata->lower = MIN(extents->left, visible->left)  - extra_border_x;
