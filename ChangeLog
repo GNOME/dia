@@ -1,5 +1,13 @@
 2005-03-17  Lars Clausen  <lars@raeder.dk>
 
+	* objects/standard/polyline.c: Patch from Grégoire Dooms
+	<dooms@info.ucl.ac.be>: Autogap and absolute gap for polyline.
+	
+	* objects/standard/bezier.c: Patch from Grégoire Dooms
+	<dooms@info.ucl.ac.be>: Fixes two bugs.  Also autogap no longer a
+	property. 
+	
+
 	* objects/UML/state_term.c: 
 	* objects/UML/large_package.c: 
 	* objects/UML/node.c: 

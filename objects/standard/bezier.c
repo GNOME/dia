@@ -53,7 +53,6 @@ struct _Bezierline {
   real line_width;
   Arrow start_arrow, end_arrow;
   real absolute_start_gap, absolute_end_gap;
-  gboolean auto_start_gap, auto_end_gap;
 };
 
 
@@ -140,10 +139,6 @@ static PropDescription bezierline_props[] = {
     N_("Absolute start gap"), NULL, &gap_range },
   { "absolute_end_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Absolute end gap"), NULL, &gap_range },
-  { "auto_start_gap", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
-    N_("Automatic start gap"), NULL, NULL},
-  { "auto_end_gap", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
-    N_("Automatic end gap"), NULL, NULL},
   PROP_FRAME_END("gaps",0),
   PROP_DESC_END
 };
@@ -166,8 +161,6 @@ static PropOffset bezierline_offsets[] = {
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Bezierline, end_arrow) },
   { "absolute_start_gap", PROP_TYPE_REAL, offsetof(Bezierline, absolute_start_gap) },
   { "absolute_end_gap", PROP_TYPE_REAL, offsetof(Bezierline, absolute_end_gap) },
-  { "auto_start_gap", PROP_TYPE_BOOL, offsetof(Bezierline, auto_start_gap) },
-  { "auto_end_gap", PROP_TYPE_BOOL, offsetof(Bezierline, auto_end_gap) },
   { NULL, 0, 0 }
 };
 
@@ -190,7 +183,8 @@ static real
 bezierline_distance_from(Bezierline *bezierline, Point *point)
 {
   BezierConn *bez = &bezierline->bez;
-  if (bezierline->auto_start_gap || bezierline->auto_end_gap ||
+  if (connpoint_is_autogap(bez->object.handles[0]->connected_to) ||
+      connpoint_is_autogap(bez->object.handles[3*(bez->numpoints-1)]->connected_to) ||
       bezierline->absolute_start_gap || bezierline->absolute_end_gap) {
     Point gap_points[4];
     real distance;
@@ -321,7 +315,7 @@ static void compute_gap_points(Bezierline *bezierline, Point *gap_points)
         first_length = distance_point_point(&gap_points[0],&gap_points[1]);
         last_length = distance_point_point(&gap_points[2],&gap_points[3]);
         
-        if (bezierline->auto_start_gap &&
+        if (connpoint_is_autogap(bez->object.handles[0]->connected_to) && 
                (bez->object.handles[0])->connected_to != NULL && 
                (bez->object.handles[0])->connected_to->object != NULL ) {
             Point end; 
@@ -335,7 +329,7 @@ static void compute_gap_points(Bezierline *bezierline, Point *gap_points)
             point_add(&gap_points[1], &end);
         }
 
-        if (bezierline->auto_end_gap &&
+        if (connpoint_is_autogap(bez->object.handles[3*(bez->numpoints-1)]->connected_to) && 
                 (bez->object.handles[3*(bez->numpoints-1)])->connected_to != NULL &&
                 (bez->object.handles[3*(bez->numpoints-1)])->connected_to->object != NULL) {
             Point end; 
@@ -355,8 +349,8 @@ static void compute_gap_points(Bezierline *bezierline, Point *gap_points)
         point_add_scaled(&gap_points[1], &vec_start, bezierline->absolute_start_gap);
 
         /* adds the absolute end gap  according to the slope at the last point */
-        point_add_scaled(&gap_points[2], &vec_end, -bezierline->absolute_end_gap);
-        point_add_scaled(&gap_points[3], &vec_end, -bezierline->absolute_end_gap);
+        point_add_scaled(&gap_points[2], &vec_end, bezierline->absolute_end_gap);
+        point_add_scaled(&gap_points[3], &vec_end, bezierline->absolute_end_gap);
 
 
 }
@@ -374,7 +368,8 @@ bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  if (bezierline->auto_start_gap || bezierline->auto_end_gap ||
+  if (connpoint_is_autogap(bez->object.handles[0]->connected_to) ||
+      connpoint_is_autogap(bez->object.handles[3*(bez->numpoints-1)]->connected_to) ||
       bezierline->absolute_start_gap || bezierline->absolute_end_gap) {
 
     compute_gap_points(bezierline,gap_points);
@@ -501,6 +496,8 @@ bezierline_copy(Bezierline *bezierline)
   newbezierline->dashlength = bezierline->dashlength;
   newbezierline->start_arrow = bezierline->start_arrow;
   newbezierline->end_arrow = bezierline->end_arrow;
+  newbezierline->absolute_start_gap = bezierline->absolute_start_gap;
+  newbezierline->absolute_end_gap = bezierline->absolute_end_gap;
 
   return &newbezierline->bez.object;
 }
@@ -529,7 +526,8 @@ bezierline_update_data(Bezierline *bezierline)
 
   obj->position = bez->points[0].p1;
 
-  if (bezierline->auto_start_gap || bezierline->auto_end_gap ||
+  if (connpoint_is_autogap(bez->object.handles[0]->connected_to) ||
+      connpoint_is_autogap(bez->object.handles[3*(bez->numpoints-1)]->connected_to) ||
       bezierline->absolute_start_gap || bezierline->absolute_end_gap) {
     Point gap_points[4];
     compute_gap_points(bezierline, gap_points);
@@ -547,7 +545,8 @@ static void
 bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 	      const char *filename)
 {
-  if (bezierline->auto_start_gap || bezierline->auto_end_gap ||
+  if (connpoint_is_autogap(bezierline->bez.object.handles[0]->connected_to) ||
+      connpoint_is_autogap(bezierline->bez.object.handles[3*(bezierline->bez.numpoints-1)]->connected_to) ||
       bezierline->absolute_start_gap || bezierline->absolute_end_gap) {
     Point gap_points[4];
     compute_gap_points(bezierline, gap_points);
@@ -597,12 +596,6 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
   if (bezierline->absolute_end_gap)
     data_add_real(new_attribute(obj_node, "absolute_end_gap"),
                  bezierline->absolute_end_gap);
-  if (bezierline->auto_start_gap)
-    data_add_boolean(new_attribute(obj_node, "auto_start_gap"),
-                 bezierline->auto_start_gap);
-  if (bezierline->auto_end_gap)
-    data_add_boolean(new_attribute(obj_node, "auto_end_gap"),
-                 bezierline->auto_end_gap);
   }
 }
 
@@ -684,15 +677,6 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "absolute_end_gap");
   if (attr != NULL)
     bezierline->absolute_end_gap =  data_real( attribute_first_data(attr) );
-  bezierline->auto_start_gap = FALSE;
-  attr = object_find_attribute(obj_node, "auto_start_gap");
-  if (attr != NULL)
-    bezierline->auto_start_gap =  data_boolean( attribute_first_data(attr) );
-  bezierline->auto_end_gap = FALSE;
-  attr = object_find_attribute(obj_node, "auto_end_gap");
-  if (attr != NULL)
-    bezierline->auto_end_gap =  data_boolean( attribute_first_data(attr) );
-
   
   bb = obj->bounding_box;
   bezierline_update_data(bezierline); //screws up the bounding box if auto_gap

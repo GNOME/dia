@@ -49,6 +49,7 @@ typedef struct _Polyline {
   real line_width;
   real corner_radius;
   Arrow start_arrow, end_arrow;
+  real absolute_start_gap, absolute_end_gap;
 } Polyline;
 
 
@@ -77,6 +78,8 @@ static void polyline_save(Polyline *polyline, ObjectNode obj_node,
 static DiaObject *polyline_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static DiaMenu *polyline_get_object_menu(Polyline *polyline, Point *clickedpoint);
+void polyline_calculate_gap_endpoints(Polyline *polyline, Point *gap_endpoints);
+static void polyline_exchange_gap_points(Polyline *polyline,  Point *gap_points);
 
 static ObjectTypeOps polyline_type_ops =
 {
@@ -118,6 +121,7 @@ static ObjectOps polyline_ops = {
 };
 
 static PropNumData polyline_corner_radius_data = { 0.0, 10.0, 0.1 };
+static PropNumData gap_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
 
 static PropDescription polyline_props[] = {
   POLYCONN_COMMON_PROPERTIES,
@@ -128,6 +132,12 @@ static PropDescription polyline_props[] = {
   PROP_STD_END_ARROW,
   { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Corner radius"), NULL, &polyline_corner_radius_data },
+  PROP_FRAME_BEGIN("gaps",0,N_("Line gaps")),
+  { "absolute_start_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Absolute start gap"), NULL, &gap_range },
+  { "absolute_end_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Absolute end gap"), NULL, &gap_range },
+  PROP_FRAME_END("gaps",0),
   PROP_DESC_END
 };
 
@@ -148,6 +158,8 @@ static PropOffset polyline_offsets[] = {
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Polyline, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Polyline, end_arrow) },
   { "corner_radius", PROP_TYPE_REAL, offsetof(Polyline, corner_radius) },
+  { "absolute_start_gap", PROP_TYPE_REAL, offsetof(Polyline, absolute_start_gap) },
+  { "absolute_end_gap", PROP_TYPE_REAL, offsetof(Polyline, absolute_end_gap) },
   { NULL, 0, 0 }
 };
 
@@ -170,7 +182,13 @@ static real
 polyline_distance_from(Polyline *polyline, Point *point)
 {
   PolyConn *poly = &polyline->poly;
-  return polyconn_distance_from(poly, point, polyline->line_width);
+  real dist;
+  Point gap_endpoints[2];
+  polyline_calculate_gap_endpoints(polyline, gap_endpoints);
+  polyline_exchange_gap_points(polyline, gap_endpoints);
+  dist = polyconn_distance_from(poly, point, polyline->line_width);
+  polyline_exchange_gap_points(polyline, gap_endpoints);
+  return dist;
 }
 
 static Handle *polyline_closest_handle(Polyline *polyline, Point *point) {
@@ -214,9 +232,60 @@ polyline_move(Polyline *polyline, Point *to)
   return NULL;
 }
 
+void
+polyline_calculate_gap_endpoints(Polyline *polyline, Point *gap_endpoints)
+{
+  Point  start_vec, end_vec;
+  ConnectionPoint *start_cp, *end_cp;
+  int n = polyline->poly.numpoints;
+
+  gap_endpoints[0] = polyline->poly.points[0];
+  gap_endpoints[1] = polyline->poly.points[n-1];
+
+  start_cp = (polyline->poly.object.handles[0])->connected_to;
+  end_cp = (polyline->poly.object.handles[polyline->poly.object.num_handles-1])->connected_to;
+
+  if (connpoint_is_autogap(start_cp)) {
+      gap_endpoints[0] = calculate_object_edge(&gap_endpoints[0],
+					   &polyline->poly.points[1],
+					   start_cp->object);
+  }
+  if (connpoint_is_autogap(end_cp)) {    
+      gap_endpoints[1] = calculate_object_edge(&gap_endpoints[1],
+					   &polyline->poly.points[n-2],
+					   end_cp->object);
+  }
+
+  start_vec = gap_endpoints[0];
+  point_sub(&start_vec, &polyline->poly.points[0]);
+  point_normalize(&start_vec);
+
+  end_vec = gap_endpoints[1];
+  point_sub(&end_vec, &polyline->poly.points[n-1]);
+  point_normalize(&end_vec);
+  
+  /* add absolute gap */
+  point_add_scaled(&gap_endpoints[0], &start_vec, polyline->absolute_start_gap);
+  point_add_scaled(&gap_endpoints[1], &end_vec, polyline->absolute_end_gap);
+}
+static void
+polyline_exchange_gap_points(Polyline *polyline,  Point *gap_points)
+{
+        Point tmp[2];
+        int n = polyline->poly.numpoints;
+        tmp[0] = gap_points[0];
+        tmp[1] = gap_points[1];
+        gap_points[0] = polyline->poly.points[0];
+        gap_points[1] = polyline->poly.points[n-1];
+        polyline->poly.points[0] = tmp[0];
+        polyline->poly.points[n-1] = tmp[1];
+}
+
+        
 static void
 polyline_draw(Polyline *polyline, DiaRenderer *renderer)
 {
+  Point gap_endpoints[2];
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   PolyConn *poly = &polyline->poly;
   Point *points;
@@ -224,13 +293,14 @@ polyline_draw(Polyline *polyline, DiaRenderer *renderer)
   
   points = &poly->points[0];
   n = poly->numpoints;
-
   renderer_ops->set_linewidth(renderer, polyline->line_width);
   renderer_ops->set_linestyle(renderer, polyline->line_style);
   renderer_ops->set_dashlength(renderer, polyline->dashlength);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
+  polyline_calculate_gap_endpoints(polyline, gap_endpoints);
+  polyline_exchange_gap_points(polyline, gap_endpoints);
   renderer_ops->draw_rounded_polyline_with_arrows(renderer,
 						  points, n,
 						  polyline->line_width,
@@ -238,6 +308,7 @@ polyline_draw(Polyline *polyline, DiaRenderer *renderer)
 						  &polyline->start_arrow,
 						  &polyline->end_arrow,
 						  polyline->corner_radius);
+  polyline_exchange_gap_points(polyline, gap_endpoints);
 }
 
 /** user_data is a struct polyline_create_data, containing an array of 
@@ -328,6 +399,8 @@ polyline_copy(Polyline *polyline)
   newpolyline->start_arrow = polyline->start_arrow;
   newpolyline->end_arrow = polyline->end_arrow;
   newpolyline->corner_radius = polyline->corner_radius;
+  newpolyline->absolute_start_gap = polyline->absolute_start_gap;
+  newpolyline->absolute_end_gap = polyline->absolute_end_gap;
 
   return &newpolyline->poly.object;
 }
@@ -399,6 +472,13 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
 		  polyline->end_arrow.width);
   }
 
+  if (polyline->absolute_start_gap)
+    data_add_real(new_attribute(obj_node, "absolute_start_gap"),
+                 polyline->absolute_start_gap);
+  if (polyline->absolute_end_gap)
+    data_add_real(new_attribute(obj_node, "absolute_end_gap"),
+                 polyline->absolute_end_gap);
+
   if (polyline->corner_radius > 0.0)
     data_add_real(new_attribute(obj_node, "corner_radius"),
                   polyline->corner_radius);
@@ -467,6 +547,16 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "end_arrow_width");
   if (attr != NULL)
     polyline->end_arrow.width = data_real(attribute_first_data(attr));
+
+  polyline->absolute_start_gap = 0.0;
+  attr = object_find_attribute(obj_node, "absolute_start_gap");
+  if (attr != NULL)
+    polyline->absolute_start_gap =  data_real( attribute_first_data(attr) );
+  polyline->absolute_end_gap = 0.0;
+  attr = object_find_attribute(obj_node, "absolute_end_gap");
+  if (attr != NULL)
+    polyline->absolute_end_gap =  data_real( attribute_first_data(attr) );
+
 
   polyline->corner_radius = 0.0;
   attr = object_find_attribute(obj_node, "corner_radius");
