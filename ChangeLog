@@ -1,5 +1,7 @@
 2003-02-05  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* RELEASE-PROCESS: Note on RPM version numbers.
+
 	* app/interface.c (create_display_shell): Don't set as toolbar
 	under Unix, either.  Especially not the diagram shell.  It removes
 	it from the taskbar and makes it unresizable, always-on-top with

@@ -89,7 +89,7 @@ config.h.win32
 News
 configure.in
 doc/en/dia-manual.sgml?
-dia.spec
+dia.spec (note that the preN should go in release, not ver.
 
 Webpages
 --------
