@@ -1,3 +1,7 @@
+2003-01-13  Steffen Macke <sdteffen@web.de>
+
+	* Makefile.am: added makefile.msc to EXTRA_DIST
+	
 2003-01-10  Steffen Macke <sdteffen@web.de>
 
 	* app/paginate_psprint.c: Closing print dialog when file
