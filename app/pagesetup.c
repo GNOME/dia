@@ -184,7 +184,9 @@ static void
 pagesetup_ok(GtkWidget *wid, PageSetup *ps)
 {
 #ifdef GNOME
-  if (gnome_dialog_get_sensitive(GNOME_DIALOG(ps->window), 1))
+  /* Can't easily get to the widget:( */
+  /* Always apply for Gnome till we have a better system */
+  /*  if (gnome_dialog_get_sensitive(GNOME_DIALOG(ps->window), 1))*/
     pagesetup_apply(wid, ps);
 #else
   if (GTK_WIDGET_SENSITIVE(ps->apply))

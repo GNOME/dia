@@ -1,3 +1,8 @@
+2002-05-13  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/pagesetup.c (pagesetup_ok): Commented out missing Gnome
+	function call.
+
 2002-05-13  Cyrille Chepelov  <cyrille@chepelov.org>
 
         * RELEASE-PROCESS: added James' notes on how to properly make the
