@@ -58,7 +58,7 @@
 	Alexey Novodvorsky <aen@logic.ru>'s patch).
 
 	* app/menus.c (dia_menu_signal_proxy): checked that the signal
-	handler is not NULL before transferring control to it... (fixes #52310)
+	handler is not NULL before transferring control to it... (fixes #52836)
 
 	* app/app_procs.c (app_init): removed non-constant initialiser
 	(fixes #52950)
