@@ -358,4 +358,12 @@ void          rotate_matrix               (Matrix, real);
 void          xshear_matrix               (Matrix, real);
 void          yshear_matrix               (Matrix, real);
 
+real dot2(Point *p1, Point *p2);
+void line_coef(real *a, real *b, real *c, Point *p1, Point *p2);
+real line_to_point(real a, real b , real c, Point *p);
+void point_perp(Point *p, real a, real b, real c, Point *perp);
+void fillet(Point *p1, Point *p2, Point *p3, Point *p4,
+	    real r, Point *c, real *pa, real *aa);
+real point_cross(Point *p1, Point *p2);
+
 #endif /* GEOMETRY_H */

@@ -47,6 +47,7 @@ typedef struct _Polyline {
   LineStyle line_style;
   real dashlength;
   real line_width;
+  real corner_radius;
   Arrow start_arrow, end_arrow;
 } Polyline;
 
@@ -116,6 +117,8 @@ static ObjectOps polyline_ops = {
   (SetPropsFunc)        polyline_set_props,
 };
 
+static PropNumData polyline_corner_radius_data = { 0.0, 10.0, 0.1 };
+
 static PropDescription polyline_props[] = {
   POLYCONN_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
@@ -123,6 +126,8 @@ static PropDescription polyline_props[] = {
   PROP_STD_LINE_STYLE,
   PROP_STD_START_ARROW,
   PROP_STD_END_ARROW,
+  { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Corner radius"), NULL, &polyline_corner_radius_data },
   PROP_DESC_END
 };
 
@@ -142,6 +147,7 @@ static PropOffset polyline_offsets[] = {
     offsetof(Polyline, line_style), offsetof(Polyline, dashlength) },
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Polyline, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Polyline, end_arrow) },
+  { "corner_radius", PROP_TYPE_REAL, offsetof(Polyline, corner_radius) },
   { NULL, 0, 0 }
 };
 
@@ -225,12 +231,13 @@ polyline_draw(Polyline *polyline, DiaRenderer *renderer)
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer_ops->draw_polyline_with_arrows(renderer,
-					   points, n,
-					   polyline->line_width,
-					   &polyline->line_color,
-					   &polyline->start_arrow,
-					   &polyline->end_arrow);
+  renderer_ops->draw_rounded_polyline_with_arrows(renderer,
+						  points, n,
+						  polyline->line_width,
+						  &polyline->line_color,
+						  &polyline->start_arrow,
+						  &polyline->end_arrow,
+						  polyline->corner_radius);
 }
 
 /** user_data is a struct polyline_create_data, containing an array of 
@@ -278,7 +285,8 @@ polyline_create(Point *startpoint,
     *handle1 = poly->object.handles[0];
     *handle2 = poly->object.handles[pcd->num_points-1];
   }
-  
+
+
   polyline_update_data(polyline);
 
   polyline->line_width =  attributes_get_default_linewidth();
@@ -287,6 +295,7 @@ polyline_create(Point *startpoint,
 				    &polyline->dashlength);
   polyline->start_arrow = attributes_get_default_start_arrow();
   polyline->end_arrow = attributes_get_default_end_arrow();
+  polyline->corner_radius = 0.0;
 
   return &polyline->poly.object;
 }
@@ -318,6 +327,7 @@ polyline_copy(Polyline *polyline)
   newpolyline->dashlength = polyline->dashlength;
   newpolyline->start_arrow = polyline->start_arrow;
   newpolyline->end_arrow = polyline->end_arrow;
+  newpolyline->corner_radius = polyline->corner_radius;
 
   return &newpolyline->poly.object;
 }
@@ -388,6 +398,10 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
     data_add_real(new_attribute(obj_node, "end_arrow_width"),
 		  polyline->end_arrow.width);
   }
+
+  if (polyline->corner_radius > 0.0)
+    data_add_real(new_attribute(obj_node, "corner_radius"),
+                  polyline->corner_radius);
 }
 
 static DiaObject *
@@ -453,6 +467,11 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "end_arrow_width");
   if (attr != NULL)
     polyline->end_arrow.width = data_real(attribute_first_data(attr));
+
+  polyline->corner_radius = 0.0;
+  attr = object_find_attribute(obj_node, "corner_radius");
+  if (attr != NULL)
+    polyline->corner_radius =  data_real( attribute_first_data(attr) );
 
   polyline_update_data(polyline);
 

@@ -47,6 +47,7 @@ typedef struct _Zigzagline {
   LineStyle line_style;
   real dashlength;
   real line_width;
+  real corner_radius;
   Arrow start_arrow, end_arrow;
 } Zigzagline;
 
@@ -115,6 +116,8 @@ static ObjectOps zigzagline_ops = {
   (SetPropsFunc)        zigzagline_set_props,
 };
 
+static PropNumData zigzagline_corner_radius_data = { 0.0, 10.0, 0.1 };
+
 static PropDescription zigzagline_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
@@ -122,6 +125,8 @@ static PropDescription zigzagline_props[] = {
   PROP_STD_LINE_STYLE,
   PROP_STD_START_ARROW,
   PROP_STD_END_ARROW,
+  { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Corner radius"), NULL, &zigzagline_corner_radius_data },
   PROP_DESC_END
 };
 
@@ -141,6 +146,7 @@ static PropOffset zigzagline_offsets[] = {
     offsetof(Zigzagline, line_style), offsetof(Zigzagline, dashlength) },
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Zigzagline, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Zigzagline, end_arrow) },
+  { "corner_radius", PROP_TYPE_REAL, offsetof(Zigzagline, corner_radius) },
   { NULL, 0, 0 }
 };
 
@@ -218,12 +224,13 @@ zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer)
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer_ops->draw_polyline_with_arrows(renderer,
-					   points, n,
-					   zigzagline->line_width,
-					   &zigzagline->line_color,
-					   &zigzagline->start_arrow,
-					   &zigzagline->end_arrow);
+  renderer_ops->draw_rounded_polyline_with_arrows(renderer,
+						  points, n,
+						  zigzagline->line_width,
+						  &zigzagline->line_color,
+						  &zigzagline->start_arrow,
+						  &zigzagline->end_arrow,
+						  zigzagline->corner_radius);
 }
 
 static DiaObject *
@@ -254,6 +261,7 @@ zigzagline_create(Point *startpoint,
 				    &zigzagline->dashlength);
   zigzagline->start_arrow = attributes_get_default_start_arrow();
   zigzagline->end_arrow = attributes_get_default_end_arrow();
+  zigzagline->corner_radius = 0.0;
   
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
@@ -287,6 +295,7 @@ zigzagline_copy(Zigzagline *zigzagline)
   newzigzagline->dashlength = zigzagline->dashlength;
   newzigzagline->start_arrow = zigzagline->start_arrow;
   newzigzagline->end_arrow = zigzagline->end_arrow;
+  newzigzagline->corner_radius = zigzagline->corner_radius;
 
   zigzagline_update_data(newzigzagline);
 
@@ -399,8 +408,12 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 
   if (zigzagline->line_style != LINESTYLE_SOLID && 
       zigzagline->dashlength != DEFAULT_LINESTYLE_DASHLEN)
-	  data_add_real(new_attribute(obj_node, "dashlength"),
-		  zigzagline->dashlength);
+    data_add_real(new_attribute(obj_node, "dashlength"),
+                  zigzagline->dashlength);
+
+  if (zigzagline->corner_radius > 0.0)
+    data_add_real(new_attribute(obj_node, "corner_radius"),
+                  zigzagline->corner_radius);
 }
 
 static DiaObject *
@@ -465,8 +478,13 @@ zigzagline_load(ObjectNode obj_node, int version, const char *filename)
   zigzagline->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");
   if (attr != NULL)
-	  zigzagline->dashlength = data_real(attribute_first_data(attr));
-  
+    zigzagline->dashlength = data_real(attribute_first_data(attr));
+
+  zigzagline->corner_radius = 0.0;
+  attr = object_find_attribute(obj_node, "corner_radius");
+  if (attr != NULL)
+    zigzagline->corner_radius =  data_real( attribute_first_data(attr) );
+
   zigzagline_update_data(zigzagline);
 
   return &zigzagline->orth.object;

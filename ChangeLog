@@ -1,4 +1,17 @@
-2004-06-27  Lars Clausen  <larsrc@linux.local>
+2004-06-29  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/association.c: Patch from Kiran
+	Kumar Immidi <kimmidi@novell.com>:  Fix bounding box for line end
+	text. 
+
+	* lib/geometry.c: 
+	* lib/geometry.h: 
+	* lib/diarenderer.c (draw_rounded_polyline): 
+	* objects/standard/polyline.c (polyline_draw): 
+	* objects/standard/zigzagline.c (zigzagline_draw): 
+	Patch from anthonym@overture.com:  Add rounded polylines.
+
+2004-06-27  Lars Clausen  <lars@raeder.dk>
 
 	* lib/font.c (dia_font_new_from_style): Initialize legacy name.
 

@@ -561,3 +561,150 @@ point_convex(Point *dst, const Point *src1, const Point *src2, real alpha)
 
 
 
+/* The following functions were originally taken from Graphics Gems III,
+   pg 193 and corresponding code pgs 496-499
+
+   They were modified to work within the dia coordinate system
+ */
+/* return angle subtended by two vectors */
+real dot2(Point *p1, Point *p2)
+{
+  real d, t;
+  d = sqrt(((p1->x*p1->x)+(p1->y*p1->y)) *
+           ((p2->x*p2->x)+(p2->y*p2->y)));
+  if ( d != 0.0 )
+  {
+    t = (p1->x*p2->x+p1->y*p2->y)/d;
+    return (acos(t));
+  }
+  else
+  {
+    return 0.0;
+  }
+}
+
+/* Find a,b,c in ax + by + c = 0 for line p1, p2 */
+void line_coef(real *a, real *b, real *c, Point *p1, Point *p2)
+{
+  *c = ( p2->x * p1->y ) - ( p1->x * p2->y );
+  *a = p2->y - p1->y;
+  *b = p1->x - p2->x;
+}
+
+/* Return signed distance from line
+   ax + by + c = 0 to point p.              */
+real line_to_point(real a, real b , real c, Point *p) {
+  real d, lp;
+  d = sqrt((a*a)+(b*b));
+  if ( d == 0.0 ) {
+    lp = 0.0;
+  } else {
+    lp = (a*p->x+b*p->y+c)/d;
+  }
+  return (lp);
+}
+
+/* Given line l = ax + by + c = 0 and point p,
+   compute x,y so point perp is perpendicular to line l. */
+void point_perp(Point *p, real a, real b, real c, Point *perp) {
+  real d, cp;
+  perp->x = 0.0;
+  perp->y = 0.0;
+  d = a*a + b*b;
+  cp = a*p->y-b*p->x;
+  if ( d != 0.0 ) {
+    perp->x = (-a*c-b*cp)/d;
+    perp->y = (a*cp-b*c)/d;
+  }
+  return;
+}
+
+/* Compute a circular arc fillet between lines L1 (p1 to p2)
+   and L2 (p3 to p4) with radius r.
+   The circle center is c.
+   The start angle is pa
+   The end angle is aa,
+   The points p1-p4 will be modified as necessary */
+void fillet(Point *p1, Point *p2, Point *p3, Point *p4,
+                   real r, Point *c, real *pa, real *aa) {
+  real a1, b1, c1;  /* Coefficients for L1 */
+  real a2, b2, c2;  /* Coefficients for L2 */
+  real d, d1, d2;
+  real c1p, c2p;
+  real rr;
+  real start_angle, stop_angle;
+  Point mp,gv1,gv2;
+  gboolean righthand = FALSE;
+
+  line_coef(&a1,&b1,&c1,p1,p2);
+  line_coef(&a2,&b2,&c2,p3,p4);
+
+  if ( (a1*b2) == (a2*b1) ) /* Parallel or coincident lines */
+  {
+    return;
+  }
+
+  mp.x = (p3->x + p4->x) / 2.0;          /* Find midpoint of p3 p4 */
+  mp.y = (p3->y + p4->y) / 2.0;
+  d1 = line_to_point(a1, b1, c1, &mp);    /* Find distance p1 p2 to
+                                             midpoint p3 p4 */
+  if ( d1 == 0.0 ) return;                /* p1p2 to p3 */
+
+  mp.x = (p1->x + p2->x) / 2.0;          /* Find midpoint of p1 p2 */
+  mp.y = (p1->y + p2->y) / 2.0;
+  d2 = line_to_point(a2, b2, c2, &mp);    /* Find distance p3 p4 to
+                                             midpoint p1 p2 */
+  if ( d2 == 0.0 ) return;
+
+  rr = r;
+  if ( d1 <= 0.0 ) rr = -rr;
+
+  c1p = c1-rr*sqrt((a1*a1)+(b1*b1));     /* Line parallell l1 at d */
+  rr = r;
+
+  if ( d2 <= 0.0 ) rr = -rr;
+  c2p = c2-rr*sqrt((a2*a2)+(b2*b2));     /* Line parallell l2 at d */
+  d = a1*b2-a2*b1;
+
+  c->x = ( c2p*b1-c1p*b2 ) / d;          /* Intersect constructed lines */
+  c->y = ( c1p*a2-c2p*a1 ) / d;          /* to find center of arc */
+
+  point_perp(c,a1,b1,c1,p2);             /* Clip or extend lines as required */
+  point_perp(c,a2,b2,c2,p3);
+
+  /* need to negate the y coords to calculate angles correctly */
+  gv1.x = p2->x-c->x; gv1.y = -(p2->y-c->y);
+  gv2.x = p3->x-c->x; gv2.y = -(p3->y-c->y);
+
+  start_angle = atan2(gv1.y,gv1.x);   /* Beginning angle for arc */
+  stop_angle = dot2(&gv1,&gv2);
+  if ( point_cross(&gv1,&gv2) < 0.0 ) {
+    stop_angle = -stop_angle; /* Angle subtended by arc */
+    /* also this means we need to swap our angles later on */
+    righthand = TRUE;
+  }
+  /* now calculate the actual angles in a form that the draw arc function
+     of the renderer can use */
+  start_angle = start_angle*180.0/M_PI;
+  stop_angle  = start_angle + stop_angle*180.0/M_PI;
+  while (start_angle < 0.0) start_angle += 360.0;
+  while (stop_angle < 0.0)  stop_angle += 360.0;
+  /* swap the start and stop if we had to negate the cross product */
+  if ( righthand ) {
+    real tmp = start_angle;
+    start_angle = stop_angle;
+    stop_angle = tmp;
+  }
+  *pa = start_angle;
+  *aa = stop_angle;
+}
+
+
+
+/* moved this here since it is being reused by rounded polyline code*/
+real 
+point_cross(Point *p1, Point *p2)
+{
+  return p1->x * p2->y - p2->x * p1->y;
+}
+

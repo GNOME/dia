@@ -1028,7 +1028,7 @@ association_apply_properties(Association *assoc)
 
   }
 
-  association_update_data(assoc);
+  association_set_state(assoc, association_get_state(assoc));
   return new_object_state_change(&assoc->orth.object, old_state, 
 				 (GetStateFunc)association_get_state,
 				 (SetStateFunc)association_set_state);

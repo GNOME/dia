@@ -100,6 +100,9 @@ static void draw_rect (DiaRenderer *renderer,
 static void draw_polyline (DiaRenderer *renderer,
                            Point *points, int num_points,
                            Color *color);
+static void draw_rounded_polyline (DiaRenderer *renderer,
+                           Point *points, int num_points,
+                           Color *color, real radius);
 static void draw_polygon (DiaRenderer *renderer,
                           Point *points, int num_points,
                           Color *color);
@@ -132,6 +135,14 @@ static void draw_polyline_with_arrows (DiaRenderer *renderer,
                                        Color *color,
                                        Arrow *start_arrow,
                                        Arrow *end_arrow);
+static void draw_rounded_polyline_with_arrows (DiaRenderer *renderer, 
+                                               Point *points, int num_points,
+                                               real line_width,
+                                               Color *color,
+                                               Arrow *start_arrow,
+                                               Arrow *end_arrow,
+                                               real radius);
+
 static void draw_bezier_with_arrows (DiaRenderer *renderer, 
                                     BezPoint *points,
                                     int num_points,
@@ -235,6 +246,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->draw_bezier  = draw_bezier;
   renderer_class->fill_bezier  = fill_bezier;
   renderer_class->draw_rect = draw_rect;
+  renderer_class->draw_rounded_polyline  = draw_rounded_polyline;
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_polygon   = draw_polygon;
   renderer_class->draw_text    = draw_text;
@@ -245,6 +257,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->draw_line_with_arrows = draw_line_with_arrows;
   renderer_class->draw_arc_with_arrows  = draw_arc_with_arrows;
   renderer_class->draw_polyline_with_arrows = draw_polyline_with_arrows;
+  renderer_class->draw_rounded_polyline_with_arrows = draw_rounded_polyline_with_arrows;
   renderer_class->draw_bezier_with_arrows = draw_bezier_with_arrows;
 }
 
@@ -651,6 +664,92 @@ draw_polyline (DiaRenderer *renderer,
     klass->draw_line (renderer, &points[i+0], &points[i+1], color);
 }
 
+
+/* calculate the maximum possible radius for a collection of points
+     use the following,
+     given points p1,p2, and p3
+     let c = min(length(p1,p2)/2,length(p2,p3)/2)
+     let a = dot2(p1-p2, p3-p2)
+       (ie, angle between lines p1,p2 and p2,p3)
+     then maxr = c * sin(a/2)
+ */
+real
+calculate_min_radius( Point *p, int num_points )
+{
+  Point p1,p2,p3;
+  real radius = G_MAXFLOAT;
+  int i;
+  for (i = 0; i <= num_points - 3; i++)
+    {
+      real c;
+      real a;
+      Point v1,v2;
+      p1.x = p[i].x;   p1.y = p[i].y;
+      p2.x = p[i+1].x; p2.y = p[i+1].y;
+      p3.x = p[i+2].x; p3.y = p[i+2].y;
+
+      c = MIN(distance_point_point(&p1,&p2)/2,distance_point_point(&p2,&p3)/2);
+      v1.x = p1.x-p2.x; v1.y = p1.y-p2.y;
+      v2.x = p3.x-p2.x; v2.y = p3.y-p2.y;
+      a =  dot2(&v1,&v2);
+      radius = MIN(radius, (c*sin(a/2)));
+    }
+  return radius;
+}
+
+/** Draw a polyline with optionally rounded corners.
+ *  Based on draw_line and draw_arc, but uses draw_polyline when
+ *  the rounding is too small.
+ */
+static void
+draw_rounded_polyline (DiaRenderer *renderer,
+                        Point *points, int num_points,
+                        Color *color, real radius)
+{
+  DiaRendererClass *klass = DIA_RENDERER_GET_CLASS (renderer);
+  int i = 0;
+  Point p1,p2,p3,p4 ;
+  Point *p;
+  p = points;
+
+  if (radius < 0.00001) {
+    klass->draw_polyline(renderer, points, num_points, color);
+    return;
+  }
+
+  /* skip arc computations if we only have points */
+  if ( num_points <= 2 ) {
+    i = 0;
+    p1.x = p[i].x; p1.y = p[i].y;
+    p2.x = p[i+1].x; p2.y = p[i+1].y;
+    klass->draw_line(renderer,&p1,&p2,color);
+    return;
+  }
+
+  /* adjust the radius if it would cause odd rendering */
+  radius = MIN(radius, calculate_min_radius(p, num_points));
+
+  i = 0;
+  /* full rendering 3 or more points */
+  p1.x = p[i].x;   p1.y = p[i].y;
+  p2.x = p[i+1].x; p2.y = p[i+1].y;
+  for (i = 0; i <= num_points - 3; i++) {
+    Point c;
+    real start_angle, stop_angle;
+    p3.x = p[i+1].x; p3.y = p[i+1].y;
+    p4.x = p[i+2].x; p4.y = p[i+2].y;
+    
+    fillet(&p1,&p2,&p3,&p4, radius, &c, &start_angle, &stop_angle);
+    klass->draw_arc(renderer, &c, radius*2, radius*2,
+		    start_angle,
+		    stop_angle, color);
+    klass->draw_line(renderer, &p1, &p2, color);
+    p1.x = p3.x; p1.y = p3.y;
+    p2.x = p4.x; p2.y = p4.y;
+  }
+  klass->draw_line(renderer, &p3, &p4, color);
+}
+
 static void 
 draw_polygon (DiaRenderer *renderer,
               Point *points, int num_points,
@@ -880,6 +979,79 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
   points[lastline-1] = oldend;
 }
 
+static void
+draw_rounded_polyline_with_arrows(DiaRenderer *renderer, 
+				  Point *points, int num_points,
+				  real line_width,
+				  Color *color,
+				  Arrow *start_arrow,
+				  Arrow *end_arrow,
+				  real radius)
+{
+  /* Index of first and last point with a non-zero length segment */
+  int firstline = 0;
+  int lastline = num_points;
+  Point oldstart = points[firstline];
+  Point oldend = points[lastline-1];
+  Point start_arrow_head;
+  Point end_arrow_head;
+
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
+    Point move_arrow, move_line;
+    while (firstline < num_points-1 &&
+	   distance_point_point(&points[firstline], 
+				&points[firstline+1]) < 0.0000001)
+      firstline++;
+    if (firstline == num_points-1)
+      firstline = 0; /* No non-zero lines, it doesn't matter. */
+    oldstart = points[firstline];
+    calculate_arrow_point(start_arrow, 
+			  &points[firstline], &points[firstline+1], 
+			  &move_arrow, &move_line,
+			  line_width);
+    start_arrow_head = points[firstline];
+    point_sub(&start_arrow_head, &move_arrow);
+    point_sub(&points[firstline], &move_line);
+  }
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
+    Point move_arrow, move_line;
+    while (lastline > 0 && 
+	   distance_point_point(&points[lastline-1], 
+				&points[lastline-2]) < 0.0000001)
+      lastline--;
+    if (lastline == 0)
+      firstline = num_points; /* No non-zero lines, it doesn't matter. */
+    oldend = points[lastline-1];
+    calculate_arrow_point(end_arrow, &points[lastline-1], 
+			  &points[lastline-2],
+ 			  &move_arrow, &move_line,
+			  line_width);
+    end_arrow_head = points[lastline-1];
+    point_sub(&end_arrow_head, &move_arrow);
+    point_sub(&points[lastline-1], &move_line);
+  }
+  /* Don't draw degenerate line segments at end of line */
+  DIA_RENDERER_GET_CLASS(renderer)->draw_rounded_polyline(renderer,
+                                                          &points[firstline],
+                                                          lastline-firstline,
+                                                          color, radius);
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
+    arrow_draw(renderer, start_arrow->type,
+	       &start_arrow_head, &points[firstline+1],
+	       start_arrow->length, start_arrow->width,
+	       line_width,
+	       color, &color_white);
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE)
+    arrow_draw(renderer, end_arrow->type,
+	       &end_arrow_head, &points[lastline-2],
+	       end_arrow->length, end_arrow->width,
+	       line_width,
+	       color, &color_white);
+
+  points[firstline] = oldstart;
+  points[lastline-1] = oldend;
+}
+
 /** Figure the equation for a line given by two points.
  * Returns FALSE if the line is vertical (infinite a).
  */
@@ -990,12 +1162,6 @@ find_center_point(Point *center, Point *p1, Point *p2, Point *p3)
     return TRUE;
   }
   return TRUE;
-}
-
-static real 
-point_cross(Point *p1, Point *p2)
-{
-  return p1->x * p2->y - p2->x * p1->y;
 }
 
 static void
