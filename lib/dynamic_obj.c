@@ -51,8 +51,12 @@ void dynobj_list_remove_object(Object* obj) {
 
     if (item) {
         DynobjRec* dor = item->data;
-        dyn_obj_list = g_list_remove(dyn_obj_list,item);
+	printf("Removing obj %p from list of len %d\n",
+	       obj, g_list_length(dyn_obj_list));
+        dyn_obj_list = g_list_remove(dyn_obj_list,dor);
         g_free(dor);
+    } else {
+      printf("Dying object %p not found\n", obj);
     }
 }
 

@@ -1,9 +1,11 @@
 %define name dia
-%define ver 0.92
+# This is the full Dia version
+%define ver 0.92.1
 
 Summary: A gtk+ based diagram creation program.
 Name: %name
 Version: %ver
+# This indicates changes to the spec file after last time %ver has changed.
 Release: 1
 Copyright: GPL
 Group: Applications/

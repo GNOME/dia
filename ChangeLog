@@ -1,3 +1,18 @@
+2003-10-26  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* doc/en/dia-manual.xml: 
+	* doc/pl/dia-manual.sgml: 
+	* dia.spec: 
+	* config.h.win32: 
+	* configure.in: 
+	* NEWS: Brown Bag release 0.92.1
+
+	* lib/dynamic_obj.c: Fixed embarassing dynamic object removal bug.
+
+2003-10-25  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/app_procs.c (app_init): Rearrangement for translators.
+
 2003-10-24  Steffen Macke <sdteffen@web.de>
 
 	* lib/text.c(text_key_event): enforcing the inserted text length now,

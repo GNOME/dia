@@ -279,20 +279,24 @@ myXmlErrorReporting (void *ctx, const char* msg, ...)
 #endif
 
 #ifdef HAVE_FREETYPE
+/* Translators:  This is an option, not to be translated */
 #define EPS_PANGO "eps-pango, "
 #else
 #define EPS_PANGO ""
 #endif
 
 #ifdef G_OS_WIN32
+/* Translators:  This is an option, not to be translated */
 #define WMF "wmf, "
 #else
 #define WMF ""
 #endif
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
+/* Translators:  This is an option, not to be translated */
 #define BITMAPS "png, "
 #else
+/* Translators:  This is an option, not to be translated */
 #define BITMAPS "bmp, gif, jpg, png, pnm, ras, tif, "
 #endif
 
@@ -314,16 +318,20 @@ app_init (int argc, char **argv)
   int rc = 0;
 #endif  
   poptContext poptCtx = NULL;
+  gchar *export_format_string = 
+     /* Translators:  The argument is a list of options, not to be translated */
+    g_strdup_printf(_("Export to file format and exit.  Supported formats are: %s"),
+		    "cgm, dia, dxf, eps, " EPS_PANGO
+		    "fig, mp, plt, hpgl, " BITMAPS
+		    "shape, svg, tex, " WMF
+		    "wpg");
+
   struct poptOption options[] =
   {
     {"export", 'e', POPT_ARG_STRING, NULL /* &export_file_name */, 0,
      N_("Export loaded file and exit"), N_("OUTPUT")},
     {"export-to-format",'t', POPT_ARG_STRING, NULL /* &export_file_format */,
-     0, N_("Export to file format and exit.  Supported formats are: "
-	   "cgm, dia, dxf, eps, " EPS_PANGO
-	   "fig, mp, plt, hpgl, " BITMAPS
-	   "shape, svg, tex, " WMF
-	   "wpg"), N_("FORMAT")
+     0, export_format_string, N_("FORMAT")
     },
     {"nosplash", 'n', POPT_ARG_NONE, &nosplash, 0,
      N_("Don't show the splash screen"), NULL },
