@@ -827,6 +827,60 @@ static BezPoint *transform_spline(int npoints, Point *points, gboolean closed) {
     return bezpoints;
 }
 
+/* The XFig 'X-Splines' seem to be a generalization of cubic B-Splines
+ * and Catmull-Rom splines.
+ * Our Beziers, if Beziers they are, have the basis matrix M_bez
+ * [-1  3 -3  1]
+ * [ 3 -6  3  0]
+ * [-3  3  0  0]
+ * [ 1  0  0  0]
+ *
+ * The basis matrix for cubic B-Splines according to Hearn & Baker (M_b)
+ * [-1  3 -3  1]
+ * [ 3 -6  3  0]*1/6
+ * [-3  0  3  0]
+ * [ 1  4  1  0]
+ * So the transformation matrix (M_bez^-1)*M_b should be
+ * [ 1  4  1  0]
+ * [ 0  4  2  0]*1/6
+ * [ 0  2  4  0]
+ * [ 0  1  4  1] 
+ *
+ * The basis matrix for Catmull-Rom splines (M_c) is:
+ * [-s 2-s s-2 s]
+ * [2s s-3 3-2s -s]
+ * [-s  0  s  0]
+ * [ 0  1  0  0] where s = (1-t)/2 and t = 0, so s = 1/2:
+ * [ -.5  1.5 -1.5   .5] 
+ * [   1 -2.5    2  -.5] 
+ * [ -.5    0   .5    0] 
+ * [   0    1    4    1] 
+ * Thus, the transformation matrix for the interpolated splines should be
+ * (M_bez^-1)*M_c
+ * The conversion matrix should then be:
+ * [0    1    4    1]
+ * [-1/6 1 4+1/6   1]
+ * [0   1/6   5  5/6]
+ * [0    0    5    1]
+ * or
+ * [ 0  6  24  6]
+ * [-1  6  25  6]*1/6
+ * [ 0  1  30  5]
+ * [ 0  0  30  5]
+ */
+
+static real matrix_bspline_to_bezier[4][4] =
+    {{1/6.0, 4/6.0, 1/6.0, 0},
+     {0,   4/6.0, 2/6.0, 0},
+     {0,   2/6.0, 4/6.0, 0},
+     {0,   1/6.0, 4/6.0, 1/6.0}};
+
+static real matrix_catmull_to_bezier[4][4] =
+    {{0,      1,   4,     1},
+     {-1/6.0, 1, 25/26.0, 1},
+     {0,      1,   5,   5/6.0},
+     {0,      0,   5,   5/6.0}};
+
 static Object *
 fig_read_spline(FILE *file, DiagramData *dia) {
     int sub_type;
@@ -890,9 +944,9 @@ fig_read_spline(FILE *file, DiagramData *dia) {
     case 4: /* Open X-spline */
     case 5: /* Closed X-spline */
 	{
+	    double f;
 	    gboolean interpolated = TRUE;
 	    for (i = 0; i < npoints; i++) {
-		double f;
 		if (fscanf(file, " %lf ", &f) != 1) {
 		    message_error(_("Couldn't read spline info: %s\n"),
 				  strerror(errno));
@@ -905,17 +959,30 @@ fig_read_spline(FILE *file, DiagramData *dia) {
 	    }
 	    if (!interpolated)
 		goto exit;
-	}
-	/* Notice fallthrough */
-	if (sub_type%2 == 0) {
-	    bezpoints = transform_spline(npoints, points, FALSE);
-	    newobj = create_standard_bezierline(npoints, bezpoints, dia);
-	} else {
-	    points = g_renew(Point, points, npoints+1);
-	    points[npoints] = points[0];
-	    npoints++;
-	    bezpoints = transform_spline(npoints, points, TRUE);
-	    newobj = create_standard_beziergon(npoints, bezpoints, dia);
+	    /* Matrix-based conversion not ready yet. */
+#if 0
+	    if (sub_type%2 == 0) {
+		bezpoints = fig_transform_spline(npoints, points, FALSE, f);
+		newobj = create_standard_bezierline(npoints, bezpoints, dia);
+	    } else {
+		points = g_renew(Point, points, npoints+1);
+		points[npoints] = points[0];
+		npoints++;
+		bezpoints = fig_transform_spline(npoints, points, TRUE, f);
+		newobj = create_standard_beziergon(npoints, bezpoints, dia);
+	    }
+#else
+	    if (sub_type%2 == 0) {
+		bezpoints = transform_spline(npoints, points, FALSE);
+		newobj = create_standard_bezierline(npoints, bezpoints, dia);
+	    } else {
+		points = g_renew(Point, points, npoints+1);
+		points[npoints] = points[0];
+		npoints++;
+		bezpoints = transform_spline(npoints, points, TRUE);
+		newobj = create_standard_beziergon(npoints, bezpoints, dia);
+	    }
+#endif
 	}
 	if (newobj == NULL) goto exit;
 	break;

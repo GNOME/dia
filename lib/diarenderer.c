@@ -387,6 +387,14 @@ draw_text (DiaRenderer *renderer,
 /*
  * medium level functions, implemented by the above
  */
+/* Bezier implementation notes:
+ * These beziers have the following basis matrix:
+ * [-1  3 -3  1]
+ * [ 3 -6  3  0]
+ * [-3  3  0  0]
+ * [ 1  0  0  0]
+ * (At least that's what Hearn and Baker says for beziers.)
+ */
 #define BEZIER_SUBDIVIDE_LIMIT 0.03
 #define BEZIER_SUBDIVIDE_LIMIT_SQ (BEZIER_SUBDIVIDE_LIMIT*BEZIER_SUBDIVIDE_LIMIT)
 
