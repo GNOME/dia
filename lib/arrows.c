@@ -137,7 +137,7 @@ calculate_arrow_point(Arrow *arrow, Point *to, Point *from,
 
     *move_line = *move_arrow;
     point_normalize(move_line);
-    point_scale(move_line, .5*arrow->length);
+    point_scale(move_line, .75*arrow->length);
     point_add(move_line, move_arrow);
     return;
   case ARROW_FILLED_TRIANGLE:
@@ -795,19 +795,25 @@ calculate_concave(Point *poly/*[4]*/, Point *to, Point *from,
   orth_delta.x = delta.y;
   orth_delta.y = -delta.x;
 
-  point_scale(&delta, length/2.0);
+  point_scale(&delta, length/4.0);
   point_scale(&orth_delta, width/2.0);
   
   poly[0] = *to;
   poly[1] = *to;
   point_sub(&poly[1], &delta);
   point_sub(&poly[1], &delta);
+  point_sub(&poly[1], &delta);
+  point_sub(&poly[1], &delta);
   point_sub(&poly[1], &orth_delta);
   poly[2] = *to;
   point_sub(&poly[2], &delta);
+  point_sub(&poly[2], &delta);
+  point_sub(&poly[2], &delta);
   poly[3] = *to;
-  point_sub(&poly[3], &delta);
   point_add(&poly[3], &orth_delta);
+  point_sub(&poly[3], &delta);
+  point_sub(&poly[3], &delta);
+  point_sub(&poly[3], &delta);
   point_sub(&poly[3], &delta);
 }
 
