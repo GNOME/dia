@@ -36,4 +36,8 @@ struct _BezierCreateData {
   BezPoint *points;
 };
 
+typedef struct _BezierCreateData BezierlineCreateData;
+typedef struct _BezierCreateData BeziergonCreateData;
+
+
 #endif
