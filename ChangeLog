@@ -1,3 +1,8 @@
+2002-06-17  Hans Breuer  <hans@breuer.org>
+
+	* lib/object_defaults.c : #include <libxml/tree.h> not
+	<tree.h> pointed out by Xing Wang
+
 2002-06-17  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/color.h (GDK_COLOR_TO_DIA, DIA_COLOR_TO_GDK): 

@@ -108,11 +108,6 @@ struct _Rendererdxf {
 };
 
 
-int get_version(void);
-void register_objects(void);
-void register_sheets(void);
-
-
 static void begin_render(Rendererdxf *renderer, DiagramData *data);
 static void end_render(Rendererdxf *renderer);
 static void set_linewidth(Rendererdxf *renderer, real linewidth);

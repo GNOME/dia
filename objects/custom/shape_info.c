@@ -220,6 +220,23 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
 	s->dashlength = strtod(ptr, &ptr);
 	setlocale(LC_NUMERIC, old_locale);
       }
+    } else if (!strncmp("stroke-dasharray:", ptr, 17)) {
+      /* FIXME? do we need to read an array here (not clear from
+       * Dia's usage); do we need to set the linestyle depending 
+       * on the array's size ? --hb
+       */
+      s->linestyle = LINESTYLE_DASHED;
+      ptr += 17;
+      while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
+      if (ptr[0] == '\0') break;
+
+      if (!strncmp(ptr, "default", 7))
+	s->dashlength = 1.0;
+      else {
+	old_locale = setlocale(LC_NUMERIC, "C");
+	s->dashlength = strtod(ptr, &ptr);
+	setlocale(LC_NUMERIC, old_locale);
+      }
     }
 
     /* skip up to the next attribute */

@@ -30,7 +30,7 @@
 
 #include "intl.h"
 
-#include <tree.h>
+#include <libxml/tree.h>
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
 #include "object.h"
