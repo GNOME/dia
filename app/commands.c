@@ -503,7 +503,7 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
   command = getenv("BROWSER");
   if (command == NULL)
     command = g_strdup_printf("netscape");
-  command = g_strdup_printf("%s '%s' &", command, helpindex);
+  command = g_strdup_printf("%s 'file://%s' &", command, helpindex);
   system(command);
   g_free(command);
 #endif

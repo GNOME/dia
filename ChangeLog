@@ -1,3 +1,8 @@
+2003-02-25  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/commands.c (help_manual_callback): More correct URL for help
+	page (include file://, was broken on Dillo without it).
+
 2003-02-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/disp_callbacks.c: Set modifed when text is changed.
