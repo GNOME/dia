@@ -1,3 +1,12 @@
+2003-03-14  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* NEWS: 
+	* doc/en/dia-manual.sgml: 
+	* doc/pl/dia-manual.sgml: 
+	* configure.in: 
+	* dia.spec (Release): 
+	Version 0.91 is here!
+
 2003-02-10  Steffen Macke <sdteffen@web.de>
 
 	* plug-ins/wmf/wmf.cpp: patch from Ken Tsukahara 
