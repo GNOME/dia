@@ -1,3 +1,10 @@
+2002-05-18  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/ER/entity.c: 
+	* objects/ER/attribute.c: 
+	* objects/ER/relationship.c: Patch to allow text size change from
+	Celso Tetsuo Nagase Suzuki.
+
 2002-05-18  Steffen Macke <sdteffen@web.de>
 
 	* app/app_procs.c: #ifdef'd xmlerror.h (comes with 

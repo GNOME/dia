@@ -55,6 +55,7 @@ struct _Entity {
   Color inner_color;
   
   DiaFont *font;
+  real font_height;
   utfchar *name;
   real name_width;
   
@@ -130,6 +131,7 @@ static PropDescription entity_props[] = {
   PROP_STD_LINE_COLOUR,
   PROP_STD_FILL_COLOUR,
   PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
   PROP_DESC_END
 };
 
@@ -149,6 +151,7 @@ static PropOffset entity_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Entity, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Entity, inner_color) },
   { "text_font", PROP_TYPE_FONT, offsetof (Entity, font) },
+  { "text_height", PROP_TYPE_REAL, offsetof(Entity, font_height) },
   { NULL, 0, 0}
 };
 
@@ -255,9 +258,9 @@ entity_draw(Entity *entity, Renderer *renderer)
   }
 
   p.x = elem->corner.x + elem->width / 2.0;
-  p.y = elem->corner.y + (elem->height - FONT_HEIGHT)/2.0 + font_ascent(entity->font, FONT_HEIGHT);
+  p.y = elem->corner.y + (elem->height - entity->font_height)/2.0 + font_ascent(entity->font, entity->font_height);
   renderer->ops->set_font(renderer, 
-			  entity->font, FONT_HEIGHT);
+			  entity->font, entity->font_height);
   renderer->ops->draw_string(renderer, 
 			     entity->name, 
 			     &p, ALIGN_CENTER, 
@@ -272,10 +275,10 @@ entity_update_data(Entity *entity)
   ElementBBExtras *extra = &elem->extra_spacing;
 
   entity->name_width =
-    font_string_width(entity->name, entity->font, FONT_HEIGHT);
+    font_string_width(entity->name, entity->font, entity->font_height);
 
   elem->width = entity->name_width + 2*TEXT_BORDER_WIDTH_X;
-  elem->height = FONT_HEIGHT + 2*TEXT_BORDER_WIDTH_Y;
+  elem->height = entity->font_height + 2*TEXT_BORDER_WIDTH_Y;
 
   /* Update connections: */
   entity->connections[0].pos = elem->corner;
@@ -341,6 +344,7 @@ entity_create(Point *startpoint,
   /* choose default font name for your locale. see also font_data structure
      in lib/font.c. if "Courier" works for you, it would be better.  */
   entity->font = font_getfont(_("Courier"));
+  entity->font_height = FONT_HEIGHT;
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
   entity->name = charconv_local8_to_utf8 (_("Entity"));
 #else
@@ -348,7 +352,7 @@ entity_create(Point *startpoint,
 #endif
 
   entity->name_width =
-    font_string_width(entity->name, entity->font, FONT_HEIGHT);
+    font_string_width(entity->name, entity->font, entity->font_height);
   
   entity_update_data(entity);
 
@@ -397,6 +401,7 @@ entity_copy(Entity *entity)
   }
 
   newentity->font = entity->font;
+  newentity->font_height = entity->font_height;
   newentity->name = strdup(entity->name);
   newentity->name_width = entity->name_width;
 
@@ -422,6 +427,8 @@ entity_save(Entity *entity, ObjectNode obj_node, const char *filename)
 		   entity->weak);
   data_add_font (new_attribute (obj_node, "font"),
 		 entity->font);
+  data_add_real(new_attribute(obj_node, "font_height"),
+  		entity->font_height);
 }
 
 static Object *
@@ -471,6 +478,11 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
 	  entity->font = data_font (attribute_first_data (attr));
 
+  entity->font_height = FONT_HEIGHT;
+  attr = object_find_attribute(obj_node, "font_height");
+  if (attr != NULL)
+    entity->font_height = data_real(attribute_first_data(attr));
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {
@@ -486,7 +498,7 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   }
 
   entity->name_width =
-    font_string_width(entity->name, entity->font, FONT_HEIGHT);
+    font_string_width(entity->name, entity->font, entity->font_height);
 
   entity_update_data(entity);
 

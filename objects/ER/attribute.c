@@ -66,6 +66,7 @@ struct _Attribute {
   Element element;
 
   DiaFont *font;
+  real font_height;
   utfchar *name;
   real name_width;
 
@@ -158,6 +159,7 @@ static PropDescription attribute_props[] = {
   PROP_STD_LINE_COLOUR,
   PROP_STD_FILL_COLOUR,
   PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
   PROP_DESC_END
 };
 
@@ -180,6 +182,7 @@ static PropOffset attribute_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Attribute, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Attribute, inner_color) },
   { "text_font", PROP_TYPE_FONT, offsetof(Attribute, font) },
+  { "text_height", PROP_TYPE_REAL, offsetof(Attribute, font_height) },
   { NULL, 0, 0}
 };
 
@@ -276,10 +279,10 @@ attribute_draw(Attribute *attribute, Renderer *renderer)
   }
 
   p.x = elem->corner.x + elem->width / 2.0;
-  p.y = elem->corner.y + (elem->height - FONT_HEIGHT)/2.0 +
-         font_ascent(attribute->font, FONT_HEIGHT);
+  p.y = elem->corner.y + (elem->height - attribute->font_height)/2.0 +
+         font_ascent(attribute->font, attribute->font_height);
 
-  renderer->ops->set_font(renderer,  attribute->font, FONT_HEIGHT);
+  renderer->ops->set_font(renderer,  attribute->font, attribute->font_height);
   renderer->ops->draw_string(renderer, attribute->name, 
 			     &p, ALIGN_CENTER, 
 			     &color_black);
@@ -291,7 +294,7 @@ attribute_draw(Attribute *attribute, Renderer *renderer)
     } else {
       renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
     }
-    width = font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
+    width = font_string_width(attribute->name, attribute->font, attribute->font_height);
     start.x = center.x - width / 2;
     start.y = center.y + 0.4;
     end.x = center.x + width / 2;
@@ -310,10 +313,10 @@ attribute_update_data(Attribute *attribute)
   real half_x, half_y;
 
   attribute->name_width =
-    font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
+    font_string_width(attribute->name, attribute->font, attribute->font_height);
 
   elem->width = attribute->name_width + 2*TEXT_BORDER_WIDTH_X;
-  elem->height = FONT_HEIGHT + 2*TEXT_BORDER_WIDTH_Y;
+  elem->height = attribute->font_height + 2*TEXT_BORDER_WIDTH_Y;
 
   center.x = elem->corner.x + elem->width / 2.0;
   center.y = elem->corner.y + elem->height / 2.0;
@@ -389,6 +392,7 @@ attribute_create(Point *startpoint,
   /* choose default font name for your locale. see also font_data structure
      in lib/font.c. if "Courier" works for you, it would be better.  */
   attribute->font = font_getfont(_("Courier"));
+  attribute->font_height = FONT_HEIGHT;
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
   attribute->name = charconv_local8_to_utf8 (_("Attribute"));
 #else
@@ -396,7 +400,7 @@ attribute_create(Point *startpoint,
 #endif
 
   attribute->name_width =
-    font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
+    font_string_width(attribute->name, attribute->font, attribute->font_height);
 
   attribute_update_data(attribute);
 
@@ -445,6 +449,7 @@ attribute_copy(Attribute *attribute)
   }
 
   newattribute->font = attribute->font;
+  newattribute->font_height = attribute->font_height;
   newattribute->name = strdup(attribute->name);
   newattribute->name_width = attribute->name_width;
 
@@ -481,6 +486,8 @@ attribute_save(Attribute *attribute, ObjectNode obj_node,
 		   attribute->multivalue);
   data_add_font (new_attribute (obj_node, "font"),
 		 attribute->font);
+  data_add_real(new_attribute(obj_node, "font_height"),
+		attribute->font_height);
 }
 
 static Object *attribute_load(ObjectNode obj_node, int version,
@@ -542,6 +549,11 @@ static Object *attribute_load(ObjectNode obj_node, int version,
   if (attr != NULL)
 	  attribute->font = data_font (attribute_first_data (attr));
 
+  attribute->font_height = FONT_HEIGHT;
+  attr = object_find_attribute (obj_node, "font_height");
+  if (attr != NULL)
+    attribute->font_height = data_real( attribute_first_data(attr) );
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {
@@ -556,8 +568,7 @@ static Object *attribute_load(ObjectNode obj_node, int version,
 	  attribute->font = font_getfont(_("Courier"));
   }
 
-  attribute->name_width = font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
-
+  attribute->name_width = font_string_width(attribute->name, attribute->font, attribute->font_height);
   attribute_update_data(attribute);
 
   for (i=0;i<8;i++) {
