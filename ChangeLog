@@ -1,3 +1,8 @@
+2005-02-22  Lars Clausen  <lars@LittlePooter.local.>
+
+	* plug-ins/gprint/diagnomeprint.c (export_data): GNOME, not Gome.
+	Fixes bug #168125.
+
 2005-02-19  Lars Clausen  <lars@raeder.dk>
 
 	* app/menus.c (display_menu_items): Applied patch from bug #94019:

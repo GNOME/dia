@@ -76,7 +76,7 @@ export_data(DiagramData *data, const gchar *filename,
   if (!ctx)
     ctx = gnome_print_context_new (config);
   if (!ctx) {
-    message_error (_("Gome Print Backend\n '%s'\n not available"),
+    message_error (_("GNOME Print Backend\n '%s'\n not available"),
 	           gnome_print_config_get (config, "Settings.Engine.Backend.Driver"));
     return;
   }
