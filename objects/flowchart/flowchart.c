@@ -39,6 +39,11 @@
 #include "pixmaps/collate.xpm"
 #include "pixmaps/sort.xpm"
 #include "pixmaps/or.xpm"
+#include "pixmaps/magdrum.xpm"
+#include "pixmaps/offlinestore.xpm"
+#include "pixmaps/punchedcard.xpm"
+#include "pixmaps/punchedtape.xpm"
+#include "pixmaps/transmittape.xpm"
 
 extern ObjectType fc_box_type;
 extern ObjectType pgram_type;
@@ -63,6 +68,11 @@ static ObjectType *merge_type = NULL;
 static ObjectType *or_type = NULL;
 static ObjectType *sort_type = NULL;
 static ObjectType *sumjunction_type = NULL;
+static ObjectType *magdrum_type = NULL;
+static ObjectType *offlinestore_type = NULL;
+static ObjectType *punchedcard_type = NULL;
+static ObjectType *punchedtape_type = NULL;
+static ObjectType *transmittape_type = NULL;
 
 extern SheetObject box_sheetobj;
 extern SheetObject pgram_sheetobj;
@@ -87,6 +97,11 @@ static SheetObject *merge_sheetobj = NULL;
 static SheetObject *or_sheetobj = NULL;
 static SheetObject *sort_sheetobj = NULL;
 static SheetObject *sumjunction_sheetobj = NULL;
+static SheetObject *magdrum_sheetobj = NULL;
+static SheetObject *offlinestore_sheetobj = NULL;
+static SheetObject *punchedcard_sheetobj = NULL;
+static SheetObject *punchedtape_sheetobj = NULL;
+static SheetObject *transmittape_sheetobj = NULL;
 
 int get_version(void) {
   return 0;
@@ -211,6 +226,36 @@ void register_objects(void) {
   or_sheetobj->pixmap = or_xpm;
   object_register_type(or_type);
 
+  custom_object_load(SHAPE_DIR "/punchedcard.shape", &punchedcard_type,
+		     &punchedcard_sheetobj);
+  punchedcard_type->pixmap = punchedcard_xpm;
+  punchedcard_sheetobj->pixmap = punchedcard_xpm;
+  object_register_type(punchedcard_type);
+
+  custom_object_load(SHAPE_DIR "/transmittape.shape", &transmittape_type,
+		     &transmittape_sheetobj);
+  transmittape_type->pixmap = transmittape_xpm;
+  transmittape_sheetobj->pixmap = transmittape_xpm;
+  object_register_type(transmittape_type);
+
+  custom_object_load(SHAPE_DIR "/punchedtape.shape", &punchedtape_type,
+		     &punchedtape_sheetobj);
+  punchedtape_type->pixmap = punchedtape_xpm;
+  punchedtape_sheetobj->pixmap = punchedtape_xpm;
+  object_register_type(punchedtape_type);
+
+  custom_object_load(SHAPE_DIR "/offlinestore.shape", &offlinestore_type,
+		     &offlinestore_sheetobj);
+  offlinestore_type->pixmap = offlinestore_xpm;
+  offlinestore_sheetobj->pixmap = offlinestore_xpm;
+  object_register_type(offlinestore_type);
+
+  custom_object_load(SHAPE_DIR "/magdrum.shape", &magdrum_type,
+		     &magdrum_sheetobj);
+  magdrum_type->pixmap = magdrum_xpm;
+  magdrum_sheetobj->pixmap = magdrum_xpm;
+  object_register_type(magdrum_type);
+
 }
 
 void register_sheets(void) {
@@ -232,6 +277,7 @@ void register_sheets(void) {
   sheet_append_sheet_obj(sheet, predefdproc_sheetobj);
   sheet_append_sheet_obj(sheet, terminal_sheetobj);
   sheet_append_sheet_obj(sheet, magdisk_sheetobj);
+  sheet_append_sheet_obj(sheet, magdrum_sheetobj);
   sheet_append_sheet_obj(sheet, magtape_sheetobj);
   sheet_append_sheet_obj(sheet, intstorage_sheetobj);
   sheet_append_sheet_obj(sheet, merge_sheetobj);
@@ -241,6 +287,10 @@ void register_sheets(void) {
   sheet_append_sheet_obj(sheet, collate_sheetobj);
   sheet_append_sheet_obj(sheet, sort_sheetobj);
   sheet_append_sheet_obj(sheet, or_sheetobj);
+  sheet_append_sheet_obj(sheet, punchedcard_sheetobj);
+  sheet_append_sheet_obj(sheet, punchedtape_sheetobj);
+  sheet_append_sheet_obj(sheet, transmittape_sheetobj);
+  sheet_append_sheet_obj(sheet, offlinestore_sheetobj);
 
   register_sheet(sheet);
 }

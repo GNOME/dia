@@ -33,7 +33,12 @@ shape_DATA = \
 	sumjunction.shape \
 	collate.shape \
 	sort.shape \
-	or.shape
+	or.shape \
+	magdrum.shape \
+	offlinestore.shape \
+	punchedcard.shape \
+	punchedtape.shape \
+	transmittape.shape
 
 EXTRA_DIST = \
 	$(shape_DATA) \
@@ -59,4 +64,9 @@ EXTRA_DIST = \
 	pixmaps/sumjunction.xpm \
 	pixmaps/collate.xpm \
 	pixmaps/sort.xpm \
-	pixmaps/or.xpm
+	pixmaps/or.xpm \
+	pixmaps/magdrum.xpm \
+	pixmaps/offlinestore.xpm \
+	pixmaps/punchedcard.xpm \
+	pixmaps/punchedtape.xpm \
+	pixmaps/transmittape.xpm

@@ -4,6 +4,16 @@
 
 	* object/flowchart/pixmaps/...: corresponding pixmaps for new shapes.
 
+	* objects/flowchart/magdrum.shape: 
+	* objects/flowchart/offlinestore.shape: 
+	* objects/flowchart/punchedtape.shape: 
+	* objects/flowchart/transmittape.shape: 
+	* objects/flowchart/punchedcard.shape: new shapes.
+
+	* objects/flowchart/flowchart.c: add new shapes to flowchart sheet.
+
+	* object/flowchart/pixmaps/...: corresponding pixmaps for new shapes.
+
 	* objects/flowchart/collate.shape:
 	* objects/flowchart/delay.shape:
 	* objects/flowchart/extract.shape:
