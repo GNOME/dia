@@ -1,3 +1,7 @@
+2000-03-10 Alastair McKinstry <mckinstry@computer.org>
+	
+	* configure.in (ALL_LINGUAS): Added Irish (ga) translation.
+
 2000-03-07  Asbjorn Pettersen  <asbjornP@dualog.no>
 
 	* app/load_save.c (fchmod): OS/2 defines only.
