@@ -1,3 +1,7 @@
+2000-07-17  Yukihiro Nakai <ynakai@redhat.com>
+
+	* ja.po: Update Japanese translation.
+
 2000-07-15  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* POTFILES.in: Clean up. Removed files that aren't in
