@@ -997,7 +997,8 @@ on_sheets_dialog_button_edit_clicked   (GtkButton       *button,
   SheetMod *sm;
   gchar *name = "";
 
-  sheets_edit_dialog = create_sheets_edit_dialog();
+  if (sheets_edit_dialog == NULL)
+    sheets_edit_dialog = create_sheets_edit_dialog();
 
   active_button = sheets_dialog_get_active_button(&wrapbox, &button_list);
   som = gtk_object_get_data(GTK_OBJECT(active_button), "sheet_object_mod");

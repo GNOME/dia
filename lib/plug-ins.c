@@ -254,7 +254,7 @@ dia_plugin_load(PluginInfo *info)
     /* plugin displayed an error message */
     g_module_close(info->module);
     info->module = NULL;
-    info->description = g_strdup(_("dia_pluin_init() call failed"));
+    info->description = g_strdup(_("dia_plugin_init() call failed"));
     return;
   }
 

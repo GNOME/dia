@@ -1,3 +1,14 @@
+2003-01-30  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/plug-ins.c (dia_plugin_load): Fixed typo.
+
+	* app/properties.c (create_dialog): Destroy properties dialog and
+	box correctly.
+
+	* app/sheets_dialog_callbacks.c
+	(on_sheets_dialog_button_edit_clicked): Only create a new dialog
+	if the old one is destroyed.
+
 2003-01-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/lineprops_area.c (dia_arrow_chooser_new): Use menudesc list

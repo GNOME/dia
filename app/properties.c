@@ -64,6 +64,10 @@ static void create_dialog()
                    G_CALLBACK (properties_respond), NULL);
   g_signal_connect(G_OBJECT (dialog), "delete_event",
 		   G_CALLBACK(gtk_widget_hide), NULL);
+  g_signal_connect(G_OBJECT (dialog), "destroy",
+		   G_CALLBACK(gtk_widget_destroyed), &dialog);
+  g_signal_connect(G_OBJECT (dialog), "destroy",
+		   G_CALLBACK(gtk_widget_destroyed), &dialog_vbox);
 
   no_properties_dialog = gtk_label_new(_("This object has no properties."));
   gtk_widget_show (no_properties_dialog);
