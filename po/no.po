@@ -1,11 +1,11 @@
 # Norwegian translation of dia (bokmål dialect).
-# Copyright (C) 1999,2000 Free Software Foundation, Inc.
-# Kjartan Maraas <kmaraas@online.no>, 1999,2000.
+# Copyright (C) 1999-2001 Free Software Foundation, Inc.
+# Kjartan Maraas <kmaraas@gnome.org>, 1999-2001.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-05-20 22:39+0200\n"
+"Project-Id-Version: dia 0.89\n"
+"POT-Creation-Date: 2001-05-22 12:15+0200\n"
 "PO-Revision-Date: 2001-05-20 22:53+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 #. &export_file_name
 #: app/app_procs.c:148
 msgid "Export loaded file and exit"
-msgstr "Eksportér innlest fil og avslutt"
+msgstr "Eksporter innlest fil og avslutt"
 
 #: app/app_procs.c:148
 msgid "OUTPUT"
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Quit"
 msgstr "Avslutt"
 
-#: app/app_procs.c:372 app/display.c:953 app/layer_dialog.c:989
+#: app/app_procs.c:372 app/display.c:958 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
@@ -299,15 +299,15 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagrammet er endret!"
 
-#: app/display.c:903
+#: app/display.c:908
 msgid "Close Diagram?"
 msgstr "Lukk diagram?"
 
-#: app/display.c:909
+#: app/display.c:914
 msgid "Really close?"
 msgstr "Virkelig lukke?"
 
-#: app/display.c:914
+#: app/display.c:919
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -315,12 +315,12 @@ msgstr ""
 "Dette diagrammet er ikke lagret.\n"
 "Lagre endringer nå?"
 
-#: app/display.c:932 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:497
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:497
 #: lib/properties.c:288
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:942 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:497
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:497
 #: app/preferences.c:508 lib/properties.c:290 lib/properties.c:311
 msgid "No"
 msgstr "Nei"
@@ -686,7 +686,7 @@ msgstr "Tillegg"
 
 #: app/menus.c:63
 msgid "_Export..."
-msgstr "_Eksportér..."
+msgstr "_Eksporter..."
 
 #: app/menus.c:67
 msgid "Page Set_up..."
@@ -948,7 +948,7 @@ msgstr "/Fil/Lagre _som..."
 
 #: app/menus.c:279
 msgid "/File/_Export..."
-msgstr "/Fil/_Eksportér..."
+msgstr "/Fil/_Eksporter..."
 
 #: app/menus.c:281
 msgid "/File/Page Set_up..."
