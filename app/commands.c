@@ -34,6 +34,21 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
+#ifdef G_OS_WIN32
+/*
+ * Instead of polluting the Dia namespace with indoze headers, declare the
+ * required prototype here. This is bad style, but not as bad as namespace
+ * clashes to be resolved without C++   --hb
+ */
+long __stdcall
+ShellExecuteA (long        hwnd,
+               const char* lpOperation,
+               const char* lpFile,
+               const char* lpParameters,
+               const char* lpDirectory,
+               int         nShowCmd);
+#endif
+
 #ifdef GNOME
 #include <gnome.h>
 #endif
@@ -59,6 +74,7 @@
 #include "connectionpoint_ops.h"
 #include "undo.h"
 #include "pagesetup.h"
+#include "text.h"
 #include "dia_dirs.h"
 #include "focus.h"
 #include "gdk/gdk.h"
@@ -507,10 +523,13 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
     return;
   }
 
-  /* XXXX - need win32 version of this code */
+#ifdef G_OS_WIN32
+  ShellExecuteA (0, NULL, helpindex, NULL, helpdir, 0); 
+#else
   command = g_strdup_printf("netscape '%s' &", helpindex);
   system(command);
   g_free(command);
+#endif
 
   g_free(helpindex);
 }

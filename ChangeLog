@@ -1,3 +1,21 @@
+2001-03-19  Hans Breuer  <hans@breuer.org>
+
+	* app/commands.c : added win32 specific code to display a html
+	file. #include "text.h" for text_delete_all prototype.
+
+	* app/dia.ico :
+	* app/dia.rc : (new) to give Dia win32 an icon
+
+	* app/win32print.[ch] : new files to support direct postscript
+	file printing on win32. Beware: it *requires* a ps-printer!
+
+	* app/paginate_psprint.c : disable the signal code for win32 build
+	and added small specific changes to support win32print.
+
+	* app/makefile.msc : added win32print and linking shell32.lib
+
+	* lib/libdia.def : updated
+
 2001-03-18  Kevin Breit <battery841@mediaone.net>
 
 	* doc/en/dia-C.omf: Added file.  Dia should now list in the Nautilus

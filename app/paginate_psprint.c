@@ -40,8 +40,8 @@
 
 #ifdef G_OS_WIN32
 #include <io.h>
-#define popen _popen
-#define pclose _pclose
+#include "win32print.h"
+#define pclose(file) win32_printer_close (file)
 #endif
 
 /* keep track of print options between prints */
@@ -194,7 +194,13 @@ diagram_print_ps(Diagram *dia)
 
   FILE *file;
   gboolean is_pipe;
+#ifndef G_OS_WIN32
+  /* all the signal stuff below doesn't compile on win32, but it isn't 
+   * needed anymore because the pipe handling - which never worked on win32
+   * anyway - is replace by "native" postscript printing now ...
+   */
   struct sigaction pipe_action, old_action;
+#endif
 
   ddisp = ddisplay_active();
   dia = ddisp->diagram;
@@ -263,9 +269,15 @@ diagram_print_ps(Diagram *dia)
   gtk_widget_show(button);
 
   /* Set default or old dialog values: */
+#ifdef G_OS_WIN32
+  gtk_entry_set_text(GTK_ENTRY(cmd), 
+		     last_print_options.command 
+		     ? last_print_options.command : win32_printer_default ());
+#else
   gtk_entry_set_text(GTK_ENTRY(cmd), 
 		     last_print_options.command 
 		     ? last_print_options.command : "lpr");
+#endif
   /* Ought to use filename+extension here */
   gtk_entry_set_text(GTK_ENTRY(ofile), 
 		     last_print_options.output 
@@ -283,7 +295,11 @@ diagram_print_ps(Diagram *dia)
   }
 
   if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd))) {
+#ifdef G_OS_WIN32
+    file = win32_printer_open (gtk_entry_get_text(GTK_ENTRY(cmd)));
+#else
     file = popen(gtk_entry_get_text(GTK_ENTRY(cmd)), "w");
+#endif
     is_pipe = TRUE;
   } else {
     gchar *filename = gtk_entry_get_text(GTK_ENTRY(ofile));
@@ -319,11 +335,13 @@ diagram_print_ps(Diagram *dia)
     return;
   }
 
+#ifndef G_OS_WIN32
   /* set up a SIGPIPE handler to catch IO errors, rather than segfaulting */
   memset(&pipe_action, '\0', sizeof(pipe_action));
   sigpipe_received = FALSE;
   pipe_action.sa_handler = pipe_handler;
   sigaction(SIGPIPE, &pipe_action, &old_action);
+#endif
 
   paginate_psprint(dia, file);
   gtk_widget_destroy(dialog);
@@ -332,7 +350,9 @@ diagram_print_ps(Diagram *dia)
   else
     fclose(file);
 
+#ifndef G_OS_WIN32
   sigaction(SIGPIPE, &old_action, NULL);
+#endif
   if (sigpipe_received)
     message_error(_("Error occured while printing"));
 }

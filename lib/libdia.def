@@ -224,6 +224,7 @@ EXPORTS
  get_paper_tmargin
  get_sheets_list
  int_rectangle_union
+ intl_score_locale
  layer_add_object
  layer_add_object_at
  layer_add_objects
@@ -372,6 +373,7 @@ EXPORTS
  rs_add_set_linewidth
  text_calc_boundingbox
  text_copy
+ text_delete_all
  text_destroy
  text_distance_from
  text_draw
