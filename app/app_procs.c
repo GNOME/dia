@@ -76,6 +76,7 @@
 #include "plug-ins.h"
 #include "recent_files.h"
 #include "authors.h"
+#include "autosave.h"
 
 #define GETTEXT_PACKAGE "dia"
 
@@ -413,8 +414,12 @@ app_init (int argc, char **argv)
   /*fill recent file menu */
   recent_file_history_init();
 
+  /* Set up autosave to check every 5 minutes */
+  gtk_timeout_add(5*60*1000, autosave_check_autosave, NULL);
+
   create_tree_window();
 
+  /* In current setup, we can't find the autosaved files. */
   /*autosave_restore_documents();*/
 
   if (argv) {

@@ -38,6 +38,7 @@
 #include "load_save.h"
 #include "recent_files.h"
 #include "diagram_tree_window.h"
+#include "autosave.h"
 
 GList *open_diagrams = NULL;
 
@@ -51,11 +52,13 @@ diagram_init(Diagram *dia, const char *filename)
   dia->data->grid.width_x = prefs.grid.x;
   dia->data->grid.width_y = prefs.grid.y;
 
-  g_free(dia->filename);
+  if (dia->filename != NULL)
+    g_free(dia->filename);
   dia->filename = g_strdup(filename);
   
   dia->unsaved = TRUE;
   dia->modified = FALSE;
+  dia->autosavefilename = NULL;
 
   if (dia->undo)
     undo_destroy(dia->undo);
@@ -109,9 +112,6 @@ new_diagram(const char *filename)  /* Note: filename is copied */
 {
   Diagram *dia = g_new0(Diagram, 1);
 
-  dia->display_count = 0;
-  dia->displays = NULL;
-
   diagram_init(dia, filename);
 
   return dia;
@@ -132,6 +132,8 @@ diagram_destroy(Diagram *dia)
   undo_destroy(dia->undo);
   
   diagram_tree_remove(diagram_tree(), dia);
+
+  diagram_cleanup_autosave(dia);
   
   g_free(dia);
 }

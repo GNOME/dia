@@ -41,6 +41,7 @@
 #include "message.h"
 #include "preferences.h"
 #include "diapagelayout.h"
+#include "autosave.h"
 
 #ifdef G_OS_WIN32
 #include <io.h>
@@ -579,10 +580,10 @@ write_connections(GList *objects, xmlNodePtr layer_node,
   return TRUE;
 }
 
-static int
-diagram_data_save(DiagramData *data, const char *filename)
+/* Filename seems to be junk, but is passed on to objects */
+static xmlDocPtr
+diagram_data_write_doc(DiagramData *data, char *filename)
 {
-  FILE *file;
   xmlDocPtr doc;
   xmlNodePtr tree;
   xmlNodePtr pageinfo, gridinfo, guideinfo;
@@ -594,38 +595,6 @@ diagram_data_save(DiagramData *data, const char *filename)
   Layer *layer;
   AttributeNode attr;
   xmlNs *name_space;
-  char *bakname,*tmpname,*dirname,*p;
-  int mode,_umask;
-  int fildes;
-  int ret;
-   
-  /* build the temporary and backup file names */
-  dirname = g_strdup(filename);
-  p = strrchr((char *)dirname,G_DIR_SEPARATOR);
-  if (p) {
-    *(p+1) = 0;
-  } else {
-    g_free(dirname);
-    dirname = g_strdup("." G_DIR_SEPARATOR_S);
-  }
-  tmpname = g_strconcat(dirname,"__diaXXXXXX",NULL);
-  bakname = g_strconcat(filename,"~",NULL);
-
-  /* open a temporary name, and fix the modes to match what fopen() would have
-     done (mkstemp() is (rightly so) a bit paranoid for what we do). */
-  fildes = mkstemp(tmpname);
-  _umask = umask(0); umask(_umask);
-  mode = 0666 & ~_umask;
-  ret = fchmod(fildes,mode);
-  file = fdopen(fildes,"wb");
-
-  /* Now write the data in the temporary file name. */
-
-  if (file==NULL) {
-    message_error(_("Couldn't open: '%s' for writing.\n"), tmpname);
-    return FALSE;
-  }
-  fclose(file);
 
   doc = xmlNewDoc("1.0");
   doc->encoding = xmlStrdup("UTF-8");
@@ -673,9 +642,9 @@ diagram_data_save(DiagramData *data, const char *filename)
   data_add_real(composite_add_attribute(gridinfo, "width_y"),
 		data->grid.width_y);
   data_add_int(composite_add_attribute(gridinfo, "visible_x"),
-		data->grid.visible_x);
+	       data->grid.visible_x);
   data_add_int(composite_add_attribute(gridinfo, "visible_y"),
-		data->grid.visible_y);
+	       data->grid.visible_y);
 
   attr = new_attribute((ObjectNode)tree, "guides");
   guideinfo = data_add_composite(attr, "guides");
@@ -704,8 +673,9 @@ diagram_data_save(DiagramData *data, const char *filename)
 		  objects_hash, &obj_nr, filename);
   
     res = write_connections(layer->objects, layer_node, objects_hash);
+    /* Why do we bail out like this?  It leaks! */
     if (!res)
-      return FALSE;
+      return NULL;
   }
   g_hash_table_destroy(objects_hash);
 
@@ -714,8 +684,65 @@ diagram_data_save(DiagramData *data, const char *filename)
   else
     xmlSetDocCompressMode(doc, 0);
 
-  ret = xmlDiaSaveFile (tmpname, doc);
+  return doc;
+}
+
+/** This tries to save the diagram into a file, without any backup
+ * Returns >= 0 on success.
+ * Only for internal use. */
+static int
+diagram_data_raw_save(DiagramData *data, const char *filename)
+{
+  xmlDocPtr doc;
+  int ret;
+
+  doc = diagram_data_write_doc(data, filename);
+
+  ret = xmlDiaSaveFile (filename, doc);
   xmlFreeDoc(doc);
+
+  return ret;
+}
+
+/** This saves the diagram, using a backup in case of failure */
+static int
+diagram_data_save(DiagramData *data, const char *filename)
+{
+  FILE *file;
+  char *bakname,*tmpname,*dirname,*p;
+  int mode,_umask;
+  int fildes;
+  int ret;
+   
+  /* build the temporary and backup file names */
+  dirname = g_strdup(filename);
+  p = strrchr((char *)dirname,G_DIR_SEPARATOR);
+  if (p) {
+    *(p+1) = 0;
+  } else {
+    g_free(dirname);
+    dirname = g_strdup("." G_DIR_SEPARATOR_S);
+  }
+  tmpname = g_strconcat(dirname,"__diaXXXXXX",NULL);
+  bakname = g_strconcat(filename,"~",NULL);
+
+  /* open a temporary name, and fix the modes to match what fopen() would have
+     done (mkstemp() is (rightly so) a bit paranoid for what we do). */
+  fildes = mkstemp(tmpname);
+  _umask = umask(0); umask(_umask);
+  mode = 0666 & ~_umask;
+  ret = fchmod(fildes,mode);
+  file = fdopen(fildes,"wb");
+
+  /* Now write the data in the temporary file name. */
+
+  if (file==NULL) {
+    message_error(_("Couldn't open: '%s' for writing.\n"), tmpname);
+    return FALSE;
+  }
+  fclose(file);
+
+  ret = diagram_data_raw_save(data, tmpname);
 
   if (ret < 0) {
     /* Save failed; we clean our stuff up, without touching the file named
@@ -750,7 +777,59 @@ diagram_save(Diagram *dia, const char *filename)
   dia->unsaved = FALSE;
   diagram_set_modified (dia, FALSE);
 
+  diagram_cleanup_autosave(dia);
+
   return TRUE;
+}
+
+/* Autosave stuff.  Needs to use low-level save to avoid setting and resetting flags */
+void
+diagram_cleanup_autosave(Diagram *dia)
+{
+  gchar *savefile;
+  struct stat statbuf;
+
+  savefile = dia->autosavefilename;
+
+  if (savefile == NULL) return;
+
+  if (stat(savefile, &statbuf) == 0) { /* Success */
+    unlink(savefile);
+  }
+  g_free(savefile);
+  dia->autosavefilename = NULL;
+  dia->autosaved = FALSE;
+}
+
+/** Absolutely autosave a diagram.
+ * Called after a periodic check at the first idleness.
+ */
+void
+diagram_autosave(Diagram *dia)
+{
+  gchar *save_filename;
+
+  /* Must check if the diagram is still valid, or Death Ensues! */
+  GList *diagrams = open_diagrams;
+  Diagram *diagram;
+  printf("diagram_autosave\n");
+  while (diagrams != NULL) {
+    diagram = (Diagram *)diagrams->data;
+    if (diagram == dia &&
+	diagram->modified && 
+	!diagram->autosaved) {
+      save_filename = g_strdup_printf("%s.autosave", dia->filename);
+
+      printf("diagram_autosave: Saving\n");
+      if (dia->autosavefilename != NULL) 
+	g_free(dia->autosavefilename);
+      dia->autosavefilename = save_filename;
+      diagram_data_raw_save(dia->data, save_filename);
+      dia->autosaved = TRUE;
+      return;
+    }
+    diagrams = g_list_next(diagrams);
+  }
 }
 
 /* --- filter interfaces --- */

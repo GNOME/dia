@@ -1,5 +1,17 @@
 2002-07-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/autosave.h (autosave_check_autosave): 
+	* app/load_save.h: 
+	* app/diagram.h: 
+	* app/Makefile.am (dia_core_files): 
+	* app/load_save.c: 
+	* app/diagram.c (diagram_set_modified): 
+	* app/autosave.c: 
+	* app/app_procs.c (app_init): 
+	Autosave support.  No automatic restore yet.
+
+2002-07-16  Lars Clausen  <lrclause@cs.uiuc.edu>
+
 	* app/render_eps.c (create_eps_renderer): #ifdef'd a scale
 	assignment. 
 	
