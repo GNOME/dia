@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 1999-12-09 10:14+0800\n"
-"PO-Revision-Date: 1999-12-07 19:45+01:00\n"
+"POT-Creation-Date: 1999-12-13 23:44+0100\n"
+"PO-Revision-Date: 1999-12-13 23:53+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -471,22 +471,20 @@ msgstr ""
 "Lenket objekt ikke funnet i dokumentet."
 
 #: app/load_save.c:135
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
-"Feil under lasting av diagrammet %s.\n"
-"Ukjent filtype."
+"Feil under lasting av diagram.\n"
+"Punkt for forbindelse eksisterer ikke."
 
 #: app/load_save.c:138
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
-"Feil under lasting av diagrammet %s.\n"
-"Ukjent filtype."
+"Feil under lasting av diagram.\n"
+"Håndtak for forbindelse eksisterer ikke."
 
 #: app/load_save.c:183
 #, c-format
