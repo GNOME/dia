@@ -24,6 +24,9 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "persistence.h"
 #include "dia_dirs.h"
@@ -103,6 +106,9 @@ persistence_load()
 {
   xmlDocPtr doc;
   gchar *filename = dia_config_filename("persistence");
+  struct stat statbuf;
+
+  if (stat(filename, &statbuf) == -1) return;
 
   doc = xmlDiaParseFile(filename);
   if (doc != NULL) {
@@ -160,9 +166,6 @@ persistence_update_window(GtkWindow *window, GdkEvent *event, gpointer data)
     persistence_store_window_info(window, wininfo, isclosed);
     g_hash_table_insert(persistent_windows, name, wininfo);
   }
-  printf("Updating %s to %d,%d size %dx%d closed %d\n", 
-	 name, wininfo->x, wininfo->y,
-	 wininfo->width, wininfo->height, isclosed);
   if (wininfo->window != NULL && wininfo->window != window) {
     g_object_unref(wininfo->window);
     wininfo->window = NULL;

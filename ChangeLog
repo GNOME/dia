@@ -1,3 +1,8 @@
+2003-04-26  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/persistence.c (persistence_load): Stat persistence file
+	before trying to open it.
+
 2003-04-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/properties.c: Escape now closes properties dialogs.
@@ -64,6 +69,10 @@
 	black-filled things.
 
 2003-04-21  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/persistence.c (persistence_load): Check that persistence
+	file exists before trying to read it.
+	(persistence_update_window): Removed printf.
 
 	* objects/GRAFCET/step.c: Don't copy defaults for name and id.
 
