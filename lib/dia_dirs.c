@@ -42,7 +42,10 @@ dia_get_data_directory (const gchar* subdir)
   return g_strconcat (sLoc , subdir, NULL); 
 
 #else
-  return g_strconcat (DATADIR, G_DIR_SEPARATOR_S, subdir, NULL);
+  if (strlen (subdir) == 0)		
+    return g_strconcat (DATADIR, NULL);
+  else
+    return g_strconcat (DATADIR, G_DIR_SEPARATOR_S, subdir, NULL);
 #endif
 }
 

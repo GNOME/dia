@@ -1,3 +1,11 @@
+2000-09-17  Asbjorn Pettersen  <asbjornP@dualog.no>
+
+	* app/commands.c (help_about_callback): Use G_DIR_SEPARATOR_S in 
+	logo filename generation. 
+
+	* lib/dia_dirs.c (dia_get_data_directory): Handle empty subdir better.
+	Avoiding "//dia_logo.png".
+
 2000-09-16  Asbjorn Pettersen  <asbjornP@dualog.no>
 
 	* app/filedlg.c: add include <sys/types.h> to

@@ -474,7 +474,7 @@ help_about_callback(GtkWidget *widget, gpointer data)
 
   if (!logo) {
       gchar* datadir = dia_get_data_directory(""); 
-      g_snprintf(str, sizeof(str), "%s/dia_logo.png", datadir);
+      g_snprintf(str, sizeof(str), "%s%sdia_logo.png", datadir, G_DIR_SEPARATOR_S);
 #ifdef HAVE_GDK_PIXBUF
       logo = gdk_pixbuf_new_from_file(str);
 #else
