@@ -123,8 +123,10 @@ PKG_CHECK_MODULES(XSLT, libxslt, have_xslt=true, have_xslt=false)
 AM_CONDITIONAL(HAVE_XSLT, $have_xslt)
 if test "$have_xslt" = "true"; then
   XSLT_DIR="xslt"
-
+  XSLT_LIBS="`$PKG_CONFIG --libs libxslt`"
+  XSLT_CFLAGS="`$PKG_CONFIG --cflags libxslt`"
 fi
+
 AC_SUBST(XSLT_DIR)
 AC_SUBST(XSLT_LIBS)
 AC_SUBST(XSLT_CFLAGS)
