@@ -39,7 +39,7 @@
 
 void create_display_shell(DDisplay *ddisp,
 			  int width, int height,
-			  char *title, int top_level_window);
+			  char *title, int use_mbar, int top_level_window);
 
 void create_toolbox (void);
 void toolbox_show(void);

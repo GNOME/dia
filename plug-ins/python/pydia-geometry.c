@@ -148,7 +148,7 @@ PyDiaPoint_Compare(PyDiaPoint *self,
 {
 #if 1
   return memcmp (&self->pt, &other->pt, sizeof(Point));
-#else //?
+#else /* ? */
   if (self->pt.x == other->pt.x && self->pt.x == other->pt.x) return 0;
 #define SQR(pt) (pt.x*pt.y)
   if (SQR(self->pt) > SQR(other->pt)) return -1;

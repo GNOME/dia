@@ -124,7 +124,7 @@ create_standard_text(real xpos, real ypos, char *text,
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-    //    layer_add_object(dia->active_layer, new_obj);
+    /*   layer_add_object(dia->active_layer, new_obj); */
 
     props[0].name = "text";
     props[0].type = PROP_TYPE_STRING;
@@ -148,7 +148,7 @@ create_standard_ellipse(real xpos, real ypos, real width, real height,
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-    //    layer_add_object(dia->active_layer, new_obj);
+    /*   layer_add_object(dia->active_layer, new_obj); */
   
     props[0].name = "elem_corner";
     props[0].type = PROP_TYPE_POINT;
@@ -181,7 +181,7 @@ create_standard_box(real xpos, real ypos, real width, real height,
 
   new_obj = otype->ops->create(&point, otype->default_user_data,
 			       &h1, &h2);
-  //  layer_add_object(dia->active_layer, new_obj);
+  /*  layer_add_object(dia->active_layer, new_obj); */
   
   props[0].name = "elem_corner";
   props[0].type = PROP_TYPE_POINT;
@@ -213,7 +213,7 @@ create_standard_arc(real x1, real y1, real x2, real y2,
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-    //    layer_add_object(dia->active_layer, new_obj);
+    /*    layer_add_object(dia->active_layer, new_obj); */
 
     
     /*
@@ -254,7 +254,7 @@ create_standard_image(real xpos, real ypos, real width, real height,
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-    //    layer_add_object(dia->active_layer, new_obj);
+    /*    layer_add_object(dia->active_layer, new_obj); */
     
     props[0].name = "elem_corner";
     props[0].type = PROP_TYPE_POINT;
@@ -280,7 +280,7 @@ create_standard_group(GList *items, DiagramData *dia) {
 
     new_obj = group_create((GList*)items);
 
-    //    layer_add_object(dia->active_layer, new_obj);
+    /*    layer_add_object(dia->active_layer, new_obj); */
 
     return new_obj;
 }

@@ -33,8 +33,9 @@ select_all_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia;
   GList *objects;
+  DDisplay * ddisp = ddisplay_active();
 
-  dia = ddisplay_active()->diagram;
+  dia = ddisp->diagram;
 
   objects = dia->data->active_layer->objects;
 
@@ -47,7 +48,7 @@ select_all_callback(gpointer data, guint action, GtkWidget *widget)
     objects = g_list_next(objects);
   }
 
-  diagram_update_menu_sensitivity(dia);
+  ddisplay_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
 }
@@ -55,11 +56,12 @@ select_all_callback(gpointer data, guint action, GtkWidget *widget)
 void
 select_none_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  Diagram * dia = ddisplay_active()->diagram;
+  DDisplay * ddisp = ddisplay_active();
+  Diagram * dia = ddisp->diagram;
 
   diagram_remove_all_selected(dia, TRUE);
 
-  diagram_update_menu_sensitivity(dia);
+  ddisplay_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
 }
@@ -69,8 +71,9 @@ select_invert_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia;
   GList *tmp;
+  DDisplay * ddisp = ddisplay_active();
 
-  dia = ddisplay_active()->diagram;
+  dia = ddisp->diagram;
 
   tmp = dia->data->active_layer->objects;
 
@@ -83,7 +86,7 @@ select_invert_callback(gpointer data, guint action, GtkWidget *widget)
       diagram_unselect_object(dia, obj);
   }
 
-  diagram_update_menu_sensitivity(dia);
+  ddisplay_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
   
@@ -92,7 +95,8 @@ select_invert_callback(gpointer data, guint action, GtkWidget *widget)
 void
 select_connected_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  Diagram *dia = ddisplay_active()->diagram;
+  DDisplay * ddisp = ddisplay_active();
+  Diagram *dia = ddisp->diagram;
   GList *objects, *tmp;
 
   objects = dia->data->selected;
@@ -130,7 +134,7 @@ select_connected_callback(gpointer data, guint action, GtkWidget *widget)
     }
   }
 
-  diagram_update_menu_sensitivity(dia);
+  ddisplay_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
 }
@@ -176,7 +180,8 @@ select_transitively(Diagram *dia, Object *obj)
 void
 select_transitive_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  Diagram *dia = ddisplay_active()->diagram;
+  DDisplay *ddisp = ddisplay_active();
+  Diagram *dia = ddisp->diagram;
   GList *objects, *tmp;
 
   objects = dia->data->selected;
@@ -185,7 +190,7 @@ select_transitive_callback(gpointer data, guint action, GtkWidget *widget)
     select_transitively(dia, (Object *)tmp->data);
   }
 
-  diagram_update_menu_sensitivity(dia);
+  ddisplay_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
 }
@@ -195,10 +200,11 @@ select_same_type_callback(gpointer data, guint action, GtkWidget *widget)
 {
   /* For now, do a brute force version:  Check vs. all earlier selected.
      Later, we should really sort the selecteds first to avoid n^2 */
+  DDisplay *ddisp = ddisplay_active();
   Diagram *dia;
   GList *objects, *tmp, *tmp2;
 
-  dia = ddisplay_active()->diagram;
+  dia = ddisp->diagram;
 
   tmp = dia->data->active_layer->objects;
 
@@ -219,7 +225,7 @@ select_same_type_callback(gpointer data, guint action, GtkWidget *widget)
     }
   }
 
-  diagram_update_menu_sensitivity(dia);
+  ddisplay_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
 }
@@ -232,4 +238,8 @@ select_style_callback(gpointer data, guint action, GtkWidget *widget)
   /* simply set the selection style to the value of `action' */
   selection_style = action;
 }
+
+
+
+
 

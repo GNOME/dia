@@ -35,6 +35,7 @@ struct DiaPreferences {
     int width;
     int height;
     real zoom;
+    int use_menu_bar;
   } new_view;
   
   int show_cx_pts;

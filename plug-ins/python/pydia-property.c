@@ -59,7 +59,7 @@ static int
 PyDiaProperty_Compare(PyDiaProperty *self,
                       PyDiaProperty *other)
 {
-  //???
+  /* ??? */
   return memcmp(&(self->property), &(other->property), sizeof(Property));
 }
 

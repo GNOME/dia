@@ -151,7 +151,6 @@ void
 diagram_modified(Diagram *dia)
 {
   diagram_set_modified(dia, TRUE);
-  diagram_update_menu_sensitivity(dia);
 }
 
 void
@@ -172,114 +171,69 @@ diagram_set_modified(Diagram *dia, int modified)
   }
 }
 
-void diagram_update_menu_sensitivity(Diagram *dia)
+
+/*
+  This is the real implementation of the sensitivity update.
+  TODO: move it to the DDisplay as it belongs to it IMHO
+ */
+void 
+diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
 {
-  static int initialized = 0;
-  static GtkWidget *copy;
-  static GtkWidget *cut;
-  static GtkWidget *paste;
-#ifndef GNOME
-  static GtkWidget *delete;
-#endif
-  static GtkWidget *copy_text;
-  static GtkWidget *cut_text;
-  static GtkWidget *paste_text;
-
-  static GtkWidget *send_to_back;
-  static GtkWidget *bring_to_front;
-
-  static GtkWidget *group;
-  static GtkWidget *ungroup;
-
-  static GtkWidget *align_h_l;
-  static GtkWidget *align_h_c;
-  static GtkWidget *align_h_r;
-  static GtkWidget *align_h_e;
-  static GtkWidget *align_h_a;
-
-  static GtkWidget *align_v_t;
-  static GtkWidget *align_v_c;
-  static GtkWidget *align_v_b;
-  static GtkWidget *align_v_e;
-  static GtkWidget *align_v_a;
-  
-  if (initialized==0) {
-#   ifdef GNOME
-    if (ddisplay_active () == NULL) return;
-#   endif
-    copy = menus_get_item_from_path("<Display>/Edit/Copy");
-    cut = menus_get_item_from_path("<Display>/Edit/Cut");
-    paste = menus_get_item_from_path("<Display>/Edit/Paste");
-#   ifndef GNOME
-    delete = menus_get_item_from_path("<Display>/Edit/Delete");
-#   endif
-
-    copy_text = menus_get_item_from_path("<Display>/Edit/Copy Text");
-    cut_text = menus_get_item_from_path("<Display>/Edit/Cut Text");
-    paste_text = menus_get_item_from_path("<Display>/Edit/Paste Text");
-
-    send_to_back = menus_get_item_from_path("<Display>/Objects/Send to Back");
-    bring_to_front =
-      menus_get_item_from_path("<Display>/Objects/Bring to Front");
-    group = menus_get_item_from_path("<Display>/Objects/Group");
-    ungroup = menus_get_item_from_path("<Display>/Objects/Ungroup");
-    align_h_l =
-      menus_get_item_from_path("<Display>/Objects/Align Horizontal/Left");
-    align_h_c =
-      menus_get_item_from_path("<Display>/Objects/Align Horizontal/Center");
-    align_h_r =
-      menus_get_item_from_path("<Display>/Objects/Align Horizontal/Right");
-    align_h_e =
-      menus_get_item_from_path(
-	  "<Display>/Objects/Align Horizontal/Equal Distance");
-    align_h_a =
-      menus_get_item_from_path("<Display>/Objects/Align Horizontal/Adjacent");
-    align_v_t =
-      menus_get_item_from_path("<Display>/Objects/Align Vertical/Top");
-    align_v_c =
-      menus_get_item_from_path("<Display>/Objects/Align Vertical/Center");
-    align_v_b =
-      menus_get_item_from_path("<Display>/Objects/Align Vertical/Bottom");
-    align_v_e =
-      menus_get_item_from_path(
-	  "<Display>/Objects/Align Vertical/Equal Distance");
-    align_v_a =
-      menus_get_item_from_path("<Display>/Objects/Align Vertical/Adjacent");
+  gtk_widget_set_sensitive(items->copy, dia->data->selected_count > 0);
+  gtk_widget_set_sensitive(items->cut, dia->data->selected_count > 0);
+  gtk_widget_set_sensitive(items->paste, cnp_exist_stored_objects());
+  #ifndef GNOME
+  gtk_widget_set_sensitive(items->delete, dia->data->selected_count > 0);
+  #endif
     
-    initialized = 1;
-  }
+  gtk_widget_set_sensitive(items->copy_text, active_focus() != NULL);
+  gtk_widget_set_sensitive(items->cut_text, 0); /* Not implemented */
+  gtk_widget_set_sensitive(items->paste_text, active_focus() != NULL);
   
-  gtk_widget_set_sensitive(copy, dia->data->selected_count > 0);
-  gtk_widget_set_sensitive(cut, dia->data->selected_count > 0);
-  gtk_widget_set_sensitive(paste, cnp_exist_stored_objects());
-#ifndef GNOME
-  gtk_widget_set_sensitive(delete, dia->data->selected_count > 0);
-#endif
-
-  gtk_widget_set_sensitive(copy_text, active_focus() != NULL);
-  gtk_widget_set_sensitive(cut_text, 0); 
-  gtk_widget_set_sensitive(paste_text, active_focus() != NULL);
-
-  gtk_widget_set_sensitive(send_to_back, dia->data->selected_count > 0);
-  gtk_widget_set_sensitive(bring_to_front, dia->data->selected_count > 0);
-  
-  gtk_widget_set_sensitive(group, dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(ungroup,
+  gtk_widget_set_sensitive(items->send_to_back, dia->data->selected_count > 0);
+  gtk_widget_set_sensitive(items->bring_to_front, dia->data->selected_count > 0);
+    
+  gtk_widget_set_sensitive(items->group, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(items->ungroup,
 			   (dia->data->selected_count == 1) &&
 			   IS_GROUP((Object *)dia->data->selected->data));
-
-  gtk_widget_set_sensitive(align_h_l, dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(align_h_c, dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(align_h_r, dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(align_h_e, dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(align_h_a, dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(align_v_t, dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(align_v_c, dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(align_v_b, dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(align_v_e, dia->data->selected_count > 1);
-  gtk_widget_set_sensitive(align_v_a, dia->data->selected_count > 1);
+  
+  gtk_widget_set_sensitive(items->align_h_l, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(items->align_h_c, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(items->align_h_r, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(items->align_h_e, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(items->align_h_a, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(items->align_v_t, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(items->align_v_c, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(items->align_v_b, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(items->align_v_e, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(items->align_v_a, dia->data->selected_count > 1);
+  
+}
+    
+  
+void diagram_update_menubar_sensitivity(Diagram *dia, UpdatableMenuItems *items)
+{
+    diagram_update_menu_sensitivity (dia, items);
 }
 
+
+void diagram_update_popupmenu_sensitivity(Diagram *dia)
+{
+  static int initialized = 0;
+  static UpdatableMenuItems items;
+  
+
+  char *display = "<Display>";
+  
+  if (initialized==0) {
+      menus_initialize_updatable_items (&items, NULL, display);
+      
+      initialized = 1;
+  }
+  
+  diagram_update_menu_sensitivity (dia, &items);
+}
 
 void
 diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp)

@@ -159,11 +159,10 @@ psu_check_string_encodings(PSUnicoder *psu,
       /* hack: we'll also put in the neighbours characters (for "alphabetic
          alphabets" only, betting on the high probability of their use
          anyway (this should cut a little down the encoding redefinitions) */
-      for (i=1; i<3; i++) {
-        //if ((unichar+i)<0xFFFE)  /* gcc is still too dumb ... */
-        psu_add_encoding(psu,unichar+i);
-        //if ((unichar-i)>0)       /* ... to see that by itself */
-        psu_add_encoding(psu,unichar-i);
+      for (i=-3; i<4; i++) {
+        if (((unichar+i) > 32) && (unichar-i) < 0xFFFE) {
+          psu_add_encoding(psu,unichar+i);
+        }
       }
     }
   }  

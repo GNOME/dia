@@ -418,7 +418,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
       break;
 
     case GDK_FOCUS_CHANGE:
-      diagram_update_menu_sensitivity(ddisp->diagram);
+      ddisplay_do_update_menu_sensitivity(ddisp);
       break;
       
     case GDK_2BUTTON_PRESS:
@@ -464,10 +464,13 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  break;
 
 	case 2:
+	  if (ddisp->menu_bar == NULL) {
 	  popup_object_menu(ddisp, bevent);
+	  }
 	  break;
 
 	case 3:
+	  if (ddisp->menu_bar == NULL) {
 	  if (bevent->state & GDK_CONTROL_MASK) {
 	    /* for two button mouse users ... */
 	    popup_object_menu(ddisp, bevent);
@@ -475,7 +478,11 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  }
 	  ddisplay_popup_menu(ddisp, bevent);
  	  break;
-
+	  }
+	  else {
+	     popup_object_menu(ddisp, bevent);
+	     break;
+	  }	  
 	default:
 	  break;
 	}

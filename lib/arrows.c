@@ -259,7 +259,6 @@ draw_fill_dot(Renderer *renderer, Point *to, Point *from,
     /* Means dimension origin */
     Point dos,doe;
 
-    //point_copy(&doe,to);
     point_copy_add_scaled(&doe,to,&vl,length);
     point_copy_add_scaled(&dos,to,&vl,length/2);
     

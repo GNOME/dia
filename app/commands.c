@@ -221,7 +221,7 @@ edit_cut_callback(gpointer data, guint action, GtkWidget *widget)
   change = undo_delete_objects(ddisp->diagram, cut_list);
   (change->apply)(change, ddisp->diagram);
   
-  diagram_update_menu_sensitivity(ddisp->diagram);
+  ddisplay_do_update_menu_sensitivity(ddisp);
   diagram_flush(ddisp->diagram);
 
   undo_set_transactionpoint(ddisp->diagram->undo);
@@ -454,7 +454,7 @@ edit_delete_callback(gpointer data, guint action, GtkWidget *widget)
   change = undo_delete_objects(ddisp->diagram, delete_list);
   (change->apply)(change, ddisp->diagram);
   
-  diagram_update_menu_sensitivity(ddisp->diagram);
+  ddisplay_do_update_menu_sensitivity(ddisp);
   diagram_flush(ddisp->diagram);
 
   undo_set_transactionpoint(ddisp->diagram->undo);

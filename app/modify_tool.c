@@ -139,7 +139,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       }
       */
 
-      diagram_update_menu_sensitivity(diagram);
+      ddisplay_do_update_menu_sensitivity(ddisp);
       object_add_updates_list(diagram->data->selected, diagram);
       diagram_flush(diagram);
 
@@ -153,7 +153,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       
       if (event->state & GDK_SHIFT_MASK) { /* Multi-select */
 	/* Remove the selected selected */
-	diagram_update_menu_sensitivity(diagram);
+	ddisplay_do_update_menu_sensitivity(ddisp);
 	diagram_unselect_object(ddisp->diagram, (Object *)already->data);
 	diagram_flush(ddisp->diagram);
       } else {
@@ -264,7 +264,7 @@ modify_double_click(ModifyTool *tool, GdkEventButton *event,
     /*printf("didn't select object\n");*/
     if (!(event->state & GDK_SHIFT_MASK)) {
       /* Not Multi-select => Remove all selected */
-      diagram_update_menu_sensitivity(ddisp->diagram);
+      ddisplay_do_update_menu_sensitivity(ddisp);
       diagram_remove_all_selected(ddisp->diagram, TRUE);
       diagram_flush(ddisp->diagram);
     }
@@ -583,7 +583,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       
     }
     
-    diagram_update_menu_sensitivity(ddisp->diagram);
+    ddisplay_do_update_menu_sensitivity(ddisp);
     ddisplay_flush(ddisp);
 
     tool->state = STATE_NONE;

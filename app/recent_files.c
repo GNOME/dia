@@ -72,7 +72,7 @@ recent_file_history_add(const char *fname, DiaImportFilter *ifilter) {
 	}
 	
 	/* remove recent files if list get's too long */
-	toolbox_filemenu = menus_get_item_from_path(N_("/File/Plugins"))->parent;
+	toolbox_filemenu = menus_get_item_from_path(N_("/File/Plugins"), NULL)->parent;
 	toolbox_item_factory = gtk_item_factory_from_widget(toolbox_filemenu);
 	
 	if(g_list_length(recent_files) == recent_files_length) {

@@ -220,7 +220,7 @@ listbox_calc_connections(EMLBox *box, Point *corner,
   GList *list;
   EMLBox *el_box;
   Point pos;
-  //ConnectionPoint *connection;
+  /* ConnectionPoint *connection; */
   real x, y;
 
   

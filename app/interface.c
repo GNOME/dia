@@ -231,10 +231,11 @@ display_data_received_callback (GtkWidget *widget, GdkDragContext *context,
 void
 create_display_shell(DDisplay *ddisp,
 		     int width, int height,
-		     char *title, int top_level_window)
+		     char *title, int use_mbar, int top_level_window)
 {
   GtkWidget *table, *widget;
   GtkWidget *status_hbox;
+  GtkWidget *root_vbox = NULL;
 #ifndef WITHOUT_ZOOM_COMBO
   GtkWidget *zoom_hbox, *zoom_label;
 #endif
@@ -302,16 +303,33 @@ create_display_shell(DDisplay *ddisp,
   gtk_table_set_row_spacing (GTK_TABLE (table), 0, 1);
   gtk_table_set_row_spacing (GTK_TABLE (table), 1, 2);
   gtk_container_set_border_width (GTK_CONTAINER (table), 2);
-  gtk_container_add (GTK_CONTAINER (ddisp->shell), table);
+  if (use_mbar) 
+  {
+      root_vbox = gtk_vbox_new (FALSE, 1);
+      gtk_container_add (GTK_CONTAINER (ddisp->shell), root_vbox);
+      gtk_box_pack_end (GTK_BOX (root_vbox), table, TRUE, TRUE, 0);
+  }
+  else
+  {
+      gtk_container_add (GTK_CONTAINER (ddisp->shell), table);
+  }
+  
 
   /*  scrollbars, rulers, canvas, menu popup button  */
-  ddisp->origin = gtk_button_new();
-  GTK_WIDGET_UNSET_FLAGS(ddisp->origin, GTK_CAN_FOCUS);
-  widget = gtk_arrow_new(GTK_ARROW_RIGHT, GTK_SHADOW_OUT);
-  gtk_container_add(GTK_CONTAINER(ddisp->origin), widget);
-  gtk_widget_show(widget);
-  gtk_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
+  if (!use_mbar) {
+      ddisp->origin = gtk_button_new();
+      GTK_WIDGET_UNSET_FLAGS(ddisp->origin, GTK_CAN_FOCUS);
+      widget = gtk_arrow_new(GTK_ARROW_RIGHT, GTK_SHADOW_OUT);
+      gtk_container_add(GTK_CONTAINER(ddisp->origin), widget);
+      gtk_widget_show(widget);
+      gtk_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
 		     GTK_SIGNAL_FUNC(origin_button_press), ddisp);
+  }
+  else {
+      ddisp->origin = gtk_frame_new (NULL);
+      gtk_frame_set_shadow_type (GTK_FRAME (ddisp->origin), GTK_SHADOW_OUT);
+  }
+  
 
   ddisp->hrule = gtk_hruler_new ();
   gtk_signal_connect_object (GTK_OBJECT (ddisp->shell), "motion_notify_event",
@@ -371,6 +389,31 @@ create_display_shell(DDisplay *ddisp,
   menus_get_image_menu (NULL, &ddisp->accel_group);
   if (top_level_window)
     gtk_window_add_accel_group(GTK_WINDOW(ddisp->shell), ddisp->accel_group);
+  if (use_mbar) 
+  {
+    GString *path;
+    char *display = "<DisplayMBar>";
+
+    menus_get_image_menubar(&ddisp->menu_bar, &ddisp->mbar_item_factory);
+    gtk_box_pack_start (GTK_BOX (root_vbox), ddisp->menu_bar, FALSE, TRUE, 0);
+
+    path = g_string_new (display);
+    g_string_append (path,_("/View/Show Rulers"));
+    ddisp->rulers       = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
+    g_string_append (g_string_assign(path, display),_("/View/Visible Grid"));
+    ddisp->visible_grid = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
+    g_string_append (g_string_assign(path, display),_("/View/Snap To Grid"));
+    ddisp->snap_to_grid = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
+    g_string_append (g_string_assign(path, display),_("/View/Show Connection Points"));
+    ddisp->show_cx_pts_mitem  = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
+#ifdef HAVE_LIBART
+    g_string_append(g_string_assign(path, display),_("/View/AntiAliased"));
+    ddisp->antialiased = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
+#endif
+
+    menus_initialize_updatable_items (&ddisp->updatable_menu_items, ddisp->mbar_item_factory, display);
+    g_string_free (path,FALSE);
+  }
 
   /* the statusbars */
   status_hbox = gtk_hbox_new (FALSE, 2);
@@ -425,6 +468,11 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_show (ddisp->modified_status);
   gtk_widget_show (status_hbox);
   gtk_widget_show (table);
+  if (use_mbar) 
+  {
+      gtk_widget_show (ddisp->menu_bar);
+      gtk_widget_show (root_vbox);
+  }
   gtk_widget_show (ddisp->shell);
 
   /*  set the focus to the canvas area  */

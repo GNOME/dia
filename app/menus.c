@@ -263,6 +263,10 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {N_("/Help/_About"),         NULL,         help_about_callback,       0 },
 };
 
+/* calculate the number of menu_item's */
+static int toolbox_nmenu_items = sizeof(toolbox_menu_items) / sizeof(toolbox_menu_items[0]);
+
+/* this one is needed while we create the menubar in GTK instead of Gnome */
 static GtkItemFactoryEntry display_menu_items[] =
 {
   {   "/tearoff",                 NULL,         NULL,         0, "<Tearoff>" },
@@ -383,9 +387,6 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Dialogs/_Layers"),        NULL,     dialogs_layers_callback,        0},
 };
 
-/* calculate the number of menu_item's */
-static int toolbox_nmenu_items = (sizeof(toolbox_menu_items) / 
-				  sizeof(toolbox_menu_items[0]));
 static int display_nmenu_items = (sizeof(display_menu_items) /
 				  sizeof(display_menu_items[0]));
 
@@ -607,11 +608,40 @@ static GnomeUIBuilderData dia_menu_uibdata = {
 };
 #endif
 
+/*
+  Purpose: set the generic callback for all the items in the menu "Tools"
+ */
+static void 
+menus_set_tools_callback (const char * menu_name, GtkItemFactory *item_factory)
+{
+    gint i, len;
+    GString *path;
+    GtkWidget *menuitem;
+    
+    path = g_string_new(menu_name);
+    g_string_append(path, _("/Tools/"));
+    len = path->len;
+    for (i = 0; i < num_tools; i++) {
+	g_string_append(path, tool_data[i].menuitem_name);
+	menuitem = menus_get_item_from_path(path->str, item_factory);
+	if (menuitem != NULL)
+	    gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
+			       GTK_SIGNAL_FUNC(tool_menu_select),
+			       &tool_data[i].callback_data);
+	g_string_truncate(path, len);
+    }
+    g_string_free(path, TRUE);
+}
+
+
 static void
 menus_init(void)
 {
+#ifndef GNOME
+  GtkItemFactoryEntry *translated_entries;
+#else
   GtkWidget *menuitem;
-  GString *path;
+#endif
   gchar *accelfilename;
   gint i, len;
   GList *cblist;
@@ -680,18 +710,7 @@ menus_init(void)
 					      "<Display>");
 #endif
 
-  path = g_string_new("<Display>/Tools/");
-  len = path->len;
-  for (i = 0; i < num_tools; i++) {
-    g_string_append(path, tool_data[i].menuitem_name);
-    menuitem = menus_get_item_from_path(path->str);
-    if (menuitem != NULL)
-      gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
-			 GTK_SIGNAL_FUNC(tool_menu_select),
-			 &tool_data[i].callback_data);
-    g_string_truncate(path, len);
-  }
-  g_string_free(path, TRUE);
+  menus_set_tools_callback ("<Display>", NULL);
 
   gtk_menu_set_title(GTK_MENU(display_menus), _("Diagram Menu"));
   
@@ -742,6 +761,45 @@ menus_get_image_menu (GtkWidget **menu,
     *menu = display_menus;
   if (accel_group)
     *accel_group = display_accels;
+}
+
+void
+menus_get_image_menubar (GtkWidget **menu, GtkItemFactory **display_mbar_item_factory)
+{
+    if (menu) 
+    {
+	GtkAccelGroup *display_mbar_accel_group;
+#ifndef GNOME
+	/* the display menubar. Pure gtk. TODO: make it GNOME */
+	display_mbar_accel_group = gtk_accel_group_new ();
+	*display_mbar_item_factory =  gtk_item_factory_new (GTK_TYPE_MENU_BAR,
+							    "<DisplayMBar>",
+							    display_mbar_accel_group);
+#ifdef ENABLE_NLS
+	gtk_item_factory_set_translate_func (*display_mbar_item_factory, 
+					     menu_translate,
+					     "<DisplayMBar>", NULL);
+#endif
+	gtk_item_factory_create_items (*display_mbar_item_factory,
+				       display_nmenu_items - 1,
+				       &(display_menu_items[1]), NULL);
+
+	menus_set_tools_callback ("<DisplayMBar>", *display_mbar_item_factory);
+	*menu = gtk_item_factory_get_widget (*display_mbar_item_factory, "<DisplayMBar>");
+#else
+	GtkWidget *menuitem;
+	
+	/* the display menu */
+	*menu = gtk_menu_bar_new();
+	display_mbar_accel_group = gtk_accel_group_new();
+	menuitem = gtk_tearoff_menu_item_new();
+	gnome_app_fill_menu_custom(GTK_MENU_SHELL(*menu), display_menu,
+				   &dia_menu_uibdata, display_mbar_accel_group,
+				   TRUE, 0);
+	/*	gtk_menu_bar_prepend(GTK_MENU_BAR(*menu), menuitem);
+		gtk_widget_show (menuitem);*/
+#endif
+    }
 }
 
 #ifdef GNOME
@@ -845,6 +903,7 @@ dia_gnome_menu_get_widget (GnomeUIInfo *uiinfo, const gchar *path)
   /* if we fall through, return NULL */
   return NULL;
 }
+
 
 /* returns parent GtkMenu */
 static GtkMenuShell *
@@ -975,8 +1034,14 @@ menus_add_path (const gchar *path)
 }
 #endif
 
+
+/*
+  Get a menu item widget from a path. 
+  In case of an item in the <DisplayMBar> menu bar, provide the corresponding 
+  item factory: ddisp->mbar_item_factory.
+ */
 GtkWidget *
-menus_get_item_from_path (const gchar *path)
+menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
 {
   GtkWidget *widget = NULL;
 
@@ -984,7 +1049,7 @@ menus_get_item_from_path (const gchar *path)
   const gchar *menu_name;
   DDisplay *ddisp;
 
-  /* drop the "<Display>/" or "<Toolbox>/" at the start */
+  /* drop the "<Display>/", "<DisplayMBar>/" or "<Toolbox>/" at the start */
   menu_name = path;
   if (! (path = strchr (path, '/'))) return NULL;
   path ++; /* move past the / */
@@ -994,6 +1059,9 @@ menus_get_item_from_path (const gchar *path)
     if (! ddisp)
       return NULL;
     widget = dia_gnome_menu_get_widget(display_menu, path);
+  } else if  (strncmp(menu_name, "<DisplayMBar>", strlen("<DisplayMBar>"))  == 0) {
+      /* finding this requires an item factory*/
+      widget = dia_gnome_menu_get_widget(display_menu, path);
   } else if (strncmp(menu_name, "<Toolbox>", strlen("<Toolbox>")) == 0) {
     widget = dia_gnome_menu_get_widget(toolbox_menu, path);
   } 
@@ -1001,6 +1069,10 @@ menus_get_item_from_path (const gchar *path)
 
   if (display_item_factory) {
     widget = gtk_item_factory_get_widget(display_item_factory, path);
+  }
+  
+  if ((widget == NULL) && (item_factory)) {
+      widget = gtk_item_factory_get_widget(item_factory, path);
   }
   
   if (widget == NULL) {
@@ -1015,6 +1087,74 @@ menus_get_item_from_path (const gchar *path)
 
   return widget;
 }
+
+
+void
+menus_initialize_updatable_items (UpdatableMenuItems *items, 
+				  GtkItemFactory *factory, const char *display)
+{
+    static GString *path;
+    
+#   ifdef GNOME
+    /* This should only happen with popmenu. I don't remember why... */
+    if ((strcmp(display, "<Display>") == 0) && (ddisplay_active () == NULL))
+    {
+	return;
+    }
+#   endif
+    path = g_string_new (display);
+    g_string_append (path,_("/Edit/Copy"));
+    items->copy = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Edit/Cut"));
+    items->cut = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Edit/Paste"));
+    items->paste = menus_get_item_from_path(path->str, factory);
+#   ifndef GNOME
+    g_string_append (g_string_assign(path, display),_("/Edit/Delete"));
+    items->delete = menus_get_item_from_path(path->str, factory);
+#   endif
+
+    g_string_append (g_string_assign(path, display),_("/Edit/Copy Text"));
+    items->copy_text = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Edit/Cut Text"));
+    items->cut_text = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Edit/Paste Text"));
+    items->paste_text = menus_get_item_from_path(path->str, factory);
+
+    g_string_append (g_string_assign(path, display),_("/Objects/Send to Back"));
+    items->send_to_back = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Objects/Bring to Front"));
+    items->bring_to_front = menus_get_item_from_path(path->str, factory);
+  
+    g_string_append (g_string_assign(path, display),_("/Objects/Group"));
+    items->group = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Objects/Ungroup"));
+    items->ungroup = menus_get_item_from_path(path->str, factory);
+
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Left"));
+    items->align_h_l = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Center"));
+    items->align_h_c = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Right"));
+    items->align_h_r = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Equal Distance"));
+    items->align_h_e = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Adjacent"));
+    items->align_h_a = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Top"));
+    items->align_v_t = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Center"));
+    items->align_v_c = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Bottom"));
+    items->align_v_b = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Equal Distance"));
+    items->align_v_e = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Adjacent"));
+    items->align_v_a = menus_get_item_from_path(path->str, factory);
+    
+    g_string_free (path,FALSE);
+}
+
 
 static void
 plugin_callback (GtkWidget *widget, gpointer data)

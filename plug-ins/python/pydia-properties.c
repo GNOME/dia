@@ -233,7 +233,7 @@ PyDiaProperties_Subscript (PyDiaProperties *self, register PyObject *key)
 static int
 PyDiaProperties_AssSub (PyDiaProperties* mp, PyObject *v, PyObject *w)
 {
-  // FIXME: this isn't really supported
+  /* FIXME: this isn't really supported */
   if (w == NULL)
     return PyDict_DelItem((PyObject *)mp, v);
   else

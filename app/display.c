@@ -178,6 +178,19 @@ new_display(Diagram *dia)
 
   ddisp = g_new0(DDisplay,1);
 
+  ddisp->menu_bar = NULL;
+  ddisp->mbar_item_factory = NULL;
+
+  ddisp->rulers = NULL;
+  ddisp->visible_grid = NULL;
+  ddisp->snap_to_grid = NULL;
+  ddisp->show_cx_pts_mitem = NULL;
+#ifdef HAVE_LIBART
+  ddisp->antialiased = NULL;
+#endif
+  /* initialize the whole struct to 0 so that we are sure to catch errors.*/
+  memset (&ddisp->updatable_menu_items, 0, sizeof (UpdatableMenuItems));
+  
   ddisp->diagram = dia;
 
   ddisp->grid.visible = prefs.grid.visible;
@@ -212,7 +225,7 @@ new_display(Diagram *dia)
   ddisp->visible.bottom = prefs.new_view.height/ddisp->zoom_factor;
 
   create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
-		       filename, !embedded);
+		       filename, prefs.new_view.use_menu_bar, !embedded);
 
   
   /*  ddisplay_set_origo(ddisp, 0.0, 0.0); */
@@ -958,7 +971,6 @@ ddisplay_close(DDisplay *ddisp)
 void
 display_update_menu_state(DDisplay *ddisp)
 {
-  Diagram *dia;
   static gboolean initialized = 0;
 
   static GtkWidget *rulers;
@@ -969,36 +981,65 @@ display_update_menu_state(DDisplay *ddisp)
   static GtkWidget *antialiased;
 #endif
 
-  if (!initialized) {
-    rulers       = menus_get_item_from_path("<Display>/View/Show Rulers");
-    visible_grid = menus_get_item_from_path("<Display>/View/Visible Grid");
-    snap_to_grid = menus_get_item_from_path("<Display>/View/Snap To Grid");
+  if ((!initialized) && (ddisp->menu_bar == NULL)) {
+    rulers       = menus_get_item_from_path("<Display>/View/Show Rulers", NULL);
+    visible_grid = menus_get_item_from_path("<Display>/View/Visible Grid", NULL);
+    snap_to_grid = menus_get_item_from_path("<Display>/View/Snap To Grid", NULL);
     show_cx_pts  = 
-      menus_get_item_from_path("<Display>/View/Show Connection Points");
+      menus_get_item_from_path("<Display>/View/Show Connection Points", NULL);
 #ifdef HAVE_LIBART
-    antialiased = menus_get_item_from_path("<Display>/View/AntiAliased");
+    antialiased = menus_get_item_from_path("<Display>/View/AntiAliased", NULL);
 #endif
 
     initialized = TRUE;
   }
+  ddisplay_do_update_menu_sensitivity (ddisp);
   
-  dia = ddisp->diagram;
-
-  diagram_update_menu_sensitivity(dia);
-
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(rulers),
-				 GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0); 
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(visible_grid),
-				 ddisp->grid.visible);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(snap_to_grid),
-				 ddisp->grid.snap);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(show_cx_pts),
-				 ddisp->show_cx_pts); 
+  if (ddisp->menu_bar) {
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(ddisp->rulers),
+				     GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0); 
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(ddisp->visible_grid),
+				     ddisp->grid.visible);
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(ddisp->snap_to_grid),
+				     ddisp->grid.snap);
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(ddisp->show_cx_pts_mitem),
+				     ddisp->show_cx_pts); 
 #ifdef HAVE_LIBART
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(antialiased),
-				 ddisp->aa_renderer);
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(ddisp->antialiased),
+				     ddisp->aa_renderer);
+#endif
+  }
+  else {
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(rulers),
+				     GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0); 
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(visible_grid),
+				     ddisp->grid.visible);
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(snap_to_grid),
+				     ddisp->grid.snap);
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(show_cx_pts),
+				     ddisp->show_cx_pts); 
+#ifdef HAVE_LIBART
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(antialiased),
+				     ddisp->aa_renderer);
 #endif 
+  }  
 }
+
+void 
+ddisplay_do_update_menu_sensitivity (DDisplay *ddisp)
+{
+    Diagram *dia;
+    
+    dia = ddisp->diagram; 
+    if (ddisp->menu_bar) {
+	diagram_update_menubar_sensitivity(dia, &ddisp->updatable_menu_items);
+    }
+    else {
+	diagram_update_popupmenu_sensitivity(dia);
+    }
+}
+
+
 
 /* This is called when ddisp->shell is destroyed... */
 void

@@ -1088,7 +1088,7 @@ import_data (const gchar *filename, DiagramData *dia, void* user_data)
       } else
         iSize = 0;
 
-      //DIAG_NOTE(g_message("Type %d Size %d", rh.Type, iSize));
+      /* DIAG_NOTE(g_message("Type %d Size %d", rh.Type, iSize)); */
       if (iSize > 0) {
         switch (rh.Type) {
         case WPG_FILLATTR:

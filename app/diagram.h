@@ -30,6 +30,7 @@ typedef struct _Diagram Diagram;
 #include "diagramdata.h"
 #include "undo.h"
 #include "filter.h"
+#include "menus.h"
 
 struct _Diagram {
   char *filename;
@@ -82,7 +83,8 @@ real diagram_find_closest_connectionpoint(Diagram *dia,
 					  Point *pos);
 void diagram_update_extents(Diagram *dia);
 
-void diagram_update_menu_sensitivity(Diagram *dia);
+void diagram_update_menubar_sensitivity(Diagram *dia, UpdatableMenuItems *items);
+void diagram_update_popupmenu_sensitivity(Diagram *dia);
 
 void diagram_place_under_selected(Diagram *dia);
 void diagram_place_over_selected(Diagram *dia);

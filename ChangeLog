@@ -1,3 +1,33 @@
+2001-05-16  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* app/commands.c:
+	* app/diagram.[ch]:
+	* app/disp_callbacks.c:
+	* app/display.[ch]:
+	* app/interface.[ch]:
+	* app/menus.[ch]:
+	* app/modify_tool.c:
+	* app/preferences.[ch]:
+	* app/recent_files.c:
+	* app/select.c: Added patch #52364 from Hubert Figuiere. This adds
+	a menu bar reflecting the popup menu, to each display window. This
+	is optional (changing the preference currently doesn't affect
+	already opened windows).
+
+	* plug-ins/wpg/wpg.c:
+	* plug-ins/xfig/xfig-import.c:
+	* plug-ins/python/pydia-property.c:
+	* plug-ins/python/pydia-properties.c:
+	* plug-ins/python/pydia-geometry.c:
+	* plug-ins/pstricks/render_pstricks.c:
+	* lib/arrows.c:
+	* objects/EML/dbox.c:
+	* lib/ps-utf8.c: paleolithic C compilers choke on //. Should fix 
+	#53054.
+
+	* lib/ps-utf8.c: improved the clustering of alphabetic character
+	definitions in custom encodings pages.
+	
 2001-05-02  Hans Breuer  <hans@breuer.org>
 
 	* lib/object.h : OBJECT_COMMON_PROPERTIES_OFFSETS correct type 

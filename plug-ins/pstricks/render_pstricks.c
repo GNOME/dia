@@ -704,7 +704,7 @@ draw_image(RendererPSTRICKS *renderer,
 	fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
 	fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
 	fprintf(renderer->file, "false 3 colorimage\n");
-	//    fprintf(renderer->file, "\n");
+	/*    fprintf(renderer->file, "\n"); */
 	ptr = rgb_data;
 	for (y = 0; y < img_width; y++) {
 	    for (x = 0; x < img_height; x++) {

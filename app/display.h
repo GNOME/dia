@@ -27,6 +27,7 @@ typedef struct _DDisplay DDisplay;
 #include "grid.h"
 #include "render_gdk.h"
 #include "render_libart.h"
+#include "menus.h"
 
 #define DDISPLAY_MAX_ZOOM 500.0
 #define DDISPLAY_NORMAL_ZOOM 20.0
@@ -40,6 +41,19 @@ struct _DDisplay {
   GtkWidget *hsb, *vsb;           /* widgets for scroll bars           */
   GtkWidget *hrule, *vrule;       /* widgets for rulers                */
   GtkWidget *origin;              /* widgets for rulers                */
+  GtkWidget *menu_bar;            /* widget for the menu bar           */
+  GtkItemFactory *mbar_item_factory; /* item factory used to create the menu bar */
+
+  /* menu bar widgets */
+  GtkWidget *rulers;
+  GtkWidget *visible_grid;
+  GtkWidget *snap_to_grid;
+  GtkWidget *show_cx_pts_mitem;
+#ifdef HAVE_LIBART
+  GtkWidget *antialiased;
+#endif
+  UpdatableMenuItems updatable_menu_items;
+    
 
   GtkWidget *snap_status;
   GtkWidget *zoom_status;         
@@ -126,6 +140,7 @@ void ddisplay_scroll_right(DDisplay *ddisp);
 
 void display_update_menu_state(DDisplay *ddisp);
 void ddisplay_update_statusbar(DDisplay *ddisp);
+void ddisplay_do_update_menu_sensitivity (DDisplay *ddisp);
 /* Have to be called from interface.c */
 GtkPixmap *snap_status_load_images(GdkWindow *window);
 
