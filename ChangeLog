@@ -1,3 +1,22 @@
+2002-01-24  Hans Breuer  <hans@breuer.org>
+
+	* app/interface.c : switch off GTK's double buffering
+	on Dia's canvas. Otherwise we would get triple buffering
+	and flicker.
+	Replace call to GTK private function _gtk_accel_group_attach()
+	with public gtk_window_add_accel_group()
+
+	* app/menus.c : remove outcommented call of gtk_menu_set_accel_path()
+	on toolbox_menubar. AFAIK the accel_path is set while creating the
+	item-factory. Also added GTK_STOCK_HELP.
+
+2002-01-24  Hans Breuer  <hans@breuer.org>
+(merge from HEAD)
+
+	* app/commands.c(edit_paste_callback and more) : 
+	call diagram_modified(ddisp->diagram) to fix #68083
+	(help_menu_callback) : plug a DIR leak
+
 2002-01-23  Hans Breuer  <hans@breuer.org>
 
 	* app/diagram_tree.c(button_press_callback) : need to return 

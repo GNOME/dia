@@ -361,6 +361,8 @@ create_display_shell(DDisplay *ddisp,
 		      ddisp);
 
   ddisp->canvas = gtk_drawing_area_new ();
+  /* Dia's canvas does it' double buffering alone so switch off GTK's */
+  gtk_widget_set_double_buffered (ddisp->canvas, FALSE);
   gtk_drawing_area_size (GTK_DRAWING_AREA (ddisp->canvas), width, height);
   gtk_widget_set_events (ddisp->canvas, CANVAS_EVENT_MASK);
   GTK_WIDGET_SET_FLAGS (ddisp->canvas, GTK_CAN_FOCUS);
@@ -436,7 +438,11 @@ create_display_shell(DDisplay *ddisp,
   */
 #ifdef WITHOUT_ZOOM_COMBO
   ddisp->zoom_status = gtk_statusbar_new ();
+  gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (ddisp->zoom_status), FALSE);
+  /* GTKBUG?: the stausbar does not resize with it's text, do it here */
+  gtk_widget_set_size_request (ddisp->zoom_status, 100, -1);
   ddisp->modified_status = gtk_statusbar_new ();
+  gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (ddisp->modified_status), FALSE);
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->zoom_status,
 		      FALSE, FALSE, 0);
 #else
@@ -1137,8 +1143,7 @@ create_toolbox ()
   /* menus -- initialised afterwards, because initing the display menus
    * uses the tool buttons*/
   menus_get_toolbox_menubar(&menubar, &accel_group);
-  //FIXME: GTK+ bug the _ means don't export it ?!
-  _gtk_accel_group_attach (accel_group, GTK_OBJECT (window));
+  gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
 #ifdef GNOME
   gnome_app_set_menus(GNOME_APP(window), GTK_MENU_BAR(menubar));
 #else
