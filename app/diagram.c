@@ -208,6 +208,8 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
 			   (dia->data->selected_count > 1));
   gtk_widget_set_sensitive(GTK_WIDGET(items->unparent),
 			   (dia->data->selected_count > 0));
+  gtk_widget_set_sensitive(GTK_WIDGET(items->unparent_children),
+			   (dia->data->selected_count > 0));
   gtk_widget_set_sensitive(GTK_WIDGET(items->group),
 			   dia->data->selected_count > 1);
   gtk_widget_set_sensitive(GTK_WIDGET(items->ungroup),
@@ -674,30 +676,44 @@ void diagram_parent_selected(Diagram *dia)
   g_ptr_array_free(rects, TRUE);
 }
 
+/** Remove all selected objects from their parents (if any). */
 void diagram_unparent_selected(Diagram *dia)
 {
-  GList *list = dia->data->selected;
+  GList *list;
+  Object *obj, *parent;
+  for (list = dia->data->selected; list != NULL; list = g_list_next(list))
+  {
+    obj = (Object *) list->data;
+    parent = obj->parent;
+    
+    if (!parent)
+      continue;
+
+    parent->children = g_list_remove(parent->children, obj);
+    obj->parent = NULL;
+  }
+}
+
+/** Remove all children from the selected parents. */
+void diagram_unparent_children_selected(Diagram *dia)
+{
+  GList *list;
   GList *child_ptr;
   Object *obj, *child;
-  while (list)
+  for (list = dia->data->selected; list != NULL; list = g_list_next(list))
   {
     obj = (Object *) list->data;
     if (!obj->can_parent || !obj->children)
-    {
-      list = g_list_next(list);
       continue;
-    }
 
-    child_ptr = obj->children;
-    while (child_ptr)
+    for (child_ptr = obj->children; child_ptr != NULL; 
+	 child_ptr = g_list_next(child_ptr))
     {
       child = (Object *) child_ptr->data;
       child->parent = NULL;
-      child_ptr = g_list_next(child_ptr);
     }
     g_list_free(obj->children);
     obj->children = NULL;
-    list = g_list_next(list);
   }
 }
 

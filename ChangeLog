@@ -1,5 +1,14 @@
 2003-07-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/menus.c:
+	* app/menus.h:
+	* app/commands.h: 
+	* app/commands.c (objects_unparent_children_callback): 
+	* app/diagram.h: 
+	* app/diagram.c (diagram_unparent_selected,
+	(diagram_update_menu_sensitivity): 
+	Added unparenting of single children.
+
 	* lib/bezier_conn.c:
 	* lib/bezier_conn.h:
 	* lib/beziershape.c:

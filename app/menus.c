@@ -207,7 +207,8 @@ static GnomeUIInfo objectsmenu[] = {
   GNOMEUIINFO_ITEM_NONE(N_("_Ungroup"), NULL, objects_ungroup_callback),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_ITEM_NONE(N_("_Parent"), NULL, objects_parent_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("_Unparent Children"), NULL, objects_unparent_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("_Unparent"), NULL, objects_unparent_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("_Unparent Children"), NULL, objects_unparent_children_callback),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_SUBTREE(N_("Align _Horizontal"), objects_align_h),
   GNOMEUIINFO_SUBTREE(N_("Align _Vertical"), objects_align_v),
@@ -418,7 +419,8 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/_Ungroup"),       "<control><shift>G", objects_ungroup_callback,   0}, 
   {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
   {N_("/Objects/_Parent"),         "<control>L", objects_parent_callback,     0},
-  {N_("/Objects/_Unparent Children"),       "<control><shift>L", objects_unparent_callback,   0},
+  {N_("/Objects/_Unparent"),       "<control><shift>L", objects_unparent_callback,   0},
+  {N_("/Objects/_Unparent Children"),       NULL, objects_unparent_children_callback,   0},
   {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
   {N_("/Objects/Align _Horizontal"),       NULL, NULL,          0, "<Branch>"},
   {   "/Objects/Align Horizontal/tearoff", NULL, NULL,        0, "<Tearoff>" },
@@ -1234,8 +1236,10 @@ menus_initialize_updatable_items (UpdatableMenuItems *items,
 
     g_string_append (g_string_assign(path, display),"/Objects/Parent");
     items->parent = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Unparent Children");
+    g_string_append (g_string_assign(path, display),"/Objects/Unparent");
     items->unparent = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),"/Objects/Unparent Children");
+    items->unparent_children = menus_get_item_from_path(path->str, factory);
 
     g_string_append (g_string_assign(path, display),"/Objects/Align Horizontal/Left");
     items->align_h_l = menus_get_item_from_path(path->str, factory);

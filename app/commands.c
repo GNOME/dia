@@ -931,6 +931,12 @@ objects_unparent_callback(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
+objects_unparent_children_callback(gpointer data, guint action, GtkWidget *widget)
+{
+  diagram_unparent_children_selected(ddisplay_active()->diagram);
+}
+
+void
 objects_group_callback(gpointer data, guint action, GtkWidget *widget)
 {
   diagram_group_selected(ddisplay_active()->diagram);

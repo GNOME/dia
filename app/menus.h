@@ -45,6 +45,7 @@ struct _UpdatableMenuItems
 
   GtkMenuItem *parent;
   GtkMenuItem *unparent;
+  GtkMenuItem *unparent_children;
 
   GtkMenuItem *align_h_l;
   GtkMenuItem *align_h_c;
