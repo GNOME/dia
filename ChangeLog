@@ -1,3 +1,22 @@
+2004-03-30  Lars Clausen  <lars@raeder.dk>
+
+	* app/recent_files.c: 
+	Debugging of deallocation.
+	
+	* lib/widgets.c: 
+	Font menu now uses persistence.  Ordering needs fixing, or it must
+	be sorted.
+
+	* lib/libdia.def: 
+	* lib/Makefile.am (libdia_la_SOURCES): 
+	* app/Makefile.am (dia_core_files): 
+	* app/persistence.[ch]: 
+	* lib/persistence.[ch]: Moved to lib as widgets need it.  Also a
+	number of fixes, including multiple entries now being read
+	properly.  Still some oddity about the persistent list having the
+	role as first entry (which makes the font menu crash after a few
+	iterations). 
+
 2004-03-26  Lars Clausen  <lars@raeder.dk>
 
 	* app/persistence.c:

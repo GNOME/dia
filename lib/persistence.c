@@ -117,6 +117,7 @@ persistence_load_list(gchar *role, xmlNodePtr node)
   } else {
     /* Do anything to avoid dups? */
   }
+  printf("List %s with string %s\n", role, string);
   if (string != NULL) {
     gchar **strings = g_strsplit(string, "\n", -1);
     GList *list = NULL;
@@ -127,6 +128,7 @@ persistence_load_list(gchar *role, xmlNodePtr node)
     /* This frees the strings, too? */
     g_strfreev(strings);
     g_hash_table_insert(persistent_lists, role, list);
+  printf("List %s has %d items\n", role, g_list_length(list));
   }
 }
 
@@ -138,23 +140,39 @@ find_node_named (xmlNodePtr p, const char *name)
   return p;
 }
 
+static GHashTable *type_handlers;
+
 /** Load the named type of entries using the given function.
  * func is a void (*func)(gchar *role, xmlNodePtr *node)
  */
 static void
-persistence_load_type(xmlDocPtr doc, gchar *name, PersistenceLoadFunc func)
+persistence_load_type(xmlNodePtr node)
 {
-  xmlNodePtr node;
-  node = find_node_named(doc->xmlRootNode->xmlChildrenNode, name);
-  while (node != NULL) {
-    gchar *name = xmlGetProp(node, "role");
-    if (name == NULL) {
-      return;
-    }
+  gchar *typename = node->name;
+  gchar *name;
 
-    (*func)(name, node);
-    node = node->next;
+  PersistenceLoadFunc func =
+    (PersistenceLoadFunc)g_hash_table_lookup(type_handlers, typename);
+  if (func == NULL) {
+    return;
   }
+
+  name = xmlGetProp(node, "role");
+  if (name == NULL) {
+    return;
+  }
+  
+  (*func)(name, node);
+  node = node->next;
+}
+
+static void
+persistence_set_type_handler(gchar *name, PersistenceLoadFunc func)
+{
+  if (type_handlers == NULL)
+    type_handlers = g_hash_table_new(g_str_hash, g_str_equal);
+
+  g_hash_table_insert(type_handlers, name, (gpointer)func);
 }
 
 /* Load all persistent data. */
@@ -166,15 +184,20 @@ persistence_load()
 
   if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) return;
 
+  persistence_set_type_handler("window", persistence_load_window);
+  persistence_set_type_handler("entrystring", persistence_load_string);
+  persistence_set_type_handler("list", persistence_load_list);
+
   doc = xmlDiaParseFile(filename);
   if (doc != NULL) {
     if (doc->xmlRootNode != NULL) {
       xmlNsPtr namespace = xmlSearchNs(doc, doc->xmlRootNode, "dia");
       if (!strcmp (doc->xmlRootNode->name, "persistence") &&
 	  namespace != NULL) {
-	persistence_load_type(doc, "window", persistence_load_window);
-	persistence_load_type(doc, "entrystring", persistence_load_string);
-	persistence_load_type(doc, "list", persistence_load_list);
+	xmlNodePtr child_node = doc->xmlRootNode->children;
+	for (; child_node != NULL; child_node = child_node->next) {
+	  persistence_load_type(child_node);
+	}
       }
     }
     xmlFreeDoc(doc);
@@ -479,6 +502,7 @@ persistence_register_list(const gchar *role)
 {
   PersistentList *list;
   if (role == NULL) return NULL;
+  printf("Registering %s\n", role);
   if (persistent_lists == NULL) {
     persistent_lists = g_hash_table_new(g_str_hash, g_str_equal);
   } else {   
@@ -533,15 +557,21 @@ void
 persistent_list_add(const gchar *role, const gchar *item)
 {
   PersistentList *plist = persistent_list_get(role);
+  if(plist == NULL) printf("Can't find list for %s when adding %s\n", 
+			   role, item);
+  printf("Adding item %s to %s, first is %s\n", item, role, (plist->glist!=NULL?plist->glist->data:""));
   if (plist->sorted) {
     /* Sorting not implemented yet. */
   } else {
     GList *tmplist = plist->glist;
     GList *old_elem = g_list_find_custom(tmplist, item, strcmp);
     while (old_elem != NULL) {
-      printf("Removing old element %s\n", old_elem->data);
       tmplist = g_list_remove_link(tmplist, old_elem);
-      g_free(old_elem->data);
+      /* Don't free this, as it makes recent_files go boom after
+       * selecting a file there several times.  Yes, it should be strdup'd,
+       * but it isn't.
+       */
+      /*g_free(old_elem->data);*/
       g_list_free_1(old_elem);
       old_elem = g_list_find_custom(tmplist, item, strcmp);
     }

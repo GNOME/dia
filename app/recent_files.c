@@ -80,9 +80,6 @@ recent_file_history_clear_menu()
 				  0, 0, NULL, open_recent_file_callback, NULL)) {
 	    GList *tmplist;
 	    /* Unlink first, then destroy */
-	    printf("Destroying menu item %s (%p, listitem %p)\n", 
-		   gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item)))),
-		   item, menu_items);
 	    g_list_remove_link(GTK_MENU_SHELL(file_menu)->children,
 			       menu_items);
 	    gtk_widget_destroy(GTK_WIDGET(item));
@@ -105,13 +102,12 @@ recent_file_menuitem_create(GtkWidget *menu, gchar *filename,
     basename = g_path_get_basename(filename);
     basename = g_strdelimit(basename, "_", '\\');
     escaped  = g_strescape(basename, NULL);
-    g_free(basename);
+    //g_free(basename);
     basename = escaped;
     basename = g_strdelimit(basename, "\\", '_');
     
     label = g_strdup_printf("%d. %s", pos+1, basename);
     item = gtk_menu_item_new_with_label(label);
-    printf("Created new item %p for %p\n", item, filename);
     gtk_menu_insert(GTK_MENU(menu), item,
 		    pos + offset);
     
@@ -119,7 +115,7 @@ recent_file_menuitem_create(GtkWidget *menu, gchar *filename,
 		     G_CALLBACK(open_recent_file_callback), filename);
     
     gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), item,
-			 filename, NULL);
+    			 filename, NULL);
     
     if (pos < 9)
     {
@@ -172,7 +168,6 @@ void
 recent_file_history_add(const char *fname)
 {
     recent_file_history_clear_menu();
-    printf("Adding recent file %s (%p)\n", fname, fname);
     persistent_list_add("recent-files", fname);
     
     recent_file_history_make_menu();

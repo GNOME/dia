@@ -451,6 +451,20 @@ EXPORTS
 
  pdtpp_true
 
+ persistence_load
+ persistence_restore_window
+ persistence_save
+ persistence_register_window
+ persistence_register_window_create
+ persistence_register_string_entry
+ persistence_change_string_entry
+ persistence_register_list
+ persistent_list_get
+ persistent_list_get_glist
+ persistent_list_add
+ persistent_list_set_max_length
+ persistent_list_remove
+
  point_add
  point_convex
  point_copy

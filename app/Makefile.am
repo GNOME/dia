@@ -145,8 +145,6 @@ dia_core_files = \
 	    diapsrenderer.c \
 	    diapsft2renderer.h \
 	    diapsft2renderer.c \
-	    persistence.h \
-	    persistence.c \
 	    navigation.h \
 	    navigation.c \
 	    highlight.c \

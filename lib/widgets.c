@@ -224,6 +224,7 @@ GtkWidget *
 dia_size_selector_new (real width, real height)
 {
   GtkWidget *wid;
+
   wid = GTK_WIDGET ( gtk_type_new (dia_size_selector_get_type ()));
   dia_size_selector_set_size(DIA_SIZE_SELECTOR(wid), width, height);
   return wid;
@@ -304,7 +305,6 @@ typedef struct {
 
 /* Hash table from font name to FontSelectorEntry */
 static GHashTable *font_hash_table = NULL;
-static GList *menu_entry_list = NULL;
 
 static void dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data);
 static void dia_font_selector_menu_callback(GtkWidget *button, gpointer data);
@@ -321,10 +321,9 @@ dia_font_selector_add_font(const char *lowername, const gchar *fontname,
   fse->name = fontname;
   fse->family = NULL;
   fse->last_select = time(0);
-  fse->entry_nr = g_list_length(menu_entry_list)+4; /* Skip first entries */
+  fse->entry_nr = g_list_length(persistent_list_get_glist("font-menu"))+4; /* Skip first entries */
   g_hash_table_insert(font_hash_table, g_strdup(lowername), fse);
   if (is_other_font) {
-    menu_entry_list = g_list_append(menu_entry_list, g_strdup(fontname));
   } else {
     if (!g_strcasecmp(fontname, "sans")) fse->entry_nr = 0;
     if (!g_strcasecmp(fontname, "serif")) fse->entry_nr = 1;
@@ -337,55 +336,6 @@ static
 gboolean strcase_equal(gconstpointer s1, gconstpointer s2)
 {
   return !(g_strcasecmp((char *)s1, (char *)s2));
-}
-
-static void
-dia_font_selector_read_persistence_file() {
-  gchar *file_contents;
-  gchar *persistence_name;
-  GError *error = NULL;
-
-  font_hash_table = g_hash_table_new(g_str_hash, strcase_equal);
-
-  dia_font_selector_add_font("sans", "Sans", FALSE);
-  dia_font_selector_add_font("serif", "Serif", FALSE);
-  dia_font_selector_add_font("monospace", "Monospace", FALSE);
-
-  persistence_name = dia_config_filename("font_menu");
-  
-  if (g_file_test(persistence_name, G_FILE_TEST_EXISTS) &&
-      g_file_get_contents(persistence_name, &file_contents, NULL, &error)) {
-    /* Should really use some macro for linebreak, but I can't find it */
-    gchar **lines = g_strsplit(file_contents, "\n", -1); 
-    int i;
-    for (i = 0; lines[i] != NULL; i++) {
-      gchar *lowername;
-      if (strlen(lines[i]) == 0) continue;
-      lowername = g_utf8_strdown(lines[i], -1);
-      dia_font_selector_add_font(lowername, lines[i], TRUE);
-      g_free(lowername);
-    }
-    g_free(file_contents);
-  }
-  if (error) g_error_free(error);
-  g_free(persistence_name);
-}
-
-static void
-dia_font_selector_write_persistence_file() {
-  gchar *persistence_name;
-  FILE *pfile;
-
-  persistence_name = dia_config_filename("font_menu");
-  if ((pfile = fopen(persistence_name, "wb")) != NULL) {
-    GList *entry;
-    for (entry = menu_entry_list; entry != NULL; entry = entry->next) {
-      fputs((gchar *)entry->data, pfile);
-      fputs("\n", pfile);
-    }
-    fclose(pfile);
-  }
-  g_free(persistence_name);
 }
 
 static GtkWidget *
@@ -428,7 +378,8 @@ dia_font_selector_build_font_menu(DiaFontSelector *fs) {
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  for (entry = menu_entry_list; entry != NULL; entry = entry->next) {
+  for (entry = persistent_list_get_glist("font-menu");
+       entry != NULL; entry = entry->next) {
     menuitem = dia_font_selector_add_menu_item((gchar *)entry->data, &group, menu);
   }
   menuitem = gtk_separator_menu_item_new();
@@ -456,8 +407,8 @@ dia_font_selector_get_new_font(DiaFontSelector *fs, const gchar *fontname)
     (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
   if (fse == NULL) {
     fse = dia_font_selector_add_font(lowername, fontname, TRUE);
+    persistent_list_add("font-menu", fontname);
     dia_font_selector_build_font_menu(fs);
-    dia_font_selector_write_persistence_file();
   }
   g_free(lowername);
   return fse;
@@ -476,6 +427,30 @@ dia_font_selector_init (DiaFontSelector *fs)
 {
   GtkWidget *menu;
   GtkWidget *omenu;
+
+  persistence_register_list("font-menu");
+
+  if (font_hash_table == NULL) {
+    GList *other_fonts;
+    font_hash_table = g_hash_table_new(g_str_hash, strcase_equal);
+
+    dia_font_selector_add_font("sans", "Sans", FALSE);
+    dia_font_selector_add_font("serif", "Serif", FALSE);
+    dia_font_selector_add_font("monospace", "Monospace", FALSE);
+
+    other_fonts = persistent_list_get_glist("font-menu");
+    printf("Adding %d other fonts\n", g_list_length(other_fonts));
+
+    for (other_fonts = g_list_last(other_fonts);
+	 other_fonts != NULL; other_fonts = g_list_previous(other_fonts)) {
+      printf("Adding font %s\n", (gchar*)other_fonts->data);
+      gchar *lowername = g_ascii_strdown((gchar*)other_fonts->data,
+					 strlen((gchar*)other_fonts->data));
+      dia_font_selector_add_font(lowername,
+				 (gchar*)other_fonts->data, TRUE);
+      g_free(lowername);
+    }
+  }
 
   dia_font_selector_build_font_menu(fs);
   
@@ -512,8 +487,6 @@ dia_font_selector_get_type        (void)
     };
     
     dfs_type = gtk_type_unique (gtk_hbox_get_type (), &dfs_info);
-
-    dia_font_selector_read_persistence_file();
   }
   
   return dfs_type;

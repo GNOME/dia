@@ -136,7 +136,9 @@ libdia_la_SOURCES =  \
 		diaarrowchooser.h \
 		diaarrowchooser.c \
 		dialinechooser.h \
-		dialinechooser.c
+		dialinechooser.c \
+		persistence.c \
+		persistence.h
 
 #		charconv.c \
 #		charconv.h 
