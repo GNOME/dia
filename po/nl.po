@@ -5,7 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2003-05-07 19:54+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-06-21 11:55+0200\n"
 "PO-Revision-Date: 2003-02-13 22:26+0200\n"
 "Last-Translator: Jan-Willem Harmanny <jwharmanny@hotmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -387,7 +388,7 @@ msgid "Ok"
 msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/linewidth_area.c:257
+#: app/lineprops_area.c:679 app/linewidth_area.c:258
 #: app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Annuleren"
@@ -662,7 +663,7 @@ msgstr "Schuif"
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
 #: app/interface.c:58 app/interface.c:59 app/menus.c:219 lib/properties.c:77
-#: lib/properties.h:497 lib/properties.h:500 objects/UML/activity.c:123
+#: lib/properties.h:498 lib/properties.h:501 objects/UML/activity.c:123
 #: objects/UML/actor.c:114 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
 #: objects/UML/object.c:141 objects/UML/small_package.c:120
@@ -818,7 +819,7 @@ msgid "Layer name:"
 msgstr "Laag naam:"
 
 #: app/layer_dialog.c:999 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:248 app/paginate_psprint.c:268
+#: app/linewidth_area.c:249 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
@@ -834,12 +835,12 @@ msgstr "Details..."
 msgid "Line Style Properties"
 msgstr "Lijn Stijl Eigenschappen"
 
-#: app/linewidth_area.c:229 lib/properties.h:473
+#: app/linewidth_area.c:230 lib/properties.h:474
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Lijn breedte"
 
-#: app/linewidth_area.c:235
+#: app/linewidth_area.c:236
 msgid "Line width:"
 msgstr "Lijn breedte:"
 
@@ -1054,7 +1055,7 @@ msgstr "Inverteren"
 msgid "All"
 msgstr "Alles"
 
-#: app/menus.c:171 lib/arrows.c:38 objects/UML/association.c:1120
+#: app/menus.c:171 lib/arrows.c:38 objects/UML/association.c:1125
 msgid "None"
 msgstr "Geen"
 
@@ -1070,15 +1071,15 @@ msgstr "Overgankelijk"
 msgid "Same Type"
 msgstr "Zelfde Type"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:461 lib/widgets.c:531
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:462 lib/widgets.c:531
 msgid "Left"
 msgstr "Links"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:462 lib/widgets.c:537
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:463 lib/widgets.c:537
 msgid "Center"
 msgstr "Midden"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:463 lib/widgets.c:543
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:464 lib/widgets.c:543
 msgid "Right"
 msgstr "Rechts"
 
@@ -1242,7 +1243,7 @@ msgstr "/Bestand/_Sluiten"
 
 #: app/menus.c:334
 msgid "/_Edit"
-msgstr "/_Bewerken"
+msgstr "/Be_werken"
 
 #: app/menus.c:336
 msgid "/Edit/_Undo"
@@ -1912,7 +1913,7 @@ msgstr "Bewerken"
 
 #: app/sheets_dialog.c:235
 msgid "_Edit"
-msgstr "_Bewerken"
+msgstr "Be_werken"
 
 #: app/sheets_dialog.c:266
 msgid "Revert"
@@ -1972,11 +1973,11 @@ msgid "Sheet"
 msgstr "Sheet"
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:150 objects/ER/entity.c:128
-#: objects/ER/relationship.c:137 objects/UML/association.c:196
-#: objects/UML/association.c:1098 objects/UML/class_dialog.c:865
+#: objects/ER/relationship.c:137 objects/UML/association.c:198
+#: objects/UML/association.c:1103 objects/UML/class_dialog.c:865
 #: objects/UML/class_dialog.c:1792 objects/UML/class_dialog.c:2022
-#: objects/UML/class_dialog.c:2536 objects/UML/dependency.c:125
-#: objects/UML/generalization.c:121 objects/UML/realizes.c:122
+#: objects/UML/class_dialog.c:2536 objects/UML/dependency.c:127
+#: objects/UML/generalization.c:123 objects/UML/realizes.c:124
 msgid "Name:"
 msgstr "Naam:"
 
@@ -2372,49 +2373,49 @@ msgstr ""
 "Kan '%s' niet openen\n"
 "'%s'"
 
-#: lib/properties.c:71 lib/properties.h:476
+#: lib/properties.c:71 lib/properties.h:477
 msgid "Line colour"
 msgstr "Lijn kleur"
 
-#: lib/properties.c:72 lib/properties.h:479
+#: lib/properties.c:72 lib/properties.h:480
 msgid "Line style"
 msgstr "Lijn stijl"
 
-#: lib/properties.c:73 lib/properties.h:483
+#: lib/properties.c:73 lib/properties.h:484
 msgid "Fill colour"
 msgstr "Vulkleur"
 
-#: lib/properties.c:74 lib/properties.h:486
+#: lib/properties.c:74 lib/properties.h:487
 msgid "Draw background"
 msgstr "Achtergrond tekenen"
 
-#: lib/properties.c:75 lib/properties.h:490
+#: lib/properties.c:75 lib/properties.h:491
 msgid "Start arrow"
 msgstr "Start pijl"
 
-#: lib/properties.c:76 lib/properties.h:493
+#: lib/properties.c:76 lib/properties.h:494
 msgid "End arrow"
 msgstr "Eind pijl"
 
-#: lib/properties.c:78 lib/properties.h:503
+#: lib/properties.c:78 lib/properties.h:504
 msgid "Text alignment"
 msgstr "Tekst uitlijning"
 
-#: lib/properties.c:79 lib/properties.h:506
+#: lib/properties.c:79 lib/properties.h:507
 #: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
 #: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:164
 #: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
 msgid "Font"
 msgstr "Lettertype"
 
-#: lib/properties.c:80 lib/properties.h:509
+#: lib/properties.c:80 lib/properties.h:510
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
 #: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:166
 #: objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Lettergrootte"
 
-#: lib/properties.c:81 lib/properties.h:512
+#: lib/properties.c:81 lib/properties.h:513
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
 #: objects/GRAFCET/step.c:168
 msgid "Text colour"
@@ -2591,15 +2592,15 @@ msgstr "Horizontaal kantelen"
 msgid "Flip vertical"
 msgstr "Verticaal kantelen"
 
-#: objects/custom/custom_object.c:1406
+#: objects/custom/custom_object.c:1412
 msgid "Flip Horizontal"
 msgstr "Horizontaal Kantelen"
 
-#: objects/custom/custom_object.c:1407
+#: objects/custom/custom_object.c:1413
 msgid "Flip Vertical"
 msgstr "Verticaal Kantelen"
 
-#: objects/custom/custom_object.c:1444
+#: objects/custom/custom_object.c:1450
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Kan pictogram bestand %s voor object type '%s' niet openen."
@@ -2642,17 +2643,17 @@ msgstr "Totaal:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:556
-#: objects/standard/zigzagline.c:329 objects/UML/association.c:733
-#: objects/UML/dependency.c:351 objects/UML/generalization.c:347
-#: objects/UML/realizes.c:340
+#: objects/standard/zigzagline.c:329 objects/UML/association.c:738
+#: objects/UML/dependency.c:356 objects/UML/generalization.c:352
+#: objects/UML/realizes.c:345
 msgid "Add segment"
 msgstr "Segment toevoegen"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
 #: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:557
-#: objects/standard/zigzagline.c:330 objects/UML/association.c:734
-#: objects/UML/dependency.c:352 objects/UML/generalization.c:348
-#: objects/UML/realizes.c:341
+#: objects/standard/zigzagline.c:330 objects/UML/association.c:739
+#: objects/UML/dependency.c:357 objects/UML/generalization.c:353
+#: objects/UML/realizes.c:346
 msgid "Delete segment"
 msgstr "Segment verwijderen"
 
@@ -3943,23 +3944,23 @@ msgstr "SADT diagram objecten"
 msgid "Curve distance"
 msgstr "Krommings afstand"
 
-#: objects/standard/bezier.c:534 objects/standard/beziergon.c:492
+#: objects/standard/bezier.c:536 objects/standard/beziergon.c:494
 msgid "Add Segment"
 msgstr "Segment toevoegen"
 
-#: objects/standard/bezier.c:535 objects/standard/beziergon.c:493
+#: objects/standard/bezier.c:537 objects/standard/beziergon.c:495
 msgid "Delete Segment"
 msgstr "Segment verwijderen"
 
-#: objects/standard/bezier.c:537 objects/standard/beziergon.c:495
+#: objects/standard/bezier.c:539 objects/standard/beziergon.c:497
 msgid "Symmetric control"
 msgstr "Symmetrie regeling"
 
-#: objects/standard/bezier.c:539 objects/standard/beziergon.c:497
+#: objects/standard/bezier.c:541 objects/standard/beziergon.c:499
 msgid "Smooth control"
 msgstr "Gladheids regeling"
 
-#: objects/standard/bezier.c:541 objects/standard/beziergon.c:499
+#: objects/standard/bezier.c:543 objects/standard/beziergon.c:501
 msgid "Cusp control"
 msgstr "Top regeling"
 
@@ -4003,11 +4004,11 @@ msgstr "Start punt"
 msgid "End point"
 msgstr "Eind punt"
 
-#: objects/standard/polygon.c:452 objects/standard/polyline.c:488
+#: objects/standard/polygon.c:454 objects/standard/polyline.c:490
 msgid "Add Corner"
 msgstr "Hoek toevoegen"
 
-#: objects/standard/polygon.c:453 objects/standard/polyline.c:489
+#: objects/standard/polygon.c:455 objects/standard/polyline.c:491
 msgid "Delete Corner"
 msgstr "Hoek verwijderen"
 
@@ -4017,54 +4018,54 @@ msgstr "Standaard objecten"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
-#: objects/UML/activity.c:299
+#: objects/UML/activity.c:302
 msgid "Helvetica"
 msgstr "Helvetica"
 
-#: objects/UML/actor.c:332 objects/UML/actor.c:334 sheets/UML.sheet.in.h:2
+#: objects/UML/actor.c:335 objects/UML/actor.c:337 sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Acteur"
 
-#: objects/UML/association.c:1110 objects/UML/class_dialog.c:2070
+#: objects/UML/association.c:1115 objects/UML/class_dialog.c:2070
 msgid "Direction:"
 msgstr "Richting:"
 
-#: objects/UML/association.c:1127
+#: objects/UML/association.c:1132
 msgid "From A to B"
 msgstr "Van A naar B"
 
-#: objects/UML/association.c:1134
+#: objects/UML/association.c:1139
 msgid "From B to A"
 msgstr "Van B naar A"
 
-#: objects/UML/association.c:1158 objects/UML/association.c:1166
+#: objects/UML/association.c:1163 objects/UML/association.c:1171
 msgid "Side A"
 msgstr "Zijde A"
 
-#: objects/UML/association.c:1160 objects/UML/association.c:1168
+#: objects/UML/association.c:1165 objects/UML/association.c:1173
 msgid "Side B"
 msgstr "Zijde B"
 
-#: objects/UML/association.c:1174
+#: objects/UML/association.c:1179
 msgid "Role:"
 msgstr "Rol:"
 
-#: objects/UML/association.c:1186
+#: objects/UML/association.c:1191
 msgid "Multiplicity:"
 msgstr "Verscheidenheid:"
 
 #. Show arrow:
-#: objects/UML/association.c:1197
+#: objects/UML/association.c:1202
 msgid "Show arrow"
 msgstr "Pijl laten zien"
 
 #. Aggregate
-#: objects/UML/association.c:1203
+#: objects/UML/association.c:1208
 msgid "Aggregate"
 msgstr "Aggregraat"
 
 #. Composition
-#: objects/UML/association.c:1211
+#: objects/UML/association.c:1216
 msgid "Composition"
 msgstr "Compositie"
 
@@ -4134,8 +4135,8 @@ msgid "Class name:"
 msgstr "Klasse naam:"
 
 #: objects/UML/class_dialog.c:272 objects/UML/class_dialog.c:1816
-#: objects/UML/dependency.c:127 objects/UML/generalization.c:123
-#: objects/UML/realizes.c:124
+#: objects/UML/dependency.c:129 objects/UML/generalization.c:125
+#: objects/UML/realizes.c:126
 msgid "Stereotype:"
 msgstr "Stereotype:"
 
@@ -4310,7 +4311,7 @@ msgstr "Is een object"
 msgid "Constraint:"
 msgstr "Beperking:"
 
-#: objects/UML/dependency.c:129
+#: objects/UML/dependency.c:131
 msgid "Show arrow:"
 msgstr "Pijl zichtbaar:"
 
@@ -4392,7 +4393,7 @@ msgstr "meerdere instanties"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:382
+#: objects/UML/state.c:385
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
@@ -6136,429 +6137,3 @@ msgstr "UML"
 #: sheets/UML.sheet.in.h:27
 msgid "Use case"
 msgstr "Use case"
-
-#~ msgid "Create Text"
-#~ msgstr "Maak Tekst"
-
-#~ msgid "Create Box"
-#~ msgstr "Maak Vierkant"
-
-#~ msgid "Create Ellipse"
-#~ msgstr "Maak Ellips"
-
-#~ msgid "Create Polygon"
-#~ msgstr "Maak Polygon"
-
-#~ msgid "Create Beziergon"
-#~ msgstr "Maak Beziergon"
-
-#~ msgid "Create Line"
-#~ msgstr "Maak Lijn"
-
-#~ msgid "Create Arc"
-#~ msgstr "Maak Boog"
-
-#~ msgid "Create Zigzagline"
-#~ msgstr "Maak Zigzaglijn"
-
-#~ msgid "Create Polyline"
-#~ msgstr "Maak Polylijn"
-
-#~ msgid "Create Bezierline"
-#~ msgstr "Maak Kromme lijn"
-
-#~ msgid "Create Image"
-#~ msgstr "Maak Plaatje"
-
-#~ msgid "A pnp bipolar transistor"
-#~ msgstr "Een bi-polaire PNP transistor"
-
-#~ msgid "A relay"
-#~ msgstr "Een relais"
-
-#~ msgid "Create a process"
-#~ msgstr "Een proces aanmaken"
-
-#~ msgid "Create a flow"
-#~ msgstr "Maak een stroming"
-
-#~ msgid "Create a function"
-#~ msgstr "Maak een functie"
-
-#~ msgid "A macro call step"
-#~ msgstr "Een macro aanroep stap"
-
-#~ msgid "A macro entry step"
-#~ msgstr "Een macro ingang stap"
-
-#~ msgid "A macro exit step"
-#~ msgstr "Een macro uitgang stap"
-
-#~ msgid "A regular step"
-#~ msgstr "Een normale stap"
-
-#~ msgid "A transition"
-#~ msgstr "Een overgang"
-
-#~ msgid "An initial step"
-#~ msgstr "Een eerste stap"
-
-#~ msgid "A Nand gate"
-#~ msgstr "Een NAND poort"
-
-#~ msgid "A Not"
-#~ msgstr "Een NOT"
-
-#~ msgid "A Xor gate"
-#~ msgstr "Een XOR poort"
-
-#~ msgid "An And gate"
-#~ msgstr "Een AND poort"
-
-#~ msgid "An Inverter"
-#~ msgstr "Een inverter"
-
-#~ msgid "A File"
-#~ msgstr "Een bestand"
-
-#~ msgid "Create a branch"
-#~ msgstr "Maak een aftakking"
-
-#~ msgid "Create a class"
-#~ msgstr "Maak een klasse"
-
-#~ msgid "Create a component"
-#~ msgstr "Maak een component"
-
-#~ msgid "Create a fork/union"
-#~ msgstr "Maak een vork/eenheid"
-
-#~ msgid "Create a initial/end state"
-#~ msgstr "Maak een initieel/einde status"
-
-#~ msgid "Create a lifeline"
-#~ msgstr "Maak een reddingslijn"
-
-#~ msgid "Create a message"
-#~ msgstr "Maak een bericht"
-
-#~ msgid "Create a node"
-#~ msgstr "Maak een geleding"
-
-#~ msgid "Create a note"
-#~ msgstr "Maak een notitie"
-
-#~ msgid "Create a state"
-#~ msgstr "Maak een status"
-
-#~ msgid "Create a template class"
-#~ msgstr "Maak een sjabloon klasse"
-
-#~ msgid "Create a use case"
-#~ msgstr "Maak een use case"
-
-#~ msgid "Create an activity"
-#~ msgstr "Maak een activiteit"
-
-#~ msgid "Create an actor"
-#~ msgstr "Maak een actor"
-
-#~ msgid "Create an object"
-#~ msgstr "Maak een object"
-
-#~ msgid "Show at startup:"
-#~ msgstr "Weergeven bij opstarten:"
-
-#~ msgid "Default width:"
-#~ msgstr "Standaard breedte:"
-
-#~ msgid "Default height:"
-#~ msgstr "Standaard hoogte:"
-
-#~ msgid "Remember last size:"
-#~ msgstr "Onthoud laatste grootte:"
-
-#~ msgid "Could not load XSLT library (%s) : %s"
-#~ msgstr "Kan XSLT bibliotheek (%s) niet laden : %s"
-
-#~ msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-#~ msgstr "DIA_PLUGIN_PATH niet aktief. Sylesheets niet beschikbaar.\n"
-
-#~ msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
-#~ msgstr "Kan XSLT plugin niet laden; DIA_PLUGIN_PATH is niet aktief."
-
-#~ msgid "Untitled-%d"
-#~ msgstr "Naamloos-%d"
-
-#~ msgid ""
-#~ "The anti aliased renderer is buggy, and may cause\n"
-#~ "crashes.  We know there are bugs in it, so don't\n"
-#~ "bother submitting another report if it crashes"
-#~ msgstr ""
-#~ "De anti aliased renderer is niet stabiel en kan\n"
-#~ "vastlopers veroorzaken. We weten dat er fouten in\n"
-#~ "zitten, dus stuur geen foutenrapport als hij vastloopt."
-
-#~ msgid "Apply"
-#~ msgstr "Toepassen"
-
-#~ msgid "Line gaps"
-#~ msgstr "Regelafstanden"
-
-#~ msgid "Start at object edge"
-#~ msgstr "Starten bij de objectrand"
-
-#~ msgid "PS printing not yet converted"
-#~ msgstr "PS afdrukken nog niet geconverteerd"
-
-#~ msgid "_Visible Grid"
-#~ msgstr "_Zichtbaar Rooster"
-
-#~ msgid "/View/_Visible Grid"
-#~ msgstr "/Beeld/_Zichtbaar Rooster"
-
-#~ msgid "/Objects/Align Vertical/Center"
-#~ msgstr "/Objecten/Verticaal Uitlijnen/Midden"
-
-#~ msgid "Text padding:"
-#~ msgstr "Tekst opvullen:"
-
-#~ msgid "Alignment:"
-#~ msgstr "Uitlijning:"
-
-#~ msgid "Font:"
-#~ msgstr "Lettertype:"
-
-#~ msgid "Font size:"
-#~ msgstr "Lettergrootte:"
-
-#~ msgid "Corner rounding:"
-#~ msgstr "Hoek afronding:"
-
-#~ msgid "Shear angle:"
-#~ msgstr "Scheer hoek:"
-
-#~ msgid "Flow type:"
-#~ msgstr "Stroom type:"
-
-#~ msgid "Begin"
-#~ msgstr "Begin"
-
-#~ msgid "End"
-#~ msgstr "Einde"
-
-#~ msgid "State Type"
-#~ msgstr "Status type"
-
-#~ msgid "A Diagram Editor"
-#~ msgstr "Een Diagram Bewerker"
-
-#~ msgid "Image file:"
-#~ msgstr "Afbeelding bestand:"
-
-#~ msgid "Keep aspect ratio:"
-#~ msgstr "Behoud aspect verhouding:"
-
-#~ msgid "Maintainer: James Henstridge"
-#~ msgstr "Beheerder: James Henstridge"
-
-#~ msgid "Fontsize:"
-#~ msgstr "Lettergrootte:"
-
-#~ msgid "Print Diagram"
-#~ msgstr "Diagram Afdrukken"
-
-#~ msgid "An error occured while creating the print context"
-#~ msgstr "Een fout is opgetreden bij het maken van de afdruk context"
-
-#~ msgid "yes"
-#~ msgstr "ja"
-
-#~ msgid "no"
-#~ msgstr "nee"
-
-#~ msgid "Load"
-#~ msgstr "Laden"
-
-#~ msgid "Unload"
-#~ msgstr "Ontladen"
-
-#~ msgid ""
-#~ "Warning no X Font for %s found, \n"
-#~ "using %s instead.\n"
-#~ msgstr ""
-#~ "Waarschuwing geen X lettertype voor %s gevonden,\n"
-#~ "in plaats daarvan wordt %s nu gebruikt.\n"
-
-#~ msgid "Warning: No X fonts found.  The world is ending."
-#~ msgstr "Waarschuwing: Geen X lettertypen gevonden. De wereld vergaat."
-
-#~ msgid "Font %s not found, using Courier instead.\n"
-#~ msgstr "Lettertype %s niet gevonden, Courier wordt gebruikt.\n"
-
-#~ msgid "Quit, are you sure?"
-#~ msgstr "Weet u zeker dat u wilt afsluiten?"
-
-#~ msgid "Quit"
-#~ msgstr "Afsluiten"
-
-#~ msgid "Really close?"
-#~ msgstr "Echt sluiten?"
-
-#~ msgid "_New"
-#~ msgstr "_Nieuw"
-
-#~ msgid "Down"
-#~ msgstr "Naar beneden"
-
-#~ msgid "_Remove"
-#~ msgstr "_Verwijderen"
-
-#~ msgid "`%s' is not a directory"
-#~ msgstr "`%s' is geen map"
-
-#~ msgid "Sybase replication domain diagram objects"
-#~ msgstr "Sybase replicatie domein diagram objecten"
-
-#~ msgid "Error reading diagram file\n"
-#~ msgstr "Fout bij lezen diagram bestand\n"
-
-#~ msgid "Number of processes:"
-#~ msgstr "Aantal processen:"
-
-#~ msgid "multiple"
-#~ msgstr "meerdere"
-
-#~ msgid "Single"
-#~ msgstr "Enkele"
-
-#~ msgid "Multiple"
-#~ msgstr "Meerdere"
-
-#~ msgid "Instantiation"
-#~ msgstr "Instantiatie"
-
-#~ msgid "Unidirectional"
-#~ msgstr "Unidirectioneel"
-
-#~ msgid "Bidirectional"
-#~ msgstr "Bidirecitoneel"
-
-#~ msgid "Interaction name:"
-#~ msgstr "Interactie naam:"
-
-#~ msgid "bidirectional"
-#~ msgstr "bidirectioneel"
-
-#~ msgid "relation"
-#~ msgstr "relatie"
-
-#~ msgid "Interface functions"
-#~ msgstr "Interface functies"
-
-#~ msgid "Function module:"
-#~ msgstr "Functie module:"
-
-#~ msgid "Interfaces"
-#~ msgstr "Interfaces"
-
-#~ msgid "Interface"
-#~ msgstr "Interface"
-
-#~ msgid "Interface name:"
-#~ msgstr "Interface naam:"
-
-#~ msgid "Interface messages"
-#~ msgstr "Interface berichten"
-
-#~ msgid "Message parameters"
-#~ msgstr "Bericht parameters"
-
-#~ msgid "Message parameter"
-#~ msgstr "Bericht parameter"
-
-#~ msgid "Functions"
-#~ msgstr "Functies"
-
-#~ msgid "Messages"
-#~ msgstr "Berichten"
-
-#~ msgid "Process name:"
-#~ msgstr "Proces naam:"
-
-#~ msgid "Process reference name:"
-#~ msgstr "Proces referentie naam:"
-
-#~ msgid "Module name:"
-#~ msgstr "Module naam:"
-
-#~ msgid "Function parameters"
-#~ msgstr "Functie parameters"
-
-#~ msgid "Parameter"
-#~ msgstr "Parameters"
-
-#~ msgid "Relation members"
-#~ msgstr "Relatie leden"
-
-#~ msgid "/File/Open _Recent"
-#~ msgstr "/Bestand/_Open recent"
-
-#~ msgid "/File/Open Recent/---"
-#~ msgstr "/Bestand/_Open recent/---"
-
-#~ msgid "Grid:"
-#~ msgstr "Rooster:"
-
-#~ msgid "/File/Open Recent/"
-#~ msgstr "/Bestand/_Open recent/"
-
-#~ msgid "abstract"
-#~ msgstr "abstract"
-
-#~ msgid ""
-#~ "No such file found\n"
-#~ "%s\n"
-#~ msgstr ""
-#~ "Bestand %s niet\n"
-#~ "gevonden\n"
-
-#~ msgid "Import from XFig"
-#~ msgstr "Importeer uit XFig"
-
-#~ msgid "No edit widget"
-#~ msgstr "Geen bewerkings element"
-
-#~ msgid "Text color:"
-#~ msgstr "Tekst kleur:"
-
-#~ msgid "Color:"
-#~ msgstr "Kleur:"
-
-#~ msgid "Font color:"
-#~ msgstr "Letterkleur:"
-
-#~ msgid "Attributes:"
-#~ msgstr "Attributen:"
-
-#~ msgid ""
-#~ "Dia v %s\n"
-#~ " by Alexander Larsson"
-#~ msgstr ""
-#~ "Dia versie %s\n"
-#~ " door Alexander Larsson"
-
-#~ msgid "      Transmit"
-#~ msgstr "      Verzenden"
-
-#~ msgid "      Rotate"
-#~ msgstr "      Draaien"
-
-#~ msgid "      Remove"
-#~ msgstr "      Verwijderen"
-
-#~ msgid "Border width:"
-#~ msgstr "Rand breedte:"
-
-#~ msgid "Asynchronous"
-#~ msgstr "Asynchroon"
