@@ -20,6 +20,10 @@
 #include <math.h>
 
 #include "config.h"
+#ifdef GNOME
+#include <gnome.h>
+#endif
+
 #include "intl.h"
 
 #include "display.h"
@@ -739,8 +743,6 @@ extern DDisplay *ddisplay_active(void)
 static void
 are_you_sure_close_dialog_no(GtkWidget *widget, GtkWidget *dialog)
 {
-  gtk_grab_remove(dialog);
-  gtk_widget_hide(dialog);
   gtk_widget_destroy(dialog);
 }
 
@@ -752,8 +754,6 @@ are_you_sure_close_dialog_yes(GtkWidget *widget,
 
   ddisp =  gtk_object_get_user_data(GTK_OBJECT(dialog));
   
-  gtk_grab_remove(dialog);
-  gtk_widget_hide(dialog);
   gtk_widget_destroy(dialog);
   gtk_widget_destroy (ddisp->shell);
 }
@@ -763,7 +763,7 @@ void
 ddisplay_close(DDisplay *ddisp)
 {
   Diagram *dia;
-  GtkWidget *dialog;
+  GtkWidget *dialog, *vbox;
   GtkWidget *label;
   GtkWidget *button;
   
@@ -774,27 +774,42 @@ ddisplay_close(DDisplay *ddisp)
     gtk_widget_destroy (ddisp->shell);
     return;
   }
-  
-  dialog = gtk_dialog_new();
 
+#ifdef GNOME
+  dialog = gnome_dialog_new(_("Really close?"),
+			    GNOME_STOCK_BUTTON_YES,GNOME_STOCK_BUTTON_NO,NULL);
+  gnome_dialog_set_default(GNOME_DIALOG(dialog), 0);
+  vbox = GNOME_DIALOG(dialog)->vbox;
+#else
+  dialog = gtk_dialog_new();
   gtk_window_set_title (GTK_WINDOW (dialog), _("Really close?"));
   gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
+  vbox = GTK_DIALOG(dialog)->vbox;
+#endif
   
   label = gtk_label_new (_("This diagram has not been saved.\n"
 			 "Are you sure you want to close this window?"));
   
   gtk_misc_set_padding (GTK_MISC (label), 10, 10);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-		      label, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
   
   gtk_widget_show (label);
-  
+
+  gtk_object_set_user_data(GTK_OBJECT(dialog), ddisp);
+
+#ifdef GNOME
+  gnome_dialog_button_connect(GNOME_DIALOG(dialog), 0,
+			      GTK_SIGNAL_FUNC(are_you_sure_close_dialog_yes),
+			      dialog);
+  gnome_dialog_button_connect(GNOME_DIALOG(dialog), 1,
+			      GTK_SIGNAL_FUNC(are_you_sure_close_dialog_no),
+			      dialog);
+#else
   button = gtk_button_new_with_label (_("Yes"));
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
   gtk_widget_grab_default (button);
-  gtk_object_set_user_data(GTK_OBJECT(dialog), ddisp);
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(are_you_sure_close_dialog_yes),
 		      dialog);
@@ -810,10 +825,10 @@ ddisplay_close(DDisplay *ddisp)
 		      dialog);
 
   gtk_widget_show (button);
+#endif
 
   /* Make dialog modal: */
-  gtk_widget_grab_focus(dialog);
-  gtk_grab_add(dialog);
+  gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
   
   gtk_widget_show(dialog);
 }

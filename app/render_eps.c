@@ -178,7 +178,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
   time_now  = time(NULL);
   extent = &data->extents;
   
-  scale = 28.346;
+  scale = 28.346 * data->paper.scaling;
   
   name = getlogin();
   if (name==NULL)

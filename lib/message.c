@@ -16,11 +16,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include "config.h"
+
 #include <stdio.h>
 #include <stdarg.h>
+#ifdef GNOME
+#include <gnome.h>
+#else
 #include <gtk/gtk.h>
+#endif
 
-#include "config.h"
 #include "intl.h"
 #include "utils.h"
 #include "message.h"
@@ -32,6 +37,7 @@ message_internal(char *title, const char *fmt,
   static gchar *buf = NULL;
   static gint   alloc = 0;
   GtkWidget *dialog_window = NULL;
+  GtkWidget *vbox;
   GtkWidget *label;
   GtkWidget *button;
   GtkWidget *bbox;
@@ -51,17 +57,24 @@ message_internal(char *title, const char *fmt,
   
   vsprintf (buf, fmt, *args2);
 
+#ifdef GNOME
+  dialog_window = gnome_dialog_new(title, GNOME_STOCK_BUTTON_OK, NULL);
+  vbox = GNOME_DIALOG(dialog_window)->vbox;
+#else
   dialog_window = gtk_dialog_new ();
-  
   gtk_window_set_title (GTK_WINDOW (dialog_window), title);
   gtk_container_set_border_width (GTK_CONTAINER (dialog_window), 0);
+  vbox = GTK_DIALOG(dialog_window)->vbox;
+#endif
 
   label = gtk_label_new (buf);
   gtk_misc_set_padding (GTK_MISC (label), 10, 10);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog_window)->vbox), 
-		      label, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
   gtk_widget_show (label);
 
+#ifdef GNOME
+  gnome_dialog_set_close(GNOME_DIALOG(dialog_window), TRUE);
+#else
   bbox = gtk_hbutton_box_new();
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog_window)->action_area), 
 		     bbox, TRUE, TRUE, 0);
@@ -78,6 +91,7 @@ message_internal(char *title, const char *fmt,
   gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
 			    GTK_SIGNAL_FUNC(gtk_widget_destroy),
 			    GTK_OBJECT(dialog_window));
+#endif
 
   gtk_widget_show (dialog_window);
 }

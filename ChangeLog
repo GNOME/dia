@@ -1,3 +1,13 @@
+2000-02-27  James Henstridge  <james@daa.com.au>
+
+	* lib/message.c (message_internal): use a GNOME dialog here as well.
+
+	* app/display.c (ddisplay_close): use a GNOME dialog here.
+
+	* app/render_eps.c (create_eps_renderer): use diagram scaling factor
+	when exporting to EPS.  This is because some people said the EPS
+	output was too large
+
 2000-02-26  James Henstridge  <james@daa.com.au>
 
 	* app/defaults.c (create_dialog): use a GNOME dialog for the defaults
