@@ -310,7 +310,12 @@ sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
 	 if ((ca > 1E-7) && (cb > 1E-7)) {
 	   cosa = vca.x / ca; sina = vca.y / ca;
 	   cosb = vcb.x / cb; sinb = vcb.y / cb;
-
+	   /* Seems that sometimes vca.x > ca etc (though it should be
+	    * impossible), so we make border cases here */
+	   if (cosa > 1.0) cosa = 1.0;
+	   if (cosa < -1.0) cosa = -1.0;
+	   if (cosb > 1.0) cosa = 1.0;
+	   if (cosb < -1.0) cosb = -1.0;
 	   /*cosg = ((M.x-X.x)*(Y.x-M.x) + (M.y-X.y)*(Y.y-M.y))/(len1*len2);*/
 	   sing = (-(M.x-X.x)*(Y.y-M.y) + (Y.x-M.x)*(M.y-X.y)) / (len1*len2);
 
@@ -318,7 +323,6 @@ sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
 	   if (sina < 0.0) alpha = -alpha;
 	   beta = acos(cosb) * 180.0 / M_PI ; 
 	   if (sinb < 0.0) beta = -beta;
-         
 	   /* we'll keep gamma in radians, since we're only interested in its
 	      sign */
 	   /* after all, we don't even need to compute cos(gamma), and
@@ -334,7 +338,7 @@ sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
 	     beta=alpha;
 	     alpha = tau;
 	   }
-	   
+
 	   renderer_ops->draw_arc(renderer,&C,rr*2,rr*2,alpha,beta,
 				   &col);
 	 }

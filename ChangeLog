@@ -1,3 +1,10 @@
+2003-02-10  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/SADT/arrow.c (sadtarrow_draw): Clamp cosa, cosb to 
+	[-1.0, 1.0].  Shouldn't be necessary, but in some cases the
+	side of the triangle is longer than the hypotenuse.  Rounding
+	error suspected.
+
 2003-02-09  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* NEWS: 
