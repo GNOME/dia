@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia VERSION\n"
-"POT-Creation-Date: 2002-03-07 19:29-0500\n"
-"PO-Revision-Date: 2002-03-15 17:47+0100\n"
+"POT-Creation-Date: 2002-03-27 07:48+0100\n"
+"PO-Revision-Date: 2002-03-28 14:00+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -483,13 +483,13 @@ msgstr "Áno"
 msgid "No"
 msgstr "Nie"
 
-#: app/export_png.c:114 app/load_save.c:616 app/render_eps.c:625
-#: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
-#: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:199
-#: plug-ins/pstricks/render_pstricks.c:188 plug-ins/python/pydia-render.c:671
-#: plug-ins/shape/shape-export.c:193 plug-ins/svg/render_svg.c:180
+#: app/export_png.c:114 app/load_save.c:616 app/render_eps.c:748
+#: plug-ins/cgm/cgm.c:1143 plug-ins/dxf/dxf-export.c:526
+#: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
+#: plug-ins/pstricks/render_pstricks.c:195 plug-ins/python/pydia-render.c:671
+#: plug-ins/shape/shape-export.c:198 plug-ins/svg/render_svg.c:187
 #: plug-ins/wmf/wmf.cpp:897 plug-ins/wpg/wpg.c:930
-#: plug-ins/xfig/xfig-export.c:743
+#: plug-ins/xfig/xfig-export.c:739
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Nie je mo¾né otvori» '%s' pre zápis.\n"
@@ -803,7 +803,7 @@ msgstr ""
 "Chyba pri naèítavaní diagramu.\n"
 "deskriptor spojenia neexistuje."
 
-#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:629 plug-ins/wpg/wpg.c:1036
+#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:629 plug-ins/wpg/wpg.c:1039
 #: plug-ins/xfig/xfig-import.c:1152
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -893,6 +893,7 @@ msgid "Zoom _In"
 msgstr "Z_väè¹i»"
 
 #: app/menus.c:124
+#, c-format
 msgid "Zoom in 50%"
 msgstr "Zmen¹i» na 50%"
 
@@ -901,6 +902,7 @@ msgid "Zoom _Out"
 msgstr "Z_men¹i»"
 
 #: app/menus.c:125
+#, c-format
 msgid "Zoom out 50%"
 msgstr "Zväè¹i» o 50%"
 
@@ -1189,42 +1191,52 @@ msgid "/View/_Zoom"
 msgstr "/Zobrazenie/_Lupa"
 
 #: app/menus.c:315
+#, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Zobrazenie/Lupa/400%"
 
 #: app/menus.c:316
+#, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Zobrazenie/Lupa/283%"
 
 #: app/menus.c:317
+#, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Zobrazenie/Lupa/200%"
 
 #: app/menus.c:318
+#, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Zobrazenie/Lupa/141%"
 
 #: app/menus.c:319
+#, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Zobrazenie/Lupa/100%"
 
 #: app/menus.c:320
+#, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Zobrazenie/Lupa/85%"
 
 #: app/menus.c:321
+#, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Zobrazenie/Lupa/70.7%"
 
 #: app/menus.c:322
+#, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Zobrazenie/Lupa/50%"
 
 #: app/menus.c:323
+#, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Zobrazenie/Lupa/35.4%"
 
 #: app/menus.c:324
+#, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Zobrazenie/Lupa/25%"
 
@@ -1716,7 +1728,7 @@ msgstr "<Toolbox>/Súbor/Koniec"
 msgid "Can't open history file for writing."
 msgstr "Nie je mo¾né otvori» súbor s históriou pre zápis."
 
-#: app/render_eps.c:1706
+#: app/render_eps.c:1835
 msgid "Encapsulated Postscript"
 msgstr "Zapúzdrený Postscript"
 
@@ -1780,7 +1792,7 @@ msgstr ""
 
 #: lib/dia_xml.c:476
 msgid "Taking point value of non-point node."
-msgstr ""
+msgstr "Beriem hodnotu bodu z nebodového uzla."
 
 #: lib/dia_xml.c:488
 #, c-format
@@ -1808,7 +1820,7 @@ msgstr ""
 "preto budete stretáva» s problémami. Po¹lite prosím správu na dia-list@gnome."
 "org, ak vidíte túto správu."
 
-#: lib/font.c:513
+#: lib/font.c:517
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1817,25 +1829,29 @@ msgstr ""
 "Varovanie nebolo nájdené X Písmo pre %s,\n"
 "pou¾ijem %s.\n"
 
-#: lib/font.c:623
+#: lib/font.c:626
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr "Varovanie: Bolo zvolené FreeType, ale kni¾nica nebude naèítaná: %d\n"
 
-#: lib/font.c:632
+#: lib/font.c:635
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Varovanie: Nebolo nájdené ani jedno X písmo. Nastal koniec sveta."
 
-#: lib/font.c:934
+#: lib/font.c:644
+msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
+msgstr ""
+
+#: lib/font.c:927
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "Chyba, nie je mo¾né nájs» písmo. To by sa nemalo sta».\n"
 
-#: lib/font.c:936 lib/font.c:970
+#: lib/font.c:929 lib/font.c:963
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Nebolo nájdené písmo %s.  Namiesto neho sa pou¾ije Courier.\n"
 
-#: lib/font.c:946
+#: lib/font.c:939
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "Písmo %s nemá ¹týl %s, a tak je pou¾ité %s\n"
@@ -2219,7 +2235,7 @@ msgstr "Názov procesnej referencia:"
 
 #: objects/EML/process_dialog.c:1251
 msgid "Process lifetime:"
-msgstr ""
+msgstr "Doba ¾ivota procesu:"
 
 #: objects/EML/process_dialog.c:1299
 msgid "Module name:"
@@ -2398,7 +2414,7 @@ msgstr "Povoli»"
 
 #: objects/FS/function.c:629
 msgid "Form Entrance"
-msgstr ""
+msgstr "Forma vstupu"
 
 #: objects/FS/function.c:630 objects/FS/function.c:747
 msgid "Capture"
@@ -2666,7 +2682,7 @@ msgstr "Oèis»ovanie"
 
 #: objects/FS/function.c:722
 msgid "Strain"
-msgstr ""
+msgstr "Filtrovanie"
 
 #: objects/FS/function.c:723
 msgid "Filter"
@@ -3367,7 +3383,7 @@ msgstr "SADT objekty diagramu"
 
 #: objects/UML/actor.c:337 objects/UML/actor.c:339
 msgid "Actor"
-msgstr ""
+msgstr "Aktér"
 
 #: objects/UML/association.c:1030 objects/UML/class_dialog.c:2177
 msgid "Direction:"
@@ -3584,11 +3600,11 @@ msgstr "Typ dedenia:"
 
 #: objects/UML/class_dialog.c:2031
 msgid "Polymorphic (virtual)"
-msgstr ""
+msgstr "Polymorfický (virtuálny)"
 
 #: objects/UML/class_dialog.c:2039
 msgid "Leaf (final)"
-msgstr ""
+msgstr "List (ukonèi»)"
 
 #: objects/UML/class_dialog.c:2057
 msgid "Query"
@@ -3851,7 +3867,7 @@ msgstr "Vedµaj¹í èasový krok"
 
 #: objects/chronogram/chronoref.c:162
 msgid "Minor step line width"
-msgstr ""
+msgstr "Vedµaj¹í krok ¹írky èiary"
 
 #: objects/custom/custom.c:124
 msgid "Custom"
@@ -4028,7 +4044,7 @@ msgstr "Veµkos» písma:"
 msgid "Sybase replication domain diagram objects"
 msgstr "Objekty pre návrh diagramov Sybase replikaènej domény s"
 
-#: plug-ins/cgm/cgm.c:1086
+#: plug-ins/cgm/cgm.c:1092
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -4036,15 +4052,15 @@ msgstr ""
 "Då¾ka riadku obrázka je väè¹ia ako maximálne pole bunky.\n"
 "Obrázok nebude exportovaný do CGM."
 
-#: plug-ins/cgm/cgm.c:1261
+#: plug-ins/cgm/cgm.c:1270
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: plug-ins/cgm/cgm.c:1275
+#: plug-ins/cgm/cgm.c:1284
 msgid "Computer Graphics Metafile export filter"
 msgstr "Exportný filter Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:683
+#: plug-ins/dxf/dxf-export.c:574 plug-ins/dxf/dxf-import.c:683
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -4052,7 +4068,7 @@ msgstr "Drawing Interchange File"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Filter pre export a import Drawing Interchange File"
 
-#: plug-ins/hpgl/hpgl.c:616
+#: plug-ins/hpgl/hpgl.c:619
 msgid "HP Graphics Language export filter"
 msgstr "Exportný filter Grafického Jazyka HP"
 
@@ -4060,7 +4076,7 @@ msgstr "Exportný filter Grafického Jazyka HP"
 msgid "TeX Metapost export filter"
 msgstr "Exportný filter TeX Metapost"
 
-#: plug-ins/metapost/render_metapost.c:726
+#: plug-ins/metapost/render_metapost.c:735
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost makrá"
 
@@ -4068,7 +4084,7 @@ msgstr "TeX Metapost makrá"
 msgid "TeX Pstricks export filter"
 msgstr "Exportný filter TeX Pstricks"
 
-#: plug-ins/pstricks/render_pstricks.c:763
+#: plug-ins/pstricks/render_pstricks.c:773
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makrá"
 
@@ -4076,11 +4092,11 @@ msgstr "TeX PSTricks makrá"
 msgid "Python scripting support"
 msgstr "Podpora Python skriptov"
 
-#: plug-ins/shape/shape-export.c:937
+#: plug-ins/shape/shape-export.c:945
 msgid "Can't export png without libart!"
 msgstr "Nie je mo¾né exportova» png bez libart-u!"
 
-#: plug-ins/shape/shape-export.c:964
+#: plug-ins/shape/shape-export.c:972
 msgid "dia shape file"
 msgstr "súbor s dia tvarom"
 
@@ -4088,7 +4104,7 @@ msgstr "súbor s dia tvarom"
 msgid "dia shape export filter"
 msgstr "exportný filter dia tvaru"
 
-#: plug-ins/svg/render_svg.c:860
+#: plug-ins/svg/render_svg.c:870
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -4096,28 +4112,28 @@ msgstr "Scalable Vector Graphics"
 msgid "Scalable Vector Graphics export filter"
 msgstr "Exportný filter pre Scalable Vector Graphics"
 
-#: plug-ins/wmf/wmf.cpp:959
+#: plug-ins/wmf/wmf.cpp:962
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:973
+#: plug-ins/wmf/wmf.cpp:976
 msgid "WMF export filter"
 msgstr "Exportný filter WMF"
 
-#: plug-ins/wpg/wpg.c:1048
+#: plug-ins/wpg/wpg.c:1051
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Súbor: '%s' - nepodporovaný typ/verzia.\n"
 
-#: plug-ins/wpg/wpg.c:1197
+#: plug-ins/wpg/wpg.c:1200
 msgid "WordPerfect Graphics export filter"
 msgstr "Exportný filter WordPerfect Grafiky"
 
-#: plug-ins/xfig/xfig-export.c:369
+#: plug-ins/xfig/xfig-export.c:365
 msgid "No more user-definable colors - using black"
 msgstr "Dos» bolo pou¾ívateµom definovaných farieb - pou¾ívam èiernu"
 
-#: plug-ins/xfig/xfig-export.c:794
+#: plug-ins/xfig/xfig-export.c:792
 msgid "XFig format"
 msgstr "XFig formát"
 
@@ -4135,7 +4151,7 @@ msgstr "Trojbodkové èiary nie sú podporované v Dia, pou¾ité budú dvojbodkové"
 
 #: plug-ins/xfig/xfig-import.c:79
 msgid "Negative corner radius, negating"
-msgstr ""
+msgstr "Negatívny rádius rohu, negujem"
 
 #: plug-ins/xfig/xfig-import.c:80
 msgid "Spline import is not implemented yet"
@@ -4192,7 +4208,7 @@ msgstr "Nie je mo¾né identifikova» FIG objekt: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:924
 msgid "Compound end outside compound\n"
-msgstr ""
+msgstr "Zlúèený koniec mimo zlúèenia\n"
 
 #: plug-ins/xfig/xfig-import.c:943
 #, c-format
@@ -4288,7 +4304,7 @@ msgstr "Exportný a importný filter formát Fig"
 
 #: sheets/Circuit.sheet.in.h:1
 msgid "A Horizontal Jumper"
-msgstr ""
+msgstr "Horizontálny prepínaè"
 
 #: sheets/Circuit.sheet.in.h:2
 msgid "A Horizontally aligned inductor"
@@ -4808,31 +4824,31 @@ msgstr "Terminál pre taktickú satelitnú komunikáciu"
 
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr ""
+msgstr "Mobilný prispievateµ komponentami vybavenia americkej armády"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A 2/2 distributor"
-msgstr ""
+msgstr "Rozvádzaè 2/2"
 
 #: sheets/Pneumatic.sheet.in.h:2
 msgid "A 3/2 distributor"
-msgstr ""
+msgstr "Rozvádzaè 3/2"
 
 #: sheets/Pneumatic.sheet.in.h:3
 msgid "A 3/3 distributor"
-msgstr ""
+msgstr "Rozvádzaè 3/3"
 
 #: sheets/Pneumatic.sheet.in.h:4
 msgid "A 4/2 distributor"
-msgstr ""
+msgstr "Rozvádzaè 4/2"
 
 #: sheets/Pneumatic.sheet.in.h:5
 msgid "A 5/2 distributor"
-msgstr ""
+msgstr "Rozvádzaè 5/2"
 
 #: sheets/Pneumatic.sheet.in.h:6
 msgid "A 5/3 distributor"
-msgstr ""
+msgstr "Rozvádzaè 5/3"
 
 #: sheets/Pneumatic.sheet.in.h:8
 msgid "A double-effect jack"
@@ -5060,7 +5076,7 @@ msgstr "Vytvori» prípad pou¾itia"
 
 #: sheets/UML.sheet.in.h:18
 msgid "Create an actor"
-msgstr ""
+msgstr "Vytvori» aktéra"
 
 #: sheets/UML.sheet.in.h:19
 msgid "Create an object"
@@ -5072,11 +5088,11 @@ msgstr "Editor pre Statické ¹truktúrované diagramy UML"
 
 #: sheets/UML.sheet.in.h:21
 msgid "Generalization, class inheritance"
-msgstr ""
+msgstr "Zov¹eobecnenie, trieda dedenia"
 
 #: sheets/UML.sheet.in.h:22
 msgid "Implements, class implements a specific interface"
-msgstr ""
+msgstr "Implementuje, trieda implementuje ¹pecifické rozhranie"
 
 #: sheets/UML.sheet.in.h:23
 msgid "Realizes, implements a specific interface"
@@ -5104,7 +5120,7 @@ msgstr "Objekty na návrh chronogramových grafov"
 
 #: sheets/civil.sheet.in.h:1
 msgid "A Backflow Preventer"
-msgstr ""
+msgstr "Poistka proti spätnému toku"
 
 #: sheets/civil.sheet.in.h:2
 msgid "A Basin"
@@ -5136,7 +5152,7 @@ msgstr "Rotor"
 
 #: sheets/civil.sheet.in.h:9
 msgid "A final-settling Basin"
-msgstr ""
+msgstr "Nádr¾ pre závereènú sedimentáciu"
 
 #: sheets/civil.sheet.in.h:10
 msgid "A horizontal limiting line"
@@ -5340,7 +5356,7 @@ msgstr "WAN linka"
 
 #: sheets/network.sheet.in.h:13
 msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr ""
+msgstr "Zásuvka pre scEAD káblový systém"
 
 #: sheets/network.sheet.in.h:14
 msgid "A Workstation Monitor"
