@@ -356,7 +356,8 @@ orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint)
   return 1;
 }
 
-void orthconn_delete_segment(OrthConn *orth, Point *clickedpoint)
+ObjectChange *
+orthconn_delete_segment(OrthConn *orth, Point *clickedpoint)
 {
   int segment;
 
@@ -404,6 +405,7 @@ void orthconn_delete_segment(OrthConn *orth, Point *clickedpoint)
       }
     }
   }
+  return NULL;
 }
 
 int
@@ -529,7 +531,8 @@ add_middle_segment(OrthConn *orth, int segment, Point *point)
   object_add_handle(&orth->object, orth->midpoint_handles[segment+2]);
 }
 
-void orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
+ObjectChange *
+orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
 {
   int segment;
 
@@ -542,6 +545,7 @@ void orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
   } else if (segment > 0) {
     add_middle_segment(orth, segment, clickedpoint);
   }
+  return NULL;
 }
 
 
@@ -747,45 +751,3 @@ orthconn_get_middle_handle( OrthConn *orth )
   int n = orth->numpoints - 1 ;
   return orth->midpoint_handles[ n/2 ] ;
 }
-
-void
-orthconn_state_get(OrthConnState *state, OrthConn *orth)
-{
-  state->numpoints = orth->numpoints;
-  state->points = g_new(Point, state->numpoints);
-  memcpy(state->points, orth->points,
-	 state->numpoints*sizeof(Point));
-  state->orientation = g_new(Orientation, state->numpoints-1);
-  memcpy(state->orientation, orth->orientation,
-	 (state->numpoints-1)*sizeof(Orientation));
-}
-
-void
-orthconn_state_set(OrthConnState *state, OrthConn *orth)
-{
-  if (orth->points)
-    g_free(orth->points);
-  if (orth->orientation)
-    g_free(orth->orientation);
-  
-  orth->numpoints = state->numpoints;
-  orth->points = g_new(Point, orth->numpoints);
-  memcpy(orth->points, state->points,
-	 orth->numpoints*sizeof(Point));
-  orth->orientation = g_new(Orientation, orth->numpoints-1);
-  memcpy(orth->orientation, state->orientation,
-	 (orth->numpoints-1)*sizeof(Orientation));
-  
-  orthconn_update_data(orth);
-}
-
-void
-orthconn_state_free(OrthConnState *state)
-{
-  if (state->points)
-    g_free(state->points);
-  
-  if (state->orientation)
-    g_free(state->orientation);
-}
-

@@ -42,5 +42,6 @@ static void *dummy_dep[] = {
   new_render_object,
   nearest_pow,
   arrow_draw,
-  dia_font_selector_new /* widgets.o */
+  dia_font_selector_new, /* widgets.o */
+  new_object_state_change /* objchange.o */
 };

@@ -19,6 +19,7 @@
 #define TEXT_H
 
 typedef struct _Text Text;
+typedef struct _TextAttributes TextAttributes;
 
 #include "font.h"
 #include "focus.h"
@@ -49,7 +50,15 @@ struct _Text {
   real descent;
   real max_width;
   real *row_width;
- 
+};
+
+
+struct _TextAttributes {
+  Font *font;
+  real height;
+  Point position;
+  Color color;
+  Alignment alignment;
 };
 
 /* makes an internal copy of the string */
@@ -72,6 +81,8 @@ extern void text_set_cursor(Text *text, Point *clicked_point,
 extern void text_set_cursor_at_end( Text* text );
 extern void text_grab_focus(Text *text, Object *object);
 extern int text_is_empty(Text *text);
+extern void text_get_attributes(Text *text, TextAttributes *attr);
+extern void text_set_attributes(Text *text, TextAttributes *attr);
 
 extern void data_add_text(AttributeNode attr, Text *text);
 extern Text *data_text(AttributeNode attr);

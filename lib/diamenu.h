@@ -23,7 +23,8 @@
 typedef struct _DiaMenuItem DiaMenuItem;
 typedef struct _DiaMenu DiaMenu;
 
-typedef void (*DiaMenuCallback)(Object *obj, Point *pos, gpointer data);
+/* Note: The returned change is already applied. */
+typedef ObjectChange *(*DiaMenuCallback)(Object *obj, Point *pos, gpointer data);
 
 struct _DiaMenuItem {
   char *text;

@@ -58,8 +58,14 @@ DiaImage
 dia_image_load(gchar *filename) 
 {
   DiaImage dia_img;
+  GdkImlibImage *image;
+
+  image = gdk_imlib_load_image(filename);
+  if (image == NULL)
+    return NULL;
+
   dia_img = g_new(struct DiaImage, 1);
-  dia_img->image = gdk_imlib_load_image(filename);
+  dia_img->image = image;
   dia_img->refcount = 1;
   return dia_img;
 }

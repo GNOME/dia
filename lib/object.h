@@ -22,7 +22,6 @@
 
 typedef guint16 ObjectId; /* The id of an objecttype */
 typedef struct _Object Object;
-typedef struct _ObjectState ObjectState;
 typedef struct _ObjectOps ObjectOps;
 typedef struct _ObjectType ObjectType;
 typedef struct _ObjectTypeOps ObjectTypeOps;
@@ -32,6 +31,7 @@ typedef enum _ModifierKeys ModifierKeys;
 #include "render.h"
 #include "connectionpoint.h"
 #include "handle.h"
+#include "objchange.h"
 #include "diamenu.h"
 #include "dia_xml.h"
 
@@ -193,8 +193,11 @@ typedef GtkWidget *(*GetPropertiesFunc) (Object* obj);
 /*
   Thiss function is called when the user clicks on
   the "Apply" button.
+
+  Must returns a Change that can be used for undo/redo.
+  The returned change is already applied.
 */
-typedef void (*ApplyPropertiesFunc) (Object* obj);
+typedef ObjectChange *(*ApplyPropertiesFunc) (Object* obj);
 
 /*
   Function called when the user has double clicked on an Tool.
@@ -207,10 +210,8 @@ typedef void (*ApplyPropertiesFunc) (Object* obj);
 typedef GtkWidget *(*GetDefaultsFunc) ();
 
 /*
-  Thiss function is called when the user clicks on
-  the "Apply" button.
 */
-typedef void (*ApplyDefaultsFunc) ();
+typedef void *(*ApplyDefaultsFunc) ();
 
 /*
   Return TRUE if object does not contain anything
@@ -221,34 +222,6 @@ typedef void (*ApplyDefaultsFunc) ();
   This is mainly used by TextObj.
 */
 typedef int  (*IsEmptyFunc) (Object* obj);
-
-/*
-  Gets the internal state from the object.
-  This is used to snapshot the object state
-  so that it can be stored for undo/redo.
-
-  Need not save state that only depens on
-  the object and it's handles positions.
-  
-  Called before properties apply and
-  object menu callbacks.
-
-  The calling function owns the returned reference.
-*/
-typedef ObjectState * (*GetStateFunc) (Object* obj);
-
-/*
-  Sets the internal state from the object.
-  This is used to snapshot the object state
-  so that it can be stored for undo/redo.
-
-  Called before properties apply and
-  object menu callbacks.
-
-  The called function owns the reference and is
-  responsible for freeing it.
-*/
-typedef void (*SetStateFunc) (Object* obj, ObjectState *state);
 
 /*
   Return an object-specific menu with toggles etc. properly set.
@@ -268,6 +241,7 @@ extern void object_load(Object *obj, ObjectNode obj_node);
 
 extern void destroy_object_list(GList *list);
 extern void object_add_handle(Object *obj, Handle *handle);
+extern void object_add_handle_at(Object *obj, Handle *handle, int pos);
 extern void object_remove_handle(Object *obj, Handle *handle);
 extern void object_add_connectionpoint(Object *obj, ConnectionPoint *conpoint);
 extern void object_remove_connectionpoint(Object *obj,
@@ -288,11 +262,6 @@ extern void object_return_void(Object *obj); /* Just an empty function */
  **  The structures used to define an object
  *****************************************/
 
-struct _ObjectState {
-  void (*free)(ObjectState *state); /* Frees pointers in the state,
-				       not called if NULL */
-};
-
 
 /*
   This structure gives access to the functions used to manipulate an object
@@ -311,15 +280,13 @@ struct _ObjectOps {
   ApplyPropertiesFunc apply_properties;
   IsEmptyFunc         is_empty;
   ObjectMenuFunc      get_object_menu;
-  GetStateFunc        get_state;
-  SetStateFunc        set_state;
   /*
     Unused places (for extension).
     These should be NULL for now. In the future they might be used.
     Then an older object will be binary compatible, because all new code
     checks if new ops are supported (!= NULL)
   */
-  void      (*(unused[7]))(Object *obj,...); 
+  void      (*(unused[9]))(Object *obj,...); 
 };
 
 /*

@@ -47,6 +47,8 @@ libdia_a_SOURCES =  \
 		connection.h \
 		element.c \
 		element.h \
+		objchange.c \
+		objchange.h \
 		widgets.c \
 		widgets.h \
 		dia_image.c \

@@ -115,6 +115,22 @@ object_add_handle(Object *obj, Handle *handle)
 }
 
 void
+object_add_handle_at(Object *obj, Handle *handle, int pos)
+{
+  int i;
+  
+  obj->num_handles++;
+
+  obj->handles =
+    g_realloc(obj->handles, obj->num_handles*sizeof(Handle *));
+
+  for (i=obj->num_handles-1; i > pos; i--) {
+    obj->handles[i] = obj->handles[i-1];
+  }
+  obj->handles[pos] = handle;
+}
+
+void
 object_remove_handle(Object *obj, Handle *handle)
 {
   int i, handle_nr;

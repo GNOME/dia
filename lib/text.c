@@ -27,7 +27,29 @@
 #include "message.h"
 
 static int text_key_event(Focus *focus, guint keysym,
-			  char *str, int strlen);
+			  char *str, int strlen,
+			  ObjectChange **change);
+
+enum change_type {
+  TYPE_DELETE_BACKWARD,
+  TYPE_DELETE_FORWARD,
+  TYPE_INSERT_CHAR,
+  TYPE_JOIN_ROW,
+  TYPE_SPLIT_ROW
+};
+
+struct TextObjectChange {
+  ObjectChange obj_change;
+
+  Text *text;
+  enum change_type type;
+  char ch;
+  int pos;
+  int row;
+};
+
+static ObjectChange *text_create_change(Text *text, enum change_type type,
+					char ch, int pos, int row);
 
 static void
 calc_width(Text *text)
@@ -690,11 +712,15 @@ text_insert_char(Text *text, char c)
 }
 
 static int
-text_key_event(Focus *focus, guint keyval, char *str, int strlen)
+text_key_event(Focus *focus, guint keyval, char *str, int strlen,
+	       ObjectChange **change)
 {
   Text *text;
   int return_val;
+  int row;
+
   return_val = FALSE;
+  *change = NULL;
   
   text = (Text *)focus->user_data;
 
@@ -732,17 +758,52 @@ text_key_event(Focus *focus, guint keyval, char *str, int strlen)
       text->cursor_pos = text->strlen[text->cursor_row];
     break;
   case GDK_Delete:
+    return_val = TRUE;
+    row = text->cursor_row;
+    if (text->cursor_pos >= text->strlen[row]) {
+      if (row+1 < text->numlines) {
+	*change = text_create_change(text, TYPE_JOIN_ROW, 'Q',
+				     text->cursor_pos, row);
+      } else {
+	return_val = FALSE;
+	break;
+      }
+    } else {
+      *change = text_create_change(text, TYPE_DELETE_FORWARD,
+				   text->line[row][text->cursor_pos],
+				   text->cursor_pos, text->cursor_row);
+    }
     text_delete_forward(text);
     break;
   case GDK_BackSpace:
+    return_val = TRUE;
+    row = text->cursor_row;
+    if (text->cursor_pos <= 0) {
+      if (row > 0) {
+	*change = text_create_change(text, TYPE_JOIN_ROW, 'Q',
+				     text->strlen[row-1], row-1);
+      } else {
+	return_val = FALSE;
+	break;
+      }
+    } else {
+      *change = text_create_change(text, TYPE_DELETE_BACKWARD,
+				   text->line[row][text->cursor_pos],
+				   text->cursor_pos, text->cursor_row);
+    }
     text_delete_backward(text);
     break;
   case GDK_Return:
+    return_val = TRUE;
+    *change = text_create_change(text, TYPE_SPLIT_ROW, 'Q',
+				 text->cursor_pos, text->cursor_row);
     text_split_line(text);
     break;
   default:
     if (strlen>0) {
       return_val = TRUE;
+      *change = text_create_change(text, TYPE_INSERT_CHAR, str[0],
+				   text->cursor_pos, text->cursor_row);
       text_insert_char(text, str[0]);
     }
     break;
@@ -832,9 +893,100 @@ data_text(AttributeNode text_attr)
   return new_text(string, font, height, &pos, &col, align);
 }
 
+void
+text_get_attributes(Text *text, TextAttributes *attr)
+{
+  attr->font = text->font;
+  attr->height = text->height;
+  attr->position = text->position;
+  attr->color = text->color;
+  attr->alignment = text->alignment;
+}
+
+void
+text_set_attributes(Text *text, TextAttributes *attr)
+{
+  text->font = attr->font;
+  text->height = attr->height;
+  text->position = attr->position;
+  text->color = attr->color;
+  text->alignment = attr->alignment;
+}
+
+static void
+text_change_apply(struct TextObjectChange *change, Object *obj)
+{
+  Text *text = change->text;
+  switch (change->type) {
+  case TYPE_INSERT_CHAR:
+    text->cursor_pos = change->pos;
+    text->cursor_row = change->row;
+    text_insert_char(text, change->ch);
+    break;
+  case TYPE_DELETE_BACKWARD:
+    text->cursor_pos = change->pos;
+    text->cursor_row = change->row;
+    text_delete_backward(text);
+    break;
+  case TYPE_DELETE_FORWARD:
+    text->cursor_pos = change->pos;
+    text->cursor_row = change->row;
+    text_delete_forward(text);
+    break;
+  case TYPE_SPLIT_ROW:
+    text->cursor_pos = change->pos;
+    text->cursor_row = change->row;
+    text_split_line(text);
+    break;
+  case TYPE_JOIN_ROW:
+    text_join_lines(text, change->row);
+    break;
+  }
+}
+static void
+text_change_revert(struct TextObjectChange *change, Object *obj)
+{
+  Text *text = change->text;
+  switch (change->type) {
+  case TYPE_INSERT_CHAR:
+    text->cursor_pos = change->pos;
+    text->cursor_row = change->row;
+    text_delete_forward(text);
+    break;
+  case TYPE_DELETE_BACKWARD:
+  case TYPE_DELETE_FORWARD:
+    text->cursor_pos = change->pos;
+    text->cursor_row = change->row;
+    text_insert_char(text, change->ch);
+    break;
+  case TYPE_SPLIT_ROW:
+    text_join_lines(text, change->row);
+    break;
+  case TYPE_JOIN_ROW:
+    text->cursor_pos = change->pos;
+    text->cursor_row = change->row;
+    text_split_line(text);
+    break;
+  }
+}
 
 
+static ObjectChange *
+text_create_change(Text *text, enum change_type type,
+		   char ch, int pos, int row)
+{
+  struct TextObjectChange *change;
 
+  change = g_new(struct TextObjectChange, 1);
 
+  change->obj_change.apply = (ObjectChangeApplyFunc) text_change_apply;
+  change->obj_change.revert = (ObjectChangeRevertFunc) text_change_revert;
+  change->obj_change.free = (ObjectChangeFreeFunc) NULL;
 
-
+  change->text = text;
+  change->type = type;
+  change->ch = ch;
+  change->pos = pos;
+  change->row = row;
+  return (ObjectChange *)change;
+}

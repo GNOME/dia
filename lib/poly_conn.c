@@ -30,8 +30,29 @@
 #include "poly_conn.h"
 #include "message.h"
 
+enum change_type {
+  TYPE_ADD_POINT,
+  TYPE_REMOVE_POINT
+};
 
-static void polyconn_try_remove_segments(PolyConn *poly, int segment);
+struct PointChange {
+  ObjectChange obj_change;
+
+  enum change_type type;
+  int applied;
+  
+  Point point;
+  int pos;
+
+  Handle *handle; /* owning ref when not applied for ADD_POINT
+		     owning ref when applied for REMOVE_POINT */
+  ConnectionPoint *connected_to; /* NULL if not connected */
+};
+
+static ObjectChange *
+polyconn_create_change(PolyConn *poly, enum change_type type,
+		       Point *point, int segment, Handle *handle,
+		       ConnectionPoint *connected_to);
 
 static void setup_corner_handle(Handle *handle)
 {
@@ -72,9 +93,6 @@ polyconn_move_handle(PolyConn *poly, Handle *handle,
   default:
     message_error("Internal error in polyconn_move_handle.\n");
     break;
-  }
-  if (reason == HANDLE_MOVE_USER_FINAL) {
-    polyconn_try_remove_segments(poly, handle_nr);
   }
 }
 
@@ -151,18 +169,70 @@ polyconn_distance_from(PolyConn *poly, Point *point, real line_width)
   return dist;
 }
 
+static void
+add_handle(PolyConn *poly, int pos, Point *point, Handle *handle)
+{
+  int i;
+  Object *obj;
+  
+  poly->numpoints++;
+  poly->points = realloc(poly->points, poly->numpoints*sizeof(Point));
+
+  for (i=poly->numpoints-1; i > pos; i--) {
+    poly->points[i] = poly->points[i-1];
+  }
+  poly->points[pos] = *point;
+  object_add_handle_at((Object*)poly, handle, pos);
+
+  obj = (Object *)poly;
+  if (pos==0) {
+    obj->handles[1]->type = HANDLE_MINOR_CONTROL;
+    obj->handles[1]->id = HANDLE_CORNER;
+  }
+  if (pos==obj->num_handles-1) {
+    obj->handles[obj->num_handles-2]->type = HANDLE_MINOR_CONTROL;
+    obj->handles[obj->num_handles-2]->id = HANDLE_CORNER;
+  }
+}
+
+static void
+remove_handle(PolyConn *poly, int pos)
+{
+  int i;
+  Object *obj;
+  Handle *old_handle;
+
+  obj = (Object *)poly;
+
+  if (pos==0) {
+    obj->handles[1]->type = HANDLE_MAJOR_CONTROL;
+    obj->handles[1]->id = HANDLE_MOVE_STARTPOINT;
+  }
+  if (pos==obj->num_handles-1) {
+    obj->handles[obj->num_handles-2]->type = HANDLE_MAJOR_CONTROL;
+    obj->handles[obj->num_handles-2]->id = HANDLE_MOVE_ENDPOINT;
+  }
+
+  /* delete the points */
+  poly->numpoints--;
+  for (i=pos; i < poly->numpoints; i++) {
+    poly->points[i] = poly->points[i+1];
+  }
+  poly->points = realloc(poly->points, poly->numpoints*sizeof(Point));
+
+  old_handle = obj->handles[pos];
+  object_remove_handle(&poly->object, old_handle);
+}
+
+
 /* Add a point by splitting segment into two, putting the new point at
  'point' or, if NULL, in the middle */
-void
+ObjectChange *
 polyconn_add_point(PolyConn *poly, int segment, Point *point)
 {
   Point realpoint;
-  int i;
-  Handle *new_handle, *endpoint;
-  ConnectionPoint *old_handle_connection;
+  Handle *new_handle;
 
-  poly->numpoints++;
-  poly->points = realloc(poly->points, poly->numpoints*sizeof(Point));
   if (point == NULL) {
     realpoint.x = (poly->points[segment].x+poly->points[segment+1].x)/2;
     realpoint.y = (poly->points[segment].y+poly->points[segment+1].y)/2;
@@ -170,100 +240,34 @@ polyconn_add_point(PolyConn *poly, int segment, Point *point)
     realpoint = *point;
   }
 
-  for (i=poly->numpoints-1; i > segment; i--) {
-    poly->points[i] = poly->points[i-1];
-  }
-  segment++;
-  poly->points[segment] = realpoint;
-  /* This is quirky because I can't depend on where the new handle is
-     inserted into the handle list */
-  endpoint = poly->object.handles[poly->numpoints-2];
-  old_handle_connection = endpoint->connected_to;
-  endpoint->id = HANDLE_CORNER;
-  endpoint->type = HANDLE_MINOR_CONTROL;
-  endpoint->connect_type = HANDLE_CONNECTABLE;
-  endpoint->connected_to = NULL;  
   new_handle = g_malloc(sizeof(Handle));
-  object_add_handle((Object*)poly, new_handle);
   setup_corner_handle(new_handle);
-  polyconn_update_data(poly);
-  endpoint = poly->object.handles[poly->numpoints-1];
-  endpoint->id = HANDLE_MOVE_ENDPOINT;
-  endpoint->type = HANDLE_MAJOR_CONTROL;
-  endpoint->connect_type = HANDLE_CONNECTABLE;
-  endpoint->connected_to = old_handle_connection;
+  add_handle(poly, segment+1, &realpoint, new_handle);
+  return polyconn_create_change(poly, TYPE_ADD_POINT,
+				&realpoint, segment+1, new_handle,
+				NULL);
 }
 
-void
-polyconn_remove_point(PolyConn *poly, int point)
+ObjectChange *
+polyconn_remove_point(PolyConn *poly, int pos)
 {
-  Handle *old_handle, *new_handle;
-  int i, id;
+  Handle *old_handle;
+  ConnectionPoint *connectionpoint;
+  Point old_point;
   
-  old_handle = poly->object.handles[point];
-  id = old_handle->id;
-  object_remove_handle(&poly->object, old_handle);
-  g_free(old_handle);
+  old_handle = poly->object.handles[pos];
+  old_point = poly->points[pos];
+  connectionpoint = old_handle->connected_to;
+  
+  object_unconnect((Object *)poly, old_handle);
 
-  /* delete the points */
-  poly->numpoints = poly->numpoints - 1;
-  for (i=point; i < poly->numpoints; i++) {
-    poly->points[i] = poly->points[i+1];
-  }
-  poly->points = realloc(poly->points, poly->numpoints*sizeof(Point));
+  remove_handle(poly, pos);
+
   polyconn_update_data(poly);
-  if (id == HANDLE_CORNER) return;
-  switch (id) {
-  case HANDLE_MOVE_STARTPOINT:
-    new_handle = poly->object.handles[0];
-    break;
-  case HANDLE_MOVE_ENDPOINT:
-    new_handle = poly->object.handles[poly->numpoints-1];
-    break;
-  default:
-    message_warning("Strange handle type %d on polyline\n", id);
-    return;
-  }
-  new_handle->type = HANDLE_MAJOR_CONTROL;
-  new_handle->connect_type = HANDLE_CONNECTABLE;
-  new_handle->id = id;
-}
-
-/* Removes very small segments on both sides of a point */
-static void
-polyconn_try_remove_segments(PolyConn *poly, int point)
-{
-  real len;
-
-  if (poly->numpoints == 2)
-    return; /* Cant remove any more */
   
-  /* Earlier segment: */
-  if (point>0) {
-    len = fabs(poly->points[point-1].x - poly->points[point].x) +
-      fabs(poly->points[point-1].y - poly->points[point].y);
-
-    if (len<0.08) {
-      polyconn_remove_point(poly, point);
-      point--;
-      polyconn_update_data(poly);
-      return;
-    }
-  }
-
-  if (poly->numpoints == 2)
-    return; /* Cant remove any more */
-
-  /* Later segment: */
-  if (point < poly->numpoints-2) {
-    len = fabs(poly->points[point].x - poly->points[point+1].x) +
-      fabs(poly->points[point].y - poly->points[point+1].y);
-
-    if (len<0.08) {
-      polyconn_remove_point(poly, point);
-      polyconn_update_data(poly);
-    }
-  }
+  return polyconn_create_change(poly, TYPE_REMOVE_POINT,
+				&old_point, pos, old_handle,
+				connectionpoint);
 }
 
 void
@@ -459,32 +463,71 @@ polyconn_load(PolyConn *poly, ObjectNode obj_node) /* NOTE: Does object_init() *
   polyconn_update_data(poly);
 }
 
-void
-polyconn_state_get(PolyConnState *state, PolyConn *poly)
+static void
+polyconn_change_free(struct PointChange *change)
 {
-  state->numpoints = poly->numpoints;
-  state->points = g_new(Point, state->numpoints);
-  memcpy(state->points, poly->points,
-	 state->numpoints*sizeof(Point));
+  if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
+       (change->type==TYPE_REMOVE_POINT && change->applied) ){
+    if (change->handle)
+      g_free(change->handle);
+    change->handle = NULL;
+  }
 }
 
-void
-polyconn_state_set(PolyConnState *state, PolyConn *poly)
+static void
+polyconn_change_apply(struct PointChange *change, Object *obj)
 {
-  if (poly->points)
-    g_free(poly->points);
-  
-  poly->numpoints = state->numpoints;
-  poly->points = g_new(Point, poly->numpoints);
-  memcpy(poly->points, state->points,
-	 poly->numpoints*sizeof(Point));
-  
-  polyconn_update_data(poly);
+  change->applied = 1;
+  switch (change->type) {
+  case TYPE_ADD_POINT:
+    add_handle((PolyConn *)obj, change->pos, &change->point,
+	       change->handle);
+    break;
+  case TYPE_REMOVE_POINT:
+    object_unconnect(obj, change->handle);
+    remove_handle((PolyConn *)obj, change->pos);
+    break;
+  }
 }
 
-void
-polyconn_state_free(PolyConnState *state)
+static void
+polyconn_change_revert(struct PointChange *change, Object *obj)
 {
-  g_free(state->points);
+  switch (change->type) {
+  case TYPE_ADD_POINT:
+    remove_handle((PolyConn *)obj, change->pos);
+    break;
+  case TYPE_REMOVE_POINT:
+    add_handle((PolyConn *)obj, change->pos, &change->point,
+	       change->handle);
+    if (change->connected_to) {
+      object_connect(obj, change->handle, change->connected_to);
+    }
+      
+    break;
+  }
+  change->applied = 0;
 }
 
+static ObjectChange *
+polyconn_create_change(PolyConn *poly, enum change_type type,
+		       Point *point, int pos, Handle *handle,
+		       ConnectionPoint *connected_to)
+{
+  struct PointChange *change;
+
+  change = g_new(struct PointChange, 1);
+
+  change->obj_change.apply = (ObjectChangeApplyFunc) polyconn_change_apply;
+  change->obj_change.revert = (ObjectChangeRevertFunc) polyconn_change_revert;
+  change->obj_change.free = (ObjectChangeFreeFunc) polyconn_change_free;
+
+  change->type = type;
+  change->applied = 1;
+  change->point = *point;
+  change->pos = pos;
+  change->handle = handle;
+  change->connected_to = connected_to;
+
+  return (ObjectChange *)change;
+}

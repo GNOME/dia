@@ -30,7 +30,6 @@ typedef enum {
 #define HANDLE_MIDPOINT (HANDLE_CUSTOM1)
 
 typedef struct _OrthConn OrthConn;
-typedef struct _OrthConnState OrthConnState;
 
 /* This is a subclass of Object used to help implementing objects
  * that connect points with orthogonal line-segments.
@@ -44,12 +43,6 @@ struct _OrthConn {
   Handle endpoint_handles[2];
   Orientation *orientation; /*[numpoints - 1]*/
   Handle **midpoint_handles; /*[numpoints - 1], endpoints are NULL */
-};
-
-struct _OrthConnState {
-  int numpoints;
-  Point *points;
-  Orientation *orientation; /*[numpoints - 1]*/
 };
 
 extern void orthconn_update_data(OrthConn *orth);
@@ -70,10 +63,8 @@ extern Handle* orthconn_get_middle_handle(OrthConn *orth);
 
 extern int orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint);
 extern int orthconn_can_add_segment(OrthConn *orth, Point *clickedpoint);
-extern void orthconn_delete_segment(OrthConn *orth, Point *clickedpoint);
-extern void orthconn_add_segment(OrthConn *orth, Point *clickedpoint);
-
-extern void orthconn_state_get(OrthConnState *state, OrthConn *orth);
-extern void orthconn_state_set(OrthConnState *state, OrthConn *orth);
-extern void orthconn_state_free(OrthConnState *state);
+extern ObjectChange *orthconn_delete_segment(OrthConn *orth, Point *clickedpoint);
+extern ObjectChange *orthconn_add_segment(OrthConn *orth, Point *clickedpoint);
 #endif /* ORTH_CONN_H */
+
+

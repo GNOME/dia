@@ -27,8 +27,10 @@ struct _Focus {
   int has_focus;
   void *user_data; /* To be used by the object using this focus (eg. Text) */
 
-  /* return TRUE if modified object. */
-  int (*key_event)(Focus *focus, guint keysym, char *str, int strlen);
+  /* return TRUE if modified object.
+     Set change if object is changed. */
+  int (*key_event)(Focus *focus, guint keysym, char *str, int strlen,
+		   ObjectChange **change);
 };
 
 extern void request_focus(Focus *focus);
