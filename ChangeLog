@@ -1,5 +1,11 @@
 2000-08-01  James Henstridge  <james@daa.com.au>
 
+	* app/commands.c (help_about_callback): add Hans to about dialog.
+
+	* doc/shape.dtd: dtd for shape file format.
+
+	* doc/custom-shapes: update doc file about creating custom shapes.
+
 	* shapes/*/*.shape: change namespace URI for the SVG portion to the
 	one for the latest draft.
 

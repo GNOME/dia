@@ -1,4 +1,5 @@
 dia-0.86:  future
+* Dia is now an official GNU program.
 * Bug fixes to polygon, so that undo/redo of adding a point works correctly,
   and added extra connection points to shape. (james)
 * added unfinished DXF import filter (Steffen).
@@ -12,6 +13,13 @@ dia-0.86:  future
 * Layers dialog changes selected diagram when the active display changes.
   (james)
 * fixed bug in custom shape code affecting drawing of ellipses/circles.
+* WPG and HPGL export filters added (Hans)
+* Updated gnome-print code so that it respects the settings in the page
+  setup dialog.  The gnome-print code is still not as good as the straight
+  postscript code.
+* Added a diagram properties dialog where you can manipulate the grid
+  settings (which are now saved with the diagram) and background colour.
+* many other bug fixes.
 
 dia-0.85:  18-May-2000
 * Bug fix for bringing up properties window when a group of objects that don't

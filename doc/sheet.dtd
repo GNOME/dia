@@ -19,5 +19,4 @@
 <!ATTLIST shape
   name CDATA #REQUIRED >
 
-<!ELEMENT br >
-<!ATTLIST br >
+<!ELEMENT br EMPTY>

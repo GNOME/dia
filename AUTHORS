@@ -13,3 +13,4 @@ Lars R. Clausen <lrclause@cs.uiuc.edu>
 Henk Jan Priester <hj@justcroft.com>                (cgm plugin work)
 Jacek Pliszka <pliszka@fuw.edu.pl>                  (pstricks plugin)
 Steffen Macke <macke@heini.fbbwu.fh-lueneburg.de>   (dxf plugin)
+Hans Breuer <Hans@Breuer.Org>                  (win32 port, wpg, hpgl export)

@@ -446,6 +446,7 @@ help_about_callback(GtkWidget *widget, gpointer data)
 
   static const gchar *contributors[] = {
     "Jerome Abela",
+    "Hans Breuer",
     "Emmanuel Briot",
     "Cyrille Chepelov",
     "Lars R. Clausen",

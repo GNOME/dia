@@ -1,0 +1,90 @@
+<!ELEMENT shape (name, description*, icon?, connections?,
+		 aspectratio?, svg:svg) >
+<!ATTLIST shape
+  xmlns CDATA #FIXED 'http://www.daa.com.au/~james/dia-shape-ns'
+  xmlns:svg CDATA #FIXED 'http://www.w3.org/TR/2000/03/WD-SVG-20000303/DTD/svg-20000303-stylable.dtd' >
+
+<!ELEMENT name (#PCDATA)* >
+
+<!-- This element is deprecated.  Put descriptions in sheet files -->
+<!ELEMENT description (#PCDATA)* >
+<!ATTLIST description
+  xml:lang NMTOKEN #IMPLIED 'C' >
+
+<!ELEMENT icon (#PCDATA)* >
+
+<!ELEMENT connections (point*) >
+
+<!ELEMENT point EMPTY >
+<!ATTLIST point
+  x CDATA #REQUIRED
+  y CDATA #REQUIRED >
+
+<!ELEMENT aspectratio EMPTY >
+<!ATTLIST aspectratio
+  type CDATA #REQUIRED
+  min CDATA #IMPLIED
+  max CDATA #IMPLIED >
+
+<!ELEMENT textbox EMPTY >
+<!ATTLIST textbox
+  x1 CDATA #REQUIRED
+  y1 CDATA #REQUIRED
+  x2 CDATA #REQUIRED
+  y2 CDATA #REQUIRED >
+
+<!ELEMENT svg:svg (svg:g | svg:line | svg:polyline | svg:polygon | svg:rect | svg:circle | svg:ellipse | svg:parth)* >
+<!ATTLIST svg:svg
+  width CDATA #IMPLIED
+  height CDATA #IMPLIED
+  style CDATA #IMPLIED >
+
+<!ELEMENT svg:g (svg:g | svg:line | svg:polyline | svg:polygon | svg:rect | svg:circle | svg:ellipse | svg:parth)* >
+<!ATTLIST svg:g
+  style CDATA #IMPLIED >
+
+<!ELEMENT svg:line EMPTY >
+<!ATTLIST svg:line
+  x1 CDATA #REQUIRED
+  y1 CDATA #REQUIRED
+  x2 CDATA #REQUIRED
+  y2 CDATA #REQUIRED
+  style CDATA #IMPLIED >
+
+<!ELEMENT svg:polyline EMPTY >
+<!ATTLIST svg:polyline
+  points CDATA #REQUIRED
+  stytle CDATA #IMPLIED >
+
+<!ELEMENT svg:polygon EMPTY >
+<!ATTLIST svg:polygon
+  points CDATA #REQUIRED
+  stytle CDATA #IMPLIED >
+
+<!ELEMENT svg:rect EMPTY >
+<!ATTLIST svg:rect
+  x CDATA #REQUIRED
+  y CDATA #REQUIRED
+  width CDATA #REQUIRED
+  height CDATA #REQUIRED
+  style CDATA #IMPLIED >
+
+<!ELEMENT svg:circle EMPTY >
+<!ATTLIST svg:circle
+  cx CDATA #REQUIRED
+  cy CDATA #REQUIRED
+  r CDATA #REQUIRED
+  style CDATA #IMPLIED >
+
+<!ELEMENT svg:ellipse EMPTY >
+<!ATTLIST svg:ellipse
+  cx CDATA #REQUIRED
+  cy CDATA #REQUIRED
+  rx CDATA #REQUIRED
+  ry CDATA #REQUIRED
+  style CDATA #IMPLIED >
+
+<!ELEMENT svg:path EMPTY >
+<!ATTLIST svg:path
+  d CDATA #REQUIRED
+  style CDATA #IMPLIED >
