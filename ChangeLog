@@ -1,3 +1,19 @@
+2003-07-19  Hans Breuer  <hans@breuer.org>
+
+	Finally Dia learned to remember the recent selected sheet
+
+	* app/preferences.[hc] : added prefs.recent_sheet
+	* app/interface.c : restore and remember the sheet-option-menu
+	history, but only if the respective number is stiil available.
+	This additional adds robustness against running Dia without
+	any sheet (e.g. installation problems)
+	* app/app_procs.c : call prefs_safe() in app_exit() to remember
+	changes which are not done by the prefernces dialog
+
+	* app/diagram_tree_menu.c app/diagram_tree_menu_callbacks.c :
+	removed every call (especially the conditional ones) to prefs_safe().
+	Before prefs_safe() was called _many_ times during Dia startup
+ 
 2003-07-18  Hans Breuer  <hans@breuer.org>
 
 	* app/makefile.msc lib/makefile.msc lib/libdia.def :

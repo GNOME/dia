@@ -581,6 +581,8 @@ app_exit(void)
       return;
   }
 
+  prefs_save();
+
   persistence_save();
 
   dynobj_refresh_finish();

@@ -65,7 +65,6 @@ on_sort_def_activate(gpointer user_data,
 		     guint action, GtkMenuItem *item)
 {
   prefs.dia_tree.obj_sort = action;
-  prefs_save();
   diagram_tree_set_object_sort_type((DiagramTree *)user_data, action);
 }
 
@@ -97,7 +96,6 @@ on_sort_dia_def_activate(gpointer user_data,
 			 guint action, GtkMenuItem *item)
 {
   prefs.dia_tree.dia_sort = action;
-  prefs_save();
   diagram_tree_set_diagram_sort_type((DiagramTree *)user_data, action);
 }
 
@@ -108,6 +106,5 @@ on_hide_object_activate(gpointer user_data,
   const gchar *type = diagram_tree_hide_type((DiagramTree *)user_data);
   if (type) {
     diagram_tree_config_add_hidden_type(&prefs.dia_tree, type);
-    if (prefs.dia_tree.save_hidden) prefs_save();
   }
 }

@@ -209,7 +209,6 @@ on_show_object_type(GtkMenuItem *item, ShowTypeData *data)
 			 data->items[k]);
   }
   diagram_tree_config_remove_hidden_type(&prefs.dia_tree, data->type);
-  if (prefs.dia_tree.save_hidden) prefs_save();
   g_free(data->type);
   g_free(data);
 }

@@ -885,6 +885,8 @@ void
 fill_sheet_menu(void)
 {
   GSList *tmp;
+  GtkWidget *activate = NULL;
+  int index = 0;
 
   gtk_container_foreach(GTK_CONTAINER(sheet_menu),
 			(GtkCallback)gtk_widget_destroy, NULL);
@@ -893,7 +895,7 @@ fill_sheet_menu(void)
   gtk_container_add(GTK_CONTAINER(sheet_menu), gtk_tearoff_menu_item_new());
   for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
     Sheet *sheet = tmp->data;
-    GtkWidget *menuitem;
+    GtkWidget *menuitem = NULL;
 
     if (sheet->objects == NULL)
       continue;
@@ -902,11 +904,23 @@ fill_sheet_menu(void)
     gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
 		       GTK_SIGNAL_FUNC(fill_sheet_wbox), sheet);
     gtk_container_add(GTK_CONTAINER(sheet_menu), menuitem);
+  
+    /* off by one with gtk_option_menu_<get/set>_history should start
+     * with 0 but it counts from one, gtk- or my-error ? --hb */
+    index++;
+    if (prefs.recent_sheet == index)
+      activate = menuitem;
   }
   gtk_option_menu_set_menu(GTK_OPTION_MENU(sheet_option_menu), sheet_menu);
   gtk_widget_unref(sheet_menu);
-  gtk_menu_item_activate(
-	GTK_MENU_ITEM(GTK_OPTION_MENU(sheet_option_menu)->menu_item));
+
+  if (activate)
+    {
+      gtk_option_menu_set_history(GTK_OPTION_MENU(sheet_option_menu), prefs.recent_sheet);
+      /* simple gtk_option_menu_set_history() isn't enough,
+       * cause we need fill_sheet_wbox to be called */
+      gtk_menu_item_activate(GTK_MENU_ITEM(activate));
+    }
   gtk_widget_show_all(sheet_menu);
 }
 
@@ -1061,6 +1075,8 @@ create_lineprops_area(GtkWidget *parent)
 static void
 toolbox_destroy (GtkWidget *widget, gpointer data)
 {
+  prefs.recent_sheet = gtk_option_menu_get_history(GTK_OPTION_MENU(sheet_option_menu));
+
   app_exit();
 }
 
@@ -1074,6 +1090,8 @@ toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
 				      0, 0, NULL, toolbox_destroy, NULL);
     if (handlerid != 0)
       g_signal_handler_disconnect (GTK_OBJECT (widget), handlerid);
+    prefs.recent_sheet = gtk_option_menu_get_history(GTK_OPTION_MENU(sheet_option_menu));
+
     app_exit();
   }
 }

@@ -61,6 +61,7 @@ struct DiaPreferences {
   int prefer_psprint;
     
   int toolbox_on_top;
+  int recent_sheet;
 
   DiagramTreeConfig dia_tree;
 };
