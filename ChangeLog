@@ -1,5 +1,10 @@
 1999-09-02  James Henstridge  <james@daa.com.au>
 
+	* TODO: removed a few todo items that have been implemented.
+
+	* app/interface.c (create_sheets): enabled the popup page menu to the
+	notebook.  This can make it easier to select different sheets.
+
 	* object/custom/Circuit/: added diode, zener diode, ground point and
 	operational amplifier shapes.
 	

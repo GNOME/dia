@@ -7,18 +7,15 @@ general:
 * If you hold down shift while moving the handle of an 'Element',
   scale while keeping same proportions.
 * Must be able to change background color.
-* Maybe be able to set a default linestyle, much like the current
-  linewidth widget.
-* Is there a better way to calculate font-properties? Rendering 100 pixel high fonts
-  is very slow.
+* Is there a better way to calculate font-properties? Rendering 100 pixel high
+  fonts is very slow.
 * Update to automake 1.4 and libtool 1.3 when they're released. It has
   much better support for dlopen:ed modules.
-* Add paper size + paper orientation. Draw the paper on screen. Flip ps output if
-  landscape orientation. Export real size to postscript file.
+* Add paper size + paper orientation. Draw the paper on screen. Flip ps output
+  if landscape orientation. Export real size to postscript file.
 * Export to WMF.
 * Accelerators for buttons in the toolbar.
 * Fix the transitive selection
-* User selectable grid color.
 * resizable groups.
 
 functions:
@@ -79,9 +76,6 @@ Old bugs i can't reproduce but don't know if they're solved:
 
 * UML - Association with direction==Right doesn't always show arrow.
   Problem with bounding box.
-
-* If you double-click on the color-selector as the first thing you do
-  sometimes the program crashes.
 
 ---------------------------------------------------------------
 

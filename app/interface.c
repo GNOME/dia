@@ -468,6 +468,7 @@ create_sheets(GtkWidget *parent)
   Sheet *sheet;
   GtkWidget *child;
   GtkWidget *label;
+  GtkWidget *menu_label;
 
   
   separator = gtk_hseparator_new ();
@@ -482,6 +483,7 @@ create_sheets(GtkWidget *parent)
   gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
   gtk_notebook_set_show_tabs (GTK_NOTEBOOK (notebook), TRUE);
   gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook), TRUE);
+  gtk_notebook_popup_enable (GTK_NOTEBOOK (notebook));
   gtk_container_set_border_width (GTK_CONTAINER (notebook), 1);
   gtk_box_pack_start (GTK_BOX (parent), notebook, TRUE, TRUE, 0);
   
@@ -490,13 +492,17 @@ create_sheets(GtkWidget *parent)
     sheet = (Sheet *) list->data;
 
     label = gtk_label_new(gettext(sheet->name));
+    menu_label = gtk_label_new(gettext(sheet->name));
+    gtk_misc_set_alignment(GTK_MISC(menu_label), 0.0, 0.5);
     
     child = create_sheet_page(notebook, sheet);
     
-    gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
-				   child, label);
     gtk_widget_show(label);
+    gtk_widget_show(menu_label);
     gtk_widget_show_all(child);
+
+    gtk_notebook_append_page_menu (GTK_NOTEBOOK (notebook),
+				   child, label, menu_label);
     
     list = g_slist_next(list);
   }
