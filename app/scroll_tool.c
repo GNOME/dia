@@ -174,6 +174,9 @@ scroll_motion(ScrollTool *tool, GdkEventMotion *event,
     delta = tool->last_pos;
     point_sub(&delta, &to);
 
+    tool->last_pos = to;
+    point_add(&tool->last_pos, &delta);
+
     /* we use this so you can scroll past the edge of the image */
     point_add(&delta, &ddisp->origo);
     ddisplay_set_origo(ddisp, delta.x, delta.y);
@@ -185,9 +188,9 @@ scroll_motion(ScrollTool *tool, GdkEventMotion *event,
     point_scale(&delta, 0.5);
 
     ddisplay_scroll(ddisp, &delta);
+    tool->last_pos = to;
   }
   ddisplay_flush(ddisp);
-  tool->last_pos = to;
 }
 
 

@@ -1,5 +1,8 @@
 1999-11-17  James Henstridge  <james@daa.com.au>
 
+	* app/scroll_tool.c (scroll_motion): fixed shift style scrolling so
+	that it is not jumpy.
+
 	* app/Makefile.am (EXTRA_DIST): added extra files to extra dist list.
 
 	* app/scroll_tool.c (scroll_motion): added `grabbing hand' type
