@@ -1,5 +1,9 @@
 2003-02-05  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* dia.spec (BuildRequires): Use libxml2-devel.
+
+	* plug-ins/pixbuf/Makefile.am: Added to CVS.
+
 	* RELEASE-PROCESS: Note on RPM version numbers.
 
 	* app/interface.c (create_display_shell): Don't set as toolbar
