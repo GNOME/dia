@@ -40,7 +40,7 @@ objects/ER/er.c
 objects/ER/participation.c
 objects/ER/relationship.c
 objects/FS/flow-ortho.c
-objects/FS/flow-poly.c
+#objects/FS/flow-poly.c		: not in Makefile.am
 objects/FS/flow.c
 objects/FS/fs.c
 objects/FS/function.c
@@ -104,8 +104,8 @@ plug-ins/dxf/dxf.c
 plug-ins/hpgl/hpgl.c
 plug-ins/pstricks/pstricks.c
 plug-ins/pstricks/render_pstricks.c
-plug-ins/python/python.c
-plug-ins/wmf/wmf.cpp
+#plug-ins/python/python.c	: not in Makefile.am
+#plug-ins/wmf/wmf.cpp		: not in Makefile.am
 plug-ins/wpg/wpg.c
 plug-ins/svg/render_svg.c
 plug-ins/svg/svg.c

@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2000-09-25 15:41+0200\n"
+"POT-Creation-Date: 2000-09-25 16:36+0200\n"
 "PO-Revision-Date: 2000-09-25 15:54+0200\n"
 "Last-Translator: Christophe Merlet (RedFox) <christophe@merlet.net>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
@@ -308,8 +308,7 @@ msgstr "Non"
 #: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
 #: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
 #: plug-ins/hpgl/hpgl.c:555 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/svg/render_svg.c:177 plug-ins/wmf/wmf.cpp:741
-#: plug-ins/wpg/wpg.c:926
+#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:926
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Ne peut ouvrir '%s' en écriture.\n"
@@ -1640,35 +1639,30 @@ msgstr "Identifiant"
 msgid "Relationship"
 msgstr "Relation"
 
-#: objects/FS/flow-ortho.c:638 objects/FS/flow-poly.c:632
-#: objects/FS/flow-poly.c:750 objects/FS/flow.c:629 objects/FS/flow.c:745
+#: objects/FS/flow-ortho.c:638 objects/FS/flow.c:629 objects/FS/flow.c:745
 msgid "Flow:"
 msgstr "Flux :"
 
-#: objects/FS/flow-ortho.c:653 objects/FS/flow-poly.c:647
-#: objects/FS/flow-poly.c:766 objects/FS/flow.c:644 objects/FS/flow.c:761
+#: objects/FS/flow-ortho.c:653 objects/FS/flow.c:644 objects/FS/flow.c:761
 msgid "Flow type:"
 msgstr "Type de flux :"
 
 #.
 #: objects/FS/flow-ortho.c:658 objects/FS/flow-ortho.c:723
-#: objects/FS/flow-ortho.c:788 objects/FS/flow-poly.c:652
-#: objects/FS/flow-poly.c:707 objects/FS/flow-poly.c:771 objects/FS/flow.c:649
-#: objects/FS/flow.c:702 objects/FS/flow.c:766
+#: objects/FS/flow-ortho.c:788 objects/FS/flow.c:649 objects/FS/flow.c:702
+#: objects/FS/flow.c:766
 msgid "Energy"
 msgstr "Énergie"
 
 #: objects/FS/flow-ortho.c:665 objects/FS/flow-ortho.c:724
-#: objects/FS/flow-ortho.c:795 objects/FS/flow-poly.c:659
-#: objects/FS/flow-poly.c:708 objects/FS/flow-poly.c:778 objects/FS/flow.c:656
-#: objects/FS/flow.c:703 objects/FS/flow.c:773
+#: objects/FS/flow-ortho.c:795 objects/FS/flow.c:656 objects/FS/flow.c:703
+#: objects/FS/flow.c:773
 msgid "Material"
 msgstr "Matériel"
 
 #: objects/FS/flow-ortho.c:671 objects/FS/flow-ortho.c:725
-#: objects/FS/flow-ortho.c:801 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:709 objects/FS/flow-poly.c:784 objects/FS/flow.c:662
-#: objects/FS/flow.c:704 objects/FS/flow.c:779 objects/FS/function.c:661
+#: objects/FS/flow-ortho.c:801 objects/FS/flow.c:662 objects/FS/flow.c:704
+#: objects/FS/flow.c:779 objects/FS/function.c:661
 msgid "Signal"
 msgstr "Signal"
 
@@ -2609,18 +2603,6 @@ msgstr "Filtre d'export TeX Pstricks"
 msgid "TeX PSTricks macros"
 msgstr "Macros TeX PSTricks"
 
-#: plug-ins/python/python.c:23
-msgid "Python scripting support"
-msgstr "Support de script Python"
-
-#: plug-ins/wmf/wmf.cpp:767
-msgid "Windows Meta File"
-msgstr "Windows Meta File"
-
-#: plug-ins/wmf/wmf.cpp:781
-msgid "WMF export filter"
-msgstr "Filtre d'export Windows Meta File"
-
 #: plug-ins/wpg/wpg.c:1032
 #, c-format
 msgid "File: %s type/version unsupported.\n"
@@ -2637,6 +2619,15 @@ msgstr "Scalable Vector Graphics"
 #: plug-ins/svg/svg.c:36
 msgid "Scalable Vector Graphics export filter"
 msgstr "Filtre d'export Scalable Vector Graphics"
+
+#~ msgid "Python scripting support"
+#~ msgstr "Support de script Python"
+
+#~ msgid "Windows Meta File"
+#~ msgstr "Windows Meta File"
+
+#~ msgid "WMF export filter"
+#~ msgstr "Filtre d'export Windows Meta File"
 
 #, fuzzy
 #~ msgid "File/New diagram"
