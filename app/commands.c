@@ -307,22 +307,50 @@ file_export_to_eps_callback(GtkWidget *widget, gpointer data)
 {
   DDisplay *ddisp;
   GtkWidget *window = NULL;
+  GtkFileSelection *fs;
 
   ddisp = ddisplay_active();
 
   window = gtk_file_selection_new (_("Export to postscript"));
   gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
-  
+
+  fs = GTK_FILE_SELECTION (window);
+
   gtk_object_set_user_data(GTK_OBJECT(window), ddisp->diagram);
-  
-  gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (window)->ok_button),
-		      "clicked", GTK_SIGNAL_FUNC(file_export_to_eps_dialog_ok_callback),
+
+  gtk_signal_connect (GTK_OBJECT (fs->ok_button), "clicked",
+		      GTK_SIGNAL_FUNC(file_export_to_eps_dialog_ok_callback),
 		      window);
-  
-  gtk_signal_connect_object (GTK_OBJECT (GTK_FILE_SELECTION (window)->cancel_button),
+
+  gtk_signal_connect_object (GTK_OBJECT (fs->cancel_button),
 			     "clicked", GTK_SIGNAL_FUNC(gtk_widget_destroy),
 			     GTK_OBJECT (window));
-  
+
+
+  /* set a default file name */
+  if (! ddisp->diagram->unsaved)
+    {
+      char *last_slash;
+      char *last_dot;
+      char *ext_index;
+      char *fn = (char *) malloc (strlen (ddisp->diagram->filename) + 10);
+      strcpy (fn, ddisp->diagram->filename);
+
+      /* put a .ps extention on the file name */
+      last_slash = strrchr (fn, '/');
+      last_dot = strrchr (fn, '.');
+      if (last_slash && last_dot && last_dot > last_slash)
+	ext_index = last_dot;
+      else if ((! last_slash) && last_dot)
+	ext_index = last_dot;
+      else
+	ext_index = fn + strlen (fn);
+      strcpy (ext_index, ".ps");
+
+      gtk_file_selection_set_filename (fs, fn);
+      free (fn);
+    }
+
   gtk_widget_show (window);
 
   /* Make dialog modal: */
@@ -539,16 +567,33 @@ view_zoom_set_callback(GtkWidget *widget, gpointer data)
   middle.x = visible->left*0.5 + visible->right*0.5;
   middle.y = visible->top*0.5 + visible->bottom*0.5;
 
+# if GNOME
+  {
+    /* XXX get the % out of the menu's label -- this is gross */
+    float v;
+    GtkBin *mi = GTK_BIN (widget);
+    GtkLabel *lbl = GTK_LABEL (mi->child);
+    sscanf (lbl->label, "%f", &v);
+    scale = ((real) v)/100.0 * DDISPLAY_NORMAL_ZOOM;
+  }
+# else
   percent = (int) data;
   scale = ((real) percent)/1000.0 * DDISPLAY_NORMAL_ZOOM;
+# endif
 
   ddisplay_zoom(ddisp, &middle, scale / ddisp->zoom_factor);  
 }
 
+#ifdef GNOME
+void
+view_visible_grid_callback(GtkWidget *widget,
+			   gpointer callback_data)
+#else /* GNOME */
 void
 view_visible_grid_callback(gpointer callback_data,
 			   guint callback_action,
 			   GtkWidget *widget)
+#endif /* GNOME */
 {
   DDisplay *ddisp;
   int old_val;
@@ -564,10 +609,16 @@ view_visible_grid_callback(gpointer callback_data,
   }
 }
 
+#ifdef GNOME
+void
+view_snap_to_grid_callback(GtkWidget *widget,
+			   gpointer callback_data)
+#else /* GNOME */
 void
 view_snap_to_grid_callback(gpointer callback_data,
 			   guint callback_action,
 			   GtkWidget *widget)
+#endif /* GNOME */
 {
   DDisplay *ddisp;
   int old_val;
@@ -578,9 +629,14 @@ view_snap_to_grid_callback(gpointer callback_data,
   ddisp->grid.snap = GTK_CHECK_MENU_ITEM (widget)->active;
 }
 
+#ifdef GNOME
+void view_toggle_rulers_callback(GtkWidget *widget,
+				 gpointer callback_data)
+#else /* GNOME */
 void view_toggle_rulers_callback(gpointer callback_data,
 				 guint callback_action,
 				 GtkWidget *widget)
+#endif /* GNOME */
 {
   DDisplay *ddisp;
   

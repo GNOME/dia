@@ -1,3 +1,12 @@
+1999-02-27  Seth Alves  <alves@hungry.com>
+
+	* app/menus.c: menu fixes for --enable-gnome
+
+	* app/commands.c (file_open_dialog_ok_callback): fixed up
+	menus when --enable-gnome is used
+	(file_export_to_eps_callback): set a default file name
+	when dialog is created
+
 1999-02-27  Alexander Larsson  <alex@c125.ryd.student.liu.se>
 
 	* objects/UML/association.c (association_create):

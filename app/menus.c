@@ -26,6 +26,8 @@
 #include "menus.h"
 #include "commands.h"
 #include "message.h"
+/*#include "interface.h"*/
+#include "display.h"
 
 #if GNOME
 static GnomeUIInfo toolbox_filemenu[] = {
@@ -43,6 +45,10 @@ static GnomeUIInfo filemenu[] = {
   GNOMEUIINFO_MENU_OPEN_ITEM(file_open_callback, NULL),
   GNOMEUIINFO_MENU_SAVE_ITEM(file_save_callback, NULL),
   GNOMEUIINFO_MENU_SAVE_AS_ITEM(file_save_as_callback, NULL),
+
+  { GNOME_APP_UI_ITEM, "_Export To EPS", NULL,
+    file_export_to_eps_callback, NULL, NULL },
+
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_MENU_CLOSE_ITEM(file_close_callback, NULL),
   GNOMEUIINFO_MENU_EXIT_ITEM(file_quit_callback, NULL),
@@ -79,9 +85,12 @@ static GnomeUIInfo viewmenu[] = {
   GNOMEUIINFO_ITEM_NONE(N_("Zoom _Out"), N_("Zoom out 50%"), view_zoom_out_callback),
   GNOMEUIINFO_SUBTREE(N_("_Zoom"), zoommenu),
   GNOMEUIINFO_ITEM_NONE(N_("Edit Grid..."), NULL, view_edit_grid_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("_Visible Grid"), NULL, view_visible_grid_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("_Snap To Grid"), NULL, view_snap_to_grid_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("Toggle _Rulers"), NULL, view_toggle_rulers_callback),
+  GNOMEUIINFO_TOGGLEITEM(N_("_Visible Grid"), NULL,
+			 view_visible_grid_callback, NULL),
+  GNOMEUIINFO_TOGGLEITEM(N_("_Snap To Grid"), NULL,
+			 view_snap_to_grid_callback, NULL),
+  GNOMEUIINFO_TOGGLEITEM(N_("Toggle _Rulers"), NULL,
+			 view_toggle_rulers_callback, NULL),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_ITEM_NONE(N_("New _View"), NULL, view_new_view_callback),
   GNOMEUIINFO_ITEM_NONE(N_("Show_All"), NULL, view_show_all_callback),
@@ -109,7 +118,7 @@ static GnomeUIInfo objectsmenu[] = {
   GNOMEUIINFO_ITEM_NONE(N_("Place _Over"), NULL, objects_place_over_callback),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_ITEM_NONE(N_("_Group"), NULL, objects_group_callback),
-  GNOMEUIINFO_ITEM_NONE(N_("_Ungrop"), NULL, objects_ungroup_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("_Ungroup"), NULL, objects_ungroup_callback),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_SUBTREE(N_("Align _Horizontal"), objects_align_h),
   GNOMEUIINFO_SUBTREE(N_("Align _Vertical"), objects_align_v),
@@ -315,44 +324,63 @@ menus_get_image_menu (GtkWidget **menu,
   *menu = gtk_item_factory_get_widget (display_item_factory, "<Display>");
 }
 
+
+static GtkWidget *get_menu_item_from_path (char *path)
+{
+  GtkWidget *widget;
+
+# ifdef GNOME
+  gint pos;
+  GtkWidget *parentw;
+  GtkMenuShell *parent;
+
+  /* drop the <Display>/ at the start */
+  if (! (path = strchr (path, '/'))) return NULL;
+  path ++;
+  parentw = gnome_app_find_menu_pos (ddisplay_active ()->popup, path, &pos);
+  if (! parentw)
+    return NULL;
+
+  parent = GTK_MENU_SHELL (parentw);
+  widget = (GtkWidget *) g_list_nth (parent->children, pos-1)->data;
+
+# else
+
+  widget = gtk_item_factory_get_widget(display_item_factory, path);
+  if (widget == NULL)
+    widget = gtk_item_factory_get_widget(toolbox_item_factory, path);
+
+# endif
+
+  return widget;
+}
+
+
 void
 menus_set_sensitive (char *path,
                      int   sensitive)
 {
-  GtkWidget *widget;
-    
-#ifdef GNOME
-  widget = NULL;
-#else
-  widget = gtk_item_factory_get_widget(display_item_factory, path);
-  if (widget == NULL)
-    widget = gtk_item_factory_get_widget(toolbox_item_factory, path);
-#endif
+  GtkWidget *widget = get_menu_item_from_path (path);
 
   if (widget != NULL) 
     gtk_widget_set_sensitive (widget, sensitive);
   else
-    message_error(_("Unable to set sensitivity for menu which doesn't exist: %s"), path);
+    message_error(_("Unable to set sensitivity for menu "
+		    "which doesn't exist: %s"), path);
 }
+
 
 void
 menus_set_state (char *path,
                  int   state)
 {
-  GtkWidget *widget;
-
-#ifdef GNOME
-  widget = NULL;
-#else
-  widget = gtk_item_factory_get_widget(display_item_factory, path);
-  if (widget == NULL)
-    widget = gtk_item_factory_get_widget(toolbox_item_factory, path);
-#endif
+  GtkWidget *widget = get_menu_item_from_path (path);
 
   if (widget != NULL) {
     if (GTK_IS_CHECK_MENU_ITEM (widget))
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (widget), state);
   }  else {
-    message_error(_("Unable to set state for menu which doesn't exist: %s"), path);
+    message_error(_("Unable to set state for menu which doesn't exist: %s"),
+		  path);
   }
 }
