@@ -71,8 +71,8 @@ static void analog_clock_select(Analog_Clock *analog_clock,
                                 Point *clicked_point,
                                 DiaRenderer *interactive_renderer);
 static ObjectChange* analog_clock_move_handle(Analog_Clock *analog_clock,
-					      Handle *handle, ConnectionPoint *cp,
-					      Point *to, HandleMoveReason reason, 
+					      Handle *handle, Point *to, 
+					      ConnectionPoint *cp, HandleMoveReason reason, 
                                      ModifierKeys modifiers);
 static ObjectChange* analog_clock_move(Analog_Clock *analog_clock, Point *to);
 static void analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer);
@@ -206,7 +206,7 @@ analog_clock_select(Analog_Clock *analog_clock, Point *clicked_point,
 
 static ObjectChange*
 analog_clock_move_handle(Analog_Clock *analog_clock, Handle *handle,
-			 ConnectionPoint *cp, Point *to,
+			 Point *to, ConnectionPoint *cp, 
 			 HandleMoveReason reason, ModifierKeys modifiers)
 {
   g_assert(analog_clock!=NULL);

@@ -1,3 +1,12 @@
+2003-10-22  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* MAINTAINERS: Change Debian maintainer to be the default address.
+
+	* objects/Misc/analog_clock.c (analog_clock_move_handle): Reorder
+	args to match prototype, thus removing crashbug #125159.
+
+	* RELEASE-PROCESS: Note to self.
+
 2003-10-22  Steffen Macke <sdteffen@web.de>
 
 	* doc/en/dia-manual.xml: removed superfluous external references
