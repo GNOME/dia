@@ -1,3 +1,7 @@
+2004-07-08  Steffen Macke <sdteffen@web.de>
+
+	* plug-ins/wmf/wmf.cpp (UsePen): linewidth is now working for PS_SOLID  
+
 2004-07-05  Hans Breuer  <hans@breuer.org>
 
 	* */*.[hc] */*/*.c : a bunch of changes to make Dia compile with

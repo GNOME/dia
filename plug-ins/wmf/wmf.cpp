@@ -149,6 +149,9 @@ UsePen(WmfRenderer* renderer, Color* colour)
 
           switch (renderer->fnPenStyle & PS_STYLE_MASK) {
 	  case PS_SOLID :
+	    num_dashes = 2;
+	    dashes[0] = dashlen;
+	    dashes[1] = 0;
 	    break;
 	  case PS_DASH :
 	    num_dashes = 2;
