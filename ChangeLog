@@ -1,3 +1,12 @@
+2000-01-24  James Henstridge  <james@daa.com.au>
+
+	* lib/geometry.[ch]: added inline versions of functions.  Used
+	glib's G_INLINE_FUNC stuff, so it should still work on systems
+	without inline funcs.
+
+	* plug-ins/cgm/cgm.c (draw_ellipse, fill_ellipse): fixed up so that
+	it outputs the correct element id for the ellipse objects.
+
 2000-01-24 Cyrille Chepelov <chepelov@calixo.net>
 
 	* lib/object.[ch]: added object_add_connectionpoint_at, similar to
@@ -31,6 +40,7 @@
 
 	* dia.desktop: Added a French translation.
 	
+>>>>>>> 1.294
 2000-01-23  James Henstridge  <james@daa.com.au>
 
 	* app/commands.c (help_about_callback): don't die if can't load

@@ -18,6 +18,9 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
+#include <glib.h>
+#include <math.h>
+
 /*
   Coordinate system used:
    +---> x
@@ -46,11 +49,133 @@ struct _Rectangle {
 
 #define ROUND(x) ((int) floor((x)+0.5))
 
-extern void point_add(Point *p1, Point *p2);
-extern void point_sub(Point *p1, Point *p2);
-extern real point_dot(Point *p1, Point *p2);
-extern void point_scale(Point *p, real alpha);
-extern void point_normalize(Point *p);
+/* inline these functions if the platform supports it */
+
+G_INLINE_FUNC void point_add(Point *p1, Point *p2);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void
+point_add(Point *p1, Point *p2)
+{
+  p1->x += p2->x;
+  p1->y += p2->y;
+}
+#endif
+
+G_INLINE_FUNC void point_sub(Point *p1, Point *p2);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void
+point_sub(Point *p1, Point *p2)
+{
+  p1->x -= p2->x;
+  p1->y -= p2->y;
+}
+#endif
+
+G_INLINE_FUNC real point_dot(Point *p1, Point *p2);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC real
+point_dot(Point *p1, Point *p2)
+{
+  return p1->x*p2->x + p1->y*p2->y;
+}
+#endif
+
+G_INLINE_FUNC real point_len(Point *p);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC real
+point_len(Point *p)
+{
+  return sqrt(p->x*p->x + p->y*p->y);
+}
+#endif
+
+G_INLINE_FUNC void point_scale(Point *p, real alpha);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void
+point_scale(Point *p, real alpha)
+{
+  p->x *= alpha;
+  p->y *= alpha;
+}
+#endif
+
+G_INLINE_FUNC void point_normalize(Point *p);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void
+point_normalize(Point *p)
+{
+  real len;
+
+  len = sqrt(p->x*p->x + p->y*p->y);
+  
+  p->x /= len;
+  p->y /= len;
+}
+#endif
+
+G_INLINE_FUNC void point_normalize(Point *p);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void
+point_get_normed(Point *dst, Point *src)
+{
+  real len;
+
+  len = sqrt(src->x*src->x + src->y*src->y);
+  
+  dst->x = src->x / len;
+  dst->y = src->y / len;
+}
+#endif
+
+G_INLINE_FUNC void point_get_perp(Point *dst, Point *src);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void
+point_get_perp(Point *dst, Point *src)
+{
+  /* dst = the src vector, rotated 90<B0> counter clowkwise. src *must* be 
+     normalized before. */
+  dst->y = src->x;
+  dst->x = -src->y;
+}
+#endif
+
+G_INLINE_FUNC void point_copy(Point *dst, Point *src);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void 
+point_copy(Point *dst, Point *src)
+{
+  /* Unfortunately, the compiler is not clever enough. And copying using
+     ints is faster if we don't computer based on the copied values, but
+     is slower if we have to make a FP reload afterwards. 
+     point_copy() is meant for the latter case : then, the compiler is 
+     able to shuffle and merge the FP loads. */
+  dst->x = src->x;
+  dst->y = src->y;
+}
+#endif
+
+G_INLINE_FUNC void point_add_scaled(Point *dst, Point *src, real alpha);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void 
+point_add_scaled(Point *dst, Point *src, real alpha)
+{
+  /* especially useful if src is a normed vector... */
+  dst->x += alpha * src->x;
+  dst->y += alpha * src->y;
+}
+#endif
+
+G_INLINE_FUNC void point_copy_add_scaled(Point *dst, Point *src, Point *vct,
+					 real alpha);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC void 
+point_copy_add_scaled(Point *dst, Point *src, Point *vct, real alpha)
+{
+  /* especially useful if vct is a normed vector... */
+  dst->x = src->x + (alpha * vct->x);
+  dst->y = src->y + (alpha * vct->y);
+}
+#endif
 
 extern void rectangle_union(Rectangle *r1, Rectangle *r2);
 extern void rectangle_intersection(Rectangle *r1, Rectangle *r2);
@@ -59,8 +184,28 @@ extern int point_in_rectangle(Rectangle* r, Point *p);
 extern int rectangle_in_rectangle(Rectangle* outer, Rectangle *inner);
 extern void rectangle_add_point(Rectangle *r, Point *p);
 
-extern real distance_point_point(Point *p1, Point *p2);
-extern real distance_point_point_manhattan(Point *p1, Point *p2);
+G_INLINE_FUNC real distance_point_point(Point *p1, Point *p2);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC real
+distance_point_point(Point *p1, Point *p2)
+{
+  real dx = p1->x - p2->x;
+  real dy = p1->y - p2->y;
+  return sqrt(dx*dx + dy*dy);
+}
+#endif
+
+G_INLINE_FUNC real distance_point_point_manhattan(Point *p1, Point *p2);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC real
+distance_point_point_manhattan(Point *p1, Point *p2)
+{
+  real dx = p1->x - p2->x;
+  real dy = p1->y - p2->y;
+  return ABS(dx) + ABS(dy);
+}
+#endif
+
 extern real distance_rectangle_point(Rectangle *rect, Point *point);
 extern real distance_line_point(Point *line_start, Point *line_end,
 				real line_width, Point *point);

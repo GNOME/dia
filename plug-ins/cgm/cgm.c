@@ -575,7 +575,7 @@ draw_ellipse(RendererCGM *renderer,
     write_colour(renderer->file, colour);
     putc(0, renderer->file);
 
-    write_elhead(renderer->file, 4, 18, 6 * REALSIZE);
+    write_elhead(renderer->file, 4, 17, 6 * REALSIZE);
     write_real(renderer->file, center->x); /* center */
     write_real(renderer->file, center->y);
     write_real(renderer->file, center->x);      /* axes 1 */
@@ -600,7 +600,7 @@ fill_ellipse(RendererCGM *renderer,
     write_colour(renderer->file, colour);
     putc(0, renderer->file);
 
-    write_elhead(renderer->file, 4, 18, 6 * REALSIZE);
+    write_elhead(renderer->file, 4, 17, 6 * REALSIZE);
     write_real(renderer->file, center->x); /* center */
     write_real(renderer->file, center->y);
     write_real(renderer->file, center->x);      /* axes 1 */

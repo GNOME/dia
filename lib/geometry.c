@@ -15,48 +15,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#include <math.h>
+
+/* include glib.h first, so we don't pick up its inline functions as well */
 #include <glib.h>
-
+/* include normal versions of the inlined functions here ... */
+#undef G_INLINE_FUNC
+#define G_INLINE_FUNC extern
+#define GEOM_CAN_INLINE 1
 #include "geometry.h"
-
-void
-point_add(Point *p1, Point *p2)
-{
-  p1->x += p2->x;
-  p1->y += p2->y;
-}
-
-void
-point_sub(Point *p1, Point *p2)
-{
-  p1->x -= p2->x;
-  p1->y -= p2->y;
-}
-
-real
-point_dot(Point *p1, Point *p2)
-{
-  return p1->x*p2->x + p1->y*p2->y;
-}
-    
-void
-point_scale(Point *p, real alpha)
-{
-  p->x *= alpha;
-  p->y *= alpha;
-}
-
-void
-point_normalize(Point *p)
-{
-  real len;
-
-  len = sqrt(p->x*p->x + p->y*p->y);
-  
-  p->x /= len;
-  p->y /= len;
-}
 
 void
 rectangle_union(Rectangle *r1, Rectangle *r2)
@@ -132,22 +98,6 @@ rectangle_add_point(Rectangle *r, Point *p)
     r->bottom = p->y;
 }
 
-
-real
-distance_point_point(Point *p1, Point *p2)
-{
-  real dx = p1->x - p2->x;
-  real dy = p1->y - p2->y;
-  return sqrt( dx*dx+dy*dy );
-}
-
-real
-distance_point_point_manhattan(Point *p1, Point *p2)
-{
-  real dx = p1->x - p2->x;
-  real dy = p1->y - p2->y;
-  return ABS(dx) + ABS(dy);
-}
 
 /*
  * This function estimates the distance from a point to a rectangle.
