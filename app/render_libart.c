@@ -237,22 +237,6 @@ renderer_libart_copy_to_window(RendererLibart *renderer, GdkWindow *window,
 
   w = renderer->renderer.pixel_width;
   
-  /* HB: sanity check 
-   * Avoid some libart related crashes. The real bug seems to be in code
-   * which I don't really understand ...
-   */
-  if ((x + width > w) || (y + height > renderer->renderer.pixel_height)
-      || (x < 0) || (y < 0)) {
-    g_warning("renderer_libart_copy_to_window size mismatch %d,%d %dx%d %dx%d\n",
-              x, y, width, height, w, renderer->renderer.pixel_height);
-    if (x < 0) x = 0;
-    if (y < 0) y = 0;
-    if (x + width > renderer->renderer.pixel_width) 
-      width = renderer->renderer.pixel_width - x;
-    if (y + height > renderer->renderer.pixel_height) 
-      height = renderer->renderer.pixel_height - y;
-  }
-
   gdk_draw_rgb_image(window,
 		     copy_gc,
 		     x,y,

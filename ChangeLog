@@ -1,3 +1,17 @@
+2000-11-17  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/display.c:
+	(ddisplay_add_display_area): Clip input rectangle to
+	the visible part of the display.
+	(ddisplay_scroll): Optimization, don't scroll and
+	redraw if moving to the same position as before.
+
+	* app/render_libart.c (renderer_libart_copy_to_window):
+	Removed sanity check. Now moved to ddisplay_add_display_area().
+
+	* lib/diavar.h:
+	Added return at end of file.
+	
 2000-11-13 Kevin Breit <battery841@mypad.com>
  	* doc/en/dia-manual.sgml
 		Commited manual changes from Henry House <hajhouse@houseag.com>

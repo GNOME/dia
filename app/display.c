@@ -347,9 +347,18 @@ ddisplay_add_display_area(DDisplay *ddisp,
 {
   IRectangle *r;
 
+  if (left < 0)
+    left = 0;
+  if (top < 0)
+    top = 0;
+  if (right > ddisp->renderer->pixel_width)
+    right = ddisp->renderer->pixel_width; 
+  if (bottom > ddisp->renderer->pixel_height)
+    bottom = ddisp->renderer->pixel_height; 
+  
   /* draw some rectangles to show where updates are...*/
   /*  gdk_draw_rectangle(ddisp->canvas->window, ddisp->canvas->style->black_gc, TRUE, left, top, right-left,bottom-top); */
-		     
+
   /* Temporarily just do a union of all Irectangles: */
   if (ddisp->display_areas==NULL) {
     r = g_new(IRectangle,1);
@@ -647,7 +656,7 @@ void ddisplay_scroll(DDisplay *ddisp, Point *delta)
   Rectangle extents;
   Rectangle *visible = &ddisp->visible;
   real width, height;
-  
+
   new_origo = ddisp->origo;
   point_add(&new_origo, delta);
 
@@ -669,9 +678,12 @@ void ddisplay_scroll(DDisplay *ddisp, Point *delta)
   if (new_origo.y+height > extents.bottom)
     new_origo.y = extents.bottom - height;
 
-  ddisplay_set_origo(ddisp, new_origo.x, new_origo.y);
-  ddisplay_update_scrollbars(ddisp);
-  ddisplay_add_update_all(ddisp);
+  if ( (new_origo.x != ddisp->origo.x) ||
+       (new_origo.y != ddisp->origo.y) ) {
+    ddisplay_set_origo(ddisp, new_origo.x, new_origo.y);
+    ddisplay_update_scrollbars(ddisp);
+    ddisplay_add_update_all(ddisp);
+  }
 }
 
 void ddisplay_scroll_up(DDisplay *ddisp)
