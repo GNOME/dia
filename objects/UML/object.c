@@ -46,9 +46,9 @@ struct _Objet {
 
   ConnectionPoint connections[8];
   
-  char *stereotype;
+  utfchar *stereotype;
   Text *text;
-  char *exstate;  /* used for explicit state */
+  utfchar *exstate;  /* used for explicit state */
   Text *attributes;
 
   Point ex_pos, st_pos;
@@ -58,7 +58,7 @@ struct _Objet {
   
   utfchar *attrib;
   
-  char *st_stereotype;
+  utfchar *st_stereotype;
 };
 
 #define OBJET_BORDERWIDTH 0.1

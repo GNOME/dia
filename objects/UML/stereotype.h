@@ -21,12 +21,12 @@
 
 #include "uml.h"
 
-char *string_to_bracketted(char *str, 
-                           const char *start_bracket, const char *end_bracket);
-char *bracketted_to_string(char *bracketted, const char *start_bracket, 
-                           const char *end_bracket);
-char *string_to_stereotype(char *str);
-char *stereotype_to_string(char *stereotype);
-char *remove_stereotype_from_string(char *stereotype);
+utfchar *string_to_bracketted (utfchar *str, 
+			       const char *start_bracket, const char *end_bracket);
+utfchar *bracketted_to_string (utfchar *bracketted, const char *start_bracket, 
+			       const char *end_bracket);
+utfchar *string_to_stereotype (utfchar *str);
+utfchar *stereotype_to_string (utfchar *stereotype);
+utfchar *remove_stereotype_from_string (utfchar *stereotype);
 
 #endif

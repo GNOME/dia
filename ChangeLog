@@ -1,3 +1,81 @@
+2002-01-28  Akira TAGOH  <tagoh@redhat.com>
+
+	* objects/UML/stereotype.c (string_to_bracketted): fixed transaction
+	for UTF-8 support. if GTK+ and Dia don't handle UTF-8, all of characters
+	which is given to arguments isn't UTF-8. so don't need to convert it.
+	if GTK+ handle UTF-8, also don't need to convert it.
+	(strend): remove.
+	(bracketted_to_string): fixed transaction for UTF-8 support.
+	also start/end bracket is not necessarily 1 character. so that when use
+	strend(), it doesn't work correctly.
+	(string_to_stereotype): use utfchar instead of char.
+	(remove_stereotype_from_string): ditto.
+	(stereotype_to_string): ditto.
+
+	* objects/UML/stereotype.h: ditto.
+
+	* objects/UML/message.c: use utfchar instead of char for structure.
+	(MESSAGE_CREATE_LABEL, MESSAGE_DESTROY_LABEL): remove.
+
+	* objects/UML/small_package.c: use utfchar instead of char for structure.
+
+	* objects/UML/realizes.c: ditto.
+
+	* objects/UML/object.c: ditto.
+
+	* objects/UML/large_package.c: ditto.
+
+	* objects/UML/implements.c: ditto.
+
+	* objects/UML/generalization.c: ditto.
+
+	* objects/UML/dependency.c: ditto.
+
+	* objects/UML/constraint.c: ditto.
+
+	* objects/UML/component.c: ditto.
+
+	* objects/UML/class_dialog.c (attributes_get_current_values):
+	(attributes_list_new_callback, attributes_fill_in_dialog):
+	(parameters_set_values, parameters_get_values):
+	(parameters_get_current_values, parameters_list_new_callback):
+	(operations_set_values, operations_get_values):
+	(operations_get_current_values, operations_list_new_callback):
+	(operations_fill_in_dialog, templates_set_values):
+	(templates_get_values, templates_get_current_values):
+	(templates_list_new_callback, templates_fill_in_dialog):
+	fixed transaction for UTF-8 support.
+
+2002-01-27  Akira TAGOH  <tagoh@redhat.com>
+
+	* objects/UML/message.c (message_draw): fixed transaction for UTF-8 support.
+
+	* objects/UML/class_dialog.c (class_read_from_dialog):
+	(class_fill_in_dialog):
+	(attributes_get_values): ditto.
+
+	* objects/UML/actor.c (actor_create): ditto.
+
+	* objects/UML/class.c (umlclass_calculate_data): ditto.
+
+	* objects/UML/association.c (association_apply_properties):
+	(fill_in_dialog): ditto.
+
+	* objects/UML/uml.c (uml_get_attribute_string):
+	(uml_get_operation_string):
+	(uml_get_parameter_string):
+	(uml_get_formalparameter_string): use utfchar instead of char.
+
+	* objects/UML/uml.h: gettextize UML_STEREOTYPE_START and
+	UML_STEREOTYPE_END.
+
+	* objects/UML/class.h: use utfchar instead of char.
+
+	* lib/dia_xml.c (data_add_string): ditto.
+
+	* lib/text.c (text_insert_char): fixed characters# calculation
+	when includes multibytes character in strings.
+
 2002-01-26  Steffen Macke  <sdteffen@yahoo.com>
 
 	Patch from Richard Rowell <rwrowell@bellsouth.net>:

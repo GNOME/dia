@@ -31,7 +31,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "arrows.h"
-
+#include "charconv.h"
 #include "uml.h"
 
 #include "pixmaps/association.xpm"
@@ -53,8 +53,8 @@ typedef enum {
 } AggregateType;
 
 typedef struct _AssociationEnd {
-  char *role; /* Can be NULL */
-  char *multiplicity; /* Can be NULL */
+  utfchar *role; /* Can be NULL */
+  utfchar *multiplicity; /* Can be NULL */
   Point text_pos;
   real text_width;
   Alignment text_align;
@@ -66,12 +66,12 @@ typedef struct _AssociationEnd {
 struct _AssociationState {
   ObjectState obj_state;
 
-  char *name;
+  utfchar *name;
   AssociationDirection direction;
 
   struct {
-    char *role;
-    char *multiplicity;
+    utfchar *role;
+    utfchar *multiplicity;
     int arrow;
     AggregateType aggregate;
   } end[2];
@@ -85,7 +85,7 @@ struct _Association {
   Alignment text_align;
   real text_width;
   
-  char *name;
+  utfchar *name;
   AssociationDirection direction;
 
   AssociationEnd end[2];
@@ -813,7 +813,7 @@ static ObjectChange *
 association_apply_properties(Association *assoc)
 {
   AssociationPropertiesDialog *prop_dialog;
-  char *str;
+  utfchar *str;
   GtkWidget *menuitem;
   int i;
   ObjectState *old_state;
@@ -825,10 +825,15 @@ association_apply_properties(Association *assoc)
   /* Read from dialog and put in object: */
   g_free(assoc->name);
   str = gtk_entry_get_text(prop_dialog->name);
-  if (strlen(str) != 0)
-    assoc->name = strdup(str);
-  else
-    assoc->name = NULL;
+  if (strlen (str) != 0) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	  assoc->name = charconv_local8_to_utf8 (str);
+#else
+	  assoc->name = g_strdup (str);
+#endif
+  } else {
+	  assoc->name = NULL;
+  }
 
   assoc->text_width = 0.0;
 
@@ -846,18 +851,28 @@ association_apply_properties(Association *assoc)
     /* Role: */
     g_free(end->role);
     str = gtk_entry_get_text(prop_dialog->end[i].role);
-    if (strlen(str) != 0)
-      end->role = strdup(str);
-    else
-      end->role = NULL;
+    if (strlen (str) != 0) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	    end->role = charconv_local8_to_utf8 (str);
+#else
+	    end->role = g_strdup (str);
+#endif
+    } else {
+	    end->role = NULL;
+    }
 
     /* Multiplicity: */
     g_free(end->multiplicity);
     str = gtk_entry_get_text(prop_dialog->end[i].multiplicity);
-    if (strlen(str) != 0)
-      end->multiplicity = strdup(str);
-    else
-      end->multiplicity = NULL;
+    if (strlen (str) != 0) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	    end->multiplicity = charconv_local8_to_utf8 (str);
+#else
+	    end->multiplicity = strdup(str);
+#endif
+    } else {
+	    end->multiplicity = NULL;
+    }
 
     end->text_width = 0.0;
 
@@ -892,27 +907,47 @@ fill_in_dialog(Association *assoc)
 {
   AssociationPropertiesDialog *prop_dialog;
   int i;
+  gchar *str;
  
   prop_dialog = assoc->properties_dialog;
 
-  if (assoc->name != NULL)
-    gtk_entry_set_text(prop_dialog->name, assoc->name);
-  else 
-    gtk_entry_set_text(prop_dialog->name, "");
+  if (assoc->name != NULL) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	  str = charconv_utf8_to_local8 (assoc->name);
+#else
+	  str = g_strdup (assoc->name);
+#endif
+	  gtk_entry_set_text(prop_dialog->name, str);
+	  g_free (str);
+  } else {
+	  gtk_entry_set_text(prop_dialog->name, "");
+  }
   
   gtk_option_menu_set_history(prop_dialog->dir_omenu, assoc->direction);
 
   for (i=0;i<2;i++) {
-    if (assoc->end[i].role != NULL)
-      gtk_entry_set_text(prop_dialog->end[i].role, assoc->end[i].role);
-    else 
-      gtk_entry_set_text(prop_dialog->end[i].role, "");
+    if (assoc->end[i].role != NULL) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	    str = charconv_utf8_to_local8 (assoc->end[i].role);
+#else
+	    str = g_strdup (assoc->end[i].role);
+#endif
+	    gtk_entry_set_text(prop_dialog->end[i].role, str);
+	    g_free (str);
+    } else {
+	    gtk_entry_set_text(prop_dialog->end[i].role, "");
+    }
     
-    if (assoc->end[i].multiplicity != NULL)
-      gtk_entry_set_text(prop_dialog->end[i].multiplicity,
-			 assoc->end[i].multiplicity);
-    else 
-      gtk_entry_set_text(prop_dialog->end[i].multiplicity, "");
+    if (assoc->end[i].multiplicity != NULL) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	    str = charconv_utf8_to_local8 (assoc->end[i].multiplicity);
+#else
+	    str = g_strdup (assoc->end[i].multiplicity);
+#endif
+	    gtk_entry_set_text(prop_dialog->end[i].multiplicity, str);
+    } else {
+	    gtk_entry_set_text(prop_dialog->end[i].multiplicity, "");
+    }
 
     gtk_toggle_button_set_active(prop_dialog->end[i].draw_arrow,
 				assoc->end[i].arrow);

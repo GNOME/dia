@@ -89,64 +89,64 @@ dia_plugin_init(PluginInfo *info)
 /* Warning, the following *must* be strictly ASCII characters (or fix the 
    following code for UTF-8 cleanliness */
 
-char visible_char[] = { '+', '-', '#', ' ' };
+utfchar visible_char[] = { '+', '-', '#', ' ' };
 
-char *
-uml_get_attribute_string(UMLAttribute *attribute)
+utfchar *
+uml_get_attribute_string (UMLAttribute *attribute)
 {
   int len;
-  char *str;
+  utfchar *str;
 
-  len = 1 + strlen(attribute->name) + strlen(attribute->type);
+  len = 1 + strlen (attribute->name) + strlen (attribute->type);
   if (attribute->name[0] && attribute->type[0]) {
     len += 2;
   }
   if (attribute->value != NULL) {
-    len += 3 + strlen(attribute->value);
+    len += 3 + strlen (attribute->value);
   }
 
-  str = g_malloc(sizeof(char)*(len+1));
+  str = g_malloc (sizeof (utfchar) * (len + 1));
 
   str[0] = visible_char[(int) attribute->visibility];
   str[1] = 0;
   
-  strcat(str, attribute->name);
+  strcat (str, attribute->name);
   if (attribute->name[0] && attribute->type[0]) {
-    strcat(str, ": ");
+    strcat (str, ": ");
   }
-  strcat(str, attribute->type);
+  strcat (str, attribute->type);
   if (attribute->value != NULL) {
-    strcat(str, " = ");
-    strcat(str, attribute->value);
+    strcat (str, " = ");
+    strcat (str, attribute->value);
   }
 
-  assert(strlen(str)==len);
+  assert (strlen (str) == len);
 
   return str;
 }
 
-char *
-uml_get_operation_string(UMLOperation *operation)
+utfchar *
+uml_get_operation_string (UMLOperation *operation)
 {
   int len;
-  char *str;
+  utfchar *str;
   GList *list;
   UMLParameter *param;
 
   /* Calculate length: */
-  len = 1 + strlen(operation->name)  + 1;
+  len = 1 + strlen (operation->name)  + 1;
   
   list = operation->parameters;
   while (list != NULL) {
     param = (UMLParameter  *) list->data;
-    list = g_list_next(list);
+    list = g_list_next (list);
 
-    len += strlen(param->name) + strlen(param->type);
+    len += strlen (param->name) + strlen (param->type);
     if (param->type[0] && param->name[0]) {
       len += 1;
     }
     if (param->value != NULL) {
-      len += 1 + strlen(param->value);
+      len += 1 + strlen (param->value);
     }
 
     if (list != NULL) {
@@ -155,100 +155,100 @@ uml_get_operation_string(UMLOperation *operation)
   }
   len += 1; /* ')' */
   if (operation->type != NULL) {
-    len += 2 + strlen(operation->type);
+    len += 2 + strlen (operation->type);
   }
   
   /* generate string: */
-  str = g_malloc(sizeof(char)*(len+1));
+  str = g_malloc (sizeof (utfchar) * (len + 1));
 
   str[0] = visible_char[(int) operation->visibility];
   str[1] = 0;
 
-  strcat(str, operation->name);
-  strcat(str, "(");
+  strcat (str, operation->name);
+  strcat (str, "(");
   
   list = operation->parameters;
   while (list != NULL) {
     param = (UMLParameter  *) list->data;
-    list = g_list_next(list);
+    list = g_list_next (list);
 
-    strcat(str, param->name);
+    strcat (str, param->name);
     if (param->type[0] && param->name[0]) {
-      strcat(str, ":");
+      strcat (str, ":");
     }
-    strcat(str, param->type);
+    strcat (str, param->type);
     
     if (param->value != NULL) {
-      strcat(str, "=");
-      strcat(str, param->value);
+      strcat (str, "=");
+      strcat (str, param->value);
     }
 
     if (list != NULL) {
-      strcat(str, ",");
+      strcat (str, ",");
     }
   }
-  strcat(str, ")");
+  strcat (str, ")");
 
   if (operation->type != NULL) {
-    strcat(str, ": ");
-    strcat(str, operation->type);
+    strcat (str, ": ");
+    strcat (str, operation->type);
   }
 
-  assert(strlen(str)==len);
+  assert (strlen (str) == len);
   
   return str;
 }
 
-char *
-uml_get_parameter_string(UMLParameter *param)
+utfchar *
+uml_get_parameter_string (UMLParameter *param)
 {
   int len;
-  char *str;
+  utfchar *str;
 
   /* Calculate length: */
-  len = strlen(param->name) + 1 + strlen(param->type);
+  len = strlen (param->name) + 1 + strlen (param->type);
   
   if (param->value != NULL) {
-    len += 1 + strlen(param->value) ;
+    len += 1 + strlen (param->value) ;
   }
 
   /* Generate string: */
-  str = g_malloc(sizeof(char)*(len+1));
-  strcpy(str, param->name);
-  strcat(str, ":");
-  strcat(str, param->type);
+  str = g_malloc (sizeof (utfchar) * (len + 1));
+  strcpy (str, param->name);
+  strcat (str, ":");
+  strcat (str, param->type);
   if (param->value != NULL) {
-    strcat(str, "=");
-    strcat(str, param->value);
+    strcat (str, "=");
+    strcat (str, param->value);
   }
   
-  assert(strlen(str)==len);
+  assert (strlen (str) == len);
 
   return str;
 }
 
-char *
-uml_get_formalparameter_string(UMLFormalParameter *parameter)
+utfchar *
+uml_get_formalparameter_string (UMLFormalParameter *parameter)
 {
   int len;
-  char *str;
+  utfchar *str;
 
   /* Calculate length: */
-  len = strlen(parameter->name);
+  len = strlen (parameter->name);
   
   if (parameter->type != NULL) {
-    len += 1 + strlen(parameter->type);
+    len += 1 + strlen (parameter->type);
   }
 
   /* Generate string: */
-  str = g_malloc(sizeof(char)*(len+1));
-  strcpy(str, parameter->name);
+  str = g_malloc (sizeof (utfchar) * (len + 1));
+  strcpy (str, parameter->name);
   if (parameter->type != NULL) {
-    strcat(str, ":");
-    strcat(str, parameter->type);
+    strcat (str, ":");
+    strcat (str, parameter->type);
   }
 
-  assert(strlen(str)==len);
+  assert (strlen (str) == len);
 
   return str;
 }

@@ -19,6 +19,7 @@
 #define UML_H
 
 #include <glib.h>
+#include "intl.h"
 #include "connectionpoint.h"
 #include "charconv.h"
 
@@ -42,9 +43,9 @@ typedef enum _UMLParameterKind {
 } UMLParameterKind;
 
 struct _UMLAttribute {
-  char *name;
-  char *type;
-  char *value; /* Can be NULL => No default value */
+  utfchar *name;
+  utfchar *type;
+  utfchar *value; /* Can be NULL => No default value */
   UMLVisibility visibility;
   int abstract;    /* Not currently used */
   int class_scope;
@@ -54,8 +55,8 @@ struct _UMLAttribute {
 };
 
 struct _UMLOperation {
-  char *name;
-  char *type; /* Return type, NULL => No return type */
+  utfchar *name;
+  utfchar *type; /* Return type, NULL => No return type */
   UMLVisibility visibility;
   int abstract;
   int class_scope;
@@ -66,34 +67,30 @@ struct _UMLOperation {
 };
 
 struct _UMLParameter {
-  char *name;
-  char *type;
-  char *value; /* Can be NULL => No default value */
+  utfchar *name;
+  utfchar *type;
+  utfchar *value; /* Can be NULL => No default value */
   UMLParameterKind kind; /* Not currently used */
 };
 
 struct _UMLFormalParameter {
-  char *name;
-  char *type; /* Can be NULL => Type parameter */
+  utfchar *name;
+  utfchar *type; /* Can be NULL => Type parameter */
 };
 
 /* Characters used to start/end stereotypes: */
-#ifdef HAVE_UNICODE
-#define UML_STEREOTYPE_START "\xc2\xab"
-#define UML_STEREOTYPE_END "\xc2\xbb"
-#define UML_STEREOTYPE_START_LEN 2
-#define UML_STEREOTYPE_END_LEN 2
+#ifdef GTK_TALKS_UTF8
+#define UML_STEREOTYPE_START _("\xc2\xab")
+#define UML_STEREOTYPE_END _("\xc2\xbb")
 #else
-#define UML_STEREOTYPE_START "\xab"
-#define UML_STEREOTYPE_END "\xbb"
-#define UML_STEREOTYPE_START_LEN 1
-#define UML_STEREOTYPE_END_LEN 1
+#define UML_STEREOTYPE_START _("\xab")
+#define UML_STEREOTYPE_END _("\xbb")
 #endif
 
-extern char *uml_get_attribute_string(UMLAttribute *attribute);
-extern char *uml_get_operation_string(UMLOperation *operation);
-extern char *uml_get_parameter_string(UMLParameter *param);
-extern char *uml_get_formalparameter_string(UMLFormalParameter *parameter);
+extern utfchar *uml_get_attribute_string (UMLAttribute *attribute);
+extern utfchar *uml_get_operation_string(UMLOperation *operation);
+extern utfchar *uml_get_parameter_string(UMLParameter *param);
+extern utfchar *uml_get_formalparameter_string(UMLFormalParameter *parameter);
 extern UMLAttribute *uml_attribute_copy(UMLAttribute *attr);
 extern UMLOperation *uml_operation_copy(UMLOperation *op);
 extern UMLFormalParameter *uml_formalparameter_copy(UMLFormalParameter *param);

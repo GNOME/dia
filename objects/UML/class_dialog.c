@@ -29,6 +29,7 @@
 #include "objchange.h"
 #include "intl.h"
 #include "class.h"
+#include "charconv.h"
 
 
 typedef struct _Disconnect {
@@ -40,8 +41,8 @@ typedef struct _Disconnect {
 typedef struct _UMLClassState UMLClassState;
 
 struct _UMLClassState {
-  char *name;
-  char *stereotype;
+  utfchar *name;
+  utfchar *stereotype;
   int abstract;
   int suppress_attributes;
   int suppress_operations;
@@ -120,15 +121,25 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   char *str;
 
   g_free(umlclass->name);
-  umlclass->name = strdup(gtk_entry_get_text(prop_dialog->classname));
+  str = gtk_entry_get_text (prop_dialog->classname);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  umlclass->name = charconv_local8_to_utf8 (str);
+#else
+  umlclass->name = g_strdup (str);
+#endif
   if (umlclass->stereotype != NULL)
     g_free(umlclass->stereotype);
   
   str = gtk_entry_get_text(prop_dialog->stereotype);
-  if (strlen(str) != 0)
-    umlclass->stereotype = strdup(str);
-  else
-    umlclass->stereotype = NULL;
+  if (strlen(str) != 0) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	  umlclass->stereotype = charconv_local8_to_utf8 (str);
+#else
+	  umlclass->stereotype = g_strdup (str);
+#endif
+  } else {
+	  umlclass->stereotype = NULL;
+  }
   
   umlclass->abstract = prop_dialog->abstract_class->active;
   umlclass->visible_attributes = prop_dialog->attr_vis->active;
@@ -143,14 +154,28 @@ static void
 class_fill_in_dialog(UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
+  gchar *str;
   
   prop_dialog = umlclass->properties_dialog;
 
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  str = charconv_utf8_to_local8 (umlclass->name);
+  gtk_entry_set_text(prop_dialog->classname, str);
+  g_free (str);
+#else
   gtk_entry_set_text(prop_dialog->classname, umlclass->name);
-  if (umlclass->stereotype != NULL)
-    gtk_entry_set_text(prop_dialog->stereotype, umlclass->stereotype);
-  else 
-    gtk_entry_set_text(prop_dialog->stereotype, "");
+#endif
+  if (umlclass->stereotype != NULL) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	  str = charconv_utf8_to_local8 (umlclass->stereotype);
+	  gtk_entry_set_text(prop_dialog->stereotype, str);
+	  g_free (str);
+#else
+	  gtk_entry_set_text(prop_dialog->stereotype, umlclass->stereotype);
+#endif
+  } else {
+	  gtk_entry_set_text(prop_dialog->stereotype, "");
+  }
 
   gtk_toggle_button_set_active(prop_dialog->abstract_class, umlclass->abstract);
   gtk_toggle_button_set_active(prop_dialog->attr_vis, umlclass->visible_attributes);
@@ -281,12 +306,30 @@ attributes_set_sensitive(UMLClassDialog *prop_dialog, gint val)
 static void
 attributes_set_values(UMLClassDialog *prop_dialog, UMLAttribute *attr)
 {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	gchar *str_name, *str_type, *str_value;
+
+	str_name = charconv_utf8_to_local8 (attr->name);
+	str_type = charconv_utf8_to_local8 (attr->type);
+	gtk_entry_set_text (prop_dialog->attr_name, str_name);
+	gtk_entry_set_text (prop_dialog->attr_type, str_type);
+	if (attr->value != NULL) {
+		str_value = charconv_utf8_to_local8 (attr->value);
+		gtk_entry_set_text (prop_dialog->attr_value, str_value);
+		g_free (str_value);
+	} else {
+		gtk_entry_set_text (prop_dialog->attr_value, "");
+	}
+	g_free (str_name);
+	g_free (str_type);
+#else
   gtk_entry_set_text(prop_dialog->attr_name, attr->name);
   gtk_entry_set_text(prop_dialog->attr_type, attr->type);
   if (attr->value != NULL)
     gtk_entry_set_text(prop_dialog->attr_value, attr->value);
   else
     gtk_entry_set_text(prop_dialog->attr_value, "");
+#endif
 
   gtk_option_menu_set_history(prop_dialog->attr_visible_button,
 			      (gint)attr->visibility);
@@ -303,28 +346,41 @@ attributes_clear_values(UMLClassDialog *prop_dialog)
 }
 
 static void
-attributes_get_values(UMLClassDialog *prop_dialog, UMLAttribute *attr)
+attributes_get_values (UMLClassDialog *prop_dialog, UMLAttribute *attr)
 {
-  char *str;
-  
-  g_free(attr->name);
-  attr->name = g_strdup(gtk_entry_get_text(prop_dialog->attr_name));
+	utfchar *utf_name, *utf_type;
+	char *str;
 
-  g_free(attr->type);
-  attr->type = g_strdup(gtk_entry_get_text(prop_dialog->attr_type));
+	g_free (attr->name);
+	g_free (attr->type);
+	if (attr->value != NULL)
+		g_free (attr->value);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	utf_name = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->attr_name));
+	utf_type = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->attr_type));
+#else
+	utf_name = g_strdup (gtk_entry_get_text (prop_dialog->attr_name));
+	utf_type = g_strdup (gtk_entry_get_text (prop_dialog->attr_type));
+#endif
+	attr->name = utf_name;
+	attr->type = utf_type;
   
-  if (attr->value != NULL)
-    g_free(attr->value);
-  str = gtk_entry_get_text(prop_dialog->attr_value);
-  if (strlen(str)!=0)
-    attr->value = g_strdup(str);
-  else
-    attr->value = NULL;
+	str = gtk_entry_get_text(prop_dialog->attr_value);
+	if (strlen (str) != 0) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+		attr->value = charconv_local8_to_utf8 (str);
+#else
+		attr->value = g_strdup (str);
+#endif
+	} else {
+		attr->value = NULL;
+	}
 
-  attr->visibility = (UMLVisibility)
-    GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(gtk_menu_get_active(prop_dialog->attr_visible))));
+	attr->visibility = (UMLVisibility)
+		GPOINTER_TO_INT (gtk_object_get_user_data (
+					 GTK_OBJECT (gtk_menu_get_active (prop_dialog->attr_visible))));
     
-  attr->class_scope = prop_dialog->attr_class_scope->active;
+	attr->class_scope = prop_dialog->attr_class_scope->active;
 }
 
 static void
@@ -332,7 +388,8 @@ attributes_get_current_values(UMLClassDialog *prop_dialog)
 {
   UMLAttribute *current_attr;
   GtkLabel *label;
-  char *new_str;
+  utfchar *new_str;
+  gchar *str;
 
   if (prop_dialog->current_attr != NULL) {
     current_attr = (UMLAttribute *)
@@ -341,8 +398,14 @@ attributes_get_current_values(UMLClassDialog *prop_dialog)
       attributes_get_values(prop_dialog, current_attr);
       label = GTK_LABEL(GTK_BIN(prop_dialog->current_attr)->child);
       new_str = uml_get_attribute_string(current_attr);
-      gtk_label_set_text(label, new_str);
-      g_free(new_str);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+      str = charconv_utf8_to_local8 (new_str);
+      gtk_label_set_text (label, str);
+      g_free (str);
+#else
+      gtk_label_set_text (label, new_str);
+#endif
+      g_free (new_str);
     }
   }
 }
@@ -399,6 +462,7 @@ attributes_list_new_callback(GtkWidget *button,
   UMLClassDialog *prop_dialog;
   GtkWidget *list_item;
   UMLAttribute *attr;
+  utfchar *utfstr;
   char *str;
 
   prop_dialog = umlclass->properties_dialog;
@@ -407,10 +471,16 @@ attributes_list_new_callback(GtkWidget *button,
 
   attr = uml_attribute_new();
 
-  str = uml_get_attribute_string(attr);
-  list_item = gtk_list_item_new_with_label(str);
-  gtk_widget_show(list_item);
-  g_free(str);
+  utfstr = uml_get_attribute_string (attr);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  str = charconv_utf8_to_local8 (utfstr);
+  list_item = gtk_list_item_new_with_label (str);
+  g_free (str);
+#else
+  list_item = gtk_list_item_new_with_label (utfstr);
+#endif
+  gtk_widget_show (list_item);
+  g_free (utfstr);
 
   gtk_object_set_user_data(GTK_OBJECT(list_item), attr);
   gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
@@ -600,6 +670,7 @@ attributes_fill_in_dialog(UMLClass *umlclass)
   GtkWidget *list_item;
   GList *list;
   int i;
+  gchar *str;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -609,9 +680,15 @@ attributes_fill_in_dialog(UMLClass *umlclass)
     list = umlclass->attributes;
     while (list != NULL) {
       attr = (UMLAttribute *)list->data;
-      
+
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+      str = charconv_utf8_to_local8 (umlclass->attributes_strings[i]);
+      list_item = gtk_list_item_new_with_label (str);
+      g_free (str);
+#else
       list_item =
 	gtk_list_item_new_with_label (umlclass->attributes_strings[i]);
+#endif
       attr_copy = uml_attribute_copy(attr);
       gtk_object_set_user_data(GTK_OBJECT(list_item), (gpointer) attr_copy);
       gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
@@ -847,12 +924,30 @@ parameters_set_sensitive(UMLClassDialog *prop_dialog, gint val)
 static void
 parameters_set_values(UMLClassDialog *prop_dialog, UMLParameter *param)
 {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	utfchar *utf_name, *utf_type, *utf_value;
+
+	utf_name = charconv_utf8_to_local8 (param->name);
+	utf_type = charconv_utf8_to_local8 (param->type);
+	gtk_entry_set_text (prop_dialog->param_name, utf_name);
+	gtk_entry_set_text (prop_dialog->param_type, utf_type);
+	if (param->value != NULL) {
+		utf_value = charconv_utf8_to_local8 (param->value);
+		gtk_entry_set_text (prop_dialog->param_value, utf_value);
+		g_free (utf_value);
+	} else {
+		gtk_entry_set_text (prop_dialog->param_value, "");
+	}
+	g_free (utf_name);
+	g_free (utf_type);
+#else
   gtk_entry_set_text(prop_dialog->param_name, param->name);
   gtk_entry_set_text(prop_dialog->param_type, param->type);
   if (param->value != NULL)
     gtk_entry_set_text(prop_dialog->param_value, param->value);
   else
     gtk_entry_set_text(prop_dialog->param_value, "");
+#endif
 }
 
 static void
@@ -864,24 +959,36 @@ parameters_clear_values(UMLClassDialog *prop_dialog)
 }
 
 static void
-parameters_get_values(UMLClassDialog *prop_dialog, UMLParameter *param)
+parameters_get_values (UMLClassDialog *prop_dialog, UMLParameter *param)
 {
-  char *str;
-  
-  g_free(param->name);
-  param->name = g_strdup(gtk_entry_get_text(prop_dialog->param_name));
+	utfchar *utf_name, *utf_type;
+	char *str;
 
-  g_free(param->type);
-  param->type = g_strdup(gtk_entry_get_text(prop_dialog->param_type));
+	g_free(param->name);
+	g_free(param->type);
+	if (param->value != NULL)
+		g_free(param->value);
 
-  if (param->value != NULL)
-    g_free(param->value);
-  
-  str = gtk_entry_get_text(prop_dialog->param_value);
-  if (strlen(str)!=0)
-    param->value = g_strdup(str);
-  else
-    param->value = NULL;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	utf_name = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->param_name));
+	utf_type = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->param_type));
+#else
+	utf_name = g_strdup (gtk_entry_get_text (prop_dialog->param_name));
+	utf_type = g_strdup (gtk_entry_get_text (prop_dialog->param_type));
+#endif
+	param->name = utf_name;
+	param->type = utf_type;
+
+	str = gtk_entry_get_text(prop_dialog->param_value);
+	if (strlen (str) != 0) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+		param->value = charconv_local8_to_utf8 (str);
+#else
+		param->value = g_strdup (str);
+#endif
+	} else {
+		param->value = NULL;
+	}
 }
 
 static void
@@ -889,7 +996,8 @@ parameters_get_current_values(UMLClassDialog *prop_dialog)
 {
   UMLParameter *current_param;
   GtkLabel *label;
-  char *new_str;
+  utfchar *new_str;
+  gchar *str;
 
   if (prop_dialog->current_param != NULL) {
     current_param = (UMLParameter *)
@@ -898,7 +1006,13 @@ parameters_get_current_values(UMLClassDialog *prop_dialog)
       parameters_get_values(prop_dialog, current_param);
       label = GTK_LABEL(GTK_BIN(prop_dialog->current_param)->child);
       new_str = uml_get_parameter_string(current_param);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+      str = charconv_utf8_to_local8 (new_str);
+      gtk_label_set_text (label, str);
+      g_free (str);
+#else
       gtk_label_set_text(label, new_str);
+#endif
       g_free(new_str);
     }
   }
@@ -944,6 +1058,7 @@ parameters_list_new_callback(GtkWidget *button,
   GtkWidget *list_item;
   UMLOperation *current_op;
   UMLParameter *param;
+  utfchar *utf;
   char *str;
 
   prop_dialog = umlclass->properties_dialog;
@@ -955,10 +1070,16 @@ parameters_list_new_callback(GtkWidget *button,
   
   param = uml_parameter_new();
 
-  str = uml_get_parameter_string(param);
-  list_item = gtk_list_item_new_with_label(str);
-  gtk_widget_show(list_item);
-  g_free(str);
+  utf = uml_get_parameter_string (param);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  str = charconv_utf8_to_local8 (utf);
+  list_item = gtk_list_item_new_with_label (str);
+  g_free (str);
+#else
+  list_item = gtk_list_item_new_with_label (utf);
+#endif
+  gtk_widget_show (list_item);
+  g_free (utf);
 
   gtk_object_set_user_data(GTK_OBJECT(list_item), param);
 
@@ -1127,13 +1248,27 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
   GList *list;
   UMLParameter *param;
   GtkWidget *list_item;
+  utfchar *utf_name, *utf_type, *utfstr;
   char *str;
-  
+
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  utf_name = charconv_utf8_to_local8 (op->name);
+  gtk_entry_set_text (prop_dialog->op_name, utf_name);
+  if (op->type != NULL) {
+	  utf_type = charconv_utf8_to_local8 (op->type);
+	  gtk_entry_set_text (prop_dialog->op_type, utf_type);
+	  g_free (utf_type);
+  } else {
+	  gtk_entry_set_text (prop_dialog->op_type, "");
+  }
+  g_free (utf_name);
+#else
   gtk_entry_set_text(prop_dialog->op_name, op->name);
   if (op->type != NULL)
     gtk_entry_set_text(prop_dialog->op_type, op->type);
   else
     gtk_entry_set_text(prop_dialog->op_type, "");
+#endif
 
   gtk_option_menu_set_history(prop_dialog->op_visible_button,
 			      (gint)op->visibility);
@@ -1148,9 +1283,15 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
   while (list != NULL) {
     param = (UMLParameter *)list->data;
 
-    str = uml_get_parameter_string(param);
+    utfstr = uml_get_parameter_string (param);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+    str = charconv_utf8_to_local8 (utfstr);
     list_item = gtk_list_item_new_with_label (str);
-    g_free(str);
+    g_free (str);
+#else
+    list_item = gtk_list_item_new_with_label (utfstr);
+#endif
+    g_free (utfstr);
     gtk_object_set_user_data(GTK_OBJECT(list_item), (gpointer) param);
     gtk_container_add (GTK_CONTAINER (prop_dialog->parameters_list), list_item);
     gtk_widget_show (list_item);
@@ -1179,15 +1320,24 @@ operations_get_values(UMLClassDialog *prop_dialog, UMLOperation *op)
   char *str;
   
   g_free(op->name);
-  op->name = g_strdup(gtk_entry_get_text(prop_dialog->op_name));
-
   if (op->type != NULL)
-    g_free(op->type);
+	  g_free(op->type);
+
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  op->name = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->op_name));
+#else
+  op->name = g_strdup(gtk_entry_get_text(prop_dialog->op_name));
+#endif
   str = gtk_entry_get_text(prop_dialog->op_type);
-  if (strlen(str)!=0)
-    op->type = g_strdup(str);
-  else
-    op->type = NULL;
+  if ( strlen (str) != 0) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	  op->type = charconv_local8_to_utf8 (str);
+#else
+	  op->type = g_strdup (str);
+#endif
+  } else {
+	  op->type = NULL;
+  }
 
   op->visibility = (UMLVisibility)
     GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(gtk_menu_get_active(prop_dialog->op_visible))));
@@ -1201,7 +1351,8 @@ operations_get_current_values(UMLClassDialog *prop_dialog)
 {
   UMLOperation *current_op;
   GtkLabel *label;
-  char *new_str;
+  utfchar *new_str;
+  char *str;
 
   parameters_get_current_values(prop_dialog);
 
@@ -1212,8 +1363,14 @@ operations_get_current_values(UMLClassDialog *prop_dialog)
       operations_get_values(prop_dialog, current_op);
       label = GTK_LABEL(GTK_BIN(prop_dialog->current_op)->child);
       new_str = uml_get_operation_string(current_op);
-      gtk_label_set_text(label, new_str);
-      g_free(new_str);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+      str = charconv_utf8_to_local8 (new_str);
+      gtk_label_set_text (label, str);
+      g_free (str);
+#else
+      gtk_label_set_text (label, new_str);
+#endif
+      g_free (new_str);
     }
   }
 }
@@ -1270,6 +1427,7 @@ operations_list_new_callback(GtkWidget *button,
   UMLClassDialog *prop_dialog;
   GtkWidget *list_item;
   UMLOperation *op;
+  utfchar *utfstr;
   char *str;
 
   prop_dialog = umlclass->properties_dialog;
@@ -1278,10 +1436,16 @@ operations_list_new_callback(GtkWidget *button,
 
   op = uml_operation_new();
 
-  str = uml_get_operation_string(op);
-  list_item = gtk_list_item_new_with_label(str);
-  gtk_widget_show(list_item);
-  g_free(str);
+  utfstr = uml_get_operation_string (op);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  str = charconv_utf8_to_local8 (utfstr);
+  list_item = gtk_list_item_new_with_label (str);
+  g_free (str);
+#else
+  list_item = gtk_list_item_new_with_label (utfstr);
+#endif
+  gtk_widget_show (list_item);
+  g_free (utfstr);
 
   gtk_object_set_user_data(GTK_OBJECT(list_item), op);
   gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
@@ -1472,6 +1636,7 @@ operations_fill_in_dialog(UMLClass *umlclass)
   GtkWidget *list_item;
   GList *list;
   int i;
+  gchar *str;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -1480,9 +1645,15 @@ operations_fill_in_dialog(UMLClass *umlclass)
     list = umlclass->operations;
     while (list != NULL) {
       op = (UMLOperation *)list->data;
-      
+
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+      str = charconv_utf8_to_local8 (umlclass->operations_strings[i]);
+      list_item = gtk_list_item_new_with_label (str);
+      g_free (str);
+#else
       list_item =
 	gtk_list_item_new_with_label (umlclass->operations_strings[i]);
+#endif
       op_copy = uml_operation_copy(op);
       gtk_object_set_user_data(GTK_OBJECT(list_item), (gpointer) op_copy);
       gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
@@ -1824,14 +1995,29 @@ templates_set_sensitive(UMLClassDialog *prop_dialog, gint val)
 }
 
 static void
-templates_set_values(UMLClassDialog *prop_dialog,
-		     UMLFormalParameter *param)
+templates_set_values (UMLClassDialog *prop_dialog,
+		      UMLFormalParameter *param)
 {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	utfchar *utf_name, *utf_type;
+
+	utf_name = charconv_utf8_to_local8 (param->name);
+	gtk_entry_set_text (prop_dialog->templ_name, utf_name);
+	if (param->type != NULL) {
+		utf_type = charconv_utf8_to_local8 (param->type);
+		gtk_entry_set_text (prop_dialog->templ_type, utf_type);
+		g_free (utf_type);
+	} else {
+		gtk_entry_set_text (prop_dialog->templ_type, "");
+	}
+	g_free (utf_name);
+#else
   gtk_entry_set_text(prop_dialog->templ_name, param->name);
   if (param->type != NULL)
     gtk_entry_set_text(prop_dialog->templ_type, param->type);
   else
     gtk_entry_set_text(prop_dialog->templ_type, "");
+#endif
 }
 
 static void
@@ -1847,15 +2033,24 @@ templates_get_values(UMLClassDialog *prop_dialog, UMLFormalParameter *param)
   char *str;
   
   g_free(param->name);
-  param->name = g_strdup(gtk_entry_get_text(prop_dialog->templ_name));
-
   if (param->type != NULL)
     g_free(param->type);
-  str = gtk_entry_get_text(prop_dialog->templ_type);
-  if (strlen(str)!=0)
-    param->type = g_strdup(str);
-  else
-    param->type = NULL;
+
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  param->name = charconv_local8_to_utf8 (gtk_entry_get_text (prop_dialog->templ_name));
+#else
+  param->name = g_strdup (gtk_entry_get_text (prop_dialog->templ_name));
+#endif
+  str = gtk_entry_get_text (prop_dialog->templ_type);
+  if (strlen (str) != 0) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	  param->type = charconv_local8_to_utf8 (str);
+#else
+	  param->type = g_strdup (str);
+#endif
+  } else {
+	  param->type = NULL;
+  }
 }
 
 
@@ -1864,7 +2059,8 @@ templates_get_current_values(UMLClassDialog *prop_dialog)
 {
   UMLFormalParameter *current_param;
   GtkLabel *label;
-  char *new_str;
+  utfchar *new_str;
+  gchar *str;
 
   if (prop_dialog->current_templ != NULL) {
     current_param = (UMLFormalParameter *)
@@ -1872,8 +2068,14 @@ templates_get_current_values(UMLClassDialog *prop_dialog)
     if (current_param != NULL) {
       templates_get_values(prop_dialog, current_param);
       label = GTK_LABEL(GTK_BIN(prop_dialog->current_templ)->child);
-      new_str = uml_get_formalparameter_string(current_param);
+      new_str = uml_get_formalparameter_string (current_param);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+      str = charconv_utf8_to_local8 (new_str);
+      gtk_label_set_text (label, str);
+      g_free (str);
+#else
       gtk_label_set_text(label, new_str);
+#endif
       g_free(new_str);
     }
   }
@@ -1932,7 +2134,8 @@ templates_list_new_callback(GtkWidget *button,
   UMLClassDialog *prop_dialog;
   GtkWidget *list_item;
   UMLFormalParameter *param;
-  char *str;
+  utfchar *utfstr;
+  gchar *str;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -1940,10 +2143,16 @@ templates_list_new_callback(GtkWidget *button,
 
   param = uml_formalparameter_new();
 
-  str = uml_get_formalparameter_string(param);
-  list_item = gtk_list_item_new_with_label(str);
-  gtk_widget_show(list_item);
-  g_free(str);
+  utfstr = uml_get_formalparameter_string (param);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  str = charconv_utf8_to_local8 (utfstr);
+  list_item = gtk_list_item_new_with_label (str);
+  g_free (str);
+#else
+  list_item = gtk_list_item_new_with_label (utfstr);
+#endif
+  gtk_widget_show (list_item);
+  g_free (utfstr);
 
   gtk_object_set_user_data(GTK_OBJECT(list_item), param);
   gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
@@ -2087,6 +2296,7 @@ templates_fill_in_dialog(UMLClass *umlclass)
   GList *list;
   GtkWidget *list_item;
   int i;
+  gchar *str;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -2098,9 +2308,15 @@ templates_fill_in_dialog(UMLClass *umlclass)
     list = umlclass->formal_params;
     while (list != NULL) {
       param = (UMLFormalParameter *)list->data;
-      
+
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+      str = charconv_utf8_to_local8 (umlclass->templates_strings[i]);
+      list_item = gtk_list_item_new_with_label (str);
+      g_free (str);
+#else
       list_item =
 	gtk_list_item_new_with_label (umlclass->templates_strings[i]);
+#endif
       param_copy = uml_formalparameter_copy(param);
       gtk_object_set_user_data(GTK_OBJECT(list_item),
 			       (gpointer) param_copy);

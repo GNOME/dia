@@ -45,9 +45,9 @@ struct _Realizes {
   Alignment text_align;
   real text_width;
   
-  char *name;
-  char *stereotype; /* excluding << and >> */
-  char *st_stereotype; /* including << and >> */
+  utfchar *name;
+  utfchar *stereotype; /* excluding << and >> */
+  utfchar *st_stereotype; /* including << and >> */
 };
 
 

@@ -804,7 +804,7 @@ data_add_rectangle(AttributeNode attr, const Rectangle *rect)
 }
 
 void
-data_add_string(AttributeNode attr, const char *str)
+data_add_string (AttributeNode attr, const utfchar *str)
 {
     DataNode data_node;
     xmlChar *escaped_str;

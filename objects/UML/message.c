@@ -36,10 +36,7 @@
 #include "pixmaps/message.xpm"
 
 #include "uml.h"
-
-#ifndef UNICODE_WORK_IN_PROGRESS
 #include "charconv.h"
-#endif
 
 typedef struct _Message Message;
 
@@ -58,7 +55,7 @@ struct _Message {
 
   Handle text_handle;
 
-  char *text;
+  utfchar *text;
   Point text_pos;
   real text_width;
     
@@ -72,9 +69,6 @@ struct _Message {
 #define MESSAGE_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
-
-#define MESSAGE_CREATE_LABEL (UML_STEREOTYPE_START "create" UML_STEREOTYPE_END)
-#define MESSAGE_DESTROY_LABEL (UML_STEREOTYPE_START "destroy" UML_STEREOTYPE_END)
 
 static DiaFont *message_font = NULL;
 
@@ -260,11 +254,9 @@ message_draw(Message *message, Renderer *renderer)
   Point *endpoints, p1, p2, px;
   ArrowType arrow_type;
   int n1 = 1, n2 = 0;
-  char *mname;
-#ifndef UNICODE_WORK_IN_PROGRESS
-  char *create = NULL;
-  char *destroy = NULL;
-#endif
+  utfchar *mname;
+  utfchar *utfstart, *utfend;
+
   assert(message != NULL);
   assert(renderer != NULL);
 
@@ -322,21 +314,24 @@ message_draw(Message *message, Renderer *renderer)
   renderer->ops->set_font(renderer, message_font,
 			  MESSAGE_FONTHEIGHT);
 
-#ifdef UNICODE_WORK_IN_PROGRESS
-  if (message->type==MESSAGE_CREATE) 
-      mname = MESSAGE_CREATE_LABEL;
-  else if (message->type==MESSAGE_DESTROY) 
-      mname = MESSAGE_DESTROY_LABEL;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  utfstart = charconv_local8_to_utf8 (UML_STEREOTYPE_START);
+  utfend = charconv_local8_to_utf8 (UML_STEREOTYPE_END);
+  if (message->type==MESSAGE_CREATE)
+	  mname = g_sprintf ("%s%s%s", utfstart, "create", utfend);
+  else if (message->type==MESSAGE_DESTROY)
+	  mname = g_sprintf ("%s%s%s", utfstart, "destroy", utfend);
   else
-      mname = message->text;
+	  mname = message->text;
+  g_free (utfstart);
+  g_free (utfend);
 #else
-  if (message->type==MESSAGE_CREATE) {
-    if (!create) create = charconv_utf8_to_local8(MESSAGE_CREATE_LABEL);
-      mname = create;
-  } else if (message->type==MESSAGE_DESTROY) {
-    if (!destroy) destroy = charconv_utf8_to_local8(MESSAGE_DESTROY_LABEL);
-      mname = destroy;
-  } else mname = message->text;
+  if (message->type==MESSAGE_CREATE)
+	  mname = g_sprintf ("%s%s%s", UML_STEREOTYPE_START, "create", UML_STEREOTYPE_END);
+  else if (message->type==MESSAGE_DESTROY)
+	  mname = g_sprintf ("%s%s%s", UML_STEREOTYPE_START, "destroy", UML_STEREOTYPE_END);
+  else
+	  mname = message->text;
 #endif
 
   if (mname && strlen(mname) != 0) 

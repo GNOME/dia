@@ -41,8 +41,8 @@ struct _UMLClass {
   DiaFont *abstract_classname_font;
   
   /* Class info: */
-  char *name;
-  char *stereotype; /* NULL if no stereotype */
+  utfchar *name;
+  utfchar *stereotype; /* NULL if no stereotype */
   int abstract;
   int suppress_attributes; /* ie. don't draw strings. */
   int suppress_operations; /* ie. don't draw strings. */
@@ -65,20 +65,20 @@ struct _UMLClass {
   real font_ascent;
   
   real namebox_height;
-  char *stereotype_string;
+  utfchar *stereotype_string;
   
   real attributesbox_height;
   int num_attributes;
-  char **attributes_strings;
+  utfchar **attributes_strings;
   
   real operationsbox_height;
   int num_operations;
-  char **operations_strings;
+  utfchar **operations_strings;
 
   real templates_height;
   real templates_width;
   int num_templates;
-  char **templates_strings;
+  utfchar **templates_strings;
 
   /* Dialog: */
   UMLClassDialog *properties_dialog;

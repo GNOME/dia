@@ -48,9 +48,9 @@ struct _Dependency {
   real text_width;
   
   int draw_arrow;
-  char *name;
-  char *stereotype; /* excluding << and >> */
-  char *st_stereotype; /* including << and >> */
+  utfchar *name;
+  utfchar *stereotype; /* excluding << and >> */
+  utfchar *st_stereotype; /* including << and >> */
 };
 
 

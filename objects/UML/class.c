@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 8 c-style: "K&R" -*- */
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
@@ -29,6 +30,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "properties.h"
+#include "charconv.h"
 
 #include "class.h"
 
@@ -36,11 +38,6 @@
 
 #define UMLCLASS_BORDER 0.1
 #define UMLCLASS_UNDERLINEWIDTH 0.05
-
-#undef UML_STEREOTYPE_START
-#undef UML_STEREOTYPE_END
-#define UML_STEREOTYPE_START ((char) 171)
-#define UML_STEREOTYPE_END ((char) 187)
 
 static real umlclass_distance_from(UMLClass *umlclass, Point *point);
 static void umlclass_select(UMLClass *umlclass, Point *clicked_point,
@@ -508,21 +505,28 @@ umlclass_calculate_data(UMLClass *umlclass)
     g_free(umlclass->stereotype_string);
   }
   if (umlclass->stereotype != NULL) {
-    umlclass->namebox_height += font_height;
-    umlclass->stereotype_string =
-      g_malloc(sizeof(char)*(strlen(umlclass->stereotype)+2+1));
-    
-    umlclass->stereotype_string[0] = UML_STEREOTYPE_START;
-    umlclass->stereotype_string[1] = 0;
-    
-    strcat(umlclass->stereotype_string, umlclass->stereotype);
+	  utfchar *utfstart, *utfend;
 
-    i = strlen(umlclass->stereotype_string);
-    umlclass->stereotype_string[i] = UML_STEREOTYPE_END;
-    umlclass->stereotype_string[i+1] = 0;
-    
-    width = font_string_width(umlclass->stereotype_string, umlclass->normal_font, font_height);
-    maxwidth = MAX(width, maxwidth);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	  utfstart = charconv_local8_to_utf8 (UML_STEREOTYPE_START);
+	  utfend = charconv_local8_to_utf8 (UML_STEREOTYPE_END);
+#else
+          utfstart = g_strdup (UML_STEREOTYPE_START);
+          utfend = g_strdup (UML_STEREOTYPE_START);
+#endif
+	  umlclass->namebox_height += font_height;
+	  umlclass->stereotype_string =
+		  g_malloc (sizeof (utfchar) * (strlen (utfstart) + strlen (utfend) + 1));
+
+	  strcpy (umlclass->stereotype_string, utfstart);
+	  strcat (umlclass->stereotype_string, umlclass->stereotype);
+	  strcat (umlclass->stereotype_string, utfend);
+
+          g_free (utfstart);
+          g_free (utfend);
+
+	  width = font_string_width (umlclass->stereotype_string, umlclass->normal_font, font_height);
+	  maxwidth = MAX(width, maxwidth);
   } else {
     umlclass->stereotype_string = NULL;
   }
@@ -547,7 +551,7 @@ umlclass_calculate_data(UMLClass *umlclass)
   umlclass->attributes_strings = NULL;
   if (umlclass->num_attributes != 0) {
     umlclass->attributes_strings =
-      g_malloc(sizeof(char *)*umlclass->num_attributes);
+      g_malloc (sizeof (utfchar *) * umlclass->num_attributes);
     i = 0;
     list = umlclass->attributes;
     while (list != NULL) {
@@ -584,7 +588,7 @@ umlclass_calculate_data(UMLClass *umlclass)
   umlclass->operations_strings = NULL;
   if (umlclass->num_operations != 0) {
     umlclass->operations_strings =
-      g_malloc(sizeof(char *)*umlclass->num_operations);
+      g_malloc (sizeof (utfchar *) * umlclass->num_operations);
     i = 0;
     list = umlclass->operations;
     while (list != NULL) {
@@ -629,7 +633,7 @@ umlclass_calculate_data(UMLClass *umlclass)
   maxwidth = 2.3;
   if (umlclass->num_templates != 0) {
     umlclass->templates_strings =
-      g_malloc(sizeof(char *)*umlclass->num_templates);
+      g_malloc (sizeof (utfchar *) * umlclass->num_templates);
     i = 0;
     list = umlclass->formal_params;
     while (list != NULL) {
@@ -686,7 +690,11 @@ umlclass_create(Point *startpoint,
   umlclass->properties_dialog = NULL;
   fill_in_fontdata(umlclass);
 
-  umlclass->name = strdup(_("Class"));
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  umlclass->name = charconv_local8_to_utf8 (_("Class"));
+#else
+  umlclass->name = g_strdup (_("Class"));
+#endif
   umlclass->stereotype = NULL;
   
   umlclass->abstract = FALSE;

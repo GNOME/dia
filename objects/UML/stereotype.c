@@ -24,91 +24,95 @@
 #include "stereotype.h"
 #include "charconv.h"
 
-char *
-string_to_bracketted(char *str, 
-                     const char *start_bracket, 
-                     const char *end_bracket) {
-  char *tmpstr;
-#ifdef UNICODE_WORK_IN_PROGRESS
-  char *bracketted;
+utfchar *
+string_to_bracketted (utfchar *str, 
+		      const char *start_bracket, 
+		      const char *end_bracket)
+{
+	utfchar *utfstart, *utfend;
+	utfchar *retval;
 
-  bracketted = g_strconcat(start_bracket,tmpstr,end_bracket,NULL);
-
-  return bracketted;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	utfstart = charconv_local8_to_utf8 (start_bracket);
+	utfend = charconv_local8_to_utf8 (end_bracket);
+	retval = g_strconcat (utfstart, (str ? str : ""), utfend, NULL);
+	g_free (utfstart);
+	g_free (utfend);
 #else
-  char *bracketted,*tmp;
-
-  tmpstr = charconv_local8_to_utf8((str?str:""));
-  bracketted = g_strconcat(start_bracket,tmpstr,end_bracket,NULL);
-  tmp = charconv_utf8_to_local8(bracketted);
-  g_free(bracketted);
-  return tmp;
+	retval = g_strconcat (start_bracket, (str ? str : ""), end_bracket, NULL);
 #endif
+
+	return retval;
 }
 
-static char *strend(char *p) {
-  if (!p) return NULL;
-  while (*p) p++;
-  return p;
-}
+utfchar *
+bracketted_to_string (utfchar *bracketted,
+		      const char *start_bracket,
+		      const char *end_bracket)
+{
+	utfchar *utfstart, *utfend, *utfstr;
+	utfchar *retval;
+	int start_len, end_len, str_len;
 
-#ifdef UNICODE_WORK_IN_PROGRESS
-char *
-bracketted_to_string(utfchar *bracketted, 
-                     const utfchar *start_bracket, 
-                     const utfchar *end_bracket){
+	if (!bracketted) return NULL;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	utfstart = charconv_local8_to_utf8 (start_bracket);
+	utfend = charconv_local8_to_utf8 (end_bracket);
 #else
-static char *
-_bracketted_to_string(utfchar *bracketted, 
-                      const utfchar *start_bracket, 
-                      const utfchar *end_bracket){
+	utfstart = start_bracket;
+	utfend = end_bracket;
 #endif
-  char *str;
-  int start_len = strlen(start_bracket);
-  int end_len = strlen(end_bracket);
-  int str_len = strlen(bracketted);
+	start_len = strlen (utfstart);
+	end_len = strlen (utfend);
+	str_len = strlen (bracketted);
+	utfstr = bracketted;
 
-  if (!bracketted) return NULL;
+	if (!strncmp (utfstr, utfstart, start_len)) {
+		utfstr += start_len;
+		str_len -= start_len;
+	}
+	if (str_len >= end_len && end_len > 0) {
+		utfchar *utf = utfstr;
+		utfchar *utfprev;
+		int unilen = uni_strlen (utfend, end_len);
+		int i;
 
-  str = bracketted;
-  if (0==strncmp(str,start_bracket,start_len)) {
-    str += start_len;
-    str_len -= start_len;
-  }
-  
-  if ((str_len >= end_len) && 
-      (0 == strncmp(strend(str) - end_len,end_bracket,end_len))) {
-    str_len -= end_len;
-  }
-  return g_strndup(str,str_len);
+		while (*utf) {
+			utfprev = utf;
+			utf = uni_next (utf);
+		}
+		utf = utfprev;
+		for (i = 0; i < (unilen - 1); i++) {
+			utf = uni_previous (utfstr, utf);
+		}
+		if (!strncmp (utf, utfend, end_len)) {
+			str_len -= end_len;
+		}
+	}
+	retval = g_strndup (utfstr, str_len);
+
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	g_free (utfstart);
+	g_free (utfend);
+#endif
+
+	return retval;
 }
 
-#ifndef UNICODE_WORK_IN_PROGRESS
-char *
-bracketted_to_string(char *bracketted, 
-                     const char *start_bracket, 
-                     const char *end_bracket){
-  char *tmp = charconv_local8_to_utf8((bracketted?bracketted:""));  
-  char *uref = _bracketted_to_string(tmp,start_bracket,end_bracket);
-  char *ret = charconv_utf8_to_local8(uref);
-
-  g_free(uref); g_free(tmp); 
-  return ret;
-}  
-#endif
-
-char *
-string_to_stereotype(char *str) {
+utfchar *
+string_to_stereotype (utfchar *str)
+{
   if ((str) && str[0] != '\0')  
     return string_to_bracketted(str, UML_STEREOTYPE_START, UML_STEREOTYPE_END);
   return g_strdup(str);
 }
 
-char *
-remove_stereotype_from_string(char *stereotype) {
+utfchar *
+remove_stereotype_from_string (utfchar *stereotype)
+{
   if (stereotype) { 
-    char *tmp = bracketted_to_string(stereotype, 
-                                     UML_STEREOTYPE_START, UML_STEREOTYPE_END);
+    utfchar *tmp = bracketted_to_string (stereotype, 
+					 UML_STEREOTYPE_START, UML_STEREOTYPE_END);
     g_free(stereotype);
     return tmp;
   } else {
@@ -116,8 +120,9 @@ remove_stereotype_from_string(char *stereotype) {
   }
 }
 
-char *
-stereotype_to_string(char *stereotype) {
+utfchar *
+stereotype_to_string (utfchar *stereotype)
+{
   return bracketted_to_string(stereotype, 
                               UML_STEREOTYPE_START, UML_STEREOTYPE_END);
 }

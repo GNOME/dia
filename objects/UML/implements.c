@@ -45,7 +45,7 @@ struct _Implements {
 
   Point circle_center; /* Calculated from diameter*/
 
-  char *text;
+  utfchar *text;
   Point text_pos;
   real text_width;
 
