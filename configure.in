@@ -457,6 +457,9 @@ samples/Makefile
 sheets/Makefile
 sheets/ER/Makefile
 sheets/GRAFCET/Makefile
+sheets/Istar/Makefile
+sheets/Jackson/Makefile
+sheets/KAOS/Makefile
 sheets/UML/Makefile
 plug-ins/Makefile
 plug-ins/cgm/Makefile

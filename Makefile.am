@@ -58,5 +58,7 @@ EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
 	RELEASE-PROCESS autogen.sh makefile.msc \
 	config.h.win32 readme.win32 AUTHORS THANKS
 
+if MAINTAINER_MODE
 THANKS: all-recursive
 	app/run_dia.sh --credits > THANKS
+endif

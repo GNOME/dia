@@ -19,4 +19,5 @@ EXTRA_DIST = \
 	pixmaps/contributes.xpm\
 	pixmaps/mid_controls.xpm\
 	pixmaps/mid_monitors.xpm\
-	pixmaps/mid_obstructs.xpm
+	pixmaps/mid_obstructs.xpm \
+	pixmaps/goal.xpm
