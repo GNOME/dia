@@ -204,7 +204,7 @@
   </xsl:template>
 
   <xsl:template match="node()|@*">
-    <xsl:apply-templates match="node()|@*"/>  
+    <xsl:apply-templates select="node()|@*"/>  
   </xsl:template>
 
 </xsl:stylesheet>

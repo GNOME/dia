@@ -1,5 +1,10 @@
 2004-09-19  Hans Breuer  <hans@breuer.org>
 
+        * plug-ins/xslt/*.xsl : s/apply-template match/apply-template select/
+        fixes bug #148278, carlosrp@idea.com.py (Carlos Raúl Perasso)
+
+2004-09-19  Hans Breuer  <hans@breuer.org>
+
         * dia.desktop.in : string changes as proposed in bug #151822
         
         * lib/Makefile.am : remove -module from libdia_la_LDFLAGS,
