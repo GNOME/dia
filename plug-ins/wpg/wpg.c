@@ -1001,7 +1001,7 @@ import_object(MyRenderer* renderer, DiagramData *dia,
     pInt16 = (gint16*)pData;
     iNum = pInt16[2];
     pts = (WPGPoint*)(pData + 3*sizeof(gint16));
-    DIAG_NOTE(g_message("POLYCURVE Num pts %d Pre51 %d\n", iNum, iPre51);
+    DIAG_NOTE(g_message("POLYCURVE Num pts %d Pre51 %d\n", iNum, iPre51));
     break;
   } /* switch */
   DIAG_NOTE(g_message("Type %d Num pts %d Size %d", type, iNum, iSize));
