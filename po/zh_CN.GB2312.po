@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2001-06-08 06:57+0200\n"
-"PO-Revision-Date: 2001-04-15 02:30+0800\n"
+"POT-Creation-Date: 2001-06-19 23:20+0800\n"
+"PO-Revision-Date: 2001-06-19 23:26+0800\n"
 "Last-Translator: Wang Jian <lark@linux.net.cn>\n"
-"Language-Team: zh_CN\n"
+"Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=GB2312\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,15 +30,15 @@ msgstr "不显示启动画面"
 msgid "Show this help message"
 msgstr "显示此帮助信息"
 
-#: app/app_procs.c:182
+#: app/app_procs.c:185
 msgid "Can't connect to session manager!\n"
 msgstr "无法连接会话管理器!\n"
 
-#: app/app_procs.c:193
+#: app/app_procs.c:196
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FILE...]"
 
-#: app/app_procs.c:196
+#: app/app_procs.c:199
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -47,20 +47,20 @@ msgstr ""
 "选项 %s 有错误：%s。\n"
 "运行“%s --help”来查看可用的命令行参数的完整列表。\n"
 
-#: app/app_procs.c:245 app/app_procs.c:247
+#: app/app_procs.c:248 app/app_procs.c:250
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "查找对象库时无法找到标准的对象，正在退出...\n"
 
-#: app/app_procs.c:272
+#: app/app_procs.c:275
 msgid "Need valid input file\n"
 msgstr "需要有效的输入文件\n"
 
-#: app/app_procs.c:338 app/app_procs.c:344
+#: app/app_procs.c:341 app/app_procs.c:347
 msgid "Quit, are you sure?"
 msgstr "退出，您确定吗？"
 
-#: app/app_procs.c:351
+#: app/app_procs.c:354
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -68,27 +68,27 @@ msgstr ""
 "存在修改后的图表。\n"
 "您确定要退出吗？"
 
-#: app/app_procs.c:361 app/app_procs.c:366
+#: app/app_procs.c:364 app/app_procs.c:369
 msgid "Quit"
 msgstr "退出"
 
-#: app/app_procs.c:378 app/display.c:958 app/layer_dialog.c:989
+#: app/app_procs.c:381 app/display.c:958 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "取消"
 
-#: app/app_procs.c:453 app/app_procs.c:460
+#: app/app_procs.c:456 app/app_procs.c:463
 msgid "Could not create per-user Dia config directory"
 msgstr "无法创建用户的 Dia 配置目录"
 
-#: app/app_procs.c:462
+#: app/app_procs.c:465
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr "无法创建用户的 Dia 配置目录。请确定环境变量 HOME 指向存在的目录。"
 
-#: app/app_procs.c:484
+#: app/app_procs.c:487
 msgid "Objects and filters internal to dia"
 msgstr "dia 内部的对象和过滤程序"
 
@@ -147,7 +147,7 @@ msgstr "贡献者："
 #: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
 #: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
-#: app/properties.c:92 lib/message.c:87
+#: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "确定"
 
@@ -310,12 +310,12 @@ msgstr ""
 "保存修改吗？"
 
 #: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:288
+#: lib/properties.c:348
 msgid "Yes"
 msgstr "是"
 
 #: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:290 lib/properties.c:311
+#: app/preferences.c:514 lib/properties.c:350 lib/properties.c:382
 msgid "No"
 msgstr "否"
 
@@ -419,8 +419,7 @@ msgstr "移动"
 msgid "Create Text"
 msgstr "创建文字"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1262
-#: lib/properties.h:366
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1702
 msgid "Text"
 msgstr "文字"
 
@@ -570,13 +569,12 @@ msgstr "详细..."
 msgid "Line Style Properties"
 msgstr "线型属性"
 
-#: app/linewidth_area.c:216 lib/properties.h:342
+#: app/linewidth_area.c:216 objects/chronogram/chronoline.c:181
+#: objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "线宽"
 
-#: app/linewidth_area.c:224 objects/chronogram/chronoline.c:337
-#: objects/chronogram/chronoline.c:428 objects/chronogram/chronoref.c:256
-#: objects/chronogram/chronoref.c:321
+#: app/linewidth_area.c:224
 msgid "Line width:"
 msgstr "线宽："
 
@@ -780,17 +778,17 @@ msgstr "触及的"
 msgid "Same Type"
 msgstr "相同类型"
 
-#: app/menus.c:164 lib/properties.c:1247 lib/properties.h:330
+#: app/menus.c:164 lib/properties.c:1687 lib/properties.h:366
 #: lib/widgets.c:199
 msgid "Left"
 msgstr "左"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1248 lib/properties.h:331
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1688 lib/properties.h:367
 #: lib/widgets.c:205
 msgid "Center"
 msgstr "中"
 
-#: app/menus.c:166 lib/properties.c:1249 lib/properties.h:332
+#: app/menus.c:166 lib/properties.c:1689 lib/properties.h:368
 #: lib/widgets.c:211
 msgid "Right"
 msgstr "右"
@@ -1456,16 +1454,14 @@ msgid "This object has no properties."
 msgstr "对象没有属性。"
 
 #: app/properties.c:211
-#, fuzzy
 msgid "Properties: "
-msgstr "属性(_P)"
+msgstr "属性："
 
 #: app/properties.c:219
-#, fuzzy
 msgid "Object properties:"
-msgstr "对象属性"
+msgstr "对象属性："
 
-#: app/render_eps.c:1649
+#: app/render_eps.c:1651
 msgid "Encapsulated Postscript"
 msgstr "封装的 Postscript"
 
@@ -1491,53 +1487,6 @@ msgstr "正在载入..."
 #, c-format
 msgid "Dia v %s"
 msgstr "Dia v %s"
-
-#: lib/properties.c:1256 lib/properties.h:345
-msgid "Line colour"
-msgstr "线颜色"
-
-#: lib/properties.c:1257 lib/properties.h:348
-msgid "Line style"
-msgstr "线型"
-
-#: lib/properties.c:1258 lib/properties.h:352
-msgid "Fill colour"
-msgstr "填充颜色"
-
-#: lib/properties.c:1259 lib/properties.h:355
-#: objects/custom/custom_object.c:362 objects/flowchart/box.c:317
-#: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
-#: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
-#: objects/standard/box.c:232 objects/standard/ellipse.c:220
-#: objects/standard/polygon.c:226
-msgid "Draw background"
-msgstr "绘制背景"
-
-#: lib/properties.c:1260 lib/properties.h:359
-msgid "Start arrow"
-msgstr "起始箭头"
-
-#: lib/properties.c:1261 lib/properties.h:362
-msgid "End arrow"
-msgstr "终止箭头"
-
-#: lib/properties.c:1263 lib/properties.h:369
-msgid "Text alignment"
-msgstr "文字对齐"
-
-#: lib/properties.c:1264 lib/properties.h:372 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/transition.c:140
-msgid "Font"
-msgstr "字体"
-
-#: lib/properties.c:1265 lib/properties.h:375 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/transition.c:142
-msgid "Font size"
-msgstr "字体大小"
-
-#: lib/properties.c:1266 lib/properties.h:378
-msgid "Text colour"
-msgstr "文字颜色"
 
 #: lib/plug-ins.c:211
 #, c-format
@@ -1577,7 +1526,7 @@ msgstr "无法打开“%s”"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "内部错误：设置贝塞尔曲线端点的拐角类型"
 
-#: lib/font.c:389
+#: lib/font.c:394
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1586,24 +1535,73 @@ msgstr ""
 "警告：没有找到 %s 的 X 字体，\n"
 "使用 %s。\n"
 
-#: lib/font.c:443
+#: lib/font.c:449
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "没有找到字体 %s，使用 Courier 字体。\n"
 
-#: lib/properties.c:382 lib/properties.c:414
+#: lib/properties.c:494 lib/properties.c:532
 msgid "No edit widget"
 msgstr "没有编辑构件"
 
-#: lib/message.c:120
+#: lib/properties.c:1696
+msgid "Line colour"
+msgstr "线颜色"
+
+#: lib/properties.c:1697
+msgid "Line style"
+msgstr "线型"
+
+#: lib/properties.c:1698
+msgid "Fill colour"
+msgstr "填充颜色"
+
+#: lib/properties.c:1699 objects/custom/custom_object.c:364
+#: objects/flowchart/box.c:317 objects/flowchart/diamond.c:310
+#: objects/flowchart/ellipse.c:310 objects/flowchart/parallelogram.c:321
+#: objects/standard/beziergon.c:222 objects/standard/box.c:232
+#: objects/standard/ellipse.c:220 objects/standard/polygon.c:226
+msgid "Draw background"
+msgstr "绘制背景"
+
+#: lib/properties.c:1700
+msgid "Start arrow"
+msgstr "起始箭头"
+
+#: lib/properties.c:1701
+msgid "End arrow"
+msgstr "终止箭头"
+
+#: lib/properties.c:1703
+msgid "Text alignment"
+msgstr "文字对齐"
+
+#: lib/properties.c:1704 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
+#: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
+msgid "Font"
+msgstr "字体"
+
+#: lib/properties.c:1705 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
+#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
+msgid "Font size"
+msgstr "字体大小"
+
+#: lib/properties.c:1706 objects/GRAFCET/step.c:167
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
+msgid "Text colour"
+msgstr "文字颜色"
+
+#: lib/message.c:140
 msgid "Notice"
 msgstr "注意"
 
-#: lib/message.c:131
+#: lib/message.c:151
 msgid "Warning"
 msgstr "警告"
 
-#: lib/message.c:143
+#: lib/message.c:163
 msgid "Error"
 msgstr "错误"
 
@@ -1681,14 +1679,12 @@ msgid "Blanked Dot"
 msgstr "空心点"
 
 #: lib/widgets.c:669
-#, fuzzy
 msgid "Double Hollow triangle"
-msgstr "空心三角形"
+msgstr "双空心三角形"
 
 #: lib/widgets.c:670
-#, fuzzy
 msgid "Double Filled triangle"
-msgstr "实心三角形"
+msgstr "双实心三角形"
 
 #: lib/widgets.c:671
 msgid "Filled Box"
@@ -1779,7 +1775,7 @@ msgid "Total:"
 msgstr "总共："
 
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
-#: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
+#: objects/GRAFCET/vector.c:305 objects/SADT/arrow.c:550
 #: objects/UML/association.c:618 objects/UML/dependency.c:375
 #: objects/UML/generalization.c:369 objects/UML/realizes.c:372
 #: objects/standard/zigzagline.c:339
@@ -1787,7 +1783,7 @@ msgid "Add segment"
 msgstr "添加图段"
 
 #: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
-#: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
+#: objects/GRAFCET/vector.c:306 objects/SADT/arrow.c:551
 #: objects/UML/association.c:619 objects/UML/dependency.c:376
 #: objects/UML/generalization.c:370 objects/UML/realizes.c:373
 #: objects/standard/zigzagline.c:340
@@ -2695,37 +2691,12 @@ msgstr ""
 msgid "Wish Fn"
 msgstr ""
 
-#: objects/GRAFCET/action.c:197 objects/GRAFCET/action.c:238
-#: objects/GRAFCET/step.c:275 objects/GRAFCET/step.c:315
-#: objects/SADT/annotation.c:495 objects/SADT/annotation.c:537
-#: objects/SADT/box.c:210 objects/SADT/box.c:252
-#: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
-#: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
-#: objects/custom/custom_object.c:396 objects/flowchart/box.c:353
-#: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
-#: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
-msgid "Font:"
-msgstr "字体:"
-
-#: objects/GRAFCET/action.c:198 objects/GRAFCET/action.c:239
-#: objects/GRAFCET/step.c:276 objects/GRAFCET/step.c:316
-#: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
-#: objects/SADT/box.c:211 objects/SADT/box.c:253
-#: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
-#: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
-#: objects/custom/custom_object.c:407 objects/flowchart/box.c:364
-#: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
-#: objects/flowchart/parallelogram.c:368
-msgid "Font size:"
-msgstr "字体大小:"
-
-#: objects/GRAFCET/action.c:199 objects/GRAFCET/action.c:240
-#: objects/GRAFCET/step.c:277
-msgid "Text color:"
-msgstr "文字颜色:"
-
-#: objects/GRAFCET/action.c:200
+#: objects/GRAFCET/action.c:134
 msgid "Macro call"
+msgstr ""
+
+#: objects/GRAFCET/action.c:134
+msgid "This action is a call to a macro-step"
 msgstr ""
 
 #: objects/GRAFCET/condition.c:129
@@ -2759,45 +2730,53 @@ msgstr ""
 msgid "GRAFCET diagram objects"
 msgstr ""
 
-#: objects/GRAFCET/step.c:258
+#: objects/GRAFCET/step.c:146
 msgid "Regular step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:259
+#: objects/GRAFCET/step.c:147
 msgid "Initial step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:260
+#: objects/GRAFCET/step.c:148
 msgid "Macro entry step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:261
+#: objects/GRAFCET/step.c:149
 msgid "Macro exit step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:262
+#: objects/GRAFCET/step.c:150
 msgid "Macro call step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:263
+#: objects/GRAFCET/step.c:151
 msgid "Subprogram call step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:272
+#: objects/GRAFCET/step.c:157
 msgid "Step name"
 msgstr ""
 
-#: objects/GRAFCET/step.c:273
-msgid "Active"
+#: objects/GRAFCET/step.c:157
+msgid "The name of the step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:274
+#: objects/GRAFCET/step.c:159
 msgid "Step type"
 msgstr ""
 
-#: objects/GRAFCET/step.c:317
-msgid "Color:"
-msgstr "颜色:"
+#: objects/GRAFCET/step.c:159
+msgid "The kind of step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:161
+msgid "Active"
+msgstr ""
+
+#: objects/GRAFCET/step.c:161
+msgid "Shows a red dot to figure the step's activity"
+msgstr ""
 
 #: objects/GRAFCET/transition.c:138
 #, fuzzy
@@ -2830,90 +2809,92 @@ msgstr "起点"
 msgid "South point"
 msgstr "起点"
 
-#: objects/GRAFCET/vector.c:185 objects/GRAFCET/vector.c:219
+#: objects/GRAFCET/vector.c:128
 msgid "Draw arrow heads on upward arcs:"
 msgstr ""
 
-#: objects/GRAFCET/vergent.c:171
+#: objects/GRAFCET/vergent.c:122
 msgid "OR"
 msgstr "或"
 
-#: objects/GRAFCET/vergent.c:172
+#: objects/GRAFCET/vergent.c:123
 msgid "AND"
 msgstr "与"
 
-#: objects/GRAFCET/vergent.c:181
+#: objects/GRAFCET/vergent.c:134
 msgid "Vergent type:"
 msgstr ""
 
-#: objects/GRAFCET/vergent.c:446 objects/SADT/box.c:539
+#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:454
 #: objects/standard/line.c:182
 msgid "Add connection point"
 msgstr "添加联接点"
 
-#: objects/GRAFCET/vergent.c:447
+#: objects/GRAFCET/vergent.c:391
 msgid "Delete  connection point"
 msgstr "删除联接点"
 
-#: objects/GRAFCET/vergent.c:451
+#: objects/GRAFCET/vergent.c:395
 msgid "GRAFCET OR/AND vergent"
 msgstr ""
 
-#: objects/SADT/annotation.c:497 objects/SADT/annotation.c:539
-#: objects/SADT/box.c:212 objects/SADT/box.c:254
-#: objects/chronogram/chronoline.c:340 objects/chronogram/chronoline.c:432
-#: objects/chronogram/chronoref.c:261 objects/chronogram/chronoref.c:326
-msgid "Font color:"
-msgstr "字颜色:"
-
-#: objects/SADT/arrow.c:191 objects/UML/state.c:134
+#: objects/SADT/arrow.c:134 objects/UML/state.c:134
 msgid "Normal"
 msgstr ""
 
-#: objects/SADT/arrow.c:192
+#: objects/SADT/arrow.c:135
 msgid "Import resource (not shown upstairs)"
 msgstr ""
 
-#: objects/SADT/arrow.c:193
+#: objects/SADT/arrow.c:136
 msgid "Imply resource (not shown downstairs)"
 msgstr ""
 
-#: objects/SADT/arrow.c:194
+#: objects/SADT/arrow.c:137
 msgid "Dotted arrow"
 msgstr ""
 
-#: objects/SADT/arrow.c:195
+#: objects/SADT/arrow.c:138
 msgid "disable arrow heads"
 msgstr ""
 
-#: objects/SADT/arrow.c:204 objects/SADT/arrow.c:241
+#: objects/SADT/arrow.c:144
 msgid "Flow style:"
 msgstr ""
 
-#: objects/SADT/arrow.c:205 objects/SADT/arrow.c:242
+#: objects/SADT/arrow.c:146
 msgid "Automatically gray vertical flows:"
 msgstr ""
 
-#: objects/SADT/arrow.c:665
+#: objects/SADT/arrow.c:147
+msgid ""
+"To improve the ease of reading, flows which begin and end vertically can be "
+"rendered gray"
+msgstr ""
+
+#: objects/SADT/arrow.c:555
 msgid "SADT Arrow"
 msgstr ""
 
-#: objects/SADT/box.c:209 objects/SADT/box.c:251
-#: objects/custom/custom_object.c:371 objects/flowchart/box.c:339
-#: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
-#: objects/flowchart/parallelogram.c:343
-msgid "Text padding:"
-msgstr "文字填充:"
+#: objects/SADT/box.c:139 objects/flowchart/box.c:169
+#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
+#: objects/flowchart/parallelogram.c:171
+msgid "Text padding"
+msgstr "文字填充"
 
-#: objects/SADT/box.c:213
+#: objects/SADT/box.c:146
 msgid "Activity/Data identifier"
 msgstr ""
 
-#: objects/SADT/box.c:540 objects/standard/line.c:183
+#: objects/SADT/box.c:147
+msgid "The identifier which appears in the lower right corner of the Box"
+msgstr ""
+
+#: objects/SADT/box.c:455 objects/standard/line.c:183
 msgid "Delete connection point"
 msgstr "删除联接点"
 
-#: objects/SADT/box.c:545
+#: objects/SADT/box.c:460
 msgid "SADT box"
 msgstr ""
 
@@ -3159,13 +3140,27 @@ msgstr "显示箭头:"
 msgid "Interface:"
 msgstr "界面:"
 
-#: objects/UML/lifeline.c:138
+#: objects/UML/lifeline.c:140
 #, fuzzy
 msgid "Draw focus of control:"
 msgstr "显示控制焦点:"
 
-#: objects/UML/lifeline.c:140
+#: objects/UML/lifeline.c:142
 msgid "Draw destruction mark:"
+msgstr ""
+
+#: objects/UML/lifeline.c:405
+#, fuzzy
+msgid "Add connection points"
+msgstr "添加联接点"
+
+#: objects/UML/lifeline.c:406
+#, fuzzy
+msgid "Remove connection points"
+msgstr "删除联接点"
+
+#: objects/UML/lifeline.c:410
+msgid "UML Lifeline"
 msgstr ""
 
 #: objects/UML/message.c:158
@@ -3257,29 +3252,26 @@ msgstr ""
 msgid "Chronogram diagram objects"
 msgstr ""
 
-#: objects/chronogram/chronoline.c:307 objects/chronogram/chronoline.c:410
-msgid "Aspect"
-msgstr ""
-
-#: objects/chronogram/chronoline.c:308 objects/chronogram/chronoline.c:411
-msgid "Parameters"
-msgstr "参数"
-
-#: objects/chronogram/chronoline.c:309
+#: objects/chronogram/chronoline.c:148
 msgid "Data"
 msgstr "数据"
 
-#: objects/chronogram/chronoline.c:311
-msgid "Data name:"
+#: objects/chronogram/chronoline.c:150
+#, fuzzy
+msgid "Data name"
 msgstr "数据名:"
 
-#: objects/chronogram/chronoline.c:313
-msgid "Events:"
+#: objects/chronogram/chronoline.c:152
+#, fuzzy
+msgid "Events"
 msgstr "事件:"
 
-#: objects/chronogram/chronoline.c:314
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:156
 msgid ""
-"Event specification:\n"
 "@ time    set the pointer at an absolute time.\n"
 "( duration  sets the signal up, then wait 'duration'.\n"
 ") duration  sets the signal down, then wait 'duration'.\n"
@@ -3287,51 +3279,67 @@ msgid ""
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
 
-#: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
-#: objects/chronogram/chronoref.c:249 objects/chronogram/chronoref.c:314
-msgid "Start time:"
+#: objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "参数"
+
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+#, fuzzy
+msgid "Start time"
+msgstr "起点"
+
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+msgid "End time"
 msgstr ""
 
-#: objects/chronogram/chronoline.c:324 objects/chronogram/chronoline.c:415
-#: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
-msgid "End time:"
+#: objects/chronogram/chronoline.c:168
+#, fuzzy
+msgid "Rise time"
+msgstr "提高图层"
+
+#: objects/chronogram/chronoline.c:170
+msgid "Fall time"
 msgstr ""
 
-#: objects/chronogram/chronoline.c:326 objects/chronogram/chronoline.c:417
-msgid "Rise time:"
-msgstr ""
-
-#: objects/chronogram/chronoline.c:328 objects/chronogram/chronoline.c:419
-msgid "Fall time:"
-msgstr ""
-
-#: objects/chronogram/chronoline.c:330 objects/chronogram/chronoline.c:421
+#: objects/chronogram/chronoline.c:171
 msgid "Multi-bit data"
 msgstr "多字节数据"
 
-#: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
-msgid "Data color:"
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+msgid "Aspect"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:175
+#, fuzzy
+msgid "Data color"
 msgstr "数据颜色:"
 
-#: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:425
-msgid "Data line width:"
+#: objects/chronogram/chronoline.c:177
+#, fuzzy
+msgid "Data line width"
 msgstr "数据线宽:"
 
-#: objects/chronogram/chronoline.c:335 objects/chronogram/chronoline.c:427
-#: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
-msgid "Line color:"
-msgstr "线颜色:"
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
+#, fuzzy
+msgid "Line color"
+msgstr "线颜色"
 
-#: objects/chronogram/chronoref.c:252 objects/chronogram/chronoref.c:317
-msgid "Major time step:"
+#: objects/chronogram/chronoref.c:144
+#, fuzzy
+msgid "Time data"
+msgstr "属性数据"
+
+#: objects/chronogram/chronoref.c:150
+msgid "Major time step"
 msgstr ""
 
-#: objects/chronogram/chronoref.c:253 objects/chronogram/chronoref.c:318
-msgid "Minor time step:"
+#: objects/chronogram/chronoref.c:152
+msgid "Minor time step"
 msgstr ""
 
-#: objects/chronogram/chronoref.c:257 objects/chronogram/chronoref.c:322
-msgid "Minor step line width:"
+#: objects/chronogram/chronoref.c:162
+#, fuzzy
+msgid "Minor step line width"
 msgstr "小步进线宽:"
 
 #: objects/custom/custom.c:124
@@ -3342,27 +3350,45 @@ msgstr "定制"
 msgid "Custom XML shapes loader"
 msgstr "定制 XML 外形载入器"
 
-#: objects/custom/custom_object.c:185 objects/custom/custom_object.c:203
+#: objects/custom/custom_object.c:187 objects/custom/custom_object.c:205
 msgid "Flip horizontal"
 msgstr "水平翻转"
 
-#: objects/custom/custom_object.c:187 objects/custom/custom_object.c:205
+#: objects/custom/custom_object.c:189 objects/custom/custom_object.c:207
 msgid "Flip vertical"
 msgstr "垂直翻转"
 
-#: objects/custom/custom_object.c:385 objects/standard/textobj.c:259
+#: objects/custom/custom_object.c:373 objects/flowchart/box.c:339
+#: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
+#: objects/flowchart/parallelogram.c:343
+msgid "Text padding:"
+msgstr "文字填充:"
+
+#: objects/custom/custom_object.c:387 objects/standard/textobj.c:259
 msgid "Alignment:"
 msgstr "对齐:"
 
-#: objects/custom/custom_object.c:1546
+#: objects/custom/custom_object.c:398 objects/flowchart/box.c:353
+#: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
+#: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
+msgid "Font:"
+msgstr "字体:"
+
+#: objects/custom/custom_object.c:409 objects/flowchart/box.c:364
+#: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
+#: objects/flowchart/parallelogram.c:368
+msgid "Font size:"
+msgstr "字体大小:"
+
+#: objects/custom/custom_object.c:1562
 msgid "Flip Horizontal"
 msgstr "水平翻转"
 
-#: objects/custom/custom_object.c:1547
+#: objects/custom/custom_object.c:1563
 msgid "Flip Vertical"
 msgstr "垂直翻转"
 
-#: objects/custom/custom_object.c:1580
+#: objects/custom/custom_object.c:1596
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr ""
@@ -3370,11 +3396,6 @@ msgstr ""
 #: objects/flowchart/box.c:167 objects/standard/box.c:153
 msgid "Corner radius"
 msgstr "圆角半径"
-
-#: objects/flowchart/box.c:169 objects/flowchart/diamond.c:165
-#: objects/flowchart/ellipse.c:165 objects/flowchart/parallelogram.c:171
-msgid "Text padding"
-msgstr "文字填充"
 
 #: objects/flowchart/box.c:325 objects/standard/box.c:240
 msgid "Corner rounding:"
@@ -3559,7 +3580,7 @@ msgid "Fig Format import and export filter"
 msgstr "dia 外形输出过滤器"
 
 #: plug-ins/xfig/xfig-import.c:73
-msgid "Polygon import is not implemented yes"
+msgid "Polygon import is not implemented yet"
 msgstr ""
 
 #: plug-ins/xfig/xfig-import.c:74
@@ -3711,33 +3732,18 @@ msgstr ""
 #: plug-ins/xfig/xfig-import.c:1038
 #, c-format
 msgid "Error reading resolution: %s\n"
-msgstr ""
+msgstr "读取分辨率时发生错误：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:1069
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
-msgstr ""
+msgstr "不是一个 Fig 文件：%s\n"
 
 #: plug-ins/xfig/xfig-import.c:1075
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
-msgstr ""
+msgstr "这是一个 版本为 %d.%d 的文件，无法解释它\n"
 
 #: plug-ins/xfig/xfig-import.c:1116
 msgid "XFig File Format"
-msgstr ""
-
-#, fuzzy
-#~ msgid ""
-#~ "Dia v %s\n"
-#~ " by Alexander Larsson"
-#~ msgstr "Dia v %s, Alexander Larsson"
-
-#~ msgid "Hollow Diamond"
-#~ msgstr "空心菱形"
-
-#~ msgid "Background color:"
-#~ msgstr "背景颜色:"
-
-#~ msgid "Asynchronous"
-#~ msgstr "异步"
+msgstr "XFig 文件格式"
