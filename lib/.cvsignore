@@ -3,3 +3,4 @@ Makefile
 Makefile.in
 diamarshal.c
 diamarshal.h
+dia-lib-icons.h
