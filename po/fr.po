@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-06-10 23:09+0200\n"
+"POT-Creation-Date: 2001-06-12 12:20+0200\n"
 "PO-Revision-Date: 2001-05-17 13:31+0200\n"
 "Last-Translator: Christophe Merlet <redfox@eikonex.org>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
@@ -320,12 +320,12 @@ msgstr ""
 "Enregistrer les changements maintenant ?"
 
 #: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:291
+#: lib/properties.c:331
 msgid "Yes"
 msgstr "Oui"
 
 #: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:293 lib/properties.c:314
+#: app/preferences.c:514 lib/properties.c:333 lib/properties.c:354
 msgid "No"
 msgstr "Non"
 
@@ -429,8 +429,8 @@ msgstr "Déplacement"
 msgid "Create Text"
 msgstr "Créer du texte"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1290
-#: lib/properties.h:369
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1538
+#: lib/properties.h:393
 msgid "Text"
 msgstr "Texte"
 
@@ -583,13 +583,12 @@ msgstr "Détails..."
 msgid "Line Style Properties"
 msgstr "Propriétés du style de ligne"
 
-#: app/linewidth_area.c:216 lib/properties.h:345
+#: app/linewidth_area.c:216 lib/properties.h:369
+#: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:153
 msgid "Line width"
 msgstr "Largeur de ligne"
 
-#: app/linewidth_area.c:224 objects/chronogram/chronoline.c:337
-#: objects/chronogram/chronoline.c:428 objects/chronogram/chronoref.c:256
-#: objects/chronogram/chronoref.c:321
+#: app/linewidth_area.c:224
 msgid "Line width:"
 msgstr "Largeur de ligne :"
 
@@ -793,17 +792,17 @@ msgstr "Transitif"
 msgid "Same Type"
 msgstr "Même type"
 
-#: app/menus.c:164 lib/properties.c:1275 lib/properties.h:333
+#: app/menus.c:164 lib/properties.c:1523 lib/properties.h:357
 #: lib/widgets.c:199
 msgid "Left"
 msgstr "À gauche"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1276 lib/properties.h:334
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1524 lib/properties.h:358
 #: lib/widgets.c:205
 msgid "Center"
 msgstr "Au centre"
 
-#: app/menus.c:166 lib/properties.c:1277 lib/properties.h:335
+#: app/menus.c:166 lib/properties.c:1525 lib/properties.h:359
 #: lib/widgets.c:211
 msgid "Right"
 msgstr "À droite"
@@ -1478,7 +1477,7 @@ msgstr "Propriétés : "
 msgid "Object properties:"
 msgstr "Propriétés de l'objet :"
 
-#: app/render_eps.c:1649
+#: app/render_eps.c:1651
 msgid "Encapsulated Postscript"
 msgstr "PostScript encapsulé (EPS)"
 
@@ -1505,19 +1504,19 @@ msgstr "Chargement..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
-#: lib/properties.c:1284 lib/properties.h:348
+#: lib/properties.c:1532 lib/properties.h:372
 msgid "Line colour"
 msgstr "Couleur de ligne :"
 
-#: lib/properties.c:1285 lib/properties.h:351
+#: lib/properties.c:1533 lib/properties.h:375
 msgid "Line style"
 msgstr "Style de ligne"
 
-#: lib/properties.c:1286 lib/properties.h:355
+#: lib/properties.c:1534 lib/properties.h:379
 msgid "Fill colour"
 msgstr "Couleur de remplissage"
 
-#: lib/properties.c:1287 lib/properties.h:358
+#: lib/properties.c:1535 lib/properties.h:382
 #: objects/custom/custom_object.c:362 objects/flowchart/box.c:317
 #: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
 #: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
@@ -1526,29 +1525,32 @@ msgstr "Couleur de remplissage"
 msgid "Draw background"
 msgstr "Dessiner le fond"
 
-#: lib/properties.c:1288 lib/properties.h:362
+#: lib/properties.c:1536 lib/properties.h:386
 msgid "Start arrow"
 msgstr "Flèche de début"
 
-#: lib/properties.c:1289 lib/properties.h:365
+#: lib/properties.c:1537 lib/properties.h:389
 msgid "End arrow"
 msgstr "Flèche de fin"
 
-#: lib/properties.c:1291 lib/properties.h:372
+#: lib/properties.c:1539 lib/properties.h:396
 msgid "Text alignment"
 msgstr "Alignement"
 
-#: lib/properties.c:1292 lib/properties.h:375 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/transition.c:140
+#: lib/properties.c:1540 lib/properties.h:399 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
+#: objects/chronogram/chronoline.c:188 objects/chronogram/chronoref.c:157
 msgid "Font"
 msgstr "Police"
 
-#: lib/properties.c:1293 lib/properties.h:378 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/transition.c:142
+#: lib/properties.c:1541 lib/properties.h:402 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
+#: objects/chronogram/chronoline.c:190 objects/chronogram/chronoref.c:159
 msgid "Font size"
 msgstr "Taille de police"
 
-#: lib/properties.c:1294 lib/properties.h:381
+#: lib/properties.c:1542 lib/properties.h:405 objects/GRAFCET/step.c:167
+#: objects/chronogram/chronoline.c:192 objects/chronogram/chronoref.c:161
 msgid "Text colour"
 msgstr "Couleur du texte"
 
@@ -1590,7 +1592,7 @@ msgstr "Ne peut ouvrir « %s »"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Erreur interne : « Setting corner type of endpoint of bezier »"
 
-#: lib/font.c:389
+#: lib/font.c:394
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1599,12 +1601,12 @@ msgstr ""
 "Avertissement : Pas de police X trouvée pour %s, \n"
 "utilisation de %s à la place.\n"
 
-#: lib/font.c:443
+#: lib/font.c:449
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Police %s non trouvée, utilisation de la police Courier à la place.\n"
 
-#: lib/properties.c:386 lib/properties.c:418
+#: lib/properties.c:450 lib/properties.c:488
 msgid "No edit widget"
 msgstr "Pas de widget d'édition"
 
@@ -1789,7 +1791,7 @@ msgid "Total:"
 msgstr "Total :"
 
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
-#: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
+#: objects/GRAFCET/vector.c:305 objects/SADT/arrow.c:550
 #: objects/UML/association.c:618 objects/UML/dependency.c:375
 #: objects/UML/generalization.c:369 objects/UML/realizes.c:372
 #: objects/standard/zigzagline.c:339
@@ -1797,7 +1799,7 @@ msgid "Add segment"
 msgstr "Ajouter un segment"
 
 #: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
-#: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
+#: objects/GRAFCET/vector.c:306 objects/SADT/arrow.c:551
 #: objects/UML/association.c:619 objects/UML/dependency.c:376
 #: objects/UML/generalization.c:370 objects/UML/realizes.c:373
 #: objects/standard/zigzagline.c:340
@@ -2668,38 +2670,13 @@ msgstr "Fonction d'utilisation/d'appareil"
 msgid "Wish Fn"
 msgstr "Fonction désirée"
 
-#: objects/GRAFCET/action.c:197 objects/GRAFCET/action.c:238
-#: objects/GRAFCET/step.c:275 objects/GRAFCET/step.c:315
-#: objects/SADT/annotation.c:495 objects/SADT/annotation.c:537
-#: objects/SADT/box.c:210 objects/SADT/box.c:252
-#: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
-#: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
-#: objects/custom/custom_object.c:396 objects/flowchart/box.c:353
-#: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
-#: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
-msgid "Font:"
-msgstr "Police :"
-
-#: objects/GRAFCET/action.c:198 objects/GRAFCET/action.c:239
-#: objects/GRAFCET/step.c:276 objects/GRAFCET/step.c:316
-#: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
-#: objects/SADT/box.c:211 objects/SADT/box.c:253
-#: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
-#: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
-#: objects/custom/custom_object.c:407 objects/flowchart/box.c:364
-#: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
-#: objects/flowchart/parallelogram.c:368
-msgid "Font size:"
-msgstr "Taille de police :"
-
-#: objects/GRAFCET/action.c:199 objects/GRAFCET/action.c:240
-#: objects/GRAFCET/step.c:277
-msgid "Text color:"
-msgstr "Couleur du texte :"
-
-#: objects/GRAFCET/action.c:200
+#: objects/GRAFCET/action.c:134
 msgid "Macro call"
 msgstr "Appel de macro"
+
+#: objects/GRAFCET/action.c:134
+msgid "This action is a call to a macro-step"
+msgstr "Cette action appelle une macro-étape"
 
 #: objects/GRAFCET/condition.c:129
 msgid "Condition"
@@ -2729,45 +2706,53 @@ msgstr "La couleur de la condition"
 msgid "GRAFCET diagram objects"
 msgstr "Objets de diagramme GRAFCET"
 
-#: objects/GRAFCET/step.c:258
+#: objects/GRAFCET/step.c:146
 msgid "Regular step"
 msgstr "Étape normale"
 
-#: objects/GRAFCET/step.c:259
+#: objects/GRAFCET/step.c:147
 msgid "Initial step"
 msgstr "Étape initiale"
 
-#: objects/GRAFCET/step.c:260
+#: objects/GRAFCET/step.c:148
 msgid "Macro entry step"
 msgstr "Étape de saisie de macro"
 
-#: objects/GRAFCET/step.c:261
+#: objects/GRAFCET/step.c:149
 msgid "Macro exit step"
 msgstr "Étape de fin de macro"
 
-#: objects/GRAFCET/step.c:262
+#: objects/GRAFCET/step.c:150
 msgid "Macro call step"
 msgstr "Étape d'appel de macro"
 
-#: objects/GRAFCET/step.c:263
+#: objects/GRAFCET/step.c:151
 msgid "Subprogram call step"
 msgstr "Étape d'appel de sous-programme"
 
-#: objects/GRAFCET/step.c:272
+#: objects/GRAFCET/step.c:157
 msgid "Step name"
 msgstr "Nom de l'étape :"
 
-#: objects/GRAFCET/step.c:273
-msgid "Active"
-msgstr "Active"
+#: objects/GRAFCET/step.c:157
+msgid "The name of the step"
+msgstr "Le nom de l'étape"
 
-#: objects/GRAFCET/step.c:274
+#: objects/GRAFCET/step.c:159
 msgid "Step type"
 msgstr "Type d'étape"
 
-#: objects/GRAFCET/step.c:317
-msgid "Color:"
-msgstr "Couleur :"
+#: objects/GRAFCET/step.c:159
+msgid "The kind of step"
+msgstr "Le genre d'étape"
+
+#: objects/GRAFCET/step.c:161
+msgid "Active"
+msgstr "Active"
+
+#: objects/GRAFCET/step.c:161
+msgid "Shows a red dot to figure the step's activity"
+msgstr "Montre un point rouge figurant l'activité de l'étape"
 
 #: objects/GRAFCET/transition.c:138
 msgid "Receptivity"
@@ -2797,7 +2782,7 @@ msgstr "Point Nord"
 msgid "South point"
 msgstr "Point Sud"
 
-#: objects/GRAFCET/vector.c:185 objects/GRAFCET/vector.c:219
+#: objects/GRAFCET/vector.c:128
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Dessine les flèches sur les arcs montants :"
 
@@ -2813,7 +2798,7 @@ msgstr "ET"
 msgid "Vergent type:"
 msgstr "Type de vergence :"
 
-#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:539
+#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:454
 #: objects/standard/line.c:182
 msgid "Add connection point"
 msgstr "Ajouter un point de connexion"
@@ -2826,61 +2811,63 @@ msgstr "Supprimer un point de connexion"
 msgid "GRAFCET OR/AND vergent"
 msgstr "Vergence ET/OU de GRAFCET"
 
-#: objects/SADT/annotation.c:497 objects/SADT/annotation.c:539
-#: objects/SADT/box.c:212 objects/SADT/box.c:254
-#: objects/chronogram/chronoline.c:340 objects/chronogram/chronoline.c:432
-#: objects/chronogram/chronoref.c:261 objects/chronogram/chronoref.c:326
-msgid "Font color:"
-msgstr "Couleur de la police :"
-
-#: objects/SADT/arrow.c:191 objects/UML/state.c:134
+#: objects/SADT/arrow.c:134 objects/UML/state.c:134
 msgid "Normal"
 msgstr "Normal"
 
-#: objects/SADT/arrow.c:192
+#: objects/SADT/arrow.c:135
 msgid "Import resource (not shown upstairs)"
 msgstr "Importe la ressource (ne montre pas en haut)"
 
-#: objects/SADT/arrow.c:193
+#: objects/SADT/arrow.c:136
 msgid "Imply resource (not shown downstairs)"
 msgstr "Implique la ressource (ne montre pas en bas)"
 
-#: objects/SADT/arrow.c:194
+#: objects/SADT/arrow.c:137
 msgid "Dotted arrow"
 msgstr "Flèche pointée"
 
-#: objects/SADT/arrow.c:195
+#: objects/SADT/arrow.c:138
 msgid "disable arrow heads"
 msgstr "Désactive les flèches"
 
-#: objects/SADT/arrow.c:204 objects/SADT/arrow.c:241
+#: objects/SADT/arrow.c:144
 msgid "Flow style:"
 msgstr "Style de flux :"
 
-#: objects/SADT/arrow.c:205 objects/SADT/arrow.c:242
+#: objects/SADT/arrow.c:146
 msgid "Automatically gray vertical flows:"
 msgstr "Grise automatiquement les flux verticaux :"
 
-#: objects/SADT/arrow.c:665
+#: objects/SADT/arrow.c:147
+msgid ""
+"To improve the ease of reading, flows which begin and end vertically can be "
+"rendered gray"
+msgstr "Pour améliorer la lisibilité, les flux qui commencent et finissent verticalement peuvent être rendus grisés"
+
+#: objects/SADT/arrow.c:555
 msgid "SADT Arrow"
 msgstr "Flèche SADT"
 
-#: objects/SADT/box.c:209 objects/SADT/box.c:251
-#: objects/custom/custom_object.c:371 objects/flowchart/box.c:339
-#: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
-#: objects/flowchart/parallelogram.c:343
-msgid "Text padding:"
-msgstr "Remplissage du texte :"
+#: objects/SADT/box.c:139 objects/flowchart/box.c:169
+#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
+#: objects/flowchart/parallelogram.c:171
+msgid "Text padding"
+msgstr "Remplissage du texte"
 
-#: objects/SADT/box.c:213
+#: objects/SADT/box.c:146
 msgid "Activity/Data identifier"
 msgstr "Identifiant Activité/Donnée :"
 
-#: objects/SADT/box.c:540 objects/standard/line.c:183
+#: objects/SADT/box.c:147
+msgid "The identifier which appears in the lower right corner of the Box"
+msgstr "L'identificateur qui apparaît dans le coin inférieur droit de la boîte"
+
+#: objects/SADT/box.c:455 objects/standard/line.c:183
 msgid "Delete connection point"
 msgstr "Supprimer le point de connexion"
 
-#: objects/SADT/box.c:545
+#: objects/SADT/box.c:460
 msgid "SADT box"
 msgstr "Boîte SADT"
 
@@ -3227,88 +3214,87 @@ msgstr "Collaboration"
 msgid "Chronogram diagram objects"
 msgstr "Objets de diagramme Chronogramme"
 
-#: objects/chronogram/chronoline.c:307 objects/chronogram/chronoline.c:410
-msgid "Aspect"
-msgstr "Aspect"
-
-#: objects/chronogram/chronoline.c:308 objects/chronogram/chronoline.c:411
-msgid "Parameters"
-msgstr "Paramètres"
-
-#: objects/chronogram/chronoline.c:309
+#: objects/chronogram/chronoline.c:151
 msgid "Data"
 msgstr "Données"
 
-#: objects/chronogram/chronoline.c:311
-msgid "Data name:"
-msgstr "Nom de la donnée :"
+#: objects/chronogram/chronoline.c:152
+msgid "Data name"
+msgstr "Nom de la donnée"
 
-#: objects/chronogram/chronoline.c:313
-msgid "Events:"
-msgstr "Événements :"
+#: objects/chronogram/chronoline.c:153
+msgid "Events"
+msgstr "Événements"
 
-#: objects/chronogram/chronoline.c:314
+#: objects/chronogram/chronoline.c:156
+msgid "Event specification"
+msgstr "Spécification des évenements"
+
+#: objects/chronogram/chronoline.c:157
 msgid ""
-"Event specification:\n"
 "@ time    set the pointer at an absolute time.\n"
 "( duration  sets the signal up, then wait 'duration'.\n"
 ") duration  sets the signal down, then wait 'duration'.\n"
 "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
-"Spécification d'événement :\n"
 "@ date   définit le pointeur à une date absolue.\n"
 "( durée  définit un front montant, puis attend « durée ».\n"
 ") durée  définit un front descendant, puis attend « durée ».\n"
 "u durée  met le signal dans l'état « inconnu », puis attend « durée ».\n"
 "exemple : @ 1.0 (2.0)1.0(2.0)\n"
 
-#: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
-#: objects/chronogram/chronoref.c:249 objects/chronogram/chronoref.c:314
-msgid "Start time:"
-msgstr "Date de début :"
+#: objects/chronogram/chronoline.c:165
+msgid "Parameters"
+msgstr "Paramètres"
 
-#: objects/chronogram/chronoline.c:324 objects/chronogram/chronoline.c:415
-#: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
-msgid "End time:"
-msgstr "Date de fin :"
+#: objects/chronogram/chronoline.c:167 objects/chronogram/chronoref.c:142
+msgid "Start time"
+msgstr "Date de début"
 
-#: objects/chronogram/chronoline.c:326 objects/chronogram/chronoline.c:417
-msgid "Rise time:"
-msgstr "Temps de montée :"
+#: objects/chronogram/chronoline.c:169 objects/chronogram/chronoref.c:144
+msgid "End time"
+msgstr "Date de fin"
 
-#: objects/chronogram/chronoline.c:328 objects/chronogram/chronoline.c:419
-msgid "Fall time:"
-msgstr "Temps de descente :"
+#: objects/chronogram/chronoline.c:171
+msgid "Rise time"
+msgstr "Temps de montée"
 
-#: objects/chronogram/chronoline.c:330 objects/chronogram/chronoline.c:421
+#: objects/chronogram/chronoline.c:173
+msgid "Fall time"
+msgstr "Temps de descente"
+
+#: objects/chronogram/chronoline.c:174
 msgid "Multi-bit data"
 msgstr "Bus"
 
-#: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
-msgid "Data color:"
-msgstr "Couleur des données :"
+#: objects/chronogram/chronoline.c:178
+msgid "Aspect"
+msgstr "Aspect"
 
-#: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:425
-msgid "Data line width:"
-msgstr "Largeur des lignes de données :"
+#: objects/chronogram/chronoline.c:180
+msgid "Data color"
+msgstr "Couleur des données"
 
-#: objects/chronogram/chronoline.c:335 objects/chronogram/chronoline.c:427
-#: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
-msgid "Line color:"
-msgstr "Couleur des lignes :"
+#: objects/chronogram/chronoline.c:182
+msgid "Data line width"
+msgstr "Largeur des lignes de données"
 
-#: objects/chronogram/chronoref.c:252 objects/chronogram/chronoref.c:317
-msgid "Major time step:"
-msgstr "Pas des graduations majeures :"
+#: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:151
+msgid "Line color"
+msgstr "Couleur des lignes"
 
-#: objects/chronogram/chronoref.c:253 objects/chronogram/chronoref.c:318
-msgid "Minor time step:"
-msgstr "Pas des graduations mineures :"
+#: objects/chronogram/chronoref.c:146
+msgid "Major time step"
+msgstr "Pas des graduations majeures"
 
-#: objects/chronogram/chronoref.c:257 objects/chronogram/chronoref.c:322
-msgid "Minor step line width:"
-msgstr "Taille des graduations mineures :"
+#: objects/chronogram/chronoref.c:148
+msgid "Minor time step"
+msgstr "Pas des graduations mineures"
+
+#: objects/chronogram/chronoref.c:155
+msgid "Minor step line width"
+msgstr "Taille des graduations mineures"
 
 #: objects/custom/custom.c:124
 msgid "Custom"
@@ -3326,9 +3312,27 @@ msgstr "Retourner horizontalement"
 msgid "Flip vertical"
 msgstr "Retourner verticalement"
 
+#: objects/custom/custom_object.c:371 objects/flowchart/box.c:339
+#: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
+#: objects/flowchart/parallelogram.c:343
+msgid "Text padding:"
+msgstr "Remplissage du texte :"
+
 #: objects/custom/custom_object.c:385 objects/standard/textobj.c:259
 msgid "Alignment:"
 msgstr "Alignement :"
+
+#: objects/custom/custom_object.c:396 objects/flowchart/box.c:353
+#: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
+#: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
+msgid "Font:"
+msgstr "Police :"
+
+#: objects/custom/custom_object.c:407 objects/flowchart/box.c:364
+#: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
+#: objects/flowchart/parallelogram.c:368
+msgid "Font size:"
+msgstr "Taille de police :"
 
 #: objects/custom/custom_object.c:1546
 msgid "Flip Horizontal"
@@ -3346,11 +3350,6 @@ msgstr "N'a pu ouvrir le fichier icone %s pour l'objet de type '%s'."
 #: objects/flowchart/box.c:167 objects/standard/box.c:153
 msgid "Corner radius"
 msgstr "Arrondis ses coins"
-
-#: objects/flowchart/box.c:169 objects/flowchart/diamond.c:165
-#: objects/flowchart/ellipse.c:165 objects/flowchart/parallelogram.c:171
-msgid "Text padding"
-msgstr "Remplissage du texte"
 
 #: objects/flowchart/box.c:325 objects/standard/box.c:240
 msgid "Corner rounding:"
