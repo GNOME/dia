@@ -1,3 +1,7 @@
+2000-05-08  Pablo Saratxaga <pablo@mandrakesoft.com>
+
+	* configure.in (ALL_LINGUAS): added Vietnamese
+
 2002-04-18  Abel Cheung  <maddog@linux.org.hk>
 
 	* ./app/app_procs.c: Use GETTEXT_DOMAIN in *textdomain*().
