@@ -322,13 +322,30 @@ dia_font_selector_sort_fonts(const void *p1, const void *p2)
   return g_strcasecmp(n1, n2);
 }
 
+static gchar*
+replace_ampersands(gchar* string)
+{
+  gchar** pieces = g_strsplit(string, "&", -1);
+  gchar* escaped = g_strjoinv("&amp;", pieces);
+  g_strfreev(pieces);
+  return escaped;
+}
+
 static GtkWidget *
 dia_font_selector_create_string_item(DiaDynamicMenu *ddm, gchar *string)
 {
   GtkWidget *item = gtk_menu_item_new_with_label(string);
-  gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))),
-		       g_strdup_printf("<span face=\"%s\" size=\"medium\">%s</span>",
-				       string, string));
+  if (strchr(string, '&') != -1) {
+    gchar *escaped = replace_ampersands(string);
+    gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))),
+			 g_strdup_printf("<span face=\"%s\" size=\"medium\">%s</span>",
+					   escaped, escaped));
+    g_free(escaped);
+  } else {
+    gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))),
+			 g_strdup_printf("<span face=\"%s\" size=\"medium\">%s</span>",
+					 string, string));
+    }
   return item;
 }
 

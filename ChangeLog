@@ -1,3 +1,12 @@
+2005-02-13  Lars Clausen  <lars@raeder.dk>
+
+	* lib/font.c: First stab at using Gtk 2.4 functions for fixing
+	width.  Seems to work.  Once tested some more, needs old code
+	removed. 
+
+	* lib/widgets.c (dia_font_selector_create_string_item): Avoid
+	warning by escaping & properly.
+
 2005-02-06  Lars Clausen  <lars@raeder.dk>
 
 	* app/filedlg.c (file_export_callback): Set correct extension as
