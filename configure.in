@@ -65,10 +65,11 @@ if test "$have_pangoft2" = "true"; then
     AC_SUBST(FREETYPE_LIBS)
     GTK_MODULES="$GTK_MODULES pangoft2"
     AC_DEFINE(HAVE_FREETYPE,1,[Define if you have the FreeType2 library])
+  else
+   AC_MSG_ERROR("Can't find FreeType library")
   fi
-fi
-if test "$have_pangoft2" = "false"; then
-  GTK_MODULES="$GTK_MODULES pango"
+else
+   AC_MSG_ERROR("Can't find PangoFT2 library")
 fi
 
 dnl Try for libart
@@ -331,53 +332,54 @@ Makefile
 lib/Makefile
 po/Makefile.in
 objects/Makefile
-objects/standard/Makefile
-objects/network/Makefile
-objects/UML/Makefile
-objects/ER/Makefile
-objects/FS/Makefile
 dnl objects/sybase/Makefile
-objects/flowchart/Makefile
-objects/custom/Makefile
-objects/GRAFCET/Makefile
-objects/chronogram/Makefile
-objects/SADT/Makefile
-objects/Misc/Makefile
 objects/bondgraph/Makefile
+objects/chronogram/Makefile
+objects/custom/Makefile
+objects/ER/Makefile
+objects/flowchart/Makefile
+objects/FS/Makefile
+objects/GRAFCET/Makefile
+objects/Misc/Makefile
+objects/network/Makefile
+objects/SADT/Makefile
+objects/standard/Makefile
+objects/UML/Makefile
 shapes/Makefile
 shapes/Assorted/Makefile
 shapes/Circuit/Makefile
-shapes/flowchart/Makefile
+shapes/Cisco/Makefile
+shapes/Civil/Makefile
 shapes/Contact/Makefile
+shapes/Electric/Makefile
+shapes/flowchart/Makefile
+shapes/jigsaw/Makefile
+shapes/Logic/Makefile
+shapes/Misc/Makefile
+shapes/MSE/Makefile
 shapes/network/Makefile
 shapes/Pneumatic/Makefile
-shapes/Electric/Makefile
-shapes/Civil/Makefile
-shapes/jigsaw/Makefile
-shapes/MSE/Makefile
 shapes/SDL/Makefile
-shapes/Logic/Makefile
 shapes/sybase/Makefile
-shapes/Misc/Makefile
 app/Makefile
 samples/Makefile
 sheets/Makefile
-sheets/UML/Makefile
 sheets/ER/Makefile
 sheets/GRAFCET/Makefile
+sheets/UML/Makefile
 plug-ins/Makefile
 plug-ins/cgm/Makefile
-plug-ins/pstricks/Makefile
 plug-ins/dxf/Makefile
 plug-ins/hpgl/Makefile
-plug-ins/wpg/Makefile
-plug-ins/wmf/Makefile
 plug-ins/metapost/Makefile
-plug-ins/svg/Makefile
+plug-ins/pstricks/Makefile
+plug-ins/python/Makefile
 plug-ins/shape/Makefile
+plug-ins/svg/Makefile
+plug-ins/wmf/Makefile
+plug-ins/wpg/Makefile
 plug-ins/xfig/Makefile
 plug-ins/xslt/Makefile
-plug-ins/python/Makefile
 doc/Makefile
 doc/en/Makefile
 doc/pl/Makefile
