@@ -1,3 +1,8 @@
+2001-03-18  Kevin Breit <battery841@mediaone.net>
+
+	* doc/en/dia-C.omf: Added file.  Dia should now list in the Nautilus
+          Help tabs.
+
 2001-03-17  James Henstridge  <james@daa.com.au>
 
 	* app/paginate_psprint.c (diagram_print_ps): add code that traps
@@ -97,6 +102,7 @@
 	* app/render_eps.c: turned off ASCII85 and FILTERS, as this
 	doesn't yet build.
 
+>>>>>>> 1.532
 2001-03-08  Kevin Breit <battery841@mediaone.net>
 
 	* doc/en/home_network.png: Added file.

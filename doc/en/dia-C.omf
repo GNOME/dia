@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?>
+<omf>
+  <resource>
+    <title>
+      The Dia Manual
+    </title>
+    <subject>
+      <category>GNOME|Office</category>
+   </subject>
+   <format mime="text/sgml"/>
+   <identifier url="panel.sgml"/>
+   <language code="en" />
+ </resource>
+</omf>
