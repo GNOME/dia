@@ -26,7 +26,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -53,7 +52,6 @@ typedef enum {
 } AnchorShape;
 
 typedef struct _Box Box;
-typedef struct _BoxDefaultsDialog BoxDefaultsDialog;
 
 struct _Box {
   Element element;
@@ -73,29 +71,11 @@ struct _Box {
 };
 
 typedef struct _BoxProperties {
-  Color *fg_color;
-  Color *bg_color;
   gboolean show_background;
-  real border_width;
   real corner_radius;
-
   real padding;
-  Color *font_color;
 } BoxProperties;
 
-struct _BoxDefaultsDialog {
-  GtkWidget *vbox;
-
-  GtkToggleButton *show_background;
-  GtkSpinButton *corner_radius;
-
-  GtkSpinButton *padding;
-  DiaFontSelector *font;
-  GtkSpinButton *font_size;
-};
-
-
-static BoxDefaultsDialog *box_defaults_dialog;
 static BoxProperties default_properties;
 
 static real box_distance_from(Box *box, Point *point);
@@ -126,8 +106,8 @@ static ObjectTypeOps box_type_ops =
   (CreateFunc) box_create,
   (LoadFunc)   box_load,
   (SaveFunc)   box_save,
-  (GetDefaultsFunc)   box_get_defaults,
-  (ApplyDefaultsFunc) box_apply_defaults
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType fc_box_type =
@@ -220,18 +200,6 @@ box_set_props(Box *box, GPtrArray *props)
 }
 
 static void
-box_apply_defaults()
-{
-  default_properties.corner_radius = gtk_spin_button_get_value_as_float(box_defaults_dialog->corner_radius);
-  default_properties.show_background = gtk_toggle_button_get_active(box_defaults_dialog->show_background);
-
-  default_properties.padding = gtk_spin_button_get_value_as_float(box_defaults_dialog->padding);
-  attributes_set_default_font(
-      dia_font_selector_get_font(box_defaults_dialog->font),
-      gtk_spin_button_get_value_as_float(box_defaults_dialog->font_size));
-}
-
-static void
 init_default_values() {
   static int defaults_initialized = 0;
 
@@ -240,114 +208,6 @@ init_default_values() {
     default_properties.padding = 0.5;
     defaults_initialized = 1;
   }
-}
-
-static GtkWidget *
-box_get_defaults()
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *checkbox;
-  GtkWidget *corner_radius;
-  GtkWidget *padding;
-  GtkWidget *fontsel;
-  GtkWidget *font_size;
-  GtkAdjustment *adj;
-  DiaFont *font;
-  real font_height;
-
-  if (box_defaults_dialog == NULL) {
-  
-    init_default_values();
-
-    box_defaults_dialog = g_new(BoxDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    box_defaults_dialog->vbox = vbox;
-
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Draw background"));
-    box_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Corner rounding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 1.0, 1.0);
-    corner_radius = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(corner_radius), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(corner_radius), TRUE);
-    box_defaults_dialog->corner_radius = GTK_SPIN_BUTTON(corner_radius);
-    gtk_box_pack_start(GTK_BOX (hbox), corner_radius, TRUE, TRUE, 0);
-    gtk_widget_show (corner_radius);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Text padding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 1.0, 1.0);
-    padding = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(padding), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(padding), TRUE);
-    box_defaults_dialog->padding = GTK_SPIN_BUTTON(padding);
-    gtk_box_pack_start(GTK_BOX (hbox), padding, TRUE, TRUE, 0);
-    gtk_widget_show (padding);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    fontsel = dia_font_selector_new();
-    box_defaults_dialog->font = DIAFONTSELECTOR(fontsel);
-    gtk_box_pack_start (GTK_BOX (hbox), fontsel, TRUE, TRUE, 0);
-    gtk_widget_show (fontsel);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font size:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 1.0, 1.0);
-    font_size = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);
-    box_defaults_dialog->font_size = GTK_SPIN_BUTTON(font_size);
-    gtk_box_pack_start(GTK_BOX (hbox), font_size, TRUE, TRUE, 0);
-    gtk_widget_show (font_size);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-    gtk_widget_show (vbox);
-  }
-
-  gtk_toggle_button_set_active(box_defaults_dialog->show_background, 
-			       default_properties.show_background);
-  gtk_spin_button_set_value(box_defaults_dialog->corner_radius, 
-			    default_properties.corner_radius);
-
-  gtk_spin_button_set_value(box_defaults_dialog->padding,
-			    default_properties.padding);
-  font = NULL;
-  attributes_get_default_font(&font, &font_height);
-  dia_font_selector_set_font(box_defaults_dialog->font, font);
-  gtk_spin_button_set_value(box_defaults_dialog->font_size, font_height);
-  dia_font_unref(font);
-  
-  return box_defaults_dialog->vbox;
 }
 
 static real

@@ -26,7 +26,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -54,7 +53,6 @@ typedef enum {
 #define DEFAULT_BORDER 0.25
 
 typedef struct _Pgram Pgram;
-typedef struct _PgramDefaultsDialog PgramDefaultsDialog;
 
 struct _Pgram {
   Element element;
@@ -74,29 +72,11 @@ struct _Pgram {
 };
 
 typedef struct _PgramProperties {
-  Color *fg_color;
-  Color *bg_color;
   gboolean show_background;
-  real border_width;
   real shear_angle;
-
   real padding;
-  Color *font_color;
 } PgramProperties;
 
-struct _PgramDefaultsDialog {
-  GtkWidget *vbox;
-
-  GtkToggleButton *show_background;
-  GtkSpinButton *shear_angle;
-
-  GtkSpinButton *padding;
-  DiaFontSelector *font;
-  GtkSpinButton *font_size;
-};
-
-
-static PgramDefaultsDialog *pgram_defaults_dialog;
 static PgramProperties default_properties;
 
 static real pgram_distance_from(Pgram *pgram, Point *point);
@@ -120,16 +100,14 @@ static void pgram_set_props(Pgram *pgram, GPtrArray *props);
 
 static void pgram_save(Pgram *pgram, ObjectNode obj_node, const char *filename);
 static Object *pgram_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *pgram_get_defaults(void);
-static void pgram_apply_defaults(void);
 
 static ObjectTypeOps pgram_type_ops =
 {
   (CreateFunc) pgram_create,
   (LoadFunc)   pgram_load,
   (SaveFunc)   pgram_save,
-  (GetDefaultsFunc)   pgram_get_defaults,
-  (ApplyDefaultsFunc) pgram_apply_defaults
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType pgram_type =
@@ -222,18 +200,6 @@ pgram_set_props(Pgram *pgram, GPtrArray *props)
 }
 
 static void
-pgram_apply_defaults()
-{
-  default_properties.shear_angle = M_PI/180.0 * gtk_spin_button_get_value_as_float(pgram_defaults_dialog->shear_angle);
-  default_properties.show_background = gtk_toggle_button_get_active(pgram_defaults_dialog->show_background);
-
-  default_properties.padding = gtk_spin_button_get_value_as_float(pgram_defaults_dialog->padding);
-  attributes_set_default_font(
-	dia_font_selector_get_font(pgram_defaults_dialog->font),
-	gtk_spin_button_get_value_as_float(pgram_defaults_dialog->font_size));
-}
-
-static void
 init_default_values() {
   static int defaults_initialized = 0;
 
@@ -243,114 +209,6 @@ init_default_values() {
     default_properties.padding = 0.5;
     defaults_initialized = 1;
   }
-}
-
-static GtkWidget *
-pgram_get_defaults()
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *checkpgram;
-  GtkWidget *shear_angle;
-  GtkWidget *padding;
-  GtkWidget *fontsel;
-  GtkWidget *font_size;
-  GtkAdjustment *adj;
-  DiaFont *font;
-  real font_height;
-
-  if (pgram_defaults_dialog == NULL) {
-  
-    init_default_values();
-
-    pgram_defaults_dialog = g_new(PgramDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    pgram_defaults_dialog->vbox = vbox;
-
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkpgram = gtk_check_button_new_with_label(_("Draw background"));
-    pgram_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkpgram );
-    gtk_widget_show(checkpgram);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkpgram, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Shear angle:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(60.0, 45.0, 135.0, 1.0,10.0,10.0);
-    shear_angle = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(shear_angle), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(shear_angle), TRUE);
-    pgram_defaults_dialog->shear_angle = GTK_SPIN_BUTTON(shear_angle);
-    gtk_box_pack_start(GTK_BOX (hbox), shear_angle, TRUE, TRUE, 0);
-    gtk_widget_show (shear_angle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Text padding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 1.0, 1.0);
-    padding = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(padding), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(padding), TRUE);
-    pgram_defaults_dialog->padding = GTK_SPIN_BUTTON(padding);
-    gtk_box_pack_start(GTK_BOX (hbox), padding, TRUE, TRUE, 0);
-    gtk_widget_show (padding);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    fontsel = dia_font_selector_new();
-    pgram_defaults_dialog->font = DIAFONTSELECTOR(fontsel);
-    gtk_box_pack_start (GTK_BOX (hbox), fontsel, TRUE, TRUE, 0);
-    gtk_widget_show (fontsel);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font size:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 1.0, 1.0);
-    font_size = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);
-    pgram_defaults_dialog->font_size = GTK_SPIN_BUTTON(font_size);
-    gtk_box_pack_start(GTK_BOX (hbox), font_size, TRUE, TRUE, 0);
-    gtk_widget_show (font_size);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-    gtk_widget_show (vbox);
-  }
-
-  gtk_toggle_button_set_active(pgram_defaults_dialog->show_background, 
-			       default_properties.show_background);
-  gtk_spin_button_set_value(pgram_defaults_dialog->shear_angle, 
-			    default_properties.shear_angle);
-
-  gtk_spin_button_set_value(pgram_defaults_dialog->padding,
-			    default_properties.padding);
-  font = NULL;
-  attributes_get_default_font(&font, &font_height);
-  dia_font_selector_set_font(pgram_defaults_dialog->font, font);
-  gtk_spin_button_set_value(pgram_defaults_dialog->font_size, font_height);
-  dia_font_unref(font);
-  
-  return pgram_defaults_dialog->vbox;
 }
 
 static real

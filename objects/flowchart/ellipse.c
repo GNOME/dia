@@ -26,7 +26,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -54,7 +53,6 @@ typedef enum {
 } AnchorShape;
 
 typedef struct _Ellipse Ellipse;
-typedef struct _EllipseDefaultsDialog EllipseDefaultsDialog;
 
 struct _Ellipse {
   Element element;
@@ -73,27 +71,10 @@ struct _Ellipse {
 };
 
 typedef struct _EllipseProperties {
-  Color *fg_color;
-  Color *bg_color;
   gboolean show_background;
-  real border_width;
-
   real padding;
-  Color *font_color;
 } EllipseProperties;
 
-struct _EllipseDefaultsDialog {
-  GtkWidget *vbox;
-
-  GtkToggleButton *show_background;
-
-  GtkSpinButton *padding;
-  DiaFontSelector *font;
-  GtkSpinButton *font_size;
-};
-
-
-static EllipseDefaultsDialog *ellipse_defaults_dialog;
 static EllipseProperties default_properties;
 
 static real ellipse_distance_from(Ellipse *ellipse, Point *point);
@@ -117,16 +98,14 @@ static void ellipse_set_props(Ellipse *ellipse, GPtrArray *props);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
 static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *ellipse_get_defaults(void);
-static void ellipse_apply_defaults(void);
 
 static ObjectTypeOps ellipse_type_ops =
 {
   (CreateFunc) ellipse_create,
   (LoadFunc)   ellipse_load,
   (SaveFunc)   ellipse_save,
-  (GetDefaultsFunc)   ellipse_get_defaults,
-  (ApplyDefaultsFunc) ellipse_apply_defaults
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType fc_ellipse_type =
@@ -215,17 +194,6 @@ ellipse_set_props(Ellipse *ellipse, GPtrArray *props)
 }
 
 static void
-ellipse_apply_defaults()
-{
-  default_properties.show_background = gtk_toggle_button_get_active(ellipse_defaults_dialog->show_background);
-
-  default_properties.padding = gtk_spin_button_get_value_as_float(ellipse_defaults_dialog->padding);
-  attributes_set_default_font(
-      dia_font_selector_get_font(ellipse_defaults_dialog->font),
-      gtk_spin_button_get_value_as_float(ellipse_defaults_dialog->font_size));
-}
-
-static void
 init_default_values() {
   static int defaults_initialized = 0;
 
@@ -234,97 +202,6 @@ init_default_values() {
     default_properties.padding = 0.5 * M_SQRT1_2;
     defaults_initialized = 1;
   }
-}
-
-static GtkWidget *
-ellipse_get_defaults()
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *checkellipse;
-  GtkWidget *padding;
-  GtkWidget *fontsel;
-  GtkWidget *font_size;
-  GtkAdjustment *adj;
-  DiaFont *font;
-  real font_height;
-
-  if (ellipse_defaults_dialog == NULL) {
-  
-    init_default_values();
-
-    ellipse_defaults_dialog = g_new(EllipseDefaultsDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    ellipse_defaults_dialog->vbox = vbox;
-
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkellipse = gtk_check_button_new_with_label(_("Draw background"));
-    ellipse_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkellipse );
-    gtk_widget_show(checkellipse);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkellipse, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Text padding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 1.0, 1.0);
-    padding = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(padding), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(padding), TRUE);
-    ellipse_defaults_dialog->padding = GTK_SPIN_BUTTON(padding);
-    gtk_box_pack_start(GTK_BOX (hbox), padding, TRUE, TRUE, 0);
-    gtk_widget_show (padding);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    fontsel = dia_font_selector_new();
-    ellipse_defaults_dialog->font = DIAFONTSELECTOR(fontsel);
-    gtk_box_pack_start (GTK_BOX (hbox), fontsel, TRUE, TRUE, 0);
-    gtk_widget_show (fontsel);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font size:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 1.0, 1.0);
-    font_size = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);
-    ellipse_defaults_dialog->font_size = GTK_SPIN_BUTTON(font_size);
-    gtk_box_pack_start(GTK_BOX (hbox), font_size, TRUE, TRUE, 0);
-    gtk_widget_show (font_size);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-    gtk_widget_show (vbox);
-  }
-
-  gtk_toggle_button_set_active(ellipse_defaults_dialog->show_background, 
-			       default_properties.show_background);
-
-  gtk_spin_button_set_value(ellipse_defaults_dialog->padding,
-			    default_properties.padding);
-  font = NULL;
-  attributes_get_default_font(&font, &font_height);
-  dia_font_selector_set_font(ellipse_defaults_dialog->font, font);
-  dia_font_unref(font);
-  gtk_spin_button_set_value(ellipse_defaults_dialog->font_size, font_height);
-
-  return ellipse_defaults_dialog->vbox;
 }
 
 /* returns the radius of the ellipse along the ray from the centre of the
