@@ -1,5 +1,9 @@
 1999-12-08  James Henstridge  <james@daa.com.au>
 
+	* plug-ins/python/pydia-diagram.c: added heaps of new methods.
+
+	* plug-ins/python/pydia-display.[ch]: wrapper for display.
+
 	* objects/standard/ellipse.c: applied Lars's patch to optionally not
 	draw the background of the ellipse.
 

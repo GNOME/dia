@@ -87,7 +87,7 @@ PyTypeObject PyDiaConnectionPoint_Type = {
     0,
     (destructor)PyDiaConnectionPoint_Dealloc,
     (printfunc)0,
-    (getattrfunc)0,
+    (getattrfunc)PyDiaConnectionPoint_GetAttr,
     (setattrfunc)0,
     (cmpfunc)PyDiaConnectionPoint_Compare,
     (reprfunc)0,

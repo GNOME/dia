@@ -20,6 +20,7 @@
 #include <Python.h>
 
 #include "pydia-diagram.h"
+#include "pydia-display.h"
 #include "pydia-layer.h"
 #include "pydia-object.h"
 #include "pydia-cpoint.h"
@@ -27,6 +28,7 @@
 
 #include "object.h"
 #include "app/diagram.h"
+#include "app/display.h"
 #include "app/load_save.h"
 
 static PyObject *
@@ -73,10 +75,36 @@ PyDia_GetObjectType(PyObject *self, PyObject *args)
     return NULL;
 }
 
+static PyObject *
+PyDia_ActiveDisplay(PyObject *self, PyObject *args)
+{
+    DDisplay *disp;
+
+    if (!PyArg_ParseTuple(args, ":dia.active_display"))
+	return NULL;
+    disp = ddisplay_active();
+    if (disp)
+	return PyDiaDisplay_New(disp);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDia_UpdateAll(PyObject *self, PyObject *args)
+{
+    if (!PyArg_ParseTuple(args, ":dia.update_all"))
+	return NULL;
+    diagram_add_update_all_all_and_flush();
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
 static PyMethodDef dia_methods[] = {
     { "diagrams", PyDia_Diagrams, 1 },
     { "load", PyDia_Load, 1 },
     { "get_object_type", PyDia_GetObjectType, 1 },
+    { "active_display", PyDia_ActiveDisplay, 1 },
+    { "update_all", PyDia_UpdateAll, 1 },
     { NULL, NULL }
 };
 
@@ -88,6 +116,8 @@ void initdia(void) {
 
     PyDict_SetItemString(d, "DiaDiagramType",
 			 (PyObject *)&PyDiaDiagram_Type);
+    PyDict_SetItemString(d, "DiaDisplayType",
+			 (PyObject *)&PyDiaDisplay_Type);
     PyDict_SetItemString(d, "DiaLayerType",
 			 (PyObject *)&PyDiaLayer_Type);
     PyDict_SetItemString(d, "DiaObjectType",

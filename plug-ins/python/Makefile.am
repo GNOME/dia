@@ -9,6 +9,8 @@ libpython_plugin_la_SOURCES = \
 	pydia-cpoint.h \
 	pydia-diagram.c \
 	pydia-diagram.h \
+	pydia-display.c \
+	pydia-display.h \
 	pydia-handle.c \
 	pydia-handle.h \
 	pydia-layer.c \

@@ -20,8 +20,11 @@
 #include <glib.h>
 
 #include "pydia-diagram.h"
+#include "pydia-display.h"
 #include "pydia-layer.h"
 #include "pydia-object.h"
+#include "pydia-handle.h"
+#include "pydia-cpoint.h"
 
 #include "app/load_save.h"
 
@@ -98,11 +101,11 @@ PyDiaDiagram_AddLayer(PyDiaDiagram *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args, "s|i:DiaDiagram.add_layer", &name, &pos))
 	return NULL;
-    layer = new_layer(name);
+    layer = new_layer(g_strdup(name));
     if (pos != -1)
 	data_add_layer_at(self->dia->data, layer, pos);
     else
-	data_at_layer(self->dia->data, layer);
+	data_add_layer(self->dia->data, layer);
     return PyDiaLayer_New(layer);
 }
 
@@ -134,19 +137,225 @@ PyDiaDiagram_DeleteLayer(PyDiaDiagram *self, PyObject *args)
     return Py_None;
 }
 
-/* missing:
- *  data_select
- *  data_unselect
- *  data_remove_all_selected
- *  data_update_extents
- *  data_get_sorted_selected
- *  data_get_sorted_selected_remove
- *
- *  diagram_unselect_object
- *  diagram_select
- *  diagram_add_update
- *  diagram_flush
- */
+static PyObject *
+PyDiaDiagram_Select(PyDiaDiagram *self, PyObject *args)
+{
+    PyDiaObject *obj;
+
+    if (!PyArg_ParseTuple(args, "O!:DiaDiagram.select",
+			  &PyDiaObject_Type, &obj))
+	return NULL;
+    diagram_select(self->dia, obj->object);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagram_IsSelected(PyDiaDiagram *self, PyObject *args)
+{
+    PyDiaObject *obj;
+
+    if (!PyArg_ParseTuple(args, "O!:DiaDiagram.is_selected",
+			  &PyDiaObject_Type, &obj))
+	return NULL;
+    return PyInt_FromLong(diagram_is_selected(self->dia, obj->object));
+}
+
+static PyObject *
+PyDiaDiagram_Unselect(PyDiaDiagram *self, PyObject *args)
+{
+    PyDiaObject *obj;
+
+    if (!PyArg_ParseTuple(args, "O!:DiaDiagram.unselect",
+			  &PyDiaObject_Type, &obj))
+	return NULL;
+    diagram_unselect_object(self->dia, obj->object);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagram_RemoveAllSelected(PyDiaDiagram *self, PyObject *args)
+{
+    if (!PyArg_ParseTuple(args, ":DiaDiagram.remove_all_selected"))
+	return NULL;
+    diagram_remove_all_selected(self->dia, TRUE);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagram_UpdateExtents(PyDiaDiagram *self, PyObject *args)
+{
+    if (!PyArg_ParseTuple(args, ":DiaDiagram.update_extents"))
+	return NULL;
+    diagram_update_extents(self->dia);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagram_GetSortedSelected(PyDiaDiagram *self, PyObject *args)
+{
+    GList *list, *tmp;
+    PyObject *ret;
+    guint i, len;
+
+    if (!PyArg_ParseTuple(args, ":DiaDiagram.get_sorted_selected"))
+	return NULL;
+    list = tmp = diagram_get_sorted_selected(self->dia);
+
+    len = self->dia->data->selected_count;
+    ret = PyTuple_New(len);
+
+    for (i = 0, tmp = self->dia->data->selected; tmp; i++, tmp = tmp->next)
+	PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
+    g_list_free(list);
+    return ret;
+}
+
+static PyObject *
+PyDiaDiagram_GetSortedSelectedRemove(PyDiaDiagram *self, PyObject *args)
+{
+    GList *list, *tmp;
+    PyObject *ret;
+    guint i, len;
+
+    if (!PyArg_ParseTuple(args, ":DiaDiagram.get_sorted_selected_remove"))
+	return NULL;
+    list = tmp = diagram_get_sorted_selected_remove(self->dia);
+
+    len = self->dia->data->selected_count;
+    ret = PyTuple_New(len);
+
+    for (i = 0, tmp = self->dia->data->selected; tmp; i++, tmp = tmp->next)
+	PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
+    g_list_free(list);
+    return ret;
+}
+
+static PyObject *
+PyDiaDiagram_AddUpdate(PyDiaDiagram *self, PyObject *args)
+{
+    Rectangle r;
+
+    if (!PyArg_ParseTuple(args, "dddd:DiaDiagram.add_update", &r.top,
+			  &r.left, &r.bottom, &r.right))
+	return NULL;
+    diagram_add_update(self->dia, &r);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagram_AddUpdateAll(PyDiaDiagram *self, PyObject *args)
+{
+    if (!PyArg_ParseTuple(args, ":DiaDiagram.add_update_all"))
+	return NULL;
+    diagram_add_update_all(self->dia);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagram_Flush(PyDiaDiagram *self, PyObject *args)
+{
+    if (!PyArg_ParseTuple(args, ":DiaDiagram.flush"))
+	return NULL;
+    diagram_flush(self->dia);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagram_FindClickedObject(PyDiaDiagram *self, PyObject *args)
+{
+    Point p;
+    double dist;
+    Object *obj;
+
+    if (!PyArg_ParseTuple(args, "(dd)d:DiaDiagram.find_clicked_object",
+			  &p.x, &p.y, &dist))
+	return NULL;
+    obj = diagram_find_clicked_object(self->dia, &p, dist);
+    if (obj)
+	return PyDiaObject_New(obj);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagram_FindClosestHandle(PyDiaDiagram *self, PyObject *args)
+{
+    Point p;
+    double dist;
+    Handle *handle;
+    Object *obj;
+    PyObject *ret;
+
+    if (!PyArg_ParseTuple(args, "dd:DiaDiagram.find_closest_handle",
+			  &p.x, &p.y))
+	return NULL;
+    dist = diagram_find_closest_handle(self->dia, &handle, &obj, &p);
+    ret = PyTuple_New(3);
+    PyTuple_SetItem(ret, 0, PyFloat_FromDouble(dist));
+    if (handle)
+	PyTuple_SetItem(ret, 1, PyDiaHandle_New(handle));
+    else {
+	Py_INCREF(Py_None);
+	PyTuple_SetItem(ret, 1, Py_None);
+    }
+    if (obj)
+	PyTuple_SetItem(ret, 1, PyDiaObject_New(obj));
+    else {
+	Py_INCREF(Py_None);
+	PyTuple_SetItem(ret, 1, Py_None);
+    }
+    return ret;
+}
+
+static PyObject *
+PyDiaDiagram_FindClosestConnectionPoint(PyDiaDiagram *self, PyObject *args)
+{
+    Point p;
+    double dist;
+    ConnectionPoint *cpoint;
+    PyObject *ret;
+
+    if (!PyArg_ParseTuple(args, "dd:DiaDiagram.find_closest_connectionpoint",
+			  &p.x, &p.y))
+	return NULL;
+    dist = diagram_find_closest_connectionpoint(self->dia, &cpoint, &p);
+    ret = PyTuple_New(2);
+    PyTuple_SetItem(ret, 0, PyFloat_FromDouble(dist));
+    if (cpoint)
+	PyTuple_SetItem(ret, 1, PyDiaConnectionPoint_New(cpoint));
+    else {
+	Py_INCREF(Py_None);
+	PyTuple_SetItem(ret, 1, Py_None);
+    }
+    return ret;
+}
+
+static PyObject *
+PyDiaDiagram_GroupSelected(PyDiaDiagram *self, PyObject *args)
+{
+    if (!PyArg_ParseTuple(args, ":DiaDiagram.group_selected"))
+	return NULL;
+    diagram_group_selected(self->dia);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagram_UngroupSelected(PyDiaDiagram *self, PyObject *args)
+{
+    if (!PyArg_ParseTuple(args, ":DiaDiagram.ungroup_selected"))
+	return NULL;
+    diagram_ungroup_selected(self->dia);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
 
 static PyObject *
 PyDiaDiagram_Save(PyDiaDiagram *self, PyObject *args)
@@ -164,6 +373,23 @@ static PyMethodDef PyDiaDiagram_Methods[] = {
     {"add_layer", (PyCFunction)PyDiaDiagram_AddLayer, 1},
     {"set_active_layer", (PyCFunction)PyDiaDiagram_SetActiveLayer, 1},
     {"delete_layer", (PyCFunction)PyDiaDiagram_DeleteLayer, 1},
+    {"select", (PyCFunction)PyDiaDiagram_Select, 1},
+    {"is_selected", (PyCFunction)PyDiaDiagram_IsSelected, 1},
+    {"unselect", (PyCFunction)PyDiaDiagram_Unselect, 1},
+    {"remove_all_selected", (PyCFunction)PyDiaDiagram_RemoveAllSelected, 1},
+    {"update_extents", (PyCFunction)PyDiaDiagram_UpdateExtents, 1},
+    {"get_sorted_selected", (PyCFunction)PyDiaDiagram_GetSortedSelected, 1},
+    {"get_sorted_selected_remove",
+     (PyCFunction)PyDiaDiagram_GetSortedSelectedRemove, 1},
+    {"add_update", (PyCFunction)PyDiaDiagram_AddUpdate, 1},
+    {"add_update_all", (PyCFunction)PyDiaDiagram_AddUpdateAll, 1},
+    {"flush", (PyCFunction)PyDiaDiagram_Flush, 1},
+    {"find_clicked_object", (PyCFunction)PyDiaDiagram_FindClickedObject, 1},
+    {"find_closest_handle", (PyCFunction)PyDiaDiagram_FindClosestHandle, 1},
+    {"find_closest_connectionpoint",
+     (PyCFunction)PyDiaDiagram_FindClosestConnectionPoint, 1},
+    {"group_selected", (PyCFunction)PyDiaDiagram_GroupSelected, 1},
+    {"ungroup_selected", (PyCFunction)PyDiaDiagram_UngroupSelected, 1},
     {"save", (PyCFunction)PyDiaDiagram_Save, 1},
     {NULL, 0, 0, NULL}
 };
@@ -209,16 +435,14 @@ PyDiaDiagram_GetAttr(PyDiaDiagram *self, gchar *attr)
 	    PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
 	return ret;
     } else if (!strcmp(attr, "displays")) {
-#if 0
 	PyObject *ret;
 	GSList *tmp;
 	gint i;
 
 	ret = PyTuple_New(g_slist_length(self->dia->displays));
 	for (i = 0, tmp = self->dia->displays; tmp; i++, tmp = tmp->next)
-	    PyTuple_SetItem(ret, i, PyDiaDisplay_New((Object *)tmp->data));
+	    PyTuple_SetItem(ret, i, PyDiaDisplay_New((DDisplay *)tmp->data));
 	return ret;
-#endif
     }
 
     return Py_FindMethod(PyDiaDiagram_Methods, (PyObject *)self, attr);
@@ -232,7 +456,7 @@ PyTypeObject PyDiaDiagram_Type = {
     0,
     (destructor)PyDiaDiagram_Dealloc,
     (printfunc)0,
-    (getattrfunc)0,
+    (getattrfunc)PyDiaDiagram_GetAttr,
     (setattrfunc)0,
     (cmpfunc)PyDiaDiagram_Compare,
     (reprfunc)0,

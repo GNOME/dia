@@ -87,7 +87,7 @@ PyTypeObject PyDiaHandle_Type = {
     0,
     (destructor)PyDiaHandle_Dealloc,
     (printfunc)0,
-    (getattrfunc)0,
+    (getattrfunc)PyDiaHandle_GetAttr,
     (setattrfunc)0,
     (cmpfunc)PyDiaHandle_Compare,
     (reprfunc)0,

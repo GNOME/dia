@@ -243,7 +243,7 @@ PyTypeObject PyDiaLayer_Type = {
     0,
     (destructor)PyDiaLayer_Dealloc,
     (printfunc)0,
-    (getattrfunc)0,
+    (getattrfunc)PyDiaLayer_GetAttr,
     (setattrfunc)0,
     (cmpfunc)PyDiaLayer_Compare,
     (reprfunc)0,
