@@ -146,7 +146,7 @@ init_fonts(void)
     static gboolean alreadyrun = FALSE;
     GString *str;
     gint i;
-    PangoFontMap *fmap;
+    PangoContext *context;
     PangoFontFamily **families;
     int n_families;
     const char *familyname;
@@ -154,8 +154,8 @@ init_fonts(void)
     if (alreadyrun) return;
     alreadyrun = TRUE;
 
-    fmap = gdk_pango_context_get();
-    pango_font_map_list_families(fmap,&families,&n_families);
+    context = gdk_pango_context_get();
+    pango_context_list_families(context,&families,&n_families);
     
     fonthash = g_hash_table_new(g_str_hash, g_str_equal);
     str = g_string_new(NULL);
@@ -737,7 +737,8 @@ set_fillstyle(RendererCGM *renderer, FillStyle mode)
 static void
 set_font(RendererCGM *renderer, DiaFont *font, real height)
 {
-    dia_font_unref(renderer->font);
+    if (renderer->font != NULL)
+	dia_font_unref(renderer->font);
     renderer->font = dia_font_ref(font);
     renderer->tcurrent.font_num = FONT_NUM(font);
     renderer->tcurrent.font_height = height;
