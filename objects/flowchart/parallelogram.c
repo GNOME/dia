@@ -511,6 +511,7 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
 
   /* this takes the shearing of the parallelogram into account, so the
    * text can be extend to the edges of the parallelogram */
+  text_calc_boundingbox(pgram->text, NULL);
   height = pgram->text->height * pgram->text->numlines + pgram->padding*2 +
     pgram->border_width;
   if (height > elem->height) elem->height = height;

@@ -478,6 +478,7 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
+  text_calc_boundingbox(diamond->text, NULL);
   width = diamond->text->max_width + 2*diamond->padding+diamond->border_width;
   height = diamond->text->height * diamond->text->numlines +
     2 * diamond->padding + diamond->border_width;

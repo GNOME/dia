@@ -866,7 +866,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     real xscale = 0.0, yscale = 0.0;
     Rectangle tb;
       
-
+    text_calc_boundingbox(custom->text, NULL);
     text_width = 
       custom->text->max_width + 2*custom->padding+custom->border_width;
     text_height = custom->text->height * custom->text->numlines +

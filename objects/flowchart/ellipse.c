@@ -473,6 +473,7 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
+  text_calc_boundingbox(ellipse->text, NULL);
   width = ellipse->text->max_width + 2 * ellipse->padding;
   height = ellipse->text->height * ellipse->text->numlines +
     2 * ellipse->padding;
