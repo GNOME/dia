@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dia VERSION\n"
 "POT-Creation-Date: 2002-03-07 19:29-0500\n"
-"PO-Revision-Date: 2002-03-15 17:47+0100\n"
+"PO-Revision-Date: 2002-03-23 15:10+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -508,7 +508,7 @@ msgstr "Poèas zapisovanie PNG sa vyskytla chyba."
 
 #: app/export_png.c:252
 msgid "Ok"
-msgstr "Ok"
+msgstr "OK"
 
 #. Create a dialog
 #: app/export_png.c:301
@@ -811,7 +811,7 @@ msgstr "Nie je mo¾né otvori» '%s' pre èítanie.\n"
 
 #: app/load_save.c:251
 msgid "You must specify a file, not a directory.\n"
-msgstr "Musíte ¹peficikova» súbor, a nie prieèinok.\n"
+msgstr "Musíte ¹pecifikova» súbor, a nie prieèinok.\n"
 
 #: app/load_save.c:260 app/load_save.c:265
 #, c-format
@@ -1718,7 +1718,7 @@ msgstr "Nie je mo¾né otvori» súbor s históriou pre zápis."
 
 #: app/render_eps.c:1706
 msgid "Encapsulated Postscript"
-msgstr "Zapúzdrený Postscript"
+msgstr "Zapuzdrený Postscript"
 
 #: app/splash.c:58
 msgid "Loading ..."
@@ -1780,7 +1780,7 @@ msgstr ""
 
 #: lib/dia_xml.c:476
 msgid "Taking point value of non-point node."
-msgstr ""
+msgstr "Beriem hodnotu bodu z nebodového uzla."
 
 #: lib/dia_xml.c:488
 #, c-format
@@ -2219,7 +2219,7 @@ msgstr "Názov procesnej referencia:"
 
 #: objects/EML/process_dialog.c:1251
 msgid "Process lifetime:"
-msgstr ""
+msgstr "Doba ¾ivota procesu:"
 
 #: objects/EML/process_dialog.c:1299
 msgid "Module name:"
@@ -2243,7 +2243,7 @@ msgstr "Èlen relácie"
 
 #: objects/ER/attribute.c:150
 msgid "Key:"
-msgstr "Klúè:"
+msgstr "Kµúè:"
 
 #: objects/ER/attribute.c:152
 msgid "Weak key:"
@@ -2398,7 +2398,7 @@ msgstr "Povoli»"
 
 #: objects/FS/function.c:629
 msgid "Form Entrance"
-msgstr ""
+msgstr "Forma vstupu"
 
 #: objects/FS/function.c:630 objects/FS/function.c:747
 msgid "Capture"
@@ -2666,7 +2666,7 @@ msgstr "Oèis»ovanie"
 
 #: objects/FS/function.c:722
 msgid "Strain"
-msgstr ""
+msgstr "Filtrovanie"
 
 #: objects/FS/function.c:723
 msgid "Filter"
@@ -3108,7 +3108,7 @@ msgstr "Rádiové vlny"
 
 #: objects/FS/function.c:860
 msgid "X-Rays"
-msgstr "Röntgénové lúèe"
+msgstr "Röntgenové lúèe"
 
 #: objects/FS/function.c:861
 msgid "Gamma Rays"
@@ -3367,7 +3367,7 @@ msgstr "SADT objekty diagramu"
 
 #: objects/UML/actor.c:337 objects/UML/actor.c:339
 msgid "Actor"
-msgstr ""
+msgstr "Aktér"
 
 #: objects/UML/association.c:1030 objects/UML/class_dialog.c:2177
 msgid "Direction:"
@@ -3584,11 +3584,11 @@ msgstr "Typ dedenia:"
 
 #: objects/UML/class_dialog.c:2031
 msgid "Polymorphic (virtual)"
-msgstr ""
+msgstr "Polymorfický (virtuálny)"
 
 #: objects/UML/class_dialog.c:2039
 msgid "Leaf (final)"
-msgstr ""
+msgstr "List (ukonèi»)"
 
 #: objects/UML/class_dialog.c:2057
 msgid "Query"
@@ -3851,7 +3851,7 @@ msgstr "Vedµaj¹í èasový krok"
 
 #: objects/chronogram/chronoref.c:162
 msgid "Minor step line width"
-msgstr ""
+msgstr "Vedµaj¹í krok ¹írky èiary"
 
 #: objects/custom/custom.c:124
 msgid "Custom"
@@ -4131,11 +4131,11 @@ msgstr "Vzorky nie sú podporované v Dia"
 
 #: plug-ins/xfig/xfig-import.c:77
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr "Trojbodkové èiary nie sú podporované v Dia, pou¾ité budú dvojbodkové"
+msgstr "Trojbodové èiary nie sú podporované v Dia, pou¾ité budú dvojbodové"
 
 #: plug-ins/xfig/xfig-import.c:79
 msgid "Negative corner radius, negating"
-msgstr ""
+msgstr "Negatívny rádius rohu, negujem"
 
 #: plug-ins/xfig/xfig-import.c:80
 msgid "Spline import is not implemented yet"
@@ -4192,7 +4192,7 @@ msgstr "Nie je mo¾né identifikova» FIG objekt: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:924
 msgid "Compound end outside compound\n"
-msgstr ""
+msgstr "Zlúèený koniec mimo zlúèenia\n"
 
 #: plug-ins/xfig/xfig-import.c:943
 #, c-format
@@ -4288,7 +4288,7 @@ msgstr "Exportný a importný filter formát Fig"
 
 #: sheets/Circuit.sheet.in.h:1
 msgid "A Horizontal Jumper"
-msgstr ""
+msgstr "Horizontálny prepínaè"
 
 #: sheets/Circuit.sheet.in.h:2
 msgid "A Horizontally aligned inductor"
@@ -4808,31 +4808,31 @@ msgstr "Terminál pre taktickú satelitnú komunikáciu"
 
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr ""
+msgstr "Mobilný prispievateµ komponentami vybavenia americkej armády"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A 2/2 distributor"
-msgstr ""
+msgstr "Rozvádzaè 2/2"
 
 #: sheets/Pneumatic.sheet.in.h:2
 msgid "A 3/2 distributor"
-msgstr ""
+msgstr "Rozvádzaè 3/2"
 
 #: sheets/Pneumatic.sheet.in.h:3
 msgid "A 3/3 distributor"
-msgstr ""
+msgstr "Rozvádzaè 3/3"
 
 #: sheets/Pneumatic.sheet.in.h:4
 msgid "A 4/2 distributor"
-msgstr ""
+msgstr "Rozvádzaè 4/2"
 
 #: sheets/Pneumatic.sheet.in.h:5
 msgid "A 5/2 distributor"
-msgstr ""
+msgstr "Rozvádzaè 5/2"
 
 #: sheets/Pneumatic.sheet.in.h:6
 msgid "A 5/3 distributor"
-msgstr ""
+msgstr "Rozvádzaè 5/3"
 
 #: sheets/Pneumatic.sheet.in.h:8
 msgid "A double-effect jack"
@@ -4856,7 +4856,7 @@ msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:13
 msgid "A pneumatic pressure source"
-msgstr "Zdroj preumatického tlaku"
+msgstr "Zdroj pneumatického tlaku"
 
 #: sheets/Pneumatic.sheet.in.h:14
 msgid "An air exhaust orifice"
@@ -4984,7 +4984,7 @@ msgstr "Referencia typu slu¾ieb"
 
 #: sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
-msgstr "©pecifikáèný a popisný jazyk."
+msgstr "©pecifikaèný a popisný jazyk."
 
 #: sheets/SDL.sheet.in.h:18
 msgid "State"
@@ -5060,7 +5060,7 @@ msgstr "Vytvori» prípad pou¾itia"
 
 #: sheets/UML.sheet.in.h:18
 msgid "Create an actor"
-msgstr ""
+msgstr "Vytvori» aktéra"
 
 #: sheets/UML.sheet.in.h:19
 msgid "Create an object"
@@ -5072,11 +5072,11 @@ msgstr "Editor pre Statické ¹truktúrované diagramy UML"
 
 #: sheets/UML.sheet.in.h:21
 msgid "Generalization, class inheritance"
-msgstr ""
+msgstr "Zov¹eobecnenie, trieda dedenia"
 
 #: sheets/UML.sheet.in.h:22
 msgid "Implements, class implements a specific interface"
-msgstr ""
+msgstr "Implementuje, trieda implementuje ¹pecifické rozhranie"
 
 #: sheets/UML.sheet.in.h:23
 msgid "Realizes, implements a specific interface"
@@ -5104,7 +5104,7 @@ msgstr "Objekty na návrh chronogramových grafov"
 
 #: sheets/civil.sheet.in.h:1
 msgid "A Backflow Preventer"
-msgstr ""
+msgstr "Poistka proti spätnému toku"
 
 #: sheets/civil.sheet.in.h:2
 msgid "A Basin"
@@ -5128,7 +5128,7 @@ msgstr "Motor"
 
 #: sheets/civil.sheet.in.h:7
 msgid "A Preliminary Clarification Tank"
-msgstr "Prípravná èistiacia nádr¾"
+msgstr "Prípravná èistiaca nádr¾"
 
 #: sheets/civil.sheet.in.h:8
 msgid "A Rotor"
@@ -5136,7 +5136,7 @@ msgstr "Rotor"
 
 #: sheets/civil.sheet.in.h:9
 msgid "A final-settling Basin"
-msgstr ""
+msgstr "Nádr¾ pre závereènú sedimentáciu"
 
 #: sheets/civil.sheet.in.h:10
 msgid "A horizontal limiting line"
@@ -5340,7 +5340,7 @@ msgstr "WAN linka"
 
 #: sheets/network.sheet.in.h:13
 msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr ""
+msgstr "Zásuvka pre scEAD káblový systém"
 
 #: sheets/network.sheet.in.h:14
 msgid "A Workstation Monitor"
