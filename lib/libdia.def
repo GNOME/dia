@@ -250,7 +250,6 @@ EXPORTS
  new_diagram_data
  new_layer
  new_object_state_change
- new_render_store
  new_text
  neworthconn_add_segment
  neworthconn_can_add_segment

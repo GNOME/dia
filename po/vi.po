@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
-"POT-Creation-Date: 2002-05-13 21:42+0200\n"
+"POT-Creation-Date: 2002-05-14 00:04+0200\n"
 "PO-Revision-Date: 2002-05-03 17:34-0400\n"
 "Last-Translator: pclouds <pclouds@gmx.net>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
@@ -1537,8 +1537,7 @@ msgstr "không"
 msgid "Plug-ins"
 msgstr "Plug-in"
 
-#: app/plugin-manager.c:195 objects/EML/process_dialog.c:637
-#: objects/ER/attribute.c:148 objects/ER/entity.c:126
+#: app/plugin-manager.c:195 objects/ER/attribute.c:148 objects/ER/entity.c:126
 #: objects/ER/relationship.c:135 objects/UML/association.c:1018
 #: objects/UML/class_dialog.c:884 objects/UML/class_dialog.c:1899
 #: objects/UML/class_dialog.c:2118 objects/UML/class_dialog.c:2677
@@ -1764,12 +1763,8 @@ msgstr "Dia"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c. if "Courier" works for you, it would be better.
-#: lib/attributes.c:130 lib/render_object.c:151 lib/text.c:1009
-#: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
-#: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
-#: objects/EML/interaction.c:496 objects/EML/process.c:511
-#: objects/ER/attribute.c:391 objects/ER/attribute.c:556
-#: objects/ER/entity.c:343 objects/ER/entity.c:485
+#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:391
+#: objects/ER/attribute.c:556 objects/ER/entity.c:343 objects/ER/entity.c:485
 #: objects/ER/relationship.c:421 objects/ER/relationship.c:601
 #: objects/UML/association.c:556 objects/UML/association.c:741
 #: objects/UML/class.c:689 objects/UML/constraint.c:269
@@ -1777,16 +1772,7 @@ msgstr "Dia"
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:303 objects/UML/realizes.c:367
 #: objects/UML/small_package.c:342 objects/custom/shape_info.h:67
-#: objects/network/antenna.c:91 objects/network/computer.c:92
-#: objects/network/disc.c:92 objects/network/flash.c:88
-#: objects/network/hub.c:92 objects/network/modem.c:90
-#: objects/network/modularswitch.c:94 objects/network/monitor.c:91
-#: objects/network/printer.c:91 objects/network/rj45plug.c:90
-#: objects/network/scead-plug.c:89 objects/standard/textobj.c:388
-#: objects/sybase/client.c:90 objects/sybase/dataserver.c:89
-#: objects/sybase/ltm.c:91 objects/sybase/repserver.c:90
-#: objects/sybase/rsm.c:102 objects/sybase/stableq.c:92
-#: plug-ins/dxf/dxf-import.c:530
+#: objects/standard/textobj.c:388 plug-ins/dxf/dxf-import.c:530
 msgid "Courier"
 msgstr "Courier"
 
@@ -2088,192 +2074,6 @@ msgstr "Chọn tập tin ảnh"
 msgid "Browse"
 msgstr "Duyệt"
 
-#: objects/EML/eml.c:40
-msgid "Event Modelling Language diagram"
-msgstr ""
-
-#: objects/EML/instantiation.c:130
-msgid "Number of processes:"
-msgstr "Số tiến trình:"
-
-#: objects/EML/instantiation.c:132 objects/EML/interaction-ortho.c:548
-msgid "multiple"
-msgstr "đa"
-
-#: objects/EML/instantiation.c:433
-msgid "Single"
-msgstr "Đa"
-
-#: objects/EML/instantiation.c:435
-msgid "Multiple"
-msgstr "Đơn"
-
-#: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:288
-#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
-#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
-#: objects/UML/association.c:620 objects/UML/dependency.c:335
-#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
-#: objects/standard/zigzagline.c:343
-msgid "Add segment"
-msgstr "Thêm đoạn"
-
-#: objects/EML/instantiation.c:438 objects/EML/interaction-ortho.c:289
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
-#: objects/UML/association.c:621 objects/UML/dependency.c:336
-#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
-#: objects/standard/zigzagline.c:344
-msgid "Delete segment"
-msgstr "Xóa đoạn"
-
-#: objects/EML/instantiation.c:442
-msgid "Instantiation"
-msgstr ""
-
-#: objects/EML/interaction-ortho.c:286 objects/EML/interaction.c:454
-msgid "Unidirectional"
-msgstr "Một hướng"
-
-#: objects/EML/interaction-ortho.c:287 objects/EML/interaction.c:455
-msgid "Bidirectional"
-msgstr "Hai hướng"
-
-#: objects/EML/interaction.c:612
-msgid "Interaction name:"
-msgstr "Tên giao tiếp"
-
-#: objects/EML/interaction.c:623
-msgid "bidirectional"
-msgstr "hai hướng"
-
-#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:847
-#: objects/UML/class_dialog.c:1859 objects/UML/class_dialog.c:2076
-#: objects/UML/class_dialog.c:2640
-msgid "New"
-msgstr "Mới"
-
-#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:853
-#: objects/UML/class_dialog.c:1865 objects/UML/class_dialog.c:2083
-#: objects/UML/class_dialog.c:2646
-msgid "Delete"
-msgstr "Xóa"
-
-#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:859
-#: objects/UML/class_dialog.c:1871 objects/UML/class_dialog.c:2090
-#: objects/UML/class_dialog.c:2652
-msgid "Move up"
-msgstr "Chuyển lên"
-
-#: objects/EML/nlist.c:52
-msgid "Move Down"
-msgstr "Chuyển xuống"
-
-#. choose default font name for your locale. see also font_data structure
-#. in lib/font.c.
-#: objects/EML/process.c:514 objects/EML/process.c:515
-#: objects/EML/process.c:516 objects/EML/process.c:517
-#: objects/FS/function.c:417 objects/SADT/annotation.c:357
-#: objects/UML/actor.c:332 objects/UML/classicon.c:415
-#: objects/UML/component.c:348 objects/UML/message.c:369
-#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
-#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
-#: objects/chronogram/chronoref.c:434
-msgid "Helvetica"
-msgstr "Helvetica"
-
-#: objects/EML/process_dialog.c:625
-msgid "relation"
-msgstr "quan hệ"
-
-#: objects/EML/process_dialog.c:882
-msgid "Interface functions"
-msgstr "Hàm giao diện"
-
-#: objects/EML/process_dialog.c:883
-msgid "Function"
-msgstr "Hàm"
-
-#: objects/EML/process_dialog.c:899
-msgid "Function module:"
-msgstr "Mô đun hàm:"
-
-#: objects/EML/process_dialog.c:908 objects/EML/process_dialog.c:1304
-msgid "Function name:"
-msgstr "Tên hàm:"
-
-#: objects/EML/process_dialog.c:1097
-msgid "Interfaces"
-msgstr "Giao diện"
-
-#: objects/EML/process_dialog.c:1098
-msgid "Interface"
-msgstr "Giao diện"
-
-#: objects/EML/process_dialog.c:1114
-msgid "Interface name:"
-msgstr "Tên giao diện:"
-
-#: objects/EML/process_dialog.c:1132
-msgid "Interface messages"
-msgstr "Thông điệp giao diện"
-
-#: objects/EML/process_dialog.c:1133
-msgid "Message"
-msgstr "Thông điệp"
-
-#: objects/EML/process_dialog.c:1134
-msgid "Message parameters"
-msgstr "Tham số thông điệp"
-
-#: objects/EML/process_dialog.c:1135
-msgid "Message parameter"
-msgstr "Tham số thông điệp"
-
-#: objects/EML/process_dialog.c:1148
-msgid "Functions"
-msgstr "Hàm"
-
-#: objects/EML/process_dialog.c:1151
-msgid "Messages"
-msgstr "Thông điệp"
-
-#. Translators: Menu item Verb/Convert/Process
-#: objects/EML/process_dialog.c:1238 objects/FS/function.c:994
-msgid "Process"
-msgstr "Tiến trình"
-
-#: objects/EML/process_dialog.c:1242
-msgid "Process name:"
-msgstr "Tên tiến trình:"
-
-#: objects/EML/process_dialog.c:1246
-msgid "Process reference name:"
-msgstr "Tên tham khảo tiến trình:"
-
-#: objects/EML/process_dialog.c:1251
-msgid "Process lifetime:"
-msgstr "Chu kỳ sống tiến trình:"
-
-#: objects/EML/process_dialog.c:1299
-msgid "Module name:"
-msgstr "Tên mô đun:"
-
-#: objects/EML/process_dialog.c:1311
-msgid "Function parameters"
-msgstr "Tham số hàm"
-
-#: objects/EML/process_dialog.c:1312
-msgid "Parameter"
-msgstr "Tham số"
-
-#: objects/EML/process_dialog.c:1313
-msgid "Relation members"
-msgstr "Thành phần quan hệ"
-
-#: objects/EML/process_dialog.c:1314
-msgid "Relation member"
-msgstr "Thành phần quan hệ"
-
 #: objects/ER/attribute.c:150
 msgid "Key:"
 msgstr "Khoá:"
@@ -2312,6 +2112,22 @@ msgstr "Đối tượng biểu đồ thực thệ/mối quan hệ"
 msgid "Total:"
 msgstr "Tổng cộng:"
 
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
+#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
+#: objects/UML/association.c:620 objects/UML/dependency.c:335
+#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
+#: objects/standard/zigzagline.c:343
+msgid "Add segment"
+msgstr "Thêm đoạn"
+
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
+#: objects/UML/association.c:621 objects/UML/dependency.c:336
+#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
+#: objects/standard/zigzagline.c:344
+msgid "Delete segment"
+msgstr "Xóa đoạn"
+
 #: objects/ER/relationship.c:137
 msgid "Left Cardinality:"
 msgstr ""
@@ -2336,27 +2152,24 @@ msgstr "Quan hệ"
 #.
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
 #: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
-#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
-#: objects/FS/flow-poly.c:789 objects/FS/flow.c:155 objects/FS/flow.c:658
-#: objects/FS/flow.c:722 objects/FS/function.c:1058
+#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
+#: objects/FS/function.c:1058
 msgid "Energy"
 msgstr "Năng lượng"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
 #: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
-#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
-#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:659
-#: objects/FS/flow.c:729 objects/FS/function.c:1034
+#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
+#: objects/FS/function.c:1034
 msgid "Material"
 msgstr "Nguyên liệu"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
 #: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
-#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
-#: objects/FS/flow-poly.c:802 objects/FS/flow.c:157 objects/FS/flow.c:660
-#: objects/FS/flow.c:735 objects/FS/function.c:996 objects/FS/function.c:998
+#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
+#: objects/FS/function.c:996 objects/FS/function.c:998
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "Tín hiệu"
@@ -2370,19 +2183,16 @@ msgstr "Kiểu:"
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
 #: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
-#: objects/FS/flow-ortho.c:926 objects/FS/flow-poly.c:366
-#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:430
-#: objects/FS/flow.c:559 objects/FS/flow.c:771
+#: objects/FS/flow-ortho.c:926 objects/FS/flow.c:430 objects/FS/flow.c:559
+#: objects/FS/flow.c:771
 msgid "Helvetica-Oblique"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow-poly.c:650
-#: objects/FS/flow-poly.c:768 objects/FS/flow.c:701
+#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "Dòng chảy:"
 
-#: objects/FS/flow-ortho.c:741 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:784 objects/FS/flow.c:717
+#: objects/FS/flow-ortho.c:741 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "Kiểu dòng chảy:"
 
@@ -2405,6 +2215,17 @@ msgstr "hàm Wish"
 #: objects/FS/function.c:139
 msgid "User function"
 msgstr "Hàm người dùng"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/FS/function.c:417 objects/SADT/annotation.c:357
+#: objects/UML/actor.c:332 objects/UML/classicon.c:415
+#: objects/UML/component.c:348 objects/UML/message.c:369
+#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
+#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
+msgid "Helvetica"
+msgstr "Helvetica"
 
 #. Translators: Menu item Verb
 #: objects/FS/function.c:638
@@ -3077,6 +2898,11 @@ msgstr "Tích hợp"
 msgid "Differentiate"
 msgstr "Vi phân"
 
+#. Translators: Menu item Verb/Convert/Process
+#: objects/FS/function.c:994
+msgid "Process"
+msgstr "Tiến trình"
+
 #. Translators: Menu item Verb/Signal/Sense
 #: objects/FS/function.c:1000 objects/FS/function.c:1002
 msgid "Sense"
@@ -3747,6 +3573,21 @@ msgstr "Màu nền"
 msgid "Attributes"
 msgstr "Thuộc tính"
 
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
+#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
+msgid "New"
+msgstr "Mới"
+
+#: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1865
+#: objects/UML/class_dialog.c:2083 objects/UML/class_dialog.c:2646
+msgid "Delete"
+msgstr "Xóa"
+
+#: objects/UML/class_dialog.c:859 objects/UML/class_dialog.c:1871
+#: objects/UML/class_dialog.c:2090 objects/UML/class_dialog.c:2652
+msgid "Move up"
+msgstr "Chuyển lên"
+
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1877
 #: objects/UML/class_dialog.c:2097 objects/UML/class_dialog.c:2658
 msgid "Move down"
@@ -4233,10 +4074,6 @@ msgstr "Đối tượng chuẩn"
 msgid "Fontsize:"
 msgstr "Cỡ font:"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr ""
-
 #: plug-ins/cgm/cgm.c:1092
 msgid ""
 "Image row length larger than maximum cell array.\n"
@@ -4261,14 +4098,6 @@ msgstr ""
 
 #: plug-ins/hpgl/hpgl.c:619
 msgid "HP Graphics Language export filter"
-msgstr ""
-
-#: plug-ins/metapost/metapost.c:34
-msgid "TeX Metapost export filter"
-msgstr ""
-
-#: plug-ins/metapost/render_metapost.c:735
-msgid "TeX Metapost macros"
 msgstr ""
 
 #: plug-ins/pstricks/pstricks.c:14
@@ -4496,6 +4325,14 @@ msgstr ""
 
 #: plug-ins/xfig/xfig.c:39
 msgid "Fig Format import and export filter"
+msgstr ""
+
+#: plug-ins/metapost/metapost.c:34
+msgid "TeX Metapost export filter"
+msgstr ""
+
+#: plug-ins/metapost/render_metapost.c:735
+msgid "TeX Metapost macros"
 msgstr ""
 
 #: sheets/Circuit.sheet.in.h:1
@@ -5666,6 +5503,99 @@ msgstr "Thiết bị lưu trữ ổn định"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase"
 msgstr "Sybase"
+
+#~ msgid "Number of processes:"
+#~ msgstr "Số tiến trình:"
+
+#~ msgid "multiple"
+#~ msgstr "đa"
+
+#~ msgid "Single"
+#~ msgstr "Đa"
+
+#~ msgid "Multiple"
+#~ msgstr "Đơn"
+
+#~ msgid "Unidirectional"
+#~ msgstr "Một hướng"
+
+#~ msgid "Bidirectional"
+#~ msgstr "Hai hướng"
+
+#~ msgid "Interaction name:"
+#~ msgstr "Tên giao tiếp"
+
+#~ msgid "bidirectional"
+#~ msgstr "hai hướng"
+
+#~ msgid "Move Down"
+#~ msgstr "Chuyển xuống"
+
+#~ msgid "relation"
+#~ msgstr "quan hệ"
+
+#~ msgid "Interface functions"
+#~ msgstr "Hàm giao diện"
+
+#~ msgid "Function"
+#~ msgstr "Hàm"
+
+#~ msgid "Function module:"
+#~ msgstr "Mô đun hàm:"
+
+#~ msgid "Function name:"
+#~ msgstr "Tên hàm:"
+
+#~ msgid "Interfaces"
+#~ msgstr "Giao diện"
+
+#~ msgid "Interface"
+#~ msgstr "Giao diện"
+
+#~ msgid "Interface name:"
+#~ msgstr "Tên giao diện:"
+
+#~ msgid "Interface messages"
+#~ msgstr "Thông điệp giao diện"
+
+#~ msgid "Message"
+#~ msgstr "Thông điệp"
+
+#~ msgid "Message parameters"
+#~ msgstr "Tham số thông điệp"
+
+#~ msgid "Message parameter"
+#~ msgstr "Tham số thông điệp"
+
+#~ msgid "Functions"
+#~ msgstr "Hàm"
+
+#~ msgid "Messages"
+#~ msgstr "Thông điệp"
+
+#~ msgid "Process name:"
+#~ msgstr "Tên tiến trình:"
+
+#~ msgid "Process reference name:"
+#~ msgstr "Tên tham khảo tiến trình:"
+
+#~ msgid "Process lifetime:"
+#~ msgstr "Chu kỳ sống tiến trình:"
+
+#~ msgid "Module name:"
+#~ msgstr "Tên mô đun:"
+
+#~ msgid "Function parameters"
+#~ msgstr "Tham số hàm"
+
+#~ msgid "Parameter"
+#~ msgstr "Tham số"
+
+#~ msgid "Relation members"
+#~ msgstr "Thành phần quan hệ"
+
+#~ msgid "Relation member"
+#~ msgstr "Thành phần quan hệ"
 
 #~ msgid "Ok"
 #~ msgstr "Đồng ý"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.84\n"
-"POT-Creation-Date: 2002-05-13 21:42+0200\n"
+"POT-Creation-Date: 2002-05-14 00:04+0200\n"
 "PO-Revision-Date: 2000-03-14 19:13-0500\n"
 "Last-Translator: Spiros Papadimitriou <spapadim+@cs.cmu.edu>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -1656,8 +1656,7 @@ msgstr "κανένα"
 msgid "Plug-ins"
 msgstr ""
 
-#: app/plugin-manager.c:195 objects/EML/process_dialog.c:637
-#: objects/ER/attribute.c:148 objects/ER/entity.c:126
+#: app/plugin-manager.c:195 objects/ER/attribute.c:148 objects/ER/entity.c:126
 #: objects/ER/relationship.c:135 objects/UML/association.c:1018
 #: objects/UML/class_dialog.c:884 objects/UML/class_dialog.c:1899
 #: objects/UML/class_dialog.c:2118 objects/UML/class_dialog.c:2677
@@ -1900,12 +1899,8 @@ msgstr "Διάλογοι"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c. if "Courier" works for you, it would be better.
-#: lib/attributes.c:130 lib/render_object.c:151 lib/text.c:1009
-#: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
-#: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
-#: objects/EML/interaction.c:496 objects/EML/process.c:511
-#: objects/ER/attribute.c:391 objects/ER/attribute.c:556
-#: objects/ER/entity.c:343 objects/ER/entity.c:485
+#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:391
+#: objects/ER/attribute.c:556 objects/ER/entity.c:343 objects/ER/entity.c:485
 #: objects/ER/relationship.c:421 objects/ER/relationship.c:601
 #: objects/UML/association.c:556 objects/UML/association.c:741
 #: objects/UML/class.c:689 objects/UML/constraint.c:269
@@ -1913,16 +1908,7 @@ msgstr "Διάλογοι"
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:303 objects/UML/realizes.c:367
 #: objects/UML/small_package.c:342 objects/custom/shape_info.h:67
-#: objects/network/antenna.c:91 objects/network/computer.c:92
-#: objects/network/disc.c:92 objects/network/flash.c:88
-#: objects/network/hub.c:92 objects/network/modem.c:90
-#: objects/network/modularswitch.c:94 objects/network/monitor.c:91
-#: objects/network/printer.c:91 objects/network/rj45plug.c:90
-#: objects/network/scead-plug.c:89 objects/standard/textobj.c:388
-#: objects/sybase/client.c:90 objects/sybase/dataserver.c:89
-#: objects/sybase/ltm.c:91 objects/sybase/repserver.c:90
-#: objects/sybase/rsm.c:102 objects/sybase/stableq.c:92
-#: plug-ins/dxf/dxf-import.c:530
+#: objects/standard/textobj.c:388 plug-ins/dxf/dxf-import.c:530
 #, fuzzy
 msgid "Courier"
 msgstr "  Σύζευξη"
@@ -2236,224 +2222,6 @@ msgstr "Επιλογή αρχείου εικόνας"
 msgid "Browse"
 msgstr "Εξερεύνηση"
 
-#: objects/EML/eml.c:40
-msgid "Event Modelling Language diagram"
-msgstr ""
-
-#: objects/EML/instantiation.c:130
-#, fuzzy
-msgid "Number of processes:"
-msgstr "Αριθμός επιπέδων ακύρωσης:"
-
-#: objects/EML/instantiation.c:132 objects/EML/interaction-ortho.c:548
-#, fuzzy
-msgid "multiple"
-msgstr "Πολλαπλότητα:"
-
-#: objects/EML/instantiation.c:433
-#, fuzzy
-msgid "Single"
-msgstr "Απλό"
-
-#: objects/EML/instantiation.c:435
-#, fuzzy
-msgid "Multiple"
-msgstr "Πολλαπλότητα:"
-
-#: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:288
-#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
-#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
-#: objects/UML/association.c:620 objects/UML/dependency.c:335
-#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
-#: objects/standard/zigzagline.c:343
-msgid "Add segment"
-msgstr "Νέο τμήμα"
-
-#: objects/EML/instantiation.c:438 objects/EML/interaction-ortho.c:289
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
-#: objects/UML/association.c:621 objects/UML/dependency.c:336
-#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
-#: objects/standard/zigzagline.c:344
-msgid "Delete segment"
-msgstr "Διαγραφή τμήματος"
-
-#: objects/EML/instantiation.c:442
-#, fuzzy
-msgid "Instantiation"
-msgstr "Λειτουργίες"
-
-#: objects/EML/interaction-ortho.c:286 objects/EML/interaction.c:454
-#, fuzzy
-msgid "Unidirectional"
-msgstr "Κατεύθυνση:"
-
-#: objects/EML/interaction-ortho.c:287 objects/EML/interaction.c:455
-#, fuzzy
-msgid "Bidirectional"
-msgstr "Κατεύθυνση:"
-
-#: objects/EML/interaction.c:612
-#, fuzzy
-msgid "Interaction name:"
-msgstr "Διεπιφάνεια:"
-
-#: objects/EML/interaction.c:623
-#, fuzzy
-msgid "bidirectional"
-msgstr "Κατεύθυνση:"
-
-#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:847
-#: objects/UML/class_dialog.c:1859 objects/UML/class_dialog.c:2076
-#: objects/UML/class_dialog.c:2640
-msgid "New"
-msgstr "Νέο"
-
-#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:853
-#: objects/UML/class_dialog.c:1865 objects/UML/class_dialog.c:2083
-#: objects/UML/class_dialog.c:2646
-msgid "Delete"
-msgstr "Διαγραφή"
-
-#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:859
-#: objects/UML/class_dialog.c:1871 objects/UML/class_dialog.c:2090
-#: objects/UML/class_dialog.c:2652
-msgid "Move up"
-msgstr "Μετακίνηση επάνω"
-
-#: objects/EML/nlist.c:52
-#, fuzzy
-msgid "Move Down"
-msgstr "Μετακίνηση κάτων"
-
-#. choose default font name for your locale. see also font_data structure
-#. in lib/font.c.
-#: objects/EML/process.c:514 objects/EML/process.c:515
-#: objects/EML/process.c:516 objects/EML/process.c:517
-#: objects/FS/function.c:417 objects/SADT/annotation.c:357
-#: objects/UML/actor.c:332 objects/UML/classicon.c:415
-#: objects/UML/component.c:348 objects/UML/message.c:369
-#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
-#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
-#: objects/chronogram/chronoref.c:434
-#, fuzzy
-msgid "Helvetica"
-msgstr "Κατακόρυφη αντιστροφή"
-
-#: objects/EML/process_dialog.c:625
-#, fuzzy
-msgid "relation"
-msgstr "Λειτουργίες"
-
-#: objects/EML/process_dialog.c:882
-#, fuzzy
-msgid "Interface functions"
-msgstr "Συνάρτηση χρήστη"
-
-#: objects/EML/process_dialog.c:883
-#, fuzzy
-msgid "Function"
-msgstr "Συνάρτηση:"
-
-#: objects/EML/process_dialog.c:899
-#, fuzzy
-msgid "Function module:"
-msgstr "Συνάρτηση:"
-
-#: objects/EML/process_dialog.c:908 objects/EML/process_dialog.c:1304
-#, fuzzy
-msgid "Function name:"
-msgstr "Συνάρτηση:"
-
-#: objects/EML/process_dialog.c:1097
-#, fuzzy
-msgid "Interfaces"
-msgstr "Διεπιφάνεια:"
-
-#: objects/EML/process_dialog.c:1098
-#, fuzzy
-msgid "Interface"
-msgstr "Διεπιφάνεια:"
-
-#: objects/EML/process_dialog.c:1114
-#, fuzzy
-msgid "Interface name:"
-msgstr "Διεπιφάνεια:"
-
-#: objects/EML/process_dialog.c:1132
-#, fuzzy
-msgid "Interface messages"
-msgstr "Αναδρομικό"
-
-#: objects/EML/process_dialog.c:1133
-#, fuzzy
-msgid "Message"
-msgstr "Μήνυμα:"
-
-#: objects/EML/process_dialog.c:1134
-#, fuzzy
-msgid "Message parameters"
-msgstr "Τύπος μυνήματος:"
-
-#: objects/EML/process_dialog.c:1135
-#, fuzzy
-msgid "Message parameter"
-msgstr "Τύπος μυνήματος:"
-
-#: objects/EML/process_dialog.c:1148
-#, fuzzy
-msgid "Functions"
-msgstr "Συνάρτηση:"
-
-#: objects/EML/process_dialog.c:1151
-#, fuzzy
-msgid "Messages"
-msgstr "Μήνυμα:"
-
-#. Translators: Menu item Verb/Convert/Process
-#: objects/EML/process_dialog.c:1238 objects/FS/function.c:994
-#, fuzzy
-msgid "Process"
-msgstr "Προστατευόμενο"
-
-#: objects/EML/process_dialog.c:1242
-#, fuzzy
-msgid "Process name:"
-msgstr "Προστατευόμενο"
-
-#: objects/EML/process_dialog.c:1246
-#, fuzzy
-msgid "Process reference name:"
-msgstr "Προτιμήσεις"
-
-#: objects/EML/process_dialog.c:1251
-msgid "Process lifetime:"
-msgstr ""
-
-#: objects/EML/process_dialog.c:1299
-#, fuzzy
-msgid "Module name:"
-msgstr "Όνομα στρώματος:"
-
-#: objects/EML/process_dialog.c:1311
-#, fuzzy
-msgid "Function parameters"
-msgstr "Συνάρτηση:"
-
-#: objects/EML/process_dialog.c:1312
-#, fuzzy
-msgid "Parameter"
-msgstr "Παράμετροι:"
-
-#: objects/EML/process_dialog.c:1313
-#, fuzzy
-msgid "Relation members"
-msgstr "Σχέση"
-
-#: objects/EML/process_dialog.c:1314
-msgid "Relation member"
-msgstr ""
-
 #: objects/ER/attribute.c:150
 #, fuzzy
 msgid "Key:"
@@ -2503,6 +2271,22 @@ msgstr ""
 msgid "Total:"
 msgstr "Σύνολο:"
 
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
+#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
+#: objects/UML/association.c:620 objects/UML/dependency.c:335
+#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
+#: objects/standard/zigzagline.c:343
+msgid "Add segment"
+msgstr "Νέο τμήμα"
+
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
+#: objects/UML/association.c:621 objects/UML/dependency.c:336
+#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
+#: objects/standard/zigzagline.c:344
+msgid "Delete segment"
+msgstr "Διαγραφή τμήματος"
+
 # # NOTE: cardinality (eg. of a set) = plh8ykothta [std term in math]
 #: objects/ER/relationship.c:137
 msgid "Left Cardinality:"
@@ -2530,27 +2314,24 @@ msgstr "Σχέση"
 #.
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
 #: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
-#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
-#: objects/FS/flow-poly.c:789 objects/FS/flow.c:155 objects/FS/flow.c:658
-#: objects/FS/flow.c:722 objects/FS/function.c:1058
+#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
+#: objects/FS/function.c:1058
 msgid "Energy"
 msgstr "Ενέργεια"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
 #: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
-#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
-#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:659
-#: objects/FS/flow.c:729 objects/FS/function.c:1034
+#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
+#: objects/FS/function.c:1034
 msgid "Material"
 msgstr "Υλικό"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
 #: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
-#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
-#: objects/FS/flow-poly.c:802 objects/FS/flow.c:157 objects/FS/flow.c:660
-#: objects/FS/flow.c:735 objects/FS/function.c:996 objects/FS/function.c:998
+#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
+#: objects/FS/function.c:996 objects/FS/function.c:998
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "Σήμα"
@@ -2564,19 +2345,16 @@ msgstr "Τύπος:"
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
 #: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
-#: objects/FS/flow-ortho.c:926 objects/FS/flow-poly.c:366
-#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:430
-#: objects/FS/flow.c:559 objects/FS/flow.c:771
+#: objects/FS/flow-ortho.c:926 objects/FS/flow.c:430 objects/FS/flow.c:559
+#: objects/FS/flow.c:771
 msgid "Helvetica-Oblique"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow-poly.c:650
-#: objects/FS/flow-poly.c:768 objects/FS/flow.c:701
+#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "Ροή:"
 
-#: objects/FS/flow-ortho.c:741 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:784 objects/FS/flow.c:717
+#: objects/FS/flow-ortho.c:741 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "Τύπος ροής:"
 
@@ -2601,6 +2379,18 @@ msgstr "Συνάρτηση ευχής"
 #: objects/FS/function.c:139
 msgid "User function"
 msgstr "Συνάρτηση χρήστη"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/FS/function.c:417 objects/SADT/annotation.c:357
+#: objects/UML/actor.c:332 objects/UML/classicon.c:415
+#: objects/UML/component.c:348 objects/UML/message.c:369
+#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
+#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
+#, fuzzy
+msgid "Helvetica"
+msgstr "Κατακόρυφη αντιστροφή"
 
 #. Translators: Menu item Verb
 #: objects/FS/function.c:638
@@ -3351,6 +3141,12 @@ msgstr "Διεπιφάνεια:"
 msgid "Differentiate"
 msgstr ""
 
+#. Translators: Menu item Verb/Convert/Process
+#: objects/FS/function.c:994
+#, fuzzy
+msgid "Process"
+msgstr "Προστατευόμενο"
+
 #. Translators: Menu item Verb/Signal/Sense
 #: objects/FS/function.c:1000 objects/FS/function.c:1002
 #, fuzzy
@@ -4074,6 +3870,21 @@ msgstr "Χρώμα φόντου:"
 msgid "Attributes"
 msgstr "Ιδιότητες"
 
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
+#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
+msgid "New"
+msgstr "Νέο"
+
+#: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1865
+#: objects/UML/class_dialog.c:2083 objects/UML/class_dialog.c:2646
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: objects/UML/class_dialog.c:859 objects/UML/class_dialog.c:1871
+#: objects/UML/class_dialog.c:2090 objects/UML/class_dialog.c:2652
+msgid "Move up"
+msgstr "Μετακίνηση επάνω"
+
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1877
 #: objects/UML/class_dialog.c:2097 objects/UML/class_dialog.c:2658
 msgid "Move down"
@@ -4594,11 +4405,6 @@ msgstr "Είναι οντότητα"
 msgid "Fontsize:"
 msgstr "Μέγεθος:"
 
-#: objects/sybase/sybase.c:44
-#, fuzzy
-msgid "Sybase replication domain diagram objects"
-msgstr "_Νέο διάγραμμα"
-
 #: plug-ins/cgm/cgm.c:1092
 msgid ""
 "Image row length larger than maximum cell array.\n"
@@ -4628,15 +4434,6 @@ msgstr ""
 #, fuzzy
 msgid "HP Graphics Language export filter"
 msgstr "Computer Graphics Metafile (CGM)"
-
-#: plug-ins/metapost/metapost.c:34
-#, fuzzy
-msgid "TeX Metapost export filter"
-msgstr "Computer Graphics Metafile (CGM)"
-
-#: plug-ins/metapost/render_metapost.c:735
-msgid "TeX Metapost macros"
-msgstr ""
 
 #: plug-ins/pstricks/pstricks.c:14
 #, fuzzy
@@ -4875,6 +4672,15 @@ msgstr ""
 #, fuzzy
 msgid "Fig Format import and export filter"
 msgstr "Computer Graphics Metafile (CGM)"
+
+#: plug-ins/metapost/metapost.c:34
+#, fuzzy
+msgid "TeX Metapost export filter"
+msgstr "Computer Graphics Metafile (CGM)"
+
+#: plug-ins/metapost/render_metapost.c:735
+msgid "TeX Metapost macros"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:1
 #, fuzzy
@@ -6203,6 +6009,130 @@ msgstr ""
 #, fuzzy
 msgid "Sybase"
 msgstr "Παύλες"
+
+#, fuzzy
+#~ msgid "Number of processes:"
+#~ msgstr "Αριθμός επιπέδων ακύρωσης:"
+
+#, fuzzy
+#~ msgid "multiple"
+#~ msgstr "Πολλαπλότητα:"
+
+#, fuzzy
+#~ msgid "Single"
+#~ msgstr "Απλό"
+
+#, fuzzy
+#~ msgid "Multiple"
+#~ msgstr "Πολλαπλότητα:"
+
+#, fuzzy
+#~ msgid "Instantiation"
+#~ msgstr "Λειτουργίες"
+
+#, fuzzy
+#~ msgid "Unidirectional"
+#~ msgstr "Κατεύθυνση:"
+
+#, fuzzy
+#~ msgid "Bidirectional"
+#~ msgstr "Κατεύθυνση:"
+
+#, fuzzy
+#~ msgid "Interaction name:"
+#~ msgstr "Διεπιφάνεια:"
+
+#, fuzzy
+#~ msgid "bidirectional"
+#~ msgstr "Κατεύθυνση:"
+
+#, fuzzy
+#~ msgid "Move Down"
+#~ msgstr "Μετακίνηση κάτων"
+
+#, fuzzy
+#~ msgid "relation"
+#~ msgstr "Λειτουργίες"
+
+#, fuzzy
+#~ msgid "Interface functions"
+#~ msgstr "Συνάρτηση χρήστη"
+
+#, fuzzy
+#~ msgid "Function"
+#~ msgstr "Συνάρτηση:"
+
+#, fuzzy
+#~ msgid "Function module:"
+#~ msgstr "Συνάρτηση:"
+
+#, fuzzy
+#~ msgid "Function name:"
+#~ msgstr "Συνάρτηση:"
+
+#, fuzzy
+#~ msgid "Interfaces"
+#~ msgstr "Διεπιφάνεια:"
+
+#, fuzzy
+#~ msgid "Interface"
+#~ msgstr "Διεπιφάνεια:"
+
+#, fuzzy
+#~ msgid "Interface name:"
+#~ msgstr "Διεπιφάνεια:"
+
+#, fuzzy
+#~ msgid "Interface messages"
+#~ msgstr "Αναδρομικό"
+
+#, fuzzy
+#~ msgid "Message"
+#~ msgstr "Μήνυμα:"
+
+#, fuzzy
+#~ msgid "Message parameters"
+#~ msgstr "Τύπος μυνήματος:"
+
+#, fuzzy
+#~ msgid "Message parameter"
+#~ msgstr "Τύπος μυνήματος:"
+
+#, fuzzy
+#~ msgid "Functions"
+#~ msgstr "Συνάρτηση:"
+
+#, fuzzy
+#~ msgid "Messages"
+#~ msgstr "Μήνυμα:"
+
+#, fuzzy
+#~ msgid "Process name:"
+#~ msgstr "Προστατευόμενο"
+
+#, fuzzy
+#~ msgid "Process reference name:"
+#~ msgstr "Προτιμήσεις"
+
+#, fuzzy
+#~ msgid "Module name:"
+#~ msgstr "Όνομα στρώματος:"
+
+#, fuzzy
+#~ msgid "Function parameters"
+#~ msgstr "Συνάρτηση:"
+
+#, fuzzy
+#~ msgid "Parameter"
+#~ msgstr "Παράμετροι:"
+
+#, fuzzy
+#~ msgid "Relation members"
+#~ msgstr "Σχέση"
+
+#, fuzzy
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "_Νέο διάγραμμα"
 
 #, fuzzy
 #~ msgid "/File/Open _Recent"

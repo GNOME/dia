@@ -112,19 +112,8 @@ endif
 
 ifdef OBJ_network
 OBJECTS = \
-	computer.o \
-	disc.o \
-	monitor.o \
-	printer.o \
 	bus.o \
 	network.o \
-	antenna.o \
-	modem.o \
-	flash.o \
-	hub.o \
-	modularswitch.o \
-	rj45plug.o \
-	scead-plug.o \
 	wanlink.o
 endif
 
@@ -154,12 +143,6 @@ endif
 
 ifdef OBJ_sybase
 OBJECTS = \
-	dataserver.o \
-	repserver.o \
-	ltm.o \
-	client.o \
-	stableq.o \
-	rsm.o \
 	sybase.o
 endif
 

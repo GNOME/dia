@@ -20,8 +20,6 @@
 #include "element.h"
 #include "font.h"
 #include "text.h"
-/* #include "render_store.h"
-   #include "render_object.h" */
 #include "orth_conn.h"
 #include "neworth_conn.h"
 #include "arrows.h"

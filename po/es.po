@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 1.4\n"
-"POT-Creation-Date: 2002-05-13 21:42+0200\n"
+"POT-Creation-Date: 2002-05-14 00:04+0200\n"
 "PO-Revision-Date: 2002-01-30 21:35+0100\n"
 "Last-Translator: Juan Manuel García Molina <juanma_gm@wanadoo.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -1562,8 +1562,7 @@ msgstr "no"
 msgid "Plug-ins"
 msgstr "Plug-ins"
 
-#: app/plugin-manager.c:195 objects/EML/process_dialog.c:637
-#: objects/ER/attribute.c:148 objects/ER/entity.c:126
+#: app/plugin-manager.c:195 objects/ER/attribute.c:148 objects/ER/entity.c:126
 #: objects/ER/relationship.c:135 objects/UML/association.c:1018
 #: objects/UML/class_dialog.c:884 objects/UML/class_dialog.c:1899
 #: objects/UML/class_dialog.c:2118 objects/UML/class_dialog.c:2677
@@ -1794,12 +1793,8 @@ msgstr "Dia"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c. if "Courier" works for you, it would be better.
-#: lib/attributes.c:130 lib/render_object.c:151 lib/text.c:1009
-#: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
-#: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
-#: objects/EML/interaction.c:496 objects/EML/process.c:511
-#: objects/ER/attribute.c:391 objects/ER/attribute.c:556
-#: objects/ER/entity.c:343 objects/ER/entity.c:485
+#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:391
+#: objects/ER/attribute.c:556 objects/ER/entity.c:343 objects/ER/entity.c:485
 #: objects/ER/relationship.c:421 objects/ER/relationship.c:601
 #: objects/UML/association.c:556 objects/UML/association.c:741
 #: objects/UML/class.c:689 objects/UML/constraint.c:269
@@ -1807,16 +1802,7 @@ msgstr "Dia"
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:303 objects/UML/realizes.c:367
 #: objects/UML/small_package.c:342 objects/custom/shape_info.h:67
-#: objects/network/antenna.c:91 objects/network/computer.c:92
-#: objects/network/disc.c:92 objects/network/flash.c:88
-#: objects/network/hub.c:92 objects/network/modem.c:90
-#: objects/network/modularswitch.c:94 objects/network/monitor.c:91
-#: objects/network/printer.c:91 objects/network/rj45plug.c:90
-#: objects/network/scead-plug.c:89 objects/standard/textobj.c:388
-#: objects/sybase/client.c:90 objects/sybase/dataserver.c:89
-#: objects/sybase/ltm.c:91 objects/sybase/repserver.c:90
-#: objects/sybase/rsm.c:102 objects/sybase/stableq.c:92
-#: plug-ins/dxf/dxf-import.c:530
+#: objects/standard/textobj.c:388 plug-ins/dxf/dxf-import.c:530
 #, fuzzy
 msgid "Courier"
 msgstr "Pareja"
@@ -2121,224 +2107,6 @@ msgstr "Seleccionar archivo de imagen"
 msgid "Browse"
 msgstr "Navegar"
 
-#: objects/EML/eml.c:40
-#, fuzzy
-msgid "Event Modelling Language diagram"
-msgstr "Objetos de diagrama Unified Modelling Language"
-
-#: objects/EML/instantiation.c:130
-#, fuzzy
-msgid "Number of processes:"
-msgstr "Número de niveles de deshacer:"
-
-#: objects/EML/instantiation.c:132 objects/EML/interaction-ortho.c:548
-#, fuzzy
-msgid "multiple"
-msgstr "Demultiplexor"
-
-#: objects/EML/instantiation.c:433
-#, fuzzy
-msgid "Single"
-msgstr "Simple"
-
-#: objects/EML/instantiation.c:435
-#, fuzzy
-msgid "Multiple"
-msgstr "Multiplicar"
-
-#: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:288
-#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
-#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
-#: objects/UML/association.c:620 objects/UML/dependency.c:335
-#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
-#: objects/standard/zigzagline.c:343
-msgid "Add segment"
-msgstr "Añadir segmento"
-
-#: objects/EML/instantiation.c:438 objects/EML/interaction-ortho.c:289
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
-#: objects/UML/association.c:621 objects/UML/dependency.c:336
-#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
-#: objects/standard/zigzagline.c:344
-msgid "Delete segment"
-msgstr "Borrar segmento"
-
-#: objects/EML/instantiation.c:442
-#, fuzzy
-msgid "Instantiation"
-msgstr "Una transición"
-
-#: objects/EML/interaction-ortho.c:286 objects/EML/interaction.c:454
-#, fuzzy
-msgid "Unidirectional"
-msgstr "Dirección"
-
-#: objects/EML/interaction-ortho.c:287 objects/EML/interaction.c:455
-#, fuzzy
-msgid "Bidirectional"
-msgstr "Dirección"
-
-#: objects/EML/interaction.c:612
-#, fuzzy
-msgid "Interaction name:"
-msgstr "Interfaz:"
-
-#: objects/EML/interaction.c:623
-#, fuzzy
-msgid "bidirectional"
-msgstr "Dirección"
-
-#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:847
-#: objects/UML/class_dialog.c:1859 objects/UML/class_dialog.c:2076
-#: objects/UML/class_dialog.c:2640
-msgid "New"
-msgstr "Nuevo"
-
-#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:853
-#: objects/UML/class_dialog.c:1865 objects/UML/class_dialog.c:2083
-#: objects/UML/class_dialog.c:2646
-msgid "Delete"
-msgstr "Borrar"
-
-#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:859
-#: objects/UML/class_dialog.c:1871 objects/UML/class_dialog.c:2090
-#: objects/UML/class_dialog.c:2652
-msgid "Move up"
-msgstr "Mover arriba"
-
-#: objects/EML/nlist.c:52
-#, fuzzy
-msgid "Move Down"
-msgstr "Mover abajo"
-
-#. choose default font name for your locale. see also font_data structure
-#. in lib/font.c.
-#: objects/EML/process.c:514 objects/EML/process.c:515
-#: objects/EML/process.c:516 objects/EML/process.c:517
-#: objects/FS/function.c:417 objects/SADT/annotation.c:357
-#: objects/UML/actor.c:332 objects/UML/classicon.c:415
-#: objects/UML/component.c:348 objects/UML/message.c:369
-#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
-#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
-#: objects/chronogram/chronoref.c:434
-#, fuzzy
-msgid "Helvetica"
-msgstr "Flotar vertical"
-
-#: objects/EML/process_dialog.c:625
-#, fuzzy
-msgid "relation"
-msgstr "Perparación"
-
-#: objects/EML/process_dialog.c:882
-#, fuzzy
-msgid "Interface functions"
-msgstr "Función de usuario"
-
-#: objects/EML/process_dialog.c:883
-#, fuzzy
-msgid "Function"
-msgstr "Llamada a función"
-
-#: objects/EML/process_dialog.c:899
-#, fuzzy
-msgid "Function module:"
-msgstr "Cabecera de función"
-
-#: objects/EML/process_dialog.c:908 objects/EML/process_dialog.c:1304
-#, fuzzy
-msgid "Function name:"
-msgstr "Cabecera de función"
-
-#: objects/EML/process_dialog.c:1097
-#, fuzzy
-msgid "Interfaces"
-msgstr "Interfaz:"
-
-#: objects/EML/process_dialog.c:1098
-#, fuzzy
-msgid "Interface"
-msgstr "Interfaz:"
-
-#: objects/EML/process_dialog.c:1114
-#, fuzzy
-msgid "Interface name:"
-msgstr "Interfaz:"
-
-#: objects/EML/process_dialog.c:1132
-#, fuzzy
-msgid "Interface messages"
-msgstr "Recibir mensaje"
-
-#: objects/EML/process_dialog.c:1133
-#, fuzzy
-msgid "Message"
-msgstr "Mensaje:"
-
-#: objects/EML/process_dialog.c:1134
-#, fuzzy
-msgid "Message parameters"
-msgstr "Tipo de mensaje:"
-
-#: objects/EML/process_dialog.c:1135
-#, fuzzy
-msgid "Message parameter"
-msgstr "Tipo de mensaje:"
-
-#: objects/EML/process_dialog.c:1148
-#, fuzzy
-msgid "Functions"
-msgstr "Llamada a función"
-
-#: objects/EML/process_dialog.c:1151
-#, fuzzy
-msgid "Messages"
-msgstr "Mensaje:"
-
-#. Translators: Menu item Verb/Convert/Process
-#: objects/EML/process_dialog.c:1238 objects/FS/function.c:994
-msgid "Process"
-msgstr "Procesar"
-
-#: objects/EML/process_dialog.c:1242
-#, fuzzy
-msgid "Process name:"
-msgstr "Procesar"
-
-#: objects/EML/process_dialog.c:1246
-#, fuzzy
-msgid "Process reference name:"
-msgstr "Referencia al tipo de proceso"
-
-#: objects/EML/process_dialog.c:1251
-msgid "Process lifetime:"
-msgstr ""
-
-#: objects/EML/process_dialog.c:1299
-#, fuzzy
-msgid "Module name:"
-msgstr "Nombre de archivo:"
-
-#: objects/EML/process_dialog.c:1311
-#, fuzzy
-msgid "Function parameters"
-msgstr "Cabecera de función"
-
-#: objects/EML/process_dialog.c:1312
-#, fuzzy
-msgid "Parameter"
-msgstr "Parámetros"
-
-#: objects/EML/process_dialog.c:1313
-#, fuzzy
-msgid "Relation members"
-msgstr "Relación"
-
-#: objects/EML/process_dialog.c:1314
-msgid "Relation member"
-msgstr ""
-
 #: objects/ER/attribute.c:150
 msgid "Key:"
 msgstr "Clave:"
@@ -2377,6 +2145,22 @@ msgstr "Objetos de diagrama Entidad/Relación"
 msgid "Total:"
 msgstr "Total:"
 
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
+#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
+#: objects/UML/association.c:620 objects/UML/dependency.c:335
+#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
+#: objects/standard/zigzagline.c:343
+msgid "Add segment"
+msgstr "Añadir segmento"
+
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
+#: objects/UML/association.c:621 objects/UML/dependency.c:336
+#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
+#: objects/standard/zigzagline.c:344
+msgid "Delete segment"
+msgstr "Borrar segmento"
+
 #: objects/ER/relationship.c:137
 msgid "Left Cardinality:"
 msgstr "Cardinalidad a la izquierda:"
@@ -2401,27 +2185,24 @@ msgstr "Relación"
 #.
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
 #: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
-#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
-#: objects/FS/flow-poly.c:789 objects/FS/flow.c:155 objects/FS/flow.c:658
-#: objects/FS/flow.c:722 objects/FS/function.c:1058
+#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
+#: objects/FS/function.c:1058
 msgid "Energy"
 msgstr "Energía"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
 #: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
-#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
-#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:659
-#: objects/FS/flow.c:729 objects/FS/function.c:1034
+#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
+#: objects/FS/function.c:1034
 msgid "Material"
 msgstr "Material"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
 #: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
-#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
-#: objects/FS/flow-poly.c:802 objects/FS/flow.c:157 objects/FS/flow.c:660
-#: objects/FS/flow.c:735 objects/FS/function.c:996 objects/FS/function.c:998
+#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
+#: objects/FS/function.c:996 objects/FS/function.c:998
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "Señal"
@@ -2435,19 +2216,16 @@ msgstr "Tipo:"
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
 #: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
-#: objects/FS/flow-ortho.c:926 objects/FS/flow-poly.c:366
-#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:430
-#: objects/FS/flow.c:559 objects/FS/flow.c:771
+#: objects/FS/flow-ortho.c:926 objects/FS/flow.c:430 objects/FS/flow.c:559
+#: objects/FS/flow.c:771
 msgid "Helvetica-Oblique"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow-poly.c:650
-#: objects/FS/flow-poly.c:768 objects/FS/flow.c:701
+#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "Flujo:"
 
-#: objects/FS/flow-ortho.c:741 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:784 objects/FS/flow.c:717
+#: objects/FS/flow-ortho.c:741 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "Tipo de flujo:"
 
@@ -2470,6 +2248,18 @@ msgstr "Función de deseo"
 #: objects/FS/function.c:139
 msgid "User function"
 msgstr "Función de usuario"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/FS/function.c:417 objects/SADT/annotation.c:357
+#: objects/UML/actor.c:332 objects/UML/classicon.c:415
+#: objects/UML/component.c:348 objects/UML/message.c:369
+#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
+#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
+#, fuzzy
+msgid "Helvetica"
+msgstr "Flotar vertical"
 
 #. Translators: Menu item Verb
 #: objects/FS/function.c:638
@@ -3141,6 +2931,11 @@ msgstr "Integrar"
 #: objects/FS/function.c:992
 msgid "Differentiate"
 msgstr "Diferenciar"
+
+#. Translators: Menu item Verb/Convert/Process
+#: objects/FS/function.c:994
+msgid "Process"
+msgstr "Procesar"
 
 #. Translators: Menu item Verb/Signal/Sense
 #: objects/FS/function.c:1000 objects/FS/function.c:1002
@@ -3815,6 +3610,21 @@ msgstr "Color de fondo"
 msgid "Attributes"
 msgstr "Atributos"
 
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
+#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
+msgid "New"
+msgstr "Nuevo"
+
+#: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1865
+#: objects/UML/class_dialog.c:2083 objects/UML/class_dialog.c:2646
+msgid "Delete"
+msgstr "Borrar"
+
+#: objects/UML/class_dialog.c:859 objects/UML/class_dialog.c:1871
+#: objects/UML/class_dialog.c:2090 objects/UML/class_dialog.c:2652
+msgid "Move up"
+msgstr "Mover arriba"
+
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1877
 #: objects/UML/class_dialog.c:2097 objects/UML/class_dialog.c:2658
 msgid "Move down"
@@ -4311,11 +4121,6 @@ msgstr "Objetos estándares"
 msgid "Fontsize:"
 msgstr "Tamaño de fuente:"
 
-#: objects/sybase/sybase.c:44
-#, fuzzy
-msgid "Sybase replication domain diagram objects"
-msgstr "Objetos para diseñar diagramas en el dominio de replicación de Sybase"
-
 #: plug-ins/cgm/cgm.c:1092
 msgid ""
 "Image row length larger than maximum cell array.\n"
@@ -4343,16 +4148,6 @@ msgstr "Filtros de importación y exportación de Drawing Interchange File"
 #: plug-ins/hpgl/hpgl.c:619
 msgid "HP Graphics Language export filter"
 msgstr "Filtro de exportación de HP Graphics Language"
-
-#: plug-ins/metapost/metapost.c:34
-#, fuzzy
-msgid "TeX Metapost export filter"
-msgstr "Filtro de exportación de TeX Pstricks"
-
-#: plug-ins/metapost/render_metapost.c:735
-#, fuzzy
-msgid "TeX Metapost macros"
-msgstr "TeX PSTricks macros"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -4583,6 +4378,16 @@ msgstr "Formato de archivo XFig"
 #: plug-ins/xfig/xfig.c:39
 msgid "Fig Format import and export filter"
 msgstr "Filtro de importación y exportación del formato Fig"
+
+#: plug-ins/metapost/metapost.c:34
+#, fuzzy
+msgid "TeX Metapost export filter"
+msgstr "Filtro de exportación de TeX Pstricks"
+
+#: plug-ins/metapost/render_metapost.c:735
+#, fuzzy
+msgid "TeX Metapost macros"
+msgstr "TeX PSTricks macros"
 
 #: sheets/Circuit.sheet.in.h:1
 msgid "A Horizontal Jumper"
@@ -5753,6 +5558,135 @@ msgstr "Dispositivo de almacenamiento estable"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase"
 msgstr "Sybase"
+
+#, fuzzy
+#~ msgid "Event Modelling Language diagram"
+#~ msgstr "Objetos de diagrama Unified Modelling Language"
+
+#, fuzzy
+#~ msgid "Number of processes:"
+#~ msgstr "Número de niveles de deshacer:"
+
+#, fuzzy
+#~ msgid "multiple"
+#~ msgstr "Demultiplexor"
+
+#, fuzzy
+#~ msgid "Single"
+#~ msgstr "Simple"
+
+#, fuzzy
+#~ msgid "Multiple"
+#~ msgstr "Multiplicar"
+
+#, fuzzy
+#~ msgid "Instantiation"
+#~ msgstr "Una transición"
+
+#, fuzzy
+#~ msgid "Unidirectional"
+#~ msgstr "Dirección"
+
+#, fuzzy
+#~ msgid "Bidirectional"
+#~ msgstr "Dirección"
+
+#, fuzzy
+#~ msgid "Interaction name:"
+#~ msgstr "Interfaz:"
+
+#, fuzzy
+#~ msgid "bidirectional"
+#~ msgstr "Dirección"
+
+#, fuzzy
+#~ msgid "Move Down"
+#~ msgstr "Mover abajo"
+
+#, fuzzy
+#~ msgid "relation"
+#~ msgstr "Perparación"
+
+#, fuzzy
+#~ msgid "Interface functions"
+#~ msgstr "Función de usuario"
+
+#, fuzzy
+#~ msgid "Function"
+#~ msgstr "Llamada a función"
+
+#, fuzzy
+#~ msgid "Function module:"
+#~ msgstr "Cabecera de función"
+
+#, fuzzy
+#~ msgid "Function name:"
+#~ msgstr "Cabecera de función"
+
+#, fuzzy
+#~ msgid "Interfaces"
+#~ msgstr "Interfaz:"
+
+#, fuzzy
+#~ msgid "Interface"
+#~ msgstr "Interfaz:"
+
+#, fuzzy
+#~ msgid "Interface name:"
+#~ msgstr "Interfaz:"
+
+#, fuzzy
+#~ msgid "Interface messages"
+#~ msgstr "Recibir mensaje"
+
+#, fuzzy
+#~ msgid "Message"
+#~ msgstr "Mensaje:"
+
+#, fuzzy
+#~ msgid "Message parameters"
+#~ msgstr "Tipo de mensaje:"
+
+#, fuzzy
+#~ msgid "Message parameter"
+#~ msgstr "Tipo de mensaje:"
+
+#, fuzzy
+#~ msgid "Functions"
+#~ msgstr "Llamada a función"
+
+#, fuzzy
+#~ msgid "Messages"
+#~ msgstr "Mensaje:"
+
+#, fuzzy
+#~ msgid "Process name:"
+#~ msgstr "Procesar"
+
+#, fuzzy
+#~ msgid "Process reference name:"
+#~ msgstr "Referencia al tipo de proceso"
+
+#, fuzzy
+#~ msgid "Module name:"
+#~ msgstr "Nombre de archivo:"
+
+#, fuzzy
+#~ msgid "Function parameters"
+#~ msgstr "Cabecera de función"
+
+#, fuzzy
+#~ msgid "Parameter"
+#~ msgstr "Parámetros"
+
+#, fuzzy
+#~ msgid "Relation members"
+#~ msgstr "Relación"
+
+#, fuzzy
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr ""
+#~ "Objetos para diseñar diagramas en el dominio de replicación de Sybase"
 
 #~ msgid "/File/Open _Recent"
 #~ msgstr "/Archivo/_Abrir reciente"

@@ -448,6 +448,8 @@ plug-ins/pstricks/Makefile
 plug-ins/dxf/Makefile
 plug-ins/hpgl/Makefile
 plug-ins/wpg/Makefile
+plug-ins/wmf/Makefile
+plug-ins/metapost/Makefile
 plug-ins/svg/Makefile
 plug-ins/shape/Makefile
 plug-ins/xfig/Makefile

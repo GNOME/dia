@@ -25,7 +25,20 @@
 	* plug-ins/makefile.mingw:
 	* configure.in: bumped up the version number to 0.90.RC1
 
+	* lib/render_objects.[ch]:
+	* po/POTFILES.in: removed render_objects from the build.
 
+	* plug-ins/Makefile.am:
+	* plug-ins/wmf/Makefile.am (new): EXTRA_DIST'ed the WMF plug-in,
+	so we keep its source in the tarball.
+
+	* objects/network/*.c, Makefile.am:
+	* objects/sybase/*.c, Makefile.am:
+	* po/POTFILES.in: cleaned up the non-existent files from the po
+	build process.
+
+	* plug-ins/Makefile.am: re-enabled metapost plug-in.
+	
 2002-05-13  Steffen Macke <sdteffen@web.de>
 
 	* AUTHORS:

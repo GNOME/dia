@@ -33,8 +33,6 @@ OBJECTS = \
 	color.o \
 	dia_xml.o \
 	attributes.o \
-	render_store.o \
-	render_object.o \
 	text.o \
 	font.o \
 	utils.o \

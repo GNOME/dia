@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.86\n"
-"POT-Creation-Date: 2002-05-13 21:42+0200\n"
+"POT-Creation-Date: 2002-05-14 00:04+0200\n"
 "PO-Revision-Date: 2001-09-28 19:27+0400\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -1563,8 +1563,7 @@ msgstr "нет"
 msgid "Plug-ins"
 msgstr "Дополнения"
 
-#: app/plugin-manager.c:195 objects/EML/process_dialog.c:637
-#: objects/ER/attribute.c:148 objects/ER/entity.c:126
+#: app/plugin-manager.c:195 objects/ER/attribute.c:148 objects/ER/entity.c:126
 #: objects/ER/relationship.c:135 objects/UML/association.c:1018
 #: objects/UML/class_dialog.c:884 objects/UML/class_dialog.c:1899
 #: objects/UML/class_dialog.c:2118 objects/UML/class_dialog.c:2677
@@ -1798,12 +1797,8 @@ msgstr "Dia"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c. if "Courier" works for you, it would be better.
-#: lib/attributes.c:130 lib/render_object.c:151 lib/text.c:1009
-#: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
-#: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
-#: objects/EML/interaction.c:496 objects/EML/process.c:511
-#: objects/ER/attribute.c:391 objects/ER/attribute.c:556
-#: objects/ER/entity.c:343 objects/ER/entity.c:485
+#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:391
+#: objects/ER/attribute.c:556 objects/ER/entity.c:343 objects/ER/entity.c:485
 #: objects/ER/relationship.c:421 objects/ER/relationship.c:601
 #: objects/UML/association.c:556 objects/UML/association.c:741
 #: objects/UML/class.c:689 objects/UML/constraint.c:269
@@ -1811,16 +1806,7 @@ msgstr "Dia"
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:303 objects/UML/realizes.c:367
 #: objects/UML/small_package.c:342 objects/custom/shape_info.h:67
-#: objects/network/antenna.c:91 objects/network/computer.c:92
-#: objects/network/disc.c:92 objects/network/flash.c:88
-#: objects/network/hub.c:92 objects/network/modem.c:90
-#: objects/network/modularswitch.c:94 objects/network/monitor.c:91
-#: objects/network/printer.c:91 objects/network/rj45plug.c:90
-#: objects/network/scead-plug.c:89 objects/standard/textobj.c:388
-#: objects/sybase/client.c:90 objects/sybase/dataserver.c:89
-#: objects/sybase/ltm.c:91 objects/sybase/repserver.c:90
-#: objects/sybase/rsm.c:102 objects/sybase/stableq.c:92
-#: plug-ins/dxf/dxf-import.c:530
+#: objects/standard/textobj.c:388 plug-ins/dxf/dxf-import.c:530
 msgid "Courier"
 msgstr ""
 
@@ -2119,224 +2105,6 @@ msgstr "Выбрать файл изображения"
 msgid "Browse"
 msgstr "Просмотр"
 
-#: objects/EML/eml.c:40
-#, fuzzy
-msgid "Event Modelling Language diagram"
-msgstr "Объекты диаграмм Унифицированного языка моделирования (UML)"
-
-#: objects/EML/instantiation.c:130
-#, fuzzy
-msgid "Number of processes:"
-msgstr "Число уровней отката:"
-
-#: objects/EML/instantiation.c:132 objects/EML/interaction-ortho.c:548
-#, fuzzy
-msgid "multiple"
-msgstr "Демультиплексор"
-
-#: objects/EML/instantiation.c:433
-#, fuzzy
-msgid "Single"
-msgstr "Простой"
-
-#: objects/EML/instantiation.c:435
-#, fuzzy
-msgid "Multiple"
-msgstr "Перемножить"
-
-#: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:288
-#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
-#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
-#: objects/UML/association.c:620 objects/UML/dependency.c:335
-#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
-#: objects/standard/zigzagline.c:343
-msgid "Add segment"
-msgstr "Добавить сегмент"
-
-#: objects/EML/instantiation.c:438 objects/EML/interaction-ortho.c:289
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
-#: objects/UML/association.c:621 objects/UML/dependency.c:336
-#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
-#: objects/standard/zigzagline.c:344
-msgid "Delete segment"
-msgstr "Удалить сегмент"
-
-#: objects/EML/instantiation.c:442
-#, fuzzy
-msgid "Instantiation"
-msgstr "Трансляция"
-
-#: objects/EML/interaction-ortho.c:286 objects/EML/interaction.c:454
-#, fuzzy
-msgid "Unidirectional"
-msgstr "Направление:"
-
-#: objects/EML/interaction-ortho.c:287 objects/EML/interaction.c:455
-#, fuzzy
-msgid "Bidirectional"
-msgstr "Направление:"
-
-#: objects/EML/interaction.c:612
-#, fuzzy
-msgid "Interaction name:"
-msgstr "Интерфейс:"
-
-#: objects/EML/interaction.c:623
-#, fuzzy
-msgid "bidirectional"
-msgstr "Направление:"
-
-#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:847
-#: objects/UML/class_dialog.c:1859 objects/UML/class_dialog.c:2076
-#: objects/UML/class_dialog.c:2640
-msgid "New"
-msgstr "Новый"
-
-#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:853
-#: objects/UML/class_dialog.c:1865 objects/UML/class_dialog.c:2083
-#: objects/UML/class_dialog.c:2646
-msgid "Delete"
-msgstr "Удалить"
-
-#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:859
-#: objects/UML/class_dialog.c:1871 objects/UML/class_dialog.c:2090
-#: objects/UML/class_dialog.c:2652
-msgid "Move up"
-msgstr "Перенести вверх"
-
-#: objects/EML/nlist.c:52
-#, fuzzy
-msgid "Move Down"
-msgstr "Переместить вниз"
-
-#. choose default font name for your locale. see also font_data structure
-#. in lib/font.c.
-#: objects/EML/process.c:514 objects/EML/process.c:515
-#: objects/EML/process.c:516 objects/EML/process.c:517
-#: objects/FS/function.c:417 objects/SADT/annotation.c:357
-#: objects/UML/actor.c:332 objects/UML/classicon.c:415
-#: objects/UML/component.c:348 objects/UML/message.c:369
-#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
-#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
-#: objects/chronogram/chronoref.c:434
-#, fuzzy
-msgid "Helvetica"
-msgstr "Вертикальное отражение"
-
-#: objects/EML/process_dialog.c:625
-#, fuzzy
-msgid "relation"
-msgstr "Операции"
-
-#: objects/EML/process_dialog.c:882
-#, fuzzy
-msgid "Interface functions"
-msgstr "Функция пользователя"
-
-#: objects/EML/process_dialog.c:883
-#, fuzzy
-msgid "Function"
-msgstr "Вызов функции"
-
-#: objects/EML/process_dialog.c:899
-#, fuzzy
-msgid "Function module:"
-msgstr "Заголовок функции"
-
-#: objects/EML/process_dialog.c:908 objects/EML/process_dialog.c:1304
-#, fuzzy
-msgid "Function name:"
-msgstr "Заголовок функции"
-
-#: objects/EML/process_dialog.c:1097
-#, fuzzy
-msgid "Interfaces"
-msgstr "Интерфейс:"
-
-#: objects/EML/process_dialog.c:1098
-#, fuzzy
-msgid "Interface"
-msgstr "Интерфейс:"
-
-#: objects/EML/process_dialog.c:1114
-#, fuzzy
-msgid "Interface name:"
-msgstr "Интерфейс:"
-
-#: objects/EML/process_dialog.c:1132
-#, fuzzy
-msgid "Interface messages"
-msgstr "Получить"
-
-#: objects/EML/process_dialog.c:1133
-#, fuzzy
-msgid "Message"
-msgstr "Сообщение:"
-
-#: objects/EML/process_dialog.c:1134
-#, fuzzy
-msgid "Message parameters"
-msgstr "Тип сообщения:"
-
-#: objects/EML/process_dialog.c:1135
-#, fuzzy
-msgid "Message parameter"
-msgstr "Тип сообщения:"
-
-#: objects/EML/process_dialog.c:1148
-#, fuzzy
-msgid "Functions"
-msgstr "Вызов функции"
-
-#: objects/EML/process_dialog.c:1151
-#, fuzzy
-msgid "Messages"
-msgstr "Сообщение:"
-
-#. Translators: Menu item Verb/Convert/Process
-#: objects/EML/process_dialog.c:1238 objects/FS/function.c:994
-msgid "Process"
-msgstr ""
-
-#: objects/EML/process_dialog.c:1242
-#, fuzzy
-msgid "Process name:"
-msgstr "Название класса:"
-
-#: objects/EML/process_dialog.c:1246
-#, fuzzy
-msgid "Process reference name:"
-msgstr "Настройки"
-
-#: objects/EML/process_dialog.c:1251
-msgid "Process lifetime:"
-msgstr ""
-
-#: objects/EML/process_dialog.c:1299
-#, fuzzy
-msgid "Module name:"
-msgstr "Название файла:"
-
-#: objects/EML/process_dialog.c:1311
-#, fuzzy
-msgid "Function parameters"
-msgstr "Заголовок функции"
-
-#: objects/EML/process_dialog.c:1312
-#, fuzzy
-msgid "Parameter"
-msgstr "Параметры"
-
-#: objects/EML/process_dialog.c:1313
-#, fuzzy
-msgid "Relation members"
-msgstr "Отношение"
-
-#: objects/EML/process_dialog.c:1314
-msgid "Relation member"
-msgstr ""
-
 #: objects/ER/attribute.c:150
 msgid "Key:"
 msgstr "Ключ:"
@@ -2375,6 +2143,22 @@ msgstr "Объекты диаграммы Сущностей/Отношений"
 msgid "Total:"
 msgstr "Всего:"
 
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
+#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
+#: objects/UML/association.c:620 objects/UML/dependency.c:335
+#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
+#: objects/standard/zigzagline.c:343
+msgid "Add segment"
+msgstr "Добавить сегмент"
+
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
+#: objects/UML/association.c:621 objects/UML/dependency.c:336
+#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
+#: objects/standard/zigzagline.c:344
+msgid "Delete segment"
+msgstr "Удалить сегмент"
+
 #: objects/ER/relationship.c:137
 msgid "Left Cardinality:"
 msgstr "Левая мощность:"
@@ -2399,27 +2183,24 @@ msgstr "Отношение"
 #.
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
 #: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
-#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
-#: objects/FS/flow-poly.c:789 objects/FS/flow.c:155 objects/FS/flow.c:658
-#: objects/FS/flow.c:722 objects/FS/function.c:1058
+#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
+#: objects/FS/function.c:1058
 msgid "Energy"
 msgstr "Энергия"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
 #: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
-#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
-#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:659
-#: objects/FS/flow.c:729 objects/FS/function.c:1034
+#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
+#: objects/FS/function.c:1034
 msgid "Material"
 msgstr "Материал"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
 #: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
-#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
-#: objects/FS/flow-poly.c:802 objects/FS/flow.c:157 objects/FS/flow.c:660
-#: objects/FS/flow.c:735 objects/FS/function.c:996 objects/FS/function.c:998
+#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
+#: objects/FS/function.c:996 objects/FS/function.c:998
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "Сигнал"
@@ -2433,19 +2214,16 @@ msgstr "Тип:"
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
 #: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
-#: objects/FS/flow-ortho.c:926 objects/FS/flow-poly.c:366
-#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:430
-#: objects/FS/flow.c:559 objects/FS/flow.c:771
+#: objects/FS/flow-ortho.c:926 objects/FS/flow.c:430 objects/FS/flow.c:559
+#: objects/FS/flow.c:771
 msgid "Helvetica-Oblique"
 msgstr ""
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow-poly.c:650
-#: objects/FS/flow-poly.c:768 objects/FS/flow.c:701
+#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "Поток:"
 
-#: objects/FS/flow-ortho.c:741 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:784 objects/FS/flow.c:717
+#: objects/FS/flow-ortho.c:741 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "Тип потока:"
 
@@ -2468,6 +2246,18 @@ msgstr "Функция наибольшего правдоподобия"
 #: objects/FS/function.c:139
 msgid "User function"
 msgstr "Функция пользователя"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/FS/function.c:417 objects/SADT/annotation.c:357
+#: objects/UML/actor.c:332 objects/UML/classicon.c:415
+#: objects/UML/component.c:348 objects/UML/message.c:369
+#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
+#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
+#, fuzzy
+msgid "Helvetica"
+msgstr "Вертикальное отражение"
 
 #. Translators: Menu item Verb
 #: objects/FS/function.c:638
@@ -3140,6 +2930,11 @@ msgstr "Интегрировать"
 msgid "Differentiate"
 msgstr "Дифференциировать"
 
+#. Translators: Menu item Verb/Convert/Process
+#: objects/FS/function.c:994
+msgid "Process"
+msgstr ""
+
 #. Translators: Menu item Verb/Signal/Sense
 #: objects/FS/function.c:1000 objects/FS/function.c:1002
 msgid "Sense"
@@ -3810,6 +3605,21 @@ msgstr "Цвет фона"
 msgid "Attributes"
 msgstr "Аттрибуты"
 
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
+#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
+msgid "New"
+msgstr "Новый"
+
+#: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1865
+#: objects/UML/class_dialog.c:2083 objects/UML/class_dialog.c:2646
+msgid "Delete"
+msgstr "Удалить"
+
+#: objects/UML/class_dialog.c:859 objects/UML/class_dialog.c:1871
+#: objects/UML/class_dialog.c:2090 objects/UML/class_dialog.c:2652
+msgid "Move up"
+msgstr "Перенести вверх"
+
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1877
 #: objects/UML/class_dialog.c:2097 objects/UML/class_dialog.c:2658
 msgid "Move down"
@@ -4307,11 +4117,6 @@ msgstr "Стандартные объекты"
 msgid "Fontsize:"
 msgstr "Размер шрифта:"
 
-#: objects/sybase/sybase.c:44
-#, fuzzy
-msgid "Sybase replication domain diagram objects"
-msgstr "Объекты диаграммы Сущностей/Отношений"
-
 #: plug-ins/cgm/cgm.c:1092
 msgid ""
 "Image row length larger than maximum cell array.\n"
@@ -4339,16 +4144,6 @@ msgstr "Фильтр экспорта/импорта DIF (Drawing Interchange File)"
 #: plug-ins/hpgl/hpgl.c:619
 msgid "HP Graphics Language export filter"
 msgstr "Фильтр экспорта файлов HPGL"
-
-#: plug-ins/metapost/metapost.c:34
-#, fuzzy
-msgid "TeX Metapost export filter"
-msgstr "Фильтр экспорта файлов TeX Pstricks"
-
-#: plug-ins/metapost/render_metapost.c:735
-#, fuzzy
-msgid "TeX Metapost macros"
-msgstr "Макрос TeX Pstricks"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -4578,6 +4373,16 @@ msgstr "Файл в формате XFig"
 #: plug-ins/xfig/xfig.c:39
 msgid "Fig Format import and export filter"
 msgstr "Фильтр импорта/экспорта формата Fig"
+
+#: plug-ins/metapost/metapost.c:34
+#, fuzzy
+msgid "TeX Metapost export filter"
+msgstr "Фильтр экспорта файлов TeX Pstricks"
+
+#: plug-ins/metapost/render_metapost.c:735
+#, fuzzy
+msgid "TeX Metapost macros"
+msgstr "Макрос TeX Pstricks"
 
 #: sheets/Circuit.sheet.in.h:1
 msgid "A Horizontal Jumper"
@@ -5787,6 +5592,134 @@ msgstr ""
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase"
 msgstr "Sybase"
+
+#, fuzzy
+#~ msgid "Event Modelling Language diagram"
+#~ msgstr "Объекты диаграмм Унифицированного языка моделирования (UML)"
+
+#, fuzzy
+#~ msgid "Number of processes:"
+#~ msgstr "Число уровней отката:"
+
+#, fuzzy
+#~ msgid "multiple"
+#~ msgstr "Демультиплексор"
+
+#, fuzzy
+#~ msgid "Single"
+#~ msgstr "Простой"
+
+#, fuzzy
+#~ msgid "Multiple"
+#~ msgstr "Перемножить"
+
+#, fuzzy
+#~ msgid "Instantiation"
+#~ msgstr "Трансляция"
+
+#, fuzzy
+#~ msgid "Unidirectional"
+#~ msgstr "Направление:"
+
+#, fuzzy
+#~ msgid "Bidirectional"
+#~ msgstr "Направление:"
+
+#, fuzzy
+#~ msgid "Interaction name:"
+#~ msgstr "Интерфейс:"
+
+#, fuzzy
+#~ msgid "bidirectional"
+#~ msgstr "Направление:"
+
+#, fuzzy
+#~ msgid "Move Down"
+#~ msgstr "Переместить вниз"
+
+#, fuzzy
+#~ msgid "relation"
+#~ msgstr "Операции"
+
+#, fuzzy
+#~ msgid "Interface functions"
+#~ msgstr "Функция пользователя"
+
+#, fuzzy
+#~ msgid "Function"
+#~ msgstr "Вызов функции"
+
+#, fuzzy
+#~ msgid "Function module:"
+#~ msgstr "Заголовок функции"
+
+#, fuzzy
+#~ msgid "Function name:"
+#~ msgstr "Заголовок функции"
+
+#, fuzzy
+#~ msgid "Interfaces"
+#~ msgstr "Интерфейс:"
+
+#, fuzzy
+#~ msgid "Interface"
+#~ msgstr "Интерфейс:"
+
+#, fuzzy
+#~ msgid "Interface name:"
+#~ msgstr "Интерфейс:"
+
+#, fuzzy
+#~ msgid "Interface messages"
+#~ msgstr "Получить"
+
+#, fuzzy
+#~ msgid "Message"
+#~ msgstr "Сообщение:"
+
+#, fuzzy
+#~ msgid "Message parameters"
+#~ msgstr "Тип сообщения:"
+
+#, fuzzy
+#~ msgid "Message parameter"
+#~ msgstr "Тип сообщения:"
+
+#, fuzzy
+#~ msgid "Functions"
+#~ msgstr "Вызов функции"
+
+#, fuzzy
+#~ msgid "Messages"
+#~ msgstr "Сообщение:"
+
+#, fuzzy
+#~ msgid "Process name:"
+#~ msgstr "Название класса:"
+
+#, fuzzy
+#~ msgid "Process reference name:"
+#~ msgstr "Настройки"
+
+#, fuzzy
+#~ msgid "Module name:"
+#~ msgstr "Название файла:"
+
+#, fuzzy
+#~ msgid "Function parameters"
+#~ msgstr "Заголовок функции"
+
+#, fuzzy
+#~ msgid "Parameter"
+#~ msgstr "Параметры"
+
+#, fuzzy
+#~ msgid "Relation members"
+#~ msgstr "Отношение"
+
+#, fuzzy
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Объекты диаграммы Сущностей/Отношений"
 
 #~ msgid "/File/Open _Recent"
 #~ msgstr "/Файл/Открыть последние"

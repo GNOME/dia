@@ -64,7 +64,6 @@ OBJECTS = \
 	propoffsets.obj \
 	propregistry.obj \
 	render.obj \
-	render_store.obj \
 	sheet.obj \
 	text.obj \
 	utils.obj \

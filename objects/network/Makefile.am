@@ -7,18 +7,6 @@ libnetwork_objects_la_SOURCES = \
 			      bus.c \
 			      wanlink.c 
 
-##			      computer.c \
-##			      disc.c \
-##			      monitor.c \
-##			      printer.c \
-##			      antenna.c \
-##			      modem.c \
-##			      flash.c \
-##			      hub.c \
-##			      modularswitch.c \
-##			      rj45plug.c \
-##			      scead-plug.c
-
 libnetwork_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(FREETYPE_CFLAGS) $(UNICODE_CFLAGS)

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-05-13 21:42+0200\n"
+"POT-Creation-Date: 2002-05-14 00:04+0200\n"
 "PO-Revision-Date: 2000-06-25 19:28+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -1543,8 +1543,7 @@ msgstr "ne"
 msgid "Plug-ins"
 msgstr "Vtičniki"
 
-#: app/plugin-manager.c:195 objects/EML/process_dialog.c:637
-#: objects/ER/attribute.c:148 objects/ER/entity.c:126
+#: app/plugin-manager.c:195 objects/ER/attribute.c:148 objects/ER/entity.c:126
 #: objects/ER/relationship.c:135 objects/UML/association.c:1018
 #: objects/UML/class_dialog.c:884 objects/UML/class_dialog.c:1899
 #: objects/UML/class_dialog.c:2118 objects/UML/class_dialog.c:2677
@@ -1773,12 +1772,8 @@ msgstr "Dia"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c. if "Courier" works for you, it would be better.
-#: lib/attributes.c:130 lib/render_object.c:151 lib/text.c:1009
-#: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
-#: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
-#: objects/EML/interaction.c:496 objects/EML/process.c:511
-#: objects/ER/attribute.c:391 objects/ER/attribute.c:556
-#: objects/ER/entity.c:343 objects/ER/entity.c:485
+#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:391
+#: objects/ER/attribute.c:556 objects/ER/entity.c:343 objects/ER/entity.c:485
 #: objects/ER/relationship.c:421 objects/ER/relationship.c:601
 #: objects/UML/association.c:556 objects/UML/association.c:741
 #: objects/UML/class.c:689 objects/UML/constraint.c:269
@@ -1786,16 +1781,7 @@ msgstr "Dia"
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:303 objects/UML/realizes.c:367
 #: objects/UML/small_package.c:342 objects/custom/shape_info.h:67
-#: objects/network/antenna.c:91 objects/network/computer.c:92
-#: objects/network/disc.c:92 objects/network/flash.c:88
-#: objects/network/hub.c:92 objects/network/modem.c:90
-#: objects/network/modularswitch.c:94 objects/network/monitor.c:91
-#: objects/network/printer.c:91 objects/network/rj45plug.c:90
-#: objects/network/scead-plug.c:89 objects/standard/textobj.c:388
-#: objects/sybase/client.c:90 objects/sybase/dataserver.c:89
-#: objects/sybase/ltm.c:91 objects/sybase/repserver.c:90
-#: objects/sybase/rsm.c:102 objects/sybase/stableq.c:92
-#: plug-ins/dxf/dxf-import.c:530
+#: objects/standard/textobj.c:388 plug-ins/dxf/dxf-import.c:530
 msgid "Courier"
 msgstr "Courier"
 
@@ -2100,194 +2086,6 @@ msgstr "Izberite datoteko s sliko"
 msgid "Browse"
 msgstr "Brskaj"
 
-#: objects/EML/eml.c:40
-msgid "Event Modelling Language diagram"
-msgstr "Diagram jezika modeliranja dogodkov"
-
-#: objects/EML/instantiation.c:130
-msgid "Number of processes:"
-msgstr "Število procesov:"
-
-#: objects/EML/instantiation.c:132 objects/EML/interaction-ortho.c:548
-msgid "multiple"
-msgstr "več"
-
-#: objects/EML/instantiation.c:433
-msgid "Single"
-msgstr "eden"
-
-#: objects/EML/instantiation.c:435
-msgid "Multiple"
-msgstr "več"
-
-#: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:288
-#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
-#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
-#: objects/UML/association.c:620 objects/UML/dependency.c:335
-#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
-#: objects/standard/zigzagline.c:343
-msgid "Add segment"
-msgstr "Dodaj daljico"
-
-#: objects/EML/instantiation.c:438 objects/EML/interaction-ortho.c:289
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
-#: objects/UML/association.c:621 objects/UML/dependency.c:336
-#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
-#: objects/standard/zigzagline.c:344
-msgid "Delete segment"
-msgstr "Zbriši daljico"
-
-#: objects/EML/instantiation.c:442
-msgid "Instantiation"
-msgstr "Namestitev"
-
-#: objects/EML/interaction-ortho.c:286 objects/EML/interaction.c:454
-msgid "Unidirectional"
-msgstr "Enosmerna"
-
-#: objects/EML/interaction-ortho.c:287 objects/EML/interaction.c:455
-msgid "Bidirectional"
-msgstr "Dvosmerna"
-
-#: objects/EML/interaction.c:612
-msgid "Interaction name:"
-msgstr "Ime interakcije:"
-
-#: objects/EML/interaction.c:623
-msgid "bidirectional"
-msgstr "dvosmerna"
-
-#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:847
-#: objects/UML/class_dialog.c:1859 objects/UML/class_dialog.c:2076
-#: objects/UML/class_dialog.c:2640
-msgid "New"
-msgstr "Nov"
-
-#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:853
-#: objects/UML/class_dialog.c:1865 objects/UML/class_dialog.c:2083
-#: objects/UML/class_dialog.c:2646
-msgid "Delete"
-msgstr "Zbriši"
-
-#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:859
-#: objects/UML/class_dialog.c:1871 objects/UML/class_dialog.c:2090
-#: objects/UML/class_dialog.c:2652
-msgid "Move up"
-msgstr "Premakni navzgor"
-
-#: objects/EML/nlist.c:52
-msgid "Move Down"
-msgstr "Premakni navzdol"
-
-#. choose default font name for your locale. see also font_data structure
-#. in lib/font.c.
-#: objects/EML/process.c:514 objects/EML/process.c:515
-#: objects/EML/process.c:516 objects/EML/process.c:517
-#: objects/FS/function.c:417 objects/SADT/annotation.c:357
-#: objects/UML/actor.c:332 objects/UML/classicon.c:415
-#: objects/UML/component.c:348 objects/UML/message.c:369
-#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
-#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
-#: objects/chronogram/chronoref.c:434
-msgid "Helvetica"
-msgstr "Helvetica"
-
-#: objects/EML/process_dialog.c:625
-msgid "relation"
-msgstr "relacija"
-
-#: objects/EML/process_dialog.c:882
-msgid "Interface functions"
-msgstr "Funkcije vmesnika"
-
-#: objects/EML/process_dialog.c:883
-msgid "Function"
-msgstr "Funkcija"
-
-#: objects/EML/process_dialog.c:899
-msgid "Function module:"
-msgstr "Modul funkcije"
-
-#: objects/EML/process_dialog.c:908 objects/EML/process_dialog.c:1304
-msgid "Function name:"
-msgstr "Ime funkcije:"
-
-#: objects/EML/process_dialog.c:1097
-msgid "Interfaces"
-msgstr "Vmesniki"
-
-#: objects/EML/process_dialog.c:1098
-msgid "Interface"
-msgstr "Vmesnik"
-
-#: objects/EML/process_dialog.c:1114
-msgid "Interface name:"
-msgstr "Ime vmesnika:"
-
-#: objects/EML/process_dialog.c:1132
-msgid "Interface messages"
-msgstr "Sporočila vmesnika"
-
-#: objects/EML/process_dialog.c:1133
-msgid "Message"
-msgstr "Sporočilo"
-
-#: objects/EML/process_dialog.c:1134
-msgid "Message parameters"
-msgstr "Parametri sporočila"
-
-#: objects/EML/process_dialog.c:1135
-msgid "Message parameter"
-msgstr "Parameter sporočila"
-
-#: objects/EML/process_dialog.c:1148
-msgid "Functions"
-msgstr "Funkcije"
-
-#: objects/EML/process_dialog.c:1151
-msgid "Messages"
-msgstr "Sporočila"
-
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# FIXME
-#. Translators: Menu item Verb/Convert/Process
-#: objects/EML/process_dialog.c:1238 objects/FS/function.c:994
-msgid "Process"
-msgstr "Proces"
-
-#: objects/EML/process_dialog.c:1242
-msgid "Process name:"
-msgstr "Ime procesa"
-
-#: objects/EML/process_dialog.c:1246
-msgid "Process reference name:"
-msgstr "Ime reference procesa"
-
-#: objects/EML/process_dialog.c:1251
-msgid "Process lifetime:"
-msgstr "Življenska doba procesa:"
-
-#: objects/EML/process_dialog.c:1299
-msgid "Module name:"
-msgstr "Ime modula:"
-
-#: objects/EML/process_dialog.c:1311
-msgid "Function parameters"
-msgstr "Parametri funkcije"
-
-#: objects/EML/process_dialog.c:1312
-msgid "Parameter"
-msgstr "Parametri"
-
-#: objects/EML/process_dialog.c:1313
-msgid "Relation members"
-msgstr "Člani relacije"
-
-#: objects/EML/process_dialog.c:1314
-msgid "Relation member"
-msgstr "Član relacije"
-
 #: objects/ER/attribute.c:150
 msgid "Key:"
 msgstr "Ključ:"
@@ -2326,6 +2124,22 @@ msgstr "Diagramski predmet Entitete/Relacije"
 msgid "Total:"
 msgstr "Skupaj:"
 
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
+#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
+#: objects/UML/association.c:620 objects/UML/dependency.c:335
+#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
+#: objects/standard/zigzagline.c:343
+msgid "Add segment"
+msgstr "Dodaj daljico"
+
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
+#: objects/UML/association.c:621 objects/UML/dependency.c:336
+#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
+#: objects/standard/zigzagline.c:344
+msgid "Delete segment"
+msgstr "Zbriši daljico"
+
 #: objects/ER/relationship.c:137
 msgid "Left Cardinality:"
 msgstr "Leva veja:"
@@ -2350,27 +2164,24 @@ msgstr "Relacija"
 #.
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
 #: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
-#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
-#: objects/FS/flow-poly.c:789 objects/FS/flow.c:155 objects/FS/flow.c:658
-#: objects/FS/flow.c:722 objects/FS/function.c:1058
+#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
+#: objects/FS/function.c:1058
 msgid "Energy"
 msgstr "Energija"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
 #: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
-#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
-#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:659
-#: objects/FS/flow.c:729 objects/FS/function.c:1034
+#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
+#: objects/FS/function.c:1034
 msgid "Material"
 msgstr "Materjal"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
 #: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
-#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
-#: objects/FS/flow-poly.c:802 objects/FS/flow.c:157 objects/FS/flow.c:660
-#: objects/FS/flow.c:735 objects/FS/function.c:996 objects/FS/function.c:998
+#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
+#: objects/FS/function.c:996 objects/FS/function.c:998
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "Signal"
@@ -2384,19 +2195,16 @@ msgstr "Tip:"
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
 #: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
-#: objects/FS/flow-ortho.c:926 objects/FS/flow-poly.c:366
-#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:430
-#: objects/FS/flow.c:559 objects/FS/flow.c:771
+#: objects/FS/flow-ortho.c:926 objects/FS/flow.c:430 objects/FS/flow.c:559
+#: objects/FS/flow.c:771
 msgid "Helvetica-Oblique"
 msgstr "Helvetica-Nagnjena"
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow-poly.c:650
-#: objects/FS/flow-poly.c:768 objects/FS/flow.c:701
+#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "Tok:"
 
-#: objects/FS/flow-ortho.c:741 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:784 objects/FS/flow.c:717
+#: objects/FS/flow-ortho.c:741 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "Tip toku:"
 
@@ -2419,6 +2227,17 @@ msgstr "Željena funkcija"
 #: objects/FS/function.c:139
 msgid "User function"
 msgstr "Uporabniška funkcija"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/FS/function.c:417 objects/SADT/annotation.c:357
+#: objects/UML/actor.c:332 objects/UML/classicon.c:415
+#: objects/UML/component.c:348 objects/UML/message.c:369
+#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
+#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
+msgid "Helvetica"
+msgstr "Helvetica"
 
 #. Translators: Menu item Verb
 #: objects/FS/function.c:638
@@ -3090,6 +2909,13 @@ msgstr "Integriraj"
 #: objects/FS/function.c:992
 msgid "Differentiate"
 msgstr "Diferenciraj"
+
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# FIXME
+#. Translators: Menu item Verb/Convert/Process
+#: objects/FS/function.c:994
+msgid "Process"
+msgstr "Proces"
 
 #. Translators: Menu item Verb/Signal/Sense
 #: objects/FS/function.c:1000 objects/FS/function.c:1002
@@ -3763,6 +3589,21 @@ msgstr "Barva ozadja"
 msgid "Attributes"
 msgstr "Atributi"
 
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
+#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
+msgid "New"
+msgstr "Nov"
+
+#: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1865
+#: objects/UML/class_dialog.c:2083 objects/UML/class_dialog.c:2646
+msgid "Delete"
+msgstr "Zbriši"
+
+#: objects/UML/class_dialog.c:859 objects/UML/class_dialog.c:1871
+#: objects/UML/class_dialog.c:2090 objects/UML/class_dialog.c:2652
+msgid "Move up"
+msgstr "Premakni navzgor"
+
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1877
 #: objects/UML/class_dialog.c:2097 objects/UML/class_dialog.c:2658
 msgid "Move down"
@@ -4254,10 +4095,6 @@ msgstr "Običajni predmeti"
 msgid "Fontsize:"
 msgstr "Velikost pisave:"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Diagramski predmeti Sybase"
-
 #: plug-ins/cgm/cgm.c:1092
 msgid ""
 "Image row length larger than maximum cell array.\n"
@@ -4285,14 +4122,6 @@ msgstr "Uvozni in izvozni filtri za datoteke za izmenjavo risb (DIF) "
 #: plug-ins/hpgl/hpgl.c:619
 msgid "HP Graphics Language export filter"
 msgstr "Izvozni filter za Grafični Jezik HP"
-
-#: plug-ins/metapost/metapost.c:34
-msgid "TeX Metapost export filter"
-msgstr "Izvozni filter za TeX Metapost"
-
-#: plug-ins/metapost/render_metapost.c:735
-msgid "TeX Metapost macros"
-msgstr "Makri TeX Metapost"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -4520,6 +4349,14 @@ msgstr "Oblika datoteke XFig"
 #: plug-ins/xfig/xfig.c:39
 msgid "Fig Format import and export filter"
 msgstr "Uvozni in izvozni filtri za datoteke oblike fig "
+
+#: plug-ins/metapost/metapost.c:34
+msgid "TeX Metapost export filter"
+msgstr "Izvozni filter za TeX Metapost"
+
+#: plug-ins/metapost/render_metapost.c:735
+msgid "TeX Metapost macros"
+msgstr "Makri TeX Metapost"
 
 #: sheets/Circuit.sheet.in.h:1
 msgid "A Horizontal Jumper"
@@ -5688,6 +5525,108 @@ msgstr "Stabilna hrambna naprava"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase"
 msgstr "Sybase"
+
+#~ msgid "Event Modelling Language diagram"
+#~ msgstr "Diagram jezika modeliranja dogodkov"
+
+#~ msgid "Number of processes:"
+#~ msgstr "Število procesov:"
+
+#~ msgid "multiple"
+#~ msgstr "več"
+
+#~ msgid "Single"
+#~ msgstr "eden"
+
+#~ msgid "Multiple"
+#~ msgstr "več"
+
+#~ msgid "Instantiation"
+#~ msgstr "Namestitev"
+
+#~ msgid "Unidirectional"
+#~ msgstr "Enosmerna"
+
+#~ msgid "Bidirectional"
+#~ msgstr "Dvosmerna"
+
+#~ msgid "Interaction name:"
+#~ msgstr "Ime interakcije:"
+
+#~ msgid "bidirectional"
+#~ msgstr "dvosmerna"
+
+#~ msgid "Move Down"
+#~ msgstr "Premakni navzdol"
+
+#~ msgid "relation"
+#~ msgstr "relacija"
+
+#~ msgid "Interface functions"
+#~ msgstr "Funkcije vmesnika"
+
+#~ msgid "Function"
+#~ msgstr "Funkcija"
+
+#~ msgid "Function module:"
+#~ msgstr "Modul funkcije"
+
+#~ msgid "Function name:"
+#~ msgstr "Ime funkcije:"
+
+#~ msgid "Interfaces"
+#~ msgstr "Vmesniki"
+
+#~ msgid "Interface"
+#~ msgstr "Vmesnik"
+
+#~ msgid "Interface name:"
+#~ msgstr "Ime vmesnika:"
+
+#~ msgid "Interface messages"
+#~ msgstr "Sporočila vmesnika"
+
+#~ msgid "Message"
+#~ msgstr "Sporočilo"
+
+#~ msgid "Message parameters"
+#~ msgstr "Parametri sporočila"
+
+#~ msgid "Message parameter"
+#~ msgstr "Parameter sporočila"
+
+#~ msgid "Functions"
+#~ msgstr "Funkcije"
+
+#~ msgid "Messages"
+#~ msgstr "Sporočila"
+
+#~ msgid "Process name:"
+#~ msgstr "Ime procesa"
+
+#~ msgid "Process reference name:"
+#~ msgstr "Ime reference procesa"
+
+#~ msgid "Process lifetime:"
+#~ msgstr "Življenska doba procesa:"
+
+#~ msgid "Module name:"
+#~ msgstr "Ime modula:"
+
+#~ msgid "Function parameters"
+#~ msgstr "Parametri funkcije"
+
+#~ msgid "Parameter"
+#~ msgstr "Parametri"
+
+#~ msgid "Relation members"
+#~ msgstr "Člani relacije"
+
+#~ msgid "Relation member"
+#~ msgstr "Član relacije"
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Diagramski predmeti Sybase"
 
 #~ msgid "Normal Font"
 #~ msgstr "Običajna pisava"

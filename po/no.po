@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.89\n"
-"POT-Creation-Date: 2002-05-13 21:42+0200\n"
+"POT-Creation-Date: 2002-05-14 00:04+0200\n"
 "PO-Revision-Date: 2002-02-21 10:13+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -1545,8 +1545,7 @@ msgstr "nei"
 msgid "Plug-ins"
 msgstr "Tillegg"
 
-#: app/plugin-manager.c:195 objects/EML/process_dialog.c:637
-#: objects/ER/attribute.c:148 objects/ER/entity.c:126
+#: app/plugin-manager.c:195 objects/ER/attribute.c:148 objects/ER/entity.c:126
 #: objects/ER/relationship.c:135 objects/UML/association.c:1018
 #: objects/UML/class_dialog.c:884 objects/UML/class_dialog.c:1899
 #: objects/UML/class_dialog.c:2118 objects/UML/class_dialog.c:2677
@@ -1774,12 +1773,8 @@ msgstr "Dia"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c. if "Courier" works for you, it would be better.
-#: lib/attributes.c:130 lib/render_object.c:151 lib/text.c:1009
-#: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
-#: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
-#: objects/EML/interaction.c:496 objects/EML/process.c:511
-#: objects/ER/attribute.c:391 objects/ER/attribute.c:556
-#: objects/ER/entity.c:343 objects/ER/entity.c:485
+#: lib/attributes.c:130 lib/text.c:1009 objects/ER/attribute.c:391
+#: objects/ER/attribute.c:556 objects/ER/entity.c:343 objects/ER/entity.c:485
 #: objects/ER/relationship.c:421 objects/ER/relationship.c:601
 #: objects/UML/association.c:556 objects/UML/association.c:741
 #: objects/UML/class.c:689 objects/UML/constraint.c:269
@@ -1787,16 +1782,7 @@ msgstr "Dia"
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:303 objects/UML/realizes.c:367
 #: objects/UML/small_package.c:342 objects/custom/shape_info.h:67
-#: objects/network/antenna.c:91 objects/network/computer.c:92
-#: objects/network/disc.c:92 objects/network/flash.c:88
-#: objects/network/hub.c:92 objects/network/modem.c:90
-#: objects/network/modularswitch.c:94 objects/network/monitor.c:91
-#: objects/network/printer.c:91 objects/network/rj45plug.c:90
-#: objects/network/scead-plug.c:89 objects/standard/textobj.c:388
-#: objects/sybase/client.c:90 objects/sybase/dataserver.c:89
-#: objects/sybase/ltm.c:91 objects/sybase/repserver.c:90
-#: objects/sybase/rsm.c:102 objects/sybase/stableq.c:92
-#: plug-ins/dxf/dxf-import.c:530
+#: objects/standard/textobj.c:388 plug-ins/dxf/dxf-import.c:530
 msgid "Courier"
 msgstr "Courier"
 
@@ -2096,192 +2082,6 @@ msgstr "Velg bildefil"
 msgid "Browse"
 msgstr "Bla gjennom"
 
-#: objects/EML/eml.c:40
-msgid "Event Modelling Language diagram"
-msgstr "Event Modelling Language diagram"
-
-#: objects/EML/instantiation.c:130
-msgid "Number of processes:"
-msgstr "Antall prosesser:"
-
-#: objects/EML/instantiation.c:132 objects/EML/interaction-ortho.c:548
-msgid "multiple"
-msgstr "flere"
-
-#: objects/EML/instantiation.c:433
-msgid "Single"
-msgstr "Enkel"
-
-#: objects/EML/instantiation.c:435
-msgid "Multiple"
-msgstr "Flere"
-
-#: objects/EML/instantiation.c:437 objects/EML/interaction-ortho.c:288
-#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
-#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
-#: objects/UML/association.c:620 objects/UML/dependency.c:335
-#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
-#: objects/standard/zigzagline.c:343
-msgid "Add segment"
-msgstr "Legg til segment"
-
-#: objects/EML/instantiation.c:438 objects/EML/interaction-ortho.c:289
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
-#: objects/UML/association.c:621 objects/UML/dependency.c:336
-#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
-#: objects/standard/zigzagline.c:344
-msgid "Delete segment"
-msgstr "Slett segment"
-
-#: objects/EML/instantiation.c:442
-msgid "Instantiation"
-msgstr "Instantiering"
-
-#: objects/EML/interaction-ortho.c:286 objects/EML/interaction.c:454
-msgid "Unidirectional"
-msgstr "Ensrettet:"
-
-#: objects/EML/interaction-ortho.c:287 objects/EML/interaction.c:455
-msgid "Bidirectional"
-msgstr "Bidireksjonell"
-
-#: objects/EML/interaction.c:612
-msgid "Interaction name:"
-msgstr "Navn på interaksjon:"
-
-#: objects/EML/interaction.c:623
-msgid "bidirectional"
-msgstr "bidireksjonell"
-
-#: objects/EML/nlist.c:37 objects/UML/class_dialog.c:847
-#: objects/UML/class_dialog.c:1859 objects/UML/class_dialog.c:2076
-#: objects/UML/class_dialog.c:2640
-msgid "New"
-msgstr "Ny"
-
-#: objects/EML/nlist.c:42 objects/UML/class_dialog.c:853
-#: objects/UML/class_dialog.c:1865 objects/UML/class_dialog.c:2083
-#: objects/UML/class_dialog.c:2646
-msgid "Delete"
-msgstr "Slett"
-
-#: objects/EML/nlist.c:47 objects/UML/class_dialog.c:859
-#: objects/UML/class_dialog.c:1871 objects/UML/class_dialog.c:2090
-#: objects/UML/class_dialog.c:2652
-msgid "Move up"
-msgstr "Flytt opp"
-
-#: objects/EML/nlist.c:52
-msgid "Move Down"
-msgstr "Flytt ned"
-
-#. choose default font name for your locale. see also font_data structure
-#. in lib/font.c.
-#: objects/EML/process.c:514 objects/EML/process.c:515
-#: objects/EML/process.c:516 objects/EML/process.c:517
-#: objects/FS/function.c:417 objects/SADT/annotation.c:357
-#: objects/UML/actor.c:332 objects/UML/classicon.c:415
-#: objects/UML/component.c:348 objects/UML/message.c:369
-#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
-#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
-#: objects/chronogram/chronoref.c:434
-msgid "Helvetica"
-msgstr "Helvetica"
-
-#: objects/EML/process_dialog.c:625
-msgid "relation"
-msgstr "relasjon"
-
-#: objects/EML/process_dialog.c:882
-msgid "Interface functions"
-msgstr "Grensesnitt-funksjoner"
-
-#: objects/EML/process_dialog.c:883
-msgid "Function"
-msgstr "Funksjon"
-
-#: objects/EML/process_dialog.c:899
-msgid "Function module:"
-msgstr "Funksjonsmodul:"
-
-#: objects/EML/process_dialog.c:908 objects/EML/process_dialog.c:1304
-msgid "Function name:"
-msgstr "Funksjonsnavn:"
-
-#: objects/EML/process_dialog.c:1097
-msgid "Interfaces"
-msgstr "Grensesnitt"
-
-#: objects/EML/process_dialog.c:1098
-msgid "Interface"
-msgstr "Grensesnitt"
-
-#: objects/EML/process_dialog.c:1114
-msgid "Interface name:"
-msgstr "Grensesnittnavn:"
-
-#: objects/EML/process_dialog.c:1132
-msgid "Interface messages"
-msgstr "Grensesnittmelding:"
-
-#: objects/EML/process_dialog.c:1133
-msgid "Message"
-msgstr "Melding"
-
-#: objects/EML/process_dialog.c:1134
-msgid "Message parameters"
-msgstr "Meldingsparametere"
-
-#: objects/EML/process_dialog.c:1135
-msgid "Message parameter"
-msgstr "Meldingsparameter"
-
-#: objects/EML/process_dialog.c:1148
-msgid "Functions"
-msgstr "Funksjoner"
-
-#: objects/EML/process_dialog.c:1151
-msgid "Messages"
-msgstr "Meldinger"
-
-#. Translators: Menu item Verb/Convert/Process
-#: objects/EML/process_dialog.c:1238 objects/FS/function.c:994
-msgid "Process"
-msgstr "Prosesser"
-
-#: objects/EML/process_dialog.c:1242
-msgid "Process name:"
-msgstr "Prosessnavn:"
-
-#: objects/EML/process_dialog.c:1246
-msgid "Process reference name:"
-msgstr "Referansenavn for prosess:"
-
-#: objects/EML/process_dialog.c:1251
-msgid "Process lifetime:"
-msgstr "Prosessens livssyklus:"
-
-#: objects/EML/process_dialog.c:1299
-msgid "Module name:"
-msgstr "Modulnavn:"
-
-#: objects/EML/process_dialog.c:1311
-msgid "Function parameters"
-msgstr "Funksjonsparametere"
-
-#: objects/EML/process_dialog.c:1312
-msgid "Parameter"
-msgstr "Parameter"
-
-#: objects/EML/process_dialog.c:1313
-msgid "Relation members"
-msgstr "Relasjonsmedlemmer"
-
-#: objects/EML/process_dialog.c:1314
-msgid "Relation member"
-msgstr "Relasjonsmedlem"
-
 #: objects/ER/attribute.c:150
 msgid "Key:"
 msgstr "Nøkkel:"
@@ -2320,6 +2120,22 @@ msgstr "Diagramobjekter for entitet/relasjon"
 msgid "Total:"
 msgstr "Total:"
 
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:815
+#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
+#: objects/UML/association.c:620 objects/UML/dependency.c:335
+#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
+#: objects/standard/zigzagline.c:343
+msgid "Add segment"
+msgstr "Legg til segment"
+
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:816
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
+#: objects/UML/association.c:621 objects/UML/dependency.c:336
+#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
+#: objects/standard/zigzagline.c:344
+msgid "Delete segment"
+msgstr "Slett segment"
+
 #: objects/ER/relationship.c:137
 msgid "Left Cardinality:"
 msgstr "Venstrekardinalitet:"
@@ -2344,27 +2160,24 @@ msgstr "Forhold"
 #.
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
 #: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
-#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
-#: objects/FS/flow-poly.c:789 objects/FS/flow.c:155 objects/FS/flow.c:658
-#: objects/FS/flow.c:722 objects/FS/function.c:1058
+#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
+#: objects/FS/function.c:1058
 msgid "Energy"
 msgstr "Energi"
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
 #: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
-#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
-#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:659
-#: objects/FS/flow.c:729 objects/FS/function.c:1034
+#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
+#: objects/FS/function.c:1034
 msgid "Material"
 msgstr "Materiale"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
 #: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
-#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
-#: objects/FS/flow-poly.c:802 objects/FS/flow.c:157 objects/FS/flow.c:660
-#: objects/FS/flow.c:735 objects/FS/function.c:996 objects/FS/function.c:998
+#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
+#: objects/FS/function.c:996 objects/FS/function.c:998
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "Signal"
@@ -2378,19 +2191,16 @@ msgstr "Type:"
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
 #: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
-#: objects/FS/flow-ortho.c:926 objects/FS/flow-poly.c:366
-#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:430
-#: objects/FS/flow.c:559 objects/FS/flow.c:771
+#: objects/FS/flow-ortho.c:926 objects/FS/flow.c:430 objects/FS/flow.c:559
+#: objects/FS/flow.c:771
 msgid "Helvetica-Oblique"
 msgstr "Helvetica-oblique"
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow-poly.c:650
-#: objects/FS/flow-poly.c:768 objects/FS/flow.c:701
+#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "Flyt:"
 
-#: objects/FS/flow-ortho.c:741 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:784 objects/FS/flow.c:717
+#: objects/FS/flow-ortho.c:741 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "Flyttype:"
 
@@ -2413,6 +2223,17 @@ msgstr "Wish-funksjon"
 #: objects/FS/function.c:139
 msgid "User function"
 msgstr "Bruker funksjon"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/FS/function.c:417 objects/SADT/annotation.c:357
+#: objects/UML/actor.c:332 objects/UML/classicon.c:415
+#: objects/UML/component.c:348 objects/UML/message.c:369
+#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
+#: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
+#: objects/chronogram/chronoref.c:434
+msgid "Helvetica"
+msgstr "Helvetica"
 
 #. Translators: Menu item Verb
 #: objects/FS/function.c:638
@@ -3084,6 +2905,11 @@ msgstr "Integrer"
 #: objects/FS/function.c:992
 msgid "Differentiate"
 msgstr "Differensier"
+
+#. Translators: Menu item Verb/Convert/Process
+#: objects/FS/function.c:994
+msgid "Process"
+msgstr "Prosesser"
 
 #. Translators: Menu item Verb/Signal/Sense
 #: objects/FS/function.c:1000 objects/FS/function.c:1002
@@ -3757,6 +3583,21 @@ msgstr "Bakgrunnsfarge"
 msgid "Attributes"
 msgstr "Attributter"
 
+#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
+#: objects/UML/class_dialog.c:2076 objects/UML/class_dialog.c:2640
+msgid "New"
+msgstr "Ny"
+
+#: objects/UML/class_dialog.c:853 objects/UML/class_dialog.c:1865
+#: objects/UML/class_dialog.c:2083 objects/UML/class_dialog.c:2646
+msgid "Delete"
+msgstr "Slett"
+
+#: objects/UML/class_dialog.c:859 objects/UML/class_dialog.c:1871
+#: objects/UML/class_dialog.c:2090 objects/UML/class_dialog.c:2652
+msgid "Move up"
+msgstr "Flytt opp"
+
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1877
 #: objects/UML/class_dialog.c:2097 objects/UML/class_dialog.c:2658
 msgid "Move down"
@@ -4249,10 +4090,6 @@ msgstr "Standard objekter"
 msgid "Fontsize:"
 msgstr "Størrelse på skrifttype:"
 
-#: objects/sybase/sybase.c:44
-msgid "Sybase replication domain diagram objects"
-msgstr "Diagramobjekter for Sybase-replikeringsdomene"
-
 #: plug-ins/cgm/cgm.c:1092
 msgid ""
 "Image row length larger than maximum cell array.\n"
@@ -4280,14 +4117,6 @@ msgstr "Drawing Interchange File import- og eksportfilter"
 #: plug-ins/hpgl/hpgl.c:619
 msgid "HP Graphics Language export filter"
 msgstr "HP Graphics Language eksportfilter"
-
-#: plug-ins/metapost/metapost.c:34
-msgid "TeX Metapost export filter"
-msgstr "TeX Metapost eksportfilter"
-
-#: plug-ins/metapost/render_metapost.c:735
-msgid "TeX Metapost macros"
-msgstr "TeX Metapost-makroer"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -4515,6 +4344,14 @@ msgstr "XFig filformat"
 #: plug-ins/xfig/xfig.c:39
 msgid "Fig Format import and export filter"
 msgstr "Fig format import- og eksportfilter"
+
+#: plug-ins/metapost/metapost.c:34
+msgid "TeX Metapost export filter"
+msgstr "TeX Metapost eksportfilter"
+
+#: plug-ins/metapost/render_metapost.c:735
+msgid "TeX Metapost macros"
+msgstr "TeX Metapost-makroer"
 
 #: sheets/Circuit.sheet.in.h:1
 msgid "A Horizontal Jumper"
@@ -5686,6 +5523,108 @@ msgstr "Stabil diskenhet"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase"
 msgstr "Sybase"
+
+#~ msgid "Event Modelling Language diagram"
+#~ msgstr "Event Modelling Language diagram"
+
+#~ msgid "Number of processes:"
+#~ msgstr "Antall prosesser:"
+
+#~ msgid "multiple"
+#~ msgstr "flere"
+
+#~ msgid "Single"
+#~ msgstr "Enkel"
+
+#~ msgid "Multiple"
+#~ msgstr "Flere"
+
+#~ msgid "Instantiation"
+#~ msgstr "Instantiering"
+
+#~ msgid "Unidirectional"
+#~ msgstr "Ensrettet:"
+
+#~ msgid "Bidirectional"
+#~ msgstr "Bidireksjonell"
+
+#~ msgid "Interaction name:"
+#~ msgstr "Navn på interaksjon:"
+
+#~ msgid "bidirectional"
+#~ msgstr "bidireksjonell"
+
+#~ msgid "Move Down"
+#~ msgstr "Flytt ned"
+
+#~ msgid "relation"
+#~ msgstr "relasjon"
+
+#~ msgid "Interface functions"
+#~ msgstr "Grensesnitt-funksjoner"
+
+#~ msgid "Function"
+#~ msgstr "Funksjon"
+
+#~ msgid "Function module:"
+#~ msgstr "Funksjonsmodul:"
+
+#~ msgid "Function name:"
+#~ msgstr "Funksjonsnavn:"
+
+#~ msgid "Interfaces"
+#~ msgstr "Grensesnitt"
+
+#~ msgid "Interface"
+#~ msgstr "Grensesnitt"
+
+#~ msgid "Interface name:"
+#~ msgstr "Grensesnittnavn:"
+
+#~ msgid "Interface messages"
+#~ msgstr "Grensesnittmelding:"
+
+#~ msgid "Message"
+#~ msgstr "Melding"
+
+#~ msgid "Message parameters"
+#~ msgstr "Meldingsparametere"
+
+#~ msgid "Message parameter"
+#~ msgstr "Meldingsparameter"
+
+#~ msgid "Functions"
+#~ msgstr "Funksjoner"
+
+#~ msgid "Messages"
+#~ msgstr "Meldinger"
+
+#~ msgid "Process name:"
+#~ msgstr "Prosessnavn:"
+
+#~ msgid "Process reference name:"
+#~ msgstr "Referansenavn for prosess:"
+
+#~ msgid "Process lifetime:"
+#~ msgstr "Prosessens livssyklus:"
+
+#~ msgid "Module name:"
+#~ msgstr "Modulnavn:"
+
+#~ msgid "Function parameters"
+#~ msgstr "Funksjonsparametere"
+
+#~ msgid "Parameter"
+#~ msgstr "Parameter"
+
+#~ msgid "Relation members"
+#~ msgstr "Relasjonsmedlemmer"
+
+#~ msgid "Relation member"
+#~ msgstr "Relasjonsmedlem"
+
+#~ msgid "Sybase replication domain diagram objects"
+#~ msgstr "Diagramobjekter for Sybase-replikeringsdomene"
 
 #~ msgid "Ok"
 #~ msgstr "Ok"
