@@ -222,14 +222,17 @@ object_list_move_delta(GList *objects, Point *delta)
   4 EQUAL DISTANCE
 */
 void
-object_list_align_v(GList *objects, int align)
+object_list_align_v(GList *objects, Diagram *dia, int align)
 {
   GList *list;
+  Point *orig_pos;
+  Point *dest_pos;
   real y_pos;
   Object *obj;
   Point pos;
   real top, bottom, freespc;
-  int nobjs = 0;
+  int nobjs;
+  int i;
 
   if (objects==NULL)
     return;
@@ -240,6 +243,7 @@ object_list_align_v(GList *objects, int align)
   bottom = obj->bounding_box.bottom;
   freespc = obj->bounding_box.bottom - obj->bounding_box.top;
 
+  nobjs = 1;
   list = objects->next;
   while (list != NULL) {
     obj = (Object *) list->data;
@@ -278,7 +282,11 @@ object_list_align_v(GList *objects, int align)
   default:
     message_warning("Wrong argument to object_list_align_h()\n");
   }
+  
+  dest_pos = g_new(Point, nobjs);
+  orig_pos = g_new(Point, nobjs);
 
+  i = 0;
   list = objects;
   while (list != NULL) {
     obj = (Object *) list->data;
@@ -307,11 +315,17 @@ object_list_align_v(GList *objects, int align)
       y_pos += obj->bounding_box.bottom - obj->bounding_box.top;
       break;
     }
+
+    orig_pos[i] = obj->position;
+    dest_pos[i] = pos;
     
     obj->ops->move(obj, &pos);
 
+    i++;
     list = g_list_next(list);
   }
+  
+  undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects));
 }
 
 /*
@@ -323,14 +337,17 @@ object_list_align_v(GList *objects, int align)
   4 EQUAL DISTANCE
 */
 void
-object_list_align_h(GList *objects, int align)
+object_list_align_h(GList *objects, Diagram *dia, int align)
 {
   GList *list;
+  Point *orig_pos;
+  Point *dest_pos;
   real x_pos;
   Object *obj;
   Point pos;
   real left, right, freespc = 0;
-  int nobjs = 0;
+  int nobjs;
+  int i;
 
   if (objects==NULL)
     return;
@@ -341,6 +358,7 @@ object_list_align_h(GList *objects, int align)
   right = obj->bounding_box.right;
   freespc = obj->bounding_box.right - obj->bounding_box.left;
 
+  nobjs = 1;
   list = objects->next;
   while (list != NULL) {
     obj = (Object *) list->data;
@@ -380,6 +398,10 @@ object_list_align_h(GList *objects, int align)
     message_warning("Wrong argument to object_list_align_h()\n");
   }
 
+  dest_pos = g_new(Point, nobjs);
+  orig_pos = g_new(Point, nobjs);
+
+  i = 0;
   list = objects;
   while (list != NULL) {
     obj = (Object *) list->data;
@@ -409,8 +431,14 @@ object_list_align_h(GList *objects, int align)
     
     pos.y = obj->position.y;
     
+    orig_pos[i] = obj->position;
+    dest_pos[i] = pos;
+
     obj->ops->move(obj, &pos);
 
+    i++;
     list = g_list_next(list);
   }
+    
+  undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects)); 
 }

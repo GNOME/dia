@@ -1,5 +1,10 @@
 1999-10-28  Alexander Larsson  <alla@lysator.liu.se>
 
+	* app/commands.c:
+	* app/object_ops.[ch]:
+	Add undo handling to alignment ops.
+	Based partially on patch by Dan Cohn <dan@internap.com>.
+
 	* objects/standard/image.c (image_move_handle):
 	Don't divide by zero for small images.
 	Patch by Dan Cohn <dan@internap.com>.

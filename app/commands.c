@@ -1129,10 +1129,12 @@ objects_align_h_callback(GtkWidget *widget, gpointer data)
   objects = dia->data->selected;
   
   object_add_updates_list(objects, dia);
-  object_list_align_h(objects, align);
+  object_list_align_h(objects, dia, align);
   diagram_update_connections_selection(dia);
   object_add_updates_list(objects, dia);
   diagram_flush(dia);     
+
+  undo_set_transactionpoint(dia->undo);
 }
 
 void
@@ -1147,9 +1149,11 @@ objects_align_v_callback(GtkWidget *widget, gpointer data)
   objects = dia->data->selected;
 
   object_add_updates_list(objects, dia);
-  object_list_align_v(objects, align);
+  object_list_align_v(objects, dia, align);
   diagram_update_connections_selection(dia);
   object_add_updates_list(objects, dia);
   diagram_flush(dia);     
+
+  undo_set_transactionpoint(dia->undo);
 }
 
