@@ -1,3 +1,7 @@
+2003-02-06  Duarte Loreto <happyguy_pt@hotmail.com>
+
+        * pt.po: Updated Portuguese translation.
+
 2003-02-03  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* POTFILES.in: Added lib/arrows.c (now has arrow names).
