@@ -261,35 +261,30 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
   
-  hbox = gtk_hbox_new(FALSE, 5);
+  table = gtk_table_new (3, 2, FALSE);
+  gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 0);
+
   label = gtk_label_new(_("Class name:"));
-  gtk_box_pack_start (GTK_BOX (hbox),
-		      label, FALSE, TRUE, 0);
   entry = gtk_entry_new();
   prop_dialog->classname = GTK_ENTRY(entry);
-  gtk_box_pack_start (GTK_BOX (hbox),
-		      entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox),
-		      hbox, FALSE, TRUE, 0);
   gtk_widget_grab_focus(entry);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  hbox = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Stereotype:"));
-  gtk_box_pack_start (GTK_BOX (hbox),
-		      label, FALSE, TRUE, 0);
   entry = gtk_entry_new();
   prop_dialog->stereotype = GTK_ENTRY(entry);
-  gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  hbox = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Comment:"));
-  gtk_box_pack_start (GTK_BOX (hbox),
-		      label, FALSE, TRUE, 0);
   entry = gtk_entry_new();
   prop_dialog->comment = GTK_ENTRY(entry);
-  gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
 
   hbox = gtk_hbox_new(FALSE, 5);
   checkbox = gtk_check_button_new_with_label(_("Abstract"));
@@ -320,6 +315,9 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog->comments_vis = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
+
+  /** Fonts and Colors selection **/
+  gtk_box_pack_start (GTK_BOX (vbox), gtk_hseparator_new(), FALSE, FALSE, 3);
 
   table = gtk_table_new (5, 6, TRUE);
   gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, TRUE, 0);
@@ -374,7 +372,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   /* should probably be refactored too. */
   label = gtk_label_new(_("Text Color"));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, GTK_EXPAND | GTK_FILL, 0, 3, 2);
+  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, GTK_EXPAND | GTK_FILL, 0, 0, 2);
   text_color = dia_color_selector_new();
   dia_color_selector_set_color((DiaColorSelector *)text_color, &umlclass->text_color);
   prop_dialog->text_color = (DiaColorSelector *)text_color;
@@ -795,6 +793,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *vbox;
   GtkWidget *vbox2;
   GtkWidget *hbox2;
+  GtkWidget *table;
   GtkWidget *entry;
   GtkWidget *checkbox;
   GtkWidget *scrolled_win;
@@ -874,7 +873,9 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
+  table = gtk_table_new (5, 2, FALSE);
+  gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
+
   label = gtk_label_new(_("Name:"));
   entry = gtk_entry_new();
   prop_dialog->attr_name = GTK_ENTRY(entry);
@@ -882,11 +883,10 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      GTK_SIGNAL_FUNC (attributes_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Type:"));
   entry = gtk_entry_new();
   prop_dialog->attr_type = GTK_ENTRY(entry);
@@ -894,11 +894,10 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      GTK_SIGNAL_FUNC (attributes_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Value:"));
   entry = gtk_entry_new();
   prop_dialog->attr_value = GTK_ENTRY(entry);
@@ -906,11 +905,10 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      GTK_SIGNAL_FUNC (attributes_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Comment:"));
   entry = gtk_entry_new();
   prop_dialog->attr_comment = GTK_ENTRY(entry);
@@ -918,12 +916,11 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      GTK_SIGNAL_FUNC (attributes_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,3,4, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,3,4, GTK_FILL | GTK_EXPAND,0, 0,2);
 
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Visibility:"));
 
   omenu = gtk_option_menu_new ();
@@ -968,9 +965,14 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   
   gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
 
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), omenu, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+  { 
+    GtkWidget * align;
+    align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
+    gtk_container_add(GTK_CONTAINER(align), omenu);
+    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_table_attach (GTK_TABLE (table), label, 0,1,4,5, GTK_FILL,0, 0,3);
+    gtk_table_attach (GTK_TABLE (table), align, 1,2,4,5, GTK_FILL,0, 0,3);
+  }
 
   hbox2 = gtk_hbox_new(FALSE, 5);
   checkbox = gtk_check_button_new_with_label(_("Class scope"));
@@ -1719,6 +1721,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *label;
   GtkWidget *hbox;
   GtkWidget *vbox;
+  GtkWidget *table;
   GtkWidget *vbox2;
   GtkWidget *hbox2;
   GtkWidget *vbox3;
@@ -1804,7 +1807,9 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   vbox2 = gtk_vbox_new(FALSE, 5);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
+  table = gtk_table_new (3, 2, FALSE);
+  gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
+
   label = gtk_label_new(_("Name:"));
   entry = gtk_entry_new();
   prop_dialog->op_name = GTK_ENTRY(entry);
@@ -1812,11 +1817,10 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Type:"));
   entry = gtk_entry_new();
   prop_dialog->op_type = GTK_ENTRY(entry);
@@ -1824,11 +1828,10 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Stereotype:"));
   entry = gtk_entry_new();
   prop_dialog->op_stereotype = GTK_ENTRY(entry);
@@ -1836,9 +1839,9 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
 
 
   hbox2 = gtk_hbox_new(FALSE, 5);
@@ -2033,8 +2036,9 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox2), frame, FALSE, TRUE, 0);
   
+  table = gtk_table_new (5, 2, FALSE);
+  gtk_box_pack_start (GTK_BOX (vbox3), table, FALSE, FALSE, 0);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Name:"));
   entry = gtk_entry_new();
   prop_dialog->param_name = GTK_ENTRY(entry);
@@ -2042,11 +2046,10 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox3), hbox2, TRUE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Type:"));
   entry = gtk_entry_new();
   gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
@@ -2054,11 +2057,10 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
   prop_dialog->param_type = GTK_ENTRY(entry);
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox3), hbox2, TRUE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Def. value:"));
   entry = gtk_entry_new();
   prop_dialog->param_value = GTK_ENTRY(entry);
@@ -2066,11 +2068,10 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox3), hbox2, TRUE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Comment:"));
   entry = gtk_entry_new();
   prop_dialog->param_comment = GTK_ENTRY(entry);
@@ -2078,11 +2079,10 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (operations_update), umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox3), hbox2, TRUE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,3,4, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,3,4, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Direction:"));
 
   omenu = gtk_option_menu_new ();
@@ -2129,11 +2129,14 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
 
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), omenu, FALSE, TRUE, 0);
-
-  gtk_box_pack_start (GTK_BOX (vbox3), hbox2, FALSE, TRUE, 0);
-
+  { 
+    GtkWidget * align;
+    align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
+    gtk_container_add(GTK_CONTAINER(align), omenu);
+    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_table_attach (GTK_TABLE (table), label, 0,1,4,5, GTK_FILL,0, 0,3);
+    gtk_table_attach (GTK_TABLE (table), align, 1,2,4,5, GTK_FILL,0, 0,3);
+  }
 
   gtk_box_pack_start (GTK_BOX (hbox), vbox2, TRUE, TRUE, 0);
  
@@ -2468,6 +2471,7 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *vbox;
   GtkWidget *vbox2;
   GtkWidget *hbox2;
+  GtkWidget *table;
   GtkWidget *entry;
   GtkWidget *checkbox;
   GtkWidget *scrolled_win;
@@ -2548,7 +2552,9 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
+  table = gtk_table_new (2, 2, FALSE);
+  gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
+
   label = gtk_label_new(_("Name:"));
   entry = gtk_entry_new();
   prop_dialog->templ_name = GTK_ENTRY(entry);
@@ -2556,11 +2562,10 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      GTK_SIGNAL_FUNC (templates_update_event), umlclass); 
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (templates_update), umlclass); 
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Type:"));
   entry = gtk_entry_new();
   prop_dialog->templ_type = GTK_ENTRY(entry);
@@ -2568,9 +2573,9 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      GTK_SIGNAL_FUNC (templates_update_event), umlclass);
   gtk_signal_connect (GTK_OBJECT (entry), "activate",
 		      GTK_SIGNAL_FUNC (templates_update), umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
+  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
 
   gtk_widget_show(vbox2);
   

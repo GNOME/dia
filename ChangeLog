@@ -2,6 +2,7 @@
 
 	* objects/UML/class_dialog.c: Patch from luc@handhelds.org:
 	Accelerators for class dialog.  Bug #130995.
+	Patch from luc@handhelds.org: Better aligning of widgets.  Bug #130994.
 
 	* app/dia-props.c:
 	* app/preferences.c:
