@@ -34,6 +34,8 @@ int main(int argc, char *argv[])
   app_init(argc, argv);
 
   toolbox_show();
+
+  app_splash_done();
   
   gtk_main ();
 
