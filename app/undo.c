@@ -633,8 +633,63 @@ undo_insert_objects(Diagram *dia, GList *obj_list, int applied)
   change->obj_list = obj_list;
   change->applied = applied;
 
-  printf("UNDO: Push new delete objects at %d\n", depth(dia->undo));
+  printf("UNDO: Push new insert objects at %d\n", depth(dia->undo));
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }
+
+/******** Apply properties: */
+
+struct StateChange {
+  Change change;
+
+  Object *obj;
+  ObjectState *saved_state;
+};
+
+static void
+state_change_apply_revert(struct StateChange *change, Diagram *dia)
+{
+  ObjectState *old_state;
+  printf("state_change_apply/revert()\n");
+  
+  old_state = change->obj->ops->get_state(change->obj);
+
+  object_add_updates(change->obj, dia);
+  change->obj->ops->set_state(change->obj, change->saved_state);
+  object_add_updates(change->obj, dia);
+
+  change->saved_state = old_state;
+  
+  diagram_update_connections_object(dia, change->obj, TRUE);
+}
+
+static void
+state_change_free(struct StateChange *change)
+{
+  printf("state_change_free()\n");
+  if (change->saved_state->free)
+    (*change->saved_state->free)(change->saved_state);
+  g_free(change->saved_state);
+}
+
+Change *
+undo_state_change(Diagram *dia, Object *obj, ObjectState *old_state)
+{
+  struct StateChange *change;
+
+  change = g_new(struct StateChange, 1);
+  
+  change->change.apply = (UndoApplyFunc) state_change_apply_revert;
+  change->change.revert = (UndoRevertFunc) state_change_apply_revert;
+  change->change.free = (UndoFreeFunc) state_change_free;
+
+  change->obj = obj;
+  change->saved_state = old_state;
+
+  printf("UNDO: Push new apply properties at %d\n", depth(dia->undo));
+  undo_push_change(dia->undo, (Change *) change);
+  return (Change *)change;
+}
+
 

@@ -458,3 +458,33 @@ polyconn_load(PolyConn *poly, ObjectNode obj_node) /* NOTE: Does object_init() *
 
   polyconn_update_data(poly);
 }
+
+void
+polyconn_state_get(PolyConnState *state, PolyConn *poly)
+{
+  state->numpoints = poly->numpoints;
+  state->points = g_new(Point, state->numpoints);
+  memcpy(state->points, poly->points,
+	 state->numpoints*sizeof(Point));
+}
+
+void
+polyconn_state_set(PolyConnState *state, PolyConn *poly)
+{
+  if (poly->points)
+    g_free(poly->points);
+  
+  poly->numpoints = state->numpoints;
+  poly->points = g_new(Point, poly->numpoints);
+  memcpy(poly->points, state->points,
+	 poly->numpoints*sizeof(Point));
+  
+  polyconn_update_data(poly);
+}
+
+void
+polyconn_state_free(PolyConnState *state)
+{
+  g_free(state->points);
+}
+

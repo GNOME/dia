@@ -23,6 +23,7 @@
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
 
 typedef struct _PolyConn PolyConn;
+typedef struct _PolyConnState PolyConnState;
 
 /* This is a subclass of Object used to help implementing objects
  * that connect points with polygonal line-segments.
@@ -34,6 +35,13 @@ struct _PolyConn {
   int numpoints; /* >= 2 */
   Point *points;
 };
+
+struct _PolyConnState {
+  int numpoints;
+  Point *points;
+};
+
+
 extern void polyconn_update_data(PolyConn *poly);
 extern void polyconn_update_boundingbox(PolyConn *poly);
 extern void polyconn_simple_draw(PolyConn *poly, Renderer *renderer,
@@ -53,4 +61,7 @@ extern real polyconn_distance_from(PolyConn *poly, Point *point,
 extern Handle *polyconn_closest_handle(PolyConn *poly, Point *point);
 extern int polyconn_closest_segment(PolyConn *poly, Point *point,
 				    real line_width);
+extern void polyconn_state_get(PolyConnState *state, PolyConn *poly);
+extern void polyconn_state_set(PolyConnState *state, PolyConn *poly);
+extern void polyconn_state_free(PolyConnState *state);
 #endif /* POLY_CONN_H */

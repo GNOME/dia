@@ -694,7 +694,7 @@ text_key_event(Focus *focus, guint keyval, char *str, int strlen)
 {
   Text *text;
   int return_val;
-  return_val = TRUE;
+  return_val = FALSE;
   
   text = (Text *)focus->user_data;
 
@@ -741,9 +741,10 @@ text_key_event(Focus *focus, guint keyval, char *str, int strlen)
     text_split_line(text);
     break;
   default:
-    return_val = FALSE;
-    if (strlen>0)
+    if (strlen>0) {
+      return_val = TRUE;
       text_insert_char(text, str[0]);
+    }
     break;
   }  
 

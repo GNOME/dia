@@ -37,7 +37,17 @@
 
 typedef struct _ArcPropertiesDialog ArcPropertiesDialog;
 typedef struct _ArcDefaultsDialog ArcDefaultsDialog;
+typedef struct _ArcState ArcState;
 
+struct _ArcState {
+  ObjectState obj_state;
+  
+  Color arc_color;
+  real curve_distance;
+  real line_width;
+  LineStyle line_style;
+  Arrow start_arrow, end_arrow;
+};
 
 typedef struct _Arc {
   Connection connection;
@@ -106,6 +116,9 @@ static Object *arc_copy(Arc *arc);
 static GtkWidget *arc_get_properties(Arc *arc);
 static void arc_apply_properties(Arc *arc);
 
+static ArcState *arc_get_state(Arc *arc);
+static void arc_set_state(Arc *arc, ArcState *state);
+
 static void arc_save(Arc *arc, ObjectNode obj_node, const char *filename);
 static Object *arc_load(ObjectNode obj_node, int version, const char *filename);
 static GtkWidget *arc_get_defaults();
@@ -142,7 +155,9 @@ static ObjectOps arc_ops = {
   (GetPropertiesFunc)   arc_get_properties,
   (ApplyPropertiesFunc) arc_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (GetStateFunc)        arc_get_state,
+  (SetStateFunc)        arc_set_state
 };
 
 static void
@@ -640,6 +655,38 @@ arc_copy(Arc *arc)
   newarc->middle_handle = arc->middle_handle;
 
   return (Object *)newarc;
+}
+
+static ArcState *
+arc_get_state(Arc *arc)
+{
+  ArcState *state = g_new(ArcState, 1);
+
+  state->obj_state.free = NULL;
+  
+  state->line_width = arc->line_width;
+  state->arc_color = arc->arc_color;
+  state->curve_distance = arc->curve_distance;
+  state->line_style = arc->line_style;
+  state->start_arrow = arc->start_arrow;
+  state->end_arrow = arc->end_arrow;
+
+  return state;
+}
+
+static void
+arc_set_state(Arc *arc, ArcState *state)
+{
+  arc->line_width = state->line_width;
+  arc->arc_color = state->arc_color;
+  arc->curve_distance = state->curve_distance;
+  arc->line_style = state->line_style;
+  arc->start_arrow = state->start_arrow;
+  arc->end_arrow = state->end_arrow;
+
+  g_free(state);
+  
+  arc_update_data(arc);
 }
 
 static void

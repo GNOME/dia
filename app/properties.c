@@ -22,6 +22,7 @@
 #include "properties.h"
 #include "object_ops.h"
 #include "connectionpoint_ops.h"
+#include "undo.h"
 
 static GtkWidget *dialog = NULL;
 static GtkWidget *dialog_vbox = NULL;
@@ -106,17 +107,38 @@ properties_okay(GtkWidget *canvas, gpointer data)
 static gint
 properties_apply(GtkWidget *canvas, gpointer data)
 {
+  ObjectState *old_state;
   if (current_obj != NULL) {
+    if ( (current_obj->ops->get_state == NULL) ||
+	 (current_obj->ops->get_state == NULL) )
+      old_state = NULL;
+    else
+      old_state = current_obj->ops->get_state(current_obj);
+    
     object_add_updates(current_obj, current_dia);
     current_obj->ops->apply_properties(current_obj);
     object_add_updates(current_obj, current_dia);
 
     diagram_update_connections_object(current_dia, current_obj, TRUE);
 
+    if (old_state) {
+      undo_state_change(current_dia, current_obj, old_state);
+    }
+    
     diagram_modified(current_dia);
-    diagram_flush(current_dia);
 
     diagram_update_extents(current_dia);
+    
+    if (old_state) {
+      undo_set_transactionpoint(current_dia->undo);
+    } else {
+      message_warning(_("This object doesn't support UNDO/REDO. \n"
+			"Undo information erased."));
+      undo_clear(current_dia->undo);
+    }
+
+    diagram_flush(current_dia);
+
   }
   return 0;
 }

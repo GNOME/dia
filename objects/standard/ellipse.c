@@ -38,6 +38,17 @@
 typedef struct _Ellipse Ellipse;
 typedef struct _EllipsePropertiesDialog EllipsePropertiesDialog;
 typedef struct _EllipseDefaultsDialog EllipseDefaultsDialog;
+typedef struct _EllipseState EllipseState;
+
+struct _EllipseState {
+  ObjectState obj_state;
+  
+  real border_width;
+  Color border_color;
+  Color inner_color;
+  LineStyle line_style;
+  real dashlength;
+};
 
 struct _Ellipse {
   Element element;
@@ -99,6 +110,9 @@ static Object *ellipse_copy(Ellipse *ellipse);
 static GtkWidget *ellipse_get_properties(Ellipse *ellipse);
 static void ellipse_apply_properties(Ellipse *ellipse);
 
+static EllipseState *ellipse_get_state(Ellipse *ellipse);
+static void ellipse_set_state(Ellipse *ellipse, EllipseState *state);
+
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
 static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename);
 static GtkWidget *ellipse_get_defaults();
@@ -135,7 +149,9 @@ static ObjectOps ellipse_ops = {
   (GetPropertiesFunc)   ellipse_get_properties,
   (ApplyPropertiesFunc) ellipse_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (GetStateFunc)        ellipse_get_state,
+  (SetStateFunc)        ellipse_set_state
 };
 
 static void
@@ -347,6 +363,36 @@ ellipse_draw(Ellipse *ellipse, Renderer *renderer)
 			  &center,
 			  elem->width, elem->height,
 			  &ellipse->border_color);
+}
+
+static EllipseState *
+ellipse_get_state(Ellipse *ellipse)
+{
+  EllipseState *state = g_new(EllipseState, 1);
+
+  state->obj_state.free = NULL;
+  
+  state->border_width = ellipse->border_width;
+  state->border_color = ellipse->border_color;
+  state->inner_color = ellipse->inner_color;
+  state->line_style = ellipse->line_style;
+  state->dashlength = ellipse->dashlength;
+
+  return state;
+}
+
+static void
+ellipse_set_state(Ellipse *ellipse, EllipseState *state)
+{
+  ellipse->border_width = state->border_width;
+  ellipse->border_color = state->border_color;
+  ellipse->inner_color = state->inner_color;
+  ellipse->line_style = state->line_style;
+  ellipse->dashlength = state->dashlength;
+
+  g_free(state);
+  
+  ellipse_update_data(ellipse);
 }
 
 static void

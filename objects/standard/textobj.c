@@ -36,6 +36,13 @@
 typedef struct _Textobj Textobj;
 typedef struct _TextobjPropertiesDialog TextobjPropertiesDialog;
 typedef struct _TextobjDefaultsDialog TextobjDefaultsDialog;
+typedef struct _TextobjState TextobjState;
+
+struct _TextobjState {
+  ObjectState obj_state;
+
+  Text *text;
+};
 
 struct _Textobj {
   Object object;
@@ -92,6 +99,9 @@ static Object *textobj_copy(Textobj *textobj);
 static GtkWidget *textobj_get_properties(Textobj *textobj);
 static void textobj_apply_properties(Textobj *textobj);
 
+static TextobjState *textobj_get_state(Textobj *textobj);
+static void textobj_set_state(Textobj *textobj, TextobjState *state);
+
 static void textobj_save(Textobj *textobj, ObjectNode obj_node,
 			 const char *filename);
 static Object *textobj_load(ObjectNode obj_node, int version,
@@ -131,7 +141,9 @@ static ObjectOps textobj_ops = {
   (GetPropertiesFunc)   textobj_get_properties,
   (ApplyPropertiesFunc) textobj_apply_properties,
   (IsEmptyFunc)         textobj_is_empty,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (GetStateFunc)        textobj_get_state,
+  (SetStateFunc)        textobj_set_state
 };
 
 static void
@@ -366,6 +378,41 @@ textobj_draw(Textobj *textobj, Renderer *renderer)
   assert(renderer != NULL);
 
   text_draw(textobj->text, renderer);
+}
+
+static void
+textobj_state_free(ObjectState *st)
+{
+  TextobjState *state = (TextobjState *)st;
+  
+  if (state->text)
+    text_destroy(state->text);
+  state->text = NULL;
+}
+
+static TextobjState *
+textobj_get_state(Textobj *textobj)
+{
+  TextobjState *state = g_new(TextobjState, 1);
+
+  state->obj_state.free = textobj_state_free;
+  
+  state->text = text_copy(textobj->text);
+
+  return state;
+}
+
+static void
+textobj_set_state(Textobj *textobj, TextobjState *state)
+{
+  if (textobj->text)
+    text_destroy(textobj->text);
+
+  textobj->text = state->text;
+  
+  g_free(state);
+  
+  textobj_update_data(textobj);
 }
 
 static void

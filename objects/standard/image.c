@@ -41,6 +41,20 @@
 typedef struct _Image Image;
 typedef struct _ImagePropertiesDialog ImagePropertiesDialog;
 typedef struct _ImageDefaultsDialog ImageDefaultsDialog;
+typedef struct _ImageState ImageState;
+
+struct _ImageState {
+  ObjectState obj_state;
+  
+  real border_width;
+  Color border_color;
+  LineStyle line_style;
+
+  DiaImage image;
+  gchar *file;
+  gboolean draw_border;
+  gboolean keep_aspect;
+};
 
 struct _Image {
   Element element;
@@ -51,7 +65,7 @@ struct _Image {
   Color border_color;
   LineStyle line_style;
   
-  DiaImage *image;
+  DiaImage image;
   gchar *file;
   gboolean draw_border;
   gboolean keep_aspect;
@@ -115,6 +129,9 @@ static Object *image_copy(Image *image);
 static GtkWidget *image_get_properties(Image *image);
 static void image_apply_properties(Image *image);
 
+static ImageState *image_get_state(Image *image);
+static void image_set_state(Image *image, ImageState *state);
+
 static void image_save(Image *image, ObjectNode obj_node, const char *filename);
 static Object *image_load(ObjectNode obj_node, int version, const char *filename);
 static GtkWidget *image_get_defaults();
@@ -151,7 +168,9 @@ static ObjectOps image_ops = {
   (GetPropertiesFunc)   image_get_properties,
   (ApplyPropertiesFunc) image_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (GetStateFunc)        image_get_state,
+  (SetStateFunc)        image_set_state
 };
 
 static void
@@ -540,6 +559,64 @@ image_draw(Image *image, Renderer *renderer)
     renderer->ops->draw_image(renderer, &elem->corner, elem->width,
 			      elem->height, broken);
   }
+}
+
+static void
+image_state_free(ObjectState *st)
+{
+  ImageState *state = (ImageState *)st;
+  if (state->image)
+    dia_image_release(state->image);
+  if (state->file)
+    g_free(state->file);
+}
+
+static ImageState *
+image_get_state(Image *image)
+{
+  ImageState *state = g_new(ImageState, 1);
+
+  state->obj_state.free = image_state_free;
+  
+  state->border_width = image->border_width;
+  state->border_color = image->border_color;
+  state->line_style = image->line_style;
+
+  state->image = image->image;
+  if (state->image)
+    dia_image_add_ref(state->image);
+  state->file = NULL;
+  if (image->file)
+    state->file = g_strdup(image->file);
+
+  state->draw_border = image->draw_border;
+  state->keep_aspect = image->keep_aspect;
+
+  return state;
+}
+
+static void
+image_set_state(Image *image, ImageState *state)
+{
+  image->border_width = state->border_width;
+  image->border_color = state->border_color;
+  image->line_style = state->line_style;
+
+  if (image->image)
+    dia_image_release(image->image);
+  
+  state->image = image->image;
+
+  if (image->file)
+    g_free(image->file);
+  image->file = state->file;
+
+  image->draw_border = state->draw_border;
+  image->keep_aspect = state->keep_aspect;
+
+  g_free(state);
+  
+  image_update_data(image);
 }
 
 static void

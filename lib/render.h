@@ -174,7 +174,7 @@ typedef void (*DrawStringFunc) (Renderer *renderer,
 typedef void (*DrawImageFunc) (Renderer *renderer,
 			       Point *point,
 			       real width, real height,
-			       DiaImage *image);
+			       DiaImage image);
 
 /******************************************************
  **  Functions defined for every Interactive Renderer

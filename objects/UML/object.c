@@ -103,6 +103,7 @@ static ObjectTypeOps objet_type_ops =
   (SaveFunc)   objet_save
 };
 
+/* Non-nice typo, needed for backwards compatibility. */
 ObjectType objet_type =
 {
   "UML - Objet",   /* name */
@@ -112,9 +113,18 @@ ObjectType objet_type =
   &objet_type_ops       /* ops */
 };
 
+ObjectType umlobject_type =
+{
+  "UML - Object",   /* name */
+  0,                      /* version */
+  (char **) object_xpm,  /* pixmap */
+  
+  &objet_type_ops       /* ops */
+};
+
 SheetObject objet_sheetobj =
 {
-  "UML - Objet",             /* type */
+  "UML - Object",             /* type */
   N_("Create an object"),           /* description */
   (char **) object_xpm,     /* pixmap */
 
@@ -375,7 +385,7 @@ objet_create(Point *startpoint,
   elem = &pkg->element;
   obj = (Object *) pkg;
   
-  obj->type = &objet_type;
+  obj->type = &umlobject_type;
 
   obj->ops = &objet_ops;
 

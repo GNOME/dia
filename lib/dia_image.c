@@ -24,6 +24,11 @@
 
 #include "pixmaps/broken.xpm"
 
+struct DiaImage {
+  GdkImlibImage *image;
+  int refcount;
+};
+
 void
 dia_image_init(void)
 {
@@ -40,53 +45,68 @@ dia_image_get_broken(void)
   static DiaImage broken = NULL;
 
   if (broken == NULL) {
-    broken = gdk_imlib_create_image_from_xpm_data(broken_xpm);
+    broken = g_new(struct DiaImage, 1);
+    broken->image = gdk_imlib_create_image_from_xpm_data(broken_xpm);
+    broken->refcount = 0;
   }
-  
+
+  dia_image_add_ref(broken);
   return broken;
 }
 
 DiaImage 
 dia_image_load(gchar *filename) 
 {
-  return (DiaImage)gdk_imlib_load_image(filename);
+  DiaImage dia_img;
+  dia_img = g_new(struct DiaImage, 1);
+  dia_img->image = gdk_imlib_load_image(filename);
+  dia_img->refcount = 1;
+  return dia_img;
+}
+
+void
+dia_image_add_ref(DiaImage image)
+{
+  image->refcount++;
 }
 
 void
 dia_image_release(DiaImage image)
 {
-  gdk_imlib_destroy_image((GdkImlibImage *)image);
+  image->refcount--;
+  if (image->refcount<=0)
+    gdk_imlib_destroy_image(image->image);
 }
 
 void
 dia_image_draw(DiaImage image, GdkWindow *window,
 	       int x, int y, int width, int height)
 {
-  gdk_imlib_paste_image((GdkImlibImage *)image, window,
+  gdk_imlib_paste_image(image->image, window,
 			x, y, width, height);
 } 
 
 int 
 dia_image_width(DiaImage image) 
 {
-  return ((GdkImlibImage *)image)->rgb_width;
+  return (image->image)->rgb_width;
 }
 
 int 
 dia_image_height(DiaImage image)
 {
-  return ((GdkImlibImage *)image)->rgb_height;
+  return (image->image)->rgb_height;
 }
 
 guint8 *
 dia_image_rgb_data(DiaImage image)
 {
-  return ((GdkImlibImage *)image)->rgb_data;
+  return (image->image)->rgb_data;
 }
 
 char *
 dia_image_filename(DiaImage image)
 {
-  return ((GdkImlibImage *)image)->filename;
+  return (image->image)->filename;
 }
 

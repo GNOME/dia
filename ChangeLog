@@ -1,3 +1,62 @@
+1999-06-24  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/diagram.c:
+	Don't remove 'empty' objects.
+	This violent destruction of objects won't work
+	with the new undo framework.
+
+	* app/disp_callbacks.c:
+	Save undo info for object menu calls and key_events.
+
+	* app/properties.c:
+	Save undo info on properties apply.
+
+	* lib/dia_image.[ch]:
+	Add refcounting for images.
+
+	* app/render_eps.c:
+	* app/render_gdk.c:
+	* lib/render.h:
+	DiaImage * -> DiaImage
+
+	* app/undo.[ch]:
+	Add undo functions for object state changes.
+
+	* lib/focus.h:
+	* lib/text.c:
+	change of semntics for focus->key_event.
+	Now returns TRUE if the object recieving the event
+	was changed.
+
+	* lib/object.h:
+	Comment changes.
+
+	* lib/orth_conn.[ch]:
+	Don't automatically create and delete segments when
+	handles are moved. This is incompatible with undo.
+	Added state get, set and free functions.
+
+	* lib/orth_conn.[ch]:
+	Added state get, set and free functions.
+
+	* objects/UML/object.c:
+	* objects/UML/uml.c:
+	Fixed typo "UML - Objet" -> "UML - Object".
+	Saved old for backwards compatibility.
+
+	* objects/standard/arc.c:
+	* objects/standard/box.c:
+	* objects/standard/ellipse.c:
+	* objects/standard/image.c:
+	* objects/standard/line.c:
+	* objects/standard/polyline.c:
+	* objects/standard/textobj.c:
+	* objects/standard/zigzagline.c:
+	Added get/set state functions.
+	Textobj has a redo crash-bug.
+	Zigzagline needs object menus to add segments.
+	
+
 1999-06-20  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/render_eps.c (set_dashlength):

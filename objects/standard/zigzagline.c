@@ -37,6 +37,19 @@
 
 typedef struct _ZigzaglinePropertiesDialog ZigzaglinePropertiesDialog;
 typedef struct _ZigzaglineDefaultsDialog ZigzaglineDefaultsDialog;
+typedef struct _ZigzaglineState ZigzaglineState;
+
+struct _ZigzaglineState {
+  ObjectState obj_state;
+  
+  OrthConnState orthconn_state;
+
+  Color line_color;
+  LineStyle line_style;
+  real dashlength;
+  real line_width;
+  Arrow start_arrow, end_arrow;
+};
 
 typedef struct _Zigzagline {
   OrthConn orth;
@@ -100,6 +113,9 @@ static Object *zigzagline_copy(Zigzagline *zigzagline);
 static GtkWidget *zigzagline_get_properties(Zigzagline *zigzagline);
 static void zigzagline_apply_properties(Zigzagline *zigzagline);
 
+static ZigzaglineState *zigzagline_get_state(Zigzagline *zigzagline);
+static void zigzagline_set_state(Zigzagline *zigzagline, ZigzaglineState *state);
+
 static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 			    const char *filename);
 static Object *zigzagline_load(ObjectNode obj_node, int version,
@@ -139,7 +155,9 @@ static ObjectOps zigzagline_ops = {
   (GetPropertiesFunc)   zigzagline_get_properties,
   (ApplyPropertiesFunc) zigzagline_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (GetStateFunc)        zigzagline_get_state,
+  (SetStateFunc)        zigzagline_set_state
 };
 
 static void
@@ -489,6 +507,50 @@ zigzagline_copy(Zigzagline *zigzagline)
   newzigzagline->end_arrow = zigzagline->end_arrow;
 
   return (Object *)newzigzagline;
+}
+
+static void
+zigzagline_state_free(ObjectState *st)
+{
+  ZigzaglineState *state = (ZigzaglineState *)st;
+  orthconn_state_free(&state->orthconn_state);
+}
+
+static ZigzaglineState *
+zigzagline_get_state(Zigzagline *zigzagline)
+{
+  ZigzaglineState *state = g_new(ZigzaglineState, 1);
+
+  state->obj_state.free = zigzagline_state_free;
+  
+  state->line_color = zigzagline->line_color;
+  state->line_style = zigzagline->line_style;
+  state->dashlength = zigzagline->dashlength;
+  state->line_width = zigzagline->line_width;
+  state->start_arrow = zigzagline->start_arrow;
+  state->end_arrow = zigzagline->end_arrow;
+
+  orthconn_state_get(&state->orthconn_state, &zigzagline->orth);
+  
+  return state;
+}
+
+static void
+zigzagline_set_state(Zigzagline *zigzagline, ZigzaglineState *state)
+{
+  zigzagline->line_color = state->line_color;
+  zigzagline->line_style = state->line_style;
+  zigzagline->dashlength = state->dashlength;
+  zigzagline->line_width = state->line_width;
+  zigzagline->start_arrow = state->start_arrow;
+  zigzagline->end_arrow = state->end_arrow;
+
+  orthconn_state_set(&state->orthconn_state, &zigzagline->orth);
+
+  polyconn_state_free(&state->orthconn_state);
+  g_free(state);
+  
+  zigzagline_update_data(zigzagline);
 }
 
 static void

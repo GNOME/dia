@@ -227,8 +227,13 @@ typedef int  (*IsEmptyFunc) (Object* obj);
   This is used to snapshot the object state
   so that it can be stored for undo/redo.
 
-  Called before/after properties apply and
+  Need not save state that only depens on
+  the object and it's handles positions.
+  
+  Called before properties apply and
   object menu callbacks.
+
+  The calling function owns the returned reference.
 */
 typedef ObjectState * (*GetStateFunc) (Object* obj);
 
@@ -237,8 +242,11 @@ typedef ObjectState * (*GetStateFunc) (Object* obj);
   This is used to snapshot the object state
   so that it can be stored for undo/redo.
 
-  Called before/after properties apply and
+  Called before properties apply and
   object menu callbacks.
+
+  The called function owns the reference and is
+  responsible for freeing it.
 */
 typedef void (*SetStateFunc) (Object* obj, ObjectState *state);
 
@@ -281,7 +289,8 @@ extern void object_return_void(Object *obj); /* Just an empty function */
  *****************************************/
 
 struct _ObjectState {
-  void (*free)(ObjectState *state);
+  void (*free)(ObjectState *state); /* Frees pointers in the state,
+				       not called if NULL */
 };
 
 

@@ -64,6 +64,8 @@ extern Change *undo_unconnect(Diagram *dia, Object *obj, Handle *handle);
 extern Change *undo_delete_objects(Diagram *dia, GList *obj_list);
 extern Change *undo_insert_objects(Diagram *dia, GList *obj_list,
 				   int applied);
+extern Change *undo_state_change(Diagram *dia, Object *obj,
+				 ObjectState *old_state);
   
 #endif /* UNDO_H */
 

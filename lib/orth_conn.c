@@ -70,9 +70,6 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
       orth->points[1].x = to->x;
       break;
     } 
-    if (reason == HANDLE_MOVE_USER_FINAL) {
-      orthconn_try_remove_segments(orth, 1);
-    }
     break;
   case HANDLE_MOVE_ENDPOINT:
     n = orth->numpoints - 1;
@@ -85,79 +82,10 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
       orth->points[n-1].x = to->x;
       break;
     } 
-    if (reason == HANDLE_MOVE_USER_FINAL) {
-      orthconn_try_remove_segments(orth, orth->numpoints-3);
-    }
     break;
   case HANDLE_MIDPOINT:
     n = orth->numpoints - 1;
     handle_nr = get_handle_nr(orth, handle);
-    if ( handle_nr == 0 ) {
-      orth->numpoints++; n++;
-      /* Add an extra point first: */
-      orth->points = realloc(orth->points, orth->numpoints*sizeof(Point));
-      for (i=orth->numpoints-1;i>1;i--) {
-	orth->points[i] = orth->points[i-1];
-      }
-      /* Add extra line-segment first: */
-      orth->orientation = realloc(orth->orientation,
-				  (orth->numpoints-1)*sizeof(Orientation));
-      orth->midpoint_handles = realloc(orth->midpoint_handles,
-				       (orth->numpoints-1)*sizeof(Handle *));
-      for (i=orth->numpoints-2;i>0;i--) {
-	orth->midpoint_handles[i] = orth->midpoint_handles[i-1];
-	orth->orientation[i] = orth->orientation[i-1];
-      }
-      orth->orientation[0] = FLIP_ORIENT(orth->orientation[1]);
-      orth->midpoint_handles[0] = g_new(Handle,1);
-      setup_midpoint_handle(orth->midpoint_handles[0]);
-
-      switch (orth->orientation[0]) {
-      case HORIZONTAL:
-	orth->points[1].x = orth->points[2].x;
-	orth->points[1].y = orth->points[0].y;
-	break;
-      case VERTICAL:
-	orth->points[1].x = orth->points[0].x;
-	orth->points[1].y = orth->points[2].y;
-	break;
-      }
-      
-      set_midpoint(&orth->midpoint_handles[0]->pos, orth, 0);
-
-      object_add_handle(&orth->object, orth->midpoint_handles[0]);
-      
-      handle_nr++; /* Inserted before the selected handle */
-      
-    } else if ( handle_nr == (n-1) ) {
-      orth->numpoints++; n++;
-      /* Add an extra point last: */
-      orth->points = realloc(orth->points, orth->numpoints*sizeof(Point));
-      orth->points[n] = orth->points[n-1];
-      /* Add extra line-segment last: */
-      orth->orientation = realloc(orth->orientation,
-				  (orth->numpoints-1)*sizeof(Orientation));
-      orth->midpoint_handles = realloc(orth->midpoint_handles,
-				       (orth->numpoints-1)*sizeof(Handle *));
-      orth->orientation[n-1] = FLIP_ORIENT(orth->orientation[n-2]);
-      orth->midpoint_handles[n-1] = g_new(Handle, 1);
-      setup_midpoint_handle(orth->midpoint_handles[n-1]);
-
-      switch (orth->orientation[n-1]) {
-      case HORIZONTAL:
-	orth->points[n-1].x = orth->points[n-2].x;
-	orth->points[n-1].y = orth->points[n].y;
-	break;
-      case VERTICAL:
-	orth->points[n-1].x = orth->points[n].x;
-	orth->points[n-1].y = orth->points[n-2].y;
-	break;
-      }
-      
-      set_midpoint(&orth->midpoint_handles[n-1]->pos, orth, n-1);
-
-      object_add_handle(&orth->object, orth->midpoint_handles[n-1]);
-    }
 
     switch (orth->orientation[handle_nr]) {
     case HORIZONTAL:
@@ -169,11 +97,6 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
       orth->points[handle_nr+1].x = to->x;
       break;
     } 
-
-    if (reason == HANDLE_MOVE_USER_FINAL) {
-      orthconn_try_remove_segments(orth, handle_nr);
-    }
-
     break;
   default:
     message_error("Internal error in orthconn_move_handle.\n");
@@ -589,3 +512,45 @@ orthconn_get_middle_handle( OrthConn *orth )
   int n = orth->numpoints - 1 ;
   return orth->midpoint_handles[ n/2 ] ;
 }
+
+void
+orthconn_state_get(OrthConnState *state, OrthConn *orth)
+{
+  state->numpoints = orth->numpoints;
+  state->points = g_new(Point, state->numpoints);
+  memcpy(state->points, orth->points,
+	 state->numpoints*sizeof(Point));
+  state->orientation = g_new(Orientation, state->numpoints-1);
+  memcpy(state->orientation, orth->orientation,
+	 (state->numpoints-1)*sizeof(Orientation));
+}
+
+void
+orthconn_state_set(OrthConnState *state, OrthConn *orth)
+{
+  if (orth->points)
+    g_free(orth->points);
+  if (orth->orientation)
+    g_free(orth->orientation);
+  
+  orth->numpoints = state->numpoints;
+  orth->points = g_new(Point, orth->numpoints);
+  memcpy(orth->points, state->points,
+	 orth->numpoints*sizeof(Point));
+  orth->orientation = g_new(Orientation, orth->numpoints-1);
+  memcpy(orth->orientation, state->orientation,
+	 (orth->numpoints-1)*sizeof(Orientation));
+  
+  orthconn_update_data(orth);
+}
+
+void
+orthconn_state_free(OrthConnState *state)
+{
+  if (state->points)
+    g_free(state->points);
+  
+  if (state->orientation)
+    g_free(state->orientation);
+}
+

@@ -287,12 +287,13 @@ diagram_remove_all_selected(Diagram *diagram, int delete_empty)
     Object *selected_obj = (Object *) list->data;
     object_add_updates(selected_obj, diagram);
     
+#if 0 /* This is not possible with Undo/Redo*/
     if (delete_empty && selected_obj->ops->is_empty(selected_obj)) {
-      /*      printf("removed empty object.\n"); */
       layer_remove_object(diagram->data->active_layer, selected_obj);
       selected_obj->ops->destroy(selected_obj);
       g_free(selected_obj);
     }
+#endif 
     
     list = g_list_next(list);
   }

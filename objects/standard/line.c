@@ -36,6 +36,17 @@
 
 typedef struct _LinePropertiesDialog LinePropertiesDialog;
 typedef struct _LineDefaultsDialog LineDefaultsDialog;
+typedef struct _LineState LineState;
+
+struct _LineState {
+  ObjectState obj_state;
+  
+  Color line_color;
+  real line_width;
+  LineStyle line_style;
+  real dashlength;
+  Arrow start_arrow, end_arrow;
+};
 
 typedef struct _LineProperties {
   Color line_color;
@@ -102,6 +113,9 @@ static void line_apply_properties(Line *line);
 static GtkWidget *line_get_defaults();
 static void line_apply_defaults();
 
+static LineState *line_get_state(Line *line);
+static void line_set_state(Line *line, LineState *state);
+
 static void line_save(Line *line, ObjectNode obj_node, const char *filename);
 static Object *line_load(ObjectNode obj_node, int version, const char *filename);
 
@@ -135,7 +149,9 @@ static ObjectOps line_ops = {
   (GetPropertiesFunc)   line_get_properties,
   (ApplyPropertiesFunc) line_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (GetStateFunc)        line_get_state,
+  (SetStateFunc)        line_set_state
 };
 
 static void
@@ -514,6 +530,37 @@ line_copy(Line *line)
   return (Object *)newline;
 }
 
+static LineState *
+line_get_state(Line *line)
+{
+  LineState *state = g_new(LineState, 1);
+
+  state->obj_state.free = NULL;
+  
+  state->line_color = line->line_color;
+  state->line_width = line->line_width;
+  state->line_style = line->line_style;
+  state->dashlength = line->dashlength;
+  state->start_arrow = line->start_arrow;
+  state->end_arrow = line->end_arrow;
+
+  return state;
+}
+
+static void
+line_set_state(Line *line, LineState *state)
+{
+  line->line_color = state->line_color;
+  line->line_width = state->line_width;
+  line->line_style = state->line_style;
+  line->dashlength = state->dashlength;
+  line->start_arrow = state->start_arrow;
+  line->end_arrow = state->end_arrow;
+
+  g_free(state);
+  
+  line_update_data(line);
+}
 
 static void
 line_update_data(Line *line)

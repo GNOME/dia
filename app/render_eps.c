@@ -86,7 +86,7 @@ static void draw_string(RendererEPS *renderer,
 static void draw_image(RendererEPS *renderer,
 		       Point *point,
 		       real width, real height,
-		       DiaImage *image);
+		       DiaImage image);
 
 static RenderOps EpsRenderOps = {
   (BeginRenderFunc) begin_render,
@@ -761,7 +761,7 @@ static void
 draw_image(RendererEPS *renderer,
 	   Point *point,
 	   real width, real height,
-	   DiaImage *image)
+	   DiaImage image)
 {
   int img_width, img_height;
   int v;

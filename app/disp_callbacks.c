@@ -40,15 +40,28 @@ static void
 object_menu_proxy(GtkWidget *widget, gpointer data)
 {
   DiaMenuItem *dia_menu_item;
+  ObjectState *old_state;
+
   DDisplay *ddisp = ddisplay_active();
   Object *obj = (Object *)ddisp->diagram->data->selected->data;
 
   dia_menu_item = (DiaMenuItem *) data;
-  
+
+  old_state = obj->ops->get_state(obj);
+
   object_add_updates(obj, ddisp->diagram);
   (dia_menu_item->callback)(obj, &object_menu_clicked_point,
 			    dia_menu_item->callback_data);
   object_add_updates(obj, ddisp->diagram);
+
+  undo_state_change(ddisp->diagram, obj, old_state);
+
+  diagram_modified(ddisp->diagram);
+
+  diagram_update_extents(ddisp->diagram);
+
+  undo_set_transactionpoint(ddisp->diagram->undo);
+
   diagram_flush(ddisp->diagram);
 }
 
@@ -165,11 +178,13 @@ ddisplay_canvas_events (GtkWidget *canvas,
   Focus *focus;
   Object *obj;
   Rectangle *visible;
+  ObjectState *old_state;
   Point middle;
   int return_val;
   int key_handled;
   int width, height;
   int new_size;
+  int modified;
 
   return_val = FALSE;
  
@@ -308,15 +323,26 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	/* Keys goes to the active focus. */
 	obj = focus->obj;
 	if (diagram_is_selected(ddisp->diagram, obj)) {
+	  old_state = obj->ops->get_state(obj);
+	
 	  object_add_updates(obj, ddisp->diagram);
-	  return_val = (focus->key_event)(focus, kevent->keyval,
-					  kevent->string, kevent->length);
+	  modified = (focus->key_event)(focus, kevent->keyval,
+					kevent->string, kevent->length);
 	  { /* Make sure object updates its data: */
 	    Point p = obj->position;
 	    (obj->ops->move)(obj,&p);  }
 	  
 	  object_add_updates(obj, ddisp->diagram);
-	  
+
+	  if (modified) {
+	    undo_state_change(ddisp->diagram, obj, old_state);
+	    undo_set_transactionpoint(ddisp->diagram->undo);
+	  } else {
+	    if (old_state->free)
+	      old_state->free(old_state);
+	    g_free(old_state);
+	  }
+
 	  diagram_flush(ddisp->diagram);
 
 	  key_handled = TRUE;

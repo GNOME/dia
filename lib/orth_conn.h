@@ -30,6 +30,7 @@ typedef enum {
 #define HANDLE_MIDPOINT (HANDLE_CUSTOM1)
 
 typedef struct _OrthConn OrthConn;
+typedef struct _OrthConnState OrthConnState;
 
 /* This is a subclass of Object used to help implementing objects
  * that connect points with orthogonal line-segments.
@@ -44,6 +45,13 @@ struct _OrthConn {
   Orientation *orientation; /*[numpoints - 1]*/
   Handle **midpoint_handles; /*[numpoints - 1]*/
 };
+
+struct _OrthConnState {
+  int numpoints;
+  Point *points;
+  Orientation *orientation; /*[numpoints - 1]*/
+};
+
 extern void orthconn_update_data(OrthConn *orth);
 extern void orthconn_update_boundingbox(OrthConn *orth);
 extern void orthconn_simple_draw(OrthConn *orth, Renderer *renderer,
@@ -59,4 +67,8 @@ extern void orthconn_move(OrthConn *orth, Point *to);
 extern real orthconn_distance_from(OrthConn *orth, Point *point,
 				   real line_width);
 extern Handle* orthconn_get_middle_handle(OrthConn *orth);
+
+extern void orthconn_state_get(OrthConnState *state, OrthConn *orth);
+extern void orthconn_state_set(OrthConnState *state, OrthConn *orth);
+extern void orthconn_state_free(OrthConnState *state);
 #endif /* ORTH_CONN_H */

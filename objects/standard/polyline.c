@@ -36,6 +36,18 @@
 
 typedef struct _PolylinePropertiesDialog PolylinePropertiesDialog;
 typedef struct _PolylineDefaultsDialog PolylineDefaultsDialog;
+typedef struct _PolylineState PolylineState;
+
+struct _PolylineState {
+  ObjectState obj_state;
+
+  PolyConnState polyconn_state;
+  
+  Color line_color;
+  real line_width;
+  LineStyle line_style;
+  Arrow start_arrow, end_arrow;
+};
 
 
 typedef struct _Polyline {
@@ -98,6 +110,9 @@ static Object *polyline_copy(Polyline *polyline);
 static GtkWidget *polyline_get_properties(Polyline *polyline);
 static void polyline_apply_properties(Polyline *polyline);
 
+static PolylineState *polyline_get_state(Polyline *polyline);
+static void polyline_set_state(Polyline *polyline, PolylineState *state);
+
 static void polyline_save(Polyline *polyline, ObjectNode obj_node,
 			  const char *filename);
 static Object *polyline_load(ObjectNode obj_node, int version,
@@ -138,7 +153,9 @@ static ObjectOps polyline_ops = {
   (GetPropertiesFunc)   polyline_get_properties,
   (ApplyPropertiesFunc) polyline_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      polyline_get_object_menu
+  (ObjectMenuFunc)      polyline_get_object_menu,
+  (GetStateFunc)        polyline_get_state,
+  (SetStateFunc)        polyline_set_state
 };
 
 static void
@@ -497,6 +514,48 @@ polyline_copy(Polyline *polyline)
   newpolyline->end_arrow = polyline->end_arrow;
 
   return (Object *)newpolyline;
+}
+
+static void
+polyline_state_free(ObjectState *st)
+{
+  PolylineState *state = (PolylineState *)st;
+  polyconn_state_free(&state->polyconn_state);
+}
+
+static PolylineState *
+polyline_get_state(Polyline *polyline)
+{
+  PolylineState *state = g_new(PolylineState, 1);
+
+  state->obj_state.free = polyline_state_free;
+  
+  state->line_color = polyline->line_color;
+  state->line_width = polyline->line_width;
+  state->line_style = polyline->line_style;
+  state->start_arrow = polyline->start_arrow;
+  state->end_arrow = polyline->end_arrow;
+
+  polyconn_state_get(&state->polyconn_state, &polyline->poly);
+  
+  return state;
+}
+
+static void
+polyline_set_state(Polyline *polyline, PolylineState *state)
+{
+  polyline->line_color = state->line_color;
+  polyline->line_width = state->line_width;
+  polyline->line_style = state->line_style;
+  polyline->start_arrow = state->start_arrow;
+  polyline->end_arrow = state->end_arrow;
+
+  polyconn_state_set(&state->polyconn_state, &polyline->poly);
+
+  polyconn_state_free(&state->polyconn_state);
+  g_free(state);
+  
+  polyline_update_data(polyline);
 }
 
 static void

@@ -40,6 +40,7 @@ extern ObjectType actor_type;
 extern ObjectType usecase_type;
 extern ObjectType lifeline_type;
 extern ObjectType objet_type;
+extern ObjectType umlobject_type;
 extern ObjectType message_type;
 extern ObjectType component_type;
 extern ObjectType classicon_type;
@@ -60,6 +61,7 @@ void register_objects(void) {
   object_register_type(&usecase_type);
   object_register_type(&lifeline_type);
   object_register_type(&objet_type);
+  object_register_type(&umlobject_type);
   object_register_type(&message_type);  
   object_register_type(&component_type);
   object_register_type(&classicon_type);

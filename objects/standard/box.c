@@ -38,6 +38,18 @@
 typedef struct _Box Box;
 typedef struct _BoxPropertiesDialog BoxPropertiesDialog;
 typedef struct _BoxDefaultsDialog BoxDefaultsDialog;
+typedef struct _BoxState BoxState;
+
+struct _BoxState {
+  ObjectState obj_state;
+  
+  real border_width;
+  Color border_color;
+  Color inner_color;
+  gboolean show_background;
+  LineStyle line_style;
+  real corner_radius;
+};
 
 struct _Box {
   Element element;
@@ -82,6 +94,7 @@ struct _BoxDefaultsDialog {
   GtkSpinButton *corner_radius;
 };
 
+
 static BoxPropertiesDialog *box_properties_dialog;
 static BoxDefaultsDialog *box_defaults_dialog;
 static BoxProperties default_properties;
@@ -103,6 +116,9 @@ static void box_destroy(Box *box);
 static Object *box_copy(Box *box);
 static GtkWidget *box_get_properties(Box *box);
 static void box_apply_properties(Box *box);
+
+static BoxState *box_get_state(Box *box);
+static void box_set_state(Box *box, BoxState *state);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
 static Object *box_load(ObjectNode obj_node, int version, const char *filename);
@@ -140,7 +156,9 @@ static ObjectOps box_ops = {
   (GetPropertiesFunc)   box_get_properties,
   (ApplyPropertiesFunc) box_apply_properties,
   (IsEmptyFunc)         object_return_false,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (GetStateFunc)        box_get_state,
+  (SetStateFunc)        box_set_state
 };
 
 static void
@@ -526,6 +544,39 @@ box_draw(Box *box, Renderer *renderer)
 			   &box->border_color);
   }
 }
+
+static BoxState *
+box_get_state(Box *box)
+{
+  BoxState *state = g_new(BoxState, 1);
+
+  state->obj_state.free = NULL;
+  
+  state->border_width = box->border_width;
+  state->border_color = box->border_color;
+  state->inner_color = box->inner_color;
+  state->show_background = box->show_background;
+  state->line_style = box->line_style;
+  state->corner_radius = box->corner_radius;
+
+  return state;
+}
+
+static void
+box_set_state(Box *box, BoxState *state)
+{
+  box->border_width = state->border_width;
+  box->border_color = state->border_color;
+  box->inner_color = state->inner_color;
+  box->show_background = state->show_background;
+  box->line_style = state->line_style;
+  box->corner_radius = state->corner_radius;
+
+  g_free(state);
+  
+  box_update_data(box);
+}
+
 
 static void
 box_update_data(Box *box)

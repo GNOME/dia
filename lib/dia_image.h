@@ -21,7 +21,8 @@
 #include "geometry.h"
 #include "render.h"
 
-typedef void* DiaImage;
+
+typedef struct DiaImage *DiaImage;
 
 
 extern void dia_image_init(void);
@@ -29,6 +30,7 @@ extern void dia_image_init(void);
 extern DiaImage dia_image_get_broken(void);
 
 extern DiaImage dia_image_load(gchar *filename);
+extern void dia_image_add_ref(DiaImage image);
 extern void dia_image_release(DiaImage image);
 extern void dia_image_draw(DiaImage image, GdkWindow *window,
 			   int x, int y, int width, int height);
