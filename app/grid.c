@@ -31,9 +31,9 @@ void
 grid_draw(DDisplay *ddisp, Rectangle *update)
 {
   Grid *grid = &ddisp->grid;
-  Renderer *renderer = &ddisp->renderer->renderer;
-  int width = ddisp->renderer->renderer.pixel_width;
-  int height = ddisp->renderer->renderer.pixel_height;
+  Renderer *renderer = ddisp->renderer;
+  int width = ddisp->renderer->pixel_width;
+  int height = ddisp->renderer->pixel_height;
 
   if ( (ddisplay_transform_length(ddisp, grid->width_x) <= 1.0) ||
        (ddisplay_transform_length(ddisp, grid->width_y) <= 1.0) ) {

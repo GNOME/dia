@@ -68,6 +68,23 @@ AC_CHECK_LIB(popt, poptSetOtherOptionHelp, [AC_DEFINE(HAVE_LIBPOPT)
 AC_CHECK_HEADERS(popt.h)
 
 dnl
+dnl libart_lgpl
+dnl
+
+dnl AM_PATH_LIBART(2.1.0, [AC_DEFINE(HAVE_LIBART)])
+
+AC_PATH_PROG(LIBART_CONFIG,libart-config,no)
+if test x$LIBART_CONFIG != xno; then
+     echo "Using installed libart_lgpl"
+     LIBART_LIBS=`$LIBART_CONFIG --libs`
+     LIBART_CFLAGS=`$LIBART_CONFIG --cflags`
+     AC_DEFINE(HAVE_LIBART)
+fi
+
+AC_SUBST(LIBART_CFLAGS)
+AC_SUBST(LIBART_LIBS)
+
+dnl
 dnl Debugging
 dnl
 

@@ -45,6 +45,9 @@
 /* Define if you have the popt library (-lpopt).  */
 #undef HAVE_LIBPOPT
 
+/* Define if you have the libart_lgpg library (-lart_lgpl).  */
+#undef HAVE_LIBART
+
 /* Define as 1 if you have gettext and don't want to use GNU gettext.  */
 #undef HAVE_GETTEXT
 

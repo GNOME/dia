@@ -34,6 +34,15 @@ rectangle_union(Rectangle *r1, Rectangle *r2)
 }
 
 void
+int_rectangle_union(IntRectangle *r1, IntRectangle *r2)
+{
+  r1->top = MIN( r1->top, r2->top );
+  r1->bottom = MAX( r1->bottom, r2->bottom );
+  r1->left = MIN( r1->left, r2->left );
+  r1->right = MAX( r1->right, r2->right );
+}
+
+void
 rectangle_intersection(Rectangle *r1, Rectangle *r2)
 {
   r1->top = MAX( r1->top, r2->top );

@@ -230,21 +230,17 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     tool->y1 = tool->y2 = (int) event->y;
     
     if (tool->gc == NULL) {
-      tool->gc = gdk_gc_new(ddisp->renderer->pixmap);
+      tool->gc = gdk_gc_new(ddisp->canvas->window);
       gdk_gc_set_line_attributes(tool->gc, 1, GDK_LINE_ON_OFF_DASH, 
 				 GDK_CAP_BUTT, GDK_JOIN_MITER);
       gdk_gc_set_foreground(tool->gc, &color_gdk_white);
       gdk_gc_set_function(tool->gc, GDK_XOR);
     }
 
-    gdk_draw_rectangle (ddisp->renderer->pixmap, tool->gc, FALSE,
+    gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
 			tool->x1, tool->y1,
 			tool->x2 - tool->x1, tool->y2 - tool->y1);
-    ddisplay_add_display_area(ddisp,
-			      tool->x1, tool->y1,
-			      tool->x2+1, tool->y2+1);
 
-    ddisplay_flush(ddisp);
     gdk_pointer_grab (ddisp->canvas->window, FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
@@ -393,12 +389,9 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
 
     if (! auto_scroll)
     {
-      gdk_draw_rectangle (ddisp->renderer->pixmap, tool->gc, FALSE,
+      gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
 			  tool->x1, tool->y1,
 			  tool->x2 - tool->x1, tool->y2 - tool->y1);
-      ddisplay_add_display_area(ddisp,
-				tool->x1-1, tool->y1-1,
-				tool->x2+1, tool->y2+1);
     }
 
     tool->end_box = to;
@@ -412,14 +405,9 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
 			      MAX(tool->start_box.y, tool->end_box.y),
 			      &tool->x2, &tool->y2);
 
-    gdk_draw_rectangle (ddisp->renderer->pixmap, tool->gc, FALSE,
+    gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
 			tool->x1, tool->y1,
 			tool->x2 - tool->x1, tool->y2 - tool->y1);
-    ddisplay_add_display_area(ddisp,
-			      tool->x1-1, tool->y1-1,
-			      tool->x2+1, tool->y2+1);
-
-    ddisplay_flush(ddisp);
     break;
   case STATE_NONE:
     
@@ -510,12 +498,9 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   case STATE_BOX_SELECT:
     gdk_pointer_ungrab (event->time);
     /* Remove last box: */
-    gdk_draw_rectangle (ddisp->renderer->pixmap, tool->gc, FALSE,
+    gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
 			tool->x1, tool->y1,
 			tool->x2 - tool->x1, tool->y2 - tool->y1);
-    ddisplay_add_display_area(ddisp,
-			      tool->x1-1, tool->y1-1,
-			      tool->x2+1, tool->y2+1);
 
     {
       Rectangle r;

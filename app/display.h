@@ -26,6 +26,7 @@ typedef struct _DDisplay DDisplay;
 #include "diagram.h"
 #include "grid.h"
 #include "render_gdk.h"
+#include "render_libart.h"
 
 #define DDISPLAY_MAX_ZOOM 500.0
 #define DDISPLAY_NORMAL_ZOOM 20.0
@@ -58,7 +59,8 @@ struct _DDisplay {
   gboolean show_cx_pts;		  /* Connection points toggle boolean  */
   gboolean autoscroll;
 
-  RendererGdk *renderer;
+  int aa_renderer;
+  Renderer *renderer;
   
   GSList *update_areas;           /* Update areas list                 */
   GSList *display_areas;          /* Display areas list                */
@@ -69,6 +71,9 @@ extern GdkCursor *default_cursor;
 extern DDisplay *new_display(Diagram *dia);
 /* Normal destroy is done through widget destroy event. */
 extern void ddisplay_really_destroy(DDisplay *ddisp); 
+extern void ddisplay_transform_coords_double(DDisplay *ddisp,
+					     coord x, coord y,
+					     double *xi, double *yi);
 extern void ddisplay_transform_coords(DDisplay *ddisp,
 				      coord x, coord y,
 				      int *xi, int *yi);
@@ -91,6 +96,7 @@ extern void ddisplay_set_origo(DDisplay *ddisp,
 extern void ddisplay_zoom(DDisplay *ddisp, Point *point,
 			  real zoom_factor);
 
+extern void ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer);
 extern void ddisplay_resize_canvas(DDisplay *ddisp,
 				   int width,
 				   int height);

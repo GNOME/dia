@@ -42,6 +42,8 @@ extern void view_zoom_out_callback(GtkWidget *widget, gpointer data);
 extern void view_zoom_set_callback(GtkWidget *widget, gpointer data);
 
 #ifdef GNOME
+extern void view_aa_callback(GtkWidget *widget,
+			     gpointer  callback_data);
 extern void view_visible_grid_callback (GtkWidget *widget,
 				       gpointer  callback_data);
 extern void view_snap_to_grid_callback (GtkWidget *widget,
@@ -51,6 +53,9 @@ extern void view_toggle_rulers_callback(GtkWidget *widget,
 extern void view_show_cx_pts_callback  (GtkWidget *widget,
                                         gpointer  callback_data);
 #else  /* GNOME */
+extern void view_aa_callback(gpointer  callback_data,
+			     guint callback_action,
+			     GtkWidget *widget);
 extern void view_visible_grid_callback(gpointer  callback_data,
 				       guint callback_action,
 				       GtkWidget *widget);

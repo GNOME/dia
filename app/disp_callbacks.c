@@ -218,8 +218,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
     case GDK_CONFIGURE:
       /*printf("GDK_CONFIGURE\n");*/
       if (ddisp->renderer != NULL) {
-	width = ddisp->renderer->renderer.pixel_width;
-	height = ddisp->renderer->renderer.pixel_height;
+	width = ddisp->renderer->pixel_width;
+	height = ddisp->renderer->pixel_height;
 	new_size = ((width != ddisp->canvas->allocation.width) ||
 		    (height != ddisp->canvas->allocation.height));
       } else {

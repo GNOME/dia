@@ -39,7 +39,7 @@ void
 handle_draw(Handle *handle, DDisplay *ddisp)
 {
   int x,y;
-  Renderer *renderer = &ddisp->renderer->renderer;
+  Renderer *renderer = ddisp->renderer;
   Color *color;
 
   ddisplay_transform_coords(ddisp, handle->pos.x, handle->pos.y, &x, &y);

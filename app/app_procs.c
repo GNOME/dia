@@ -178,6 +178,8 @@ app_init (int argc, char **argv)
   dia_image_init();
 #endif
 
+  gdk_rgb_init();
+
   gtk_rc_parse ("diagtkrc"); 
 
   /*  enable_core_dumps(); */

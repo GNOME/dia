@@ -69,6 +69,8 @@ dia_SOURCES = \
 	    object_ops.h \
 	    render_gdk.c \
 	    render_gdk.h \
+	    render_libart.c \
+	    render_libart.h \
 	    render_eps.c \
 	    render_eps.h \
 	    render_svg.c \
@@ -90,7 +92,7 @@ dia_SOURCES = \
 
 dia_LDADD = ../lib/libdia.a ../objects/custom/libcustom_objects.a \
     $(EFENCE) \
-    @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@
+    @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@
 
 CPPFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\" \
@@ -104,7 +106,8 @@ INCLUDES = \
 	@XML_CFLAGS@ \
 	@GTK_CFLAGS@ \
 	@GDK_IMLIB_CFLAGS@ \
-        @GNOME_CFLAGS@
+        @GNOME_CFLAGS@ \
+	@LIBART_CFLAGS@
 
 LDFLAGS = -export-dynamic
 

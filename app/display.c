@@ -110,6 +110,7 @@ new_display(Diagram *dia)
 
   ddisp->autoscroll = TRUE;
 
+  ddisp->aa_renderer = 0;
   ddisp->renderer = NULL;
   
   ddisp->update_areas = NULL;
@@ -158,13 +159,27 @@ display_hash(DDisplay *ddisp)
 }
 
 void
+ddisplay_transform_coords_double(DDisplay *ddisp,
+				 coord x, coord y,
+				 double *xi, double *yi)
+{
+  Rectangle *visible = &ddisp->visible;
+  double width = ddisp->renderer->pixel_width;
+  double height = ddisp->renderer->pixel_height;
+  
+  *xi = (x - visible->left)  * (real)width / (visible->right - visible->left);
+  *yi = (y - visible->top)  * (real)height / (visible->bottom - visible->top);
+}
+
+
+void
 ddisplay_transform_coords(DDisplay *ddisp,
 			  coord x, coord y,
 			  int *xi, int *yi)
 {
   Rectangle *visible = &ddisp->visible;
-  int width = ddisp->renderer->renderer.pixel_width;
-  int height = ddisp->renderer->renderer.pixel_height;
+  int width = ddisp->renderer->pixel_width;
+  int height = ddisp->renderer->pixel_height;
   
   *xi = ROUND ( (x - visible->left)  * (real)width /
 		(visible->right - visible->left) );
@@ -193,8 +208,8 @@ ddisplay_untransform_coords(DDisplay *ddisp,
 			    coord *x, coord *y)
 {
   Rectangle *visible = &ddisp->visible;
-  int width = ddisp->renderer->renderer.pixel_width;
-  int height = ddisp->renderer->renderer.pixel_height;
+  int width = ddisp->renderer->pixel_width;
+  int height = ddisp->renderer->pixel_height;
   
   *x = visible->left + xi*(visible->right - visible->left) / (real)width;
   *y = visible->top +  yi*(visible->bottom - visible->top) / (real)height;
@@ -231,8 +246,8 @@ ddisplay_add_update(DDisplay *ddisp, Rectangle *rect)
   Rectangle *r;
   int top,bottom,left,right;
   Rectangle *visible;
-  int width = ddisp->renderer->renderer.pixel_width;
-  int height = ddisp->renderer->renderer.pixel_height;
+  int width = ddisp->renderer->pixel_width;
+  int height = ddisp->renderer->pixel_height;
 
   if (!rectangle_intersects(rect, &ddisp->visible))
     return;
@@ -300,7 +315,7 @@ ddisplay_flush(DDisplay *ddisp)
   
   /* Renders updates to pixmap + copies display_areas to canvas(screen) */
 
-  renderer = &ddisp->renderer->renderer;
+  renderer = ddisp->renderer;
 
   (renderer->interactive_ops->clip_region_clear)(renderer);
 
@@ -339,9 +354,14 @@ ddisplay_flush(DDisplay *ddisp)
   while(l!=NULL) {
     ir = (IRectangle *) l->data;
 
-    renderer_gdk_copy_to_window(ddisp->renderer, ddisp->canvas->window,
-				ir->left, ir->top,
-				ir->right - ir->left, ir->bottom - ir->top);
+    if (ddisp->aa_renderer)
+      renderer_libart_copy_to_window((RendererLibart *)ddisp->renderer, ddisp->canvas->window,
+				     ir->left, ir->top,
+				     ir->right - ir->left, ir->bottom - ir->top);
+    else 
+      renderer_gdk_copy_to_window((RendererGdk *)ddisp->renderer, ddisp->canvas->window,
+				  ir->left, ir->top,
+				  ir->right - ir->left, ir->bottom - ir->top);
     
     l = g_slist_next(l);
   }
@@ -385,13 +405,13 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
     return;
   }
 
-  renderer = &ddisp->renderer->renderer;
+  renderer = ddisp->renderer;
 
   /* Erase background */
   (renderer->interactive_ops->fill_pixel_rect)(renderer,
 					       0, 0,
-					       renderer->pixel_width,
-					       renderer->pixel_height,
+					       renderer->pixel_width-1,
+					       renderer->pixel_height-1,
 					       &ddisp->diagram->data->bg_color);
 
   /* Draw grid */
@@ -453,8 +473,8 @@ ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
 {
   Rectangle *extents = &ddisp->diagram->data->extents;
   Rectangle *visible = &ddisp->visible;
-  int width = ddisp->renderer->renderer.pixel_width;
-  int height = ddisp->renderer->renderer.pixel_height;
+  int width = ddisp->renderer->pixel_width;
+  int height = ddisp->renderer->pixel_height;
     
   /*  updaterar origo+visible+rulers */
   ddisp->origo.x = x;
@@ -632,14 +652,43 @@ void ddisplay_scroll_right(DDisplay *ddisp)
 }
 
 void
+ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
+{
+  int width, height;
+  if (ddisp->aa_renderer)
+    destroy_libart_renderer((RendererLibart *)ddisp->renderer);
+  else
+    destroy_gdk_renderer((RendererGdk *)ddisp->renderer);
+
+  ddisp->aa_renderer = aa_renderer;
+
+  width = ddisp->canvas->allocation.width;
+  height = ddisp->canvas->allocation.height;
+  
+  if (ddisp->aa_renderer){
+    ddisp->renderer = (Renderer *)new_libart_renderer(ddisp);
+    libart_renderer_set_size((RendererLibart *)ddisp->renderer, ddisp->canvas->window, width, height);
+  } else {
+    ddisp->renderer = (Renderer *)new_gdk_renderer(ddisp);
+    gdk_renderer_set_size((RendererGdk *)ddisp->renderer, ddisp->canvas->window, width, height);
+  }
+}
+
+void
 ddisplay_resize_canvas(DDisplay *ddisp,
 		       int width,  int height)
 {
   if (ddisp->renderer==NULL) {
-    ddisp->renderer = new_gdk_renderer(ddisp);
+    if (ddisp->aa_renderer)
+      ddisp->renderer = (Renderer *)new_libart_renderer(ddisp);
+    else
+      ddisp->renderer = (Renderer *)new_gdk_renderer(ddisp);
   }
   
-  gdk_renderer_set_size(ddisp->renderer, ddisp->canvas->window, width, height);
+  if (ddisp->aa_renderer)
+    libart_renderer_set_size((RendererLibart *)ddisp->renderer, ddisp->canvas->window, width, height);
+  else
+    gdk_renderer_set_size((RendererGdk *)ddisp->renderer, ddisp->canvas->window, width, height);
 
   ddisplay_set_origo(ddisp, ddisp->origo.x, ddisp->origo.y);
 
@@ -823,8 +872,12 @@ ddisplay_really_destroy(DDisplay *ddisp)
   diagram_remove_ddisplay(dia, ddisp);
 
   grid_destroy_dialog(&ddisp->grid);
-  
-  destroy_gdk_renderer(ddisp->renderer);
+
+  if (ddisp->aa_renderer)
+    destroy_libart_renderer((RendererLibart *)ddisp->renderer);
+  else
+    destroy_gdk_renderer((RendererGdk *)ddisp->renderer);
+    
   
   g_hash_table_remove(display_ht, ddisp->shell);
   g_hash_table_remove(display_ht, ddisp->canvas);

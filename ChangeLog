@@ -1,3 +1,44 @@
+2000-01-29  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/render_libart.[ch]:
+	* app/Makefile.am:
+	Non-finished libart renderer.
+
+	* acconfig.h:
+	Added HAVE_LIBART flag
+
+	* configure.in:
+	Added libart probe
+
+	* app/app_procs.c:
+	Call gdk_rbg_init().
+
+	* app/connectionpoint_ops.c:
+	* app/disp_callbacks.c:
+	* app/grid.c:
+	* app/handle_ops.c:
+	* app/magnify.c:
+	* app/modify_tool.c:
+	Change ddisp->renderer type from RendererGdk * to Renderer *
+	Draw zoom and select rects in ddisp->canvas->window instead
+	of ddisp->renderer->renderer->pixmap.
+
+	* app/display.[ch]:
+	Add aa_renderer to DDisplay, and  support for it.
+	New function ddisplay_set_renderer() for changing renderer.
+	Add ddisplay_transform_coords_double() function, used by aa renderer.
+	Change ddisp->renderer type from RendererGdk * to Renderer *
+
+	* app/menus.c:
+	Add antialias to menu.
+	
+	* app/commands.[ch]:
+	add view_aa_callback function
+	Change ddisp->renderer type from RendererGdk * to Renderer *
+
+	* lib/geometry.[ch]:
+	Added IntRectangle and int_rectangle_union.
+
 2000-01-28  James Henstridge  <james@daa.com.au>
 
 	* app/commands.h: removed prototypes.

@@ -31,7 +31,7 @@ connectionpoint_draw(ConnectionPoint *conpoint,
 {
   int x,y;
   Point *point = &conpoint->pos;
-  Renderer *renderer = &ddisp->renderer->renderer;
+  Renderer *renderer = ddisp->renderer;
   
   ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
 
@@ -40,11 +40,11 @@ connectionpoint_draw(ConnectionPoint *conpoint,
 
   (renderer->interactive_ops->draw_pixel_line)(renderer,
 					       x-CP_SZ,y-CP_SZ,
-					       x+CP_SZ+1,y+CP_SZ+1,
+					       x+CP_SZ,y+CP_SZ,
 					       &connectionpoint_color);
 
   (renderer->interactive_ops->draw_pixel_line)(renderer,
-					       x+CP_SZ+1,y-CP_SZ-1,
+					       x+CP_SZ,y-CP_SZ,
 					       x-CP_SZ,y+CP_SZ,
 					       &connectionpoint_color);
 

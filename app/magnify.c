@@ -98,7 +98,7 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
     tool->moved = TRUE;
 
     if (tool->gc == NULL) {
-      tool->gc = gdk_gc_new(ddisp->renderer->pixmap);
+      tool->gc = gdk_gc_new(ddisp->canvas->window);
       gdk_gc_set_line_attributes(tool->gc, 1, GDK_LINE_ON_OFF_DASH, 
 				 GDK_CAP_BUTT, GDK_JOIN_MITER);
       gdk_gc_set_foreground(tool->gc, &color_gdk_white);
@@ -108,19 +108,15 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
     tl.x = MIN(tool->x, tool->oldx); tl.y = MIN(tool->y, tool->oldy);
     br.x = MAX(tool->x, tool->oldx); br.y = MAX(tool->y, tool->oldy);
 
-    gdk_draw_rectangle (ddisp->renderer->pixmap,
+    gdk_draw_rectangle (ddisp->canvas->window,
 			tool->gc, FALSE, tl.x, tl.y, br.x - tl.x, br.y - tl.y);
-    ddisplay_add_display_area(ddisp, tl.x, tl.y , br.x + 1, br.y + 1);
 
     tl.x = MIN(tool->x, event->x); tl.y = MIN(tool->y, event->y);
     br.x = MAX(tool->x, event->x); br.y = MAX(tool->y, event->y);
 
-    gdk_draw_rectangle (ddisp->renderer->pixmap,
+    gdk_draw_rectangle (ddisp->canvas->window,
 			tool->gc, FALSE, tl.x, tl.y, br.x - tl.x, br.y - tl.y);
-    ddisplay_add_display_area(ddisp, tl.x, tl.y , br.x + 1, br.y + 1);
 
-    ddisplay_flush(ddisp);
-    
     tool->oldx = event->x;
     tool->oldy = event->y;
   }

@@ -56,6 +56,7 @@
 GdkImlibImage *logo;
 
 
+
 void file_quit_callback(GtkWidget *widget, gpointer data)
 {
   app_exit();
@@ -452,6 +453,32 @@ view_show_cx_pts_callback(gpointer callback_data,
 
 #ifdef GNOME
 void
+view_aa_callback(GtkWidget *widget,
+		 gpointer callback_data)
+#else /* GNOME */
+void
+view_aa_callback(gpointer callback_data,
+		 guint callback_action,
+		 GtkWidget *widget)
+#endif /* GNOME */
+{
+  DDisplay *ddisp;
+  int aa;
+
+  ddisp = ddisplay_active();
+  
+  aa = GTK_CHECK_MENU_ITEM (widget)->active;
+
+  if (aa != ddisp->aa_renderer) {
+    ddisplay_set_renderer(ddisp, aa);
+    ddisplay_add_update_all(ddisp);
+    ddisplay_flush(ddisp);
+  }
+}
+
+
+#ifdef GNOME
+void
 view_visible_grid_callback(GtkWidget *widget,
 			   gpointer callback_data)
 #else /* GNOME */
@@ -566,8 +593,8 @@ view_show_all_callback(GtkWidget *widget, gpointer data)
   ddisp = ddisplay_active();
   dia = ddisp->diagram;
 
-  width = ddisp->renderer->renderer.pixel_width;
-  height = ddisp->renderer->renderer.pixel_height;
+  width = ddisp->renderer->pixel_width;
+  height = ddisp->renderer->pixel_height;
   
   magnify_x = (real)width /
     (dia->data->extents.right - dia->data->extents.left) / ddisp->zoom_factor;

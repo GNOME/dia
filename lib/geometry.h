@@ -34,6 +34,7 @@ typedef real coord;
 
 typedef struct _Point Point;
 typedef struct _Rectangle Rectangle;
+typedef struct _IntRectangle IntRectangle;
 
 struct _Point {
   coord x;
@@ -45,6 +46,13 @@ struct _Rectangle {
   coord left;
   coord bottom;
   coord right;
+};
+
+struct _IntRectangle {
+  int top;
+  int left;
+  int bottom;
+  int right;
 };
 
 #define ROUND(x) ((int) floor((x)+0.5))
@@ -178,6 +186,7 @@ point_copy_add_scaled(Point *dst, Point *src, Point *vct, real alpha)
 #endif
 
 extern void rectangle_union(Rectangle *r1, Rectangle *r2);
+extern void int_rectangle_union(IntRectangle *r1, IntRectangle *r2);
 extern void rectangle_intersection(Rectangle *r1, Rectangle *r2);
 extern int rectangle_intersects(Rectangle *r1, Rectangle *r2);
 extern int point_in_rectangle(Rectangle* r, Point *p);
