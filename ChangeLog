@@ -1,3 +1,9 @@
+2003-09-08  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/dia-props.c (diagram_properties_show): 
+	* app/properties.c (properties_show): Make sure the
+	dialogs are transient for the correct diagram.
+
 2003-09-07  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* configure.in: Make sure -lz -lm is passed into second png test

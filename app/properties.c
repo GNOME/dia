@@ -218,6 +218,8 @@ properties_show(Diagram *dia, Object *obj)
 
   if (obj != current_obj)
     gtk_window_resize (GTK_WINDOW(dialog), 1, 1); /* resize to minimum */
+  gtk_window_set_transient_for(GTK_WINDOW(dialog),
+			       GTK_WINDOW (ddisplay_active()->shell));
   gtk_window_present (GTK_WINDOW (dialog));
   object_part = properties;
   current_obj = obj;

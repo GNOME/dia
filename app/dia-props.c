@@ -260,6 +260,8 @@ diagram_properties_show(Diagram *dia)
  
   diagram_properties_retrieve(dia);
   
+  gtk_window_set_transient_for(GTK_WINDOW(dialog),
+			       GTK_WINDOW (ddisplay_active()->shell));
   gtk_widget_show(dialog);
 }
 
