@@ -151,6 +151,7 @@ objects/flowchart/Makefile
 objects/flowchart/pixmaps/Makefile
 objects/custom/Makefile
 objects/custom/pixmaps/Makefile
+objects/custom/Circuit/Makefile
 app/Makefile
 app/pixmaps/Makefile
 samples/Makefile

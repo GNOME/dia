@@ -1,5 +1,28 @@
 1999-08-22  James Henstridge  <james@daa.com.au>
 
+	* configure.in: added objects/custom/Circuit/Makefile to AC_OUTPUT
+	list.
+
+	* objects/Makefile.am (SUBDIRS): added custom to subdir list -- it
+	should actually work a bit now.
+
+	* objects/custom/Circuit/*: a test sheet for the custom shape code.
+	It is a small collection of circuit elements.
+
+	* objects/custom/shape_info.c: fixed up loading of polylines and
+	polygons.  Before it was removing negative signs :(
+
+	* objects/custom/pixmaps/custom.xpm: drew the custom shape icon.  A
+	placeholder was here before.  I still need to work out how to set
+	icons for individual custom shapes.
+	
+	* objects/custom/custom.c: added code to load the shapes into sheets
+	properly.  The shape files should be arranged into directories, and
+	each directory represents a different sheet in the toolbox.  This
+	will make it very easy to distribute a collection of dia shapes as
+	a tarball.  I still need to work out internationalisation, and maybe
+	also shape ordering in the sheet.
+
 	* objects/custom/custom_object.c: fixed up dialogs for these objects.
 	(custom_create): fix for objects without text areas.
 

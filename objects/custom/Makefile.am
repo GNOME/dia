@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = pixmaps
+SUBDIRS = pixmaps Circuit
 
 pkglib_LTLIBRARIES = 	libcustom_objects.la
 libcustom_objects_la_SOURCES = \
@@ -11,4 +11,7 @@ libcustom_objects_la_SOURCES = \
 
 libcustom_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
-INCLUDES = -I$(srcdir)/../../lib $(CFLAGS) $(GTK_CFLAGS) $(GNOME_CFLAGS) $(XML_CFLAGS)
+shapedir = $(pkgdatadir)/shapes
+
+INCLUDES = -I$(top_srcdir)/lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(XML_CFLAGS) \
+	-DDIA_SHAPEDIR=\""$(shapedir)"\"

@@ -15,44 +15,134 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include <glib.h>
+
 #include "intl.h"
 #include "object.h"
 #include "sheet.h"
 
 #include "shape_info.h"
 
-void
-custom_object_new(ShapeInfo *info, ObjectType **otype, SheetObject **sheetobj);
+void custom_object_new (ShapeInfo *info,
+			ObjectType **otype,
+			SheetObject **sheetobj);
 
 int get_version(void) {
   return 0;
 }
 
-GList *sheet_objs;
+/* create a shape sheet from a directory of XML shape descriptions */
+static Sheet *
+create_custom_sheet(const gchar *directory, const gchar *name)
+{
+  DIR *dp;
+  struct dirent *dirp;
+  Sheet *sheet = NULL;
+
+  dp = opendir(directory);
+  if (dp == NULL) {
+    return;
+  }
+  while ( (dirp = readdir(dp)) ) {
+    int len = strlen(dirp->d_name);
+    if ((len > 4 && !strcmp(".xml", &dirp->d_name[len-4])) ||
+	(len > 6 && !strcmp(".shape", &dirp->d_name[len-6]))) {
+      gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
+				    dirp->d_name, NULL);
+      ShapeInfo *info = shape_info_load(filename);
+      ObjectType  *obj_type;
+      SheetObject *sheet_obj;
+
+      g_free(filename);
+      if (!info)
+	continue;
+
+      shape_info_print(info); /* debugging ... */
+      custom_object_new(info, &obj_type, &sheet_obj); /* create new type */
+
+      object_register_type(obj_type);
+
+      /* register the sheet object */
+      if (!sheet)
+	sheet = new_sheet(g_strdup(_(name)),
+			  NULL);
+      sheet_append_sheet_obj(sheet, sheet_obj);
+    }
+  }
+  closedir(dp);
+  return sheet;
+}
+
+GList *sheets = NULL;
+
+static void
+load_sheets_from_dir(const gchar *directory) {
+  DIR *dp;
+  struct dirent *dirp;
+  struct stat statbuf;
+  
+  dp = opendir(directory);
+  if (dp == NULL) {
+    return;
+  }
+  while ( (dirp = readdir(dp)) ) {
+    gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
+				  dirp->d_name, NULL);
+    Sheet *sheet = NULL;
+  
+    if (!strcmp(dirp->d_name, ".") || !strcmp(dirp->d_name, "..")) {
+      g_free(filename);
+      continue;
+    }
+    /* filter out non directories ... */
+    if (stat(filename, &statbuf) < 0) {
+      g_free(filename);
+      continue;
+    }
+    if (!S_ISDIR(statbuf.st_mode)) {
+      g_free(filename);
+      continue;
+    }
+    sheet = create_custom_sheet(filename, dirp->d_name);
+    g_free(filename);
+    if (sheet)
+      sheets = g_list_append(sheets, sheet);
+  }
+  closedir(dp);
+}
 
 void register_objects(void) {
-  ObjectType  *obj_type;
-  SheetObject *sheet_obj;
-  ShapeInfo *info;
+  char *shape_path;
+  char *home_dir;
 
-  sheet_objs = NULL;
+  home_dir = g_get_home_dir();
+  if (home_dir) {
+    home_dir = g_strconcat(home_dir, G_DIR_SEPARATOR_S, ".dia_shapes", NULL);
+    load_sheets_from_dir(home_dir);
+    g_free(home_dir);
+  }
 
-  info = shape_info_load("/home/james/gnomecvs/dia/objects/custom/test.xml");
-  shape_info_print(info);
-  custom_object_new(info, &obj_type, &sheet_obj);
-  sheet_objs = g_list_append(sheet_objs, sheet_obj);
+  shape_path = getenv("DIA_SHAPE_PATH");
+  if (shape_path) {
+    char **dirs = g_strsplit(shape_path, G_SEARCHPATH_SEPARATOR_S, 0);
+    int i;
 
-  object_register_type(obj_type);
+    for (i = 0; dirs[i] != NULL; i++)
+      load_sheets_from_dir(dirs[i]);
+    g_strfreev(dirs);
+  } else {
+    load_sheets_from_dir(DIA_SHAPEDIR);
+  }
 }
 
 void register_sheets(void) {
   GList *tmp;
-  Sheet *sheet;
 
-  sheet = new_sheet(_("Custom"),
-		    _("Custom obj test"));
-  for (tmp = sheet_objs; tmp; tmp = tmp->next)
-    sheet_append_sheet_obj(sheet, (SheetObject *)tmp->data);
-
-  register_sheet(sheet);
+  for (tmp = sheets; tmp; tmp = tmp->next)
+    register_sheet((Sheet *)tmp->data);
 }
