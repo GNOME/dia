@@ -15,7 +15,10 @@ SHEETS = \
 	chronogram.sheet \
 	SADT.sheet \
 	Pneumatic.sheet \
-	Electric.sheet
+	Electric.sheet \
+	civil.sheet \
+	jigsaw.sheet \
+	MSE.sheet
 
 EXTRA_DIST = $(SHEETS)
 

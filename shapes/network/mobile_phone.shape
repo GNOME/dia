@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+       xmlns:svg="http://www.w3.org/2000/svg">
+  <name>Network - A Mobile Phone</name>
+  <icon>mobile_phone.xpm</icon>
+  <connections>
+   <point x="0" y="1.5" />
+   <point x="0" y="25" />
+   <point x="10" y="1.5" />
+   <point x="10" y="25" />
+   <point x="0" y="12.5" />
+   <point x="10" y="12.5" />
+   <point x="5" y="1.5" />
+   <point x="5" y="25" />
+   <point x="8" y="0" />
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg width="11cm" height="26cm" viewBox="-1 -1 11 26">
+    <svg:rect style="fill: #3344b0" x="0" y="1.5" width="10" height="23.5"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="0" y="1.5" width="10" height="23.5"/>
+    <svg:rect style="fill: #d0f4e5" x="1.5" y="15.5" width="2" height="2"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="1.5" y="15.5" width="2" height="2"/>
+    <svg:rect style="fill: #193474" x="7.5" y="0" width="1" height="1.5"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="7.5" y="0" width="1" height="1.5"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="3" y1="3" x2="3" y2="4"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="3.5" y1="3" x2="3.5" y2="4"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="4" y1="2.5" x2="4" y2="4.5"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="4.5" y1="2.5" x2="4.5" y2="4.5"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="5" y1="2.5" x2="5" y2="4.5"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="5.5" y1="2.5" x2="5.5" y2="4.5"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="6" y1="2.5" x2="6" y2="4.5"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="6.5" y1="3" x2="6.5" y2="4"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="7" y1="3" x2="7" y2="4"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="4" y1="23.5" x2="4" y2="24"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="4.5" y1="23.5" x2="4.5" y2="24.5"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="5" y1="23.5" x2="5" y2="24.5"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="5.5" y1="23.5" x2="5.5" y2="24.5"/>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="6" y1="23.5" x2="6" y2="24"/>
+    <svg:rect style="fill: #d0f4e5" x="1.5" y="18" width="2" height="2"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="1.5" y="18" width="2" height="2"/>
+    <svg:rect style="fill: #d0f4e5" x="1.5" y="20.5" width="2" height="2"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="1.5" y="20.5" width="2" height="2"/>
+    <svg:rect style="fill: #d0f4e5" x="4" y="15.5" width="2" height="2"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="4" y="15.5" width="2" height="2"/>
+    <svg:rect style="fill: #d0f4e5" x="4" y="18" width="2" height="2"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="4" y="18" width="2" height="2"/>
+    <svg:rect style="fill: #d0f4e5" x="4" y="20.5" width="2" height="2"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="4" y="20.5" width="2" height="2"/>
+    <svg:rect style="fill: #d0f4e5" x="6.5" y="15.5" width="2" height="2"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="6.5" y="15.5" width="2" height="2"/>
+    <svg:rect style="fill: #d0f4e5" x="6.5" y="18" width="2" height="2"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="6.5" y="18" width="2" height="2"/>
+    <svg:rect style="fill: #d0f4e5" x="6.5" y="20.5" width="2" height="2"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="6.5" y="20.5" width="2" height="2"/>
+    <svg:rect style="fill: #d0f4e5" x="1.5" y="5.5" width="7" height="5"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="1.5" y="5.5" width="7" height="5"/>
+    <svg:rect style="fill: #d0f4e5" x="2.5" y="11.5" width="2" height="2"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="2.5" y="11.5" width="2" height="2"/>
+    <svg:rect style="fill: #d0f4e5" x="5.5" y="11.5" width="2" height="2"/>
+    <svg:rect style="stroke-width: 0.1; stroke: #000000" x="5.5" y="11.5" width="2" height="2"/>
+  </svg:svg>
+</shape>

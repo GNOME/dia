@@ -97,5 +97,53 @@
       <description xml:lang="no">Symbol for en ATM-switch</description>
       <description>ATM Switch Symbol</description>
     </object>
+    <object name="Network - A Workstation Monitor">
+      <description xml:lang="de">Ein Workstation Monitor</description>
+      <description>A Workstation Monitor</description>
+    </object>
+    <object name="Network - A Workstation">
+      <description xml:lang="Eine UNIX Workstation"></description>
+      <description>A UNIX Workstation</description>
+    </object>
+    <object name="Network - A Desktop PC">
+      <description xml:lang="Ein Desktop PC"></description>
+      <description>A Desktop PC</description>
+    </object>
+    <object name="Network - A Bigtower PC">
+      <description xml:lang="Ein Bigtower PC"></description>
+      <description>A Bigtower PC</description>
+    </object>
+    <object name="Network - A Miditower PC">
+      <description xml:lang="Ein Miditower PC"></description>
+      <description>A Miditower PC</description>
+    </object>
+    <object name="Network - A Minitower PC">
+      <description xml:lang="Ein Minitower PC"></description>
+      <description>A Minitower PC</description>
+    </object>
+    <object name="Network - An amplifier speaker">
+      <description xml:lang="Ein Multimedia Lautsprecher mit Verstärker"></description>
+      <description>An speaker with integrated amplifier</description>
+    </object>
+    <object name="Network - A speaker">
+      <description xml:lang="Ein Multimedia Lautsprecher"></description>
+      <description>A speaker without amplifier</description>
+    </object>
+    <object name="Network - A Diskette">
+      <description xml:lang="Eine 3 1/2 Zoll Diskette"></description>
+      <description>A 3 1/2 inch diskette</description>
+    </object>
+    <object name="Network - A ZIP Disk">
+      <description xml:lang="Ein ZIP-Medium"></description>
+      <description>A ZIP Disk</description>
+    </object>
+    <object name="Network - An external DAT drive">
+      <description xml:lang="Ein externer DAT-Streamer"></description>
+      <description>An external DAT drive</description>
+    </object>
+    <object name="Network - A Mobile Phone">
+      <description xml:lang="Ein einfaches Handy"></description>
+      <description>A Mobile Phone</description>
+    </object>
   </contents>
 </sheet>

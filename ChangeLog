@@ -1,3 +1,21 @@
+2000-10-04  James Henstridge  <james@daa.com.au>
+
+	* shapes/MSE/: add Mobile Subscriber Equipment shapes from
+	W. Michael Petullo <mike@flyn.org>.
+
+	* sheets/Makefile.am (SHEETS): add civil.sheet (which got missed
+	from the 0.86 tarball) and jigsaw.sheet.
+
+	* configure.in: add shapes/jigsaw/Makefile to list of generated files.
+
+	* shapes/jigsaw/: jigsaw shapes from Martin Hawlisch.
+
+	* shapes/network/: add network-additional shapes here.
+
+	* sheets/network.sheet: add the network-additional shapes from
+	Martin Hawlisch <Martin.Hawlisch@bflow.com> to the main network
+	sheet.
+
 2000-09-30  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* configure.in: Updated ALL_LINGUAS
