@@ -141,7 +141,6 @@ prop_dialog_add_widget(PropDialog *dialog, GtkWidget *label, GtkWidget *widget)
                    GTK_FILL, GTK_FILL|GTK_EXPAND,
                    0,0);
   gtk_widget_show(label);
-  if (dialog->currow == 0) gtk_widget_grab_focus(widget);
   gtk_widget_show(widget);
   dialog->currow++;
 }

@@ -156,27 +156,6 @@ properties_respond(GtkWidget *widget,
   return 0;
 }
 
-/** Descends into containers to give focus to the first child than can 
- * receive focus.  Returns TRUE if focus has been grabbed.
- */
-static gboolean
-properties_focus_first_child(GtkWidget *widget)
-{
-  if (GTK_WIDGET_CAN_FOCUS(widget)) {
-    gtk_widget_grab_focus(widget);
-    return TRUE;
-  }
-  if (GTK_IS_CONTAINER(widget)) {
-    GList *children;
-    for (children = g_list_reverse(gtk_container_get_children(GTK_CONTAINER(widget)));
-	 children != NULL; children = g_list_next(children)) {
-      GtkWidget *wid = GTK_WIDGET(children->data);
-      if (properties_focus_first_child(wid)) return TRUE;
-    }
-  }
-  return FALSE;
-}
-
 void
 properties_show(Diagram *dia, Object *obj)
 {
@@ -225,8 +204,6 @@ properties_show(Diagram *dia, Object *obj)
 		  G_CALLBACK(properties_dialog_destroyed), NULL);
 
   gtk_box_pack_start(GTK_BOX(dialog_vbox), properties, TRUE, TRUE, 0);
-
-  properties_focus_first_child(dialog_vbox);
 
   gtk_widget_show (properties);
 
