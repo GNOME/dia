@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-14 14:13+0200\n"
-"PO-Revision-Date: 2004-06-14 19:13+0200\n"
+"POT-Creation-Date: 2004-06-23 03:07+0200\n"
+"PO-Revision-Date: 2004-06-23 10:57+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -650,23 +650,23 @@ msgstr "Výška obrázku:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:116 app/filedlg.c:386
+#: app/filedlg.c:121 app/filedlg.c:392
 msgid "By extension"
 msgstr "Podle přípony"
 
-#: app/filedlg.c:177
+#: app/filedlg.c:182
 msgid "Open Diagram"
 msgstr "Otevřít diagram"
 
-#: app/filedlg.c:205
+#: app/filedlg.c:210
 msgid "Open Options"
 msgstr "Volby pro otevření"
 
-#: app/filedlg.c:213 app/filedlg.c:504
+#: app/filedlg.c:218 app/filedlg.c:510
 msgid "Determine file type:"
 msgstr "Zjistit typ souboru:"
 
-#: app/filedlg.c:250
+#: app/filedlg.c:255
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
@@ -675,7 +675,7 @@ msgstr ""
 "kódování.\n"
 "Něco se pokazí."
 
-#: app/filedlg.c:256 app/filedlg.c:430
+#: app/filedlg.c:261 app/filedlg.c:436
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -684,21 +684,21 @@ msgstr ""
 "Soubor '%s' již existuje.\n"
 "Chcete jej přepsat?"
 
-#: app/filedlg.c:264 app/filedlg.c:437
+#: app/filedlg.c:269 app/filedlg.c:443
 msgid "File already exists"
 msgstr "Soubor již existuje"
 
-#: app/filedlg.c:296
+#: app/filedlg.c:301
 msgid "Save Diagram"
 msgstr "Uložit diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:301
+#: app/filedlg.c:306
 msgid "Compress diagram files"
 msgstr "Komprimovat soubory s diagramy"
 
-#: app/filedlg.c:310
+#: app/filedlg.c:315
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -707,7 +707,7 @@ msgstr ""
 "urychluje načítání a ukládání. Některé programy pro zpracování textu však "
 "neumí s komprimovanými soubory pracovat."
 
-#: app/filedlg.c:456
+#: app/filedlg.c:462
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -716,11 +716,11 @@ msgstr ""
 "Nelze zjistit, který exportní filtr se má\n"
 "použít pro uložení '%s'"
 
-#: app/filedlg.c:474
+#: app/filedlg.c:480
 msgid "Export Diagram"
 msgstr "Exportovat diagram"
 
-#: app/filedlg.c:496
+#: app/filedlg.c:502
 msgid "Export Options"
 msgstr "Volby exportu"
 
@@ -751,8 +751,8 @@ msgstr "Posunovat"
 #: objects/UML/component.c:126 objects/UML/component_feature.c:154
 #: objects/UML/node.c:125 objects/UML/note.c:119 objects/UML/object.c:145
 #: objects/UML/small_package.c:126 objects/UML/state.c:139
-#: objects/UML/usecase.c:136 objects/network/basestation.c:131
-#: objects/network/radiocell.c:146
+#: objects/UML/usecase.c:136 objects/Jackson/requirement.c:135
+#: objects/network/basestation.c:131 objects/network/radiocell.c:146
 msgid "Text"
 msgstr "Text"
 
@@ -1777,7 +1777,9 @@ msgstr "Vrátit"
 msgid "New"
 msgstr "Nový"
 
-#: app/sheets_dialog.c:362 app/sheets_dialog.c:794
+#: app/sheets_dialog.c:362 app/sheets_dialog.c:794 objects/Istar/actor.c:143
+#: objects/Istar/actor.c:144 objects/Istar/other.c:167
+#: objects/Istar/other.c:168 objects/KAOS/other.c:169 objects/KAOS/other.c:170
 msgid "Type"
 msgstr "Typ"
 
@@ -1817,6 +1819,8 @@ msgstr "Popis:"
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
 #: objects/UML/class_dialog.c:890 objects/UML/class_dialog.c:1824
 #: objects/UML/class_dialog.c:2053 objects/UML/class_dialog.c:2569
+#: objects/Istar/link.c:167 objects/Jackson/phenomenon.c:135
+#: objects/KAOS/metaandorrel.c:154 objects/KAOS/metabinrel.c:171
 msgid "Type:"
 msgstr "Typ:"
 
@@ -1961,7 +1965,7 @@ msgstr "Dia v %s"
 msgid "Diagram editor"
 msgstr "Editor diagramů"
 
-#: lib/arrows.c:40 objects/UML/association.c:1149
+#: lib/arrows.c:40 objects/UML/association.c:1149 objects/Jackson/domain.c:113
 msgid "None"
 msgstr "Nic"
 
@@ -2540,7 +2544,7 @@ msgid "Import"
 msgstr "Import"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: objects/FS/function.c:675
+#: objects/FS/function.c:675 objects/KAOS/metabinrel.c:163
 msgid "Input"
 msgstr "Vložit"
 
@@ -2766,6 +2770,7 @@ msgstr "Držet"
 #. Translators: Menu item Verb/Support/Position
 #. Translators: Menu item Verb/Support/Position/Position
 #: objects/FS/function.c:789 objects/FS/function.c:791
+#: objects/Istar/actor.c:68
 msgid "Position"
 msgstr "Umístit"
 
@@ -3045,7 +3050,7 @@ msgid "Expose"
 msgstr "Vystavit"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: objects/FS/function.c:931 sheets/Flowchart.sheet.in.h:7
+#: objects/FS/function.c:931 sheets/Flowchart.sheet.in.h:8
 msgid "Extract"
 msgstr "Extrahovat"
 
@@ -3280,7 +3285,7 @@ msgid "Mark"
 msgstr "Označit"
 
 #. Translators: Menu item Verb/Signal/Display
-#: objects/FS/function.c:1049 sheets/Flowchart.sheet.in.h:5
+#: objects/FS/function.c:1049 sheets/Flowchart.sheet.in.h:6
 msgid "Display"
 msgstr "Zobrazit"
 
@@ -3671,6 +3676,8 @@ msgid "Vergent type:"
 msgstr "Typ krajnice:"
 
 #: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
+#: objects/Istar/other.c:498 objects/Jackson/domain.c:554
+#: objects/KAOS/goal.c:602 objects/KAOS/other.c:551
 #: objects/standard/line.c:228
 msgid "Add connection point"
 msgstr "Přidat bod připojení"
@@ -3762,7 +3769,9 @@ msgstr "Identifikátor Aktivity / Dat"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Identifikátor objevující se v pravém dolním rohu zařízení"
 
-#: objects/SADT/box.c:446 objects/standard/line.c:229
+#: objects/SADT/box.c:446 objects/Istar/other.c:499
+#: objects/Jackson/domain.c:555 objects/KAOS/goal.c:603
+#: objects/KAOS/other.c:552 objects/standard/line.c:229
 msgid "Delete connection point"
 msgstr "Odstranit přípojný bod"
 
@@ -4160,7 +4169,7 @@ msgstr "Poslat"
 msgid "Recursive"
 msgstr "Rekurzivní"
 
-#: objects/UML/message.c:150
+#: objects/UML/message.c:150 objects/Jackson/phenomenon.c:133
 msgid "Message:"
 msgstr "Zpráva:"
 
@@ -4343,6 +4352,197 @@ msgstr "Objekty vývojového diagramu"
 msgid "Shear angle"
 msgstr "Úhel střihu"
 
+#: objects/Istar/actor.c:66 objects/Istar/link.c:155
+msgid "Unspecified"
+msgstr "Nespecifikováno"
+
+#: objects/Istar/actor.c:67 objects/KAOS/other.c:93
+msgid "Agent"
+msgstr "Agent"
+
+#: objects/Istar/actor.c:69
+msgid "Role"
+msgstr "Role"
+
+#: objects/Istar/goal.c:91 objects/KAOS/goal.c:96
+msgid "Softgoal"
+msgstr ""
+
+#: objects/Istar/goal.c:92 objects/KAOS/goal.c:97
+msgid "Goal"
+msgstr "Cíl"
+
+#: objects/Istar/goal.c:172 objects/Istar/goal.c:173 objects/KAOS/goal.c:176
+#: objects/KAOS/goal.c:177
+msgid "Goal Type"
+msgstr "Typ cíle"
+
+#: objects/Istar/istar.c:39
+msgid "Istar diagram"
+msgstr "Diagram istar"
+
+#: objects/Istar/link.c:156
+msgid "Positive Contrib"
+msgstr "Kladný příspěvek"
+
+#: objects/Istar/link.c:157
+msgid "Negative contrib"
+msgstr "Záporný příspěvek"
+
+#: objects/Istar/link.c:158 sheets/UML.sheet.in.h:10
+msgid "Dependency"
+msgstr "Závislost"
+
+#: objects/Istar/link.c:159
+msgid "Decomposition"
+msgstr "Dekompozice"
+
+#: objects/Istar/link.c:160
+msgid "Means-Ends"
+msgstr "Prostředky-cíle"
+
+#: objects/Istar/other.c:90
+msgid "Resource"
+msgstr "Zdroj"
+
+#: objects/Istar/other.c:91
+msgid "Task"
+msgstr "Úkol"
+
+#: objects/Istar/other.c:504
+msgid "i* other"
+msgstr "i* ostatní"
+
+#: objects/Jackson/domain.c:96
+msgid "Given Domain"
+msgstr "Zadaná doména"
+
+#: objects/Jackson/domain.c:97
+msgid "Designed Domain"
+msgstr "Navržená doména"
+
+#: objects/Jackson/domain.c:98
+msgid "Machine Domain"
+msgstr "Doména stroje"
+
+#: objects/Jackson/domain.c:114
+#, fuzzy
+msgid "Causal"
+msgstr "Volání"
+
+#: objects/Jackson/domain.c:115
+#, fuzzy
+msgid "Biddable"
+msgstr "Doprostřed"
+
+#: objects/Jackson/domain.c:116
+msgid "Lexical"
+msgstr "Lexikální"
+
+#: objects/Jackson/domain.c:195 objects/Jackson/domain.c:196
+msgid "Domain Type"
+msgstr "Typ domény"
+
+#: objects/Jackson/domain.c:200
+msgid "Domain Kind"
+msgstr "Typ domény"
+
+#: objects/Jackson/domain.c:201
+msgid "Optional kind which appears in the lower right corner of the Domain"
+msgstr "Nepovinný typ objevující se v pravém dolním rohu domény"
+
+#: objects/Jackson/domain.c:560
+msgid "Jackson domain"
+msgstr "Jacksonova doména"
+
+#: objects/Jackson/jackson.c:37
+msgid "Jackson diagram"
+msgstr "Jacksonův diagram"
+
+#: objects/Jackson/phenomenon.c:125
+msgid "Shared"
+msgstr "Sdíleno"
+
+#: objects/Jackson/phenomenon.c:126 objects/KAOS/goal.c:98
+msgid "Requirement"
+msgstr "Požadavek"
+
+#: objects/KAOS/goal.c:99
+msgid "Assumption"
+msgstr "Předpoklad"
+
+#: objects/KAOS/goal.c:100
+msgid "Obstacle"
+msgstr "Překážka"
+
+#: objects/KAOS/goal.c:608
+msgid "KAOS goal"
+msgstr "Cíl KAOS"
+
+#: objects/KAOS/kaos.c:38
+msgid "KAOS diagram"
+msgstr "KAOS diagram"
+
+#: objects/KAOS/metaandorrel.c:141
+msgid "AND Refinement"
+msgstr "Vylepšení A"
+
+#: objects/KAOS/metaandorrel.c:142
+msgid "Complete AND Refinement"
+msgstr "Dokončení A vylepšení"
+
+#: objects/KAOS/metaandorrel.c:143
+msgid "OR Refinement"
+msgstr "Vylepšení NEBO"
+
+#: objects/KAOS/metaandorrel.c:144
+msgid "Operationalization"
+msgstr "Operacionalizace"
+
+#: objects/KAOS/metaandorrel.c:151
+msgid "Text:"
+msgstr "Text:"
+
+#: objects/KAOS/metabinrel.c:155
+msgid "Contributes"
+msgstr "Přispívá"
+
+#: objects/KAOS/metabinrel.c:156
+msgid "Obstructs"
+msgstr "Překáží"
+
+#: objects/KAOS/metabinrel.c:157
+msgid "Conflicts"
+msgstr "Koliduje s"
+
+#: objects/KAOS/metabinrel.c:158
+msgid "Responsibility"
+msgstr "Odpovědnost"
+
+#: objects/KAOS/metabinrel.c:159
+msgid "Monitors"
+msgstr "Sleduje"
+
+#: objects/KAOS/metabinrel.c:160
+msgid "Controls"
+msgstr "Řídí"
+
+#: objects/KAOS/metabinrel.c:161
+msgid "CapableOf"
+msgstr "Schopen"
+
+#: objects/KAOS/metabinrel.c:162
+msgid "Performs"
+msgstr "Provádí"
+
+#: objects/KAOS/metabinrel.c:164
+msgid "Output"
+msgstr "Výstup"
+
+#: objects/KAOS/other.c:557
+msgid "KAOS other"
+msgstr "KAOS ostatní"
+
 #: objects/network/basestation.c:133
 msgid "Sectors"
 msgstr "Sektory"
@@ -4385,7 +4585,7 @@ msgstr "Typ buňky"
 
 #: objects/network/radiocell.c:152
 msgid "Subscribers"
-msgstr ""
+msgstr "Přihlášení"
 
 #: objects/standard/arc.c:131
 msgid "Curve distance"
@@ -4935,7 +5135,10 @@ msgstr "Z:"
 msgid "To:"
 msgstr "Do:"
 
-#: sheets/Assorted.sheet.in.h:1
+#. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
+#. Leave as is for now, renaming too much hassle.
+#. Will probably need to split into seperate sheets soon anyway.
+#: sheets/Assorted.sheet.in.h:4
 msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
@@ -4943,168 +5146,169 @@ msgstr ""
 "Vybraná sbírka mnohoúhelníků, Beziérových útvarů a jiných dalších "
 "geometrických tvarů"
 
-#: sheets/Assorted.sheet.in.h:2
+#. Please talk to me before making any changes to this sheet
+#: sheets/Assorted.sheet.in.h:6
 msgid "Assorted"
 msgstr "Vybrané"
 
-#: sheets/Assorted.sheet.in.h:3
+#: sheets/Assorted.sheet.in.h:7
 msgid "Chevron"
 msgstr "Chevron"
 
-#: sheets/Assorted.sheet.in.h:4
+#: sheets/Assorted.sheet.in.h:8
 msgid "Curved eight point star"
 msgstr "Zahnutá osmicípá hvězda"
 
-#: sheets/Assorted.sheet.in.h:5
+#: sheets/Assorted.sheet.in.h:9
 msgid "Curved four point star"
 msgstr "Zahnutá čtyřcípá hvězda"
 
-#: sheets/Assorted.sheet.in.h:6
+#: sheets/Assorted.sheet.in.h:10
 msgid "Diamond"
 msgstr "Diamant"
 
-#: sheets/Assorted.sheet.in.h:7
+#: sheets/Assorted.sheet.in.h:11
 msgid "Down arrow"
 msgstr "Šipka dolů"
 
-#: sheets/Assorted.sheet.in.h:8
+#: sheets/Assorted.sheet.in.h:12
 msgid "Eight point star"
 msgstr "Osmicípá hvězda"
 
-#: sheets/Assorted.sheet.in.h:9
+#: sheets/Assorted.sheet.in.h:13
 msgid "Four point star"
 msgstr "Čtyřcípá hvězda"
 
-#: sheets/Assorted.sheet.in.h:10
+#: sheets/Assorted.sheet.in.h:14
 msgid "Heart"
 msgstr "Srdce"
 
-#: sheets/Assorted.sheet.in.h:11
+#: sheets/Assorted.sheet.in.h:15
 msgid "Heptagon. Seven sided shape"
 msgstr "Sedmiúhelník. Tvar se sedmi stranami"
 
-#: sheets/Assorted.sheet.in.h:12
+#: sheets/Assorted.sheet.in.h:16
 msgid "Hexagon. Six sided shape"
 msgstr "Šestiúhelník. Tvar se šesti stranami"
 
-#: sheets/Assorted.sheet.in.h:13
+#: sheets/Assorted.sheet.in.h:17
 msgid "Horizontal parallelogram"
 msgstr "Vodorovný rovnoběžník"
 
-#: sheets/Assorted.sheet.in.h:14
+#: sheets/Assorted.sheet.in.h:18
 msgid "Isoceles triangle"
 msgstr "Rovnostranný trojúhelník"
 
-#: sheets/Assorted.sheet.in.h:15
+#: sheets/Assorted.sheet.in.h:19
 msgid "Left arrow"
 msgstr "Šipka doleva"
 
-#: sheets/Assorted.sheet.in.h:16
+#: sheets/Assorted.sheet.in.h:20
 msgid "Left-right arrow"
 msgstr "Šipka doleva-doprava"
 
-#: sheets/Assorted.sheet.in.h:17
+#: sheets/Assorted.sheet.in.h:21
 msgid "Left-right-up arrow"
 msgstr "Šipka doleva-doprava-nahoru"
 
-#: sheets/Assorted.sheet.in.h:18
+#: sheets/Assorted.sheet.in.h:22
 msgid "Left-up arrow"
 msgstr "Šipka doleva-nahoru"
 
-#: sheets/Assorted.sheet.in.h:19
+#: sheets/Assorted.sheet.in.h:23
 msgid "Maltese cross"
 msgstr "Maltézský kříž"
 
-#: sheets/Assorted.sheet.in.h:20
+#: sheets/Assorted.sheet.in.h:24
 msgid "Notched left arrow"
 msgstr "Pilovitá šipka doleva"
 
-#: sheets/Assorted.sheet.in.h:21
+#: sheets/Assorted.sheet.in.h:25
 msgid "Notched right arrow"
 msgstr "Pilovitá šipka doprava"
 
-#: sheets/Assorted.sheet.in.h:22
+#: sheets/Assorted.sheet.in.h:26
 msgid "Octogon. Eight sided shape"
 msgstr "Osmiúhelník. Tvar s osmi stranami"
 
-#: sheets/Assorted.sheet.in.h:23
+#: sheets/Assorted.sheet.in.h:27
 msgid "Pentagon block arrow"
 msgstr "Pětistěnná bloková šipka"
 
-#: sheets/Assorted.sheet.in.h:24
+#: sheets/Assorted.sheet.in.h:28
 msgid "Pentagon. Five sided shape"
 msgstr "Pětiúhelník. Tvar s pěti stranami"
 
-#: sheets/Assorted.sheet.in.h:25
+#: sheets/Assorted.sheet.in.h:29
 msgid "Perfect circle"
 msgstr "Dokonalý kruh"
 
-#: sheets/Assorted.sheet.in.h:26
+#: sheets/Assorted.sheet.in.h:30
 msgid "Perfect square, height equals width"
 msgstr "Dokonalý čtverec, výška je rovna šířce"
 
-#: sheets/Assorted.sheet.in.h:27
+#: sheets/Assorted.sheet.in.h:31
 msgid "Quad arrow"
 msgstr "Čtyřstranná šipka"
 
-#: sheets/Assorted.sheet.in.h:28
+#: sheets/Assorted.sheet.in.h:32
 msgid "Quarter circle"
 msgstr "Čtvrtkruh"
 
-#: sheets/Assorted.sheet.in.h:29
+#: sheets/Assorted.sheet.in.h:33
 msgid "Quarter moon"
 msgstr "Srpek měsíce"
 
-#: sheets/Assorted.sheet.in.h:30
+#: sheets/Assorted.sheet.in.h:34
 msgid "Right angle triangle"
 msgstr "Pravoúhlý trojúhelník"
 
-#: sheets/Assorted.sheet.in.h:31
+#: sheets/Assorted.sheet.in.h:35
 msgid "Right arrow"
 msgstr "Šipka doprava"
 
-#: sheets/Assorted.sheet.in.h:32
+#: sheets/Assorted.sheet.in.h:36
 msgid "Seven point star"
 msgstr "Sedmicípá hvězda"
 
-#: sheets/Assorted.sheet.in.h:33
+#: sheets/Assorted.sheet.in.h:37
 msgid "Sharp eight point star"
 msgstr "Ostrá osmicípá hvězda"
 
-#: sheets/Assorted.sheet.in.h:34
+#: sheets/Assorted.sheet.in.h:38
 msgid "Six point star"
 msgstr "Šesticípá hvězda"
 
-#: sheets/Assorted.sheet.in.h:35
+#: sheets/Assorted.sheet.in.h:39
 msgid "Sun"
 msgstr "Slunce"
 
-#: sheets/Assorted.sheet.in.h:36
+#: sheets/Assorted.sheet.in.h:40
 msgid "Swiss cross"
 msgstr "Švýcarský kříž"
 
-#: sheets/Assorted.sheet.in.h:37
+#: sheets/Assorted.sheet.in.h:41
 msgid "Trapezoid"
 msgstr "Trapézoid"
 
-#: sheets/Assorted.sheet.in.h:38
+#: sheets/Assorted.sheet.in.h:42
 #, fuzzy
 msgid "Turn-up arrow"
 msgstr "Šipka doleva-nahoru"
 
-#: sheets/Assorted.sheet.in.h:39
+#: sheets/Assorted.sheet.in.h:43
 msgid "Up arrow"
 msgstr "Šipka nahoru"
 
-#: sheets/Assorted.sheet.in.h:40
+#: sheets/Assorted.sheet.in.h:44
 msgid "Up-down arrow"
 msgstr "Šipka nahoru-dolů"
 
-#: sheets/Assorted.sheet.in.h:41
+#: sheets/Assorted.sheet.in.h:45
 msgid "Up-down-left arrow"
 msgstr "Šipka nahoru-dolů-doleva"
 
-#: sheets/Assorted.sheet.in.h:42
+#: sheets/Assorted.sheet.in.h:46
 msgid "Vertical parallelogram"
 msgstr "Svislý rovnoběžník"
 
@@ -5176,63 +5380,67 @@ msgstr "Mikrofon"
 msgid "NMOS transistor"
 msgstr "Tranzistor NMOS"
 
-#: sheets/Circuit.sheet.in.h:18
+#.
+#.
+#: sheets/Circuit.sheet.in.h:20
 msgid "NPN bipolar transistor"
 msgstr "Bipolární tranzistor NPN"
 
-#: sheets/Circuit.sheet.in.h:19
+#: sheets/Circuit.sheet.in.h:21
 msgid "Operational amplifier"
 msgstr "Operační zesilovač"
 
-#: sheets/Circuit.sheet.in.h:20
+#: sheets/Circuit.sheet.in.h:22
 msgid "PMOS transistor"
 msgstr "Tranzistor PMOS"
 
-#: sheets/Circuit.sheet.in.h:21
+#.
+#.
+#: sheets/Circuit.sheet.in.h:25
 msgid "PNP bipolar transistor"
 msgstr "Bipolární tranzistor PNP"
 
-#: sheets/Circuit.sheet.in.h:22 sheets/ciscomisc.sheet.in.h:39
+#: sheets/Circuit.sheet.in.h:26 sheets/ciscomisc.sheet.in.h:39
 msgid "Speaker"
 msgstr "Reproduktor"
 
-#: sheets/Circuit.sheet.in.h:23
+#: sheets/Circuit.sheet.in.h:27
 msgid "Vertically aligned LED"
 msgstr "Svisle zarovnaná LED"
 
-#: sheets/Circuit.sheet.in.h:24
+#: sheets/Circuit.sheet.in.h:28
 msgid "Vertically aligned capacitor"
 msgstr "Svisle zarovnaný kondenzátor"
 
-#: sheets/Circuit.sheet.in.h:25
+#: sheets/Circuit.sheet.in.h:29
 msgid "Vertically aligned diode"
 msgstr "Svisle zarovnaná dioda"
 
-#: sheets/Circuit.sheet.in.h:26
+#: sheets/Circuit.sheet.in.h:30
 msgid "Vertically aligned fuse"
 msgstr "Svisle zarovnaná pojistka"
 
-#: sheets/Circuit.sheet.in.h:27
+#: sheets/Circuit.sheet.in.h:31
 msgid "Vertically aligned inductor"
 msgstr "Svisle zarovnaná indukční cívka"
 
-#: sheets/Circuit.sheet.in.h:28
+#: sheets/Circuit.sheet.in.h:32
 msgid "Vertically aligned inductor (European)"
 msgstr "Svisle zarovnaná indukční cívka (evropská)"
 
-#: sheets/Circuit.sheet.in.h:29
+#: sheets/Circuit.sheet.in.h:33
 msgid "Vertically aligned powersource"
 msgstr "Svisle zarovnaný el. zdroj"
 
-#: sheets/Circuit.sheet.in.h:30
+#: sheets/Circuit.sheet.in.h:34
 msgid "Vertically aligned resistor"
 msgstr "Svisle zarovnaný odpor"
 
-#: sheets/Circuit.sheet.in.h:31
+#: sheets/Circuit.sheet.in.h:35
 msgid "Vertically aligned resistor (European)"
 msgstr "Svisle zarovnaný odpor (evropský)"
 
-#: sheets/Circuit.sheet.in.h:32
+#: sheets/Circuit.sheet.in.h:36
 msgid "Vertically aligned zener diode"
 msgstr "Svisle zarovnaná Zenerova dioda"
 
@@ -5540,115 +5748,118 @@ msgstr "Volání funkce"
 msgid "Orthogonal polyline flow"
 msgstr "Vytvořit pravoúhlý tok s lomenou čárou"
 
-#: sheets/Flowchart.sheet.in.h:1
+#. XXX
+#: sheets/Flowchart.sheet.in.h:2
 msgid "Collate"
 msgstr "Porovnat"
 
-#: sheets/Flowchart.sheet.in.h:2
+#: sheets/Flowchart.sheet.in.h:3
 msgid "Connector"
 msgstr "Propojení"
 
-#: sheets/Flowchart.sheet.in.h:3 sheets/SDL.sheet.in.h:4
+#: sheets/Flowchart.sheet.in.h:4 sheets/SDL.sheet.in.h:4
 msgid "Decision"
 msgstr "Rozhodnutí"
 
-#: sheets/Flowchart.sheet.in.h:4
+#: sheets/Flowchart.sheet.in.h:5
 msgid "Delay"
 msgstr "Zdržet"
 
-#: sheets/Flowchart.sheet.in.h:6
+#: sheets/Flowchart.sheet.in.h:7
 msgid "Document"
 msgstr "Dokument"
 
-#: sheets/Flowchart.sheet.in.h:8
+#: sheets/Flowchart.sheet.in.h:9
 msgid "Flowchart"
 msgstr "Vývojový diagram"
 
-#: sheets/Flowchart.sheet.in.h:9
+#: sheets/Flowchart.sheet.in.h:10
 msgid "Input/Output"
 msgstr "Vstup/výstup"
 
-#: sheets/Flowchart.sheet.in.h:10
+#: sheets/Flowchart.sheet.in.h:11
 msgid "Internal storage"
 msgstr "Interní úložiště"
 
-#: sheets/Flowchart.sheet.in.h:11
+#: sheets/Flowchart.sheet.in.h:12
 msgid "Magnetic disk"
 msgstr "Magnetický disk"
 
-#: sheets/Flowchart.sheet.in.h:12
+#: sheets/Flowchart.sheet.in.h:13
 msgid "Magnetic drum"
 msgstr "Magnetický buben"
 
-#: sheets/Flowchart.sheet.in.h:13
+#: sheets/Flowchart.sheet.in.h:14
 msgid "Magnetic tape"
 msgstr "Magnetická páska"
 
-#: sheets/Flowchart.sheet.in.h:14
+#: sheets/Flowchart.sheet.in.h:15
 msgid "Manual input"
 msgstr "Ruční vstup"
 
-#: sheets/Flowchart.sheet.in.h:15
+#: sheets/Flowchart.sheet.in.h:16
 msgid "Manual operation"
 msgstr "Ruční operace"
 
-#: sheets/Flowchart.sheet.in.h:16
+#: sheets/Flowchart.sheet.in.h:17
 msgid "Merge"
 msgstr "Sloučit"
 
-#: sheets/Flowchart.sheet.in.h:17
+#: sheets/Flowchart.sheet.in.h:18
 msgid "Objects to draw flowcharts"
 msgstr "Objekty ke kreslení vývojových diagramů"
 
-#: sheets/Flowchart.sheet.in.h:18
+#. XXX
+#: sheets/Flowchart.sheet.in.h:20
 msgid "Off page connector"
 msgstr "Konektor mimo stránku"
 
-#: sheets/Flowchart.sheet.in.h:19
+#: sheets/Flowchart.sheet.in.h:21
 msgid "Offline storage"
 msgstr "Offline úložiště"
 
-#: sheets/Flowchart.sheet.in.h:20
+#: sheets/Flowchart.sheet.in.h:22
 msgid "Or"
 msgstr "Nebo"
 
-#: sheets/Flowchart.sheet.in.h:21
+#: sheets/Flowchart.sheet.in.h:23
 msgid "Predefined process"
 msgstr "Předdefinované procesy"
 
-#: sheets/Flowchart.sheet.in.h:22
+#: sheets/Flowchart.sheet.in.h:24
 msgid "Preparation"
 msgstr "Příprava"
 
-#: sheets/Flowchart.sheet.in.h:23
+#: sheets/Flowchart.sheet.in.h:25
 msgid "Process/Auxiliary Operation"
 msgstr "Proces/pomocná operace"
 
-#: sheets/Flowchart.sheet.in.h:24
+#: sheets/Flowchart.sheet.in.h:26
 msgid "Punched card"
 msgstr "Děrný štítek"
 
-#: sheets/Flowchart.sheet.in.h:25
+#: sheets/Flowchart.sheet.in.h:27
 msgid "Punched tape"
 msgstr "Děrná páska"
 
-#: sheets/Flowchart.sheet.in.h:26
+#: sheets/Flowchart.sheet.in.h:28
 msgid "Sort"
 msgstr "Třídění"
 
-#: sheets/Flowchart.sheet.in.h:27
+#. XXX
+#: sheets/Flowchart.sheet.in.h:30
 msgid "Summing junction"
 msgstr "Sumační bod"
 
-#: sheets/Flowchart.sheet.in.h:28
+#: sheets/Flowchart.sheet.in.h:31
 msgid "Terminal Interrupt"
 msgstr "Přerušení terminálu"
 
-#: sheets/Flowchart.sheet.in.h:29
+#: sheets/Flowchart.sheet.in.h:32
 msgid "Transaction file"
 msgstr "Transakční soubor"
 
-#: sheets/Flowchart.sheet.in.h:30
+#: sheets/Flowchart.sheet.in.h:33
 msgid "Transmittal tape"
 msgstr "Přejímací páska"
 
@@ -5748,49 +5959,244 @@ msgstr "Továrna"
 msgid "Footbridge, Pedestrian Bridge"
 msgstr "Lávka pro pěší"
 
-#: sheets/IsometricMap.sheet.in.h:16
+#. use dc:description instead?
+#: sheets/IsometricMap.sheet.in.h:17
 msgid "Isometric Directional Map Shapes"
 msgstr "Izometrické tvary směrové mapy"
 
-#: sheets/IsometricMap.sheet.in.h:17
+#: sheets/IsometricMap.sheet.in.h:18
 msgid "Long Straight Road Section"
 msgstr "Dlouhý rovný úsek cesty"
 
-#: sheets/IsometricMap.sheet.in.h:18
+#. use dc:title instead?
+#: sheets/IsometricMap.sheet.in.h:20
 msgid "Map, Isometric"
 msgstr "Mapa, izometrická"
 
-#: sheets/IsometricMap.sheet.in.h:19
+#: sheets/IsometricMap.sheet.in.h:21
 msgid "One Way Road Sign"
 msgstr "Značka jednosměrné cesty"
 
-#: sheets/IsometricMap.sheet.in.h:20
+#: sheets/IsometricMap.sheet.in.h:22
 msgid "River"
 msgstr "Řeka"
 
-#: sheets/IsometricMap.sheet.in.h:21
+#: sheets/IsometricMap.sheet.in.h:23
 msgid "Road Section"
 msgstr "Úsek cesty"
 
-#: sheets/IsometricMap.sheet.in.h:22
+#: sheets/IsometricMap.sheet.in.h:24
 msgid "Roof1"
 msgstr "Střecha1"
 
-#: sheets/IsometricMap.sheet.in.h:23
+#: sheets/IsometricMap.sheet.in.h:25
 msgid "T-Junction"
 msgstr "Křižovatka typu T"
 
-#: sheets/IsometricMap.sheet.in.h:24
+#: sheets/IsometricMap.sheet.in.h:26
 msgid "Train 1, angled downward"
 msgstr "Vlak 1, natočený dolů"
 
-#: sheets/IsometricMap.sheet.in.h:25
+#: sheets/IsometricMap.sheet.in.h:27
 msgid "Train 2, angled upward"
 msgstr "Vlak 1, natočený nahoru"
 
-#: sheets/IsometricMap.sheet.in.h:26
+#: sheets/IsometricMap.sheet.in.h:28
 msgid "Tree 1"
 msgstr "Strom 1"
+
+#: sheets/Istar.sheet.in.h:1
+msgid "An i* agent"
+msgstr "Agent i*"
+
+#: sheets/Istar.sheet.in.h:2
+msgid "An i* decomposition link"
+msgstr "Propojení dekompozice i*"
+
+#: sheets/Istar.sheet.in.h:3
+msgid "An i* dependency link"
+msgstr "Propojení závislosti i*"
+
+#: sheets/Istar.sheet.in.h:4
+msgid "An i* goal"
+msgstr "Cíl i*"
+
+#: sheets/Istar.sheet.in.h:5
+msgid "An i* means-ends link"
+msgstr "Propojení prostředky-cíle i*"
+
+#: sheets/Istar.sheet.in.h:6
+msgid "An i* negative contribution"
+msgstr "Záporný příspěvek i*"
+
+#: sheets/Istar.sheet.in.h:7
+msgid "An i* position"
+msgstr "Umístění i*"
+
+#: sheets/Istar.sheet.in.h:8
+msgid "An i* positive contribution"
+msgstr "Kladný příspěvek i*"
+
+#: sheets/Istar.sheet.in.h:9
+msgid "An i* resource"
+msgstr "Zdroj i*"
+
+#: sheets/Istar.sheet.in.h:10
+msgid "An i* role"
+msgstr "Role i*"
+
+#: sheets/Istar.sheet.in.h:11
+msgid "An i* softgoal"
+msgstr ""
+
+#: sheets/Istar.sheet.in.h:12
+msgid "An i* task"
+msgstr "Úkol i*"
+
+#: sheets/Istar.sheet.in.h:13
+msgid "An i* unspecified actor"
+msgstr "Neurčený aktér i*"
+
+#: sheets/Istar.sheet.in.h:14
+msgid "An i* unspecified link"
+msgstr "Neurčené propojení i*"
+
+#: sheets/Istar.sheet.in.h:15
+msgid "Objects to design i* diagrams"
+msgstr "Objekty pro návrh diagramů i*"
+
+#: sheets/Istar.sheet.in.h:16
+msgid "RE-i*"
+msgstr "RE-i*"
+
+#: sheets/Jackson.sheet.in.h:1
+msgid "A Jackson designed domain"
+msgstr "Jacksonova navržená doména"
+
+#: sheets/Jackson.sheet.in.h:2
+msgid "A Jackson given domain"
+msgstr "Jacksonova zadaná doména"
+
+#: sheets/Jackson.sheet.in.h:3
+msgid "A Jackson machine domain"
+msgstr "Jacksonova doména stroje"
+
+#: sheets/Jackson.sheet.in.h:4
+msgid "A Jackson requirement"
+msgstr "Jacksonův požadavek"
+
+#: sheets/Jackson.sheet.in.h:5
+msgid "A Jackson requirement phenomenon"
+msgstr "Jacksonův fenomén požadavku"
+
+#: sheets/Jackson.sheet.in.h:6
+msgid "A Jackson shared phenomenon"
+msgstr "Jacksonův sdílený fenomén"
+
+#: sheets/Jackson.sheet.in.h:7
+msgid "Objects to design Jacskon diagrams"
+msgstr "Objekty pro návrh Jacksonových diagramů"
+
+#: sheets/Jackson.sheet.in.h:8
+msgid "RE-Jackson"
+msgstr "RE-Jackson"
+
+#: sheets/KAOS.sheet.in.h:1
+msgid "A KAOS AND refinement"
+msgstr "KAOS vylepšení A"
+
+#: sheets/KAOS.sheet.in.h:2
+msgid "A KAOS OR refinement"
+msgstr "KAOS vylepšení NEBO"
+
+#: sheets/KAOS.sheet.in.h:3
+msgid "A KAOS agent"
+msgstr "KAOS agent"
+
+#: sheets/KAOS.sheet.in.h:4
+msgid "A KAOS assumption"
+msgstr "KAOS předpoklad"
+
+#: sheets/KAOS.sheet.in.h:5
+msgid "A KAOS binary conflict"
+msgstr "KAOS binární konflikt"
+
+#: sheets/KAOS.sheet.in.h:6
+msgid "A KAOS capable-of"
+msgstr "KAOS schopen"
+
+#: sheets/KAOS.sheet.in.h:7
+msgid "A KAOS complete AND refinement"
+msgstr "KAOS dokončení A vylepšení"
+
+#: sheets/KAOS.sheet.in.h:8
+msgid "A KAOS complete OR refinement"
+msgstr "KAOS dokončení NEBO vylepšení"
+
+#: sheets/KAOS.sheet.in.h:9
+msgid "A KAOS contribution"
+msgstr "KAOS příspěvek"
+
+#: sheets/KAOS.sheet.in.h:10
+msgid "A KAOS control link"
+msgstr "KAOS řídicí propojení"
+
+#: sheets/KAOS.sheet.in.h:11
+msgid "A KAOS goal"
+msgstr "KAOS cíl"
+
+#: sheets/KAOS.sheet.in.h:12
+msgid "A KAOS input"
+msgstr "KAOS vstup"
+
+#: sheets/KAOS.sheet.in.h:13
+msgid "A KAOS monitor link"
+msgstr "KAOS propojení s monitorem"
+
+#: sheets/KAOS.sheet.in.h:14
+msgid "A KAOS obstacle"
+msgstr "KAOS překážka"
+
+#: sheets/KAOS.sheet.in.h:15
+msgid "A KAOS obstruction"
+msgstr "KAOS obstrukce"
+
+#: sheets/KAOS.sheet.in.h:16
+msgid "A KAOS operation"
+msgstr "KAOS Operace"
+
+# WTF?
+#: sheets/KAOS.sheet.in.h:17
+msgid "A KAOS operationalization"
+msgstr "KAOS operacionalizace"
+
+#: sheets/KAOS.sheet.in.h:18
+msgid "A KAOS output"
+msgstr "KAOS výstup"
+
+#: sheets/KAOS.sheet.in.h:19
+msgid "A KAOS performs"
+msgstr "KAOS provádí"
+
+#: sheets/KAOS.sheet.in.h:20
+msgid "A KAOS requirement"
+msgstr "KAOS požadavek"
+
+#: sheets/KAOS.sheet.in.h:21
+msgid "A KAOS responsibility"
+msgstr "KAOS odpovědnost"
+
+#: sheets/KAOS.sheet.in.h:22
+msgid "A KAOS softgoal"
+msgstr ""
+
+#: sheets/KAOS.sheet.in.h:23
+msgid "Objects to design KAOS diagrams"
+msgstr "Objekty pro návrh diagramů KAOS"
+
+#: sheets/KAOS.sheet.in.h:24
+msgid "RE-KAOS"
+msgstr "RE-KAOS"
 
 #: sheets/Logic.sheet.in.h:1
 msgid "AND gate"
@@ -6079,10 +6485,6 @@ msgstr "Komponenta"
 #: sheets/UML.sheet.in.h:9
 msgid "Constraint, place a constraint on something"
 msgstr "Omezení, uvalit omezení na něco"
-
-#: sheets/UML.sheet.in.h:10
-msgid "Dependency"
-msgstr "Závislost"
 
 #: sheets/UML.sheet.in.h:11
 msgid "Editor for UML Static Structure Diagrams"
@@ -7440,9 +7842,6 @@ msgstr "Datový server Sybase"
 msgid "Sybase replication server"
 msgstr "Replikační server Sybase"
 
-#~ msgid "_New diagram"
-#~ msgstr "_Nový diagram"
-
 #~ msgid "_Diagram tree"
 #~ msgstr "Strom _diagramů"
 
@@ -7524,9 +7923,6 @@ msgstr "Replikační server Sybase"
 #~ msgid "Transitive"
 #~ msgstr "Tranzitivní"
 
-#~ msgid "Same Type"
-#~ msgstr "Stejný typ"
-
 #~ msgid "Equal Distance"
 #~ msgstr "Stejná vzdálenost"
 
@@ -7535,9 +7931,6 @@ msgstr "Replikační server Sybase"
 
 #~ msgid "Top"
 #~ msgstr "Nahoru"
-
-#~ msgid "Middle"
-#~ msgstr "Doprostřed"
 
 #~ msgid "Send to _Back"
 #~ msgstr "Poslat do_zadu"
