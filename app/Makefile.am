@@ -219,7 +219,16 @@ run_dia.sh: Makefile.am
 	echo DIA_SHEET_PATH=`pwd`/../sheets >> run_dia.sh
 	echo >> run_dia.sh
 	echo "export DIA_LIB_PATH DIA_SHAPE_PATH DIA_INT_SHAPE_PATH DIA_SHEET_PATH DIA_PLUGIN_PATH" >> run_dia.sh
-	echo "\$$DEBUGGER `pwd`/dia \$$*" >> run_dia.sh
+	echo "if [ \"x\$$DEBUGGER\" != \"x\" ] ; then " >> run_dia.sh
+	echo "  if [ ! -f `pwd`/.libs/lt-dia -o `pwd`/.libs/lt-dia -ot `pwd`/.libs/dia ] ; then" >> run_dia.sh
+	echo "    echo \"libtool relink stage necessary before debugging is possible.\"" >> run_dia.sh
+	echo "    echo \"please run \$$0 once without a debugger.\"" >> run_dia.sh
+	echo "    exit 1" >> run_dia.sh
+	echo "  fi" >> run_dia.sh
+	echo "   \$$DEBUGGER `pwd`/.libs/lt-dia \$$*" >> run_dia.sh
+	echo "else" >> run_dia.sh
+	echo "   `pwd`/dia \$$*" >> run_dia.sh
+	echo "fi" >> run_dia.sh
 	chmod a+x run_dia.sh
 
 #run_diaconv.sh: run_dia.sh
