@@ -179,7 +179,7 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
   #endif
     
   gtk_widget_set_sensitive(items->copy_text, active_focus() != NULL);
-  gtk_widget_set_sensitive(items->cut_text, 0); /* Not implemented */
+  gtk_widget_set_sensitive(items->cut_text, active_focus() != NULL);
   gtk_widget_set_sensitive(items->paste_text, active_focus() != NULL);
   
   gtk_widget_set_sensitive(items->send_to_back, dia->data->selected_count > 0);

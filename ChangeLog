@@ -1,5 +1,14 @@
 2002-08-01  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/diagram.c (diagram_update_menu_sensitivity): 
+	Making cut_text active.
+	
+	* app/commands.h: 
+	* app/commands.c: Using PROP_TYPE_TEXT to find text to copy to
+	clipboard.  Also removed AA callback.	
+
+2002-08-01  Lars Clausen  <lrclause@cs.uiuc.edu>
+
 	* objects/chronogram/chronoref.c: 
 	* objects/chronogram/chronoline.c: 
 	* objects/SADT/annotation.c: 

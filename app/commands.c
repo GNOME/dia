@@ -291,12 +291,12 @@ get_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
 
 
 static PropDescription text_prop_singleton_desc[] = {
-    { "text", PROP_TYPE_STRING },
+    { "text", PROP_TYPE_TEXT },
     PROP_DESC_END};
 
 
 static void 
-make_text_prop_singleton(GPtrArray **props, StringProperty **prop) 
+make_text_prop_singleton(GPtrArray **props, TextProperty **prop) 
 {
   *props = prop_list_from_descs(text_prop_singleton_desc,pdtpp_true);
   g_assert((*props)->len == 1);
@@ -333,7 +333,6 @@ edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
   if (current_clipboard) g_free(current_clipboard);
 
   current_clipboard = g_strdup(prop->string_data);
-
   prop_list_free(textprops);
 
   gtk_selection_owner_set(GTK_WIDGET(ddisp->shell),
@@ -382,7 +381,8 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
 			   GDK_SELECTION_PRIMARY,
 			   GDK_TARGET_STRING, 0);
 
-  if (text_delete_all(text, (ObjectChange **)&change)) { 
+  /* This is currently broken, as focus->obj is not a Text */
+  if (FALSE && text_delete_all(text, (ObjectChange **)&change)) { 
     (change->apply)(change, ddisp->diagram);
     
     diagram_update_menu_sensitivity(ddisp->diagram, &ddisp->updatable_menu_items);
@@ -742,30 +742,6 @@ view_show_cx_pts_callback(gpointer data, guint action, GtkWidget *widget)
   ddisp->show_cx_pts = GTK_CHECK_MENU_ITEM(widget)->active;
   
   if (old_val != ddisp->show_cx_pts) {
-    ddisplay_add_update_all(ddisp);
-    ddisplay_flush(ddisp);
-  }
-}
-
-void
-view_aa_callback(gpointer data, guint action, GtkWidget *widget)
-{
-  DDisplay *ddisp;
-  int aa;
-  static gboolean shown_warning = FALSE;
-
-  ddisp = ddisplay_active();
- 
-  aa =  GTK_CHECK_MENU_ITEM(widget)->active;
-  
-  if (aa && !shown_warning)
-    message_warning(_("The anti aliased renderer is buggy, and may cause\n"
-		      "crashes.  We know there are bugs in it, so don't\n"
-		      "bother submitting another report if it crashes"));
-  shown_warning = TRUE;
-
-  if (aa != ddisp->aa_renderer) {
-    ddisplay_set_renderer(ddisp, aa);
     ddisplay_add_update_all(ddisp);
     ddisplay_flush(ddisp);
   }
