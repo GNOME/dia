@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
-"POT-Creation-Date: 1999-07-16 12:23+0200\n"
+"POT-Creation-Date: 1999-07-21 12:34+0200\n"
 "PO-Revision-Date: 1999-04-26 19:58+0200\n"
 "Last-Translator: Vincent Renardias <vincent@ldsol.com>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
