@@ -95,8 +95,8 @@ static ObjectOps note_ops = {
   (CopyFunc)            note_copy,
   (MoveFunc)            note_move,
   (MoveHandleFunc)      note_move_handle,
-  (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   note_describe_props,
   (GetPropsFunc)        note_get_props,
@@ -142,7 +142,7 @@ note_get_props(Note * note, Property *props, guint nprops)
     return;
   /* these props can't be handled as easily */
   if (quarks[0].q == 0)
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
       quarks[i].q = g_quark_from_static_string(quarks[i].name);
   for (i = 0; i < nprops; i++) {
     GQuark pquark = g_quark_from_string(props[i].name);
@@ -172,7 +172,7 @@ note_set_props(Note *note, Property *props, guint nprops)
     guint i;
 
     if (quarks[0].q == 0)
-      for (i = 0; i < 4; i++)
+      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
 	quarks[i].q = g_quark_from_static_string(quarks[i].name);
 
     for (i = 0; i < nprops; i++) {
@@ -222,14 +222,8 @@ note_move_handle(Note *note, Handle *handle,
 static void
 note_move(Note *note, Point *to)
 {
-  Point p;
-  
   note->element.corner = *to;
 
-  p = *to;
-  p.x += NOTE_BORDERWIDTH/2.0 + NOTE_MARGIN_X;
-  p.y += NOTE_BORDERWIDTH/2.0 + NOTE_CORNER + note->text->ascent;
-  text_set_position(note->text, &p);
   note_update_data(note);
 }
 
@@ -290,10 +284,16 @@ note_update_data(Note *note)
 {
   Element *elem = &note->element;
   Object *obj = (Object *) note;
-  
+  Point p;
+
   elem->width = note->text->max_width + NOTE_MARGIN_X + NOTE_CORNER;
   elem->height =
     note->text->height*note->text->numlines + NOTE_MARGIN_Y + NOTE_CORNER;
+
+  p = elem->corner;
+  p.x += NOTE_BORDERWIDTH/2.0 + NOTE_MARGIN_X;
+  p.y += NOTE_BORDERWIDTH/2.0 + NOTE_CORNER + note->text->ascent;
+  text_set_position(note->text, &p);
 
   /* Update connections: */
   note->connections[0].pos = elem->corner;
