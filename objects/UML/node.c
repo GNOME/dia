@@ -101,8 +101,8 @@ static ObjectOps node_ops =
   (CopyFunc)            node_copy,
   (MoveFunc)            node_move,
   (MoveHandleFunc)      node_move_handle,
-  (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   node_describe_props,
   (GetPropsFunc)        node_get_props,
@@ -111,10 +111,19 @@ static ObjectOps node_ops =
 
 static PropDescription node_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-    N_("Node name"), NULL, NULL },
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
   
   PROP_DESC_END
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
 };
 
 static PropDescription *
@@ -127,7 +136,7 @@ node_describe_props(Node *node)
 
 static PropOffset node_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "name", PROP_TYPE_STRING, offsetof(Node, name) },
+  /*  { "name", PROP_TYPE_STRING, offsetof(Node, name) },*/
   { NULL, 0, 0 },
 };
 
@@ -138,6 +147,30 @@ node_get_props(Node * node, Property *props, guint nprops)
 
   if (object_get_props_from_offsets(&node->element.object, node_offsets, props, nprops))
     return;
+
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = node->name->font;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = node->name->height;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = node->name->color;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(node->name);
+    }
+  }
+
 }
 
 static void
@@ -145,6 +178,25 @@ node_set_props(Node *node, Property *props, guint nprops)
 {
   if (!object_set_props_from_offsets(&node->element.object, 
                                      node_offsets, props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
+	quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
+	text_set_font(node->name, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
+	text_set_height(node->name, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
+	text_set_color(node->name, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
+	text_set_string(node->name, PROP_VALUE_STRING(props[i]));
+      }
+    }
   }
   node_update_data(node);
 }
@@ -183,7 +235,14 @@ node_move_handle(Node *node, Handle *handle,
 static void
 node_move(Node *node, Point *to)
 {
+  Point p;
+  
   node->element.corner = *to;
+
+  p = *to;
+  p.x += NODE_TEXT_MARGIN;
+  p.y += node->name->ascent + NODE_TEXT_MARGIN;
+  text_set_position(node->name, &p);
 
   node_update_data(node);
 }
