@@ -77,7 +77,7 @@ new_display(Diagram *dia)
     filename++;
   }
   
-  create_display_shell(ddisp, 256, 256, filename);
+  create_display_shell(ddisp, 500, 400, filename);
 
   if (!display_ht)
     display_ht = g_hash_table_new ((GHashFunc) display_hash, NULL);

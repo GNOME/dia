@@ -1,5 +1,43 @@
 1999-01-16  Alexander Larsson  <alla@lysator.liu.se>
 
+	* Makefile.am:
+	* configure.in:
+	* samples/Makefile.am:
+	* samples/ER-demo.dia:
+	* samples/UML-demo.dia:
+	Added samples directory.
+	Added samples for ER and UML.
+	
+	* app/commands.c:
+	* app/disp_callbacks.c:
+	* app/menus.c:
+	Zoom is done by sqrt(2) instead of 2.
+	Lots of more zoom options in the menu.
+
+	* objects/ER/relationship.c:
+	Relationships have 8 connectionpoints instead of 4.
+
+	* objects/UML/class.c:
+	UML class name font a bit smaller.
+	Fixed stupid bug in the copy operation.
+	
+	* app/display.c:
+	Displays are opened at 500x400 instead of 256x256.
+
+	* app/load_save.c:
+	Fixup of internal error message.
+
+	* app/color_area.c:
+	* app/diagram.c:
+	* app/modify_tool.c:
+	* lib/object.c:
+	Removed debug printf's.
+	
+	* TODO (BUGS):
+	Added new known bug.
+
+1999-01-16  Alexander Larsson  <alla@lysator.liu.se>
+
 	* app/interface.c:
 	* app/menus.c:
 	Fixed so accelerator groups work in all windows.

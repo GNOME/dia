@@ -587,7 +587,7 @@ static void
 fill_in_fontdata(UMLClass *umlclass)
 {
   umlclass->font_height = 0.8;
-  umlclass->classname_font_height = 1.2;
+  umlclass->classname_font_height = 1.0;
   umlclass->normal_font = font_getfont("Courier");
   umlclass->abstract_font = font_getfont("Courier-Oblique");
   umlclass->classname_font = font_getfont("Helvetica-Bold");
@@ -804,8 +804,13 @@ umlclass_copy(UMLClass *umlclass)
     newop = uml_operation_copy(op);
     newop->left_connection = g_new(ConnectionPoint,1);
     *newop->left_connection = *op->left_connection;
+    newop->left_connection->object = newobj;
+    newop->left_connection->connected = NULL;
+
     newop->right_connection = g_new(ConnectionPoint,1);
     *newop->right_connection = *op->right_connection;
+    newop->right_connection->object = newobj;
+    newop->right_connection->connected = NULL;
     
     newumlclass->operations = g_list_prepend(newumlclass->operations,
 					     newop);
@@ -844,7 +849,7 @@ umlclass_copy(UMLClass *umlclass)
   i = 8;
   if ( (newumlclass->visible_attributes) &&
        (!newumlclass->suppress_attributes)) {
-    list = umlclass->attributes;
+    list = newumlclass->attributes;
     while (list != NULL) {
       attr = (UMLAttribute *)list->data;
       newobj->connections[i++] = attr->left_connection;
@@ -856,7 +861,7 @@ umlclass_copy(UMLClass *umlclass)
   
   if ( (newumlclass->visible_operations) &&
        (!newumlclass->suppress_operations)) {
-    list = umlclass->operations;
+    list = newumlclass->operations;
     while (list != NULL) {
       op = (UMLOperation *)list->data;
       newobj->connections[i++] = op->left_connection;

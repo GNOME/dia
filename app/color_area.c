@@ -345,7 +345,6 @@ color_area_events (GtkWidget *widget,
 	color_area_draw ();
       break;
     case GDK_BUTTON_PRESS:
-      printf("button event\n");
       bevent = (GdkEventButton *) event;
 
       if (bevent->button == 1) {

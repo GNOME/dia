@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include <stdio.h>
+#include <math.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
@@ -216,7 +217,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  middle.x = visible->left*0.5 + visible->right*0.5;
 	  middle.y = visible->top*0.5 + visible->bottom*0.5;
 	  
-	  ddisplay_zoom(ddisp, &middle, 2.0);
+	  ddisplay_zoom(ddisp, &middle, M_SQRT2);
 	  break;
 	case GDK_KP_Subtract:
 	case GDK_minus:
@@ -224,7 +225,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  middle.x = visible->left*0.5 + visible->right*0.5;
 	  middle.y = visible->top*0.5 + visible->bottom*0.5;
 	  
-	  ddisplay_zoom(ddisp, &middle, 0.5);
+	  ddisplay_zoom(ddisp, &middle, M_SQRT1_2);
 	  break;
 	default:
 	  return_val = FALSE;
@@ -269,7 +270,7 @@ ddisplay_delete (GtkWidget *widget, GdkEvent  *event, gpointer data)
 {
   DDisplay *ddisp;
 
-  printf("delete\n");
+  /*printf("delete\n");*/
   ddisp = (DDisplay *)data;
   
   ddisplay_close(ddisp);

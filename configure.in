@@ -75,5 +75,6 @@ objects/ER/Makefile
 objects/ER/pixmaps/Makefile
 app/Makefile
 app/pixmaps/Makefile
+samples/Makefile
 )
 

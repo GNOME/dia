@@ -55,7 +55,7 @@ struct _Relationship {
   gboolean identifying;
   gboolean rotate;
 
-  ConnectionPoint connections[4];
+  ConnectionPoint connections[8];
 
   real border_width;
   Color border_color;
@@ -400,14 +400,43 @@ relationship_update_data(Relationship *relationship)
   elem->height = elem->width * DIAMOND_RATIO;
 
   /* Update connections: */
+  /*   	
+       	2
+       	* 
+    1  / \  3
+      *	  *  
+     /	   \ 
+  0 *	    * 4
+     \	   /   	     
+      *	  *    	     
+    7  \ /  5
+        *    
+        6    
+   */
+  
   relationship->connections[0].pos.x = elem->corner.x;
   relationship->connections[0].pos.y = elem->corner.y + elem->height / 2.0;
-  relationship->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  relationship->connections[1].pos.y = elem->corner.y;
-  relationship->connections[2].pos.x = elem->corner.x + elem->width;
-  relationship->connections[2].pos.y = elem->corner.y + elem->height / 2.0;
-  relationship->connections[3].pos.x = elem->corner.x + elem->width / 2.0;
-  relationship->connections[3].pos.y = elem->corner.y + elem->height;
+
+  relationship->connections[1].pos.x = elem->corner.x + elem->width / 4.0;
+  relationship->connections[1].pos.y = elem->corner.y + elem->height / 4.0;
+
+  relationship->connections[2].pos.x = elem->corner.x + elem->width / 2.0;
+  relationship->connections[2].pos.y = elem->corner.y;
+  
+  relationship->connections[3].pos.x = elem->corner.x + 3.0 * elem->width / 4.0;
+  relationship->connections[3].pos.y = elem->corner.y + elem->height / 4.0;
+  
+  relationship->connections[4].pos.x = elem->corner.x + elem->width;
+  relationship->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
+
+  relationship->connections[5].pos.x = elem->corner.x + 3.0 * elem->width / 4.0;
+  relationship->connections[5].pos.y = elem->corner.y + 3.0 * elem->height / 4.0;
+  
+  relationship->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
+  relationship->connections[6].pos.y = elem->corner.y + elem->height;
+
+  relationship->connections[7].pos.x = elem->corner.x + elem->width / 4.0;
+  relationship->connections[7].pos.y = elem->corner.y + 3.0 * elem->height / 4.0;
 
   element_update_boundingbox(elem);
   
@@ -461,9 +490,9 @@ relationship_create(Point *startpoint,
   relationship->border_color = attributes_get_foreground();
   relationship->inner_color = attributes_get_background();
   
-  element_init(elem, 8, 4);
+  element_init(elem, 8, 8);
 
-  for (i=0;i<4;i++) {
+  for (i=0;i<8;i++) {
     obj->connections[i] = &relationship->connections[i];
     relationship->connections[i].object = obj;
     relationship->connections[i].connected = NULL;
@@ -527,7 +556,7 @@ relationship_copy(Relationship *relationship)
   newrelationship->border_color = relationship->border_color;
   newrelationship->inner_color = relationship->inner_color;
   
-  for (i=0;i<4;i++) {
+  for (i=0;i<8;i++) {
     newobj->connections[i] = &newrelationship->connections[i];
     newrelationship->connections[i].object = newobj;
     newrelationship->connections[i].connected = NULL;
@@ -634,9 +663,9 @@ relationship_load(ObjectNode obj_node, int version)
   if (attr != NULL)
     relationship->rotate = data_boolean(attribute_first_data(attr));
   
-  element_init(elem, 8, 4);
+  element_init(elem, 8, 8);
 
-  for (i=0;i<4;i++) {
+  for (i=0;i<8;i++) {
     obj->connections[i] = &relationship->connections[i];
     relationship->connections[i].object = obj;
     relationship->connections[i].connected = NULL;

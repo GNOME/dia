@@ -195,8 +195,6 @@ object_connect(Object *obj, Handle *handle,
   handle->connected_to = connectionpoint;
   connectionpoint->connected =
     g_list_prepend(connectionpoint->connected, obj);
-  
-  printf("*** Made connection\n");
 }
 
 void
@@ -210,7 +208,6 @@ object_unconnect(Object *connected_obj, Handle *handle)
     connectionpoint->connected =
       g_list_remove(connectionpoint->connected, connected_obj);
     handle->connected_to = NULL;
-    printf("*** Broke connection!\n");
   }
 }
 
@@ -228,7 +225,6 @@ object_remove_connections_to(ConnectionPoint *conpoint)
     for (i=0;i<connected_obj->num_handles;i++) {
       if (connected_obj->handles[i]->connected_to == conpoint) {
 	connected_obj->handles[i]->connected_to = NULL;
-	printf("*** Broke connection!\n");
       }
     }
     list = g_list_next(list);

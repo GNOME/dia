@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <math.h>
 
 #include "commands.h"
 #include "app_procs.h"
@@ -445,7 +446,7 @@ view_zoom_in_callback(GtkWidget *widget, gpointer data)
   middle.x = visible->left*0.5 + visible->right*0.5;
   middle.y = visible->top*0.5 + visible->bottom*0.5;
   
-  ddisplay_zoom(ddisp, &middle, 2.0);
+  ddisplay_zoom(ddisp, &middle, M_SQRT2);
 }
 
 void
@@ -460,7 +461,7 @@ view_zoom_out_callback(GtkWidget *widget, gpointer data)
   middle.x = visible->left*0.5 + visible->right*0.5;
   middle.y = visible->top*0.5 + visible->bottom*0.5;
   
-  ddisplay_zoom(ddisp, &middle, 0.5);
+  ddisplay_zoom(ddisp, &middle, M_SQRT1_2);
 }
 
 void
@@ -478,7 +479,7 @@ view_zoom_set_callback(GtkWidget *widget, gpointer data)
   middle.y = visible->top*0.5 + visible->bottom*0.5;
 
   percent = (int) data;
-  scale = ((real) percent)/100.0 * DDISPLAY_NORMAL_ZOOM;
+  scale = ((real) percent)/1000.0 * DDISPLAY_NORMAL_ZOOM;
 
   ddisplay_zoom(ddisp, &middle, scale / ddisp->zoom_factor);
   

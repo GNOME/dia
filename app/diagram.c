@@ -116,7 +116,7 @@ diagram_remove_all_selected(Diagram *diagram, int delete_empty)
     object_add_updates(selected_obj, diagram);
     
     if (delete_empty && selected_obj->ops->is_empty(selected_obj)) {
-      printf("removed empty object.\n");
+      /*      printf("removed empty object.\n"); */
       layer_remove_object(diagram->data->active_layer, selected_obj);
       selected_obj->ops->destroy(selected_obj);
       g_free(selected_obj);
@@ -142,7 +142,7 @@ diagram_remove_selected(Diagram *diagram, Object *obj)
   }
 
   if (obj->ops->is_empty(obj)) {
-    printf("removed empty object.\n");
+    /*    printf("removed empty object.\n"); */
     layer_remove_object(diagram->data->active_layer, obj);
     obj->ops->destroy(obj);
     g_free(obj);

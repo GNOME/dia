@@ -84,11 +84,11 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
   if (obj!=NULL) {
     /* Selected an object. */
     GList *already;
-    printf("Selected object!\n");
+    /*printf("Selected object!\n");*/
       
     already = g_list_find(diagram->data->selected, obj);
     if (already == NULL) { /* Not already selected */
-      printf("Not already selected\n");
+      /*printf("Not already selected\n");*/
 
       if (!(event->state & GDK_SHIFT_MASK)) {
 	/* Not Multi-select => remove current selection */
@@ -104,7 +104,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
 
       return obj;
     } else { /* Clicked on already selected. */
-      printf("Already selected\n");
+      /*printf("Already selected\n");*/
       obj->ops->select(obj, clickedpoint,
 		       (Renderer *)ddisp->renderer);
       object_add_updates_list(diagram->data->selected, diagram);
@@ -119,7 +119,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       }
     }
   } else { /* No object selected */
-    printf("didn't select object\n");
+    /*printf("didn't select object\n");*/
     if (!(event->state & GDK_SHIFT_MASK)) {
       /* Not Multi-select => Remove all selected */
       diagram_remove_all_selected(diagram, TRUE);
