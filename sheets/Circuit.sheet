@@ -70,7 +70,7 @@
     </object>
     <object name="Circuit - Vertical Inductor (European)">
       <description xml:lang="da">En lodret placeret spole (europæisk)</description>
-      <description xml:lang="no">Ein loddrett plassert spole (europeisk)</description>
+      <description xml:lang="nn">Ein loddrett plassert spole (europeisk)</description>
       <description xml:lang="no">En vertikalt plassert spole (europeisk)</description>
       <description xml:lang="fr">Une inductance alignée verticalement (européenne)</description>
       <description xml:lang="de">Ein vertikal angeordnete Spule (europäisch)</description>
