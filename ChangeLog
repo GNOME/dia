@@ -1,3 +1,18 @@
+1999-08-30  James Henstridge  <james@daa.com.au>
+
+	* objects/custom/custom_object.c (custom_get_object_menu): allow
+	flipping of custom shapes.  This uses the miggle click object
+	menu.
+
+	* objects/custom/Circuit/npn.shape: fix aspect ratio.
+
+	* objects/custom/custom_object.c (custom_update_data): honour the
+	aspect ratio constraints.
+
+	* objects/custom/shape_info.c (load_shape_info): updated aspect ratio
+	tag parsing, so you can specify a free, fixed or a range for aspect
+	ratios for the shape.
+
 1999-08-29  James Henstridge  <james@daa.com.au>
 
 	* objects/custom/test.xml, objects/custom/Circuit/*.shape: fixed

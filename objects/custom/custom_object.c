@@ -63,6 +63,8 @@ struct _CustomState {
   LineStyle line_style;
   real dashlength;
 
+  gboolean flip_h, flip_v;
+
   real padding;
   TextAttributes text_attrib;
 };
@@ -82,6 +84,8 @@ struct _Custom {
   gboolean show_background;
   LineStyle line_style;
   real dashlength;
+
+  gboolean flip_h, flip_v;
 
   Text *text;
   real padding;
@@ -152,6 +156,7 @@ static void custom_destroy(Custom *custom);
 static Object *custom_copy(Custom *custom);
 static GtkWidget *custom_get_properties(Custom *custom);
 static ObjectChange *custom_apply_properties(Custom *custom);
+static DiaMenu *custom_get_object_menu(Custom *custom, Point *clickedpoint);
 
 static CustomState *custom_get_state(Custom *custom);
 static void custom_set_state(Custom *custom, CustomState *state);
@@ -197,7 +202,7 @@ static ObjectOps custom_ops = {
   (MoveHandleFunc)      custom_move_handle,
   (GetPropertiesFunc)   custom_get_properties,
   (ApplyPropertiesFunc) custom_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      custom_get_object_menu
 };
 
 static ObjectChange *
@@ -552,10 +557,22 @@ transform_coord(Custom *custom, const Point *p1, Point *out)
 static void
 transform_rect(Custom *custom, const Rectangle *r1, Rectangle *out)
 {
+  real coord;
   out->left   = r1->left   * custom->xscale + custom->xoffs;
   out->right  = r1->right  * custom->xscale + custom->xoffs;
   out->top    = r1->top    * custom->yscale + custom->yoffs;
   out->bottom = r1->bottom * custom->yscale + custom->yoffs;
+
+  if (out->left > out->right) {
+    coord = out->left;
+    out->left = out->right;
+    out->right = coord;
+  }
+  if (out->top > out->bottom) {
+    coord = out->top;
+    out->top = out->bottom;
+    out->bottom = coord;
+  }
 }
 
 static real
@@ -762,6 +779,8 @@ custom_get_state(Custom *custom)
   state->line_style = custom->line_style;
   state->dashlength = custom->dashlength;
   state->padding = custom->padding;
+  state->flip_h = custom->flip_h;
+  state->flip_v = custom->flip_v;
   if (custom->info->has_text)
     text_get_attributes(custom->text, &state->text_attrib);
 
@@ -778,6 +797,8 @@ custom_set_state(Custom *custom, CustomState *state)
   custom->line_style = state->line_style;
   custom->dashlength = state->dashlength;
   custom->padding = state->padding;
+  custom->flip_h = state->flip_h;
+  custom->flip_v = state->flip_v;
   if (custom->info->has_text)
     text_set_attributes(custom->text, &state->text_attrib);
 
@@ -812,12 +833,24 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 				   info->shape_bounds.top);
 
   /* if aspect ratio should be fixed, make sure xscale == yscale */
-  if (info->fix_aspect_ratio && custom->xscale != custom->yscale) {
-    custom->xscale = custom->yscale = (custom->xscale + custom->yscale) / 2;
-    elem->width = custom->xscale * (info->shape_bounds.right -
-				    info->shape_bounds.left);
-    elem->height = custom->yscale * (info->shape_bounds.bottom -
-				     info->shape_bounds.top);
+  switch (info->aspect_type) {
+  case SHAPE_ASPECT_FREE:
+    break;
+  case SHAPE_ASPECT_FIXED:
+    if (custom->xscale != custom->yscale) {
+      custom->xscale = custom->yscale = (custom->xscale + custom->yscale) / 2;
+      elem->width = custom->xscale * (info->shape_bounds.right -
+				      info->shape_bounds.left);
+      elem->height = custom->yscale * (info->shape_bounds.bottom -
+				       info->shape_bounds.top);
+    }
+    break;
+  case SHAPE_ASPECT_RANGE:
+    if (custom->xscale / custom->yscale < info->aspect_min)
+      custom->xscale = custom->yscale * info->aspect_min;
+    if (custom->xscale / custom->yscale > info->aspect_max)
+      custom->yscale = custom->xscale / info->aspect_max;
+    break;
   }
   /* resize shape if text does not fit inside text_bounds */
   if (info->has_text) {
@@ -862,6 +895,16 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   custom->xoffs = elem->corner.x - custom->xscale * info->shape_bounds.left;
   custom->yoffs = elem->corner.y - custom->yscale * info->shape_bounds.top;
 
+  /* flip image if required ... */
+  if (custom->flip_h) {
+    custom->xscale = -custom->xscale;
+    custom->xoffs = elem->corner.x -custom->xscale * info->shape_bounds.right;
+  }
+  if (custom->flip_v) {
+    custom->yscale = -custom->yscale;
+    custom->yoffs = elem->corner.y -custom->yscale * info->shape_bounds.bottom;
+  }
+  
   /* reposition the text element to the new text bounding box ... */
   if (info->has_text) {
     transform_rect(custom, &info->text_bounds, &tb);
@@ -953,6 +996,9 @@ custom_create(Point *startpoint,
   attributes_get_default_line_style(&custom->line_style, &custom->dashlength);
 
   custom->padding = default_properties.padding;
+
+  custom->flip_h = FALSE;
+  custom->flip_v = FALSE;
   
   if (info->has_text) {
     p = *startpoint;
@@ -1016,6 +1062,9 @@ custom_copy(Custom *custom)
   newcustom->dashlength = custom->dashlength;
   newcustom->padding = custom->padding;
 
+  newcustom->flip_h = custom->flip_h;
+  newcustom->flip_v = custom->flip_v;
+
   if (custom->info->has_text)
     newcustom->text = text_copy(custom->text);
   
@@ -1059,6 +1108,9 @@ custom_save(Custom *custom, ObjectNode obj_node, const char *filename)
       custom->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
                   custom->dashlength);
+
+  data_add_boolean(new_attribute(obj_node, "flip_horizontal"), custom->flip_h);
+  data_add_boolean(new_attribute(obj_node, "flip_vertical"), custom->flip_v);
 
   if (custom->info->has_text)
     data_add_text(new_attribute(obj_node, "text"), custom->text);
@@ -1115,6 +1167,16 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     custom->dashlength = data_real(attribute_first_data(attr));
 
+  custom->flip_h = FALSE;
+  attr = object_find_attribute(obj_node, "flip_horizontal");
+  if (attr != NULL)
+    custom->flip_h = data_boolean(attribute_first_data(attr));
+ 
+  custom->flip_v = FALSE;
+  attr = object_find_attribute(obj_node, "flip_vertical");
+  if (attr != NULL)
+    custom->flip_v = data_boolean(attribute_first_data(attr));
+
   if (custom->info->has_text) {
     custom->text = NULL;
     attr = object_find_attribute(obj_node, "text");
@@ -1136,6 +1198,92 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
   return (Object *)custom;
 }
 
+struct CustomObjectChange {
+  ObjectChange objchange;
+
+  enum { CHANGE_FLIPH, CHANGE_FLIPV} type;
+  gboolean old_val;
+};
+
+static void
+custom_change_apply(struct CustomObjectChange *change, Custom *custom)
+{
+  switch (change->type) {
+  case CHANGE_FLIPH:
+    custom->flip_h = !change->old_val;
+    break;
+  case CHANGE_FLIPV:
+    custom->flip_v = !change->old_val;
+    break;
+  }
+}
+static void
+custom_change_revert(struct CustomObjectChange *change, Custom *custom)
+{
+  switch (change->type) {
+  case CHANGE_FLIPH:
+    custom->flip_h = change->old_val;
+    break;
+  case CHANGE_FLIPV:
+    custom->flip_v = change->old_val;
+    break;
+  }
+}
+
+static ObjectChange *
+custom_flip_h_callback (Object *obj, Point *clicked, gpointer data)
+{
+  Custom *custom = (Custom *)obj;
+  struct CustomObjectChange *change = g_new(struct CustomObjectChange, 1);
+
+  change->objchange.apply = (ObjectChangeApplyFunc)custom_change_apply;
+  change->objchange.revert = (ObjectChangeRevertFunc)custom_change_revert;
+  change->objchange.free = NULL;
+  change->type = CHANGE_FLIPH;
+  change->old_val = custom->flip_h;
+
+  custom->flip_h = !custom->flip_h;
+  custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  
+  return &change->objchange;
+}
+
+static ObjectChange *
+custom_flip_v_callback (Object *obj, Point *clicked, gpointer data)
+{
+  Custom *custom = (Custom *)obj;
+  struct CustomObjectChange *change = g_new(struct CustomObjectChange, 1);
+
+  change->objchange.apply = (ObjectChangeApplyFunc)custom_change_apply;
+  change->objchange.revert = (ObjectChangeRevertFunc)custom_change_revert;
+  change->objchange.free = NULL;
+  change->type = CHANGE_FLIPV;
+  change->old_val = custom->flip_v;
+
+  custom->flip_v = !custom->flip_v;
+  custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
+  return &change->objchange;
+}
+
+static DiaMenuItem custom_menu_items[] = {
+  { N_("Flip Horizontal"), custom_flip_h_callback, NULL, 1 },
+  { N_("Flip Vertical"), custom_flip_v_callback, NULL, 1 },
+};
+
+static DiaMenu custom_menu = {
+  "Custom",
+  sizeof(custom_menu_items)/sizeof(DiaMenuItem),
+  custom_menu_items,
+  NULL
+};
+
+static DiaMenu *
+custom_get_object_menu(Custom *custom, Point *clickedpoint)
+{
+  custom_menu.title = custom->info->name;
+  return &custom_menu;
+}
 
 void
 custom_object_new(ShapeInfo *info, ObjectType **otype, SheetObject **sheetobj)

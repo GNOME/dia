@@ -65,6 +65,12 @@ union _GraphicElement {
   GraphicElementEllipse ellipse;
 };
 
+typedef enum {
+  SHAPE_ASPECT_FREE,
+  SHAPE_ASPECT_FIXED,
+  SHAPE_ASPECT_RANGE
+} ShapeAspectType;
+
 typedef struct _ShapeInfo ShapeInfo;
 struct _ShapeInfo {
   gchar *name;
@@ -74,7 +80,10 @@ struct _ShapeInfo {
   Rectangle shape_bounds;
   gboolean has_text;
   Rectangle text_bounds;
-  gboolean fix_aspect_ratio;
+
+  ShapeAspectType aspect_type;
+  real aspect_min, aspect_max;
+
   GList *display_list;
 
   ObjectType *object_type; /* back link so we can find the correct type */

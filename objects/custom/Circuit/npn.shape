@@ -10,7 +10,9 @@
     <point x="6" y="-4"/>
     <point x="6" y="4"/>
   </connections>
-  <!-- textbox x1="0.0" y1="2.05" x2="3.0" y2="3.05"/ -->
+
+  <aspectratio type="fixed"/>
+
   <svg:svg width="3.0" height="3.0">
     <svg:line x1="0" y1="0" x2="3" y2="0" />
     <svg:line x1="3" y1="-3" x2="3" y2="3" />

@@ -424,8 +424,37 @@ load_shape_info(const gchar *filename)
 	free(str);
       }
       info->has_text = TRUE;
-    } else if (node->ns == shape_ns && !strcmp(node->name, "fixaspectratio")) {
-      info->fix_aspect_ratio = TRUE;
+    } else if (node->ns == shape_ns && !strcmp(node->name, "aspectratio")) {
+      tmp = xmlGetProp(node, "type");
+      if (tmp) {
+	if (!strcmp(tmp, "free"))
+	  info->aspect_type = SHAPE_ASPECT_FREE;
+	else if (!strcmp(tmp, "fixed"))
+	  info->aspect_type = SHAPE_ASPECT_FIXED;
+	else if (!strcmp(tmp, "range")) {
+	  char *str;
+
+	  info->aspect_type = SHAPE_ASPECT_RANGE;
+	  info->aspect_min = 0.0;
+	  info->aspect_max = G_MAXFLOAT;
+	  str = xmlGetProp(node, "min");
+	  if (str) {
+	    info->aspect_min = g_strtod(str, NULL);
+	    free(str);
+	  }
+	  str = xmlGetProp(node, "max");
+	  if (str) {
+	    info->aspect_max = g_strtod(str, NULL);
+	    free(str);
+	  }
+	  if (info->aspect_max < info->aspect_min) {
+	    real asp = info->aspect_max;
+	    info->aspect_max = info->aspect_min;
+	    info->aspect_min = asp;
+	  }
+	}
+	free(tmp);
+      }
     } else if (node->ns == svg_ns && !strcmp(node->name, "svg")) {
       parse_svg_node(info, node, svg_ns, 1.0, FALSE, FALSE);
       update_bounds(info);
