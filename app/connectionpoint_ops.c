@@ -104,16 +104,15 @@ diagram_update_connections_object(Diagram *dia, Object *obj,
       while (list!=NULL) {
 	connected_obj = (Object *) list->data;
 
+	object_add_updates(connected_obj, dia);
 	handle = NULL;
 	for (j=0;j<connected_obj->num_handles;j++) {
-	  if (connected_obj->handles[j]->connected_to == cp)
+	  if (connected_obj->handles[j]->connected_to == cp) {
 	    handle = connected_obj->handles[j];
+	    connected_obj->ops->move_handle(connected_obj, handle ,
+					    &cp->pos, HANDLE_MOVE_CONNECTED,0);
+	  }
 	}
-	assert(handle!=NULL);
-	
-	object_add_updates(connected_obj, dia);
-	connected_obj->ops->move_handle(connected_obj, handle ,
-					&cp->pos, HANDLE_MOVE_CONNECTED,0);
 	object_add_updates(connected_obj, dia);
 
 	diagram_update_connections_object(dia, connected_obj, FALSE);

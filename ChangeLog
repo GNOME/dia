@@ -1,3 +1,9 @@
+2002-10-21  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/connectionpoint_ops.c (diagram_update_connections_object):
+	Allows more than one connectionpoint on an object to be moved at a
+	time (bug #96306).
+
 2002-10-18  Stanislav Brabec  <sbrabec@suse.cz>
 
 	* configure.in: Added cs to ALL_LINGUAS.
