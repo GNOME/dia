@@ -1,3 +1,15 @@
+2001-09-01  James Henstridge  <james@daa.com.au>
+
+	* */Makefile.am: various changes to include missing files, and fix
+	sheets dir to handle building with builddir != srcdir.
+
+	* autogen.sh: unconditionally pass the --enable-maintainer-mode
+	and --enable-db2html flags so that builds from CVS work correctly.
+
+	* configure.in: increment version number.  Also add an
+	--enable-db2html flag.  Without the flag, db2html won't be run (if
+	the flag is passed and db2html is not present, do nothing).
+
 2001-08-30  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/poly_conn.c: (polyconn_copy): it's a wonder this routine

@@ -117,3 +117,4 @@ PyTypeObject PyDiaFont_Type = {
     0L,0L,0L,0L,
     NULL
 };
+

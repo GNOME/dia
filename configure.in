@@ -4,7 +4,7 @@ AC_INIT(app/diagram.c)
 dnl AC_PREREQ(2.50)
 dnl AC_REVISION($Revision$)
 
-AM_INIT_AUTOMAKE(dia, 0.88.1)
+AM_INIT_AUTOMAKE(dia, 0.89)
 
 dnl Specify a header configuration file
 AM_CONFIG_HEADER(config.h)
@@ -312,12 +312,12 @@ then
   fi
 fi
 
-if test "$XML_CONFIG" != "" -a "$XML2_CONFIG" != ""
+if test "$XML_CONFIG" != "" && test "$XML2_CONFIG" != ""
 then
     AC_MSG_ERROR(Both libxml1 and libxml2 found. You need to choose one or face crashes.\nWe advise you use only libxml1 for the moment.)
 fi
 
-if test "$XML_CONFIG" = "" -a "$XML2_CONFIG" = ""
+if test "$XML_CONFIG" = "" && test "$XML2_CONFIG" = ""
 then
     AC_MSG_ERROR(Neither libxml1 or libxml2 found. You must install one (libxml1, preferably))
 fi
@@ -393,8 +393,10 @@ DIA_CHECK_CFLAG(-finline-functions)
 DIA_CHECK_CFLAG(-fstrict-aliasing)
 
 dnl Do we have the db2html script to build the documentation?
+AC_ARG_ENABLE(db2html,
+[  --enable-db2html        don't rebuild documentation],,enable_db2html=no)
 AC_PATH_PROG(DB2HTML, db2html, no)
-AM_CONDITIONAL(HAVE_DB2HTML, test "x$DB2HTML" != xno)
+AM_CONDITIONAL(HAVE_DB2HTML, test "x$enable_db2html" != xno && test "x$DB2HTML" != xno)
 
 dnl Handling for Python
 AC_ARG_WITH(python,
@@ -421,7 +423,6 @@ objects/Makefile
 objects/standard/Makefile
 objects/network/Makefile
 objects/UML/Makefile
-objects/EML/Makefile
 objects/ER/Makefile
 objects/FS/Makefile
 dnl objects/sybase/Makefile
@@ -469,7 +470,6 @@ Configuration:
 	Source code location:	${srcdir}
 	Compiler:		${CC}
 
-	Use gdk-pixbuf:				${have_gdkpixbuf}
 	Libart (AA rendering, png export):	${have_libart}
 
 	Gnome support:				${GNOME}

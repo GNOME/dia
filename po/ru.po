@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.86\n"
-"POT-Creation-Date: 2001-08-29 23:36+0400\n"
+"POT-Creation-Date: 2001-08-31 20:43+0800\n"
 "PO-Revision-Date: 2001-08-29 23:50+0400\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -3723,10 +3723,8 @@ msgstr "Это файл FIG версии %d.%d, возможно он не будет понят\n"
 msgid "XFig File Format"
 msgstr "Файл в формате XFig"
 
-#: dia.desktop.in.h:1
-msgid "A Diagram Editor"
-msgstr "Редактор диаграмм"
+#~ msgid "A Diagram Editor"
+#~ msgstr "Редактор диаграмм"
 
-#: dia.desktop.in.h:2
-msgid "Dia"
-msgstr "Dia"
+#~ msgid "Dia"
+#~ msgstr "Dia"

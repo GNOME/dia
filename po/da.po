@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
-"POT-Creation-Date: 2001-08-16 22:22+0200\n"
+"POT-Creation-Date: 2001-08-31 20:43+0800\n"
 "PO-Revision-Date: 2001-01-22 10:40+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Quit"
 msgstr "Afslut"
 
-#: app/app_procs.c:380 app/display.c:965 app/layer_dialog.c:989
+#: app/app_procs.c:380 app/display.c:966 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
@@ -275,23 +275,23 @@ msgstr ""
 msgid "No object menu"
 msgstr "Ingen objektmenu"
 
-#: app/display.c:140 app/display.c:141 app/interface.c:442
+#: app/display.c:141 app/display.c:142 app/interface.c:442
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/display.c:161
+#: app/display.c:162
 msgid "Diagram modified!"
 msgstr "Diagrammet er ændret!"
 
-#: app/display.c:915
+#: app/display.c:916
 msgid "Close Diagram?"
 msgstr "Luk Diagram?"
 
-#: app/display.c:921
+#: app/display.c:922
 msgid "Really close?"
 msgstr "Virkelig lukke?"
 
-#: app/display.c:926
+#: app/display.c:927
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -299,16 +299,16 @@ msgstr ""
 "Dette diagram er ikke gemt.\n"
 "Skal ændirnger gemmes nu?"
 
-#: app/display.c:944 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:954 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
 #: app/preferences.c:585
 msgid "No"
 msgstr "Nej"
 
-#: app/export_png.c:79 app/load_save.c:615 app/render_eps.c:212
+#: app/export_png.c:79 app/load_save.c:616 app/render_eps.c:212
 #: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
 #: plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:176
@@ -412,8 +412,8 @@ msgstr "Lav tekst"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:77 lib/properties.h:493
-#: lib/properties.h:496 objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:77 lib/properties.h:499
+#: lib/properties.h:502 objects/UML/actor.c:114 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/object.c:142
 #: objects/UML/small_package.c:120 objects/UML/state.c:137
 #: objects/UML/usecase.c:130
@@ -569,7 +569,7 @@ msgstr "Detaljer..."
 msgid "Line Style Properties"
 msgstr "Liniestilsegenskaber"
 
-#: app/linewidth_area.c:216 lib/properties.h:469
+#: app/linewidth_area.c:216 lib/properties.h:475
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Liniebredde"
@@ -578,11 +578,11 @@ msgstr "Liniebredde"
 msgid "Line width:"
 msgstr "Liniebredde:"
 
-#: app/load_save.c:126
+#: app/load_save.c:127
 msgid "Error reading diagram file\n"
 msgstr "Fejl under indlæsning af diagramfilen\n"
 
-#: app/load_save.c:194
+#: app/load_save.c:195
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -590,7 +590,7 @@ msgstr ""
 "Fejl under indlæsning af diagram.\n"
 "Lænket objekt ikke fundet i dokumentet."
 
-#: app/load_save.c:197
+#: app/load_save.c:198
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -598,7 +598,7 @@ msgstr ""
 "Fejl ved indlæsning af diagram.\n"
 "Forbindelsespunkt eksisterer ikke."
 
-#: app/load_save.c:200
+#: app/load_save.c:201
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -606,17 +606,17 @@ msgstr ""
 "Fejl ved indlæsning af diagram.\n"
 "Forbindelseshåndtag eksisterer ikke."
 
-#: app/load_save.c:244 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
+#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
 #: plug-ins/xfig/xfig-import.c:1152
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunne ikke åbne: '%s' for læsning.\n"
 
-#: app/load_save.c:250
+#: app/load_save.c:251
 msgid "You must specify a file, not a directory.\n"
 msgstr "Du skal angive en fil, ikke en mappe.\n"
 
-#: app/load_save.c:259 app/load_save.c:264
+#: app/load_save.c:260 app/load_save.c:265
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -625,7 +625,7 @@ msgstr ""
 "Fejl under indlæsning af diagrammet %s.\n"
 "Ukendt filtype."
 
-#: app/load_save.c:271
+#: app/load_save.c:272
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -634,12 +634,12 @@ msgstr ""
 "Fejl under indlæsning af diagrammet %s.\n"
 "Ikke en Dia fil."
 
-#: app/load_save.c:770
+#: app/load_save.c:771
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Kunne ikke gemme fil '%s'.\n"
 
-#: app/load_save.c:790 app/load_save.c:795
+#: app/load_save.c:791 app/load_save.c:796
 msgid "Native Dia Diagram"
 msgstr "Dia diagramformat"
 
@@ -779,16 +779,16 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samme type"
 
-#: app/menus.c:164 lib/properties.c:62 lib/properties.h:457 lib/widgets.c:203
+#: app/menus.c:164 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:203
 msgid "Left"
 msgstr "Venstre"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:63 lib/properties.h:458
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:63 lib/properties.h:464
 #: lib/widgets.c:209
 msgid "Center"
 msgstr "Midt"
 
-#: app/menus.c:166 lib/properties.c:64 lib/properties.h:459 lib/widgets.c:215
+#: app/menus.c:166 lib/properties.c:64 lib/properties.h:465 lib/widgets.c:215
 msgid "Right"
 msgstr "Højre"
 
@@ -1041,7 +1041,8 @@ msgid "/View/Zoom/25%"
 msgstr "/Vis/Zoom/25%"
 
 #: app/menus.c:314
-msgid "/View/Diagram Properties"
+#, fuzzy
+msgid "/View/Diagram Properties..."
 msgstr "/Vis/Diagram egenskaber"
 
 #: app/menus.c:316
@@ -1510,22 +1511,22 @@ msgstr "Indlæser..."
 msgid "Dia v %s"
 msgstr ""
 
-#: lib/properties.c:71 lib/properties.h:472
+#: lib/properties.c:71 lib/properties.h:478
 #, fuzzy
 msgid "Line colour"
 msgstr "Liniefarve:"
 
-#: lib/properties.c:72 lib/properties.h:475
+#: lib/properties.c:72 lib/properties.h:481
 #, fuzzy
 msgid "Line style"
 msgstr "Linier"
 
-#: lib/properties.c:73 lib/properties.h:479
+#: lib/properties.c:73 lib/properties.h:485
 #, fuzzy
 msgid "Fill colour"
 msgstr "Skriftfarve:"
 
-#: lib/properties.c:74 lib/properties.h:482 objects/custom/custom_object.c:311
+#: lib/properties.c:74 lib/properties.h:488 objects/custom/custom_object.c:311
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -1533,47 +1534,47 @@ msgstr "Skriftfarve:"
 msgid "Draw background"
 msgstr "Solid baggrund"
 
-#: lib/properties.c:75 lib/properties.h:486
+#: lib/properties.c:75 lib/properties.h:492
 #, fuzzy
 msgid "Start arrow"
 msgstr "Prikket pil"
 
-#: lib/properties.c:76 lib/properties.h:489
+#: lib/properties.c:76 lib/properties.h:495
 #, fuzzy
 msgid "End arrow"
 msgstr "Prikket pil"
 
-#: lib/properties.c:78 lib/properties.h:499
+#: lib/properties.c:78 lib/properties.h:505
 #, fuzzy
 msgid "Text alignment"
 msgstr "Justering:"
 
-#: lib/properties.c:79 lib/properties.h:502 objects/GRAFCET/condition.c:131
+#: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 #, fuzzy
 msgid "Font"
 msgstr "Skrifttype:"
 
-#: lib/properties.c:80 lib/properties.h:505 objects/GRAFCET/condition.c:133
+#: lib/properties.c:80 lib/properties.h:511 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 #, fuzzy
 msgid "Font size"
 msgstr "Skriftstørrelse:"
 
-#: lib/properties.c:81 lib/properties.h:508 objects/GRAFCET/step.c:167
+#: lib/properties.c:81 lib/properties.h:514 objects/GRAFCET/step.c:167
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 #, fuzzy
 msgid "Text colour"
 msgstr "Tekstfarve:"
 
-#: lib/plug-ins.c:214
+#: lib/plug-ins.c:217
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Kunne ikke udlede korrekt sti for '%s'"
 
-#: lib/plug-ins.c:219
+#: lib/plug-ins.c:222
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1582,22 +1583,22 @@ msgstr ""
 "Kunne ikke indlæse indstik '%s'\n"
 "%s"
 
-#: lib/plug-ins.c:230
+#: lib/plug-ins.c:233
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Kunne ikke finde indstik-initialiseringsfunktion i '%s'"
 
-#: lib/plug-ins.c:257
+#: lib/plug-ins.c:260
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "%s indstik kunne ikke fjernes"
 
-#: lib/plug-ins.c:310
+#: lib/plug-ins.c:341
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "'%s' er ikke et katalog"
 
-#: lib/plug-ins.c:316
+#: lib/plug-ins.c:347
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åbne '%s'"
@@ -1772,33 +1773,33 @@ msgstr "Valgt billedfil"
 msgid "Browse"
 msgstr "Gennemse"
 
-#: lib/dia_xml.c:124
+#: lib/dia_xml.c:128
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
 "assuming it is encoded in %s"
 msgstr ""
 
-#: lib/dia_xml.c:449
+#: lib/dia_xml.c:458
 msgid "Taking point value of non-point node."
 msgstr ""
 
-#: lib/dia_xml.c:461
+#: lib/dia_xml.c:470
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:469
+#: lib/dia_xml.c:478
 msgid "Error parsing point."
 msgstr ""
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:477
+#: lib/dia_xml.c:486
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:911
+#: lib/dia_xml.c:920
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -1825,7 +1826,7 @@ msgstr "Afledt"
 msgid "Multivalue:"
 msgstr "Multiværdi"
 
-#: objects/ER/attribute.c:389 sheets/ER.sheet.in.h:1
+#: objects/ER/attribute.c:389
 msgid "Attribute"
 msgstr "Attribut"
 
@@ -1834,7 +1835,7 @@ msgstr "Attribut"
 msgid "Weak:"
 msgstr "Svag"
 
-#: objects/ER/entity.c:340 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:340 objects/UML/classicon.c:124
 msgid "Entity"
 msgstr "Entitet"
 
@@ -1880,7 +1881,7 @@ msgstr "Rotér"
 msgid "Identifying:"
 msgstr "Identificerer"
 
-#: objects/ER/relationship.c:418 sheets/ER.sheet.in.h:6
+#: objects/ER/relationship.c:418
 msgid "Relationship"
 msgstr "Forhold"
 
@@ -2092,7 +2093,6 @@ msgid "Support"
 msgstr "Support"
 
 #: objects/FS/function.c:653 objects/FS/function.c:654
-#: sheets/SDL.sheet.in.h:19
 #, fuzzy
 msgid "Stop"
 msgstr "   Stop"
@@ -2399,7 +2399,7 @@ msgstr "Ombyt"
 msgid "Expose"
 msgstr "Ellipse"
 
-#: objects/FS/function.c:741 sheets/Flowchart.sheet.in.h:9
+#: objects/FS/function.c:741
 #, fuzzy
 msgid "Extract"
 msgstr "    Udtræk"
@@ -2604,7 +2604,7 @@ msgstr "   Indikér"
 msgid "Mark"
 msgstr ""
 
-#: objects/FS/function.c:800 sheets/Flowchart.sheet.in.h:7
+#: objects/FS/function.c:800
 #, fuzzy
 msgid "Display"
 msgstr "   Skærm"
@@ -2836,7 +2836,7 @@ msgstr ""
 msgid "Wish Fn"
 msgstr "Ønskefunktion"
 
-#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
+#: objects/GRAFCET/action.c:134
 msgid "Macro call"
 msgstr "Makrokald"
 
@@ -3895,1261 +3895,765 @@ msgstr ""
 msgid "XFig File Format"
 msgstr ""
 
-#: sheets/chronogram.sheet.in.h:1
-msgid "A data line"
-msgstr "En datolinje"
-
-#: sheets/chronogram.sheet.in.h:2
-msgid "A time scale"
-msgstr "En tidsskala"
-
-#: sheets/chronogram.sheet.in.h:3
-msgid "Chronogram"
-msgstr ""
-
-#: sheets/chronogram.sheet.in.h:4
-msgid "Objects to design chronogram charts"
-msgstr "Objekter til design af kronogrammer"
-
-#: sheets/Circuit.sheet.in.h:1
-msgid "A Horizontal Jumper"
-msgstr "En vandret jumper"
-
-#: sheets/Circuit.sheet.in.h:2
-msgid "A Horizontally aligned inductor"
-msgstr "En vandret placeret spole"
-
-#: sheets/Circuit.sheet.in.h:3
-msgid "A Horizontally aligned inductor (European)"
-msgstr "En vandret placeret spole (europæisk)"
-
-#: sheets/Circuit.sheet.in.h:4
-msgid "A Horizontally aligned resistor"
-msgstr "En vandret placeret modstand"
+#~ msgid "A data line"
+#~ msgstr "En datolinje"
 
-#: sheets/Circuit.sheet.in.h:5
-msgid "A Horizontally aligned resistor (European)"
-msgstr "En vandret placeret motstand (europæisk)"
+#~ msgid "A time scale"
+#~ msgstr "En tidsskala"
 
-#: sheets/Circuit.sheet.in.h:6
-msgid "A PMOS transistor"
-msgstr "En PMOS-transistor"
+#~ msgid "Objects to design chronogram charts"
+#~ msgstr "Objekter til design af kronogrammer"
 
-#: sheets/Circuit.sheet.in.h:7
-msgid "A Speaker"
-msgstr "En højtaler"
+#~ msgid "A Horizontal Jumper"
+#~ msgstr "En vandret jumper"
 
-#: sheets/Circuit.sheet.in.h:8
-msgid "A Vertically aligned inductor"
-msgstr "En loddret placeret spole"
+#~ msgid "A Horizontally aligned inductor"
+#~ msgstr "En vandret placeret spole"
 
-#: sheets/Circuit.sheet.in.h:9
-msgid "A Vertically aligned inductor (European)"
-msgstr "En lodret placeret spole (europæisk)"
+#~ msgid "A Horizontally aligned inductor (European)"
+#~ msgstr "En vandret placeret spole (europæisk)"
 
-#: sheets/Circuit.sheet.in.h:10
-msgid "A Vertically aligned resistor"
-msgstr "En lodret placeret modstand"
+#~ msgid "A Horizontally aligned resistor"
+#~ msgstr "En vandret placeret modstand"
 
-#: sheets/Circuit.sheet.in.h:11
-msgid "A Vertically aligned resistor (European)"
-msgstr "En lodret placeret motstand (europæisk)"
+#~ msgid "A Horizontally aligned resistor (European)"
+#~ msgstr "En vandret placeret motstand (europæisk)"
 
-#: sheets/Circuit.sheet.in.h:12
-msgid "A ground point"
-msgstr "Jord"
+#~ msgid "A PMOS transistor"
+#~ msgstr "En PMOS-transistor"
 
-#: sheets/Circuit.sheet.in.h:13
-msgid "A horizontally aligned LED"
-msgstr "En vandret placeret LED"
+#~ msgid "A Speaker"
+#~ msgstr "En højtaler"
 
-#: sheets/Circuit.sheet.in.h:14
-msgid "A horizontally aligned capacitor"
-msgstr "En vandret placeret kondensator"
+#~ msgid "A Vertically aligned inductor"
+#~ msgstr "En loddret placeret spole"
 
-#: sheets/Circuit.sheet.in.h:15
-msgid "A horizontally aligned diode"
-msgstr "En vandret placeret diode"
+#~ msgid "A Vertically aligned inductor (European)"
+#~ msgstr "En lodret placeret spole (europæisk)"
 
-#: sheets/Circuit.sheet.in.h:16
-msgid "A horizontally aligned fuse"
-msgstr "En vandret placeret sikring"
+#~ msgid "A Vertically aligned resistor"
+#~ msgstr "En lodret placeret modstand"
 
-#: sheets/Circuit.sheet.in.h:17
-msgid "A horizontally aligned powersource"
-msgstr "En vandret placeret strømkilde"
+#~ msgid "A Vertically aligned resistor (European)"
+#~ msgstr "En lodret placeret motstand (europæisk)"
 
-#: sheets/Circuit.sheet.in.h:18
-msgid "A horizontally aligned zener diode"
-msgstr "En vandret placeret zener-diode"
+#~ msgid "A ground point"
+#~ msgstr "Jord"
 
-#: sheets/Circuit.sheet.in.h:19
-msgid "A lamp"
-msgstr "En lampe"
+#~ msgid "A horizontally aligned LED"
+#~ msgstr "En vandret placeret LED"
 
-#: sheets/Circuit.sheet.in.h:20
-msgid "A npn bipolar transistor"
-msgstr "En bipolær NPN-transistor"
+#~ msgid "A horizontally aligned capacitor"
+#~ msgstr "En vandret placeret kondensator"
 
-#: sheets/Circuit.sheet.in.h:21
-msgid "A pnp bipolar transistor"
-msgstr "En bipolær PNP-transistor"
+#~ msgid "A horizontally aligned diode"
+#~ msgstr "En vandret placeret diode"
 
-#: sheets/Circuit.sheet.in.h:22
-msgid "A vertically aligned LED"
-msgstr "En lodret placeret LED"
+#~ msgid "A horizontally aligned fuse"
+#~ msgstr "En vandret placeret sikring"
 
-#: sheets/Circuit.sheet.in.h:23
-msgid "A vertically aligned capacitor"
-msgstr "En lodret placeret kondensator"
+#~ msgid "A horizontally aligned powersource"
+#~ msgstr "En vandret placeret strømkilde"
 
-#: sheets/Circuit.sheet.in.h:24
-msgid "A vertically aligned diode"
-msgstr "En lodret placeret diode"
+#~ msgid "A horizontally aligned zener diode"
+#~ msgstr "En vandret placeret zener-diode"
 
-#: sheets/Circuit.sheet.in.h:25
-msgid "A vertically aligned fuse"
-msgstr "En lodret placeret sikring"
+#~ msgid "A lamp"
+#~ msgstr "En lampe"
 
-#: sheets/Circuit.sheet.in.h:26
-msgid "A vertically aligned powersource"
-msgstr "En lodret placeret strømkilde"
+#~ msgid "A npn bipolar transistor"
+#~ msgstr "En bipolær NPN-transistor"
 
-#: sheets/Circuit.sheet.in.h:27
-msgid "A vertically aligned zener diode"
-msgstr "En lodret placeret zener-diode"
+#~ msgid "A pnp bipolar transistor"
+#~ msgstr "En bipolær PNP-transistor"
 
-#: sheets/Circuit.sheet.in.h:28
-msgid "An NMOS transistor"
-msgstr "En NMOS-transistor"
+#~ msgid "A vertically aligned LED"
+#~ msgstr "En lodret placeret LED"
 
-#: sheets/Circuit.sheet.in.h:29
-#, fuzzy
-msgid "An operational amplifier"
-msgstr "En højtaler"
+#~ msgid "A vertically aligned capacitor"
+#~ msgstr "En lodret placeret kondensator"
 
-#: sheets/Circuit.sheet.in.h:30
-#, fuzzy
-msgid "Circuit"
-msgstr "Retning:"
+#~ msgid "A vertically aligned diode"
+#~ msgstr "En lodret placeret diode"
 
-#: sheets/Circuit.sheet.in.h:31
-#, fuzzy
-msgid "Components for circuit diagrams"
-msgstr "Komponenter til pneumatiske og hydrauliske kredsløb"
+#~ msgid "A vertically aligned fuse"
+#~ msgstr "En lodret placeret sikring"
 
-#: sheets/civil.sheet.in.h:1
-msgid "A Backflow Preventer"
-msgstr ""
+#~ msgid "A vertically aligned powersource"
+#~ msgstr "En lodret placeret strømkilde"
 
-#: sheets/civil.sheet.in.h:2
-msgid "A Basin"
-msgstr "Et bassin"
+#~ msgid "A vertically aligned zener diode"
+#~ msgstr "En lodret placeret zener-diode"
 
-#: sheets/civil.sheet.in.h:3
-msgid "A Container"
-msgstr "En beholder"
+#~ msgid "An NMOS transistor"
+#~ msgstr "En NMOS-transistor"
 
-#: sheets/civil.sheet.in.h:4
 #, fuzzy
-msgid "A Frequency Converter"
-msgstr "Invertér"
-
-#: sheets/civil.sheet.in.h:5
-msgid "A Gas Bottle"
-msgstr "En gasflaske"
+#~ msgid "An operational amplifier"
+#~ msgstr "En højtaler"
 
-#: sheets/civil.sheet.in.h:6
-msgid "A Motor"
-msgstr "En motor"
+#, fuzzy
+#~ msgid "Circuit"
+#~ msgstr "Retning:"
 
-#: sheets/civil.sheet.in.h:7
-msgid "A Preliminary Clarification Tank"
-msgstr ""
+#, fuzzy
+#~ msgid "Components for circuit diagrams"
+#~ msgstr "Komponenter til pneumatiske og hydrauliske kredsløb"
 
-#: sheets/civil.sheet.in.h:8
-msgid "A Rotor"
-msgstr "En rotor"
+#~ msgid "A Basin"
+#~ msgstr "Et bassin"
 
-#: sheets/civil.sheet.in.h:9
-msgid "A final-settling Basin"
-msgstr ""
+#~ msgid "A Container"
+#~ msgstr "En beholder"
 
-#: sheets/civil.sheet.in.h:10
-msgid "A horizontal limiting line"
-msgstr "En vandret begrænsningslinie"
+#, fuzzy
+#~ msgid "A Frequency Converter"
+#~ msgstr "Invertér"
 
-#: sheets/civil.sheet.in.h:11
-msgid "A horizontally aligned Arrow"
-msgstr "En vandret placeret pil"
+#~ msgid "A Gas Bottle"
+#~ msgstr "En gasflaske"
 
-#: sheets/civil.sheet.in.h:12
-msgid "A vertical limiting line"
-msgstr "En lodret begrænsningslinie"
+#~ msgid "A Motor"
+#~ msgstr "En motor"
 
-#: sheets/civil.sheet.in.h:13
-msgid "A vertically aligned Arrow"
-msgstr "En lodret placeret pil"
+#~ msgid "A Rotor"
+#~ msgstr "En rotor"
 
-#: sheets/civil.sheet.in.h:14
-msgid "An Aerator with bubbles"
-msgstr ""
+#~ msgid "A horizontal limiting line"
+#~ msgstr "En vandret begrænsningslinie"
 
-#: sheets/civil.sheet.in.h:15
-#, fuzzy
-msgid "Bivalent Vertical Rest"
-msgstr "Rotér lodret"
+#~ msgid "A horizontally aligned Arrow"
+#~ msgstr "En vandret placeret pil"
 
-#: sheets/civil.sheet.in.h:16
-msgid "Civil"
-msgstr ""
+#~ msgid "A vertical limiting line"
+#~ msgstr "En lodret begrænsningslinie"
 
-#: sheets/civil.sheet.in.h:17
-msgid "Civil Engineering Components"
-msgstr "Symboler for civilingenører"
+#~ msgid "A vertically aligned Arrow"
+#~ msgstr "En lodret placeret pil"
 
-#: sheets/civil.sheet.in.h:18
 #, fuzzy
-msgid "Horizontal Rest"
-msgstr "En vandret jumper"
+#~ msgid "Bivalent Vertical Rest"
+#~ msgstr "Rotér lodret"
 
-#: sheets/civil.sheet.in.h:19
-msgid "Horizontally aligned Valve"
-msgstr "En vandret placeret ventil"
+#~ msgid "Civil Engineering Components"
+#~ msgstr "Symboler for civilingenører"
 
-#: sheets/civil.sheet.in.h:20
-msgid "Horizontally aligned compressor"
-msgstr "En vandret placeret kompressor"
+#, fuzzy
+#~ msgid "Horizontal Rest"
+#~ msgstr "En vandret jumper"
 
-#: sheets/civil.sheet.in.h:21
-msgid "Horizontally aligned pump"
-msgstr "En vandret placeret pumpe"
+#~ msgid "Horizontally aligned Valve"
+#~ msgstr "En vandret placeret ventil"
 
-#: sheets/civil.sheet.in.h:22
-msgid "Reference Line"
-msgstr "Referencelinie"
+#~ msgid "Horizontally aligned compressor"
+#~ msgstr "En vandret placeret kompressor"
 
-#: sheets/civil.sheet.in.h:23
-msgid "Soil"
-msgstr "Jord"
+#~ msgid "Horizontally aligned pump"
+#~ msgstr "En vandret placeret pumpe"
 
-#: sheets/civil.sheet.in.h:24
-#, fuzzy
-msgid "Vertical Rest"
-msgstr "Rotér lodret"
+#~ msgid "Reference Line"
+#~ msgstr "Referencelinie"
 
-#: sheets/civil.sheet.in.h:25
-msgid "Vertically aligned Propeller"
-msgstr "En lodret placeret propel"
+#~ msgid "Soil"
+#~ msgstr "Jord"
 
-#: sheets/civil.sheet.in.h:26
-msgid "Vertically aligned Valve"
-msgstr "En lodret placeret ventil"
+#, fuzzy
+#~ msgid "Vertical Rest"
+#~ msgstr "Rotér lodret"
 
-#: sheets/civil.sheet.in.h:27
-msgid "Vertically aligned compressor"
-msgstr "En lodret placeret kompressor"
+#~ msgid "Vertically aligned Propeller"
+#~ msgstr "En lodret placeret propel"
 
-#: sheets/civil.sheet.in.h:28
-msgid "Vertically aligned pump"
-msgstr "En lodret placeret pumpe"
+#~ msgid "Vertically aligned Valve"
+#~ msgstr "En lodret placeret ventil"
 
-#: sheets/civil.sheet.in.h:29
-msgid "Water Level"
-msgstr "Vandspejl"
+#~ msgid "Vertically aligned compressor"
+#~ msgstr "En lodret placeret kompressor"
 
-#: sheets/Contact.sheet.in.h:1
-msgid "A 'if not' (normally closed) ladder contact"
-msgstr ""
+#~ msgid "Vertically aligned pump"
+#~ msgstr "En lodret placeret pumpe"
 
-#: sheets/Contact.sheet.in.h:2
-msgid "A 'if' (normally open) ladder contact"
-msgstr ""
+#~ msgid "Water Level"
+#~ msgstr "Vandspejl"
 
-#: sheets/Contact.sheet.in.h:3
 #, fuzzy
-msgid "A 'jump' output variable"
-msgstr "En enkel printer"
+#~ msgid "A 'jump' output variable"
+#~ msgstr "En enkel printer"
 
-#: sheets/Contact.sheet.in.h:4
 #, fuzzy
-msgid "A 'reset' output variable"
-msgstr "En enkel printer"
+#~ msgid "A 'reset' output variable"
+#~ msgstr "En enkel printer"
 
-#: sheets/Contact.sheet.in.h:5
 #, fuzzy
-msgid "A 'set' output variable"
-msgstr "En enkel printer"
+#~ msgid "A 'set' output variable"
+#~ msgstr "En enkel printer"
 
-#: sheets/Contact.sheet.in.h:6
 #, fuzzy
-msgid "A negative output variable"
-msgstr "En enkel printer"
+#~ msgid "A negative output variable"
+#~ msgstr "En enkel printer"
 
-#: sheets/Contact.sheet.in.h:7
 #, fuzzy
-msgid "A power-saved 'reset' output variable"
-msgstr "En enkel printer"
+#~ msgid "A power-saved 'reset' output variable"
+#~ msgstr "En enkel printer"
 
-#: sheets/Contact.sheet.in.h:8
 #, fuzzy
-msgid "A power-saved 'set' output variable"
-msgstr "En enkel printer"
+#~ msgid "A power-saved 'set' output variable"
+#~ msgstr "En enkel printer"
 
-#: sheets/Contact.sheet.in.h:9
 #, fuzzy
-msgid "A power-saved negative output variable"
-msgstr "En enkel printer"
+#~ msgid "A power-saved negative output variable"
+#~ msgstr "En enkel printer"
 
-#: sheets/Contact.sheet.in.h:10
 #, fuzzy
-msgid "A power-saved simple output variable"
-msgstr "En enkel printer"
+#~ msgid "A power-saved simple output variable"
+#~ msgstr "En enkel printer"
 
-#: sheets/Contact.sheet.in.h:11
 #, fuzzy
-msgid "A receptivity output variable"
-msgstr "En enkel printer"
+#~ msgid "A receptivity output variable"
+#~ msgstr "En enkel printer"
 
-#: sheets/Contact.sheet.in.h:12
 #, fuzzy
-msgid "A simple output variable"
-msgstr "En enkel printer"
+#~ msgid "A simple output variable"
+#~ msgstr "En enkel printer"
 
-#: sheets/Contact.sheet.in.h:13
 #, fuzzy
-msgid "Components for LADDER circuits"
-msgstr "Komponenter til pneumatiske og hydrauliske kredsløb"
+#~ msgid "Components for LADDER circuits"
+#~ msgstr "Komponenter til pneumatiske og hydrauliske kredsløb"
 
-#: sheets/Contact.sheet.in.h:14
 #, fuzzy
-msgid "Ladder"
-msgstr "Lag"
+#~ msgid "Ladder"
+#~ msgstr "Lag"
 
-#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
 #, fuzzy
-msgid "A connection point"
-msgstr "Tilføj forbindelsespunkt"
-
-#: sheets/Electric.sheet.in.h:2
-msgid "A lamp or indicator light"
-msgstr ""
+#~ msgid "A connection point"
+#~ msgstr "Tilføj forbindelsespunkt"
 
-#: sheets/Electric.sheet.in.h:3
-msgid "A normally closed contact"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:4
-msgid "A normally closed position switch"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:5
-msgid "A normally open contact"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:6
-msgid "A normally open position switch"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:7
 #, fuzzy
-msgid "A relay"
-msgstr "En lampe"
+#~ msgid "A relay"
+#~ msgstr "En lampe"
 
-#: sheets/Electric.sheet.in.h:8
 #, fuzzy
-msgid "Components for electric circuits"
-msgstr "Komponenter til pneumatiske og hydrauliske kredsløb"
+#~ msgid "Components for electric circuits"
+#~ msgstr "Komponenter til pneumatiske og hydrauliske kredsløb"
 
-#: sheets/Electric.sheet.in.h:9
 #, fuzzy
-msgid "Electric"
-msgstr "Rotér lodret"
-
-#: sheets/Electric.sheet.in.h:10
-msgid "The command organ of a relay"
-msgstr ""
+#~ msgid "Electric"
+#~ msgstr "Rotér lodret"
 
-#: sheets/EML.sheet.in.h:1
 #, fuzzy
-msgid "Create a process"
-msgstr "Lav en klasse"
+#~ msgid "Create a process"
+#~ msgstr "Lav en klasse"
 
-#: sheets/EML.sheet.in.h:2
-msgid "EML"
-msgstr ""
-
-#: sheets/EML.sheet.in.h:3
 #, fuzzy
-msgid "Editor for EML Static Structure Diagrams."
-msgstr "Objekter til UML strukturdiagrammer"
-
-#: sheets/EML.sheet.in.h:4
-msgid "Instantiation. One process create others"
-msgstr ""
-
-#: sheets/EML.sheet.in.h:5
-msgid "Interaction between processes."
-msgstr ""
-
-#: sheets/ER.sheet.in.h:2
-msgid "ER"
-msgstr ""
+#~ msgid "Editor for EML Static Structure Diagrams."
+#~ msgstr "Objekter til UML strukturdiagrammer"
 
-#: sheets/ER.sheet.in.h:3
-msgid "Editor for Entity Relations Diagrams"
-msgstr "Objekter til enheds-relations-diagrammer"
+#~ msgid "Editor for Entity Relations Diagrams"
+#~ msgstr "Objekter til enheds-relations-diagrammer"
 
-#: sheets/ER.sheet.in.h:5
-msgid "Participation"
-msgstr "Deltagelse"
+#~ msgid "Participation"
+#~ msgstr "Deltagelse"
 
-#: sheets/ER.sheet.in.h:7
-msgid "Weak Entity"
-msgstr "Svag enhed"
+#~ msgid "Weak Entity"
+#~ msgstr "Svag enhed"
 
-#: sheets/Flowchart.sheet.in.h:1
-msgid "A box with text inside"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:2
-msgid "A diamond with text inside"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:3
-msgid "A ellipse with text inside"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:4
-msgid "A parallelogram with text inside"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:5
 #, fuzzy
-msgid "Collate"
-msgstr "Kald"
+#~ msgid "Collate"
+#~ msgstr "Kald"
 
-#: sheets/Flowchart.sheet.in.h:6
 #, fuzzy
-msgid "Delay"
-msgstr "   Skærm"
+#~ msgid "Delay"
+#~ msgstr "   Skærm"
 
-#: sheets/Flowchart.sheet.in.h:8
 #, fuzzy
-msgid "Document"
-msgstr "Skrifttype:"
+#~ msgid "Document"
+#~ msgstr "Skrifttype:"
 
-#: sheets/Flowchart.sheet.in.h:10
 #, fuzzy
-msgid "Flowchart"
-msgstr "Rutediagram objekter"
+#~ msgid "Flowchart"
+#~ msgstr "Rutediagram objekter"
 
-#: sheets/Flowchart.sheet.in.h:11
 #, fuzzy
-msgid "Internal Storage"
-msgstr "Brugergrænseflade:"
-
-#: sheets/Flowchart.sheet.in.h:12
-msgid "Magnetic Disk"
-msgstr ""
+#~ msgid "Internal Storage"
+#~ msgstr "Brugergrænseflade:"
 
-#: sheets/Flowchart.sheet.in.h:13
-msgid "Magnetic Drum"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:14
-msgid "Magnetic Tape"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:15
 #, fuzzy
-msgid "Manual Input"
-msgstr "Operationer"
+#~ msgid "Manual Input"
+#~ msgstr "Operationer"
 
-#: sheets/Flowchart.sheet.in.h:16
 #, fuzzy
-msgid "Manual Operation"
-msgstr "Operationer"
+#~ msgid "Manual Operation"
+#~ msgstr "Operationer"
 
-#: sheets/Flowchart.sheet.in.h:17
 #, fuzzy
-msgid "Merge"
-msgstr "   Mål"
+#~ msgid "Merge"
+#~ msgstr "   Mål"
 
-#: sheets/Flowchart.sheet.in.h:18
 #, fuzzy
-msgid "Objects to draw flowcharts"
-msgstr "Objekter til design af kronogrammer"
+#~ msgid "Objects to draw flowcharts"
+#~ msgstr "Objekter til design af kronogrammer"
 
-#: sheets/Flowchart.sheet.in.h:19
 #, fuzzy
-msgid "Off Page Connector"
-msgstr "Forbind"
+#~ msgid "Off Page Connector"
+#~ msgstr "Forbind"
 
-#: sheets/Flowchart.sheet.in.h:20
 #, fuzzy
-msgid "Offline Storage"
-msgstr "Lager"
+#~ msgid "Offline Storage"
+#~ msgstr "Lager"
 
-#: sheets/Flowchart.sheet.in.h:21
-msgid "Or"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:22
 #, fuzzy
-msgid "Predefined Process"
-msgstr "Indstillinger"
+#~ msgid "Predefined Process"
+#~ msgstr "Indstillinger"
 
-#: sheets/Flowchart.sheet.in.h:23
 #, fuzzy
-msgid "Preparation"
-msgstr "Deltagelse"
-
-#: sheets/Flowchart.sheet.in.h:24
-msgid "Punched Card"
-msgstr ""
+#~ msgid "Preparation"
+#~ msgstr "Deltagelse"
 
-#: sheets/Flowchart.sheet.in.h:25
-msgid "Punched Tape"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:26
 #, fuzzy
-msgid "Sort"
-msgstr "Support"
+#~ msgid "Sort"
+#~ msgstr "Support"
 
-#: sheets/Flowchart.sheet.in.h:27
 #, fuzzy
-msgid "Summing Junction"
-msgstr "Ønskefunktion"
+#~ msgid "Summing Junction"
+#~ msgstr "Ønskefunktion"
 
-#: sheets/Flowchart.sheet.in.h:28
 #, fuzzy
-msgid "Terminal"
-msgstr "Normal"
+#~ msgid "Terminal"
+#~ msgstr "Normal"
 
-#: sheets/Flowchart.sheet.in.h:29
 #, fuzzy
-msgid "Transaction File"
-msgstr "Transitiv"
+#~ msgid "Transaction File"
+#~ msgstr "Transitiv"
 
-#: sheets/Flowchart.sheet.in.h:30
 #, fuzzy
-msgid "Transmittal Tape"
-msgstr "Transitiv"
+#~ msgid "Transmittal Tape"
+#~ msgstr "Transitiv"
 
-#: sheets/FS.sheet.in.h:1
 #, fuzzy
-msgid "Create a flow"
-msgstr "Lav et knudepunkt"
+#~ msgid "Create a flow"
+#~ msgstr "Lav et knudepunkt"
 
-#: sheets/FS.sheet.in.h:2
 #, fuzzy
-msgid "Create a function"
-msgstr "Lav en aktør"
-
-#: sheets/FS.sheet.in.h:3
-msgid "Create an orthogonal polyline flow"
-msgstr ""
+#~ msgid "Create a function"
+#~ msgstr "Lav en aktør"
 
-#: sheets/FS.sheet.in.h:4
 #, fuzzy
-msgid "Editor for Function Structure Diagrams."
-msgstr "Objekter til UML strukturdiagrammer"
+#~ msgid "Editor for Function Structure Diagrams."
+#~ msgstr "Objekter til UML strukturdiagrammer"
 
-#: sheets/FS.sheet.in.h:5
-msgid "FS"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:1
 #, fuzzy
-msgid "A AND vergent"
-msgstr "GRAFCET ELLER/OG rand"
+#~ msgid "A AND vergent"
+#~ msgstr "GRAFCET ELLER/OG rand"
 
-#: sheets/GRAFCET.sheet.in.h:2
 #, fuzzy
-msgid "A OR vergent"
-msgstr "GRAFCET ELLER/OG rand"
+#~ msgid "A OR vergent"
+#~ msgstr "GRAFCET ELLER/OG rand"
 
-#: sheets/GRAFCET.sheet.in.h:3
 #, fuzzy
-msgid "A condition (of an action)"
-msgstr "Slet forbindelsespunkt"
+#~ msgid "A condition (of an action)"
+#~ msgstr "Slet forbindelsespunkt"
 
-#: sheets/GRAFCET.sheet.in.h:4
 #, fuzzy
-msgid "A macro call step"
-msgstr "Makrokaldstrin"
+#~ msgid "A macro call step"
+#~ msgstr "Makrokaldstrin"
 
-#: sheets/GRAFCET.sheet.in.h:5
 #, fuzzy
-msgid "A macro entry step"
-msgstr "Makro indgangstrin"
+#~ msgid "A macro entry step"
+#~ msgstr "Makro indgangstrin"
 
-#: sheets/GRAFCET.sheet.in.h:6
 #, fuzzy
-msgid "A macro exit step"
-msgstr "Makro sluttrin"
+#~ msgid "A macro exit step"
+#~ msgstr "Makro sluttrin"
 
-#: sheets/GRAFCET.sheet.in.h:7
 #, fuzzy
-msgid "A macro sub-program call step"
-msgstr "Underprogramskaldstrin"
+#~ msgid "A macro sub-program call step"
+#~ msgstr "Underprogramskaldstrin"
 
-#: sheets/GRAFCET.sheet.in.h:8
-msgid "A regular step"
-msgstr "Et normalt trin"
+#~ msgid "A regular step"
+#~ msgstr "Et normalt trin"
 
-#: sheets/GRAFCET.sheet.in.h:9
 #, fuzzy
-msgid "A transition"
-msgstr "Transitiv"
-
-#: sheets/GRAFCET.sheet.in.h:10
-msgid "An action to associate to a step"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:11
-msgid "An arc (upward)"
-msgstr ""
+#~ msgid "A transition"
+#~ msgstr "Transitiv"
 
-#: sheets/GRAFCET.sheet.in.h:12
-msgid "An initial step"
-msgstr "Et første trin"
+#~ msgid "An initial step"
+#~ msgstr "Et første trin"
 
-#: sheets/GRAFCET.sheet.in.h:13
-msgid "GRAFCET"
-msgstr ""
+#~ msgid "Objects to design GRAFCET charts"
+#~ msgstr "Objekter til at designe GRAFCET diagrammer"
 
-#: sheets/GRAFCET.sheet.in.h:14
-msgid "Objects to design GRAFCET charts"
-msgstr "Objekter til at designe GRAFCET diagrammer"
+#~ msgid "Jigsaw"
+#~ msgstr "Puslespil"
 
-#: sheets/jigsaw.sheet.in.h:1
-msgid "Jigsaw"
-msgstr "Puslespil"
+#~ msgid "Jigsaw - part_iiii"
+#~ msgstr "Puslespil - brik_iiii"
 
-#: sheets/jigsaw.sheet.in.h:2
-msgid "Jigsaw - part_iiii"
-msgstr "Puslespil - brik_iiii"
+#~ msgid "Jigsaw - part_iiio"
+#~ msgstr "Puslespil - brik_iiio"
 
-#: sheets/jigsaw.sheet.in.h:3
-msgid "Jigsaw - part_iiio"
-msgstr "Puslespil - brik_iiio"
+#~ msgid "Jigsaw - part_iioi"
+#~ msgstr "Puslespil - brik_iioi"
 
-#: sheets/jigsaw.sheet.in.h:4
-msgid "Jigsaw - part_iioi"
-msgstr "Puslespil - brik_iioi"
+#~ msgid "Jigsaw - part_iioo"
+#~ msgstr "Puslespil - brik_iioo"
 
-#: sheets/jigsaw.sheet.in.h:5
-msgid "Jigsaw - part_iioo"
-msgstr "Puslespil - brik_iioo"
+#~ msgid "Jigsaw - part_ioii"
+#~ msgstr "Puslespil - brik_ioii"
 
-#: sheets/jigsaw.sheet.in.h:6
-msgid "Jigsaw - part_ioii"
-msgstr "Puslespil - brik_ioii"
+#~ msgid "Jigsaw - part_ioio"
+#~ msgstr "Puslespil - brik_ioio"
 
-#: sheets/jigsaw.sheet.in.h:7
-msgid "Jigsaw - part_ioio"
-msgstr "Puslespil - brik_ioio"
+#~ msgid "Jigsaw - part_iooi"
+#~ msgstr "Puslespil - brik_iooi"
 
-#: sheets/jigsaw.sheet.in.h:8
-msgid "Jigsaw - part_iooi"
-msgstr "Puslespil - brik_iooi"
+#~ msgid "Jigsaw - part_iooo"
+#~ msgstr "Puslespil - brik_iooo"
 
-#: sheets/jigsaw.sheet.in.h:9
-msgid "Jigsaw - part_iooo"
-msgstr "Puslespil - brik_iooo"
+#~ msgid "Jigsaw - part_oiii"
+#~ msgstr "Puslespil - brik_oiii"
 
-#: sheets/jigsaw.sheet.in.h:10
-msgid "Jigsaw - part_oiii"
-msgstr "Puslespil - brik_oiii"
+#~ msgid "Jigsaw - part_oiio"
+#~ msgstr "Puslespil - brik_oiio"
 
-#: sheets/jigsaw.sheet.in.h:11
-msgid "Jigsaw - part_oiio"
-msgstr "Puslespil - brik_oiio"
+#~ msgid "Jigsaw - part_oioi"
+#~ msgstr "Puslespil - brik_oioi"
 
-#: sheets/jigsaw.sheet.in.h:12
-msgid "Jigsaw - part_oioi"
-msgstr "Puslespil - brik_oioi"
+#~ msgid "Jigsaw - part_oioo"
+#~ msgstr "Puslespil - brik_oioo"
 
-#: sheets/jigsaw.sheet.in.h:13
-msgid "Jigsaw - part_oioo"
-msgstr "Puslespil - brik_oioo"
+#~ msgid "Jigsaw - part_ooii"
+#~ msgstr "Puslespil - brik_ooii"
 
-#: sheets/jigsaw.sheet.in.h:14
-msgid "Jigsaw - part_ooii"
-msgstr "Puslespil - brik_ooii"
+#~ msgid "Jigsaw - part_ooio"
+#~ msgstr "Puslespil - brik_ooio"
 
-#: sheets/jigsaw.sheet.in.h:15
-msgid "Jigsaw - part_ooio"
-msgstr "Puslespil - brik_ooio"
+#~ msgid "Jigsaw - part_oooi"
+#~ msgstr "Puslespil - brik_oooi"
 
-#: sheets/jigsaw.sheet.in.h:16
-msgid "Jigsaw - part_oooi"
-msgstr "Puslespil - brik_oooi"
+#~ msgid "Jigsaw - part_oooo"
+#~ msgstr "Puslespil - brik_oooo"
 
-#: sheets/jigsaw.sheet.in.h:17
-msgid "Jigsaw - part_oooo"
-msgstr "Puslespil - brik_oooo"
+#~ msgid "Pieces of a jigsaw"
+#~ msgstr "Puslespilsbrikker"
 
-#: sheets/jigsaw.sheet.in.h:18
-msgid "Pieces of a jigsaw"
-msgstr "Puslespilsbrikker"
-
-#: sheets/Logic.sheet.in.h:1
 #, fuzzy
-msgid "A Nand gate"
-msgstr "Totalsum"
+#~ msgid "A Nand gate"
+#~ msgstr "Totalsum"
 
-#: sheets/Logic.sheet.in.h:2
 #, fuzzy
-msgid "A Nor gate"
-msgstr "Totalsum"
+#~ msgid "A Nor gate"
+#~ msgstr "Totalsum"
 
-#: sheets/Logic.sheet.in.h:3
 #, fuzzy
-msgid "A Not"
-msgstr "En motor"
+#~ msgid "A Not"
+#~ msgstr "En motor"
 
-#: sheets/Logic.sheet.in.h:4
 #, fuzzy
-msgid "A Xor gate"
-msgstr "Totalsum"
+#~ msgid "A Xor gate"
+#~ msgstr "Totalsum"
 
-#: sheets/Logic.sheet.in.h:5
 #, fuzzy
-msgid "A crossconnector"
-msgstr "Forbind"
+#~ msgid "A crossconnector"
+#~ msgstr "Forbind"
 
-#: sheets/Logic.sheet.in.h:6
 #, fuzzy
-msgid "A simple Buffer"
-msgstr "En enkel printer"
+#~ msgid "A simple Buffer"
+#~ msgstr "En enkel printer"
 
-#: sheets/Logic.sheet.in.h:7
 #, fuzzy
-msgid "An And gate"
-msgstr "Totalsum"
+#~ msgid "An And gate"
+#~ msgstr "Totalsum"
 
-#: sheets/Logic.sheet.in.h:8
 #, fuzzy
-msgid "An Inverter"
-msgstr "Invertér"
+#~ msgid "An Inverter"
+#~ msgstr "Invertér"
 
-#: sheets/Logic.sheet.in.h:9
 #, fuzzy
-msgid "An Or gate"
-msgstr "Totalsum"
-
-#: sheets/Logic.sheet.in.h:10
-msgid "Boolean Logic"
-msgstr ""
+#~ msgid "An Or gate"
+#~ msgstr "Totalsum"
 
-#: sheets/Logic.sheet.in.h:11
-msgid "Logic"
-msgstr ""
-
-#: sheets/MSE.sheet.in.h:1
 #, fuzzy
-msgid "Demultiplexer"
-msgstr "Multiplicitet:"
-
-#: sheets/MSE.sheet.in.h:2
-msgid "Large Extension Node"
-msgstr ""
+#~ msgid "Demultiplexer"
+#~ msgstr "Multiplicitet:"
 
-#: sheets/MSE.sheet.in.h:3
-msgid "MSE"
-msgstr ""
-
-#: sheets/MSE.sheet.in.h:4
 #, fuzzy
-msgid "Multiplexer"
-msgstr "Multiplicitet:"
+#~ msgid "Multiplexer"
+#~ msgstr "Multiplicitet:"
 
-#: sheets/MSE.sheet.in.h:5
 #, fuzzy
-msgid "Node Center"
-msgstr "Midt"
-
-#: sheets/MSE.sheet.in.h:6
-msgid "Small Extension Node"
-msgstr ""
+#~ msgid "Node Center"
+#~ msgstr "Midt"
 
-#: sheets/MSE.sheet.in.h:7
-msgid "Tactical Satellite Communications Terminal"
-msgstr "Taktisk satellitkommunikationsterminal"
+#~ msgid "Tactical Satellite Communications Terminal"
+#~ msgstr "Taktisk satellitkommunikationsterminal"
 
-#: sheets/MSE.sheet.in.h:8
-msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr "U.S. Army Mobile Subscriber Equipment komponenter"
+#~ msgid "U.S. Army Mobile Subscriber Equipment Components"
+#~ msgstr "U.S. Army Mobile Subscriber Equipment komponenter"
 
-#: sheets/network.sheet.in.h:1
-msgid "A 3 1/2 inch diskette"
-msgstr "En 3½-tomme diskette"
+#~ msgid "A 3 1/2 inch diskette"
+#~ msgstr "En 3½-tomme diskette"
 
-#: sheets/network.sheet.in.h:2
 #, fuzzy
-msgid "A Bigtower PC"
-msgstr "En skærm"
+#~ msgid "A Bigtower PC"
+#~ msgstr "En skærm"
 
-#: sheets/network.sheet.in.h:3
-msgid "A Computer"
-msgstr "En compuker med tårnkabinet"
+#~ msgid "A Computer"
+#~ msgstr "En compuker med tårnkabinet"
 
-#: sheets/network.sheet.in.h:4
-msgid "A Desktop PC"
-msgstr ""
-
-#: sheets/network.sheet.in.h:5
-msgid "A Firewall router"
-msgstr ""
-
-#: sheets/network.sheet.in.h:6
 #, fuzzy
-msgid "A Miditower PC"
-msgstr "En skærm"
+#~ msgid "A Miditower PC"
+#~ msgstr "En skærm"
 
-#: sheets/network.sheet.in.h:7
 #, fuzzy
-msgid "A Minitower PC"
-msgstr "En skærm"
+#~ msgid "A Minitower PC"
+#~ msgstr "En skærm"
 
-#: sheets/network.sheet.in.h:8
-msgid "A Mobile Phone"
-msgstr "En mobiltelefon"
+#~ msgid "A Mobile Phone"
+#~ msgstr "En mobiltelefon"
 
-#: sheets/network.sheet.in.h:9
-msgid "A RJ45 Wall-Plug"
-msgstr "RJ45 vægstik"
+#~ msgid "A RJ45 Wall-Plug"
+#~ msgstr "RJ45 vægstik"
 
-#: sheets/network.sheet.in.h:10
 #, fuzzy
-msgid "A UNIX Workstation"
-msgstr "Skærm til arbejdsstation"
+#~ msgid "A UNIX Workstation"
+#~ msgstr "Skærm til arbejdsstation"
 
-#: sheets/network.sheet.in.h:11
-msgid "A WAN Connection"
-msgstr "En WAN-forbindelse"
+#~ msgid "A WAN Connection"
+#~ msgstr "En WAN-forbindelse"
 
-#: sheets/network.sheet.in.h:12
 #, fuzzy
-msgid "A WAN Link"
-msgstr "En WAN-forbindelse"
-
-#: sheets/network.sheet.in.h:13
-msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr "En vægstik til scEAD kablingsystemet"
-
-#: sheets/network.sheet.in.h:14
-msgid "A Workstation Monitor"
-msgstr "Skærm til arbejdsstation"
-
-#: sheets/network.sheet.in.h:15
-msgid "A ZIP Disk"
-msgstr "En ZIP-disk"
-
-#: sheets/network.sheet.in.h:16
-msgid "A modular switching system"
-msgstr "Et modulært switch-system"
-
-#: sheets/network.sheet.in.h:17
-msgid "A monitor"
-msgstr "En skærm"
-
-#: sheets/network.sheet.in.h:18
-msgid "A simple Modem"
-msgstr "Et enkelt modem"
-
-#: sheets/network.sheet.in.h:19
-msgid "A simple printer"
-msgstr "En enkel printer"
-
-#: sheets/network.sheet.in.h:20
-msgid "A speaker with integrated amplifier"
-msgstr "En højtaler med forstærker"
-
-#: sheets/network.sheet.in.h:21
-msgid "A speaker without amplifier"
-msgstr "En højtaler"
-
-#: sheets/network.sheet.in.h:22
-msgid "A stackable hub or switch"
-msgstr "En hub eller switch som kan stables"
+#~ msgid "A WAN Link"
+#~ msgstr "En WAN-forbindelse"
 
-#: sheets/network.sheet.in.h:23
-msgid "ATM Switch Symbol"
-msgstr ""
+#~ msgid "A Wall-Plug for the scEAD Cabling System"
+#~ msgstr "En vægstik til scEAD kablingsystemet"
 
-#: sheets/network.sheet.in.h:24
-msgid "An Ethernet bus"
-msgstr "Ethernet bus"
+#~ msgid "A Workstation Monitor"
+#~ msgstr "Skærm til arbejdsstation"
 
-#: sheets/network.sheet.in.h:25
-msgid "An antenna for wireless transmission"
-msgstr "En antenne til trådløs overføring"
+#~ msgid "A ZIP Disk"
+#~ msgstr "En ZIP-disk"
 
-#: sheets/network.sheet.in.h:26
-msgid "An external DAT drive"
-msgstr "En ekstern DAT-station"
+#~ msgid "A modular switching system"
+#~ msgstr "Et modulært switch-system"
 
-#: sheets/network.sheet.in.h:27
-msgid "Network"
-msgstr "Netværk"
+#~ msgid "A monitor"
+#~ msgstr "En skærm"
 
-#: sheets/network.sheet.in.h:28
-msgid "Network Cloud"
-msgstr "Netværkssky"
+#~ msgid "A simple Modem"
+#~ msgstr "Et enkelt modem"
 
-#: sheets/network.sheet.in.h:29
-msgid "Objects to design network diagrams with"
-msgstr "Objekter til design af netværksdiagrammer"
+#~ msgid "A simple printer"
+#~ msgstr "En enkel printer"
 
-#: sheets/network.sheet.in.h:30
-msgid "Router Symbol"
-msgstr ""
+#~ msgid "A speaker with integrated amplifier"
+#~ msgstr "En højtaler med forstærker"
 
-#: sheets/network.sheet.in.h:31
-msgid "Storage"
-msgstr "Lager"
+#~ msgid "A speaker without amplifier"
+#~ msgstr "En højtaler"
 
-#: sheets/network.sheet.in.h:32
-msgid "Switch Symbol"
-msgstr ""
+#~ msgid "A stackable hub or switch"
+#~ msgstr "En hub eller switch som kan stables"
 
-#: sheets/Pneumatic.sheet.in.h:1
-msgid "A 2/2 distributor"
-msgstr "En 2/2 fordeler"
+#~ msgid "An Ethernet bus"
+#~ msgstr "Ethernet bus"
 
-#: sheets/Pneumatic.sheet.in.h:2
-msgid "A 3/2 distributor"
-msgstr "En 3/2 fordeler"
+#~ msgid "An antenna for wireless transmission"
+#~ msgstr "En antenne til trådløs overføring"
 
-#: sheets/Pneumatic.sheet.in.h:3
-msgid "A 3/3 distributor"
-msgstr "En 3/3 fordeler"
+#~ msgid "An external DAT drive"
+#~ msgstr "En ekstern DAT-station"
 
-#: sheets/Pneumatic.sheet.in.h:4
-msgid "A 4/2 distributor"
-msgstr "En 4/2 fordeler"
+#~ msgid "Network"
+#~ msgstr "Netværk"
 
-#: sheets/Pneumatic.sheet.in.h:5
-msgid "A 5/2 distributor"
-msgstr "En 5/2 fordeler"
+#~ msgid "Network Cloud"
+#~ msgstr "Netværkssky"
 
-#: sheets/Pneumatic.sheet.in.h:6
-msgid "A 5/3 distributor"
-msgstr "En 5/3 fordeler"
+#~ msgid "Objects to design network diagrams with"
+#~ msgstr "Objekter til design af netværksdiagrammer"
 
-#: sheets/Pneumatic.sheet.in.h:8
-msgid "A double-effect jack"
-msgstr ""
+#~ msgid "Storage"
+#~ msgstr "Lager"
 
-#: sheets/Pneumatic.sheet.in.h:9
-msgid "A generic pressure source"
-msgstr "En generisk trykkilde"
+#~ msgid "A 2/2 distributor"
+#~ msgstr "En 2/2 fordeler"
 
-#: sheets/Pneumatic.sheet.in.h:10
-msgid "A hydraulic pressure source"
-msgstr "En hydraulisk trykkilde"
+#~ msgid "A 3/2 distributor"
+#~ msgstr "En 3/2 fordeler"
 
-#: sheets/Pneumatic.sheet.in.h:11
-msgid "A normally-in simple-effect jack"
-msgstr ""
+#~ msgid "A 3/3 distributor"
+#~ msgstr "En 3/3 fordeler"
 
-#: sheets/Pneumatic.sheet.in.h:12
-msgid "A normally-out simple-effect jack"
-msgstr ""
+#~ msgid "A 4/2 distributor"
+#~ msgstr "En 4/2 fordeler"
 
-#: sheets/Pneumatic.sheet.in.h:13
-msgid "A pneumatic pressure source"
-msgstr "En pneumatisk trykkilde"
+#~ msgid "A 5/2 distributor"
+#~ msgstr "En 5/2 fordeler"
 
-#: sheets/Pneumatic.sheet.in.h:14
-msgid "An air exhaust orifice"
-msgstr ""
+#~ msgid "A 5/3 distributor"
+#~ msgstr "En 5/3 fordeler"
 
-#: sheets/Pneumatic.sheet.in.h:15
-msgid "Components for pneumatic and hydraulic circuits"
-msgstr "Komponenter til pneumatiske og hydrauliske kredsløb"
+#~ msgid "A generic pressure source"
+#~ msgstr "En generisk trykkilde"
 
-#: sheets/Pneumatic.sheet.in.h:16
-msgid "Electric command (double coil)"
-msgstr ""
+#~ msgid "A hydraulic pressure source"
+#~ msgstr "En hydraulisk trykkilde"
 
-#: sheets/Pneumatic.sheet.in.h:17
-msgid "Electric command (single coil)"
-msgstr ""
+#~ msgid "A pneumatic pressure source"
+#~ msgstr "En pneumatisk trykkilde"
 
-#: sheets/Pneumatic.sheet.in.h:18
-msgid "Indirect command by hydraulic driver"
-msgstr ""
+#~ msgid "Components for pneumatic and hydraulic circuits"
+#~ msgstr "Komponenter til pneumatiske og hydrauliske kredsløb"
 
-#: sheets/Pneumatic.sheet.in.h:19
-msgid "Indirect command by pneumatic driver"
-msgstr ""
+#~ msgid "Pneumatic/Hydraulic"
+#~ msgstr "Pneumatik/Hydraulik"
 
-#: sheets/Pneumatic.sheet.in.h:20
-msgid "Mechanical command by spring"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:21
-msgid "Mechanical command by tappet"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:22
-msgid "Muscular command"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:23
-msgid "Pneumatic/Hydraulic"
-msgstr "Pneumatik/Hydraulik"
-
-#: sheets/Pneumatic.sheet.in.h:24
-msgid "Push-button command"
-msgstr ""
-
-#: sheets/SADT.sheet.in.h:1
 #, fuzzy
-msgid "A activity/data flow arrow"
-msgstr "Aktivitets/data identificerer"
-
-#: sheets/SADT.sheet.in.h:2
-msgid "A flow label"
-msgstr ""
+#~ msgid "A activity/data flow arrow"
+#~ msgstr "Aktivitets/data identificerer"
 
-#: sheets/SADT.sheet.in.h:3
 #, fuzzy
-msgid "An activity/data box"
-msgstr "Aktivitets/data identificerer"
+#~ msgid "An activity/data box"
+#~ msgstr "Aktivitets/data identificerer"
 
-#: sheets/SADT.sheet.in.h:4
 #, fuzzy
-msgid "Objects to design SADT diagrams"
-msgstr "Objekter til design af netværksdiagrammer"
+#~ msgid "Objects to design SADT diagrams"
+#~ msgstr "Objekter til design af netværksdiagrammer"
 
-#: sheets/SADT.sheet.in.h:5
-msgid "SADT/IDEF0"
-msgstr ""
-
-#: sheets/SDL.sheet.in.h:1
-msgid "Action being executed"
-msgstr ""
-
-#: sheets/SDL.sheet.in.h:2
 #, fuzzy
-msgid "Block Type Reference"
-msgstr "Indstillinger"
+#~ msgid "Block Type Reference"
+#~ msgstr "Indstillinger"
 
-#: sheets/SDL.sheet.in.h:3
 #, fuzzy
-msgid "Comment"
-msgstr "Midt"
+#~ msgid "Comment"
+#~ msgstr "Midt"
 
-#: sheets/SDL.sheet.in.h:4
 #, fuzzy
-msgid "Decision"
-msgstr "Beskrivelse:"
+#~ msgid "Decision"
+#~ msgstr "Beskrivelse:"
 
-#: sheets/SDL.sheet.in.h:5
 #, fuzzy
-msgid "Function Header"
-msgstr "Funktion:"
+#~ msgid "Function Header"
+#~ msgstr "Funktion:"
 
-#: sheets/SDL.sheet.in.h:6
 #, fuzzy
-msgid "Function call"
-msgstr "Funktion:"
-
-#: sheets/SDL.sheet.in.h:7
-msgid "Generic Text Note"
-msgstr ""
+#~ msgid "Function call"
+#~ msgstr "Funktion:"
 
-#: sheets/SDL.sheet.in.h:8
 #, fuzzy
-msgid "In/Out Connector"
-msgstr "Forbind"
+#~ msgid "In/Out Connector"
+#~ msgstr "Forbind"
 
-#: sheets/SDL.sheet.in.h:10
-msgid "Procedure Return"
-msgstr ""
-
-#: sheets/SDL.sheet.in.h:11
 #, fuzzy
-msgid "Process Type Reference"
-msgstr "Indstillinger"
+#~ msgid "Process Type Reference"
+#~ msgstr "Indstillinger"
 
-#: sheets/SDL.sheet.in.h:12
 #, fuzzy
-msgid "Receive message"
-msgstr "Lav en meddelelse"
-
-#: sheets/SDL.sheet.in.h:13
-msgid "SDL"
-msgstr ""
+#~ msgid "Receive message"
+#~ msgstr "Lav en meddelelse"
 
-#: sheets/SDL.sheet.in.h:14
 #, fuzzy
-msgid "Save State"
-msgstr "Prikket pil"
+#~ msgid "Save State"
+#~ msgstr "Prikket pil"
 
-#: sheets/SDL.sheet.in.h:15
 #, fuzzy
-msgid "Send message"
-msgstr "Lav en meddelelse"
+#~ msgid "Send message"
+#~ msgstr "Lav en meddelelse"
 
-#: sheets/SDL.sheet.in.h:16
 #, fuzzy
-msgid "Service Type Reference"
-msgstr "Indstillinger"
+#~ msgid "Service Type Reference"
+#~ msgstr "Indstillinger"
 
-#: sheets/SDL.sheet.in.h:17
-msgid "Specification and Description Language."
-msgstr "Specifikations- og beskrivelsessprog"
+#~ msgid "Specification and Description Language."
+#~ msgstr "Specifikations- og beskrivelsessprog"
 
-#: sheets/SDL.sheet.in.h:18
 #, fuzzy
-msgid "State"
-msgstr "Prikket pil"
-
-#: sheets/sybase.sheet.in.h:1
-msgid "A Sybase Client Application"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:2
-msgid "A Sybase Dataserver"
-msgstr ""
+#~ msgid "State"
+#~ msgstr "Prikket pil"
 
-#: sheets/sybase.sheet.in.h:3
-msgid "A Sybase Replication Server"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:4
-msgid "Log Transfer Manager or Rep Agent"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:5
 #, fuzzy
-msgid "Objects to design Sybase replication domain diagrams with"
-msgstr "Objekter til design af netværksdiagrammer"
+#~ msgid "Objects to design Sybase replication domain diagrams with"
+#~ msgstr "Objekter til design af netværksdiagrammer"
 
-#: sheets/sybase.sheet.in.h:6
-msgid "Replication Server Manager"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:7
-msgid "Stable Storage Device"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:8
 #, fuzzy
-msgid "Sybase"
-msgstr "Streger"
-
-#: sheets/UML.sheet.in.h:1
-msgid "Aggregation, one class is part of another"
-msgstr "Aggregering, en klasse er en del af en anden"
+#~ msgid "Sybase"
+#~ msgstr "Streger"
 
-#: sheets/UML.sheet.in.h:2
-msgid "Association, two classes are associated"
-msgstr "Associatioon, to klasser er associeret"
+#~ msgid "Aggregation, one class is part of another"
+#~ msgstr "Aggregering, en klasse er en del af en anden"
 
-#: sheets/UML.sheet.in.h:3
-msgid "Constraint, place a constraint on something"
-msgstr "Begrænsning, sæt en begrænsning på noget"
+#~ msgid "Association, two classes are associated"
+#~ msgstr "Associatioon, to klasser er associeret"
 
-#: sheets/UML.sheet.in.h:4
-msgid "Create a (large) package"
-msgstr "Lav en (stor) pakke"
+#~ msgid "Constraint, place a constraint on something"
+#~ msgstr "Begrænsning, sæt en begrænsning på noget"
 
-#: sheets/UML.sheet.in.h:5
-msgid "Create a (small) package"
-msgstr "Lav en (lille) pakke"
+#~ msgid "Create a (large) package"
+#~ msgstr "Lav en (stor) pakke"
 
-#: sheets/UML.sheet.in.h:6
-msgid "Create a branch"
-msgstr "Lav en forgrening"
+#~ msgid "Create a (small) package"
+#~ msgstr "Lav en (lille) pakke"
 
-#: sheets/UML.sheet.in.h:7
-msgid "Create a class"
-msgstr "Lav en klasse"
+#~ msgid "Create a branch"
+#~ msgstr "Lav en forgrening"
 
-#: sheets/UML.sheet.in.h:8
-msgid "Create a class stereotype icon"
-msgstr "Lav en klasseikon"
+#~ msgid "Create a class"
+#~ msgstr "Lav en klasse"
 
-#: sheets/UML.sheet.in.h:9
-msgid "Create a component"
-msgstr "Lav en komponent"
+#~ msgid "Create a class stereotype icon"
+#~ msgstr "Lav en klasseikon"
 
-#: sheets/UML.sheet.in.h:10
-msgid "Create a dependency"
-msgstr "Lav en afhængighed"
+#~ msgid "Create a component"
+#~ msgstr "Lav en komponent"
 
-#: sheets/UML.sheet.in.h:11
-msgid "Create a lifeline"
-msgstr "Lav en tidslinje"
+#~ msgid "Create a dependency"
+#~ msgstr "Lav en afhængighed"
 
-#: sheets/UML.sheet.in.h:12
-msgid "Create a message"
-msgstr "Lav en meddelelse"
+#~ msgid "Create a lifeline"
+#~ msgstr "Lav en tidslinje"
 
-#: sheets/UML.sheet.in.h:13
-msgid "Create a node"
-msgstr "Lav et knudepunkt"
+#~ msgid "Create a message"
+#~ msgstr "Lav en meddelelse"
 
-#: sheets/UML.sheet.in.h:14
-msgid "Create a note"
-msgstr "Lav en note"
+#~ msgid "Create a node"
+#~ msgstr "Lav et knudepunkt"
 
-#: sheets/UML.sheet.in.h:15
-msgid "Create a state machine"
-msgstr "Lav en tilstandsmaskine"
+#~ msgid "Create a note"
+#~ msgstr "Lav en note"
 
-#: sheets/UML.sheet.in.h:16
-msgid "Create a template class"
-msgstr "Lav en skabelonklasse"
+#~ msgid "Create a state machine"
+#~ msgstr "Lav en tilstandsmaskine"
 
-#: sheets/UML.sheet.in.h:17
-msgid "Create a use case"
-msgstr "Lav et brugstilfælde"
+#~ msgid "Create a template class"
+#~ msgstr "Lav en skabelonklasse"
 
-#: sheets/UML.sheet.in.h:18
-msgid "Create an actor"
-msgstr "Lav en aktør"
+#~ msgid "Create a use case"
+#~ msgstr "Lav et brugstilfælde"
 
-#: sheets/UML.sheet.in.h:19
-msgid "Create an object"
-msgstr "Lav et objekt"
+#~ msgid "Create an actor"
+#~ msgstr "Lav en aktør"
 
-#: sheets/UML.sheet.in.h:20
-msgid "Editor for UML Static Structure Diagrams"
-msgstr "Objekter til UML strukturdiagrammer"
+#~ msgid "Create an object"
+#~ msgstr "Lav et objekt"
 
-#: sheets/UML.sheet.in.h:21
-msgid "Generalization, class inheritance"
-msgstr "Generalisering, klassenedarvning"
+#~ msgid "Editor for UML Static Structure Diagrams"
+#~ msgstr "Objekter til UML strukturdiagrammer"
 
-#: sheets/UML.sheet.in.h:22
-msgid "Implements, class implements a specific interface"
-msgstr "Implementerer, klassen implementerer en specifik grænseflade"
+#~ msgid "Generalization, class inheritance"
+#~ msgstr "Generalisering, klassenedarvning"
 
-#: sheets/UML.sheet.in.h:23
-msgid "Realizes, implements a specific interface"
-msgstr "Realiserer, implementerer en specifik grænseflade"
+#~ msgid "Implements, class implements a specific interface"
+#~ msgstr "Implementerer, klassen implementerer en specifik grænseflade"
 
-#: sheets/UML.sheet.in.h:24
-msgid "UML"
-msgstr ""
+#~ msgid "Realizes, implements a specific interface"
+#~ msgstr "Realiserer, implementerer en specifik grænseflade"
 
-#: dia.desktop.in.h:1
-msgid "A Diagram Editor"
-msgstr "Et diagramredigeringsprogram"
+#~ msgid "A Diagram Editor"
+#~ msgstr "Et diagramredigeringsprogram"
 
-#: dia.desktop.in.h:2
-msgid "Dia"
-msgstr "Dia"
+#~ msgid "Dia"
+#~ msgstr "Dia"
 
 #~ msgid ""
 #~ "No such file found\n"

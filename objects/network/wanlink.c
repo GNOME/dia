@@ -27,7 +27,6 @@
 
 #include "config.h"
 #include "intl.h"
-#include "render_object.h"
 #include "connection.h"
 #include "network.h"
 

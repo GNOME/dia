@@ -12,7 +12,8 @@ libstandard_objects_la_SOURCES = 	arc.c \
 			standard.c \
 			image.c \
 			polygon.c \
-			beziergon.c
+			beziergon.c \
+			create.h
 
 libstandard_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 

@@ -21,13 +21,28 @@ SHEETS = \
         Logic.sheet \
 	EML.sheet
 
+sheet_in_files = \
+  UML.sheet.in ER.sheet.in sybase.sheet.in FS.sheet.in network.sheet.in \
+  Flowchart.sheet.in Circuit.sheet.in Contact.sheet.in GRAFCET.sheet.in \
+  chronogram.sheet.in SADT.sheet.in Pneumatic.sheet.in Electric.sheet.in \
+  civil.sheet.in jigsaw.sheet.in MSE.sheet.in SDL.sheet.in Logic.sheet.in \
+  EML.sheet.in
+
 sheetdir = $(pkgdatadir)/sheets
-sheet_in_files = $(SHEETS:.sheet=.sheet.in)
-sheet_DATA = $(sheet_in_files:.sheet.in=.sheet)
+sheet_DATA = $(SHEETS)
 
 ### <RUBBISH>
-%.sheet : %.sheet.in $(top_builddir)/xml-i18n-merge ../po/*.po
-	$(top_builddir)/xml-i18n-merge -x -u ../po $< $*.sheet
+$(SHEETS): build-sheets.stamp
+
+build-sheets.stamp: $(sheet_in_files)
+	for sheet in $(SHEETS); do \
+	  $(top_builddir)/xml-i18n-merge -x -u $(top_srcdir)/po $(srcdir)/$$sheet.in $$sheet; \
+	done
+	touch build-sheets.stamp
+
+distclean-hook:
+	rm -f *.sheet build-sheets.stamp
+
 ### </RUBBISH>
 
 # The above will go as soon as we get a fixed (post 0.9) xml-i18n-tools 
@@ -45,3 +60,4 @@ sheet-translation-report: $(SHEETS) checktrans checktrans.py
 	-(cd $(srcdir) && ./checktrans $(SHEETS))
 
 all-local: sheet-translation-report
+

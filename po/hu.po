@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.86\n"
-"POT-Creation-Date: 2001-08-16 22:22+0200\n"
+"POT-Creation-Date: 2001-08-31 20:43+0800\n"
 "PO-Revision-Date: 2001-01-24 15:15+0100\n"
 "Last-Translator: Emese Kovacs <emese@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
@@ -76,7 +76,7 @@ msgstr ""
 msgid "Quit"
 msgstr "Kilépés"
 
-#: app/app_procs.c:380 app/display.c:965 app/layer_dialog.c:989
+#: app/app_procs.c:380 app/display.c:966 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
@@ -281,24 +281,24 @@ msgstr ""
 msgid "No object menu"
 msgstr "Nincs objektum-menü"
 
-#: app/display.c:140 app/display.c:141 app/interface.c:442
+#: app/display.c:141 app/display.c:142 app/interface.c:442
 msgid "Zoom"
 msgstr "Közelítés"
 
-#: app/display.c:161
+#: app/display.c:162
 msgid "Diagram modified!"
 msgstr "Az ábra módosítva lett!"
 
-#: app/display.c:915
+#: app/display.c:916
 #, fuzzy
 msgid "Close Diagram?"
 msgstr "Ábra megnyitása"
 
-#: app/display.c:921
+#: app/display.c:922
 msgid "Really close?"
 msgstr "Tényleg bezárod?"
 
-#: app/display.c:926
+#: app/display.c:927
 #, fuzzy
 msgid ""
 "This diagram has not been saved.\n"
@@ -307,16 +307,16 @@ msgstr ""
 "Módosított ábra van a rajztáblán.\n"
 "Tényleg be akarod zárni?"
 
-#: app/display.c:944 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
 msgid "Yes"
 msgstr "Igen"
 
-#: app/display.c:954 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
 #: app/preferences.c:585
 msgid "No"
 msgstr "Nem"
 
-#: app/export_png.c:79 app/load_save.c:615 app/render_eps.c:212
+#: app/export_png.c:79 app/load_save.c:616 app/render_eps.c:212
 #: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
 #: plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:176
@@ -424,8 +424,8 @@ msgstr "Szöveg készítése"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:77 lib/properties.h:493
-#: lib/properties.h:496 objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:77 lib/properties.h:499
+#: lib/properties.h:502 objects/UML/actor.c:114 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/object.c:142
 #: objects/UML/small_package.c:120 objects/UML/state.c:137
 #: objects/UML/usecase.c:130
@@ -580,7 +580,7 @@ msgstr "Részletek..."
 msgid "Line Style Properties"
 msgstr "Vonalstílus tulajdonságai"
 
-#: app/linewidth_area.c:216 lib/properties.h:469
+#: app/linewidth_area.c:216 lib/properties.h:475
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Vonal szélessége"
@@ -589,11 +589,11 @@ msgstr "Vonal szélessége"
 msgid "Line width:"
 msgstr "Vonal szélessége"
 
-#: app/load_save.c:126
+#: app/load_save.c:127
 msgid "Error reading diagram file\n"
 msgstr "Ábrafájl beolvasási hiba\n"
 
-#: app/load_save.c:194
+#: app/load_save.c:195
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -601,7 +601,7 @@ msgstr ""
 "Nem tudom betölteni a diagrammot.\n"
 "A csatolt objektum nem található a dokumentumban."
 
-#: app/load_save.c:197
+#: app/load_save.c:198
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -609,7 +609,7 @@ msgstr ""
 "Nem tudom betölteni a diagrammot.\n"
 "A csatlakozási pont nem létezik."
 
-#: app/load_save.c:200
+#: app/load_save.c:201
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -617,17 +617,17 @@ msgstr ""
 "Nem tudom betölteni az ábrát.\n"
 "A csatlakozási \"handle\" nem létezik."
 
-#: app/load_save.c:244 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
+#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
 #: plug-ins/xfig/xfig-import.c:1152
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nem tudom megnyitni: '%s' nem olvasható.\n"
 
-#: app/load_save.c:250
+#: app/load_save.c:251
 msgid "You must specify a file, not a directory.\n"
 msgstr "Fájlt kell megadnod, nem könyvtárat.\n"
 
-#: app/load_save.c:259 app/load_save.c:264
+#: app/load_save.c:260 app/load_save.c:265
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -636,7 +636,7 @@ msgstr ""
 "Nem tudom betölteni a %s ábrát.\n"
 "Ismeretlen fájltípus."
 
-#: app/load_save.c:271
+#: app/load_save.c:272
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -645,12 +645,12 @@ msgstr ""
 "Nem tudom betölteni a következõ ábrát: %s.\n"
 "Nem Dia fájl."
 
-#: app/load_save.c:770
+#: app/load_save.c:771
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "'%s' fájl mentése sikertelen\n"
 
-#: app/load_save.c:790 app/load_save.c:795
+#: app/load_save.c:791 app/load_save.c:796
 msgid "Native Dia Diagram"
 msgstr "Eredeti Dia ábra"
 
@@ -791,16 +791,16 @@ msgstr "Tranzitív"
 msgid "Same Type"
 msgstr "Azonos típus"
 
-#: app/menus.c:164 lib/properties.c:62 lib/properties.h:457 lib/widgets.c:203
+#: app/menus.c:164 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:203
 msgid "Left"
 msgstr "Balra"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:63 lib/properties.h:458
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:63 lib/properties.h:464
 #: lib/widgets.c:209
 msgid "Center"
 msgstr "Középre"
 
-#: app/menus.c:166 lib/properties.c:64 lib/properties.h:459 lib/widgets.c:215
+#: app/menus.c:166 lib/properties.c:64 lib/properties.h:465 lib/widgets.c:215
 msgid "Right"
 msgstr "Jobbra"
 
@@ -1057,7 +1057,8 @@ msgid "/View/Zoom/25%"
 msgstr "/Nézet/Nagyítás/25%"
 
 #: app/menus.c:314
-msgid "/View/Diagram Properties"
+#, fuzzy
+msgid "/View/Diagram Properties..."
 msgstr "/Nézet/Ábra _tulajdonságai"
 
 #: app/menus.c:316
@@ -1530,22 +1531,22 @@ msgstr ""
 msgid "Dia v %s"
 msgstr ""
 
-#: lib/properties.c:71 lib/properties.h:472
+#: lib/properties.c:71 lib/properties.h:478
 #, fuzzy
 msgid "Line colour"
 msgstr "Válassz ki egy színt"
 
-#: lib/properties.c:72 lib/properties.h:475
+#: lib/properties.c:72 lib/properties.h:481
 #, fuzzy
 msgid "Line style"
 msgstr "Vonalak"
 
-#: lib/properties.c:73 lib/properties.h:479
+#: lib/properties.c:73 lib/properties.h:485
 #, fuzzy
 msgid "Fill colour"
 msgstr "Elõtér szín:"
 
-#: lib/properties.c:74 lib/properties.h:482 objects/custom/custom_object.c:311
+#: lib/properties.c:74 lib/properties.h:488 objects/custom/custom_object.c:311
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -1553,47 +1554,47 @@ msgstr "Elõtér szín:"
 msgid "Draw background"
 msgstr "Háttér rajzolása"
 
-#: lib/properties.c:75 lib/properties.h:486
+#: lib/properties.c:75 lib/properties.h:492
 #, fuzzy
 msgid "Start arrow"
 msgstr "Pontozott"
 
-#: lib/properties.c:76 lib/properties.h:489
+#: lib/properties.c:76 lib/properties.h:495
 #, fuzzy
 msgid "End arrow"
 msgstr "Pontozott"
 
-#: lib/properties.c:78 lib/properties.h:499
+#: lib/properties.c:78 lib/properties.h:505
 #, fuzzy
 msgid "Text alignment"
 msgstr "Elhelyezkedés:"
 
-#: lib/properties.c:79 lib/properties.h:502 objects/GRAFCET/condition.c:131
+#: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 #, fuzzy
 msgid "Font"
 msgstr "Betûtípus:"
 
-#: lib/properties.c:80 lib/properties.h:505 objects/GRAFCET/condition.c:133
+#: lib/properties.c:80 lib/properties.h:511 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 #, fuzzy
 msgid "Font size"
 msgstr "Betûméret:"
 
-#: lib/properties.c:81 lib/properties.h:508 objects/GRAFCET/step.c:167
+#: lib/properties.c:81 lib/properties.h:514 objects/GRAFCET/step.c:167
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 #, fuzzy
 msgid "Text colour"
 msgstr "Válassz ki egy színt"
 
-#: lib/plug-ins.c:214
+#: lib/plug-ins.c:217
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Nem tudtam megállapítani a megfelelõ útvonalat `%s'-hez"
 
-#: lib/plug-ins.c:219
+#: lib/plug-ins.c:222
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1603,23 +1604,23 @@ msgstr ""
 "%s"
 
 # lib/plug-ins.c:227
-#: lib/plug-ins.c:230
+#: lib/plug-ins.c:233
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "A bõvítmény inicializáló függvénye nem található `%s'-ben"
 
 # lib/plug-ins.c:254
-#: lib/plug-ins.c:257
+#: lib/plug-ins.c:260
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "%s bõvítményt nem tudtam eltávolítani"
 
-#: lib/plug-ins.c:310
+#: lib/plug-ins.c:341
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "`%s' nem könyvtár"
 
-#: lib/plug-ins.c:316
+#: lib/plug-ins.c:347
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Nem tudom megnyitni a következõt: '%s' "
@@ -1796,33 +1797,33 @@ msgstr "Válassz ki egy képfájlt"
 msgid "Browse"
 msgstr "Keresés"
 
-#: lib/dia_xml.c:124
+#: lib/dia_xml.c:128
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
 "assuming it is encoded in %s"
 msgstr ""
 
-#: lib/dia_xml.c:449
+#: lib/dia_xml.c:458
 msgid "Taking point value of non-point node."
 msgstr ""
 
-#: lib/dia_xml.c:461
+#: lib/dia_xml.c:470
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:469
+#: lib/dia_xml.c:478
 msgid "Error parsing point."
 msgstr ""
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:477
+#: lib/dia_xml.c:486
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:911
+#: lib/dia_xml.c:920
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -1849,7 +1850,7 @@ msgstr "Származtatott"
 msgid "Multivalue:"
 msgstr "Többértékû"
 
-#: objects/ER/attribute.c:389 sheets/ER.sheet.in.h:1
+#: objects/ER/attribute.c:389
 msgid "Attribute"
 msgstr "Attribútum"
 
@@ -1858,7 +1859,7 @@ msgstr "Attribútum"
 msgid "Weak:"
 msgstr "Gyenge"
 
-#: objects/ER/entity.c:340 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:340 objects/UML/classicon.c:124
 msgid "Entity"
 msgstr "Megjelenés"
 
@@ -1904,7 +1905,7 @@ msgstr "Forgatás"
 msgid "Identifying:"
 msgstr "Meghatározás"
 
-#: objects/ER/relationship.c:418 sheets/ER.sheet.in.h:6
+#: objects/ER/relationship.c:418
 msgid "Relationship"
 msgstr "Rokonság"
 
@@ -2114,7 +2115,6 @@ msgid "Support"
 msgstr ""
 
 #: objects/FS/function.c:653 objects/FS/function.c:654
-#: sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr ""
 
@@ -2412,7 +2412,7 @@ msgstr "Cserél"
 msgid "Expose"
 msgstr "Ellipszis"
 
-#: objects/FS/function.c:741 sheets/Flowchart.sheet.in.h:9
+#: objects/FS/function.c:741
 #, fuzzy
 msgid "Extract"
 msgstr "Absztrakt"
@@ -2613,7 +2613,7 @@ msgstr ""
 msgid "Mark"
 msgstr ""
 
-#: objects/FS/function.c:800 sheets/Flowchart.sheet.in.h:7
+#: objects/FS/function.c:800
 msgid "Display"
 msgstr ""
 
@@ -2841,7 +2841,7 @@ msgstr ""
 msgid "Wish Fn"
 msgstr "Whish függvény"
 
-#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
+#: objects/GRAFCET/action.c:134
 #, fuzzy
 msgid "Macro call"
 msgstr "Görget"
@@ -3924,1281 +3924,605 @@ msgstr ""
 msgid "XFig File Format"
 msgstr ""
 
-#: sheets/chronogram.sheet.in.h:1
 #, fuzzy
-msgid "A data line"
-msgstr "Vonal szélessége"
+#~ msgid "A data line"
+#~ msgstr "Vonal szélessége"
 
-#: sheets/chronogram.sheet.in.h:2
-msgid "A time scale"
-msgstr ""
-
-#: sheets/chronogram.sheet.in.h:3
-msgid "Chronogram"
-msgstr ""
-
-#: sheets/chronogram.sheet.in.h:4
 #, fuzzy
-msgid "Objects to design chronogram charts"
-msgstr "Objektumok hálózati diagrammokhoz"
+#~ msgid "Objects to design chronogram charts"
+#~ msgstr "Objektumok hálózati diagrammokhoz"
 
-#: sheets/Circuit.sheet.in.h:1
 #, fuzzy
-msgid "A Horizontal Jumper"
-msgstr "_Vizszintes"
+#~ msgid "A Horizontal Jumper"
+#~ msgstr "_Vizszintes"
 
-#: sheets/Circuit.sheet.in.h:2
 #, fuzzy
-msgid "A Horizontally aligned inductor"
-msgstr "_Vizszintes"
+#~ msgid "A Horizontally aligned inductor"
+#~ msgstr "_Vizszintes"
 
-#: sheets/Circuit.sheet.in.h:3
-msgid "A Horizontally aligned inductor (European)"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:4
 #, fuzzy
-msgid "A Horizontally aligned resistor"
-msgstr "_Vizszintes"
-
-#: sheets/Circuit.sheet.in.h:5
-msgid "A Horizontally aligned resistor (European)"
-msgstr ""
+#~ msgid "A Horizontally aligned resistor"
+#~ msgstr "_Vizszintes"
 
-#: sheets/Circuit.sheet.in.h:6
 #, fuzzy
-msgid "A PMOS transistor"
-msgstr "Tranzitív"
-
-#: sheets/Circuit.sheet.in.h:7
-msgid "A Speaker"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:8
-msgid "A Vertically aligned inductor"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:9
-msgid "A Vertically aligned inductor (European)"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:10
-msgid "A Vertically aligned resistor"
-msgstr ""
+#~ msgid "A PMOS transistor"
+#~ msgstr "Tranzitív"
 
-#: sheets/Circuit.sheet.in.h:11
-msgid "A Vertically aligned resistor (European)"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:12
 #, fuzzy
-msgid "A ground point"
-msgstr "Mutasd a vezérlés fókuszát:"
-
-#: sheets/Circuit.sheet.in.h:13
-msgid "A horizontally aligned LED"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:14
-msgid "A horizontally aligned capacitor"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:15
-msgid "A horizontally aligned diode"
-msgstr ""
+#~ msgid "A ground point"
+#~ msgstr "Mutasd a vezérlés fókuszát:"
 
-#: sheets/Circuit.sheet.in.h:16
 #, fuzzy
-msgid "A horizontally aligned fuse"
-msgstr "_Vizszintes"
+#~ msgid "A horizontally aligned fuse"
+#~ msgstr "_Vizszintes"
 
-#: sheets/Circuit.sheet.in.h:17
-msgid "A horizontally aligned powersource"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:18
-msgid "A horizontally aligned zener diode"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:19
 #, fuzzy
-msgid "A lamp"
-msgstr "Késleltetés"
-
-#: sheets/Circuit.sheet.in.h:20
-msgid "A npn bipolar transistor"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:21
-msgid "A pnp bipolar transistor"
-msgstr ""
+#~ msgid "A lamp"
+#~ msgstr "Késleltetés"
 
-#: sheets/Circuit.sheet.in.h:22
-msgid "A vertically aligned LED"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:23
-msgid "A vertically aligned capacitor"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:24
-msgid "A vertically aligned diode"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:25
-msgid "A vertically aligned fuse"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:26
-msgid "A vertically aligned powersource"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:27
-msgid "A vertically aligned zener diode"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:28
 #, fuzzy
-msgid "An NMOS transistor"
-msgstr "Tranzitív"
+#~ msgid "An NMOS transistor"
+#~ msgstr "Tranzitív"
 
-#: sheets/Circuit.sheet.in.h:29
 #, fuzzy
-msgid "An operational amplifier"
-msgstr "Multimédia hangszóró erõsítõ nélkül"
+#~ msgid "An operational amplifier"
+#~ msgstr "Multimédia hangszóró erõsítõ nélkül"
 
-#: sheets/Circuit.sheet.in.h:30
 #, fuzzy
-msgid "Circuit"
-msgstr "Irány:"
+#~ msgid "Circuit"
+#~ msgstr "Irány:"
 
-#: sheets/Circuit.sheet.in.h:31
 #, fuzzy
-msgid "Components for circuit diagrams"
-msgstr "Elektomos áramköri elemek"
+#~ msgid "Components for circuit diagrams"
+#~ msgstr "Elektomos áramköri elemek"
 
-#: sheets/civil.sheet.in.h:1
-msgid "A Backflow Preventer"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:2
 #, fuzzy
-msgid "A Basin"
-msgstr "Tranzitív"
+#~ msgid "A Basin"
+#~ msgstr "Tranzitív"
 
-#: sheets/civil.sheet.in.h:3
 #, fuzzy
-msgid "A Container"
-msgstr "Konstans:"
+#~ msgid "A Container"
+#~ msgstr "Konstans:"
 
-#: sheets/civil.sheet.in.h:4
 #, fuzzy
-msgid "A Frequency Converter"
-msgstr "Invertál"
-
-#: sheets/civil.sheet.in.h:5
-msgid "A Gas Bottle"
-msgstr ""
+#~ msgid "A Frequency Converter"
+#~ msgstr "Invertál"
 
-#: sheets/civil.sheet.in.h:6
 #, fuzzy
-msgid "A Motor"
-msgstr "Monitor"
+#~ msgid "A Motor"
+#~ msgstr "Monitor"
 
-#: sheets/civil.sheet.in.h:7
-msgid "A Preliminary Clarification Tank"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:8
 #, fuzzy
-msgid "A Rotor"
-msgstr "Monitor"
-
-#: sheets/civil.sheet.in.h:9
-msgid "A final-settling Basin"
-msgstr ""
+#~ msgid "A Rotor"
+#~ msgstr "Monitor"
 
-#: sheets/civil.sheet.in.h:10
 #, fuzzy
-msgid "A horizontal limiting line"
-msgstr "_Vizszintes"
-
-#: sheets/civil.sheet.in.h:11
-msgid "A horizontally aligned Arrow"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:12
-msgid "A vertical limiting line"
-msgstr ""
+#~ msgid "A horizontal limiting line"
+#~ msgstr "_Vizszintes"
 
-#: sheets/civil.sheet.in.h:13
-msgid "A vertically aligned Arrow"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:14
-msgid "An Aerator with bubbles"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:15
 #, fuzzy
-msgid "Bivalent Vertical Rest"
-msgstr "_Függõleges"
-
-#: sheets/civil.sheet.in.h:16
-msgid "Civil"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:17
-msgid "Civil Engineering Components"
-msgstr ""
+#~ msgid "Bivalent Vertical Rest"
+#~ msgstr "_Függõleges"
 
-#: sheets/civil.sheet.in.h:18
 #, fuzzy
-msgid "Horizontal Rest"
-msgstr "_Vizszintes"
+#~ msgid "Horizontal Rest"
+#~ msgstr "_Vizszintes"
 
-#: sheets/civil.sheet.in.h:19
-msgid "Horizontally aligned Valve"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:20
 #, fuzzy
-msgid "Horizontally aligned compressor"
-msgstr "_Vizszintes"
+#~ msgid "Horizontally aligned compressor"
+#~ msgstr "_Vizszintes"
 
-#: sheets/civil.sheet.in.h:21
 #, fuzzy
-msgid "Horizontally aligned pump"
-msgstr "_Vizszintes"
+#~ msgid "Horizontally aligned pump"
+#~ msgstr "_Vizszintes"
 
-#: sheets/civil.sheet.in.h:22
 #, fuzzy
-msgid "Reference Line"
-msgstr "Vonal készítése"
+#~ msgid "Reference Line"
+#~ msgstr "Vonal készítése"
 
-#: sheets/civil.sheet.in.h:23
 #, fuzzy
-msgid "Soil"
-msgstr "Teli"
+#~ msgid "Soil"
+#~ msgstr "Teli"
 
-#: sheets/civil.sheet.in.h:24
 #, fuzzy
-msgid "Vertical Rest"
-msgstr "_Függõleges"
-
-#: sheets/civil.sheet.in.h:25
-msgid "Vertically aligned Propeller"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:26
-msgid "Vertically aligned Valve"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:27
-msgid "Vertically aligned compressor"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:28
-msgid "Vertically aligned pump"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:29
-msgid "Water Level"
-msgstr ""
-
-#: sheets/Contact.sheet.in.h:1
-msgid "A 'if not' (normally closed) ladder contact"
-msgstr ""
-
-#: sheets/Contact.sheet.in.h:2
-msgid "A 'if' (normally open) ladder contact"
-msgstr ""
+#~ msgid "Vertical Rest"
+#~ msgstr "_Függõleges"
 
-#: sheets/Contact.sheet.in.h:3
 #, fuzzy
-msgid "A 'jump' output variable"
-msgstr "Egyszerû nyomtató"
+#~ msgid "A 'jump' output variable"
+#~ msgstr "Egyszerû nyomtató"
 
-#: sheets/Contact.sheet.in.h:4
 #, fuzzy
-msgid "A 'reset' output variable"
-msgstr "Egyszerû nyomtató"
+#~ msgid "A 'reset' output variable"
+#~ msgstr "Egyszerû nyomtató"
 
-#: sheets/Contact.sheet.in.h:5
 #, fuzzy
-msgid "A 'set' output variable"
-msgstr "Egyszerû nyomtató"
+#~ msgid "A 'set' output variable"
+#~ msgstr "Egyszerû nyomtató"
 
-#: sheets/Contact.sheet.in.h:6
 #, fuzzy
-msgid "A negative output variable"
-msgstr "Egyszerû nyomtató"
+#~ msgid "A negative output variable"
+#~ msgstr "Egyszerû nyomtató"
 
-#: sheets/Contact.sheet.in.h:7
 #, fuzzy
-msgid "A power-saved 'reset' output variable"
-msgstr "Egyszerû nyomtató"
+#~ msgid "A power-saved 'reset' output variable"
+#~ msgstr "Egyszerû nyomtató"
 
-#: sheets/Contact.sheet.in.h:8
 #, fuzzy
-msgid "A power-saved 'set' output variable"
-msgstr "Egyszerû nyomtató"
+#~ msgid "A power-saved 'set' output variable"
+#~ msgstr "Egyszerû nyomtató"
 
-#: sheets/Contact.sheet.in.h:9
 #, fuzzy
-msgid "A power-saved negative output variable"
-msgstr "Egyszerû nyomtató"
+#~ msgid "A power-saved negative output variable"
+#~ msgstr "Egyszerû nyomtató"
 
-#: sheets/Contact.sheet.in.h:10
 #, fuzzy
-msgid "A power-saved simple output variable"
-msgstr "Egyszerû nyomtató"
+#~ msgid "A power-saved simple output variable"
+#~ msgstr "Egyszerû nyomtató"
 
-#: sheets/Contact.sheet.in.h:11
 #, fuzzy
-msgid "A receptivity output variable"
-msgstr "Egyszerû nyomtató"
+#~ msgid "A receptivity output variable"
+#~ msgstr "Egyszerû nyomtató"
 
-#: sheets/Contact.sheet.in.h:12
 #, fuzzy
-msgid "A simple output variable"
-msgstr "Egyszerû nyomtató"
+#~ msgid "A simple output variable"
+#~ msgstr "Egyszerû nyomtató"
 
-#: sheets/Contact.sheet.in.h:13
 #, fuzzy
-msgid "Components for LADDER circuits"
-msgstr "Elektomos áramköri elemek"
+#~ msgid "Components for LADDER circuits"
+#~ msgstr "Elektomos áramköri elemek"
 
-#: sheets/Contact.sheet.in.h:14
 #, fuzzy
-msgid "Ladder"
-msgstr "Rétegek"
+#~ msgid "Ladder"
+#~ msgstr "Rétegek"
 
-#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
 #, fuzzy
-msgid "A connection point"
-msgstr "_Csatlakozási pontokat mutat"
+#~ msgid "A connection point"
+#~ msgstr "_Csatlakozási pontokat mutat"
 
-#: sheets/Electric.sheet.in.h:2
-msgid "A lamp or indicator light"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:3
-msgid "A normally closed contact"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:4
-msgid "A normally closed position switch"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:5
-msgid "A normally open contact"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:6
-msgid "A normally open position switch"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:7
 #, fuzzy
-msgid "A relay"
-msgstr "Késleltetés"
-
-#: sheets/Electric.sheet.in.h:8
-msgid "Components for electric circuits"
-msgstr "Elektomos áramköri elemek"
+#~ msgid "A relay"
+#~ msgstr "Késleltetés"
 
-#: sheets/Electric.sheet.in.h:9
-msgid "Electric"
-msgstr "Elektromos áramkörök"
+#~ msgid "Components for electric circuits"
+#~ msgstr "Elektomos áramköri elemek"
 
-#: sheets/Electric.sheet.in.h:10
-msgid "The command organ of a relay"
-msgstr ""
+#~ msgid "Electric"
+#~ msgstr "Elektromos áramkörök"
 
-#: sheets/EML.sheet.in.h:1
 #, fuzzy
-msgid "Create a process"
-msgstr "Körív készítése"
+#~ msgid "Create a process"
+#~ msgstr "Körív készítése"
 
-#: sheets/EML.sheet.in.h:2
-msgid "EML"
-msgstr ""
-
-#: sheets/EML.sheet.in.h:3
 #, fuzzy
-msgid "Editor for EML Static Structure Diagrams."
-msgstr "Egyed-kapcsolat diagram objektumok"
-
-#: sheets/EML.sheet.in.h:4
-msgid "Instantiation. One process create others"
-msgstr ""
+#~ msgid "Editor for EML Static Structure Diagrams."
+#~ msgstr "Egyed-kapcsolat diagram objektumok"
 
-#: sheets/EML.sheet.in.h:5
-msgid "Interaction between processes."
-msgstr ""
-
-#: sheets/ER.sheet.in.h:2
-msgid "ER"
-msgstr ""
-
-#: sheets/ER.sheet.in.h:3
 #, fuzzy
-msgid "Editor for Entity Relations Diagrams"
-msgstr "Egyed-kapcsolat diagram objektumok"
+#~ msgid "Editor for Entity Relations Diagrams"
+#~ msgstr "Egyed-kapcsolat diagram objektumok"
 
-#: sheets/ER.sheet.in.h:5
 #, fuzzy
-msgid "Participation"
-msgstr "Elõkészítés"
+#~ msgid "Participation"
+#~ msgstr "Elõkészítés"
 
-#: sheets/ER.sheet.in.h:7
 #, fuzzy
-msgid "Weak Entity"
-msgstr "Megjelenés"
+#~ msgid "Weak Entity"
+#~ msgstr "Megjelenés"
 
-#: sheets/Flowchart.sheet.in.h:1
-msgid "A box with text inside"
-msgstr "Szövegdoboz"
+#~ msgid "A box with text inside"
+#~ msgstr "Szövegdoboz"
 
-#: sheets/Flowchart.sheet.in.h:2
-msgid "A diamond with text inside"
-msgstr "Rombusz szövegdoboz"
+#~ msgid "A diamond with text inside"
+#~ msgstr "Rombusz szövegdoboz"
 
-#: sheets/Flowchart.sheet.in.h:3
-msgid "A ellipse with text inside"
-msgstr "Ellipszis alakú szövegdoboz"
+#~ msgid "A ellipse with text inside"
+#~ msgstr "Ellipszis alakú szövegdoboz"
 
-#: sheets/Flowchart.sheet.in.h:4
-msgid "A parallelogram with text inside"
-msgstr "Parallelogramma szövegdoboz"
+#~ msgid "A parallelogram with text inside"
+#~ msgstr "Parallelogramma szövegdoboz"
 
-#: sheets/Flowchart.sheet.in.h:5
 #, fuzzy
-msgid "Collate"
-msgstr "Hívás"
+#~ msgid "Collate"
+#~ msgstr "Hívás"
 
-#: sheets/Flowchart.sheet.in.h:6
-msgid "Delay"
-msgstr "Késleltetés"
+#~ msgid "Delay"
+#~ msgstr "Késleltetés"
 
-#: sheets/Flowchart.sheet.in.h:8
-msgid "Document"
-msgstr "Dokumentum"
+#~ msgid "Document"
+#~ msgstr "Dokumentum"
 
-#: sheets/Flowchart.sheet.in.h:10
-msgid "Flowchart"
-msgstr "Folyamatábra"
+#~ msgid "Flowchart"
+#~ msgstr "Folyamatábra"
 
-#: sheets/Flowchart.sheet.in.h:11
-msgid "Internal Storage"
-msgstr "Belsõ tároló"
+#~ msgid "Internal Storage"
+#~ msgstr "Belsõ tároló"
 
-#: sheets/Flowchart.sheet.in.h:12
-msgid "Magnetic Disk"
-msgstr "Mágneses lemez"
+#~ msgid "Magnetic Disk"
+#~ msgstr "Mágneses lemez"
 
-#: sheets/Flowchart.sheet.in.h:13
-msgid "Magnetic Drum"
-msgstr "Mágneses dob"
+#~ msgid "Magnetic Drum"
+#~ msgstr "Mágneses dob"
 
-#: sheets/Flowchart.sheet.in.h:14
-msgid "Magnetic Tape"
-msgstr "Mágneses szallag"
+#~ msgid "Magnetic Tape"
+#~ msgstr "Mágneses szallag"
 
-#: sheets/Flowchart.sheet.in.h:15
-msgid "Manual Input"
-msgstr "Kézi bevitel"
+#~ msgid "Manual Input"
+#~ msgstr "Kézi bevitel"
 
-#: sheets/Flowchart.sheet.in.h:16
-msgid "Manual Operation"
-msgstr "Kézi mûvelet"
+#~ msgid "Manual Operation"
+#~ msgstr "Kézi mûvelet"
 
-#: sheets/Flowchart.sheet.in.h:17
-msgid "Merge"
-msgstr "Egyesítés"
+#~ msgid "Merge"
+#~ msgstr "Egyesítés"
 
-#: sheets/Flowchart.sheet.in.h:18
-msgid "Objects to draw flowcharts"
-msgstr "Objektumok folymatábrák rajzolásához"
+#~ msgid "Objects to draw flowcharts"
+#~ msgstr "Objektumok folymatábrák rajzolásához"
 
-#: sheets/Flowchart.sheet.in.h:19
-msgid "Off Page Connector"
-msgstr "Két oldalat összekötõ ábra"
+#~ msgid "Off Page Connector"
+#~ msgstr "Két oldalat összekötõ ábra"
 
-#: sheets/Flowchart.sheet.in.h:20
 #, fuzzy
-msgid "Offline Storage"
-msgstr "Belsõ tároló"
-
-#: sheets/Flowchart.sheet.in.h:21
-msgid "Or"
-msgstr "Vagy"
-
-#: sheets/Flowchart.sheet.in.h:22
-msgid "Predefined Process"
-msgstr "Elõredefiniált procedúra"
+#~ msgid "Offline Storage"
+#~ msgstr "Belsõ tároló"
 
-#: sheets/Flowchart.sheet.in.h:23
-msgid "Preparation"
-msgstr "Elõkészítés"
+#~ msgid "Or"
+#~ msgstr "Vagy"
 
-#: sheets/Flowchart.sheet.in.h:24
-msgid "Punched Card"
-msgstr ""
+#~ msgid "Predefined Process"
+#~ msgstr "Elõredefiniált procedúra"
 
-#: sheets/Flowchart.sheet.in.h:25
-msgid "Punched Tape"
-msgstr ""
+#~ msgid "Preparation"
+#~ msgstr "Elõkészítés"
 
-#: sheets/Flowchart.sheet.in.h:26
-msgid "Sort"
-msgstr "Rendezés"
+#~ msgid "Sort"
+#~ msgstr "Rendezés"
 
-#: sheets/Flowchart.sheet.in.h:27
 #, fuzzy
-msgid "Summing Junction"
-msgstr "Whish függvény"
+#~ msgid "Summing Junction"
+#~ msgstr "Whish függvény"
 
-#: sheets/Flowchart.sheet.in.h:28
-msgid "Terminal"
-msgstr "Terminál"
+#~ msgid "Terminal"
+#~ msgstr "Terminál"
 
-#: sheets/Flowchart.sheet.in.h:29
-msgid "Transaction File"
-msgstr "Tranzakciófájl"
+#~ msgid "Transaction File"
+#~ msgstr "Tranzakciófájl"
 
-#: sheets/Flowchart.sheet.in.h:30
 #, fuzzy
-msgid "Transmittal Tape"
-msgstr "Tranzitív"
+#~ msgid "Transmittal Tape"
+#~ msgstr "Tranzitív"
 
-#: sheets/FS.sheet.in.h:1
 #, fuzzy
-msgid "Create a flow"
-msgstr "Doboz készítése"
+#~ msgid "Create a flow"
+#~ msgstr "Doboz készítése"
 
-#: sheets/FS.sheet.in.h:2
 #, fuzzy
-msgid "Create a function"
-msgstr "Felhasználói függvény"
+#~ msgid "Create a function"
+#~ msgstr "Felhasználói függvény"
 
-#: sheets/FS.sheet.in.h:3
-msgid "Create an orthogonal polyline flow"
-msgstr ""
-
-#: sheets/FS.sheet.in.h:4
 #, fuzzy
-msgid "Editor for Function Structure Diagrams."
-msgstr "Egyed-kapcsolat diagram objektumok"
-
-#: sheets/FS.sheet.in.h:5
-msgid "FS"
-msgstr ""
+#~ msgid "Editor for Function Structure Diagrams."
+#~ msgstr "Egyed-kapcsolat diagram objektumok"
 
-#: sheets/GRAFCET.sheet.in.h:1
 #, fuzzy
-msgid "A AND vergent"
-msgstr "Szegmens hozzáadása"
+#~ msgid "A AND vergent"
+#~ msgstr "Szegmens hozzáadása"
 
-#: sheets/GRAFCET.sheet.in.h:2
 #, fuzzy
-msgid "A OR vergent"
-msgstr "Szegmens hozzáadása"
+#~ msgid "A OR vergent"
+#~ msgstr "Szegmens hozzáadása"
 
-#: sheets/GRAFCET.sheet.in.h:3
 #, fuzzy
-msgid "A condition (of an action)"
-msgstr "_Csatlakozási pontokat mutat"
+#~ msgid "A condition (of an action)"
+#~ msgstr "_Csatlakozási pontokat mutat"
 
-#: sheets/GRAFCET.sheet.in.h:4
 #, fuzzy
-msgid "A macro call step"
-msgstr "Görget"
+#~ msgid "A macro call step"
+#~ msgstr "Görget"
 
-#: sheets/GRAFCET.sheet.in.h:5
 #, fuzzy
-msgid "A macro entry step"
-msgstr "Görget"
+#~ msgid "A macro entry step"
+#~ msgstr "Görget"
 
-#: sheets/GRAFCET.sheet.in.h:6
 #, fuzzy
-msgid "A macro exit step"
-msgstr "Görget"
+#~ msgid "A macro exit step"
+#~ msgstr "Görget"
 
-#: sheets/GRAFCET.sheet.in.h:7
 #, fuzzy
-msgid "A macro sub-program call step"
-msgstr "Görget"
+#~ msgid "A macro sub-program call step"
+#~ msgstr "Görget"
 
-#: sheets/GRAFCET.sheet.in.h:8
 #, fuzzy
-msgid "A regular step"
-msgstr "Cserél"
+#~ msgid "A regular step"
+#~ msgstr "Cserél"
 
-#: sheets/GRAFCET.sheet.in.h:9
 #, fuzzy
-msgid "A transition"
-msgstr "Tranzitív"
-
-#: sheets/GRAFCET.sheet.in.h:10
-msgid "An action to associate to a step"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:11
-msgid "An arc (upward)"
-msgstr ""
+#~ msgid "A transition"
+#~ msgstr "Tranzitív"
 
-#: sheets/GRAFCET.sheet.in.h:12
-msgid "An initial step"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:13
-msgid "GRAFCET"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:14
 #, fuzzy
-msgid "Objects to design GRAFCET charts"
-msgstr "Objektumok folymatábrák rajzolásához"
-
-#: sheets/jigsaw.sheet.in.h:1
-msgid "Jigsaw"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:2
-msgid "Jigsaw - part_iiii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:3
-msgid "Jigsaw - part_iiio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:4
-msgid "Jigsaw - part_iioi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:5
-msgid "Jigsaw - part_iioo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:6
-msgid "Jigsaw - part_ioii"
-msgstr ""
+#~ msgid "Objects to design GRAFCET charts"
+#~ msgstr "Objektumok folymatábrák rajzolásához"
 
-#: sheets/jigsaw.sheet.in.h:7
-msgid "Jigsaw - part_ioio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:8
-msgid "Jigsaw - part_iooi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:9
-msgid "Jigsaw - part_iooo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:10
-msgid "Jigsaw - part_oiii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:11
-msgid "Jigsaw - part_oiio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:12
-msgid "Jigsaw - part_oioi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:13
-msgid "Jigsaw - part_oioo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:14
-msgid "Jigsaw - part_ooii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:15
-msgid "Jigsaw - part_ooio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:16
-msgid "Jigsaw - part_oooi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:17
-msgid "Jigsaw - part_oooo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:18
-msgid "Pieces of a jigsaw"
-msgstr ""
-
-#: sheets/Logic.sheet.in.h:1
 #, fuzzy
-msgid "A Nand gate"
-msgstr "Aggregál"
+#~ msgid "A Nand gate"
+#~ msgstr "Aggregál"
 
-#: sheets/Logic.sheet.in.h:2
 #, fuzzy
-msgid "A Nor gate"
-msgstr "Aggregál"
+#~ msgid "A Nor gate"
+#~ msgstr "Aggregál"
 
-#: sheets/Logic.sheet.in.h:3
 #, fuzzy
-msgid "A Not"
-msgstr "Aggregál"
+#~ msgid "A Not"
+#~ msgstr "Aggregál"
 
-#: sheets/Logic.sheet.in.h:4
 #, fuzzy
-msgid "A Xor gate"
-msgstr "Aggregál"
+#~ msgid "A Xor gate"
+#~ msgstr "Aggregál"
 
-#: sheets/Logic.sheet.in.h:5
 #, fuzzy
-msgid "A crossconnector"
-msgstr "Összekötött"
+#~ msgid "A crossconnector"
+#~ msgstr "Összekötött"
 
-#: sheets/Logic.sheet.in.h:6
 #, fuzzy
-msgid "A simple Buffer"
-msgstr "Egyszerû nyomtató"
+#~ msgid "A simple Buffer"
+#~ msgstr "Egyszerû nyomtató"
 
-#: sheets/Logic.sheet.in.h:7
 #, fuzzy
-msgid "An And gate"
-msgstr "Aggregál"
+#~ msgid "An And gate"
+#~ msgstr "Aggregál"
 
-#: sheets/Logic.sheet.in.h:8
 #, fuzzy
-msgid "An Inverter"
-msgstr "Invertál"
+#~ msgid "An Inverter"
+#~ msgstr "Invertál"
 
-#: sheets/Logic.sheet.in.h:9
 #, fuzzy
-msgid "An Or gate"
-msgstr "Aggregál"
+#~ msgid "An Or gate"
+#~ msgstr "Aggregál"
 
-#: sheets/Logic.sheet.in.h:10
-msgid "Boolean Logic"
-msgstr ""
-
-#: sheets/Logic.sheet.in.h:11
-msgid "Logic"
-msgstr ""
-
-#: sheets/MSE.sheet.in.h:1
 #, fuzzy
-msgid "Demultiplexer"
-msgstr "Multiplicitás:"
-
-#: sheets/MSE.sheet.in.h:2
-msgid "Large Extension Node"
-msgstr ""
-
-#: sheets/MSE.sheet.in.h:3
-msgid "MSE"
-msgstr ""
+#~ msgid "Demultiplexer"
+#~ msgstr "Multiplicitás:"
 
-#: sheets/MSE.sheet.in.h:4
 #, fuzzy
-msgid "Multiplexer"
-msgstr "Multiplicitás:"
+#~ msgid "Multiplexer"
+#~ msgstr "Multiplicitás:"
 
-#: sheets/MSE.sheet.in.h:5
 #, fuzzy
-msgid "Node Center"
-msgstr "Középre"
+#~ msgid "Node Center"
+#~ msgstr "Középre"
 
-#: sheets/MSE.sheet.in.h:6
-msgid "Small Extension Node"
-msgstr ""
+#~ msgid "A 3 1/2 inch diskette"
+#~ msgstr "3 1/2-es hajlékonylemez"
 
-#: sheets/MSE.sheet.in.h:7
-msgid "Tactical Satellite Communications Terminal"
-msgstr ""
+#~ msgid "A Bigtower PC"
+#~ msgstr "PC (nagy torony)"
 
-#: sheets/MSE.sheet.in.h:8
-msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr ""
+#~ msgid "A Computer"
+#~ msgstr "Számítógép"
 
-#: sheets/network.sheet.in.h:1
-msgid "A 3 1/2 inch diskette"
-msgstr "3 1/2-es hajlékonylemez"
+#~ msgid "A Desktop PC"
+#~ msgstr "Asztali PC"
 
-#: sheets/network.sheet.in.h:2
-msgid "A Bigtower PC"
-msgstr "PC (nagy torony)"
+#~ msgid "A Miditower PC"
+#~ msgstr "PC (midi torony)"
 
-#: sheets/network.sheet.in.h:3
-msgid "A Computer"
-msgstr "Számítógép"
+#~ msgid "A Minitower PC"
+#~ msgstr "PC (mini torony)"
 
-#: sheets/network.sheet.in.h:4
-msgid "A Desktop PC"
-msgstr "Asztali PC"
+#~ msgid "A Mobile Phone"
+#~ msgstr "Egyszerû rádiótelefon"
 
-#: sheets/network.sheet.in.h:5
-msgid "A Firewall router"
-msgstr ""
+#~ msgid "A RJ45 Wall-Plug"
+#~ msgstr "RJ45 falicsatlakozó"
 
-#: sheets/network.sheet.in.h:6
-msgid "A Miditower PC"
-msgstr "PC (midi torony)"
+#~ msgid "A UNIX Workstation"
+#~ msgstr "UNIX Munkaállomás"
 
-#: sheets/network.sheet.in.h:7
-msgid "A Minitower PC"
-msgstr "PC (mini torony)"
+#~ msgid "A WAN Connection"
+#~ msgstr "WAN kapcsolat"
 
-#: sheets/network.sheet.in.h:8
-msgid "A Mobile Phone"
-msgstr "Egyszerû rádiótelefon"
-
-#: sheets/network.sheet.in.h:9
-msgid "A RJ45 Wall-Plug"
-msgstr "RJ45 falicsatlakozó"
-
-#: sheets/network.sheet.in.h:10
-msgid "A UNIX Workstation"
-msgstr "UNIX Munkaállomás"
-
-#: sheets/network.sheet.in.h:11
-msgid "A WAN Connection"
-msgstr "WAN kapcsolat"
-
-#: sheets/network.sheet.in.h:12
 #, fuzzy
-msgid "A WAN Link"
-msgstr "WAN kapcsolat"
-
-#: sheets/network.sheet.in.h:13
-msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr "Falicsatlakozó scEAD kábelezéshez"
-
-#: sheets/network.sheet.in.h:14
-msgid "A Workstation Monitor"
-msgstr "Munkaállomás monitora"
-
-#: sheets/network.sheet.in.h:15
-msgid "A ZIP Disk"
-msgstr "ZIP lemez"
-
-#: sheets/network.sheet.in.h:16
-msgid "A modular switching system"
-msgstr "Moduláris Switch"
-
-#: sheets/network.sheet.in.h:17
-msgid "A monitor"
-msgstr "Monitor"
-
-#: sheets/network.sheet.in.h:18
-msgid "A simple Modem"
-msgstr "Egyszerû modem"
-
-#: sheets/network.sheet.in.h:19
-msgid "A simple printer"
-msgstr "Egyszerû nyomtató"
-
-#: sheets/network.sheet.in.h:20
-msgid "A speaker with integrated amplifier"
-msgstr "Multimédia hangszóró erõsítõvel"
-
-#: sheets/network.sheet.in.h:21
-msgid "A speaker without amplifier"
-msgstr "Multimédia hangszóró erõsítõ nélkül"
-
-#: sheets/network.sheet.in.h:22
-msgid "A stackable hub or switch"
-msgstr "Bõvíthetõ hub vagy switch"
-
-#: sheets/network.sheet.in.h:23
-msgid "ATM Switch Symbol"
-msgstr "ATM-switch jele"
-
-#: sheets/network.sheet.in.h:24
-msgid "An Ethernet bus"
-msgstr "Ethernet sín"
+#~ msgid "A WAN Link"
+#~ msgstr "WAN kapcsolat"
 
-#: sheets/network.sheet.in.h:25
-msgid "An antenna for wireless transmission"
-msgstr "Antenna, drótnélküli átvitelhez"
+#~ msgid "A Wall-Plug for the scEAD Cabling System"
+#~ msgstr "Falicsatlakozó scEAD kábelezéshez"
 
-#: sheets/network.sheet.in.h:26
-msgid "An external DAT drive"
-msgstr "Külsõ DAT meghajtó"
+#~ msgid "A Workstation Monitor"
+#~ msgstr "Munkaállomás monitora"
 
-#: sheets/network.sheet.in.h:27
-msgid "Network"
-msgstr "Hálózatok"
+#~ msgid "A ZIP Disk"
+#~ msgstr "ZIP lemez"
 
-#: sheets/network.sheet.in.h:28
-msgid "Network Cloud"
-msgstr "Hálozat felhõ"
+#~ msgid "A modular switching system"
+#~ msgstr "Moduláris Switch"
 
-#: sheets/network.sheet.in.h:29
-msgid "Objects to design network diagrams with"
-msgstr "Objektumok hálózati diagrammokhoz"
+#~ msgid "A monitor"
+#~ msgstr "Monitor"
 
-#: sheets/network.sheet.in.h:30
-msgid "Router Symbol"
-msgstr "Útválasztó jele"
+#~ msgid "A simple Modem"
+#~ msgstr "Egyszerû modem"
 
-#: sheets/network.sheet.in.h:31
-msgid "Storage"
-msgstr "Tároló"
+#~ msgid "A simple printer"
+#~ msgstr "Egyszerû nyomtató"
 
-#: sheets/network.sheet.in.h:32
-msgid "Switch Symbol"
-msgstr "Switch jele"
+#~ msgid "A speaker with integrated amplifier"
+#~ msgstr "Multimédia hangszóró erõsítõvel"
 
-#: sheets/Pneumatic.sheet.in.h:1
-msgid "A 2/2 distributor"
-msgstr ""
+#~ msgid "A speaker without amplifier"
+#~ msgstr "Multimédia hangszóró erõsítõ nélkül"
 
-#: sheets/Pneumatic.sheet.in.h:2
-msgid "A 3/2 distributor"
-msgstr ""
+#~ msgid "A stackable hub or switch"
+#~ msgstr "Bõvíthetõ hub vagy switch"
 
-#: sheets/Pneumatic.sheet.in.h:3
-msgid "A 3/3 distributor"
-msgstr ""
+#~ msgid "ATM Switch Symbol"
+#~ msgstr "ATM-switch jele"
 
-#: sheets/Pneumatic.sheet.in.h:4
-msgid "A 4/2 distributor"
-msgstr ""
+#~ msgid "An Ethernet bus"
+#~ msgstr "Ethernet sín"
 
-#: sheets/Pneumatic.sheet.in.h:5
-msgid "A 5/2 distributor"
-msgstr ""
+#~ msgid "An antenna for wireless transmission"
+#~ msgstr "Antenna, drótnélküli átvitelhez"
 
-#: sheets/Pneumatic.sheet.in.h:6
-msgid "A 5/3 distributor"
-msgstr ""
+#~ msgid "An external DAT drive"
+#~ msgstr "Külsõ DAT meghajtó"
 
-#: sheets/Pneumatic.sheet.in.h:8
-msgid "A double-effect jack"
-msgstr ""
+#~ msgid "Network"
+#~ msgstr "Hálózatok"
 
-#: sheets/Pneumatic.sheet.in.h:9
-msgid "A generic pressure source"
-msgstr ""
+#~ msgid "Network Cloud"
+#~ msgstr "Hálozat felhõ"
 
-#: sheets/Pneumatic.sheet.in.h:10
-msgid "A hydraulic pressure source"
-msgstr ""
+#~ msgid "Objects to design network diagrams with"
+#~ msgstr "Objektumok hálózati diagrammokhoz"
 
-#: sheets/Pneumatic.sheet.in.h:11
-msgid "A normally-in simple-effect jack"
-msgstr ""
+#~ msgid "Router Symbol"
+#~ msgstr "Útválasztó jele"
 
-#: sheets/Pneumatic.sheet.in.h:12
-msgid "A normally-out simple-effect jack"
-msgstr ""
+#~ msgid "Storage"
+#~ msgstr "Tároló"
 
-#: sheets/Pneumatic.sheet.in.h:13
-msgid "A pneumatic pressure source"
-msgstr ""
+#~ msgid "Switch Symbol"
+#~ msgstr "Switch jele"
 
-#: sheets/Pneumatic.sheet.in.h:14
-msgid "An air exhaust orifice"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:15
 #, fuzzy
-msgid "Components for pneumatic and hydraulic circuits"
-msgstr "Elektomos áramköri elemek"
-
-#: sheets/Pneumatic.sheet.in.h:16
-msgid "Electric command (double coil)"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:17
-msgid "Electric command (single coil)"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:18
-msgid "Indirect command by hydraulic driver"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:19
-msgid "Indirect command by pneumatic driver"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:20
-msgid "Mechanical command by spring"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:21
-msgid "Mechanical command by tappet"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:22
-msgid "Muscular command"
-msgstr ""
+#~ msgid "Components for pneumatic and hydraulic circuits"
+#~ msgstr "Elektomos áramköri elemek"
 
-#: sheets/Pneumatic.sheet.in.h:23
-msgid "Pneumatic/Hydraulic"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:24
-msgid "Push-button command"
-msgstr ""
-
-#: sheets/SADT.sheet.in.h:1
-msgid "A activity/data flow arrow"
-msgstr ""
-
-#: sheets/SADT.sheet.in.h:2
-msgid "A flow label"
-msgstr ""
-
-#: sheets/SADT.sheet.in.h:3
-msgid "An activity/data box"
-msgstr ""
-
-#: sheets/SADT.sheet.in.h:4
 #, fuzzy
-msgid "Objects to design SADT diagrams"
-msgstr "Objektumok hálózati diagrammokhoz"
-
-#: sheets/SADT.sheet.in.h:5
-msgid "SADT/IDEF0"
-msgstr ""
+#~ msgid "Objects to design SADT diagrams"
+#~ msgstr "Objektumok hálózati diagrammokhoz"
 
-#: sheets/SDL.sheet.in.h:1
-msgid "Action being executed"
-msgstr ""
-
-#: sheets/SDL.sheet.in.h:2
 #, fuzzy
-msgid "Block Type Reference"
-msgstr "Tulajdonságok"
+#~ msgid "Block Type Reference"
+#~ msgstr "Tulajdonságok"
 
-#: sheets/SDL.sheet.in.h:3
 #, fuzzy
-msgid "Comment"
-msgstr "Dokumentum"
+#~ msgid "Comment"
+#~ msgstr "Dokumentum"
 
-#: sheets/SDL.sheet.in.h:4
 #, fuzzy
-msgid "Decision"
-msgstr "Leírás:"
+#~ msgid "Decision"
+#~ msgstr "Leírás:"
 
-#: sheets/SDL.sheet.in.h:5
 #, fuzzy
-msgid "Function Header"
-msgstr "Függvény:"
+#~ msgid "Function Header"
+#~ msgstr "Függvény:"
 
-#: sheets/SDL.sheet.in.h:6
 #, fuzzy
-msgid "Function call"
-msgstr "Függvény:"
-
-#: sheets/SDL.sheet.in.h:7
-msgid "Generic Text Note"
-msgstr ""
+#~ msgid "Function call"
+#~ msgstr "Függvény:"
 
-#: sheets/SDL.sheet.in.h:8
 #, fuzzy
-msgid "In/Out Connector"
-msgstr "Két oldalat összekötõ ábra"
+#~ msgid "In/Out Connector"
+#~ msgstr "Két oldalat összekötõ ábra"
 
-#: sheets/SDL.sheet.in.h:10
-msgid "Procedure Return"
-msgstr ""
-
-#: sheets/SDL.sheet.in.h:11
 #, fuzzy
-msgid "Process Type Reference"
-msgstr "Tulajdonságok"
+#~ msgid "Process Type Reference"
+#~ msgstr "Tulajdonságok"
 
-#: sheets/SDL.sheet.in.h:12
 #, fuzzy
-msgid "Receive message"
-msgstr "Rekurzív"
-
-#: sheets/SDL.sheet.in.h:13
-msgid "SDL"
-msgstr ""
+#~ msgid "Receive message"
+#~ msgstr "Rekurzív"
 
-#: sheets/SDL.sheet.in.h:14
 #, fuzzy
-msgid "Save State"
-msgstr "Pontozott"
+#~ msgid "Save State"
+#~ msgstr "Pontozott"
 
-#: sheets/SDL.sheet.in.h:15
 #, fuzzy
-msgid "Send message"
-msgstr "Üzenet:"
+#~ msgid "Send message"
+#~ msgstr "Üzenet:"
 
-#: sheets/SDL.sheet.in.h:16
 #, fuzzy
-msgid "Service Type Reference"
-msgstr "Tulajdonságok"
+#~ msgid "Service Type Reference"
+#~ msgstr "Tulajdonságok"
 
-#: sheets/SDL.sheet.in.h:17
-msgid "Specification and Description Language."
-msgstr ""
-
-#: sheets/SDL.sheet.in.h:18
 #, fuzzy
-msgid "State"
-msgstr "Pontozott"
-
-#: sheets/sybase.sheet.in.h:1
-msgid "A Sybase Client Application"
-msgstr ""
+#~ msgid "State"
+#~ msgstr "Pontozott"
 
-#: sheets/sybase.sheet.in.h:2
-msgid "A Sybase Dataserver"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:3
-msgid "A Sybase Replication Server"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:4
-msgid "Log Transfer Manager or Rep Agent"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:5
 #, fuzzy
-msgid "Objects to design Sybase replication domain diagrams with"
-msgstr "Objektumok hálózati diagrammokhoz"
-
-#: sheets/sybase.sheet.in.h:6
-msgid "Replication Server Manager"
-msgstr ""
+#~ msgid "Objects to design Sybase replication domain diagrams with"
+#~ msgstr "Objektumok hálózati diagrammokhoz"
 
-#: sheets/sybase.sheet.in.h:7
-msgid "Stable Storage Device"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:8
 #, fuzzy
-msgid "Sybase"
-msgstr "Szaggatott"
-
-#: sheets/UML.sheet.in.h:1
-msgid "Aggregation, one class is part of another"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:2
-msgid "Association, two classes are associated"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:3
-msgid "Constraint, place a constraint on something"
-msgstr ""
+#~ msgid "Sybase"
+#~ msgstr "Szaggatott"
 
-#: sheets/UML.sheet.in.h:4
 #, fuzzy
-msgid "Create a (large) package"
-msgstr "Kép készítése"
+#~ msgid "Create a (large) package"
+#~ msgstr "Kép készítése"
 
-#: sheets/UML.sheet.in.h:5
 #, fuzzy
-msgid "Create a (small) package"
-msgstr "Kép készítése"
+#~ msgid "Create a (small) package"
+#~ msgstr "Kép készítése"
 
-#: sheets/UML.sheet.in.h:6
 #, fuzzy
-msgid "Create a branch"
-msgstr "Körív készítése"
+#~ msgid "Create a branch"
+#~ msgstr "Körív készítése"
 
-#: sheets/UML.sheet.in.h:7
 #, fuzzy
-msgid "Create a class"
-msgstr "Sablon osztály"
+#~ msgid "Create a class"
+#~ msgstr "Sablon osztály"
 
-#: sheets/UML.sheet.in.h:8
 #, fuzzy
-msgid "Create a class stereotype icon"
-msgstr "Sablon osztály"
+#~ msgid "Create a class stereotype icon"
+#~ msgstr "Sablon osztály"
 
-#: sheets/UML.sheet.in.h:9
 #, fuzzy
-msgid "Create a component"
-msgstr "Sokszög készítése"
+#~ msgid "Create a component"
+#~ msgstr "Sokszög készítése"
 
-#: sheets/UML.sheet.in.h:10
 #, fuzzy
-msgid "Create a dependency"
-msgstr "Bezier-görbe készítése"
+#~ msgid "Create a dependency"
+#~ msgstr "Bezier-görbe készítése"
 
-#: sheets/UML.sheet.in.h:11
 #, fuzzy
-msgid "Create a lifeline"
-msgstr "Bezier-görbe készítése"
+#~ msgid "Create a lifeline"
+#~ msgstr "Bezier-görbe készítése"
 
-#: sheets/UML.sheet.in.h:12
 #, fuzzy
-msgid "Create a message"
-msgstr "Kép készítése"
+#~ msgid "Create a message"
+#~ msgstr "Kép készítése"
 
-#: sheets/UML.sheet.in.h:13
 #, fuzzy
-msgid "Create a node"
-msgstr "Vonal készítése"
+#~ msgid "Create a node"
+#~ msgstr "Vonal készítése"
 
-#: sheets/UML.sheet.in.h:14
 #, fuzzy
-msgid "Create a note"
-msgstr "Vonal készítése"
+#~ msgid "Create a note"
+#~ msgstr "Vonal készítése"
 
-#: sheets/UML.sheet.in.h:15
 #, fuzzy
-msgid "Create a state machine"
-msgstr "Vonal készítése"
+#~ msgid "Create a state machine"
+#~ msgstr "Vonal készítése"
 
-#: sheets/UML.sheet.in.h:16
 #, fuzzy
-msgid "Create a template class"
-msgstr "Sablon osztály"
+#~ msgid "Create a template class"
+#~ msgstr "Sablon osztály"
 
-#: sheets/UML.sheet.in.h:17
 #, fuzzy
-msgid "Create a use case"
-msgstr "Kép készítése"
+#~ msgid "Create a use case"
+#~ msgstr "Kép készítése"
 
-#: sheets/UML.sheet.in.h:18
 #, fuzzy
-msgid "Create an actor"
-msgstr "Új ábra készítése"
+#~ msgid "Create an actor"
+#~ msgstr "Új ábra készítése"
 
-#: sheets/UML.sheet.in.h:19
 #, fuzzy
-msgid "Create an object"
-msgstr "Vonal készítése"
+#~ msgid "Create an object"
+#~ msgstr "Vonal készítése"
 
-#: sheets/UML.sheet.in.h:20
 #, fuzzy
-msgid "Editor for UML Static Structure Diagrams"
-msgstr "Egyed-kapcsolat diagram objektumok"
-
-#: sheets/UML.sheet.in.h:21
-msgid "Generalization, class inheritance"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:22
-msgid "Implements, class implements a specific interface"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:23
-msgid "Realizes, implements a specific interface"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:24
-msgid "UML"
-msgstr ""
+#~ msgid "Editor for UML Static Structure Diagrams"
+#~ msgstr "Egyed-kapcsolat diagram objektumok"
 
-#: dia.desktop.in.h:1
-msgid "A Diagram Editor"
-msgstr "Ábraszerkesztõ program"
+#~ msgid "A Diagram Editor"
+#~ msgstr "Ábraszerkesztõ program"
 
-#: dia.desktop.in.h:2
-msgid "Dia"
-msgstr "Dia"
+#~ msgid "Dia"
+#~ msgstr "Dia"
 
 #~ msgid ""
 #~ "No such file found\n"

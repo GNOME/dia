@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-08-18 18:27+0200\n"
+"POT-Creation-Date: 2001-08-31 20:43+0800\n"
 "PO-Revision-Date: 2000-06-25 19:28+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Quit"
 msgstr "Konèaj"
 
-#: app/app_procs.c:380 app/display.c:965 app/layer_dialog.c:989
+#: app/app_procs.c:380 app/display.c:966 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
@@ -277,23 +277,23 @@ msgstr ""
 msgid "No object menu"
 msgstr "Menuja predmetov ni"
 
-#: app/display.c:140 app/display.c:141 app/interface.c:442
+#: app/display.c:141 app/display.c:142 app/interface.c:442
 msgid "Zoom"
 msgstr "Poveèava"
 
-#: app/display.c:161
+#: app/display.c:162
 msgid "Diagram modified!"
 msgstr "Diagram je bil spremenjen!"
 
-#: app/display.c:915
+#: app/display.c:916
 msgid "Close Diagram?"
 msgstr "Zapri diagram?"
 
-#: app/display.c:921
+#: app/display.c:922
 msgid "Really close?"
 msgstr "Resnièno zapri?"
 
-#: app/display.c:926
+#: app/display.c:927
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -301,16 +301,16 @@ msgstr ""
 "Ta diagram ni bil shranjen.\n"
 "Sedaj shrani spremembe?"
 
-#: app/display.c:944 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
 msgid "Yes"
 msgstr "Da"
 
-#: app/display.c:954 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
 #: app/preferences.c:585
 msgid "No"
 msgstr "Ne"
 
-#: app/export_png.c:79 app/load_save.c:615 app/render_eps.c:212
+#: app/export_png.c:79 app/load_save.c:616 app/render_eps.c:212
 #: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
 #: plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:176
@@ -414,8 +414,8 @@ msgstr "Ustvari besedilo"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:77 lib/properties.h:493
-#: lib/properties.h:496 objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:77 lib/properties.h:499
+#: lib/properties.h:502 objects/UML/actor.c:114 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/object.c:142
 #: objects/UML/small_package.c:120 objects/UML/state.c:137
 #: objects/UML/usecase.c:130
@@ -570,7 +570,7 @@ msgstr "Podrobnosti..."
 msgid "Line Style Properties"
 msgstr "Lastnosti sloga èrte"
 
-#: app/linewidth_area.c:216 lib/properties.h:469
+#: app/linewidth_area.c:216 lib/properties.h:475
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Debelina èrte"
@@ -579,11 +579,11 @@ msgstr "Debelina èrte"
 msgid "Line width:"
 msgstr "©irina èrte:"
 
-#: app/load_save.c:126
+#: app/load_save.c:127
 msgid "Error reading diagram file\n"
 msgstr "Napaka ob branju datoteke diagrama\n"
 
-#: app/load_save.c:194
+#: app/load_save.c:195
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -591,7 +591,7 @@ msgstr ""
 "Napaka ob nalaganju diagrama.\n"
 "Povezan predmet ni bil najden v dokumentu."
 
-#: app/load_save.c:197
+#: app/load_save.c:198
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -599,7 +599,7 @@ msgstr ""
 "Napaka ob nalaganju diagrama.\n"
 "Toèka povezave ne obstaja."
 
-#: app/load_save.c:200
+#: app/load_save.c:201
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -607,17 +607,17 @@ msgstr ""
 "Napaka ob nalaganju diagrama.\n"
 "Roèica povezave ne obstaja."
 
-#: app/load_save.c:244 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
+#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
 #: plug-ins/xfig/xfig-import.c:1152
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Ne morem odpreti: '%s' za branje.\n"
 
-#: app/load_save.c:250
+#: app/load_save.c:251
 msgid "You must specify a file, not a directory.\n"
 msgstr "Navesti morate datoteko, ne imenika.\n"
 
-#: app/load_save.c:259 app/load_save.c:264
+#: app/load_save.c:260 app/load_save.c:265
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -626,7 +626,7 @@ msgstr ""
 "Napaka ob nalaganju diagrama %s.\n"
 "Neznan tip datoteke."
 
-#: app/load_save.c:271
+#: app/load_save.c:272
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -635,12 +635,12 @@ msgstr ""
 "Napaka ob nalaganju diagrama %s.\n"
 "To ni Dia datoteka."
 
-#: app/load_save.c:770
+#: app/load_save.c:771
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Nisem uspel shraniti datoteke '%s'.\n"
 
-#: app/load_save.c:790 app/load_save.c:795
+#: app/load_save.c:791 app/load_save.c:796
 msgid "Native Dia Diagram"
 msgstr "Domaè Dia diagram"
 
@@ -779,16 +779,16 @@ msgstr "Prehodna"
 msgid "Same Type"
 msgstr "Isti Tip"
 
-#: app/menus.c:164 lib/properties.c:62 lib/properties.h:457 lib/widgets.c:203
+#: app/menus.c:164 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:203
 msgid "Left"
 msgstr "Levo"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:63 lib/properties.h:458
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:63 lib/properties.h:464
 #: lib/widgets.c:209
 msgid "Center"
 msgstr "Sredina"
 
-#: app/menus.c:166 lib/properties.c:64 lib/properties.h:459 lib/widgets.c:215
+#: app/menus.c:166 lib/properties.c:64 lib/properties.h:465 lib/widgets.c:215
 msgid "Right"
 msgstr "Desno"
 
@@ -1039,7 +1039,8 @@ msgid "/View/Zoom/25%"
 msgstr "/Pogled/Poveèava/25%"
 
 #: app/menus.c:314
-msgid "/View/Diagram Properties"
+#, fuzzy
+msgid "/View/Diagram Properties..."
 msgstr "/Pogled/Lastnosti diagrama"
 
 #: app/menus.c:316
@@ -1501,19 +1502,19 @@ msgstr "Nalagam ..."
 msgid "Dia v %s"
 msgstr "Dia razlièica %s"
 
-#: lib/properties.c:71 lib/properties.h:472
+#: lib/properties.c:71 lib/properties.h:478
 msgid "Line colour"
 msgstr "Barva èrte"
 
-#: lib/properties.c:72 lib/properties.h:475
+#: lib/properties.c:72 lib/properties.h:481
 msgid "Line style"
 msgstr "Slog èrte"
 
-#: lib/properties.c:73 lib/properties.h:479
+#: lib/properties.c:73 lib/properties.h:485
 msgid "Fill colour"
 msgstr "Barva polnjenja"
 
-#: lib/properties.c:74 lib/properties.h:482 objects/custom/custom_object.c:311
+#: lib/properties.c:74 lib/properties.h:488 objects/custom/custom_object.c:311
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -1521,41 +1522,41 @@ msgstr "Barva polnjenja"
 msgid "Draw background"
 msgstr "Ri¹i ozadje"
 
-#: lib/properties.c:75 lib/properties.h:486
+#: lib/properties.c:75 lib/properties.h:492
 msgid "Start arrow"
 msgstr "Pu¹èica zaèetka"
 
-#: lib/properties.c:76 lib/properties.h:489
+#: lib/properties.c:76 lib/properties.h:495
 msgid "End arrow"
 msgstr "Pu¹èica konca"
 
-#: lib/properties.c:78 lib/properties.h:499
+#: lib/properties.c:78 lib/properties.h:505
 msgid "Text alignment"
 msgstr "Poravnava besedila"
 
-#: lib/properties.c:79 lib/properties.h:502 objects/GRAFCET/condition.c:131
+#: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Pisava"
 
-#: lib/properties.c:80 lib/properties.h:505 objects/GRAFCET/condition.c:133
+#: lib/properties.c:80 lib/properties.h:511 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Velikost pisave"
 
-#: lib/properties.c:81 lib/properties.h:508 objects/GRAFCET/step.c:167
+#: lib/properties.c:81 lib/properties.h:514 objects/GRAFCET/step.c:167
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Barva besedila"
 
-#: lib/plug-ins.c:214
+#: lib/plug-ins.c:217
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Ne morem sklepati o pravilni poti za `%s'"
 
-#: lib/plug-ins.c:219
+#: lib/plug-ins.c:222
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1564,22 +1565,22 @@ msgstr ""
 "Vtiènika `%s' nisem uspel nalo¾iti\n"
 "%s"
 
-#: lib/plug-ins.c:230
+#: lib/plug-ins.c:233
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Nisem na¹el inicializacijske funkcije v vtièniku `%s'"
 
-#: lib/plug-ins.c:257
+#: lib/plug-ins.c:260
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "Vtiènika %s ni mogoèe odstraniti"
 
-#: lib/plug-ins.c:310
+#: lib/plug-ins.c:341
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "`%s' ni imenik"
 
-#: lib/plug-ins.c:316
+#: lib/plug-ins.c:347
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Ne morem odpreti `%s'"
@@ -1747,7 +1748,7 @@ msgstr "Izberite datoteko s sliko"
 msgid "Browse"
 msgstr "Brskaj"
 
-#: lib/dia_xml.c:124
+#: lib/dia_xml.c:128
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -1756,34 +1757,34 @@ msgstr ""
 "Datoteka %s nima navedene kodne strani;\n"
 "predpostavljam, da je kodirana po %s"
 
-#: lib/dia_xml.c:449
+#: lib/dia_xml.c:458
 msgid "Taking point value of non-point node."
 msgstr "Jemljem vrednost toèke netoèkastega vozli¹èa."
 
-#: lib/dia_xml.c:461
+#: lib/dia_xml.c:470
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Nepravilna x vrednost toèke \"%s\" %f; ne bo upo¹tevana:"
 
-#: lib/dia_xml.c:469
+#: lib/dia_xml.c:478
 msgid "Error parsing point."
 msgstr "Napaka ob razèlenjevanju toèke"
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:477
+#: lib/dia_xml.c:486
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Nepravilna y vrednost toèke \"%s\" %f; ne bo upo¹tevana:"
 
-#: lib/dia_xml.c:911
+#: lib/dia_xml.c:920
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
-"Va¹a krajevna kodna stran je UTF-8. Zaradi problemov z libxml1 in "
-"zaradi podpore datotek generiranimi s prej¹njimi razlièicami Dia, boste "
-"naleteli na probleme. Èe vidite to sporoèilo prosim pi¹ite na dia-list@gnome.org."
+"Va¹a krajevna kodna stran je UTF-8. Zaradi problemov z libxml1 in zaradi "
+"podpore datotek generiranimi s prej¹njimi razlièicami Dia, boste naleteli na "
+"probleme. Èe vidite to sporoèilo prosim pi¹ite na dia-list@gnome.org."
 
 #: objects/ER/attribute.c:151
 msgid "Key:"
@@ -3724,6 +3725,386 @@ msgstr "To je datoteka FIG razlièice %d.%d, morda je ne bom razumel\n"
 msgid "XFig File Format"
 msgstr "Oblika datoteke XFig"
 
+#, fuzzy
+#~ msgid "A data line"
+#~ msgstr "©irina èrte podatka"
+
+#, fuzzy
+#~ msgid "A Horizontal Jumper"
+#~ msgstr "Poravnaj _vodoravno"
+
+#, fuzzy
+#~ msgid "A ground point"
+#~ msgstr "Konèna toèka"
+
+#, fuzzy
+#~ msgid "Circuit"
+#~ msgstr "Re¾iraj"
+
+#, fuzzy
+#~ msgid "A Container"
+#~ msgstr "Vsebuj"
+
+#, fuzzy
+#~ msgid "A Motor"
+#~ msgstr "Vr¹ilec"
+
+#, fuzzy
+#~ msgid "A Rotor"
+#~ msgstr "Vr¹ilec"
+
+#, fuzzy
+#~ msgid "Horizontal Rest"
+#~ msgstr "Prevrni vodoravno"
+
+#, fuzzy
+#~ msgid "Reference Line"
+#~ msgstr "Ustvari èrto"
+
+#, fuzzy
+#~ msgid "Soil"
+#~ msgstr "polna"
+
+#, fuzzy
+#~ msgid "Vertical Rest"
+#~ msgstr "Prevrni Navpièno"
+
+#, fuzzy
+#~ msgid "A receptivity output variable"
+#~ msgstr "Velikost pisave receptivnosti"
+
+#, fuzzy
+#~ msgid "Ladder"
+#~ msgstr "Plasti"
+
+#, fuzzy
+#~ msgid "A connection point"
+#~ msgstr "Dodaj toèko povezave"
+
+#, fuzzy
+#~ msgid "Electric"
+#~ msgstr "Elektrièen"
+
+#, fuzzy
+#~ msgid "Create a process"
+#~ msgstr "Ustvari lok"
+
+#, fuzzy
+#~ msgid "Editor for Entity Relations Diagrams"
+#~ msgstr "Diagramski predmet Entitete/Relacije"
+
+#, fuzzy
+#~ msgid "Participation"
+#~ msgstr "Radiacija"
+
+#, fuzzy
+#~ msgid "Weak Entity"
+#~ msgstr "Entiteta"
+
+#, fuzzy
+#~ msgid "Collate"
+#~ msgstr "Izraèunaj"
+
+#, fuzzy
+#~ msgid "Delay"
+#~ msgstr "Poka¾i"
+
+#, fuzzy
+#~ msgid "Document"
+#~ msgstr "Priklopi"
+
+#, fuzzy
+#~ msgid "Flowchart"
+#~ msgstr "Predmeti pretoènega diagrama"
+
+#, fuzzy
+#~ msgid "Internal Storage"
+#~ msgstr "simbol za integral"
+
+#, fuzzy
+#~ msgid "Magnetic Disk"
+#~ msgstr "Magnetna energija"
+
+#, fuzzy
+#~ msgid "Magnetic Drum"
+#~ msgstr "Magnetna energija"
+
+#, fuzzy
+#~ msgid "Magnetic Tape"
+#~ msgstr "Magnetna energija"
+
+#, fuzzy
+#~ msgid "Manual Operation"
+#~ msgstr "Operacije"
+
+#, fuzzy
+#~ msgid "Merge"
+#~ msgstr "Izmeri"
+
+#, fuzzy
+#~ msgid "Predefined Process"
+#~ msgstr "Nastavitve"
+
+#, fuzzy
+#~ msgid "Preparation"
+#~ msgstr "Operacije"
+
+#, fuzzy
+#~ msgid "Sort"
+#~ msgstr "Podpori"
+
+#, fuzzy
+#~ msgid "Summing Junction"
+#~ msgstr "®eljena funkcija"
+
+#, fuzzy
+#~ msgid "Terminal"
+#~ msgstr "Termalen"
+
+#, fuzzy
+#~ msgid "Transaction File"
+#~ msgstr "Pretvorba"
+
+#, fuzzy
+#~ msgid "Transmittal Tape"
+#~ msgstr "Oddaj"
+
+#, fuzzy
+#~ msgid "Create a flow"
+#~ msgstr "Ustvari ¹katlo"
+
+#, fuzzy
+#~ msgid "Create a function"
+#~ msgstr "Uporabni¹ka funkcija"
+
+#, fuzzy
+#~ msgid "Editor for Function Structure Diagrams."
+#~ msgstr "Diagramski predmeti Funkcijske strukture"
+
+#, fuzzy
+#~ msgid "A AND vergent"
+#~ msgstr "GRAFCET ALI/IN vergent"
+
+#, fuzzy
+#~ msgid "A OR vergent"
+#~ msgstr "GRAFCET ALI/IN vergent"
+
+#, fuzzy
+#~ msgid "A condition (of an action)"
+#~ msgstr "Pisava pogoja"
+
+#, fuzzy
+#~ msgid "A macro call step"
+#~ msgstr "Korak klica makra"
+
+#, fuzzy
+#~ msgid "A macro entry step"
+#~ msgstr "Korak vstopa v makro"
+
+#, fuzzy
+#~ msgid "A macro exit step"
+#~ msgstr "Korak izstopa iz makra"
+
+#, fuzzy
+#~ msgid "A macro sub-program call step"
+#~ msgstr "Korak klica podprograma"
+
+#, fuzzy
+#~ msgid "A regular step"
+#~ msgstr "Obièajen korak"
+
+#, fuzzy
+#~ msgid "A transition"
+#~ msgstr "Pretvorba"
+
+#, fuzzy
+#~ msgid "An action to associate to a step"
+#~ msgstr "To dejanje je klic koraka makra"
+
+#, fuzzy
+#~ msgid "An initial step"
+#~ msgstr "Zaèetni korak"
+
+#, fuzzy
+#~ msgid "A Nor gate"
+#~ msgstr "Agregat"
+
+#, fuzzy
+#~ msgid "A Xor gate"
+#~ msgstr "Agregat"
+
+#, fuzzy
+#~ msgid "A crossconnector"
+#~ msgstr "Prekini povezavo"
+
+#, fuzzy
+#~ msgid "An Inverter"
+#~ msgstr "Obrni"
+
+#, fuzzy
+#~ msgid "An Or gate"
+#~ msgstr "Agregat"
+
+#, fuzzy
+#~ msgid "Boolean Logic"
+#~ msgstr "Biolo¹ki"
+
+#, fuzzy
+#~ msgid "Logic"
+#~ msgstr "Zakleni"
+
+#, fuzzy
+#~ msgid "Multiplexer"
+#~ msgstr "Pomno¾i"
+
+#, fuzzy
+#~ msgid "Node Center"
+#~ msgstr "Sredina"
+
+#, fuzzy
+#~ msgid "A Computer"
+#~ msgstr "Dodaj kontrolno toèko"
+
+#, fuzzy
+#~ msgid "A WAN Connection"
+#~ msgstr "Konvekcija"
+
+#, fuzzy
+#~ msgid "A simple printer"
+#~ msgstr "Izberi tiskalnik"
+
+#, fuzzy
+#~ msgid "Network"
+#~ msgstr "Nov"
+
+#, fuzzy
+#~ msgid "Router Symbol"
+#~ msgstr "simbol za integral"
+
+#, fuzzy
+#~ msgid "Storage"
+#~ msgstr "Shrani"
+
+#, fuzzy
+#~ msgid "Switch Symbol"
+#~ msgstr "Preklopi"
+
+#, fuzzy
+#~ msgid "Pneumatic/Hydraulic"
+#~ msgstr "Hidravlièen"
+
+#, fuzzy
+#~ msgid "A activity/data flow arrow"
+#~ msgstr "Aktivnost/Podatek identifikator"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Sredina"
+
+#, fuzzy
+#~ msgid "Decision"
+#~ msgstr "Opis:"
+
+#, fuzzy
+#~ msgid "Function Header"
+#~ msgstr "Funkcija:"
+
+#, fuzzy
+#~ msgid "Function call"
+#~ msgstr "Funkcija:"
+
+#, fuzzy
+#~ msgid "In/Out Connector"
+#~ msgstr "Pove¾i"
+
+#, fuzzy
+#~ msgid "Process Type Reference"
+#~ msgstr "Nastavitve"
+
+#, fuzzy
+#~ msgid "Receive message"
+#~ msgstr "Sprejmi"
+
+#, fuzzy
+#~ msgid "Send message"
+#~ msgstr "Sporoèilo:"
+
+#, fuzzy
+#~ msgid "State"
+#~ msgstr "Zaèni"
+
+#, fuzzy
+#~ msgid "Objects to design Sybase replication domain diagrams with"
+#~ msgstr "Diagramski predmeti Sybase"
+
+#, fuzzy
+#~ msgid "Sybase"
+#~ msgstr "èrtkano"
+
+#, fuzzy
+#~ msgid "Create a (small) package"
+#~ msgstr "Ustvari sliko"
+
+#, fuzzy
+#~ msgid "Create a branch"
+#~ msgstr "Ustvari lok"
+
+#, fuzzy
+#~ msgid "Create a class"
+#~ msgstr "Razredi ¹ablon"
+
+#, fuzzy
+#~ msgid "Create a component"
+#~ msgstr "Ustvari poligon"
+
+#, fuzzy
+#~ msgid "Create a dependency"
+#~ msgstr "Ustvari bezierjevo krivuljo"
+
+#, fuzzy
+#~ msgid "Create a lifeline"
+#~ msgstr "Ustvari bezierjevo krivuljo"
+
+#, fuzzy
+#~ msgid "Create a message"
+#~ msgstr "Ustvari sliko"
+
+#, fuzzy
+#~ msgid "Create a node"
+#~ msgstr "Ustvari èrto"
+
+#, fuzzy
+#~ msgid "Create a note"
+#~ msgstr "Ustvari èrto"
+
+#, fuzzy
+#~ msgid "Create a state machine"
+#~ msgstr "Ustvari èrto"
+
+#, fuzzy
+#~ msgid "Create a template class"
+#~ msgstr "Razredi ¹ablon"
+
+#, fuzzy
+#~ msgid "Create a use case"
+#~ msgstr "Ustvari sliko"
+
+#, fuzzy
+#~ msgid "Create an actor"
+#~ msgstr "Ustvari nov diagram"
+
+#, fuzzy
+#~ msgid "Create an object"
+#~ msgstr "Je predmet"
+
+#, fuzzy
+#~ msgid "A Diagram Editor"
+#~ msgstr "Urejevalnik diagrama"
+
+#, fuzzy
+#~ msgid "Dia"
+#~ msgstr "Dialogi"
+
 #~ msgid "No edit widget"
 #~ msgstr "Ni urejevalnega gradnika"
 
@@ -3751,9 +4132,6 @@ msgstr "Oblika datoteke XFig"
 
 #~ msgid "Font color:"
 #~ msgstr "Barva pisave:"
-
-#~ msgid "Sybase replication domain diagram objects"
-#~ msgstr "Diagramski predmeti Sybase"
 
 #~ msgid "Python scripting support"
 #~ msgstr "Podpora skriptam Python"
@@ -3783,9 +4161,6 @@ msgstr "Oblika datoteke XFig"
 #~ msgid "Background color:"
 #~ msgstr "Barva ozadja:"
 
-#~ msgid "Function:"
-#~ msgstr "Funkcija:"
-
 #~ msgid "      Transmit"
 #~ msgstr "      Oddaj"
 
@@ -3794,9 +4169,6 @@ msgstr "Oblika datoteke XFig"
 
 #~ msgid "      Remove"
 #~ msgstr "      Odstrani"
-
-#~ msgid "Is an object"
-#~ msgstr "Je predmet"
 
 #~ msgid "Asynchronous"
 #~ msgstr "Asinhrono"
@@ -3939,6 +4311,3 @@ msgstr "Oblika datoteke XFig"
 #~ msgstr ""
 #~ "Ne morem ugotoviti s katerim uvoznim filtrom\n"
 #~ "naj odprem '%s'"
-
-#~ msgid "Dialogs"
-#~ msgstr "Dialogi"

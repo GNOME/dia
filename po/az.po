@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-08-16 22:22+0200\n"
+"POT-Creation-Date: 2001-08-31 20:43+0800\n"
 "PO-Revision-Date: 2001-07-28 11:03GMT+0200\n"
 "Last-Translator: Vasif İsmayıloğlu <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish <linuxaz@azerimail.net>\n"
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Quit"
 msgstr "Çıx"
 
-#: app/app_procs.c:380 app/display.c:965 app/layer_dialog.c:989
+#: app/app_procs.c:380 app/display.c:966 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
@@ -277,23 +277,23 @@ msgstr ""
 msgid "No object menu"
 msgstr "Cism menyusu yoxdur"
 
-#: app/display.c:140 app/display.c:141 app/interface.c:442
+#: app/display.c:141 app/display.c:142 app/interface.c:442
 msgid "Zoom"
 msgstr "Yaxınlaşdır"
 
-#: app/display.c:161
+#: app/display.c:162
 msgid "Diagram modified!"
 msgstr "Diaqramma dəyişdirildi !"
 
-#: app/display.c:915
+#: app/display.c:916
 msgid "Close Diagram?"
 msgstr "Diaqrammanı Qapadım?"
 
-#: app/display.c:921
+#: app/display.c:922
 msgid "Really close?"
 msgstr "Sən mənim cansız canım, qapatım mı?"
 
-#: app/display.c:926
+#: app/display.c:927
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -301,16 +301,16 @@ msgstr ""
 "Diaqramma qeyd edilmədi.\n"
 "Dəyişiklikləri indi qeyd edim?"
 
-#: app/display.c:944 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
 msgid "Yes"
 msgstr "Bəli"
 
-#: app/display.c:954 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
 #: app/preferences.c:585
 msgid "No"
 msgstr "Xeyr"
 
-#: app/export_png.c:79 app/load_save.c:615 app/render_eps.c:212
+#: app/export_png.c:79 app/load_save.c:616 app/render_eps.c:212
 #: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
 #: plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:176
@@ -414,8 +414,8 @@ msgstr "Mətni yarat"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:77 lib/properties.h:493
-#: lib/properties.h:496 objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:77 lib/properties.h:499
+#: lib/properties.h:502 objects/UML/actor.c:114 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/object.c:142
 #: objects/UML/small_package.c:120 objects/UML/state.c:137
 #: objects/UML/usecase.c:130
@@ -571,7 +571,7 @@ msgstr "Ətraflı ..."
 msgid "Line Style Properties"
 msgstr "Xətt tərz xüsusiyyətləri"
 
-#: app/linewidth_area.c:216 lib/properties.h:469
+#: app/linewidth_area.c:216 lib/properties.h:475
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Xətt eni"
@@ -580,11 +580,11 @@ msgstr "Xətt eni"
 msgid "Line width:"
 msgstr "Xətt eni :"
 
-#: app/load_save.c:126
+#: app/load_save.c:127
 msgid "Error reading diagram file\n"
 msgstr "Diaqramma faylını oxuyarkən xəta oldu\n"
 
-#: app/load_save.c:194
+#: app/load_save.c:195
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -592,7 +592,7 @@ msgstr ""
 "Diaqramma yüklənərkən xəta oldu .\n"
 "Bağlı cism sənəddə tapıla bilmədi ."
 
-#: app/load_save.c:197
+#: app/load_save.c:198
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -600,7 +600,7 @@ msgstr ""
 "Diaqramma yüklənərkən xəta oldu .\n"
 "bağlantı nöqtəsi yoxdur."
 
-#: app/load_save.c:200
+#: app/load_save.c:201
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -608,17 +608,17 @@ msgstr ""
 "Diaqramma yüklənərkən xəta oldu .\n"
 "bağlantı idarəcisi yoxdur ."
 
-#: app/load_save.c:244 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
+#: app/load_save.c:245 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
 #: plug-ins/xfig/xfig-import.c:1152
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "`%s''ni oxumaq üçün aça bilmədim .\n"
 
-#: app/load_save.c:250
+#: app/load_save.c:251
 msgid "You must specify a file, not a directory.\n"
 msgstr "Bir qovluq deyil, bir faylı bildirmək məcburiyyətindəsən .\n"
 
-#: app/load_save.c:259 app/load_save.c:264
+#: app/load_save.c:260 app/load_save.c:265
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -627,7 +627,7 @@ msgstr ""
 "%s diaqramması yüklənərkən xəta oldu .\n"
 "Bilinməyən dosye növü ."
 
-#: app/load_save.c:271
+#: app/load_save.c:272
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -636,12 +636,12 @@ msgstr ""
 "%s diaqramması yüklənərkən xəta oldu .\n"
 "Bir Dia dosyesı deyildir ."
 
-#: app/load_save.c:770
+#: app/load_save.c:771
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "`%s' dosyes_inı qeyd edə bilmədim .\n"
 
-#: app/load_save.c:790 app/load_save.c:795
+#: app/load_save.c:791 app/load_save.c:796
 msgid "Native Dia Diagram"
 msgstr "Dia diaqramması"
 
@@ -780,16 +780,16 @@ msgstr "Keçişli"
 msgid "Same Type"
 msgstr "Eyni növ"
 
-#: app/menus.c:164 lib/properties.c:62 lib/properties.h:457 lib/widgets.c:203
+#: app/menus.c:164 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:203
 msgid "Left"
 msgstr "Sol"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:63 lib/properties.h:458
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:63 lib/properties.h:464
 #: lib/widgets.c:209
 msgid "Center"
 msgstr "Orta"
 
-#: app/menus.c:166 lib/properties.c:64 lib/properties.h:459 lib/widgets.c:215
+#: app/menus.c:166 lib/properties.c:64 lib/properties.h:465 lib/widgets.c:215
 msgid "Right"
 msgstr "Sağ"
 
@@ -1040,7 +1040,8 @@ msgid "/View/Zoom/25%"
 msgstr "/Göstər/Yaxınlıq/%25"
 
 #: app/menus.c:314
-msgid "/View/Diagram Properties"
+#, fuzzy
+msgid "/View/Diagram Properties..."
 msgstr "/Göstər/Diaqramma xüsusiyyətləri"
 
 #: app/menus.c:316
@@ -1502,19 +1503,19 @@ msgstr "Yüklənir..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
-#: lib/properties.c:71 lib/properties.h:472
+#: lib/properties.c:71 lib/properties.h:478
 msgid "Line colour"
 msgstr "Sətir rəngi"
 
-#: lib/properties.c:72 lib/properties.h:475
+#: lib/properties.c:72 lib/properties.h:481
 msgid "Line style"
 msgstr "Sətər tərzi"
 
-#: lib/properties.c:73 lib/properties.h:479
+#: lib/properties.c:73 lib/properties.h:485
 msgid "Fill colour"
 msgstr "Doldurma rəngi"
 
-#: lib/properties.c:74 lib/properties.h:482 objects/custom/custom_object.c:311
+#: lib/properties.c:74 lib/properties.h:488 objects/custom/custom_object.c:311
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -1522,41 +1523,41 @@ msgstr "Doldurma rəngi"
 msgid "Draw background"
 msgstr "Arxa Planı boya"
 
-#: lib/properties.c:75 lib/properties.h:486
+#: lib/properties.c:75 lib/properties.h:492
 msgid "Start arrow"
 msgstr "Başlama oxu"
 
-#: lib/properties.c:76 lib/properties.h:489
+#: lib/properties.c:76 lib/properties.h:495
 msgid "End arrow"
 msgstr "Bitiş oxu"
 
-#: lib/properties.c:78 lib/properties.h:499
+#: lib/properties.c:78 lib/properties.h:505
 msgid "Text alignment"
 msgstr "Mətn tərəfləməsi"
 
-#: lib/properties.c:79 lib/properties.h:502 objects/GRAFCET/condition.c:131
+#: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Yazı növü"
 
-#: lib/properties.c:80 lib/properties.h:505 objects/GRAFCET/condition.c:133
+#: lib/properties.c:80 lib/properties.h:511 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Yazı növü böyüklüyü"
 
-#: lib/properties.c:81 lib/properties.h:508 objects/GRAFCET/step.c:167
+#: lib/properties.c:81 lib/properties.h:514 objects/GRAFCET/step.c:167
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Mətn rəngi"
 
-#: lib/plug-ins.c:214
+#: lib/plug-ins.c:217
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "`%s' üçün doğru yolu başa düşmədim"
 
-#: lib/plug-ins.c:219
+#: lib/plug-ins.c:222
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1565,22 +1566,22 @@ msgstr ""
 "`%s' əlavəini qura bilmədim\n"
 "%s"
 
-#: lib/plug-ins.c:230
+#: lib/plug-ins.c:233
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "`%s''de əlavə başlanğıc əməliyyatını tapa bilmədim"
 
-#: lib/plug-ins.c:257
+#: lib/plug-ins.c:260
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "%s əlavəi ayrıla bilmədi"
 
-#: lib/plug-ins.c:310
+#: lib/plug-ins.c:341
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "`%s' bir qovluq deyildir"
 
-#: lib/plug-ins.c:316
+#: lib/plug-ins.c:347
 #, c-format
 msgid "Could not open `%s'"
 msgstr "`%s''ni aça bilmədim"
@@ -1748,33 +1749,33 @@ msgstr "Rəsm faylını seç"
 msgid "Browse"
 msgstr "Gəz"
 
-#: lib/dia_xml.c:124
+#: lib/dia_xml.c:128
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
 "assuming it is encoded in %s"
 msgstr ""
 
-#: lib/dia_xml.c:449
+#: lib/dia_xml.c:458
 msgid "Taking point value of non-point node."
 msgstr "Nöqtəvi olmayan düyünün qiymətini alıram."
 
-#: lib/dia_xml.c:461
+#: lib/dia_xml.c:470
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Səhv x Nöqtə qiyməti  \"%s\" %f; nəzərə almıram."
 
-#: lib/dia_xml.c:469
+#: lib/dia_xml.c:478
 msgid "Error parsing point."
 msgstr "Xəta darama nöqtəsi."
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:477
+#: lib/dia_xml.c:486
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Səhv y Nöqtə qiyməti  \"%s\" %f; nəzərə almıram."
 
-#: lib/dia_xml.c:911
+#: lib/dia_xml.c:920
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -1797,7 +1798,7 @@ msgstr "Gələn:"
 msgid "Multivalue:"
 msgstr "Çox qiymətli:"
 
-#: objects/ER/attribute.c:389 sheets/ER.sheet.in.h:1
+#: objects/ER/attribute.c:389
 msgid "Attribute"
 msgstr "Xüsusiyyət"
 
@@ -1805,7 +1806,7 @@ msgstr "Xüsusiyyət"
 msgid "Weak:"
 msgstr "Zəif:"
 
-#: objects/ER/entity.c:340 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:340 objects/UML/classicon.c:124
 msgid "Entity"
 msgstr "Varlıq"
 
@@ -1849,7 +1850,7 @@ msgstr "Döndər:"
 msgid "Identifying:"
 msgstr "Tanıdıcı:"
 
-#: objects/ER/relationship.c:418 sheets/ER.sheet.in.h:6
+#: objects/ER/relationship.c:418
 msgid "Relationship"
 msgstr "Əlaqə"
 
@@ -2038,7 +2039,6 @@ msgid "Support"
 msgstr "Dəstəkle"
 
 #: objects/FS/function.c:653 objects/FS/function.c:654
-#: sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr "Dayan"
 
@@ -2307,7 +2307,7 @@ msgstr "Təkrar Doldur"
 msgid "Expose"
 msgstr "Ortaya Çıxart"
 
-#: objects/FS/function.c:741 sheets/Flowchart.sheet.in.h:9
+#: objects/FS/function.c:741
 msgid "Extract"
 msgstr "Xülasə"
 
@@ -2489,7 +2489,7 @@ msgstr "Oyandır"
 msgid "Mark"
 msgstr "Işarətlə"
 
-#: objects/FS/function.c:800 sheets/Flowchart.sheet.in.h:7
+#: objects/FS/function.c:800
 msgid "Display"
 msgstr "Ekran"
 
@@ -2698,7 +2698,7 @@ msgstr "İstifadəçi/Avadanlıq Funk."
 msgid "Wish Fn"
 msgstr "Arzulanan funksiya"
 
-#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
+#: objects/GRAFCET/action.c:134
 msgid "Macro call"
 msgstr "Makro çağırışı"
 
@@ -3725,1310 +3725,553 @@ msgstr "Bu, FİG buraxılış %d.%d faylıdır. Başa düışə bilmirəm\n"
 msgid "XFig File Format"
 msgstr "XFİG Fayl Şəkli"
 
-#: sheets/chronogram.sheet.in.h:1
 #, fuzzy
-msgid "A data line"
-msgstr "Data xətti eni"
+#~ msgid "A data line"
+#~ msgstr "Data xətti eni"
 
-#: sheets/chronogram.sheet.in.h:2
-msgid "A time scale"
-msgstr ""
-
-#: sheets/chronogram.sheet.in.h:3
-msgid "Chronogram"
-msgstr ""
-
-#: sheets/chronogram.sheet.in.h:4
-msgid "Objects to design chronogram charts"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:1
 #, fuzzy
-msgid "A Horizontal Jumper"
-msgstr "_Üfüqi tərəflə"
+#~ msgid "A Horizontal Jumper"
+#~ msgstr "_Üfüqi tərəflə"
 
-#: sheets/Circuit.sheet.in.h:2
 #, fuzzy
-msgid "A Horizontally aligned inductor"
-msgstr "_Üfüqi tərəflə"
-
-#: sheets/Circuit.sheet.in.h:3
-msgid "A Horizontally aligned inductor (European)"
-msgstr ""
+#~ msgid "A Horizontally aligned inductor"
+#~ msgstr "_Üfüqi tərəflə"
 
-#: sheets/Circuit.sheet.in.h:4
 #, fuzzy
-msgid "A Horizontally aligned resistor"
-msgstr "Üfüqi tərs çevir"
+#~ msgid "A Horizontally aligned resistor"
+#~ msgstr "Üfüqi tərs çevir"
 
-#: sheets/Circuit.sheet.in.h:5
-msgid "A Horizontally aligned resistor (European)"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:6
 #, fuzzy
-msgid "A PMOS transistor"
-msgstr "Tərcümə"
-
-#: sheets/Circuit.sheet.in.h:7
-msgid "A Speaker"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:8
-msgid "A Vertically aligned inductor"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:9
-msgid "A Vertically aligned inductor (European)"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:10
-msgid "A Vertically aligned resistor"
-msgstr ""
+#~ msgid "A PMOS transistor"
+#~ msgstr "Tərcümə"
 
-#: sheets/Circuit.sheet.in.h:11
-msgid "A Vertically aligned resistor (European)"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:12
 #, fuzzy
-msgid "A ground point"
-msgstr "Bitiş nöqtəsi"
-
-#: sheets/Circuit.sheet.in.h:13
-msgid "A horizontally aligned LED"
-msgstr ""
+#~ msgid "A ground point"
+#~ msgstr "Bitiş nöqtəsi"
 
-#: sheets/Circuit.sheet.in.h:14
-msgid "A horizontally aligned capacitor"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:15
-msgid "A horizontally aligned diode"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:16
 #, fuzzy
-msgid "A horizontally aligned fuse"
-msgstr "_Üfüqi tərəflə"
-
-#: sheets/Circuit.sheet.in.h:17
-msgid "A horizontally aligned powersource"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:18
-msgid "A horizontally aligned zener diode"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:19
-msgid "A lamp"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:20
-msgid "A npn bipolar transistor"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:21
-msgid "A pnp bipolar transistor"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:22
-msgid "A vertically aligned LED"
-msgstr ""
+#~ msgid "A horizontally aligned fuse"
+#~ msgstr "_Üfüqi tərəflə"
 
-#: sheets/Circuit.sheet.in.h:23
-msgid "A vertically aligned capacitor"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:24
-msgid "A vertically aligned diode"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:25
-msgid "A vertically aligned fuse"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:26
-msgid "A vertically aligned powersource"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:27
-msgid "A vertically aligned zener diode"
-msgstr ""
-
-#: sheets/Circuit.sheet.in.h:28
 #, fuzzy
-msgid "An NMOS transistor"
-msgstr "Tərcümə"
+#~ msgid "An NMOS transistor"
+#~ msgstr "Tərcümə"
 
-#: sheets/Circuit.sheet.in.h:29
 #, fuzzy
-msgid "An operational amplifier"
-msgstr "_Üfüqi tərəflə"
+#~ msgid "An operational amplifier"
+#~ msgstr "_Üfüqi tərəflə"
 
-#: sheets/Circuit.sheet.in.h:30
 #, fuzzy
-msgid "Circuit"
-msgstr "Yön"
-
-#: sheets/Circuit.sheet.in.h:31
-msgid "Components for circuit diagrams"
-msgstr ""
+#~ msgid "Circuit"
+#~ msgstr "Yön"
 
-#: sheets/civil.sheet.in.h:1
-msgid "A Backflow Preventer"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:2
 #, fuzzy
-msgid "A Basin"
-msgstr "Tərcümə"
+#~ msgid "A Basin"
+#~ msgstr "Tərcümə"
 
-#: sheets/civil.sheet.in.h:3
 #, fuzzy
-msgid "A Container"
-msgstr "Daxil Et"
+#~ msgid "A Container"
+#~ msgstr "Daxil Et"
 
-#: sheets/civil.sheet.in.h:4
 #, fuzzy
-msgid "A Frequency Converter"
-msgstr "Tərs çevir"
+#~ msgid "A Frequency Converter"
+#~ msgstr "Tərs çevir"
 
-#: sheets/civil.sheet.in.h:5
-msgid "A Gas Bottle"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:6
 #, fuzzy
-msgid "A Motor"
-msgstr "Gedişatcı"
-
-#: sheets/civil.sheet.in.h:7
-msgid "A Preliminary Clarification Tank"
-msgstr ""
+#~ msgid "A Motor"
+#~ msgstr "Gedişatcı"
 
-#: sheets/civil.sheet.in.h:8
 #, fuzzy
-msgid "A Rotor"
-msgstr "Gedişatcı"
+#~ msgid "A Rotor"
+#~ msgstr "Gedişatcı"
 
-#: sheets/civil.sheet.in.h:9
-msgid "A final-settling Basin"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:10
 #, fuzzy
-msgid "A horizontal limiting line"
-msgstr "_Üfüqi tərəflə"
-
-#: sheets/civil.sheet.in.h:11
-msgid "A horizontally aligned Arrow"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:12
-msgid "A vertical limiting line"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:13
-msgid "A vertically aligned Arrow"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:14
-msgid "An Aerator with bubbles"
-msgstr ""
+#~ msgid "A horizontal limiting line"
+#~ msgstr "_Üfüqi tərəflə"
 
-#: sheets/civil.sheet.in.h:15
 #, fuzzy
-msgid "Bivalent Vertical Rest"
-msgstr "Şaquli tərs çevir"
+#~ msgid "Bivalent Vertical Rest"
+#~ msgstr "Şaquli tərs çevir"
 
-#: sheets/civil.sheet.in.h:16
-msgid "Civil"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:17
-msgid "Civil Engineering Components"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:18
 #, fuzzy
-msgid "Horizontal Rest"
-msgstr "Üfüqi tərs çevir"
+#~ msgid "Horizontal Rest"
+#~ msgstr "Üfüqi tərs çevir"
 
-#: sheets/civil.sheet.in.h:19
-msgid "Horizontally aligned Valve"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:20
 #, fuzzy
-msgid "Horizontally aligned compressor"
-msgstr "_Üfüqi tərəflə"
+#~ msgid "Horizontally aligned compressor"
+#~ msgstr "_Üfüqi tərəflə"
 
-#: sheets/civil.sheet.in.h:21
 #, fuzzy
-msgid "Horizontally aligned pump"
-msgstr "_Üfüqi tərəflə"
+#~ msgid "Horizontally aligned pump"
+#~ msgstr "_Üfüqi tərəflə"
 
-#: sheets/civil.sheet.in.h:22
 #, fuzzy
-msgid "Reference Line"
-msgstr "Xətt yarat"
+#~ msgid "Reference Line"
+#~ msgstr "Xətt yarat"
 
-#: sheets/civil.sheet.in.h:23
 #, fuzzy
-msgid "Soil"
-msgstr "Dolğun"
+#~ msgid "Soil"
+#~ msgstr "Dolğun"
 
-#: sheets/civil.sheet.in.h:24
 #, fuzzy
-msgid "Vertical Rest"
-msgstr "Şaquli tərs çevir"
-
-#: sheets/civil.sheet.in.h:25
-msgid "Vertically aligned Propeller"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:26
-msgid "Vertically aligned Valve"
-msgstr ""
+#~ msgid "Vertical Rest"
+#~ msgstr "Şaquli tərs çevir"
 
-#: sheets/civil.sheet.in.h:27
-msgid "Vertically aligned compressor"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:28
-msgid "Vertically aligned pump"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:29
-msgid "Water Level"
-msgstr ""
-
-#: sheets/Contact.sheet.in.h:1
-msgid "A 'if not' (normally closed) ladder contact"
-msgstr ""
-
-#: sheets/Contact.sheet.in.h:2
-msgid "A 'if' (normally open) ladder contact"
-msgstr ""
-
-#: sheets/Contact.sheet.in.h:3
 #, fuzzy
-msgid "A 'jump' output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+#~ msgid "A 'jump' output variable"
+#~ msgstr "Qəbuliyyətin yazı növü böyüklüyü"
 
-#: sheets/Contact.sheet.in.h:4
 #, fuzzy
-msgid "A 'reset' output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+#~ msgid "A 'reset' output variable"
+#~ msgstr "Qəbuliyyətin yazı növü böyüklüyü"
 
-#: sheets/Contact.sheet.in.h:5
 #, fuzzy
-msgid "A 'set' output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+#~ msgid "A 'set' output variable"
+#~ msgstr "Qəbuliyyətin yazı növü böyüklüyü"
 
-#: sheets/Contact.sheet.in.h:6
 #, fuzzy
-msgid "A negative output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+#~ msgid "A negative output variable"
+#~ msgstr "Qəbuliyyətin yazı növü böyüklüyü"
 
-#: sheets/Contact.sheet.in.h:7
 #, fuzzy
-msgid "A power-saved 'reset' output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+#~ msgid "A power-saved 'reset' output variable"
+#~ msgstr "Qəbuliyyətin yazı növü böyüklüyü"
 
-#: sheets/Contact.sheet.in.h:8
 #, fuzzy
-msgid "A power-saved 'set' output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+#~ msgid "A power-saved 'set' output variable"
+#~ msgstr "Qəbuliyyətin yazı növü böyüklüyü"
 
-#: sheets/Contact.sheet.in.h:9
 #, fuzzy
-msgid "A power-saved negative output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+#~ msgid "A power-saved negative output variable"
+#~ msgstr "Qəbuliyyətin yazı növü böyüklüyü"
 
-#: sheets/Contact.sheet.in.h:10
 #, fuzzy
-msgid "A power-saved simple output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+#~ msgid "A power-saved simple output variable"
+#~ msgstr "Qəbuliyyətin yazı növü böyüklüyü"
 
-#: sheets/Contact.sheet.in.h:11
 #, fuzzy
-msgid "A receptivity output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
+#~ msgid "A receptivity output variable"
+#~ msgstr "Qəbuliyyətin yazı növü böyüklüyü"
 
-#: sheets/Contact.sheet.in.h:12
 #, fuzzy
-msgid "A simple output variable"
-msgstr "Qəbuliyyətin yazı növü böyüklüyü"
-
-#: sheets/Contact.sheet.in.h:13
-msgid "Components for LADDER circuits"
-msgstr ""
+#~ msgid "A simple output variable"
+#~ msgstr "Qəbuliyyətin yazı növü böyüklüyü"
 
-#: sheets/Contact.sheet.in.h:14
 #, fuzzy
-msgid "Ladder"
-msgstr "Səviyyəler"
+#~ msgid "Ladder"
+#~ msgstr "Səviyyəler"
 
-#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
 #, fuzzy
-msgid "A connection point"
-msgstr "Bağlantı nöqtəsi əlavə et"
-
-#: sheets/Electric.sheet.in.h:2
-msgid "A lamp or indicator light"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:3
-msgid "A normally closed contact"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:4
-msgid "A normally closed position switch"
-msgstr ""
+#~ msgid "A connection point"
+#~ msgstr "Bağlantı nöqtəsi əlavə et"
 
-#: sheets/Electric.sheet.in.h:5
-msgid "A normally open contact"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:6
-msgid "A normally open position switch"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:7
 #, fuzzy
-msgid "A relay"
-msgstr "Ekran"
+#~ msgid "A relay"
+#~ msgstr "Ekran"
 
-#: sheets/Electric.sheet.in.h:8
-msgid "Components for electric circuits"
-msgstr ""
-
-#: sheets/Electric.sheet.in.h:9
 #, fuzzy
-msgid "Electric"
-msgstr "Elektriki"
+#~ msgid "Electric"
+#~ msgstr "Elektriki"
 
-#: sheets/Electric.sheet.in.h:10
-msgid "The command organ of a relay"
-msgstr ""
-
-#: sheets/EML.sheet.in.h:1
 #, fuzzy
-msgid "Create a process"
-msgstr "Yay yarat"
-
-#: sheets/EML.sheet.in.h:2
-msgid "EML"
-msgstr ""
+#~ msgid "Create a process"
+#~ msgstr "Yay yarat"
 
-#: sheets/EML.sheet.in.h:3
 #, fuzzy
-msgid "Editor for EML Static Structure Diagrams."
-msgstr "Funksiya şəkli diaqram cismləri"
+#~ msgid "Editor for EML Static Structure Diagrams."
+#~ msgstr "Funksiya şəkli diaqram cismləri"
 
-#: sheets/EML.sheet.in.h:4
-msgid "Instantiation. One process create others"
-msgstr ""
-
-#: sheets/EML.sheet.in.h:5
-msgid "Interaction between processes."
-msgstr ""
-
-#: sheets/ER.sheet.in.h:2
-msgid "ER"
-msgstr ""
-
-#: sheets/ER.sheet.in.h:3
 #, fuzzy
-msgid "Editor for Entity Relations Diagrams"
-msgstr "Varlıq/Bağ diaqram cismləri"
+#~ msgid "Editor for Entity Relations Diagrams"
+#~ msgstr "Varlıq/Bağ diaqram cismləri"
 
-#: sheets/ER.sheet.in.h:5
 #, fuzzy
-msgid "Participation"
-msgstr "Radiasiya"
+#~ msgid "Participation"
+#~ msgstr "Radiasiya"
 
-#: sheets/ER.sheet.in.h:7
 #, fuzzy
-msgid "Weak Entity"
-msgstr "Varlıq"
-
-#: sheets/Flowchart.sheet.in.h:1
-msgid "A box with text inside"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:2
-msgid "A diamond with text inside"
-msgstr ""
+#~ msgid "Weak Entity"
+#~ msgstr "Varlıq"
 
-#: sheets/Flowchart.sheet.in.h:3
-msgid "A ellipse with text inside"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:4
-msgid "A parallelogram with text inside"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:5
 #, fuzzy
-msgid "Collate"
-msgstr "Hesabla"
+#~ msgid "Collate"
+#~ msgstr "Hesabla"
 
-#: sheets/Flowchart.sheet.in.h:6
 #, fuzzy
-msgid "Delay"
-msgstr "Ekran"
+#~ msgid "Delay"
+#~ msgstr "Ekran"
 
-#: sheets/Flowchart.sheet.in.h:8
 #, fuzzy
-msgid "Document"
-msgstr "Bağla"
+#~ msgid "Document"
+#~ msgstr "Bağla"
 
-#: sheets/Flowchart.sheet.in.h:10
 #, fuzzy
-msgid "Flowchart"
-msgstr "Axış diaqram cismləri"
+#~ msgid "Flowchart"
+#~ msgstr "Axış diaqram cismləri"
 
-#: sheets/Flowchart.sheet.in.h:11
 #, fuzzy
-msgid "Internal Storage"
-msgstr "İnteqral Simvolu"
+#~ msgid "Internal Storage"
+#~ msgstr "İnteqral Simvolu"
 
-#: sheets/Flowchart.sheet.in.h:12
 #, fuzzy
-msgid "Magnetic Disk"
-msgstr "Maqnetik Energiya"
+#~ msgid "Magnetic Disk"
+#~ msgstr "Maqnetik Energiya"
 
-#: sheets/Flowchart.sheet.in.h:13
 #, fuzzy
-msgid "Magnetic Drum"
-msgstr "Maqnetik Energiya"
+#~ msgid "Magnetic Drum"
+#~ msgstr "Maqnetik Energiya"
 
-#: sheets/Flowchart.sheet.in.h:14
 #, fuzzy
-msgid "Magnetic Tape"
-msgstr "Maqnetik Energiya"
+#~ msgid "Magnetic Tape"
+#~ msgstr "Maqnetik Energiya"
 
-#: sheets/Flowchart.sheet.in.h:15
 #, fuzzy
-msgid "Manual Input"
-msgstr "Gedişlər"
+#~ msgid "Manual Input"
+#~ msgstr "Gedişlər"
 
-#: sheets/Flowchart.sheet.in.h:16
 #, fuzzy
-msgid "Manual Operation"
-msgstr "Gedişlər"
+#~ msgid "Manual Operation"
+#~ msgstr "Gedişlər"
 
-#: sheets/Flowchart.sheet.in.h:17
 #, fuzzy
-msgid "Merge"
-msgstr "Ölçü"
+#~ msgid "Merge"
+#~ msgstr "Ölçü"
 
-#: sheets/Flowchart.sheet.in.h:18
-msgid "Objects to draw flowcharts"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:19
 #, fuzzy
-msgid "Off Page Connector"
-msgstr "Bağla"
+#~ msgid "Off Page Connector"
+#~ msgstr "Bağla"
 
-#: sheets/Flowchart.sheet.in.h:20
 #, fuzzy
-msgid "Offline Storage"
-msgstr "İnteqral Simvolu"
+#~ msgid "Offline Storage"
+#~ msgstr "İnteqral Simvolu"
 
-#: sheets/Flowchart.sheet.in.h:21
-msgid "Or"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:22
 #, fuzzy
-msgid "Predefined Process"
-msgstr "Qurğular"
+#~ msgid "Predefined Process"
+#~ msgstr "Qurğular"
 
-#: sheets/Flowchart.sheet.in.h:23
 #, fuzzy
-msgid "Preparation"
-msgstr "Gedişlər"
-
-#: sheets/Flowchart.sheet.in.h:24
-msgid "Punched Card"
-msgstr ""
+#~ msgid "Preparation"
+#~ msgstr "Gedişlər"
 
-#: sheets/Flowchart.sheet.in.h:25
-msgid "Punched Tape"
-msgstr ""
-
-#: sheets/Flowchart.sheet.in.h:26
 #, fuzzy
-msgid "Sort"
-msgstr "Dəstəkle"
+#~ msgid "Sort"
+#~ msgstr "Dəstəkle"
 
-#: sheets/Flowchart.sheet.in.h:27
 #, fuzzy
-msgid "Summing Junction"
-msgstr "Arzulanan funksiya"
+#~ msgid "Summing Junction"
+#~ msgstr "Arzulanan funksiya"
 
-#: sheets/Flowchart.sheet.in.h:28
 #, fuzzy
-msgid "Terminal"
-msgstr "Termal"
+#~ msgid "Terminal"
+#~ msgstr "Termal"
 
-#: sheets/Flowchart.sheet.in.h:29
 #, fuzzy
-msgid "Transaction File"
-msgstr "Tərcümə"
+#~ msgid "Transaction File"
+#~ msgstr "Tərcümə"
 
-#: sheets/Flowchart.sheet.in.h:30
 #, fuzzy
-msgid "Transmittal Tape"
-msgstr "Keçir"
+#~ msgid "Transmittal Tape"
+#~ msgstr "Keçir"
 
-#: sheets/FS.sheet.in.h:1
 #, fuzzy
-msgid "Create a flow"
-msgstr "Qutu yarat"
+#~ msgid "Create a flow"
+#~ msgstr "Qutu yarat"
 
-#: sheets/FS.sheet.in.h:2
 #, fuzzy
-msgid "Create a function"
-msgstr "İstifadəçi funksiyası"
-
-#: sheets/FS.sheet.in.h:3
-msgid "Create an orthogonal polyline flow"
-msgstr ""
+#~ msgid "Create a function"
+#~ msgstr "İstifadəçi funksiyası"
 
-#: sheets/FS.sheet.in.h:4
 #, fuzzy
-msgid "Editor for Function Structure Diagrams."
-msgstr "Funksiya şəkli diaqram cismləri"
+#~ msgid "Editor for Function Structure Diagrams."
+#~ msgstr "Funksiya şəkli diaqram cismləri"
 
-#: sheets/FS.sheet.in.h:5
-msgid "FS"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:1
 #, fuzzy
-msgid "A AND vergent"
-msgstr "GRAFCET VEYA/VE kenarı"
+#~ msgid "A AND vergent"
+#~ msgstr "GRAFCET VEYA/VE kenarı"
 
-#: sheets/GRAFCET.sheet.in.h:2
 #, fuzzy
-msgid "A OR vergent"
-msgstr "GRAFCET VEYA/VE kenarı"
+#~ msgid "A OR vergent"
+#~ msgstr "GRAFCET VEYA/VE kenarı"
 
-#: sheets/GRAFCET.sheet.in.h:3
 #, fuzzy
-msgid "A condition (of an action)"
-msgstr "Şəraitin yazı növü"
+#~ msgid "A condition (of an action)"
+#~ msgstr "Şəraitin yazı növü"
 
-#: sheets/GRAFCET.sheet.in.h:4
 #, fuzzy
-msgid "A macro call step"
-msgstr "Makro çağırış addımı"
+#~ msgid "A macro call step"
+#~ msgstr "Makro çağırış addımı"
 
-#: sheets/GRAFCET.sheet.in.h:5
 #, fuzzy
-msgid "A macro entry step"
-msgstr "Makro başlanğıc addımı"
+#~ msgid "A macro entry step"
+#~ msgstr "Makro başlanğıc addımı"
 
-#: sheets/GRAFCET.sheet.in.h:6
 #, fuzzy
-msgid "A macro exit step"
-msgstr "Makro bitiş addımı"
+#~ msgid "A macro exit step"
+#~ msgstr "Makro bitiş addımı"
 
-#: sheets/GRAFCET.sheet.in.h:7
 #, fuzzy
-msgid "A macro sub-program call step"
-msgstr "Alt Proqram çağırış addımı"
+#~ msgid "A macro sub-program call step"
+#~ msgstr "Alt Proqram çağırış addımı"
 
-#: sheets/GRAFCET.sheet.in.h:8
 #, fuzzy
-msgid "A regular step"
-msgstr "Standart addım"
+#~ msgid "A regular step"
+#~ msgstr "Standart addım"
 
-#: sheets/GRAFCET.sheet.in.h:9
 #, fuzzy
-msgid "A transition"
-msgstr "Tərcümə"
+#~ msgid "A transition"
+#~ msgstr "Tərcümə"
 
-#: sheets/GRAFCET.sheet.in.h:10
 #, fuzzy
-msgid "An action to associate to a step"
-msgstr "Bu gediş makro addıma çağırış aparır"
+#~ msgid "An action to associate to a step"
+#~ msgstr "Bu gediş makro addıma çağırış aparır"
 
-#: sheets/GRAFCET.sheet.in.h:11
-msgid "An arc (upward)"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:12
 #, fuzzy
-msgid "An initial step"
-msgstr "Ilk addım"
-
-#: sheets/GRAFCET.sheet.in.h:13
-msgid "GRAFCET"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:14
-msgid "Objects to design GRAFCET charts"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:1
-msgid "Jigsaw"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:2
-msgid "Jigsaw - part_iiii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:3
-msgid "Jigsaw - part_iiio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:4
-msgid "Jigsaw - part_iioi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:5
-msgid "Jigsaw - part_iioo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:6
-msgid "Jigsaw - part_ioii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:7
-msgid "Jigsaw - part_ioio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:8
-msgid "Jigsaw - part_iooi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:9
-msgid "Jigsaw - part_iooo"
-msgstr ""
+#~ msgid "An initial step"
+#~ msgstr "Ilk addım"
 
-#: sheets/jigsaw.sheet.in.h:10
-msgid "Jigsaw - part_oiii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:11
-msgid "Jigsaw - part_oiio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:12
-msgid "Jigsaw - part_oioi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:13
-msgid "Jigsaw - part_oioo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:14
-msgid "Jigsaw - part_ooii"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:15
-msgid "Jigsaw - part_ooio"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:16
-msgid "Jigsaw - part_oooi"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:17
-msgid "Jigsaw - part_oooo"
-msgstr ""
-
-#: sheets/jigsaw.sheet.in.h:18
-msgid "Pieces of a jigsaw"
-msgstr ""
-
-#: sheets/Logic.sheet.in.h:1
 #, fuzzy
-msgid "A Nand gate"
-msgstr "Daxil Et"
+#~ msgid "A Nand gate"
+#~ msgstr "Daxil Et"
 
-#: sheets/Logic.sheet.in.h:2
 #, fuzzy
-msgid "A Nor gate"
-msgstr "Daxil Et"
+#~ msgid "A Nor gate"
+#~ msgstr "Daxil Et"
 
-#: sheets/Logic.sheet.in.h:3
 #, fuzzy
-msgid "A Not"
-msgstr "Daxil Et"
+#~ msgid "A Not"
+#~ msgstr "Daxil Et"
 
-#: sheets/Logic.sheet.in.h:4
 #, fuzzy
-msgid "A Xor gate"
-msgstr "Daxil Et"
+#~ msgid "A Xor gate"
+#~ msgstr "Daxil Et"
 
-#: sheets/Logic.sheet.in.h:5
 #, fuzzy
-msgid "A crossconnector"
-msgstr "Bağlantıyı kəs"
+#~ msgid "A crossconnector"
+#~ msgstr "Bağlantıyı kəs"
 
-#: sheets/Logic.sheet.in.h:6
 #, fuzzy
-msgid "A simple Buffer"
-msgstr "Yazıçıyı seç"
+#~ msgid "A simple Buffer"
+#~ msgstr "Yazıçıyı seç"
 
-#: sheets/Logic.sheet.in.h:7
 #, fuzzy
-msgid "An And gate"
-msgstr "Daxil Et"
+#~ msgid "An And gate"
+#~ msgstr "Daxil Et"
 
-#: sheets/Logic.sheet.in.h:8
 #, fuzzy
-msgid "An Inverter"
-msgstr "Tərs çevir"
+#~ msgid "An Inverter"
+#~ msgstr "Tərs çevir"
 
-#: sheets/Logic.sheet.in.h:9
 #, fuzzy
-msgid "An Or gate"
-msgstr "Daxil Et"
+#~ msgid "An Or gate"
+#~ msgstr "Daxil Et"
 
-#: sheets/Logic.sheet.in.h:10
 #, fuzzy
-msgid "Boolean Logic"
-msgstr "Biologik"
+#~ msgid "Boolean Logic"
+#~ msgstr "Biologik"
 
-#: sheets/Logic.sheet.in.h:11
 #, fuzzy
-msgid "Logic"
-msgstr "Qıfılla"
+#~ msgid "Logic"
+#~ msgstr "Qıfılla"
 
-#: sheets/MSE.sheet.in.h:1
 #, fuzzy
-msgid "Demultiplexer"
-msgstr "Çoxalt"
+#~ msgid "Demultiplexer"
+#~ msgstr "Çoxalt"
 
-#: sheets/MSE.sheet.in.h:2
-msgid "Large Extension Node"
-msgstr ""
-
-#: sheets/MSE.sheet.in.h:3
-msgid "MSE"
-msgstr ""
-
-#: sheets/MSE.sheet.in.h:4
 #, fuzzy
-msgid "Multiplexer"
-msgstr "Çoxalt"
+#~ msgid "Multiplexer"
+#~ msgstr "Çoxalt"
 
-#: sheets/MSE.sheet.in.h:5
 #, fuzzy
-msgid "Node Center"
-msgstr "Orta"
-
-#: sheets/MSE.sheet.in.h:6
-msgid "Small Extension Node"
-msgstr ""
-
-#: sheets/MSE.sheet.in.h:7
-msgid "Tactical Satellite Communications Terminal"
-msgstr ""
-
-#: sheets/MSE.sheet.in.h:8
-msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr ""
+#~ msgid "Node Center"
+#~ msgstr "Orta"
 
-#: sheets/network.sheet.in.h:1
-msgid "A 3 1/2 inch diskette"
-msgstr ""
-
-#: sheets/network.sheet.in.h:2
-msgid "A Bigtower PC"
-msgstr ""
-
-#: sheets/network.sheet.in.h:3
 #, fuzzy
-msgid "A Computer"
-msgstr "Bucaq əlavə et"
-
-#: sheets/network.sheet.in.h:4
-msgid "A Desktop PC"
-msgstr ""
-
-#: sheets/network.sheet.in.h:5
-msgid "A Firewall router"
-msgstr ""
-
-#: sheets/network.sheet.in.h:6
-msgid "A Miditower PC"
-msgstr ""
+#~ msgid "A Computer"
+#~ msgstr "Bucaq əlavə et"
 
-#: sheets/network.sheet.in.h:7
-msgid "A Minitower PC"
-msgstr ""
-
-#: sheets/network.sheet.in.h:8
-msgid "A Mobile Phone"
-msgstr ""
-
-#: sheets/network.sheet.in.h:9
-msgid "A RJ45 Wall-Plug"
-msgstr ""
-
-#: sheets/network.sheet.in.h:10
-msgid "A UNIX Workstation"
-msgstr ""
-
-#: sheets/network.sheet.in.h:11
 #, fuzzy
-msgid "A WAN Connection"
-msgstr "Konveksiya"
+#~ msgid "A WAN Connection"
+#~ msgstr "Konveksiya"
 
-#: sheets/network.sheet.in.h:12
 #, fuzzy
-msgid "A WAN Link"
-msgstr "Konveksiya"
-
-#: sheets/network.sheet.in.h:13
-msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr ""
+#~ msgid "A WAN Link"
+#~ msgstr "Konveksiya"
 
-#: sheets/network.sheet.in.h:14
-msgid "A Workstation Monitor"
-msgstr ""
-
-#: sheets/network.sheet.in.h:15
-msgid "A ZIP Disk"
-msgstr ""
-
-#: sheets/network.sheet.in.h:16
-msgid "A modular switching system"
-msgstr ""
-
-#: sheets/network.sheet.in.h:17
 #, fuzzy
-msgid "A monitor"
-msgstr "Gedişatcı"
+#~ msgid "A monitor"
+#~ msgstr "Gedişatcı"
 
-#: sheets/network.sheet.in.h:18
 #, fuzzy
-msgid "A simple Modem"
-msgstr "Yazıçıyı seç"
+#~ msgid "A simple Modem"
+#~ msgstr "Yazıçıyı seç"
 
-#: sheets/network.sheet.in.h:19
 #, fuzzy
-msgid "A simple printer"
-msgstr "Yazıçıyı seç"
-
-#: sheets/network.sheet.in.h:20
-msgid "A speaker with integrated amplifier"
-msgstr ""
-
-#: sheets/network.sheet.in.h:21
-msgid "A speaker without amplifier"
-msgstr ""
+#~ msgid "A simple printer"
+#~ msgstr "Yazıçıyı seç"
 
-#: sheets/network.sheet.in.h:22
-msgid "A stackable hub or switch"
-msgstr ""
-
-#: sheets/network.sheet.in.h:23
 #, fuzzy
-msgid "ATM Switch Symbol"
-msgstr "Keç"
-
-#: sheets/network.sheet.in.h:24
-msgid "An Ethernet bus"
-msgstr ""
+#~ msgid "ATM Switch Symbol"
+#~ msgstr "Keç"
 
-#: sheets/network.sheet.in.h:25
-msgid "An antenna for wireless transmission"
-msgstr ""
-
-#: sheets/network.sheet.in.h:26
-msgid "An external DAT drive"
-msgstr ""
-
-#: sheets/network.sheet.in.h:27
 #, fuzzy
-msgid "Network"
-msgstr "Təzə"
+#~ msgid "Network"
+#~ msgstr "Təzə"
 
-#: sheets/network.sheet.in.h:28
 #, fuzzy
-msgid "Network Cloud"
-msgstr "Təzə"
-
-#: sheets/network.sheet.in.h:29
-msgid "Objects to design network diagrams with"
-msgstr ""
+#~ msgid "Network Cloud"
+#~ msgstr "Təzə"
 
-#: sheets/network.sheet.in.h:30
 #, fuzzy
-msgid "Router Symbol"
-msgstr "İnteqral Simvolu"
+#~ msgid "Router Symbol"
+#~ msgstr "İnteqral Simvolu"
 
-#: sheets/network.sheet.in.h:31
 #, fuzzy
-msgid "Storage"
-msgstr "Saxla"
+#~ msgid "Storage"
+#~ msgstr "Saxla"
 
-#: sheets/network.sheet.in.h:32
 #, fuzzy
-msgid "Switch Symbol"
-msgstr "Keç"
-
-#: sheets/Pneumatic.sheet.in.h:1
-msgid "A 2/2 distributor"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:2
-msgid "A 3/2 distributor"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:3
-msgid "A 3/3 distributor"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:4
-msgid "A 4/2 distributor"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:5
-msgid "A 5/2 distributor"
-msgstr ""
+#~ msgid "Switch Symbol"
+#~ msgstr "Keç"
 
-#: sheets/Pneumatic.sheet.in.h:6
-msgid "A 5/3 distributor"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:8
-msgid "A double-effect jack"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:9
-msgid "A generic pressure source"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:10
-msgid "A hydraulic pressure source"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:11
-msgid "A normally-in simple-effect jack"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:12
-msgid "A normally-out simple-effect jack"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:13
-msgid "A pneumatic pressure source"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:14
-msgid "An air exhaust orifice"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:15
-msgid "Components for pneumatic and hydraulic circuits"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:16
-msgid "Electric command (double coil)"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:17
-msgid "Electric command (single coil)"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:18
-msgid "Indirect command by hydraulic driver"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:19
-msgid "Indirect command by pneumatic driver"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:20
-msgid "Mechanical command by spring"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:21
-msgid "Mechanical command by tappet"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:22
-msgid "Muscular command"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:23
 #, fuzzy
-msgid "Pneumatic/Hydraulic"
-msgstr "Hidrolik"
+#~ msgid "Pneumatic/Hydraulic"
+#~ msgstr "Hidrolik"
 
-#: sheets/Pneumatic.sheet.in.h:24
-msgid "Push-button command"
-msgstr ""
-
-#: sheets/SADT.sheet.in.h:1
 #, fuzzy
-msgid "A activity/data flow arrow"
-msgstr "Gediş/Haqqında izahatcısı"
+#~ msgid "A activity/data flow arrow"
+#~ msgstr "Gediş/Haqqında izahatcısı"
 
-#: sheets/SADT.sheet.in.h:2
-msgid "A flow label"
-msgstr ""
-
-#: sheets/SADT.sheet.in.h:3
 #, fuzzy
-msgid "An activity/data box"
-msgstr "Gediş/Haqqında izahatcısı"
-
-#: sheets/SADT.sheet.in.h:4
-msgid "Objects to design SADT diagrams"
-msgstr ""
+#~ msgid "An activity/data box"
+#~ msgstr "Gediş/Haqqında izahatcısı"
 
-#: sheets/SADT.sheet.in.h:5
-msgid "SADT/IDEF0"
-msgstr ""
-
-#: sheets/SDL.sheet.in.h:1
-msgid "Action being executed"
-msgstr ""
-
-#: sheets/SDL.sheet.in.h:2
 #, fuzzy
-msgid "Block Type Reference"
-msgstr "Qurğular"
+#~ msgid "Block Type Reference"
+#~ msgstr "Qurğular"
 
-#: sheets/SDL.sheet.in.h:3
 #, fuzzy
-msgid "Comment"
-msgstr "Orta"
+#~ msgid "Comment"
+#~ msgstr "Orta"
 
-#: sheets/SDL.sheet.in.h:4
 #, fuzzy
-msgid "Decision"
-msgstr "İzahat :"
+#~ msgid "Decision"
+#~ msgstr "İzahat :"
 
-#: sheets/SDL.sheet.in.h:5
 #, fuzzy
-msgid "Function Header"
-msgstr "Makro çağırışı"
+#~ msgid "Function Header"
+#~ msgstr "Makro çağırışı"
 
-#: sheets/SDL.sheet.in.h:6
 #, fuzzy
-msgid "Function call"
-msgstr "Makro çağırışı"
+#~ msgid "Function call"
+#~ msgstr "Makro çağırışı"
 
-#: sheets/SDL.sheet.in.h:7
-msgid "Generic Text Note"
-msgstr ""
-
-#: sheets/SDL.sheet.in.h:8
 #, fuzzy
-msgid "In/Out Connector"
-msgstr "Bağla"
+#~ msgid "In/Out Connector"
+#~ msgstr "Bağla"
 
-#: sheets/SDL.sheet.in.h:10
-msgid "Procedure Return"
-msgstr ""
-
-#: sheets/SDL.sheet.in.h:11
 #, fuzzy
-msgid "Process Type Reference"
-msgstr "Qurğular"
+#~ msgid "Process Type Reference"
+#~ msgstr "Qurğular"
 
-#: sheets/SDL.sheet.in.h:12
 #, fuzzy
-msgid "Receive message"
-msgstr "Al"
-
-#: sheets/SDL.sheet.in.h:13
-msgid "SDL"
-msgstr ""
+#~ msgid "Receive message"
+#~ msgstr "Al"
 
-#: sheets/SDL.sheet.in.h:14
 #, fuzzy
-msgid "Save State"
-msgstr "Başlat"
+#~ msgid "Save State"
+#~ msgstr "Başlat"
 
-#: sheets/SDL.sheet.in.h:15
 #, fuzzy
-msgid "Send message"
-msgstr "İsmarıc :"
+#~ msgid "Send message"
+#~ msgstr "İsmarıc :"
 
-#: sheets/SDL.sheet.in.h:16
 #, fuzzy
-msgid "Service Type Reference"
-msgstr "Qurğular"
+#~ msgid "Service Type Reference"
+#~ msgstr "Qurğular"
 
-#: sheets/SDL.sheet.in.h:17
-msgid "Specification and Description Language."
-msgstr ""
-
-#: sheets/SDL.sheet.in.h:18
 #, fuzzy
-msgid "State"
-msgstr "Başlat"
-
-#: sheets/sybase.sheet.in.h:1
-msgid "A Sybase Client Application"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:2
-msgid "A Sybase Dataserver"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:3
-msgid "A Sybase Replication Server"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:4
-msgid "Log Transfer Manager or Rep Agent"
-msgstr ""
+#~ msgid "State"
+#~ msgstr "Başlat"
 
-#: sheets/sybase.sheet.in.h:5
-msgid "Objects to design Sybase replication domain diagrams with"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:6
-msgid "Replication Server Manager"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:7
-msgid "Stable Storage Device"
-msgstr ""
-
-#: sheets/sybase.sheet.in.h:8
 #, fuzzy
-msgid "Sybase"
-msgstr "Tireli"
-
-#: sheets/UML.sheet.in.h:1
-msgid "Aggregation, one class is part of another"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:2
-msgid "Association, two classes are associated"
-msgstr ""
+#~ msgid "Sybase"
+#~ msgstr "Tireli"
 
-#: sheets/UML.sheet.in.h:3
-msgid "Constraint, place a constraint on something"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:4
 #, fuzzy
-msgid "Create a (large) package"
-msgstr "Rəsmi yarat"
+#~ msgid "Create a (large) package"
+#~ msgstr "Rəsmi yarat"
 
-#: sheets/UML.sheet.in.h:5
 #, fuzzy
-msgid "Create a (small) package"
-msgstr "Rəsmi yarat"
+#~ msgid "Create a (small) package"
+#~ msgstr "Rəsmi yarat"
 
-#: sheets/UML.sheet.in.h:6
 #, fuzzy
-msgid "Create a branch"
-msgstr "Yay yarat"
+#~ msgid "Create a branch"
+#~ msgstr "Yay yarat"
 
-#: sheets/UML.sheet.in.h:7
 #, fuzzy
-msgid "Create a class"
-msgstr "Nümunə sinifi"
+#~ msgid "Create a class"
+#~ msgstr "Nümunə sinifi"
 
-#: sheets/UML.sheet.in.h:8
 #, fuzzy
-msgid "Create a class stereotype icon"
-msgstr "Nümunə sinifi"
+#~ msgid "Create a class stereotype icon"
+#~ msgstr "Nümunə sinifi"
 
-#: sheets/UML.sheet.in.h:9
 #, fuzzy
-msgid "Create a component"
-msgstr "Çoxguşəli yarat"
+#~ msgid "Create a component"
+#~ msgstr "Çoxguşəli yarat"
 
-#: sheets/UML.sheet.in.h:10
 #, fuzzy
-msgid "Create a dependency"
-msgstr "Bezyer xəttini yarata"
+#~ msgid "Create a dependency"
+#~ msgstr "Bezyer xəttini yarata"
 
-#: sheets/UML.sheet.in.h:11
 #, fuzzy
-msgid "Create a lifeline"
-msgstr "Bezyer xəttini yarata"
+#~ msgid "Create a lifeline"
+#~ msgstr "Bezyer xəttini yarata"
 
-#: sheets/UML.sheet.in.h:12
 #, fuzzy
-msgid "Create a message"
-msgstr "Rəsmi yarat"
+#~ msgid "Create a message"
+#~ msgstr "Rəsmi yarat"
 
-#: sheets/UML.sheet.in.h:13
 #, fuzzy
-msgid "Create a node"
-msgstr "Xətt yarat"
+#~ msgid "Create a node"
+#~ msgstr "Xətt yarat"
 
-#: sheets/UML.sheet.in.h:14
 #, fuzzy
-msgid "Create a note"
-msgstr "Xətt yarat"
+#~ msgid "Create a note"
+#~ msgstr "Xətt yarat"
 
-#: sheets/UML.sheet.in.h:15
 #, fuzzy
-msgid "Create a state machine"
-msgstr "Xətt yarat"
+#~ msgid "Create a state machine"
+#~ msgstr "Xətt yarat"
 
-#: sheets/UML.sheet.in.h:16
 #, fuzzy
-msgid "Create a template class"
-msgstr "Nümunə sinifi"
+#~ msgid "Create a template class"
+#~ msgstr "Nümunə sinifi"
 
-#: sheets/UML.sheet.in.h:17
 #, fuzzy
-msgid "Create a use case"
-msgstr "Rəsmi yarat"
+#~ msgid "Create a use case"
+#~ msgstr "Rəsmi yarat"
 
-#: sheets/UML.sheet.in.h:18
 #, fuzzy
-msgid "Create an actor"
-msgstr "Təzə bir diaqram yarat"
+#~ msgid "Create an actor"
+#~ msgstr "Təzə bir diaqram yarat"
 
-#: sheets/UML.sheet.in.h:19
 #, fuzzy
-msgid "Create an object"
-msgstr "Xətt yarat"
+#~ msgid "Create an object"
+#~ msgstr "Xətt yarat"
 
-#: sheets/UML.sheet.in.h:20
 #, fuzzy
-msgid "Editor for UML Static Structure Diagrams"
-msgstr "Funksiya şəkli diaqram cismləri"
-
-#: sheets/UML.sheet.in.h:21
-msgid "Generalization, class inheritance"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:22
-msgid "Implements, class implements a specific interface"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:23
-msgid "Realizes, implements a specific interface"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:24
-msgid "UML"
-msgstr ""
+#~ msgid "Editor for UML Static Structure Diagrams"
+#~ msgstr "Funksiya şəkli diaqram cismləri"
 
-#: dia.desktop.in.h:1
 #, fuzzy
-msgid "A Diagram Editor"
-msgstr "Diaqramma editoru"
+#~ msgid "A Diagram Editor"
+#~ msgstr "Diaqramma editoru"
 
-#: dia.desktop.in.h:2
 #, fuzzy
-msgid "Dia"
-msgstr "Ekran"
+#~ msgid "Dia"
+#~ msgstr "Ekran"
 
 #~ msgid "No edit widget"
 #~ msgstr "Dəyişdirilə bilən bir widget deyildir"

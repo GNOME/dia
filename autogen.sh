@@ -81,7 +81,7 @@ autoconf$ACFLAVOUR
 
 cd $ORIGDIR
 
-$srcdir/configure "$@"
+$srcdir/configure --enable-maintainer-mode --enable-db2html "$@"
 
 echo 
 echo "Now type 'make' to compile $PROJECT."

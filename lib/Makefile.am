@@ -89,6 +89,7 @@ libdia_a_SOURCES =  \
 		connpoint_line.c \
 		connpoint_line.h \
 		$(stdprop_files) \
+		textattr.h \
 		dia_dirs.c \
 		dia_dirs.h \
 		plug-ins.c \
