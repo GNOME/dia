@@ -1,3 +1,17 @@
+2002-01-26  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* po/update.pl (REMOVED):
+	* po/update.sh (REMOVED):
+	* xml-i18n-merge.in.kg (REMOVED):
+	* xml-i18n-update.in.kg (REMOVED):
+	* sheets/Makefile.am:
+	* Makefile.am:
+	* autogen.sh:
+	* configure.in: converted from xml-i18n-tools to intltools
+
+	This looks like it fixes the build bugs of the snapshot tarballs, 
+	and it supersedes #69611.	
+
 2002-01-25  Akira TAGOH  <tagoh@redhat.com>
 
 	* lib/text.c (text_insert_char): fixed characters# calculation.
