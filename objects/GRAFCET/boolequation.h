@@ -56,10 +56,10 @@ extern Boolequation *boolequation_create(const utfchar *value, Font *font,
 extern void boolequation_destroy(Boolequation *rcep);
 extern void boolequation_set_value(Boolequation *rcep, const utfchar *value);
 
-extern void save_boolequation(ObjectNode *obj_node, const gchar *attrname,
+extern void save_boolequation(ObjectNode obj_node, const gchar *attrname,
 			     Boolequation *rcep);
 
-extern Boolequation *load_boolequation(ObjectNode *obj_node,
+extern Boolequation *load_boolequation(ObjectNode obj_node,
 				     const gchar *attrname,
 				     const utfchar *defaultvalue,
 				     Font *font,

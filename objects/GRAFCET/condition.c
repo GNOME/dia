@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * GRAFCET chart support 
- * Copyright (C) 2000 Cyrille Chepelov
+ * Copyright (C) 2000,2001 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -125,7 +125,7 @@ static ObjectOps condition_ops = {
 
 static PropDescription condition_props[] = {
   CONNECTION_COMMON_PROPERTIES,
-  { "condition",PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  { "condition",PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_MERGE,
     N_("Condition"),N_("The boolean equation of the condition")},
   { "cond_font",PROP_TYPE_FONT, PROP_FLAG_VISIBLE,
     N_("Font"),N_("The condition's font") },

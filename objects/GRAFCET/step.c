@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * GRAFCET charts support for Dia 
- * Copyright (C) 2000 Cyrille Chepelov
+ * Copyright (C) 2000, 2001 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -153,7 +153,7 @@ PropEnumData step_style[] = {
 
 static PropDescription step_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  { "id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_MERGE,
     N_("Step name"),N_("The name of the step")},
   { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Step type"),N_("The kind of step"),step_style},

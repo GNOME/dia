@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * GRAFCET chart support 
- * Copyright(C) 2000 Cyrille Chepelov
+ * Copyright(C) 2000,2001 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

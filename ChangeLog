@@ -1,3 +1,21 @@
+2001-06-12  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* objects/boolequation.h (<save|load>_boolequation): made the 
+	prototypes for match the .c file.
+	
+	* samples/grafcet.dia: minor non-conformance with IEC-848
+	fixed (in the transition from step 100 to step 101).
+
+	* lib/properties.[ch]: added a flag (PROP_FLAG_DONT_MERGE) to
+	disallow editing of properties if the object is part of a group.
+
+	* objects/chronogram/chronoline.c: 
+	* objects/SADT/annotation.c:
+	* objects/SADT/box.c:
+	* objects/GRAFCET/step.c:
+	* objects/GRAFCET/transition.c:
+	* objects/GRAFCET/condition.c: took advantage of PROP_FLAG_DONT_MERGE.
+	
 2001-06-12  Hans Breuer  <hans@breuer.org>
 
 	* lib/libdia.def : removed lazyprop exports

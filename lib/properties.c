@@ -148,9 +148,14 @@ prop_desc_lists_intersection(GList *plists)
       for (i = arr->len - 1; i >= 0; i--) {
 	gint j;
 
-	for (j = 0; ret[j].name != NULL; j++)
-	  if (g_array_index(arr, PropDescription, i).quark == ret[j].quark)
-	    break;
+	for (j = 0; ret[j].name != NULL; j++) {
+	  if (g_array_index(arr, PropDescription, i).quark == ret[j].quark) {
+            if (!((ret[j].flags|g_array_index(arr, PropDescription, i).flags)
+                  & PROP_FLAG_DONT_MERGE))
+              break; /* otherwise, one of the props doesn't want to be merged,
+                        so we won't keep it. */                        
+          }
+        }
 	if (ret[j].name == NULL)
 	  g_array_remove_index(arr, i);
       }

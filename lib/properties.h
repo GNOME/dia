@@ -96,6 +96,7 @@ struct _PropDescription {
 
 #define PROP_FLAG_VISIBLE   0x0001
 #define PROP_FLAG_DONT_SAVE 0x0002
+#define PROP_FLAG_DONT_MERGE 0x0004 /* in case group properties are edited */
 
 #define PROP_DESC_END { NULL, 0, 0, NULL, NULL, NULL, 0 }
 

@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * SADT Activity/Data box -- objects for drawing SADT diagrams.
- * Copyright (C) 2000 Cyrille Chepelov
+ * Copyright (C) 2000, 2001 Cyrille Chepelov
  * 
  * Forked from Flowchart toolbox -- objects for drawing flowcharts.
  * Copyright (C) 1999 James Henstridge.
@@ -142,7 +142,7 @@ static PropDescription box_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  { "id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  { "id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_MERGE,
     N_("Activity/Data identifier"),
     N_("The identifier which appears in the lower right corner of the Box")},
   { "cpl_north",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL},
