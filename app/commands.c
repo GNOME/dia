@@ -1,6 +1,5 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998 Alexander Larsson
- *
+ * Copyright (C) 1998 Alexander Larsson *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -46,16 +45,9 @@ ShellExecuteA (long        hwnd,
                int         nShowCmd);
 #endif
 
-#ifdef GNOME
-#include <gnome.h>
-#endif
-#ifdef GNOME_PRINT
-#include "paginate_gnomeprint.h"
-#else
 #include "paginate_psprint.h"
-#  ifdef G_OS_WIN32
+#ifdef G_OS_WIN32
 #  include "paginate_gdiprint.h"
-#  endif
 #endif
 #include "intl.h"
 #include "commands.h"
@@ -106,17 +98,13 @@ file_print_callback(gpointer data, guint action, GtkWidget *widget)
   Diagram *dia;
 
   dia = ddisplay_active()->diagram;
-#ifdef GNOME_PRINT
-  diagram_print_gnome(dia);
-#else
-#  ifdef G_OS_WIN32
+#ifdef G_OS_WIN32
   /* This option could be used with Gnome too. Does it make sense there ? */
   if (!prefs.prefer_psprint)
     diagram_print_gdi(dia);
   else
-#  endif
-    diagram_print_ps(dia);
 #endif
+    diagram_print_ps(dia);
 }
 
 void

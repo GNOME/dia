@@ -20,10 +20,6 @@
 
 #include <gtk/gtk.h>
 
-#ifdef GNOME
-#include <gnome.h>
-#endif
-
 struct zoom_pair { const gchar *string; const gint value; };
 
 extern const struct zoom_pair zooms[10];

@@ -8,7 +8,8 @@
 
 #ifndef GNOME
 /* taken from gnome-libs/libgnome/gnome-i18n.c ... */
-
+/* FIXME: is this still necessary, or has gtk2.0 swallowed this ? */
+   
 static GHashTable *alias_table = NULL;
 
 /*read an alias file for the locales*/

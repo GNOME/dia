@@ -1,3 +1,15 @@
+2002-06-11  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* configure.in: Added forgotten libgnomeui-2.0 when --enable-gnome
+			
+	* app/commands.c: Removed unnecessary gnome include. Removed
+	GNOME-Print support.
+
+	* app/menus.h: Removed now unnecessary gnome include.
+	
+	* app/sheets_dialog.c: Used Gtk 2.0 stock buttons instead of
+	GNOME-specific stock buttons
+	
 2002-06-09  Hans Breuer  <hans@breuer.org>
 
 	* app/app_procs.c : convert 'Modified diagrams exits'

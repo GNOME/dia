@@ -3,7 +3,7 @@
 
 #include <glib.h>
 #ifdef GNOME
-#  include <gnome.h>
+#  include <libgnome/gnome-i18n.h>
 #else
 #  ifdef ENABLE_NLS
 #    include <libintl.h>

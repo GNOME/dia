@@ -37,12 +37,8 @@
 #endif
 #include <string.h>
 
-#ifdef GNOME
-#include <gnome.h>
-#else
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
-#endif
 
 #include "sheets.h"
 #include "sheets_dialog_callbacks.h"
@@ -198,16 +194,7 @@ create_sheets_main_dialog (void)
   gtk_widget_show (hbox1);
   gtk_box_pack_start (GTK_BOX (dialog_action_area1), hbox1, TRUE, TRUE, 0);
 
-  button_new = gtk_button_new(); /* _with_label (_("New")); */
-  {
-    GtkWidget *label;
-
-    label = gtk_label_new(_("New"));
-    gtk_widget_ref(label);
-    gtk_label_parse_uline(GTK_LABEL(label), _("_New"));
-    gtk_container_add(GTK_CONTAINER(button_new), label);
-    gtk_widget_show(label);
-  }
+  button_new = gtk_button_new_from_stock(GTK_STOCK_NEW);
   gtk_widget_ref (button_new);
   gtk_object_set_data_full (GTK_OBJECT (sheets_main_dialog), "button_new", button_new,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -217,20 +204,7 @@ create_sheets_main_dialog (void)
                               GDK_n, GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
 
-#ifdef GNOME
-  button_move_up = gnome_stock_button (GNOME_STOCK_BUTTON_UP);
-#else
-  button_move_up = gtk_button_new();
-  {
-    GtkWidget *label;
-
-    label = gtk_label_new(_("Up"));
-    gtk_widget_ref(label);
-    gtk_label_parse_uline(GTK_LABEL(label), _("_Up"));
-    gtk_container_add(GTK_CONTAINER(button_move_up), label);
-    gtk_widget_show(label);
-  }
-#endif
+  button_move_up = gtk_button_new_from_stock (GTK_STOCK_GO_UP);
   gtk_widget_ref (button_move_up);
   gtk_object_set_data_full (GTK_OBJECT (sheets_main_dialog), "button_move_up", button_move_up,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -239,20 +213,7 @@ create_sheets_main_dialog (void)
   gtk_widget_add_accelerator (button_move_up, "clicked", accel_group,
                               GDK_u, GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
-#ifdef GNOME
-  button_move_down = gnome_stock_button (GNOME_STOCK_BUTTON_DOWN);
-#else
-  button_move_down = gtk_button_new();
-  {
-    GtkWidget *label;
-
-    label = gtk_label_new(_("Down"));
-    gtk_widget_ref(label);
-    gtk_label_parse_uline(GTK_LABEL(label), _("_Down"));
-    gtk_container_add(GTK_CONTAINER(button_move_down), label);
-    gtk_widget_show(label);
-  }
-#endif
+  button_move_down = gtk_button_new_from_stock (GTK_STOCK_GO_DOWN);
   gtk_widget_ref (button_move_down);
   gtk_object_set_data_full (GTK_OBJECT (sheets_main_dialog), "button_move_down", button_move_down,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -281,16 +242,7 @@ create_sheets_main_dialog (void)
                               GDK_e, GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
 
-  button_remove = gtk_button_new(); /* _with_label (_("Remove")); */
-  {
-    GtkWidget *label;
-
-    label = gtk_label_new(_("Remove"));
-    gtk_widget_ref(label);
-    gtk_label_parse_uline(GTK_LABEL(label), _("_Remove"));
-    gtk_container_add(GTK_CONTAINER(button_remove), label);
-    gtk_widget_show(label);
-  }
+  button_remove = gtk_button_new_from_stock(GTK_STOCK_REMOVE);
   gtk_widget_ref (button_remove);
   gtk_object_set_data_full (GTK_OBJECT (sheets_main_dialog), "button_remove", button_remove,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -300,11 +252,7 @@ create_sheets_main_dialog (void)
                               GDK_r, GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
 
-#ifdef GNOME
-  button_apply = gnome_stock_button (GNOME_STOCK_BUTTON_APPLY);
-#else
-  button_apply = gtk_button_new_with_label(_("Apply"));
-#endif
+  button_apply = gtk_button_new_from_stock(GTK_STOCK_APPLY);
   gtk_widget_ref (button_apply);
   gtk_object_set_data_full (GTK_OBJECT (sheets_main_dialog), "button_apply", button_apply,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -312,7 +260,7 @@ create_sheets_main_dialog (void)
   gtk_box_pack_start (GTK_BOX (hbox1), button_apply, FALSE, TRUE, 0);
   gtk_widget_set_sensitive (button_apply, FALSE);
 
-  button_revert = gtk_button_new_with_label (_("Revert"));
+  button_revert = gtk_button_new_with_label(_("Revert"));
   gtk_widget_ref (button_revert);
   gtk_object_set_data_full (GTK_OBJECT (sheets_main_dialog), "button_revert", button_revert,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -320,12 +268,7 @@ create_sheets_main_dialog (void)
   gtk_box_pack_start (GTK_BOX (hbox1), button_revert, FALSE, TRUE, 0);
   gtk_widget_set_sensitive (button_revert, FALSE);
 
-#ifdef GNOME
-  button_close = gnome_stock_button (GNOME_STOCK_BUTTON_CLOSE);
-#else
-  button_close = gtk_button_new_with_label(_("Close"));
-#endif
-
+  button_close = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
   gtk_widget_ref (button_close);
   gtk_object_set_data_full (GTK_OBJECT (sheets_main_dialog), "button_close", button_close,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -552,11 +495,7 @@ create_sheets_new_dialog (void)
   gtk_button_box_set_layout (GTK_BUTTON_BOX (hbuttonbox1), GTK_BUTTONBOX_END);
   gtk_button_box_set_spacing (GTK_BUTTON_BOX (hbuttonbox1), 0);
 
-#ifdef GNOME
-  button_ok = gnome_stock_button (GNOME_STOCK_BUTTON_OK);
-#else
-  button_ok = gtk_button_new_with_label(_("OK"));
-#endif
+  button_ok = gtk_button_new_from_stock(GTK_STOCK_OK);
   gtk_widget_ref (button_ok);
   gtk_object_set_data_full (GTK_OBJECT (sheets_new_dialog), "button_ok", button_ok,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -564,11 +503,7 @@ create_sheets_new_dialog (void)
   gtk_container_add (GTK_CONTAINER (hbuttonbox1), button_ok);
   GTK_WIDGET_SET_FLAGS (button_ok, GTK_CAN_DEFAULT);
 
-#ifdef GNOME
-  button_cancel = gnome_stock_button (GNOME_STOCK_BUTTON_CANCEL);
-#else
-  button_cancel = gtk_button_new_with_label(_("Cancel"));
-#endif
+  button_cancel = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
   gtk_widget_ref (button_cancel);
   gtk_object_set_data_full (GTK_OBJECT (sheets_new_dialog), "button_cancel", button_cancel,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -784,11 +719,7 @@ create_sheets_edit_dialog (void)
   gtk_button_box_set_layout (GTK_BUTTON_BOX (hbuttonbox2), GTK_BUTTONBOX_END);
   gtk_button_box_set_spacing (GTK_BUTTON_BOX (hbuttonbox2), 0);
 
-#ifdef GNOME
-  button_ok = gnome_stock_button (GNOME_STOCK_BUTTON_OK);
-#else
-  button_ok = gtk_button_new_with_label(_("OK"));
-#endif
+  button_ok = gtk_button_new_from_stock(GTK_STOCK_OK);
   gtk_widget_ref (button_ok);
   gtk_object_set_data_full (GTK_OBJECT (sheets_edit_dialog), "button_ok", button_ok,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -796,11 +727,7 @@ create_sheets_edit_dialog (void)
   gtk_container_add (GTK_CONTAINER (hbuttonbox2), button_ok);
   GTK_WIDGET_SET_FLAGS (button_ok, GTK_CAN_DEFAULT);
 
-#ifdef GNOME
-  button_cancel = gnome_stock_button (GNOME_STOCK_BUTTON_CANCEL);
-#else
-  button_cancel = gtk_button_new_with_label(_("Cancel"));
-#endif
+  button_cancel = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
   gtk_widget_ref (button_cancel);
   gtk_object_set_data_full (GTK_OBJECT (sheets_edit_dialog), "button_cancel", button_cancel,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -943,11 +870,7 @@ create_sheets_remove_dialog (void)
   gtk_button_box_set_layout (GTK_BUTTON_BOX (hbuttonbox3), GTK_BUTTONBOX_END);
   gtk_button_box_set_spacing (GTK_BUTTON_BOX (hbuttonbox3), 0);
 
-#ifdef GNOME
-  button_ok = gnome_stock_button (GNOME_STOCK_BUTTON_OK);
-#else
-  button_ok = gtk_button_new_with_label(_("OK"));
-#endif
+  button_ok = gtk_button_new_from_stock(GTK_STOCK_OK);
   gtk_widget_ref (button_ok);
   gtk_object_set_data_full (GTK_OBJECT (sheets_remove_dialog), "button_ok", button_ok,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -955,11 +878,7 @@ create_sheets_remove_dialog (void)
   gtk_container_add (GTK_CONTAINER (hbuttonbox3), button_ok);
   GTK_WIDGET_SET_FLAGS (button_ok, GTK_CAN_DEFAULT);
 
-#ifdef GNOME
-  button_cancel = gnome_stock_button (GNOME_STOCK_BUTTON_CANCEL);
-#else
-  button_cancel = gtk_button_new_with_label(_("Cancel"));
-#endif
+  button_cancel = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
   gtk_widget_ref (button_cancel);
   gtk_object_set_data_full (GTK_OBJECT (sheets_remove_dialog), "button_cancel", button_cancel,
                             (GtkDestroyNotify) gtk_widget_unref);
