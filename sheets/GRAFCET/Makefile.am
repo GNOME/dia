@@ -2,12 +2,12 @@
 GRAFCETsheetdir = $(pkgdatadir)/sheets/GRAFCET
 
 PIX = \
-	etapei.xpm \
-	etapems.xpm \
-	etapeme.xpm \
-	etapemc.xpm \
-	etapesp.xpm \
-	vergent_and.xpm
+	etapei.png \
+	etapems.png \
+	etapeme.png \
+	etapemc.png \
+	etapesp.png \
+	vergent_and.png
 
 GRAFCETsheet_DATA = $(PIX)
 EXTRA_DIST = $(PIX)

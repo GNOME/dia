@@ -805,6 +805,58 @@ persistent_list_remove(const gchar *role, const gchar *item)
   return g_list_length(plist->glist) < len;
 }
 
+typedef struct {
+  PersistenceCallback func;
+  GObject *watch;
+  gpointer userdata;
+} ListenerData;
+
+/** Add a listener to updates on the list, so that if another
+ * instance changes the list, menus and such can be updated.
+ * @param role The name of the persistent list to watch.
+ * @param func A function to call when the list is updated, takes
+ * the given userdata.
+ * @param userdata Data passed back into the callback function.
+ */
+void
+persistent_list_add_listener(const gchar *role, PersistenceCallback func, 
+			     GObject *watch, gpointer userdata)
+{
+  PersistentList *plist = persistent_list_get(role);
+  ListenerData *listener;
+
+  if (plist != NULL) {
+    listener = g_new(ListenerData, 1);
+    listener->func = func;
+    listener->watch = watch;
+    g_object_add_weak_pointer(watch, &listener->watch);
+    listener->userdata = userdata;
+    plist->listeners = g_list_append(plist->listeners, listener);
+  }
+}
+
+/** When changing the list, call the listeners.
+ */
+static void
+persistent_list_invoke_listeners(gchar *role)
+{
+  GList *tmp;
+  PersistentList *plist = persistent_list_get(role);
+  if (plist != NULL) {
+    for (tmp = plist->listeners; tmp != NULL; tmp = g_list_next(tmp)) {
+      ListenerData *listener = (ListenerData*)tmp->data;
+      if (listener->watch == NULL) {
+	/* Listener died */
+	plist->listeners = g_list_remove_link(plist->listeners, listener);
+	g_free(listener);
+      } else {
+	/* Still listening */
+	(listener->func)(listener->watch, listener->userdata);
+      }
+    }
+  }
+}
+
 /* ********* INTEGERS ********** */
 gint
 persistence_register_integer(gchar *role, int defaultvalue)
@@ -967,7 +1019,7 @@ persistence_get_string(gchar *role)
     return NULL;
   }
   stringval = (gchar *)g_hash_table_lookup(persistent_strings, role);
-  if (stringval != NULL) return stringval;
+  if (stringval != NULL) return g_strdup(stringval);
   printf("No string to get for %s\n", role);
   return NULL;
 }

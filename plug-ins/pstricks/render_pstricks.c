@@ -795,6 +795,7 @@ export_pstricks(DiagramData *data, const gchar *filename,
     const char *name;
 
     Color initial_color;
+    char *old_locale;
  
     file = fopen(filename, "wb");
 
@@ -802,6 +803,7 @@ export_pstricks(DiagramData *data, const gchar *filename,
 	message_error(_("Can't open output file %s: %s\n"), filename, strerror(errno));
     }
 
+    old_locale = setlocale(LC_NUMERIC, "C");
     renderer = g_object_new(PSTRICKS_TYPE_RENDERER, NULL);
 
     renderer->pagenum = 1;
@@ -866,6 +868,7 @@ export_pstricks(DiagramData *data, const gchar *filename,
     data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
     g_object_unref(renderer);
+    setlocale(LC_NUMERIC, old_locale);
 }
 
 static const gchar *extensions[] = { "tex", NULL };

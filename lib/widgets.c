@@ -562,10 +562,14 @@ dia_font_selector_get_font(DiaFontSelector *fs)
   GtkWidget *menuitem;
   char *fontname;
   DiaFontStyle style;
+  DiaFont *font;
+
   fontname = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(fs->font_omenu));
   menuitem = gtk_menu_get_active(fs->style_menu);
   style = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(menuitem)));
-  return dia_font_new(fontname,style,1.0);
+  font = dia_font_new(fontname, style, 1.0);
+  g_free(fontname);
+  return font;
 }
 
 /************* DiaAlignmentSelector: ***************/
@@ -927,6 +931,7 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
   gchar *old_color = dia_dynamic_menu_get_entry(ddm);
   /* Force history to the old place */
   dia_dynamic_menu_select_entry(ddm, old_color);
+  g_free(old_color);
 
   gtk_color_selection_set_has_palette 
     (GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (dialog)->colorsel),
@@ -978,6 +983,7 @@ dia_color_selector_get_color(GtkWidget *widget, Color *color)
   gint r, g, b;
 
   sscanf(entry, "#%2x%2x%2x", &r, &g, &b);
+  g_free(entry);
   color->red = r / 255.0;
   color->green = g / 255.0;
   color->blue = b / 255.0;
@@ -1028,6 +1034,7 @@ set_size_sensitivity(DiaArrowSelector *as)
   gchar *entryname = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(as->omenu));
 
   state = (entryname != NULL) && (!g_strcasecmp(entryname, "None"));
+  g_free(entryname);
 
   gtk_widget_set_sensitive(GTK_WIDGET(as->sizelabel), state);
   gtk_widget_set_sensitive(GTK_WIDGET(as->size), state);
@@ -1138,8 +1145,10 @@ Arrow
 dia_arrow_selector_get_arrow(DiaArrowSelector *as)
 {
   Arrow at;
+  gchar *arrowname = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(as->omenu));
 
-  at.type = arrow_type_from_name(dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(as->omenu)));
+  at.type = arrow_type_from_name(arrowname);
+  g_free(arrowname);
   dia_size_selector_get_size(as->size, &at.width, &at.length);
   return at;
 }
@@ -1443,8 +1452,11 @@ dia_unit_spinner_new(GtkAdjustment *adjustment, guint digits, DiaUnit adj_unit)
     g_signal_connect(GTK_OBJECT(adjustment), "value_changed",
 		     G_CALLBACK(dia_unit_spinner_value_changed),
 		       (gpointer) self);
+    dia_unit_spinner_set_value(self, adjustment->value);
+  } else {
+    /* Don't know any better, hopefully it'll be set later. */
+    dia_unit_spinner_set_value(self, 1.0);
   }
-  dia_unit_spinner_set_value(self, adjustment->value);
 
   return GTK_WIDGET(self);
 }
@@ -1618,7 +1630,7 @@ dia_dynamic_menu_new(DDMCreateItemFunc create,
 
 /** Select the given entry, adding it if necessary */
 void
-dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, gchar *name)
+dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, const gchar *name)
 {
   gint add_result = dia_dynamic_menu_add_entry(ddm, name);
   if (add_result == 0) {
@@ -1739,9 +1751,9 @@ dia_dynamic_menu_create_sublist(DiaDynamicMenu *ddm,
  * @param entry An entry for the menu.
  */
 void
-dia_dynamic_menu_add_default_entry(DiaDynamicMenu *ddm, gchar *entry)
+dia_dynamic_menu_add_default_entry(DiaDynamicMenu *ddm, const gchar *entry)
 {
-  ddm->default_entries = g_list_append(ddm->default_entries, entry);
+  ddm->default_entries = g_list_append(ddm->default_entries, g_strdup(entry));
 
   dia_dynamic_menu_create_menu(ddm);
 }
@@ -1768,12 +1780,12 @@ dia_dynamic_menu_set_columns(DiaDynamicMenu *ddm, gint cols)
  * 2 if the entry got added.
  */
 gint
-dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, gchar *entry)
+dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, const gchar *entry)
 {
   GList *tmp;
   gboolean existed;
 
-  ddm->active = entry;
+  ddm->active = g_strdup(entry);
 
   for (tmp = ddm->default_entries; tmp != NULL; tmp = g_list_next(tmp)) {
     if (!g_strcasecmp(tmp->data, entry))
@@ -1786,11 +1798,13 @@ dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, gchar *entry)
   return existed?1:2;
 }
 
-/** Returns the currently selected entry. */
+/** Returns the currently selected entry. 
+ * @returns The name of the entry that is currently selected.  This
+ * string should be freed by the caller. */
 gchar *
 dia_dynamic_menu_get_entry(DiaDynamicMenu *ddm)
 {
-  return ddm->active;
+  return g_strdup(ddm->active);
 }
 
 /** Rebuild the actual menu of a DDM.
@@ -1873,6 +1887,7 @@ dia_dynamic_menu_reset(GtkWidget *item, gpointer userdata)
 {
   DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
   PersistentList *plist = persistent_list_get(ddm->persistent_name);
+  g_list_foreach(plist->glist, g_free, NULL);
   g_list_free(plist->glist);
   plist->glist = NULL;
   dia_dynamic_menu_create_menu(ddm);
@@ -1886,6 +1901,7 @@ void
 dia_dynamic_menu_set_max_entries(DiaDynamicMenu *ddm, gint max)
 {
 }
+
 
 /* ************************ Misc. util functions ************************ */
 /** Get a GtkImage from the data in Dia data file filename.

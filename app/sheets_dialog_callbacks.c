@@ -1633,7 +1633,7 @@ write_user_sheet(Sheet *sheet)
   if (!*(sheet->filename))
   {
     gchar *basename;
-    
+
     basename = g_strdup(sheet->name);
     basename = g_strdelimit(basename, G_STR_DELIMITERS G_DIR_SEPARATOR_S, '_');
     filename = g_strdup_printf("%s%s%s.sheet", dir_user_sheets,

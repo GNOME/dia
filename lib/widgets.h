@@ -212,7 +212,7 @@ typedef struct _DiaDynamicMenuClass DiaDynamicMenuClass;
 typedef enum { DDM_SORT_TOP, DDM_SORT_NEWEST, DDM_SORT_SORT } DdmSortType;
 
 typedef GtkWidget *(* DDMCreateItemFunc)(DiaDynamicMenu *, gchar *);
-typedef void (* DDMCallbackFunc)(DiaDynamicMenu *, gchar *, gpointer);
+typedef void (* DDMCallbackFunc)(DiaDynamicMenu *, const gchar *, gpointer);
 
 struct _DiaDynamicMenu {
   GtkOptionMenu parent;
@@ -257,14 +257,14 @@ GtkWidget *dia_dynamic_menu_new_stringlistbased(gchar *other_label,
 						DDMCallbackFunc activate,
 						gpointer userdata,
 						gchar *persist);
-void dia_dynamic_menu_add_default_entry(DiaDynamicMenu *ddm, gchar *entry);
-gint dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, gchar *entry);
+void dia_dynamic_menu_add_default_entry(DiaDynamicMenu *ddm, const gchar *entry);
+gint dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, const gchar *entry);
 void dia_dynamic_menu_set_sorting_method(DiaDynamicMenu *ddm, DdmSortType sort);
 void dia_dynamic_menu_reset(GtkWidget *widget, gpointer userdata);
 void dia_dynamic_menu_set_max_entries(DiaDynamicMenu *ddm, gint max);
 void dia_dynamic_menu_set_columns(DiaDynamicMenu *ddm, gint cols);
 gchar *dia_dynamic_menu_get_entry(DiaDynamicMenu *ddm);
-void dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, gchar *entry);
+void dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, const gchar *entry);
 
 /* **** Util functions for Gtk stuff **** */
 /** Gets the image name 'filename' out of the shared data dir 

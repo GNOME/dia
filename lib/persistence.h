@@ -55,7 +55,10 @@ typedef struct _PersistentList {
   gboolean sorted;
   gint max_members;
   GList *glist;
+  GList *listeners;
 } PersistentList;
+
+typedef void (*PersistenceCallback)(GObject *, gpointer);
 
 PersistentList *persistence_register_list(const gchar *role);
 PersistentList *persistent_list_get(const gchar *role);
@@ -63,6 +66,8 @@ GList *persistent_list_get_glist(const gchar *role);
 gboolean persistent_list_add(const gchar *role, const gchar *item);
 void persistent_list_set_max_length(const gchar *role, gint max);
 gboolean persistent_list_remove(const gchar *role, const gchar *item);
+void persistent_list_add_listener(const gchar *role, PersistenceCallback func, 
+				  GObject *watch, gpointer userdata);
 
 gint persistence_register_integer(gchar *role, int defaultvalue);
 gint persistence_get_integer(gchar *role);

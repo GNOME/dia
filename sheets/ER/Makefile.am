@@ -1,7 +1,7 @@
 ERsheetdir = $(pkgdatadir)/sheets/ER
 
 PIX = \
-	weakentity.xpm
+	weakentity.png
 
 ERsheet_DATA = $(PIX)
 

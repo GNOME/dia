@@ -533,6 +533,13 @@ attributes_list_selection_changed_callback(GtkWidget *gtklist,
   GtkObject *list_item;
   UMLAttribute *attr;
 
+  /* Due to GtkList oddities, this may get called during destroy.
+   * But it'll reference things that are already dead and crash.
+   * Thus, we stop it before it gets that bad.  See bug #156706 for
+   * one example.
+   */
+  if (umlclass->destroyed) return;
+
   prop_dialog = umlclass->properties_dialog;
 
   attributes_get_current_values(prop_dialog);

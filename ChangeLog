@@ -1,3 +1,23 @@
+2004-11-02  Lars Clausen  <lars@raeder.dk>
+
+	* app/sheets_dialog_callbacks.c
+	(on_sheets_dialog_button_apply_clicked): Sheet menu now almost
+	correctly recreated.  Still something fishy with the sheet menu in
+	the dialog after adding a new sheet.  Probably the sheet name
+	being stomped.
+
+2004-11-01  Lars Clausen  <lars@raeder.dk>
+
+	* lib/widgets.[ch] (dia_dynamic_menu_reset): Harden against memory
+	stmping.  Now requires g_free here and there.
+
+	* app/preferences.[ch] (prefs_data): Got rid of hidden prefs value
+	for remembering last sheet, better off as persistent string.  Must
+	hunt down other things like that.
+
+	* app/interface.c (create_sheets): Now remembers last sheet
+	selected again. Fixes bug #157036.
+
 2004-11-01  Hans Breuer  <hans@breuer.org>
 
         * plug-ins(tex_escape_string) : fixed it [g_utf8_next_char
@@ -8,6 +28,31 @@
 
         * **/* : a bunch of changes caused by trying 'make distcheck'
         which still fails, see Bug #144527
+
+2004-10-31  Lars Clausen  <lars@raeder.dk>
+
+	* plug-ins/pstricks/render_pstricks.c (export_pstricks): Avoid
+	floating point numbers being printed with commas.  Fixes bug
+	#156148.
+	
+	* app/interface.c (create_sheet_dropdown_menu): New function to
+	create the sheet menu, and also allow recreation.  Still buggy and
+	slightly prone to magic.
+
+	* objects/UML/class_dialog.c
+	(attributes_list_selection_changed_callback): Don't try to update
+	the widgets after they're destroyed.  Fixes bug #156706 (I think).
+
+	* lib/widgets.c (dia_unit_spinner_new): Avoid crash on NULL
+	adjustement.  Fixes bug #154637
+
+	* sheets/ER/Makefile.am (PIX): 
+	* sheets/GRAFCET/Makefile.am (PIX): 
+	* sheets/Jackson/Makefile.am (PIX): 
+	* sheets/Istar/Makefile.am (PIX): 
+	* sheets/KAOS/Makefile.am (PIX): Actually install PNG instead of
+	XPM.  Why these have their pictures in sheets rather than shapes I
+	don't know.  Fixes bug #152142.
 
 2004-10-31  Hans Breuer  <hans@breuer.org>
 

@@ -2,24 +2,24 @@
 KAOSsheetdir = $(pkgdatadir)/sheets/KAOS
 
 PIX = \
-	and-complete-ref.xpm \
-	and-ref.xpm \
-	assumption.xpm \
-	capable-of.xpm \
-	conflicts.xpm \
-	controls.xpm \
-	input.xpm \
-	monitors.xpm \
-	obstacle.xpm \
-	obstructs.xpm \
-	op-ref.xpm \
-	or-complete-ref.xpm \
-	or-ref.xpm \
-	output.xpm \
-	performs.xpm \
-	requirement.xpm \
-	responsibility.xpm \
-	softgoal.xpm
+	and-complete-ref.png \
+	and-ref.png \
+	assumption.png \
+	capable-of.png \
+	conflicts.png \
+	controls.png \
+	input.png \
+	monitors.png \
+	obstacle.png \
+	obstructs.png \
+	op-ref.png \
+	or-complete-ref.png \
+	or-ref.png \
+	output.png \
+	performs.png \
+	requirement.png \
+	responsibility.png \
+	softgoal.png
 
 KAOSsheet_DATA = $(PIX)
 EXTRA_DIST = $(PIX)

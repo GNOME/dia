@@ -176,9 +176,6 @@ DiaPrefData prefs_data[] =
   { "prefer_psprint", PREF_BOOLEAN,PREF_OFFSET(prefer_psprint),
     &default_false,0,"prefer psprint", NULL, TRUE},
 
-  { "recent_sheet", PREF_UINT,PREF_OFFSET(recent_sheet),
-    &default_false,0,"recent selected sheet:",NULL, TRUE},
-
   { NULL, PREF_NONE, 0, NULL, 4, N_("Diagram tree window:") },
   { "diagram_tree_save_hidden", PREF_BOOLEAN, PREF_OFFSET(dia_tree.save_hidden),
     &default_false, 4, N_("Save hidden object types")},

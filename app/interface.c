@@ -736,7 +736,6 @@ create_tools(GtkWidget *parent)
 }
 
 static GtkWidget *sheet_option_menu;
-static GtkWidget *sheet_menu;
 static GtkWidget *sheet_wbox;
 
 #if 0
@@ -852,7 +851,7 @@ get_sheet_by_name(gchar *name)
 }
 
 static void
-fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
+fill_sheet_wbox(Sheet *sheet)
 {
   int rows;
   GtkStyle *style;
@@ -951,57 +950,15 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
 }
 
 static void
-fill_sheet_wbox_from_string(GtkMenuItem *menu_item, gchar *string)
+sheet_menu_callback(GtkMenuItem *menu_item, gchar *string)
 {
   Sheet *sheet = get_sheet_by_name(string);
   if (sheet == NULL) {
     message_warning(g_strdup_printf(_("No sheet named %s"), string));
   } else {
-    fill_sheet_wbox(menu_item, sheet);
+    persistence_set_string("last-sheet-selected", string);
+    fill_sheet_wbox(sheet);
   }
-}
-
-void
-fill_sheet_menu(void)
-{
-  GSList *tmp;
-  GtkWidget *activate = NULL;
-  int index = 0;
-
-  gtk_container_foreach(GTK_CONTAINER(sheet_menu),
-			(GtkCallback)gtk_widget_destroy, NULL);
-  gtk_widget_ref(sheet_menu);
-  gtk_option_menu_remove_menu(GTK_OPTION_MENU(sheet_option_menu));
-  gtk_container_add(GTK_CONTAINER(sheet_menu), gtk_tearoff_menu_item_new());
-  for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
-    Sheet *sheet = tmp->data;
-    GtkWidget *menuitem = NULL;
-
-    if (sheet->objects == NULL)
-      continue;
-
-    menuitem = gtk_menu_item_new_with_label(gettext(sheet->name));
-    g_signal_connect(GTK_OBJECT(menuitem), "activate",
-		     G_CALLBACK(fill_sheet_wbox), sheet);
-    gtk_container_add(GTK_CONTAINER(sheet_menu), menuitem);
-  
-    /* off by one with gtk_option_menu_<get/set>_history should start
-     * with 0 but it counts from one, gtk- or my-error ? --hb */
-    index++;
-    if (prefs.recent_sheet == index)
-      activate = menuitem;
-  }
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(sheet_option_menu), sheet_menu);
-  gtk_widget_unref(sheet_menu);
-
-  if (activate)
-    {
-      gtk_option_menu_set_history(GTK_OPTION_MENU(sheet_option_menu), prefs.recent_sheet);
-      /* simple gtk_option_menu_set_history() isn't enough,
-       * cause we need fill_sheet_wbox to be called */
-      gtk_menu_item_activate(GTK_MENU_ITEM(activate));
-    }
-  gtk_widget_show_all(sheet_menu);
 }
 
 GList *
@@ -1016,12 +973,53 @@ get_sheet_names()
   return names;
 }
 
+static void
+create_sheet_dropdown_menu(GtkWidget *parent)
+{
+  GList *sheet_names = get_sheet_names();
+  GtkWidget *item = gtk_menu_item_new_with_label("Other sheets");
+
+  if (sheet_option_menu != NULL) {
+    gtk_container_remove(GTK_CONTAINER(parent), sheet_option_menu);
+    sheet_option_menu = NULL;
+  }
+
+  gtk_widget_show(item);
+  sheet_option_menu =
+    dia_dynamic_menu_new_stringlistbased(_("Other sheets"), sheet_names, 
+					 sheet_menu_callback,
+					 NULL, "sheets");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
+				     "Misc");
+  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
+				     "UML");
+  /*    gtk_widget_set_size_request(sheet_option_menu, 20, -1);*/
+  gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
+			    TRUE, TRUE, FALSE, FALSE, TRUE);    
+  /* 15 is a magic number that goes beyond the standard objects and
+   * the divider. */
+  gtk_wrap_box_reorder_child(GTK_WRAP_BOX(parent),
+			     sheet_option_menu, 15);
+  gtk_widget_show(sheet_option_menu);
+}
+
+void
+fill_sheet_menu(void)
+{
+  gchar *selection = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(sheet_option_menu));
+  create_sheet_dropdown_menu(gtk_widget_get_parent(sheet_option_menu));
+  dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(sheet_option_menu), selection);
+  g_free(selection);
+}
+
 void
 create_sheets(GtkWidget *parent)
 {
   GtkWidget *separator;
   GtkWidget *label;
   GtkWidget *swin;
+  gchar *sheetname;
+  Sheet *sheet;
   
   separator = gtk_hseparator_new ();
   /* add a bit of padding around the separator */
@@ -1032,31 +1030,7 @@ create_sheets(GtkWidget *parent)
   gtk_wrap_box_pack_wrapped (GTK_WRAP_BOX(parent), label, TRUE,TRUE, FALSE,FALSE, TRUE);
   gtk_widget_show(separator);
 
-  /*
-  sheet_option_menu = gtk_option_menu_new();
-  gtk_widget_set_size_request(sheet_option_menu, 20, -1);
-  sheet_menu = gtk_menu_new();
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(sheet_option_menu), sheet_menu);
-  gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
-		    TRUE, TRUE, FALSE, FALSE, TRUE);
-  */
-  {
-    GList *sheet_names = get_sheet_names();
-    GtkWidget *item = gtk_menu_item_new_with_label("Other sheets");
-    gtk_widget_show(item);
-    sheet_option_menu =
-      dia_dynamic_menu_new_stringlistbased(_("Other sheets"), sheet_names, 
-					   fill_sheet_wbox_from_string,
-					   NULL, "sheets");
-    dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				       "Misc");
-    dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				       "UML");
-    /*    gtk_widget_set_size_request(sheet_option_menu, 20, -1);*/
-    gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
-			      TRUE, TRUE, FALSE, FALSE, TRUE);    
-  }
-  gtk_widget_show(sheet_option_menu);
+  create_sheet_dropdown_menu(parent);
 
   swin = gtk_scrolled_window_new(NULL, NULL);
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swin),
@@ -1070,7 +1044,17 @@ create_sheets(GtkWidget *parent)
   gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(swin), sheet_wbox);
   gtk_widget_show(sheet_wbox);
 
-  /*  fill_sheet_menu();*/
+  persistence_register_string("last-sheet-selected", _("Misc"));
+  sheetname = persistence_get_string("last-sheet-selected");
+  sheet = get_sheet_by_name(sheetname);
+  if (sheet == NULL) {
+    /* Couldn't find it */
+  } else {
+    fill_sheet_wbox(sheet);
+    dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
+				  sheetname);
+  }
+  g_free(sheetname);
 }
 
 static void
@@ -1202,8 +1186,6 @@ create_lineprops_area(GtkWidget *parent)
 static void
 toolbox_destroy (GtkWidget *widget, gpointer data)
 {
-  prefs.recent_sheet = gtk_option_menu_get_history(GTK_OPTION_MENU(sheet_option_menu));
-
   app_exit();
 }
 
@@ -1217,7 +1199,6 @@ toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
 				      0, 0, NULL, toolbox_destroy, NULL);
     if (handlerid != 0)
       g_signal_handler_disconnect (GTK_OBJECT (widget), handlerid);
-    prefs.recent_sheet = gtk_option_menu_get_history(GTK_OPTION_MENU(sheet_option_menu));
 
     /** If the app didn't exit, don't close the window */
     return (!app_exit());
