@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
 "Language-Team: Norwegian Nynorsk <nn@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: app/app_procs.c:160
@@ -71,7 +71,7 @@ msgstr "Vis denne hjelpeteksta"
 
 #: app/app_procs.c:280
 msgid "Can't connect to session manager!\n"
-msgstr "Kan ikkje kopla økthandterar!\n"
+msgstr "Kan ikkje kopla Ã¸kthandterar!\n"
 
 #: app/app_procs.c:294 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
@@ -84,7 +84,7 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Feil ved val %s: %s.\n"
-"Køyr «%s --help» for å sjå heile lista over tilgjengelege kommandolinjeval.\n"
+"KÃ¸yr Â«%s --helpÂ» for Ã¥ sjÃ¥ heile lista over tilgjengelege kommandolinjeval.\n"
 
 #: app/app_procs.c:311
 #, c-format
@@ -105,7 +105,7 @@ msgstr "Dia v %s"
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
-"Klarte ikkje å finne standardobjekt når eg såg etter object-libs, "
+"Klarte ikkje Ã¥ finne standardobjekt nÃ¥r eg sÃ¥g etter object-libs, "
 "avsluttar...\n"
 
 #. no standard buttons
@@ -117,7 +117,7 @@ msgid ""
 "without saving them?"
 msgstr ""
 "Diagram med endringar eksisterar.\n"
-"Er du sikker på at du vil avslutte?"
+"Er du sikker pÃ¥ at du vil avslutte?"
 
 #: app/app_procs.c:540
 #, fuzzy
@@ -126,15 +126,15 @@ msgstr "Om Dia"
 
 #: app/app_procs.c:600 app/app_procs.c:607
 msgid "Could not create per-user Dia config directory"
-msgstr "Klarte ikkje å opprette Dia-oppsettskatalog for brukaren"
+msgstr "Klarte ikkje Ã¥ opprette Dia-oppsettskatalog for brukaren"
 
 #: app/app_procs.c:609
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
-"Klarte ikkje å opprette oppsettkatalog for kvar brukar. Sjekk at "
-"miljøvariabelen HOME peikar på ein eksisterande katalog."
+"Klarte ikkje Ã¥ opprette oppsettkatalog for kvar brukar. Sjekk at "
+"miljÃ¸variabelen HOME peikar pÃ¥ ein eksisterande katalog."
 
 #: app/app_procs.c:631 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
@@ -161,18 +161,18 @@ msgstr "Utan-tittel-%d"
 
 #: app/commands.c:197
 msgid "No existing object to paste.\n"
-msgstr "Ingen eksisterande objekt å lime inn.\n"
+msgstr "Ingen eksisterande objekt Ã¥ lime inn.\n"
 
 #: app/commands.c:467 app/commands.c:495
 msgid "Could not find help directory"
-msgstr "Klarte ikkje å finne hjelpekatalog"
+msgstr "Klarte ikkje Ã¥ finne hjelpekatalog"
 
 #: app/commands.c:474
 #, fuzzy, c-format
 msgid ""
 "Could not open help directory:\n"
 "%s"
-msgstr "Klarte ikkje å finne hjelpekatalog"
+msgstr "Klarte ikkje Ã¥ finne hjelpekatalog"
 
 #.
 #. * Translators should localize the following string
@@ -196,7 +196,7 @@ msgstr ""
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
-msgstr "Sjå http://www.lysator.liu.se/~alla/dia for meir informasjon"
+msgstr "SjÃ¥ http://www.lysator.liu.se/~alla/dia for meir informasjon"
 
 #: app/commands.c:591
 msgid "About Dia"
@@ -215,7 +215,7 @@ msgstr ""
 #: app/commands.c:644
 #, fuzzy
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
-msgstr "Sjå http://www.lysator.liu.se/~alla/dia for meir informasjon"
+msgstr "SjÃ¥ http://www.lysator.liu.se/~alla/dia for meir informasjon"
 
 #: app/commands.c:649
 msgid "Contributors:"
@@ -227,9 +227,9 @@ msgid ""
 "crashes.  We know there are bugs in it, so don't\n"
 "bother submitting another report if it crashes"
 msgstr ""
-"Antialias oppteiknaren er ikkje feilfri, og kan føre\n"
-"til krasj. Me veit at det er feil i det, så ikkje\n"
-"kast vekk tida di med å rapportere feil om den krasjar"
+"Antialias oppteiknaren er ikkje feilfri, og kan fÃ¸re\n"
+"til krasj. Me veit at det er feil i det, sÃ¥ ikkje\n"
+"kast vekk tida di med Ã¥ rapportere feil om den krasjar"
 
 #: app/defaults.c:43 app/defaults.c:140
 msgid "Object defaults"
@@ -268,7 +268,7 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Feil ved val %s: %s.\n"
-"Køyr «%s --help» for å sjå heile lista over tilgjengelege kommandolinjeval.\n"
+"KÃ¸yr Â«%s --helpÂ» for Ã¥ sjÃ¥ heile lista over tilgjengelege kommandolinjeval.\n"
 
 #: app/diaconv.c:157
 #, fuzzy, c-format
@@ -282,7 +282,7 @@ msgid ""
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
 "Feil ved val %s: %s.\n"
-"Køyr «%s --help» for å sjå heile lista over tilgjengelege kommandolinjeval.\n"
+"KÃ¸yr Â«%s --helpÂ» for Ã¥ sjÃ¥ heile lista over tilgjengelege kommandolinjeval.\n"
 
 #: app/diaconv.c:172
 #, fuzzy, c-format
@@ -433,7 +433,7 @@ msgstr "Venstre:"
 
 #: app/diapagelayout.c:238
 msgid "Right:"
-msgstr "Høgre:"
+msgstr "HÃ¸gre:"
 
 #. Scaling
 #: app/diapagelayout.c:252
@@ -498,7 +498,7 @@ msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
-"Dette objektet støttar ikkje Angre/Gjer om.\n"
+"Dette objektet stÃ¸ttar ikkje Angre/Gjer om.\n"
 "Angreinformasjon sletta."
 
 #: app/disp_callbacks.c:213
@@ -541,15 +541,15 @@ msgstr "Forkast"
 #: plug-ins/xfig/xfig-export.c:753 plug-ins/xslt/xslt.c:90
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr "Kunne ikkje opne «%s» for skriving.\n"
+msgstr "Kunne ikkje opne Â«%sÂ» for skriving.\n"
 
 #: app/export_png.c:123
 msgid "Could not create PNG write structure"
-msgstr "Klarte ikkje å opprette PNG-struktur."
+msgstr "Klarte ikkje Ã¥ opprette PNG-struktur."
 
 #: app/export_png.c:132
 msgid "Could not create PNG header info structure"
-msgstr "Klarte ikkje å lage PNG-topptekststruktur"
+msgstr "Klarte ikkje Ã¥ lage PNG-topptekststruktur"
 
 #: app/export_png.c:140
 msgid "Error occurred while writing PNG"
@@ -663,7 +663,7 @@ msgstr "Endre"
 #: app/interface.c:48 app/interface.c:49 app/menus.c:212
 #: objects/FS/function.c:951
 msgid "Magnify"
-msgstr "Forstørre"
+msgstr "ForstÃ¸rre"
 
 #: app/interface.c:53
 msgid "Scroll around the diagram"
@@ -776,7 +776,7 @@ msgstr "Bilete"
 
 #: app/interface.c:468
 msgid "Zoom"
-msgstr "Forstørring"
+msgstr "ForstÃ¸rring"
 
 #: app/interface.c:512
 msgid "NULL tooldata in tool_select_update"
@@ -834,7 +834,7 @@ msgstr "Rediger attributtar for lag"
 
 #: app/layer_dialog.c:970
 msgid "Layer name:"
-msgstr "Namn på lag:"
+msgstr "Namn pÃ¥ lag:"
 
 #. setup buttons
 #: app/layer_dialog.c:979 app/lineprops_area.c:427 app/lineprops_area.c:626
@@ -884,13 +884,13 @@ msgstr ""
 
 #: app/load_save.c:249
 msgid "You must specify a file, not a directory.\n"
-msgstr "Du må oppgi eit filnamn, ikkje ein katalog.\n"
+msgstr "Du mÃ¥ oppgi eit filnamn, ikkje ein katalog.\n"
 
 #: app/load_save.c:256 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1044
 #: plug-ins/xfig/xfig-import.c:1345 plug-ins/xslt/xslt.c:81
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Klarte ikkje å opne «%s» for lesing.\n"
+msgstr "Klarte ikkje Ã¥ opne Â«%sÂ» for lesing.\n"
 
 #: app/load_save.c:265 app/load_save.c:270
 #, c-format
@@ -908,7 +908,7 @@ msgid ""
 "Not a Dia file."
 msgstr ""
 "Feil ved lasting av diagram %s.\n"
-"Må vere ei Dia-fil."
+"MÃ¥ vere ei Dia-fil."
 
 #: app/load_save.c:463
 #, fuzzy, c-format
@@ -918,12 +918,12 @@ msgid ""
 "A valid Dia file defines at least one layer."
 msgstr ""
 "Feil ved lasting av diagram %s.\n"
-"Må vere ei Dia-fil."
+"MÃ¥ vere ei Dia-fil."
 
 #: app/load_save.c:773
 #, c-format
 msgid "Failed to save file '%s'.\n"
-msgstr "Klarte ikkje å lagre fila «%s».\n"
+msgstr "Klarte ikkje Ã¥ lagre fila Â«%sÂ».\n"
 
 #: app/load_save.c:843 app/load_save.c:848
 msgid "Native Dia Diagram"
@@ -989,11 +989,11 @@ msgstr "Lim inn _tekst"
 
 #: app/menus.c:129
 msgid "Zoom _In"
-msgstr "For_størr"
+msgstr "For_stÃ¸rr"
 
 #: app/menus.c:129
 msgid "Zoom in 50%"
-msgstr "Forstørr 50%"
+msgstr "ForstÃ¸rr 50%"
 
 #: app/menus.c:130
 msgid "Zoom _Out"
@@ -1005,7 +1005,7 @@ msgstr "Forminsk 50%"
 
 #: app/menus.c:131
 msgid "_Zoom"
-msgstr "_Forstørring"
+msgstr "_ForstÃ¸rring"
 
 #: app/menus.c:132
 msgid "Diagram Properties..."
@@ -1097,7 +1097,7 @@ msgstr "Midtstill"
 
 #: app/menus.c:181 lib/properties.c:64 lib/properties.h:474 lib/widgets.c:532
 msgid "Right"
-msgstr "Høgre"
+msgstr "HÃ¸gre"
 
 #: app/menus.c:182 app/menus.c:191
 msgid "Equal Distance"
@@ -1109,7 +1109,7 @@ msgstr ""
 
 #: app/menus.c:188
 msgid "Top"
-msgstr "Øverst"
+msgstr "Ã˜verst"
 
 #: app/menus.c:190
 msgid "Bottom"
@@ -1138,7 +1138,7 @@ msgstr "_Gruppe"
 
 #: app/menus.c:203
 msgid "_Ungroup"
-msgstr "_Løys opp gruppe"
+msgstr "_LÃ¸ys opp gruppe"
 
 #: app/menus.c:205
 msgid "Align _Horizontal"
@@ -1300,7 +1300,7 @@ msgstr "/_Vis"
 
 #: app/menus.c:346
 msgid "/View/Zoom _In"
-msgstr "/Vis/For_størr"
+msgstr "/Vis/For_stÃ¸rr"
 
 #: app/menus.c:348
 msgid "/View/Zoom _Out"
@@ -1308,47 +1308,47 @@ msgstr "/Vis/For_minsk"
 
 #: app/menus.c:350
 msgid "/View/_Zoom"
-msgstr "/Vis/_Forstørr"
+msgstr "/Vis/_ForstÃ¸rr"
 
 #: app/menus.c:352
 msgid "/View/Zoom/400%"
-msgstr "/Vis/Forstørr/400%"
+msgstr "/Vis/ForstÃ¸rr/400%"
 
 #: app/menus.c:353
 msgid "/View/Zoom/283%"
-msgstr "/Vis/Forstørr/283%"
+msgstr "/Vis/ForstÃ¸rr/283%"
 
 #: app/menus.c:354
 msgid "/View/Zoom/200%"
-msgstr "/Vis/Forstøtt/200%"
+msgstr "/Vis/ForstÃ¸tt/200%"
 
 #: app/menus.c:355
 msgid "/View/Zoom/141%"
-msgstr "/Vis/Forstørr/141%"
+msgstr "/Vis/ForstÃ¸rr/141%"
 
 #: app/menus.c:356
 msgid "/View/Zoom/100%"
-msgstr "/Vis/Forstørr/100%"
+msgstr "/Vis/ForstÃ¸rr/100%"
 
 #: app/menus.c:358
 msgid "/View/Zoom/85%"
-msgstr "/Vis/Forstørr/85%"
+msgstr "/Vis/ForstÃ¸rr/85%"
 
 #: app/menus.c:359
 msgid "/View/Zoom/70.7%"
-msgstr "/Vis/Forstørr/70,7%"
+msgstr "/Vis/ForstÃ¸rr/70,7%"
 
 #: app/menus.c:360
 msgid "/View/Zoom/50%"
-msgstr "/Vis/Forstørr/50%"
+msgstr "/Vis/ForstÃ¸rr/50%"
 
 #: app/menus.c:361
 msgid "/View/Zoom/35.4%"
-msgstr "/Vis/Forstørr/35,4%"
+msgstr "/Vis/ForstÃ¸rr/35,4%"
 
 #: app/menus.c:362
 msgid "/View/Zoom/25%"
-msgstr "/Vis/Forstørr/25%"
+msgstr "/Vis/ForstÃ¸rr/25%"
 
 #: app/menus.c:363
 msgid "/View/Diagram Properties..."
@@ -1487,7 +1487,7 @@ msgstr "/Objekt/Juster vassrett/Sentrer"
 
 #: app/menus.c:408
 msgid "/Objects/Align Horizontal/Right"
-msgstr "/Objekt/Juster vassrett/Høgre"
+msgstr "/Objekt/Juster vassrett/HÃ¸gre"
 
 #: app/menus.c:409
 msgid "/Objects/Align Horizontal/Equal Distance"
@@ -1531,7 +1531,7 @@ msgstr "/Verkty/Endre"
 
 #: app/menus.c:422
 msgid "/Tools/Magnify"
-msgstr "/Verkty/Forstørr"
+msgstr "/Verkty/ForstÃ¸rr"
 
 #: app/menus.c:423
 msgid "/Tools/Scroll"
@@ -1631,12 +1631,12 @@ msgstr "Fil"
 #: app/paginate_psprint.c:341
 #, c-format
 msgid "Could not run command '%s'"
-msgstr "Klarte ikkje å køyre kommando «%s»"
+msgstr "Klarte ikkje Ã¥ kÃ¸yre kommando Â«%sÂ»"
 
 #: app/paginate_psprint.c:344
 #, c-format
 msgid "Could not open '%s' for writing"
-msgstr "Klarte ikkje å opne «%s» for skriving"
+msgstr "Klarte ikkje Ã¥ opne Â«%sÂ» for skriving"
 
 #: app/paginate_psprint.c:368
 msgid "Error occured while printing"
@@ -1701,7 +1701,7 @@ msgstr "Komprimer lagra filer:"
 
 #: app/preferences.c:123
 msgid "Number of undo levels:"
-msgstr "Tal på angrenivå:"
+msgstr "Tal pÃ¥ angrenivÃ¥:"
 
 #: app/preferences.c:124
 msgid ""
@@ -1740,11 +1740,11 @@ msgstr "Breidd:"
 
 #: app/preferences.c:136
 msgid "Height:"
-msgstr "Høgd:"
+msgstr "HÃ¸gd:"
 
 #: app/preferences.c:137
 msgid "Magnify:"
-msgstr "Forstørr:"
+msgstr "ForstÃ¸rr:"
 
 #: app/preferences.c:139
 msgid "Connection Points:"
@@ -1770,7 +1770,7 @@ msgstr "Heile linjer:"
 #: app/preferences.c:149
 #, fuzzy
 msgid "Snap to:"
-msgstr "Fargedåm:"
+msgstr "FargedÃ¥m:"
 
 #: app/preferences.c:150
 msgid "X Size:"
@@ -1794,7 +1794,7 @@ msgstr "Standardbreidd:"
 
 #: app/preferences.c:170
 msgid "Default height:"
-msgstr "Standardhøgde"
+msgstr "StandardhÃ¸gde"
 
 #: app/preferences.c:172
 msgid "Remember last size:"
@@ -1807,7 +1807,7 @@ msgstr ""
 #: app/preferences.c:301
 #, c-format
 msgid "Could not open `%s' for writing"
-msgstr "Kunne ikkje opne «%s» for skriving"
+msgstr "Kunne ikkje opne Â«%sÂ» for skriving"
 
 #: app/preferences.c:689 app/preferences.c:698
 msgid "Preferences"
@@ -1843,7 +1843,7 @@ msgstr "/Fil/_Avslutt"
 
 #: app/recent_files.c:294
 msgid "Can't open history file for writing."
-msgstr "Klarar ikkje å opne historikkfil for skriving."
+msgstr "Klarar ikkje Ã¥ opne historikkfil for skriving."
 
 #: app/render_eps.c:1714
 msgid "Encapsulated Postscript"
@@ -1886,7 +1886,7 @@ msgstr "Form:"
 #: app/sheets.c:441
 #, fuzzy
 msgid "Programmed Object"
-msgstr "Forstørr til alle objekt"
+msgstr "ForstÃ¸rr til alle objekt"
 
 #: app/sheets_dialog.c:81
 #, fuzzy
@@ -2064,7 +2064,7 @@ msgstr "Feil ved lesing av gruppe: "
 #, fuzzy, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr ""
-"Kunne ikkje gå inn i katalogen\n"
+"Kunne ikkje gÃ¥ inn i katalogen\n"
 "%1"
 
 #: app/sheets_dialog_callbacks.c:905
@@ -2081,7 +2081,7 @@ msgstr ""
 #: app/sheets_dialog_callbacks.c:1651
 #, fuzzy, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "Kunne ikkje opne «%s» for skriving.\n"
+msgstr "Kunne ikkje opne Â«%sÂ» for skriving.\n"
 
 #: app/sheets_dialog_callbacks.c:1660
 msgid "a user"
@@ -2179,7 +2179,7 @@ msgstr "Feil"
 
 #: lib/message.c:117 lib/message.c:182
 msgid "Warning"
-msgstr "Åtvaring"
+msgstr "Ã…tvaring"
 
 #: lib/message.c:171
 msgid "Notice"
@@ -2192,7 +2192,7 @@ msgid ""
 "Not a Dia diagram file."
 msgstr ""
 "Feil ved lasting av diagram %s.\n"
-"Må vere ei Dia-fil."
+"MÃ¥ vere ei Dia-fil."
 
 #: lib/plug-ins.c:120
 msgid "???"
@@ -2202,7 +2202,7 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr ""
-"Kunne ikkje gå inn i katalogen\n"
+"Kunne ikkje gÃ¥ inn i katalogen\n"
 "%1"
 
 #: lib/plug-ins.c:233
@@ -2407,7 +2407,7 @@ msgstr "KBlackBox"
 #: lib/widgets.c:995
 #, fuzzy
 msgid "Slashed"
-msgstr "SkrÃ¥strek"
+msgstr "SkrÃƒÂ¥strek"
 
 #: lib/widgets.c:996
 msgid "Integral Symbol"
@@ -2452,7 +2452,7 @@ msgstr "Bla gjennom"
 #: objects/chronogram/chronogram.c:40
 #, fuzzy
 msgid "Chronogram diagram objects"
-msgstr "Forstørr til alle objekt"
+msgstr "ForstÃ¸rr til alle objekt"
 
 #: objects/chronogram/chronoline.c:147
 msgid "Data"
@@ -2639,7 +2639,7 @@ msgstr ""
 #: objects/ER/relationship.c:141
 #, fuzzy
 msgid "Right Cardinality:"
-msgstr "Høgrejustering"
+msgstr "HÃ¸grejustering"
 
 #: objects/ER/relationship.c:143
 msgid "Rotate:"
@@ -2658,7 +2658,7 @@ msgstr "Operasjonar"
 #: objects/flowchart/box.c:147 objects/standard/box.c:131
 #, fuzzy
 msgid "Corner radius"
-msgstr "Hjørne:"
+msgstr "HjÃ¸rne:"
 
 #: objects/flowchart/box.c:149 objects/flowchart/diamond.c:147
 #: objects/flowchart/ellipse.c:146 objects/flowchart/parallelogram.c:151
@@ -2764,20 +2764,20 @@ msgstr "Forkast"
 #. Translators: Menu item Verb/Channel/Export/Eject
 #: objects/FS/function.c:667
 msgid "Eject"
-msgstr "Løys ut"
+msgstr "LÃ¸ys ut"
 
 #. Translators: Menu item Verb/Channel/Export/Dispose
 #: objects/FS/function.c:669
 #, fuzzy
 msgid "Dispose"
-msgstr "Oppløys"
+msgstr "OpplÃ¸ys"
 
 #. Translators: Menu item Verb/Channel/Transfer
 #: objects/FS/function.c:673 objects/FS/function.c:675
 #: objects/FS/function.c:693
 #, fuzzy
 msgid "Transfer"
-msgstr "&Overføring"
+msgstr "&OverfÃ¸ring"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
 #: objects/FS/function.c:677 objects/FS/function.c:679
@@ -2852,7 +2852,7 @@ msgstr "Roter"
 #: objects/FS/function.c:715
 #, fuzzy
 msgid "Turn"
-msgstr "Skru på"
+msgstr "Skru pÃ¥"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
 #: objects/FS/function.c:717
@@ -2906,7 +2906,7 @@ msgstr "Prosjekt"
 #: objects/FS/function.c:739 objects/FS/function.c:929
 #, fuzzy
 msgid "Prevent"
-msgstr "Førre"
+msgstr "FÃ¸rre"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
 #: objects/FS/function.c:741
@@ -2948,7 +2948,7 @@ msgstr "Monter"
 #. Translators: Menu item Verb/Support/Secure/Lock
 #: objects/FS/function.c:759
 msgid "Lock"
-msgstr "Lås"
+msgstr "LÃ¥s"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
 #: objects/FS/function.c:761
@@ -2997,7 +2997,7 @@ msgstr "Kompiler"
 #. Translators: Menu item Verb/Connect/Couple/Join
 #: objects/FS/function.c:783
 msgid "Join"
-msgstr "Slå saman"
+msgstr "SlÃ¥ saman"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
 #: objects/FS/function.c:785
@@ -3063,7 +3063,7 @@ msgstr "Del"
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
 #: objects/FS/function.c:817
 msgid "Release"
-msgstr "Utgåve"
+msgstr "UtgÃ¥ve"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: objects/FS/function.c:819
@@ -3075,7 +3075,7 @@ msgstr "Hent"
 #: objects/FS/function.c:821
 #, fuzzy
 msgid "Disconnect"
-msgstr "Kople frå"
+msgstr "Kople frÃ¥"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
 #: objects/FS/function.c:827
@@ -3137,7 +3137,7 @@ msgstr "Prosent"
 #. Translators: Menu item Verb/Branch/Refine/Clear
 #: objects/FS/function.c:849
 msgid "Clear"
-msgstr "Tøm"
+msgstr "TÃ¸m"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #: objects/FS/function.c:851 objects/FS/function.c:853
@@ -3189,7 +3189,7 @@ msgstr "Avbryt"
 #: objects/FS/function.c:871
 #, fuzzy
 msgid "Dampen"
-msgstr "Prøve"
+msgstr "PrÃ¸ve"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
 #: objects/FS/function.c:873
@@ -3248,7 +3248,7 @@ msgstr "Fyll"
 #: objects/FS/function.c:901
 #, fuzzy
 msgid "Provide"
-msgstr "Leverandørar"
+msgstr "LeverandÃ¸rar"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
 #: objects/FS/function.c:903
@@ -3306,7 +3306,7 @@ msgstr "Kontroll"
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
 #: objects/FS/function.c:931
 msgid "Enable"
-msgstr "Skru på"
+msgstr "Skru pÃ¥"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
 #: objects/FS/function.c:933
@@ -3518,7 +3518,7 @@ msgstr "Vising"
 #. Translators: Menu item Verb/Signal/Measure
 #: objects/FS/function.c:1027 objects/FS/function.c:1029
 msgid "Measure"
-msgstr "Måle"
+msgstr "MÃ¥le"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
 #: objects/FS/function.c:1031
@@ -3575,7 +3575,7 @@ msgstr "Finger"
 #. Translators: Menu item Noun/Material/Human/Toe
 #: objects/FS/function.c:1057
 msgid "Toe"
-msgstr "Tå"
+msgstr "TÃ¥"
 
 #. Translators: Menu item Noun/Material/Biological
 #: objects/FS/function.c:1059
@@ -3616,7 +3616,7 @@ msgstr "Dreiemoment"
 #: objects/FS/function.c:1075
 #, fuzzy
 msgid "Random Motion"
-msgstr "Tilfeldig lineær"
+msgstr "Tilfeldig lineÃ¦r"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
 #: objects/FS/function.c:1077
@@ -3669,7 +3669,7 @@ msgstr "Trykk"
 #: objects/FS/function.c:1095
 #, fuzzy
 msgid "Volumetric Flow"
-msgstr "Lågare lyd"
+msgstr "LÃ¥gare lyd"
 
 #. Translators: Menu item Noun/Energy/Thermal
 #: objects/FS/function.c:1097
@@ -3695,7 +3695,7 @@ msgstr "Samband"
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
 #: objects/FS/function.c:1105 objects/FS/function.c:1113
 msgid "Radiation"
-msgstr "Stråling"
+msgstr "StrÃ¥ling"
 
 #. Translators: Menu item Noun/Energy/Pneumatic
 #: objects/FS/function.c:1107
@@ -3715,22 +3715,22 @@ msgstr "Radioaktiv"
 #. Translators: Menu item Noun/Energy/Radioactive/Microwaves
 #: objects/FS/function.c:1115
 msgid "Microwaves"
-msgstr "Mikrobølger"
+msgstr "MikrobÃ¸lger"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Radio waves
 #: objects/FS/function.c:1117
 msgid "Radio waves"
-msgstr "Radiobølger"
+msgstr "RadiobÃ¸lger"
 
 #. Translators: Menu item Noun/Energy/Radioactive/X-Rays
 #: objects/FS/function.c:1119
 msgid "X-Rays"
-msgstr "Røntgen-strålar"
+msgstr "RÃ¸ntgen-strÃ¥lar"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
 #: objects/FS/function.c:1121
 msgid "Gamma Rays"
-msgstr "Gammastrålar"
+msgstr "GammastrÃ¥lar"
 
 #. Translators: Menu item Noun/Energy/Acoustic Energy
 #: objects/FS/function.c:1123
@@ -3789,7 +3789,7 @@ msgstr ""
 
 #: objects/GRAFCET/condition.c:129
 msgid "Condition"
-msgstr "Vilkår"
+msgstr "VilkÃ¥r"
 
 #: objects/GRAFCET/condition.c:129
 msgid "The boolean equation of the condition"
@@ -3826,7 +3826,7 @@ msgstr "Vanleg tekst"
 #: objects/GRAFCET/step.c:146
 #, fuzzy
 msgid "Initial step"
-msgstr "Førebokstavar"
+msgstr "FÃ¸rebokstavar"
 
 #: objects/GRAFCET/step.c:147
 msgid "Macro entry step"
@@ -3845,7 +3845,7 @@ msgstr "Marker alle som leste"
 #: objects/GRAFCET/step.c:150
 #, fuzzy
 msgid "Subprogram call step"
-msgstr "Små steg:"
+msgstr "SmÃ¥ steg:"
 
 #: objects/GRAFCET/step.c:156
 #, fuzzy
@@ -3855,12 +3855,12 @@ msgstr "Vel namn"
 #: objects/GRAFCET/step.c:156
 #, fuzzy
 msgid "The name of the step"
-msgstr "Namnet på fila programmet skal skriva til"
+msgstr "Namnet pÃ¥ fila programmet skal skriva til"
 
 #: objects/GRAFCET/step.c:158
 #, fuzzy
 msgid "Step type"
-msgstr "Gå ut"
+msgstr "GÃ¥ ut"
 
 #: objects/GRAFCET/step.c:158
 #, fuzzy
@@ -3984,7 +3984,7 @@ msgstr "Skriftstil"
 #: objects/SADT/arrow.c:145
 #, fuzzy
 msgid "Automatically gray vertical flows:"
-msgstr "Lagra oppgåver automatisk"
+msgstr "Lagra oppgÃ¥ver automatisk"
 
 #: objects/SADT/arrow.c:146
 msgid ""
@@ -4022,7 +4022,7 @@ msgstr "&Juster objekt"
 #: objects/standard/arc.c:130
 #, fuzzy
 msgid "Curve distance"
-msgstr "MÃ¥l avstand"
+msgstr "MÃƒÂ¥l avstand"
 
 #: objects/standard/bezier.c:533 objects/standard/beziergon.c:490
 #, fuzzy
@@ -4032,7 +4032,7 @@ msgstr "Legg til linjedel"
 #: objects/standard/bezier.c:534 objects/standard/beziergon.c:491
 #, fuzzy
 msgid "Delete Segment"
-msgstr "Fjern oppfÃ¸ring"
+msgstr "Fjern oppfÃƒÂ¸ring"
 
 #: objects/standard/bezier.c:536 objects/standard/beziergon.c:493
 #, fuzzy
@@ -4061,7 +4061,7 @@ msgstr "Vis kant"
 #: objects/standard/image.c:133
 #, fuzzy
 msgid "Keep aspect ratio"
-msgstr "Same høve mellom høgd og breidd"
+msgstr "Same hÃ¸ve mellom hÃ¸gd og breidd"
 
 #. Found file in same dir as diagram.
 #: objects/standard/image.c:662 objects/standard/image.c:673
@@ -4095,7 +4095,7 @@ msgstr "Legg til tenar"
 #: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 #, fuzzy
 msgid "Delete Corner"
-msgstr "Slett overføring"
+msgstr "Slett overfÃ¸ring"
 
 #: objects/standard/standard.c:45
 #, fuzzy
@@ -4112,7 +4112,7 @@ msgstr "Snu om &vertikalt"
 #: objects/UML/actor.c:331 objects/UML/actor.c:333
 #, fuzzy
 msgid "Actor"
-msgstr "Aktør"
+msgstr "AktÃ¸r"
 
 #: objects/UML/association.c:1060 objects/UML/class_dialog.c:2070
 msgid "Direction:"
@@ -4120,11 +4120,11 @@ msgstr "Retning:"
 
 #: objects/UML/association.c:1077
 msgid "From A to B"
-msgstr "Frå A til B"
+msgstr "FrÃ¥ A til B"
 
 #: objects/UML/association.c:1084
 msgid "From B to A"
-msgstr "Frå B til A"
+msgstr "FrÃ¥ B til A"
 
 #: objects/UML/association.c:1108 objects/UML/association.c:1116
 msgid "Side A"
@@ -4415,7 +4415,7 @@ msgstr "Formater rammesett"
 #: objects/UML/classicon.c:123
 #, fuzzy
 msgid "Boundary"
-msgstr "Binær"
+msgstr "BinÃ¦r"
 
 #: objects/UML/classicon.c:133
 #, fuzzy
@@ -4453,7 +4453,7 @@ msgstr "%1 tilkoplingar"
 #: objects/UML/lifeline.c:403
 #, fuzzy
 msgid "Remove connection points"
-msgstr "Val for oppkopling på nytt"
+msgstr "Val for oppkopling pÃ¥ nytt"
 
 #: objects/UML/lifeline.c:407
 #, fuzzy
@@ -4471,7 +4471,7 @@ msgstr "Lag"
 
 #: objects/UML/message.c:132
 msgid "Destroy"
-msgstr "Øydelegg"
+msgstr "Ã˜ydelegg"
 
 #: objects/UML/message.c:133
 msgid "Simple"
@@ -4658,7 +4658,7 @@ msgstr "Kompiler"
 #: plug-ins/svg/svg-import.c:582
 #, fuzzy
 msgid "Could not find SVG namespace."
-msgstr "Klarte ikkje å finne hjelpekatalog"
+msgstr "Klarte ikkje Ã¥ finne hjelpekatalog"
 
 #: plug-ins/svg/svg-import.c:588
 #, c-format
@@ -4700,7 +4700,7 @@ msgstr "Xfig-filformat"
 #: plug-ins/xfig/xfig-import.c:416
 #, fuzzy
 msgid "Patterns are not supported by Dia"
-msgstr "Dato (ikkje støtta av KControl)"
+msgstr "Dato (ikkje stÃ¸tta av KControl)"
 
 #: plug-ins/xfig/xfig-import.c:444
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
@@ -4814,7 +4814,7 @@ msgstr "Ukjend mediatype"
 #: plug-ins/xfig/xfig-import.c:1212
 #, fuzzy, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
-msgstr "«%s» er inga fil eller finst ikkje"
+msgstr "Â«%sÂ» er inga fil eller finst ikkje"
 
 #: plug-ins/xfig/xfig-import.c:1222
 #, fuzzy, c-format
@@ -4829,7 +4829,7 @@ msgstr ""
 #: plug-ins/xfig/xfig-import.c:1244
 #, fuzzy, c-format
 msgid "Error reading paper orientation: %s\n"
-msgstr "feil ved lesing frå fila %1\n"
+msgstr "feil ved lesing frÃ¥ fila %1\n"
 
 #: plug-ins/xfig/xfig-import.c:1254
 #, fuzzy, c-format
@@ -5082,7 +5082,7 @@ msgstr "Fylt trekant"
 #: sheets/Assorted.sheet.in.h:31
 #, fuzzy
 msgid "Right Arrow"
-msgstr "Høgre"
+msgstr "HÃ¸gre"
 
 #: sheets/Assorted.sheet.in.h:32
 #, fuzzy
@@ -5176,7 +5176,7 @@ msgstr "Ein PMOS-transistor"
 
 #: sheets/Circuit.sheet.in.h:8
 msgid "A Speaker"
-msgstr "Ein høgtalar"
+msgstr "Ein hÃ¸gtalar"
 
 #: sheets/Circuit.sheet.in.h:9
 msgid "A Vertically aligned inductor"
@@ -5216,7 +5216,7 @@ msgstr "Ei vassrett plassert sikring"
 
 #: sheets/Circuit.sheet.in.h:18
 msgid "A horizontally aligned powersource"
-msgstr "Ei vassrett plassert strømkilde"
+msgstr "Ei vassrett plassert strÃ¸mkilde"
 
 #: sheets/Circuit.sheet.in.h:19
 msgid "A horizontally aligned zener diode"
@@ -5252,7 +5252,7 @@ msgstr "Ei loddrett plassert sikring"
 
 #: sheets/Circuit.sheet.in.h:27
 msgid "A vertically aligned powersource"
-msgstr "Ei loddrett plassert strømkilde"
+msgstr "Ei loddrett plassert strÃ¸mkilde"
 
 #: sheets/Circuit.sheet.in.h:28
 msgid "A vertically aligned zener diode"
@@ -5341,7 +5341,7 @@ msgstr "Sivil"
 
 #: sheets/civil.sheet.in.h:17
 msgid "Civil Engineering Components"
-msgstr "Symbol for sivilingeniører"
+msgstr "Symbol for sivilingeniÃ¸rer"
 
 #: sheets/civil.sheet.in.h:18
 #, fuzzy
@@ -5491,7 +5491,7 @@ msgstr "Ein normalt open kontakt"
 
 #: sheets/Electric.sheet.in.h:7
 msgid "A relay"
-msgstr "Eit relé"
+msgstr "Eit relÃ©"
 
 #: sheets/Electric.sheet.in.h:8
 msgid "Components for electric circuits"
@@ -5605,7 +5605,7 @@ msgstr "Operasjonar"
 
 #: sheets/Flowchart.sheet.in.h:17
 msgid "Merge"
-msgstr "Slå saman"
+msgstr "SlÃ¥ saman"
 
 #: sheets/Flowchart.sheet.in.h:18
 #, fuzzy
@@ -5721,7 +5721,7 @@ msgstr "&Manuelt bytte til neste steg"
 #: sheets/GRAFCET.sheet.in.h:7
 #, fuzzy
 msgid "A macro sub-program call step"
-msgstr "Små steg:"
+msgstr "SmÃ¥ steg:"
 
 #: sheets/GRAFCET.sheet.in.h:8
 #, fuzzy
@@ -5744,7 +5744,7 @@ msgstr "Ein boge (oppover)"
 #: sheets/GRAFCET.sheet.in.h:12
 #, fuzzy
 msgid "An initial step"
-msgstr "Førebokstavar"
+msgstr "FÃ¸rebokstavar"
 
 #: sheets/GRAFCET.sheet.in.h:13
 msgid "GRAFCET"
@@ -5850,7 +5850,7 @@ msgstr "Laga"
 #: sheets/Logic.sheet.in.h:5
 #, fuzzy
 msgid "A crossconnector"
-msgstr "Kopla frå"
+msgstr "Kopla frÃ¥"
 
 #: sheets/Logic.sheet.in.h:6
 #, fuzzy
@@ -5937,7 +5937,7 @@ msgstr "Ein 3 1/2\" diskett"
 
 #: sheets/network.sheet.in.h:2
 msgid "A Bigtower PC"
-msgstr "Ein stortårn datamaskin"
+msgstr "Ein stortÃ¥rn datamaskin"
 
 #: sheets/network.sheet.in.h:3
 msgid "A Computer"
@@ -6203,7 +6203,7 @@ msgstr "SADT/IEDFO"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Action being executed"
-msgstr "Handling vert utførd"
+msgstr "Handling vert utfÃ¸rd"
 
 #: sheets/SDL.sheet.in.h:2
 #, fuzzy
@@ -6392,11 +6392,11 @@ msgstr ""
 #: sheets/UML.sheet.in.h:20
 #, fuzzy
 msgid "Create an activity"
-msgstr "Lagar ein aktør"
+msgstr "Lagar ein aktÃ¸r"
 
 #: sheets/UML.sheet.in.h:21
 msgid "Create an actor"
-msgstr "Lagar ein aktør"
+msgstr "Lagar ein aktÃ¸r"
 
 #: sheets/UML.sheet.in.h:22
 msgid "Create an object"
@@ -6472,7 +6472,7 @@ msgstr "UML"
 
 #, fuzzy
 #~ msgid "Keep aspect ratio:"
-#~ msgstr "Same høve mellom høgd og breidd"
+#~ msgstr "Same hÃ¸ve mellom hÃ¸gd og breidd"
 
 #, fuzzy
 #~ msgid "Show border:"
@@ -6517,12 +6517,12 @@ msgstr "UML"
 #~ "Warning no X Font for %s found, \n"
 #~ "using %s instead.\n"
 #~ msgstr ""
-#~ "Finn ikkje skrifttype %1 pÃ¥ %2 ppt. Brukar i staden storleik %3 ppt.\n"
+#~ "Finn ikkje skrifttype %1 pÃƒÂ¥ %2 ppt. Brukar i staden storleik %3 ppt.\n"
 
 #, fuzzy
 #~ msgid "Warning: No X fonts found.  The world is ending."
 #~ msgstr ""
-#~ "Finn ikkje skrifttype %1 pÃ¥ %2 ppt. Brukar i staden storleik %3 ppt.\n"
+#~ "Finn ikkje skrifttype %1 pÃƒÂ¥ %2 ppt. Brukar i staden storleik %3 ppt.\n"
 
 #~ msgid "Quit, are you sure?"
 #~ msgstr "Avslutte, er du sikker?"
@@ -6558,7 +6558,7 @@ msgstr "UML"
 
 #, fuzzy
 #~ msgid "Number of processes:"
-#~ msgstr "Tal på angrenivå:"
+#~ msgstr "Tal pÃ¥ angrenivÃ¥:"
 
 #, fuzzy
 #~ msgid "multiple"
