@@ -21,6 +21,7 @@
 
 #include "render_gdk.h"
 #include "message.h"
+#include "diagram.h"
 
 static void begin_render(RendererGdk *renderer, DiagramData *data);
 static void end_render(RendererGdk *renderer);
@@ -103,6 +104,9 @@ static void fill_pixel_rect(RendererGdk *renderer,
 				 int x, int y,
 				 int width, int height,
 				 Color *color);
+static void toggle_guide(RendererGdk *renderer,
+			 Object *obj,
+			 gboolean on);
 
 static RenderOps GdkRenderOps = {
   (BeginRenderFunc) begin_render,
@@ -137,6 +141,8 @@ static RenderOps GdkRenderOps = {
   (DrawStringFunc) draw_string,
 
   (DrawImageFunc) draw_image,
+
+  (ToggleGuideFunc) toggle_guide,
 };
 
 static InteractiveRenderOps GdkInteractiveRenderOps = {
@@ -159,6 +165,7 @@ new_gdk_renderer(DDisplay *ddisp)
   renderer->renderer.ops = &GdkRenderOps;
   renderer->renderer.is_interactive = 1;
   renderer->renderer.interactive_ops = &GdkInteractiveRenderOps;
+  renderer->renderer.pen_up = FALSE;
   renderer->ddisp = ddisp;
   renderer->render_gc = NULL;
 
@@ -176,6 +183,7 @@ new_gdk_renderer(DDisplay *ddisp)
   renderer->dash_length = 10;
   renderer->dot_length = 2;
   
+
   return renderer;
 }
 
@@ -415,6 +423,8 @@ draw_line(RendererGdk *renderer,
   GdkColor color;
   int x1,y1,x2,y2;
   
+  if (renderer->renderer.pen_up) return;
+
   ddisplay_transform_coords(ddisp, start->x, start->y, &x1, &y1);
   ddisplay_transform_coords(ddisp, end->x, end->y, &x2, &y2);
   
@@ -435,6 +445,8 @@ draw_polyline(RendererGdk *renderer,
   GdkColor color;
   GdkPoint *gdk_points;
   int i,x,y;
+
+  if (renderer->renderer.pen_up) return;
 
   gdk_points = g_new(GdkPoint, num_points);
 
@@ -462,6 +474,8 @@ draw_polygon(RendererGdk *renderer,
   GdkPoint *gdk_points;
   int i,x,y;
   
+  if (renderer->renderer.pen_up) return;
+
   gdk_points = g_new(GdkPoint, num_points);
 
   for (i=0;i<num_points;i++) {
@@ -488,6 +502,8 @@ fill_polygon(RendererGdk *renderer,
   GdkPoint *gdk_points;
   int i,x,y;
   
+  if (renderer->renderer.pen_up) return;
+
   gdk_points = g_new(GdkPoint, num_points);
 
   for (i=0;i<num_points;i++) {
@@ -513,6 +529,8 @@ draw_rect(RendererGdk *renderer,
   GdkColor gdkcolor;
   gint top, bottom, left, right;
     
+  if (renderer->renderer.pen_up) return;
+
   ddisplay_transform_coords(ddisp, ul_corner->x, ul_corner->y,
 			    &left, &top);
   ddisplay_transform_coords(ddisp, lr_corner->x, lr_corner->y,
@@ -541,6 +559,8 @@ fill_rect(RendererGdk *renderer,
   GdkColor gdkcolor;
   gint top, bottom, left, right;
     
+  if (renderer->renderer.pen_up) return;
+
   ddisplay_transform_coords(ddisp, ul_corner->x, ul_corner->y,
 			    &left, &top);
   ddisplay_transform_coords(ddisp, lr_corner->x, lr_corner->y,
@@ -572,6 +592,8 @@ draw_arc(RendererGdk *renderer,
   gint top, left, bottom, right;
   real dangle;
   
+  if (renderer->renderer.pen_up) return;
+
   ddisplay_transform_coords(ddisp,
 			    center->x - width/2, center->y - height/2,
 			    &left, &top);
@@ -608,6 +630,8 @@ fill_arc(RendererGdk *renderer,
   gint top, left, bottom, right;
   real dangle;
   
+  if (renderer->renderer.pen_up) return;
+
   ddisplay_transform_coords(ddisp,
 			    center->x - width/2, center->y - height/2,
 			    &left, &top);
@@ -637,6 +661,8 @@ draw_ellipse(RendererGdk *renderer,
 	     real width, real height,
 	     Color *color)
 {
+  if (renderer->renderer.pen_up) return;
+
   draw_arc(renderer, center, width, height, 0.0, 360.0, color); 
 }
 
@@ -646,6 +672,8 @@ fill_ellipse(RendererGdk *renderer,
 	     real width, real height,
 	     Color *color)
 {
+  if (renderer->renderer.pen_up) return;
+
   fill_arc(renderer, center, width, height, 0.0, 360.0, color); 
 }
 
@@ -793,6 +821,8 @@ draw_bezier(RendererGdk *renderer,
   Point curve[4];
   int i;
   
+  if (renderer->renderer.pen_up) return;
+
   if (bezier.gdk_points == NULL) {
     bezier.numpoints = 30;
     bezier.gdk_points = g_malloc(bezier.numpoints*sizeof(GdkPoint));
@@ -853,6 +883,8 @@ fill_bezier(RendererGdk *renderer,
   Point curve[4];
   int i;
   
+  if (renderer->renderer.pen_up) return;
+
   if (bezier.gdk_points == NULL) {
     bezier.numpoints = 30;
     bezier.gdk_points = g_malloc(bezier.numpoints*sizeof(GdkPoint));
@@ -902,6 +934,8 @@ draw_string(RendererGdk *renderer,
   int x,y;
   int iwidth;
   
+  if (renderer->renderer.pen_up) return;
+
   ddisplay_transform_coords(ddisp, pos->x, pos->y,
 			    &x, &y);
   
@@ -934,6 +968,8 @@ draw_image(RendererGdk *renderer,
 {
   int real_width, real_height, real_x, real_y;
   
+  if (renderer->renderer.pen_up) return;
+
   real_width = ddisplay_transform_length(renderer->ddisp, width);
   real_height = ddisplay_transform_length(renderer->ddisp, height);
   ddisplay_transform_coords(renderer->ddisp, point->x, point->y,
@@ -942,6 +978,26 @@ draw_image(RendererGdk *renderer,
   dia_image_draw(image,  renderer->pixmap, real_x, real_y,
 		 real_width, real_height);
 }
+
+static void
+toggle_guide(RendererGdk *renderer,
+	     Object *obj,
+	     gboolean on) {
+  if (on) {
+    DiagramData *diag = renderer->ddisp->diagram->data;
+    GList *selected;
+    
+    for (selected = diag->selected; selected != NULL; 
+	 selected = g_list_next(selected)) {
+      if (selected->data == obj)
+	return;
+    }
+    renderer->renderer.pen_up = TRUE;
+  } else {
+    renderer->renderer.pen_up = FALSE;
+  }
+}
+
 
 static real
 get_text_width(RendererGdk *renderer,

@@ -255,8 +255,9 @@ bezierline_draw(Bezierline *bezierline, Renderer *renderer)
   /* these lines should only be displayed when object is selected.
    * Unfortunately the draw function is not aware of the selected
    * state.  This is a compromise until I fix this properly. */
-  if (renderer->is_interactive)
+  if (renderer->is_interactive) {
     bezierconn_draw_control_lines(&bezierline->bez, renderer);
+  }
 }
 
 static Object *

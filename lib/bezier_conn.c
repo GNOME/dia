@@ -496,7 +496,9 @@ bezierconn_draw_control_lines(BezierConn *bez, Renderer *renderer)
   Color line_colour = {0.0, 0.0, 0.6};
   Point startpoint;
   int i;
-
+  
+  if (renderer->ops->toggle_guide)
+    renderer->ops->toggle_guide(renderer, bez, TRUE);
   /* setup renderer ... */
   renderer->ops->set_linewidth(renderer, 0);
   renderer->ops->set_linestyle(renderer, LINESTYLE_DOTTED);
@@ -512,6 +514,8 @@ bezierconn_draw_control_lines(BezierConn *bez, Renderer *renderer)
 			     &line_colour);
     startpoint = bez->points[i].p3;
   }
+  if (renderer->ops->toggle_guide)
+    renderer->ops->toggle_guide(renderer, bez, FALSE);
 }
 
 void
