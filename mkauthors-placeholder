@@ -1,0 +1,17 @@
+#!/bin/sh
+cat > AUTHORS << __EOF__ 
+This is only a placeholder file; the real content of AUTHORS is 
+generated from the output of dia --credits, when 'make dist' is 
+run to create a distributable dia tarball. The authors of dia 
+can also be seen from the about box in any up-to-date copy of 
+dia. 
+
+This slightly messy procedure is due to the fact that the 
+definitive list of authors in dia is hard-coded into dia, yet 
+automake(1) requires AUTHORS to be present at 'make dist' stage 
+because the GNU coding standards require it. 
+
+(if you with to review the list of authors before building dia, you 
+can have a look at the contents of the file 
+\$(top_srcdir)/app/authors.h) 
+__EOF__

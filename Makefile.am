@@ -26,7 +26,7 @@ distclean-local:
 	rm -f intltool-extract
 	rm -f intltool-merge
 	rm -f intltool-update
-	rm -f AUTHORS
+	./mkauthors-placeholder
 
 mimedir = $(gnomedatadir)/mime-info
 mime_DATA = dia.mime dia.keys

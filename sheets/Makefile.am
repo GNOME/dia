@@ -13,7 +13,8 @@ sheetdir = $(pkgdatadir)/sheets
 sheet_DATA = $(SHEETS)
 
 %.sheet: %.sheet.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) 
-	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -x -u
+	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -x -u \
+	 	-c $(top_srcdir)/po/.intltool-merge-cache
 
 EXTRA_DIST = sheet-translation-report $(sheet_in_files) \
 	checktrans checktrans.py
