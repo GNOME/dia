@@ -1,4 +1,21 @@
 1999-04-28  Alexander Larsson  <alla@lysator.liu.se>
+	Patches from Enrico Scholz <enrico.scholz@wirtschaft.tu-chemnitz.de>
+
+	* dia.spec:
+	Updated version number, made setup quiet, can build from cvs,
+	--enable-gnome, now using automake 1.4 DESTDIR feature, install-strip
+
+	* lib/Makefile.am
+	* objects/ER/Makefile.am
+	* objects/UML/Makefile.am
+	* objects/network/Makefile.am
+	* objects/standard/Makefile.am
+	now builds better with gnome
+
+	* objects/UML/class_dialog.c
+	Fixed typo -> po files must be updated too!!
+	
+1999-04-28  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/dummy_dep.h:
 	Added reference so that widgets.o gets linked to the app.

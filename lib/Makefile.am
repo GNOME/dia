@@ -54,7 +54,4 @@ libdia_a_SOURCES =  \
 		intl.h \
 		dummy_dep.h
 
-CPPFLAGS = @CPPFLAGS@ @GTK_CFLAGS@
-
-CFLAGS = @CFLAGS@ @XML_CFLAGS@
-
+INCLUDES = @XML_CFLAGS@ @GNOME_CFLAGS@ @GTK_CFLAGS@

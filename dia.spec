@@ -1,6 +1,6 @@
 Summary: A gtk+ based diagram creation program.
 Name: dia
-Version: 0.20
+Version: 0.41
 Release: 1
 Copyright: GPL
 Group: Applications/
@@ -17,20 +17,28 @@ this first version there is support for UML static structure diagrams
 diagrams to a custom fileformat and export to postscript.
 
 %changelog
+* Thu Apr 29 1999  Enrico Scholz <enrico.scholz@wirtschaft.tu-chemnitz.de>
+- Made %setup quiet
+- Enabled build from cvs
+- Removed superfluous mkdir's
+- using DESTDIR and install-strip
 * Fri Aug 28 1998  Francis J. Lacoste <francis@Contre.COM> 
 - First RPM release.
 
 %prep
-%setup
+%setup -q -n %{name}
 
 %build
-./configure --prefix=/usr
+if [ -x ./configure ]; then
+  CFLAGS=$RPM_OPT_FLAGS ./configure --prefix=/usr --enable-gnome
+else 
+  CFLAGS=$RPM_OPT_FLAGS ./autogen.sh --prefix=/usr --enable-gnome
+fi  
 make
 
 %install
 rm -fr $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/usr/{bin,lib,libexec,share}
-make install prefix=$RPM_BUILD_ROOT/usr
+make DESTDIR=$RPM_BUILD_ROOT install-strip 
 
 %clean
 rm -fr $RPM_BUILD_ROOT

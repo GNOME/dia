@@ -139,7 +139,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog->op_vis = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox),
 		      checkbox, TRUE, TRUE, 0);
-  checkbox = gtk_check_button_new_with_label(_("Operations Attributes"));
+  checkbox = gtk_check_button_new_with_label(_("Suppress operations"));
   prop_dialog->op_supp = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox),
 		      checkbox, TRUE, TRUE, 0);

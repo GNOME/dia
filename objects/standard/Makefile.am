@@ -15,6 +15,4 @@ libstandard_objects_la_SOURCES = 	arc.c \
 
 libstandard_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
 
-CPPFLAGS = @GTK_CFLAGS@
-INCLUDES = -I$(srcdir)/../../lib
-CFLAGS = @CFLAGS@
+INCLUDES = -I$(srcdir)/../../lib @GTK_CFLAGS@ @GNOME_CFLAGS@
