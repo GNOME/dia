@@ -1085,7 +1085,6 @@ get_text_width(RendererGdk *renderer,
 #ifdef HAVE_FREETYPE
   iwidth = freetype_load_string(text, renderer->freetype_font, length)->width;
 #elif defined (GTK_TALKS_UTF8) && defined (UNICODE_WORK_IN_PROGRESS)
-  g_print ("get_text_width (%s,%d)\n", text, length);
   /* length is in num glyphs, we need bytes here */
   p = text;
   for (i = 0; i < length; i++)

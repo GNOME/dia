@@ -76,7 +76,6 @@
 #include "sheet.h"
 #include "plug-ins.h"
 #include "recent_files.h"
-#include "sheets.h"
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;

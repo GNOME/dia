@@ -18,6 +18,8 @@
 #ifndef RENDER_OBJECT_H
 #define RENDER_OBJECT_H
 
+#error "File not used anymore."
+
 #include "element.h"
 #include "render_store.h"
 #include "text.h"

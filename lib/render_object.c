@@ -18,6 +18,8 @@
 
 #include <config.h>
 
+#error "File not used anymore."
+
 #include "render_object.h"
 #include "intl.h"
 

@@ -250,7 +250,6 @@ EXPORTS
  new_diagram_data
  new_layer
  new_object_state_change
- new_render_object
  new_render_store
  new_text
  neworthconn_add_segment
@@ -363,8 +362,6 @@ EXPORTS
  rectangle_union
  rectangle_union
  remove_focus
- render_object_load
- render_object_save
  rs_add_draw_arc
  rs_add_draw_bezier
  rs_add_draw_ellipse

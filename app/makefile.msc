@@ -12,9 +12,8 @@ PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 	-DWITHOUT_ZOOM_COMBO
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(DIRENT_LIBS) $(PNG_LIBS) \
-	$(LIBXML2_LIBS) $(GDKPIXBUF)\gdk-pixbuf.lib \
+	$(LIBXML2_LIBS) $(GDKPIXBUF)\libgdk-pixbuf-0.lib \
 	$(PRJ_TOP)\lib\libdia.lib $(LIBART)\libart.lib \
-	$(GDKPIXBUF)\gdk-pixbuf.lib
 
 OBJECTS = \
 	app_procs.obj \

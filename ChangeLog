@@ -1,3 +1,27 @@
+2002-05-12  Hans Breuer  <hans@breuer.org>
+
+	* config.h.win32 : changed VERSION to 0.90.RC1
+
+	* app/makefile.msc lib/makefile.msc : use renamed
+	gdk-pixbuf version (same content but renamed because
+	all the other gtk+ dlls are renamed) to avoid trouble
+	mixing gtk versions (of which one would not 
+	be initialized ...
+
+	* app/app_procs.c : removed recently unneeded
+	inclusion of "sheets.h"
+
+	* app/render_gdk.c : removed my own debug spew
+	which should never made it to cvs
+
+	* lib/render_object.[hc] : added
+	#error "File not used anymore."
+
+	* lib/libdia.def : updated externals
+ 
+	* app/interface.c : dropped filenames need to be
+	converted from uri with Gtk+2.0
+
 2002-05-12  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* RELEASE-PROCESS (new): a draft document about how to release. To

@@ -1074,12 +1074,23 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
 
         pFrom = strstr((gchar *) data->data, "file:");
         while (pFrom) {
+#if !GLIB_CHECK_VERSION (2,0,0)
           pFrom += 5; /* remove 'file:' */
+#else
+          GError *error = NULL;
+#endif
           pTo = pFrom;
-	    while (*pTo != 0 && *pTo != 0xd && *pTo != 0xa) pTo ++;
+          while (*pTo != 0 && *pTo != 0xd && *pTo != 0xa) pTo ++;
           sPath = g_strndup(pFrom, pTo - pFrom);
 
+#if !GLIB_CHECK_VERSION (2,0,0)
           diagram = diagram_load (sPath, NULL);
+#else
+          /* format changed with Gtk+2.0, use conversion */
+          pFrom = g_filename_from_uri (sPath, NULL, &error);
+          diagram = diagram_load (pFrom, NULL);
+          g_free (pFrom);
+#endif
           g_free(sPath);
 
           if (diagram != NULL) {

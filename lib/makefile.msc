@@ -18,7 +18,7 @@ PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 # in GTK_CFLAGS: $(GLIB_CFLAGS) 
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(DIRENT_LIBS) \
-	$(LIBXML2_LIBS) $(ZLIB_LIBS) $(GDKPIXBUF)\gdk-pixbuf.lib
+	$(LIBXML2_LIBS) $(ZLIB_LIBS) $(GDKPIXBUF)\libgdk-pixbuf-0.lib
 
 OBJECTS = \
 	arrows.obj \
@@ -64,7 +64,6 @@ OBJECTS = \
 	propoffsets.obj \
 	propregistry.obj \
 	render.obj \
-	render_object.obj \
 	render_store.obj \
 	sheet.obj \
 	text.obj \
