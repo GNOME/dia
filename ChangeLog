@@ -1,3 +1,30 @@
+2003-01-25  Hans Breuer  <hans@breuer.org>
+
+	* app/commands.c : don't warn about crashing libart renderer
+	on win32. It simply doesn't render text anymore :-(
+
+	* app/filedlg.c : use GtkMessageDialog for 'file overwrite'
+
+	* objects/UML/class.c : don't access umlclass->properties_dialog
+	after calling gtk_widget_destroy(umlclass->properties_dialog->dialog)
+	which sets the former to NULL by destroy_properties_dialog() callback.
+
+	* plug-ins/wmf/wmf.cpp : use dia_image_rowstride()
+
+	* plug-ins/python/pydia-font.c : fix PyDiaFont_GetAttr()
+
+	* plug-ins/python/pydia-image.c : add image.uri member
+	not only useful for SVG rendering
+
+	* plug-ins/python/diasvg.py : (new file) a more advanced
+	example. A full blown SVG Renderer, currently only
+	registered for .svgz
+
+	* plug-ins/python/export-object.py : write text props
+
+	* plug-ins/python/debug_objects.py : write prop.type and
+	prop.visible 
+
 2003-01-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/properties.h: New flag for properties with multiple values

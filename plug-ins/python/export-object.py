@@ -29,6 +29,9 @@ class ObjRenderer :
 				keys = o.properties.keys()
 				for s in keys :
 					self.f.write ("\t"*3 + str(o.properties[s]) + "\n")
+					if o.properties[s].type == "string" :
+						self.f.write ("\t"*3 + str(o.properties[s].value) + "\n")
+					self.f.write ("\t"*3 + "</DiaProperty>\n")
 				self.f.write ("\t"*2 + "</DiaProperties>\n")
 				self.f.write ("\t"*1 + "</DiaObject>\n\n")
 			self.f.write ("\t"*0 + "</layer>\n")

@@ -874,7 +874,7 @@ draw_image(DiaRenderer *self,
     /* copy data, always line by line */
     for (int y = 0; y < iHeight; y ++) 
     {
-        int line_offset = y*3*iWidth;
+        int line_offset = dia_image_rowstride(image) * y;
         for (int x = 0; x < iWidth*3; x+=3)
         {
             // change from RGB to BGR order

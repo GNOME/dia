@@ -1039,8 +1039,8 @@ umlclass_destroy(UMLClass *umlclass)
   }
 
   if (umlclass->properties_dialog != NULL) {
-    gtk_widget_destroy(umlclass->properties_dialog->dialog);
     g_list_free(umlclass->properties_dialog->deleted_connections);
+    gtk_widget_destroy(umlclass->properties_dialog->dialog);
     g_free(umlclass->properties_dialog);
   }
 }

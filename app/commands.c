@@ -752,20 +752,11 @@ view_aa_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   int aa;
-  static gboolean shown_warning = FALSE;
 
   ddisp = ddisplay_active();
  
   aa =  GTK_CHECK_MENU_ITEM(widget)->active;
   
-#ifdef G_OS_WIN32
-  if (aa && !shown_warning)
-    message_warning(_("The anti aliased renderer is buggy, and may cause\n"
-		      "crashes.  We know there are bugs in it, so don't\n"
-		      "bother submitting another report if it crashes"));
-  shown_warning = TRUE;
-#endif
-
   if (aa != ddisp->aa_renderer) {
     ddisplay_set_renderer(ddisp, aa);
     ddisplay_add_update_all(ddisp);

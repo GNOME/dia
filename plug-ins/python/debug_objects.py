@@ -16,12 +16,12 @@ def dia_debug_props_cb (data, flags) :
 			print str(o)
 			props = o.properties
 			for s in props.keys() :
+				print props[s].type + " " + s + " (visible=%d)" % props[s].visible
 				try :
 					p = props[s].value
-					# p = props[s].type
 				except :
 					p = None
-				print s, str(p)
+				print "\t" + str(p)
 
 # dia-python keeps a reference to the renderer class and uses it on demand
 dia.register_callback ("Dia BoundingBox Debugger", 

@@ -225,18 +225,8 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 
   if (stat(filename, &stat_struct) == 0) {
     GtkWidget *dialog = NULL;
-    GtkWidget *button, *label;
     char buffer[300];
-    int result;
     char *utf8filename = NULL;
-
-    dialog = gtk_dialog_new();
-  
-    gtk_signal_connect (GTK_OBJECT (dialog), "destroy", 
-			GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
-    
-    gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
-    gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
 
     if (!g_utf8_validate(filename, -1, NULL)) {
       utf8filename = g_locale_to_utf8(filename, -1, NULL, NULL, NULL);
@@ -250,44 +240,18 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 	       _("The file '%s' already exists.\n"
 		 "Do you want to overwrite it?"), utf8filename);
     g_free(utf8filename);
-    label = gtk_label_new (buffer);
-    gtk_misc_set_padding (GTK_MISC (label), 10, 10);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			label, TRUE, TRUE, 0);
-    gtk_widget_show (label);
 
-    result = FALSE;
-    
-    button = gtk_button_new_with_label (_("Yes"));
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_widget_grab_default (button);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(set_true_callback),
-			&result);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			       GTK_SIGNAL_FUNC (gtk_widget_destroy),
-			       GTK_OBJECT (dialog));
-    gtk_widget_show (button);
-    
-    button = gtk_button_new_with_label (_("No"));
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
-			button, TRUE, TRUE, 0);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			       GTK_SIGNAL_FUNC (gtk_widget_destroy),
-			       GTK_OBJECT (dialog));
-    gtk_widget_show (button);
+    dialog = gtk_message_dialog_new (GTK_WINDOW(w),
+                                     GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
+                                     GTK_BUTTONS_YES_NO,
+                                     buffer);
+    gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
+    g_signal_connect_after (G_OBJECT (dialog), "response",
+                            G_CALLBACK(gtk_widget_destroy),
+                            NULL);
 
-    gtk_widget_show(dialog);
-
-    gtk_widget_grab_focus(dialog);
-    gtk_grab_add(dialog);
-
-    gtk_main();
-
-    if (result == FALSE) {
+    if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
       gtk_widget_hide(savedlg);
       return;
     }
@@ -441,63 +405,23 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 
   if (stat(filename, &statbuf) == 0) {
     GtkWidget *dialog = NULL;
-    GtkWidget *button, *label;
     char buffer[300];
     int result;
 
-    dialog = gtk_dialog_new();
-  
-    gtk_signal_connect (GTK_OBJECT (dialog), "destroy", 
-					 GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
-    
-    gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
-    gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
     g_snprintf(buffer, 300,
 	       _("The file '%s' already exists.\n"
 		 "Do you want to overwrite it?"), filename);
-    label = gtk_label_new (buffer);
-  
-    gtk_misc_set_padding (GTK_MISC (label), 10, 10);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			label, TRUE, TRUE, 0);
-  
-    gtk_widget_show (label);
+    dialog = gtk_message_dialog_new (GTK_WINDOW(w),
+                                     GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
+                                     GTK_BUTTONS_YES_NO,
+                                     buffer);
+    gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
+    g_signal_connect_after (G_OBJECT (dialog), "response",
+                            G_CALLBACK(gtk_widget_destroy),
+                            NULL);
 
-    result = FALSE;
-    
-    button = gtk_button_new_with_label (_("Yes"));
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_widget_grab_default (button);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(set_true_callback),
-			&result);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			       GTK_SIGNAL_FUNC (gtk_widget_destroy),
-			       GTK_OBJECT (dialog));
-    gtk_widget_show (button);
-    
-    button = gtk_button_new_with_label (_("No"));
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
-			button, TRUE, TRUE, 0);
-    
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			       GTK_SIGNAL_FUNC (gtk_widget_destroy),
-			       GTK_OBJECT (dialog));
-    
-    gtk_widget_show (button);
-
-    gtk_widget_show (dialog);
-
-    /* Make dialog modal: */
-    gtk_widget_grab_focus(dialog);
-    gtk_grab_add(dialog);
-
-    gtk_main();
-
-    if (result==FALSE) {
+    if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
       gtk_widget_hide(exportdlg);
       return;
     }

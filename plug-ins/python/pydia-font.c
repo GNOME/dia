@@ -86,13 +86,13 @@ static PyObject *
 PyDiaFont_GetAttr(PyDiaFont *self, gchar *attr)
 {
   if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[s]", "family", "name", "style");
+    return Py_BuildValue("[sss]", "family", "name", "style");
   else if (!strcmp(attr, "name"))
     return PyString_FromString(dia_font_get_legacy_name (self->font));
   else if (!strcmp(attr, "family"))
     return PyString_FromString(dia_font_get_family (self->font));
   else if (!strcmp(attr, "style"))
-    PyInt_FromLong (dia_font_get_style (self->font));
+    return PyInt_FromLong (dia_font_get_style (self->font));
 
   PyErr_SetString(PyExc_AttributeError, attr);
   return NULL;
