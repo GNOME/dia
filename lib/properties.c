@@ -208,6 +208,8 @@ prop_copy(Property *dest, Property *src)
   case PROP_TYPE_MULTICOL_COLUMN:
   case PROP_TYPE_FRAME_BEGIN:
   case PROP_TYPE_FRAME_END:
+  case PROP_TYPE_STATIC:
+  case PROP_TYPE_BUTTON:
     break;
   case PROP_TYPE_MULTISTRING:
   case PROP_TYPE_STRING:
@@ -217,8 +219,6 @@ prop_copy(Property *dest, Property *src)
       PROP_VALUE_STRING(*dest) = g_strdup(PROP_VALUE_STRING(*src));
     else
       PROP_VALUE_STRING(*dest) = NULL;
-    break;
-  case PROP_TYPE_STATIC:
     break;
   case PROP_TYPE_POINTARRAY:
     g_free(PROP_VALUE_POINTARRAY(*dest).pts);
@@ -290,6 +290,7 @@ prop_free(Property *prop)
   case PROP_TYPE_CONNPOINT_LINE:
   case PROP_TYPE_FONT:
   case PROP_TYPE_STATIC:
+  case PROP_TYPE_BUTTON:
     break;
   case PROP_TYPE_NOTEBOOK_BEGIN:
   case PROP_TYPE_NOTEBOOK_END:
@@ -353,6 +354,58 @@ bool_toggled(GtkWidget *wid)
     gtk_label_set(GTK_LABEL(GTK_BIN(wid)->child), _("No"));
 }
 
+static void 
+property_signal_handler(GtkObject *obj,
+                        gpointer func_data)
+{
+  PropEventData *ped = (PropEventData *)func_data;
+  if (ped) {
+    const PropDialogData *pdd = ped->dialog;
+    Property *prop = &(pdd->props[ped->index]);
+    Object *obj = pdd->obj_copy;
+#if 1
+    g_message("signal from property '%s'",prop->name);
+#endif
+    g_assert(prop->event_handler);
+    g_assert(obj);
+    g_assert(obj->ops->set_props);
+    g_assert(obj->ops->get_props);
+
+    /* obj is a scratch object ; we can do what we want with it. */
+    obj->ops->set_props(obj,pdd->props,pdd->nprops);
+    prop->event_handler(ped);
+    obj->ops->get_props(obj,pdd->props,pdd->nprops);
+  } else {
+    g_assert_not_reached();
+  }
+}
+
+static void 
+prophandler_connect(const Property *prop,
+                    GtkObject *object,
+                    const gchar *signal)
+{
+  Object *obj = prop->self.dialog->obj_copy;
+
+  if (!prop->event_handler) return;
+  if (0==strcmp(signal,"FIXME")) {
+    g_warning("signal type unknown for this kind of property (name is %s), \n"
+              "handler ignored.",prop->name);
+    return;
+  } 
+  if ((!obj->ops->set_props) || (!obj->ops->get_props)) {
+      g_warning("object has no [sg]et_props() routine(s).\n"
+                "event handler for property %s ignored.",
+                prop->name);
+      return;
+  }
+
+  gtk_signal_connect(object,
+                     signal,
+                     GTK_SIGNAL_FUNC(property_signal_handler),
+                     (gpointer)(&prop->self));
+}
+
 GtkWidget *
 prop_get_widget(const Property *prop)
 {
@@ -365,17 +418,20 @@ prop_get_widget(const Property *prop)
     break;
   case PROP_TYPE_CHAR:
     ret = gtk_entry_new();
+    prophandler_connect(prop,GTK_OBJECT(ret),"changed");
     break;
   case PROP_TYPE_BOOL:
     ret = gtk_toggle_button_new_with_label(_("No"));
     gtk_signal_connect(GTK_OBJECT(ret), "toggled",
 		       GTK_SIGNAL_FUNC(bool_toggled), NULL);
+    prophandler_connect(prop,GTK_OBJECT(ret),"toggled");
     break;
   case PROP_TYPE_INT:
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(PROP_VALUE_INT(*prop),
                                             G_MININT, G_MAXINT,
                                             1.0, 10.0, 10.0));
     ret = gtk_spin_button_new(adj, 1.0, 0);
+    prophandler_connect(prop,GTK_OBJECT(adj),"value_changed");
     break;
   case PROP_TYPE_ENUM:
     if (prop->extra_data) {
@@ -394,6 +450,7 @@ prop_get_widget(const Property *prop)
 				 GUINT_TO_POINTER(enumdata[i].enumv));
 	gtk_container_add(GTK_CONTAINER(menu), item);
 	gtk_widget_show(item);
+        prophandler_connect(prop,GTK_OBJECT(item),"activate");
       }
       gtk_option_menu_set_menu(GTK_OPTION_MENU(ret), menu);
     } else {
@@ -406,6 +463,7 @@ prop_get_widget(const Property *prop)
                                             0.1, 1.0, 1.0));
     ret = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret), TRUE);
+    prophandler_connect(prop,GTK_OBJECT(adj),"changed");
     break;
   case PROP_TYPE_NOTEBOOK_BEGIN:
   case PROP_TYPE_NOTEBOOK_END:
@@ -419,10 +477,12 @@ prop_get_widget(const Property *prop)
     break;
   case PROP_TYPE_STRING:
     ret = gtk_entry_new();
+    prophandler_connect(prop,GTK_OBJECT(ret),"changed");
     break;
   case PROP_TYPE_MULTISTRING: 
     ret = gtk_text_new(NULL,NULL);
     gtk_text_set_editable(GTK_TEXT(ret),TRUE);
+    prophandler_connect(prop,GTK_OBJECT(ret),"changed");
     break;  
   case PROP_TYPE_POINT:
   case PROP_TYPE_POINTARRAY:
@@ -442,31 +502,42 @@ prop_get_widget(const Property *prop)
       gtk_label_set_justify(GTK_LABEL(ret),GTK_JUSTIFY_LEFT);
     }
     break;
+  case PROP_TYPE_BUTTON:
+    ret = gtk_button_new_with_label(prop->descr->tooltip);
+    prophandler_connect(prop,GTK_OBJECT(ret),"clicked");
+    break;
   case PROP_TYPE_LINESTYLE:
     ret = dia_line_style_selector_new();
+    prophandler_connect(prop,GTK_OBJECT(ret),"FIXME");
     break;
   case PROP_TYPE_ARROW:
     ret = dia_arrow_selector_new();
+    prophandler_connect(prop,GTK_OBJECT(ret),"FIXME");
     break;
   case PROP_TYPE_COLOUR:
     ret = dia_color_selector_new();
+    prophandler_connect(prop,GTK_OBJECT(ret),"FIXME");
     break;
   case PROP_TYPE_FONT:
     ret = dia_font_selector_new();
+    prophandler_connect(prop,GTK_OBJECT(ret),"FIXME");
     break;
   case PROP_TYPE_FILE:
     ret = dia_file_selector_new();
+    prophandler_connect(prop,GTK_OBJECT(ret),"FIXME");
     break;
   default:
     /* custom property */
     if (custom_props == NULL ||
 	prop->type - PROP_LAST >= custom_props->len ||
 	g_array_index(custom_props, CustomProp,
-		      prop->type - PROP_LAST).wfunc == NULL)
+		      prop->type - PROP_LAST).wfunc == NULL) {
       ret = gtk_label_new(_("No edit widget"));
-    else
+    } else {
       ret = g_array_index(custom_props, CustomProp,
 			  prop->type - PROP_LAST).wfunc(prop);
+      prophandler_connect(prop,GTK_OBJECT(ret),"FIXME");
+    }
   }
   return ret;
 }
@@ -595,6 +666,7 @@ prop_reset_widget(const Property *prop, GtkWidget *widget)
   case PROP_TYPE_TEXT:
   case PROP_TYPE_RECT:
   case PROP_TYPE_STATIC:
+  case PROP_TYPE_BUTTON:
     break;
   case PROP_TYPE_LINESTYLE:
     dia_line_style_selector_set_linestyle(DIALINESTYLESELECTOR(widget),
@@ -690,6 +762,7 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
   case PROP_TYPE_FRAME_BEGIN:
   case PROP_TYPE_FRAME_END:
   case PROP_TYPE_STATIC:
+  case PROP_TYPE_BUTTON:
   case PROP_TYPE_POINT:
   case PROP_TYPE_POINTARRAY:
   case PROP_TYPE_INTARRAY:
@@ -826,6 +899,7 @@ prop_load(Property *prop, ObjectNode obj_node)
   case PROP_TYPE_FRAME_END:
     break;
   case PROP_TYPE_STATIC:
+  case PROP_TYPE_BUTTON:
     break;
   case PROP_TYPE_POINT:
     data_point(data, &PROP_VALUE_POINT(*prop));
@@ -1003,7 +1077,7 @@ prop_save(Property *prop, ObjectNode obj_node)
     data_add_real(attr, PROP_VALUE_REAL(*prop));
     break;
   case PROP_TYPE_STATIC:
-    break;
+  case PROP_TYPE_BUTTON:
   case PROP_TYPE_NOTEBOOK_BEGIN:
   case PROP_TYPE_NOTEBOOK_END:
   case PROP_TYPE_NOTEBOOK_PAGE:
@@ -1208,8 +1282,8 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
       PROP_VALUE_REAL(props[i]) =
 	struct_member(obj, offsets[j].offset, real);
       break;
-    case PROP_TYPE_STATIC:
-      break;
+    case PROP_TYPE_STATIC:  
+    case PROP_TYPE_BUTTON:
     case PROP_TYPE_NOTEBOOK_BEGIN:
     case PROP_TYPE_NOTEBOOK_END:
     case PROP_TYPE_NOTEBOOK_PAGE:
@@ -1354,7 +1428,7 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
 	PROP_VALUE_REAL(props[i]);
       break;
     case PROP_TYPE_STATIC:
-      break;
+    case PROP_TYPE_BUTTON:
     case PROP_TYPE_NOTEBOOK_BEGIN:
     case PROP_TYPE_NOTEBOOK_END:
     case PROP_TYPE_NOTEBOOK_PAGE:
@@ -1455,21 +1529,21 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
 
 /* --------------------------------------- */
 
-static const gchar *prop_array_key   = "object-props:props";
-static const gchar *prop_num_key     = "object-props:nprops";
-static const gchar *prop_widgets_key = "object-props:widgets";
+static const gchar *prop_dialogdata_key = "object-props:dialogdata";
 
 static void
-object_props_dialog_destroy(GtkWidget *table)
+object_props_dialog_destroy(GtkWidget *dialog)
 {
-  Property *props = gtk_object_get_data(GTK_OBJECT(table), prop_array_key);
-  guint nprops = GPOINTER_TO_UINT(gtk_object_get_data(GTK_OBJECT(table),
-						      prop_num_key));
-  GtkWidget **widgets = gtk_object_get_data(GTK_OBJECT(table),
-					    prop_widgets_key);
+  PropDialogData *ppd = gtk_object_get_data(GTK_OBJECT(dialog),
+                                            prop_dialogdata_key);
+  Property *props = ppd->props;
+  guint nprops = ppd->nprops;
+  GtkWidget **widgets = ppd->widgets;
 
   prop_list_free(props, nprops);
   g_free(widgets);
+  if (ppd->obj_copy) ppd->obj_copy->ops->destroy(ppd->obj_copy);
+  g_free(ppd);
 }
 
 GtkWidget *
@@ -1487,6 +1561,9 @@ object_create_props_dialog(Object *obj)
   int nestlev = -1;
   gboolean haspage = FALSE, hascolumn = FALSE;
 
+  PropDialogData *ppd = g_new0(PropDialogData,1);
+  Object *obj_copy = NULL;
+
   g_return_val_if_fail(obj->ops->describe_props != NULL, NULL);
   g_return_val_if_fail(obj->ops->get_props != NULL, NULL);
   g_return_val_if_fail(obj->ops->set_props != NULL, NULL);
@@ -1499,7 +1576,7 @@ object_create_props_dialog(Object *obj)
       nprops++;
 
   props = g_new0(Property, nprops);
-  widgets = g_new(GtkWidget *, nprops);
+  widgets = g_new0(GtkWidget *, nprops);
 
   /* get the current values of all visible properties */
   for (i = 0, j = 0; pdesc[i].name != NULL; i++)
@@ -1507,7 +1584,13 @@ object_create_props_dialog(Object *obj)
       props[j].name       = pdesc[i].name;
       props[j].type       = pdesc[i].type;
       props[j].extra_data = pdesc[i].extra_data;
+      props[j].event_handler = pdesc[i].event_handler;
       props[j].descr      = &pdesc[i];
+      props[j].self.dialog = ppd;
+      props[j].self.index = j;
+      if ((pdesc[j].event_handler) && (!obj_copy)) {
+        ppd->obj_copy = obj_copy = obj->ops->copy(obj);
+      }
       j++;
     }
   obj->ops->get_props(obj, props, nprops);
@@ -1519,6 +1602,11 @@ object_create_props_dialog(Object *obj)
     curcontainer = g_new0(GtkWidget *,cc_allocated);
   } 
   curcontainer[++nestlev] = mainvbox;
+
+  ppd->props = props;
+  ppd->nprops = nprops;
+  ppd->dialog = mainvbox;
+  ppd->widgets = widgets;
 
   /* construct the widgets table */
   for (i = 0, j = 0; pdesc[i].name != NULL; i++) {
@@ -1651,10 +1739,8 @@ object_create_props_dialog(Object *obj)
       j++;
     }
   }
-  gtk_object_set_data(GTK_OBJECT(mainvbox), prop_array_key,   props);
-  gtk_object_set_data(GTK_OBJECT(mainvbox), prop_num_key,
-		      GUINT_TO_POINTER(nprops));
-  gtk_object_set_data(GTK_OBJECT(mainvbox), prop_widgets_key, widgets);
+  
+  gtk_object_set_data(GTK_OBJECT(mainvbox), prop_dialogdata_key, ppd);
 
   gtk_signal_connect(GTK_OBJECT(mainvbox), "destroy",
 		     GTK_SIGNAL_FUNC(object_props_dialog_destroy), NULL);
@@ -1663,13 +1749,14 @@ object_create_props_dialog(Object *obj)
 }
 
 ObjectChange *
-object_apply_props_from_dialog(Object *obj, GtkWidget *table)
+object_apply_props_from_dialog(Object *obj, GtkWidget *dialog)
 {
-  Property *props = gtk_object_get_data(GTK_OBJECT(table), prop_array_key);
-  guint nprops = GPOINTER_TO_UINT(gtk_object_get_data(GTK_OBJECT(table),
-						      prop_num_key));
-  GtkWidget **widgets = gtk_object_get_data(GTK_OBJECT(table),
-					    prop_widgets_key);
+  PropDialogData *ppd = gtk_object_get_data(GTK_OBJECT(dialog),
+                                            prop_dialogdata_key);
+  Property *props = ppd->props;
+  guint nprops = ppd->nprops;
+  GtkWidget **widgets = ppd->widgets;
+
   guint i;
 
   for (i = 0; i < nprops; i++)

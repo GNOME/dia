@@ -1,3 +1,16 @@
+2001-07-25  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/properties.[ch]: Added (untested !) property event handler
+	capability. Added a new PROP_TYPE_BUTTON, for the purpose of
+	generating such events. This stuff compiles, and should lurk
+	around silently as long as you don't declare property descriptors
+	with events (AFAICT).
+	In object_create_props_dialog() and friends:
+	attached a single structure with lots of data instead of lots of
+	little attachments of data to the dialog widget.
+	
+	* lib/object.h: fixed mild typedef breakage introduced by the above.
+
 2001-07-17  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lots of files: Changed Font to DiaFont

@@ -43,7 +43,25 @@
 #define _prop_typedefs_defined
 typedef struct _PropDescription PropDescription;
 typedef struct _Property Property;
+typedef struct _PropEventData PropEventData;
+typedef struct _PropDialogData PropDialogData;
 #endif
+
+struct _PropDialogData {
+  Property *props; /* array of Property */
+  guint nprops; /* number of properties */
+  GtkWidget *dialog; /* widget of self */
+  GtkWidget **widgets; /* all these widgets */
+  Object *obj_copy; /* if !NULL, a copy of the object which can be used 
+                       as scratch. */
+};
+
+struct _PropEventData {
+  PropDialogData *dialog;
+  guint index;   /* this property is dialog->props[index] */
+};
+
+typedef gboolean (*PropEventHandler) (const PropEventData *event);
 
 typedef enum {
   PROP_TYPE_INVALID = 0,
@@ -82,6 +100,9 @@ typedef enum {
   PROP_TYPE_FRAME_BEGIN,
   PROP_TYPE_FRAME_END,
 
+  /* a pure widget with event capability (obviously): */
+  PROP_TYPE_BUTTON, /* tooltip is the button's label. 
+                       Put an empty description. */
   PROP_LAST
 } PropType;
 
@@ -99,6 +120,13 @@ struct _PropDescription {
    * may use a list of string names for enumeration values. */
   gpointer extra_data;
 
+  /* if the property widget can send events when it's somehow interacted with,
+     control will be passed to object_type-supplied event_handler, and 
+     event->dialog->obj_copy will be current with the dialog's values.
+     When control comes back, event->dialog->obj_copy's properties will be 
+     brought back into the dialog. */
+  PropEventHandler event_handler;
+
   GQuark quark; /* quark for property name -- helps speed up lookups. */
 };
 
@@ -113,6 +141,8 @@ struct _Property {
   PropType type;
   const PropDescription *descr;
   gpointer extra_data;
+  PropEventData self;
+  PropEventHandler event_handler;
   union {
     unichar char_data;
     gboolean bool_data;

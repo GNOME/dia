@@ -1,4 +1,4 @@
-/* Dia -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program -*- c -*-
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -213,6 +213,9 @@ typedef ObjectChange *(*ApplyPropertiesFunc) (Object* obj, GtkWidget *widget);
 #define _prop_typedefs_defined
 typedef struct _PropDescription PropDescription;
 typedef struct _Property Property;
+typedef struct _PropEventData PropEventData;
+typedef struct _PropDialogData PropDialogData;
+
 #endif
 
 /*
