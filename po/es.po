@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-01 19:29+0200\n"
-"PO-Revision-Date: 2003-08-02 01:27+0200\n"
+"POT-Creation-Date: 2003-08-12 19:19+0200\n"
+"PO-Revision-Date: 2003-08-13 01:02+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1920,7 +1920,7 @@ msgstr "No se pudo abrir el archivo de historia para escritura."
 msgid "Encapsulated Postscript"
 msgstr "Postscript encapsulado"
 
-#: app/render_libart.c:320 lib/dialibartrenderer.c:269
+#: app/render_libart.c:323 lib/dialibartrenderer.c:273
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Especificó un modo de relleno no admitido\n"
 
@@ -2274,11 +2274,11 @@ msgstr "Cóncavo vacío"
 msgid "Round"
 msgstr "Ronda"
 
-#: lib/bezier_conn.c:530
+#: lib/bezier_conn.c:532
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Error interno: Estableciendo tipo esquina de punto final bézier"
 
-#: lib/dialibartrenderer.c:1115
+#: lib/dialibartrenderer.c:1119
 msgid "This Dia version is compiled without libart/text support."
 msgstr "Esta versión de Dia ha sido compilada sin soporte para libart/text."
 
@@ -3305,7 +3305,7 @@ msgid "Expose"
 msgstr "Exponer"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: objects/FS/function.c:911 sheets/Flowchart.sheet.in.h:8
+#: objects/FS/function.c:911 sheets/Flowchart.sheet.in.h:7
 msgid "Extract"
 msgstr "Extraer"
 
@@ -5487,32 +5487,32 @@ msgid "Weak entity"
 msgstr "Entidad débil"
 
 #: sheets/Flowchart.sheet.in.h:1
-msgid "Box with text inside"
-msgstr "Caja con texto dentro"
-
-#: sheets/Flowchart.sheet.in.h:2
 msgid "Collate"
 msgstr "Cotejar"
 
-#: sheets/Flowchart.sheet.in.h:3
-msgid "Delay"
-msgstr "Retardo"
+#: sheets/Flowchart.sheet.in.h:2
+msgid "Connector"
+msgstr "Conector"
+
+#: sheets/Flowchart.sheet.in.h:3 sheets/SDL.sheet.in.h:4
+msgid "Decision"
+msgstr "Decisión"
 
 #: sheets/Flowchart.sheet.in.h:4
-msgid "Diamond with text inside"
-msgstr "Diamante con texto dentro"
+msgid "Delay"
+msgstr "Retardo"
 
 #: sheets/Flowchart.sheet.in.h:6
 msgid "Document"
 msgstr "Documento"
 
-#: sheets/Flowchart.sheet.in.h:7
-msgid "Ellipse with text inside"
-msgstr "Elipse con texto dentro"
-
-#: sheets/Flowchart.sheet.in.h:9
+#: sheets/Flowchart.sheet.in.h:8
 msgid "Flowchart"
 msgstr "Diagrama de flujo"
+
+#: sheets/Flowchart.sheet.in.h:9
+msgid "Input/Output"
+msgstr "Entrada/Salida"
 
 #: sheets/Flowchart.sheet.in.h:10
 msgid "Internal storage"
@@ -5559,16 +5559,16 @@ msgid "Or"
 msgstr "O"
 
 #: sheets/Flowchart.sheet.in.h:21
-msgid "Parallelogram with text inside"
-msgstr "Paralelogramo con texto dentro"
-
-#: sheets/Flowchart.sheet.in.h:22
 msgid "Predefined process"
 msgstr "Proceso predefinido"
 
-#: sheets/Flowchart.sheet.in.h:23
+#: sheets/Flowchart.sheet.in.h:22
 msgid "Preparation"
 msgstr "Preparación"
+
+#: sheets/Flowchart.sheet.in.h:23
+msgid "Process/Auxiliary Operation"
+msgstr "Proceso/Operación auxiliar"
 
 #: sheets/Flowchart.sheet.in.h:24
 msgid "Punched card"
@@ -5587,8 +5587,8 @@ msgid "Summing junction"
 msgstr "Combinación de salidas"
 
 #: sheets/Flowchart.sheet.in.h:28
-msgid "Terminal"
-msgstr "Terminal"
+msgid "Terminal Interrupt"
+msgstr "Interrupción de terminal"
 
 #: sheets/Flowchart.sheet.in.h:29
 msgid "Transaction file"
@@ -6087,10 +6087,6 @@ msgstr "Acción que se está ejecutando"
 msgid "Block type reference"
 msgstr "Referencia de tipo de bloque"
 
-#: sheets/SDL.sheet.in.h:4
-msgid "Decision"
-msgstr "Decisión"
-
 #: sheets/SDL.sheet.in.h:5
 msgid "Function call"
 msgstr "Llamada a función"
@@ -6259,6 +6255,21 @@ msgstr "UML"
 #: sheets/UML.sheet.in.h:27
 msgid "Use case"
 msgstr "Usar capitalización"
+
+#~ msgid "Box with text inside"
+#~ msgstr "Caja con texto dentro"
+
+#~ msgid "Diamond with text inside"
+#~ msgstr "Diamante con texto dentro"
+
+#~ msgid "Ellipse with text inside"
+#~ msgstr "Elipse con texto dentro"
+
+#~ msgid "Parallelogram with text inside"
+#~ msgstr "Paralelogramo con texto dentro"
+
+#~ msgid "Terminal"
+#~ msgstr "Terminal"
 
 #~ msgid "/Dialogs/_Properties..."
 #~ msgstr "/Diálogos/_Propiedades..."
