@@ -11,9 +11,6 @@ INCLUDES = \
 print_files = \
 	paginate_psprint.c \
 	paginate_psprint.h
-embed_extra_print_files = \
-	render_gnomeprint.c \
-	render_gnomeprint.h
 
 noinst_PROGRAMS = run_dia.sh run_diaconv.sh diaconv
 run_dia_sh_SOURCES = 
@@ -163,7 +160,6 @@ diaconv_LDADD = ../lib/libdia.a \
 
 dia_embedd_SOURCES = \
 	    $(dia_core_files) \
-	    $(embed_extra_print_files) \
 	    dia_embedd.c
 
 dia_embedd_LDADD = ../lib/libdia.a \
@@ -175,10 +171,6 @@ LDFLAGS = -export-dynamic
 
 EXTRA_DIST = \
 	GNOME_Dia.oaf \
-	render_gnomeprint.c \
-	render_gnomeprint.h \
-	paginate_gnomeprint.c \
-	paginate_gnomeprint.h \
 	paginate_psprint.c \
 	paginate_psprint.h \
 	paginate_gdiprint.cpp \
