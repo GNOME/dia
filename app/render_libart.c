@@ -79,7 +79,7 @@ new_libart_renderer(DiaTransform *trans, int interactive)
   renderer = g_object_new(DIA_TYPE_LIBART_RENDERER, NULL);
   renderer->transform = trans;
 
-  if (interactive && !renderer->parent_instance.is_interactive)
+  if (!DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer))
     {
       static const GInterfaceInfo irenderer_iface_info = 
       {
@@ -93,9 +93,8 @@ new_libart_renderer(DiaTransform *trans, int interactive)
       g_type_add_interface_static (renderer_type,
                                    DIA_TYPE_INTERACTIVE_RENDERER_INTERFACE,
                                    &irenderer_iface_info);
-
-      renderer->parent_instance.is_interactive = 1;
     }
+  renderer->parent_instance.is_interactive = interactive;
 
   return DIA_RENDERER (renderer);
 }

@@ -140,7 +140,7 @@ dia_transform_coords_double (DiaTransform *t,
   g_return_if_fail (DIA_IS_TRANSFORM (t));
   g_return_if_fail (t != NULL && t->factor != NULL);
 
-  *xd = ROUND ( (x - t->visible->left) * *(t->factor));
-  *yd = ROUND ( (y - t->visible->top) * *(t->factor));
+  *xd = ((x - t->visible->left) * *(t->factor));
+  *yd = ((y - t->visible->top) * *(t->factor));
 }
 

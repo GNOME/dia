@@ -70,7 +70,7 @@ new_gdk_renderer(DDisplay *ddisp)
   renderer = g_object_new (DIA_TYPE_GDK_RENDERER, NULL);
   renderer->transform = dia_transform_new (&ddisp->visible, &ddisp->zoom_factor);
 
-  if (!renderer->parent_instance.is_interactive)
+  if (!DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer))
     {
       static const GInterfaceInfo irenderer_iface_info = 
       {
@@ -85,8 +85,8 @@ new_gdk_renderer(DDisplay *ddisp)
                                    DIA_TYPE_INTERACTIVE_RENDERER_INTERFACE,
                                    &irenderer_iface_info);
 
-      renderer->parent_instance.is_interactive = 1;
     }
+  renderer->parent_instance.is_interactive = 1;
   renderer->gc = NULL;
 
   renderer->pixmap = NULL;

@@ -78,6 +78,22 @@ color_to_rgba(Color *col)
   return rgba;
 }
 
+static int 
+get_width_pixels (DiaRenderer *self)
+{
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
+
+  return renderer->pixel_width;
+}
+
+static int 
+get_height_pixels (DiaRenderer *self)
+{
+  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
+
+  return renderer->pixel_height;
+}
+
 static void
 begin_render(DiaRenderer *self)
 {
@@ -1166,7 +1182,8 @@ draw_image(DiaRenderer *self,
 		 renderer->pixel_width,
 		 renderer->pixel_height,
 		 renderer->pixel_width*3,
-		 img_data, src_width, src_height, src_width*3,
+		 img_data, src_width, src_height, 
+		 dia_image_rowstride (image),
 		 affine, ART_FILTER_NEAREST, NULL);
 
   g_free(img_data);
@@ -1246,6 +1263,9 @@ dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
   /* Here we set the functions that we define for this renderer. */
+  renderer_class->get_width_pixels = get_width_pixels;
+  renderer_class->get_height_pixels = get_height_pixels;
+
   renderer_class->begin_render = begin_render;
   renderer_class->end_render = end_render;
 

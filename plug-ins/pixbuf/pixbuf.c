@@ -31,6 +31,8 @@
 #include "diagdkrenderer.h"
 #include "filter.h"
 #include "plug-ins.h"
+#include "prop_text.h"
+#include "prop_geomtypes.h"
 
 static Rectangle rect;
 static real zoom = 1.0;
@@ -48,6 +50,8 @@ export_data(DiagramData *data, const gchar *filename,
 
   if (format)
     format++;
+  if (0 == g_strcasecmp (format, "jpg"))
+    format = "jpeg"; /* format name does not match common extension */
 
   rect.left = data->extents.left;
   rect.top = data->extents.top;
@@ -55,7 +59,7 @@ export_data(DiagramData *data, const gchar *filename,
   rect.bottom = data->extents.bottom;
 
   /* quite arbitrary */
-  zoom = 10.0 * data->paper.scaling; 
+  zoom = 20.0 * data->paper.scaling; 
   width = rect.right * zoom;
   height = rect.bottom * zoom;
 
@@ -92,11 +96,72 @@ export_data(DiagramData *data, const gchar *filename,
   g_object_unref (renderer);
 }
 
-static const gchar *extensions[] = { "bmp", "png", "jpg", "jpeg", NULL };
-static DiaExportFilter my_export_filter = {
-    N_("GdkPixbuf"),
+static gboolean
+import_data (const gchar *filename, DiagramData *data, void* user_data)
+{
+  ObjectType *otype = object_get_type("Standard - Image");
+  GdkPixbuf *pixbuf;
+  GError *error = NULL;
+
+  if (!otype) /* this would be really broken */
+    return FALSE;
+
+  /* there appears to be no way to ask gdk-pixbuf if it can handle a
+   * file other than really loading it. So let's load it twice ...
+   */
+  pixbuf = gdk_pixbuf_new_from_file (filename, &error);
+  if (pixbuf)
+    {
+      Object *obj;
+      Handle *h1, *h2;
+      Point point;
+      point.x = point.y = 0.0;
+
+      /* we don't need this one ... */
+      g_object_unref (pixbuf);
+
+      obj = otype->ops->create(&point, otype->default_user_data, &h1, &h2);
+      if (obj)
+        {
+          PropDescription prop_descs [] = {
+            { "image_file", PROP_TYPE_FILE },
+            { "elem_width", PROP_TYPE_REAL },
+            PROP_DESC_END};
+          GPtrArray *plist = prop_list_from_descs (prop_descs, pdtpp_true);
+          StringProperty *strprop = g_ptr_array_index(plist, 0);
+          RealProperty *realprop  = g_ptr_array_index(plist, 1);
+
+          strprop->string_data = g_strdup (filename);
+          realprop->real_data = data->extents.right - data->extents.left;
+          obj->ops->set_props(obj, plist);
+          prop_list_free (plist);
+
+          layer_add_object(data->active_layer, obj);
+          return TRUE;
+        }
+    }
+  else if (error) /* otherwise a pixbuf misbehaviour */
+    {
+      message_warning ("Failed to load:\n%s", error->message);
+      g_error_free (error);
+    }
+
+  return FALSE;
+}
+
+static const gchar *extensions[] = { "png", "bmp", "jpg", "jpeg", NULL };
+static DiaExportFilter export_filter = {
+    N_("GdkPixbuf bitmap"),
     extensions,
     export_data
+};
+
+static const gchar *extensions_import[] = {
+	"bmp", "gif", "jpg", "png", "pnm", "ras", "tif", NULL };
+DiaImportFilter import_filter = {
+	N_("GdkPixbuf bitmap"),
+	extensions_import,
+	import_data
 };
 
 /* --- dia plug-in interface --- */
@@ -107,14 +172,12 @@ PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "Pixbuf",
-                            _("gdk-pixbuf based bitmap export"),
+                            _("gdk-pixbuf based bitmap export/import"),
                             NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
-  filter_register_export(&my_export_filter);
-#if WPG_WITH_IMPORT
-  filter_register_import(&my_import_filter);
-#endif
+  filter_register_export(&export_filter);
+  filter_register_import(&import_filter);
 
   return DIA_PLUGIN_INIT_OK;
 }

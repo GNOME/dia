@@ -1,3 +1,27 @@
+2002-10-08  Hans Breuer  <hans@breuer.org>
+
+	* app/render_gdk.c : don't add the InteractiveRenderer
+	interface multiple times (it's added to the type, not
+	the object)
+	* app/render_libart.c : dito. It's currently added
+	unconditional cause eport_png uses it, but claims
+	to be non-interactive. Probably set_size should be moved
+	to the DiaRenderer interface.
+
+	* lib/dialibartrenderer.c : add implementations for
+	get_<width|height>_pixels. Libart rendering works again.
+	DiaLibartRenderer::draw_image : use dia_image_rowstride()
+	instead of width*3
+
+	* lib/diatransform.c(dia_transform_coords_double) :
+	don't ROUND() the returned values
+
+	* plug-ins/pixbuf/pixbuf.c : added import function. It
+	simply creates a wrapping "Standard - Image" object.
+
+	* plug-ins/shape/shape-export.c : use the more direct
+	method to call base class methods
+
 2002-10-07  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/font.c (dia_font_init): Changed dia_font_init to return old

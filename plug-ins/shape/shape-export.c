@@ -287,11 +287,9 @@ draw_line(DiaRenderer *self,
 {
   Point center;
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
-  ShapeRendererClass *klass = SHAPE_RENDERER_GET_CLASS (self);
-  DiaRendererClass *base_class = DIA_RENDERER_CLASS(g_type_class_peek_parent (klass));
 
   /* use base class implementation */
-  base_class->draw_line (self, start, end, line_colour);
+  DIA_RENDERER_CLASS(parent_class)->draw_line (self, start, end, line_colour);
 
   /* do our own stuff */
   add_connection_point(renderer, start);
@@ -404,11 +402,9 @@ draw_rect (DiaRenderer *self,
 {
   Point center;
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
-  ShapeRendererClass *klass = SHAPE_RENDERER_GET_CLASS (self);
-  DiaRendererClass *base_class = DIA_RENDERER_CLASS(g_type_class_peek_parent (klass));
 
   /* use base class implementation */
-  base_class->draw_rect (self, ul_corner, lr_corner, colour);
+  DIA_RENDERER_CLASS(parent_class)->draw_rect (self, ul_corner, lr_corner, colour);
   /* do our own stuff */
   add_rectangle_connection_points(renderer, ul_corner, lr_corner);
 }
@@ -440,11 +436,9 @@ draw_ellipse(DiaRenderer *self,
              Color *colour)
 {
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
-  ShapeRendererClass *klass = SHAPE_RENDERER_GET_CLASS (self);
-  DiaRendererClass *base_class = DIA_RENDERER_CLASS(g_type_class_peek_parent (klass));
 
   /* use base class implementation */
-  base_class->draw_ellipse (self, center, width, height, colour);
+  DIA_RENDERER_CLASS(parent_class)->draw_ellipse (self, center, width, height, colour);
 
   /* do our own stuff */
   add_ellipse_connection_points(renderer, center, width, height);
