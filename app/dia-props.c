@@ -147,6 +147,7 @@ create_diagram_properties_dialog(void)
   gtk_widget_show(table);
   gtk_widget_show(label);
 
+  /* The background page */
   table = gtk_table_new(1,2, FALSE);
   gtk_container_set_border_width(GTK_CONTAINER(table), 2);
   gtk_table_set_row_spacings(GTK_TABLE(table), 1);
@@ -175,8 +176,14 @@ create_diagram_properties_dialog(void)
  */
 static void diagram_properties_retrieve(Diagram *dia)
 {
+  gchar *title = _("Diagram Properties");
+
   g_return_if_fail(dia != NULL);
 
+  /* Can we be sure that the filename is the 'proper title'? */
+  /*  title = g_strdup_printf(_("Diagram Properties: %s"),
+      dia->filename */
+  gtk_window_set_title(GTK_WINDOW(dialog), title);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_x_entry),
 			      dia->data->grid.width_x);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_y_entry),

@@ -75,6 +75,7 @@ typedef struct _DiaPrefData {
 
 static int default_true = 1;
 static int default_false = 0;
+static int default_major_lines = 5;
 static real default_real_one = 1.0;
 static real default_real_zoom = 100.0;
 static int default_int_w = 500;
@@ -144,10 +145,12 @@ DiaPrefData prefs_data[] =
   /*{ NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") }, */
   { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 3, N_("Visible:") },
   { "grid_snap", PREF_BOOLEAN, PREF_OFFSET(grid.snap), &default_false, 3, N_("Snap to:") },
+  { "grid_dynamic", PREF_BOOLEAN, PREF_OFFSET(grid.dynamic), &default_true, 3, N_("Dynamic grid resizing") },
   { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, 3, N_("X Size:") },
   { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 3, N_("Y Size:") },
   { "grid_colour", PREF_COLOUR, PREF_OFFSET(grid.colour), &default_colour, 3, N_("Colour:") },
-  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 3, N_("Solid lines:") },  
+  { "grid_major", PREF_UINT, PREF_OFFSET(grid.major_lines), &default_major_lines, 3, N_("Lines per major line") },
+  /*  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 3, N_("Solid lines:") },  */
 
   { "render_bounding_boxes", PREF_BOOLEAN,PREF_OFFSET(render_bounding_boxes),
     &default_false,0,"render bounding boxes:",NULL, TRUE},

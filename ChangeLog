@@ -1,5 +1,27 @@
 2003-07-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/dia-props.c (diagram_properties_retrieve): Work in progress
+	on putting diagram name in properties window title -- need safe
+	diagram name function.
+
+	* lib/diagramdata.h: Added major_lines, dynamic and colour to grid
+	info.  Still need to be able to set dynamic grid.  Also ought to
+	follow Gnome style and have instant apply.
+
+	* app/preferences.h: 
+	* app/preferences.c (prefs_data): Remove option to use stippled
+	grid, add option for major line offset.  Default to 5 minor lines
+	per major line.
+	Add option for dynamically sized grid.
+
+	* app/display.c (ddisplay_render_pixmap): Call pagebreak_draw as well.
+
+	* app/grid.c: Pagebreak drawing separated out.  Grid drawing using
+	stippled/solid to display minor/major grid lines.  Line drawing in
+	separate functions away from calculating line distance.
+
+	* app/grid.h: Split page break drawing out of grid_draw.
+
 	* app/layer_dialog.c (layer_dialog_show): Patch from Hubert
 	Figuiere <hfiguiere@teaser.fr>:  Layer dialog show go to front
 	when menu item is selected.

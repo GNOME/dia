@@ -48,6 +48,18 @@ struct _DiagramData {
     real width_x, width_y;
     /* the interval between visible grid lines */
     guint visible_x, visible_y;
+    /* the interval between major lines (non-stippled).
+     * if 0, no major lines are drawn (all lines are stippled).
+     * if 1, all lines are solid.
+     */
+    guint major_lines;
+    /* True if the grid is dynamically calculated.
+     * When true, width_x and width_y are ignored.
+     */
+    gboolean dynamic;
+    /* The color of the grid lines.
+     */
+    Color colour;
   } grid;
 
   struct {

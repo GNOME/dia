@@ -58,6 +58,9 @@ diagram_init(Diagram *dia, const char *filename)
   dia->data = new_diagram_data(&prefs.new_diagram);
   dia->data->grid.width_x = prefs.grid.x;
   dia->data->grid.width_y = prefs.grid.y;
+  dia->data->grid.dynamic = prefs.grid.dynamic;
+  dia->data->grid.major_lines = prefs.grid.major_lines;
+  dia->data->grid.colour = prefs.grid.colour;
 
   if (dia->filename != NULL)
     g_free(dia->filename);

@@ -31,6 +31,7 @@ struct _Grid {
 #include "display.h"
 
 void grid_draw(DDisplay *ddisp, Rectangle *update);
+void pagebreak_draw(DDisplay *ddisp, Rectangle *update);
 void snap_to_grid(DDisplay *ddisp, coord *x, coord *y);
 
 #endif /* GRID_H */

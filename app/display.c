@@ -525,6 +525,7 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
 
   /* Draw grid */
   grid_draw(ddisp, update);
+  pagebreak_draw(ddisp, update);
 
   data_render(ddisp->diagram->data, ddisp->renderer, update,
 	      ddisplay_obj_render, (gpointer) ddisp);

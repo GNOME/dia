@@ -27,10 +27,11 @@ struct DiaPreferences {
   struct {
     int visible;
     int snap;
+    gboolean dynamic;
     real x;
     real y;
     Color colour;
-    int solid;
+    int major_lines;
   } grid;
   
   struct {
