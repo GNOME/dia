@@ -426,8 +426,13 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   dh = elem->height / 2.0;
   for (i = 0; i < 16; i++) {
     real theta = M_PI / 8.0 * i;
-    ellipse->connections[i].pos.x = c.x + dw * cos(theta);
-    ellipse->connections[i].pos.y = c.y - dh * sin(theta);
+    real costheta = cos(theta);
+    real sintheta = sin(theta);
+    connpoint_update(&ellipse->connections[i],
+		      c.x + dw * costheta,
+		      c.y - dh * sintheta,
+		      (costheta > .5?DIR_EAST:(costheta < -.5?DIR_WEST:0))|
+		      (sintheta > .5?DIR_NORTH:(sintheta < -.5?DIR_SOUTH:0)));
   }
 
   extra->border_trans = ellipse->border_width / 2.0;
