@@ -513,6 +513,7 @@ diagram_find_closest_connectionpoint(Diagram *dia,
 void
 diagram_update_extents(Diagram *dia)
 {
+  gfloat cur_scale = dia->data->paper.scaling;
   /* anropar update_scrollbars() */
 
   if (layer_update_extents(dia->data->active_layer)) {
@@ -528,6 +529,10 @@ diagram_update_extents(Diagram *dia)
 	ddisplay_update_scrollbars(ddisp);
 	
 	l = g_slist_next(l);
+      }
+      if (cur_scale != dia->data->paper.scaling) {
+	diagram_add_update_all(dia);
+	diagram_flush(dia);
       }
     }
   }

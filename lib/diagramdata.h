@@ -31,6 +31,8 @@ struct _PaperInfo {
   gfloat tmargin, bmargin, lmargin, rmargin; /* margin widths in centimeters */
   gboolean is_portrait;   /* page is in portrait orientation? */
   gfloat scaling;         /* scaling factor for image on page */
+  gboolean fitto;         /* if we want to use the fitto mode for scaling */
+  gint fitwidth, fitheight; /* how many pages in each direction */
 
   gfloat width, height;   /* usable width/height -- calculated from paper type,
 			   * margin widths and paper orientation */

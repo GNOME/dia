@@ -108,7 +108,7 @@ paginate_psprint(Diagram *dia, FILE *file)
   RendererEPS *rend;
   Rectangle *extents;
   gfloat width, height;
-  gfloat x, y;
+  gfloat x, y, initx, inity;
   guint nobjs = 0;
 
   rend = new_psprint_renderer(dia, file);
@@ -119,14 +119,17 @@ paginate_psprint(Diagram *dia, FILE *file)
 
   /* get extents, and make them multiples of width / height */
   extents = &dia->data->extents;
-  /*extents->left -= extents->left % width;
-    extents->right += width - extents->right % width;
-    extents->top -= extents->top % height;
-    extents->bottom += height - extents->bottom % height;*/
+  initx = extents->left;
+  inity = extents->top;
+  /* make page boundaries align with origin */
+  if (!dia->data->paper.fitto) {
+    initx = floor(initx / width)  * width;
+    inity = floor(inity / height) * height;
+  }
 
   /* iterate through all the pages in the diagram */
-  for (y = extents->top; y < extents->bottom; y += height)
-    for (x = extents->left; x < extents->right; x += width) {
+  for (y = inity; y < extents->bottom; y += height)
+    for (x = initx; x < extents->right; x += width) {
       Rectangle page_bounds;
 
       page_bounds.left = x;

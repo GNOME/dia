@@ -41,6 +41,9 @@ new_diagram_data(void)
     data->paper.lmargin = data->paper.rmargin = 2.82;
   data->paper.is_portrait = TRUE;
   data->paper.scaling = 1.0;
+  data->paper.fitto = FALSE;
+  data->paper.fitwidth = 1;
+  data->paper.fitheight = 1;
   data->paper.width = 21.0 - 2 * 2.82;
   data->paper.height = 29.7 - 2 * 2.82;
 
@@ -242,6 +245,22 @@ data_update_extents(DiagramData *data)
 	       (new_extents.bottom != extents->bottom) );
 
   *extents = new_extents;
+
+  /* update scaling if extents changed and we are in fit to scaling mode */
+  if (changed && data->paper.fitto) {
+    gdouble xscale, yscale;
+    gdouble pwidth = data->paper.width * data->paper.scaling;
+    gdouble pheight = data->paper.height * data->paper.scaling;
+
+    xscale = data->paper.fitwidth * pwidth /
+      (new_extents.right - new_extents.left);
+    yscale = data->paper.fitheight * pheight /
+      (new_extents.bottom - new_extents.top);
+
+    data->paper.scaling = MIN(xscale, yscale);
+    data->paper.width  = pwidth  / data->paper.scaling;
+    data->paper.height = pheight / data->paper.scaling;
+  }
 
   return changed;
 }

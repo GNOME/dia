@@ -104,6 +104,11 @@ create_page_setup_dlg(Diagram *dia)
 				  DIA_PAGE_ORIENT_LANDSCAPE);
   dia_page_layout_set_scaling(DIA_PAGE_LAYOUT(ps->paper),
 			      dia->data->paper.scaling);
+  dia_page_layout_set_fitto(DIA_PAGE_LAYOUT(ps->paper),
+			    dia->data->paper.fitto);
+  dia_page_layout_set_fit_dims(DIA_PAGE_LAYOUT(ps->paper),
+			       dia->data->paper.fitwidth,
+			       dia->data->paper.fitheight);
 
   gtk_container_set_border_width(GTK_CONTAINER(ps->paper), 5);
   gtk_box_pack_start(GTK_BOX(vbox), ps->paper, TRUE, TRUE, 0);
@@ -199,6 +204,12 @@ pagesetup_apply(GtkWidget *wid, PageSetup *ps)
   ps->dia->data->paper.scaling =
     dia_page_layout_get_scaling(DIA_PAGE_LAYOUT(ps->paper));
 
+  ps->dia->data->paper.fitto = dia_page_layout_get_fitto(
+					DIA_PAGE_LAYOUT(ps->paper));
+  dia_page_layout_get_fit_dims(DIA_PAGE_LAYOUT(ps->paper),
+			       &ps->dia->data->paper.fitwidth,
+			       &ps->dia->data->paper.fitheight);
+
   dia_page_layout_get_effective_area(DIA_PAGE_LAYOUT(ps->paper),
 				     &ps->dia->data->paper.width,
 				     &ps->dia->data->paper.height);
@@ -211,6 +222,7 @@ pagesetup_apply(GtkWidget *wid, PageSetup *ps)
 #endif
   /* update diagram -- this is needed to reposition page boundaries */
   diagram_add_update_all(ps->dia);
+  diagram_flush(ps->dia);
 }
 
 static void

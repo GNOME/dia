@@ -1,5 +1,33 @@
 2000-01-28  James Henstridge  <james@daa.com.au>
 
+	* app/paginate_psprint.c (paginate_psprint): if not in fit to mode,
+	align page boundaries to the origin.
+
+	* app/diagram.c (diagram_update_extents): redraw the diagram if the
+	scaling factor changes while updating the extents.  This is so the
+	page breaks get redrawn correctly.
+
+	* app/pagesetup.c (pagesetup_apply): added diagram_flush call when
+	applying changes.
+
+	* app/grid.c (grid_draw): draw page breaks as well as grid lines.
+	For normal mode, use (0,0) as the origin.  For `fit to' mode, use
+	the corner of the bounding box.
+
+	* app/pagesetup.c (create_page_setup_dlg): load new paper attributes
+	into page setup dialog.
+	(pagesetup_apply): apply new `fit to' attributes to the diagram.
+
+	* app/load_save.c (diagram_load): load new paper `fit to' attributes.
+	(diagram_data_save): save `fit to' data.
+
+	* lib/diagramdata.c (new_diagram_data): initialise `fit to' members.
+	(data_update_extents): when in `fit to' mode, update scale factor
+	when we update the extents.
+
+	* lib/diagramdata.h (PaperInfo): added `fit to' members to PaperInfo
+	structure.
+
 	* .../.cvsignore: added some cvsignore files to quieten cvs.
 	
 	* app/pagesetup.c (pagesetup_changed): added code to change the

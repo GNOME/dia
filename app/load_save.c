@@ -270,6 +270,21 @@ diagram_load(char *filename)
     if (attr != NULL)
       dia->data->paper.scaling = data_real(attribute_first_data(attr));
 
+    attr = composite_find_attribute(paperinfo, "fitto");
+    dia->data->paper.fitto = FALSE;
+    if (attr != NULL)
+      dia->data->paper.fitto = data_boolean(attribute_first_data(attr));
+
+    attr = composite_find_attribute(paperinfo, "fitwidth");
+    dia->data->paper.fitwidth = 1;
+    if (attr != NULL)
+      dia->data->paper.fitwidth = data_int(attribute_first_data(attr));
+
+    attr = composite_find_attribute(paperinfo, "fitheight");
+    dia->data->paper.fitheight = 1;
+    if (attr != NULL)
+      dia->data->paper.fitheight = data_int(attribute_first_data(attr));
+
     /* calculate effective width/height */
     dia_page_layout_get_paper_size(dia->data->paper.name,
 				   &dia->data->paper.width,
@@ -515,6 +530,14 @@ diagram_data_save(DiagramData *data, const char *filename)
 		   data->paper.is_portrait);
   data_add_real(composite_add_attribute(pageinfo, "scaling"),
 		data->paper.scaling);
+  data_add_boolean(composite_add_attribute(pageinfo, "fitto"),
+		   data->paper.fitto);
+  if (data->paper.fitto) {
+    data_add_int(composite_add_attribute(pageinfo, "fitwidth"),
+		 data->paper.fitwidth);
+    data_add_int(composite_add_attribute(pageinfo, "fitheight"),
+		 data->paper.fitheight);
+  }
 
   objects_hash = g_hash_table_new(g_direct_hash, g_direct_equal);
 
