@@ -330,7 +330,9 @@ if test "$GCC" = yes; then
 
   DIA_CHECK_CFLAG(-Wall)
   DIA_CHECK_CFLAG(-Wunused)
-  DIA_CHECK_CFLAG(-Winline)
+  dnl Premature optimization is the root of all evil.  Uncomment this if
+  dnl you want ti figure out functions that should have been inlined but aint.
+  dnl DIA_CHECK_CFLAG(-Winline)
   DIA_CHECK_CFLAG(-Wmissing-prototypes)
   DIA_CHECK_CFLAG(-Wmissing-declarations)
   DIA_CHECK_CFLAG(-finline-functions)

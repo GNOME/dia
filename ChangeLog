@@ -1,5 +1,8 @@
 2003-07-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* configure.in: Removed -Winline flag to make way for important
+	warnings. 
+
 	* samples/UML-demo.dia: Adjusted for 0.91 font size, saved as
 	non-compressed.  Should fix bug #117381, also look prettier.
 	
