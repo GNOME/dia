@@ -2,12 +2,11 @@
 # Copyright (C) 1999 Free Software Foundation, Inc.
 # Kjartan Maraas <kmaraas@fib.hl.no>, 1999.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "POT-Creation-Date: 1999-03-11 00:05+0100\n"
-"PO-Revision-Date: 1999-03-11 00:10+0100\n"
+"PO-Revision-Date: 1999-03-17 00:29+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@fib.hl.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -552,79 +551,79 @@ msgstr ""
 
 #: app/display.c:743
 msgid "<Display>/Edit/Copy"
-msgstr ""
+msgstr "<Skjerm>/Rediger/Kopier"
 
 #: app/display.c:745
 msgid "<Display>/Edit/Cut"
-msgstr ""
+msgstr "<Skjerm>/Rediger/Klipp ut"
 
 #: app/display.c:747
 msgid "<Display>/Edit/Paste"
-msgstr ""
+msgstr "<Skjerm>/Rediger/Lim inn"
 
 #: app/display.c:750
 msgid "<Display>/Edit/Delete"
-msgstr ""
+msgstr "<Skjerm>/Rediger/Slett"
 
 #: app/display.c:754
 msgid "<Display>/Objects/Send to Back"
-msgstr ""
+msgstr "<Skjerm>/Objekter/Send til bakgrunnen"
 
 #: app/display.c:756
 msgid "<Display>/Objects/Bring to Front"
-msgstr ""
+msgstr "<Skjerm>/Objekter/Hent fram"
 
 #: app/display.c:759
 msgid "<Display>/Objects/Group"
-msgstr ""
+msgstr "<Skjerm>/Objekter/Grupper"
 
 #: app/display.c:761
 msgid "<Display>/Objects/Ungroup"
-msgstr ""
+msgstr "<Skjerm>/Objekter/Avgrupper"
 
 #: app/display.c:765
 msgid "<Display>/Objects/Align Horizontal/Left"
-msgstr ""
+msgstr "<Skjerm>/Objekter/Juster horisontal/Venstre"
 
 #: app/display.c:767
 msgid "<Display>/Objects/Align Horizontal/Center"
-msgstr ""
+msgstr "<Skjerm>/Objekter/Juster horisontal/Senter"
 
 #: app/display.c:769
 msgid "<Display>/Objects/Align Horizontal/Right"
-msgstr ""
+msgstr "<Skjerm>/Objekter/Juster horisontal/Høyre"
 
 #: app/display.c:771
 msgid "<Display>/Objects/Align Horizontal/Equal Distance"
-msgstr ""
+msgstr "<Skjerm>/Objekter/Juster horisontal/Lik avstand"
 
 #: app/display.c:773
 msgid "<Display>/Objects/Align Vertical/Top"
-msgstr ""
+msgstr "<Skjerm>/Objekter/Juster vertikal/Øverst"
 
 #: app/display.c:775
 msgid "<Display>/Objects/Align Vertical/Center"
-msgstr ""
+msgstr "<Skjerm>/Objekter/Juster vertikal/Senter"
 
 #: app/display.c:777
 msgid "<Display>/Objects/Align Vertical/Bottom"
-msgstr ""
+msgstr "<Skjerm>/Objekter/Juster vertikal/Nederst"
 
 #: app/display.c:779
 msgid "<Display>/Objects/Align Vertical/Equal Distance"
-msgstr ""
+msgstr "<Skjerm>/Objekter/Juster vertikal/Lik avstand"
 
 #: app/display.c:782
 msgid "<Display>/View/Toggle Rulers"
-msgstr ""
+msgstr "<Skerm>/Vis/Slå av/på linjaler"
 
 #: app/display.c:783
 msgid "<Display>/View/Visible Grid"
-msgstr ""
+msgstr "<Skjerm>/Vis/Synlig rutenett"
 
 #: app/display.c:784
 msgid "<Display>/View/Snap To Grid"
-msgstr ""
+msgstr "<Skjerm>/Vis/Fest til rutenett"
 
 #: app/grid.c:140
 msgid "Grid options"
@@ -632,15 +631,15 @@ msgstr "Alternativer for rutenett"
 
 #: app/grid.c:149
 msgid "Grid x size:"
-msgstr ""
+msgstr "Rutenett x-størrelse"
 
 #: app/grid.c:167
 msgid "Grid y size:"
-msgstr ""
+msgstr "Rutenett y-størrelse:"
 
 #: app/interface.c:57
 msgid "Modify object(s)"
-msgstr ""
+msgstr "Modifiser objekt(er)"
 
 #: app/interface.c:61
 msgid "Magnify"
@@ -648,7 +647,7 @@ msgstr "Forstørr"
 
 #: app/interface.c:65
 msgid "Scroll around the diagram"
-msgstr ""
+msgstr "Rull rundt i diagrammet"
 
 #: app/interface.c:69
 msgid "Create Text"
@@ -679,6 +678,8 @@ msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
+"Forgrunns- og bakgrunnsfarger. De små sorte og hvite rutene tilbakesetter "
+"farger. De små pilene bytter farger. Dobbeltklikk for å endre farger."
 
 #: app/interface.c:584
 msgid "Diagram Editor"
