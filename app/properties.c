@@ -48,6 +48,9 @@ static gboolean properties_key_event(GtkWidget *widget,
 
 static void create_dialog()
 {
+  GtkWidget *actionbox;
+  GList *buttons;
+
   dialog = gtk_dialog_new_with_buttons(
              _("Object properties"),
              GTK_WINDOW (ddisplay_active()->shell), 
@@ -102,6 +105,11 @@ properties_dialog_destroyed(GtkWidget *widget, gpointer data)
 static gboolean
 properties_key_event(GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
+  /* These ought to be done automagically by GtkDialog, but aren't.
+   * Adding them this way makes use of Esc/Enter for other purposes in
+   * the dialog close the dialog -- not good.
+   */
+  /*
   if (event->keyval == GDK_Escape) {
     gtk_dialog_response(GTK_DIALOG(widget), GTK_RESPONSE_CANCEL);
     return TRUE;
@@ -109,6 +117,7 @@ properties_key_event(GtkWidget *widget, GdkEventKey *event, gpointer data)
   if (event->keyval == GDK_Return) {
     gtk_dialog_response(GTK_DIALOG(widget), GTK_RESPONSE_OK);
   }
+  */
   return FALSE;
 }
 

@@ -1,10 +1,10 @@
 %define name dia
-%define ver 0.91
+%define ver 0.92
 
 Summary: A gtk+ based diagram creation program.
 Name: %name
 Version: %ver
-Release: 1
+Release: pre1
 Copyright: GPL
 Group: Applications/
 Source: ftp://ftp.gnome.org/pub/GNOME/stable/sources/dia/%{name}-%{ver}.tar.gz

@@ -637,6 +637,44 @@ fill_bezier(DiaRenderer *self,
     fprintf(renderer->file, "\\fill[fillstyle=solid,fillcolor=diafillcolor,linecolor=diafillcolor]}\n");
 }
 
+/* Do I really want to do this?  What if the text is intended as 
+ * TeX text?
+ */
+static gchar *
+tex_escape_string(gchar *src)
+{
+    GString *dest = g_string_new(g_utf8_strlen(src, -1));
+    gchar *next;
+
+    if (!g_utf8_validate(src, -1, NULL)) {
+	message_error(_("Not valid UTF8"));
+	return g_strdup(src);
+    }
+
+    next = src;
+    while ((next = g_utf8_next_char(next)) != NULL) {
+	switch (*next) {
+	case '%': g_string_append(dest, "\\%"); break;
+	case '#': g_string_append(dest, "\\#"); break;
+	case '$': g_string_append(dest, "\\$"); break;
+	case '&': g_string_append(dest, "\\&"); break;
+	case '~': g_string_append(dest, "\\~{}"); break;
+	case '_': g_string_append(dest, "\\_"); break;
+	case '^': g_string_append(dest, "\\^{}"); break;
+	case '\\': g_string_append(dest, "\\\\"); break;
+	case '{': g_string_append(dest, "\\}"); break;
+	case '}': g_string_append(dest, "\\}"); break;
+	case '[': g_string_append(dest, "\\ensuremath{\\left[}"); break;
+	case ']': g_string_append(dest, "\\ensuremath{\\right]}"); break;
+	default: g_string_append(dest, next);
+	}
+    }
+
+    next = dest->str;
+    g_string_free(dest, FALSE);
+    return next;
+}
+
 static void
 draw_string(DiaRenderer *self,
 	    const char *text,
@@ -644,6 +682,7 @@ draw_string(DiaRenderer *self,
 	    Color *color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+    gchar *escaped = tex_escape_string(text);
 
     set_line_color(renderer,color);
 
@@ -658,7 +697,8 @@ draw_string(DiaRenderer *self,
 	fprintf(renderer->file,"[r]");
 	break;
     }
-    fprintf(renderer->file,"(%f,%f){\\scalebox{1 -1}{%s}}\n",pos->x, pos->y,text);
+    fprintf(renderer->file,"(%f,%f){\\scalebox{1 -1}{%s}}\n",pos->x, pos->y,escaped);
+    g_free(escaped);
 }
 
 static void

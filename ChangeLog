@@ -1,3 +1,19 @@
+2003-09-02  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* configure.in: 
+	* dia.spec (Release): 
+	* doc/en/dia-manual.xml: 
+	* doc/pl/dia-manual.sgml: 
+	* NEWS: Update to 0.92-pre1.
+
+	* app/properties.c (properties_key_event): Removing Esc/Enter
+	handling for now, interferes to much with regular dialog usage.
+
+	* plug-ins/pstricks/render_pstricks.c (tex_escape_string):
+	Function to escape special TeX characters.  Not in use yet, as
+	PSTricks output by default is TeX strings.  Should get a save-time
+	selector. 
+
 2008-09-01  Steffen Macke <sdteffen@web.de>
 
 	* lib/paper.h: explanatory comment on width and height

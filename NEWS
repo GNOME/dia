@@ -1,3 +1,48 @@
+dia-0.92-pre1: 2-Sep-2003
+
+Object developers please note:
+This update contains a binary compatibility change.  Your objects will need
+to be recompiled and some prototypes changed (*_move_handle in particular).
+
+* Autorouting of orthconn lines.  Still fairly primitive, doesn't avoid
+  objects, but at least goes the right way out of connectionpoints (when
+  connectionpoints have their dirs set).
+* Parenting.  Objects can now be set to be parents of others (so far, only
+  the UML Large Package is set so by default).  Objects created into these
+  or explicitly added are moved with the parent and cannot be moved
+  outside.
+* Dynamic grid that changes with zoom scale.
+* Grid now has thicker line every n lines (default 5).  Stippled grid
+  option removed.
+* ESC and Enter now usable for exiting properties dialogs.
+* Mouse wheel(s) can be used to scroll and zoom. 
+* When using menu bar, middle button pans the diagram.
+* Documents now remember if they were compressed or not when loaded.
+* Documents are always prettyprinted, to allow CVS.
+* More diagram properties can be set for existing diagrams, and are loaded
+  and saved.
+* UML Component features:  Event sources and sinks.
+* Improved undo of grouping and ungrouping.
+* Updates of the Python plugin:
+  - groups, rgb, and images can be manipulated
+  - better svg parsing
+* XFig arrow head import and export, and correct dash lengths
+* Now remembers the last selected sheet.
+* Better Metapost output, with images.
+* Gnome and Gnome HIG conformance better.
+* Better text alignment in flowchart objects.
+* Window positions are now remembered from run to run.
+* Standardization of error messages and shape descriptions.
+* Better SVG export.
+* Better arrow head calculations.
+* More tooltips.
+* Snap to grid icon in status bar.
+* Opens a new diagram if Dia is started with a non-existing file as argument.
+* A number of various bugs fixed.
+
+Things that actually might need doing first:  Win32 color thing,
+ESC/Return capture in props dialogs
+
 dia-0.91: 14-Mar-2003
 Identical to dia-0.91-pre6 except for translation updates.
 
