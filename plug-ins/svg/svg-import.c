@@ -337,12 +337,12 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list, char *obj
     return list;
 }
 
-/* read an ellipse */
+/* read an ellipse or circle */
 static GList *
 read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list) 
 {
   xmlChar *str;
-  real width, height;
+  real width = 0.0, height = 0.0;
   DiaObjectType *otype = object_get_type("Standard - Ellipse");
   DiaObject *new_obj;
   Handle *h1, *h2;
@@ -366,14 +366,23 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style, GList *list)
     width = g_ascii_strtod(str, NULL)*2;
     xmlFree(str);
   }
-  else return list;
   str = xmlGetProp(node, "ry");
   if (str) {
     height = g_ascii_strtod(str, NULL)*2;
     xmlFree(str);
   }
-  else return list;
-
+  str = xmlGetProp(node, "ry");
+  if (str) {
+    height = g_ascii_strtod(str, NULL)*2;
+    xmlFree(str);
+  }
+  str = xmlGetProp(node, "r");
+  if (str) {
+    width = height = g_ascii_strtod(str, NULL)*2;
+    xmlFree(str);
+  }
+  if (width <= 0.0 || height <= 0.0)
+    return list;
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
   apply_style(new_obj, node, parent_style);			
@@ -570,7 +579,7 @@ read_items (xmlNodePtr startnode, DiaSvgStyle *parent_gs)
       items = read_line_svg(node, parent_gs, items);
       continue;
     }
-    if (!strcmp(node->name, "ellipse")) {
+    if (!strcmp(node->name, "ellipse") || !strcmp(node->name, "circle")) {
       items = read_ellipse_svg(node, parent_gs, items);
       continue;
     }

@@ -1,5 +1,9 @@
 2005-03-13  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/svg/svg-import.c : handle the <circle/> tag as well
+
+2005-03-13  Hans Breuer  <hans@breuer.org>
+
 	* lib/dia_svg.[hc] objects/custom/shape_info.[hc] plug-ins/svg/svg-import.c :
 	s/DiaSvgGraphicStyle/DiaSvgStyle/, added and use convenience functions 
 	dia_svg_style_copy(), dia_svg_style_init()
