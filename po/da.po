@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
 "POT-Creation-Date: 2000-05-18 11:20+0800\n"
-"PO-Revision-Date: 2000-05-17 11:27+0200\n"
+"PO-Revision-Date: 2000-05-19 11:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -367,7 +367,8 @@ msgid "/View/AntiAliased"
 msgstr "/Vis/Antialiaseret"
 
 #: app/export_png.c:78 app/load_save.c:517 app/render_eps.c:162
-#: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128
+#: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
+#: plug-ins/pstricks/render_pstricks.c:185
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åbne: '%s' for skriving.\n"
@@ -1502,6 +1503,10 @@ msgstr "'%s' er ikke et katalog"
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åbne '%s'"
 
+#: lib/properties.c:357 lib/properties.c:389
+msgid "No edit widget"
+msgstr "Ingen redigér-widget"
+
 #: lib/widgets.c:296
 msgid "Solid"
 msgstr "Solid"
@@ -1578,10 +1583,6 @@ msgstr "Valgt billedfil"
 #: lib/widgets.c:884
 msgid "Browse"
 msgstr "Gennemse"
-
-#: lib/properties.c:357 lib/properties.c:389
-msgid "No edit widget"
-msgstr "Ingen redigér-widget"
 
 #: objects/ER/attribute.c:214
 msgid "Key"
@@ -1673,35 +1674,30 @@ msgstr "Identificerer"
 msgid "Relationship"
 msgstr "Forhold"
 
-#: objects/FS/flow-ortho.c:638 objects/FS/flow-poly.c:632
-#: objects/FS/flow-poly.c:747 objects/FS/flow.c:629 objects/FS/flow.c:744
+#: objects/FS/flow-ortho.c:638 objects/FS/flow.c:629 objects/FS/flow.c:744
 msgid "Flow:"
 msgstr "Flyd:"
 
-#: objects/FS/flow-ortho.c:653 objects/FS/flow-poly.c:647
-#: objects/FS/flow-poly.c:763 objects/FS/flow.c:644 objects/FS/flow.c:760
+#: objects/FS/flow-ortho.c:653 objects/FS/flow.c:644 objects/FS/flow.c:760
 msgid "Flow type:"
 msgstr "Flydtype:"
 
 #.
 #: objects/FS/flow-ortho.c:658 objects/FS/flow-ortho.c:723
-#: objects/FS/flow-ortho.c:785 objects/FS/flow-poly.c:652
-#: objects/FS/flow-poly.c:707 objects/FS/flow-poly.c:768 objects/FS/flow.c:649
-#: objects/FS/flow.c:704 objects/FS/flow.c:765
+#: objects/FS/flow-ortho.c:785 objects/FS/flow.c:649 objects/FS/flow.c:704
+#: objects/FS/flow.c:765
 msgid "Energy"
 msgstr "Energi"
 
 #: objects/FS/flow-ortho.c:665 objects/FS/flow-ortho.c:724
-#: objects/FS/flow-ortho.c:792 objects/FS/flow-poly.c:659
-#: objects/FS/flow-poly.c:708 objects/FS/flow-poly.c:775 objects/FS/flow.c:656
-#: objects/FS/flow.c:705 objects/FS/flow.c:772
+#: objects/FS/flow-ortho.c:792 objects/FS/flow.c:656 objects/FS/flow.c:705
+#: objects/FS/flow.c:772
 msgid "Material"
 msgstr "Materiale"
 
 #: objects/FS/flow-ortho.c:671 objects/FS/flow-ortho.c:725
-#: objects/FS/flow-ortho.c:798 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:709 objects/FS/flow-poly.c:781 objects/FS/flow.c:662
-#: objects/FS/flow.c:706 objects/FS/flow.c:778 objects/FS/function.c:661
+#: objects/FS/flow-ortho.c:798 objects/FS/flow.c:662 objects/FS/flow.c:706
+#: objects/FS/flow.c:778 objects/FS/function.c:661
 msgid "Signal"
 msgstr "Signal"
 
@@ -2616,3 +2612,19 @@ msgstr "Computer Grafik Metafil"
 #: plug-ins/cgm/cgm.c:1266
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Grafik Metafil eksportfilter"
+
+#: plug-ins/dxf/dxf-export.c:561
+msgid "Drawing Interchange File"
+msgstr "Drawing Interchange File"
+
+#: plug-ins/dxf/dxf.c:15
+msgid "Drawing Interchange File export filter"
+msgstr "Drawing Interchange File eksportfilter"
+
+#: plug-ins/pstricks/pstricks.c:14
+msgid "TeX Pstricks export filter"
+msgstr "TeX Pstricks eksportfilter"
+
+#: plug-ins/pstricks/render_pstricks.c:749
+msgid "TeX PSTricks macros"
+msgstr "TeX PSTricks makroer"
