@@ -1,3 +1,8 @@
+1998-11-25  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+
+	* objects/UML/class.c (umlclass_load):
+	Fixed typo. Reported by Jerome.Abela@solsoft.fr
+
 1998-11-24  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/properties.c:

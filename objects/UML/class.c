@@ -1000,7 +1000,7 @@ static Object *umlclass_load(int fd, int version)
   
   if ( (!umlclass->visible_operations) ||
        (umlclass->suppress_operations))
-    num_attr = 0;
+    num_op = 0;
   
   element_init(elem, 8, 8 + num_attr*2 + num_ops*2);
 
