@@ -104,12 +104,12 @@ uml_get_attribute_string (UMLAttribute *attribute)
   if (attribute->value != NULL) {
     len += 3 + strlen (attribute->value);
   }
-
+  
   str = g_malloc (sizeof (utfchar) * (len + 1));
 
   str[0] = visible_char[(int) attribute->visibility];
   str[1] = 0;
-  
+
   strcat (str, attribute->name);
   if (attribute->name[0] && attribute->type[0]) {
     strcat (str, ": ");
@@ -119,7 +119,7 @@ uml_get_attribute_string (UMLAttribute *attribute)
     strcat (str, " = ");
     strcat (str, attribute->value);
   }
-
+    
   assert (strlen (str) == len);
 
   return str;
@@ -135,6 +135,9 @@ uml_get_operation_string (UMLOperation *operation)
 
   /* Calculate length: */
   len = 1 + strlen (operation->name)  + 1;
+  if(operation->stereotype != NULL) {
+    len += 5 + strlen (operation->stereotype);
+  }   
   
   list = operation->parameters;
   while (list != NULL) {
@@ -181,6 +184,13 @@ uml_get_operation_string (UMLOperation *operation)
 
   str[0] = visible_char[(int) operation->visibility];
   str[1] = 0;
+
+  if(operation->stereotype != NULL) {
+    strcat(str, UML_STEREOTYPE_START);
+    strcat(str, operation->stereotype);
+    strcat(str, UML_STEREOTYPE_END);
+    strcat(str, " ");
+  }
 
   strcat (str, operation->name);
   strcat (str, "(");
@@ -362,6 +372,12 @@ uml_operation_copy(UMLOperation *op)
   } else {
     newop->type = NULL;
   }
+  if(op->stereotype != NULL) {
+    newop->stereotype = g_strdup(op->stereotype);
+  } else {
+    newop->stereotype = NULL;
+  }
+    
   newop->visibility = op->visibility;
   newop->class_scope = op->class_scope;
   newop->inheritance_type = op->inheritance_type;
@@ -429,6 +445,8 @@ uml_operation_destroy(UMLOperation *op)
   g_free(op->name);
   if (op->type != NULL)
     g_free(op->type);
+  if (op->stereotype != NULL)
+    g_free(op->stereotype);
 
   list = op->parameters;
   while (list != NULL) {
@@ -484,6 +502,7 @@ uml_operation_new(void)
   op = g_new0(UMLOperation, 1);
   op->name = g_strdup("");
   op->type = NULL;
+  op->stereotype = NULL;
   op->visibility = UML_PUBLIC;
   op->class_scope = FALSE;
   op->inheritance_type = UML_POLYMORPHIC;
@@ -556,6 +575,8 @@ uml_operation_write(AttributeNode attr_node, UMLOperation *op)
 
   data_add_string(composite_add_attribute(composite, "name"),
 		  op->name);
+  data_add_string(composite_add_attribute(composite, "stereotype"),
+		  op->stereotype);
   data_add_string(composite_add_attribute(composite, "type"),
 		  op->type);
   data_add_enum(composite_add_attribute(composite, "visibility"),
@@ -668,6 +689,11 @@ uml_operation_read(DataNode composite)
   attr_node = composite_find_attribute(composite, "type");
   if (attr_node != NULL)
     op->type =  data_string( attribute_first_data(attr_node) );
+
+  op->stereotype = NULL;
+  attr_node = composite_find_attribute(composite, "stereotype");
+  if (attr_node != NULL)
+    op->stereotype = data_string( attribute_first_data(attr_node) );
 
   op->visibility = FALSE;
   attr_node = composite_find_attribute(composite, "visibility");

@@ -1249,6 +1249,7 @@ operations_set_sensitive(UMLClassDialog *prop_dialog, gint val)
 {
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_name), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_type), val);
+  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_stereotype), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_visible_button), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_visible), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_class_scope), val);
@@ -1268,7 +1269,7 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
   GList *list;
   UMLParameter *param;
   GtkWidget *list_item;
-  utfchar *utf_name, *utf_type, *utfstr;
+  utfchar *utf_name, *utf_type, *utfstr, *utf_stereotype;
   char *str;
 
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
@@ -1281,6 +1282,13 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
   } else {
 	  gtk_entry_set_text (prop_dialog->op_type, "");
   }
+  if (op->stereotype != NULL) {
+	  utf_stereotype = charconv_utf8_to_local8 (op->stereotype);
+	  gtk_entry_set_text (prop_dialog->op_stereotype, utf_stereotype);
+	  g_free (utf_stereotype);
+  } else {
+	  gtk_entry_set_text (prop_dialog->op_stereotype, "");
+  }
   g_free (utf_name);
 #else
   gtk_entry_set_text(prop_dialog->op_name, op->name);
@@ -1288,6 +1296,10 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
     gtk_entry_set_text(prop_dialog->op_type, op->type);
   else
     gtk_entry_set_text(prop_dialog->op_type, "");
+  if (op->stereotype != NULL)
+    gtk_entry_set_text(prop_dialog->op_stereotype, op->stereotype);
+  else
+    gtk_entry_set_text(prop_dialog->op_stereotype, "");
 #endif
 
   gtk_option_menu_set_history(prop_dialog->op_visible_button,
@@ -1327,6 +1339,7 @@ operations_clear_values(UMLClassDialog *prop_dialog)
 {
   gtk_entry_set_text(prop_dialog->op_name, "");
   gtk_entry_set_text(prop_dialog->op_type, "");
+  gtk_entry_set_text(prop_dialog->op_stereotype, "");
   gtk_toggle_button_set_active(prop_dialog->op_class_scope, FALSE);
   gtk_toggle_button_set_active(prop_dialog->op_query, FALSE);
 
@@ -1359,6 +1372,16 @@ operations_get_values(UMLClassDialog *prop_dialog, UMLOperation *op)
 #endif
   } else {
 	  op->type = NULL;
+  }
+  str = gtk_entry_get_text(prop_dialog->op_stereotype);
+  if ( strlen (str) != 0) {
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	  op->stereotype = charconv_local8_to_utf8 (str);
+#else
+	  op->stereotype = g_strdup (str);
+#endif
+  } else {
+	  op->stereotype = NULL;
   }
 
   op->visibility = (UMLVisibility)
@@ -1828,6 +1851,19 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
+
+  hbox2 = gtk_hbox_new(FALSE, 5);
+  label = gtk_label_new(_("Stereotype:"));
+  entry = gtk_entry_new();
+  prop_dialog->op_stereotype = GTK_ENTRY(entry);
+  gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
+		      GTK_SIGNAL_FUNC (operations_update_event), umlclass);
+  gtk_signal_connect (GTK_OBJECT (entry), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), entry, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
+
 
   hbox2 = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Visibility:"));

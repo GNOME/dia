@@ -513,7 +513,7 @@ umlclass_calculate_data(UMLClass *umlclass)
 	  utfend = charconv_local8_to_utf8 (UML_STEREOTYPE_END);
 #else
           utfstart = g_strdup (UML_STEREOTYPE_START);
-          utfend = g_strdup (UML_STEREOTYPE_START);
+          utfend = g_strdup (UML_STEREOTYPE_END);
 #endif
 	  umlclass->namebox_height += font_height;
 	  umlclass->stereotype_string =

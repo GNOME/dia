@@ -256,8 +256,10 @@ message_draw(Message *message, Renderer *renderer)
   Point *endpoints, p1, p2, px;
   ArrowType arrow_type;
   int n1 = 1, n2 = 0;
-  utfchar *mname;
+  utfchar *mname = NULL;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
   utfchar *utfstart, *utfend;
+#endif
 
   assert(message != NULL);
   assert(renderer != NULL);
@@ -323,6 +325,7 @@ message_draw(Message *message, Renderer *renderer)
 	  mname = g_strdup_printf ("%s%s%s", utfstart, "create", utfend);
   else if (message->type==MESSAGE_DESTROY)
 	  mname = g_strdup_printf ("%s%s%s", utfstart, "destroy", utfend);
+
   else
 	  mname = message->text;
   g_free (utfstart);
@@ -341,6 +344,12 @@ message_draw(Message *message, Renderer *renderer)
 				 mname, /*message->text,*/
 				 &message->text_pos, ALIGN_CENTER,
 				 &color_black);
+  if (message->type == MESSAGE_CREATE || message->type == MESSAGE_DESTROY)
+  {
+	  g_free(mname);
+  }
+	  
+
 }
 
 static Object *

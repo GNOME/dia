@@ -1,3 +1,18 @@
+2002-02-19  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	Patch contributed by Matthieu Sozeau <mattam@netcourrier.com>:
+	
+	* lib/font.c: do not try to search paths that do not begin with
+	'/', like X Font Server addresses.
+        
+	* objects/UML/message.c (message_draw): free mname when not 
+	message->text but CREATE or DESTROY.
+        
+	* objects/UML/uml.h:
+	* objects/UML/uml.c:
+	* objects/UML/class_dialog.c: added code to handle a stereotype 
+	attribute for operations.
+
 2002-02-19  Akira TAGOH  <tagoh@redhat.com>
 
 	* lib/Makefile.am: add LIBART_CFLAGS.

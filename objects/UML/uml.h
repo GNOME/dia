@@ -15,6 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
 #ifndef UML_H
 #define UML_H
 
@@ -48,14 +49,16 @@ typedef enum _UMLParameterKind {
   UML_INOUT
 } UMLParameterKind;
 
+typedef utfchar * UMLStereotype;
+
 struct _UMLAttribute {
   utfchar *name;
   utfchar *type;
   utfchar *value; /* Can be NULL => No default value */
   UMLVisibility visibility;
-  int abstract;    /* Not currently used */
+  int abstract;
   int class_scope;
-
+  
   ConnectionPoint* left_connection;
   ConnectionPoint* right_connection;
 };
@@ -63,6 +66,7 @@ struct _UMLAttribute {
 struct _UMLOperation {
   utfchar *name;
   utfchar *type; /* Return type, NULL => No return type */
+  UMLStereotype stereotype;
   UMLVisibility visibility;
   UMLInheritanceType inheritance_type;
   int query; /* Do not modify the object */

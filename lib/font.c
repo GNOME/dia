@@ -588,6 +588,7 @@ freetype_scan_directory(char *dirname) {
   LC_DEBUG (fprintf(stderr, "freetype_scan_directory %s\n", dirname));
   /* If doing this at other than startup, first remove all old files
      from this dir */
+  if(dirname[0] != '/') return;
 
   /* Scan the dir */
   fontdir = opendir(dirname);
@@ -913,7 +914,7 @@ font_getfont_with_style(const char *name, const char *style)
       message_notice(_("Font %s not found, using Courier instead.\n"), name);
     }
   }
- 
+
   for (faces = fonts->diafonts; faces != NULL; faces = g_list_next(faces)) {
     if (!strcmp(((DiaFont *)faces->data)->style, style)) {
       return (DiaFont *)faces->data;
