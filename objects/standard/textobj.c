@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 
 #include "intl.h"
@@ -39,8 +38,6 @@
 #define HANDLE_TEXT HANDLE_CUSTOM1
 
 typedef struct _Textobj Textobj;
-typedef struct _TextobjDefaultsDialog TextobjDefaultsDialog;
-
 struct _Textobj {
   Object object;
   
@@ -54,18 +51,6 @@ typedef struct _TextobjProperties {
   Alignment alignment;
   Color color;
 } TextobjProperties;
-
-struct _TextobjDefaultsDialog {
-  GtkWidget *vbox;
-
-  DiaAlignmentSelector *alignment;
-  DiaFontSelector *font;
-  GtkSpinButton *font_size;
-};
-
-static TextobjDefaultsDialog *textobj_defaults_dialog;
-static TextobjProperties default_properties =
-{ ALIGN_CENTER }; /* Can't initialize the font here */
 
 static real textobj_distance_from(Textobj *textobj, Point *point);
 static void textobj_select(Textobj *textobj, Point *clicked_point,
@@ -89,16 +74,14 @@ static void textobj_save(Textobj *textobj, ObjectNode obj_node,
 			 const char *filename);
 static Object *textobj_load(ObjectNode obj_node, int version,
 			    const char *filename);
-static GtkWidget *textobj_get_defaults(void);
-static void textobj_apply_defaults(void);
 
 static ObjectTypeOps textobj_type_ops =
 {
   (CreateFunc) textobj_create,
   (LoadFunc)   textobj_load,
   (SaveFunc)   textobj_save,
-  (GetDefaultsFunc) textobj_get_defaults,
-  (ApplyDefaultsFunc) textobj_apply_defaults
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType textobj_type =
@@ -169,87 +152,6 @@ textobj_set_props(Textobj *textobj, GPtrArray *props)
   object_set_props_from_offsets(&textobj->object,textobj_offsets,props);
   apply_textattr_properties(props,textobj->text,"text",&textobj->attrs);
   textobj_update_data(textobj);
-}
-
-static void
-textobj_apply_defaults()
-{
-  default_properties.alignment = dia_alignment_selector_get_alignment(textobj_defaults_dialog->alignment);
-  attributes_set_default_font(
-      dia_font_selector_get_font(textobj_defaults_dialog->font),
-      gtk_spin_button_get_value_as_float(textobj_defaults_dialog->font_size));
-}
-
-static GtkWidget *
-textobj_get_defaults()
-{
-  GtkWidget *alignment;
-  GtkWidget *fontsel;
-  GtkWidget *font_size;
-  GtkWidget *hbox;
-  GtkWidget *vbox;
-  GtkWidget *label;
-  GtkAdjustment *adj;
-  DiaFont *font;
-  real font_height;
-
-  if (textobj_defaults_dialog == NULL) {
-    textobj_defaults_dialog = g_new(TextobjDefaultsDialog, 1);
-    
-    vbox = gtk_vbox_new(FALSE, 5);
-    textobj_defaults_dialog->vbox = vbox;
-
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Alignment:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    alignment = dia_alignment_selector_new();
-    textobj_defaults_dialog->alignment = DIAALIGNMENTSELECTOR(alignment);
-    gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
-    gtk_widget_show (alignment);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    fontsel = dia_font_selector_new();
-    textobj_defaults_dialog->font = DIAFONTSELECTOR(fontsel);
-    gtk_box_pack_start (GTK_BOX (hbox), fontsel, TRUE, TRUE, 0);
-    gtk_widget_show (fontsel);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Fontsize:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 1.0, 1.0);
-    font_size = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);
-    textobj_defaults_dialog->font_size = GTK_SPIN_BUTTON(font_size);
-    gtk_box_pack_start(GTK_BOX (hbox), font_size, TRUE, TRUE, 0);
-    gtk_widget_show (font_size);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  dia_alignment_selector_set_alignment(textobj_defaults_dialog->alignment, default_properties.alignment);
-
-  font = NULL;
-  attributes_get_default_font(&font, &font_height);
-  dia_font_selector_set_font(textobj_defaults_dialog->font, font);
-  gtk_spin_button_set_value(textobj_defaults_dialog->font_size, font_height);
-  dia_font_unref(font);
-  
-  return textobj_defaults_dialog->vbox;
 }
 
 static real
@@ -332,7 +234,7 @@ textobj_create(Point *startpoint,
   col = attributes_get_foreground();
   attributes_get_default_font(&font, &font_height);
   textobj->text = new_text("", font, font_height,
-			   startpoint, &col, default_properties.alignment );
+			   startpoint, &col, ALIGN_LEFT );
   text_get_attributes(textobj->text,&textobj->attrs);
   dia_font_unref(font);
   

@@ -1,5 +1,7 @@
 2002-06-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/standard/textobj.c: Now uses stdprops for defaults.
+
 	* lib/font.h: Changed order of DiaFontWeight entries.  Sorry.
 	* lib/font.c (dia_font_get_style): Style now linear and conversion
 	simple. 
