@@ -708,20 +708,31 @@ draw_string(MyRenderer *renderer,
     len = strlen(text);
 
     hOld = W32::SelectObject(renderer->hFileDC, renderer->hFont);
-#if 1
     {
+# if 0 // one way to go, but see below ...
         gint wclen = 0;
         gunichar2* swc = g_utf8_to_utf16 (text, -1, NULL, &wclen, NULL);
         W32::TextOutW (renderer->hFileDC,
                        SCX(pos->x), SCY(pos->y),
                        swc, wclen);
         g_free (swc);
+# else
+        // works with newest cvs and tml's "official" 2000-12-26 release
+        char* scp; 
+        /* convert from utf8 to active codepage */
+        static char codepage[10];
+        sprintf (codepage, "CP%d", W32::GetACP ());
+
+        scp = g_convert (text, strlen (text),
+                         codepage, "UTF-8",
+                         NULL, NULL, NULL); 
+        W32::TextOut(renderer->hFileDC,
+                     SCX(pos->x), SCY(pos->y),
+                     scp, strlen(scp));
+        g_free (scp);
+# endif
     }
-#else
-    W32::TextOut(renderer->hFileDC,
-                 SCX(pos->x), SCY(pos->y),
-                 text, len);
-#endif
+
     W32::SelectObject(renderer->hFileDC, hOld);
 }
 

@@ -1,3 +1,11 @@
+2001-04-13  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/wmf/wmf.cpp : changed text conversion from
+	g_utf8_utf16 to g_convert usage. The latter function is already
+	available in tml's last "official" Gtk+ version (2000-12-26).
+	This change allows to use recent Dia with either the official
+	version or the latest cvs "gtk-1-3-win32-production"-branch.
+
 2001-04-14  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* Patch from David S. Thompson <dcthomp@mail.utexas.edu>:
