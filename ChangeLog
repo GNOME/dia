@@ -1,5 +1,9 @@
 2002-06-11  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* app/sheets.c (create_object_pixmap): Tried to display empty error.
+	(sheets_optionmenu_create): Died when not finding specified
+	sheet.  Don't think it should.
+
 	* objects/UML/association.c: Added patch from osamyn@ulb.ac.be
 	(bug #84367) to place the text better.
 

@@ -176,14 +176,13 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
 
   if (sheet_name)
   {
-    gint index;
+    gint index = 0;
     GList *list;
 
     list = g_list_find_custom(menu_item_list, sheet_name,
                               menu_item_compare_labels);
-    g_assert(list);
-
-    index = g_list_position(menu_item_list, list);
+    if (list)
+      index = g_list_position(menu_item_list, list);
     gtk_option_menu_set_history(GTK_OPTION_MENU(option_menu), index);
     gtk_menu_item_activate(GTK_MENU_ITEM(g_list_nth_data(menu_item_list,
                                                          index)));
@@ -329,6 +328,7 @@ create_object_pixmap(SheetObject *so, GtkWidget *parent,
       {
         gdk_pixbuf_render_pixmap_and_mask(pixbuf, pixmap, mask, 1.0);
         gdk_pixbuf_unref(pixbuf);
+      } else {
         g_warning (error->message);
         g_error_free (error);
       }
