@@ -226,6 +226,49 @@ new_eps_renderer(Diagram *dia, char *filename)
           "   end\n"
 	  "} def\n\n"
 
+
+	  "/colortogray {\n"
+	  "/rgbdata exch store\n"
+	  "rgbdata length 3 idiv\n"
+	  "/npixls exch store\n"
+	  "/rgbindx 0 store\n"
+	  "0 1 npixls 1 sub {\n"
+	  "grays exch\n"
+	  "rgbdata rgbindx       get 20 mul\n"
+	  "rgbdata rgbindx 1 add get 32 mul\n"
+	  "rgbdata rgbindx 2 add get 12 mul\n"
+	  "add add 64 idiv\n"
+	  "put\n"
+	  "/rgbindx rgbindx 3 add store\n"
+	  "} for\n"
+	  "grays 0 npixls getinterval\n"
+	  "} bind def\n"
+	  
+	  "/mergeprocs {\n"
+	  "dup length\n"
+	  "3 -1 roll\n"
+	  "dup\n"
+	  "length\n"
+	  "dup\n"
+	  "5 1 roll\n"
+	  "3 -1 roll\n"
+	  "add\n"
+	  "array cvx\n"
+	  "dup\n"
+	  "3 -1 roll\n"
+	  "0 exch\n"
+	  "putinterval\n"
+	  "dup\n"
+	  "4 2 roll\n"
+	  "putinterval\n"
+	  "} bind def\n"
+	  
+	  "/colorimage {\n"
+	  "pop pop\n"
+	  "{colortogray} mergeprocs\n"
+	  "image\n"
+	  "} bind def\n\n"
+	  
 	  "%f %f scale\n"
 	  "%f %f translate\n"
 	  "%%%%EndProlog\n\n\n",
@@ -654,123 +697,54 @@ draw_image(RendererEPS *renderer,
   
   ratio = height/width;
 
-  fprintf(renderer->file, "/origstate save def\n");
-  fprintf(renderer->file, "20 dict begin\n");
-  if (1) /* Color output */
-  {
+  fprintf(renderer->file, "gs\n");
+  if (1) { /* Color output */
     fprintf(renderer->file, "/pix %i string def\n", img_width * 3);
     fprintf(renderer->file, "/grays %i string def\n", img_width);
     fprintf(renderer->file, "/npixls 0 def\n");
     fprintf(renderer->file, "/rgbindx 0 def\n");
-    fprintf(renderer->file, "%f %f translate\n", point->x, point->y);
-    fprintf(renderer->file, "%f %f scale\n", 1.0, ratio);
-    fprintf(renderer->file,
-	    "/colorimage where\n"
-	    "{ pop }\n"
-	    "{\n"
-	    "/colortogray {\n"
-	    "/rgbdata exch store\n"
-	    "rgbdata length 3 idiv\n"
-	    "/npixls exch store\n"
-	    "/rgbindx 0 store\n"
-	    "0 1 npixls 1 sub {\n"
-	    "grays exch\n"
-	    "rgbdata rgbindx       get 20 mul\n"
-	    "rgbdata rgbindx 1 add get 32 mul\n"
-	    "rgbdata rgbindx 2 add get 12 mul\n"
-	    "add add 64 idiv\n"
-	    "put\n"
-	    "/rgbindx rgbindx 3 add store\n"
-	    "} for\n"
-	    "grays 0 npixls getinterval\n"
-	    "} bind def\n"
-	    "/mergeprocs {\n"
-	    "dup length\n"
-	    "3 -1 roll\n"
-	    "dup\n"
-	    "length\n"
-	    "dup\n"
-	    "5 1 roll\n"
-	    "3 -1 roll\n"
-	    "add\n"
-	    "array cvx\n"
-	    "dup\n"
-	    "3 -1 roll\n"
-	    "0 exch\n"
-	    "putinterval\n"
-	    "dup\n"
-	    "4 2 roll\n"
-	    "putinterval\n"
-	    "} bind def\n"
-	    "/colorimage {\n"
-	    "pop pop\n"
-	    "{colortogray} mergeprocs\n"
-	    "image\n"
-	    "} bind def\n"
-	    "} ifelse\n");
+    fprintf(renderer->file, "%f %f tr\n", point->x, point->y);
+    fprintf(renderer->file, "%f %f sc\n", width, height);
     fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
-    fprintf(renderer->file, "[%i 0 0 -%i 0 %i]\n", 
-	    img_width, img_height, img_height);
+    fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
     fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
     fprintf(renderer->file, "false 3 colorimage\n");
     fprintf(renderer->file, "\n");
     ptr = rgb_data;
-    for (y = 0; y < img_width; y++)
-    {
-      for (x = 0; x < img_height; x++)
-      {
-	v = (int)(*ptr++);
-	if (v < 0x10)
-	  fprintf(renderer->file, "0%x", v);
-	else
-	  fprintf(renderer->file, "%x", v);
-	v = (int)(*ptr++);
-	if (v < 0x10)
-	  fprintf(renderer->file, "0%x", v);
-	else
-	  fprintf(renderer->file, "%x", v);
-	v = (int)(*ptr++);
-	if (v < 0x10)
-	  fprintf(renderer->file, "0%x", v);
-	else
-	  fprintf(renderer->file, "%x", v);
+    for (y = 0; y < img_width; y++) {
+      for (x = 0; x < img_height; x++) {
+	fprintf(renderer->file, "%02x", (int)(*ptr++));
+	fprintf(renderer->file, "%02x", (int)(*ptr++));
+	fprintf(renderer->file, "%02x", (int)(*ptr++));
       }
       fprintf(renderer->file, "\n");
     }
-  }
-  else /* Grayscale */
-  {
+  } else { /* Grayscale */
     fprintf(renderer->file, "/pix %i string def\n", img_width);
     fprintf(renderer->file, "/grays %i string def\n", img_width);
     fprintf(renderer->file, "/npixls 0 def\n");
     fprintf(renderer->file, "/rgbindx 0 def\n");
-    fprintf(renderer->file, "%f %f translate\n", point->x, point->y);
-    fprintf(renderer->file, "%f %f scale\n", 1.0, ratio);
+    fprintf(renderer->file, "%f %f tr\n", point->x, point->y);
+    fprintf(renderer->file, "%f %f sc\n", width, height);
     fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
-    fprintf(renderer->file, "[%i 0 0 -%i 0 %i]\n", 
-	    img_width, img_height, img_height);
+    fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
     fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
     fprintf(renderer->file, "image\n");
     fprintf(renderer->file, "\n");
     ptr = rgb_data;
-    for (y = 0; y < img_height; y++)
-    {
-      for (x = 0; x < img_width; x++)
-      {
+    for (y = 0; y < img_height; y++) {
+      for (x = 0; x < img_width; x++) {
 	v = (int)(*ptr++);
 	v += (int)(*ptr++);
 	v += (int)(*ptr++);
 	v /= 3;
-	if (v < 0x10)
-	  fprintf(renderer->file, "0%x", v);
-	else
-	  fprintf(renderer->file, "%x", v);
+	fprintf(renderer->file, "%02x", v);
       }
       fprintf(renderer->file, "\n");
     }
   }
-  fprintf(renderer->file, "%f %f scale\n", 1.0, 1.0/ratio);
-  fprintf(renderer->file, "%f %f translate\n", -point->x, -point->y);
+  /*  fprintf(renderer->file, "%f %f scale\n", 1.0, 1.0/ratio);*/
+  fprintf(renderer->file, "gr\n");
   fprintf(renderer->file, "\n");
 }
 

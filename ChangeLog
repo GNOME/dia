@@ -1,5 +1,11 @@
 1999-03-22  Alexander Larsson  <alla@lysator.liu.se>
 
+	* app/render_eps.c (draw_image):
+	Fixed exporting of images.
+	Still not perfect, but not outright buggy.
+	
+1999-03-22  Alexander Larsson  <alla@lysator.liu.se>
+
 	* configure.in:
 	* po/hu.po:
 	Added hungarian translation. By Shooby Ban <bansz@szif.hu>.
