@@ -1,5 +1,10 @@
 2004-04-01  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
 
+	* lib/attributes.c: 
+	* app/interface.c: Default arrows now stored persistently, too.
+
+	* lib/arrows.[ch]: New function to get arrow type from name.
+
 	* app/color_area.c (color_area_create): 
 	* lib/attributes.c: 
 	* app/linewidth_area.c: Also persistent colors and line width.

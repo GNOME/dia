@@ -101,6 +101,9 @@ void
 attributes_set_default_start_arrow(Arrow arrow)
 {
   attributes_start_arrow = arrow;
+  persistence_set_string("start-arrow-type", arrow_types[arrow.type].name);
+  persistence_set_real("start-arrow-width", arrow.width);
+  persistence_set_real("start-arrow-length", arrow.length);
 }
 
 Arrow

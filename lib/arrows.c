@@ -18,6 +18,8 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <string.h>
 #include <glib.h>
 #include <math.h>
 
@@ -1398,4 +1400,15 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
 			       fg_color, bg_color);
     break;
   } 
+}
+
+ArrowType
+arrow_type_from_name(gchar *name)
+{
+  int i;
+  for (i = 0; arrow_types[i].name != NULL; i++) {
+    if (!strcmp(arrow_types[i].name, name)) return arrow_types[i].enum_value;
+  }
+  printf("Unknown arrow type %s\n", name);
+  return 0;
 }

@@ -101,4 +101,7 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
 void arrow_transform_points(Arrow *arrow, Point *start, Point *to,
 			    int linewidth, Point *arrowtip);
 
+/** Returns the ArrowType for a given name of an arrow, or 0 if not found. */
+ArrowType arrow_type_from_name(gchar *name);
+
 #endif /* ARROWS_H */
