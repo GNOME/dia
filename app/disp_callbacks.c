@@ -301,11 +301,10 @@ ddisplay_canvas_events (GtkWidget *canvas,
       kevent = (GdkEventKey *) event;
       state = kevent->state;
       key_handled = FALSE;
-      
+
       focus = active_focus();
       if ((focus != NULL) &&
-	  !(state & (GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD2_MASK |
-		     GDK_MOD3_MASK | GDK_MOD4_MASK | GDK_MOD5_MASK))) {
+	  !(state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) ) {
 	/* Keys goes to the active focus. */
 	obj = focus->obj;
 	if (diagram_is_selected(ddisp->diagram, obj)) {

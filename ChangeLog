@@ -1,3 +1,8 @@
+1999-03-23  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/disp_callbacks.c (ddisplay_canvas_events):
+	Don't drop keys while num-lock, scroll-lock etc is on.
+
 1999-03-22  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/render_eps.c (draw_image):
