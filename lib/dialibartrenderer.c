@@ -1075,9 +1075,9 @@ draw_string (DiaRenderer *self,
    bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
    for (i = 0; i < height; i++) {
      for (j = 0; j < width; j++) {
-       bitmap[DEPTH*(i*rowstride+j)] = color->red;
-       bitmap[DEPTH*(i*rowstride+j)+1] = color->green;
-       bitmap[DEPTH*(i*rowstride+j)+2] = color->blue;
+       bitmap[DEPTH*(i*rowstride+j)] = color->red*255;
+       bitmap[DEPTH*(i*rowstride+j)+1] = color->green*255;
+       bitmap[DEPTH*(i*rowstride+j)+2] = color->blue*255;
        bitmap[DEPTH*(i*rowstride+j)+3] = graybitmap[i*rowstride+j];
      }
      //     bitmap[4*i+3] = graybitmap[i];
@@ -1100,9 +1100,9 @@ draw_string (DiaRenderer *self,
    bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
    for (i = 0; i < height; i++) {
      for (j = 0; j < width; j++) {
-       bitmap[DEPTH*(i*rowstride+j)] = color->red;
-       bitmap[DEPTH*(i*rowstride+j)+1] = color->green;
-       bitmap[DEPTH*(i*rowstride+j)+2] = color->blue;
+       bitmap[DEPTH*(i*rowstride+j)] = color->red*255;
+       bitmap[DEPTH*(i*rowstride+j)+1] = color->green*255;
+       bitmap[DEPTH*(i*rowstride+j)+2] = color->blue*255;
        bitmap[DEPTH*(i*rowstride+j)+3] = graybitmap.buffer[i*rowstride+j];
      }
    }

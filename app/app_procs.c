@@ -456,13 +456,17 @@ app_init (int argc, char **argv)
               made_conversions |= do_convert(in_file_name,export_file_name);
               g_free(export_file_name);
           } else {
-              diagram = diagram_load (in_file_name, NULL);
+	      if (g_file_test(in_file_name, G_FILE_TEST_EXISTS)) {
+		  diagram = diagram_load (in_file_name, NULL);
+	      } else
+		  diagram = new_diagram (in_file_name);
+	      
               if (diagram != NULL) {
-                  diagram_update_extents(diagram);
-                  layer_dialog_set_diagram(diagram);
+		  diagram_update_extents(diagram);
+		  layer_dialog_set_diagram(diagram);
                   
-                  ddisp = new_display(diagram);
-              }
+		  ddisp = new_display(diagram);
+	      }
           }
       }
       poptFreeContext(poptCtx);
