@@ -25,8 +25,9 @@ dia-0.91-pre1: 31-Jan-2003
 * There is a new plug-in called 'Pixbuf' to export to jpeg and 
   png (without the need of libart)
 * The Python plug-in allows to write more powerful scripts now,
-  see diasvg.py for an example. More examples! There is still no 
-  documentation beside examples and C source though.
+  see diasvg.py for an example. More examples! The only documentation
+  beside examples and C source is on the Dia Twiki
+  (http://faemalia.org/wiki/view/Technical/DiaEditor)
 * UML classes can carry comments
 * A bunch of new Shapes
 * Support for dynamic refresh (animated objects)
