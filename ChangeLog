@@ -1,3 +1,9 @@
+2005-03-05  Lars Clausen  <lars@raeder.dk>
+
+	* configure.in: 
+	* doc/en/Makefile.am: Finally figured out the right way to ask for
+	the manpage xslt.  Closes bug #144539.
+
 2005-03-01  Lars Clausen  <lars@raeder.dk>
 
 	* lib/Makefile.am (nodist_include_HEADERS): 

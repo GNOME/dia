@@ -403,16 +403,12 @@ AM_CONDITIONAL(HAVE_DB2HTML,
 
 dnl Only enable man page generation if we have db2man (in maintainer mode)
 
+
 dnl Have to have the nwalsh docbook.xsl, which does manpages.
 dnl RedHat installs it in a version-numbered place.  Grumpf.
-db2man_file=
-for file in \
-  /usr/share/sgml/docbook/stylesheet/xsl/nwalsh/manpages/docbook.xsl \
-  /usr/share/sgml/docbook/xsl-stylesheets-\*/manpages/docbook.xsl; do
-  if test -f $file; then db2man_file=$file; break; fi
-done
-AM_CONDITIONAL(HAVE_DB2MAN, test "x$db2man_file" != x)
-AC_SUBST(DB2MAN, "$db2man_file")
+AC_PATH_PROG(XSLTPROC, xsltproc, no)
+AM_CONDITIONAL(HAVE_DB2MAN, test "x$XSLTPROC" != xno)
+AC_SUBST(DB2MAN, "http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl")
 
 dnl Handling for Python
 AC_ARG_WITH(python,

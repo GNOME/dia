@@ -32,6 +32,9 @@ EXTRA_DIST += \
 	graphics/greendots.png
 
 if HAVE_DB2MAN
+# If we want misconfigured XML catalogs to not try net access, use
+# --nonet.  But I don't think that's going to solve more problems
+# than it causes.
 dia.1: dia.dbk
 	xsltproc --nonet --novalid $(DB2MAN) dia.dbk >dia.1
 endif
