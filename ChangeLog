@@ -2,6 +2,10 @@
 
 	* lib/dialibartrenderer.c (begin_render):
 	(end_render): Correct pushing and popping of font contexts.
+	(draw_string): Double zooming eliminated, strange twiddle factor
+	introduced (grumble).  Close to working now, but there are still
+	strange differences from font to font.  In particular, some fonts
+	really mess with the cursor and extents.
 
 	* app/render_eps.c (export_eps): 
 	* app/diapsrenderer.c (dia_ps_renderer_finalize): 

@@ -993,7 +993,7 @@ draw_string (DiaRenderer *self,
   double xpos, ypos;
   guint32 rgba;
   int rowstride;
-  double old_zoom;
+  double zoom;
   double font_height;
 
   point_copy(&start_pos,pos);
@@ -1006,33 +1006,32 @@ draw_string (DiaRenderer *self,
   old_zoom = ddisp->zoom_factor;
   ddisp->zoom_factor = ddisp->zoom_factor;
   */
+#define TWIDDLE 7.39
   switch (alignment) {
   case ALIGN_LEFT:
     break;
   case ALIGN_CENTER:
-    start_pos.x -= dia_font_scaled_string_width(
+    start_pos.x -= dia_font_string_width(
                       text, renderer->font,
-                      renderer->font_height,
-                      dia_transform_length(renderer->transform, 1.0))/2;
+                      renderer->font_height*TWIDDLE)/2;
     break;
   case ALIGN_RIGHT:
-    start_pos.x -= dia_font_scaled_string_width(
+    start_pos.x -= dia_font_string_width(
                       text, renderer->font,
-                      renderer->font_height,
-                      dia_transform_length(renderer->transform, 1.0));
+                      renderer->font_height*TWIDDLE);
     break;
   }
  
   font_height = dia_transform_length(renderer->transform, renderer->font_height);
 
   start_pos.y -= dia_font_ascent(text, renderer->font,
-				 font_height);
+				 renderer->font_height*TWIDDLE);
   dia_transform_coords_double(renderer->transform, 
                               start_pos.x, start_pos.y, &x, &y);
 
   layout = dia_font_scaled_build_layout(
-              text,renderer->font, font_height,
-              dia_transform_length(renderer->transform, 1.0));
+              text, renderer->font, renderer->font_height,
+              dia_transform_length(renderer->transform, TWIDDLE));
   /*
   ddisp->zoom_factor = old_zoom;
   */
@@ -1057,7 +1056,6 @@ draw_string (DiaRenderer *self,
    ftbitmap.pixel_mode = ft_pixel_mode_grays;
    ftbitmap.palette_mode = 0;
    ftbitmap.palette = 0;
-   g_print("Rendering %s onto bitmap of size %dx%d row %d\n", text, width, height, rowstride);
    pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
 #define DEPTH 4
    bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
