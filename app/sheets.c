@@ -148,9 +148,12 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
     menu_item = gtk_menu_item_new_with_label(sheet_mod->sheet.name);
     gtk_menu_append(GTK_MENU(optionmenu_menu), menu_item);
 
-    tip = g_strdup_printf("%s\n%s", sheet_mod->sheet.description,
-                              sheet_mod->sheet.scope == SHEET_SCOPE_SYSTEM
-                              ? "System sheet" : "User sheet");
+    if (sheet_mod->sheet.scope == SHEET_SCOPE_SYSTEM)
+      tip = g_strdup_printf(_("%s\nSystem sheet"),
+			    sheet_mod->sheet.description);
+    else
+      tip = g_strdup_printf(_("%s\nUser sheet"), sheet_mod->sheet.description);
+
     gtk_tooltips_set_tip(GTK_TOOLTIPS(sheets_dialog_tooltips), menu_item, tip,
                          NULL);
     g_free(tip);
@@ -255,8 +258,8 @@ sheets_dialog_create(void)
 
   if (!custom_type_symbol)
   {
-    message_warning ("Can't get symbol 'custom_type' from any module.\n"
-                     "Editing shapes is disabled.");
+    message_warning (_("Can't get symbol 'custom_type' from any module.\n"
+		       "Editing shapes is disabled."));
     return FALSE;
   }
 
@@ -353,7 +356,7 @@ lookup_widget                          (GtkWidget       *widget,
   found_widget = (GtkWidget*) gtk_object_get_data (GTK_OBJECT (widget),
                                                    widget_name);
   if (!found_widget)
-    g_warning ("Widget not found: %s", widget_name);
+    g_warning (_("Widget not found: %s"), widget_name);
   return found_widget;
 }
 
@@ -429,9 +432,9 @@ sheet_object_mod_get_type_string(SheetObjectMod *som)
   switch (som->type)
   {
   case OBJECT_TYPE_SVG:
-    return "SVG Shape";
+    return _("SVG Shape");
   case OBJECT_TYPE_PROGRAMMED:
-    return "Programmed Object";
+    return _("Programmed Object");
   default:
     g_assert_not_reached();
     return FALSE;           /* shut gcc up */

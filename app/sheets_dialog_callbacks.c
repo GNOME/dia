@@ -167,26 +167,26 @@ on_sheets_dialog_object_button_toggled(GtkToggleButton *togglebutton,
     gtk_object_set_data(GTK_OBJECT(table_sheets), "active_optionmenu",
                         optionmenu_left);
     button = lookup_widget(sheets_dialog, "button_copy");
-    gtk_object_set(GTK_OBJECT(button), "label", "Copy ->", NULL);
+    gtk_object_set(GTK_OBJECT(button), "label", _("Copy ->"), NULL);
     button = lookup_widget(sheets_dialog, "button_copy_all");
-    gtk_object_set(GTK_OBJECT(button), "label", "Copy All ->", NULL);
+    gtk_object_set(GTK_OBJECT(button), "label", _("Copy All ->"), NULL);
     button = lookup_widget(sheets_dialog, "button_move");
-    gtk_object_set(GTK_OBJECT(button), "label", "Move ->", NULL);
+    gtk_object_set(GTK_OBJECT(button), "label", _("Move ->"), NULL);
     button = lookup_widget(sheets_dialog, "button_move_all");
-    gtk_object_set(GTK_OBJECT(button), "label", "Move All ->", NULL);
+    gtk_object_set(GTK_OBJECT(button), "label", _("Move All ->"), NULL);
   }
   else
   {
     gtk_object_set_data(GTK_OBJECT(table_sheets), "active_optionmenu",
                         optionmenu_right);
     button = lookup_widget(sheets_dialog, "button_copy");
-    gtk_object_set(GTK_OBJECT(button), "label", "<- Copy", NULL);
+    gtk_object_set(GTK_OBJECT(button), "label", _("<- Copy"), NULL);
     button = lookup_widget(sheets_dialog, "button_copy_all");
-    gtk_object_set(GTK_OBJECT(button), "label", "<- Copy All", NULL);
+    gtk_object_set(GTK_OBJECT(button), "label", _("<- Copy All"), NULL);
     button = lookup_widget(sheets_dialog, "button_move");
-    gtk_object_set(GTK_OBJECT(button), "label", "<- Move", NULL);
+    gtk_object_set(GTK_OBJECT(button), "label", _("<- Move"), NULL);
     button = lookup_widget(sheets_dialog, "button_move_all");
-    gtk_object_set(GTK_OBJECT(button), "label", "<- Move All", NULL);
+    gtk_object_set(GTK_OBJECT(button), "label", _("<- Move All"), NULL);
   }
 
   sheet_left = sheet_left ? sheet_left : "";  /* initial value can be NULL */
@@ -292,7 +292,7 @@ sheets_dialog_wrapbox_add_line_break(GtkWidget *wrapbox)
   gtk_wrap_box_pack(GTK_WRAP_BOX(wrapbox), button, FALSE, TRUE, FALSE, TRUE);
   gtk_widget_show(button);
 
-  gtk_tooltips_set_tip(sheets_dialog_tooltips, button, "Line Break", NULL);
+  gtk_tooltips_set_tip(sheets_dialog_tooltips, button, _("Line Break"), NULL);
 
   gtk_signal_connect(GTK_OBJECT(button), "toggled",
                      GTK_SIGNAL_FUNC(on_sheets_dialog_object_button_toggled),
@@ -304,9 +304,12 @@ sheets_dialog_object_set_tooltip(SheetObjectMod *som, GtkWidget *button)
 {
   gchar *tip;
 
-  tip = g_strdup_printf("%s\n%s", som->sheet_object.description,
-                        (som->type == OBJECT_TYPE_SVG) ? "SVG Shape" :
-                                                         "Programmed Object");
+  if (som->type == SHEET_SCOPE_SYSTEM)
+    tip = g_strdup_printf(_("%s\nSystem sheet"),
+			  som->sheet_object.description);
+  else
+    tip = g_strdup_printf(_("%s\nUser sheet"), som->sheet_object.description);
+
   gtk_tooltips_set_tip(sheets_dialog_tooltips, button, tip, NULL);
   g_free(tip);
 }
@@ -784,14 +787,14 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     p = file_name + strlen(file_name) - 6;
     if (strcmp(p, ".shape"))
     {
-      message_error("Filename must end with '.shape': '%s'", file_name);
+      message_error(_("Filename must end with '.shape': '%s'"), file_name);
       g_free(file_name);
       return;
     }
 
     if (stat(file_name, &stat_buf) == -1)
     {
-      message_error("%s: '%s'", strerror(errno), file_name);
+      message_error(_("Error examining %s: %s"), file_name, strerror(errno));
       g_free(file_name);
       return;
     }
@@ -813,7 +816,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 
     if (!(*custom_object_load_fn)(file_name, &ot))
     {
-      message_error("Could not interpret shape file: '%s'", file_name);
+      message_error(_("Could not interpret shape file: '%s'"), file_name);
       g_free(file_name);
       return;
     }
@@ -876,7 +879,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     sheet_name = g_strchug(g_strchomp(sheet_name));
     if (!*sheet_name)
     {
-      message_error("Sheet must have a Name");
+      message_error(_("Sheet must have a Name"));
       return;
     }
 
@@ -1062,7 +1065,7 @@ on_sheets_dialog_button_remove_clicked (GtkButton       *button,
     
     som = gtk_object_get_data(GTK_OBJECT(active_button), "sheet_object_mod");
     if (!som)
-      gtk_entry_set_text(GTK_ENTRY(entry), "Line Break");
+      gtk_entry_set_text(GTK_ENTRY(entry), _("Line Break"));
     else
       gtk_entry_set_text(GTK_ENTRY(entry), som->sheet_object.description);
 
@@ -1562,13 +1565,13 @@ copy_file(gchar *src, gchar *dst)
 
   if ((fp_src = fopen(src, "rb")) == NULL)
   {
-    message_error("Couldn't open '%s': %s", src, strerror(errno));
+    message_error(_("Couldn't open '%s': %s"), src, strerror(errno));
     return FALSE;
   }
  
   if ((fp_dst = fopen(dst, "wb")) == NULL)
   {
-    message_error("Couldn't open '%s': %s", dst, strerror(errno));
+    message_error(_("Couldn't open '%s': %s"), dst, strerror(errno));
     return FALSE;
   }
 

@@ -202,9 +202,9 @@ create_sheets_main_dialog (void)
   {
     GtkWidget *label;
 
-    label = gtk_label_new("New");
+    label = gtk_label_new(_("New"));
     gtk_widget_ref(label);
-    gtk_label_parse_uline(GTK_LABEL(label), "_New");
+    gtk_label_parse_uline(GTK_LABEL(label), _("_New"));
     gtk_container_add(GTK_CONTAINER(button_new), label);
     gtk_widget_show(label);
   }
@@ -224,9 +224,9 @@ create_sheets_main_dialog (void)
   {
     GtkWidget *label;
 
-    label = gtk_label_new("Up");
+    label = gtk_label_new(_("Up"));
     gtk_widget_ref(label);
-    gtk_label_parse_uline(GTK_LABEL(label), "_Up");
+    gtk_label_parse_uline(GTK_LABEL(label), _("_Up"));
     gtk_container_add(GTK_CONTAINER(button_move_up), label);
     gtk_widget_show(label);
   }
@@ -246,9 +246,9 @@ create_sheets_main_dialog (void)
   {
     GtkWidget *label;
 
-    label = gtk_label_new("Down");
+    label = gtk_label_new(_("Down"));
     gtk_widget_ref(label);
-    gtk_label_parse_uline(GTK_LABEL(label), "_Down");
+    gtk_label_parse_uline(GTK_LABEL(label), _("_Down"));
     gtk_container_add(GTK_CONTAINER(button_move_down), label);
     gtk_widget_show(label);
   }
@@ -266,9 +266,9 @@ create_sheets_main_dialog (void)
   {
     GtkWidget *label;
 
-    label = gtk_label_new("Edit");
+    label = gtk_label_new(_("Edit"));
     gtk_widget_ref(label);
-    gtk_label_parse_uline(GTK_LABEL(label), "_Edit");
+    gtk_label_parse_uline(GTK_LABEL(label), _("_Edit"));
     gtk_container_add(GTK_CONTAINER(button_edit), label);
     gtk_widget_show(label);
   }
@@ -285,9 +285,9 @@ create_sheets_main_dialog (void)
   {
     GtkWidget *label;
 
-    label = gtk_label_new("Remove");
+    label = gtk_label_new(_("Remove"));
     gtk_widget_ref(label);
-    gtk_label_parse_uline(GTK_LABEL(label), "_Remove");
+    gtk_label_parse_uline(GTK_LABEL(label), _("_Remove"));
     gtk_container_add(GTK_CONTAINER(button_remove), label);
     gtk_widget_show(label);
   }
@@ -303,7 +303,7 @@ create_sheets_main_dialog (void)
 #ifdef GNOME
   button_apply = gnome_stock_button (GNOME_STOCK_BUTTON_APPLY);
 #else
-  button_apply = gtk_button_new_with_label("Apply");
+  button_apply = gtk_button_new_with_label(_("Apply"));
 #endif
   gtk_widget_ref (button_apply);
   gtk_object_set_data_full (GTK_OBJECT (sheets_main_dialog), "button_apply", button_apply,
@@ -323,7 +323,7 @@ create_sheets_main_dialog (void)
 #ifdef GNOME
   button_close = gnome_stock_button (GNOME_STOCK_BUTTON_CLOSE);
 #else
-  button_close = gtk_button_new_with_label("Close");
+  button_close = gtk_button_new_with_label(_("Close"));
 #endif
 
   gtk_widget_ref (button_close);
@@ -555,7 +555,7 @@ create_sheets_new_dialog (void)
 #ifdef GNOME
   button_ok = gnome_stock_button (GNOME_STOCK_BUTTON_OK);
 #else
-  button_ok = gtk_button_new_with_label("OK");
+  button_ok = gtk_button_new_with_label(_("OK"));
 #endif
   gtk_widget_ref (button_ok);
   gtk_object_set_data_full (GTK_OBJECT (sheets_new_dialog), "button_ok", button_ok,
@@ -567,7 +567,7 @@ create_sheets_new_dialog (void)
 #ifdef GNOME
   button_cancel = gnome_stock_button (GNOME_STOCK_BUTTON_CANCEL);
 #else
-  button_cancel = gtk_button_new_with_label("Cancel");
+  button_cancel = gtk_button_new_with_label(_("Cancel"));
 #endif
   gtk_widget_ref (button_cancel);
   gtk_object_set_data_full (GTK_OBJECT (sheets_new_dialog), "button_cancel", button_cancel,
@@ -787,7 +787,7 @@ create_sheets_edit_dialog (void)
 #ifdef GNOME
   button_ok = gnome_stock_button (GNOME_STOCK_BUTTON_OK);
 #else
-  button_ok = gtk_button_new_with_label("OK");
+  button_ok = gtk_button_new_with_label(_("OK"));
 #endif
   gtk_widget_ref (button_ok);
   gtk_object_set_data_full (GTK_OBJECT (sheets_edit_dialog), "button_ok", button_ok,
@@ -799,7 +799,7 @@ create_sheets_edit_dialog (void)
 #ifdef GNOME
   button_cancel = gnome_stock_button (GNOME_STOCK_BUTTON_CANCEL);
 #else
-  button_cancel = gtk_button_new_with_label("Cancel");
+  button_cancel = gtk_button_new_with_label(_("Cancel"));
 #endif
   gtk_widget_ref (button_cancel);
   gtk_object_set_data_full (GTK_OBJECT (sheets_edit_dialog), "button_cancel", button_cancel,
@@ -946,7 +946,7 @@ create_sheets_remove_dialog (void)
 #ifdef GNOME
   button_ok = gnome_stock_button (GNOME_STOCK_BUTTON_OK);
 #else
-  button_ok = gtk_button_new_with_label("OK");
+  button_ok = gtk_button_new_with_label(_("OK"));
 #endif
   gtk_widget_ref (button_ok);
   gtk_object_set_data_full (GTK_OBJECT (sheets_remove_dialog), "button_ok", button_ok,
@@ -958,7 +958,7 @@ create_sheets_remove_dialog (void)
 #ifdef GNOME
   button_cancel = gnome_stock_button (GNOME_STOCK_BUTTON_CANCEL);
 #else
-  button_cancel = gtk_button_new_with_label("Cancel");
+  button_cancel = gtk_button_new_with_label(_("Cancel"));
 #endif
   gtk_widget_ref (button_cancel);
   gtk_object_set_data_full (GTK_OBJECT (sheets_remove_dialog), "button_cancel", button_cancel,
