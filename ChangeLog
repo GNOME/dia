@@ -1,3 +1,8 @@
+2002-05-08  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/polyshape.c (polyshape_init): Removed call to
+	polyshape_update_data that tried to use uninitialized data.
+
 2002-05-06  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
 
 	* app/sheets_dialog.c: Mass removal of //-style comments.  The

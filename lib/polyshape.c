@@ -314,7 +314,7 @@ polyshape_init(PolyShape *poly, int num_points)
   
   poly->numpoints = num_points;
 
-  poly->points = g_malloc(num_points*sizeof(Point));
+  poly->points = g_malloc0(num_points*sizeof(Point));
 
   for (i = 0; i < num_points; i++) {
     poly->object.handles[i] = g_new(Handle, 1);
@@ -330,7 +330,9 @@ polyshape_init(PolyShape *poly, int num_points)
     poly->object.connections[i]->object = &poly->object;
   }
 
-  polyshape_update_data(poly);
+  /* Since the points aren't set yet, and update_data only deals with
+     the points, don't call it (Thanks, valgrind!) */
+  /*  polyshape_update_data(poly);*/
 }
 
 void
