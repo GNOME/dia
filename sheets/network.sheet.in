@@ -66,6 +66,9 @@
     <object name="Network - A Desktop PC">
       <_description>A Desktop PC</_description>
     </object>
+    <object name="Network - Laptop Computer">
+      <_description>A Laptop PC</_description>
+    </object>
     <object name="Network - A Bigtower PC">
       <_description>A Bigtower PC</_description>
     </object>

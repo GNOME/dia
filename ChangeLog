@@ -1,3 +1,9 @@
+2002-06-20  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* shapes/network/laptop.(xml|shape):
+	* sheets/network.sheet.in: added Laptop (notebook) PC shape,
+	contributed by Alan Horkan <horkana@tcd.ie>. (Closes: #82643)
+
 2002-06-17  Hans Breuer  <hans@breuer.org>
 
 	* lib/object_defaults.c : #include <libxml/tree.h> not
