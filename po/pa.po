@@ -1,35 +1,36 @@
+# translation of pa.po to Punjabi
 # Copyright (C) 2004 THE dia.HEAD'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the dia.HEAD package.
 # Punjab Linux Technology <punjablinux@netscape.net>, 2004.
-# , fuzzy
-# 
-# 
+# Amanpreet Singh Alam <aalam@redhat.com>, 2004.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: dia VERSION\n"
+"Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-10 19:01+0200\n"
-"PO-Revision-Date: 2004-06-27 10:57+0530\n"
-"Last-Translator: Amanpreet Singh Alam <amanlinux@netscape.net>\n"
-"Language-Team: Punjabi <indlinux-punjabi@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2004-08-15 12:16+0530\n"
+"Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
+"Language-Team: Punjabi <pa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3.1\n"
 
 #: app/app_procs.c:219
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
-msgstr ""
+msgstr "%s ਗਲਤੀ: ਇਹ ਜਾਣਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਕਿ %s ਵਿੱਚ ਨਿਰਯਾਤ ਕਿਵੇਂ ਕਰਨਾ ਹੈ\n"
 
 #: app/app_procs.c:229
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr ""
+msgstr "%s ਗਲਤੀ: ਇੰਪੁੱਟ ਤੇ ਆਉਟਪੁੱਟ ਫਾਇਲ ਨਾਂ ਇੱਕੋ ਹੀ ਹਨ: %s"
 
 #: app/app_procs.c:237
 #, c-format
 msgid "%s error: need valid input file %s\n"
-msgstr ""
+msgstr "%s ਗਲਤੀ: ਇੱਕ ਜਾਇਜ ਇੰਪੁੱਟ ਫਾਇਲ %s ਲੋੜੀਦੀ ਹੈ\n"
 
 #. if (!quiet)
 #: app/app_procs.c:246
@@ -40,18 +41,18 @@ msgstr "%s --> %s\n"
 #: app/app_procs.c:294
 #, c-format
 msgid "Can't find output format %s\n"
-msgstr ""
+msgstr "ਆਉਟਪੁੱਟ ਫਾਰਮਿਟ %s ਲੱਭਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ\n"
 
 #. Translators:  The argument is a list of options, not to be translated
 #: app/app_procs.c:381
 #, c-format
 msgid "Export to file format and exit.  Supported formats are: %s"
-msgstr ""
+msgstr "ਫਾਇਲ ਫਾਰਮਿਟ ਲਈ ਨਿਰਯਾਤ ਕਰੋ ਅਤੇ ਬੰਦ ਕਰੋ| ਸਹਾਇਕ ਫਾਰਮਿਟ ਹਨ: %s"
 
 #. &export_file_name
 #: app/app_procs.c:390
 msgid "Export loaded file and exit"
-msgstr ""
+msgstr "ਲੋਡ ਫਾਇਲ ਨਿਰਯਾਤ ਕਰੋ ਤੇ ਬੰਦ ਕਰੋ"
 
 #: app/app_procs.c:390
 #: app/diaconv.c:94
@@ -65,7 +66,7 @@ msgstr "ਫਾਰਮਿਟ"
 
 #: app/app_procs.c:395
 msgid "Export graphics size"
-msgstr ""
+msgstr "ਗਰਾਫਿਕਲ ਆਕਾਰ ਨਿਰਯਾਤ"
 
 #: app/app_procs.c:395
 msgid "WxH"
@@ -73,7 +74,7 @@ msgstr "WxH"
 
 #: app/app_procs.c:397
 msgid "Don't show the splash screen"
-msgstr ""
+msgstr "ਸ਼ੁਰੂਆਤੀ ਪਰਦਾ ਨਾ ਵੇਖਾਓ"
 
 #: app/app_procs.c:399
 msgid "Send error messages to stderr instead of showing dialogs."
@@ -81,26 +82,26 @@ msgstr ""
 
 #: app/app_procs.c:401
 msgid "Display credits list and exit"
-msgstr ""
+msgstr "ਮਾਣ ਸੂਚੀ ਵੇਖਾਓ ਤੇ ਬੰਦ ਕਰੋ"
 
 #: app/app_procs.c:403
 msgid "Display version and exit"
-msgstr ""
+msgstr "ਵਰਜਨ ਵੇਖਾਓ ਤੇ ਬੰਦ ਕਰੋ"
 
 #: app/app_procs.c:405
 #: app/diaconv.c:95
 msgid "Show this help message"
-msgstr ""
+msgstr "ਇਹ ਸਹਾਇਤਾ ਸੁਨੇਹਾ ਵੇਖਾਓ"
 
 #: app/app_procs.c:444
 msgid "Can't connect to session manager!\n"
-msgstr ""
+msgstr "ਅਜਲਾਸ ਪ੍ਰਬੰਧਕ ਨਾਲ ਜੁੜਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ !\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
 #: app/app_procs.c:472
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
-msgstr ""
+msgstr "ਡਾਈ ਵਰਜਨ %s, ਕੰਪਾਇਲ %s %s\n"
 
 #: app/app_procs.c:474
 #, c-format
@@ -120,6 +121,8 @@ msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
+"ਇਹ ਹੋਣਾ ਨਹੀਂ ਚਾਹੀਦਾ ਸੀ| ਕਿਰਪਾ ਕਰੇਕ bugzilla.gnome.org ਤੇ ਆਪਣੇ\n"
+"ਇਸ ਸੁਨੇਹੇ ਨਾਲ ਰਿਪੋਰਟ ਫਾਇਲ ਭਰੋ\n"
 
 #. no standard buttons
 #: app/app_procs.c:603
@@ -128,10 +131,13 @@ msgid ""
 "Are you sure you want to quit Dia\n"
 "without saving them?"
 msgstr ""
+"ਸ਼ਕਲ ਵਿੱਚ ਤਬਦੀਲੀ ਕੀਤੀ ਗਈ ਹੈ\n"
+"ਕੀ ਤੁਸੀਂ ਬਿਨਾਂ ਸੰਭਾਲੇ ਹੀ ਡਾਈ\n"
+"ਨੂੰ ਬੰਦ ਕਰਨ ਲਈ ਸਹਿਮਤ ਹੋ?"
 
 #: app/app_procs.c:607
 msgid "Quit Dia"
-msgstr "ਡਾਈ ਵਿੱਚੋ ਬਾਹਰ"
+msgstr "ਡਾਈ ਬੰਦ"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
@@ -169,23 +175,25 @@ msgstr ""
 
 #: app/autosave.c:93
 msgid "Recovering autosaved diagrams"
-msgstr ""
+msgstr "ਸਵੈ-ਸੰਭਾਲ ਸ਼ਕਲ ਪ੍ਰਾਪਤ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
 
 #: app/autosave.c:101
 msgid ""
 "Autosaved files exist.\n"
 "Please select those you wish to recover."
 msgstr ""
+"ਸਵੈ-ਸੰਭਾਲੀ ਫਾਇਲਾਂ ਮੌਜੂਦ ਹਨ\n"
+"ਕਿਰਪਾ ਕਰਕੇ ਤੁਸੀਂ ਉਹ ਪ੍ਰਾਪਤ ਇਕਾਈਆਂ ਨੂੰ ਸੰਭਾਲੀਆਂ ਚਾਹੁੰਦੇ ਹੋ"
 
 #: app/color_area.c:316
 #: app/color_area.c:363
 msgid "Select foreground color"
-msgstr ""
+msgstr "ਮੁੱਖ ਭੂਮੀ ਰੰਗ ਚੁਣੋ"
 
 #: app/color_area.c:317
 #: app/color_area.c:364
 msgid "Select background color"
-msgstr ""
+msgstr "ਪਿੱਠਭੂਮੀ ਰੰਗ ਚੁਣੋ"
 
 #: app/commands.c:132
 #, c-format
@@ -293,7 +301,7 @@ msgstr "ਖਾਲੀ ਥਾਂ"
 
 #: app/dia-props.c:147
 msgid "Visible spacing"
-msgstr ""
+msgstr "ਦਿੱਖ ਖਾਲੀ ਥਾਂ"
 
 #: app/dia-props.c:167
 msgid "Grid"
@@ -372,7 +380,7 @@ msgstr "%s ਗਲਤੀ: ਕੋਈ ਇੰਪੁੱਟ ਫਾਇਲ਼ ਨਹੀ ਹ
 #: app/diaconv.c:227
 #, c-format
 msgid "%s error: only one input file expected."
-msgstr ""
+msgstr "%s ਗਲਤੀ: ਸਿਰਫ ਇੱਕ ਇੰਪੁੱਟ ਫਾਇਲ ਲੋੜੀਦੀ ਸੀ"
 
 #: app/diaconv.c:240
 #, c-format
@@ -381,76 +389,76 @@ msgstr ""
 
 #: app/diagram_tree_menu.c:45
 msgid "/_Sort objects"
-msgstr ""
+msgstr "/ਇਕਾਈਆਂ ਕ੍ਰਮਬੱਧ"
 
 #: app/diagram_tree_menu.c:46
 msgid "/Sort objects/by _name"
-msgstr ""
+msgstr "/ਇਕਾਈਆਂ ਕ੍ਰਮਬੱਧ/ਨਾਂ"
 
 #: app/diagram_tree_menu.c:48
 msgid "/Sort objects/by _type"
-msgstr ""
+msgstr "/ਇਕਾਈਆਂ ਕ੍ਰਮਬੱਧ/ਕਿਸਮ"
 
 #: app/diagram_tree_menu.c:50
 msgid "/Sort objects/as _inserted"
-msgstr ""
+msgstr "/ਇਕਾਈਆਂ ਕ੍ਰਮਬੱਧ/ਸ਼ਾਮਿਲ"
 
 #: app/diagram_tree_menu.c:53
 msgid "/Sort objects/All by name"
-msgstr ""
+msgstr "/ਇਕਾਈਆਂ ਕ੍ਰਮਬੱਧ/ਸਭ ਨਾਂ ਨਾਲ"
 
 #: app/diagram_tree_menu.c:55
 msgid "/Sort objects/All by type"
-msgstr ""
+msgstr "/ਇਕਾਈਆਂ ਕ੍ਰਮਬੱਧ/ਸਭ ਕਿਸਮ ਨਾਲ"
 
 #: app/diagram_tree_menu.c:57
 msgid "/Sort objects/All as inserted"
-msgstr ""
+msgstr "/ਇਕਾਈਆਂ ਕ੍ਰਮਬੱਧ/ਸਭ ਸ਼ਾਮਿਲ"
 
 #: app/diagram_tree_menu.c:59
 msgid "/Sort objects/_Default"
-msgstr ""
+msgstr "/ਇਕਾਈਆਂ ਕ੍ਰਮਬੱਧ/ਮੂਲ/"
 
 #: app/diagram_tree_menu.c:60
 msgid "/Sort objects/Default/by _name"
-msgstr ""
+msgstr "/ਇਕਾਈਆਂ ਕ੍ਰਮਬੱਧ/ਮੂਲ/ਨਾਂ"
 
 #: app/diagram_tree_menu.c:62
 msgid "/Sort objects/Default/by _type"
-msgstr ""
+msgstr "/ਇਕਾਈਆਂ ਕ੍ਰਮਬੱਧ/ਮੂਲ/ਕਿਸਮ"
 
 #: app/diagram_tree_menu.c:64
 msgid "/Sort objects/Default/as _inserted"
-msgstr ""
+msgstr "/ਇਕਾਈਆਂ ਕ੍ਰਮਬੱਧ/ਮੂਲ/ਸ਼ਾਮਿਲ"
 
 #: app/diagram_tree_menu.c:66
 msgid "/Sort _diagrams"
-msgstr ""
+msgstr "/ਸ਼ਕਲ ਕ੍ਰਮਬੱਧ"
 
 #: app/diagram_tree_menu.c:67
 msgid "/Sort _diagrams/by _name"
-msgstr ""
+msgstr "/ਸ਼ਕਲ ਕ੍ਰਮਬੱਧ/ਨਾਂ"
 
 #: app/diagram_tree_menu.c:69
 msgid "/Sort _diagrams/as _inserted"
-msgstr ""
+msgstr "/ਸ਼ਕਲ ਕ੍ਰਮਬੱਧ/ਸ਼ਾਮਿਲ"
 
 #: app/diagram_tree_menu.c:71
 msgid "/Sort diagrams/_Default"
-msgstr ""
+msgstr "/ਸ਼ਕਲ ਕ੍ਰਮਬੱਧ/ਮੂਲ"
 
 #: app/diagram_tree_menu.c:72
 msgid "/Sort diagrams/Default/by _name"
-msgstr ""
+msgstr "/ਸ਼ਕਲ ਕ੍ਰਮਬੱਧ/ਮੂਲ/ਨਾਂ"
 
 #: app/diagram_tree_menu.c:74
 msgid "/Sort diagrams/Default/as _inserted"
-msgstr ""
+msgstr "/ਸ਼ਕਲ ਕ੍ਰਮਬੱਧ/ਮੂਲ/ਸ਼ਾਮਿਲ"
 
 #: app/diagram_tree_menu.c:82
 #: app/diagram_tree_menu.c:93
 msgid "/_Locate"
-msgstr ""
+msgstr "/ਸਥਿਤੀ"
 
 #: app/diagram_tree_menu.c:83
 msgid "/_Properties"
@@ -458,11 +466,11 @@ msgstr "/ਵਿਸ਼ੇਸਤਾ"
 
 #: app/diagram_tree_menu.c:84
 msgid "/_Hide this type"
-msgstr "/ਇਹ ਕਿਸਮ ਓਹਲੇ ਕਰੋ"
+msgstr "/ਇਹ ਕਿਸਮ ਓਹਲੇ"
 
 #: app/diagram_tree_window.c:76
 msgid "Diagram tree"
-msgstr "ਡਾਈਗਰਾਮ ਟਰੀ"
+msgstr "ਡਾਈਗਰਾਮ ਲੜੀ"
 
 #: app/dialogs.c:51
 msgid "Ok"
@@ -509,15 +517,15 @@ msgstr "ਸੱਜੇਃ"
 #. Scaling
 #: app/diapagelayout.c:252
 msgid "Scaling"
-msgstr ""
+msgstr "ਪੈਮਾਨਾ"
 
 #: app/diapagelayout.c:263
 msgid "Scale:"
-msgstr ""
+msgstr "ਪੈਮਾਨਾ:"
 
 #: app/diapagelayout.c:275
 msgid "Fit to:"
-msgstr ""
+msgstr "ਅਨੁਕੂਲ:"
 
 #: app/diapagelayout.c:287
 msgid "by"
@@ -531,7 +539,7 @@ msgstr "%0.3gcm x %0.3gcm"
 #: app/diapagelayout.c:786
 #: app/pagesetup.c:73
 msgid "Page Setup"
-msgstr "ਪੇਜ਼ ਵਿਵਸਥਾ"
+msgstr "ਸਫਾ ਵਿਵਸਥਾ"
 
 #: app/disp_callbacks.c:79
 #: app/properties.c:153
@@ -552,11 +560,11 @@ msgstr ""
 
 #: app/display.c:95
 msgid "Diagram modified!"
-msgstr "ਡਾਈਗਰਾਮ ਸੋਧਿਆ ਗਿਆ!"
+msgstr "ਸ਼ਕਲ ਸੋਧਿਆ ਗਿਆ!"
 
 #: app/display.c:998
 msgid "<unnamed>"
-msgstr ""
+msgstr "<ਬਿਨ-ਨਾਂ>"
 
 #: app/display.c:1000
 #, c-format
@@ -564,14 +572,16 @@ msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr ""
+"ਸ਼ਕਲ %s\n"
+"ਨੂੰ ਸੰਭਾਲੀ ਨਹੀਂ ਗਈ ਹੈ| ਹੁਣ ਸੰਭਾਲਣਾ ਹੈ?"
 
 #: app/display.c:1011
 msgid "Close Diagram"
-msgstr ""
+msgstr "ਸ਼ਕਲ ਬੰਦ"
 
 #: app/display.c:1016
 msgid "Discard Changes"
-msgstr ""
+msgstr "ਤਬਦੀਲੀਆਂ ਰੱਦ"
 
 #: app/export_png.c:134
 #: app/load_save.c:867
@@ -605,7 +615,7 @@ msgstr ""
 #. Create a dialog
 #: app/export_png.c:299
 msgid "PNG Export Options"
-msgstr ""
+msgstr "PNG ਨਿਰਯਾਤ ਚੋਣ"
 
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
@@ -625,16 +635,16 @@ msgstr "ਚਿੱਤਰ ਉਚਾਈਃ"
 
 #: app/export_png.c:354
 msgid "Portable Network Graphics"
-msgstr ""
+msgstr "Portable Network Graphics"
 
 #: app/filedlg.c:114
 #: app/filedlg.c:382
 msgid "By extension"
-msgstr ""
+msgstr "ਐਕਸ਼ਟੇਸ਼ਨ ਅਨੁਸਾਰ"
 
 #: app/filedlg.c:175
 msgid "Open Diagram"
-msgstr "ਡਾਈਗਰਾਮ ਖੋਲ੍ਹੋ"
+msgstr "ਸ਼ਕਲ ਖੋਲ੍ਹੋ"
 
 #: app/filedlg.c:203
 msgid "Open Options"
@@ -643,7 +653,7 @@ msgstr "ਖੋਲਣ ਲਈ ਚੋਣ"
 #: app/filedlg.c:211
 #: app/filedlg.c:500
 msgid "Determine file type:"
-msgstr ""
+msgstr "ਫਾਇਲ ਕਿਸਮ ਜਾਣੋ:"
 
 #: app/filedlg.c:248
 msgid ""
@@ -658,6 +668,8 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
+"ਫਾਇਲ %s ਪਹਿਲਾਂ ਮੌਜੂਦ ਹੈ,\n"
+"ਕੀ ਤੁਸੀਂ ਇਸ ਉੱਪਰ ਲਿਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: app/filedlg.c:262
 #: app/filedlg.c:434
@@ -695,7 +707,7 @@ msgstr "ਨਿਰਯਾਤ ਚੋਣ"
 
 #: app/interface.c:52
 msgid "Modify object(s)"
-msgstr ""
+msgstr "ਸੋਧੀ ਇਕਾਈ"
 
 #: app/interface.c:53
 msgid "Modify"
@@ -710,7 +722,7 @@ msgstr "ਵੱਡਅਕਾਰ"
 
 #: app/interface.c:62
 msgid "Scroll around the diagram"
-msgstr ""
+msgstr "ਸ਼ਕਲ ਦੁਆਲੇ ਕਰੋ"
 
 #: app/interface.c:63
 msgid "Scroll"
@@ -753,7 +765,7 @@ msgstr "ਬਹੁਭੁਜ"
 #: app/interface.c:87
 #: app/interface.c:88
 msgid "Beziergon"
-msgstr ""
+msgstr "ਬੀਜਿਈਰਗੋਨ"
 
 #: app/interface.c:92
 #: app/interface.c:93
@@ -769,7 +781,7 @@ msgstr "ਚਾਪ"
 #: app/interface.c:102
 #: app/interface.c:103
 msgid "Zigzagline"
-msgstr ""
+msgstr "ਜਿਗਜਾਗ ਰੇਖਾ"
 
 #: app/interface.c:107
 #: app/interface.c:108
@@ -788,7 +800,7 @@ msgstr "ਚਿੱਤਰ"
 
 #: app/interface.c:390
 msgid "Diagram menu."
-msgstr "ਡਾਈਗਰਾਮ ਮੇਨੂ"
+msgstr "ਸ਼ਕਲ ਮੇਨੂ"
 
 #: app/interface.c:428
 msgid "Pops up the Navigation window."
@@ -868,7 +880,7 @@ msgstr "ਕੋਈ ਨਹੀ"
 
 #: app/layer_dialog.c:971
 msgid "Edit Layer Attributes"
-msgstr ""
+msgstr "ਪਰਤ ਵਿਸ਼ੇਸਤਾ ਸੋਧ"
 
 #: app/layer_dialog.c:990
 msgid "Layer name:"
@@ -917,7 +929,7 @@ msgstr ""
 
 #: app/load_save.c:318
 msgid "You must specify a file, not a directory.\n"
-msgstr ""
+msgstr "ਤੁਹਾਨੂੰ ਇੱਕ ਫਾਇਲ ਨਿਰਧਾਰਿਤ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ, ਨਾ ਕਿ ਡਾਇਰੈਕਟਰੀ\n"
 
 #: app/load_save.c:325
 #: plug-ins/dxf/dxf-import.c:1304
@@ -969,7 +981,7 @@ msgstr "/ਫਾਇਲ"
 #: app/menus.c:51
 #: app/menus.c:86
 msgid "/File/_New"
-msgstr "/ਫਾਇਲ/ਨਵੀ"
+msgstr "/ਫਾਇਲ/ਨਵਾਂ"
 
 #: app/menus.c:53
 #: app/menus.c:88
@@ -988,11 +1000,11 @@ msgstr "/ਫਾਇਲ/--"
 
 #: app/menus.c:56
 msgid "/File/_Diagram tree"
-msgstr "/ਫਾਇਲ/ਡਾਈਗਰਾਮ ਟਰੀ"
+msgstr "/ਫਾਇਲ/ਸ਼ਕਲ ਲੜੀ"
 
 #: app/menus.c:58
 msgid "/File/Sheets and Objects..."
-msgstr "/ਫਾਇਲ/ਸ਼ੀਟਾਂ ਅਤੇ ਆਬਜੈਕਟ਼"
+msgstr "/ਫਾਇਲ/ਸ਼ੀਟਾਂ ਅਤੇ ਇਕਾਈਆਂ..."
 
 #: app/menus.c:61
 msgid "/File/_Preferences..."
@@ -1037,7 +1049,7 @@ msgstr "/ਫਾਇਲ/ਇਸ ਤਰਾਂ ਸੰਭਾਲੋ..."
 
 #: app/menus.c:94
 msgid "/File/_Export..."
-msgstr "/ਫਾਇਲ/ਨਿਰਯਾਤ਼"
+msgstr "/ਫਾਇਲ/ਨਿਰਯਾਤ..."
 
 #: app/menus.c:96
 msgid "/File/Page Set_up..."
@@ -1057,11 +1069,11 @@ msgstr "/ਸੋਧ"
 
 #: app/menus.c:107
 msgid "/Edit/_Undo"
-msgstr ""
+msgstr "/ਸੋਧ/ਵਾਪਿਸ"
 
 #: app/menus.c:109
 msgid "/Edit/_Redo"
-msgstr ""
+msgstr "/ਸੋਧ/ਵਾਪਿਸ ਪਹਿਲਾਂ"
 
 #: app/menus.c:111
 #: app/menus.c:121
@@ -1118,11 +1130,11 @@ msgstr "/ਵੇਖੋ"
 
 #: app/menus.c:131
 msgid "/View/Zoom _In"
-msgstr "/ਵੇਖੋ/ਅਕਾਰ ਵੱਡਾ ਕਰੋ"
+msgstr "/ਵੇਖੋ/ਅਕਾਰ ਵੱਡਾ"
 
 #: app/menus.c:133
 msgid "/View/Zoom _Out"
-msgstr "/ਵੇਖੋ/ਅਕਾਰ ਛੋਟਾ ਕਰੋ"
+msgstr "/ਵੇਖੋ/ਅਕਾਰ ਛੋਟਾ"
 
 #: app/menus.c:135
 msgid "/View/_Zoom"
@@ -1179,7 +1191,7 @@ msgstr ""
 
 #: app/menus.c:152
 msgid "/View/Show _Grid"
-msgstr ""
+msgstr "/ਵੇਖੋ/ਜਾਲ ਵੇਖਾਓ"
 
 #: app/menus.c:153
 msgid "/View/_Snap To Grid"
@@ -1187,7 +1199,7 @@ msgstr ""
 
 #: app/menus.c:154
 msgid "/View/Show _Rulers"
-msgstr ""
+msgstr "/ਵੇਖੋ/ਪੈਮਾਨਾ ਵੇਖਾਓ"
 
 #: app/menus.c:155
 msgid "/View/Show _Connection Points"
@@ -1195,16 +1207,16 @@ msgstr ""
 
 #: app/menus.c:157
 msgid "/View/New _View"
-msgstr ""
+msgstr "/ਵੇਖੋ/ਨਵਾਂ ਦਰਿਸ਼"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
 #: app/menus.c:159
 msgid "/View/Show _All"
-msgstr ""
+msgstr "/ਵੇਖੋ/ਸਭ ਵੇਖਾਓ"
 
 #: app/menus.c:160
 msgid "/View/Re_draw"
-msgstr ""
+msgstr "/ਵੇਖੋ/ਮੁੜ-ਵਾਹੋ"
 
 #: app/menus.c:161
 msgid "/_Objects"
@@ -1212,19 +1224,19 @@ msgstr "/ਇਕਾਈ "
 
 #: app/menus.c:163
 msgid "/Objects/Send to _Back"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਪਿੱਛੇ ਭੇਜੋ"
 
 #: app/menus.c:164
 msgid "/Objects/Bring to _Front"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਅੱਗੇ ਲਿਆਓ"
 
 #: app/menus.c:165
 msgid "/Objects/Send Backwards"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਪਿੱਛੇ ਕਰੋ"
 
 #: app/menus.c:166
 msgid "/Objects/Bring Forwards"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਅੱਗੇ ਕਰੋ"
 
 #: app/menus.c:167
 #: app/menus.c:171
@@ -1235,16 +1247,16 @@ msgstr "/ਇਕਾਈ /---"
 
 #: app/menus.c:168
 msgid "/Objects/_Group"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਸਮੂਹ"
 
 #. deliberately not using Ctrl+U for Ungroup
 #: app/menus.c:170
 msgid "/Objects/_Ungroup"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਸਮੂਹ ਵੱਖ"
 
 #: app/menus.c:172
 msgid "/Objects/_Parent"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਮੁੱਢਲੀ"
 
 #: app/menus.c:173
 msgid "/Objects/_Unparent"
@@ -1256,43 +1268,43 @@ msgstr ""
 
 #: app/menus.c:176
 msgid "/Objects/Align"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਇਕਸਾਰ"
 
 #: app/menus.c:178
 msgid "/Objects/Align/Left"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਇਕਸਾਰ/ਖੱਬੇ"
 
 #: app/menus.c:179
 msgid "/Objects/Align/Center"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਇਕਸਾਰ/ਕੇਂਦਰ"
 
 #: app/menus.c:180
 msgid "/Objects/Align/Right"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਇਕਸਾਰ/ਸੱਜੇ"
 
 #: app/menus.c:181
 msgid "/Objects/Align/Top"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਇਕਸਾਰ/ਉੱਪਰ"
 
 #: app/menus.c:182
 msgid "/Objects/Align/Middle"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਇਕਸਾਰ/ਮੱਧ"
 
 #: app/menus.c:183
 msgid "/Objects/Align/Bottom"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਇਕਸਾਰ/ਹੇਠਾਂ"
 
 #: app/menus.c:184
 msgid "/Objects/Align/---"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਇਕਸਾਰ/---"
 
 #: app/menus.c:185
 msgid "/Objects/Align/Spread Out Horizontally"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਇਕਸਾਰ/ਖਿਤਿਜੀ ਫੈਲਾਓ"
 
 #: app/menus.c:186
 msgid "/Objects/Align/Spread Out Vertically"
-msgstr ""
+msgstr "/ਇਕਾਈ/ਇਕਸਾਰ/ਲੰਬਕਾਰੀ ਫੈਲਾਓ"
 
 #: app/menus.c:187
 msgid "/Objects/Align/Adjacent"
@@ -1304,28 +1316,28 @@ msgstr ""
 
 #: app/menus.c:190
 msgid "/Objects/_Properties..."
-msgstr ""
+msgstr "/ਇਕਾਈ/ਵਿਸ਼ੇਸਤਾ...."
 
 #: app/menus.c:191
 msgid "/_Select"
-msgstr ""
+msgstr "/ਚੋਣ"
 
 #: app/menus.c:193
 msgid "/Select/All"
-msgstr ""
+msgstr "/ਚੋਣ/ਸਭ"
 
 #: app/menus.c:194
 msgid "/Select/None"
-msgstr ""
+msgstr "/ਚੋਣ/ਕੋਈ ਨਹੀਂ"
 
 #: app/menus.c:195
 #: app/menus.c:208
 msgid "/Select/Invert"
-msgstr ""
+msgstr "/ਚੋਣ/ਉੱਲਟ"
 
 #: app/menus.c:196
 msgid "/Select/Connected"
-msgstr ""
+msgstr "/ਚੋਣ/ਜੁੜੇ"
 
 #: app/menus.c:197
 msgid "/Select/Transitive"
@@ -1333,96 +1345,96 @@ msgstr ""
 
 #: app/menus.c:198
 msgid "/Select/Same Type"
-msgstr ""
+msgstr "/ਚੋਣ/ਇੱਕ ਕਿਸਮ"
 
 #: app/menus.c:199
 msgid "/Select/---"
-msgstr ""
+msgstr "/ਚੋਣ/---"
 
 #: app/menus.c:200
 msgid "/Select/Replace"
-msgstr ""
+msgstr "/ਚੋਣ/ਤਬਦੀਲ"
 
 #: app/menus.c:202
 msgid "/Select/Union"
-msgstr ""
+msgstr "/ਚੋਣ/ਸੰਯੁਕਤ"
 
 #: app/menus.c:204
 msgid "/Select/Intersect"
-msgstr ""
+msgstr "/ਚੋਣ/ਸ਼ਾਮਿਲ"
 
 #: app/menus.c:206
 msgid "/Select/Remove"
-msgstr ""
+msgstr "/ਚੋਣ/ਹਟਾਓ"
 
 #: app/menus.c:210
 msgid "/_Tools"
-msgstr ""
+msgstr "/ਸੰਦ"
 
 #: app/menus.c:212
 msgid "/Tools/Modify"
-msgstr ""
+msgstr "/ਸੰਦ/ਸੋਧਿਆ"
 
 #: app/menus.c:213
 msgid "/Tools/Magnify"
-msgstr ""
+msgstr "/ਸੰਦ/ਵੱਡ ਆਕਾਰੀ"
 
 #: app/menus.c:214
 msgid "/Tools/Scroll"
-msgstr ""
+msgstr "/ਸੰਦ/ਸਕਰੋਲ"
 
 #: app/menus.c:215
 msgid "/Tools/Text"
-msgstr ""
+msgstr "/ਸੰਦ/ਪਾਠ"
 
 #: app/menus.c:216
 msgid "/Tools/Box"
-msgstr ""
+msgstr "/ਸੰਦ/ਬਕਸਾ"
 
 #: app/menus.c:217
 msgid "/Tools/Ellipse"
-msgstr ""
+msgstr "/ਸੰਦ/ਅੰਡਾਕਾਰ"
 
 #: app/menus.c:218
 msgid "/Tools/Polygon"
-msgstr ""
+msgstr "/ਸੰਦ/ਬਹੁਭੁਜ"
 
 #: app/menus.c:219
 msgid "/Tools/Beziergon"
-msgstr ""
+msgstr "/ਸੰਦ/ਬੇਜ਼ੀਰਗੋਨ"
 
 #: app/menus.c:220
 #: app/menus.c:226
 msgid "/Tools/---"
-msgstr ""
+msgstr "/ਸੰਦ/---"
 
 #: app/menus.c:221
 msgid "/Tools/Line"
-msgstr ""
+msgstr "/ਸੰਦ/ਰੇਖਾ"
 
 #: app/menus.c:222
 msgid "/Tools/Arc"
-msgstr ""
+msgstr "/ਸੰਦ/ਚਾਪ"
 
 #: app/menus.c:223
 msgid "/Tools/Zigzagline"
-msgstr ""
+msgstr "/ਸੰਦ/ਜਿਗਜਾਗ ਰੇਖਾ"
 
 #: app/menus.c:224
 msgid "/Tools/Polyline"
-msgstr ""
+msgstr "/ਸੰਦ/ਬਹੁ ਰੇਖਾ"
 
 #: app/menus.c:225
 msgid "/Tools/Bezierline"
-msgstr ""
+msgstr "/ਸੰਦ/ਬੇਜ਼ੀਅਰ ਰੇਖਾ"
 
 #: app/menus.c:227
 msgid "/Tools/Image"
-msgstr ""
+msgstr "/ਸੰਦ/ਚਿੱਤਰ"
 
 #: app/menus.c:228
 msgid "/_Input Methods"
-msgstr ""
+msgstr "/ਇੰਪੁੱਟ ਢੰਗ"
 
 #: app/menus.c:399
 msgid "NULL tooldata in tool_menu_select"
@@ -1430,7 +1442,7 @@ msgstr ""
 
 #: app/menus.c:497
 msgid "Diagram Menu"
-msgstr ""
+msgstr "ਸ਼ਕਲ ਮੇਨੂ"
 
 #: app/menus.c:632
 #, c-format
@@ -1445,12 +1457,12 @@ msgstr ""
 
 #: app/paginate_psprint.c:230
 msgid "Select Printer"
-msgstr ""
+msgstr "ਪ੍ਰਿੰਟਰ ਚੁਣੋ"
 
 #: app/paginate_psprint.c:242
 #: sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
-msgstr ""
+msgstr "ਪ੍ਰਿੰਟਰ"
 
 #: app/paginate_psprint.c:255
 #: sheets/Misc.sheet.in.h:1
@@ -1479,17 +1491,17 @@ msgstr ""
 
 #: app/plugin-manager.c:200
 msgid "Plug-ins"
-msgstr ""
+msgstr "ਪਲੱਗ-ਇਨ"
 
 #: app/plugin-manager.c:256
 msgid "Loaded"
-msgstr ""
+msgstr "ਲੋਡ"
 
 #: app/plugin-manager.c:263
 #: objects/UML/class.c:107
 #: objects/UML/large_package.c:128
 msgid "Name"
-msgstr "ਨਾਮ"
+msgstr "ਨਾਂ"
 
 #: app/plugin-manager.c:269
 msgid "Description"
@@ -1497,19 +1509,19 @@ msgstr "ਵੇਰਵਾ"
 
 #: app/plugin-manager.c:278
 msgid "Load at Startup"
-msgstr ""
+msgstr "ਸ਼ੁਰੂ ਤੇ ਲੋਡ ਕਰੋ"
 
 #: app/plugin-manager.c:285
 msgid "File Name"
-msgstr "ਫਾਇਲ ਨਾਉ"
+msgstr "ਫਾਇਲ ਨਾਂ"
 
 #: app/preferences.c:100
 msgid "User Interface"
-msgstr ""
+msgstr "ਉਪਭੋਗਤਾ ਇੰਟਰਫੇਸ"
 
 #: app/preferences.c:101
 msgid "Diagram Defaults"
-msgstr ""
+msgstr "ਸ਼ਕਲ ਮੂਲ"
 
 #: app/preferences.c:102
 msgid "View Defaults"
@@ -1517,7 +1529,7 @@ msgstr "ਮੂਲ ਦਰਿਸ਼"
 
 #: app/preferences.c:104
 msgid "Diagram Tree"
-msgstr ""
+msgstr "ਸ਼ਕਲ ਲੜੀ"
 
 #: app/preferences.c:118
 msgid "Reset tools after create"
@@ -1543,7 +1555,7 @@ msgstr ""
 
 #: app/preferences.c:123
 msgid "Use menu bar"
-msgstr ""
+msgstr "ਮੇਨੂ ਪੱਟੀ ਵਰਤੋਂ"
 
 #: app/preferences.c:125
 msgid "Keep tool box on top of diagram windows"
@@ -1551,7 +1563,7 @@ msgstr ""
 
 #: app/preferences.c:127
 msgid "New diagram:"
-msgstr ""
+msgstr "ਨਵੀਂ ਸ਼ਕਲ:"
 
 #: app/preferences.c:128
 msgid "Portrait"
@@ -1559,51 +1571,51 @@ msgstr ""
 
 #: app/preferences.c:130
 msgid "Paper type:"
-msgstr ""
+msgstr "ਸਫਾ ਕਿਸਮ:"
 
 #: app/preferences.c:133
 msgid "Background Color:"
-msgstr ""
+msgstr "ਪਿੱਠਭੂਮੀ ਰੰਗ:"
 
 #: app/preferences.c:136
 msgid "New window:"
-msgstr ""
+msgstr "ਨਵਾਂ ਝਰੋਖਾ:"
 
 #: app/preferences.c:137
 msgid "Width:"
-msgstr ""
+msgstr "ਚੌੜਾਈ:"
 
 #: app/preferences.c:138
 msgid "Height:"
-msgstr ""
+msgstr "ਉਚਾਈ:"
 
 #: app/preferences.c:139
 msgid "Magnify:"
-msgstr ""
+msgstr "ਵੱਡਆਕਾਰੀ:"
 
 #: app/preferences.c:142
 msgid "Connection Points:"
-msgstr ""
+msgstr "ਜੋੜ:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
 #: app/preferences.c:143
 #: app/preferences.c:147
 #: app/preferences.c:153
 msgid "Visible"
-msgstr ""
+msgstr "ਦਿੱਖ"
 
 #: app/preferences.c:146
 msgid "Page breaks:"
-msgstr ""
+msgstr "ਸਫਾਂ ਅੰਤਰਾਲ:"
 
 #: app/preferences.c:148
 #: app/preferences.c:158
 msgid "Color:"
-msgstr ""
+msgstr "ਰੰਗ:"
 
 #: app/preferences.c:149
 msgid "Solid lines"
-msgstr ""
+msgstr "ਗੂੜੀਆਂ ਰੇਖਾਵਾਂ"
 
 #: app/preferences.c:154
 msgid "Snap to"
@@ -1615,7 +1627,7 @@ msgstr ""
 
 #: app/preferences.c:156
 msgid "X Size:"
-msgstr ""
+msgstr "X ਆਕਾਰ:"
 
 #: app/preferences.c:157
 msgid "Y Size:"
@@ -6239,8 +6251,6 @@ msgstr ""
 #: sheets/chronogram.sheet.in.h:2
 msgid "Data line"
 msgstr "ਡਾਟਾ ਕਤਾਰ"
-""
-""
 
 #: sheets/chronogram.sheet.in.h:3
 msgid "Objects to design chronogram charts"
@@ -6317,7 +6327,6 @@ msgstr ""
 #: sheets/ciscocomputer.sheet.in.h:17
 msgid "Laptop"
 msgstr "ਲੈਪਟਾਪ"
-""
 
 #: sheets/ciscocomputer.sheet.in.h:18
 msgid "Macintosh"
@@ -6350,7 +6359,6 @@ msgstr "PDA"
 #: sheets/ciscocomputer.sheet.in.h:26
 msgid "Relational Database"
 msgstr "ਰੀਲੇਸ਼ਨਲ ਡਾਟਾਬੇਸ"
-""
 
 #: sheets/ciscocomputer.sheet.in.h:27
 msgid "SC2200/VSC3000 host"
