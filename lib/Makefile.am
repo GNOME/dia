@@ -40,6 +40,8 @@ libdia_a_SOURCES =  \
 		connection.h \
 		element.c \
 		element.h \
+		widgets.c \
+		widgets.h \
 		dummy_dep.h
 
 CPPFLAGS = @GTK_CFLAGS@

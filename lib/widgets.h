@@ -1,0 +1,93 @@
+#ifndef WIDGETS_H
+#define WIDGETS_H
+
+#include <gdk/gdk.h>
+#include <gtk/gtkmenu.h>
+#include <gtk/gtkoptionmenu.h>
+
+#include "font.h"
+#include "render.h"
+
+/* DiaFontSelector: */
+#define DIAFONTSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_font_selector_get_type (), DiaFontSelector)
+#define DIAFONTSELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_font_selector_get_type (), DiaFontSelectorClass)
+#define IS_DIAFONTSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_font_selector_get_type ())
+
+typedef struct _DiaFontSelector       DiaFontSelector;
+typedef struct _DiaFontSelectorClass  DiaFontSelectorClass;
+
+struct _DiaFontSelector
+{
+  GtkOptionMenu omenu;
+
+  GtkMenu *font_menu;
+};
+
+struct _DiaFontSelectorClass
+{
+  GtkOptionMenuClass parent_class;
+};
+
+guint          dia_font_selector_get_type        (void);
+GtkWidget*     dia_font_selector_new             (void);
+Font *         dia_font_selector_get_font        (DiaFontSelector *fs);
+
+/* DiaAlignmentSelector: */
+#define DIAALIGNMENTSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_alignment_selector_get_type (), DiaAlignmentSelector)
+#define DIAALIGNMENTSELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_alignment_selector_get_type (), DiaAlignmentSelectorClass)
+#define IS_DIAALIGNMENTSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_alignment_selector_get_type ())
+
+typedef struct _DiaAlignmentSelector       DiaAlignmentSelector;
+typedef struct _DiaAlignmentSelectorClass  DiaAlignmentSelectorClass;
+
+struct _DiaAlignmentSelector
+{
+  GtkOptionMenu omenu;
+
+  GtkMenu *alignment_menu;
+};
+
+struct _DiaAlignmentSelectorClass
+{
+  GtkOptionMenuClass parent_class;
+};
+
+guint      dia_alignment_selector_get_type      (void);
+GtkWidget* dia_alignment_selector_new           (void);
+Alignment  dia_alignment_selector_get_alignment (DiaAlignmentSelector *as);
+void       dia_alignment_selector_set_alignment (DiaAlignmentSelector *as,
+						 Alignment align);
+
+/* DiaLineStyleSelector: */
+#define DIALINESTYLESELECTOR(obj)          GTK_CHECK_CAST (obj, dia_line_style_selector_get_type (), DiaLinestyleSelector)
+#define DIALINESTYLESELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_line_style_selector_get_type (), DiaLinestyleSelectorClass)
+#define IS_DIALINESTYLESELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_line_style_selector_get_type ())
+
+typedef struct _DiaLineStyleSelector       DiaLineStyleSelector;
+typedef struct _DiaLineStyleSelectorClass  DiaLineStyleSelectorClass;
+
+struct _DiaLineStyleSelector
+{
+  GtkOptionMenu omenu;
+
+  GtkMenu *linestyle_menu;
+};
+
+struct _DiaLineStyleSelectorClass
+{
+  GtkOptionMenuClass parent_class;
+};
+
+guint      dia_line_style_selector_get_type      (void);
+GtkWidget* dia_line_style_selector_new           (void);
+LineStyle  dia_line_style_selector_get_linestyle (DiaLineStyleSelector *as);
+void       dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
+						  LineStyle linestyle);
+#endif /* WIDGETS_H */
+
+
+
+
+
+
+

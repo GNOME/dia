@@ -1,3 +1,10 @@
+1998-10-28  Alexander Larsson  <alla@lysator.liu.se>
+
+	* lib/widgets.[ch]:
+	* lib/Makefile.am:
+	New files, added widgets for selecting fonts, alignment
+	and line-style. Will be used later.
+
 1998-10-12  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/Makefile.am:
