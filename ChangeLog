@@ -1,3 +1,16 @@
+1999-10-07  James Henstridge  <james@daa.com.au>
+
+	* objects/custom/shape_info.c (parse_style): added a few extra synonyms
+	for foreground and background.
+
+	* objects/custom/custom_object.c (custom_draw): use the new style
+	information when drawing the object.
+
+	* objects/custom/shape_info.[ch]: store all shape style info in the
+	GraphicStyle structure.  This makes adding support for extra CSS
+	attributes easier -- we don't have to keep adding extra arguments to
+	a lot of functions.
+
 1999-10-05  James Henstridge  <james@daa.com.au>
 
 	* lib/intl.c (unalias_lang): merged in changes from the i18n code

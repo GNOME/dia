@@ -653,6 +653,29 @@ custom_move(Custom *custom, Point *to)
 }
 
 static void
+get_colour(Custom *custom, Color *colour, gint32 c)
+{
+  switch (c) {
+  case COLOUR_NONE:
+    break;
+  case COLOUR_FOREGROUND:
+    *colour = custom->border_color;
+    break;
+  case COLOUR_BACKGROUND:
+    *colour = custom->inner_color;
+    break;
+  case COLOUR_TEXT:
+    *colour = custom->text->color;
+    break;
+  default:
+    colour->red   = ((c & 0xff0000) >> 16) / 255.0;
+    colour->green = ((c & 0x00ff00) >> 8) / 255.0;
+    colour->blue  =  (c & 0x0000ff) / 255.0;
+    break;
+  }
+}
+
+static void
 custom_draw(Custom *custom, Renderer *renderer)
 {
   static GArray *arr = NULL, *barr = NULL;
@@ -681,47 +704,44 @@ custom_draw(Custom *custom, Renderer *renderer)
 
   for (tmp = custom->info->display_list; tmp; tmp = tmp->next) {
     GraphicElement *el = tmp->data;
+    Color fg, bg;
 
-    if (el->any.line_width != cur_line)
+    if (el->any.s.line_width != cur_line)
       renderer->ops->set_linewidth(renderer,
-				   custom->border_width * el->any.line_width);
-    cur_line = el->any.line_width;
+				   custom->border_width*el->any.s.line_width);
+    cur_line = el->any.s.line_width;
+    get_colour(custom, &fg, el->any.s.stroke);
+    get_colour(custom, &bg, el->any.s.fill);
     switch (el->type) {
     case GE_LINE:
       transform_coord(custom, &el->line.p1, &p1);
       transform_coord(custom, &el->line.p2, &p2);
-      renderer->ops->draw_line(renderer, &p1, &p2,
-			       el->any.swap_stroke ?
-			         &custom->inner_color :
-			         &custom->border_color);
+      if (el->any.s.stroke != COLOUR_NONE)
+	renderer->ops->draw_line(renderer, &p1, &p2, &fg);
       break;
     case GE_POLYLINE:
       g_array_set_size(arr, el->polyline.npoints);
       for (i = 0; i < el->polyline.npoints; i++)
 	transform_coord(custom, &el->polyline.points[i],
 			&g_array_index(arr, Point, i));
-      renderer->ops->draw_polyline(renderer,
-				   (Point *)arr->data, el->polyline.npoints,
-				   el->any.swap_stroke ?
-				     &custom->inner_color :
-				     &custom->border_color);
+      if (el->any.s.stroke != COLOUR_NONE)
+	renderer->ops->draw_polyline(renderer,
+				     (Point *)arr->data, el->polyline.npoints,
+				     &fg);
       break;
     case GE_POLYGON:
       g_array_set_size(arr, el->polygon.npoints);
       for (i = 0; i < el->polygon.npoints; i++)
 	transform_coord(custom, &el->polygon.points[i],
 			&g_array_index(arr, Point, i));
-      if (custom->show_background) 
+      if (custom->show_background && el->any.s.fill != COLOUR_NONE) 
 	renderer->ops->fill_polygon(renderer,
 				    (Point *)arr->data, el->polygon.npoints,
-				    el->any.swap_fill ?
-				      &custom->border_color :
-				      &custom->inner_color);
-      renderer->ops->draw_polygon(renderer,
-				  (Point *)arr->data, el->polygon.npoints,
-				  el->any.swap_stroke ?
-				    &custom->inner_color :
-				    &custom->border_color);
+				    &bg);
+      if (el->any.s.stroke != COLOUR_NONE)
+	renderer->ops->draw_polygon(renderer,
+				    (Point *)arr->data, el->polygon.npoints,
+				    &fg);
       break;
     case GE_RECT:
       transform_coord(custom, &el->rect.corner1, &p1);
@@ -736,31 +756,23 @@ custom_draw(Custom *custom, Renderer *renderer)
 	p1.y = p2.y;
 	p2.y = coord;
       }
-      if (custom->show_background)
-	renderer->ops->fill_rect(renderer, &p1, &p2,
-				 el->any.swap_fill ?
-				   &custom->border_color :
-				   &custom->inner_color);
-      renderer->ops->draw_rect(renderer, &p1, &p2,
-			       el->any.swap_stroke ?
-			         &custom->inner_color :
-			         &custom->border_color);
+      if (custom->show_background && el->any.s.fill != COLOUR_NONE)
+	renderer->ops->fill_rect(renderer, &p1, &p2, &bg);
+      if (el->any.s.stroke != COLOUR_NONE)
+	renderer->ops->draw_rect(renderer, &p1, &p2, &fg);
       break;
     case GE_ELLIPSE:
       transform_coord(custom, &el->ellipse.center, &p1);
-      if (custom->show_background)
+      if (custom->show_background && el->any.s.fill != COLOUR_NONE)
 	renderer->ops->fill_ellipse(renderer, &p1,
 				    el->ellipse.width * custom->xscale,
 				    el->ellipse.height * custom->yscale,
-				    el->any.swap_fill ?
-				      &custom->border_color :
-				      &custom->inner_color);
-      renderer->ops->draw_ellipse(renderer, &p1,
-				  el->ellipse.width * custom->xscale,
-				  el->ellipse.height * custom->yscale,
-				  el->any.swap_stroke ?
-				    &custom->inner_color :
-				    &custom->border_color);
+				    &bg);
+      if (el->any.s.stroke != COLOUR_NONE)
+	renderer->ops->draw_ellipse(renderer, &p1,
+				    el->ellipse.width * custom->xscale,
+				    el->ellipse.height * custom->yscale,
+				    &fg);
       break;
     case GE_PATH:
       g_array_set_size(barr, el->path.npoints);
@@ -776,11 +788,9 @@ custom_draw(Custom *custom, Renderer *renderer)
 	  transform_coord(custom, &el->path.points[i].p1,
 			  &g_array_index(barr, BezPoint, i).p1);
 	}
-      renderer->ops->draw_bezier(renderer, (BezPoint *)barr->data,
-				 el->path.npoints,
-				 el->any.swap_stroke ?
-				   &custom->inner_color :
-				   &custom->border_color);
+      if (el->any.s.stroke != COLOUR_NONE)
+	renderer->ops->draw_bezier(renderer, (BezPoint *)barr->data,
+				   el->path.npoints, &fg);
       break;
     case GE_SHAPE:
       g_array_set_size(barr, el->path.npoints);
@@ -796,17 +806,12 @@ custom_draw(Custom *custom, Renderer *renderer)
 	  transform_coord(custom, &el->path.points[i].p1,
 			  &g_array_index(barr, BezPoint, i).p1);
 	}
-      if (custom->show_background)
+      if (custom->show_background && el->any.s.fill != COLOUR_NONE)
 	renderer->ops->fill_bezier(renderer, (BezPoint *)barr->data,
-				   el->path.npoints,
-				   el->any.swap_fill ?
-				     &custom->border_color :
-				     &custom->inner_color);
-      renderer->ops->draw_bezier(renderer, (BezPoint *)barr->data,
-				 el->path.npoints,
-				 el->any.swap_stroke ?
-				   &custom->inner_color :
-				   &custom->border_color);
+				   el->path.npoints, &bg);
+      if (el->any.s.stroke != COLOUR_NONE)
+	renderer->ops->draw_bezier(renderer, (BezPoint *)barr->data,
+				   el->path.npoints, &fg);
       break;
     }
   }

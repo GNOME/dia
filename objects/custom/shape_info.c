@@ -40,8 +40,7 @@ shape_info_get(ObjectNode obj_node)
 }
 
 static void
-parse_style(xmlNodePtr node, real *line_width, gboolean *swap_stroke,
-	    gboolean *swap_fill)
+parse_style(xmlNodePtr node, GraphicStyle *s)
 {
   char *str, *ptr;
 
@@ -55,19 +54,41 @@ parse_style(xmlNodePtr node, real *line_width, gboolean *swap_stroke,
 
     if (!strncmp("stroke-width:", ptr, 13)) {
       ptr += 13;
-      *line_width = g_strtod(ptr, &ptr);
+      s->line_width = g_strtod(ptr, &ptr);
     } else if (!strncmp("stroke:", ptr, 7)) {
       ptr += 7;
       while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
-      *swap_stroke = !strncmp("background", ptr, 10) ||
-		     !strncmp("fill", ptr, 4);
+
+      if (!strncmp(ptr, "none", 4))
+	s->stroke = COLOUR_NONE;
+      else if (!strncmp(ptr, "foreground", 10) || !strncmp(ptr, "fg", 2) ||
+	       !strncmp(ptr, "default", 7))
+	s->stroke = COLOUR_FOREGROUND;
+      else if (!strncmp(ptr, "background", 10) || !strncmp(ptr, "bg", 2) ||
+	       !strncmp(ptr, "inverse", 7))
+	s->stroke = COLOUR_BACKGROUND;
+      else if (!strncmp(ptr, "text", 4))
+	s->stroke = COLOUR_TEXT;
+      else if (ptr[0] == '#')
+	s->stroke = strtol(ptr+1, NULL, 16) & 0xffffff;
     } else if (!strncmp("fill:", ptr, 5)) {
       ptr += 5;
       while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
-      *swap_fill = !strncmp("foreground", ptr, 10) ||
-		   !strncmp("stroke", ptr, 6);
+
+      if (!strncmp(ptr, "none", 4))
+	s->fill = COLOUR_NONE;
+      else if (!strncmp(ptr, "foreground", 10) || !strncmp(ptr, "fg", 2) ||
+	       !strncmp(ptr, "inverse", 7))
+	s->fill = COLOUR_FOREGROUND;
+      else if (!strncmp(ptr, "background", 10) || !strncmp(ptr, "bg", 2) ||
+	       !strncmp(ptr, "default", 7))
+	s->fill = COLOUR_BACKGROUND;
+      else if (!strncmp(ptr, "text", 4))
+	s->fill = COLOUR_TEXT;
+      else if (ptr[0] == '#')
+	s->fill = strtol(ptr+1, NULL, 16) & 0xffffff;
     }
 
     /* skip up to the next attribute */
@@ -81,8 +102,7 @@ parse_style(xmlNodePtr node, real *line_width, gboolean *swap_stroke,
 #define path_chomp(path) while (path[0]!='\0'&&strchr(" \t\n\r,", path[0])) path++
 
 static void
-parse_path(ShapeInfo *info, const char *path_str, real line_width,
-	   gboolean swap_stroke, gboolean swap_fill)
+parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s)
 {
   enum {
     PATH_MOVE, PATH_LINE, PATH_HLINE, PATH_VLINE, PATH_CURVE,
@@ -234,9 +254,7 @@ parse_path(ShapeInfo *info, const char *path_str, real line_width,
 	GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
 					  points->len * sizeof(BezPoint));
 	el->type = GE_PATH;
-	el->line_width = line_width;
-	el->swap_stroke = swap_stroke;
-	el->swap_fill   = swap_fill;
+	el->s = *s;
 	el->npoints = points->len;
 	memcpy((char *)el->points, points->data, points->len*sizeof(BezPoint));
 	info->display_list = g_list_append(info->display_list, el);
@@ -345,9 +363,7 @@ parse_path(ShapeInfo *info, const char *path_str, real line_width,
 	GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
 					  points->len * sizeof(BezPoint));
 	el->type = GE_SHAPE;
-	el->line_width = line_width;
-	el->swap_stroke = swap_stroke;
-	el->swap_fill   = swap_fill;
+	el->s = *s;
 	el->npoints = points->len;
 	memcpy((char *)el->points, points->data, points->len*sizeof(BezPoint));
 	info->display_list = g_list_append(info->display_list, el);
@@ -365,9 +381,7 @@ parse_path(ShapeInfo *info, const char *path_str, real line_width,
     GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
 				      points->len * sizeof(BezPoint));
     el->type = GE_PATH;
-    el->line_width = line_width;
-    el->swap_stroke = swap_stroke;
-    el->swap_fill   = swap_fill;
+    el->s = *s;
     el->npoints = points->len;
     memcpy((char *)el->points, points->data, points->len*sizeof(BezPoint));
     info->display_list = g_list_append(info->display_list, el);
@@ -377,19 +391,19 @@ parse_path(ShapeInfo *info, const char *path_str, real line_width,
 
 static void
 parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
-	       real line_width, gboolean swap_stroke, gboolean swap_fill)
+	       GraphicStyle *style)
 {
   CHAR *str;
 
   /* walk SVG node ... */
   for (node = node->childs; node != NULL; node = node->next) {
     GraphicElement *el = NULL;
-    real new_width = line_width;
-    gboolean new_fswap = swap_stroke, new_bswap = swap_stroke;
+    GraphicStyle s;
 
     if (node->type != XML_ELEMENT_NODE || node->ns != svg_ns)
       continue;
-    parse_style(node, &new_width, &new_fswap, &new_bswap);
+    s = *style;
+    parse_style(node, &s);
     if (!strcmp(node->name, "line")) {
       GraphicElementLine *line = g_new(GraphicElementLine, 1);
 
@@ -548,17 +562,15 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
     } else if (!strcmp(node->name, "path")) {
       str = xmlGetProp(node, "d");
       if (str) {
-	parse_path(info, str, new_width, new_fswap, new_bswap);
+	parse_path(info, str, &s);
 	free(str);
       }
     } else if (!strcmp(node->name, "g")) {
       /* add elements from the group element */
-      parse_svg_node(info, node, svg_ns, new_width, new_fswap, new_bswap);
+      parse_svg_node(info, node, svg_ns, &s);
     }
     if (el) {
-      el->any.line_width = new_width;
-      el->any.swap_stroke = new_fswap;
-      el->any.swap_fill   = new_bswap;
+      el->any.s = s;
       info->display_list = g_list_append(info->display_list, el);
     }
   }
@@ -778,7 +790,10 @@ load_shape_info(const gchar *filename)
 	free(tmp);
       }
     } else if (node->ns == svg_ns && !strcmp(node->name, "svg")) {
-      parse_svg_node(info, node, svg_ns, 1.0, FALSE, FALSE);
+      GraphicStyle s = { 1.0, COLOUR_FOREGROUND, COLOUR_NONE };
+
+      parse_style(node, &s);
+      parse_svg_node(info, node, svg_ns, &s);
       update_bounds(info);
     }
   }

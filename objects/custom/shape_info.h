@@ -19,6 +19,7 @@ typedef enum {
 } GraphicElementType;
 
 typedef union _GraphicElement GraphicElement;
+typedef struct _GraphicStyle GraphicStyle;
 typedef struct _GraphicElementAny GraphicElementAny;
 typedef struct _GraphicElementLine GraphicElementLine;
 typedef struct _GraphicElementPoly GraphicElementPoly;
@@ -26,11 +27,21 @@ typedef struct _GraphicElementRect GraphicElementRect;
 typedef struct _GraphicElementEllipse GraphicElementEllipse;
 typedef struct _GraphicElementPath GraphicElementPath;
 
+/* special colours */
+#define COLOUR_NONE -1
+#define COLOUR_FOREGROUND -2
+#define COLOUR_BACKGROUND -3
+#define COLOUR_TEXT -4
+
+struct _GraphicStyle {
+  real line_width;
+  gint32 stroke;
+  gint32 fill;
+};
+
 #define SHAPE_INFO_COMMON  \
   GraphicElementType type; \
-  real line_width;         \
-  gboolean swap_stroke;    \
-  gboolean swap_fill
+  GraphicStyle s
 
 struct _GraphicElementAny {
   SHAPE_INFO_COMMON;
