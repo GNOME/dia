@@ -1,5 +1,5 @@
 # Serbian translation of dia
-# Courtesy of Prevod.org team (http://www.prevod.org/) -- 2003.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2003, 2004.
 #
 # This file is distributed under the same license as the dia package.
 #
@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-20 05:31+0100\n"
-"PO-Revision-Date: 2004-02-20 05:38+0100\n"
-"Last-Translator: Дејан Матијевић <dmax@neobee.net>\n"
+"POT-Creation-Date: 2004-02-27 23:06+0100\n"
+"PO-Revision-Date: 2004-02-27 23:09+0100\n"
+"Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: app/app_procs.c:189
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
-msgstr "%s грешка: незна како да извезе у %s\n"
+msgstr "%s грешка: не зна како да извезе у %s\n"
 
 #: app/app_procs.c:199
 #, c-format
@@ -195,11 +195,11 @@ msgstr "Дијаграм %d.dia"
 msgid "No existing object to paste.\n"
 msgstr "Нема постојечег објекта за убацивање.\n"
 
-#: app/commands.c:470 app/commands.c:508
+#: app/commands.c:515 app/commands.c:553
 msgid "Could not find help directory"
 msgstr "Не могу да пронађем директоријум за помоћ"
 
-#: app/commands.c:477
+#: app/commands.c:522
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -213,7 +213,7 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:547
+#: app/commands.c:592
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Дејан Матијевић <dmax@neobee.net>\n"
@@ -222,15 +222,15 @@ msgstr ""
 "\n"
 "Prevod.org — превод на српски језик."
 
-#: app/commands.c:561 dia.desktop.in.h:1
+#: app/commands.c:606 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Диа"
 
-#: app/commands.c:563
+#: app/commands.c:608
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Ауторско право (C) 1998-2002 The Free Software Foundation и аутори"
 
-#: app/commands.c:564
+#: app/commands.c:609
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
@@ -238,26 +238,26 @@ msgstr ""
 "Диа је програм за цртање структуираних дијаграма.\n"
 "Посетите http://www.lysator.liu.se/~alla/dia за више података."
 
-#: app/commands.c:603
+#: app/commands.c:648
 msgid "About Dia"
 msgstr "О програму Диа"
 
-#: app/commands.c:646
+#: app/commands.c:691
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Диа %s од Александра Ларсона (Alexander Larsson)"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:652
+#: app/commands.c:697
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr ""
 "Одржавају: Ларс Клаусен (Lars Clausen) и Ћирил Чепелов (Cyrille Chepelov)"
 
-#: app/commands.c:656
+#: app/commands.c:701
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr "Посетите http://www.lysator.liu.se/~alla/dia за више информација"
 
-#: app/commands.c:661
+#: app/commands.c:706
 msgid "Contributors:"
 msgstr "Допринели:"
 
@@ -543,11 +543,11 @@ msgstr ""
 "Овај објекат не подржава Опозови/Понови.\n"
 "Подаци за опозивање су обрисани."
 
-#: app/disp_callbacks.c:179
+#: app/disp_callbacks.c:114
 msgid "Properties..."
 msgstr "Особине..."
 
-#: app/disp_callbacks.c:879
+#: app/disp_callbacks.c:887
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -701,12 +701,12 @@ msgstr "Опције извоза"
 msgid "Modify object(s)"
 msgstr "Измени објекат(е)"
 
-#: app/interface.c:51 app/menus.c:221
+#: app/interface.c:51 app/menus.c:225
 msgid "Modify"
 msgstr "Измени"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:55 app/interface.c:56 app/menus.c:222
+#: app/interface.c:55 app/interface.c:56 app/menus.c:226
 #: objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Увеличај"
@@ -715,11 +715,11 @@ msgstr "Увеличај"
 msgid "Scroll around the diagram"
 msgstr "Усправно померање око дијаграма"
 
-#: app/interface.c:61 app/menus.c:223
+#: app/interface.c:61 app/menus.c:227
 msgid "Scroll"
 msgstr "Померање текста"
 
-#: app/interface.c:65 app/interface.c:66 app/menus.c:224 lib/properties.c:77
+#: app/interface.c:65 app/interface.c:66 app/menus.c:228 lib/properties.c:77
 #: lib/properties.h:514 lib/properties.h:517 objects/UML/activity.c:122
 #: objects/UML/actor.c:120 objects/UML/classicon.c:141
 #: objects/UML/component.c:126 objects/UML/component_feature.c:154
@@ -729,45 +729,45 @@ msgstr "Померање текста"
 msgid "Text"
 msgstr "Текст"
 
-#: app/interface.c:70 app/interface.c:71 app/menus.c:225
+#: app/interface.c:70 app/interface.c:71 app/menus.c:229
 msgid "Box"
 msgstr "Кућица"
 
-#: app/interface.c:75 app/interface.c:76 app/menus.c:226
+#: app/interface.c:75 app/interface.c:76 app/menus.c:230
 msgid "Ellipse"
 msgstr "Елипса"
 
-#: app/interface.c:80 app/interface.c:81 app/menus.c:227
+#: app/interface.c:80 app/interface.c:81 app/menus.c:231
 msgid "Polygon"
 msgstr "Полигон"
 
 # Ово је склоп од „безиеров“ и „полигон“, па може и код нас
-#: app/interface.c:85 app/interface.c:86 app/menus.c:228
+#: app/interface.c:85 app/interface.c:86 app/menus.c:232
 msgid "Beziergon"
 msgstr "Безиергон"
 
-#: app/interface.c:90 app/interface.c:91 app/menus.c:230
+#: app/interface.c:90 app/interface.c:91 app/menus.c:234
 #: objects/standard/line.c:247
 msgid "Line"
 msgstr "Линија"
 
-#: app/interface.c:95 app/interface.c:96 app/menus.c:231
+#: app/interface.c:95 app/interface.c:96 app/menus.c:235
 msgid "Arc"
 msgstr "Лук"
 
-#: app/interface.c:100 app/interface.c:101 app/menus.c:232
+#: app/interface.c:100 app/interface.c:101 app/menus.c:236
 msgid "Zigzagline"
 msgstr "Цик-цак линија"
 
-#: app/interface.c:105 app/interface.c:106 app/menus.c:233
+#: app/interface.c:105 app/interface.c:106 app/menus.c:237
 msgid "Polyline"
 msgstr "Изломљена линија"
 
-#: app/interface.c:110 app/interface.c:111 app/menus.c:234
+#: app/interface.c:110 app/interface.c:111 app/menus.c:238
 msgid "Bezierline"
 msgstr "Безиерова линија"
 
-#: app/interface.c:115 app/interface.c:116 app/menus.c:236
+#: app/interface.c:115 app/interface.c:116 app/menus.c:240
 msgid "Image"
 msgstr "Слика"
 
@@ -984,727 +984,728 @@ msgstr "Неможе да сними датотеку '%s'.\n"
 msgid "Native Dia Diagram"
 msgstr "Изворни Диа Диајграм"
 
-#: app/menus.c:50 app/menus.c:70
+#: app/menus.c:53 app/menus.c:73
 msgid "_New diagram"
 msgstr "Нови дијаграм"
 
-#: app/menus.c:50 app/menus.c:70
+#: app/menus.c:53 app/menus.c:73
 msgid "Create new diagram"
 msgstr "Креирај нови дијаграм"
 
-#: app/menus.c:54
+#: app/menus.c:57
 msgid "_Diagram tree"
 msgstr "Стабло дијаграма"
 
-#: app/menus.c:54
+#: app/menus.c:57
 msgid "Show diagram tree"
 msgstr "Прикажи стабло дијаграма"
 
-#: app/menus.c:56
+#: app/menus.c:59
 msgid "_Sheets and Objects..."
 msgstr "Стране и објекти..."
 
-#: app/menus.c:57
+#: app/menus.c:60
 msgid "Modify sheets and their objects"
 msgstr "Измени странице и њихове објекте"
 
-#: app/menus.c:61
+#: app/menus.c:64
 msgid "P_lugins..."
 msgstr "Додаци..."
 
-#: app/menus.c:76
+#: app/menus.c:79
 msgid "_Export..."
 msgstr "Извоз..."
 
-#: app/menus.c:80
+#: app/menus.c:83
 msgid "Page Set_up..."
 msgstr "Подеси страницу ..."
 
-#: app/menus.c:82
+#: app/menus.c:85
 msgid "_Print Diagram..."
 msgstr "Одштампај дијаграм..."
 
-#: app/menus.c:97
+#: app/menus.c:100
 msgid "_Delete"
 msgstr "Обриши"
 
-#: app/menus.c:103
+# испари па кондензуј у чврсто стање
+#: app/menus.c:106
+msgid "Duplicate"
+msgstr "Удвостручи"
+
+#: app/menus.c:107
 msgid "Copy Text"
 msgstr "Копирај текст"
 
-#: app/menus.c:104
+#: app/menus.c:108
 msgid "Cut Text"
 msgstr "Исеци текст"
 
-#: app/menus.c:105
+#: app/menus.c:109
 msgid "Paste _Text"
 msgstr "Убаци текст"
 
-#: app/menus.c:129
+#: app/menus.c:133
 msgid "Zoom _In"
 msgstr "Увећај"
 
-#: app/menus.c:129
+#: app/menus.c:133
 msgid "Zoom in 50%"
 msgstr "Увећај 50%"
 
-#: app/menus.c:130
+#: app/menus.c:134
 msgid "Zoom _Out"
 msgstr "Умањи"
 
-#: app/menus.c:130
+#: app/menus.c:134
 msgid "Zoom out 50%"
 msgstr "Умањи 50%"
 
-#: app/menus.c:131
+#: app/menus.c:135
 msgid "_Zoom"
 msgstr "Увећање"
 
-#: app/menus.c:133
+#: app/menus.c:137
 msgid "Diagram Properties..."
 msgstr "Особине дијаграма..."
 
-#: app/menus.c:135
+#: app/menus.c:139
 msgid "_AntiAliased"
 msgstr "_Омекшано"
 
 #. TODO: Show Menu Bar  F9.  Hub's cool code.
-#: app/menus.c:139
+#: app/menus.c:143
 msgid "Show _Grid"
 msgstr "Прикажи Мрежу"
 
-#: app/menus.c:141
+#: app/menus.c:145
 msgid "_Snap To Grid"
 msgstr "Уравнај на мрежу"
 
-#: app/menus.c:143
+#: app/menus.c:147
 msgid "Show _Rulers"
 msgstr "Прикажи Лењире"
 
-#: app/menus.c:145
+#: app/menus.c:149
 msgid "Show _Connection Points"
 msgstr "Покажи Поене Везе"
 
-#: app/menus.c:148
+#: app/menus.c:152
 msgid "New _View"
 msgstr "Нови поглед"
 
-#: app/menus.c:149
+#: app/menus.c:153
 msgid "Show _All"
 msgstr "Прикажи све"
 
-#: app/menus.c:150
+#: app/menus.c:154
 msgid "Redraw"
 msgstr "Поново исцртај"
 
-#: app/menus.c:155
+#: app/menus.c:159
 msgid "Replace"
 msgstr "Замени"
 
-#: app/menus.c:157
+#: app/menus.c:161
 msgid "Union"
 msgstr "Унија"
 
-#: app/menus.c:159
+#: app/menus.c:163
 msgid "Intersect"
 msgstr "Пресек"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:161 app/sheets_dialog.c:784 objects/FS/function.c:695
+#: app/menus.c:165 app/sheets_dialog.c:784 objects/FS/function.c:695
 #: objects/FS/function.c:847 objects/FS/function.c:849
 msgid "Remove"
 msgstr "Уклони"
 
-#: app/menus.c:163 app/menus.c:171
+#: app/menus.c:167 app/menus.c:175
 msgid "Invert"
 msgstr "Преокрени"
 
-#: app/menus.c:169
+#: app/menus.c:173
 msgid "All"
 msgstr "Све"
 
-#: app/menus.c:170 lib/arrows.c:38 objects/UML/association.c:1135
+#: app/menus.c:174 lib/arrows.c:38 objects/UML/association.c:1135
 msgid "None"
 msgstr "Ништа"
 
-#: app/menus.c:172
+#: app/menus.c:176
 msgid "Connected"
 msgstr "Повезан"
 
-#: app/menus.c:173
+#: app/menus.c:177
 msgid "Transitive"
 msgstr "Прелазни"
 
-#: app/menus.c:174
+#: app/menus.c:178
 msgid "Same Type"
 msgstr "Исти тип"
 
-#: app/menus.c:181 lib/properties.c:62 lib/properties.h:466 lib/widgets.c:589
+#: app/menus.c:185 lib/properties.c:62 lib/properties.h:466 lib/widgets.c:589
 msgid "Left"
 msgstr "Лево"
 
-#: app/menus.c:182 lib/properties.c:63 lib/properties.h:467 lib/widgets.c:595
+#: app/menus.c:186 lib/properties.c:63 lib/properties.h:467 lib/widgets.c:595
 msgid "Center"
 msgstr "Центар"
 
-#: app/menus.c:183 lib/properties.c:64 lib/properties.h:468 lib/widgets.c:601
+#: app/menus.c:187 lib/properties.c:64 lib/properties.h:468 lib/widgets.c:601
 msgid "Right"
 msgstr "Десно"
 
-#: app/menus.c:185 app/menus.c:195
+#: app/menus.c:189 app/menus.c:199
 msgid "Equal Distance"
 msgstr "Једнака удаљеност"
 
-#: app/menus.c:186 app/menus.c:196
+#: app/menus.c:190 app/menus.c:200
 msgid "Adjacent"
 msgstr "Подешавања"
 
-#: app/menus.c:191
+#: app/menus.c:195
 msgid "Top"
 msgstr "Врх"
 
-#: app/menus.c:192
+#: app/menus.c:196
 msgid "Middle"
 msgstr "Средина"
 
-#: app/menus.c:193
+#: app/menus.c:197
 msgid "Bottom"
 msgstr "Дно"
 
-#: app/menus.c:201
+#: app/menus.c:205
 msgid "Send to _Back"
 msgstr "Пошаљи на крај"
 
-#: app/menus.c:202
+#: app/menus.c:206
 msgid "Bring to _Front"
 msgstr "Додај на површину"
 
-#: app/menus.c:203
+#: app/menus.c:207
 msgid "Send Backwards"
 msgstr "Пошаљи уназад"
 
-#: app/menus.c:204
+#: app/menus.c:208
 msgid "Bring Forwards"
 msgstr "Додај унапред"
 
-#: app/menus.c:206
+#: app/menus.c:210
 msgid "_Group"
 msgstr "_Групиши"
 
-#: app/menus.c:207
+#: app/menus.c:211
 msgid "_Ungroup"
 msgstr "О_дгрупиши"
 
-#: app/menus.c:209
+#: app/menus.c:213
 msgid "_Parent"
 msgstr "_Садржалац"
 
-#: app/menus.c:210
+#: app/menus.c:214
 msgid "_Unparent"
 msgstr "_Несадржалац"
 
-#: app/menus.c:211
+#: app/menus.c:215
 msgid "_Unparent Children"
 msgstr "Из_баци из садржаоца"
 
-#: app/menus.c:213
+#: app/menus.c:217
 msgid "Align _Horizontal"
 msgstr "Водоравно поравнање"
 
-#: app/menus.c:214
+#: app/menus.c:218
 msgid "Align _Vertical"
 msgstr "Усправно поравнање"
 
-#: app/menus.c:216
+#: app/menus.c:220
 msgid "_Properties..."
 msgstr "Осо_бине..."
 
-#: app/menus.c:241
+#: app/menus.c:245
 msgid "_Layers"
 msgstr "Слојеви"
 
-#: app/menus.c:267
+#: app/menus.c:271
 msgid "_Select"
 msgstr "Означи"
 
-#: app/menus.c:268
+#: app/menus.c:272
 msgid "_Objects"
 msgstr "Објекти"
 
-#: app/menus.c:269
+#: app/menus.c:273
 msgid "_Tools"
-msgstr "Алати"
+msgstr "_Алати"
 
-#: app/menus.c:270
+#: app/menus.c:274
 msgid "_Dialogs"
-msgstr "Прозори"
+msgstr "Про_зори"
 
-#: app/menus.c:271
+#: app/menus.c:275
 msgid "_Input Methods"
 msgstr "Методе уноса"
 
-#: app/menus.c:272
+#: app/menus.c:276
 msgid "_Help"
-msgstr "Помоћ"
+msgstr "_Помоћ"
 
-#: app/menus.c:283 app/menus.c:318
+#: app/menus.c:287 app/menus.c:322
 msgid "/_File"
-msgstr "/Датотека"
+msgstr "/_Датотека"
 
-#: app/menus.c:285 app/menus.c:320
+#: app/menus.c:289 app/menus.c:324
 msgid "/File/_New"
 msgstr "/Датотека/Ново"
 
-#: app/menus.c:287 app/menus.c:322
+#: app/menus.c:291 app/menus.c:326
 msgid "/File/_Open..."
 msgstr "/Датотека/Отворено..."
 
 #  recent file list is dynamically inserted here
 #. recent file list is dynamically inserted here
-#: app/menus.c:289 app/menus.c:294 app/menus.c:298 app/menus.c:300
-#: app/menus.c:329 app/menus.c:333
+#: app/menus.c:293 app/menus.c:298 app/menus.c:302 app/menus.c:304
+#: app/menus.c:333 app/menus.c:337
 msgid "/File/---"
 msgstr "/Датотека/---"
 
-#: app/menus.c:290
+#: app/menus.c:294
 msgid "/File/_Diagram tree"
 msgstr "/Датотека/Стабло дијаграма"
 
-#: app/menus.c:292
+#: app/menus.c:296
 msgid "/File/Sheets and Objects..."
 msgstr "/Датотека/Стране и објекти..."
 
-#: app/menus.c:295
+#: app/menus.c:299
 msgid "/File/_Preferences..."
 msgstr "/Датотека/Поставке..."
 
-#: app/menus.c:297
+#: app/menus.c:301
 msgid "/File/P_lugins..."
 msgstr "/Датотека/Додаци..."
 
-#: app/menus.c:301 app/menus.c:337
+#: app/menus.c:305 app/menus.c:341
 msgid "/File/_Quit"
 msgstr "/Датотека/Изађи"
 
-#: app/menus.c:303 app/menus.c:467
+#: app/menus.c:307 app/menus.c:468
 msgid "/_Help"
 msgstr "/Помоћ"
 
-#: app/menus.c:305 app/menus.c:469
+#: app/menus.c:309 app/menus.c:470
 msgid "/Help/_Manual"
 msgstr "/Помоћ/Приручник"
 
-#: app/menus.c:307 app/menus.c:471
+#: app/menus.c:311 app/menus.c:472
 msgid "/Help/---"
 msgstr "/Помоћ/---"
 
-#: app/menus.c:308 app/menus.c:472
+#: app/menus.c:312 app/menus.c:473
 msgid "/Help/_About..."
 msgstr "/Помоћ/О програму..."
 
-#: app/menus.c:324
+#: app/menus.c:328
 msgid "/File/_Save"
 msgstr "/Датотека/Сними"
 
-#: app/menus.c:326
+#: app/menus.c:330
 msgid "/File/Save _As..."
 msgstr "/Датотека/Сними као..."
 
-#: app/menus.c:328
+#: app/menus.c:332
 msgid "/File/_Export..."
 msgstr "/Датотека/Извоз..."
 
-#: app/menus.c:330
+#: app/menus.c:334
 msgid "/File/Page Set_up..."
 msgstr "/Датотека/Подешавање странице..."
 
-#: app/menus.c:331
+#: app/menus.c:335
 msgid "/File/_Print Diagram..."
 msgstr "/Датотека/Одштампај дијаграм..."
 
-#: app/menus.c:334
+#: app/menus.c:338
 msgid "/File/_Close"
 msgstr "/Датотека/Затвори"
 
-#: app/menus.c:339
-msgid "/_Edit"
-msgstr "/Уреди"
-
-#: app/menus.c:341
-msgid "/Edit/_Undo"
-msgstr "/Уреди/Поништи"
-
 #: app/menus.c:343
+msgid "/_Edit"
+msgstr "/_Уређивање"
+
+#: app/menus.c:345
+msgid "/Edit/_Undo"
+msgstr "/Уређивање/Поништи"
+
+#: app/menus.c:347
 msgid "/Edit/_Redo"
-msgstr "/Уреди/Врати"
+msgstr "/Уређивање/Врати"
 
-#: app/menus.c:345 app/menus.c:354
+#: app/menus.c:349 app/menus.c:359
 msgid "/Edit/---"
-msgstr "/Уреди/---"
-
-#: app/menus.c:346
-msgid "/Edit/_Copy"
-msgstr "/Уреди/Копирај"
-
-#: app/menus.c:348
-msgid "/Edit/C_ut"
-msgstr "/Уреди/Исеци"
+msgstr "/Уређивање/---"
 
 #: app/menus.c:350
-msgid "/Edit/_Paste"
-msgstr "/Уреди/Убаци"
+msgid "/Edit/_Copy"
+msgstr "/Уређивање/Копирај"
 
 #: app/menus.c:352
-msgid "/Edit/_Delete"
-msgstr "/Уреди/Обриши"
+msgid "/Edit/C_ut"
+msgstr "/Уређивање/Исеци"
 
-#: app/menus.c:355
-msgid "/Edit/Copy Text"
-msgstr "/Уреди/Копирај текст"
+#: app/menus.c:354
+msgid "/Edit/_Paste"
+msgstr "/Уређивање/Убаци"
 
 #: app/menus.c:356
-msgid "/Edit/Cut Text"
-msgstr "/Уреди/Исеци текст"
+msgid "/Edit/_Duplicate"
+msgstr "/Уређивање/У_двостручи"
 
 #: app/menus.c:357
-msgid "/Edit/Paste _Text"
-msgstr "/Уреди/Убаци текст"
-
-#: app/menus.c:358
-msgid "/_View"
-msgstr "/Преглед"
+msgid "/Edit/_Delete"
+msgstr "/Уређивање/Обриши"
 
 #: app/menus.c:360
+msgid "/Edit/Copy Text"
+msgstr "/Уређивање/Копирај текст"
+
+#: app/menus.c:361
+msgid "/Edit/Cut Text"
+msgstr "/Уређивање/Исеци текст"
+
+#: app/menus.c:362
+msgid "/Edit/Paste _Text"
+msgstr "/Уређивање/Убаци текст"
+
+#: app/menus.c:363
+msgid "/_Diagram"
+msgstr "/_Дијаграм"
+
+#: app/menus.c:365
+msgid "/Diagram/_Properties..."
+msgstr "/Дијаграм/_Особине..."
+
+#: app/menus.c:366
+msgid "/Diagram/_Layers..."
+msgstr "/Дијаграм/С_лојеви..."
+
+#: app/menus.c:367
+msgid "/_View"
+msgstr "/П_реглед"
+
+#: app/menus.c:369
 msgid "/View/Zoom _In"
 msgstr "/Преглед/Увећај"
 
-#: app/menus.c:362
+#: app/menus.c:371
 msgid "/View/Zoom _Out"
 msgstr "/Преглед/Удаљи"
 
-#: app/menus.c:364
+#: app/menus.c:373
 msgid "/View/_Zoom"
 msgstr "/Преглед/Увећање"
 
-#: app/menus.c:366
+#: app/menus.c:375
 msgid "/View/Zoom/400%"
 msgstr "/Преглед/Увећање/400%"
 
-#: app/menus.c:367
+#: app/menus.c:376
 msgid "/View/Zoom/283%"
 msgstr "/Преглед/Увећање/283%"
 
-#: app/menus.c:368
+#: app/menus.c:377
 msgid "/View/Zoom/200%"
 msgstr "/Преглед/Увећање/200%"
 
-#: app/menus.c:369
+#: app/menus.c:378
 msgid "/View/Zoom/141%"
 msgstr "/Преглед/Увећање/141%"
 
-#: app/menus.c:370
+#: app/menus.c:379
 msgid "/View/Zoom/100%"
 msgstr "/Преглед/Увећање/100%"
 
-#: app/menus.c:372
+#: app/menus.c:381
 msgid "/View/Zoom/85%"
 msgstr "/Преглед/Увећање/85%"
 
-#: app/menus.c:373
+#: app/menus.c:382
 msgid "/View/Zoom/70.7%"
 msgstr "/Преглед/Увећање/70.7%"
 
-#: app/menus.c:374
+#: app/menus.c:383
 msgid "/View/Zoom/50%"
 msgstr "/Преглед/Увећање/50%"
 
-#: app/menus.c:375
+#: app/menus.c:384
 msgid "/View/Zoom/35.4%"
 msgstr "/Преглед/Увећање/35.4%"
 
-#: app/menus.c:376
+#: app/menus.c:385
 msgid "/View/Zoom/25%"
 msgstr "/Преглед/Увећање/25%"
 
-#: app/menus.c:377 app/menus.c:386
+#: app/menus.c:386 app/menus.c:394
 msgid "/View/---"
 msgstr "/Преглед/---"
 
-#: app/menus.c:378
-msgid "/View/Diagram Properties..."
-msgstr "/Преглед/Поставке дијаграма..."
-
-#: app/menus.c:380
+#: app/menus.c:388
 msgid "/View/_AntiAliased"
 msgstr "/Преглед/Омекшано"
 
-#: app/menus.c:382
+#: app/menus.c:390
 msgid "/View/Show _Grid"
 msgstr "/Преглед/Покажи мрежу"
 
-#: app/menus.c:383
+#: app/menus.c:391
 msgid "/View/_Snap To Grid"
 msgstr "/Преглед/Уравнај на мрежу"
 
-#: app/menus.c:384
+#: app/menus.c:392
 msgid "/View/Show _Rulers"
 msgstr "/Преглед/Покажи лењире"
 
-#: app/menus.c:385
+#: app/menus.c:393
 msgid "/View/Show _Connection Points"
 msgstr "/Прикажи/Покажи тачке везе"
 
-#: app/menus.c:387
+#: app/menus.c:395
 msgid "/View/New _View"
 msgstr "/Преглед/Нови поглед"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:389
+#: app/menus.c:397
 msgid "/View/Show _All"
 msgstr "/Изглед/Прикажи све"
 
-#: app/menus.c:390
+#: app/menus.c:398
 msgid "/View/Re_draw"
 msgstr "/Преглед/Поново исцртај"
 
-#: app/menus.c:391
-msgid "/_Select"
-msgstr "/Изабери"
-
-#: app/menus.c:393
-msgid "/Select/All"
-msgstr "/Изабери/Све"
-
-#: app/menus.c:394
-msgid "/Select/None"
-msgstr "/Изабери/Ништа"
-
-#: app/menus.c:395 app/menus.c:408
-msgid "/Select/Invert"
-msgstr "/Изабери/Преокренуто"
-
-#: app/menus.c:396
-msgid "/Select/Connected"
-msgstr "/Изабери/Повезаност"
-
-#: app/menus.c:397
-msgid "/Select/Transitive"
-msgstr "/Одабери/Прелазни"
-
-#: app/menus.c:398
-msgid "/Select/Same Type"
-msgstr "/Избери/Исти Тип"
-
 #: app/menus.c:399
-msgid "/Select/---"
-msgstr "/Изабери/---"
-
-#: app/menus.c:400
-msgid "/Select/Replace"
-msgstr "/Изабери/Замени"
-
-#: app/menus.c:402
-msgid "/Select/Union"
-msgstr "/Изабери/Уједини"
-
-#: app/menus.c:404
-msgid "/Select/Intersect"
-msgstr "/Изабери/Пресеци"
-
-#: app/menus.c:406
-msgid "/Select/Remove"
-msgstr "/Изабери/Уклони"
-
-#: app/menus.c:410
 msgid "/_Objects"
 msgstr "/Објекти"
 
-#: app/menus.c:412
+#: app/menus.c:401
 msgid "/Objects/Send to _Back"
 msgstr "/Објекти/Премести на крај"
 
-#: app/menus.c:413
+#: app/menus.c:402
 msgid "/Objects/Bring to _Front"
 msgstr "/Објекти/Добаци на Површину"
 
-#: app/menus.c:414
+#: app/menus.c:403
 msgid "/Objects/Send Backwards"
 msgstr "/Објекти/Премести уназад"
 
-#: app/menus.c:415
+#: app/menus.c:404
 msgid "/Objects/Bring Forwards"
 msgstr "/Објекти/Премести унапред"
 
-#: app/menus.c:416 app/menus.c:420 app/menus.c:424 app/menus.c:441
+#: app/menus.c:405 app/menus.c:409 app/menus.c:413 app/menus.c:427
 msgid "/Objects/---"
 msgstr "/Објекти/---"
 
-#: app/menus.c:417
+#: app/menus.c:406
 msgid "/Objects/_Group"
 msgstr "/Објекти/Група"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:419
+#: app/menus.c:408
 msgid "/Objects/_Ungroup"
 msgstr "/Објекти/Одгруписано"
 
-#: app/menus.c:421
+#: app/menus.c:410
 msgid "/Objects/_Parent"
 msgstr "/Објекти/_Садржалац"
 
-#: app/menus.c:422
+#: app/menus.c:411
 msgid "/Objects/_Unparent"
 msgstr "/Објекти/Не_садржалац"
 
-#: app/menus.c:423
+#: app/menus.c:412
 msgid "/Objects/_Unparent Children"
 msgstr "/Објекти/Из_баци из садржаоца"
 
-#: app/menus.c:425
-msgid "/Objects/Align _Horizontal"
-msgstr "/Објекти/Водоравно поравнање"
+#: app/menus.c:414
+msgid "/Objects/Align"
+msgstr "/Објекти/Поравнање"
 
-#: app/menus.c:427
-msgid "/Objects/Align Horizontal/Left"
-msgstr "/Објекти/Водоравно Поравнање/Лево"
+#: app/menus.c:416
+msgid "/Objects/Align/Left"
+msgstr "/Објекти/Поравнање/Лево"
+
+#: app/menus.c:417
+msgid "/Objects/Align/Center"
+msgstr "/Објекти/Поравнање/Центар"
+
+#: app/menus.c:418
+msgid "/Objects/Align/Right"
+msgstr "/Објекти/Поравнање/Десно"
+
+#: app/menus.c:419
+msgid "/Objects/Align/Top"
+msgstr "/Објекти/Поравнање/Горе"
+
+#: app/menus.c:420
+msgid "/Objects/Align/Middle"
+msgstr "/Објекти/Поравнање/Средина"
+
+#: app/menus.c:421
+msgid "/Objects/Align/Bottom"
+msgstr "/Објекти/Поравнање/Доле"
+
+#: app/menus.c:422
+msgid "/Objects/Align/---"
+msgstr "/Објекти/Поравнање/---"
+
+#: app/menus.c:423
+msgid "/Objects/Align/Spread Out Horizontally"
+msgstr "/Објекти/Поравнање/Рашири водоравно"
+
+#: app/menus.c:424
+msgid "/Objects/Align/Spread Out Vertically"
+msgstr "/Објекти/Поравнање/Рашири усправно"
+
+#: app/menus.c:425
+msgid "/Objects/Align/Adjacent"
+msgstr "/Објекти/Поравнање/Суседно"
+
+#: app/menus.c:426
+msgid "/Objects/Align/Stacked"
+msgstr "/Објекти/Поравнање/Наређано"
 
 #: app/menus.c:428
-msgid "/Objects/Align Horizontal/Center"
-msgstr "/Објекти/Водоравно Поравнање/Центар"
+msgid "/Objects/_Properties..."
+msgstr "/Објекти/_Особине..."
 
 #: app/menus.c:429
-msgid "/Objects/Align Horizontal/Right"
-msgstr "/Објекти/Водоравно Поравнање/Десно"
-
-#: app/menus.c:430
-msgid "/Objects/Align Horizontal/---"
-msgstr "/Објекти/Водоравно Поравнање/---"
+msgid "/_Select"
+msgstr "/Изабери"
 
 #: app/menus.c:431
-msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Објекти/Подеси Водоравно/Једнака удаљеност"
+msgid "/Select/All"
+msgstr "/Изабери/Све"
 
 #: app/menus.c:432
-msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/Објекти/Водоравно Поравнање/Подешавање"
+msgid "/Select/None"
+msgstr "/Изабери/Ништа"
 
-#: app/menus.c:433
-msgid "/Objects/Align _Vertical"
-msgstr "/Објекти/Усправно Поравнање"
+#: app/menus.c:433 app/menus.c:446
+msgid "/Select/Invert"
+msgstr "/Изабери/Преокренуто"
+
+#: app/menus.c:434
+msgid "/Select/Connected"
+msgstr "/Изабери/Повезаност"
 
 #: app/menus.c:435
-msgid "/Objects/Align Vertical/Top"
-msgstr "/Објекти/Усправно Поравнање/Врх"
+msgid "/Select/Transitive"
+msgstr "/Одабери/Прелазни"
 
 #: app/menus.c:436
-msgid "/Objects/Align Vertical/Middle"
-msgstr "/Објекти/Усправно Поравнање/Средина"
+msgid "/Select/Same Type"
+msgstr "/Избери/Исти Тип"
 
 #: app/menus.c:437
-msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Објекти/Усправно Поравнање/Дно"
+msgid "/Select/---"
+msgstr "/Изабери/---"
 
 #: app/menus.c:438
-msgid "/Objects/Align Vertical/---"
-msgstr "/Објекти/Усправно Поравнање/---"
-
-#: app/menus.c:439
-msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Објекти/Подеси Усправно/Једнака удаљеност"
+msgid "/Select/Replace"
+msgstr "/Изабери/Замени"
 
 #: app/menus.c:440
-msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/Објекти/Усправно Поравнање/Подешавање"
+msgid "/Select/Union"
+msgstr "/Изабери/Уједини"
 
 #: app/menus.c:442
-msgid "/Objects/_Properties..."
-msgstr "/Објекти/Поставке..."
+msgid "/Select/Intersect"
+msgstr "/Изабери/Пресеци"
 
-#: app/menus.c:443
+#: app/menus.c:444
+msgid "/Select/Remove"
+msgstr "/Изабери/Уклони"
+
+#: app/menus.c:448
 msgid "/_Tools"
 msgstr "/Алати"
 
-#: app/menus.c:445
+#: app/menus.c:450
 msgid "/Tools/Modify"
 msgstr "/Алати/Измени"
 
-#: app/menus.c:446
+#: app/menus.c:451
 msgid "/Tools/Magnify"
 msgstr "/Алати/Увеличај"
 
-#: app/menus.c:447
+#: app/menus.c:452
 msgid "/Tools/Scroll"
 msgstr "/Алати/Усправно померање"
 
-#: app/menus.c:448
+#: app/menus.c:453
 msgid "/Tools/Text"
 msgstr "/Алати/Текст"
 
-#: app/menus.c:449
+#: app/menus.c:454
 msgid "/Tools/Box"
 msgstr "/Алати/Кућица"
 
-#: app/menus.c:450
+#: app/menus.c:455
 msgid "/Tools/Ellipse"
 msgstr "/Алати/Елипса"
 
-#: app/menus.c:451
+#: app/menus.c:456
 msgid "/Tools/Polygon"
 msgstr "/Алати/Полигон"
 
-#: app/menus.c:452
+#: app/menus.c:457
 msgid "/Tools/Beziergon"
 msgstr "/Алати/Безиеров полигон"
 
-#: app/menus.c:453 app/menus.c:459
+#: app/menus.c:458 app/menus.c:464
 msgid "/Tools/---"
 msgstr "/Алати/---"
 
-#: app/menus.c:454
+#: app/menus.c:459
 msgid "/Tools/Line"
 msgstr "/Алати/Линије"
 
-#: app/menus.c:455
+#: app/menus.c:460
 msgid "/Tools/Arc"
 msgstr "/Алати/Лук"
 
-#: app/menus.c:456
+#: app/menus.c:461
 msgid "/Tools/Zigzagline"
 msgstr "/Алати/Цик-цак линија"
 
-#: app/menus.c:457
+#: app/menus.c:462
 msgid "/Tools/Polyline"
 msgstr "/Алати/Полигонска линија"
 
-#: app/menus.c:458
+#: app/menus.c:463
 msgid "/Tools/Bezierline"
 msgstr "/Алати/Безијерова линија"
 
-#: app/menus.c:460
+#: app/menus.c:465
 msgid "/Tools/Image"
 msgstr "/Алати/Слика"
 
-#: app/menus.c:461
-msgid "/_Dialogs"
-msgstr "/_Прозори"
-
-#: app/menus.c:463
-msgid "/Dialogs/_Layers..."
-msgstr "/Прозори/С_лојеви..."
-
-#: app/menus.c:465
+#: app/menus.c:466
 msgid "/_Input Methods"
 msgstr "/_Начини уноса"
 
-#: app/menus.c:644
+#: app/menus.c:645
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata у tool_menu_select"
 
-#: app/menus.c:811
+#: app/menus.c:812
 msgid "Diagram Menu"
 msgstr "Мени Дијаграма"
 
-#: app/menus.c:1187
+#: app/menus.c:1188
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -7235,6 +7236,27 @@ msgstr "Sybase срвер података"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase репликациони сервер"
+
+#~ msgid "/View/Diagram Properties..."
+#~ msgstr "/Преглед/Поставке дијаграма..."
+
+#~ msgid "/Objects/Align Horizontal/---"
+#~ msgstr "/Објекти/Водоравно Поравнање/---"
+
+#~ msgid "/Objects/Align Horizontal/Equal Distance"
+#~ msgstr "/Објекти/Подеси Водоравно/Једнака удаљеност"
+
+#~ msgid "/Objects/Align Horizontal/Adjacent"
+#~ msgstr "/Објекти/Водоравно Поравнање/Подешавање"
+
+#~ msgid "/Objects/Align Vertical/---"
+#~ msgstr "/Објекти/Усправно Поравнање/---"
+
+#~ msgid "/Objects/Align Vertical/Equal Distance"
+#~ msgstr "/Објекти/Подеси Усправно/Једнака удаљеност"
+
+#~ msgid "/_Dialogs"
+#~ msgstr "/_Прозори"
 
 #~ msgid "No object menu"
 #~ msgstr "Нема менија објекта"
