@@ -279,7 +279,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
   p.x = x + elem->width / 2.0;
   p.y = p1.y;
 
-  if (umlclass->stereotype != NULL) {
+  if (umlclass->stereotype != NULL && umlclass->stereotype[0] != '\0') {
     p.y += 0.1 + dia_font_ascent(umlclass->stereotype_string,
                                  umlclass->normal_font,
                                  umlclass->font_height);
@@ -292,8 +292,6 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
                                &umlclass->color_foreground);
   }
 
-  p.y += umlclass->font_height;
-  
   /* name: */
   if (umlclass->abstract) {
     font = umlclass->abstract_classname_font;
@@ -302,7 +300,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
     font = umlclass->classname_font;
     font_height = umlclass->classname_font_height;
   }
-
+  p.y += font_height;
 
   renderer->ops->set_font(renderer, font, font_height);
   renderer->ops->draw_string(renderer,
@@ -672,7 +670,7 @@ umlclass_calculate_data(UMLClass *umlclass)
   if (umlclass->stereotype_string != NULL) {
     g_free(umlclass->stereotype_string);
   }
-  if (umlclass->stereotype != NULL) {
+  if (umlclass->stereotype != NULL && umlclass->stereotype[0] != '\0') {
     umlclass->namebox_height += umlclass->font_height;
     umlclass->stereotype_string = g_strconcat (
 			UML_STEREOTYPE_START,
@@ -1094,7 +1092,7 @@ umlclass_copy(UMLClass *umlclass)
           dia_font_ref(umlclass->comment_font);
 
   newumlclass->name = g_strdup(umlclass->name);
-  if (umlclass->stereotype != NULL)
+  if (umlclass->stereotype != NULL && umlclass->stereotype[0] != '\0')
     newumlclass->stereotype = g_strdup(umlclass->stereotype);
   else
     newumlclass->stereotype = NULL;
