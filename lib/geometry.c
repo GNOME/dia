@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -117,6 +117,21 @@ rectangle_in_rectangle(Rectangle* outer, Rectangle *inner)
   
   return TRUE;
 }
+
+void
+rectangle_add_point(Rectangle *r, Point *p)
+{
+  if (p->x < r->left)
+    r->left = p->x;
+  else if (p->x > r->right)
+    r->right = p->x;
+
+  if (p->y < r->top)
+    r->top = p->y;
+  else if (p->y > r->bottom)
+    r->bottom = p->y;
+}
+
 
 real
 distance_point_point(Point *p1, Point *p2)

@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -57,6 +57,7 @@ extern void rectangle_intersection(Rectangle *r1, Rectangle *r2);
 extern int rectangle_intersects(Rectangle *r1, Rectangle *r2);
 extern int point_in_rectangle(Rectangle* r, Point *p);
 extern int rectangle_in_rectangle(Rectangle* outer, Rectangle *inner);
+extern void rectangle_add_point(Rectangle *r, Point *p);
 
 extern real distance_point_point(Point *p1, Point *p2);
 extern real distance_point_point_manhattan(Point *p1, Point *p2);
