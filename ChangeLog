@@ -1,3 +1,15 @@
+2003-02-01  Hans Breuer  <hans@breuer.org>
+
+	* lib/arrow.h : arrow_types needs to be declared as DIAVAR
+	to make it useable across DLL boundaries
+	* app/lineprops_area.c : same code to access arrow_types
+	on all platforms
+
+	* objects/UML/class.c : the non empty string is e.g.
+	comment != NULL && comment[0] != '\0'
+	* objects/UML/uml.c : same here, don't bother with
+	empty operation stereotypes
+
 2003-02-01  Steffen Macke <sdteffen@web.de>
 
 	* app/lineprops_area.c: latest changes do not work on

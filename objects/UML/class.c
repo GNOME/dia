@@ -315,7 +315,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
                              &umlclass->color_foreground);
 
   /* comment */
-  if (umlclass->visible_comments && umlclass->comment != NULL)
+  if (umlclass->visible_comments && umlclass->comment != NULL && umlclass->comment[0] != '\0')
   {
     font = umlclass->comment_font;
     font_height = umlclass->comment_font_height;
@@ -609,7 +609,7 @@ umlclass_update_data(UMLClass *umlclass)
     attr->right_connection->pos.y = y;
 
     y += umlclass->font_height;
-    if (umlclass->visible_comments && attr->comment[0] != '\0')
+    if (umlclass->visible_comments && attr->comment != NULL && attr->comment[0] != '\0')
       y += umlclass->comment_font_height;
 
     list = g_list_next(list);
@@ -628,7 +628,7 @@ umlclass_update_data(UMLClass *umlclass)
     op->right_connection->pos.y = y;
 
     y += umlclass->font_height;
-    if (umlclass->visible_comments && op->comment[0] != '\0')
+    if (umlclass->visible_comments && op->comment != NULL && op->comment[0] != '\0')
       y += umlclass->comment_font_height;
 
     list = g_list_next(list);
@@ -694,7 +694,7 @@ umlclass_calculate_data(UMLClass *umlclass)
     umlclass->stereotype_string = NULL;
   }
 
-  if (umlclass->visible_comments && umlclass->comment != '\0')
+  if (umlclass->visible_comments && umlclass->comment != NULL && umlclass->comment[0] != '\0')
   {
        umlclass->namebox_height += umlclass->comment_font_height;
        width = dia_font_string_width (umlclass->comment,

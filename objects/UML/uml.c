@@ -141,7 +141,7 @@ uml_get_operation_string (UMLOperation *operation)
 
   /* Calculate length: */
   len = 1 + strlen (operation->name)  + 1;
-  if(operation->stereotype != NULL) {
+  if(operation->stereotype != NULL && operation->stereotype[0] != '\0') {
     len += 5 + strlen (operation->stereotype);
   }   
   
@@ -194,7 +194,7 @@ uml_get_operation_string (UMLOperation *operation)
   str[0] = visible_char[(int) operation->visibility];
   str[1] = 0;
 
-  if(operation->stereotype != NULL) {
+  if(operation->stereotype != NULL && operation->stereotype[0] != '\0') {
     strcat(str, UML_STEREOTYPE_START);
     strcat(str, operation->stereotype);
     strcat(str, UML_STEREOTYPE_END);

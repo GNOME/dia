@@ -487,21 +487,12 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
   menu = gtk_menu_new();
   gtk_object_set_data_full(GTK_OBJECT(chooser), button_menu_key, menu,
 			   (GtkDestroyNotify)gtk_widget_unref);
-#ifndef G_OS_WIN32
   for (i = 0; arrow_types[i].name != NULL; i++) {
-#else
-  for (i = 0; i<= ARROW_BLANKED_CONCAVE; i++) {
-#endif
     mi = gtk_menu_item_new();
-#ifndef G_OS_WIN32
     gtk_object_set_data(GTK_OBJECT(mi), menuitem_enum_key,
 			GINT_TO_POINTER(arrow_types[i].enum_value));
     gtk_tooltips_set_tip(tool_tips, mi, arrow_types[i].name, NULL);
     ar = dia_arrow_preview_new(arrow_types[i].enum_value, left);
-#else
-    gtk_object_set_data(GTK_OBJECT(mi), menuitem_enum_key, GINT_TO_POINTER(i)); 
-    ar = dia_arrow_preview_new(i, left);                  
-#endif
     ar = dia_arrow_preview_new(i, left);                                        
     gtk_container_add(GTK_CONTAINER(mi), ar);
     gtk_widget_show(ar);

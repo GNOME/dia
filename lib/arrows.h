@@ -18,6 +18,7 @@
 #ifndef ARROWS_H
 #define ARROWS_H
 
+#include "diavar.h"
 #include "diatypes.h"
 #include "geometry.h"
 #include "color.h"
@@ -60,7 +61,7 @@ struct menudesc {
 };
 
 /* These are used to fill menus.  See dia_arrow_fill_menu in widgets.c */
-extern struct menudesc arrow_types[];
+DIAVAR struct menudesc arrow_types[];
 
 struct _Arrow {
   ArrowType type;
