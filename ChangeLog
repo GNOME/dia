@@ -1,5 +1,8 @@
 2003-08-27  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* configure.in: Quote correctly for temporarily adding freetype
+	cflags to CPPFLAGS.
+
 	* app/preferences.c (prefs_save): Remove debugging g_print.
 
 2003-08-26  Lars Clausen  <lrclause@cs.uiuc.edu>
