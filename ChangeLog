@@ -1,3 +1,7 @@
+2003-02-17  Abel Cheung  <maddog@linux.org.hk>
+
+	* app/app_procs.c (app_init): Add comment for translators.
+
 2003-02-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/filter.c (filter_register_import, filter_register_export):

@@ -324,6 +324,7 @@ app_init (int argc, char **argv)
 
   if (version) {
 #if (defined __TIME__) && (defined __DATE__)
+    /* TRANSLATOR: 2nd and 3rd %s are time and date respectively. */
     printf(_("Dia version %s, compiled %s %s\n"), VERSION, __TIME__, __DATE__);
 #else
     printf(_("Dia version %s\n"), VERSION);
