@@ -26,6 +26,6 @@ libxslt_filter_la_LIBADD = $(XSLT_LIBS)
 # escapes / in \/ for sed
 stylesheets.xml: stylesheets.xml.in
 	escaped=`echo ${xsltdir} | sed -e 's/\//\\\\\//g'`; \
-	sed -e s/XSLT_DATA_DIR/$$escaped/ stylesheets.xml.in > stylesheets.xml
+	sed -e s/XSLT_DATA_DIR/$$escaped/ $(srcdir)/stylesheets.xml.in > stylesheets.xml
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(XML_CFLAGS) $(UNICODE_CFLAGS) $(DEBUG_FLAGS) $(XSLT_CFLAGS)

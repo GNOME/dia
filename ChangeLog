@@ -1,5 +1,8 @@
 2003-07-06  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/xslt/Makefile.am: Patch from Hubert Figuiere:  Add
+	$(srcdir) on stylesheets.xml.
+
 	* app/menus.c: Patch from Hubert Figuiere: Adds help menu to
 	diagram menus (since they're at the top by default now).  Also
 	move the Properties... menu item from Dialogs to Objects.  Dialogs
