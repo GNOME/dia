@@ -1,3 +1,9 @@
+1999-09-07  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* configure.in
+	Added japanese to ALL_LINGUAS.
+	Fix for Linux on Alpha.
+
 1999-09-07  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/create_object.c (create_object_button_press):

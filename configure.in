@@ -92,7 +92,7 @@ dnl
 dnl i18n
 dnl
 
-ALL_LINGUAS="da de en_GB hu no pl sv fr"
+ALL_LINGUAS="da de en_GB hu no pl sv fr ja"
 AM_GNU_GETTEXT
 localedir='${prefix}/${DATADIRNAME}/locale'
 AC_SUBST(localedir)
@@ -128,6 +128,14 @@ AC_C_CONST
 
 dnl Checks for library functions.
 AC_CHECK_FUNCS(select strcspn strdup strtol snprintf)
+
+dnl Alpha needs -mieee or we get a segfault
+dnl This shouldn't be needed but is here until a real solution is found
+case "$host" in
+  alpha*-*-linux*)
+    CFLAGS="$CFLAGS -mieee"
+    ;;
+esac
 
 AC_OUTPUT(
 Makefile
