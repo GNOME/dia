@@ -207,7 +207,7 @@ static RenderOps dxfRenderOps = {
 static void
 init_attributes( Rendererdxf *renderer )
 {
-   
+    renderer->lcurrent.style = renderer->fcurrent.style = "CONTINUOUS";
 }
 
 static void
@@ -296,6 +296,7 @@ set_fillstyle(Rendererdxf *renderer, FillStyle mode)
 static void
 set_font(Rendererdxf *renderer, Font *font, real height)
 {
+	renderer->tcurrent.font_height = height;
 }
 
 static void
@@ -311,7 +312,6 @@ draw_line(Rendererdxf *renderer,
     fprintf(renderer->file, " 11\n%f\n", end->x);
     fprintf(renderer->file, " 21\n%f\n", (-1)*end->y);
     fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
-/*    fprintf(renderer->file, " 62\n%d\n", 1); colour, now by layer*/
 }
 
 static void
@@ -386,7 +386,6 @@ draw_arc(Rendererdxf *renderer,
             fprintf(renderer->file, " 11\n%f\n", width/2); /* Endpoint major axis relative to center X*/            
             fprintf(renderer->file, " 40\n%f\n", width/height); /*Ratio major/minor axis*/
             fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
-/*            fprintf(renderer->file, " 62\n%d\n", 1); colour, now bylayer*/
             fprintf(renderer->file, " 41\n%f\n", (angle1/360 ) * 2 * M_PI); /*Start Parameter full ellipse */
             fprintf(renderer->file, " 42\n%f\n", (angle2/360 ) * 2 * M_PI); /* End Parameter full ellipse */		
   }          
@@ -417,7 +416,6 @@ draw_ellipse(Rendererdxf *renderer,
             fprintf(renderer->file, " 20\n%f\n", (-1)*center->y);
             fprintf(renderer->file, " 40\n%f\n", height/2);
             fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
-/*            fprintf(renderer->file, " 62\n%d\n", 1);*/
 	}
 	else if(height != 0.0){
             fprintf(renderer->file, "  0\nELLIPSE\n");
@@ -428,7 +426,6 @@ draw_ellipse(Rendererdxf *renderer,
             fprintf(renderer->file, " 11\n%f\n", width/2); /* Endpoint major axis relative to center X*/            
             fprintf(renderer->file, " 40\n%f\n", height/width); /*Ratio major/minor axis*/
             fprintf(renderer->file, " 39\n%d\n", (int)(10*renderer->lcurrent.width)); /* Thickness */
-/*            fprintf(renderer->file, " 62\n%d\n", 1); colour, now bylayer*/
             fprintf(renderer->file, " 41\n%f\n", 0.0); /*Start Parameter full ellipse */
             fprintf(renderer->file, " 42\n%f\n", 2.0*3.14); /* End Parameter full ellipse */		
 	}
@@ -546,8 +543,7 @@ export_dxf(DiagramData *data, const gchar *filename, const gchar *diafilename)
   
     for (i=0; i<data->layers->len; i++) {
       layer = (Layer *) g_ptr_array_index(data->layers, i);
-/*      active_layer = (layer == data->active_layer);*/
-	  renderer->layername = layer->name;
+	    renderer->layername = layer->name;
       layer_render(layer, (Renderer *)renderer, NULL, NULL, data, 0);
   	}
   

@@ -109,7 +109,7 @@ static GnomeUIInfo viewmenu[] = {
   GNOMEUIINFO_ITEM_NONE(N_("Zoom _In"), N_("Zoom in 50%"), view_zoom_in_callback),
   GNOMEUIINFO_ITEM_NONE(N_("Zoom _Out"), N_("Zoom out 50%"), view_zoom_out_callback),
   GNOMEUIINFO_SUBTREE(N_("_Zoom"), zoommenu),
-  GNOMEUIINFO_ITEM_NONE(N_("Edit Grid..."), NULL, view_edit_grid_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("Diagram Propeties..."), NULL, view_diagram_properties_callback),
 #ifdef HAVE_LIBART  
   GNOMEUIINFO_TOGGLEITEM(N_("_AntiAliased"), NULL,
 			 view_aa_callback, NULL),
@@ -293,7 +293,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/View/Zoom/50%"),          NULL,         view_zoom_set_callback,   500},
   {N_("/View/Zoom/35.4%"),        NULL,         view_zoom_set_callback,   354},
   {N_("/View/Zoom/25%"),          NULL,         view_zoom_set_callback,   250},
-  {N_("/View/Edit Grid..."),      NULL,         view_edit_grid_callback,    0},
+  {N_("/View/Diagram Properties"),NULL,         view_diagram_properties_callback, 0},
 #ifdef HAVE_LIBART  
   {N_("/View/_AntiAliased"),      NULL,         view_aa_callback,           0, "<CheckItem>"},
 #endif

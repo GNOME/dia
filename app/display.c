@@ -109,10 +109,6 @@ new_display(Diagram *dia)
 
   ddisp->grid.visible = prefs.grid.visible;
   ddisp->grid.snap = prefs.grid.snap;
-  ddisp->grid.gc = NULL;
-  ddisp->grid.dialog = NULL;
-  ddisp->grid.entry_x = NULL;
-  ddisp->grid.entry_y = NULL;
 
   ddisp->show_cx_pts = prefs.show_cx_pts;
 
@@ -880,8 +876,6 @@ ddisplay_really_destroy(DDisplay *ddisp)
   dia = ddisp->diagram;
   
   diagram_remove_ddisplay(dia, ddisp);
-
-  grid_destroy_dialog(&ddisp->grid);
 
   if (ddisp->aa_renderer)
     destroy_libart_renderer((RendererLibart *)ddisp->renderer);

@@ -1,6 +1,9 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
+ * dia-props.h - a dialog for the diagram properties
+ * Copyright (C) 2000 James Henstridge
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -15,22 +18,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef GRID_H
-#define GRID_H
 
-#include <gtk/gtk.h>
+#ifndef _DIA_PROPS_H_
+#define _DIA_PROPS_H_
+#include "diagram.h"
 
-typedef struct _Grid Grid;
+void diagram_properties_show(Diagram *dia);
 
-#include "geometry.h"
-struct _Grid {
-  guint visible;
-  guint snap;
-};
-
-#include "display.h"
-
-void grid_draw(DDisplay *ddisp, Rectangle *update);
-void snap_to_grid(DDisplay *ddisp, coord *x, coord *y);
-
-#endif GRID_H
+#endif

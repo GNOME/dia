@@ -1,3 +1,26 @@
+2000-07-26  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/dxf/dxf-export.c: updates from Steffen to fix bug #18677
+
+	* app/menus.c: remove edit grid menu item.
+
+	* app/commands.[ch] (view_edit_grid_callback): removed.
+
+	* app/display.c (new_display): don't initialise removed Grid members.
+
+	* app/grid.c: remove unused functions.
+
+	* app/grid.h: remove dialog related stuff from Grid structure.
+	Remove prototypes for dialog functions.
+
+	* app/menus.c: add to menus
+	
+	* app/commands.[ch] (view_diagram_properties_callback): new command
+	for showing the diagram properties dialog.
+
+	* app/dia-props.[ch]: a new diagram properties dialog.  To replace
+	the edit grid dialog.
+
 2000-07-25  James Henstridge  <james@daa.com.au>
 
 	* app/grid.c (grid_x_update): 

@@ -63,6 +63,7 @@
 #include "gdk/gdk.h"
 #include "gdk/gdkkeysyms.h"
 #include "lib/properties.h"
+#include "dia-props.h"
 
 #ifdef HAVE_GDK_PIXBUF
 GdkPixbuf *logo;
@@ -804,14 +805,13 @@ view_show_all_callback(GtkWidget *widget, gpointer data)
   ddisplay_flush(ddisp);
 }
 
-
 void
-view_edit_grid_callback(GtkWidget *widget, gpointer data)
+view_diagram_properties_callback(GtkWidget *widget, gpointer data)
 {
   DDisplay *ddisp;
-  
+
   ddisp = ddisplay_active();
-  grid_show_dialog(&ddisp->grid, ddisp);
+  diagram_properties_show(ddisp->diagram);
 }
 
 

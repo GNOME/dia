@@ -79,7 +79,7 @@ void view_show_cx_pts_callback  (gpointer callback_data,
 #endif /* GNOME */
 void view_new_view_callback(GtkWidget *widget, gpointer data);
 void view_show_all_callback(GtkWidget *widget, gpointer data);
-void view_edit_grid_callback(GtkWidget *widget, gpointer data);
+void view_diagram_properties_callback(GtkWidget *widget, gpointer data);
 
 void objects_place_over_callback(GtkWidget *widget, gpointer data);
 void objects_place_under_callback(GtkWidget *widget, gpointer data);
