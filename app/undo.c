@@ -48,7 +48,7 @@ is_transactionpoint(Change *change)
 static Change *
 new_transactionpoint(void)
 {
-  Change *transaction = g_new(Change, 1);
+  Change *transaction = g_new0(Change, 1);
 
   if (transaction) {
     transaction->apply = transaction_point_pointer;
@@ -373,7 +373,7 @@ undo_move_objects(Diagram *dia, Point *orig_pos, Point *dest_pos,
 {
   struct MoveObjectsChange *change;
 
-  change = g_new(struct MoveObjectsChange, 1);
+  change = g_new0(struct MoveObjectsChange, 1);
   
   change->change.apply = (UndoApplyFunc) move_objects_apply;
   change->change.revert = (UndoRevertFunc) move_objects_revert;
@@ -434,7 +434,7 @@ undo_move_handle(Diagram *dia,
 {
   struct MoveHandleChange *change;
 
-  change = g_new(struct MoveHandleChange, 1);
+  change = g_new0(struct MoveHandleChange, 1);
   
   change->change.apply = (UndoApplyFunc) move_handle_apply;
   change->change.revert = (UndoRevertFunc) move_handle_revert;
@@ -500,7 +500,7 @@ undo_connect(Diagram *dia, Object *obj, Handle *handle,
 {
   struct ConnectChange *change;
 
-  change = g_new(struct ConnectChange, 1);
+  change = g_new0(struct ConnectChange, 1);
   
   change->change.apply = (UndoApplyFunc) connect_apply;
   change->change.revert = (UndoRevertFunc) connect_revert;
@@ -552,7 +552,7 @@ undo_unconnect(Diagram *dia, Object *obj, Handle *handle)
 {
   struct UnconnectChange *change;
 
-  change = g_new(struct UnconnectChange, 1);
+  change = g_new0(struct UnconnectChange, 1);
   
   change->change.apply = (UndoApplyFunc) unconnect_apply;
   change->change.revert = (UndoRevertFunc) unconnect_revert;
@@ -662,7 +662,7 @@ undo_delete_objects(Diagram *dia, GList *obj_list)
 {
   struct DeleteObjectsChange *change;
 
-  change = g_new(struct DeleteObjectsChange, 1);
+  change = g_new0(struct DeleteObjectsChange, 1);
   
   change->change.apply = (UndoApplyFunc) delete_objects_apply;
   change->change.revert = (UndoRevertFunc) delete_objects_revert;
@@ -743,7 +743,7 @@ undo_insert_objects(Diagram *dia, GList *obj_list, int applied)
 {
   struct InsertObjectsChange *change;
 
-  change = g_new(struct InsertObjectsChange, 1);
+  change = g_new0(struct InsertObjectsChange, 1);
   
   change->change.apply = (UndoApplyFunc) insert_objects_apply;
   change->change.revert = (UndoRevertFunc) insert_objects_revert;
@@ -801,7 +801,7 @@ undo_reorder_objects(Diagram *dia, GList *changed_list, GList *orig_list)
 {
   struct ReorderObjectsChange *change;
 
-  change = g_new(struct ReorderObjectsChange, 1);
+  change = g_new0(struct ReorderObjectsChange, 1);
   
   change->change.apply = (UndoApplyFunc) reorder_objects_apply;
   change->change.revert = (UndoRevertFunc) reorder_objects_revert;
@@ -876,7 +876,7 @@ undo_object_change(Diagram *dia, Object *obj,
 {
   struct ObjectChangeChange *change;
 
-  change = g_new(struct ObjectChangeChange, 1);
+  change = g_new0(struct ObjectChangeChange, 1);
   
   change->change.apply = (UndoApplyFunc) object_change_apply;
   change->change.revert = (UndoRevertFunc) object_change_revert;
@@ -987,7 +987,7 @@ undo_group_objects(Diagram *dia, GList *obj_list, Object *group,
 {
   struct GroupObjectsChange *change;
 
-  change = g_new(struct GroupObjectsChange, 1);
+  change = g_new0(struct GroupObjectsChange, 1);
   
   change->change.apply = (UndoApplyFunc) group_objects_apply;
   change->change.revert = (UndoRevertFunc) group_objects_revert;
@@ -1088,7 +1088,7 @@ undo_ungroup_objects(Diagram *dia, GList *obj_list, Object *group,
 {
   struct UngroupObjectsChange *change;
 
-  change = g_new(struct UngroupObjectsChange, 1);
+  change = g_new0(struct UngroupObjectsChange, 1);
   
   change->change.apply = (UndoApplyFunc) ungroup_objects_apply;
   change->change.revert = (UndoRevertFunc) ungroup_objects_revert;
@@ -1182,4 +1182,245 @@ undo_parenting(Diagram *dia, Object* parentobj, Object* childobj,
   DEBUG_PRINTF(("UNDO: Push new obj_change at %d\n", depth(dia->undo)));
   undo_push_change(dia->undo, change);
   return change;
+}
+
+/* ******* DIAGRAM PROPERTIES ******** */
+
+typedef enum { DYNAMIC_GRID, SPACING, BG_COLOR, GRID_COLOR, PAGE_COLOR,
+	       PAPER_SIZE, PORTRAIT, MARGINS, SCALING } DiagramChangeType;
+typedef union {
+    /* Diagram properties dialog */
+    gboolean dynamic_grid;
+    struct { real space_x, space_y; int visible_x, visible_y; } spacing;
+    Color bg_color, grid_color, page_color;
+    /* Page setup dialog */
+    gchar *paper_size;
+    gboolean portrait;
+    struct { real top, bottom, left, right; } margins;
+    struct { real scale; int fit_x, fit_y; } scaling;    
+} DiagramChangeData;
+
+typedef struct {
+  Change change;
+  DiagramChangeType t;
+  DiagramChangeData change_from, change_to;
+} DiagramChange;
+
+static void
+diagram_update_properties(Diagram *dia)
+{
+  /* If diagram properties window open */
+  /*diagram_properties_retrieve(dia);*/
+  diagram_set_modified(dia, TRUE);
+  diagram_add_update_all(dia);
+  diagram_flush(dia);
+}
+
+static void
+diagram_update_pagesetup(Diagram *dia) 
+{
+  /* update diagram -- this is needed to reposition page boundaries */
+  diagram_set_modified(dia, TRUE);
+  diagram_add_update_all(dia);
+  diagram_flush(dia);
+}
+
+static void
+diagram_change_apply_or_revert(Diagram *dia, DiagramChangeType t,
+			       DiagramChangeData *to)
+{
+  switch (t) {
+  case DYNAMIC_GRID:
+    dia->data->grid.dynamic = to->dynamic_grid;
+    diagram_update_properties(dia);
+    break;
+  case SPACING:
+    dia->data->grid.width_x = to->spacing.space_x;
+    dia->data->grid.width_y = to->spacing.space_y;
+    dia->data->grid.visible_x = to->spacing.visible_x;
+    dia->data->grid.visible_y = to->spacing.visible_y;
+    diagram_update_properties(dia);
+    break;
+  case BG_COLOR:
+    dia->data->bg_color = to->bg_color;
+    diagram_update_properties(dia);
+    break;
+  case GRID_COLOR:
+    dia->data->grid.colour = to->grid_color;
+    diagram_update_properties(dia);
+    break;
+  case PAGE_COLOR:
+    dia->data->pagebreak_color = to->page_color;
+    diagram_update_properties(dia);
+    break;
+  case PAPER_SIZE:
+    g_free(dia->data->paper.name);
+    dia->data->paper.name = g_strdup(to->paper_size);
+    diagram_update_pagesetup(dia);
+    break;
+  case PORTRAIT:
+    dia->data->paper.is_portrait = to->portrait;
+    diagram_update_pagesetup(dia);
+    break;
+  case MARGINS:
+    dia->data->paper.tmargin = to->margins.top;
+    dia->data->paper.bmargin = to->margins.bottom;
+    dia->data->paper.lmargin = to->margins.left;
+    dia->data->paper.rmargin = to->margins.right;
+    diagram_update_pagesetup(dia);
+    break;
+  case SCALING:
+    if (to->scaling.scale != 0) {
+      dia->data->paper.fitto = TRUE;
+      dia->data->paper.scaling = to->scaling.scale;
+    } else {
+      dia->data->paper.fitto = FALSE;
+      dia->data->paper.fitwidth = to->scaling.fit_x;
+      dia->data->paper.fitheight = to->scaling.fit_y;
+    }
+    diagram_update_pagesetup(dia);
+    break;
+  }  
+}
+
+static void
+diagram_change_apply(Change *change, Diagram *dia) 
+{
+  DiagramChange *diachange = (DiagramChange *)change;
+  diagram_change_apply_or_revert(dia, diachange->t, &diachange->change_to);
+}
+
+static void
+diagram_change_revert(Change *change, Diagram *dia) 
+{
+  DiagramChange *diachange = (DiagramChange *)change;
+  diagram_change_apply_or_revert(dia, diachange->t, &diachange->change_from);
+}
+
+static void
+diagram_change_free(Change *change)
+{
+  DiagramChange *diachange = (DiagramChange *)change;
+  if (diachange->t == PAPER_SIZE) {
+    g_free(diachange->change_to.paper_size);
+    g_free(diachange->change_from.paper_size);
+  }
+}
+
+Change *
+undo_diagram(Diagram *dia, DiagramChangeType t,
+	     DiagramChangeData from, DiagramChangeData to)
+{
+  DiagramChange *change = g_new0(DiagramChange, 1);
+  change->t = t;
+  change->change_from = from;
+  change->change_to = to;
+
+  return (Change*)change;
+}
+
+Change *
+undo_diagram_grid(Diagram *dia, gboolean on)
+{
+  DiagramChangeData from, to;
+  from.dynamic_grid = dia->data->grid.dynamic;
+  to.dynamic_grid = on;
+  return undo_diagram(dia, DYNAMIC_GRID, from, to);
+}
+
+Change *
+undo_diagram_spacing(Diagram *dia, real space_x, real space_y, 
+		     int visible_x, int visible_y)
+{
+  DiagramChangeData from, to;
+  from.spacing.space_x = dia->data->grid.width_x;
+  to.spacing.space_x = space_x;
+  from.spacing.space_y = dia->data->grid.width_y;
+  to.spacing.space_y = space_y;
+  from.spacing.visible_x = dia->data->grid.visible_x;
+  to.spacing.visible_x = visible_x;
+  from.spacing.visible_x = dia->data->grid.visible_y;
+  to.spacing.visible_x = visible_x;
+  return undo_diagram(dia, DYNAMIC_GRID, from, to);
+}
+
+Change *
+undo_diagram_bg_color(Diagram *dia, Color *bg_color)
+{
+  DiagramChangeData from, to;
+  from.bg_color = dia->data->bg_color;
+  to.bg_color = *bg_color;
+  return undo_diagram(dia, BG_COLOR, from, to);
+}
+
+Change *
+undo_diagram_grid_color(Diagram *dia, Color *grid_color)
+{
+  DiagramChangeData from, to;
+  from.grid_color = dia->data->grid.colour;
+  to.grid_color = *grid_color;
+  return undo_diagram(dia, GRID_COLOR, from, to);
+}
+
+Change *
+undo_diagram_page_color(Diagram *dia, Color *page_color)
+{
+  DiagramChangeData from, to;
+  from.page_color = dia->data->pagebreak_color;
+  to.page_color = *page_color;
+  return undo_diagram(dia, PAGE_COLOR, from, to);
+}
+
+Change *
+undo_diagram_paper_size(Diagram *dia, gchar *size)
+{
+  DiagramChangeData from, to;
+  from.paper_size = g_strdup(dia->data->paper.name);
+  to.paper_size = g_strdup(size);
+  return undo_diagram(dia, PAPER_SIZE, from, to);
+}
+
+Change *
+undo_diagram_portrait(Diagram *dia, gboolean portrait)
+{
+  DiagramChangeData from, to;
+  from.portrait = dia->data->paper.is_portrait;
+  to.portrait = portrait;
+  return undo_diagram(dia, PORTRAIT, from, to);
+}
+
+Change *
+undo_diagram_margins(Diagram *dia, real top, real bottom, 
+		     real left, real right)
+{
+  DiagramChangeData from, to;
+  from.margins.top = dia->data->paper.tmargin;
+  to.margins.top = top ;
+  from.margins.bottom = dia->data->paper.bmargin;
+  to.margins.bottom = bottom ;
+  from.margins.left = dia->data->paper.lmargin;
+  to.margins.left = left ;
+  from.margins.right = dia->data->paper.rmargin;
+  to.margins.right = right ;
+  return undo_diagram(dia, MARGINS, from, to);
+}
+
+Change *
+undo_diagram_scaling(Diagram *dia, real scale,
+		     int fit_x, int fit_y)
+{
+  DiagramChangeData from, to;
+  if (dia->data->paper.fitto) {
+    from.scaling.scale = 0;
+    from.scaling.fit_x = dia->data->paper.fitwidth;
+    from.scaling.fit_y = dia->data->paper.fitheight;
+  } else {
+    from.scaling.scale = dia->data->paper.scaling;
+    from.scaling.fit_x = 0;
+    from.scaling.fit_y = 0;
+  }
+  to.scaling.scale = scale;
+  to.scaling.fit_x = fit_x;
+  to.scaling.fit_y = fit_y;
+  return undo_diagram(dia, SCALING, from, to);
 }

@@ -277,6 +277,12 @@ void object_load(Object *obj, ObjectNode obj_node);
 GList *object_copy_list(GList *list);
 ObjectChange* object_list_move_delta_r(GList *objects, Point *delta, gboolean affected);
 ObjectChange* object_list_move_delta(GList *objects, Point *delta);
+/** Rotate an object around a point.  If center is NULL, the position of
+ * the object is used. */
+ObjectChange* object_list_rotate(GList *objects, Point *center, real angle);
+/** Scale an object around a point.  If center is NULL, the position of
+ * the object is used. */
+ObjectChange* object_list_scale(GList *objects, Point *center, real factor);
 void destroy_object_list(GList *list);
 void object_add_handle(Object *obj, Handle *handle);
 void object_add_handle_at(Object *obj, Handle *handle, int pos);
@@ -314,6 +320,17 @@ Object *object_copy_using_properties(Object *obj);
 /*****************************************
  **  The structures used to define an object
  *****************************************/
+
+/** This structure defines an affine transformation that has been applied
+ * to this object.  Affine transformations done on a group are performed
+ * on all objects in the group.
+ */
+
+typedef struct _Affine {
+  real rotation;
+  real scale;
+  real translation;
+} Affine;
 
 
 /*
@@ -361,6 +378,7 @@ struct _Object {
   ObjectType       *type;
   Point             position;
   Rectangle         bounding_box;
+  Affine            affine;
   
   int               num_handles;
   Handle          **handles;

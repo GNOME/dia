@@ -26,6 +26,8 @@
 
 
 struct _Text {
+  /** The object that owns this text. */
+  Object *parent_object;
   /* don't change these values directly, use the text_set* functions */
   
   /* Text data: */

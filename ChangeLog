@@ -1,3 +1,30 @@
+2004-04-28  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+
+	* app/Makefile.am: New files diacanvas.[ch]
+
+	* app/interface.c (create_display_shell): Use new diacanvas that
+	allows placing widgets on canvas, for text edit.
+
+	* lib/object.h: 
+	Early work towards rotation.  No implementation yet.
+
+	* app/layer_dialog.c (undo_layer): 
+	* objects/network/bus.c (bus_create_change): 
+	* objects/standard/box.c (aspect_create_change): 
+	* objects/standard/ellipse.c (aspect_create_change): 
+	Use g_new0 for change struct.
+
+	* app/undo.c (diagram_change_apply_or_revert): 
+	Support for undo of diagram properties and page setup.
+
+	* app/disp_callbacks.c (ddisplay_canvas_events): 
+	* lib/text.h: 
+	* lib/diagramdata.h: 
+	* app/modify_tool.c (click_select_object): 
+	* lib/text.c (text_register_editable): 
+	Starting work on new text editing model.  Guarded by #ifdef so
+	far. 
+
 2004-04-07  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
 
 	* app/recent_files.c (open_recent_file_callback): 

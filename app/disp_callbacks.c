@@ -435,6 +435,8 @@ void ddisplay_im_context_preedit_changed(GtkIMContext *context,
 */
 }
 
+/** Main input handler for a diagram canvas.
+ */
 gint
 ddisplay_canvas_events (GtkWidget *canvas,
 			GdkEvent  *event,
@@ -671,24 +673,24 @@ ddisplay_canvas_events (GtkWidget *canvas,
         key_handled = FALSE;
 
         focus = active_focus();
-        if ((focus != NULL) &&
-            !(state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) ) {
-              /* Keys goes to the active focus. */
-          obj = focus->obj;
-          if (diagram_is_selected(ddisp->diagram, obj)) {
-
-            if (!gtk_im_context_filter_keypress(
-                  GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
-              
-                  /*! key event not swallowed by the input method ? */
-              handle_key_event(ddisp, focus, kevent->keyval,
-                               kevent->string, kevent->length);
-
-              diagram_flush(ddisp->diagram);
-            }
-          }
-          return_val = key_handled = TRUE;
-        }
+        if (focus != NULL) {
+          if ((state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) ) {
+	    /* Keys goes to the active focus. */
+	    obj = focus->obj;
+	    if (diagram_is_selected(ddisp->diagram, obj)) {
+	      
+	      if (!gtk_im_context_filter_keypress
+		  (GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
+		/*! key event not swallowed by the input method ? */
+		handle_key_event(ddisp, focus, kevent->keyval,
+				 kevent->string, kevent->length);
+		
+		diagram_flush(ddisp->diagram);
+	      }
+	    }
+	    return_val = key_handled = TRUE;
+	  }
+	}
 
         if (!key_handled) {
               /* No focus to receive keys, take care of it ourselves. */
@@ -736,8 +738,13 @@ ddisplay_canvas_events (GtkWidget *canvas,
               default:
                 if (kevent->string && 0 == strcmp(" ",kevent->string)) {
                   tool_select_former();
-                } else { 
+                } else if ((kevent->state & (GDK_MOD1_MASK|GDK_CONTROL_MASK)) == 0 && 
+			   kevent->length != 0) {
+		  /* Find first editable */
+#ifdef NEW_TEXT_EDIT
+		  modify_edit_first_text(ddisp);
                   return_val = FALSE;
+#endif
                 }
           }
         }

@@ -737,7 +737,7 @@ bus_create_change(Bus *bus, enum change_type type,
 {
   struct PointChange *change;
 
-  change = g_new(struct PointChange, 1);
+  change = g_new0(struct PointChange, 1);
 
   change->obj_change.apply = (ObjectChangeApplyFunc) bus_change_apply;
   change->obj_change.revert = (ObjectChangeRevertFunc) bus_change_revert;

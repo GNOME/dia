@@ -79,6 +79,10 @@ struct _DiagramData {
   guint selected_count;
   GList *selected;        /* List of objects that are selected,
 			     all from the active layer! */
+
+  /** List of text fields that can be edited in the diagram.
+   *  Updated by text_register_focusable. */
+  GList *text_edits;
 };
 
 struct _Layer {

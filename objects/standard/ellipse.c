@@ -628,7 +628,7 @@ aspect_create_change(Ellipse *ellipse, AspectType aspect)
 {
   struct AspectChange *change;
 
-  change = g_new(struct AspectChange, 1);
+  change = g_new0(struct AspectChange, 1);
 
   change->obj_change.apply = (ObjectChangeApplyFunc) aspect_change_apply;
   change->obj_change.revert = (ObjectChangeRevertFunc) aspect_change_revert;

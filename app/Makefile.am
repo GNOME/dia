@@ -147,6 +147,8 @@ dia_core_files = \
 	    diapsft2renderer.c \
 	    navigation.h \
 	    navigation.c \
+	    diacanvas.c \
+	    diacanvas.h \
 	    highlight.c \
 	    highlight.h \
 	    $(print_files)

@@ -31,6 +31,10 @@
 #include "cursor.h"
 #include "highlight.h"
 
+#include "diacanvas.h"
+#include "prop_text.h"
+#include "gtk/gtk.h"
+
 static Object *click_select_object(DDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
 static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
@@ -44,6 +48,9 @@ static void modify_motion(ModifyTool *tool, GdkEventMotion *event,
 			  DDisplay *ddisp);
 static void modify_double_click(ModifyTool *tool, GdkEventButton *event,
 				DDisplay *ddisp);
+void modify_make_text_edit(DDisplay *ddisp, Object *obj, 
+			   Point *clickedpoint);
+
 
 Tool *
 create_modify_tool(void)
@@ -65,7 +72,6 @@ create_modify_tool(void)
   
   return (Tool *)tool;
 }
-
 
 void
 free_modify_tool(Tool *tool)
@@ -159,6 +165,8 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
 	diagram_unselect_object(ddisp->diagram, (Object *)already->data);
 	diagram_flush(ddisp->diagram);
       } else {
+	/* Maybe start editing text */
+	modify_make_text_edit(ddisp, obj, clickedpoint);
 	return obj;
       }
     }
@@ -707,8 +715,195 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   }
 }
 
+#define EDIT_BORDER_WIDTH 5
 
+gboolean
+modify_edit_end(GtkWidget *widget, GdkEventFocus *event, gpointer data)
+{
+  int foo = printf("Ending focus\n");
+  GtkTextView *view = GTK_TEXT_VIEW(widget);
+  Object *obj = (Object*)data;
+  GQuark quark = g_quark_from_string(PROP_TYPE_TEXT);
+  PropDescription *props = obj->ops->describe_props(obj);
+  int i;
 
+  for (i = 0; props[i].name != NULL; i++) {
+    printf("Testing to remove: %s\n", props[i].name);
+    if (props[i].type_quark == quark) {
+      GPtrArray *textprops = g_ptr_array_sized_new(1);
+      TextProperty *textprop;
+      Property *prop = props[i].ops->new_prop(&props[i], pdtpp_true);
+      GtkTextBuffer *buf;
+      GtkTextIter start, end;
+      ObjectChange *change;
 
+      printf("Going to stop %d\n", i);
+      buf = gtk_text_view_get_buffer(view);
+      g_ptr_array_add(textprops, prop);
+      obj->ops->get_props(obj, textprops);
+      textprop = (TextProperty*)prop;
+      if (textprop->text_data != NULL) g_free(textprop->text_data);
+      gtk_text_buffer_get_bounds(buf, &start, &end);
+      textprop->text_data = gtk_text_buffer_get_text(buf, &start, &end, TRUE);
+      printf("Setting text %s\n", textprop->text_data);
+      obj->ops->set_props(obj, textprops);
+      gtk_widget_destroy(widget);
+    }
+  }
+  return FALSE;
+}
 
+/** Start editing the first text among selected objects, if any */
+void
+modify_edit_first_text(DDisplay *ddisp)
+{
+  GList *edits = ddisp->diagram->data->text_edits;
 
+  if (edits != NULL) {
+    Text *text = (Text*)edits->data;
+    modify_start_text_edit(ddisp, text, text->parent_object, NULL);
+  }
+}
+
+void
+modify_start_text_edit(DDisplay *ddisp, Text *text, Object *obj, Point *clickedpoint)
+{
+  GtkWidget *view = gtk_text_view_new();
+  int x, y, i;
+  GtkTextBuffer *buf;
+  GtkTextTag *fonttag;
+  GtkTextIter start, end;
+  real ascent;
+  int ascent_pixels;
+
+  printf("modify_start_text_edit\n");
+  ddisplay_transform_coords(ddisp,
+			    text->position.x,
+			    text->position.y,
+			    &x, &y);
+  ascent = dia_font_scaled_ascent(text->line[0], 
+				  text->font,
+				  text->height,
+				  ddisp->zoom_factor);
+  printf("Text prop string %s pos %d, %d ascent %f\n",
+	 text->line[0], x, y, ascent);
+  ascent_pixels = ddisplay_transform_length(ddisp, ascent);
+  y -= ascent_pixels;
+  dia_canvas_put(DIA_CANVAS(ddisp->canvas), view, 
+		 x-EDIT_BORDER_WIDTH, y-EDIT_BORDER_WIDTH);
+  buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+  for (i = 0; i < text->numlines; i++) {
+    gtk_text_buffer_insert_at_cursor(buf, text->line[i], -1);
+  }
+  fonttag = 
+    gtk_text_buffer_create_tag(buf,
+			       NULL,
+			       "font-desc",
+			       text->font->pfd,
+			       NULL);
+  gtk_text_buffer_get_bounds(buf, &start, &end);
+  gtk_text_buffer_apply_tag(buf, fonttag, &start, &end);
+
+  printf("Above lines %d below %d\n",
+	 gtk_text_view_get_pixels_above_lines(GTK_TEXT_VIEW(view)),
+	 gtk_text_view_get_pixels_below_lines(GTK_TEXT_VIEW(view)));
+
+  gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+				       GTK_TEXT_WINDOW_LEFT, 
+				       EDIT_BORDER_WIDTH);
+  gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+				       GTK_TEXT_WINDOW_RIGHT, 
+				       EDIT_BORDER_WIDTH);
+  gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+				       GTK_TEXT_WINDOW_TOP,
+				       EDIT_BORDER_WIDTH);
+  gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+				       GTK_TEXT_WINDOW_BOTTOM,
+				       EDIT_BORDER_WIDTH);
+  /* Using deprecated function because the fucking gobject documentation
+   * fucking sucks. */
+#ifdef NEW_TEXT_EDIT
+  gtk_signal_connect(GTK_OBJECT(view), "focus-out-event",
+		     modify_edit_end, obj);
+£endif
+  gtk_widget_grab_focus(view);
+  gtk_widget_show(view);
+}
+
+void
+modify_make_text_edit(DDisplay *ddisp, Object *obj, Point *clickedpoint)
+{
+  PropDescription *props = obj->ops->describe_props(obj);
+  int i;
+  for (i = 0; props[i].name != NULL; i++) {
+    GQuark type = g_quark_from_string(PROP_TYPE_TEXT);
+    printf("Testing %s\n", props[i].type);
+    if (props[i].type_quark == type) {
+      GtkWidget *view = gtk_text_view_new();
+      GPtrArray *textprops = g_ptr_array_sized_new(1);
+      TextProperty *textprop;
+      Property *prop = props[i].ops->new_prop(&props[i], pdtpp_true);
+      int x, y;
+      GtkTextBuffer *buf;
+      GtkTextTag *fonttag;
+      GtkTextIter start, end;
+      real ascent;
+      int ascent_pixels;
+
+      g_ptr_array_add(textprops, prop);
+
+      printf("Found text prop %d\n", i);
+      obj->ops->get_props(obj, textprops);
+      textprop = (TextProperty*)prop;
+      ddisplay_transform_coords(ddisp,
+				textprop->attr.position.x,
+				textprop->attr.position.y,
+				&x, &y);
+      ascent = dia_font_scaled_ascent(textprop->text_data, 
+				      textprop->attr.font,
+				      textprop->attr.height,
+				      ddisp->zoom_factor);
+      printf("Text prop string %s pos %d, %d ascent %f\n",
+	     textprop->text_data, x, y, ascent);
+      ascent_pixels = ddisplay_transform_length(ddisp, ascent);
+      y -= ascent_pixels;
+      dia_canvas_put(DIA_CANVAS(ddisp->canvas), view, 
+		     x-EDIT_BORDER_WIDTH, y-EDIT_BORDER_WIDTH);
+      buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+      gtk_text_buffer_insert_at_cursor(buf, textprop->text_data, -1);
+      fonttag = 
+	gtk_text_buffer_create_tag(buf,
+				   NULL,
+				   "font-desc",
+				   textprop->attr.font->pfd,
+				   NULL);
+      gtk_text_buffer_get_bounds(buf, &start, &end);
+      gtk_text_buffer_apply_tag(buf, fonttag, &start, &end);
+
+      printf("Above lines %d below %d\n",
+	     gtk_text_view_get_pixels_above_lines(GTK_TEXT_VIEW(view)),
+	     gtk_text_view_get_pixels_below_lines(GTK_TEXT_VIEW(view)));
+
+      gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+					   GTK_TEXT_WINDOW_LEFT, 
+					   EDIT_BORDER_WIDTH);
+      gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+					   GTK_TEXT_WINDOW_RIGHT, 
+					   EDIT_BORDER_WIDTH);
+      gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+					   GTK_TEXT_WINDOW_TOP,
+					   EDIT_BORDER_WIDTH);
+      gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(view), 
+					   GTK_TEXT_WINDOW_BOTTOM,
+					   EDIT_BORDER_WIDTH);
+      /* Using deprecated function because the fucking gobject documentation
+       * fucking sucks. */
+#ifdef NEW_TEXT_EDIT
+      gtk_signal_connect(GTK_OBJECT(view), "focus-out-event",
+			 modify_edit_end, obj);
+#endif
+      gtk_widget_grab_focus(view);
+      gtk_widget_show(view);
+    }
+  }  
+}

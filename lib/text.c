@@ -29,6 +29,7 @@
 #include "text.h"
 #include "message.h"
 #include "diarenderer.h"
+#include "diagramdata.h"
 
 static int text_key_event(Focus *focus, guint keysym,
 			  const gchar *str, int strlen,
@@ -460,6 +461,29 @@ text_draw(Text *text, DiaRenderer *renderer)
   }
 }
 
+/** Register that an object has a text that can be edited.
+ *  This text will be inserted in the chain traversed by tabbing.
+ *  The registration is temporary, intended to be done when the 
+ *  object is selected.
+ */
+void
+text_register_editable(Text *text, Object *obj)
+{
+  DiagramData *dia;
+
+  text->parent_object = obj;
+  dia = text->parent_object->parent_layer->parent_diagram;
+  dia->text_edits = g_list_append(dia->text_edits, text);
+}
+
+/** Reset the list of editable texts. */
+void
+text_reset_editable(DiagramData *dia)
+{
+  g_list_free(dia->text_edits);
+  dia->text_edits = NULL;
+}
+
 void
 text_grab_focus(Text *text, Object *object)
 {
@@ -484,6 +508,9 @@ text_set_cursor(Text *text, Point *clicked_point,
   real start_x;
   int row;
   int i;
+
+  /* New edit model doesn't use this. */
+  return;
 
   top = text->position.y - text->ascent;
   
@@ -1097,7 +1124,7 @@ text_create_change(Text *text, enum change_type type,
 {
   struct TextObjectChange *change;
 
-  change = g_new(struct TextObjectChange, 1);
+  change = g_new0(struct TextObjectChange, 1);
 
   change->obj_change.apply = (ObjectChangeApplyFunc) text_change_apply;
   change->obj_change.revert = (ObjectChangeRevertFunc) text_change_revert;

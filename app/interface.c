@@ -41,7 +41,7 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "dia-app-icons.h"
-
+#include "diacanvas.h"
 
 static const GtkTargetEntry create_object_targets[] = {
   { "application/x-dia-object", 0, 0 },
@@ -430,10 +430,11 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_show(navigation_button);
 
   /*  Canvas  */
-  ddisp->canvas = gtk_drawing_area_new ();
+  /*  ddisp->canvas = gtk_drawing_area_new ();*/
+  ddisp->canvas = dia_canvas_new();
   /* Dia's canvas does it' double buffering alone so switch off GTK's */
   gtk_widget_set_double_buffered (ddisp->canvas, FALSE);
-
+  dia_canvas_set_size(ddisp->canvas, width, height);
   gtk_widget_set_events (ddisp->canvas, CANVAS_EVENT_MASK);
   GTK_WIDGET_SET_FLAGS (ddisp->canvas, GTK_CAN_FOCUS);
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "event",
@@ -448,6 +449,7 @@ create_display_shell(DDisplay *ddisp,
 		    G_CALLBACK(display_data_received_callback), ddisp);
 
   gtk_object_set_user_data (GTK_OBJECT (ddisp->canvas), (gpointer) ddisp);
+
   /*  pack all the widgets  */
   gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,
                     GTK_FILL, GTK_FILL, 0, 0);

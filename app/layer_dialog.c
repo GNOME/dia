@@ -1113,7 +1113,7 @@ undo_layer(Diagram *dia, Layer *layer, enum LayerChangeType type, int index)
 {
   struct LayerChange *change;
 
-  change = g_new(struct LayerChange, 1);
+  change = g_new0(struct LayerChange, 1);
   
   change->change.apply = (UndoApplyFunc) layer_change_apply;
   change->change.revert = (UndoRevertFunc) layer_change_revert;
