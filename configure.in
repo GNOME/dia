@@ -108,6 +108,49 @@ OLDCPPFLAGS=$CPPFLAGS
 CPPFLAGS="$CPPFLAGS `glib-config --cflags`"
 
 
+dnl check for libunicode FIXME: the --enable test doesn't work.
+AC_ARG_ENABLE(unicode, 
+[  --enable-unicode    enable (LIMITED) unicode support],,enable_unicode=yes)
+UNICODE_CFLAGS=
+UNICODE_LIBS=
+if test "$enable_unicode" = "yes"; then
+  AC_MSG_CHECKING(for libunicode)
+  if unicode-config --libs > /dev/null 2>&1; then
+    vers=`unicode-config --version`
+    have_unicode=true     
+    UNICODE_CFLAGS=`unicode-config --cflags`
+    UNICODE_LIBS=`unicode-config --libs`
+    AC_DEFINE(HAVE_UNICODE,, Unicode support library available)
+    AC_MSG_RESULT([found, version $vers])
+  else
+    have_unicode=false
+    AC_MSG_RESULT([not found])
+  fi
+else
+  have_unicode=false
+fi
+AC_SUBST(UNICODE_CFLAGS)
+AC_SUBST(UNICODE_LIBS)
+AM_CONDITIONAL(HAVE_UNICODE,$have_unicode)
+
+dnl check for Display PS 
+AC_ARG_ENABLE(dps,
+[  --enable-dps    enable DPS support],,enable_dps=no)
+if test "$enable_dps" = "yes"; then
+  AM_PATH_GTK_DPS
+  GTK_DPS_LIBS="$GTK_DPS_LDFLAGS"
+  have_dps=true
+  AC_DEFINE(HAVE_DPS,, Display Postscript(tm) library available)
+else
+  have_dps=false
+  GTK_DPS_LIBS=
+  GTK_DPS_CFLAGS=
+fi
+AC_SUBST(GTK_DPS_LIBS)
+AC_SUBST(GTK_DPS_CFLAGS)
+AM_CONDITIONAL(HAVE_DPS, $have_dps)
+
+
 CPPFLAGS=$OLDCPPFLAGS
 
 dnl
@@ -270,6 +313,7 @@ shapes/Civil/Makefile
 shapes/jigsaw/Makefile
 shapes/MSE/Makefile
 shapes/SDL/Makefile
+shapes/Logic/Makefile
 app/Makefile
 samples/Makefile
 sheets/Makefile

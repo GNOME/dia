@@ -1,5 +1,5 @@
 
 SUBDIRS = Circuit flowchart Contact network Pneumatic Electric \
-	Civil jigsaw MSE SDL
+	Civil jigsaw MSE SDL Logic
 
 
