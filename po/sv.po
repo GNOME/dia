@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-01-03 04:46+0100\n"
-"PO-Revision-Date: 2002-01-03 04:46+0100\n"
+"POT-Creation-Date: 2002-01-21 00:30+0100\n"
+"PO-Revision-Date: 2002-01-21 00:31+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -175,7 +175,7 @@ msgstr "Bidragsgivare:"
 #. setup buttons
 #: app/commands.c:613 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:715
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:717
 #: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "OK"
@@ -196,12 +196,12 @@ msgid "Object defaults"
 msgstr "Standardvärden för objekt"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:724 app/properties.c:101
+#: app/preferences.c:726 app/properties.c:101
 msgid "Apply"
 msgstr "Verkställ"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:733
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:735
 #: app/properties.c:111
 msgid "Close"
 msgstr "Stäng"
@@ -339,12 +339,12 @@ msgstr ""
 "Detta diagram har inte sparats.\n"
 "Vill du spara ändringar nu?"
 
-#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:605
+#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:607
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:605
-#: app/preferences.c:616
+#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:607
+#: app/preferences.c:618
 msgid "No"
 msgstr "Nej"
 
@@ -427,11 +427,11 @@ msgstr "Exportinställningar"
 msgid "Modify object(s)"
 msgstr "Modifiera objekt"
 
-#: app/interface.c:44 app/menus.c:199
+#: app/interface.c:44 app/menus.c:202
 msgid "Modify"
 msgstr "Modifiera"
 
-#: app/interface.c:48 app/interface.c:49 app/menus.c:200
+#: app/interface.c:48 app/interface.c:49 app/menus.c:203
 #: objects/FS/function.c:763
 msgid "Magnify"
 msgstr "Förstora"
@@ -440,7 +440,7 @@ msgstr "Förstora"
 msgid "Scroll around the diagram"
 msgstr "Rulla i diagrammet"
 
-#: app/interface.c:54 app/menus.c:201
+#: app/interface.c:54 app/menus.c:204
 msgid "Scroll"
 msgstr "Rulla"
 
@@ -452,7 +452,7 @@ msgstr "Skapa text"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:59 app/menus.c:202 lib/properties.c:77 lib/properties.h:501
+#: app/interface.c:59 app/menus.c:205 lib/properties.c:77 lib/properties.h:501
 #: lib/properties.h:504 objects/UML/actor.c:114 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/object.c:142
 #: objects/UML/small_package.c:120 objects/UML/state.c:137
@@ -464,7 +464,7 @@ msgstr "Text"
 msgid "Create Box"
 msgstr "Skapa låda"
 
-#: app/interface.c:64 app/menus.c:203
+#: app/interface.c:64 app/menus.c:206
 msgid "Box"
 msgstr "Låda"
 
@@ -472,7 +472,7 @@ msgstr "Låda"
 msgid "Create Ellipse"
 msgstr "Skapa ellips"
 
-#: app/interface.c:69 app/menus.c:204
+#: app/interface.c:69 app/menus.c:207
 msgid "Ellipse"
 msgstr "Ellips"
 
@@ -480,7 +480,7 @@ msgstr "Ellips"
 msgid "Create Polygon"
 msgstr "Skapa polygon"
 
-#: app/interface.c:74 app/menus.c:205
+#: app/interface.c:74 app/menus.c:208
 msgid "Polygon"
 msgstr "Polygon"
 
@@ -488,7 +488,7 @@ msgstr "Polygon"
 msgid "Create Beziergon"
 msgstr "Skapa beziergon"
 
-#: app/interface.c:79 app/menus.c:206
+#: app/interface.c:79 app/menus.c:209
 msgid "Beziergon"
 msgstr "Beziergon"
 
@@ -496,7 +496,7 @@ msgstr "Beziergon"
 msgid "Create Line"
 msgstr "Skapa linje"
 
-#: app/interface.c:84 app/menus.c:207 objects/standard/line.c:188
+#: app/interface.c:84 app/menus.c:210 objects/standard/line.c:188
 msgid "Line"
 msgstr "Linje"
 
@@ -504,7 +504,7 @@ msgstr "Linje"
 msgid "Create Arc"
 msgstr "Skapa båge"
 
-#: app/interface.c:89 app/menus.c:208
+#: app/interface.c:89 app/menus.c:211
 msgid "Arc"
 msgstr "Båge"
 
@@ -512,7 +512,7 @@ msgstr "Båge"
 msgid "Create Zigzagline"
 msgstr "Skapa sicksacklinje"
 
-#: app/interface.c:94 app/menus.c:209
+#: app/interface.c:94 app/menus.c:212
 msgid "Zigzagline"
 msgstr "Sicksacklinje"
 
@@ -520,7 +520,7 @@ msgstr "Sicksacklinje"
 msgid "Create Polyline"
 msgstr "Skapa polylinje"
 
-#: app/interface.c:99 app/menus.c:210
+#: app/interface.c:99 app/menus.c:213
 msgid "Polyline"
 msgstr "Polylinje"
 
@@ -528,7 +528,7 @@ msgstr "Polylinje"
 msgid "Create Bezierline"
 msgstr "Skapa bezierkurva"
 
-#: app/interface.c:104 app/menus.c:211
+#: app/interface.c:104 app/menus.c:214
 msgid "Bezierline"
 msgstr "Bezierkurva"
 
@@ -536,7 +536,7 @@ msgstr "Bezierkurva"
 msgid "Create Image"
 msgstr "Skapa bild"
 
-#: app/interface.c:109 app/menus.c:212
+#: app/interface.c:109 app/menus.c:215
 msgid "Image"
 msgstr "Bild"
 
@@ -682,247 +682,241 @@ msgstr "Misslyckades med att spara filen \"%s\".\n"
 msgid "Native Dia Diagram"
 msgstr "Inhemskt Dia-diagram"
 
-#: app/menus.c:47 app/menus.c:61
+#: app/menus.c:48 app/menus.c:64
 msgid "_New diagram"
 msgstr "_Nytt diagram"
 
-#: app/menus.c:47 app/menus.c:61
+#: app/menus.c:48 app/menus.c:64
 msgid "Create new diagram"
 msgstr "Skapa ett nytt diagram"
 
-#: app/menus.c:52
+#: app/menus.c:53
 msgid "_Diagram tree"
 msgstr "_Diagramträd"
 
-#: app/menus.c:52
+#: app/menus.c:53
 msgid "Show diagram tree"
 msgstr "Visa diagramträd"
 
-#: app/menus.c:54 app/plugin-manager.c:129 app/plugin-manager.c:135
-msgid "Plug-ins"
-msgstr "Insticksmoduler"
+#: app/menus.c:55
+msgid "P_lugins"
+msgstr "I_nsticksmoduler"
 
-#: app/menus.c:68
+#: app/menus.c:71
 msgid "_Export..."
 msgstr "_Exportera..."
 
-#: app/menus.c:72
+#: app/menus.c:75
 msgid "Page Set_up..."
 msgstr "Sidinst_ällningar..."
 
-#: app/menus.c:74
+#: app/menus.c:77
 msgid "_Print Diagram..."
 msgstr "Skriv _ut diagram..."
 
-#: app/menus.c:89
+#: app/menus.c:92
 msgid "_Delete"
 msgstr "_Ta bort"
 
-#: app/menus.c:95
+#: app/menus.c:98
 msgid "Copy Text"
 msgstr "Kopiera text"
 
-#: app/menus.c:96
+#: app/menus.c:99
 msgid "Cut Text"
 msgstr "Klipp ut text"
 
-#: app/menus.c:97
+#: app/menus.c:100
 msgid "Paste _Text"
 msgstr "Klistra in _text"
 
-#: app/menus.c:120
+#: app/menus.c:123
 msgid "Zoom _In"
 msgstr "Zooma _in"
 
-#: app/menus.c:120
+#: app/menus.c:123
 #, c-format
 msgid "Zoom in 50%"
 msgstr "Zooma in 50%"
 
-#: app/menus.c:121
+#: app/menus.c:124
 msgid "Zoom _Out"
 msgstr "Zooma _ut"
 
-#: app/menus.c:121
+#: app/menus.c:124
 #, c-format
 msgid "Zoom out 50%"
 msgstr "Zooma ut 50%"
 
-#: app/menus.c:122
+#: app/menus.c:125
 msgid "_Zoom"
 msgstr "_Zooma"
 
-#: app/menus.c:123
+#: app/menus.c:126
 msgid "Diagram Properties..."
 msgstr "Diagramegenskaper..."
 
-#: app/menus.c:125
+#: app/menus.c:128
 msgid "_AntiAliased"
 msgstr "_Kantutjämnad"
 
-#: app/menus.c:128
+#: app/menus.c:131
 msgid "_Visible Grid"
 msgstr "_Synligt rutnät"
 
-#: app/menus.c:130
+#: app/menus.c:133
 msgid "_Snap To Grid"
 msgstr "_Fäst vid rutnät"
 
-#: app/menus.c:132
+#: app/menus.c:135
 msgid "Show _Rulers"
 msgstr "Visa _linjaler"
 
-#: app/menus.c:134
+#: app/menus.c:137
 msgid "Show _Connection Points"
 msgstr "Visa _anslutningspunkter"
 
-#: app/menus.c:137
+#: app/menus.c:140
 msgid "New _View"
 msgstr "Ny _vy"
 
-#: app/menus.c:138
+#: app/menus.c:141
 msgid "Show _All"
 msgstr "Visa _allt"
 
-#: app/menus.c:143
+#: app/menus.c:146
 msgid "Replace"
 msgstr "Ersätt"
 
-#: app/menus.c:145
+#: app/menus.c:148
 msgid "Union"
 msgstr "Union"
 
-#: app/menus.c:147
+#: app/menus.c:150
 msgid "Intersect"
 msgstr "Skär"
 
-#: app/menus.c:149 objects/FS/function.c:623 objects/FS/function.c:699
+#: app/menus.c:152 objects/FS/function.c:623 objects/FS/function.c:699
 #: objects/FS/function.c:700
 msgid "Remove"
 msgstr "Ta bort"
 
-#: app/menus.c:151 app/menus.c:159
+#: app/menus.c:154 app/menus.c:162
 msgid "Invert"
 msgstr "Invertera"
 
-#: app/menus.c:157
+#: app/menus.c:160
 msgid "All"
 msgstr "Allt"
 
-#: app/menus.c:158 lib/widgets.c:660 objects/UML/association.c:1001
+#: app/menus.c:161 lib/widgets.c:660 objects/UML/association.c:1001
 msgid "None"
 msgstr "Ingen"
 
-#: app/menus.c:160
+#: app/menus.c:163
 msgid "Connected"
 msgstr "Ansluten"
 
-#: app/menus.c:161
+#: app/menus.c:164
 msgid "Transitive"
 msgstr "Transitiv"
 
-#: app/menus.c:162
+#: app/menus.c:165
 msgid "Same Type"
 msgstr "Samma typ"
 
-#: app/menus.c:169 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:203
+#: app/menus.c:172 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:203
 msgid "Left"
 msgstr "Vänster"
 
-#: app/menus.c:170 app/menus.c:179 lib/properties.c:63 lib/properties.h:466
+#: app/menus.c:173 app/menus.c:182 lib/properties.c:63 lib/properties.h:466
 #: lib/widgets.c:209
 msgid "Center"
 msgstr "Mittpunkt"
 
-#: app/menus.c:171 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:215
+#: app/menus.c:174 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:215
 msgid "Right"
 msgstr "Höger"
 
-#: app/menus.c:172 app/menus.c:181
+#: app/menus.c:175 app/menus.c:184
 msgid "Equal Distance"
 msgstr "Lika avstånd"
 
-#: app/menus.c:173 app/menus.c:182
+#: app/menus.c:176 app/menus.c:185
 msgid "Adjacent"
 msgstr "Närliggande"
 
-#: app/menus.c:178
+#: app/menus.c:181
 msgid "Top"
 msgstr "Ovansida"
 
-#: app/menus.c:180
+#: app/menus.c:183
 msgid "Bottom"
 msgstr "Undersida"
 
-#: app/menus.c:187
+#: app/menus.c:190
 msgid "Send to _Back"
 msgstr "Lägg _underst"
 
-#: app/menus.c:188
+#: app/menus.c:191
 msgid "Bring to _Front"
 msgstr "Lägg _överst"
 
-#: app/menus.c:190
+#: app/menus.c:193
 msgid "_Group"
 msgstr "_Gruppera"
 
-#: app/menus.c:191
+#: app/menus.c:194
 msgid "_Ungroup"
 msgstr "_Avgruppera"
 
-#: app/menus.c:193
+#: app/menus.c:196
 msgid "Align _Horizontal"
 msgstr "Justera _horisontellt"
 
-#: app/menus.c:194
+#: app/menus.c:197
 msgid "Align _Vertical"
 msgstr "Justera _vertikalt"
 
-#: app/menus.c:217
+#: app/menus.c:220
 msgid "_Properties"
 msgstr "_Egenskaper"
 
-#: app/menus.c:218
+#: app/menus.c:221
 msgid "_Layers"
 msgstr "_Lager"
 
-#: app/menus.c:239
+#: app/menus.c:242
 msgid "_Select"
 msgstr "_Markera"
 
-#: app/menus.c:240
+#: app/menus.c:243
 msgid "_Objects"
 msgstr "_Objekt"
 
-#: app/menus.c:241
+#: app/menus.c:244
 msgid "_Tools"
 msgstr "_Verktyg"
 
-#: app/menus.c:242
+#: app/menus.c:245
 msgid "_Dialogs"
 msgstr "_Dialoger"
 
-#: app/menus.c:253 app/menus.c:281
+#: app/menus.c:256 app/menus.c:283
 msgid "/_File"
 msgstr "/_Arkiv"
 
-#: app/menus.c:255 app/menus.c:283
+#: app/menus.c:258 app/menus.c:285
 msgid "/File/_New"
 msgstr "/Arkiv/_Ny"
 
-#: app/menus.c:256 app/menus.c:284
+#: app/menus.c:259 app/menus.c:286
 msgid "/File/_Open"
 msgstr "/Arkiv/_Öppna"
 
-#: app/menus.c:257
-msgid "/File/Open _Recent"
-msgstr "/Arkiv/Ö_ppna senaste"
-
-#: app/menus.c:258
-msgid "/File/Open Recent/---"
-msgstr "/Arkiv/Öppna senaste/---"
-
-#: app/menus.c:260 app/menus.c:265 app/menus.c:288 app/menus.c:291
+#. recent file list is dynamically inserted here
+#: app/menus.c:260 app/menus.c:265 app/menus.c:267 app/menus.c:290
+#: app/menus.c:293
 msgid "/File/---"
 msgstr "/Arkiv/---"
 
@@ -938,389 +932,389 @@ msgstr "/Arkiv/_Inställningar..."
 msgid "/File/P_lugins"
 msgstr "/Arkiv/Insticksmodu_ler"
 
-#: app/menus.c:266 app/menus.c:294
+#: app/menus.c:268 app/menus.c:296
 msgid "/File/_Quit"
 msgstr "/Arkiv/_Avsluta"
 
-#: app/menus.c:267
+#: app/menus.c:269
 msgid "/_Help"
 msgstr "/_Hjälp"
 
-#: app/menus.c:269
+#: app/menus.c:271
 msgid "/Help/_Manual"
 msgstr "/Hjälp/_Manual"
 
-#: app/menus.c:270
+#: app/menus.c:272
 msgid "/Help/---"
 msgstr "/Hjälp/---"
 
-#: app/menus.c:271
+#: app/menus.c:273
 msgid "/Help/_About"
 msgstr "/Hjälp/_Om"
 
-#: app/menus.c:285
+#: app/menus.c:287
 msgid "/File/_Save"
 msgstr "/Arkiv/_Spara"
 
-#: app/menus.c:286
+#: app/menus.c:288
 msgid "/File/Save _As..."
 msgstr "/Arkiv/Spara so_m..."
 
-#: app/menus.c:287
+#: app/menus.c:289
 msgid "/File/_Export..."
 msgstr "/Arkiv/_Exportera..."
 
-#: app/menus.c:289
+#: app/menus.c:291
 msgid "/File/Page Set_up..."
 msgstr "/File/Sidinst_ällningar..."
 
-#: app/menus.c:290
+#: app/menus.c:292
 msgid "/File/_Print Diagram..."
 msgstr "/Arkiv/Skriv _ut diagram..."
 
-#: app/menus.c:292
+#: app/menus.c:294
 msgid "/File/_Close"
 msgstr "/Arkiv/S_täng"
 
-#: app/menus.c:295
+#: app/menus.c:297
 msgid "/_Edit"
 msgstr "/_Redigera"
 
-#: app/menus.c:297
+#: app/menus.c:299
 msgid "/Edit/_Copy"
 msgstr "/Redigera/_Kopiera"
 
-#: app/menus.c:298
+#: app/menus.c:300
 msgid "/Edit/C_ut"
 msgstr "/Redigera/Klipp _ut"
 
-#: app/menus.c:299
+#: app/menus.c:301
 msgid "/Edit/_Paste"
 msgstr "/Redigera/Klistra _in"
 
-#: app/menus.c:300
+#: app/menus.c:302
 msgid "/Edit/_Delete"
 msgstr "/Redigera/_Ta bort"
 
-#: app/menus.c:301
+#: app/menus.c:303
 msgid "/Edit/_Undo"
 msgstr "/Redigera/_Ångra"
 
-#: app/menus.c:302
+#: app/menus.c:304
 msgid "/Edit/_Redo"
 msgstr "/Redigera/_Gör om"
 
-#: app/menus.c:303
+#: app/menus.c:305
 msgid "/Edit/Copy Text"
 msgstr "/Redigera/Kopiera text"
 
-#: app/menus.c:304
+#: app/menus.c:306
 msgid "/Edit/Cut Text"
 msgstr "/Redigera/Klipp ut text"
 
-#: app/menus.c:305
+#: app/menus.c:307
 msgid "/Edit/Paste _Text"
 msgstr "/Redigera/Klistra in _text"
 
-#: app/menus.c:306
+#: app/menus.c:308
 msgid "/_View"
 msgstr "/_Visa"
 
-#: app/menus.c:308
+#: app/menus.c:310
 msgid "/View/Zoom _In"
 msgstr "/Visa/Zooma _in"
 
-#: app/menus.c:309
+#: app/menus.c:311
 msgid "/View/Zoom _Out"
 msgstr "/Visa/Zooma _ut"
 
-#: app/menus.c:310
+#: app/menus.c:312
 msgid "/View/_Zoom"
 msgstr "/Visa/_Zooma"
 
-#: app/menus.c:312
+#: app/menus.c:314
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Visa/Zooma/400%"
 
-#: app/menus.c:313
+#: app/menus.c:315
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Visa/Zooma/283%"
 
-#: app/menus.c:314
+#: app/menus.c:316
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Visa/Zooma/200%"
 
-#: app/menus.c:315
+#: app/menus.c:317
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Visa/Zooma/141%"
 
-#: app/menus.c:316
+#: app/menus.c:318
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Visa/Zooma/100%"
 
-#: app/menus.c:317
+#: app/menus.c:319
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Visa/Zooma/85%"
 
-#: app/menus.c:318
+#: app/menus.c:320
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Visa/Zooma/70,7%"
 
-#: app/menus.c:319
+#: app/menus.c:321
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Visa/Zooma/50%"
 
-#: app/menus.c:320
+#: app/menus.c:322
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Visa/Zooma/35,4%"
 
-#: app/menus.c:321
+#: app/menus.c:323
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Visa/Zooma/25%"
 
-#: app/menus.c:322
+#: app/menus.c:324
 msgid "/View/Diagram Properties..."
 msgstr "/Visa/Diagramegenskaper..."
 
-#: app/menus.c:324
+#: app/menus.c:326
 msgid "/View/_AntiAliased"
 msgstr "/Visa/_Kantutjämning"
 
-#: app/menus.c:326
+#: app/menus.c:328
 msgid "/View/_Visible Grid"
 msgstr "/Visa/_Synligt rutnät"
 
-#: app/menus.c:327
+#: app/menus.c:329
 msgid "/View/_Snap To Grid"
 msgstr "/Visa/_Fäst vid rutnät"
 
-#: app/menus.c:328
+#: app/menus.c:330
 msgid "/View/Show _Rulers"
 msgstr "/Visa/Visa _linjaler"
 
-#: app/menus.c:329
+#: app/menus.c:331
 msgid "/View/Show _Connection Points"
 msgstr "/Visa/Visa _anslutningspunkter"
 
-#: app/menus.c:330
+#: app/menus.c:332
 msgid "/View/---"
 msgstr "/Visa/---"
 
-#: app/menus.c:331
+#: app/menus.c:333
 msgid "/View/New _View"
 msgstr "/Visa/Ny _vy"
 
-#: app/menus.c:332
+#: app/menus.c:334
 msgid "/View/Show _All"
 msgstr "/Visa/Visa _allt"
 
-#: app/menus.c:333
+#: app/menus.c:335
 msgid "/_Select"
 msgstr "/_Markera"
 
-#: app/menus.c:335
+#: app/menus.c:337
 msgid "/Select/All"
 msgstr "/Markera/Allt"
 
-#: app/menus.c:336
+#: app/menus.c:338
 msgid "/Select/None"
 msgstr "/Markera/Inget"
 
-#: app/menus.c:337 app/menus.c:350
+#: app/menus.c:339 app/menus.c:352
 msgid "/Select/Invert"
 msgstr "/Markera/Invertera"
 
-#: app/menus.c:338
+#: app/menus.c:340
 msgid "/Select/Connected"
 msgstr "/Markera/Ansluten"
 
-#: app/menus.c:339
+#: app/menus.c:341
 msgid "/Select/Transitive"
 msgstr "/Markera/Transitiv"
 
-#: app/menus.c:340
+#: app/menus.c:342
 msgid "/Select/Same Type"
 msgstr "/Markera/Samma typ"
 
-#: app/menus.c:341
+#: app/menus.c:343
 msgid "/Select/---"
 msgstr "/Markera/---"
 
-#: app/menus.c:342
+#: app/menus.c:344
 msgid "/Select/Replace"
 msgstr "/Markera/Ersätt"
 
-#: app/menus.c:344
+#: app/menus.c:346
 msgid "/Select/Union"
 msgstr "/Markera/Union"
 
-#: app/menus.c:346
+#: app/menus.c:348
 msgid "/Select/Intersect"
 msgstr "/Markera/Skär"
 
-#: app/menus.c:348
+#: app/menus.c:350
 msgid "/Select/Remove"
 msgstr "/Markera/Ta bort"
 
-#: app/menus.c:352
+#: app/menus.c:354
 msgid "/_Objects"
 msgstr "/_Objekt"
 
-#: app/menus.c:354
+#: app/menus.c:356
 msgid "/Objects/Send to _Back"
 msgstr "/Objekt/Lägg _underst"
 
-#: app/menus.c:355
+#: app/menus.c:357
 msgid "/Objects/Bring to _Front"
 msgstr "/Objekt/Lägg _överst"
 
-#: app/menus.c:356 app/menus.c:359
+#: app/menus.c:358 app/menus.c:361
 msgid "/Objects/---"
 msgstr "/Objekt/---"
 
-#: app/menus.c:357
+#: app/menus.c:359
 msgid "/Objects/_Group"
 msgstr "/Objekt/_Gruppera"
 
-#: app/menus.c:358
+#: app/menus.c:360
 msgid "/Objects/_Ungroup"
 msgstr "/Objekt/_Avgruppera"
 
-#: app/menus.c:360
+#: app/menus.c:362
 msgid "/Objects/Align _Horizontal"
 msgstr "/Objekt/Justera _horisontellt"
 
-#: app/menus.c:362
+#: app/menus.c:364
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Objekt/Justera horisontellt/Vänster"
 
-#: app/menus.c:363
+#: app/menus.c:365
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objekt/Justera horisontellt/Mittpunkt"
 
-#: app/menus.c:364
+#: app/menus.c:366
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objekt/Justera horisontellt/Höger"
 
-#: app/menus.c:365
+#: app/menus.c:367
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objekt/Justera horisontellt/Lika avstånd"
 
-#: app/menus.c:366
+#: app/menus.c:368
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Objekt/Justera horisontellt/Bredvid"
 
-#: app/menus.c:367
+#: app/menus.c:369
 msgid "/Objects/Align _Vertical"
 msgstr "/Objekt/Justera _vertikalt"
 
-#: app/menus.c:369
+#: app/menus.c:371
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Objekt/Justera vertikalt/Ovansida"
 
-#: app/menus.c:370
+#: app/menus.c:372
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Objekt/Justera vertikalt/Mittpunkt"
 
-#: app/menus.c:371
+#: app/menus.c:373
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objekt/Justera vertikalt/Undersida"
 
-#: app/menus.c:372
+#: app/menus.c:374
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objekt/Justera vertikalt/Lika avstånd"
 
-#: app/menus.c:373
+#: app/menus.c:375
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objekt/Justera vertikalt/Bredvid"
 
-#: app/menus.c:375
+#: app/menus.c:377
 msgid "/_Tools"
 msgstr "/_Verktyg"
 
-#: app/menus.c:377
+#: app/menus.c:379
 msgid "/Tools/Modify"
 msgstr "/Verktyg/Modifiera"
 
-#: app/menus.c:378
+#: app/menus.c:380
 msgid "/Tools/Magnify"
 msgstr "/Verktyg/Förstora"
 
-#: app/menus.c:379
+#: app/menus.c:381
 msgid "/Tools/Scroll"
 msgstr "/Verktyg/Rulla"
 
-#: app/menus.c:380
+#: app/menus.c:382
 msgid "/Tools/Text"
 msgstr "/Verktyg/Text"
 
-#: app/menus.c:381
+#: app/menus.c:383
 msgid "/Tools/Box"
 msgstr "/Verktyg/Låda"
 
-#: app/menus.c:382
+#: app/menus.c:384
 msgid "/Tools/Ellipse"
 msgstr "/Verktyg/Ellips"
 
-#: app/menus.c:383
+#: app/menus.c:385
 msgid "/Tools/Polygon"
 msgstr "/Verktyg/Polygon"
 
-#: app/menus.c:384
+#: app/menus.c:386
 msgid "/Tools/Beziergon"
 msgstr "/Verktyg/Beziergon"
 
-#: app/menus.c:385
+#: app/menus.c:387
 msgid "/Tools/Line"
 msgstr "/Verktyg/Linje"
 
-#: app/menus.c:386
+#: app/menus.c:388
 msgid "/Tools/Arc"
 msgstr "/Verktyg/Båge"
 
-#: app/menus.c:387
+#: app/menus.c:389
 msgid "/Tools/Zigzagline"
 msgstr "/Verktyg/Sicksacklinje"
 
-#: app/menus.c:388
+#: app/menus.c:390
 msgid "/Tools/Polyline"
 msgstr "/Verktyg/Polylinje"
 
-#: app/menus.c:389
+#: app/menus.c:391
 msgid "/Tools/Bezierline"
 msgstr "/Verktyg/Bezierkurva"
 
-#: app/menus.c:390
+#: app/menus.c:392
 msgid "/Tools/Image"
 msgstr "/Verktyg/Bild"
 
-#: app/menus.c:392
+#: app/menus.c:394
 msgid "/_Dialogs"
 msgstr "/_Dialoger"
 
-#: app/menus.c:394
+#: app/menus.c:396
 msgid "/Dialogs/_Properties"
 msgstr "/Dialoger/_Egenskaper"
 
-#: app/menus.c:395
+#: app/menus.c:397
 msgid "/Dialogs/_Layers"
 msgstr "/Dialoger/_Lager"
 
-#: app/menus.c:567
+#: app/menus.c:569
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL-tooldata i tool_menu_select"
 
-#: app/menus.c:733
+#: app/menus.c:735
 msgid "Diagram Menu"
 msgstr "Diagrammeny"
 
@@ -1366,6 +1360,10 @@ msgstr "ja"
 msgid "no"
 msgstr "nej"
 
+#: app/plugin-manager.c:129 app/plugin-manager.c:135
+msgid "Plug-ins"
+msgstr "Insticksmoduler"
+
 #: app/plugin-manager.c:181 objects/ER/attribute.c:149 objects/ER/entity.c:126
 #: objects/ER/relationship.c:135 objects/UML/association.c:979
 #: objects/UML/class_dialog.c:734 objects/UML/class_dialog.c:1610
@@ -1399,39 +1397,39 @@ msgstr "Läs in"
 msgid "Unload"
 msgstr "Ladda ur"
 
-#: app/preferences.c:120
+#: app/preferences.c:121
 msgid "User Interface"
 msgstr "Användargränssnitt"
 
-#: app/preferences.c:121
+#: app/preferences.c:122
 msgid "Diagram Defaults"
 msgstr "Standardalternativ för diagram"
 
-#: app/preferences.c:122
+#: app/preferences.c:123
 msgid "View Defaults"
 msgstr "Standardvärden för vyer"
 
-#: app/preferences.c:123
+#: app/preferences.c:124
 msgid "Grid Lines"
 msgstr "Rutlinjer"
 
-#: app/preferences.c:124
+#: app/preferences.c:125
 msgid "Diagram Tree"
 msgstr "Diagramträd"
 
-#: app/preferences.c:138
+#: app/preferences.c:139
 msgid "Reset tools after create:"
 msgstr "Återställ verktyg när objekt har skapats:"
 
-#: app/preferences.c:139
+#: app/preferences.c:140
 msgid "Compress saved files:"
 msgstr "Komprimera sparade filer:"
 
-#: app/preferences.c:140
+#: app/preferences.c:141
 msgid "Number of undo levels:"
 msgstr "Antal nivåer för ångra:"
 
-#: app/preferences.c:141
+#: app/preferences.c:142
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1439,97 +1437,101 @@ msgstr ""
 "Omvänd dragning markerar\n"
 "korsande objekt:"
 
-#: app/preferences.c:144
+#: app/preferences.c:143
+msgid "Recent documents list size:"
+msgstr "Storlek på lista över senaste dokument:"
+
+#: app/preferences.c:146
 msgid "New diagram:"
 msgstr "Nytt diagram:"
 
-#: app/preferences.c:145
+#: app/preferences.c:147
 msgid "Paper type:"
 msgstr "Papperstyp:"
 
-#: app/preferences.c:148
+#: app/preferences.c:150
 msgid "New window:"
 msgstr "Nytt fönster:"
 
-#: app/preferences.c:149
+#: app/preferences.c:151
 msgid "Width:"
 msgstr "Bredd:"
 
-#: app/preferences.c:150
+#: app/preferences.c:152
 msgid "Height:"
 msgstr "Höjd:"
 
-#: app/preferences.c:151
+#: app/preferences.c:153
 msgid "Magnify:"
 msgstr "Förstora:"
 
-#: app/preferences.c:152
+#: app/preferences.c:154
 msgid "Use menu bar:"
 msgstr "Använd menyrad:"
 
-#: app/preferences.c:154
+#: app/preferences.c:156
 msgid "Connection Points:"
 msgstr "Anslutningspunkter:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:155 app/preferences.c:158 app/preferences.c:163
+#: app/preferences.c:157 app/preferences.c:160 app/preferences.c:165
 msgid "Visible:"
 msgstr "Synligt:"
 
-#: app/preferences.c:157
+#: app/preferences.c:159
 msgid "Page breaks:"
 msgstr "Sidbrytningar:"
 
-#: app/preferences.c:159 app/preferences.c:167
+#: app/preferences.c:161 app/preferences.c:169
 msgid "Colour:"
 msgstr "Färg:"
 
-#: app/preferences.c:160 app/preferences.c:168
+#: app/preferences.c:162 app/preferences.c:170
 msgid "Solid lines:"
 msgstr "Hela linjer:"
 
-#: app/preferences.c:164
+#: app/preferences.c:166
 msgid "Snap to:"
 msgstr "Fäst vid:"
 
-#: app/preferences.c:165
+#: app/preferences.c:167
 msgid "X Size:"
 msgstr "X-storlek:"
 
-#: app/preferences.c:166
+#: app/preferences.c:168
 msgid "Y Size:"
 msgstr "Y-storlek:"
 
-#: app/preferences.c:179
+#: app/preferences.c:181
 msgid "Diagram tree window:"
 msgstr "Diagramträdsfönster:"
 
-#: app/preferences.c:181
+#: app/preferences.c:183
 msgid "Show at startup:"
 msgstr "Visa vid uppstart:"
 
-#: app/preferences.c:183
+#: app/preferences.c:185
 msgid "Default width:"
 msgstr "Standardbredd:"
 
-#: app/preferences.c:185
+#: app/preferences.c:187
 msgid "Default height:"
 msgstr "Standardhöjd:"
 
-#: app/preferences.c:187
+#: app/preferences.c:189
 msgid "Remember last size:"
 msgstr "Kom ihåg senaste storlek:"
 
-#: app/preferences.c:189
+#: app/preferences.c:191
 msgid "Save hidden object types:"
 msgstr "Spara gömda objekttyper:"
 
-#: app/preferences.c:312
+#: app/preferences.c:314
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/preferences.c:683 app/preferences.c:692
+#: app/preferences.c:685 app/preferences.c:694
 msgid "Preferences"
 msgstr "Inställningar"
 
@@ -1553,17 +1555,21 @@ msgstr "Objektegenskaper:"
 msgid "Encapsulated Postscript"
 msgstr "Inkapslad Postscript"
 
-#. remove recent files if list get's too long
-#: app/recent_files.c:75
-msgid "/File/Plugins"
-msgstr "/Arkiv/Insticksmoduler"
+#. Use the Plugins menu item to get a pointer to the File menu,
+#. but any item on the File menu will do
+#: app/recent_files.c:140
+msgid "<Toolbox>/File/Plugins"
+msgstr "<Toolbox>/Arkiv/Insticksmoduler"
 
-#: app/recent_files.c:81 app/recent_files.c:83 app/recent_files.c:112
-#: app/recent_files.c:114
-msgid "/File/Open Recent/"
-msgstr "/Arkiv/Öppna senaste/"
+#: app/recent_files.c:265
+msgid "<Toolbox>/File/Exit"
+msgstr "<Toolbox>/Arkiv/Avsluta"
 
-#: app/recent_files.c:163
+#: app/recent_files.c:267
+msgid "<Toolbox>/File/Quit"
+msgstr "<Toolbox>/Arkiv/Avsluta"
+
+#: app/recent_files.c:304
 msgid "Can't open history file for writing."
 msgstr "Kunde inte öppna historikfilen för skrivning."
 
@@ -1663,7 +1669,7 @@ msgstr "Kunde inte öppna \"%s\""
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Internt fel: Inställning av hörntyp på slutpunkten av bezier"
 
-#: lib/font.c:428
+#: lib/font.c:500
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1672,25 +1678,25 @@ msgstr ""
 "Varning: Inget X-typsnitt för %s hittades, \n"
 "använder %s i stället.\n"
 
-#: lib/font.c:533
+#: lib/font.c:605
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr "Varning: FreeType är valt, men biblioteket kan inte läsas in: %d\n"
 
-#: lib/font.c:542
+#: lib/font.c:614
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Varning: Inga X-typsnitt hittades. Världen går under."
 
-#: lib/font.c:849
+#: lib/font.c:921
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "Fel, kunde inte hitta typsnitt. Borde aldrig hända.\n"
 
-#: lib/font.c:851 lib/font.c:852 lib/font.c:885
+#: lib/font.c:923 lib/font.c:924 lib/font.c:957
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
 
-#: lib/font.c:862
+#: lib/font.c:934
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "Typsnittet %s har ingen stil %s, använder %s\n"
@@ -4970,6 +4976,15 @@ msgstr "En diagramredigerare"
 #: dia.desktop.in.h:2
 msgid "Dia"
 msgstr "Dia"
+
+#~ msgid "/File/Open _Recent"
+#~ msgstr "/Arkiv/Ö_ppna senaste"
+
+#~ msgid "/File/Open Recent/---"
+#~ msgstr "/Arkiv/Öppna senaste/---"
+
+#~ msgid "/File/Open Recent/"
+#~ msgstr "/Arkiv/Öppna senaste/"
 
 #~ msgid "Grid:"
 #~ msgstr "Rutnät:"
