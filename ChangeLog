@@ -1,3 +1,19 @@
+2000-02-09  James Henstridge  <james@daa.com.au>
+
+	* sheets/Circuit.sheet: 
+	* sheets/Flowchart.sheet: 
+	* sheets/Contact.sheet: fixed up sheets.
+
+	* objects/custom/custom_object.c (custom_object_new): set the
+	extra ObjectType fields.
+
+	* lib/sheet.c: use extra ObjectType fields when creating sheet
+	objects.  Give a warning if <shape> tags are found in a sheet
+	file.  Now the custom sheet code does not know about custom
+	shapes -- they look like any other object type.
+
+	* lib/object.h (ObjectType): added extra members
+
 2000-02-08  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/linewidth_area.c:

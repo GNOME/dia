@@ -377,11 +377,11 @@ struct _ObjectType {
 		    Stored in xpm format */
   
   ObjectTypeOps *ops;
+
+  char *pixmap_file; /* fallback if pixmap is NULL */
+  void *default_user_data; /* use this if no user data is specified in
+			      the .sheet file */
 };
 
 #endif /* OBJECT_H */
-
-
-
-
 

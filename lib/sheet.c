@@ -31,7 +31,6 @@
 #include "sheet.h"
 #include "message.h"
 #include "object.h"
-#include "../objects/custom/shape_info.h" /* shouldn't custom go into lib/ ? */
 #include "dia_dirs.h"
 
 static GSList *sheets = NULL;
@@ -266,7 +265,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
   
   for (node = contents->childs ; node != NULL; node = node->next) {
     SheetObject *sheet_obj;
-    gboolean isobject = FALSE,isshape = FALSE;
+    ObjectType *otype;
     gchar *iconname = NULL;
 
     int subdesc_score = -1;
@@ -279,100 +278,81 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
       continue;
     if (node->ns != ns) continue;
     if (!strcmp(node->name,"object")) {
-      isobject = TRUE;
+      /* nothing */
     } else if (!strcmp(node->name,"shape")) {
-      isshape = TRUE;
-    }
+      g_message("%s: you should use object tags rather than shape tags now",
+		filename);
+    } else
+      continue; /* unknown tag */
     
-    if (isobject) {
-      tmp = xmlGetProp(node,"intdata");
-      if (tmp) { 
-	char *p;
-	intdata = (gint)strtol(tmp,&p,0);
-	if (*p != 0) intdata = 0;
-	free(tmp);
-      }
-      chardata = xmlGetProp(node,"chardata");
-      /* TODO.... */
-      if (chardata) free(chardata);
+    tmp = xmlGetProp(node,"intdata");
+    if (tmp) { 
+      char *p;
+      intdata = (gint)strtol(tmp,&p,0);
+      if (*p != 0) intdata = 0;
+      free(tmp);
     }
+    chardata = xmlGetProp(node,"chardata");
+    /* TODO.... */
+    if (chardata) free(chardata);
     
-    if (isobject || isshape) {
-      for (subnode = node->childs; subnode != NULL ; subnode = subnode->next) {
-	if (subnode->ns == ns && !strcmp(subnode->name, "description")) {
-	  gint score;
+    for (subnode = node->childs; subnode != NULL ; subnode = subnode->next) {
+      if (subnode->ns == ns && !strcmp(subnode->name, "description")) {
+	gint score;
 
-	  /* compare the xml:lang property on this element to see if we get a
-	   * better language match.  LibXML seems to throw away attribute
-	   * namespaces, so we use "lang" instead of "xml:lang" */
+	/* compare the xml:lang property on this element to see if we get a
+	 * better language match.  LibXML seems to throw away attribute
+	 * namespaces, so we use "lang" instead of "xml:lang" */
 	  
-	  tmp = xmlGetProp(subnode, "xml:lang");
-	  if (!tmp) tmp = xmlGetProp(subnode, "lang");
-	  score = intl_score_locale(tmp);
-	  if (tmp) free(tmp);
+	tmp = xmlGetProp(subnode, "xml:lang");
+	if (!tmp) tmp = xmlGetProp(subnode, "lang");
+	score = intl_score_locale(tmp);
+	if (tmp) free(tmp);
 
-	  if (subdesc_score < 0 || score < subdesc_score) {
-	    subdesc_score = score;
-	    if (objdesc) free(objdesc);
-	    objdesc = xmlNodeGetContent(subnode);
-	  }
+	if (subdesc_score < 0 || score < subdesc_score) {
+	  subdesc_score = score;
+	  if (objdesc) free(objdesc);
+	  objdesc = xmlNodeGetContent(subnode);
+	}
 	  
-	} else if (subnode->ns == ns && !strcmp(subnode->name,"icon")) {
-	  tmp = xmlNodeGetContent(subnode);
-	  iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S,tmp,NULL);
-	  if (tmp) free(tmp);
-	}
+      } else if (subnode->ns == ns && !strcmp(subnode->name,"icon")) {
+	tmp = xmlNodeGetContent(subnode);
+	iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S,tmp,NULL);
+	if (tmp) free(tmp);
       }
+    }
 
-      tmp = xmlGetProp(node,"name");
+    tmp = xmlGetProp(node,"name");
 
-      sheet_obj = g_new(SheetObject,1);
-      sheet_obj->object_type = g_strdup(tmp);
-      sheet_obj->description = objdesc;
-      sheet_obj->pixmap = NULL;
-      sheet_obj->user_data = (void *)intdata; /* XXX modify user_data type ? */
-      sheet_obj->pixmap_file = iconname; 
+    sheet_obj = g_new(SheetObject,1);
+    sheet_obj->object_type = g_strdup(tmp);
+    sheet_obj->description = objdesc;
+    sheet_obj->pixmap = NULL;
+    sheet_obj->user_data = (void *)intdata; /* XXX modify user_data type ? */
+    sheet_obj->pixmap_file = iconname; 
 
-      
-      if (isshape) {
-	ShapeInfo *info = shape_info_getbyname(tmp);
-	if (info) {
-	  if (!sheet_obj->description) 
-	    sheet_obj->description = g_strdup(info->description);
-	  if (!sheet_obj->pixmap_file && !sheet_obj->pixmap)
-	    sheet_obj->pixmap_file = info->icon;
-	  sheet_obj->user_data = (void *)info;
-	} else {
-	  /* Somehow, this shape is unknown */
-	  g_free(sheet_obj->description);
-	  g_free(sheet_obj->pixmap_file);
-	  g_free(sheet_obj->object_type);
-	  g_free(sheet_obj);
-	  if (tmp) free(tmp);
-	  continue; 
-	}
-      } else {
-	if (shape_info_getbyname(tmp)) {
-	  g_warning("Object_type(%s) is really a shape, not an object..",tmp);
-	  /* maybe I should listen to what others say, after all, and dump
-	     this shape/object distinction ? */
-	}
-	if (!object_get_type(tmp)) {
-	  g_free(sheet_obj->description);
-	  g_free(sheet_obj->pixmap_file);
-	  g_free(sheet_obj->object_type);
-	  g_free(sheet_obj);
-	  if (tmp) free(tmp);
-	  continue; 
-	}	  
-      }
+    if ((otype = object_get_type(tmp)) == NULL) {
+      g_free(sheet_obj->description);
+      g_free(sheet_obj->pixmap_file);
+      g_free(sheet_obj->object_type);
+      g_free(sheet_obj);
       if (tmp) free(tmp);
-      
-      /* we don't need to fix up the icon and descriptions for simple objects,
-	 since they don't have their own description, and their icon is 
-	 already automatically handled. */
-      sheet_append_sheet_obj(sheet,sheet_obj);
+      continue; 
+    }	  
+
+    /* set defaults */
+    if (sheet_obj->pixmap_file == NULL) {
+      sheet_obj->pixmap = otype->pixmap;
+      sheet_obj->pixmap_file = otype->pixmap_file;
     }
+    if (sheet_obj->user_data == NULL)
+      sheet_obj->user_data = otype->default_user_data;
+    if (tmp) free(tmp);
+      
+    /* we don't need to fix up the icon and descriptions for simple objects,
+       since they don't have their own description, and their icon is 
+       already automatically handled. */
+    sheet_append_sheet_obj(sheet,sheet_obj);
   }
   
   if (sheet) register_sheet(sheet);

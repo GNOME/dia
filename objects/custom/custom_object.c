@@ -1413,6 +1413,7 @@ custom_object_new(ShapeInfo *info, ObjectType **otype, SheetObject **sheetobj)
   *sheet = custom_sheetobj;
 
   obj->name = info->name;
+  obj->default_user_data = info;
   sheet->object_type = info->name;
   sheet->description = info->description;
   sheet->user_data = info;
@@ -1420,6 +1421,8 @@ custom_object_new(ShapeInfo *info, ObjectType **otype, SheetObject **sheetobj)
   if (info->icon) {
     sheet->pixmap = NULL;
     sheet->pixmap_file = info->icon;
+    obj->pixmap = NULL;
+    obj->pixmap_file = info->icon;
   }
 
   info->object_type = obj;

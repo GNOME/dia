@@ -6,52 +6,52 @@
     LADDER</description>
   <description>Components for LADDER and contact circuits.</description>
   <contents>
-    <shape name="Contact - if">
+    <object name="Contact - if">
       <description xml:lang="fr">Un contact normalement ouvert "si"</description>
       <description>A "if" (normally open) contact
       </description>
-    </shape>
-    <shape name="Contact - ifnot">
+    </object>
+    <object name="Contact - ifnot">
       <description xml:lang="fr">Un contact normalement fermé "si non"</description>
       <description>A "if not" (normally closed) contact
       </description>
-    </shape>
-    <shape name="Contact - relay">
+    </object>
+    <object name="Contact - relay">
       <description xml:lang="fr">Un relais</description>
       <description>A relay</description>
-    </shape>
-    <shape name="Contact - lamp">
+    </object>
+    <object name="Contact - lamp">
       <description xml:lang="fr">Une lampe ou un voyant</description>
       <description>A lamp or indicator light</description>
-    </shape>
+    </object>
 
-    <shape name="LADDER - if">
+    <object name="LADDER - if">
       <description xml:lang="fr">Un contact ladder normalement ouvert "si"
       </description>
       <description>A "if" (normally open) ladder contact
       </description>
-    </shape>
-    <shape name="LADDER - ifnot">
+    </object>
+    <object name="LADDER - ifnot">
       <description xml:lang="fr">Un contact ladder normalement fermé "si non"
       </description>
       <description>A "if not" (normally closed) ladder contact
       </description>
-    </shape>
-    <shape name="LADDER - out">
+    </object>
+    <object name="LADDER - out">
       <description xml:lang="fr">Une variable de sortie simple</description>
       <description>A simple output variable</description>
-    </shape>
-    <shape name="LADDER - outnot">
+    </object>
+    <object name="LADDER - outnot">
       <description xml:lang="fr">Une variable de sortie négative</description>
       <description>A negative output variable</description>
-    </shape>
-    <shape name="LADDER - outs">
+    </object>
+    <object name="LADDER - outs">
       <description xml:lang="fr">Une variable de sortie "set"</description>
       <description>A "set" output variable</description>
-    </shape>
-    <shape name="LADDER - outr">
+    </object>
+    <object name="LADDER - outr">
       <description xml:lang="fr">Une variable de sortie "reset"</description>
       <description>A "reset" output variable</description>
-    </shape>
+    </object>
   </contents>
 </sheet>

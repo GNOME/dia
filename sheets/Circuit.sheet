@@ -6,117 +6,117 @@
   <description xml:lang="fr">Composants de circuits</description>
   <description>Components for circuit diagrams.</description>
   <contents>
-    <shape name="Circuit - Vertical Resistor">
+    <object name="Circuit - Vertical Resistor">
       <description xml:lang="no">En vertikalt plassert motstand</description>
       <description xml:lang="fr">Une résistance alignée verticalement</description>
       <description>A Vertically aligned resistor</description>
-    </shape>
-    <shape name="Circuit - Horizontal Inductor">
+    </object>
+    <object name="Circuit - Horizontal Inductor">
       <description xml:lang="fr">Une inductance alignée horizontalement</description>
       <description>A Horizontally aligned inductor</description>
-    </shape>
-    <shape name="Circuit - Vertical Inductor">
+    </object>
+    <object name="Circuit - Vertical Inductor">
       <description xml:lang="fr">Une inductance alignée verticalement</description>
       <description>A Vertically aligned inductor</description>
-    </shape>
-    <shape name="Circuit - Horizontal Resistor">
+    </object>
+    <object name="Circuit - Horizontal Resistor">
       <description xml:lang="fr">Une résistance alignée horizontalement</description>
       <description>A Horizontally aligned resistor</description>
-    </shape>
+    </object>
 
-    <shape name="Circuit - Vertical Resistor (European)">
+    <object name="Circuit - Vertical Resistor (European)">
       <description xml:lang="fr">Une résistance alignée verticalement (européenne)</description>
       <description>A Vertically aligned resistor (European)</description>
-    </shape>
-    <shape name="Circuit - Horizontal Inductor (European)">
+    </object>
+    <object name="Circuit - Horizontal Inductor (European)">
       <description xml:lang="fr">Une inductance alignée horizontalement (européenne)</description>
       <description>A Horizontally aligned inductor (European)</description>
-    </shape>
-    <shape name="Circuit - Vertical Inductor (European)">
+    </object>
+    <object name="Circuit - Vertical Inductor (European)">
       <description xml:lang="fr">Une inductance alignée verticalement (européenne)</description>
       <description>A Vertically aligned inductor (European)</description>
-    </shape>
-    <shape name="Circuit - Horizontal Resistor (European)">
+    </object>
+    <object name="Circuit - Horizontal Resistor (European)">
       <description xml:lang="fr">Une résistance alignée horizontalement (europénne)</description>
       <description>A Horizontally aligned resistor (European)</description>
-    </shape>
+    </object>
 
-    <shape name="Circuit - Horizontal Capacitor">
+    <object name="Circuit - Horizontal Capacitor">
       <description xml:lang="fr">Un condensateur aligné horizontalement</description>
       <description>A horizontally aligned capacitor</description>
-    </shape>
-    <shape name="Circuit - Vertical Capacitor">
+    </object>
+    <object name="Circuit - Vertical Capacitor">
       <description xml:lang="fr">Un condensateur aligné verticalement</description>
       <description>A vertically aligned capacitor</description>
-    </shape>
-     <shape name="Circuit - NPN Transistor">
+    </object>
+     <object name="Circuit - NPN Transistor">
       <description xml:lang="en@layman">Small black plastic thing</description>
       <description xml:lang="fr">Un transistor NPN bipolaire</description>
       <description>A npn bipolar transistor</description>
-    </shape>
-    <shape name="Circuit - PNP Transistor">
+    </object>
+    <object name="Circuit - PNP Transistor">
       <description xml:lang="en@layman">Small black plastic thing</description>
       <description xml:lang="fr">Un transistor PNP bipolaire</description>
       <description>A pnp bipolar transistor</description>
-    </shape>
+    </object>
     
-    <shape name="Circuit - Horizontal Diode">
+    <object name="Circuit - Horizontal Diode">
       <description xml:lang="fr">Une diode alignée horizontalement</description>
       <description>A horizontally aligned diode</description>
-    </shape>
-    <shape name="Circuit - Vertical Diode">
+    </object>
+    <object name="Circuit - Vertical Diode">
       <description xml:lang="fr">Une diode alignée verticalement</description>
       <description>A vertically aligned diode</description>
-    </shape>
-    <shape name="Circuit - Horizontal Zener Diode">
+    </object>
+    <object name="Circuit - Horizontal Zener Diode">
       <description xml:lang="fr">Une diode Zener alignée horizontalement</description>
       <description>A horizontally aligned zener diode</description>
-    </shape>
-    <shape name="Circuit - Vertical Zener Diode">
+    </object>
+    <object name="Circuit - Vertical Zener Diode">
       <description xml:lang="fr">Une diode Zener alignée verticalement</description>
       <description>A vertically aligned zener diode</description>
-    </shape>
+    </object>
 
-    <shape name="Circuit - Ground">
+    <object name="Circuit - Ground">
       <description xml:lang="fr">Un point de masse</description>
       <description>A ground point</description>
-    </shape>
-    <shape name="Circuit - Op Amp">
+    </object>
+    <object name="Circuit - Op Amp">
       <description xml:lang="fr">Un amplificateur opérationnel</description>
       <description>An operational amplifier</description>
-    </shape>
-    <shape name="Circuit - Horizontal Fuse (European)">
+    </object>
+    <object name="Circuit - Horizontal Fuse (European)">
       <description xml:lang="fr">Un fusible aligné horizontalement</description>
       <description>A horizontally aligned fuse</description>
-    </shape>
-    <shape name="Circuit - Vertical Fuse (European)">
+    </object>
+    <object name="Circuit - Vertical Fuse (European)">
       <description xml:lang="fr">Un fusible aligné verticalement</description>
       <description>A vertically aligned fuse</description>
-    </shape>
+    </object>
 
-    <shape name="Circuit - Horizontal Powersource (European)">
+    <object name="Circuit - Horizontal Powersource (European)">
       <description xml:lang="fr">Une source de tension alignée horizontalement</description>
       <description>A horizontally aligned powersource</description>
-    </shape>
-    <shape name="Circuit - Vertical Powersource (European)">
+    </object>
+    <object name="Circuit - Vertical Powersource (European)">
       <description xml:lang="fr">Une source de tension alignée verticalement</description>
       <description>A vertically aligned powersource</description>
-    </shape>
-    <shape name="Circuit - Lamp (European)">
+    </object>
+    <object name="Circuit - Lamp (European)">
       <description xml:lang="fr">Une lampe</description>
       <description>A lamp</description>
-    </shape>
-    <shape name="Circuit - Speaker (European)">
+    </object>
+    <object name="Circuit - Speaker (European)">
       <description xml:lang="fr">Un haut-parleur</description>
       <description>A Speaker</description>
-    </shape>
-    <shape name="Circuit - Horizontal Led (European)">
+    </object>
+    <object name="Circuit - Horizontal Led (European)">
       <description xml:lang="fr">Une diode électro-luminescente (LED) alignée horizontalement</description>
       <description>A horizontally aligned LED</description>
-    </shape>
-    <shape name="Circuit - Vertical Led (European)">
+    </object>
+    <object name="Circuit - Vertical Led (European)">
       <description xml:lang="fr">Une diode électro-luminescente (LED) alignée verticalement</description>
       <description>A vertically aligned LED</description>
-    </shape>
+    </object>
  </contents>
 </sheet>
