@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-05-18 17:41+0200\n"
-"PO-Revision-Date: 2002-05-18 17:41+0200\n"
+"POT-Creation-Date: 2002-06-16 20:54+0200\n"
+"PO-Revision-Date: 2002-06-16 20:55+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4873,7 +4873,7 @@ msgstr "Skapa en mallklass"
 
 #: sheets/UML.sheet.in.h:17
 msgid "Create a use case"
-msgstr "Skapa ett användningsexempel"
+msgstr "Skapa ett användningsfall"
 
 #: sheets/UML.sheet.in.h:18
 msgid "Create an actor"
