@@ -1,4 +1,14 @@
+2003-03-03  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* shapes/Circuit/Makefile.am (SHAPES): Added hjumper.png to
+	EXTRA_DIST.
+
 2003-03-02  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* doc/en/dia-manual.sgml: 
+	* configure.in: 
+	* NEWS: 
+	* dia.spec (Release): Upping to pre5.
 
 	* configure.in: Add freetype-config derived libs to the
 	AC_CHECK_LIB statement for freetype.

@@ -61,6 +61,7 @@ SHAPES = \
 	pmos_de.shape \
 	pmos_de.xpm \
 	hjumper.shape \
+	hjumper.png \
 	microphone_de.shape \
 	microphone_de.xpm
 
