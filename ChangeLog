@@ -1,5 +1,31 @@
 2004-05-15  Lars Clausen  <lars@raeder.dk>
 	
+	* doc/pl/Makefile.am (EXTRA_DIST): Also include all xml files here.
+
+	* doc/en/Makefile.am (EXTRA_DIST): Including all required files in
+	dist, xml, dbk and man.  Also the sub-xml files. (#142098)
+
+	* Makefile.am (CLEANFILES): 
+	* sheets/Makefile.am (EXTRA_DIST): Not distributing the
+	translation-reports, they are generated automagically.  THANKS
+	file not considered locally generated, so is not locally
+	cleaned. (#133735) 
+
+	* lib/widgets.[ch]: Changing dia_arrow_selector to be a gobject.
+
+	* lib/diaarrowchooser.c: 
+	* lib/prop_attr.c: Fixing naming for arrowselector.
+
+	* objects/UML/object.c (objet_type): Oops, little too aggressive
+	with the DiaObject thing here:)
+
+	* objects/custom/shape_info.c (parse_svg_node): Use
+	g_ascii_isdigit instead of isdigit.
+
+	* app/diaunitspinner.c (dia_unit_spinner_update): 
+	* lib/dia_svg.c (dia_svg_parse_style): Using g_ascii_isspace
+	instead of isspace avoids char subscript issues (#142467).
+
 	* lib/persistence.c (persistence_get_string): Fixed 0/NULL/FALSE
 	return value conflict.
 

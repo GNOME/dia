@@ -242,7 +242,7 @@ dia_arrow_chooser_dialog_new(GtkWidget *widget, gpointer userdata)
     gtk_box_pack_start(GTK_BOX(GTK_DIALOG(chooser->dialog)->vbox), wid,
 		       TRUE, TRUE, 0);
     gtk_widget_show(wid);
-    chooser->selector = DIAARROWSELECTOR(wid);
+    chooser->selector = DIA_ARROW_SELECTOR(wid);
     dia_arrow_selector_set_arrow(chooser->selector, chooser->arrow);
 
     wid = gtk_button_new_with_label(_("OK"));

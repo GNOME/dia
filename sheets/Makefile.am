@@ -18,7 +18,7 @@ sheet_DATA = $(SHEETS)
 	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -x -u \
 	 	-c $(top_srcdir)/po/.intltool-merge-cache
 
-EXTRA_DIST = sheet-translation-report $(sheet_in_files) \
+EXTRA_DIST = $(sheet_in_files) \
 	checktrans checktrans.py
 
 CLEANFILES = sheet-translation-report $(SHEETS) 

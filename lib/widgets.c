@@ -1282,7 +1282,7 @@ set_size_sensitivity(DiaArrowSelector *as)
 static void
 arrow_type_change_callback(GtkObject *as, gboolean arg1, gpointer data)
 {
-  set_size_sensitivity(DIAARROWSELECTOR(as));
+  set_size_sensitivity(DIA_ARROW_SELECTOR(as));
 }
 
 /* This is actually quite general, but only used here */
@@ -1314,7 +1314,8 @@ static void dia_arrow_fill_menu(GtkMenu *menu, GSList **group,
 
 
 static void
-dia_arrow_selector_init (DiaArrowSelector *as)
+dia_arrow_selector_init (DiaArrowSelector *as,
+			 gpointer g_class)
 {
   GtkWidget *omenu;
   GtkWidget *menu;
@@ -1361,24 +1362,34 @@ dia_arrow_selector_init (DiaArrowSelector *as)
 
 }
 
-GtkType
+GType
 dia_arrow_selector_get_type        (void)
 {
-  static GtkType dfs_type = 0;
+  static GType dfs_type = 0;
 
   if (!dfs_type) {
-    GtkTypeInfo dfs_info = {
-      "DiaArrowSelector",
-      sizeof (DiaArrowSelector),
+    static const GTypeInfo dfs_info = {
+      /*      sizeof (DiaArrowSelector),*/
       sizeof (DiaArrowSelectorClass),
-      (GtkClassInitFunc) dia_arrow_selector_class_init,
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
+      (GClassInitFunc) dia_arrow_selector_class_init,
+      NULL, /* class_finalize */
+      NULL, /* class_data */
+      sizeof (DiaArrowSelector),
+      0,    /* n_preallocs */
+      (GInstanceInitFunc)dia_arrow_selector_init,  /* init */
+      /*
       (GtkObjectInitFunc) dia_arrow_selector_init,
       NULL,
       NULL,
       (GtkClassInitFunc) NULL,
+      */
     };
     
-    dfs_type = gtk_type_unique (gtk_vbox_get_type (), &dfs_info);
+    dfs_type = g_type_register_static (GTK_TYPE_VBOX,
+				       "DiaArrowSelector",
+				       &dfs_info, 0);
   }
   
   return dfs_type;
@@ -1387,7 +1398,7 @@ dia_arrow_selector_get_type        (void)
 GtkWidget *
 dia_arrow_selector_new ()
 {
-  return GTK_WIDGET ( gtk_type_new (dia_arrow_selector_get_type ()));
+  return GTK_WIDGET ( g_object_new (DIA_TYPE_ARROW_SELECTOR, NULL));
 }
 
 

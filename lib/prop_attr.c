@@ -185,14 +185,14 @@ arrowprop_get_widget(ArrowProperty *prop, PropDialog *dialog)
 static void 
 arrowprop_reset_widget(ArrowProperty *prop, WIDGET *widget)
 {
-  dia_arrow_selector_set_arrow(DIAARROWSELECTOR(widget),
+  dia_arrow_selector_set_arrow(DIA_ARROW_SELECTOR(widget),
                                prop->arrow_data);
 }
 
 static void 
 arrowprop_set_from_widget(ArrowProperty *prop, WIDGET *widget) 
 {
-  prop->arrow_data = dia_arrow_selector_get_arrow(DIAARROWSELECTOR(widget));
+  prop->arrow_data = dia_arrow_selector_get_arrow(DIA_ARROW_SELECTOR(widget));
 }
 
 static void 

@@ -113,7 +113,7 @@ DiaObjectType objet_type =
 
 DiaObjectType umlobject_type =
 {
-  "UML - DiaObject",   /* name */
+  "UML - Object",   /* name */
   0,                      /* version */
   (char **) object_xpm,  /* pixmap */
   

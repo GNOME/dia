@@ -479,7 +479,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       tmp = str = xmlGetProp(node, "points");
       while (tmp[0] != '\0') {
             /* skip junk */
-        while (tmp[0] != '\0' && !isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
+        while (tmp[0] != '\0' && !g_ascii_isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
           tmp++;
         if (tmp[0] == '\0') break;
         old_locale = setlocale(LC_NUMERIC, "C");
@@ -511,7 +511,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       tmp = str = xmlGetProp(node, "points");
       while (tmp[0] != '\0') {
             /* skip junk */
-        while (tmp[0] != '\0' && !isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
+        while (tmp[0] != '\0' && !g_ascii_isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
           tmp++;
         if (tmp[0] == '\0') break;
         old_locale = setlocale(LC_NUMERIC, "C");
