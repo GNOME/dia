@@ -1,3 +1,13 @@
+2001-10-28  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/pydia-property.c : apparently I missed
+	to commit this last time. Now it has some more SetAttr
+	support (apply from property)
+
+	* plug-ins/python/pydia-properties.h : added PyDiaProperty_Check
+
+	* plug-ins/python/pydia-text.[ch] : new files
+
 2001-10-14  Hans Breuer  <hans@breuer.org>
 
 	* lib/charconv.c : g_locale_to_utf8() does not handle NULL

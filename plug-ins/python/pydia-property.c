@@ -26,6 +26,14 @@
 #include "pydia-geometry.h"
 #include "pydia-font.h"
 #include "pydia-color.h"
+#include "pydia-text.h"
+
+//#include "propinternals.h" /* include mess: needs tree.h, we don't */
+#include "prop_inttypes.h"
+#include "prop_geomtypes.h"
+#include "prop_attr.h"
+#include "prop_text.h"
+
 
 /*
  * New
@@ -73,63 +81,240 @@ PyDiaProperty_Hash(PyObject *self)
 }
 
 /*
+ * Still not convinced that this is better than an integral
+ * property->type and some casting ...
+ * It is trading a straightforward 40 lines switch statement to
+ * this nice 'type safe' function mapping (about 125 lines)
+ *                                                        --hb
+ */
+typedef PyObject * (*PyDiaPropGetFunc) (Property*);
+typedef int (*PyDiaPropSetFunc) (Property*, PyObject *val);
+
+static PyObject *
+PyDia_get_tuple (GPtrArray *pa, PyDiaPropGetFunc subfn)
+{
+  PyObject* ret;
+  int i, num;
+
+  num = pa->len;
+  ret = PyTuple_New (num);
+  if (ret) {
+    for (i = 0; i < num; i++)
+      PyTuple_SetItem(ret, i, subfn(g_ptr_array_index(pa,i)));
+  }
+  else {
+    Py_INCREF(Py_None);
+    ret = Py_None;
+  }
+  return ret;
+}
+
+static PyObject * PyDia_get_Char (CharProperty *prop) 
+{ return PyInt_FromLong(prop->char_data); }
+static PyObject * PyDia_get_Bool (BoolProperty *prop) 
+{ return PyInt_FromLong(prop->bool_data); }
+static PyObject * PyDia_get_Int (IntProperty *prop) 
+{ return PyInt_FromLong(prop->int_data); }
+static PyObject * PyDia_get_IntArray (IntarrayProperty *prop) 
+{
+  PyObject *ret;
+  int i, num;
+
+  num = prop->intarray_data->len;
+  ret = PyTuple_New (num);
+
+  for (i = 0; i < num; i++)
+    PyTuple_SetItem(ret, i, 
+                    PyInt_FromLong(g_array_index(prop->intarray_data, gint, i)));
+  return ret;
+}
+static PyObject * PyDia_get_Enum (EnumProperty *prop) 
+{ return PyInt_FromLong(prop->enum_data); }
+static PyObject * PyDia_get_LineStyle (LinestyleProperty *prop) 
+{ Py_INCREF(Py_None); return Py_None; }
+static PyObject * PyDia_get_Real (RealProperty *prop) 
+{ return PyFloat_FromDouble(prop->real_data); }
+static PyObject * PyDia_get_String (StringProperty *prop) 
+{ 
+  if (NULL == prop->string_data)
+    return PyString_FromString("(NULL)");
+  else if (1 == prop->num_lines)
+    return PyString_FromString(prop->string_data);
+  else // FIXME: MULTISTRING ? 
+    return PyString_FromString(prop->string_data);
+}
+static PyObject * PyDia_get_Text (TextProperty *prop)
+{ return PyDiaText_New (prop->text_data, &prop->attr); }
+static PyObject * PyDia_get_Point (PointProperty *prop) 
+{ return PyDiaPoint_New (&prop->point_data); }
+static PyObject * PyDia_get_PointArray (PointarrayProperty *prop) 
+{
+  PyObject *ret;
+  int i, num;
+
+  num = prop->pointarray_data->len;
+  ret = PyTuple_New (num);
+
+  for (i = 0; i < num; i++)
+    PyTuple_SetItem(ret, i, 
+                    PyDia_get_Point(&g_array_index(prop->pointarray_data,
+                                    PointProperty, i)));
+  return ret;
+}
+static PyObject * PyDia_get_BezPoint (BezPointProperty *prop) 
+{ return PyDiaBezPoint_New (&prop->bezpoint_data); }
+static PyObject * PyDia_get_BezPointArray (BezPointarrayProperty *prop)
+{
+  PyObject *ret;
+  int i, num;
+
+  num = prop->bezpointarray_data->len;
+  ret = PyTuple_New (num);
+
+  for (i = 0; i < num; i++)
+    PyTuple_SetItem(ret, i, 
+                    PyDia_get_BezPoint(&g_array_index(prop->bezpointarray_data,
+                                       BezPointProperty, i)));
+  return ret;
+}
+static PyObject * PyDia_get_Rect (RectProperty *prop)
+{ return PyDiaRectangle_New (&prop->rect_data, NULL); }
+static PyObject * PyDia_get_Arrow (ArrowProperty *prop)
+{ return PyDiaArrow_New (&prop->arrow_data); }
+static PyObject * PyDia_get_Color (ColorProperty *prop)
+{ return PyDiaColor_New (&prop->color_data); }
+static PyObject * PyDia_get_Font (FontProperty *prop)
+{ return PyDiaFont_New (prop->font_data); }
+
+struct {
+  char *type;
+  PyObject *(*propget)();
+  GQuark quark;
+} prop_type_map [] =
+{
+  { PROP_TYPE_CHAR, PyDia_get_Char },
+  { PROP_TYPE_BOOL, PyDia_get_Bool },
+  { PROP_TYPE_INT,  PyDia_get_Int },
+  { PROP_TYPE_INTARRAY, PyDia_get_IntArray },
+  { PROP_TYPE_ENUM, PyDia_get_Enum },
+  { PROP_TYPE_ENUMARRAY, PyDia_get_IntArray }, /* Enum == Int */
+  { PROP_TYPE_LINESTYLE, PyDia_get_LineStyle },
+  { PROP_TYPE_REAL, PyDia_get_Real },
+  { PROP_TYPE_STRING, PyDia_get_String },
+  { PROP_TYPE_FILE, PyDia_get_String },
+  { PROP_TYPE_MULTISTRING, PyDia_get_String },
+  { PROP_TYPE_TEXT, PyDia_get_Text },
+  { PROP_TYPE_POINT, PyDia_get_Point },
+  { PROP_TYPE_POINTARRAY, PyDia_get_PointArray },
+  { PROP_TYPE_BEZPOINT, PyDia_get_BezPoint },
+  { PROP_TYPE_BEZPOINTARRAY, PyDia_get_BezPointArray },
+  { PROP_TYPE_RECT, PyDia_get_Rect },
+  { PROP_TYPE_ARROW, PyDia_get_Arrow },
+  { PROP_TYPE_COLOUR, PyDia_get_Color },
+  { PROP_TYPE_FONT, PyDia_get_Font }
+};
+
+/*
  * GetAttr
  */
 static PyObject *
 PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
 {
+  static gboolean type_quarks_calculated = FALSE;
+
   if (!strcmp(attr, "__members__"))
     return Py_BuildValue("[sss]", "name", "type", "value");
   else if (!strcmp(attr, "name"))
     return PyString_FromString(self->property->name);
   else if (!strcmp(attr, "type"))
-    return PyInt_FromLong(self->property->type);
+    return PyString_FromString(self->property->type);
   else if (!strcmp(attr, "value")) {
-#ifdef THE_PROP_TYPE_ID_IS_INTEGRAL
-    switch (self->property->type) {
-    case PROP_TYPE_CHAR :
-      return PyInt_FromLong(((CharProperty*)self->property)->char_data);
-    case PROP_TYPE_BOOL :
-      return PyInt_FromLong(self->property.d.bool_data);
-    case PROP_TYPE_INT :
-    case PROP_TYPE_ENUM :
-    case PROP_TYPE_LINESTYLE :
-      return PyInt_FromLong(self->property.d.int_data);
-    case PROP_TYPE_REAL :
-      return PyFloat_FromDouble(self->property.d.real_data);
-    case PROP_TYPE_STRING :
-    case PROP_TYPE_FILE :
-      if (self->property.d.string_data)
-        return PyString_FromString(self->property.d.string_data);
-      else
-        return PyString_FromString("(NULL)");
-    case PROP_TYPE_POINT :
-      return PyDiaPoint_New (&(self->property.d.point_data));
-    case PROP_TYPE_POINTARRAY :
-      return PyDiaPointTuple_New (self->property.d.ptarray_data.pts,
-                                  self->property.d.ptarray_data.npts);
-    case PROP_TYPE_BEZPOINT :
-      return PyDiaBezPoint_New (&(self->property.d.bpoint_data));
-    case PROP_TYPE_BEZPOINTARRAY :
-      return PyDiaBezPointTuple_New (self->property.d.bptarray_data.pts,
-                                     self->property.d.bptarray_data.npts);
-    case PROP_TYPE_RECT :
-      return PyDiaRectangle_New (&(self->property.d.rect_data), NULL);
-    case PROP_TYPE_ARROW :
-      return PyDiaArrow_New (&(self->property.d.arrow_data));
-    case PROP_TYPE_COLOUR :
-      return PyDiaColor_New (&(self->property.d.colour_data));
-    case PROP_TYPE_FONT :
-      return PyDiaFont_New (self->property.d.font_data);
-    default :
-      Py_INCREF(Py_None);
-      return Py_None;
-    } /* switch */
-#endif
+    int i;
+
+    if (!type_quarks_calculated) {
+      for (i = 0; i < G_N_ELEMENTS(prop_type_map); i++) {
+        prop_type_map[i].quark = g_quark_from_string (prop_type_map[i].type);
+      }
+      type_quarks_calculated = TRUE;
+    }
+
+    for (i = 0; i < G_N_ELEMENTS(prop_type_map); i++)
+      if (prop_type_map[i].quark == self->property->type_quark)
+        return prop_type_map[i].propget(self->property);
+
+    g_warning ("No handler for type '%s'", self->property->type);
+
+    Py_INCREF(Py_None);
+    return Py_None;
   }
 
   PyErr_SetString(PyExc_AttributeError, attr);
   return NULL;
+}
+
+/*
+ * Similar to SetAttr but the property is directly applied
+ * to the DiaObject
+ */
+int PyDiaProperty_ApplyToObject (Object   *object, 
+                                 gchar    *key, 
+                                 Property *prop, 
+                                 PyObject *val)
+{
+  /* XXX: implement by means of prop_type_map or ... */
+  PyObject *obj = NULL;
+  int ret = -1;
+
+  if PyDiaProperty_Check(val) {
+    /* must be a Property object ? Or PyDiaRect etc ? */
+    Property* inprop = ((PyDiaProperty*)val)->property;
+
+    if (0 == strcmp (prop->type, inprop->type)) 
+      {
+        GPtrArray *plist;
+        /* apply it */
+        prop->ops->free (prop); /* release this one */
+        prop = inprop->ops->copy(inprop);
+        /* apply property to object */
+        plist = prop_list_from_single (prop);
+        object->ops->set_props(object, plist);
+        prop_list_free (plist);
+
+        return 0;
+      }
+    /* XXX: conversions ??? */
+  } else if (PyString_Check (val)) {
+    gchar    *str = PyString_AsString (val);
+
+    if (   0 == strcmp (PROP_TYPE_STRING, prop->type)
+        || 0 == strcmp (PROP_TYPE_FILE, prop->type)
+        || 0 == strcmp (PROP_TYPE_MULTISTRING, prop->type)) 
+      {
+        StringProperty *p = (StringProperty *)prop;
+        g_free (p->string_data);
+        p->string_data = g_strdup (str);
+        p->num_lines = 1;
+        ret = 0; /* everything fine */
+      } 
+    else if (0 == strcmp (PROP_TYPE_TEXT, prop->type)) 
+      {
+        TextProperty *p = (TextProperty *)prop;
+        g_free (p->text_data);
+        p->text_data = g_strdup (str);
+        /* XXX: update size calculation ? */
+        ret = 0; /* got it */
+      }
+  } else {
+  }
+
+  if (0 == ret) {
+    /* apply property to object */
+    GPtrArray *plist = prop_list_from_single (prop);
+    object->ops->set_props(object, plist);
+    prop_list_free (plist);
+  }
+
+  return ret;
 }
 
 /*
@@ -142,40 +327,11 @@ PyDiaProperty_Str(PyDiaProperty *self)
   gchar* tname = "OTHER";
   gchar* s;
 
-#ifdef THE_PROP_TYPE_ID_IS_INTEGRAL
-#define CASE_STR(s) case PROP_TYPE_##s : tname = #s; break;
-  switch (self->property.type) {
-  CASE_STR(INVALID)
-  CASE_STR(CHAR)
-  CASE_STR(BOOL)
-  CASE_STR(INT)
-  CASE_STR(ENUM)
-  CASE_STR(REAL)
-  CASE_STR(STRING)
-  CASE_STR(POINT)
-  CASE_STR(POINTARRAY)
-  CASE_STR(BEZPOINT)
-  CASE_STR(BEZPOINTARRAY)
-  CASE_STR(RECT)
-  CASE_STR(LINESTYLE)
-  CASE_STR(ARROW)
-  CASE_STR(COLOUR)
-  CASE_STR(FONT)
-  CASE_STR(FILE)
-  default :
-    tname = "OTHER";
-  }
-#undef CASE_STR
-  s = g_strdup_printf("<DiaProperty at 0x%08x, \"%s\", %s>",
-                      self,
-                      self->property.name,
-                      tname);
-#else
   s = g_strdup_printf("<DiaProperty at 0x%08x, \"%s\", %s>",
                       self,
                       self->property->name,
                       self->property->type);
-#endif
+
   py_s = PyString_FromString(s);
   g_free (s);
   return py_s;

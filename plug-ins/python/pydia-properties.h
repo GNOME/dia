@@ -24,4 +24,6 @@ PyObject* PyDiaProperties_New (Object* obj);
 
 int PyDiaProperty_ApplyToObject (Object *object, gchar *key, Property *prop, PyObject *val);
 
+#define PyDiaProperty_Check(o) ((o)->ob_type == &PyDiaProperty_Type)
+
 #endif
