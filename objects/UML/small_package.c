@@ -52,7 +52,7 @@ static real smallpackage_distance_from(SmallPackage *pkg, Point *point);
 static void smallpackage_select(SmallPackage *pkg, Point *clicked_point,
 				Renderer *interactive_renderer);
 static void smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
-				     Point *to, HandleMoveReason reason);
+				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void smallpackage_move(SmallPackage *pkg, Point *to);
 static void smallpackage_draw(SmallPackage *pkg, Renderer *renderer);
 static Object *smallpackage_create(Point *startpoint,
@@ -126,7 +126,7 @@ smallpackage_select(SmallPackage *pkg, Point *clicked_point,
 
 static void
 smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
-			 Point *to, HandleMoveReason reason)
+			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(pkg!=NULL);
   assert(handle!=NULL);

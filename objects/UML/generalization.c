@@ -66,7 +66,7 @@ static real generalization_distance_from(Generalization *genlz, Point *point);
 static void generalization_select(Generalization *genlz, Point *clicked_point,
 			      Renderer *interactive_renderer);
 static void generalization_move_handle(Generalization *genlz, Handle *handle,
-				   Point *to, HandleMoveReason reason);
+				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void generalization_move(Generalization *genlz, Point *to);
 static void generalization_draw(Generalization *genlz, Renderer *renderer);
 static Object *generalization_create(Point *startpoint,
@@ -141,7 +141,7 @@ generalization_select(Generalization *genlz, Point *clicked_point,
 
 static void
 generalization_move_handle(Generalization *genlz, Handle *handle,
-		       Point *to, HandleMoveReason reason)
+		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(genlz!=NULL);
   assert(handle!=NULL);

@@ -70,7 +70,7 @@ struct _LifelineDialog {
 
 static LifelineDialog* properties_dialog;
 static void lifeline_move_handle(Lifeline *lifeline, Handle *handle,
-				   Point *to, HandleMoveReason reason);
+				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void lifeline_move(Lifeline *lifeline, Point *to);
 static void lifeline_select(Lifeline *lifeline, Point *clicked_point,
 			      Renderer *interactive_renderer);
@@ -152,7 +152,7 @@ lifeline_select(Lifeline *lifeline, Point *clicked_point,
 
 static void
 lifeline_move_handle(Lifeline *lifeline, Handle *handle,
-		 Point *to, HandleMoveReason reason)
+		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   real s, t;
   Connection *conn;

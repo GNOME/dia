@@ -98,7 +98,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
 
     object_add_updates(tool->obj, ddisp->diagram);
     tool->obj->ops->move_handle(tool->obj, tool->handle, &tool->last_to,
-				HANDLE_MOVE_USER_FINAL);
+				HANDLE_MOVE_USER_FINAL,0);
     object_add_updates(tool->obj, ddisp->diagram);
 
 
@@ -141,7 +141,7 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
 
   object_add_updates(tool->obj, ddisp->diagram);
   tool->obj->ops->move_handle(tool->obj, tool->handle, &to,
-			      HANDLE_MOVE_USER);
+			      HANDLE_MOVE_USER,0);
   object_add_updates(tool->obj, ddisp->diagram);
   
   diagram_flush(ddisp->diagram);

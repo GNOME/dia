@@ -89,7 +89,7 @@ object_connect_display(DDisplay *ddisp, Object *obj, Handle *handle)
       
       object_add_updates(obj, ddisp->diagram);
       obj->ops->move_handle(obj, handle , &connectionpoint->pos,
-			    HANDLE_MOVE_CONNECTED);
+			    HANDLE_MOVE_CONNECTED,0);
       object_add_updates(obj, ddisp->diagram);
     }
   }

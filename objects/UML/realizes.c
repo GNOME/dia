@@ -67,7 +67,7 @@ static real realizes_distance_from(Realizes *realize, Point *point);
 static void realizes_select(Realizes *realize, Point *clicked_point,
 			      Renderer *interactive_renderer);
 static void realizes_move_handle(Realizes *realize, Handle *handle,
-				   Point *to, HandleMoveReason reason);
+				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void realizes_move(Realizes *realize, Point *to);
 static void realizes_draw(Realizes *realize, Renderer *renderer);
 static Object *realizes_create(Point *startpoint,
@@ -141,7 +141,7 @@ realizes_select(Realizes *realize, Point *clicked_point,
 
 static void
 realizes_move_handle(Realizes *realize, Handle *handle,
-		       Point *to, HandleMoveReason reason)
+		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(realize!=NULL);
   assert(handle!=NULL);

@@ -71,7 +71,7 @@ static real dependency_distance_from(Dependency *dep, Point *point);
 static void dependency_select(Dependency *dep, Point *clicked_point,
 			      Renderer *interactive_renderer);
 static void dependency_move_handle(Dependency *dep, Handle *handle,
-				   Point *to, HandleMoveReason reason);
+				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void dependency_move(Dependency *dep, Point *to);
 static void dependency_draw(Dependency *dep, Renderer *renderer);
 static Object *dependency_create(Point *startpoint,
@@ -144,7 +144,7 @@ dependency_select(Dependency *dep, Point *clicked_point,
 
 static void
 dependency_move_handle(Dependency *dep, Handle *handle,
-		       Point *to, HandleMoveReason reason)
+		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(dep!=NULL);
   assert(handle!=NULL);

@@ -38,7 +38,7 @@ static real umlclass_distance_from(UMLClass *umlclass, Point *point);
 static void umlclass_select(UMLClass *umlclass, Point *clicked_point,
 			    Renderer *interactive_renderer);
 static void umlclass_move_handle(UMLClass *umlclass, Handle *handle,
-				 Point *to, HandleMoveReason reason);
+				 Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void umlclass_move(UMLClass *umlclass, Point *to);
 static void umlclass_draw(UMLClass *umlclass, Renderer *renderer);
 static Object *umlclass_create(Point *startpoint,
@@ -117,7 +117,7 @@ umlclass_select(UMLClass *umlclass, Point *clicked_point,
 
 static void
 umlclass_move_handle(UMLClass *umlclass, Handle *handle,
-		     Point *to, HandleMoveReason reason)
+		     Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(umlclass!=NULL);
   assert(handle!=NULL);

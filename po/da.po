@@ -267,16 +267,16 @@ msgstr ""
 
 #: app/display.c:760
 msgid "<Display>/View/Toggle Rulers"
-msgstr "<Display>/Visning/Linealer"
+msgstr "<Display>/Visning/_Linealer"
 
 #: app/display.c:761
 msgid "<Display>/View/Visible Grid"
-msgstr "<Display>/Visning/Synligt gitter"
+msgstr "<Display>/Visning/_Synligt gitter"
 
 # FIXME:  Fast til?
 #: app/display.c:762
 msgid "<Display>/View/Snap To Grid"
-msgstr "<Display>/Visning/Fast til gitter"
+msgstr "<Display>/Visning/_Fast til gitter"
 
 #: app/grid.c:141
 msgid "Grid options"

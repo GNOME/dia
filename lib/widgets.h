@@ -88,6 +88,8 @@ void       dia_alignment_selector_set_alignment (DiaAlignmentSelector *as,
 #define DIALINESTYLESELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_line_style_selector_get_type (), DiaLineStyleSelectorClass)
 #define IS_DIALINESTYLESELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_line_style_selector_get_type ())
 
+#define DEFAULT_LINESTYLE LINESTYLE_SOLID
+
 typedef struct _DiaLineStyleSelector       DiaLineStyleSelector;
 typedef struct _DiaLineStyleSelectorClass  DiaLineStyleSelectorClass;
 
@@ -113,6 +115,10 @@ void       dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
 #define DIACOLORSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_color_selector_get_type (), DiaColorSelector)
 #define DIACOLORSELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_color_selector_get_type (), DiaColorSelectorClass)
 #define IS_DIACOLORSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_color_selector_get_type ())
+
+#define DEFAULT_FG_COLOR color_black
+#define DEFAULT_BG_COLOR color_white
+#define DEFAULT_COLOR color_white
 
 typedef struct _DiaColorSelector       DiaColorSelector;
 typedef struct _DiaColorSelectorClass  DiaColorSelectorClass;
@@ -144,6 +150,10 @@ void       dia_color_selector_set_color (DiaColorSelector *cs,
 #define DIAARROWSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_arrow_selector_get_type (), DiaArrowSelector)
 #define DIAARROWSELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_arrow_selector_get_type (), DiaArrowSelectorClass)
 #define IS_DIAARROWSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_arrow_selector_get_type ())
+
+#define DEFAULT_ARROW ARROW_NONE
+#define DEFAULT_ARROW_LENGTH 0.8 
+#define DEFAULT_ARROW_WIDTH 0.8
 
 typedef struct _DiaArrowSelector       DiaArrowSelector;
 typedef struct _DiaArrowSelectorClass  DiaArrowSelectorClass;
@@ -200,5 +210,10 @@ GtkWidget* dia_file_selector_new             (void);
 void       dia_file_selector_set_file        (DiaFileSelector *fs, char *file);
 char *     dia_file_selector_get_file        (DiaFileSelector *fs);
 
+/* Other common defaults */
+
+#define DEFAULT_ALIGNMENT ALIGN_LEFT
+/* This is defined in app/linewidth_area.c.  Aw, bummer */
+#define DEFAULT_LINE_WIDTH 2*0.05
 
 #endif /* WIDGETS_H */

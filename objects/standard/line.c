@@ -81,7 +81,8 @@ static LineDefaultsDialog *line_defaults_dialog;
 static LineProperties default_properties;
 
 static void line_move_handle(Line *line, Handle *handle,
-			     Point *to, HandleMoveReason reason);
+			     Point *to, HandleMoveReason reason, 
+			     ModifierKeys modifiers);
 static void line_move(Line *line, Point *to);
 static void line_select(Line *line, Point *clicked_point,
 			Renderer *interactive_renderer);
@@ -364,7 +365,7 @@ line_select(Line *line, Point *clicked_point,
 
 static void
 line_move_handle(Line *line, Handle *handle,
-		 Point *to, HandleMoveReason reason)
+		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(line!=NULL);
   assert(handle!=NULL);

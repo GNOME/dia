@@ -181,6 +181,7 @@ static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
     gdk_pointer_grab (ddisp->canvas->window, FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
+    tool->start_at = *clickedpoint;
     return TRUE;
   }
   return FALSE;
@@ -214,6 +215,7 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     gdk_pointer_grab (ddisp->canvas->window, FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
+    tool->start_at = clickedpoint;
   } else {
     tool->state = STATE_BOX_SELECT;
     tool->start_box = clickedpoint;
@@ -268,8 +270,8 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
 	      DDisplay *ddisp)
 {
   Point to;
-  Point now, delta;
-  gboolean auto_scroll;
+  Point now, delta, full_delta;
+  gboolean auto_scroll, vertical;
   ConnectionPoint *connectionpoint;
 
   if (tool->state==STATE_NONE)
@@ -285,6 +287,12 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if (tool->break_connections)
       diagram_unconnect_selected(ddisp->diagram);
   
+    if (event->state & GDK_CONTROL_MASK) {
+      full_delta = to;
+      point_sub(&full_delta, &tool->start_at);
+      vertical = (abs(full_delta.x) < abs(full_delta.y));
+    }
+
     point_add(&to, &tool->move_compensate);
     snap_to_grid(&ddisp->grid, &to.x, &to.y);
   
@@ -293,6 +301,15 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     delta = to;
     point_sub(&delta, &now);
     
+    if (event->state & GDK_CONTROL_MASK) {
+      /* Up-down or left-right */
+      if (vertical) {
+	delta.x = tool->start_at.x + tool->move_compensate.x - now.x;
+      } else {
+	delta.y = tool->start_at.y + tool->move_compensate.y - now.y;
+      }
+    }
+
     object_add_updates_list(ddisp->diagram->data->selected, ddisp->diagram);
     object_list_move_delta(ddisp->diagram->data->selected, &delta);
     object_add_updates_list(ddisp->diagram->data->selected, ddisp->diagram);
@@ -304,6 +321,13 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     /* Move to ConnectionPoint if near: */
     connectionpoint =
       object_find_connectpoint_display(ddisp, &to);
+
+    if (event->state & GDK_CONTROL_MASK) {
+      full_delta = to;
+      point_sub(&full_delta, &tool->start_at);
+      vertical = (abs(full_delta.x) < abs(full_delta.y));
+    }
+
     if ( (tool->handle->connect_type != HANDLE_NONCONNECTABLE) &&
 	 (connectionpoint != NULL) ) {
       to = connectionpoint->pos;
@@ -319,9 +343,18 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
       }
     }
 
+    if (event->state & GDK_CONTROL_MASK) {
+      /* Up-down or left-right */
+      if (vertical) {
+	to.x = tool->start_at.x;
+      } else {
+	to.y = tool->start_at.y;
+      }
+    }
+
     object_add_updates(tool->object, ddisp->diagram);
     tool->object->ops->move_handle(tool->object, tool->handle, &to,
-				   HANDLE_MOVE_USER);
+				   HANDLE_MOVE_USER,0);
     object_add_updates(tool->object, ddisp->diagram);
   
     diagram_update_connections_selection(ddisp->diagram);
@@ -391,7 +424,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     object_add_updates(tool->object, ddisp->diagram);
     tool->object->ops->move_handle(tool->object, tool->handle,
 				   &tool->last_to,
-				   HANDLE_MOVE_USER_FINAL);
+				   HANDLE_MOVE_USER_FINAL,0);
     object_add_updates(tool->object, ddisp->diagram);
 
     /* Connect if possible: */

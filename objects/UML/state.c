@@ -74,7 +74,7 @@ static real state_distance_from(State *state, Point *point);
 static void state_select(State *state, Point *clicked_point,
 			Renderer *interactive_renderer);
 static void state_move_handle(State *state, Handle *handle,
-			     Point *to, HandleMoveReason reason);
+			     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void state_move(State *state, Point *to);
 static void state_draw(State *state, Renderer *renderer);
 static Object *state_create(Point *startpoint,
@@ -152,7 +152,7 @@ state_select(State *state, Point *clicked_point,
 
 static void
 state_move_handle(State *state, Handle *handle,
-		 Point *to, HandleMoveReason reason)
+		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(state!=NULL);
   assert(handle!=NULL);

@@ -55,7 +55,7 @@ struct _BusPropertiesDialog {
 };
 
 static void bus_move_handle(Bus *bus, Handle *handle,
-			    Point *to, HandleMoveReason reason);
+			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void bus_move(Bus *bus, Point *to);
 static void bus_select(Bus *bus, Point *clicked_point,
 		       Renderer *interactive_renderer);
@@ -241,7 +241,7 @@ bus_select(Bus *bus, Point *clicked_point,
 
 static void
 bus_move_handle(Bus *bus, Handle *handle,
-		Point *to, HandleMoveReason reason)
+		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   Connection *conn = &bus->connection;
   Point *endpoints;

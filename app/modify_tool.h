@@ -39,6 +39,7 @@ struct _ModifyTool {
   Object *object;
   Handle *handle;
   Point last_to;
+  Point start_at;
 
   GdkGC *gc;
 

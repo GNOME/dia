@@ -52,7 +52,7 @@ static real actor_distance_from(Actor *actor, Point *point);
 static void actor_select(Actor *actor, Point *clicked_point,
 			Renderer *interactive_renderer);
 static void actor_move_handle(Actor *actor, Handle *handle,
-			     Point *to, HandleMoveReason reason);
+			     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void actor_move(Actor *actor, Point *to);
 static void actor_draw(Actor *actor, Renderer *renderer);
 static Object *actor_create(Point *startpoint,
@@ -126,7 +126,7 @@ actor_select(Actor *actor, Point *clicked_point,
 
 static void
 actor_move_handle(Actor *actor, Handle *handle,
-		 Point *to, HandleMoveReason reason)
+		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(actor!=NULL);
   assert(handle!=NULL);

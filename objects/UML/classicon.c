@@ -77,7 +77,7 @@ static real classicon_distance_from(Classicon *pkg, Point *point);
 static void classicon_select(Classicon *pkg, Point *clicked_point,
 				Renderer *interactive_renderer);
 static void classicon_move_handle(Classicon *pkg, Handle *handle,
-				     Point *to, HandleMoveReason reason);
+				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void classicon_move(Classicon *pkg, Point *to);
 static void classicon_draw(Classicon *pkg, Renderer *renderer);
 static Object *classicon_create(Point *startpoint,
@@ -151,7 +151,7 @@ classicon_select(Classicon *pkg, Point *clicked_point,
 
 static void
 classicon_move_handle(Classicon *pkg, Handle *handle,
-		      Point *to, HandleMoveReason reason)
+		      Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(pkg!=NULL);
   assert(handle!=NULL);

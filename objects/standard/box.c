@@ -90,7 +90,8 @@ static real box_distance_from(Box *box, Point *point);
 static void box_select(Box *box, Point *clicked_point,
 		       Renderer *interactive_renderer);
 static void box_move_handle(Box *box, Handle *handle,
-			    Point *to, HandleMoveReason reason);
+			    Point *to, HandleMoveReason reason, 
+			    ModifierKeys modifiers);
 static void box_move(Box *box, Point *to);
 static void box_draw(Box *box, Renderer *renderer);
 static void box_update_data(Box *box);
@@ -393,7 +394,7 @@ box_select(Box *box, Point *clicked_point,
 
 static void
 box_move_handle(Box *box, Handle *handle,
-		Point *to, HandleMoveReason reason)
+		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(box!=NULL);
   assert(handle!=NULL);

@@ -102,7 +102,7 @@ static real image_distance_from(Image *image, Point *point);
 static void image_select(Image *image, Point *clicked_point,
 		       Renderer *interactive_renderer);
 static void image_move_handle(Image *image, Handle *handle,
-			    Point *to, HandleMoveReason reason);
+			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void image_move(Image *image, Point *to);
 static void image_draw(Image *image, Renderer *renderer);
 static void image_update_data(Image *image);
@@ -404,7 +404,7 @@ image_select(Image *image, Point *clicked_point,
 
 static void
 image_move_handle(Image *image, Handle *handle,
-		  Point *to, HandleMoveReason reason)
+		  Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(image!=NULL);
   assert(handle!=NULL);

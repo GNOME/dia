@@ -75,7 +75,7 @@ static real entity_distance_from(Entity *entity, Point *point);
 static void entity_select(Entity *entity, Point *clicked_point,
 		       Renderer *interactive_renderer);
 static void entity_move_handle(Entity *entity, Handle *handle,
-			    Point *to, HandleMoveReason reason);
+			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void entity_move(Entity *entity, Point *to);
 static void entity_draw(Entity *entity, Renderer *renderer);
 static void entity_update_data(Entity *entity);
@@ -261,7 +261,7 @@ entity_select(Entity *entity, Point *clicked_point,
 
 static void
 entity_move_handle(Entity *entity, Handle *handle,
-		Point *to, HandleMoveReason reason)
+		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(entity!=NULL);
   assert(handle!=NULL);

@@ -64,7 +64,7 @@ struct _ConstraintDialog {
 static Font *constraint_font = NULL;
 
 static void constraint_move_handle(Constraint *constraint, Handle *handle,
-				   Point *to, HandleMoveReason reason);
+				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void constraint_move(Constraint *constraint, Point *to);
 static void constraint_select(Constraint *constraint, Point *clicked_point,
 			      Renderer *interactive_renderer);
@@ -145,7 +145,7 @@ constraint_select(Constraint *constraint, Point *clicked_point,
 
 static void
 constraint_move_handle(Constraint *constraint, Handle *handle,
-		 Point *to, HandleMoveReason reason)
+		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   Point p1, p2;
   Point *endpoints;

@@ -191,7 +191,7 @@ dia_alignment_selector_init (DiaAlignmentSelector *fs)
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
   
-  gtk_menu_set_active(GTK_MENU (menu), 0);
+  gtk_menu_set_active(GTK_MENU (menu), DEFAULT_ALIGNMENT);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs), menu);
 }
 
@@ -296,7 +296,7 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
   
-  gtk_menu_set_active(GTK_MENU (menu), 0);
+  gtk_menu_set_active(GTK_MENU (menu), DEFAULT_LINESTYLE);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs), menu);
 }
 
@@ -459,7 +459,7 @@ dia_color_selector_init (DiaColorSelector *cs)
 {
   GtkWidget *area;
 
-  cs->col = color_white;
+  cs->col = DEFAULT_COLOR;
   cs->gc = NULL;
   cs->col_sel = NULL;
   
@@ -634,7 +634,7 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 
-  gtk_menu_set_active(GTK_MENU (menu), 0);
+  gtk_menu_set_active(GTK_MENU (menu), DEFAULT_ARROW);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
   gtk_signal_connect_object(GTK_OBJECT(menu), "selection-done", 
 			    GTK_SIGNAL_FUNC(arrow_type_change_callback), (gpointer)as);
@@ -650,7 +650,7 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   gtk_widget_show(label);
 
   adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 0.0, 0.0);
-  length = gtk_spin_button_new(adj, 1.0, 2);
+  length = gtk_spin_button_new(adj, DEFAULT_ARROW_LENGTH, 2);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(length), TRUE);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(length), TRUE);
   as->length = GTK_SPIN_BUTTON(length);
@@ -663,7 +663,7 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   gtk_widget_show(label);
 
   adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 0.0, 0.0);
-  width = gtk_spin_button_new(adj, 1.0, 2);
+  width = gtk_spin_button_new(adj, DEFAULT_ARROW_WIDTH, 2);
   gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(width), TRUE);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(width), TRUE);
   as->width = GTK_SPIN_BUTTON(width);

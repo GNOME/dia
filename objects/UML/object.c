@@ -79,7 +79,7 @@ static real objet_distance_from(Objet *pkg, Point *point);
 static void objet_select(Objet *pkg, Point *clicked_point,
 				Renderer *interactive_renderer);
 static void objet_move_handle(Objet *pkg, Handle *handle,
-				     Point *to, HandleMoveReason reason);
+				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void objet_move(Objet *pkg, Point *to);
 static void objet_draw(Objet *pkg, Renderer *renderer);
 static Object *objet_create(Point *startpoint,
@@ -153,7 +153,7 @@ objet_select(Objet *pkg, Point *clicked_point,
 
 static void
 objet_move_handle(Objet *pkg, Handle *handle,
-			 Point *to, HandleMoveReason reason)
+			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(pkg!=NULL);
   assert(handle!=NULL);

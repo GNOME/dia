@@ -1,3 +1,57 @@
+1999-05-12  Alexander Larsson  <alla@lysator.liu.se>
+
+	Changes from Lars R. Clausen <lrclause@cs.uiuc.edu>
+	
+	* app/modify_tool.c:
+	* app/modify_tool.h:
+	Control-drag is restricted to vertical/horizontal movement
+	
+	* lib/object.h:
+	ModifierKeys argument added to object_move_handle
+
+	* app/connectionpoint_ops.c:
+	* app/create_object.c:
+	* app/object_ops.c:
+	* objects/ER/attribute.c:
+	* objects/ER/entity.c:
+	* objects/ER/participation.c:
+	* objects/ER/relationship.c:
+	* objects/UML/actor.c:
+	* objects/UML/association.c:
+	* objects/UML/class.c:
+	* objects/UML/classicon.c:
+	* objects/UML/component.c:
+	* objects/UML/constraint.c:
+	* objects/UML/dependency.c:
+	* objects/UML/generalization.c:
+	* objects/UML/implements.c:
+	* objects/UML/large_package.c:
+	* objects/UML/lifeline.c:
+	* objects/UML/message.c:
+	* objects/UML/note.c:
+	* objects/UML/object.c:
+	* objects/UML/realizes.c:
+	* objects/UML/small_package.c:
+	* objects/UML/state.c:
+	* objects/UML/usecase.c:
+	* objects/network/bus.c:
+	* objects/standard/arc.c:
+	* objects/standard/box.c:
+	* objects/standard/ellipse.c:
+	* objects/standard/image.c:
+	* objects/standard/line.c:
+	* objects/standard/polyline.c:
+	* objects/standard/textobj.c:
+	* objects/standard/zigzagline.c:
+	Changed calls to move_handle to pass the new argument.
+	
+	* lib/widgets.c:
+	* lib/widgets.h:
+	Default line width, color etc #define'd
+	
+	* po/da.po:
+	Updates of danish menus
+
 1999-05-08  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* dia.xpm

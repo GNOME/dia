@@ -81,7 +81,8 @@ static real attribute_distance_from(Attribute *attribute, Point *point);
 static void attribute_select(Attribute *attribute, Point *clicked_point,
 			   Renderer *interactive_renderer);
 static void attribute_move_handle(Attribute *attribute, Handle *handle,
-				Point *to, HandleMoveReason reason);
+				  Point *to, HandleMoveReason reason, 
+				  ModifierKeys modifiers);
 static void attribute_move(Attribute *attribute, Point *to);
 static void attribute_draw(Attribute *attribute, Renderer *renderer);
 static void attribute_update_data(Attribute *attribute);
@@ -277,7 +278,8 @@ attribute_select(Attribute *attribute, Point *clicked_point,
 
 static void
 attribute_move_handle(Attribute *attribute, Handle *handle,
-		    Point *to, HandleMoveReason reason)
+		      Point *to, HandleMoveReason reason, 
+		      ModifierKeys modifiers)
 {
   assert(attribute!=NULL);
   assert(handle!=NULL);

@@ -25,6 +25,7 @@ typedef struct _Object Object;
 typedef struct _ObjectOps ObjectOps;
 typedef struct _ObjectType ObjectType;
 typedef struct _ObjectTypeOps ObjectTypeOps;
+typedef enum _ModifierKeys ModifierKeys;
 
 #include "geometry.h"
 #include "render.h"
@@ -33,6 +34,20 @@ typedef struct _ObjectTypeOps ObjectTypeOps;
 #include "diamenu.h"
 #include "dia_xml.h"
 
+/* This enumeration gives a bitset of modifier keys currently held down.
+ */
+enum _ModifierKeys {
+  MODIFIER_NONE,
+  MODIFIER_LEFT_SHIFT,
+  MODIFIER_RIGHT_SHIFT,
+  MODIFIER_SHIFT,
+  MODIFIER_LEFT_ALT = 4,
+  MODIFIER_RIGHT_ALT = 8,
+  MODIFIER_ALT = 12,
+  MODIFIER_LEFT_CONTROL = 16,
+  MODIFIER_RIGHT_CONTROL = 32,
+  MODIFIER_CONTROL = 48
+};
 
 /************************************
  ** Some general function prototypes
@@ -150,12 +165,18 @@ typedef void (*MoveFunc) (Object* obj, Point * pos);
 	    HANDLE_MOVE_USER_FINAL means the user let go of the point.
 	    HANDLE_MOVE_CONNECTED means it was moved because something
 	    it was connected to moved.
+  - modifiers  gives a bitset of modifier keys currently held down
+            MODIFIER_SHIFT is either shift key
+	    MODIFIER_ALT is either alt key
+	    MODIFIER_CONTROL is either control key
+	    Each has MODIFIER_LEFT_* and MODIFIER_RIGHT_* variants
 	    
 */
 typedef void (*MoveHandleFunc) (Object*          obj,
 				Handle*          handle,
 				Point*           pos,
-				HandleMoveReason reason);
+				HandleMoveReason reason,
+				ModifierKeys     modifiers);
 
 /*
   Function called when the user has double clicked on an Object.

@@ -89,7 +89,7 @@ static ArcProperties default_properties;
 
 
 static void arc_move_handle(Arc *arc, Handle *handle,
-			    Point *to, HandleMoveReason reason);
+			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void arc_move(Arc *arc, Point *to);
 static void arc_select(Arc *arc, Point *clicked_point,
 		       Renderer *interactive_renderer);
@@ -429,7 +429,7 @@ arc_update_handles(Arc *arc)
 
 static void
 arc_move_handle(Arc *arc, Handle *handle,
-		Point *to, HandleMoveReason reason)
+		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(arc!=NULL);
   assert(handle!=NULL);

@@ -66,7 +66,7 @@ static real largepackage_distance_from(LargePackage *pkg, Point *point);
 static void largepackage_select(LargePackage *pkg, Point *clicked_point,
 				Renderer *interactive_renderer);
 static void largepackage_move_handle(LargePackage *pkg, Handle *handle,
-				     Point *to, HandleMoveReason reason);
+				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void largepackage_move(LargePackage *pkg, Point *to);
 static void largepackage_draw(LargePackage *pkg, Renderer *renderer);
 static Object *largepackage_create(Point *startpoint,
@@ -140,7 +140,7 @@ largepackage_select(LargePackage *pkg, Point *clicked_point,
 
 static void
 largepackage_move_handle(LargePackage *pkg, Handle *handle,
-			 Point *to, HandleMoveReason reason)
+			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(pkg!=NULL);
   assert(handle!=NULL);

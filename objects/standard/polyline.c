@@ -82,7 +82,7 @@ static PolylineProperties default_properties;
 
 
 static void polyline_move_handle(Polyline *polyline, Handle *handle,
-				   Point *to, HandleMoveReason reason);
+				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void polyline_move(Polyline *polyline, Point *to);
 static void polyline_select(Polyline *polyline, Point *clicked_point,
 			      Renderer *interactive_renderer);
@@ -381,7 +381,7 @@ polyline_select(Polyline *polyline, Point *clicked_point,
 
 static void
 polyline_move_handle(Polyline *polyline, Handle *handle,
-		       Point *to, HandleMoveReason reason)
+		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(polyline!=NULL);
   assert(handle!=NULL);

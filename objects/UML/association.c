@@ -102,7 +102,7 @@ static real association_distance_from(Association *assoc, Point *point);
 static void association_select(Association *assoc, Point *clicked_point,
 			       Renderer *interactive_renderer);
 static void association_move_handle(Association *assoc, Handle *handle,
-				    Point *to, HandleMoveReason reason);
+				    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void association_move(Association *assoc, Point *to);
 static void association_draw(Association *assoc, Renderer *renderer);
 static Object *association_create(Point *startpoint,
@@ -186,7 +186,7 @@ association_select(Association *assoc, Point *clicked_point,
 
 static void
 association_move_handle(Association *assoc, Handle *handle,
-		       Point *to, HandleMoveReason reason)
+		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(assoc!=NULL);
   assert(handle!=NULL);

@@ -83,7 +83,7 @@ static real relationship_distance_from(Relationship *relationship, Point *point)
 static void relationship_select(Relationship *relationship, Point *clicked_point,
 		       Renderer *interactive_renderer);
 static void relationship_move_handle(Relationship *relationship, Handle *handle,
-			    Point *to, HandleMoveReason reason);
+			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void relationship_move(Relationship *relationship, Point *to);
 static void relationship_draw(Relationship *relationship, Renderer *renderer);
 static void relationship_update_data(Relationship *relationship);
@@ -295,7 +295,7 @@ relationship_select(Relationship *relationship, Point *clicked_point,
 
 static void
 relationship_move_handle(Relationship *relationship, Handle *handle,
-		Point *to, HandleMoveReason reason)
+		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(relationship!=NULL);
   assert(handle!=NULL);

@@ -57,7 +57,7 @@ static real participation_distance_from(Participation *dep, Point *point);
 static void participation_select(Participation *dep, Point *clicked_point,
 			      Renderer *interactive_renderer);
 static void participation_move_handle(Participation *dep, Handle *handle,
-				   Point *to, HandleMoveReason reason);
+				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void participation_move(Participation *dep, Point *to);
 static void participation_draw(Participation *dep, Renderer *renderer);
 static Object *participation_create(Point *startpoint,
@@ -130,7 +130,7 @@ participation_select(Participation *participation, Point *clicked_point,
 
 static void
 participation_move_handle(Participation *participation, Handle *handle,
-		       Point *to, HandleMoveReason reason)
+		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(participation!=NULL);
   assert(handle!=NULL);

@@ -66,7 +66,7 @@ struct _ImplementsDialog {
 static Font *implements_font = NULL;
 
 static void implements_move_handle(Implements *implements, Handle *handle,
-				   Point *to, HandleMoveReason reason);
+				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void implements_move(Implements *implements, Point *to);
 static void implements_select(Implements *implements, Point *clicked_point,
 			      Renderer *interactive_renderer);
@@ -151,7 +151,7 @@ implements_select(Implements *implements, Point *clicked_point,
 
 static void
 implements_move_handle(Implements *implements, Handle *handle,
-		 Point *to, HandleMoveReason reason)
+		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   Point v1, v2;
   

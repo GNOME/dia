@@ -109,7 +109,7 @@ diagram_update_connections_object(Diagram *dia, Object *obj,
 	
 	object_add_updates(connected_obj, dia);
 	connected_obj->ops->move_handle(connected_obj, handle ,
-					&cp->pos, HANDLE_MOVE_CONNECTED);
+					&cp->pos, HANDLE_MOVE_CONNECTED,0);
 	object_add_updates(connected_obj, dia);
 
 	diagram_update_connections_object(dia, connected_obj, FALSE);

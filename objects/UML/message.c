@@ -86,7 +86,7 @@ static Font *message_font = NULL;
 static MessageDialog *properties_dialog;
 
 static void message_move_handle(Message *message, Handle *handle,
-				   Point *to, HandleMoveReason reason);
+				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void message_move(Message *message, Point *to);
 static void message_select(Message *message, Point *clicked_point,
 			      Renderer *interactive_renderer);
@@ -167,7 +167,7 @@ message_select(Message *message, Point *clicked_point,
 
 static void
 message_move_handle(Message *message, Handle *handle,
-		 Point *to, HandleMoveReason reason)
+		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   Point p1, p2;
   Point *endpoints;

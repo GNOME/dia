@@ -82,7 +82,7 @@ static ZigzaglineProperties default_properties;
 
 
 static void zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
-				   Point *to, HandleMoveReason reason);
+				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void zigzagline_move(Zigzagline *zigzagline, Point *to);
 static void zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
 			      Renderer *interactive_renderer);
@@ -248,6 +248,8 @@ zigzagline_get_properties(Zigzagline *zigzagline)
 
   zigzagline_properties_dialog->zigzagline = zigzagline;
     
+  zigzagline_properties_dialog->zigzagline = zigzagline;
+    
   gtk_spin_button_set_value(zigzagline_properties_dialog->line_width,
 			    zigzagline->line_width);
   dia_color_selector_set_color(zigzagline_properties_dialog->color,
@@ -370,7 +372,7 @@ zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
 
 static void
 zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
-		       Point *to, HandleMoveReason reason)
+		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   assert(zigzagline!=NULL);
   assert(handle!=NULL);
