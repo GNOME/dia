@@ -29,6 +29,11 @@
 
 import sys, string, traceback
 #sys.path.append('/home/james/.gimp/plug-ins')
+
+# Make sure we use pygtk for gtk 2.0
+import pygtk
+pygtk.require("2.0")
+
 from gtk import *
 
 stdout = sys.stdout

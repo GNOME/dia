@@ -1,6 +1,10 @@
 import sys, os
 import dia
 
+# Make sure we use pygtk for gtk 2.0
+import pygtk
+pygtk.require("2.0")
+
 # find system python plugin dir
 curdir = os.path.dirname(__file__)
 plugindir = os.path.join(curdir, 'python')

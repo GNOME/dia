@@ -1,5 +1,8 @@
 2003-01-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/python/python-startup.py: 
+	* plug-ins/python/gtkcons.py: Require gtk 2.0 for pygtk
+
 	* plug-ins/python/python.c (dia_plugin_init): Added warning
 	message for missing startup file.
 
