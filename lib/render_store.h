@@ -77,11 +77,11 @@ extern void rs_add_fill_ellipse(RenderStore *store,
 			     real width, real height,
 			     Color *color);
 extern void rs_add_draw_bezier(RenderStore *store,
-			    Point *points,
+			    BezPoint *points,
 			    int numpoints,
 			    Color *color);
 extern void rs_add_fill_bezier(RenderStore *store,
-			    Point *points,
+			    BezPoint *points,
 			    int numpoints,
 			    Color *color);
 extern void rs_add_draw_string(RenderStore *store,

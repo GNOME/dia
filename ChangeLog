@@ -1,5 +1,22 @@
 1999-08-31  James Henstridge  <james@daa.com.au>
 
+	* objects/sybase/ltm.c (render_to_store): use the newer bezier API.
+
+	* app/render_svg.c (draw_bezier, fill_bezier): updated renderer
+	interface
+
+	* app/render_eps.c (draw_bezier, fill_bezier): updated renderer
+	interface
+
+	* app/render_gdk.c (draw_bezier, fill_bezier): updated renderer
+	interface.
+
+	* lib/render_store.[ch]: use newer bezier functions.
+
+	* lib/render.h: changed the bezier drawing functions to use an array
+	of BezPoint structures instead of normal Point structures to allow
+	lineto's mixed in with the curveto's.
+	
 	* objects/custom/Circuit/pnp.*: added pnp transistor shape.
 	
 	* objects/custom/Circuit/Makefile.am (SHAPES): added index.sheet and

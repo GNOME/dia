@@ -77,12 +77,12 @@ static void fill_ellipse(RendererSVG *renderer,
 			 real width, real height,
 			 Color *colour);
 static void draw_bezier(RendererSVG *renderer, 
-			Point *points,
-			int numpoints, /* numpoints = 4+3*n, n=>0 */
+			BezPoint *points,
+			int numpoints,
 			Color *colour);
 static void fill_bezier(RendererSVG *renderer, 
-			Point *points, /* Last point must be same as first point */
-			int numpoints, /* numpoints = 4+3*n, n=>0 */
+			BezPoint *points, /* Last point must be same as first point */
+			int numpoints,
 			Color *colour);
 static void draw_string(RendererSVG *renderer,
 			const char *text,
@@ -605,8 +605,8 @@ fill_ellipse(RendererSVG *renderer,
 
 static void
 draw_bezier(RendererSVG *renderer, 
-	    Point *points,
-	    int numpoints, /* numpoints = 4+3*n, n=>0 */
+	    BezPoint *points,
+	    int numpoints,
 	    Color *colour)
 {
   int i;
@@ -618,21 +618,37 @@ draw_bezier(RendererSVG *renderer,
   xmlSetProp(node, "style", get_style(renderer, colour, FALSE));
 
   str = g_string_new(NULL);
-  g_string_sprintf(str, "M %g %g", (double)points[0].x, (double)points[0].y);
 
-  for (i = 1; i <= numpoints-3; i += 3)
-    g_string_sprintfa(str, " C %g,%g %g,%g %g,%g",
-		      (double) points[i].x, (double) points[i].y,
-		      (double) points[i+1].x, (double) points[i+1].y,
-		      (double) points[i+2].x, (double) points[i+2].y );
+  if (points[0].type != BEZ_MOVE_TO)
+    g_warning("first BezPoint must be a BEZ_MOVE_TO");
+
+  g_string_sprintf(str, "M %g %g", (double)points[0].p1.x,
+		   (double)points[0].p1.y);
+
+  for (i = 1; i < numpoints; i++)
+    switch (points[i].type) {
+    case BEZ_MOVE_TO:
+      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+      break;
+    case BEZ_LINE_TO:
+      g_string_sprintfa(str, " L %g,%g",
+			(double) points[i].p1.x, (double) points[i].p1.y);
+      break;
+    case BEZ_CURVE_TO:
+      g_string_sprintfa(str, " C %g,%g %g,%g %g,%g",
+			(double) points[i].p1.x, (double) points[i].p1.y,
+			(double) points[i].p2.x, (double) points[i].p2.y,
+			(double) points[i].p3.x, (double) points[i].p3.y );
+      break;
+    }
   xmlSetProp(node, "d", str->str);
   g_string_free(str, TRUE);
 }
 
 static void
 fill_bezier(RendererSVG *renderer, 
-	    Point *points, /* Last point must be same as first point */
-	    int numpoints, /* numpoints = 4+3*n, n=>0 */
+	    BezPoint *points, /* Last point must be same as first point */
+	    int numpoints,
 	    Color *colour)
 {
   int i;
@@ -644,13 +660,29 @@ fill_bezier(RendererSVG *renderer,
   xmlSetProp(node, "style", get_style(renderer, colour, TRUE));
 
   str = g_string_new(NULL);
-  g_string_sprintf(str, "M %g %g", (double)points[0].x, (double)points[0].y);
 
-  for (i = 1; i <= numpoints-3; i += 3)
-    g_string_sprintfa(str, " C %g,%g %g,%g %g,%g",
-		      (double) points[i].x, (double) points[i].y,
-		      (double) points[i+1].x, (double) points[i+1].y,
-		      (double) points[i+2].x, (double) points[i+2].y );
+  if (points[0].type != BEZ_MOVE_TO)
+    g_warning("first BezPoint must be a BEZ_MOVE_TO");
+
+  g_string_sprintf(str, "M %g %g", (double)points[0].p1.x,
+		   (double)points[0].p1.y);
+ 
+  for (i = 1; i < numpoints; i++)
+    switch (points[i].type) {
+    case BEZ_MOVE_TO:
+      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+      break;
+    case BEZ_LINE_TO:
+      g_string_sprintfa(str, " L %g,%g",
+			(double) points[i].p1.x, (double) points[i].p1.y);
+      break;
+    case BEZ_CURVE_TO:
+      g_string_sprintfa(str, " C %g,%g %g,%g %g,%g",
+			(double) points[i].p1.x, (double) points[i].p1.y,
+			(double) points[i].p2.x, (double) points[i].p2.y,
+			(double) points[i].p3.x, (double) points[i].p3.y );
+      break;
+    }
   g_string_append(str, "z");
   xmlSetProp(node, "d", str->str);
   g_string_free(str, TRUE);

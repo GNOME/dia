@@ -72,12 +72,12 @@ static void fill_ellipse(RendererEPS *renderer,
 			 real width, real height,
 			 Color *color);
 static void draw_bezier(RendererEPS *renderer, 
-			Point *points,
-			int numpoints, /* numpoints = 4+3*n, n=>0 */
+			BezPoint *points,
+			int numpoints,
 			Color *color);
 static void fill_bezier(RendererEPS *renderer, 
-			Point *points, /* Last point must be same as first point */
-			int numpoints, /* numpoints = 4+3*n, n=>0 */
+			BezPoint *points, /* Last point must be same as first point */
+			int numpoints,
 			Color *color);
 static void draw_string(RendererEPS *renderer,
 			const char *text,
@@ -657,7 +657,7 @@ fill_ellipse(RendererEPS *renderer,
 
 static void
 draw_bezier(RendererEPS *renderer, 
-	    Point *points,
+	    BezPoint *points,
 	    int numpoints, /* numpoints = 4+3*n, n=>0 */
 	    Color *color)
 {
@@ -666,25 +666,36 @@ draw_bezier(RendererEPS *renderer,
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) color->red, (double) color->green, (double) color->blue);
 
+  if (points[0].type != BEZ_MOVE_TO)
+    g_warning("first BezPoint must be a BEZ_MOVE_TO");
+
   fprintf(renderer->file, "n %f %f m",
-	  (double) points[0].x, (double) points[0].y);
+	  (double) points[0].p1.x, (double) points[0].p1.y);
   
-  i = 1;
-  while (i<=numpoints-3) {
-  fprintf(renderer->file, " %f %f %f %f %f %f c",
-	  (double) points[i].x, (double) points[i].y,
-	  (double) points[i+1].x, (double) points[i+1].y,
-	  (double) points[i+2].x, (double) points[i+2].y );
-    i += 3;
-  }
+  for (i = 1; i < numpoints; i++)
+    switch (points[i].type) {
+    case BEZ_MOVE_TO:
+      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+      break;
+    case BEZ_LINE_TO:
+      fprintf(renderer->file, " %f %f l",
+	      (double) points[i].p1.x, (double) points[i].p1.y);
+      break;
+    case BEZ_CURVE_TO:
+      fprintf(renderer->file, " %f %f %f %f %f %f c",
+	      (double) points[i].p1.x, (double) points[i].p1.y,
+	      (double) points[i].p2.x, (double) points[i].p2.y,
+	      (double) points[i].p3.x, (double) points[i].p3.y );
+      break;
+    }
 
   fprintf(renderer->file, " s\n");
 }
 
 static void
 fill_bezier(RendererEPS *renderer, 
-	    Point *points, /* Last point must be same as first point */
-	    int numpoints, /* numpoints = 4+3*n, n=>0 */
+	    BezPoint *points, /* Last point must be same as first point */
+	    int numpoints,
 	    Color *color)
 {
   int i;
@@ -692,17 +703,28 @@ fill_bezier(RendererEPS *renderer,
   fprintf(renderer->file, "%f %f %f srgb\n",
 	  (double) color->red, (double) color->green, (double) color->blue);
 
+  if (points[0].type != BEZ_MOVE_TO)
+    g_warning("first BezPoint must be a BEZ_MOVE_TO");
+
   fprintf(renderer->file, "n %f %f m",
-	  (double) points[0].x, (double) points[0].y);
+	  (double) points[0].p1.x, (double) points[0].p1.y);
   
-  i = 1;
-  while (i<=numpoints-3) {
-  fprintf(renderer->file, " %f %f %f %f %f %f c",
-	  (double) points[i].x, (double) points[i].y,
-	  (double) points[i+1].x, (double) points[i+1].y,
-	  (double) points[i+2].x, (double) points[i+2].y );
-    i += 3;
-  }
+  for (i = 1; i < numpoints; i++)
+    switch (points[i].type) {
+    case BEZ_MOVE_TO:
+      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+      break;
+    case BEZ_LINE_TO:
+      fprintf(renderer->file, " %f %f l",
+	      (double) points[i].p1.x, (double) points[i].p1.y);
+      break;
+    case BEZ_CURVE_TO:
+      fprintf(renderer->file, " %f %f %f %f %f %f c",
+	      (double) points[i].p1.x, (double) points[i].p1.y,
+	      (double) points[i].p2.x, (double) points[i].p2.y,
+	      (double) points[i].p3.x, (double) points[i].p3.y );
+      break;
+    }
 
   fprintf(renderer->file, " f\n");
 }

@@ -89,8 +89,8 @@ static void render_to_store(void)
   RenderStore *store;
   Point p1, p2;
   Point *points;
-  Point *poly;
-  Point *bez;
+  Point poly[3];
+  BezPoint bez[2];
 
   ltm_desc.initial_font = font_getfont("Courier");
   
@@ -107,7 +107,6 @@ static void render_to_store(void)
   rs_add_draw_ellipse(store, &p1, LTM_WIDTH, LTM_HEIGHT,
                       &color_black);
 
-  poly = g_new(Point, 3);
   poly[0].x = LTM_WIDTH * 0.35;
   poly[0].y = LTM_HEIGHT * 0.20;
   poly[1].x = LTM_WIDTH * 0.15;
@@ -115,49 +114,54 @@ static void render_to_store(void)
   poly[2].x = LTM_WIDTH * 0.55;
   poly[2].y = LTM_HEIGHT * 0.50;
   rs_add_draw_polygon(store, poly, 3, &color_black);
-  g_free(poly);
 
-  bez = g_new(Point, 4);
-  bez[0].x = LTM_WIDTH  * 0.25;
-  bez[0].y = LTM_HEIGHT * 0.50;
-  bez[1].x = LTM_WIDTH  * 0.25;
-  bez[1].y = LTM_HEIGHT * 0.75;
-  bez[2].x = LTM_WIDTH  * 0.40;
-  bez[2].y = LTM_HEIGHT * 0.90;
-  bez[3].x = LTM_WIDTH  * 0.60;
-  bez[3].y = LTM_HEIGHT * 0.90;
-  rs_add_draw_bezier(store, bez, 4, &color_black); 
+  bez[0].type = BEZ_MOVE_TO;
+  bez[0].p1.x = LTM_WIDTH  * 0.25;
+  bez[0].p1.y = LTM_HEIGHT * 0.50;
+  bez[1].type = BEZ_CURVE_TO;
+  bez[1].p1.x = LTM_WIDTH  * 0.25;
+  bez[1].p1.y = LTM_HEIGHT * 0.75;
+  bez[1].p2.x = LTM_WIDTH  * 0.40;
+  bez[1].p2.y = LTM_HEIGHT * 0.90;
+  bez[1].p3.x = LTM_WIDTH  * 0.60;
+  bez[1].p3.y = LTM_HEIGHT * 0.90;
+  rs_add_draw_bezier(store, bez, 2, &color_black); 
 
-  bez[0].x = LTM_WIDTH  * 0.45;
-  bez[0].y = LTM_HEIGHT * 0.50;
-  bez[1].x = LTM_WIDTH  * 0.45;
-  bez[1].y = LTM_HEIGHT * 0.75;
-  bez[2].x = LTM_WIDTH  * 0.50;
-  bez[2].y = LTM_HEIGHT * 0.85;
-  bez[3].x = LTM_WIDTH  * 0.60;
-  bez[3].y = LTM_HEIGHT * 0.90;
-  rs_add_draw_bezier(store, bez, 4, &color_black); 
+  bez[0].type = BEZ_MOVE_TO;
+  bez[0].p1.x = LTM_WIDTH  * 0.45;
+  bez[0].p1.y = LTM_HEIGHT * 0.50;
+  bez[1].type = BEZ_CURVE_TO;
+  bez[1].p1.x = LTM_WIDTH  * 0.45;
+  bez[1].p1.y = LTM_HEIGHT * 0.75;
+  bez[1].p2.x = LTM_WIDTH  * 0.50;
+  bez[1].p2.y = LTM_HEIGHT * 0.85;
+  bez[1].p3.x = LTM_WIDTH  * 0.60;
+  bez[1].p3.y = LTM_HEIGHT * 0.90;
+  rs_add_draw_bezier(store, bez, 2, &color_black); 
 
-  bez[0].x = LTM_WIDTH  * 0.90;
-  bez[0].y = LTM_HEIGHT * 0.50;
-  bez[1].x = LTM_WIDTH  * 0.90;
-  bez[1].y = LTM_HEIGHT * 0.75;
-  bez[2].x = LTM_WIDTH  * 0.75;
-  bez[2].y = LTM_HEIGHT * 0.90;
-  bez[3].x = LTM_WIDTH  * 0.60;
-  bez[3].y = LTM_HEIGHT * 0.90;
-  rs_add_draw_bezier(store, bez, 4, &color_black); 
+  bez[0].type = BEZ_MOVE_TO;
+  bez[0].p1.x = LTM_WIDTH  * 0.90;
+  bez[0].p1.y = LTM_HEIGHT * 0.50;
+  bez[1].type = BEZ_CURVE_TO;
+  bez[1].p1.x = LTM_WIDTH  * 0.90;
+  bez[1].p1.y = LTM_HEIGHT * 0.75;
+  bez[1].p2.x = LTM_WIDTH  * 0.75;
+  bez[1].p2.y = LTM_HEIGHT * 0.90;
+  bez[1].p3.x = LTM_WIDTH  * 0.60;
+  bez[1].p3.y = LTM_HEIGHT * 0.90;
+  rs_add_draw_bezier(store, bez, 2, &color_black); 
 
-  bez[0].x = LTM_WIDTH  * 0.70;
-  bez[0].y = LTM_HEIGHT * 0.50;
-  bez[1].x = LTM_WIDTH  * 0.70;
-  bez[1].y = LTM_HEIGHT * 0.75;
-  bez[2].x = LTM_WIDTH  * 0.65;
-  bez[2].y = LTM_HEIGHT * 0.85;
-  bez[3].x = LTM_WIDTH  * 0.60;
-  bez[3].y = LTM_HEIGHT * 0.90;
-  rs_add_draw_bezier(store, bez, 4, &color_black); 
-  g_free(bez);
+  bez[0].type = BEZ_MOVE_TO;
+  bez[0].p1.x = LTM_WIDTH  * 0.70;
+  bez[0].p1.y = LTM_HEIGHT * 0.50;
+  bez[1].type = BEZ_CURVE_TO;
+  bez[1].p1.x = LTM_WIDTH  * 0.70;
+  bez[1].p1.y = LTM_HEIGHT * 0.75;
+  bez[1].p2.x = LTM_WIDTH  * 0.65;
+  bez[1].p2.y = LTM_HEIGHT * 0.85;
+  bez[1].p3.x = LTM_WIDTH  * 0.60;
+  bez[1].p3.y = LTM_HEIGHT * 0.90;
+  rs_add_draw_bezier(store, bez, 2, &color_black); 
 
   p1.x = LTM_WIDTH*0.70;
   p1.y = LTM_HEIGHT*0.50;

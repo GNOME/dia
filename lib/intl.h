@@ -27,5 +27,4 @@
 GList *intl_get_language_list (void);
 int    intl_score_locale      (const gchar *locale);
 
-
 #endif

@@ -149,17 +149,30 @@ typedef void (*FillEllipseFunc) (Renderer *renderer,
 				 real width, real height,
 				 Color *color);
 
+/* BezPoint types:
+ *   BEZ_MOVE_TO: move to point p1
+ *   BEZ_LINE_TO: line to point p1
+ *   BEZ_CURVE_TO: curve to point p3 using p1 and p2 as control points.
+ */
+typedef struct _BezPoint BezPoint;
+struct _BezPoint {
+  enum {BEZ_MOVE_TO, BEZ_LINE_TO, BEZ_CURVE_TO} type;
+  Point p1, p2, p3;
+};
+
 /* Draw a bezier curve, given it's control points.
-   numpoints must be of the form :   numpoints = 4 + 3 * n, n >= 0 */
+ * The first BezPoint must be of type MOVE_TO, and no other ones may be
+ * MOVE_TO's.
+ */
 typedef void (*DrawBezierFunc) (Renderer *renderer,
-				Point *points,
+				BezPoint *points,
 				int numpoints,
 				Color *color);
 
 /* Same as DrawBezierFunc, except the last point must be the same as the
    first point, and the resulting shape is filled */
 typedef void (*FillBezierFunc) (Renderer *renderer,
-				Point *points,
+				BezPoint *points,
 				int numpoints,
 				Color *color);
 

@@ -68,12 +68,12 @@ static void fill_ellipse(RendererGdk *renderer,
 			 real width, real height,
 			 Color *color);
 static void draw_bezier(RendererGdk *renderer, 
-			Point *points,
-			int numpoints, /* numpoints = 4+3*n, n=>0 */
+			BezPoint *points,
+			int numpoints,
 			Color *color);
 static void fill_bezier(RendererGdk *renderer, 
-			Point *points, /* Last point must be same as first point */
-			int numpoints, /* numpoints = 4+3*n, n=>0 */
+			BezPoint *points, /* Last point must be same as first point */
+			int numpoints,
 			Color *color);
 static void draw_string(RendererGdk *renderer,
 			const char *text,
@@ -756,13 +756,14 @@ static struct bezier_curve bezier = { NULL, 0, 0 };
 
 static void
 draw_bezier(RendererGdk *renderer, 
-	    Point *points,
+	    BezPoint *points,
 	    int numpoints, /* numpoints = 4+3*n, n=>0 */
 	    Color *color)
 {
   DDisplay *ddisp = renderer->ddisp;
   GdkGC *gc = renderer->render_gc;
   GdkColor gdk_color;
+  Point curve[4];
   int i;
   
   if (bezier.gdk_points == NULL) {
@@ -771,13 +772,29 @@ draw_bezier(RendererGdk *renderer,
   }
 
   bezier.currpoint = 0;
-  
-  bezier_add_point(renderer->ddisp, &bezier, &points[0]);
-  i = 0;
-  while (i<=numpoints-3) {
-    bezier_add_lines(ddisp, &points[i], &bezier);
-    i += 3;
-  }
+
+  if (points[0].type != BEZ_MOVE_TO)
+    g_warning("first BezPoint must be a BEZ_MOVE_TO");
+  curve[3] = points[0].p1;
+  bezier_add_point(renderer->ddisp, &bezier, &points[0].p1);
+  for (i = 1; i < numpoints; i++)
+    switch (points[i].type) {
+    case BEZ_MOVE_TO:
+      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+      curve[3] = points[i].p1;
+      break;
+    case BEZ_LINE_TO:
+      bezier_add_point(renderer->ddisp, &bezier, &points[i].p1);
+      curve[3] = points[i].p1;
+      break;
+    case BEZ_CURVE_TO:
+      curve[0] = curve[3];
+      curve[1] = points[i].p1;
+      curve[2] = points[i].p2;
+      curve[3] = points[i].p3;
+      bezier_add_lines(ddisp, curve, &bezier);
+      break;
+    }
   
   color_convert(color, &gdk_color);
   gdk_gc_set_foreground(gc, &gdk_color);
@@ -799,13 +816,14 @@ draw_bezier(RendererGdk *renderer,
 
 static void
 fill_bezier(RendererGdk *renderer, 
-	    Point *points, /* Last point must be same as first point */
+	    BezPoint *points, /* Last point must be same as first point */
 	    int numpoints, /* numpoints = 4+3*n, n=>0 */
 	    Color *color)
 {
   DDisplay *ddisp = renderer->ddisp;
   GdkGC *gc = renderer->render_gc;
   GdkColor gdk_color;
+  Point curve[4];
   int i;
   
   if (bezier.gdk_points == NULL) {
@@ -815,12 +833,28 @@ fill_bezier(RendererGdk *renderer,
 
   bezier.currpoint = 0;
   
-  bezier_add_point(renderer->ddisp, &bezier, &points[0]);
-  i = 0;
-  while (i<=numpoints-3) {
-    bezier_add_lines(ddisp, &points[i], &bezier);
-    i += 3;
-  }
+  if (points[0].type != BEZ_MOVE_TO)
+    g_warning("first BezPoint must be a BEZ_MOVE_TO");
+  curve[3] = points[0].p1;
+  bezier_add_point(renderer->ddisp, &bezier, &points[0].p1);
+  for (i = 1; i < numpoints; i++)
+    switch (points[i].type) {
+    case BEZ_MOVE_TO:
+      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+      curve[3] = points[i].p1;
+      break;
+    case BEZ_LINE_TO:
+      bezier_add_point(renderer->ddisp, &bezier, &points[i].p1);
+      curve[3] = points[i].p1;
+      break;
+    case BEZ_CURVE_TO:
+      curve[0] = curve[3];
+      curve[1] = points[i].p1;
+      curve[2] = points[i].p2;
+      curve[3] = points[i].p3;
+      bezier_add_lines(ddisp, curve, &bezier);
+      break;
+    }
   
   color_convert(color, &gdk_color);
   gdk_gc_set_foreground(gc, &gdk_color);

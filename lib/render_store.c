@@ -203,6 +203,26 @@ add_points_numpoints_color(RenderStorePrivate *store, Command command,
 }
 
 static void
+add_bezpoints_numpoints_color(RenderStorePrivate *store, Command command,
+			      BezPoint *points, int num_points, Color *color)
+{
+  Data data;
+  BezPoint *points_copy;
+  
+  data.command = command;
+  add_data(store, &data);
+  data.int_data = num_points;
+  add_data(store, &data);
+
+  points_copy = g_malloc(sizeof(BezPoint)*num_points);
+  memcpy(points_copy, points, sizeof(BezPoint)*num_points);
+  data.ptr_data = (void *) points_copy;
+  add_data(store, &data);
+
+  help_add_color(store, color);
+}
+
+static void
 add_point_r4_color(RenderStorePrivate *store, Command command,
 		   Point *point,
 		   real r1, real r2, real r3, real r4,
@@ -420,24 +440,24 @@ rs_add_fill_ellipse(RenderStore *store,
 
 void
 rs_add_draw_bezier(RenderStore *store,
-		Point *points,
-		int num_points,
-		Color *color)
+		   BezPoint *points,
+		   int num_points,
+		   Color *color)
 {
-  add_points_numpoints_color((RenderStorePrivate *)store,
-			     CMD_DRAW_BEZIER,
-			     points, num_points, color);
+  add_bezpoints_numpoints_color((RenderStorePrivate *)store,
+				CMD_DRAW_BEZIER,
+				points, num_points, color);
 }
 
 void
 rs_add_fill_bezier(RenderStore *store,
-		     Point *points,
-		     int num_points,
-		     Color *color)
+		   BezPoint *points,
+		   int num_points,
+		   Color *color)
 {
-  add_points_numpoints_color((RenderStorePrivate *)store,
-			     CMD_FILL_BEZIER,
-			     points, num_points, color);
+  add_bezpoints_numpoints_color((RenderStorePrivate *)store,
+				CMD_FILL_BEZIER,
+				points, num_points, color);
 }
 
 void
@@ -577,6 +597,48 @@ render_points_numpoints_color(Renderer *renderer,
 
   for (i=0;i<num_points;i++) {
     scale_point(store, &points[i]);
+  }
+
+  (*render_function)(renderer, points, num_points, &color);
+
+  return pos;
+}
+
+static int
+render_bezpoints_numpoints_color(Renderer *renderer,
+				 void (*render_function)(Renderer *renderer,
+							 BezPoint *point,
+							 int num_points,
+							 Color *color),
+				 RenderStorePrivate *store, int pos)
+{
+  static BezPoint *points = NULL;
+  static int maxsize = 0;
+  Color color;
+  int num_points;
+  int i;
+
+  num_points = store->data[pos++].int_data;
+
+  if ((points==NULL) || (maxsize<num_points)) {
+    if (points!=NULL)
+      g_free(points);
+    
+    points = g_malloc(sizeof(BezPoint)*num_points);
+    maxsize = num_points;
+  }
+  
+  memcpy(points, store->data[pos++].ptr_data,
+	 sizeof(BezPoint)*num_points);
+  
+  color.red = store->data[pos++].real_data;
+  color.green = store->data[pos++].real_data;
+  color.blue = store->data[pos++].real_data;
+
+  for (i=0;i<num_points;i++) {
+    scale_point(store, &points[i].p1);
+    scale_point(store, &points[i].p2);
+    scale_point(store, &points[i].p3);
   }
 
   (*render_function)(renderer, points, num_points, &color);
@@ -764,14 +826,14 @@ void render_store_render(RenderStore *store,
 				    private, i);
       break;
     case CMD_DRAW_BEZIER:
-      i = render_points_numpoints_color(renderer,
-					renderer->ops->draw_bezier,
-					private, i);
+      i = render_bezpoints_numpoints_color(renderer,
+					   renderer->ops->draw_bezier,
+					   private, i);
       break;
     case CMD_FILL_BEZIER:
-      i = render_points_numpoints_color(renderer,
-					renderer->ops->fill_bezier,
-					private, i);
+      i = render_bezpoints_numpoints_color(renderer,
+					   renderer->ops->fill_bezier,
+					   private, i);
       break;
     case CMD_DRAW_STRING:
       i = render_ptr_point_int_color(renderer,
