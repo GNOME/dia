@@ -874,11 +874,20 @@ warn_about_broken_libxml1(void)
 #define BUFSIZE 2048
 #define OVERRUN_SAFETY 16
 
+int pretty_formated_xml = FALSE;
+
 int xmlDiaSaveFile(const char *filename,
                    xmlDocPtr cur)
 {
 #ifdef XML2
-    return xmlSaveFileEnc(filename,cur, "UTF-8");
+    int old, ret;
+
+    if (pretty_formated_xml)
+        old = xmlKeepBlanksDefault (0);
+    ret = xmlSaveFormatFileEnc (filename,cur, "UTF-8", pretty_formated_xml ? 1 : 0);
+    if (pretty_formated_xml)
+        xmlKeepBlanksDefault (old);
+    return ret;
 #else
         /* non-XML2 case. Let's have fun working around libxml1's
            brokenness.

@@ -350,6 +350,8 @@ void prop_list_add_list (GPtrArray *props, const GPtrArray *ptoadd);
 GPtrArray *prop_list_from_descs(const PropDescription *plist, 
                                 PropDescToPropPredicate pred);
 
+GPtrArray *prop_list_from_single(Property *prop);
+
 /* Some predicates: */
 gboolean pdtpp_true(const PropDescription *pdesc); /* always true */
 gboolean pdtpp_is_visible(const PropDescription *pdesc); 

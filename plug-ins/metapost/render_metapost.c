@@ -325,6 +325,7 @@ set_linejoin(RendererMETAPOST *renderer, LineJoin mode)
 	fprintf(renderer->file, "linejoin:=beveled;\n");
 	break;
     default:
+	/* noop; required at least for msvc */;
     }
 
     renderer->saved_line_join = mode;

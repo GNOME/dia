@@ -213,13 +213,37 @@ PyDiaProperties_Subscript (PyDiaProperties *self, register PyObject *key)
 }
 
 static int
-PyDiaProperties_AssSub (PyDiaProperties* mp, PyObject *v, PyObject *w)
+PyDiaProperties_AssSub (PyDiaProperties* self, PyObject *key, PyObject *val)
 {
-  /* FIXME: this isn't really supported */
-  if (w == NULL)
-    return PyDict_DelItem((PyObject *)mp, v);
-  else
-    return PyDict_SetItem((PyObject *)mp, v, w);
+  int ret = -1;
+
+  if (val == NULL) {
+    PyErr_SetString(PyExc_TypeError, "can not delete properties.");
+  }
+  else {
+    Property *p;
+    char     *name;  
+
+    name = PyString_AsString(key);
+    p = object_prop_by_name (self->object, name);  
+
+    //g_print ("AssSub(key: '%s', type <%s>)\n", name, (p ? p->type : "none"));
+    if (p) {
+      if (0 == PyDiaProperty_ApplyToObject(self->object, name, p, val)) {
+        /* if applied the property is deleted */
+        ret = 0;
+      }
+      else {
+        p->ops->free (p);
+        PyErr_SetString(PyExc_TypeError, "prop type mis-match.");
+      }
+    }
+    else {
+      PyErr_SetObject(PyExc_KeyError, key);
+    }
+  }
+
+  return ret;
 }
 
 static PyMappingMethods PyDiaProperties_AsMapping = {

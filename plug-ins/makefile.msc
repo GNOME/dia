@@ -1,6 +1,6 @@
 !IFNDEF PACKAGE
 
-PLUGINS = cgm diaimport dummy dxf hpgl pstricks shape svg wmf wpg xfig
+PLUGINS = cgm diaimport dummy dxf hpgl metapost pstricks shape svg wmf wpg xfig
 
 # The main target
 all : sub-all
@@ -38,6 +38,12 @@ OBJECTS = \
   dxf.obj \
   dxf-export.obj \
   dxf-import.obj
+!ENDIF
+
+!IFDEF OBJ_metapost
+OBJECTS = \
+  metapost.obj \
+  render_metapost.obj
 !ENDIF
 
 !IFDEF OBJ_pstricks

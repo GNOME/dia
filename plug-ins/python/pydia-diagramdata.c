@@ -74,8 +74,39 @@ PyDiaDiagramData_Str(PyDiaDiagramData *self)
 /*
  * "real" member function implementaion ?
  */
+static PyObject *
+PyDiaDiagramData_UpdateExtents(PyDiaDiagramData *self, PyObject *args)
+{
+    if (!PyArg_ParseTuple(args, ":DiaDiagramData.update_extents"))
+	return NULL;
+    data_update_extents(self->data);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject *
+PyDiaDiagramData_GetSortedSelected(PyDiaDiagramData *self, PyObject *args)
+{
+    GList *list, *tmp;
+    PyObject *ret;
+    guint i, len;
+
+    if (!PyArg_ParseTuple(args, ":DiaDiagramData.get_sorted_selected"))
+	return NULL;
+    list = tmp = data_get_sorted_selected(self->data);
+
+    len = self->data->selected_count;
+    ret = PyTuple_New(len);
+
+    for (i = 0, tmp = self->data->selected; tmp; i++, tmp = tmp->next)
+	PyTuple_SetItem(ret, i, PyDiaObject_New((Object *)tmp->data));
+    g_list_free(list);
+    return ret;
+}
 
 static PyMethodDef PyDiaDiagramData_Methods[] = {
+    {"update_extents", (PyCFunction)PyDiaDiagramData_UpdateExtents, 1},
+    {"get_sorted_selected", (PyCFunction)PyDiaDiagramData_GetSortedSelected, 1},
     {NULL, 0, 0, NULL}
 };
 

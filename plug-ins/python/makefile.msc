@@ -25,7 +25,10 @@ OPTIMIZE = -Zi -MD
 !ENDIF
 
 CFLAGS = -DHAVE_CONFIG_H -I..\.. -I..\..\lib \
-	-I$(PYTHON)\include $(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS)
+	-I$(PYTHON)\include $(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS) \
+	$(LIBXML2_CFLAGS)
+
+# LIBXML2_CFLAGS we don't need it, but 'propinternals.h'
 
 EXTRALIBS = $(EXTRALIBS) ..\..\lib\libdia.lib ..\..\app\dia.lib
 
@@ -47,6 +50,7 @@ OBJECTS = \
 	pydia-properties.obj \
 	pydia-property.obj \
 	pydia-render.obj \
+	pydia-text.obj \
 
 OBJECTS2 = \
 	python.obj \

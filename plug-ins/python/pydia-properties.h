@@ -22,4 +22,6 @@ typedef struct {
 extern PyTypeObject PyDiaProperties_Type;
 PyObject* PyDiaProperties_New (Object* obj);
 
+int PyDiaProperty_ApplyToObject (Object *object, gchar *key, Property *prop, PyObject *val);
+
 #endif

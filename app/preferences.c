@@ -163,6 +163,9 @@ struct DiaPrefsData prefs_data[] =
 
   { "render_bounding_boxes", PREF_BOOLEAN,PREF_OFFSET(render_bounding_boxes),
     &default_false,0,"render bounding boxes:",NULL, TRUE},
+
+  { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
+    &default_false,0,"pretty formated xml:",NULL, TRUE},
 };
 
 #define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(struct DiaPrefsData))
@@ -479,6 +482,7 @@ prefs_load(void)
  
   close(fd);
   render_bounding_boxes = prefs.render_bounding_boxes;
+  pretty_formated_xml = prefs.pretty_formated_xml;
 }
 
 static gint

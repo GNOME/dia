@@ -60,6 +60,7 @@ struct DiaPreferences {
   } pagebreak;
 
   int render_bounding_boxes;
+  int pretty_formated_xml;
 };
 
 extern struct DiaPreferences prefs;

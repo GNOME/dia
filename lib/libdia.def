@@ -2,6 +2,12 @@ EXPORTS
 ;
  font_names
  render_bounding_boxes
+ color_black
+ color_white
+ color_gdk_black
+ color_gdk_white
+
+ pretty_formated_xml
 
 ; exported functions
  active_focus
@@ -350,6 +356,7 @@ EXPORTS
  stdprops_init
  make_new_prop
  prop_list_free
+ prop_list_from_single
  rectangle_add_point
  rectangle_intersection
  rectangle_intersects

@@ -1,3 +1,47 @@
+2001-10-14  Hans Breuer  <hans@breuer.org>
+
+	* lib/charconv.c : g_locale_to_utf8() does not handle NULL
+	strings. Use g_strdup() for these.
+
+	libxml2 does not produce 'any extra indentation when saving a tree'
+	[libxml2-2.4.2/doc/upgrade.html] anymore, which was the default with
+	libxml(1). To get human readable XML some extra tweaking is required.
+	It is enabled by setting 'pretty_formated_xml' to 'true' in 'diarc'.
+	* lib/dia_xml.[hc] : provide and use 'DIAVAR pretty_formated_xml'
+	* app/preferences.[ch] : initialize 'pretty_formated_xml'
+
+	* lib/libdia.def : updated externals
+
+	* lib/properties.h : add prototype for prop_list_from_single ()
+
+	* plug-ins/makefile.msc : build metapost plug-in
+
+	* plug-ins/metapost/render_metapost.c : msvc does not like
+	switch labels without operation 'default: }'. Added a noop.
+
+	* plug-ins/python/pydia-text.[hc] : (new files) wrap DiaText
+	* plug-ins/python/diamodule.c : added PyDiaText 
+	* plug-ins/python/makefile.msc : dito. Also added LIBXML_CFLAGS.
+	Although the python plug-in does not use libxml at all, the
+	headers are required to use the lib/prop*.h headers
+
+	* plug-ins/python/pydia-diagramdata.c : added wrappers for
+	update_extents and get_sorted_selected (should I duplicate
+	more functions from PyDiaDiagram or should they be moved?)
+
+	* plug-ins/python/pydia-properties.c : allow to set (some) properties
+	through the dictionary api
+	* plug-ins/python/pydia-property.h : declare PyDiaProperty_ApplyToObject
+	* plug-ins/python/pydia-property.c : implement it (currently only
+	string properties can be set)
+
+	Reimplement PyDiaProperty_GetAttr by means of the new StdProp api.
+	Quoting myself: 'Still not convinced that this is better than an 
+	 integral property->type and some casting ...
+	 It is trading a straightforward 40 lines switch statement to
+	 this nice 'type safe' function mapping (about 125 lines)'
+	(But now it works again, better than changing the News file :)
+	
 2001-10-14  Cyrille Chepelov  <chepelov@calixo.net>
 
 	patch from <robert.young@dsto.defence.gov.au>: 

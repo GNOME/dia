@@ -260,6 +260,8 @@ extern utfchar *
 charconv_local8_to_utf8(const gchar *local)
 {
 #if GLIB_CHECK_VERSION(1,3,1)
+  if (!local) /* g_strdup() handles NULL, g_locale_to_utf8() does not (yet) */
+    g_strdup(local);
   return g_locale_to_utf8 (local, -1, NULL, NULL, NULL);
 #else
   return g_strdup(local);
@@ -270,9 +272,11 @@ extern gchar *
 charconv_utf8_to_local8(const utfchar *utf)
 {
 #if GLIB_CHECK_VERSION(1,3,1)
+  if (!utf) /* g_strdup() handles NULL, g_locale_from_utf8() does not (yet) */
+    g_strdup(utf);
   return g_locale_from_utf8 (utf, -1, NULL, NULL, NULL);
 #else
-  return g_strdup(local);
+  return g_strdup(utf);
 #endif
 }
 
