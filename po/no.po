@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 1999-12-13 23:44+0100\n"
+"POT-Creation-Date: 1999-12-09 10:14+0800\n"
 "PO-Revision-Date: 1999-12-13 23:53+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
