@@ -1,4 +1,4 @@
-# firestarter's Portuguese Translation
+# dia's Portuguese Translation
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2001
 # Pedro Morais <morais@kde.org>, 2000
@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 1.0\n"
-"POT-Creation-Date: 2001-12-12 00:24+0000\n"
-"PO-Revision-Date: 2001-12-12 00:25+0000\n"
+"POT-Creation-Date: 2002-01-02 23:13+0000\n"
+"PO-Revision-Date: 2002-01-02 23:25+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <none@none.org>\n"
 "MIME-Version: 1.0\n"
@@ -133,49 +133,49 @@ msgstr "Objectos e filtros internos ao dia"
 msgid "Select color"
 msgstr "Seleccione cor"
 
-#: app/commands.c:130
+#: app/commands.c:139
 #, c-format
 msgid "Untitled-%d"
 msgstr "SemNome-%d"
 
-#: app/commands.c:192
+#: app/commands.c:201
 msgid "No existing object to paste.\n"
 msgstr "Nenhuma objecto para colar.\n"
 
-#: app/commands.c:460 app/commands.c:483
+#: app/commands.c:469 app/commands.c:492
 msgid "Could not find help directory"
 msgstr "Incapaz de encontrar directório de ajuda"
 
-#: app/commands.c:530
+#: app/commands.c:539
 msgid "About Dia"
 msgstr "Sobre o Dia"
 
-#: app/commands.c:573
+#: app/commands.c:582
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s por Alexander Larsson"
 
-#: app/commands.c:578
+#: app/commands.c:587
 msgid "Maintainer: James Henstridge"
 msgstr "Manutenção: James Henstridge"
 
-#: app/commands.c:582
+#: app/commands.c:591
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Visite http://www.lysator.liu.se/~alla/dia para mais informações"
 
-#: app/commands.c:587
+#: app/commands.c:596
 msgid "Contributors:"
 msgstr "Contribuições:"
 
 #. setup buttons
-#: app/commands.c:604 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:613 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:704
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:715
 #: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "OK"
 
-#: app/commands.c:690
+#: app/commands.c:699
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -190,12 +190,12 @@ msgid "Object defaults"
 msgstr "Valores por defeito"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:713 app/properties.c:101
+#: app/preferences.c:724 app/properties.c:101
 msgid "Apply"
 msgstr "Aplicar"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:722
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:733
 #: app/properties.c:111
 msgid "Close"
 msgstr "Fechar"
@@ -333,12 +333,12 @@ msgstr ""
 "Este diagrama não foi gravado.\n"
 "Gravar as alterações agora?"
 
-#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:596
+#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:605
 msgid "Yes"
 msgstr "Sim"
 
-#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:596
-#: app/preferences.c:607
+#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:605
+#: app/preferences.c:616
 msgid "No"
 msgstr "Não"
 
@@ -1494,28 +1494,36 @@ msgstr "Tamanho X:"
 msgid "Y Size:"
 msgstr "Tamanho Y:"
 
-#: app/preferences.c:176
+#: app/preferences.c:179
 msgid "Diagram tree window:"
 msgstr "Janela de árvore de diagrama:"
 
-#: app/preferences.c:178
+#: app/preferences.c:181
 msgid "Show at startup:"
 msgstr "Mostrar no arranque:"
 
-#: app/preferences.c:180
+#: app/preferences.c:183
 msgid "Default width:"
 msgstr "Largura de defeito:"
 
-#: app/preferences.c:182
+#: app/preferences.c:185
 msgid "Default height:"
 msgstr "Altura de defeito:"
 
-#: app/preferences.c:303
+#: app/preferences.c:187
+msgid "Remember last size:"
+msgstr "Recordar último tamanho:"
+
+#: app/preferences.c:189
+msgid "Save hidden object types:"
+msgstr "Gravar tipos de objectos escondidos:"
+
+#: app/preferences.c:312
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Incapaz de abrir `%s' para escrita"
 
-#: app/preferences.c:672 app/preferences.c:681
+#: app/preferences.c:683 app/preferences.c:692
 msgid "Preferences"
 msgstr "Preferências"
 
@@ -3051,7 +3059,7 @@ msgid "Template"
 msgstr "Modelo"
 
 #. Class page:
-#: objects/UML/class.c:687 objects/UML/class_dialog.c:180
+#: objects/UML/class.c:689 objects/UML/class_dialog.c:180
 msgid "Class"
 msgstr "Classe"
 
