@@ -1,3 +1,8 @@
+1999-08-03  Karsten Weiss  <karsten@addx.au.s.shuttle.de>
+
+	* de.po: Fixed a warning msg that was caused by a little
+	inconsistency in Matthias' changes.
+
 1999-08-03  Kjartan Maraas  <kmaraas@online.no>
 
 	* no.po: Updated translation.

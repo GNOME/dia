@@ -29,7 +29,9 @@ msgstr "Kann keine Verbindung zum Sitzungsmanager aufnehmen!\n"
 #: app/app_procs.c:181 app/app_procs.c:183
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
-msgstr "Standard-Objekte wurden bei der Suche nach Objektbibliotheken nicht gefunden. Abbruch...\n"
+msgstr ""
+"Standard-Objekte wurden bei der Suche nach Objektbibliotheken nicht "
+"gefunden. Abbruch...\n"
 
 #: app/app_procs.c:198
 msgid "Need valid input file\n"
@@ -514,7 +516,7 @@ msgstr "Gitter sichtbar"
 
 #: app/menus.c:92
 msgid "_Snap To Grid"
-msgstr "Am Gitter ausrichten"
+msgstr "Am Gitter einrasten"
 
 #: app/menus.c:94
 msgid "Show _Rulers"
@@ -1953,4 +1955,5 @@ msgstr "Sybase"
 # CHECK
 #: objects/sybase/sybase.c:58
 msgid "Objects to design Sybase replication domain diagrams with"
-msgstr "Objekte, mit denen Sybase-Replikationsdiagramme entworfen werden können"
+msgstr ""
+"Objekte, mit denen Sybase-Replikationsdiagramme entworfen werden können"
