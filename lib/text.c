@@ -715,15 +715,11 @@ text_split_line (Text *text)
 		str = uni_next (str);
 	}
 	text->alloclen[row] = str - text->line[row] + 1;
-	text->line[row] = g_malloc (sizeof (utfchar) * (text->alloclen[row]));
-	memcpy (text->line[row], line, text->alloclen[row] - 1);
-	text->line[row][text->alloclen[row] - 1] = 0;
+	text->line[row] = g_strndup (line, str - text->line[row]);
 
 	text->strlen[row + 1] = orig_len - text->strlen[row];
 	text->alloclen[row + 1] = orig_alloclen - strlen (text->line[row]) + 1;
-	text->line[row + 1] = g_malloc (sizeof (utfchar) * (text->alloclen[row + 1]));
-	memcpy (text->line[row + 1], str, text->alloclen[row + 1]);
-	text->line[row + 1][text->alloclen[row + 1]] = 0;
+	text->line[row + 1] = g_strndup (str, text->alloclen[row + 1] - 1);
 
 	g_free(line);
 

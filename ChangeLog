@@ -1,3 +1,8 @@
+2002-02-08  Akira TAGOH  <tagoh@redhat.com>
+
+	* lib/text.c (text_split_line): use g_strndup() instead of g_malloc()
+	and memcpy().
+
 2002-02-07  Akira TAGOH  <tagoh@redhat.com>
 
 	* lib/font.c (font_get_suckfont): rewrited. generating suckfont from
