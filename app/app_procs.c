@@ -57,6 +57,7 @@
 #include "load_save.h"
 #include "preferences.h"
 #include "custom.h"
+#include "render_eps.h"
 #include "render_svg.h"
 
 static void register_all_objects(void);
@@ -125,8 +126,8 @@ app_init (int argc, char **argv)
   poptContext poptCtx;
   struct poptOption options[] =
   {
-    {"export-to-ps", 'e', POPT_ARG_STRING, &export_file_name, 0,
-     N_("Export loaded file to postscript and exit"),
+    {"export", 'e', POPT_ARG_STRING, &export_file_name, 0,
+     N_("Export loaded file and exit"),
      N_("OUTPUT")},
 #ifndef GNOME
     {"help", 'h', POPT_ARG_NONE, 0, 1, N_("Show this help message") },
@@ -198,6 +199,8 @@ app_init (int argc, char **argv)
   register_all_sheets(); /* old mechanism (to be disabled) */
 
   /* register export filters */
+  filter_register_export(&dia_export_filter);
+  filter_register_export(&eps_export_filter);
   filter_register_export(&svg_export_filter);
 
   debug_break();
@@ -219,11 +222,15 @@ app_init (int argc, char **argv)
     in_file_name = poptGetArg(poptCtx);
     diagram = diagram_load (in_file_name);
     if (export_file_name) {
+      DiaExportFilter *ef;
       if (!diagram) {
 	fprintf (stderr, _("Need valid input file\n"));
 	exit (1);
       }
-      diagram_export_to_eps (diagram, export_file_name);
+      ef = filter_guess_export_filter(export_file_name);
+      if (!ef)
+	ef = &eps_export_filter;
+      ef->export(diagram->data, export_file_name, in_file_name);
       exit (0);
     }
     if (diagram != NULL) {
