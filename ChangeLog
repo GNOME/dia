@@ -1,3 +1,7 @@
+1999-04-09  Kjartan Maraas  <kmaraas@online.no>
+
+	* po/no.po: updated translation.
+	
 1999-04-08  Lars R. Clausen <lrclause@cs.uiuc.edu>
 
 	* lib/message.c (message_error):

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.40\n"
-"POT-Creation-Date: 1999-04-08 17:01+0200\n"
+"POT-Creation-Date: 1999-04-09 17:17+0200\n"
 "PO-Revision-Date: 1999-04-05 01:22+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -48,12 +48,12 @@ msgstr ""
 "Endret diagram eksisterer.\n"
 "Er du sikker på at du vil avslutte?"
 
-#: app/app_procs.c:251 app/commands.c:200 app/commands.c:318 app/display.c:720
+#: app/app_procs.c:251 app/commands.c:200 app/commands.c:371 app/display.c:720
 #: app/preferences.c:404
 msgid "Yes"
 msgstr "Ja"
 
-#: app/app_procs.c:264 app/commands.c:213 app/commands.c:331 app/display.c:731
+#: app/app_procs.c:264 app/commands.c:213 app/commands.c:384 app/display.c:731
 #: app/preferences.c:404 app/preferences.c:415
 msgid "No"
 msgstr "Nei"
@@ -123,11 +123,11 @@ msgstr "Velg farge"
 msgid "Open diagram"
 msgstr "Åpne diagram"
 
-#: app/commands.c:185 app/commands.c:303
+#: app/commands.c:185 app/commands.c:356
 msgid "File already exists"
 msgstr "Filen eksisterer allerede"
 
-#: app/commands.c:188 app/commands.c:306
+#: app/commands.c:188 app/commands.c:359
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -140,38 +140,51 @@ msgstr ""
 msgid "Save diagram"
 msgstr "Lagre diagram"
 
-#: app/commands.c:372
+#: app/commands.c:291
+#, c-format
+msgid ""
+"No such file found\n"
+"%s\n"
+msgstr ""
+"Ingen slik fil funnet\n"
+"%s\n"
+
+#: app/commands.c:311
+msgid "Import from XFig"
+msgstr "Importer fra XFig"
+
+#: app/commands.c:425
 msgid "Export to postscript"
 msgstr "Eksporter til postskript"
 
-#: app/commands.c:410
+#: app/commands.c:463
 #, c-format
 msgid "Untitled-%d"
 msgstr "Uten navn-%d"
 
-#: app/commands.c:467
+#: app/commands.c:520
 msgid "No existing object to paste.\n"
 msgstr "Ingen eksisterende objekter kan limes inn.\n"
 
-#: app/commands.c:526
+#: app/commands.c:579
 msgid "Copyright (C) 1999"
 msgstr "Copyright (C) 1999"
 
-#: app/commands.c:528 app/commands.c:555
+#: app/commands.c:581 app/commands.c:608
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Vennligst se på http://www.lysator.liu.se/~alla/dia for mer informasjon"
 
-#: app/commands.c:535
+#: app/commands.c:588
 msgid "About Dia"
 msgstr "Om dia"
 
-#: app/commands.c:551
+#: app/commands.c:604
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
-#: app/commands.c:559 app/layer_dialog.c:946 lib/message.c:62
+#: app/commands.c:612 app/layer_dialog.c:946 lib/message.c:63
 msgid "OK"
 msgstr "OK"
 
@@ -887,13 +900,17 @@ msgstr ""
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Skrifttype %s ikke funnet, bruker Courier i stedet.\n"
 
-#: lib/message.c:95
+#: lib/message.c:96
 msgid "Notice"
 msgstr "Melding"
 
-#: lib/message.c:106 lib/message.c:118
+#: lib/message.c:107
 msgid "Warning"
 msgstr "Advarsel"
+
+#: lib/message.c:119
+msgid "Error"
+msgstr "Feil"
 
 #: lib/widgets.c:269
 msgid "Solid"
@@ -962,11 +979,11 @@ msgstr "Bla gjennom"
 #. type
 #: objects/UML/actor.c:91
 msgid "Create an actor"
-msgstr "Lag en skuespiller"
+msgstr "Lag en aktør"
 
 #: objects/UML/actor.c:293
 msgid "Actor"
-msgstr "Skuespiller"
+msgstr "Aktør"
 
 #. type
 #: objects/UML/association.c:142
@@ -1219,18 +1236,22 @@ msgstr "Realiserer, implementerer et spesisfikt grensesnitt."
 msgid "Create a (small) package"
 msgstr "Lag en (liten) pakke"
 
-#: objects/UML/uml.c:94
+#: objects/UML/uml.c:97
 msgid "UML"
 msgstr "UML"
 
-#: objects/UML/uml.c:95
+#: objects/UML/uml.c:98
 msgid "Editor for UML Static Structure Diagrams."
 msgstr "Editor for UML Statiske Struktur Diagrammer."
 
 #. type
-#: objects/UML/usecase.c:89
+#: objects/UML/usecase.c:105
 msgid "Create a use case"
 msgstr "Lag et brukerkasus"
+
+#: objects/UML/usecase.c:475
+msgid "Text outside:"
+msgstr "Tekst utenfor:"
 
 #. type
 #: objects/UML/object.c:118
