@@ -1,5 +1,10 @@
-INCLUDES = -I$(top_srcdir)/intl -I$(top_srcdir)/lib -I$(GTK_CFLAGS) \
-	$(GNOME_CFLAGS) -I/usr/include/python1.5
+INCLUDES = \
+	-I$(top_srcdir)/intl \
+	 -I$(top_srcdir)/lib \
+	 -I$(GTK_CFLAGS) \
+	$(GNOME_CFLAGS) \
+	$(LIBART_CFLAGS) \
+	-I/usr/include/python1.5
 
 pkglib_LTLIBRARIES = libpython_plugin.la
 
