@@ -97,6 +97,10 @@
       <description xml:lang="fr">Créer un composant</description>
       <description xml:lang="de">Erzeuge eine Komponente</description>
       <description>Create a component</description>
+    </object> 
+    <object name="UML - Node">
+      <description xml:lang="fr">Créer un noeud</description>
+      <description>Create a node</description>
     </object>
     <object name="UML - Classicon">
       <description xml:lang="fr">Créer une icône de classe-stéréotype</description>
@@ -107,6 +111,10 @@
       <description xml:lang="fr">Créer une machine à état</description>
       <description xml:lang="de">Erzeuge eine Zustandsmaschine</description>
       <description>Create a state machine</description>
+    </object>
+    <object name="UML - Branch">
+      <description xml:lang="fr">Créer une branche</description>
+      <description>Create a branch</description>
     </object>
   </contents>
 </sheet>

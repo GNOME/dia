@@ -23,7 +23,9 @@ libuml_objects_la_SOURCES = \
 			lifeline.c \
 			component.c \
 			classicon.c \
-			state.c
+			state.c \
+			node.c \
+			branch.c
 
 libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 libuml_objects_la_LIBADD = @GTK_LIBS@
@@ -48,4 +50,6 @@ EXTRA_DIST = \
 	pixmaps/realizes.xpm \
 	pixmaps/smallpackage.xpm \
 	pixmaps/state.xpm \
-	pixmaps/umlclass.xpm
+	pixmaps/umlclass.xpm \
+	pixmaps/node.xpm \
+	pixmaps/branch.xpm

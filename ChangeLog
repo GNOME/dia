@@ -1,3 +1,13 @@
+2000-02-25  James Henstridge  <james@daa.com.au>
+
+	* sheets/UML.sheet: added new objects.
+
+	* objects/UML/uml.c: link in the two new objects.
+
+	* objects/UML/node.c: 
+	* objects/UML/branch.c: new UML objects from Stfan Seefeld
+	<seefelds@magellan.umontreal.ca>.
+
 2000-02-24  James Henstridge  <james@daa.com.au>
 
 	* objects/custom/custom_object.c: converted to use the properties

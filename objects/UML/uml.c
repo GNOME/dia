@@ -44,6 +44,8 @@ extern ObjectType message_type;
 extern ObjectType component_type;
 extern ObjectType classicon_type;
 extern ObjectType state_type;
+extern ObjectType node_type;
+extern ObjectType branch_type;
 
 void register_objects(void) {
   object_register_type(&umlclass_type);
@@ -65,6 +67,8 @@ void register_objects(void) {
   object_register_type(&component_type);
   object_register_type(&classicon_type);
   object_register_type(&state_type);    
+  object_register_type(&node_type);    
+  object_register_type(&branch_type);    
 }
 
 int get_version(void) {
