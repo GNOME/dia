@@ -91,7 +91,7 @@ dnl
 dnl i18n
 dnl
 
-ALL_LINGUAS="da hu no pl sv fr"
+ALL_LINGUAS="da de hu no pl sv fr"
 AM_GNU_GETTEXT
 localedir='${prefix}/${DATADIRNAME}/locale'
 AC_SUBST(localedir)
