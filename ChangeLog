@@ -1,3 +1,8 @@
+1999-10-13  James Henstridge  <james@daa.com.au>
+
+	* app/diapagelayout.[ch]: fleshed out the page setup widget a bit more.
+	It actually does something now.
+
 1999-10-12  James Henstridge  <james@daa.com.au>
 
 	* app/pixmaps/portrait.xpm, app/pixmaps/landscape.xpm: support pixmaps

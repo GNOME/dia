@@ -1,3 +1,6 @@
+
+#define PAGELAYOUT_TEST
+
 #include "diapagelayout.h"
 
 #include "intl.h"
@@ -33,9 +36,18 @@ static const struct _dia_paper_metrics {
   { NULL, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }
 };
 
+enum {
+  CHANGED,
+  FITTOPAGE,
+  LAST_SIGNAL
+};
+
+static guint pl_signals[LAST_SIGNAL] = { 0 };
+static GtkObjectClass *parent_class;
 
 static void dia_page_layout_class_init(DiaPageLayoutClass *class);
 static void dia_page_layout_init(DiaPageLayout *self);
+static void dia_page_layout_destroy(GtkObject *object);
 
 GtkType
 dia_page_layout_get_type(void)
@@ -63,7 +75,34 @@ dia_page_layout_class_init(DiaPageLayoutClass *class)
   GtkObjectClass *object_class;
   
   object_class = (GtkObjectClass*) class;
+  parent_class = gtk_type_class(gtk_table_get_type());
+
+  pl_signals[CHANGED] =
+    gtk_signal_new("changed",
+		   GTK_RUN_FIRST,
+		   object_class->type,
+		   GTK_SIGNAL_OFFSET(DiaPageLayoutClass, changed),
+		   gtk_signal_default_marshaller,
+		   GTK_TYPE_NONE, 0);
+  pl_signals[FITTOPAGE] =
+    gtk_signal_new("fittopage",
+		   GTK_RUN_FIRST,
+		   object_class->type,
+		   GTK_SIGNAL_OFFSET(DiaPageLayoutClass, fittopage),
+		   gtk_signal_default_marshaller,
+		   GTK_TYPE_NONE, 0);
+  gtk_object_class_add_signals(object_class, pl_signals, LAST_SIGNAL);
+
+  object_class->destroy = dia_page_layout_destroy;
 }
+
+static void fittopage_pressed(DiaPageLayout *self);
+static void darea_size_allocate(DiaPageLayout *self, GtkAllocation *alloc);
+static gint darea_expose_event(DiaPageLayout *self, GdkEventExpose *ev);
+static void paper_size_change(GtkMenuItem *item, DiaPageLayout *self);
+static void orient_changed(DiaPageLayout *self);
+static void margin_changed(DiaPageLayout *self);
+static void scale_changed(DiaPageLayout *self);
 
 static void
 dia_page_layout_init(DiaPageLayout *self)
@@ -95,6 +134,8 @@ dia_page_layout_init(DiaPageLayout *self)
   for (i = 0; paper_metrics[i].paper != NULL; i++) {
     menuitem = gtk_menu_item_new_with_label(paper_metrics[i].paper);
     gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
+    gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
+		       GTK_SIGNAL_FUNC(paper_size_change), self);
     gtk_container_add(GTK_CONTAINER(menu), menuitem);
     gtk_widget_show(menuitem);
   }
@@ -206,7 +247,7 @@ dia_page_layout_init(DiaPageLayout *self)
 		   GTK_FILL, GTK_FILL, 0, 0);
   gtk_widget_show(frame);
 
-  box = gtk_hbox_new(FALSE, 5);
+  box = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(box), 5);
   gtk_container_add(GTK_CONTAINER(frame), box);
   gtk_widget_show(box);
@@ -226,7 +267,41 @@ dia_page_layout_init(DiaPageLayout *self)
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->darea);
 
+  /* connect the signal handlers */
+  gtk_signal_connect_object(GTK_OBJECT(self->orient_portrait), "toggled",
+			    GTK_SIGNAL_FUNC(orient_changed), GTK_OBJECT(self));
 
+  gtk_signal_connect_object(GTK_OBJECT(self->tmargin), "changed",
+			    GTK_SIGNAL_FUNC(margin_changed), GTK_OBJECT(self));
+  gtk_signal_connect_object(GTK_OBJECT(self->bmargin), "changed",
+			    GTK_SIGNAL_FUNC(margin_changed), GTK_OBJECT(self));
+  gtk_signal_connect_object(GTK_OBJECT(self->lmargin), "changed",
+			    GTK_SIGNAL_FUNC(margin_changed), GTK_OBJECT(self));
+  gtk_signal_connect_object(GTK_OBJECT(self->rmargin), "changed",
+			    GTK_SIGNAL_FUNC(margin_changed), GTK_OBJECT(self));
+
+  gtk_signal_connect_object(GTK_OBJECT(self->scaling), "changed",
+			    GTK_SIGNAL_FUNC(scale_changed), GTK_OBJECT(self));
+  gtk_signal_connect_object(GTK_OBJECT(self->fittopage), "pressed",
+			    GTK_SIGNAL_FUNC(fittopage_pressed),
+			    GTK_OBJECT(self));
+
+  gtk_signal_connect_object(GTK_OBJECT(self->darea), "size_allocate",
+			    GTK_SIGNAL_FUNC(darea_size_allocate),
+			    GTK_OBJECT(self));
+  gtk_signal_connect_object(GTK_OBJECT(self->darea), "expose_event",
+			    GTK_SIGNAL_FUNC(darea_expose_event),
+			    GTK_OBJECT(self));
+
+  gdk_color_white(gtk_widget_get_colormap(GTK_WIDGET(self)), &self->white);
+  gdk_color_black(gtk_widget_get_colormap(GTK_WIDGET(self)), &self->black);
+  self->blue.red = 0;
+  self->blue.green = 0;
+  self->blue.blue = 0x7fff;
+  gdk_color_alloc(gtk_widget_get_colormap(GTK_WIDGET(self)), &self->blue);
+
+  self->gc = NULL;
+  self->block_changed = FALSE;
 }
 
 GtkWidget *
@@ -234,5 +309,217 @@ dia_page_layout_new(void)
 {
   DiaPageLayout *self = gtk_type_new(dia_page_layout_get_type());
 
+  gtk_option_menu_set_history(GTK_OPTION_MENU(self->paper_size), 1);
   return GTK_WIDGET(self);
 }
+
+static void
+fittopage_pressed(DiaPageLayout *self)
+{
+  gtk_signal_emit(GTK_OBJECT(self), pl_signals[FITTOPAGE]);
+}
+
+static void size_page(DiaPageLayout *self, GtkAllocation *a)
+{
+  self->width = a->width - 3;
+  self->height = a->height - 3;
+
+  /* change to correct metrics */
+  if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
+    if (self->width * paper_metrics[self->papernum].psheight >
+	self->height * paper_metrics[self->papernum].pswidth)
+      self->width = self->height * paper_metrics[self->papernum].pswidth /
+	paper_metrics[self->papernum].psheight;
+    else
+      self->height = self->width * paper_metrics[self->papernum].psheight /
+	paper_metrics[self->papernum].pswidth;
+  } else {
+    if (self->width * paper_metrics[self->papernum].pswidth >
+	self->height * paper_metrics[self->papernum].psheight)
+      self->width = self->height * paper_metrics[self->papernum].psheight /
+	paper_metrics[self->papernum].pswidth;
+    else
+      self->height = self->width * paper_metrics[self->papernum].pswidth /
+	paper_metrics[self->papernum].psheight;
+  }
+
+  self->x = (a->width - self->width - 3) / 2;
+  self->y = (a->height - self->height - 3) / 2;
+}
+
+static void
+darea_size_allocate(DiaPageLayout *self, GtkAllocation *allocation)
+{
+  size_page(self, allocation);
+}
+
+static gint
+darea_expose_event(DiaPageLayout *self, GdkEventExpose *event)
+{
+  GdkWindow *window= self->darea->window;
+  gfloat val;
+  gint num;
+
+  if (!window)
+    return FALSE;
+
+  if (!self->gc)
+    self->gc = gdk_gc_new(window);
+
+  gdk_window_clear_area (window,
+                         0, 0,
+                         self->darea->allocation.width,
+                         self->darea->allocation.height);
+
+  /* draw the page image */
+  gdk_gc_set_foreground(self->gc, &self->black);
+  gdk_draw_rectangle(window, self->gc, TRUE, self->x+3, self->y+3,
+		     self->width, self->height);
+  gdk_gc_set_foreground(self->gc, &self->white);
+  gdk_draw_rectangle(window, self->gc, TRUE, self->x, self->y,
+		     self->width, self->height);
+  gdk_gc_set_foreground(self->gc, &self->black);
+  gdk_draw_rectangle(window, self->gc, FALSE, self->x, self->y,
+		     self->width-1, self->height-1);
+
+  gdk_gc_set_foreground(self->gc, &self->blue);
+
+  /* draw margins */
+  if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active) {
+    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->tmargin));
+    num = self->y + val * self->height /paper_metrics[self->papernum].psheight;
+    gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
+
+    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->bmargin));
+    num = self->y + self->height -
+      val * self->height / paper_metrics[self->papernum].psheight;
+    gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
+
+    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->lmargin));
+    num = self->x + val * self->width / paper_metrics[self->papernum].pswidth;
+    gdk_draw_line(window, self->gc, num, self->y+1,num,self->y+self->height-2);
+
+    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->rmargin));
+    num = self->x + self->width -
+      val * self->width / paper_metrics[self->papernum].pswidth;
+    gdk_draw_line(window, self->gc, num, self->y+1,num,self->y+self->height-2);
+  } else {
+    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->tmargin));
+    num = self->y + val * self->height /paper_metrics[self->papernum].pswidth;
+    gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
+
+    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->bmargin));
+    num = self->y + self->height -
+      val * self->height / paper_metrics[self->papernum].pswidth;
+    gdk_draw_line(window, self->gc, self->x+1, num, self->x+self->width-2,num);
+
+    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->lmargin));
+    num = self->x + val * self->width / paper_metrics[self->papernum].psheight;
+    gdk_draw_line(window, self->gc, num, self->y+1,num,self->y+self->height-2);
+
+    val = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(self->rmargin));
+    num = self->x + self->width -
+      val * self->width / paper_metrics[self->papernum].psheight;
+    gdk_draw_line(window, self->gc, num, self->y+1,num,self->y+self->height-2);
+  }
+
+  return FALSE;
+}
+
+static void
+paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
+{
+  self->papernum = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(item)));
+  size_page(self, &self->darea->allocation);
+  gtk_widget_queue_draw(self->darea);
+
+  self->block_changed = TRUE;
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->tmargin),
+			    paper_metrics[self->papernum].tmargin);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->bmargin),
+			    paper_metrics[self->papernum].bmargin);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->lmargin),
+			    paper_metrics[self->papernum].lmargin);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->rmargin),
+			    paper_metrics[self->papernum].rmargin);
+  self->block_changed = FALSE;
+
+  gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+}
+
+static void
+orient_changed(DiaPageLayout *self)
+{
+  size_page(self, &self->darea->allocation);
+  gtk_widget_queue_draw(self->darea);
+  if (!self->block_changed)
+    gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+}
+
+static void
+margin_changed(DiaPageLayout *self)
+{
+  gtk_widget_queue_draw(self->darea);
+  if (!self->block_changed)
+    gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+}
+
+static void
+scale_changed(DiaPageLayout *self)
+{
+  if (!self->block_changed)
+    gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+}
+
+static void
+dia_page_layout_destroy(GtkObject *object)
+{
+  DiaPageLayout *self = DIA_PAGE_LAYOUT(object);
+
+  if (self->gc)
+    gdk_gc_unref(self->gc);
+
+  if (parent_class->destroy)
+    (* parent_class->destroy)(object);
+}
+
+#ifdef PAGELAYOUT_TEST
+
+void
+changed_signal(DiaPageLayout *self)
+{
+  g_message("changed");
+}
+void
+fittopage_signal(DiaPageLayout *self)
+{
+  g_message("fit to page");
+}
+
+void
+main(int argc, char **argv)
+{
+  GtkWidget *win, *pl;
+
+  gtk_init(&argc, &argv);
+
+  win = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(win), _("Page Setup"));
+  gtk_signal_connect(GTK_OBJECT(win), "destroy",
+		     GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
+
+  pl = dia_page_layout_new();
+  gtk_container_set_border_width(GTK_CONTAINER(pl), 5);
+  gtk_container_add(GTK_CONTAINER(win), pl);
+  gtk_widget_show(pl);
+
+  gtk_signal_connect(GTK_OBJECT(pl), "changed",
+		     GTK_SIGNAL_FUNC(changed_signal), NULL);
+  gtk_signal_connect(GTK_OBJECT(pl), "fittopage",
+		     GTK_SIGNAL_FUNC(fittopage_signal), NULL);
+
+  gtk_widget_show(win);
+  gtk_main();
+}
+
+#endif
