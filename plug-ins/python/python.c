@@ -124,8 +124,9 @@ dia_plugin_init(PluginInfo *info)
 
     fp = fopen(startup_file, "r");
     if (!fp) {
-	g_free(startup_file);
-	return DIA_PLUGIN_INIT_ERROR;
+      g_warning("Python: Couldn't find startup file %s\n", startup_file);
+      g_free(startup_file);
+      return DIA_PLUGIN_INIT_ERROR;
     }
     PyRun_SimpleFile(fp, startup_file);
     g_free(startup_file);

@@ -1,5 +1,8 @@
 2003-01-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/python/python.c (dia_plugin_init): Added warning
+	message for missing startup file.
+
 	* lib/dia_image.c (dia_image_rgb_data): 
 	* app/diapsrenderer.c (draw_image): Fixed rowstride problems
 	involving EPS.  Can't do transparency in EPS yet.
