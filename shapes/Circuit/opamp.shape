@@ -16,7 +16,7 @@
   <svg:svg width="3.0" height="3.0">
     <svg:line x1="0" y1="-1" x2="1" y2="-1" />
     <svg:line x1="0" y1="1" x2="1" y2="1" />
-    <svg:polygon points="1,-2 1,2 4.5,0" />
+    <svg:polygon points="1,-2 1,2 4.5,0" style="fill: default" />
     <svg:line x1="1.2" y1="-1" x2="2" y2="-1" />
     <svg:line x1="1.6" y1="-1.4" x2="1.6" y2="-0.6" />
     <svg:line x1="1.2" y1="1" x2="2" y2="1" />

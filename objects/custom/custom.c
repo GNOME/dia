@@ -1,5 +1,8 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998 Alexander Larsson
+ * Copyright (C) 1998, 1999 Alexander Larsson
+ *
+ * Custom Objects -- objects defined in XML rather than C.
+ * Copyright (C) 1999 James Henstridge.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

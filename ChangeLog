@@ -1,5 +1,15 @@
 1999-10-09  James Henstridge  <james@daa.com.au>
 
+	* objects/custom/*.[ch]: added copyright notices to custom object
+	files.
+
+	* shapes/Circuit/hdiode.shape:
+	* shapes/Circuit/hzener.shape: 
+	* shapes/Circuit/opamp.shape:
+	* shapes/Circuit/vdiode.shape:
+	* shapes/Circuit/vzener.shape: made adjustments to make the circuit
+	shapes look nice after the custom shape code changes.
+
 	* objects/custom/README: updated docs to cover changes to drawing
 	code.
 

@@ -1,7 +1,7 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998 Alexander Larsson
+ * Copyright (C) 1998, 1999 Alexander Larsson
  *
- * Flowchart toolbox -- objects for drawing flowcharts.
+ * Custom Objects -- objects defined in XML rather than C.
  * Copyright (C) 1999 James Henstridge.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -177,7 +177,7 @@ static ObjectTypeOps custom_type_ops =
 
 static ObjectType custom_type =
 {
-  "Flowchart - Custom",  /* name */
+  "Custom - Generic",  /* name */
   0,                 /* version */
   (char **) custom_xpm, /* pixmap */
 
@@ -186,7 +186,7 @@ static ObjectType custom_type =
 
 static SheetObject custom_sheetobj =
 {
-  "Flowchart - Custom",
+  "Custom - Generic",
   N_("A custom with text inside."),
   (char **)custom_xpm,
   NULL
