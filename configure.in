@@ -54,7 +54,7 @@ AM_PATH_GLIB_2_0(2.0.0)
 AM_PATH_GTK_2_0(2.0.0)
 
 GTK_MODULES="gtk+-2.0 libxml-2.0 gdk-pixbuf-2.0"
-GTK_MODULES="$GTK_MODULES pango"
+GTK_MODULES="$GTK_MODULES pangoft2"
 dnl GTK_MODULES="$GTK_MODULES libart-2.0"
 
 AC_MSG_CHECKING([whether GNOME specific code should be used])
@@ -142,6 +142,68 @@ AM_GNU_GETTEXT
 
 localedir='${prefix}/${DATADIRNAME}/locale'
 AC_SUBST(localedir)
+
+dnl	
+dnl Locate the gnome-xml library
+dnl
+dnl GTK2: remove support for libxml1. move check for libxml2 in 
+dnl AM_PATH_GTK_2_0's fourth argument (module is libxml-2.0)
+
+found_libxml=false
+if ! $found_libxml; then
+  AC_CHECK_PROG(XML2_CONFIG, xml2-config, xml2-config)
+  if test "x$XML2_CONFIG" != x ; then
+    AC_MSG_CHECKING(for libxml >= 2.3.9)
+    vers=`$XML2_CONFIG --version | sed -e "s/libxml //" | awk 'BEGIN {FS=".";} { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
+
+    if test "$vers" -ge 2003009; then
+      AC_MSG_RESULT(found)
+      found_libxml=true
+      XML_LIBS="`$XML2_CONFIG --libs`"
+      XML_CFLAGS="`$XML2_CONFIG --cflags`"
+
+      if test "$enable_gnome_print" = "yes"
+      then
+          gnome-config --cflags print | \
+          grep gnome-xml 2>&1 >/dev/null && \
+          AC_MSG_ERROR(libxml2 found but gnome-print uses libxml1 ; this is a conflict.\nPlease do either provide libxml1 or disable gnome-print.)
+      fi
+      echo $GNOME_CFLAGS | \
+      grep gnome-xml 2>&1 >/dev/null && \
+      AC_MSG_ERROR(libxml2 found but one GNOME component uses libxml1 ; this is a conflict.\nPlease do either provide libxml1 or disable the offending GNOME component.)
+        
+    else
+      AC_MSG_RESULT(not found)
+    fi
+  fi
+fi
+
+if ! $found_libxml; then
+AC_CHECK_PROG(XML_CONFIG, xml-config, xml-config)
+if test "x$XML_CONFIG" != x ; then
+  AC_MSG_CHECKING(for libxml >= 1.8.14)
+  vers=`$XML_CONFIG --version | sed -e "s/libxml //" | awk 'BEGIN {FS=".";} { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
+
+  dnl 1.18.14 is required for xmlUseNewParser()    
+  if test "$vers" -ge 1008014; then
+    AC_MSG_RESULT(found)
+    found_libxml=true
+    XML_LIBS="`$XML_CONFIG --libs`"
+    XML_CFLAGS="`$XML_CONFIG --cflags`"
+  else
+    AC_MSG_RESULT(not found)
+  fi
+fi
+fi
+
+if ! $found_libxml; then
+    AC_MSG_ERROR(Neither libxml1 or libxml2 found. You must install one (libxml1, preferably))
+fi
+
+AC_SUBST(XML_LIBS)
+AC_SUBST(XML_CFLAGS)
+
+CFLAGS="$XML_CFLAGS $CFLAGS"
 
 dnl LibZ
 AC_CHECK_HEADERS(zlib.h,

@@ -61,7 +61,10 @@
 #include "diagramdata.h"
 #include "font.h"
 
-#include "ps-utf8.h"
+#include <pango/pango.h>
+#include <pango/pangoft2.h>
+/* I'd really rather avoid this */
+#include <freetype/ftglyph.h>
 
 static void begin_render(RendererEPS *renderer);
 static void end_render(RendererEPS *renderer);
@@ -220,32 +223,6 @@ init_eps_renderer() {
 };
 
 
-/* callback functions used by the PSUnicoder: */ 
-static void eps_destroy_ps_font(gpointer usrdata, const gchar *fontname);
-static void eps_build_ps_encoding(gpointer usrdata, 
-                                  const gchar *name,
-                                  const gunichar table[PSEPAGE_SIZE]);
-static void eps_build_ps_font(gpointer usrdata, 
-                              const gchar *name,
-                              const gchar *face,
-                              const gchar *encoding_name);
-static void eps_select_ps_font(gpointer usrdata, 
-                               const gchar *fontname,
-                               float size);
-static void eps_show_string(gpointer usrdata, const gchar *string);
-static void eps_get_string_width(gpointer usrdata, const gchar *string,
-                                 gboolean first);
-
-static PSUnicoderCallbacks eps_unicoder_callbacks = {
-  eps_destroy_ps_font,
-  eps_build_ps_encoding,
-  eps_build_ps_font,
-  eps_select_ps_font,
-  eps_show_string,
-  eps_get_string_width,
-};
-
-
 static void print_define_font(gpointer key, gpointer value,
 			      gpointer data)
 {
@@ -377,19 +354,20 @@ prolog_check_string(RendererEPS *renderer,
                     Point *pos, Alignment alignment,
                     Color *color)
 {
-    const char *utf8_buffer;
+  /*    const char *utf8_buffer;
     int utf8_len;
 
     if ((renderer->psu) && (text) && (text != (const char *)(1))) {
 
         utf8_buffer=text;
-        utf8_len = strlen(utf8_buffer); /* deliberate */
+        utf8_len = strlen(utf8_buffer);
 
         if (utf8_len > 0) {
             psu_check_string_encodings(renderer->psu,utf8_buffer);
         }
     }
-    
+    */
+  /* Not current doing pre-pass */
   /* In here we can grab all the chars needed, to allow incremental
    * font defs (or even just partial font defs).
    */
@@ -491,8 +469,6 @@ create_eps_renderer(DiagramData *data, const char *filename,
 	  (int) ceil((extent->right - extent->left)*scale),
 	  (int) ceil((extent->bottom - extent->top)*scale) );
 
-  renderer->psu = ps_unicoder_new(&eps_unicoder_callbacks,(gpointer)renderer);
-
   return renderer;
 }
 
@@ -505,7 +481,6 @@ new_eps_renderer(Diagram *dia, gchar *filename)
 void
 destroy_eps_renderer(RendererEPS *renderer)
 {
-  ps_unicoder_destroy(renderer->psu);
   g_free(renderer);
 }
 
@@ -556,7 +531,6 @@ new_psprint_renderer(Diagram *dia, FILE *file)
 	  dia->data->paper.name,
 	  dia->data->paper.is_portrait ? "Portrait" : "Landscape");
   
-  renderer->psu = ps_unicoder_new(&eps_unicoder_callbacks,(gpointer)renderer);
   return renderer;
 }
 
@@ -928,6 +902,251 @@ fill_bezier(RendererEPS *renderer,
   fprintf(renderer->file, " f\n");
 }
 
+/* ********************************************************* */
+/*		   String rendering using PangoFt2           */
+/* ********************************************************* */
+/* Such a big mark really is a sign that this should go in its own file:) */
+
+/* These routines stolen mercilessly from PAPS
+ * http://imagic.weizmann.ac.il/~dov/freesw/paps
+ */
+/* Information passed in user data when drawing outlines */
+typedef struct _OutlineInfo OutlineInfo;
+struct _OutlineInfo {
+  FILE *OUT;
+  FT_Vector glyph_origin;
+  int dpi;
+};
+
+void postscript_contour_headers(FILE *OUT, int dpi_x, int dpi_y);
+void postscript_draw_contour(FILE *OUT,
+			     int dpi_x,
+			     PangoLayoutLine *pango_line,
+			     double x_pos,
+			     double y_pos
+			     );
+void draw_bezier_outline(FILE *OUT,
+			 int dpi_x,
+			 FT_Face face,
+			 FT_UInt glyph_index,
+			 double pos_x,
+			 double pos_y
+			 );
+/* Countour traveling functions */
+static int paps_move_to( FT_Vector* to,
+			 void *user_data);
+static int paps_line_to( FT_Vector*  to,
+			 void *user_data);
+static int paps_conic_to( FT_Vector*  control,
+			  FT_Vector*  to,
+			  void *user_data);
+static int paps_cubic_to( FT_Vector*  control1,
+			  FT_Vector*  control2,
+			  FT_Vector*  to,
+			  void *user_data);
+
+/*======================================================================
+//  outline traversing functions.
+//----------------------------------------------------------------------*/
+static int paps_move_to( FT_Vector* to,
+			 void *user_data)
+{
+  OutlineInfo *outline_info = (OutlineInfo*)user_data;
+  fprintf(outline_info->OUT, "%d %d moveto\n",
+	  to->x ,
+	  to->y );
+  return 0;
+}
+
+static int paps_line_to( FT_Vector*  to,
+			 void *user_data)
+{
+  OutlineInfo *outline_info = (OutlineInfo*)user_data;
+  fprintf(outline_info->OUT, "%d %d lineto\n",
+	  to->x ,
+	  to->y );
+  return 0;
+}
+
+static int paps_conic_to( FT_Vector*  control,
+			  FT_Vector*  to,
+			  void *user_data)
+{
+  OutlineInfo *outline_info = (OutlineInfo*)user_data;
+  fprintf(outline_info->OUT, "%d %d %d %d conicto\n",
+	  control->x  ,
+	  control->y  ,
+	  to->x   ,
+	  to->y  );
+  return 0;
+}
+
+static int paps_cubic_to( FT_Vector*  control1,
+			  FT_Vector*  control2,
+			  FT_Vector*  to,
+			  void *user_data)
+{
+  OutlineInfo *outline_info = (OutlineInfo*)user_data;
+  fprintf(outline_info->OUT,
+	  "%d %d %d %d %d %d curveto\n",
+	  control1->x , 
+	  control1->y ,
+	  control2->x ,
+	  control2->y ,
+	  to->x ,
+	  to->y );
+  return 0;
+}
+
+/* These must go in the prologue section */
+void postscript_contour_headers(FILE *OUT, int dpi_x, int dpi_y)
+{
+  /* /dpi_x needed for /conicto */
+  fprintf(OUT,
+	  "/dpi_x %d def\n"
+	  "/dpi_y %d def\n", dpi_x, dpi_y);
+  /* Outline support */
+  fprintf(OUT,
+	  "/conicto {\n"
+	  "    /to_y exch def\n"
+	  "    /to_x exch def\n"
+	  "    /conic_cntrl_y exch def\n"
+	  "    /conic_cntrl_x exch def\n"
+	  "    currentpoint\n"
+	  "    /p0_y exch def\n"
+	  "    /p0_x exch def\n"
+	  "    /p1_x p0_x conic_cntrl_x p0_x sub 2 3 div mul add def\n"
+	  "    /p1_y p0_y conic_cntrl_y p0_y sub 2 3 div mul add def\n"
+	  "    /p2_x p1_x to_x p0_x sub 1 3 div mul add def\n"
+	  "    /p2_y p1_y to_y p0_y sub 1 3 div mul add def\n"
+	  "    p1_x p1_y p2_x p2_y to_x to_y curveto\n"
+	  "} bind def\n"
+	  "/start_ol { gsave 1.1 dpi_x div dup scale} bind def\n"
+	  "/end_ol { closepath fill grestore } bind def\n"
+	  );
+}
+				
+
+/* postscript_draw_contour() dumps out the information of a line. It shows how
+   to access the ft font information out of the pango font info.
+ */
+void postscript_draw_contour(FILE *OUT,
+			     int dpi_x,
+			     PangoLayoutLine *pango_line,
+			     double line_start_pos_x,
+			     double line_start_pos_y)
+{
+  GSList *runs_list;
+  int num_runs = 0;
+
+  /* First calculate number of runs in text */
+  runs_list = pango_line->runs;
+  while(runs_list)
+    {
+      PangoLayoutRun *run = runs_list->data;
+      num_runs++;
+      runs_list = runs_list->next;
+    }
+  /* Loop over the runs and output font info */
+  runs_list = pango_line->runs;
+  while(runs_list)
+    {
+      PangoLayoutRun *run = runs_list->data;
+      PangoItem *item = run->item;
+      PangoGlyphString *glyphs = run->glyphs;
+      PangoAnalysis *analysis = &item->analysis;
+      PangoFont *font = analysis->font;
+      FT_Face ft_face;
+      int bidi_level;
+      int num_glyphs;
+      int glyph_idx;
+      if (font == NULL) {
+	fprintf(stderr, "No font found\n");
+	continue;
+      }
+      printf("Using font %s\n", pango_font_description_to_string(pango_font_describe(font)));
+      /* Currently crashes here */
+      ft_face = pango_ft2_font_get_face(font);
+      if (ft_face == NULL) {
+	fprintf(stderr, "Failed to get face for font %s\n",
+		pango_font_description_to_string(pango_font_describe(font)));
+	continue;
+      }
+      bidi_level = item->analysis.level;
+      num_glyphs = glyphs->num_glyphs;
+      
+      for (glyph_idx=0; glyph_idx<num_glyphs; glyph_idx++)
+	{
+	  PangoGlyphGeometry geometry = glyphs->glyphs[glyph_idx].geometry;
+	  double pos_x;
+	  double pos_y;
+	  double scale = 72.0 / PANGO_SCALE  / dpi_x;
+
+	  pos_x = line_start_pos_x + 1.0* geometry.x_offset * scale;
+	  pos_y = line_start_pos_y - 1.0*geometry.y_offset * scale;
+
+	  line_start_pos_x += 1.0 * geometry.width * scale;
+
+	  printf("Drawing glyph %d: index %d\n", glyph_idx, 
+		 glyphs->glyphs[glyph_idx].glyph);
+
+	  draw_bezier_outline(OUT,
+			      dpi_x,
+			      ft_face,
+			      (FT_UInt)(glyphs->glyphs[glyph_idx].glyph),
+			      pos_x, pos_y
+			      );
+	}
+      
+      runs_list = runs_list->next;
+    }
+  
+}
+
+void draw_bezier_outline(FILE *OUT,
+			 int dpi_x,
+			 FT_Face face,
+			 FT_UInt glyph_index,
+			 double pos_x,
+			 double pos_y
+			 )
+{
+  FT_Int load_flags = FT_LOAD_DEFAULT|FT_LOAD_NO_BITMAP;
+  FT_Glyph glyph;
+  FT_Error error;
+
+  /* Need to transform */
+
+  /* Output outline */
+  FT_Outline_Funcs outlinefunc = 
+  {
+    paps_move_to,
+    paps_line_to,
+    paps_conic_to,
+    paps_cubic_to
+  };
+  OutlineInfo outline_info;
+
+  outline_info.glyph_origin.x = pos_x;
+  outline_info.glyph_origin.y = pos_y;
+  outline_info.dpi = dpi_x;
+  outline_info.OUT = OUT;
+
+  fprintf(OUT, "gsave %f %f translate 0 0 0 setrgbcolor\n", pos_x, pos_y);
+  fprintf(OUT, "start_ol\n");
+
+  if ((error=FT_Load_Glyph(face, glyph_index, load_flags))) {
+    fprintf(stderr, "Can't load glyph: %d\n", error);
+    return;
+  }
+  FT_Get_Glyph (face->glyph, &glyph);
+  FT_Outline_Decompose (&(((FT_OutlineGlyph)glyph)->outline),
+                        &outlinefunc, &outline_info);
+  fprintf(OUT, "end_ol grestore \n");
+  
+  FT_Done_Glyph (glyph);
+}
+
 
 /* Note: we don't need to play with LC_NUMERIC locale settings in the 
    PSUnicoder callback functions ; the locale is set to "C" once, by 
@@ -980,41 +1199,12 @@ eps_build_ps_font(gpointer usrdata,
           "definefont pop\n", name, face, encoding_name);
 }
 
-static void 
-eps_select_ps_font(gpointer usrdata, const gchar *fontname, float size )
-{
-  RendererEPS *renderer = (RendererEPS *)usrdata;
-  
-  fprintf(renderer->file, "/%s ff %f scf sf\n", fontname, size);
-}
-
-static void eps_show_string(gpointer usrdata, const gchar *string)
-{
-  RendererEPS *renderer = (RendererEPS *)usrdata;
-  /* string has nothing we would have to escape (the custom encoding skips
-   the characters we have to escape). */
-  fprintf(renderer->file, "(%s)\n", string);  
-}
-                  
-static void eps_get_string_width(gpointer usrdata, const gchar *string,
-                                 gboolean first)
-{
-  RendererEPS *renderer = (RendererEPS *)usrdata;
-
-  if (first) {
-    fprintf(renderer->file, "(%s) sw\n", string);  
-  } else {
-    fprintf(renderer->file, "(%s) sw add\n", string);  
-  }
-}
-                  
 
 static void
 set_font(RendererEPS *renderer, DiaFont *font, real height)
 {
-  psu_set_font_face(renderer->psu, 
-                    dia_font_get_psfontname(font), 
-                    (float)height);
+  renderer->current_font = font;
+  renderer->current_height = height;
 }
 
 static void
@@ -1023,31 +1213,25 @@ draw_string(RendererEPS *renderer,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {
-  char *utf8_buffer;
-  int utf8_len;
+  PangoLayout *layout;
+  int width;
+  int line, linecount;
+  double xpos = pos->x, ypos = pos->y;
 
   if ((!text)||(text == (const char *)(1))) return;
 
   lazy_setcolor(renderer,color);
 
-  utf8_buffer=text;
-  utf8_len = strlen(utf8_buffer); /* deliberate */
-  
-  if (utf8_len <= 0) {
-    g_free(utf8_buffer);
-    return; /* null string -> we won't display anything 
-               and we will crash the Postscript stack. */
-  }
-  /* normally not needed (if predraw_string() has been called beforehand),
-     but harmless : */
-  psu_check_string_encodings(renderer->psu,utf8_buffer);
-  
+  layout = dia_font_build_layout(text, renderer->current_font,
+				 renderer->current_height);
+
+  pango_layout_get_size(layout, &width, NULL);
+  /*
   switch (alignment) {
   case ALIGN_LEFT:
     fprintf(renderer->file, "%f %f m ", pos->x, pos->y);
     break;
   case ALIGN_CENTER:
-    psu_get_string_width(renderer->psu,utf8_buffer);
     if (!strlen(utf8_buffer)) {
       g_warning("null string.");
     }
@@ -1055,17 +1239,27 @@ draw_string(RendererEPS *renderer,
 	    pos->x, pos->y);
     break;
   case ALIGN_RIGHT:
-    psu_get_string_width(renderer->psu,utf8_buffer);
     fprintf(renderer->file, "%f ex sub %f m ",
 	    pos->x, pos->y);
     break;
-  }
-
-  psu_show_string(renderer->psu,utf8_buffer);
-   
+    }*/
+  /*
   fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
+  */
+  linecount = pango_layout_get_line_count(layout);
+  for (line = 0; line < linecount; line++) {
+    postscript_draw_contour(renderer->file,
+			    300, /* dpi_x */
+			    pango_layout_get_line(layout, line),
+			    xpos, ypos);
+    /* xpos should be adjusted for align and/or RTL */
+    ypos += 10;/* Some line height thing??? */
+  }
 }
 
+/* ****** */
+/* IMAGES */
+/* ****** */
 
 #define RLE 0
 #if RLE

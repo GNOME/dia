@@ -39,8 +39,10 @@ struct _RendererEPS {
   LineStyle saved_line_style;
   real dash_length;
   real dot_length;
-  PSUnicoder *psu;
   Color lcolor;
+
+  DiaFont *current_font;
+  real current_height;
 };
 
 RendererEPS *new_eps_renderer(Diagram *dia, char *filename);

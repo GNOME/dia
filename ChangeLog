@@ -1,3 +1,8 @@
+2002-07-05  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/render_eps.c: First stab at EPS rendering using the contour
+	code from PAPS.  Crashes.
+
 2002-06-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/recent_files.c (recent_file_history_remove): 
