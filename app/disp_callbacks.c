@@ -233,13 +233,9 @@ ddisplay_focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data)
   ddisp = (DDisplay *)data;
 
   GTK_WIDGET_SET_FLAGS(widget, GTK_HAS_FOCUS);
-  //FIXME?: gtk_widget_draw_focus(widget);
-
-#ifdef USE_XIM
-  if (gdk_im_ready () && ddisp->ic)
-    gdk_im_begin(ddisp->ic, widget->window);
-#endif
-
+      /* FIXME?: gtk_widget_draw_focus(widget); */
+  gtk_im_context_focus_in(GTK_IM_CONTEXT(ddisp->im_context));
+  
   return FALSE;
 }
 
@@ -258,11 +254,8 @@ ddisplay_focus_out_event(GtkWidget *widget, GdkEventFocus *event,gpointer data)
   ddisp = (DDisplay *)data;
 
   GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
-  //FIXME?: gtk_widget_draw_focus (widget);
 
-#ifdef USE_XIM
-  gdk_im_end ();
-#endif
+  gtk_im_context_focus_out(GTK_IM_CONTEXT(ddisp->im_context));
 
   return return_val;
 }
@@ -277,71 +270,8 @@ ddisplay_realize(GtkWidget *widget, gpointer data)
 
   ddisp = (DDisplay *)data;
 
-#ifdef USE_XIM
-  if (gdk_im_ready() && (ddisp->ic_attr = gdk_ic_attr_new()) != NULL) {
-    gint width, height;
-    GdkColormap *colormap;
-    GdkEventMask mask;
-    GdkICAttr *attr = ddisp->ic_attr;
-    GdkICAttributesType attrmask = GDK_IC_ALL_REQ;
-    GdkIMStyle style;
-    GdkIMStyle supported_style =
-      GDK_IM_PREEDIT_NONE |
-      GDK_IM_PREEDIT_NOTHING |
-      GDK_IM_PREEDIT_POSITION |
-      GDK_IM_STATUS_NONE |
-      GDK_IM_STATUS_NOTHING;
-
-    if (widget->style && widget->style->font->type != GDK_FONT_FONTSET)
-      supported_style &= ~GDK_IM_PREEDIT_POSITION;
-
-    attr->style = style = gdk_im_decide_style(supported_style);
-    attr->client_window = widget->window;
-
-    if ((colormap = gtk_widget_get_colormap(widget)) !=
-	gtk_widget_get_default_colormap()) {
-      attrmask |= GDK_IC_PREEDIT_COLORMAP;
-      attr->preedit_colormap = colormap;
-    }
-
-    attrmask |= GDK_IC_PREEDIT_FOREGROUND;
-    attrmask |= GDK_IC_PREEDIT_BACKGROUND;
-    attr->preedit_foreground = widget->style->fg[GTK_STATE_NORMAL];
-    attr->preedit_background = widget->style->base[GTK_STATE_NORMAL];
-
-
-    switch (style & GDK_IM_PREEDIT_MASK) {
-    case GDK_IM_PREEDIT_POSITION:
-      if (ddisp->canvas->style &&
-	  ddisp->canvas->style->font->type != GDK_FONT_FONTSET) {
-	g_warning("over-the-spot style requires fontset");
-	break;
-      }
-      gdk_window_get_size(widget->window, &width, &height);
-
-      attrmask |= GDK_IC_PREEDIT_POSITION_REQ;
-      attr->spot_location.x = 0;
-      attr->spot_location.y = 14;
-      attr->preedit_area.x = 0;
-      attr->preedit_area.y = 0;
-      attr->preedit_area.width = width;
-      attr->preedit_area.height = height;
-      attr->preedit_fontset = widget->style->font;
-      break;
-    }
-    ddisp->ic = gdk_ic_new(attr, attrmask);
-    if (ddisp->ic == NULL)
-      g_warning("could not create input context");
-    else {
-      mask = gdk_window_get_events (widget->window);
-      mask |= gdk_ic_get_events (ddisp->ic);
-      gdk_window_set_events (widget->window, mask);
-
-      if (GTK_WIDGET_HAS_FOCUS(widget))
-	gdk_im_begin(ddisp->ic, widget->window);
-    }
-  }
-#endif
+  gtk_im_context_set_client_window(GTK_IM_CONTEXT(ddisp->im_context),
+                                   GDK_WINDOW(ddisp->shell));
 }
 
 void
@@ -354,17 +284,8 @@ ddisplay_unrealize (GtkWidget *widget, gpointer data)
 
   ddisp = (DDisplay *) data;
 
-#ifdef USE_XIM
-  if (gdk_im_ready ()) {
-    if (ddisp->ic)
-      gdk_ic_destroy (ddisp->ic);
-    ddisp->ic = NULL;
-    if (ddisp->ic_attr)
-      gdk_ic_attr_destroy (ddisp->ic_attr);
-    ddisp->ic_attr = NULL;
-  }
-#endif
- 
+  gtk_im_context_set_client_window(GTK_IM_CONTEXT(ddisp->im_context),
+                                   GDK_WINDOW(ddisp->shell));
 }
 
 void
@@ -380,20 +301,6 @@ ddisplay_size_allocate (GtkWidget *widget,
 
   widget->allocation = *allocation;
   ddisp = (DDisplay *)data;
-#ifdef USE_XIM
-  if (GTK_WIDGET_REALIZED (widget)) {
-    if (gdk_im_ready () && ddisp->ic &&
-        (gdk_ic_get_style (ddisp->ic) & GDK_IM_PREEDIT_POSITION)) {
-      gint width, height;
-
-      gdk_window_get_size (widget, &width, &height);
-      ddisp->ic_attr->preedit_area.width = width;
-      ddisp->ic_attr->preedit_area.height = height;
-      gdk_ic_set_attr (ddisp->ic, ddisp->ic_attr,
-                       GDK_IC_PREEDIT_AREA);
-    }
-  }
-#endif
 }
 
 void
@@ -403,8 +310,65 @@ ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
 
   popup_shell = ddisp->shell;
   menus_get_image_menu(&menu, NULL);
+  
+  gtk_im_multicontext_append_menuitems(GTK_IM_CONTEXT(ddisp->im_context),
+                                       GTK_MENU_SHELL(menu));
+  
   gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
 		 event->button, event->time);
+}
+
+static void handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
+                             const gchar *str, int strlen) {
+  Object *obj = focus->obj;
+  Point p = obj->position;
+  ObjectChange *obj_change = NULL;
+  gboolean modified = (focus->key_event)(focus, keysym, str, strlen,
+                                         &obj_change);
+
+      /* Make sure object updates its data and its connected: */
+  p = obj->position;
+  (obj->ops->move)(obj,&p);  
+  diagram_update_connections_object(ddisp->diagram,obj,TRUE);
+	  
+  object_add_updates(obj, ddisp->diagram);
+
+  if (modified && (obj_change != NULL)) {
+    undo_object_change(ddisp->diagram, obj, obj_change);
+    undo_set_transactionpoint(ddisp->diagram->undo);
+  }
+
+  diagram_flush(ddisp->diagram);
+}
+  
+
+void ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
+                                DDisplay     *ddisp) {
+      /* When using IM, we'll not get many key events past the IM filter,
+         mostly IM Commits.
+
+         regardless of the platform, "str" should be a clean UTF8 string
+         (the default IM on X should perform the local->UTF8 conversion)
+      */
+      
+  handle_key_event(ddisp, active_focus(), 0, str, g_utf8_strlen(str,-1));
+}
+
+void ddisplay_im_context_preedit_changed(GtkIMContext *context,
+                                         DDisplay *ddisp) {
+/*  char *str;
+  PangoAttrList *attrs;
+  gint cursor_pos;
+    
+  gtk_im_context_get_preedit_string(ddisp->im_context,
+                                    &str,&attrs,&cursor_pos);
+
+  g_message("received a 'preedit changed'; str=%s cursor_pos=%i",
+            str,cursor_pos);
+
+  g_free(str);
+  pango_attr_list_unref(attrs);
+*/
 }
 
 gint
@@ -428,301 +392,278 @@ ddisplay_canvas_events (GtkWidget *canvas,
   int key_handled;
   int width, height;
   int new_size;
-  int modified = FALSE;
-  int x, y;
 
   return_val = FALSE;
  
   if (!canvas->window) 
     return FALSE;
 
-  /*  get the pointer position  */
+      /*  get the pointer position  */
   gdk_window_get_pointer (canvas->window, &tx, &ty, &tmask);
 
   switch (event->type)
-    {
-    case GDK_EXPOSE:
-      eevent = (GdkEventExpose *) event;
-      ddisplay_add_display_area(ddisp,
-				eevent->area.x, eevent->area.y,
-				eevent->area.x + eevent->area.width,
-				eevent->area.y + eevent->area.height);
-      ddisplay_flush(ddisp);
-      break;
+  {
+      case GDK_EXPOSE:
+        eevent = (GdkEventExpose *) event;
+        ddisplay_add_display_area(ddisp,
+                                  eevent->area.x, eevent->area.y,
+                                  eevent->area.x + eevent->area.width,
+                                  eevent->area.y + eevent->area.height);
+        ddisplay_flush(ddisp);
+        break;
 
-    case GDK_SCROLL:
-      sevent = (GdkEventScroll *) event;
+      case GDK_SCROLL:
+        sevent = (GdkEventScroll *) event;
 
-      switch (sevent->direction)
-	{
-	case GDK_SCROLL_UP:
-	  ddisplay_scroll_up(ddisp);
-	  break;
-	case GDK_SCROLL_DOWN:
-	  ddisplay_scroll_down(ddisp);
-	  break;
-	case GDK_SCROLL_LEFT:
-	  ddisplay_scroll_left(ddisp);
-	  break;
-	case GDK_SCROLL_RIGHT:
-	  ddisplay_scroll_right(ddisp);
-	  break;
-	default:
-	  break;
-	}
-      ddisplay_flush (ddisp);
-      break;
+        switch (sevent->direction)
+        {
+            case GDK_SCROLL_UP:
+              ddisplay_scroll_up(ddisp);
+              break;
+            case GDK_SCROLL_DOWN:
+              ddisplay_scroll_down(ddisp);
+              break;
+            case GDK_SCROLL_LEFT:
+              ddisplay_scroll_left(ddisp);
+              break;
+            case GDK_SCROLL_RIGHT:
+              ddisplay_scroll_right(ddisp);
+              break;
+            default:
+              break;
+        }
+        ddisplay_flush (ddisp);
+        break;
 
-    case GDK_CONFIGURE:
-      if (ddisp->renderer != NULL) {
-	width = ddisp->renderer->pixel_width;
-	height = ddisp->renderer->pixel_height;
-	new_size = ((width != ddisp->canvas->allocation.width) ||
-		    (height != ddisp->canvas->allocation.height));
-      } else {
-	new_size = TRUE;
-      }
-      if (new_size) {
-	ddisplay_resize_canvas(ddisp,
-			       ddisp->canvas->allocation.width,
-			       ddisp->canvas->allocation.height);
-	ddisplay_update_scrollbars(ddisp);
-      }
-      display_set_active(ddisp);
-      break;
+      case GDK_CONFIGURE:
+        if (ddisp->renderer != NULL) {
+          width = ddisp->renderer->pixel_width;
+          height = ddisp->renderer->pixel_height;
+          new_size = ((width != ddisp->canvas->allocation.width) ||
+                      (height != ddisp->canvas->allocation.height));
+        } else {
+          new_size = TRUE;
+        }
+        if (new_size) {
+          ddisplay_resize_canvas(ddisp,
+                                 ddisp->canvas->allocation.width,
+                                 ddisp->canvas->allocation.height);
+          ddisplay_update_scrollbars(ddisp);
+        }
+        display_set_active(ddisp);
+        break;
 
-    case GDK_FOCUS_CHANGE:
-      display_set_active(ddisp);
-      ddisplay_do_update_menu_sensitivity(ddisp);
-      break;
+      case GDK_FOCUS_CHANGE:
+        display_set_active(ddisp);
+        ddisplay_do_update_menu_sensitivity(ddisp);
+        break;
       
-    case GDK_2BUTTON_PRESS:
-      display_set_active(ddisp);
-      bevent = (GdkEventButton *) event;
-      state = bevent->state;
+      case GDK_2BUTTON_PRESS:
+        display_set_active(ddisp);
+        bevent = (GdkEventButton *) event;
+        state = bevent->state;
 
-      switch (bevent->button)
-	{
-	case 1:
-	  if (*active_tool->double_click_func)
-	    (*active_tool->double_click_func) (active_tool, bevent, ddisp);
-	  break;
+        switch (bevent->button)
+        {
+            case 1:
+              if (*active_tool->double_click_func)
+                (*active_tool->double_click_func) (active_tool, bevent, ddisp);
+              break;
 
-	case 2:
-	  break;
+            case 2:
+              break;
 
-	case 3:
- 	  break;
+            case 3:
+              break;
 
-	default:
-	  break;
-	}
-      break;
+            default:
+              break;
+        }
+        break;
 
-    case GDK_BUTTON_PRESS:
-      display_set_active(ddisp);
-      bevent = (GdkEventButton *) event;
-      state = bevent->state;
+      case GDK_BUTTON_PRESS:
+        display_set_active(ddisp);
+        bevent = (GdkEventButton *) event;
+        state = bevent->state;
 
-      ddisplay_untransform_coords(ddisp,
-                                  (int)bevent->x, (int)bevent->y,
-                                  &object_menu_clicked_point.x,
-                                  &object_menu_clicked_point.y);
+        ddisplay_untransform_coords(ddisp,
+                                    (int)bevent->x, (int)bevent->y,
+                                    &object_menu_clicked_point.x,
+                                    &object_menu_clicked_point.y);
 
-      switch (bevent->button)
-	{
-	case 1:
-	  /* get the focus again, may be lost by zoom combo */
-	  gtk_widget_grab_focus(canvas);
-	  if (*active_tool->button_press_func)
-	    (*active_tool->button_press_func) (active_tool, bevent, ddisp);
-	  break;
+        switch (bevent->button)
+        {
+            case 1:
+                  /* get the focus again, may be lost by zoom combo */
+              gtk_widget_grab_focus(canvas);
+              if (*active_tool->button_press_func)
+                (*active_tool->button_press_func) (active_tool, bevent, ddisp);
+              break;
 
-	case 2:
-	  if (ddisp->menu_bar == NULL) {
-	  popup_object_menu(ddisp, bevent);
-	  }
-	  break;
+            case 2:
+              if (ddisp->menu_bar == NULL) {
+                popup_object_menu(ddisp, bevent);
+              }
+              break;
 
-	case 3:
-	  if (ddisp->menu_bar == NULL) {
-	  if (bevent->state & GDK_CONTROL_MASK) {
-	    /* for two button mouse users ... */
-	    popup_object_menu(ddisp, bevent);
-	    break;
-	  }
-	  ddisplay_popup_menu(ddisp, bevent);
- 	  break;
-	  }
-	  else {
-	     popup_object_menu(ddisp, bevent);
-	     break;
-	  }
-        default:
-	  break;
-	}
-      break;
+            case 3:
+              if (ddisp->menu_bar == NULL) {
+                if (bevent->state & GDK_CONTROL_MASK) {
+                      /* for two button mouse users ... */
+                  popup_object_menu(ddisp, bevent);
+                  break;
+                }
+                ddisplay_popup_menu(ddisp, bevent);
+                break;
+              }
+              else {
+                popup_object_menu(ddisp, bevent);
+                break;
+              }
+            default:
+              break;
+        }
+        break;
 
-    case GDK_BUTTON_RELEASE:
-      display_set_active(ddisp);
-      bevent = (GdkEventButton *) event;
-      state = bevent->state;
+      case GDK_BUTTON_RELEASE:
+        display_set_active(ddisp);
+        bevent = (GdkEventButton *) event;
+        state = bevent->state;
 
-      switch (bevent->button)
-	{
-	case 1:
-	  if (*active_tool->button_release_func)
-	    (*active_tool->button_release_func) (active_tool, bevent, ddisp);
-	  break;
+        switch (bevent->button)
+        {
+            case 1:
+              if (*active_tool->button_release_func)
+                (*active_tool->button_release_func) (active_tool,
+                                                     bevent, ddisp);
+              break;
 
-	case 2:
-	  break;
+            case 2:
+              break;
 
-	case 3:
-	  break;
+            case 3:
+              break;
 
-	default:
-	  break;
-	}
-      break;
+            default:
+              break;
+        }
+        break;
 
-    case GDK_MOTION_NOTIFY:
-      mevent = (GdkEventMotion *) event;
-      state = mevent->state;
+      case GDK_MOTION_NOTIFY:
+        mevent = (GdkEventMotion *) event;
+        state = mevent->state;
 
-      if (mevent->is_hint) {
-	mevent->x = tx;
-	mevent->y = ty;
-	mevent->state = tmask;
-	mevent->is_hint = FALSE;
-      }
-      if (*active_tool->motion_func)
-	(*active_tool->motion_func) (active_tool, mevent, ddisp);
-      break;
+        if (mevent->is_hint) {
+          mevent->x = tx;
+          mevent->y = ty;
+          mevent->state = tmask;
+          mevent->is_hint = FALSE;
+        }
+        if (*active_tool->motion_func)
+          (*active_tool->motion_func) (active_tool, mevent, ddisp);
+        break;
 
-    case GDK_KEY_PRESS:
-      display_set_active(ddisp);
-      kevent = (GdkEventKey *) event;
-      state = kevent->state;
-      key_handled = FALSE;
+      case GDK_KEY_PRESS:
+        display_set_active(ddisp);
+        kevent = (GdkEventKey *)event;
+        state = kevent->state;
+        key_handled = FALSE;
 
-      focus = active_focus();
-      if ((focus != NULL) &&
-	  !(state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) ) {
-	/* Keys goes to the active focus. */
-	obj = focus->obj;
-	if (diagram_is_selected(ddisp->diagram, obj)) {
-	  ObjectChange *obj_change = NULL;
-	
-	  object_add_updates(obj, ddisp->diagram);
-#ifdef USE_XIM
-	  ddisplay_transform_coords(ddisp, obj->position.x, obj->position.y,
-				    &x, &y);
-	  set_input_dialog(ddisp, x, y);
-#endif
-#ifdef G_OS_WIN32
-	  /* If Gtk2 really talks utf-8 this is the right thing ... */
-	  modified = (focus->key_event)(focus, kevent->keyval,
-					kevent->string, kevent->length,
-					&obj_change);
-#else
-	  /* ... otoh this appears to work on *nix ?? */
-	  {
-	  gchar *utext;
-	  utext = g_locale_to_utf8(kevent->string, kevent->length, NULL, NULL, NULL);
-	  modified = (focus->key_event)(focus, kevent->keyval,
-					//kevent->string, kevent->length,
-					utext, g_utf8_strlen(utext, -1),
-					&obj_change);
-	  g_free(utext);
-	  }
-#endif
-	  { /* Make sure object updates its data and its connected: */
-	    Point p = obj->position;
-	    (obj->ops->move)(obj,&p);  
-            diagram_update_connections_object(ddisp->diagram,obj,TRUE);
+        focus = active_focus();
+        if ((focus != NULL) &&
+            !(state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) ) {
+              /* Keys goes to the active focus. */
+          obj = focus->obj;
+          if (diagram_is_selected(ddisp->diagram, obj)) {
+
+            if (!gtk_im_context_filter_keypress(
+                  GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
+              
+                  /*! key event not swallowed by the input method ? */
+              handle_key_event(ddisp, focus, kevent->keyval,
+                               kevent->string, kevent->length);
+
+              diagram_flush(ddisp->diagram);
+            }
           }
-	  
-	  object_add_updates(obj, ddisp->diagram);
+          return_val = key_handled = TRUE;
+        }
 
-	  if (modified && (obj_change != NULL)) {
-	    undo_object_change(ddisp->diagram, obj, obj_change);
-	    undo_set_transactionpoint(ddisp->diagram->undo);
-	  }
-
-	  diagram_flush(ddisp->diagram);
-
-	  return_val = key_handled = TRUE;
-	}
-      }
-      if (!key_handled) {
-	/* No focus to receive keys, take care of it ourselves. */
-	return_val = TRUE;
-	switch(kevent->keyval) {
-	case GDK_Up:
-	  ddisplay_scroll_up(ddisp);
-	  ddisplay_flush(ddisp);
-	  break;
-	case GDK_Down:
-	  ddisplay_scroll_down(ddisp);
-	  ddisplay_flush(ddisp);
-	  break;
-	case GDK_Left:
-	  ddisplay_scroll_left(ddisp);
-	  ddisplay_flush(ddisp);
-	  break;
-	case GDK_Right:
-	  ddisplay_scroll_right(ddisp);
-	  ddisplay_flush(ddisp);
-	  break;
-	case GDK_KP_Add:
-	case GDK_plus:
-	  visible = &ddisp->visible;
-	  middle.x = visible->left*0.5 + visible->right*0.5;
-	  middle.y = visible->top*0.5 + visible->bottom*0.5;
+        if (!key_handled) {
+              /* No focus to receive keys, take care of it ourselves. */
+          return_val = TRUE;
+          gtk_im_context_reset(GTK_IM_CONTEXT(ddisp->im_context));
+          
+          switch(kevent->keyval) {
+              case GDK_Up:
+                ddisplay_scroll_up(ddisp);
+                ddisplay_flush(ddisp);
+                break;
+              case GDK_Down:
+                ddisplay_scroll_down(ddisp);
+                ddisplay_flush(ddisp);
+                break;
+              case GDK_Left:
+                ddisplay_scroll_left(ddisp);
+                ddisplay_flush(ddisp);
+                break;
+              case GDK_Right:
+                ddisplay_scroll_right(ddisp);
+                ddisplay_flush(ddisp);
+                break;
+              case GDK_KP_Add:
+              case GDK_plus:
+                visible = &ddisp->visible;
+                middle.x = visible->left*0.5 + visible->right*0.5;
+                middle.y = visible->top*0.5 + visible->bottom*0.5;
 	  
-	  ddisplay_zoom(ddisp, &middle, M_SQRT2);
-	  break;
-	case GDK_KP_Subtract:
-	case GDK_minus:
-	  visible = &ddisp->visible;
-	  middle.x = visible->left*0.5 + visible->right*0.5;
-	  middle.y = visible->top*0.5 + visible->bottom*0.5;
+                ddisplay_zoom(ddisp, &middle, M_SQRT2);
+                break;
+              case GDK_KP_Subtract:
+              case GDK_minus:
+                visible = &ddisp->visible;
+                middle.x = visible->left*0.5 + visible->right*0.5;
+                middle.y = visible->top*0.5 + visible->bottom*0.5;
 	  
-	  ddisplay_zoom(ddisp, &middle, M_SQRT1_2);
-	  break;
-	case GDK_Shift_L:
-	case GDK_Shift_R:
-	  if (active_tool->type == MAGNIFY_TOOL)
-	    set_zoom_out(active_tool);
-	  break;
-	default:
-          if (kevent->string && 0 == strcmp(" ",kevent->string)) {
-            tool_select_former();
-          } else { 
-            return_val = FALSE;
+                ddisplay_zoom(ddisp, &middle, M_SQRT1_2);
+                break;
+              case GDK_Shift_L:
+              case GDK_Shift_R:
+                if (active_tool->type == MAGNIFY_TOOL)
+                  set_zoom_out(active_tool);
+                break;
+              default:
+                if (kevent->string && 0 == strcmp(" ",kevent->string)) {
+                  tool_select_former();
+                } else { 
+                  return_val = FALSE;
+                }
           }
-	}
-      }
-      break;
+        }
+        break;
 
-    case GDK_KEY_RELEASE:
-      kevent = (GdkEventKey *) event;
-      state = kevent->state;
-      switch(kevent->keyval) {
-	case GDK_Shift_L:
-	case GDK_Shift_R:
-	  if (active_tool->type == MAGNIFY_TOOL)
-	    set_zoom_in(active_tool);
-	  break;
-	default:
-	  break;
-      }
-      break;
+      case GDK_KEY_RELEASE:
+        kevent = (GdkEventKey *) event;
+        state = kevent->state;
+        if (gtk_im_context_filter_keypress(GTK_IM_CONTEXT(ddisp->im_context),
+                                           kevent)) {
+          return_val = TRUE;
+        } else {
+          switch(kevent->keyval) {
+              case GDK_Shift_L:
+              case GDK_Shift_R:
+                if (active_tool->type == MAGNIFY_TOOL)
+                  set_zoom_in(active_tool);
+                break;
+              default:
+                break;
+          }
+        }
+        break;
       
-    default:
-      break;
-    }
+      default:
+        break;
+  }
   
   return return_val;
 }

@@ -161,10 +161,16 @@ new_display(Diagram *dia)
 
   ddisp->visible = visible;
 
+  ddisp->im_context = gtk_im_multicontext_new();
+  g_signal_connect (G_OBJECT (ddisp->im_context), "commit",
+                    G_CALLBACK (ddisplay_im_context_commit), ddisp);
+  g_signal_connect (G_OBJECT (ddisp->im_context), "preedit_changed",
+                    G_CALLBACK (ddisplay_im_context_preedit_changed),
+                    ddisp);
+  
   create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
 		       filename, prefs.new_view.use_menu_bar, !embedded);
   
-
   ddisplay_update_statusbar (ddisp);
 
   ddisplay_set_origo(ddisp, visible.left, visible.top);
@@ -781,6 +787,9 @@ ddisp_destroy(DDisplay *ddisp)
     gtk_idle_remove(ddisp->update_id);
     ddisp->update_id = 0;
   }
+
+  g_object_unref (G_OBJECT (ddisp->im_context));
+      
   gtk_widget_destroy (ddisp->shell);
 }
 

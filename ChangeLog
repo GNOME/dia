@@ -1,3 +1,13 @@
+2002-09-08  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* lib/text.c(set_string): fixed a memory leak (char* ain't no
+	std::auto_ptr<char> !).
+
+	* app/display.[ch]:
+	* app/interface.[ch]:
+	* app/ddisp_callbacks.[ch]: Added some basic support for input 
+	methods (GtkIMContext-based)
+	
 2002-09-06  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/flowchart/box.c (box_update_data): Made resizing

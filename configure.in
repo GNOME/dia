@@ -239,15 +239,6 @@ AC_CHECK_HEADERS(zlib.h,
 CFLAGS="${CFLAGS} ${Z_CFLAGS}"
 LIBS="${LIBS} ${Z_LIBS}"
 
-dnl XIM support (on by default)
-dnl AC_ARG_ENABLE(xim,
-dnl [  --disable-xim           enable gnome code],,enable_xim=yes)
-dnl AC_MSG_CHECKING([whether to enable XIM support])
-dnl if test "x$enable_xim" != xno; then
-dnl  AC_DEFINE(USE_XIM,,Use XIM support)
-dnl fi
-dnl AC_MSG_RESULT($enable_xim)
-
 dnl Platform-specific fixes.
 dnl 
 dnl Solaris provides isinf() in -lsunmath and defines finite() in math.h

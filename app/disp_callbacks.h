@@ -45,6 +45,9 @@ void ddisplay_destroy (GtkWidget *widget, gpointer data);
 
 void ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
 			  gpointer user_data);
-
+void ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
+                                DDisplay     *ddisp);
+void ddisplay_im_context_preedit_changed(GtkIMContext *context,
+                                         DDisplay *ddisp);
 
 #endif /* DISP_CALLBACKS_H */

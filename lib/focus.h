@@ -29,8 +29,8 @@ struct _Focus {
 
   /* return TRUE if modified object.
      Set change if object is changed. */
-  int (*key_event)(Focus *focus, guint keysym, char *str, int strlen,
-		   ObjectChange **change);
+  int (*key_event)(Focus *focus, guint keysym, const gchar *str, int strlen,
+                   ObjectChange **change);
 };
 
 void request_focus(Focus *focus);

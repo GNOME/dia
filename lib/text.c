@@ -30,7 +30,7 @@
 #include "message.h"
 
 static int text_key_event(Focus *focus, guint keysym,
-			  char *str, int strlen,
+			  const gchar *str, int strlen,
 			  ObjectChange **change);
 
 enum change_type {
@@ -113,7 +113,7 @@ static void
 set_string(Text *text, const char *string)
 {
   int numlines, i;
-  int len, alloclen;
+  int alloclen;
   const char *s,*s2;
   
   s = string;
@@ -121,10 +121,10 @@ set_string(Text *text, const char *string)
   numlines = 1;
   if (s != NULL) 
     while ( (s = g_utf8_strchr(s,-1,'\n')) != NULL ) {
-	s++;
-	if ((*s) != 0) {
-	    numlines++;
-	}
+      s++;
+      if ((*s) != 0) {
+        numlines++;
+      }
     }
   text->numlines = numlines;
   text->line = g_malloc(sizeof(char *)*numlines);
@@ -147,7 +147,6 @@ set_string(Text *text, const char *string)
     if (s2==NULL) {
       alloclen = strlen(s);
     } else {
-      gchar *str = g_strndup (s, s2 - s);
       alloclen = s2 - s;
     }
     text->line[i] = (char *)g_malloc(alloclen+1);
@@ -781,117 +780,117 @@ text_insert_char(Text *text, gunichar c)
 }
 
 static int
-text_key_event(Focus *focus, guint keyval, char *str, int strlen,
-	       ObjectChange **change)
+text_key_event(Focus *focus, guint keyval, const gchar *str, int strlen,
+               ObjectChange **change)
 {
   Text *text;
   int return_val = FALSE;
   int row, i;
+  const char *utf;
   gunichar c;
-  gchar *utf;
 
   *change = NULL;
   
   text = (Text *)focus->user_data;
 
   switch(keyval) {
-  case GDK_Up:
-    text->cursor_row--;
-    if (text->cursor_row<0)
-      text->cursor_row = 0;
+      case GDK_Up:
+        text->cursor_row--;
+        if (text->cursor_row<0)
+          text->cursor_row = 0;
 
-    if (text->cursor_pos > text->strlen[text->cursor_row])
-      text->cursor_pos = text->strlen[text->cursor_row];
+        if (text->cursor_pos > text->strlen[text->cursor_row])
+          text->cursor_pos = text->strlen[text->cursor_row];
 
-    break;
-  case GDK_Down:
-    text->cursor_row++;
-    if (text->cursor_row >= text->numlines)
-      text->cursor_row = text->numlines - 1;
+        break;
+      case GDK_Down:
+        text->cursor_row++;
+        if (text->cursor_row >= text->numlines)
+          text->cursor_row = text->numlines - 1;
 
-    if (text->cursor_pos > text->strlen[text->cursor_row])
-      text->cursor_pos = text->strlen[text->cursor_row];
+        if (text->cursor_pos > text->strlen[text->cursor_row])
+          text->cursor_pos = text->strlen[text->cursor_row];
     
-    break;
-  case GDK_Left:
-    text->cursor_pos--;
-    if (text->cursor_pos<0)
-      text->cursor_pos = 0;
-    break;
-  case GDK_Right:
-    text->cursor_pos++;
-    if (text->cursor_pos > text->strlen[text->cursor_row])
-      text->cursor_pos = text->strlen[text->cursor_row];
-    break;
-  case GDK_Home:
-    text->cursor_pos = 0;
-    break;
-  case GDK_End:
-    text->cursor_pos = text->strlen[text->cursor_row];
-    break;
-  case GDK_Delete:
-    return_val = TRUE;
-    row = text->cursor_row;
-    if (text->cursor_pos >= text->strlen[row]) {
-      if (row+1 < text->numlines) {
-	*change = text_create_change(text, TYPE_JOIN_ROW, 'Q',
-				     text->cursor_pos, row);
-      } else {
-	return_val = FALSE;
-	break;
-      }
-    } else {
-      utf = text->line[row];
-      for (i = 0; i < text->cursor_pos; i++)
-        utf = g_utf8_next_char (utf);
-	c = g_utf8_get_char (utf);
-      *change = text_create_change (text, TYPE_DELETE_FORWARD, c,
-                                    text->cursor_pos, text->cursor_row);
-    }
-    text_delete_forward(text);
-    break;
-  case GDK_BackSpace:
-    return_val = TRUE;
-    row = text->cursor_row;
-    if (text->cursor_pos <= 0) {
-      if (row > 0) {
-	*change = text_create_change(text, TYPE_JOIN_ROW, 'Q',
-				     text->strlen[row-1], row-1);
-      } else {
-	return_val = FALSE;
-	break;
-      }
-    } else {
-      utf = text->line[row];
-      for (i = 0; i < (text->cursor_pos - 1); i++)
-        utf = g_utf8_next_char (utf);
-        c = g_utf8_get_char (utf);
-        *change = text_create_change (text, TYPE_DELETE_BACKWARD, c,
-                                      text->cursor_pos - 1, text->cursor_row);
-    }
-    text_delete_backward(text);
-    break;
-  case GDK_Return:
-    return_val = TRUE;
-    *change = text_create_change(text, TYPE_SPLIT_ROW, 'Q',
-				 text->cursor_pos, text->cursor_row);
-    text_split_line(text);
-    break;
-  default:
-    if (strlen>0) {
-      int i;
+        break;
+      case GDK_Left:
+        text->cursor_pos--;
+        if (text->cursor_pos<0)
+          text->cursor_pos = 0;
+        break;
+      case GDK_Right:
+        text->cursor_pos++;
+        if (text->cursor_pos > text->strlen[text->cursor_row])
+          text->cursor_pos = text->strlen[text->cursor_row];
+        break;
+      case GDK_Home:
+        text->cursor_pos = 0;
+        break;
+      case GDK_End:
+        text->cursor_pos = text->strlen[text->cursor_row];
+        break;
+      case GDK_Delete:
+        return_val = TRUE;
+        row = text->cursor_row;
+        if (text->cursor_pos >= text->strlen[row]) {
+          if (row+1 < text->numlines) {
+            *change = text_create_change(text, TYPE_JOIN_ROW, 'Q',
+                                         text->cursor_pos, row);
+          } else {
+            return_val = FALSE;
+            break;
+          }
+        } else {
+          utf = text->line[row];
+          for (i = 0; i < text->cursor_pos; i++)
+            utf = g_utf8_next_char (utf);
+          c = g_utf8_get_char (utf);
+          *change = text_create_change (text, TYPE_DELETE_FORWARD, c,
+                                        text->cursor_pos, text->cursor_row);
+        }
+        text_delete_forward(text);
+        break;
+      case GDK_BackSpace:
+        return_val = TRUE;
+        row = text->cursor_row;
+        if (text->cursor_pos <= 0) {
+          if (row > 0) {
+            *change = text_create_change(text, TYPE_JOIN_ROW, 'Q',
+                                         text->strlen[row-1], row-1);
+          } else {
+            return_val = FALSE;
+            break;
+          }
+        } else {
+          utf = text->line[row];
+          for (i = 0; i < (text->cursor_pos - 1); i++)
+            utf = g_utf8_next_char (utf);
+          c = g_utf8_get_char (utf);
+          *change = text_create_change (text, TYPE_DELETE_BACKWARD, c,
+                                        text->cursor_pos - 1,
+                                        text->cursor_row);
+        }
+        text_delete_backward(text);
+        break;
+      case GDK_Return:
+        return_val = TRUE;
+        *change = text_create_change(text, TYPE_SPLIT_ROW, 'Q',
+                                     text->cursor_pos, text->cursor_row);
+        text_split_line(text);
+        break;
+      default:
+        if (str || (strlen>0)) {
 
-      return_val = TRUE;
-      utf = str;
-      for (i = 0; i < strlen; i++) {
-        c = g_utf8_get_char (utf);
-        utf = g_utf8_next_char (utf);
-        *change = text_create_change (text, TYPE_INSERT_CHAR, c,
-                                      text->cursor_pos, text->cursor_row);
-        text_insert_char (text, c);
-      }
-    }
-    break;
+          return_val = TRUE;
+          utf = str;
+          for (utf = str ; utf && *utf ; utf = g_utf8_next_char (utf)) {
+            c = g_utf8_get_char (utf);
+            
+            *change = text_create_change (text, TYPE_INSERT_CHAR, c,
+                                          text->cursor_pos, text->cursor_row);
+            text_insert_char (text, c);
+          }
+        }
+        break;
   }  
   
   return return_val;

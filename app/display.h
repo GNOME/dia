@@ -19,6 +19,7 @@
 #define DDISPLAY_H
 
 #include <gtk/gtk.h>
+#include <gtk/gtkimcontext.h>
 
 typedef struct _DDisplay DDisplay;
 
@@ -79,11 +80,7 @@ struct _DDisplay {
   GSList *display_areas;          /* Display areas list                */
   guint update_id;                /* idle handler ID for redraws       */
 
-#ifdef USE_XIM
-  /* input contexts */
-  GdkIC *ic;
-  GdkICAttr *ic_attr;
-#endif
+  GtkIMContext *im_context;
 };
 
 extern GdkCursor *default_cursor;
