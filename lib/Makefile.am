@@ -101,15 +101,9 @@ libdia_a_SOURCES =  \
 		charconv.h \
 		ps-utf8.c \
 		ps-utf8.h \
-		string_prerenderer.c \
-		string_prerenderer.h \
 		boundingbox.c \
 		boundingbox.h
 
-##		render_store.c \
-##		render_store.h \
-##		render_object.c \
-##		render_object.h \
 
 CPPFLAGS = \
 	$(LIBART_CFLAGS) \

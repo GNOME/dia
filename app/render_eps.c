@@ -114,11 +114,6 @@ static void draw_image(RendererEPS *renderer,
 		       real width, real height,
 		       DiaImage image);
 
-#ifdef HAVE_UNICODE
-static void predraw_string(RendererEPS *renderer,
-                           const char *text); 
-#endif /* HAVE_UNICODE */
-
 /* These functions are used to create the prolog.  Currently takes care
  * of defining necessary fonts.
  */
@@ -163,13 +158,7 @@ static RenderOps EpsRenderOps = {
 
   (DrawStringFunc) draw_string,
 
-  (DrawImageFunc) draw_image,
-  
-#ifdef HAVE_UNICODE
-  (PreDrawStringFunc) predraw_string,
-#else
-  (PreDrawStringFunc) NULL,
-#endif /* HAVE_UNICODE */
+  (DrawImageFunc) draw_image  
 };
 
 static void null_func() {}
@@ -206,13 +195,7 @@ static  RenderOps EpsPrologOps = {
 
   (DrawStringFunc) prolog_check_string,
 
-  (DrawImageFunc) null_func,
-  
-#ifdef HAVE_UNICODE
-  (PreDrawStringFunc) null_func,
-#else
-  (PreDrawStringFunc) null_func,
-#endif /* HAVE_UNICODE */
+  (DrawImageFunc) null_func
 };
 
 
@@ -386,9 +369,8 @@ static void print_define_font(gpointer key, gpointer value,
   DiaFont *font = (DiaFont *)value;
   gchar *fontname = (gchar *)key;
   FILE *file = (FILE *)data;
-
-
-#ifdef HAVE_FREETYPE
+ 
+#ifdef HAVE_FREETYPE   
   eps_add_font(file, font);
 #endif
 
@@ -557,14 +539,41 @@ prolog_define_font(RendererEPS *renderer, DiaFont *font, real height)
 
 static void
 prolog_check_string(RendererEPS *renderer,
-		    const char *text,
-		    Point *pos, Alignment alignment,
-		    Color *color)
+                    const char *text,
+                    Point *pos, Alignment alignment,
+                    Color *color)
 {
+#ifdef HAVE_UNICODE    
+    const char *utf8_buffer;
+    int utf8_len;
+
+    if ((renderer->psu) && (text) && (text != (const char *)(1))) {
+
+#ifndef UNICODE_WORK_IN_PROGRESS
+  /* <FIXME:> dia doesn't talk UTF-8 but the local charset. The PSUnicoder
+     talks UTF-8. We do a quick-and-dirty translation for now. */
+        utf8_buffer = charconv_local8_to_utf8(text);
+            /* </FIXME> */
+#else
+        utf8_buffer=text;
+#endif
+
+        utf8_len = strlen(utf8_buffer); /* deliberate */
+
+        if (utf8_len > 0) {
+            psu_check_string_encodings(renderer->psu,utf8_buffer);
+#ifndef UNICODE_WORK_IN_PROGRESS
+            g_free(utf8_buffer);
+#endif
+        }
+    }
+#endif /* HAVE_UNICODE */
+    
   /* In here we can grab all the chars needed, to allow incremental
    * font defs (or even just partial font defs).
    */
   /* But we won't do that just yet.
+     
    */
 }
 
@@ -1188,37 +1197,6 @@ set_font(RendererEPS *renderer, DiaFont *font, real height)
                     (float)height);
 }
 
-static void 
-predraw_string(RendererEPS *renderer,
-               const utfchar *text)
-{
-  char *utf8_buffer;
-  int utf8_len;
-
-  if ((!text)||(text == (const char *)(1))) return;
-
-#ifndef UNICODE_WORK_IN_PROGRESS
-  /* <FIXME:> dia doesn't talk UTF-8 but the local charset. The PSUnicoder
-     talks UTF-8. We do a quick-and-dirty translation for now. */
-  utf8_buffer = charconv_local8_to_utf8(text);
-  /* </FIXME> */
-#else
-  utf8_buffer=text;
-#endif
-
-  utf8_len = strlen(utf8_buffer); /* deliberate */
-
-  if (utf8_len <= 0) {
-    return; 
-  }
-  psu_check_string_encodings(renderer->psu,utf8_buffer);
-  
-#ifndef UNICODE_WORK_IN_PROGRESS
-  g_free(utf8_buffer);
-#endif
-}
-
-
 static void
 draw_string(RendererEPS *renderer,
 	    const utfchar *text,
@@ -1297,7 +1275,7 @@ draw_string(RendererEPS *renderer,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {
-  char *buffer;
+  const char *buffer;
   const char *str;
   int len;
 

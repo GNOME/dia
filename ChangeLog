@@ -1,3 +1,13 @@
+2002-03-05  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* lib/string_prerenderer.[ch] (REMOVED):
+	* lib/render.h:
+	* lib/diagramdata.c:
+	* lib/Makefile.am:
+	* app/render_eps.c: got rid of the string-specific string
+	prerenderer, transitioned its functionality towards Lars'
+	two-phase rendering
+
 2002-03-05  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* configure.in: Using Freetypes own check for ver >= 1.0.5.  You
