@@ -119,8 +119,8 @@ void       dia_color_selector_set_color (DiaColorSelector *cs,
 #define IS_DIAARROWSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_arrow_selector_get_type ())
 
 #define DEFAULT_ARROW ARROW_NONE
-#define DEFAULT_ARROW_LENGTH 0.8 
-#define DEFAULT_ARROW_WIDTH 0.8
+#define DEFAULT_ARROW_LENGTH DEFAULT_ARROW_SIZE
+#define DEFAULT_ARROW_WIDTH DEFAULT_ARROW_SIZE
 
 
 guint      dia_arrow_selector_get_type      (void);

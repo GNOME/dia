@@ -589,8 +589,8 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
 
 
   arc->start_arrow.type = ARROW_NONE;
-  arc->start_arrow.length = 0.8;
-  arc->start_arrow.width = 0.8;
+  arc->start_arrow.length = DEFAULT_ARROW_LENGTH;
+  arc->start_arrow.width = DEFAULT_ARROW_WIDTH;
   attr = object_find_attribute(obj_node, "start_arrow");
   if (attr != NULL)
     arc->start_arrow.type = data_enum(attribute_first_data(attr));
@@ -602,8 +602,8 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
     arc->start_arrow.width = data_real(attribute_first_data(attr));
 
   arc->end_arrow.type = ARROW_NONE;
-  arc->end_arrow.length = 0.8;
-  arc->end_arrow.width = 0.8;
+  arc->end_arrow.length = DEFAULT_ARROW_LENGTH;
+  arc->end_arrow.width = DEFAULT_ARROW_WIDTH;
   attr = object_find_attribute(obj_node, "end_arrow");
   if (attr != NULL)
     arc->end_arrow.type = data_enum(attribute_first_data(attr));

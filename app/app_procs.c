@@ -85,6 +85,7 @@ typedef void* poptContext;
 #include "dia_image.h"
 #include "persistence.h"
 #include "sheets.h"
+#include "utils.h"
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;
@@ -109,6 +110,35 @@ static gboolean handle_all_diagrams(GSList *files, char *export_file_name,
 static void print_credits(gboolean credits);
 
 static gboolean dia_is_interactive = TRUE;
+static void
+stderr_message_internal(char *title, const char *fmt,
+                        va_list *args,  va_list *args2);
+
+static void
+stderr_message_internal(char *title, const char *fmt,
+                        va_list *args,  va_list *args2)
+{
+  static gchar *buf = NULL;
+  static gint   alloc = 0;
+  gint len;
+
+  len = format_string_length_upper_bound (fmt, args);
+
+  if (len >= alloc) {
+    if (buf)
+      g_free (buf);
+    
+    alloc = nearest_pow (MAX(len + 1, 1024));
+    
+    buf = g_new (char, alloc);
+  }
+  
+  vsprintf (buf, fmt, *args2);
+  
+  fprintf(stderr,
+          "%s: %s\n", 
+          title,buf);
+}
 
 #ifdef GNOME
 
@@ -334,6 +364,7 @@ app_init (int argc, char **argv)
   gboolean nosplash = FALSE;
   gboolean credits = FALSE;
   gboolean version = FALSE;
+  gboolean log_to_stderr = FALSE;
 #ifdef GNOME
   GnomeClient *client;
 #endif
@@ -364,6 +395,8 @@ app_init (int argc, char **argv)
      N_("Export graphics size"), N_("WxH")},
     {"nosplash", 'n', POPT_ARG_NONE, &nosplash, 0,
      N_("Don't show the splash screen"), NULL },
+    {"log-to-stderr", 'l', POPT_ARG_NONE, &log_to_stderr, 0,
+     N_("Send error messages to stderr instead of showing dialogs."), NULL },
     {"credits", 'c', POPT_ARG_NONE, &credits, 0,
      N_("Display credits list and exit"), NULL },
     {"version", 'v', POPT_ARG_NONE, &version, 0,
@@ -442,6 +475,12 @@ app_init (int argc, char **argv)
 #endif
     exit(0);
   }
+
+  if (!dia_is_interactive)
+    log_to_stderr = TRUE;
+  
+  if (log_to_stderr)
+    set_message_func(stderr_message_internal);
 
   print_credits(credits);
 

@@ -468,8 +468,8 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
     bezierline->dashlength = data_real(attribute_first_data(attr));
 
   bezierline->start_arrow.type = ARROW_NONE;
-  bezierline->start_arrow.length = 0.8;
-  bezierline->start_arrow.width = 0.8;
+  bezierline->start_arrow.length = DEFAULT_ARROW_LENGTH;
+  bezierline->start_arrow.width = DEFAULT_ARROW_WIDTH;
   attr = object_find_attribute(obj_node, "start_arrow");
   if (attr != NULL)
     bezierline->start_arrow.type = data_enum(attribute_first_data(attr));

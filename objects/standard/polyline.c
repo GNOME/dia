@@ -429,8 +429,8 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
     polyline->dashlength = data_real(attribute_first_data(attr));
 
   polyline->start_arrow.type = ARROW_NONE;
-  polyline->start_arrow.length = 0.8;
-  polyline->start_arrow.width = 0.8;
+  polyline->start_arrow.length = DEFAULT_ARROW_LENGTH;
+  polyline->start_arrow.width = DEFAULT_ARROW_WIDTH;
   attr = object_find_attribute(obj_node, "start_arrow");
   if (attr != NULL)
     polyline->start_arrow.type = data_enum(attribute_first_data(attr));
@@ -442,8 +442,8 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
     polyline->start_arrow.width = data_real(attribute_first_data(attr));
 
   polyline->end_arrow.type = ARROW_NONE;
-  polyline->end_arrow.length = 0.8;
-  polyline->end_arrow.width = 0.8;
+  polyline->end_arrow.length = DEFAULT_ARROW_LENGTH;
+  polyline->end_arrow.width = DEFAULT_ARROW_WIDTH;
   attr = object_find_attribute(obj_node, "end_arrow");
   if (attr != NULL)
     polyline->end_arrow.type = data_enum(attribute_first_data(attr));

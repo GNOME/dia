@@ -2,6 +2,11 @@
 
 	* app/menus.c: Get rid of GNOME menus. Deprecated APIs in GNOME 2.
 
+2004-02-28  Lars Clausen  <lars@raeder.dk>
+
+	* lib/text.c (text_key_event): Patch from Kouhei Sutou
+	<kou@cozmixng.org>: Fix wrong utf8 strlen handling.
+
 2004-02-27  Lars Clausen  <lars@raeder.dk>
 
 	* KNOWN_BUGS: Added info on most commonly reported bugs, with
@@ -28,6 +33,10 @@
 2004-02-24  Adam Weinberger  <adamw@FreeBSD.org>
 
 	* configure.in: Added 'en_CA' (Canadian English) to ALL_LINGUAS.
+
+2004-02-23  Lars Clausen  <lars@raeder.dk>
+
+	* app/app_procs.c (app_init): Comments for translators.
 
 2004-02-22  Hubert Figuiere  <hfiguiere@teaser.fr>
 
@@ -64,6 +73,16 @@
 	* objects/standard/arc.c (arc_update_handles): Check to avoid
 	crash when start and end points are the same.
 
+2004-02-19  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/bezier.c: 
+	* objects/standard/line.c (line_load): 
+	* objects/standard/polyline.c (polyline_load): 
+	* objects/standard/zigzagline.c (zigzagline_load): 
+	* objects/standard/arc.c (arc_load): 
+	* lib/widgets.h (DEFAULT_ARROW_WIDTH): Use DEFAULT_ARROW_SIZE
+	instead of hardcoding.
+
 2004-02-18  Hubert Figuiere  <hfiguiere@teaser.fr>
 
 	* app/disp_callbacks.c (popup_object_menu): append a menu item to 
@@ -73,7 +92,7 @@
 
 	* app/app_procs.c: declare rc properly with the proper #ifdef
 
-2004-02-17  Lars Clausen  <lrclause@cs.uiuc.edu>
+2004-02-17  Lars Clausen  <lars@raeder.dk>
 
 	* plug-ins/xfig/xfig-import.c: Correct ordering of imported FIG
 	objects (which seemingly FIG itself breaks, or else there is no
