@@ -1,5 +1,9 @@
 2003-07-11  Lars Clausen  <lrclause@cs.uiuc.edu>
-	
+
+	* app/linewidth_area.c: Patch from Krzysztof Foltman
+	<kfoltman@onet.pl>: Make linewidth dialog conform to HIG (well,
+	conform more, at least:).
+
 	* plug-ins/metapost/render_metapost.[ch] : Applied patch from
 	Chris Sperandio <sperandi@eng.usf.edu>:  Fixed linewidths and
 	arcs.  Implemented images (though there is some pixelization and
