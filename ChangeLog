@@ -1,5 +1,11 @@
 2004-11-06  Hans Breuer  <hans@breuer.org>
 
+        * plug-ins/wmf/wmf.cpp plug-ins/wmf/wmf_gdi.* : added/used
+        RoundRect() for high level renderer api implementation thus
+        fixing bug #138744 reported by Lars Clausen
+
+2004-11-06  Hans Breuer  <hans@breuer.org>
+
         * app/prefernces.c : applied patch to make showing the diagram 
         menubar the default (advanced users know how to switch it off)
         Fixes bug #150706, Steffen Macke

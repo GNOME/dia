@@ -342,6 +342,22 @@ Rectangle(HDC hdc, wmfint iLeft, wmfint iTop, wmfint iRight, wmfint iBottom)
 }
 
 BOOL
+RoundRect(HDC hdc, int iLeft, int iTop, int iRight, int iBottom, int iWidth, int iHeight)
+{
+  g_return_val_if_fail(hdc != NULL, FALSE);
+
+  WriteRecHead(hdc, 0x061C, 6);
+  fwrite_le(&iHeight, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&iWidth, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&iBottom, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&iRight, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&iTop, sizeof(wmfint), 1, hdc->file);
+  fwrite_le(&iLeft, sizeof(wmfint), 1, hdc->file);
+
+  return TRUE;
+}
+
+BOOL
 Arc(HDC hdc, wmfint iLeft, wmfint iTop, wmfint iRight, wmfint iBottom,
     wmfint iStartX, wmfint iStartY, wmfint iEndX, wmfint iEndY)
 {

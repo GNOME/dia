@@ -1006,7 +1006,49 @@ draw_image(DiaRenderer *self,
 #endif /* SAVE_EMF */
 }
 
-//XXX: use RoundRect
+static void
+draw_rounded_rect (DiaRenderer *self, 
+	           Point *ul_corner, Point *lr_corner,
+	           Color *colour, real radius)
+{
+    WmfRenderer *renderer = WMF_RENDERER (self);
+
+    W32::HPEN hPen;
+
+    DIAG_NOTE(renderer, "draw_rounded_rect %f,%f -> %f,%f %f\n", 
+              ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y, radius);
+
+    hPen = UsePen(renderer, colour);
+
+    W32::RoundRect(renderer->hFileDC,
+                   SCX(ul_corner->x), SCY(ul_corner->y),
+                   SCX(lr_corner->x), SCY(lr_corner->y),
+                   SCX(radius*2), SCY(radius*2));
+
+    DonePen(renderer, hPen);
+}
+
+static void
+fill_rounded_rect (DiaRenderer *self, 
+	           Point *ul_corner, Point *lr_corner,
+	           Color *colour, real radius)
+{
+    WmfRenderer *renderer = WMF_RENDERER (self);
+    W32::HGDIOBJ hBrush, hBrOld;
+    W32::COLORREF rgb = W32COLOR(colour);
+
+    DIAG_NOTE(renderer, "fill_rounded_rect %f,%f -> %f,%f\n", 
+              ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
+
+    hBrush = W32::CreateSolidBrush(rgb);
+    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+
+    draw_rounded_rect(self, ul_corner, lr_corner, NULL, radius);
+
+    W32::SelectObject(renderer->hFileDC, 
+                    W32::GetStockObject (HOLLOW_BRUSH) );
+    W32::DeleteObject(hBrush);
+}
 
 /* GObject boiler plate */
 static void wmf_renderer_class_init (WmfRendererClass *klass);
@@ -1093,6 +1135,8 @@ wmf_renderer_class_init (WmfRendererClass *klass)
 #ifndef SAVE_EMF
   renderer_class->fill_bezier   = fill_bezier;
 #endif
+  renderer_class->draw_rounded_rect = draw_rounded_rect;
+  renderer_class->fill_rounded_rect = fill_rounded_rect;
 }
 
 /* plug-in export api */

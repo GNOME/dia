@@ -310,6 +310,9 @@ BOOL
 Rectangle(HDC hdc, wmfint iLeft, wmfint iTop, wmfint iRight, wmfint iBottom);
 
 BOOL
+RoundRect(HDC hdc, wmfint iLeft, wmfint iTop, wmfint iRight, wmfint iBottom, wmfint iWidth, wmfint iHeight);
+
+BOOL
 Arc(HDC hdc, wmfint iLeft, wmfint iTop, wmfint iRight, wmfint iBottom,
     wmfint iStartX, wmfint iStartY, wmfint iEndX, wmfint iEndY);
 
