@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-16 11:34+0200\n"
-"PO-Revision-Date: 2004-08-16 11:50+0200\n"
+"POT-Creation-Date: 2004-09-19 17:12+0200\n"
+"PO-Revision-Date: 2004-09-19 17:17+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -557,7 +557,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Configurar página"
 
-#: app/disp_callbacks.c:81 app/properties.c:152
+#: app/disp_callbacks.c:83 app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -565,11 +565,11 @@ msgstr ""
 "Este objeto no soporta deshacer/rehacer.\n"
 "Información para deshacer borrada."
 
-#: app/disp_callbacks.c:116
+#: app/disp_callbacks.c:118
 msgid "Properties..."
 msgstr "Propiedades..."
 
-#: app/disp_callbacks.c:919
+#: app/disp_callbacks.c:926
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -604,7 +604,7 @@ msgstr "Descartar los cambios"
 
 #: app/export_png.c:134 app/load_save.c:904 app/render_eps.c:103
 #: plug-ins/cairo/diacairo.c:913 plug-ins/cgm/cgm.c:1157
-#: plug-ins/dxf/dxf-export.c:505 plug-ins/hpgl/hpgl.c:732
+#: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:732
 #: plug-ins/metapost/render_metapost.c:964
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:152 plug-ins/wpg/wpg.c:1066
@@ -1460,7 +1460,7 @@ msgstr ""
 "No se puede encontrar la entrada del menú «%s»\n"
 "Probablemente se deba a un problema de i18n (pruebe con LANG=C)."
 
-#: app/modify_tool.c:328
+#: app/modify_tool.c:327
 msgid "Couldn't get GTK settings"
 msgstr "No se pudieron obtener las preferencias de GTK"
 
@@ -2292,15 +2292,15 @@ msgstr ""
 "No se pudo abrir «%s»\n"
 "«%s»"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:791
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:792
 msgid "Left"
 msgstr "Izquierda"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:797
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:798
 msgid "Center"
 msgstr "Centro"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:803
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:804
 msgid "Right"
 msgstr "Derecha"
 
@@ -2365,59 +2365,59 @@ msgstr "Color de relleno"
 msgid "Text colour"
 msgstr "Color de texto"
 
-#: lib/widgets.c:395
+#: lib/widgets.c:396
 msgid "Other fonts..."
 msgstr "Otras tipografías..."
 
-#: lib/widgets.c:522
+#: lib/widgets.c:523
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "No se pudo encontrar la familia de tipografías para %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:587
+#: lib/widgets.c:588
 msgid "Select font"
 msgstr "Seleccionar tipografía"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:939 objects/FS/function.c:1063
+#: lib/widgets.c:940 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Sólido"
 
-#: lib/widgets.c:945
+#: lib/widgets.c:946
 msgid "Dashed"
 msgstr "Discontinuo"
 
-#: lib/widgets.c:951
+#: lib/widgets.c:952
 msgid "Dash-Dot"
 msgstr "Línea-Punto"
 
-#: lib/widgets.c:957
+#: lib/widgets.c:958
 msgid "Dash-Dot-Dot"
 msgstr "Línea-Punto-Punto"
 
-#: lib/widgets.c:963
+#: lib/widgets.c:964
 msgid "Dotted"
 msgstr "Punteado"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:982
+#: lib/widgets.c:983
 msgid "Dash length: "
 msgstr "Longitud de la discontinuidad: "
 
-#: lib/widgets.c:1137
+#: lib/widgets.c:1138
 msgid "Select color"
 msgstr "Seleccione color"
 
-#: lib/widgets.c:1355
+#: lib/widgets.c:1356
 msgid "Size: "
 msgstr "Tamaño: "
 
-#: lib/widgets.c:1504
+#: lib/widgets.c:1505
 msgid "Select image file"
 msgstr "Seleccionar archivo de imagen"
 
-#: lib/widgets.c:1540
+#: lib/widgets.c:1541
 msgid "Browse"
 msgstr "Navegar"
 
@@ -4778,7 +4778,7 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtro de exportación de Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:547 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:551 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -5493,7 +5493,7 @@ msgstr ""
 
 #: sheets/ChemEng.sheet.in.h:36
 msgid "Reciprocating Compressor or Pump"
-msgstr ""
+msgstr "Bomba o compresor recíproco"
 
 #: sheets/ChemEng.sheet.in.h:37
 msgid "Regulable Valve"
@@ -5508,9 +5508,8 @@ msgid "Sealed Tank"
 msgstr "Tanque sellado"
 
 #: sheets/ChemEng.sheet.in.h:40
-#, fuzzy
 msgid "Simple Furnace"
-msgstr "Impresora simple"
+msgstr "Mueble simple"
 
 #: sheets/ChemEng.sheet.in.h:41
 msgid "Simple Heat Exchanger"
@@ -5546,11 +5545,11 @@ msgstr "Tanque con cubierta flotante"
 
 #: sheets/ChemEng.sheet.in.h:49
 msgid "Tray Column, detailed"
-msgstr ""
+msgstr "Columna de bandejas, detallado"
 
 #: sheets/ChemEng.sheet.in.h:50
 msgid "Tray Column, simple"
-msgstr ""
+msgstr "Columna de bandejas, simple"
 
 #: sheets/ChemEng.sheet.in.h:51
 msgid "Valve"
@@ -6282,7 +6281,7 @@ msgstr "Un objetivo i*"
 
 #: sheets/Istar.sheet.in.h:5
 msgid "An i* means-ends link"
-msgstr ""
+msgstr "Una i* significa fin de enlace"
 
 #: sheets/Istar.sheet.in.h:6
 msgid "An i* negative contribution"
