@@ -16,10 +16,17 @@ are), and only a limited set of the CSS attributes are supported.
 A number of connection points can be associated with the shape, which
 are specified in the same coordinate system as the shape description.
 
-A text box can be associated with the shape.  The custom shape code
-will make sure that the text entered into it fits the text box by
-resizing the image if necessary.  The text box is specified in the
-same units as the shape.
+A text box can be associated with the shape. The text box is also 
+specified in the same coordinate system as the shape description. 
+
+To choose size and position of the text box, you can think of one 
+rectangle to contain the text box, and another one to  contain all 
+other svg elements (call it the image rectangle): When you get the 
+shape to the canvas, and write some text, all of it has to  go inside 
+the text box; if necessary, this text box will grow, and, in the same 
+proportion, the image rectangle will also grow.  
+
+  
 
 The rest is taken care of for you (resizing, moving, line connection,
 loading, saving, undo, etc).
@@ -33,7 +40,7 @@ A typical shape file may look something like this:
 
   <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
          xmlns:svg="http://www.w3.org/2000/svg">
-    <name>Circuit - NPN Transistor</name>
+    <name>Circuit with identifiers - NPN Transistor</name>
     <icon>npn.xpm</icon>
     <connections>
       <point x="0" y="0"/>
@@ -43,7 +50,9 @@ A typical shape file may look something like this:
 
     <aspectratio type="fixed"/>
 
-    <svg:svg width="3.0" height="3.0">
+    <textbox x1="4" y1="-3" x2="12" y2="3" />
+
+    <svg:svg>
       <svg:line x1="0" y1="0" x2="3" y2="0" />
       <svg:line x1="3" y1="-3" x2="3" y2="3" />
       <svg:line x1="3" y1="-2" x2="6" y2="-4" />
@@ -51,6 +60,7 @@ A typical shape file may look something like this:
 
       <svg:polyline points="5,4 6,4 5.6154,3.0769" />
     </svg:svg>
+
   </shape>
 
 Only the name and svg elements are required in the shape file.  The
@@ -58,11 +68,15 @@ rest are optional.
 
 The name element give the name of the object.  The
 name is a unique identifier for this shape that is used for saving and
-loading.
+loading. 
 
-The icon element specifies an xpm file that is used as the icon in the
-dia toolbox.  The filename can be relative to the shape file.  If it
-is not given, a default custom shape icon will be used.
+As in the example, you may use "compound names". Many shapes have first 
+part of its name to indicate the sheet in which they appear, but this
+is optional.
+   
+The icon element specifies an xpm file or a png file that is used as 
+the icon in the dia toolbox.  The filename can be relative to the shape 
+file.  If it is not given, a default custom shape icon will be used.
 
 The connections section specifies a number of connection points for
 the shape.  The coordinate system for these points is the same as the
@@ -77,11 +91,12 @@ distorted.  The three possibilities are:
 The last option allows you to specify a range of allowable amounts of
 distortion, which may be useful in some cases.
 
-The textbox element (not shown) allows you to associate some text with
+The textbox element allows you to associate some text with
 the shape.  The syntax is:
   <textbox x1="left" y1="top" x2="right" y2="bottom"/>
-Where the attributes give the bounds of the text box in the same
-coordinate system as the SVG shape description.
+(Only one textbox per shape) Where the attributes give the bounds of 
+the text box in the same coordinate system as the SVG shape description.
+
 
 The svg element describes the shape.  The width and height attributes
 are ignored, and only given to comply with the SVG specification.  For
@@ -127,6 +142,9 @@ So to draw a rectangle with a hairline stroke, the following would do
 the trick:
   <svg:rect style="stroke-width: 0" x="..." y="..." width="..." height="..."/>
 
+
+Ordinates x and y grow as in Dia. 
+
 The recognised drawing elements are:
 
 <svg:g>
@@ -147,9 +165,9 @@ The recognised drawing elements are:
   This is a polygon.  The points argument has the same format as the
   polyline.
 
-<svg:rect x1="..." y1="..." x2="..." y2="..."/>
+<svg:rect x1="..." y1="..." width="..." height="..."/>
   This is a rectangle.  The upper left corner is (x1,y1), and the lower
-  right corner is (x2,y2).
+  right corner is (x1+width,y1+height).
 
 <svg:circle cx="..." cy="..." r="..."/>
   This is a circle with centre (cx,cy) and radius r.
@@ -185,6 +203,49 @@ The recognised drawing elements are:
   If the path is closed with z or Z, then it can be filled.
   Otherwise, it will just be drawn.
 
+The Sheet description
+=====================
+
+You can put several shapes in one sheet: the shapes you create  or any 
+other shape or object "belonging" to other sheets.
+
+A simple sheet file may look something as this:
+
+
+<?xml version="1.0" encoding="utf-8"?> 
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Circuit with identifiers</name>
+  <name xml:lang="es">Circuito con identificadores</name>
+  <description>Components for circuit diagrams</description>
+  <description xml:lang="es">Componentes para diagramas de circuitos</description>
+  <contents>
+    <object name="Circuit with identifiers - NPN Transistor">
+     <description>A bipolar npn transistor</description>
+     <description xml:lang="es">Un transistor bipolar npn identificable</description>
+    </object>
+    <object name="UML - Objet">
+     <description>An UML object</description>
+     <description xml:lang="es">Un objeto UML</description>
+    </object>
+   </contents>
+</sheet>
+ 
+How Dia helps to create and manage sheets and shapes.
+=====================================================
+
+You can use Dia with its available elements to draw a shape and then 
+export it to a shape file, by using  
+   File (of  diagram)->Export->By extension->Shape. 
+But until now, this shapes  don't have any text box. (They are expected 
+to manage some svg:text but not a text box). If you need one,  you can 
+edit the file. 
+Together with the shape file, you get a png file (after accepting the 
+proposed size) which can be used for the shape's icon. 
+
+By using
+      File(of principal menu)->Sheets and Objects 
+you can create  new sheets;  and add,  remove and parcially edit  shapes;
+and copy or move shapes from one sheet to other.  
 
 Design Notes
 ============
@@ -192,9 +253,21 @@ Design Notes
 The custom shape code is designed so that a sheet of objects can be
 self contained in a single directory.  Installing new shapes can be as
 easy as untaring a .tar.gz file to ~/.dia/shapes or
-$(prefix)/share/dia/shapes.
+$(prefix)/share/dia/shapes, with the sheet description going to 
+~/.dia/sheets
+
+
+
+
+
+     
 
 If you have any suggestions for this code, please tell me.
 
 
   James Henstridge <james@daa.com.au>
+ with some modifications written by 
+ Dolores Alia de Saravia<loli@unsa.edu.ar>     
+
+
+
