@@ -27,7 +27,7 @@ libuml_objects_la_SOURCES = \
 			classicon.c \
 			state.c
 
-libuml_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
+libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 libuml_objects_la_LIBADD = @GTK_LIBS@
 
 INCLUDES = -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@

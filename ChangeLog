@@ -1,3 +1,29 @@
+1999-08-22  Alexander Larsson  <alla@lysator.liu.se>
+
+	* HACKING:
+	Update Gtk+ 1.0.5 comment to 1.2.0.
+
+	* INSTALL:
+	Demand libtool 1.3
+
+	* acconfig.h:
+	Add HAVE_LIBPOPT
+
+	* configure.in:
+	Make sure we don't propagate -ldl and -lpopt to all LIBS
+	by adding new var APP_LIBS that only app/dia links with.
+		
+	* app/Makefile.am:
+	Update run_dia.sh to load custom and flowchart objects.
+
+	* objects/ER/Makefile.am:
+	* objects/FS/Makefile.am:
+	* objects/UML/Makefile.am:
+	* objects/network/Makefile.am:
+	* objects/standard/Makefile.am:
+	* objects/sybase/Makefile.am:
+	Don't build versioned libs.	
+	
 1999-08-22  James Henstridge  <james@daa.com.au>
 
 	* configure.in: added objects/custom/Circuit/Makefile to AC_OUTPUT

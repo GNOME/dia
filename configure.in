@@ -26,16 +26,16 @@ AC_ISC_POSIX
 dnl Checks for libraries.
 AM_PATH_GTK(1.2.0)
 
-dnl Checks for dynamic linking
+APP_LIBS=""
+AC_SUBST(APP_LIBS)
 
-AC_CHECK_LIB(dl,dlopen)
-if test "$ac_cv_lib_dl_dlopen" = "yes"; then
-  AC_CHECK_FUNCS(dlopen)
-else
-AC_CHECK_FUNCS(dlopen)
-if test "$ac_cv_func_dlopen" = "no"; then
+dnl Checks for dynamic linking
+AC_CHECK_LIB(dl,dlopen, [APP_LIBS="$APP_LIBS -ldl"] )
+if test "$ac_cv_lib_dl_dlopen" = "no"; then
+ AC_CHECK_FUNCS(dlopen)
+ if test "$ac_cv_func_dlopen" = "no"; then
   AC_MSG_ERROR(Can't find dlopen.)
-fi
+ fi
 fi
 
 DIA_DLSYM_USCORE
@@ -64,7 +64,8 @@ dnl
 dnl Popt
 dnl
 
-AC_CHECK_LIB(popt, poptPeekArg)
+AC_CHECK_LIB(popt, poptPeekArg, [AC_DEFINE(HAVE_LIBPOPT)
+		   APP_LIBS="$APP_LIBS -lpopt"])
 AC_CHECK_HEADERS(popt.h)
 
 dnl

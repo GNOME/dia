@@ -10,7 +10,7 @@ liber_objects_la_SOURCES = \
 			participation.c \
 			er.c
 
-liber_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
+liber_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 liber_objects_la_LIBADD = @GTK_LIBS@
 
 INCLUDES = -I$(srcdir)/../../lib @GTK_CFLAGS@ @GNOME_CFLAGS@

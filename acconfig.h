@@ -40,6 +40,9 @@
 /* Define as 1 if you have catgets and don't want to use GNU gettext.  */
 #undef HAVE_CATGETS
 
+/* Define if you have the popt library (-lpopt).  */
+#undef HAVE_LIBPOPT
+
 /* Define as 1 if you have gettext and don't want to use GNU gettext.  */
 #undef HAVE_GETTEXT
 

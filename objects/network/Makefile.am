@@ -19,6 +19,6 @@ libnetwork_objects_la_SOURCES = \
 			      rj45plug.c \
 			      scead-plug.c
 
-libnetwork_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
+libnetwork_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 INCLUDES = -I$(srcdir)/../../lib @GTK_CFLAGS@ @GNOME_CFLAGS@

@@ -13,6 +13,6 @@ libstandard_objects_la_SOURCES = 	arc.c \
 			standard.c \
 			image.c 
 
-libstandard_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
+libstandard_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 INCLUDES = -I$(srcdir)/../../lib @GTK_CFLAGS@ @GNOME_CFLAGS@

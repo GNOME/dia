@@ -1,7 +1,7 @@
 Feel free to hack away at dia, but contact me if you
 do any larger work.
 
-Also, *make sure* that it works with gtk 1.0.5 too,
+Also, *make sure* that it works with gtk 1.2.0 too,
 and if you add any GNOME stuff, it *must* be
 selectable at compile-time.
 

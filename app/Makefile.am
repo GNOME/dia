@@ -67,7 +67,7 @@ dia_SOURCES = \
 	    tool.h \
 	    pixmaps.h 
 
-dia_LDADD = ../lib/libdia.a @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@
+dia_LDADD = ../lib/libdia.a @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@
 
 CPPFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\" \
@@ -87,7 +87,14 @@ LDFLAGS = --export-dynamic
 run_dia.sh: Makefile.am
 	 echo "#!$(SHELL) " > run_dia.sh
 	 echo "export DIA_LIB_PATH" >> run_dia.sh
-	 echo DIA_LIB_PATH=`pwd`/../objects/standard/.libs:`pwd`/../objects/UML/.libs:`pwd`/../objects/ER/.libs:`pwd`/../objects/network/.libs:`pwd`/../objects/FS/.libs:`pwd`/../objects/sybase/.libs >> run_dia.sh
+	 echo DIA_LIB_PATH=`pwd`/../objects/standard/.libs >> run_dia.sh
+	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/UML/.libs >> run_dia.sh
+	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/ER/.libs >> run_dia.sh
+	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/network/.libs >> run_dia.sh
+	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/FS/.libs >> run_dia.sh
+	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/sybase/.libs >> run_dia.sh
+	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/flowchart/.libs >> run_dia.sh
+	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/custom/.libs >> run_dia.sh
 	 echo >> run_dia.sh
 	 echo "`pwd`/dia \$$*" >> run_dia.sh
 	 chmod a+x run_dia.sh

@@ -13,6 +13,6 @@ libsybase_objects_la_SOURCES = \
 			      rsm.c \
 			      sybase.c
 
-libsybase_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
+libsybase_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 INCLUDES = -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@
