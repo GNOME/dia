@@ -1,3 +1,10 @@
+2000-03-06  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/display.c:
+	* app/export_png.c:
+	* app/render_libart.[ch]:
+	Don't export png:s with an interactive libart renderer.
+
 2000-03-03  Asbjorn Pettersen  <asbjornP@dualog.no>
 
 	* lib/arrows.c (finite): define finite(d) isfinite(d)  for OS/2
