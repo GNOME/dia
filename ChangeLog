@@ -1,3 +1,11 @@
+1999-10-17  Alexander Larsson  <alla@lysator.liu.se>
+
+	* dia.spec:
+	Updated version to 0.80
+
+	* configure.in:
+	Updated version to 0.80cvs
+
 1999-04-08  Alexander Larsson  <alla@lysator.liu.se>
 
 	* Released Dia 0.80
