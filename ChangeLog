@@ -1,3 +1,8 @@
+2001-04-01  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
+
+	* objects/FS/flow-ortho.c: Fixed a crashbug causes by not
+	accouting for handle ordering through copy and save. (#51479)
+
 2001-03-31  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* sheets/Circuit.sheet: Norwegian translation mistagged to German.

@@ -485,7 +485,7 @@ orthflow_copy(Orthflow *orthflow)
   orthconn_copy(orth, neworth);
 
   neworthflow->text_handle = orthflow->text_handle;
-  newobj->handles[2] = &neworthflow->text_handle;
+  newobj->handles[orth->numpoints-1] = &neworthflow->text_handle;
 
   neworthflow->text = text_copy(orthflow->text);
   neworthflow->type = orthflow->type;
@@ -576,7 +576,9 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   orthflow->text_handle.type = HANDLE_MINOR_CONTROL;
   orthflow->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   orthflow->text_handle.connected_to = NULL;
-  obj->handles[2] = &orthflow->text_handle;
+  /* Mein Gott!  The extra handle was never added */
+  object_add_handle(obj, &orthflow->text_handle);
+  obj->handles[orth->numpoints-1] = &orthflow->text_handle;
 
   extra->start_long = 
     extra->start_trans = 
