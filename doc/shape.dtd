@@ -71,6 +71,14 @@
   height CDATA #REQUIRED
   style CDATA #IMPLIED >
 
+<!ELEMENT svg:image EMPTY >
+<!ATTLIST svg:image
+  x CDATA #IMPLIED
+  y CDATA #IMPLIED
+  width CDATA #REQUIRED
+  height CDATA #REQUIRED
+  xlink:href CDATA #REQUIRED >
+
 <!ELEMENT svg:circle EMPTY >
 <!ATTLIST svg:circle
   cx CDATA #REQUIRED

@@ -32,6 +32,7 @@
 #include "shape_info.h"
 #include "custom_util.h"
 #include "custom_object.h"
+#include "dia_image.h"
 #include "intl.h"
 
 #define FONT_HEIGHT_DEFAULT 1
@@ -53,7 +54,6 @@ shape_info_load(const gchar *filename)
   g_hash_table_insert(name_to_info, info->name, info);
   g_assert(shape_info_getbyname(info->name)==info);
 
-  //custom_setup_properties(info);
   return info;
 }
 
@@ -421,7 +421,7 @@ parse_path(ShapeInfo *info, const char *path_str, DiaSvgGraphicStyle *s)
 
 static void
 parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
-	       DiaSvgGraphicStyle *style)
+               DiaSvgGraphicStyle *style, const gchar *filename)
 {
   xmlChar *str;
   char *old_locale;
@@ -657,9 +657,61 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         parse_path(info, str, &s);
         xmlFree(str);
       }
+    } else if (!strcmp(node->name, "image")) {
+      GraphicElementImage *image = g_new0(GraphicElementImage, 1);
+
+      el = (GraphicElement *)image;
+      image->type = GE_IMAGE;
+      str = xmlGetProp(node, "x");
+      if (str) {
+        old_locale = setlocale(LC_NUMERIC, "C");
+        image->topleft.x = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
+      }
+      str = xmlGetProp(node, "y");
+      if (str) {
+        old_locale = setlocale(LC_NUMERIC, "C");
+        image->topleft.y = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
+      }
+      str = xmlGetProp(node, "width");
+      if (str) {
+        old_locale = setlocale(LC_NUMERIC, "C");
+        image->width = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
+      }
+      str = xmlGetProp(node, "height");
+      if (str) {
+        old_locale = setlocale(LC_NUMERIC, "C");
+        image->height = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
+      }
+      str = xmlGetProp(node, "xlink:href");
+      if (!str) /* this doesn't look right but it appears to work w/o namespace --hb */
+        str = xmlGetProp(node, "href");
+      if (str) {
+        gchar *imgfn = g_filename_from_uri(str, NULL, NULL);
+
+        if (!imgfn)
+	  /* despite it's name it ensures an absolute filename */
+          imgfn = custom_get_relative_filename(filename, str);
+
+        image->image = dia_image_load(imgfn);
+        /* w/o the image we would crash later */
+        if (!image->image) {
+          g_warning("failed to load image file %s", imgfn ? imgfn : "(NULL)");
+          image->image = dia_image_get_broken();
+        }
+        g_free(imgfn);
+        xmlFree(str);
+      }
     } else if (!strcmp(node->name, "g")) {
           /* add elements from the group element */
-      parse_svg_node(info, node, svg_ns, &s);
+      parse_svg_node(info, node, svg_ns, &s, filename);
     }
     if (el) {
       el->any.s = s;
@@ -731,6 +783,12 @@ update_bounds(ShapeInfo *info)
 	  check_point(info, &el->path.points[i].p1);
 	}
       break;
+    case GE_IMAGE:
+      check_point(info, &(el->image.topleft));
+      pt.x = el->image.topleft.x + el->image.width;
+      pt.y = el->image.topleft.y + el->image.height;
+      check_point(info, &pt);
+      break;
     }
   }
 }
@@ -745,9 +803,6 @@ load_shape_info(const gchar *filename)
   char *tmp;
   char *old_locale;
   int ext_size = 0;
-#if 0
-  int descr_score = -1;
-#endif
   
   if (!doc) {
     g_warning("parse error for %s", filename);
@@ -791,26 +846,6 @@ load_shape_info(const gchar *filename)
       g_free(info->name);
       info->name = g_strdup(tmp);
       xmlFree(tmp);
-#if 0
-    } else if (node->ns == shape_ns && !strcmp(node->name, "description")) {
-      gint score;
-
-      /* compare the xml:lang property on this element to see if we get a
-       * better language match.  LibXML seems to throw away attribute
-       * namespaces, so we use "lang" instead of "xml:lang" */
-      tmp = xmlGetProp(node, "xml:lang");
-      if (!tmp) tmp = xmlGetProp(node, "lang");
-      score = intl_score_locale(tmp);
-      if (tmp) free(tmp);
-
-      if (descr_score < 0 || score < descr_score) {
-	descr_score = score;
-	tmp = xmlNodeGetContent(node);
-	g_free(info->description);
-	info->description = g_strdup(tmp);
-	xmlFree(tmp);
-      }
-#endif
     } else if (node->ns == shape_ns && !strcmp(node->name, "icon")) {
       tmp = xmlNodeGetContent(node);
       g_free(info->icon);
@@ -940,7 +975,7 @@ load_shape_info(const gchar *filename)
       };
 
       dia_svg_parse_style(node, &s);
-      parse_svg_node(info, node, svg_ns, &s);
+      parse_svg_node(info, node, svg_ns, &s, filename);
       update_bounds(info);
     }
 	else if (!strcmp(node->name, "ext_attributes")) {
@@ -958,10 +993,8 @@ shape_info_print(ShapeInfo *info)
 {
   GList *tmp;
   int i;
+
   g_print("Name        : %s\n", info->name);
-#if 0
-  g_print("Description : %s\n", info->description);
-#endif
   g_print("Connections :\n");
   for (i = 0; i < info->nconnections; i++)
     g_print("  (%g, %g)\n", info->connections[i].x, info->connections[i].y);
@@ -1056,6 +1089,12 @@ shape_info_print(ShapeInfo *info)
 		  el->path.points[i].p3.y);
 	  break;
 	}
+      break;
+    case GE_IMAGE :
+      g_print("  image topleft=(%g, %g) width=%g height=%g file=%s\n",
+              el->image.topleft.x, el->image.topleft.y,
+              el->image.width, el->image.height,
+              el->image.image ? dia_image_filename(el->image.image) : "(nil)");
       break;
     default:
       break;

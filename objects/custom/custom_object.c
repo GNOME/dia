@@ -45,6 +45,7 @@
 #include "message.h"
 #include "sheet.h"
 #include "properties.h"
+#include "dia_image.h"
 #include "custom_object.h"
 
 #include "pixmaps/custom.xpm"
@@ -464,6 +465,18 @@ custom_distance_from(Custom *custom, Point *point)
       }
       dist = distance_rectangle_point(&rect, point);
       break;
+    case GE_IMAGE:
+      p2.x = el->image.topleft.x + el->image.width;
+      p2.y = el->image.topleft.y + el->image.height;
+      transform_coord(custom, &el->image.topleft, &p1);
+      transform_coord(custom, &p2, &p2);
+
+      rect.left   = p1.x;
+      rect.top    = p1.y;
+      rect.right  = p2.x;
+      rect.bottom = p2.y;
+      dist = distance_rectangle_point(&rect, point);
+      break;
     case GE_TEXT:
       custom_reposition_text(custom, &el->text);
       dist = text_distance_from(el->text.object, point);
@@ -740,6 +753,13 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
                                                 el->ellipse.width * fabs(custom->xscale),
                                                 el->ellipse.height * fabs(custom->yscale),
                                                 &fg);
+                break;
+            case GE_IMAGE:
+                transform_coord(custom, &el->image.topleft, &p1);
+                renderer_ops->draw_image(renderer, &p1,
+                                         el->image.width * fabs(custom->xscale),
+                                         el->image.height * fabs(custom->yscale),
+                                         el->image.image);
                 break;
             case GE_PATH:
                 g_array_set_size(barr, el->path.npoints);
@@ -1098,6 +1118,17 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       rectangle_bbox(&trin,&extra,&rect);
       break; 
     }
+    case GE_IMAGE: {
+      Rectangle bounds;
+
+      bounds.left = bounds.right = el->image.topleft.x;
+      bounds.top = bounds.bottom = el->image.topleft.y;
+      bounds.right += el->image.width;
+      bounds.bottom += el->image.height;
+
+      transform_rect(custom, &bounds, &rect);
+      break;
+    }
     case GE_TEXT:
       /*text_calc_boundingbox(el->text.object,&rect); */
       rect = el->text.text_bounds;
@@ -1235,7 +1266,14 @@ custom_destroy(Custom *custom)
 
   for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
        GraphicElement *el = tmp->data;
-       if (el->type == GE_TEXT) text_destroy(el->text.object);
+       switch (el->type) {
+       case GE_TEXT: 
+           text_destroy(el->text.object); 
+           break;
+       case GE_IMAGE: 
+           dia_image_release(el->image.image); 
+           break;
+       }
   }
   /* TODO: free allocated ext props (string, etc.) */
 

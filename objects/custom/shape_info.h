@@ -38,7 +38,8 @@ typedef enum {
   GE_ELLIPSE,
   GE_PATH,
   GE_SHAPE,
-  GE_TEXT
+  GE_TEXT,
+  GE_IMAGE
 } GraphicElementType;
 
 typedef union _GraphicElement GraphicElement;
@@ -49,6 +50,7 @@ typedef struct _GraphicElementRect GraphicElementRect;
 typedef struct _GraphicElementEllipse GraphicElementEllipse;
 typedef struct _GraphicElementPath GraphicElementPath;
 typedef struct _GraphicElementText GraphicElementText;
+typedef struct _GraphicElementImage GraphicElementImage;
 
 #define SHAPE_INFO_COMMON  \
   GraphicElementType type; \
@@ -94,6 +96,13 @@ struct _GraphicElementText {
   Rectangle text_bounds;
 };
 
+struct _GraphicElementImage {
+  SHAPE_INFO_COMMON;
+  Point topleft;
+  real width, height;
+  DiaImage image;
+};
+
 #undef SHAPE_INFO_COMMON
 
 union _GraphicElement {
@@ -107,6 +116,7 @@ union _GraphicElement {
   GraphicElementPath path;
   GraphicElementPath shape;
   GraphicElementText text;
+  GraphicElementImage image;
 };
 
 typedef struct _ExtAttribute {
@@ -124,9 +134,6 @@ typedef enum {
 typedef struct _ShapeInfo ShapeInfo;
 struct _ShapeInfo {
   gchar *name;
-#if 0
-  gchar *description;
-#endif
   gchar *icon;
 
   int nconnections;

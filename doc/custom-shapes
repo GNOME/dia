@@ -169,6 +169,15 @@ The recognised drawing elements are:
   This is a rectangle.  The upper left corner is (x1,y1), and the lower
   right corner is (x1+width,y1+height).
 
+<svg:image x1="..." y1="..." width="..." height="..." xlink:href="..." />
+  This is an external image.  The upper left corner is (x1,y1), and the 
+  lower right corner is (x1+width,y1+height).
+  Their are two forms of links supported, an absolute filename of the form
+  "file:///home/user/image.png" or a relative one without the file:// prefix
+  like in "image.png". The latter form is preferred cause it is installation
+  independent. The filename is relative to the shape file placement. In the
+  above example PNG and shape need to be in the same directory.
+
 <svg:circle cx="..." cy="..." r="..."/>
   This is a circle with centre (cx,cy) and radius r.
 

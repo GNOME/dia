@@ -1,3 +1,13 @@
+2004-01-17  Hans Breuer  <hans@breuer.org>
+
+	* objects/custom/shape_info.[hc] objects/custom/custom_object.c
+	  doc/shape.dtd doc/custom-shapes : 
+	support for images in custom shapes, also removed some long-time
+	dead code
+
+	* doc/en/*.xml : fixed crippled line ends which get created
+	when windoze line ends are checkin from the unix side
+
 2004-01-13  Laurent Dhima  <laurenti@alblinux.net>
 
 	* configure.in: Added "sq" to ALL_LINGUAS.
