@@ -1,3 +1,11 @@
+2001-01-06  Steffen Macke <sdteffen@yahoo.com>
+
+	* plug-ins/python/Makefile.am: added libart path
+
+	* plug-ins/python/python.c: added dirent.h
+
+	* configure.in: added es_ES and pt_BR to ALL_LINGUAS
+	
 2001-01-06  Hans Breuer <Hans@Breuer.Org>
 
 	* objects/uml/actor.c
