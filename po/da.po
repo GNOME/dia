@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
-"POT-Creation-Date: 2000-04-18 21:46+0200\n"
+"POT-Creation-Date: 2000-05-03 23:43+0200\n"
 "PO-Revision-Date: 2000-04-27 01:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -393,9 +393,7 @@ msgstr "Fil eksisterer allerede"
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
-msgstr ""
-"Filen '%s' eksisterer allerede"
-"Ønsker du at overskrive den"
+msgstr "Filen '%s' eksisterer alleredeØnsker du at overskrive den"
 
 #: app/filedlg.c:211
 msgid "Save Diagram"
@@ -1413,7 +1411,7 @@ msgstr "Encapsulated postscript"
 msgid "Scalable Vector Graphics"
 msgstr "Skalérbar vektorgrafik"
 
-#: lib/bezier_conn.c:519
+#: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Intern fejl: Sætter hjørnetype for slutpunkt af Bezier"
 
@@ -1457,7 +1455,8 @@ msgstr "Kunne ikke udlede korrekt sti for '%s'"
 msgid ""
 "Could not load plugin `%s'\n"
 "%s"
-msgstr "Kunne ikke indlæse indstik '%s'\n"
+msgstr ""
+"Kunne ikke indlæse indstik '%s'\n"
 "%s"
 
 #: lib/plug-ins.c:208
