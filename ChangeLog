@@ -1,3 +1,8 @@
+1999-10-03  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/standard/image.c (get_directory):
+	Fix memleak. Found by Kjartan Maraas <kmaraas@online.no>
+
 1999-09-28  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/poly_conn.c (polyconn_destroy):

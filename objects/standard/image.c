@@ -798,6 +798,7 @@ get_directory(const char *filename)
     strncpy(directory, cwd, len);
     strncat(directory, "/", len);
     strncat(directory, filename, len);
+    g_free(cwd);
     end = strrchr(directory, G_DIR_SEPARATOR);
     if (end!=NULL)
       *(end+1) = 0;
