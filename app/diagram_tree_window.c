@@ -91,7 +91,7 @@ diagram_tree_window_new(DiagramTreeConfig *config)
   /* the diagtree */
   if (!diagtree_)
     {
-      diagtree_ = diagram_tree_new(open_diagrams, GTK_WINDOW(window),
+      diagtree_ = diagram_tree_new(dia_open_diagrams(), GTK_WINDOW(window),
 				   config->dia_sort, config->obj_sort);
       if (config->save_hidden) {
 	GList *hidden = diagram_tree_config_get_hidden_types(config);
@@ -148,7 +148,7 @@ diagtree_show_callback(gpointer data, guint action, GtkWidget *widget)
   if (!diagwindow_) {
     diagwindow_ = diagram_tree_window_new(config_);
   } else {
-    GList *open = open_diagrams;
+    GList *open = dia_open_diagrams();
     while (open) {
       diagram_tree_add(diagtree_, (Diagram *)open->data);
       open = g_list_next(open);

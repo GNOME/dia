@@ -13,6 +13,7 @@ EXPORTS
  ddisplay_set_origo
  ddisplay_set_title
  ddisplay_zoom
+ new_display
  diagram_add_update
  diagram_add_update_all
  diagram_find_clicked_object
@@ -24,9 +25,11 @@ EXPORTS
  diagram_group_selected
  diagram_is_selected
  diagram_load
+ new_diagram
  diagram_remove_all_selected
  diagram_save
  diagram_select
  diagram_ungroup_selected
  diagram_unselect_object
  diagram_update_extents
+ dia_open_diagrams

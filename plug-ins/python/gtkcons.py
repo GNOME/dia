@@ -28,13 +28,13 @@
 # have access to the list __history__, which is the command history.
 
 import sys, string, traceback
-#sys.path.append('/home/james/.gimp/plug-ins')
 
 # Make sure we use pygtk for gtk 2.0
 import pygtk
 pygtk.require("2.0")
 
-from gtk import *
+import gtk
+import gtk.keysyms
 
 stdout = sys.stdout
 
@@ -82,10 +82,10 @@ def bracketsBalanced(s):
 class gtkoutfile:
 	'''A fake output file object.  It sends output to a TK test widget,
 	and if asked for a file number, returns one set on instance creation'''
-	def __init__(self, w, fn, font):
+	def __init__(self, w, fn, tag):
 		self.__fn = fn
 		self.__w = w
-		self.__font = font
+		self.__tag = tag
 	def close(self): pass
 	flush = close
 	def fileno(self):    return self.__fn
@@ -94,81 +94,75 @@ class gtkoutfile:
 	def readline(self):  return ''
 	def readlines(self): return []
 	def write(self, s):
-	        #stdout.write(str(self.__w.get_point()) + '\n')
-		self.__w.freeze()
-		self.__w.insert(self.__font, self.__w.fg,
-				self.__w.bg, s)
-		self.__w.thaw()
-		self.__w.queue_draw()
+		#stdout.write(str(self.__w.get_point()) + '\n')
+		self.__w.text_insert(self.__tag, s)
 	def writelines(self, l):
-		self.__w.freeze()
-		for s in l: self.__w.insert(self.__font,
-					    self.__w.fg, self.__w.bg, s)
-		self.__w.thaw()
-		self.__w.queue_draw()
+		self.__w.text_insert(self.__tag, l)
 	def seek(self, a):   raise IOError, (29, 'Illegal seek')
 	def tell(self):      raise IOError, (29, 'Illegal seek')
 	truncate = tell
 
-class Console(GtkVBox):
+class Console(gtk.VBox):
 	def __init__(self, namespace={}, copyright='', quit_cb=None):
-		GtkVBox.__init__(self, spacing=2)
+		gtk.VBox.__init__(self, spacing=2)
 		self.set_border_width(2)
 		self.copyright = copyright
-		#self.set_usize(475, 300)
 
 		self.quit_cb = quit_cb
 
-		#load the fonts we will use
-		self.normal = load_font(
-			"-*-helvetica-medium-r-normal-*-*-100-*-*-*-*-*-*")
-		self.title = load_font(
-			"-*-helvetica-bold-r-normal-*-*-100-*-*-*-*-*-*")
-		self.error = load_font(
-			"-*-helvetica-medium-o-normal-*-12-100-*-*-*-*-*-*")
-		self.command = load_font(
-			"-*-helvetica-bold-r-normal-*-*-100-*-*-*-*-*-*")
-
-		self.inp = GtkHBox()
+		self.inp = gtk.HBox()
 		self.pack_start(self.inp)
 		self.inp.show()
 
-		self.text = GtkText()
-		self.text.set_editable(FALSE)
-		self.text.set_word_wrap(TRUE)
-		self.text.set_usize(500, 400)
+		self.text = gtk.TextView()
+		self.text.set_editable(gtk.FALSE)
+		self.text.set_wrap_mode (gtk.WRAP_WORD)
+		self.text.set_size_request(500, 400)
 		self.inp.pack_start(self.text, padding=1)
 		self.text.show()
 
-		self.vscroll = GtkVScrollbar(self.text.get_vadjustment())
-		self.vscroll.set_update_policy(POLICY_AUTOMATIC)
-		self.inp.pack_end(self.vscroll, expand=FALSE)
+		buffer = self.text.get_buffer()
+		self.normal = buffer.create_tag("normal")
+		self.title = buffer.create_tag("title")
+		self.title.set_property("weight", 600)
+		self.error = buffer.create_tag("error")
+		self.error.set_property("foreground", "red")
+		self.command = buffer.create_tag('command')
+		self.command.set_property("family", "Sans")
+		self.command.set_property("foreground", "blue")
+ 
+		vadj = gtk.Adjustment()
+		hadj = gtk.Adjustment()
+		self.text.set_scroll_adjustments (hadj, vadj)
+		self.vscroll = gtk.VScrollbar(vadj)
+		self.vscroll.set_update_policy(gtk.POLICY_AUTOMATIC)
+		self.inp.pack_end(self.vscroll, expand=gtk.FALSE)
 		self.vscroll.show()
 
-		self.inputbox = GtkHBox(spacing=2)
-		self.pack_end(self.inputbox, expand=FALSE)
+		self.inputbox = gtk.HBox(spacing=2)
+		self.pack_end(self.inputbox, expand=gtk.FALSE)
 		self.inputbox.show()
 
-		self.prompt = GtkLabel(sys.ps1)
-		self.prompt.set_padding(xp=2, yp=0)
-		self.prompt.set_usize(26, -1)
-		self.inputbox.pack_start(self.prompt, fill=FALSE, expand=FALSE)
+		self.prompt = gtk.Label(sys.ps1)
+		self.prompt.set_padding(2, 0)
+		self.prompt.set_size_request(26, -1)
+		self.inputbox.pack_start(self.prompt, fill=gtk.FALSE, expand=gtk.FALSE)
 		self.prompt.show()
 
-		self.closer = GtkButton("Close")
+		self.closer = gtk.Button("Close")
 		self.closer.connect("clicked", self.quit)
-		self.inputbox.pack_end(self.closer, fill=FALSE, expand=FALSE)
+		self.inputbox.pack_end(self.closer, fill=gtk.FALSE, expand=gtk.FALSE)
 		self.closer.show()
 
-		self.line = GtkEntry()
-		self.line.set_usize(400,-1)
+		self.line = gtk.Entry()
+		self.line.set_size_request(400,-1)
 		self.line.connect("key_press_event", self.key_function)
 		self.inputbox.pack_start(self.line, padding=2)
 		self.line.show()
 
 		# now let the text box be resized
-		self.text.set_usize(0, 0)
-		self.line.set_usize(0, -1)
+		self.text.set_size_request(0, 0)
+		self.line.set_size_request(0, -1)
 
 		self.namespace = namespace
 
@@ -176,30 +170,39 @@ class Console(GtkVBox):
 		self.cmd2 = ''
 
 		# set up hooks for standard output.
-		self.stdout = gtkoutfile(self.text, sys.stdout.fileno(),
+		self.stdout = gtkoutfile(self, sys.stdout.fileno(),
 					self.normal)
 		try :
 			# this will mostly fail on win32 ...
-			self.stderr = gtkoutfile(self.text, sys.stderr.fileno(),
+			self.stderr = gtkoutfile(self, sys.stderr.fileno(),
 						self.error)
 		except :
 			# ... but gtkoutfile is not using the fileno anyway
-			self.stderr = gtkoutfile(self.text, -1,
+			self.stderr = gtkoutfile(self, -1,
 						self.error)
-
 		# set up command history
 		self.history = ['']
 		self.histpos = 0
 		self.namespace['__history__'] = self.history
 
+	def scroll_to_end (self):
+		iter = self.text.get_buffer().get_end_iter()
+		self.text.scroll_to_iter(iter, 0.0, 0.5)
+		return gtk.FALSE  # don't requeue this handler
+
+	def text_insert(self, tag, s) :
+		buffer = self.text.get_buffer()
+		iter = buffer.get_end_iter()
+		buffer.insert_with_tags (iter, s, tag)
+		gtk.idle_add(self.scroll_to_end)
+
 	def init(self):
 		self.text.realize()
-		self.text.style = self.text.get_style()
-		self.text.fg = self.text.style.fg[STATE_NORMAL]
+		#??? self.text.style = self.text.get_style()
+		self.text.fg = self.text.style.fg[gtk.STATE_NORMAL]
 		self.text.bg = self.text.style.white
 
-		self.text.insert(self.title, self.text.fg,
-				 self.text.bg, 'Python %s\n%s\n\n' %
+		self.text_insert (self.title, 'Python %s\n%s\n\n' %
 				 (sys.version, sys.copyright) +
 				 'Interactive Python-GTK Console - ' +
 				 'Copyright (C) 1998 James Henstridge\n\n' +
@@ -211,29 +214,29 @@ class Console(GtkVBox):
 		if self.quit_cb: self.quit_cb()
 
 	def key_function(self, entry, event):
-		if event.keyval == GDK.Return:
+		if event.keyval == gtk.keysyms.Return:
 			self.line.emit_stop_by_name("key_press_event")
 			self.eval()
-		if event.keyval == GDK.Tab:
+		if event.keyval == gtk.keysyms.Tab:
 		        self.line.emit_stop_by_name("key_press_event")
 			self.line.append_text('\t')
-			idle_add(self.focus_text)
-		elif event.keyval in (GDK.KP_Up, GDK.Up):
+			gtk.idle_add(self.focus_text)
+		elif event.keyval in (gtk.keysyms.KP_Up, gtk.keysyms.Up):
 			self.line.emit_stop_by_name("key_press_event")
 			self.historyUp()
-			idle_add(self.focus_text)
-		elif event.keyval in (GDK.KP_Down, GDK.Down):
+			gtk.idle_add(self.focus_text)
+		elif event.keyval in (gtk.keysyms.KP_Down, gtk.keysyms.Down):
 			self.line.emit_stop_by_name("key_press_event")
 			self.historyDown()
-			idle_add(self.focus_text)
-		elif event.keyval in (GDK.D, GDK.d) and \
-		     event.state & GDK.CONTROL_MASK:
+			gtk.idle_add(self.focus_text)
+		elif event.keyval in (gtk.keysyms.D, gtk.keysyms.d) and \
+		     event.state & gtk.gdk.CONTROL_MASK:
 			self.line.emit_stop_by_name("key_press_event")
 			self.ctrld()
 
 	def focus_text(self):
 		self.line.grab_focus()
-		return FALSE  # don't requeue this handler
+		return gtk.FALSE  # don't requeue this handler
 
 	def ctrld(self):
 		self.quit()
@@ -266,10 +269,7 @@ class Console(GtkVBox):
 		else:
 			self.history[self.histpos] = l
 		self.line.set_text('')
-		self.text.freeze()
-		self.text.insert(self.command, self.text.fg, self.text.bg,
-			self.prompt.get() + l)
-		self.text.thaw()
+		self.text_insert(self.command, self.prompt.get() + l)
 		if l == '\n':
 			self.run(self.cmd)
 			self.cmd = ''
@@ -307,13 +307,13 @@ class Console(GtkVBox):
 				traceback.print_exc()
 		self.prompt.set_text(sys.ps1)
 		self.prompt.queue_draw()
-		adj = self.text.get_vadjustment()
-		adj.set_value(adj.upper - adj.page_size)
+		#adj = self.text.get_vadjustment()
+		#adj.set_value(adj.upper - adj.page_size)
 		sys.stdout, self.stdout = self.stdout, sys.stdout
 		sys.stderr, self.stderr = self.stderr, sys.stderr
 
 def gtk_console(ns, title='Python', copyright='', menu=None):
-	win = GtkWindow()
+	win = gtk.Window()
 	win.set_default_size(475, 300)
 	#win.connect("destroy", mainquit)
 	win.set_title(title)
@@ -321,10 +321,10 @@ def gtk_console(ns, title='Python', copyright='', menu=None):
 		win.destroy()
 	cons = Console(namespace=ns, copyright=copyright, quit_cb=quit)
 	if menu:
-		box = GtkVBox()
+		box = gtk.VBox()
 		win.add(box)
 		box.show()
-		box.pack_start(menu, expand=FALSE)
+		box.pack_start(menu, expand=gtk.FALSE)
 		menu.show()
 		box.pack_start(cons)
 	else:
@@ -334,11 +334,17 @@ def gtk_console(ns, title='Python', copyright='', menu=None):
 	cons.init()
 
 # set up as a dia plugin
-import dia
-def open_console(data, flags):
-	gtk_console({'__builtins__': __builtins__, '__name__': '__main__',
-		     '__doc__': None, 'dia': dia}, 'Python Dia Console')
+try :
+	import dia
+	def open_console(data, flags):
+		gtk_console({'__builtins__': __builtins__, '__name__': '__main__',
+			     '__doc__': None, 'dia': dia}, 'Python Dia Console')
 
-dia.register_callback("Python Console",
-		      "<Display>/Dialogs/Python Console",
-		      open_console)
+	dia.register_callback("Python Console",
+			      "<Display>/Dialogs/Python Console ...",
+			      open_console)
+except :
+	print 'Failed to import Dia ...'
+	gtk_console({'__builtins__': __builtins__, '__name__': '__main__',
+		'__doc__': None})
+	gtk.main()

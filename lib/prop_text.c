@@ -173,6 +173,79 @@ stringprop_set_from_offset(StringProperty *prop,
   struct_member(base,offset,gchar *) = g_strdup(prop->string_data);
 }
 
+static StringListProperty *
+stringlistprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
+{
+  StringListProperty *prop = g_new0(StringListProperty,1);
+  initialize_property(&prop->common,pdesc,reason);
+  prop->string_list = NULL;
+  return prop;
+}
+
+static void
+stringlistprop_free(StringListProperty *prop) 
+{
+  g_list_foreach(prop->string_list, (GFunc)g_free, NULL);
+  g_list_free(prop->string_list);
+  g_free(prop);
+}
+
+static StringListProperty *
+stringlistprop_copy(StringListProperty *src) 
+{
+  StringListProperty *prop = 
+    (StringListProperty *)src->common.ops->new_prop(src->common.descr,
+                                                 src->common.reason);
+  copy_init_property(&prop->common,&src->common);
+  if (src->string_list) {
+    GList *tmp;
+
+    for (tmp = src->string_list; tmp != NULL; tmp = tmp->next)
+      prop->string_list = g_list_append(prop->string_list, g_strdup(tmp->data));
+  }
+  else
+    prop->string_list = NULL;
+  return prop;
+}
+
+static void 
+stringlistprop_load(StringListProperty *prop, AttributeNode attr, DataNode data)
+{
+  g_warning("stringlistprop_load not implemented");
+}
+
+static void 
+stringlistprop_save(StringProperty *prop, AttributeNode attr) 
+{
+  g_warning("stringlistprop_save not implemented");
+}
+
+static void 
+stringlistprop_get_from_offset(StringListProperty *prop,
+                           void *base, guint offset, guint offset2) 
+{
+  GList *tmp, *lst = prop->string_list;
+
+  g_list_foreach(lst, (GFunc)g_free, NULL);
+  g_list_free(lst);
+  for (tmp = struct_member(base,offset,GList *); tmp != NULL; tmp = tmp->next)
+      lst = g_list_append(lst, g_strdup(tmp->data));
+  prop->string_list = lst;
+}
+
+static void 
+stringlistprop_set_from_offset(StringListProperty *prop,
+                           void *base, guint offset, guint offset2)
+{
+  GList *tmp, *lst = struct_member(base,offset,GList *);
+
+  g_list_foreach(lst, (GFunc)g_free, NULL);
+  g_list_free(lst);
+  for (tmp = prop->string_list; tmp != NULL; tmp = tmp->next)
+      lst = g_list_append(lst, g_strdup(tmp->data));
+  struct_member(base,offset,GList *) = lst;
+}
+
 static const PropertyOps stringprop_ops = {
   (PropertyType_New) stringprop_new,
   (PropertyType_Free) stringprop_free,
@@ -186,6 +259,21 @@ static const PropertyOps stringprop_ops = {
   (PropertyType_CanMerge) noopprop_can_merge,
   (PropertyType_GetFromOffset) stringprop_get_from_offset,
   (PropertyType_SetFromOffset) stringprop_set_from_offset
+};
+
+static const PropertyOps stringlistprop_ops = {
+  (PropertyType_New) stringlistprop_new,
+  (PropertyType_Free) stringlistprop_free,
+  (PropertyType_Copy) stringlistprop_copy,
+  (PropertyType_Load) stringlistprop_load,
+  (PropertyType_Save) stringlistprop_save,
+  (PropertyType_GetWidget) noopprop_get_widget,
+  (PropertyType_ResetWidget) noopprop_reset_widget,
+  (PropertyType_SetFromWidget) noopprop_set_from_widget,
+
+  (PropertyType_CanMerge) noopprop_can_merge,
+  (PropertyType_GetFromOffset) stringlistprop_get_from_offset,
+  (PropertyType_SetFromOffset) stringlistprop_set_from_offset
 };
 
 static const PropertyOps multistringprop_ops = {
@@ -316,6 +404,7 @@ void
 prop_text_register(void)
 {
   prop_type_register(PROP_TYPE_STRING,&stringprop_ops);
+  prop_type_register(PROP_TYPE_STRINGLIST,&stringlistprop_ops);
   prop_type_register(PROP_TYPE_MULTISTRING,&multistringprop_ops);
   prop_type_register(PROP_TYPE_FILE,&fileprop_ops);
   prop_type_register(PROP_TYPE_TEXT,&textprop_ops);

@@ -156,6 +156,7 @@ typedef const gchar *PropertyType;
 #define PROP_TYPE_STRING "string"            /* StringProperty */
 #define PROP_TYPE_FILE "file"                /* StringProperty */
 #define PROP_TYPE_TEXT "text" /* can't be visible */ /* TextProperty */
+#define PROP_TYPE_STRINGLIST "stringlist" /* can't be visible */ /* StringListProperty */
 
 /* Geometric types : */
 #define PROP_TYPE_REAL "real"                /* RealProperty */

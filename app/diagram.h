@@ -48,7 +48,7 @@ struct _Diagram {
   UndoStack *undo;
 };
 
-extern GList *open_diagrams; /* Read only! */
+GList *dia_open_diagrams(void); /* Read only! */
 
 Diagram *diagram_load(const char *filename, DiaImportFilter *ifilter);
 int diagram_load_into (Diagram *dest, const char *filename, DiaImportFilter *ifilter);

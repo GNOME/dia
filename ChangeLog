@@ -1,3 +1,68 @@
+2003-01-19  Hans Breuer  <hans@breuer.org>
+
+	* app/diagram.[hc] : provide dia_open_diagrams(), make
+	open_diagrams variable static
+	* app/dia.def : export it (to be used by PyDia)
+	* app/app_procs.c app/autosave.c app/diagram_tree_window.c
+	  app/display.c app/dynamic_refresh.c app/layer_dialog.c
+	  app/load_save.c : make use of dia_open_diagrams()
+
+	* app/interface.c : don't set GDK_WINDOW_TYPE_HINT_TOOLBAR
+	on win32. It removes the diagram window from the taskbar and
+	shrinks it's window title to toolbar style (newest gtk2.2 cvs)
+
+	* app/menus.c : add '...' to menu entries where a dialog 
+	gets invoked
+	* app/recent_files.c app/dia_embedd.c : reflect the above in 
+	menus_get_item_from_path() calls
+
+	* lib/libdia.def : add dia_image_rgba_data
+
+	* lib/properties.h lib/prop_text.[hc] : add new property
+	type StringList
+	* objects/UML/class.[hc] object/UML/class_dialog.c : use
+	StringList for attributes_strings and operations_strings to
+	make this calculated data accessible via the Property API
+
+	* plug-ins/python/diamodule.c : use dia_open_diagrams() and
+	provide dia.new() to create a new diagram, dia.registered_types()
+	to get on Dia's type registry, dia.message() for simple dialogs
+
+	* plug-ins/python/pydia-diagram.c : implement DiaDiagram.display()
+	to create a new display from a diagram. Let diagram.extents and
+	diagram.bg_color return the same types as in diagramdata.*
+
+	* plug-ins/python/pydia-geometry.c : add a read-only 
+	'sequence interface' to DiaPoint and DiaRectangle
+
+	* plug-ins/python/pydia-property.c : allow to get on StringList
+	from Python
+
+	* plug-ins/python/pydia-render.c : fix typo to make it compile
+
+	* plug-ins/python/python-startup.py : removed 'import pygtk'
+	again. This file does not need any gtk UI, and some python
+	plug-ins don't do either
+
+	* plug-ins/python/gtkcons.py : ported to GTK2 interface, now
+	it should actually work as intended again
+
+	* plug-ins/python/group_props.py : (new file) a prototype for
+	one the most requested features: Change properties of selected
+	objects in one step. Requires pygtk.
+
+	* plug-ins/python/select_by.py : (new file) select objects by 
+	common properties. Requires pygtk.
+
+	[Start of 'PyDia Self Documentation Series']
+
+	* plug-ins/python/pydiadoc.py : (new file) generates a new 
+	diagram which contains all objects of dir(dia)
+	
+	* plug-ins/python/otypes.py : (new file) generates a new diagram 
+	which contains all the currently registered object types sorted 
+	by their containing package
+
 2003-01-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* configure.in: Added check for Pango >= 1.1.5, which appears to

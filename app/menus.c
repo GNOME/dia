@@ -58,7 +58,7 @@ static GnomeUIInfo toolbox_filemenu[] = {
                         sheets_dialog_show_callback),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_MENU_PREFERENCES_ITEM(file_preferences_callback, NULL),
-  GNOMEUIINFO_ITEM_NONE(N_("P_lugins"), NULL, file_plugins_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("P_lugins..."), NULL, file_plugins_callback),
   GNOMEUIINFO_SEPARATOR,
     /* recent file list is dynamically inserted here */
   GNOMEUIINFO_SEPARATOR,
@@ -279,7 +279,7 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {   "/File/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
   {N_("/File/_New"),           "<control>N", file_new_callback,         0,
       "<StockItem>", GTK_STOCK_NEW },
-  {N_("/File/_Open"),          "<control>O", file_open_callback,        0,
+  {N_("/File/_Open..."),       "<control>O", file_open_callback,        0,
       "<StockItem>", GTK_STOCK_OPEN },
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/File/_Diagram tree"),  NULL,         diagtree_show_callback,    0,
@@ -289,7 +289,7 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
  {N_("/File/_Preferences..."),NULL,         file_preferences_callback, 0,
       "<StockItem>", GTK_STOCK_PREFERENCES },
-   {N_("/File/P_lugins"),       NULL,         file_plugins_callback,     0 },
+   {N_("/File/P_lugins..."),   NULL,         file_plugins_callback,     0 },
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
     /* recent file list is dynamically inserted here */
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
@@ -300,7 +300,7 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {N_("/Help/_Manual"),        "F1",         help_manual_callback,      0,
       "<StockItem>", GTK_STOCK_HELP },
   {N_("/Help/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/Help/_About"),         NULL,         help_about_callback,       0 },
+  {N_("/Help/_About..."),      NULL,         help_about_callback,       0 },
 };
 
 /* calculate the number of menu_item's */
@@ -314,7 +314,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {   "/File/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
   {N_("/File/_New"),              "<control>N", file_new_callback,          0,
       "<StockItem>", GTK_STOCK_NEW },
-  {N_("/File/_Open"),             "<control>O", file_open_callback,         0,
+  {N_("/File/_Open..."),          "<control>O", file_open_callback,         0,
       "<StockItem>", GTK_STOCK_OPEN },
   {N_("/File/_Save"),             "<control>S", file_save_callback,         0,
       "<StockItem>", GTK_STOCK_SAVE },
@@ -450,8 +450,8 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Tools/Image"),            NULL,     NULL,                           0},
   {N_("/_Dialogs"),               NULL,     NULL,               0, "<Branch>"},
   {   "/Dialogs/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/Dialogs/_Properties"),    NULL,     dialogs_properties_callback,    0},
-  {N_("/Dialogs/_Layers"),        NULL,     dialogs_layers_callback,        0},
+  {N_("/Dialogs/_Properties..."), NULL,     dialogs_properties_callback,    0},
+  {N_("/Dialogs/_Layers..."),     NULL,     dialogs_layers_callback,        0},
 
   {N_("/_Input Methods"),         NULL,     NULL,               0, "<Branch>"},
   {   "/Input Methods/tearoff",   NULL,     NULL,               0, "<Tearoff>" },

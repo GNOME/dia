@@ -120,8 +120,10 @@ static PropDescription umlclass_props[] = {
   { "visible_comments", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
   N_("Visible Comments"), NULL, NULL },
   
-  /* Attributes: XXX */
-  /* Operators: XXX */
+  { "attributes", PROP_TYPE_STRINGLIST, PROP_FLAG_DONT_SAVE,
+  N_("Attributes"), NULL, NULL }, 
+  { "operations", PROP_TYPE_STRINGLIST, PROP_FLAG_DONT_SAVE,
+  N_("Operations"), NULL, NULL }, 
 
   { "template", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
   N_("Template"), NULL, NULL },
@@ -153,6 +155,9 @@ static PropOffset umlclass_offsets[] = {
   { "suppress_operations", PROP_TYPE_INT, offsetof(UMLClass , suppress_operations) },
   { "visible_operations", PROP_TYPE_INT, offsetof(UMLClass , visible_operations) },
   { "visible_comments", PROP_TYPE_INT, offsetof(UMLClass , visible_comments) },
+
+  { "operations", PROP_TYPE_STRINGLIST, offsetof(UMLClass , operations_strings) },
+  { "attributes", PROP_TYPE_STRINGLIST, offsetof(UMLClass , attributes_strings) },
 
   { NULL, 0, 0 },
 };
@@ -345,6 +350,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
       list = umlclass->attributes;
       while (list != NULL) {
          UMLAttribute *attr = (UMLAttribute *)list->data;
+         gchar *attstr = g_list_nth(umlclass->attributes_strings, i)->data;
          real ascent;
          
          if (attr->abstract) {
@@ -354,13 +360,13 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
            font = umlclass->normal_font;
            font_height = umlclass->font_height;
          }
-         ascent = dia_font_ascent(umlclass->attributes_strings[i],
+         ascent = dia_font_ascent(attstr,
                                   font,font_height);     
          p.y += ascent;
          
          renderer_ops->set_font (renderer, font, font_height);
          renderer_ops->draw_string(renderer,
-                                    umlclass->attributes_strings[i],
+                                    attstr,
                                     &p, ALIGN_LEFT, 
                                     &umlclass->color_foreground);
 
@@ -369,7 +375,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
            p1 = p; 
            p1.y += font_height * 0.1;
            p3 = p1;
-           p3.x += dia_font_string_width(umlclass->attributes_strings[i],
+           p3.x += dia_font_string_width(attstr,
                                          font, font_height);
            renderer_ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
            renderer_ops->draw_line(renderer,
@@ -425,6 +431,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
       list = umlclass->operations;
       while (list != NULL) {
         UMLOperation *op = (UMLOperation *)list->data;
+        gchar* opstr;
         real ascent;
         /* Must add a new font for virtual yet not abstract methods.
            Bold Italic for abstract? */
@@ -438,14 +445,14 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
           font = umlclass->normal_font;
           font_height = umlclass->font_height;
         }
-
-        ascent = dia_font_ascent(umlclass->operations_strings[i],
+        opstr = (gchar*) g_list_nth(umlclass->operations_strings, i)->data;
+        ascent = dia_font_ascent(opstr,
                                  font,font_height);     
         p.y += ascent;
 
         renderer_ops->set_font(renderer, font, font_height);
         renderer_ops->draw_string(renderer,
-                                   umlclass->operations_strings[i],
+                                   opstr,
                                    &p, ALIGN_LEFT, 
                                    &umlclass->color_foreground);
 
@@ -453,7 +460,7 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
           p1 = p; 
           p1.y += font_height * 0.1;
           p3 = p1;
-          p3.x += dia_font_string_width(umlclass->operations_strings[i],
+          p3.x += dia_font_string_width(opstr,
                                         font, font_height);
           renderer_ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
           renderer_ops->draw_line(renderer, &p1, &p3,
@@ -698,34 +705,30 @@ umlclass_calculate_data(UMLClass *umlclass)
 
   /* attributes box: */
   if (umlclass->attributes_strings != NULL) {
-    for (i=0;i<umlclass->num_attributes;i++) {
-      g_free(umlclass->attributes_strings[i]);
-    }
-    g_free(umlclass->attributes_strings);
+    g_list_foreach(umlclass->attributes_strings, (GFunc)g_free, NULL);
+    g_list_free(umlclass->attributes_strings);
   }
-  umlclass->num_attributes = g_list_length(umlclass->attributes);
   umlclass->attributesbox_height = 2*0.1;
 
   umlclass->attributes_strings = NULL;
-  if (umlclass->num_attributes != 0) {
-    umlclass->attributes_strings =
-      g_malloc (sizeof (gchar *) * umlclass->num_attributes);
+  if (g_list_length(umlclass->attributes) != 0) {
     i = 0;
     list = umlclass->attributes;
     while (list != NULL) {
-      UMLAttribute *attr;
+      UMLAttribute *attr = (UMLAttribute *) list->data;
+      gchar *attstr = uml_get_attribute_string(attr);
 
-      attr = (UMLAttribute *) list->data;
-      umlclass->attributes_strings[i] = uml_get_attribute_string(attr);
+      umlclass->attributes_strings =
+        g_list_append(umlclass->attributes_strings, attstr);
 
       if (attr->abstract) {
-        width = dia_font_string_width(umlclass->attributes_strings[i],
+        width = dia_font_string_width(attstr,
                                       umlclass->abstract_font,
                                       umlclass->abstract_font_height);
         umlclass->attributesbox_height += umlclass->abstract_font_height;
       }
       else {
-        width = dia_font_string_width(umlclass->attributes_strings[i],
+        width = dia_font_string_width(attstr,
                                       umlclass->normal_font,
                                       umlclass->font_height);
         umlclass->attributesbox_height += umlclass->font_height;
@@ -753,39 +756,35 @@ umlclass_calculate_data(UMLClass *umlclass)
 
   /* operations box: */
   if (umlclass->operations_strings != NULL) {
-    for (i=0;i<umlclass->num_operations;i++) {
-      g_free(umlclass->operations_strings[i]);
-    }
-    g_free(umlclass->operations_strings);
+    g_list_foreach(umlclass->operations_strings, (GFunc)g_free, NULL);
+    g_list_free(umlclass->operations_strings);
   }
-  umlclass->num_operations = g_list_length(umlclass->operations);
 
   umlclass->operationsbox_height = 2*0.1;
 
   umlclass->operations_strings = NULL;
-  if (umlclass->num_operations != 0) {
-    umlclass->operations_strings =
-            g_malloc (sizeof (gchar *) * umlclass->num_operations);
+  if (0 != g_list_length(umlclass->operations)) {
     i = 0;
     list = umlclass->operations;
     while (list != NULL) {
-      UMLOperation *op;
+      UMLOperation *op = (UMLOperation *) list->data;
+      gchar *opstr = uml_get_operation_string(op);
 
-      op = (UMLOperation *) list->data;
-      umlclass->operations_strings[i] = uml_get_operation_string(op);
+      umlclass->operations_strings = 
+        g_list_append(umlclass->operations_strings, opstr);
       
       if (op->inheritance_type == UML_ABSTRACT) {
-        width = dia_font_string_width(umlclass->operations_strings[i],
+        width = dia_font_string_width(opstr,
                                       umlclass->abstract_font,
                                       umlclass->abstract_font_height);
         umlclass->operationsbox_height += umlclass->abstract_font_height;
       } else if (op->inheritance_type == UML_POLYMORPHIC) {
-        width = dia_font_string_width(umlclass->operations_strings[i],
+        width = dia_font_string_width(opstr,
                                       umlclass->polymorphic_font,
                                       umlclass->polymorphic_font_height);
         umlclass->operationsbox_height += umlclass->polymorphic_font_height;        
       } else {
-        width = dia_font_string_width(umlclass->operations_strings[i],
+        width = dia_font_string_width(opstr,
                                       umlclass->normal_font,
                                       umlclass->font_height);
         umlclass->operationsbox_height += umlclass->font_height;
@@ -1021,17 +1020,15 @@ umlclass_destroy(UMLClass *umlclass)
   }
 
   if (umlclass->attributes_strings != NULL) {
-    for (i=0;i<umlclass->num_attributes;i++) {
-      g_free(umlclass->attributes_strings[i]);
-    }
-    g_free(umlclass->attributes_strings);
+    g_list_foreach(umlclass->attributes_strings, (GFunc)g_free, NULL);
+    g_list_free(umlclass->attributes_strings);
+    umlclass->attributes_strings = NULL;
   }
 
   if (umlclass->operations_strings != NULL) {
-    for (i=0;i<umlclass->num_operations;i++) {
-      g_free(umlclass->operations_strings[i]);
-    }
-    g_free(umlclass->operations_strings);
+    g_list_foreach(umlclass->operations_strings, (GFunc)g_free, NULL);
+    g_list_free(umlclass->operations_strings);
+    umlclass->operations_strings = NULL;
   }
 
   if (umlclass->templates_strings != NULL) {

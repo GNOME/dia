@@ -203,6 +203,7 @@ EXPORTS
  dia_image_mask_data
  dia_image_release
  dia_image_rgb_data
+ dia_image_rgba_data
  dia_image_rowstride
  dia_image_width
 

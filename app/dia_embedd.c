@@ -388,7 +388,7 @@ main (int argc, char **argv)
 #else
   menuitem = menus_get_item_from_path("<Toolbox>/File/New", NULL);
   gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Toolbox>/File/Open", NULL);
+  menuitem = menus_get_item_from_path("<Toolbox>/File/Open...", NULL);
   gtk_widget_hide(menuitem);
   menuitem = menus_get_item_from_path("<Toolbox>/File/sep1", NULL);
   gtk_widget_hide(menuitem);

@@ -1,9 +1,9 @@
 import sys, os
 import dia
 
-# Make sure we use pygtk for gtk 2.0
-import pygtk
-pygtk.require("2.0")
+# Please don't include pygtk or gtk here. There
+# are quite some PyDia plug-ins which don't require
+# i.e. dont have any (Py)Gtk code
 
 # find system python plugin dir
 curdir = os.path.dirname(__file__)

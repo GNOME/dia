@@ -91,6 +91,7 @@ PyObject* PyDiaRectangle_New_FromPoints (Point* ul, Point* lr)
   return (PyObject *)self;
 }
 
+
 PyObject* PyDiaBezPoint_New (BezPoint* bpn)
 {
   PyDiaBezPoint *self;
@@ -348,6 +349,107 @@ PyDiaArrow_Str(PyDiaArrow *self)
     return py_s;
 }
 
+/* 
+ * sequence interface (query only) 
+ */
+/* Point */
+static int
+point_length(PyDiaRectangle *self)
+{
+  return 2;
+}
+static PyObject *
+point_item(PyDiaPoint* self, int i)
+{
+  switch (i) {
+  case 0 : return PyDiaPoint_GetAttr(self, "x");
+  case 1 : return PyDiaPoint_GetAttr(self, "y");
+  default :
+    PyErr_SetString(PyExc_IndexError, "PyDiaPoint index out of range");
+    return NULL;
+  }
+}
+static PyObject *
+point_slice(PyDiaPoint* self, int i, int j)
+{
+  PyObject *ret;
+
+  /* j maybe negative */
+  if (j <= 0)
+    j = 1 + j;
+  /* j may be rather huge [:] ^= 0:0x7FFFFFFF */
+  if (j > 1)
+    j = 1;
+  ret = PyTuple_New(j - i + 1);
+  if (ret) {
+    int k;
+    for (k = i; k <= j && k < 2; k++)
+      PyTuple_SetItem(ret, k - i, point_item(self, k)); 
+  }
+  return ret;
+}
+
+static PySequenceMethods point_as_sequence = {
+	(inquiry)point_length, /*sq_length*/
+	(binaryfunc)0, /*sq_concat*/
+	(intargfunc)0, /*sq_repeat*/
+	(intargfunc)point_item, /*sq_item*/
+	(intintargfunc)point_slice, /*sq_slice*/
+	0,		/*sq_ass_item*/
+	0,		/*sq_ass_slice*/
+	(objobjproc)0 /*sq_contains*/
+};
+
+/* Rect */
+static int
+rect_length(PyDiaRectangle *self)
+{
+  return 4;
+}
+static PyObject *
+rect_item(PyDiaRectangle* self, int i)
+{
+  switch (i) {
+  case 0 : return PyDiaRectangle_GetAttr(self, "left");
+  case 1 : return PyDiaRectangle_GetAttr(self, "top");
+  case 2 : return PyDiaRectangle_GetAttr(self, "right");
+  case 3 : return PyDiaRectangle_GetAttr(self, "bottom");
+  default :
+    PyErr_SetString(PyExc_IndexError, "PyDiaRectangle index out of range");
+    return NULL;
+  }
+}
+static PyObject *
+rect_slice(PyDiaRectangle* self, int i, int j)
+{
+  PyObject *ret;
+
+  /* j maybe negative */
+  if (j <= 0)
+    j = 3 + j;
+  /* j may be rather huge [:] ^= 0:0x7FFFFFFF */
+  if (j > 3)
+    j = 3;
+  ret = PyTuple_New(j - i + 1);
+  if (ret) {
+    int k;
+    for (k = i; k <= j && k < 4; k++)
+      PyTuple_SetItem(ret, k - i, rect_item(self, k)); 
+  }
+  return ret;
+}
+
+static PySequenceMethods rect_as_sequence = {
+	(inquiry)rect_length, /*sq_length*/
+	(binaryfunc)0, /*sq_concat*/
+	(intargfunc)0, /*sq_repeat*/
+	(intargfunc)rect_item, /*sq_item*/
+	(intintargfunc)rect_slice, /*sq_slice*/
+	0,		/*sq_ass_item*/
+	0,		/*sq_ass_slice*/
+	(objobjproc)0 /*sq_contains*/
+};
+
 /*
  * Python objetcs
  */
@@ -363,8 +465,8 @@ PyTypeObject PyDiaPoint_Type = {
     (setattrfunc)0,
     (cmpfunc)PyDiaPoint_Compare,
     (reprfunc)0,
-    0,
-    0,
+    0, /* as_number */
+    &point_as_sequence,
     0,
     (hashfunc)PyDiaGeometry_Hash,
     (ternaryfunc)0,
@@ -385,13 +487,13 @@ PyTypeObject PyDiaRectangle_Type = {
     (setattrfunc)0,
     (cmpfunc)PyDiaRectangle_Compare,
     (reprfunc)0,
-    0,
-    0,
-    0,
+    0, /* as_number */
+    &rect_as_sequence,
+    0, /* as_mapping */
     (hashfunc)PyDiaGeometry_Hash,
     (ternaryfunc)0,
     (reprfunc)PyDiaRectangle_Str,
-    0L,0L,0L,0L,
+    0L, 0L, 0L,0L,
     NULL
 };
 

@@ -741,7 +741,7 @@ attributes_fill_in_dialog(UMLClass *umlclass)
       attr = (UMLAttribute *)list->data;
 
       list_item =
-	gtk_list_item_new_with_label (umlclass->attributes_strings[i]);
+	gtk_list_item_new_with_label (g_list_nth(umlclass->attributes_strings, i)->data);
       attr_copy = uml_attribute_copy(attr);
       gtk_object_set_user_data(GTK_OBJECT(list_item), (gpointer) attr_copy);
       gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
@@ -1663,7 +1663,7 @@ operations_fill_in_dialog(UMLClass *umlclass)
       op = (UMLOperation *)list->data;
 
       list_item =
-	gtk_list_item_new_with_label (umlclass->operations_strings[i]);
+	gtk_list_item_new_with_label (g_list_nth(umlclass->operations_strings, i)->data);
       op_copy = uml_operation_copy(op);
       gtk_object_set_user_data(GTK_OBJECT(list_item), (gpointer) op_copy);
       gtk_signal_connect (GTK_OBJECT (list_item), "destroy",

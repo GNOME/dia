@@ -42,10 +42,7 @@
 #include "app/display.h"
 #include "app/load_save.h"
 
-#ifdef G_OS_WIN32
-#pragma message("FIXME: open_diagrams")
-#define open_diagrams NULL
-#endif
+#include "lib/message.h"
 
 static PyObject *
 PyDia_Diagrams(PyObject *self, PyObject *args)
@@ -56,7 +53,7 @@ PyDia_Diagrams(PyObject *self, PyObject *args)
     if (!PyArg_ParseTuple(args, ":dia.diagrams"))
 	return NULL;
     ret = PyList_New(0);
-    for (tmp = open_diagrams; tmp; tmp = tmp->next)
+    for (tmp = dia_open_diagrams(); tmp; tmp = tmp->next)
 	PyList_Append(ret, PyDiaDiagram_New((Diagram *)tmp->data));
     return ret;
 }
@@ -77,6 +74,22 @@ PyDia_Load(PyObject *self, PyObject *args)
 }
 
 static PyObject *
+PyDia_New(PyObject *self, PyObject *args)
+{
+    Diagram *dia;
+    gchar *filename;
+
+    if (!PyArg_ParseTuple(args, "s:dia.new", &filename))
+	return NULL;
+
+    dia = new_diagram(filename);
+    if (dia)
+	return PyDiaDiagram_New(dia);
+    PyErr_SetString(PyExc_IOError, "could not create diagram");
+    return NULL;
+}
+
+static PyObject *
 PyDia_GetObjectType(PyObject *self, PyObject *args)
 {
     gchar *name;
@@ -89,6 +102,42 @@ PyDia_GetObjectType(PyObject *self, PyObject *args)
 	return PyDiaObjectType_New(otype);
     PyErr_SetString(PyExc_KeyError, "unknown object type");
     return NULL;
+}
+
+/*
+ * A dictionary interface to all registered object(-types)
+ */
+static void
+_ot_item (gpointer key,
+          gpointer value,
+          gpointer user_data)
+{
+    gchar *name = (gchar *)key;
+    ObjectType *type = (ObjectType *)value;
+    PyObject *dict = (PyObject *)user_data;
+    PyObject *k, *v;
+
+    k = PyString_FromString(name);
+    v = PyDiaObjectType_New(type);
+    if (k && v)
+        PyDict_SetItem(dict, k, v);
+    Py_XDECREF(k);
+    Py_XDECREF(v);
+}
+
+static PyObject *
+PyDia_RegisteredTypes(PyObject *self, PyObject *args)
+{
+    PyObject *dict;
+
+    if (!PyArg_ParseTuple(args, ":dia.registered_types"))
+	return NULL;
+
+    dict = PyDict_New();
+
+    object_registry_foreach(_ot_item, dict);
+
+    return dict;
 }
 
 static PyObject *
@@ -112,7 +161,7 @@ PyDia_UpdateAll(PyObject *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args, ":dia.update_all"))
 	return NULL;
-    for (tmp = open_diagrams; tmp; tmp = tmp->next)
+    for (tmp = dia_open_diagrams(); tmp; tmp = tmp->next)
 	diagram_add_update_all((Diagram *)tmp->data);
     Py_INCREF(Py_None);
     return Py_None;
@@ -212,10 +261,34 @@ PyDia_RegisterCallback(PyObject *self, PyObject *args)
     return Py_None;
 }
 
+static PyObject *
+PyDia_Message (PyObject *self, PyObject *args)
+{
+    int type = 0;
+    char *text = "Huh?";
+
+    if (!PyArg_ParseTuple(args, "is:dia.message",
+			  &type, &text))
+	return NULL;
+
+    if (0 == type)
+	message_notice (text);
+    else if (1 == type)
+	message_warning (text);
+    else
+	message_error (text);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
 static PyMethodDef dia_methods[] = {
     { "diagrams", PyDia_Diagrams, 1 },
     { "load", PyDia_Load, 1 },
+    { "message", PyDia_Message, 1 },
+    { "new", PyDia_New, 1 },
     { "get_object_type", PyDia_GetObjectType, 1 },
+    { "registered_types", PyDia_RegisteredTypes, 1 },
     { "active_display", PyDia_ActiveDisplay, 1 },
     { "update_all", PyDia_UpdateAll, 1 },
     { "register_export", PyDia_RegisterExport, 1 },

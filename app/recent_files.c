@@ -134,7 +134,7 @@ recent_file_filemenu_get(void)
 	/* Use the Plugins menu item to get a pointer to the File menu,
 	   but any item on the File menu will do */
 
-	return GTK_WIDGET(menus_get_item_from_path(N_("<Toolbox>/File/Plugins"),
+	return GTK_WIDGET(menus_get_item_from_path(N_("<Toolbox>/File/Plugins..."),
 	                                NULL))->parent;
 }
 

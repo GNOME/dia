@@ -41,7 +41,13 @@
 #include "autosave.h"
 #include "dynamic_refresh.h"
 
-GList *open_diagrams = NULL;
+static GList *open_diagrams = NULL;
+
+GList *
+dia_open_diagrams(void)
+{
+  return open_diagrams;
+}
 
 static void
 diagram_init(Diagram *dia, const char *filename)

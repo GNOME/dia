@@ -143,6 +143,15 @@ static PyObject * PyDia_get_String (StringProperty *prop)
   else /* FIXME: MULTISTRING ?  */
     return PyString_FromString(prop->string_data);
 }
+static PyObject * PyDia_get_StringList (StringListProperty *prop) 
+{ 
+  GList *tmp;
+  PyObject *ret = PyList_New(0);
+
+  for (tmp = prop->string_list; tmp; tmp = tmp->next)
+    PyList_Append(ret, PyString_FromString(tmp->data));
+  return ret;  
+}
 static PyObject * PyDia_get_Text (TextProperty *prop)
 { return PyDiaText_New (prop->text_data, &prop->attr); }
 static PyObject * PyDia_get_Point (PointProperty *prop) 
@@ -201,6 +210,7 @@ struct {
   { PROP_TYPE_LINESTYLE, PyDia_get_LineStyle },
   { PROP_TYPE_REAL, PyDia_get_Real },
   { PROP_TYPE_STRING, PyDia_get_String },
+  { PROP_TYPE_STRINGLIST, PyDia_get_StringList },
   { PROP_TYPE_FILE, PyDia_get_String },
   { PROP_TYPE_MULTISTRING, PyDia_get_String },
   { PROP_TYPE_TEXT, PyDia_get_Text },
@@ -223,11 +233,13 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
   static gboolean type_quarks_calculated = FALSE;
 
   if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[sss]", "name", "type", "value");
+    return Py_BuildValue("[sss]", "name", "type", "value", "visible");
   else if (!strcmp(attr, "name"))
     return PyString_FromString(self->property->name);
   else if (!strcmp(attr, "type"))
     return PyString_FromString(self->property->type);
+  else if (!strcmp(attr, "visible"))
+    return PyInt_FromLong(0 != (self->property->descr->flags & PROP_FLAG_VISIBLE));
   else if (!strcmp(attr, "value")) {
     int i;
 

@@ -113,7 +113,7 @@ save_state (GnomeClient        *client,
 
   argv[i++] = "dia";
 
-  for(l = open_diagrams; l != NULL; l = g_list_next(l)) {
+  for(l = dia_open_diagrams(); l != NULL; l = g_list_next(l)) {
     dia = (Diagram *)l->data;
     if(!dia->unsaved) {
       argv[i++] = dia->filename;
@@ -568,7 +568,7 @@ app_exit(void)
 
   /* Free loads of stuff (toolbox) */
 
-  list = open_diagrams;
+  list = dia_open_diagrams();
   while (list!=NULL) {
     Diagram *dia = (Diagram *)list->data;
     list = g_list_next(list);

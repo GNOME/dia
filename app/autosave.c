@@ -67,7 +67,7 @@ autosave_save_diagram(gpointer data)
 gboolean
 autosave_check_autosave(gpointer data)
 {
-  GList *diagrams = open_diagrams;
+  GList *diagrams = dia_open_diagrams();
   Diagram *diagram;
 
   while (diagrams != NULL) {

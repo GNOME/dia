@@ -32,7 +32,7 @@ static guint timer_id = 0;
 
 static void foreach_dynobj(Object* obj, gpointer data) {
     gboolean moved = FALSE;
-    GList* list = open_diagrams;
+    GList* list = dia_open_diagrams();
 
     while (list != NULL) {
         Diagram* dia;
@@ -64,7 +64,7 @@ static gboolean timer_handler(gpointer data) {
 
     dynobj_list_foreach(foreach_dynobj,data);
 
-    list = open_diagrams;
+    list = dia_open_diagrams();
     while (list != NULL) {
         Diagram* dia = (Diagram*)list->data;
         list = g_list_next(list);

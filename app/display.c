@@ -1026,7 +1026,7 @@ ddisplay_set_all_cursor(GdkCursor *cursor)
 
   current_cursor = cursor;
   
-  list = open_diagrams;
+  list = dia_open_diagrams();
   while (list != NULL) {
     dia = (Diagram *) list->data;
 

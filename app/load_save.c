@@ -816,7 +816,7 @@ diagram_autosave(Diagram *dia)
   gchar *save_filename;
 
   /* Must check if the diagram is still valid, or Death Ensues! */
-  GList *diagrams = open_diagrams;
+  GList *diagrams = dia_open_diagrams();
   Diagram *diagram;
   while (diagrams != NULL) {
     diagram = (Diagram *)diagrams->data;

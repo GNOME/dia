@@ -360,7 +360,7 @@ draw_polyline(DiaRenderer *renderer,
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
-    Py_DEREF(self);
+    Py_DECREF(self);
   }
   else /* member optional */
     PyErr_Clear();

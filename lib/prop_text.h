@@ -38,6 +38,11 @@ typedef struct {
 
 typedef struct {
   Property common;
+  GList *string_list;
+} StringListProperty;
+
+typedef struct {
+  Property common;
   gchar *text_data;
   TextAttributes attr;
 } TextProperty;

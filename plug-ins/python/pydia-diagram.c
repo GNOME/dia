@@ -27,6 +27,8 @@
 #include "pydia-object.h"
 #include "pydia-handle.h"
 #include "pydia-cpoint.h"
+#include "pydia-geometry.h"
+#include "pydia-color.h"
 
 #include "app/load_save.h"
 
@@ -371,6 +373,17 @@ PyDiaDiagram_Save(PyDiaDiagram *self, PyObject *args)
     return PyInt_FromLong(diagram_save(self->dia, filename));
 }
 
+static PyObject *
+PyDiaDiagram_Display(PyDiaDiagram *self, PyObject *args)
+{
+    DDisplay *disp;
+
+    if (!PyArg_ParseTuple(args, ":DiaDiagram.display"))
+	return NULL;
+    disp = new_display(self->dia);
+    return PyDiaDisplay_New(disp);
+}
+
 static PyMethodDef PyDiaDiagram_Methods[] = {
     {"raise_layer", (PyCFunction)PyDiaDiagram_RaiseLayer, 1},
     {"lower_layer", (PyCFunction)PyDiaDiagram_LowerLayer, 1},
@@ -395,6 +408,7 @@ static PyMethodDef PyDiaDiagram_Methods[] = {
     {"group_selected", (PyCFunction)PyDiaDiagram_GroupSelected, 1},
     {"ungroup_selected", (PyCFunction)PyDiaDiagram_UngroupSelected, 1},
     {"save", (PyCFunction)PyDiaDiagram_Save, 1},
+    {"display", (PyCFunction)PyDiaDiagram_Display, 1},
     {NULL, 0, 0, NULL}
 };
 
@@ -412,14 +426,9 @@ PyDiaDiagram_GetAttr(PyDiaDiagram *self, gchar *attr)
     else if (!strcmp(attr, "modified"))
 	return PyInt_FromLong(self->dia->modified);
     else if (!strcmp(attr, "extents"))
-	return Py_BuildValue("(dddd)", self->dia->data->extents.top,
-			     self->dia->data->extents.left,
-			     self->dia->data->extents.bottom,
-			     self->dia->data->extents.right);
+	return PyDiaRectangle_New(&(self->dia->data->extents), NULL);
     else if (!strcmp(attr, "bg_color"))
-	return Py_BuildValue("(ddd)", self->dia->data->bg_color.red,
-			     self->dia->data->bg_color.green,
-			     self->dia->data->bg_color.blue);
+	return PyDiaColor_New (&(self->dia->data->bg_color));
     else if (!strcmp(attr, "layers")) {
 	guint i, len = self->dia->data->layers->len;
 	PyObject *ret = PyTuple_New(len);

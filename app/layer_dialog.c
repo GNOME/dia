@@ -479,7 +479,7 @@ layer_dialog_update_diagram_list(void)
   current_nr = -1;
   
   i = 0;
-  dia_list = open_diagrams;
+  dia_list = dia_open_diagrams();
   while (dia_list != NULL) {
     dia = (Diagram *) dia_list->data;
 
@@ -507,7 +507,7 @@ layer_dialog_update_diagram_list(void)
     i++;
   }
 
-  if (open_diagrams==NULL) {
+  if (dia_open_diagrams()==NULL) {
     menu_item = gtk_menu_item_new_with_label (_("none"));
     gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
 			(GtkSignalFunc) layer_dialog_select_diagram_callback,
@@ -527,8 +527,8 @@ layer_dialog_update_diagram_list(void)
 
   if (current_nr == -1) {
     dia = NULL;
-    if (open_diagrams!=NULL) {
-      dia = (Diagram *) open_diagrams->data;
+    if (dia_open_diagrams()!=NULL) {
+      dia = (Diagram *) dia_open_diagrams()->data;
     }
     layer_dialog_set_diagram(dia);
   }
@@ -557,7 +557,7 @@ layer_dialog_set_diagram(Diagram *dia)
   gtk_list_clear_items(GTK_LIST(layer_dialog->layer_list), 0, -1);
   layer_dialog->diagram = dia;
   if (dia != NULL) {
-    i = g_list_index(open_diagrams, dia);
+    i = g_list_index(dia_open_diagrams(), dia);
     if (i >= 0)
       gtk_option_menu_set_history(GTK_OPTION_MENU(layer_dialog->diagram_omenu),
 				  i);

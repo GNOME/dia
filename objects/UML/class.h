@@ -80,12 +80,10 @@ struct _UMLClass {
   char *stereotype_string;
   
   real attributesbox_height;
-  int num_attributes;
-  char **attributes_strings;
+  GList *attributes_strings;
   
   real operationsbox_height;
-  int num_operations;
-  char **operations_strings;
+  GList *operations_strings;
 
   real templates_height;
   real templates_width;
