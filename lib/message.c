@@ -29,7 +29,25 @@
 #include "utils.h"
 #include "message.h"
 
-static GHashTable *window_hash_table;
+static GHashTable *message_hash_table;
+
+typedef struct {
+  GtkWidget *dialog;
+  GtkWidget *repeat_label;
+  GList *repeats;
+  GtkWidget *repeat_view;
+} DiaMessageInfo;
+
+static void
+gtk_message_toggle_repeats(GtkWidget *button, gpointer *userdata) {
+  DiaMessageInfo *msginfo = (DiaMessageInfo*)userdata;
+  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(button)))
+    gtk_widget_show(msginfo->repeat_view);
+  else {
+    gtk_widget_hide(msginfo->repeat_view);
+    gtk_container_check_resize(GTK_CONTAINER(msginfo->dialog));
+  }
+}
 
 static void
 gtk_message_internal(const char* title, const char *fmt,
@@ -40,38 +58,57 @@ gtk_message_internal(const char* title, const char *fmt,
   gint len;
   GtkWidget *dialog = NULL;
   GtkMessageType type = GTK_MESSAGE_INFO;
+  DiaMessageInfo *msginfo;
 
-  if (window_hash_table == NULL) {
-    window_hash_table = g_hash_table_new(g_str_hash, g_str_equal);
+  if (message_hash_table == NULL) {
+    message_hash_table = g_hash_table_new(g_str_hash, g_str_equal);
   }
 
-  dialog = (GtkWidget*)g_hash_table_lookup(window_hash_table, fmt);
-  if (dialog != NULL) {
-    gint repeats = 
-      GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(dialog)));
-    
-    gtk_object_set_user_data(GTK_OBJECT(dialog), GINT_TO_POINTER(repeats+1));
-    if (repeats > 0) {
-      GtkWidget *vbox = GTK_DIALOG(dialog)->vbox;
-    } else {
-      GtkWidget *label = gtk_label_new(_("This message is repeated."));
-      gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), label);
-      gtk_widget_show(label);
-    }
-  } else {
-    len = format_string_length_upper_bound (fmt, args);
+  len = format_string_length_upper_bound (fmt, args);
 
-    if (len >= alloc) {
-      if (buf)
-	g_free (buf);
+  if (len >= alloc) {
+    if (buf)
+      g_free (buf);
     
-      alloc = nearest_pow (MAX(len + 1, 1024));
+    alloc = nearest_pow (MAX(len + 1, 1024));
     
-      buf = g_new (char, alloc);
-    }
+    buf = g_new (char, alloc);
+  }
   
-    vsprintf (buf, fmt, *args2);
+  vsprintf (buf, fmt, *args2);
 
+  msginfo = (DiaMessageInfo*)g_hash_table_lookup(message_hash_table, fmt);
+  if (msginfo != NULL) {
+    GtkTextBuffer *textbuffer;
+    if (msginfo->repeats == NULL) {
+      GtkWidget *showrepeats;
+      /* First time repeated, create repeat label */
+      msginfo->repeats = g_list_append(msginfo->repeats, buf);
+      msginfo->repeat_label = gtk_label_new(_("There is one similar message."));
+      gtk_container_add(GTK_CONTAINER(GTK_DIALOG(msginfo->dialog)->vbox), 
+			msginfo->repeat_label);
+      gtk_widget_show(msginfo->repeat_label);
+
+      showrepeats = gtk_check_button_new_with_label(_("Show repeated messages"));
+      gtk_container_add(GTK_CONTAINER(GTK_DIALOG(msginfo->dialog)->vbox), 
+			showrepeats);
+      g_signal_connect(G_OBJECT(showrepeats), "toggled", G_CALLBACK(gtk_message_toggle_repeats), msginfo);
+      gtk_widget_show(showrepeats);
+
+      msginfo->repeat_view = gtk_text_view_new();
+      gtk_container_add(GTK_CONTAINER(GTK_DIALOG(msginfo->dialog)->vbox), 
+			msginfo->repeat_view);
+      gtk_text_view_set_editable(GTK_TEXT_VIEW(msginfo->repeat_view), FALSE);
+    } else {
+      char *newlabel;
+      msginfo->repeats = g_list_append(msginfo->repeats, buf);
+      newlabel = g_strdup_printf(_("There are %d similar messages."),
+				       g_list_length(msginfo->repeats));
+      gtk_label_set_text(GTK_LABEL(msginfo->repeat_label), newlabel);
+    }
+    textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(msginfo->repeat_view));
+    gtk_text_buffer_insert_at_cursor(textbuffer, buf, -1);
+  } else {
     /* quite dirty to not change Dia's message api */
     if (title) {
       if (0 == strcmp (title, _("Error")))
@@ -95,8 +132,10 @@ gtk_message_internal(const char* title, const char *fmt,
     g_signal_connect (G_OBJECT (dialog), "response",
 		      G_CALLBACK (gtk_widget_destroy),
 		      NULL);
-    g_hash_table_insert(window_hash_table, fmt, dialog);
-    gtk_object_set_user_data(GTK_OBJECT(dialog), GINT_TO_POINTER(0));
+    /* Store relevant info to allow repeats to be collapsed */
+    msginfo = g_new0(DiaMessageInfo, 1);
+    msginfo->dialog = dialog;
+    g_hash_table_insert(message_hash_table, fmt, msginfo);
   }
 }
 

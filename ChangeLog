@@ -1,3 +1,8 @@
+2002-06-24  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/message.c: More work on repeating messages, now with
+	togglable view.
+
 2002-06-24  Hans Breuer  <hans@breuer.org>
 
 	* lib/widget.c : some more bits in place, at least
