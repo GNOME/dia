@@ -142,10 +142,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
   
   renderer->ops->fill_rect(renderer, 
 			   &p1, &p2,
-			   &color_white);
+			   &umlclass->color_background);
   renderer->ops->draw_rect(renderer, 
 			   &p1, &p2,
-			   &color_black);
+			   &umlclass->color_foreground);
 
   /* stereotype: */
   font = umlclass->normal_font;
@@ -158,7 +158,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
     renderer->ops->draw_string(renderer,
 			       umlclass->stereotype_string,
 			       &p, ALIGN_CENTER, 
-			       &color_black);
+			       &umlclass->color_foreground);
   }
 
   /* name: */
@@ -173,7 +173,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
   renderer->ops->draw_string(renderer,
 			     umlclass->name,
 			     &p, ALIGN_CENTER, 
-			     &color_black);
+			     &umlclass->color_foreground);
   
   if (umlclass->visible_attributes) {
     p1.x = x;
@@ -183,10 +183,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
   
     renderer->ops->fill_rect(renderer, 
 			     &p1, &p2,
-			     &color_white);
+			     &umlclass->color_background);
     renderer->ops->draw_rect(renderer, 
 			     &p1, &p2,
-			     &color_black);
+			     &umlclass->color_foreground);
 
     if (!umlclass->suppress_attributes) {
       p.x = x + UMLCLASS_BORDER/2.0 + 0.1;
@@ -205,7 +205,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 	renderer->ops->draw_string(renderer,
 				   umlclass->attributes_strings[i],
 				   &p, ALIGN_LEFT, 
-				   &color_black);
+				   &umlclass->color_foreground);
 	if (attr->class_scope) {
 	  p1 = p; 
 	  p1.y += umlclass->font_height*0.1;
@@ -213,7 +213,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 	  p3.x += font_string_width(umlclass->attributes_strings[i],
 				    font, umlclass->font_height);
 	  renderer->ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
-	  renderer->ops->draw_line(renderer, &p1, &p3,  &color_black);
+	  renderer->ops->draw_line(renderer, &p1, &p3,  &umlclass->color_foreground);
 	  renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
 	}
 	
@@ -234,10 +234,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
     
     renderer->ops->fill_rect(renderer, 
 			     &p1, &p2,
-			     &color_white);
+			     &umlclass->color_background);
     renderer->ops->draw_rect(renderer, 
 			     &p1, &p2,
-			     &color_black);
+			     &umlclass->color_foreground);
     if (!umlclass->suppress_operations) {
       p.x = x + UMLCLASS_BORDER/2.0 + 0.1;
       p.y = p1.y + 0.1 + umlclass->font_ascent;
@@ -255,7 +255,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 	renderer->ops->draw_string(renderer,
 				   umlclass->operations_strings[i],
 				   &p, ALIGN_LEFT, 
-				   &color_black);
+				   &umlclass->color_foreground);
 
 	if (op->class_scope) {
 	  p1 = p; 
@@ -264,7 +264,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
 	  p3.x += font_string_width(umlclass->operations_strings[i],
 				    font, umlclass->font_height);
 	  renderer->ops->set_linewidth(renderer, UMLCLASS_UNDERLINEWIDTH);
-	  renderer->ops->draw_line(renderer, &p1, &p3,  &color_black);
+	  renderer->ops->draw_line(renderer, &p1, &p3,  &umlclass->color_foreground);
 	  renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
 	}
 
@@ -287,14 +287,14 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
     
     renderer->ops->fill_rect(renderer, 
 			     &p1, &p2,
-			     &color_white);
+			     &umlclass->color_background);
 
     renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
     renderer->ops->set_dashlength(renderer, 0.3);
     
     renderer->ops->draw_rect(renderer, 
 			     &p1, &p2,
-			     &color_black);
+			     &umlclass->color_foreground);
 
     p.x = x + 0.3;
     p.y = y + 0.1 + font_ascent(umlclass->normal_font, umlclass->font_height);
@@ -309,7 +309,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
       renderer->ops->draw_string(renderer,
 				 umlclass->templates_strings[i],
 				 &p, ALIGN_LEFT, 
-				 &color_black);
+				 &umlclass->color_foreground);
       
       p.y += umlclass->font_height;
 
@@ -628,6 +628,9 @@ umlclass_create(Point *startpoint,
   umlclass->operations_strings = NULL;
   umlclass->templates_strings = NULL;
   
+  umlclass->color_foreground = color_black;
+  umlclass->color_background = color_white;
+  
   umlclass_calculate_data(umlclass);
   
   for (i=0;i<8;i++) {
@@ -760,6 +763,8 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->suppress_operations = umlclass->suppress_operations;
   newumlclass->visible_attributes = umlclass->visible_attributes;
   newumlclass->visible_operations = umlclass->visible_operations;
+  newumlclass->color_foreground = umlclass->color_foreground;
+  newumlclass->color_background = umlclass->color_background;
 
   newumlclass->attributes = NULL;
   list = umlclass->attributes;
@@ -889,6 +894,10 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 		   umlclass->visible_attributes);
   data_add_boolean(new_attribute(obj_node, "visible_operations"),
 		   umlclass->visible_operations);
+  data_add_color(new_attribute(obj_node, "foreground_color"), 
+		   &umlclass->color_foreground);		   
+  data_add_color(new_attribute(obj_node, "background_color"), 
+		   &umlclass->color_background);		   
 
   /* Attribute info: */
   attr_node = new_attribute(obj_node, "attributes");
@@ -981,6 +990,16 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
   if (attr_node != NULL)
     umlclass->visible_operations = data_boolean(attribute_first_data(attr_node));
   
+  umlclass->color_foreground = color_black;
+  attr_node = object_find_attribute(obj_node, "foreground_color");
+  if(attr_node != NULL)
+    data_color(attribute_first_data(attr_node), &umlclass->color_foreground); 
+  
+  umlclass->color_background = color_white;
+  attr_node = object_find_attribute(obj_node, "background_color");
+  if(attr_node != NULL)
+    data_color(attribute_first_data(attr_node), &umlclass->color_background); 
+    
   /* Attribute info: */
   attr_node = object_find_attribute(obj_node, "attributes");
   num_attr = num = attribute_num_data(attr_node);

@@ -21,6 +21,7 @@
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
+#include "widgets.h"
 
 #include "uml.h"
 
@@ -47,6 +48,8 @@ struct _UMLClass {
   int suppress_operations; /* ie. don't draw strings. */
   int visible_attributes;
   int visible_operations;
+  Color color_foreground;
+  Color color_background;
 
   /* Attributes: */
   GList *attributes;
@@ -91,6 +94,8 @@ struct _UMLClassDialog {
   GtkToggleButton *attr_supp;
   GtkToggleButton *op_vis;
   GtkToggleButton *op_supp;
+  DiaColorSelector *fg_color;
+  DiaColorSelector *bg_color;
 
   GList *disconnected_connections;
   GList *added_connections; 

@@ -132,6 +132,8 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   umlclass->visible_operations = prop_dialog->op_vis->active;
   umlclass->suppress_attributes = prop_dialog->attr_supp->active;
   umlclass->suppress_operations = prop_dialog->op_supp->active;
+  umlclass->color_foreground = prop_dialog->fg_color->col;
+  umlclass->color_background = prop_dialog->bg_color->col;
 }
 
 static void
@@ -152,6 +154,8 @@ class_fill_in_dialog(UMLClass *umlclass)
   gtk_toggle_button_set_active(prop_dialog->op_vis, umlclass->visible_operations);
   gtk_toggle_button_set_active(prop_dialog->attr_supp, umlclass->suppress_attributes);
   gtk_toggle_button_set_active(prop_dialog->op_supp, umlclass->suppress_operations);
+  dia_color_selector_set_color(prop_dialog->fg_color, &umlclass->color_foreground);
+  dia_color_selector_set_color(prop_dialog->bg_color, &umlclass->color_background);
 }
 
 static void 
@@ -164,6 +168,8 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *vbox;
   GtkWidget *entry;
   GtkWidget *checkbox;
+  GtkWidget *color_background;
+  GtkWidget *color_foreground;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -226,7 +232,27 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox),
 		      hbox, FALSE, TRUE, 0);
+
+  hbox = gtk_hbox_new(FALSE, 5);
+  label = gtk_label_new(_("Foreground Color"));
+  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
+  gtk_box_pack_start( GTK_BOX(hbox), label, TRUE, TRUE, 0);
+  color_foreground = dia_color_selector_new();
+  dia_color_selector_set_color((DiaColorSelector *)color_foreground, &umlclass->color_foreground);
+  prop_dialog->fg_color = (DiaColorSelector *)color_foreground;
+  gtk_box_pack_end( GTK_BOX(hbox), color_foreground, TRUE, TRUE,0);
+  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
   
+  hbox = gtk_hbox_new(FALSE, 5);
+  label = gtk_label_new(_("Background Color"));
+  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
+  gtk_box_pack_start( GTK_BOX(hbox), label, TRUE, TRUE, 0);
+  color_background = dia_color_selector_new();
+  dia_color_selector_set_color((DiaColorSelector *)color_background, &umlclass->color_background);
+  prop_dialog->bg_color = (DiaColorSelector *)color_background;
+  gtk_box_pack_end( GTK_BOX(hbox), color_background, TRUE, TRUE,0);
+  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
+
   gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);
   gtk_notebook_append_page(notebook, vbox, page_label);
