@@ -1,3 +1,8 @@
+2003-08-15  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/polyshape.c (find_tip_directions): Reasonable directions for
+	connectionpoints. 
+
 2003-08-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/Misc/analog_clock.c (analog_clock_update_arrow_tips): 

@@ -247,6 +247,86 @@ polyshape_remove_point(PolyShape *poly, int pos)
 				old_cp1, old_cp2);
 }
 
+/* Returns the available directions on a slope */
+static gint
+find_slope_directions(Point from, Point to)
+{
+  gint dirs;
+  gint slope;
+
+  if (fabs(from.y-to.y) < 0.0000001)
+    return (from.x > to.x?DIR_SOUTH:DIR_NORTH);
+  if (fabs(from.x-to.x) < 0.0000001)
+    return (from.y > to.y?DIR_WEST:DIR_EAST);
+
+  point_sub(&to, &from);
+  slope = fabs(to.y/to.x);
+
+  dirs = 0;
+  if (slope < 2) { /* Flat enough to allow north-south */
+    if (to.x > 0) { /* The outside is north, not south */
+      dirs |= DIR_NORTH;
+    } else {
+      dirs |= DIR_SOUTH;
+    }
+  }
+  if (slope > .5) { /* Steep enough to allow east-west */
+    if (to.y > 0) {  /* The outside is east, not west */
+      dirs |= DIR_EAST;
+    } else {
+      dirs |= DIR_WEST;
+    }
+  }
+  return dirs;
+}
+
+/** Returns the first clockwise direction in dirs 
+ * (as returned from find_slope_directions) */
+static gint
+first_direction(gint dirs) {
+  switch (dirs) {
+  case DIR_NORTHEAST: return DIR_NORTH;
+  case DIR_SOUTHEAST: return DIR_EAST;
+  case DIR_NORTHWEST: return DIR_WEST;
+  case DIR_SOUTHWEST: return DIR_SOUTH;
+  default: return dirs;
+  }
+}
+
+/** Returns the last clockwise direction in dirs 
+ * (as returned from find_slope_directions) */
+static gint
+last_direction(gint dirs) {
+  switch (dirs) {
+  case DIR_NORTHEAST: return DIR_EAST;
+  case DIR_SOUTHEAST: return DIR_SOUTH;
+  case DIR_NORTHWEST: return DIR_NORTH;
+  case DIR_SOUTHWEST: return DIR_WEST;
+  default: return dirs;
+  }
+}
+
+/** Returns the available directions for a corner */
+static gint 
+find_tip_directions(Point prev, Point this, Point next)
+{
+  gint startdirs = find_slope_directions(prev, this);
+  gint enddirs = find_slope_directions(this, next);
+  gint firstdir = first_direction(startdirs);
+  gint lastdir = last_direction(enddirs);
+  gint dir, dirs = 0;
+
+  dir = firstdir;
+  while (dir != lastdir) {
+    dirs |= dir;
+    dir = dir * 2;
+    if (dir == 16) dir = 1;
+  }
+  dirs |= dir;
+
+  return dirs;
+}
+
 void
 polyshape_update_data(PolyShape *poly)
 {
@@ -278,16 +358,25 @@ polyshape_update_data(PolyShape *poly)
 
   /* Update handles: */
   for (i = 0; i < poly->numpoints; i++) {
+    gint thisdir, nextdir;
+    Point prev;
     poly->object.handles[i]->pos = poly->points[i];
 
-    poly->object.connections[2*i]->pos = poly->points[i];
+    prev = next;
     if (i == poly->numpoints - 1)
       next = poly->points[0];
     else
       next = poly->points[i+1];
     point_add(&next, &poly->points[i]);
     point_scale(&next, 0.5);
+
+    thisdir = find_tip_directions(prev, poly->points[i], next);
+    nextdir = find_slope_directions(poly->points[i], next);
+
+    poly->object.connections[2*i]->pos = poly->points[i];
+    poly->object.connections[2*i]->directions = thisdir;
     poly->object.connections[2*i+1]->pos = next;
+    poly->object.connections[2*i+1]->directions = nextdir;
   }
 }
 

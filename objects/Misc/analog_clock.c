@@ -258,8 +258,8 @@ analog_clock_update_arrow_tips(Analog_Clock *analog_clock)
   now = time(NULL);
   local = localtime(&now);
   analog_clock->hour_tip.directions = DIR_ALL;
-  analog_clock->minute_tip.directions = DIR_ALL;
-  analog_clock->second_tip.directions = DIR_ALL;
+  analog_clock->min_tip.directions = DIR_ALL;
+  analog_clock->sec_tip.directions = DIR_ALL;
   if (local) {    
     make_hours(&analog_clock->centre,local->tm_hour,
                0.50 * analog_clock->radius, &analog_clock->hour_tip.pos);
