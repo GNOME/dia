@@ -8,6 +8,9 @@
 	HAVE_ISINF. (Hans, you may want to #define HAVE_ISINF if relevant
 	on Win32)
 
+	* app/commands.c: "cut" did not set the 'modified' bit (paste has
+	been for a little while). Fixes #82994.
+	
 2002-05-24  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* dia.spec:

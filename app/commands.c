@@ -185,6 +185,7 @@ edit_cut_callback(gpointer data, guint action, GtkWidget *widget)
   ddisplay_do_update_menu_sensitivity(ddisp);
   diagram_flush(ddisp->diagram);
 
+  diagram_modified(ddisp->diagram);
   undo_set_transactionpoint(ddisp->diagram->undo);
 }
 
