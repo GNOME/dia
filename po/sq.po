@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-28 03:02+0200\n"
+"POT-Creation-Date: 2004-07-29 11:03+0200\n"
 "PO-Revision-Date: 2004-01-12 15:23+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -660,7 +660,6 @@ msgstr ""
 msgid "Export Diagram"
 msgstr ""
 
-#. GRUT modified this item
 #: app/filedlg.c:517
 msgid "Export Options"
 msgstr "Opcionet e eksportimit"
@@ -745,7 +744,6 @@ msgstr ""
 msgid "Pops up the Navigation window."
 msgstr ""
 
-#. GRUT modified this item
 #: app/interface.c:511
 msgid "Zoom"
 msgstr "Shkalla e zmadhimit"
@@ -809,7 +807,6 @@ msgstr ""
 msgid "Delete Layer"
 msgstr ""
 
-#. GRUT modified this item
 #: app/layer_dialog.c:212
 msgid "Layers"
 msgstr "Nivelet"
@@ -818,7 +815,6 @@ msgstr "Nivelet"
 msgid "Diagrams:"
 msgstr ""
 
-#. GRUT modified this item
 #: app/layer_dialog.c:271
 msgid "Close"
 msgstr "Mbyll"
@@ -925,7 +921,6 @@ msgstr "/_File"
 msgid "/File/_New"
 msgstr ""
 
-#. GRUT modified this item
 #: app/menus.c:53 app/menus.c:88
 msgid "/File/_Open..."
 msgstr "/File/_Hap..."
@@ -972,17 +967,14 @@ msgstr ""
 msgid "/Help/_About..."
 msgstr "/Ndihmë/_Informacione mbi..."
 
-#. GRUT modified this item
 #: app/menus.c:90
 msgid "/File/_Save"
 msgstr "/File/_Ruaj"
 
-#. GRUT modified this item
 #: app/menus.c:92
 msgid "/File/Save _As..."
 msgstr "/File/Ruaje _Si..."
 
-#. GRUT modified this item
 #: app/menus.c:94
 msgid "/File/_Export..."
 msgstr "/File/_Eksporto..."
@@ -995,7 +987,6 @@ msgstr ""
 msgid "/File/_Print Diagram..."
 msgstr ""
 
-#. GRUT modified this item
 #: app/menus.c:100
 msgid "/File/_Close"
 msgstr "/File/_Mbylle"
@@ -1004,7 +995,6 @@ msgstr "/File/_Mbylle"
 msgid "/_Edit"
 msgstr "/_Ndrysho"
 
-#. GRUT modified this item
 #: app/menus.c:107
 msgid "/Edit/_Undo"
 msgstr "/Ndrysho/_Anullo"
@@ -1301,7 +1291,6 @@ msgstr ""
 msgid "/Select/Remove"
 msgstr ""
 
-#. GRUT modified this item
 #: app/menus.c:210
 msgid "/_Tools"
 msgstr "/_Instrumentët"
@@ -2395,7 +2384,6 @@ msgstr ""
 msgid "Identifying:"
 msgstr ""
 
-#. GRUT modified this item
 #: objects/ER/relationship.c:449 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Marrëdhënie"
@@ -2844,7 +2832,6 @@ msgstr "Filtri"
 msgid "Percolate"
 msgstr ""
 
-#. GRUT modified this item
 #. Translators: Menu item Verb/Branch/Refine/Clear
 #: objects/FS/function.c:873
 msgid "Clear"
@@ -3072,7 +3059,6 @@ msgstr ""
 msgid "Adjust"
 msgstr "Përshtat"
 
-#. GRUT modified this item
 #. Translators: Menu item Verb/Control Magnitude/Form
 #. Translators: Menu item Verb/Control Magnitude/Form/Form
 #: objects/FS/function.c:987 objects/FS/function.c:989
@@ -3286,7 +3272,6 @@ msgstr ""
 msgid "Translation"
 msgstr "Përkthimi"
 
-#. GRUT modified this item
 #. Translators: Menu item Noun/Energy/Mechanical/Force
 #: objects/FS/function.c:1093
 msgid "Force"
@@ -3347,7 +3332,6 @@ msgstr "Aktual"
 msgid "Hydraulic"
 msgstr ""
 
-#. GRUT modified this item
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
 #: objects/FS/function.c:1117
 msgid "Pressure"
@@ -3821,7 +3805,7 @@ msgstr " "
 #. GRUT modified this item
 #: objects/UML/class.c:172 objects/UML/object.c:151
 msgid "Attributes"
-msgstr "Veçoritë"
+msgstr "Vlerat"
 
 #: objects/UML/class.c:174
 msgid "Operations"
@@ -5339,7 +5323,6 @@ msgstr ""
 msgid "Measurement"
 msgstr "Matja"
 
-#. GRUT modified this item
 #: sheets/ChemEng.sheet.in.h:29
 msgid "Mixer"
 msgstr "Kontrolli i volumit"
