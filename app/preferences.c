@@ -100,7 +100,7 @@ struct DiaPrefsData prefs_data[] =
   { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create), &default_false, 0, N_("Reset tools after create:") },
   { "compress_save", PREF_BOOLEAN, PREF_OFFSET(compress_save), &default_true, 0, N_("Compress saved files:") },
   { "undo_depth", PREF_UINT, PREF_OFFSET(undo_depth), &default_undo_depth, 0, N_("Number of undo levels:") },
-  { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), &default_true, 0, N_("Rubberbanding from right to left selects intersecting objects") },
+  { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), &default_true, 0, N_("Reverse dragging selects\nintersecting objects:") },
   { NULL, PREF_NONE, 0, NULL, 1, N_("New window:") },
   { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, 1, N_("Width:") },
   { "new_view_height", PREF_UINT, PREF_OFFSET(new_view.height), &default_int_h, 1, N_("Height:") },

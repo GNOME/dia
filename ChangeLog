@@ -1,3 +1,9 @@
+2000-04-24  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
+
+	* app/preferences.c (prefs_data): Changed
+	reversed_dragging_intersects to not make the dialog ridiculously
+	wide.
+	
 2000-04-22  James Henstridge  <james@daa.com.au>
 
 	Hans's win32 patches:
