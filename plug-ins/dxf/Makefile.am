@@ -5,7 +5,8 @@ pkglib_LTLIBRARIES = libdxf_filter.la
 libdxf_filter_la_SOURCES = \
 	dxf.c \
 	dxf-export.c \
-	dxf-import.c
+	dxf-import.c \
+	autocad_pal.h
 
 libdxf_filter_la_LDFLAGS = -export-dynamic -module -avoid-version
 

@@ -138,6 +138,7 @@ dia_core_files = \
 	    dialogs.h \
 	    autosave.c \
 	    autosave.h \
+	    authors.h \
 	    $(print_files)
 
 dia_SOURCES = \

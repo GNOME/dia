@@ -1612,7 +1612,8 @@ msgid ""
 "This is probably a i18n problem (try LANG=C)."
 msgstr ""
 "Ne peut trouver l'entrée de menu '%s' !\n"
-"Ceci est probablement un problème d'internationalisation. (Rééssayez avec LANG=C)"
+"Ceci est probablement un problème d'internationalisation. (Rééssayez avec "
+"LANG=C)"
 
 #: app/pagesetup.c:77 app/preferences.c:730
 msgid "Apply"
@@ -4637,7 +4638,9 @@ msgstr "Format de fichier XFig"
 
 #: plug-ins/xslt/xslt.c:73
 msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-msgstr "La variable d'environnement « DIA_PLUGIN_PATH » n'est pas établie. Les feuilles de styles ne sont pas disponibles.\n"
+msgstr ""
+"La variable d'environnement « DIA_PLUGIN_PATH » n'est pas établie. Les "
+"feuilles de styles ne sont pas disponibles.\n"
 
 #: plug-ins/xslt/xslt.c:98
 #, c-format

@@ -41,6 +41,10 @@
 
 	* app/Makefile.am: modified run_dia.sh so that we recover the
 	ability to run a debugger despite libtool's hacks.
+
+	* plug-ins/dxf/Makefile.am: 
+	* app/Makefile.am
+	"make distcheck" fixes.
 	
 2002-09-19  Lars Clausen  <lrclause@cs.uiuc.edu>
 
