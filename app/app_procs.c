@@ -319,21 +319,34 @@ app_init (int argc, char **argv)
   /* --credits option. Added by Andrew Ferrier.
   
      Hopefully we're not ignoring anything too crucial by
-     quitting directly after the credits. */
+     quitting directly after the credits.
+
+     The phrasing of the English here might need changing
+     if we switch from plural to non-plural (say, only
+     one maintainer).
+  */
 
   if (credits) {
       int i;
       const gint nauthors = (sizeof(authors) / sizeof(authors[0])) - 1;
       const gint ndocumentors = (sizeof(documentors) / sizeof(documentors[0])) - 1;
 
-      printf("Dia was written by:\n\n");
-    
-      for (i = 0; i < nauthors; i++) {
+      printf("The original author of Dia was:\n\n");
+      for (i = 0; i < NUMBER_OF_ORIG_AUTHORS; i++) {
           printf(authors[i]); printf("\n");
       }
 
-      printf("\nand documented by:\n\n");
+      printf("\nThe current maintainers of Dia are:\n\n");
+      for (i = NUMBER_OF_ORIG_AUTHORS; i < NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i++) {
+	  printf(authors[i]); printf("\n");
+      }
 
+      printf("\nOther authors are:\n\n");
+      for (i = NUMBER_OF_ORIG_AUTHORS + NUMBER_OF_MAINTAINERS; i < nauthors; i++) {
+          printf(authors[i]); printf("\n");
+      }
+
+      printf("\nDia is documented by:\n\n");
       for (i = 0; i < ndocumentors; i++) {
           printf(documentors[i]); printf("\n");
       }

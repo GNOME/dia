@@ -19,16 +19,42 @@
 /* Wouldn't it be neat to display (where applicable) the names
    of the authors in their original (non-Roman) scripts, where
    applicable ?  -- cc */
-   
+
+/* All names below should be UTF-8 encoded. The consensus is that
+   it's the responsbility of the user to ensure their terminal
+   can display this if necessary.
+
+   The way the following list is done is a bit messy, but it
+   works. All the people are 'authors'. The first
+   NUMBER_OF_ORIG_AUTHORS are original authors. The next
+   NUMBER_OF_MAINTAINERS are _current_ maintainers. The rest
+   are just 'authors'. Documentors are listed in a separate
+   array below. 
+
+   --- Andrew Ferrier
+*/
+
+static const int NUMBER_OF_ORIG_AUTHORS = 1;
+static const int NUMBER_OF_MAINTAINERS = 2;
+
 static const gchar *authors[] =	{
+
+    /* original author(s) */
+
     "Alexander Larsson <alexl@redhat.com>",
+
+    /* current maintainer(s) */
+
+    "Cyrille Chépélov <cyrille@chepelov.org>",
+    "Lars R. Clausen <lrclause@cs.uiuc.edu>",
+
+    /* other author(s) */
+
     "James Henstridge <james@daa.com.au>",
     "Jerome Abela <abela@solsoft.fr>",
     "Hans Breuer <hans@breuer.org>",
     "Emmanuel Briot <briot@volga.gnat.com>",
-    "Cyrille Chépélov <cyrille@chepelov.org>",
-    "Lars R. Clausen <lrclause@cs.uiuc.edu>",
-    "Fredrik Hallenberg <hallon@debian.org>",
+    "Fredrik Hallenberg <hallon@debian.org>",   
     "Francis J. Lacoste <francis@contre.com>",
     "Steffen Macke <sdteffen@web.de>",
     "M. C. Nelson <mcn@mani.kobayashimaru.org>",

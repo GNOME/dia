@@ -26,6 +26,7 @@ distclean-local:
 	rm -f intltool-extract
 	rm -f intltool-merge
 	rm -f intltool-update
+	rm -f AUTHORS
 
 mimedir = $(gnomedatadir)/mime-info
 mime_DATA = dia.mime dia.keys
@@ -49,5 +50,5 @@ EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
 	RELEASE-PROCESS autogen.sh \
 	config.h.win32 readme.win32
 
-
-
+AUTHORS: all-recursive
+	app/run_dia.sh --credits > AUTHORS

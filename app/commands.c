@@ -517,6 +517,9 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
    *  which is much cleaner and GNOME2 HIG compliant,
    *  Originally implemented by Xing Wang, modified
    *  by Andrew Ferrier.
+   *
+   *  Note: in this function there is no need to discriminate
+   *  between the different kinds of 'authors'.
    */
   
   static GtkWidget *about;
@@ -874,6 +877,15 @@ view_show_all_callback(gpointer data, guint action, GtkWidget *widget)
   ddisplay_zoom (ddisp, &middle, (magnify_x<magnify_y)?magnify_x:magnify_y);
 
   ddisplay_update_scrollbars(ddisp);
+  ddisplay_add_update_all(ddisp);
+  ddisplay_flush(ddisp);
+}
+
+void
+view_redraw_callback(gpointer data, guint action, GtkWidget *widget)
+{
+  DDisplay *ddisp;
+  ddisp = ddisplay_active();
   ddisplay_add_update_all(ddisp);
   ddisplay_flush(ddisp);
 }
