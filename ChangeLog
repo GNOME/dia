@@ -1,5 +1,8 @@
 2002-02-10  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
 
+	* app/filedlg.c (file_export_callback): Made export dialog add
+	suffix when reopened.
+
 	* app/export_png.c: Added dialog asking for export size.
 
 2002-02-09  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>

@@ -488,6 +488,7 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   Diagram *dia;
+  GtkWidget *export_menu, *export_item;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
@@ -510,13 +511,6 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
 		       "clicked", GTK_SIGNAL_FUNC(file_export_ok_callback),
 		       exportdlg);
     gtk_quit_add_destroy(1, GTK_OBJECT(exportdlg));
-  } else {
-    gtk_widget_set_sensitive(exportdlg, TRUE);
-    if (GTK_WIDGET_VISIBLE(exportdlg))
-      return;
-    gtk_file_selection_set_filename(GTK_FILE_SELECTION(exportdlg),
-				    dia->filename ? dia->filename
-				    : "." G_DIR_SEPARATOR_S);
   }
   if (!export_options) {
     GtkWidget *hbox, *label, *omenu;
@@ -542,7 +536,18 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_box_pack_end(GTK_BOX (GTK_FILE_SELECTION(exportdlg)->main_vbox),
 		      export_options, FALSE, FALSE, 5);
   }
+ 
   gtk_object_set_user_data(GTK_OBJECT(exportdlg), dia);
+  gtk_widget_set_sensitive(exportdlg, TRUE);
+  if (GTK_WIDGET_VISIBLE(exportdlg))
+    return;
+  gtk_file_selection_set_filename(GTK_FILE_SELECTION(exportdlg),
+				  dia->filename ? dia->filename
+				  : "." G_DIR_SEPARATOR_S);
+  export_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(export_omenu));
+  export_item = gtk_menu_get_active(GTK_MENU(export_menu));
+  if (export_item)
+    export_set_extension(export_item);
   gtk_widget_show(export_options);
   gtk_widget_show(exportdlg);
 }
