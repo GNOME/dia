@@ -25,6 +25,7 @@
 #include <time.h>
 #include <math.h>
 #include <glib.h>
+#include <errno.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
@@ -147,7 +148,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
   file = fopen(filename, "w");
 
   if (file==NULL) {
-    message_error(_("Couldn't open: '%s' for writing.\n"), filename);
+    message_error(_("Can't open output file %s: %s\n"), filename, strerror(errno));
     return NULL;
   }
   fclose(file);

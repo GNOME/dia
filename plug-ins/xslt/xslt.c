@@ -24,6 +24,8 @@
 
 #include <config.h>
 #include <stdio.h>
+#include <string.h>
+#include <errno.h>
 #include "filter.h"
 #include "intl.h"
 #include "message.h"
@@ -60,7 +62,9 @@ export_xslt(DiagramData *data, const gchar *f,
 }
 
 
-void xslt_ok() {
+void
+xslt_ok() 
+{
 	FILE *file, *out;
 	int err;
 	gchar *stylefname;
@@ -80,8 +84,8 @@ void xslt_ok() {
 	out = fopen(filename, "w+");
 	
 	if (out == NULL) {
-	    message_error(_("Couldn't open: '%s' for writing.\n"), filename);
-	    return;
+	  message_error(_("Can't open output file %s: %s\n"), filename, strerror(errno));
+	  return;
 	}
 	
 	xmlSubstituteEntitiesDefault(0);
