@@ -26,6 +26,8 @@ SHAPES = \
 	arrow-right-notched.shape \
 	arrow-right.png \
 	arrow-right.shape \
+	arrow-turn-up.shape \
+	arrow-turn-up.png \
 	arrow-up-down-left.png \
 	arrow-up-down-left.shape \
 	arrow-up-down.png \

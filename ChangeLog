@@ -1,3 +1,10 @@
+2003-11-22  Steffen Macke <sdteffen@web.de>
+
+	* shapes/Assorted/arrow-turn-up.shape:
+	* shapes/Assorted/arrow-turn-up.png:
+	* sheets/Assorted/Makefile.am:
+	* sheets/Assorted.sheet.in: Added new arrow
+
 2003-11-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/app_procs.c
