@@ -64,6 +64,7 @@ struct _DDisplay {
   
   GSList *update_areas;           /* Update areas list                 */
   GSList *display_areas;          /* Display areas list                */
+  guint update_id;                /* idle handler ID for redraws       */
 
   /* input contexts */
   GdkIC *ic;

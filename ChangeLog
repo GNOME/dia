@@ -1,3 +1,14 @@
+2001-02-02  James Henstridge  <james@daa.com.au>
+
+	* app/display.c (new_display): set update id to 0 here.
+	(ddisplay_update_handler): rename from ddisplay_flush, and set
+	update_id to 0 at end of processing.
+	(ddisplay_flush): new implementation that simply sets an idle
+	handler to perform the actual drawing.
+
+	* app/display.h: add structure member to hold the redraw idle
+	handler id.
+
 2001-01-31  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* objects/standard/ellipse.c (ellipse_copy): 

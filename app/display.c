@@ -180,6 +180,7 @@ new_display(Diagram *dia)
   
   ddisp->update_areas = NULL;
   ddisp->display_areas = NULL;
+  ddisp->update_id = 0;
 
   filename = strrchr(dia->filename, G_DIR_SEPARATOR);
   if (filename==NULL) {
@@ -381,8 +382,8 @@ ddisplay_add_display_area(DDisplay *ddisp,
   }
 }
 
-void
-ddisplay_flush(DDisplay *ddisp)
+static gint
+ddisplay_update_handler(DDisplay *ddisp)
 {
   GSList *l;
   IRectangle *ir;
@@ -450,6 +451,18 @@ ddisplay_flush(DDisplay *ddisp)
   }
   g_slist_free(ddisp->display_areas);
   ddisp->display_areas = NULL;
+
+  ddisp->update_id = 0;
+  return FALSE;
+}
+
+void
+ddisplay_flush(DDisplay *ddisp)
+{
+  /* if no update is queued, queue update */
+  if (!ddisp->update_id)
+    ddisp->update_id = gtk_idle_add((GtkFunction) ddisplay_update_handler,
+				    ddisp);
 }
 
 static void
