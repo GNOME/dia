@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.94-pre6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-12 01:04-0400\n"
-"PO-Revision-Date: 2004-10-12 22:44-0400\n"
+"POT-Creation-Date: 2004-10-31 15:05-0500\n"
+"PO-Revision-Date: 2004-10-31 22:44-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -313,61 +313,61 @@ msgstr "This object has no defaults."
 msgid "Defaults: "
 msgstr "Defaults: "
 
-#: app/dia-props.c:89
+#: app/dia-props.c:85
 msgid "Diagram Properties"
 msgstr "Diagram Properties"
 
-#: app/dia-props.c:123
+#: app/dia-props.c:119
 msgid "Dynamic grid"
 msgstr "Dynamic grid"
 
-#: app/dia-props.c:131
+#: app/dia-props.c:127
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:135
+#: app/dia-props.c:131
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:140
+#: app/dia-props.c:136
 msgid "Spacing"
 msgstr "Spacing"
 
-#: app/dia-props.c:160
+#: app/dia-props.c:156
 msgid "Visible spacing"
 msgstr "Visible spacing"
 
 #. Hexes!
-#: app/dia-props.c:181 app/preferences.c:162
+#: app/dia-props.c:177 app/preferences.c:162
 msgid "Hex grid"
 msgstr "Hex grid"
 
-#: app/dia-props.c:189
+#: app/dia-props.c:185
 msgid "Hex grid size"
 msgstr "Hex grid size"
 
-#: app/dia-props.c:202
+#: app/dia-props.c:198
 msgid "Grid"
 msgstr "Grid"
 
-#: app/dia-props.c:213 lib/diagramdata.c:127
+#: app/dia-props.c:209 lib/diagramdata.c:127
 msgid "Background"
 msgstr "Background"
 
-#: app/dia-props.c:224 app/preferences.c:105
+#: app/dia-props.c:220 app/preferences.c:105
 msgid "Grid Lines"
 msgstr "Grid Lines"
 
-#: app/dia-props.c:235
+#: app/dia-props.c:231
 msgid "Page Breaks"
 msgstr "Page Breaks"
 
-#: app/dia-props.c:246
+#: app/dia-props.c:242
 msgid "Colors"
 msgstr "Colours"
 
 #. Can we be sure that the filename is the 'proper title'?
-#: app/dia-props.c:265
+#: app/dia-props.c:263
 #, c-format
 msgid "Diagram Properties: %s"
 msgstr "Diagram Properties: %s"
@@ -587,7 +587,7 @@ msgid "Discard Changes"
 msgstr "Discard Changes"
 
 #: app/export_png.c:134 app/load_save.c:904 app/render_eps.c:103
-#: plug-ins/cairo/diacairo.c:913 plug-ins/cgm/cgm.c:1157
+#: plug-ins/cairo/diacairo.c:929 plug-ins/cgm/cgm.c:1157
 #: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:732
 #: plug-ins/metapost/render_metapost.c:964
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
@@ -704,28 +704,28 @@ msgstr "Export Diagram"
 msgid "Export Options"
 msgstr "Export Options"
 
-#: app/interface.c:53
+#: app/interface.c:54
 msgid "Modify object(s)"
 msgstr "Modify object(s)"
 
-#: app/interface.c:54
+#: app/interface.c:55
 msgid "Modify"
 msgstr "Modify"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:58 app/interface.c:59 objects/FS/function.c:975
+#: app/interface.c:59 app/interface.c:60 objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Magnify"
 
-#: app/interface.c:63
+#: app/interface.c:64
 msgid "Scroll around the diagram"
 msgstr "Scroll around the diagram"
 
-#: app/interface.c:64
+#: app/interface.c:65
 msgid "Scroll"
 msgstr "Scroll"
 
-#: app/interface.c:68 app/interface.c:69 lib/properties.c:77
+#: app/interface.c:69 app/interface.c:70 lib/properties.c:77
 #: lib/properties.h:516 lib/properties.h:519 objects/UML/activity.c:122
 #: objects/UML/actor.c:120 objects/UML/classicon.c:141
 #: objects/UML/component.c:126 objects/UML/component_feature.c:154
@@ -736,76 +736,76 @@ msgstr "Scroll"
 msgid "Text"
 msgstr "Text"
 
-#: app/interface.c:73 app/interface.c:74
+#: app/interface.c:74 app/interface.c:75
 msgid "Box"
 msgstr "Box"
 
-#: app/interface.c:78 app/interface.c:79
+#: app/interface.c:79 app/interface.c:80
 msgid "Ellipse"
 msgstr "Ellipse"
 
-#: app/interface.c:83 app/interface.c:84
+#: app/interface.c:84 app/interface.c:85
 msgid "Polygon"
 msgstr "Polygon"
 
-#: app/interface.c:88 app/interface.c:89
+#: app/interface.c:89 app/interface.c:90
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: app/interface.c:93 app/interface.c:94 objects/standard/line.c:238
+#: app/interface.c:94 app/interface.c:95 objects/standard/line.c:238
 msgid "Line"
 msgstr "Line"
 
-#: app/interface.c:98 app/interface.c:99
+#: app/interface.c:99 app/interface.c:100
 msgid "Arc"
 msgstr "Arc"
 
-#: app/interface.c:103 app/interface.c:104
+#: app/interface.c:104 app/interface.c:105
 msgid "Zigzagline"
 msgstr "Zigzagline"
 
-#: app/interface.c:108 app/interface.c:109
+#: app/interface.c:109 app/interface.c:110
 msgid "Polyline"
 msgstr "Polyline"
 
-#: app/interface.c:113 app/interface.c:114
+#: app/interface.c:114 app/interface.c:115
 msgid "Bezierline"
 msgstr "Bezierline"
 
-#: app/interface.c:118 app/interface.c:119
+#: app/interface.c:119 app/interface.c:120
 msgid "Image"
 msgstr "Image"
 
-#: app/interface.c:391
+#: app/interface.c:392
 msgid "Diagram menu."
 msgstr "Diagram menu."
 
-#: app/interface.c:429
+#: app/interface.c:430
 msgid "Pops up the Navigation window."
 msgstr "Pops up the Navigation window."
 
-#: app/interface.c:511
+#: app/interface.c:512
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/interface.c:525
+#: app/interface.c:526
 msgid "Toggles snap-to-grid for this window."
 msgstr "Toggles snap-to-grid for this window."
 
-#: app/interface.c:588
+#: app/interface.c:589
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:957
+#: app/interface.c:958
 #, c-format
 msgid "No sheet named %s"
 msgstr "No sheet named %s"
 
-#: app/interface.c:1047
+#: app/interface.c:1048
 msgid "Other sheets"
 msgstr "Other sheets"
 
-#: app/interface.c:1123
+#: app/interface.c:1124
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -815,7 +815,7 @@ msgstr ""
 "squares reset colours.  The small arrows swap colours.  Double click to "
 "change colours."
 
-#: app/interface.c:1138
+#: app/interface.c:1139
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -823,7 +823,7 @@ msgstr ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 
-#: app/interface.c:1178
+#: app/interface.c:1179
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -831,7 +831,7 @@ msgstr ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 
-#: app/interface.c:1183
+#: app/interface.c:1184
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -839,7 +839,7 @@ msgstr ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 
-#: app/interface.c:1197
+#: app/interface.c:1198
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -847,7 +847,7 @@ msgstr ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 
-#: app/interface.c:1307
+#: app/interface.c:1308
 msgid "Diagram Editor"
 msgstr "Diagram Editor"
 
@@ -4234,7 +4234,7 @@ msgstr ""
 msgid "Is final"
 msgstr "Is final"
 
-#: objects/UML/uml.c:64
+#: objects/UML/uml.c:65
 msgid "Unified Modelling Language diagram objects"
 msgstr "Unified Modelling Language diagram objects"
 
@@ -4714,15 +4714,35 @@ msgstr "Delete Corner"
 msgid "Standard objects"
 msgstr "Standard objects"
 
-#: plug-ins/cairo/diacairo.c:967
+#: plug-ins/cairo/diacairo.c:1012
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: plug-ins/cairo/diacairo.c:976
+#: plug-ins/cairo/diacairo.c:1021
+msgid "Cairo Portable Document Format"
+msgstr "Cairo Portable Document Format"
+
+#: plug-ins/cairo/diacairo.c:1030
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: plug-ins/cairo/diacairo.c:1004
+#: plug-ins/cairo/diacairo.c:1038
+msgid "Cairo PNG (with alpha)"
+msgstr "Cairo PNG (with alpha)"
+
+#: plug-ins/cairo/diacairo.c:1047
+msgid "Cairo WMF"
+msgstr "Cairo WMF"
+
+#: plug-ins/cairo/diacairo.c:1056
+msgid "Cairo old WMF"
+msgstr "Cairo old WMF"
+
+#: plug-ins/cairo/diacairo.c:1065
+msgid "Cairo Clipboard"
+msgstr "Cairo Clipboard"
+
+#: plug-ins/cairo/diacairo.c:1097
 msgid "Cairo based Rendering"
 msgstr "Cairo-based Rendering"
 
@@ -4819,7 +4839,7 @@ msgstr "Not valid UTF8"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks macros"
 
-#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1137
+#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1142
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Could not open: '%s' for writing.\n"
@@ -4874,11 +4894,11 @@ msgstr "root element was '%s' -- expecting 'svg'."
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Scalable Vector Graphics import and export filters"
 
-#: plug-ins/wmf/wmf.cpp:1204
+#: plug-ins/wmf/wmf.cpp:1209
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:1220
+#: plug-ins/wmf/wmf.cpp:1225
 msgid "WMF export filter"
 msgstr "WMF export filter"
 
@@ -6104,7 +6124,7 @@ msgstr "OR vergent"
 msgid "Objects to design GRAFCET charts"
 msgstr "Objects to design GRAFCET charts"
 
-#: sheets/GRAFCET.sheet.in.h:14
+#: sheets/GRAFCET.sheet.in.h:14 sheets/UML.sheet.in.h:30
 msgid "Transition"
 msgstr "Transition"
 
@@ -6746,11 +6766,11 @@ msgstr "Realizes, implements a specific interface"
 msgid "Small package"
 msgstr "Small package"
 
-#: sheets/UML.sheet.in.h:30
+#: sheets/UML.sheet.in.h:31
 msgid "UML"
 msgstr "UML"
 
-#: sheets/UML.sheet.in.h:31
+#: sheets/UML.sheet.in.h:32
 msgid "Use case"
 msgstr "Use case"
 
