@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-11-17 17:27+0100\n"
-"PO-Revision-Date: 2002-10-23 02:45+0200\n"
+"POT-Creation-Date: 2002-11-19 21:50+0100\n"
+"PO-Revision-Date: 2002-11-19 21:51+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -516,11 +516,11 @@ msgstr "Ingen objektmeny"
 msgid "Diagram modified!"
 msgstr "Diagrammet är ändrat!"
 
-#: app/display.c:867
+#: app/display.c:866
 msgid "<unnamed>"
 msgstr "<namnlös>"
 
-#: app/display.c:869
+#: app/display.c:868
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -529,11 +529,11 @@ msgstr ""
 "Diagrammet \"%s\"\n"
 "har inte sparats. Vill du spara ändringar nu?"
 
-#: app/display.c:880
+#: app/display.c:879
 msgid "Close Diagram"
 msgstr "Stäng diagram"
 
-#: app/display.c:885
+#: app/display.c:884
 msgid "Discard Changes"
 msgstr "Förkasta ändringar"
 
@@ -1623,7 +1623,7 @@ msgstr "NULL-tooldata i tool_menu_select"
 msgid "Diagram Menu"
 msgstr "Diagrammeny"
 
-#: app/menus.c:1164
+#: app/menus.c:1168
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1741,7 +1741,7 @@ msgstr "Använd menyrad:"
 
 #: app/preferences.c:128
 msgid "Keep tool box on top of diagram windows:"
-msgstr ""
+msgstr "Behåll verktygslåda ovanför diagramfönster:"
 
 #: app/preferences.c:130
 msgid "New diagram:"
@@ -1859,11 +1859,11 @@ msgstr "Objektegenskaper:"
 msgid "<Toolbox>/File/Plugins"
 msgstr "<Toolbox>/Arkiv/Insticksmoduler"
 
-#: app/recent_files.c:258
+#: app/recent_files.c:259
 msgid "<Toolbox>/File/Quit"
 msgstr "<Toolbox>/Arkiv/Avsluta"
 
-#: app/recent_files.c:294
+#: app/recent_files.c:295
 msgid "Can't open history file for writing."
 msgstr "Kunde inte öppna historikfilen för skrivning."
 
@@ -1871,7 +1871,7 @@ msgstr "Kunde inte öppna historikfilen för skrivning."
 msgid "Encapsulated Postscript"
 msgstr "Inkapslad Postscript"
 
-#: app/render_libart.c:319 lib/dialibartrenderer.c:263
+#: app/render_libart.c:319 lib/dialibartrenderer.c:266
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Fyllnadsläge som inte stöds angivet!\n"
 
