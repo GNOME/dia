@@ -171,18 +171,6 @@ if test "$enable_freetype" = "yes"; then
      FREETYPE_LIBS=$FT2_LIBS
      AC_DEFINE(HAVE_FREETYPE,, Freetype support library available)
      yn_have_freetype=yes])
-dnl  AC_MSG_CHECKING(for libfreetype)
-dnl if freetype-config --libs > /dev/null 2>&1; then
-dnl    vers=`freetype-config --version`
-dnl    have_freetype=true     
-dnl    yn_have_freetype=yes        
-dnl    FREETYPE_CFLAGS=`freetype-config --cflags`
-dnl    FREETYPE_LIBS=`freetype-config --libs`
-dnl    AC_DEFINE(HAVE_FREETYPE,, Freetype support library available)
-dnl    AC_MSG_RESULT([found, version $vers])
-dnl  else
-dnl    AC_MSG_RESULT([not found])
-dnl  fi
 fi
 AC_SUBST(FREETYPE_CFLAGS)
 AC_SUBST(FREETYPE_LIBS)

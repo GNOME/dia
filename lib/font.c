@@ -578,6 +578,17 @@ freetype_add_font(char *dirname, char *filename) {
     FT_Select_Charmap(face, ft_encoding_unicode);
 #endif
 
+    //    if (face->face_flags & FT_FACE_FLAG_SFNT) 
+    if (FT_IS_SFNT(face)) printf("%s is SFNT\n", new_font->family);
+
+    {
+      TT_Header *head = (TT_Header *)FT_Get_Sfnt_Table(face, 0);
+      if (head != 0) {
+	printf("Head table:  %s is %ld,%ld\n", new_font->family,
+	       head->Table_Version, head->Font_Revision);
+      }
+    }
+
     if (facenum == 0) first_face = face;
     facenum++;
   } while (facenum < first_face->num_faces);
@@ -635,6 +646,10 @@ font_init_freetype()
 
   for (i = 0; i < fontcount; i++) {
     freetype_scan_directory(fontlist[i]);
+  }
+
+  if (g_hash_table_size(freetype_fonts) == 0) {
+    message_warning(_("Warning: No fonts loaded.  Are there any font files in the X font path?"));
   }
 }
 
@@ -739,8 +754,20 @@ freetype_load_string(const char *string, FT_Face face, int len)
 
     // If len is less that full string, stop here.
     if (num_glyphs == len) break;
-    // convert character code to glyph index
-    glyph_index = FT_Get_Char_Index( face, c );
+
+    // store current pen position
+    // Why?
+    /*
+      pos[ num_glyphs ].x = pen_x;
+      pos[ num_glyphs ].y = pen_y;
+    */                      
+    
+    // load glyph image into the slot.
+    error = FT_Load_Char( face, c, FT_LOAD_NO_HINTING );
+    if (error) {
+      LC_DEBUG (fprintf(stderr, "Couldn't load glyph #%d: %d\n", i, error));
+      continue;
+    }
 
     // retrieve kerning distance and move pen position
     if ( use_kerning && previous_index && glyph_index )
@@ -749,27 +776,12 @@ freetype_load_string(const char *string, FT_Face face, int len)
                                 
       FT_Get_Kerning( face, previous_index, glyph_index,
 		      ft_kerning_default, &delta );
-                                                
-      width += delta.x >> 6;
+      if (error) {
+	LC_DEBUG (fprintf(stderr, "FT_Get_Kerning error %d\n", error));
+      } else {
+	width += delta.x >> 6;
+      }
     }
-                            
-    // store current pen position
-    // Why?
-    /*
-      pos[ num_glyphs ].x = pen_x;
-      pos[ num_glyphs ].y = pen_y;
-    */                      
-    
-    // load glyph image into the slot. DO NOT RENDER IT !!
-    error = FT_Load_Glyph( face, glyph_index, FT_LOAD_DEFAULT );
-    if (error) {
-      LC_DEBUG (fprintf(stderr, "Couldn't load glyph #%d: %d\n", i, error));
-      continue;
-    }
-                              
-    // extract glyph image and store it in our table
-    //    error = FT_Get_Glyph( face->glyph, & fts->glyphs[num_glyphs] );
-    //    if (error) continue;  // ignore errors, jump to next glyph
                               
     // increment pen position
     width += face->glyph->advance.x >> 6;
@@ -814,14 +826,17 @@ freetype_render_string(FreetypeString *fts, int x, int y,
     unichar c;
     uni_get_utf8(p,&c);
 
-    // convert character code to glyph index
-    glyph_index = FT_Get_Char_Index( face, c );
+    // store current pen position
+    // Why?
+    /*
+      pos[ num_glyphs ].x = pen_x;
+      pos[ num_glyphs ].y = pen_y;
+    */                      
+    
+    // load glyph image into the slot. DO NOT RENDER IT !!
+    error = FT_Load_Char( face, c, FT_LOAD_NO_HINTING | FT_LOAD_RENDER );
+    if (error) continue;  // ignore errors, jump to next glyph
 
-    if (glyph_index == 0) {
-      LC_DEBUG (fprintf(stderr, "FT_Get_Char_Index: Couldn't find glyph\n"));
-      continue;
-    }
-                              
     // retrieve kerning distance and move pen position
     if ( use_kerning && previous_index && glyph_index )
     {
@@ -831,25 +846,11 @@ freetype_render_string(FreetypeString *fts, int x, int y,
 			      ft_kerning_default, &delta );
       if (error) {
 	LC_DEBUG (fprintf(stderr, "FT_Get_Kerning error %d\n", error));
-      }                                                
-
-      pen_x += delta.x >> 6;
+      } else {
+	pen_x += delta.x >> 6;
+      }
     }
                             
-    // store current pen position
-    // Why?
-    /*
-      pos[ num_glyphs ].x = pen_x;
-      pos[ num_glyphs ].y = pen_y;
-    */                      
-    
-    // load glyph image into the slot. DO NOT RENDER IT !!
-    error = FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP );
-    if (error) continue;  // ignore errors, jump to next glyph
-
-    error = FT_Render_Glyph( face->glyph, ft_render_mode_normal );
-    if (error) continue;  // ignore errors, jump to next glyph
-
     // now, draw to our target surface
     (*func)(face->glyph, 
 	    pen_x+face->glyph->bitmap_left,
