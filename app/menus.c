@@ -213,7 +213,7 @@ static GnomeUIInfo objectsmenu[] = {
   GNOMEUIINFO_SUBTREE(N_("Align _Horizontal"), objects_align_h),
   GNOMEUIINFO_SUBTREE(N_("Align _Vertical"), objects_align_v),
   GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_ITEM_NONE(N_("_Properties..."), dialogs_properties_callback},
+  GNOMEUIINFO_ITEM_NONE(N_("_Properties..."), dialogs_properties_callback),
   GNOMEUIINFO_END
 };
 
