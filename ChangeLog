@@ -1,3 +1,7 @@
+2002-02-19  Akira TAGOH  <tagoh@redhat.com>
+
+	* lib/Makefile.am: add LIBART_CFLAGS.
+
 2002-02-15  Hans Breuer  <hans@breuer.org>
 
 	* lib/font.c (font_get_suck_font): the black and white pixel values 

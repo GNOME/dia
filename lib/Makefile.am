@@ -112,6 +112,7 @@ libdia_a_SOURCES =  \
 ##		render_object.h \
 
 CPPFLAGS = \
+	$(LIBART_CFLAGS) \
 	-DLIBDIR=\"$(libdir)\" \
 	-DDATADIR=\"$(pkgdatadir)\"
 
