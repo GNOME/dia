@@ -86,11 +86,11 @@ static GList *menu_entry_list;
 
 static void dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data);
 static void dia_font_selector_menu_callback(GtkWidget *button, gpointer data);
-static void
-dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
+static void dia_font_selector_set_styles(DiaFontSelector *fs,
+			     FontSelectorEntry *fse,
 			     DiaFontStyle dia_style);
 
-static void
+static FontSelectorEntry *
 dia_font_selector_add_font(char *fontname, gboolean is_other_font) {
   FontSelectorEntry *fse;
   fse = g_new(FontSelectorEntry, 1);
@@ -107,6 +107,7 @@ dia_font_selector_add_font(char *fontname, gboolean is_other_font) {
     if (!strcmp(fontname, "serif")) fse->entry_nr = 1;
     if (!strcmp(fontname, "monospace")) fse->entry_nr = 2;
   }
+  return fse;
 }
 
 static void
@@ -287,6 +288,7 @@ dia_font_selector_get_family_from_name(GtkWidget *widget, gchar *fontname)
     if (!(strcmp(pango_font_family_get_name(families[i]), fontname)))
       return families[i];
   }
+  g_warning(_("Couldn't find font family for %s\n"), fontname);
   return NULL;
 }
 
@@ -344,15 +346,15 @@ dia_font_selector_menu_callback(GtkWidget *button, gpointer data)
 }
 
 static char *style_labels[] = {
+  "Normal",
+  "Oblique",
+  "Italic",
   "Ultralight",
   "Ultralight-Oblique",
   "Ultralight-Italic",
   "Light",
   "Light-Oblique",
   "Light-Italic",
-  "Normal",
-  "Oblique",
-  "Italic",
   "Medium",
   "Medium-Oblique",
   "Medium-Italic",
@@ -385,6 +387,8 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
     PangoFontFamily *pff;
     pff = dia_font_selector_get_family_from_name(fs, fse->name);
     fse->family = pff;
+    if (fse->family == NULL)
+      return;
   }
 
   pango_font_family_list_faces(fse->family, &faces, &nfaces);
@@ -400,11 +404,15 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
      * From style_labels, we pick #(weight*3+style)
      * where weight and style are the Dia types.  
      */
-    stylebits |= 1 << (3*((weight - 200) / 100) + style);
+    /* Account for DIA_WEIGHT_NORMAL hack */
+    int weightnr = (weight-200)/100;
+    if (weightnr < 2) weightnr ++;
+    else if (weightnr == 2) weightnr = 0;
+    stylebits |= 1 << (3*weightnr + style);
     pango_font_description_free(pfd);
   }
 
-  for (i = DIA_FONT_ULTRALIGHT; i <= (DIA_FONT_HEAVY | DIA_FONT_ITALIC); i+=4) {
+  for (i = DIA_FONT_NORMAL; i <= (DIA_FONT_HEAVY | DIA_FONT_ITALIC); i+=4) {
     GtkWidget *menuitem;
     /**
      * bad hack continued ...
@@ -443,8 +451,12 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
   gchar *fontname = dia_font_get_family(font);
 
   fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, fontname);
-  if (fse == NULL) 
-    fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, "sans");
+  if (fse == NULL) {
+    printf("Adding %s\n", fontname);
+    fse = dia_font_selector_add_font(fontname, TRUE);
+    dia_font_selector_build_font_menu(fs);
+    dia_font_selector_write_persistence_file();
+  }
   fse->last_select = time(0);
   dia_font_selector_set_styles(fs, fse, dia_font_get_style(font));
 

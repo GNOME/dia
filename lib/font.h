@@ -45,6 +45,12 @@ typedef enum {
  * We should probably store the actual weight...
  */
 
+/* We are having DIA_FONT_WEIGHT_NORMAL be 0 to avoid having to do
+ * DIA_FONT_MONOSPACE | DIA_FONT_WEIGHT_NORMAL all over the place.
+ * This introduces a few hacks in font.c and widgets.c, but not too
+ * many.
+ */
+
 /* storing different style info like 
  * (DIA_FONT_SANS | DIA_FONT_ITALIC | DIA_FONT_BOLD)
  */
@@ -67,9 +73,9 @@ typedef enum
 
 typedef enum
 {
-  DIA_FONT_ULTRALIGHT    = (0<<4),
-  DIA_FONT_LIGHT         = (1<<4),
-  DIA_FONT_WEIGHT_NORMAL = (2<<4),
+  DIA_FONT_ULTRALIGHT    = (1<<4),
+  DIA_FONT_LIGHT         = (2<<4),
+  DIA_FONT_WEIGHT_NORMAL = (0<<4), /* Deliberately 0 for DIA_FONT_NORMAL */
   DIA_FONT_MEDIUM        = (3<<4),
   DIA_FONT_DEMIBOLD      = (4<<4),
   DIA_FONT_BOLD          = (5<<4),

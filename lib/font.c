@@ -230,6 +230,9 @@ dia_font_get_style(const DiaFont* font)
   g_assert(PANGO_WEIGHT_BOLD == 700);
 
   style  = ((pango_weight - PANGO_WEIGHT_ULTRALIGHT)/100) << 4;
+  /* Hack to make DIA_FONT_WEIGHT_NORMAL be 0 */
+  if (style <= DIA_FONT_LIGHT) 
+    style = (style+DIA_FONT_ULTRALIGHT)%DIA_FONT_MEDIUM;
   style |= (pango_style << 2);
 
   return style;
@@ -339,7 +342,7 @@ void dia_font_set_weight_from_string(DiaFont* font, const char* weight) {
         }
     }
 
-    dia_font_set_weight(font,fw);    
+    dia_font_set_weight(font,fw);
 }
 
 
