@@ -1,3 +1,31 @@
+2001-09-09  Hans Breuer  <hans@breuer.org>
+
+	* **/makefile.mingw : Approach to compile Dia with mingw.
+	Compiling mostly works but running does not (yet) ... 
+
+	* lib/geometry.h : 
+	- use G_OS_WIN32 instead of _MSC_VER to drag in isinf, etc. definitions. 
+	  Apparently mingw needs it too.
+	- enable 'normalization' of a null verctor. Otherwise the beziergon
+	  bounding box calculation would be broken at least with msvc. What's
+	  the mathematical correct result of 0.0/0.0 ?
+
+	* lib/dia_xml.c : isinf() for mingw too.
+
+	* lib/dia_dirs.c : use MAX_PATH instead of _MAX_PATH (works for mingw 
+	and msvc)
+
+	* lib/charconv.c : still crashes if strcmp(NULL, "UTF-8"). 
+	Please don't do it.
+
+	* lib/font.c : Trying to reflect that GTK_TALKS_UTF8_WE_DONT
+
+	* lib/libdia.def : updated externals. Apparently mingw needs
+	them to produce the right mangling.
+
+	* plug-ins/shape/shape-exports.c : get prototypes for xmlStrdup
+	and xmlDiaSaveFile
+
 2001-09-08  Wang Jian  <lark@linux.net.cn>
 
 	* configure.in(ALL_LINGUAS): Renamed zh_CN.GB2312 to zh_CN

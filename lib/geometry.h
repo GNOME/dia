@@ -36,7 +36,8 @@
 #include <sunmath.h>
 #endif
 
-#ifdef _MSC_VER
+/* #ifdef _MSC_VER */
+#ifdef G_OS_WIN32 /* apparently _MSC_VER and mingw */
    /* there are some things more in the gcc headers */
 #  include <float.h>
 #  define finite(a) _finite(a)
@@ -153,8 +154,19 @@ point_normalize(Point *p)
 
   len = sqrt(p->x*p->x + p->y*p->y);
   
-  p->x /= len;
-  p->y /= len;
+  /* One could call it a bug to try normalizing a vector with
+   * len 0 and the result at least requires definition. But
+   * this is what makes the beziergon bounding box calculation
+   * work. What's the mathematical correct result of 0.0/0.0 ? 
+   */
+  if (len > 0.0) {
+    p->x /= len;
+    p->y /= len;
+  } else {
+    p->x = 0.0;
+    p->y = 0.0;
+  }
+
 }
 #endif
 

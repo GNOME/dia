@@ -1,0 +1,207 @@
+# Makefile for mingw (with gnu make, but without bash), use :
+# make -f makefile.mingw
+
+OPTIMIZE = -g
+
+ifndef PACKAGE
+
+PLUGINS = chronogram custom er flowchart fs grafcet \
+		network sadt standard uml 
+
+# The main target
+all : sub-all
+
+sub-all : 
+	for %%d in ($(PLUGINS)) do make --no-print-directory -f makefile.mingw sub-one THIS=%%d
+
+sub-one:
+	$(MAKE) -C $(THIS) -f ../makefile.mingw $(THIS).dll PACKAGE=$(THIS) OBJ_$(THIS)=1
+
+else
+
+TOP = ../../..
+include $(TOP)/build/win32/make.mingw
+PRJ_TOP = ../..
+PKG_DEF = ../objects.def
+
+PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS) \
+	$(LIBXML2_CFLAGS) -I$(PRJ_TOP)/lib \
+
+PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(INTL_LIBS) \
+	$(LIBXML2_LIBS) \
+	-L $(PRJ_TOP)/lib -llibdia
+
+#
+# Object definitions for the various plugins
+#
+
+ifdef OBJ_chronogram
+OBJECTS = \
+	chronogram.o \
+	chronoline.o \
+	chronoline_event.o \
+	chronoref.o
+endif
+
+ifdef OBJ_custom
+OBJECTS = \
+	shape_info.o \
+	custom_object.o \
+	custom_util.o \
+	custom.o
+endif
+
+ifdef OBJ_eml
+OBJECTS = \
+        instantiation.o \
+        process_dialog.o \
+        eml.o \
+        process.o \
+        interaction-ortho.o \
+        interaction.o \
+        dbox.o \
+        listfun.o \
+        nlist.o
+endif
+
+ifdef OBJ_er
+OBJECTS = \
+	entity.o \
+	relationship.o \
+	attribute.o \
+	participation.o \
+	er.o
+endif
+
+ifdef OBJ_flowchart
+OBJECTS = \
+	box.o \
+	parallelogram.o \
+	diamond.o \
+	ellipse.o \
+	flowchart.o
+endif
+
+ifdef OBJ_fs
+OBJECTS = \
+	fs.o \
+	flow.o \
+	flow-ortho.o \
+	function.o
+endif
+
+ifdef OBJ_grafcet
+OBJECTS = \
+	action.o \
+	action_text_draw.o \
+	grafcet.o \
+	step.o \
+	transition.o \
+	vector.o \
+	vergent.o \
+	boolequation.o \
+	condition.o
+endif
+
+ifdef OBJ_labels
+OBJECTS = \
+	labels.o \
+	labeltextobj.o \
+	labelline.o
+endif
+
+ifdef OBJ_network
+OBJECTS = \
+	computer.o \
+	disc.o \
+	monitor.o \
+	printer.o \
+	bus.o \
+	network.o \
+	antenna.o \
+	modem.o \
+	flash.o \
+	hub.o \
+	modularswitch.o \
+	rj45plug.o \
+	scead-plug.o \
+	wanlink.o
+endif
+
+ifdef OBJ_sadt
+OBJECTS = \
+	annotation.o \
+	arrow.o \
+	box.o \
+	sadt.o
+endif
+
+ifdef OBJ_standard
+OBJECTS = \
+	arc.o \
+	beziergon.o \
+	box.o \
+	ellipse.o \
+	textobj.o \
+	line.o \
+	zigzagline.o \
+	polyline.o \
+	bezier.o \
+	standard.o \
+	image.o \
+	polygon.o
+endif
+
+ifdef OBJ_sybase
+OBJECTS = \
+	dataserver.o \
+	repserver.o \
+	ltm.o \
+	client.o \
+	stableq.o \
+	rsm.o \
+	sybase.o
+endif
+
+ifdef OBJ_uml
+OBJECTS = \
+	uml.o \
+	class.o \
+	class_dialog.o \
+	note.o \
+	actor.o \
+	usecase.o \
+	realizes.o \
+	constraint.o \
+	small_package.o \
+	large_package.o \
+	implements.o \
+	generalization.o \
+	association.o \
+	dependency.o \
+	message.o \
+	object.o \
+	lifeline.o \
+	component.o \
+	classicon.o \
+	state.o \
+	branch.o \
+	node.o \
+	stereotype.o
+endif
+
+DEPCFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H $(PKG_CFLAGS)
+
+#$(PACKAGE).dll : $(OBJECTS) $(PKG_DEF)
+#	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE).dll $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PKG_DEF)
+
+all : $(PACKAGE).dll
+
+$(PACKAGE).dll : $(OBJECTS)
+	dllwrap --mno-cygwin --dllname $(PACKAGE).dll --implib $(PACKAGE).lib --output-exp $(PACKAGE).exp --def ../objects.def $(OBJECTS) $(PKG_LINK) -luser32 -lwsock32 -ladvapi32
+
+$(PRJ_TOP)/config.h: $(PRJ_TOP)/config.h.win32
+	copy $(PRJ_TOP)/config.h.win32 $(PRJ_TOP)/config.h
+
+endif
+

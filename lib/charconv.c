@@ -96,10 +96,11 @@ int get_local_charset(char **charset)
               *charset = "UTF-8";
           }
       }
+
+    this_charset = *charset;
+    local_is_utf8 = (0==strcmp(*charset,"UTF-8"));
   }
   
-  this_charset = *charset;
-  local_is_utf8 = (0==strcmp(*charset,"UTF-8"));
   return local_is_utf8;
 }
 

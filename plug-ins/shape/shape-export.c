@@ -37,6 +37,8 @@
 
 #include <tree.h>
 #include <xmlmemory.h>
+#include <parser.h> /* xmlStrdup */
+#include "dia_xml_libxml.h"
 #include "geometry.h"
 #include "render.h"
 #include "filter.h"

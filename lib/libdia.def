@@ -1,4 +1,9 @@
 EXPORTS
+;
+ font_names
+ render_bounding_boxes
+
+; exported functions
  active_focus
  arrow_draw
  arrow_draw
@@ -22,6 +27,7 @@ EXPORTS
  attributes_swap_fgbg
  bezierconn_add_segment
  bezierconn_closest_major_handle
+ bezierconn_closest_handle
  bezierconn_closest_segment
  bezierconn_copy
  bezierconn_destroy
@@ -37,6 +43,7 @@ EXPORTS
  bezierconn_update_boundingbox
  bezierconn_update_data
  beziershape_add_segment
+ beziershape_closest_handle
  beziershape_closest_major_handle
  beziershape_closest_segment
  beziershape_copy
@@ -200,7 +207,6 @@ EXPORTS
  font_get_suckfont
  font_getfont
  font_init
- font_names
  font_string_width
  get_default_paper
  get_paper_bmargin
@@ -297,7 +303,9 @@ EXPORTS
  orthconn_update_boundingbox
  orthconn_update_data
  point_add
+ point_copy
  point_dot
+ point_len
  point_normalize
  point_scale
  point_sub
@@ -410,6 +418,9 @@ EXPORTS
 
  xmlDiaParseFile
  xmlDoParseFile
+ xmlDiaSaveFile
+
+ uni_get_utf8
 
 ; custom_register_objects
 

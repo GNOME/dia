@@ -32,10 +32,10 @@ dia_get_data_directory (const gchar* subdir)
   /*
    * Calulate from executable path
    */
-  gchar sLoc [_MAX_PATH+1];
+  gchar sLoc [MAX_PATH+1];
   HINSTANCE hInst = GetModuleHandle(NULL);
 
-  if (0 != GetModuleFileName(hInst, sLoc, _MAX_PATH))
+  if (0 != GetModuleFileName(hInst, sLoc, MAX_PATH))
     {
 	/* strip the name */
       if (strrchr(sLoc, G_DIR_SEPARATOR))
@@ -62,10 +62,10 @@ dia_get_lib_directory (const gchar* subdir)
   /*
    * Calulate from executable path
    */
-  gchar sLoc [_MAX_PATH+1];
+  gchar sLoc [MAX_PATH+1];
   HINSTANCE hInst = GetModuleHandle(NULL);
 
-  if (0 != GetModuleFileName(hInst, sLoc, _MAX_PATH))
+  if (0 != GetModuleFileName(hInst, sLoc, MAX_PATH))
     {
 	/* strip the name */
       if (strrchr(sLoc, G_DIR_SEPARATOR))

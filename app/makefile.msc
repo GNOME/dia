@@ -3,13 +3,12 @@ PRJ_TOP = ..
 PACKAGE = dia
 !INCLUDE $(TOP)\build\win32\make.msc
 
-LIBART = $(TOP)/libart_lgpl
 GDKPIXBUF = $(TOP)/dia-dev/gdk-pixbuf
 
 PKG_CFLAGS = -I.. $(GLIB_CFLAGS) $(GTK_CFLAGS) \
 	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) -I$(GDKPIXBUF)\.. \
-	-I$(PRJ_TOP)\lib -I$(LIBART)\.. -DHAVE_LIBART -DHAVE_LIBPNG \
-	-DVERSION=\"0.88\" -DWITHOUT_ZOOM_COMBO
+	-I$(PRJ_TOP)\lib -I$(LIBART)/.. -DHAVE_LIBART -DHAVE_LIBPNG \
+	-DVERSION=\"0.89\" -DWITHOUT_ZOOM_COMBO
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(PNG_LIBS) \
 	$(LIBXML2_LIBS) $(GDKPIXBUF)\gdk-pixbuf.lib \
@@ -76,7 +75,7 @@ LINKDEBUG =
 !ELSE
 # Debugging:
 OPTIMIZE = -Zi -MDd
-LINKDEBUG = /debug
+LINKDEBUG = /debug /debugtype:both
 !ENDIF
 
 # cl -? describes the options

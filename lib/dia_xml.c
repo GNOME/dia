@@ -48,7 +48,7 @@
 #endif
 
 
-#ifdef _MSC_VER
+#ifdef G_OS_WIN32 /* apparently _MSC_VER and mingw */
 #include <float.h>
 #define isinf(a) (!_finite(a))
 #endif

@@ -65,6 +65,7 @@
 #include "font.h"
 #include "color.h"
 #include "message.h"
+#include "charconv.h" 
 
 
 #ifndef LARS_TRACE_MESSAGES
@@ -1061,7 +1062,10 @@ suck_font (GdkFont *font)
 	SuckFont *suckfont;
 	int i;
 	int x, y;
-	char text[1];
+	char text[2];
+#if defined (GTK_TALKS_UTF8_WE_DONT)
+	utfchar *utfbuf;
+#endif
 	int lbearing, rbearing, ch_width, ascent, descent;
 	GdkPixmap *pixmap;
 	GdkColor black, white;
@@ -1081,8 +1085,16 @@ suck_font (GdkFont *font)
 	x = 0;
 	for (i = 0; i < 256; i++) {
 		text[0] = i;
+#if defined (GTK_TALKS_UTF8_WE_DONT)
+		text[1] = 0;
+		utfbuf = charconv_local8_to_utf8(text);
+		gdk_text_extents (font, utfbuf, strlen(utfbuf),
+				  &lbearing, &rbearing, &ch_width, &ascent, &descent);
+		g_free(utfbuf);
+#else
 		gdk_text_extents (font, text, 1,
 				  &lbearing, &rbearing, &ch_width, &ascent, &descent);
+#endif
 		suckfont->chars[i].left_sb = lbearing;
 		suckfont->chars[i].right_sb = ch_width - rbearing;
 		suckfont->chars[i].width = rbearing - lbearing;
@@ -1113,10 +1125,20 @@ suck_font (GdkFont *font)
 	gdk_gc_set_foreground (gc, &black);
 	for (i = 0; i < 256; i++) {
 		text[0] = i;
+#if defined (GTK_TALKS_UTF8_WE_DONT)
+		text[1] = 0;
+		utfbuf = charconv_local8_to_utf8(text);
+		gdk_draw_text (pixmap, font, gc,
+			       suckfont->chars[i].bitmap_offset - suckfont->chars[i].left_sb,
+			       font->ascent+1,
+			       utfbuf, strlen(utfbuf));
+		g_free(utfbuf);
+#else
 		gdk_draw_text (pixmap, font, gc,
 			       suckfont->chars[i].bitmap_offset - suckfont->chars[i].left_sb,
 			       font->ascent+1,
 			       text, 1);
+#endif
 	}
 
 	/* The handling of the image leaves me with distinct unease.  But this
