@@ -19,11 +19,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include "config.h"
+
 #include "filedlg.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <string.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #include <gtk/gtk.h>
 #include "intl.h"
 #include "filter.h"

@@ -40,12 +40,15 @@ NOT WORKING (exporting macros):
 */
 
 
+#include "config.h"
+
 #include <string.h>
 #include <time.h>
 #include <math.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 
-#include "config.h"
 #include "intl.h"
 #include "render_pstricks.h"
 #include "message.h"

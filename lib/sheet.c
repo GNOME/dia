@@ -15,17 +15,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+#include "config.h"
+
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+#ifdef HAVE_DIRENT_H
 #include <dirent.h>
+#endif
 #include <glib.h>
 #include <tree.h>
 #include <parser.h>
 #include <string.h>
 
-#include "config.h"
 #include "intl.h"
 
 #include "sheet.h"
