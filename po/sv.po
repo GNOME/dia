@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2003-07-31 23:10+0200\n"
-"PO-Revision-Date: 2003-07-31 23:11+0200\n"
+"POT-Creation-Date: 2003-08-02 15:23+0200\n"
+"PO-Revision-Date: 2003-08-02 15:24+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1740,150 +1740,150 @@ msgstr "Läs in vid uppstart"
 msgid "File Name"
 msgstr "Filnamn"
 
-#: app/preferences.c:99
+#: app/preferences.c:100
 msgid "User Interface"
 msgstr "Användargränssnitt"
 
-#: app/preferences.c:100
+#: app/preferences.c:101
 msgid "Diagram Defaults"
 msgstr "Standardalternativ för diagram"
 
-#: app/preferences.c:101
+#: app/preferences.c:102
 msgid "View Defaults"
 msgstr "Standardvärden för vyer"
 
-#: app/preferences.c:102
+#: app/preferences.c:103
 msgid "Grid Lines"
 msgstr "Rutlinjer"
 
-#: app/preferences.c:103
+#: app/preferences.c:104
 msgid "Diagram Tree"
 msgstr "Diagramträd"
 
-#: app/preferences.c:117
-msgid "Reset tools after create:"
-msgstr "Återställ verktyg när objekt har skapats:"
-
 #: app/preferences.c:118
-msgid "Compress saved files:"
-msgstr "Komprimera sparade filer:"
+msgid "Reset tools after create"
+msgstr "Återställ verktyg efter skapande"
 
 #: app/preferences.c:119
+msgid "Compress saved files"
+msgstr "Komprimera sparade filer"
+
+#: app/preferences.c:120
 msgid "Number of undo levels:"
 msgstr "Antal nivåer för ångra:"
 
-#: app/preferences.c:120
+#: app/preferences.c:121
 msgid ""
 "Reverse dragging selects\n"
-"intersecting objects:"
+"intersecting objects"
 msgstr ""
 "Omvänd dragning markerar\n"
-"korsande objekt:"
+"korsande objekt"
 
-#: app/preferences.c:121
+#: app/preferences.c:122
 msgid "Recent documents list size:"
 msgstr "Storlek på lista över senaste dokument:"
 
-#: app/preferences.c:122
-msgid "Use menu bar:"
-msgstr "Använd menyrad:"
+#: app/preferences.c:123
+msgid "Use menu bar"
+msgstr "Använd menyrad"
 
-#: app/preferences.c:124
-msgid "Keep tool box on top of diagram windows:"
-msgstr "Behåll verktygslåda ovanför diagramfönster:"
+#: app/preferences.c:125
+msgid "Keep tool box on top of diagram windows"
+msgstr "Behåll verktygslåda ovanför diagramfönster"
 
-#: app/preferences.c:126
+#: app/preferences.c:127
 msgid "New diagram:"
 msgstr "Nytt diagram:"
 
-#: app/preferences.c:127
-msgid "Portrait:"
-msgstr "Stående:"
+#: app/preferences.c:128
+msgid "Portrait"
+msgstr "Stående"
 
-#: app/preferences.c:129
+#: app/preferences.c:130
 msgid "Paper type:"
 msgstr "Papperstyp:"
 
-#: app/preferences.c:132
+#: app/preferences.c:134
 msgid "New window:"
 msgstr "Nytt fönster:"
 
-#: app/preferences.c:133
+#: app/preferences.c:135
 msgid "Width:"
 msgstr "Bredd:"
 
-#: app/preferences.c:134
+#: app/preferences.c:136
 msgid "Height:"
 msgstr "Höjd:"
 
-#: app/preferences.c:135
+#: app/preferences.c:137
 msgid "Magnify:"
 msgstr "Förstora:"
 
-#: app/preferences.c:137
+#: app/preferences.c:140
 msgid "Connection Points:"
 msgstr "Anslutningspunkter:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:138 app/preferences.c:141 app/preferences.c:146
-msgid "Visible:"
-msgstr "Synligt:"
+#: app/preferences.c:141 app/preferences.c:145 app/preferences.c:151
+msgid "Visible"
+msgstr "Synligt"
 
-#: app/preferences.c:140
+#: app/preferences.c:144
 msgid "Page breaks:"
 msgstr "Sidbrytningar:"
 
-#: app/preferences.c:142 app/preferences.c:151
+#: app/preferences.c:146 app/preferences.c:156
 msgid "Colour:"
 msgstr "Färg:"
 
-#: app/preferences.c:143
-msgid "Solid lines:"
-msgstr "Hela linjer:"
-
 #: app/preferences.c:147
-msgid "Snap to:"
-msgstr "Fäst vid:"
+msgid "Solid lines"
+msgstr "Hela linjer"
 
-#: app/preferences.c:148
+#: app/preferences.c:152
+msgid "Snap to"
+msgstr "Fäst vid"
+
+#: app/preferences.c:153
 msgid "Dynamic grid resizing"
 msgstr "Dynamisk storleksändring av rutnät"
 
-#: app/preferences.c:149
+#: app/preferences.c:154
 msgid "X Size:"
 msgstr "X-storlek:"
 
-#: app/preferences.c:150
+#: app/preferences.c:155
 msgid "Y Size:"
 msgstr "Y-storlek:"
 
-#: app/preferences.c:152
+#: app/preferences.c:157
 msgid "Lines per major line"
 msgstr "Linjer per huvudlinje"
 
-#: app/preferences.c:167
+#: app/preferences.c:172
 msgid "Diagram tree window:"
 msgstr "Diagramträdsfönster:"
 
-#: app/preferences.c:169
-msgid "Save hidden object types:"
-msgstr "Spara dolda objekttyper:"
+#: app/preferences.c:174
+msgid "Save hidden object types"
+msgstr "Spara dolda objekttyper"
 
-#: app/preferences.c:296
+#: app/preferences.c:303
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/preferences.c:572 lib/prop_inttypes.c:151
+#: app/preferences.c:583 lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/preferences.c:572 app/preferences.c:583 lib/prop_inttypes.c:153
+#: app/preferences.c:583 app/preferences.c:594 lib/prop_inttypes.c:153
 #: lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nej"
 
-#: app/preferences.c:683
+#: app/preferences.c:696
 msgid "Preferences"
 msgstr "Inställningar"
 
@@ -6231,6 +6231,9 @@ msgstr "UML"
 #: sheets/UML.sheet.in.h:27
 msgid "Use case"
 msgstr "Användningsområde"
+
+#~ msgid "Reverse dragging selects intersecting objects"
+#~ msgstr "Omvänd dragning markerar korsande objekt"
 
 #~ msgid "Thank you for using Dia."
 #~ msgstr "Tack för att du använder Dia."
