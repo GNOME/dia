@@ -253,7 +253,8 @@ typedef void (*DrawLineWithArrowsFunc) (Renderer *renderer,
 
 typedef void (*DrawPolyLineWithArrowsFunc) (Renderer *renderer,
 					    Point *points, int num_points,
-					    Color color,
+					    real line_width,
+					    Color *color,
 					    Arrow *start_arrow,
 					    Arrow *end_arrow);
 
@@ -261,7 +262,7 @@ typedef void (*DrawArcWithArrowsFunc) (Renderer *renderer,
 				       Point *center,
 				       real width, real height,
 				       real angle1, real angle2,
-				       Color color,
+				       Color *color,
 				       Arrow *start_arrow,
 				       Arrow *end_arrow);
 

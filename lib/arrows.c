@@ -67,11 +67,13 @@ calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,
 }
 
 void
-calculate_arrow_point(Arrow *arrow, Point *to, Point *from, Point *move,
+calculate_arrow_point(Arrow *arrow, Point *to, Point *from,
+		      Point *move_arrow, Point *move_line,
 		      real linewidth)
 {
   real add_len;
   real angle;
+  Point tmp;
 
   switch (arrow->type) {
   case ARROW_LINES:
@@ -79,13 +81,87 @@ calculate_arrow_point(Arrow *arrow, Point *to, Point *from, Point *move,
     angle = atan(arrow->length/(arrow->width/2));
     add_len = .5*linewidth/cos(angle);
     
-    *move = *to;
-    point_sub(move, from);
-    point_normalize(move);
+    *move_arrow = *to;
+    point_sub(move_arrow, from);
+    point_normalize(move_arrow);
     
-    point_scale(move, add_len);
+    point_scale(move_arrow, add_len);
+    *move_line = *move_arrow;
+    point_scale(move_line, 2.0);
     return;
-  default: return;
+  case ARROW_HOLLOW_TRIANGLE:
+  case ARROW_UNFILLED_TRIANGLE:
+    if (arrow->width < 0.0000001) return;
+    angle = atan(arrow->length/(arrow->width/2));
+    add_len = .5*linewidth/cos(angle);
+    
+    *move_arrow = *to;
+    point_sub(move_arrow, from);
+    point_normalize(move_arrow);
+    
+    point_scale(move_arrow, add_len);
+    *move_line = *move_arrow;
+    point_normalize(move_line);
+    point_scale(move_line, arrow->length);
+    point_add(move_line, move_arrow);
+    return;
+  case ARROW_FILLED_DIAMOND:
+    *move_line = *to;
+    point_sub(move_line, from);
+    point_normalize(move_line);
+    tmp = *move_line;
+    point_scale(move_line, arrow->length);
+    point_scale(&tmp, M_SQRT2*linewidth);
+    point_sub(move_line, &tmp);
+    return;
+  case ARROW_FILLED_DOT:
+  case ARROW_DIMENSION_ORIGIN:
+  case ARROW_BLANKED_DOT:
+  case ARROW_FILLED_BOX:
+  case ARROW_BLANKED_BOX:
+    *move_line = *to;
+    point_sub(move_line, from);
+    point_normalize(move_line);
+    point_scale(move_line, .5*arrow->length);
+    return;
+  case ARROW_FILLED_TRIANGLE:
+  case ARROW_FILLED_ELLIPSE:
+  case ARROW_HOLLOW_ELLIPSE:
+    *move_line = *to;
+    point_sub(move_line, from);
+    point_normalize(move_line);
+    point_scale(move_line, arrow->length);
+    return;
+  case ARROW_DOUBLE_HOLLOW_TRIANGLE:
+    if (arrow->width < 0.0000001) return;
+    angle = atan(arrow->length/(arrow->width/2));
+    add_len = .5*linewidth/cos(angle);
+    
+    *move_arrow = *to;
+    point_sub(move_arrow, from);
+    point_normalize(move_arrow);
+    
+    point_scale(move_arrow, add_len);
+    *move_line = *move_arrow;
+    point_normalize(move_line);
+    tmp = *move_line;
+    point_scale(move_line, 2.0*arrow->length);
+    point_add(move_line, move_arrow);
+    point_scale(&tmp, linewidth);
+    point_add(move_line, &tmp);
+    return;
+  case ARROW_DOUBLE_FILLED_TRIANGLE:
+    *move_line = *to;
+    point_sub(move_line, from);
+    point_normalize(move_line);
+    point_scale(move_line, 2*arrow->length);
+    return;
+  default: 
+    move_arrow->x = 0.0;
+    move_arrow->y = 0.0;
+    move_line->x = 0.0;
+    move_line->y = 0.0;
+    return;
   }
 }
 

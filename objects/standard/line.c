@@ -265,32 +265,12 @@ line_draw(Line *line, Renderer *renderer)
   renderer->ops->set_dashlength(renderer, line->dashlength);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-#if 0
   renderer->ops->draw_line_with_arrows(renderer,
 				       &endpoints[0], &endpoints[1],
 				       line->line_width,
 				       &line->line_color,
 				       &line->start_arrow,
 				       &line->end_arrow);
-#endif
-  renderer->ops->draw_line(renderer,
-			   &endpoints[0], &endpoints[1],
-			   &line->line_color);
-
-  if (line->start_arrow.type != ARROW_NONE) {
-    arrow_draw(renderer, line->start_arrow.type,
-	       &endpoints[0], &endpoints[1],
-	       line->start_arrow.length, line->start_arrow.width, 
-	       line->line_width,
-	       &line->line_color, &color_white);
-  }
-  if (line->end_arrow.type != ARROW_NONE) {
-    arrow_draw(renderer, line->end_arrow.type,
-	       &endpoints[1], &endpoints[0],
-	       line->end_arrow.length, line->end_arrow.width, 
-	       line->line_width,
-	       &line->line_color, &color_white);
-  }
 }
 
 static Object *
@@ -378,7 +358,6 @@ line_update_data(Line *line)
   Connection *conn = &line->connection;
   Object *obj = &conn->object;
   LineBBExtras *extra = &conn->extra_spacing;
-  printf("LUD1 arrow type %d, end %d\n", line->start_arrow.type,line->end_arrow.type);
 
   extra->start_trans = (line->line_width / 2.0);
   extra->end_trans   = (line->line_width / 2.0);
@@ -396,7 +375,6 @@ line_update_data(Line *line)
   connpointline_putonaline(line->cpl,&conn->endpoints[0],&conn->endpoints[1]);
   
   connection_update_handles(conn);
-  printf("LUD2 arrow type %d, end %d\n", line->start_arrow.type,line->end_arrow.type);
 }
 
 

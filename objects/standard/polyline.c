@@ -217,22 +217,12 @@ polyline_draw(Polyline *polyline, Renderer *renderer)
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_polyline(renderer, points, n, &polyline->line_color);
-
-  if (polyline->start_arrow.type != ARROW_NONE) {
-    arrow_draw(renderer, polyline->start_arrow.type,
-	       &points[0], &points[1],
-	       polyline->start_arrow.length, polyline->start_arrow.width,
-	       polyline->line_width,
-	       &polyline->line_color, &color_white);
-  }
-  if (polyline->end_arrow.type != ARROW_NONE) {
-    arrow_draw(renderer, polyline->end_arrow.type,
-	       &points[n-1], &points[n-2],
-	       polyline->end_arrow.length, polyline->end_arrow.width,
-	       polyline->line_width,
-	       &polyline->line_color, &color_white);
-  }
+  renderer->ops->draw_polyline_with_arrows(renderer,
+					   points, n,
+					   polyline->line_width,
+					   &polyline->line_color,
+					   &polyline->start_arrow,
+					   &polyline->end_arrow);
 }
 
 /** user_data is a struct polyline_create_data, containing an array of 
