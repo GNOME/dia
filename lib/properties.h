@@ -1,4 +1,4 @@
-/* Dia -- a diagram creation/manipulation program
+/* Dia -- a diagram creation/manipulation program -*- c -*-
  * Copyright (C) 1998 Alexander Larsson
  *
  * properties.h: property system for dia objects/shapes.
@@ -61,6 +61,7 @@ typedef enum {
   PROP_TYPE_FONT,
   PROP_TYPE_FILE,
   PROP_TYPE_ENDPOINTS,
+  PROP_TYPE_CONNPOINT_LINE,
 
   PROP_LAST
 } PropType;
@@ -118,6 +119,7 @@ struct _Property {
     struct {
       Point endpoints[2];
     } endpoints_data;
+    gint connpoint_line_data;
     gpointer other_data;
   } d;
 };
@@ -151,6 +153,7 @@ struct _PropEnumData {
 #define PROP_VALUE_FILE(prop)          ((prop).d.string_data)
 #define PROP_VALUE_OTHER(prop)         ((prop).d.other_data)
 #define PROP_VALUE_ENDPOINTS(prop)     ((prop).d.endpoints_data)
+#define PROP_VALUE_CONNPOINT_LINE(prop) ((prop).d.connpoint_line_data)
 
 /* Copy the data member of the property
  * If NULL, then just copy data member straight */

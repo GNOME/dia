@@ -34,6 +34,7 @@
 
 #include "intl.h"
 #include "widgets.h"
+#include "connpoint_line.h"
 
 #define LIBDIA_COMPILATION
 #undef G_INLINE_FUNC
@@ -183,6 +184,7 @@ prop_copy(Property *dest, Property *src)
   case PROP_TYPE_ARROW:
   case PROP_TYPE_COLOUR:
   case PROP_TYPE_FONT:
+  case PROP_TYPE_CONNPOINT_LINE:
   case PROP_TYPE_ENDPOINTS:
     dest->d = src->d;
     break;
@@ -243,6 +245,7 @@ prop_free(Property *prop)
   case PROP_TYPE_ARROW:
   case PROP_TYPE_COLOUR:
   case PROP_TYPE_ENDPOINTS:
+  case PROP_TYPE_CONNPOINT_LINE:
   case PROP_TYPE_FONT:
     break;
   case PROP_TYPE_STRING:
@@ -378,6 +381,7 @@ prop_get_widget(Property *prop)
   case PROP_TYPE_BEZPOINT:
   case PROP_TYPE_BEZPOINTARRAY:
   case PROP_TYPE_ENDPOINTS:
+  case PROP_TYPE_CONNPOINT_LINE:
   case PROP_TYPE_RECT:
     ret = gtk_label_new(_("No edit widget"));
     break;
@@ -457,6 +461,7 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
   case PROP_TYPE_BEZPOINT:
   case PROP_TYPE_BEZPOINTARRAY:
   case PROP_TYPE_ENDPOINTS:
+  case PROP_TYPE_CONNPOINT_LINE:
   case PROP_TYPE_RECT:
     /* nothing */
     break;
@@ -508,7 +513,13 @@ prop_load(Property *prop, ObjectNode obj_node)
   if (!PROP_IS_OTHER(prop->type)) {
     attr = object_find_attribute(obj_node, prop->name);
     if (!attr) {
-      g_warning("Could not find attribute %s", prop->name);
+      switch(prop->type) {
+      case PROP_TYPE_CONNPOINT_LINE:
+        PROP_VALUE_CONNPOINT_LINE(*prop) = 1;
+        break;
+      default:
+        g_warning("Could not find attribute %s", prop->name);
+      }
       return;
     }
     data = attribute_first_data(attr);
@@ -622,6 +633,9 @@ prop_load(Property *prop, ObjectNode obj_node)
     g_free(PROP_VALUE_FILE(*prop));
     PROP_VALUE_FILE(*prop) = data_string(data);
     break;
+  case PROP_TYPE_CONNPOINT_LINE:
+    PROP_VALUE_CONNPOINT_LINE(*prop) = data_int(data);
+    break;
   default:
     if (custom_props == NULL || prop->type - PROP_LAST >= custom_props->len) {
       g_warning("prop type id %d out of range!!!", prop->type);
@@ -674,6 +688,9 @@ prop_save(Property *prop, ObjectNode obj_node)
     break;
   case PROP_TYPE_INT:
     data_add_int(attr, PROP_VALUE_INT(*prop));
+    break;
+  case PROP_TYPE_CONNPOINT_LINE:
+    data_add_int(attr,PROP_VALUE_CONNPOINT_LINE(*prop));
     break;
   case PROP_TYPE_ENUM:
     data_add_enum(attr, PROP_VALUE_ENUM(*prop));
@@ -859,6 +876,10 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
       PROP_VALUE_INT(props[i]) =
 	struct_member(obj, offsets[j].offset, gint);
       break;
+    case PROP_TYPE_CONNPOINT_LINE:
+      PROP_VALUE_CONNPOINT_LINE(props[i]) = 
+        struct_member(obj,offsets[j].offset, ConnPointLine *)->num_connections;
+      break;
     case PROP_TYPE_REAL:
       PROP_VALUE_REAL(props[i]) =
 	struct_member(obj, offsets[j].offset, real);
@@ -967,6 +988,13 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
     case PROP_TYPE_ENUM:
       struct_member(obj, offsets[j].offset, gint) =
 	PROP_VALUE_INT(props[i]);
+      break;
+    case PROP_TYPE_CONNPOINT_LINE:
+      connpointline_adjust_count(struct_member(obj,offsets[j].offset, 
+                                               ConnPointLine *),
+                                 PROP_VALUE_CONNPOINT_LINE(props[i]),
+                                 &struct_member(obj,offsets[j].offset, 
+                                               ConnPointLine *)->end);
       break;
     case PROP_TYPE_REAL:
       struct_member(obj, offsets[j].offset, real) =

@@ -363,6 +363,8 @@ cpl_get_pointbefore(ConnPointLine *cpl, Point *clickedpoint)
   real dist = 65536.0;
   real tmpdist;
 
+  if (!clickedpoint) return 0;
+
   for (i=0,elem=cpl->connections;
        i<cpl->num_connections; 
        i++,elem=g_slist_next(elem)) {

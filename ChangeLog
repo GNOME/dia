@@ -1,3 +1,18 @@
+2001-06-10  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/connpoint_line.c: a NULL point can be given to
+	connpointline_adjust_count(), in case there's not really a clicked
+	point.
+	* lib/properties.[ch]: added support for CONNPOINT_LINE properties.
+
+	* objects/GRAFCET/vergent.c: dropped lazyprops for standard
+	properties.
+	
+	* objects/UML/lifeline.c: pruned some legacy stuff (now pure
+	standard properties code). Grafted a dynamic number of connection
+	points (heavily inspired from what Vergent does). This is the real
+	fix for #55863.
+	
 2001-06-09  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/app_procs.c (app_init): added a call to

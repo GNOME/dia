@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-06-08 06:57+0200\n"
+"POT-Creation-Date: 2001-06-10 23:09+0200\n"
 "PO-Revision-Date: 2001-05-17 13:31+0200\n"
 "Last-Translator: Christophe Merlet <redfox@eikonex.org>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
@@ -35,15 +35,15 @@ msgstr "Ne pas afficher l'écran de démarrage"
 msgid "Show this help message"
 msgstr "Afficher ce message d'aide"
 
-#: app/app_procs.c:182
+#: app/app_procs.c:185
 msgid "Can't connect to session manager!\n"
 msgstr "Ne peut se connecter au gestionnaire de session !\n"
 
-#: app/app_procs.c:193
+#: app/app_procs.c:196
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTION...] [FICHIER...]"
 
-#: app/app_procs.c:196
+#: app/app_procs.c:199
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -53,20 +53,20 @@ msgstr ""
 "Tapez « %s --help » pour voir une liste complète des options en ligne de "
 "commande.\n"
 
-#: app/app_procs.c:245 app/app_procs.c:247
+#: app/app_procs.c:248 app/app_procs.c:250
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Ne peut trouver les objets standards dans object-libs, terminé...\n"
 
-#: app/app_procs.c:272
+#: app/app_procs.c:275
 msgid "Need valid input file\n"
 msgstr "Nécessite un fichier d'entrée valide\n"
 
-#: app/app_procs.c:338 app/app_procs.c:344
+#: app/app_procs.c:341 app/app_procs.c:347
 msgid "Quit, are you sure?"
 msgstr "Êtes-vous sûr de vouloir quitter ?"
 
-#: app/app_procs.c:351
+#: app/app_procs.c:354
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -74,21 +74,21 @@ msgstr ""
 "Des diagrammes ont été modifiés.\n"
 "Voulez-vous vraiment quitter ?"
 
-#: app/app_procs.c:361 app/app_procs.c:366
+#: app/app_procs.c:364 app/app_procs.c:369
 msgid "Quit"
 msgstr "Quitter"
 
-#: app/app_procs.c:378 app/display.c:958 app/layer_dialog.c:989
+#: app/app_procs.c:381 app/display.c:958 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Annuler"
 
-#: app/app_procs.c:453 app/app_procs.c:460
+#: app/app_procs.c:456 app/app_procs.c:463
 msgid "Could not create per-user Dia config directory"
 msgstr "Ne peut créer le répertoire de configuration personnel de Dia"
 
-#: app/app_procs.c:462
+#: app/app_procs.c:465
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -97,7 +97,7 @@ msgstr ""
 "Veuillez vérifier que la variable d'environnement HOME pointe vers un \n"
 "répertoire existant."
 
-#: app/app_procs.c:484
+#: app/app_procs.c:487
 msgid "Objects and filters internal to dia"
 msgstr "Objets et filtres internes de Dia"
 
@@ -320,12 +320,12 @@ msgstr ""
 "Enregistrer les changements maintenant ?"
 
 #: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:288
+#: lib/properties.c:291
 msgid "Yes"
 msgstr "Oui"
 
 #: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:290 lib/properties.c:311
+#: app/preferences.c:514 lib/properties.c:293 lib/properties.c:314
 msgid "No"
 msgstr "Non"
 
@@ -429,8 +429,8 @@ msgstr "Déplacement"
 msgid "Create Text"
 msgstr "Créer du texte"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1262
-#: lib/properties.h:366
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1290
+#: lib/properties.h:369
 msgid "Text"
 msgstr "Texte"
 
@@ -583,7 +583,7 @@ msgstr "Détails..."
 msgid "Line Style Properties"
 msgstr "Propriétés du style de ligne"
 
-#: app/linewidth_area.c:216 lib/properties.h:342
+#: app/linewidth_area.c:216 lib/properties.h:345
 msgid "Line width"
 msgstr "Largeur de ligne"
 
@@ -793,17 +793,17 @@ msgstr "Transitif"
 msgid "Same Type"
 msgstr "Même type"
 
-#: app/menus.c:164 lib/properties.c:1247 lib/properties.h:330
+#: app/menus.c:164 lib/properties.c:1275 lib/properties.h:333
 #: lib/widgets.c:199
 msgid "Left"
 msgstr "À gauche"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1248 lib/properties.h:331
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1276 lib/properties.h:334
 #: lib/widgets.c:205
 msgid "Center"
 msgstr "Au centre"
 
-#: app/menus.c:166 lib/properties.c:1249 lib/properties.h:332
+#: app/menus.c:166 lib/properties.c:1277 lib/properties.h:335
 #: lib/widgets.c:211
 msgid "Right"
 msgstr "À droite"
@@ -1505,19 +1505,19 @@ msgstr "Chargement..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
-#: lib/properties.c:1256 lib/properties.h:345
+#: lib/properties.c:1284 lib/properties.h:348
 msgid "Line colour"
 msgstr "Couleur de ligne :"
 
-#: lib/properties.c:1257 lib/properties.h:348
+#: lib/properties.c:1285 lib/properties.h:351
 msgid "Line style"
 msgstr "Style de ligne"
 
-#: lib/properties.c:1258 lib/properties.h:352
+#: lib/properties.c:1286 lib/properties.h:355
 msgid "Fill colour"
 msgstr "Couleur de remplissage"
 
-#: lib/properties.c:1259 lib/properties.h:355
+#: lib/properties.c:1287 lib/properties.h:358
 #: objects/custom/custom_object.c:362 objects/flowchart/box.c:317
 #: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
 #: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
@@ -1526,29 +1526,29 @@ msgstr "Couleur de remplissage"
 msgid "Draw background"
 msgstr "Dessiner le fond"
 
-#: lib/properties.c:1260 lib/properties.h:359
+#: lib/properties.c:1288 lib/properties.h:362
 msgid "Start arrow"
 msgstr "Flèche de début"
 
-#: lib/properties.c:1261 lib/properties.h:362
+#: lib/properties.c:1289 lib/properties.h:365
 msgid "End arrow"
 msgstr "Flèche de fin"
 
-#: lib/properties.c:1263 lib/properties.h:369
+#: lib/properties.c:1291 lib/properties.h:372
 msgid "Text alignment"
 msgstr "Alignement"
 
-#: lib/properties.c:1264 lib/properties.h:372 objects/GRAFCET/condition.c:131
+#: lib/properties.c:1292 lib/properties.h:375 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/transition.c:140
 msgid "Font"
 msgstr "Police"
 
-#: lib/properties.c:1265 lib/properties.h:375 objects/GRAFCET/condition.c:133
+#: lib/properties.c:1293 lib/properties.h:378 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/transition.c:142
 msgid "Font size"
 msgstr "Taille de police"
 
-#: lib/properties.c:1266 lib/properties.h:378
+#: lib/properties.c:1294 lib/properties.h:381
 msgid "Text colour"
 msgstr "Couleur du texte"
 
@@ -1604,7 +1604,7 @@ msgstr ""
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Police %s non trouvée, utilisation de la police Courier à la place.\n"
 
-#: lib/properties.c:382 lib/properties.c:414
+#: lib/properties.c:386 lib/properties.c:418
 msgid "No edit widget"
 msgstr "Pas de widget d'édition"
 
@@ -2801,28 +2801,28 @@ msgstr "Point Sud"
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Dessine les flèches sur les arcs montants :"
 
-#: objects/GRAFCET/vergent.c:171
+#: objects/GRAFCET/vergent.c:122
 msgid "OR"
 msgstr "OU"
 
-#: objects/GRAFCET/vergent.c:172
+#: objects/GRAFCET/vergent.c:123
 msgid "AND"
 msgstr "ET"
 
-#: objects/GRAFCET/vergent.c:181
+#: objects/GRAFCET/vergent.c:134
 msgid "Vergent type:"
 msgstr "Type de vergence :"
 
-#: objects/GRAFCET/vergent.c:446 objects/SADT/box.c:539
+#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:539
 #: objects/standard/line.c:182
 msgid "Add connection point"
 msgstr "Ajouter un point de connexion"
 
-#: objects/GRAFCET/vergent.c:447
+#: objects/GRAFCET/vergent.c:391
 msgid "Delete  connection point"
 msgstr "Supprimer un point de connexion"
 
-#: objects/GRAFCET/vergent.c:451
+#: objects/GRAFCET/vergent.c:395
 msgid "GRAFCET OR/AND vergent"
 msgstr "Vergence ET/OU de GRAFCET"
 
@@ -3119,13 +3119,25 @@ msgstr "Afficher la flèche :"
 msgid "Interface:"
 msgstr "Interface :"
 
-#: objects/UML/lifeline.c:138
+#: objects/UML/lifeline.c:140
 msgid "Draw focus of control:"
 msgstr "Afficher le focus du contrôle :"
 
-#: objects/UML/lifeline.c:140
+#: objects/UML/lifeline.c:142
 msgid "Draw destruction mark:"
 msgstr "Montrer la marque de destruction :"
+
+#: objects/UML/lifeline.c:405
+msgid "Add connection points"
+msgstr "Ajouter des points de connexion"
+
+#: objects/UML/lifeline.c:406
+msgid "Remove connection points"
+msgstr "Supprimer des points de connexion"
+
+#: objects/UML/lifeline.c:410
+msgid "UML Lifeline"
+msgstr "Ligne de vie UML"
 
 #: objects/UML/message.c:158
 msgid "Call"
@@ -3526,8 +3538,8 @@ msgid "Fig Format import and export filter"
 msgstr "Filtre d'import depuis le format Fig"
 
 #: plug-ins/xfig/xfig-import.c:73
-msgid "Polygon import is not implemented yes"
-msgstr "Type d'objet %d pas encore implémenté"
+msgid "Polygon import is not implemented yet"
+msgstr "Import de polygones pas encore implémenté"
 
 #: plug-ins/xfig/xfig-import.c:74
 msgid "Patterns are not supported by Dia"

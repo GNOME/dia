@@ -1,5 +1,4 @@
-/* 
- * SADT diagram support for dia 
+/* Dynamic container for connection points  -*- c -*-
  * Copyright(C) 2000 Cyrille Chepelov
  *
  * Connection point line is a helper struct, to hold a few connection points

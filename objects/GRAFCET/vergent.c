@@ -36,7 +36,7 @@
 #include "widgets.h"
 #include "message.h"
 #include "color.h"
-#include "lazyprops.h"
+#include "properties.h"
 #include "geometry.h"
 #include "connpoint_line.h"
 
@@ -48,16 +48,6 @@
 
 typedef enum { VERGENT_OR, VERGENT_AND } VergentType;
 
-typedef struct _VergentPropertiesDialog VergentPropertiesDialog;
-typedef struct _VergentDefaultsDialog VergentDefaultsDialog;
-typedef struct _VergentState VergentState;
-
-struct _VergentState {
-  ObjectState obj_state;
-  
-  VergentType type;
-};
-
 typedef struct _Vergent {
   Connection connection;
  
@@ -67,30 +57,9 @@ typedef struct _Vergent {
   VergentType type;
 } Vergent;
 
-struct _VergentPropertiesDialog {
-  AttributeDialog dialog;
-  Vergent *parent;
-
-  EnumAttribute type;
-};
-
-typedef struct _VergentDefaults {
-  VergentType type;
-} VergentDefaults;
-
-struct _VergentDefaultsDialog {
-  AttributeDialog dialog;
-  VergentDefaults *parent;
-
-  EnumAttribute type;
-};
-
-static VergentPropertiesDialog *vergent_properties_dialog;
-static VergentDefaultsDialog *vergent_defaults_dialog;
-static VergentDefaults defaults;
-
 static void vergent_move_handle(Vergent *vergent, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+                                Point *to, HandleMoveReason reason, 
+                                ModifierKeys modifiers);
 static void vergent_move(Vergent *vergent, Point *to);
 static void vergent_select(Vergent *vergent, Point *clicked_point,
 			      Renderer *interactive_renderer);
@@ -102,17 +71,13 @@ static Object *vergent_create(Point *startpoint,
 static real vergent_distance_from(Vergent *vergent, Point *point);
 static void vergent_update_data(Vergent *vergent);
 static void vergent_destroy(Vergent *vergent);
-static Object *vergent_copy(Vergent *vergent);
-static GtkWidget *vergent_get_properties(Vergent *vergent);
-static ObjectChange *vergent_apply_properties(Vergent *vergent);
-
-static VergentState *vergent_get_state(Vergent *vergent);
-static void vergent_set_state(Vergent *vergent, VergentState *state);
-
-static void vergent_save(Vergent *vergent, ObjectNode obj_node,
-			    const char *filename);
 static Object *vergent_load(ObjectNode obj_node, int version,
-			       const char *filename);
+                            const char *filename);
+static PropDescription *vergent_describe_props(Vergent *vergent);
+static void vergent_get_props(Vergent *vergent, 
+                              Property *props, guint nprops);
+static void vergent_set_props(Vergent *vergent, 
+                              Property *props, guint nprops);
 
 static DiaMenu *vergent_get_object_menu(Vergent *vergent,
 					Point *clickedpoint);
@@ -120,8 +85,8 @@ static DiaMenu *vergent_get_object_menu(Vergent *vergent,
 static ObjectTypeOps vergent_type_ops =
 {
   (CreateFunc)vergent_create,   /* create */
-  (LoadFunc)  vergent_load,     /* load */
-  (SaveFunc)  vergent_save,      /* save */
+  (LoadFunc)  vergent_load,/*using properties*/     /* load */
+  (SaveFunc)  object_save_using_properties,      /* save */
   (GetDefaultsFunc)   NULL, 
   (ApplyDefaultsFunc) NULL  
 };
@@ -141,69 +106,67 @@ static ObjectOps vergent_ops = {
   (DrawFunc)            vergent_draw,
   (DistanceFunc)        vergent_distance_from,
   (SelectFunc)          vergent_select,
-  (CopyFunc)            vergent_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            vergent_move,
   (MoveHandleFunc)      vergent_move_handle,
-  (GetPropertiesFunc)   vergent_get_properties,
-  (ApplyPropertiesFunc) vergent_apply_properties,
-  (ObjectMenuFunc)      vergent_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      vergent_get_object_menu,
+  (DescribePropsFunc)   vergent_describe_props,
+  (GetPropsFunc)        vergent_get_props,
+  (SetPropsFunc)        vergent_set_props
+
 };
 
-static ObjectChange *
-vergent_apply_properties(Vergent *vergent)
+static PropEnumData prop_vtype_data[] = {
+  { N_("OR"), VERGENT_OR },
+  { N_("AND"), VERGENT_AND },
+  { NULL, 0 }
+};
+
+static PropDescription vergent_props[] = {
+  CONNECTION_COMMON_PROPERTIES,
+  { "cpl_north",PROP_TYPE_CONNPOINT_LINE, 0,
+    "cpl_north","cpl_north"},
+  { "cpl_south",PROP_TYPE_CONNPOINT_LINE, 0,
+    "cpl_south","cpl_south"},
+  { "vtype", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+    N_("Vergent type:"),NULL, prop_vtype_data},
+  PROP_DESC_END
+};
+
+static PropDescription *
+vergent_describe_props(Vergent *vergent) 
 {
-  ObjectState *old_state;
-  VergentPropertiesDialog *dlg = vergent_properties_dialog;
-
-  PROPDLG_SANITY_CHECK(dlg,vergent);
-  
-  old_state = (ObjectState *)vergent_get_state(vergent);
-
-  PROPDLG_APPLY_ENUM(dlg,type);
-  
-  vergent_update_data(vergent);
-  return new_object_state_change(&vergent->connection.object, old_state, 
-				 (GetStateFunc)vergent_get_state,
-				 (SetStateFunc)vergent_set_state);
+  if (vergent_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(vergent_props);
+  }
+  return vergent_props;
 }
 
-PropDlgEnumEntry vergent_type_enum[] = {
-  { N_("OR"),VERGENT_OR,NULL },
-  { N_("AND"),VERGENT_AND,NULL },
-  { NULL } };
+static PropOffset vergent_offsets[] = {
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
+  {"cpl_north",PROP_TYPE_CONNPOINT_LINE,offsetof(Vergent,north)},
+  {"cpl_south",PROP_TYPE_CONNPOINT_LINE,offsetof(Vergent,south)},
+  {"vtype",PROP_TYPE_ENUM,offsetof(Vergent,type)},
+  { NULL,0,0 }
+};
 
-static PROPDLG_TYPE
-vergent_get_properties(Vergent *vergent)
-{
-  VergentPropertiesDialog *dlg = vergent_properties_dialog;
-  
-  PROPDLG_CREATE(dlg,vergent);
-  PROPDLG_SHOW_ENUM(dlg,type,_("Vergent type:"),vergent_type_enum);
-  PROPDLG_READY(dlg);
-  
-  vergent_properties_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
-}
-
-static void 
-vergent_apply_defaults()
-{
-  VergentDefaultsDialog *dlg = vergent_defaults_dialog;  
-
-  PROPDLG_APPLY_ENUM(dlg,type);
+static void
+vergent_get_props(Vergent *vergent, Property *props, guint nprops)
+{  
+  object_get_props_from_offsets(&vergent->connection.object,
+                                vergent_offsets,props,nprops);
 }
 
 static void
-init_default_values() {
-  static int defaults_initialized = 0;
-  
-  if (!defaults_initialized) {
-    defaults.type = VERGENT_OR;
-
-    defaults_initialized = 1;
-  }
+vergent_set_props(Vergent *vergent, Property *props, guint nprops)
+{
+  object_set_props_from_offsets(&vergent->connection.object,
+                                vergent_offsets,props,nprops);  
+  vergent_update_data(vergent);
 }
+
 
 static real
 vergent_distance_from(Vergent *vergent, Point *point)
@@ -225,26 +188,6 @@ vergent_distance_from(Vergent *vergent, Point *point)
     break;
   }
   return distance_rectangle_point(&rectangle,point);
-}
-
-static VergentState *
-vergent_get_state(Vergent *vergent)
-{
-  VergentState *state = g_new0(VergentState, 1);
-
-  state->obj_state.free = NULL;
-  state->type = vergent->type;
-
-  return state;
-}
-
-static void
-vergent_set_state(Vergent *vergent, VergentState *state)
-{
-  vergent->type = state->type;
-
-  g_free(state);  
-  vergent_update_data(vergent);
 }
 
 static void
@@ -382,6 +325,8 @@ vergent_update_data(Vergent *vergent)
   connection_update_handles(conn);
 }
 
+/* Object menu handling */
+
 typedef struct {
   ObjectChange obj_change;
   
@@ -441,7 +386,6 @@ vergent_delete_cp_callback(Object *obj, Point *clicked, gpointer data)
   return vergent_create_change((Vergent *)obj,0,clicked); 
 }
 
-
 static DiaMenuItem object_menu_items[] = {
   { N_("Add connection point"), vergent_add_cp_callback, NULL, 1 },
   { N_("Delete  connection point"), vergent_delete_cp_callback, NULL, 1 },
@@ -466,9 +410,6 @@ vergent_get_object_menu(Vergent *vergent, Point *clickedpoint)
   return &object_menu;
 }
 
-
-
-
 static Object *
 vergent_create(Point *startpoint,
 		  void *user_data,
@@ -481,7 +422,6 @@ vergent_create(Point *startpoint,
   int i;
   Point defaultlen  = {6.0,0.0};
 
-  init_default_values();
   vergent = g_malloc0(sizeof(Vergent));
   conn = &vergent->connection;
   obj = &conn->object;
@@ -506,7 +446,6 @@ vergent_create(Point *startpoint,
   
   vergent->north = connpointline_create(obj,1);
   vergent->south = connpointline_create(obj,1);
-
   
   switch(GPOINTER_TO_INT(user_data)) {
   case VERGENT_OR:
@@ -535,97 +474,10 @@ vergent_destroy(Vergent *vergent)
 }
 
 static Object *
-vergent_copy(Vergent *vergent)
-{
-  Vergent *newvergent;
-  Connection *conn, *newconn;
-  Object *newobj;
-  int realconncount,i;
-
-  conn = &vergent->connection;
- 
-  newvergent = g_malloc0(sizeof(Vergent));
-  newconn = &newvergent->connection;
-  newobj = &newconn->object;
-
-  connection_copy(conn, newconn);
-
-  realconncount = 4;
-  newobj->connections[0] = &newvergent->northeast;
-  newobj->connections[1] = &newvergent->northwest;
-  newobj->connections[2] = &newvergent->southwest;
-  newobj->connections[3] = &newvergent->southeast;
-  for (i=0; i<4; i++) {
-    newobj->connections[i]->object = newobj;
-    newobj->connections[i]->connected = NULL;
-  }
-
-  newvergent->north = connpointline_copy(newobj,vergent->north,&realconncount);
-  newvergent->south = connpointline_copy(newobj,vergent->south,&realconncount);
-  g_assert(realconncount == newobj->num_connections);
-  newvergent->type = vergent->type;
-
-  vergent_update_data(newvergent); 
-
-  return &newvergent->connection.object;
-}
-
-
-static void
-vergent_save(Vergent *vergent, ObjectNode obj_node,
-		const char *filename)
-{
-  connection_save(&vergent->connection, obj_node);
-
-  save_enum(obj_node,"vtype",vergent->type);
-  connpointline_save(vergent->north,obj_node,"cpl_north");
-  connpointline_save(vergent->south,obj_node,"cpl_south");
-}
-
-static Object *
 vergent_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Vergent *vergent;
-  Connection *conn;
-  Object *obj;
-  int i,realconncount;
-
-  init_default_values();
-  vergent = g_malloc0(sizeof(Vergent));
-
-  conn = &vergent->connection;
-  obj = &conn->object;
-  
-  obj->type = &vergent_type;
-  obj->ops = &vergent_ops;
-
-  connection_load(conn, obj_node);
-  connection_init(conn, 2, 4);
-  
-  obj->connections[0] = &vergent->northeast;
-  obj->connections[1] = &vergent->northwest;
-  obj->connections[2] = &vergent->southwest;
-  obj->connections[3] = &vergent->southeast;
-  for (i=0; i<4; i++) {
-    obj->connections[i]->object = obj;
-    obj->connections[i]->connected = NULL;
-  }
-
-  realconncount = 4;
-  g_assert(realconncount == obj->num_connections);
-
-  vergent->north = connpointline_load(obj,obj_node,
-				      "cpl_north",2,&realconncount);
-  vergent->south = connpointline_load(obj,obj_node,
-				      "cpl_south",2,&realconncount);
-
-  g_assert(realconncount == obj->num_connections);
-
-  vergent->type = load_enum(obj_node,"vtype",VERGENT_OR);
-
-  vergent_update_data(vergent);
-
-  return &vergent->connection.object;
+  return object_load_using_properties(&vergent_type,
+                                      obj_node,version,filename);
 }
 
 

@@ -32,26 +32,18 @@
 #include "render.h"
 #include "handle.h"
 #include "properties.h"
+#include "connpoint_line.h"
 
 #include "pixmaps/lifeline.xpm"
 
 typedef struct _Lifeline Lifeline;
-typedef struct _LifelineState LifelineState;
 
-struct _LifelineState {
-  ObjectState obj_state;
-  
-  int draw_focuscontrol;
-  int draw_cross;
-};
-
-#define CONNECTIONS 6 /* must be even */
     
 struct _Lifeline {
   Connection connection;  
 
-  ConnectionPoint connections[CONNECTIONS];
-
+  ConnectionPoint connections[6]; /* the static ones. 6 is meant to 
+                                     be hardcoded. */
   Handle boxbot_handle;
   Handle boxtop_handle;
 
@@ -59,6 +51,15 @@ struct _Lifeline {
     
   int draw_focuscontrol;
   int draw_cross;
+  
+  ConnPointLine *northwest,*southwest,*northeast,*southeast;
+
+  /* we're (almost) obliged to do this stupid gymnastic with twin 
+     connpoint_lines, because we really do want to reload older objects 
+     (those created before we had the CPLs) without funny side effects. And 
+     we don't want to have two connection points (one static, one dynamic) in 
+     the same place either.
+  */
 };
 
 #define LIFELINE_LINEWIDTH 0.05
@@ -74,10 +75,11 @@ struct _Lifeline {
 #define HANDLE_BOXBOT (HANDLE_CUSTOM2)
 
 static void lifeline_move_handle(Lifeline *lifeline, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+                                 Point *to, HandleMoveReason reason, 
+                                 ModifierKeys modifiers);
 static void lifeline_move(Lifeline *lifeline, Point *to);
 static void lifeline_select(Lifeline *lifeline, Point *clicked_point,
-			      Renderer *interactive_renderer);
+                            Renderer *interactive_renderer);
 static void lifeline_draw(Lifeline *lifeline, Renderer *renderer);
 static Object *lifeline_create(Point *startpoint,
 				 void *user_data,
@@ -86,28 +88,24 @@ static Object *lifeline_create(Point *startpoint,
 static real lifeline_distance_from(Lifeline *lifeline, Point *point);
 static void lifeline_update_data(Lifeline *lifeline);
 static void lifeline_destroy(Lifeline *lifeline);
-static Object *lifeline_copy(Lifeline *lifeline);
-static void lifeline_save(Lifeline *lifeline, ObjectNode obj_node,
-			  const char *filename);
 static Object *lifeline_load(ObjectNode obj_node, int version,
 			     const char *filename);
-static ObjectChange *lifeline_apply_properties(Lifeline *lif, GtkWidget *widget);
 static PropDescription *lifeline_describe_props(Lifeline *lifeline);
 
-static LifelineState *lifeline_get_state(Lifeline *lif);
-static void lifeline_set_state(Lifeline *lif,
-			       LifelineState *state);
 static void lifeline_get_props(Lifeline * lifeline, Property *props, 
 			       guint nprops);
 static void lifeline_set_props(Lifeline * lifeline, Property *props,
 			       guint nprops);
+static DiaMenu *lifeline_get_object_menu(Lifeline *lifeline,
+					Point *clickedpoint);
+
 
 
 static ObjectTypeOps lifeline_type_ops =
 {
   (CreateFunc) lifeline_create,
-  (LoadFunc)   lifeline_load,
-  (SaveFunc)   lifeline_save
+  (LoadFunc)   lifeline_load,/* using properties */
+  (SaveFunc)   object_save_using_properties
 };
 
 ObjectType lifeline_type =
@@ -123,24 +121,29 @@ static ObjectOps lifeline_ops = {
   (DrawFunc)            lifeline_draw,
   (DistanceFunc)        lifeline_distance_from,
   (SelectFunc)          lifeline_select,
-  (CopyFunc)            lifeline_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            lifeline_move,
   (MoveHandleFunc)      lifeline_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
-  (ApplyPropertiesFunc) lifeline_apply_properties,
-  (ObjectMenuFunc)      NULL,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      lifeline_get_object_menu,
   (DescribePropsFunc)   lifeline_describe_props,
   (GetPropsFunc)        lifeline_get_props,
   (SetPropsFunc)        lifeline_set_props
 };
 
 static PropDescription lifeline_props[] = {
-  OBJECT_COMMON_PROPERTIES,
-  { "focus_control", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+  CONNECTION_COMMON_PROPERTIES,
+  { "rtop", PROP_TYPE_REAL, 0, NULL,NULL,NULL},
+  { "rbot", PROP_TYPE_REAL, 0, NULL,NULL,NULL},
+  { "draw_focus", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Draw focus of control:"), NULL, NULL },
-  { "cross", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+  { "draw_cross", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Draw destruction mark:"), NULL, NULL },
-  
+  { "cpl_northwest",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL },
+  { "cpl_southwest",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL },
+  { "cpl_northeast",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL },
+  { "cpl_southeast",PROP_TYPE_CONNPOINT_LINE, 0, NULL, NULL },
   PROP_DESC_END
 };
 
@@ -153,9 +156,15 @@ lifeline_describe_props(Lifeline *lifeline)
 }
 
 static PropOffset lifeline_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
-  { "focus_control", PROP_TYPE_BOOL, offsetof(Lifeline, draw_focuscontrol) },
-  { "cross", PROP_TYPE_BOOL, offsetof(Lifeline, draw_cross) },
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
+  { "draw_focus", PROP_TYPE_BOOL, offsetof(Lifeline, draw_focuscontrol) },
+  { "draw_cross", PROP_TYPE_BOOL, offsetof(Lifeline, draw_cross) },
+  { "rtop", PROP_TYPE_REAL, offsetof(Lifeline, rtop) },
+  { "rbot", PROP_TYPE_REAL, offsetof(Lifeline, rbot) },
+  { "cpl_northwest",PROP_TYPE_CONNPOINT_LINE,offsetof(Lifeline,northwest)},
+  { "cpl_southwest",PROP_TYPE_CONNPOINT_LINE,offsetof(Lifeline,southwest)},
+  { "cpl_northeast",PROP_TYPE_CONNPOINT_LINE,offsetof(Lifeline,northeast)},
+  { "cpl_southeast",PROP_TYPE_CONNPOINT_LINE,offsetof(Lifeline,southeast)},
   { NULL, 0, 0 },
 };
 
@@ -319,6 +328,108 @@ lifeline_draw(Lifeline *lifeline, Renderer *renderer)
   }
 }
 
+/* Object menu handling */
+
+typedef struct {
+  ObjectChange obj_change;
+  
+  ObjectChange *northeast,*southeast,*northwest,*southwest;
+} LifelineChange;
+
+static void lifeline_change_apply(LifelineChange *change, Object *obj)
+{
+  change->northwest->apply(change->northwest,obj);
+  change->southwest->apply(change->southwest,obj);
+  change->northeast->apply(change->northeast,obj);
+  change->southeast->apply(change->southeast,obj);
+}
+
+static void lifeline_change_revert(LifelineChange *change, Object *obj)
+{
+  change->northwest->revert(change->northwest,obj);
+  change->southwest->revert(change->southwest,obj);
+  change->northeast->revert(change->northeast,obj);
+  change->southeast->revert(change->southeast,obj);
+}
+
+static void lifeline_change_free(LifelineChange *change) 
+{
+  if (change->northeast->free) change->northeast->free(change->northeast);
+  g_free(change->northeast);
+  if (change->northwest->free) change->northwest->free(change->northwest);
+  g_free(change->northwest);
+  if (change->southeast->free) change->southeast->free(change->southeast);
+  g_free(change->southeast);
+  if (change->southwest->free) change->southwest->free(change->southwest);
+  g_free(change->southwest);
+}
+
+static ObjectChange *
+lifeline_create_change(Lifeline *lifeline, int add, Point *clicked) 
+{
+  LifelineChange *vc;
+ 
+  vc = g_new0(LifelineChange,1);
+  vc->obj_change.apply = (ObjectChangeApplyFunc)lifeline_change_apply;
+  vc->obj_change.revert = (ObjectChangeRevertFunc)lifeline_change_revert;
+  vc->obj_change.free = (ObjectChangeFreeFunc)lifeline_change_free;
+  
+  if (add) {
+    vc->northeast = connpointline_add_point(lifeline->northeast,clicked);
+    vc->northwest = connpointline_add_point(lifeline->northwest,clicked);
+    vc->southeast = connpointline_add_point(lifeline->southeast,clicked);
+    vc->southwest = connpointline_add_point(lifeline->southwest,clicked);
+  } else {
+    vc->northeast = connpointline_remove_point(lifeline->northeast,clicked);
+    vc->southwest = connpointline_remove_point(lifeline->southwest,clicked);
+    vc->southeast = connpointline_remove_point(lifeline->southeast,clicked);
+    vc->northwest = connpointline_remove_point(lifeline->northwest,clicked);
+  }
+  lifeline_update_data(lifeline);
+  return (ObjectChange *)vc;
+}
+
+static ObjectChange *
+lifeline_add_cp_callback(Object *obj, Point *clicked, gpointer data)
+{
+  return lifeline_create_change((Lifeline *)obj,1,clicked);
+}
+
+static ObjectChange *
+lifeline_delete_cp_callback(Object *obj, Point *clicked, gpointer data)
+{ 
+  return lifeline_create_change((Lifeline *)obj,0,clicked); 
+}
+
+static DiaMenuItem object_menu_items[] = {
+  { N_("Add connection points"), lifeline_add_cp_callback, NULL, 1 },
+  { N_("Remove connection points"), lifeline_delete_cp_callback, NULL, 1 },
+};
+
+static DiaMenu object_menu = {
+  N_("UML Lifeline"),
+  sizeof(object_menu_items)/sizeof(DiaMenuItem),
+  object_menu_items,
+  NULL
+};
+
+static DiaMenu *
+lifeline_get_object_menu(Lifeline *lifeline, Point *clickedpoint)
+{
+  /* Set entries sensitive/selected etc here */
+  g_assert( (lifeline->northwest->num_connections == 
+             lifeline->northeast->num_connections) || 
+            (lifeline->northwest->num_connections == 
+             lifeline->southwest->num_connections) ||
+            (lifeline->southwest->num_connections == 
+             lifeline->southeast->num_connections) );
+
+  object_menu_items[0].active = 1;
+  object_menu_items[1].active = (lifeline->northeast->num_connections > 1);
+
+  return &object_menu;
+}
+
 static Object *
 lifeline_create(Point *startpoint,
 		  void *user_data,
@@ -343,7 +454,7 @@ lifeline_create(Point *startpoint,
   obj->type = &lifeline_type;
   obj->ops = &lifeline_ops;
 
-  connection_init(conn, 4, CONNECTIONS);
+  connection_init(conn, 4, 6);
 
   lifeline->rtop = LIFELINE_HEIGHT/3;
   lifeline->rbot = lifeline->rtop+0.7;
@@ -366,11 +477,16 @@ lifeline_create(Point *startpoint,
   obj->handles[1]->connect_type = HANDLE_NONCONNECTABLE;
 
   /* Connection points */
-  for (i=0;i<CONNECTIONS;i++) {
+  for (i=0;i<6;i++) {
     obj->connections[i] = &lifeline->connections[i];
     lifeline->connections[i].object = obj;
     lifeline->connections[i].connected = NULL;
   }
+
+  lifeline->northwest = connpointline_create(obj,1);
+  lifeline->southwest = connpointline_create(obj,1);
+  lifeline->northeast = connpointline_create(obj,1);
+  lifeline->southeast = connpointline_create(obj,1);
 
   lifeline_update_data(lifeline);
 
@@ -380,73 +496,14 @@ lifeline_create(Point *startpoint,
   return &lifeline->connection.object;
 }
 
-
 static void
 lifeline_destroy(Lifeline *lifeline)
 {
+  connpointline_destroy(lifeline->southeast);
+  connpointline_destroy(lifeline->northwest);
+  connpointline_destroy(lifeline->northeast);
+  connpointline_destroy(lifeline->southwest);
   connection_destroy(&lifeline->connection);
-}
-
-static Object *
-lifeline_copy(Lifeline *lifeline)
-{
-  int i;
-  Lifeline *newlifeline;
-  Connection *conn, *newconn;
-  Object *newobj;
-  
-  conn = &lifeline->connection;
-  
-  newlifeline = g_malloc0(sizeof(Lifeline));
-  newconn = &newlifeline->connection;
-  newobj = &newconn->object;
-
-  connection_copy(conn, newconn);
-
-  for (i = 0; i < CONNECTIONS; i++) {
-    newobj->connections[i] = &newlifeline->connections[i];
-    newlifeline->connections[i].object = newobj;
-    newlifeline->connections[i].connected = NULL;
-    newlifeline->connections[i].pos = lifeline->connections[i].pos;
-    newlifeline->connections[i].last_pos = lifeline->connections[i].last_pos;
-  }
-
-  newlifeline->boxbot_handle = lifeline->boxbot_handle;
-  newobj->handles[2] = &newlifeline->boxbot_handle;
-  newlifeline->boxtop_handle = lifeline->boxtop_handle;
-  newobj->handles[3] = &newlifeline->boxtop_handle;
-
-  newlifeline->rtop = lifeline->rtop;
-  newlifeline->rbot = lifeline->rbot;
-
-   newlifeline->draw_focuscontrol = lifeline->draw_focuscontrol;
-   newlifeline->draw_cross = lifeline->draw_cross;
-
-  return &newlifeline->connection.object;
-}
-
-static LifelineState *
-lifeline_get_state(Lifeline *lif)
-{
-  LifelineState *state = g_new0(LifelineState, 1);
-
-  state->obj_state.free = NULL;
-
-  state->draw_focuscontrol = lif->draw_focuscontrol;
-  state->draw_cross = lif->draw_cross;
-
-  return state;
-}
-
-static void
-lifeline_set_state(Lifeline *lif, LifelineState *state)
-{
-  lif->draw_focuscontrol = state->draw_focuscontrol;
-  lif->draw_cross = state->draw_cross;
-  
-  g_free(state);
-  
-  lifeline_update_data(lif);
 }
 
 static void
@@ -455,9 +512,7 @@ lifeline_update_data(Lifeline *lifeline)
   Connection *conn = &lifeline->connection;
   Object *obj = &conn->object;
   LineBBExtras *extra = &conn->extra_spacing;
-  Point p1, p2;
-  real r;
-  int i;
+  Point p1, p2, pnw, psw, pne, pse, pmw,pme;
 
   obj->position = conn->endpoints[0];
 
@@ -489,122 +544,46 @@ lifeline_update_data(Lifeline *lifeline)
   if (lifeline->draw_focuscontrol) {  
       p1.x -= LIFELINE_WIDTH/2.0;
       p2.x += LIFELINE_WIDTH/2.0; 
-      /* Update connections: */      
-      r = (p2.y - p1.y)/(float)(CONNECTIONS/2-1); 
-      for (i = 0; i < CONNECTIONS/2; ++i) {
-        lifeline->connections[i*2].pos.x = p1.x;
-        lifeline->connections[i*2+1].pos.x = p2.x;
-        lifeline->connections[i*2+1].pos.y =
-          lifeline->connections[i*2].pos.y = p1.y + i*r;
-      }
-  } else {     
-    /* without focus of control, the points are over the line */
-    r = (p2.y - p1.y)/(float)(CONNECTIONS-1); 
-    for (i = 0; i < CONNECTIONS; i++) {
-      lifeline->connections[i].pos.x = p1.x;
-      lifeline->connections[i].pos.y = p1.y + i*r;
-    }
   }
-}
+  /* Update connections: */      
 
+  pnw.x = p1.x; pnw.y = p1.y;
+  psw.x = p1.x; psw.y = p2.y;
+  pne.x = p2.x; pne.y = p1.y;
+  pse.x = p2.x; pse.y = p2.y;
+  pmw.x = pnw.x;
+  pme.x = pne.x;
+  pmw.y = pme.y = (p1.y + p2.y)/2;
 
-static void
-lifeline_save(Lifeline *lifeline, ObjectNode obj_node,
-	      const char *filename)
-{
-  connection_save(&lifeline->connection, obj_node);
+  lifeline->connections[0].pos = pnw;
+  lifeline->connections[1].pos = pne;
+  lifeline->connections[2].pos = pmw;
+  lifeline->connections[3].pos = pme;
+  lifeline->connections[4].pos = psw;
+  lifeline->connections[5].pos = pse;
 
-  data_add_real(new_attribute(obj_node, "rtop"),
-		lifeline->rtop);
-  data_add_real(new_attribute(obj_node, "rbot"),
-		lifeline->rbot);
-  data_add_boolean(new_attribute(obj_node, "draw_focus"),
-		   lifeline->draw_focuscontrol);
-  data_add_boolean(new_attribute(obj_node, "draw_cross"),
-		   lifeline->draw_cross);
+  connpointline_update(lifeline->northwest);
+  connpointline_putonaline(lifeline->northwest,&pnw,&pmw);
+  connpointline_update(lifeline->southwest);
+  connpointline_putonaline(lifeline->southwest,&pmw,&psw);
+  connpointline_update(lifeline->northeast);
+  connpointline_putonaline(lifeline->northeast,&pne,&pme);
+  connpointline_update(lifeline->southeast);
+  connpointline_putonaline(lifeline->southeast,&pme,&pse);
 }
 
 static Object *
 lifeline_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Lifeline *lifeline;
-  AttributeNode attr;
-  Connection *conn;
-  Object *obj;
-  int i;
-
-  lifeline = g_malloc0(sizeof(Lifeline));
-
-  conn = &lifeline->connection;
-  obj = &conn->object;
-
-  obj->type = &lifeline_type;
-  obj->ops = &lifeline_ops;
-
-  connection_load(conn, obj_node);
-  
-  connection_init(conn, 4, CONNECTIONS);
-
-  attr = object_find_attribute(obj_node, "rtop");
-  if (attr != NULL)
-    lifeline->rtop = data_real(attribute_first_data(attr));
-  else
-    lifeline->rtop = LIFELINE_HEIGHT/3;
-
-  attr = object_find_attribute(obj_node, "rbot");
-  if (attr != NULL)
-    lifeline->rbot = data_real(attribute_first_data(attr));
-  else
-    lifeline->rbot = lifeline->rtop+0.7;
-
-  attr = object_find_attribute(obj_node, "draw_focus");
-  if (attr != NULL)
-    lifeline->draw_focuscontrol = data_boolean(attribute_first_data(attr));
-  else
-    lifeline->draw_focuscontrol = 1;
-
-  attr = object_find_attribute(obj_node, "draw_cross");
-  if (attr != NULL)
-    lifeline->draw_cross = data_boolean(attribute_first_data(attr));
-  else
-    lifeline->draw_cross = 0;
-
-  /* Connection points */
-  for (i=0;i<CONNECTIONS;i++) {
-    obj->connections[i] = &lifeline->connections[i];
-    lifeline->connections[i].object = obj;
-    lifeline->connections[i].connected = NULL;
-  }
-
-  lifeline->boxbot_handle.id = HANDLE_BOXBOT;
-  lifeline->boxbot_handle.type = HANDLE_MINOR_CONTROL;
-  lifeline->boxbot_handle.connect_type = HANDLE_NONCONNECTABLE;
-  lifeline->boxbot_handle.connected_to = NULL;
-  obj->handles[2] = &lifeline->boxbot_handle;
-  
-  lifeline->boxtop_handle.id = HANDLE_BOXTOP;
-  lifeline->boxtop_handle.type = HANDLE_MINOR_CONTROL;
-  lifeline->boxtop_handle.connect_type = HANDLE_NONCONNECTABLE;
-  lifeline->boxtop_handle.connected_to = NULL;
-  obj->handles[3] = &lifeline->boxtop_handle;
-  
-  lifeline_update_data(lifeline);
-  
-  return &lifeline->connection.object;
+  return object_load_using_properties(&lifeline_type,
+                                      obj_node,version,filename);
 }
 
 
-static ObjectChange *
-lifeline_apply_properties(Lifeline *lif, GtkWidget *widget)
-{
-  ObjectState *old_state;
 
-  old_state = (ObjectState*) lifeline_get_state(lif);
 
-  object_apply_props_from_dialog((Object *)lif, widget);
-  
-  lifeline_update_data(lif);
-  return new_object_state_change(&lif->connection.object, old_state, 
-				 (GetStateFunc)lifeline_get_state,
-				 (SetStateFunc)lifeline_set_state);
-}
+
+
+
+
+ 
