@@ -90,7 +90,10 @@ uml_get_attribute_string(UMLAttribute *attribute)
   int len;
   char *str;
 
-  len = 1 + strlen(attribute->name)  + 2 + strlen(attribute->type);
+  len = 1 + strlen(attribute->name) + strlen(attribute->type);
+  if (attribute->name[0] && attribute->type[0]) {
+    len += 2;
+  }
   if (attribute->value != NULL) {
     len += 3 + strlen(attribute->value);
   }
@@ -101,7 +104,9 @@ uml_get_attribute_string(UMLAttribute *attribute)
   str[1] = 0;
   
   strcat(str, attribute->name);
-  strcat(str, ": ");
+  if (attribute->name[0] && attribute->type[0]) {
+    strcat(str, ": ");
+  }
   strcat(str, attribute->type);
   if (attribute->value != NULL) {
     strcat(str, " = ");
@@ -129,7 +134,10 @@ uml_get_operation_string(UMLOperation *operation)
     param = (UMLParameter  *) list->data;
     list = g_list_next(list);
 
-    len += strlen(param->name) + 1 + strlen(param->type);
+    len += strlen(param->name) + strlen(param->type);
+    if (param->type[0] && param->name[0]) {
+      len += 1;
+    }
     if (param->value != NULL) {
       len += 1 + strlen(param->value);
     }
@@ -158,7 +166,9 @@ uml_get_operation_string(UMLOperation *operation)
     list = g_list_next(list);
 
     strcat(str, param->name);
-    strcat(str, ":");
+    if (param->type[0] && param->name[0]) {
+      strcat(str, ":");
+    }
     strcat(str, param->type);
     
     if (param->value != NULL) {
