@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2001-08-31 20:43+0800\n"
+"POT-Creation-Date: 2001-09-02 22:50+0200\n"
 "PO-Revision-Date: 2000-05-31 10:16:35+0900\n"
 "Last-Translator: Young-Ho Cha <ganadist@dacome.co.kr>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -12,32 +12,63 @@ msgstr ""
 "Content-Type: text/plain; charset=euc-kr\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
+#: app/app_procs.c:153
+#, c-format
+msgid "%s error: input and output file name is identical: %s"
+msgstr ""
+
+#: app/app_procs.c:164
+#, fuzzy, c-format
+msgid "%s error: need valid input file %s\n"
+msgstr "올바른 입력 파일이 필요합니다\n"
+
+#: app/app_procs.c:171
+#, c-format
+msgid "%s error: don't know how to export into %s\n"
+msgstr ""
+
+#. if (!quiet)
+#: app/app_procs.c:177
+#, c-format
+msgid "%s --> %s\n"
+msgstr ""
+
 #. &export_file_name
-#: app/app_procs.c:151
+#: app/app_procs.c:209
 msgid "Export loaded file and exit"
 msgstr "읽어들인 파일을 저장하고 마칩니다"
 
-#: app/app_procs.c:151
+#: app/app_procs.c:209
 msgid "OUTPUT"
 msgstr "출력"
 
-#: app/app_procs.c:153
+#. &export_file_format
+#: app/app_procs.c:211
+#, fuzzy
+msgid "Export to file format and exit"
+msgstr "읽어들인 파일을 저장하고 마칩니다"
+
+#: app/app_procs.c:211
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr ""
+
+#: app/app_procs.c:213
 msgid "Don't show the splash screen"
 msgstr ""
 
-#: app/app_procs.c:155
+#: app/app_procs.c:215
 msgid "Show this help message"
 msgstr "이 도움말을 보여줍니다"
 
-#: app/app_procs.c:185
+#: app/app_procs.c:248
 msgid "Can't connect to session manager!\n"
 msgstr "세션 관리자에 연결을 할수 없습니다!\n"
 
-#: app/app_procs.c:196
+#: app/app_procs.c:259
 msgid "[OPTION...] [FILE...]"
 msgstr "[옵션...] [파일...]"
 
-#: app/app_procs.c:199
+#: app/app_procs.c:263
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -46,20 +77,21 @@ msgstr ""
 "옵션 %s에 오류가 있습니다 : %s. \n"
 "'%s --help'를 실행시켜서 명령행 옵션의 전체목록을 참조하십시오.\n"
 
-#: app/app_procs.c:247 app/app_procs.c:249
+#: app/app_procs.c:276
+#, c-format
+msgid "%s error: can specify only one of -f or -o."
+msgstr ""
+
+#: app/app_procs.c:321 app/app_procs.c:323
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "object-libs는 찾았지만 표준 객체는 찾지 못하였습니다, 종료합니다...\n"
 
-#: app/app_procs.c:274
-msgid "Need valid input file\n"
-msgstr "올바른 입력 파일이 필요합니다\n"
-
-#: app/app_procs.c:340 app/app_procs.c:346
+#: app/app_procs.c:444 app/app_procs.c:450
 msgid "Quit, are you sure?"
 msgstr "정말로 종료하시겠습니까?"
 
-#: app/app_procs.c:353
+#: app/app_procs.c:457
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -67,27 +99,27 @@ msgstr ""
 "변경된 도표가 있습니다.\n"
 "정말로 종료하시겠습니까?"
 
-#: app/app_procs.c:363 app/app_procs.c:368
+#: app/app_procs.c:467 app/app_procs.c:472
 msgid "Quit"
 msgstr "종료"
 
-#: app/app_procs.c:380 app/display.c:966 app/layer_dialog.c:989
+#: app/app_procs.c:484 app/display.c:966 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "취소"
 
-#: app/app_procs.c:455 app/app_procs.c:462
+#: app/app_procs.c:559 app/app_procs.c:566
 msgid "Could not create per-user Dia config directory"
 msgstr "다른 사용자의 Dia 설정 디렉토리를 생성할수 없습니다"
 
-#: app/app_procs.c:464
+#: app/app_procs.c:568
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: app/app_procs.c:486
+#: app/app_procs.c:590
 msgid "Objects and filters internal to dia"
 msgstr "Dia의 내부 객체와 필터"
 
@@ -275,7 +307,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "객체 메뉴 없슴"
 
-#: app/display.c:141 app/display.c:142 app/interface.c:442
+#: app/display.c:141 app/display.c:142 app/interface.c:447
 msgid "Zoom"
 msgstr "확대"
 
@@ -502,17 +534,17 @@ msgstr "그림 만듦"
 msgid "Image"
 msgstr "그림"
 
-#: app/interface.c:489
+#: app/interface.c:494
 msgid "NULL tooldata in tool_select_update"
 msgstr ""
 
-#: app/interface.c:937
+#: app/interface.c:942
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
 
-#: app/interface.c:1083
+#: app/interface.c:1088
 msgid "Diagram Editor"
 msgstr "도표 편집기"
 
@@ -1821,7 +1853,7 @@ msgstr "격자:"
 msgid "Multivalue:"
 msgstr ""
 
-#: objects/ER/attribute.c:389
+#: objects/ER/attribute.c:389 sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr ""
 
@@ -1829,7 +1861,7 @@ msgstr ""
 msgid "Weak:"
 msgstr ""
 
-#: objects/ER/entity.c:340 objects/UML/classicon.c:124
+#: objects/ER/entity.c:340 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr ""
 
@@ -1874,7 +1906,7 @@ msgstr "역할:"
 msgid "Identifying:"
 msgstr ""
 
-#: objects/ER/relationship.c:418
+#: objects/ER/relationship.c:418 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr ""
 
@@ -2073,6 +2105,7 @@ msgid "Support"
 msgstr ""
 
 #: objects/FS/function.c:653 objects/FS/function.c:654
+#: sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr ""
 
@@ -2362,7 +2395,7 @@ msgstr ""
 msgid "Expose"
 msgstr "타원"
 
-#: objects/FS/function.c:741
+#: objects/FS/function.c:741 sheets/Flowchart.sheet.in.h:9
 #, fuzzy
 msgid "Extract"
 msgstr "추상"
@@ -2555,7 +2588,7 @@ msgstr ""
 msgid "Mark"
 msgstr ""
 
-#: objects/FS/function.c:800
+#: objects/FS/function.c:800 sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr ""
 
@@ -2777,7 +2810,7 @@ msgstr ""
 msgid "Wish Fn"
 msgstr ""
 
-#: objects/GRAFCET/action.c:134
+#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
 msgid "Macro call"
 msgstr ""
 
@@ -3832,365 +3865,1306 @@ msgstr ""
 msgid "XFig File Format"
 msgstr ""
 
+#: sheets/chronogram.sheet.in.h:1
 #, fuzzy
-#~ msgid "A data line"
-#~ msgstr "선 굵기"
+msgid "A data line"
+msgstr "선 굵기"
 
+#: sheets/chronogram.sheet.in.h:2
+msgid "A time scale"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:3
+msgid "Chronogram"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:4
+msgid "Objects to design chronogram charts"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:1
+#, fuzzy
+msgid "A Horizontal Jumper"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:2
+#, fuzzy
+msgid "A Horizontally aligned inductor"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:3
+#, fuzzy
+msgid "A Horizontally aligned inductor (European)"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:4
+#, fuzzy
+msgid "A Horizontally aligned resistor"
+msgstr "위아래 바꿈"
+
+#: sheets/Circuit.sheet.in.h:5
+#, fuzzy
+msgid "A Horizontally aligned resistor (European)"
+msgstr "위아래 바꿈"
+
+#: sheets/Circuit.sheet.in.h:6
+#, fuzzy
+msgid "A PMOS transistor"
+msgstr "방향"
+
+#: sheets/Circuit.sheet.in.h:7
+msgid "A Speaker"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:8
+#, fuzzy
+msgid "A Vertically aligned inductor"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:9
+#, fuzzy
+msgid "A Vertically aligned inductor (European)"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:10
+#, fuzzy
+msgid "A Vertically aligned resistor"
+msgstr "위아래 바꿈"
+
+#: sheets/Circuit.sheet.in.h:11
+#, fuzzy
+msgid "A Vertically aligned resistor (European)"
+msgstr "위아래 바꿈"
+
+#: sheets/Circuit.sheet.in.h:12
+#, fuzzy
+msgid "A ground point"
+msgstr "부드러운 조절"
+
+#: sheets/Circuit.sheet.in.h:13
+#, fuzzy
+msgid "A horizontally aligned LED"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:14
+#, fuzzy
+msgid "A horizontally aligned capacitor"
+msgstr "위아래 바꿈"
+
+#: sheets/Circuit.sheet.in.h:15
+#, fuzzy
+msgid "A horizontally aligned diode"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:16
+#, fuzzy
+msgid "A horizontally aligned fuse"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:17
+#, fuzzy
+msgid "A horizontally aligned powersource"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:18
+#, fuzzy
+msgid "A horizontally aligned zener diode"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:19
+msgid "A lamp"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:20
+#, fuzzy
+msgid "A npn bipolar transistor"
+msgstr "방향"
+
+#: sheets/Circuit.sheet.in.h:21
+#, fuzzy
+msgid "A pnp bipolar transistor"
+msgstr "방향"
+
+#: sheets/Circuit.sheet.in.h:22
+#, fuzzy
+msgid "A vertically aligned LED"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:23
+#, fuzzy
+msgid "A vertically aligned capacitor"
+msgstr "위아래 바꿈"
+
+#: sheets/Circuit.sheet.in.h:24
+#, fuzzy
+msgid "A vertically aligned diode"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:25
+#, fuzzy
+msgid "A vertically aligned fuse"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:26
+#, fuzzy
+msgid "A vertically aligned powersource"
+msgstr "위아래 바꿈"
+
+#: sheets/Circuit.sheet.in.h:27
+#, fuzzy
+msgid "A vertically aligned zener diode"
+msgstr "위아래 바꿈"
+
+#: sheets/Circuit.sheet.in.h:28
+#, fuzzy
+msgid "An NMOS transistor"
+msgstr "방향"
+
+#: sheets/Circuit.sheet.in.h:29
+#, fuzzy
+msgid "An operational amplifier"
+msgstr "가로 정렬(_H)"
+
+#: sheets/Circuit.sheet.in.h:30
+msgid "Circuit"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:31
+msgid "Components for circuit diagrams"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:1
+msgid "A Backflow Preventer"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:2
+#, fuzzy
+msgid "A Basin"
+msgstr "방향"
+
+#: sheets/civil.sheet.in.h:3
+#, fuzzy
+msgid "A Container"
+msgstr "합성"
+
+#: sheets/civil.sheet.in.h:4
+#, fuzzy
+msgid "A Frequency Converter"
+msgstr "사용자 인터페이스"
+
+#: sheets/civil.sheet.in.h:5
+msgid "A Gas Bottle"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:6
+#, fuzzy
+msgid "A Motor"
+msgstr "합성"
+
+#: sheets/civil.sheet.in.h:7
+msgid "A Preliminary Clarification Tank"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:8
+#, fuzzy
+msgid "A Rotor"
+msgstr "합성"
+
+#: sheets/civil.sheet.in.h:9
+msgid "A final-settling Basin"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:10
+#, fuzzy
+msgid "A horizontal limiting line"
+msgstr "가로 정렬(_H)"
+
+#: sheets/civil.sheet.in.h:11
+#, fuzzy
+msgid "A horizontally aligned Arrow"
+msgstr "가로 정렬(_H)"
+
+#: sheets/civil.sheet.in.h:12
+#, fuzzy
+msgid "A vertical limiting line"
+msgstr "가로 정렬(_H)"
+
+#: sheets/civil.sheet.in.h:13
+#, fuzzy
+msgid "A vertically aligned Arrow"
+msgstr "위아래 바꿈"
+
+#: sheets/civil.sheet.in.h:14
+msgid "An Aerator with bubbles"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:15
+#, fuzzy
+msgid "Bivalent Vertical Rest"
+msgstr "좌우 바꿈"
+
+#: sheets/civil.sheet.in.h:16
+msgid "Civil"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:17
+msgid "Civil Engineering Components"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:18
+#, fuzzy
+msgid "Horizontal Rest"
+msgstr "위아래 바꿈"
+
+#: sheets/civil.sheet.in.h:19
+#, fuzzy
+msgid "Horizontally aligned Valve"
+msgstr "가로 정렬(_H)"
+
+#: sheets/civil.sheet.in.h:20
+#, fuzzy
+msgid "Horizontally aligned compressor"
+msgstr "가로 정렬(_H)"
+
+#: sheets/civil.sheet.in.h:21
+#, fuzzy
+msgid "Horizontally aligned pump"
+msgstr "가로 정렬(_H)"
+
+#: sheets/civil.sheet.in.h:22
+#, fuzzy
+msgid "Reference Line"
+msgstr "선 만듦"
+
+#: sheets/civil.sheet.in.h:23
 #, fuzzy
-#~ msgid "A Horizontal Jumper"
-#~ msgstr "가로 정렬(_H)"
+msgid "Soil"
+msgstr "실선"
 
+#: sheets/civil.sheet.in.h:24
 #, fuzzy
-#~ msgid "A Horizontally aligned inductor"
-#~ msgstr "가로 정렬(_H)"
+msgid "Vertical Rest"
+msgstr "좌우 바꿈"
 
+#: sheets/civil.sheet.in.h:25
 #, fuzzy
-#~ msgid "A Horizontally aligned resistor"
-#~ msgstr "위아래 바꿈"
+msgid "Vertically aligned Propeller"
+msgstr "가로 정렬(_H)"
 
+#: sheets/civil.sheet.in.h:26
 #, fuzzy
-#~ msgid "A PMOS transistor"
-#~ msgstr "방향"
+msgid "Vertically aligned Valve"
+msgstr "가로 정렬(_H)"
 
+#: sheets/civil.sheet.in.h:27
 #, fuzzy
-#~ msgid "A ground point"
-#~ msgstr "부드러운 조절"
+msgid "Vertically aligned compressor"
+msgstr "가로 정렬(_H)"
 
+#: sheets/civil.sheet.in.h:28
 #, fuzzy
-#~ msgid "A horizontally aligned fuse"
-#~ msgstr "가로 정렬(_H)"
+msgid "Vertically aligned pump"
+msgstr "가로 정렬(_H)"
 
+#: sheets/civil.sheet.in.h:29
+msgid "Water Level"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:1
+msgid "A 'if not' (normally closed) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:2
+msgid "A 'if' (normally open) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:3
+#, fuzzy
+msgid "A 'jump' output variable"
+msgstr "프린터 선택"
+
+#: sheets/Contact.sheet.in.h:4
 #, fuzzy
-#~ msgid "An NMOS transistor"
-#~ msgstr "방향"
+msgid "A 'reset' output variable"
+msgstr "프린터 선택"
 
+#: sheets/Contact.sheet.in.h:5
 #, fuzzy
-#~ msgid "An operational amplifier"
-#~ msgstr "가로 정렬(_H)"
+msgid "A 'set' output variable"
+msgstr "프린터 선택"
 
+#: sheets/Contact.sheet.in.h:6
 #, fuzzy
-#~ msgid "A Basin"
-#~ msgstr "방향"
+msgid "A negative output variable"
+msgstr "프린터 선택"
 
+#: sheets/Contact.sheet.in.h:7
 #, fuzzy
-#~ msgid "A Container"
-#~ msgstr "합성"
+msgid "A power-saved 'reset' output variable"
+msgstr "프린터 선택"
 
+#: sheets/Contact.sheet.in.h:8
 #, fuzzy
-#~ msgid "A Frequency Converter"
-#~ msgstr "사용자 인터페이스"
+msgid "A power-saved 'set' output variable"
+msgstr "프린터 선택"
 
+#: sheets/Contact.sheet.in.h:9
 #, fuzzy
-#~ msgid "A horizontal limiting line"
-#~ msgstr "가로 정렬(_H)"
+msgid "A power-saved negative output variable"
+msgstr "프린터 선택"
 
+#: sheets/Contact.sheet.in.h:10
 #, fuzzy
-#~ msgid "Bivalent Vertical Rest"
-#~ msgstr "좌우 바꿈"
+msgid "A power-saved simple output variable"
+msgstr "프린터 선택"
 
+#: sheets/Contact.sheet.in.h:11
 #, fuzzy
-#~ msgid "Horizontal Rest"
-#~ msgstr "위아래 바꿈"
+msgid "A receptivity output variable"
+msgstr "프린터 선택"
 
+#: sheets/Contact.sheet.in.h:12
 #, fuzzy
-#~ msgid "Horizontally aligned compressor"
-#~ msgstr "가로 정렬(_H)"
+msgid "A simple output variable"
+msgstr "프린터 선택"
+
+#: sheets/Contact.sheet.in.h:13
+msgid "Components for LADDER circuits"
+msgstr ""
 
+#: sheets/Contact.sheet.in.h:14
 #, fuzzy
-#~ msgid "Horizontally aligned pump"
-#~ msgstr "가로 정렬(_H)"
+msgid "Ladder"
+msgstr "게층"
 
+#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
 #, fuzzy
-#~ msgid "Reference Line"
-#~ msgstr "선 만듦"
+msgid "A connection point"
+msgstr "연결점:"
+
+#: sheets/Electric.sheet.in.h:2
+msgid "A lamp or indicator light"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:3
+msgid "A normally closed contact"
+msgstr ""
 
+#: sheets/Electric.sheet.in.h:4
+msgid "A normally closed position switch"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:5
+msgid "A normally open contact"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:6
+msgid "A normally open position switch"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:7
+msgid "A relay"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:8
+msgid "Components for electric circuits"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:9
 #, fuzzy
-#~ msgid "Soil"
-#~ msgstr "실선"
+msgid "Electric"
+msgstr "좌우 바꿈"
+
+#: sheets/Electric.sheet.in.h:10
+msgid "The command organ of a relay"
+msgstr ""
 
+#: sheets/EML.sheet.in.h:1
 #, fuzzy
-#~ msgid "Vertical Rest"
-#~ msgstr "좌우 바꿈"
+msgid "Create a process"
+msgstr "호 만듦"
+
+#: sheets/EML.sheet.in.h:2
+msgid "EML"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:3
+msgid "Editor for EML Static Structure Diagrams."
+msgstr ""
 
+#: sheets/EML.sheet.in.h:4
+msgid "Instantiation. One process create others"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:5
+msgid "Interaction between processes."
+msgstr ""
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:3
+msgid "Editor for Entity Relations Diagrams"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:5
 #, fuzzy
-#~ msgid "A simple output variable"
-#~ msgstr "프린터 선택"
+msgid "Participation"
+msgstr "방향"
+
+#: sheets/ER.sheet.in.h:7
+msgid "Weak Entity"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:1
+msgid "A box with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:2
+msgid "A diamond with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:3
+msgid "A ellipse with text inside"
+msgstr ""
 
+#: sheets/Flowchart.sheet.in.h:4
+msgid "A parallelogram with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:5
 #, fuzzy
-#~ msgid "Ladder"
-#~ msgstr "게층"
+msgid "Collate"
+msgstr "호출"
 
+#: sheets/Flowchart.sheet.in.h:6
+msgid "Delay"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:8
 #, fuzzy
-#~ msgid "A connection point"
-#~ msgstr "연결점:"
+msgid "Document"
+msgstr "글꼴 크기:"
 
+#: sheets/Flowchart.sheet.in.h:10
 #, fuzzy
-#~ msgid "Electric"
-#~ msgstr "좌우 바꿈"
+msgid "Flowchart"
+msgstr "흐름도 객체"
 
+#: sheets/Flowchart.sheet.in.h:11
 #, fuzzy
-#~ msgid "Create a process"
-#~ msgstr "호 만듦"
+msgid "Internal Storage"
+msgstr "사용자 인터페이스"
+
+#: sheets/Flowchart.sheet.in.h:12
+msgid "Magnetic Disk"
+msgstr ""
 
+#: sheets/Flowchart.sheet.in.h:13
+msgid "Magnetic Drum"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:14
+msgid "Magnetic Tape"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:15
 #, fuzzy
-#~ msgid "Participation"
-#~ msgstr "방향"
+msgid "Manual Input"
+msgstr "작동"
 
+#: sheets/Flowchart.sheet.in.h:16
 #, fuzzy
-#~ msgid "Collate"
-#~ msgstr "호출"
+msgid "Manual Operation"
+msgstr "작동"
+
+#: sheets/Flowchart.sheet.in.h:17
+msgid "Merge"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:18
+msgid "Objects to draw flowcharts"
+msgstr ""
 
+#: sheets/Flowchart.sheet.in.h:19
+msgid "Off Page Connector"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:20
 #, fuzzy
-#~ msgid "Document"
-#~ msgstr "글꼴 크기:"
+msgid "Offline Storage"
+msgstr "사용자 인터페이스"
+
+#: sheets/Flowchart.sheet.in.h:21
+msgid "Or"
+msgstr ""
 
+#: sheets/Flowchart.sheet.in.h:22
 #, fuzzy
-#~ msgid "Flowchart"
-#~ msgstr "흐름도 객체"
+msgid "Predefined Process"
+msgstr "설정"
 
+#: sheets/Flowchart.sheet.in.h:23
 #, fuzzy
-#~ msgid "Internal Storage"
-#~ msgstr "사용자 인터페이스"
+msgid "Preparation"
+msgstr "작동"
+
+#: sheets/Flowchart.sheet.in.h:24
+msgid "Punched Card"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:25
+msgid "Punched Tape"
+msgstr ""
 
+#: sheets/Flowchart.sheet.in.h:26
 #, fuzzy
-#~ msgid "Manual Input"
-#~ msgstr "작동"
+msgid "Sort"
+msgstr "화살표 보임"
 
+#: sheets/Flowchart.sheet.in.h:27
+msgid "Summing Junction"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:28
+msgid "Terminal"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:29
 #, fuzzy
-#~ msgid "Manual Operation"
-#~ msgstr "작동"
+msgid "Transaction File"
+msgstr "방향"
 
+#: sheets/Flowchart.sheet.in.h:30
+msgid "Transmittal Tape"
+msgstr ""
+
+#: sheets/FS.sheet.in.h:1
 #, fuzzy
-#~ msgid "Offline Storage"
-#~ msgstr "사용자 인터페이스"
+msgid "Create a flow"
+msgstr "상자 만듦"
 
+#: sheets/FS.sheet.in.h:2
 #, fuzzy
-#~ msgid "Predefined Process"
-#~ msgstr "설정"
+msgid "Create a function"
+msgstr "선 만듦"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Create an orthogonal polyline flow"
+msgstr ""
 
+#: sheets/FS.sheet.in.h:4
+msgid "Editor for Function Structure Diagrams."
+msgstr ""
+
+#: sheets/FS.sheet.in.h:5
+msgid "FS"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:1
 #, fuzzy
-#~ msgid "Preparation"
-#~ msgstr "작동"
+msgid "A AND vergent"
+msgstr "부분 추가"
 
+#: sheets/GRAFCET.sheet.in.h:2
 #, fuzzy
-#~ msgid "Sort"
-#~ msgstr "화살표 보임"
+msgid "A OR vergent"
+msgstr "부분 추가"
+
+#: sheets/GRAFCET.sheet.in.h:3
+msgid "A condition (of an action)"
+msgstr ""
 
+#: sheets/GRAFCET.sheet.in.h:4
 #, fuzzy
-#~ msgid "Transaction File"
-#~ msgstr "방향"
+msgid "A macro call step"
+msgstr "템플릿"
 
+#: sheets/GRAFCET.sheet.in.h:5
 #, fuzzy
-#~ msgid "Create a flow"
-#~ msgstr "상자 만듦"
+msgid "A macro entry step"
+msgstr "템플릿"
 
+#: sheets/GRAFCET.sheet.in.h:6
 #, fuzzy
-#~ msgid "Create a function"
-#~ msgstr "선 만듦"
+msgid "A macro exit step"
+msgstr "템플릿"
 
+#: sheets/GRAFCET.sheet.in.h:7
+msgid "A macro sub-program call step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:8
 #, fuzzy
-#~ msgid "A AND vergent"
-#~ msgstr "부분 추가"
+msgid "A regular step"
+msgstr "템플릿"
 
+#: sheets/GRAFCET.sheet.in.h:9
 #, fuzzy
-#~ msgid "A OR vergent"
-#~ msgstr "부분 추가"
+msgid "A transition"
+msgstr "방향"
+
+#: sheets/GRAFCET.sheet.in.h:10
+msgid "An action to associate to a step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:11
+msgid "An arc (upward)"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:12
+msgid "An initial step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:13
+msgid "GRAFCET"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:14
+msgid "Objects to design GRAFCET charts"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr ""
 
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:1
 #, fuzzy
-#~ msgid "A macro entry step"
-#~ msgstr "템플릿"
+msgid "A Nand gate"
+msgstr "집합"
 
+#: sheets/Logic.sheet.in.h:2
 #, fuzzy
-#~ msgid "A regular step"
-#~ msgstr "템플릿"
+msgid "A Nor gate"
+msgstr "집합"
 
+#: sheets/Logic.sheet.in.h:3
 #, fuzzy
-#~ msgid "A transition"
-#~ msgstr "방향"
+msgid "A Not"
+msgstr "집합"
 
+#: sheets/Logic.sheet.in.h:4
 #, fuzzy
-#~ msgid "A Nand gate"
-#~ msgstr "집합"
+msgid "A Xor gate"
+msgstr "집합"
+
+#: sheets/Logic.sheet.in.h:5
+msgid "A crossconnector"
+msgstr ""
 
+#: sheets/Logic.sheet.in.h:6
 #, fuzzy
-#~ msgid "A Nor gate"
-#~ msgstr "집합"
+msgid "A simple Buffer"
+msgstr "프린터 선택"
 
+#: sheets/Logic.sheet.in.h:7
 #, fuzzy
-#~ msgid "A Not"
-#~ msgstr "집합"
+msgid "An And gate"
+msgstr "집합"
 
+#: sheets/Logic.sheet.in.h:8
 #, fuzzy
-#~ msgid "A Xor gate"
-#~ msgstr "집합"
+msgid "An Inverter"
+msgstr "사용자 인터페이스"
 
+#: sheets/Logic.sheet.in.h:9
 #, fuzzy
-#~ msgid "A simple Buffer"
-#~ msgstr "프린터 선택"
+msgid "An Or gate"
+msgstr "집합"
+
+#: sheets/Logic.sheet.in.h:10
+msgid "Boolean Logic"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:11
+msgid "Logic"
+msgstr ""
 
+#: sheets/MSE.sheet.in.h:1
 #, fuzzy
-#~ msgid "An And gate"
-#~ msgstr "집합"
+msgid "Demultiplexer"
+msgstr "중복"
 
+#: sheets/MSE.sheet.in.h:2
+msgid "Large Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:3
+msgid "MSE"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:4
 #, fuzzy
-#~ msgid "An Inverter"
-#~ msgstr "사용자 인터페이스"
+msgid "Multiplexer"
+msgstr "중복"
 
+#: sheets/MSE.sheet.in.h:5
 #, fuzzy
-#~ msgid "An Or gate"
-#~ msgstr "집합"
+msgid "Node Center"
+msgstr "중간"
+
+#: sheets/MSE.sheet.in.h:6
+msgid "Small Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:7
+msgid "Tactical Satellite Communications Terminal"
+msgstr ""
 
+#: sheets/MSE.sheet.in.h:8
+msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr ""
+
+#: sheets/network.sheet.in.h:1
+msgid "A 3 1/2 inch diskette"
+msgstr ""
+
+#: sheets/network.sheet.in.h:2
+msgid "A Bigtower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:3
 #, fuzzy
-#~ msgid "Demultiplexer"
-#~ msgstr "중복"
+msgid "A Computer"
+msgstr "가장자리 더하기"
+
+#: sheets/network.sheet.in.h:4
+msgid "A Desktop PC"
+msgstr ""
 
+#: sheets/network.sheet.in.h:5
+msgid "A Firewall router"
+msgstr ""
+
+#: sheets/network.sheet.in.h:6
+msgid "A Miditower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:7
 #, fuzzy
-#~ msgid "Multiplexer"
-#~ msgstr "중복"
+msgid "A Minitower PC"
+msgstr "합성"
+
+#: sheets/network.sheet.in.h:8
+msgid "A Mobile Phone"
+msgstr ""
+
+#: sheets/network.sheet.in.h:9
+msgid "A RJ45 Wall-Plug"
+msgstr ""
 
+#: sheets/network.sheet.in.h:10
+msgid "A UNIX Workstation"
+msgstr ""
+
+#: sheets/network.sheet.in.h:11
 #, fuzzy
-#~ msgid "Node Center"
-#~ msgstr "중간"
+msgid "A WAN Connection"
+msgstr "연결점:"
 
+#: sheets/network.sheet.in.h:12
 #, fuzzy
-#~ msgid "A Computer"
-#~ msgstr "가장자리 더하기"
+msgid "A WAN Link"
+msgstr "연결점:"
+
+#: sheets/network.sheet.in.h:13
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr ""
+
+#: sheets/network.sheet.in.h:14
+msgid "A Workstation Monitor"
+msgstr ""
+
+#: sheets/network.sheet.in.h:15
+msgid "A ZIP Disk"
+msgstr ""
 
+#: sheets/network.sheet.in.h:16
+msgid "A modular switching system"
+msgstr ""
+
+#: sheets/network.sheet.in.h:17
 #, fuzzy
-#~ msgid "A WAN Connection"
-#~ msgstr "연결점:"
+msgid "A monitor"
+msgstr "합성"
 
+#: sheets/network.sheet.in.h:18
 #, fuzzy
-#~ msgid "A WAN Link"
-#~ msgstr "연결점:"
+msgid "A simple Modem"
+msgstr "프린터 선택"
 
+#: sheets/network.sheet.in.h:19
 #, fuzzy
-#~ msgid "A monitor"
-#~ msgstr "합성"
+msgid "A simple printer"
+msgstr "프린터 선택"
 
+#: sheets/network.sheet.in.h:20
 #, fuzzy
-#~ msgid "A simple Modem"
-#~ msgstr "프린터 선택"
+msgid "A speaker with integrated amplifier"
+msgstr "가로 정렬(_H)"
 
+#: sheets/network.sheet.in.h:21
 #, fuzzy
-#~ msgid "A simple printer"
-#~ msgstr "프린터 선택"
+msgid "A speaker without amplifier"
+msgstr "가로 정렬(_H)"
+
+#: sheets/network.sheet.in.h:22
+msgid "A stackable hub or switch"
+msgstr ""
+
+#: sheets/network.sheet.in.h:23
+msgid "ATM Switch Symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:24
+msgid "An Ethernet bus"
+msgstr ""
+
+#: sheets/network.sheet.in.h:25
+msgid "An antenna for wireless transmission"
+msgstr ""
+
+#: sheets/network.sheet.in.h:26
+msgid "An external DAT drive"
+msgstr ""
+
+#: sheets/network.sheet.in.h:27
+msgid "Network"
+msgstr ""
 
+#: sheets/network.sheet.in.h:28
+msgid "Network Cloud"
+msgstr ""
+
+#: sheets/network.sheet.in.h:29
+msgid "Objects to design network diagrams with"
+msgstr ""
+
+#: sheets/network.sheet.in.h:30
+msgid "Router Symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:31
 #, fuzzy
-#~ msgid "Storage"
-#~ msgstr "비율"
+msgid "Storage"
+msgstr "비율"
+
+#: sheets/network.sheet.in.h:32
+msgid "Switch Symbol"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:1
+msgid "A 2/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:2
+msgid "A 3/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:3
+msgid "A 3/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:4
+msgid "A 4/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:5
+msgid "A 5/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:6
+msgid "A 5/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:8
+msgid "A double-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:9
+msgid "A generic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:10
+msgid "A hydraulic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:11
+msgid "A normally-in simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:12
+msgid "A normally-out simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "A pneumatic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "An air exhaust orifice"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:15
+msgid "Components for pneumatic and hydraulic circuits"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:16
+msgid "Electric command (double coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:17
+msgid "Electric command (single coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:18
+msgid "Indirect command by hydraulic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:19
+msgid "Indirect command by pneumatic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Mechanical command by spring"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Mechanical command by tappet"
+msgstr ""
 
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Muscular command"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:23
+msgid "Pneumatic/Hydraulic"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:24
+msgid "Push-button command"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:1
+msgid "A activity/data flow arrow"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:2
+msgid "A flow label"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:3
+msgid "An activity/data box"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:4
+msgid "Objects to design SADT diagrams"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:5
+msgid "SADT/IDEF0"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:1
+msgid "Action being executed"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:2
 #, fuzzy
-#~ msgid "Block Type Reference"
-#~ msgstr "설정"
+msgid "Block Type Reference"
+msgstr "설정"
 
+#: sheets/SDL.sheet.in.h:3
 #, fuzzy
-#~ msgid "Comment"
-#~ msgstr "중간"
+msgid "Comment"
+msgstr "중간"
 
+#: sheets/SDL.sheet.in.h:4
 #, fuzzy
-#~ msgid "Decision"
-#~ msgstr "설명:"
+msgid "Decision"
+msgstr "설명:"
+
+#: sheets/SDL.sheet.in.h:5
+msgid "Function Header"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:6
+msgid "Function call"
+msgstr ""
 
+#: sheets/SDL.sheet.in.h:7
+msgid "Generic Text Note"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:8
+msgid "In/Out Connector"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:10
+msgid "Procedure Return"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:11
 #, fuzzy
-#~ msgid "Process Type Reference"
-#~ msgstr "설정"
+msgid "Process Type Reference"
+msgstr "설정"
 
+#: sheets/SDL.sheet.in.h:12
 #, fuzzy
-#~ msgid "Receive message"
-#~ msgstr "삭제"
+msgid "Receive message"
+msgstr "삭제"
+
+#: sheets/SDL.sheet.in.h:13
+msgid "SDL"
+msgstr ""
 
+#: sheets/SDL.sheet.in.h:14
 #, fuzzy
-#~ msgid "Save State"
-#~ msgstr "화살표 보임"
+msgid "Save State"
+msgstr "화살표 보임"
 
+#: sheets/SDL.sheet.in.h:15
 #, fuzzy
-#~ msgid "Send message"
-#~ msgstr "삭제"
+msgid "Send message"
+msgstr "삭제"
 
+#: sheets/SDL.sheet.in.h:16
 #, fuzzy
-#~ msgid "Service Type Reference"
-#~ msgstr "설정"
+msgid "Service Type Reference"
+msgstr "설정"
 
+#: sheets/SDL.sheet.in.h:17
+msgid "Specification and Description Language."
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:18
 #, fuzzy
-#~ msgid "State"
-#~ msgstr "화살표 보임"
+msgid "State"
+msgstr "화살표 보임"
+
+#: sheets/sybase.sheet.in.h:1
+msgid "A Sybase Client Application"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:2
+msgid "A Sybase Dataserver"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:3
+msgid "A Sybase Replication Server"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Log Transfer Manager or Rep Agent"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:5
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Replication Server Manager"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Stable Storage Device"
+msgstr ""
 
+#: sheets/sybase.sheet.in.h:8
 #, fuzzy
-#~ msgid "Sybase"
-#~ msgstr "괘선"
+msgid "Sybase"
+msgstr "괘선"
 
+#: sheets/UML.sheet.in.h:1
+msgid "Aggregation, one class is part of another"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:2
+msgid "Association, two classes are associated"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:3
+msgid "Constraint, place a constraint on something"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:4
 #, fuzzy
-#~ msgid "Create a (large) package"
-#~ msgstr "그림 만듦"
+msgid "Create a (large) package"
+msgstr "그림 만듦"
 
+#: sheets/UML.sheet.in.h:5
 #, fuzzy
-#~ msgid "Create a (small) package"
-#~ msgstr "그림 만듦"
+msgid "Create a (small) package"
+msgstr "그림 만듦"
 
+#: sheets/UML.sheet.in.h:6
 #, fuzzy
-#~ msgid "Create a branch"
-#~ msgstr "호 만듦"
+msgid "Create a branch"
+msgstr "호 만듦"
 
+#: sheets/UML.sheet.in.h:7
 #, fuzzy
-#~ msgid "Create a class"
-#~ msgstr "템플릿 클래스"
+msgid "Create a class"
+msgstr "템플릿 클래스"
 
+#: sheets/UML.sheet.in.h:8
 #, fuzzy
-#~ msgid "Create a class stereotype icon"
-#~ msgstr "템플릿 클래스"
+msgid "Create a class stereotype icon"
+msgstr "템플릿 클래스"
 
+#: sheets/UML.sheet.in.h:9
 #, fuzzy
-#~ msgid "Create a component"
-#~ msgstr "다각형 만듦"
+msgid "Create a component"
+msgstr "다각형 만듦"
 
+#: sheets/UML.sheet.in.h:10
 #, fuzzy
-#~ msgid "Create a dependency"
-#~ msgstr "베지어선 만듦"
+msgid "Create a dependency"
+msgstr "베지어선 만듦"
 
+#: sheets/UML.sheet.in.h:11
 #, fuzzy
-#~ msgid "Create a lifeline"
-#~ msgstr "베지어선 만듦"
+msgid "Create a lifeline"
+msgstr "베지어선 만듦"
 
+#: sheets/UML.sheet.in.h:12
 #, fuzzy
-#~ msgid "Create a message"
-#~ msgstr "그림 만듦"
+msgid "Create a message"
+msgstr "그림 만듦"
 
+#: sheets/UML.sheet.in.h:13
 #, fuzzy
-#~ msgid "Create a node"
-#~ msgstr "선 만듦"
+msgid "Create a node"
+msgstr "선 만듦"
 
+#: sheets/UML.sheet.in.h:14
 #, fuzzy
-#~ msgid "Create a note"
-#~ msgstr "선 만듦"
+msgid "Create a note"
+msgstr "선 만듦"
 
+#: sheets/UML.sheet.in.h:15
 #, fuzzy
-#~ msgid "Create a state machine"
-#~ msgstr "선 만듦"
+msgid "Create a state machine"
+msgstr "선 만듦"
 
+#: sheets/UML.sheet.in.h:16
 #, fuzzy
-#~ msgid "Create a template class"
-#~ msgstr "템플릿 클래스"
+msgid "Create a template class"
+msgstr "템플릿 클래스"
 
+#: sheets/UML.sheet.in.h:17
 #, fuzzy
-#~ msgid "Create a use case"
-#~ msgstr "그림 만듦"
+msgid "Create a use case"
+msgstr "그림 만듦"
 
+#: sheets/UML.sheet.in.h:18
 #, fuzzy
-#~ msgid "Create an actor"
-#~ msgstr "새 도표를 만듭니다"
+msgid "Create an actor"
+msgstr "새 도표를 만듭니다"
 
+#: sheets/UML.sheet.in.h:19
 #, fuzzy
-#~ msgid "Create an object"
-#~ msgstr "선 만듦"
+msgid "Create an object"
+msgstr "선 만듦"
+
+#: sheets/UML.sheet.in.h:20
+msgid "Editor for UML Static Structure Diagrams"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:21
+msgid "Generalization, class inheritance"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:22
+msgid "Implements, class implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:23
+msgid "Realizes, implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:24
+msgid "UML"
+msgstr ""
 
+#: dia.desktop.in.h:1
 #, fuzzy
-#~ msgid "A Diagram Editor"
-#~ msgstr "도표 편집기"
+msgid "A Diagram Editor"
+msgstr "도표 편집기"
 
+#: dia.desktop.in.h:2
 #, fuzzy
-#~ msgid "Dia"
-#~ msgstr "대화상자"
+msgid "Dia"
+msgstr "대화상자"
 
 #~ msgid ""
 #~ "No such file found\n"

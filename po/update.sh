@@ -1,5 +1,10 @@
 #!/bin/sh
 
+echo "This script has been disabled. Please read my ChangeLog entry from 2001-09-02"
+echo "                -- CC"
+exit 1
+
+
 PACKAGE="dia"
 
 if [ "x$1" = "x--help" ]; then

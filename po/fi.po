@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2001-08-31 20:43+0800\n"
+"POT-Creation-Date: 2001-09-02 22:50+0200\n"
 "PO-Revision-Date: 2000-07-18 01:00+0300\n"
 "Last-Translator: Sami Gerdt <sgerdt@cs.joensuu.fi>\n"
 "Language-Team: finnish <fi@li.org>\n"
@@ -13,32 +13,63 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: app/app_procs.c:153
+#, c-format
+msgid "%s error: input and output file name is identical: %s"
+msgstr ""
+
+#: app/app_procs.c:164
+#, fuzzy, c-format
+msgid "%s error: need valid input file %s\n"
+msgstr "Tarvitaan käypä syöte-tiedosto\n"
+
+#: app/app_procs.c:171
+#, c-format
+msgid "%s error: don't know how to export into %s\n"
+msgstr ""
+
+#. if (!quiet)
+#: app/app_procs.c:177
+#, c-format
+msgid "%s --> %s\n"
+msgstr ""
+
 #. &export_file_name
-#: app/app_procs.c:151
+#: app/app_procs.c:209
 msgid "Export loaded file and exit"
 msgstr "Kirjoita siirtotiedostoon ja poistu"
 
-#: app/app_procs.c:151
+#: app/app_procs.c:209
 msgid "OUTPUT"
 msgstr "ULOSANTO"
 
-#: app/app_procs.c:153
+#. &export_file_format
+#: app/app_procs.c:211
+#, fuzzy
+msgid "Export to file format and exit"
+msgstr "Kirjoita siirtotiedostoon ja poistu"
+
+#: app/app_procs.c:211
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr ""
+
+#: app/app_procs.c:213
 msgid "Don't show the splash screen"
 msgstr ""
 
-#: app/app_procs.c:155
+#: app/app_procs.c:215
 msgid "Show this help message"
 msgstr "Näytä tämä ohjeviesti"
 
-#: app/app_procs.c:185
+#: app/app_procs.c:248
 msgid "Can't connect to session manager!\n"
 msgstr "Ei voi yhdistää istunnon-hallintaan!\n"
 
-#: app/app_procs.c:196
+#: app/app_procs.c:259
 msgid "[OPTION...] [FILE...]"
 msgstr "[ASETUS...] [TIEDOSTO]"
 
-#: app/app_procs.c:199
+#: app/app_procs.c:263
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -48,22 +79,23 @@ msgstr ""
 "Aja '%s --help' nähdäksesi täydellisen luettelon käytettävissä olevista\n"
 "komentoriviasetuksista\n"
 
-#: app/app_procs.c:247 app/app_procs.c:249
+#: app/app_procs.c:276
+#, c-format
+msgid "%s error: can specify only one of -f or -o."
+msgstr ""
+
+#: app/app_procs.c:321 app/app_procs.c:323
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Etsittäessä objekti-kirjastoja standardi-objekteja ei löytynyt, "
 "poistutaan...\n"
 
-#: app/app_procs.c:274
-msgid "Need valid input file\n"
-msgstr "Tarvitaan käypä syöte-tiedosto\n"
-
-#: app/app_procs.c:340 app/app_procs.c:346
+#: app/app_procs.c:444 app/app_procs.c:450
 msgid "Quit, are you sure?"
 msgstr "Lopetus, oletko varma?"
 
-#: app/app_procs.c:353
+#: app/app_procs.c:457
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -71,27 +103,27 @@ msgstr ""
 "Muunneltuja (tallentamattomia) diagrammeja.\n"
 "Haluatko varmasti lopettaa?"
 
-#: app/app_procs.c:363 app/app_procs.c:368
+#: app/app_procs.c:467 app/app_procs.c:472
 msgid "Quit"
 msgstr "Lopetus"
 
-#: app/app_procs.c:380 app/display.c:966 app/layer_dialog.c:989
+#: app/app_procs.c:484 app/display.c:966 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Peru"
 
-#: app/app_procs.c:455 app/app_procs.c:462
+#: app/app_procs.c:559 app/app_procs.c:566
 msgid "Could not create per-user Dia config directory"
 msgstr "Ei voinut luoda käyttäjäkohtaista DIA-konfigurointitiedostoa"
 
-#: app/app_procs.c:464
+#: app/app_procs.c:568
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: app/app_procs.c:486
+#: app/app_procs.c:590
 msgid "Objects and filters internal to dia"
 msgstr "Objektit ja filtterit DIAn sisäisiä"
 
@@ -278,7 +310,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "Ei objekti valikkoa"
 
-#: app/display.c:141 app/display.c:142 app/interface.c:442
+#: app/display.c:141 app/display.c:142 app/interface.c:447
 msgid "Zoom"
 msgstr "Zoomaus"
 
@@ -505,11 +537,11 @@ msgstr "Luo kuva"
 msgid "Image"
 msgstr "Kuva"
 
-#: app/interface.c:489
+#: app/interface.c:494
 msgid "NULL tooldata in tool_select_update"
 msgstr "TYHJÄ työvälinetieto työväline_valinta_päivityksessä"
 
-#: app/interface.c:937
+#: app/interface.c:942
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -518,7 +550,7 @@ msgstr ""
 "alkutilaan. Pienet nuolet vaihtavat värejä. Tuplaklikkaus vaihtaaksesi "
 "värejä."
 
-#: app/interface.c:1083
+#: app/interface.c:1088
 msgid "Diagram Editor"
 msgstr "Diagrammi-editori"
 
@@ -1840,7 +1872,7 @@ msgstr "Johdannainen"
 msgid "Multivalue:"
 msgstr "Moniarvo"
 
-#: objects/ER/attribute.c:389
+#: objects/ER/attribute.c:389 sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Ominaisuus"
 
@@ -1849,7 +1881,7 @@ msgstr "Ominaisuus"
 msgid "Weak:"
 msgstr "Heikko"
 
-#: objects/ER/entity.c:340 objects/UML/classicon.c:124
+#: objects/ER/entity.c:340 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Olio"
 
@@ -1895,7 +1927,7 @@ msgstr "Kierrä"
 msgid "Identifying:"
 msgstr "Tunnistaminen"
 
-#: objects/ER/relationship.c:418
+#: objects/ER/relationship.c:418 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Suhde"
 
@@ -2106,6 +2138,7 @@ msgid "Support"
 msgstr "Tuki"
 
 #: objects/FS/function.c:653 objects/FS/function.c:654
+#: sheets/SDL.sheet.in.h:19
 #, fuzzy
 msgid "Stop"
 msgstr "   Pysäytä"
@@ -2412,7 +2445,7 @@ msgstr "Korvaa"
 msgid "Expose"
 msgstr "Ellipsi"
 
-#: objects/FS/function.c:741
+#: objects/FS/function.c:741 sheets/Flowchart.sheet.in.h:9
 #, fuzzy
 msgid "Extract"
 msgstr "   Pura"
@@ -2617,7 +2650,7 @@ msgstr "   Osoita"
 msgid "Mark"
 msgstr ""
 
-#: objects/FS/function.c:800
+#: objects/FS/function.c:800 sheets/Flowchart.sheet.in.h:7
 #, fuzzy
 msgid "Display"
 msgstr "   Näytä"
@@ -2849,7 +2882,7 @@ msgstr ""
 msgid "Wish Fn"
 msgstr "Toivetoiminto"
 
-#: objects/GRAFCET/action.c:134
+#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
 msgid "Macro call"
 msgstr "Makro-kutsu"
 
@@ -3921,473 +3954,1333 @@ msgstr ""
 msgid "XFig File Format"
 msgstr ""
 
+#: sheets/chronogram.sheet.in.h:1
 #, fuzzy
-#~ msgid "A data line"
-#~ msgstr "Tiedon rivinleveys:"
+msgid "A data line"
+msgstr "Tiedon rivinleveys:"
 
+#: sheets/chronogram.sheet.in.h:2
+msgid "A time scale"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:3
+msgid "Chronogram"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:4
+#, fuzzy
+msgid "Objects to design chronogram charts"
+msgstr "Sybase replication domain diagrammi objekteja"
+
+#: sheets/Circuit.sheet.in.h:1
+#, fuzzy
+msgid "A Horizontal Jumper"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:2
+#, fuzzy
+msgid "A Horizontally aligned inductor"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:3
+#, fuzzy
+msgid "A Horizontally aligned inductor (European)"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:4
+#, fuzzy
+msgid "A Horizontally aligned resistor"
+msgstr "Pyöräytä vakatasossa"
+
+#: sheets/Circuit.sheet.in.h:5
+#, fuzzy
+msgid "A Horizontally aligned resistor (European)"
+msgstr "Pyöräytä vakatasossa"
+
+#: sheets/Circuit.sheet.in.h:6
+#, fuzzy
+msgid "A PMOS transistor"
+msgstr "Transitiivinen"
+
+#: sheets/Circuit.sheet.in.h:7
+msgid "A Speaker"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:8
+#, fuzzy
+msgid "A Vertically aligned inductor"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:9
+#, fuzzy
+msgid "A Vertically aligned inductor (European)"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:10
+#, fuzzy
+msgid "A Vertically aligned resistor"
+msgstr "Pyöräytä vakatasossa"
+
+#: sheets/Circuit.sheet.in.h:11
+#, fuzzy
+msgid "A Vertically aligned resistor (European)"
+msgstr "Pyöräytä vakatasossa"
+
+#: sheets/Circuit.sheet.in.h:12
+#, fuzzy
+msgid "A ground point"
+msgstr "Lopetuspiste"
+
+#: sheets/Circuit.sheet.in.h:13
+#, fuzzy
+msgid "A horizontally aligned LED"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:14
+#, fuzzy
+msgid "A horizontally aligned capacitor"
+msgstr "Pyöräytä vakatasossa"
+
+#: sheets/Circuit.sheet.in.h:15
+#, fuzzy
+msgid "A horizontally aligned diode"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:16
+#, fuzzy
+msgid "A horizontally aligned fuse"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:17
+#, fuzzy
+msgid "A horizontally aligned powersource"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:18
+#, fuzzy
+msgid "A horizontally aligned zener diode"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:19
+#, fuzzy
+msgid "A lamp"
+msgstr "   Näytä"
+
+#: sheets/Circuit.sheet.in.h:20
+#, fuzzy
+msgid "A npn bipolar transistor"
+msgstr "Transitiivinen"
+
+#: sheets/Circuit.sheet.in.h:21
+#, fuzzy
+msgid "A pnp bipolar transistor"
+msgstr "Transitiivinen"
+
+#: sheets/Circuit.sheet.in.h:22
+#, fuzzy
+msgid "A vertically aligned LED"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:23
+#, fuzzy
+msgid "A vertically aligned capacitor"
+msgstr "Pyöräytä vakatasossa"
+
+#: sheets/Circuit.sheet.in.h:24
+#, fuzzy
+msgid "A vertically aligned diode"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:25
+#, fuzzy
+msgid "A vertically aligned fuse"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:26
+#, fuzzy
+msgid "A vertically aligned powersource"
+msgstr "Pyöräytä vakatasossa"
+
+#: sheets/Circuit.sheet.in.h:27
+#, fuzzy
+msgid "A vertically aligned zener diode"
+msgstr "Pyöräytä vakatasossa"
+
+#: sheets/Circuit.sheet.in.h:28
+#, fuzzy
+msgid "An NMOS transistor"
+msgstr "Transitiivinen"
+
+#: sheets/Circuit.sheet.in.h:29
+#, fuzzy
+msgid "An operational amplifier"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/Circuit.sheet.in.h:30
+#, fuzzy
+msgid "Circuit"
+msgstr "Suunta:"
+
+#: sheets/Circuit.sheet.in.h:31
+msgid "Components for circuit diagrams"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:1
+msgid "A Backflow Preventer"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:2
+#, fuzzy
+msgid "A Basin"
+msgstr "Transitiivinen"
+
+#: sheets/civil.sheet.in.h:3
+#, fuzzy
+msgid "A Container"
+msgstr "Rajoite:"
+
+#: sheets/civil.sheet.in.h:4
+#, fuzzy
+msgid "A Frequency Converter"
+msgstr "Invertoi"
+
+#: sheets/civil.sheet.in.h:5
+msgid "A Gas Bottle"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:6
+#, fuzzy
+msgid "A Motor"
+msgstr "Näyttelijä"
+
+#: sheets/civil.sheet.in.h:7
+msgid "A Preliminary Clarification Tank"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:8
+#, fuzzy
+msgid "A Rotor"
+msgstr "Näyttelijä"
+
+#: sheets/civil.sheet.in.h:9
+msgid "A final-settling Basin"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:10
+#, fuzzy
+msgid "A horizontal limiting line"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/civil.sheet.in.h:11
+#, fuzzy
+msgid "A horizontally aligned Arrow"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/civil.sheet.in.h:12
+#, fuzzy
+msgid "A vertical limiting line"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/civil.sheet.in.h:13
+#, fuzzy
+msgid "A vertically aligned Arrow"
+msgstr "Pyöräytä vakatasossa"
+
+#: sheets/civil.sheet.in.h:14
+msgid "An Aerator with bubbles"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:15
+#, fuzzy
+msgid "Bivalent Vertical Rest"
+msgstr "Pyöräytä Pystytasossa"
+
+#: sheets/civil.sheet.in.h:16
+msgid "Civil"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:17
+msgid "Civil Engineering Components"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:18
+#, fuzzy
+msgid "Horizontal Rest"
+msgstr "Pyöräytä vakatasossa"
+
+#: sheets/civil.sheet.in.h:19
+#, fuzzy
+msgid "Horizontally aligned Valve"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/civil.sheet.in.h:20
 #, fuzzy
-#~ msgid "Objects to design chronogram charts"
-#~ msgstr "Sybase replication domain diagrammi objekteja"
+msgid "Horizontally aligned compressor"
+msgstr "Tasaa _vaakasuoraan"
 
+#: sheets/civil.sheet.in.h:21
 #, fuzzy
-#~ msgid "A Horizontal Jumper"
-#~ msgstr "Tasaa _vaakasuoraan"
+msgid "Horizontally aligned pump"
+msgstr "Tasaa _vaakasuoraan"
 
+#: sheets/civil.sheet.in.h:22
 #, fuzzy
-#~ msgid "A Horizontally aligned inductor"
-#~ msgstr "Tasaa _vaakasuoraan"
+msgid "Reference Line"
+msgstr "Luo viiva"
 
+#: sheets/civil.sheet.in.h:23
 #, fuzzy
-#~ msgid "A Horizontally aligned resistor"
-#~ msgstr "Pyöräytä vakatasossa"
+msgid "Soil"
+msgstr "Viiva"
 
+#: sheets/civil.sheet.in.h:24
 #, fuzzy
-#~ msgid "A PMOS transistor"
-#~ msgstr "Transitiivinen"
+msgid "Vertical Rest"
+msgstr "Pyöräytä Pystytasossa"
 
+#: sheets/civil.sheet.in.h:25
 #, fuzzy
-#~ msgid "A ground point"
-#~ msgstr "Lopetuspiste"
+msgid "Vertically aligned Propeller"
+msgstr "Tasaa _vaakasuoraan"
 
+#: sheets/civil.sheet.in.h:26
 #, fuzzy
-#~ msgid "A horizontally aligned fuse"
-#~ msgstr "Tasaa _vaakasuoraan"
+msgid "Vertically aligned Valve"
+msgstr "Tasaa _vaakasuoraan"
 
+#: sheets/civil.sheet.in.h:27
 #, fuzzy
-#~ msgid "An NMOS transistor"
-#~ msgstr "Transitiivinen"
+msgid "Vertically aligned compressor"
+msgstr "Tasaa _vaakasuoraan"
 
+#: sheets/civil.sheet.in.h:28
 #, fuzzy
-#~ msgid "An operational amplifier"
-#~ msgstr "Tasaa _vaakasuoraan"
+msgid "Vertically aligned pump"
+msgstr "Tasaa _vaakasuoraan"
 
+#: sheets/civil.sheet.in.h:29
+msgid "Water Level"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:1
+msgid "A 'if not' (normally closed) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:2
+msgid "A 'if' (normally open) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:3
 #, fuzzy
-#~ msgid "Circuit"
-#~ msgstr "Suunta:"
+msgid "A 'jump' output variable"
+msgstr "Valitse Tulostin"
 
+#: sheets/Contact.sheet.in.h:4
 #, fuzzy
-#~ msgid "A Basin"
-#~ msgstr "Transitiivinen"
+msgid "A 'reset' output variable"
+msgstr "Valitse Tulostin"
 
+#: sheets/Contact.sheet.in.h:5
 #, fuzzy
-#~ msgid "A Container"
-#~ msgstr "Rajoite:"
+msgid "A 'set' output variable"
+msgstr "Valitse Tulostin"
 
+#: sheets/Contact.sheet.in.h:6
 #, fuzzy
-#~ msgid "A Frequency Converter"
-#~ msgstr "Invertoi"
+msgid "A negative output variable"
+msgstr "Valitse Tulostin"
 
+#: sheets/Contact.sheet.in.h:7
 #, fuzzy
-#~ msgid "A Motor"
-#~ msgstr "Näyttelijä"
+msgid "A power-saved 'reset' output variable"
+msgstr "Valitse Tulostin"
 
+#: sheets/Contact.sheet.in.h:8
 #, fuzzy
-#~ msgid "A Rotor"
-#~ msgstr "Näyttelijä"
+msgid "A power-saved 'set' output variable"
+msgstr "Valitse Tulostin"
 
+#: sheets/Contact.sheet.in.h:9
 #, fuzzy
-#~ msgid "A horizontal limiting line"
-#~ msgstr "Tasaa _vaakasuoraan"
+msgid "A power-saved negative output variable"
+msgstr "Valitse Tulostin"
 
+#: sheets/Contact.sheet.in.h:10
 #, fuzzy
-#~ msgid "Bivalent Vertical Rest"
-#~ msgstr "Pyöräytä Pystytasossa"
+msgid "A power-saved simple output variable"
+msgstr "Valitse Tulostin"
 
+#: sheets/Contact.sheet.in.h:11
 #, fuzzy
-#~ msgid "Horizontal Rest"
-#~ msgstr "Pyöräytä vakatasossa"
+msgid "A receptivity output variable"
+msgstr "Valitse Tulostin"
 
+#: sheets/Contact.sheet.in.h:12
 #, fuzzy
-#~ msgid "Horizontally aligned compressor"
-#~ msgstr "Tasaa _vaakasuoraan"
+msgid "A simple output variable"
+msgstr "Valitse Tulostin"
 
+#: sheets/Contact.sheet.in.h:13
+msgid "Components for LADDER circuits"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:14
+#, fuzzy
+msgid "Ladder"
+msgstr "Tasot"
+
+#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
 #, fuzzy
-#~ msgid "Horizontally aligned pump"
-#~ msgstr "Tasaa _vaakasuoraan"
+msgid "A connection point"
+msgstr "Lisää liitoskohta"
+
+#: sheets/Electric.sheet.in.h:2
+msgid "A lamp or indicator light"
+msgstr ""
 
+#: sheets/Electric.sheet.in.h:3
+msgid "A normally closed contact"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:4
+msgid "A normally closed position switch"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:5
+msgid "A normally open contact"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:6
+msgid "A normally open position switch"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:7
 #, fuzzy
-#~ msgid "Reference Line"
-#~ msgstr "Luo viiva"
+msgid "A relay"
+msgstr "   Näytä"
+
+#: sheets/Electric.sheet.in.h:8
+msgid "Components for electric circuits"
+msgstr ""
 
+#: sheets/Electric.sheet.in.h:9
 #, fuzzy
-#~ msgid "Soil"
-#~ msgstr "Viiva"
+msgid "Electric"
+msgstr "Pyöräytä Pystytasossa"
 
+#: sheets/Electric.sheet.in.h:10
+msgid "The command organ of a relay"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:1
 #, fuzzy
-#~ msgid "Vertical Rest"
-#~ msgstr "Pyöräytä Pystytasossa"
+msgid "Create a process"
+msgstr "Luo kaari"
+
+#: sheets/EML.sheet.in.h:2
+msgid "EML"
+msgstr ""
 
+#: sheets/EML.sheet.in.h:3
 #, fuzzy
-#~ msgid "A simple output variable"
-#~ msgstr "Valitse Tulostin"
+msgid "Editor for EML Static Structure Diagrams."
+msgstr "Funktion rakenne -diagrammi objekteja"
 
+#: sheets/EML.sheet.in.h:4
+msgid "Instantiation. One process create others"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:5
+msgid "Interaction between processes."
+msgstr ""
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:3
 #, fuzzy
-#~ msgid "Ladder"
-#~ msgstr "Tasot"
+msgid "Editor for Entity Relations Diagrams"
+msgstr "Olio/suhde -diagrammi objektit"
 
+#: sheets/ER.sheet.in.h:5
 #, fuzzy
-#~ msgid "A connection point"
-#~ msgstr "Lisää liitoskohta"
+msgid "Participation"
+msgstr "Tila:"
 
+#: sheets/ER.sheet.in.h:7
 #, fuzzy
-#~ msgid "A relay"
-#~ msgstr "   Näytä"
+msgid "Weak Entity"
+msgstr "Olio"
+
+#: sheets/Flowchart.sheet.in.h:1
+msgid "A box with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:2
+msgid "A diamond with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:3
+msgid "A ellipse with text inside"
+msgstr ""
 
+#: sheets/Flowchart.sheet.in.h:4
+msgid "A parallelogram with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:5
 #, fuzzy
-#~ msgid "Electric"
-#~ msgstr "Pyöräytä Pystytasossa"
+msgid "Collate"
+msgstr "Kutsu"
 
+#: sheets/Flowchart.sheet.in.h:6
 #, fuzzy
-#~ msgid "Create a process"
-#~ msgstr "Luo kaari"
+msgid "Delay"
+msgstr "   Näytä"
 
+#: sheets/Flowchart.sheet.in.h:8
 #, fuzzy
-#~ msgid "Editor for EML Static Structure Diagrams."
-#~ msgstr "Funktion rakenne -diagrammi objekteja"
+msgid "Document"
+msgstr "Kirjasin:"
 
+#: sheets/Flowchart.sheet.in.h:10
 #, fuzzy
-#~ msgid "Editor for Entity Relations Diagrams"
-#~ msgstr "Olio/suhde -diagrammi objektit"
+msgid "Flowchart"
+msgstr "Vuokaavio objektit"
 
+#: sheets/Flowchart.sheet.in.h:11
 #, fuzzy
-#~ msgid "Participation"
-#~ msgstr "Tila:"
+msgid "Internal Storage"
+msgstr "Liitäntä:"
+
+#: sheets/Flowchart.sheet.in.h:12
+msgid "Magnetic Disk"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:13
+msgid "Magnetic Drum"
+msgstr ""
 
+#: sheets/Flowchart.sheet.in.h:14
+msgid "Magnetic Tape"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:15
 #, fuzzy
-#~ msgid "Weak Entity"
-#~ msgstr "Olio"
+msgid "Manual Input"
+msgstr "Operaatiot"
 
+#: sheets/Flowchart.sheet.in.h:16
 #, fuzzy
-#~ msgid "Collate"
-#~ msgstr "Kutsu"
+msgid "Manual Operation"
+msgstr "Operaatiot"
 
+#: sheets/Flowchart.sheet.in.h:17
 #, fuzzy
-#~ msgid "Delay"
-#~ msgstr "   Näytä"
+msgid "Merge"
+msgstr "   Mittaa"
 
+#: sheets/Flowchart.sheet.in.h:18
 #, fuzzy
-#~ msgid "Document"
-#~ msgstr "Kirjasin:"
+msgid "Objects to draw flowcharts"
+msgstr "Sybase replication domain diagrammi objekteja"
 
+#: sheets/Flowchart.sheet.in.h:19
 #, fuzzy
-#~ msgid "Flowchart"
-#~ msgstr "Vuokaavio objektit"
+msgid "Off Page Connector"
+msgstr "Yhdistä"
 
+#: sheets/Flowchart.sheet.in.h:20
 #, fuzzy
-#~ msgid "Internal Storage"
-#~ msgstr "Liitäntä:"
+msgid "Offline Storage"
+msgstr "Liitäntä:"
+
+#: sheets/Flowchart.sheet.in.h:21
+msgid "Or"
+msgstr ""
 
+#: sheets/Flowchart.sheet.in.h:22
 #, fuzzy
-#~ msgid "Manual Input"
-#~ msgstr "Operaatiot"
+msgid "Predefined Process"
+msgstr "Ominaisuudet"
 
+#: sheets/Flowchart.sheet.in.h:23
 #, fuzzy
-#~ msgid "Manual Operation"
-#~ msgstr "Operaatiot"
+msgid "Preparation"
+msgstr "Operaatiot"
+
+#: sheets/Flowchart.sheet.in.h:24
+msgid "Punched Card"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:25
+msgid "Punched Tape"
+msgstr ""
 
+#: sheets/Flowchart.sheet.in.h:26
 #, fuzzy
-#~ msgid "Merge"
-#~ msgstr "   Mittaa"
+msgid "Sort"
+msgstr "Tuki"
 
+#: sheets/Flowchart.sheet.in.h:27
 #, fuzzy
-#~ msgid "Off Page Connector"
-#~ msgstr "Yhdistä"
+msgid "Summing Junction"
+msgstr "Toivetoiminto"
 
+#: sheets/Flowchart.sheet.in.h:28
 #, fuzzy
-#~ msgid "Offline Storage"
-#~ msgstr "Liitäntä:"
+msgid "Terminal"
+msgstr "Normaali"
 
+#: sheets/Flowchart.sheet.in.h:29
 #, fuzzy
-#~ msgid "Predefined Process"
-#~ msgstr "Ominaisuudet"
+msgid "Transaction File"
+msgstr "Transitiivinen"
 
+#: sheets/Flowchart.sheet.in.h:30
 #, fuzzy
-#~ msgid "Preparation"
-#~ msgstr "Operaatiot"
+msgid "Transmittal Tape"
+msgstr "Transitiivinen"
 
+#: sheets/FS.sheet.in.h:1
 #, fuzzy
-#~ msgid "Sort"
-#~ msgstr "Tuki"
+msgid "Create a flow"
+msgstr "Luo laatikko"
 
+#: sheets/FS.sheet.in.h:2
 #, fuzzy
-#~ msgid "Summing Junction"
-#~ msgstr "Toivetoiminto"
+msgid "Create a function"
+msgstr "Käyttäjätoiminto"
 
+#: sheets/FS.sheet.in.h:3
+msgid "Create an orthogonal polyline flow"
+msgstr ""
+
+#: sheets/FS.sheet.in.h:4
 #, fuzzy
-#~ msgid "Terminal"
-#~ msgstr "Normaali"
+msgid "Editor for Function Structure Diagrams."
+msgstr "Funktion rakenne -diagrammi objekteja"
 
+#: sheets/FS.sheet.in.h:5
+msgid "FS"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:1
 #, fuzzy
-#~ msgid "Transaction File"
-#~ msgstr "Transitiivinen"
+msgid "A AND vergent"
+msgstr "GRAFCET ja/tai vergentti"
 
+#: sheets/GRAFCET.sheet.in.h:2
 #, fuzzy
-#~ msgid "Transmittal Tape"
-#~ msgstr "Transitiivinen"
+msgid "A OR vergent"
+msgstr "GRAFCET ja/tai vergentti"
 
+#: sheets/GRAFCET.sheet.in.h:3
 #, fuzzy
-#~ msgid "Create a flow"
-#~ msgstr "Luo laatikko"
+msgid "A condition (of an action)"
+msgstr "Poista liitoskohta"
 
+#: sheets/GRAFCET.sheet.in.h:4
 #, fuzzy
-#~ msgid "Create a function"
-#~ msgstr "Käyttäjätoiminto"
+msgid "A macro call step"
+msgstr "Makron kutsu-askel"
 
+#: sheets/GRAFCET.sheet.in.h:5
 #, fuzzy
-#~ msgid "Editor for Function Structure Diagrams."
-#~ msgstr "Funktion rakenne -diagrammi objekteja"
+msgid "A macro entry step"
+msgstr "Makron tulo askel"
 
+#: sheets/GRAFCET.sheet.in.h:6
 #, fuzzy
-#~ msgid "A AND vergent"
-#~ msgstr "GRAFCET ja/tai vergentti"
+msgid "A macro exit step"
+msgstr "Makron poistumis askel"
 
+#: sheets/GRAFCET.sheet.in.h:7
 #, fuzzy
-#~ msgid "A OR vergent"
-#~ msgstr "GRAFCET ja/tai vergentti"
+msgid "A macro sub-program call step"
+msgstr "Aliohjelman kutsu askel"
 
+#: sheets/GRAFCET.sheet.in.h:8
 #, fuzzy
-#~ msgid "A condition (of an action)"
-#~ msgstr "Poista liitoskohta"
+msgid "A regular step"
+msgstr "Tavallinen askel"
 
+#: sheets/GRAFCET.sheet.in.h:9
 #, fuzzy
-#~ msgid "A macro call step"
-#~ msgstr "Makron kutsu-askel"
+msgid "A transition"
+msgstr "Transitiivinen"
+
+#: sheets/GRAFCET.sheet.in.h:10
+msgid "An action to associate to a step"
+msgstr ""
 
+#: sheets/GRAFCET.sheet.in.h:11
+msgid "An arc (upward)"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:12
 #, fuzzy
-#~ msgid "A macro entry step"
-#~ msgstr "Makron tulo askel"
+msgid "An initial step"
+msgstr "Alku askel"
+
+#: sheets/GRAFCET.sheet.in.h:13
+msgid "GRAFCET"
+msgstr ""
 
+#: sheets/GRAFCET.sheet.in.h:14
 #, fuzzy
-#~ msgid "A macro exit step"
-#~ msgstr "Makron poistumis askel"
+msgid "Objects to design GRAFCET charts"
+msgstr "Sybase replication domain diagrammi objekteja"
+
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr ""
 
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:1
+msgid "A Nand gate"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:2
 #, fuzzy
-#~ msgid "A macro sub-program call step"
-#~ msgstr "Aliohjelman kutsu askel"
+msgid "A Nor gate"
+msgstr "Näyttelijä"
 
+#: sheets/Logic.sheet.in.h:3
 #, fuzzy
-#~ msgid "A regular step"
-#~ msgstr "Tavallinen askel"
+msgid "A Not"
+msgstr "Näyttelijä"
+
+#: sheets/Logic.sheet.in.h:4
+msgid "A Xor gate"
+msgstr ""
 
+#: sheets/Logic.sheet.in.h:5
 #, fuzzy
-#~ msgid "A transition"
-#~ msgstr "Transitiivinen"
+msgid "A crossconnector"
+msgstr "Yhdistä"
 
+#: sheets/Logic.sheet.in.h:6
 #, fuzzy
-#~ msgid "An initial step"
-#~ msgstr "Alku askel"
+msgid "A simple Buffer"
+msgstr "Valitse Tulostin"
 
+#: sheets/Logic.sheet.in.h:7
+msgid "An And gate"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:8
 #, fuzzy
-#~ msgid "A Not"
-#~ msgstr "Näyttelijä"
+msgid "An Inverter"
+msgstr "Invertoi"
+
+#: sheets/Logic.sheet.in.h:9
+msgid "An Or gate"
+msgstr ""
 
+#: sheets/Logic.sheet.in.h:10
+msgid "Boolean Logic"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:11
+msgid "Logic"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:1
 #, fuzzy
-#~ msgid "A crossconnector"
-#~ msgstr "Yhdistä"
+msgid "Demultiplexer"
+msgstr "Monimuotoisuus:"
+
+#: sheets/MSE.sheet.in.h:2
+msgid "Large Extension Node"
+msgstr ""
 
+#: sheets/MSE.sheet.in.h:3
+msgid "MSE"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:4
 #, fuzzy
-#~ msgid "A simple Buffer"
-#~ msgstr "Valitse Tulostin"
+msgid "Multiplexer"
+msgstr "Monimuotoisuus:"
 
+#: sheets/MSE.sheet.in.h:5
 #, fuzzy
-#~ msgid "An Inverter"
-#~ msgstr "Invertoi"
+msgid "Node Center"
+msgstr "Keskus"
+
+#: sheets/MSE.sheet.in.h:6
+msgid "Small Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:7
+msgid "Tactical Satellite Communications Terminal"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:8
+msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr ""
 
+#: sheets/network.sheet.in.h:1
+msgid "A 3 1/2 inch diskette"
+msgstr ""
+
+#: sheets/network.sheet.in.h:2
+msgid "A Bigtower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:3
 #, fuzzy
-#~ msgid "Demultiplexer"
-#~ msgstr "Monimuotoisuus:"
+msgid "A Computer"
+msgstr "Lisää kulma"
+
+#: sheets/network.sheet.in.h:4
+msgid "A Desktop PC"
+msgstr ""
 
+#: sheets/network.sheet.in.h:5
+msgid "A Firewall router"
+msgstr ""
+
+#: sheets/network.sheet.in.h:6
+msgid "A Miditower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:7
 #, fuzzy
-#~ msgid "Multiplexer"
-#~ msgstr "Monimuotoisuus:"
+msgid "A Minitower PC"
+msgstr "Näyttelijä"
+
+#: sheets/network.sheet.in.h:8
+msgid "A Mobile Phone"
+msgstr ""
+
+#: sheets/network.sheet.in.h:9
+msgid "A RJ45 Wall-Plug"
+msgstr ""
 
+#: sheets/network.sheet.in.h:10
+msgid "A UNIX Workstation"
+msgstr ""
+
+#: sheets/network.sheet.in.h:11
 #, fuzzy
-#~ msgid "Node Center"
-#~ msgstr "Keskus"
+msgid "A WAN Connection"
+msgstr "Yhdistä"
 
+#: sheets/network.sheet.in.h:12
 #, fuzzy
-#~ msgid "A Computer"
-#~ msgstr "Lisää kulma"
+msgid "A WAN Link"
+msgstr "Yhdistä"
+
+#: sheets/network.sheet.in.h:13
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr ""
+
+#: sheets/network.sheet.in.h:14
+msgid "A Workstation Monitor"
+msgstr ""
 
+#: sheets/network.sheet.in.h:15
+msgid "A ZIP Disk"
+msgstr ""
+
+#: sheets/network.sheet.in.h:16
+msgid "A modular switching system"
+msgstr ""
+
+#: sheets/network.sheet.in.h:17
 #, fuzzy
-#~ msgid "A WAN Connection"
-#~ msgstr "Yhdistä"
+msgid "A monitor"
+msgstr "Näyttelijä"
 
+#: sheets/network.sheet.in.h:18
 #, fuzzy
-#~ msgid "A WAN Link"
-#~ msgstr "Yhdistä"
+msgid "A simple Modem"
+msgstr "Valitse Tulostin"
 
+#: sheets/network.sheet.in.h:19
 #, fuzzy
-#~ msgid "A monitor"
-#~ msgstr "Näyttelijä"
+msgid "A simple printer"
+msgstr "Valitse Tulostin"
 
+#: sheets/network.sheet.in.h:20
 #, fuzzy
-#~ msgid "A simple Modem"
-#~ msgstr "Valitse Tulostin"
+msgid "A speaker with integrated amplifier"
+msgstr "Tasaa _vaakasuoraan"
 
+#: sheets/network.sheet.in.h:21
 #, fuzzy
-#~ msgid "A simple printer"
-#~ msgstr "Valitse Tulostin"
+msgid "A speaker without amplifier"
+msgstr "Tasaa _vaakasuoraan"
+
+#: sheets/network.sheet.in.h:22
+msgid "A stackable hub or switch"
+msgstr ""
 
+#: sheets/network.sheet.in.h:23
+msgid "ATM Switch Symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:24
+msgid "An Ethernet bus"
+msgstr ""
+
+#: sheets/network.sheet.in.h:25
+msgid "An antenna for wireless transmission"
+msgstr ""
+
+#: sheets/network.sheet.in.h:26
+msgid "An external DAT drive"
+msgstr ""
+
+#: sheets/network.sheet.in.h:27
 #, fuzzy
-#~ msgid "Network"
-#~ msgstr "Uusi"
+msgid "Network"
+msgstr "Uusi"
 
+#: sheets/network.sheet.in.h:28
 #, fuzzy
-#~ msgid "Network Cloud"
-#~ msgstr "Uusi"
+msgid "Network Cloud"
+msgstr "Uusi"
 
+#: sheets/network.sheet.in.h:29
 #, fuzzy
-#~ msgid "Objects to design network diagrams with"
-#~ msgstr "Sybase replication domain diagrammi objekteja"
+msgid "Objects to design network diagrams with"
+msgstr "Sybase replication domain diagrammi objekteja"
+
+#: sheets/network.sheet.in.h:30
+msgid "Router Symbol"
+msgstr ""
 
+#: sheets/network.sheet.in.h:31
 #, fuzzy
-#~ msgid "Storage"
-#~ msgstr "   Varastoi"
+msgid "Storage"
+msgstr "   Varastoi"
+
+#: sheets/network.sheet.in.h:32
+msgid "Switch Symbol"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:1
+msgid "A 2/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:2
+msgid "A 3/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:3
+msgid "A 3/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:4
+msgid "A 4/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:5
+msgid "A 5/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:6
+msgid "A 5/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:8
+msgid "A double-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:9
+msgid "A generic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:10
+msgid "A hydraulic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:11
+msgid "A normally-in simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:12
+msgid "A normally-out simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "A pneumatic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "An air exhaust orifice"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:15
+msgid "Components for pneumatic and hydraulic circuits"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:16
+msgid "Electric command (double coil)"
+msgstr ""
 
+#: sheets/Pneumatic.sheet.in.h:17
+msgid "Electric command (single coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:18
+msgid "Indirect command by hydraulic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:19
+msgid "Indirect command by pneumatic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Mechanical command by spring"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Mechanical command by tappet"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Muscular command"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:23
+msgid "Pneumatic/Hydraulic"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:24
+msgid "Push-button command"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:1
 #, fuzzy
-#~ msgid "A activity/data flow arrow"
-#~ msgstr "Toiminnan/Tiedon tunnistaja"
+msgid "A activity/data flow arrow"
+msgstr "Toiminnan/Tiedon tunnistaja"
 
+#: sheets/SADT.sheet.in.h:2
+msgid "A flow label"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:3
 #, fuzzy
-#~ msgid "An activity/data box"
-#~ msgstr "Toiminnan/Tiedon tunnistaja"
+msgid "An activity/data box"
+msgstr "Toiminnan/Tiedon tunnistaja"
 
+#: sheets/SADT.sheet.in.h:4
 #, fuzzy
-#~ msgid "Objects to design SADT diagrams"
-#~ msgstr "Sybase replication domain diagrammi objekteja"
+msgid "Objects to design SADT diagrams"
+msgstr "Sybase replication domain diagrammi objekteja"
+
+#: sheets/SADT.sheet.in.h:5
+msgid "SADT/IDEF0"
+msgstr ""
 
+#: sheets/SDL.sheet.in.h:1
+msgid "Action being executed"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:2
 #, fuzzy
-#~ msgid "Block Type Reference"
-#~ msgstr "Ominaisuudet"
+msgid "Block Type Reference"
+msgstr "Ominaisuudet"
 
+#: sheets/SDL.sheet.in.h:3
 #, fuzzy
-#~ msgid "Comment"
-#~ msgstr "Keskus"
+msgid "Comment"
+msgstr "Keskus"
 
+#: sheets/SDL.sheet.in.h:4
 #, fuzzy
-#~ msgid "Decision"
-#~ msgstr "Kuvaus:"
+msgid "Decision"
+msgstr "Kuvaus:"
 
+#: sheets/SDL.sheet.in.h:5
 #, fuzzy
-#~ msgid "Function Header"
-#~ msgstr "Toiminto:"
+msgid "Function Header"
+msgstr "Toiminto:"
 
+#: sheets/SDL.sheet.in.h:6
 #, fuzzy
-#~ msgid "Function call"
-#~ msgstr "Toiminto:"
+msgid "Function call"
+msgstr "Toiminto:"
+
+#: sheets/SDL.sheet.in.h:7
+msgid "Generic Text Note"
+msgstr ""
 
+#: sheets/SDL.sheet.in.h:8
 #, fuzzy
-#~ msgid "In/Out Connector"
-#~ msgstr "Yhdistä"
+msgid "In/Out Connector"
+msgstr "Yhdistä"
 
+#: sheets/SDL.sheet.in.h:10
+msgid "Procedure Return"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:11
 #, fuzzy
-#~ msgid "Process Type Reference"
-#~ msgstr "Ominaisuudet"
+msgid "Process Type Reference"
+msgstr "Ominaisuudet"
 
+#: sheets/SDL.sheet.in.h:12
 #, fuzzy
-#~ msgid "Receive message"
-#~ msgstr "Rekursiivinen"
+msgid "Receive message"
+msgstr "Rekursiivinen"
+
+#: sheets/SDL.sheet.in.h:13
+msgid "SDL"
+msgstr ""
 
+#: sheets/SDL.sheet.in.h:14
 #, fuzzy
-#~ msgid "Save State"
-#~ msgstr "Pistenuoli"
+msgid "Save State"
+msgstr "Pistenuoli"
 
+#: sheets/SDL.sheet.in.h:15
 #, fuzzy
-#~ msgid "Send message"
-#~ msgstr "Viesti:"
+msgid "Send message"
+msgstr "Viesti:"
 
+#: sheets/SDL.sheet.in.h:16
 #, fuzzy
-#~ msgid "Service Type Reference"
-#~ msgstr "Ominaisuudet"
+msgid "Service Type Reference"
+msgstr "Ominaisuudet"
 
+#: sheets/SDL.sheet.in.h:17
+msgid "Specification and Description Language."
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:18
 #, fuzzy
-#~ msgid "State"
-#~ msgstr "Pistenuoli"
+msgid "State"
+msgstr "Pistenuoli"
+
+#: sheets/sybase.sheet.in.h:1
+msgid "A Sybase Client Application"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:2
+msgid "A Sybase Dataserver"
+msgstr ""
 
+#: sheets/sybase.sheet.in.h:3
+msgid "A Sybase Replication Server"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Log Transfer Manager or Rep Agent"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:5
 #, fuzzy
-#~ msgid "Objects to design Sybase replication domain diagrams with"
-#~ msgstr "Sybase replication domain diagrammi objekteja"
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr "Sybase replication domain diagrammi objekteja"
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Replication Server Manager"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Stable Storage Device"
+msgstr ""
 
+#: sheets/sybase.sheet.in.h:8
 #, fuzzy
-#~ msgid "Sybase"
-#~ msgstr "Katkoviiva"
+msgid "Sybase"
+msgstr "Katkoviiva"
 
+#: sheets/UML.sheet.in.h:1
+msgid "Aggregation, one class is part of another"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:2
+msgid "Association, two classes are associated"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:3
+msgid "Constraint, place a constraint on something"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:4
 #, fuzzy
-#~ msgid "Create a (large) package"
-#~ msgstr "Luo kuva"
+msgid "Create a (large) package"
+msgstr "Luo kuva"
 
+#: sheets/UML.sheet.in.h:5
 #, fuzzy
-#~ msgid "Create a (small) package"
-#~ msgstr "Luo kuva"
+msgid "Create a (small) package"
+msgstr "Luo kuva"
 
+#: sheets/UML.sheet.in.h:6
 #, fuzzy
-#~ msgid "Create a branch"
-#~ msgstr "Luo kaari"
+msgid "Create a branch"
+msgstr "Luo kaari"
 
+#: sheets/UML.sheet.in.h:7
 #, fuzzy
-#~ msgid "Create a class"
-#~ msgstr "Kaavioluokka"
+msgid "Create a class"
+msgstr "Kaavioluokka"
 
+#: sheets/UML.sheet.in.h:8
 #, fuzzy
-#~ msgid "Create a class stereotype icon"
-#~ msgstr "Kaavioluokka"
+msgid "Create a class stereotype icon"
+msgstr "Kaavioluokka"
 
+#: sheets/UML.sheet.in.h:9
 #, fuzzy
-#~ msgid "Create a component"
-#~ msgstr "Luo monikulmio"
+msgid "Create a component"
+msgstr "Luo monikulmio"
 
+#: sheets/UML.sheet.in.h:10
 #, fuzzy
-#~ msgid "Create a dependency"
-#~ msgstr "Luo Bezier-viiva"
+msgid "Create a dependency"
+msgstr "Luo Bezier-viiva"
 
+#: sheets/UML.sheet.in.h:11
 #, fuzzy
-#~ msgid "Create a lifeline"
-#~ msgstr "Luo Bezier-viiva"
+msgid "Create a lifeline"
+msgstr "Luo Bezier-viiva"
 
+#: sheets/UML.sheet.in.h:12
 #, fuzzy
-#~ msgid "Create a message"
-#~ msgstr "Luo kuva"
+msgid "Create a message"
+msgstr "Luo kuva"
 
+#: sheets/UML.sheet.in.h:13
 #, fuzzy
-#~ msgid "Create a node"
-#~ msgstr "Luo viiva"
+msgid "Create a node"
+msgstr "Luo viiva"
 
+#: sheets/UML.sheet.in.h:14
 #, fuzzy
-#~ msgid "Create a note"
-#~ msgstr "Luo viiva"
+msgid "Create a note"
+msgstr "Luo viiva"
 
+#: sheets/UML.sheet.in.h:15
 #, fuzzy
-#~ msgid "Create a state machine"
-#~ msgstr "Luo viiva"
+msgid "Create a state machine"
+msgstr "Luo viiva"
 
+#: sheets/UML.sheet.in.h:16
 #, fuzzy
-#~ msgid "Create a template class"
-#~ msgstr "Kaavioluokka"
+msgid "Create a template class"
+msgstr "Kaavioluokka"
 
+#: sheets/UML.sheet.in.h:17
 #, fuzzy
-#~ msgid "Create a use case"
-#~ msgstr "Luo kuva"
+msgid "Create a use case"
+msgstr "Luo kuva"
 
+#: sheets/UML.sheet.in.h:18
 #, fuzzy
-#~ msgid "Create an actor"
-#~ msgstr "Luo uusi diagrammi"
+msgid "Create an actor"
+msgstr "Luo uusi diagrammi"
 
+#: sheets/UML.sheet.in.h:19
 #, fuzzy
-#~ msgid "Create an object"
-#~ msgstr "Luo viiva"
+msgid "Create an object"
+msgstr "Luo viiva"
 
+#: sheets/UML.sheet.in.h:20
 #, fuzzy
-#~ msgid "Editor for UML Static Structure Diagrams"
-#~ msgstr "Funktion rakenne -diagrammi objekteja"
+msgid "Editor for UML Static Structure Diagrams"
+msgstr "Funktion rakenne -diagrammi objekteja"
+
+#: sheets/UML.sheet.in.h:21
+msgid "Generalization, class inheritance"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:22
+msgid "Implements, class implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:23
+msgid "Realizes, implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:24
+msgid "UML"
+msgstr ""
 
+#: dia.desktop.in.h:1
 #, fuzzy
-#~ msgid "A Diagram Editor"
-#~ msgstr "Diagrammi-editori"
+msgid "A Diagram Editor"
+msgstr "Diagrammi-editori"
 
+#: dia.desktop.in.h:2
 #, fuzzy
-#~ msgid "Dia"
-#~ msgstr "Dialogit"
+msgid "Dia"
+msgstr "Dialogit"
 
 #~ msgid ""
 #~ "No such file found\n"

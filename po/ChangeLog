@@ -1,3 +1,15 @@
+2001-09-02  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* fr.po: Updated French translation.
+
+	* ALL PO FILES: ran "make update-po". Warning: the update.sh and
+	update.pl scripts don't know about xml-i18n-tools. They've been
+	disabled for the moment, since they'll trash all sheet files 
+	translations. Just run "make update-po", remove all .po files
+	except yours, do a CVS update.
+	
+	* update.(sh|pl): disabled the scripts.
+
 2001-09-01  Abel Cheung  <maddog@linux.org.hk>
 
 	* zh_TW.Big5.po: Rename to ......
