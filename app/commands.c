@@ -518,15 +518,6 @@ edit_redo_callback(GtkWidget *widget, gpointer data)
 } 
 
 void
-logo_expose_callback(GtkWidget *widget, GdkEventExpose *event)
-{
-  if (logo) {
-    gdk_imlib_paste_image(logo, widget->window, event->area.x, event->area.y, 
-			  event->area.width, event->area.height);
-  }
-}
-
-void
 help_about_callback(GtkWidget *widget, gpointer data)
 {
   GtkWidget *dialog;
@@ -537,7 +528,7 @@ help_about_callback(GtkWidget *widget, gpointer data)
   GtkWidget *button;
   char str[100];
 
-  GtkWidget *drawarea;
+  GtkWidget *gpixmap;
 
   dialog = gtk_dialog_new ();
   gtk_window_set_wmclass (GTK_WINDOW (dialog), "about_dialog", "Dia");
@@ -552,8 +543,11 @@ help_about_callback(GtkWidget *widget, gpointer data)
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
   gtk_container_add (GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), vbox);
 
-  g_snprintf(str, sizeof(str), "%s/dia_logo.png", DATADIR);
-  logo = gdk_imlib_load_image(str);
+  if (!logo) {
+      g_snprintf(str, sizeof(str), "%s/dia_logo.png", DATADIR);
+      logo = gdk_imlib_load_image(str);
+      gdk_imlib_render(logo, logo->rgb_width, logo->rgb_height);
+  }
 
   if (logo) {
     frame = gtk_frame_new (NULL);
@@ -561,12 +555,9 @@ help_about_callback(GtkWidget *widget, gpointer data)
     gtk_container_set_border_width (GTK_CONTAINER (frame), 1);
     gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, TRUE, 1);
 
-    drawarea = gtk_drawing_area_new();
-    gtk_container_add (GTK_CONTAINER(frame), drawarea);
-    gtk_signal_connect (GTK_OBJECT (drawarea), "expose_event",
-			(GtkSignalFunc) logo_expose_callback, NULL);
-    
-    gtk_drawing_area_size(GTK_DRAWING_AREA(drawarea), logo->rgb_width, logo->rgb_height);
+    gpixmap = gtk_pixmap_new(logo->pixmap, logo->shape_mask);
+
+    gtk_container_add (GTK_CONTAINER(frame), gpixmap);
   }
 
   frame = gtk_frame_new (NULL);
@@ -578,7 +569,7 @@ help_about_callback(GtkWidget *widget, gpointer data)
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 1);
   gtk_container_add (GTK_CONTAINER (frame), vbox);
 
-  sprintf(str, _("Dia v %s by Alexander Larsson"), VERSION);
+  g_snprintf(str, sizeof(str), _("Dia v %s by Alexander Larsson"), VERSION);
   label = gtk_label_new (str);
   gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, TRUE, 2);
 

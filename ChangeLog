@@ -1,5 +1,14 @@
 1999-12-24  James Henstridge  <james@daa.com.au>
 
+	* app/commands.c (help_about_callback): fixed up about box logo
+	expose bug.  Now just use a GtkPixmap widget rather than a
+	GtkDrawingArea and calling gdk_imlib_paste_image.
+
+	* app/Makefile.am (EXTRA_DIST): added print stuff to extra dist,
+	because automake does not always get things right.
+
+	* configure.in: updated version number to 0.83.
+
 	* app/preferences.c (prefs_save): 
 	* app/render_svg.c (new_svg_renderer): "wt" is not a valid flag string
 	for fopen.  Text is the default file mode anyway.

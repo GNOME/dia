@@ -108,6 +108,12 @@ INCLUDES = \
 LDFLAGS = -export-dynamic
 
 EXTRA_DIST = \
+	render_gnomeprint.c \
+	render_gnomeprint.h \
+	paginate_gnomeprint.c \
+	paginate_gnomeprint.h \
+	paginate_psprint.c \
+	paginate_psprint.h \
 	pixmaps/arrow.xpm \
 	pixmaps/default.xpm \
 	pixmaps/delete.xpm \
