@@ -39,7 +39,7 @@
     </object>
     <object name="UML - Association" intdata="0">
       <description xml:lang="fr">Association, deux classes sont associées</description>
-      <description xml:lang="de">Ähnlichkeit, zwei Klassen sind ähnlich</description>
+      <description xml:lang="de">Assoziation, zwei Klassen sind verbunden</description>
       <description>Association, two classes are associated</description>
     </object>
     <object name="UML - Association" intdata="1">
