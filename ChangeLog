@@ -1,3 +1,8 @@
+2002-05-17  Steffen Macke <sdteffen@web.de>
+
+	* shapes/Misc/folder.png:
+	* shapes/Misc/file.png: re-added as binary files
+	
 2002-05-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/font.c: Fixed segfault for fonts without family_name.
