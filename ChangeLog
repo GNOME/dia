@@ -1,7 +1,7 @@
 2002-01-31  Akira TAGOH  <tagoh@redhat.com>
 
 	* app/plugin-manager.c (clist_select_row): name and description needs to
-	convert to UTF-8.
+	convert to locale encoding, when GTK_DOESNT_TALK_UTF8_WE_DO is defined.
 	(get_plugin_manager): ditto.
 
 	* lib/plug-ins.c (dia_plugin_info_init): name needs to convert to UTF-8.
