@@ -12,8 +12,8 @@ pixmap_DATA = dia_gnome_icon.png dia-diagram.png
 
 CLEANFILES = core-translation-report
 
-core-translation-report: po/dia.pot po/*.po po-checktrans.py po-checktrans
-	-./po-checktrans po/dia.pot po/*.po
+core-translation-report: po/dia.pot po-checktrans.py po-checktrans
+	-(cd $(srcdir) && ./po-checktrans po/dia.pot po/*.po)
 
 Applicationsdir = $(gnomedatadir)/gnome/apps/Applications
 Applications_DATA = dia.desktop 
@@ -36,6 +36,6 @@ all-local: core-translation-report po/Makefile
 EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
 	dia.desktop dia.spec KNOWN_BUGS $(pkgdata_DATA) $(man_MANS) \
 	dia-diagram.png dia.mime dia.keys.in \
-	core-translation-report
+	core-translation-report po-checktrans.py po-checktrans
 
 

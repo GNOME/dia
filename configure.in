@@ -296,8 +296,7 @@ AM_CONDITIONAL(WITH_PYTHON, test "x$with_python" != "xno")
 AC_OUTPUT(
 Makefile
 lib/Makefile
-intl/Makefile
-po/Makefile.in
+ po/Makefile.in intl/Makefile
 objects/Makefile
 objects/standard/Makefile
 objects/network/Makefile

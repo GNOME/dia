@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-05-05 00:14+0200\n"
+"POT-Creation-Date: 2001-05-09 12:16+0800\n"
 "PO-Revision-Date: 2001-05-05 11:55GMT +0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish <linuxaz@azerimal.net>\n"
@@ -51,8 +51,7 @@ msgstr ""
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
-"cism kitabxanasına baxarkən normal cismləri tapa bilmədim, çıxıram "
-"...\n"
+"cism kitabxanasına baxarkən normal cismləri tapa bilmədim, çıxıram ...\n"
 
 #: app/app_procs.c:261
 msgid "Need valid input file\n"
@@ -89,9 +88,8 @@ msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
-"İstifadəçi başına ayrı ayrı cərgə yarada bilmirəm. Lötfən, "
-"qlobal dəyişgən HOMEun mövcud cərgəyə nişanlanıb "
-"nişanlanmadığını yoxlayın."
+"İstifadəçi başına ayrı ayrı cərgə yarada bilmirəm. Lötfən, qlobal dəyişgən "
+"HOMEun mövcud cərgəyə nişanlanıb nişanlanmadığını yoxlayın."
 
 #: app/app_procs.c:473
 msgid "Objects and filters internal to dia"
@@ -143,8 +141,7 @@ msgstr "İdarəci: James Henstridge"
 #: app/commands.c:623
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
-"Lütfən daha ətraflı bilgi üçün http://www.lysator.liu.se/~alla/dia'ya "
-"get"
+"Lütfən daha ətraflı bilgi üçün http://www.lysator.liu.se/~alla/dia'ya get"
 
 #: app/commands.c:628
 msgid "Contributors:"
@@ -427,6 +424,7 @@ msgid "Create Text"
 msgstr "Mətni yarat"
 
 #: app/interface.c:58 app/menus.c:197 lib/properties.c:1262
+#: lib/properties.h:366
 msgid "Text"
 msgstr "Mətn"
 
@@ -519,9 +517,9 @@ msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
-"Önplan və arxaplan rəngləri. Balaca qara və ağ dördbucaqlar "
-"rəngləri sıfırlayır. Balaca oxlar rəngləri dəyişdirir. "
-"Cüt-tıqlayıb rəngləri dəyişdirə bilərsən. "
+"Önplan və arxaplan rəngləri. Balaca qara və ağ dördbucaqlar rəngləri "
+"sıfırlayır. Balaca oxlar rəngləri dəyişdirir. Cüt-tıqlayıb rəngləri "
+"dəyişdirə bilərsən. "
 
 #: app/interface.c:1033
 msgid "Diagram Editor"
@@ -579,7 +577,7 @@ msgstr "Ətraflı ..."
 msgid "Line Style Properties"
 msgstr "Xətt tərz xüsusiyyətləri"
 
-#: app/linewidth_area.c:216
+#: app/linewidth_area.c:216 lib/properties.h:342
 msgid "Line width"
 msgstr "Xətt eni"
 
@@ -618,7 +616,7 @@ msgstr ""
 "bağlantı idarəcisi yoxdur ."
 
 #: app/load_save.c:231 plug-ins/dxf/dxf-import.c:577 plug-ins/wpg/wpg.c:1036
-#: plug-ins/xfig/xfig-import.c:947
+#: plug-ins/xfig/xfig-import.c:1002
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "`%s''ni oxumaq üçün aça bilmədim .\n"
@@ -1278,11 +1276,11 @@ msgstr "/Dialoqlar/_Xüsusiyyətlər"
 msgid "/Dialogs/_Layers"
 msgstr "/Dialoqlar/_Səviyyələr"
 
-#: app/menus.c:555
+#: app/menus.c:558
 msgid "NULL tooldata in tool_menu_select"
 msgstr "tool_menu_select'də tooldata NULL olaraq verildi"
 
-#: app/menus.c:689
+#: app/menus.c:696
 msgid "Diagram Menu"
 msgstr "Diaqramma menyusu"
 
@@ -1500,8 +1498,7 @@ msgstr "Dia v %s"
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr ""
-"Daxili xəta : Bezyer xəttinin bitiş nöqtəsinin bucaq növünü bildirə "
-"bilmədim"
+"Daxili xəta : Bezyer xəttinin bitiş nöqtəsinin bucaq növünü bildirə bilmədim"
 
 #: lib/dia_xml.c:273
 msgid "Taking point value of non-point node."
@@ -1533,9 +1530,7 @@ msgstr ""
 #: lib/font.c:443
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
-msgstr ""
-"Yazı növü %s tapıla bilmədi, onun yerinə Courier'i istifadə edirəm "
-".\n"
+msgstr "Yazı növü %s tapıla bilmədi, onun yerinə Courier'i istifadə edirəm .\n"
 
 #: lib/message.c:120
 msgid "Notice"
@@ -1587,49 +1582,50 @@ msgstr "`%s''ni aça bilmədim"
 msgid "No edit widget"
 msgstr "Dəyişdirilə bilən bir widget deyildir"
 
-#: lib/properties.c:1256
+#: lib/properties.c:1256 lib/properties.h:345
 msgid "Line colour"
 msgstr "Sətir rəngi"
 
-#: lib/properties.c:1257
+#: lib/properties.c:1257 lib/properties.h:348
 msgid "Line style"
 msgstr "Sətər tərzi"
 
-#: lib/properties.c:1258
+#: lib/properties.c:1258 lib/properties.h:352
 msgid "Fill colour"
 msgstr "Doldurma rəngi"
 
-#: lib/properties.c:1259 objects/custom/custom_object.c:358
-#: objects/flowchart/box.c:317 objects/flowchart/diamond.c:310
-#: objects/flowchart/ellipse.c:310 objects/flowchart/parallelogram.c:321
-#: objects/standard/beziergon.c:222 objects/standard/box.c:232
-#: objects/standard/ellipse.c:220 objects/standard/polygon.c:226
+#: lib/properties.c:1259 lib/properties.h:355
+#: objects/custom/custom_object.c:358 objects/flowchart/box.c:317
+#: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
+#: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
+#: objects/standard/box.c:232 objects/standard/ellipse.c:220
+#: objects/standard/polygon.c:226
 msgid "Draw background"
 msgstr "Arxa Planı boya"
 
-#: lib/properties.c:1260
+#: lib/properties.c:1260 lib/properties.h:359
 msgid "Start arrow"
 msgstr "Başlama oxu"
 
-#: lib/properties.c:1261
+#: lib/properties.c:1261 lib/properties.h:362
 msgid "End arrow"
 msgstr "Bitiş oxu"
 
-#: lib/properties.c:1263
+#: lib/properties.c:1263 lib/properties.h:369
 msgid "Text alignment"
 msgstr "Mətn tərəfləməsi"
 
-#: lib/properties.c:1264 objects/GRAFCET/condition.c:131
+#: lib/properties.c:1264 lib/properties.h:372 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/transition.c:140
 msgid "Font"
 msgstr "Yazı növü"
 
-#: lib/properties.c:1265 objects/GRAFCET/condition.c:133
+#: lib/properties.c:1265 lib/properties.h:375 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/transition.c:142
 msgid "Font size"
 msgstr "Yazı növü böyüklüyü"
 
-#: lib/properties.c:1266
+#: lib/properties.c:1266 lib/properties.h:378
 msgid "Text colour"
 msgstr "Mətn rəngi"
 
@@ -3242,8 +3238,7 @@ msgstr ""
 "@ vaxt   göstəriciyi dəqiq bir vaxtda oturt .\n"
 "( müddət    siqnalı üstə qoyub, bildirilən müddəti gözlə .\n"
 ") müddət    siqnalı aşağa qoyub, bildirilən müddəti gözlə .\n"
-"u müddət    siqnalı \"belirsiz\" durumu koy, bildirilən müddəti "
-"gözlə .\n"
+"u müddət    siqnalı \"belirsiz\" durumu koy, bildirilən müddəti gözlə .\n"
 "nümunə : @ 1.0 ( 2.0 ) 1.0 ( 2.0 ) \n"
 
 #: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
@@ -3515,148 +3510,153 @@ msgstr "%s : dosye növü/buraxılışı dəstəklənmir .\n"
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Graphics ixrac süzgəci"
 
-#: plug-ins/xfig/xfig.c:38
-msgid "Fig Format import filter"
+#: plug-ins/xfig/xfig.c:39
+#, fuzzy
+msgid "Fig Format import and export filter"
 msgstr "Fiq Format idxal süzgəci"
 
-#: plug-ins/xfig/xfig-import.c:270
-#, c-format
-msgid "Error while reading %dth of %d points: %s\n"
-msgstr "%2d nöqtənin %1d oxunması sırasında xəta: %3s\n"
-
-#: plug-ins/xfig/xfig-import.c:289
-msgid "Error while reading arrowhead\n"
-msgstr "Ox başını oxuyarkən xəta oldu\n"
-
-#: plug-ins/xfig/xfig-import.c:363
+#: plug-ins/xfig/xfig-import.c:280
 msgid "Patterns are not implemented\n"
 msgstr "Naxışlar dəstəklənmir\n"
 
-#: plug-ins/xfig/xfig-import.c:408
-#, c-format
-msgid "Couldn't read ellipse info: %s\n"
-msgstr "Ellips infosunu oxuya bilmirəm: %s\n"
-
-#: plug-ins/xfig/xfig-import.c:442 plug-ins/xfig/xfig-import.c:603
+#: plug-ins/xfig/xfig-import.c:318
 #, c-format
 msgid "Line style %d not supported\n"
 msgstr "Sətir tərzi %d dəstəklənmir\n"
 
-#: plug-ins/xfig/xfig-import.c:519
+#: plug-ins/xfig/xfig-import.c:356
+#, c-format
+msgid "Error while reading %dth of %d points: %s\n"
+msgstr "%2d nöqtənin %1d oxunması sırasında xəta: %3s\n"
+
+#: plug-ins/xfig/xfig-import.c:375
+msgid "Error while reading arrowhead\n"
+msgstr "Ox başını oxuyarkən xəta oldu\n"
+
+#: plug-ins/xfig/xfig-import.c:458
+#, c-format
+msgid "Couldn't read ellipse info: %s\n"
+msgstr "Ellips infosunu oxuya bilmirəm: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:524
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Çoxlu sətir infosunu oxuya bilmədim: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:534
+#: plug-ins/xfig/xfig-import.c:539
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Bit oxuna bilmir: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:577
+#: plug-ins/xfig/xfig-import.c:591 plug-ins/xfig/xfig-import.c:674
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Namə'lum çoxlu sətir alt növü: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:670
+#: plug-ins/xfig/xfig-import.c:652
+#, fuzzy, c-format
+msgid "Couldn't read arc info: %s\n"
+msgstr "Mətn infosu oxuna bilmir: %s\n"
+
+#: plug-ins/xfig/xfig-import.c:723
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Mətn infosu oxuna bilmir: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:716
+#: plug-ins/xfig/xfig-import.c:769
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "FIG cismi başa salina bilmir: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:730
+#: plug-ins/xfig/xfig-import.c:783
 msgid "Compound end outside compound\n"
 msgstr "Sıxlaşdırılmış bitiı sıxışdırma xaricindədir\n"
 
-#: plug-ins/xfig/xfig-import.c:753
+#: plug-ins/xfig/xfig-import.c:806
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Rəng oxuna bilmir: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:782
+#: plug-ins/xfig/xfig-import.c:835
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Qrup əlavələri oxuna bilmir: %s\n"
 
-#. Arc.
 #. Spline which includes closed/open control/interpolated spline.
-#: plug-ins/xfig/xfig-import.c:792
+#: plug-ins/xfig/xfig-import.c:847
 #, c-format
 msgid "Object type %d not implemented yet\n"
 msgstr "%d cism növü hələlik dəsyəklənmir\n"
 
-#: plug-ins/xfig/xfig-import.c:795
+#: plug-ins/xfig/xfig-import.c:850
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Namə'lum cism növü %d\n"
 
-#: plug-ins/xfig/xfig-import.c:814
+#: plug-ins/xfig/xfig-import.c:869
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' `%s' və ya `%s'deyil\n"
 
-#: plug-ins/xfig/xfig-import.c:824
+#: plug-ins/xfig/xfig-import.c:879
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Kağız böyüklüyünü oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:846
+#: plug-ins/xfig/xfig-import.c:901
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Kağız istiqamətini oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:856
+#: plug-ins/xfig/xfig-import.c:911
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Tərəfləməni oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:866
+#: plug-ins/xfig/xfig-import.c:921
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Vahidləri oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:880
+#: plug-ins/xfig/xfig-import.c:935
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Böyütmələri oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:891
+#: plug-ins/xfig/xfig-import.c:946
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Çoxlu səhifə indikatorunu oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:902
+#: plug-ins/xfig/xfig-import.c:957
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Şəffaf rəngləri oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:911 plug-ins/xfig/xfig-import.c:966
+#: plug-ins/xfig/xfig-import.c:966 plug-ins/xfig/xfig-import.c:1021
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "FİG faylını oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:913 plug-ins/xfig/xfig-import.c:968
+#: plug-ins/xfig/xfig-import.c:968 plug-ins/xfig/xfig-import.c:1023
 msgid "Premature end of FIG file\n"
 msgstr "FİG faykının erkən bitişi\n"
 
-#: plug-ins/xfig/xfig-import.c:922
+#: plug-ins/xfig/xfig-import.c:977
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Rezolyusiya oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:953
+#: plug-ins/xfig/xfig-import.c:1008
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "FİG faylı kimi görünmür: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:959
+#: plug-ins/xfig/xfig-import.c:1014
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Bu, FİG buraxılış %d.%d faylıdır. Başa düışə bilmirəm\n"
 
-#: plug-ins/xfig/xfig-import.c:1012
+#: plug-ins/xfig/xfig-import.c:1067
 msgid "XFig File Format"
 msgstr "XFİG Fayl Şəkli"

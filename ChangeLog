@@ -1,5 +1,14 @@
 2001-05-09  James Henstridge  <james@daa.com.au>
 
+	* Makefile.am (core-translation-report): dist scripts needed for
+	this target, and change to $(srcdir) before running.
+
+	* sheets/Makefile.am (EXTRA_DIST): actually dist the sheets.  DATA
+	files aren't automatically included in the tarball by automake
+	because they could be generated files.
+
+	* objects/EML/Makefile.am (EXTRA_DIST): fix directory names.
+
 	* doc/en/Makefile.am (install-data-hook): fix up where graphics
 	are installed.
 
