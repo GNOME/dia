@@ -1,3 +1,28 @@
+1998-09-30  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/connectionpoint_ops.c:
+	* app/create_object.c:
+	* app/group.c:
+	* app/handle_ops.c:
+	* app/modify_tool.c:
+	* lib/connection.c:
+	* lib/element.c:
+	* lib/handle.h:
+	* lib/object.c:
+	* lib/orth_conn.c:
+	* loads of objects:
+	Changed handle->connectable to handle->connect_type.
+	Now handles can be HANDLE_CONNECTABLE_NOBREAK, which means
+	that their connections don't break when moving objects.
+
+	* app/diagram.c:
+	Always select the last handle in an object that has
+	the closest distance.
+	
+	* lib/geometry.[ch]:
+	Added rectangle_add_point function.
+	
+
 1998-09-27  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/properties.[ch]: New files. Handles the new properties
