@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
 "POT-Creation-Date: 2000-06-24 10:30+0800\n"
-"PO-Revision-Date: 2000-06-25 02:27+0200\n"
+"PO-Revision-Date: 2000-06-29 02:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -390,7 +390,8 @@ msgstr "/Vis/Antialiaseret"
 
 #: app/export_png.c:78 app/load_save.c:501 app/render_eps.c:162
 #: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
-#: plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/wpg/wpg.c:937
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åbne: '%s' for skriving.\n"
@@ -688,7 +689,7 @@ msgstr ""
 "Fejl ved indlæsning af diagram.\n"
 "Forbindelseshåndtag eksisterer ikke."
 
-#: app/load_save.c:193
+#: app/load_save.c:193 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunne ikke åbne: '%s' for læsning.\n"
@@ -2602,6 +2603,10 @@ msgstr "Udjævningskontrol"
 msgid "Cusp control"
 msgstr "Cusp kontrol"
 
+#: objects/standard/arc.c:129
+msgid "Curve distance"
+msgstr "Kurveafstand"
+
 #: objects/standard/image.c:165
 msgid "Image file"
 msgstr "Billedfil"
@@ -2686,13 +2691,17 @@ msgstr "Computer Grafik Metafil"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Grafik Metafil eksportfilter"
 
-#: plug-ins/dxf/dxf-export.c:561
+#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:491
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
 msgstr "Drawing Interchange File import- og eksportfiltre"
+
+#: plug-ins/hpgl/hpgl.c:624
+msgid "HP Graphics Language export filter"
+msgstr "HP Grafiksprog (HPGL) eksportfilter"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -2701,3 +2710,12 @@ msgstr "TeX Pstricks eksportfilter"
 #: plug-ins/pstricks/render_pstricks.c:749
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makroer"
+
+#: plug-ins/wpg/wpg.c:1043
+#, c-format
+msgid "File: %s type/version unsupported.\n"
+msgstr "Fil: %s type/version ikke understøttet\n"
+
+#: plug-ins/wpg/wpg.c:1192
+msgid "WordPerfect Graphics export filter"
+msgstr "WordPerfect Grafik eksportfilter"
