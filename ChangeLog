@@ -1,3 +1,8 @@
+1999-09-16  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/UML/constraint.c: 
+	Update to new undo (w. get/set_state).
+
 1999-09-15  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/paginate_psprint.c:

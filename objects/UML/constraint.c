@@ -32,7 +32,14 @@
 #include "pixmaps/constraint.xpm"
 
 typedef struct _Constraint Constraint;
+typedef struct _ConstraintState ConstraintState;
 typedef struct _ConstraintDialog ConstraintDialog;
+
+struct _ConstraintState {
+  ObjectState obj_state;
+  
+  char *text;
+};
 
 struct _Constraint {
   Connection connection;
@@ -78,12 +85,16 @@ static void constraint_update_data(Constraint *constraint);
 static void constraint_destroy(Constraint *constraint);
 static Object *constraint_copy(Constraint *constraint);
 static GtkWidget *constraint_get_properties(Constraint *constraint);
-static void constraint_apply_properties(Constraint *constraint);
+static ObjectChange *constraint_apply_properties(Constraint *constraint);
+
+static ConstraintState *constraint_get_state(Constraint *constraint);
+static void constraint_set_state(Constraint *constraint,
+				 ConstraintState *state);
+
 static void constraint_save(Constraint *constraint, ObjectNode obj_node,
 			    const char *filename);
 static Object *constraint_load(ObjectNode obj_node, int version,
 			       const char *filename);
-
 
 static ObjectTypeOps constraint_type_ops =
 {
@@ -313,6 +324,45 @@ constraint_copy(Constraint *constraint)
   return (Object *)newconstraint;
 }
 
+static void
+constraint_state_free(ObjectState *ostate)
+{
+  ConstraintState *state = (ConstraintState *)ostate;
+  int i;
+  g_free(state->text);
+}
+
+static ConstraintState *
+constraint_get_state(Constraint *constraint)
+{
+  int i;
+  ConstraintState *state = g_new(ConstraintState, 1);
+
+  state->obj_state.free = constraint_state_free;
+
+  state->text = g_strdup(constraint->text);
+
+  return state;
+}
+
+static void
+constraint_set_state(Constraint *constraint, ConstraintState *state)
+{
+  int i;
+  
+  g_free(constraint->text);
+  constraint->text = state->text;
+  constraint->text_width = 0.0;
+  if (constraint->text != NULL) {
+    constraint->text_width =
+      font_string_width(constraint->text, constraint_font, CONSTRAINT_FONTHEIGHT);
+  } 
+  
+  g_free(state);
+  
+  constraint_update_data(constraint);
+}
+
 
 static void
 constraint_update_data(Constraint *constraint)
@@ -406,13 +456,16 @@ constraint_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 
-static void
+static ObjectChange *
 constraint_apply_properties(Constraint *constraint)
 {
   ConstraintDialog *prop_dialog;
   char *str;
+  ObjectState *old_state;
   
   prop_dialog = constraint->properties_dialog;
+
+  old_state = (ObjectState *)constraint_get_state(constraint);
 
   /* Read from dialog and put in object: */
   g_free(constraint->text);
@@ -427,6 +480,10 @@ constraint_apply_properties(Constraint *constraint)
 			CONSTRAINT_FONTHEIGHT);
   
   constraint_update_data(constraint);
+  return new_object_state_change((Object *)constraint, old_state, 
+				 (GetStateFunc)constraint_get_state,
+				 (SetStateFunc)constraint_set_state);
+
 }
 
 static void
