@@ -1,5 +1,8 @@
 2003-09-07  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* configure.in: Make sure -lz -lm is passed into second png test
+	as well (stupid AC_LINK_IFELSE can't take it as an argument).
+
 	* plug-ins/xfig/xfig-import.c: Skip XFig comments to make certain
 	comment-filled files readable.  Once we have a 'generic data'
 	system, we can put comments in there.
