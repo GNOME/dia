@@ -370,19 +370,19 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   /* should probably be refactored too. */
   label = gtk_label_new(_("Foreground Color"));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, GTK_EXPAND | GTK_FILL, 0, 3, 2);
+  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, GTK_EXPAND | GTK_FILL, 0, 0, 2);
   color_foreground = dia_color_selector_new();
   dia_color_selector_set_color((DiaColorSelector *)color_foreground, &umlclass->color_foreground);
   prop_dialog->fg_color = (DiaColorSelector *)color_foreground;
-  gtk_table_attach (GTK_TABLE (table), color_foreground, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, 0, 3, 2);
+  gtk_table_attach (GTK_TABLE (table), color_foreground, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, 0, 0, 2);
   
   label = gtk_label_new(_("Background Color"));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 1, 2, GTK_EXPAND | GTK_FILL, 0, 0, 0);
+  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 1, 2, GTK_EXPAND | GTK_FILL, 0, 0, 2);
   color_background = dia_color_selector_new();
   dia_color_selector_set_color((DiaColorSelector *)color_background, &umlclass->color_background);
   prop_dialog->bg_color = (DiaColorSelector *)color_background;
-  gtk_table_attach (GTK_TABLE (table), color_background, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL, 0, 3, 2);
+  gtk_table_attach (GTK_TABLE (table), color_background, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL, 0, 0, 2);
 
   gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);

@@ -1,5 +1,8 @@
 2003-12-30  Lars Clausen  <lc@pc770>
 
+	* objects/UML/class_dialog.c (class_create_page): Fix from Luc
+	Pionchon <luc@handhelds.org>: Correctly align labels for colors.
+
 	* lib/diagdkrenderer.[ch]: From Luc: New option to GdkRenderer to
 	remove text rendering.  May be turned into greeking at some later
 	stage.
