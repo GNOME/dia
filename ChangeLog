@@ -1,3 +1,13 @@
+2002-02-03  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
+
+	* lib/widgets.c (dia_font_selector_init): Sorts the font list.
+
+	* lib/font.c (freetype_render_string): 
+	* lib/font.h:
+	* app/render_gdk.c:
+	* app/render_gdk.h: Changed freetype_render_string to use
+	callback.  Rendering is broken.
+
 2002-02-03  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	Patch from Matthieu Sozeau <mattam@netcourrier.com>:
