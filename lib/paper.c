@@ -114,7 +114,10 @@ get_paper_info(PaperInfo *paper, int i, NewDiagramData *prefs)
   paper->bmargin = paper_metrics[i].bmargin;
   paper->lmargin = paper_metrics[i].lmargin;
   paper->rmargin = paper_metrics[i].rmargin;
-  paper->is_portrait = prefs->is_portrait;
+  if (prefs != NULL)
+    paper->is_portrait = prefs->is_portrait;
+  else
+    paper->is_portrait = TRUE;
   paper->scaling = 1.0;
   paper->fitto = FALSE;
   paper->fitwidth = 1;

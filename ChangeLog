@@ -1,3 +1,8 @@
+2002-08-20  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/paper.c (get_paper_info): Fixed NULL prefs problem.
+	* plug-ins/xfig/xfig-import.c: Removed assertion.
+
 2002-08-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/paper.c: Removed app/preferences.h reference.
