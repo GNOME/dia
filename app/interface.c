@@ -695,16 +695,28 @@ create_tools(GtkWidget *parent)
 	pixmap_data = tool_data[0].icon_data;
       else
 	pixmap_data = type->pixmap;
+	style = gtk_widget_get_style(button);
+	pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
+						       gtk_widget_get_colormap(button), &mask,
+						       &style->bg[GTK_STATE_NORMAL], pixmap_data);
+	pixmapwidget = gtk_pixmap_new(pixmap, mask);
     } else {
-      pixmap_data = tool_data[i].icon_data;
+      if ((*tool_data[i].icon_data)[0] == 'G' &&
+	  (*tool_data[i].icon_data)[1] == 'd' &&
+	  (*tool_data[i].icon_data)[2] == 'k' &&
+	  (*tool_data[i].icon_data)[3] == 'P') {
+	GdkPixbuf *p;
+	p = gdk_pixbuf_new_from_inline(-1, *tool_data[i].icon_data, FALSE, NULL);
+	pixmapwidget = gtk_image_new_from_pixbuf(p);
+      } else {
+	pixmap_data = tool_data[i].icon_data;
+	style = gtk_widget_get_style(button);
+	pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
+						       gtk_widget_get_colormap(button), &mask,
+						       &style->bg[GTK_STATE_NORMAL], pixmap_data);
+	pixmapwidget = gtk_pixmap_new(pixmap, mask);
+      }
     }
-    
-    style = gtk_widget_get_style(button);
-    pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
-		gtk_widget_get_colormap(button), &mask,
-		&style->bg[GTK_STATE_NORMAL], pixmap_data);
-    
-    pixmapwidget = gtk_pixmap_new(pixmap, mask);
     
     /* GTKBUG:? padding changes */
     gtk_misc_set_padding(GTK_MISC(pixmapwidget), 2, 2);
