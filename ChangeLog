@@ -2,6 +2,8 @@
 
 	* lib/diasvgrenderer.c (draw_polygon, fill_polygon): Use svg
 	polygon rather than polyline & avoid missing line pieces.
+	(get_draw_style): Set fill-opacity to 0 on draw_style to avoid
+	black-filled things.
 
 2003-04-21  Lars Clausen  <lrclause@cs.uiuc.edu>
 

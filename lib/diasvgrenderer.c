@@ -220,7 +220,7 @@ get_draw_style(DiaSvgRenderer *renderer,
 
   /* TODO(CHECK): the shape-export didn't have 'fill: none' here */
   old_locale = setlocale(LC_NUMERIC, "C");
-  g_string_sprintf(str, "fill: none; stroke-width: %g", renderer->linewidth);
+  g_string_sprintf(str, "fill: none; fill-opacity:0; stroke-width: %g", renderer->linewidth);
   setlocale(LC_NUMERIC, old_locale);
   if (strcmp(renderer->linecap, "butt"))
     g_string_sprintfa(str, "; stroke-linecap: %s", renderer->linecap);
