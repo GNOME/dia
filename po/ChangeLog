@@ -1,3 +1,7 @@
+2002-01-31  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* no.po: Updated Norwegian (bokmål) translation.
+	
 2002-01-31  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.
@@ -65,6 +69,7 @@
 
         * pt.po: Updated Portuguese translation.
 
+>>>>>>> 1.235
 2001-11-27  Roy-Magne Mo  <rmo@sunnmore.net>
 
 	* nn.po: Updated Norwegian (nynorsk) translation.
