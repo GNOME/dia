@@ -254,6 +254,81 @@ charconv_unichar_to_utf8(guint uc)
   return outbuf;
 }
 
+#define UTF8_COMPUTE(Char, Mask, Len)					      \
+  if (Char < 128)							      \
+    {									      \
+      Len = 1;								      \
+      Mask = 0x7f;							      \
+    }									      \
+  else if ((Char & 0xe0) == 0xc0)					      \
+    {									      \
+      Len = 2;								      \
+      Mask = 0x1f;							      \
+    }									      \
+  else if ((Char & 0xf0) == 0xe0)					      \
+    {									      \
+      Len = 3;								      \
+      Mask = 0x0f;							      \
+    }									      \
+  else if ((Char & 0xf8) == 0xf0)					      \
+    {									      \
+      Len = 4;								      \
+      Mask = 0x07;							      \
+    }									      \
+  else if ((Char & 0xfc) == 0xf8)					      \
+    {									      \
+      Len = 5;								      \
+      Mask = 0x03;							      \
+    }									      \
+  else if ((Char & 0xfe) == 0xfc)					      \
+    {									      \
+      Len = 6;								      \
+      Mask = 0x01;							      \
+    }									      \
+  else									      \
+    Len = -1;
+
+#define UTF8_GET(Result, Chars, Count, Mask, Len)			      \
+  (Result) = (Chars)[0] & (Mask);					      \
+  for ((Count) = 1; (Count) < (Len); ++(Count))				      \
+    {									      \
+      if (((Chars)[(Count)] & 0xc0) != 0x80)				      \
+	{								      \
+	  (Result) = -1;						      \
+	  break;							      \
+	}								      \
+      (Result) <<= 6;							      \
+      (Result) |= ((Chars)[(Count)] & 0x3f);				      \
+    }
+
+/*
+ * ported from GLib1.3
+ *
+ * g_utf8_get_char:
+ * @p: a pointer to Unicode character encoded as UTF-8
+ *
+ * Converts a sequence of bytes encoded as UTF-8 to a Unicode character.
+ * If @p does not point to a valid UTF-8 encoded character, results are
+ * undefined. If you are not sure that the bytes are complete
+ * valid Unicode characters, you should use g_utf_get_char_validated()
+ * instead.
+ *
+ * Return value: the resulting character
+ **/
+unichar
+charconv_utf8_get_char (const utfchar *p)
+{
+	int i, mask = 0, len;
+	unichar result;
+	unsigned char c = (unsigned char) *p;
+
+	UTF8_COMPUTE (c, mask, len);
+	if (len == -1)
+		return (unichar)-1;
+	UTF8_GET (result, p, i, mask, len);
+
+	return result;
+}
 
 #else /* !HAVE_UNICODE */
 
@@ -292,6 +367,14 @@ charconv_unichar_to_utf8(guint uc)
   outbuf[1] = 0;
   
   return outbuf;
+}
+
+unichar
+charconv_utf8_get_char (const utfchar *p)
+{
+	unichar result = *p;
+
+	return result;
 }
 
 #endif
@@ -1172,71 +1255,8 @@ charconv_utf8_from_gtk_event_key (guint keyval, gchar *string)
 		unival = charconv_keyval_to_unicode (keyval);
 
 		if (unival < ' ') return NULL;
-		utf = g_new (utfchar, 7);
 		utf = g_strdup (charconv_unichar_to_utf8 (unival));
 	}
 
 	return utf;
-}
-
-/*
- * ported from GLib1.3:
- * g_strstr_len:
- * @haystack: a string.
- * @haystack_len: the maximum length of @haystack.
- * @needle: the string to search for.
- *
- * Searches the string @haystack for the first occurrence
- * of the string @needle, limiting the length of the search
- * to @haystack_len.
- *
- * Return value: a pointer to the found occurrence, or
- *    %NULL if not found.
- **/
-utfchar *
-charconv_utf8_strstr_len (const utfchar *haystack, int len, const utfchar *needle)
-{
-	g_return_val_if_fail (haystack != NULL, NULL);
-	g_return_val_if_fail (needle != NULL, NULL);
-
-	if (haystack_len < 0)
-		return strstr (haystack, needle);
-	else {
-		const utfchar *p = haystack;
-		int needle_len = strlen (needle);
-		const utfchar *end;
-		int i;
-
-		if (needle_len == 0)
-			return (utfchar *)haystack;
-
-		if (haystack_len < needle_len)
-			return NULL;
-
-		end = haystack + haystack_len - needle_len;
-
-		while (*p && p <= end) {
-			for (i = 0; i < needle_len; i++)
-				if (p[i] != needle[i])
-					goto next;
-
-			return (utfchar *)p;
-		  next:
-			p++;
-		}
-
-		return NULL;
-	}
-}
-
-utfchar *
-charconv_utf8_strchr (const utfchar *p, int len, unichar c)
-{
-	utfchar *ch, *retval;
-
-	ch = charconv_unichar_to_utf8 (c);
-	retval = charconv_utf8_strstr_len (p, len, ch);
-	g_free (ch);
-
-	return retval;
 }

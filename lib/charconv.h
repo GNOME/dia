@@ -145,8 +145,8 @@ typedef gchar utfchar;
 #define uni_toupper uni_toupper
 #define uni_tolower uni_tolower
 
-#define uni_previous unicode_previous
-#define uni_next unicode_next
+#define uni_previous unicode_previous_utf8
+#define uni_next unicode_next_utf8
 #define uni_strlen unicode_strlen
 #define uni_string_width unicode_string_width
 #define uni_get_utf8 unicode_get_utf8
@@ -162,11 +162,11 @@ typedef gchar utfchar;
 /* The strings returned will have to be g_free()'d */
 extern utfchar *charconv_local8_to_utf8(const gchar *local);
 extern gchar *charconv_utf8_to_local8(const utfchar *utf);
+extern utfchar *charconv_utf8_from_gtk_event_key (guint keyval, gchar *string);
 
 /* The string here is statically allocated and must NOT be g_free()'d.*/
 extern utfchar *charconv_unichar_to_utf8(guint uc);
-extern utfchar *charconv_utf8_from_gtk_event_key (guint keyval, gchar *string);
-extern utfchar *charconv_utf8_strchr (const utfchar *p, int len, unichar c);
+extern unichar charconv_utf8_get_char (const utfchar *p);
 
 #define CHARCONV_H
 #endif  /* CHARCONV_H */

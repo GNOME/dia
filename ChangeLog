@@ -1,3 +1,40 @@
+2002-01-24  Akira TAGOH  <tagoh@redhat.com>
+
+	* app/disp_callbacks.c (ddisplay_canvas_events): when event returned
+	no strings, fixed transaction.
+
+	* lib/charconv.h: fixed typo.
+
+	* app/menus.c: fixed typo.
+
+	* lib/charconv.c (charconv_utf8_strchr): remove. use uni_strchr instead.
+
+	* objects/UML/object.c: attrib's type uses utfchar instead of char.
+
+	* app/disp_callbacks.c (ddisplay_canvas_events): forget g_free()
+
+	* lib/text.c (text_create_change): use unichar instead of char.
+
+	* lib/text.c (data_add_text, data_text, apply_textstr_properties):
+	use utfchar instead of char.
+
+	* lib/text.c (text_insert_char, text_key_event): fixed transaction for
+	UTF-8 support.
+
+	* lib/charconv.c (charconv_utf8_get_char): add new function.
+
+2002-01-23  Akira TAGOH  <tagoh@redhat.com>
+
+	* lib/text.c (text_delete_forward, text_delete_backward,
+	text_split_line): fixed transaction for UTF-8 support.
+
+	* lib/text.c (text_copy): when UNICODE_WORK_IN_PROGRESS is defined,
+	strlen[] has string length for UTF-8, so has to use alloclen[].
+
+	* dia.pot: remove.
+
+	* .cvsignore: add dia.pot.
+
 2002-01-24  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
 	* configure.in: Added "sk" to ALL_LINGUAS.
@@ -612,7 +649,6 @@
 
 	* lib/libdia.def : reflect api changes
 
->>>>>>> 1.691
 2001-08-17  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* config.h.win32: added defines telling that gtk speaks UTF8.

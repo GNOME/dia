@@ -567,6 +567,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	if (diagram_is_selected(ddisp->diagram, obj)) {
 	  ObjectChange *obj_change = NULL;
 	  utfchar *utf;
+	  int len = 0;
 	
 	  object_add_updates(obj, ddisp->diagram);
 #ifdef USE_XIM
@@ -579,11 +580,10 @@ ddisplay_canvas_events (GtkWidget *canvas,
 #else
 	  utf = g_strdup (kevent->string);
 #endif
-	  if (utf != NULL) {
-		  modified = (focus->key_event)(focus, kevent->keyval,
-										utf, uni_strlen (utf, strlen (utf)),
-										&obj_change);
-	  }
+	  if (utf != NULL) len = uni_strlen (utf, strlen (utf));
+	  modified = (focus->key_event)(focus, kevent->keyval,
+					utf, len, &obj_change);
+	  if (utf != NULL) g_free (utf);
 	  { /* Make sure object updates its data and its connected: */
 	    Point p = obj->position;
 	    (obj->ops->move)(obj,&p);  

@@ -26,6 +26,7 @@ ABOUT-NLS
 intl
 dia.keys
 dia.keys.tmp
+dia.pot
 xml-i18n-extract.in 
 xml-i18n-merge.in 
 xml-i18n-update.in

@@ -56,7 +56,7 @@ struct _Objet {
   int show_attributes;
   int is_multiple;  
   
-  char *attrib;
+  utfchar *attrib;
   
   char *st_stereotype;
 };
