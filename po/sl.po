@@ -3547,7 +3547,7 @@ msgstr "Uvozni in izvozni filtri za datoteke za izmenjavo risb (DIF) "
 
 #: plug-ins/hpgl/hpgl.c:616
 msgid "HP Graphics Language export filter"
-msgstr "Izvozni filter za HP Grafièni Jezik"
+msgstr "Izvozni filter za Grafièni Jezik HP"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -3575,7 +3575,7 @@ msgstr "Skalabilna Vektorska Grafika"
 
 #: plug-ins/svg/svg.c:36
 msgid "Scalable Vector Graphics export filter"
-msgstr "Izbozni filter Skalabilne Vektorske Grafike"
+msgstr "Izvozni filter Skalabilne Vektorske Grafike"
 
 #: plug-ins/wpg/wpg.c:1048
 #, c-format
