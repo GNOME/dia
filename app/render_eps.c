@@ -208,6 +208,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
 	  (int) ceil((extent->right - extent->left)*scale),
 	  (int) ceil((extent->bottom - extent->top)*scale) );
 
+  fprintf(file, "%%%%BeginProlog\n");
   fprintf(file,
 	  "[ /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
 	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
