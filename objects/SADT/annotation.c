@@ -174,23 +174,10 @@ annotation_get_props(Annotation *annotation, Property *props, guint nprops)
 static void
 annotation_set_props(Annotation *annotation, Property *props, guint nprops)
 {
-  int i;
-  Property *textprop = NULL;
-
   object_set_props_from_offsets(&annotation->connection.object,
                                 annotation_offsets,props,nprops);
-  for (i=0;i<nprops;i++) {
-    if (0 == strcmp(props[i].name,"text")) {
-      textprop = &props[i];
-      break;
-    }
-  }
-
-  if ((!textprop) || (!PROP_VALUE_TEXT(*textprop).enabled)) {
-    /* most likely we're called after the dialog box has been applied */
-    text_set_attributes(annotation->text,&annotation->attrs);
-    text_set_position(annotation->text,&annotation->text_handle.pos);
-  }
+  apply_textattr_properties(props,nprops,
+                            annotation->text,"text",&annotation->attrs);
   annotation_update_data(annotation);
 }
 

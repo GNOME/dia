@@ -166,22 +166,10 @@ action_get_props(Action *action, Property *props, guint nprops)
 static void
 action_set_props(Action *action, Property *props, guint nprops)
 {
-  int i;
-  Property *textprop = NULL;
-
   object_set_props_from_offsets(&action->connection.object,
                                 action_offsets,props,nprops);
-  for (i=0;i<nprops;i++) {
-    if (0 == strcmp(props[i].name,"text")) {
-      textprop = &props[i];
-      break;
-    }
-  }
-
-  if ((!textprop) || (!PROP_VALUE_TEXT(*textprop).enabled)) {
-    /* most likely we're called after the dialog box has been applied */
-    text_set_attributes(action->text,&action->attrs);
-  }
+  apply_textattr_properties(props,nprops,
+                            action->text,"text",&action->attrs);
   action_update_data(action);
 }
 

@@ -37,13 +37,6 @@
 #include "pixmaps/constraint.xpm"
 
 typedef struct _Constraint Constraint;
-typedef struct _ConstraintState ConstraintState;
-
-struct _ConstraintState {
-  ObjectState obj_state;
-  
-  char *text;
-};
 
 struct _Constraint {
   Connection connection;
@@ -51,6 +44,7 @@ struct _Constraint {
   Handle text_handle;
 
   char *text;
+  char *brtext;
   Point text_pos;
   real text_width;
 };
@@ -80,25 +74,21 @@ static Object *constraint_create(Point *startpoint,
 static real constraint_distance_from(Constraint *constraint, Point *point);
 static void constraint_update_data(Constraint *constraint);
 static void constraint_destroy(Constraint *constraint);
-static Object *constraint_copy(Constraint *constraint);
 
-static ConstraintState *constraint_get_state(Constraint *constraint);
-static void constraint_set_state(Constraint *constraint,
-				 ConstraintState *state);
 static PropDescription *constraint_describe_props(Constraint *constraint);
 static void constraint_get_props(Constraint * constraint, Property *props, guint nprops);
 static void constraint_set_props(Constraint * constraint, Property *props, guint nprops);
 
-static void constraint_save(Constraint *constraint, ObjectNode obj_node,
-			    const char *filename);
 static Object *constraint_load(ObjectNode obj_node, int version,
 			       const char *filename);
 
 static ObjectTypeOps constraint_type_ops =
 {
   (CreateFunc) constraint_create,
-  (LoadFunc)   constraint_load,
-  (SaveFunc)   constraint_save
+  (LoadFunc)   constraint_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType constraint_type =
@@ -114,7 +104,7 @@ static ObjectOps constraint_ops = {
   (DrawFunc)            constraint_draw,
   (DistanceFunc)        constraint_distance_from,
   (SelectFunc)          constraint_select,
-  (CopyFunc)            constraint_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            constraint_move,
   (MoveHandleFunc)      constraint_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -126,82 +116,40 @@ static ObjectOps constraint_ops = {
 };
 
 static PropDescription constraint_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  CONNECTION_COMMON_PROPERTIES,
   { "constraint", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Constraint:"), NULL, NULL },
+  { "text_pos", PROP_TYPE_POINT, 0, NULL, NULL, NULL},
   PROP_DESC_END
 };
 
 static PropDescription *
 constraint_describe_props(Constraint *constraint)
 {
-  if (constraint_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(constraint_props);
   return constraint_props;
 }
 
 static PropOffset constraint_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
-  /*  { "constraint", PROP_TYPE_STRING, offsetof(Constraint, text) },*/
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
+  { "constraint", PROP_TYPE_STRING, offsetof(Constraint, text) },
+  { "text_pos", PROP_TYPE_POINT, offsetof(Constraint, text_pos) },
   { NULL, 0, 0 }
-};
-
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "constraint" }
 };
 
 static void
 constraint_get_props(Constraint * constraint, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&constraint->connection.object, 
-                                    constraint_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      if (constraint->text != NULL &&
-	  constraint->text[0] != '\0')
-	PROP_VALUE_STRING(props[i]) =
-	  bracketted_to_string(constraint->text, strlen("{"));
-      else
-	PROP_VALUE_STRING(props[i]) = NULL;	
-    }
-  }
+  object_get_props_from_offsets(&constraint->connection.object, 
+                                constraint_offsets, props, nprops);
 }
 
 static void
 constraint_set_props(Constraint *constraint, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&constraint->connection.object, 
-                                     constraint_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-	quarks[i].q = g_quark_from_static_string(quarks[i].name);
-    
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_STRING) {
-	g_free(constraint->text);
-	if (PROP_VALUE_STRING(props[i]) != NULL &&
-	    PROP_VALUE_STRING(props[i])[0] != '\0')
-	  constraint->text=
-	    string_to_bracketted(PROP_VALUE_STRING(props[i]), "{", "}");
-	else 
-	  constraint->text = g_strdup("{}");
-      }
-    }
-  }
+  object_set_props_from_offsets(&constraint->connection.object, 
+                                constraint_offsets, props, nprops);
+  g_free(constraint->brtext);
+  constraint->brtext = NULL;
   constraint_update_data(constraint);
 }
 
@@ -213,8 +161,8 @@ constraint_distance_from(Constraint *constraint, Point *point)
   
   endpoints = &constraint->connection.endpoints[0];
   
-  dist = distance_line_point(&endpoints[0], &endpoints[1], CONSTRAINT_WIDTH, point);
-  
+  dist = distance_line_point(&endpoints[0], &endpoints[1], 
+                             CONSTRAINT_WIDTH, point);  
   return dist;
 }
 
@@ -300,7 +248,7 @@ constraint_draw(Constraint *constraint, Renderer *renderer)
   renderer->ops->set_font(renderer, constraint_font,
 			  CONSTRAINT_FONTHEIGHT);
   renderer->ops->draw_string(renderer,
-			     constraint->text,
+			     constraint->brtext,
 			     &constraint->text_pos, ALIGN_LEFT,
 			     &color_black);
 }
@@ -333,7 +281,7 @@ constraint_create(Point *startpoint,
   
   connection_init(conn, 3, 0);
 
-  constraint->text = strdup("{}");
+  constraint->text = g_strdup("");
   constraint->text_pos.x = 0.5*(conn->endpoints[0].x + conn->endpoints[1].x);
   constraint->text_pos.y = 0.5*(conn->endpoints[0].y + conn->endpoints[1].y);
 
@@ -343,6 +291,7 @@ constraint_create(Point *startpoint,
   constraint->text_handle.connected_to = NULL;
   obj->handles[2] = &constraint->text_handle;
   
+  constraint->brtext = NULL;
   constraint_update_data(constraint);
 
   *handle1 = obj->handles[0];
@@ -355,66 +304,9 @@ static void
 constraint_destroy(Constraint *constraint)
 {
   connection_destroy(&constraint->connection);
-
+  g_free(constraint->brtext);
   g_free(constraint->text);
-
 }
-
-static Object *
-constraint_copy(Constraint *constraint)
-{
-  Constraint *newconstraint;
-  Connection *conn, *newconn;
-  Object *newobj;
-  
-  conn = &constraint->connection;
-  
-  newconstraint = g_malloc0(sizeof(Constraint));
-  newconn = &newconstraint->connection;
-  newobj = &newconn->object;
-
-  connection_copy(conn, newconn);
-
-  newconstraint->text_handle = constraint->text_handle;
-  newobj->handles[2] = &newconstraint->text_handle;
-
-  newconstraint->text = strdup(constraint->text);
-  newconstraint->text_pos = constraint->text_pos;
-  newconstraint->text_width = constraint->text_width;
-
-  return &newconstraint->connection.object;
-}
-
-static void
-constraint_state_free(ObjectState *ostate)
-{
-  ConstraintState *state = (ConstraintState *)ostate;
-  g_free(state->text);
-}
-
-static ConstraintState *
-constraint_get_state(Constraint *constraint)
-{
-  ConstraintState *state = g_new0(ConstraintState, 1);
-
-  state->obj_state.free = constraint_state_free;
-
-  state->text = g_strdup(constraint->text);
-
-  return state;
-}
-
-static void
-constraint_set_state(Constraint *constraint, ConstraintState *state)
-{
-  g_free(constraint->text);
-  constraint->text = state->text;
-  
-  g_free(state);
-  
-  constraint_update_data(constraint);
-}
-
 
 static void
 constraint_update_data(Constraint *constraint)
@@ -424,10 +316,19 @@ constraint_update_data(Constraint *constraint)
   Rectangle rect;
   LineBBExtras *extra;
 
+  if ((constraint->text) && (constraint->text[0] == '{')) {
+    /* we might have a string loaded from an older dia. Clean it up. */
+    g_free(constraint->brtext);
+    constraint->brtext = constraint->text;
+    constraint->text = bracketted_to_string(constraint->text,"{","}");
+  } else if (!constraint->brtext) {
+    constraint->brtext = string_to_bracketted(constraint->text, "{", "}");
+  }
+  
   obj->position = conn->endpoints[0];
 
   constraint->text_width =
-    font_string_width(constraint->text, 
+    font_string_width(constraint->brtext, 
                       constraint_font, 
                       CONSTRAINT_FONTHEIGHT);
   
@@ -454,61 +355,9 @@ constraint_update_data(Constraint *constraint)
 }
 
 
-static void
-constraint_save(Constraint *constraint, ObjectNode obj_node,
-		const char *filename)
-{
-  connection_save(&constraint->connection, obj_node);
-
-  data_add_string(new_attribute(obj_node, "text"),
-		  constraint->text);
-  data_add_point(new_attribute(obj_node, "text_pos"),
-		 &constraint->text_pos);
-}
-
 static Object *
 constraint_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Constraint *constraint;
-  AttributeNode attr;
-  Connection *conn;
-  LineBBExtras *extra;
-  Object *obj;
-
-  if (constraint_font == NULL)
-    constraint_font = font_getfont("Courier");
-
-  constraint = g_malloc0(sizeof(Constraint));
-
-  conn = &constraint->connection;
-  obj = &conn->object;
-  extra = &conn->extra_spacing;
-
-  obj->type = &constraint_type;
-  obj->ops = &constraint_ops;
-
-  connection_load(conn, obj_node);
-  
-  connection_init(conn, 3, 0);
-
-  constraint->text = NULL;
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-    constraint->text = data_string(attribute_first_data(attr));
-  else
-    constraint->text = strdup("{}");
-
-  attr = object_find_attribute(obj_node, "text_pos");
-  if (attr != NULL)
-    data_point(attribute_first_data(attr), &constraint->text_pos);
-
-  constraint->text_handle.id = HANDLE_MOVE_TEXT;
-  constraint->text_handle.type = HANDLE_MINOR_CONTROL;
-  constraint->text_handle.connect_type = HANDLE_NONCONNECTABLE;
-  constraint->text_handle.connected_to = NULL;
-  obj->handles[2] = &constraint->text_handle;
-  
-  constraint_update_data(constraint);
-  
-  return &constraint->connection.object;
+  return object_load_using_properties(&constraint_type,
+                                      obj_node,version,filename);
 }

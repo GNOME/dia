@@ -41,6 +41,7 @@ struct _Actor {
   ConnectionPoint connections[8];
 
   Text *text;
+  TextAttributes attrs;
 };
 
 #define ACTOR_WIDTH 2.2
@@ -63,10 +64,6 @@ static Object *actor_create(Point *startpoint,
 			   Handle **handle1,
 			   Handle **handle2);
 static void actor_destroy(Actor *actor);
-static Object *actor_copy(Actor *actor);
-
-static void actor_save(Actor *actor, ObjectNode obj_node,
-		       const char *filename);
 static Object *actor_load(ObjectNode obj_node, int version,
 			  const char *filename);
 
@@ -79,8 +76,10 @@ static void actor_update_data(Actor *actor);
 static ObjectTypeOps actor_type_ops =
 {
   (CreateFunc) actor_create,
-  (LoadFunc)   actor_load,
-  (SaveFunc)   actor_save
+  (LoadFunc)   actor_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType actor_type =
@@ -97,7 +96,7 @@ static ObjectOps actor_ops = {
   (DrawFunc)            actor_draw,
   (DistanceFunc)        actor_distance_from,
   (SelectFunc)          actor_select,
-  (CopyFunc)            actor_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            actor_move,
   (MoveHandleFunc)      actor_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -113,89 +112,40 @@ static PropDescription actor_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  PROP_STD_TEXT,
-  
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
   PROP_DESC_END
 };
 
 static PropDescription *
 actor_describe_props(Actor *actor)
 {
-  if (actor_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(actor_props);
   return actor_props;
 }
 
 static PropOffset actor_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-
+  {"text",PROP_TYPE_TEXT,offsetof(Actor,text)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Actor,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(Actor,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Actor,attrs.color)},
   { NULL, 0, 0 },
-};
-
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" }
 };
 
 static void
 actor_get_props(Actor * actor, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&actor->element.object, 
-                                    actor_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = actor->text->font;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = actor->text->height;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = actor->text->color;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(actor->text);
-    }
-  }
+  text_get_attributes(actor->text,&actor->attrs);
+  object_get_props_from_offsets(&actor->element.object,
+                                actor_offsets,props,nprops);
 }
 
 static void
 actor_set_props(Actor *actor, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&actor->element.object, 
-                                     actor_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-	quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
-	text_set_font(actor->text, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
-	text_set_height(actor->text, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
-	text_set_color(actor->text, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
-	text_set_string(actor->text, PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
+  object_set_props_from_offsets(&actor->element.object,
+                                actor_offsets,props,nprops);
+  apply_textattr_properties(props,nprops,
+                            actor->text,"text",&actor->attrs);
   actor_update_data(actor);
 }
 
@@ -381,7 +331,9 @@ actor_create(Point *startpoint,
   p.x += ACTOR_MARGIN_X;
   p.y += ACTOR_HEIGHT - font_descent(font, 0.8);
   
-  actor->text = new_text(_("Actor"), font, 0.8, &p, &color_black, ALIGN_CENTER);
+  actor->text = new_text(_("Actor"), 
+                         font, 0.8, &p, &color_black, ALIGN_CENTER);
+  text_get_attributes(actor->text,&actor->attrs);
   
   element_init(elem, 8, 8);
   
@@ -411,81 +363,9 @@ actor_destroy(Actor *actor)
 }
 
 static Object *
-actor_copy(Actor *actor)
-{
-  int i;
-  Actor *newactor;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &actor->element;
-  
-  newactor = g_malloc0(sizeof(Actor));
-  newelem = &newactor->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-
-  newactor->text = text_copy(actor->text);
-  
-  for (i=0;i<8;i++) {
-    newobj->connections[i] = &newactor->connections[i];
-    newactor->connections[i].object = newobj;
-    newactor->connections[i].connected = NULL;
-    newactor->connections[i].pos = actor->connections[i].pos;
-    newactor->connections[i].last_pos = actor->connections[i].last_pos;
-  }
-  actor_update_data(newactor);
-  
-  return &newactor->element.object;
-}
-
-
-static void
-actor_save(Actor *actor, ObjectNode obj_node, const char *filename)
-{
-  element_save(&actor->element, obj_node);
-
-  data_add_text(new_attribute(obj_node, "text"),
-		actor->text);
-}
-
-static Object *
 actor_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Actor *actor;
-  Element *elem;
-  Object *obj;
-  int i;
-  AttributeNode attr;
-  
-  actor = g_malloc0(sizeof(Actor));
-  elem = &actor->element;
-  obj = &elem->object;
-  
-  obj->type = &actor_type;
-  obj->ops = &actor_ops;
-
-  element_load(elem, obj_node);
-  
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-      actor->text = data_text(attribute_first_data(attr));
-
-  element_init(elem, 8, 8);
-
-  for (i=0;i<8;i++) {
-    obj->connections[i] = &actor->connections[i];
-    actor->connections[i].object = obj;
-    actor->connections[i].connected = NULL;
-  }
-  elem->extra_spacing.border_trans = ACTOR_LINEWIDTH/2.0;
-  actor_update_data(actor);
-
-  for (i=0;i<8;i++) {
-    obj->handles[i]->type = HANDLE_NON_MOVABLE;
-  }
-
-  return &actor->element.object;
+  return object_load_using_properties(&actor_type,
+                                      obj_node,version,filename);
 }
 

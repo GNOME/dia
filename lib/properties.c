@@ -153,6 +153,17 @@ prop_desc_insert_handler(PropDescription *pdesc,
   pdesc->event_handler = handler;
 }
 
+const PropDescription *
+get_prop_descriptions(Object *obj) {
+  const PropDescription *pdesc;
+  if (!obj->ops->describe_props) return NULL;
+
+  pdesc = obj->ops->describe_props(obj);
+  if (pdesc[0].quark != 0) return pdesc;
+
+  prop_desc_list_calculate_quarks((PropDescription *)pdesc);  /* Yes... */
+  return pdesc;
+}
 
 static const PropDescription null_prop_desc = { NULL };
 
@@ -1629,11 +1640,10 @@ object_create_props_dialog(Object *obj)
   PropDialogData *ppd = g_new0(PropDialogData,1);
   Object *obj_copy = NULL;
 
-  g_return_val_if_fail(obj->ops->describe_props != NULL, NULL);
   g_return_val_if_fail(obj->ops->get_props != NULL, NULL);
   g_return_val_if_fail(obj->ops->set_props != NULL, NULL);
 
-  pdesc = obj->ops->describe_props(obj);
+  pdesc = get_prop_descriptions(obj);
   g_return_val_if_fail(pdesc != NULL, NULL);
 
   for (i = 0; pdesc[i].name != NULL; i++)
@@ -1844,12 +1854,11 @@ object_copy_props(Object *dest, Object *src)
   g_return_if_fail(strcmp(src->type->name,dest->type->name)==0);
   g_return_if_fail(src->ops == dest->ops);
 
-  if (src->ops->describe_props == NULL ||
-      src->ops->set_props == NULL) {
-    g_warning("No describe_props or set_props!");
+  if (src->ops->set_props == NULL) {
+    g_warning("No set_props!");
     return;
   }
-  pdesc = src->ops->describe_props(src);
+  pdesc = get_prop_descriptions(src);
   if (pdesc == NULL) {
     g_warning("No properties!");
     return;
@@ -1872,12 +1881,11 @@ object_load_props(Object *obj, ObjectNode obj_node)
   g_return_if_fail(obj != NULL);
   g_return_if_fail(obj_node != NULL);
 
-  if (obj->ops->describe_props == NULL ||
-      obj->ops->set_props == NULL) {
-    g_warning("No describe_props or set_props!");
+  if (obj->ops->set_props == NULL) {
+    g_warning("No set_props!");
     return;
   }
-  pdesc = obj->ops->describe_props(obj);
+  pdesc = get_prop_descriptions(obj);
   if (pdesc == NULL) {
     g_warning("No properties!");
     return;
@@ -1901,12 +1909,11 @@ object_save_props(Object *obj, ObjectNode obj_node)
   g_return_if_fail(obj != NULL);
   g_return_if_fail(obj_node != NULL);
 
-  if (obj->ops->describe_props == NULL ||
-      obj->ops->get_props == NULL) {
-    g_warning("No describe_props!");
+  if (obj->ops->get_props == NULL) {
+    g_warning("No get_props!");
     return;
   }
-  pdesc = obj->ops->describe_props(obj);
+  pdesc = get_prop_descriptions(obj);
   if (pdesc == NULL) {
     g_warning("No properties!");
     return;

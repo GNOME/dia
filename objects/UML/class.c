@@ -37,6 +37,11 @@
 #define UMLCLASS_BORDER 0.1
 #define UMLCLASS_UNDERLINEWIDTH 0.05
 
+#undef UML_STEREOTYPE_START
+#undef UML_STEREOTYPE_END
+#define UML_STEREOTYPE_START ((char) 171)
+#define UML_STEREOTYPE_END ((char) 187)
+
 static real umlclass_distance_from(UMLClass *umlclass, Point *point);
 static void umlclass_select(UMLClass *umlclass, Point *clicked_point,
 			    Renderer *interactive_renderer);

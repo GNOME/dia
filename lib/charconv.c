@@ -51,6 +51,9 @@ down to nops and strdups */
 #endif /* !EFAULT_8BIT_CHARSET */
 #define CODESET
 static const char *nl_langinfo(void) {
+  g_warning("Could not determine the local charset. Using %s by default.\n"
+            "This failure may be caused by an incorrect compilation.",
+            EFAULT_8BIT_CHARSET);
   return EFAULT_8BIT_CHARSET;
 }
 #endif /* HAVE_LANGINFO_CODESET */

@@ -86,6 +86,9 @@ dia_plugin_init(PluginInfo *info)
   return DIA_PLUGIN_INIT_OK;
 }
 
+/* Warning, the following *must* be strictly ASCII characters (or fix the 
+   following code for UTF-8 cleanliness */
+
 char visible_char[] = { '+', '-', '#', ' ' };
 
 char *
@@ -257,10 +260,10 @@ uml_attribute_copy(UMLAttribute *attr)
   UMLAttribute *newattr;
 
   newattr = g_new0(UMLAttribute, 1);
-  newattr->name = strdup(attr->name);
-  newattr->type = strdup(attr->type);
+  newattr->name = g_strdup(attr->name);
+  newattr->type = g_strdup(attr->type);
   if (attr->value != NULL) {
-    newattr->value = strdup(attr->value);
+    newattr->value = g_strdup(attr->value);
   } else {
     newattr->value = NULL;
   }
@@ -283,9 +286,9 @@ uml_operation_copy(UMLOperation *op)
   GList *list;
   
   newop = g_new0(UMLOperation, 1);
-  newop->name = strdup(op->name);
+  newop->name = g_strdup(op->name);
   if (op->type != NULL) {
-    newop->type = strdup(op->type);
+    newop->type = g_strdup(op->type);
   } else {
     newop->type = NULL;
   }
@@ -302,10 +305,10 @@ uml_operation_copy(UMLOperation *op)
     param = (UMLParameter *)list->data;
 
     newparam = g_new0(UMLParameter, 1);
-    newparam->name = strdup(param->name);
-    newparam->type = strdup(param->type);
+    newparam->name = g_strdup(param->name);
+    newparam->type = g_strdup(param->type);
     if (param->value != NULL)
-      newparam->value = strdup(param->value);
+      newparam->value = g_strdup(param->value);
     else
       newparam->value = NULL;
     newparam->kind = param->kind;
@@ -325,9 +328,9 @@ uml_formalparameter_copy(UMLFormalParameter *param)
 
   newparam = g_new0(UMLFormalParameter, 1);
 
-  newparam->name = strdup(param->name);
+  newparam->name = g_strdup(param->name);
   if (param->type != NULL) {
-    newparam->type = strdup(param->type);
+    newparam->type = g_strdup(param->type);
   } else {
     newparam->type = NULL;
   }

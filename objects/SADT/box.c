@@ -188,23 +188,10 @@ sadtbox_get_props(Box *box, Property *props, guint nprops)
 static void
 sadtbox_set_props(Box *box, Property *props, guint nprops)
 {
-  int i;
-  Property *textprop = NULL;
-
   object_set_props_from_offsets(&box->element.object,
                                 box_offsets,props,nprops);
-  for (i=0;i<nprops;i++) {
-    if (0 == strcmp(props[i].name,"text")) {
-      textprop = &props[i];
-      break;
-    }
-  }
-
-  if ((!textprop) || (!PROP_VALUE_TEXT(*textprop).enabled)) {
-    /* most likely we're called after the dialog box has been applied */
-    text_set_attributes(box->text,&box->attrs);
-  }
-
+  apply_textattr_properties(props,nprops,
+                            box->text,"text",&box->attrs);
   sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 

@@ -63,10 +63,6 @@ static Object *branch_create(Point *startpoint,
 			     Handle **handle1,
 			     Handle **handle2);
 static void branch_destroy(Branch *branch);
-static Object *branch_copy(Branch *branch);
-
-static void branch_save(Branch *branch, ObjectNode obj_node,
-			const char *filename);
 static Object *branch_load(ObjectNode obj_node, int version,
 			   const char *filename);
 
@@ -79,8 +75,10 @@ static void branch_update_data(Branch *branch);
 static ObjectTypeOps branch_type_ops =
 {
   (CreateFunc) branch_create,
-  (LoadFunc)   branch_load,
-  (SaveFunc)   branch_save
+  (LoadFunc)   branch_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType branch_type =
@@ -98,7 +96,7 @@ static ObjectOps branch_ops =
   (DrawFunc)            branch_draw,
   (DistanceFunc)        branch_distance_from,
   (SelectFunc)          branch_select,
-  (CopyFunc)            branch_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            branch_move,
   (MoveHandleFunc)      branch_move_handle,
   (GetPropertiesFunc)   object_return_null,
@@ -118,8 +116,6 @@ static PropDescription branch_props[] = {
 static PropDescription *
 branch_describe_props(Branch *branch)
 {
-  if (branch_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(branch_props);
   return branch_props;
 }
 
@@ -131,19 +127,15 @@ static PropOffset branch_offsets[] = {
 static void
 branch_get_props(Branch * branch, Property *props, guint nprops)
 {
-  if (object_get_props_from_offsets(&branch->element.object, 
-                                    branch_offsets, props, nprops))
-    return;
-  /* none yet */
+  object_get_props_from_offsets(&branch->element.object, 
+                                branch_offsets, props, nprops);
 }
 
 static void
 branch_set_props(Branch *branch, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&branch->element.object, 
-                                     branch_offsets, props, nprops)) {
-    /* none yet */
-  }
+  object_set_props_from_offsets(&branch->element.object, 
+                                branch_offsets, props, nprops);
   branch_update_data(branch);
 }
 
@@ -267,62 +259,12 @@ static void branch_destroy(Branch *branch)
   element_destroy(&branch->element);
 }
 
-static Object *branch_copy(Branch *branch)
-{
-  int i;
-  Branch *newbranch;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &branch->element;
-  
-  newbranch = g_malloc0(sizeof(Branch));
-  newelem = &newbranch->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-  for (i=0;i<8;i++)
-    {
-      newobj->connections[i] = &newbranch->connections[i];
-      newbranch->connections[i].object = newobj;
-      newbranch->connections[i].connected = NULL;
-      newbranch->connections[i].pos = branch->connections[i].pos;
-      newbranch->connections[i].last_pos = branch->connections[i].last_pos;
-    }
-  branch_update_data(newbranch);
-  return &newbranch->element.object;
-}
-
-static void branch_save(Branch *branch, ObjectNode obj_node, const char *filename)
-{
-  element_save(&branch->element, obj_node);
-}
-
 static Object *branch_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Branch *branch;
-  Element *elem;
-  Object *obj;
-  int i;
-  
-  branch = g_malloc0(sizeof(Branch));
-  elem = &branch->element;
-  obj = &elem->object;
-  
-  obj->type = &branch_type;
-  obj->ops = &branch_ops;
-
-  element_load(elem, obj_node);
-
-  element_init(elem, 8, 8);
-
-  for (i=0;i<8;i++)
-    {
-      obj->connections[i] = &branch->connections[i];
-      branch->connections[i].object = obj;
-      branch->connections[i].connected = NULL;
-    }
-  elem->extra_spacing.border_trans = BRANCH_BORDERWIDTH / 2.0;
-  branch_update_data(branch);
-  return &branch->element.object;
+  return object_load_using_properties(&branch_type,
+                                      obj_node,version,filename);
 }
+
+
+
+

@@ -1054,3 +1054,29 @@ text_create_change(Text *text, enum change_type type,
     change->str = NULL;
   return (ObjectChange *)change;
 }
+
+gboolean 
+apply_textattr_properties(Property *props, guint nprops,
+                          Text *text, const gchar *textname,
+                          TextAttributes *attrs)
+{
+  int i;
+  Property *textprop = NULL;
+  GQuark prop_quark = g_quark_from_string(textname);
+
+  for (i=0;i<nprops;i++) {
+    if (!props[i].descr) continue;
+    if (props[i].descr->quark == prop_quark) {
+      textprop = &props[i];
+      break;
+    }
+  }
+
+  if ((!textprop) || (!PROP_VALUE_TEXT(*textprop).enabled)) {
+    /* most likely we're called after the dialog box has been applied */
+    text_set_attributes(text,attrs);
+    return TRUE; 
+  }
+  return FALSE;
+}
+

@@ -20,6 +20,7 @@
 
 #include <glib.h>
 #include "connectionpoint.h"
+#include "charconv.h"
 
 typedef struct _UMLAttribute UMLAttribute;
 typedef struct _UMLOperation UMLOperation;
@@ -77,8 +78,17 @@ struct _UMLFormalParameter {
 };
 
 /* Characters used to start/end stereotypes: */
+#ifdef HAVE_UNICODE
+#define UML_STEREOTYPE_START 0xc2, 0xab
+#define UML_STEREOTYPE_END 0xc2, 0xbb
+#define UML_STEREOTYPE_START_LEN 2
+#define UML_STEREOTYPE_END_LEN 2
+#else
 #define UML_STEREOTYPE_START ((char) 171)
 #define UML_STEREOTYPE_END ((char) 187)
+#define UML_STEREOTYPE_START_LEN 1
+#define UML_STEREOTYPE_END_LEN 1
+#endif<
 
 extern char *uml_get_attribute_string(UMLAttribute *attribute);
 extern char *uml_get_operation_string(UMLOperation *operation);

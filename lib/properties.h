@@ -389,6 +389,7 @@ ObjectChange *object_apply_props(Object *obj, Property *props, guint nprops);
  * implement describe_props, get_props and set_props */
 GtkWidget    *object_create_props_dialog     (Object *obj);
 ObjectChange *object_apply_props_from_dialog (Object *obj, GtkWidget *table);
+const PropDescription *get_prop_descriptions(Object *obj);
 
 /* standard way to load/save properties of an object */
 void          object_load_props(Object *obj, ObjectNode obj_node);

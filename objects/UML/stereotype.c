@@ -22,33 +22,77 @@
 
 #include <string.h>
 #include "stereotype.h"
+#include "charconv.h"
 
 char *
 string_to_bracketted(char *str, char *start_bracket, char *end_bracket) {
+#ifdef UNICODE_WORK_IN_PROGRESS
   char *bracketted;
 
-  bracketted = g_malloc(sizeof(char)*strlen(str)+
-			2*strlen(start_bracket)+1);
-  strcpy(bracketted, start_bracket);
-  strcat(bracketted, str);
-  strcat(bracketted, end_bracket);
+  bracketted = g_strconcat(start_bracket,tmpstr,end_bracket,NULL);
 
   return bracketted;
+#else
+  char *tmpstr;
+  char *bracketted,*tmp;
+
+  tmpstr = charconv_local8_to_utf8((str?str:""));
+  bracketted = g_strconcat(start_bracket,tmpstr,end_bracket,NULL);
+  tmp = charconv_utf8_to_local8(bracketted);
+  g_free(bracketted);
+  return tmp;
+#endif
 }
 
+static char *strend(char *p) {
+  if (!p) return NULL;
+  while (*p) p++;
+  return p;
+}
+
+#ifdef UNICODE_WORK_IN_PROGRESS
 char *
-bracketted_to_string(char *bracketted, int bracket_len) {
+bracketted_to_string(utfchar *bracketted, 
+                     utfchar *start_bracket, 
+                     utfchar *end_bracket){
+#else
+static char *
+_bracketted_to_string(utfchar *bracketted, 
+                      utfchar *start_bracket, 
+                      utfchar *end_bracket){
+#endif
   char *str;
+  int start_len = strlen(start_bracket);
+  int end_len = strlen(end_bracket);
+  int str_len = strlen(bracketted);
 
-  str = strdup(bracketted);
-  strcpy(str, bracketted+bracket_len);
-  str[strlen(str)-bracket_len] = 0;
+  if (!bracketted) return NULL;
 
-  return str;
+  str = bracketted;
+  if (0==strncmp(str,start_bracket,start_len)) {
+    str += start_len;
+    str_len -= start_len;
+  }
+  if (0 == strncmp(strend(str) - end_len,end_bracket,end_len)) {
+    str_len -= end_len;
+  }
+  return g_strndup(str,str_len);
 }
 
-char uml_start_bracket[] = {(char)UML_STEREOTYPE_START, '\0'};
-char uml_end_bracket[] = {(char)UML_STEREOTYPE_END, '\0'};
+#ifndef UNICODE_WORK_IN_PROGRESS
+char *
+bracketted_to_string(char *bracketted, char *start_bracket, char *end_bracket){
+  char *tmp = charconv_local8_to_utf8((bracketted?bracketted:""));  
+  char *uref = _bracketted_to_string(tmp,start_bracket,end_bracket);
+  char *ret = charconv_utf8_to_local8(uref);
+
+  g_free(uref); g_free(tmp); 
+  return ret;
+}  
+#endif
+
+char uml_start_bracket[] = { UML_STEREOTYPE_START, '\0'};
+char uml_end_bracket[] = { UML_STEREOTYPE_END, '\0'};
 
 char *
 string_to_stereotype(char *str) {
@@ -56,7 +100,20 @@ string_to_stereotype(char *str) {
 }
 
 char *
+remove_stereotype_from_string(char *stereotype) {
+  if (stereotype) { 
+    char *tmp = bracketted_to_string(stereotype, 
+                                     uml_start_bracket, uml_end_bracket);
+    g_free(stereotype);
+    return tmp;
+  } else {
+    return NULL;
+  }
+}
+
+char *
 stereotype_to_string(char *stereotype) {
-  return bracketted_to_string(stereotype, 1);
+  return bracketted_to_string(stereotype, 
+                              uml_start_bracket, uml_end_bracket);
 }
 

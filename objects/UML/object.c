@@ -38,6 +38,11 @@
 
 #include "pixmaps/object.xpm"
 
+#undef UML_STEREOTYPE_START
+#undef UML_STEREOTYPE_END
+#define UML_STEREOTYPE_START ((char) 171)
+#define UML_STEREOTYPE_END ((char) 187)
+
 typedef struct _Objet Objet;
 typedef struct _ObjetState ObjetState;
 typedef struct _ObjetPropertiesDialog ObjetPropertiesDialog;

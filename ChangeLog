@@ -1,3 +1,35 @@
+2001-08-04  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* NEWS: updated to reflect build-time dependencies.
+
+	* lib/properties.[ch]: wrote get_prop_descriptions() as a wrapper
+	around obj->ops->describe_props(obj). Quarks are none of an
+	object's business in the general case... 
+	* lib/text.c: Added an apply_textattr_properties() function to
+	factor out some common code related to applying a dialog's text
+	attribute properties to a (Text *) which wasn't edited there. 
+
+	* objects/GRAFCET/action.c:
+	* objects/SADT/annotation.c:
+	* objects/SADT/box.c: used apply_textattr_properties().
+	
+	* objects/UML/actor.c: 
+	* objects/UML/branch.c:
+	* objects/UML/component.c:
+	* objects/UML/constraint.c:
+	slim-fast(tm) cure using more StdProps.
+
+	* objects/UML/stereotype.[ch]: use UTF-8 internally.
+	* objects/UML/uml.[ch]: audited for UTF-8.
+
+	* objects/UML/object.c:
+	* objects/UML/class.c: the UML_STEREOTYPE_* strings defined by
+	uml.h can be in UTF-8... this code isn't yet ready. Duplicating a
+	private (ISO-8859-1) definition.
+	
+	* lib/charconv.c: Added a warning if we didn't run
+	nl_langinfo(CODESET) but rely instead on a hardcoded default.
+	
 2001-08-02  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/diamenu.h:
