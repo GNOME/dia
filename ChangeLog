@@ -1,3 +1,16 @@
+2004-12-05  Hans Breuer  <hans@breuer.org>
+
+	* app/app_procs.c : make it compile for the HAVE_POPT and
+	G_LIB_CHECK_VERSION(2,5,5) case, minor formating
+	
+	* lib/plug-ins.c : don't pass non exiting files to xmlDiaParseFile()
+	* app/app_procs.c : only dia_pluginrc_write() and create_user_dirs()
+	when interactive. Fixes bug #119329
+	  
+	* plug-ins/cairo/diacairo.c : adapt to new type naming
+	scheme (introduced by accident;-) for pixbuf-*
+	* app/app_procs.c : reflect both type name changes
+
 2004-12-04  Hans Breuer  <hans@breuer.org>
 
 	* objects/standard/image.c : fix the correct warning

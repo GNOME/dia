@@ -1013,7 +1013,7 @@ static DiaExportFilter ps_export_filter = {
     ps_extensions,
     export_data,
     (void*)OUTPUT_PS,
-    "ps-cairo" /* unique name */
+    "cairo-ps" /* unique name */
 };
 
 static const gchar *pdf_extensions[] = { "pdf", NULL };
@@ -1022,7 +1022,7 @@ static DiaExportFilter pdf_export_filter = {
     pdf_extensions,
     export_data,
     (void*)OUTPUT_PDF,
-    "pdf-cairo"
+    "cairo-pdf"
 };
 
 static const gchar *png_extensions[] = { "png", NULL };
@@ -1031,7 +1031,7 @@ static DiaExportFilter png_export_filter = {
     png_extensions,
     export_data,
     (void*)OUTPUT_PNG,
-    "png-cairo"
+    "cairo-png"
 };
 
 static DiaExportFilter pnga_export_filter = {
@@ -1039,7 +1039,7 @@ static DiaExportFilter pnga_export_filter = {
     png_extensions,
     export_data,
     (void*)OUTPUT_PNGA,
-    "png-cairo"
+    "cairo-alpha-png"
 };
 
 static const gchar *emf_extensions[] = { "wmf", NULL };
@@ -1048,7 +1048,7 @@ static DiaExportFilter emf_export_filter = {
     emf_extensions,
     export_data,
     (void*)OUTPUT_EMF,
-    "emf-cairo"
+    "cairo-emf"
 };
 
 static const gchar *wmf_extensions[] = { "wmf", NULL };
@@ -1057,7 +1057,7 @@ static DiaExportFilter wmf_export_filter = {
     wmf_extensions,
     export_data,
     (void*)OUTPUT_WMF,
-    "wmf-cairo"
+    "cairo-wmf"
 };
 
 static const gchar *cb_extensions[] = { "cb", NULL };
@@ -1066,7 +1066,7 @@ static DiaExportFilter cb_export_filter = {
     cb_extensions,
     export_data,
     (void*)OUTPUT_CB,
-    "clipboard-cairo"
+    "cairo-clipboard"
 };
 
 #endif /* HAVE_CAIRO */

@@ -513,9 +513,12 @@ ensure_pluginrc(void)
 
   if (pluginrc)
     return;
-
   filename = dia_config_filename("pluginrc");
-  pluginrc = xmlDiaParseFile(filename);
+  if (g_file_test (filename,  G_FILE_TEST_IS_REGULAR))
+    pluginrc = xmlDiaParseFile(filename);
+  else
+    pluginrc = NULL;
+  
   g_free(filename);
 
   if (!pluginrc) {

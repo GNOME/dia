@@ -100,10 +100,10 @@ handle_initial_diagram(const char *input_file_name,
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
 static void process_opts(int argc, char **argv,
-#ifdef HAVE_POPT
-			 poptContext poptCtx, struct poptOption options[],
-#elif GLIB_CHECK_VERSION(2,5,5)
+#if GLIB_CHECK_VERSION(2,5,5)
 			 GOptionContext* context, GOptionEntry options[],
+#elif defined HAVE_POPT
+			 poptContext poptCtx, struct poptOption options[],
 #endif
 			 GSList **files, char **export_file_name,
 			 char **export_file_format, char **size);
@@ -396,10 +396,10 @@ app_init (int argc, char **argv)
 		    "png-libart, "
 #  endif
 #  ifdef HAVE_CAIRO
-		    "png-cairo, "
+		    "cairo-png, cairo-alpha-png, "
 #  endif
 		    /* we always have pixbuf but don't know exactly all it's *few* save formats */
-		    "gdkpixbuf), jpg, "
+		    "pixbuf-png), jpg, "
 		    "shape, svg, tex, " WMF
 		    "wpg");
 
@@ -448,15 +448,15 @@ app_init (int argc, char **argv)
   };
 #endif
 
-#if defined HAVE_POPT
-  options[0].arg = &export_file_name;
-  options[1].arg = &export_file_format;
-  options[2].arg = &size;
-#elif GLIB_CHECK_VERSION(2,5,5)
+#if GLIB_CHECK_VERSION(2,5,5)
   options[0].arg_data = &export_file_name;
   options[1].arg_data = &export_file_format;
   options[1].description = export_format_string;
   options[2].arg_data = &size;
+#elif defined HAVE_POPT
+  options[0].arg = &export_file_name;
+  options[1].arg = &export_file_format;
+  options[2].arg = &size;
 #endif
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
@@ -561,7 +561,8 @@ app_init (int argc, char **argv)
     }
   }
 
-  create_user_dirs();
+  if (dia_is_interactive)
+    create_user_dirs();
 
   /* Init cursors: */
   if (dia_is_interactive) {
@@ -667,7 +668,8 @@ app_exit(void)
   static gboolean app_exit_once = FALSE;
 
   if (app_exit_once) {
-    g_error(_("This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\ndescribing how you can cause this message to appear.\n"));
+    g_error(_("This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
+	      "describing how you can cause this message to appear.\n"));
     return FALSE;
   }
 
@@ -680,8 +682,8 @@ app_exit(void)
                GTK_MESSAGE_QUESTION,
                GTK_BUTTONS_NONE, /* no standard buttons */
 	       _("Modified diagrams exist.\n"
-           "Are you sure you want to quit Dia\n"
-           "without saving them?"));
+		 "Are you sure you want to quit Dia\n"
+		 "without saving them?"));
     gtk_window_set_title (GTK_WINDOW(dialog), _("Quit Dia"));
 
     button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
@@ -728,7 +730,8 @@ app_exit(void)
   }
   
   /* save pluginrc */
-  dia_pluginrc_write();
+  if (dia_is_interactive)
+    dia_pluginrc_write();
 
   gtk_main_quit();
 #ifndef G_OS_WIN32
@@ -812,15 +815,15 @@ internal_plugin_init(PluginInfo *info)
 /* Note: running in locale encoding */
 static void
 process_opts(int argc, char **argv,
-#ifdef HAVE_POPT
-	     poptContext poptCtx, struct poptOption options[],
-#elif GLIB_CHECK_VERSION(2,5,5)
+#if GLIB_CHECK_VERSION(2,5,5)
 	     GOptionContext *context, GOptionEntry options[],
+#elif defined HAVE_POPT
+	     poptContext poptCtx, struct poptOption options[],
 #endif
 	     GSList **files, char **export_file_name,
 	     char **export_file_format, char **size)
 {
-#ifdef HAVE_POPT
+#if defined HAVE_POPT && !GLIB_CHECK_VERSION(2,5,5)
   int rc = 0;
   poptCtx = poptGetContext(PACKAGE, argc, (const char **)argv, options, 0);
   poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
@@ -839,7 +842,7 @@ process_opts(int argc, char **argv,
   }
 #endif
   if (argv) {
-#ifdef HAVE_POPT
+#if defined HAVE_POPT && !GLIB_CHECK_VERSION(2,5,5)
       while (poptPeekArg(poptCtx)) {
           char *in_file_name = (char *)poptGetArg(poptCtx);
 	  if (*in_file_name != '\0')
