@@ -1,3 +1,14 @@
+2001-06-13  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/properties.[ch]: convenience macros around PROP_NOTEBOOKS ;
+	new "eye candy" properties: PROP_MULTICOL_(BEGIN|PAGE|END) to lay 
+	widgets on several columns, PROP_FRAME_(BEGIN|END) to put widgets
+	into a frame box.
+
+	* objects/chronogram/chronoline.c:
+	* objects/chronogram/chronoref.c: took advantage of the above to
+	make nicer looking dialogs.
+	
 2001-06-12  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/boolequation.h (<save|load>_boolequation): made the 

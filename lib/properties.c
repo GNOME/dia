@@ -25,6 +25,7 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <glib.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -198,6 +199,11 @@ prop_copy(Property *dest, Property *src)
   case PROP_TYPE_NOTEBOOK_BEGIN:
   case PROP_TYPE_NOTEBOOK_END:
   case PROP_TYPE_NOTEBOOK_PAGE:
+  case PROP_TYPE_MULTICOL_BEGIN:
+  case PROP_TYPE_MULTICOL_END:
+  case PROP_TYPE_MULTICOL_COLUMN:
+  case PROP_TYPE_FRAME_BEGIN:
+  case PROP_TYPE_FRAME_END:
     break;
   case PROP_TYPE_MULTISTRING:
   case PROP_TYPE_STRING:
@@ -284,6 +290,11 @@ prop_free(Property *prop)
   case PROP_TYPE_NOTEBOOK_BEGIN:
   case PROP_TYPE_NOTEBOOK_END:
   case PROP_TYPE_NOTEBOOK_PAGE:
+  case PROP_TYPE_MULTICOL_BEGIN:
+  case PROP_TYPE_MULTICOL_END:
+  case PROP_TYPE_MULTICOL_COLUMN:
+  case PROP_TYPE_FRAME_BEGIN:
+  case PROP_TYPE_FRAME_END:
     break;
   case PROP_TYPE_MULTISTRING:
   case PROP_TYPE_STRING:
@@ -419,6 +430,11 @@ prop_get_widget(Property *prop)
   case PROP_TYPE_NOTEBOOK_BEGIN:
   case PROP_TYPE_NOTEBOOK_END:
   case PROP_TYPE_NOTEBOOK_PAGE:
+  case PROP_TYPE_MULTICOL_BEGIN:
+  case PROP_TYPE_MULTICOL_END:
+  case PROP_TYPE_MULTICOL_COLUMN:
+  case PROP_TYPE_FRAME_BEGIN:
+  case PROP_TYPE_FRAME_END:
     g_assert_not_reached();
     break;
   case PROP_TYPE_STRING:
@@ -539,6 +555,11 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
   case PROP_TYPE_NOTEBOOK_BEGIN:
   case PROP_TYPE_NOTEBOOK_END:
   case PROP_TYPE_NOTEBOOK_PAGE:
+  case PROP_TYPE_MULTICOL_BEGIN:
+  case PROP_TYPE_MULTICOL_END:
+  case PROP_TYPE_MULTICOL_COLUMN:
+  case PROP_TYPE_FRAME_BEGIN:
+  case PROP_TYPE_FRAME_END:
   case PROP_TYPE_STATIC:
   case PROP_TYPE_POINT:
   case PROP_TYPE_POINTARRAY:
@@ -661,6 +682,11 @@ prop_load(Property *prop, ObjectNode obj_node)
   case PROP_TYPE_NOTEBOOK_BEGIN:
   case PROP_TYPE_NOTEBOOK_END:
   case PROP_TYPE_NOTEBOOK_PAGE:
+  case PROP_TYPE_MULTICOL_BEGIN:
+  case PROP_TYPE_MULTICOL_END:
+  case PROP_TYPE_MULTICOL_COLUMN:
+  case PROP_TYPE_FRAME_BEGIN:
+  case PROP_TYPE_FRAME_END:
     break;
   case PROP_TYPE_STATIC:
     break;
@@ -840,6 +866,11 @@ prop_save(Property *prop, ObjectNode obj_node)
   case PROP_TYPE_NOTEBOOK_BEGIN:
   case PROP_TYPE_NOTEBOOK_END:
   case PROP_TYPE_NOTEBOOK_PAGE:
+  case PROP_TYPE_MULTICOL_BEGIN:
+  case PROP_TYPE_MULTICOL_END:
+  case PROP_TYPE_MULTICOL_COLUMN:
+  case PROP_TYPE_FRAME_BEGIN:
+  case PROP_TYPE_FRAME_END:
     break;
   case PROP_TYPE_MULTISTRING:
   case PROP_TYPE_STRING:
@@ -1041,6 +1072,11 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
     case PROP_TYPE_NOTEBOOK_BEGIN:
     case PROP_TYPE_NOTEBOOK_END:
     case PROP_TYPE_NOTEBOOK_PAGE:
+    case PROP_TYPE_MULTICOL_BEGIN:
+    case PROP_TYPE_MULTICOL_END:
+    case PROP_TYPE_MULTICOL_COLUMN:
+    case PROP_TYPE_FRAME_BEGIN:
+    case PROP_TYPE_FRAME_END:
       break;
     case PROP_TYPE_MULTISTRING:
     case PROP_TYPE_STRING:
@@ -1181,6 +1217,11 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
     case PROP_TYPE_NOTEBOOK_BEGIN:
     case PROP_TYPE_NOTEBOOK_END:
     case PROP_TYPE_NOTEBOOK_PAGE:
+    case PROP_TYPE_MULTICOL_BEGIN:
+    case PROP_TYPE_MULTICOL_END:
+    case PROP_TYPE_MULTICOL_COLUMN:
+    case PROP_TYPE_FRAME_BEGIN:
+    case PROP_TYPE_FRAME_END:
       break;
     case PROP_TYPE_MULTISTRING:
     case PROP_TYPE_STRING:
@@ -1290,8 +1331,6 @@ object_props_dialog_destroy(GtkWidget *table)
   g_free(widgets);
 }
 
-#define MAXNEST 7
-
 GtkWidget *
 object_create_props_dialog(Object *obj)
 {
@@ -1302,9 +1341,10 @@ object_create_props_dialog(Object *obj)
   GtkWidget *table, *label;
   GtkWidget *mainvbox;
 
-  GtkWidget *curcontainer[MAXNEST];
+  static GtkWidget **curcontainer = NULL; 
+  static gint cc_allocated = 0; 
   int nestlev = -1;
-  gboolean haspage = FALSE;
+  gboolean haspage = FALSE, hascolumn = FALSE;
 
   g_return_val_if_fail(obj->ops->describe_props != NULL, NULL);
   g_return_val_if_fail(obj->ops->get_props != NULL, NULL);
@@ -1333,29 +1373,40 @@ object_create_props_dialog(Object *obj)
 
   mainvbox = gtk_vbox_new(FALSE,1);
   table = NULL;
+  if (!curcontainer) {
+    cc_allocated = 4;
+    curcontainer = g_new0(GtkWidget *,cc_allocated);
+  } 
   curcontainer[++nestlev] = mainvbox;
 
   /* construct the widgets table */
-  for (i = 0, j = 0; pdesc[i].name != NULL; i++)
+  for (i = 0, j = 0; pdesc[i].name != NULL; i++) {
+    while ((!curcontainer) || (nestlev+3 >= cc_allocated)) {
+      cc_allocated *= 2;
+      curcontainer = g_renew(GtkWidget *, curcontainer , cc_allocated); 
+    }
+
     if ((pdesc[i].flags & PROP_FLAG_VISIBLE) != 0) {
       switch(props[j].type) {
       case PROP_TYPE_NOTEBOOK_BEGIN:
         {
           GtkWidget *notebook = gtk_notebook_new();
           gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook),GTK_POS_TOP);
-          gtk_container_set_border_width (GTK_CONTAINER(notebook), 0);
+          gtk_container_set_border_width (GTK_CONTAINER(notebook), 1);
           gtk_widget_show(notebook);
           gtk_box_pack_end_defaults(GTK_BOX(curcontainer[nestlev]),notebook);
           curcontainer[++nestlev] = notebook;
           table = NULL;
+          haspage = FALSE;
           /* note: there must be at least one page, immediately after this. */
-          g_assert(nestlev < MAXNEST);
+          g_assert(nestlev < cc_allocated);
         } break;
       case PROP_TYPE_NOTEBOOK_END:
         {
           if (haspage) nestlev--;
           nestlev--;
           table = NULL;
+          haspage = FALSE;
           g_assert(nestlev >= 0);
         } break;
       case PROP_TYPE_NOTEBOOK_PAGE: 
@@ -1363,7 +1414,7 @@ object_create_props_dialog(Object *obj)
           /* this >must< happen inside a notebook */         
           GtkWidget *page = gtk_vbox_new(FALSE,1);
           GtkWidget *pagelabel = gtk_label_new(pdesc[i].description);
-          gtk_container_set_border_width(GTK_CONTAINER(page),1);
+          gtk_container_set_border_width(GTK_CONTAINER(page),2);
           gtk_widget_show_all(page);
           gtk_widget_show_all(pagelabel);
           if (haspage) nestlev--;
@@ -1373,7 +1424,64 @@ object_create_props_dialog(Object *obj)
           curcontainer[++nestlev] = page;
           table = NULL;
           
-          g_assert(nestlev < MAXNEST);
+          g_assert(nestlev < cc_allocated);
+        } break;
+      case PROP_TYPE_MULTICOL_BEGIN:
+        {
+          GtkWidget *multicol = gtk_hbox_new(FALSE,1);
+          gtk_widget_show(multicol);
+          gtk_box_pack_end_defaults(GTK_BOX(curcontainer[nestlev]),multicol);
+          gtk_container_set_border_width (GTK_CONTAINER(multicol), 2);
+          curcontainer[++nestlev] = multicol;
+          table = NULL;
+          hascolumn = FALSE;
+          /* note: there should be at least one column, 
+             immediately after this. */
+          g_assert(nestlev < cc_allocated);          
+        } break;
+      case PROP_TYPE_MULTICOL_END:
+        {
+          if (haspage) nestlev--;
+          nestlev--;
+          table = NULL;
+          hascolumn = FALSE; 
+          g_assert(nestlev >= 0);
+        } break;
+      case PROP_TYPE_MULTICOL_COLUMN:
+        {
+          /* this >must< happen inside a multicolumn */         
+          GtkWidget *column = gtk_vbox_new(FALSE,1);
+          gtk_container_set_border_width(GTK_CONTAINER(column),2);
+          gtk_widget_show_all(column);
+          if (hascolumn) nestlev--;
+          gtk_box_pack_end_defaults(GTK_BOX(curcontainer[nestlev]),column);
+          hascolumn = TRUE;
+          curcontainer[++nestlev] = column;
+          table = NULL;
+          
+          g_assert(nestlev < cc_allocated);
+        } break;
+      case PROP_TYPE_FRAME_BEGIN:
+        {
+          GtkWidget *frame = gtk_frame_new(pdesc[i].description);
+          GtkWidget *vbox = gtk_vbox_new(FALSE,2);
+
+          gtk_widget_show_all(frame);
+          gtk_container_set_border_width (GTK_CONTAINER(frame), 2);
+          gtk_box_pack_end_defaults(GTK_BOX(curcontainer[nestlev]),frame);
+          gtk_widget_show(vbox);
+          gtk_container_add (GTK_CONTAINER (frame), vbox);
+          curcontainer[++nestlev] = frame;
+          curcontainer[++nestlev] = vbox;
+          
+          table = NULL;
+          g_assert(nestlev < cc_allocated);          
+        } break;
+      case PROP_TYPE_FRAME_END:
+        {
+          nestlev -= 2;
+          table = NULL;
+          g_assert(nestlev >= 0);
         } break;
       default:
         widgets[j] = prop_get_widget(&props[j]);
@@ -1383,8 +1491,11 @@ object_create_props_dialog(Object *obj)
 
         if (!table) {
           table = gtk_table_new(1, 2, FALSE);
+          gtk_table_set_row_spacings(GTK_TABLE(table), 2);
+          gtk_table_set_col_spacings(GTK_TABLE(table), 5);
           gtk_widget_show(table);
           gtk_box_pack_end_defaults(GTK_BOX(curcontainer[nestlev]),table);
+
         }
         gtk_table_attach(GTK_TABLE(table), label, 0,1, j,j+1,
                          GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
@@ -1397,15 +1508,13 @@ object_create_props_dialog(Object *obj)
       }
       j++;
     }
-  gtk_table_set_row_spacings(GTK_TABLE(table), 2);
-  gtk_table_set_col_spacings(GTK_TABLE(table), 5);
-
+  }
   gtk_object_set_data(GTK_OBJECT(mainvbox), prop_array_key,   props);
   gtk_object_set_data(GTK_OBJECT(mainvbox), prop_num_key,
 		      GUINT_TO_POINTER(nprops));
   gtk_object_set_data(GTK_OBJECT(mainvbox), prop_widgets_key, widgets);
 
-  gtk_signal_connect(GTK_OBJECT(table), "destroy",
+  gtk_signal_connect(GTK_OBJECT(mainvbox), "destroy",
 		     GTK_SIGNAL_FUNC(object_props_dialog_destroy), NULL);
 
   return mainvbox;

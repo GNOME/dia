@@ -144,11 +144,8 @@ static PropNumData edge_range = { 0.0, 1000.0, 0.1};
 
 static PropDescription chronoline_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "nbook", PROP_TYPE_NOTEBOOK_BEGIN, 
-              PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, NULL, NULL},
-  { "data", PROP_TYPE_NOTEBOOK_PAGE,
-    PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_DONT_MERGE, 
-    N_("Data"), NULL},
+  PROP_STD_NOTEBOOK_BEGIN,
+  PROP_NOTEBOOK_PAGE("data",PROP_FLAG_DONT_MERGE,N_("Data")),
   { "name", PROP_TYPE_STRING,PROP_FLAG_VISIBLE|PROP_FLAG_DONT_MERGE,
     N_("Data name"),NULL },
   { "events", PROP_TYPE_MULTISTRING,PROP_FLAG_VISIBLE|PROP_FLAG_DONT_MERGE,
@@ -162,9 +159,7 @@ static PropDescription chronoline_props[] = {
    "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
    "example : @ 1.0 (2.0)1.0(2.0)\n" )},
 
-  { "parameters",PROP_TYPE_NOTEBOOK_PAGE,
-    PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, 
-    N_("Parameters"), NULL},
+  PROP_NOTEBOOK_PAGE("parameters",0,N_("Parameters")),
   { "start_time",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
     N_("Start time"),NULL,&time_range},
   { "end_time",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
@@ -175,9 +170,7 @@ static PropDescription chronoline_props[] = {
     N_("Fall time"),NULL,&edge_range},
   { "multibit",PROP_TYPE_BOOL,PROP_FLAG_VISIBLE, N_("Multi-bit data"),NULL},
 
-  { "aspect",PROP_TYPE_NOTEBOOK_PAGE,
-    PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, 
-    N_("Aspect"), NULL},
+  PROP_NOTEBOOK_PAGE("aspect",0,N_("Aspect")),
   { "data_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
     N_("Data color"),NULL},
   { "data_lwidth", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
@@ -193,8 +186,7 @@ static PropDescription chronoline_props[] = {
   { "font_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
     N_("Text colour"), NULL, NULL },
 
-  { "nbook_end", PROP_TYPE_NOTEBOOK_END, 
-              PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, NULL, NULL},
+  PROP_STD_NOTEBOOK_END,
   {NULL}
 };
 
@@ -209,21 +201,21 @@ chronoline_describe_props(Chronoline *chronoline)
 
 static PropOffset chronoline_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "nbook", PROP_TYPE_NOTEBOOK_BEGIN, 0}, 
+  PROP_OFFSET_STD_NOTEBOOK_BEGIN,
 
-  { "data", PROP_TYPE_NOTEBOOK_PAGE, 0},
+  PROP_OFFSET_NOTEBOOK_PAGE("data"),
   { "name", PROP_TYPE_STRING, offsetof(Chronoline,name)},
   { "events", PROP_TYPE_MULTISTRING, offsetof(Chronoline,events)},
   { "help", PROP_TYPE_STATIC, 0},
 
-  { "parameters",PROP_TYPE_NOTEBOOK_PAGE, 0},
+  PROP_OFFSET_NOTEBOOK_PAGE("parameters"),
   { "start_time",PROP_TYPE_REAL, offsetof(Chronoline,start_time)},
   { "end_time",PROP_TYPE_REAL, offsetof(Chronoline,end_time)},
   { "rise_time",PROP_TYPE_REAL, offsetof(Chronoline,rise_time)},
   { "fall_time",PROP_TYPE_REAL, offsetof(Chronoline,fall_time)},
   { "multibit",PROP_TYPE_BOOL, offsetof(Chronoline,multibit)},
 
-  { "aspect",PROP_TYPE_NOTEBOOK_PAGE,0},
+  PROP_OFFSET_NOTEBOOK_PAGE("aspect"),
   { "data_color", PROP_TYPE_COLOUR, offsetof(Chronoline,data_color)},
   { "data_lwidth", PROP_TYPE_REAL, offsetof(Chronoline,data_lwidth)},
   { "color", PROP_TYPE_COLOUR, offsetof(Chronoline,color)},
@@ -232,7 +224,7 @@ static PropOffset chronoline_offsets[] = {
   { "font_size", PROP_TYPE_REAL, offsetof(Chronoline,font_size)},
   { "font_color", PROP_TYPE_COLOUR, offsetof(Chronoline,font_color)},
 
-  { "nbook_end", PROP_TYPE_NOTEBOOK_END, 0}, 
+  PROP_OFFSET_STD_NOTEBOOK_END,
   {NULL}
 };
 

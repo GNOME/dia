@@ -138,6 +138,10 @@ static PropNumData step_range = { 0.0, 1000.0, 0.1};
 
 static PropDescription chronoref_props[] = {
   ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_MULTICOL_BEGIN,
+
+  PROP_MULTICOL_COLUMN("time"),
+  PROP_FRAME_BEGIN("time",0,N_("Time data")),
   { "start_time",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
     N_("Start time"),NULL,&time_range},
   { "end_time",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
@@ -146,7 +150,10 @@ static PropDescription chronoref_props[] = {
     N_("Major time step"),NULL,&step_range},
   { "time_lstep",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
     N_("Minor time step"),NULL,&step_range},
+  PROP_FRAME_END("time",0),
 
+  PROP_MULTICOL_COLUMN("aspect"),
+  PROP_FRAME_BEGIN("aspect",0,N_("Aspect")),
   { "color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
     N_("Line color"),NULL},
   { "main_lwidth", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
@@ -159,7 +166,9 @@ static PropDescription chronoref_props[] = {
     N_("Font size"), NULL, &prop_std_text_height_data },
   { "font_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
     N_("Text colour"), NULL, NULL },
+  PROP_FRAME_END("aspect",0),
 
+  PROP_STD_MULTICOL_END,
   {NULL}
 };
 
@@ -174,18 +183,27 @@ chronoref_describe_props(Chronoref *chronoref)
 
 static PropOffset chronoref_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  PROP_OFFSET_STD_MULTICOL_BEGIN,
 
+  PROP_OFFSET_MULTICOL_COLUMN("time"),
+  PROP_OFFSET_FRAME_BEGIN("time"),
   { "start_time",PROP_TYPE_REAL, offsetof(Chronoref,start_time)},
   { "end_time",PROP_TYPE_REAL, offsetof(Chronoref,end_time)},
   { "time_step",PROP_TYPE_REAL, offsetof(Chronoref,time_step)},
   { "time_lstep",PROP_TYPE_REAL, offsetof(Chronoref,time_lstep)},
+  PROP_OFFSET_FRAME_END("time"),
+
+  PROP_OFFSET_MULTICOL_COLUMN("aspect"),
+  PROP_OFFSET_FRAME_BEGIN("aspect"),
   { "color", PROP_TYPE_COLOUR, offsetof(Chronoref,color)},
   { "main_lwidth", PROP_TYPE_REAL, offsetof(Chronoref,main_lwidth)},
   { "light_lwidth", PROP_TYPE_REAL, offsetof(Chronoref,light_lwidth)},
   { "font", PROP_TYPE_FONT, offsetof(Chronoref,font)},
   { "font_size", PROP_TYPE_REAL, offsetof(Chronoref,font_size)},
   { "font_color", PROP_TYPE_COLOUR, offsetof(Chronoref,font_color)},
+  PROP_OFFSET_FRAME_END("aspect"),
 
+  PROP_OFFSET_STD_MULTICOL_END,
   {NULL}
 };
 
