@@ -255,7 +255,7 @@ do_convert(const char *infname,
 	lay->visible = 0;
 	if (lay->name) {
 	  len =  strlen(lay->name);
-	  if ((p = strstr(show_layers, lay->name))) {
+	  if ((p = strstr(show_layers, lay->name)) != NULL) {
 	    if (((p == show_layers) || (p[-1] == ','))    /* zap false positives */
 		&& ((p[len] == 0) || (p[len] == ','))){
 	      lay->visible = 1;
@@ -442,10 +442,11 @@ app_init (int argc, char **argv)
     {"export", 'e', 0, G_OPTION_ARG_STRING, NULL /* &export_file_name */,
      N_("Export loaded file and exit"), N_("OUTPUT")},
     {"filter",'t', 0, G_OPTION_ARG_STRING, NULL /* &export_file_format */,
-     NULL /* &export_format_string */, N_("TYPE")
-    },
+     NULL /* &export_format_string */, N_("TYPE") },
     {"size", 's', 0, G_OPTION_ARG_STRING, NULL,
      N_("Export graphics size"), N_("WxH")},
+    {"show-layers", 'L', 0, G_OPTION_ARG_STRING, NULL,
+     N_("Show only specified layers (e.g. when exporting)"), N_("LAYER,LAYER,...")},
     {"nosplash", 'n', 0, G_OPTION_ARG_NONE, &nosplash,
      N_("Don't show the splash screen"), NULL },
     {"log-to-stderr", 'l', 0, G_OPTION_ARG_NONE, &log_to_stderr,
@@ -487,6 +488,7 @@ app_init (int argc, char **argv)
   options[1].arg_data = &export_file_format;
   options[1].description = export_format_string;
   options[2].arg_data = &size;
+  options[3].arg_data = &show_layers;
 #elif defined HAVE_POPT
   options[0].arg = &export_file_name;
   options[1].arg = &export_file_format;

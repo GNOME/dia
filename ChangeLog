@@ -1,3 +1,26 @@
+2005-03-06  Hans Breuer  <hans@breuer.org>
+
+	* app/app_procs.c : avoid "assignment within conditional expression"
+	and handle -L for the GOption case as well.
+
+	* lib/widget.c : strchr() does not return -1 on not found but NULL;
+	avoids widgets.c(307) : error C4047: '!=' : 'char *' differs in levels of 
+	indirection from 'const int '
+
+	* lib/diasvgenderer.c(draw_arc|fill_arc) : finally correct sweep and 
+	large_arc, thus produce correct arc output (like diasvg.py does;),
+	fixes bug #144401
+
+	* lib/dia_svg.[hc](dia_svg_parse_path) : new function copied and adapted 
+	from objects/custom/shape_info.c to be shared with object/custom and
+	plug-in/svg -> finally the C based svg-import reads pathes again.
+	Added arc parsing while I was there, which fixes bug #169191
+	* objects/custom/shape_info.c(parse_path) : 
+	* plug-ins/svg/svg-import : reuse above function
+	Also fix the "root element was 'svg' -- expecting 'svg'" bug #108502.
+	But in general this does only support a small subset of what is 
+	possible in SVG.
+
 2005-03-06  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/association.c: Patch from Dave Klotzbach applied:
@@ -14,7 +37,8 @@
 	* app/app_procs.c: Implemented --show-layers=LAYER,LAYER,... option
 	This option permits command line control of which layers are visible.
 	Useful when automatically exporting multiple versions of the same
-	diagram, e.g. slides with overlays. Added-n switch parsing without POPT.+       * app/app_procs.h: moved prototype of do_convert() to app/app_procs.c
+	diagram, e.g. slides with overlays. Added-n switch parsing without POPT.
+      * app/app_procs.h: moved prototype of do_convert() to app/app_procs.c
 	and made it static since its only used in that file.
 	* app/authors.h: added myself
 	* doc/en/dia.1: documented the switch

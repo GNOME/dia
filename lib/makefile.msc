@@ -150,6 +150,7 @@ CFLAGS = -I. -DHAVE_CONFIG_H
 ## targets
 all : \
 	$(PRJ_TOP)\config.h \
+	dia-lib-icons.h \
 	diamarshal.c \
 	$(PACKAGE).dll
 

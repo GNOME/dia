@@ -176,62 +176,47 @@ apply_style(xmlNodePtr node, DiaObject *obj) {
 
 /* read a path */
 static void
-read_path_svg(xmlNodePtr node, DiagramData *dia) {			   
+read_path_svg(xmlNodePtr node, DiagramData *dia) 
+{
     DiaObjectType *otype;
     DiaObject *new_obj;
     Handle *h1, *h2;
     BezierCreateData *bcd;
-    char *str;
+    gchar *str, *pathdata, *unparsed = NULL;
     GList *tmp;
+    GArray *bezpoints;
+    gboolean closed = FALSE;
     
-#if 0
-    ShapeInfo *si;
-    /* the original code sets: si->display_list = NULL
-     * so the code below has no effect anyway and now it
-     * it doesn't compile anymore ...        --hb
-     */
-    str = xmlGetProp(node, "d");
-    si = g_new(ShapeInfo, 1);
-    si->display_list = NULL;
-    
-    for (tmp = si->display_list; tmp != NULL; tmp = tmp->next) {
-      GraphicElement *el = tmp->data;
-      switch (el->type) {
-      case GE_PATH:
-	 otype = object_get_type("Standard - BezierLine");
-	 if (otype == NULL){
-	   message_error(_("Can't find standard object"));
-	   return;
-         }
-	 bcd = g_new(BezierCreateData, 1);
-	 bcd->num_points = el->path.npoints;
-	 bcd->points = el->path.points;	
-	 new_obj = otype->ops->create(NULL, bcd, &h1, &h2);
-	 g_free(bcd);
-	 apply_style(node, new_obj);
-	 layer_add_object(dia->active_layer, new_obj);
-	 break;
-      case GE_SHAPE:
-	 otype = object_get_type("Standard - Beziergon");
-	 if (otype == NULL){
-	   message_error(_("Can't find standard object"));
-	   return;
-         }
-	 bcd = g_new(BezierCreateData, 1);
-	 bcd->num_points = el->path.npoints;
-	 bcd->points = el->path.points;	
-	 new_obj = otype->ops->create(NULL, bcd, &h1, &h2);
-	 g_free(bcd);
-	 apply_style(node, new_obj);
-	 layer_add_object(dia->active_layer, new_obj);
-	break;
-	default:
-	  message_error(_("Unexpected SVG path element"));
-	break;
-      }    
-    }
-    g_free(si);
-#endif
+    pathdata = str = xmlGetProp(node, "d");
+    do {
+      bezpoints = dia_svg_parse_path (pathdata, &unparsed, &closed);
+
+      if (bezpoints && bezpoints->len > 0) {
+        if (!closed)
+	  otype = object_get_type("Standard - BezierLine");
+        else
+	  otype = object_get_type("Standard - Beziergon");
+
+	if (otype == NULL){
+	  message_error(_("Can't find standard object"));
+	  break;
+        }
+	bcd = g_new(BezierCreateData, 1);
+	bcd->num_points = bezpoints->len;
+	bcd->points = &(g_array_index(bezpoints, BezPoint, 0));	
+	new_obj = otype->ops->create(NULL, bcd, &h1, &h2);
+	g_free(bcd);
+	apply_style(node, new_obj);
+	layer_add_object(dia->active_layer, new_obj);
+
+        g_array_set_size (bezpoints, 0);
+      }
+      pathdata = unparsed;
+      unparsed = NULL;
+    } while (pathdata);
+
+    g_array_free(bezpoints, TRUE);
+    xmlFree (str);
 }
 
 
@@ -594,7 +579,7 @@ import_svg(const gchar *filename, DiagramData *dia, void* user_data) {
     /*xmlFreeDoc(doc);
     return FALSE;*/
   }
-  if (root->ns != svg_ns || strcmp(root->name, "svg")) {
+  if (root->ns != svg_ns && 0 != strcmp(root->name, "svg")) {
     g_warning(_("root element was '%s' -- expecting 'svg'."), root->name);
     xmlFreeDoc(doc);
     return FALSE;
@@ -644,7 +629,3 @@ DiaImportFilter svg_import_filter = {
 	extensions,
 	import_svg
 };
-
-
-
-

@@ -16,6 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifndef DIA_SVG_H
+#define DIA_SVG_H
+
 #include "dia_xml.h"
 #include "font.h"
 
@@ -53,3 +56,7 @@ struct _DiaSvgGraphicStyle {
 };
 
 void dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s);
+/* parse the svg sub format for pathes int an array of BezPoint */
+GArray* dia_svg_parse_path(const gchar *path_str, gchar **unparsed, gboolean *closed);
+
+#endif /* DIA_SVG_H */

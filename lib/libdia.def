@@ -286,6 +286,7 @@ EXPORTS
  dia_size_selector_get_size
 
  dia_svg_parse_style
+ dia_svg_parse_path
 
  dia_svg_renderer_get_type
 

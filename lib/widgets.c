@@ -304,7 +304,7 @@ static GtkWidget *
 dia_font_selector_create_string_item(DiaDynamicMenu *ddm, gchar *string)
 {
   GtkWidget *item = gtk_menu_item_new_with_label(string);
-  if (strchr(string, '&') != -1) {
+  if (strchr(string, '&')) {
     gchar *escaped = replace_ampersands(string);
     gtk_label_set_markup(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item))),
 			 g_strdup_printf("<span face=\"%s\" size=\"medium\">%s</span>",

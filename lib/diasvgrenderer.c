@@ -389,19 +389,6 @@ fill_rect(DiaRenderer *self,
   setlocale(LC_NUMERIC, old_locale);
 }
 
-static int sweep (real x1,real y1,real x2,real y2,real x3,real y3)
-{
-  real X2=x2-x1;
-  real Y2=y2-y1;
-  real X3=x3-x1;
-  real Y3=y3-y1;
-  real L=sqrt(X2*X2+Y2*Y2);
-  real cost=X2/L;
-  real sint=Y2/L;
-  real res=-X3*sint+Y3*cost;
-  return res>0;
-}
-
 static void
 draw_arc(DiaRenderer *self, 
 	 Point *center,
@@ -413,33 +400,23 @@ draw_arc(DiaRenderer *self,
   xmlNodePtr node;
   char buf[512];
   real rx = width / 2, ry = height / 2;
-  real x1=center->x + rx*cos(angle1*G_PI/180);
-  real y1=center->y - ry*sin(angle1*G_PI/180);
-  real x2=center->x + rx*cos(angle2*G_PI/180);
-  real y2=center->y - ry*sin(angle2*G_PI/180);
-  int swp = sweep(x1,y1,x2,y2,center->x,center->y);
-  int l_arc;
+  real sx=center->x + rx*cos(angle1*G_PI/180);
+  real sy=center->y - ry*sin(angle1*G_PI/180);
+  real ex=center->x + rx*cos(angle2*G_PI/180);
+  real ey=center->y - ry*sin(angle2*G_PI/180);
+  int swp = 0; /* always drawin negative direction */
+  int large_arc = (angle2 - angle1 >= 180);
   char *old_locale;
-
-  if (angle2 > angle1) {
-    l_arc = (angle2 - angle1) > 180;
-  } else {
-    l_arc = (360 - angle2 + angle1) > 180;
-  }
-  
-  if (l_arc)
-      swp = !swp;
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, "path", NULL);
   
   xmlSetProp(node, "style", get_draw_style(renderer, colour));
 
-  /* this path might be incorrect ... */
   old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d %d %g,%g",
-	     x1, y1,
-	     rx, ry,l_arc ,swp ,
-	     x2, y2);
+	     sx, sy,
+	     rx, ry,large_arc ,swp ,
+	     ex, ey);
 
   xmlSetProp(node, "d", buf);
   setlocale(LC_NUMERIC, old_locale);
@@ -456,33 +433,23 @@ fill_arc(DiaRenderer *self,
   xmlNodePtr node;
   char buf[512];
   real rx = width / 2, ry = height / 2;
-  real x1=center->x + rx*cos(angle1*G_PI/180);
-  real y1=center->y - ry*sin(angle1*G_PI/180);
-  real x2=center->x + rx*cos(angle2*G_PI/180);
-  real y2=center->y - ry*sin(angle2*G_PI/180);
-  int swp = sweep(x1,y1,x2,y2,center->x,center->y);
-  int l_arc;
+  real sx=center->x + rx*cos(angle1*G_PI/180);
+  real sy=center->y - ry*sin(angle1*G_PI/180);
+  real ex=center->x + rx*cos(angle2*G_PI/180);
+  real ey=center->y - ry*sin(angle2*G_PI/180);
+  int swp = 0; /* always drawin negative direction */
+  int large_arc = (angle2 - angle1 >= 180);
   char *old_locale;
-
-  if (angle2 > angle1) {
-    l_arc = (angle2 - angle1) > 180;
-  } else {
-    l_arc = (360 - angle2 + angle1) > 180;
-  }
-
-  if (l_arc)
-      swp = !swp;
 
   node = xmlNewChild(renderer->root, NULL, "path", NULL);
   
   xmlSetProp(node, "style", get_fill_style(renderer, colour));
 
-  /* this path might be incorrect ... */
   old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d %d %g,%g L %g,%g z",
-	     x1, y1,
-	     rx, ry,l_arc ,swp ,
-	     x2, y2,
+	     sx, sy,
+	     rx, ry,large_arc ,swp ,
+	     ex, ey,
 	     center->x, center->y);
 
   xmlSetProp(node, "d", buf);
