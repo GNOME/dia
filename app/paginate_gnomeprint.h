@@ -9,6 +9,7 @@
 
 void paginate_gnomeprint (Diagram *dia,
 			  GnomePrintContext *ctx,
-			  const gchar *paper_name);
+			  const gchar *paper_name,
+			  gdouble scale);
 
 #endif

@@ -1,3 +1,13 @@
+1999-09-09  James Henstridge  <james@daa.com.au>
+
+	* app/commands.c (file_gnome_print_callback): added support for
+	scaling the diagram.  Also fixed a few other bugs.
+
+	* app/paginate_gnomeprint.c (print_page): added ability to scale
+	document.  Fixed up test to see if the page has no objects on it.
+	This should prevent some blank pages being printed.  Non square
+	objects such as lines could still cause problems.
+
 1999-09-08  James Henstridge  <james@daa.com.au>
 
 	* app/commands.c (file_gnome_print_callback): changed from using the

@@ -6,30 +6,31 @@
 static void
 count_objs(Object *obj, Renderer *renderer, int active_layer, guint *nobjs)
 {
-  *nobjs++;
+  (*nobjs)++;
 }
 
 
 static guint
 print_page(DiagramData *data, RendererGPrint *rend, Rectangle *bounds,
-	   gdouble lmargin, gdouble bmargin)
+	   gdouble lmargin, gdouble bmargin, gdouble scale)
 {
   guint nobjs = 0;
+  static guint pagenum = 0;
 
   /* count the number of objects in this region */
   data_render(data, (Renderer *)rend, bounds,
 	      (ObjectRenderer) count_objs, &nobjs);
 
-  if (nobjs = 0)
+  if (nobjs == 0)
     return nobjs;
 
   /* save print context */
   gnome_print_gsave(rend->ctx);
 
   /* transform coordinate system */
-  gnome_print_scale(rend->ctx, 28.346457, -28.346457);
-  gnome_print_translate(rend->ctx, lmargin - bounds->left,
-			-bmargin - bounds->bottom);
+  gnome_print_scale(rend->ctx, 28.346457 * scale, -28.346457 * scale);
+  gnome_print_translate(rend->ctx, lmargin/scale - bounds->left,
+			-bmargin/scale - bounds->bottom);
 
   /* set up clip mask */
   gnome_print_newpath(rend->ctx);
@@ -54,7 +55,7 @@ print_page(DiagramData *data, RendererGPrint *rend, Rectangle *bounds,
 
 void
 paginate_gnomeprint(Diagram *dia, GnomePrintContext *ctx,
-		    const gchar *paper_name)
+		    const gchar *paper_name, gdouble scale)
 {
   RendererGPrint *rend;
   Rectangle *extents;
@@ -72,6 +73,8 @@ paginate_gnomeprint(Diagram *dia, GnomePrintContext *ctx,
     paper = gnome_paper_with_name(paper_name);
   else
     paper = gnome_paper_with_name(gnome_paper_name_default());
+  if (!paper)
+    g_message("paper_name == %s", paper_name?paper_name:gnome_paper_name_default());
   unit = gnome_unit_with_name("Centimeter");
   pswidth = gnome_paper_convert(gnome_paper_pswidth(paper), unit);
   psheight = gnome_paper_convert(gnome_paper_psheight(paper), unit);
@@ -83,6 +86,10 @@ paginate_gnomeprint(Diagram *dia, GnomePrintContext *ctx,
   /* the usable area of the page */
   width = pswidth - lmargin - rmargin;
   height = psheight - tmargin - bmargin;
+
+  /* scale width/height */
+  width  /= scale;
+  height /= scale;
 
   /* get extents, and make them multiples of width / height */
   extents = &dia->data->extents;
@@ -101,14 +108,13 @@ paginate_gnomeprint(Diagram *dia, GnomePrintContext *ctx,
       page_bounds.top = y;
       page_bounds.bottom = y + height;
 
-      nobjs += print_page(dia->data, rend, &page_bounds, lmargin, bmargin);
+      nobjs += print_page(dia->data,rend, &page_bounds, lmargin,bmargin,scale);
     }
 
   free(rend);
 
-  /* we actually printed something */
-  if (nobjs)
-    gnome_print_context_close(ctx);
+  gnome_print_context_close(ctx);
+
   gtk_object_unref(GTK_OBJECT(ctx));
 }
 		    
