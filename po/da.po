@@ -284,7 +284,7 @@ msgstr ""
 
 #: app/display.c:760
 msgid "<Display>/View/Toggle Rulers"
-msgstr "<Display>/Visning/Slå linealer til och fra"
+msgstr "<Display>/Visning/Linealer"
 
 #: app/display.c:761
 msgid "<Display>/View/Visible Grid"
@@ -301,11 +301,11 @@ msgstr "Alternativer for gitter"
 
 #: app/grid.c:150
 msgid "Grid x size:"
-msgstr "X størrelse"
+msgstr "X størrelse:"
 
 #: app/grid.c:168
 msgid "Grid y size:"
-msgstr "Y størrelse"
+msgstr "Y størrelse:"
 
 # FIXME: Ændr?
 #: app/interface.c:57
@@ -314,7 +314,7 @@ msgstr "Ændr objekt(er)"
 
 #: app/interface.c:61
 msgid "Magnify"
-msgstr "Forstør"
+msgstr "Forstørrelse"
 
 # FIXME: Scroll?
 #: app/interface.c:65
@@ -405,7 +405,7 @@ msgstr "ingen"
 
 #: app/layer_dialog.c:921
 msgid "Edit Layer Attributes"
-msgstr "Rediger lagets attributter"
+msgstr "Redigér lagets attributter"
 
 #: app/layer_dialog.c:937
 msgid "Layer name:"
@@ -504,19 +504,19 @@ msgstr "_Zoom"
 
 #: app/menus.c:89
 msgid "Edit Grid..."
-msgstr "Rediger gitter..."
+msgstr "Redigér gitter..."
 
 #: app/menus.c:90
 msgid "_Visible Grid"
-msgstr "S_ynligt gitter"
+msgstr "_Synligt gitter"
 
 #: app/menus.c:92
 msgid "_Snap To Grid"
-msgstr "Fa_st til gitter"
+msgstr "_Fast til gitter"
 
 #: app/menus.c:94
 msgid "Toggle _Rulers"
-msgstr "Slå lineale_r til och fra"
+msgstr "_Linealer"
 
 # FIXME: Visning?
 #: app/menus.c:97
@@ -646,7 +646,7 @@ msgstr "/Fil/_Eksportér til EPS"
 
 #: app/menus.c:179
 msgid "/File/_Close"
-msgstr "/_Fil/Luk"
+msgstr "/Fil/_Luk"
 
 #: app/menus.c:181
 msgid "/_Edit"
@@ -676,7 +676,7 @@ msgstr "/_Vis"
 #. {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:189
 msgid "/View/Zoom _In"
-msgstr "/_Vis/Zoom _ind"
+msgstr "/Vis/Zoom _ind"
 
 #: app/menus.c:190
 msgid "/View/Zoom _Out"
@@ -738,7 +738,7 @@ msgstr "/Vis/Zoom/25%"
 
 #: app/menus.c:202
 msgid "/View/Edit Grid..."
-msgstr "/Vis/Rediger gitter..."
+msgstr "/Vis/Redigér gitter..."
 
 #: app/menus.c:203
 msgid "/View/_Visible Grid"
@@ -750,7 +750,7 @@ msgstr "/Vis/_Fast til gitter"
 
 #: app/menus.c:205
 msgid "/View/Toggle _Rulers"
-msgstr "/Vis/Slå _linealer til och fra"
+msgstr "/Vis/_Linealer"
 
 #: app/menus.c:206
 msgid "/View/sep1"
@@ -868,15 +868,15 @@ msgstr "Brugergrænseflade"
 
 #: app/preferences.c:69
 msgid "View Defaults"
-msgstr "Se standardindstillinger"
+msgstr "Nye udsyn"
 
 #: app/preferences.c:76
 msgid "Reset tools after create:"
-msgstr "Nulstil værktøj efter tilføjelse af objekt:"
+msgstr "Nulstil værktøj:"
 
 #: app/preferences.c:78
 msgid "Grid:"
-msgstr "Gitter"
+msgstr "Gitter:"
 
 #: app/preferences.c:79
 msgid "Visible:"
@@ -985,11 +985,11 @@ msgstr "Halvt hoved"
 
 #: lib/widgets.c:647
 msgid "Length: "
-msgstr "Længde:"
+msgstr "Længde: "
 
 #: lib/widgets.c:660
 msgid "Width: "
-msgstr "Bredde:"
+msgstr "Bredde: "
 
 #: lib/widgets.c:776
 msgid "Select image file"
@@ -1430,7 +1430,7 @@ msgstr "Total:"
 #. type
 #: objects/ER/relationship.c:123 objects/ER/relationship.c:507
 msgid "Relationship"
-msgstr "Forhold:"
+msgstr "Forhold"
 
 #: objects/ER/relationship.c:205
 msgid "Left Cardinality:"
