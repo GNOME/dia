@@ -1,3 +1,8 @@
+2002-06-20  Wang Jian  <lark@linux.net.cn>
+
+	* zh_CN.po: Updated Simplified Chinese translation by
+	Wen ShaoHua <NADWSH@sbell.com.cn>.
+
 2002-06-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* POTFILES.in: Added object_defaults.c
