@@ -38,6 +38,11 @@ struct _DiaPsRenderer
   gboolean is_portrait;
   double scale;
   Rectangle extent;
+
+#ifdef HAVE_FREETYPE
+  DiaFont *current_font;
+  real current_height;
+#endif
 };
 
 struct _DiaPsRendererClass
