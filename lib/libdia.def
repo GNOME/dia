@@ -51,6 +51,7 @@ EXPORTS
  bezierconn_remove_segment
  bezierconn_save
  bezierconn_set_corner_type
+ bezierconn_set_points
  bezierconn_update_boundingbox
  bezierconn_update_data
 
@@ -69,6 +70,7 @@ EXPORTS
  beziershape_remove_segment
  beziershape_save
  beziershape_set_corner_type
+ beziershape_set_points
  beziershape_update_boundingbox
  beziershape_update_data
 
@@ -209,6 +211,8 @@ EXPORTS
  dia_line_style_selector_set_linestyle
 
  dia_list_plugins
+
+ dia_object_get_parent_layer
 
  dia_object_default_create
  dia_object_default_get

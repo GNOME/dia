@@ -19,6 +19,7 @@ PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(PNG_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib $(LIBART)\libart.lib
 
 OBJECTS = \
+	autosave.obj \
 	app_procs.obj \
 	color_area.obj \
 	commands.obj \

@@ -63,6 +63,7 @@ OBJECTS = \
 !IFDEF OBJ_svg
 OBJECTS = \
   svg.obj \
+#  svg-import.obj \
   render_svg.obj
 !ENDIF
 

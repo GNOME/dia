@@ -83,8 +83,8 @@ typedef struct {
 } FontSelectorEntry;
 
 /* Hash table from font name to FontSelectorEntry */
-static GHashTable *font_hash_table;
-static GList *menu_entry_list;
+static GHashTable *font_hash_table = NULL;
+static GList *menu_entry_list = NULL;
 
 static void dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data);
 static void dia_font_selector_menu_callback(GtkWidget *button, gpointer data);
@@ -115,7 +115,7 @@ dia_font_selector_add_font(char *fontname, gboolean is_other_font) {
 static
 gboolean strcase_equal(gconstpointer s1, gconstpointer s2)
 {
-  return !(g_strcasecmp(*(char **)s1, *(char **)s2));
+  return !(g_strcasecmp((char *)s1, (char *)s2));
 }
 
 static void

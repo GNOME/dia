@@ -31,10 +31,11 @@
 #endif
 
 #include <stdio.h>
-#include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 
 #include "intl.h"
 #include "dia_dirs.h"
@@ -115,22 +116,20 @@ void
 autosave_restore_documents()
 {
   gchar *savedir = dia_config_filename("autosave" G_DIR_SEPARATOR_S);
-  DIR *dir = opendir(savedir);
-  struct dirent *ent;
+  GDir *dir = g_dir_open(savedir, 0, NULL);
+  const char *ent;
   GList *files = NULL;
 
   if (dir == NULL) return;
-  while ((ent = readdir(dir)) != NULL) {
-    printf("Found autosave file %s\n", ent->d_name);
-    if (!strcmp(ent->d_name, ".") ||
-	!strcmp(ent->d_name, "..")) continue;
-    files = g_list_prepend(files, g_strdup(ent->d_name));
+  while ((ent = g_dir_read_name(dir)) != NULL) {
+    printf("Found autosave file %s\n", ent);
+    files = g_list_prepend(files, g_strdup(ent));
   }
 
   if (files != NULL) {
     autosave_make_restore_dialog(files);
   }
-  closedir(dir);
+  g_dir_close(dir);
   g_free(savedir);
   g_list_free(files);
 }

@@ -170,29 +170,33 @@ OBJECTS = \
 
 !IFDEF OBJ_uml
 OBJECTS = \
-	uml.obj \
+	activity.obj \
+	actor.obj \
+	association.obj \
+	branch.obj \
 	class.obj \
 	class_dialog.obj \
-	note.obj \
-	actor.obj \
-	usecase.obj \
-	realizes.obj \
-	constraint.obj \
-	small_package.obj \
-	large_package.obj \
-	implements.obj \
-	generalization.obj \
-	association.obj \
-	dependency.obj \
-	message.obj \
-	object.obj \
-	lifeline.obj \
-	component.obj \
 	classicon.obj \
-	state.obj \
-	branch.obj \
+	component.obj \
+	constraint.obj \
+	dependency.obj \
+	fork.obj \
+	generalization.obj \
+	implements.obj \
+	large_package.obj \
+	lifeline.obj \
+	message.obj \
 	node.obj \
-	stereotype.obj
+	note.obj \
+	object.obj \
+	realizes.obj \
+	small_package.obj \
+	state.obj \
+	state_term.obj \
+	stereotype.obj \
+	uml.obj \
+	usecase.obj \
+
 
 !ENDIF
 

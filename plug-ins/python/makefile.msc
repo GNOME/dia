@@ -24,14 +24,15 @@ EXTRALIBS = $(PYTHON)\Python-2.2\PCbuild\python22_d.lib user32.lib
 OPTIMIZE = -Zi -MD
 !ENDIF
 
+# we don't depend on Gtk at runtime, but some dia headers
+# need it at compile time
 CFLAGS = -FImsvc_recommended_pragmas.h \
 	-DHAVE_CONFIG_H -I..\.. -I..\..\lib \
-	-I$(PYTHON)\include $(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS) \
-	$(LIBXML2_CFLAGS) $(DIRENT_CFLAGS)
+	-I$(PYTHON)\include $(GLIB_CFLAGS) $(GTK2_CFLAGS) $(INTL_CFLAGS) \
+	$(LIBXML2_CFLAGS)
 
-# LIBXML2_CFLAGS we don't need it, but 'propinternals.h'
-
-EXTRALIBS = $(EXTRALIBS) $(DIRENT_LIBS) ..\..\lib\libdia.lib ..\..\app\dia.lib
+EXTRALIBS = $(EXTRALIBS) $(LIBXML2_LIBS) \
+	..\..\lib\libdia.lib ..\..\app\dia.lib
 
 OBJECTS = \
 	diamodule.obj \

@@ -528,7 +528,7 @@ real dia_font_scaled_descent(const char* string, DiaFont* font,
 {
   real top,bline,bottom;
 
-  if (string[0] == '\0') {
+  if (!string || string[0] == '\0') {
     /* This hack won't work for fonts that don't cover ASCII */
     dia_font_vertical_extents("XjgM149",font,height,zoom_factor,
 			      0,&top,&bline,&bottom);

@@ -40,6 +40,13 @@
 #include "connection.h"
 #include "properties.h"
 
+#if 1
+/* no debug spew */
+#define D(op)
+#else
+#define D(op) op
+#endif
+
 #include "pixmaps/flow.xpm"
 
 Color flow_color_energy   = { 1.0f, 0.0f, 0.0f };
@@ -415,10 +422,10 @@ flow_create(Point *startpoint,
     point_normalize( &n ) ;
   }
   point_scale( &n, 0.5*FLOW_FONTHEIGHT ) ;
-  printf("p = %f, %f, n = %f, %f\n", p.x, p.y, n.x, n.y);
+  D(g_print("p = %f, %f, n = %f, %f\n", p.x, p.y, n.x, n.y));
   point_add( &p, &n ) ;
   point_add( &p, &conn->endpoints[0] ) ;
-  printf("p = %f, %f\n", p.x, p.y);
+  D(g_print("p = %f, %f\n", p.x, p.y));
 
   if ( flow_default_label ) {
     flow->text = text_copy( flow_default_label ) ;
@@ -461,7 +468,7 @@ flow_create(Point *startpoint,
   flow_update_data(flow);
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  printf("%f, %f\n", flow->text->position.x, flow->text->position.y);
+  D(g_print("%f, %f\n", flow->text->position.x, flow->text->position.y));
   return &flow->connection.object;
 }
 

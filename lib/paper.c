@@ -23,7 +23,9 @@
 #include <ctype.h>
 
 #include "paper.h"
+#ifndef _MSC_VER
 #include "../app/preferences.h"
+#endif
 
 /* Paper definitions stolen from gnome-libs.
  * All measurements are in centimetres. */
@@ -105,17 +107,28 @@ get_default_paper(void)
 void
 get_paper_info(PaperInfo *paper, int i)
 {
+#ifndef _MSC_VER
+  /* 
+   * It isn't that simple to get on a variable living in app under win32
+   * and it even appears to be quesionable design to make lib depend
+   * on app this way ...          --hb
+   */
   if (i == -1)
     i = find_paper(prefs.new_diagram.papertype);
+#endif
   if (i == -1)
-    i = find_paper(get_default_paper());
+    i = get_default_paper();
 
   paper->name = g_strdup(paper_metrics[i].paper);
   paper->tmargin = paper_metrics[i].tmargin;
   paper->bmargin = paper_metrics[i].bmargin;
   paper->lmargin = paper_metrics[i].lmargin;
   paper->rmargin = paper_metrics[i].rmargin;
+#ifndef _MSC_VER
   paper->is_portrait = prefs.new_diagram.is_portrait;
+#else
+  paper->is_portrait = FALSE;
+#endif
   paper->scaling = 1.0;
   paper->fitto = FALSE;
   paper->fitwidth = 1;
@@ -127,7 +140,7 @@ get_paper_info(PaperInfo *paper, int i)
     paper_metrics[i].tmargin - 
     paper_metrics[i].bmargin;
   if (!paper->is_portrait) {
-    real tmp = paper->width;
+    double tmp = paper->width;
     paper->width = paper->height;
     paper->height = tmp;
   }
