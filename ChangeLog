@@ -1,3 +1,7 @@
+2005-03-19  Lars Clausen  <lars@raeder.dk>
+
+	* lib/autoroute.c: Orthconns now do autogap.
+
 2005-03-17  Lars Clausen  <lars@raeder.dk>
 
 	* app/authors.h: Added Gregoire Dooms for gap stuff.

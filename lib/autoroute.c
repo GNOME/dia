@@ -43,7 +43,8 @@ static real autoroute_layout_orthogonal(Point *to,
 					  guint *num_points, Point **points);
 static real autoroute_layout_opposite(Point *to, 
 					guint *num_points, Point **points);
-
+static Point autolayout_adjust_for_gap(Point *pos, int dir, OrthConn *conn,
+				       Point *otherpos, ConnectionPoint *cp);
 static guint autolayout_normalize_points(guint startdir, guint enddir,
 					 Point start, Point end,
 					 Point *newend);
@@ -87,20 +88,30 @@ autoroute_layout_orthconn(OrthConn *conn,
 	Point *this_layout = NULL;
 	guint this_num_points;
 	guint normal_enddir;
-	Point endpoint;
+	Point startpoint, endpoint;
+	Point otherpoint;
+	startpoint = autolayout_adjust_for_gap(&frompos, startdir, conn,
+					       &topos, startconn);
+	endpoint = autolayout_adjust_for_gap(&topos, enddir, conn,
+					     &frompos, endconn);
+	       startdir, enddir,
+	       frompos.x, frompos.y,
+	       topos.x, topos.y,
+	       startpoint.x, startpoint.y,
+	       endpoint.x, endpoint.y);
 	normal_enddir = autolayout_normalize_points(startdir, enddir,
-						    frompos, topos,
-						    &endpoint);
+						    startpoint, endpoint,
+						    &otherpoint);
 	if (normal_enddir == DIR_NORTH ) {
-	  this_badness = autoroute_layout_parallel(&endpoint,
+	  this_badness = autoroute_layout_parallel(&otherpoint,
 						   &this_num_points,
 						   &this_layout);
 	} else if (normal_enddir == DIR_SOUTH) {
-	  this_badness = autoroute_layout_opposite(&endpoint, 
+	  this_badness = autoroute_layout_opposite(&otherpoint, 
 						   &this_num_points,
 						   &this_layout);
 	} else {
-	  this_badness = autoroute_layout_orthogonal(&endpoint,
+	  this_badness = autoroute_layout_orthogonal(&otherpoint,
 						     normal_enddir,
 						     &this_num_points,
 						     &this_layout);
@@ -160,6 +171,42 @@ calculate_badness(Point *ps, guint num_points)
     badness += this_badness;
   }
   return badness;
+}
+
+/** Adjust one end of an orthconn for gaps */
+static Point
+autolayout_adjust_for_gap(Point *pos, int dir, OrthConn *conn,
+			  Point *otherpos, ConnectionPoint *cp)
+{
+  DiaObject *object;
+  Point dir_other;
+  /* Do absolute gaps here, once it's defined */
+  
+  if (!connpoint_is_autogap(cp)) {
+    return *pos;
+  }
+
+  object  = cp->object;
+  
+  dir_other.x = pos->x;
+  dir_other.y = pos->y;
+  switch (dir) {
+  case DIR_NORTH: 
+    dir_other.y += 2 * (object->bounding_box.top - pos->y);
+    break;
+  case DIR_SOUTH:
+    dir_other.y += 2 * (object->bounding_box.bottom - pos->y);
+    break;
+  case DIR_EAST:
+    dir_other.x += 2 * (object->bounding_box.right - pos->x);
+    break;
+  case DIR_WEST:
+    dir_other.x += 2 * (object->bounding_box.left - pos->x);
+    break;
+  default: 
+    g_warning("Impossible direction %d\n", dir);
+  }
+  return calculate_object_edge(pos, &dir_other, object);
 }
 
 static real
