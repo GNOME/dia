@@ -76,7 +76,8 @@ void register_objects(void) {
 
   home_dir = g_get_home_dir();
   if (home_dir) {
-    home_dir = g_strconcat(home_dir, G_DIR_SEPARATOR_S, ".dia_shapes", NULL);
+    home_dir = g_strconcat(home_dir, G_DIR_SEPARATOR_S, ".dia",
+			   G_DIR_SEPARATOR_S, "shapes", NULL);
     load_sheets_from_dir(home_dir);
     g_free(home_dir);
   }

@@ -202,7 +202,7 @@ prefs_save(void)
 
   strncpy(filename, getenv("HOME"), 512);
   filename[511] = 0;
-  strncat(filename, "/.diarc",512);
+  strncat(filename, "/.dia/diarc",512);
   filename[511] = 0;
   
   file = fopen(filename, "w");
@@ -321,10 +321,18 @@ prefs_load(void)
 
   strncpy(filename, getenv("HOME"), 512);
   filename[511] = 0;
-  strncat(filename, "/.diarc",512);
+  strncat(filename, "/.dia/diarc",512);
   filename[511] = 0;
   
   fd = open(filename, O_RDONLY);
+
+  if (fd < 0) {
+    strncpy(filename, getenv("HOME"), 512);
+    filename[511] = 0;
+    strncat(filename, "/.diarc",512);
+    filename[511] = 0;
+    fd = open(filename, O_RDONLY);
+  }
 
   prefs_set_defaults();
 

@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
+#include <errno.h>
 #include <dirent.h>
 #include <sys/stat.h>
 #include <string.h>
@@ -60,6 +61,7 @@
 static void register_all_objects(void);
 static void register_all_sheets(void);
 static int name_is_lib(char *name);
+static void create_user_dirs(void);
 
 #ifdef GNOME
 
@@ -160,6 +162,8 @@ app_init (int argc, char **argv)
   gtk_rc_parse ("diagtkrc"); 
 
   /*  enable_core_dumps(); */
+
+  create_user_dirs();
 
   color_init();
 
@@ -282,6 +286,25 @@ app_exit(void)
   gtk_main_quit();
 }
 
+static void create_user_dirs(void)
+{
+  gchar *dir, *subdir;
+
+  dir = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S, ".dia", NULL);
+  if (mkdir(dir, 0755) && errno != EEXIST)
+    g_error(_("Could not create per-user Dia config directory"));
+
+  /* it is no big deal if these directories can't be created */
+  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S, "objects", NULL);
+  mkdir(subdir, 0755);
+  g_free(subdir);
+  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S, "shapes", NULL);
+  mkdir(subdir, 0755);
+  g_free(subdir);
+
+  g_free(dir);
+}
+
 static int
 name_is_lib(char *name)
 {
@@ -390,7 +413,7 @@ register_all_objects(void)
 
   if (home_path!=NULL) {
     strncpy(lib_dir, home_path, 256);
-    strncat(lib_dir, "/.dia_libs", 256);
+    strncat(lib_dir, "/.dia/objects", 256);
     register_objects_in(lib_dir);
   }
 

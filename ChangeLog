@@ -1,3 +1,17 @@
+1999-10-10  James Henstridge  <james@daa.com.au>
+
+	* objects/custom/custom.c: look in ~/.dia/shapes instead of
+	~/.dia_shapes as the per-user shapes directory.
+
+	* app/preferences.c (prefs_save): save config to ~/.dia/diarc.
+	(prefs_load): load configuration from ~/.dia/diarc.  If the file
+	does not exist, fallback on the old ~/.diarc location.
+
+	* app/app_procs.c (create_user_dirs): create the ~/.dia directory
+	on startup.
+	(register_all_objects): look for user specific objects in
+	~/.dia/objects rather than ~/.dia_libs.
+
 1999-10-10  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* configure.in:
