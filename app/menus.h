@@ -27,33 +27,33 @@ extern const struct zoom_pair zooms[10];
 /* all the menu items that can be updated */
 struct _UpdatableMenuItems 
 {
-  GtkWidget *copy;
-  GtkWidget *cut;
-  GtkWidget *paste;
+  GtkMenuItem *copy;
+  GtkMenuItem *cut;
+  GtkMenuItem *paste;
 #ifndef GNOME
-  GtkWidget *edit_delete;
+  GtkMenuItem *edit_delete;
 #endif
-  GtkWidget *copy_text;
-  GtkWidget *cut_text;
-  GtkWidget *paste_text;
+  GtkMenuItem *copy_text;
+  GtkMenuItem *cut_text;
+  GtkMenuItem *paste_text;
 
-  GtkWidget *send_to_back;
-  GtkWidget *bring_to_front;
+  GtkMenuItem *send_to_back;
+  GtkMenuItem *bring_to_front;
 
-  GtkWidget *group;
-  GtkWidget *ungroup;
+  GtkMenuItem *group;
+  GtkMenuItem *ungroup;
 
-  GtkWidget *align_h_l;
-  GtkWidget *align_h_c;
-  GtkWidget *align_h_r;
-  GtkWidget *align_h_e;
-  GtkWidget *align_h_a;
+  GtkMenuItem *align_h_l;
+  GtkMenuItem *align_h_c;
+  GtkMenuItem *align_h_r;
+  GtkMenuItem *align_h_e;
+  GtkMenuItem *align_h_a;
 
-  GtkWidget *align_v_t;
-  GtkWidget *align_v_c;
-  GtkWidget *align_v_b;
-  GtkWidget *align_v_e;
-  GtkWidget *align_v_a;
+  GtkMenuItem *align_v_t;
+  GtkMenuItem *align_v_c;
+  GtkMenuItem *align_v_b;
+  GtkMenuItem *align_v_e;
+  GtkMenuItem *align_v_a;
 };
 
 typedef struct _UpdatableMenuItems UpdatableMenuItems;

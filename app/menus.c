@@ -695,7 +695,7 @@ menus_set_tools_callback (const char * menu_name, GtkItemFactory *item_factory)
 {
     gint i, len;
     GString *path;
-    GtkWidget *menuitem;
+    GtkMenuItem *menuitem;
     
     path = g_string_new(menu_name);
     g_string_append(path, "/Tools/");
@@ -891,10 +891,10 @@ menus_get_image_menubar (GtkWidget **menu, GtkItemFactory **display_mbar_item_fa
 
  * but doesn't perform any translation of the menu items, and removes
  * underscores when performing the string comparisons */
-static GtkWidget *
+static GtkMenuItem *
 dia_gnome_menu_get_widget (GnomeUIInfo *uiinfo, const gchar *path)
 {
-  GtkWidget *ret;
+  GtkMenuItem *ret;
   gchar *name_end;
   gint path_len, label_len, i, j;
   gboolean label_matches;
@@ -947,7 +947,7 @@ dia_gnome_menu_get_widget (GnomeUIInfo *uiinfo, const gchar *path)
 	}
       }
       if (label_matches && j == path_len && i == label_len)
-	return uiinfo->widget;
+	return GTK_MENU_ITEM(uiinfo->widget);
       break;
 
     case GNOME_APP_UI_SUBTREE:
@@ -995,7 +995,8 @@ find_parent(GtkMenuShell *top, GnomeUIInfo *uiinfo, GHashTable *extras,
 {
   const gchar *slash;
   gchar *parent_path;
-  GtkWidget *parent_item, *parent_submenu, *tearoff, *grandparent_submenu;
+  GtkMenuItem *parent_item;
+  GtkWidget *parent_submenu, *tearoff, *grandparent_submenu;
 
   slash = strrchr(mpath, '/');
   if (!slash)
@@ -1008,13 +1009,13 @@ find_parent(GtkMenuShell *top, GnomeUIInfo *uiinfo, GHashTable *extras,
     parent_item = dia_gnome_menu_get_widget(uiinfo, parent_path);
   if (parent_item) {
     g_free(parent_path);
-    if (GTK_MENU_ITEM(parent_item)->submenu) {
-      return GTK_MENU_SHELL(GTK_MENU_ITEM(parent_item)->submenu);
+    if (parent_item->submenu) {
+      return GTK_MENU_SHELL(parent_item->submenu);
     } else {
       GtkWidget *menu = gtk_menu_new();
 
       /* setup submenu, and add a tearoff at the top */
-      gtk_menu_item_set_submenu(GTK_MENU_ITEM(parent_item), menu);
+      gtk_menu_item_set_submenu(parent_item, menu);
       tearoff = gtk_tearoff_menu_item_new();
       gtk_container_add(GTK_CONTAINER(menu), tearoff);
       gtk_widget_show(tearoff);
@@ -1030,13 +1031,13 @@ find_parent(GtkMenuShell *top, GnomeUIInfo *uiinfo, GHashTable *extras,
     slash++;
   else
     slash = parent_path;
-  parent_item = gtk_menu_item_new_with_label(slash);
-  gtk_container_add(GTK_CONTAINER(grandparent_submenu), parent_item);
-  gtk_widget_show(parent_item);
+  parent_item = GTK_MENU_ITEM(gtk_menu_item_new_with_label(slash));
+  gtk_container_add(GTK_CONTAINER(grandparent_submenu), GTK_WIDGET(parent_item));
+  gtk_widget_show(GTK_WIDGET(parent_item));
   g_hash_table_insert(extras, parent_path, parent_item); /* add to extras */
 
   parent_submenu = gtk_menu_new();
-  gtk_menu_item_set_submenu(GTK_MENU_ITEM(parent_item), parent_submenu);
+  gtk_menu_item_set_submenu(parent_item, parent_submenu);
   tearoff = gtk_tearoff_menu_item_new();
   gtk_container_add(GTK_CONTAINER(parent_submenu), tearoff);
   gtk_widget_show(tearoff);
@@ -1148,15 +1149,18 @@ menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
 # else
 
   if (display_item_factory) {
-    widget = gtk_item_factory_get_item(display_item_factory, path);
+    widget = 
+      GTK_MENU_ITEM(gtk_item_factory_get_item(display_item_factory, path));
   }
   
   if ((widget == NULL) && (item_factory)) {
-      widget = gtk_item_factory_get_item(item_factory, path);
+      widget = 
+	GTK_MENU_ITEM(gtk_item_factory_get_item(item_factory, path));
   }
   
   if (widget == NULL) {
-    widget = gtk_item_factory_get_item(toolbox_item_factory, path);
+    widget = 
+      GTK_MENU_ITEM(gtk_item_factory_get_item(toolbox_item_factory, path));
   }
 # endif
 

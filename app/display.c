@@ -902,22 +902,22 @@ display_update_menu_state(DDisplay *ddisp)
 {
   static gboolean initialized = 0;
 
-  static GtkWidget *rulers;
-  static GtkWidget *visible_grid;
-  static GtkWidget *snap_to_grid;
-  static GtkWidget *show_cx_pts;
+  static GtkCheckMenuItem *rulers;
+  static GtkCheckMenuItem *visible_grid;
+  static GtkCheckMenuItem *snap_to_grid;
+  static GtkCheckMenuItem *show_cx_pts;
 #ifdef HAVE_LIBART
-  static GtkWidget *antialiased;
+  static GtkCheckMenuItem *antialiased;
 #endif
 
   if ((!initialized) && (ddisp->menu_bar == NULL)) {
-    rulers       = menus_get_item_from_path("<Display>/View/Show Rulers", NULL);
-    visible_grid = menus_get_item_from_path("<Display>/View/Show Grid", NULL);
-    snap_to_grid = menus_get_item_from_path("<Display>/View/Snap To Grid", NULL);
+    rulers       = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Show Rulers", NULL));
+    visible_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Show Grid", NULL));
+    snap_to_grid = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Snap To Grid", NULL));
     show_cx_pts  = 
-      menus_get_item_from_path("<Display>/View/Show Connection Points", NULL);
+      GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/Show Connection Points", NULL));
 #ifdef HAVE_LIBART
-    antialiased = menus_get_item_from_path("<Display>/View/AntiAliased", NULL);
+    antialiased = GTK_CHECK_MENU_ITEM(menus_get_item_from_path("<Display>/View/AntiAliased", NULL));
 #endif
 
     initialized = TRUE;
@@ -939,16 +939,16 @@ display_update_menu_state(DDisplay *ddisp)
 #endif
   }
   else {
-      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(rulers),
+      gtk_check_menu_item_set_active(rulers,
 				     GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0); 
-      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(visible_grid),
+      gtk_check_menu_item_set_active(visible_grid,
 				     ddisp->grid.visible);
-      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(snap_to_grid),
+      gtk_check_menu_item_set_active(snap_to_grid,
 				     ddisp->grid.snap);
-      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(show_cx_pts),
+      gtk_check_menu_item_set_active(show_cx_pts,
 				     ddisp->show_cx_pts); 
 #ifdef HAVE_LIBART
-      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(antialiased),
+      gtk_check_menu_item_set_active(antialiased,
 				     ddisp->aa_renderer);
 #endif 
   }  

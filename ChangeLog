@@ -1,6 +1,11 @@
 2002-11-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
-	* app/menus.c (menus_get_item_from_path): 
+	* app/display.c: 
+	* app/diagram.c: 
+	* app/menus.c:
+	* app/menus.h: Updated some more methods to also be more specific
+	on the types.
+
 	* app/menus.h:
 	* app/recent_files.c: 
 	Changed to return most specific type, to avoid run-time type errors.
