@@ -1,0 +1,43 @@
+<?xml version="1.0"?><!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Civil</name>
+  <description>Civil Engineering Components</description>
+  <contents>
+    <object name="Civil - Vertical Rest">
+    	<description>Vertical Rest</description>
+    </object>
+    <object name="Civil - Horizontal Rest">
+    	<description>Horizontal Rest</description>
+	<description xml:lang="de">Horizontales Auflager</description>
+    </object>    
+    <object name="Civil - Bivalent Vertical Rest">
+    	<description>Bivalent Vertical Rest</description>
+	<description xml:lang="de">Zweiwertiges vertikales Auflager</description>
+    </object>    
+    <object name="Civil - Reference Line">
+    	<description>Reference Line</description>
+        <description xml:lang="de">Bezugslinie</description>
+    </object>
+    <object name="Civil - Horizontal Pump">
+	<description>Horizontally aligned pump</description>
+        <description xml:lang="de">Eine horizontal ausgerichtete Pumpe</description>
+    </object>
+        <object name="Civil - Vertical Pump">
+	<description>Vertically aligned pump</description>
+	<description xml:lang="de">Vertikal ausgerichtete Pumpe</description>
+    </object>
+        <object name="Civil - Horizontal Compressor">
+	<description>Horizontally aligned compressor</description>
+	<description xml:lang="de">Ein horizontal ausgerichteter Verdichter</description>
+    </object>
+    <object name="Civil - Vertical Compressor">
+	<description>Vertically aligned compressor</description>
+    </object>
+    <object name="Civil - Water Level">
+	<description>Water Level</description>
+	<description xml:lang="de">Wasserspiegel</description>
+    </object>
+  </contents>
+</sheet>
+
