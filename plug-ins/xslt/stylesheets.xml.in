@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<config>
+  <language name="UML" stylesheet="XSLT_DATA_DIRdia-uml.xsl">
+    <implementation name="C++" stylesheet="XSLT_DATA_DIRdia-uml2c++.xsl"/>
+    <implementation name="Java" stylesheet="XSLT_DATA_DIRdia-uml2java.xsl"/>
+    <implementation name="IDL" stylesheet="XSLT_DATA_DIRdia-uml2idl.xsl"/>        
+  </language>
+</config>

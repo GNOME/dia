@@ -1,3 +1,15 @@
+2003-02-13  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/xslt/.cvsignore: Ignore .o files, please.
+
+	* plug-ins/xslt/stylesheets: Removed old-style config file.
+	
+	* plug-ins/xslt/stylesheets.xml.in: New XML-based config file.
+
+	* plug-ins/xslt/Makefile.am: 
+	* plug-ins/xslt/xslt.c: Applied patch from Matthieu, improved path
+	handling (no more DIA_PLUGIN_PATH).
+
 2003-02-11  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/svg/render_svg.c: 

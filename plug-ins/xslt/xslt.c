@@ -32,6 +32,7 @@
 #include <libxslt/xsltInternals.h>
 #include <libxslt/transform.h>
 #include <libxslt/xsltutils.h>
+#include <libxml/tree.h>
 
 #include "xslt.h"
 
@@ -43,7 +44,7 @@ static char *filename;
 static GModule *xslt_module;
 
 static void
-export_data(DiagramData *data, const gchar *f, 
+export_xslt(DiagramData *data, const gchar *f, 
             const gchar *diaf, void* user_data)
 {
 	if(filename != NULL)
@@ -66,29 +67,21 @@ void xslt_ok() {
 	char *params[] = { "directory", NULL, NULL };
 	xsltStylesheetPtr style, codestyle;
 	xmlDocPtr doc, res;
-	const gchar *pluginpath;
 
-	pluginpath = g_getenv("DIA_PLUGIN_PATH");
-	if (pluginpath == NULL) {
-	  message_warning(_("DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"));
-	  return;
-	}
 	params[1] = g_strconcat("'", g_dirname(filename), G_DIR_SEPARATOR_S, "'", NULL);
 	
 	file = fopen(diafilename, "r");
 
 	if (file == NULL) {
-		message_error(_("Couldn't open: '%s' for reading.\n"), diafilename);
-		return;
+	    message_error(_("Couldn't open: '%s' for reading.\n"), diafilename);
+	    return;
 	}
 
 	out = fopen(filename, "w+");
 	
-
-
 	if (out == NULL) {
-		message_error(_("Couldn't open: '%s' for writing.\n"), filename);
-		return;
+	    message_error(_("Couldn't open: '%s' for writing.\n"), filename);
+	    return;
 	}
 	
 	xmlSubstituteEntitiesDefault(0);
@@ -99,9 +92,7 @@ void xslt_ok() {
 		return;
 	}
 	
-	stylefname = g_strconcat(pluginpath,
-				 G_DIR_SEPARATOR_S, "xslt", 
-				 G_DIR_SEPARATOR_S, xsl_from->xsl, NULL);
+	stylefname = xsl_from->xsl;
 
 	style = xsltParseStylesheetFile((const xmlChar *) stylefname);
 	if(style == NULL) {
@@ -111,28 +102,24 @@ void xslt_ok() {
 	
 	res = xsltApplyStylesheet(style, doc, NULL);
 	if(res == NULL) {
-		message_error(_("Error while parsing stylesheet %s\n"), stylefname);
+		message_error(_("Error while applying stylesheet %s\n"), stylefname);
 		return;
-	}
+	}       
 	
-	g_free(stylefname);
+	stylefname = xsl_to->xsl;
 	
-	stylefname = g_strconcat(pluginpath,
-				 G_DIR_SEPARATOR_S, "xslt", 
-				 G_DIR_SEPARATOR_S, xsl_to->xsl, NULL);
-
 	codestyle = xsltParseStylesheetFile((const xmlChar *) stylefname);
 	if(codestyle == NULL) {
-		message_error(_("Error while parsing stylesheet: %s\n"), xsl_to->xsl);
-		return;
+	    message_error(_("Error while parsing stylesheet: %s\n"), xsl_to->xsl);
+	    return;
 	}
 	
 	xmlFreeDoc(doc);
 	
 	doc = xsltApplyStylesheet(codestyle, res, (const char **) params);
 	if(doc == NULL) {
-		message_error(_("Error while applying stylesheet: %s\n"), xsl_to->xsl);
-		return;
+	    message_error(_("Error while applying stylesheet: %s\n"), xsl_to->xsl);
+	    return;
 	}
 
 
@@ -142,7 +129,6 @@ void xslt_ok() {
 		
 	fclose(out);
 	fclose(file);
-	g_free(stylefname);
 
 	xsltFreeStylesheet(codestyle);
 	xsltFreeStylesheet(style);
@@ -154,15 +140,136 @@ void xslt_ok() {
 	xslt_clear();
 }
 
+static toxsl_t *read_implementations(xmlNodePtr cur) 
+{
+    toxsl_t *first, *curto;
+    first = curto = NULL;
+
+    cur = cur->xmlChildrenNode;
+
+    while (cur) {
+        toxsl_t *to;
+	if (xmlIsBlankNode(cur) || xmlNodeIsText(cur)) { cur = cur->next; continue; }
+	to = g_malloc(sizeof(toxsl_t));	
+	to->next = NULL;
+	
+	to->name = xmlGetProp(cur, (const xmlChar *) "name");
+	to->xsl = xmlGetProp(cur, (const xmlChar *) "stylesheet");
+	
+	if (!(to->name && to->xsl)) {
+	    g_warning ("Name and stylesheet attributes are required for the implementation element %s in XSLT plugin configuration file", cur->name);
+	    g_free(to);
+	    to = NULL;
+	} else {
+	    if (first == NULL) {
+		first = curto = to;
+	    } else {
+		curto->next = to;
+		curto = to;
+	    }
+	}	    
+	cur = cur->next;
+    }
+    
+    return first;
+}
+
+static PluginInitResult read_configuration(const char *config) 
+{
+    xmlDocPtr doc;
+    xmlNodePtr cur;
+    /* Primary xsl */
+    fromxsl_t *cur_from = NULL;
+
+    if (!g_file_test(config, G_FILE_TEST_EXISTS))
+	return DIA_PLUGIN_INIT_ERROR;
+    
+    doc = xmlParseFile(config);
+    
+    if (doc == NULL) 
+    {
+	g_error ("Couldn't parse XSLT plugin's configuration file %s", config);
+	return DIA_PLUGIN_INIT_ERROR;
+    }
+    
+    cur = xmlDocGetRootElement(doc);
+    if (cur == NULL)
+    {
+	g_error ("XSLT plugin's configuration file %s is empty", config);
+	return DIA_PLUGIN_INIT_ERROR;
+    }
+    
+    /* We don't care about the top level element's name */
+    
+    cur = cur->xmlChildrenNode;
+
+    while (cur) {
+	if (xmlIsBlankNode(cur) || xmlNodeIsText(cur)) { cur = cur->next; continue; }
+	else if (!xmlStrcmp(cur->name, "language")) {
+	    fromxsl_t *new_from = g_malloc(sizeof(fromxsl_t));
+	    new_from->next = NULL;
+
+	    new_from->name = xmlGetProp(cur, (const xmlChar *) "name");
+	    new_from->xsl = xmlGetProp(cur, (const xmlChar *) "stylesheet");
+	    
+	    if (!(new_from->name && new_from->xsl)) {
+		g_warning ("'name' and 'stylesheet' attributes are required for the language element %s in XSLT plugin configuration file", cur->name);
+		g_free(new_from);
+		new_from = NULL;
+	    } else {
+		if (froms == NULL)
+		    froms = cur_from = new_from;
+		else {
+		    cur_from->next = new_from;
+		    cur_from = new_from;
+		}
+		
+		cur_from->xsls = read_implementations(cur);
+		if (cur_from->xsls == NULL) {
+		    g_warning ("No implementation stylesheet for language %s in XSLT plugin configuration file", cur_from->name);
+		}
+	    }	    
+	} else {
+	    g_warning ("Wrong node name %s in XSLT plugin configuration file, 'language' expected", cur->name);
+	}
+	cur = cur -> next;	
+    }
+   
+    if (froms == NULL) {
+	g_warning ("No stylesheets configured in %s for XSLT plugin", config);
+    }
+    
+    /*cur_from = froms;
+
+    printf("XSLT plugin configuration: \n");
+    while(cur_from != NULL)
+    {
+	printf("From: %s (%s)\n", cur_from->name, cur_from->xsl);
+	
+	cur_to = cur_from->xsls;
+	while(cur_to != NULL) {
+	    printf("\tTo: %s (%s)\n", cur_to->name, cur_to->xsl);
+	    cur_to = cur_to->next;
+	}
+	cur_from = cur_from->next;
+    }
+    */
+    xmlFreeDoc(doc);
+    xmlCleanupParser();
+
+    return DIA_PLUGIN_INIT_OK;
+}
+
+
 /* --- dia plug-in interface --- */
 
 #define MY_RENDERER_NAME "XSL Transformation filter"
 
 static const gchar *extensions[] = { "code", NULL };
 static DiaExportFilter my_export_filter = {
-	N_(MY_RENDERER_NAME),
-	extensions,
-	export_data
+    N_(MY_RENDERER_NAME),
+    extensions,
+    export_xslt
 };
 
 
@@ -170,118 +277,55 @@ PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
 	gchar *path;
-	FILE *xsls;
-	int res;
+	PluginInitResult global_res, user_res;
 
-      /* Primary xsl */
-	fromxsl_t *cur_from;
-      /* Secondary xsl */
-	toxsl_t *cur_to, *prev_to;
-	
 	if (!dia_plugin_info_init(info, "XSLT",
 			          _("XSL Transformation filter"),
-			          xslt_can_unload, xslt_unload))
+			          NULL, NULL))
 	{
 			return DIA_PLUGIN_INIT_ERROR;
 	}
 	
 #ifdef G_OS_WIN32
-      /* FIXME: We can't assume \Windows is the right path, can we ? */
+	/* FIXME: We can't assume \Windows is the right path, can we ? */
 	path = g_module_build_path("\Windows", "xslt");
 #else
-      /* FIXME: We should have a --with-xslt-prefix and use this */
+	/* FIXME: We should have a --with-xslt-prefix and use this */
 	path = g_module_build_path("/usr/lib", "xslt");
 #endif	
 	xslt_module = g_module_open(path, 0);
-	if(!xslt_module) {
+	if(xslt_module == NULL) {
 		message_error(_("Could not load XSLT library (%s) : %s"), path, g_module_error());
 		return DIA_PLUGIN_INIT_ERROR;
 	}
-	filter_register_export(&my_export_filter);
-		
+
 	g_free(path);
+
+	path = dia_get_data_directory("plugins" G_DIR_SEPARATOR_S
+				      "xslt" G_DIR_SEPARATOR_S
+				      "stylesheets.xml");
+	global_res = read_configuration(path);
+	g_free (path);
+
+	path = g_strconcat(dia_config_filename("plugins"),
+			   G_DIR_SEPARATOR_S, "xslt",
+			   G_DIR_SEPARATOR_S, "stylesheets.xml", NULL);
 	
-	path = g_strconcat(g_getenv("DIA_PLUGIN_PATH"), 
-			   G_DIR_SEPARATOR_S, "xslt", 
-			   G_DIR_SEPARATOR_S, "stylesheets", NULL);
+	user_res = read_configuration(path);
 	
-	if(path == NULL)
+	g_free (path);
+	
+	if (global_res == DIA_PLUGIN_INIT_OK || user_res == DIA_PLUGIN_INIT_OK)
 	{
-		message_error(
-        _("Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."));
-		return DIA_PLUGIN_INIT_ERROR;
+	    xsl_from = froms;
+	    xsl_to = xsl_from->xsls;
+
+	    filter_register_export(&my_export_filter);
+	    return DIA_PLUGIN_INIT_OK;
+	} else {
+	    g_warning (_("No valid configuration files found for the XSLT plugin, not loading."));
+	    return DIA_PLUGIN_INIT_ERROR;
 	}
-		
-      /* printf("XSLT plugin config file: %s\n", path); */
-
-	xsls = fopen(path, "r");
-
-	if(xsls == NULL)
-	{
-		message_error("Could not find XSLT plugin configuration file : %s", path);
-		return DIA_PLUGIN_INIT_ERROR;
-	}
-	
-	
-	cur_from = froms = g_malloc(sizeof(fromxsl_t));
-	cur_from->next = NULL;
-
-	while(1)
-	{
-		fscanf(xsls, "%as : %as\n", &cur_from->name, &cur_from->xsl);
-        /* printf("From: %s (%s)\n", cur_from->name, cur_from->xsl); */
-		prev_to = NULL;
-		cur_to = cur_from->xsls = g_malloc(sizeof(toxsl_t));
-		while(1)
-		{
-			res = fscanf(xsls, "%as = %as\n", &cur_to->name, &cur_to->xsl);
-			
-			if(res != 2) {
-				if(prev_to != NULL)
-					prev_to->next = NULL;
-				break;
-			}
-
-          /* printf("To: %s (%s)\n", cur_to->name, cur_to->xsl);			 */
-			if(!feof(xsls)) {
-				prev_to = cur_to;
-				cur_to->next = g_malloc(sizeof(toxsl_t));
-				cur_to = cur_to->next;
-			} else {
-				cur_to->next = NULL;
-				fclose(xsls);
-				break;
-			}
-		}
-		if(!feof(xsls)) {
-			cur_from->next = g_malloc(sizeof(fromxsl_t));
-			cur_from = cur_from->next;
-		} else {
-			cur_from->next = NULL;
-			break;
-		}
-	}
-	
-	cur_from = froms;
-	
-	/*printf("XSLT plugin configuration: \n");
-	while(cur_from != NULL)
-	{
-		printf("From: %s (%s)\n", cur_from->name, cur_from->xsl);
-
-		cur_to = cur_from->xsls;
-		while(cur_to != NULL) {
-			printf("\tTo: %s (%s)\n", cur_to->name, cur_to->xsl);
-			cur_to = cur_to->next;
-		}
-
-		cur_from = cur_from->next;
-		}*/
-
-	xsl_from = froms;
-	xsl_to = froms->xsls;
-
-	return DIA_PLUGIN_INIT_OK;
 }
 
 gboolean xslt_can_unload(PluginInfo *info)
