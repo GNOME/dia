@@ -1116,17 +1116,22 @@ set_font(RendererEPS *renderer, Font *font, real height)
 
 static void 
 predraw_string(RendererEPS *renderer,
-               const char *text)
+               const utfchar *text)
 {
   char *utf8_buffer;
   int utf8_len;
 
   if ((!text)||(text == (const char *)(1))) return;
 
+#ifndef UNICODE_WORK_IN_PROGRESS
   /* <FIXME:> dia doesn't talk UTF-8 but the local charset. The PSUnicoder
      talks UTF-8. We do a quick-and-dirty translation for now. */
   utf8_buffer = charconv_local8_to_utf8(text);
   /* </FIXME> */
+#else
+  utf8_buffer=text;
+#endif
+
   utf8_len = strlen(utf8_buffer); /* deliberate */
 
   if (utf8_len <= 0) {
@@ -1134,13 +1139,15 @@ predraw_string(RendererEPS *renderer,
   }
   psu_check_string_encodings(renderer->psu,utf8_buffer);
   
+#ifndef UNICODE_WORK_IN_PROGRESS
   g_free(utf8_buffer);
+#endif
 }
 
 
 static void
 draw_string(RendererEPS *renderer,
-	    const char *text,
+	    const utfchar *text,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {
@@ -1151,14 +1158,19 @@ draw_string(RendererEPS *renderer,
 
   lazy_setcolor(renderer,color);
 
+#ifndef UNICODE_WORK_IN_PROGRESS
   /* <FIXME:> dia doesn't talk UTF-8 but the local charset. The PSUnicoder
      talks UTF-8. We do a quick-and-dirty translation for now. */
   utf8_buffer = charconv_local8_to_utf8(text);
   /* </FIXME> */
-  utf8_len = strlen(utf8_buffer); /* deliberate */
+#else
+  utf8_buffer=text;
+#endif
 
   if (utf8_len <= 0) {
+#ifndef UNICODE_WORK_IN_PROGRESS
     g_free(utf8_buffer);
+#endif
     return; /* null string -> we won't display anything 
                and we will crash the Postscript stack. */
   }
@@ -1187,7 +1199,9 @@ draw_string(RendererEPS *renderer,
 
   psu_show_string(renderer->psu,utf8_buffer);
   
+#ifndef UNICODE_WORK_IN_PROGRESS
   g_free(utf8_buffer);
+#endif
   
   fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
 }

@@ -22,10 +22,11 @@
 
 #include <config.h>
 #ifdef HAVE_UNICODE
-
 #ifndef PS_UTF8_H
-#include <unicode.h>
+
 #include <glib.h>
+#include <unicode.h>
+#include "charconv.h"
 
 #define PSEPAGE_BEGIN 32
 #define PSEPAGE_SIZE (256-PSEPAGE_BEGIN)
@@ -55,7 +56,7 @@ struct _PSEncodingPage {
   int serial_num;
   int last_realized;
   int entries;
-  GHashTable *backpage; /* LE(unicode_char_t -> char) */
+  GHashTable *backpage; /* LE(unichar -> char) */
   unicode_char_t page[PSEPAGE_SIZE];
 };
 
@@ -117,15 +118,15 @@ extern void psu_set_font_face(PSUnicoder *psu, const gchar *face, float size);
 /* just stores the font face and size we'll later use */
 
 extern void psu_check_string_encodings(PSUnicoder *psu, 
-                                       const gchar *utf8_string);
+                                       const utfchar *utf8_string);
 /* appends what's going to be needed in the encoding tables */
 
 extern void psu_show_string(PSUnicoder *psu,
-                           const gchar *utf8_string);
+                           const utfchar *utf8_string);
 /* shows the string, asking back for as many font and encoding manipulations
    as necessary. */
 extern void psu_get_string_width(PSUnicoder *psu,
-                                 const gchar *utf8_string);
+                                 const utfchar *utf8_string);
 /* puts the string width on the PS stack. */
 
 extern const char *unicode_to_ps_name(unicode_char_t val);

@@ -47,7 +47,7 @@ nearest_pow (int num)
 
 int
 format_string_length_upper_bound (const char* fmt, va_list *args)
-{
+{ /* UTF8 ? */
   int len = 0;
   int short_int;
   int long_int;

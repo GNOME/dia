@@ -23,57 +23,74 @@
 #include <config.h>
 
 #include <glib.h>
-#include "charconv.h"
+#define UNICODE_WORK_IN_PROGRESS /* here, it's mandatory or we break. */
+#include "charconv.h" 
 
 #ifdef HAVE_UNICODE
 #include <string.h>
 #include <unicode.h>
 #include <errno.h>
 
+/* unfortunately, unicode_get_charset() is broken :'-( 
+   As a hopefully temporary measure, we'll continue using the older charset 
+   detection code if unicode_get_charset() dares to tell us the local charset 
+   is US-ASCII.
+*/
 #ifdef HAVE_LANGINFO_CODESET
 #include <langinfo.h>
 #else /* HAVE_LANGINFO_CODESET */
-#ifndef EFAULT_8BIT_CHARSET /* this is a hack until dia talks utf8 internally. */
+#ifndef EFAULT_8BIT_CHARSET /* This is a last resort hack */
 #define EFAULT_8BIT_CHARSET "ISO-8859-1"
 #endif /* !EFAULT_8BIT_CHARSET */
 #define CODESET
 static const char *nl_langinfo(void) {
   return EFAULT_8BIT_CHARSET;
 }
-
 #endif /* HAVE_LANGINFO_CODESET */
 
 static unicode_iconv_t conv_u2l = (unicode_iconv_t)0;
 static unicode_iconv_t conv_l2u = (unicode_iconv_t)0;
+static local_is_utf8 = 0;
 
 static void
 check_conv_l2u(void){
-  if (conv_u2l==(unicode_iconv_t)0) {
-    conv_u2l = unicode_iconv_open(nl_langinfo(CODESET),"UTF-8");
-  }
-  if (conv_l2u==(unicode_iconv_t)0) {
-    conv_l2u = unicode_iconv_open("UTF-8",nl_langinfo(CODESET));
-  } 
+  char *charset = NULL;
+  
+  if (local_is_utf8 || (conv_l2u!=(unicode_iconv_t)0)) return;
+  local_is_utf8 = unicode_get_charset(&charset);
+  if (local_is_utf8) return;
+
+  if (0==strcmp(charset,"US-ASCII")) charset = nl_langinfo(CODESET);
+  
+  conv_l2u = unicode_iconv_open("UTF-8",charset);
 }
 
 static void 
 check_conv_u2l(void){
-  if (conv_u2l==(unicode_iconv_t)0) {
-    conv_u2l = unicode_iconv_open(nl_langinfo(CODESET),"UTF-8");
-  } 
+  char *charset = NULL;
+  
+  if (local_is_utf8 || (conv_u2l!=(unicode_iconv_t)0)) return;
+  local_is_utf8 = unicode_get_charset(&charset);
+  if (local_is_utf8) return;
+
+  if (0==strcmp(charset,"US-ASCII")) charset = nl_langinfo(CODESET);
+  
+  conv_u2l = unicode_iconv_open(charset,"UTF-8");
 }
   
 
-extern gchar *
+extern utfchar *
 charconv_local8_to_utf8(const gchar *local)
 {
   const gchar *l = local;
   int lleft = strlen(local);
-  gchar *utf,*u,*ures;
+  utfchar *utf,*u,*ures;
   int uleft;
   int lost = 0;
 
   check_conv_l2u();
+  if (local_is_utf8) return g_strdup(local);
+
   uleft = 6*lleft + 1; 
   u = utf = g_malloc(uleft);
   *u = 0;
@@ -97,15 +114,17 @@ charconv_local8_to_utf8(const gchar *local)
 }
 
 extern gchar *
-charconv_utf8_to_local8(const gchar *utf)
+charconv_utf8_to_local8(const utfchar *utf)
 {
-  const gchar *u = utf;
+  const utfchar *u = utf;
   int uleft = strlen(utf);
   gchar *local,*l,*lres;
   int lleft;
   int lost = 0;
 
   check_conv_u2l();
+  if (local_is_utf8) return g_strdup(utf);
+
   lleft = uleft;
   l = local = g_malloc(lleft);
   *l = 0;
@@ -131,14 +150,14 @@ charconv_utf8_to_local8(const gchar *utf)
 
 #else /* !HAVE_UNICODE */
 
-extern gchar *
+extern utfchar *
 charconv_local8_to_utf8(const gchar *local)
 {
   return g_strdup(local);
 }
 
 extern gchar *
-charconv_utf8_to_local8(const gchar *utf)
+charconv_utf8_to_local8(const utfchar *utf)
 {
   return g_strdup(utf);
 }

@@ -32,6 +32,9 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
+#ifdef HAVE_UNICODE
+#include <unicode.h>
+#endif 
 
 #include <gtk/gtk.h>
 #include <gmodule.h>
@@ -162,6 +165,9 @@ app_init (int argc, char **argv)
   gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
   
+#ifdef HAVE_UNICODE
+  unicode_init();
+#endif 
 
   bindtextdomain(PACKAGE, LOCALEDIR);
   textdomain(PACKAGE);
