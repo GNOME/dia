@@ -1,3 +1,8 @@
+2000-06-06  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/{hpgl,wmf,wpg}/*: Hans Breuer's plug-ins.  They still need
+	a little work, but I am checking them in so I don't lose them.
+
 2000-06-01  James Henstridge  <james@daa.com.au>
 
 	* objects/standard/arc.c: added extra properties.

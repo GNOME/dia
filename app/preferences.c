@@ -359,13 +359,10 @@ prefs_load(void)
   fd = open(filename, O_RDONLY);
 
   if (fd < 0) {
-    char *homedir = getenv("HOME");
+    char *homedir = g_get_home_dir();
 
     g_free(filename);
-
-    filename = g_malloc(strlen(homedir)+strlen("/.diarc")+1);
-    strcpy(filename, getenv("HOME"));
-    strcat(filename, "/.diarc");
+    filename = g_strconcat(homedir, G_DIR_SEPARATOR_S ".diarc", NULL);
     fd = open(filename, O_RDONLY);
   }
   g_free(filename);
