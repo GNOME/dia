@@ -51,7 +51,7 @@
 #include "pixmaps/custom.xpm"
 
 #define DEFAULT_WIDTH 2.0
-#define DEFAULT_HEIGHT 1.0
+#define DEFAULT_HEIGHT 2.0
 #define DEFAULT_BORDER 0.25
 
 void custom_object_new(ShapeInfo *info, DiaObjectType **otype);

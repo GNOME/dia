@@ -1,5 +1,11 @@
 2004-11-27  Hans Breuer  <hans@breuer.org>
 
+	* objects/custom/custom_object.c : many existing shapes
+	rely on a square default size, revert to it although
+	it originally was by a typo. Fixes bug #148527.
+
+2004-11-27  Hans Breuer  <hans@breuer.org>
+
 	* app/load_save.c(dia_cleanup_autosave) 
 	  app/diagram.c : don't use dia->filename if already 
 	freed and dont use printf at all.
