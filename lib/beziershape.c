@@ -904,12 +904,13 @@ beziershape_load(BezierShape *bezier, ObjectNode obj_node)
   }
 
   for (i = 0; i < bezier->numpoints - 1; i++) {
-    obj->handles[3*i-2] = g_new(Handle, 1);
-    setup_handle(obj->handles[3*i],   HANDLE_BEZMAJOR);
-    obj->handles[3*i-1] = g_new(Handle, 1);
-    setup_handle(obj->handles[3*i+1], HANDLE_RIGHTCTRL);
-    obj->handles[3*i]   = g_new(Handle, 1);
-    setup_handle(obj->handles[3*i+2], HANDLE_LEFTCTRL);
+    obj->handles[3*i] = g_new(Handle, 1);
+    obj->handles[3*i+1] = g_new(Handle, 1);
+    obj->handles[3*i+2]   = g_new(Handle, 1);
+
+    setup_handle(obj->handles[3*i], HANDLE_RIGHTCTRL);
+    setup_handle(obj->handles[3*i+1], HANDLE_LEFTCTRL);
+    setup_handle(obj->handles[3*i+2],   HANDLE_BEZMAJOR);
   }
   for (i = 0; i < bezier->object.num_connections; i++) {
     obj->connections[i] = g_new0(ConnectionPoint, 1);
