@@ -1,17 +1,26 @@
 <?xml version="1.0"?>
-  <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-         xmlns:svg="http://www.w3.org/2000/svg">
-    <name>Civil - Horizontal Rest</name>
-    <icon>hrest.xpm</icon>
-    <connections>
-      <point y="0" x="-.7"/>
-    </connections>
-    <aspectratio type="fixed"/>
-    <svg:svg width="0.7" height="0.7">
-      <svg:circle cy="0" cx="-0.7" r="0.1"/>
-      <svg:line y1="-0.6" x1="0" y2="0" x2="-0.6" />            
-      <svg:line y1="0" x1="-0.6" y2="0.6" x2="0" />            
-      <svg:line y1="0.6" x1="0" y2="-0.6" x2="0" />
-      <svg:line y1="0.6" x1="0.2" y2="-0.6" x2="0.2" />
-    </svg:svg>   
-  </shape>                     
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+  <name>Civil - Horizontal Rest</name>
+
+  <icon>hrest.xpm</icon>
+
+  <connections>
+    <point y="0" x="-.7" />
+  </connections>
+
+  <aspectratio type="fixed" />
+
+  <svg:svg width="0.7" height="0.7">
+    <svg:circle cy="0" cx="-0.7" r="0.1" />
+
+    <svg:line y1="-0.6" x1="0" y2="0" x2="-0.6" />
+
+    <svg:line y1="0" x1="-0.6" y2="0.6" x2="0" />
+
+    <svg:line y1="0.6" x1="0" y2="-0.6" x2="0" />
+
+    <svg:line y1="0.6" x1="0.2" y2="-0.6" x2="0.2" />
+  </svg:svg>
+</shape>
+

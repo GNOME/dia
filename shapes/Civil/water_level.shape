@@ -1,20 +1,32 @@
 <?xml version="1.0"?>
-  <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-         xmlns:svg="http://www.w3.org/2000/svg">
-    <name>Civil - Water Level</name>
-    <icon>water_level.xpm</icon>
-    <connections>
-      <point x="0" y="1"/>
-      <point x="3" y="1"/>
-    </connections>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+  <name>Civil - Water Level</name>
 
-    <svg:svg width="3" height="2">
-      <svg:line x1="0" y1="1" x2="3" y2="1" />
-      <svg:line x1="1" y1="0" x2="2" y2="0" />
-      <svg:line x1="1" y1="0" x2="1.5" y2="1" />                              
-      <svg:line x1="2" y1="0" x2="1.5" y2="1" />
-      <svg:line x1="1" y1="1.3" x2="2" y2="1.3" />
-      <svg:line x1="1.2" y1="1.6" x2="1.8" y2="1.6" />        
-      <svg:line x1="1.4" y1="2" x2="1.6" y2="2" />                        
-    </svg:svg>   
-  </shape>                     
+  <icon>water_level.xpm</icon>
+
+  <connections>
+    <point x="0" y="1" />
+
+    <point x="3" y="1" />
+  </connections>
+
+  <svg:svg>
+    <svg:polygon
+    style="stroke-width: 1; stroke: foreground; fill: background"
+    points="0.5,0 1.5,0 1,1 " />
+
+    <svg:line style="stroke-width: 1; stroke: foreground" x1="0" y1="1"
+    x2="2" y2="1" />
+
+    <svg:line style="stroke-width: 1; stroke: foreground" x1="0.6"
+    y1="1.3" x2="1.4" y2="1.3" />
+
+    <svg:line style="stroke-width: 1; stroke: foreground" x1="0.8"
+    y1="1.6" x2="1.2" y2="1.6" />
+
+    <svg:line style="stroke-width: 1; stroke: foreground" x1="0.9"
+    y1="2" x2="1.1" y2="2" />
+  </svg:svg>
+</shape>
+

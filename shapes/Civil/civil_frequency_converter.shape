@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+xmlns:svg="http://www.w3.org/2000/svg">
+  <name>Civil - Frequency Converter</name>
+
+  <icon>civil_frequency_converter.xpm</icon>
+
+  <connections>
+    <point x="0" y="0" />
+
+    <point x="3" y="2" />
+
+    <point x="0" y="2" />
+
+    <point x="0" y="1" />
+
+    <point x="3" y="0" />
+
+    <point x="3" y="1" />
+
+    <point x="1.5" y="2" />
+
+    <point x="1.5" y="0" />
+
+    <point x="0" y="0" />
+
+    <point x="3" y="2" />
+
+    <point x="0" y="2" />
+
+    <point x="0" y="1" />
+
+    <point x="3" y="0" />
+
+    <point x="3" y="1" />
+
+    <point x="1.5" y="2" />
+
+    <point x="1.5" y="0" />
+
+    <point x="0" y="2" />
+
+    <point x="3" y="0" />
+
+    <point x="1.5" y="1" />
+  </connections>
+
+  <textbox x1="0" y1="0" x2="3" y2="2" />
+
+  <svg:svg>
+    <svg:rect style="fill: background" x="0" y="0" width="3"
+    height="2" />
+
+    <svg:rect style="stroke-width: 1; stroke: #000000" x="0" y="0"
+    width="3" height="2" />
+
+    <svg:line style="stroke-width: 1; stroke: #000000" x1="0" y1="2"
+    x2="3" y2="0" />
+  </svg:svg>
+</shape>
+

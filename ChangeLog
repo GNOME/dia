@@ -1,3 +1,8 @@
+2000-12-20  Steffen Macke <sdteffen@yahoo.com>
+
+	* updated/additional Civil Engineering shapes: better icons,
+	shapes use foreground/background colors now and are filled
+	
 2000-12-03  Kevin Breit  <battery841@mediaone.net>
 
 	* doc/en/dia-manual.sgml Integrated a few diffs.  New section should be
