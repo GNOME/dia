@@ -1,14 +1,12 @@
 #  PyDia SVG Import
-#  Copyright (c) 2003, Hans Breuer <hans@breuer.org>
+#  Copyright (c) 2003, 2004 Hans Breuer <hans@breuer.org>
 #
 #  Pure Python Dia Import Filter - to show how it is done.
 #  It also tries to be more featureful and robust then the 
 #  SVG importer written in C, but as long as PyDia has issues 
 #  this will _not_ be the case. Known issues (at least) :
-#  - Can't set 'bez_points' yet, requires support in PyDia and lib/bez*.c
-#    and here
 #  - xlink stuff (should probably have some StdProp equivalent)
-#  - total lack of transformation dealing
+#  - some lack of transformation dealing
 #  - see FIXME in this file
 
 #    This program is free software; you can redistribute it and/or modify
@@ -30,7 +28,7 @@ import string, math, os
 # Dias unit is cm, the default scale should be determined from svg:width and viewBox
 dfUserScale = 0.05
 dictUnitScales = {
-	"em" : 0.03, "ex" : 0.03, #FIXME: these should be _relative_ to current font
+	"em" : 3.0, "ex" : 3.0, #FIXME: these should be _relative_ to current font
 	"px" : 1.0, "pt" : 0.0352778, "pc" : 0.4233333, 
 	"cm" : 1.0, "mm" : 10.0, "in" : 25.4}
 
@@ -59,6 +57,7 @@ def Color(s) :
 class Object :
 	def __init__(self) :
 		self.props = {"x" : 0, "y" : 0, "stroke" : "none"}
+		self.translation = None
 		# "line_width", "line_colour", "line_style"
 	def style(self, s) :
 		sp1 = string.split(s, ";")
@@ -105,6 +104,14 @@ class Object :
 	def id(self, s) :
 		# just to handle/ignore it
 		self.props["id"] = s
+	def transform(self, s) :
+		import re
+		# not really parsing numbers (Scaled will deal with more)
+		r = re.compile(r"translate\s*\(\s*([^,]+),([^)]+)\s*\)")
+		m = r.match(s)
+		if m :
+			#print "matched", m.group(1), m.group(2), "->", Scaled(m.group(1)), Scaled(m.group(2))
+			self.translation = (Scaled(m.group(1)), Scaled(m.group(2)))
 	def __repr__(self) :
 		return self.dt + " : " + str(self.props)
 	def Dump(self, indent) :
@@ -116,6 +123,12 @@ class Object :
 	def Create(self) :
 		ot = dia.get_object_type (self.dt)
 		o, h1, h2 = ot.create(self.props["x"], self.props["y"])
+		# apply props from style
+		if self.props.has_key("class") :
+			cl = self.props["class"]
+			st = cssStyle.Lookup(cl)
+			print "applying style", cl, st
+			self.style(st)
 		# apply common props
 		if self.props.has_key("stroke-width") and o.properties.has_key("line_width") :
 			o.properties["line_width"] = self.props["stroke-width"]
@@ -129,7 +142,9 @@ class Object :
 					pass
 			else :
 				# Dia can't really display stroke none, some workaround :
-				o.properties["line_colour"] = Color(self.props["fill"])
+				if self.props.has_key("fill") and self.props["fill"] != "none" : 
+					#does it really matter ?
+					o.properties["line_colour"] = Color(self.props["fill"])
 				o.properties["line_width"] = 0.0
 		if self.props.has_key("fill") and o.properties.has_key("fill_colour") :
 			if self.props["fill"] == "none" :
@@ -193,13 +208,46 @@ class Svg(Object) :
 	def Create(self) :
 		return None
 class Style(Object) :
-	# the beginning of a css implementation, currently only hiding it ...
+	# the beginning of a css implementation, ...
 	def __init__(self) :
+		global cssStyle
 		Object.__init__(self)
+		self.cdata = ""
+		self.styles = None
+		cssStyle = self
 	def type(self, s) :
 		self.props["type"] = s
+	def Set(self, d) :
+		# consuming all the ugly CDATA
+		self.cdata += d
+	def Lookup(self, st) :
+		if self.styles == None :
+			self.styles = {}
+			# just to check if we are interpreting correctly (better use regex ?)
+			p1 = 0 # position of dot
+			p2 = 0 # ... of opening brace
+			p3 = 0 # ... closing
+			s = self.cdata
+			n = len(s) - 1
+			while 1 :
+				p1 = string.find(s, ".", p3, n)
+				p2 = string.find(s, "{", p1+1, n)
+				p3 = string.find(s, "}", p2+1, n)
+				if p1 < 0 or p2 < 0 or p3 < 0 :
+					break
+				print s[p1+1:p2-1], s[p2+1:p3]
+				self.styles[s[p1+1:p2-1]] = s[p2+1:p3]
+		if self.styles.has_key(st) :
+			return self.styles[st]
+		return ""
+	def __repr__(self) :
+		self.Lookup("init") # fill the dictionary
+		return "Styles:" + str(self.styles)
 	def Create(self) :
 		return None
+
+cssStyle = Style() # a singleton
+
 class Group(Object) :
 	def __init__(self) :
 		Object.__init__(self)
@@ -217,7 +265,14 @@ class Group(Object) :
 				lst.append(od)
 		# create group including list objects
 		if len(lst) > 0 :
-			return dia.group_create(lst)
+			grp = dia.group_create(lst)
+			if self.translation :
+				pos = grp.properties["obj_pos"].value
+				#FIXME:  looking at scascale.py this isn't completely correct
+				x1 = pos.x + self.translation[0]
+				y1 = pos.y + self.translation[1]
+				grp.move(x1, y1)
+			return grp
 		else :
 			return None
 	def Dump(self, indent) :
@@ -421,6 +476,7 @@ class Text(Object) :
 	def __init__(self) :
 		Object.__init__(self)
 		self.dt = "Standard - Text"
+		self.props["font-size"] = 2.0
 		# text_font, text_height, text_color, text_alignment
 	def Set(self, d) :
 		if self.props.has_key("text") :
@@ -460,7 +516,8 @@ class Desc(Object) :
 			self.props["text"] = d
 	def Create(self) :
 		if self.props.has_key("text") :
-			dia.message(0, self.props["text"].encode("UTF-8"))
+			pass
+			#dia.message(0, self.props["text"].encode("UTF-8"))
 		return None
 class Title(Object) :
 	#FIXME is this useful ?
@@ -538,8 +595,7 @@ class Importer :
 			del ctx[-1] # pop
 		def char_data(data):
 			# may be called multiple times for one string
-			if ctx[-1][0] == "text" :
-				ctx[-1][1].Set(data)
+			ctx[-1][1].Set(data)
 
 		p = xml.parsers.expat.ParserCreate()
 		p.StartElementHandler = start_element
@@ -553,6 +609,12 @@ class Importer :
 		for o in self.objects :
 			od = o.Create()
 			if od :
+				if o.translation :
+					pos = od.properties["obj_pos"].value
+					#FIXME:  looking at scascale.py this isn't completely correct
+					x1 = pos.x + o.translation[0]
+					y1 = pos.y + o.translation[1]
+					od.move(x1, y1)
 				layer.add_object(od)
 		# create an 'Unhandled' layer and dump our Unknown
 		# create an 'Errors' layer and dump our errors

@@ -516,8 +516,11 @@ layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
 }
 
 static void
-set_parent_layer(gpointer element, gpointer user_data) {
+set_parent_layer(gpointer element, gpointer user_data) 
+{
   ((DiaObject*)element)->parent_layer = (Layer*)user_data;
+  /* FIXME: even group members need a parent_layer and what about parent objects  ??? 
+      * Now I know again why I always try to avoid back-pointers )-; --hb */
 }
 
 int

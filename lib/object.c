@@ -479,8 +479,14 @@ gboolean
 dia_object_is_selected (const DiaObject *obj)
 {
   Layer *layer = obj->parent_layer;
-  DiagramData *diagram = layer->parent_diagram;
+  DiagramData *diagram = layer ? layer->parent_diagram : NULL;
 
+  /* although this is a little bogus, it is better than crashing
+      * It appears as if neither group members nor "parented" objects do have their 
+      * parent_layer set (but they aren't slected either, are they ? --hb */
+  if (!diagram)
+    return FALSE;
+  
   GList *selected = diagram->selected;
   for (; selected != NULL; selected = g_list_next(selected)) {
     if (selected->data == obj) return TRUE;

@@ -1,3 +1,14 @@
+2004-06-12  Hans Breuer  <hans@breuer.org>
+
+	* lib/diagramdata.c lib/object.c : deal with grouped objects
+	not knowing their parent_layer, i.e. avoid crashing in 
+	dia_object_is_selected() via group_draw() [ Triggered by
+	playing with the Visio generated svg from bug #143455 ]
+
+	* plug-ins/python/diasvg_import.py : started to implement
+	transformation="translate(...)" and <style/> handling. Also
+	use some other completely bogus values for em/ex scaling
+	
 2004-06-08  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
 
 	* plug-ins/cairo/.cvsignore: CVS-ignore generated makefiles.
