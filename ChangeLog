@@ -1,5 +1,9 @@
 2002-11-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/font.h:
+	* lib/font.c:
+	* lib/widgets.c: Now uses correct context to get font families.
+
 	* lib/diagdkrenderer.c (get_text_width, draw_string): 
 	* lib/dialibartrenderer.c (draw_string): 
 	* lib/font.h: 

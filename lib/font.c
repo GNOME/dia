@@ -63,6 +63,11 @@ dia_font_pop_context() {
   pango_contexts = g_list_next(pango_contexts);
 }
 
+PangoContext *
+dia_font_get_context() {
+  return pango_context;
+}
+
     /* dia centimetres to pango device units */
 static gint
 dcm_to_pdu(real dcm) { return dcm * global_size_one * PANGO_SCALE; }

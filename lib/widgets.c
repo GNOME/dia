@@ -289,7 +289,7 @@ dia_font_selector_get_family_from_name(GtkWidget *widget, gchar *fontname)
   int n_families,i;
   DiaFontFamily diafamily = DIA_FONT_FAMILY_ANY;
     
-  pango_context_list_families (gtk_widget_get_pango_context (widget),
+  pango_context_list_families (dia_font_get_context(),
 			       &families, &n_families);
   /* Doing it the slow way until I find a better way */
   for (i = 0; i < n_families; i++) {

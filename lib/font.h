@@ -114,6 +114,8 @@ void dia_font_init(PangoContext* pcontext);
 void dia_font_push_context(PangoContext *pcontext);
 /* Go back to using the old context */
 void dia_font_pop_context();
+/* Retrieve the current context (used for the font widget) */
+PangoContext *dia_font_get_context();
                          
                              
     /* Get a font matching family,style,height. MUST be freed with
