@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.94-pre6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-09 20:03-0400\n"
-"PO-Revision-Date: 2004-10-09 22:44-0400\n"
+"POT-Creation-Date: 2004-10-12 01:04-0400\n"
+"PO-Revision-Date: 2004-10-12 22:44-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -2388,27 +2388,31 @@ msgstr "Dotted"
 msgid "Dash length: "
 msgstr "Dash length: "
 
-#: lib/widgets.c:951
+#: lib/widgets.c:924
 msgid "Select color"
 msgstr "Select colour"
 
-#: lib/widgets.c:1131
+#: lib/widgets.c:951
+msgid "More colors..."
+msgstr "More colours..."
+
+#: lib/widgets.c:1067
 msgid "More arrows"
 msgstr "More arrows"
 
-#: lib/widgets.c:1144
+#: lib/widgets.c:1080
 msgid "Size: "
 msgstr "Size: "
 
-#: lib/widgets.c:1287
+#: lib/widgets.c:1223
 msgid "Select image file"
 msgstr "Select image file"
 
-#: lib/widgets.c:1323
+#: lib/widgets.c:1259
 msgid "Browse"
 msgstr "Browse"
 
-#: lib/widgets.c:1914
+#: lib/widgets.c:1850
 msgid "Reset menu"
 msgstr "Reset menu"
 
