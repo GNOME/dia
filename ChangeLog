@@ -7,6 +7,11 @@
 	* app/interface.[ch]:
 	* app/ddisp_callbacks.[ch]: Added some basic support for input 
 	methods (GtkIMContext-based)
+
+	* lib/Makefile.am:
+	* app/Makefile.am: made libdia a shared object (per Tor
+	Lillqvist's suggestion/request), to cope for platforms with a less
+	than par dynamic library loader.
 	
 2002-09-06  Lars Clausen  <lrclause@cs.uiuc.edu>
 

@@ -25,8 +25,9 @@ stdprop_files = \
 	propdialogs.c  \
 	propregistry.c 
 
-noinst_LIBRARIES =     libdia.a
-libdia_a_SOURCES =  \
+pkglib_LTLIBRARIES =     libdia.la
+
+libdia_la_SOURCES =  \
 		diavar.h \
 		diamenu.h \
 		diagramdata.h \
@@ -107,6 +108,8 @@ libdia_a_SOURCES =  \
 
 #		charconv.c \
 #		charconv.h 
+
+libdia_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 CPPFLAGS = \
 	$(LIBART_CFLAGS) \

@@ -150,11 +150,11 @@ dia_SOURCES = \
 
 EFENCE =
 
-dia_LDADD = ../lib/libdia.a \
+dia_LDADD = ../lib/libdia.la \
 	$(EFENCE) \
 	$(APP_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS)
 
-#diaconv_LDADD = ../lib/libdia.a \
+#diaconv_LDADD = ../lib/libdia.la \
 #	$(EFENCE) \
 #	$(APP_LIBS) $(GTK_LIBS) $(PNG_LIBS) $(INTLLIBS) $(INTLOBJS)
 
@@ -165,7 +165,7 @@ dia_embedd_SOURCES = \
 	    $(dia_core_files) \
 	    dia_embedd.c
 
-dia_embedd_LDADD = ../lib/libdia.a \
+dia_embedd_LDADD = ../lib/libdia.la \
 	$(EFENCE) \
 	$(APP_LIBS) $(PNG_LIBS) $(GTK_LIBS) $(INTLLIBS) 
 #$(BONOBO_LIBS)
