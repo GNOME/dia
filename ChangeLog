@@ -1,5 +1,14 @@
 1999-10-31  Alexander Larsson  <alla@lysator.liu.se>
 
+	* NEWS:
+	Update with news for 0.81.
+	
+	* shapes/Circuit/*:
+	* shapes/Circuit_eu/*:
+	Moved european circuit objects to Circuit sheet.
+
+1999-10-31  Alexander Larsson  <alla@lysator.liu.se>
+	
         * lib/diagramdata.[ch]:
 	Added layer_set_object_list() function.
 

@@ -2,7 +2,7 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
-  <name>Circuit / European - Speaker</name>
+  <name>Circuit - Speaker (European)</name>
   <description>A Speaker</description>
   <icon>speaker_de.xpm</icon>
   <connections>

@@ -1,3 +1,3 @@
 
-SUBDIRS = Circuit Circuit_eu
+SUBDIRS = Circuit
 

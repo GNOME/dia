@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 1999-10-30 12:13+0200\n"
+"POT-Creation-Date: 1999-10-31 14:58+0100\n"
 "PO-Revision-Date: 1999-10-18 21:35+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -267,7 +267,7 @@ msgstr "/Objekter/Juster vertikal/Nederst"
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objekter/Juster vertikal/Lik avstand"
 
-#: app/disp_callbacks.c:68 app/properties.c:133
+#: app/disp_callbacks.c:69 app/properties.c:133
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -275,7 +275,7 @@ msgstr ""
 "Dette objektet støtter ikke angre/gjenopprett. \n"
 "Angre-informasjon slettet."
 
-#: app/disp_callbacks.c:162
+#: app/disp_callbacks.c:163
 msgid "No object menu"
 msgstr "Ingen objektmeny"
 

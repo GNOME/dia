@@ -2,7 +2,7 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
-  <name>Circuit / European - Vertical Fuse</name>
+  <name>Circuit - Vertical Fuse (European)</name>
   <description>A vertically aligned fuse</description>
   <icon>vfuse_de.xpm</icon>
   <connections>

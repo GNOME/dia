@@ -2,7 +2,7 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
-  <name>Circuit / European - Vertical Powersource</name>
+  <name>Circuit - Vertical Powersource (European)</name>
   <description>A vertically aligned powersource</description>
   <icon>vpowersource_de.xpm</icon>
   <connections>

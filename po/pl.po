@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 1999-10-30 12:13+0200\n"
+"POT-Creation-Date: 1999-10-31 14:58+0100\n"
 "PO-Revision-Date: 1999-08-08 13:12+0200\n"
 "Last-Translator: GNOME PL Team\n"
 "Language-Team: Polish <gnomepl@pandora.info.bielsko.pl>\n"
@@ -264,7 +264,7 @@ msgstr "/Obiekty/Wyrównanie pionowe/Dó³"
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Obiekty/Wyrównanie pionowe/Jednakowa odleg³o¶æ"
 
-#: app/disp_callbacks.c:68 app/properties.c:133
+#: app/disp_callbacks.c:69 app/properties.c:133
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -272,7 +272,7 @@ msgstr ""
 "Obiekt nie obs³uguje operacji Cofnij/Ponów.\n"
 "Usuniêto informacjê o cofniêciu."
 
-#: app/disp_callbacks.c:162
+#: app/disp_callbacks.c:163
 msgid "No object menu"
 msgstr "Brak menu obiektu"
 

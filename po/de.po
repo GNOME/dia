@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.41\n"
-"POT-Creation-Date: 1999-10-30 12:13+0200\n"
+"POT-Creation-Date: 1999-10-31 14:58+0100\n"
 "PO-Revision-Date: 1999-08-19 21:27+02:00\n"
 "Last-Translator: Karsten Weiss <karsten@addx.au.s.shuttle.de>\n"
 "Language-Team: de <de@li.org>\n"
@@ -268,7 +268,7 @@ msgstr "/Objekte/Vertikal anordnen/Unten"
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objekte/Vertikal anordnen/Gleicher Abstand"
 
-#: app/disp_callbacks.c:68 app/properties.c:133
+#: app/disp_callbacks.c:69 app/properties.c:133
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -276,7 +276,7 @@ msgstr ""
 "Dieses Objekt unterstützt Rückgängig/Wiederherstellen nicht. \n"
 "Die Information zum Rückgängigmachen wurde gelöscht."
 
-#: app/disp_callbacks.c:162
+#: app/disp_callbacks.c:163
 msgid "No object menu"
 msgstr "Kein Objektmenü"
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia cvs\n"
-"POT-Creation-Date: 1999-10-30 12:13+0200\n"
+"POT-Creation-Date: 1999-10-31 14:58+0100\n"
 "PO-Revision-Date: 1999-08-03 14:03+0900\n"
 "Last-Translator: Yukihiro Nakai <nacai@iname.com>\n"
 "Language-Team: Japanese GNOME Users Group <ja@li.org>\n"
@@ -270,7 +270,7 @@ msgstr "/オブジェクト/垂直位置/下"
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/オブジェクト/垂直位置/同列"
 
-#: app/disp_callbacks.c:68 app/properties.c:133
+#: app/disp_callbacks.c:69 app/properties.c:133
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -278,7 +278,7 @@ msgstr ""
 "このオブジェクトは、元に戻す/やり直し をサポートしていません。\n"
 "元に戻すための情報は削除されました。"
 
-#: app/disp_callbacks.c:162
+#: app/disp_callbacks.c:163
 msgid "No object menu"
 msgstr "オブジェクトメニューはありません"
 

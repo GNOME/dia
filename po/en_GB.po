@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia CVS\n"
-"POT-Creation-Date: 1999-10-30 12:13+0200\n"
+"POT-Creation-Date: 1999-10-31 14:58+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Robert Brady <rwb197@ecs.soton.ac.uk>\n"
 "Language-Team: \n"
@@ -249,13 +249,13 @@ msgstr ""
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr ""
 
-#: app/disp_callbacks.c:68 app/properties.c:133
+#: app/disp_callbacks.c:69 app/properties.c:133
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
 
-#: app/disp_callbacks.c:162
+#: app/disp_callbacks.c:163
 msgid "No object menu"
 msgstr ""
 

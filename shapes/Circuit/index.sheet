@@ -6,10 +6,14 @@
   <shapes>
     <shape>hresistor.shape</shape>
     <shape>vresistor.shape</shape>
-    <shape>hcapacitor.shape</shape>
-    <shape>vcapacitor.shape</shape>
     <shape>hinductor.shape</shape>
     <shape>vinductor.shape</shape>
+    <shape>hresistor_de.shape</shape>
+    <shape>vresistor_de.shape</shape> 
+    <shape>hinductor_de.shape</shape>
+    <shape>vinductor_de.shape</shape>
+    <shape>hcapacitor.shape</shape>
+    <shape>vcapacitor.shape</shape>
     <shape>npn.shape</shape>
     <shape>pnp.shape</shape>
     <shape>hdiode.shape</shape>
@@ -18,5 +22,11 @@
     <shape>vzener.shape</shape>
     <shape>ground.shape</shape>
     <shape>opamp.shape</shape>
+    <shape>hfuse_de.shape</shape>
+    <shape>vfuse_de.shape</shape>
+    <shape>hpowersource_de.shape</shape> 
+    <shape>vpowersource_de.shape</shape>
+    <shape>lamp_de.shape</shape>
+    <shape>speaker_de.shape</shape>
   </shapes>
 </sheet>

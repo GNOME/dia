@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 1999-10-30 12:13+0200\n"
+"POT-Creation-Date: 1999-10-31 14:58+0100\n"
 "PO-Revision-Date: 1999-04-04 10:12+02:00\n"
 "Last-Translator: Fredrik Hallenberg <hallon@lysator.liu.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -265,7 +265,7 @@ msgstr "/Objekt/Justera vertikalt/Undersida"
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objekt/Justera vertikalt/Lika avstånd"
 
-#: app/disp_callbacks.c:68 app/properties.c:133
+#: app/disp_callbacks.c:69 app/properties.c:133
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -273,7 +273,7 @@ msgstr ""
 "Detta objekt stöder inte Ångra/Gör om.\n"
 "Informationen raderad."
 
-#: app/disp_callbacks.c:162
+#: app/disp_callbacks.c:163
 msgid "No object menu"
 msgstr "Ingen objektmeny"
 

@@ -2,7 +2,7 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
-  <name>Circuit / European - Horizontal Fuse</name>
+  <name>Circuit - Horizontal Fuse (European)</name>
   <description>A horizontally aligned fuse</description>
   <icon>hfuse_de.xpm</icon>
   <connections>

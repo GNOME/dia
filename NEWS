@@ -1,3 +1,13 @@
+News in version 0.81:
+* New printing dialog with "Fit to page" and landscape printing
+* New Circuit objects
+* Fixed loading saving of flowcharts and custom object. This would
+  make dia crash when loading saved files.
+* Portability fixes
+* Added undo support for some missing operations
+* Fixed some memory leaks
+* Fixed crashing bugs
+  
 News in version 0.80:
 * Undo capabilities
 * Printing support
