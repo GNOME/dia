@@ -1,5 +1,13 @@
-2001-05-16  Cyrille Chepelov  <chepelov@calixo.net>
+2001-05-17  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* objects/network/network.c:
+	* shapes/network/Makefile.am:
+	* shapes/network/hub.(shape|xpm) (NEW):
+	* shapes/network/flash.(shape|xpm) (NEW):
+	* shapes/network/rj45plug.(shape|xpm) (NEW):
+	More shapes, less renderobjects.
+
+2001-05-16  Cyrille Chepelov  <chepelov@calixo.net>
 	
 	* plug-ins/svg/render_svg.c: typo made exported ellipses
 	corrupted (zero Y pseudo-radius).

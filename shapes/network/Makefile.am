@@ -1,4 +1,5 @@
 
+
 shapedir = $(pkgdatadir)/shapes/Network
 
 SHAPES = \
@@ -35,7 +36,13 @@ SHAPES = \
 	zip-disk.shape \
 	zip-disk.xpm \
 	disc.shape \
-	disc.xpm
+	disc.xpm \
+	hub.shape \
+	hub.xpm \
+	flash.shape \
+	flash.xpm \
+	rj45plug.shape \
+	rj45plug.xpm
 
 EXTRA_DIST = $(SHAPES)
 
