@@ -1,3 +1,7 @@
+2002-03-04  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/font.c: First attempt at Unicodeness for Freetype.
+
 2002-03-02  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
 
 	* lib/font.c (font_string_width): Fixed font_string_width for

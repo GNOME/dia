@@ -732,12 +732,13 @@ freetype_load_string(const char *string, FT_Face face, int len)
   fts->face = face;
   fts->width = 0.0;
 
-  fts->num_glyphs = 0;
+  num_glyphs = 0;
   for (p = string; (*p); p = uni_next(p)) {
     unichar c;
     uni_get_utf8(p,&c);
 
-    fts->num_glyphs++;
+    // If len is less that full string, stop here.
+    if (num_glyphs == len) break;
     // convert character code to glyph index
     glyph_index = FT_Get_Char_Index( face, c );
 
