@@ -314,7 +314,7 @@ polyshape_init(PolyShape *poly, int num_points)
   
   poly->numpoints = num_points;
 
-  poly->points = g_malloc0(num_points*sizeof(Point));
+  poly->points = g_malloc(num_points*sizeof(Point));
 
   for (i = 0; i < num_points; i++) {
     poly->object.handles[i] = g_new(Handle, 1);
