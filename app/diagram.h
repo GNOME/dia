@@ -65,6 +65,7 @@ extern GList *diagram_get_sorted_selected(Diagram *dia);
 extern GList *diagram_get_sorted_selected_remove(Diagram *dia);
 extern void diagram_add_update(Diagram *dia, Rectangle *update);
 extern void diagram_add_update_all(Diagram *dia);
+extern void diagram_add_update_all_all_and_flush();
 extern void diagram_add_update_pixels(Diagram *dia, Point *point,
 				      int pixel_width, int pixel_height);
 extern void diagram_flush(Diagram *dia);
