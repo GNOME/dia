@@ -52,6 +52,8 @@ struct _DDisplay {
 
   Grid grid;                      /* the grid in this display          */
 
+  gboolean autoscroll;
+
   RendererGdk *renderer;
   
   GSList *update_areas;           /* Update areas list                 */
@@ -101,9 +103,12 @@ extern void ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor);
 extern void ddisplay_set_all_cursor(GdkCursor *cursor);
 
 extern void ddisplay_scroll(DDisplay *ddisp, Point *delta);
+extern gboolean ddisplay_autoscroll(DDisplay *ddisp, int x, int y);
 extern void ddisplay_scroll_up(DDisplay *ddisp);
 extern void ddisplay_scroll_down(DDisplay *ddisp);
 extern void ddisplay_scroll_left(DDisplay *ddisp);
 extern void ddisplay_scroll_right(DDisplay *ddisp);
 #endif /* DDISPLAY_H */
+
+
 

@@ -266,10 +266,13 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
 {
   Point to;
   Point now, delta;
+  gboolean auto_scroll;
   ConnectionPoint *connectionpoint;
 
   if (tool->state==STATE_NONE)
     return; /* Fast path... */
+
+  auto_scroll = ddisplay_autoscroll(ddisp, event->x, event->y);
   
   ddisplay_untransform_coords(ddisp, event->x, event->y, &to.x, &to.y);
 
@@ -322,13 +325,16 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     diagram_flush(ddisp->diagram);
     break;
   case STATE_BOX_SELECT:
-    
-    gdk_draw_rectangle (ddisp->renderer->pixmap, tool->gc, FALSE,
-			tool->x1, tool->y1,
-			tool->x2 - tool->x1, tool->y2 - tool->y1);
-    ddisplay_add_display_area(ddisp,
-			      tool->x1-1, tool->y1-1,
-			      tool->x2+1, tool->y2+1);
+
+    if (! auto_scroll)
+    {
+      gdk_draw_rectangle (ddisp->renderer->pixmap, tool->gc, FALSE,
+			  tool->x1, tool->y1,
+			  tool->x2 - tool->x1, tool->y2 - tool->y1);
+      ddisplay_add_display_area(ddisp,
+				tool->x1-1, tool->y1-1,
+				tool->x2+1, tool->y2+1);
+    }
 
     tool->end_box = to;
 

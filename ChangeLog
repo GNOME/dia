@@ -1,3 +1,12 @@
+1999-01-30  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/display.[ch]:
+	* app/modify_tool.c:
+	Added autoscrolling while doing rubber-band select.
+	This patch from Matthias Köster
+	(Matthias.Koester@Informatik.Uni-Oldenburg.DE)
+	
+
 1999-01-28  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/defaults.[ch]:

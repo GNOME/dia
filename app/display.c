@@ -67,7 +67,9 @@ new_display(Diagram *dia)
   ddisp->grid.dialog = NULL;
   ddisp->grid.entry_x = NULL;
   ddisp->grid.entry_y = NULL;
-  
+
+  ddisp->autoscroll = TRUE;
+
   ddisp->renderer = NULL;
   
   ddisp->update_areas = NULL;
@@ -427,6 +429,54 @@ ddisplay_zoom(DDisplay *ddisp, Point *point, real magnify)
   ddisplay_update_scrollbars(ddisp);
   ddisplay_add_update_all(ddisp);
   ddisplay_flush(ddisp);
+}
+
+gboolean
+ddisplay_autoscroll(DDisplay *ddisp, int x, int y)
+{
+  guint16 width, height;
+  Point scroll;
+  
+  if (! ddisp->autoscroll)
+    return FALSE;
+
+  scroll.x = scroll.y = 0;
+
+  width = GTK_WIDGET(ddisp->canvas)->allocation.width;
+  height = GTK_WIDGET(ddisp->canvas)->allocation.height;
+
+  if (x < 0)
+  {
+    scroll.x = x;
+  }
+  else if ( x > width)
+  {
+    scroll.x = x - width;
+  }
+
+  if (y < 0)
+  {
+    scroll.y = y;
+  }
+  else if (y > height)
+  {
+    scroll.y = y - height;
+  }
+
+  if ((scroll.x != 0) || (scroll.y != 0))
+  {
+    scroll.x = ddisplay_untransform_length(ddisp, scroll.x);
+    scroll.y = ddisplay_untransform_length(ddisp, scroll.y);
+
+    ddisplay_scroll(ddisp, &scroll);
+    ddisplay_flush(ddisp);
+
+    return TRUE;
+  }
+  else
+  {
+    return FALSE;
+  }
 }
 
 void ddisplay_scroll(DDisplay *ddisp, Point *delta)
