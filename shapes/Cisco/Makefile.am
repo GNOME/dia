@@ -1,8 +1,8 @@
 
-  shapedir = $(pkgdatadir)/shapes
- 
-  ciscodir = $(shapedir)/Cisco
-  SHAPES = \
+shapedir = $(pkgdatadir)/shapes
+
+ciscodir = $(shapedir)/Cisco
+SHAPES = \
   1000.shape\
   1000.png\
   100baset_hub.shape\
@@ -445,8 +445,7 @@
   workstation.png\
   www_server.shape\
   www_server.png
-  
-  
-  EXTRA_DIST = $(SHAPES)
-  
-  cisco_DATA = $(SHAPES)
+
+EXTRA_DIST = $(SHAPES)
+
+cisco_DATA = $(SHAPES)

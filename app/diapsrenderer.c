@@ -500,6 +500,8 @@ draw_string(DiaRenderer *self,
   char *buffer;
   const char *str;
   int len;
+  gchar *localestr;
+  GError * error = NULL;
 
   if (1 > strlen(text))
     return;
@@ -508,10 +510,17 @@ draw_string(DiaRenderer *self,
 
   /* TODO: Use latin-1 encoding */
 
+  localestr = g_locale_from_utf8(text, -1, NULL, NULL, &error);
+
+  if (localestr == NULL) {
+    message_error("Can't convert string %s: %s\n", text, error->message);
+    localestr = g_strdup(text);
+  }
+
   /* Escape all '(' and ')':  */
-  buffer = g_malloc(2*strlen(text)+1);
+  buffer = g_malloc(2*strlen(localestr)+1);
   *buffer = 0;
-  str = text;
+  str = localestr;
   while (*str != 0) {
     len = strcspn(str,"()\\");
     strncat(buffer, str, len);
@@ -524,7 +533,8 @@ draw_string(DiaRenderer *self,
   }
   fprintf(renderer->file, "(%s) ", buffer);
   g_free(buffer);
-  
+  g_free(localestr);
+
   switch (alignment) {
   case ALIGN_LEFT:
     fprintf(renderer->file, "%f %f m", pos->x, pos->y);

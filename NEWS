@@ -1,3 +1,16 @@
+dia-0.92-pre7: 14-Oct-2003
+
+* EPS output with built-in fonts now does locale conversion.  The PS still
+  thinks it's Latin-1.
+
+dia-0.92-pre6: 11-Oct-2003
+
+* Cisco sheets install fix.
+
+dia-0.92-pre5: 11-Oct-2003
+
+* Allow choosing the export format explicitly when in doubt.
+
 dia-0.92-pre4: 27-Sep-2003
 
 * Use Win32 PS font EPS rendering on Unix as well, to allow the various

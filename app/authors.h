@@ -74,7 +74,6 @@ static const gchar *authors[] =	{
     "Fredrik Hallenberg <hallon@debian.org>",   
     "Francis J. Lacoste <francis@contre.com>",
     "Steffen Macke <sdteffen@web.de>",
-    "M. C. Nelson <mcn@mani.kobayashimaru.org>",
     "Jacek Pliszka <Jacek@Pliszka.fuw.edu.pl>",
     "Henk Jan Priester <hj@justcroft.com>",
     "Alejandro Aguilar Sierra <asierra@servidor.unam.mx>",

@@ -1,4 +1,42 @@
+2003-10-14  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* doc/pl/dia-manual.sgml: 
+	* doc/en/dia-manual.xml: 
+	* config.h.win32: 
+	* NEWS: 
+	* configure.in: 
+	* dia.spec (Release): Pre7.
+
+	* app/diapsrenderer.c (draw_string): Convert string to print based
+	on current locale.  If conversion fails, fall back to UTF-8 (which
+	is almost certain to be messy).
+
+2003-10-13  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* doc/pl/dia-manual.sgml: 
+	* dia.spec (Release): 
+	* configure.in: 
+	* NEWS: 
+	* config.h.win32: 
+	* doc/en/dia-manual.xml: Pre6.
+
+	* plug-ins/pstricks/render_pstricks.c (draw_string): Don't escape
+	TeX chars in strings -- must be possible to use TeX text in there.
+	Also avoids infinite loop bug (#124464) Will get option for this
+	later.
+
 2003-10-11  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* shapes/Cisco/Makefile.am: Cisco shapes now install correctly.
+
+	* doc/en/dia-manual.xml: 
+	* doc/pl/dia-manual.sgml: 
+	* dia.spec (Release): 
+	* configure.in: 
+	* config.h.win32: 
+	* NEWS: pre5.
+
+	* app/authors.h: Removed duplicate of M. C. Nelson.
 
 	* plug-ins/pixbuf/pixbuf.c: Unique name for pixbuf export: gdkpixbuf.
 

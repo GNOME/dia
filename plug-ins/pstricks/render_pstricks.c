@@ -638,7 +638,10 @@ fill_bezier(DiaRenderer *self,
 }
 
 /* Do I really want to do this?  What if the text is intended as 
- * TeX text?
+ * TeX text?  Jacek says leave it as a TeX string.  TeX uses should know
+ * how to escape stuff anyway.  Later versions will get an export option.
+ *
+ * Besides, it seems to be broken.
  */
 static gchar *
 tex_escape_string(gchar *src)
@@ -682,7 +685,7 @@ draw_string(DiaRenderer *self,
 	    Color *color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-    gchar *escaped = tex_escape_string(text);
+    /*    gchar *escaped = tex_escape_string(text);*/
 
     set_line_color(renderer,color);
 
@@ -697,8 +700,8 @@ draw_string(DiaRenderer *self,
 	fprintf(renderer->file,"[r]");
 	break;
     }
-    fprintf(renderer->file,"(%f,%f){\\scalebox{1 -1}{%s}}\n",pos->x, pos->y,escaped);
-    g_free(escaped);
+    fprintf(renderer->file,"(%f,%f){\\scalebox{1 -1}{%s}}\n",pos->x, pos->y, text);
+    /*    g_free(escaped);*/
 }
 
 static void
