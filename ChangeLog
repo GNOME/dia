@@ -1,3 +1,9 @@
+2002-12-02  Steffen Macke <sdteffen@web.de>
+
+	* doc/en/Makefile.am:
+	* doc/en/usage-objects.sgml:
+	* doc/en/graphics/line_icon.png: (new) added line icon
+	
 2002-12-02  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* objects/standard/line.c: Binary search object edge line gap.

@@ -99,12 +99,17 @@
    </sect3>
 -->
   <sect2 id="line-properties">
-  <title>Line Properties</title>
-   <para>
-    One of <application>Dia</application>'s objects is the line.  The line
-    object is symbolized by the following icon:
-    <!-- Add graphic later -->
-   </para>
+   <title>Line Properties</title>
+    <para>
+     One of <application>Dia</application>'s objects is the line.  The line
+     object is symbolized by the following icon:
+    </para> 
+    <figure>
+     <screenshot>
+      <screeninfo>The line icon</screeninfo>
+      <graphic format="png" fileref="graphics/line_icon" srccredit="Steffen Macke">
+      </screenshot>
+    </figure>
    </sect2>
    <sect2 id="line-styles">
    <title>Line Styles</title>
