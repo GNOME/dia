@@ -24,7 +24,6 @@
 #include "group.h"
 #include "object_ops.h"
 #include "render_eps.h"
-#include "render_svg.h"
 #include "focus.h"
 #include "message.h"
 #include "menus.h"
@@ -752,17 +751,6 @@ diagram_export_to_eps(Diagram *dia, char *filename)
 
   data_render(dia->data, (Renderer *)renderer, NULL, NULL, NULL);
   destroy_eps_renderer(renderer);
-}
-
-void
-diagram_export_to_svg(Diagram *dia, char *filename)
-{
-  RendererSVG *renderer;
-
-  renderer = new_svg_renderer(dia, filename);
-
-  data_render(dia->data, (Renderer *)renderer, NULL, NULL, NULL);
-  destroy_svg_renderer(renderer);
 }
 
 int diagram_modified_exists(void)
