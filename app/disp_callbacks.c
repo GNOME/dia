@@ -728,6 +728,16 @@ ddisplay_destroy (GtkWidget *widget, gpointer data)
   ddisplay_really_destroy(ddisp);
 }
 
+inline int 
+round_up (double x)
+{
+  if (x - (int) x > 0.001)
+    return (int) x + 1;
+  else
+    return (int) x ;
+}
+
+
 /* returns NULL if object cannot be created */
 Object *
 ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,

@@ -262,14 +262,6 @@ display_drop_callback(GtkWidget *widget, GdkDragContext *context,
   return FALSE;
 }
 
-inline int round_up (double x)
-{
-  if (x - (int) x > 0.001)
-    return (int) x + 1;
-  else
-    return (int) x ;
-}
-
 static void
 display_data_received_callback (GtkWidget *widget, GdkDragContext *context,
 				gint x, gint y, GtkSelectionData *data,

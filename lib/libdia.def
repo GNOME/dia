@@ -419,6 +419,13 @@ EXPORTS
  orthconn_update_data
  orthconn_update_object_menu
 
+ parent_handle_extents
+ parent_handle_move_in_check
+ parent_handle_move_out_check
+ parent_list_affected
+ parent_list_affected_hierarchy
+ parent_move_child_delta
+
  pdtpp_true
 
  point_add

@@ -1,3 +1,17 @@
+2003-07-18  Hans Breuer  <hans@breuer.org>
+
+	* app/makefile.msc lib/makefile.msc lib/libdia.def :
+	updated win32 build
+
+	* lib/color.c : use gtk_widget_get_default_visual();
+	as suggested in #114536
+
+	* app/interface.c app/disp_callbacks.c :
+	moved round_up () to the latter file where it is used
+
+	* app/linewidth_area.c : #include "interface.h" for
+	interface_get_toolbox_shell()
+
 2003-07-18  Hubert Figuiere  <hfiguiere@teaser.fr>
 
 	* plug-ins/pixbuf/.cvsignore

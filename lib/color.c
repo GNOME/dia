@@ -31,7 +31,7 @@ GdkColor color_gdk_black, color_gdk_white;
 void 
 color_init(void)
 {
-  GdkVisual *visual = gdk_visual_get_system (); 
+  GdkVisual *visual = gtk_widget_get_default_visual();
   colormap = gdk_colormap_new (visual, FALSE); 
 
   color_convert(&color_black, &color_gdk_black);

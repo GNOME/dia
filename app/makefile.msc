@@ -102,7 +102,8 @@ CC = cl -G5 -GF $(OPTIMIZE) -W3 -nologo
 
 # No general LDFLAGS needed
 # Use /subsystem:console to enable console output
-LDFLAGS = /link $(LINKDEBUG) /subsystem:windows /machine:ix86
+LDFLAGS = /link $(LINKDEBUG) /subsystem:console /machine:ix86
+#LDFLAGS = /link $(LINKDEBUG) /subsystem:windows /machine:ix86
 INSTALL = copy
 
 CFLAGS = -I. -I$(PRJ_TOP) -DHAVE_CONFIG_H

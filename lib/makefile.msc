@@ -56,6 +56,7 @@ OBJECTS = \
 	object_defaults.obj \
 	orth_conn.obj \
 	paper.obj \
+	parent.obj \
 	plug-ins.obj \
 	poly_conn.obj \
 	polyshape.obj \
@@ -74,7 +75,6 @@ OBJECTS = \
 	propoffsets.obj \
 	propregistry.obj \
 	ps-utf8.obj \
-#	render.obj \
 	sheet.obj \
 	text.obj \
 	utils.obj \

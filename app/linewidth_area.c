@@ -23,6 +23,7 @@
 #include "linewidth_area.h"
 #include "attributes.h"
 #include "persistence.h"
+#include "interface.h"
 #include "intl.h"
 
 #if !defined(rint)
