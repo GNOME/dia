@@ -1,7 +1,18 @@
+1999-04-08  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
+ 
+	* objects/UML/pixmaps/state.xpm: 
+ 	* objects/UML/state.c: 
+ 	New UML object state machine.
+
+	* objects/UML/uml.c:
+	* objects/UML/Makefile.am:
+	* objects/UML/pixmaps/Makefile.am:
+	Added the state object.
+	
 1999-04-08  Alejandro Aguilar Sierra  <ale@bucefalo>
  
-       * objects/UML/usecase.c: 
-       Added dialog to allow move text outside the ellipse.
+	* objects/UML/usecase.c: 
+	Added dialog to allow move text outside the ellipse.
  
 1999-04-08  Alexander Larsson  <alla@lysator.liu.se>
 

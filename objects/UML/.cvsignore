@@ -17,6 +17,7 @@ uml.lo
 note.lo
 usecase.lo
 actor.lo
+state.lo
 message.lo
 lifeline.lo
 object.lo

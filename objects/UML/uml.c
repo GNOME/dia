@@ -43,6 +43,7 @@ extern ObjectType objet_type;
 extern ObjectType message_type;
 extern ObjectType component_type;
 extern ObjectType classicon_type;
+extern ObjectType state_type;
 
 void register_objects(void) {
   object_register_type(&umlclass_type);
@@ -62,6 +63,7 @@ void register_objects(void) {
   object_register_type(&message_type);  
   object_register_type(&component_type);
   object_register_type(&classicon_type);
+  object_register_type(&state_type);    
 }
 
 extern SheetObject umlclass_sheetobj;
@@ -83,6 +85,7 @@ extern SheetObject objet_sheetobj;
 extern SheetObject message_sheetobj;
 extern SheetObject component_sheetobj;
 extern SheetObject classicon_sheetobj;
+extern SheetObject state_sheetobj;
 
 int get_version(void) {
   return 0;
@@ -112,6 +115,7 @@ void register_sheets(void) {
   sheet_append_sheet_obj(sheet, &message_sheetobj);
   sheet_append_sheet_obj(sheet, &component_sheetobj);
   sheet_append_sheet_obj(sheet, &classicon_sheetobj);
+  sheet_append_sheet_obj(sheet, &state_sheetobj);
 
   register_sheet(sheet);
 }
