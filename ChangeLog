@@ -1,3 +1,15 @@
+2000-02-26  James Henstridge  <james@daa.com.au>
+
+	* app/preferences.c (prefs_create_dialog): if GNOME support is
+	enabled, show a GNOME dialog.
+
+	* app/grid.c (grid_draw): use preferences when drawing page break
+	lines.
+
+	* app/preferences.c: add page break preferences to dialog.
+
+	* app/preferences.h: added page break preferences.
+
 2000-02-25  James Henstridge  <james@daa.com.au>
 
 	* sheets/UML.sheet: added new objects.

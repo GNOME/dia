@@ -3,26 +3,6 @@
 .libs
 Makefile
 Makefile.in
-class.lo
-dependency.lo
-implements.lo
-constraint.lo
-generalization.lo
-association.lo
-small_package.lo
-large_package.lo
-realizes.lo
-class_dialog.lo
-uml.lo
-note.lo
-usecase.lo
-actor.lo
-state.lo
-message.lo
-lifeline.lo
-object.lo
-component.lo
-classicon.lo
+*.lo
 libuml_objects.la
-
 

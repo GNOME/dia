@@ -25,8 +25,6 @@
 #include "grid.h"
 #include "preferences.h"
 
-static Color pagebreak_colour = {0.0, 0.0, 0.6};
-
 void
 grid_draw(DDisplay *ddisp, Rectangle *update)
 {
@@ -76,7 +74,7 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
     }
   }
 
-  if (TRUE /* page breaks visible */) {
+  if (prefs.pagebreak.visible) {
     Diagram *dia = ddisp->diagram;
     real origx = 0, origy = 0, pos;
     real pwidth = dia->data->paper.width;
@@ -86,7 +84,10 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
     (renderer->ops->set_linewidth)(renderer, 0.0);
     (renderer->ops->set_dashlength)(renderer,
 				    ddisplay_untransform_length(ddisp, 31));
-    (renderer->ops->set_linestyle)(renderer, LINESTYLE_DOTTED);
+    if (prefs.pagebreak.solid)
+      (renderer->ops->set_linestyle)(renderer, LINESTYLE_SOLID);
+    else
+      (renderer->ops->set_linestyle)(renderer, LINESTYLE_DOTTED);
 
     if (dia->data->paper.fitto) {
       origx = dia->data->extents.left;
@@ -100,18 +101,17 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
       (renderer->interactive_ops->draw_pixel_line)(renderer,
 						   x, 0,
 						   x, height,
-						   &pagebreak_colour);
+						   &prefs.pagebreak.colour);
       pos += pwidth;
     }
     /* Horizontal lines: */
     pos = origy + ceil((update->top - origy) / pheight) * pheight;
     while (pos <= update->bottom) {
       ddisplay_transform_coords(ddisp, 0,pos,&x,&y);
-      if (pos == 0.0) y++; /* so you can make out the page break */
       (renderer->interactive_ops->draw_pixel_line)(renderer,
 						   0, y,
 						   width, y,
-						   &pagebreak_colour);
+						   &prefs.pagebreak.colour);
       pos += pheight;
     }
   }

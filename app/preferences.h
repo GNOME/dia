@@ -16,17 +16,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #ifndef PREFERENCES_H
-#define DIA_IMAGE_H
+#define PREFERENCES_H
 
 #include "geometry.h"
 #include "color.h"
-
-/* retrive a structure offset */
-#ifdef offsetof
-#define PREF_OFFSET(field)        ((int) offsetof (struct DiaPreferences, field))
-#else /* !offsetof */
-#define PREF_OFFSET(field)        ((int) ((char*) &((struct DiaPreferences *) 0)->field))
-#endif /* !offsetof */
 
 struct DiaPreferences {
   struct {
@@ -48,6 +41,12 @@ struct DiaPreferences {
   int reset_tools_after_create;
   int compress_save;
   int undo_depth;
+
+  struct {
+    int visible;
+    Color colour;
+    int solid;
+  } pagebreak;
 };
 
 extern struct DiaPreferences prefs;

@@ -15,6 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#include "config.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -22,10 +24,16 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#ifdef HAVE_STDDEF_H
+#include <stddef.h>
+#endif
 
-#include <gtk/gtk.h>
+#ifdef GNOME
+#  include <gnome.h>
+#else
+#  include <gtk/gtk.h>
+#endif
 
-#include "config.h"
 #include "intl.h"
 #include "widgets.h"
 #include "diagram.h"
@@ -61,6 +69,7 @@ static int default_int_w = 500;
 static int default_int_h = 400;
 static int default_undo_depth = 15;
 static Color default_colour = { 0.5, 0.5, 0.5 };
+static Color pbreak_colour = { 0.0, 0.0, 0.6 };
 
 struct DiaPrefsTab {
   char *title;
@@ -72,9 +81,17 @@ struct DiaPrefsTab prefs_tabs[] =
 {
   {N_("User Interface"), NULL, 0},
   {N_("View Defaults"), NULL, 0},
+  {N_("Grid Lines"), NULL, 0},
 };
 
 #define NUM_PREFS_TABS (sizeof(prefs_tabs)/sizeof(struct DiaPrefsTab))
+
+/* retrive a structure offset */
+#ifdef offsetof
+#define PREF_OFFSET(field)        ((int) offsetof (struct DiaPreferences, field))
+#else /* !offsetof */
+#define PREF_OFFSET(field)        ((int) ((char*) &((struct DiaPreferences *) 0)->field))
+#endif /* !offsetof */
 
 struct DiaPrefsData prefs_data[] =
 {
@@ -82,14 +99,6 @@ struct DiaPrefsData prefs_data[] =
   { "compress_save", PREF_BOOLEAN, PREF_OFFSET(compress_save), &default_true, 0, N_("Compress saved files:") },
   { "undo_depth", PREF_UINT, PREF_OFFSET(undo_depth), &default_undo_depth, 0, N_("Number of undo levels:") },
 
-  { NULL, PREF_NONE, 0, NULL, 1, N_("Grid:") },
-  { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 1, N_("Visible:") },
-  { "grid_snap", PREF_BOOLEAN, PREF_OFFSET(grid.snap), &default_false, 1, N_("Snap to:") },
-  { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, 1, N_("X Size:") },
-  { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 1, N_("Y Size:") },
-  { "grid_colour", PREF_COLOUR, PREF_OFFSET(grid.colour), &default_colour, 1, N_("Colour") },
-  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 1, N_("Solid lines") },
-  
   { NULL, PREF_NONE, 0, NULL, 1, N_("New window:") },
   { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, 1, N_("Width:") },
   { "new_view_height", PREF_UINT, PREF_OFFSET(new_view.height), &default_int_h, 1, N_("Height:") },
@@ -98,6 +107,18 @@ struct DiaPrefsData prefs_data[] =
   { NULL, PREF_NONE, 0, NULL, 1, N_("Connection Points:") },
   { "show_cx_pts", PREF_BOOLEAN, PREF_OFFSET(show_cx_pts), &default_true, 1, N_("Visible:") },
 
+  { NULL, PREF_NONE, 0, NULL, 2, N_("Grid:") },
+  { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 2, N_("Visible:") },
+  { "grid_snap", PREF_BOOLEAN, PREF_OFFSET(grid.snap), &default_false, 2, N_("Snap to:") },
+  { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, 2, N_("X Size:") },
+  { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 2, N_("Y Size:") },
+  { "grid_colour", PREF_COLOUR, PREF_OFFSET(grid.colour), &default_colour, 2, N_("Colour:") },
+  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 2, N_("Solid lines:") },
+
+  { NULL, PREF_NONE, 0, NULL, 2, N_("Page breaks:") },
+  { "pagebreak_visible", PREF_BOOLEAN, PREF_OFFSET(pagebreak.visible), &default_true, 2, N_("Visible:") },
+  { "pagebreak_colour", PREF_COLOUR, PREF_OFFSET(pagebreak.colour), &pbreak_colour, 2, N_("Colour:") },
+  { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, 2, N_("Solid lines:") },
 };
 
 #define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(struct DiaPrefsData))
@@ -531,17 +552,39 @@ prefs_create_dialog(void)
   if (prefs_dialog != NULL)
     return;
 
+#ifdef GNOME
+  prefs_dialog = gnome_dialog_new(_("Preferences"),
+				  GNOME_STOCK_BUTTON_OK,
+				  GNOME_STOCK_BUTTON_APPLY,
+				  GNOME_STOCK_BUTTON_CLOSE, NULL);
+  gnome_dialog_set_default(GNOME_DIALOG(prefs_dialog), 1);
+
+  dialog_vbox = GNOME_DIALOG(prefs_dialog)->vbox;
+#else
   prefs_dialog = gtk_dialog_new();
-  
   gtk_window_set_title (GTK_WINDOW (prefs_dialog), _("Preferences"));
-  gtk_window_set_wmclass (GTK_WINDOW (prefs_dialog),
-			  "preferences_window", "Dia");
+  gtk_container_set_border_width (GTK_CONTAINER (prefs_dialog), 2);
   gtk_window_set_policy (GTK_WINDOW (prefs_dialog),
 			 FALSE, TRUE, FALSE);
-  gtk_container_set_border_width (GTK_CONTAINER (prefs_dialog), 2);
 
   dialog_vbox = GTK_DIALOG (prefs_dialog)->vbox;
+#endif
+  
+  gtk_window_set_wmclass (GTK_WINDOW (prefs_dialog),
+			  "preferences_window", "Dia");
 
+
+#ifdef GNOME
+  gnome_dialog_button_connect_object(GNOME_DIALOG(prefs_dialog), 0,
+				     GTK_SIGNAL_FUNC(prefs_okay),
+				     GTK_OBJECT(prefs_dialog));
+  gnome_dialog_button_connect_object(GNOME_DIALOG(prefs_dialog), 1,
+				     GTK_SIGNAL_FUNC(prefs_apply),
+				     GTK_OBJECT(prefs_dialog));
+  gnome_dialog_button_connect_object(GNOME_DIALOG(prefs_dialog), 2,
+				     GTK_SIGNAL_FUNC(gtk_widget_hide),
+				     GTK_OBJECT(prefs_dialog));
+#else
   button = gtk_button_new_with_label( _("OK") );
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_dialog)->action_area), 
@@ -549,7 +592,6 @@ prefs_create_dialog(void)
   gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
 			     GTK_SIGNAL_FUNC(prefs_okay),
 			     GTK_OBJECT(prefs_dialog));
-  gtk_widget_grab_default (button);
   gtk_widget_show (button);
 
   button = gtk_button_new_with_label( _("Apply") );
@@ -559,7 +601,6 @@ prefs_create_dialog(void)
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(prefs_apply),
 		      NULL);
-  gtk_widget_grab_default (button);
   gtk_widget_show (button);
 
   button = gtk_button_new_with_label( _("Close") );
@@ -571,14 +612,14 @@ prefs_create_dialog(void)
 			     GTK_OBJECT(prefs_dialog));
   gtk_widget_grab_default (button);
   gtk_widget_show (button);
+#endif
 
   gtk_signal_connect (GTK_OBJECT (prefs_dialog), "delete_event",
 		      GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
 
   notebook = gtk_notebook_new ();
   gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_dialog)->vbox),
-		      notebook, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox), notebook, TRUE, TRUE, 0);
   gtk_container_border_width (GTK_CONTAINER (notebook), 2);
   gtk_widget_show (notebook);
 
