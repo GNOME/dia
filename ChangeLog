@@ -1,3 +1,10 @@
+2003-08-21  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/UML/component.c: Patch from Krzysztof Foltman
+	<kfoltman@onet.pl>: Add two new connectionpoints and adjust a
+	third.  Makes the left side connections actually be on the line
+	(gasp!). 
+
 2003-08-20  Steffen Macke <sdteffen@web.de>
 
 	* lib/libdia.def: added layer_find_closest_object_except

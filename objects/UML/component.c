@@ -40,7 +40,7 @@ typedef struct _Component Component;
 struct _Component {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[10];
 
   char *stereotype;
   Text *text;
@@ -273,6 +273,7 @@ component_update_data(Component *cmp)
   Element *elem = &cmp->element;
   Object *obj = &elem->object;
   Point p;
+  real cw2, ch;
 
   cmp->stereotype = remove_stereotype_from_string(cmp->stereotype);
   if (!cmp->st_stereotype) {
@@ -306,32 +307,50 @@ component_update_data(Component *cmp)
 		      2*COMPONENT_MARGIN_X + COMPONENT_CWIDTH);
   }
 
+  cw2 = COMPONENT_CWIDTH/2;
+  ch = COMPONENT_CHEIGHT;
   /* Update connections: */
-  cmp->connections[0].pos = elem->corner;
-  cmp->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  cmp->connections[1].pos.y = elem->corner.y;
-  cmp->connections[2].pos.x = elem->corner.x + elem->width;
-  cmp->connections[2].pos.y = elem->corner.y;
-  cmp->connections[3].pos.x = elem->corner.x;
-  cmp->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  cmp->connections[4].pos.x = elem->corner.x + elem->width;
-  cmp->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  cmp->connections[5].pos.x = elem->corner.x;
-  cmp->connections[5].pos.y = elem->corner.y + elem->height;
-  cmp->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  cmp->connections[6].pos.y = elem->corner.y + elem->height;
-  cmp->connections[7].pos.x = elem->corner.x + elem->width;
-  cmp->connections[7].pos.y = elem->corner.y + elem->height;
-  
-  cmp->connections[0].directions = DIR_NORTH|DIR_WEST;
-  cmp->connections[1].directions = DIR_NORTH;
-  cmp->connections[2].directions = DIR_NORTH|DIR_EAST;
-  cmp->connections[3].directions = DIR_WEST;
-  cmp->connections[4].directions = DIR_EAST;
-  cmp->connections[5].directions = DIR_SOUTH|DIR_WEST;
-  cmp->connections[6].directions = DIR_SOUTH;
-  cmp->connections[7].directions = DIR_SOUTH|DIR_EAST;
-                                                                                          
+  connpoint_update(&cmp->connections[0],
+		   elem->corner.x + cw2,
+		   elem->corner.y,
+		   DIR_NORTH|DIR_WEST);
+  connpoint_update(&cmp->connections[1],
+		   elem->corner.x + cw2 + (elem->width - cw2) / 2,
+		   elem->corner.y,
+		   DIR_NORTH);
+  connpoint_update(&cmp->connections[2],
+		   elem->corner.x + elem->width,
+		   elem->corner.y,
+		   DIR_NORTH|DIR_EAST);
+  connpoint_update(&cmp->connections[3],
+		   elem->corner.x + cw2,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_WEST);
+  connpoint_update(&cmp->connections[4],
+		   elem->corner.x + elem->width,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_EAST);
+  connpoint_update(&cmp->connections[5],
+		   elem->corner.x + cw2,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTH|DIR_WEST);
+  connpoint_update(&cmp->connections[6],
+		   elem->corner.x + cw2 + (elem->width - cw2)/2,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTH);
+  connpoint_update(&cmp->connections[7],
+		   elem->corner.x + elem->width,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTH|DIR_EAST);
+  connpoint_update(&cmp->connections[8],
+		   elem->corner.x,
+		   elem->corner.y + elem->height / 2.0 - ch,
+		   DIR_WEST);
+  connpoint_update(&cmp->connections[9],
+		   elem->corner.x,
+		   elem->corner.y + elem->height / 2.0 + ch,
+		   DIR_WEST);
+
   element_update_boundingbox(elem);
 
   obj->position = elem->corner;
@@ -374,9 +393,9 @@ component_create(Point *startpoint,
 
   dia_font_unref(font);
   
-  element_init(elem, 8, 8);
+  element_init(elem, 8, 10);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<10;i++) {
     obj->connections[i] = &cmp->connections[i];
     cmp->connections[i].object = obj;
     cmp->connections[i].connected = NULL;
