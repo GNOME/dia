@@ -1,5 +1,8 @@
 2003-04-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/color_area.c (color_area_edit): More informative title on
+	color selection dialog.
+
 	* app/disp_callbacks.c (ddisplay_drop_object): Update menu
 	sensitivity when dropping object in.  Also reset tool to pointer.
 

@@ -311,7 +311,10 @@ color_area_edit (void)
   }
 
   if (! color_select) {
-    window = color_select = gtk_color_selection_dialog_new(_("Select color"));
+    window = color_select = 
+      gtk_color_selection_dialog_new(edit_color==FOREGROUND?
+				     _("Select foreground color"):
+				     _("Select background color"));
     color_select_active = 1;
 
     gtk_color_selection_set_has_palette (
@@ -355,6 +358,10 @@ color_area_edit (void)
     gtk_widget_show_now (color_select);
       
   } else {
+    gtk_window_set_title(GTK_WINDOW(color_select),
+			 edit_color==FOREGROUND?
+			 _("Select foreground color"):
+			 _("Select background color"));
     if (! color_select_active) {
       gtk_widget_show (color_select);
     }
