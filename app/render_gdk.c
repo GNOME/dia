@@ -18,6 +18,7 @@
 
 #include <math.h>
 #include <gdk/gdk.h>
+#include <gdk_imlib.h>
 
 #include "render_gdk.h"
 #include "message.h"
@@ -82,7 +83,7 @@ static void draw_string(RendererGdk *renderer,
 static void draw_image(RendererGdk *renderer,
 		       Point *point,
 		       real width, real height,
-		       void *not_decided_yet);
+		       GdkImlibImage *image);
 
 static real get_text_width(RendererGdk *renderer,
 			   const char *text, int length);
@@ -174,7 +175,7 @@ new_gdk_renderer(DDisplay *ddisp)
   
   renderer->saved_line_style = LINESTYLE_SOLID;
   renderer->dash_length = 10;
-  renderer->dot_length = 1;
+  renderer->dot_length = 2;
   
   return renderer;
 }
@@ -348,6 +349,12 @@ set_linestyle(RendererGdk *renderer, LineStyle mode)
     dash_list[4] = renderer->dot_length;
     dash_list[5] = hole_width;
     gdk_gc_set_dashes(renderer->render_gc, 0, dash_list, 6);
+    break;
+  case LINESTYLE_DOTTED:
+    renderer->line_style = GDK_LINE_ON_OFF_DASH;
+    dash_list[0] = renderer->dot_length;
+    dash_list[1] = renderer->dot_length;
+    gdk_gc_set_dashes(renderer->render_gc, 0, dash_list, 2);
     break;
   }
   gdk_gc_set_line_attributes(renderer->render_gc,
@@ -863,9 +870,17 @@ static void
 draw_image(RendererGdk *renderer,
 	   Point *point,
 	   real width, real height,
-	   void *not_decided_yet)
+	   GdkImlibImage *image)
 {
-  message_error("gkd_renderer: Images are not supported yet!\n");
+  int real_width, real_height, real_x, real_y;
+  
+  real_width = ddisplay_transform_length(renderer->ddisp, width);
+  real_height = ddisplay_transform_length(renderer->ddisp, height);
+  ddisplay_transform_coords(renderer->ddisp, point->x, point->y,
+			    &real_x, &real_y);
+
+  gdk_imlib_paste_image((GdkImlibImage *)image, renderer->pixmap,
+			real_x, real_y, real_width, real_height);
 }
 
 static real

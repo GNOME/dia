@@ -22,6 +22,8 @@
 #include "color.h"
 #include "font.h"
 
+#include <gdk_imlib.h>
+
 typedef struct _RenderOps RenderOps;
 typedef struct _InteractiveRenderOps InteractiveRenderOps;
 typedef struct _Renderer Renderer;
@@ -42,7 +44,8 @@ typedef enum {
   LINESTYLE_SOLID,
   LINESTYLE_DASHED,
   LINESTYLE_DASH_DOT,
-  LINESTYLE_DASH_DOT_DOT
+  LINESTYLE_DASH_DOT_DOT,
+  LINESTYLE_DOTTED
 } LineStyle;
 
 typedef enum {
@@ -172,7 +175,7 @@ typedef void (*DrawStringFunc) (Renderer *renderer,
 typedef void (*DrawImageFunc) (Renderer *renderer,
 			       Point *point,
 			       real width, real height,
-			       void *not_decided_yet);
+			       GdkImlibImage *image);
 
 /******************************************************
  **  Functions defined for every Interactive Renderer

@@ -1,3 +1,44 @@
+1999-02-05  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
+
+	* configure.in:
+	Add AM_PATH_GDK_IMLIB() call.
+
+	* app/Makefile.am:
+	Add gdk_imlib to linking flags.
+
+	* app/app_procs.c:
+	Init gdk_imlib.
+	Print library-loading error messages on stdout too.
+
+	* app/interface.c:
+	Add standard image to toolbox.
+	
+	* app/render_eps.c: 
+	Set a more reasonable dot length.  Fixed
+	missing initialization of dot length.
+	Added draw_image methods.
+
+	* app/render_gdk.c (new_gdk_renderer): 
+	Dot a bit wider.  Looks good in normal mode now.
+
+	* objects/standard/image.c:
+	* objects/standard/pixmaps/image.xpm:
+	New files. Standard object for images.
+	
+	* app/render_eps.c (set_linestyle):
+	* app/render_gdk.c (set_linestyle):
+	* lib/widgets.c (dia_line_style_selector_init): 
+	* lib/render.h: 
+	New line style DOTTED.
+
+	* lib/render.h:
+	* lib/render_store.c:
+	Change DrawImage call to use gdk_imlib.
+
+	* lib/widgets.[ch]:
+	Added widgets for selecting files.
+	Added dotted to the linestyle selector.
+
 1999-02-06  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/network/printer.c:

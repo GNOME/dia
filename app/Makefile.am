@@ -61,7 +61,7 @@ dia_SOURCES = \
 	    tool.h \
 	    pixmaps.h 
 
-dia_LDADD = ../lib/libdia.a  @GTK_LIBS@ @XML_LIBS@ @INTLLIBS@ @GNOME_LIBS@
+dia_LDADD = ../lib/libdia.a  @GTK_LIBS@ @XML_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@
 
 INCLUDES = \
 	-DLOCALEDIR=\"$(localedir)\" \

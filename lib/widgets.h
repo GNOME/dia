@@ -150,6 +150,7 @@ struct _DiaArrowTypeSelector
   GtkOptionMenu omenu;
 
   GtkMenu *arrow_type_menu;
+  
 };
 
 struct _DiaArrowTypeSelectorClass
@@ -162,6 +163,30 @@ GtkWidget* dia_arrow_type_selector_new           (void);
 ArrowType  dia_arrow_type_selector_get_arrow_type (DiaArrowTypeSelector *as);
 void       dia_arrow_type_selector_set_arrow_type (DiaArrowTypeSelector *as,
 						   ArrowType arrow);
+
+
+/* DiaFileSelector: */
+#define DIAFILESELECTOR(obj)          GTK_CHECK_CAST (obj, dia_file_selector_get_type (), DiaFileSelector)
+#define DIAFILESELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_file_selector_get_type (), DiaFileSelectorClass)
+#define IS_DIAFILESELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_file_selector_get_type ())
+
+typedef struct _DiaFileSelector       DiaFileSelector;
+typedef struct _DiaFileSelectorClass  DiaFileSelectorClass;
+
+struct _DiaFileSelector
+{
+  GtkEntry oentry;
+};
+
+struct _DiaFileSelectorClass
+{
+  GtkEntryClass parent_class;
+};
+
+guint      dia_file_selector_get_type        (void);
+GtkWidget* dia_file_selector_new             (void);
+void       dia_file_selector_set_file        (DiaFileSelector *fs, char *file);
+char *     dia_file_selector_get_file        (DiaFileSelector *fs);
 
 
 #endif /* WIDGETS_H */

@@ -103,6 +103,13 @@ fi
 AC_SUBST(XML_LIBS)
 AC_SUBST(XML_CFLAGS)
 
+dnl
+dnl Locate the imlib library
+dnl
+AM_PATH_GDK_IMLIB()
+AC_SUBST(GDK_IMLIB_LIBS)
+AC_SUBST(GDK_IMLIB_CFLAGS)
+
 dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC

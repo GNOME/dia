@@ -19,6 +19,7 @@
 #include <time.h>
 #include <math.h>
 #include <unistd.h>
+#include <gdk_imlib.h>
 
 #include "config.h"
 #include "render_eps.h"
@@ -85,7 +86,7 @@ static void draw_string(RendererEPS *renderer,
 static void draw_image(RendererEPS *renderer,
 		       Point *point,
 		       real width, real height,
-		       void *not_decided_yet);
+		       GdkImlibImage *image);
 
 static RenderOps EpsRenderOps = {
   (BeginRenderFunc) begin_render,
@@ -146,8 +147,8 @@ new_eps_renderer(Diagram *dia, char *filename)
 
   renderer->file = file;
 
-  renderer->dash_length = 10.0;
   renderer->dash_length = 1.0;
+  renderer->dot_length = 0.2;
   renderer->saved_line_style = LINESTYLE_SOLID;
   
   time_now  = time(NULL);
@@ -301,7 +302,7 @@ set_linejoin(RendererEPS *renderer, LineJoin mode)
 static void
 set_linestyle(RendererEPS *renderer, LineStyle mode)
 {
-  double hole_width;
+  real hole_width;
 
   renderer->saved_line_style = mode;
   
@@ -310,35 +311,38 @@ set_linestyle(RendererEPS *renderer, LineStyle mode)
     fprintf(renderer->file, "[] 0 sd\n");
     break;
   case LINESTYLE_DASHED:
-    fprintf(renderer->file, "[%f] 0 sd\n", (double) renderer->dash_length);
+    fprintf(renderer->file, "[%f] 0 sd\n", renderer->dash_length);
     break;
   case LINESTYLE_DASH_DOT:
     hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
     fprintf(renderer->file, "[%f %f %f %f] 0 sd\n",
-	    (double) renderer->dash_length,
+	    renderer->dash_length,
 	    hole_width,
-	    (double) renderer->dot_length,
+	    renderer->dot_length,
 	    hole_width );
     break;
   case LINESTYLE_DASH_DOT_DOT:
-    hole_width = (renderer->dash_length - 2*renderer->dot_length) / 3.0;
+    hole_width = (renderer->dash_length - 2.0*renderer->dot_length) / 3.0;
     fprintf(renderer->file, "[%f %f %f %f %f %f] 0 sd\n",
-	    (double) renderer->dash_length,
+	    renderer->dash_length,
 	    hole_width,
-	    (double) renderer->dot_length,
+	    renderer->dot_length,
 	    hole_width,
-	    (double) renderer->dot_length,
+	    renderer->dot_length,
 	    hole_width );
+    break;
+  case LINESTYLE_DOTTED:
+    fprintf(renderer->file, "[%f] 0 sd\n", renderer->dot_length);
     break;
   }
 }
 
 static void
 set_dashlength(RendererEPS *renderer, real length)
-{  /* dot = 10% of len */
+{  /* dot = 20% of len */
   
   renderer->dash_length = length;
-  renderer->dot_length = length*0.1;
+  renderer->dot_length = length*0.2;
   
   set_linestyle(renderer, renderer->saved_line_style);
 }
@@ -635,8 +639,136 @@ static void
 draw_image(RendererEPS *renderer,
 	   Point *point,
 	   real width, real height,
-	   void *not_decided_yet)
+	   GdkImlibImage *image)
 {
-  message_error("eps_renderer: Images are not supported yet!\n");
+  int img_width, img_height;
+  int v;
+  int                 x, y;
+  unsigned char      *ptr;
+  real ratio;
+
+  img_width = image->rgb_width;
+  img_height = image->rgb_height;
+
+  ratio = height/width;
+
+  fprintf(renderer->file, "/origstate save def\n");
+  fprintf(renderer->file, "20 dict begin\n");
+  if (1) /* Color output */
+  {
+    fprintf(renderer->file, "/pix %i string def\n", img_width * 3);
+    fprintf(renderer->file, "/grays %i string def\n", img_width);
+    fprintf(renderer->file, "/npixls 0 def\n");
+    fprintf(renderer->file, "/rgbindx 0 def\n");
+    fprintf(renderer->file, "%f %f translate\n", point->x, point->y);
+    fprintf(renderer->file, "%f %f scale\n", 1.0, ratio);
+    fprintf(renderer->file,
+	    "/colorimage where\n"
+	    "{ pop }\n"
+	    "{\n"
+	    "/colortogray {\n"
+	    "/rgbdata exch store\n"
+	    "rgbdata length 3 idiv\n"
+	    "/npixls exch store\n"
+	    "/rgbindx 0 store\n"
+	    "0 1 npixls 1 sub {\n"
+	    "grays exch\n"
+	    "rgbdata rgbindx       get 20 mul\n"
+	    "rgbdata rgbindx 1 add get 32 mul\n"
+	    "rgbdata rgbindx 2 add get 12 mul\n"
+	    "add add 64 idiv\n"
+	    "put\n"
+	    "/rgbindx rgbindx 3 add store\n"
+	    "} for\n"
+	    "grays 0 npixls getinterval\n"
+	    "} bind def\n"
+	    "/mergeprocs {\n"
+	    "dup length\n"
+	    "3 -1 roll\n"
+	    "dup\n"
+	    "length\n"
+	    "dup\n"
+	    "5 1 roll\n"
+	    "3 -1 roll\n"
+	    "add\n"
+	    "array cvx\n"
+	    "dup\n"
+	    "3 -1 roll\n"
+	    "0 exch\n"
+	    "putinterval\n"
+	    "dup\n"
+	    "4 2 roll\n"
+	    "putinterval\n"
+	    "} bind def\n"
+	    "/colorimage {\n"
+	    "pop pop\n"
+	    "{colortogray} mergeprocs\n"
+	    "image\n"
+	    "} bind def\n"
+	    "} ifelse\n");
+    fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
+    fprintf(renderer->file, "[%i 0 0 -%i 0 %i]\n", 
+	    img_width, img_height, img_height);
+    fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
+    fprintf(renderer->file, "false 3 colorimage\n");
+    fprintf(renderer->file, "\n");
+    ptr = image->rgb_data;
+    for (y = 0; y < img_width; y++)
+    {
+      for (x = 0; x < img_height; x++)
+      {
+	v = (int)(*ptr++);
+	if (v < 0x10)
+	  fprintf(renderer->file, "0%x", v);
+	else
+	  fprintf(renderer->file, "%x", v);
+	v = (int)(*ptr++);
+	if (v < 0x10)
+	  fprintf(renderer->file, "0%x", v);
+	else
+	  fprintf(renderer->file, "%x", v);
+	v = (int)(*ptr++);
+	if (v < 0x10)
+	  fprintf(renderer->file, "0%x", v);
+	else
+	  fprintf(renderer->file, "%x", v);
+      }
+      fprintf(renderer->file, "\n");
+    }
+  }
+  else /* Grayscale */
+  {
+    fprintf(renderer->file, "/pix %i string def\n", img_width);
+    fprintf(renderer->file, "/grays %i string def\n", img_width);
+    fprintf(renderer->file, "/npixls 0 def\n");
+    fprintf(renderer->file, "/rgbindx 0 def\n");
+    fprintf(renderer->file, "%f %f translate\n", point->x, point->y);
+    fprintf(renderer->file, "%f %f scale\n", 1.0, ratio);
+    fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
+    fprintf(renderer->file, "[%i 0 0 -%i 0 %i]\n", 
+	    img_width, img_height, img_height);
+    fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
+    fprintf(renderer->file, "image\n");
+    fprintf(renderer->file, "\n");
+    ptr = image->rgb_data;
+    for (y = 0; y < img_height; y++)
+    {
+      for (x = 0; x < img_width; x++)
+      {
+	v = (int)(*ptr++);
+	v += (int)(*ptr++);
+	v += (int)(*ptr++);
+	v /= 3;
+	if (v < 0x10)
+	  fprintf(renderer->file, "0%x", v);
+	else
+	  fprintf(renderer->file, "%x", v);
+      }
+      fprintf(renderer->file, "\n");
+    }
+  }
+  fprintf(renderer->file, "%f %f scale\n", 1.0, 1.0/ratio);
+  fprintf(renderer->file, "%f %f translate\n", -point->x, -point->y);
+  fprintf(renderer->file, "\n");
 }
 

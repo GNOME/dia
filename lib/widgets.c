@@ -287,6 +287,12 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
   
+  menuitem = gtk_radio_menu_item_new_with_label (group, "Dotted");
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DOTTED));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+  
   gtk_menu_set_active(GTK_MENU (menu), 0);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs), menu);
 }
@@ -643,3 +649,62 @@ dia_arrow_type_selector_set_arrow_type (DiaArrowTypeSelector *as,
   gtk_menu_set_active(GTK_MENU (as->arrow_type_menu), arrow);
   gtk_option_menu_set_history (GTK_OPTION_MENU(as), arrow);
 }
+
+/************* DiaFileSelector: ***************/
+static void
+dia_file_selector_class_init (DiaFileSelectorClass *class)
+{
+  GtkObjectClass *object_class;
+  
+  object_class = (GtkObjectClass*) class;
+}
+
+static void
+dia_file_selector_init (DiaFileSelector *fs)
+{
+  /* Here's where we set up the real thing */
+  /* We should really have a Browse button here */
+}
+
+
+guint
+dia_file_selector_get_type (void)
+{
+  static guint dfs_type = 0;
+
+  if (!dfs_type) {
+    GtkTypeInfo dfs_info = {
+      "DiaFileSelector",
+      sizeof (DiaFileSelector),
+      sizeof (DiaFileSelectorClass),
+      (GtkClassInitFunc) dia_file_selector_class_init,
+      (GtkObjectInitFunc) dia_file_selector_init,
+      (GtkArgSetFunc) NULL,
+      (GtkArgGetFunc) NULL
+    };
+    
+    dfs_type = gtk_type_unique (gtk_entry_get_type (), &dfs_info);
+
+  }
+  
+  return dfs_type;
+}
+
+GtkWidget *
+dia_file_selector_new ()
+{
+  return GTK_WIDGET ( gtk_type_new (dia_file_selector_get_type ()));
+}
+
+void
+dia_file_selector_set_file(DiaFileSelector *fs, gchar *file)
+{
+  gtk_entry_set_text(GTK_ENTRY(fs), file);
+}
+
+gchar *
+dia_file_selector_get_file(DiaFileSelector *fs)
+{
+  return gtk_entry_get_text(GTK_ENTRY(fs));
+}
+

@@ -90,6 +90,10 @@ static ToolButton tool_data[] =
   { NULL,
     "Create Polyline",
     { CREATE_OBJECT_TOOL, "Standard - PolyLine", NULL }
+  },
+  { NULL,
+    "Create Image",
+    { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
   }
 };
 

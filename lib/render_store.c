@@ -456,12 +456,11 @@ rs_add_draw_string(RenderStore *store,
 }
 
 void
-rs_add_draw_image(Renderer *renderer,
+rs_add_draw_image(Renderer *store,
 		  Point *point,
 		  real width, real height,
-		  void *not_decided_yet)
+		  void *image)
 {
-  
 }
 
 /* Rendering: */

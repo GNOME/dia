@@ -168,6 +168,10 @@ app_init (int argc, char **argv)
   gnome_init (PACKAGE, VERSION, argc, argv);
 #else
   gtk_init (&argc, &argv);
+  gdk_imlib_init();
+  /* FIXME:  Is this a good idea? */
+  gtk_widget_push_visual(gdk_imlib_get_visual());
+  gtk_widget_push_colormap(gdk_imlib_get_colormap());
 #endif
 
   /* Here could be popt stuff for options */
@@ -337,11 +341,12 @@ register_objects_in(char *directory)
       strncpy(file_name, directory, 256);
       strncat(file_name, "/", 256);
       strncat(file_name, dirp->d_name, 256);
-      /*   printf("loading library: \"%s\"\n", file_name); */
       
       libhandle = dlopen(file_name, DLOPEN_MODE);
       if (libhandle==NULL) {
-	message_warning(_("Error loading library: \"%s\":\n %s\n"), file_name, dlerror());
+	error = dlerror();
+	message_warning(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
+	printf(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
 	continue;
       }
 
@@ -352,16 +357,19 @@ register_objects_in(char *directory)
 #endif
       if ((error = dlerror()) != NULL)  {
 	message_warning(_("The file \"%s\" is not a Dia object library.\n"), file_name);
+	printf(_("The file \"%s\" is not a Dia object library.\n"), file_name);
 	continue;
       }
 
       if ( (*version_func)() < current_version ) {
 	message_warning(_("The object library \"%s\" is from an older version of Dia and cannot be used.\nPlease upgrade it."), file_name);
+	printf(_("The object library \"%s\" is from an older version of Dia and cannot be used.\nPlease upgrade it."), file_name);
 	continue;
       }
       
       if ( (*version_func)() > current_version ) {
 	message_warning(_("The object library \"%s\" is from an later version of Dia.\nYou need to upgrade Dia to use it."), file_name);
+	printf(_("The object library \"%s\" is from an later version of Dia.\nYou need to upgrade Dia to use it."), file_name);
 	continue;
       }
 
@@ -373,6 +381,7 @@ register_objects_in(char *directory)
 #endif
       if ((error = dlerror()) != NULL)  {
 	message_warning(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
+	printf(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
 	continue;
       }
       

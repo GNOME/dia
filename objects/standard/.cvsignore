@@ -12,3 +12,4 @@ standard.lo
 textobj.lo
 zigzagline.lo
 polyline.lo
+image.lo
