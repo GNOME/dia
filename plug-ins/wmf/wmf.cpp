@@ -891,10 +891,10 @@ draw_image(DiaRenderer *self,
 #   ifndef DWORD
 #     define DWORD unsigned long
 #   endif
-    W32::BitBlt(renderer->hFileDC, // destination
+    W32::StretchBlt(renderer->hFileDC, // destination
                 SCX(point->x), SCY(point->y), SC(width), SC(height),
                 hMemDC, // source
-                0, 0, SRCCOPY);
+                0, 0, iWidth, iHeight, SRCCOPY);
 
     W32::SelectObject (hMemDC, hOldBmp);
     W32::DeleteDC (hMemDC);

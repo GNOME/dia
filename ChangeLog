@@ -1,3 +1,8 @@
+2003-08-23  Steffen Macke <sdteffen@web.de>
+
+	* plug-ins/wmf/wmf.cpp (draw_image): replaced BitBlt() with 
+	StretchBlt(); fixes #92249
+	
 2003-08-23  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/filedlg.c (file_save_as_callback): 
