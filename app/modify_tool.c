@@ -286,13 +286,13 @@ modify_double_click(ModifyTool *tool, GdkEventButton *event,
   }
 }
 
-#define MIN_PIXELS 5
+#define MIN_PIXELS 10
 
 static gboolean
 modify_move_already(ModifyTool *tool, DDisplay *ddisp, Point *to)
 {
   static gboolean settings_taken = FALSE;
-  static int double_click_time = 100;
+  static int double_click_time = 250;
   real dist;
   if (!settings_taken) {
     /* One could argue that if the settings were updated while running,
@@ -300,26 +300,30 @@ modify_move_already(ModifyTool *tool, DDisplay *ddisp, Point *to)
        and I don't want to do this whole thing for each bit of the
        move --Lars */
     GtkSettings *settings = gtk_settings_get_default();
-    GValue dctvalue;
     if (settings == NULL) {
       g_message(_("Couldn't get GTK settings"));
     } else {
       g_object_get(G_OBJECT(settings), 
-		   "gtk-double-click-time", &dctvalue, NULL);
-      if (g_type_is_a(G_VALUE_TYPE(&dctvalue), G_TYPE_INT)) {
-	double_click_time = g_value_get_int(&dctvalue);
-      }
+		   "gtk-double-click-time", &double_click_time, NULL);
     }
     settings_taken = TRUE;
   }
-  if (tool->start_time < time_micro()-double_click_time) return TRUE;
+  if (tool->start_time < time_micro()-double_click_time*1000) {
+    return TRUE;
+  }
   dist = distance_point_point_manhattan(&tool->start_at, to);
   if (ddisp->grid.snap) {
     real grid_x = ddisp->diagram->data->grid.width_x;
     real grid_y = ddisp->diagram->data->grid.width_y;
-    if (dist > grid_x || dist > grid_y) return TRUE;
+    if (dist > grid_x || dist > grid_y) {
+      return TRUE;
+    }
   }
-  return (ddisplay_transform_length(ddisp, dist) > MIN_PIXELS);
+  if (ddisplay_transform_length(ddisp, dist) > MIN_PIXELS) {
+    return (ddisplay_transform_length(ddisp, dist) > MIN_PIXELS);
+  } else {
+    return FALSE;
+  }
 }
 
 
@@ -485,14 +489,24 @@ static void
 modify_button_release(ModifyTool *tool, GdkEventButton *event,
 		      DDisplay *ddisp)
 {
-  Point *dest_pos;
+  Point *dest_pos, to;
   GList *list;
   int i;
   Object *obj;
   
+  tool->break_connections = FALSE;
+  ddisplay_set_all_cursor(default_cursor);
+
   switch (tool->state) {
   case STATE_MOVE_OBJECT:
+    /* Return to normal state */
     gdk_pointer_ungrab (event->time);
+    tool->orig_pos = NULL;
+    tool->state = STATE_NONE;
+
+    ddisplay_untransform_coords(ddisp, event->x, event->y, &to.x, &to.y);
+    if (!modify_move_already(tool, ddisp, &to)) return;
+
     diagram_update_connections_selection(ddisp->diagram);
 
     if (tool->orig_pos != NULL) {
@@ -516,11 +530,10 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 
     undo_set_transactionpoint(ddisp->diagram->undo);
 
-    tool->orig_pos = NULL;
-    tool->state = STATE_NONE;
     break;
   case STATE_MOVE_HANDLE:
     gdk_pointer_ungrab (event->time);
+    tool->state = STATE_NONE;
 
     if (tool->orig_pos != NULL) {
       undo_move_handle(ddisp->diagram, tool->handle, tool->object,
@@ -552,9 +565,6 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       tool->orig_pos = NULL;
     }
 
-
-    
-    tool->state = STATE_NONE;
     break;
   case STATE_BOX_SELECT:
     gdk_pointer_ungrab (event->time);
@@ -652,8 +662,6 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     message_error("Internal error: Strange state in modify_tool\n");
       
   }
-  tool->break_connections = FALSE;
-  ddisplay_set_all_cursor(default_cursor);
 }
 
 
