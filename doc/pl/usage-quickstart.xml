@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
 <chapter label="1" id="quickstart-chapter">
 <title>Quickstart</title>
   <sect1 id="what-can-you-do">
@@ -17,7 +18,7 @@
         <screeninfo>To jest diagram sieci domowej stworzonym w 5 minut
         przy u¿yciu <application>Dia</application>.
         </screeninfo>
-        <graphic format="png" fileref="graphics/home_network" srccredit="Kevin Breit">
+        <graphic format="png" fileref="graphics/home_network" srccredit="Kevin Breit" />
       </screenshot>
     </figure>
   </para>
