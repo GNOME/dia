@@ -749,6 +749,7 @@ on_sheets_new_dialog_button_cancel_clicked
                                         gpointer         user_data)
 {
   gtk_widget_destroy(sheets_new_dialog);
+  sheets_new_dialog = NULL;
 }
 
 void
@@ -932,6 +933,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
   g_list_free(button_list);
 
   gtk_widget_destroy(sheets_new_dialog);
+  sheets_new_dialog = NULL;
 }
 
 static GtkWidget *sheets_shapeselection_dialog;
@@ -951,6 +953,7 @@ on_sheets_shapeselection_dialog_button_cancel_clicked
                                         gpointer         user_data)
 {
   gtk_widget_destroy(sheets_shapeselection_dialog);
+  sheets_shapeselection_dialog = NULL;
 }
 
 void
@@ -970,6 +973,7 @@ on_sheets_shapeselection_dialog_button_ok_clicked
   gtk_entry_set_text(GTK_ENTRY(entry), filename);
 
   gtk_widget_destroy(sheets_shapeselection_dialog);
+  sheets_shapeselection_dialog = NULL;
 }
 
 static GtkWidget *sheets_edit_dialog;
@@ -1037,6 +1041,7 @@ on_sheets_edit_dialog_button_cancel_clicked
                                         gpointer         user_data)
 {
   gtk_widget_destroy(sheets_edit_dialog);
+  sheets_edit_dialog = NULL;
 }
 
 static GtkWidget *sheets_remove_dialog;
@@ -1119,6 +1124,7 @@ on_sheets_remove_dialog_button_cancel_clicked
                                         gpointer         user_data)
 {
   gtk_widget_destroy(sheets_remove_dialog);
+  sheets_remove_dialog = NULL;
 }
 
 static void
@@ -1321,6 +1327,7 @@ on_sheets_remove_dialog_button_ok_clicked
 
   sheets_dialog_apply_revert_set_sensitive(TRUE);
   gtk_widget_destroy(sheets_remove_dialog);
+  sheets_remove_dialog = NULL;
 }
 
 void
@@ -1398,6 +1405,7 @@ on_sheets_edit_dialog_button_ok_clicked
     sheets_dialog_apply_revert_set_sensitive(TRUE);
 
   gtk_widget_destroy(sheets_edit_dialog);
+  sheets_edit_dialog = NULL;
 }
 
 void

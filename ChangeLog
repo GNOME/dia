@@ -1,5 +1,8 @@
 2004-03-17  Lars Clausen  <lars@raeder.dk>
 
+	* app/sheets_dialog_callbacks.c: Fixed crashes from broken caching
+	of dialogs (shame on you, glade!)
+
 	* objects/custom/custom_object.c (custom_setup_properties):
 	Removed debugging output
 
