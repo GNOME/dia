@@ -599,8 +599,8 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
   }
 
   if (relationship->font == NULL) {
-    relationship->font = dia_font_new(BASIC_MONOSPACE_FONT,
-                                      STYLE_NORMAL,FONT_HEIGHT);
+    relationship->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,
+                                                 FONT_HEIGHT);
   }
 
   relationship_update_data(relationship);

@@ -490,7 +490,7 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   }
 
   if (entity->font == NULL) {
-    entity->font = dia_font_new("Monospace",STYLE_NORMAL,1.0);
+    entity->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,1.0);
   }
 
   entity->name_width =

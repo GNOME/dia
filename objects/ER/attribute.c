@@ -564,8 +564,8 @@ static Object *attribute_load(ObjectNode obj_node, int version,
   }
 
   if (attribute->font == NULL) {
-	  attribute->font = dia_font_new("Monospace",STYLE_NORMAL,
-                                   attribute->font_height);
+	  attribute->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,
+                                              attribute->font_height);
   }
 
   attribute->name_width = dia_font_string_width(attribute->name,
