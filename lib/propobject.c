@@ -146,7 +146,7 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
 WIDGET *
 object_create_props_dialog(Object *obj, gboolean is_default)
 {
-  return prop_dialog_new(obj)->widget;
+  return prop_dialog_new(obj, is_default)->widget;
 }
 
 

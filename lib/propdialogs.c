@@ -39,10 +39,10 @@
 const gchar *prop_dialogdata_key = "object-props:dialogdata";
 
 static void prop_dialog_signal_destroy(GtkWidget *dialog_widget);
-static void prop_dialog_fill(PropDialog *dialog, Object *obj);
+static void prop_dialog_fill(PropDialog *dialog, Object *obj, gboolean is_default);
 
 PropDialog *
-prop_dialog_new(Object *obj) 
+prop_dialog_new(Object *obj, gboolean is_default) 
 {
   PropDialog *dialog = g_new0(PropDialog,1);
   dialog->props = NULL;
@@ -58,7 +58,7 @@ prop_dialog_new(Object *obj)
   gtk_signal_connect(GTK_OBJECT(dialog->widget), "destroy",
                      GTK_SIGNAL_FUNC(prop_dialog_signal_destroy), NULL);
 
-  prop_dialog_fill(dialog,obj);
+  prop_dialog_fill(dialog,obj,is_default);
 
   return dialog;
 }
@@ -257,12 +257,14 @@ prop_dialog_add_property(PropDialog *dialog, Property *prop)
 }
 
 static void 
-prop_dialog_add_properties(PropDialog *dialog, GPtrArray *props)     
+prop_dialog_add_properties(PropDialog *dialog, GPtrArray *props, gboolean is_default)
 {
   guint i;
 
   for (i = 0; i < props->len; i++) {
-    prop_dialog_add_property(dialog,g_ptr_array_index(props,i));
+    Property *prop = (Property*)g_ptr_array_index(props,i);
+    if (!(is_default && (prop->descr->flags & PROP_FLAG_STANDARD)))
+      prop_dialog_add_property(dialog, prop);
   }
 }
 
@@ -279,7 +281,7 @@ prop_get_data_from_widgets(PropDialog *dialog)
 }
 
 static void 
-prop_dialog_fill(PropDialog *dialog, Object *obj) {
+prop_dialog_fill(PropDialog *dialog, Object *obj, gboolean is_default) {
   const PropDescription *pdesc;
   GPtrArray *props;
 
@@ -296,7 +298,7 @@ prop_dialog_fill(PropDialog *dialog, Object *obj) {
   dialog->props = props;
   obj->ops->get_props(obj,props);
 
-  prop_dialog_add_properties(dialog, props);
+  prop_dialog_add_properties(dialog, props, is_default);
 }
 
 

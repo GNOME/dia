@@ -1,3 +1,10 @@
+2002-07-31  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/propdialogs.c: 
+	* lib/propinternals.h: 
+	* lib/propobject.c (object_create_props_dialog): 
+	Removing the standard (toolbox) properties from defaults dialogs.
+
 2002-07-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/font.c (dia_font_scaled_string_width) 
