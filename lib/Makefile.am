@@ -102,7 +102,8 @@ libdia_a_SOURCES =  \
 		ps-utf8.c \
 		ps-utf8.h \
 		boundingbox.c \
-		boundingbox.h
+		boundingbox.h \
+		create.h
 
 #		charconv.c \
 #		charconv.h 

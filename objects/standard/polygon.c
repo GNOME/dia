@@ -260,7 +260,7 @@ polygon_create(Point *startpoint,
     poly->points[2] = *startpoint;
     point_add(&poly->points[2], &defaulty);
   } else {
-    PolygonCreateData *pcd = (PolygonCreateData *)user_data;
+    MultipointCreateData *pcd = (MultipointCreateData *)user_data;
     
     polyshape_init(poly, pcd->num_points);
     polyshape_set_points(poly, pcd->num_points, pcd->points);

@@ -297,7 +297,7 @@ bezierline_create(Point *startpoint,
     bez->points[1].p3 = bez->points[1].p2;
     point_add(&bez->points[1].p3, &defaultlen);
   } else {
-    BezierlineCreateData *bcd = (BezierlineCreateData*)user_data;
+    BezierCreateData *bcd = (BezierCreateData*)user_data;
 
     bezierconn_init(bez, bcd->num_points);
     bezierconn_set_points(bez, bcd->num_points, bcd->points);

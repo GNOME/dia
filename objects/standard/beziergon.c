@@ -293,7 +293,7 @@ beziergon_create(Point *startpoint,
     bezier->points[2].p1 = bezier->points[1].p3;
     point_sub(&bezier->points[2].p1, &defaultx);
   } else {
-    BeziergonCreateData *bcd = (BeziergonCreateData*)user_data;
+    BezierCreateData *bcd = (BezierCreateData*)user_data;
 
     beziershape_init(bezier, bcd->num_points);
     beziershape_set_points(bezier, bcd->num_points, bcd->points);

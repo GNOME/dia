@@ -1,3 +1,16 @@
+2002-08-14  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/svg/svg-import.c: 
+	* plug-ins/xfig/xfig-import.c: 
+	* lib/Makefile.am (libdia_a_SOURCES): 
+	* objects/standard/Makefile.am (libstandard_objects_la_SOURCES): 
+	* lib/create.h:
+	* objects/standard/create.h:
+	* objects/standard/polygon.c (polygon_create): 
+	* objects/standard/polyline.c (polyline_create): 
+	* objects/standard/beziergon.c (beziergon_create): 
+	* objects/standard/bezier.c (bezierline_create): 
+
 2002-08-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_libart.[ch]: Work on PNG font export.  Something's

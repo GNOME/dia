@@ -50,7 +50,7 @@
 #include "propinternals.h"
 #include "../app/group.h"
 
-#include "../objects/standard/create.h"
+#include "create.h"
 #include "xfig.h"
 
 #define BUFLEN 512
@@ -200,14 +200,14 @@ create_standard_polyline(int num_points,
     ObjectType *otype = object_get_type("Standard - PolyLine");
     Object *new_obj;
     Handle *h1, *h2;
-    PolylineCreateData *pcd;
+    MultipointCreateData *pcd;
 
     if (otype == NULL){
 	message_error(_("Can't find standard object"));
 	return NULL;
     }
 
-    pcd = g_new(PolylineCreateData, 1);
+    pcd = g_new(MultipointCreateData, 1);
     pcd->num_points = num_points;
     pcd->points = points;
 
@@ -226,14 +226,14 @@ create_standard_polygon(int num_points,
     ObjectType *otype = object_get_type("Standard - Polygon");
     Object *new_obj;
     Handle *h1, *h2;
-    PolylineCreateData *pcd;
+    MultipointCreateData *pcd;
 
     if (otype == NULL){
 	message_error(_("Can't find standard object"));
 	return NULL;
     }
 
-    pcd = g_new(PolygonCreateData, 1);
+    pcd = g_new(MultipointCreateData, 1);
     pcd->num_points = num_points;
     pcd->points = points;
 
@@ -251,14 +251,14 @@ create_standard_bezierline(int num_points,
     ObjectType *otype = object_get_type("Standard - BezierLine");
     Object *new_obj;
     Handle *h1, *h2;
-    BezierlineCreateData *bcd;
+    BezierCreateData *bcd;
 
     if (otype == NULL){
 	message_error(_("Can't find standard object"));
 	return NULL;
     }
 
-    bcd = g_new(BezierlineCreateData, 1);
+    bcd = g_new(BezierCreateData, 1);
     bcd->num_points = num_points;
     bcd->points = points;
 
@@ -277,14 +277,14 @@ create_standard_beziergon(int num_points,
     ObjectType *otype = object_get_type("Standard - Beziergon");
     Object *new_obj;
     Handle *h1, *h2;
-    BeziergonCreateData *bcd;
+    BezierCreateData *bcd;
 
     if (otype == NULL){
 	message_error(_("Can't find standard object"));
 	return NULL;
     }
 
-    bcd = g_new(BeziergonCreateData, 1);
+    bcd = g_new(BezierCreateData, 1);
     bcd->num_points = num_points;
     bcd->points = points;
 

@@ -23,21 +23,17 @@
 #ifndef STANDARD_OBJECT_CREATE_H
 #define STANDARD_OBJECT_CREATE_H
 
+typedef struct _MultipointCreateData MultipointCreateData;
+typedef struct _BezierCreateData BezierCreateData;
+
 struct _MultipointCreateData {
   int num_points;
   Point *points;
 };
 
-typedef struct _MultipointCreateData PolylineCreateData;
-typedef struct _MultipointCreateData PolygonCreateData;
-
 struct _BezierCreateData {
   int num_points;
   BezPoint *points;
 };
-
-typedef struct _BezierCreateData BezierlineCreateData;
-typedef struct _BezierCreateData BeziergonCreateData;
-
 
 #endif

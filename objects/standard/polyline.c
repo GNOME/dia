@@ -259,7 +259,7 @@ polyline_create(Point *startpoint,
     *handle1 = poly->object.handles[0];
     *handle2 = poly->object.handles[1];
   } else {
-    PolylineCreateData *pcd = (PolylineCreateData *)user_data;
+    MultipointCreateData *pcd = (MultipointCreateData *)user_data;
 
     polyconn_init(poly, pcd->num_points);
 

@@ -46,7 +46,7 @@
 #include "propinternals.h"
 #include "dia_xml_libxml.h"
 #include "intl.h"
-#include "../objects/standard/create.h"
+#include "create.h"
 #include "../objects/custom/shape_info.h"
 #include "font.h"
 
@@ -182,7 +182,7 @@ read_path_svg(xmlNodePtr node, DiagramData *dia) {
     ObjectType *otype;
     Object *new_obj;
     Handle *h1, *h2;
-    BezierlineCreateData *bcd;
+    BezierCreateData *bcd;
     ShapeInfo *si;
     char *str;
     GList *tmp;
@@ -200,7 +200,7 @@ read_path_svg(xmlNodePtr node, DiagramData *dia) {
 	   message_error(_("Can't find standard object"));
 	   return;
          }
-	 bcd = g_new(BezierlineCreateData, 1);
+	 bcd = g_new(BezierCreateData, 1);
 	 bcd->num_points = el->path.npoints;
 	 bcd->points = el->path.points;	
 	 new_obj = otype->ops->create(NULL, bcd, &h1, &h2);
@@ -214,7 +214,7 @@ read_path_svg(xmlNodePtr node, DiagramData *dia) {
 	   message_error(_("Can't find standard object"));
 	   return;
          }
-	 bcd = g_new(BezierlineCreateData, 1);
+	 bcd = g_new(BezierCreateData, 1);
 	 bcd->num_points = el->path.npoints;
 	 bcd->points = el->path.points;	
 	 new_obj = otype->ops->create(NULL, bcd, &h1, &h2);
@@ -299,7 +299,7 @@ read_poly_svg(xmlNodePtr node, DiagramData *dia, char *object_type) {
     ObjectType *otype = object_get_type(object_type);
     Object *new_obj;
     Handle *h1, *h2;
-    PolylineCreateData *pcd;
+    MultipointCreateData *pcd;
     Point *points;
     GArray *arr = g_array_new(FALSE, FALSE, sizeof(real));
     real val, *rarr;
@@ -325,7 +325,7 @@ read_poly_svg(xmlNodePtr node, DiagramData *dia, char *object_type) {
       g_array_append_val(arr, val);
     points = g_malloc0(arr->len/2*sizeof(Point));
 
-    pcd = g_new(PolylineCreateData, 1);
+    pcd = g_new(MultipointCreateData, 1);
     pcd->num_points = arr->len/2;
     rarr = (real *)arr->data;
     for (i = 0; i < pcd->num_points; i++) {
