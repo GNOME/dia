@@ -519,8 +519,6 @@ fill_in_dialog(Message *message)
 
   if (message->text) {
       str = strdup(message->text);
-      strcpy(str, message->text+1);
-      str[strlen(str)-1] = 0;
       gtk_entry_set_text(prop_dialog->text, str);
       g_free(str);
   }

@@ -1,3 +1,18 @@
+1999-02-09  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
+
+	* objects/UML/object.c (objet_draw): 
+	Completed underlining of all object name lines. 
+
+	* objects/UML/message.c (fill_in_dialog): 
+	Fixed a bug that filled incorrectly the message's dialog.
+
+	* objects/UML/lifeline.c (lifeline_load): 
+	Some cleanning and fixed a couple of bugs that caused
+	crashes after reading diagrams with lifelines.
+
+	* lib/text.c: 
+	Added flags to prevent crash with void strings
+
 1999-02-07  Matthias Köster <Matthias.Koester@Informatik.Uni-Oldenburg.DE>
 	* app/display.[ch]:
 	Added statusbar to the display widget. Currently shows the zoom

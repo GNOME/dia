@@ -157,15 +157,7 @@ objet_move_handle(Objet *pkg, Handle *handle,
 static void
 objet_move(Objet *pkg, Point *to)
 {
-  /*  Point p; */
-  
   pkg->element.corner = *to;
-  /*
-  p = *to;
-  p.x += OBJET_MARGIN_X;
-  p.y += pkg->text->ascent + OBJET_MARGIN_Y;
-  text_set_position(pkg->text, &p);
-  */
   objet_update_data(pkg);
 }
 
@@ -175,6 +167,7 @@ objet_draw(Objet *pkg, Renderer *renderer)
   Element *elem;
   real bw, x, y, w, h;
   Point p1, p2;
+  int i;
   
   assert(pkg != NULL);
   assert(renderer != NULL);
@@ -227,9 +220,15 @@ objet_draw(Objet *pkg, Renderer *renderer)
   p2.y = p1.y;
   
   renderer->ops->set_linewidth(renderer, OBJET_LINEWIDTH);
-  renderer->ops->draw_line(renderer,
-			   &p1, &p2,
-			   &color_black);
+    
+  for (i=0; i<pkg->text->numlines; i++) { 
+    p1.x = x + (w - pkg->text->row_width[i])/2;
+    p2.x = p1.x + pkg->text->row_width[i];
+    renderer->ops->draw_line(renderer,
+			     &p1, &p2,
+			     &color_black);
+    p1.y = p2.y += pkg->text->height;
+  }
 
   if (pkg->show_attributes) {
       p1.x = x; p2.x = x + w;
@@ -551,7 +550,6 @@ fill_in_dialog(Objet *dep)
   if (dep->exstate != NULL) {
       str = strdup(dep->exstate+1);
       str[strlen(str)-1] = 0;
-      fprintf(stderr, "E %s %p ", str, prop_dialog->name); fflush(stderr);
       gtk_entry_set_text(prop_dialog->name, str);
       g_free(str);
   } else 
@@ -562,7 +560,6 @@ fill_in_dialog(Objet *dep)
     str = strdup(dep->stereotype);
     strcpy(str, dep->stereotype+1);
     str[strlen(str)-1] = 0;
-    fprintf(stderr, "S %s %p ", str, prop_dialog->stereotype); fflush(stderr);
     gtk_entry_set_text(prop_dialog->stereotype, str);
     g_free(str);
   } else {

@@ -56,7 +56,6 @@ struct _LifelineDialog {
 
 #define LIFELINE_LINEWIDTH 0.05
 #define LIFELINE_BOXWIDTH 0.1
-#define LIFELINE_FONTHEIGHT 0.8
 #define LIFELINE_WIDTH 1.0
 #define LIFELINE_HEIGHT 3.0
 #define LIFELINE_BOXMINHEIGHT 0.5
@@ -67,8 +66,6 @@ struct _LifelineDialog {
 #define HANDLE_BOXTOP (HANDLE_CUSTOM1)
 #define HANDLE_BOXBOT (HANDLE_CUSTOM2)
 
-
-static Font *lifeline_font = NULL;
 
 static void lifeline_move_handle(Lifeline *lifeline, Handle *handle,
 				   Point *to, HandleMoveReason reason);
@@ -277,9 +274,6 @@ lifeline_create(Point *startpoint,
   Object *obj;
   int i;
 
-  if (lifeline_font == NULL)
-    lifeline_font = font_getfont("Courier");
-  
   lifeline = g_malloc(sizeof(Lifeline));
 
   conn = &lifeline->connection;
@@ -292,7 +286,7 @@ lifeline_create(Point *startpoint,
   
   obj->type = &lifeline_type;
   obj->ops = &lifeline_ops;
-  
+
   connection_init(conn, 4, 6);
 
   lifeline->rtop = LIFELINE_HEIGHT/3;
@@ -458,9 +452,7 @@ lifeline_load(ObjectNode obj_node, int version)
   AttributeNode attr;
   Connection *conn;
   Object *obj;
-
-  if (lifeline_font == NULL)
-    lifeline_font = font_getfont("Courier");
+  int i;
 
   lifeline = g_malloc(sizeof(Lifeline));
 
@@ -472,7 +464,7 @@ lifeline_load(ObjectNode obj_node, int version)
 
   connection_load(conn, obj_node);
   
-  connection_init(conn, 4, 0);
+  connection_init(conn, 4, 6);
 
   attr = object_find_attribute(obj_node, "rtop");
   if (attr != NULL)
@@ -489,6 +481,11 @@ lifeline_load(ObjectNode obj_node, int version)
   attr = object_find_attribute(obj_node, "draw_cross");
   if (attr != NULL)
     lifeline->draw_cross = data_boolean(attribute_first_data(attr));
+
+  /* Connection points */
+  for (i=0;i<6;i++) {
+    obj->connections[i] = &lifeline->connections[i];
+  }
 
   lifeline->boxbot_handle.id = HANDLE_BOXBOT;
   lifeline->boxbot_handle.type = HANDLE_MINOR_CONTROL;

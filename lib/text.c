@@ -84,12 +84,13 @@ set_string(Text *text, const char *string)
    s = string;
   
   numlines = 1;
-  while ( (s = strchr(s,'\n')) != NULL ) {
-    s++;
-    if ((*s) != 0) {
-      numlines++;
+  if (s != NULL) 
+    while ( (s = strchr(s,'\n')) != NULL ) {
+	s++;
+	if ((*s) != 0) {
+	    numlines++;
+	}
     }
-  }
   text->numlines = numlines;
   text->line = g_malloc(sizeof(char *)*numlines);
   text->strlen = g_malloc(sizeof(int)*numlines);
@@ -97,6 +98,15 @@ set_string(Text *text, const char *string)
   text->row_width = g_malloc(sizeof(real)*numlines);
 
   s = string;
+
+  if (string==NULL) {
+    text->line[0] = (char *)g_malloc(1);
+    text->line[0][0] = 0;
+    text->strlen[0] = 0;
+    text->alloclen[0] = 1;
+    return;
+  }
+
   for (i=0;i<numlines;i++) {
     s2 = strchr(s,'\n');
     if (s2==NULL) {
