@@ -62,21 +62,21 @@ dia_font_selector_class_init (DiaFontSelectorClass *class)
   object_class = (GtkObjectClass*) class;
 }
 
+#ifdef HAVE_FREETYPE
 static void
-dia_font_selector_set_font_menu (gpointer *key, gpointer *value, gpointer *user_data)
+dia_font_selector_set_font_menu (gpointer key, gpointer value, gpointer user_data)
 {
-  DiaFontSelector *fs = DIAFONTSELECTOR(user_data);
   char *fontname = (char *)key;
   GtkWidget *menuitem;
-  GSList *group;
-  GtkWidget *menu;
+  GtkMenu *menu = GTK_MENU(user_data);
 
-  menuitem = gtk_radio_menu_item_new_with_label (group, fontname);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), value);
-  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  menuitem = gtk_menu_item_new_with_label (fontname);
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), fontname);
+  // group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 }
+#endif
 
 static void
 dia_font_selector_init (DiaFontSelector *fs)
@@ -84,33 +84,22 @@ dia_font_selector_init (DiaFontSelector *fs)
 #ifdef HAVE_FREETYPE
   // Go through hash table and build menu
   GtkWidget *menu;
-  GtkWidget *submenu;
-  GtkWidget *menuitem;
-  GSList *group;
-  GList *list;
-  char *fontname;
   GtkWidget *omenu;
   
   omenu = gtk_option_menu_new();
-  fs->font_omenu = omenu;
+  fs->font_omenu = GTK_OPTION_MENU(omenu);
   menu = gtk_menu_new ();
   fs->font_menu = GTK_MENU(menu);
-  submenu = NULL;
-  group = NULL;
 
-  list = font_names;
-  while (list != NULL) {
-    fontname = (char *) list->data;
-    menuitem = gtk_radio_menu_item_new_with_label (group, fontname);
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), fontname);
-    group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-    gtk_menu_append (GTK_MENU (menu), menuitem);
-    gtk_widget_show (menuitem);
-
-    list = g_list_next(list);
-  }
+  g_hash_table_foreach(freetype_fonts, dia_font_selector_set_font_menu,
+		       menu);
   
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->font_omenu), menu);
+
+  omenu = gtk_option_menu_new();
+  fs->style_omenu = GTK_OPTION_MENU(omenu);
+  menu = gtk_menu_new ();
+  fs->style_menu = GTK_MENU(menu);
 #else
   GtkWidget *menu;
   GtkWidget *submenu;
@@ -140,6 +129,16 @@ dia_font_selector_init (DiaFontSelector *fs)
 #endif
 }
 
+#ifdef HAVE_FREETYPE
+static void
+dia_font_selector_set_font_nr (gpointer key, gpointer value, gpointer user_data)
+{
+  static int i = 0;
+
+  g_hash_table_insert(font_nr_hashtable, (char *)key, GINT_TO_POINTER(i++));
+}
+#endif
+
 
 guint
 dia_font_selector_get_type        (void)
@@ -162,10 +161,13 @@ dia_font_selector_get_type        (void)
     
     dfs_type = gtk_type_unique (gtk_option_menu_get_type (), &dfs_info);
 
-
     /* Init the font hash_table: */
     font_nr_hashtable = g_hash_table_new(g_str_hash, g_str_equal);
 
+#ifdef HAVE_FREETYPE
+    g_hash_table_foreach(freetype_fonts, dia_font_selector_set_font_nr,
+			 NULL);
+#else
     i=0;
     list = font_names;
     while (list != NULL) {
@@ -178,7 +180,7 @@ dia_font_selector_get_type        (void)
       list = g_list_next(list);
       i++;
     }
-    
+#endif
   }
   
   return dfs_type;
