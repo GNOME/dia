@@ -407,7 +407,7 @@ realizes_create(Point *startpoint,
     realize_font = font_getfont("Courier");
   }
   
-  realize = g_malloc(sizeof(Realizes));
+  realize = g_malloc0(sizeof(Realizes));
   orth = &realize->orth;
   obj = &orth->object;
   extra = &orth->extra_spacing;
@@ -451,7 +451,7 @@ realizes_copy(Realizes *realize)
   
   orth = &realize->orth;
   
-  newrealize = g_malloc(sizeof(Realizes));
+  newrealize = g_malloc0(sizeof(Realizes));
   neworth = &newrealize->orth;
 
   orthconn_copy(orth, neworth);
@@ -489,7 +489,7 @@ realizes_load(ObjectNode obj_node, int version, const char *filename)
     realize_font = font_getfont("Courier");
   }
 
-  realize = g_new(Realizes, 1);
+  realize = g_new0(Realizes, 1);
 
   orth = &realize->orth;
   obj = &orth->object;

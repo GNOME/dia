@@ -200,8 +200,8 @@ participation_draw(Participation *participation, Renderer *renderer)
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (participation->total) {
-    left_points = g_new(Point, n);
-    right_points = g_new(Point, n);
+    left_points = g_new0(Point, n);
+    right_points = g_new0(Point, n);
     for(i = 0; i < n - 1; i++) {
       if(orth->orientation[i] == HORIZONTAL) { /* HORIZONTAL */
 	if (points[i].x < points[i+1].x) { /* RIGHT */
@@ -291,7 +291,7 @@ participation_create(Point *startpoint,
   OrthConn *orth;
   Object *obj;
   
-  participation = g_malloc(sizeof(Participation));
+  participation = g_malloc0(sizeof(Participation));
   orth = &participation->orth;
   obj = &orth->object;
   
@@ -320,7 +320,7 @@ participation_copy(Participation *participation)
   
   orth = &participation->orth;
   
-  newparticipation = g_malloc(sizeof(Participation));
+  newparticipation = g_malloc0(sizeof(Participation));
   neworth = &newparticipation->orth;
   newobj = &neworth->object;
 
@@ -352,7 +352,7 @@ participation_load(ObjectNode obj_node, int version, const char *filename)
   OrthConn *orth;
   Object *obj;
 
-  participation = g_new(Participation, 1);
+  participation = g_new0(Participation, 1);
 
   orth = &participation->orth;
   obj = &orth->object;

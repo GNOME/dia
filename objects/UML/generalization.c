@@ -404,7 +404,7 @@ generalization_create(Point *startpoint,
     genlz_font = font_getfont("Courier");
   }
   
-  genlz = g_new(Generalization, 1);
+  genlz = g_new0(Generalization, 1);
   orth = &genlz->orth;
   obj = (Object *)genlz;
   extra = &orth->extra_spacing;
@@ -444,7 +444,7 @@ generalization_copy(Generalization *genlz)
   
   orth = &genlz->orth;
   
-  newgenlz = g_malloc(sizeof(Generalization));
+  newgenlz = g_malloc0(sizeof(Generalization));
   neworth = &newgenlz->orth;
   newobj = (Object *)newgenlz;
 
@@ -485,7 +485,7 @@ generalization_load(ObjectNode obj_node, int version,
     genlz_font = font_getfont("Courier");
   }
 
-  genlz = g_new(Generalization, 1);
+  genlz = g_new0(Generalization, 1);
 
   orth = &genlz->orth;
   obj = (Object *)genlz;

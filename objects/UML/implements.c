@@ -281,7 +281,7 @@ implements_create(Point *startpoint,
   if (implements_font == NULL)
     implements_font = font_getfont("Courier");
   
-  implements = g_malloc(sizeof(Implements));
+  implements = g_malloc0(sizeof(Implements));
 
   conn = &implements->connection;
   conn->endpoints[0] = *startpoint;
@@ -337,7 +337,7 @@ implements_copy(Implements *implements)
   
   conn = &implements->connection;
   
-  newimplements = g_malloc(sizeof(Implements));
+  newimplements = g_malloc0(sizeof(Implements));
   newconn = &newimplements->connection;
   newobj = &newconn->object;
 
@@ -439,7 +439,7 @@ implements_load(ObjectNode obj_node, int version, const char *filename)
   if (implements_font == NULL)
     implements_font = font_getfont("Courier");
 
-  implements = g_malloc(sizeof(Implements));
+  implements = g_malloc0(sizeof(Implements));
 
   conn = &implements->connection;
   obj = &conn->object;

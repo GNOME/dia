@@ -328,7 +328,7 @@ lifeline_create(Point *startpoint,
   Object *obj;
   int i;
 
-  lifeline = g_malloc(sizeof(Lifeline));
+  lifeline = g_malloc0(sizeof(Lifeline));
 
   conn = &lifeline->connection;
   conn->endpoints[0] = *startpoint;
@@ -395,7 +395,7 @@ lifeline_copy(Lifeline *lifeline)
   
   conn = &lifeline->connection;
   
-  newlifeline = g_malloc(sizeof(Lifeline));
+  newlifeline = g_malloc0(sizeof(Lifeline));
   newconn = &newlifeline->connection;
   newobj = &newconn->object;
 
@@ -426,7 +426,7 @@ lifeline_copy(Lifeline *lifeline)
 static LifelineState *
 lifeline_get_state(Lifeline *lif)
 {
-  LifelineState *state = g_new(LifelineState, 1);
+  LifelineState *state = g_new0(LifelineState, 1);
 
   state->obj_state.free = NULL;
 
@@ -535,7 +535,7 @@ lifeline_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   int i;
 
-  lifeline = g_malloc(sizeof(Lifeline));
+  lifeline = g_malloc0(sizeof(Lifeline));
 
   conn = &lifeline->connection;
   obj = &conn->object;

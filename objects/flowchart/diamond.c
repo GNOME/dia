@@ -621,7 +621,7 @@ diamond_create(Point *startpoint,
 
   init_default_values();
 
-  diamond = g_malloc(sizeof(Diamond));
+  diamond = g_malloc0(sizeof(Diamond));
   elem = &diamond->element;
   obj = &elem->object;
   
@@ -681,7 +681,7 @@ diamond_copy(Diamond *diamond)
   
   elem = &diamond->element;
   
-  newdiamond = g_malloc(sizeof(Diamond));
+  newdiamond = g_malloc0(sizeof(Diamond));
   newelem = &newdiamond->element;
   newobj = &newelem->object;
 
@@ -750,7 +750,7 @@ diamond_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   AttributeNode attr;
 
-  diamond = g_malloc(sizeof(Diamond));
+  diamond = g_malloc0(sizeof(Diamond));
   elem = &diamond->element;
   obj = &elem->object;
   

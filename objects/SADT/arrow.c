@@ -579,7 +579,7 @@ sadtarrow_copy(Sadtarrow *sadtarrow)
 static SadtarrowState *
 sadtarrow_get_state(Sadtarrow *sadtarrow)
 {
-  SadtarrowState *state = g_new(SadtarrowState, 1);
+  SadtarrowState *state = g_new0(SadtarrowState, 1);
 
   state->obj_state.free = NULL;
   

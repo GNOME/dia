@@ -1088,7 +1088,7 @@ custom_create(Point *startpoint,
   }
   element_init(elem, 8, info->nconnections);
 
-  custom->connections = g_new(ConnectionPoint, info->nconnections);
+  custom->connections = g_new0(ConnectionPoint, info->nconnections);
   for (i = 0; i < info->nconnections; i++) {
     obj->connections[i] = &custom->connections[i];
     custom->connections[i].object = obj;
@@ -1145,7 +1145,7 @@ custom_copy(Custom *custom)
   if (custom->info->has_text)
     newcustom->text = text_copy(custom->text);
   
-  newcustom->connections = g_new(ConnectionPoint, custom->info->nconnections);
+  newcustom->connections = g_new0(ConnectionPoint, custom->info->nconnections);
 
   for (i = 0; i < custom->info->nconnections; i++) {
     newobj->connections[i] = &newcustom->connections[i];
@@ -1270,7 +1270,7 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
 
   element_init(elem, 8, custom->info->nconnections);
 
-  custom->connections = g_new(ConnectionPoint, custom->info->nconnections);
+  custom->connections = g_new0(ConnectionPoint, custom->info->nconnections);
   for (i = 0; i < custom->info->nconnections; i++) {
     obj->connections[i] = &custom->connections[i];
     custom->connections[i].object = obj;
@@ -1318,7 +1318,7 @@ static ObjectChange *
 custom_flip_h_callback (Object *obj, Point *clicked, gpointer data)
 {
   Custom *custom = (Custom *)obj;
-  struct CustomObjectChange *change = g_new(struct CustomObjectChange, 1);
+  struct CustomObjectChange *change = g_new0(struct CustomObjectChange, 1);
 
   change->objchange.apply = (ObjectChangeApplyFunc)custom_change_apply;
   change->objchange.revert = (ObjectChangeRevertFunc)custom_change_revert;
@@ -1336,7 +1336,7 @@ static ObjectChange *
 custom_flip_v_callback (Object *obj, Point *clicked, gpointer data)
 {
   Custom *custom = (Custom *)obj;
-  struct CustomObjectChange *change = g_new(struct CustomObjectChange, 1);
+  struct CustomObjectChange *change = g_new0(struct CustomObjectChange, 1);
 
   change->objchange.apply = (ObjectChangeApplyFunc)custom_change_apply;
   change->objchange.revert = (ObjectChangeRevertFunc)custom_change_revert;
@@ -1372,7 +1372,7 @@ custom_get_object_menu(Custom *custom, Point *clickedpoint)
 void
 custom_object_new(ShapeInfo *info, ObjectType **otype)
 {
-  ObjectType *obj = g_new(ObjectType, 1);
+  ObjectType *obj = g_new0(ObjectType, 1);
 
   *obj = custom_type;
 

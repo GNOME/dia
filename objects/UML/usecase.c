@@ -418,7 +418,7 @@ usecase_create(Point *startpoint,
   Font *font;
   int i;
   
-  usecase = g_malloc(sizeof(Usecase));
+  usecase = g_malloc0(sizeof(Usecase));
   elem = &usecase->element;
   obj = &elem->object;
   
@@ -473,7 +473,7 @@ usecase_copy(Usecase *usecase)
   
   elem = &usecase->element;
   
-  newusecase = g_malloc(sizeof(Usecase));
+  newusecase = g_malloc0(sizeof(Usecase));
   newelem = &newusecase->element;
   newobj = &newelem->object;
 
@@ -501,7 +501,7 @@ usecase_copy(Usecase *usecase)
 static UsecaseState *
 usecase_get_state(Usecase *usecase)
 {
-  UsecaseState *state = g_new(UsecaseState, 1);
+  UsecaseState *state = g_new0(UsecaseState, 1);
 
   state->obj_state.free = NULL;
 
@@ -546,7 +546,7 @@ usecase_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   AttributeNode attr;
 
-  usecase = g_malloc(sizeof(Usecase));
+  usecase = g_malloc0(sizeof(Usecase));
   elem = &usecase->element;
   obj = &elem->object;
   

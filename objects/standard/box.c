@@ -500,7 +500,7 @@ box_create(Point *startpoint,
 
   init_default_values();
 
-  box = g_malloc(sizeof(Box));
+  box = g_malloc0(sizeof(Box));
   elem = &box->element;
   obj = &elem->object;
   
@@ -550,7 +550,7 @@ box_copy(Box *box)
   
   elem = &box->element;
   
-  newbox = g_malloc(sizeof(Box));
+  newbox = g_malloc0(sizeof(Box));
   newelem = &newbox->element;
   newobj = &newelem->object;
 
@@ -617,7 +617,7 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   AttributeNode attr;
 
-  box = g_malloc(sizeof(Box));
+  box = g_malloc0(sizeof(Box));
   elem = &box->element;
   obj = &elem->object;
   

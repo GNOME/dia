@@ -320,7 +320,7 @@ largepackage_create(Point *startpoint,
   Object *obj;
   int i;
   
-  pkg = g_malloc(sizeof(LargePackage));
+  pkg = g_malloc0(sizeof(LargePackage));
   elem = &pkg->element;
   obj = &elem->object;
   
@@ -385,7 +385,7 @@ largepackage_copy(LargePackage *pkg)
   
   elem = &pkg->element;
   
-  newpkg = g_malloc(sizeof(LargePackage));
+  newpkg = g_malloc0(sizeof(LargePackage));
   newelem = &newpkg->element;
   newobj = &newelem->object;
 
@@ -427,7 +427,7 @@ largepackage_state_free(ObjectState *ostate)
 static LargePackageState *
 largepackage_get_state(LargePackage *pkg)
 {
-  LargePackageState *state = g_new(LargePackageState, 1);
+  LargePackageState *state = g_new0(LargePackageState, 1);
 
   state->obj_state.free = largepackage_state_free;
 
@@ -471,7 +471,7 @@ largepackage_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   int i;
   
-  pkg = g_malloc(sizeof(LargePackage));
+  pkg = g_malloc0(sizeof(LargePackage));
   elem = &pkg->element;
   obj = &elem->object;
   

@@ -360,7 +360,7 @@ association_get_state(Association *assoc)
   int i;
   AssociationEnd *end;
 
-  AssociationState *state = g_new(AssociationState, 1);
+  AssociationState *state = g_new0(AssociationState, 1);
 
   state->obj_state.free = association_state_free;
 
@@ -554,7 +554,7 @@ association_create(Point *startpoint,
     assoc_font = font_getfont("Courier");
   }
   
-  assoc = g_malloc(sizeof(Association));
+  assoc = g_malloc0(sizeof(Association));
   orth = &assoc->orth;
   obj = &orth->object;
 
@@ -668,7 +668,7 @@ association_copy(Association *assoc)
   
   orth = &assoc->orth;
   
-  newassoc = g_malloc(sizeof(Association));
+  newassoc = g_malloc0(sizeof(Association));
   neworth = &newassoc->orth;
   newobj = &neworth->object;
 
@@ -737,7 +737,7 @@ association_load(ObjectNode obj_node, int version, const char *filename)
     assoc_font = font_getfont("Courier");
   }
 
-  assoc = g_new(Association, 1);
+  assoc = g_new0(Association, 1);
 
   orth = &assoc->orth;
   obj = &orth->object;

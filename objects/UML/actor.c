@@ -366,7 +366,7 @@ actor_create(Point *startpoint,
   Font *font;
   int i;
   
-  actor = g_malloc(sizeof(Actor));
+  actor = g_malloc0(sizeof(Actor));
   elem = &actor->element;
   obj = &elem->object;
   
@@ -420,7 +420,7 @@ actor_copy(Actor *actor)
   
   elem = &actor->element;
   
-  newactor = g_malloc(sizeof(Actor));
+  newactor = g_malloc0(sizeof(Actor));
   newelem = &newactor->element;
   newobj = &newelem->object;
 
@@ -459,7 +459,7 @@ actor_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   AttributeNode attr;
   
-  actor = g_malloc(sizeof(Actor));
+  actor = g_malloc0(sizeof(Actor));
   elem = &actor->element;
   obj = &elem->object;
   

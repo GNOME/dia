@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <math.h>
 
 #include <parser.h>
 #if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
@@ -32,6 +33,11 @@
 #include "utils.h"
 #include "dia_xml.h"
 #include "message.h"
+
+#ifdef _MSC_VER
+#include <float.h>
+#define isinf(a) (!_finite(a))
+#endif
 
 AttributeNode
 object_find_attribute(ObjectNode obj_node,

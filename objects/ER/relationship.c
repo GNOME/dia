@@ -391,7 +391,7 @@ relationship_create(Point *startpoint,
   Object *obj;
   int i;
 
-  relationship = g_malloc(sizeof(Relationship));
+  relationship = g_malloc0(sizeof(Relationship));
   elem = &relationship->element;
   obj = &elem->object;
   
@@ -458,7 +458,7 @@ relationship_copy(Relationship *relationship)
   
   elem = &relationship->element;
   
-  newrelationship = g_malloc(sizeof(Relationship));
+  newrelationship = g_malloc0(sizeof(Relationship));
   newelem = &newrelationship->element;
   newobj = &newelem->object;
 
@@ -525,7 +525,7 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   AttributeNode attr;
 
-  relationship = g_malloc(sizeof(Relationship));
+  relationship = g_malloc0(sizeof(Relationship));
   elem = &relationship->element;
   obj = &elem->object;
   

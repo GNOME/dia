@@ -209,7 +209,7 @@ function_change_free( ObjectChange* objchg )
 static ObjectChange*
 function_create_change( Function* fcn, enum FuncChangeType change_type )
 {
-  FunctionChange* change = g_new(FunctionChange,1) ;
+  FunctionChange* change = g_new0(FunctionChange,1) ;
   change->obj_change.apply = (ObjectChangeApplyFunc) function_change_apply_revert ;
   change->obj_change.revert = (ObjectChangeRevertFunc) function_change_apply_revert ;
   change->obj_change.free = (ObjectChangeFreeFunc) function_change_free ;
@@ -383,7 +383,7 @@ function_create(Point *startpoint,
   Font *font;
   int i;
   
-  pkg = g_malloc(sizeof(Function));
+  pkg = g_malloc0(sizeof(Function));
   elem = &pkg->element;
   obj = &elem->object;
   
@@ -442,7 +442,7 @@ function_copy(Function *pkg)
   
   elem = &pkg->element;
   
-  newpkg = g_malloc(sizeof(Function));
+  newpkg = g_malloc0(sizeof(Function));
   newelem = &newpkg->element;
   newobj = &newelem->object;
 
@@ -492,7 +492,7 @@ function_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   int i;
   
-  pkg = g_malloc(sizeof(Function));
+  pkg = g_malloc0(sizeof(Function));
   elem = &pkg->element;
   obj = &elem->object;
   

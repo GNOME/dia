@@ -458,7 +458,7 @@ classicon_create(Point *startpoint,
   Font *font;
   int i;
   
-  cicon = g_malloc(sizeof(Classicon));
+  cicon = g_malloc0(sizeof(Classicon));
   elem = &cicon->element;
   obj = &elem->object;
   
@@ -515,7 +515,7 @@ classicon_copy(Classicon *cicon)
   
   elem = &cicon->element;
   
-  newcicon = g_malloc(sizeof(Classicon));
+  newcicon = g_malloc0(sizeof(Classicon));
   newelem = &newcicon->element;
   newobj = &newelem->object;
 
@@ -542,7 +542,7 @@ classicon_copy(Classicon *cicon)
 static ClassiconState *
 classicon_get_state(Classicon *cicon)
 {
-  ClassiconState *state = g_new(ClassiconState, 1);
+  ClassiconState *state = g_new0(ClassiconState, 1);
 
   state->obj_state.free = NULL;
 
@@ -587,7 +587,7 @@ classicon_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   int i;
   
-  cicon = g_malloc(sizeof(Classicon));
+  cicon = g_malloc0(sizeof(Classicon));
   elem = &cicon->element;
   obj = &elem->object;
   

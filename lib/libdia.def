@@ -391,5 +391,9 @@ EXPORTS
  text_set_string
  get_paper_info
 
+ transform_point
+ rotate_matrix
+ identity_matrix
+
 ; custom_register_objects
 

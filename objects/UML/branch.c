@@ -237,7 +237,7 @@ static Object *branch_create(Point *startpoint, void *user_data, Handle **handle
   Object *obj;
   int i;
   
-  branch = g_malloc(sizeof(Branch));
+  branch = g_malloc0(sizeof(Branch));
   elem = &branch->element;
   obj = &elem->object;
   
@@ -276,7 +276,7 @@ static Object *branch_copy(Branch *branch)
   
   elem = &branch->element;
   
-  newbranch = g_malloc(sizeof(Branch));
+  newbranch = g_malloc0(sizeof(Branch));
   newelem = &newbranch->element;
   newobj = &newelem->object;
 
@@ -305,7 +305,7 @@ static Object *branch_load(ObjectNode obj_node, int version, const char *filenam
   Object *obj;
   int i;
   
-  branch = g_malloc(sizeof(Branch));
+  branch = g_malloc0(sizeof(Branch));
   elem = &branch->element;
   obj = &elem->object;
   

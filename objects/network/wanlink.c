@@ -31,6 +31,10 @@
 #include "connection.h"
 #include "network.h"
 
+#ifndef M_PI_2
+#define M_PI_2 1.57079632679489661923
+#endif
+
 #include "pixmaps/wanlink.xpm"
 
 typedef struct _WanLinkPropertiesDialog 
@@ -129,7 +133,7 @@ wanlink_create(Point *startpoint,
   Point defaultpoly = {0.0, 0.0};
   Point defaultlen = { 5.0, 0.0 };
 
-  wanlink = g_malloc(sizeof(WanLink));
+  wanlink = g_malloc0(sizeof(WanLink));
 
   conn = &wanlink->connection;
   conn->endpoints[0] = *startpoint;
@@ -214,7 +218,7 @@ wanlink_copy(WanLink *wanlink)
   
   conn = &wanlink->connection;
   
-  newwanlink = g_malloc(sizeof(WanLink));
+  newwanlink = g_malloc0(sizeof(WanLink));
   newconn = &newwanlink->connection;
   newobj = (Object *) newwanlink;
   
@@ -274,7 +278,7 @@ wanlink_load(ObjectNode obj_node, int version, const char *filename)
     AttributeNode attr;
     DataNode data;
     
-    wanlink = g_malloc(sizeof(WanLink));
+    wanlink = g_malloc0(sizeof(WanLink));
 
     conn = &wanlink->connection;
     obj = (Object *) wanlink;

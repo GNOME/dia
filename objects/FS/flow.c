@@ -373,7 +373,7 @@ flow_create(Point *startpoint,
   Point p ;
   Point n ;
 
-  flow = g_malloc(sizeof(Flow));
+  flow = g_malloc0(sizeof(Flow));
 
   conn = &flow->connection;
   conn->endpoints[0] = *startpoint;
@@ -465,7 +465,7 @@ flow_copy(Flow *flow)
   
   conn = &flow->connection;
   
-  newflow = g_malloc(sizeof(Flow));
+  newflow = g_malloc0(sizeof(Flow));
   newconn = &newflow->connection;
   newobj = &newconn->object;
 
@@ -540,7 +540,7 @@ flow_load(ObjectNode obj_node, int version, const char *filename)
   if (flow_font == NULL)
     flow_font = font_getfont("Helvetica-Oblique");
 
-  flow = g_malloc(sizeof(Flow));
+  flow = g_malloc0(sizeof(Flow));
 
   conn = &flow->connection;
   obj = &conn->object;

@@ -368,7 +368,7 @@ message_create(Point *startpoint,
   if (message_font == NULL)
     message_font = font_getfont("Helvetica");
   
-  message = g_malloc(sizeof(Message));
+  message = g_malloc0(sizeof(Message));
 
   conn = &message->connection;
   conn->endpoints[0] = *startpoint;
@@ -424,7 +424,7 @@ message_copy(Message *message)
   
   conn = &message->connection;
   
-  newmessage = g_malloc(sizeof(Message));
+  newmessage = g_malloc0(sizeof(Message));
   newconn = &newmessage->connection;
   newobj = &newconn->object;
 
@@ -452,7 +452,7 @@ message_state_free(ObjectState *ostate)
 static MessageState *
 message_get_state(Message *message)
 {
-  MessageState *state = g_new(MessageState, 1);
+  MessageState *state = g_new0(MessageState, 1);
 
   state->obj_state.free = message_state_free;
 
@@ -526,7 +526,7 @@ message_load(ObjectNode obj_node, int version, const char *filename)
   if (message_font == NULL)
     message_font = font_getfont("Helvetica");
 
-  message = g_malloc(sizeof(Message));
+  message = g_malloc0(sizeof(Message));
 
   conn = &message->connection;
   obj = &conn->object;

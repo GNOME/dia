@@ -97,7 +97,7 @@ umlclass_store_disconnects(UMLClassDialog *prop_dialog,
     
     for (i=0;i<connected_obj->num_handles;i++) {
       if (connected_obj->handles[i]->connected_to == cp) {
-	dis = g_new(Disconnect, 1);
+	dis = g_new0(Disconnect, 1);
 	dis->cp = cp;
 	dis->other_object = connected_obj;
 	dis->other_handle = connected_obj->handles[i];
@@ -557,11 +557,11 @@ attributes_read_from_dialog(UMLClass *umlclass,
     umlclass->attributes = g_list_append(umlclass->attributes, attr);
     
     if (attr->left_connection == NULL) {
-      attr->left_connection = g_new(ConnectionPoint,1);
+      attr->left_connection = g_new0(ConnectionPoint,1);
       attr->left_connection->object = obj;
       attr->left_connection->connected = NULL;
       
-      attr->right_connection = g_new(ConnectionPoint,1);
+      attr->right_connection = g_new0(ConnectionPoint,1);
       attr->right_connection->object = obj;
       attr->right_connection->connected = NULL;
 
@@ -1429,11 +1429,11 @@ operations_read_from_dialog(UMLClass *umlclass,
     umlclass->operations = g_list_append(umlclass->operations, op);
     
     if (op->left_connection == NULL) {
-      op->left_connection = g_new(ConnectionPoint,1);
+      op->left_connection = g_new0(ConnectionPoint,1);
       op->left_connection->object = obj;
       op->left_connection->connected = NULL;
       
-      op->right_connection = g_new(ConnectionPoint,1);
+      op->right_connection = g_new0(ConnectionPoint,1);
       op->right_connection->object = obj;
       op->right_connection->connected = NULL;
       
@@ -2450,7 +2450,7 @@ umlclass_free_state(UMLClassState *state)
 static UMLClassState *
 umlclass_get_state(UMLClass *umlclass)
 {
-  UMLClassState *state = g_new(UMLClassState, 1);
+  UMLClassState *state = g_new0(UMLClassState, 1);
   GList *list;
 
   state->name = g_strdup(umlclass->name);
@@ -2672,7 +2672,7 @@ new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
 {
   UMLClassChange *change;
 
-  change = g_new(UMLClassChange, 1);
+  change = g_new0(UMLClassChange, 1);
   
   change->obj_change.apply =
     (ObjectChangeApplyFunc) umlclass_change_apply;

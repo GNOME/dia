@@ -682,7 +682,7 @@ pgram_create(Point *startpoint,
 
   init_default_values();
 
-  pgram = g_malloc(sizeof(Pgram));
+  pgram = g_malloc0(sizeof(Pgram));
   elem = &pgram->element;
   obj = &elem->object;
   
@@ -744,7 +744,7 @@ pgram_copy(Pgram *pgram)
   
   elem = &pgram->element;
   
-  newpgram = g_malloc(sizeof(Pgram));
+  newpgram = g_malloc0(sizeof(Pgram));
   newelem = &newpgram->element;
   newobj = &newelem->object;
 
@@ -818,7 +818,7 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   AttributeNode attr;
 
-  pgram = g_malloc(sizeof(Pgram));
+  pgram = g_malloc0(sizeof(Pgram));
   elem = &pgram->element;
   obj = &elem->object;
   

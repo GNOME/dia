@@ -241,7 +241,7 @@ zigzagline_create(Point *startpoint,
   Object *obj;
 
   /*zigzagline_init_defaults();*/
-  zigzagline = g_malloc(sizeof(Zigzagline));
+  zigzagline = g_malloc0(sizeof(Zigzagline));
   orth = &zigzagline->orth;
   obj = &orth->object;
   
@@ -279,7 +279,7 @@ zigzagline_copy(Zigzagline *zigzagline)
   
   orth = &zigzagline->orth;
  
-  newzigzagline = g_malloc(sizeof(Zigzagline));
+  newzigzagline = g_malloc0(sizeof(Zigzagline));
   neworth = &newzigzagline->orth;
   newobj = &neworth->object;
 
@@ -306,6 +306,8 @@ zigzagline_update_data(Zigzagline *zigzagline)
   extra->start_long = 
     extra->end_long = 
     extra->middle_trans = zigzagline->line_width/2.0;
+  extra->start_trans = (zigzagline->line_width / 2.0);
+  extra->end_trans = (zigzagline->line_width / 2.0);
 
   if (zigzagline->start_arrow.type != ARROW_NONE) 
     extra->start_trans = MAX(extra->start_trans,zigzagline->start_arrow.width);
@@ -408,7 +410,7 @@ zigzagline_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   AttributeNode attr;
 
-  zigzagline = g_malloc(sizeof(Zigzagline));
+  zigzagline = g_malloc0(sizeof(Zigzagline));
 
   orth = &zigzagline->orth;
   obj = &orth->object;

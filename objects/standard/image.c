@@ -569,7 +569,7 @@ image_create(Point *startpoint,
   Object *obj;
   int i;
 
-  image = g_malloc(sizeof(Image));
+  image = g_malloc0(sizeof(Image));
   elem = &image->element;
   obj = &elem->object;
   
@@ -642,7 +642,7 @@ image_copy(Image *image)
   
   elem = &image->element;
   
-  newimage = g_malloc(sizeof(Image));
+  newimage = g_malloc0(sizeof(Image));
   newelem = &newimage->element;
   newobj = &newelem->object;
 
@@ -770,7 +770,7 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   AttributeNode attr;
   char *diafile_dir;
   
-  image = g_malloc(sizeof(Image));
+  image = g_malloc0(sizeof(Image));
   elem = &image->element;
   obj = &elem->object;
   

@@ -554,7 +554,7 @@ step_update_data(Step *step)
 static StepState *
 step_get_state(Step *step)
 {
-  StepState *state = g_new(StepState, 1);
+  StepState *state = g_new0(StepState, 1);
   state->obj_state.free = NULL;
 
   state->id = g_strdup(step->id);

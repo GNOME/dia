@@ -327,7 +327,7 @@ beziergon_create(Point *startpoint,
   init_default_values();
 
   /*beziergon_init_defaults();*/
-  beziergon = g_new(Beziergon, 1);
+  beziergon = g_new0(Beziergon, 1);
   bezier = &beziergon->bezier;
   obj = &bezier->object;
 
@@ -381,7 +381,7 @@ beziergon_copy(Beziergon *beziergon)
 
   bezier = &beziergon->bezier;
  
-  newbeziergon = g_malloc(sizeof(Beziergon));
+  newbeziergon = g_malloc0(sizeof(Beziergon));
   newbezier = &newbeziergon->bezier;
   newobj = &newbezier->object;
 
@@ -452,7 +452,7 @@ beziergon_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   AttributeNode attr;
 
-  beziergon = g_malloc(sizeof(Beziergon));
+  beziergon = g_malloc0(sizeof(Beziergon));
 
   bezier = &beziergon->bezier;
   obj = &bezier->object;

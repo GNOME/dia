@@ -389,7 +389,7 @@ component_create(Point *startpoint,
   Font *font;
   int i;
   
-  cmp = g_malloc(sizeof(Component));
+  cmp = g_malloc0(sizeof(Component));
   elem = &cmp->element;
   obj = &elem->object;
   
@@ -446,7 +446,7 @@ component_copy(Component *cmp)
   
   elem = &cmp->element;
   
-  newcmp = g_malloc(sizeof(Component));
+  newcmp = g_malloc0(sizeof(Component));
   newelem = &newcmp->element;
   newobj = &newelem->object;
 
@@ -492,7 +492,7 @@ component_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   int i;
   
-  cmp = g_malloc(sizeof(Component));
+  cmp = g_malloc0(sizeof(Component));
   elem = &cmp->element;
   obj = &elem->object;
   

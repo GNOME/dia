@@ -310,7 +310,7 @@ bus_create(Point *startpoint,
   Point defaultlen = { 5.0, 0.0 };
   int i;
 
-  bus = g_malloc(sizeof(Bus));
+  bus = g_malloc0(sizeof(Bus));
 
   conn = &bus->connection;
   conn->endpoints[0] = *startpoint;
@@ -330,7 +330,7 @@ bus_create(Point *startpoint,
   bus->handles = g_malloc(sizeof(Handle *)*bus->num_handles);
   bus->parallel_points = g_malloc(sizeof(Point)*bus->num_handles);
   for (i=0;i<bus->num_handles;i++) {
-    bus->handles[i] = g_new(Handle,1);
+    bus->handles[i] = g_new0(Handle,1);
     bus->handles[i]->id = HANDLE_BUS;
     bus->handles[i]->type = HANDLE_MINOR_CONTROL;
     bus->handles[i]->connect_type = HANDLE_CONNECTABLE_NOBREAK;
@@ -379,7 +379,7 @@ bus_copy(Bus *bus)
   
   conn = &bus->connection;
   
-  newbus = g_malloc(sizeof(Bus));
+  newbus = g_malloc0(sizeof(Bus));
   newconn = &newbus->connection;
   newobj = &newconn->object;
   
@@ -391,7 +391,7 @@ bus_copy(Bus *bus)
   newbus->parallel_points = g_malloc(sizeof(Point)*newbus->num_handles);
   
   for (i=0;i<newbus->num_handles;i++) {
-    newbus->handles[i] = g_new(Handle,1);
+    newbus->handles[i] = g_new0(Handle,1);
     *newbus->handles[i] = *bus->handles[i];
     newbus->handles[i]->connected_to = NULL;
     newobj->handles[2+i] = newbus->handles[i];
@@ -516,7 +516,7 @@ bus_add_handle_callback (Object *obj, Point *clicked, gpointer data)
   Bus *bus = (Bus *) obj;
   Handle *handle;
 
-  handle = g_new(Handle,1);
+  handle = g_new0(Handle,1);
   bus_add_handle(bus, clicked, handle);
   bus_update_data(bus);
 
@@ -617,7 +617,7 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
   DataNode data;
   int i;
 
-  bus = g_malloc(sizeof(Bus));
+  bus = g_malloc0(sizeof(Bus));
 
   conn = &bus->connection;
   obj = &conn->object;
@@ -642,7 +642,7 @@ bus_load(ObjectNode obj_node, int version, const char *filename)
   bus->handles = g_malloc(sizeof(Handle *)*bus->num_handles);
   bus->parallel_points = g_malloc(sizeof(Point)*bus->num_handles);
   for (i=0;i<bus->num_handles;i++) {
-    bus->handles[i] = g_new(Handle,1);
+    bus->handles[i] = g_new0(Handle,1);
     bus->handles[i]->id = HANDLE_BUS;
     bus->handles[i]->type = HANDLE_MINOR_CONTROL;
     bus->handles[i]->connect_type = HANDLE_CONNECTABLE_NOBREAK;

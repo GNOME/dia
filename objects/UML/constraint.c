@@ -319,7 +319,7 @@ constraint_create(Point *startpoint,
   if (constraint_font == NULL)
     constraint_font = font_getfont("Courier");
   
-  constraint = g_malloc(sizeof(Constraint));
+  constraint = g_malloc0(sizeof(Constraint));
 
   conn = &constraint->connection;
   conn->endpoints[0] = *startpoint;
@@ -369,7 +369,7 @@ constraint_copy(Constraint *constraint)
   
   conn = &constraint->connection;
   
-  newconstraint = g_malloc(sizeof(Constraint));
+  newconstraint = g_malloc0(sizeof(Constraint));
   newconn = &newconstraint->connection;
   newobj = &newconn->object;
 
@@ -395,7 +395,7 @@ constraint_state_free(ObjectState *ostate)
 static ConstraintState *
 constraint_get_state(Constraint *constraint)
 {
-  ConstraintState *state = g_new(ConstraintState, 1);
+  ConstraintState *state = g_new0(ConstraintState, 1);
 
   state->obj_state.free = constraint_state_free;
 
@@ -476,7 +476,7 @@ constraint_load(ObjectNode obj_node, int version, const char *filename)
   if (constraint_font == NULL)
     constraint_font = font_getfont("Courier");
 
-  constraint = g_malloc(sizeof(Constraint));
+  constraint = g_malloc0(sizeof(Constraint));
 
   conn = &constraint->connection;
   obj = &conn->object;

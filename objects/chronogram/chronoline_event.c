@@ -32,7 +32,7 @@ inline static CLEvent *
 new_cle(CLEventType type, real time)
 {
   CLEvent *cle;
-  cle = g_new(CLEvent,1);
+  cle = g_new0(CLEvent,1);
   cle->type = type;
   cle->time = time;
   cle->x = 0.0;

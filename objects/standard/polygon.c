@@ -318,7 +318,7 @@ polygon_create(Point *startpoint,
   init_default_values();
 
   /*polygon_init_defaults();*/
-  polygon = g_new(Polygon, 1);
+  polygon = g_new0(Polygon, 1);
   poly = &polygon->poly;
   obj = &poly->object;
 
@@ -362,7 +362,7 @@ polygon_copy(Polygon *polygon)
 
   poly = &polygon->poly;
  
-  newpolygon = g_malloc(sizeof(Polygon));
+  newpolygon = g_malloc0(sizeof(Polygon));
   newpoly = &newpolygon->poly;
   newobj = &newpoly->object;
 
@@ -434,7 +434,7 @@ polygon_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   AttributeNode attr;
 
-  polygon = g_malloc(sizeof(Polygon));
+  polygon = g_malloc0(sizeof(Polygon));
 
   poly = &polygon->poly;
   obj = &poly->object;

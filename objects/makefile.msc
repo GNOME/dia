@@ -22,7 +22,7 @@ PKG_DEF = ..\objects.def
 
 !INCLUDE $(TOP)\build\win32\make.msc
 
-PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) \
+PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS) \
 	-I$(LIBXML) -I$(PRJ_TOP)\lib \
 
 !IFNDEF DEBUG
@@ -31,7 +31,7 @@ XML_LIB = libxml.lib
 XML_LIB = libxmld.lib
 !ENDIF
 
-PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) \
+PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(INTL_LIBS) \
 	$(LIBXML)\$(XML_LIB) \
 	$(PRJ_TOP)\lib\libdia.lib
 
@@ -103,19 +103,20 @@ OBJECTS = \
 
 !IFDEF OBJ_network
 OBJECTS = \
-      computer.obj \
-      disc.obj \
-      monitor.obj \
-      printer.obj \
-      bus.obj \
-      network.obj \
-      antenna.obj \
-      modem.obj \
-      flash.obj \
-      hub.obj \
-      modularswitch.obj \
-      rj45plug.obj \
-      scead-plug.obj
+	computer.obj \
+	disc.obj \
+	monitor.obj \
+	printer.obj \
+	bus.obj \
+	network.obj \
+	antenna.obj \
+	modem.obj \
+	flash.obj \
+	hub.obj \
+	modularswitch.obj \
+	rj45plug.obj \
+	scead-plug.obj \
+	wanlink.obj
 !ENDIF
 
 !IFDEF OBJ_sadt

@@ -255,7 +255,7 @@ orthflow_create_change( enum OrthflowChangeType change_type,
 			OrthflowType type, Text* text )
 {
   struct _OrthflowChange* change ;
-  change = g_new( struct _OrthflowChange, 1 ) ;
+  change = g_new0( struct _OrthflowChange, 1 ) ;
   change->obj_change.apply = (ObjectChangeApplyFunc) orthflow_change_apply_revert ;
   change->obj_change.revert =  (ObjectChangeRevertFunc) orthflow_change_apply_revert ;
   change->obj_change.free =  (ObjectChangeFreeFunc) orthflow_change_free ;
@@ -395,7 +395,7 @@ orthflow_create(Point *startpoint,
   Object *obj;
   Point p;
   OrthConnBBExtras *extra;
-  orthflow = g_new(Orthflow,1);
+  orthflow = g_new0(Orthflow,1);
 
   orth = &orthflow->orth ;
   orthconn_init( orth, startpoint ) ;
@@ -474,7 +474,7 @@ orthflow_copy(Orthflow *orthflow)
 
   orth = &orthflow->orth;
   
-  neworthflow = g_malloc(sizeof(Orthflow));
+  neworthflow = g_malloc0(sizeof(Orthflow));
   neworth = &neworthflow->orth;
   newobj = &neworth->object;
 
@@ -548,7 +548,7 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
   if (orthflow_font == NULL)
     orthflow_font = font_getfont("Helvetica-Oblique");
 
-  orthflow = g_malloc(sizeof(Orthflow));
+  orthflow = g_malloc0(sizeof(Orthflow));
 
   orth = &orthflow->orth;
   obj = &orth->object;

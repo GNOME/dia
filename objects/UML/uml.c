@@ -256,7 +256,7 @@ uml_attribute_copy(UMLAttribute *attr)
 {
   UMLAttribute *newattr;
 
-  newattr = g_new(UMLAttribute, 1);
+  newattr = g_new0(UMLAttribute, 1);
   newattr->name = strdup(attr->name);
   newattr->type = strdup(attr->type);
   if (attr->value != NULL) {
@@ -282,7 +282,7 @@ uml_operation_copy(UMLOperation *op)
   UMLParameter *newparam;
   GList *list;
   
-  newop = g_new(UMLOperation, 1);
+  newop = g_new0(UMLOperation, 1);
   newop->name = strdup(op->name);
   if (op->type != NULL) {
     newop->type = strdup(op->type);
@@ -301,7 +301,7 @@ uml_operation_copy(UMLOperation *op)
   while (list != NULL) {
     param = (UMLParameter *)list->data;
 
-    newparam = g_new(UMLParameter, 1);
+    newparam = g_new0(UMLParameter, 1);
     newparam->name = strdup(param->name);
     newparam->type = strdup(param->type);
     if (param->value != NULL)
@@ -323,7 +323,7 @@ uml_formalparameter_copy(UMLFormalParameter *param)
 {
   UMLFormalParameter *newparam;
 
-  newparam = g_new(UMLFormalParameter, 1);
+  newparam = g_new0(UMLFormalParameter, 1);
 
   newparam->name = strdup(param->name);
   if (param->type != NULL) {
@@ -388,7 +388,7 @@ uml_attribute_new(void)
 {
   UMLAttribute *attr;
   
-  attr = g_new(UMLAttribute, 1);
+  attr = g_new0(UMLAttribute, 1);
   attr->name = g_strdup("");
   attr->type = g_strdup("");
   attr->value = NULL;
@@ -406,7 +406,7 @@ uml_operation_new(void)
 {
   UMLOperation *op;
 
-  op = g_new(UMLOperation, 1);
+  op = g_new0(UMLOperation, 1);
   op->name = g_strdup("");
   op->type = NULL;
   op->visibility = UML_PUBLIC;
@@ -424,7 +424,7 @@ uml_parameter_new(void)
 {
   UMLParameter *param;
 
-  param = g_new(UMLParameter, 1);
+  param = g_new0(UMLParameter, 1);
   param->name = g_strdup("");
   param->type = g_strdup("");
   param->value = NULL;
@@ -438,7 +438,7 @@ uml_formalparameter_new(void)
 {
   UMLFormalParameter *param;
 
-  param = g_new(UMLFormalParameter, 1);
+  param = g_new0(UMLFormalParameter, 1);
   param->name = g_strdup("");
   param->type = NULL;
 
@@ -527,7 +527,7 @@ uml_attribute_read(DataNode composite)
   UMLAttribute *attr;
   AttributeNode attr_node;
   
-  attr = g_new(UMLAttribute, 1);
+  attr = g_new0(UMLAttribute, 1);
 
   attr->name = NULL;
   attr_node = composite_find_attribute(composite, "name");
@@ -575,7 +575,7 @@ uml_operation_read(DataNode composite)
   DataNode composite2;
   int i, num;
 
-  op = g_new(UMLOperation, 1);
+  op = g_new0(UMLOperation, 1);
 
   op->name = NULL;
   attr_node = composite_find_attribute(composite, "name");
@@ -607,7 +607,7 @@ uml_operation_read(DataNode composite)
   num = attribute_num_data(attr_node2);
   composite2 = attribute_first_data(attr_node2);
   for (i=0;i<num;i++) {
-    param = g_new(UMLParameter, 1);
+    param = g_new0(UMLParameter, 1);
     
     param->name = NULL;
     attr_node = composite_find_attribute(composite2, "name");
@@ -645,7 +645,7 @@ uml_formalparameter_read(DataNode composite)
   UMLFormalParameter *param;
   AttributeNode attr_node;
   
-  param = g_new(UMLFormalParameter, 1);
+  param = g_new0(UMLFormalParameter, 1);
 
   param->name = NULL;
   attr_node = composite_find_attribute(composite, "name");

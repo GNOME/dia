@@ -358,7 +358,7 @@ attribute_create(Point *startpoint,
   Object *obj;
   int i;
 
-  attribute = g_malloc(sizeof(Attribute));
+  attribute = g_malloc0(sizeof(Attribute));
   elem = &attribute->element;
   obj = &elem->object;
   
@@ -419,7 +419,7 @@ attribute_copy(Attribute *attribute)
   
   elem = &attribute->element;
   
-  newattribute = g_malloc(sizeof(Attribute));
+  newattribute = g_malloc0(sizeof(Attribute));
   newelem = &newattribute->element;
   newobj = &newelem->object;
 
@@ -483,7 +483,7 @@ static Object *attribute_load(ObjectNode obj_node, int version,
   int i;
   AttributeNode attr;
 
-  attribute = g_malloc(sizeof(Attribute));
+  attribute = g_malloc0(sizeof(Attribute));
   elem = &attribute->element;
   obj = &elem->object;
   

@@ -305,6 +305,14 @@ app_exit(void)
   GList *list;
   GSList *slist;
   gchar *filename;
+  /*
+   * The following "solves" a crash related to a second call of app_exit,
+   * after gtk_main_quit was called. It may be a win32 gtk-1.3.x bug only
+   * but the check shouldn't hurt on *ix either.          --hb
+   */
+  static gboolean app_exit_once = FALSE;
+
+  g_return_if_fail (!app_exit_once);
   
   if (diagram_modified_exists()) {
     GtkWidget *dialog;
@@ -418,6 +426,7 @@ app_exit(void)
   recent_file_history_write();
   
   gtk_main_quit();
+  app_exit_once = TRUE;
 }
 
 static void create_user_dirs(void)

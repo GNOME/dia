@@ -384,7 +384,7 @@ arc_create(Point *startpoint,
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  arc = g_malloc(sizeof(Arc));
+  arc = g_malloc0(sizeof(Arc));
 
   arc->line_width =  attributes_get_default_linewidth();
   arc->curve_distance = 1.0;
@@ -433,7 +433,7 @@ arc_copy(Arc *arc)
   
   conn = &arc->connection;
   
-  newarc = g_malloc(sizeof(Arc));
+  newarc = g_malloc0(sizeof(Arc));
   newconn = &newarc->connection;
   newobj = &newconn->object;
 
@@ -509,6 +509,9 @@ arc_update_data(Arc *arc)
     extra->start_trans = MAX(extra->start_trans,arc->start_arrow.width);
   if (arc->end_arrow.type != ARROW_NONE) 
     extra->end_trans = MAX(extra->end_trans,arc->end_arrow.width);
+  extra->start_long  = (arc->line_width / 2.0);
+  extra->end_long    = (arc->line_width / 2.0);
+
   connection_update_boundingbox(conn);
   /* fix boundingbox for arc's special shape XXX find a more elegant way: */
   if (in_angle(0, arc->angle1, arc->angle2)) {
@@ -585,7 +588,7 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   AttributeNode attr;
 
-  arc = g_malloc(sizeof(Arc));
+  arc = g_malloc0(sizeof(Arc));
 
   conn = &arc->connection;
   obj = &conn->object;

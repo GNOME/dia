@@ -372,7 +372,7 @@ textobj_create(Point *startpoint,
   Font *font;
   real font_height;
   
-  textobj = g_malloc(sizeof(Textobj));
+  textobj = g_malloc0(sizeof(Textobj));
   obj = &textobj->object;
   
   obj->type = &textobj_type;
@@ -414,7 +414,7 @@ textobj_copy(Textobj *textobj)
   
   obj = &textobj->object;
   
-  newtext = g_malloc(sizeof(Textobj));
+  newtext = g_malloc0(sizeof(Textobj));
   newobj = &newtext->object;
 
   object_copy(obj, newobj);
@@ -446,7 +446,7 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   AttributeNode attr;
   Point startpoint = {0.0, 0.0};
 
-  textobj = g_malloc(sizeof(Textobj));
+  textobj = g_malloc0(sizeof(Textobj));
   obj = &textobj->object;
   
   obj->type = &textobj_type;

@@ -687,7 +687,7 @@ chronoline_free_state(ObjectState *objstate)
 static ChronolineState *
 chronoline_get_state(Chronoline *chronoline)
 {
-  ChronolineState *state = g_new(ChronolineState, 1);
+  ChronolineState *state = g_new0(ChronolineState, 1);
 
   state->obj_state.free = chronoline_free_state; 
 

@@ -248,7 +248,7 @@ polyline_create(Point *startpoint,
   Point defaultlen = { 1.0, 1.0 };
 
   /*polyline_init_defaults();*/
-  polyline = g_malloc(sizeof(Polyline));
+  polyline = g_malloc0(sizeof(Polyline));
   poly = &polyline->poly;
   obj = &poly->object;
   
@@ -290,7 +290,7 @@ polyline_copy(Polyline *polyline)
   
   poly = &polyline->poly;
  
-  newpolyline = g_malloc(sizeof(Polyline));
+  newpolyline = g_malloc0(sizeof(Polyline));
   newpoly = &newpolyline->poly;
   newobj = &newpoly->object;
 
@@ -382,7 +382,7 @@ polyline_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   AttributeNode attr;
 
-  polyline = g_malloc(sizeof(Polyline));
+  polyline = g_malloc0(sizeof(Polyline));
 
   poly = &polyline->poly;
   obj = &poly->object;

@@ -664,7 +664,7 @@ umlclass_create(Point *startpoint,
   Object *obj;
   int i;
 
-  umlclass = g_malloc(sizeof(UMLClass));
+  umlclass = g_malloc0(sizeof(UMLClass));
   elem = &umlclass->element;
   obj = &elem->object;
   
@@ -815,7 +815,7 @@ umlclass_copy(UMLClass *umlclass)
   
   elem = &umlclass->element;
   
-  newumlclass = g_malloc(sizeof(UMLClass));
+  newumlclass = g_malloc0(sizeof(UMLClass));
   newelem = &newumlclass->element;
   newobj = &newelem->object;
 
@@ -847,12 +847,12 @@ umlclass_copy(UMLClass *umlclass)
     attr = (UMLAttribute *)list->data;
     newattr = uml_attribute_copy(attr);
     
-    newattr->left_connection = g_new(ConnectionPoint,1);
+    newattr->left_connection = g_new0(ConnectionPoint,1);
     *newattr->left_connection = *attr->left_connection;
     newattr->left_connection->object = newobj;
     newattr->left_connection->connected = NULL;
     
-    newattr->right_connection = g_new(ConnectionPoint,1);
+    newattr->right_connection = g_new0(ConnectionPoint,1);
     *newattr->right_connection = *attr->right_connection;
     newattr->right_connection->object = newobj;
     newattr->right_connection->connected = NULL;
@@ -867,12 +867,12 @@ umlclass_copy(UMLClass *umlclass)
   while (list != NULL) {
     op = (UMLOperation *)list->data;
     newop = uml_operation_copy(op);
-    newop->left_connection = g_new(ConnectionPoint,1);
+    newop->left_connection = g_new0(ConnectionPoint,1);
     *newop->left_connection = *op->left_connection;
     newop->left_connection->object = newobj;
     newop->left_connection->connected = NULL;
 
-    newop->right_connection = g_new(ConnectionPoint,1);
+    newop->right_connection = g_new0(ConnectionPoint,1);
     *newop->right_connection = *op->right_connection;
     newop->right_connection->object = newobj;
     newop->right_connection->connected = NULL;
@@ -1020,7 +1020,7 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
   int num, num_attr, num_ops;
   GList *list;
   
-  umlclass = g_malloc(sizeof(UMLClass));
+  umlclass = g_malloc0(sizeof(UMLClass));
   elem = &umlclass->element;
   obj = &elem->object;
   
@@ -1083,11 +1083,11 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
   for (i=0;i<num;i++) {
     attr = uml_attribute_read(composite);
 
-    attr->left_connection = g_new(ConnectionPoint,1);
+    attr->left_connection = g_new0(ConnectionPoint,1);
     attr->left_connection->object = obj;
     attr->left_connection->connected = NULL;
 
-    attr->right_connection = g_new(ConnectionPoint,1);
+    attr->right_connection = g_new0(ConnectionPoint,1);
     attr->right_connection->object = obj;
     attr->right_connection->connected = NULL;
 
@@ -1103,11 +1103,11 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
   for (i=0;i<num;i++) {
     op = uml_operation_read(composite);
 
-    op->left_connection = g_new(ConnectionPoint,1);
+    op->left_connection = g_new0(ConnectionPoint,1);
     op->left_connection->object = obj;
     op->left_connection->connected = NULL;
 
-    op->right_connection = g_new(ConnectionPoint,1);
+    op->right_connection = g_new0(ConnectionPoint,1);
     op->right_connection->object = obj;
     op->right_connection->connected = NULL;
     

@@ -362,7 +362,7 @@ static Object *node_create(Point *startpoint, void *user_data, Handle **handle1,
   Font *font;
   int i;
   
-  node = g_malloc(sizeof(Node));
+  node = g_malloc0(sizeof(Node));
   elem = &node->element;
   obj = &elem->object;
   
@@ -407,7 +407,7 @@ static Object *node_copy(Node *node)
   
   elem = &node->element;
   
-  newnode = g_malloc(sizeof(Node));
+  newnode = g_malloc0(sizeof(Node));
   newelem = &newnode->element;
   newobj = &newelem->object;
 
@@ -441,7 +441,7 @@ static Object *node_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   int i;
   
-  node = g_malloc(sizeof(Node));
+  node = g_malloc0(sizeof(Node));
   elem = &node->element;
   obj = &elem->object;
 

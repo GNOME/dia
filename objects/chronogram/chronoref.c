@@ -444,7 +444,7 @@ chronoref_free_state(ObjectState *objstate)
 static ChronorefState *
 chronoref_get_state(Chronoref *chronoref)
 {
-  ChronorefState *state = g_new(ChronorefState, 1);
+  ChronorefState *state = g_new0(ChronorefState, 1);
 
   state->obj_state.free = chronoref_free_state; 
 

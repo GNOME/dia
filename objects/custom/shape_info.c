@@ -514,7 +514,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
     s = *style;
     parse_style(node, &s);
     if (!strcmp(node->name, "line")) {
-      GraphicElementLine *line = g_new(GraphicElementLine, 1);
+      GraphicElementLine *line = g_new0(GraphicElementLine, 1);
 
       el = (GraphicElement *)line;
       line->type = GE_LINE;
@@ -611,7 +611,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       }
       g_array_free(arr, TRUE);
     } else if (!strcmp(node->name, "rect")) {
-      GraphicElementRect *rect = g_new(GraphicElementRect, 1);
+      GraphicElementRect *rect = g_new0(GraphicElementRect, 1);
 
       el = (GraphicElement *)rect;
       rect->type = GE_RECT;
@@ -644,7 +644,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	free(str);
       }
     } else if (!strcmp(node->name, "circle")) {
-      GraphicElementEllipse *ellipse = g_new(GraphicElementEllipse, 1);
+      GraphicElementEllipse *ellipse = g_new0(GraphicElementEllipse, 1);
 
       el = (GraphicElement *)ellipse;
       ellipse->type = GE_ELLIPSE;
@@ -670,7 +670,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	free(str);
       }
     } else if (!strcmp(node->name, "ellipse")) {
-      GraphicElementEllipse *ellipse = g_new(GraphicElementEllipse, 1);
+      GraphicElementEllipse *ellipse = g_new0(GraphicElementEllipse, 1);
 
       el = (GraphicElement *)ellipse;
       ellipse->type = GE_ELLIPSE;

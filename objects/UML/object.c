@@ -447,7 +447,7 @@ objet_create(Point *startpoint,
   Font *font;
   int i;
   
-  ob = g_malloc(sizeof(Objet));
+  ob = g_malloc0(sizeof(Objet));
   elem = &ob->element;
   obj = &elem->object;
   
@@ -518,7 +518,7 @@ objet_copy(Objet *ob)
   
   elem = &ob->element;
   
-  newob = g_malloc(sizeof(Objet));
+  newob = g_malloc0(sizeof(Objet));
   newelem = &newob->element;
   newobj = &newelem->object;
 
@@ -563,7 +563,7 @@ objet_state_free(ObjectState *ostate)
 static ObjetState *
 objet_get_state(Objet *ob)
 {
-  ObjetState *state = g_new(ObjetState, 1);
+  ObjetState *state = g_new0(ObjetState, 1);
 
   state->obj_state.free = objet_state_free;
 
@@ -633,7 +633,7 @@ objet_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   int i;
   
-  ob = g_malloc(sizeof(Objet));
+  ob = g_malloc0(sizeof(Objet));
   elem = &ob->element;
   obj = &elem->object;
   

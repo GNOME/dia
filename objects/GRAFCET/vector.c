@@ -302,7 +302,7 @@ arc_create(Point *startpoint,
   Object *obj;
 
   arc_init_defaults();
-  arc = g_malloc(sizeof(Arc));
+  arc = g_malloc0(sizeof(Arc));
   orth = &arc->orth;
   obj = &orth->object;
   
@@ -335,7 +335,7 @@ arc_copy(Arc *arc)
   
   orth = &arc->orth;
  
-  newarc = g_malloc(sizeof(Arc));
+  newarc = g_malloc0(sizeof(Arc));
   neworth = &newarc->orth;
   newobj = &neworth->object;
 
@@ -349,7 +349,7 @@ arc_copy(Arc *arc)
 static ArcState *
 arc_get_state(Arc *arc)
 {
-  ArcState *state = g_new(ArcState, 1);
+  ArcState *state = g_new0(ArcState, 1);
 
   state->obj_state.free = NULL;
   
@@ -451,7 +451,7 @@ arc_load(ObjectNode obj_node, int version, const char *filename)
 
   arc_init_defaults();
 
-  arc = g_malloc(sizeof(Arc));
+  arc = g_malloc0(sizeof(Arc));
 
   orth = &arc->orth;
   obj = &orth->object;

@@ -336,7 +336,7 @@ note_create(Point *startpoint,
   Font *font;
   int i;
   
-  note = g_malloc(sizeof(Note));
+  note = g_malloc0(sizeof(Note));
   elem = &note->element;
   obj = &elem->object;
   
@@ -390,7 +390,7 @@ note_copy(Note *note)
   
   elem = &note->element;
   
-  newnote = g_malloc(sizeof(Note));
+  newnote = g_malloc0(sizeof(Note));
   newelem = &newnote->element;
   newobj = &newelem->object;
 
@@ -429,7 +429,7 @@ note_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   int i;
   
-  note = g_malloc(sizeof(Note));
+  note = g_malloc0(sizeof(Note));
   elem = &note->element;
   obj = &elem->object;
   

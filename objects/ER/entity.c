@@ -313,7 +313,7 @@ entity_create(Point *startpoint,
   Object *obj;
   int i;
 
-  entity = g_malloc(sizeof(Entity));
+  entity = g_malloc0(sizeof(Entity));
   elem = &entity->element;
   obj = &elem->object;
   
@@ -372,7 +372,7 @@ entity_copy(Entity *entity)
   
   elem = &entity->element;
   
-  newentity = g_malloc(sizeof(Entity));
+  newentity = g_malloc0(sizeof(Entity));
   newelem = &newentity->element;
   newobj = &newelem->object;
 
@@ -425,7 +425,7 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   AttributeNode attr;
 
-  entity = g_malloc(sizeof(Entity));
+  entity = g_malloc0(sizeof(Entity));
   elem = &entity->element;
   obj = &elem->object;
   

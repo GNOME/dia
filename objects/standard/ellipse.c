@@ -356,7 +356,7 @@ ellipse_create(Point *startpoint,
 
   init_default_values();
 
-  ellipse = g_malloc(sizeof(Ellipse));
+  ellipse = g_malloc0(sizeof(Ellipse));
   elem = &ellipse->element;
   obj = &elem->object;
   
@@ -405,7 +405,7 @@ ellipse_copy(Ellipse *ellipse)
   
   elem = &ellipse->element;
   
-  newellipse = g_malloc(sizeof(Ellipse));
+  newellipse = g_malloc0(sizeof(Ellipse));
   newelem = &newellipse->element;
   newobj = &newelem->object;
 
@@ -469,7 +469,7 @@ static Object *ellipse_load(ObjectNode obj_node, int version, const char *filena
   int i;
   AttributeNode attr;
 
-  ellipse = g_malloc(sizeof(Ellipse));
+  ellipse = g_malloc0(sizeof(Ellipse));
   elem = &ellipse->element;
   obj = &elem->object;
   

@@ -300,7 +300,7 @@ annotation_create(Point *startpoint,
 
   annotation_init_defaults();
   
-  annotation = g_malloc(sizeof(Annotation));
+  annotation = g_malloc0(sizeof(Annotation));
 
   conn = &annotation->connection;
   conn->endpoints[0] = *startpoint;
@@ -362,7 +362,7 @@ annotation_copy(Annotation *annotation)
   
   conn = &annotation->connection;
   
-  newannotation = g_malloc(sizeof(Annotation));
+  newannotation = g_malloc0(sizeof(Annotation));
   newconn = &newannotation->connection;
   newobj = &newconn->object;
 
@@ -380,7 +380,7 @@ annotation_copy(Annotation *annotation)
 static AnnotationState *
 annotation_get_state(Annotation *annotation)
 {
-  AnnotationState *state = g_new(AnnotationState, 1);
+  AnnotationState *state = g_new0(AnnotationState, 1);
   state->obj_state.free = NULL;
   text_get_attributes(annotation->text, &state->text_attrib);
 
@@ -436,7 +436,7 @@ annotation_load(ObjectNode obj_node, int version, const char *filename)
 
   annotation_init_defaults();
   
-  annotation = g_malloc(sizeof(Annotation));
+  annotation = g_malloc0(sizeof(Annotation));
 
   conn = &annotation->connection;
   obj = &conn->object;

@@ -379,7 +379,7 @@ sadtbox_free_state(ObjectState *objstate)
 static BoxState *
 sadtbox_get_state(Box *box)
 {
-  BoxState *state = g_new(BoxState, 1);
+  BoxState *state = g_new0(BoxState, 1);
 
   state->obj_state.free = sadtbox_free_state;
 
@@ -638,7 +638,7 @@ sadtbox_copy(Box *box)
 
   elem = &box->element;
   
-  newbox = g_malloc(sizeof(Box));
+  newbox = g_malloc0(sizeof(Box));
   newelem = &newbox->element;
   newobj = &newelem->object;
 
@@ -681,7 +681,7 @@ sadtbox_load(ObjectNode obj_node, int version, const char *filename)
   int realconncount;
   Point p = {0.0,0.0};
 
-  box = g_malloc(sizeof(Box));
+  box = g_malloc0(sizeof(Box));
   elem = &box->element;
   obj = &elem->object;
   

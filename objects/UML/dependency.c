@@ -410,7 +410,7 @@ dependency_create(Point *startpoint,
     dep_font = font_getfont("Courier");
   }
   
-  dep = g_new(Dependency, 1);
+  dep = g_new0(Dependency, 1);
   orth = &dep->orth;
   obj = (Object *)dep;
   
@@ -451,7 +451,7 @@ dependency_copy(Dependency *dep)
   
   orth = &dep->orth;
   
-  newdep = g_new(Dependency, 1);
+  newdep = g_new0(Dependency, 1);
   neworth = &newdep->orth;
   newobj = (Object *)newdep;
 
@@ -492,7 +492,7 @@ dependency_load(ObjectNode obj_node, int version, const char *filename)
     dep_font = font_getfont("Courier");
   }
 
-  dep = g_new(Dependency, 1);
+  dep = g_new0(Dependency, 1);
 
   orth = &dep->orth;
   obj = (Object *)dep;

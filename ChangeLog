@@ -1,3 +1,27 @@
+2001-04-13  Hans Breuer  <hans@breuer.org>
+
+	* app/app_procs.c (app_exit) : added g_return_if_fail (!app_exit_once)
+	to ensure that all the deinitialization is only done once. Fixes
+	recent app exit crash on win32
+
+	* lib/dia_xml.c : provide isinf() replacement for msc which does only
+	have _finite()
+
+	* lib/libdia.def : updated
+
+	* objects/makefile.msc : added wanlink.c 
+
+	* objects/network/wanlink.c : added M_PI_2 definition for poor
+	platforms which don't have one
+
+	* objects/standard/arc.c :
+	* objects/standard/zigzagline. c: part of ConectionBBExtras wasn't
+	initialized which led to rather huge bounding boxes (try Ctrl^A on
+	diagrams with Arcs or ZigZagLines).
+	* objects/*/*.c : to avoid further bugs like the above changed all
+	object initializations to g_malloc0 or g_new0
+
+
 2001-04-09  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/paper.[ch]: get rid of "no previous prototype fo `foo'" by

@@ -384,7 +384,7 @@ smallpackage_create(Point *startpoint,
   Font *font;
   int i;
   
-  pkg = g_malloc(sizeof(SmallPackage));
+  pkg = g_malloc0(sizeof(SmallPackage));
   elem = &pkg->element;
   obj = &elem->object;
   
@@ -443,7 +443,7 @@ smallpackage_copy(SmallPackage *pkg)
   
   elem = &pkg->element;
   
-  newpkg = g_malloc(sizeof(SmallPackage));
+  newpkg = g_malloc0(sizeof(SmallPackage));
   newelem = &newpkg->element;
   newobj = &newelem->object;
 
@@ -493,7 +493,7 @@ smallpackage_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   int i;
   
-  pkg = g_malloc(sizeof(SmallPackage));
+  pkg = g_malloc0(sizeof(SmallPackage));
   elem = &pkg->element;
   obj = &elem->object;
   

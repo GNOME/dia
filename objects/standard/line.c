@@ -298,7 +298,7 @@ line_create(Point *startpoint,
 
   /*line_init_defaults();*/
 
-  line = g_malloc(sizeof(Line));
+  line = g_malloc0(sizeof(Line));
 
   line->line_width = attributes_get_default_linewidth();
   line->line_color = attributes_get_foreground();
@@ -343,7 +343,7 @@ line_copy(Line *line)
 
   conn = &line->connection;
   
-  newline = g_malloc(sizeof(Line));
+  newline = g_malloc0(sizeof(Line));
   newconn = &newline->connection;
   newobj = &newconn->object;
   
@@ -439,7 +439,7 @@ line_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   AttributeNode attr;
 
-  line = g_malloc(sizeof(Line));
+  line = g_malloc0(sizeof(Line));
 
   conn = &line->connection;
   obj = &conn->object;

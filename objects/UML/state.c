@@ -382,7 +382,7 @@ state_create(Point *startpoint,
   Font *font;
   int i;
   
-  state = g_malloc(sizeof(State));
+  state = g_malloc0(sizeof(State));
   elem = &state->element;
   obj = &elem->object;
   
@@ -436,7 +436,7 @@ state_copy(State *state)
   
   elem = &state->element;
   
-  newstate = g_malloc(sizeof(State));
+  newstate = g_malloc0(sizeof(State));
   newelem = &newstate->element;
   newobj = &newelem->object;
 
@@ -462,7 +462,7 @@ state_copy(State *state)
 static StateState *
 state_get_state(State *state)
 {
-  StateState *sstate = g_new(StateState, 1);
+  StateState *sstate = g_new0(StateState, 1);
 
   sstate->obj_state.free = NULL;
 
@@ -503,7 +503,7 @@ state_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   AttributeNode attr;
 
-  state = g_malloc(sizeof(State));
+  state = g_malloc0(sizeof(State));
   elem = &state->element;
   obj = &elem->object;
   
