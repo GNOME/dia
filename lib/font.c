@@ -814,8 +814,6 @@ freetype_render_string(FreetypeString *fts, int x, int y,
     unichar c;
     uni_get_utf8(p,&c);
 
-    printf("Unicode char %d (%c)\n", c, c);
-
     // convert character code to glyph index
     glyph_index = FT_Get_Char_Index( face, c );
 
