@@ -1,5 +1,11 @@
 2000-04-08  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
+	* app/commands.c (help_about_callback): Now uses gdk-pixbuf if
+	available. 
+
+	* configure.in: Made imlib a fallback if gdk-pixbuf is absent or
+	not wanted.
+
 	* app/app_procs.c (app_init): Moved gtk_init outside #ifdef, moved
 	if (argv) outside ifdefs.
 
