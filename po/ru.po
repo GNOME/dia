@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.86\n"
-"POT-Creation-Date: 2001-01-09 15:46+0300\n"
-"PO-Revision-Date: 2001-01-09 15:49+03:00\n"
+"POT-Creation-Date: 2001-01-17 19:00+0300\n"
+"PO-Revision-Date: 2001-01-17 19:06+03:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1423,6 +1423,33 @@ msgstr "У этого объекта нет свойств."
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated PostScript"
 
+#. remove recent files if list get's too long
+#: app/recent_files.c:69
+msgid "/File/Plugins"
+msgstr "/Файл/Дополнения"
+
+#: app/recent_files.c:75 app/recent_files.c:77 app/recent_files.c:102
+#: app/recent_files.c:104
+msgid "/File/Open Recent/"
+msgstr "/Файл/Открыть последние/"
+
+#: app/recent_files.c:153
+msgid "Can't open history file for writing."
+msgstr "Не удалось открыть файл истории для записи."
+
+#: app/splash.c:50
+msgid "Loading ..."
+msgstr "Загрузка..."
+
+#: app/splash.c:67
+#, c-format
+msgid ""
+"Dia v %s\n"
+" by Alexander Larsson"
+msgstr ""
+"Dia версия %s.\n"
+"Автор: Alexander Larsson"
+
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Внутренняя ошибка: установка типа угла для конечной точки кривой Безье"
@@ -1700,7 +1727,7 @@ msgstr "Функция:"
 
 #: objects/FS/function.c:582
 msgid "Wish function"
-msgstr ""
+msgstr "Функция наибольшего правдоподобия"
 
 #: objects/FS/function.c:587
 msgid "User function"
@@ -2087,11 +2114,14 @@ msgstr "Агрегировать"
 msgid "Composition"
 msgstr "Композиция"
 
-#: objects/UML/class.c:96
+#: objects/UML/class.c:96 objects/UML/component.c:111
+#: objects/UML/small_package.c:111
 msgid "Name"
 msgstr "Название"
 
-#: objects/UML/class.c:98 objects/UML/classicon.c:146 objects/UML/object.c:164
+#: objects/UML/class.c:98 objects/UML/classicon.c:146
+#: objects/UML/component.c:113 objects/UML/object.c:164
+#: objects/UML/small_package.c:113
 msgid "Stereotype"
 msgstr "Стереотип"
 
@@ -2350,6 +2380,10 @@ msgstr "Действующий объект"
 #: objects/UML/object.c:859
 msgid "multiple instance"
 msgstr "множественные вхождения"
+
+#: objects/UML/node.c:115
+msgid "Node name"
+msgstr "Название узла"
 
 #: objects/UML/state.c:147
 msgid "State Type"

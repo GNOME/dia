@@ -24,7 +24,9 @@ app/plugin-manager.c
 app/preferences.c
 app/properties.c
 app/render_eps.c
+app/recent_files.c
 app/select.c
+app/splash.c
 lib/bezier_conn.c
 lib/diagramdata.c
 lib/filter.c
@@ -61,6 +63,7 @@ objects/UML/class.c
 objects/UML/class_dialog.c
 objects/UML/classicon.c
 objects/UML/constraint.c
+objects/UML/component.c
 objects/UML/dependency.c
 objects/UML/generalization.c
 objects/UML/implements.c
@@ -68,7 +71,9 @@ objects/UML/large_package.c
 objects/UML/lifeline.c
 objects/UML/message.c
 objects/UML/object.c
+objects/UML/node.c
 objects/UML/realizes.c
+objects/UML/small_package.c
 objects/UML/state.c
 objects/UML/uml.c
 objects/UML/usecase.c
