@@ -183,8 +183,6 @@ DiaPrefData prefs_data[] =
     &default_dtree_dia_sort, 4, "default diagram sort order", NULL, TRUE},
   { "diagram_tree_obj_sort", PREF_UINT, PREF_OFFSET(dia_tree.obj_sort),
     &default_dtree_obj_sort, 4, "default object sort order", NULL, TRUE},
-  { "diagram_tree_hidden", PREF_STRING, PREF_OFFSET(dia_tree.hidden),
-    &DIA_TREE_DEFAULT_HIDDEN, 4, "hidden type list", NULL, TRUE},
   { NULL, PREF_END_GROUP, 0, NULL, 4, NULL },
 };
 

@@ -730,6 +730,7 @@ GList *
 persistent_list_get_glist(const gchar *role)
 {
   PersistentList *plist = persistent_list_get(role);
+  if (plist == NULL) return NULL;
   return plist->glist;
 }
 
@@ -738,6 +739,7 @@ persistent_list_cut_length(GList *list, gint length)
 {
   while (g_list_length(list) > length) {
     GList *last = g_list_last(list);
+    /* Leaking data?  See not in persistent_list_add */
     list = g_list_remove_link(list, last);
     g_list_free(last);
   }
@@ -800,9 +802,21 @@ gboolean
 persistent_list_remove(const gchar *role, const gchar *item)
 {
   PersistentList *plist = persistent_list_get(role);
-  gint len = g_list_length(plist->glist);
-  plist->glist = g_list_remove(plist->glist, item);
-  return g_list_length(plist->glist) < len;
+  /* Leaking data?  See not in persistent_list_add */
+  GList *entry = g_list_find_custom(plist->glist, item, g_strcasecmp);
+  if (entry != NULL) {
+    plist->glist = g_list_remove_link(plist->glist, entry);
+    g_free(entry->data);
+    return TRUE;
+  } else return FALSE;
+}
+
+void
+persistent_list_remove_all(const gchar *role)
+{
+  PersistentList *plist = persistent_list_get(role);
+  persistent_list_cut_length(plist->glist, 0);
+  plist->glist = NULL;
 }
 
 typedef struct {

@@ -66,6 +66,7 @@ GList *persistent_list_get_glist(const gchar *role);
 gboolean persistent_list_add(const gchar *role, const gchar *item);
 void persistent_list_set_max_length(const gchar *role, gint max);
 gboolean persistent_list_remove(const gchar *role, const gchar *item);
+void persistent_list_remove_all(const gchar *role);
 void persistent_list_add_listener(const gchar *role, PersistenceCallback func, 
 				  GObject *watch, gpointer userdata);
 

@@ -30,6 +30,7 @@
 #include "diagram_tree_menu.h"
 #include "diagram_tree_menu_callbacks.h"
 #include "diagram_tree.h"
+#include "persistence.h"
 
 struct _DiagramTree {
   GtkCTree *tree;		/* the tree widget */
@@ -37,7 +38,6 @@ struct _DiagramTree {
   DiagramTreeMenus *menus;	/* popup menus */
   GtkCListCompareFunc dia_cmp;	/* diagram ordering function */
   GtkCListCompareFunc obj_cmp;	/* object ordering function */
-  GList *hidden;		/* list of hidden object types */
 };
 
 #define is_object_node(node) (GTK_CTREE_ROW(node)->is_leaf)
@@ -51,7 +51,8 @@ find_hidden_type(gconstpointer type, gconstpointer object_type)
 }
 
 #define is_hidden_type(dtree, type) \
-  g_list_find_custom(dtree->hidden, (gpointer)type, find_hidden_type)
+  g_list_find_custom(persistent_list_get_glist(HIDDEN_TYPES_NAME), \
+                     (gpointer)type, find_hidden_type)
 
 #define is_hidden_object(dtree, object)		\
   is_hidden_type(dtree, ((DiaObject *)object)->type->name)
@@ -314,7 +315,7 @@ diagram_tree_new(GList *diagrams, GtkWindow *window,
   result->tree = GTK_CTREE(gtk_ctree_new(1, 0));
   result->last = NULL;
   result->dia_cmp = result->obj_cmp = NULL;
-  result->hidden = NULL;
+
   g_signal_connect(GTK_OBJECT(result->tree),
 		     "button_press_event",
 		   G_CALLBACK(button_press_callback),
@@ -326,6 +327,11 @@ diagram_tree_new(GList *diagrams, GtkWindow *window,
   diagram_tree_set_diagram_sort_type(result, dia_sort);
   diagram_tree_set_object_sort_type(result, obj_sort);
   result->menus = diagram_tree_menus_new(result, window);
+  /* Set up menu items for the list of hidden types */
+  GList *tmplist = persistent_list_get_glist(HIDDEN_TYPES_NAME);
+  for (; tmplist != NULL; tmplist = g_list_next(tmplist)) {
+    diagram_tree_menus_add_hidden_type(result->menus, tmplist->data);
+  }
   return result;
 }
 
@@ -513,9 +519,9 @@ void
 diagram_tree_hide_explicit_type(DiagramTree *tree, const gchar *type)
 {
   if (tree && type) {
-    tree->hidden = g_list_prepend(tree->hidden, g_strdup(type));
-    diagram_tree_update_all(tree);
+    persistent_list_add(HIDDEN_TYPES_NAME, type);
     diagram_tree_menus_add_hidden_type(tree->menus, type);
+    diagram_tree_update_all(tree);
   }
 }
 
@@ -525,9 +531,7 @@ diagram_tree_unhide_type(DiagramTree *tree, const gchar *type)
   if (tree && type) {
     GList *t = is_hidden_type(tree, type);
     if (t) {
-      tree->hidden = g_list_remove_link(tree->hidden, t);
-      g_free(t->data);
-      g_list_free(t);
+      persistent_list_remove(HIDDEN_TYPES_NAME, type);
       diagram_tree_update_all(tree);
     }
   }

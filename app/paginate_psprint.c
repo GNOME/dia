@@ -231,7 +231,7 @@ diagram_print_ps(Diagram *dia)
   dialog = gtk_dialog_new();
   diagram_add_related_dialog(dia, dialog);
   gtk_object_set_user_data(GTK_OBJECT(dialog), &dia);
-  g_signal_connect(GTK_OBJECT(dialog), "delete_event",
+  g_signal_connect(GTK_OBJECT(dialog), "destroy",
 		   G_CALLBACK(diagram_print_destroy), NULL);
   g_signal_connect(GTK_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_main_quit), NULL);
@@ -313,6 +313,7 @@ diagram_print_ps(Diagram *dia)
     printcmd = NULL;
   }
 #endif
+  printf("Print dialog?\n");
   persistence_register_string_entry("printer-command", cmd);
   printcmd = g_strdup(gtk_entry_get_text(GTK_ENTRY(cmd)));
   orig_command = printcmd;

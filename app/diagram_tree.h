@@ -27,6 +27,8 @@
 #include <gtk/gtk.h>
 #include "diagram.h"
 
+#define HIDDEN_TYPES_NAME "diagram-tree-hidden-types"
+
 /* the diagram tree adt */
 typedef struct _DiagramTree DiagramTree;
 

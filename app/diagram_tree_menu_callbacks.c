@@ -104,7 +104,4 @@ on_hide_object_activate(gpointer user_data,
 			guint action, GtkMenuItem *menuitem)
 {
   const gchar *type = diagram_tree_hide_type((DiagramTree *)user_data);
-  if (type) {
-    diagram_tree_config_add_hidden_type(&prefs.dia_tree, type);
-  }
 }

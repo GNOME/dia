@@ -1,3 +1,26 @@
+2004-11-06  Lars Clausen  <lars@raeder.dk>
+
+	* app/properties.c (create_dialog): 
+	* app/diagram_tree_window.h: 
+	* app/diagram_tree.h (HIDDEN_TYPES_NAME): 
+	* app/diagram_tree_menu_callbacks.c: 
+	* app/diagram_tree_window.c: 
+	* app/diagram_tree_menu.c: 
+	* app/diagram_tree.c: Changed to use persistence instead of
+	strange hacks in preferences.
+
+	* lib/persistence.h:
+	* lib/persistence.c (persistent_list_get_glist): Don't deref null
+	pointer.  New function persistent_list_remove_all, and
+	fixed persistent_list_remove to ... work!
+
+2004-11-05  Lars Clausen  <lars@raeder.dk>
+
+	* app/paginate_psprint.c (diagram_print_ps): Call
+	diagram_print_destroy on destroy rather than delete_event.  That
+	way the gtk_widget_destroy() calls cleans up properly.  Fixes bug
+	#154898. 
+
 2004-11-02  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class.c (umlclass_load): Actually load the saved

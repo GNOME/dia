@@ -1322,7 +1322,9 @@ void diagram_object_modified(Diagram *dia, DiaObject *object)
 static 
 void close_dialog(gpointer data, gpointer user_data)
 {
-  g_signal_emit_by_name(G_OBJECT(data), "delete_event");
+  if (data != NULL) {
+    g_signal_emit_by_name(G_OBJECT(data), "delete_event");
+  }
 }
 
 void diagram_close_related_dialogs(Diagram *dia)

@@ -34,9 +34,6 @@
 #include "diagram_tree_menu.h"
 #include "persistence.h"
 
-
-gchar *DIA_TREE_DEFAULT_HIDDEN = "DefaultDiaTreeTypeGuardDontChange!";
-
 static GtkWidget *diagwindow_ = NULL;
 static GtkCheckMenuItem *menu_item_ = NULL;
 static DiagramTree *diagtree_ = NULL;
@@ -86,20 +83,13 @@ diagram_tree_window_new(DiagramTreeConfig *config)
   /* the diagtree */
   if (!diagtree_)
     {
+      persistence_register_list(HIDDEN_TYPES_NAME);
+      if (!config->save_hidden) {
+	persistent_list_remove_all(HIDDEN_TYPES_NAME);
+      }
       diagtree_ = diagram_tree_new(dia_open_diagrams(), GTK_WINDOW(window),
 				   config->dia_sort, config->obj_sort);
-      if (config->save_hidden) {
-	GList *hidden = diagram_tree_config_get_hidden_types(config);
-	GList *ohidden = hidden;
-	while (hidden) {
-	  if (hidden->data && strlen(hidden->data))
-	    diagram_tree_hide_explicit_type(diagtree_,
-					    (const gchar *)hidden->data);
-	  if (hidden->data) g_free(hidden->data);
-	  hidden = hidden->next;
-	}
-	g_list_free(ohidden);
-      }
+      diagram_tree_update_all(diagtree_);
     }
   tree = diagram_tree_widget(diagtree_);
 
@@ -154,80 +144,6 @@ diagtree_show_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_widget_show(diagwindow_);
   else
     gtk_widget_hide(diagwindow_);
-}
-
-
-static const gchar * const TYPE_DELIM_ = "^";
-
-GList * /* destroyed by client */
-diagram_tree_config_get_hidden_types(const DiagramTreeConfig *config)
-{
-  GList *result = NULL;
-  g_return_val_if_fail(config, NULL);
-  if (config->hidden == DIA_TREE_DEFAULT_HIDDEN)
-    ((DiagramTreeConfig *)config)->hidden = g_strdup("");
-  if (config->hidden && strlen(config->hidden)) {
-    int k = 0;
-    gchar **types = g_strsplit(config->hidden, TYPE_DELIM_, -1);
-    while (types[k]) {
-      result = g_list_prepend(result, (gpointer)types[k++]);
-    }
-  }
-  return result;
-}
-
-void
-diagram_tree_config_set_hidden_types(DiagramTreeConfig *config,
-				     const GList *types)
-{
-  gchar *new_types = NULL;
-  g_return_if_fail(config);
-  if (types) {
-    int k = 0;
-    guint s = g_list_length((GList *)types);
-    gchar **str_array = g_new(gchar *, s + 1);
-    str_array[s] = NULL;
-    while (types) {
-      str_array[k++] = (gchar *)types->data;
-      types = types->next;
-    }
-    new_types = g_strjoinv(TYPE_DELIM_, str_array);
-    g_free(str_array);
-  }
-  if (config->hidden) g_free(config->hidden);
-  config->hidden = new_types;
-}
-
-void
-diagram_tree_config_add_hidden_type(DiagramTreeConfig *config,
-				    const gchar *type)
-{
-  g_return_if_fail(config);
-  if (type) {
-    if (config->hidden) {
-      gchar *new_types = g_strconcat(config->hidden, TYPE_DELIM_, type, NULL);
-      g_free(config->hidden);
-      config->hidden = new_types;
-    } else {
-      config->hidden = g_strdup(type);
-    }
-  }
-}
-
-void
-diagram_tree_config_remove_hidden_type(DiagramTreeConfig *config,
-				       const gchar *type)
-{
-  g_return_if_fail(config);
-  if (type && config->hidden) {
-    gchar *delim = g_strconcat(TYPE_DELIM_, type, NULL);
-    gchar **parts = g_strsplit(config->hidden, delim, -1);
-    gchar *new_types = g_strjoinv(NULL, parts);
-    g_free(delim);
-    g_strfreev(parts);
-    g_free(config->hidden);
-    config->hidden = new_types;
-  }
 }
 
     
