@@ -463,11 +463,13 @@ dia_font_scaled_string_width(const char* string, DiaFont *font, real height,
     int lw,lh;
     real result;
     PangoLayout* layout = dia_font_scaled_build_layout(string, font,
-                                                      height, zoom_factor);
+						       height, zoom_factor);
     pango_layout_get_size(layout,&lw,&lh);
     g_object_unref(G_OBJECT(layout));
     
     result = pdu_to_dcm(lw);
+    /* Scale the result back for the zoom factor */
+    result /= (zoom_factor/global_size_one);
     return result;
 }
 
@@ -518,7 +520,7 @@ dia_font_scaled_ascent(const char* string, DiaFont* font, real height,
     dia_font_vertical_extents(string,font,height,zoom_factor,
 			      0,&top,&bline,&bottom);
   }
-  return bline-top;
+  return (bline-top)/(zoom_factor/global_size_one);
 }
 
 real dia_font_scaled_descent(const char* string, DiaFont* font,
@@ -534,7 +536,7 @@ real dia_font_scaled_descent(const char* string, DiaFont* font,
     dia_font_vertical_extents(string,font,height,zoom_factor,
                               0,&top,&bline,&bottom);
   }
-  return bottom-bline;
+  return (bottom-bline)/(zoom_factor/global_size_one);
 }
 
 PangoLayout*

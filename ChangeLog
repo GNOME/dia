@@ -1,5 +1,15 @@
 2002-07-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/font.c (dia_font_scaled_string_width) 
+	(dia_font_scaled_ascent, dia_font_scaled_descent): Account for
+	zoom factor.
+	* lib/text.c (text_calc_boundingbox): Take descent into account.
+
+	* objects/standard/bezier.c (bezierline_draw): 
+	* lib/render.c (draw_bezier_with_arrows): 
+	Better arrow drawing for beziers.  Doesn't change the mouse-click
+	area either.
+
 	* lib/arrows.h: Some const-ness.
 
 	* lib/arrows.c (calculate_arrow_point): Initialize zero-length moves.

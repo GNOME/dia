@@ -324,7 +324,7 @@ text_calc_boundingbox(Text *text, Rectangle *box)
   
   box->top = text->position.y - text->ascent;
 
-  box->bottom = box->top + text->height*text->numlines;
+  box->bottom = box->top + text->height*text->numlines + text->descent;
 
   if (text->focus.has_focus) {
     if (text->cursor_pos == 0) {
