@@ -1,3 +1,20 @@
+2003-05-01  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/xslt/xslt.c (xslt_ok): 
+	* plug-ins/shape/shape-export.c (new_shape_renderer): 
+	* plug-ins/svg/render_svg.c (new_svg_renderer): 
+	* plug-ins/hpgl/hpgl.c (export_data): 
+	* plug-ins/dxf/dxf-export.c (export_dxf): 
+	* plug-ins/metapost/render_metapost.c (export_metapost): 
+	* plug-ins/pstricks/render_pstricks.c (export_pstricks): 
+	* plug-ins/xfig/xfig-export.c (export_fig): 
+	* plug-ins/wpg/wpg.c (export_data): 
+	* plug-ins/cgm/cgm.c (export_cgm): 
+	* app/render_eps.c (export_eps): 
+	* app/export_png.c (export_png_ok): 
+	* app/load_save.c (diagram_data_save): Adding and standardizing
+	output file error messages to include fopen error message.
+
 2003-05-01  Steffen Macke <sdteffen@web.de>
 
 	* app/persistence.c: do not use unistd.h for MSVC build

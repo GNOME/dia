@@ -25,6 +25,8 @@
 
 #include <stdio.h>
 #include <png.h>
+#include <string.h>
+#include <errno.h>
 
 #include "intl.h"
 #include "filter.h"
@@ -111,7 +113,7 @@ export_png_ok(GtkButton *button, gpointer userdata)
 
   fp = fopen(cbdata->filename, "wb");
   if (fp == NULL) {
-    message_error(_("Couldn't open: '%s' for writing.\n"), cbdata->filename);
+    message_error(_("Can't open output file %s: %s\n"), cbdata->filename, strerror(errno));
     goto error;
   }
 

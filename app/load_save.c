@@ -27,6 +27,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <glib.h>
+#include <errno.h>
 
 #include "intl.h"
 
@@ -743,7 +744,7 @@ diagram_data_save(DiagramData *data, const char *filename)
   /* Now write the data in the temporary file name. */
 
   if (file==NULL) {
-    message_error(_("Couldn't open: '%s' for writing.\n"), tmpname);
+    message_error(_("Can't open output file %s: %s\n"), tmpname, strerror(errno));
     return FALSE;
   }
   fclose(file);

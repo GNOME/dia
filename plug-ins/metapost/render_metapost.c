@@ -45,6 +45,7 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
+#include <errno.h>
 
 #include "intl.h"
 #include "render_metapost.h"
@@ -730,7 +731,7 @@ export_metapost(DiagramData *data, const gchar *filename,
     file = fopen(filename, "wb");
 
     if (file==NULL) {
-        message_error(_("Couldn't open: '%s' for writing.\n"), filename);
+	message_error(_("Can't open output file %s: %s\n"), file, strerror(errno));
         return;
     }
 

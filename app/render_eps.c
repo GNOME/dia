@@ -79,6 +79,11 @@ export_eps(DiagramData *data, const gchar *filename,
   renderer = g_object_new (DIA_TYPE_PS_RENDERER, NULL);
 #endif
   outfile = fopen(filename, "w");
+  if (outfile == NULL) {
+    message_error(_("Can't open output file %s: %s\n"), filename, strerror(errno));
+    g_object_unref(renderer);
+    return;
+  }
   renderer->file = outfile;
   renderer->scale = 28.346 * data->paper.scaling;
   renderer->extent = data->extents;

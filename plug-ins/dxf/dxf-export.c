@@ -28,6 +28,7 @@
 #include <string.h>
 #include <math.h>
 #include <glib.h>
+#include <errno.h>
 
 #include "intl.h"
 #include "message.h"
@@ -501,8 +502,8 @@ export_dxf(DiagramData *data, const gchar *filename,
     file = fopen(filename, "w");
 
     if (file == NULL) {
-	  message_error(_("Couldn't open: '%s' for writing.\n"), filename);
-	  return;
+	message_error(_("Can't open output file %s: %s\n"), filename, strerror(errno));
+	return;
     }
 
     renderer = g_object_new(DXF_TYPE_RENDERER, NULL);
