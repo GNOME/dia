@@ -1,3 +1,12 @@
+2004-02-15  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/app_procs.c: #ifdef HAVE_POPT popt args to process_opt
+
+2004-02-14  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/metapost/render_metapost.c (draw_with_linestyle):
+	Dotted lines should use dot_length, not dash_length.
+
 2004-02-06  Hans Breuer  <hans@breuer.org>
 
 	* app/interface.c : don't use gtk_drawing_area_size() to avoid

@@ -95,7 +95,9 @@ handle_initial_diagram(const char *input_file_name,
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
 static void process_opts(int argc, char **argv,
+#ifdef HAVE_POPT
 			 poptContext poptCtx, struct poptOption options[],
+#endif
 			 GSList **files, char **export_file_name,
 			 char **export_file_format, char **size);
 static gboolean handle_all_diagrams(GSList *files, char *export_file_name,
@@ -389,8 +391,6 @@ app_init (int argc, char **argv)
   process_opts(argc, argv, 
 #ifdef HAVE_POPT
                poptCtx, options, 
-#else
-               NULL, NULL,
 #endif
                &files,
 	     &export_file_name, &export_file_format, &size);
@@ -690,7 +690,9 @@ internal_plugin_init(PluginInfo *info)
 
 static void
 process_opts(int argc, char **argv,
+#ifdef HAVE_POPT
 	     poptContext poptCtx, struct poptOption options[],
+#endif
 	     GSList **files, char **export_file_name,
 	     char **export_file_format, char **size)
 {

@@ -350,8 +350,8 @@ draw_with_linestyle(MetapostRenderer *renderer)
 	break;
     case LINESTYLE_DOTTED:
 	fprintf(renderer->file, "\n    dashed dashpattern (on %fx off %fx)", 
-		renderer->dash_length,
-		renderer->dash_length);
+		renderer->dot_length,
+		renderer->dot_length);
 	break;
     }
 }
