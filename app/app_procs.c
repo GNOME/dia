@@ -57,6 +57,7 @@
 #include "load_save.h"
 #include "preferences.h"
 #include "custom.h"
+#include "render_svg.h"
 
 static void register_all_objects(void);
 static void register_all_sheets(void);
@@ -195,6 +196,9 @@ app_init (int argc, char **argv)
   register_all_objects();
   load_all_sheets();     /* new mechanism */
   register_all_sheets(); /* old mechanism (to be disabled) */
+
+  /* register export filters */
+  filter_register_export(&svg_export_filter);
 
   debug_break();
 
