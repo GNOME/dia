@@ -19,6 +19,6 @@ pkglib_LTLIBRARIES = libxslt_filter.la
 
 libxslt_filter_la_SOURCES = $(plugin_sources)
 
-libxslt_filter_la_LDFLAGS = -export-dynamic -module -avoid-version -ldl -lglib
+libxslt_filter_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS) $(PANGOFT2_CFLAGS) $(XML_CFLAGS) $(UNICODE_CFLAGS) $(DEBUG_FLAGS) $(XSLT_CFLAGS)
