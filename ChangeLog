@@ -1,5 +1,23 @@
 2003-07-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* activity.c:
+	* actor.c:
+	* branch.c:
+	* class.c:
+	* classicon.c:
+	* component.c:
+	* large_package.c:
+	* lifeline.c:
+	* node.c:
+	* note.c:
+	* object.c:
+	* small_package.c:
+	* state.c:
+	* state_term.c:
+	* usecase.c: 
+	Autorouting directions patch from Krzysztof Foltman
+	<kfoltman@onet.pl>.
+
 	* app/menus.c: Wrong GNOME paren fixed.  Correct callbacks for
 	GNOME parent menu items.
 	

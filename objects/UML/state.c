@@ -306,6 +306,15 @@ state_update_data(State *state)
   state->connections[7].pos.x = elem->corner.x + elem->width;
   state->connections[7].pos.y = elem->corner.y + elem->height;
   
+  state->connections[0].directions = DIR_NORTH|DIR_WEST;
+  state->connections[1].directions = DIR_NORTH;
+  state->connections[2].directions = DIR_NORTH|DIR_EAST;
+  state->connections[3].directions = DIR_WEST;
+  state->connections[4].directions = DIR_EAST;
+  state->connections[5].directions = DIR_SOUTH|DIR_WEST;
+  state->connections[6].directions = DIR_SOUTH;
+  state->connections[7].directions = DIR_SOUTH|DIR_EAST;
+                                                                                          
   element_update_boundingbox(elem);
 
   obj->position = elem->corner;

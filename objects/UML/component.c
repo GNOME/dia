@@ -317,6 +317,15 @@ component_update_data(Component *cmp)
   cmp->connections[7].pos.x = elem->corner.x + elem->width;
   cmp->connections[7].pos.y = elem->corner.y + elem->height;
   
+  cmp->connections[0].directions = DIR_NORTH|DIR_WEST;
+  cmp->connections[1].directions = DIR_NORTH;
+  cmp->connections[2].directions = DIR_NORTH|DIR_EAST;
+  cmp->connections[3].directions = DIR_WEST;
+  cmp->connections[4].directions = DIR_EAST;
+  cmp->connections[5].directions = DIR_SOUTH|DIR_WEST;
+  cmp->connections[6].directions = DIR_SOUTH;
+  cmp->connections[7].directions = DIR_SOUTH|DIR_EAST;
+                                                                                          
   element_update_boundingbox(elem);
 
   obj->position = elem->corner;

@@ -310,6 +310,15 @@ smallpackage_update_data(SmallPackage *pkg)
   pkg->connections[7].pos.x = elem->corner.x + elem->width;
   pkg->connections[7].pos.y = elem->corner.y + elem->height;
   
+  pkg->connections[0].directions = DIR_NORTH|DIR_WEST;
+  pkg->connections[1].directions = DIR_NORTH;
+  pkg->connections[2].directions = DIR_NORTH|DIR_EAST;
+  pkg->connections[3].directions = DIR_WEST;
+  pkg->connections[4].directions = DIR_EAST;
+  pkg->connections[5].directions = DIR_SOUTH|DIR_WEST;
+  pkg->connections[6].directions = DIR_SOUTH;
+  pkg->connections[7].directions = DIR_SOUTH|DIR_EAST;
+                                                                                          
   element_update_boundingbox(elem);
   /* fix boundingbox for top rectangle: */
   obj->bounding_box.top -= SMALLPACKAGE_TOPHEIGHT;

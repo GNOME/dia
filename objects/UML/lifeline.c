@@ -560,6 +560,12 @@ lifeline_update_data(Lifeline *lifeline)
   lifeline->connections[3].pos = pme;
   lifeline->connections[4].pos = psw;
   lifeline->connections[5].pos = pse;
+  lifeline->connections[0].directions = DIR_NORTH|DIR_WEST;
+  lifeline->connections[1].directions = DIR_NORTH|DIR_EAST;
+  lifeline->connections[2].directions = DIR_WEST;
+  lifeline->connections[3].directions = DIR_EAST;
+  lifeline->connections[4].directions = DIR_SOUTH|DIR_WEST;
+  lifeline->connections[5].directions = DIR_SOUTH|DIR_EAST;
 
   connpointline_update(lifeline->northwest);
   connpointline_putonaline(lifeline->northwest,&pnw,&pmw);

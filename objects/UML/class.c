@@ -556,6 +556,7 @@ umlclass_update_data(UMLClass *umlclass)
   
   /* Update connections: */
   umlclass->connections[0].pos = elem->corner;
+  umlclass->connections[0].directions = DIR_NORTH|DIR_WEST;
 
   /* there are four corner points and two side points, thus all
    * remaining points are on the top/bottom width
@@ -567,35 +568,42 @@ umlclass_update_data(UMLClass *umlclass)
   for (i=1;i<=pointswide;i++) {
     umlclass->connections[i].pos.x = x + (pointspacing * i);
     umlclass->connections[i].pos.y = y;
+    umlclass->connections[i].directions = DIR_NORTH;
   }
 
   i = (UMLCLASS_CONNECTIONPOINTS / 2) - 2;
   umlclass->connections[i].pos.x = x + elem->width;
   umlclass->connections[i].pos.y = y;
+  umlclass->connections[i].directions = DIR_NORTH|DIR_EAST;
 
   i = (UMLCLASS_CONNECTIONPOINTS / 2) - 1;
   umlclass->connections[i].pos.x = x;
   umlclass->connections[i].pos.y = y + umlclass->namebox_height / 2.0;
+  umlclass->connections[i].directions = DIR_WEST;
 
   i = (UMLCLASS_CONNECTIONPOINTS / 2);
   umlclass->connections[i].pos.x = x + elem->width;
   umlclass->connections[i].pos.y = y + umlclass->namebox_height / 2.0;
+  umlclass->connections[i].directions = DIR_EAST;
 
   i = (UMLCLASS_CONNECTIONPOINTS / 2) + 1;
   umlclass->connections[i].pos.x = x;
   umlclass->connections[i].pos.y = y + elem->height;
+  umlclass->connections[i].directions = DIR_WEST|DIR_SOUTH;
 
   /* across the bottom connection points */
   lowerleftcorner = (UMLCLASS_CONNECTIONPOINTS / 2) + 1;
   for (i=1;i<=pointswide;i++) {
     umlclass->connections[lowerleftcorner + i].pos.x = x + (pointspacing * i);
     umlclass->connections[lowerleftcorner + i].pos.y = y + elem->height;
+    umlclass->connections[lowerleftcorner + i].directions = DIR_SOUTH;
   }
 
   /* bottom-right corner */
   i = (UMLCLASS_CONNECTIONPOINTS) - 1;
   umlclass->connections[i].pos.x = x + elem->width;
   umlclass->connections[i].pos.y = y + elem->height;
+  umlclass->connections[i].directions = DIR_EAST|DIR_SOUTH;
 
   y += umlclass->namebox_height + 0.1 + umlclass->font_height/2;
 
@@ -605,8 +613,10 @@ umlclass_update_data(UMLClass *umlclass)
 
     attr->left_connection->pos.x = x;
     attr->left_connection->pos.y = y;
+    attr->left_connection->directions = DIR_WEST;
     attr->right_connection->pos.x = x + elem->width;
     attr->right_connection->pos.y = y;
+    attr->right_connection->directions = DIR_EAST;
 
     y += umlclass->font_height;
     if (umlclass->visible_comments && attr->comment != NULL && attr->comment[0] != '\0')
@@ -624,8 +634,10 @@ umlclass_update_data(UMLClass *umlclass)
 
     op->left_connection->pos.x = x;
     op->left_connection->pos.y = y;
+    op->left_connection->directions = DIR_WEST;
     op->right_connection->pos.x = x + elem->width;
     op->right_connection->pos.y = y;
+    op->right_connection->directions = DIR_EAST;
 
     y += umlclass->font_height;
     if (umlclass->visible_comments && op->comment != NULL && op->comment[0] != '\0')

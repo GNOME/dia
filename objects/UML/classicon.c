@@ -366,21 +366,29 @@ classicon_update_data(Classicon *cicon)
   /* Update connections: */
   cicon->connections[0].pos.x = (is_boundary) ? p1.x-2*w: p1.x - h;
   cicon->connections[0].pos.y = (is_boundary) ? elem->corner.y: p1.y - h;
+  cicon->connections[0].directions = DIR_WEST|DIR_NORTH;
   cicon->connections[1].pos.x = p1.x;
   cicon->connections[1].pos.y = p1.y - w;
+  cicon->connections[1].directions = DIR_NORTH;
   cicon->connections[2].pos.x = p1.x + h;
   cicon->connections[2].pos.y = p1.y - h; 
+  cicon->connections[2].directions = DIR_NORTH|DIR_EAST;
 	
   cicon->connections[3].pos.x = (is_boundary) ? p1.x-2*w: p1.x - w;
   cicon->connections[3].pos.y = p1.y;
+  cicon->connections[3].directions = DIR_WEST;
   cicon->connections[4].pos.x = p1.x + w;
   cicon->connections[4].pos.y = p1.y;
+  cicon->connections[4].directions = DIR_EAST;
   cicon->connections[5].pos.x = elem->corner.x;
   cicon->connections[5].pos.y = elem->corner.y + elem->height;
+  cicon->connections[5].directions = DIR_SOUTH|DIR_WEST;
   cicon->connections[6].pos.x = p1.x;
   cicon->connections[6].pos.y = elem->corner.y + elem->height;
+  cicon->connections[6].directions = DIR_SOUTH;
   cicon->connections[7].pos.x = elem->corner.x + elem->width;
   cicon->connections[7].pos.y = elem->corner.y + elem->height;
+  cicon->connections[7].directions = DIR_SOUTH|DIR_EAST;
   
   element_update_boundingbox(elem);
 

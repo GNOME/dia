@@ -328,7 +328,7 @@ usecase_update_data(Usecase *usecase)
   usecase->connections[3].pos.y = c.y;
   usecase->connections[4].pos.x = c.x + r.x;
   usecase->connections[4].pos.y = c.y;
-  
+                                                                                            
   if (usecase->text_outside) { 
       usecase->connections[5].pos.x = elem->corner.x;
       usecase->connections[5].pos.y = elem->corner.y + elem->height;
@@ -344,6 +344,15 @@ usecase_update_data(Usecase *usecase)
       usecase->connections[7].pos.x = c.x + half.x;
       usecase->connections[7].pos.y = c.y + half.y;
   }
+
+  usecase->connections[0].directions = DIR_NORTH|DIR_WEST;
+  usecase->connections[1].directions = DIR_NORTH;
+  usecase->connections[2].directions = DIR_NORTH|DIR_EAST;
+  usecase->connections[3].directions = DIR_WEST;
+  usecase->connections[4].directions = DIR_EAST;
+  usecase->connections[5].directions = DIR_SOUTH|DIR_WEST;
+  usecase->connections[6].directions = DIR_SOUTH;
+  usecase->connections[7].directions = DIR_SOUTH|DIR_EAST;
 
   h = usecase->text->height*usecase->text->numlines;
   p = usecase->element.corner;

@@ -212,12 +212,16 @@ static void branch_update_data(Branch *branch)
   /* Update connections: */
   branch->connections[0].pos.x = elem->corner.x;
   branch->connections[0].pos.y = elem->corner.y + elem->height / 2.;
+  branch->connections[0].directions = DIR_WEST;
   branch->connections[1].pos.x = elem->corner.x + elem->width / 2.;
   branch->connections[1].pos.y = elem->corner.y;
+  branch->connections[1].directions = DIR_NORTH;
   branch->connections[2].pos.x = elem->corner.x + elem->width;
   branch->connections[2].pos.y = elem->corner.y + elem->height / 2.;
+  branch->connections[2].directions = DIR_EAST;
   branch->connections[3].pos.x = elem->corner.x + elem->width / 2.;;
   branch->connections[3].pos.y = elem->corner.y + elem->height;
+  branch->connections[3].directions = DIR_SOUTH;
   
   element_update_boundingbox(elem);
   obj->position = elem->corner;
