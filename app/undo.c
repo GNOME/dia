@@ -552,6 +552,7 @@ struct DeleteObjectsChange {
 
   Layer *layer;
   GList *obj_list; /* Owning reference when applied */
+  GList *original_objects;
   int applied;
 };
 
@@ -589,7 +590,8 @@ delete_objects_revert(struct DeleteObjectsChange *change, Diagram *dia)
 {
   DEBUG_PRINTF(("delete_objects_revert()\n"));
   change->applied = 0;
-  layer_add_objects(change->layer, g_list_copy(change->obj_list));
+  layer_set_object_list(change->layer,
+			g_list_copy(change->original_objects));
   object_add_updates_list(change->obj_list, dia);
 }
 
@@ -601,6 +603,7 @@ delete_objects_free(struct DeleteObjectsChange *change)
     destroy_object_list(change->obj_list);
   else
     g_list_free(change->obj_list);
+  g_list_free(change->original_objects);
 }
 
 Change *
@@ -616,6 +619,7 @@ undo_delete_objects(Diagram *dia, GList *obj_list)
 
   change->layer = dia->data->active_layer;
   change->obj_list = obj_list;
+  change->original_objects = g_list_copy(dia->data->active_layer->objects);
   change->applied = 0;
 
   DEBUG_PRINTF(("UNDO: Push new delete objects at %d\n", depth(dia->undo)));
@@ -636,7 +640,7 @@ struct InsertObjectsChange {
 static void
 insert_objects_apply(struct InsertObjectsChange *change, Diagram *dia)
 {
-  DEBUG_PRINTF(("insert_objects_revert()\n"));
+  DEBUG_PRINTF(("insert_objects_apply()\n"));
   change->applied = 1;
   layer_add_objects(change->layer, g_list_copy(change->obj_list));
   object_add_updates_list(change->obj_list, dia);
@@ -647,7 +651,7 @@ insert_objects_revert(struct InsertObjectsChange *change, Diagram *dia)
 {
   GList *list;
   
-  DEBUG_PRINTF(("insert_objects_apply()\n"));
+  DEBUG_PRINTF(("insert_objects_revert()\n"));
   change->applied = 0;
   diagram_unselect_objects(dia, change->obj_list);
   layer_remove_objects(change->layer, change->obj_list);
@@ -696,6 +700,65 @@ undo_insert_objects(Diagram *dia, GList *obj_list, int applied)
   change->applied = applied;
 
   DEBUG_PRINTF(("UNDO: Push new insert objects at %d\n", depth(dia->undo)));
+  undo_push_change(dia->undo, (Change *) change);
+  return (Change *)change;
+}
+
+/******** Reorder object list: */
+
+struct ReorderObjectsChange {
+  Change change;
+
+  Layer *layer;
+  GList *changed_list; /* Owning reference when applied */
+  GList *original_objects;
+  GList *reordered_objects;
+};
+
+static void
+reorder_objects_apply(struct ReorderObjectsChange *change, Diagram *dia)
+{
+  DEBUG_PRINTF(("reorder_objects_apply()\n"));
+  layer_set_object_list(change->layer,
+			g_list_copy(change->reordered_objects));
+  object_add_updates_list(change->changed_list, dia);
+}
+
+static void
+reorder_objects_revert(struct ReorderObjectsChange *change, Diagram *dia)
+{
+  DEBUG_PRINTF(("reorder_objects_revert()\n"));
+  layer_set_object_list(change->layer,
+			g_list_copy(change->original_objects));
+  object_add_updates_list(change->changed_list, dia);
+}
+
+static void		
+reorder_objects_free(struct ReorderObjectsChange *change)
+{			    
+  DEBUG_PRINTF(("reorder_objects_free()\n"));
+  g_list_free(change->changed_list);
+  g_list_free(change->original_objects);
+  g_list_free(change->reordered_objects);
+}
+
+Change *
+undo_reorder_objects(Diagram *dia, GList *changed_list, GList *orig_list)
+{
+  struct ReorderObjectsChange *change;
+
+  change = g_new(struct ReorderObjectsChange, 1);
+  
+  change->change.apply = (UndoApplyFunc) reorder_objects_apply;
+  change->change.revert = (UndoRevertFunc) reorder_objects_revert;
+  change->change.free = (UndoFreeFunc) reorder_objects_free;
+
+  change->layer = dia->data->active_layer;
+  change->changed_list = changed_list;
+  change->original_objects = orig_list;
+  change->reordered_objects = g_list_copy(dia->data->active_layer->objects);
+
+  DEBUG_PRINTF(("UNDO: Push new reorder objects at %d\n", depth(dia->undo)));
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }

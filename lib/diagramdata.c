@@ -552,6 +552,11 @@ layer_replace_object_with_list(Layer *layer, Object *remove_obj,
   g_list_free_1(list);
 }
 
+void layer_set_object_list(Layer *layer, GList *list)
+{
+  g_list_free(layer->objects);
+  layer->objects = list;
+}
 
 
 

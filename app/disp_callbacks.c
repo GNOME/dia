@@ -30,6 +30,7 @@
 #include "interface.h"
 #include "focus.h"
 #include "object_ops.h"
+#include "connectionpoint_ops.h"
 #include "menus.h"
 #include "message.h"
 #include "intl.h"

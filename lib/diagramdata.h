@@ -110,8 +110,9 @@ extern real layer_find_closest_connectionpoint(Layer *layer,
 extern int layer_update_extents(Layer *layer); /* returns true if changed. */
 extern void layer_replace_object_with_list(Layer *layer, Object *obj,
 					   GList *list);
-
-
+extern void layer_set_object_list(Layer *layer, GList *list);
+/* Make sure all objects that are in the layer and not in the new
+   list eventually gets destroyed. */
 #endif /* DIAGRAMDATA_H */
 
 

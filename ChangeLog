@@ -1,3 +1,20 @@
+1999-10-31  Alexander Larsson  <alla@lysator.liu.se>
+
+        * lib/diagramdata.[ch]:
+	Added layer_set_object_list() function.
+
+	* app/undo.[ch]:
+	Added support for undo of reordered objects.
+	Fix the undo of delete to keep the right order on undo.
+	
+	* app/diagram.c:
+	changed loop to object_add_updates_list() calls.
+	Added undo support to bring to front/back.
+
+	* app/disp_callbacks.c:
+	* app/paginate_psprint.c:
+	Remove warnings.
+
 1999-10-30  Alexander Larsson  <alla@lysator.liu.se>
 
 	This plugs some leaks. Thanks to

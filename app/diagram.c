@@ -302,15 +302,7 @@ diagram_selected_break_external(Diagram *dia)
 void
 diagram_remove_all_selected(Diagram *diagram, int delete_empty)
 {
-  GList *list = diagram->data->selected;
-
-  /* Unselected all, remove any empty selected objects: */
-  while (list!=NULL) {
-    Object *selected_obj = (Object *) list->data;
-    object_add_updates(selected_obj, diagram);
-    
-    list = g_list_next(list);
-  }
+  object_add_updates_list(diagram->data->selected, diagram);
 	
   data_remove_all_selected(diagram->data);
   
@@ -661,51 +653,49 @@ diagram_get_sorted_selected_remove(Diagram *dia)
 void
 diagram_place_under_selected(Diagram *dia)
 {
-  GList *list;
   GList *sorted_list;
-  Object *obj;
+  GList *orig_list;
 
+  printf("diagram_place_under_selected()\n");
+  
   if (dia->data->selected_count == 0)
     return;
 
-  sorted_list = diagram_get_sorted_selected_remove(dia);
-  
-  list = sorted_list;
-  while (list != NULL) {
-    obj = (Object *)list->data;
-    object_add_updates(obj, dia);
-    list = g_list_next(list);
-  }
+  orig_list = g_list_copy(dia->data->active_layer->objects);
 
+  sorted_list = diagram_get_sorted_selected_remove(dia);
+  object_add_updates_list(sorted_list, dia);
   layer_add_objects_first(dia->data->active_layer, sorted_list);
   
+  undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
+
   diagram_modified(dia);
   diagram_flush(dia);
+  undo_set_transactionpoint(dia->undo);
 }
 
 void
 diagram_place_over_selected(Diagram *dia)
 {
-  GList *list;
   GList *sorted_list;
-  Object *obj;
+  GList *orig_list;
 
+  printf("diagram_place_over_selected()\n");
+  
   if (dia->data->selected_count == 0)
     return;
 
-  sorted_list = diagram_get_sorted_selected_remove(dia);
+  orig_list = g_list_copy(dia->data->active_layer->objects);
   
-  list = sorted_list;
-  while (list != NULL) {
-    obj = (Object *)list->data;
-    object_add_updates(obj, dia);
-    list = g_list_next(list);
-  }
-
+  sorted_list = diagram_get_sorted_selected_remove(dia);
+  object_add_updates_list(sorted_list, dia);
   layer_add_objects(dia->data->active_layer, sorted_list);
+  
+  undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
 
   diagram_modified(dia);
   diagram_flush(dia);
+  undo_set_transactionpoint(dia->undo);
 }
 
 void

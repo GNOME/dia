@@ -107,7 +107,6 @@ paginate_psprint(Diagram *dia, FILE *file)
 {
   RendererEPS *rend;
   Rectangle *extents;
-  gint i;
   gfloat width, height;
   gfloat x, y;
   guint nobjs = 0;
@@ -161,13 +160,10 @@ diagram_print_ps(Diagram *dia)
   GtkWidget *vbox, *frame, *table, *box, *button;
   GtkWidget *iscmd, *isofile;
   GtkWidget *cmd, *ofile;
-  int i;
   gboolean cont = FALSE;
   
   FILE *file;
   gboolean is_pipe;
-  gchar *papername;
-  gdouble scale;
 
   /* create the dialog */
   dialog = gtk_dialog_new();

@@ -63,12 +63,13 @@ extern Change *undo_move_handle(Diagram *dia,
 extern Change *undo_connect(Diagram *dia, Object *obj, Handle *handle,
 			    ConnectionPoint *connectionpoint);
 extern Change *undo_unconnect(Diagram *dia, Object *obj, Handle *handle);
-extern Change *undo_delete_objects(Diagram *dia, GList *obj_list);
+extern Change *undo_delete_objects(Diagram *dia, GList *obj_list); /* Reads current obj list */
 extern Change *undo_insert_objects(Diagram *dia, GList *obj_list,
 				   int applied);
+extern Change *undo_reorder_objects(Diagram *dia, GList *changed_list,
+				    GList *orig_list); /* Reads current obj list */
 extern Change *undo_object_change(Diagram *dia, Object *obj,
 				  ObjectChange *obj_change);
-  
 extern Change *undo_group_objects(Diagram *dia, GList *obj_list,
 				  Object *group, GList *orig_list);
 extern Change *undo_ungroup_objects(Diagram *dia, GList *obj_list,
