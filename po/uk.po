@@ -7386,230 +7386,219 @@ msgstr ""
 
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
-msgstr ""
+msgstr "Головоломка"
 
 #: sheets/jigsaw.sheet.in.h:2
 msgid "Jigsaw - part_iiii"
-msgstr ""
+msgstr "Головоломка, частина "
 
 #: sheets/jigsaw.sheet.in.h:3
 msgid "Jigsaw - part_iiio"
-msgstr ""
+msgstr "Головоломка, частина iiio"
 
 #: sheets/jigsaw.sheet.in.h:4
 msgid "Jigsaw - part_iioi"
-msgstr ""
+msgstr "Головоломка, частина iioi"
 
 #: sheets/jigsaw.sheet.in.h:5
 msgid "Jigsaw - part_iioo"
-msgstr ""
+msgstr "Головоломка, частина iioo"
 
 #: sheets/jigsaw.sheet.in.h:6
 msgid "Jigsaw - part_ioii"
-msgstr ""
+msgstr "Головоломка, частина iioo"
 
 #: sheets/jigsaw.sheet.in.h:7
 msgid "Jigsaw - part_ioio"
-msgstr ""
+msgstr "Головоломка, частина ioio"
 
 #: sheets/jigsaw.sheet.in.h:8
 msgid "Jigsaw - part_iooi"
-msgstr ""
+msgstr "Головоломка, частина iooi"
 
 #: sheets/jigsaw.sheet.in.h:9
 msgid "Jigsaw - part_iooo"
-msgstr ""
+msgstr "Головоломка, частина iooo"
 
 #: sheets/jigsaw.sheet.in.h:10
 msgid "Jigsaw - part_oiii"
-msgstr ""
+msgstr "Головоломка, частина oiii"
 
 #: sheets/jigsaw.sheet.in.h:11
 msgid "Jigsaw - part_oiio"
-msgstr ""
+msgstr "Головоломка, частина oiio"
 
 #: sheets/jigsaw.sheet.in.h:12
 msgid "Jigsaw - part_oioi"
-msgstr ""
+msgstr "Головоломка, частина oioi"
 
 #: sheets/jigsaw.sheet.in.h:13
 msgid "Jigsaw - part_oioo"
-msgstr ""
+msgstr "Головоломка, частина oioo"
 
 #: sheets/jigsaw.sheet.in.h:14
 msgid "Jigsaw - part_ooii"
-msgstr ""
+msgstr "Головоломка, частина ooii"
 
 #: sheets/jigsaw.sheet.in.h:15
 msgid "Jigsaw - part_ooio"
-msgstr ""
+msgstr "Головоломка, частина ooio"
 
 #: sheets/jigsaw.sheet.in.h:16
 msgid "Jigsaw - part_oooi"
-msgstr ""
+msgstr "Головоломка, частина oooi"
 
 #: sheets/jigsaw.sheet.in.h:17
 msgid "Jigsaw - part_oooo"
-msgstr ""
+msgstr "Головоломка, частина oooo"
 
 #: sheets/jigsaw.sheet.in.h:18
 msgid "Pieces of a jigsaw"
-msgstr ""
+msgstr "Елементи головоломки"
 
 #: sheets/network.sheet.in.h:1
 msgid "3 1/2 inch diskette"
-msgstr ""
+msgstr "Дискета 3.5\""
 
 #: sheets/network.sheet.in.h:2
 msgid "ATM switch symbol"
-msgstr ""
+msgstr "Комутатор ATM"
 
 #: sheets/network.sheet.in.h:3
 msgid "Antenna for wireless transmission"
-msgstr ""
+msgstr "Антена для бездротової передачі"
 
 #: sheets/network.sheet.in.h:4
 msgid "Bigtower PC"
-msgstr ""
+msgstr "ПК в корпусі \"Біґ-тауер\""
 
 #: sheets/network.sheet.in.h:5
-#, fuzzy
 msgid "Computer"
-msgstr "Додати кут"
+msgstr "Комп'ютер"
 
 #: sheets/network.sheet.in.h:6
 msgid "Desktop PC"
-msgstr ""
+msgstr "Настільнйи ПК"
 
 #: sheets/network.sheet.in.h:7
 msgid "Digitizing board"
-msgstr ""
+msgstr "Цифровий планшет"
 
 #: sheets/network.sheet.in.h:8
 msgid "Ethernet bus"
-msgstr ""
+msgstr "Канал Ethernet"
 
 #: sheets/network.sheet.in.h:9
 msgid "External DAT drive"
-msgstr ""
+msgstr "Зовнішній пристрій DAT"
 
 #: sheets/network.sheet.in.h:10
-#, fuzzy
 msgid "Firewall router"
-msgstr "Колір заповнення"
+msgstr "Брандмауер"
 
 #: sheets/network.sheet.in.h:11
 msgid "Laptop PC"
-msgstr ""
+msgstr "Портативний ПК"
 
 #: sheets/network.sheet.in.h:12
 msgid "Miditower PC"
-msgstr ""
+msgstr "ПК в корпусі \"Міді-тауер\""
 
 #: sheets/network.sheet.in.h:13
 msgid "Minitower PC"
-msgstr ""
+msgstr "ПК в корпусі \"Міні-тауер\""
 
 #: sheets/network.sheet.in.h:14
 msgid "Mobile phone"
-msgstr ""
+msgstr "Мобільний телефон"
 
 #: sheets/network.sheet.in.h:15
 msgid "Modular switching system"
-msgstr ""
+msgstr "Модульна система комутування"
 
 #: sheets/network.sheet.in.h:16
-#, fuzzy
 msgid "Monitor"
-msgstr "Агент"
+msgstr "Монітор"
 
 #: sheets/network.sheet.in.h:17
-#, fuzzy
 msgid "Network"
-msgstr "Новий"
+msgstr "Мережа"
 
 #: sheets/network.sheet.in.h:18
-#, fuzzy
 msgid "Network cloud"
-msgstr "Новий"
+msgstr "Мережна хмара"
 
 #: sheets/network.sheet.in.h:19
 msgid "Objects to design network diagrams with"
-msgstr ""
+msgstr "Об'єкти для побудови діаграм мережі"
 
 #: sheets/network.sheet.in.h:20
-#, fuzzy
 msgid "Plotter"
-msgstr "Додати кут"
+msgstr "Плотер"
 
 #: sheets/network.sheet.in.h:21
 msgid "RJ45 wall-plug"
-msgstr ""
+msgstr "Штекер для RJ45"
 
 #: sheets/network.sheet.in.h:22
 msgid "Router symbol"
-msgstr ""
+msgstr "Маршрутизатор"
 
 #: sheets/network.sheet.in.h:23
-#, fuzzy
 msgid "Simple modem"
-msgstr "Простий"
+msgstr "Простий модем"
 
 #: sheets/network.sheet.in.h:24
-#, fuzzy
 msgid "Simple printer"
-msgstr "Вибрати принтер"
+msgstr "Простий принтер"
 
 #: sheets/network.sheet.in.h:25
 msgid "Speaker with integrated amplifier"
-msgstr ""
+msgstr "Гучномовець з інтегрованим підсилювачем"
 
 #: sheets/network.sheet.in.h:26
 msgid "Speaker without amplifier"
-msgstr ""
+msgstr "Гучномовець без підсилювача"
 
 #: sheets/network.sheet.in.h:27
 msgid "Stackable hub or switch"
-msgstr ""
+msgstr "Концентратор чи комутатор"
 
 #: sheets/network.sheet.in.h:28
-#, fuzzy
 msgid "Storage"
-msgstr "   Зберігати"
+msgstr "Накопичувач"
 
 #: sheets/network.sheet.in.h:29
 msgid "Switch symbol"
-msgstr ""
+msgstr "Комутатор"
 
 #: sheets/network.sheet.in.h:30
 msgid "Telephone"
-msgstr ""
+msgstr "Телефон"
 
 #: sheets/network.sheet.in.h:31
 msgid "UNIX workstation"
-msgstr ""
+msgstr "Робоча станція UNIX"
 
 #: sheets/network.sheet.in.h:32
-#, fuzzy
 msgid "WAN connection"
-msgstr "Зв'язок"
+msgstr "Зв'язок з глобальною мережею"
 
 #: sheets/network.sheet.in.h:33
-#, fuzzy
 msgid "WAN link"
-msgstr "Вирівнювання"
+msgstr "Зв'язок через глобальну мережу"
 
 #: sheets/network.sheet.in.h:34
 msgid "Wall-plug for the scEAD cabling system"
-msgstr ""
+msgstr "Штекер для кабелів scEAD"
 
 #: sheets/network.sheet.in.h:35
 msgid "Workstation monitor"
-msgstr ""
+msgstr "Монітор робочої станції"
 
 #: sheets/network.sheet.in.h:36
 msgid "ZIP disk"
-msgstr ""
+msgstr "Диск ZIP"
 
 #: sheets/sybase.sheet.in.h:1
 msgid "Log transfer manager or rep agent"
