@@ -456,7 +456,7 @@ prop_text_register(void)
 gchar *
 object_get_displayname (DiaObject* object)
 {
-  gchar *name;
+  gchar *name = NULL;
   Property *prop = NULL;
 
   if (!object)
@@ -468,7 +468,8 @@ object_get_displayname (DiaObject* object)
     name = g_strdup (((StringProperty *)prop)->string_data);
   else if ((prop = object_prop_by_name(object, "text")) != NULL)
     name = g_strdup (((TextProperty *)prop)->text_data);
-  else
+
+  if (!name)
     name = g_strdup (object->type->name);
 
   if (prop)

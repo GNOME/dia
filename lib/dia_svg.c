@@ -26,6 +26,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include <pango/pango-attributes.h>
+
 #include "dia_svg.h"
 
 void 
@@ -57,6 +59,50 @@ dia_svg_style_copy (DiaSvgStyle *dest, DiaSvgStyle *src)
   dest->font = src->font ? dia_font_ref(src->font) : NULL;
   dest->font_height = src->font_height;
   dest->alignment = src->alignment;
+}
+
+static gboolean
+_parse_color (gint32 *color, const char *str)
+{
+  if (str[0] == '#')
+    *color = strtol(str+1, NULL, 16) & 0xffffff;
+  else if (0 == strncmp(str, "none", 4))
+    *color = DIA_SVG_COLOUR_NONE;
+  else if (0 == strncmp(str, "foreground", 10) || 0 == strncmp(str, "fg", 2) ||
+           0 == strncmp(str, "inverse", 7))
+    *color = DIA_SVG_COLOUR_FOREGROUND;
+  else if (0 == strncmp(str, "background", 10) || 0 == strncmp(str, "bg", 2) ||
+	   0 == strncmp(str, "default", 7))
+    *color = DIA_SVG_COLOUR_BACKGROUND;
+  else if (0 == strcmp(str, "text"))
+    *color = DIA_SVG_COLOUR_TEXT;
+  else if (0 == strncmp(str, "rgb(", 4)) {
+    int r = 0, g = 0, b = 0;
+    if (3 == sscanf (str+4, "%d,%d,%d", &r, &g, &b))
+      *color = ((r<<16) & 0xFF0000) | ((g<<8) & 0xFF00) | (b & 0xFF);
+    else
+      return FALSE;
+  } else {
+    /* Pango needs null terminated strings, so we just use it as a fallback */
+    PangoColor pc;
+    char* se = strchr (str, ';');
+
+    if (!se) {
+      if (pango_color_parse (&pc, str))
+        *color = ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
+      else
+        return FALSE;
+    } else {
+      gchar* sz = g_strndup (str, se - str);
+      gboolean ret = pango_color_parse (&pc, str);
+
+      if (ret)
+        *color = ((pc.red >> 8) << 16) | ((pc.green >> 8) << 8) | (pc.blue >> 8);
+      g_free (sz);
+      return ret;
+    }
+  }
+  return TRUE;
 }
 
 enum
@@ -162,36 +208,13 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
         while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
         if (ptr[0] == '\0') break;
 
-        if (!strncmp(ptr, "none", 4))
-	  s->stroke = DIA_SVG_COLOUR_NONE;
-        else if (!strncmp(ptr, "foreground", 10) || !strncmp(ptr, "fg", 2) ||
-	         !strncmp(ptr, "default", 7))
-	  s->stroke = DIA_SVG_COLOUR_FOREGROUND;
-        else if (!strncmp(ptr, "background", 10) || !strncmp(ptr, "bg", 2) ||
-	         !strncmp(ptr, "inverse", 7))
-	  s->stroke = DIA_SVG_COLOUR_BACKGROUND;
-        else if (!strncmp(ptr, "text", 4))
-	  s->stroke = DIA_SVG_COLOUR_TEXT;
-        else if (ptr[0] == '#')
-	  s->stroke = strtol(ptr+1, NULL, 16) & 0xffffff;
+        _parse_color (&s->stroke, ptr);
       } else if (!strncmp("fill:", ptr, 5)) {
         ptr += 5;
         while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
         if (ptr[0] == '\0') break;
 
-        if (!strncmp(ptr, "none", 4))
-	  s->fill = DIA_SVG_COLOUR_NONE;
-        else if (!strncmp(ptr, "foreground", 10) || !strncmp(ptr, "fg", 2) ||
-	         !strncmp(ptr, "inverse", 7))
-	  s->fill = DIA_SVG_COLOUR_FOREGROUND;
-        else if (!strncmp(ptr, "background", 10) || !strncmp(ptr, "bg", 2) ||
-	         !strncmp(ptr, "default", 7))
-	  s->fill = DIA_SVG_COLOUR_BACKGROUND;
-        else if (!strncmp(ptr, "text", 4))
-	  s->fill = DIA_SVG_COLOUR_TEXT;
-        else if (ptr[0] == '#')
-	  s->fill = strtol(ptr+1, NULL, 16) & 0xffffff;
-        /* XXX: support for named colors ? */
+        _parse_color (&s->fill, ptr);
       } else if (!strncmp("stroke-linecap:", ptr, 15)) {
         ptr += 15;
         while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
@@ -275,34 +298,13 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s)
    */
   str = xmlGetProp(node, "fill");
   if (str) {
-    if (!strcmp(str, "none"))
-      s->fill = DIA_SVG_COLOUR_NONE;
-    else if (!strcmp(str, "foreground") || !strcmp(str, "fg") ||
-	     !strcmp(str, "inverse"))
-      s->fill = DIA_SVG_COLOUR_FOREGROUND;
-    else if (!strcmp(str, "background") || !strcmp(str, "bg") ||
-	     !strcmp(str, "default"))
-      s->fill = DIA_SVG_COLOUR_BACKGROUND;
-    else if (!strcmp(str, "text"))
-      s->fill = DIA_SVG_COLOUR_TEXT;
-    else if (str[0] == '#')
-      s->fill = strtol(str+1, NULL, 16) & 0xffffff;
+    _parse_color (&s->fill, str);
     xmlFree(str);
   }
   str = xmlGetProp(node, "stroke");
   if (str) {
-    if (!strcmp(str, "none"))
-      s->stroke = DIA_SVG_COLOUR_NONE;
-    else if (!strcmp(str, "foreground") || !strcmp(str, "fg") ||
-             !strcmp(str, "default"))
-      s->stroke = DIA_SVG_COLOUR_FOREGROUND;
-    else if (!strcmp(str, "background") || !strcmp(str, "bg") ||
-	     !strcmp(str, "inverse"))
-      s->stroke = DIA_SVG_COLOUR_BACKGROUND;
-    else if (!strcmp(str, "text"))
-      s->stroke = DIA_SVG_COLOUR_TEXT;
-    else if (str[0] == '#')
-      s->stroke = strtol(str+1, NULL, 16) & 0xffffff;
+    _parse_color (&s->stroke, str);
+    xmlFree(str);
   }
   str = xmlGetProp(node, "stroke-width");
   if (str) {

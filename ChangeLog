@@ -1,5 +1,26 @@
 2005-03-19  Hans Breuer  <hans@breuer.org>
 
+	* lib/element.c(element_update_connections_rectangle): don't initialize 
+	the eighth point twice but instead the nineth once
+
+	* objects/standard/bezier.c : no C++ comments *please*
+
+	* lib/plug-ins.h : increment DIA_PLUGIN_API_VERSION
+
+	* lib/dia_image.[ch] : dia_image_filename() returns a string not to be freed ...
+	* plug-ins/python/pydia-image.c : ... so, don't do it!
+
+	* lib/dia_svg.c : refactor color parsing and support the "rgb(127,255,0)" form,
+	also named colors via pango_color_parse()
+
+	* lib/prop_text.c : don't try to g_strdelimit(NULL), fixes bug #169367
+
+	* lib/libdia.def : updated externals
+
+	* app/object_ops.c : still not C99 everywhere
+
+2005-03-19  Hans Breuer  <hans@breuer.org>
+
 	* lib/autoroute.c : at least it should compile ;)
 	
 2005-03-19  Lars Clausen  <lars@raeder.dk>

@@ -46,7 +46,7 @@
  * The list is by no means complete. If in doubt about your change
  * please ask on dia-list or alternative increment ;-)      --hb
  */
-#define DIA_PLUGIN_API_VERSION 5
+#define DIA_PLUGIN_API_VERSION 6
 
 typedef enum {
   DIA_PLUGIN_INIT_OK,

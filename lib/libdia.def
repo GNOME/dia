@@ -527,6 +527,7 @@ EXPORTS
  persistence_get_real
 
  point_add
+ point_add_scaled
  point_convex
  point_copy
  point_dot

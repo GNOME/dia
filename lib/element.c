@@ -79,7 +79,7 @@ element_update_connections_rectangle(Element *elem,
   cps[5].directions = DIR_SOUTH|DIR_WEST;
   cps[6].directions = DIR_SOUTH;
   cps[7].directions = DIR_SOUTH|DIR_EAST;
-  cps[7].directions = DIR_ALL;
+  cps[8].directions = DIR_ALL;
 }
 
 void

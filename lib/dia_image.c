@@ -229,8 +229,10 @@ dia_image_rgba_data(DiaImage image)
   }
 }
 
-char *
+const char *
 dia_image_filename(DiaImage image)
 {
+  if (image->filename)
+    return "(null)";
   return image->filename;
 }

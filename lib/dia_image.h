@@ -50,7 +50,7 @@ guint8 *dia_image_mask_data(DiaImage image);
  * Note that this is the raw data, not a copy.
  */
 const guint8 *dia_image_rgba_data(DiaImage image);
-char *dia_image_filename(DiaImage image);
+const char *dia_image_filename(DiaImage image);
 
 #endif /* DIA_IMAGE_H */
 

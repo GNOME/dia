@@ -84,21 +84,16 @@ PyDiaImage_GetAttr(PyDiaImage *self, gchar *attr)
   else if (!strcmp(attr, "height"))
     return PyInt_FromLong(dia_image_height(self->image));
   else if (!strcmp(attr, "filename")) {
-    char* s = dia_image_filename(self->image);
-    PyObject* py_s = PyString_FromString(s);
-    g_free (s);
-    return py_s;
+    return PyString_FromString(dia_image_filename(self->image));
   }
   else if (!strcmp(attr, "uri")) {
     GError* error = NULL;
-    char* s1 = dia_image_filename(self->image);
-    char* s2 = g_filename_to_uri(s1, NULL, &error);
-    g_free(s1);
-    if (s2) {
-      PyObject* py_s = PyString_FromString(s2);
-      g_free(s2);
+    char* s = g_filename_to_uri(dia_image_filename(self->image), NULL, &error);
+    if (s) {
+      PyObject* py_s = PyString_FromString(s);
+      g_free(s);
       return py_s;
-    } 
+    }
     else {
       PyErr_SetString(PyExc_RuntimeError, error->message);
       g_error_free (error);

@@ -305,10 +305,10 @@ static void compute_gap_points(Bezierline *bezierline, Point *gap_points)
         
         point_copy(&vec_start, &gap_points[1]);
         point_sub(&vec_start, &gap_points[0]);
-        point_normalize(&vec_start); // unit vector pointing from first point
+        point_normalize(&vec_start); /* unit vector pointing from first point */
         point_copy(&vec_end, &gap_points[2]);
         point_sub(&vec_end, &gap_points[3]);
-        point_normalize(&vec_end); // unit vector pointing from last point
+        point_normalize(&vec_end); /* unit vector pointing from last point */
 
                 
         bez_length = approx_bez_length(bez) ; 
@@ -320,11 +320,11 @@ static void compute_gap_points(Bezierline *bezierline, Point *gap_points)
                (bez->object.handles[0])->connected_to->object != NULL ) {
             Point end; 
             point_copy(&end, &gap_points[0]);
-            point_add_scaled(&end, &vec_start, bez_length); // far away on the same slope
+            point_add_scaled(&end, &vec_start, bez_length); /* far away on the same slope */
             end = calculate_object_edge(&gap_points[0], &end, 
                             (bez->object.handles[0])->connected_to->object);
-            point_sub(&end, &gap_points[0]);// vector from old start to new start
-            // move points
+            point_sub(&end, &gap_points[0]); /* vector from old start to new start */
+            /* move points */
             point_add(&gap_points[0], &end);
             point_add(&gap_points[1], &end);
         }
@@ -334,11 +334,11 @@ static void compute_gap_points(Bezierline *bezierline, Point *gap_points)
                 (bez->object.handles[3*(bez->numpoints-1)])->connected_to->object != NULL) {
             Point end; 
             point_copy(&end, &gap_points[3]);
-            point_add_scaled(&end, &vec_end, bez_length); // far away on the same slope
+            point_add_scaled(&end, &vec_end, bez_length); /* far away on the same slope */
             end = calculate_object_edge(&gap_points[3], &end, 
                             (bez->object.handles[3*(bez->numpoints-1)])->connected_to->object);
-            point_sub(&end, &gap_points[3]);// vector from old end to new end
-            // move points
+            point_sub(&end, &gap_points[3]); /* vector from old end to new end */
+            /* move points */
             point_add(&gap_points[3], &end);
             point_add(&gap_points[2], &end);
         }
@@ -679,7 +679,7 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
     bezierline->absolute_end_gap =  data_real( attribute_first_data(attr) );
   
   bb = obj->bounding_box;
-  bezierline_update_data(bezierline); //screws up the bounding box if auto_gap
+  bezierline_update_data(bezierline); /* screws up the bounding box if auto_gap */
   obj->bounding_box =  bb;
 
   return &bezierline->bez.object;
