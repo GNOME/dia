@@ -1,5 +1,8 @@
 2001-04-03  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* app/preferences.c: changed the default grid colour to something
+	less intrusive.	
+
 	* shapes/SDL/*.shape:
 	* sheets/SDL.sheet: renamed all SDL shapes to conform to the
 	"$LIBRARY - $NAME" convention. THIS REQUIRES FIXING THE EXISTING

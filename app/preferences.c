@@ -73,8 +73,8 @@ static real default_real_zoom = 100.0;
 static int default_int_w = 500;
 static int default_int_h = 400;
 static int default_undo_depth = 15;
-static Color default_colour = { 0.5, 0.5, 0.5 };
-static Color pbreak_colour = { 0.0, 0.0, 0.6 };
+static Color default_colour = { 0.85, .90, .90 }; /* Grid colour */
+static Color pbreak_colour = { 0.0, 0.0, 0.6 }; 
 
 struct DiaPrefsTab {
   char *title;
