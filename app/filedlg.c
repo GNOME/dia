@@ -192,7 +192,7 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
   if (!ef)
     return; /* do something here */
 
-  ef->export(dia->data, filename);
+  ef->export(dia->data, filename, dia->filename);
   gtk_widget_hide(exportdlg);
 }
 
