@@ -1,22 +1,23 @@
-# dia 1.18
-# Copyright (C) 2000 Free Software Foundation, Inc.
+# traditional chinese translation for dia.
+# Copyright (C) 2000-2001 Free Software Foundation, Inc.
 # Jing-Jong SHYUE <shyue@sonoma.com.tw>, 2000
+# Abel Cheung <maddog@linux.org.hk>, 2001
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 1.18\n"
-"POT-Creation-Date: 2001-06-08 06:57+0200\n"
-"PO-Revision-Date: 2000-08-21 20:00+0800\n"
-"Last-Translator: Jing-Jong SHYUE <shyue@sonoma.com.tw>\n"
-"Language-Team: Chinese <LL@li.org>\n"
+"Project-Id-Version: dia 0.88.1\n"
+"POT-Creation-Date: 2001-08-13 15:46+0800\n"
+"PO-Revision-Date: 2001-07-28 01:59+0800\n"
+"Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
+"Language-Team: traditional chinese <zh-l10n@linux.org.hk>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=big5\n"
+"Content-Type: text/plain; charset=Big5\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. &export_file_name
 #: app/app_procs.c:151
 msgid "Export loaded file and exit"
-msgstr "匯出載入的檔案並離開"
+msgstr "匯出所載入的檔案並離開"
 
 #: app/app_procs.c:151
 msgid "OUTPUT"
@@ -28,175 +29,160 @@ msgstr ""
 
 #: app/app_procs.c:155
 msgid "Show this help message"
-msgstr "顯示說明訊息"
+msgstr "顯示此說明訊息"
 
-#: app/app_procs.c:182
+#: app/app_procs.c:185
 msgid "Can't connect to session manager!\n"
-msgstr "無法與工作管理員連接!\n"
+msgstr "無法連接作業階段管理程式！\n"
 
-#: app/app_procs.c:193
+#: app/app_procs.c:196
 msgid "[OPTION...] [FILE...]"
 msgstr "[選項...] [檔案...]"
 
-#: app/app_procs.c:196
+#: app/app_procs.c:199
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"在選項%s發生錯誤: %s.\n"
-"執行 '%s --help' 取得完整選項列表.\n"
+"選項 %s 發生錯誤：%s。\n"
+"執行 '%s --help' 以查看完整的選項列表。\n"
 
-#: app/app_procs.c:245 app/app_procs.c:247
+#: app/app_procs.c:248 app/app_procs.c:250
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
-msgstr "當找尋物件函式中找不到標準物件, 離開程式...\n"
+msgstr "當找尋物件函式中找不到標準物件，離開程式...\n"
 
-#: app/app_procs.c:272
+#: app/app_procs.c:275
 msgid "Need valid input file\n"
 msgstr "需要合法的輸入檔\n"
 
-#: app/app_procs.c:338 app/app_procs.c:344
+#: app/app_procs.c:341 app/app_procs.c:347
 msgid "Quit, are you sure?"
-msgstr "是否確定離開?"
+msgstr "是否確定離開？"
 
-#: app/app_procs.c:351
+#: app/app_procs.c:354
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
 msgstr ""
-"有被修改過的圖表\n"
-"是否確定離開?"
+"圖表已被修改。\n"
+"是否確定離開？"
 
-#: app/app_procs.c:361 app/app_procs.c:366
+#: app/app_procs.c:364 app/app_procs.c:369
 msgid "Quit"
 msgstr "離開"
 
-#: app/app_procs.c:378 app/display.c:958 app/layer_dialog.c:989
+#: app/app_procs.c:381 app/display.c:958 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "取消"
 
-#: app/app_procs.c:453 app/app_procs.c:460
+#: app/app_procs.c:456 app/app_procs.c:463
 msgid "Could not create per-user Dia config directory"
 msgstr "無法建立使用者組態目錄"
 
-#: app/app_procs.c:462
+#: app/app_procs.c:465
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
-msgstr ""
+msgstr "無法建立使用者組態目錄。請確定 HOME 環境變數指向一個已存在的目錄。"
 
-#: app/app_procs.c:484
+#: app/app_procs.c:487
 msgid "Objects and filters internal to dia"
 msgstr "dia 內部的物件與過濾器"
 
-#: app/color_area.c:264 lib/widgets.c:515
+#: app/color_area.c:264 lib/widgets.c:519
 msgid "Select color"
 msgstr "選擇顏色"
 
-#: app/commands.c:105
-#, c-format
-msgid ""
-"No such file found\n"
-"%s\n"
-msgstr ""
-"找不到這個檔案\n"
-"%s\n"
-
-#: app/commands.c:125
-msgid "Import from XFig"
-msgstr "從 XFig 匯入"
-
-#: app/commands.c:181
+#: app/commands.c:128
 #, c-format
 msgid "Untitled-%d"
 msgstr "未命名-%d"
 
-#: app/commands.c:242
+#: app/commands.c:189
 msgid "No existing object to paste.\n"
-msgstr "沒有存在的物件可供貼上.\n"
+msgstr "沒有已存在的物件可供貼上。\n"
 
-#: app/commands.c:501 app/commands.c:524
+#: app/commands.c:448 app/commands.c:471
 msgid "Could not find help directory"
-msgstr ""
+msgstr "找不到輔助說明目錄"
 
-#: app/commands.c:571
+#: app/commands.c:518
 msgid "About Dia"
 msgstr "關於 Dia"
 
-#: app/commands.c:614
+#: app/commands.c:561
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
-msgstr "Dia v %s by Alexander Larsson"
+msgstr "Dia 版本 %s 由 Alexander Larsson 編寫"
 
-#: app/commands.c:619
+#: app/commands.c:566
 msgid "Maintainer: James Henstridge"
-msgstr "維護者: James Henstridge"
+msgstr "維護者：James Henstridge"
 
-#: app/commands.c:623
+#: app/commands.c:570
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
-msgstr "請到http://www.lysator.liu.se/~alla/dia查詢更多訊息"
+msgstr "請到 http://www.lysator.liu.se/~alla/dia 查詢更多訊息"
 
-#: app/commands.c:628
+#: app/commands.c:575
 msgid "Contributors:"
-msgstr "散佈者:"
+msgstr "有貢獻者："
 
 #. setup buttons
-#: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:592 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
-#: app/properties.c:92 lib/message.c:87
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
+#: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "確定"
 
-#: app/commands.c:731
+#: app/commands.c:678
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
 "bother submitting another report if it crashes"
 msgstr ""
-"反鋸齒工具尚有些臭蟲, 可能導致當機.\n"
-"我們已經知道有許多臭蟲在裡面, \n"
-"所以請不要回報當機錯誤."
+"反鋸齒工具尚有些問題，可能導致程式\n"
+"不正常退出。我們已經知道有問題在\n"
+"裡面，所以請不要回報這種錯誤"
 
 #: app/defaults.c:50 app/defaults.c:58
 msgid "Object defaults"
 msgstr "物件預設值"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:620 app/properties.c:101
+#: app/preferences.c:691 app/properties.c:101
 msgid "Apply"
 msgstr "套用"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:629
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:700
 #: app/properties.c:111
 msgid "Close"
 msgstr "關閉"
 
 #: app/defaults.c:98
 msgid "This object has no defaults."
-msgstr "此物件沒有預設值"
+msgstr "此物件沒有預設值。"
 
 #: app/dia_embedd.c:352
 msgid "Could not initialize Bonobo!"
-msgstr "無法起始化 Banobo!"
+msgstr "無法初始化 Banobo！"
 
 #: app/dia-props.c:60 app/dia-props.c:67
-#, fuzzy
 msgid "Diagram Properties"
-msgstr "圖表內容..."
+msgstr "圖表內容"
 
 #: app/dia-props.c:130
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #: app/dia-props.c:134
-#, fuzzy
 msgid "y"
-msgstr "經由"
+msgstr "y"
 
 #: app/dia-props.c:139
 #, fuzzy
@@ -209,14 +195,12 @@ msgid "Visible spacing"
 msgstr "顯示格線[_V]"
 
 #: app/dia-props.c:179
-#, fuzzy
 msgid "Grid"
-msgstr "格線:"
+msgstr "格線"
 
 #: app/dia-props.c:189
-#, fuzzy
 msgid "Background Colour"
-msgstr "背景顏色:"
+msgstr "背景顏色"
 
 #: app/dia-props.c:200 lib/diagramdata.c:60
 msgid "Background"
@@ -239,19 +223,19 @@ msgstr "邊界"
 
 #: app/diapagelayout.c:195
 msgid "Top:"
-msgstr "上:"
+msgstr "上："
 
 #: app/diapagelayout.c:208
 msgid "Bottom:"
-msgstr "下:"
+msgstr "下："
 
 #: app/diapagelayout.c:221
 msgid "Left:"
-msgstr "左:"
+msgstr "左："
 
 #: app/diapagelayout.c:234
 msgid "Right:"
-msgstr "右:"
+msgstr "右："
 
 #. Scaling
 #: app/diapagelayout.c:248
@@ -260,11 +244,11 @@ msgstr "縮放比例"
 
 #: app/diapagelayout.c:259
 msgid "Scale:"
-msgstr "比例:"
+msgstr "比例："
 
 #: app/diapagelayout.c:271
 msgid "Fit to:"
-msgstr "符合到:"
+msgstr "符合到："
 
 #: app/diapagelayout.c:283
 msgid "by"
@@ -273,7 +257,7 @@ msgstr "經由"
 #: app/diapagelayout.c:678
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
-msgstr "%0.3g 公分 x %0.3g 公分"
+msgstr "%0.3g 公分 × %0.3g 公分"
 
 #: app/diapagelayout.c:780 app/pagesetup.c:60 app/pagesetup.c:68
 msgid "Page Setup"
@@ -284,10 +268,10 @@ msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
-"此物件不支援 復原/取消復原.\n"
+"此物件不支援 復原/取消復原。\n"
 "復原資訊已清除"
 
-#: app/disp_callbacks.c:186
+#: app/disp_callbacks.c:195
 msgid "No object menu"
 msgstr "沒有物件選單"
 
@@ -300,30 +284,28 @@ msgid "Diagram modified!"
 msgstr "圖表已變更!!"
 
 #: app/display.c:908
-#, fuzzy
 msgid "Close Diagram?"
-msgstr "開啟圖表"
+msgstr "關閉圖表？"
 
 #: app/display.c:914
 msgid "Really close?"
-msgstr "是否確定關閉?"
+msgstr "是否確定關閉？"
 
 #: app/display.c:919
-#, fuzzy
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
 msgstr ""
-"圖表尚未儲存.\n"
-"是否確定關閉此視窗?"
+"圖表尚未儲存。\n"
+"是否要儲存？"
 
-#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:288
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: lib/properties.c:422
 msgid "Yes"
 msgstr "是"
 
-#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:290 lib/properties.c:311
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/preferences.c:585 lib/properties.c:424 lib/properties.c:497
 msgid "No"
 msgstr "否"
 
@@ -334,7 +316,7 @@ msgstr "否"
 #: plug-ins/wpg/wpg.c:930
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr "無法寫入: '%s'.\n"
+msgstr "無法寫入：'%s'。\n"
 
 #: app/export_png.c:87
 msgid "Could not create PNG write structure"
@@ -350,7 +332,7 @@ msgstr "當寫入 PNG 時發生錯誤"
 
 #: app/export_png.c:157
 msgid "Portable Network Graphics"
-msgstr "可攜帶網路圖形"
+msgstr "可攜帶網路圖形（PNG）"
 
 #: app/filedlg.c:99 app/filedlg.c:373
 msgid "By extension"
@@ -362,11 +344,11 @@ msgstr "開啟圖表"
 
 #: app/filedlg.c:184
 msgid "Open Options"
-msgstr "開取選項"
+msgstr "開啟選項"
 
 #: app/filedlg.c:192 app/filedlg.c:532
 msgid "Determine file type:"
-msgstr "決定檔案類別:"
+msgstr "決定檔案類別："
 
 #: app/filedlg.c:232 app/filedlg.c:420
 msgid "File already exists"
@@ -378,8 +360,8 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
-"檔案 '%s' 已經存在.\n"
-"您是否要蓋寫?"
+"檔案 '%s' 已經存在。\n"
+"是否要覆寫？"
 
 #: app/filedlg.c:300
 msgid "Save Diagram"
@@ -390,9 +372,7 @@ msgstr "儲存圖表"
 msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
-msgstr ""
-"無法決定匯出過濾器\n"
-"以用於儲存 '%s'"
+msgstr "無法決定用於儲存 '%s' 的匯出過濾器"
 
 #: app/filedlg.c:497
 msgid "Export Diagram"
@@ -427,8 +407,15 @@ msgstr "捲動"
 msgid "Create Text"
 msgstr "建立文字"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1262
-#: lib/properties.h:366
+#. PROP_STD_TEXT_ALIGNMENT,
+#. PROP_STD_TEXT_FONT,
+#. PROP_STD_TEXT_HEIGHT,
+#. PROP_STD_TEXT_COLOUR,
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1953
+#: lib/properties.h:456 objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/object.c:142
+#: objects/UML/small_package.c:120 objects/UML/state.c:137
+#: objects/UML/usecase.c:131
 msgid "Text"
 msgstr "文字"
 
@@ -450,19 +437,19 @@ msgstr "橢圓"
 
 #: app/interface.c:72
 msgid "Create Polygon"
-msgstr "建立多角形"
+msgstr "建立多邊形"
 
 #: app/interface.c:73 app/menus.c:200
 msgid "Polygon"
-msgstr "多角形"
+msgstr "多邊形"
 
 #: app/interface.c:77
 msgid "Create Beziergon"
-msgstr "建立貝茲曲線"
+msgstr "建立貝茲（Bezier）封閉曲線"
 
 #: app/interface.c:78 app/menus.c:201
 msgid "Beziergon"
-msgstr "貝茲曲線"
+msgstr "貝茲封閉曲線"
 
 #: app/interface.c:82
 msgid "Create Line"
@@ -470,7 +457,7 @@ msgstr "建立直線"
 
 #: app/interface.c:83 app/menus.c:202 objects/standard/line.c:188
 msgid "Line"
-msgstr "線段"
+msgstr "直線"
 
 #: app/interface.c:87
 msgid "Create Arc"
@@ -498,7 +485,7 @@ msgstr "自由線段"
 
 #: app/interface.c:102
 msgid "Create Bezierline"
-msgstr "建立貝茲曲線"
+msgstr "建立貝茲（Bezier）曲線"
 
 #: app/interface.c:103 app/menus.c:206
 msgid "Bezierline"
@@ -506,25 +493,25 @@ msgstr "貝茲曲線"
 
 #: app/interface.c:107
 msgid "Create Image"
-msgstr "建立影像"
+msgstr "建立圖像"
 
 #: app/interface.c:108 app/menus.c:207
 msgid "Image"
-msgstr "影像"
+msgstr "圖像"
 
 #: app/interface.c:489
 msgid "NULL tooldata in tool_select_update"
-msgstr "在 工具選擇更新 中的空資料"
+msgstr "tool_select_update 中有空的工具資料"
 
 #: app/interface.c:935
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
-msgstr "前景與背景色. 用此黑白小方塊重設. 用小箭頭交換顏色. 雙擊以變更顏色."
+msgstr "前景與背景色。用黑白小方塊重設顏色。用小箭頭交換顏色。雙擊以變更顏色。"
 
 #: app/interface.c:1081
 msgid "Diagram Editor"
-msgstr "圖表編輯"
+msgstr "圖表編輯者"
 
 #: app/layer_dialog.c:69
 msgid "New Layer"
@@ -548,7 +535,7 @@ msgstr "圖層"
 
 #: app/layer_dialog.c:219
 msgid "Diagrams:"
-msgstr "圖表:"
+msgstr "圖表："
 
 #: app/layer_dialog.c:309
 msgid "New layer"
@@ -564,7 +551,7 @@ msgstr "編輯圖層屬性"
 
 #: app/layer_dialog.c:970
 msgid "Layer name:"
-msgstr "圖層名稱;"
+msgstr "圖層名稱："
 
 #: app/lineprops_area.c:721
 msgid "Arrow Properties"
@@ -576,55 +563,54 @@ msgstr "細節..."
 
 #: app/lineprops_area.c:920
 msgid "Line Style Properties"
-msgstr "線段內容"
+msgstr "線段款式內容"
 
-#: app/linewidth_area.c:216 lib/properties.h:342
+#: app/linewidth_area.c:216 lib/properties.h:432
+#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
-msgstr "線寬"
+msgstr "線段寬度"
 
-#: app/linewidth_area.c:224 objects/chronogram/chronoline.c:337
-#: objects/chronogram/chronoline.c:428 objects/chronogram/chronoref.c:256
-#: objects/chronogram/chronoref.c:321
+#: app/linewidth_area.c:224
 msgid "Line width:"
-msgstr "線寬:"
+msgstr "線段寬度："
 
 #: app/load_save.c:120
 msgid "Error reading diagram file\n"
-msgstr "讀取檔案錯誤\n"
+msgstr "讀取檔案發生錯誤\n"
 
 #: app/load_save.c:181
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
-"圖表載入錯誤.\n"
-"文件內找不到連結物件."
+"圖表載入錯誤。\n"
+"文件內找不到連結物件。"
 
 #: app/load_save.c:184
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
-"圖表載入錯誤.\n"
-"連接點不存在."
+"圖表載入錯誤。\n"
+"連接點不存在。"
 
 #: app/load_save.c:187
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
-"圖表載入錯誤.\n"
-"連接控制不存在."
+"圖表載入錯誤。\n"
+"連接控制不存在。"
 
 #: app/load_save.c:231 plug-ins/dxf/dxf-import.c:577 plug-ins/wpg/wpg.c:1036
-#: plug-ins/xfig/xfig-import.c:1063
+#: plug-ins/xfig/xfig-import.c:1108
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "無法開啟 :'%s'.\n"
+msgstr "無法讀入：'%s'。\n"
 
 #: app/load_save.c:237
 msgid "You must specify a file, not a directory.\n"
-msgstr "你必須指定檔案而不是目錄.\n"
+msgstr "你必須指定檔案而不是目錄。\n"
 
 #: app/load_save.c:246 app/load_save.c:251
 #, c-format
@@ -632,8 +618,8 @@ msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
-"%s 圖表載入錯誤.\n"
-"未知檔案類別."
+"載入圖表 %s 時發生錯誤。\n"
+"檔案類別不明。"
 
 #: app/load_save.c:258
 #, c-format
@@ -641,15 +627,16 @@ msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
-"%s 圖表載入錯誤.\n"
-"不是 Dia 檔案."
+"載入圖表 %s 時發生錯誤。\n"
+"不是 Dia 檔案。"
 
 #: app/load_save.c:703
 #, c-format
 msgid "Failed to save file '%s'.\n"
-msgstr "儲存檔案 '%s' 失敗.\n"
+msgstr "儲存檔案 '%s' 失敗。\n"
 
 #: app/load_save.c:723 app/load_save.c:728
+#, fuzzy
 msgid "Native Dia Diagram"
 msgstr "原生 Dia 圖表"
 
@@ -671,11 +658,11 @@ msgstr "匯出[_E]..."
 
 #: app/menus.c:67
 msgid "Page Set_up..."
-msgstr "頁面設定..."
+msgstr "頁面設定[_u]..."
 
 #: app/menus.c:69
 msgid "_Print Diagram..."
-msgstr "列印圖表[_P]"
+msgstr "列印圖表[_P]..."
 
 #: app/menus.c:84
 msgid "_Delete"
@@ -691,7 +678,7 @@ msgstr "剪下文字"
 
 #: app/menus.c:92
 msgid "Paste _Text"
-msgstr "貼上文字"
+msgstr "貼上文字[_T]"
 
 #: app/menus.c:115
 msgid "Zoom _In"
@@ -700,11 +687,11 @@ msgstr "拉近[_I]"
 #: app/menus.c:115
 #, c-format
 msgid "Zoom in 50%"
-msgstr "拉近50%"
+msgstr "拉近 50%"
 
 #: app/menus.c:116
 msgid "Zoom _Out"
-msgstr "拉遠[_O]"
+msgstr "拉遠 [_O]"
 
 #: app/menus.c:116
 #, c-format
@@ -716,7 +703,6 @@ msgid "_Zoom"
 msgstr "縮放[_Z]"
 
 #: app/menus.c:118
-#, fuzzy
 msgid "Diagram Properties..."
 msgstr "圖表內容..."
 
@@ -734,7 +720,7 @@ msgstr "貼齊格線[_S]"
 
 #: app/menus.c:127
 msgid "Show _Rulers"
-msgstr "顯示尺標[_R]"
+msgstr "顯示尺規[_R]"
 
 #: app/menus.c:129
 msgid "Show _Connection Points"
@@ -742,7 +728,7 @@ msgstr "顯示連接點[_C]"
 
 #: app/menus.c:132
 msgid "New _View"
-msgstr "新視角[_V]"
+msgstr "新檢視[_V]"
 
 #: app/menus.c:133
 msgid "Show _All"
@@ -766,6 +752,7 @@ msgid "Remove"
 msgstr "移除"
 
 #: app/menus.c:146 app/menus.c:154
+#, fuzzy
 msgid "Invert"
 msgstr "反向"
 
@@ -773,15 +760,16 @@ msgstr "反向"
 msgid "All"
 msgstr "全部"
 
-#: app/menus.c:153 lib/widgets.c:656 objects/UML/association.c:1001
+#: app/menus.c:153 lib/widgets.c:660 objects/UML/association.c:1001
 msgid "None"
 msgstr "無"
 
 #: app/menus.c:155
 msgid "Connected"
-msgstr "連接"
+msgstr "已連接"
 
 #: app/menus.c:156
+#, fuzzy
 msgid "Transitive"
 msgstr "移動"
 
@@ -789,18 +777,18 @@ msgstr "移動"
 msgid "Same Type"
 msgstr "相同類別"
 
-#: app/menus.c:164 lib/properties.c:1247 lib/properties.h:330
-#: lib/widgets.c:199
+#: app/menus.c:164 lib/properties.c:1938 lib/properties.h:420
+#: lib/widgets.c:203
 msgid "Left"
 msgstr "靠左"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1248 lib/properties.h:331
-#: lib/widgets.c:205
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1939 lib/properties.h:421
+#: lib/widgets.c:209
 msgid "Center"
 msgstr "置中"
 
-#: app/menus.c:166 lib/properties.c:1249 lib/properties.h:332
-#: lib/widgets.c:211
+#: app/menus.c:166 lib/properties.c:1940 lib/properties.h:422
+#: lib/widgets.c:215
 msgid "Right"
 msgstr "靠右"
 
@@ -822,15 +810,15 @@ msgstr "靠下"
 
 #: app/menus.c:182
 msgid "Send to _Back"
-msgstr "送到下層"
+msgstr "送到下層[_B]"
 
 #: app/menus.c:183
 msgid "Bring to _Front"
-msgstr "移到前層"
+msgstr "移到前層[_F]"
 
 #: app/menus.c:185
 msgid "_Group"
-msgstr "群組[_G]"
+msgstr "組成群組[_G]"
 
 #: app/menus.c:186
 msgid "_Ungroup"
@@ -870,20 +858,20 @@ msgstr "對話窗[_D]"
 
 #: app/menus.c:248 app/menus.c:273
 msgid "/_File"
-msgstr "/檔案"
+msgstr "/檔案[_F]"
 
 #: app/menus.c:250 app/menus.c:275
 msgid "/File/_New"
-msgstr "/檔案/開新檔案"
+msgstr "/檔案/開新檔案[_N]"
 
 #: app/menus.c:251 app/menus.c:276
 msgid "/File/_Open"
-msgstr "/檔案/開啟舊檔"
+msgstr "/檔案/開啟舊檔[_O]"
 
 #: app/menus.c:252
 #, fuzzy
 msgid "/File/Open _Recent"
-msgstr "/檔案/開啟舊檔"
+msgstr "/檔案/開啟舊檔[_R]"
 
 #: app/menus.c:253
 #, fuzzy
@@ -892,90 +880,87 @@ msgstr "/檔案/開啟舊檔"
 
 #: app/menus.c:255
 msgid "/File/_Preferences..."
-msgstr "/檔案/偏好設定"
+msgstr "/檔案/偏好設定[_P]"
 
 #: app/menus.c:256
 msgid "/File/P_lugins"
-msgstr "/檔案/Plugin"
+msgstr "/檔案/Plugin[_l]"
 
 #: app/menus.c:257 app/menus.c:280 app/menus.c:283
-#, fuzzy
 msgid "/File/---"
-msgstr "/檔案"
+msgstr "/檔案/---"
 
 #: app/menus.c:258 app/menus.c:286
 msgid "/File/_Quit"
-msgstr "/檔案/離開"
+msgstr "/檔案/離開[_Q]"
 
 #: app/menus.c:259
 msgid "/_Help"
-msgstr "/說明"
+msgstr "/說明[_H]"
 
 #: app/menus.c:261
-#, fuzzy
 msgid "/Help/_Manual"
-msgstr "/說明/關於本程式"
+msgstr "/說明/手冊[_M]"
 
 #: app/menus.c:262
-#, fuzzy
 msgid "/Help/---"
-msgstr "/說明"
+msgstr "/說明/---"
 
 #: app/menus.c:263
 msgid "/Help/_About"
-msgstr "/說明/關於本程式"
+msgstr "/說明/關於[_A]"
 
 #: app/menus.c:277
 msgid "/File/_Save"
-msgstr "/檔案/存檔"
+msgstr "/檔案/存檔[_S]"
 
 #: app/menus.c:278
 msgid "/File/Save _As..."
-msgstr "/檔案/另存新檔"
+msgstr "/檔案/另存新檔[_A]"
 
 #: app/menus.c:279
 msgid "/File/_Export..."
-msgstr "/檔案/匯出..."
+msgstr "/檔案/匯出[_E]..."
 
 #: app/menus.c:281
 msgid "/File/Page Set_up..."
-msgstr "/檔案/頁面設定"
+msgstr "/檔案/頁面設定..."
 
 #: app/menus.c:282
 msgid "/File/_Print Diagram..."
-msgstr "/檔案/列印圖表..."
+msgstr "/檔案/列印圖表[_P]..."
 
 #: app/menus.c:284
 msgid "/File/_Close"
-msgstr "/檔案/關閉"
+msgstr "/檔案/關閉[_C]"
 
 #: app/menus.c:287
 msgid "/_Edit"
-msgstr "/編輯"
+msgstr "/編輯[_E]"
 
 #: app/menus.c:289
 msgid "/Edit/_Copy"
-msgstr "/編輯/複製"
+msgstr "/編輯/複製[_C]"
 
 #: app/menus.c:290
 msgid "/Edit/C_ut"
-msgstr "/編輯/剪下"
+msgstr "/編輯/剪下[_u]"
 
 #: app/menus.c:291
 msgid "/Edit/_Paste"
-msgstr "/編輯/貼上"
+msgstr "/編輯/貼上[_P]"
 
 #: app/menus.c:292
 msgid "/Edit/_Delete"
-msgstr "/編輯/刪除"
+msgstr "/編輯/刪除[_D]"
 
 #: app/menus.c:293
 msgid "/Edit/_Undo"
-msgstr "/編輯/復原"
+msgstr "/編輯/復原[_U]"
 
 #: app/menus.c:294
 msgid "/Edit/_Redo"
-msgstr "/編輯/取消復原"
+msgstr "/編輯/取消復原[_R]"
 
 #: app/menus.c:295
 msgid "/Edit/Copy Text"
@@ -987,23 +972,23 @@ msgstr "/編輯/剪下文字"
 
 #: app/menus.c:297
 msgid "/Edit/Paste _Text"
-msgstr "/編輯/貼上文字"
+msgstr "/編輯/貼上文字[_T]"
 
 #: app/menus.c:298
 msgid "/_View"
-msgstr "/檢視"
+msgstr "/檢視[_V]"
 
 #: app/menus.c:300
 msgid "/View/Zoom _In"
-msgstr "/檢視/拉近"
+msgstr "/檢視/拉近[_I]"
 
 #: app/menus.c:301
 msgid "/View/Zoom _Out"
-msgstr "/檢視/拉遠"
+msgstr "/檢視/拉遠[_O]"
 
 #: app/menus.c:302
 msgid "/View/_Zoom"
-msgstr "/檢視/縮放"
+msgstr "/檢視/縮放[_Z]"
 
 #: app/menus.c:304
 #, c-format
@@ -1061,40 +1046,39 @@ msgstr "/檢視/圖表內容"
 
 #: app/menus.c:316
 msgid "/View/_AntiAliased"
-msgstr "/檢視/反鋸齒"
+msgstr "/檢視/反鋸齒[_A]"
 
 #: app/menus.c:318
 msgid "/View/_Visible Grid"
-msgstr "/檢視/顯示格線"
+msgstr "/檢視/顯示格線[_V]"
 
 #: app/menus.c:319
 msgid "/View/_Snap To Grid"
-msgstr "/檢視/貼齊格線"
+msgstr "/檢視/貼齊格線[_S]"
 
 #: app/menus.c:320
 msgid "/View/Show _Rulers"
-msgstr "/檢視/顯示尺標"
+msgstr "/檢視/顯示尺規[_R]"
 
 #: app/menus.c:321
 msgid "/View/Show _Connection Points"
-msgstr "/檢視/顯示連接點"
+msgstr "/檢視/顯示連接點[_C]"
 
 #: app/menus.c:322
-#, fuzzy
 msgid "/View/---"
-msgstr "/檢視"
+msgstr "/檢視/---"
 
 #: app/menus.c:323
 msgid "/View/New _View"
-msgstr "/檢視/新視角"
+msgstr "/檢視/新檢視[_V]"
 
 #: app/menus.c:324
 msgid "/View/Show _All"
-msgstr "/檢視/顯示全部"
+msgstr "/檢視/顯示全部[_A]"
 
 #: app/menus.c:325
 msgid "/_Select"
-msgstr "/選擇"
+msgstr "/選擇[_S]"
 
 #: app/menus.c:327
 msgid "/Select/All"
@@ -1105,14 +1089,16 @@ msgid "/Select/None"
 msgstr "/選擇/無"
 
 #: app/menus.c:329 app/menus.c:342
+#, fuzzy
 msgid "/Select/Invert"
 msgstr "/選擇/反向"
 
 #: app/menus.c:330
 msgid "/Select/Connected"
-msgstr "/選擇/連接"
+msgstr "/選擇/已連接"
 
 #: app/menus.c:331
+#, fuzzy
 msgid "/Select/Transitive"
 msgstr "/選擇/移動"
 
@@ -1121,9 +1107,8 @@ msgid "/Select/Same Type"
 msgstr "/選擇/相同類別"
 
 #: app/menus.c:333
-#, fuzzy
 msgid "/Select/---"
-msgstr "/選擇"
+msgstr "/選擇/---"
 
 #: app/menus.c:334
 msgid "/Select/Replace"
@@ -1143,32 +1128,31 @@ msgstr "/選擇/移除"
 
 #: app/menus.c:344
 msgid "/_Objects"
-msgstr "/物件"
+msgstr "/物件[_O]"
 
 #: app/menus.c:346
 msgid "/Objects/Send to _Back"
-msgstr "/物件/向後移"
+msgstr "/物件/向後移[_B]"
 
 #: app/menus.c:347
 msgid "/Objects/Bring to _Front"
-msgstr "/物件/向前移"
+msgstr "/物件/向前移[_F]"
 
 #: app/menus.c:348 app/menus.c:351
-#, fuzzy
 msgid "/Objects/---"
-msgstr "/物件"
+msgstr "/物件/---"
 
 #: app/menus.c:349
 msgid "/Objects/_Group"
-msgstr "/物件/群組"
+msgstr "/物件/組成群組[_G]"
 
 #: app/menus.c:350
 msgid "/Objects/_Ungroup"
-msgstr "/物件/取消群組"
+msgstr "/物件/取消群組[_U]"
 
 #: app/menus.c:352
 msgid "/Objects/Align _Horizontal"
-msgstr "/物件/水平對齊"
+msgstr "/物件/水平對齊[_H]"
 
 #: app/menus.c:354
 msgid "/Objects/Align Horizontal/Left"
@@ -1188,11 +1172,11 @@ msgstr "/物件/水平對齊/等距"
 
 #: app/menus.c:358
 msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/物件/水平對齊/緊鄰"
+msgstr "/物件/水平對齊/貼緊"
 
 #: app/menus.c:359
 msgid "/Objects/Align _Vertical"
-msgstr "/物件/垂直對齊"
+msgstr "/物件/垂直對齊[_V]"
 
 #: app/menus.c:361
 msgid "/Objects/Align Vertical/Top"
@@ -1212,11 +1196,11 @@ msgstr "/物件/垂直對齊/等距"
 
 #: app/menus.c:365
 msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/物件/垂直對齊/緊鄰"
+msgstr "/物件/垂直對齊/貼緊"
 
 #: app/menus.c:367
 msgid "/_Tools"
-msgstr "/工具"
+msgstr "/工具[_T]"
 
 #: app/menus.c:369
 msgid "/Tools/Modify"
@@ -1244,15 +1228,15 @@ msgstr "工具/橢圓"
 
 #: app/menus.c:375
 msgid "/Tools/Polygon"
-msgstr "/工具/多角形"
+msgstr "/工具/多邊形"
 
 #: app/menus.c:376
 msgid "/Tools/Beziergon"
-msgstr "/工具/貝茲曲線"
+msgstr "/工具/貝茲封閉曲線"
 
 #: app/menus.c:377
 msgid "/Tools/Line"
-msgstr "/工具/線段"
+msgstr "/工具/直線"
 
 #: app/menus.c:378
 msgid "/Tools/Arc"
@@ -1260,7 +1244,7 @@ msgstr "/工具/弧線"
 
 #: app/menus.c:379
 msgid "/Tools/Zigzagline"
-msgstr "/工具/z 形線"
+msgstr "/工具/Z 形線"
 
 #: app/menus.c:380
 msgid "/Tools/Polyline"
@@ -1272,23 +1256,23 @@ msgstr "/工具/貝茲曲線"
 
 #: app/menus.c:382
 msgid "/Tools/Image"
-msgstr "/工具/影像"
+msgstr "/工具/圖像"
 
 #: app/menus.c:384
 msgid "/_Dialogs"
-msgstr "/對話窗/"
+msgstr "/對話窗[_D]"
 
 #: app/menus.c:386
 msgid "/Dialogs/_Properties"
-msgstr "/對話窗/內容"
+msgstr "/對話窗/內容[_P]"
 
 #: app/menus.c:387
 msgid "/Dialogs/_Layers"
-msgstr "/對話窗/圖層"
+msgstr "/對話窗/圖層[_L]"
 
 #: app/menus.c:559
 msgid "NULL tooldata in tool_menu_select"
-msgstr "工具選單選擇中的空工具資料"
+msgstr "tool_menu_select 中有空的工具資料"
 
 #: app/menus.c:725
 msgid "Diagram Menu"
@@ -1316,19 +1300,18 @@ msgid "File"
 msgstr "檔案"
 
 #: app/paginate_psprint.c:330
-#, fuzzy, c-format
+#, c-format
 msgid "Could not run command '%s'"
-msgstr "無法開啟 '%s'."
+msgstr "無法執行指令 '%s'"
 
 #: app/paginate_psprint.c:333
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open '%s' for writing"
-msgstr "無法開啟 '%s' 以供寫入."
+msgstr "無法寫入 '%s'"
 
 #: app/paginate_psprint.c:357
-#, fuzzy
 msgid "Error occured while printing"
-msgstr "當寫入 PNG 時發生錯誤"
+msgstr "列印時發生錯誤"
 
 #: app/plugin-manager.c:62
 msgid "yes"
@@ -1342,22 +1325,22 @@ msgstr "否"
 #: objects/ER/relationship.c:135 objects/UML/association.c:979
 #: objects/UML/class_dialog.c:734 objects/UML/class_dialog.c:1610
 #: objects/UML/class_dialog.c:1772 objects/UML/class_dialog.c:2228
-#: objects/UML/dependency.c:127 objects/UML/generalization.c:123
-#: objects/UML/large_package.c:605 objects/UML/realizes.c:124
+#: objects/UML/dependency.c:125 objects/UML/generalization.c:121
+#: objects/UML/realizes.c:122
 msgid "Name:"
-msgstr "名稱:"
+msgstr "名稱："
 
 #: app/plugin-manager.c:193
 msgid "File name:"
-msgstr "檔案名稱:"
+msgstr "檔案名稱："
 
 #: app/plugin-manager.c:205
 msgid "Description:"
-msgstr "說明:"
+msgstr "描述："
 
 #: app/plugin-manager.c:219
 msgid "Loaded:"
-msgstr "載入:"
+msgstr "載入："
 
 #: app/plugin-manager.c:232
 msgid "Autoload at startup"
@@ -1369,102 +1352,115 @@ msgstr "載入"
 
 #: app/plugin-manager.c:248
 msgid "Unload"
-msgstr "取消載入"
+msgstr "卸載"
 
-#: app/preferences.c:89
+#: app/preferences.c:115
 msgid "User Interface"
 msgstr "使用者介面"
 
-#: app/preferences.c:90
+#: app/preferences.c:116
+msgid "Diagram Defaults"
+msgstr "圖表預設值"
+
+#: app/preferences.c:117
 msgid "View Defaults"
 msgstr "檢視預設值"
 
-#: app/preferences.c:91
+#: app/preferences.c:118
 msgid "Grid Lines"
 msgstr "格線"
 
-#: app/preferences.c:105
+#: app/preferences.c:132
 msgid "Reset tools after create:"
-msgstr "建立後重設工具:"
+msgstr "建立之後重設工具："
 
-#: app/preferences.c:106
+#: app/preferences.c:133
 msgid "Compress saved files:"
-msgstr "壓縮儲存檔:"
+msgstr "壓縮儲存檔："
 
-#: app/preferences.c:107
+#: app/preferences.c:134
 msgid "Number of undo levels:"
-msgstr "復原次數:"
+msgstr "可復原次數："
 
-#: app/preferences.c:108
+#: app/preferences.c:135
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
 msgstr ""
-"反向拖曳選擇\n"
-"相交的物件:"
+"反向拖曳會選擇\n"
+"相交的物件："
 
-#: app/preferences.c:109
+#: app/preferences.c:138
+msgid "New diagram:"
+msgstr "新增圖表："
+
+#: app/preferences.c:139
+msgid "Paper type:"
+msgstr "紙張大小："
+
+#: app/preferences.c:142
 msgid "New window:"
-msgstr "新視窗:"
+msgstr "新增視窗："
 
-#: app/preferences.c:110
+#: app/preferences.c:143
 msgid "Width:"
-msgstr "寬度:"
+msgstr "寬度："
 
-#: app/preferences.c:111
+#: app/preferences.c:144
 msgid "Height:"
-msgstr "高度:"
+msgstr "高度："
 
-#: app/preferences.c:112
+#: app/preferences.c:145
 msgid "Magnify:"
-msgstr "放大:"
+msgstr "放大："
 
-#: app/preferences.c:113
+#: app/preferences.c:146
 msgid "Use menu bar:"
-msgstr ""
+msgstr "使用選單："
 
-#: app/preferences.c:115
+#: app/preferences.c:148
 msgid "Connection Points:"
-msgstr "連接點:"
+msgstr "連接點："
 
-#: app/preferences.c:116 app/preferences.c:119 app/preferences.c:127
+#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:160
+#, fuzzy
 msgid "Visible:"
 msgstr "顯示:"
 
-#: app/preferences.c:118
+#: app/preferences.c:151
 msgid "Grid:"
-msgstr "格線:"
+msgstr "格線："
 
-#: app/preferences.c:120
+#: app/preferences.c:153
 msgid "Snap to:"
-msgstr "貼齊:"
+msgstr "對齊："
 
-#: app/preferences.c:121
+#: app/preferences.c:154
 msgid "X Size:"
-msgstr "X軸大小:"
+msgstr "X 軸大小："
 
-#: app/preferences.c:122
+#: app/preferences.c:155
 msgid "Y Size:"
-msgstr "Y軸大小:"
+msgstr "Y 軸大小："
 
-#: app/preferences.c:123 app/preferences.c:128
+#: app/preferences.c:156 app/preferences.c:161
 msgid "Colour:"
-msgstr "顏色"
+msgstr "顏色："
 
-#: app/preferences.c:124 app/preferences.c:129
+#: app/preferences.c:157 app/preferences.c:162
 msgid "Solid lines:"
-msgstr "實心線"
+msgstr "實心線："
 
-#: app/preferences.c:126
+#: app/preferences.c:159
 msgid "Page breaks:"
-msgstr "分頁:"
+msgstr "分頁："
 
-#: app/preferences.c:243
+#: app/preferences.c:282
 #, c-format
 msgid "Could not open `%s' for writing"
-msgstr "無法開啟 '%s' 以供寫入."
+msgstr "無法寫入 '%s'"
 
-#: app/preferences.c:579 app/preferences.c:588
+#: app/preferences.c:650 app/preferences.c:659
 msgid "Preferences"
 msgstr "偏好設定"
 
@@ -1474,25 +1470,22 @@ msgstr "物件內容"
 
 #: app/properties.c:124
 msgid "This object has no properties."
-msgstr "此物件沒有相關內容"
+msgstr "此物件沒有相關內容。"
 
 #: app/properties.c:211
-#, fuzzy
 msgid "Properties: "
-msgstr "內容[_P]"
+msgstr "內容："
 
 #: app/properties.c:219
-#, fuzzy
 msgid "Object properties:"
-msgstr "物件內容"
+msgstr "物件內容："
 
-#: app/render_eps.c:1649
+#: app/render_eps.c:1651
 msgid "Encapsulated Postscript"
-msgstr "以Postscript封裝"
+msgstr "Encapsulated Postscript"
 
 #. remove recent files if list get's too long
 #: app/recent_files.c:75
-#, fuzzy
 msgid "/File/Plugins"
 msgstr "/檔案/Plugin"
 
@@ -1503,79 +1496,72 @@ msgid "/File/Open Recent/"
 msgstr "/檔案/開啟舊檔"
 
 #: app/recent_files.c:163
-#, fuzzy
 msgid "Can't open history file for writing."
-msgstr "無法寫入: '%s'.\n"
+msgstr "無法寫入紀錄檔。"
 
 #: app/splash.c:58
 msgid "Loading ..."
-msgstr ""
+msgstr "載入中 ..."
 
 #: app/splash.c:75
 #, c-format
 msgid "Dia v %s"
-msgstr ""
+msgstr "Dia 版本 %s"
 
-#: lib/properties.c:1256 lib/properties.h:345
-#, fuzzy
+#: lib/properties.c:1947 lib/properties.h:435
 msgid "Line colour"
-msgstr "線段顏色:"
+msgstr "線段顏色"
 
-#: lib/properties.c:1257 lib/properties.h:348
-#, fuzzy
+#: lib/properties.c:1948 lib/properties.h:438
 msgid "Line style"
 msgstr "線段樣式"
 
-#: lib/properties.c:1258 lib/properties.h:352
-#, fuzzy
+#: lib/properties.c:1949 lib/properties.h:442
 msgid "Fill colour"
-msgstr "文字顏色:"
+msgstr "填入顏色"
 
-#: lib/properties.c:1259 lib/properties.h:355
-#: objects/custom/custom_object.c:362 objects/flowchart/box.c:317
+#: lib/properties.c:1950 lib/properties.h:445
+#: objects/custom/custom_object.c:364 objects/flowchart/box.c:317
 #: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
 #: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
 #: objects/standard/box.c:232 objects/standard/ellipse.c:220
-#: objects/standard/polygon.c:226
+#: objects/standard/polygon.c:228
 msgid "Draw background"
 msgstr "繪製背景"
 
-#: lib/properties.c:1260 lib/properties.h:359
-#, fuzzy
+#: lib/properties.c:1951 lib/properties.h:449
 msgid "Start arrow"
-msgstr "點狀箭頭"
+msgstr "開始箭頭"
 
-#: lib/properties.c:1261 lib/properties.h:362
-#, fuzzy
+#: lib/properties.c:1952 lib/properties.h:452
 msgid "End arrow"
-msgstr "點狀箭頭"
+msgstr "完結箭頭"
 
-#: lib/properties.c:1263 lib/properties.h:369
-#, fuzzy
+#: lib/properties.c:1954 lib/properties.h:459
 msgid "Text alignment"
-msgstr "對齊:"
+msgstr "對齊文字"
 
-#: lib/properties.c:1264 lib/properties.h:372 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/transition.c:140
-#, fuzzy
+#: lib/properties.c:1955 lib/properties.h:462 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
+#: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
-msgstr "字型:"
+msgstr "字型"
 
-#: lib/properties.c:1265 lib/properties.h:375 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/transition.c:142
-#, fuzzy
+#: lib/properties.c:1956 lib/properties.h:465 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
+#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
-msgstr "文字大小:"
+msgstr "字型大小"
 
-#: lib/properties.c:1266 lib/properties.h:378
-#, fuzzy
+#: lib/properties.c:1957 lib/properties.h:468 objects/GRAFCET/step.c:167
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
-msgstr "文字顏色:"
+msgstr "文字顏色"
 
 #: lib/plug-ins.c:211
 #, c-format
 msgid "Could not deduce correct path for `%s'"
-msgstr "無法推演出 '%s' 的正確路徑"
+msgstr "無法推演出 `%s' 的正確路徑"
 
 #: lib/plug-ins.c:216
 #, c-format
@@ -1583,179 +1569,197 @@ msgid ""
 "Could not load plugin `%s'\n"
 "%s"
 msgstr ""
-"無法載入 plugin '%s'\n"
+"無法載入 plugin `%s'\n"
 "%s"
 
 #: lib/plug-ins.c:227
 #, c-format
 msgid "Could not find plugin init function in `%s'"
-msgstr "找不到 '%s' 中的 plugin 起始功能"
+msgstr "找不到 `%s' 中的 plugin init 函數"
 
 #: lib/plug-ins.c:254
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr "%s plugin 無法被卸載"
+msgstr "%s Plugin 無法被卸載"
 
 #: lib/plug-ins.c:307
 #, c-format
 msgid "`%s' is not a directory"
-msgstr "'%s' 不是一個目錄"
+msgstr "`%s' 不是目錄"
 
 #: lib/plug-ins.c:313
 #, c-format
 msgid "Could not open `%s'"
-msgstr "無法開啟 '%s'."
+msgstr "無法開啟 `%s'"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "內部錯誤: 設定貝茲曲線結束點角落類別"
+msgstr "內部錯誤：設定貝茲曲線結束點的角落類別"
 
-#: lib/font.c:389
+#: lib/font.c:418
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
 msgstr ""
-"警告: 沒有給 %s 用的 X 字型,\n"
-"使用 %s.\n"
+"警告：沒有給 %s 用的 X 字型，\n"
+"改用 %s。\n"
 
-#: lib/font.c:443
+#: lib/font.c:523
+#, c-format
+msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
+msgstr "警告：選擇了 FreeType，但無法載入函式庫：%d\n"
+
+#: lib/font.c:532
+msgid "Warning: No X fonts found.  The world is ending."
+msgstr "警告：沒有給 %s 用的 X 字型。這次完了。"
+
+#: lib/font.c:839
+msgid "Error, couldn't locate font. Shouldn't happen.\n"
+msgstr ""
+
+#: lib/font.c:841 lib/font.c:842 lib/font.c:875
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
-msgstr "沒有找到字型 %s, 改用 Courier.\n"
+msgstr "沒有找到字型 %s，改用 Courier。\n"
 
-#: lib/properties.c:382 lib/properties.c:414
+#: lib/font.c:852
+#, c-format
+msgid "Font %s has no style %s, using %s\n"
+msgstr ""
+
+#: lib/properties.c:570 lib/properties.c:608
+#, fuzzy
 msgid "No edit widget"
-msgstr "編輯邊界"
+msgstr "沒有編輯 widget"
 
-#: lib/message.c:120
+#: lib/message.c:149
 msgid "Notice"
 msgstr "注意"
 
-#: lib/message.c:131
+#: lib/message.c:160
 msgid "Warning"
 msgstr "警告"
 
-#: lib/message.c:143
+#: lib/message.c:172
 msgid "Error"
 msgstr "錯誤"
 
-#: lib/widgets.c:319 objects/FS/function.c:807
+#: lib/widgets.c:323 objects/FS/function.c:807
 msgid "Solid"
 msgstr "實心"
 
-#: lib/widgets.c:325
+#: lib/widgets.c:329
 msgid "Dashed"
-msgstr "直線"
+msgstr "虛線"
 
-#: lib/widgets.c:331
+#: lib/widgets.c:335
 msgid "Dash-Dot"
-msgstr "直線-點"
+msgstr "虛線-點"
 
-#: lib/widgets.c:337
+#: lib/widgets.c:341
 msgid "Dash-Dot-Dot"
-msgstr "直線-點-點"
+msgstr "虛線-點-點"
 
-#: lib/widgets.c:343
+#: lib/widgets.c:347
 msgid "Dotted"
-msgstr "點"
+msgstr "點狀"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:361
+#: lib/widgets.c:365
 msgid "Dash length: "
-msgstr "線段長度:"
+msgstr "虛線長度："
 
-#: lib/widgets.c:657
+#: lib/widgets.c:661
 msgid "Lines"
 msgstr "線段"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:662
 msgid "Hollow Triangle"
 msgstr "空心三角形"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:663
 msgid "Filled Triangle"
 msgstr "實心三角形"
 
-#: lib/widgets.c:660
+#: lib/widgets.c:664
 #, fuzzy
 msgid "Unfilled Triangle"
 msgstr "實心三角形"
 
-#: lib/widgets.c:661
+#: lib/widgets.c:665
 msgid "Filled Diamond"
 msgstr "實心菱形"
 
-#: lib/widgets.c:662
+#: lib/widgets.c:666
+#, fuzzy
 msgid "Half Head"
 msgstr "半個頭"
 
-#: lib/widgets.c:663
+#: lib/widgets.c:667
 msgid "Slashed Cross"
 msgstr "交叉線"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:668
 msgid "Filled Ellipse"
 msgstr "實心橢圓"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:669
 msgid "Hollow Ellipse"
 msgstr "空心橢圓"
 
-#: lib/widgets.c:666
-#, fuzzy
+#: lib/widgets.c:670
 msgid "Filled Dot"
-msgstr "實心菱形"
+msgstr "實心點"
 
-#: lib/widgets.c:667
+#: lib/widgets.c:671
 msgid "Dimension Origin"
 msgstr ""
 
-#: lib/widgets.c:668
-msgid "Blanked Dot"
-msgstr ""
-
-#: lib/widgets.c:669
-#, fuzzy
-msgid "Double Hollow triangle"
-msgstr "空心三角形"
-
-#: lib/widgets.c:670
-#, fuzzy
-msgid "Double Filled triangle"
-msgstr "實心三角形"
-
-#: lib/widgets.c:671
-#, fuzzy
-msgid "Filled Box"
-msgstr "實心菱形"
-
 #: lib/widgets.c:672
-msgid "Blanked Box"
+msgid "Blanked Dot"
 msgstr ""
 
 #: lib/widgets.c:673
 #, fuzzy
+msgid "Double Hollow triangle"
+msgstr "空心三角形"
+
+#: lib/widgets.c:674
+#, fuzzy
+msgid "Double Filled triangle"
+msgstr "實心三角形"
+
+#: lib/widgets.c:675
+msgid "Filled Box"
+msgstr "實心方塊"
+
+#: lib/widgets.c:676
+msgid "Blanked Box"
+msgstr ""
+
+#: lib/widgets.c:677
+#, fuzzy
 msgid "Slashed"
 msgstr "直線"
 
-#: lib/widgets.c:674
+#: lib/widgets.c:678
 msgid "Integral Symbol"
-msgstr ""
+msgstr "積分符號"
 
-#: lib/widgets.c:710
+#: lib/widgets.c:714
 msgid "Length: "
-msgstr "長度:"
+msgstr "長度："
 
-#: lib/widgets.c:723
+#: lib/widgets.c:727
 msgid "Width: "
-msgstr "寬度:"
+msgstr "寬度："
 
-#: lib/widgets.c:849 objects/standard/image.c:538
+#: lib/widgets.c:853 objects/standard/image.c:538
 msgid "Select image file"
-msgstr "選擇影像檔:"
+msgstr "選擇圖像檔"
 
-#: lib/widgets.c:879
+#: lib/widgets.c:883
 msgid "Browse"
 msgstr "瀏覽"
 
@@ -1789,9 +1793,8 @@ msgid "Weak key:"
 msgstr "弱鎖鑰"
 
 #: objects/ER/attribute.c:155
-#, fuzzy
 msgid "Derived:"
-msgstr "衍生"
+msgstr "衍生："
 
 #: objects/ER/attribute.c:157
 #, fuzzy
@@ -1807,7 +1810,7 @@ msgstr "屬性"
 msgid "Weak:"
 msgstr "微弱"
 
-#: objects/ER/entity.c:342 objects/UML/classicon.c:135
+#: objects/ER/entity.c:342 objects/UML/classicon.c:124
 msgid "Entity"
 msgstr "本體"
 
@@ -1817,41 +1820,43 @@ msgstr "本體/關係 圖表物件"
 
 #: objects/ER/participation.c:113
 msgid "Total:"
-msgstr "總計:"
+msgstr "總計："
 
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
-#: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
-#: objects/UML/association.c:618 objects/UML/dependency.c:375
-#: objects/UML/generalization.c:369 objects/UML/realizes.c:372
+#: objects/GRAFCET/vector.c:305 objects/SADT/arrow.c:550
+#: objects/UML/association.c:618 objects/UML/dependency.c:335
+#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
 #: objects/standard/zigzagline.c:339
+#, fuzzy
 msgid "Add segment"
 msgstr "增加區段"
 
 #: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
-#: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
-#: objects/UML/association.c:619 objects/UML/dependency.c:376
-#: objects/UML/generalization.c:370 objects/UML/realizes.c:373
+#: objects/GRAFCET/vector.c:306 objects/SADT/arrow.c:551
+#: objects/UML/association.c:619 objects/UML/dependency.c:336
+#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
 #: objects/standard/zigzagline.c:340
+#, fuzzy
 msgid "Delete segment"
 msgstr "刪除區段"
 
 #: objects/ER/relationship.c:137
+#, fuzzy
 msgid "Left Cardinality:"
 msgstr "左移:"
 
 #: objects/ER/relationship.c:139
+#, fuzzy
 msgid "Right Cardinality:"
 msgstr "右移:"
 
 #: objects/ER/relationship.c:141
-#, fuzzy
 msgid "Rotate:"
-msgstr "旋轉"
+msgstr "旋轉："
 
 #: objects/ER/relationship.c:143
-#, fuzzy
 msgid "Identifying:"
-msgstr "確認"
+msgstr "識別"
 
 #: objects/ER/relationship.c:418
 msgid "Relationship"
@@ -1884,27 +1889,27 @@ msgstr "信號"
 #: objects/UML/class_dialog.c:746 objects/UML/class_dialog.c:1622
 #: objects/UML/class_dialog.c:1784 objects/UML/class_dialog.c:2240
 msgid "Type:"
-msgstr "類別:"
+msgstr "類別："
 
 #: objects/FS/flow-ortho.c:707 objects/FS/flow.c:682
 msgid "Flow:"
-msgstr "流程:"
+msgstr "流程："
 
 #: objects/FS/flow-ortho.c:722 objects/FS/flow.c:698
 msgid "Flow type:"
-msgstr "流程種類:"
+msgstr "流程種類："
 
 #: objects/FS/flow-ortho.c:837
 msgid "Orthflow:"
-msgstr "正規流程:"
+msgstr "正規流程："
 
 #: objects/FS/flow-ortho.c:853
 msgid "Orthflow type:"
-msgstr "正規流程種類:"
+msgstr "正規流程種類："
 
 #: objects/FS/fs.c:43
 msgid "Function structure diagram objects"
-msgstr "功能結構 圖表物件"
+msgstr "「功能結構」圖表物件"
 
 #: objects/FS/function.c:136
 msgid "Wish function"
@@ -1916,7 +1921,7 @@ msgstr "使用者功能"
 
 #: objects/FS/function.c:608
 msgid "Verb"
-msgstr ""
+msgstr "動詞"
 
 #: objects/FS/function.c:609 objects/FS/function.c:610
 #: objects/FS/function.c:630
@@ -1924,21 +1929,18 @@ msgid "Channel"
 msgstr "頻道"
 
 #: objects/FS/function.c:611 objects/FS/function.c:612
-#, fuzzy
 msgid "Import"
-msgstr "    匯入"
+msgstr "匯入"
 
 #: objects/FS/function.c:613
 msgid "Input"
-msgstr ""
+msgstr "輸入"
 
 #: objects/FS/function.c:614
-#, fuzzy
 msgid "Receive"
-msgstr "循環"
+msgstr "接收"
 
 #: objects/FS/function.c:615 objects/FS/function.c:751
-#, fuzzy
 msgid "Allow"
 msgstr "全部"
 
@@ -1952,18 +1954,16 @@ msgid "Capture"
 msgstr "建立"
 
 #: objects/FS/function.c:618 objects/FS/function.c:619
-#, fuzzy
 msgid "Export"
-msgstr "    匯出"
+msgstr "匯出"
 
 #: objects/FS/function.c:620
 msgid "Discharge"
 msgstr ""
 
 #: objects/FS/function.c:621
-#, fuzzy
 msgid "Eject"
-msgstr "物件"
+msgstr "退出"
 
 #: objects/FS/function.c:622
 msgid "Dispose"
@@ -1971,14 +1971,12 @@ msgstr ""
 
 #: objects/FS/function.c:624 objects/FS/function.c:625
 #: objects/FS/function.c:634
-#, fuzzy
 msgid "Transfer"
-msgstr "    移轉"
+msgstr "轉移"
 
 #: objects/FS/function.c:626 objects/FS/function.c:627
-#, fuzzy
 msgid "Transport"
-msgstr "      輸送"
+msgstr "輸送"
 
 #: objects/FS/function.c:628
 #, fuzzy
@@ -1986,9 +1984,8 @@ msgid "Lift"
 msgstr "靠左"
 
 #: objects/FS/function.c:629
-#, fuzzy
 msgid "Move"
-msgstr "上移"
+msgstr "移動"
 
 #: objects/FS/function.c:631 objects/FS/function.c:632
 #, fuzzy
@@ -2012,9 +2009,8 @@ msgid "Guide"
 msgstr "   引導"
 
 #: objects/FS/function.c:639
-#, fuzzy
 msgid "Direct"
-msgstr "方向:"
+msgstr "方向"
 
 #: objects/FS/function.c:640
 msgid "Straighten"
@@ -2025,12 +2021,10 @@ msgid "Steer"
 msgstr ""
 
 #: objects/FS/function.c:642
-#, fuzzy
 msgid "Translate"
-msgstr "      改變"
+msgstr "轉換"
 
 #: objects/FS/function.c:643 objects/FS/function.c:644
-#, fuzzy
 msgid "Rotate"
 msgstr "旋轉"
 
@@ -2047,61 +2041,56 @@ msgstr "縮放比例"
 #: objects/FS/function.c:647 objects/FS/function.c:648
 #, fuzzy
 msgid "Allow DOF"
-msgstr "      允許DOF"
+msgstr "允許DOF"
 
 #: objects/FS/function.c:649
-#, fuzzy
 msgid "Constrain"
-msgstr "強制:"
+msgstr "限制"
 
 #: objects/FS/function.c:650
-#, fuzzy
 msgid "Unlock"
-msgstr "取消載入"
+msgstr "不鎖定"
 
 #: objects/FS/function.c:651 objects/FS/function.c:652
 msgid "Support"
 msgstr "支援"
 
 #: objects/FS/function.c:653 objects/FS/function.c:654
-#, fuzzy
 msgid "Stop"
-msgstr "    停止"
+msgstr "停止"
 
 #: objects/FS/function.c:655
 msgid "Insulate"
-msgstr ""
+msgstr "隔絕"
 
 #: objects/FS/function.c:656
-#, fuzzy
 msgid "Protect"
 msgstr "保護"
 
 #: objects/FS/function.c:657 objects/FS/function.c:752
 msgid "Prevent"
-msgstr ""
+msgstr "防止"
 
 #: objects/FS/function.c:658
+#, fuzzy
 msgid "Shield"
-msgstr ""
+msgstr "防護"
 
 #: objects/FS/function.c:659
 msgid "Inhibit"
-msgstr ""
+msgstr "禁止"
 
 #: objects/FS/function.c:660 objects/FS/function.c:661
-#, fuzzy
 msgid "Stabilize"
-msgstr "   穩定化"
+msgstr "穩定化"
 
 #: objects/FS/function.c:662
 msgid "Steady"
-msgstr ""
+msgstr "穩定"
 
 #: objects/FS/function.c:663 objects/FS/function.c:664
-#, fuzzy
 msgid "Secure"
-msgstr "   安全"
+msgstr "安全"
 
 #: objects/FS/function.c:665 objects/FS/function.c:681
 msgid "Attach"
@@ -2114,11 +2103,11 @@ msgstr "字型:"
 
 #: objects/FS/function.c:667
 msgid "Lock"
-msgstr ""
+msgstr "鎖定"
 
 #: objects/FS/function.c:668
 msgid "Fasten"
-msgstr ""
+msgstr "固定"
 
 #: objects/FS/function.c:669
 #, fuzzy
@@ -2126,50 +2115,44 @@ msgid "Hold"
 msgstr "實心"
 
 #: objects/FS/function.c:670 objects/FS/function.c:671
-#, fuzzy
 msgid "Position"
-msgstr "   位置"
+msgstr "位置"
 
 #: objects/FS/function.c:672
-#, fuzzy
 msgid "Orient"
 msgstr "方向"
 
 #: objects/FS/function.c:673
-#, fuzzy
 msgid "Align"
-msgstr "對齊:"
+msgstr "對齊"
 
 #: objects/FS/function.c:674 objects/FS/function.c:795
-#, fuzzy
 msgid "Locate"
-msgstr "載入:"
+msgstr "尋找"
 
 #: objects/FS/function.c:675 objects/FS/function.c:676
 msgid "Connect"
 msgstr "連接"
 
 #: objects/FS/function.c:677 objects/FS/function.c:678
-#, fuzzy
 msgid "Couple"
-msgstr "   配對"
+msgstr "配對"
 
 #: objects/FS/function.c:679
 msgid "Join"
-msgstr ""
+msgstr "連接"
 
 #: objects/FS/function.c:680
 msgid "Assemble"
-msgstr ""
+msgstr "組合"
 
 #: objects/FS/function.c:682 objects/FS/function.c:683
-#, fuzzy
 msgid "Mix"
-msgstr "   混合"
+msgstr "混合"
 
 #: objects/FS/function.c:684
 msgid "Combine"
-msgstr ""
+msgstr "結合"
 
 #: objects/FS/function.c:685
 #, fuzzy
@@ -2178,7 +2161,7 @@ msgstr "開始"
 
 #: objects/FS/function.c:686
 msgid "Add"
-msgstr ""
+msgstr "增加"
 
 #: objects/FS/function.c:687
 msgid "Pack"
@@ -2195,37 +2178,32 @@ msgstr "分支"
 
 #: objects/FS/function.c:691 objects/FS/function.c:692
 #: objects/FS/function.c:693
-#, fuzzy
 msgid "Separate"
-msgstr "    分離"
+msgstr "分離"
 
 #: objects/FS/function.c:694
 msgid "Switch"
-msgstr ""
+msgstr "轉換"
 
 #: objects/FS/function.c:695
 msgid "Divide"
-msgstr ""
+msgstr "分開"
 
 #: objects/FS/function.c:696
-#, fuzzy
 msgid "Release"
-msgstr "取代"
+msgstr ""
 
 #: objects/FS/function.c:697
-#, fuzzy
 msgid "Detach"
-msgstr "資料"
+msgstr ""
 
 #: objects/FS/function.c:698
-#, fuzzy
 msgid "Disconnect"
-msgstr "連接"
+msgstr "斷線"
 
 #: objects/FS/function.c:701
-#, fuzzy
 msgid "Cut"
-msgstr "自訂"
+msgstr "剪下"
 
 #: objects/FS/function.c:702
 msgid "Polish"
@@ -2233,7 +2211,7 @@ msgstr ""
 
 #: objects/FS/function.c:703
 msgid "Sand"
-msgstr ""
+msgstr "沙"
 
 #: objects/FS/function.c:704
 msgid "Drill"
@@ -2244,13 +2222,12 @@ msgid "Lathe"
 msgstr ""
 
 #: objects/FS/function.c:706 objects/FS/function.c:707
-#, fuzzy
 msgid "Refine"
-msgstr "   微調"
+msgstr "微調"
 
 #: objects/FS/function.c:708
 msgid "Purify"
-msgstr ""
+msgstr "淨化"
 
 #: objects/FS/function.c:709
 #, fuzzy
@@ -2258,9 +2235,8 @@ msgid "Strain"
 msgstr "縮放比例"
 
 #: objects/FS/function.c:710
-#, fuzzy
 msgid "Filter"
-msgstr "檔案"
+msgstr "過濾"
 
 #: objects/FS/function.c:711
 #, fuzzy
@@ -2268,14 +2244,12 @@ msgid "Percolate"
 msgstr "私用"
 
 #: objects/FS/function.c:712
-#, fuzzy
 msgid "Clear"
-msgstr "階層"
+msgstr "清除"
 
 #: objects/FS/function.c:713 objects/FS/function.c:714
-#, fuzzy
 msgid "Distribute"
-msgstr "   散佈"
+msgstr "散佈"
 
 #: objects/FS/function.c:715
 msgid "Diverge"
@@ -2296,16 +2270,15 @@ msgstr ""
 
 #: objects/FS/function.c:719
 msgid "Empty"
-msgstr ""
+msgstr "空"
 
 #: objects/FS/function.c:720 objects/FS/function.c:721
-#, fuzzy
 msgid "Dissipate"
-msgstr "   消散"
+msgstr "消散"
 
 #: objects/FS/function.c:722
 msgid "Absorb"
-msgstr ""
+msgstr "吸收"
 
 #: objects/FS/function.c:723
 #, fuzzy
@@ -2313,32 +2286,28 @@ msgid "Dampen"
 msgstr "名稱:"
 
 #: objects/FS/function.c:724
-#, fuzzy
 msgid "Dispel"
-msgstr "   顯示"
+msgstr "排斥"
 
 #: objects/FS/function.c:726
 msgid "Resist"
-msgstr ""
+msgstr "抵抗"
 
 #: objects/FS/function.c:727 objects/FS/function.c:728
 msgid "Provision"
 msgstr "供應"
 
 #: objects/FS/function.c:729 objects/FS/function.c:730
-#, fuzzy
 msgid "Store"
-msgstr "   儲存"
+msgstr "儲存"
 
 #: objects/FS/function.c:731
-#, fuzzy
 msgid "Contain"
-msgstr "強制:"
+msgstr "包含"
 
 #: objects/FS/function.c:732
-#, fuzzy
 msgid "Collect"
-msgstr "連接"
+msgstr "收集"
 
 #: objects/FS/function.c:733
 #, fuzzy
@@ -2346,9 +2315,8 @@ msgid "Reserve"
 msgstr "循環"
 
 #: objects/FS/function.c:735 objects/FS/function.c:736
-#, fuzzy
 msgid "Supply"
-msgstr "    供給"
+msgstr "供應"
 
 #: objects/FS/function.c:737
 #, fuzzy
@@ -2356,9 +2324,8 @@ msgid "Fill"
 msgstr "檔案"
 
 #: objects/FS/function.c:738
-#, fuzzy
 msgid "Provide"
-msgstr "供應"
+msgstr "提供"
 
 #: objects/FS/function.c:739
 #, fuzzy
@@ -2376,6 +2343,7 @@ msgid "Extract"
 msgstr "   濃縮"
 
 #: objects/FS/function.c:742 objects/FS/function.c:743
+#, fuzzy
 msgid "Control Magnitude"
 msgstr "控制量質"
 
@@ -2385,65 +2353,57 @@ msgid "Actuate"
 msgstr "   開動"
 
 #: objects/FS/function.c:746
-#, fuzzy
 msgid "Start"
-msgstr "點狀箭頭"
+msgstr "開始"
 
 #: objects/FS/function.c:747
-#, fuzzy
 msgid "Initiate"
-msgstr "起始化步驟"
+msgstr "初始化"
 
 #: objects/FS/function.c:748 objects/FS/function.c:749
-#, fuzzy
 msgid "Regulate"
-msgstr "   調整"
+msgstr "調整"
 
 #: objects/FS/function.c:750 objects/FS/function.c:859
-#: objects/UML/classicon.c:133
+#: objects/UML/classicon.c:122
 msgid "Control"
 msgstr "控制"
 
 #: objects/FS/function.c:753
 msgid "Enable"
-msgstr ""
+msgstr "啟用"
 
 #: objects/FS/function.c:754
-#, fuzzy
 msgid "Disable"
-msgstr "顯示:"
+msgstr "不啟用"
 
 #: objects/FS/function.c:755
 msgid "Limit"
-msgstr ""
+msgstr "限制"
 
 #: objects/FS/function.c:756
-#, fuzzy
 msgid "Interrupt"
-msgstr "反向"
+msgstr "中斷"
 
 #: objects/FS/function.c:757 objects/FS/function.c:758
-#, fuzzy
 msgid "Change"
-msgstr "   變更"
+msgstr "變更"
 
 #: objects/FS/function.c:759
 msgid "Increase"
-msgstr ""
+msgstr "增加"
 
 #: objects/FS/function.c:760
 msgid "Decrease"
-msgstr ""
+msgstr "減少"
 
 #: objects/FS/function.c:761
-#, fuzzy
 msgid "Amplify"
-msgstr "套用"
+msgstr "放大"
 
 #: objects/FS/function.c:762
-#, fuzzy
 msgid "Reduce"
-msgstr "取代"
+msgstr "減少"
 
 #: objects/FS/function.c:764
 #, fuzzy
@@ -2467,7 +2427,7 @@ msgstr "相容性:"
 
 #: objects/FS/function.c:768
 msgid "Adjust"
-msgstr ""
+msgstr "調校"
 
 #: objects/FS/function.c:769 objects/FS/function.c:770
 #, fuzzy
@@ -2484,16 +2444,15 @@ msgstr ""
 
 #: objects/FS/function.c:773
 msgid "Shape"
-msgstr ""
+msgstr "形狀"
 
 #: objects/FS/function.c:774
 msgid "Compress"
-msgstr ""
+msgstr "壓縮"
 
 #: objects/FS/function.c:775
-#, fuzzy
 msgid "Pierce"
-msgstr "印表機"
+msgstr "插穿"
 
 #: objects/FS/function.c:776 objects/FS/function.c:777
 msgid "Convert"
@@ -2502,48 +2461,43 @@ msgstr "轉換"
 #: objects/FS/function.c:778
 #, fuzzy
 msgid "Transform"
-msgstr "    移轉"
+msgstr "變形"
 
 #: objects/FS/function.c:779
 msgid "Liquefy"
 msgstr ""
 
 #: objects/FS/function.c:780
-#, fuzzy
 msgid "Solidify"
-msgstr "實心"
+msgstr "實心化"
 
 #: objects/FS/function.c:781
 msgid "Evaporate"
-msgstr ""
+msgstr "蒸發"
 
 #: objects/FS/function.c:782
 msgid "Sublimate"
-msgstr ""
+msgstr "昇華"
 
 #: objects/FS/function.c:783
-#, fuzzy
 msgid "Condense"
-msgstr "連接"
+msgstr "凝結"
 
 #: objects/FS/function.c:784
-#, fuzzy
 msgid "Integrate"
-msgstr "介面:"
+msgstr "積分"
 
 #: objects/FS/function.c:785
 msgid "Differentiate"
-msgstr ""
+msgstr "微分"
 
 #: objects/FS/function.c:786
-#, fuzzy
 msgid "Process"
-msgstr "保護"
+msgstr "程序"
 
 #: objects/FS/function.c:789 objects/FS/function.c:790
-#, fuzzy
 msgid "Sense"
-msgstr "   判斷"
+msgstr "感應"
 
 #: objects/FS/function.c:791
 #, fuzzy
@@ -2552,7 +2506,7 @@ msgstr "私用"
 
 #: objects/FS/function.c:792
 msgid "Recognize"
-msgstr ""
+msgstr "認清"
 
 #: objects/FS/function.c:793
 msgid "Discern"
@@ -2560,94 +2514,84 @@ msgstr ""
 
 #: objects/FS/function.c:794
 msgid "Check"
-msgstr ""
+msgstr "檢查"
 
 #: objects/FS/function.c:796
 msgid "Verify"
-msgstr ""
+msgstr "証實"
 
 #: objects/FS/function.c:797 objects/FS/function.c:798
-#, fuzzy
 msgid "Indicate"
-msgstr "   指示"
+msgstr "指示"
 
 #: objects/FS/function.c:799
 msgid "Mark"
-msgstr ""
+msgstr "記認"
 
 #: objects/FS/function.c:800
-#, fuzzy
 msgid "Display"
-msgstr "   顯示"
+msgstr "顯示"
 
 #: objects/FS/function.c:801 objects/FS/function.c:802
-#, fuzzy
 msgid "Measure"
-msgstr "   單位"
+msgstr "量度"
 
 #: objects/FS/function.c:803
-#, fuzzy
 msgid "Calculate"
-msgstr "聯絡"
+msgstr "計算"
 
 #: objects/FS/function.c:804
 msgid "Represent"
-msgstr ""
+msgstr "表示"
 
 #: objects/FS/function.c:805
-#, fuzzy
 msgid "Noun"
-msgstr "無"
+msgstr "名詞"
 
 #: objects/FS/function.c:808
 msgid "Liquid"
-msgstr ""
+msgstr "液體"
 
 #: objects/FS/function.c:809
 msgid "Gas"
-msgstr ""
+msgstr "氣體"
 
 #: objects/FS/function.c:810 objects/FS/function.c:811
 #: objects/FS/function.c:853
 msgid "Human"
-msgstr ""
+msgstr "人類"
 
 #: objects/FS/function.c:812
 msgid "Hand"
-msgstr ""
+msgstr "手"
 
 #: objects/FS/function.c:813
-#, fuzzy
 msgid "Foot"
-msgstr "字型:"
+msgstr "腳"
 
 #: objects/FS/function.c:814
-#, fuzzy
 msgid "Head"
-msgstr "半個頭"
+msgstr "頭"
 
 #: objects/FS/function.c:815
-#, fuzzy
 msgid "Finger"
-msgstr "印表機"
+msgstr "手指"
 
 #: objects/FS/function.c:816
-#, fuzzy
 msgid "Toe"
-msgstr "靠上"
+msgstr "腳趾"
 
 #: objects/FS/function.c:817
 msgid "Biological"
-msgstr ""
+msgstr "生物"
 
 #: objects/FS/function.c:819
 msgid "Mechanical"
-msgstr ""
+msgstr "機械"
 
 #: objects/FS/function.c:820
-#, fuzzy
 msgid "Mech. Energy"
-msgstr "能量"
+msgstr "機械能量"
 
 #: objects/FS/function.c:821
 #, fuzzy
@@ -2656,52 +2600,48 @@ msgstr "移動"
 
 #: objects/FS/function.c:822
 msgid "Force"
-msgstr ""
+msgstr "力"
 
 #: objects/FS/function.c:823
-#, fuzzy
 msgid "Rotation"
 msgstr "旋轉"
 
 #: objects/FS/function.c:824
 msgid "Torque"
-msgstr ""
+msgstr "轉矩"
 
 #: objects/FS/function.c:825
 msgid "Random Motion"
-msgstr ""
+msgstr "隨機運動"
 
 #: objects/FS/function.c:826
-#, fuzzy
 msgid "Vibration"
-msgstr "運作"
+msgstr "震動"
 
 #: objects/FS/function.c:827
 msgid "Rotational Energy"
-msgstr ""
+msgstr "旋轉能量"
 
 #: objects/FS/function.c:828
 msgid "Translational Energy"
 msgstr ""
 
 #: objects/FS/function.c:829
-#, fuzzy
 msgid "Electrical"
-msgstr "垂直翻轉"
+msgstr "電力"
 
 #: objects/FS/function.c:830
-#, fuzzy
 msgid "Electricity"
-msgstr "相容性:"
+msgstr "電力"
 
 #: objects/FS/function.c:831
+#, fuzzy
 msgid "Voltage"
-msgstr ""
+msgstr "伏特"
 
 #: objects/FS/function.c:832
-#, fuzzy
 msgid "Current"
-msgstr "置中"
+msgstr "電流"
 
 #: objects/FS/function.c:833
 msgid "Hydraulic"
@@ -2709,7 +2649,7 @@ msgstr ""
 
 #: objects/FS/function.c:834
 msgid "Pressure"
-msgstr ""
+msgstr "壓力"
 
 #: objects/FS/function.c:835
 msgid "Volumetric Flow"
@@ -2721,9 +2661,8 @@ msgid "Thermal"
 msgstr "一般"
 
 #: objects/FS/function.c:837
-#, fuzzy
 msgid "Heat"
-msgstr "建立"
+msgstr "熱"
 
 #: objects/FS/function.c:838
 #, fuzzy
@@ -2746,49 +2685,47 @@ msgstr ""
 
 #: objects/FS/function.c:842
 msgid "Chemical"
-msgstr ""
+msgstr "化學"
 
 #: objects/FS/function.c:843
 msgid "Radioactive"
-msgstr ""
+msgstr "有輻射性"
 
 #: objects/FS/function.c:845
 msgid "Microwaves"
-msgstr ""
+msgstr "微波"
 
 #: objects/FS/function.c:846
 msgid "Radio waves"
-msgstr ""
+msgstr "無線電波"
 
 #: objects/FS/function.c:847
 msgid "X-Rays"
-msgstr ""
+msgstr "X 射線"
 
 #: objects/FS/function.c:848
 msgid "Gamma Rays"
-msgstr ""
+msgstr "伽瑪射線"
 
 #: objects/FS/function.c:849
 msgid "Acoustic Energy"
 msgstr ""
 
 #: objects/FS/function.c:850
-#, fuzzy
 msgid "Optical Energy"
-msgstr "能量"
+msgstr "光學能量"
 
 #: objects/FS/function.c:851
-#, fuzzy
 msgid "Solar Energy"
-msgstr "能量"
+msgstr "太陽能"
 
 #: objects/FS/function.c:852
 msgid "Magnetic Energy"
-msgstr ""
+msgstr "電磁能量"
 
 #: objects/FS/function.c:854
 msgid "Human Motion"
-msgstr ""
+msgstr "人類運動"
 
 #: objects/FS/function.c:855
 msgid "Human Force"
@@ -2796,7 +2733,7 @@ msgstr ""
 
 #: objects/FS/function.c:858
 msgid "Status"
-msgstr ""
+msgstr "狀態"
 
 #: objects/FS/function.c:861
 msgid "User/Device Fn"
@@ -2807,109 +2744,89 @@ msgstr ""
 msgid "Wish Fn"
 msgstr "預期功能"
 
-#: objects/GRAFCET/action.c:197 objects/GRAFCET/action.c:238
-#: objects/GRAFCET/step.c:275 objects/GRAFCET/step.c:315
-#: objects/SADT/annotation.c:495 objects/SADT/annotation.c:537
-#: objects/SADT/box.c:210 objects/SADT/box.c:252
-#: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
-#: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
-#: objects/custom/custom_object.c:396 objects/flowchart/box.c:353
-#: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
-#: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
-msgid "Font:"
-msgstr "字型:"
-
-#: objects/GRAFCET/action.c:198 objects/GRAFCET/action.c:239
-#: objects/GRAFCET/step.c:276 objects/GRAFCET/step.c:316
-#: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
-#: objects/SADT/box.c:211 objects/SADT/box.c:253
-#: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
-#: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
-#: objects/custom/custom_object.c:407 objects/flowchart/box.c:364
-#: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
-#: objects/flowchart/parallelogram.c:368
-msgid "Font size:"
-msgstr "文字大小:"
-
-#: objects/GRAFCET/action.c:199 objects/GRAFCET/action.c:240
-#: objects/GRAFCET/step.c:277
-msgid "Text color:"
-msgstr "文字顏色:"
-
-#: objects/GRAFCET/action.c:200
+#: objects/GRAFCET/action.c:134
 msgid "Macro call"
 msgstr "巨集呼叫"
 
+#: objects/GRAFCET/action.c:134
+msgid "This action is a call to a macro-step"
+msgstr ""
+
 #: objects/GRAFCET/condition.c:129
-#, fuzzy
 msgid "Condition"
-msgstr "條件:"
+msgstr "條件"
 
 #: objects/GRAFCET/condition.c:129
 msgid "The boolean equation of the condition"
-msgstr ""
+msgstr "此條件的布林運算式"
 
 #: objects/GRAFCET/condition.c:131
-#, fuzzy
 msgid "The condition's font"
-msgstr "刪除連接點"
+msgstr "條件所用的字型"
 
 #: objects/GRAFCET/condition.c:133
 msgid "The condition's font size"
-msgstr ""
+msgstr "條件所用的字型大小"
 
 #: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:145
-#, fuzzy
 msgid "Color"
-msgstr "顏色:"
+msgstr "顏色"
 
 #: objects/GRAFCET/condition.c:136
 msgid "The condition's color"
-msgstr ""
+msgstr "條件所用的顏色"
 
 #: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET 圖表物件"
 
-#: objects/GRAFCET/step.c:258
+#: objects/GRAFCET/step.c:146
 msgid "Regular step"
 msgstr "標準步驟"
 
-#: objects/GRAFCET/step.c:259
+#: objects/GRAFCET/step.c:147
 msgid "Initial step"
-msgstr "起始化步驟"
+msgstr "初始化步驟"
 
-#: objects/GRAFCET/step.c:260
+#: objects/GRAFCET/step.c:148
 msgid "Macro entry step"
 msgstr "巨集進入步驟"
 
-#: objects/GRAFCET/step.c:261
+#: objects/GRAFCET/step.c:149
 msgid "Macro exit step"
 msgstr "巨集離開步驟"
 
-#: objects/GRAFCET/step.c:262
+#: objects/GRAFCET/step.c:150
 msgid "Macro call step"
 msgstr "巨集呼叫步驟"
 
-#: objects/GRAFCET/step.c:263
+#: objects/GRAFCET/step.c:151
 msgid "Subprogram call step"
-msgstr "子程式呼叫步驟"
+msgstr "副程式呼叫步驟"
 
-#: objects/GRAFCET/step.c:272
+#: objects/GRAFCET/step.c:157
 msgid "Step name"
-msgstr "步驟名稱:"
+msgstr "步驟名稱"
 
-#: objects/GRAFCET/step.c:273
-msgid "Active"
-msgstr "啟動"
+#: objects/GRAFCET/step.c:157
+msgid "The name of the step"
+msgstr "步驟的名稱"
 
-#: objects/GRAFCET/step.c:274
+#: objects/GRAFCET/step.c:159
 msgid "Step type"
 msgstr "步驟類別"
 
-#: objects/GRAFCET/step.c:317
-msgid "Color:"
-msgstr "顏色:"
+#: objects/GRAFCET/step.c:159
+msgid "The kind of step"
+msgstr "步驟的類別"
+
+#: objects/GRAFCET/step.c:161
+msgid "Active"
+msgstr "啟動"
+
+#: objects/GRAFCET/step.c:161
+msgid "Shows a red dot to figure the step's activity"
+msgstr "以一紅點顯示每步的進行"
 
 #: objects/GRAFCET/transition.c:138
 #, fuzzy
@@ -2942,90 +2859,97 @@ msgstr "起始點"
 msgid "South point"
 msgstr "起始點"
 
-#: objects/GRAFCET/vector.c:185 objects/GRAFCET/vector.c:219
+#: objects/GRAFCET/vector.c:128
 msgid "Draw arrow heads on upward arcs:"
-msgstr "在向上的弧線上繪製箭頭"
+msgstr "在向上的弧線上繪製箭頭："
 
-#: objects/GRAFCET/vergent.c:171
+#: objects/GRAFCET/vergent.c:122
 msgid "OR"
 msgstr "OR"
 
-#: objects/GRAFCET/vergent.c:172
+#: objects/GRAFCET/vergent.c:123
 msgid "AND"
 msgstr "AND"
 
-#: objects/GRAFCET/vergent.c:181
+#: objects/GRAFCET/vergent.c:134
+#, fuzzy
 msgid "Vergent type:"
 msgstr "Vergent 種類:"
 
-#: objects/GRAFCET/vergent.c:446 objects/SADT/box.c:539
+#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:441
 #: objects/standard/line.c:182
 msgid "Add connection point"
 msgstr "增加連接點"
 
-#: objects/GRAFCET/vergent.c:447
+#: objects/GRAFCET/vergent.c:391
 msgid "Delete  connection point"
 msgstr "刪除連接點"
 
-#: objects/GRAFCET/vergent.c:451
+#: objects/GRAFCET/vergent.c:395
+#, fuzzy
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET OR/AND vergent"
 
-#: objects/SADT/annotation.c:497 objects/SADT/annotation.c:539
-#: objects/SADT/box.c:212 objects/SADT/box.c:254
-#: objects/chronogram/chronoline.c:340 objects/chronogram/chronoline.c:432
-#: objects/chronogram/chronoref.c:261 objects/chronogram/chronoref.c:326
-msgid "Font color:"
-msgstr "文字顏色:"
-
-#: objects/SADT/arrow.c:191 objects/UML/state.c:134
+#: objects/SADT/arrow.c:134 objects/UML/state.c:124
 msgid "Normal"
-msgstr "一般"
+msgstr "普通"
 
-#: objects/SADT/arrow.c:192
+#: objects/SADT/arrow.c:135
+#, fuzzy
 msgid "Import resource (not shown upstairs)"
 msgstr "匯入資源 (不顯示上層)"
 
-#: objects/SADT/arrow.c:193
+#: objects/SADT/arrow.c:136
+#, fuzzy
 msgid "Imply resource (not shown downstairs)"
 msgstr "匯入資源 (不顯示下層)"
 
-#: objects/SADT/arrow.c:194
+#: objects/SADT/arrow.c:137
 msgid "Dotted arrow"
 msgstr "點狀箭頭"
 
-#: objects/SADT/arrow.c:195
+#: objects/SADT/arrow.c:138
 msgid "disable arrow heads"
 msgstr "關閉箭頭"
 
-#: objects/SADT/arrow.c:204 objects/SADT/arrow.c:241
+#: objects/SADT/arrow.c:144
 msgid "Flow style:"
-msgstr "流程樣式:"
+msgstr "流程樣式："
 
-#: objects/SADT/arrow.c:205 objects/SADT/arrow.c:242
+#: objects/SADT/arrow.c:146
 msgid "Automatically gray vertical flows:"
-msgstr "自動化灰階垂直變化:"
+msgstr "自動將垂直流程變為灰階："
 
-#: objects/SADT/arrow.c:665
+#: objects/SADT/arrow.c:147
+msgid ""
+"To improve the ease of reading, flows which begin and end vertically can be "
+"rendered gray"
+msgstr "為方便閱讀，起點與終點垂直的流程可用灰色繪畫"
+
+#: objects/SADT/arrow.c:555
 msgid "SADT Arrow"
 msgstr "SADT 箭頭"
 
-#: objects/SADT/box.c:209 objects/SADT/box.c:251
-#: objects/custom/custom_object.c:371 objects/flowchart/box.c:339
-#: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
-#: objects/flowchart/parallelogram.c:343
-msgid "Text padding:"
-msgstr "插入文字:"
+#: objects/SADT/box.c:139 objects/flowchart/box.c:169
+#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
+#: objects/flowchart/parallelogram.c:171
+#, fuzzy
+msgid "Text padding"
+msgstr "插入文字"
 
-#: objects/SADT/box.c:213
+#: objects/SADT/box.c:146
 msgid "Activity/Data identifier"
 msgstr "活動/資料 識別"
 
-#: objects/SADT/box.c:540 objects/standard/line.c:183
+#: objects/SADT/box.c:147
+msgid "The identifier which appears in the lower right corner of the Box"
+msgstr ""
+
+#: objects/SADT/box.c:442 objects/standard/line.c:183
 msgid "Delete connection point"
 msgstr "刪除連接點"
 
-#: objects/SADT/box.c:545
+#: objects/SADT/box.c:447
 msgid "SADT box"
 msgstr "SADT 方塊"
 
@@ -3033,13 +2957,13 @@ msgstr "SADT 方塊"
 msgid "SADT diagram objects"
 msgstr "SADT 圖表物件"
 
-#: objects/UML/actor.c:384
+#: objects/UML/actor.c:333
 msgid "Actor"
 msgstr "相關角色"
 
 #: objects/UML/association.c:991
 msgid "Direction:"
-msgstr "方向:"
+msgstr "方向："
 
 #: objects/UML/association.c:1008
 msgid "From A to B"
@@ -3059,9 +2983,10 @@ msgstr "B 面"
 
 #: objects/UML/association.c:1055
 msgid "Role:"
-msgstr "角色:"
+msgstr "角色："
 
 #: objects/UML/association.c:1067
+#, fuzzy
 msgid "Multiplicity:"
 msgstr "複雜度:"
 
@@ -3080,60 +3005,53 @@ msgstr "聚集"
 msgid "Composition"
 msgstr "組成"
 
-#: objects/UML/class.c:100
-#, fuzzy
+#: objects/UML/class.c:105 objects/UML/large_package.c:120
 msgid "Name"
-msgstr "名稱:"
+msgstr "名稱"
 
-#: objects/UML/class.c:102 objects/UML/classicon.c:142
-#: objects/UML/component.c:116 objects/UML/object.c:173
-#: objects/UML/small_package.c:116
-#, fuzzy
+#: objects/UML/class.c:107 objects/UML/classicon.c:131
+#: objects/UML/component.c:116 objects/UML/large_package.c:118
+#: objects/UML/object.c:144 objects/UML/small_package.c:116
 msgid "Stereotype"
 msgstr "定型"
 
-#: objects/UML/class.c:104 objects/UML/class_dialog.c:208
+#: objects/UML/class.c:109 objects/UML/class_dialog.c:208
 msgid "Abstract"
 msgstr "摘要"
 
-#: objects/UML/class.c:106 objects/UML/class_dialog.c:220
+#: objects/UML/class.c:111 objects/UML/class_dialog.c:220
 msgid "Suppress Attributes"
 msgstr "抑制屬性"
 
-#: objects/UML/class.c:108
-#, fuzzy
+#: objects/UML/class.c:113
 msgid "Suppress Operations"
 msgstr "抑制動作"
 
-#: objects/UML/class.c:110
-#, fuzzy
+#: objects/UML/class.c:115
 msgid "Visible Attributes"
-msgstr "屬性"
+msgstr "可見屬性"
 
-#: objects/UML/class.c:112
-#, fuzzy
+#: objects/UML/class.c:117
 msgid "Visible Operations"
-msgstr "運作"
+msgstr "可見運作"
 
-#: objects/UML/class.c:118
-#, fuzzy
+#: objects/UML/class.c:123
 msgid "Template"
 msgstr "模板"
 
 #. Class page:
-#: objects/UML/class.c:682 objects/UML/class_dialog.c:180
+#: objects/UML/class.c:687 objects/UML/class_dialog.c:180
 msgid "Class"
 msgstr "階層"
 
 #: objects/UML/class_dialog.c:186
 msgid "Class name:"
-msgstr "階層名稱:"
+msgstr "階層名稱："
 
-#: objects/UML/class_dialog.c:197 objects/UML/dependency.c:129
-#: objects/UML/generalization.c:125 objects/UML/large_package.c:617
-#: objects/UML/object.c:883 objects/UML/realizes.c:126
+#: objects/UML/class_dialog.c:197 objects/UML/dependency.c:127
+#: objects/UML/generalization.c:123 objects/UML/realizes.c:124
 msgid "Stereotype:"
-msgstr "定型"
+msgstr "定型："
 
 #: objects/UML/class_dialog.c:216
 msgid "Attributes visible"
@@ -3141,24 +3059,22 @@ msgstr "可見屬性"
 
 #: objects/UML/class_dialog.c:228
 msgid "Operations visible"
-msgstr "動作屬性"
+msgstr "可見動作"
 
 #: objects/UML/class_dialog.c:232
 msgid "Suppress operations"
 msgstr "抑制動作"
 
 #: objects/UML/class_dialog.c:240
-#, fuzzy
 msgid "Foreground Color"
-msgstr "前景顏色:"
+msgstr "前景顏色"
 
 #: objects/UML/class_dialog.c:250
-#, fuzzy
 msgid "Background Color"
-msgstr "背景顏色:"
+msgstr "背景顏色"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:669
+#: objects/UML/class_dialog.c:669 objects/UML/object.c:148
 msgid "Attributes"
 msgstr "屬性"
 
@@ -3188,11 +3104,11 @@ msgstr "屬性資料"
 
 #: objects/UML/class_dialog.c:758
 msgid "Value:"
-msgstr "數值:"
+msgstr "數值："
 
 #: objects/UML/class_dialog.c:770 objects/UML/class_dialog.c:1634
 msgid "Visibility:"
-msgstr "可見度:"
+msgstr "可見度："
 
 #: objects/UML/class_dialog.c:779 objects/UML/class_dialog.c:1643
 msgid "Public"
@@ -3207,10 +3123,12 @@ msgid "Protected"
 msgstr "保護"
 
 #: objects/UML/class_dialog.c:803 objects/UML/class_dialog.c:1667
+#, fuzzy
 msgid "Implementation"
 msgstr "實作"
 
 #: objects/UML/class_dialog.c:819 objects/UML/class_dialog.c:1683
+#, fuzzy
 msgid "Class scope"
 msgstr "階層能力"
 
@@ -3229,7 +3147,7 @@ msgstr "摘要"
 
 #: objects/UML/class_dialog.c:1701
 msgid "Parameters:"
-msgstr "參數:"
+msgstr "參數："
 
 #: objects/UML/class_dialog.c:1763
 msgid "Parameter data"
@@ -3237,7 +3155,7 @@ msgstr "參數資料"
 
 #: objects/UML/class_dialog.c:1796
 msgid "Def. value:"
-msgstr "定義數值:"
+msgstr "定義值："
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2157
@@ -3250,123 +3168,128 @@ msgstr "模板階層"
 
 #: objects/UML/class_dialog.c:2220
 msgid "Formal parameter data"
-msgstr "形式參數資料"
+msgstr "正式參數資料"
 
-#: objects/UML/classicon.c:134
+#: objects/UML/classicon.c:123
 msgid "Boundary"
 msgstr "邊界"
 
-#: objects/UML/classicon.c:144
-#, fuzzy
+#: objects/UML/classicon.c:133
 msgid "Is object"
 msgstr "是一個物件"
 
-#: objects/UML/constraint.c:131
+#: objects/UML/constraint.c:120
+#, fuzzy
 msgid "Constraint:"
 msgstr "強制:"
 
-#: objects/UML/dependency.c:131
+#: objects/UML/dependency.c:129
 msgid "Show arrow:"
-msgstr "顯示箭頭:"
+msgstr "顯示箭頭："
 
-#: objects/UML/implements.c:123
+#: objects/UML/implements.c:121
 msgid "Interface:"
-msgstr "介面:"
-
-#: objects/UML/lifeline.c:138
-#, fuzzy
-msgid "Draw focus of control:"
-msgstr "顯示控制焦點:"
+msgstr "介面："
 
 #: objects/UML/lifeline.c:140
-#, fuzzy
-msgid "Draw destruction mark:"
-msgstr "顯示破壞符號:"
+msgid "Draw focus of control:"
+msgstr "顯示控制焦點："
 
-#: objects/UML/message.c:158
+#: objects/UML/lifeline.c:142
+msgid "Draw destruction mark:"
+msgstr "顯示破壞符號："
+
+#: objects/UML/lifeline.c:405
+msgid "Add connection points"
+msgstr "增加連接點"
+
+#: objects/UML/lifeline.c:406
+msgid "Remove connection points"
+msgstr "刪除連接點"
+
+#: objects/UML/lifeline.c:410
+msgid "UML Lifeline"
+msgstr ""
+
+#: objects/UML/message.c:135
+#, fuzzy
 msgid "Call"
 msgstr "聯絡"
 
-#: objects/UML/message.c:159
+#: objects/UML/message.c:136
 msgid "Create"
 msgstr "建立"
 
-#: objects/UML/message.c:160
+#: objects/UML/message.c:137
 msgid "Destroy"
 msgstr "摧毀"
 
-#: objects/UML/message.c:161
+#: objects/UML/message.c:138
 msgid "Simple"
 msgstr "簡單"
 
-#: objects/UML/message.c:162
+#: objects/UML/message.c:139
 msgid "Return"
 msgstr "返回"
 
-#: objects/UML/message.c:163
+#: objects/UML/message.c:140
 msgid "Send"
-msgstr ""
+msgstr "送出"
 
-#: objects/UML/message.c:164
+#: objects/UML/message.c:141
 msgid "Recursive"
 msgstr "循環"
 
-#: objects/UML/message.c:171
+#: objects/UML/message.c:148
 msgid "Message:"
-msgstr "訊息:"
+msgstr "訊息："
 
-#: objects/UML/message.c:173
+#: objects/UML/message.c:150
 msgid "Message type:"
-msgstr "訊息種類:"
+msgstr "訊息種類："
 
-#: objects/UML/object.c:175
+#: objects/UML/object.c:146
 #, fuzzy
-msgid "Class name"
-msgstr "階層名稱:"
-
-#: objects/UML/object.c:871
-msgid "Explicit state:"
+msgid "Explicit state"
 msgstr "完成日期;"
 
-#: objects/UML/object.c:893
-msgid "Attributes:"
-msgstr "屬性:"
-
-#: objects/UML/object.c:903
-msgid "Show attributes"
-msgstr "顯示屬性"
-
-#: objects/UML/object.c:907
+#: objects/UML/object.c:151
 msgid "Active object"
 msgstr "運作物件"
 
-#: objects/UML/object.c:912
-msgid "multiple instance"
+#: objects/UML/object.c:153
+msgid "Show attributes"
+msgstr "顯示屬性"
+
+#: objects/UML/object.c:155
+#, fuzzy
+msgid "Multiple instance"
 msgstr "多重實例"
 
-#: objects/UML/state.c:135
+#: objects/UML/state.c:125
 msgid "Begin"
 msgstr "開始"
 
-#: objects/UML/state.c:136
+#: objects/UML/state.c:126
 msgid "End"
 msgstr "結束"
 
-#: objects/UML/state.c:143
-#, fuzzy
+#: objects/UML/state.c:133
 msgid "State Type"
-msgstr "相同類別"
+msgstr "狀態類別"
 
 #: objects/UML/uml.c:60
+#, fuzzy
 msgid "Unified Modelling Language diagram objects"
 msgstr "統一模型語言 圖表物件"
 
-#: objects/UML/usecase.c:134
+#: objects/UML/usecase.c:125
 #, fuzzy
 msgid "Text outside"
 msgstr "文字外觀:"
 
-#: objects/UML/usecase.c:136
+#: objects/UML/usecase.c:127
+#, fuzzy
 msgid "Collaboration"
 msgstr "協力"
 
@@ -3374,87 +3297,94 @@ msgstr "協力"
 msgid "Chronogram diagram objects"
 msgstr "Chronogram 圖表物件"
 
-#: objects/chronogram/chronoline.c:307 objects/chronogram/chronoline.c:410
-msgid "Aspect"
-msgstr "外觀"
-
-#: objects/chronogram/chronoline.c:308 objects/chronogram/chronoline.c:411
-msgid "Parameters"
-msgstr "參數"
-
-#: objects/chronogram/chronoline.c:309
+#: objects/chronogram/chronoline.c:148
 msgid "Data"
 msgstr "資料"
 
-#: objects/chronogram/chronoline.c:311
-msgid "Data name:"
-msgstr "資料名稱:"
+#: objects/chronogram/chronoline.c:150
+msgid "Data name"
+msgstr "資料名稱："
 
-#: objects/chronogram/chronoline.c:313
-msgid "Events:"
-msgstr "事件:"
+#: objects/chronogram/chronoline.c:152
+msgid "Events"
+msgstr "事件"
 
-#: objects/chronogram/chronoline.c:314
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:156
 msgid ""
-"Event specification:\n"
 "@ time    set the pointer at an absolute time.\n"
 "( duration  sets the signal up, then wait 'duration'.\n"
 ") duration  sets the signal down, then wait 'duration'.\n"
 "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
-"事件指定:\n"
-"@ 時間       設定指標於絕對時間.\n"
-"( 經過時間   設定信號啟動, 並等待'經過時間'.\n"
-") 經過時間   設定信號停止, 並等待'經過時間'.\n"
-"u 經過時間   設定信號'未知', 並等待'經過時間'\n"
-"example : @ 1.0 (2.0)1.0(2.0)\n"
+"@ 時間      設定指標於絕對時間。\n"
+"( 經過時間  設定信號啟動，並等待 '經過時間'。\n"
+") 經過時間  設定信號停止，並等待 '經過時間'。\n"
+"u 經過時間  設定信號為 '未知'，並等待 '經過時間'。\n"
+"例子： @ 1.0 (2.0)1.0(2.0)\n"
 
-#: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
-#: objects/chronogram/chronoref.c:249 objects/chronogram/chronoref.c:314
-msgid "Start time:"
-msgstr "起始時間:"
+#: objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "參數"
 
-#: objects/chronogram/chronoline.c:324 objects/chronogram/chronoline.c:415
-#: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
-msgid "End time:"
-msgstr "結束時間:"
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+msgid "Start time"
+msgstr "開始時間"
 
-#: objects/chronogram/chronoline.c:326 objects/chronogram/chronoline.c:417
-msgid "Rise time:"
-msgstr "上升時間:"
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+msgid "End time"
+msgstr "結束時間"
 
-#: objects/chronogram/chronoline.c:328 objects/chronogram/chronoline.c:419
-msgid "Fall time:"
-msgstr "下降時間:"
+#: objects/chronogram/chronoline.c:168
+msgid "Rise time"
+msgstr "上升時間"
 
-#: objects/chronogram/chronoline.c:330 objects/chronogram/chronoline.c:421
+#: objects/chronogram/chronoline.c:170
+msgid "Fall time"
+msgstr "下降時間"
+
+#: objects/chronogram/chronoline.c:171
 msgid "Multi-bit data"
 msgstr "多位元資料"
 
-#: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
-msgid "Data color:"
-msgstr "資料顏色:"
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+#, fuzzy
+msgid "Aspect"
+msgstr "外觀"
 
-#: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:425
-msgid "Data line width:"
-msgstr "資料行寬度:"
+#: objects/chronogram/chronoline.c:175
+msgid "Data color"
+msgstr "資料顏色"
 
-#: objects/chronogram/chronoline.c:335 objects/chronogram/chronoline.c:427
-#: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
-msgid "Line color:"
-msgstr "線段顏色:"
+#: objects/chronogram/chronoline.c:177
+msgid "Data line width"
+msgstr "資料行寬度"
 
-#: objects/chronogram/chronoref.c:252 objects/chronogram/chronoref.c:317
-msgid "Major time step:"
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
+msgid "Line color"
+msgstr "線段顏色"
+
+#: objects/chronogram/chronoref.c:144
+msgid "Time data"
+msgstr "時間資料"
+
+#: objects/chronogram/chronoref.c:150
+#, fuzzy
+msgid "Major time step"
 msgstr "主要時間間隔:"
 
-#: objects/chronogram/chronoref.c:253 objects/chronogram/chronoref.c:318
-msgid "Minor time step:"
+#: objects/chronogram/chronoref.c:152
+#, fuzzy
+msgid "Minor time step"
 msgstr "次要時間間隔:"
 
-#: objects/chronogram/chronoref.c:257 objects/chronogram/chronoref.c:322
-msgid "Minor step line width:"
+#: objects/chronogram/chronoref.c:162
+#, fuzzy
+msgid "Minor step line width"
 msgstr "次要步驟行寬度:"
 
 #: objects/custom/custom.c:124
@@ -3462,88 +3392,107 @@ msgid "Custom"
 msgstr "自訂"
 
 #: objects/custom/custom.c:124
+#, fuzzy
 msgid "Custom XML shapes loader"
 msgstr "自訂 XML 形式載入器"
 
-#: objects/custom/custom_object.c:185 objects/custom/custom_object.c:203
+#: objects/custom/custom_object.c:187 objects/custom/custom_object.c:205
 msgid "Flip horizontal"
 msgstr "水平翻轉"
 
-#: objects/custom/custom_object.c:187 objects/custom/custom_object.c:205
+#: objects/custom/custom_object.c:189 objects/custom/custom_object.c:207
 msgid "Flip vertical"
 msgstr "垂直翻轉"
 
-#: objects/custom/custom_object.c:385 objects/standard/textobj.c:259
-msgid "Alignment:"
-msgstr "對齊:"
+#: objects/custom/custom_object.c:373 objects/flowchart/box.c:339
+#: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
+#: objects/flowchart/parallelogram.c:343
+#, fuzzy
+msgid "Text padding:"
+msgstr "插入文字:"
 
-#: objects/custom/custom_object.c:1546
+#: objects/custom/custom_object.c:387 objects/standard/textobj.c:259
+msgid "Alignment:"
+msgstr "對齊："
+
+#: objects/custom/custom_object.c:398 objects/flowchart/box.c:353
+#: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
+#: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
+msgid "Font:"
+msgstr "字型："
+
+#: objects/custom/custom_object.c:409 objects/flowchart/box.c:364
+#: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
+#: objects/flowchart/parallelogram.c:368
+msgid "Font size:"
+msgstr "文字大小："
+
+#: objects/custom/custom_object.c:1562
 msgid "Flip Horizontal"
 msgstr "水平翻轉"
 
-#: objects/custom/custom_object.c:1547
+#: objects/custom/custom_object.c:1563
 msgid "Flip Vertical"
 msgstr "垂直翻轉"
 
-#: objects/custom/custom_object.c:1580
+#: objects/custom/custom_object.c:1600
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
-msgstr ""
+msgstr "無法開啟物件類別 '%2$s' 的圖示檔 %1$s。"
 
 #: objects/flowchart/box.c:167 objects/standard/box.c:153
 msgid "Corner radius"
 msgstr "角落半徑"
 
-#: objects/flowchart/box.c:169 objects/flowchart/diamond.c:165
-#: objects/flowchart/ellipse.c:165 objects/flowchart/parallelogram.c:171
-msgid "Text padding"
-msgstr "插入文字"
-
 #: objects/flowchart/box.c:325 objects/standard/box.c:240
 msgid "Corner rounding:"
-msgstr "圓形角落:"
+msgstr "圓形角落："
 
 #: objects/flowchart/flowchart.c:37
 msgid "Flowchart objects"
 msgstr "流程圖物件"
 
 #: objects/flowchart/parallelogram.c:169
+#, fuzzy
 msgid "Shear angle"
 msgstr "分離角"
 
 #: objects/flowchart/parallelogram.c:329
+#, fuzzy
 msgid "Shear angle:"
 msgstr "分離角:"
 
 #: objects/network/bus.c:574
 msgid "Add Handle"
-msgstr "增加控制"
+msgstr "增加控制點"
 
 #: objects/network/bus.c:575
 msgid "Delete Handle"
-msgstr "刪除控制"
+msgstr "刪除控制點"
 
 #: objects/network/network.c:41
 msgid "Network diagram objects"
 msgstr "網路圖表物件"
 
-#: objects/standard/bezier.c:523 objects/standard/beziergon.c:544
+#: objects/standard/bezier.c:526 objects/standard/beziergon.c:544
 msgid "Add Segment"
 msgstr "增加區段"
 
-#: objects/standard/bezier.c:524 objects/standard/beziergon.c:545
+#: objects/standard/bezier.c:527 objects/standard/beziergon.c:545
 msgid "Delete Segment"
 msgstr "刪除區段"
 
-#: objects/standard/bezier.c:526 objects/standard/beziergon.c:547
+#: objects/standard/bezier.c:529 objects/standard/beziergon.c:547
 msgid "Symmetric control"
-msgstr "系統性控制"
+msgstr "對稱控制"
 
-#: objects/standard/bezier.c:528 objects/standard/beziergon.c:549
+#: objects/standard/bezier.c:531 objects/standard/beziergon.c:549
+#, fuzzy
 msgid "Smooth control"
 msgstr "柔軟控制"
 
-#: objects/standard/bezier.c:530 objects/standard/beziergon.c:551
+#: objects/standard/bezier.c:533 objects/standard/beziergon.c:551
+#, fuzzy
 msgid "Cusp control"
 msgstr " 尖銳控制"
 
@@ -3553,7 +3502,7 @@ msgstr "曲線距離"
 
 #: objects/standard/image.c:168
 msgid "Image file"
-msgstr "影像檔"
+msgstr "圖像檔"
 
 #: objects/standard/image.c:170
 msgid "Draw border"
@@ -3565,15 +3514,15 @@ msgstr "保持比例"
 
 #: objects/standard/image.c:273
 msgid "Image file:"
-msgstr "影像檔:"
+msgstr "圖像檔："
 
 #: objects/standard/image.c:284
 msgid "Keep aspect ratio:"
-msgstr "保持比例:"
+msgstr "保持比例："
 
 #: objects/standard/image.c:292
 msgid "Show border:"
-msgstr "顯示邊界:"
+msgstr "顯示邊界："
 
 #. Found file in same dir as diagram.
 #: objects/standard/image.c:851 objects/standard/image.c:862
@@ -3582,28 +3531,28 @@ msgid ""
 "The image file '%s' was not found in that directory.\n"
 "Using the file '%s' instead\n"
 msgstr ""
-"目錄中沒有找到影像檔'%s'.\n"
-"使用檔案'%s'\n"
+"目錄中沒有找到圖像檔 '%s'。\n"
+"改用檔案 '%s'\n"
 
 #. Didn't find file in current dir.
 #: objects/standard/image.c:868 objects/standard/image.c:894
 #, c-format
 msgid "The image file '%s' was not found.\n"
-msgstr "沒有找到影像檔'%s'.\n"
+msgstr "沒有找到圖像檔'%s'。\n"
 
 #: objects/standard/line.c:121
 msgid "Start point"
-msgstr "起始點"
+msgstr "開始點"
 
 #: objects/standard/line.c:123
 msgid "End point"
 msgstr "結束點"
 
-#: objects/standard/polygon.c:518 objects/standard/polyline.c:480
+#: objects/standard/polygon.c:527 objects/standard/polyline.c:500
 msgid "Add Corner"
 msgstr "增加角落"
 
-#: objects/standard/polygon.c:519 objects/standard/polyline.c:481
+#: objects/standard/polygon.c:528 objects/standard/polyline.c:501
 msgid "Delete Corner"
 msgstr "刪除角落"
 
@@ -3613,35 +3562,35 @@ msgstr "標準物件"
 
 #: objects/standard/textobj.c:281
 msgid "Fontsize:"
-msgstr "文字大小:"
+msgstr "文字大小："
 
 #: plug-ins/cgm/cgm.c:1086
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
-"影像高度大於最大儲存格高.\n"
-"影像未匯出至 CGM."
+"圖像高度大於最大儲存陣列長度。\n"
+"圖像不會匯出至 CGM。"
 
 #: plug-ins/cgm/cgm.c:1261
 msgid "Computer Graphics Metafile"
-msgstr "電腦影像中介檔"
+msgstr "電腦圖像中介檔（CGM）"
 
 #: plug-ins/cgm/cgm.c:1275
 msgid "Computer Graphics Metafile export filter"
-msgstr "電腦影像中介匯出過濾器"
+msgstr "電腦圖像中介檔（CGM）匯出過濾器"
 
 #: plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:631
 msgid "Drawing Interchange File"
-msgstr "繪圖交換檔案"
+msgstr "繪圖交換檔（DIF）"
 
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
-msgstr "繪圖交換檔案匯出入過濾器"
+msgstr "繪圖交換檔（DIF）匯出/匯入過濾器"
 
 #: plug-ins/hpgl/hpgl.c:616
 msgid "HP Graphics Language export filter"
-msgstr "HP 圖形語言匯出過濾器"
+msgstr "HP 圖形語言（HP-GL）匯出過濾器"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -3651,410 +3600,210 @@ msgstr "TeX Pstricks 匯出過濾器"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks 巨集"
 
-#: plug-ins/shape/shape-export.c:924
+#: plug-ins/shape/shape-export.c:925
 msgid "Can't export png without libart!"
-msgstr ""
+msgstr "無法匯出而 png 而沒有 libart！"
 
-#: plug-ins/shape/shape-export.c:947
+#: plug-ins/shape/shape-export.c:952
 msgid "dia shape file"
-msgstr ""
+msgstr "dia 形狀檔案"
 
 #: plug-ins/shape/shape.c:36
-#, fuzzy
 msgid "dia shape export filter"
-msgstr "TeX Pstricks 匯出過濾器"
+msgstr "dia 形狀匯出過濾器"
 
 #: plug-ins/svg/render_svg.c:825
 msgid "Scalable Vector Graphics"
-msgstr "可縮放向量圖"
+msgstr "可縮放向量圖（SVG）"
 
 #: plug-ins/svg/svg.c:36
-#, fuzzy
 msgid "Scalable Vector Graphics export filter"
-msgstr "可縮放向量圖"
+msgstr "可縮放向量圖（SVG）匯出過濾器"
 
 #: plug-ins/wpg/wpg.c:1048
 #, c-format
 msgid "File: %s type/version unsupported.\n"
-msgstr "檔案: %s 類型/版本 不被支援.\n"
+msgstr "檔案：%s 類型或版本不被支援。\n"
 
 #: plug-ins/wpg/wpg.c:1197
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect 圖形匯出過濾器"
 
 #: plug-ins/xfig/xfig.c:39
-#, fuzzy
 msgid "Fig Format import and export filter"
-msgstr "繪圖交換檔案匯出入過濾器"
-
-#: plug-ins/xfig/xfig-import.c:73
-msgid "Polygon import is not implemented yes"
-msgstr ""
+msgstr "Fig 格式檔案匯出/匯入過濾器"
 
 #: plug-ins/xfig/xfig-import.c:74
-msgid "Patterns are not supported by Dia"
-msgstr ""
+msgid "Polygon import is not implemented yet"
+msgstr "未完成匯入多邊形的功能"
 
 #: plug-ins/xfig/xfig-import.c:75
+msgid "Patterns are not supported by Dia"
+msgstr "Dia 不支援樣式"
+
+#: plug-ins/xfig/xfig-import.c:76
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:76
-msgid "Negative corner radius, negating"
-msgstr ""
-
 #: plug-ins/xfig/xfig-import.c:77
+msgid "Negative corner radius, negating"
+msgstr "負數的角落半徑，使用正數"
+
+#: plug-ins/xfig/xfig-import.c:78
 msgid "Spline import is not implemented yet"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:357
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:400
+#, c-format
 msgid "Line style %d should not appear\n"
-msgstr "線段內容"
+msgstr "線段樣式 %d 不應出現\n"
 
-#: plug-ins/xfig/xfig-import.c:395
+#: plug-ins/xfig/xfig-import.c:438
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
-msgstr ""
+msgstr "讀取 %2$d 點中的第 %1$d 點時出現錯誤：%3$s\n"
 
-#: plug-ins/xfig/xfig-import.c:414
-#, fuzzy
+#: plug-ins/xfig/xfig-import.c:457
 msgid "Error while reading arrowhead\n"
-msgstr "讀取檔案錯誤\n"
+msgstr "讀取箭頭時錯誤\n"
 
-#: plug-ins/xfig/xfig-import.c:505
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:548
+#, c-format
 msgid "Couldn't read ellipse info: %s\n"
-msgstr ""
-"無法載入 plugin '%s'\n"
-"%s"
+msgstr "無法讀取橢圓資料：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:574
+#: plug-ins/xfig/xfig-import.c:617
 #, fuzzy, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr ""
 "無法載入 plugin '%s'\n"
 "%s"
 
-#: plug-ins/xfig/xfig-import.c:589
+#: plug-ins/xfig/xfig-import.c:632
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
-msgstr ""
+msgstr "無法讀取翻轉有關的位元：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:645 plug-ins/xfig/xfig-import.c:729
+#: plug-ins/xfig/xfig-import.c:690 plug-ins/xfig/xfig-import.c:774
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:707
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:752
+#, c-format
 msgid "Couldn't read arc info: %s\n"
-msgstr ""
-"無法載入 plugin '%s'\n"
-"%s"
+msgstr "無法讀取弧線資料：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:781
+#: plug-ins/xfig/xfig-import.c:826
 #, c-format
 msgid "Couldn't read text info: %s\n"
-msgstr ""
+msgstr "無法讀取文字資料：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:828
+#: plug-ins/xfig/xfig-import.c:873
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
-msgstr ""
+msgstr "無法識別 FIG 物件：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:835
+#: plug-ins/xfig/xfig-import.c:880
 msgid "Compound end outside compound\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:854
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:899
+#, c-format
 msgid "Couldn't read color: %s\n"
-msgstr ""
-"無法載入 plugin '%s'\n"
-"%s"
+msgstr "無法讀取顏色：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:896
+#: plug-ins/xfig/xfig-import.c:941
 #, fuzzy, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "無法開啟 '%s'."
 
-#: plug-ins/xfig/xfig-import.c:907
+#: plug-ins/xfig/xfig-import.c:952
 #, c-format
 msgid "Unknown object type %d\n"
-msgstr ""
+msgstr "不明的物件類別 %d\n"
 
-#: plug-ins/xfig/xfig-import.c:930
+#: plug-ins/xfig/xfig-import.c:975
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
-msgstr ""
+msgstr "`%s' 不是 `%s' 或 `%s' 其中之一\n"
 
-#: plug-ins/xfig/xfig-import.c:940
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:985
+#, c-format
 msgid "Error reading paper size: %s\n"
-msgstr "讀取檔案錯誤\n"
+msgstr "讀取紙張大小發生錯誤：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:950
+#: plug-ins/xfig/xfig-import.c:995
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
-msgstr ""
+msgstr "不明的紙張大小 `%s'，使用預設值\n"
 
-#: plug-ins/xfig/xfig-import.c:962
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:1007
+#, c-format
 msgid "Error reading paper orientation: %s\n"
-msgstr "讀取檔案錯誤\n"
+msgstr "讀取紙張方向發生錯誤：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:972
+#: plug-ins/xfig/xfig-import.c:1017
 #, fuzzy, c-format
 msgid "Error reading justification: %s\n"
 msgstr "讀取檔案錯誤\n"
 
-#: plug-ins/xfig/xfig-import.c:982
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:1027
+#, c-format
 msgid "Error reading units: %s\n"
-msgstr "讀取檔案錯誤\n"
+msgstr "讀取單位發生錯誤：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:996
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:1041
+#, c-format
 msgid "Error reading magnification: %s\n"
-msgstr "讀取檔案錯誤\n"
+msgstr "讀取縮放倍率發生錯誤：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:1007
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:1052
+#, c-format
 msgid "Error reading multipage indicator: %s\n"
-msgstr "讀取檔案錯誤\n"
+msgstr "讀取頁數指示發生錯誤：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:1018
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:1063
+#, c-format
 msgid "Error reading transparent color: %s\n"
-msgstr ""
-"無法載入\"%s\"函式庫\n"
-" %s\n"
+msgstr "讀取透明顏色發生錯誤：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:1027 plug-ins/xfig/xfig-import.c:1082
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:1072 plug-ins/xfig/xfig-import.c:1127
+#, c-format
 msgid "Error reading FIG file: %s\n"
-msgstr "讀取檔案錯誤\n"
+msgstr "讀取 FIG 檔案發生錯誤：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:1029 plug-ins/xfig/xfig-import.c:1084
+#: plug-ins/xfig/xfig-import.c:1074 plug-ins/xfig/xfig-import.c:1129
 msgid "Premature end of FIG file\n"
-msgstr ""
+msgstr "FIG 檔案過早完結\n"
 
-#: plug-ins/xfig/xfig-import.c:1038
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:1083
+#, c-format
 msgid "Error reading resolution: %s\n"
-msgstr ""
-"無法載入\"%s\"函式庫\n"
-" %s\n"
+msgstr "讀取解析度發生錯誤：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:1069
+#: plug-ins/xfig/xfig-import.c:1114
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
-msgstr ""
+msgstr "不像是 Fig 檔案：%s\n"
 
-#: plug-ins/xfig/xfig-import.c:1075
+#: plug-ins/xfig/xfig-import.c:1120
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
-msgstr ""
+msgstr "這是 FIG 版本 %d.%d 的檔案。可能無法識別\n"
 
-#: plug-ins/xfig/xfig-import.c:1116
+#: plug-ins/xfig/xfig-import.c:1161
 msgid "XFig File Format"
-msgstr ""
+msgstr "XFig 檔案格式"
 
-#~ msgid "/View/Show Rulers"
-#~ msgstr "/檢視/顯示尺標"
+#~ msgid "Class name"
+#~ msgstr "階層名稱："
 
-#~ msgid "/View/Visible Grid"
-#~ msgstr "/檢視/顯示格線"
-
-#~ msgid "/View/Snap To Grid"
-#~ msgstr "/檢視/貼齊格線"
-
-#~ msgid "/View/Show Connection Points"
-#~ msgstr "/檢視/顯示連接點"
-
-#~ msgid "/View/AntiAliased"
-#~ msgstr "/檢視/不對齊"
-
-#~ msgid "/Tools/"
-#~ msgstr "/工具/"
-
-#~ msgid "/Edit/Copy"
-#~ msgstr "/編輯/複製"
-
-#~ msgid "/Edit/Cut"
-#~ msgstr "/編輯/剪下"
-
-#~ msgid "/Edit/Paste"
-#~ msgstr "/編輯/貼上"
-
-#~ msgid "/Edit/Delete"
-#~ msgstr "/編輯/刪除"
-
-#~ msgid "/Edit/Paste Text"
-#~ msgstr "/編輯/貼上文字"
-
-#~ msgid "/Objects/Send to Back"
-#~ msgstr "/物件/移到背後"
-
-#~ msgid "/Objects/Bring to Front"
-#~ msgstr "/物件/移到前面"
-
-#~ msgid "/Objects/Group"
-#~ msgstr "/物件/群組"
-
-#~ msgid "/Objects/Ungroup"
-#~ msgstr "/物件/取消群組"
+#~ msgid "Attributes:"
+#~ msgstr "屬性："
 
 #~ msgid "Sybase replication domain diagram objects"
 #~ msgstr "Sybase 回覆網域 圖表物件"
 
-#, fuzzy
-#~ msgid ""
-#~ "Dia v %s\n"
-#~ " by Alexander Larsson"
-#~ msgstr "Dia v %s by Alexander Larsson"
-
-#~ msgid "Hollow Diamond"
-#~ msgstr "空心菱形"
-
-#~ msgid "Function:"
-#~ msgstr "功能:"
-
-#~ msgid "      Transmit"
-#~ msgstr "      移動"
-
-#~ msgid "      Rotate"
-#~ msgstr "      旋轉"
-
-#~ msgid "      Remove"
-#~ msgstr "      移除"
-
-#~ msgid "File/New diagram"
-#~ msgstr "檔案/新圖表"
-
-#~ msgid "File/Open..."
-#~ msgstr "檔案/開啟檔案..."
-
-#~ msgid "File/Save As..."
-#~ msgstr "檔案/另存新檔..."
-
-#~ msgid "File/Close"
-#~ msgstr "檔案/關閉"
-
-#~ msgid "File/Exit"
-#~ msgstr "檔案/離開"
-
-#~ msgid "View/New View"
-#~ msgstr "檢視/新視角"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/檔案/sep1"
-
-#~ msgid "/tearoff"
-#~ msgstr "/tearoff"
-
-#~ msgid "/File/tearoff"
-#~ msgstr "/檔案/tearoff"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/檔案/sep2"
-
-#~ msgid "/Edit/tearoff"
-#~ msgstr "/編輯/tearoff"
-
-#~ msgid "/View/tearoff"
-#~ msgstr "/檢視/tearoff"
-
-#~ msgid "/View/Zoom/tearoff"
-#~ msgstr "/檢視/tearoff"
-
-#~ msgid "/View/sep1"
-#~ msgstr "/檢視/sep1"
-
-#~ msgid "/Select/tearoff"
-#~ msgstr "/選擇/tearoff"
-
-#~ msgid "/Select/sep1"
-#~ msgstr "/選擇/sep1"
-
-#~ msgid "/Objects/tearoff1"
-#~ msgstr "/物件/tearoff1"
-
-#~ msgid "/Objects/sep1"
-#~ msgstr "/物件/sep1"
-
-#~ msgid "/Objects/Align Horizontal/tearoff"
-#~ msgstr "/物件/水平對齊/tearoff"
-
-#~ msgid "/Objects/Align Vertical/tearoff"
-#~ msgstr "/物件/垂直對齊/tearoff"
-
-#~ msgid "/Tools/tearoff"
-#~ msgstr "/工具/tearoff"
-
-#~ msgid "/Dialogs/tearoff"
-#~ msgstr "/對話窗/tearoff"
-
-#~ msgid "Border width:"
-#~ msgstr "邊界寬度:"
-
 #~ msgid "Asynchronous"
 #~ msgstr "非同步"
-
-#~ msgid ""
-#~ "Could not determine which import filter\n"
-#~ "to use to open '%s'"
-#~ msgstr ""
-#~ "無法決定匯入過濾器\n"
-#~ "以用於開啟 '%s'"
-
-#~ msgid "Grid options"
-#~ msgstr "格線選項"
-
-#~ msgid "Grid x size:"
-#~ msgstr "x軸格線大小:"
-
-#~ msgid "Grid y size:"
-#~ msgstr "y軸格線大小:"
-
-#~ msgid "Edit Grid..."
-#~ msgstr "編輯格線..."
-
-#~ msgid "Dialogs"
-#~ msgstr "對話框"
-
-#~ msgid "/View/Edit Grid..."
-#~ msgstr "/檢視/編輯格線"
-
-#~ msgid ""
-#~ "Couldn't find any libraries to load.\n"
-#~ "%s is not a directory.\n"
-#~ msgstr ""
-#~ "無法找到函式庫以供載入.\n"
-#~ "%s 不是一個目錄.\n"
-
-#~ msgid "The file \"%s\" is not a Dia object library.\n"
-#~ msgstr "檔案\"%s\"不是Dia目標函式庫.\n"
-
-#~ msgid ""
-#~ "The object library \"%s\" is from an older version of Dia and cannot be "
-#~ "used.\n"
-#~ "Please upgrade it."
-#~ msgstr ""
-#~ "目標函式庫\"%s\"是由舊版Dia簡立的, 無法使用.\n"
-#~ "請更新"
-
-#~ msgid ""
-#~ "The object library \"%s\" is from an later version of Dia.\n"
-#~ "You need to upgrade Dia to use it."
-#~ msgstr ""
-#~ "目標函式庫\"%s\"是由新版Dia簡立的, 無法使用.\n"
-#~ "請更新Dia程式"
-
-#~ msgid ""
-#~ "Unable to find register_sheets in library:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "無法在函式庫中找到註冊的表單\n"
-#~ "%s"

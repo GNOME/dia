@@ -1,3 +1,9 @@
+2001-08-13  Abel Cheung  <maddog@linux.org.hk>
+
+	* zh_TW.Big5.po: Updated traditional Chinese translation. This
+	  file is checked against gettext 0.10.38, so please warn me if
+	  this module uses 0.10.35 .
+
 2001-08-02  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Updated Swedish translation.
