@@ -1,5 +1,12 @@
 2004-07-10  Lars Clausen  <lars@raeder.dk>
 
+	* app/sheets_dialog_callbacks.c (write_user_sheet): 
+	* lib/sheet.c (load_register_sheet): Don't introduce double
+	slashes in namespace.
+
+	* lib/dia_xml.h (DIA_XML_NAME_SPACE_BASE): Keep consistent with
+	old diagrams, or XSLT will barf all over.
+	
 	* shapes/RDP/place.shape: 
 	* shapes/RDP/transition.shape: 
 	* shapes/RDP/Makefile.am: Added .png entries to SHAPES and changed

@@ -36,7 +36,7 @@
  * key into account.
  * See also : doc/diagram.dtd
  */
-#define DIA_XML_NAME_SPACE_BASE "http://www.lysator.liu.se/~alla/dia"
+#define DIA_XML_NAME_SPACE_BASE "http://www.lysator.liu.se/~alla/dia/"
 
 DIAVAR int pretty_formated_xml;
 
