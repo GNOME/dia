@@ -33,7 +33,7 @@
 #include "diagram.h"
 #include "diagramdata.h"
 #include "render_eps.h"
-#include "diaepsrenderer.h"
+#include "diapsrenderer.h"
 #include "paginate_psprint.h"
 #include "diapagelayout.h"
 
@@ -44,8 +44,6 @@
 #include "win32print.h"
 #define pclose(file) win32_printer_close (file)
 #endif
-
-#ifdef  EPS_RENDERER_USING_DIA_RENDERER
 
 /* keep track of print options between prints */
 typedef struct _dia_print_options {
@@ -66,15 +64,16 @@ count_objs(Object *obj, DiaRenderer *renderer, int active_layer, guint *nobjs)
 }
 
 static guint
-print_page(DiagramData *data, DiaEpsRenderer *rend, Rectangle *bounds)
+print_page(DiagramData *data, DiaRenderer *diarend, Rectangle *bounds)
 {
+  DiaPsRenderer *rend = DIA_PS_RENDERER(diarend);
   guint nobjs = 0;
   gfloat tmargin = data->paper.tmargin, bmargin = data->paper.bmargin;
   gfloat lmargin = data->paper.lmargin;
   gfloat scale = data->paper.scaling;
 
   /* count the number of objects in this region */
-  data_render(data, DIA_RENDERER (rend), bounds,
+  data_render(data, diarend, bounds,
               (ObjectRenderer) count_objs, &nobjs);
 
   if (nobjs == 0)
@@ -110,7 +109,7 @@ print_page(DiagramData *data, DiaEpsRenderer *rend, Rectangle *bounds)
   fprintf(rend->file, "clip n\n"); 
 
   /* render the region */
-  data_render(data, DIA_RENDERER (rend), bounds, NULL, NULL);
+  data_render(data, diarend, bounds, NULL, NULL);
 
   /* restore print context */
   fprintf(rend->file, "gr\n");
@@ -124,22 +123,21 @@ print_page(DiagramData *data, DiaEpsRenderer *rend, Rectangle *bounds)
 void
 paginate_psprint(Diagram *dia, FILE *file)
 {
-  DiaEpsRenderer *rend;
+  DiaRenderer *rend;
   Rectangle *extents;
   gfloat width, height;
   gfloat x, y, initx, inity;
   guint nobjs = 0;
   char *old_locale;
 
-#if !defined(HAVE_FREETYPE)
-  message_error ("The Postscript renderer wasn't built.");
-#else
   old_locale = setlocale(LC_NUMERIC, "C");
   rend = new_psprint_renderer(dia, file);
 
+#ifdef DIA_PS_RENDERER_DUAL_PASS
   /* Prepare the prolog (with fonts etc) */
   data_render(dia->data, DIA_RENDERER(rend), NULL, NULL, NULL);
   eps_renderer_prolog_done(rend);
+#endif
 
   /* the usable area of the page */
   width = dia->data->paper.width;
@@ -168,10 +166,9 @@ paginate_psprint(Diagram *dia, FILE *file)
       nobjs += print_page(dia->data,rend, &page_bounds);
     }
 
-  destroy_eps_renderer(rend);
+  g_object_unref(rend);
 
   setlocale(LC_NUMERIC, old_locale);
-#endif
 }
 
 static void
@@ -370,16 +367,3 @@ diagram_print_ps(Diagram *dia)
   if (sigpipe_received)
     message_error(_("Error occured while printing"));
 }
-#else
-void
-paginate_psprint(Diagram *dia, FILE *file)
-{
-  message_error(_("PS printing not yet converted"));
-}
-
-void
-diagram_print_ps(Diagram *dia)
-{
-  message_error(_("PS printing not yet converted"));
-}
-#endif

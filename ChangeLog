@@ -1,3 +1,23 @@
+2002-10-15  Hans Breuer  <hans@breuer.org>
+
+	* app/diapsrenderer.[hc] : (new files, old content :-)
+	simple base class for post script rendering. Does neither 
+	use Pango/FT2 nor does it handle non latin1 characters. 
+	The fancy stuff which nowadays appears to be needed should 
+	probably be done in derived class(es)
+
+	* app/makefile.msc app/Makefile.am : added new files
+
+	* app/paginate_psrint.c : re-enabled and used as test
+	for the simple ps renderer above.
+
+	* app/render_eps.[hc] : ripped out common ps code and
+	moved to DiaPsRenderer. The rest of the file is mostly
+	disabled. And I don't understand enough of it to 
+	change port it.
+
+	* app/diaepsrenderer.h : short lived, removed.
+
 2002-10-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/plug-ins.c (dia_register_plugin): Don't try to load libdia

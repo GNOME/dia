@@ -21,16 +21,12 @@
 #include <stdio.h>
 
 #include "diatypes.h"
-#include "diaepsrenderer.h"
-#include "geometry.h"
-#include "display.h"
 #include "filter.h"
-#include "ps-utf8.h"
+#include "diagram.h"
 
-DiaEpsRenderer *new_eps_renderer(Diagram *dia, char *filename);
-DiaEpsRenderer *new_psprint_renderer(Diagram *dia, FILE *file);
-void eps_renderer_prolog_done(DiaEpsRenderer *renderer);
-void destroy_eps_renderer(DiaEpsRenderer *renderer);
+DiaRenderer *new_eps_renderer(Diagram *dia, char *filename);
+DiaRenderer *new_psprint_renderer(Diagram *dia, FILE *file);
+void eps_renderer_prolog_done(DiaRenderer *renderer);
 
 extern DiaExportFilter eps_export_filter;
 

@@ -32,6 +32,7 @@ OBJECTS = \
 	diagram_tree_window.obj \
 	dialogs.obj \
 	diapagelayout.obj \
+	diapsrenderer.obj \
 	dia-props.obj \
 	diaunitspinner.obj \
 	disp_callbacks.obj \
