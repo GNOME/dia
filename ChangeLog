@@ -1,3 +1,7 @@
+2002-01-20  Akira TAGOH  <tagoh@redhat.com>
+
+	* configure.in: fixed test gtk_advancement.
+
 2002-01-019  Steffen Macke  <sdteffen@yahoo.com>
 
 	* plug-ins/svg/render_svg.c: fix for #69053, alignment of text
