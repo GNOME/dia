@@ -828,6 +828,7 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
     write_elhead(file, 1, 1, 2);
     write_uint16(file, 3); /* use version 3 because we may use polybeziers */
 
+#if 0
     /* write metafile description -- use original dia filename */
     len = strlen(diafilename);
     write_elhead(file, 1, 2, len + 1);
@@ -835,6 +836,7 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
     fwrite(diafilename, sizeof(char), len, file);
     if (!IS_ODD(len))
 	putc(0, file);
+#endif
 
     /* set integer precision */
     write_elhead(file, 1, 4, 2);
@@ -862,9 +864,12 @@ export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
 	putc(0, file);
  
     /* begin picture */
-    write_elhead(file, 0, 3, 1);
-    putc(0, file);
-    putc(0, file);
+    len = strlen(diafilename);
+    write_elhead(file, 0, 3, len + 1);
+    putc(len, file);
+    fwrite(diafilename, sizeof(char), len, file);
+    if (!IS_ODD(len))
+	putc(0, file);
 
     /* write the colour mode string */
     write_elhead(file, 2, 2, 2);

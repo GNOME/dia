@@ -138,7 +138,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
   Rectangle *extent;
   char *name;
  
-  file = fopen(filename, "wt");
+  file = fopen(filename, "w");
 
   if (file==NULL) {
     message_error(_("Couldn't open: '%s' for writing.\n"), filename);

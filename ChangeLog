@@ -1,3 +1,21 @@
+1999-12-24  James Henstridge  <james@daa.com.au>
+
+	* app/preferences.c (prefs_save): 
+	* app/render_svg.c (new_svg_renderer): "wt" is not a valid flag string
+	for fopen.  Text is the default file mode anyway.
+
+	* app/commands.c (file_save_as_dialog_ok_callback, file_new_callback): 
+	* app/grid.c (grid_x_update, grid_y_update, grid_show_dialog): 
+	* app/load_save.c (write_objects, write_connections): 
+	* app/filedlg.c (file_export_ok_callback): 
+	* lib/dia_xml.c (data_add_int, data_add_enum, data_add_real): 
+	* lib/dia_xml.c (data_add_point, data_add_rectangle): 
+	* lib/font.c (init_x11_font, font_get_gdkfont): changed calls to
+	snprintf to calls to g_snprintf.
+
+	* plug-ins/cgm/cgm.c (export_cgm): write the original dia file name
+	as the picture name.
+
 1999-12-23  James Henstridge  <james@daa.com.au>
 
 	* plug-ins/cgm/cgm.c (write_int32, write_int16): fixed up output of

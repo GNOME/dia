@@ -23,6 +23,7 @@
 #include <sys/stat.h>
 #include <math.h>
 
+#include <glib.h>
 #include <gdk_imlib.h>
 
 #include "config.h"
@@ -196,9 +197,9 @@ file_save_as_dialog_ok_callback (GtkWidget        *w,
     
     gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
-    snprintf(buffer, 300,
-	     _("The file '%s' already exists.\n"
-	     "Do you want to overwrite it?"), filename);
+    g_snprintf(buffer, 300,
+	       _("The file '%s' already exists.\n"
+		 "Do you want to overwrite it?"), filename);
     label = gtk_label_new (buffer);
   
     gtk_misc_set_padding (GTK_MISC (label), 10, 10);
@@ -376,7 +377,7 @@ file_new_callback(GtkWidget *widget, gpointer data)
   static int untitled_nr = 1;
   char buffer[24];
 
-  snprintf(buffer, 24, _("Untitled-%d"), untitled_nr++);
+  g_snprintf(buffer, 24, _("Untitled-%d"), untitled_nr++);
   
   dia = new_diagram(buffer);
   ddisp = new_display(dia);

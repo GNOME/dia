@@ -319,7 +319,7 @@ init_x11_font(FontPrivate *font)
       break;
     bufsize = strlen(x11_font)+6;  /* Should be enought*/
     buffer = (char *)g_malloc(bufsize);
-    snprintf(buffer, bufsize, x11_font, 100);
+    g_snprintf(buffer, bufsize, x11_font, 100);
     
     gdk_font = gdk_font_load(buffer);
     if (gdk_font!=NULL) {
@@ -336,7 +336,7 @@ init_x11_font(FontPrivate *font)
       x11_font = last_resort_fonts[i];
       bufsize = strlen(x11_font)+6;  /* Should be enought*/
       buffer = (char *)g_malloc(bufsize);
-      snprintf(buffer, bufsize, x11_font, 100);
+      g_snprintf(buffer, bufsize, x11_font, 100);
       
       gdk_font = gdk_font_load(buffer);
       g_free(buffer);
@@ -433,7 +433,7 @@ font_get_gdkfont(Font *font, int height)
   
   bufsize = strlen(fontprivate->fontname_x11)+6;  /* Should be enought*/
   buffer = (char *)malloc(bufsize);
-  snprintf(buffer, bufsize, fontprivate->fontname_x11, height);
+  g_snprintf(buffer, bufsize, fontprivate->fontname_x11, height);
   gdk_font = gdk_font_load(buffer);
   free(buffer);
   

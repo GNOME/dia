@@ -352,10 +352,10 @@ write_objects(GList *objects, xmlNodePtr objects_node,
     
       xmlSetProp(obj_node, "type", obj->type->name);
       
-      snprintf(buffer, 30, "%d", obj->type->version);
+      g_snprintf(buffer, 30, "%d", obj->type->version);
       xmlSetProp(obj_node, "version", buffer);
       
-      snprintf(buffer, 30, "O%d", *obj_nr);
+      g_snprintf(buffer, 30, "O%d", *obj_nr);
       xmlSetProp(obj_node, "id", buffer);
 
       (*obj->type->ops->save)(obj, obj_node, filename);
@@ -418,15 +418,15 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 	  
 	  connection = xmlNewChild(connections, NULL, "connection", NULL);
 	  /* from what handle on this object*/
-	  snprintf(buffer, 30, "%d", i);
+	  g_snprintf(buffer, 30, "%d", i);
 	  xmlSetProp(connection, "handle", buffer);
 	  /* to what object */
-	  snprintf(buffer, 30, "O%d",
-		   GPOINTER_TO_INT(g_hash_table_lookup(objects_hash,
-						       other_obj)));
+	  g_snprintf(buffer, 30, "O%d",
+		     GPOINTER_TO_INT(g_hash_table_lookup(objects_hash,
+							 other_obj)));
 	  xmlSetProp(connection, "to", buffer);
 	  /* to what connection_point on that object */
-	  snprintf(buffer, 30, "%d", con_point_nr);
+	  g_snprintf(buffer, 30, "%d", con_point_nr);
 	  xmlSetProp(connection, "connection", buffer);
 	}
       }

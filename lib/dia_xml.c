@@ -437,7 +437,7 @@ data_add_int(AttributeNode attr, int data)
   DataNode data_node;
   char buffer[20+1]; /* Enought for 64bit int + zero */
 
-  snprintf(buffer, 20, "%d", data);
+  g_snprintf(buffer, 20, "%d", data);
   
   data_node = xmlNewChild(attr, NULL, "int", NULL);
   xmlSetProp(data_node, "val", buffer);
@@ -449,7 +449,7 @@ data_add_enum(AttributeNode attr, int data)
   DataNode data_node;
   char buffer[20+1]; /* Enought for 64bit int + zero */
 
-  snprintf(buffer, 20, "%d", data);
+  g_snprintf(buffer, 20, "%d", data);
   
   data_node = xmlNewChild(attr, NULL, "enum", NULL);
   xmlSetProp(data_node, "val", buffer);
@@ -461,7 +461,7 @@ data_add_real(AttributeNode attr, real data)
   DataNode data_node;
   char buffer[40+1]; /* Large enought? */
 
-  snprintf(buffer, 40, "%g", data);
+  g_snprintf(buffer, 40, "%g", data);
   
   data_node = xmlNewChild(attr, NULL, "real", NULL);
   xmlSetProp(data_node, "val", buffer);
@@ -517,7 +517,7 @@ data_add_point(AttributeNode attr, Point *point)
   DataNode data_node;
   char buffer[80+1]; /* Large enought? */
 
-  snprintf(buffer, 80, "%g,%g", point->x, point->y);
+  g_snprintf(buffer, 80, "%g,%g", point->x, point->y);
   
   data_node = xmlNewChild(attr, NULL, "point", NULL);
   xmlSetProp(data_node, "val", buffer);
@@ -529,9 +529,9 @@ data_add_rectangle(AttributeNode attr, Rectangle *rect)
   DataNode data_node;
   char buffer[160+1]; /* Large enought? */
 
-  snprintf(buffer, 160, "%g,%g;%g,%g",
-	   rect->left, rect->top,
-	   rect->right, rect->bottom);
+  g_snprintf(buffer, 160, "%g,%g;%g,%g",
+	     rect->left, rect->top,
+	     rect->right, rect->bottom);
   
   data_node = xmlNewChild(attr, NULL, "rectangle", NULL);
   xmlSetProp(data_node, "val", buffer);

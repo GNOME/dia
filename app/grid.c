@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <glib.h>
 
 #include "config.h"
 #include "intl.h"
@@ -94,7 +95,7 @@ grid_x_update(GtkWidget *entry, DDisplay *ddisp)
   if (size > 0.01) {
     ddisp->grid.width_x = size;
     
-    snprintf(buffer, 32, "%.2f", (double) ddisp->grid.width_x);
+    g_snprintf(buffer, 32, "%.2f", (double) ddisp->grid.width_x);
     gtk_entry_set_text(GTK_ENTRY(entry), buffer);
     ddisplay_add_update_all(ddisp);
     ddisplay_flush(ddisp);
@@ -119,7 +120,7 @@ grid_y_update(GtkWidget *entry, DDisplay *ddisp)
   if (size > 0.01) {
     ddisp->grid.width_y = size;
     
-    snprintf(buffer, 32, "%.2f", (double) ddisp->grid.width_y);
+    g_snprintf(buffer, 32, "%.2f", (double) ddisp->grid.width_y);
     gtk_entry_set_text(GTK_ENTRY(entry), buffer);
     ddisplay_add_update_all(ddisp);
     ddisplay_flush(ddisp);
@@ -162,7 +163,7 @@ void grid_show_dialog(Grid *grid, DDisplay *ddisp)
     gtk_widget_show(entry);
     gtk_widget_show(hbox);
 
-    snprintf(buffer, 32, "%.2f", (double) grid->width_x);
+    g_snprintf(buffer, 32, "%.2f", (double) grid->width_x);
     gtk_entry_set_text(GTK_ENTRY(entry), buffer);
     grid->handler_x =
       gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",
@@ -180,7 +181,7 @@ void grid_show_dialog(Grid *grid, DDisplay *ddisp)
     gtk_widget_show(entry);
     gtk_widget_show(hbox);
 
-    snprintf(buffer, 32, "%.2f", (double) grid->width_y);
+    g_snprintf(buffer, 32, "%.2f", (double) grid->width_y);
     gtk_entry_set_text(GTK_ENTRY(entry), buffer);
     grid->handler_y =
       gtk_signal_connect (GTK_OBJECT (entry), "focus_out_event",

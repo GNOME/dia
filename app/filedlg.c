@@ -133,9 +133,9 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
     
     gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
-    snprintf(buffer, 300,
-	     _("The file '%s' already exists.\n"
-	     "Do you want to overwrite it?"), filename);
+    g_snprintf(buffer, 300,
+	       _("The file '%s' already exists.\n"
+		 "Do you want to overwrite it?"), filename);
     label = gtk_label_new (buffer);
   
     gtk_misc_set_padding (GTK_MISC (label), 10, 10);
