@@ -311,6 +311,17 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     default:
 	message_error("WmfRenderer : Unsupported fill mode specified!\n");
     }
+    
+    /* Non-solid linestyles are only displayed if width <= 1. 
+     * Better implementation will require custom linestyles */
+    switch (mode) {
+    case LINESTYLE_DASHED:
+    case LINESTYLE_DASH_DOT:
+    case LINESTYLE_DASH_DOT_DOT:
+    case LINESTYLE_DOTTED:
+      renderer->nLineWidth = MIN(renderer->nLineWidth, 1);
+      break;
+    }
 }
 
 static void
