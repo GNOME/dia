@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-11-26 18:18+0100\n"
-"PO-Revision-Date: 2002-11-26 18:19+0100\n"
+"POT-Creation-Date: 2002-11-28 20:49+0100\n"
+"PO-Revision-Date: 2002-11-28 20:50+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -157,7 +157,7 @@ msgstr ""
 "Det finns automatiskt sparade filer.\n"
 "Välj de du vill återställa."
 
-#: app/color_area.c:301 lib/widgets.c:841
+#: app/color_area.c:301 lib/widgets.c:867
 msgid "Select color"
 msgstr "Välj färg"
 
@@ -582,7 +582,7 @@ msgstr "Bildhöjd:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:102 app/filedlg.c:392
+#: app/filedlg.c:102 app/filedlg.c:402
 msgid "By extension"
 msgstr "Efter filändelse"
 
@@ -594,15 +594,23 @@ msgstr "Öppna diagram"
 msgid "Open Options"
 msgstr "Öppningsalternativ"
 
-#: app/filedlg.c:195 app/filedlg.c:545
+#: app/filedlg.c:195 app/filedlg.c:555
 msgid "Determine file type:"
 msgstr "Fastställ filtyp:"
 
-#: app/filedlg.c:235 app/filedlg.c:439
+#: app/filedlg.c:236 app/filedlg.c:449
 msgid "File already exists"
 msgstr "Filen finns redan"
 
-#: app/filedlg.c:239 app/filedlg.c:442
+#: app/filedlg.c:242
+msgid ""
+"Some characters in the filename are neither UTF-8 nor your local encoding.\n"
+"Some things will break."
+msgstr ""
+"En del tecken i filnamnet är varken i UTF-8 eller i din lokalkodning.\n"
+"En del saker kommer inte att fungera."
+
+#: app/filedlg.c:248 app/filedlg.c:452
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -611,27 +619,27 @@ msgstr ""
 "Filen \"%s\" finns redan redan.\n"
 "Vill du skriva över den?"
 
-#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:595
+#: app/filedlg.c:259 app/filedlg.c:464 app/preferences.c:595
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:595
+#: app/filedlg.c:272 app/filedlg.c:477 app/preferences.c:595
 #: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nej"
 
-#: app/filedlg.c:307
+#: app/filedlg.c:317
 msgid "Save Diagram"
 msgstr "Spara diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:315
+#: app/filedlg.c:325
 msgid "Compress diagram files"
 msgstr "Komprimera diagramfiler"
 
-#: app/filedlg.c:322
+#: app/filedlg.c:332
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -640,7 +648,7 @@ msgstr ""
 "inläsning och sparande. En del textprogram kan inte behandla komprimerade "
 "filer."
 
-#: app/filedlg.c:499
+#: app/filedlg.c:509
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -649,11 +657,11 @@ msgstr ""
 "Kunde inte avgöra vilket exportfilter\n"
 "att använda för att spara \"%s\""
 
-#: app/filedlg.c:517
+#: app/filedlg.c:527
 msgid "Export Diagram"
 msgstr "Exportera diagram"
 
-#: app/filedlg.c:537
+#: app/filedlg.c:547
 msgid "Export Options"
 msgstr "Exportalternativ"
 
@@ -732,7 +740,7 @@ msgstr "Beziergon"
 msgid "Create Line"
 msgstr "Skapa linje"
 
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:226
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:232
 msgid "Line"
 msgstr "Linje"
 
@@ -1079,7 +1087,7 @@ msgstr "Invertera"
 msgid "All"
 msgstr "Allt"
 
-#: app/menus.c:171 lib/widgets.c:983 objects/UML/association.c:1071
+#: app/menus.c:171 lib/widgets.c:1009 objects/UML/association.c:1071
 msgid "None"
 msgstr "Ingen"
 
@@ -1095,15 +1103,15 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samma typ"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:525
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:551
 msgid "Left"
 msgstr "Vänster"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:531
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:557
 msgid "Center"
 msgstr "Mittpunkt"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:537
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:563
 msgid "Right"
 msgstr "Höger"
 
@@ -1871,7 +1879,7 @@ msgstr "Kunde inte öppna historikfilen för skrivning."
 msgid "Encapsulated Postscript"
 msgstr "Inkapslad Postscript"
 
-#: app/render_libart.c:321 lib/dialibartrenderer.c:266
+#: app/render_libart.c:320 lib/dialibartrenderer.c:266
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Fyllnadsläge som inte stöds angivet!\n"
 
@@ -2341,147 +2349,147 @@ msgstr "Typsnittsstorlek"
 msgid "Text colour"
 msgstr "Textfärg"
 
-#: lib/widgets.c:213
+#: lib/widgets.c:217
 msgid "Other fonts..."
 msgstr "Andra typsnitt..."
 
-#: lib/widgets.c:301
+#: lib/widgets.c:319
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Kunde inte hitta typsnittsfamiljen för %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:348
+#: lib/widgets.c:362
 msgid "Select font"
 msgstr "Välj typsnitt"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:646 objects/FS/function.c:1039
+#: lib/widgets.c:672 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "Heldragen"
 
-#: lib/widgets.c:652
+#: lib/widgets.c:678
 msgid "Dashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:684
 msgid "Dash-Dot"
 msgstr "Streck-prick"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:690
 msgid "Dash-Dot-Dot"
 msgstr "Streck-prick-prick"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:696
 msgid "Dotted"
 msgstr "Punktmarkerad"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:688
+#: lib/widgets.c:714
 msgid "Dash length: "
 msgstr "Linjelängd: "
 
-#: lib/widgets.c:984
+#: lib/widgets.c:1010
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:985
+#: lib/widgets.c:1011
 msgid "Hollow Triangle"
 msgstr "Ihålig triangel"
 
-#: lib/widgets.c:986
+#: lib/widgets.c:1012
 msgid "Filled Triangle"
 msgstr "Fylld triangel"
 
-#: lib/widgets.c:987
+#: lib/widgets.c:1013
 msgid "Unfilled Triangle"
 msgstr "Ofylld triangel"
 
-#: lib/widgets.c:988
+#: lib/widgets.c:1014
 msgid "Filled Diamond"
 msgstr "Fylld romb"
 
-#: lib/widgets.c:989
+#: lib/widgets.c:1015
 msgid "Half Head"
 msgstr "Halvt huvud"
 
-#: lib/widgets.c:990
+#: lib/widgets.c:1016
 msgid "Slashed Cross"
 msgstr "Kors med snedstreck"
 
-#: lib/widgets.c:991
+#: lib/widgets.c:1017
 msgid "Filled Ellipse"
 msgstr "Fylld ellips"
 
-#: lib/widgets.c:992
+#: lib/widgets.c:1018
 msgid "Hollow Ellipse"
 msgstr "Ihålig ellips"
 
-#: lib/widgets.c:993
+#: lib/widgets.c:1019
 msgid "Filled Dot"
 msgstr "Fylld punkt"
 
-#: lib/widgets.c:994
+#: lib/widgets.c:1020
 msgid "Dimension Origin"
 msgstr "Dimensionsursprung"
 
-#: lib/widgets.c:995
+#: lib/widgets.c:1021
 msgid "Blanked Dot"
 msgstr "Tom punkt"
 
-#: lib/widgets.c:996
+#: lib/widgets.c:1022
 msgid "Double Hollow triangle"
 msgstr "Dubbel ihålig triangel"
 
-#: lib/widgets.c:997
+#: lib/widgets.c:1023
 msgid "Double Filled triangle"
 msgstr "Dubbel fylld triangel"
 
-#: lib/widgets.c:998
+#: lib/widgets.c:1024
 msgid "Filled Box"
 msgstr "Fylld ruta"
 
-#: lib/widgets.c:999
+#: lib/widgets.c:1025
 msgid "Blanked Box"
 msgstr "Tom ruta"
 
-#: lib/widgets.c:1000
+#: lib/widgets.c:1026
 msgid "Slashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:1001
+#: lib/widgets.c:1027
 msgid "Integral Symbol"
 msgstr "Integralsymbol"
 
-#: lib/widgets.c:1002
+#: lib/widgets.c:1028
 msgid "Crow Foot"
 msgstr "Kråkfot"
 
-#: lib/widgets.c:1003
+#: lib/widgets.c:1029
 msgid "Cross"
 msgstr "Kors"
 
-#: lib/widgets.c:1004
+#: lib/widgets.c:1030
 msgid "Filled Concave"
 msgstr "Fylld konkav"
 
-#: lib/widgets.c:1005
+#: lib/widgets.c:1031
 msgid "Blanked Concave"
 msgstr "Tom konkav"
 
-#: lib/widgets.c:1042
+#: lib/widgets.c:1068
 msgid "Length: "
 msgstr "Längd: "
 
-#: lib/widgets.c:1055
+#: lib/widgets.c:1081
 msgid "Width: "
 msgstr "Bredd: "
 
-#: lib/widgets.c:1182
+#: lib/widgets.c:1208
 msgid "Select image file"
 msgstr "Välj bildfil"
 
-#: lib/widgets.c:1212
+#: lib/widgets.c:1238
 msgid "Browse"
 msgstr "Bläddra"
 
@@ -3838,7 +3846,7 @@ msgid "Vergent type:"
 msgstr "Kanttyp:"
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:220
+#: objects/standard/line.c:226
 msgid "Add connection point"
 msgstr "Lägg till anslutningspunkt"
 
@@ -3935,7 +3943,7 @@ msgstr "Aktivitet/Dataidentifierare"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Identifieraren som visas i nedre högra hörnet i rutan"
 
-#: objects/SADT/box.c:440 objects/standard/line.c:221
+#: objects/SADT/box.c:440 objects/standard/line.c:227
 msgid "Delete connection point"
 msgstr "Ta bort anslutningsspunkt"
 
@@ -3999,29 +4007,37 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "Kunde inte hitta bildfilen \"%s\".\n"
 
-#: objects/standard/line.c:134
+#: objects/standard/line.c:133
+msgid "Arrows"
+msgstr "Pilar"
+
+#: objects/standard/line.c:138
 msgid "Start point"
 msgstr "Startpunkt"
 
-#: objects/standard/line.c:136
+#: objects/standard/line.c:140
 msgid "End point"
 msgstr "Slutpunkt"
 
-#: objects/standard/line.c:138
-msgid "Start gap"
-msgstr "Startavstånd"
+#: objects/standard/line.c:141
+msgid "Line gaps"
+msgstr "Linjeavstånd"
 
-#: objects/standard/line.c:140
-msgid "End gap"
-msgstr "Slutavstånd"
+#: objects/standard/line.c:143
+msgid "Absolute start gap"
+msgstr "Absolut startavstånd"
 
-#: objects/standard/line.c:142
-msgid "Start fractional gap"
-msgstr "Startdelavstånd"
+#: objects/standard/line.c:145
+msgid "Absolute end gap"
+msgstr "Absolut slutavstånd"
 
-#: objects/standard/line.c:144
-msgid "End fractional gap"
-msgstr "Slutdelavstånd"
+#: objects/standard/line.c:147
+msgid "Fractional start gap"
+msgstr "Delstartavstånd"
+
+#: objects/standard/line.c:149
+msgid "Fractional end gap"
+msgstr "Delslutavstånd"
 
 #: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"
@@ -6201,6 +6217,18 @@ msgstr "Realiserar, implementerar ett specifikt gränssnitt"
 #: sheets/UML.sheet.in.h:27
 msgid "UML"
 msgstr "UML"
+
+#~ msgid "Arrow"
+#~ msgstr "Pil"
+
+#~ msgid "Start gap"
+#~ msgstr "Startavstånd"
+
+#~ msgid "End gap"
+#~ msgstr "Slutavstånd"
+
+#~ msgid "Start fractional gap"
+#~ msgstr "Startdelavstånd"
 
 #~ msgid "_Visible Grid"
 #~ msgstr "_Synligt rutnät"
