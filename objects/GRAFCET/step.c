@@ -43,8 +43,7 @@
 
 #include "pixmaps/etape.xpm"
 
-#define STEP_FONT BASIC_SANS_FONT
-#define STEP_FONT_STYLE STYLE_BOLD
+#define STEP_FONT (DIA_FONT_SANS|DIA_FONT_BOLD)
 #define STEP_FONT_HEIGHT 1
 #define STEP_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH 
 #define STEP_WIDTH 3.0
@@ -498,7 +497,7 @@ step_create(Point *startpoint,
 
   step->id = new_step_name();
   step->active = 0;
-  step->font = dia_font_new (STEP_FONT,STEP_FONT_STYLE,STEP_FONT_HEIGHT);
+  step->font = dia_font_new_from_style (STEP_FONT,STEP_FONT_HEIGHT);
   step->font_size = STEP_FONT_HEIGHT;
   step->font_color = color_black;
   

@@ -47,8 +47,7 @@
 #include "pixmaps/action.xpm"
 
 #define ACTION_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH
-#define ACTION_FONT BASIC_SANS_FONT
-#define ACTION_FONT_STYLE STYLE_BOLD
+#define ACTION_FONT (DIA_FONT_SANS|DIA_FONT_BOLD)
 #define ACTION_FONT_HEIGHT 0.8
 #define ACTION_HEIGHT (2.0)
 
@@ -411,8 +410,7 @@ action_create(Point *startpoint,
   action->cps = connpointline_create(obj,0);
 
   pos = conn->endpoints[1];
-  action_font = dia_font_new(ACTION_FONT,
-                             ACTION_FONT_STYLE,ACTION_FONT_HEIGHT); 
+  action_font = dia_font_new_with_style(ACTION_FONT,ACTION_FONT_HEIGHT); 
   action->text = new_text("",action_font, ACTION_FONT_HEIGHT,
                           &pos, /* never used */
                           &color_black, ALIGN_LEFT);
