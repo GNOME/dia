@@ -220,6 +220,7 @@ object_list_move_delta(GList *objects, Point *delta)
   2 BOTTOM
   3 OBJECT POSITION
   4 EQUAL DISTANCE
+  5 ADJACENT
 */
 void
 object_list_align_v(GList *objects, Diagram *dia, int align)
@@ -241,7 +242,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
 
   top = obj->bounding_box.top;
   bottom = obj->bounding_box.bottom;
-  freespc = obj->bounding_box.bottom - obj->bounding_box.top;
+  freespc = bottom - top;
 
   nobjs = 1;
   list = objects->next;
@@ -273,7 +274,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
     y_pos = (top + bottom)/2.0;
     break;
   case 4: /* EQUAL DISTANCE */
-    freespc = (bottom - top - freespc)/(double)nobjs;
+    freespc = (bottom - top - freespc)/(double)(nobjs - 1);
     y_pos = top;
     break;
   case 5: /* ADJACENT */
@@ -335,6 +336,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   2 RIGHT
   3 OBJECT POSITION
   4 EQUAL DISTANCE
+  5 ADJACENT
 */
 void
 object_list_align_h(GList *objects, Diagram *dia, int align)
@@ -356,7 +358,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
 
   left = obj->bounding_box.left;
   right = obj->bounding_box.right;
-  freespc = obj->bounding_box.right - obj->bounding_box.left;
+  freespc = right - left;
 
   nobjs = 1;
   list = objects->next;
@@ -388,7 +390,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
     x_pos = (left + right)/2.0;
     break;
   case 4: /* EQUAL DISTANCE */
-    freespc = (right - left - freespc)/(double)nobjs;
+    freespc = (right - left - freespc)/(double)(nobjs - 1);
     x_pos = left;
     break;
   case 5: /* ADJACENT */

@@ -2,7 +2,7 @@
  * Copyright (C) 1999 Alexander Larsson
  *
  * Bezier object  Copyright (C) 1999 Lars R. Clausen
- * Modifications by James Henstridge.
+ * Conversion to use BezierConn by James Henstridge.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 #include "config.h"
 #include "intl.h"
 #include "object.h"
-#include "poly_conn.h"
+#include "bezier_conn.h"
 #include "connectionpoint.h"
 #include "render.h"
 #include "attributes.h"
@@ -53,10 +53,8 @@ struct _BezierlineState {
 
 
 typedef struct _Bezierline {
-  PolyConn poly;
+  BezierConn bez;
 
-  BezPoint *points;
-  int numpoints;
   Color line_color;
   LineStyle line_style;
   real dashlength;
@@ -389,102 +387,35 @@ bezierline_get_defaults()
 static real
 bezierline_distance_from(Bezierline *bezierline, Point *point)
 {
-  PolyConn *poly = &bezierline->poly;
-  return polyconn_distance_from(poly, point, bezierline->line_width);
+  BezierConn *bez = &bezierline->bez;
+  return bezierconn_distance_from(bez, point, bezierline->line_width);
 }
 
 static Handle *bezierline_closest_handle(Bezierline *bezierline, Point *point) {
-  return polyconn_closest_handle(&bezierline->poly, point);
+  return bezierconn_closest_handle(&bezierline->bez, point);
 }
 
 static int bezierline_closest_segment(Bezierline *bezierline, Point *point) {
-  PolyConn *poly = &bezierline->poly;
-  return polyconn_closest_segment(poly, point, bezierline->line_width);
+  BezierConn *bez = &bezierline->bez;
+  return bezierconn_closest_segment(bez, point, bezierline->line_width);
 }
 
 static void
 bezierline_select(Bezierline *bezierline, Point *clicked_point,
 		  Renderer *interactive_renderer)
 {
-  polyconn_update_data(&bezierline->poly);
+  bezierconn_update_data(&bezierline->bez);
 }
 
 static void
 bezierline_move_handle(Bezierline *bezierline, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
-  Point delta, cto;
-  gboolean is_major;
-  Handle *major = NULL, *minor1 = NULL, *minor2 = NULL, *other = NULL;
-  int i;
-  Object *obj;
-
   assert(bezierline!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  g_message("Move bezier handle to %f, %f", to->x, to->y);
-
-  /* get the movement delta ... */
-  delta = *to;
-  point_sub(&delta, &handle->pos);
-
-  /* Find surrounding handles that may need update */
-  obj = (Object *)bezierline;
-  for (i = 0; i < obj->num_handles; i++) {
-    if (obj->handles[i] == handle) {
-	g_message("Handle %d", i);
-	break;
-    }
-  }
-  switch (i % 3) {
-  case 0:
-      is_major = TRUE;
-      major = obj->handles[i];
-      if (i > 0)                  minor1 = obj->handles[i-1];
-      if (i < obj->num_handles-1) minor2 = obj->handles[i+1];
-      break;
-  case 1:
-      assert(i >= 1);
-      is_major = FALSE;
-      major = obj->handles[i-1];
-      if (i > 2) other = obj->handles[i-2];
-      break;
-  case 2:
-      assert(i < obj->num_handles - 1);
-      is_major = FALSE;
-      major = obj->handles[i+1];
-      if (i < obj->num_handles-2) other = obj->handles[i+2];
-      break;
-  }
-  assert(major != NULL);
-
-
-  polyconn_move_handle(&bezierline->poly, handle, to, reason);
-  if (is_major) {
-      /* move adjacent handles */
-      if (minor1) {
-	  cto = minor1->pos;
-	  point_add(&cto, &delta);
-	  polyconn_move_handle(&bezierline->poly, minor1, &cto,
-			       HANDLE_MOVE_CONNECTED);
-      }
-      if (minor2) {
-	  cto = minor2->pos;
-	  point_add(&cto, &delta);
-	  polyconn_move_handle(&bezierline->poly, minor2, &cto,
-			       HANDLE_MOVE_CONNECTED);
-      }
-  } else {
-      /* move matching handle */
-      if (other) {
-	  cto = major->pos;
-	  point_sub(&cto, &handle->pos);
-	  point_add(&cto, &major->pos);
-	  polyconn_move_handle(&bezierline->poly, other, &cto,
-			       HANDLE_MOVE_CONNECTED);
-      }
-  }
+  bezierconn_move_handle(&bezierline->bez, handle, to, reason);
   bezierline_update_data(bezierline);
 }
 
@@ -492,36 +423,34 @@ bezierline_move_handle(Bezierline *bezierline, Handle *handle,
 static void
 bezierline_move(Bezierline *bezierline, Point *to)
 {
-  polyconn_move(&bezierline->poly, to);
+  bezierconn_move(&bezierline->bez, to);
   bezierline_update_data(bezierline);
 }
 
 static void
 bezierline_draw(Bezierline *bezierline, Renderer *renderer)
 {
-  PolyConn *poly = &bezierline->poly;
-  int bn;
+  BezierConn *bez = &bezierline->bez;
   
-  bn = bezierline->numpoints;
-
   renderer->ops->set_linewidth(renderer, bezierline->line_width);
   renderer->ops->set_linestyle(renderer, bezierline->line_style);
   renderer->ops->set_dashlength(renderer, bezierline->dashlength);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_bezier(renderer, bezierline->points, 
-			     bn, &bezierline->line_color);
+  renderer->ops->draw_bezier(renderer, bez->points, bez->numpoints,
+			     &bezierline->line_color);
 
   if (bezierline->start_arrow.type != ARROW_NONE) {
     arrow_draw(renderer, bezierline->start_arrow.type,
-	       &bezierline->points[0].p1, &bezierline->points[1].p1,
+	       &bez->points[0].p1, &bez->points[1].p1,
 	       0.8, 0.8, bezierline->line_width,
 	       &bezierline->line_color, &color_white);
   }
   if (bezierline->end_arrow.type != ARROW_NONE) {
     arrow_draw(renderer, bezierline->end_arrow.type,
-	       &bezierline->points[bn-1].p3, &bezierline->points[bn-1].p2,
+	       &bez->points[bez->numpoints-1].p3,
+	       &bez->points[bez->numpoints-1].p2,
 	       bezierline->end_arrow.length, bezierline->end_arrow.width,
 	       bezierline->line_width,
 	       &bezierline->line_color, &color_white);
@@ -535,31 +464,27 @@ bezierline_create(Point *startpoint,
 		  Handle **handle2)
 {
   Bezierline *bezierline;
-  PolyConn *poly;
+  BezierConn *bez;
   Object *obj;
   Point defaultlen = { .3, .3 };
 
   /*bezierline_init_defaults();*/
-  bezierline = g_malloc(sizeof(Bezierline));
-  bezierline->points = NULL;
-  bezierline->numpoints = 0;
-  poly = &bezierline->poly;
+  bezierline = g_new(Bezierline, 1);
+  bez = &bezierline->bez;
   obj = (Object *) bezierline;
   
   obj->type = &bezierline_type;
   obj->ops = &bezierline_ops;
 
-  polyconn_init(poly);
-  polyconn_add_point(poly, 0, NULL);
-  polyconn_add_point(poly, 1, NULL);
+  bezierconn_init(bez);
   
-  poly->points[0] = *startpoint;
-  poly->points[1] = *startpoint;
-  point_add(&poly->points[1], &defaultlen);
-  poly->points[2] = poly->points[1];
-  point_add(&poly->points[2], &defaultlen);
-  poly->points[3] = poly->points[2];
-  point_add(&poly->points[3], &defaultlen);
+  bez->points[0].p1 = *startpoint;
+  bez->points[1].p1 = *startpoint;
+  point_add(&bez->points[1].p1, &defaultlen);
+  bez->points[1].p2 = bez->points[1].p1;
+  point_add(&bez->points[1].p2, &defaultlen);
+  bez->points[1].p3 = bez->points[1].p2;
+  point_add(&bez->points[1].p3, &defaultlen);
 
   bezierline_update_data(bezierline);
 
@@ -570,31 +495,31 @@ bezierline_create(Point *startpoint,
   bezierline->start_arrow = attributes_get_default_start_arrow();
   bezierline->end_arrow = attributes_get_default_end_arrow();
 
-  *handle1 = poly->object.handles[0];
-  *handle2 = poly->object.handles[3];
+  *handle1 = bez->object.handles[0];
+  *handle2 = bez->object.handles[3];
   return (Object *)bezierline;
 }
 
 static void
 bezierline_destroy(Bezierline *bezierline)
 {
-  polyconn_destroy(&bezierline->poly);
+  bezierconn_destroy(&bezierline->bez);
 }
 
 static Object *
 bezierline_copy(Bezierline *bezierline)
 {
   Bezierline *newbezierline;
-  PolyConn *poly, *newpoly;
+  BezierConn *bez, *newbez;
   Object *newobj;
   
-  poly = &bezierline->poly;
+  bez = &bezierline->bez;
  
-  newbezierline = g_malloc(sizeof(Bezierline));
-  newpoly = &newbezierline->poly;
+  newbezierline = g_new(Bezierline, 1);
+  newbez = &newbezierline->bez;
   newobj = (Object *) newbezierline;
 
-  polyconn_copy(poly, newpoly);
+  bezierconn_copy(bez, newbez);
 
   newbezierline->line_color = bezierline->line_color;
   newbezierline->line_width = bezierline->line_width;
@@ -642,13 +567,12 @@ bezierline_set_state(Bezierline *bezierline, BezierlineState *state)
 static void
 bezierline_update_data(Bezierline *bezierline)
 {
-  PolyConn *poly = &bezierline->poly;
+  BezierConn *bez = &bezierline->bez;
   Object *obj = (Object *) bezierline;
-  int i;
 
-  polyconn_update_data(&bezierline->poly);
+  bezierconn_update_data(bez);
     
-  polyconn_update_boundingbox(poly);
+  bezierconn_update_boundingbox(bez);
   /* fix boundingbox for line_width: */
   obj->bounding_box.top -= bezierline->line_width/2;
   obj->bounding_box.left -= bezierline->line_width/2;
@@ -670,30 +594,14 @@ bezierline_update_data(Bezierline *bezierline)
     obj->bounding_box.right += arrow_width;
   }
 
-  obj->position = poly->points[0];
-
-  /* Update the bezier points */
-  if ((poly->numpoints+2) != bezierline->numpoints*3) {
-    g_free(bezierline->points);
-    bezierline->numpoints = (poly->numpoints+2)/3;
-    bezierline->points = g_new(BezPoint, bezierline->numpoints);
-  }
-  g_message("%d bez components", bezierline->numpoints);
-  bezierline->points[0].type = BEZ_MOVE_TO;
-  bezierline->points[0].p1 = poly->points[0];
-  for (i = 1; i < bezierline->numpoints; i++) {
-    bezierline->points[i].type = BEZ_CURVE_TO;
-    bezierline->points[i].p1 = poly->points[i*3-2];
-    bezierline->points[i].p2 = poly->points[i*3-1];
-    bezierline->points[i].p3 = poly->points[i*3];
-  }
+  obj->position = bez->points[0].p1;
 }
 
 static void
 bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 	      const char *filename)
 {
-  polyconn_save(&bezierline->poly, obj_node);
+  bezierconn_save(&bezierline->bez, obj_node);
 
   if (!color_equals(&bezierline->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
@@ -735,19 +643,19 @@ static Object *
 bezierline_load(ObjectNode obj_node, int version, const char *filename)
 {
   Bezierline *bezierline;
-  PolyConn *poly;
+  BezierConn *bez;
   Object *obj;
   AttributeNode attr;
 
-  bezierline = g_malloc(sizeof(Bezierline));
+  bezierline = g_new(Bezierline, 1);
 
-  poly = &bezierline->poly;
+  bez = &bezierline->bez;
   obj = (Object *) bezierline;
   
   obj->type = &bezierline_type;
   obj->ops = &bezierline_ops;
 
-  polyconn_load(poly, obj_node);
+  bezierconn_load(bez, obj_node);
 
   bezierline->line_color = color_black;
   attr = object_find_attribute(obj_node, "line_color");
@@ -801,41 +709,41 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 static ObjectChange *
-bezierline_add_corner_callback (Object *obj, Point *clicked, gpointer data)
+bezierline_add_segment_callback (Object *obj, Point *clicked, gpointer data)
 {
-  Bezierline *poly = (Bezierline*) obj;
+  Bezierline *bezierline = (Bezierline*) obj;
   int segment;
   ObjectChange *change;
 
-  segment = bezierline_closest_segment(poly, clicked);
-  change = polyconn_add_point(&poly->poly, segment, clicked);
-  bezierline_update_data(poly);
+  segment = bezierline_closest_segment(bezierline, clicked);
+  change = bezierconn_add_segment(&bezierline->bez, segment, /*clicked*/NULL);
+  bezierline_update_data(bezierline);
   return change;
 }
 
 static ObjectChange *
-bezierline_delete_corner_callback (Object *obj, Point *clicked, gpointer data)
+bezierline_delete_segment_callback (Object *obj, Point *clicked, gpointer data)
 {
   Handle *handle;
-  int handle_nr, i;
-  Bezierline *poly = (Bezierline*) obj;
+  int seg_nr, i;
+  Bezierline *bezierline = (Bezierline*) obj;
   ObjectChange *change;
   
-  handle = bezierline_closest_handle(poly, clicked);
+  handle = bezierline_closest_handle(bezierline, clicked);
 
   for (i = 0; i < obj->num_handles; i++) {
     if (handle == obj->handles[i]) break;
   }
-  handle_nr = i;
-  change = polyconn_remove_point(&poly->poly, handle_nr);
-  bezierline_update_data(poly);
+  seg_nr = 3 * (i + 2);
+  change = bezierconn_remove_segment(&bezierline->bez, seg_nr);
+  bezierline_update_data(bezierline);
   return change;
 }
 
 
 static DiaMenuItem bezierline_menu_items[] = {
-  { N_("Add Corner"), bezierline_add_corner_callback, NULL, 1 },
-  { N_("Delete Corner"), bezierline_delete_corner_callback, NULL, 1 },
+  { N_("Add Segment"), bezierline_add_segment_callback, NULL, 1 },
+  { N_("Delete Segment"), bezierline_delete_segment_callback, NULL, 1 },
 };
 
 static DiaMenu bezierline_menu = {
@@ -850,6 +758,6 @@ bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint)
 {
   /* Set entries sensitive/selected etc here */
   bezierline_menu_items[0].active = 1;
-  bezierline_menu_items[1].active = bezierline->poly.numpoints > 2;
+  bezierline_menu_items[1].active = bezierline->bez.numpoints > 2;
   return &bezierline_menu;
 }

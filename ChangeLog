@@ -1,3 +1,25 @@
+1999-12-06  James Henstridge  <james@daa.com.au>
+
+	The next few entries are from Peter Moulder <reiter@netspace.net.au>:
+	* lib/geometry.c (distance_line_point): added notes to documentation
+	in comment.
+	* app/object_ops.c (object_list_align_v): 
+	(object_list_align_h): fix of by one error when calculating free space
+	for equal distance alignment.
+	* app/menus.c (objects_align_h, objects_align_v): include align
+	adjacent menu items in the gnome version of the menus.
+	* app/diagram.c (diagram_update_menu_sensitivity): set sensitivity on
+	align adjacent menu items correctly.
+
+
+	* lib/dummy_dep.h (dummy_dep): added bezierconn to dummy dependency
+	table.
+
+	* objects/standard/bezier.c: converted bezierline to use BezierConn.
+	Still a few bugs.  It crashes on deleting line segments.
+
+	* lib/Makefile.am (libdia_a_SOURCES): added BezierConn to libdia.
+
 1999-12-05  James Henstridge  <james@daa.com.au>
 
 	* lib/bezier_conn.[ch]: start of BezierConn object

@@ -122,6 +122,7 @@ static GnomeUIInfo objects_align_h[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_h_callback, 1),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Right"), NULL, objects_align_h_callback, 2),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_h_callback, 4),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback, 5),
   GNOMEUIINFO_END
 };
 
@@ -130,6 +131,7 @@ static GnomeUIInfo objects_align_v[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_v_callback, 1),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_v_callback, 2),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_v_callback, 4),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback, 5),
   GNOMEUIINFO_END
 };
 

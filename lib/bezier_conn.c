@@ -1,6 +1,8 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1999 Alexander Larsson
  *
+ * BezierConn  Copyright (C) 1999 James Henstridge
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -23,6 +25,10 @@
 
 #include "bezier_conn.h"
 #include "message.h"
+
+#define HANDLE_BEZMAJOR  (HANDLE_CUSTOM1)
+#define HANDLE_LEFTCTRL  (HANDLE_CUSTOM2)
+#define HANDLE_RIGHTCTRL (HANDLE_CUSTOM3)
 
 enum change_type {
   TYPE_ADD_POINT,
@@ -63,7 +69,7 @@ static void setup_corner_handle(Handle *handle, HandleId id)
 static int get_handle_nr(BezierConn *bez, Handle *handle)
 {
   int i = 0;
-  for (i=0;i<bez->numpoints;i++) {
+  for (i=0;i<bez->object.num_handles;i++) {
     if (bez->object.handles[i] == handle)
       return i;
   }

@@ -119,11 +119,13 @@ void diagram_update_menu_sensitivity(Diagram *dia)
   static GtkWidget *align_h_c;
   static GtkWidget *align_h_r;
   static GtkWidget *align_h_e;
+  static GtkWidget *align_h_a;
 
   static GtkWidget *align_v_t;
   static GtkWidget *align_v_c;
   static GtkWidget *align_v_b;
   static GtkWidget *align_v_e;
+  static GtkWidget *align_v_a;
   static GString *path;
   char *display = "<Display>";
   
@@ -161,6 +163,8 @@ void diagram_update_menu_sensitivity(Diagram *dia)
     align_h_r = menus_get_item_from_path(path->str);
     g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Equal Distance"));
     align_h_e = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Adjacent"));
+    align_h_a = menus_get_item_from_path(path->str);
     g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Top"));
     align_v_t = menus_get_item_from_path(path->str);
     g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Center"));
@@ -169,6 +173,8 @@ void diagram_update_menu_sensitivity(Diagram *dia)
     align_v_b = menus_get_item_from_path(path->str);
     g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Equal Distance"));
     align_v_e = menus_get_item_from_path(path->str);
+    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Adjacent"));
+    align_v_a = menus_get_item_from_path(path->str);
 
     g_string_free (path,FALSE);
     initialized = 1;
@@ -193,10 +199,12 @@ void diagram_update_menu_sensitivity(Diagram *dia)
   gtk_widget_set_sensitive(align_h_c, dia->data->selected_count > 1);
   gtk_widget_set_sensitive(align_h_r, dia->data->selected_count > 1);
   gtk_widget_set_sensitive(align_h_e, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(align_h_a, dia->data->selected_count > 1);
   gtk_widget_set_sensitive(align_v_t, dia->data->selected_count > 1);
   gtk_widget_set_sensitive(align_v_c, dia->data->selected_count > 1);
   gtk_widget_set_sensitive(align_v_b, dia->data->selected_count > 1);
   gtk_widget_set_sensitive(align_v_e, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(align_v_a, dia->data->selected_count > 1);
 }
 
 

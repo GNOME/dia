@@ -179,9 +179,11 @@ distance_rectangle_point(Rectangle *rect, Point *point)
 /*
  * This function estimates the distance from a point to a line segment
  * specified by two endpoints.
- * If the point is on the line, 0.0 is returned. Otherwise the
+ * If the point is on the line segment, 0.0 is returned. Otherwise the
  * distance in the R^2 metric from the point to the nearest point
  * on the line segment is returned. Does one sqrt per call.
+ * Philosophical bug: line_width is ignored iff point is beyond
+ * end of line segment.
  */
 real
 distance_line_point(Point *line_start, Point *line_end,

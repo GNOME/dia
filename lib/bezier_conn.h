@@ -1,6 +1,8 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1999 Alexander Larsson
  *
+ * BezierConn  Copyright (C) 1999 James Henstridge
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -19,10 +21,6 @@
 #define BEZIER_CONN_H
 
 #include "object.h"
-
-#define HANDLE_BEZMAJOR  (HANDLE_CUSTOM1)
-#define HANDLE_LEFTCTRL  (HANDLE_CUSTOM2)
-#define HANDLE_RIGHTCTRL (HANDLE_CUSTOM3)
 
 typedef struct _BezierConn BezierConn;
 

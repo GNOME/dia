@@ -25,6 +25,7 @@
 #include "arrows.h"
 #include "utils.h"
 #include "poly_conn.h"
+#include "bezier_conn.h"
 #include "widgets.h"
 #include "intl.h"
 
@@ -37,6 +38,7 @@ static void *dummy_dep[] = {
   element_update_boundingbox,
   orthconn_update_data,
   polyconn_init,
+  bezierconn_init,
   new_text,
   font_getfont,
   new_render_store,
