@@ -244,15 +244,15 @@ box_move_handle(Box *box, Handle *handle,
     width = box->element.width;
     height = box->element.height;
     switch (handle->id) {
-    case HANDLE_RESIZE_E:
-    case HANDLE_RESIZE_W:
-      new_width = fabs(to->x - corner.x);
-      new_height = new_width / width * height;
-      break;
     case HANDLE_RESIZE_N:
     case HANDLE_RESIZE_S:
       new_height = fabsf(to->y - corner.y);
       new_width = new_height / height * width;
+      break;
+    case HANDLE_RESIZE_W:
+    case HANDLE_RESIZE_E:
+      new_width = fabs(to->x - corner.x);
+      new_height = new_width / width * height;
       break;
     case HANDLE_RESIZE_NW:
     case HANDLE_RESIZE_NE:
@@ -260,7 +260,7 @@ box_move_handle(Box *box, Handle *handle,
     case HANDLE_RESIZE_SE:
       to_width = fabsf(to->x - corner.x);
       aspect_width = fabsf(to->y - corner.y) / height * width;
-      new_width = to_width < aspect_width ? to_width : aspect_width;
+      new_width = to_width > aspect_width ? to_width : aspect_width;
       new_height = new_width / width * height;
       break;
     default: 
@@ -680,9 +680,9 @@ box_set_aspect_callback (Object* obj, Point* clicked, gpointer data)
 }
 
 static DiaMenuItem box_menu_items[] = {
-  { N_("Free"), box_set_aspect_callback, (void*)FREE_ASPECT, 
+  { N_("Free aspect"), box_set_aspect_callback, (void*)FREE_ASPECT, 
     DIAMENU_ACTIVE|DIAMENU_TOGGLE },
-  { N_("Fixed"), box_set_aspect_callback, (void*)FIXED_ASPECT, 
+  { N_("Fixed aspect"), box_set_aspect_callback, (void*)FIXED_ASPECT, 
     DIAMENU_ACTIVE|DIAMENU_TOGGLE },
   { N_("Square"), box_set_aspect_callback, (void*)SQUARE_ASPECT, 
     DIAMENU_ACTIVE|DIAMENU_TOGGLE},
