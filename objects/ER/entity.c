@@ -25,7 +25,6 @@
 #include <math.h>
 #include <string.h>
 
-#include "config.h"
 #include "intl.h"
 #include "object.h"
 #include "element.h"

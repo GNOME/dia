@@ -18,7 +18,7 @@
  * Adopted for Hub-Primitive roland@support-system.com
  */
 
-#include "config.h"
+#include <config.h>
 #include "intl.h"
 #include "render_object.h"
 

@@ -28,7 +28,7 @@
 #include <glib.h>
 #include <unicode.h>
 #include "ps-utf8.h"
-#include "config.h"
+#include <config.h>
 
 /* forward prototypes */
 static gchar *make_font_descriptor_name(const gchar *face,

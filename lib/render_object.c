@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <config.h>
+
 #include "render_object.h"
 
 static real rendobj_distance_from(RenderObject *rend_obj, Point *point);

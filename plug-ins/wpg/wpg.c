@@ -33,7 +33,7 @@
  *   before / on the way ...)
  */
 
-#include "config.h"
+#include <config.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>

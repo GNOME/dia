@@ -1,5 +1,5 @@
 /* -*- Mode: C; c-basic-offset: 4 -*- */
-#include "config.h"
+#include <config.h>
 #include "render_pstricks.h"
 #include "intl.h"
 #include "filter.h"

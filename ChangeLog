@@ -1,3 +1,8 @@
+2001-03-23  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* **/*.c: Added config.h to the remaining .c files, and changed
+	all to be <config.h>.
+
 2001-03-22  Steffen Macke <sdteffen@yahoo.com>
 
 	* lib/arrows.c

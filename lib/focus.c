@@ -17,6 +17,8 @@
  */
 
 
+#include <config.h>
+
 #include "focus.h"
 
 static Focus *active_focus_ptr = NULL;

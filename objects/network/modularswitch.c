@@ -19,7 +19,7 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 #include "intl.h"
 #include "render_object.h"
 

@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include "intl.h"
 
 #include <stdio.h>

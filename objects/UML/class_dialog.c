@@ -25,7 +25,6 @@
 #include <math.h>
 #include <string.h>
 
-#include "config.h"
 #include "object.h"
 #include "objchange.h"
 #include "intl.h"
