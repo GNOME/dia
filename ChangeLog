@@ -1,3 +1,11 @@
+2000-02-19  James Henstridge  <james@daa.com.au>
+
+	* app/menus.c (toolbox_menu_items): don't right justify help menu for
+	gtk+ version of menus.
+
+	* app/properties.c (create_dialog): use a GnomeDialog if we happen
+	to be using gnome.
+
 2000-02-18  James Henstridge  <james@daa.com.au>
 
 	* objects/flowchart/box.c: set extra data for corner radius and text

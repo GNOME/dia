@@ -16,7 +16,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include <gtk/gtk.h>
+
+#ifdef GNOME
+#include <gnome.h>
+#endif
 
 #include "intl.h"
 #include "properties.h"
@@ -40,17 +48,37 @@ static void create_dialog()
 {
   GtkWidget *button;
 
+#ifdef GNOME
+  dialog = gnome_dialog_new(_("Object properties"),
+			    GNOME_STOCK_BUTTON_OK, GNOME_STOCK_BUTTON_APPLY,
+			    GNOME_STOCK_BUTTON_CLOSE, NULL);
+  gnome_dialog_set_default(GNOME_DIALOG(dialog), 1);
+
+  dialog_vbox = GNOME_DIALOG(dialog)->vbox;
+#else
   dialog = gtk_dialog_new();
-  
   gtk_window_set_title(GTK_WINDOW (dialog), _("Object properties"));
+  gtk_container_set_border_width(GTK_CONTAINER (dialog), 2);
+
+  dialog_vbox = GTK_DIALOG(dialog)->vbox;
+#endif  
+
   gtk_window_set_wmclass(GTK_WINDOW (dialog),
 			  "properties_window", "Dia");
   gtk_window_set_policy(GTK_WINDOW (dialog),
 			FALSE, TRUE, TRUE);
-  gtk_container_set_border_width(GTK_CONTAINER (dialog), 2);
 
-  dialog_vbox = GTK_DIALOG(dialog)->vbox;
-
+#ifdef GNOME
+  gnome_dialog_button_connect_object(GNOME_DIALOG(dialog), 0,
+				     GTK_SIGNAL_FUNC(properties_okay),
+				     GTK_OBJECT(dialog));
+  gnome_dialog_button_connect_object(GNOME_DIALOG(dialog), 1,
+				     GTK_SIGNAL_FUNC(properties_apply),
+				     GTK_OBJECT(dialog));
+  gnome_dialog_button_connect_object(GNOME_DIALOG(dialog), 2,
+				     GTK_SIGNAL_FUNC(gtk_widget_hide),
+				     GTK_OBJECT(dialog));
+#else
   button = gtk_button_new_with_label( _("OK") );
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), 
@@ -78,6 +106,7 @@ static void create_dialog()
 			    GTK_SIGNAL_FUNC(gtk_widget_hide),
 			    GTK_OBJECT(dialog));
   gtk_widget_show (button);
+#endif
 
   gtk_signal_connect(GTK_OBJECT (dialog), "delete_event",
 		     GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
@@ -145,7 +174,7 @@ properties_apply(GtkWidget *canvas, gpointer data)
 void
 properties_show(Diagram *dia, Object *obj)
 {
-  GtkWidget *properties;
+  GtkWidget *properties = NULL;
 
   if (obj != NULL) 
     properties = obj->ops->get_properties(obj);

@@ -185,7 +185,7 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {N_("/File/_Preferences..."),NULL,         file_preferences_callback, 0 },
   {N_("/File/sep1"),           NULL,         NULL,                      0, "<Separator>"},
   {N_("/File/_Quit"),          "<control>Q", file_quit_callback,        0 },
-  {N_("/_Help"),               NULL,         NULL,                      0, "<LastBranch>" },
+  {N_("/_Help"),               NULL,         NULL,                      0, "<Branch>" },
   {N_("/Help/_About"),         NULL,         help_about_callback,       0 },
 };
 
