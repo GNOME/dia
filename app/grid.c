@@ -21,43 +21,34 @@
 
 #include "grid.h"
 
+static Color grid_color = {0.5, 0.5, 0.5};
 void
 grid_draw(DDisplay *ddisp)
 {
   Grid *grid = &ddisp->grid;
-
-  if (!grid->gc) {
-    Color col;
-    GdkColor gdkcol;
-    
-    grid->gc = gdk_gc_new(ddisp->pixmap);
-
-    col.red = 0.5; col.green = 0.5; col.blue = 0.5;
-    color_convert(&col, &gdkcol);
-    
-    gdk_gc_set_foreground(grid->gc, &gdkcol);
-  }
+  Renderer *renderer = &ddisp->renderer->renderer;
+  int width = ddisp->renderer->renderer.pixel_width;
+  int height = ddisp->renderer->renderer.pixel_height;
 
   if ( (ddisplay_transform_length(ddisp, grid->width_x) <= 1.0) ||
        (ddisplay_transform_length(ddisp, grid->width_y) <= 1.0) )
     return;
   
-
-
-  
-  gdk_gc_set_clip_region(grid->gc, ddisp->clip_region);
-  
   if (grid->visible) {
     real pos;
     int x,y;
+
+    (renderer->ops->set_linewidth)(renderer, 0.0);
+    (renderer->ops->set_linestyle)(renderer, LINESTYLE_SOLID);
     
     /* Vertical lines: */
     pos = ceil( ddisp->visible.left / grid->width_x )*grid->width_x;
     while (pos <= ddisp->visible.right) {
       ddisplay_transform_coords(ddisp, pos,0,&x,&y);
-      gdk_draw_line(ddisp->pixmap, grid->gc,
-		    x, 0,
-		    x, ddisp->height);
+      (renderer->interactive_ops->draw_pixel_line)(renderer,
+						   x, 0,
+						   x, height,
+						   &grid_color);
       pos += grid->width_x;
     }
 
@@ -65,9 +56,10 @@ grid_draw(DDisplay *ddisp)
     pos = ceil( ddisp->visible.top / grid->width_y )*grid->width_y;
     while (pos <= ddisp->visible.bottom) {
       ddisplay_transform_coords(ddisp, 0,pos,&x,&y);
-      gdk_draw_line(ddisp->pixmap, grid->gc,
-		    0, y,
-		    ddisp->width, y);
+      (renderer->interactive_ops->draw_pixel_line)(renderer,
+						   0, y,
+						   width, y,
+						   &grid_color);
       pos += grid->width_y;
     }
   }

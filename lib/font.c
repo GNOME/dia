@@ -446,6 +446,10 @@ font_string_width(const char *string, Font *font, real height)
   gdk_font = font_get_gdkfont(font, 100);
   iwidth = gdk_string_width(gdk_font, string);
   iheight = gdk_string_height(gdk_font, string);
+
+  if ((iwidth==0) || (iheight==0))
+    return 0.0;
+  
   width_height = ((real)iwidth)/((real)iheight);
   width_height *= 1.01;
   return width_height*height*(iheight/100.0) + 0.2;

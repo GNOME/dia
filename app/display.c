@@ -65,14 +65,8 @@ new_display(Diagram *dia)
   ddisp->grid.entry_x = NULL;
   ddisp->grid.entry_y = NULL;
   
-  ddisp->pixmap = NULL;
-  ddisp->width = 0;
-  ddisp->height = 0;
-  ddisp->clip_region = NULL;
   ddisp->renderer = NULL;
   
-  ddisp->bg_gc = NULL;
-
   ddisp->update_areas = NULL;
   ddisp->display_areas = NULL;
 
@@ -108,9 +102,13 @@ ddisplay_transform_coords(DDisplay *ddisp,
 			  int *xi, int *yi)
 {
   Rectangle *visible = &ddisp->visible;
+  int width = ddisp->renderer->renderer.pixel_width;
+  int height = ddisp->renderer->renderer.pixel_height;
   
-  *xi = ROUND ( (x - visible->left)  * (real)ddisp->width / (visible->right - visible->left) );
-  *yi = ROUND ( (y - visible->top)  * (real)ddisp->height / (visible->bottom - visible->top) );
+  *xi = ROUND ( (x - visible->left)  * (real)width /
+		(visible->right - visible->left) );
+  *yi = ROUND ( (y - visible->top)  * (real)height /
+		(visible->bottom - visible->top) );
 }
 
 /* Takes real length and returns pixel length */
@@ -134,9 +132,11 @@ ddisplay_untransform_coords(DDisplay *ddisp,
 			    coord *x, coord *y)
 {
   Rectangle *visible = &ddisp->visible;
+  int width = ddisp->renderer->renderer.pixel_width;
+  int height = ddisp->renderer->renderer.pixel_height;
   
-  *x = visible->left + xi*(visible->right - visible->left) / (real)ddisp->width;
-  *y = visible->top +  yi*(visible->bottom - visible->top) / (real)ddisp->height;
+  *x = visible->left + xi*(visible->right - visible->left) / (real)width;
+  *y = visible->top +  yi*(visible->bottom - visible->top) / (real)height;
 }
 
 
@@ -170,6 +170,8 @@ ddisplay_add_update(DDisplay *ddisp, Rectangle *rect)
   Rectangle *r;
   int top,bottom,left,right;
   Rectangle *visible;
+  int width = ddisp->renderer->renderer.pixel_width;
+  int height = ddisp->renderer->renderer.pixel_height;
 
   if (!rectangle_intersects(rect, &ddisp->visible))
     return;
@@ -187,10 +189,14 @@ ddisplay_add_update(DDisplay *ddisp, Rectangle *rect)
   }
   
   visible = &ddisp->visible;
-  left = floor( (r->left - visible->left)  * (real)ddisp->width / (visible->right - visible->left) ) - 1;
-  top = floor( (r->top - visible->top)  * (real)ddisp->height / (visible->bottom - visible->top) ) - 1; 
-  right = ceil( (r->right - visible->left)  * (real)ddisp->width / (visible->right - visible->left) ) + 1;
-  bottom = ceil( (r->bottom - visible->top)  * (real)ddisp->height / (visible->bottom - visible->top) ) + 1;
+  left = floor( (r->left - visible->left)  * (real)width /
+		(visible->right - visible->left) ) - 1;
+  top = floor( (r->top - visible->top)  * (real)height /
+	       (visible->bottom - visible->top) ) - 1; 
+  right = ceil( (r->right - visible->left)  * (real)width /
+		(visible->right - visible->left) ) + 1;
+  bottom = ceil( (r->bottom - visible->top)  * (real)height /
+		 (visible->bottom - visible->top) ) + 1;
 
   ddisplay_add_display_area(ddisp,
 			    left, top, 
@@ -229,32 +235,19 @@ ddisplay_flush(DDisplay *ddisp)
   GSList *l;
   IRectangle *ir;
   Rectangle *r;
-  GdkRectangle clip_rect;
-  int x1,y1;
-  int x2,y2;
+  Renderer *renderer;
 
   /* Renders updates to pixmap + copies display_areas to canvas(screen) */
 
-  if (ddisp->clip_region != NULL)
-    gdk_region_destroy(ddisp->clip_region);
+  renderer = &ddisp->renderer->renderer;
 
-  ddisp->clip_region =  gdk_region_new();
-
+  (renderer->interactive_ops->clip_region_clear)(renderer);
+  
   l = ddisp->update_areas;
   while(l!=NULL) {
     r = (Rectangle *) l->data;
 
-    ddisplay_transform_coords(ddisp, r->left, r->top,
-			      &x1, &y1);
-    ddisplay_transform_coords(ddisp, r->right, r->bottom,
-			      &x2, &y2);
-    clip_rect.x = x1;
-    clip_rect.y = y1;
-    clip_rect.width = x2 - x1 + 1;
-    clip_rect.height = y2 - y1 + 1;
-    
-    ddisp->clip_region =
-      gdk_region_union_with_rect( ddisp->clip_region, &clip_rect );
+    (renderer->interactive_ops->clip_region_add_rect)(renderer,  r);
     
     l = g_slist_next(l);
   }
@@ -268,13 +261,10 @@ ddisplay_flush(DDisplay *ddisp)
   l = ddisp->display_areas;
   while(l!=NULL) {
     ir = (IRectangle *) l->data;
-    gdk_draw_pixmap(ddisp->canvas->window,
-		    ddisp->canvas->style->fg_gc[ GTK_WIDGET_STATE (ddisp->canvas)],
-		    ddisp->pixmap,
-		    ir->left, ir->top, 
-		    ir->left, ir->top, 
-		    ir->right - ir->left,
-		    ir->bottom - ir->top);
+
+    renderer_gdk_copy_to_window(ddisp->renderer, ddisp->canvas->window,
+				ir->left, ir->top,
+				ir->right - ir->left, ir->bottom - ir->top);
     
     l = g_slist_next(l);
   }
@@ -289,39 +279,26 @@ ddisplay_render_pixmap(DDisplay *ddisp)
   GList *list;
   Object *obj;
   int i;
+  Renderer *renderer;
   
-  if (ddisp->pixmap==NULL) {
-    printf("Pixmap was NULL!!\n");
+  if (ddisp->renderer==NULL) {
+    printf("ERROR! Renderer was NULL!!\n");
     return;
   }
 
-  if (ddisp->renderer==NULL) {
-    ddisp->renderer = new_gdk_renderer(ddisp);
-  }
+  renderer = &ddisp->renderer->renderer;
   
-  if(!ddisp->bg_gc) {
-    GdkColor col;
-
-    ddisp->bg_gc = gdk_gc_new(ddisp->pixmap);
-
-    color_convert(&ddisp->diagram->bg_color, &col);
-    gdk_gc_set_foreground(ddisp->bg_gc, &col);
-  }
     
-  gdk_gc_set_clip_region(ddisp->bg_gc, ddisp->clip_region);
   /* Erase background */
-  gdk_draw_rectangle (ddisp->pixmap,
-		      ddisp->bg_gc,
-		      TRUE,
-		      0, 0,
-		      ddisp->width,
-		      ddisp->height);
+  (renderer->interactive_ops->fill_pixel_rect)(renderer,
+					       0, 0,
+					       renderer->pixel_width,
+					       renderer->pixel_height,
+					       &ddisp->diagram->bg_color);
 
   /* Draw grid */
   grid_draw(ddisp);
 
-
-  gdk_gc_set_clip_region(ddisp->renderer->render_gc, ddisp->clip_region);
   /* Draw all objects: */
   list = ddisp->diagram->objects;
   while (list!=NULL) {
@@ -384,6 +361,8 @@ ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
 {
   Rectangle *extents = &ddisp->diagram->extents;
   Rectangle *visible = &ddisp->visible;
+  int width = ddisp->renderer->renderer.pixel_width;
+  int height = ddisp->renderer->renderer.pixel_height;
     
   /*  updaterar origo+visible+rulers */
   ddisp->origo.x = x;
@@ -397,8 +376,8 @@ ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
 
   visible->left = ddisp->origo.x;
   visible->top = ddisp->origo.y;
-  visible->right = ddisp->origo.x + ddisp->width/ddisp->zoom_factor;
-  visible->bottom = ddisp->origo.y + ddisp->height/ddisp->zoom_factor;
+  visible->right = ddisp->origo.x + width/ddisp->zoom_factor;
+  visible->bottom = ddisp->origo.y + height/ddisp->zoom_factor;
 
   gtk_ruler_set_range  (GTK_RULER (ddisp->hrule),
 			visible->left,
@@ -514,15 +493,11 @@ void
 ddisplay_resize_canvas(DDisplay *ddisp,
 		       int width,  int height)
 {
-  if (ddisp->pixmap != NULL) {
-    gdk_pixmap_unref(ddisp->pixmap);
+  if (ddisp->renderer==NULL) {
+    ddisp->renderer = new_gdk_renderer(ddisp);
   }
   
-  ddisp->pixmap =
-    gdk_pixmap_new(ddisp->canvas->window,
-		   width, height, -1);
-  ddisp->width = width;
-  ddisp->height = height;
+  gdk_renderer_set_size(ddisp->renderer, ddisp->canvas->window, width, height);
 
   ddisplay_set_origo(ddisp, ddisp->origo.x, ddisp->origo.y);
 
@@ -685,15 +660,8 @@ ddisplay_really_destroy(DDisplay *ddisp)
 
   grid_destroy_dialog(&ddisp->grid);
   
-  if (ddisp->pixmap != NULL)
-    gdk_pixmap_unref(ddisp->pixmap);
-
-  if (ddisp->bg_gc != NULL)
-    gdk_gc_unref(ddisp->bg_gc);
-
-  if (ddisp->clip_region != NULL)
-    gdk_region_destroy(ddisp->clip_region);
-      
+  destroy_gdk_renderer(ddisp->renderer);
+  
   g_hash_table_remove(display_ht, ddisp->shell);
   g_hash_table_remove(display_ht, ddisp->canvas);
 

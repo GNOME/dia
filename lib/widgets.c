@@ -22,11 +22,9 @@ dia_font_selector_class_init (DiaFontSelectorClass *class)
 static void
 dia_font_selector_init (DiaFontSelector *fs)
 {
-  GtkWidget *omenu;
   GtkWidget *menu;
   GtkWidget *submenu;
   GtkWidget *menuitem;
-  GtkWidget *label;
   GSList *group;
   GList *list;
   char *fontname;
@@ -145,11 +143,9 @@ dia_alignment_selector_class_init (DiaAlignmentSelectorClass *class)
 static void
 dia_alignment_selector_init (DiaAlignmentSelector *fs)
 {
-  GtkWidget *omenu;
   GtkWidget *menu;
   GtkWidget *submenu;
   GtkWidget *menuitem;
-  GtkWidget *label;
   GSList *group;
   
   menu = gtk_menu_new ();
@@ -240,11 +236,9 @@ dia_line_style_selector_class_init (DiaLineStyleSelectorClass *class)
 static void
 dia_line_style_selector_init (DiaLineStyleSelector *fs)
 {
-  GtkWidget *omenu;
   GtkWidget *menu;
   GtkWidget *submenu;
   GtkWidget *menuitem;
-  GtkWidget *label;
   GSList *group;
   
   menu = gtk_menu_new ();
@@ -438,8 +432,6 @@ static void
 dia_color_selector_init (DiaColorSelector *cs)
 {
   GtkWidget *area;
-  GdkGC *gc;
-  GdkColor col;
 
   cs->col = color_white;
   cs->gc = NULL;
@@ -493,9 +485,6 @@ dia_color_selector_new ()
 void
 dia_color_selector_get_color(DiaColorSelector *cs, Color *color)
 {
-  GtkWidget *menuitem;
-  void *align;
-
   *color = cs->col;
 }
 

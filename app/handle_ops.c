@@ -21,86 +21,68 @@
 /* This value is best left odd so that the handles are centered. */
 #define HANDLE_SIZE 7
 
-static int handles_initialized = 0;
-static GdkGC *handle_gc = NULL;
-static GdkColor handle_color[NUM_HANDLE_TYPES];
-static GdkColor handle_color_connected[NUM_HANDLE_TYPES];
+static Color handle_color[NUM_HANDLE_TYPES] =
+{
+  { 0.0, 0.0, 0.4}, /* HANDLE_NON_MOVABLE */
+  { 0.0, 1.0, 0.0}, /* HANDLE_MAJOR_CONTROL */
+  { 1.0, 0.4, 0.0}, /* HANDLE_MINOR_CONTROL */
+};
+
+static Color handle_color_connected[NUM_HANDLE_TYPES] =
+{
+  { 0.0, 0.0, 0.4}, /* HANDLE_NON_MOVABLE */
+  { 1.0, 0.0, 0.0}, /* HANDLE_MAJOR_CONTROL */
+  { 1.0, 0.1, 0.0}, /* HANDLE_MINOR_CONTROL */
+};
 
 void
 handle_draw(Handle *handle, DDisplay *ddisp)
 {
   int x,y;
-  if (!handles_initialized) {
-    Color col;
-    
-    handles_initialized = 1;
-
-    handle_gc = gdk_gc_new(ddisp->pixmap);
-
-    gdk_gc_set_line_attributes (handle_gc,
-				1,
-				GDK_LINE_SOLID,
-				GDK_CAP_BUTT,
-				GDK_JOIN_MITER);
-
-    col.red = 0.0; col.green = 1.0; col.blue = 0.0;
-    color_convert(&col, &handle_color[HANDLE_MAJOR_CONTROL]);
-    col.red = 1.0; col.green = 0.0; col.blue = 0.0;
-    color_convert(&col, &handle_color_connected[HANDLE_MAJOR_CONTROL]);
-
-    col.red = 1.0; col.green = 0.4; col.blue = 0.0;
-    color_convert(&col, &handle_color[HANDLE_MINOR_CONTROL]);
-    col.red = 1.0; col.green = 0.1; col.blue = 0.0;
-    color_convert(&col, &handle_color_connected[HANDLE_MINOR_CONTROL]);
-
-    col.red = 0.0; col.green = 0.0; col.blue = 0.4;
-    color_convert(&col, &handle_color[HANDLE_NON_MOVABLE]);
-    handle_color_connected[HANDLE_NON_MOVABLE] = 
-      handle_color[HANDLE_NON_MOVABLE];
-    
-  }
+  Renderer *renderer = &ddisp->renderer->renderer;
+  Color *color;
 
   ddisplay_transform_coords(ddisp, handle->pos.x, handle->pos.y, &x, &y);
 
   if  (handle->connected_to != NULL) {
-    gdk_gc_set_foreground(handle_gc, &handle_color_connected[handle->type]);
+    color = &handle_color_connected[handle->type];
   } else {
-    gdk_gc_set_foreground(handle_gc, &handle_color[handle->type]);
+    color = &handle_color[handle->type];
   }
+
+  (renderer->ops->set_linewidth)(renderer, 0.0);
+  (renderer->ops->set_linestyle)(renderer, LINESTYLE_SOLID);
+  (renderer->ops->set_linejoin)(renderer, LINEJOIN_MITER);
+  (renderer->ops->set_fillstyle)(renderer, FILLSTYLE_SOLID);
   
-  gdk_draw_rectangle (ddisp->pixmap,
-		      handle_gc,
-		      TRUE,
-		      x - HANDLE_SIZE/2 + 1, y - HANDLE_SIZE/2 + 1,
-		      HANDLE_SIZE-2, HANDLE_SIZE-2);
- 
-  gdk_gc_set_foreground(handle_gc, &color_gdk_black);
 
-  gdk_draw_rectangle (ddisp->pixmap,
-		      handle_gc,
-		      FALSE,
-		      x - HANDLE_SIZE/2, y - HANDLE_SIZE/2,
-		      HANDLE_SIZE-1, HANDLE_SIZE-1);
+  (renderer->interactive_ops->fill_pixel_rect)(renderer,
+					       x - HANDLE_SIZE/2 + 1,
+					       y - HANDLE_SIZE/2 + 1,
+					       HANDLE_SIZE-2, HANDLE_SIZE-2,
+					       color);
+  
+  (renderer->interactive_ops->draw_pixel_rect)(renderer,
+					       x - HANDLE_SIZE/2,
+					       y - HANDLE_SIZE/2,
+					       HANDLE_SIZE-1, HANDLE_SIZE-1,
+					       &color_black);
 
+    
   
   if (handle->connect_type != HANDLE_NONCONNECTABLE) {
-    gdk_draw_line (ddisp->pixmap,
-		   handle_gc,
-		   x - HANDLE_SIZE/2, y - HANDLE_SIZE/2,
-		   x + HANDLE_SIZE/2, y + HANDLE_SIZE/2);
-    gdk_draw_line (ddisp->pixmap,
-		   handle_gc,
-		   x - HANDLE_SIZE/2, y + HANDLE_SIZE/2,
-		   x + HANDLE_SIZE/2, y - HANDLE_SIZE/2);
+    (renderer->interactive_ops->draw_pixel_line)
+                         (renderer,
+			  x - HANDLE_SIZE/2, y - HANDLE_SIZE/2,
+			  x + HANDLE_SIZE/2, y + HANDLE_SIZE/2,
+			  &color_black);
+    (renderer->interactive_ops->draw_pixel_line)
+                         (renderer,
+			  x - HANDLE_SIZE/2, y + HANDLE_SIZE/2,
+			  x + HANDLE_SIZE/2, y - HANDLE_SIZE/2,
+			  &color_black);
   }
 }
-void gdk_draw_line       (GdkDrawable  *drawable,
-                          GdkGC        *gc,
-                          gint          x1,
-                          gint          y1,
-                          gint          x2,
-                          gint          y2);
-
 
 void
 handle_add_update(Handle *handle, Diagram *dia)

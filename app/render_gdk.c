@@ -18,6 +18,7 @@
 
 #include <math.h>
 
+#include <gdk/gdk.h>
 #include <gtk/gtkfeatures.h>
 
 #ifndef GTK_HAVE_FEATURES_1_1_0 
@@ -92,6 +93,22 @@ static void draw_image(RendererGdk *renderer,
 static real get_text_width(RendererGdk *renderer,
 			   const char *text, int length);
 
+static void clip_region_clear(RendererGdk *renderer);
+static void clip_region_add_rect(RendererGdk *renderer,
+				 Rectangle *rect);
+
+static void draw_pixel_line(RendererGdk *renderer,
+			    int x1, int y1,
+			    int x2, int y2,
+			    Color *color);
+static void draw_pixel_rect(RendererGdk *renderer,
+				 int x, int y,
+				 int width, int height,
+				 Color *color);
+static void fill_pixel_rect(RendererGdk *renderer,
+				 int x, int y,
+				 int width, int height,
+				 Color *color);
 
 static RenderOps GdkRenderOps = {
   (SetLineWidthFunc) set_linewidth,
@@ -126,7 +143,14 @@ static RenderOps GdkRenderOps = {
 };
 
 static InteractiveRenderOps GdkInteractiveRenderOps = {
-  (GetTextWidthFunc) get_text_width
+  (GetTextWidthFunc) get_text_width,
+
+  (ClipRegionClearFunc) clip_region_clear,
+  (ClipRegionAddRectangleFunc) clip_region_add_rect,
+
+  (DrawPixelLineFunc) draw_pixel_line,
+  (DrawPixelRectangleFunc) draw_pixel_rect,
+  (FillPixelRectangleFunc) fill_pixel_rect,
 };
 
 RendererGdk *
@@ -139,25 +163,83 @@ new_gdk_renderer(DDisplay *ddisp)
   renderer->renderer.is_interactive = 1;
   renderer->renderer.interactive_ops = &GdkInteractiveRenderOps;
   renderer->ddisp = ddisp;
-  renderer->render_gc = gdk_gc_new(ddisp->pixmap);
+  renderer->render_gc = NULL;
+
+  renderer->pixmap = NULL;
+  renderer->renderer.pixel_width = 0;
+  renderer->renderer.pixel_height = 0;
+  renderer->clip_region = NULL;
 
   renderer->line_width = 1;
   renderer->line_style = GDK_LINE_SOLID;
   renderer->cap_style = GDK_CAP_BUTT;
   renderer->join_style = GDK_JOIN_MITER;
   
-  gdk_gc_set_line_attributes(renderer->render_gc,
-			     renderer->line_width,
-			     renderer->line_style,
-			     renderer->cap_style,
-			     renderer->join_style);
-
   renderer->saved_line_style = LINESTYLE_SOLID;
   renderer->dash_length = 10;
   renderer->dot_length = 1;
   
   return renderer;
 }
+
+void
+destroy_gdk_renderer(RendererGdk *renderer)
+{
+  if (renderer->pixmap != NULL)
+    gdk_pixmap_unref(renderer->pixmap);
+
+  if (renderer->render_gc != NULL)
+    gdk_gc_unref(renderer->render_gc);
+
+  if (renderer->clip_region != NULL)
+    gdk_region_destroy(renderer->clip_region);
+
+  g_free(renderer);
+}
+
+void
+gdk_renderer_set_size(RendererGdk *renderer, GdkWindow *window,
+		      int width, int height)
+{
+  
+  if (renderer->pixmap != NULL) {
+    gdk_pixmap_unref(renderer->pixmap);
+  }
+
+  renderer->pixmap = gdk_pixmap_new(window,  width, height, -1);
+  renderer->renderer.pixel_width = width;
+  renderer->renderer.pixel_height = height;
+
+  if (renderer->render_gc == NULL) {
+    renderer->render_gc = gdk_gc_new(renderer->pixmap);
+
+    gdk_gc_set_line_attributes(renderer->render_gc,
+			       renderer->line_width,
+			       renderer->line_style,
+			       renderer->cap_style,
+			       renderer->join_style);
+  }
+}
+
+extern void renderer_gdk_copy_to_window(RendererGdk *renderer,
+					GdkWindow *window,
+					int x, int y,
+					int width, int height)
+{
+  static GdkGC *copy_gc = NULL;
+
+  if (copy_gc == NULL) {
+    copy_gc = gdk_gc_new(window);
+  }
+  
+  gdk_draw_pixmap(window,
+		  copy_gc,
+		  renderer->pixmap,
+		  x, y,
+		  x, y,
+		  width, height);
+}
+
 
 static void
 set_linewidth(RendererGdk *renderer, real linewidth)
@@ -341,7 +423,7 @@ draw_line(RendererGdk *renderer,
   color_convert(line_color, &color);
   gdk_gc_set_foreground(gc, &color);
   
-  gdk_draw_line(ddisp->pixmap, gc,
+  gdk_draw_line(renderer->pixmap, gc,
 		x1, y1,	x2, y2);
 }
 
@@ -367,7 +449,7 @@ draw_polyline(RendererGdk *renderer,
   color_convert(line_color, &color);
   gdk_gc_set_foreground(gc, &color);
   
-  gdk_draw_lines(ddisp->pixmap, gc, gdk_points, num_points);
+  gdk_draw_lines(renderer->pixmap, gc, gdk_points, num_points);
   g_free(gdk_points);
 }
 
@@ -393,7 +475,7 @@ draw_polygon(RendererGdk *renderer,
   color_convert(line_color, &color);
   gdk_gc_set_foreground(gc, &color);
   
-  gdk_draw_polygon(ddisp->pixmap, gc, FALSE, gdk_points, num_points);
+  gdk_draw_polygon(renderer->pixmap, gc, FALSE, gdk_points, num_points);
   g_free(gdk_points);
 }
 
@@ -419,7 +501,7 @@ fill_polygon(RendererGdk *renderer,
   color_convert(line_color, &color);
   gdk_gc_set_foreground(gc, &color);
   
-  gdk_draw_polygon(ddisp->pixmap, gc, TRUE, gdk_points, num_points);
+  gdk_draw_polygon(renderer->pixmap, gc, TRUE, gdk_points, num_points);
   g_free(gdk_points);
 }
 
@@ -444,7 +526,7 @@ draw_rect(RendererGdk *renderer,
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
 
-  gdk_draw_rectangle (ddisp->pixmap,
+  gdk_draw_rectangle (renderer->pixmap,
 		      gc, FALSE,
 		      left, top,
 		      right-left,
@@ -472,7 +554,7 @@ fill_rect(RendererGdk *renderer,
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
 
-  gdk_draw_rectangle (ddisp->pixmap,
+  gdk_draw_rectangle (renderer->pixmap,
 		      gc, TRUE,
 		      left, top,
 		      right-left,
@@ -509,7 +591,7 @@ draw_arc(RendererGdk *renderer,
   if (dangle<0)
     dangle += 360.0;
   
-  gdk_draw_arc(ddisp->pixmap,
+  gdk_draw_arc(renderer->pixmap,
 	       gc, FALSE,
 	       left, top, right-left, bottom-top,
 	       (int) (angle1*64.0), (int) (dangle*64.0));
@@ -545,7 +627,7 @@ fill_arc(RendererGdk *renderer,
   if (dangle<0)
     dangle += 360.0;
   
-  gdk_draw_arc(ddisp->pixmap,
+  gdk_draw_arc(renderer->pixmap,
 	       gc, TRUE,
 	       left, top, right-left, bottom-top,
 	       (int) (angle1*64), (int) (dangle*64));
@@ -708,7 +790,7 @@ draw_bezier(RendererGdk *renderer,
 			     renderer->cap_style,
 			     GDK_JOIN_ROUND);
 
-  gdk_draw_lines(ddisp->pixmap, gc, bezier.gdk_points, bezier.currpoint);
+  gdk_draw_lines(renderer->pixmap, gc, bezier.gdk_points, bezier.currpoint);
 
   gdk_gc_set_line_attributes(renderer->render_gc,
 			     renderer->line_width,
@@ -745,7 +827,7 @@ fill_bezier(RendererGdk *renderer,
   color_convert(color, &gdk_color);
   gdk_gc_set_foreground(gc, &gdk_color);
   
-  gdk_draw_polygon(ddisp->pixmap, gc, TRUE,
+  gdk_draw_polygon(renderer->pixmap, gc, TRUE,
 		   bezier.gdk_points, bezier.currpoint);
 }
 
@@ -780,7 +862,7 @@ draw_string(RendererGdk *renderer,
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
       
-  gdk_draw_string(ddisp->pixmap,
+  gdk_draw_string(renderer->pixmap,
 		  renderer->gdk_font, gc,
 		  x,y, text);
 }
@@ -803,5 +885,92 @@ get_text_width(RendererGdk *renderer,
   iwidth = gdk_text_width(renderer->gdk_font, text, length);
 
   return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);
+}
+
+
+static void
+clip_region_clear(RendererGdk *renderer)
+{
+  if (renderer->clip_region != NULL)
+    gdk_region_destroy(renderer->clip_region);
+
+  renderer->clip_region =  gdk_region_new();
+
+  gdk_gc_set_clip_region(renderer->render_gc, renderer->clip_region);
+}
+
+static void
+clip_region_add_rect(RendererGdk *renderer,
+		     Rectangle *rect)
+{
+  DDisplay *ddisp = renderer->ddisp;
+  GdkRegion *old_reg;
+  GdkRectangle clip_rect;
+  int x1,y1;
+  int x2,y2;
+
+  ddisplay_transform_coords(ddisp, rect->left, rect->top,  &x1, &y1);
+  ddisplay_transform_coords(ddisp, rect->right, rect->bottom,  &x2, &y2);
+  
+  clip_rect.x = x1;
+  clip_rect.y = y1;
+  clip_rect.width = x2 - x1 + 1;
+  clip_rect.height = y2 - y1 + 1;
+
+  old_reg = renderer->clip_region;
+
+  renderer->clip_region =
+    gdk_region_union_with_rect( renderer->clip_region, &clip_rect );
+  
+  gdk_region_destroy(old_reg);
+
+  gdk_gc_set_clip_region(renderer->render_gc, renderer->clip_region);
+}
+
+static void
+draw_pixel_line(RendererGdk *renderer,
+		int x1, int y1,
+		int x2, int y2,
+		Color *color)
+{
+  GdkGC *gc = renderer->render_gc;
+  GdkColor gdkcolor;
+  
+  color_convert(color, &gdkcolor);
+  gdk_gc_set_foreground(gc, &gdkcolor);
+  
+  gdk_draw_line(renderer->pixmap, gc, x1, y1, x2, y2);
+}
+
+static void
+draw_pixel_rect(RendererGdk *renderer,
+		int x, int y,
+		int width, int height,
+		Color *color)
+{
+  GdkGC *gc = renderer->render_gc;
+  GdkColor gdkcolor;
+    
+  color_convert(color, &gdkcolor);
+  gdk_gc_set_foreground(gc, &gdkcolor);
+
+  gdk_draw_rectangle (renderer->pixmap, gc, FALSE,
+		      x, y,  width, height);
+}
+
+static void
+fill_pixel_rect(RendererGdk *renderer,
+		int x, int y,
+		int width, int height,
+		Color *color)
+{
+  GdkGC *gc = renderer->render_gc;
+  GdkColor gdkcolor;
+    
+  color_convert(color, &gdkcolor);
+  gdk_gc_set_foreground(gc, &gdkcolor);
+
+  gdk_draw_rectangle (renderer->pixmap, gc, TRUE,
+		      x, y,  width, height);
 }
 

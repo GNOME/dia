@@ -230,7 +230,6 @@ zigzagline_draw(Zigzagline *zigzagline, Renderer *renderer)
   OrthConn *orth = &zigzagline->orth;
   Point *points;
   int n;
-  Point pos;
   
   points = &orth->points[0];
   n = orth->numpoints;
@@ -252,7 +251,6 @@ zigzagline_create(Point *startpoint,
   Zigzagline *zigzagline;
   OrthConn *orth;
   Object *obj;
-  Point defaultlen = { 1.0, 1.0 };
 
   zigzagline = g_malloc(sizeof(Zigzagline));
   orth = &zigzagline->orth;

@@ -258,6 +258,8 @@ set_linecaps(RendererEPS *renderer, LineCaps mode)
   case LINECAPS_PROJECTING:
     ps_mode = 2;
     break;
+  default:
+    ps_mode = 0;
   }
 
   fprintf(renderer->file, "%d slc\n", ps_mode);
@@ -278,6 +280,8 @@ set_linejoin(RendererEPS *renderer, LineJoin mode)
   case LINEJOIN_BEVEL:
     ps_mode = 2;
     break;
+  default:
+    ps_mode = 0;
   }
 
   fprintf(renderer->file, "%d slj\n", ps_mode);

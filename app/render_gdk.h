@@ -27,8 +27,13 @@ typedef struct _RendererGdk RendererGdk;
 
 struct _RendererGdk {
   Renderer renderer;
+
   DDisplay *ddisp;
+  GdkPixmap *pixmap;              /* The pixmap shown in this display  */
+  guint32 width;                  /* The width of the pixmap in pixels */
+  guint32 height;                 /* The height of the pixmap in pixels */
   GdkGC *render_gc;
+  GdkRegion *clip_region;
 
   /* line attributes: */
   int line_width;
@@ -45,9 +50,12 @@ struct _RendererGdk {
 };
 
 extern RendererGdk *new_gdk_renderer(DDisplay *ddisp);
+extern void destroy_gdk_renderer(RendererGdk *renderer);
+extern void gdk_renderer_set_size(RendererGdk *renderer, GdkWindow *window,
+				  int width, int height);
+extern void renderer_gdk_copy_to_window(RendererGdk *renderer,
+					GdkWindow *window,
+					int x, int y,
+					int width, int height);
+
 #endif /* RENDER_GDK_H */
-
-
-
-
-

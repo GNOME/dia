@@ -41,7 +41,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
   Object *obj;
   int return_val;
   int key_handled;
-  
+  int width, height;
+  int new_size;
   return_val = FALSE;
   
   if (!canvas->window) 
@@ -53,12 +54,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
   switch (event->type)
     {
     case GDK_EXPOSE:
-      /*printf("GDK_EXPOSE\n"); */
+      /*printf("GDK_EXPOSE\n");*/
       eevent = (GdkEventExpose *) event;
-      /*
-      redraw (gdisp, eevent->area.x, eevent->area.y,
-	      eevent->area.width, eevent->area.height);
-      */
       ddisplay_add_display_area(ddisp,
 				eevent->area.x, eevent->area.y,
 				eevent->area.x + eevent->area.width,
@@ -67,9 +64,16 @@ ddisplay_canvas_events (GtkWidget *canvas,
       break;
 
     case GDK_CONFIGURE:
-      /*printf("GDK_CONFIGURE\n"); */
-      if ((ddisp->width != ddisp->canvas->allocation.width) ||
-	  (ddisp->height != ddisp->canvas->allocation.height)) {
+      /*printf("GDK_CONFIGURE\n");*/
+      if (ddisp->renderer != NULL) {
+	width = ddisp->renderer->renderer.pixel_width;
+	height = ddisp->renderer->renderer.pixel_height;
+	new_size = ((width != ddisp->canvas->allocation.width) ||
+		    (height != ddisp->canvas->allocation.height));
+      } else {
+	new_size = TRUE;
+      }
+      if (new_size) {
 	ddisplay_resize_canvas(ddisp,
 			       ddisp->canvas->allocation.width,
 			       ddisp->canvas->allocation.height);

@@ -21,7 +21,7 @@
 #include "object_ops.h"
 #include "color.h"
 
-static GdkGC *connectionpoint_gc = NULL;
+static Color connectionpoint_color = { 0.4, 0.4, 1.0 };
 
 #define CP_SZ (CONNECTIONPOINT_SIZE/2)
 
@@ -31,28 +31,22 @@ connectionpoint_draw(ConnectionPoint *conpoint,
 {
   int x,y;
   Point *point = &conpoint->pos;
+  Renderer *renderer = &ddisp->renderer->renderer;
   
-  if (!connectionpoint_gc) {
-    Color col;
-    GdkColor gdkcol;
-    connectionpoint_gc = gdk_gc_new(ddisp->pixmap);
-
-    col.red = 0.4; col.green = 0.4; col.blue = 1.0;
-    color_convert(&col, &gdkcol);
-    
-    gdk_gc_set_foreground(connectionpoint_gc, &gdkcol);
-  }
-
   ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
 
-  gdk_gc_set_clip_region(connectionpoint_gc, ddisp->clip_region);
+  (renderer->ops->set_linewidth)(renderer, 0.0);
+  (renderer->ops->set_linestyle)(renderer, LINESTYLE_SOLID);
 
-  gdk_draw_line(ddisp->pixmap, connectionpoint_gc,
-		x-CP_SZ,y-CP_SZ,
-		x+CP_SZ,y+CP_SZ);
-  gdk_draw_line(ddisp->pixmap, connectionpoint_gc,
-		x+CP_SZ,y-CP_SZ,
-		x-CP_SZ,y+CP_SZ);
+  (renderer->interactive_ops->draw_pixel_line)(renderer,
+					       x-CP_SZ,y-CP_SZ,
+					       x+CP_SZ+1,y+CP_SZ+1,
+					       &connectionpoint_color);
+
+  (renderer->interactive_ops->draw_pixel_line)(renderer,
+					       x+CP_SZ+1,y-CP_SZ-1,
+					       x-CP_SZ,y+CP_SZ,
+					       &connectionpoint_color);
 
 }
 

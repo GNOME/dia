@@ -45,6 +45,9 @@ Big stuff:
 
 BUGS:
 =====
+* selecting with rubberband and draggin mouse to other window with same diagram
+  gives ugly box left on screen.
+
 * pressing '+' and '-' when a focus is activated it gets both to the focus and zooms.
 
 * doesn't use latin-1 or some other well-known 8-bit encoding in eps_renderer

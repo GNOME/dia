@@ -56,14 +56,8 @@ struct _DDisplay {
 
   Grid grid;                      /* the grid in this display          */
 
-  GdkPixmap *pixmap;              /* The pixmap shown in this display  */
-  guint32 width;                  /* The width of the pixmap in pixels */
-  guint32 height;                 /* The height of the pixmap in pixels */
-  GdkRegion *clip_region;
   RendererGdk *renderer;
   
-  GdkGC *bg_gc;                   /* GC used when drawing background   */
-
   GSList *update_areas;           /* Update areas list                 */
   GSList *display_areas;          /* Display areas list                */
 };

@@ -166,6 +166,12 @@ typedef void (*DrawImageFunc) (Renderer *renderer,
 			       real width, real height,
 			       void *not_decided_yet);
 
+/******************************************************
+ **  Functions defined for every Interactive Renderer
+ **  Interactive renderers are renderers that render
+ **  to pixels on the screen.
+ ******************************************************/
+
 /* Returns the EXACT width of text in pixels, using the current font
    This operation just has to be defined for renderers that are
    interactive, (ie. the screen). As you can't generally calculate
@@ -174,6 +180,39 @@ typedef void (*DrawImageFunc) (Renderer *renderer,
 typedef real (*GetTextWidthFunc) (Renderer *renderer,
 				  const char *text, int length);
 
+/* Clear the current clipping region.
+   This function needs only be defined for interactive
+   renderers.
+*/
+typedef void (*ClipRegionClearFunc) (Renderer *renderer);
+
+/* Add a rectangle to the current clipping region.
+   This function needs only be defined for interactive
+   renderers.
+*/
+typedef void (*ClipRegionAddRectangleFunc) (Renderer *renderer,
+					    Rectangle *rect);
+
+/* Draw a line from start to end, using color and the current line style */
+typedef void (*DrawPixelLineFunc) (Renderer *renderer,
+				   int x1, int y1,
+				   int x2, int y2,
+				   Color *color);
+
+/* Draw a rectangle, given its upper-left and lower-right corners
+   in pixels.
+*/
+typedef void (*DrawPixelRectangleFunc) (Renderer *renderer,
+					int x, int y,
+					int width, int height,
+					Color *color);
+
+/* Same a DrawPixelRectangleFunc, except the rectangle is filled using the
+   current fill style */
+typedef void (*FillPixelRectangleFunc) (Renderer *renderer,
+					int x, int y,
+					int width, int height,
+					Color *color);
 
 
 struct _RenderOps {
@@ -221,6 +260,13 @@ struct _RenderOps {
 
 struct _InteractiveRenderOps {
   GetTextWidthFunc get_text_width;
+
+  ClipRegionClearFunc clip_region_clear;
+  ClipRegionAddRectangleFunc clip_region_add_rect;
+
+  DrawPixelLineFunc draw_pixel_line;
+  DrawPixelRectangleFunc draw_pixel_rect;
+  FillPixelRectangleFunc fill_pixel_rect;
 };
 
 struct _Renderer {
@@ -228,6 +274,8 @@ struct _Renderer {
 
   int is_interactive;
   InteractiveRenderOps *interactive_ops;
+  int pixel_width; /* Only needed for interactive renderers.*/
+  int pixel_height; /* Only needed for interactive renderers.*/
 };
 
 #endif /* RENDER_H */

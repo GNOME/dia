@@ -1,3 +1,34 @@
+1998-11-08  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/connectionpoint_ops.c:
+	* app/commands.c:
+	* app/disp_callbacks.c:
+	* app/display.[ch]:
+	* app/grid.c:
+	* app/handle_ops.c:
+	* app/magnify.c:
+	* app/modify_tool.c:
+	* app/render_gdk.[ch]:
+	* lib/render.h:
+	Huge cleanup of internal rendering system.
+	Moved a lot of data (pixmap, width, height & gc) into the GdkRenderer.
+	This gives a few new methods for Interactive Renderers for setting
+	clipping regions and drawing pixel based lines and rects.
+	Updated the rest of the code to use the new stuff.
+	
+	* app/render_eps.c:
+	Fixed warning.
+
+	* lib/widgets.c:
+	* objects/standard/zigzagline.c
+	Fixed unused variable warnings.
+
+	* lib/font.c:
+	Fixedbug with stringwidth where width==0.
+
+	* TODO:
+	Added known bug.
+
 1998-11-02  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/widgets.[ch]:
