@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-16 11:23+0200\n"
+"POT-Creation-Date: 2003-07-25 03:20+0200\n"
 "PO-Revision-Date: 2003-02-13 22:26+0200\n"
 "Last-Translator: Jan-Willem Harmanny <jwharmanny@hotmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -115,6 +115,9 @@ msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
+"Dit zou niet moeten gebeuren. Vul een foutenrapport in op bugzilla.gnome."
+"org\n"
+"waarin u kunt omschrijven hoe u deze melding tevoorschijn kon laten komen.\n"
 
 #. no standard buttons
 #: app/app_procs.c:561
@@ -124,7 +127,7 @@ msgid ""
 "without saving them?"
 msgstr ""
 "Diagram zijn aangepast.\n"
-"Weet je zeker dat je wilt stoppen zonder ze op te slaan?"
+"Weet u zeker dat u wilt stoppen zonder ze op te slaan?"
 
 #: app/app_procs.c:565
 msgid "Quit Dia"
@@ -132,15 +135,15 @@ msgstr "Dia afsluiten"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:618
+#: app/app_procs.c:620
 msgid "Thank you for using Dia.\n"
-msgstr ""
+msgstr "Dank u voor uw gebruik van Dia.\n"
 
-#: app/app_procs.c:632 app/app_procs.c:639
+#: app/app_procs.c:634 app/app_procs.c:641
 msgid "Could not create per-user Dia config directory"
 msgstr "Kan per-gebruiker Dia configuratie map niet maken"
 
-#: app/app_procs.c:641
+#: app/app_procs.c:643
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -148,7 +151,7 @@ msgstr ""
 "Kan per-gebruiker Dia configuratie map niet maken. Zorg aub dat de "
 "omgevingsvariabele HOME naar een bestaande map wijst."
 
-#: app/app_procs.c:663 app/diaconv.c:249
+#: app/app_procs.c:665 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Dia's interne objecten en filters"
 
@@ -400,8 +403,7 @@ msgid "Ok"
 msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/linewidth_area.c:258
-#: app/paginate_psprint.c:276
+#: app/lineprops_area.c:679 app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -486,13 +488,19 @@ msgstr "Zichtbare spatiëring"
 msgid "Grid"
 msgstr "Rooster"
 
-#: app/dia-props.c:155
+#: app/dia-props.c:156
 msgid "Background Colour"
 msgstr "Achtergrondkleur"
 
-#: app/dia-props.c:166 lib/diagramdata.c:58
+#: app/dia-props.c:167 lib/diagramdata.c:58
 msgid "Background"
 msgstr "Achtergrond"
+
+#. Can we be sure that the filename is the 'proper title'?
+#: app/dia-props.c:185
+#, c-format
+msgid "Diagram Properties: %s"
+msgstr "Diagram eigenschappen: %s"
 
 #: app/disp_callbacks.c:77 app/properties.c:141
 msgid ""
@@ -506,21 +514,23 @@ msgstr ""
 msgid "No object menu"
 msgstr "Geen object menu"
 
-#: app/disp_callbacks.c:820
+#: app/disp_callbacks.c:830
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
 msgstr ""
+"Het object dat u plaatste, past niet in zijn ouder. \n"
+"Maak het ouder-object groter, of plaats het object ergens anders."
 
 #: app/display.c:93
 msgid "Diagram modified!"
 msgstr "Diagram gewijzigd!"
 
-#: app/display.c:991
+#: app/display.c:992
 msgid "<unnamed>"
 msgstr "<geennaam>"
 
-#: app/display.c:993
+#: app/display.c:994
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -529,11 +539,11 @@ msgstr ""
 "Het diagram '%s'\n"
 "is niet opgeslagen. Aanpassingen nu opslaan?"
 
-#: app/display.c:1004
+#: app/display.c:1005
 msgid "Close Diagram"
 msgstr "Diagram sluiten"
 
-#: app/display.c:1009
+#: app/display.c:1010
 msgid "Discard Changes"
 msgstr "Aanpassingen verwerpen"
 
@@ -542,7 +552,7 @@ msgstr "Aanpassingen verwerpen"
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
 #: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
-#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:87
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Kan uitvoerbestand %s niet openen: %s\n"
@@ -726,27 +736,27 @@ msgstr "Polylijn"
 msgid "Bezierline"
 msgstr "Kromme lijn"
 
-#: app/interface.c:108 app/interface.c:109 app/menus.c:233
+#: app/interface.c:108 app/interface.c:109 app/menus.c:236
 msgid "Image"
 msgstr "Afbeelding"
 
-#: app/interface.c:379
+#: app/interface.c:371
 msgid "Diagram menu."
 msgstr "Diagram menu."
 
-#: app/interface.c:479
+#: app/interface.c:480
 msgid "Zoom"
 msgstr "Zoomen"
 
-#: app/interface.c:502
+#: app/interface.c:494
 msgid "Toggles snap-to-grid for this window."
 msgstr "Schakel uitlijnen-op-raster in voor dit venster."
 
-#: app/interface.c:546
+#: app/interface.c:538
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:1008
+#: app/interface.c:1014
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -756,7 +766,7 @@ msgstr ""
 "witte vierkantjes resetten de kleuren. De kleine pijlen verwisselen de "
 "kleuren.Dubbelklik om de kleuren te wijzigen."
 
-#: app/interface.c:1023
+#: app/interface.c:1029
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -764,7 +774,7 @@ msgstr ""
 "Lijndikte. Klik op een lijn om de standaard lijndikte in te stellen voor "
 "nieuwe objecten. Dubbelklik om de lijndikte meer precies in te stellen."
 
-#: app/interface.c:1055
+#: app/interface.c:1061
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -772,7 +782,7 @@ msgstr ""
 "Pijl stijl aan het begin van nieuwe lijnen. Klik om een pijl te kiezen, of "
 "stel de pijl-parameters in met Details..."
 
-#: app/interface.c:1060
+#: app/interface.c:1066
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -780,7 +790,7 @@ msgstr ""
 "Lijn stijl voor nieuwe lijnen. Klik om een lijn stijl te kiezen, of stel de "
 "lijn-parameters in met Details..."
 
-#: app/interface.c:1065
+#: app/interface.c:1071
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -788,7 +798,7 @@ msgstr ""
 "Pijl stijl aan het einde van nieuwe lijnen. Klik om een pijl te kiezen, of "
 "stel pijl-parameters in met Details..."
 
-#: app/interface.c:1169
+#: app/interface.c:1179
 msgid "Diagram Editor"
 msgstr "Diagram Bewerken"
 
@@ -853,12 +863,12 @@ msgstr "Details..."
 msgid "Line Style Properties"
 msgstr "Lijn Stijl Eigenschappen"
 
-#: app/linewidth_area.c:238 lib/properties.h:475
+#: app/linewidth_area.c:239 lib/properties.h:475
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Lijn breedte"
 
-#: app/linewidth_area.c:250
+#: app/linewidth_area.c:251
 msgid "Line width:"
 msgstr "Lijn breedte:"
 
@@ -891,7 +901,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Je moet een bestand specificeren, niet een directory.\n"
 
 #: app/load_save.c:282 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
-#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:80
+#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:78
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kon '%s' niet voor lezen openen.\n"
@@ -1146,13 +1156,12 @@ msgid "_Ungroup"
 msgstr "_Degroepeer"
 
 #: app/menus.c:210
-#, fuzzy
 msgid "_Parent"
-msgstr "Voorkomen"
+msgstr "_Ouder"
 
 #: app/menus.c:211
 msgid "_Unparent Children"
-msgstr ""
+msgstr "_Kind scheiden van ouder"
 
 #: app/menus.c:213
 msgid "Align _Horizontal"
@@ -1162,7 +1171,7 @@ msgstr "_Horizontaal Uitlijnen"
 msgid "Align _Vertical"
 msgstr "_Verticaal Uitlijnen"
 
-#: app/menus.c:213
+#: app/menus.c:216
 msgid "_Properties..."
 msgstr "_Eigenschappen..."
 
@@ -1178,7 +1187,7 @@ msgstr "_Selecteren"
 msgid "_Objects"
 msgstr "_Objecten"
 
-#: app/menus.c:266
+#: app/menus.c:269
 msgid "_Tools"
 msgstr "E_xtra"
 
@@ -1190,7 +1199,7 @@ msgstr "_Dialogen"
 msgid "_Input Methods"
 msgstr "_Invoer methoden"
 
-#: app/menus.c:269
+#: app/menus.c:272
 msgid "_Help"
 msgstr "_Hulp"
 
@@ -1232,7 +1241,7 @@ msgstr "/Bestand/P_lugins..."
 msgid "/File/_Quit"
 msgstr "/Bestand/_Stoppen"
 
-#: app/menus.c:300 app/menus.c:460
+#: app/menus.c:303 app/menus.c:466
 msgid "/_Help"
 msgstr "/_Hulp"
 
@@ -1244,7 +1253,7 @@ msgstr "/Hulp/_Handleiding"
 msgid "/Help/---"
 msgstr "/Hulp/---"
 
-#: app/menus.c:305 app/menus.c:465
+#: app/menus.c:308 app/menus.c:471
 msgid "/Help/_About..."
 msgstr "/Hulp/_Info..."
 
@@ -1272,7 +1281,7 @@ msgstr "/Bestand/Diagram A_fdrukken..."
 msgid "/File/_Close"
 msgstr "/Bestand/_Sluiten"
 
-#: app/menus.c:336
+#: app/menus.c:339
 msgid "/_Edit"
 msgstr "/Be_werken"
 
@@ -1316,7 +1325,7 @@ msgstr "/Bewerken/Tekst Knippen"
 msgid "/Edit/Paste _Text"
 msgstr "/Bewerken/Tekst Plakken"
 
-#: app/menus.c:355
+#: app/menus.c:358
 msgid "/_View"
 msgstr "/Beel_d"
 
@@ -1495,14 +1504,12 @@ msgid "/Objects/_Ungroup"
 msgstr "/Objecten/_Degroepeer"
 
 #: app/menus.c:421
-#, fuzzy
 msgid "/Objects/_Parent"
-msgstr "Object eigenschappen"
+msgstr "/Objecten/_Ouder"
 
 #: app/menus.c:422
-#, fuzzy
 msgid "/Objects/_Unparent Children"
-msgstr "Object eigenschappen"
+msgstr "/Objecten/_Kind scheiden van ouder"
 
 #: app/menus.c:424
 msgid "/Objects/Align _Horizontal"
@@ -1561,9 +1568,8 @@ msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objecten/Verticaal Uitlijnen/Aangrenzend"
 
 #: app/menus.c:441
-#, fuzzy
 msgid "/Objects/_Properties..."
-msgstr "Object eigenschappen"
+msgstr "/Objecten/_Eigenschappen..."
 
 #: app/menus.c:442
 msgid "/_Tools"
@@ -1713,39 +1719,39 @@ msgstr "Laden bij opstarten"
 msgid "File Name"
 msgstr "Bestandnaam"
 
-#: app/preferences.c:98
+#: app/preferences.c:99
 msgid "User Interface"
 msgstr "Gebruikersinterface"
 
-#: app/preferences.c:99
+#: app/preferences.c:100
 msgid "Diagram Defaults"
 msgstr "Diagram standaardwaarden"
 
-#: app/preferences.c:100
+#: app/preferences.c:101
 msgid "View Defaults"
 msgstr "Weergave standaardwaarden"
 
-#: app/preferences.c:101
+#: app/preferences.c:102
 msgid "Grid Lines"
 msgstr "Rooster Lijnen"
 
-#: app/preferences.c:102
+#: app/preferences.c:103
 msgid "Diagram Tree"
 msgstr "Diagram Boom"
 
-#: app/preferences.c:116
+#: app/preferences.c:117
 msgid "Reset tools after create:"
 msgstr "Reset hulpmiddelen na aanmaken:"
 
-#: app/preferences.c:117
+#: app/preferences.c:118
 msgid "Compress saved files:"
 msgstr "Opgeslagen bestanden comprimeren:"
 
-#: app/preferences.c:118
+#: app/preferences.c:119
 msgid "Number of undo levels:"
 msgstr "Aantal 'ongedaan maken' niveaus:"
 
-#: app/preferences.c:119
+#: app/preferences.c:120
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1753,102 +1759,110 @@ msgstr ""
 "Omgekeerd slepen selecteert\n"
 "snijdende objecten:"
 
-#: app/preferences.c:120
+#: app/preferences.c:121
 msgid "Recent documents list size:"
 msgstr "Recente documentenlijst grootte:"
 
-#: app/preferences.c:121
+#: app/preferences.c:122
 msgid "Use menu bar:"
 msgstr "Gebruik menubalk:"
 
-#: app/preferences.c:123
+#: app/preferences.c:124
 msgid "Keep tool box on top of diagram windows:"
 msgstr "De hulpmiddelen bovenaan diagramvensters laten staan:"
 
-#: app/preferences.c:125
+#: app/preferences.c:126
 msgid "New diagram:"
 msgstr "Nieuwe diagrammen:"
 
-#: app/preferences.c:126
+#: app/preferences.c:127
 msgid "Portrait:"
 msgstr "Portrait:"
 
-#: app/preferences.c:128
+#: app/preferences.c:129
 msgid "Paper type:"
 msgstr "Papiersoort:"
 
-#: app/preferences.c:131
+#: app/preferences.c:132
 msgid "New window:"
 msgstr "Nieuw venster:"
 
-#: app/preferences.c:132
+#: app/preferences.c:133
 msgid "Width:"
 msgstr "Breedte:"
 
-#: app/preferences.c:133
+#: app/preferences.c:134
 msgid "Height:"
 msgstr "Hoogte:"
 
-#: app/preferences.c:134
+#: app/preferences.c:135
 msgid "Magnify:"
 msgstr "Vergroting:"
 
-#: app/preferences.c:136
+#: app/preferences.c:137
 msgid "Connection Points:"
 msgstr "Verbindingspunten:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:137 app/preferences.c:140 app/preferences.c:145
+#: app/preferences.c:138 app/preferences.c:141 app/preferences.c:146
 msgid "Visible:"
 msgstr "Zichtbaar:"
 
-#: app/preferences.c:139
+#: app/preferences.c:140
 msgid "Page breaks:"
 msgstr "Pagina scheiding:"
 
-#: app/preferences.c:141 app/preferences.c:149
+#: app/preferences.c:142 app/preferences.c:151
 msgid "Colour:"
 msgstr "Kleur:"
 
-#: app/preferences.c:142 app/preferences.c:150
+#: app/preferences.c:143
 msgid "Solid lines:"
 msgstr "Massieve lijnen:"
 
-#: app/preferences.c:146
+#: app/preferences.c:147
 msgid "Snap to:"
 msgstr "Hecht aan:"
 
-#: app/preferences.c:147
+#: app/preferences.c:148
+msgid "Dynamic grid resizing"
+msgstr "Dynamisch het raster bijwerken"
+
+#: app/preferences.c:149
 msgid "X Size:"
 msgstr "X Grootte:"
 
-#: app/preferences.c:148
+#: app/preferences.c:150
 msgid "Y Size:"
 msgstr "Y Grootte:"
 
-#: app/preferences.c:161
+#: app/preferences.c:152
+msgid "Lines per major line"
+msgstr "Regels per hoofd-regel"
+
+#: app/preferences.c:167
 msgid "Diagram tree window:"
 msgstr "Diagram boom venster:"
 
-#: app/preferences.c:163
+#: app/preferences.c:169
 msgid "Save hidden object types:"
 msgstr "Bewaar verborgen object typen:"
 
-#: app/preferences.c:290
+#: app/preferences.c:296
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kon `%s' niet openen voor schrijven"
 
-#: app/preferences.c:565 lib/prop_inttypes.c:151
+#: app/preferences.c:572 lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/preferences.c:565 app/preferences.c:576 lib/prop_inttypes.c:153
+#: app/preferences.c:572 app/preferences.c:583 lib/prop_inttypes.c:153
 #: lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nee"
 
-#: app/preferences.c:676
+#: app/preferences.c:683
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -4805,36 +4819,36 @@ msgstr "Dit is een FIG versie %d.%d bestand, ik begrijp het misschien niet\n"
 msgid "XFig File Format"
 msgstr "XFig bestandsformaat"
 
-#: plug-ins/xslt/xslt.c:95
+#: plug-ins/xslt/xslt.c:93
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Fout tijdens ontleden %s\n"
 
-#: plug-ins/xslt/xslt.c:103
+#: plug-ins/xslt/xslt.c:101
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Fout tijdens ontleden stylesheet %s\n"
 
-#: plug-ins/xslt/xslt.c:109
+#: plug-ins/xslt/xslt.c:107
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Fout tijdens toepassen stylesheet %s\n"
 
-#: plug-ins/xslt/xslt.c:117
+#: plug-ins/xslt/xslt.c:115
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Fout tijdens ontleden stylesheet: %s\n"
 
-#: plug-ins/xslt/xslt.c:125
+#: plug-ins/xslt/xslt.c:123
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Fout tijdens toepassen stylesheet: %s\n"
 
-#: plug-ins/xslt/xslt.c:287
+#: plug-ins/xslt/xslt.c:303
 msgid "XSL Transformation filter"
 msgstr "XSL transformatie filter"
 
-#: plug-ins/xslt/xslt.c:315
+#: plug-ins/xslt/xslt.c:327
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Geen geldige configuratiebestanden gevonden voor de XSLT plugin, laden "
