@@ -1,5 +1,10 @@
 2002-12-02  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/dia_xml.[ch]:
+	* app/load_save.c: Linebreaks in dia files, no indentation.
+	Should help text tools.  xmlNewChild wrapped in diaXmlNewChild for
+	this. 
+	
 	* objects/standard/line.c: Small but important fixes to the line
 	gap code.
 
