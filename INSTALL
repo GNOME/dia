@@ -1,6 +1,8 @@
 REQUIREMENTS:
 =============
 
+See machine-specific requirements further down.
+
 Dia needs Gtk+ at least version 2.0.0 installed.
 It can be found at:
 
@@ -94,6 +96,10 @@ AFS
 
           until ln "$srcfile" "$lockfile" 2>/dev/null; do
 
+Solaris
+	The gettext that comes with Solaris doesn't define
+	bind_textdomain_codeset.  Use the gettext and libiconv from
+	ftp.gnu.org instead.
 
 COMPILING FROM CVS:
 ===================

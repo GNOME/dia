@@ -1,5 +1,8 @@
 2004-01-04  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* INSTALL (PLATFORM NOTES): Mention the Gnu gettext and iconv as
+	being the Right Thing(tm) to use on Solaris.
+
 	* objects/standard/bezier.c (bezierline_draw): Don't draw
 	guidelines if not selected.
 
