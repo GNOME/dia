@@ -36,6 +36,7 @@ struct _NewDiagramData {
   gint fitwidth, fitheight;
   Color bg_color, pagebreak_color, grid_color;
   int compress_save;
+  gchar *unit, *font_unit;
 };
 
 GType diagram_data_get_type (void) G_GNUC_CONST;
@@ -99,6 +100,8 @@ struct _DiagramData {
   /** List of text fields that can be edited in the diagram.
    *  Updated by text_register_focusable. */
   GList *text_edits;
+  /** Units and font units used in this diagram.  Default cm and point */
+  gchar *unit, *font_unit;
 };
 
 typedef struct _DiagramDataClass {
@@ -148,6 +151,12 @@ void data_remove_all_selected(DiagramData *data);
 gboolean data_update_extents(DiagramData *data); /* returns true if changed. */
 GList *data_get_sorted_selected(DiagramData *data);
 GList *data_get_sorted_selected_remove(DiagramData *data);
+void data_set_unit(DiagramData *data, gchar *unit);
+gchar *data_get_unit(DiagramData *data);
+float data_get_unit_multiplier(DiagramData *data);
+void data_set_font_unit(DiagramData *data, gchar *unit);
+gchar *data_get_font_unit(DiagramData *data);
+float data_get_font_unit_multiplier(DiagramData *data);
 
 typedef void (*ObjectRenderer)(DiaObject *obj, DiaRenderer *renderer,
 			       int active_layer,

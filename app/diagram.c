@@ -180,6 +180,13 @@ diagram_init(Diagram *dia, const char *filename)
 
   if (dia->filename != NULL)
     g_free(dia->filename);
+  /* Make sure the filename is absolute */
+  if (!g_path_is_absolute(filename)) {
+    gchar *pwd = g_get_current_dir();
+    gchar *newfilename = g_build_filename(pwd, filename, NULL);
+    g_free(pwd);
+    filename = newfilename;
+  }
   /* All Diagram functions assumes filename in filesystem encoding */
   dia->filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
   

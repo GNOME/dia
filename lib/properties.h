@@ -511,27 +511,36 @@ extern PropEnumData prop_std_text_align_data[];
   { "end_arrow", PROP_TYPE_ARROW, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("End arrow"), NULL, NULL }
 
-#define PROP_STD_TEXT \
-  { "text", PROP_TYPE_TEXT, PROP_FLAG_DONT_SAVE, \
+#define PROP_STD_TEXT_OPTIONS(options) \
+  { "text", PROP_TYPE_TEXT, (options), \
     N_("Text"), NULL, NULL }
-#define PROP_STD_SAVED_TEXT \
-  { "text", PROP_TYPE_TEXT, 0, \
-    N_("Text"), NULL, NULL }
-#define PROP_STD_TEXT_ALIGNMENT \
-  { "text_alignment", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
+#define PROP_STD_TEXT PROP_STD_TEXT_OPTIONS(PROP_FLAG_DONT_SAVE)
+#define PROP_STD_SAVED_TEXT PROP_STD_TEXT_OPTIONS(0)
+
+#define PROP_STD_TEXT_ALIGNMENT_OPTIONS(options) \
+  { "text_alignment", PROP_TYPE_ENUM, (options), \
     N_("Text alignment"), NULL, prop_std_text_align_data }
+#define PROP_STD_TEXT_ALIGNMENT \
+        PROP_STD_TEXT_ALIGNMENT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE)
+
+#define PROP_STD_TEXT_FONT_OPTIONS(options) \
+  { "text_font", PROP_TYPE_FONT, (options), N_("Font"), NULL, NULL }
 #define PROP_STD_TEXT_FONT \
-  { "text_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
-    N_("Font"), NULL, NULL }
-#define PROP_STD_TEXT_HEIGHT \
-  { "text_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
+        PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE)
+
+#define PROP_STD_TEXT_HEIGHT_OPTIONS(options) \
+  { "text_height", PROP_TYPE_REAL, (options), \
     N_("Font size"), NULL, &prop_std_text_height_data }
+#define PROP_STD_TEXT_HEIGHT \
+        PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE)
+
+#define PROP_STD_TEXT_COLOUR_OPTIONS(options) \
+  { "text_colour", PROP_TYPE_COLOUR, (options), \
+    N_("Text colour"), NULL, NULL }
 #define PROP_STD_TEXT_COLOUR \
-  { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_STANDARD, \
-    N_("Text colour"), NULL, NULL }
+        PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_STANDARD)
 #define PROP_STD_TEXT_COLOUR_OPTIONAL \
-  { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
-    N_("Text colour"), NULL, NULL }
+        PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL)
 
 /* Convenience macros */
 #define PROP_NOTEBOOK_BEGIN(name) \
@@ -590,31 +599,4 @@ extern PropEnumData prop_std_text_align_data[];
 #define PROP_OFFSET_FRAME_END(name) \
   { "frame_" name "_end", PROP_TYPE_FRAME_END, 0}
 
-
-
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,3 +1,15 @@
+2004-12-04  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diagramdata.h: Access methods for units defined per diagram.
+
+	* lib/font.c (dia_font_new_from_style): More proper object creation.
+
+	* lib/properties.h: Refactored the PROP_STD_* macros to allow
+	different options.
+
+	* app/diagram.c (diagram_init): Force filename to be absolute
+	path, easing the job for load/save.
+
 2004-01-03  Hans Breuer  <hans@breuer.org>
 
 	* lib/libdia.def : removed dia_marshal_*, they are implemented as macros.

@@ -287,7 +287,8 @@ dia_font_new_from_style(DiaFontStyle style, real height)
   dia_pfd_set_slant(pfd,DIA_FONT_STYLE_GET_SLANT(style));
   dia_pfd_set_size(pfd,height);
   
-  retval = DIA_FONT(g_type_create_instance(dia_font_get_type()));
+  retval = DIA_FONT(g_object_new(DIA_TYPE_FONT, NULL));
+  
   retval->pfd = pfd;
   retval->legacy_name = NULL;
   return retval;
@@ -306,7 +307,6 @@ dia_font_finalize(GObject* object)
 {
     DiaFont* font;
     font = DIA_FONT(object);
-    
     if (font->pfd) pango_font_description_free(font->pfd);
     G_OBJECT_CLASS(parent_class)->finalize(object);
 }
@@ -642,7 +642,8 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
       return cached->layout;
     }
 
-    dia_font_ref(font);
+    item->font = dia_font_copy(font);
+    dia_font_ref(item->font);
 
     /* This could should account for DPI, but it doesn't do right.  Grrr...
     {
