@@ -23,6 +23,7 @@
 #include "object_ops.h"
 #include "preferences.h"
 #include "undo.h"
+#include "cursor.h"
 
 static void create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 				     DDisplay *ddisp);
@@ -97,6 +98,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
     gdk_pointer_grab (ddisp->canvas->window, FALSE,
 		      GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
 		      NULL, NULL, event->time);
+    ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
   } else {
     diagram_update_extents(ddisp->diagram);
     tool->moving = FALSE;
@@ -147,6 +149,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
   
   if (prefs.reset_tools_after_create)
       tool_reset();
+  ddisplay_set_all_cursor(default_cursor);
 }
 static void
 create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
@@ -166,9 +169,11 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
       ((connectionpoint =
 	object_find_connectpoint_display(ddisp, &to)) != NULL)) {
     to = connectionpoint->pos;
+    ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
   } else {
     /* No connectionopoint near, then snap to grid (if enabled) */
     snap_to_grid(ddisp, &to.x, &to.y);
+    ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
   }
 
   object_add_updates(tool->obj, ddisp->diagram);

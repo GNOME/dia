@@ -67,7 +67,8 @@ static struct {
     magnify_plus_data_bits,
     magnify_plus_data_width, magnify_plus_data_height,
     magnify_plus_mask_bits,
-    magnify_plus_data_x_hot, magnify_plus_data_y_hot}
+    magnify_plus_data_x_hot, magnify_plus_data_y_hot},
+  { GDK_CROSS_REVERSE },
 };
 
 GdkCursor *

@@ -1,3 +1,11 @@
+2002-07-26  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/create_object.c: 
+	* app/modify_tool.c: 
+	* app/cursor.h: 
+	* app/cursor.c: 
+	More cursor change.
+
 2002-07-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/preferences.c: 

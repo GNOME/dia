@@ -29,6 +29,7 @@
 #include "render_gdk.h"
 #include "select.h"
 #include "preferences.h"
+#include "cursor.h"
 
 static Object *click_select_object(DDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
@@ -186,6 +187,7 @@ static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
     tool->start_at = *clickedpoint;
+    ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
     return TRUE;
   }
   return FALSE;
@@ -220,6 +222,7 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
     tool->start_at = clickedpoint;
+    ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
   } else {
     tool->state = STATE_BOX_SELECT;
     tool->start_box = clickedpoint;
@@ -354,9 +357,11 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if ( (tool->handle->connect_type != HANDLE_NONCONNECTABLE) &&
 	 (connectionpoint != NULL) ) {
       to = connectionpoint->pos;
+      ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
     } else {
       /* No connectionopoint near, then snap to grid (if enabled) */
       snap_to_grid(ddisp, &to.x, &to.y);
+      ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
     }
 
     if (tool->break_connections) {
@@ -599,6 +604,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       
   }
   tool->break_connections = FALSE;
+  ddisplay_set_all_cursor(default_cursor);
 }
 
 

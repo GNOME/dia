@@ -27,6 +27,7 @@ typedef enum {
   CURSOR_GRABBING,
   CURSOR_ZOOM_OUT,
   CURSOR_ZOOM_IN,
+  CURSOR_CONNECT,
   MAX_CURSORS
 } DiaCursorType;
 
