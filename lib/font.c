@@ -241,7 +241,7 @@ dia_font_get_style(const DiaFont* font)
   g_assert(PANGO_WEIGHT_NORMAL == 400);
   g_assert(PANGO_WEIGHT_BOLD == 700);
 
-  style  = weight_map[(pango_weight - PANGO_WEIGHT_ULTRALIGHT) / 100] << 4;
+  style  = weight_map[(pango_weight - PANGO_WEIGHT_ULTRALIGHT) / 100];
   style |= (pango_style << 2);
 
   return style;

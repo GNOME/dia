@@ -8,7 +8,7 @@ LIBART = $(TOP)/libart_lgpl
 # -DWIN32 for newer libxml versions
 
 PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
-	-DWIN32 \
+	-DWIN32  -DHAVE_LIBART \
 	-I.. $(GLIB_CFLAGS) $(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) \
 	-I$(PRJ_TOP)\lib -I$(LIBART)/.. -DHAVE_LIBPNG \

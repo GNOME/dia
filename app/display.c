@@ -113,7 +113,9 @@ new_display(Diagram *dia)
   ddisp->visible_grid = NULL;
   ddisp->snap_to_grid = NULL;
   ddisp->show_cx_pts_mitem = NULL;
-
+#ifdef HAVE_LIBART
+  ddisp->antialiased = NULL;
+#endif
   /* initialize the whole struct to 0 so that we are sure to catch errors.*/
   memset (&ddisp->updatable_menu_items, 0, sizeof (UpdatableMenuItems));
   
@@ -873,6 +875,9 @@ display_update_menu_state(DDisplay *ddisp)
   static GtkWidget *visible_grid;
   static GtkWidget *snap_to_grid;
   static GtkWidget *show_cx_pts;
+#ifdef HAVE_LIBART
+  static GtkWidget *antialiased;
+#endif
 
   if ((!initialized) && (ddisp->menu_bar == NULL)) {
     rulers       = menus_get_item_from_path("<Display>/View/Show Rulers", NULL);
@@ -880,6 +885,9 @@ display_update_menu_state(DDisplay *ddisp)
     snap_to_grid = menus_get_item_from_path("<Display>/View/Snap To Grid", NULL);
     show_cx_pts  = 
       menus_get_item_from_path("<Display>/View/Show Connection Points", NULL);
+#ifdef HAVE_LIBART
+    antialiased = menus_get_item_from_path("<Display>/View/AntiAliased", NULL);
+#endif
 
     initialized = TRUE;
   }
@@ -894,6 +902,10 @@ display_update_menu_state(DDisplay *ddisp)
 				     ddisp->grid.snap);
       gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(ddisp->show_cx_pts_mitem),
 				     ddisp->show_cx_pts); 
+#ifdef HAVE_LIBART
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(ddisp->antialiased),
+				     ddisp->aa_renderer);
+#endif
   }
   else {
       gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(rulers),
@@ -904,6 +916,10 @@ display_update_menu_state(DDisplay *ddisp)
 				     ddisp->grid.snap);
       gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(show_cx_pts),
 				     ddisp->show_cx_pts); 
+#ifdef HAVE_LIBART
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(antialiased),
+				     ddisp->aa_renderer);
+#endif 
   }  
 }
 

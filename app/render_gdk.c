@@ -1059,7 +1059,7 @@ get_text_width(RendererGdk *renderer,
 	/* A couple UTF8-chars: æblegrød Š Ť Ž ę ć ń уфхцНОПРЄ є Ґ Њ Ћ Џ */
 	ulen = g_utf8_offset_to_pointer(text, length)-text;
 	if (!g_utf8_validate(text, ulen, NULL)) {
-	  printf("Text at char %d not valid\n", length);
+	  g_warning ("Text at char %d not valid\n", length);
 	}
         othertx = g_strndup(text, ulen);
         result = dia_font_scaled_string_width(othertx,renderer->font,

@@ -50,6 +50,7 @@ void view_zoom_out_callback(gpointer data, guint action, GtkWidget *widget);
 
 void view_zoom_set_callback(gpointer data, guint action, GtkWidget *widget);
 
+void view_aa_callback(gpointer data, guint action, GtkWidget *widget);
 void view_visible_grid_callback (gpointer data, guint action,
 				 GtkWidget *widget);
 void view_snap_to_grid_callback (gpointer data, guint action,

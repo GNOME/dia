@@ -19,6 +19,14 @@ sub-one:
 	nmake -nologo -f ..\makefile.msc $(THIS).dll PACKAGE=$(THIS) OBJ_$(THIS)=1
 	cd ..
 
+clean:
+	for %d in ($(PLUGINS)) do nmake -nologo -f makefile.msc sub-clean THIS=%d
+
+sub-clean:
+	@cd $(THIS)
+	@nmake -nologo -f ..\makefile.msc PACKAGE=$(THIS) clean
+	@cd ..
+
 !ELSE
 
 TOP = ..\..\..

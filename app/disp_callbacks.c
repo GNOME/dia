@@ -605,7 +605,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	obj = focus->obj;
 	if (diagram_is_selected(ddisp->diagram, obj)) {
 	  ObjectChange *obj_change = NULL;
-	  gchar *utext;
 	
 	  object_add_updates(obj, ddisp->diagram);
 #ifdef USE_XIM
@@ -613,12 +612,23 @@ ddisplay_canvas_events (GtkWidget *canvas,
 				    &x, &y);
 	  set_input_dialog(ddisp, x, y);
 #endif
+#ifdef G_OS_WIN32
+	  /* If Gtk2 really talks utf-8 this is the right thing ... */
+	  modified = (focus->key_event)(focus, kevent->keyval,
+					kevent->string, kevent->length,
+					&obj_change);
+#else
+	  /* ... otoh this appears to work on *nix ?? */
+	  {
+	  gchar *utext;
 	  utext = g_locale_to_utf8(kevent->string, kevent->length, NULL, NULL, NULL);
 	  modified = (focus->key_event)(focus, kevent->keyval,
 					//kevent->string, kevent->length,
 					utext, g_utf8_strlen(utext, -1),
 					&obj_change);
 	  g_free(utext);
+	  }
+#endif
 	  { /* Make sure object updates its data and its connected: */
 	    Point p = obj->position;
 	    (obj->ops->move)(obj,&p);  

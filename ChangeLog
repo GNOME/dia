@@ -1,3 +1,25 @@
+2002-08-30  Hans Breuer  <hans@breuer.org>
+
+	* lib/font.c (dia_font_get_style) : don't shift already
+	shifted DIA_FONT values.
+
+	* lib/libdia.def : updated externals
+
+	* app/disp_callbacks.c : on win32 GdkEventKey::string already
+	is in UTF-8. (Longterm this probably should be handled on the
+	gtk api level)
+
+	* app/command.[hc] app/display.[hc] app/menus.c : add code to 
+	switch display renderers again. The libart renderer is very 
+	useful for win9x with it's limited GDI.
+
+	* app/render_gdk.c : use g_warning instead of printf which gets
+	nowhere on win32 (non console apps)
+
+	* app/render_libart.c : make it compile without FREETYPE
+
+	* objects/makefile.msc plug-ins/makefile.msc : added clean target
+
 2002-08-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_eps.c (postscript_draw_contour): Debugging statement
@@ -174,6 +196,36 @@
 	* objects/FS/flow-ortho.c: 
 	* objects/FS/flow.c: Made the label behave again.
 	Also removed GTK defaults stuff.
+
+2002-08-06  Hans Breuer  <hans@breuer.org>
+
+	* app/autosave.c : ported to GDir which is the improved
+	cross platform replacement for <dirent.h>
+
+	* app/makefile.msc : build autosave.obj
+
+	* app/font.c : some (bad?) code calls 
+	dia_font_scaled_decent() not only with empty string but 
+	with NULL. Handle it gracefully.
+
+	* lib/paper.c : don't depend on ../app. Although IMO
+	this shouldn't be allowed on any platform it is only
+	disabled for win32, where it simply doesn't work
+	this way
+
+	* lib/widget.c (strcase_equal) : pass char* to g_strcasecmp()
+
+	* objects/fs/flow.c : conditionalize debug spew, disabled
+	and 'ported' to use g_print. Simple printf won't work with
+	standard win32 gui apps, may even crash them.
+
+	* plug-ins/makefile.msc : DISABLED svg-import cause it
+	depends on ../objects/custom. This not only break the
+	build for all non ELF systems but IMO also isn't acceptable
+	from a design point of view. See dia-list mail on subject.
+
+	* plug-ins/python/makefile.msc :
+	  plug-ins/python/python.c : remove all references to dirent	
 
 2002-08-05  Cyrille Chepelov  <cyrille@chepelov.org>
 
@@ -1002,8 +1054,7 @@
 
 	* lib/all files touched yesterday: took into account some of Hans
 	Breuer's remarks in
-	<3.0.5.32.20020622073942.0088aec0@odin.botanik.biologie.uni-muenchen.de>
-	(jeez, weren't GUIDs supposed to be long and random enough ?)
+	http://mail.gnome.org/archives/dia-list/2002-June/msg00257.html
 
 	* objects/chronogram/*: 
 	* objects/custom/*:

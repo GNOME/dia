@@ -295,7 +295,9 @@ static guint32 color_to_rgba(Color *col)
 static void
 begin_render(RendererLibart *renderer, DiagramData *data)
 {
+#ifdef HAVE_FREETYPE
   dia_font_init(pango_ft2_get_context(10, 10));
+#endif
 }
 
 static void
@@ -1210,9 +1212,6 @@ draw_string (RendererLibart *renderer,
   /* Pango doesn't have a 'render to raw bits' function, so we have
    * to render based on what other engines are available.
    */
-#ifdef WIN32
-  /* Win32 version -- I have no clue */
-#else
 #ifdef HAVE_FREETYPE
   /* Freetype version */
  {
@@ -1246,8 +1245,29 @@ draw_string (RendererLibart *renderer,
    g_free(graybitmap);
  }
 #else
- /* Gdk version -- but we shouldn't need Gdk, dammit! */
-#endif
+  /* Gdk version -- but we shouldn't need Gdk, dammit! */
+  /* IMHO using Gdk for text rendering is appreciated,
+   * at least if we use it every where else too, as 
+   * is on win32 ...     --hb
+   */
+  {
+    static gboolean warned = FALSE;
+
+    if (!warned) {
+      g_warning ("No AA text rendering yet ..");
+      warned = TRUE;
+    }
+    g_object_unref(G_OBJECT(layout));
+    return;
+  }
+
+#define DEPTH 4
+  bitmap = (guint8*)g_new0(guint8, height*rowstride*DEPTH);
+  memset (bitmap, 0xAA, height*rowstride*DEPTH);
+  /*
+  GdkPixmap *pixmap = gdk_pixmap_new (NULL, rowstride, height, 32);
+  gdk_draw_layout (pixmap, gc, 0, 0, layout);
+   */
 #endif
   /* abuse_layout_object(layout,text); */
   

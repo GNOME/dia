@@ -203,6 +203,7 @@ EXPORTS
  dia_image_mask_data
  dia_image_release
  dia_image_rgb_data
+ dia_image_rowstride
  dia_image_width
 
  dia_line_style_selector_get_linestyle
@@ -244,6 +245,8 @@ EXPORTS
 
  diagram_data_destroy
  new_diagram_data
+
+; dia_svg_parse_style
 
  distance_bez_line_point
  distance_bez_shape_point
