@@ -1,3 +1,7 @@
+2000-03-07  Asbjorn Pettersen  <asbjornP@dualog.no>
+
+	* app/load_save.c (fchmod): OS/2 defines only.
+
 2000-03-07  James Henstridge  <james@daa.com.au>
 
 	* lib/properties.c (prop_get_widget): set the position in the option

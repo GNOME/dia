@@ -43,6 +43,10 @@
 #define mkstemp(s) _open(_mktemp(s), O_CREAT | O_TRUNC | O_WRONLY | _O_BINARY, 0644)
 #define fchmod(f,m) (0)
 #endif
+#ifdef __EMX__
+#define mkstemp(s) _open(_mktemp(s), O_CREAT | O_TRUNC | O_WRONLY | O_BINARY, 0644)
+#define fchmod(f,m) (0)
+#endif
 
 static GList *
 read_objects(xmlNodePtr objects, GHashTable *objects_hash, char *filename)
