@@ -5,8 +5,8 @@
 # Traducció per Softcatalà <info@softcatala.org>
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2000-08-06 10:12+0800\n"
+"Project-Id-Version: dia 0.86\n"
+"POT-Creation-Date: 2001-01-26 17:29+0100\n"
 "PO-Revision-Date: 2000-08-02 19:02+0200\n"
 "Last-Translator: Quico Llach <quico@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
@@ -14,27 +14,27 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:134
+#: app/app_procs.c:146
 msgid "Export loaded file and exit"
 msgstr "Exporta el fitxer carregat i su surt"
 
-#: app/app_procs.c:135
+#: app/app_procs.c:147
 msgid "OUTPUT"
 msgstr "SORTIDA"
 
-#: app/app_procs.c:137
+#: app/app_procs.c:149
 msgid "Show this help message"
 msgstr "Mostra aquest missatge d'ajuda"
 
-#: app/app_procs.c:157
+#: app/app_procs.c:168
 msgid "Can't connect to session manager!\n"
 msgstr "No s'ha pogut connectar al gestor de sessions!\n"
 
-#: app/app_procs.c:168
+#: app/app_procs.c:179
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPCIÓ...] [ARXIU..]"
 
-#: app/app_procs.c:171
+#: app/app_procs.c:182
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -44,22 +44,22 @@ msgstr ""
 "Executeu '%s --help' per visualitzar una llista completa de les opcions "
 "disponibles per a la línia d'ordres.\n"
 
-#: app/app_procs.c:218 app/app_procs.c:220
+#: app/app_procs.c:230 app/app_procs.c:232
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "No s'han pogut trobar objectes estàndard quan s'han cercat biblioteques "
 "d'objectes, sortint...\n"
 
-#: app/app_procs.c:237
+#: app/app_procs.c:257
 msgid "Need valid input file\n"
 msgstr "Cal un arxiu d'entrada vàlid\n"
 
-#: app/app_procs.c:296 app/app_procs.c:302
+#: app/app_procs.c:315 app/app_procs.c:321
 msgid "Quit, are you sure?"
 msgstr "Esteu segurs que voleu sortir?"
 
-#: app/app_procs.c:309
+#: app/app_procs.c:328
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -67,21 +67,21 @@ msgstr ""
 "Hi ha diagrames que s'han modificat.\n"
 "Esteu segurs que voleu sortir?"
 
-#: app/app_procs.c:319 app/app_procs.c:324
+#: app/app_procs.c:338 app/app_procs.c:343
 msgid "Quit"
 msgstr "Surt"
 
-#: app/app_procs.c:336 app/layer_dialog.c:986 app/lineprops_area.c:549
-#: app/lineprops_area.c:747 app/linewidth_area.c:239
-#: app/paginate_psprint.c:242
+#: app/app_procs.c:355 app/display.c:892 app/layer_dialog.c:986
+#: app/lineprops_area.c:549 app/lineprops_area.c:747 app/linewidth_area.c:241
+#: app/paginate_psprint.c:243
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: app/app_procs.c:404
+#: app/app_procs.c:429 app/app_procs.c:435
 msgid "Could not create per-user Dia config directory"
 msgstr "No s'ha pogut crear un directori de configuració del Dia"
 
-#: app/app_procs.c:424
+#: app/app_procs.c:455
 msgid "Objects and filters internal to dia"
 msgstr "Objectes i filtres interns del dia"
 
@@ -89,7 +89,7 @@ msgstr "Objectes i filtres interns del dia"
 msgid "Select color"
 msgstr "Seleccioneu el color"
 
-#: app/commands.c:92
+#: app/commands.c:86
 #, c-format
 msgid ""
 "No such file found\n"
@@ -98,50 +98,50 @@ msgstr ""
 "Aquest fitxer no s'ha trobat\n"
 "%s\n"
 
-#: app/commands.c:112
+#: app/commands.c:106
 msgid "Import from XFig"
 msgstr "Importa des del XFig"
 
-#: app/commands.c:168
+#: app/commands.c:162
 #, c-format
 msgid "Untitled-%d"
 msgstr "Sense nom-%d"
 
-#: app/commands.c:229
+#: app/commands.c:223
 msgid "No existing object to paste.\n"
 msgstr "No existeix cap objecte per enganxar.\n"
 
-#: app/commands.c:464
+#: app/commands.c:458
 msgid "About Dia"
 msgstr "Quant al Dia"
 
-#: app/commands.c:522
+#: app/commands.c:501
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s ha estat creat per Alexander Larsson"
 
-#: app/commands.c:527
+#: app/commands.c:506
 msgid "Maintainer: James Henstridge"
 msgstr "Manteniment: James Henstridge"
 
-#: app/commands.c:531
+#: app/commands.c:510
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Visiteu l'adreça http://www.lysator.liu.se/~alla/dia per a més informació"
 
-#: app/commands.c:536
+#: app/commands.c:515
 msgid "Contributors:"
 msgstr "Col·laboradors:"
 
 #. setup buttons
-#: app/commands.c:553 app/layer_dialog.c:976 app/lineprops_area.c:540
-#: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
-#: app/paginate_psprint.c:234 app/preferences.c:598 app/properties.c:82
-#: lib/message.c:85
+#: app/commands.c:532 app/dia-props.c:86 app/layer_dialog.c:976
+#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:232
+#: app/pagesetup.c:72 app/paginate_psprint.c:235 app/preferences.c:602
+#: app/properties.c:82 lib/message.c:87
 msgid "OK"
 msgstr "D'acord"
 
-#: app/commands.c:668
+#: app/commands.c:639
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -155,13 +155,14 @@ msgstr ""
 msgid "Object defaults"
 msgstr "Opcions per defecte de l'objecte"
 
-#: app/defaults.c:73 app/pagesetup.c:77 app/preferences.c:607
-#: app/properties.c:91
+#: app/defaults.c:73 app/dia-props.c:95 app/pagesetup.c:77
+#: app/preferences.c:611 app/properties.c:91
 msgid "Apply"
 msgstr "Aplica"
 
-#: app/defaults.c:83 app/layer_dialog.c:261 app/pagesetup.c:83
-#: app/plugin-manager.c:146 app/preferences.c:616 app/properties.c:101
+#: app/defaults.c:83 app/dia-props.c:105 app/layer_dialog.c:261
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:620
+#: app/properties.c:101
 msgid "Close"
 msgstr "Tanca"
 
@@ -169,176 +170,106 @@ msgstr "Tanca"
 msgid "This object has no defaults."
 msgstr "Aquest objecte no té opcions per defecte"
 
-#: app/dia_embedd.c:185
-msgid "File/New diagram"
-msgstr "Fitxer/Nou diagrama"
-
-#: app/dia_embedd.c:189
-msgid "File/Open..."
-msgstr "Fitxer/Obre..."
-
-#: app/dia_embedd.c:193
-msgid "File/Save As..."
-msgstr "Fitxer/Anomena i desa..."
-
-#: app/dia_embedd.c:197
-msgid "File/Close"
-msgstr "Fitxer/Tanca"
-
-#: app/dia_embedd.c:201
-msgid "File/Exit"
-msgstr "Fitxer/Surt"
-
-#: app/dia_embedd.c:205
-msgid "View/New View"
-msgstr "Visualitza/Nova Vista"
-
-#: app/dia_embedd.c:282
+#: app/dia_embedd.c:352
 msgid "Could not initialize Bonobo!"
 msgstr "No s'ha pogut inicialitzar el Bonobo!"
 
-#: app/diagram.c:179
-msgid "/Edit/Copy"
-msgstr "/Edita/Copia"
+#: app/dia-props.c:60 app/dia-props.c:67
+#, fuzzy
+msgid "Diagram Properties"
+msgstr "Propietats del diagrama..."
 
-#: app/diagram.c:181
-msgid "/Edit/Cut"
-msgstr "/Edita/Retalla"
+#: app/dia-props.c:130
+msgid "x"
+msgstr ""
 
-#: app/diagram.c:183
-msgid "/Edit/Paste"
-msgstr "/Edita/Enganxa"
+#: app/dia-props.c:134
+#, fuzzy
+msgid "y"
+msgstr "per"
 
-#: app/diagram.c:186
-msgid "/Edit/Delete"
-msgstr "/Edita/Suprimeix"
+#: app/dia-props.c:139
+#, fuzzy
+msgid "Spacing"
+msgstr "Escalat"
 
-#: app/diagram.c:190 app/menus.c:277
-msgid "/Edit/Copy Text"
-msgstr "/Edita/Copia el text"
+#: app/dia-props.c:159
+#, fuzzy
+msgid "Visible spacing"
+msgstr "_Quadrícula visible"
 
-#: app/diagram.c:192 app/menus.c:278
-msgid "/Edit/Cut Text"
-msgstr "/Edita/Retalla el text"
+#: app/dia-props.c:179
+#, fuzzy
+msgid "Grid"
+msgstr "Quadrícula:"
 
-#: app/diagram.c:194
-msgid "/Edit/Paste Text"
-msgstr "/Edita/Enganxa el text"
+#: app/dia-props.c:189
+#, fuzzy
+msgid "Background Colour"
+msgstr "Color del fons:"
 
-#: app/diagram.c:197
-msgid "/Objects/Send to Back"
-msgstr "/Objectes/Envia al darrere"
-
-#: app/diagram.c:199
-msgid "/Objects/Bring to Front"
-msgstr "/Objectes/Porta'l al frontal"
-
-#: app/diagram.c:202
-msgid "/Objects/Group"
-msgstr "/Objectes/Agrupa"
-
-#: app/diagram.c:204
-msgid "/Objects/Ungroup"
-msgstr "/Objectes/Desagrupa"
-
-#: app/diagram.c:207 app/menus.c:331
-msgid "/Objects/Align Horizontal/Left"
-msgstr "/Objectes/Alineació horitzontal/Esquerra"
-
-#: app/diagram.c:209 app/menus.c:332
-msgid "/Objects/Align Horizontal/Center"
-msgstr "/Objectes/Alineació horitzontal/Centre"
-
-#: app/diagram.c:211 app/menus.c:333
-msgid "/Objects/Align Horizontal/Right"
-msgstr "/Objectes/Alineació horitzontal/Dreta"
-
-#: app/diagram.c:213 app/menus.c:334
-msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Objectes/Alineació horitzontal/Equidistant"
-
-#: app/diagram.c:215 app/menus.c:335
-msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/Objectes/Alineació horitzontal/Adjacent"
-
-#: app/diagram.c:217 app/menus.c:338
-msgid "/Objects/Align Vertical/Top"
-msgstr "/Objectes/Alineació vertical/Superior"
-
-#: app/diagram.c:219 app/menus.c:339
-msgid "/Objects/Align Vertical/Center"
-msgstr "/Objectes/Alineació vertical/Centre"
-
-#: app/diagram.c:221 app/menus.c:340
-msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Objectes/Alineació vertical/Inferior"
-
-#: app/diagram.c:223 app/menus.c:341
-msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Objectes/Alineació vertical/Equidistant"
-
-#: app/diagram.c:225 app/menus.c:342
-msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/Objectes/Alineació vertical/Adjacent"
+#: app/dia-props.c:200 lib/diagramdata.c:53
+msgid "Background"
+msgstr "Fons"
 
 #. paper size
-#: app/diapagelayout.c:133
+#: app/diapagelayout.c:108
 msgid "Paper Size"
 msgstr "Mida del paper"
 
 #. orientation
-#: app/diapagelayout.c:163
+#: app/diapagelayout.c:141
 msgid "Orientation"
 msgstr "Orientació"
 
 #. margins
-#: app/diapagelayout.c:201
+#: app/diapagelayout.c:179
 msgid "Margins"
 msgstr "Marges"
 
-#: app/diapagelayout.c:213
+#: app/diapagelayout.c:191
 msgid "Top:"
 msgstr "Superior:"
 
-#: app/diapagelayout.c:226
+#: app/diapagelayout.c:204
 msgid "Bottom:"
 msgstr "Inferior:"
 
-#: app/diapagelayout.c:239
+#: app/diapagelayout.c:217
 msgid "Left:"
 msgstr "Esquerra:"
 
-#: app/diapagelayout.c:252
+#: app/diapagelayout.c:230
 msgid "Right:"
 msgstr "Dreta:"
 
 #. Scaling
-#: app/diapagelayout.c:266
+#: app/diapagelayout.c:244
 msgid "Scaling"
 msgstr "Escalat"
 
-#: app/diapagelayout.c:277
+#: app/diapagelayout.c:255
 msgid "Scale:"
 msgstr "Escala:"
 
-#: app/diapagelayout.c:289
+#: app/diapagelayout.c:267
 msgid "Fit to:"
 msgstr "Ajusta a:"
 
-#: app/diapagelayout.c:301
+#: app/diapagelayout.c:279
 msgid "by"
 msgstr "per"
 
-#: app/diapagelayout.c:704
+#: app/diapagelayout.c:674
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: app/diapagelayout.c:806 app/pagesetup.c:60 app/pagesetup.c:68
+#: app/diapagelayout.c:776 app/pagesetup.c:60 app/pagesetup.c:68
 msgid "Page Setup"
 msgstr "Configuració de la pàgina"
 
-#: app/disp_callbacks.c:69 app/properties.c:164
+#: app/disp_callbacks.c:70 app/properties.c:164
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -346,105 +277,92 @@ msgstr ""
 "Aquest objecte no suporta Desfés/Refés.\n"
 "S'ha esborrat la informació per a Desfés"
 
-#: app/disp_callbacks.c:166
+#: app/disp_callbacks.c:167
 msgid "No object menu"
 msgstr "Sense menú d'objectes"
 
-#: app/display.c:68 app/display.c:69
+#: app/display.c:128 app/display.c:129 app/interface.c:399
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/display.c:88
+#: app/display.c:149
 msgid "Diagram modified!"
 msgstr "S'ha modificat el diagrama!"
 
-#: app/display.c:756 app/display.c:762
+#: app/display.c:842
+#, fuzzy
+msgid "Close Diagram?"
+msgstr "Obre el diagrama"
+
+#: app/display.c:848
 msgid "Really close?"
 msgstr "Esteu segurs que voleu tancar?"
 
-#: app/display.c:767
+#: app/display.c:853
+#, fuzzy
 msgid ""
 "This diagram has not been saved.\n"
-"Are you sure you want to close this window?"
+"Save changes now?"
 msgstr ""
 "Aquest diagrama no s'ha desat.\n"
 "Esteu segurs que voleu tancar aquesta finestra?"
 
-#: app/display.c:785 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
+#: app/display.c:871 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:494
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Sí"
 
-#: app/display.c:795 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
-#: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
+#: app/display.c:881 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:494
+#: app/preferences.c:505 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "No"
 
-#: app/display.c:831
-msgid "/View/Show Rulers"
-msgstr "/Veure/Mostra les regles"
-
-#: app/display.c:833
-msgid "/View/Visible Grid"
-msgstr "/Veure/Quadrícula visible"
-
-#: app/display.c:835
-msgid "/View/Snap To Grid"
-msgstr "/Veure/Desplaça a la quadrícula"
-
-#: app/display.c:837
-msgid "/View/Show Connection Points"
-msgstr "/Veure/Mostra els punts de connexió"
-
-#: app/display.c:840
-msgid "/View/AntiAliased"
-msgstr "/Visualitza/AntiAliased"
-
-#: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
-#: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
-#: plug-ins/hpgl/hpgl.c:555 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:926
+#: app/export_png.c:79 app/load_save.c:583 app/render_eps.c:165
+#: plug-ins/cgm/cgm.c:1129 plug-ins/dxf/dxf-export.c:513
+#: plug-ins/hpgl/hpgl.c:556 plug-ins/pstricks/render_pstricks.c:188
+#: plug-ins/shape/shape-export.c:195 plug-ins/svg/render_svg.c:181
+#: plug-ins/wpg/wpg.c:932
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "No s'ha pogut obrir: '%s' per a la seva escriptura.\n"
 
-#: app/export_png.c:86
+#: app/export_png.c:87
 msgid "Could not create PNG write structure"
 msgstr "No s'ha pogut crear una estructura d'escriptura PNG"
 
-#: app/export_png.c:95
+#: app/export_png.c:96
 msgid "Could not create PNG header info structure"
 msgstr "No s'ha pogut crear l'estructura de la informació de capçalera del PNG"
 
-#: app/export_png.c:103
+#: app/export_png.c:104
 msgid "Error occurred while writing PNG"
 msgstr "Hi ha hagut un error al escriure un fitxer PNG"
 
-#: app/export_png.c:156
+#: app/export_png.c:157
 msgid "Portable Network Graphics"
 msgstr "Gràfics portàtils de xarxa"
 
-#: app/filedlg.c:94 app/filedlg.c:368
+#: app/filedlg.c:99 app/filedlg.c:373
 msgid "By extension"
 msgstr "Per extensió"
 
-#: app/filedlg.c:153
+#: app/filedlg.c:158
 msgid "Open Diagram"
 msgstr "Obre el diagrama"
 
-#: app/filedlg.c:179
+#: app/filedlg.c:184
 msgid "Open Options"
 msgstr "Obre les opcions"
 
-#: app/filedlg.c:187 app/filedlg.c:527
+#: app/filedlg.c:192 app/filedlg.c:532
 msgid "Determine file type:"
 msgstr "Determina el tipus de fitxer:"
 
-#: app/filedlg.c:227 app/filedlg.c:415
+#: app/filedlg.c:232 app/filedlg.c:420
 msgid "File already exists"
 msgstr "El fitxer ja existeix"
 
-#: app/filedlg.c:231 app/filedlg.c:418
+#: app/filedlg.c:236 app/filedlg.c:423
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -453,11 +371,11 @@ msgstr ""
 "El fitxer '%s' ja existeix.\n"
 "Voleu sobreescriure'l?"
 
-#: app/filedlg.c:295
+#: app/filedlg.c:300
 msgid "Save Diagram"
 msgstr "Desa el diagrama"
 
-#: app/filedlg.c:475
+#: app/filedlg.c:480
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -466,127 +384,127 @@ msgstr ""
 "No s'ha pogut determinar quin filtre d'exportació\n"
 "cal utilitzar per desar '%s'"
 
-#: app/filedlg.c:492
+#: app/filedlg.c:497
 msgid "Export Diagram"
 msgstr "Exporta el diagrama"
 
-#: app/filedlg.c:519
+#: app/filedlg.c:524
 msgid "Export Options"
 msgstr "Opcions d'exportació"
 
-#: app/interface.c:35
+#: app/interface.c:42
 msgid "Modify object(s)"
 msgstr "Modifica l'objecte(s)"
 
-#: app/interface.c:36 app/menus.c:193
+#: app/interface.c:43 app/menus.c:183
 msgid "Modify"
 msgstr "Modifica"
 
-#: app/interface.c:40 app/interface.c:41 app/menus.c:194
+#: app/interface.c:47 app/interface.c:48 app/menus.c:184
 msgid "Magnify"
 msgstr "Magnifica"
 
-#: app/interface.c:45
+#: app/interface.c:52
 msgid "Scroll around the diagram"
 msgstr "Desplaça pel diagrama"
 
-#: app/interface.c:46 app/menus.c:195
+#: app/interface.c:53 app/menus.c:185
 msgid "Scroll"
 msgstr "Desplaçament"
 
-#: app/interface.c:50
+#: app/interface.c:57
 msgid "Create Text"
 msgstr "Crea text"
 
-#: app/interface.c:51 app/menus.c:196
+#: app/interface.c:58 app/menus.c:186
 msgid "Text"
 msgstr "Text"
 
-#: app/interface.c:55
+#: app/interface.c:62
 msgid "Create Box"
 msgstr "Crea una caixa"
 
-#: app/interface.c:56 app/menus.c:197
+#: app/interface.c:63 app/menus.c:187
 msgid "Box"
 msgstr "Quadre"
 
-#: app/interface.c:60
+#: app/interface.c:67
 msgid "Create Ellipse"
 msgstr "Crea una el·lipse"
 
-#: app/interface.c:61 app/menus.c:198
+#: app/interface.c:68 app/menus.c:188
 msgid "Ellipse"
 msgstr "El·lipse"
 
-#: app/interface.c:65
+#: app/interface.c:72
 msgid "Create Polygon"
 msgstr "Crea un polígon"
 
-#: app/interface.c:66 app/menus.c:199
+#: app/interface.c:73 app/menus.c:189
 msgid "Polygon"
 msgstr "Polígon"
 
-#: app/interface.c:70
+#: app/interface.c:77
 msgid "Create Beziergon"
 msgstr "Crea un Beziergon"
 
-#: app/interface.c:71 app/menus.c:200
+#: app/interface.c:78 app/menus.c:190
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: app/interface.c:75
+#: app/interface.c:82
 msgid "Create Line"
 msgstr "Crea una línia"
 
-#: app/interface.c:76 app/menus.c:201 objects/standard/line.c:183
+#: app/interface.c:83 app/menus.c:191 objects/standard/line.c:183
 msgid "Line"
 msgstr "Línia"
 
-#: app/interface.c:80
+#: app/interface.c:87
 msgid "Create Arc"
 msgstr "Crea un arc"
 
-#: app/interface.c:81 app/menus.c:202
+#: app/interface.c:88 app/menus.c:192
 msgid "Arc"
 msgstr "Arc"
 
-#: app/interface.c:85
+#: app/interface.c:92
 msgid "Create Zigzagline"
 msgstr "Crea una línia en ziga-zaga"
 
-#: app/interface.c:86 app/menus.c:203
+#: app/interface.c:93 app/menus.c:193
 msgid "Zigzagline"
 msgstr "Línia en ziga-zaga"
 
-#: app/interface.c:90
+#: app/interface.c:97
 msgid "Create Polyline"
 msgstr "Crea una polilínia"
 
-#: app/interface.c:91 app/menus.c:204
+#: app/interface.c:98 app/menus.c:194
 msgid "Polyline"
 msgstr "Polilínia"
 
-#: app/interface.c:95
+#: app/interface.c:102
 msgid "Create Bezierline"
 msgstr "Crea una línia de Bezier"
 
-#: app/interface.c:96 app/menus.c:205
+#: app/interface.c:103 app/menus.c:195
 msgid "Bezierline"
 msgstr "Línia de Bezier"
 
-#: app/interface.c:100
+#: app/interface.c:107
 msgid "Create Image"
 msgstr "Crea una imatge"
 
-#: app/interface.c:101 app/menus.c:206
+#: app/interface.c:108 app/menus.c:196
 msgid "Image"
 msgstr "Imatge"
 
-#: app/interface.c:312
+#: app/interface.c:441
 msgid "NULL tooldata in tool_select_update"
 msgstr "Dades d'eines NULL a tool_select_update"
 
-#: app/interface.c:718
+#: app/interface.c:887
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -595,7 +513,7 @@ msgstr ""
 "colors. Les sagetes petites intercanvien els colors. Feu un doble clic per "
 "canviar-los."
 
-#: app/interface.c:799
+#: app/interface.c:1033
 msgid "Diagram Editor"
 msgstr "Editor de diagrames"
 
@@ -651,21 +569,21 @@ msgstr "Detalls..."
 msgid "Line Style Properties"
 msgstr "Propietats de l'estil de línia"
 
-#: app/linewidth_area.c:209
+#: app/linewidth_area.c:211
 msgid "Line width"
 msgstr "Amplada de la línia"
 
-#: app/linewidth_area.c:217 objects/chronogram/chronoline.c:331
+#: app/linewidth_area.c:219 objects/chronogram/chronoline.c:331
 #: objects/chronogram/chronoline.c:422 objects/chronogram/chronoref.c:251
 #: objects/chronogram/chronoref.c:316
 msgid "Line width:"
 msgstr "Amplada de la línia:"
 
-#: app/load_save.c:95
+#: app/load_save.c:119
 msgid "Error reading diagram file\n"
 msgstr "S'ha produït un error mentre es llegia el fixer del diagrama\n"
 
-#: app/load_save.c:146
+#: app/load_save.c:180
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -673,7 +591,7 @@ msgstr ""
 "S'ha produït un error mentre es carregava el diagrama.\n"
 "L'objecte enllaçat no s'ha trobat al document"
 
-#: app/load_save.c:149
+#: app/load_save.c:183
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -681,7 +599,7 @@ msgstr ""
 "S'ha produït un error mentre es carregava el diagrama.\n"
 "El punt de connexió no existeix."
 
-#: app/load_save.c:152
+#: app/load_save.c:186
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -689,16 +607,16 @@ msgstr ""
 "S'ha produït un error mentre es carregava el diagrama.\n"
 "La connexió associada no existeix"
 
-#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1020
+#: app/load_save.c:230 plug-ins/dxf/dxf-import.c:490 plug-ins/wpg/wpg.c:1038
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "No s'ha pogut obrir: '%s' per a la seva lectura.\n"
 
-#: app/load_save.c:202
+#: app/load_save.c:236
 msgid "You must specify a file, not a directory.\n"
 msgstr "Heu d'especificar un fitxer, no un directori.\n"
 
-#: app/load_save.c:211 app/load_save.c:216
+#: app/load_save.c:245 app/load_save.c:250
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -707,7 +625,7 @@ msgstr ""
 "S'ha produït un error mentre es carregava el diagrama %s.\n"
 "Es desconeix el tipus de fitxer"
 
-#: app/load_save.c:223
+#: app/load_save.c:257
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -716,12 +634,12 @@ msgstr ""
 "S'ha produït un error mentre es carregava el diagrama %s.\n"
 "El fitxer no és un fitxer Dia"
 
-#: app/load_save.c:667
+#: app/load_save.c:702
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "No s'ha pogut desar el fitxer '%s'.\n"
 
-#: app/load_save.c:687 app/load_save.c:692
+#: app/load_save.c:722 app/load_save.c:727
 msgid "Native Dia Diagram"
 msgstr "Diagrama Dia original"
 
@@ -788,7 +706,8 @@ msgid "_Zoom"
 msgstr "_Zoom"
 
 #: app/menus.c:112
-msgid "Diagram Propeties..."
+#, fuzzy
+msgid "Diagram Properties..."
 msgstr "Propietats del diagrama..."
 
 #: app/menus.c:114
@@ -864,483 +783,493 @@ msgstr "Elimina"
 msgid "Left"
 msgstr "Esquerra"
 
-#: app/menus.c:155 app/menus.c:169 lib/properties.c:1177 lib/properties.h:325
+#: app/menus.c:154 app/menus.c:163 lib/properties.c:1177 lib/properties.h:325
 #: lib/widgets.c:182
 msgid "Center"
 msgstr "Centre"
 
-#: app/menus.c:157 lib/properties.c:1178 lib/properties.h:326
+#: app/menus.c:155 lib/properties.c:1178 lib/properties.h:326
 #: lib/widgets.c:188
 msgid "Right"
 msgstr "Dreta"
 
-#: app/menus.c:159 app/menus.c:173
+#: app/menus.c:156 app/menus.c:165
 msgid "Equal Distance"
 msgstr "Equidistant"
 
-#: app/menus.c:161 app/menus.c:175
+#: app/menus.c:157 app/menus.c:166
 msgid "Adjacent"
 msgstr "Adjacent"
 
-#: app/menus.c:167
+#: app/menus.c:162
 msgid "Top"
 msgstr "Superior"
 
-#: app/menus.c:171
+#: app/menus.c:164
 msgid "Bottom"
 msgstr "Inferior"
 
-#: app/menus.c:181
+#: app/menus.c:171
 msgid "Send to _Back"
 msgstr "Envia al _darrere"
 
-#: app/menus.c:182
+#: app/menus.c:172
 msgid "Bring to _Front"
 msgstr "Porta al _davant"
 
-#: app/menus.c:184
+#: app/menus.c:174
 msgid "_Group"
 msgstr "_Agrupa"
 
-#: app/menus.c:185
+#: app/menus.c:175
 msgid "_Ungroup"
 msgstr "_Desagrupa"
 
-#: app/menus.c:187
+#: app/menus.c:177
 msgid "Align _Horizontal"
 msgstr "Alinea _horitzontalment"
 
-#: app/menus.c:188
+#: app/menus.c:178
 msgid "Align _Vertical"
 msgstr "Alinea _verticalment"
 
-#: app/menus.c:211
+#: app/menus.c:201
 msgid "_Properties"
 msgstr "_Propietats"
 
-#: app/menus.c:212
+#: app/menus.c:202
 msgid "_Layers"
 msgstr "_Capes"
 
-#: app/menus.c:231
+#: app/menus.c:221
 msgid "_Select"
 msgstr "_Selecciona"
 
-#: app/menus.c:232
+#: app/menus.c:222
 msgid "_Objects"
 msgstr "_Objectes"
 
-#: app/menus.c:233
+#: app/menus.c:223
 msgid "_Tools"
 msgstr "_Eines"
 
-#: app/menus.c:234
+#: app/menus.c:224
 msgid "_Dialogs"
 msgstr "_Diàlegs"
 
-#: app/menus.c:242 app/menus.c:256
+#: app/menus.c:238 app/menus.c:254
 msgid "/_File"
 msgstr "/_Fitxer"
 
-#: app/menus.c:243 app/menus.c:258
+#: app/menus.c:239 app/menus.c:255
 msgid "/File/_New"
 msgstr "/Fitxer/_Nou"
 
-#: app/menus.c:244 app/menus.c:259
+#: app/menus.c:240 app/menus.c:256
 msgid "/File/_Open"
 msgstr "/Fitxer/_Obre"
 
-#: app/menus.c:245
+#: app/menus.c:241
+#, fuzzy
+msgid "/File/Open _Recent"
+msgstr "/Fitxer/_Obre"
+
+#: app/menus.c:242
+#, fuzzy
+msgid "/File/Open Recent/---"
+msgstr "/Fitxer/_Obre"
+
+#: app/menus.c:244
 msgid "/File/_Preferences..."
 msgstr "/Fitxer/_Preferències..."
 
-#: app/menus.c:246
+#: app/menus.c:245
 msgid "/File/P_lugins"
 msgstr "/Fitxer/E_xtensions"
 
-#: app/menus.c:247 app/menus.c:263
-msgid "/File/sep1"
-msgstr "/Fitxer/sep1"
+#: app/menus.c:246 app/menus.c:260 app/menus.c:263
+#, fuzzy
+msgid "/File/---"
+msgstr "/_Fitxer"
 
-#: app/menus.c:248 app/menus.c:268
+#: app/menus.c:247 app/menus.c:266
 msgid "/File/_Quit"
 msgstr "/Fitxer/_Surt"
 
-#: app/menus.c:249
+#: app/menus.c:248
 msgid "/_Help"
 msgstr "/_Ajuda"
 
-#: app/menus.c:250
+#: app/menus.c:249
 msgid "/Help/_About"
 msgstr "/Ajuda/_Quant a"
 
-#: app/menus.c:255
-msgid "/tearoff"
-msgstr "/tearoff"
-
 #: app/menus.c:257
-msgid "/File/tearoff"
-msgstr "/Fitxer/tearoff"
-
-#: app/menus.c:260
 msgid "/File/_Save"
 msgstr "/Fitxer/_Desa"
 
-#: app/menus.c:261
+#: app/menus.c:258
 msgid "/File/Save _As..."
 msgstr "/Fitxer/Desa _com a..."
 
-#: app/menus.c:262
+#: app/menus.c:259
 msgid "/File/_Export..."
 msgstr "/Fitxer/_Exporta..."
 
-#: app/menus.c:264
+#: app/menus.c:261
 msgid "/File/Page Set_up..."
 msgstr "/Fitxer/Configuració de la pàgina..."
 
-#: app/menus.c:265
+#: app/menus.c:262
 msgid "/File/_Print Diagram..."
 msgstr "/Fitxer/_Imprimeix el diagrama..."
 
-#: app/menus.c:266
-msgid "/File/sep2"
-msgstr "/Fitxer/sep2"
-
-#: app/menus.c:267
+#: app/menus.c:264
 msgid "/File/_Close"
 msgstr "/Fitxer/_Tanca"
 
-#: app/menus.c:269
+#: app/menus.c:267
 msgid "/_Edit"
 msgstr "/_Edita"
 
-#: app/menus.c:270
-msgid "/Edit/tearoff"
-msgstr "/Edita/tearoff"
-
-#: app/menus.c:271
+#: app/menus.c:268
 msgid "/Edit/_Copy"
 msgstr "/Edita/_Copia"
 
-#: app/menus.c:272
+#: app/menus.c:269
 msgid "/Edit/C_ut"
 msgstr "/Edita/R_etalla"
 
-#: app/menus.c:273
+#: app/menus.c:270
 msgid "/Edit/_Paste"
 msgstr "/Edita/_Enganxa"
 
-#: app/menus.c:274
+#: app/menus.c:271
 msgid "/Edit/_Delete"
 msgstr "/Edita/_Esborra"
 
-#: app/menus.c:275
+#: app/menus.c:272
 msgid "/Edit/_Undo"
 msgstr "/Edita/_Desfés"
 
-#: app/menus.c:276
+#: app/menus.c:273
 msgid "/Edit/_Redo"
 msgstr "/Edita/_Refés"
 
-#: app/menus.c:279
+#: app/menus.c:274
+msgid "/Edit/Copy Text"
+msgstr "/Edita/Copia el text"
+
+#: app/menus.c:275
+msgid "/Edit/Cut Text"
+msgstr "/Edita/Retalla el text"
+
+#: app/menus.c:276
 msgid "/Edit/Paste _Text"
 msgstr "/Edita/Enganxa el _text"
 
-#: app/menus.c:280
+#: app/menus.c:277
 msgid "/_View"
 msgstr "/_Veure"
 
-#: app/menus.c:281
-msgid "/View/tearoff"
-msgstr "/Visualitza/tearoff"
-
-#: app/menus.c:282
+#: app/menus.c:278
 msgid "/View/Zoom _In"
 msgstr "/Veure/_Amplia el zoom"
 
-#: app/menus.c:283
+#: app/menus.c:279
 msgid "/View/Zoom _Out"
 msgstr "/Veure/_Redueix el zoom"
 
-#: app/menus.c:284
+#: app/menus.c:280
 msgid "/View/_Zoom"
 msgstr "/Veure/_Zoom"
 
-#: app/menus.c:285
-msgid "/View/Zoom/tearoff"
-msgstr "/Visualitza/Zoom/tearoff"
-
-#: app/menus.c:286
+#: app/menus.c:281
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Veure/Zoom/400%"
 
-#: app/menus.c:287
+#: app/menus.c:282
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Veure/Zoom/283%"
 
-#: app/menus.c:288
+#: app/menus.c:283
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Veure/Zoom/200%"
 
-#: app/menus.c:289
+#: app/menus.c:284
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Veure/Zoom/141%"
 
-#: app/menus.c:290
+#: app/menus.c:285
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Veure/Zoom/100%"
 
-#: app/menus.c:291
+#: app/menus.c:286
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Veure/Zoom/85%"
 
-#: app/menus.c:292
+#: app/menus.c:287
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Veure/Zoom/70.7%"
 
-#: app/menus.c:293
+#: app/menus.c:288
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Veure/Zoom/50%"
 
-#: app/menus.c:294
+#: app/menus.c:289
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Veure/Zoom/35.4%"
 
-#: app/menus.c:295
+#: app/menus.c:290
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Veure/Zoom/25%"
 
-#: app/menus.c:296
+#: app/menus.c:291
 msgid "/View/Diagram Properties"
 msgstr "/Visualitza/Propietats del diagrama"
 
-#: app/menus.c:298
+#: app/menus.c:293
 msgid "/View/_AntiAliased"
 msgstr "/Veure/_AntiAliased"
 
-#: app/menus.c:300
+#: app/menus.c:295
 msgid "/View/_Visible Grid"
 msgstr "/Veure/Quadrícula _Visible"
 
-#: app/menus.c:301
+#: app/menus.c:296
 msgid "/View/_Snap To Grid"
 msgstr "/Veure/_Desplaça a la quadrícula"
 
-#: app/menus.c:302
+#: app/menus.c:297
 msgid "/View/Show _Rulers"
 msgstr "/Veure/Mostra els _regles"
 
-#: app/menus.c:303
+#: app/menus.c:298
 msgid "/View/Show _Connection Points"
 msgstr "/Veure/Mostra els punts de _connexió"
 
-#: app/menus.c:304
-msgid "/View/sep1"
-msgstr "/Veure/sep1"
+#: app/menus.c:299
+#, fuzzy
+msgid "/View/---"
+msgstr "/_Veure"
 
-#: app/menus.c:305
+#: app/menus.c:300
 msgid "/View/New _View"
 msgstr "/Veure/Nova _Vista"
 
-#: app/menus.c:306
+#: app/menus.c:301
 msgid "/View/Show _All"
 msgstr "/Veure/Mostra-ho _tot"
 
-#: app/menus.c:307
+#: app/menus.c:302
 msgid "/_Select"
 msgstr "/_Selecciona"
 
-#: app/menus.c:308
-msgid "/Select/tearoff"
-msgstr "/Selecciona/tearoff"
-
-#: app/menus.c:309
+#: app/menus.c:303
 msgid "/Select/All"
 msgstr "/Selecciona/Tot"
 
-#: app/menus.c:310
+#: app/menus.c:304
 msgid "/Select/None"
 msgstr "/Selecciona/Res"
 
-#: app/menus.c:311 app/menus.c:320 app/select.c:254
+#: app/menus.c:305 app/menus.c:314
 msgid "/Select/Invert"
 msgstr "/Selecciona/Inverteix"
 
-#: app/menus.c:312
+#: app/menus.c:306
 msgid "/Select/Connected"
 msgstr "/Selecciona/Connectat"
 
-#: app/menus.c:313
+#: app/menus.c:307
 msgid "/Select/Transitive"
 msgstr "/Selecciona/Transitiu"
 
-#: app/menus.c:314
+#: app/menus.c:308
 msgid "/Select/Same Type"
 msgstr "/Selecciona/Mateix Tipus"
 
-#: app/menus.c:315
-msgid "/Select/sep1"
-msgstr "/Selecciona/sep1"
+#: app/menus.c:309
+#, fuzzy
+msgid "/Select/---"
+msgstr "/_Selecciona"
 
-#: app/menus.c:316 app/select.c:246
+#: app/menus.c:310
 msgid "/Select/Replace"
 msgstr "/Selecciona/Substitueix"
 
-#: app/menus.c:317 app/select.c:248
+#: app/menus.c:311
 msgid "/Select/Union"
 msgstr "/Selecciona/Unió"
 
-#: app/menus.c:318 app/select.c:250
+#: app/menus.c:312
 msgid "/Select/Intersect"
 msgstr "/Selecciona/Intersecta"
 
-#: app/menus.c:319 app/select.c:252
+#: app/menus.c:313
 msgid "/Select/Remove"
 msgstr "/Selecciona/Elimina"
 
-#: app/menus.c:321
+#: app/menus.c:315
 msgid "/_Objects"
 msgstr "/_Objectes"
 
-#: app/menus.c:322
-msgid "/Objects/tearoff1"
-msgstr "/Objectes/tearoff1"
-
-#: app/menus.c:323
+#: app/menus.c:316
 msgid "/Objects/Send to _Back"
 msgstr "/Objetes/Envia al _darrere"
 
-#: app/menus.c:324
+#: app/menus.c:317
 msgid "/Objects/Bring to _Front"
 msgstr "/Objects/Porta al _davant"
 
-#: app/menus.c:325 app/menus.c:328
-msgid "/Objects/sep1"
-msgstr "/Objectes/sep1"
+#: app/menus.c:318 app/menus.c:321
+#, fuzzy
+msgid "/Objects/---"
+msgstr "/_Objectes"
 
-#: app/menus.c:326
+#: app/menus.c:319
 msgid "/Objects/_Group"
 msgstr "/Objectes/_Agrupa"
 
-#: app/menus.c:327
+#: app/menus.c:320
 msgid "/Objects/_Ungroup"
 msgstr "/Objectes/_Desagrupa"
 
-#: app/menus.c:329
+#: app/menus.c:322
 msgid "/Objects/Align _Horizontal"
 msgstr "/Objects/Alinea _horitzontalment"
 
-#: app/menus.c:330
-msgid "/Objects/Align Horizontal/tearoff"
-msgstr "/Objectes/Alineació horitzontal/tearoff"
+#: app/menus.c:323
+msgid "/Objects/Align Horizontal/Left"
+msgstr "/Objectes/Alineació horitzontal/Esquerra"
 
-#: app/menus.c:336
+#: app/menus.c:324
+msgid "/Objects/Align Horizontal/Center"
+msgstr "/Objectes/Alineació horitzontal/Centre"
+
+#: app/menus.c:325
+msgid "/Objects/Align Horizontal/Right"
+msgstr "/Objectes/Alineació horitzontal/Dreta"
+
+#: app/menus.c:326
+msgid "/Objects/Align Horizontal/Equal Distance"
+msgstr "/Objectes/Alineació horitzontal/Equidistant"
+
+#: app/menus.c:327
+msgid "/Objects/Align Horizontal/Adjacent"
+msgstr "/Objectes/Alineació horitzontal/Adjacent"
+
+#: app/menus.c:328
 msgid "/Objects/Align _Vertical"
 msgstr "/Objects/Alinea _verticalment"
 
-#: app/menus.c:337
-msgid "/Objects/Align Vertical/tearoff"
-msgstr "/Objectes/Alineació vertical/tearoff"
+#: app/menus.c:329
+msgid "/Objects/Align Vertical/Top"
+msgstr "/Objectes/Alineació vertical/Superior"
 
-#: app/menus.c:344
+#: app/menus.c:330
+msgid "/Objects/Align Vertical/Center"
+msgstr "/Objectes/Alineació vertical/Centre"
+
+#: app/menus.c:331
+msgid "/Objects/Align Vertical/Bottom"
+msgstr "/Objectes/Alineació vertical/Inferior"
+
+#: app/menus.c:332
+msgid "/Objects/Align Vertical/Equal Distance"
+msgstr "/Objectes/Alineació vertical/Equidistant"
+
+#: app/menus.c:333
+msgid "/Objects/Align Vertical/Adjacent"
+msgstr "/Objectes/Alineació vertical/Adjacent"
+
+#: app/menus.c:335
 msgid "/_Tools"
 msgstr "/_Eines"
 
-#: app/menus.c:345
-msgid "/Tools/tearoff"
-msgstr "/Eines/tearoff"
-
-#: app/menus.c:346
+#: app/menus.c:336
 msgid "/Tools/Modify"
 msgstr "/Eines/Modifica"
 
-#: app/menus.c:347
+#: app/menus.c:337
 msgid "/Tools/Magnify"
 msgstr "/Eines/Augmenta"
 
-#: app/menus.c:348
+#: app/menus.c:338
 msgid "/Tools/Scroll"
 msgstr "/Eines/Desplaça"
 
-#: app/menus.c:349
+#: app/menus.c:339
 msgid "/Tools/Text"
 msgstr "/Eines/Text"
 
-#: app/menus.c:350
+#: app/menus.c:340
 msgid "/Tools/Box"
 msgstr "/Eines/Quadre"
 
-#: app/menus.c:351
+#: app/menus.c:341
 msgid "/Tools/Ellipse"
 msgstr "/Eines/El·lipsi"
 
-#: app/menus.c:352
+#: app/menus.c:342
 msgid "/Tools/Polygon"
 msgstr "/Eines/Polígon"
 
-#: app/menus.c:353
+#: app/menus.c:343
 msgid "/Tools/Beziergon"
 msgstr "/Eines/Beziergon"
 
-#: app/menus.c:354
+#: app/menus.c:344
 msgid "/Tools/Line"
 msgstr "/Eines/Línia"
 
-#: app/menus.c:355
+#: app/menus.c:345
 msgid "/Tools/Arc"
 msgstr "/Eines/Arc"
 
-#: app/menus.c:356
+#: app/menus.c:346
 msgid "/Tools/Zigzagline"
 msgstr "/Eines/Línia en ziga-zaga"
 
-#: app/menus.c:357
+#: app/menus.c:347
 msgid "/Tools/Polyline"
 msgstr "/Eines/Polilínia"
 
-#: app/menus.c:358
+#: app/menus.c:348
 msgid "/Tools/Bezierline"
 msgstr "/Eines/Línia Bezier"
 
-#: app/menus.c:359
+#: app/menus.c:349
 msgid "/Tools/Image"
 msgstr "/Eines/Imatge"
 
-#: app/menus.c:361
+#: app/menus.c:351
 msgid "/_Dialogs"
 msgstr "/_Diàlegs"
 
-#: app/menus.c:362
-msgid "/Dialogs/tearoff"
-msgstr "/Diàlegs/tearoff"
-
-#: app/menus.c:363
+#: app/menus.c:352
 msgid "/Dialogs/_Properties"
 msgstr "/Diàlegs/_Propietats"
 
-#: app/menus.c:364
+#: app/menus.c:353
 msgid "/Dialogs/_Layers"
 msgstr "/Diàlegs/_Capes"
 
-#: app/menus.c:423
+#: app/menus.c:525
 msgid "NULL tooldata in tool_menu_select"
 msgstr "Dades d'eina NULL a tool_menu_select"
 
-#: app/menus.c:500
-msgid "/Tools/"
-msgstr "/Eines/"
-
-#: app/menus.c:513
+#: app/menus.c:809
 msgid "Diagram Menu"
 msgstr "Menú de diagrames"
 
@@ -1348,15 +1277,20 @@ msgstr "Menú de diagrames"
 msgid "Print Diagram"
 msgstr "Imprimeix el diagrama"
 
-#: app/paginate_psprint.c:194
+#: app/paginate_gnomeprint.c:175
+#, fuzzy
+msgid "An error occured while creating the print context"
+msgstr "Hi ha hagut un error al escriure un fitxer PNG"
+
+#: app/paginate_psprint.c:195
 msgid "Select Printer"
 msgstr "Selecciona la impressora"
 
-#: app/paginate_psprint.c:206
+#: app/paginate_psprint.c:207
 msgid "Printer"
 msgstr "Impressora"
 
-#: app/paginate_psprint.c:219
+#: app/paginate_psprint.c:220
 msgid "File"
 msgstr "Fitxer"
 
@@ -1370,10 +1304,10 @@ msgstr "no"
 
 #: app/plugin-manager.c:181 objects/ER/attribute.c:206 objects/ER/entity.c:190
 #: objects/ER/relationship.c:260 objects/UML/association.c:969
-#: objects/UML/class_dialog.c:705 objects/UML/class_dialog.c:1581
-#: objects/UML/class_dialog.c:1743 objects/UML/class_dialog.c:2199
+#: objects/UML/class_dialog.c:731 objects/UML/class_dialog.c:1607
+#: objects/UML/class_dialog.c:1769 objects/UML/class_dialog.c:2225
 #: objects/UML/dependency.c:612 objects/UML/generalization.c:582
-#: objects/UML/large_package.c:562 objects/UML/realizes.c:580
+#: objects/UML/large_package.c:609 objects/UML/realizes.c:580
 msgid "Name:"
 msgstr "Nom:"
 
@@ -1401,31 +1335,31 @@ msgstr "Carrega"
 msgid "Unload"
 msgstr "Descarrega"
 
-#: app/preferences.c:85
+#: app/preferences.c:87
 msgid "User Interface"
 msgstr "Interfície de l'usuari"
 
-#: app/preferences.c:86
+#: app/preferences.c:88
 msgid "View Defaults"
 msgstr "Veure les opcions per defecte"
 
-#: app/preferences.c:87
+#: app/preferences.c:89
 msgid "Grid Lines"
 msgstr "Línies de la quadrícula"
 
-#: app/preferences.c:101
+#: app/preferences.c:103
 msgid "Reset tools after create:"
 msgstr "Reinicia les eines després de crear:"
 
-#: app/preferences.c:102
+#: app/preferences.c:104
 msgid "Compress saved files:"
 msgstr "Compacta els fitxers desats:"
 
-#: app/preferences.c:103
+#: app/preferences.c:105
 msgid "Number of undo levels:"
 msgstr "Número de nivells de desfer:"
 
-#: app/preferences.c:104
+#: app/preferences.c:106
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1433,64 +1367,64 @@ msgstr ""
 "L'arrossegament invers selecciona\n"
 "la intersecció d'objectes:"
 
-#: app/preferences.c:105
+#: app/preferences.c:107
 msgid "New window:"
 msgstr "Finestra nova:"
 
-#: app/preferences.c:106
+#: app/preferences.c:108
 msgid "Width:"
 msgstr "Amplada:"
 
-#: app/preferences.c:107
+#: app/preferences.c:109
 msgid "Height:"
 msgstr "Altura:"
 
-#: app/preferences.c:108
+#: app/preferences.c:110
 msgid "Magnify:"
 msgstr "Magnifica:"
 
-#: app/preferences.c:110
+#: app/preferences.c:112
 msgid "Connection Points:"
 msgstr "Punts de connexió:"
 
-#: app/preferences.c:111 app/preferences.c:114 app/preferences.c:122
+#: app/preferences.c:113 app/preferences.c:116 app/preferences.c:124
 msgid "Visible:"
 msgstr "Visible:"
 
-#: app/preferences.c:113
+#: app/preferences.c:115
 msgid "Grid:"
 msgstr "Quadrícula:"
 
-#: app/preferences.c:115
+#: app/preferences.c:117
 msgid "Snap to:"
 msgstr "Desplaça a:"
 
-#: app/preferences.c:116
+#: app/preferences.c:118
 msgid "X Size:"
 msgstr "Mida de l'eix X"
 
-#: app/preferences.c:117
+#: app/preferences.c:119
 msgid "Y Size:"
 msgstr "Mida de l'eix Y"
 
-#: app/preferences.c:118 app/preferences.c:123
+#: app/preferences.c:120 app/preferences.c:125
 msgid "Colour:"
 msgstr "Color:"
 
-#: app/preferences.c:119 app/preferences.c:124
+#: app/preferences.c:121 app/preferences.c:126
 msgid "Solid lines:"
 msgstr "Línies sòlides:"
 
-#: app/preferences.c:121
+#: app/preferences.c:123
 msgid "Page breaks:"
 msgstr "Salt de pàgina:"
 
-#: app/preferences.c:235
+#: app/preferences.c:237
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "No s'ha pogut obrir '%s' per a la seva escriptura"
 
-#: app/preferences.c:566 app/preferences.c:575
+#: app/preferences.c:570 app/preferences.c:579
 msgid "Preferences"
 msgstr "Preferències"
 
@@ -1502,19 +1436,43 @@ msgstr "Propietats de l'objecte"
 msgid "This object has no properties."
 msgstr "Aquest objecte no té propietats"
 
-#: app/render_eps.c:1137
+#: app/render_eps.c:1142
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postcript"
+
+#. remove recent files if list get's too long
+#: app/recent_files.c:69
+#, fuzzy
+msgid "/File/Plugins"
+msgstr "/Fitxer/E_xtensions"
+
+#: app/recent_files.c:75 app/recent_files.c:77 app/recent_files.c:102
+#: app/recent_files.c:104
+#, fuzzy
+msgid "/File/Open Recent/"
+msgstr "/Fitxer/_Obre"
+
+#: app/recent_files.c:153
+#, fuzzy
+msgid "Can't open history file for writing."
+msgstr "No s'ha pogut obrir: '%s' per a la seva escriptura.\n"
+
+#: app/splash.c:50
+msgid "Loading ..."
+msgstr ""
+
+#: app/splash.c:67
+#, fuzzy, c-format
+msgid ""
+"Dia v %s\n"
+" by Alexander Larsson"
+msgstr "Dia v %s ha estat creat per Alexander Larsson"
 
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Error intern: establiment de tipus de racó del punt final de bezier"
 
-#: lib/diagramdata.c:60
-msgid "Background"
-msgstr "Fons"
-
-#: lib/font.c:386
+#: lib/font.c:387
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1523,30 +1481,30 @@ msgstr ""
 "Advertència, no s'ha trobat cap X tipus de lletra per a %s, \n"
 "i s'usa %s alternativament.\n"
 
-#: lib/font.c:440
+#: lib/font.c:441
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr ""
 "No s'ha trobat el tipus de lletra %s. S'utilitzarà la Courier per defecte.\n"
 
-#: lib/message.c:118
+#: lib/message.c:120
 msgid "Notice"
 msgstr "Nota"
 
-#: lib/message.c:129
+#: lib/message.c:131
 msgid "Warning"
 msgstr "Advertència"
 
-#: lib/message.c:141
+#: lib/message.c:143
 msgid "Error"
 msgstr "Error"
 
-#: lib/plug-ins.c:205
+#: lib/plug-ins.c:211
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "No s'ha pogut esbrinar el camí correcte per a `%s'"
 
-#: lib/plug-ins.c:210
+#: lib/plug-ins.c:216
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1555,22 +1513,22 @@ msgstr ""
 "No s'ha pogut carregar l'extensió '%s'\n"
 "%s"
 
-#: lib/plug-ins.c:221
+#: lib/plug-ins.c:227
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "No s'ha pogut trobar la funció init de l'extensió a `%s'"
 
-#: lib/plug-ins.c:248
+#: lib/plug-ins.c:254
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "No s'ha pogut descarregar l'extensió %s"
 
-#: lib/plug-ins.c:301
+#: lib/plug-ins.c:307
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "`%s' no ñes un directori"
 
-#: lib/plug-ins.c:307
+#: lib/plug-ins.c:313
 #, c-format
 msgid "Could not open `%s'"
 msgstr "No s'ha pogut obrir '%s'"
@@ -1648,7 +1606,7 @@ msgstr "Llargada: "
 msgid "Width: "
 msgstr "Amplada: "
 
-#: lib/widgets.c:854 objects/standard/image.c:532
+#: lib/widgets.c:854 objects/standard/image.c:540
 msgid "Select image file"
 msgstr "Selecciona el fitxer d'imatge"
 
@@ -1695,7 +1653,7 @@ msgstr "Atribut"
 msgid "Weak"
 msgstr "Feble"
 
-#: objects/ER/entity.c:450 objects/UML/classicon.c:619
+#: objects/ER/entity.c:450 objects/UML/classicon.c:721
 msgid "Entity"
 msgstr "Entitat"
 
@@ -2073,7 +2031,7 @@ msgstr "GRAFCET O/I vergent"
 msgid "Font color:"
 msgstr "Color del tipus de lletra:"
 
-#: objects/SADT/arrow.c:187 objects/UML/state.c:503
+#: objects/SADT/arrow.c:187 objects/UML/state.c:602
 msgid "Normal"
 msgstr "Normal"
 
@@ -2128,7 +2086,7 @@ msgstr "Quadre SADT"
 msgid "SADT diagram objects"
 msgstr "Objectes de diagrama SADT"
 
-#: objects/UML/actor.c:282
+#: objects/UML/actor.c:380
 msgid "Actor"
 msgstr "Actor"
 
@@ -2175,150 +2133,198 @@ msgstr "Agrega"
 msgid "Composition"
 msgstr "Composició"
 
-#. Class page:
-#: objects/UML/class.c:608 objects/UML/class_dialog.c:171
-msgid "Class"
-msgstr "Classe"
+#: objects/UML/class.c:96 objects/UML/component.c:111
+#: objects/UML/small_package.c:111
+#, fuzzy
+msgid "Name"
+msgstr "Nom:"
 
-#: objects/UML/class_dialog.c:177
-msgid "Class name:"
-msgstr "Nom de la classe:"
-
-#: objects/UML/class_dialog.c:188 objects/UML/dependency.c:624
-#: objects/UML/generalization.c:594 objects/UML/large_package.c:574
-#: objects/UML/object.c:767 objects/UML/realizes.c:592
-msgid "Stereotype:"
+#: objects/UML/class.c:98 objects/UML/classicon.c:146
+#: objects/UML/component.c:113 objects/UML/object.c:164
+#: objects/UML/small_package.c:113
+#, fuzzy
+msgid "Stereotype"
 msgstr "Estereotip:"
 
-#: objects/UML/class_dialog.c:199
+#: objects/UML/class.c:100 objects/UML/class_dialog.c:205
 msgid "Abstract"
 msgstr "Abstracte"
 
-#: objects/UML/class_dialog.c:207
-msgid "Attributes visible"
-msgstr "Atributs visibles"
-
-#: objects/UML/class_dialog.c:211
+#: objects/UML/class.c:102 objects/UML/class_dialog.c:217
 msgid "Suppress Attributes"
 msgstr "Elimina els atributs"
 
-#: objects/UML/class_dialog.c:219
+#: objects/UML/class.c:104
+#, fuzzy
+msgid "Suppress Operations"
+msgstr "Elimina les operacions"
+
+#: objects/UML/class.c:106
+#, fuzzy
+msgid "Visible Attributes"
+msgstr "Atributs"
+
+#: objects/UML/class.c:108
+#, fuzzy
+msgid "Visible Operations"
+msgstr "Operacions"
+
+#: objects/UML/class.c:114
+#, fuzzy
+msgid "Template"
+msgstr "Plantilles"
+
+#. Class page:
+#: objects/UML/class.c:687 objects/UML/class_dialog.c:177
+msgid "Class"
+msgstr "Classe"
+
+#: objects/UML/class_dialog.c:183
+msgid "Class name:"
+msgstr "Nom de la classe:"
+
+#: objects/UML/class_dialog.c:194 objects/UML/dependency.c:624
+#: objects/UML/generalization.c:594 objects/UML/large_package.c:621
+#: objects/UML/object.c:830 objects/UML/realizes.c:592
+msgid "Stereotype:"
+msgstr "Estereotip:"
+
+#: objects/UML/class_dialog.c:213
+msgid "Attributes visible"
+msgstr "Atributs visibles"
+
+#: objects/UML/class_dialog.c:225
 msgid "Operations visible"
 msgstr "Operacions visibles"
 
-#: objects/UML/class_dialog.c:223
+#: objects/UML/class_dialog.c:229
 msgid "Suppress operations"
 msgstr "Elimina les operacions"
 
+#: objects/UML/class_dialog.c:237
+#, fuzzy
+msgid "Foreground Color"
+msgstr "Color del primer pla:"
+
+#: objects/UML/class_dialog.c:247
+#, fuzzy
+msgid "Background Color"
+msgstr "Color del fons:"
+
 #. Attributes page:
-#: objects/UML/class_dialog.c:640
+#: objects/UML/class_dialog.c:666
 msgid "Attributes"
 msgstr "Atributs"
 
-#: objects/UML/class_dialog.c:668 objects/UML/class_dialog.c:1541
-#: objects/UML/class_dialog.c:1701 objects/UML/class_dialog.c:2162
+#: objects/UML/class_dialog.c:694 objects/UML/class_dialog.c:1567
+#: objects/UML/class_dialog.c:1727 objects/UML/class_dialog.c:2188
 msgid "New"
 msgstr "Nou"
 
-#: objects/UML/class_dialog.c:674 objects/UML/class_dialog.c:1547
-#: objects/UML/class_dialog.c:1708 objects/UML/class_dialog.c:2168
+#: objects/UML/class_dialog.c:700 objects/UML/class_dialog.c:1573
+#: objects/UML/class_dialog.c:1734 objects/UML/class_dialog.c:2194
 msgid "Delete"
 msgstr "Esborra"
 
-#: objects/UML/class_dialog.c:680 objects/UML/class_dialog.c:1553
-#: objects/UML/class_dialog.c:1715 objects/UML/class_dialog.c:2174
+#: objects/UML/class_dialog.c:706 objects/UML/class_dialog.c:1579
+#: objects/UML/class_dialog.c:1741 objects/UML/class_dialog.c:2200
 msgid "Move up"
 msgstr "Mou amunt"
 
-#: objects/UML/class_dialog.c:686 objects/UML/class_dialog.c:1559
-#: objects/UML/class_dialog.c:1722 objects/UML/class_dialog.c:2180
+#: objects/UML/class_dialog.c:712 objects/UML/class_dialog.c:1585
+#: objects/UML/class_dialog.c:1748 objects/UML/class_dialog.c:2206
 msgid "Move down"
 msgstr "Mou avall"
 
-#: objects/UML/class_dialog.c:697
+#: objects/UML/class_dialog.c:723
 msgid "Attribute data"
 msgstr "Dades dels atributs"
 
-#: objects/UML/class_dialog.c:717 objects/UML/class_dialog.c:1593
-#: objects/UML/class_dialog.c:1755 objects/UML/class_dialog.c:2211
+#: objects/UML/class_dialog.c:743 objects/UML/class_dialog.c:1619
+#: objects/UML/class_dialog.c:1781 objects/UML/class_dialog.c:2237
 msgid "Type:"
 msgstr "Tipus:"
 
-#: objects/UML/class_dialog.c:729
+#: objects/UML/class_dialog.c:755
 msgid "Value:"
 msgstr "Valor:"
 
-#: objects/UML/class_dialog.c:741 objects/UML/class_dialog.c:1605
+#: objects/UML/class_dialog.c:767 objects/UML/class_dialog.c:1631
 msgid "Visibility:"
 msgstr "Visibilitat:"
 
-#: objects/UML/class_dialog.c:750 objects/UML/class_dialog.c:1614
+#: objects/UML/class_dialog.c:776 objects/UML/class_dialog.c:1640
 msgid "Public"
 msgstr "Públic"
 
-#: objects/UML/class_dialog.c:758 objects/UML/class_dialog.c:1622
+#: objects/UML/class_dialog.c:784 objects/UML/class_dialog.c:1648
 msgid "Private"
 msgstr "Privat"
 
-#: objects/UML/class_dialog.c:766 objects/UML/class_dialog.c:1630
+#: objects/UML/class_dialog.c:792 objects/UML/class_dialog.c:1656
 msgid "Protected"
 msgstr "Protegit"
 
-#: objects/UML/class_dialog.c:774 objects/UML/class_dialog.c:1638
+#: objects/UML/class_dialog.c:800 objects/UML/class_dialog.c:1664
 msgid "Implementation"
 msgstr "Aplicació"
 
-#: objects/UML/class_dialog.c:790 objects/UML/class_dialog.c:1654
+#: objects/UML/class_dialog.c:816 objects/UML/class_dialog.c:1680
 msgid "Class scope"
 msgstr "Abast de la classe"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1513
+#: objects/UML/class_dialog.c:1539
 msgid "Operations"
 msgstr "Operacions"
 
-#: objects/UML/class_dialog.c:1571
+#: objects/UML/class_dialog.c:1597
 msgid "Operation data"
 msgstr "Dades de les operacions"
 
-#: objects/UML/class_dialog.c:1660
+#: objects/UML/class_dialog.c:1686
 msgid "abstract"
 msgstr "resum"
 
-#: objects/UML/class_dialog.c:1672
+#: objects/UML/class_dialog.c:1698
 msgid "Parameters:"
 msgstr "Paràmetres:"
 
-#: objects/UML/class_dialog.c:1734
+#: objects/UML/class_dialog.c:1760
 msgid "Parameter data"
 msgstr "Dades del paràmetre"
 
-#: objects/UML/class_dialog.c:1767
+#: objects/UML/class_dialog.c:1793
 msgid "Def. value:"
 msgstr "Valor per defecte:"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2128
+#: objects/UML/class_dialog.c:2154
 msgid "Templates"
 msgstr "Plantilles"
 
-#: objects/UML/class_dialog.c:2134
+#: objects/UML/class_dialog.c:2160
 msgid "Template class"
 msgstr "Classe de plantilles"
 
-#: objects/UML/class_dialog.c:2191
+#: objects/UML/class_dialog.c:2217
 msgid "Formal parameter data"
 msgstr "Dades dels paràmetres formals"
 
-#: objects/UML/classicon.c:608
+#: objects/UML/classicon.c:148
+#, fuzzy
+msgid "Is object"
+msgstr "És un objecte"
+
+#: objects/UML/classicon.c:710
 msgid "Control"
 msgstr "Control"
 
-#: objects/UML/classicon.c:614
+#: objects/UML/classicon.c:716
 msgid "Boundary"
 msgstr "Límits"
 
-#: objects/UML/classicon.c:627
+#: objects/UML/classicon.c:729
 msgid "Is an object"
 msgstr "És un objecte"
 
@@ -2334,11 +2340,11 @@ msgstr "Mostra sageta:"
 msgid "Interface:"
 msgstr "Interfície:"
 
-#: objects/UML/lifeline.c:605
+#: objects/UML/lifeline.c:607
 msgid "Show focus of control:"
 msgstr "Mostra el focus de control"
 
-#: objects/UML/lifeline.c:610
+#: objects/UML/lifeline.c:612
 msgid "Show destruction mark:"
 msgstr "Mostra la marca de destrucció:"
 
@@ -2379,31 +2385,46 @@ msgstr "Simple"
 msgid "Recursive"
 msgstr "Recursiu"
 
-#: objects/UML/object.c:755
+#: objects/UML/object.c:167
+#, fuzzy
+msgid "Class name"
+msgstr "Nom de la classe:"
+
+#: objects/UML/object.c:818
 msgid "Explicit state:"
 msgstr "Estat explícit:"
 
-#: objects/UML/object.c:777
+#: objects/UML/object.c:840
 msgid "Attributes:"
 msgstr "Atributs:"
 
-#: objects/UML/object.c:787
+#: objects/UML/object.c:850
 msgid "Show attributes"
 msgstr "Mostra els atributs"
 
-#: objects/UML/object.c:791
+#: objects/UML/object.c:854
 msgid "Active object"
 msgstr "Objecte actiu"
 
-#: objects/UML/object.c:796
+#: objects/UML/object.c:859
 msgid "multiple instance"
 msgstr "Instància múltiple"
 
-#: objects/UML/state.c:508
+#: objects/UML/node.c:115
+#, fuzzy
+msgid "Node name"
+msgstr "Nom del pas"
+
+#: objects/UML/state.c:147
+#, fuzzy
+msgid "State Type"
+msgstr "Mateix tipus"
+
+#: objects/UML/state.c:607
 msgid "Begin"
 msgstr "Comença"
 
-#: objects/UML/state.c:513
+#: objects/UML/state.c:612
 msgid "End"
 msgstr "Acaba"
 
@@ -2411,13 +2432,18 @@ msgstr "Acaba"
 msgid "Unified Modelling Language diagram objects"
 msgstr "Objectes de diagrama Unified Modelling Language"
 
-#: objects/UML/usecase.c:544
-msgid "Text outside:"
+#: objects/UML/usecase.c:133
+#, fuzzy
+msgid "Text outside"
 msgstr "Text exterior:"
 
-#: objects/UML/usecase.c:549
+#: objects/UML/usecase.c:135 objects/UML/usecase.c:650
 msgid "Collaboration"
 msgstr "Col·laboració"
+
+#: objects/UML/usecase.c:645
+msgid "Text outside:"
+msgstr "Text exterior:"
 
 #: objects/chronogram/chronogram.c:36
 msgid "Chronogram diagram objects"
@@ -2507,11 +2533,11 @@ msgstr "Pas secundari de temps:"
 msgid "Minor step line width:"
 msgstr "Amplada de línia de pas menor:"
 
-#: objects/custom/custom.c:117
+#: objects/custom/custom.c:124
 msgid "Custom"
 msgstr "Personalitzat"
 
-#: objects/custom/custom.c:117
+#: objects/custom/custom.c:124
 msgid "Custom XML shapes loader"
 msgstr "Carregador personalitzat de formes XML"
 
@@ -2604,32 +2630,32 @@ msgstr "Control de cusp"
 msgid "Curve distance"
 msgstr "Distància corba"
 
-#: objects/standard/image.c:165
+#: objects/standard/image.c:168
 msgid "Image file"
 msgstr "Fitxer d'imatge"
 
-#: objects/standard/image.c:167
+#: objects/standard/image.c:170
 msgid "Draw border"
 msgstr "Dibuixa el contorn"
 
-#: objects/standard/image.c:169
+#: objects/standard/image.c:172
 msgid "Keep aspect ratio"
 msgstr "Mantenir la ràtio de l'aspecte"
 
-#: objects/standard/image.c:263
+#: objects/standard/image.c:271
 msgid "Image file:"
 msgstr "Fitxer de la imatge:"
 
-#: objects/standard/image.c:274
+#: objects/standard/image.c:282
 msgid "Keep aspect ratio:"
 msgstr "Mantenir la ràtio de l'aspecte:"
 
-#: objects/standard/image.c:282
+#: objects/standard/image.c:290
 msgid "Show border:"
 msgstr "Mostra les vores:"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:848 objects/standard/image.c:859
+#: objects/standard/image.c:856 objects/standard/image.c:867
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -2639,7 +2665,7 @@ msgstr ""
 "S'utilitza alternativament el fitxer '%s'.\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:865 objects/standard/image.c:891
+#: objects/standard/image.c:873 objects/standard/image.c:899
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "El fitxer corresponent a la imatge '%s' no s'ha trobat.\n"
@@ -2680,15 +2706,15 @@ msgstr ""
 "La llargada de la imatge és superior a la llargada màxima de la cel·la.\n"
 "La imatge no es pot exportar a CGM."
 
-#: plug-ins/cgm/cgm.c:1252
+#: plug-ins/cgm/cgm.c:1253
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: plug-ins/cgm/cgm.c:1266
+#: plug-ins/cgm/cgm.c:1267
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtre d'exportació del Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:557 plug-ins/dxf/dxf-import.c:491
+#: plug-ins/dxf/dxf-export.c:558 plug-ins/dxf/dxf-import.c:544
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -2696,7 +2722,7 @@ msgstr "Drawing Interchange File"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Filtres d'importació i exportació de Drawing Interchange File"
 
-#: plug-ins/hpgl/hpgl.c:612
+#: plug-ins/hpgl/hpgl.c:613
 msgid "HP Graphics Language export filter"
 msgstr "Filtre d'exportació de l'HP Graphics Language"
 
@@ -2704,22 +2730,151 @@ msgstr "Filtre d'exportació de l'HP Graphics Language"
 msgid "TeX Pstricks export filter"
 msgstr "Filtre d'exportació del TeX Pstricks"
 
-#: plug-ins/pstricks/render_pstricks.c:749
+#: plug-ins/pstricks/render_pstricks.c:761
 msgid "TeX PSTricks macros"
 msgstr "Macros de TeX PSTricks"
 
-#: plug-ins/wpg/wpg.c:1032
+#: plug-ins/shape/shape-export.c:915
+msgid "Can't export png without libart!"
+msgstr ""
+
+#: plug-ins/shape/shape-export.c:938
+msgid "dia shape file"
+msgstr ""
+
+#: plug-ins/shape/shape.c:36
+#, fuzzy
+msgid "dia shape export filter"
+msgstr "Filtre d'exportació del TeX Pstricks"
+
+#: plug-ins/svg/render_svg.c:826
+msgid "Scalable Vector Graphics"
+msgstr "Gràfics vectorials escalables"
+
+#: plug-ins/svg/svg.c:36
+#, fuzzy
+msgid "Scalable Vector Graphics export filter"
+msgstr "Gràfics vectorials escalables"
+
+#: plug-ins/wpg/wpg.c:1050
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Fitxer: %s tipus/versió no suportada.\n"
 
-#: plug-ins/wpg/wpg.c:1181
+#: plug-ins/wpg/wpg.c:1199
 msgid "WordPerfect Graphics export filter"
 msgstr "Filtre d'exportació de WordPerfect Graphics"
 
-#: plug-ins/svg/render_svg.c:820
-msgid "Scalable Vector Graphics"
-msgstr "Gràfics vectorials escalables"
+#~ msgid "File/New diagram"
+#~ msgstr "Fitxer/Nou diagrama"
+
+#~ msgid "File/Open..."
+#~ msgstr "Fitxer/Obre..."
+
+#~ msgid "File/Save As..."
+#~ msgstr "Fitxer/Anomena i desa..."
+
+#~ msgid "File/Close"
+#~ msgstr "Fitxer/Tanca"
+
+#~ msgid "File/Exit"
+#~ msgstr "Fitxer/Surt"
+
+#~ msgid "View/New View"
+#~ msgstr "Visualitza/Nova Vista"
+
+#~ msgid "/Edit/Copy"
+#~ msgstr "/Edita/Copia"
+
+#~ msgid "/Edit/Cut"
+#~ msgstr "/Edita/Retalla"
+
+#~ msgid "/Edit/Paste"
+#~ msgstr "/Edita/Enganxa"
+
+#~ msgid "/Edit/Delete"
+#~ msgstr "/Edita/Suprimeix"
+
+#~ msgid "/Edit/Paste Text"
+#~ msgstr "/Edita/Enganxa el text"
+
+#~ msgid "/Objects/Send to Back"
+#~ msgstr "/Objectes/Envia al darrere"
+
+#~ msgid "/Objects/Bring to Front"
+#~ msgstr "/Objectes/Porta'l al frontal"
+
+#~ msgid "/Objects/Group"
+#~ msgstr "/Objectes/Agrupa"
+
+#~ msgid "/Objects/Ungroup"
+#~ msgstr "/Objectes/Desagrupa"
+
+#~ msgid "/View/Show Rulers"
+#~ msgstr "/Veure/Mostra les regles"
+
+#~ msgid "/View/Visible Grid"
+#~ msgstr "/Veure/Quadrícula visible"
+
+#~ msgid "/View/Snap To Grid"
+#~ msgstr "/Veure/Desplaça a la quadrícula"
+
+#~ msgid "/View/Show Connection Points"
+#~ msgstr "/Veure/Mostra els punts de connexió"
+
+#~ msgid "/View/AntiAliased"
+#~ msgstr "/Visualitza/AntiAliased"
+
+#~ msgid "/File/sep1"
+#~ msgstr "/Fitxer/sep1"
+
+#~ msgid "/tearoff"
+#~ msgstr "/tearoff"
+
+#~ msgid "/File/tearoff"
+#~ msgstr "/Fitxer/tearoff"
+
+#~ msgid "/File/sep2"
+#~ msgstr "/Fitxer/sep2"
+
+#~ msgid "/Edit/tearoff"
+#~ msgstr "/Edita/tearoff"
+
+#~ msgid "/View/tearoff"
+#~ msgstr "/Visualitza/tearoff"
+
+#~ msgid "/View/Zoom/tearoff"
+#~ msgstr "/Visualitza/Zoom/tearoff"
+
+#~ msgid "/View/sep1"
+#~ msgstr "/Veure/sep1"
+
+#~ msgid "/Select/tearoff"
+#~ msgstr "/Selecciona/tearoff"
+
+#~ msgid "/Select/sep1"
+#~ msgstr "/Selecciona/sep1"
+
+#~ msgid "/Objects/tearoff1"
+#~ msgstr "/Objectes/tearoff1"
+
+#~ msgid "/Objects/sep1"
+#~ msgstr "/Objectes/sep1"
+
+#~ msgid "/Objects/Align Horizontal/tearoff"
+#~ msgstr "/Objectes/Alineació horitzontal/tearoff"
+
+#~ msgid "/Objects/Align Vertical/tearoff"
+#~ msgstr "/Objectes/Alineació vertical/tearoff"
+
+#~ msgid "/Tools/tearoff"
+#~ msgstr "/Eines/tearoff"
+
+#~ msgid "/Dialogs/tearoff"
+#~ msgstr "/Diàlegs/tearoff"
+
+#~ msgid "/Tools/"
+#~ msgstr "/Eines/"
 
 #~ msgid "Grid options"
 #~ msgstr "Opcions de la quadrícula"

@@ -1,3 +1,6 @@
+#
+# Andrea Mara Pimenta Alonso <pimenta@conectiva.com.br>, 2000
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
@@ -6,7 +9,7 @@ msgstr ""
 "Last-Translator: Andrea Mara Pimenta Alonso <pimenta@conectiva.com.br>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso8859-1\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding:\n"
 
 #: app/app_procs.c:134

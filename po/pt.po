@@ -1,3 +1,6 @@
+#
+# Pedro Morais <morais@kde.org>, 2000
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
@@ -6,8 +9,8 @@ msgstr ""
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <pt@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso8859-1\n"
-"Content-Transfer-Encoding:\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: app/app_procs.c:134
 msgid "Export loaded file and exit"
