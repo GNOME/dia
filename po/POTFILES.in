@@ -19,7 +19,6 @@ app/export_png.c
 app/filedlg.c
 app/interface.c
 app/layer_dialog.c
-app/lineprops_area.c
 app/linewidth_area.c
 app/load_save.c
 app/menus.c
