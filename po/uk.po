@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.82\n"
-"POT-Creation-Date: 2000-08-07 17:37+0300\n"
+"POT-Creation-Date: 2000-08-11 11:05+0300\n"
 "PO-Revision-Date: 1999-12-28 09:11+0200\n"
 "Last-Translator: Yuri Syrota <rasta@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -134,10 +134,10 @@ msgid "Contributors:"
 msgstr "Розробники:"
 
 #. setup buttons
-#: app/commands.c:553 app/layer_dialog.c:976 app/lineprops_area.c:540
-#: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
-#: app/paginate_psprint.c:234 app/preferences.c:598 app/properties.c:82
-#: lib/message.c:85
+#: app/commands.c:553 app/dia-props.c:84 app/layer_dialog.c:976
+#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:230
+#: app/pagesetup.c:72 app/paginate_psprint.c:234 app/preferences.c:598
+#: app/properties.c:82 lib/message.c:85
 msgid "OK"
 msgstr "Гаразд"
 
@@ -155,13 +155,14 @@ msgstr ""
 msgid "Object defaults"
 msgstr "Типов╕ властивост╕ об'╓кту"
 
-#: app/defaults.c:73 app/pagesetup.c:77 app/preferences.c:607
-#: app/properties.c:91
+#: app/defaults.c:73 app/dia-props.c:93 app/pagesetup.c:77
+#: app/preferences.c:607 app/properties.c:91
 msgid "Apply"
 msgstr "Застосувати"
 
-#: app/defaults.c:83 app/layer_dialog.c:261 app/pagesetup.c:83
-#: app/plugin-manager.c:146 app/preferences.c:616 app/properties.c:101
+#: app/defaults.c:83 app/dia-props.c:103 app/layer_dialog.c:261
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:616
+#: app/properties.c:101
 msgid "Close"
 msgstr "Закрити"
 
@@ -196,6 +197,38 @@ msgstr "Показ/Нове в╕кно"
 #: app/dia_embedd.c:282
 msgid "Could not initialize Bonobo!"
 msgstr "Не вдалося ╕н╕ц╕ал╕зувати Bonobo!"
+
+#: app/dia-props.c:58 app/dia-props.c:65
+msgid "Diagram Properties"
+msgstr "Властивост╕ д╕аграми"
+
+#: app/dia-props.c:128
+msgid "x"
+msgstr "x"
+
+#: app/dia-props.c:132
+msgid "y"
+msgstr "y"
+
+#: app/dia-props.c:137
+msgid "Spacing"
+msgstr "Пром╕жок"
+
+#: app/dia-props.c:157
+msgid "Visible spacing"
+msgstr "Видимий пром╕жок"
+
+#: app/dia-props.c:177
+msgid "Grid"
+msgstr "С╕тка"
+
+#: app/dia-props.c:187
+msgid "Background Colour"
+msgstr "Кол╕р тла"
+
+#: app/dia-props.c:198 lib/diagramdata.c:53
+msgid "Background"
+msgstr "Тло"
 
 #: app/diagram.c:179
 msgid "/Edit/Copy"
@@ -282,59 +315,59 @@ msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Об'╓кти/Вир╕внювання вертикальне/Сум╕жне"
 
 #. paper size
-#: app/diapagelayout.c:133
+#: app/diapagelayout.c:108
 msgid "Paper Size"
 msgstr "Розм╕р аркушу"
 
 #. orientation
-#: app/diapagelayout.c:163
+#: app/diapagelayout.c:141
 msgid "Orientation"
 msgstr "Ор╕╓нтац╕я"
 
 #. margins
-#: app/diapagelayout.c:201
+#: app/diapagelayout.c:179
 msgid "Margins"
 msgstr "В╕дступи"
 
-#: app/diapagelayout.c:213
+#: app/diapagelayout.c:191
 msgid "Top:"
 msgstr "Вгор╕:"
 
-#: app/diapagelayout.c:226
+#: app/diapagelayout.c:204
 msgid "Bottom:"
 msgstr "Внизу:"
 
-#: app/diapagelayout.c:239
+#: app/diapagelayout.c:217
 msgid "Left:"
 msgstr "Л╕воруч:"
 
-#: app/diapagelayout.c:252
+#: app/diapagelayout.c:230
 msgid "Right:"
 msgstr "Праворуч:"
 
 #. Scaling
-#: app/diapagelayout.c:266
+#: app/diapagelayout.c:244
 msgid "Scaling"
 msgstr "Масштабування"
 
-#: app/diapagelayout.c:277
+#: app/diapagelayout.c:255
 msgid "Scale:"
 msgstr "Масштаб:"
 
-#: app/diapagelayout.c:289
+#: app/diapagelayout.c:267
 msgid "Fit to:"
 msgstr "Заповнити до:"
 
-#: app/diapagelayout.c:301
+#: app/diapagelayout.c:279
 msgid "by"
 msgstr " "
 
-#: app/diapagelayout.c:704
+#: app/diapagelayout.c:674
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gсм x %0.3gсм"
 
-#: app/diapagelayout.c:806 app/pagesetup.c:60 app/pagesetup.c:68
+#: app/diapagelayout.c:776 app/pagesetup.c:60 app/pagesetup.c:68
 msgid "Page Setup"
 msgstr "Наладнання стор╕нки"
 
@@ -1510,10 +1543,6 @@ msgstr "Вбудований Postscript"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr ""
 "Внутр╕шня помилка: встановлення типу кута для к╕нцево╖ точки криво╖ Без'е"
-
-#: lib/diagramdata.c:60
-msgid "Background"
-msgstr "Тло"
 
 #: lib/font.c:386
 #, c-format
@@ -2718,4 +2747,8 @@ msgstr "Ф╕льтр експорту в WordPerfect Graphics"
 
 #: plug-ins/svg/render_svg.c:821
 msgid "Scalable Vector Graphics"
-msgstr "Векторна граф╕ка"
+msgstr "SVG (векторна граф╕ка)"
+
+#: plug-ins/svg/svg.c:36
+msgid "Scalable Vector Graphics export filter"
+msgstr "Ф╕льтр експорту в SVG (векторну граф╕ку)"
