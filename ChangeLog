@@ -1,3 +1,9 @@
+2002-05-06  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/pagesetup.c (pagesetup_ok, pagesetup_apply): Sets diagram
+	modified when applied (and ok only does apply if apply is set
+	sensitive).  Fixes bug #75623.
+
 2002-05-06  Pablo Saratxaga  <pablo@mandrakesoft.com>
 
 	* configure.in: Added Vietnamese (vi) to ALL_LINGUAS

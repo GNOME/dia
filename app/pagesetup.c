@@ -183,21 +183,32 @@ pagesetup_changed(GtkWidget *wid, PageSetup *ps)
 static void
 pagesetup_ok(GtkWidget *wid, PageSetup *ps)
 {
-  pagesetup_apply(wid, ps);
+#ifdef GNOME
+  if (gnome_dialog_get_sensitive(GNOME_DIALOG(ps->window), 1))
+    pagesetup_apply(wid, ps);
+#else
+  if (GTK_WIDGET_SENSITIVE(ps->apply))
+    pagesetup_apply(wid, ps);
+#endif
   pagesetup_close(wid, ps);
 }
 
+/* This affects the actual setup.  It should only be called when
+   something has in fact changed.
+*/
 static void
 pagesetup_apply(GtkWidget *wid, PageSetup *ps)
 {
   g_free(ps->dia->data->paper.name);
   ps->dia->data->paper.name =
     g_strdup(dia_page_layout_get_paper(DIA_PAGE_LAYOUT(ps->paper)));
+
   dia_page_layout_get_margins(DIA_PAGE_LAYOUT(ps->paper),
 			      &ps->dia->data->paper.tmargin,
 			      &ps->dia->data->paper.bmargin,
 			      &ps->dia->data->paper.lmargin,
 			      &ps->dia->data->paper.rmargin);
+  
   ps->dia->data->paper.is_portrait =
     dia_page_layout_get_orientation(DIA_PAGE_LAYOUT(ps->paper)) ==
     DIA_PAGE_ORIENT_PORTRAIT;
@@ -221,6 +232,7 @@ pagesetup_apply(GtkWidget *wid, PageSetup *ps)
   gtk_widget_set_sensitive(ps->apply, FALSE);
 #endif
   /* update diagram -- this is needed to reposition page boundaries */
+  diagram_set_modified(ps->dia, TRUE);
   diagram_add_update_all(ps->dia);
   diagram_flush(ps->dia);
 }
