@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.89\n"
-"POT-Creation-Date: 2002-08-05 23:39+0200\n"
-"PO-Revision-Date: 2002-01-25 18:00+0100\n"
+"POT-Creation-Date: 2002-08-07 10:30+0200\n"
+"PO-Revision-Date: 2002-08-07 10:32+0200\n"
 "Last-Translator: Cyrille Chépélov <cyrille@chepelov.org>\n"
 "Language-Team: Gnome French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -145,11 +145,11 @@ msgstr ""
 msgid "Objects and filters internal to dia"
 msgstr "Objets et filtres internes de Dia"
 
-#: app/autosave.c:92
+#: app/autosave.c:93
 msgid "Recovering autosaved diagrams"
 msgstr "En cours de restauration des diagrammes auto-sauvegardés "
 
-#: app/autosave.c:100
+#: app/autosave.c:101
 msgid ""
 "Autosaved files exist.\n"
 "Please select those you wish to recover."
@@ -219,7 +219,7 @@ msgstr "Dia v %s par Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
 #: app/commands.c:641
-msgid "Maintainers: Lars Clausen and Cyrille ChÃ©pÃ©lov"
+msgid "Maintainers: Lars Clausen and Cyrille Chplov"
 msgstr "Mainteneurs: Lars Clausen et Cyrille Chépélov"
 
 #: app/commands.c:645
@@ -679,7 +679,7 @@ msgstr "Créer du texte"
 #: app/interface.c:59 app/menus.c:210 lib/properties.c:77 lib/properties.h:507
 #: lib/properties.h:510 objects/UML/activity.c:123 objects/UML/actor.c:114
 #: objects/UML/classicon.c:137 objects/UML/component.c:120
-#: objects/UML/node.c:119 objects/UML/note.c:113 objects/UML/object.c:142
+#: objects/UML/node.c:119 objects/UML/note.c:113 objects/UML/object.c:141
 #: objects/UML/small_package.c:120 objects/UML/state.c:141
 #: objects/UML/usecase.c:130
 msgid "Text"
@@ -987,7 +987,6 @@ msgid "Zoom _In"
 msgstr "Zoom _avant"
 
 #: app/menus.c:129
-#, c-format
 msgid "Zoom in 50%"
 msgstr "Zoom avant de 50%"
 
@@ -996,7 +995,6 @@ msgid "Zoom _Out"
 msgstr "Zoom a_rrière"
 
 #: app/menus.c:130
-#, c-format
 msgid "Zoom out 50%"
 msgstr "Zoom arrière de 50%"
 
@@ -1298,52 +1296,42 @@ msgid "/View/_Zoom"
 msgstr "/Vue/_Zoom"
 
 #: app/menus.c:342
-#, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Vue/Zoom/400%"
 
 #: app/menus.c:343
-#, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Vue/Zoom/283%"
 
 #: app/menus.c:344
-#, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Vue/Zoom/200%"
 
 #: app/menus.c:345
-#, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Vue/Zoom/141%"
 
 #: app/menus.c:346
-#, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Vue/Zoom/100%"
 
 #: app/menus.c:348
-#, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Vue/Zoom/85%"
 
 #: app/menus.c:349
-#, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Vue/Zoom/70.7%"
 
 #: app/menus.c:350
-#, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Vue/Zoom/50%"
 
 #: app/menus.c:351
-#, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Vue/Zoom/35.4%"
 
 #: app/menus.c:352
-#, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Vue/Zoom/25%"
 
@@ -1940,7 +1928,7 @@ msgstr "Objet"
 msgid "Description:"
 msgstr "Description :"
 
-#: app/sheets_dialog.c:614 objects/FS/flow-ortho.c:188 objects/FS/flow.c:167
+#: app/sheets_dialog.c:614 objects/FS/flow.c:150 objects/FS/flow-ortho.c:172
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
@@ -2215,9 +2203,7 @@ msgstr "Style de ligne"
 msgid "Fill colour"
 msgstr "Couleur de remplissage"
 
-#: lib/properties.c:74 lib/properties.h:496 objects/custom/custom_object.c:317
-#: objects/flowchart/box.c:273 objects/flowchart/diamond.c:266
-#: objects/flowchart/ellipse.c:266 objects/flowchart/parallelogram.c:276
+#: lib/properties.c:74 lib/properties.h:496
 msgid "Draw background"
 msgstr "Dessiner le fond"
 
@@ -2233,21 +2219,23 @@ msgstr "Flèche de fin"
 msgid "Text alignment"
 msgstr "Alignement"
 
-#: lib/properties.c:79 lib/properties.h:516 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/step.c:162 objects/GRAFCET/transition.c:142
-#: objects/UML/class_dialog.c:327 objects/chronogram/chronoline.c:182
-#: objects/chronogram/chronoref.c:163
+#: lib/properties.c:79 lib/properties.h:516
+#: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
+#: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
+#: objects/GRAFCET/transition.c:142 objects/UML/class_dialog.c:327
 msgid "Font"
 msgstr "Police"
 
-#: lib/properties.c:80 lib/properties.h:519 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/step.c:164 objects/GRAFCET/transition.c:144
+#: lib/properties.c:80 lib/properties.h:519
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
+#: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
+#: objects/GRAFCET/transition.c:144
 msgid "Font size"
 msgstr "Taille de police"
 
-#: lib/properties.c:81 lib/properties.h:522 objects/GRAFCET/step.c:166
+#: lib/properties.c:81 lib/properties.h:522
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
+#: objects/GRAFCET/step.c:166
 msgid "Text colour"
 msgstr "Couleur du texte"
 
@@ -2493,45 +2481,23 @@ msgstr "Personnel"
 msgid "Custom XML shapes loader"
 msgstr "Chargeur de formes XML personnel"
 
-#: objects/custom/custom_object.c:194 objects/custom/custom_object.c:213
+#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:197
 msgid "Flip horizontal"
 msgstr "Retourner horizontalement"
 
-#: objects/custom/custom_object.c:196 objects/custom/custom_object.c:215
+#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:199
 msgid "Flip vertical"
 msgstr "Retourner verticalement"
 
-#: objects/custom/custom_object.c:326 objects/flowchart/box.c:295
-#: objects/flowchart/diamond.c:274 objects/flowchart/ellipse.c:274
-#: objects/flowchart/parallelogram.c:298
-msgid "Text padding:"
-msgstr "Remplissage du texte :"
-
-#: objects/custom/custom_object.c:340
-msgid "Alignment:"
-msgstr "Alignement :"
-
-#: objects/custom/custom_object.c:351 objects/flowchart/box.c:309
-#: objects/flowchart/diamond.c:288 objects/flowchart/ellipse.c:288
-#: objects/flowchart/parallelogram.c:312
-msgid "Font:"
-msgstr "Police :"
-
-#: objects/custom/custom_object.c:362 objects/flowchart/box.c:320
-#: objects/flowchart/diamond.c:299 objects/flowchart/ellipse.c:299
-#: objects/flowchart/parallelogram.c:323
-msgid "Font size:"
-msgstr "Taille de police :"
-
-#: objects/custom/custom_object.c:1534
+#: objects/custom/custom_object.c:1403
 msgid "Flip Horizontal"
 msgstr "Retourner horizontalement"
 
-#: objects/custom/custom_object.c:1535
+#: objects/custom/custom_object.c:1404
 msgid "Flip Vertical"
 msgstr "Retourner verticalement"
 
-#: objects/custom/custom_object.c:1572
+#: objects/custom/custom_object.c:1441
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "N'a pu ouvrir le fichier icone %s pour l'objet de type '%s'."
@@ -2572,19 +2538,19 @@ msgstr "Objets d'un diagramme Entités/Relations"
 msgid "Total:"
 msgstr "Total :"
 
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:821
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:627
 #: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:549
-#: objects/UML/association.c:685 objects/UML/dependency.c:350
-#: objects/UML/generalization.c:346 objects/UML/realizes.c:339
-#: objects/standard/zigzagline.c:428
+#: objects/standard/zigzagline.c:428 objects/UML/association.c:685
+#: objects/UML/dependency.c:350 objects/UML/generalization.c:346
+#: objects/UML/realizes.c:339
 msgid "Add segment"
 msgstr "Ajouter un segment"
 
-#: objects/ER/participation.c:395 objects/FS/flow-ortho.c:822
+#: objects/ER/participation.c:395 objects/FS/flow-ortho.c:628
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:550
-#: objects/UML/association.c:686 objects/UML/dependency.c:351
-#: objects/UML/generalization.c:347 objects/UML/realizes.c:340
-#: objects/standard/zigzagline.c:429
+#: objects/standard/zigzagline.c:429 objects/UML/association.c:686
+#: objects/UML/dependency.c:351 objects/UML/generalization.c:347
+#: objects/UML/realizes.c:340
 msgid "Delete segment"
 msgstr "Supprimer le segment"
 
@@ -2608,72 +2574,43 @@ msgstr "Identifiant :"
 msgid "Relationship"
 msgstr "Relation"
 
-#: objects/flowchart/box.c:169 objects/standard/box.c:131
+#: objects/flowchart/box.c:149 objects/standard/box.c:131
 msgid "Corner radius"
 msgstr "Arrondis ses coins"
 
-#: objects/SADT/box.c:136 objects/flowchart/box.c:171
-#: objects/flowchart/diamond.c:167 objects/flowchart/ellipse.c:167
-#: objects/flowchart/parallelogram.c:173
+#: objects/flowchart/box.c:151 objects/flowchart/diamond.c:147
+#: objects/flowchart/ellipse.c:146 objects/flowchart/parallelogram.c:151
+#: objects/SADT/box.c:136
 msgid "Text padding"
 msgstr "Remplissage du texte"
-
-#: objects/flowchart/box.c:281
-msgid "Corner rounding:"
-msgstr "Arrondir les coins :"
 
 #: objects/flowchart/flowchart.c:37
 msgid "Flowchart objects"
 msgstr "Objets Flowchart"
 
-#: objects/flowchart/parallelogram.c:171
+#: objects/flowchart/parallelogram.c:149
 msgid "Shear angle"
 msgstr "Angle de torsion"
 
-#: objects/flowchart/parallelogram.c:284
-msgid "Shear angle:"
-msgstr "Angle de torsion :"
-
-#.
-#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:752
-#: objects/FS/flow-ortho.c:818 objects/FS/flow-ortho.c:883
-#: objects/FS/flow.c:158 objects/FS/flow.c:658 objects/FS/flow.c:722
-#: objects/FS/function.c:1061
+#. Translators: Menu item Noun/Energy
+#: objects/FS/flow.c:141 objects/FS/flow.c:594 objects/FS/flow-ortho.c:163
+#: objects/FS/flow-ortho.c:624 objects/FS/function.c:1061
 msgid "Energy"
 msgstr "Énergie"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
-#: objects/FS/flow-ortho.c:819 objects/FS/flow-ortho.c:890
-#: objects/FS/flow.c:159 objects/FS/flow.c:659 objects/FS/flow.c:729
-#: objects/FS/function.c:1037
+#: objects/FS/flow.c:142 objects/FS/flow.c:595 objects/FS/flow-ortho.c:164
+#: objects/FS/flow-ortho.c:625 objects/FS/function.c:1037
 msgid "Material"
 msgstr "Matériel"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow-ortho.c:181 objects/FS/flow-ortho.c:765
-#: objects/FS/flow-ortho.c:820 objects/FS/flow-ortho.c:896
-#: objects/FS/flow.c:160 objects/FS/flow.c:660 objects/FS/flow.c:735
-#: objects/FS/function.c:999 objects/FS/function.c:1001
-#: objects/FS/function.c:1137 objects/FS/function.c:1139
+#: objects/FS/flow.c:143 objects/FS/flow.c:596 objects/FS/flow-ortho.c:165
+#: objects/FS/flow-ortho.c:626 objects/FS/function.c:999
+#: objects/FS/function.c:1001 objects/FS/function.c:1137
+#: objects/FS/function.c:1139
 msgid "Signal"
 msgstr "Signal"
-
-#: objects/FS/flow-ortho.c:732 objects/FS/flow.c:701
-msgid "Flow:"
-msgstr "Flux :"
-
-#: objects/FS/flow-ortho.c:747 objects/FS/flow.c:717
-msgid "Flow type:"
-msgstr "Type de flux :"
-
-#: objects/FS/flow-ortho.c:862
-msgid "Orthflow:"
-msgstr "Flux orthogonal :"
-
-#: objects/FS/flow-ortho.c:878
-msgid "Orthflow type:"
-msgstr "Type de flux orthogonal :"
 
 #: objects/FS/fs.c:43
 msgid "Function structure diagram objects"
@@ -3804,11 +3741,11 @@ msgstr "Supprimer un point de connexion"
 msgid "GRAFCET OR/AND vergent"
 msgstr "Vergence ET/OU de GRAFCET"
 
-#: objects/network/bus.c:574
+#: objects/network/bus.c:591
 msgid "Add Handle"
 msgstr "Ajouter une poignée"
 
-#: objects/network/bus.c:575
+#: objects/network/bus.c:592
 msgid "Delete Handle"
 msgstr "Supprimer la poignée"
 
@@ -4005,7 +3942,7 @@ msgstr "Composition"
 
 #: objects/UML/class.c:107 objects/UML/classicon.c:131
 #: objects/UML/component.c:116 objects/UML/large_package.c:118
-#: objects/UML/object.c:144 objects/UML/small_package.c:116
+#: objects/UML/object.c:143 objects/UML/small_package.c:116
 msgid "Stereotype"
 msgstr "Stéréotype"
 
@@ -4115,7 +4052,7 @@ msgid "Background Color"
 msgstr "Couleur de l'arrière-plan"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:800 objects/UML/object.c:148
+#: objects/UML/class_dialog.c:800 objects/UML/object.c:147
 msgid "Attributes"
 msgstr "Attributs"
 
@@ -4252,23 +4189,23 @@ msgstr "Afficher la flèche :"
 msgid "Interface:"
 msgstr "Interface :"
 
-#: objects/UML/lifeline.c:138
+#: objects/UML/lifeline.c:137
 msgid "Draw focus of control:"
 msgstr "Afficher le focus du contrôle :"
 
-#: objects/UML/lifeline.c:140
+#: objects/UML/lifeline.c:139
 msgid "Draw destruction mark:"
 msgstr "Montrer la marque de destruction :"
 
-#: objects/UML/lifeline.c:403
+#: objects/UML/lifeline.c:402
 msgid "Add connection points"
 msgstr "Ajouter des points de connexion"
 
-#: objects/UML/lifeline.c:404
+#: objects/UML/lifeline.c:403
 msgid "Remove connection points"
 msgstr "Supprimer des points de connexion"
 
-#: objects/UML/lifeline.c:408
+#: objects/UML/lifeline.c:407
 msgid "UML Lifeline"
 msgstr "Ligne de vie UML"
 
@@ -4308,19 +4245,19 @@ msgstr "Message :"
 msgid "Message type:"
 msgstr "Type de message :"
 
-#: objects/UML/object.c:146
+#: objects/UML/object.c:145
 msgid "Explicit state"
 msgstr "État explicite"
 
-#: objects/UML/object.c:151
+#: objects/UML/object.c:150
 msgid "Active object"
 msgstr "Activer l'objet"
 
-#: objects/UML/object.c:153
+#: objects/UML/object.c:152
 msgid "Show attributes"
 msgstr "Afficher les attributs"
 
-#: objects/UML/object.c:155
+#: objects/UML/object.c:154
 msgid "Multiple instance"
 msgstr "Instance multiple"
 
@@ -4396,7 +4333,7 @@ msgstr "Filtre d'export « TeX Pstricks »"
 msgid "TeX PSTricks macros"
 msgstr "Macros TeX PSTricks"
 
-#: plug-ins/python/python.c:76
+#: plug-ins/python/python.c:73
 msgid "Python scripting support"
 msgstr "Support pour le scriptage par langage Python"
 
@@ -4416,7 +4353,7 @@ msgstr "fichier de forme dia"
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
-#: plug-ins/svg/svg.c:37
+#: plug-ins/svg/svg.c:39
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Filtres d'import et d'export « Scalable Vector Graphics »"
 
