@@ -149,6 +149,8 @@ objects/sybase/Makefile
 objects/sybase/pixmaps/Makefile
 objects/flowchart/Makefile
 objects/flowchart/pixmaps/Makefile
+objects/custom/Makefile
+objects/custom/pixmaps/Makefile
 app/Makefile
 app/pixmaps/Makefile
 samples/Makefile

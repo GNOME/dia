@@ -1,3 +1,15 @@
+1999-08-21  James Henstridge  <james@daa.com.au>
+
+	* configure.in: added extra makefiles.
+	
+	* objects/custom/shape_info.[ch]:
+	* objects/custom/custom_object.c:
+	* objects/custom/custom.c: the starts of custom shape support in dia.
+	This is not built by default at the moment, since it is not quite
+	complete.  When it is, it will let you create more shapes for dia
+	without writing a line of C.  Its implementation includes buzzwords
+	such as XML and SVG, so it must be good :)
+
 1999-08-19  Karsten Weiss  <karsten@addx.au.s.shuttle.de>
 
 	* app/app_procs.c (app_exit): Use button labels "Quit" and
