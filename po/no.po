@@ -282,7 +282,7 @@ msgstr ""
 
 #: app/display.c:760
 msgid "<Display>/View/Toggle Rulers"
-msgstr "<Skerm>/Vis/Slå av/på linjaler"
+msgstr "<Skerm>/Vis/Slå av och på linjaler"
 
 #: app/display.c:761
 msgid "<Display>/View/Visible Grid"

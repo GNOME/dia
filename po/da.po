@@ -182,7 +182,7 @@ msgstr "<Display>/Redigér/Kopiér"
 
 #: app/diagram.c:127
 msgid "<Display>/Edit/Cut"
-msgstr "<Display>/Redigér/Klip"
+msgstr "<Display>/Redigér/Klip ud"
 
 #: app/diagram.c:128
 msgid "<Display>/Edit/Paste"
@@ -284,7 +284,7 @@ msgstr ""
 
 #: app/display.c:760
 msgid "<Display>/View/Toggle Rulers"
-msgstr "<Display>/Visning/Slå linealer til/fra"
+msgstr "<Display>/Visning/Slå linealer til och fra"
 
 #: app/display.c:761
 msgid "<Display>/View/Visible Grid"
@@ -516,7 +516,7 @@ msgstr "Fa_st til gitter"
 
 #: app/menus.c:94
 msgid "Toggle _Rulers"
-msgstr "Slå lineale_r til/fra"
+msgstr "Slå lineale_r til och fra"
 
 # FIXME: Visning?
 #: app/menus.c:97
@@ -655,19 +655,19 @@ msgstr "/_Redigér"
 #. {"/Edit/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:183
 msgid "/Edit/_Copy"
-msgstr "/Rediger/_Kopiér"
+msgstr "/Redigér/_Kopiér"
 
 #: app/menus.c:184
 msgid "/Edit/C_ut"
-msgstr "/Rediger/Klip _ud"
+msgstr "/Redigér/Klip _ud"
 
 #: app/menus.c:185
 msgid "/Edit/_Paste"
-msgstr "/Rediger/_Indsæt"
+msgstr "/Redigér/_Indsæt"
 
 #: app/menus.c:186
 msgid "/Edit/_Delete"
-msgstr "/Rediger/_Slet"
+msgstr "/Redigér/_Slet"
 
 #: app/menus.c:187
 msgid "/_View"
@@ -750,7 +750,7 @@ msgstr "/Vis/_Fast til gitter"
 
 #: app/menus.c:205
 msgid "/View/Toggle _Rulers"
-msgstr "/Vis/Slå _linealer til/fra"
+msgstr "/Vis/Slå _linealer til och fra"
 
 #: app/menus.c:206
 msgid "/View/sep1"
@@ -823,7 +823,7 @@ msgstr "/Objekter/Justér vertikalt/Midt"
 
 #: app/menus.c:225
 msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Objekter/Justér vertikalt/Nederst"
+msgstr "/Objekter/Justér vertikalt/Bund"
 
 #: app/menus.c:226
 msgid "/Objects/Align Vertical/Equal Distance"

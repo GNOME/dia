@@ -1,6 +1,12 @@
 1999-04-01  Alexander Larsson  <alla@lysator.liu.se>
 
 	* po/da.po:
+	* po/no.po:
+	Some fixes.
+	
+1999-04-01  Alexander Larsson  <alla@lysator.liu.se>
+
+	* po/da.po:
 	(i18n) Updated the danish translation.
 	From Lars R. Clausen.
 
