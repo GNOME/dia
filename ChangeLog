@@ -1,3 +1,12 @@
+1999-07-08  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* objects/FS/Makefile.am
+	Removed fs.h from sources.
+
+	* Makefile.am
+	* dia.1
+	Added man page.
+
 1999-07-07  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/disp_callbacks.c (ddisplay_canvas_events):
