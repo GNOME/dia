@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.82\n"
-"POT-Creation-Date: 2000-05-18 11:20+0800\n"
-"PO-Revision-Date: 2000-05-14 18:36+00:00\n"
+"POT-Creation-Date: 2000-05-18 12:26+0000\n"
+"PO-Revision-Date: 2000-05-18 12:33+00:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -120,7 +120,7 @@ msgstr "Dia версия %s. Автор: Alexander Larsson"
 
 #: app/commands.c:523
 msgid "Maintainer: James Henstridge"
-msgstr ""
+msgstr "Ведущий разработчик: James Henstridge"
 
 #: app/commands.c:527
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
@@ -129,9 +129,8 @@ msgstr ""
 "http://www.lysator.liu.se/~alla/dia"
 
 #: app/commands.c:532
-#, fuzzy
 msgid "Contributors:"
-msgstr "Ограничение:"
+msgstr "Разработчики:"
 
 #. setup buttons
 #: app/commands.c:549 app/layer_dialog.c:970 app/lineprops_area.c:540
@@ -369,7 +368,8 @@ msgid "/View/AntiAliased"
 msgstr "/Вид/Сглаженный"
 
 #: app/export_png.c:78 app/load_save.c:517 app/render_eps.c:162
-#: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128
+#: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
+#: plug-ins/pstricks/render_pstricks.c:185
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не удалось открыть: '%s' для записи.\n"
@@ -395,22 +395,21 @@ msgid "By extension"
 msgstr "По расширению"
 
 #: app/filedlg.c:142
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not determine which import filter\n"
 "to use to open '%s'"
 msgstr ""
-"Невозможно определить какой экспортный\n"
-"фильтр использовать для сохранения '%s'"
+"Невозможно определить какой фильтр\n"
+"использовать для того чтобы открыть '%s'"
 
 #: app/filedlg.c:166
 msgid "Open Diagram"
 msgstr "Открыть диаграмму"
 
 #: app/filedlg.c:192
-#, fuzzy
 msgid "Open Options"
-msgstr "Операции"
+msgstr "Параметры открытия"
 
 #: app/filedlg.c:200 app/filedlg.c:540
 msgid "Determine file type:"
@@ -1503,6 +1502,10 @@ msgstr "'%s' не является каталогом"
 msgid "Could not open `%s'"
 msgstr "Не удалось открыть '%s'"
 
+#: lib/properties.c:357 lib/properties.c:389
+msgid "No edit widget"
+msgstr ""
+
 #: lib/widgets.c:296
 msgid "Solid"
 msgstr "Сплошная"
@@ -1579,10 +1582,6 @@ msgstr "Выбрать файл изображения"
 #: lib/widgets.c:884
 msgid "Browse"
 msgstr "Просмотр"
-
-#: lib/properties.c:357 lib/properties.c:389
-msgid "No edit widget"
-msgstr ""
 
 #: objects/ER/attribute.c:214
 msgid "Key"
@@ -2618,3 +2617,19 @@ msgstr "Computer Graphics Metafile"
 #: plug-ins/cgm/cgm.c:1266
 msgid "Computer Graphics Metafile export filter"
 msgstr "Фильтр экспорта файлов Computer Graphics Metafile"
+
+#: plug-ins/dxf/dxf-export.c:561
+msgid "Drawing Interchange File"
+msgstr "DIF (формат файла обмена изображениями)"
+
+#: plug-ins/dxf/dxf.c:15
+msgid "Drawing Interchange File export filter"
+msgstr "Экспортный фильтр DIF"
+
+#: plug-ins/pstricks/pstricks.c:14
+msgid "TeX Pstricks export filter"
+msgstr "Фильтр экспорта файлов TeX Pstricks"
+
+#: plug-ins/pstricks/render_pstricks.c:749
+msgid "TeX PSTricks macros"
+msgstr "Макрос TeX Pstricks"
