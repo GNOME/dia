@@ -464,6 +464,10 @@ objet_copy(Objet *pkg)
       strdup(pkg->exstate): NULL;
 
   newpkg->attributes = text_copy(pkg->attributes);
+
+  newpkg->is_active = pkg->is_active;
+  newpkg->show_attributes = pkg->show_attributes;
+  newpkg->is_multiple = pkg->is_multiple;
   
   objet_update_data(newpkg);
   

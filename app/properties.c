@@ -31,6 +31,7 @@ static Diagram *current_dia = NULL;
 
 static GtkWidget *no_properties_dialog = NULL;
 
+static gint properties_okay(GtkWidget *canvas, gpointer data);
 static gint properties_apply(GtkWidget *canvas, gpointer data);
 
 static void create_dialog()
@@ -48,12 +49,12 @@ static void create_dialog()
 
   dialog_vbox = GTK_DIALOG(dialog)->vbox;
 
-  button = gtk_button_new_with_label( _("Close") );
+  button = gtk_button_new_with_label( _("OK") );
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), 
 		     button, TRUE, TRUE, 0);
   gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
-			    GTK_SIGNAL_FUNC(gtk_widget_hide),
+			    GTK_SIGNAL_FUNC(properties_okay),
 			    GTK_OBJECT(dialog));
   gtk_widget_show (button);
 
@@ -66,6 +67,15 @@ static void create_dialog()
 		     NULL);
   gtk_widget_grab_default(button);
   gtk_widget_show(button);
+
+  button = gtk_button_new_with_label( _("Close") );
+  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), 
+		     button, TRUE, TRUE, 0);
+  gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
+			    GTK_SIGNAL_FUNC(gtk_widget_hide),
+			    GTK_OBJECT(dialog));
+  gtk_widget_show (button);
 
   gtk_signal_connect(GTK_OBJECT (dialog), "delete_event",
 		     GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
@@ -83,6 +93,14 @@ properties_dialog_destroyed(GtkWidget *dialog, gpointer data)
     current_dia = NULL;
   }
   return 0;
+}
+
+static gint
+properties_okay(GtkWidget *canvas, gpointer data)
+{
+  gint ret = properties_apply(canvas,data);
+  gtk_widget_hide(canvas);
+  return ret;
 }
 
 static gint

@@ -340,13 +340,18 @@ prefs_load(void)
 }
 
 static gint
+prefs_okay(GtkWidget *widget, gpointer data)
+{
+  gint ret = prefs_apply(widget,data);
+  gtk_widget_hide(widget);
+  return ret;
+}
+
+static gint
 prefs_apply(GtkWidget *widget, gpointer data)
 {
   prefs_update_prefs_from_dialog();
   prefs_save();
-
-  gtk_widget_hide(prefs_dialog);
-  
   return 1;
 }
 
@@ -482,6 +487,26 @@ prefs_create_dialog(void)
 
   dialog_vbox = GTK_DIALOG (prefs_dialog)->vbox;
 
+  button = gtk_button_new_with_label( _("OK") );
+  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_dialog)->action_area), 
+		      button, TRUE, TRUE, 0);
+  gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
+			     GTK_SIGNAL_FUNC(prefs_okay),
+			     GTK_OBJECT(prefs_dialog));
+  gtk_widget_grab_default (button);
+  gtk_widget_show (button);
+
+  button = gtk_button_new_with_label( _("Apply") );
+  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_dialog)->action_area), 
+		      button, TRUE, TRUE, 0);
+  gtk_signal_connect (GTK_OBJECT (button), "clicked",
+		      GTK_SIGNAL_FUNC(prefs_apply),
+		      NULL);
+  gtk_widget_grab_default (button);
+  gtk_widget_show (button);
+
   button = gtk_button_new_with_label( _("Close") );
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_dialog)->action_area), 
@@ -491,17 +516,9 @@ prefs_create_dialog(void)
 			     GTK_OBJECT(prefs_dialog));
   gtk_widget_grab_default (button);
   gtk_widget_show (button);
-  button = gtk_button_new_with_label( _("Apply") );
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (prefs_dialog)->action_area), 
-		      button, TRUE, TRUE, 0);
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(prefs_apply),
-		      NULL);
+
   gtk_signal_connect (GTK_OBJECT (prefs_dialog), "delete_event",
 		      GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-  gtk_widget_grab_default (button);
-  gtk_widget_show (button);
 
   notebook = gtk_notebook_new ();
   gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);

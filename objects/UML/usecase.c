@@ -371,6 +371,8 @@ usecase_copy(Usecase *usecase)
     newusecase->connections[i].last_pos = usecase->connections[i].last_pos;
   }
 
+  newusecase->text_outside = usecase->text_outside;
+
   usecase_update_data(newusecase);
   
   return (Object *)newusecase;

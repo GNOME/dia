@@ -360,6 +360,8 @@ state_copy(State *state)
     newstate->connections[i].last_pos = state->connections[i].last_pos;
   }
 
+  newstate->state_type = state->state_type;
+
   state_update_data(newstate);
   
   return (Object *)newstate;

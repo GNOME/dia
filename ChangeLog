@@ -1,3 +1,19 @@
+1999-04-11  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/preferences.c:
+	Added 'ok' button.
+	Apply don't hide window.
+
+	* app/properties.c:
+	Add 'ok' button.
+
+	* objects/UML/object.c:
+	* objdcts/UML/state.c:
+	Some data was not copied on copy.
+
+	This patch is from
+	Ben Hochstedler <benh@eeyore.moneng.mei.com>
+
 1999-04-09  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/Makefile.am:

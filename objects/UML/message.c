@@ -519,6 +519,8 @@ fill_in_dialog(Message *message)
       str = strdup(message->text);
       gtk_entry_set_text(prop_dialog->text, str);
       g_free(str);
+  } else {
+      gtk_entry_set_text(prop_dialog->text, "");
   }
 
   switch (message->type) {
