@@ -1,3 +1,10 @@
+2002-02-28  Akira TAGOH  <tagoh@redhat.com>
+
+	* configure.in: changed gtk_advancement value to dia_talks_utf8.
+	right now Dia is working with UTF-8 internally. it means Dia probably
+	support most languages also including the languages which heretofore
+	didn't work correctly.
+
 2002-02-26  Akira TAGOH  <tagoh@redhat.com>
 
 	* objects/FS/function.c: add related text properties.

@@ -345,7 +345,7 @@ dnl Checks for library functions.
 AC_CHECK_FUNCS(select strcspn strdup strtol snprintf)
 
 dnl Set some variables we'll need for the UTF-8 transition.
-gtk_advancement=initial
+gtk_advancement=dia_talks_utf8
 
 if test "$gtk_advancement" = "initial"; then
    AC_DEFINE(GTK_DOESNT_SPEAK_UTF8_NEITHER_DO_WE,,
