@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 1.0\n"
-"POT-Creation-Date: 2003-04-03 23:26+0100\n"
-"PO-Revision-Date: 2003-04-03 23:30+0000\n"
+"POT-Creation-Date: 2003-04-05 20:50+0100\n"
+"PO-Revision-Date: 2003-04-05 20:50+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -783,8 +783,9 @@ msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
-"Largura das linhas. Clique numa linha para definir a largura de linha por omissão "
-"para novos objectos. Duplo-clique define a largura de linha com maior precisão."
+"Largura das linhas. Clique numa linha para definir a largura de linha por "
+"omissão para novos objectos. Duplo-clique define a largura de linha com "
+"maior precisão."
 
 #: app/interface.c:1046
 msgid ""
@@ -2247,6 +2248,10 @@ msgstr "Côncavo Preenchido"
 #: lib/arrows.c:61
 msgid "Blanked Concave"
 msgstr "Côncavo Vazio"
+
+#: lib/arrows.c:62
+msgid "Round"
+msgstr "Arredondada"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
