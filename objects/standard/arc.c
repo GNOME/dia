@@ -25,6 +25,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "files.h"
+#include "widgets.h"
 
 #include "pixmaps/arc.xpm"
 
@@ -32,22 +33,34 @@
 
 #define HANDLE_MIDDLE HANDLE_CUSTOM1
 
+typedef struct _ArcPropertiesDialog ArcPropertiesDialog;
+
 typedef struct _Arc {
   Connection connection;
 
   Handle middle_handle;
 
   Color arc_color;
-  
   real curve_distance;
   real line_width;
+  LineStyle line_style;
 
   /* Calculated parameters: */
   real radius;
   Point center;
   real angle1, angle2;
-     
+
+  ArcPropertiesDialog *properties_dialog;
+
 } Arc;
+
+struct _ArcPropertiesDialog {
+  GtkWidget *vbox;
+
+  GtkSpinButton *line_width;
+  DiaColorSelector *color;
+  DiaLineStyleSelector *line_style;
+};
 
 static void arc_move_handle(Arc *arc, Handle *handle,
 			    Point *to, HandleMoveReason reason);
@@ -64,6 +77,8 @@ static void arc_update_data(Arc *arc);
 static void arc_update_handles(Arc *arc);
 static void arc_destroy(Arc *arc);
 static Object *arc_copy(Arc *arc);
+static GtkWidget *arc_get_properties(Arc *arc);
+static void arc_apply_properties(Arc *arc);
 
 static void arc_save(Arc *arc, int fd);
 static Object *arc_load(int fd, int version);
@@ -94,10 +109,93 @@ static ObjectOps arc_ops = {
   (CopyFunc)            arc_copy,
   (MoveFunc)            arc_move,
   (MoveHandleFunc)      arc_move_handle,
-  (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
+  (GetPropertiesFunc)   arc_get_properties,
+  (ApplyPropertiesFunc) arc_apply_properties,
   (IsEmptyFunc)         object_return_false
 };
+
+static void
+arc_apply_properties(Arc *arc)
+{
+  ArcPropertiesDialog *prop_dialog;
+
+  prop_dialog = arc->properties_dialog;
+
+  arc->line_width = gtk_spin_button_get_value_as_float(prop_dialog->line_width);
+  dia_color_selector_get_color(prop_dialog->color, &arc->arc_color);
+  arc->line_style = dia_line_style_selector_get_linestyle(prop_dialog->line_style);
+  
+  arc_update_data(arc);
+}
+
+static GtkWidget *
+arc_get_properties(Arc *arc)
+{
+  ArcPropertiesDialog *prop_dialog;
+  GtkWidget *vbox;
+  GtkWidget *hbox;
+  GtkWidget *label;
+  GtkWidget *color;
+  GtkWidget *linestyle;
+  GtkWidget *line_width;
+  GtkAdjustment *adj;
+
+  if (arc->properties_dialog == NULL) {
+  
+    prop_dialog = g_new(ArcPropertiesDialog, 1);
+    arc->properties_dialog = prop_dialog;
+
+    vbox = gtk_vbox_new(FALSE, 5);
+    prop_dialog->vbox = vbox;
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Line width:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
+    line_width = gtk_spin_button_new(adj, 1.0, 2);
+    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(line_width), TRUE);
+    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(line_width), TRUE);
+    prop_dialog->line_width = GTK_SPIN_BUTTON(line_width);
+    gtk_box_pack_start(GTK_BOX (hbox), line_width, TRUE, TRUE, 0);
+    gtk_widget_show (line_width);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Color:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    color = dia_color_selector_new();
+    prop_dialog->color = DIACOLORSELECTOR(color);
+    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
+    gtk_widget_show (color);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Line style:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    linestyle = dia_line_style_selector_new();
+    prop_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
+    gtk_widget_show (linestyle);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    gtk_widget_show (vbox);
+  }
+
+  prop_dialog = arc->properties_dialog;
+    
+  gtk_spin_button_set_value(prop_dialog->line_width, arc->line_width);
+  dia_color_selector_set_color(prop_dialog->color, &arc->arc_color);
+  dia_line_style_selector_set_linestyle(prop_dialog->line_style,
+					arc->line_style);
+  
+  return prop_dialog->vbox;
+}
 
 
 static int
@@ -233,7 +331,7 @@ arc_draw(Arc *arc, Renderer *renderer)
   endpoints = &arc->connection.endpoints[0];
 
   renderer->ops->set_linewidth(renderer, arc->line_width);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer->ops->set_linestyle(renderer, arc->line_style);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
   
   /* Special case when almost line: */
@@ -270,7 +368,10 @@ arc_create(Point *startpoint,
   arc->line_width =  attributes_get_default_linewidth();
   arc->curve_distance = 1.0;
   arc->arc_color = attributes_get_foreground(); 
+  arc->line_style = LINESTYLE_SOLID;
   
+  arc->properties_dialog = NULL;
+
   conn = &arc->connection;
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
@@ -299,6 +400,10 @@ arc_create(Point *startpoint,
 static void
 arc_destroy(Arc *arc)
 {
+  if (arc->properties_dialog != NULL) {
+    gtk_widget_destroy(arc->properties_dialog->vbox);
+    g_free(arc->properties_dialog);
+  }
   connection_destroy(&arc->connection);
 }
 
@@ -320,6 +425,7 @@ arc_copy(Arc *arc)
   newarc->arc_color = arc->arc_color;
   newarc->curve_distance = arc->curve_distance;
   newarc->line_width = arc->line_width;
+  newarc->line_style = arc->line_style;
   newarc->radius = arc->radius;
   newarc->center = arc->center;
   newarc->angle1 = arc->angle1;
@@ -329,6 +435,8 @@ arc_copy(Arc *arc)
   
   newarc->middle_handle = arc->middle_handle;
 
+  newarc->properties_dialog = NULL;
+  
   return (Object *)newarc;
 }
 
@@ -409,6 +517,7 @@ arc_save(Arc *arc, int fd)
   write_color(fd, &arc->arc_color);
   write_real(fd, arc->curve_distance);
   write_real(fd, arc->line_width);
+  write_int32(fd, arc->line_style);
 }
 
 static Object *
@@ -431,6 +540,9 @@ arc_load(int fd, int version)
   read_color(fd, &arc->arc_color);
   arc->curve_distance = read_real(fd);
   arc->line_width = read_real(fd);
+  arc->line_style = read_int32(fd);
+
+  arc->properties_dialog = NULL;
 
   connection_init(conn, 3, 0);
 

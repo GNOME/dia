@@ -20,11 +20,12 @@
 #include <math.h>
 
 #include "object.h"
-#include "connection.h"
+#include "orth_conn.h"
 #include "connectionpoint.h"
 #include "render.h"
 #include "attributes.h"
 #include "files.h"
+#include "widgets.h"
 
 #include "pixmaps/zigzag.xpm"
 
@@ -32,19 +33,26 @@
 
 #define HANDLE_MIDDLE HANDLE_CUSTOM1
 
-typedef struct _Zigzagline {
-  Connection connection;
+typedef struct _ZigzaglinePropertiesDialog ZigzaglinePropertiesDialog;
 
-  Handle middle_handle;
+typedef struct _Zigzagline {
+  OrthConn orth;
 
   Color line_color;
-
-  int horizontal;
-  real middle_pos;
-
+  LineStyle line_style;
   real line_width;
 
+  ZigzaglinePropertiesDialog *properties_dialog;
+
 } Zigzagline;
+
+struct _ZigzaglinePropertiesDialog {
+  GtkWidget *vbox;
+
+  GtkSpinButton *line_width;
+  DiaColorSelector *color;
+  DiaLineStyleSelector *line_style;
+};
 
 static void zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
 				   Point *to, HandleMoveReason reason);
@@ -58,9 +66,10 @@ static Object *zigzagline_create(Point *startpoint,
 				 Handle **handle2);
 static real zigzagline_distance_from(Zigzagline *zigzagline, Point *point);
 static void zigzagline_update_data(Zigzagline *zigzagline);
-static void zigzagline_update_handles(Zigzagline *zigzagline);
 static void zigzagline_destroy(Zigzagline *zigzagline);
 static Object *zigzagline_copy(Zigzagline *zigzagline);
+static GtkWidget *zigzagline_get_properties(Zigzagline *zigzagline);
+static void zigzagline_apply_properties(Zigzagline *zigzagline);
 
 static void zigzagline_save(Zigzagline *zigzagline, int fd);
 static Object *zigzagline_load(int fd, int version);
@@ -92,67 +101,108 @@ static ObjectOps zigzagline_ops = {
   (CopyFunc)            zigzagline_copy,
   (MoveFunc)            zigzagline_move,
   (MoveHandleFunc)      zigzagline_move_handle,
-  (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
+  (GetPropertiesFunc)   zigzagline_get_properties,
+  (ApplyPropertiesFunc) zigzagline_apply_properties,
   (IsEmptyFunc)         object_return_false
 };
+
+static void
+zigzagline_apply_properties(Zigzagline *zigzagline)
+{
+  ZigzaglinePropertiesDialog *prop_dialog;
+
+  prop_dialog = zigzagline->properties_dialog;
+
+  zigzagline->line_width = gtk_spin_button_get_value_as_float(prop_dialog->line_width);
+  dia_color_selector_get_color(prop_dialog->color, &zigzagline->line_color);
+  zigzagline->line_style = dia_line_style_selector_get_linestyle(prop_dialog->line_style);
+  
+  zigzagline_update_data(zigzagline);
+}
+
+static GtkWidget *
+zigzagline_get_properties(Zigzagline *zigzagline)
+{
+  ZigzaglinePropertiesDialog *prop_dialog;
+  GtkWidget *vbox;
+  GtkWidget *hbox;
+  GtkWidget *label;
+  GtkWidget *color;
+  GtkWidget *linestyle;
+  GtkWidget *line_width;
+  GtkAdjustment *adj;
+
+  if (zigzagline->properties_dialog == NULL) {
+  
+    prop_dialog = g_new(ZigzaglinePropertiesDialog, 1);
+    zigzagline->properties_dialog = prop_dialog;
+
+    vbox = gtk_vbox_new(FALSE, 5);
+    prop_dialog->vbox = vbox;
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Line width:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
+    line_width = gtk_spin_button_new(adj, 1.0, 2);
+    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(line_width), TRUE);
+    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(line_width), TRUE);
+    prop_dialog->line_width = GTK_SPIN_BUTTON(line_width);
+    gtk_box_pack_start(GTK_BOX (hbox), line_width, TRUE, TRUE, 0);
+    gtk_widget_show (line_width);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Color:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    color = dia_color_selector_new();
+    prop_dialog->color = DIACOLORSELECTOR(color);
+    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
+    gtk_widget_show (color);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Line style:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    linestyle = dia_line_style_selector_new();
+    prop_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
+    gtk_widget_show (linestyle);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    gtk_widget_show (vbox);
+  }
+
+  prop_dialog = zigzagline->properties_dialog;
+    
+  gtk_spin_button_set_value(prop_dialog->line_width, zigzagline->line_width);
+  dia_color_selector_set_color(prop_dialog->color, &zigzagline->line_color);
+  dia_line_style_selector_set_linestyle(prop_dialog->line_style,
+					zigzagline->line_style);
+  
+  return prop_dialog->vbox;
+}
 
 
 static real
 zigzagline_distance_from(Zigzagline *zigzagline, Point *point)
 {
-  Point *endpoints;
-  Point a,b;
-  real dist;
-  endpoints = &zigzagline->connection.endpoints[0]; 
-
-  if (zigzagline->horizontal) {
-    a.x = endpoints[0].x;
-    a.y = zigzagline->middle_pos;
-    b.x = endpoints[1].x;
-    b.y = zigzagline->middle_pos;
-  } else {
-    a.x = zigzagline->middle_pos;
-    a.y = endpoints[0].y;
-    b.x = zigzagline->middle_pos;
-    b.y = endpoints[1].y;
-  }
-
-  dist = distance_line_point( &endpoints[0], &a,
-			      zigzagline->line_width, point);
-  dist = MIN(dist, distance_line_point( &a, &b,
-					zigzagline->line_width, point));
-  dist = MIN(dist, distance_line_point( &b, &endpoints[1],
-					zigzagline->line_width, point));
-  
-  return dist;
+  OrthConn *orth = &zigzagline->orth;
+  return orthconn_distance_from(orth, point, zigzagline->line_width);
 }
 
 static void
 zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
 		  Renderer *interactive_renderer)
 {
-  zigzagline_update_handles(zigzagline);
+  orthconn_update_data(&zigzagline->orth);
 }
-
-static void
-zigzagline_update_handles(Zigzagline *zigzagline)
-{
-  Connection *conn = &zigzagline->connection;
-
-  connection_update_handles(&zigzagline->connection);
-
-  if (zigzagline->horizontal) {
-    zigzagline->middle_handle.pos.x =
-      conn->endpoints[0].x*0.5 + conn->endpoints[1].x*0.5;
-    zigzagline->middle_handle.pos.y = zigzagline->middle_pos;
-  } else {
-    zigzagline->middle_handle.pos.x = zigzagline->middle_pos;
-    zigzagline->middle_handle.pos.y =
-      conn->endpoints[0].y*0.5 + conn->endpoints[1].y*0.5;
-  }
-}
-
 
 static void
 zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
@@ -162,16 +212,7 @@ zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  if (handle->id == HANDLE_MIDDLE) {
-    if (zigzagline->horizontal) {
-      zigzagline->middle_pos = to->y;
-    } else {
-      zigzagline->middle_pos = to->x;
-    }
-  } else {
-    connection_move_handle(&zigzagline->connection, handle->id, to, reason);
-  }
-
+  orthconn_move_handle(&zigzagline->orth, handle, to, reason);
   zigzagline_update_data(zigzagline);
 }
 
@@ -179,65 +220,27 @@ zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
 static void
 zigzagline_move(Zigzagline *zigzagline, Point *to)
 {
-  Point start_to_end;
-  Point *endpoints = &zigzagline->connection.endpoints[0]; 
-  real middle_delta;
-  
-  if (zigzagline->horizontal) {
-    middle_delta = zigzagline->middle_pos - endpoints[0].y;
-  } else {
-    middle_delta = zigzagline->middle_pos - endpoints[0].x;
-  }
-  
-  start_to_end = endpoints[1];
-  point_sub(&start_to_end, &endpoints[0]);
-
-  endpoints[1] = endpoints[0] = *to;
-  point_add(&endpoints[1], &start_to_end);
-
-  if (zigzagline->horizontal) {
-    zigzagline->middle_pos =  endpoints[0].y + middle_delta;
-  } else {
-    zigzagline->middle_pos =  endpoints[0].x + middle_delta;
-  }
-  
+  orthconn_move(&zigzagline->orth, to);
   zigzagline_update_data(zigzagline);
 }
 
 static void
 zigzagline_draw(Zigzagline *zigzagline, Renderer *renderer)
 {
-  Point *endpoints;
-  Point points[4];
+  OrthConn *orth = &zigzagline->orth;
+  Point *points;
+  int n;
+  Point pos;
   
-  assert(zigzagline != NULL);
-  assert(renderer != NULL);
-
-  endpoints = &zigzagline->connection.endpoints[0];
-
-  points[0] = endpoints[0];
-  points[3] = endpoints[1];
+  points = &orth->points[0];
+  n = orth->numpoints;
   
-  if (zigzagline->horizontal) {
-    points[1].x = endpoints[0].x;
-    points[1].y = zigzagline->middle_pos;
-    points[2].x = endpoints[1].x;
-    points[2].y = zigzagline->middle_pos;
-  } else {
-    points[1].x = zigzagline->middle_pos;
-    points[1].y = endpoints[0].y;
-    points[2].x = zigzagline->middle_pos;
-    points[2].y = endpoints[1].y;
-  }
-
   renderer->ops->set_linewidth(renderer, zigzagline->line_width);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+  renderer->ops->set_linestyle(renderer, zigzagline->line_style);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
-  
-  renderer->ops->draw_polyline(renderer,
-			       points, 4, 
-			       &zigzagline->line_color);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  renderer->ops->draw_polyline(renderer, points, n, &zigzagline->line_color);
 }
 
 static Object *
@@ -247,79 +250,62 @@ zigzagline_create(Point *startpoint,
 		  Handle **handle2)
 {
   Zigzagline *zigzagline;
-  Connection *conn;
+  OrthConn *orth;
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
 
   zigzagline = g_malloc(sizeof(Zigzagline));
-
-  zigzagline->line_width =  attributes_get_default_linewidth();
-  zigzagline->line_color = attributes_get_foreground();
-  
-  conn = &zigzagline->connection;
-  conn->endpoints[0] = *startpoint;
-  conn->endpoints[1] = *startpoint;
-  point_add(&conn->endpoints[1], &defaultlen);
-
-  zigzagline->horizontal = TRUE;
-
-  if (zigzagline->horizontal) {
-    zigzagline->middle_pos =
-      conn->endpoints[0].y*0.5 + conn->endpoints[1].y*0.5;
-  } else {
-    zigzagline->middle_pos =
-      conn->endpoints[0].x*0.5 + conn->endpoints[1].x*0.5;
-  }
-  
+  orth = &zigzagline->orth;
   obj = (Object *) zigzagline;
   
   obj->type = &zigzagline_type;
   obj->ops = &zigzagline_ops;
   
-  connection_init(conn, 3, 0);
+  orthconn_init(orth, startpoint);
 
-  obj->handles[2] = &zigzagline->middle_handle;
-  zigzagline->middle_handle.id = HANDLE_MIDDLE;
-  zigzagline->middle_handle.type = HANDLE_MINOR_CONTROL;
-  zigzagline->middle_handle.connect_type = HANDLE_NONCONNECTABLE;
-  zigzagline->middle_handle.connected_to = NULL;
-  
   zigzagline_update_data(zigzagline);
 
-  *handle1 = obj->handles[0];
-  *handle2 = obj->handles[1];
+  zigzagline->line_width =  attributes_get_default_linewidth();
+  zigzagline->line_color = attributes_get_foreground();
+  zigzagline->line_style = LINESTYLE_SOLID;
+  
+  zigzagline->properties_dialog = NULL;
+  
+  *handle1 = &orth->endpoint_handles[0];
+  *handle2 = &orth->endpoint_handles[1];
   return (Object *)zigzagline;
 }
 
 static void
 zigzagline_destroy(Zigzagline *zigzagline)
 {
-  connection_destroy(&zigzagline->connection);
+  if (zigzagline->properties_dialog != NULL) {
+    gtk_widget_destroy(zigzagline->properties_dialog->vbox);
+    g_free(zigzagline->properties_dialog);
+  }
+  orthconn_destroy(&zigzagline->orth);
 }
 
 static Object *
 zigzagline_copy(Zigzagline *zigzagline)
 {
   Zigzagline *newzigzagline;
-  Connection *conn, *newconn;
+  OrthConn *orth, *neworth;
   Object *newobj;
   
-  conn = &zigzagline->connection;
+  orth = &zigzagline->orth;
  
   newzigzagline = g_malloc(sizeof(Zigzagline));
-  newconn = &newzigzagline->connection;
+  neworth = &newzigzagline->orth;
   newobj = (Object *) newzigzagline;
 
-  connection_copy(conn, newconn);
+  orthconn_copy(orth, neworth);
 
   newzigzagline->line_color = zigzagline->line_color;
-  newzigzagline->horizontal = zigzagline->horizontal;
-  newzigzagline->middle_pos = zigzagline->middle_pos;
   newzigzagline->line_width = zigzagline->line_width;
+  newzigzagline->line_style = zigzagline->line_style;
 
-  newobj->handles[2] = &newzigzagline->middle_handle;
-  
-  newzigzagline->middle_handle = zigzagline->middle_handle;
+  newzigzagline->properties_dialog = NULL;
 
   return (Object *)newzigzagline;
 }
@@ -327,63 +313,54 @@ zigzagline_copy(Zigzagline *zigzagline)
 static void
 zigzagline_update_data(Zigzagline *zigzagline)
 {
-  Connection *conn = &zigzagline->connection;
+  OrthConn *orth = &zigzagline->orth;
   Object *obj = (Object *) zigzagline;
 
-  
-  connection_update_boundingbox(conn);
+  orthconn_update_data(&zigzagline->orth);
+    
+  orthconn_update_boundingbox(orth);
   /* fix boundingbox for line_width: */
   obj->bounding_box.top -= zigzagline->line_width/2;
   obj->bounding_box.left -= zigzagline->line_width/2;
   obj->bounding_box.bottom += zigzagline->line_width/2;
   obj->bounding_box.right += zigzagline->line_width/2;
 
-  obj->position = conn->endpoints[0];
-  
-  zigzagline_update_handles(zigzagline);
+  obj->position = orth->points[0];
 }
 
 static void
 zigzagline_save(Zigzagline *zigzagline, int fd)
 {
-  connection_save(&zigzagline->connection, fd);
+  orthconn_save(&zigzagline->orth, fd);
 
   write_color(fd, &zigzagline->line_color);
-  write_int32(fd, zigzagline->horizontal);
-  write_real(fd, zigzagline->middle_pos);
   write_real(fd, zigzagline->line_width);
+  write_int32(fd, zigzagline->line_style);
 }
 
 static Object *
 zigzagline_load(int fd, int version)
 {
   Zigzagline *zigzagline;
-  Connection *conn;
+  OrthConn *orth;
   Object *obj;
 
   zigzagline = g_malloc(sizeof(Zigzagline));
 
-  conn = &zigzagline->connection;
+  orth = &zigzagline->orth;
   obj = (Object *) zigzagline;
   
   obj->type = &zigzagline_type;
   obj->ops = &zigzagline_ops;
 
-  connection_load(conn, fd);
+  zigzagline->properties_dialog = NULL;
+
+  orthconn_load(orth, fd);
 
   read_color(fd, &zigzagline->line_color);
-  zigzagline->horizontal = read_int32(fd);
-  zigzagline->middle_pos = read_real(fd);
   zigzagline->line_width = read_real(fd);
+  zigzagline->line_style = read_int32(fd);
 
-  connection_init(conn, 3, 0);
-
-  obj->handles[2] = &zigzagline->middle_handle;
-  zigzagline->middle_handle.id = HANDLE_MIDDLE;
-  zigzagline->middle_handle.type = HANDLE_MINOR_CONTROL;
-  zigzagline->middle_handle.connect_type = HANDLE_NONCONNECTABLE;
-  zigzagline->middle_handle.connected_to = NULL;
-  
   zigzagline_update_data(zigzagline);
 
   return (Object *)zigzagline;

@@ -302,6 +302,7 @@ init_x11_font(FontPrivate *font)
   int bufsize;
   char *buffer;
   char *x11_font;
+  real height;
   
   for (i=0;i<NUM_X11_FONTS;i++) {
     x11_font = font->fontname_x11_vec[i];
@@ -326,9 +327,11 @@ init_x11_font(FontPrivate *font)
     gdk_font = gdk_font_load("fixed");
     message_warning("Warning no X Font for %s found, using fixed.\n", font_data[i].fontname);
   }
-  
-  font->ascent_ratio = gdk_font->ascent/100.0;
-  font->descent_ratio = gdk_font->descent/100.0;
+
+
+  height = (real)gdk_font->ascent + gdk_font->descent;
+  font->ascent_ratio = gdk_font->ascent/height;
+  font->descent_ratio = gdk_font->descent/height;
 
   gdk_font_unref(gdk_font);
 }
@@ -430,20 +433,22 @@ font_get_psfontname(Font *font)
   
   return fontprivate->fontname_ps;
 }
+
 real
 font_string_width(const char *string, Font *font, real height)
 {
-  int iwidth;
+  int iwidth, iheight;
   double width_height;
   GdkFont *gdk_font;
 
   /* Note: This is an ugly hack. It tries to overestimate the width with
      some magic stuff. No guarantees. */
-  gdk_font = font_get_gdkfont(font, 200);
+  gdk_font = font_get_gdkfont(font, 100);
   iwidth = gdk_string_width(gdk_font, string);
-  width_height = ((real)iwidth)/200.0;
-  width_height *= 1.02;
-  return width_height*height + 0.2;
+  iheight = gdk_string_height(gdk_font, string);
+  width_height = ((real)iwidth)/((real)iheight);
+  width_height *= 1.01;
+  return width_height*height*(iheight/100.0) + 0.2;
 }
 
 real

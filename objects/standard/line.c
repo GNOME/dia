@@ -25,10 +25,13 @@
 #include "render.h"
 #include "attributes.h"
 #include "files.h"
+#include "widgets.h"
 
 #include "pixmaps/line.xpm"
 
 #define DEFAULT_WIDTH 0.25
+
+typedef struct _LinePropertiesDialog LinePropertiesDialog;
 
 typedef struct _Line {
   Connection connection;
@@ -36,9 +39,19 @@ typedef struct _Line {
   ConnectionPoint middle_point;
 
   Color line_color;
-  
   real line_width;
+  LineStyle line_style;
+
+  LinePropertiesDialog *properties_dialog;
 } Line;
+
+struct _LinePropertiesDialog {
+  GtkWidget *vbox;
+
+  GtkSpinButton *line_width;
+  DiaColorSelector *color;
+  DiaLineStyleSelector *line_style;
+};
 
 static void line_move_handle(Line *line, Handle *handle,
 			     Point *to, HandleMoveReason reason);
@@ -54,10 +67,11 @@ static real line_distance_from(Line *line, Point *point);
 static void line_update_data(Line *line);
 static void line_destroy(Line *line);
 static Object *line_copy(Line *line);
+static GtkWidget *line_get_properties(Line *line);
+static void line_apply_properties(Line *line);
 
 static void line_save(Line *line, int fd);
 static Object *line_load(int fd, int version);
-
 
 static ObjectTypeOps line_type_ops =
 {
@@ -84,11 +98,93 @@ static ObjectOps line_ops = {
   (CopyFunc)            line_copy,
   (MoveFunc)            line_move,
   (MoveHandleFunc)      line_move_handle,
-  (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
+  (GetPropertiesFunc)   line_get_properties,
+  (ApplyPropertiesFunc) line_apply_properties,
   (IsEmptyFunc)         object_return_false
 };
 
+static void
+line_apply_properties(Line *line)
+{
+  LinePropertiesDialog *prop_dialog;
+
+  prop_dialog = line->properties_dialog;
+
+  line->line_width = gtk_spin_button_get_value_as_float(prop_dialog->line_width);
+  dia_color_selector_get_color(prop_dialog->color, &line->line_color);
+  line->line_style = dia_line_style_selector_get_linestyle(prop_dialog->line_style);
+  
+  line_update_data(line);
+}
+
+static GtkWidget *
+line_get_properties(Line *line)
+{
+  LinePropertiesDialog *prop_dialog;
+  GtkWidget *vbox;
+  GtkWidget *hbox;
+  GtkWidget *label;
+  GtkWidget *color;
+  GtkWidget *linestyle;
+  GtkWidget *line_width;
+  GtkAdjustment *adj;
+
+  if (line->properties_dialog == NULL) {
+  
+    prop_dialog = g_new(LinePropertiesDialog, 1);
+    line->properties_dialog = prop_dialog;
+
+    vbox = gtk_vbox_new(FALSE, 5);
+    prop_dialog->vbox = vbox;
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Line width:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
+    line_width = gtk_spin_button_new(adj, 1.0, 2);
+    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(line_width), TRUE);
+    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(line_width), TRUE);
+    prop_dialog->line_width = GTK_SPIN_BUTTON(line_width);
+    gtk_box_pack_start(GTK_BOX (hbox), line_width, TRUE, TRUE, 0);
+    gtk_widget_show (line_width);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Color:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    color = dia_color_selector_new();
+    prop_dialog->color = DIACOLORSELECTOR(color);
+    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
+    gtk_widget_show (color);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Line style:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    linestyle = dia_line_style_selector_new();
+    prop_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
+    gtk_widget_show (linestyle);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    gtk_widget_show (vbox);
+  }
+
+  prop_dialog = line->properties_dialog;
+    
+  gtk_spin_button_set_value(prop_dialog->line_width, line->line_width);
+  dia_color_selector_set_color(prop_dialog->color, &line->line_color);
+  dia_line_style_selector_set_linestyle(prop_dialog->line_style,
+					line->line_style);
+  
+  return prop_dialog->vbox;
+}
 
 static real
 line_distance_from(Line *line, Point *point)
@@ -146,7 +242,7 @@ line_draw(Line *line, Renderer *renderer)
   endpoints = &line->connection.endpoints[0];
   
   renderer->ops->set_linewidth(renderer, line->line_width);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer->ops->set_linestyle(renderer, line->line_style);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   renderer->ops->draw_line(renderer,
@@ -179,12 +275,15 @@ line_create(Point *startpoint,
   
   obj->type = &line_type;
   obj->ops = &line_ops;
+
+  line->properties_dialog = NULL;
   
   connection_init(conn, 2, 1);
 
   obj->connections[0] = &line->middle_point;
   line->middle_point.object = obj;
   line->middle_point.connected = NULL;
+  line->line_style = LINESTYLE_SOLID;
   line_update_data(line);
 
   *handle1 = obj->handles[0];
@@ -195,6 +294,10 @@ line_create(Point *startpoint,
 static void
 line_destroy(Line *line)
 {
+  if (line->properties_dialog != NULL) {
+    gtk_widget_destroy(line->properties_dialog->vbox);
+    g_free(line->properties_dialog);
+  }
   connection_destroy(&line->connection);
 }
 
@@ -220,8 +323,11 @@ line_copy(Line *line)
   newline->middle_point.last_pos = line->middle_point.last_pos;
   
   newline->line_color = line->line_color;
-
   newline->line_width = line->line_width;
+  newline->line_style = line->line_style;
+
+  newline->properties_dialog = NULL;
+
   return (Object *)newline;
 }
 
@@ -261,6 +367,7 @@ line_save(Line *line, int fd)
 
   write_color(fd, &line->line_color);
   write_real(fd, line->line_width);
+  write_int32(fd, line->line_style);
 }
 
 static Object *
@@ -282,6 +389,9 @@ line_load(int fd, int version)
   
   read_color(fd, &line->line_color);
   line->line_width = read_real(fd);
+  line->line_style = read_int32(fd);
+
+  line->properties_dialog = NULL;
 
   connection_init(conn, 2, 1);
 

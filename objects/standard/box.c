@@ -25,6 +25,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "files.h"
+#include "widgets.h"
 
 #include "pixmaps/box.xpm"
 
@@ -43,14 +44,18 @@ struct _Box {
   real border_width;
   Color border_color;
   Color inner_color;
-
+  LineStyle line_style;
+  
   BoxPropertiesDialog *properties_dialog;
 };
 
 struct _BoxPropertiesDialog {
-  GtkWidget *dialog;
+  GtkWidget *vbox;
 
-  GtkSpinButton *border_width_spinner;
+  GtkSpinButton *border_width;
+  DiaColorSelector *fg_color;
+  DiaColorSelector *bg_color;
+  DiaLineStyleSelector *line_style;
 };
 
 static real box_distance_from(Box *box, Point *point);
@@ -111,7 +116,11 @@ box_apply_properties(Box *box)
 
   prop_dialog = box->properties_dialog;
 
-  box->border_width = gtk_spin_button_get_value_as_float(prop_dialog->border_width_spinner);
+  box->border_width = gtk_spin_button_get_value_as_float(prop_dialog->border_width);
+  dia_color_selector_get_color(prop_dialog->fg_color, &box->border_color);
+  dia_color_selector_get_color(prop_dialog->bg_color, &box->inner_color);
+  box->line_style = dia_line_style_selector_get_linestyle(prop_dialog->line_style);
+  
   box_update_data(box);
 }
 
@@ -119,9 +128,12 @@ static GtkWidget *
 box_get_properties(Box *box)
 {
   BoxPropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
+  GtkWidget *vbox;
+  GtkWidget *hbox;
   GtkWidget *label;
-  GtkWidget *spinner;
+  GtkWidget *color;
+  GtkWidget *linestyle;
+  GtkWidget *border_width;
   GtkAdjustment *adj;
 
   if (box->properties_dialog == NULL) {
@@ -129,31 +141,69 @@ box_get_properties(Box *box)
     prop_dialog = g_new(BoxPropertiesDialog, 1);
     box->properties_dialog = prop_dialog;
 
-    dialog = gtk_vbox_new(FALSE, 0);
-    prop_dialog->dialog = dialog;
-        
-    label = gtk_label_new ("Border width");
-    gtk_misc_set_padding (GTK_MISC (label), 10, 10);
-    gtk_box_pack_start (GTK_BOX (dialog), 
-			label, TRUE, TRUE, 0);
+    vbox = gtk_vbox_new(FALSE, 5);
+    prop_dialog->vbox = vbox;
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Border width:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
+    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
+    border_width = gtk_spin_button_new(adj, 1.0, 2);
+    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
+    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
+    prop_dialog->border_width = GTK_SPIN_BUTTON(border_width);
+    gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
+    gtk_widget_show (border_width);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 0.0, 0.0);
-    spinner = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinner), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(spinner), TRUE);
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinner),
-			      box->border_width);
-    prop_dialog->border_width_spinner = GTK_SPIN_BUTTON(spinner);
 
-    gtk_box_pack_start(GTK_BOX (dialog),
-		       spinner, FALSE, TRUE, 0);
-    gtk_widget_show (spinner);
-    
-    gtk_widget_show (dialog);
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Foreground color:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    color = dia_color_selector_new();
+    prop_dialog->fg_color = DIACOLORSELECTOR(color);
+    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
+    gtk_widget_show (color);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Background color:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    color = dia_color_selector_new();
+    prop_dialog->bg_color = DIACOLORSELECTOR(color);
+    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
+    gtk_widget_show (color);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Line style:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    linestyle = dia_line_style_selector_new();
+    prop_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
+    gtk_widget_show (linestyle);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    gtk_widget_show (vbox);
   }
+
+  prop_dialog = box->properties_dialog;
+    
+  gtk_spin_button_set_value(prop_dialog->border_width, box->border_width);
+  dia_color_selector_set_color(prop_dialog->fg_color, &box->border_color);
+  dia_color_selector_set_color(prop_dialog->bg_color, &box->inner_color);
+  dia_line_style_selector_set_linestyle(prop_dialog->line_style,
+					box->line_style);
   
-  return box->properties_dialog->dialog;
+  return prop_dialog->vbox;
 }
 
 static real
@@ -220,7 +270,7 @@ box_draw(Box *box, Renderer *renderer)
 			   &box->inner_color);
 
   renderer->ops->set_linewidth(renderer, box->border_width);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer->ops->set_linestyle(renderer, box->line_style);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
 
   renderer->ops->draw_rect(renderer, 
@@ -292,6 +342,7 @@ box_create(Point *startpoint,
   box->border_width =  attributes_get_default_linewidth();
   box->border_color = attributes_get_foreground();
   box->inner_color = attributes_get_background();
+  box->line_style = LINESTYLE_SOLID;
   
   element_init(elem, 8, 8);
 
@@ -311,8 +362,10 @@ box_create(Point *startpoint,
 static void
 box_destroy(Box *box)
 {
-  if (box->properties_dialog != NULL)
-    gtk_widget_destroy(box->properties_dialog->dialog);
+  if (box->properties_dialog != NULL) {
+    gtk_widget_destroy(box->properties_dialog->vbox);
+    g_free(box->properties_dialog);
+  }
   element_destroy(&box->element);
 }
 
@@ -335,7 +388,8 @@ box_copy(Box *box)
   newbox->border_width = box->border_width;
   newbox->border_color = box->border_color;
   newbox->inner_color = box->inner_color;
-
+  newbox->line_style = box->line_style;
+  
   for (i=0;i<8;i++) {
     newobj->connections[i] = &newbox->connections[i];
     newbox->connections[i].object = newobj;
@@ -357,6 +411,7 @@ box_save(Box *box, int fd)
   write_real(fd, box->border_width);
   write_color(fd, &box->border_color);
   write_color(fd, &box->inner_color);
+  write_int32(fd, box->line_style);
 }
 
 static Object *
@@ -381,7 +436,8 @@ box_load(int fd, int version)
   box->border_width =  read_real(fd);
   read_color(fd, &box->border_color);
   read_color(fd, &box->inner_color);
-  
+  box->line_style = read_int32(fd);
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {

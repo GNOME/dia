@@ -26,6 +26,7 @@
 #include "text.h"
 #include "attributes.h"
 #include "files.h"
+#include "widgets.h"
 
 #include "pixmaps/text.xpm"
 
@@ -45,9 +46,12 @@ struct _Textobj {
 };
 
 struct _TextobjPropertiesDialog {
-  GtkWidget *dialog;
+  GtkWidget *vbox;
   
-  GtkMenu *menu;
+  DiaAlignmentSelector *alignment;
+  DiaFontSelector *font;
+  GtkSpinButton *font_size;
+  DiaColorSelector *color;
 };
 
 static real textobj_distance_from(Textobj *textobj, Point *point);
@@ -106,14 +110,26 @@ static void
 textobj_apply_properties(Textobj *textobj)
 {
   TextobjPropertiesDialog *prop_dialog;
-  Alignment *align;
+  Alignment align;
+  Font *font;
+  real font_size;
+  Color col;
   GtkWidget *menuitem;
   
   prop_dialog = textobj->properties_dialog;
 
-  menuitem = gtk_menu_get_active(prop_dialog->menu);
-  align = gtk_object_get_user_data(GTK_OBJECT(menuitem));
-  text_set_alignment(textobj->text, *align);
+  align = dia_alignment_selector_get_alignment(prop_dialog->alignment);
+  text_set_alignment(textobj->text, align);
+
+  font = dia_font_selector_get_font(prop_dialog->font);
+  text_set_font(textobj->text, font);
+
+  font_size = gtk_spin_button_get_value_as_float(prop_dialog->font_size);;
+  text_set_height(textobj->text, font_size);
+
+  dia_color_selector_get_color(prop_dialog->color, &col);
+  text_set_color(textobj->text, &col);
+  
   textobj_update_data(textobj);
 }
 
@@ -121,66 +137,80 @@ static GtkWidget *
 textobj_get_properties(Textobj *textobj)
 {
   TextobjPropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *omenu;
-  GtkWidget *menu;
-  GtkWidget *submenu;
-  GtkWidget *menuitem;
+  GtkWidget *alignment;
+  GtkWidget *font;
+  GtkWidget *font_size;
+  GtkWidget *color;
   GtkWidget *hbox;
+  GtkWidget *vbox;
   GtkWidget *label;
-  GSList *group;
-  static Alignment center=ALIGN_CENTER, left=ALIGN_LEFT, right=ALIGN_RIGHT;
+  GtkAdjustment *adj;
 
   if (textobj->properties_dialog == NULL) {
-
     prop_dialog = g_new(TextobjPropertiesDialog, 1);
     textobj->properties_dialog = prop_dialog;
     
-    dialog = gtk_vbox_new(FALSE, 0);
-    prop_dialog->dialog = dialog;
-    
-    omenu = gtk_option_menu_new ();
-    menu = gtk_menu_new ();
-    prop_dialog->menu = GTK_MENU(menu);
-    submenu = NULL;
-    group = NULL;
-    
-    menuitem = gtk_radio_menu_item_new_with_label (group, "Left");
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), &left);
-    group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-    gtk_menu_append (GTK_MENU (menu), menuitem);
-    gtk_widget_show (menuitem);
-    
-    menuitem = gtk_radio_menu_item_new_with_label (group, "Center");
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), &center);
-    group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-    gtk_menu_append (GTK_MENU (menu), menuitem);
-    gtk_widget_show (menuitem);
-
-    menuitem = gtk_radio_menu_item_new_with_label (group, "Right");
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), &right);
-    group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-    gtk_menu_append (GTK_MENU (menu), menuitem);
-    gtk_widget_show (menuitem);
-    
-    gtk_menu_set_active(GTK_MENU (menu), textobj->text->alignment);
-    gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+    vbox = gtk_vbox_new(FALSE, 5);
+    prop_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
-
     label = gtk_label_new("Alignment:");
-    gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), omenu, TRUE, TRUE, 0);
-    
-    gtk_box_pack_start (GTK_BOX(dialog), hbox, TRUE, TRUE, 0);
-
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    gtk_widget_show (omenu);
+    alignment = dia_alignment_selector_new();
+    prop_dialog->alignment = DIAALIGNMENTSELECTOR(alignment);
+    gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
+    gtk_widget_show (alignment);
     gtk_widget_show(hbox);
-    gtk_widget_show(dialog);
-  }
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
-  return textobj->properties_dialog->dialog;
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Font:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    font = dia_font_selector_new();
+    prop_dialog->font = DIAFONTSELECTOR(font);
+    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
+    gtk_widget_show (font);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+    
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Fontsize:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 0.0, 0.0);
+    font_size = gtk_spin_button_new(adj, 1.0, 2);
+    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
+    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);
+    prop_dialog->font_size = GTK_SPIN_BUTTON(font_size);
+    gtk_box_pack_start(GTK_BOX (hbox), font_size, TRUE, TRUE, 0);
+    gtk_widget_show (font_size);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Color:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    color = dia_color_selector_new();
+    prop_dialog->color = DIACOLORSELECTOR(color);
+    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
+    gtk_widget_show (color);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    gtk_widget_show (vbox);
+  }
+  
+  prop_dialog = textobj->properties_dialog;
+    
+  dia_alignment_selector_set_alignment(prop_dialog->alignment, textobj->text->alignment);
+  dia_font_selector_set_font(prop_dialog->font, textobj->text->font);
+  gtk_spin_button_set_value(prop_dialog->font_size, textobj->text->height);
+  dia_color_selector_set_color(prop_dialog->color, &textobj->text->color);
+  
+  return textobj->properties_dialog->vbox;
 }
 
 
@@ -291,7 +321,7 @@ static void
 textobj_destroy(Textobj *textobj)
 {
   if (textobj->properties_dialog != NULL) {
-    gtk_widget_destroy(textobj->properties_dialog->dialog);
+    gtk_widget_destroy(textobj->properties_dialog->vbox);
     g_free(textobj->properties_dialog);
   }
   text_destroy(textobj->text);

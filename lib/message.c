@@ -78,7 +78,7 @@ message(char *title, const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(title, format, args, args2);
+  message_internal(title, format, &args, &args2);
   va_end (args);
   va_end (args2);
 }

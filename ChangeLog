@@ -1,4 +1,29 @@
-1998-10-29  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+1998-11-01  Alexander Larsson  <alla@lysator.liu.se>
+
+	* lib/font.c
+	Fixed problem with height of ascent and descent for fonts.
+	It didn't use the whole height (==ascent+descent) when calculatine
+	ascent_ratio and descent_ratio.
+
+	* objects/standard/textobj.c:
+	* objects/standard/box.c:
+	* objects/standard/ellipse.c:
+	* objects/standard/line.c:
+	* objects/standard/arc.c:
+	Updated and added property dialogs for these objects.
+	Also added line width/color/style to those objects
+	that didn't have it.
+	This change breaks fileformat compatibility for these objects.
+	
+	* objects/standard/zigzagline.c:
+	Changed zigzagline to be based on OrthConn, much nicer.
+	Also added line style and color to properties.
+	This change breaks fileformat compatibility for zigzagline.
+
+	* lib/message.c:
+	Fixed bug in message(). Forgot a pair of '&'.
+
+1998-10-29  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/widgets.[ch]:
 	Added DiaColorSelector widget.
