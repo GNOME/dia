@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2000-06-25 19:28+0200\n"
+"POT-Creation-Date: 2000-06-29 00:59+0200\n"
 "PO-Revision-Date: 2000-06-25 19:28+0200\n"
 "Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -389,7 +389,8 @@ msgstr "/Pogled/Glajeni Robovi"
 
 #: app/export_png.c:78 app/load_save.c:501 app/render_eps.c:162
 #: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
-#: plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/wpg/wpg.c:937
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Nisem uspel odpreti: '%s' za pisanje.\n"
@@ -686,7 +687,7 @@ msgstr ""
 "Napaka pri nalaganju diagrama.\n"
 "Roèica povezave ne obstaja."
 
-#: app/load_save.c:193
+#: app/load_save.c:193 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Ne morem odpreti: '%s' za branje.\n"
@@ -2600,6 +2601,10 @@ msgstr "Mehke kontrole"
 msgid "Cusp control"
 msgstr "Kontrola stika"
 
+#: objects/standard/arc.c:129
+msgid "Curve distance"
+msgstr "Razdalja krivulje"
+
 #: objects/standard/image.c:165
 msgid "Image file"
 msgstr "Slikovna datoteka"
@@ -2684,13 +2689,17 @@ msgstr "Metadatoteka Raèunalni¹ke Grafike"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Izvozni filter za Metadatoteko Raèunalni¹ke Grafike"
 
-#: plug-ins/dxf/dxf-export.c:561
+#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:491
 msgid "Drawing Interchange File"
 msgstr "Datoteka za Izmenjavo Risb (DIF)"
 
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
 msgstr "Uvozni in izvozni filtri za datoteke za izmenjavo risb (DIF) "
+
+#: plug-ins/hpgl/hpgl.c:624
+msgid "HP Graphics Language export filter"
+msgstr "Izvozni filter za HP Grafièni Jezik"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -2699,6 +2708,15 @@ msgstr "Izvozni filter za TeX Pstricks"
 #: plug-ins/pstricks/render_pstricks.c:749
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makri"
+
+#: plug-ins/wpg/wpg.c:1043
+#, c-format
+msgid "File: %s type/version unsupported.\n"
+msgstr "Datoteka: %s tip/razlièica ni podprta.\n"
+
+#: plug-ins/wpg/wpg.c:1192
+msgid "WordPerfect Graphics export filter"
+msgstr "Izvozni filter za WordPerfect Graphics"
 
 #~ msgid "Line style:"
 #~ msgstr "Slog èrte:"
