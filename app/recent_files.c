@@ -59,6 +59,7 @@ typedef struct _RecentFileData
 } RecentFileData;
 
 static void open_recent_file_callback (GtkWidget *widget, RecentFileData *file);
+void recent_file_history_remove (const char *fname);
 
 static RecentFileData *
 recent_file_filedata_new(const char *fname, DiaImportFilter *ifilter)
@@ -205,7 +206,7 @@ recent_file_history_add(const char *fname, DiaImportFilter *ifilter,
 		{
 			i = g_list_position(recent_files, item);
 
-			if (i >= recent_files_length)
+/* 			if (i >= recent_files_length) */
 			{
 				recent_files = g_list_remove_link(recent_files,
 				                                  item);
@@ -308,6 +309,59 @@ recent_file_history_write() {
 	g_list_free(recent_files);
 }
 
+/* remove a broken file from the history and update menu accordingly
+ * Xing Wang, 2002.06 */
+void
+recent_file_history_remove (const char *fname) 
+{
+    GtkWidget *file_menu;
+    guint j, i, number_of_items;
+    GList *file, *next, *item, *menu_items;
+
+    number_of_items = MIN(g_list_length(recent_files),
+			  recent_files_length);
+    
+    file = g_list_first (recent_files);
+    
+    for (j = 0; j < number_of_items; j++) {
+	next = g_list_next (file);
+	if (strcmp (((RecentFileData *)file->data)->filename, fname) == 0) {
+	    file_menu = recent_file_filemenu_get ();
+	    menu_items = GTK_MENU_SHELL(file_menu)->children;
+
+		/* remove all menu items after THIS ONE  */
+	    
+	    item = g_list_nth (menu_items,
+			       recent_files_menuitem_offset + j + 1);
+	    for (i = j; i < number_of_items; i++) {
+		next = g_list_next(item);
+
+		    /* Unlink first, then destroy */
+
+		menu_items = g_list_remove_link(menu_items, item);
+		gtk_widget_destroy(item->data);
+		g_list_free_1(item);
+		
+		item = next;
+	    }
+
+	    recent_files = g_list_delete_link (recent_files, file);
+
+		/* recreate all menu items after THIS ONE  */
+	    
+	    number_of_items = MIN(g_list_length(recent_files),
+				  recent_files_length);
+	    item = g_list_nth (recent_files, j);
+	    for (i = j + 1; i <= number_of_items; i++) {
+		recent_file_menuitem_create(file_menu, item->data, i);
+		item = g_list_next(item);
+	    }
+	    return;
+	}
+	file = next;
+    }
+}
+    
 static void
 open_recent_file_callback (GtkWidget *widget, RecentFileData *file) {
 	GList *import_filters;
@@ -331,5 +385,6 @@ open_recent_file_callback (GtkWidget *widget, RecentFileData *file) {
 	    diagram_update_extents(diagram);
 	    layer_dialog_set_diagram(diagram);
 	    new_display(diagram);
-	}
+	} else
+	    recent_file_history_remove (file->filename);
 }

@@ -1,5 +1,8 @@
 2002-06-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/recent_files.c (recent_file_history_remove): 
+	Fixed call to g_list_delete_link discarding return value.
+	
 	* lib/widgets.c (dia_font_selector_set_styles): 
 	* lib/font.h (DiaFontWeight): 
 	* lib/font.c (dia_font_get_style): Revert to DIA_FONT_NORMAL==0
