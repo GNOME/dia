@@ -72,59 +72,61 @@ struct _DDisplay {
 
 extern GdkCursor *default_cursor;
 
-extern DDisplay *new_display(Diagram *dia);
+extern DDisplay *active_display;
+
+DDisplay *new_display(Diagram *dia);
 /* Normal destroy is done through shell widget destroy event. */
-extern void ddisplay_really_destroy(DDisplay *ddisp); 
-extern void ddisplay_transform_coords_double(DDisplay *ddisp,
-					     coord x, coord y,
-					     double *xi, double *yi);
-extern void ddisplay_transform_coords(DDisplay *ddisp,
+void ddisplay_really_destroy(DDisplay *ddisp); 
+void ddisplay_transform_coords_double(DDisplay *ddisp,
 				      coord x, coord y,
-				      int *xi, int *yi);
-extern void ddisplay_untransform_coords(DDisplay *ddisp,
-					int xi, int yi,
-					coord *x, coord *y);
-extern real ddisplay_transform_length(DDisplay *ddisp, real len);
-extern real ddisplay_untransform_length(DDisplay *ddisp, real len);
-extern void ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
+				      double *xi, double *yi);
+void ddisplay_transform_coords(DDisplay *ddisp,
+			       coord x, coord y,
+			       int *xi, int *yi);
+void ddisplay_untransform_coords(DDisplay *ddisp,
+				 int xi, int yi,
+				 coord *x, coord *y);
+real ddisplay_transform_length(DDisplay *ddisp, real len);
+real ddisplay_untransform_length(DDisplay *ddisp, real len);
+void ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
 				       int pixel_width, int pixel_height);
-extern void ddisplay_add_update_all(DDisplay *ddisp);
-extern void ddisplay_add_update(DDisplay *ddisp, Rectangle *rect);
-extern void ddisplay_add_display_area(DDisplay *ddisp,
-				      int left, int top,
-				      int right, int bottom);
-extern void ddisplay_flush(DDisplay *ddisp);
-extern void ddisplay_update_scrollbars(DDisplay *ddisp);
-extern void ddisplay_set_origo(DDisplay *ddisp,
-			       coord x, coord y);
-extern void ddisplay_zoom(DDisplay *ddisp, Point *point,
-			  real zoom_factor);
+void ddisplay_add_update_all(DDisplay *ddisp);
+void ddisplay_add_update(DDisplay *ddisp, Rectangle *rect);
+void ddisplay_add_display_area(DDisplay *ddisp,
+			       int left, int top,
+			       int right, int bottom);
+void ddisplay_flush(DDisplay *ddisp);
+void ddisplay_update_scrollbars(DDisplay *ddisp);
+void ddisplay_set_origo(DDisplay *ddisp,
+			coord x, coord y);
+void ddisplay_zoom(DDisplay *ddisp, Point *point,
+		   real zoom_factor);
 
-extern void ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer);
-extern void ddisplay_resize_canvas(DDisplay *ddisp,
-				   int width,
-				   int height);
+void ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer);
+void ddisplay_resize_canvas(DDisplay *ddisp,
+			    int width,
+			    int height);
 
-extern void ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update);
+void ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update);
 
-extern DDisplay *ddisplay_active(void);
+DDisplay *ddisplay_active(void);
 
-extern void ddisplay_close(DDisplay *ddisp);
+void ddisplay_close(DDisplay *ddisp);
 
-extern void ddisplay_set_title(DDisplay *ddisp, char *title);
-extern void ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor);
-extern void ddisplay_set_all_cursor(GdkCursor *cursor);
+void ddisplay_set_title(DDisplay *ddisp, char *title);
+void ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor);
+void ddisplay_set_all_cursor(GdkCursor *cursor);
 
-extern void ddisplay_scroll(DDisplay *ddisp, Point *delta);
-extern gboolean ddisplay_autoscroll(DDisplay *ddisp, int x, int y);
-extern void ddisplay_scroll_up(DDisplay *ddisp);
-extern void ddisplay_scroll_down(DDisplay *ddisp);
-extern void ddisplay_scroll_left(DDisplay *ddisp);
-extern void ddisplay_scroll_right(DDisplay *ddisp);
+void ddisplay_scroll(DDisplay *ddisp, Point *delta);
+gboolean ddisplay_autoscroll(DDisplay *ddisp, int x, int y);
+void ddisplay_scroll_up(DDisplay *ddisp);
+void ddisplay_scroll_down(DDisplay *ddisp);
+void ddisplay_scroll_left(DDisplay *ddisp);
+void ddisplay_scroll_right(DDisplay *ddisp);
 
-extern void display_update_menu_state(DDisplay *ddisp);
-extern void ddisplay_update_statusbar(DDisplay *ddisp);
+void display_update_menu_state(DDisplay *ddisp);
+void ddisplay_update_statusbar(DDisplay *ddisp);
+
+void display_set_active(DDisplay *ddisp);
+
 #endif /* DDISPLAY_H */
-
-
-

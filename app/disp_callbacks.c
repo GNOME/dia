@@ -231,6 +231,8 @@ ddisplay_realize(GtkWidget *widget, gpointer data)
 
   ddisp = (DDisplay *)data;
 
+  display_set_active(ddisp);
+
 #ifdef USE_XIM
   if (gdk_im_ready() && (ddisp->ic_attr = gdk_ic_attr_new()) != NULL) {
     gint width, height;
@@ -406,6 +408,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
       break;
       
     case GDK_2BUTTON_PRESS:
+      display_set_active(ddisp);
       bevent = (GdkEventButton *) event;
       state = bevent->state;
 
@@ -427,6 +430,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
       break;
 
     case GDK_BUTTON_PRESS:
+      display_set_active(ddisp);
       bevent = (GdkEventButton *) event;
       state = bevent->state;
 
@@ -460,6 +464,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
       break;
 
     case GDK_BUTTON_RELEASE:
+      display_set_active(ddisp);
       bevent = (GdkEventButton *) event;
       state = bevent->state;
 
@@ -494,6 +499,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
       break;
 
     case GDK_KEY_PRESS:
+      display_set_active(ddisp);
       kevent = (GdkEventKey *) event;
       state = kevent->state;
       key_handled = FALSE;

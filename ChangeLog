@@ -1,5 +1,28 @@
 2000-05-28  James Henstridge  <james@daa.com.au>
 
+	* app/display.c (ddisplay_really_destroy): unset active display if
+	active display is destroyed.
+	(ddisplay_active): simplify function to return active_display as set
+	by display_set_active.  This allows using a pinned menu with any
+	display -- not just the one it was popped up from.
+	(display_set_active): notify the layer dialog of change of diagrams
+	when active diagram changes.
+
+	* app/disp_callbacks.c (ddisplay_canvas_events): set active display
+	on button and key presses.
+	(ddisplay_realize): set active display on realize.
+
+	* app/display.c (display_set_active): simple implementation of this
+	function.
+
+	* app/display.h (display_set_active): add prototype for setting
+	the active display.
+
+	* app/interface.c (create_display_shell): don't give focus to the
+	menu button.
+
+	* app/menus.c: fix up menus for Beziergon.
+
 	* app/interface.c (create_display_shell): make the widget in the
 	top left corner a button that can be used to pop up the right click
 	menu, like in gimp and sketch.

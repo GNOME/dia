@@ -37,11 +37,15 @@
 #include "message.h"
 #include "preferences.h"
 #include "app_procs.h"
+#include "layer_dialog.h"
 
 static GHashTable *display_ht = NULL;
 static GdkCursor *current_cursor = NULL;
 
 GdkCursor *default_cursor = NULL;
+
+DDisplay *active_display = NULL;
+
 
 typedef struct _IRectangle {
   int top, bottom;
@@ -713,44 +717,10 @@ ddisplay_resize_canvas(DDisplay *ddisp,
   ddisplay_flush(ddisp);
 }
 
-extern DDisplay *ddisplay_active(void)
+DDisplay *
+ddisplay_active(void)
 {
-  DDisplay *ddisp;
-  GtkWidget *event_widget = NULL;
-  GtkWidget *toplevel_widget = NULL;
-  GdkEvent *event;
-
-  /*  If the popup shell is valid, then get the gdisplay
-      associated with that shell  */
-  event = gtk_get_current_event ();
-  if (event)
-    {
-      event_widget = gtk_get_event_widget (event);
-      gdk_event_free (event);
-    }
-
-  if (event_widget == NULL)
-    return NULL;
-
-  if (display_ht == NULL)
-    return NULL;
-
-  toplevel_widget = gtk_widget_get_toplevel (event_widget);
-  ddisp = g_hash_table_lookup (display_ht, toplevel_widget);
-
-  if (ddisp)
-    return ddisp;
-
-  if (popup_shell) {
-    ddisp = gtk_object_get_user_data (GTK_OBJECT (popup_shell));
-    return ddisp;
-  }
-
-  /*
-  message_error(_("Internal error: "
-		"Strange, shouldn't come here (ddisplay_active())")); 
-  */
-  return NULL;
+  return active_display;
 }
 
 static void
@@ -906,6 +876,9 @@ ddisplay_really_destroy(DDisplay *ddisp)
   Diagram *dia;
   GSList *l;
 
+  if (active_display == ddisp)
+    display_set_active(NULL);
+
   dia = ddisp->diagram;
   
   diagram_remove_ddisplay(dia, ddisp);
@@ -985,4 +958,17 @@ ddisplay_update_statusbar(DDisplay *ddisp)
 {
   update_zoom_status (ddisp);
   update_modified_status (ddisp);
+}
+
+void
+display_set_active(DDisplay *ddisp)
+{
+  if (ddisp != active_display) {
+    g_message("Changing active display to %p(%s)", ddisp,
+	      ddisp ? ddisp->diagram->filename : "null");
+    active_display = ddisp;
+
+    /* perform notification here (such as switch layers dialog) */
+    layer_dialog_set_diagram(ddisp ? ddisp->diagram : NULL);
+  }
 }

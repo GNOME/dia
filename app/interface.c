@@ -214,6 +214,7 @@ create_display_shell(DDisplay *ddisp,
 
   /*  scrollbars, rulers, canvas, menu popup button  */
   ddisp->origin = gtk_button_new();
+  GTK_WIDGET_UNSET_FLAGS(ddisp->origin, GTK_CAN_FOCUS);
   widget = gtk_arrow_new(GTK_ARROW_RIGHT, GTK_SHADOW_OUT);
   gtk_container_add(GTK_CONTAINER(ddisp->origin), widget);
   gtk_widget_show(widget);
