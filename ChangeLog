@@ -1,3 +1,9 @@
+1999-08-19  James Henstridge  <james@daa.com.au>
+
+	* objects/flowchart/flowchart.c: added ellipse object.
+	
+	* objects/flowchart/ellipse.c: a new shape for the flowchart toolbox.
+
 1999-08-18  James Henstridge  <james@daa.com.au>
 
 	* app/color_area.c (color_area_edit): small fix to prevent dia from

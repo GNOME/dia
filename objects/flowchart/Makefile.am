@@ -7,6 +7,7 @@ libflowchart_objects_la_SOURCES = \
 			box.c \
 			parallelogram.c \
 			diamond.c \
+			ellipse.c \
 			flowchart.c
 
 libflowchart_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0

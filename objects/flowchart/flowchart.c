@@ -22,10 +22,12 @@
 extern ObjectType box_type;
 extern ObjectType pgram_type;
 extern ObjectType diamond_type;
+extern ObjectType ellipse_type;
 
 extern SheetObject box_sheetobj;
 extern SheetObject pgram_sheetobj;
 extern SheetObject diamond_sheetobj;
+extern SheetObject ellipse_sheetobj;
 
 int get_version(void) {
   return 0;
@@ -35,6 +37,7 @@ void register_objects(void) {
   object_register_type(&box_type);
   object_register_type(&pgram_type);
   object_register_type(&diamond_type);
+  object_register_type(&ellipse_type);
 }
 
 void register_sheets(void) {
@@ -45,6 +48,7 @@ void register_sheets(void) {
   sheet_append_sheet_obj(sheet, &box_sheetobj);
   sheet_append_sheet_obj(sheet, &pgram_sheetobj);
   sheet_append_sheet_obj(sheet, &diamond_sheetobj);
+  sheet_append_sheet_obj(sheet, &ellipse_sheetobj);
 
   register_sheet(sheet);
 }
