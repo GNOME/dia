@@ -140,7 +140,9 @@ libdia_la_SOURCES =  \
 		persistence.c \
 		persistence.h \
 		diaerror.c \
-		diaerror.h
+		diaerror.h \
+		diamarshal.c \
+		diamarshal.h
 
 #		charconv.c \
 #		charconv.h 
@@ -160,6 +162,27 @@ INCLUDES = -I$(top_srcdir)/intl $(DEBUG_FLAGS) $(GDK_PIXBUF_CFLAGS) \
   $(XML_CFLAGS) $(GNOME_CFLAGS) $(GTK_CFLAGS) \
   -DDIA_SHEETDIR=\"$(sheetdir)\" \
   $(PANGOFT2_CFLAGS) $(LIBART_CFLAGS) $(UNICODE_CFLAGS)
+
+libdia_la_extra_sources = diamarshal.list
+
+#
+# rules to generate built sources
+#
+# setup autogeneration dependancies
+gen_sources = xgen-gwmh xgen-gwmc
+CLEANFILES = $(gen_sources)
+
+$(srcdir)/diamarshal.h: $(srcdir)/diamarshal.list
+	$(GLIB_GENMARSHAL) --prefix=dia_marshal $(srcdir)/diamarshal.list --header >> xgen-gwmh \
+	&& (cmp -s xgen-gwmh $(@F) || cp xgen-gwmh $(@F)) \
+	&& rm -f xgen-gwmh xgen-gwmh~
+
+$(srcdir)/diamarshal.c: $(srcdir)/diamarshal.h
+	echo "#include \"diamarshal.h\"" >> xgen-gwmc \
+	&& $(GLIB_GENMARSHAL) --prefix=dia_marshal $(srcdir)/diamarshal.list --body >> xgen-gwmc \
+	&& cp xgen-gwmc $(@F) \
+	&& rm -f xgen-gwmc xgen-gwmc~
+
 
 EXTRA_DIST = \
 	pixmaps/broken.xpm \

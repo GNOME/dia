@@ -616,3 +616,7 @@ EXPORTS
  xmlDiaSaveFile
  xmlDoParseFile
 
+ dia_marshal_VOID__VOID
+ dia_marshal_VOID__INT
+ dia_marshal_VOID__OBJECT
+ 

@@ -182,13 +182,13 @@ create_object_menu(DiaMenu *dia_menu)
   }
 
   /* Finally add a Properties... menu item for objects*/
-  add_properties_menu_item(GTK_MENU_SHELL (menu), i > 0);
+  add_properties_menu_item(GTK_MENU (menu), i > 0);
 
   dia_menu->app_data = menu;
   dia_menu->app_data_free = dia_menu_free;
 }
 
-static DiaMenuItem empty_menu_items[] = { 0, };
+static DiaMenuItem empty_menu_items[] = { {0, } };
 static DiaMenu empty_menu = {
   NULL,
   sizeof(empty_menu_items)/sizeof(DiaMenuItem),
@@ -342,6 +342,10 @@ ddisplay_size_allocate (GtkWidget *widget,
   g_return_if_fail (allocation != NULL);
   g_return_if_fail (data != NULL);
 
+#if 0
+  g_print ("ddisp::size_allocate: %d,%d -> %d,%d\n", allocation->width, allocation->height,
+	   widget->allocation.width, widget->allocation.height);
+#endif
   widget->allocation = *allocation;
   ddisp = (DDisplay *)data;
 }
@@ -695,9 +699,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
 		
 		diagram_flush(ddisp->diagram);
 	      }
-
-	      return_val = key_handled = im_context_used = TRUE;
 	    }
+	    return_val = key_handled = im_context_used = TRUE;
 	  }
 	}
 

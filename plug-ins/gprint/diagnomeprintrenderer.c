@@ -43,12 +43,18 @@
 #endif
 
 #include "diagnomeprintrenderer.h"
+#include <libgnomeprint/gnome-print-pango.h>
 
+ /* FIXME: I don't get it ;) */
+ static const real magic = 72.0 / 2.54;
+ 
 /* DiaRenderer implementation */
 static void
 begin_render(DiaRenderer *self)
 {
   DiaGnomePrintRenderer *renderer = DIA_GNOME_PRINT_RENDERER (self);
+
+  renderer->font = dia_font_new ("sans", 0, 0.8);
 }
 
 static void
@@ -163,8 +169,6 @@ set_dashlength(DiaRenderer *self, real length)
 {  
   DiaGnomePrintRenderer *renderer = DIA_GNOME_PRINT_RENDERER (self);
 
-  /* FIXME: I don't get it ;) */
-  const real magic = 72.0 / 2.54;
   /* dot = 20% of len */
   if (length<0.001)
     length = 0.001;
@@ -184,7 +188,8 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
   case FILLSTYLE_SOLID:
     break;
   default:
-    message_error("eps_renderer: Unsupported fill mode specified!\n");
+    message_error("%s\nUnsupported fill mode specified!\n",
+                  G_OBJECT_CLASS_NAME(G_OBJECT_GET_CLASS(renderer)));
   }
 }
 
@@ -192,20 +197,12 @@ static void
 set_font(DiaRenderer *self, DiaFont *font, real height)
 {
   DiaGnomePrintRenderer *renderer = DIA_GNOME_PRINT_RENDERER (self);
-  GnomeFont *gfont;
 
   if (renderer->font)
     g_object_unref(G_OBJECT(renderer->font));
-  gfont = gnome_font_find_closest_from_weight_slant(
-               dia_font_get_family(font), 
-               atoi(dia_font_get_weight_string(font)), /* Urgh ;) */
-               DIA_FONT_STYLE_GET_SLANT(dia_font_get_style (font)) != DIA_FONT_NORMAL,
-               height);
-   if (!gfont)
-     gfont = gnome_font_find_closest("courier", height);
-   gnome_print_setfont(renderer->ctx, gfont);
-   renderer->font = gfont;
- }
+  renderer->font = dia_font_copy (font);
+  dia_font_set_height (renderer->font, height);
+}
  
 static void
 draw_line(DiaRenderer *self, 
@@ -628,29 +625,59 @@ draw_string(DiaRenderer *self,
 	    Color *color)
 {
   DiaGnomePrintRenderer *renderer = DIA_GNOME_PRINT_RENDERER (self);
+  PangoLayout *layout;
+  int pango_width, pango_height;
+  PangoAttrList *list;
+  PangoAttribute *attr;
+  int len; 
+  real width, height;
+
+  if (!text || strlen(text) < 1)
+    return;
+
+  len = strlen(text);
+  layout = gnome_print_pango_create_layout (renderer->ctx);
+  pango_layout_set_text (layout, text, len);
+
+  list = pango_attr_list_new ();
+  attr = pango_attr_font_desc_new (renderer->font->pfd);
+  attr->start_index = 0;
+  attr->end_index = len;
+  pango_attr_list_insert (list, attr); /* eats attr */
+  pango_layout_set_attributes (layout, list);
+  pango_attr_list_unref (list);
+  
+  pango_layout_set_indent (layout, 0);
+  pango_layout_set_justify (layout, FALSE);
+  pango_layout_set_alignment (layout, PANGO_ALIGN_LEFT);
+  
+  pango_layout_get_size (layout, &pango_width, &pango_height);
 
   gnome_print_setrgbcolor(renderer->ctx, (double)color->red,
 			  (double)color->green, (double)color->blue);
 
+  width = ((double) pango_width / PANGO_SCALE) / magic;
+  height = ((double) pango_height / PANGO_SCALE) / magic;
+  
   switch (alignment) {
   case ALIGN_LEFT:
-    gnome_print_moveto(renderer->ctx, pos->x, pos->y);
+    gnome_print_moveto(renderer->ctx, pos->x, pos->y - height);
     break;
   case ALIGN_CENTER:
-    gnome_print_moveto(renderer->ctx, pos->x -
-		       gnome_font_get_width_utf8 (renderer->font, text) / 2,
-		       pos->y);
+    gnome_print_moveto(renderer->ctx, pos->x - width / 2, pos->y - height);
     break;
   case ALIGN_RIGHT:
-    gnome_print_moveto(renderer->ctx, pos->x -
-		       gnome_font_get_width_utf8 (renderer->font, text),
-		       pos->y);
+    gnome_print_moveto(renderer->ctx, pos->x - width, pos->y - height);
     break;
   }
 
+
   gnome_print_gsave(renderer->ctx);
-  gnome_print_scale(renderer->ctx, 1, -1);
-  gnome_print_show(renderer->ctx, text);
+  gnome_print_scale(renderer->ctx, 1/magic, -1/magic);
+  
+  gnome_print_pango_layout (renderer->ctx, layout);
+  g_object_unref (layout);
+
   gnome_print_grestore(renderer->ctx);
 }
 

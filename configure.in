@@ -59,7 +59,7 @@ AC_SUBST(GMODULE_LIBS)
 
 AM_PATH_GTK_2_0(2.4.0)
 
-GTK_MODULES="gtk+-2.0 libxml-2.0 gdk-pixbuf-2.0"
+GTK_MODULES="gtk+-2.0 libxml-2.0 gdk-pixbuf-2.0 gthread-2.0"
 PKG_CHECK_MODULES(PANGOVERSION, pango >= 1.1.5, , 
                   AC_MSG_ERROR([Need Pango version 1.1.5 or higher]))
 PKG_CHECK_MODULES(PANGOFT2,pangoft2,have_pangoft2=true,have_pangoft2=false)

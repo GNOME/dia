@@ -502,11 +502,18 @@ app_init (int argc, char **argv)
     gnome_window_icon_set_default_from_file (GNOME_ICONDIR"/dia_gnome_icon.png");
 
 #else
+#  ifdef G_THREADS_ENABLED
+    g_thread_init (NULL);
+#  endif
     gtk_init(&argc, &argv);
 #endif
   }
-  else
+  else {
+#  ifdef G_THREADS_ENABLED
+    g_thread_init (NULL);
+#  endif
     g_type_init();
+  }
 
   /* done with option parsing, don't leak */
   g_free(export_format_string);

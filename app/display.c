@@ -103,6 +103,12 @@ update_modified_status(DDisplay *ddisp)
   }
 }
 
+void
+selection_changed (Diagram* dia, int n, DDisplay* ddisp)
+{
+  g_print ("Diagram 0x%08x  Display 0x%08x Selections %d\n", dia, ddisp, n);
+}
+
 DDisplay *
 new_display(Diagram *dia)
 {
@@ -157,7 +163,7 @@ new_display(Diagram *dia)
   }
 
   diagram_add_ddisplay(dia, ddisp);
-
+  g_signal_connect (dia, "selection_changed", selection_changed, ddisp);
   ddisp->origo.x = 0.0;
   ddisp->origo.y = 0.0;
   ddisp->zoom_factor = prefs.new_view.zoom/100.0*DDISPLAY_NORMAL_ZOOM;
@@ -921,6 +927,8 @@ ddisp_destroy(DDisplay *ddisp)
     gtk_idle_remove(ddisp->update_id);
     ddisp->update_id = 0;
   }
+
+  g_signal_handlers_disconnect_by_func (ddisp->diagram, selection_changed, ddisp);
 
   g_object_unref (G_OBJECT (ddisp->diagram));
   g_object_unref (G_OBJECT (ddisp->im_context));

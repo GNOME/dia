@@ -48,8 +48,8 @@ struct _DiaGnomePrintRenderer
 
   GnomePrintConfig  *config;
   GnomePrintContext *ctx;
-  GnomeFont *font;
 
+  DiaFont *font;
   LineStyle saved_line_style;
   real dash_length;
   real dot_length; 

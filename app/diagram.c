@@ -41,12 +41,20 @@
 #include "autosave.h"
 #include "dynamic_refresh.h"
 #include "textedit.h"
+#include "diamarshal.h"
 
 static GList *open_diagrams = NULL;
 
 static void diagram_class_init (DiagramClass *klass);
 static void diagram_init(Diagram *obj, const char *filename);
 
+enum {
+  SELECTION_CHANGED,
+  REMOVED,
+  LAST_SIGNAL
+};
+
+static diagram_signals[LAST_SIGNAL] = { 0 };
 static gpointer parent_class = NULL;
 
 GType
@@ -84,19 +92,27 @@ diagram_finalize(GObject *object)
   Diagram *other_diagram;
 
   assert(dia->displays==NULL);
-  g_object_unref(dia->data);
-  dia->data = NULL;
   
   open_diagrams = g_list_remove(open_diagrams, dia);
   layer_dialog_update_diagram_list();
 
-  undo_destroy(dia->undo);
+  if (dia->undo)
+    undo_destroy(dia->undo);
+  dia->undo = NULL;
   
   diagram_tree_remove(diagram_tree(), dia);
 
   diagram_cleanup_autosave(dia);
 
-  g_free(dia->filename);
+  if (dia->data)
+    g_object_unref(dia->data);
+  dia->data = NULL;
+  
+  if (dia->filename)
+    g_free(dia->filename);
+  dia->filename = NULL;
+
+  G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 static void
@@ -105,6 +121,28 @@ diagram_class_init (DiagramClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   parent_class = g_type_class_peek_parent (klass);
+
+  diagram_signals[REMOVED] =
+    g_signal_new ("removed",
+	          G_TYPE_FROM_CLASS (klass),
+	          G_SIGNAL_RUN_FIRST,
+	          G_STRUCT_OFFSET (DiagramClass, removed),
+	          NULL, NULL,
+	          dia_marshal_VOID__VOID,
+		  G_TYPE_NONE, 0);
+
+  diagram_signals[SELECTION_CHANGED] =
+    g_signal_new ("selection_changed",
+	          G_TYPE_FROM_CLASS (klass),
+	          G_SIGNAL_RUN_FIRST,
+	          G_STRUCT_OFFSET (DiagramClass, selection_changed),
+	          NULL, NULL,
+	          dia_marshal_VOID__INT,
+		  G_TYPE_NONE, 1,
+		  G_TYPE_INT);
+
+  klass->removed = NULL;
+  klass->selection_changed = NULL;
 
   object_class->finalize = diagram_finalize;
 }
@@ -212,6 +250,7 @@ new_diagram(const char *filename)  /* Note: filename is copied */
 void
 diagram_destroy(Diagram *dia)
 {
+  g_signal_emit (dia, diagram_signals[REMOVED], 0);
   diagram_close_related_dialogs(dia);
   g_object_unref(dia);
 }
@@ -533,6 +572,7 @@ diagram_remove_all_selected(Diagram *diagram, int delete_empty)
   object_add_updates_list(diagram->data->selected, diagram);
   textedit_remove_focus_all(diagram);
   data_remove_all_selected(diagram->data);
+  g_signal_emit (diagram, diagram_signals[SELECTION_CHANGED], 0, g_list_length (diagram->data->selected));
 }
 
 void
@@ -541,6 +581,7 @@ diagram_unselect_object(Diagram *diagram, DiaObject *obj)
   object_add_updates(obj, diagram);
   textedit_remove_focus(obj, diagram);
   data_unselect(diagram->data, obj);
+  g_signal_emit (diagram, diagram_signals[SELECTION_CHANGED], 0, g_list_length (diagram->data->selected));
 }
 
 void
@@ -549,6 +590,8 @@ diagram_unselect_objects(Diagram *dia, GList *obj_list)
   GList *list;
   DiaObject *obj;
 
+  /* otherwise we would signal objects step by step */
+  g_signal_handler_block (dia, diagram_signals[SELECTION_CHANGED]);
   list = obj_list;
   while (list != NULL) {
     obj = (DiaObject *) list->data;
@@ -559,6 +602,8 @@ diagram_unselect_objects(Diagram *dia, GList *obj_list)
 
     list = g_list_next(list);
   }
+  g_signal_handler_unblock (dia, diagram_signals[SELECTION_CHANGED]);
+  g_signal_emit (dia, diagram_signals[SELECTION_CHANGED], 0, g_list_length (dia->data->selected));
 }
 
 void
@@ -567,12 +612,15 @@ diagram_select(Diagram *diagram, DiaObject *obj)
   data_select(diagram->data, obj);
   obj->ops->selectf(obj, NULL, NULL);
   object_add_updates(obj, diagram);
+  g_signal_emit (diagram, diagram_signals[SELECTION_CHANGED], 0, g_list_length (diagram->data->selected));
 }
 
 void
 diagram_select_list(Diagram *dia, GList *list)
 {
 
+  /* otherwise we would signal objects step by step */
+  g_signal_handler_block (dia, diagram_signals[SELECTION_CHANGED]);
   while (list != NULL) {
     DiaObject *obj = (DiaObject *)list->data;
 
@@ -580,6 +628,8 @@ diagram_select_list(Diagram *dia, GList *list)
 
     list = g_list_next(list);
   }
+  g_signal_handler_unblock (dia, diagram_signals[SELECTION_CHANGED]);
+  g_signal_emit (dia, diagram_signals[SELECTION_CHANGED], 0, g_list_length (dia->data->selected));
 }
 
 int

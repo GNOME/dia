@@ -1,3 +1,33 @@
+2004-11-29  Hans Breuer  <hans@breuer.org>
+
+	* app/disp_callbacks.c : reenable so-called preedit
+	as described in bug #158859, Etsushi Kato
+	Also fixed some compiler warnings while there.
+	
+	* objects/standard/image.c(get_directory) : make
+	the documentation match the implementation.
+	(image_save) : don't write a leading slash on 
+	relative filenames 
+
+	* plug-ins/gprint/diagnomeprintrenderer.c :
+	switched to gnome-print-pango usage
+	
+	* app/app_procs.c configure.in : although Dia
+	is not threaded it appears as if we have to
+	g_thread_init() to avoid crashing in some
+	libraries which are thread enabled
+
+	* lib/diamarshal.list lib/Makefile.am : start of
+	using GSignal to clean up some object relations
+	* lib/libdia.def : export marshallers
+	* app/diagram.[ch] : emit signals when REMOVED,
+	SELECTION_CHANGED
+	* app/display.c : added a connection to 
+	SELECTION_CHANGED to test the new signal stuff
+	
+	* app/diagram.c : fixed diagram_finalize while I
+	was there.
+
 2004-11-28  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/wmf/wmf.cpp(draw_string) : write the widechar version of 

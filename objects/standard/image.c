@@ -500,8 +500,8 @@ image_copy(Image *image)
 /* Gets the directory path of a filename.
    Uses current working directory if filename is a relative pathname.
    Examples:
-     /some/dir/file.gif => /some/dir/
-     dir/file.gif => /cwd/dir/
+     /some/dir/file.gif => /some/dir
+     dir/file.gif => /cwd/dir
    
 */
 static char *
@@ -561,7 +561,7 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
       if (strncmp(diafile_dir, image->file, strlen(diafile_dir))==0) {
 	/* The image pathname has the dia file pathname in the begining */
 	/* Save the relative path: */
-	data_add_filename(new_attribute(obj_node, "file"), image->file + strlen(diafile_dir));
+	data_add_filename(new_attribute(obj_node, "file"), image->file + strlen(diafile_dir) + 1);
       } else {
 	/* Save the absolute path: */
 	data_add_filename(new_attribute(obj_node, "file"), image->file);

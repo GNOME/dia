@@ -70,6 +70,11 @@ typedef struct _object_extent object_extent;
 
 typedef struct _DiagramClass {
   GObjectClass parent_class;
+	
+  /* signals */
+  void (* removed)           (Diagram*);
+  void (* selection_changed) (Diagram*, int);
+	
 } DiagramClass;
 
 GList *dia_open_diagrams(void); /* Read only! */
