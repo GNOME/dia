@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-03-03 20:31+0100\n"
-"PO-Revision-Date: 2002-03-03 20:31+0100\n"
+"POT-Creation-Date: 2002-03-10 22:14+0100\n"
+"PO-Revision-Date: 2002-03-10 22:14+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -238,7 +238,7 @@ msgstr "Rutnät"
 msgid "Background Colour"
 msgstr "Bakgrundsfärg"
 
-#: app/dia-props.c:200 lib/diagramdata.c:62 lib/diagramdata.c:64
+#: app/dia-props.c:200 lib/diagramdata.c:61 lib/diagramdata.c:63
 msgid "Background"
 msgstr "Bakgrund"
 
@@ -487,7 +487,7 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nej"
 
-#: app/export_png.c:114 app/load_save.c:616 app/render_eps.c:613
+#: app/export_png.c:114 app/load_save.c:616 app/render_eps.c:625
 #: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:199
 #: plug-ins/pstricks/render_pstricks.c:188 plug-ins/python/pydia-render.c:671
@@ -1732,7 +1732,7 @@ msgstr "<Toolbox>/Arkiv/Avsluta"
 msgid "Can't open history file for writing."
 msgstr "Kunde inte öppna historikfilen för skrivning."
 
-#: app/render_eps.c:1725
+#: app/render_eps.c:1706
 msgid "Encapsulated Postscript"
 msgstr "Inkapslad Postscript"
 
@@ -1759,11 +1759,11 @@ msgstr "Dia"
 #: objects/EML/instantiation.c:474 objects/EML/interaction-ortho.c:325
 #: objects/EML/interaction-ortho.c:457 objects/EML/interaction.c:284
 #: objects/EML/interaction.c:496 objects/EML/process.c:511
-#: objects/ER/attribute.c:391 objects/ER/attribute.c:548
-#: objects/ER/entity.c:343 objects/ER/entity.c:477
-#: objects/ER/relationship.c:421 objects/ER/relationship.c:593
+#: objects/ER/attribute.c:391 objects/ER/attribute.c:556
+#: objects/ER/entity.c:343 objects/ER/entity.c:485
+#: objects/ER/relationship.c:421 objects/ER/relationship.c:601
 #: objects/UML/association.c:556 objects/UML/association.c:741
-#: objects/UML/class.c:676 objects/UML/constraint.c:269
+#: objects/UML/class.c:674 objects/UML/constraint.c:269
 #: objects/UML/dependency.c:371 objects/UML/generalization.c:364
 #: objects/UML/implements.c:284 objects/UML/large_package.c:333
 #: objects/UML/note.c:301 objects/UML/realizes.c:367
@@ -1824,7 +1824,7 @@ msgstr ""
 "stöta på problem. Rapportera till dia-list@gnome.org om du ser detta "
 "meddelande."
 
-#: lib/font.c:512
+#: lib/font.c:513
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1833,25 +1833,31 @@ msgstr ""
 "Varning: Inget X-typsnitt för %s hittades, \n"
 "använder %s i stället.\n"
 
-#: lib/font.c:619
+#: lib/font.c:634
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr "Varning: FreeType är valt, men biblioteket kan inte läsas in: %d\n"
 
-#: lib/font.c:628
+#: lib/font.c:643
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Varning: Inga X-typsnitt hittades. Världen går under."
 
-#: lib/font.c:919
+#: lib/font.c:652
+msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
+msgstr ""
+"Varning: Inga typsnitt är inlästa. Finns det typsnittsfiler i X-"
+"typsnittssökvägen?"
+
+#: lib/font.c:935
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "Fel, kunde inte hitta typsnitt. Borde aldrig hända.\n"
 
-#: lib/font.c:921 lib/font.c:955
+#: lib/font.c:937 lib/font.c:971
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
 
-#: lib/font.c:931
+#: lib/font.c:947
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "Typsnittet %s har ingen stil %s, använder %s\n"
@@ -3172,7 +3178,7 @@ msgstr "Önskad funktion"
 #. in lib/font.c.
 #: objects/GRAFCET/action.c:52 objects/GRAFCET/condition.c:51
 #: objects/GRAFCET/step.c:48 objects/GRAFCET/transition.c:55
-#: objects/SADT/box.c:500 objects/UML/class.c:682
+#: objects/SADT/box.c:500 objects/UML/class.c:686
 msgid "Helvetica-Bold"
 msgstr "Helvetica-Bold"
 
@@ -3467,18 +3473,18 @@ msgstr "Mall"
 
 #. choose default font name for abstract for your locale. see also font_data
 #. structure in lib/font.c.
-#: objects/UML/class.c:679
+#: objects/UML/class.c:680
 msgid "Courier-Oblique"
 msgstr "Courier-Oblique"
 
 #. choose default font name for abstract class name for your locale. see also font_data
 #. structure in lib/font.c.
-#: objects/UML/class.c:685
+#: objects/UML/class.c:692
 msgid "Helvetica-BoldOblique"
 msgstr "Helvetica-BoldOblique"
 
 #. Class page:
-#: objects/UML/class.c:715 objects/UML/class.c:717
+#: objects/UML/class.c:723 objects/UML/class.c:725
 #: objects/UML/class_dialog.c:229
 msgid "Class"
 msgstr "Klass"
