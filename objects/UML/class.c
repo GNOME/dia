@@ -516,7 +516,9 @@ umlclass_calculate_data(UMLClass *umlclass)
 #endif
 	  umlclass->namebox_height += font_height;
 	  umlclass->stereotype_string =
-		  g_malloc (sizeof (utfchar) * (strlen (utfstart) + strlen (utfend) + 1));
+		  g_malloc (sizeof (utfchar) * (strlen (utfstart) +
+                                                strlen (umlclass->stereotype) +
+                                                strlen (utfend) + 1));
 
 	  strcpy (umlclass->stereotype_string, utfstart);
 	  strcat (umlclass->stereotype_string, umlclass->stereotype);
