@@ -1,3 +1,3 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = lib objects app samples
+SUBDIRS = lib objects app samples po intl

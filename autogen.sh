@@ -49,6 +49,13 @@ case $CC in
 *lcc | *lcc\ *) am_opt=--include-deps;;
 esac
 
+echo "Running gettextize...  Ignore non-fatal messages."
+# Hmm, we specify --force here, since otherwise things don't
+# get added reliably, but we don't want to overwrite intl
+# while making dist.
+echo "no" | gettextize --copy --force
+
+echo "Running libtoolize"
 libtoolize --copy --force
 
 aclocal $ACLOCAL_FLAGS

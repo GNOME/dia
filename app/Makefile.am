@@ -59,13 +59,17 @@ dia_SOURCES = \
 	    tool.h \
 	    pixmaps.h 
 
-dia_LDADD = ../lib/libdia.a  @GTK_LIBS@ @XML_LIBS@
+dia_LDADD = ../lib/libdia.a  @GTK_LIBS@ @XML_LIBS@ @INTLLIBS@ @GNOME_LIBS@
 
-CPPFLAGS = @GTK_CFLAGS@ -DLIBDIR=\"$(libdir)\" @XML_CFLAGS@
-
-CFLAGS = @CFLAGS@
-
-INCLUDES = -I$(srcdir)/../lib
+INCLUDES = \
+	-DLOCALEDIR=\"$(localedir)\" \
+	-DLIBDIR=\"$(libdir)\" \
+	-I../intl \
+	-I$(srcdir)/../lib \
+	@DEBUG_FLAGS@ \
+	@XML_CFLAGS@ \
+	@GTK_CFLAGS@ \
+        @GNOME_CFLAGS@
 
 LDFLAGS = -export-dynamic
 
