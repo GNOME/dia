@@ -1,5 +1,8 @@
 2003-08-27  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/python/pydia-geometry.c (PyDiaRectangle_GetAttr): Use
+	more compiler-proof but longer version of I_OR_F.
+
 	* configure.in: Quote correctly for temporarily adding freetype
 	cflags to CPPFLAGS.
 
