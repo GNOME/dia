@@ -1,3 +1,16 @@
+1999-02-20  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
+
+	* objects/UML/message.c (fill_in_dialog): 
+	Fixed dialog fill in. Common dialog for all messages.
+
+	* objects/UML/object.c: 
+	Added multiple instance. Dialog related bugs fixed.
+	Common dialog for all instances. Completed copy and destroy.
+
+	* objects/UML/lifeline.c (lifeline_load): 
+	Conn initialization bug fixed and few bad loading prevention flags.
+	Common dialog for all lifeline objects.
+	
 1999-02-15  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/dia_image.[ch]:

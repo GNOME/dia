@@ -44,7 +44,6 @@ struct _Lifeline {
     
   int draw_focuscontrol;
   int draw_cross;
-  LifelineDialog* properties_dialog;
 };
 
 struct _LifelineDialog {
@@ -67,6 +66,7 @@ struct _LifelineDialog {
 #define HANDLE_BOXBOT (HANDLE_CUSTOM2)
 
 
+static LifelineDialog* properties_dialog;
 static void lifeline_move_handle(Lifeline *lifeline, Handle *handle,
 				   Point *to, HandleMoveReason reason);
 static void lifeline_move(Lifeline *lifeline, Point *to);
@@ -328,8 +328,6 @@ lifeline_create(Point *startpoint,
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
 
-  lifeline->properties_dialog = NULL;
-
   return (Object *)lifeline;
 }
 
@@ -337,11 +335,6 @@ lifeline_create(Point *startpoint,
 static void
 lifeline_destroy(Lifeline *lifeline)
 {
-  if (lifeline->properties_dialog != NULL) {
-      gtk_widget_destroy(lifeline->properties_dialog->dialog);
-      g_free(lifeline->properties_dialog);
-  }
-
   connection_destroy(&lifeline->connection);
 }
 
@@ -476,23 +469,32 @@ lifeline_load(ObjectNode obj_node, int version)
   attr = object_find_attribute(obj_node, "rtop");
   if (attr != NULL)
     lifeline->rtop = data_real(attribute_first_data(attr));
+  else
+    lifeline->rtop = LIFELINE_HEIGHT/3;
 
   attr = object_find_attribute(obj_node, "rbot");
   if (attr != NULL)
     lifeline->rbot = data_real(attribute_first_data(attr));
+  else
+    lifeline->rbot = lifeline->rtop+0.7;
 
   attr = object_find_attribute(obj_node, "draw_focus");
   if (attr != NULL)
     lifeline->draw_focuscontrol = data_boolean(attribute_first_data(attr));
+  else
+    lifeline->draw_focuscontrol = 1;
 
   attr = object_find_attribute(obj_node, "draw_cross");
   if (attr != NULL)
     lifeline->draw_cross = data_boolean(attribute_first_data(attr));
+  else
+    lifeline->draw_cross = 0;
 
   /* Connection points */
   for (i=0;i<6;i++) {
     obj->connections[i] = &lifeline->connections[i];
     lifeline->connections[i].object = obj;
+    lifeline->connections[i].connected = NULL;
   }
 
   lifeline->boxbot_handle.id = HANDLE_BOXBOT;
@@ -518,7 +520,7 @@ lifeline_apply_properties(Lifeline *lif)
 {
   LifelineDialog *prop_dialog;
 
-  prop_dialog = lif->properties_dialog;
+  prop_dialog = properties_dialog;
 
   /* Read from dialog and put in object: */
 
@@ -533,7 +535,7 @@ fill_in_dialog(Lifeline *lif)
 {
   LifelineDialog *prop_dialog;
 
-  prop_dialog = lif->properties_dialog;
+  prop_dialog = properties_dialog;
 
   gtk_toggle_button_set_active(prop_dialog->draw_focus, lif->draw_focuscontrol);
   gtk_toggle_button_set_active(prop_dialog->draw_cross, lif->draw_cross);
@@ -547,10 +549,10 @@ lifeline_get_properties(Lifeline *lif)
   GtkWidget *dialog;
   GtkWidget *checkbox;
 
-  if (lif->properties_dialog == NULL) {
+  if (properties_dialog == NULL) {
 
     prop_dialog = g_new(LifelineDialog, 1);
-    lif->properties_dialog = prop_dialog;
+    properties_dialog = prop_dialog;
 
     dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
@@ -568,7 +570,7 @@ lifeline_get_properties(Lifeline *lif)
   }
   
   fill_in_dialog(lif);
-  gtk_widget_show (lif->properties_dialog->dialog);
+  gtk_widget_show (properties_dialog->dialog);
 
-  return lif->properties_dialog->dialog;
+  return properties_dialog->dialog;
 }

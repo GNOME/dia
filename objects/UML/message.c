@@ -53,8 +53,6 @@ struct _Message {
   real text_width;
     
   MessageType type;
-
-  MessageDialog *properties_dialog;
 };
 
 struct _MessageDialog {
@@ -82,6 +80,8 @@ struct _MessageDialog {
 #define MESSAGE_DESTROY_LABEL "«destroy»"
 
 static Font *message_font = NULL;
+
+static MessageDialog *properties_dialog;
 
 static void message_move_handle(Message *message, Handle *handle,
 				   Point *to, HandleMoveReason reason);
@@ -325,8 +325,6 @@ message_create(Point *startpoint,
   message->text_handle.connected_to = NULL;
   obj->handles[2] = &message->text_handle;
   
-  message->properties_dialog = NULL;
-  
   message_update_data(message);
 
   *handle1 = obj->handles[0];
@@ -341,11 +339,6 @@ message_destroy(Message *message)
   connection_destroy(&message->connection);
 
   g_free(message->text);
-
-  if (message->properties_dialog != NULL) {
-    gtk_widget_destroy(message->properties_dialog->dialog);
-    g_free(message->properties_dialog);
-  }
 }
 
 static Object *
@@ -371,8 +364,6 @@ message_copy(Message *message)
   newmessage->text_width = message->text_width;
 
   newmessage->type = message->type;
-
-  newmessage->properties_dialog = NULL;
 
   return (Object *)newmessage;
 }
@@ -467,8 +458,6 @@ message_load(ObjectNode obj_node, int version)
   message->text_handle.connected_to = NULL;
   obj->handles[2] = &message->text_handle;
   
-  message->properties_dialog = NULL;
-  
   message_update_data(message);
   
   return (Object *)message;
@@ -480,7 +469,7 @@ message_apply_properties(Message *message)
 {
   MessageDialog *prop_dialog;
   
-  prop_dialog = message->properties_dialog;
+  prop_dialog = properties_dialog;
 
   /* Read from dialog and put in object: */
   g_free(message->text);
@@ -514,14 +503,41 @@ fill_in_dialog(Message *message)
 {
   MessageDialog *prop_dialog;
   char *str;
-  
-  prop_dialog = message->properties_dialog;
+  GtkToggleButton *button;
+
+  prop_dialog = properties_dialog;
 
   if (message->text) {
       str = strdup(message->text);
       gtk_entry_set_text(prop_dialog->text, str);
       g_free(str);
   }
+
+  switch (message->type) {
+  case MESSAGE_CALL:
+      button = prop_dialog->m_call;
+      break;
+  case MESSAGE_CREATE:
+      button = prop_dialog->m_create;
+      break;
+  case MESSAGE_DESTROY:
+      button = prop_dialog->m_destroy;
+      break;
+  case MESSAGE_SIMPLE:
+      button = prop_dialog->m_simple;
+      break;
+  case MESSAGE_RETURN:
+      button = prop_dialog->m_return;
+      break;
+  case MESSAGE_SEND:
+      button = prop_dialog->m_send;
+      break;
+  case MESSAGE_RECURSIVE:
+      button = prop_dialog->m_recursive;
+      break;
+  }
+
+  gtk_toggle_button_set_active(button, TRUE);
 }
 
 static GtkWidget *
@@ -534,10 +550,10 @@ message_get_properties(Message *message)
   GtkWidget *label;
   GSList *group;
 
-  if (message->properties_dialog == NULL) {
+  if (properties_dialog == NULL) {
 
     prop_dialog = g_new(MessageDialog, 1);
-    message->properties_dialog = prop_dialog;
+    properties_dialog = prop_dialog;
     
     dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
@@ -599,7 +615,7 @@ message_get_properties(Message *message)
   }
   
   fill_in_dialog(message);
-  gtk_widget_show (message->properties_dialog->dialog);
+  gtk_widget_show (properties_dialog->dialog);
 
-  return message->properties_dialog->dialog;
+  return properties_dialog->dialog;
 }

@@ -49,8 +49,7 @@ struct _Objet {
   Point ex_pos, st_pos;
   int is_active;
   int show_attributes;
-
-  ObjetPropertiesDialog* properties_dialog;
+  int is_multiple;  
 };
 
 struct _ObjetPropertiesDialog {
@@ -61,6 +60,7 @@ struct _ObjetPropertiesDialog {
   GtkWidget *attribs;
   GtkToggleButton *show_attrib;
   GtkToggleButton *active;
+  GtkToggleButton *multiple;
 };
 
 #define OBJET_BORDERWIDTH 0.1
@@ -68,7 +68,10 @@ struct _ObjetPropertiesDialog {
 #define OBJET_LINEWIDTH 0.05
 #define OBJET_MARGIN_X 0.5
 #define OBJET_MARGIN_Y 0.5
+#define OBJET_MARGIN_M 0.4
 #define OBJET_FONTHEIGHT 0.8
+
+static ObjetPropertiesDialog* properties_dialog = NULL;
 
 static real objet_distance_from(Objet *pkg, Point *point);
 static void objet_select(Objet *pkg, Point *clicked_point,
@@ -189,6 +192,22 @@ objet_draw(Objet *pkg, Renderer *renderer)
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;
 
+  if (pkg->is_multiple) {
+    p1.x += OBJET_MARGIN_M;
+    p2.y -= OBJET_MARGIN_M;
+    renderer->ops->fill_rect(renderer, 
+			     &p1, &p2,
+			     &color_white); 
+    renderer->ops->draw_rect(renderer, 
+			     &p1, &p2,
+			     &color_black);
+    p1.x -= OBJET_MARGIN_M;
+    p1.y += OBJET_MARGIN_M;
+    p2.x -= OBJET_MARGIN_M;
+    p2.y += OBJET_MARGIN_M;
+    y += OBJET_MARGIN_M;
+  }
+    
   renderer->ops->fill_rect(renderer, 
 			   &p1, &p2,
 			   &color_white);
@@ -255,6 +274,10 @@ objet_update_data(Objet *pkg)
   font = pkg->text->font;
   h = elem->corner.y + OBJET_MARGIN_Y;
 
+  if (pkg->is_multiple) {
+    h += OBJET_MARGIN_M;
+  }
+    
   if (pkg->stereotype != NULL) {
       w = font_string_width(pkg->stereotype, font, OBJET_FONTHEIGHT);
       h += OBJET_FONTHEIGHT;
@@ -292,7 +315,12 @@ objet_update_data(Objet *pkg)
   text_set_position(pkg->text, &p1);
   
   pkg->ex_pos.x = pkg->st_pos.x = p1.x;
+
   
+  if (pkg->is_multiple) {
+    w += OBJET_MARGIN_M;
+  }
+    
   elem->width = w;
   elem->height = h - elem->corner.y;
 
@@ -352,6 +380,7 @@ objet_create(Point *startpoint,
   
   pkg->show_attributes = FALSE;
   pkg->is_active = FALSE;
+  pkg->is_multiple = FALSE;
 
   pkg->exstate = NULL;
   pkg->stereotype = NULL;
@@ -377,6 +406,7 @@ objet_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = NULL;
+
   return (Object *)pkg;
 }
 
@@ -384,6 +414,14 @@ static void
 objet_destroy(Objet *pkg)
 {
   text_destroy(pkg->text);
+
+  if (pkg->stereotype != NULL)
+      g_free(pkg->stereotype);
+
+  if (pkg->exstate != NULL)
+      g_free(pkg->exstate);
+
+  text_destroy(pkg->attributes);
 
   element_destroy(&pkg->element);
 }
@@ -414,6 +452,14 @@ objet_copy(Objet *pkg)
     newpkg->connections[i].last_pos = pkg->connections[i].last_pos;
   }
 
+  newpkg->stereotype = (pkg->stereotype != NULL) ? 
+      strdup(pkg->stereotype): NULL;
+
+  newpkg->exstate = (pkg->exstate != NULL) ? 
+      strdup(pkg->exstate): NULL;
+
+  newpkg->attributes = text_copy(pkg->attributes);
+  
   objet_update_data(newpkg);
   
   return (Object *)newpkg;
@@ -442,6 +488,9 @@ objet_save(Objet *pkg, ObjectNode obj_node)
   
   data_add_boolean(new_attribute(obj_node, "show_attribs"),
 		   pkg->show_attributes);
+
+  data_add_boolean(new_attribute(obj_node, "multiple"),
+		   pkg->is_multiple);
 }
 
 static Object *
@@ -485,11 +534,21 @@ objet_load(ObjectNode obj_node, int version)
   attr = object_find_attribute(obj_node, "is_active");
   if (attr != NULL)
     pkg->is_active = data_boolean(attribute_first_data(attr));
+  else
+    pkg->is_active = FALSE;
 
   attr = object_find_attribute(obj_node, "show_attribs");
   if (attr != NULL)
     pkg->show_attributes = data_boolean(attribute_first_data(attr));
+  else
+    pkg->show_attributes = FALSE;
   
+  attr = object_find_attribute(obj_node, "multiple");
+  if (attr != NULL)
+    pkg->is_multiple = data_boolean(attribute_first_data(attr));
+  else
+    pkg->is_multiple = FALSE;
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {
@@ -513,7 +572,7 @@ objet_apply_properties(Objet *dep)
   ObjetPropertiesDialog *prop_dialog;
   char *str;
 
-  prop_dialog = dep->properties_dialog;
+  prop_dialog = properties_dialog;
 
   /* Read from dialog and put in object: */
   if (dep->exstate != NULL)
@@ -543,6 +602,7 @@ objet_apply_properties(Objet *dep)
 
   dep->is_active = prop_dialog->active->active;
   dep->show_attributes = prop_dialog->show_attrib->active;
+  dep->is_multiple = prop_dialog->multiple->active;
 
   
   text_set_string(dep->attributes,
@@ -558,7 +618,7 @@ fill_in_dialog(Objet *dep)
   ObjetPropertiesDialog *prop_dialog;
   char *str;
   
-  prop_dialog = dep->properties_dialog;
+  prop_dialog = properties_dialog;
 
   if (dep->exstate != NULL) {
       str = strdup(dep->exstate+1);
@@ -581,7 +641,8 @@ fill_in_dialog(Objet *dep)
 
   gtk_toggle_button_set_active(prop_dialog->show_attrib, dep->show_attributes);
   gtk_toggle_button_set_active(prop_dialog->active, dep->is_active);
-
+  gtk_toggle_button_set_active(prop_dialog->multiple, dep->is_multiple);
+    
   gtk_text_insert( GTK_TEXT(prop_dialog->attribs),
 		   NULL, NULL, NULL,
 		   text_get_string_copy(dep->attributes),
@@ -598,10 +659,10 @@ objet_get_properties(Objet *dep)
   GtkWidget *hbox;
   GtkWidget *label;
 
-  if (dep->properties_dialog == NULL) {
+  if (properties_dialog == NULL) {
 
     prop_dialog = g_new(ObjetPropertiesDialog, 1);
-    dep->properties_dialog = prop_dialog;
+    properties_dialog = prop_dialog;
 
     dialog = gtk_vbox_new(FALSE, 0);
     prop_dialog->dialog = dialog;
@@ -648,14 +709,20 @@ objet_get_properties(Objet *dep)
     gtk_box_pack_start (GTK_BOX (hbox), checkbox, FALSE, TRUE, 0);
     prop_dialog->active = GTK_TOGGLE_BUTTON( checkbox );
     gtk_widget_show(checkbox);
+      
+    checkbox = gtk_check_button_new_with_label("multiple instance");
+    gtk_box_pack_start (GTK_BOX (hbox), checkbox, FALSE, TRUE, 0);
+    prop_dialog->multiple = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+      
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
 
   }
   
   fill_in_dialog(dep);
-  gtk_widget_show (dep->properties_dialog->dialog);
+  gtk_widget_show (properties_dialog->dialog);
 
-  return dep->properties_dialog->dialog;
+  return properties_dialog->dialog;
 }
 
