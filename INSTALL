@@ -1,3 +1,6 @@
+REQUIREMENTS:
+=============
+
 Dia needs Gtk+ at least version 1.1.13 installed.
 It can be found at:
 
@@ -18,17 +21,46 @@ As of version 0.40 Dia needs gdk_imlib, at least version 1.8.2.
 Version 1.9.3  can be found here:
 ftp://ftp.jimpick.com/pub/mirrors/gnome/sources/imlib/imlib-1.9.3.tar.gz
 
+BUILDING:
+=========
+
 To build, run:
 
  ./configure
  make
 
-then you can try it out in place by running
+
+COMPILING FROM CVS:
+===================
+
+If you are using the cvs version of Dia you need to have the following programs:
+automake 1.4, autoconf 2.13, libtool 1.2d, GNU gettext 0.10.35
+
+Then run ./automake.sh instead of configure to create all needed files.
+
+TRYING IT OUT:
+==============
+
+You can try out dia in the compilation directory by running
  ./app/run_dia.sh
 
-or install it (defaulting at /usr/local/, change it with --prefix=xxx in configure) and run by:
- make install
- /usr/local/bin/dia
+INSTALL:
+========
+install it by doing:
 
+ make install
+
+By default Dia is installed in /usr/local.
+You can change that by passing --prefix=/some/dir to configure.
+
+
+FONTS:
+======
+I recommend that you install the URW fonts if you haven't already.
+They are free scalable version of the standard postscript fonts.
+
+Information and files can be found at:
+
+ http://www.gimp.org/fonts.html
 
 

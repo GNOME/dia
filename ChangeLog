@@ -1,5 +1,25 @@
 1999-03-28  Alexander Larsson  <alla@lysator.liu.se>
 
+	* lib/font.c:
+	Use a scalable font before fixed when real font not found.
+
+	* app/commands.c:
+	Removed warning.
+
+	* objects/standard/image.c:
+	Better handling of loading/saving of images.
+
+	* INSTALL:
+	Added some text about cvs, fonts and rewrote some parts.
+
+	* TODO:
+	Updated with new stuff.
+	
+	* configure.in:
+	Bump up version number to 0.40.
+	
+1999-03-28  Alexander Larsson  <alla@lysator.liu.se>
+
 	* app/display.c:
 	Moved diagram_add_ddisplay() call into new_display().
 	Fixed new_display to not use uninitialized variables
@@ -8,7 +28,6 @@
 	* app/commands.c:
 	* app/app_procs.c:
 	Removed unneeded calls to diagram_add_ddisplay().
-
 	
 1999-03-28  Alexander Larsson  <alla@lysator.liu.se>
 

@@ -296,6 +296,13 @@ GList *fonts = NULL;
 GList *font_names;
 GHashTable *fonts_hash = NULL;
 
+char *last_resort_fonts = {
+  "-adobe-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+  "fixed" /* Must be last. This is guaranteed to exist on an X11 system. */
+}
+#define NUM_LAST_RESORT_FONTS (sizeof(last_resort_fonts)/sizeof(char *))
+
+
 static void
 init_x11_font(FontPrivate *font)
 {
@@ -323,13 +330,21 @@ init_x11_font(FontPrivate *font)
     if (font->fontname_x11!=NULL)
       break;
   }
-  
-  if (font->fontname_x11==NULL) {
-    font->fontname_x11 = "fixed";
-    gdk_font = gdk_font_load("fixed");
-    message_warning(_("Warning no X Font for %s found, using fixed.\n"), font_data[i].fontname);
-  }
 
+  for (i=0;i<NUM_LAST_RESORT_FONTS;i++) {
+    x11_font = last_resort_fonts[i];
+    bufsize = strlen(x11_font)+6;  /* Should be enought*/
+    buffer = (char *)g_malloc(bufsize);
+    snprintf(buffer, bufsize, x11_font, 100);
+    
+    gdk_font = gdk_font_load(buffer);
+    g_free(buffer);
+    if (gdk_font!=NULL) {
+      message_warning(_("Warning no X Font for %s found, \nusing %s instead.\n"), font->public.name, x11_font);
+      font->fontname_x11 = x11_font;
+      break;
+    }
+  }
 
   height = (real)gdk_font->ascent + gdk_font->descent;
   font->ascent_ratio = gdk_font->ascent/height;

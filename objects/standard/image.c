@@ -19,6 +19,7 @@
 #include <string.h>
 #include <gtk/gtk.h>
 #include <math.h>
+#include <unistd.h>
 
 #include "config.h"
 #include "intl.h"
@@ -686,27 +687,49 @@ image_copy(Image *image)
   return (Object *)newimage;
 }
 
+/* Gets the directory path of a filename.
+   Uses current working directory if filename is a relative pathname.
+   Examples:
+     /some/dir/file.gif => /some/dir/
+     dir/file.gif => /cwd/dir/
+   
+*/
 static char *
-get_basename(const char *filename)
+get_directory(const char *filename) 
 {
-  char *basename;
+  char *cwd;
+  char *directory;
   char *end;
   int len;
-
-  end = strrchr(filename, '/');
-  len = end - filename + 1;
-  basename = g_malloc((len+1)*sizeof(char));
-  memcpy(basename, filename, len);
-  basename[len] = 0; /* zero terminate string */
   
-  return basename;
-}
+  if (filename==NULL)
+    return NULL;
 
+  if (g_path_is_absolute(filename)) {
+    end = strrchr(filename, G_DIR_SEPARATOR);
+    len = end - filename + 1;
+    directory = g_malloc((len+1)*sizeof(char));
+    memcpy(directory, filename, len);
+    directory[len] = 0; /* zero terminate string */
+  } else {
+    cwd = g_get_current_dir();
+    len = strlen(cwd)+strlen(filename)+1;
+    directory = g_malloc(len*sizeof(char));
+    strncpy(directory, cwd, len);
+    strncat(directory, "/", len);
+    strncat(directory, filename, len);
+    end = strrchr(directory, G_DIR_SEPARATOR);
+    if (end!=NULL)
+      *(end+1) = 0;
+  }
+
+  return directory;
+}
 
 static void
 image_save(Image *image, ObjectNode obj_node, const char *filename)
 {
-  char *basename;
+  char *diafile_dir;
   
   element_save(&image->element, obj_node);
 
@@ -726,21 +749,24 @@ image_save(Image *image, ObjectNode obj_node, const char *filename)
   data_add_boolean(new_attribute(obj_node, "keep_aspect"), image->keep_aspect);
 
   if (image->file != NULL) {
-    if (*image->file=='/') { /* Absolute pathname */
-      basename = get_basename(filename);
+    if (g_path_is_absolute(image->file)) { /* Absolute pathname */
+      diafile_dir = get_directory(filename);
 
-      if (strncmp(basename, image->file, strlen(basename))==0) {
+      printf("Saving: %s, diafile_dir=%s\n",  image->file, diafile_dir);
+      if (strncmp(diafile_dir, image->file, strlen(diafile_dir))==0) {
+	/* The image pathname has the dia file pathname in the begining */
 	/* Save the relative path: */
-	data_add_string(new_attribute(obj_node, "file"), image->file + strlen(basename));
+	data_add_string(new_attribute(obj_node, "file"), image->file + strlen(diafile_dir));
       } else {
 	/* Save the absolute path: */
 	data_add_string(new_attribute(obj_node, "file"), image->file);
       }
       
-      g_free(basename);
+      g_free(diafile_dir);
       
     } else {
-      /* Relative path. Just save the path+filename. */
+      /* Relative path. Must be an erronous filename...
+	 Just save the filename. */
       data_add_string(new_attribute(obj_node, "file"), image->file);
     }
     
@@ -755,7 +781,7 @@ image_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   int i;
   AttributeNode attr;
-  char *basename;
+  char *diafile_dir;
   
   image = g_malloc(sizeof(Image));
   elem = (Element *)image;
@@ -806,25 +832,25 @@ image_load(ObjectNode obj_node, int version, const char *filename)
     image->connections[i].connected = NULL;
   }
 
-  if (strcmp(image->file, "")) {
-    basename = get_basename(filename);
+  image->image = NULL;
+  
+  if (strcmp(image->file, "")!=0) {
+    diafile_dir = get_directory(filename);
 
-    if (*image->file=='/') { /* Absolute pathname */
+    if (g_path_is_absolute(image->file)) { /* Absolute pathname */
       image->image = dia_image_load(image->file);
       if (image->image == NULL) {
-	/* Not found, try in same dir as diagram. */
+	/* Not found as abs path, try in same dir as diagram. */
 	char *temp_string;
 	const char *image_file_name;
 
-	basename = get_basename(filename);
-	image_file_name = strrchr(image->file, '/') + 1;
+	image_file_name = strrchr(image->file, G_DIR_SEPARATOR) + 1;
 
-	temp_string = g_malloc(strlen(basename) +
+	temp_string = g_malloc(strlen(diafile_dir) +
 			       strlen(image_file_name) +1);
 
-	strcpy(temp_string, basename);
+	strcpy(temp_string, diafile_dir);
 	strcat(temp_string, image_file_name);
-	
 
 	image->image = dia_image_load(temp_string);
 
@@ -839,11 +865,13 @@ image_load(ObjectNode obj_node, int version, const char *filename)
 	  
 	  image->image = dia_image_load((char *)image_file_name);
 	  if (image->image != NULL) {
+	    char *tmp;
 	    /* Found file in current dir. */
 	    message_warning(_("The image file '%s' was not found in that directory.\n"
 			    "Using the file '%s' instead\n"), image->file, image_file_name);
-	    g_free(image->file);
+	    tmp = image->file;
 	    image->file = strdup(image_file_name);
+	    g_free(tmp);
 	  } else {
 	    message_warning(_("The image file '%s' was not found.\n"),
 			    image_file_name);
@@ -853,10 +881,10 @@ image_load(ObjectNode obj_node, int version, const char *filename)
     } else { /* Relative pathname: */
       char *temp_string;
 
-      temp_string = g_malloc(strlen(basename) +
+      temp_string = g_malloc(strlen(diafile_dir) +
 			     strlen(image->file) +1);
 
-      strcpy(temp_string, basename);
+      strcpy(temp_string, diafile_dir);
       strcat(temp_string, image->file);
 
       image->image = dia_image_load(temp_string);
@@ -869,17 +897,14 @@ image_load(ObjectNode obj_node, int version, const char *filename)
 	g_free(temp_string);
 	  
 	image->image = dia_image_load(image->file);
-	if (image->image != NULL) {
-	  /* Found file in current dir. */
-	  g_free(image->file);
-	  image->file = strdup(image->file);
-	} else {
+	if (image->image == NULL) {
+	  /* Didn't find file in current dir. */
 	  message_warning(_("The image file '%s' was not found.\n"),
 			  image->file);
 	}
       }
     }
-    g_free(basename);
+    g_free(diafile_dir);
   }
 
   image_update_data(image);

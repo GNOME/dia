@@ -18,12 +18,16 @@ general:
 * Export to WMF.
 * Accelerators for buttons in the toolbar.
 * Fix the transitive selection
+* User selectable grid color.
 
 functions:
+* Turn on/off showing of connectionpoints
 * undo, see event model later in this file.
 
 objects:
+* Add bezier object.
 * finish the network objects
+* Add connections to the network bus object via the object menu.
 * render_object: better distance_from that can be specified by the object programmer.
 * Vector image object (for maps and stuff). CGM?
 
@@ -31,6 +35,11 @@ UML:
  Aggregate: * Has some problems laying out the text at the ends.
  All:   * Change some entries to comboboxes with pre-selectable texts.
           (Mostly stereotypes)
+ Class:
+   * Keyboard shortcuts in properties dialog... new, duplicate, up/down etc.
+   * Scroll to end of properties list when new prop added.
+
+
 
 Big stuff:
  * some kind of 'plug-in api' so that libraries like uml can add new
@@ -45,6 +54,8 @@ Big stuff:
 
 BUGS:
 =====
+* Dia breaks on solaris 7 (sparc). Fix that!
+
 * Strings with only spaces in them seems to get zero width. Most visible on an "UML - Note".
 
 * doesn't use latin-1 or some other well-known 8-bit encoding in eps_renderer

@@ -38,6 +38,7 @@
 #include "message.h"
 #include "grid.h"
 #include "properties.h"
+#include "preferences.h"
 #include "layer_dialog.h"
 #include "connectionpoint_ops.h"
 
