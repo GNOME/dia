@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-14 14:09+0200\n"
-"PO-Revision-Date: 2003-10-17 22:20+0200\n"
+"POT-Creation-Date: 2003-10-21 14:07+0200\n"
+"PO-Revision-Date: 2003-10-21 15:46+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,48 +43,61 @@ msgid "Can't find output format %s\n"
 msgstr "Nemohu najít výstupní formát %s\n"
 
 #. &export_file_name
-#: app/app_procs.c:302
+#: app/app_procs.c:320
 msgid "Export loaded file and exit"
 msgstr "Exportovat načtený soubor a skončit"
 
-#: app/app_procs.c:302 app/diaconv.c:94
+#: app/app_procs.c:320 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "VÝSTUP"
 
 #. &export_file_format
-#: app/app_procs.c:304
-msgid "Export to file format and exit"
-msgstr "Exportovat do formátu souboru a skončit"
+#: app/app_procs.c:322
+msgid ""
+"Export to file format and exit.  Supported formats are: cgm, dia, dxf, eps, "
+msgstr "Exportovat do formátu souboru a skončit. Podporované formáty: cgm, dia, dxf, eps, "
 
-#: app/app_procs.c:304 app/diaconv.c:92
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "eps,png,wmf,cgm,dxf,fig"
+#: app/app_procs.c:324
+msgid "fig, mp, plt, hpgl, "
+msgstr "fig, mp, plt, hpgl, "
 
-#: app/app_procs.c:306
+#: app/app_procs.c:325
+msgid "shape, svg, tex, "
+msgstr "shape, svg, tex, "
+
+#: app/app_procs.c:326
+msgid "wpg"
+msgstr "wpg"
+
+#: app/app_procs.c:326
+msgid "FORMAT"
+msgstr "FORMÁT"
+
+#: app/app_procs.c:329
 msgid "Don't show the splash screen"
 msgstr "Nezobrazovat titulní obrazovku (splashscreen)"
 
-#: app/app_procs.c:308
+#: app/app_procs.c:331
 msgid "Display credits list and exit"
 msgstr "Zobrazit seznam kreditů a skončit"
 
-#: app/app_procs.c:310
+#: app/app_procs.c:333
 msgid "Display version and exit"
 msgstr "Zobrazit verzi a skončit"
 
-#: app/app_procs.c:312 app/diaconv.c:95
+#: app/app_procs.c:335 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Zobrazit tuto nápovědu"
 
-#: app/app_procs.c:344
+#: app/app_procs.c:367
 msgid "Can't connect to session manager!\n"
 msgstr "Nelze se připojit ke správci sezení!\n"
 
-#: app/app_procs.c:359 app/diaconv.c:119
+#: app/app_procs.c:382 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[VOLBA...] [SOUBOR...]"
 
-#: app/app_procs.c:363 app/diaconv.c:126
+#: app/app_procs.c:386 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -95,22 +108,22 @@ msgstr ""
 "příkazové řádky.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:382
+#: app/app_procs.c:405
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia verze %s, sestavená %s %s\n"
 
-#: app/app_procs.c:384
+#: app/app_procs.c:407
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia verze %s\n"
 
-#: app/app_procs.c:464 app/app_procs.c:466 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:487 app/app_procs.c:489 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
-#: app/app_procs.c:558
+#: app/app_procs.c:581
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -119,7 +132,7 @@ msgstr ""
 "a popište, jak jste způsobili zobrazení této zprávy.\n"
 
 #. no standard buttons
-#: app/app_procs.c:570
+#: app/app_procs.c:593
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -129,21 +142,21 @@ msgstr ""
 "Jste si jisti, že chcete ukončit program Dia\n"
 "bez uložení těchto změn?"
 
-#: app/app_procs.c:574
+#: app/app_procs.c:597
 msgid "Quit Dia"
 msgstr "Ukončit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:629
+#: app/app_procs.c:652
 msgid "Thank you for using Dia.\n"
 msgstr "Děkujeme vám, že používáte Dia.\n"
 
-#: app/app_procs.c:643 app/app_procs.c:650
+#: app/app_procs.c:666 app/app_procs.c:673
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: app/app_procs.c:652
+#: app/app_procs.c:675
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -151,7 +164,7 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: app/app_procs.c:674 app/diaconv.c:249
+#: app/app_procs.c:697 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
@@ -317,6 +330,10 @@ msgstr "Nelze inicializovat Bonobo!"
 #: app/diaconv.c:92
 msgid "Export format to use"
 msgstr "Použitý formát pro export"
+
+#: app/diaconv.c:92
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "eps,png,wmf,cgm,dxf,fig"
 
 #. &export_file_name
 #: app/diaconv.c:94
@@ -565,7 +582,7 @@ msgstr "Zahodit změny"
 #: app/export_png.c:116 app/load_save.c:806 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
-#: plug-ins/pstricks/render_pstricks.c:797 plug-ins/shape/shape-export.c:135
+#: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
 #: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
 #, c-format
@@ -4605,11 +4622,11 @@ msgstr "export/import bitmapy založené na gdk-pixbuf"
 msgid "TeX Pstricks export filter"
 msgstr "Exportní filtr TeX Pstricks"
 
-#: plug-ins/pstricks/render_pstricks.c:650
+#: plug-ins/pstricks/render_pstricks.c:653
 msgid "Not valid UTF8"
 msgstr "Není platné UTF8"
 
-#: plug-ins/pstricks/render_pstricks.c:868
+#: plug-ins/pstricks/render_pstricks.c:871
 msgid "TeX PSTricks macros"
 msgstr "Makra formátu TeX PSTricks"
 
