@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
@@ -35,7 +34,6 @@
 
 #include "pixmaps/state.xpm"
 
-typedef struct _StatePropertiesDialog StatePropertiesDialog;
 typedef struct _State State;
 typedef struct _StateState StateState;
 
@@ -62,15 +60,6 @@ struct _State {
 };
 
 
-struct _StatePropertiesDialog {
-  GtkWidget *dialog;
-
-  GtkWidget *normal;
-  GtkWidget *end;
-  GtkWidget *begin;  
-};
-
-
 #define STATE_WIDTH  4
 #define STATE_HEIGHT 3
 #define STATE_RATIO 1
@@ -78,8 +67,6 @@ struct _StatePropertiesDialog {
 #define STATE_LINEWIDTH 0.1
 #define STATE_MARGIN_X 0.5
 #define STATE_MARGIN_Y 0.5
-
-static StatePropertiesDialog *properties_dialog;
 
 static real state_distance_from(State *state, Point *point);
 static void state_select(State *state, Point *clicked_point,
@@ -103,8 +90,6 @@ static PropDescription *state_describe_props(State *state);
 static void state_get_props(State *state, Property *props, guint nprops);
 static void state_set_props(State *state, Property *props, guint nprops);
 static void state_update_data(State *state);
-static ObjectChange *state_apply_properties(State *state);
-static GtkWidget *state_get_properties(State *state);
 
 static StateState *state_get_state(State *state);
 static void state_set_state(State *state, StateState *sstate);
@@ -137,18 +122,25 @@ static ObjectOps state_ops = {
   (CopyFunc)            state_copy,
   (MoveFunc)            state_move,
   (MoveHandleFunc)      state_move_handle,
-  (GetPropertiesFunc)   state_get_properties,
-  (ApplyPropertiesFunc) state_apply_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      NULL,
   (DescribePropsFunc)   state_describe_props,
   (GetPropsFunc)        state_get_props,
   (SetPropsFunc)        state_set_props
 };
 
+static PropEnumData prop_state_type_data[] = {
+  { N_("Normal"), STATE_NORMAL },
+  { N_("Begin"), STATE_BEGIN },
+  { N_("End"), STATE_END },
+  { NULL, 0 }
+};
+
 static PropDescription state_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   { "state_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
-  N_("State Type"), NULL, NULL },
+  N_("State Type"), NULL, prop_state_type_data },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
@@ -542,89 +534,6 @@ state_load(ObjectNode obj_node, int version, const char *filename)
   }
 
   return &state->element.object;
-}
-
-
-static ObjectChange *
-state_apply_properties(State *state)
-{
-  StatePropertiesDialog *prop_dialog;
-  ObjectState *old_state;
-
-  prop_dialog = properties_dialog;
-
-  old_state = (ObjectState *)state_get_state(state);
-
-  if (GTK_TOGGLE_BUTTON(prop_dialog->normal)->active) 
-      state->state_type = STATE_NORMAL;
-  else if (GTK_TOGGLE_BUTTON(prop_dialog->begin)->active) 
-      state->state_type = STATE_BEGIN;
-  else if (GTK_TOGGLE_BUTTON(prop_dialog->end)->active) 
-      state->state_type = STATE_END;
-
-  state_update_data(state);
-  return new_object_state_change(&state->element.object, old_state, 
-				 (GetStateFunc)state_get_state,
-				 (SetStateFunc)state_set_state);
-}
-
-static void
-fill_in_dialog(State *state)
-{
-  StatePropertiesDialog *prop_dialog;
-  GtkToggleButton *button=NULL;
-
-  prop_dialog = properties_dialog;
-  switch (state->state_type) {
-  case STATE_NORMAL:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->normal);
-      break;
-  case STATE_BEGIN:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->begin);
-      break;
-  case STATE_END:
-      button = GTK_TOGGLE_BUTTON(prop_dialog->end);
-      break;
-  }
-  if (button)
-      gtk_toggle_button_set_active(button, TRUE);
-}
-
-static GtkWidget *
-state_get_properties(State *state)
-{
-  StatePropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GSList *group;
-
-  if (properties_dialog == NULL) {
-    prop_dialog = g_new(StatePropertiesDialog, 1);
-    properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    prop_dialog->normal = gtk_radio_button_new_with_label (NULL, _("Normal"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->normal, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->normal);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (prop_dialog->normal), TRUE);
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->normal));
-    prop_dialog->begin = gtk_radio_button_new_with_label(group, _("Begin"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->begin, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->begin);
-
-    group = gtk_radio_button_group (GTK_RADIO_BUTTON (prop_dialog->begin));
-    prop_dialog->end = gtk_radio_button_new_with_label(group, _("End"));
-    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->end, TRUE, TRUE, 0);
-    gtk_widget_show (prop_dialog->end);
-  }
-  
-  fill_in_dialog(state);
-  gtk_widget_show (properties_dialog->dialog);
-
-  return properties_dialog->dialog;
 }
 
 
