@@ -141,8 +141,6 @@ app_init (int argc, char **argv)
 		       GTK_SIGNAL_FUNC (session_die), NULL);
   }
 
-  g_log_set_always_fatal ((GLogLevelFlags) 0xFFFF);
-
 # else /* GNOME */
   gtk_init (&argc, &argv);
   dia_image_init();
@@ -198,7 +196,7 @@ app_init (int argc, char **argv)
     {
       if (! diagram)
 	{
-	  fprintf (stderr, _("need valid input file for --export-file-to-ps\n"));
+	  fprintf (stderr, _("Need valid input file\n"));
 	  exit (1);
 	}
       diagram_export_to_eps (diagram, export_file_name);
