@@ -53,7 +53,7 @@ shape_info_load(const gchar *filename)
   g_hash_table_insert(name_to_info, info->name, info);
   g_assert(shape_info_getbyname(info->name)==info);
 
-  custom_setup_properties(info);
+  //custom_setup_properties(info);
   return info;
 }
 
@@ -735,81 +735,12 @@ update_bounds(ShapeInfo *info)
   }
 }
 
-static void parse_ext_attr (ShapeInfo *info, xmlNodePtr node, GList **list)
-{
-	xmlChar *str;
-	char *old_locale;
-
-	/* walk ext_attributes node ... */
-	for (node = node->xmlChildrenNode; node != NULL; node = node->next)
-	{
-		ExtAttribute *el = NULL;
-
-		if (xmlIsBlankNode(node))
-			continue;
-		if (node->type != XML_ELEMENT_NODE)
-			continue;
-		if (!strcmp(node->name, "attribute"))
-		{
-			/* avoid mem leaks... */
-			char *pname, *ptype = 0;
-
-			str = xmlGetProp(node, "name");
-			if (!str)
-			{
-				xmlFree(str);
-				continue;
-			}
-			pname = g_strdup(str);
-			xmlFree(str);
-
-			str = xmlGetProp(node, "type");
-			if (str)
-			{
-				if (!strcmp(str, PROP_TYPE_INT))
-				{
-					ptype = PROP_TYPE_INT;
-					info->ext_attr_size += sizeof (int);
-				}
-				else if (!strcmp(str, PROP_TYPE_BOOL))
-				{
-					ptype = PROP_TYPE_BOOL;
-					info->ext_attr_size += sizeof (gboolean);
-				}
-				else if (!strcmp(str, PROP_TYPE_REAL))
-				{
-					ptype = PROP_TYPE_REAL;
-					info->ext_attr_size += sizeof (real);
-				}
-				else if (!strcmp(str, PROP_TYPE_STRING))
-				{
-					ptype = PROP_TYPE_STRING;
-					info->ext_attr_size += sizeof (char *);
-				}
-				xmlFree(str);
-				if (ptype)
-					info->n_ext_attr++;
-				else
-				{
-					g_free (pname);
-					continue;
-				}
-			}
-			/* we got here, then go on */
-			el = g_new(ExtAttribute, 1);
-			el->name = pname;
-			el->type = ptype;
-			*list = g_list_append(*list, el);
-		}
-	}
-}
-
 static ShapeInfo *
 load_shape_info(const gchar *filename)
 {
   xmlDocPtr doc = xmlDoParseFile(filename);
   xmlNsPtr shape_ns, svg_ns;
-  xmlNodePtr node,root;
+  xmlNodePtr node, root, ext_node = NULL;
   ShapeInfo *info;
   char *tmp;
   char *old_locale;
@@ -1012,11 +943,12 @@ load_shape_info(const gchar *filename)
       parse_svg_node(info, node, svg_ns, &s);
       update_bounds(info);
     }
-	/*MC 11/03 load extra info */
 	else if (!strcmp(node->name, "ext_attributes")) {
-      parse_ext_attr (info, node, &info->ext_attr_list);
+      ext_node = node;
     }
   }
+  /*MC 11/03 parse ext attributes if any & prepare prop tables */
+  custom_setup_properties (info, ext_node);
   xmlFreeDoc(doc);
   return info;
 }

@@ -388,6 +388,7 @@ EXPORTS
  object_init
  object_list_move_delta
  object_load
+ object_load_props
  object_load_using_properties
  object_prop_by_name
  object_prop_by_name_type

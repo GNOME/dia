@@ -117,6 +117,7 @@ typedef void (*PropertyType_GetFromOffset)(const Property *prop,
                                          void *base, guint offset, guint offset2);
 typedef void (*PropertyType_SetFromOffset)(Property *prop,
                                          void *base, guint offset, guint offset2);
+typedef int (*PropertyType_GetDataSize)(Property *prop);
 
 
 struct _PropertyOps {
@@ -133,6 +134,7 @@ struct _PropertyOps {
   
   PropertyType_GetFromOffset get_from_offset;
   PropertyType_SetFromOffset set_from_offset;
+  PropertyType_GetDataSize get_data_size;
 };
 
 typedef const gchar *PropertyType;

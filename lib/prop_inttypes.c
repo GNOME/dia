@@ -121,6 +121,12 @@ charprop_set_from_offset(CharProperty *prop,
   struct_member(base,offset,gunichar) = prop->char_data;
 }
 
+static int 
+charprop_get_data_size(CharProperty *prop)
+{
+  return sizeof (prop->char_data);
+}
+
 
 static const PropertyOps charprop_ops = {
   (PropertyType_New) charprop_new,
@@ -134,7 +140,8 @@ static const PropertyOps charprop_ops = {
 
   (PropertyType_CanMerge) noopprop_can_merge,
   (PropertyType_GetFromOffset) charprop_get_from_offset,
-  (PropertyType_SetFromOffset) charprop_set_from_offset
+  (PropertyType_SetFromOffset) charprop_set_from_offset,
+  (PropertyType_GetDataSize) charprop_get_data_size
 };
 
 /* ************************************ */
@@ -221,6 +228,12 @@ boolprop_set_from_offset(BoolProperty *prop,
   struct_member(base,offset,gboolean) = prop->bool_data;
 }
 
+static int 
+boolprop_get_data_size(BoolProperty *prop)
+{
+  return sizeof (prop->bool_data);
+}
+
 
 static const PropertyOps boolprop_ops = {
   (PropertyType_New) boolprop_new,
@@ -234,7 +247,8 @@ static const PropertyOps boolprop_ops = {
 
   (PropertyType_CanMerge) noopprop_can_merge,
   (PropertyType_GetFromOffset) boolprop_get_from_offset,
-  (PropertyType_SetFromOffset) boolprop_set_from_offset
+  (PropertyType_SetFromOffset) boolprop_set_from_offset,
+  (PropertyType_GetDataSize) boolprop_get_data_size
 };
 
 /***************************/
@@ -325,6 +339,12 @@ intprop_set_from_offset(IntProperty *prop,
   struct_member(base,offset,gint) = prop->int_data;
 }
 
+static int 
+intprop_get_data_size(IntProperty *prop)
+{
+  return sizeof (prop->int_data);
+}
+
 static const PropertyOps intprop_ops = {
   (PropertyType_New) intprop_new,
   (PropertyType_Free) noopprop_free,
@@ -337,7 +357,8 @@ static const PropertyOps intprop_ops = {
 
   (PropertyType_CanMerge) noopprop_can_merge,
   (PropertyType_GetFromOffset) intprop_get_from_offset,
-  (PropertyType_SetFromOffset) intprop_set_from_offset
+  (PropertyType_SetFromOffset) intprop_set_from_offset,
+  (PropertyType_GetDataSize) intprop_get_data_size
 };
 
 /********************************/

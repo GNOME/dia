@@ -21,5 +21,5 @@
 
 #ifndef CUSTOM_OBJECT_H
 #define CUSTOM_OBJECT_H
-void custom_setup_properties(ShapeInfo *info);
+void custom_setup_properties (ShapeInfo *info, xmlNodePtr node);
 #endif /* CUSTOM_OBJECT_H */

@@ -145,7 +145,6 @@ struct _ShapeInfo {
   ObjectType *object_type; /* back link so we can find the correct type */
   
   /*MC 11/03 added */
-  GList *ext_attr_list;
   int n_ext_attr;
   int ext_attr_size;
 

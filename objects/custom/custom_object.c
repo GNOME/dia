@@ -230,58 +230,114 @@ static PropOffset custom_offsets_text[] = {
   { NULL, 0, 0 }
 };
 
-void
-custom_setup_properties(ShapeInfo *info)
+
+void custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
 {
-  /* need to initialize tables... */
-  int n_props, n_props_text, offs;
-  int i;
-  GList *tmp;
+	xmlChar *str;
+	char *old_locale;
+	xmlNodePtr cur;
+	int n_props, n_props_text, offs;
+	int n, i;
 
-  if (info->has_text) {
-    n_props = sizeof (custom_props_text) / sizeof (PropDescription);
-    info->props = g_new0 (PropDescription, n_props + info->n_ext_attr);
-    memcpy (info->props, custom_props_text, sizeof (custom_props_text));
-    info->prop_offsets = g_new0 (PropOffset, n_props + info->n_ext_attr);
-    memcpy (info->prop_offsets, custom_offsets_text, sizeof (custom_offsets_text));
-  } else {
-    n_props = sizeof (custom_props) / sizeof (PropDescription);
-    info->props = g_new0 (PropDescription, n_props + info->n_ext_attr);
-    memcpy (info->props, custom_props, sizeof (custom_props));
-    info->prop_offsets = g_new0 (PropOffset, n_props + info->n_ext_attr);
-    memcpy (info->prop_offsets, custom_offsets, sizeof (custom_offsets));
-  }
+	/* count ext_attributes node items */
+	if (node)
+	{
+		for (i = 0, cur = node->xmlChildrenNode; cur != NULL; cur = cur->next)
+		{
+			if ((!xmlIsBlankNode(cur)) && (cur->type == XML_ELEMENT_NODE))
+				i++;
+		}
+		info->n_ext_attr = i;
+	}
 
-  offs = sizeof (Custom);
-  for (i = n_props-1, tmp = info->ext_attr_list; tmp; i++, tmp = tmp->next)
-  {
-    ExtAttribute *el = tmp->data;
-    gchar *custom_name = g_strdup_printf("custom:%s", el->name);
-    GQuark quark = g_quark_from_string(el->type);
-    info->props[i].name = custom_name;
-    info->props[i].type = el->type;
-    info->props[i].flags = PROP_FLAG_VISIBLE;
-    info->props[i].description = el->name;
-    info->prop_offsets[i].name = custom_name;
-    info->prop_offsets[i].type = el->type;
-    info->prop_offsets[i].offset = offs;
-    if (quark == g_quark_from_string(PROP_TYPE_INT))
-      offs += sizeof (int);
-    else if (quark == g_quark_from_string(PROP_TYPE_BOOL))
-      offs += sizeof (gboolean);
-    else if (quark == g_quark_from_string(PROP_TYPE_REAL))
-      offs += sizeof (real);
-    else if (quark == g_quark_from_string(PROP_TYPE_STRING))
-      offs += sizeof (char *);
-  }
+	/* create prop tables & initialize constant part */
+	if (info->has_text)
+	{
+		n_props = sizeof (custom_props_text) / sizeof (PropDescription);
+		info->props = g_new0 (PropDescription, n_props + info->n_ext_attr);
+		memcpy (info->props, custom_props_text, sizeof (custom_props_text));
+		info->prop_offsets = g_new0 (PropOffset, n_props + info->n_ext_attr);
+		memcpy (info->prop_offsets, custom_offsets_text, sizeof (custom_offsets_text));
+	}
+	else
+	{
+		n_props = sizeof (custom_props) / sizeof (PropDescription);
+		info->props = g_new0 (PropDescription, n_props + info->n_ext_attr);
+		memcpy (info->props, custom_props, sizeof (custom_props));
+		info->prop_offsets = g_new0 (PropOffset, n_props + info->n_ext_attr);
+		memcpy (info->prop_offsets, custom_offsets, sizeof (custom_offsets));
+	}
+
+	if (node)
+	{
+		offs = sizeof (Custom);
+		/* walk ext_attributes node ... */
+		for (i = n_props-1, node = node->xmlChildrenNode; node != NULL; node = node->next)
+		{
+			if (xmlIsBlankNode(node))
+				continue;
+			if (node->type != XML_ELEMENT_NODE)
+				continue;
+			if (!strcmp(node->name, "ext_attribute"))
+			{
+				gchar *pname, *ptype = 0;
+
+				str = xmlGetProp(node, "name");
+				if (!str)
+					continue;
+				pname = g_strdup(str);
+				xmlFree(str);
+
+				str = xmlGetProp(node, "type");
+				if (!str)
+				{
+					g_free (pname);
+					continue;
+				}
+				ptype = g_strdup(str);
+				xmlFree(str);
+
+				/* we got here, then fill an entry */
+				printf("ExtAttr %s %s (%d)\n", ptype, pname, ptype);
+				info->props[i].name = g_strdup_printf("custom:%s", pname);
+				info->props[i].type = ptype;
+				info->props[i].flags = PROP_FLAG_VISIBLE;
+
+				str = xmlGetProp(node, "description");
+				if (str)
+				{
+					g_free (pname);
+					pname = g_strdup(str);
+				}
+				info->props[i++].description = pname;
+			}
+		}
+	}
+
+	prop_desc_list_calculate_quarks (info->props);
+
+	/* 2nd pass after quarks & ops have been filled in */
+	for (i = n_props-1; i < n_props-1+info->n_ext_attr; i++)
+		if ((info->props[i].ops) && (info->props[i].ops->get_data_size))
+		{ /* if prop valid & supported */
+			int size;
+			info->prop_offsets[i].name = info->props[i].name;
+			info->prop_offsets[i].type = info->props[i].type;
+			info->prop_offsets[i].offset = offs;
+			size = info->props[i].ops->get_data_size (&info->props[i]);
+			info->ext_attr_size += size;
+			offs += size;
+		}
+		else
+		{
+			/* hope this is enough to have this prop ignored */
+			info->props[i].flags = PROP_FLAG_DONT_SAVE | PROP_FLAG_OPTIONAL;
+		}
 }
 
 static PropDescription *
 custom_describe_props(Custom *custom)
 {
-  if (!custom->info->props) {
-    prop_desc_list_calculate_quarks (custom->info->props);
-  }
   return custom->info->props;
 }
 

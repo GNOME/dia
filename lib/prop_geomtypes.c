@@ -125,6 +125,12 @@ realprop_set_from_offset(RealProperty *prop,
   struct_member(base,offset,real) = prop->real_data;
 }
 
+static int 
+realprop_get_data_size(RealProperty *prop)
+{
+  return sizeof (prop->real_data);
+}
+
 static const PropertyOps realprop_ops = {
   (PropertyType_New) realprop_new,
   (PropertyType_Free) noopprop_free,
@@ -137,7 +143,8 @@ static const PropertyOps realprop_ops = {
 
   (PropertyType_CanMerge) noopprop_can_merge,
   (PropertyType_GetFromOffset) realprop_get_from_offset,
-  (PropertyType_SetFromOffset) realprop_set_from_offset
+  (PropertyType_SetFromOffset) realprop_set_from_offset,
+  (PropertyType_GetDataSize) realprop_get_data_size
 };
 
 /*****************************/

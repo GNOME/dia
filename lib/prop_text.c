@@ -203,6 +203,12 @@ stringprop_set_from_offset(StringProperty *prop,
   struct_member(base,offset,gchar *) = g_strdup(prop->string_data);
 }
 
+static int 
+stringprop_get_data_size(StringProperty *prop)
+{
+  return sizeof (prop->string_data); /* only the pointer */
+}
+
 static StringListProperty *
 stringlistprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 {
@@ -288,7 +294,8 @@ static const PropertyOps stringprop_ops = {
 
   (PropertyType_CanMerge) noopprop_can_merge,
   (PropertyType_GetFromOffset) stringprop_get_from_offset,
-  (PropertyType_SetFromOffset) stringprop_set_from_offset
+  (PropertyType_SetFromOffset) stringprop_set_from_offset,
+  (PropertyType_GetDataSize) stringprop_get_data_size
 };
 
 static const PropertyOps stringlistprop_ops = {

@@ -1,5 +1,19 @@
 2003-12-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* shapes/Circuit/hresistor.shape: Uses new extra attribute thing.
+
+	* objects/custom/shape_info.[ch]: Cleanup.
+
+	* objects/custom/custom_object.[ch]: Changed to use new props
+	interface.
+
+	* lib/properties.h: 
+	* lib/prop_text.c: 
+	* lib/prop_inttypes.c: 
+	* lib/prop_geomtypes.c: Added *prop_get_data_size.
+
+	* lib/libdia.def: Added object_load_props.
+
 	* configure.in: Better FT2 version test, from bug #129225.
 
 	* dia.spec (BuildRequires): Changed to match makefile (bug #129131)
