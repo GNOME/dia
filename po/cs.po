@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-19 10:48+0100\n"
-"PO-Revision-Date: 2004-12-19 12:46+0100\n"
+"POT-Creation-Date: 2005-01-02 10:39+0100\n"
+"PO-Revision-Date: 2005-01-02 14:47+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -181,12 +181,12 @@ msgstr ""
 msgid "[FILE...]"
 msgstr "[SOUBOR...]"
 
-#: app/app_procs.c:869
+#: app/app_procs.c:874
 #, c-format
 msgid "'%s' not found!\n"
 msgstr "'%s' nenalezeno!\n"
 
-#: app/app_procs.c:939
+#: app/app_procs.c:944
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -194,7 +194,7 @@ msgstr ""
 "Původní autor Dia byl:\n"
 "\n"
 
-#: app/app_procs.c:944
+#: app/app_procs.c:949
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -204,7 +204,7 @@ msgstr ""
 "Současní správci Dia jsou:\n"
 "\n"
 
-#: app/app_procs.c:949
+#: app/app_procs.c:954
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -214,7 +214,7 @@ msgstr ""
 "Další autoři jsou:\n"
 "\n"
 
-#: app/app_procs.c:954
+#: app/app_procs.c:959
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -589,11 +589,11 @@ msgstr "Výběr %d objektů"
 msgid "Selected '%s'"
 msgstr "Vybráno '%s'"
 
-#: app/display.c:1022
+#: app/display.c:1025
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
-#: app/display.c:1024
+#: app/display.c:1027
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -602,11 +602,11 @@ msgstr ""
 "Diagram '%s'\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: app/display.c:1035
+#: app/display.c:1038
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: app/display.c:1040
+#: app/display.c:1043
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
@@ -656,7 +656,7 @@ msgstr "Výška obrázku:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:127 app/filedlg.c:488
+#: app/filedlg.c:127 app/filedlg.c:493
 msgid "By extension"
 msgstr "Podle přípony"
 
@@ -668,15 +668,15 @@ msgstr "Otevřít diagram"
 msgid "Open Options"
 msgstr "Volby pro otevření"
 
-#: app/filedlg.c:236 app/filedlg.c:618
+#: app/filedlg.c:236 app/filedlg.c:628
 msgid "Determine file type:"
 msgstr "Zjistit typ souboru:"
 
-#: app/filedlg.c:252 app/filedlg.c:630
+#: app/filedlg.c:252 app/filedlg.c:640
 msgid "All Files"
 msgstr "Všechny soubory"
 
-#: app/filedlg.c:257 app/filedlg.c:635
+#: app/filedlg.c:257 app/filedlg.c:645
 msgid "Supported Formats"
 msgstr "Podporované formáty"
 
@@ -690,7 +690,7 @@ msgstr ""
 "ani ve vašem místním kódování.\n"
 "Něco se pokazí."
 
-#: app/filedlg.c:300 app/filedlg.c:533
+#: app/filedlg.c:300 app/filedlg.c:538
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -699,7 +699,7 @@ msgstr ""
 "Soubor '%s' již existuje.\n"
 "Chcete jej přepsat?"
 
-#: app/filedlg.c:308 app/filedlg.c:540
+#: app/filedlg.c:308 app/filedlg.c:545
 msgid "File already exists"
 msgstr "Soubor již existuje"
 
@@ -722,7 +722,7 @@ msgstr ""
 "urychluje načítání a ukládání. Některé programy pro zpracování textu však "
 "neumí s komprimovanými soubory pracovat."
 
-#: app/filedlg.c:562
+#: app/filedlg.c:567
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -731,11 +731,11 @@ msgstr ""
 "Nelze zjistit, který exportní filtr se má\n"
 "použít pro uložení '%s'"
 
-#: app/filedlg.c:585
+#: app/filedlg.c:590
 msgid "Export Diagram"
 msgstr "Exportovat diagram"
 
-#: app/filedlg.c:610
+#: app/filedlg.c:620
 msgid "Export Options"
 msgstr "Volby exportu"
 
@@ -1223,7 +1223,7 @@ msgid "/View/---"
 msgstr "/Zobrazit/---"
 
 #: app/menus.c:149
-msgid "/View/_Fullscr_een"
+msgid "/View/Fullscr_een"
 msgstr "/Zobrazit/Přes _celou obrazovku"
 
 #: app/menus.c:151
@@ -2326,15 +2326,15 @@ msgstr ""
 "Nelze otevřít `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:618
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:622
 msgid "Left"
 msgstr "Vlevo"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:624
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:628
 msgid "Center"
 msgstr "Uprostřed"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:630
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:634
 msgid "Right"
 msgstr "Vpravo"
 
@@ -2398,67 +2398,67 @@ msgstr "Barva výplně"
 msgid "Text colour"
 msgstr "Barva textu"
 
-#: lib/widgets.c:357
+#: lib/widgets.c:361
 msgid "Other fonts"
 msgstr "Jiná písma"
 
-#: lib/widgets.c:427
+#: lib/widgets.c:431
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Nelze nalézt rodinu písma pro %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:766 objects/FS/function.c:1063
+#: lib/widgets.c:770 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Nepřerušovaná"
 
-#: lib/widgets.c:772
+#: lib/widgets.c:776
 msgid "Dashed"
 msgstr "Čárkovaná"
 
-#: lib/widgets.c:778
+#: lib/widgets.c:782
 msgid "Dash-Dot"
 msgstr "Čárka - tečka"
 
-#: lib/widgets.c:784
+#: lib/widgets.c:788
 msgid "Dash-Dot-Dot"
 msgstr "Čárka - tečka - tečka"
 
-#: lib/widgets.c:790
+#: lib/widgets.c:794
 msgid "Dotted"
 msgstr "Tečkovaná"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:809
+#: lib/widgets.c:813
 msgid "Dash length: "
 msgstr "Délka čárky:"
 
-#: lib/widgets.c:937
+#: lib/widgets.c:941
 msgid "Select color"
 msgstr "Vyberte barvu"
 
-#: lib/widgets.c:1003
+#: lib/widgets.c:1007
 msgid "More colors..."
 msgstr "Další barvy..."
 
-#: lib/widgets.c:1128
+#: lib/widgets.c:1132
 msgid "More arrows"
 msgstr "Další šipky"
 
-#: lib/widgets.c:1141
+#: lib/widgets.c:1145
 msgid "Size: "
 msgstr "Velikost: "
 
-#: lib/widgets.c:1286
+#: lib/widgets.c:1290
 msgid "Select image file"
 msgstr "Vyberte soubor s obrázkem"
 
-#: lib/widgets.c:1322
+#: lib/widgets.c:1326
 msgid "Browse"
 msgstr "Probírat"
 
 # ???
-#: lib/widgets.c:1918
+#: lib/widgets.c:1922
 msgid "Reset menu"
 msgstr "Vynulovat menu"
 
@@ -6377,7 +6377,8 @@ msgid "A Jackson shared phenomenon"
 msgstr "Jacksonův sdílený fenomén"
 
 #: sheets/Jackson.sheet.in.h:7
-msgid "Objects to design Jacskon diagrams"
+#, fuzzy
+msgid "Objects to design Jackson diagrams"
 msgstr "Objekty pro návrh Jacksonových diagramů"
 
 #: sheets/Jackson.sheet.in.h:8
