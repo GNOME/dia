@@ -1,5 +1,8 @@
 2002-07-19  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* configure.in: Simple define of GETTEXT_PACKAGE, and some updates
+	of the init stuff.
+
 	* app/render_gdk.c (get_text_width): Fixed use of wrong string.
 	Cursor now better.
 
