@@ -145,7 +145,7 @@ libdia_la_SOURCES =  \
 #		render.h \
 #		render.c 
 
-libdia_la_LDFLAGS = -export-dynamic -module -avoid-version
+libdia_la_LDFLAGS = -export-dynamic -avoid-version
 
 AM_CPPFLAGS = \
 	$(LIBART_CFLAGS) \

@@ -1,7 +1,31 @@
+2004-09-19  Hans Breuer  <hans@breuer.org>
+
+        * dia.desktop.in : string changes as proposed in bug #151822
+        
+        * lib/Makefile.am : remove -module from libdia_la_LDFLAGS,
+        appearts not to be needed on Linux and breaks the build 
+        on OSX. Fixes bug #152970
+        
 2004-09-18  Lars Clausen  <lars@raeder.dk>
 
 	* app/commands.c (view_show_all_callback): Add a bit of border
 	around Ctrl-E'd diagram, for easier select and better view of edges.
+
+2004-09-19  Hans Breuer  <hans@breuer.org>
+
+        * app/Makefile.am : trying to fix the fix from 2004-02-15
+        Overwriting AM_LDFLAGS still gave a automake warning and it 
+        also appeard to break linking against gtklibs in a differnt 
+        prefix. Use dia_LDFLAGS instead.
+
+        * plug-ins/svg/svg-import.c : initialize 'end' before usage
+        patch from dcbw@redhat.com (Dan Williams), fixes bug #150548
+        
+        * lib/diarenderer.c : don't try to draw lines which are so much 
+        degenerated that their point count became negative, fixes bug #148139
+        
+        * lib/font.c(layout_cache_equals) : don't crash on nonexisting 
+        strings (NULL from g_strdup()) 
 
 2004-09-10  Steffen Macke <sdteffen@web.de>
 
