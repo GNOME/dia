@@ -289,7 +289,7 @@ prop_get_data_from_widgets(PropDialog *dialog)
     
   }
 }
-extern gboolean pdtpp_is_visible_no_standard(const PropDescription *pdesc);
+
 static void 
 prop_dialog_fill(PropDialog *dialog, DiaObject *obj, gboolean is_default) {
   const PropDescription *pdesc;
