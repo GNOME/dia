@@ -227,7 +227,7 @@ msgstr "/編集(_E)/テキストの切り取り"
 
 #: app/diagram.c:194
 msgid "/Edit/Paste Text"
-msgstr "/編集(_E)/テキストの貼り付け"
+msgstr "/編集(_E)/テキストの貼り付け(_T)"
 
 #: app/diagram.c:197
 msgid "/Objects/Send to Back"
