@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-10 03:19+0200\n"
+"POT-Creation-Date: 2004-07-28 03:02+0200\n"
 "PO-Revision-Date: 2004-01-12 15:23+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -37,127 +37,126 @@ msgstr ""
 msgid "%s --> %s\n"
 msgstr ""
 
-#: app/app_procs.c:303
+#: app/app_procs.c:307
 #, c-format
 msgid "Can't find output format %s\n"
 msgstr ""
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:390
+#: app/app_procs.c:401
 #, c-format
 msgid "Export to file format and exit.  Supported formats are: %s"
 msgstr ""
 
 #. &export_file_name
-#: app/app_procs.c:399
+#: app/app_procs.c:410
 msgid "Export loaded file and exit"
 msgstr ""
 
-#: app/app_procs.c:399 app/diaconv.c:94
+#: app/app_procs.c:410
 msgid "OUTPUT"
 msgstr ""
 
 #. &export_file_format
-#: app/app_procs.c:401
+#: app/app_procs.c:412
 msgid "FORMAT"
 msgstr ""
 
-#: app/app_procs.c:404
+#: app/app_procs.c:415
 msgid "Export graphics size"
 msgstr ""
 
-#: app/app_procs.c:404
+#: app/app_procs.c:415
 msgid "WxH"
 msgstr ""
 
-#: app/app_procs.c:406
+#: app/app_procs.c:417
 msgid "Don't show the splash screen"
 msgstr ""
 
-#: app/app_procs.c:408
+#: app/app_procs.c:419
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 
-#: app/app_procs.c:410
+#: app/app_procs.c:421
 msgid "Display credits list and exit"
 msgstr ""
 
-#: app/app_procs.c:412
+#: app/app_procs.c:423
 msgid "Display version and exit"
 msgstr ""
 
-#: app/app_procs.c:413 app/diaconv.c:95
+#: app/app_procs.c:424
 msgid "Show this help message"
 msgstr ""
 
-#: app/app_procs.c:454
+#: app/app_procs.c:465
 msgid "Can't connect to session manager!\n"
 msgstr ""
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:481
+#: app/app_procs.c:492
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr ""
 
-#: app/app_procs.c:483
+#: app/app_procs.c:494
 #, c-format
 msgid "Dia version %s\n"
 msgstr ""
 
-#: app/app_procs.c:537 app/app_procs.c:539 app/diaconv.c:201 app/diaconv.c:203
-#, c-format
+#: app/app_procs.c:548 app/app_procs.c:550
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 
-#: app/app_procs.c:580
+#: app/app_procs.c:591
 msgid "Diagram1.dia"
 msgstr ""
 
-#: app/app_procs.c:619
+#: app/app_procs.c:633
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
 
 #. no standard buttons
-#: app/app_procs.c:631
+#: app/app_procs.c:645
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
 "without saving them?"
 msgstr ""
 
-#: app/app_procs.c:635
+#: app/app_procs.c:649
 msgid "Quit Dia"
 msgstr ""
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:686
+#: app/app_procs.c:700
 msgid "Thank you for using Dia.\n"
 msgstr ""
 
-#: app/app_procs.c:702 app/app_procs.c:709
+#: app/app_procs.c:716 app/app_procs.c:723
 msgid "Could not create per-user Dia config directory"
 msgstr ""
 
-#: app/app_procs.c:711
+#: app/app_procs.c:725
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: app/app_procs.c:733 app/diaconv.c:251
+#: app/app_procs.c:747
 msgid "Objects and filters internal to dia"
 msgstr ""
 
-#: app/app_procs.c:772 app/diaconv.c:121
+#: app/app_procs.c:786
 msgid "[OPTION...] [FILE...]"
 msgstr ""
 
-#: app/app_procs.c:775 app/diaconv.c:128
+#: app/app_procs.c:789
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -166,27 +165,27 @@ msgstr ""
 "Gabim në opcionin %s: %s.\n"
 "Zbato '%s --help' për të shikuar listën e plotë të opcioneve të komandës.\n"
 
-#: app/app_procs.c:860
+#: app/app_procs.c:874
 msgid ""
 "The original author of Dia was:\n"
 "\n"
 msgstr ""
 
-#: app/app_procs.c:865
+#: app/app_procs.c:879
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
 "\n"
 msgstr ""
 
-#: app/app_procs.c:870
+#: app/app_procs.c:884
 msgid ""
 "\n"
 "Other authors are:\n"
 "\n"
 msgstr ""
 
-#: app/app_procs.c:875
+#: app/app_procs.c:889
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -367,58 +366,6 @@ msgstr "Pozicioni Y"
 msgid "Y position of child widget"
 msgstr "Pozicioni Y i widget bir"
 
-#. &export_file_format
-#: app/diaconv.c:92
-msgid "Export format to use"
-msgstr ""
-
-#: app/diaconv.c:92
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr ""
-
-#. &export_file_name
-#: app/diaconv.c:94
-msgid "Export file name to use"
-msgstr ""
-
-#: app/diaconv.c:96
-msgid "Quiet operation"
-msgstr ""
-
-#: app/diaconv.c:149
-#, c-format
-msgid ""
-"Error: No arguments found.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-
-#: app/diaconv.c:159
-#, c-format
-msgid "%s error: can specify only one of -t or -o."
-msgstr ""
-
-#: app/diaconv.c:165
-#, c-format
-msgid ""
-"%s error: must specify only one of -t or -o.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-
-#: app/diaconv.c:174
-#, c-format
-msgid "%s error: no input file."
-msgstr ""
-
-#: app/diaconv.c:227
-#, c-format
-msgid "%s error: only one input file expected."
-msgstr ""
-
-#: app/diaconv.c:240
-#, c-format
-msgid "%s error: popt library not available on this system"
-msgstr ""
-
 #: app/diagram_tree_menu.c:45
 msgid "/_Sort objects"
 msgstr ""
@@ -507,8 +454,7 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: app/dialogs.c:52 app/layer_dialog.c:1006 app/paginate_psprint.c:275
-#: lib/diaarrowchooser.c:257
+#: app/dialogs.c:52 app/layer_dialog.c:1006 app/paginate_psprint.c:291
 msgid "Cancel"
 msgstr "Anulloje"
 
@@ -579,7 +525,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Pronësitë..."
 
-#: app/disp_callbacks.c:904
+#: app/disp_callbacks.c:919
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -608,8 +554,8 @@ msgstr ""
 msgid "Discard Changes"
 msgstr "Anullo ndryshimet"
 
-#: app/export_png.c:134 app/load_save.c:893 app/render_eps.c:103
-#: plug-ins/cairo/diacairo.c:911 plug-ins/cgm/cgm.c:1157
+#: app/export_png.c:134 app/load_save.c:904 app/render_eps.c:103
+#: plug-ins/cairo/diacairo.c:913 plug-ins/cgm/cgm.c:1157
 #: plug-ins/dxf/dxf-export.c:505 plug-ins/hpgl/hpgl.c:732
 #: plug-ins/metapost/render_metapost.c:964
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
@@ -654,69 +600,70 @@ msgstr ""
 msgid "Portable Network Graphics"
 msgstr ""
 
-#: app/filedlg.c:122 app/filedlg.c:393
+#: app/filedlg.c:122 app/filedlg.c:403
 msgid "By extension"
 msgstr ""
 
-#: app/filedlg.c:183
+#: app/filedlg.c:184
 msgid "Open Diagram"
 msgstr ""
 
-#: app/filedlg.c:211
+#: app/filedlg.c:215
 msgid "Open Options"
 msgstr ""
 
-#: app/filedlg.c:219 app/filedlg.c:511
+#: app/filedlg.c:223 app/filedlg.c:525
 msgid "Determine file type:"
 msgstr ""
 
-#: app/filedlg.c:256
+#: app/filedlg.c:259
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
 msgstr ""
 
-#: app/filedlg.c:262 app/filedlg.c:437
+#: app/filedlg.c:265 app/filedlg.c:447
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
 
-#: app/filedlg.c:270 app/filedlg.c:444
+#: app/filedlg.c:273 app/filedlg.c:454
 msgid "File already exists"
 msgstr ""
 
-#: app/filedlg.c:302
+#: app/filedlg.c:306
 msgid "Save Diagram"
 msgstr ""
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:307
+#: app/filedlg.c:311
 msgid "Compress diagram files"
 msgstr ""
 
-#: app/filedlg.c:316
+#: app/filedlg.c:320
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
 
-#: app/filedlg.c:463
+#: app/filedlg.c:473
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr ""
 
-#: app/filedlg.c:481
+#: app/filedlg.c:492
 msgid "Export Diagram"
 msgstr ""
 
-#: app/filedlg.c:503
+#. GRUT modified this item
+#: app/filedlg.c:517
 msgid "Export Options"
-msgstr ""
+msgstr "Opcionet e eksportimit"
 
 #: app/interface.c:53
 msgid "Modify object(s)"
@@ -766,7 +713,7 @@ msgstr ""
 msgid "Beziergon"
 msgstr ""
 
-#: app/interface.c:93 app/interface.c:94 objects/standard/line.c:234
+#: app/interface.c:93 app/interface.c:94 objects/standard/line.c:238
 msgid "Line"
 msgstr "Linja"
 
@@ -798,9 +745,10 @@ msgstr ""
 msgid "Pops up the Navigation window."
 msgstr ""
 
+#. GRUT modified this item
 #: app/interface.c:511
 msgid "Zoom"
-msgstr "Shkalla"
+msgstr "Shkalla e zmadhimit"
 
 #: app/interface.c:525
 msgid "Toggles snap-to-grid for this window."
@@ -861,17 +809,19 @@ msgstr ""
 msgid "Delete Layer"
 msgstr ""
 
+#. GRUT modified this item
 #: app/layer_dialog.c:212
 msgid "Layers"
-msgstr "Planimetritë"
+msgstr "Nivelet"
 
 #: app/layer_dialog.c:226
 msgid "Diagrams:"
 msgstr ""
 
+#. GRUT modified this item
 #: app/layer_dialog.c:271
 msgid "Close"
-msgstr "Mbylle"
+msgstr "Mbyll"
 
 #: app/layer_dialog.c:331
 msgid "New layer"
@@ -889,7 +839,7 @@ msgstr ""
 msgid "Layer name:"
 msgstr ""
 
-#: app/layer_dialog.c:996 app/paginate_psprint.c:267 lib/diaarrowchooser.c:248
+#: app/layer_dialog.c:996 app/paginate_psprint.c:283
 msgid "OK"
 msgstr "OK"
 
@@ -902,55 +852,55 @@ msgstr ""
 msgid "Line width:"
 msgstr ""
 
-#: app/load_save.c:247
+#: app/load_save.c:260
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
 
-#: app/load_save.c:250
+#: app/load_save.c:263
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
 
-#: app/load_save.c:267
+#: app/load_save.c:280
 #, c-format
 msgid ""
 "Error loading diagram.\n"
 "connection point %s does not exist."
 msgstr ""
 
-#: app/load_save.c:292
+#: app/load_save.c:305
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr ""
 
-#: app/load_save.c:337
+#: app/load_save.c:350
 msgid "You must specify a file, not a directory.\n"
 msgstr ""
 
-#: app/load_save.c:344 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1170
+#: app/load_save.c:357 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1170
 #: plug-ins/xfig/xfig-import.c:1560 plug-ins/xslt/xslt.c:87
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr ""
 
-#: app/load_save.c:361 app/load_save.c:366
+#: app/load_save.c:374 app/load_save.c:379
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
 
-#: app/load_save.c:373
+#: app/load_save.c:386
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
 
-#: app/load_save.c:575
+#: app/load_save.c:586
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -958,12 +908,12 @@ msgid ""
 "A valid Dia file defines at least one layer."
 msgstr ""
 
-#: app/load_save.c:926
+#: app/load_save.c:937
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr ""
 
-#: app/load_save.c:997 app/load_save.c:1002
+#: app/load_save.c:1008 app/load_save.c:1013
 msgid "Native Dia Diagram"
 msgstr ""
 
@@ -975,9 +925,10 @@ msgstr "/_File"
 msgid "/File/_New"
 msgstr ""
 
+#. GRUT modified this item
 #: app/menus.c:53 app/menus.c:88
 msgid "/File/_Open..."
-msgstr ""
+msgstr "/File/_Hap..."
 
 #. recent file list is dynamically inserted here
 #: app/menus.c:55 app/menus.c:60 app/menus.c:64 app/menus.c:66 app/menus.c:95
@@ -1021,17 +972,20 @@ msgstr ""
 msgid "/Help/_About..."
 msgstr "/Ndihmë/_Informacione mbi..."
 
+#. GRUT modified this item
 #: app/menus.c:90
 msgid "/File/_Save"
-msgstr ""
+msgstr "/File/_Ruaj"
 
+#. GRUT modified this item
 #: app/menus.c:92
 msgid "/File/Save _As..."
-msgstr ""
+msgstr "/File/Ruaje _Si..."
 
+#. GRUT modified this item
 #: app/menus.c:94
 msgid "/File/_Export..."
-msgstr ""
+msgstr "/File/_Eksporto..."
 
 #: app/menus.c:96
 msgid "/File/Page Set_up..."
@@ -1041,17 +995,19 @@ msgstr ""
 msgid "/File/_Print Diagram..."
 msgstr ""
 
+#. GRUT modified this item
 #: app/menus.c:100
 msgid "/File/_Close"
-msgstr ""
+msgstr "/File/_Mbylle"
 
 #: app/menus.c:105
 msgid "/_Edit"
 msgstr "/_Ndrysho"
 
+#. GRUT modified this item
 #: app/menus.c:107
 msgid "/Edit/_Undo"
-msgstr ""
+msgstr "/Ndrysho/_Anullo"
 
 #: app/menus.c:109
 msgid "/Edit/_Redo"
@@ -1345,9 +1301,10 @@ msgstr ""
 msgid "/Select/Remove"
 msgstr ""
 
+#. GRUT modified this item
 #: app/menus.c:210
 msgid "/_Tools"
-msgstr ""
+msgstr "/_Instrumentët"
 
 #: app/menus.c:212
 msgid "/Tools/Modify"
@@ -1432,34 +1389,34 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr ""
 
-#: app/paginate_psprint.c:226
+#: app/paginate_psprint.c:242
 msgid "Select Printer"
 msgstr ""
 
-#: app/paginate_psprint.c:238 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:254 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "Printeri"
 
-#: app/paginate_psprint.c:252 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:268 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "File"
 
-#: app/paginate_psprint.c:356
+#: app/paginate_psprint.c:377
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr ""
 
-#: app/paginate_psprint.c:359
+#: app/paginate_psprint.c:380
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr ""
 
-#: app/paginate_psprint.c:376
+#: app/paginate_psprint.c:397
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr ""
 
-#: app/paginate_psprint.c:387
+#: app/paginate_psprint.c:408
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr ""
@@ -1656,7 +1613,7 @@ msgstr ""
 msgid "<Toolbox>/File/Plugins..."
 msgstr ""
 
-#: app/recent_files.c:70 app/recent_files.c:149
+#: app/recent_files.c:70 app/recent_files.c:143
 msgid "<Toolbox>/File/Quit"
 msgstr ""
 
@@ -2071,37 +2028,37 @@ msgid ""
 "assuming it is encoded in %s"
 msgstr ""
 
-#: lib/dia_xml.c:475
+#: lib/dia_xml.c:471
 msgid "Taking point value of non-point node."
 msgstr ""
 
-#: lib/dia_xml.c:487
+#: lib/dia_xml.c:482
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:495
+#: lib/dia_xml.c:489
 msgid "Error parsing point."
 msgstr ""
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:503
+#: lib/dia_xml.c:497
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:884
+#: lib/dia_xml.c:865
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
 
-#: lib/diaarrowchooser.c:233
+#: lib/diaarrowchooser.c:251
 msgid "Arrow Properties"
 msgstr ""
 
-#: lib/diaarrowchooser.c:313 lib/dialinechooser.c:333
+#: lib/diaarrowchooser.c:333 lib/dialinechooser.c:333
 msgid "Details..."
 msgstr ""
 
@@ -2235,15 +2192,15 @@ msgid ""
 "`%s'"
 msgstr ""
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:792
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:791
 msgid "Left"
 msgstr "Majtas"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:798
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:797
 msgid "Center"
 msgstr "Në qendër"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:804
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:803
 msgid "Right"
 msgstr "Djathtas"
 
@@ -2312,56 +2269,56 @@ msgstr ""
 msgid "Other fonts..."
 msgstr ""
 
-#: lib/widgets.c:523
+#: lib/widgets.c:522
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr ""
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:588
+#: lib/widgets.c:587
 msgid "Select font"
 msgstr ""
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:940 objects/FS/function.c:1063
+#: lib/widgets.c:939 objects/FS/function.c:1063
 msgid "Solid"
 msgstr ""
 
-#: lib/widgets.c:946
+#: lib/widgets.c:945
 msgid "Dashed"
 msgstr ""
 
-#: lib/widgets.c:952
+#: lib/widgets.c:951
 msgid "Dash-Dot"
 msgstr ""
 
-#: lib/widgets.c:958
+#: lib/widgets.c:957
 msgid "Dash-Dot-Dot"
 msgstr ""
 
-#: lib/widgets.c:964
+#: lib/widgets.c:963
 msgid "Dotted"
 msgstr ""
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:983
+#: lib/widgets.c:982
 msgid "Dash length: "
 msgstr ""
 
-#: lib/widgets.c:1138
+#: lib/widgets.c:1137
 msgid "Select color"
 msgstr ""
 
-#: lib/widgets.c:1356
+#: lib/widgets.c:1355
 #, fuzzy
 msgid "Size: "
 msgstr "Madhë_sia:"
 
-#: lib/widgets.c:1505
+#: lib/widgets.c:1504
 msgid "Select image file"
 msgstr ""
 
-#: lib/widgets.c:1541
+#: lib/widgets.c:1540
 msgid "Browse"
 msgstr "Shfleto"
 
@@ -2438,9 +2395,10 @@ msgstr ""
 msgid "Identifying:"
 msgstr ""
 
+#. GRUT modified this item
 #: objects/ER/relationship.c:449 sheets/ER.sheet.in.h:6
 msgid "Relationship"
-msgstr ""
+msgstr "Marrëdhënie"
 
 #. Translators: Menu item Noun/Energy
 #: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:641
@@ -2694,7 +2652,6 @@ msgstr ""
 msgid "Secure"
 msgstr "I sigurtë"
 
-#. GRUT modified this item
 #. Translators: Menu item Verb/Support/Secure/Attach
 #. Translators: Menu item Verb/Connect/Couple/Attach
 #: objects/FS/function.c:779 objects/FS/function.c:811
@@ -2887,10 +2844,11 @@ msgstr "Filtri"
 msgid "Percolate"
 msgstr ""
 
+#. GRUT modified this item
 #. Translators: Menu item Verb/Branch/Refine/Clear
 #: objects/FS/function.c:873
 msgid "Clear"
-msgstr "Pastro (fshi)"
+msgstr "Pastro"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #. Translators: Menu item Verb/Branch/Distribute/Distribute
@@ -3114,11 +3072,12 @@ msgstr ""
 msgid "Adjust"
 msgstr "Përshtat"
 
+#. GRUT modified this item
 #. Translators: Menu item Verb/Control Magnitude/Form
 #. Translators: Menu item Verb/Control Magnitude/Form/Form
 #: objects/FS/function.c:987 objects/FS/function.c:989
 msgid "Form"
-msgstr "Modul"
+msgstr "Formular"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
 #: objects/FS/function.c:991
@@ -3327,10 +3286,11 @@ msgstr ""
 msgid "Translation"
 msgstr "Përkthimi"
 
+#. GRUT modified this item
 #. Translators: Menu item Noun/Energy/Mechanical/Force
 #: objects/FS/function.c:1093
 msgid "Force"
-msgstr ""
+msgstr "Detyro"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
 #: objects/FS/function.c:1095
@@ -3387,10 +3347,11 @@ msgstr "Aktual"
 msgid "Hydraulic"
 msgstr ""
 
+#. GRUT modified this item
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
 #: objects/FS/function.c:1117
 msgid "Pressure"
-msgstr "Trysni"
+msgstr "Trysnia"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
 #: objects/FS/function.c:1119
@@ -3632,7 +3593,7 @@ msgstr ""
 #: objects/GRAFCET/vergent.c:405 objects/SADT/box.c:445
 #: objects/Istar/other.c:483 objects/Jackson/domain.c:539
 #: objects/KAOS/goal.c:587 objects/KAOS/other.c:535
-#: objects/standard/line.c:228
+#: objects/standard/line.c:232
 msgid "Add connection point"
 msgstr ""
 
@@ -3724,7 +3685,7 @@ msgstr ""
 
 #: objects/SADT/box.c:446 objects/Istar/other.c:484
 #: objects/Jackson/domain.c:540 objects/KAOS/goal.c:588
-#: objects/KAOS/other.c:536 objects/standard/line.c:229
+#: objects/KAOS/other.c:536 objects/standard/line.c:233
 msgid "Delete connection point"
 msgstr ""
 
@@ -3857,9 +3818,10 @@ msgstr "Abstract"
 msgid " "
 msgstr " "
 
+#. GRUT modified this item
 #: objects/UML/class.c:172 objects/UML/object.c:151
 msgid "Attributes"
-msgstr "Pronësitë"
+msgstr "Veçoritë"
 
 #: objects/UML/class.c:174
 msgid "Operations"
@@ -4299,15 +4261,15 @@ msgstr ""
 msgid "Flip vertical"
 msgstr ""
 
-#: objects/custom/custom_object.c:1422
+#: objects/custom/custom_object.c:1431
 msgid "Flip Horizontal"
 msgstr ""
 
-#: objects/custom/custom_object.c:1423
+#: objects/custom/custom_object.c:1432
 msgid "Flip Vertical"
 msgstr ""
 
-#: objects/custom/custom_object.c:1460
+#: objects/custom/custom_object.c:1469
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr ""
@@ -4650,7 +4612,7 @@ msgid ""
 msgstr ""
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:686 objects/standard/image.c:712
+#: objects/standard/image.c:686 objects/standard/image.c:714
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr ""
@@ -4667,27 +4629,6 @@ msgstr ""
 msgid "End point"
 msgstr ""
 
-#: objects/standard/line.c:143
-#, fuzzy
-msgid "Line gaps"
-msgstr "Rreshta"
-
-#: objects/standard/line.c:145
-msgid "Absolute start gap"
-msgstr ""
-
-#: objects/standard/line.c:147
-msgid "Absolute end gap"
-msgstr ""
-
-#: objects/standard/line.c:149
-msgid "Fractional start gap"
-msgstr ""
-
-#: objects/standard/line.c:151
-msgid "Fractional end gap"
-msgstr ""
-
 #: objects/standard/polygon.c:460 objects/standard/polyline.c:515
 msgid "Add Corner"
 msgstr ""
@@ -4700,15 +4641,15 @@ msgstr ""
 msgid "Standard objects"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:965
+#: plug-ins/cairo/diacairo.c:967
 msgid "Cairo PostScript"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:974
+#: plug-ins/cairo/diacairo.c:976
 msgid "Cairo PNG"
 msgstr ""
 
-#: plug-ins/cairo/diacairo.c:1001
+#: plug-ins/cairo/diacairo.c:1004
 msgid "Cairo based Rendering"
 msgstr ""
 
@@ -4800,7 +4741,7 @@ msgstr ""
 msgid "TeX PSTricks macros"
 msgstr ""
 
-#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1140
+#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1137
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr ""
@@ -4855,11 +4796,11 @@ msgstr ""
 msgid "Scalable Vector Graphics import and export filters"
 msgstr ""
 
-#: plug-ins/wmf/wmf.cpp:1207
+#: plug-ins/wmf/wmf.cpp:1204
 msgid "Windows Meta File"
 msgstr ""
 
-#: plug-ins/wmf/wmf.cpp:1223
+#: plug-ins/wmf/wmf.cpp:1220
 msgid "WMF export filter"
 msgstr ""
 
@@ -5398,9 +5339,10 @@ msgstr ""
 msgid "Measurement"
 msgstr "Matja"
 
+#. GRUT modified this item
 #: sheets/ChemEng.sheet.in.h:29
 msgid "Mixer"
-msgstr "Miksues"
+msgstr "Kontrolli i volumit"
 
 #: sheets/ChemEng.sheet.in.h:30
 msgid "Open Tank"
@@ -8041,6 +7983,10 @@ msgstr ""
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Line gaps"
+#~ msgstr "Rreshta"
 
 #~ msgid "Cut Text"
 #~ msgstr "Preje tekstin"
