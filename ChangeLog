@@ -1,3 +1,8 @@
+1999-11-01  James Henstridge  <james@daa.com.au>
+
+	* shapes/Circuit/[hv]led_de.{shape,xpm}: new circuit shapes from
+	Andreas Scherf.
+
 1999-10-31  Alexander Larsson  <alla@lysator.liu.se>
 
         * dia.spec:

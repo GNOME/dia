@@ -24,6 +24,8 @@
     <shape>opamp.shape</shape>
     <shape>hfuse_de.shape</shape>
     <shape>vfuse_de.shape</shape>
+    <shape>hled_de.shape</shape>
+    <shape>vled_de.shape</shape>
     <shape>hpowersource_de.shape</shape> 
     <shape>vpowersource_de.shape</shape>
     <shape>lamp_de.shape</shape>

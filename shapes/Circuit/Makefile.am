@@ -52,8 +52,13 @@ SHAPES = \
 	hfuse_de.shape \
 	hfuse_de.xpm \
 	vfuse_de.shape \
-	vfuse_de.xpm
+	vfuse_de.xpm \
+	hled_de.shape \
+	hled_de.xpm \
+	vled_de.shape \
+	vled_de.xpm
 
 EXTRA_DIST = $(SHAPES)
 
 circuit_DATA = $(SHAPES)
+
