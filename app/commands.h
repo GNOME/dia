@@ -28,6 +28,8 @@ extern void file_export_to_eps_callback(GtkWidget *widget, gpointer data);
 extern void file_close_callback(GtkWidget *widget, gpointer data);
 extern void file_new_callback(GtkWidget *widget, gpointer data);
 
+extern void help_about_callback(GtkWidget *widget, gpointer data);
+
 void edit_copy_callback(GtkWidget *widget, gpointer data);
 void edit_cut_callback(GtkWidget *widget, gpointer data);
 void edit_paste_callback(GtkWidget *widget, gpointer data);

@@ -19,6 +19,9 @@
 #include <stdio.h>
 #include <math.h>
 
+#include "config.h"
+#include "intl.h"
+
 #include "display.h"
 #include "group.h"
 #include "interface.h"
@@ -298,7 +301,7 @@ ddisplay_render_pixmap(DDisplay *ddisp)
   Renderer *renderer;
   
   if (ddisp->renderer==NULL) {
-    printf("ERROR! Renderer was NULL!!\n");
+    printf(_("ERROR! Renderer was NULL!!\n"));
     return;
   }
 
@@ -541,8 +544,8 @@ extern DDisplay *ddisplay_active(void)
     return ddisp;
   }
 
-  message_error("Internal error: "
-		"Strange, shouldn't come here (ddisplay_active())"); 
+  message_error(_("Internal error: "
+		"Strange, shouldn't come here (ddisplay_active())")); 
   return NULL;
 }
 
@@ -587,11 +590,11 @@ ddisplay_close(DDisplay *ddisp)
   
   dialog = gtk_dialog_new();
 
-  gtk_window_set_title (GTK_WINDOW (dialog), "Really close?");
+  gtk_window_set_title (GTK_WINDOW (dialog), _("Really close?"));
   gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
   
-  label = gtk_label_new ("This diagram has not been saved.\n"
-			 "Are you sure you want to close this window?");
+  label = gtk_label_new (_("This diagram has not been saved.\n"
+			 "Are you sure you want to close this window?"));
   
   gtk_misc_set_padding (GTK_MISC (label), 10, 10);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
@@ -599,7 +602,7 @@ ddisplay_close(DDisplay *ddisp)
   
   gtk_widget_show (label);
   
-  button = gtk_button_new_with_label ("Yes");
+  button = gtk_button_new_with_label (_("Yes"));
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
@@ -610,7 +613,7 @@ ddisplay_close(DDisplay *ddisp)
 		      dialog);
   gtk_widget_show (button);
   
-  button = gtk_button_new_with_label ("No");
+  button = gtk_button_new_with_label (_("No"));
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
 		      button, TRUE, TRUE, 0);
@@ -635,41 +638,41 @@ display_set_menu_sensitivity(DDisplay *ddisp)
   
   dia = ddisp->diagram;
 
-  menus_set_sensitive("<Display>/Edit/Copy",
+  menus_set_sensitive(_("<Display>/Edit/Copy"),
 		      dia->data->selected_count > 0);
-  menus_set_sensitive("<Display>/Edit/Cut",
+  menus_set_sensitive(_("<Display>/Edit/Cut"),
 		      dia->data->selected_count > 0);
-  menus_set_sensitive("<Display>/Edit/Paste",
+  menus_set_sensitive(_("<Display>/Edit/Paste"),
 		      cnp_exist_stored_objects());
-  menus_set_sensitive("<Display>/Edit/Delete",
+  menus_set_sensitive(_("<Display>/Edit/Delete"),
 		      dia->data->selected_count > 0);
 
-  menus_set_sensitive("<Display>/Objects/Place Under",
+  menus_set_sensitive(_("<Display>/Objects/Place Under"),
 		      dia->data->selected_count > 0);
-  menus_set_sensitive("<Display>/Objects/Place Over",
+  menus_set_sensitive(_("<Display>/Objects/Place Over"),
 		      dia->data->selected_count > 0);
   
-  menus_set_sensitive("<Display>/Objects/Group", dia->data->selected_count > 1);
-  menus_set_sensitive("<Display>/Objects/Ungroup",
+  menus_set_sensitive(_("<Display>/Objects/Group"), dia->data->selected_count > 1);
+  menus_set_sensitive(_("<Display>/Objects/Ungroup"),
 		      (dia->data->selected_count == 1) &&
 		      IS_GROUP((Object *)dia->data->selected->data));
 
-  menus_set_sensitive("<Display>/Objects/Align Horizontal/Top",
+  menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Top"),
 		      dia->data->selected_count > 1);
-  menus_set_sensitive("<Display>/Objects/Align Horizontal/Center",
+  menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Center"),
 		      dia->data->selected_count > 1);
-  menus_set_sensitive("<Display>/Objects/Align Horizontal/Bottom",
+  menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Bottom"),
 		      dia->data->selected_count > 1);
-  menus_set_sensitive("<Display>/Objects/Align Vertical/Left",
+  menus_set_sensitive(_("<Display>/Objects/Align Vertical/Left"),
 		      dia->data->selected_count > 1);
-  menus_set_sensitive("<Display>/Objects/Align Vertical/Center",
+  menus_set_sensitive(_("<Display>/Objects/Align Vertical/Center"),
 		      dia->data->selected_count > 1);
-  menus_set_sensitive("<Display>/Objects/Align Vertical/Right",
+  menus_set_sensitive(_("<Display>/Objects/Align Vertical/Right"),
 		      dia->data->selected_count > 1);
 
-  menus_set_state ("<Display>/View/Toggle Rulers", GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0);
-  menus_set_state ("<Display>/View/Visible Grid", ddisp->grid.visible);
-  menus_set_state ("<Display>/View/Snap To Grid", ddisp->grid.snap);
+  menus_set_state (_("<Display>/View/Toggle Rulers"), GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0);
+  menus_set_state (_("<Display>/View/Visible Grid"), ddisp->grid.visible);
+  menus_set_state (_("<Display>/View/Snap To Grid"), ddisp->grid.snap);
 }
 
 /* This is called when ddisp->shell is destroyed... */

@@ -26,6 +26,9 @@
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
 
+#include "config.h"
+#include "intl.h"
+
 #include "layer_dialog.h"
 
 #include "pixmaps/eye.xbm"
@@ -51,10 +54,10 @@ static void layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_edit_layer(DiaLayerWidget *layer_widget);
 
 static ButtonData buttons[] = {
-  { new_xpm, layer_dialog_new_callback, "New Layer" },
-  { raise_xpm, layer_dialog_raise_callback, "Raise Layer" },
-  { lower_xpm, layer_dialog_lower_callback, "Lower Layer" },
-  { delete_xpm, layer_dialog_delete_callback, "Delete Layer" },
+  { new_xpm, layer_dialog_new_callback, N_("New Layer") },
+  { raise_xpm, layer_dialog_raise_callback, N_("Raise Layer") },
+  { lower_xpm, layer_dialog_lower_callback, N_("Lower Layer") },
+  { delete_xpm, layer_dialog_delete_callback, N_("Delete Layer") },
 };
 
 enum {
@@ -109,7 +112,7 @@ create_button_box(GtkWidget *parent)
 			       GTK_OBJECT (parent));
           
     if (tool_tips != NULL)
-      gtk_tooltips_set_tip (tool_tips, button, buttons[i].tooltip, NULL);
+      gtk_tooltips_set_tip (tool_tips, button, gettext(buttons[i].tooltip), NULL);
 
     gtk_box_pack_start (GTK_BOX(button_box), button, TRUE, TRUE, 0);
 
@@ -188,7 +191,7 @@ create_layer_dialog(void)
   layer_dialog->diagram = NULL;
   
   layer_dialog->dialog = dialog = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (dialog), "Layers");
+  gtk_window_set_title (GTK_WINDOW (dialog), _("Layers"));
   gtk_window_set_wmclass (GTK_WINDOW (dialog),
 			  "layer_window", "Dia");
   gtk_window_set_policy (GTK_WINDOW (dialog), TRUE, TRUE, TRUE);
@@ -201,7 +204,7 @@ create_layer_dialog(void)
 
   hbox = gtk_hbox_new(FALSE, 1);
   
-  label = gtk_label_new("Diagrams:");
+  label = gtk_label_new(_("Diagrams:"));
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show (label);
   
@@ -246,7 +249,7 @@ create_layer_dialog(void)
   gtk_container_set_border_width(GTK_CONTAINER(GTK_DIALOG(dialog)->action_area),
 				 2);
 
-  button = gtk_button_new_with_label ("Close");
+  button = gtk_button_new_with_label (_("Close"));
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
   gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
@@ -290,7 +293,7 @@ layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
   dia = layer_dialog->diagram;
 
   if (dia != NULL) {
-    layer = new_layer(g_strdup("New layer"));
+    layer = new_layer(g_strdup(_("New layer")));
 
     assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
     selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
@@ -478,7 +481,7 @@ layer_dialog_update_diagram_list(void)
   }
 
   if (open_diagrams==NULL) {
-    menu_item = gtk_menu_item_new_with_label ("none");
+    menu_item = gtk_menu_item_new_with_label (_("none"));
     gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
 			(GtkSignalFunc) layer_dialog_select_diagram_callback,
 			(gpointer) NULL);
@@ -914,7 +917,7 @@ layer_dialog_edit_layer(DiaLayerWidget *layer_widget)
   /*  the dialog  */
   dialog->dialog = gtk_dialog_new ();
   gtk_window_set_wmclass (GTK_WINDOW (dialog->dialog), "edit_layer_attrributes", "Dia");
-  gtk_window_set_title (GTK_WINDOW (dialog->dialog), "Edit Layer Attributes");
+  gtk_window_set_title (GTK_WINDOW (dialog->dialog), _("Edit Layer Attributes"));
   gtk_window_set_position (GTK_WINDOW (dialog->dialog), GTK_WIN_POS_MOUSE);
 
   /*  handle the wm close signal */
@@ -930,7 +933,7 @@ layer_dialog_edit_layer(DiaLayerWidget *layer_widget)
   /*  the name entry hbox, label and entry  */
   hbox = gtk_hbox_new (FALSE, 1);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-  label = gtk_label_new ("Layer name:");
+  label = gtk_label_new (_("Layer name:"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
   gtk_widget_show (label);
   dialog->name_entry = gtk_entry_new ();
@@ -939,7 +942,7 @@ layer_dialog_edit_layer(DiaLayerWidget *layer_widget)
   gtk_widget_show (dialog->name_entry);
   gtk_widget_show (hbox);
 
-  button = gtk_button_new_with_label ("OK");
+  button = gtk_button_new_with_label (_("OK"));
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
@@ -949,7 +952,7 @@ layer_dialog_edit_layer(DiaLayerWidget *layer_widget)
   gtk_widget_grab_default (button);
   gtk_widget_show (button);
 
-  button = gtk_button_new_with_label ("Cancel");
+  button = gtk_button_new_with_label (_("Cancel"));
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
 		      button, TRUE, TRUE, 0);

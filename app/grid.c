@@ -19,6 +19,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include "config.h"
+#include "intl.h"
 #include "grid.h"
 
 static Color grid_color = {0.5, 0.5, 0.5};
@@ -135,7 +137,7 @@ void grid_show_dialog(Grid *grid, DDisplay *ddisp)
     char buffer[32];
     
     grid->dialog = dialog = gtk_window_new(GTK_WINDOW_DIALOG);
-    gtk_window_set_title (GTK_WINDOW (dialog), "Grid options");
+    gtk_window_set_title (GTK_WINDOW (dialog), _("Grid options"));
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
     gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
 			GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
@@ -144,7 +146,7 @@ void grid_show_dialog(Grid *grid, DDisplay *ddisp)
     gtk_container_add(GTK_CONTAINER(dialog), vbox);
     
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Grid x size:");
+    label = gtk_label_new(_("Grid x size:"));
     grid->entry_x = entry = gtk_entry_new();
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
@@ -162,7 +164,7 @@ void grid_show_dialog(Grid *grid, DDisplay *ddisp)
 			GTK_SIGNAL_FUNC (grid_x_update), ddisp);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Grid y size:");
+    label = gtk_label_new(_("Grid y size:"));
     grid->entry_y = entry = gtk_entry_new();
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);

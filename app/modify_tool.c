@@ -64,6 +64,26 @@ free_modify_tool(Tool *tool)
   g_free(tool);
 }
 
+static void
+transitive_select(DDisplay *ddisp, Point *clickedpoint, Object *obj)
+{
+  guint i;
+  GList *j;
+  Object *obj1;
+
+  for(i = 0; i < obj->num_connections; i++) {
+    printf("%d\n", i);
+    j = obj->connections[i]->connected;
+    while(j != NULL && (obj1 = (Object *)j->data) != NULL) {
+      diagram_add_selected(ddisp->diagram, obj1);
+      obj1->ops->select(obj1, clickedpoint,
+			(Renderer *)ddisp->renderer);
+      transitive_select(ddisp, clickedpoint, obj1);
+      j = g_list_next(j);
+    }
+  }
+}
+
 static Object *
 click_select_object(DDisplay *ddisp, Point *clickedpoint,
 		    GdkEventButton *event)
@@ -98,6 +118,10 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       diagram_add_selected(diagram, obj);
       obj->ops->select(obj, clickedpoint,
 		       (Renderer *)ddisp->renderer);
+
+      if (event->state & GDK_CONTROL_MASK) {
+	transitive_select(ddisp, clickedpoint, obj);
+      }
 
       object_add_updates_list(diagram->data->selected, diagram);
       diagram_flush(diagram);

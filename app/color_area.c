@@ -17,6 +17,9 @@
  */
 #include <stdio.h>
 
+#include "config.h"
+#include "intl.h"
+
 #include "color_area.h"
 #include "attributes.h"
 
@@ -254,7 +257,7 @@ color_area_edit (void)
   }
 
   if (! color_select) {
-    window = color_select = gtk_color_selection_dialog_new("Select color");
+    window = color_select = gtk_color_selection_dialog_new(_("Select color"));
     color_select_active = 1;
     
     gtk_color_selection_set_update_policy(

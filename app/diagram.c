@@ -18,6 +18,8 @@
 #include <assert.h>
 #include <string.h>
 
+#include "config.h"
+#include "intl.h"
 #include "diagram.h"
 #include "group.h"
 #include "object_ops.h"
@@ -25,7 +27,6 @@
 #include "focus.h"
 #include "message.h"
 #include "layer_dialog.h"
-
 
 GList *open_diagrams = NULL;
 
@@ -369,7 +370,7 @@ void diagram_ungroup_selected(Diagram *dia)
   GList *list;
   
   if (dia->data->selected_count != 1) {
-    message_error("Trying to ungroup with more or less that one selected object.");
+    message_error(_("Trying to ungroup with more or less that one selected object."));
     return;
   }
   

@@ -17,6 +17,9 @@
  */
 /* $Header$ */
 
+#include "config.h"
+#include "intl.h"
+
 #include "interface.h"
 #include "menus.h"
 #include "disp_callbacks.h"
@@ -27,8 +30,6 @@
 #include "linewidth_area.h"
 
 #include "pixmaps.h"
-
-#include "config.h"
 
 typedef struct _ToolButton ToolButton;
 
@@ -51,39 +52,39 @@ struct _ToolButton
 static ToolButton tool_data[] =
 {
   { (char **) arrow_xpm,
-    "Modify object(s)",
+    N_("Modify object(s)"),
     { MODIFY_TOOL, NULL, NULL}
   },
   { (char **) magnify_xpm,
-    "Magnify",
+    N_("Magnify"),
     { MAGNIFY_TOOL, NULL, NULL}
   },
   { (char **) scroll_xpm,
-    "Scroll around the diagram",
+    N_("Scroll around the diagram"),
     { SCROLL_TOOL, NULL, NULL}
   },
   { NULL,
-    "Create Text",
+    N_("Create Text"),
     { CREATE_OBJECT_TOOL, "Standard - Text", NULL }
   },
   { NULL,
-    "Create Box",
+    N_("Create Box"),
     { CREATE_OBJECT_TOOL, "Standard - Box", NULL }
   },
   { NULL,
-    "Create Ellipse",
+    N_("Create Ellipse"),
     { CREATE_OBJECT_TOOL, "Standard - Ellipse", NULL }
   },
   { NULL,
-    "Create Line",
+    N_("Create Line"),
     { CREATE_OBJECT_TOOL, "Standard - Line", NULL }
   },
   { NULL,
-    "Create Arc",
+    N_("Create Arc"),
     { CREATE_OBJECT_TOOL, "Standard - Arc", NULL }
   },
   { NULL,
-    "Create Zigzagline",
+    N_("Create Zigzagline"),
     { CREATE_OBJECT_TOOL, "Standard - ZigZagLine", NULL }
   }
 };
@@ -306,7 +307,7 @@ create_tools(GtkWidget *parent)
 			&tool_data[i].callback_data);
     
     gtk_tooltips_set_tip (tool_tips, button,
-			  tool_data[i].tool_desc, NULL);
+			  gettext(tool_data[i].tool_desc), NULL);
     
     gtk_widget_show (pixmapwidget);
     gtk_widget_show (button);
@@ -498,9 +499,9 @@ create_color_area (GtkWidget *parent)
 
   gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
 
-  gtk_tooltips_set_tip (tool_tips, col_area, "Foreground & background colors.  The small black "
+  gtk_tooltips_set_tip (tool_tips, col_area, _("Foreground & background colors.  The small black "
                         "and white squares reset colors.  The small arrows swap colors.  Double "
-                        "click to change colors.",
+                        "click to change colors."),
                         NULL);
 
   gtk_widget_show (alignment);
@@ -542,6 +543,10 @@ create_toolbox ()
   GtkWidget *vbox;
   GtkWidget *menubar;
   GtkAccelGroup *accel_group;
+
+#ifdef GNOME
+  window = gnome_app_new ("Dia", _("Diagram Editor"));
+#else
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_ref (window);
   gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
@@ -555,17 +560,25 @@ create_toolbox ()
   gtk_signal_connect (GTK_OBJECT (window), "destroy",
 		      GTK_SIGNAL_FUNC (toolbox_destroy),
 		      NULL);
+#endif
 
   main_vbox = gtk_vbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
+#ifdef GNOME
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
+#else
+  gnome_app_set_contents(GNOME_APP(window), main_vbox);
+#endif
   gtk_widget_show (main_vbox);
 
+#ifdef GNOME
+  gnome_menus_create(window);
+#else
   menus_get_toolbox_menubar(&menubar, &accel_group);
   gtk_accel_group_attach (accel_group, GTK_OBJECT (window));
-  
   gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
   gtk_widget_show (menubar);
+#endif
   
   /*  tooltips  */
   tool_tips = gtk_tooltips_new ();

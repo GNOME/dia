@@ -22,6 +22,11 @@
 #include <sys/stat.h>
 #include <math.h>
 
+#include "config.h"
+#ifdef GNOME
+#include "gnome.h"
+#endif
+#include "intl.h"
 #include "commands.h"
 #include "app_procs.h"
 #include "diagram.h"
@@ -31,11 +36,14 @@
 #include "load_save.h"
 #include "utils.h"
 #include "message.h"
-#include "config.h"
 #include "grid.h"
 #include "properties.h"
 #include "layer_dialog.h"
 #include "connectionpoint_ops.h"
+
+static GtkWidget *about_dialog = NULL;
+static void about_dialog_destroy (void);
+static int  about_dialog_button (GtkWidget *widget, GdkEventButton *event);
 
 void file_quit_callback(GtkWidget *widget, gpointer data)
 {
@@ -68,7 +76,7 @@ void file_open_callback(GtkWidget *widget, gpointer data)
 {
   GtkWidget *window = NULL;
 
-  window = gtk_file_selection_new ("Open diagram");
+  window = gtk_file_selection_new (_("Open diagram"));
 
   gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
 
@@ -126,11 +134,11 @@ file_save_as_dialog_ok_callback (GtkWidget        *w,
     gtk_signal_connect (GTK_OBJECT (dialog), "destroy", 
 			GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
     
-    gtk_window_set_title (GTK_WINDOW (dialog), "File already exists");
+    gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
     snprintf(buffer, 300,
-	     "The file '%s' already exists.\n"
-	     "Do you want to overwrite it?", filename);
+	     _("The file '%s' already exists.\n"
+	     "Do you want to overwrite it?"), filename);
     label = gtk_label_new (buffer);
   
     gtk_misc_set_padding (GTK_MISC (label), 10, 10);
@@ -141,7 +149,7 @@ file_save_as_dialog_ok_callback (GtkWidget        *w,
 
     result = FALSE;
     
-    button = gtk_button_new_with_label ("Yes");
+    button = gtk_button_new_with_label (_("Yes"));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
 			button, TRUE, TRUE, 0);
@@ -154,7 +162,7 @@ file_save_as_dialog_ok_callback (GtkWidget        *w,
 			       GTK_OBJECT (dialog));
     gtk_widget_show (button);
     
-    button = gtk_button_new_with_label ("No");
+    button = gtk_button_new_with_label (_("No"));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
 			button, TRUE, TRUE, 0);
@@ -195,7 +203,7 @@ file_save_as_callback(GtkWidget *widget, gpointer data)
 
   ddisp = ddisplay_active();
 
-  window = gtk_file_selection_new ("Save diagram");
+  window = gtk_file_selection_new (_("Save diagram"));
   gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
   
   gtk_object_set_user_data(GTK_OBJECT(window), ddisp->diagram);
@@ -238,11 +246,11 @@ file_export_to_eps_dialog_ok_callback (GtkWidget        *w,
     gtk_signal_connect (GTK_OBJECT (dialog), "destroy", 
 					 GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
     
-    gtk_window_set_title (GTK_WINDOW (dialog), "File already exists");
+    gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
     snprintf(buffer, 300,
-	     "The file '%s' already exists.\n"
-	     "Do you want to overwrite it?", filename);
+	     _("The file '%s' already exists.\n"
+	     "Do you want to overwrite it?"), filename);
     label = gtk_label_new (buffer);
   
     gtk_misc_set_padding (GTK_MISC (label), 10, 10);
@@ -253,7 +261,7 @@ file_export_to_eps_dialog_ok_callback (GtkWidget        *w,
 
     result = FALSE;
     
-    button = gtk_button_new_with_label ("Yes");
+    button = gtk_button_new_with_label (_("Yes"));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
 			button, TRUE, TRUE, 0);
@@ -266,7 +274,7 @@ file_export_to_eps_dialog_ok_callback (GtkWidget        *w,
 			       GTK_OBJECT (dialog));
     gtk_widget_show (button);
     
-    button = gtk_button_new_with_label ("No");
+    button = gtk_button_new_with_label (_("No"));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
 			button, TRUE, TRUE, 0);
@@ -306,7 +314,7 @@ file_export_to_eps_callback(GtkWidget *widget, gpointer data)
 
   ddisp = ddisplay_active();
 
-  window = gtk_file_selection_new ("Export to postscript");
+  window = gtk_file_selection_new (_("Export to postscript"));
   gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
   
   gtk_object_set_user_data(GTK_OBJECT(window), ddisp->diagram);
@@ -340,7 +348,7 @@ file_new_callback(GtkWidget *widget, gpointer data)
   static int untitled_nr = 1;
   char buffer[24];
 
-  snprintf(buffer, 24, "Untitled-%d", untitled_nr++);
+  snprintf(buffer, 24, _("Untitled-%d"), untitled_nr++);
   
   dia = new_diagram(buffer);
   ddisp = new_display(dia);
@@ -390,7 +398,7 @@ edit_paste_callback(GtkWidget *widget, gpointer data)
   ddisp = ddisplay_active();
 
   if (!cnp_exist_stored_objects()) {
-    message_warning("No existing object to paste.\n");
+    message_warning(_("No existing object to paste.\n"));
     return;
   }
   
@@ -433,6 +441,74 @@ edit_delete_callback(GtkWidget *widget, gpointer data)
 
   diagram_flush(ddisp->diagram);
 } 
+
+static void
+about_dialog_destroy ()
+{
+  about_dialog = NULL;
+}
+
+static int
+about_dialog_button (GtkWidget *widget, GdkEventButton *event)
+{
+  about_dialog = NULL;
+}
+
+void
+help_about_callback(GtkWidget *widget, gpointer data)
+{
+  GtkWidget *dialog;
+  GtkWidget *vbox;
+  GtkWidget *frame;
+  GtkWidget *label;
+  GtkWidget *alignment;
+  GtkWidget *button;
+  
+#ifdef GNOME
+  const gchar *authors[] = { "Alexander Larsson", NULL };
+
+  GtkWidget *about = gnome_about_new (PACKAGE, VERSION,
+				      _("Copyright (C) 1999"),
+				      authors,
+				      _("Comment line 1\nLine 2"),
+				      "/usr/share/pixmaps/gnome-unknown.xpm");
+  gtk_widget_show(about);
+#else
+  dialog = gtk_dialog_new ();
+  gtk_window_set_wmclass (GTK_WINDOW (dialog), "about_dialog", "Dia");
+  gtk_window_set_title (GTK_WINDOW (dialog), _("About Dia"));
+  gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, FALSE, FALSE);
+  gtk_window_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
+  gtk_signal_connect (GTK_OBJECT (dialog), "destroy",
+		      GTK_SIGNAL_FUNC (gtk_widget_destroy), 
+		      GTK_OBJECT (dialog));
+
+  frame = gtk_frame_new (NULL);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
+  gtk_container_border_width (GTK_CONTAINER (frame), 5);
+  gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), frame);
+
+  vbox = gtk_vbox_new (FALSE, 1);
+  gtk_container_border_width (GTK_CONTAINER (vbox), 1);
+  gtk_container_add (GTK_CONTAINER (frame), vbox);
+
+  label = gtk_label_new ("Dia v" VERSION " by Alexander Larsson");
+  gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, TRUE, 2);
+
+  label = gtk_label_new (_("Please visit http://www.lysator.liu.se/~alla/dia "
+			   "for more info"));
+  gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, TRUE, 2);
+
+  button = gtk_button_new_with_label (_("Ok"));
+  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
+		      button, FALSE, FALSE, 0);
+  gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
+			    GTK_SIGNAL_FUNC(gtk_widget_destroy),
+			    GTK_OBJECT(dialog));
+
+  gtk_widget_show_all (dialog);
+#endif
+}
 
 void
 view_zoom_in_callback(GtkWidget *widget, gpointer data)

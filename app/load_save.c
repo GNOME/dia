@@ -23,11 +23,12 @@
 #include <fcntl.h>
 #include <glib.h>
 
+#include "config.h"
+#include "intl.h"
+
 /* gnome-xml: */
 #include <tree.h>
 #include <parser.h>
-
-#include "config.h"
 
 #include "load_save.h"
 #include "dia_xml.h"
@@ -72,7 +73,7 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash)
       obj = group_create(read_objects(obj_node, objects_hash));
       list = g_list_append(list, obj);
     } else {
-      message_error("Error reading diagram file\n");
+      message_error(_("Error reading diagram file\n"));
     }
 
     obj_node = obj_node->next;
@@ -119,8 +120,8 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	  to = g_hash_table_lookup(objects_hash, tostr);
 
 	  if (to == NULL) {
-	    message_error("Error loading diagram.\n"
-			  "Linked object not found in document.");
+	    message_error(_("Error loading diagram.\n"
+			  "Linked object not found in document."));
 	  } else {
 	    object_connect(obj, obj->handles[handle],
 			   to->connections[conn]);
@@ -155,13 +156,13 @@ diagram_load(char *filename)
   fd = open(filename, O_RDONLY);
 
   if (fd==-1) {
-    message_error("Couldn't open: '%s' for reading.\n", filename);
+    message_error(_("Couldn't open: '%s' for reading.\n"), filename);
     return NULL;
   }
 
   fstat(fd, &stat_buf);
   if (S_ISDIR(stat_buf.st_mode)) {
-    message_error("You must specify a file, not a directory.\n");
+    message_error(_("You must specify a file, not a directory.\n"));
     return NULL;
   }
   
@@ -170,19 +171,19 @@ diagram_load(char *filename)
   doc = xmlParseFile(filename);
 
   if (doc == NULL){
-    message_error("Error loading diagram %s.\nUnknown file type.", filename);
+    message_error(_("Error loading diagram %s.\nUnknown file type."), filename);
     return NULL;
   }
   
   if (doc->root == NULL) {
-    message_error("Error loading diagram %s.\nUnknown file type.", filename);
+    message_error(_("Error loading diagram %s.\nUnknown file type."), filename);
     xmlFreeDoc (doc);
     return NULL;
   }
 
   namespace = xmlSearchNs(doc, doc->root, "dia");
   if (strcmp (doc->root->name, "diagram") || (namespace == NULL)){
-    message_error("Error loading diagram %s.\nNot a Dia file.", filename);
+    message_error(_("Error loading diagram %s.\nNot a Dia file."), filename);
     xmlFreeDoc (doc);
     return NULL;
   }
@@ -323,7 +324,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 	  while (other_obj->connections[con_point_nr] != con_point) {
 	    con_point_nr++;
 	    if (con_point_nr>=other_obj->num_connections) {
-	      message_error("Internal error saving diagram\n con_point_nr >= other_obj->num_connections\n");
+	      message_error(_("Internal error saving diagram\n con_point_nr >= other_obj->num_connections\n"));
 	      return FALSE;
 	    }
 	  }
@@ -372,7 +373,7 @@ diagram_save(Diagram *dia, char *filename)
   file = fopen(filename, "w");
 
   if (file==NULL) {
-    message_error("Couldn't open: '%s' for writing.\n", filename);
+    message_error(_("Couldn't open: '%s' for writing.\n"), filename);
     return FALSE;
   }
   fclose(file);
