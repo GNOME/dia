@@ -390,4 +390,3 @@ Configuration:
 "
 
 echo "Now type make to build dia..."
-echo "          ...well, if I didn't break everything         -- CC"
