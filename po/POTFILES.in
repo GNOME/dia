@@ -24,6 +24,7 @@ app/lineprops_area.c
 app/linewidth_area.c
 app/load_save.c
 app/menus.c
+app/modify_tool.c
 app/pagesetup.c
 app/paginate_psprint.c
 app/plugin-manager.c
@@ -41,6 +42,7 @@ dia.desktop.in
 lib/attributes.c
 lib/bezier_conn.c
 lib/diagramdata.c
+lib/dialibartrenderer.c
 lib/dia_xml.c
 lib/filter.c
 lib/font.c
@@ -80,6 +82,8 @@ objects/GRAFCET/step.c
 objects/GRAFCET/transition.c
 objects/GRAFCET/vector.c
 objects/GRAFCET/vergent.c
+objects/Misc/analog_clock.c
+objects/Misc/libmisc.c
 objects/network/bus.c
 objects/network/network.c
 objects/SADT/annotation.c
