@@ -80,7 +80,9 @@ libdia_a_SOURCES =  \
 		charconv.c \
 		charconv.h \
 		ps-utf8.c \
-		ps-utf8.h
+		ps-utf8.h \
+		string_prerenderer.c \
+		string_prerenderer.h
 
 CPPFLAGS = \
 	-DLIBDIR=\"$(libdir)\" \

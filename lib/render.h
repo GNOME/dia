@@ -178,6 +178,10 @@ typedef void (*DrawImageFunc) (Renderer *renderer,
 			       real width, real height,
 			       DiaImage image);
 
+/* Pre-render a string, register its glyphs for future use. */
+typedef void (*PreDrawStringFunc) (Renderer *renderer,
+                                   const char *text);
+
 /******************************************************
  **  Functions defined for every Interactive Renderer
  **  Interactive renderers are renderers that render
@@ -271,6 +275,8 @@ struct _RenderOps {
 
   /* Images: */
   DrawImageFunc     draw_image; /* Not really supported yet */
+  
+  PreDrawStringFunc predraw_string;
 };
 
 struct _InteractiveRenderOps {

@@ -1,7 +1,25 @@
+2001-05-19  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/Makefile.am:
+	* lib/diagramdata.c:
+	* lib/render.h:
+	* lib/string_prerenderer.[ch] (NEW):
+	Add a new renderer primitive, predraw_string() (does nothing, to be
+	used as a hook to optimise the character encodings if needed). 
+	Added a string pre-renderer, which can be viewed as a filter
+	renderer (to route draw_string() to predraw_string() and ignore
+	the rest, in a first rendering pass)
+	
+	* app/render_eps.c: Took advantage of the above to make wholly
+	optimised Postscript encoding page(s), even (especially) with 
+	non-latin1 code (HAVE_UNICODE must be true).
+
+	(#53512 in fact is wholly resolved).
+	
 2001-05-18  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/charconv.c: steps towards resolution of #53512 (inspired by
-	<frob@df.ru>'s patch).
+	Alexey Novodvorsky <aen@logic.ru>'s patch).
 
 	* app/menus.c (dia_menu_signal_proxy): checked that the signal
 	handler is not NULL before transferring control to it... (fixes #52310)

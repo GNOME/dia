@@ -99,6 +99,11 @@ static void draw_image(RendererEPS *renderer,
 		       real width, real height,
 		       DiaImage image);
 
+#ifdef HAVE_UNICODE
+static void predraw_string(RendererEPS *renderer,
+                           const char *text); 
+#endif /* HAVE_UNICODE */
+
 static RenderOps EpsRenderOps = {
   (BeginRenderFunc) begin_render,
   (EndRenderFunc) end_render,
@@ -132,6 +137,12 @@ static RenderOps EpsRenderOps = {
   (DrawStringFunc) draw_string,
 
   (DrawImageFunc) draw_image,
+  
+#ifdef HAVE_UNICODE
+  (PreDrawStringFunc) predraw_string,
+#else
+  (PreDrawStringFunc) NULL,
+#endif /* HAVE_UNICODE */
 };
 
 
@@ -1077,7 +1088,8 @@ eps_select_ps_font(gpointer usrdata, const gchar *fontname, float size )
 static void eps_show_string(gpointer usrdata, const gchar *string)
 {
   RendererEPS *renderer = (RendererEPS *)usrdata;
-  /* string has nothing we would have to escape. */
+  /* string has nothing we would have to escape (the custom encoding skips
+   the characters we have to escape). */
   fprintf(renderer->file, "(%s)\n", string);  
 }
                   
@@ -1102,6 +1114,30 @@ set_font(RendererEPS *renderer, Font *font, real height)
                     (float)height);
 }
 
+static void 
+predraw_string(RendererEPS *renderer,
+               const char *text)
+{
+  char *utf8_buffer;
+  int utf8_len;
+
+  if ((!text)||(text == (const char *)(1))) return;
+
+  /* <FIXME:> dia doesn't talk UTF-8 but the local charset. The PSUnicoder
+     talks UTF-8. We do a quick-and-dirty translation for now. */
+  utf8_buffer = charconv_local8_to_utf8(text);
+  /* </FIXME> */
+  utf8_len = strlen(utf8_buffer); /* deliberate */
+
+  if (utf8_len <= 0) {
+    return; 
+  }
+  psu_check_string_encodings(renderer->psu,utf8_buffer);
+  
+  g_free(utf8_buffer);
+}
+
+
 static void
 draw_string(RendererEPS *renderer,
 	    const char *text,
@@ -1115,17 +1151,19 @@ draw_string(RendererEPS *renderer,
 
   lazy_setcolor(renderer,color);
 
-  /* <FIXME:> dia doesn't talk UTF-8 but the local charset (in fact, it 
-     doesn't know what it talks, and assumes it's latin-1). The PSUnicoder
+  /* <FIXME:> dia doesn't talk UTF-8 but the local charset. The PSUnicoder
      talks UTF-8. We do a quick-and-dirty translation for now. */
   utf8_buffer = charconv_local8_to_utf8(text);
   /* </FIXME> */
   utf8_len = strlen(utf8_buffer); /* deliberate */
 
   if (utf8_len <= 0) {
+    g_free(utf8_buffer);
     return; /* null string -> we won't display anything 
                and we will crash the Postscript stack. */
   }
+  /* normally not needed (if predraw_string() has been called beforehand),
+     but harmless : */
   psu_check_string_encodings(renderer->psu,utf8_buffer);
   
   switch (alignment) {
@@ -1151,9 +1189,7 @@ draw_string(RendererEPS *renderer,
   
   g_free(utf8_buffer);
   
-  if (utf8_len>0) {        /* always true, normally. */
-    fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
-  }
+  fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
 }
 
 #else /* !HAVE_UNICODE*/

@@ -26,6 +26,7 @@
 #include "diagramdata.h"
 
 #include "paper.h"
+#include "string_prerenderer.h"
 
 #define RENDER_BOUNDING_BOXES 0
 
@@ -352,6 +353,12 @@ data_render(DiagramData *data, Renderer *renderer, Rectangle *update,
 
   if (!renderer->is_interactive) (renderer->ops->begin_render)(renderer);
   
+  if (renderer->ops->predraw_string) {
+    StringPrerenderer *prerenderer = create_string_prerenderer(renderer);
+    data_render(data,prerenderer,update,obj_renderer,gdata);
+    destroy_string_prerenderer(prerenderer);
+  }
+
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
     active_layer = (layer == data->active_layer);
