@@ -316,7 +316,7 @@ dia_font_get_legacy_name(const DiaFont* font)
 }
 
 /* Conversion between our style and pango style/weight */
-int
+int 
 dia_font_pango_style_weight_to_dia(int style, int weight)
 {
   return style + (3*(weight-200)/100) + 1;
@@ -471,31 +471,7 @@ real dia_font_scaled_descent(const char* string, DiaFont* font,
     return bottom-bline;
 }
 
-static PangoStretch
-get_prev_stretch(PangoStretch stretch) {
-    switch(stretch) {
-        case PANGO_STRETCH_ULTRA_CONDENSED:
-            return PANGO_STRETCH_ULTRA_CONDENSED;
-        case PANGO_STRETCH_EXTRA_CONDENSED:
-            return PANGO_STRETCH_ULTRA_CONDENSED;
-        case PANGO_STRETCH_CONDENSED:
-            return PANGO_STRETCH_EXTRA_CONDENSED;
-        case PANGO_STRETCH_SEMI_CONDENSED:
-            return PANGO_STRETCH_CONDENSED;
-        case PANGO_STRETCH_NORMAL:
-            return PANGO_STRETCH_SEMI_CONDENSED;
-        case PANGO_STRETCH_SEMI_EXPANDED:
-            return PANGO_STRETCH_NORMAL;
-        case PANGO_STRETCH_EXPANDED:
-            return PANGO_STRETCH_SEMI_EXPANDED;
-        case PANGO_STRETCH_EXTRA_EXPANDED:
-            return PANGO_STRETCH_EXPANDED;
-        case PANGO_STRETCH_ULTRA_EXPANDED: /* fall-through */
-        default:
-            return PANGO_STRETCH_EXTRA_EXPANDED;
-    }
-}
-
+#define TWEAK_STRING_WIDTH
 
 PangoLayout*
 dia_font_scaled_build_layout(const char* string, DiaFont* font,
@@ -508,7 +484,8 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
     PangoStretch stretch;
     PangoLayout* layout;
     real altered_scaling;
-    
+    real real_width;
+
     scaling = zoom_factor / global_size_one;
     if (fabs(1.0 - scaling) < 1E-7) {
         return dia_font_build_layout(string,font,height);
@@ -518,43 +495,26 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
     target_zoomed_width = nozoom_width * scaling;
 
         /* First try: no tweaks. */
-    if (dia_font_string_width(string,font,
-                             height * scaling) <= target_zoomed_width) {
+#ifdef TWEAK_STRING_WIDTH
+    real_width = dia_font_string_width(string,font,
+					    height * scaling);
+        if (real_width <= target_zoomed_width) {
+#endif   
         return dia_font_build_layout(string,font,height*scaling);
-    }
+#ifdef TWEAK_STRING_WIDTH
+	}
 
     altered_font = dia_font_copy(font);
 
-#if 1 //FIXME: This produce _lots_ of Pango warnings ?? --hb
-        /* Second try. Using the "condense horizontally" strategy. */
-    
-    for (stretch = pango_font_description_get_stretch(altered_font->pfd);
-         stretch != PANGO_STRETCH_ULTRA_CONDENSED;
-         stretch = get_prev_stretch(stretch)) {
-        
-        pango_font_description_set_stretch(altered_font->pfd,stretch);
-        if (dia_font_string_width(string,altered_font,
-                                 height * scaling) <= target_zoomed_width) {
-             layout = dia_font_build_layout(string,altered_font,height*scaling);
-             dia_font_unref(altered_font);
-             return layout;
-        }
-    }
-
-    pango_font_description_set_stretch(
-        altered_font->pfd,
-        pango_font_description_get_stretch(font->pfd));
-#endif
-    
         /* Third try. Using the "reduce overall size" strategy. */
     for (altered_scaling = scaling;
          altered_scaling > (scaling / 2);
-         altered_scaling *= 0.98 ) {
-        
-        if (dia_font_string_width(string,altered_font,
-                                 height * altered_scaling) <=
-            target_zoomed_width) {
+         altered_scaling *= (target_zoomed_width/real_width>0.98?0.98:
+			     target_zoomed_width/real_width) ) {
+      real_width = dia_font_string_width(string,font,
+					 height * altered_scaling);
 
+        if (real_width <= target_zoomed_width) {
             layout = dia_font_build_layout(string,altered_font,
                                           height*altered_scaling);
             dia_font_unref(altered_font);
@@ -562,8 +522,9 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
         }
     }
 
-        /* Everything have failed. Returning non-tweaked variant. */
+    /* Everything has failed. Returning non-tweaked variant. */
     g_warning("Failed to appropriately tweak zoomed font.");
     dia_font_unref(altered_font);
     return dia_font_build_layout(string,font,height*scaling);    
+#endif
 }
