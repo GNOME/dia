@@ -1,4 +1,12 @@
-2004-06-17  Lars Clausen  <larsrc@linux.local>
+2004-06-17  Lars Clausen  <lars@raeder.dk>
+
+	* app/diagram.[ch]: 
+	* app/filedlg.c:
+	Patch from shuveb@yahoo.com (Shuveb Hussain): Remove
+	diagram-related (save) dialog when closing diagram.  To be
+	extended to other dialogs.
+
+	* doc/pl/dia.xml: Removed reference to objects-basic. (#144527)
 
 	* samples/Istar.dia:
 	* samples/Jackson.dia:

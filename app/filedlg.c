@@ -47,6 +47,7 @@ static int
 file_dialog_hide (GtkWidget *filesel)
 {
   gtk_widget_hide (filesel);
+  diagram_remove_related_dialog(gtk_object_get_user_data(GTK_OBJECT(filesel)), filesel);
   g_object_unref(gtk_object_get_user_data(GTK_OBJECT(filesel))); 
   gtk_object_set_user_data(GTK_OBJECT(filesel), NULL);
 
@@ -333,6 +334,7 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
 				  dia->filename ? dia->filename
 				  : "." G_DIR_SEPARATOR_S);
   gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
+  diagram_add_related_dialog(dia, savedlg);
   g_object_ref(dia); 
   gtk_widget_show(savedlg);
 }

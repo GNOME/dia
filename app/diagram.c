@@ -144,6 +144,7 @@ diagram_init(Diagram *dia, const char *filename)
   dia->unsaved = TRUE;
   dia->mollified = FALSE;
   dia->autosavefilename = NULL;
+  dia->related_dialogs = NULL;
 
   if (dia->undo)
     undo_destroy(dia->undo);
@@ -207,6 +208,7 @@ new_diagram(const char *filename)  /* Note: filename is copied */
 void
 diagram_destroy(Diagram *dia)
 {
+  diagram_close_related_dialogs(dia);
   g_object_unref(dia);
 }
 
@@ -1329,4 +1331,28 @@ int diagram_modified_exists(void)
 void diagram_object_modified(Diagram *dia, DiaObject *object)
 {
   diagram_tree_update_object(diagram_tree(), dia, object);
+}
+
+static 
+void close_dialog(gpointer data, gpointer user_data)
+{
+  g_signal_emit_by_name(G_OBJECT(data), "delete_event");
+}
+
+void diagram_close_related_dialogs(Diagram *dia)
+{
+  GSList *tmp;
+  tmp = g_slist_copy(dia->related_dialogs);
+  g_slist_foreach(tmp, close_dialog, NULL);
+  g_slist_free(tmp);
+}
+
+void diagram_add_related_dialog(Diagram *dia, gpointer data)
+{
+  dia->related_dialogs = g_slist_prepend(dia->related_dialogs, data);
+}
+
+void diagram_remove_related_dialog(Diagram *dia, gpointer data)
+{
+  dia->related_dialogs = g_slist_remove(dia->related_dialogs, data);
 }
