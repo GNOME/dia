@@ -78,6 +78,7 @@ struct EndSegmentChange {
   int segment;
   Point point;
   Handle *handle;
+  Handle *old_end_handle;
   ConnectionPoint *cp; /* NULL in add segment and if not connected in
 			  remove segment */
 };
@@ -338,23 +339,27 @@ orthconn_init(OrthConn *orth, Point *startpoint)
 
   obj = &orth->object;
 
-  object_init(obj, 2, 0);
+  object_init(obj, 3, 0);
   
-  orth->numpoints = 3;
+  orth->numpoints = 4;
 
-  orth->points = g_malloc(3*sizeof(Point));
+  orth->points = g_malloc(4*sizeof(Point));
 
-  orth->orientation = g_malloc(2*sizeof(Orientation));
+  orth->orientation = g_malloc(3*sizeof(Orientation));
 
-  orth->handles = g_malloc(2*sizeof(Handle *));
+  orth->handles = g_malloc(3*sizeof(Handle *));
 
   orth->handles[0] = g_new(Handle, 1);
   setup_endpoint_handle(orth->handles[0], HANDLE_MOVE_STARTPOINT);
   obj->handles[0] = orth->handles[0];
   
   orth->handles[1] = g_new(Handle, 1);
-  setup_endpoint_handle(orth->handles[1], HANDLE_MOVE_ENDPOINT);
+  setup_midpoint_handle(orth->handles[1]);
   obj->handles[1] = orth->handles[1];
+  
+  orth->handles[2] = g_new(Handle, 1);
+  setup_endpoint_handle(orth->handles[2], HANDLE_MOVE_ENDPOINT);
+  obj->handles[2] = orth->handles[2];
 
   /* Just so we have some position: */
   orth->points[0] = *startpoint;
@@ -362,9 +367,12 @@ orthconn_init(OrthConn *orth, Point *startpoint)
   orth->points[1].y = startpoint->y + 1.0;
   orth->points[2].x = startpoint->x + 1.0;
   orth->points[2].y = startpoint->y + 1.0;
+  orth->points[3].x = startpoint->x + 2.0;
+  orth->points[3].y = startpoint->y + 1.0;
 
   orth->orientation[0] = VERTICAL;
   orth->orientation[1] = HORIZONTAL;
+  orth->orientation[2] = VERTICAL;
 
   orthconn_update_data(orth);
 }
@@ -416,12 +424,38 @@ orthconn_destroy(OrthConn *orth)
   g_free(orth->handles);
 }
 
+void place_handle_by_swapping(OrthConn *orth, int index, Handle *handle)
+{
+  Object *obj;
+  Handle *tmp;
+  int j;
+
+  obj = (Object *)orth;
+  if (obj->handles[index] == handle)
+    return; /* Nothing to do */
+
+  for (j=0;j<obj->num_handles;j++) {
+    if (obj->handles[j] == handle) {
+      /* Swap handle j and index */
+      tmp = obj->handles[j];
+      obj->handles[j] = obj->handles[index];
+      obj->handles[index] = tmp;
+      
+      return;
+    }
+  }
+}
+
 void
 orthconn_save(OrthConn *orth, ObjectNode obj_node)
 {
   int i;
   AttributeNode attr;
 
+  /* Make sure start-handle is first and end-handle is second. */
+  place_handle_by_swapping(orth, 0, orth->handles[0]);
+  place_handle_by_swapping(orth, 1, orth->handles[orth->numpoints-2]);
+  
   object_save(&orth->object, obj_node);
 
   attr = new_attribute(obj_node, "orth_points");
@@ -484,12 +518,12 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
   orth->handles[n] = g_new(Handle, 1);
   setup_endpoint_handle(orth->handles[n], HANDLE_MOVE_ENDPOINT);
   orth->handles[n]->pos = orth->points[orth->numpoints-1];
-  obj->handles[n] = orth->handles[n];
+  obj->handles[1] = orth->handles[n];
 
   for (i=1; i<orth->numpoints-2; i++) {
     orth->handles[i] = g_new(Handle, 1);
     setup_midpoint_handle(orth->handles[i]);
-    obj->handles[i] = orth->handles[i];
+    obj->handles[i+1] = orth->handles[i];
   }
 
   orthconn_update_data(orth);
@@ -554,13 +588,13 @@ orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
   if (segment < 0)
     return NULL;
 
-  if (segment==0) {
+  if (segment==0) { /* First segment */
     handle1 = g_new(Handle, 1);
     setup_endpoint_handle(handle1, HANDLE_MOVE_STARTPOINT);
     change = endsegment_create_change(orth, TYPE_ADD_SEGMENT,
 				      0, &orth->points[0],
 				      handle1);
-  } else if (segment == orth->numpoints-2) {
+  } else if (segment == orth->numpoints-2) { /* Last segment */
     handle1 = g_new(Handle, 1);
     setup_endpoint_handle(handle1, HANDLE_MOVE_ENDPOINT);
     change = endsegment_create_change(orth, TYPE_ADD_SEGMENT,
@@ -687,6 +721,7 @@ endsegment_change_apply(struct EndSegmentChange *change, Object *obj)
 
   switch (change->type) {
   case TYPE_ADD_SEGMENT:
+    object_unconnect(obj, change->old_end_handle);
     if (change->segment==0) { /* first */
       add_point(orth, 0, &change->point);
       insert_handle(orth, change->segment,
@@ -699,9 +734,11 @@ endsegment_change_apply(struct EndSegmentChange *change, Object *obj)
 		    FLIP_ORIENT(orth->orientation[orth->numpoints-3]) );
       setup_midpoint_handle(orth->handles[orth->numpoints-3]);
     }
+    if (change->cp) 
+      object_connect(obj, change->handle, change->cp);
     break;
   case TYPE_REMOVE_SEGMENT:
-    object_unconnect(obj, change->handle);
+    object_unconnect(obj, change->old_end_handle);
     if (change->segment==0) { /* first */
       delete_point(orth, 0);
       remove_handle(orth, 0);
@@ -724,6 +761,7 @@ endsegment_change_revert(struct EndSegmentChange *change, Object *obj)
   
   switch (change->type) {
   case TYPE_ADD_SEGMENT:
+    object_unconnect(obj, change->handle);
     if (change->segment==0) { /* first */
       delete_point(orth, 0);
       remove_handle(orth, 0);
@@ -735,6 +773,8 @@ endsegment_change_revert(struct EndSegmentChange *change, Object *obj)
       setup_endpoint_handle(orth->handles[orth->numpoints-2],
 			    HANDLE_MOVE_ENDPOINT);
     }
+    if (change->cp) 
+      object_connect(obj, change->old_end_handle, change->cp);
     break;
   case TYPE_REMOVE_SEGMENT:
     if (change->segment==0) { /* first */
@@ -749,9 +789,8 @@ endsegment_change_revert(struct EndSegmentChange *change, Object *obj)
 		    FLIP_ORIENT(orth->orientation[orth->numpoints-3]) );
       setup_midpoint_handle(orth->handles[orth->numpoints-3]);
     }
-    if (change->cp) {
-      object_connect(obj, change->handle, change->cp);
-    }
+    if (change->cp) 
+      object_connect(obj, change->old_end_handle, change->cp);
     break;
   }
   change->applied = 0;
@@ -775,7 +814,11 @@ endsegment_create_change(OrthConn *orth, enum change_type type,
   change->segment = segment;
   change->point = *point;
   change->handle = handle;
-  change->cp = handle->connected_to;
+  if (segment == 0)
+    change->old_end_handle = orth->handles[0];
+  else
+    change->old_end_handle = orth->handles[orth->numpoints-2];
+  change->cp = change->old_end_handle->connected_to;
 
   return (ObjectChange *)change;
 }

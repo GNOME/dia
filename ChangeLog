@@ -1,3 +1,13 @@
+1999-10-16  Alexander Larsson  <alla@lysator.liu.se>
+
+	* lib/orth_conn.c:
+	For backwards compatibility, make sure handle 0 and 1 are the
+	first and last handle. Fixes compatibility with 0.41, breaks
+	compatibility with cvs version.
+	Fixed bug in undo/redo of adding deleting endpoint segments
+	when the endpoint was connected.
+	Start OrthConn objects with three segments.
+
 1999-10-16  James Henstridge  <james@daa.com.au>
 
 	* objects/custom/custom_object.c (custom_update_data): changed
