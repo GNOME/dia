@@ -7,6 +7,16 @@
 	* app/interface.c (create_display_shell, grid_toggle_snap): 
 	Added snap-to-grid status button.
 
+2003-03-31  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/app_procs.c (app_init): Create a new diagram if a file on
+	the command line isn't found.
+
+2003-03-17  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/dialibartrenderer.c (draw_string): Correct color handling
+	for AA.
+
 2003-03-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* NEWS: 
