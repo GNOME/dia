@@ -1,3 +1,8 @@
+2004-01-01  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* doc/en/dia.dia: Beginning class diagram for Dia from Luc
+	Pionchon <luc@handhelds.org>.
+
 2003-12-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/diagdkrenderer.c (draw_string): Don't attempt to render
