@@ -1,3 +1,8 @@
+2001-04-05  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* po-checktrans.py: Now shows the detailed counts alongside the
+	percentage of translations.
+	
 2001-04-03  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* Makefile.am:

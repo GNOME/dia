@@ -22,8 +22,15 @@
 
 import string,os,sys,math
 
+collen = 1
+
+def NoneStr(n):
+    if n is None: return (" " * collen)
+    return n
+
 def slurp_po(fname):
-    """returns a tuple (language_name,ratio) of what has been translated."""
+    """returns a tuple (language_name,ids,translations) of what has
+    been translated."""
     base,ext = os.path.splitext(os.path.basename(fname))
     language_name = base
 
@@ -61,7 +68,7 @@ def slurp_po(fname):
             if k != '""':
                 st = st + k
     #print "translations:",translations,"idents:",idents
-    return (language_name, float(translations)/idents)
+    return (language_name, idents, translations)
 
 if len(sys.argv)<2:
     print "Usage: %s <lang.po>" % sys.argv[0]
@@ -75,16 +82,13 @@ def maxlen(a,b):
     return b
 
 translations = map(slurp_po,sys.argv[1:])
-maxlanglen = len(reduce(maxlen,map(lambda (l,p):l,translations),""))
-trans = map(lambda (l,p),mll=maxlanglen: string.ljust("%s:%3d%%  "%(l,p*100),mll),
+trans = map(lambda (l,i,t): "%s:%3d%%(%d/%d)"%(l,100*float(t)/i,t,i),
             translations)
+maxlanglen = len(reduce(maxlen,trans,""))
+trans = map(lambda s,mll=maxlanglen: string.ljust(s,mll),trans)
 lt = len(trans)
 
-collen = maxlanglen + len(":100%  ")
-
-def NoneStr(n):
-    if n is None: return (" " * collen)
-    return n
+collen = maxlanglen + len("  ")
 
 numcols = int(80 / collen)
 ltnc = int(lt/numcols)
