@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include "config.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -29,8 +31,6 @@
 
 #include <gtk/gtk.h>
 #include <gmodule.h>
-
-#include "config.h"
 
 #if (defined (HAVE_LIBPOPT) && defined (HAVE_POPT_H)) || defined (GNOME)
 #define HAVE_POPT
@@ -278,26 +278,40 @@ app_exit(void)
   
   if (diagram_modified_exists()) {
     GtkWidget *dialog;
+    GtkWidget *vbox;
     GtkWidget *label;
     GtkWidget *button;
     int result = FALSE;
 
+#ifdef GNOME
+    dialog = gnome_dialog_new(_("Quit, are you sure?"), NULL);
+    vbox = GNOME_DIALOG(dialog)->vbox;
+    gnome_dialog_set_close(GNOME_DIALOG(dialog), TRUE);
+#else
     dialog = gtk_dialog_new();
-  
+    vbox = GTK_DIALOG(dialog)->vbox;
+    gtk_window_set_title (GTK_WINDOW (dialog), _("Quit, are you sure?"));
+    gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
+#endif
+
     gtk_signal_connect (GTK_OBJECT (dialog), "destroy", 
 			GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
     
-    gtk_window_set_title (GTK_WINDOW (dialog), _("Quit, are you sure?"));
-    gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
     label = gtk_label_new (_("Modified diagrams exists.\n"
 			   "Are you sure you want to quit?"));
   
     gtk_misc_set_padding (GTK_MISC (label), 10, 10);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), 
-			label, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
   
     gtk_widget_show (label);
 
+#ifdef GNOME
+    gnome_dialog_append_button_with_pixmap(GNOME_DIALOG(dialog),
+					   _("Quit"), GNOME_STOCK_PIXMAP_QUIT);
+    gnome_dialog_append_button(GNOME_DIALOG(dialog),GNOME_STOCK_BUTTON_CANCEL);
+
+    result = (gnome_dialog_run(GNOME_DIALOG(dialog)) == 0);
+#else
     button = gtk_button_new_with_label (_("Quit"));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
@@ -328,6 +342,7 @@ app_exit(void)
     gtk_grab_add(dialog);
 
     gtk_main();
+#endif
 
     if (result == FALSE)
       return;

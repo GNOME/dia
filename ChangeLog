@@ -1,5 +1,10 @@
 2000-02-26  James Henstridge  <james@daa.com.au>
 
+	* app/defaults.c (create_dialog): use a GNOME dialog for the defaults
+	window.
+
+	* app/app_procs.c (app_exit): use a GNOME dialog here.
+
 	* app/preferences.c (prefs_create_dialog): if GNOME support is
 	enabled, show a GNOME dialog.
 
