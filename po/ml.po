@@ -103,7 +103,8 @@ msgid "Dia version %s\n"
 msgstr ""
 
 #: app/app_procs.c:418 app/app_procs.c:420 app/diaconv.c:199 app/diaconv.c:201
-msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgid ""
+"Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 
 #. no standard buttons
@@ -177,7 +178,7 @@ msgstr ""
 #.
 #: app/commands.c:534
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr ""
+msgstr "മ ഗ് ലി"
 
 #: app/commands.c:548 dia.desktop.in.h:1
 msgid "Dia"
@@ -2967,7 +2968,7 @@ msgstr ""
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: objects/FS/function.c:819
 msgid "Detach"
-msgstr ""
+msgstr "വേര്പ്പെടുത്തുക"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
 #: objects/FS/function.c:821
@@ -3907,7 +3908,7 @@ msgstr ""
 
 #: objects/standard/line.c:135
 msgid "Arrows"
-msgstr ""
+msgstr "ശരങ്ങള്"
 
 #: objects/standard/line.c:140
 msgid "Start point"
@@ -3941,7 +3942,7 @@ msgstr "നടന്‍"
 
 #: objects/UML/association.c:1115 objects/UML/class_dialog.c:2070
 msgid "Direction:"
-msgstr ""
+msgstr "ദിശ:"
 
 #: objects/UML/association.c:1132
 msgid "From A to B"
@@ -6039,4 +6040,3 @@ msgstr ""
 #: sheets/UML.sheet.in.h:27
 msgid "Use case"
 msgstr ""
-
