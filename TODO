@@ -18,16 +18,9 @@ general:
 * Export to WMF.
 * Accelerators for buttons in the toolbar.
 * Fix the transitive selection
-* Add a cancel button to the properties dialog.
 
 functions:
 * undo, see event model later in this file.
-
-Preferences:
-* general preferences handling. Load and save ~/.diarc
-* Default Grid on/off
-* Default grid size
-* Reset tools after create (on/off)
 
 objects:
 * finish the network objects
@@ -54,9 +47,6 @@ BUGS:
 =====
 * Strings with only spaces in them seems to get zero width. Most visible on an "UML - Note".
 
-* Sometimes (dunno when it happens) menu shortcuts don't work in a view
-  until the menu is pulled down.
-
 * doesn't use latin-1 or some other well-known 8-bit encoding in eps_renderer
 
 * If you move an object outside the visible screen, scroll there move the object back
@@ -64,6 +54,9 @@ BUGS:
 
 * Toggling rulers changes the size of the window to the default size.
   I don't know how this can be fixed.
+
+* Changing arrow properties on a line and then double-clicking on another line sometimes crashes
+  Dia.
 
 Old bugs i can't reproduce but don't know if they're solved:
 ============================================================
