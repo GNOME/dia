@@ -1,3 +1,16 @@
+2005-03-10  Lars Clausen  <lars@raeder.dk>
+
+	* lib/text.h: 
+	* lib/object.h: Added new object function to allow the object to
+	be notified when its text is being edited.
+
+	* lib/libdia.def: 
+	* app/modify_tool.c: 
+	* app/commands.c: 
+	* app/textedit.c: 
+	* lib/focus.c: Remove sideeffects from focus objects, add getter
+	for focus->obj.
+
 2005-03-09  Lars Clausen  <lars@raeder.dk>
 
 	* lib/Makefile.am (dia-lib-icons.h): 

@@ -18,12 +18,17 @@
 #ifndef TEXT_H
 #define TEXT_H
 
+typedef enum {
+  TEXT_EDIT_START,
+  TEXT_EDIT_CHANGE,
+  TEXT_EDIT_END
+} TextEditState;
+
 #include <glib.h>
 #include "diatypes.h"
 #include "textattr.h"
 #include "focus.h"
 #include "properties.h"
-
 
 struct _Text {
   /** The object that owns this text. */

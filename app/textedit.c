@@ -46,10 +46,13 @@ textedit_move_focus(DDisplay *ddisp, Focus *focus, gboolean forwards)
     highlight_object_off(focus->obj, ddisp->diagram);
     object_add_updates(focus->obj, ddisp->diagram);
   }
-  if (forwards)
-    focus_next();
-  else
-    focus_previous();
+  if (forwards) {
+    Focus *new_focus = focus_next();
+    if (new_focus != NULL) give_focus(new_focus);    
+  } else {
+    Focus *new_focus = focus_previous();
+    if (new_focus != NULL) give_focus(new_focus);    
+  }
   focus = active_focus();
 
   if (focus != NULL) {
@@ -91,7 +94,9 @@ textedit_activate_object(DDisplay *ddisp, DiaObject *obj, Point *clicked)
     highlight_object_off(focus->obj, ddisp->diagram);
     object_add_updates(focus->obj, ddisp->diagram);
   }
-  if (give_focus_to_object(obj)) {
+  Focus *new_focus = focus_get_first_on_object(obj);
+  if (new_focus != NULL) {
+    give_focus(new_focus);
     highlight_object(obj, color_new_rgb(1.0, 1.0, 0.0), ddisp->diagram);
     if (clicked) {
       text_set_cursor((Text*)active_focus()->user_data, clicked, ddisp->renderer);

@@ -34,6 +34,7 @@
 #include "properties.h"
 #include "diagramdata.h"
 #include "parent.h"
+#include "text.h"
 
 G_BEGIN_DECLS
 
@@ -264,6 +265,22 @@ typedef void *(*ApplyDefaultsFunc) ();
 */
 typedef DiaMenu *(*ObjectMenuFunc) (DiaObject* obj, Point *position);
 
+/**
+ * Function for updates on a text part of an object.  This function, if
+ * not null, will be called every time the text is changed or editing
+ * starts or stops.
+ * @param obj The self object
+ * @param text The text entry being edited
+ * @param state The state of the editing, either TEXT_EDIT_START,
+ * TEXT_EDIT_INSERT, TEXT_EDIT_DELETE, or TEXT_EDIT_END.
+ * @param textchange For TEXT_EDIT_INSERT, the text about to be inserted.
+ * For TEXT_EDIT_DELETE, the text about to be deleted.
+ * @returns For TEXT_EDIT_INSERT and TEXT_EDIT_DELETE, TRUE this change
+ * will be allowed, FALSE otherwise.  For TEXT_EDIT_START and TEXT_EDIT_END,
+ * the return value is ignored.
+ */
+typedef gboolean (*TextEditFunc) (DiaObject *obj, Text *text, TextEditState state, gchar *textchange);
+
 /*************************************
  **  The functions provided in object.c
  *************************************/
@@ -357,13 +374,15 @@ struct _ObjectOps {
   GetPropsFunc        get_props;
   SetPropsFunc        set_props;
 
+  TextEditFunc        edit_text;
+
   /*
     Unused places (for extension).
     These should be NULL for now. In the future they might be used.
     Then an older object will be binary compatible, because all new code
     checks if new ops are supported (!= NULL)
   */
-  void      (*(unused[6]))(DiaObject *obj,...); 
+  void      (*(unused[5]))(DiaObject *obj,...); 
 };
 
 /*

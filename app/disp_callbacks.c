@@ -365,7 +365,7 @@ static void
 handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
                  const gchar *str, int strlen) 
 {
-  DiaObject *obj = focus->obj;
+  DiaObject *obj = focus_get_object(focus);
   Point p = obj->position;
   ObjectChange *obj_change = NULL;
   gboolean modified;
@@ -682,7 +682,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
         focus = active_focus();
         if (focus != NULL) {
 	  /* Keys goes to the active focus. */
-	  obj = focus->obj;
+	  obj = focus_get_object(focus);
 	  if (diagram_is_selected(ddisp->diagram, obj)) {
 
 	    if (!gtk_im_context_filter_keypress(
@@ -691,7 +691,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	      if (kevent->keyval == GDK_Tab) {
 		focus = textedit_move_focus(ddisp, focus,
 					    (state & GDK_SHIFT_MASK) == 0);
-		obj = focus->obj;
+		obj = focus_get_object(focus);
 	      } else {
 		/*! key event not swallowed by the input method ? */
 		handle_key_event(ddisp, focus, kevent->keyval,

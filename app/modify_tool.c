@@ -656,7 +656,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   case STATE_BOX_SELECT:
     gdk_pointer_ungrab (event->time);
     /* Remember the currently active object for reactivating. */
-    active_obj = active_focus()!=NULL?active_focus()->obj:NULL;
+    active_obj = active_focus()!=NULL?focus_get_object(active_focus()):NULL;
     /* Remove last box: */
     if (!tool->auto_scrolled) {
       gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,

@@ -19,10 +19,12 @@
 #define FOCUS_H
 
 #include "diatypes.h"
+
 #include "object.h"
 
 struct _Focus {
   DiaObject *obj;
+  Text *text;
   int has_focus;
   void *user_data; /* To be used by the object using this focus (eg. Text) */
 
@@ -35,12 +37,13 @@ struct _Focus {
 void request_focus(Focus *focus);
 Focus *active_focus(void);
 void give_focus(Focus *focus);
-gboolean give_focus_to_object(DiaObject *obj);
-void focus_next(void);
-void focus_previous(void);
+Focus *focus_get_first_on_object(DiaObject *obj);
+Focus *focus_next(void);
+Focus *focus_previous(void);
 void remove_focus(void);
 gboolean remove_focus_object(DiaObject *obj);
 void reset_foci(void);
+DiaObject* focus_get_object(Focus *focus);
 
 #endif /* FOCUS_H */
 

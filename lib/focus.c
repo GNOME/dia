@@ -25,7 +25,7 @@
  */
 
 #include <config.h>
-
+#include "text.h"
 #include "focus.h"
 
 static Focus *active_focus_ptr = NULL;
@@ -67,45 +67,59 @@ give_focus(Focus *focus)
   active_focus_ptr->has_focus = TRUE;
 }
 
-gboolean
-give_focus_to_object(DiaObject *obj)
+/* Return the first focus on the given object
+ */
+Focus *
+focus_get_first_on_object(DiaObject *obj)
 {
   GList *tmplist = text_foci;
 
   for (; tmplist != NULL; tmplist = g_list_next(tmplist) ) {
     Focus *focus = (Focus*)tmplist->data;
-    if (focus->obj == obj) {
-      give_focus(focus);
-      return TRUE;
+    if (focus_get_object(focus) == obj) {
+      return focus;
     }
   }
-  return FALSE;
+  return NULL;
 }
 
-/** Shift to the next available focus, if one is already active.
+/** Return the object that this focus belongs to.  Note that each
+ * object may have more than one Text associated with it, the
+ * focus will be on one of those.
  */
-void
+DiaObject*
+focus_get_object(Focus *focus)
+{
+  return focus->obj;
+}
+
+/** Return the next available focus, if one is already active.
+ */
+Focus *
 focus_next(void)
 {
   if (text_foci != NULL && active_focus_ptr != NULL) {
     GList *listelem = g_list_find(text_foci, active_focus_ptr);
     listelem = g_list_next(listelem);
     if (listelem == NULL) listelem = text_foci;
-    give_focus((Focus *)listelem->data);
+    return ((Focus*)listelem->data);
   }
+  return NULL;
 }
 
-/** Shift to the previous available focus, if one is already active.
+/** Return the previous available focus, if one is already active.
  */
-void
+Focus *
 focus_previous(void)
 {
   if (text_foci != NULL && active_focus_ptr != NULL) {
     GList *listelem = g_list_find(text_foci, active_focus_ptr);
     listelem = g_list_previous(listelem);
-    if (listelem == NULL) listelem = g_list_last(text_foci);
-    give_focus((Focus *)listelem->data);
+    if (listelem == NULL) 
+      listelem = g_list_last(text_foci);
+    return (Focus *)listelem->data;
   }
+  return NULL;
 }
 
 /** Remove the current focus */
@@ -122,9 +136,6 @@ remove_focus(void)
 void
 reset_foci(void)
 {
-  if (active_focus_ptr != NULL) {
-    remove_focus();
-  }
   g_list_free(text_foci);
   text_foci = NULL;
 }
@@ -142,7 +153,7 @@ remove_focus_object(DiaObject *obj)
     Focus *focus = (Focus*)tmplist->data;
     GList *link = tmplist;
     tmplist = g_list_next(tmplist);
-    if (focus->obj == obj) {
+    if (focus_get_object(focus) == obj) {
       text_foci = g_list_delete_link(text_foci, link);
       if (focus == active_focus_ptr) {
 	active = TRUE;

@@ -288,7 +288,7 @@ insert_text(DDisplay *ddisp, Focus *focus, const gchar *text)
 {
   ObjectChange *change = NULL;
   int modified = FALSE, any_modified = FALSE;
-  DiaObject *obj = focus->obj;
+  DiaObject *obj = focus_get_object(focus);
 
   while (text != NULL) {
     gchar *next_line = g_utf8_strchr(text, -1, '\n');
@@ -373,7 +373,7 @@ edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
   ddisp = ddisplay_active();
   if (!ddisp) return;
 
-  obj = focus->obj;
+  obj = focus_get_object(focus);
 
   if (obj->ops->get_props == NULL) 
     return;
@@ -411,8 +411,8 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
   ddisp = ddisplay_active();
   if (!ddisp) return;
 
-  obj = focus->obj;
-  text = (Text *)focus->user_data; 
+  obj = focus_get_object(focus);
+  text = (Text*)focus->user_data;
 
   if (obj->ops->get_props == NULL) 
     return;
@@ -464,7 +464,6 @@ void
 edit_delete_callback(gpointer data, guint action, GtkWidget *widget)
 {
   GList *delete_list;
-  GList *ptr;
   DDisplay *ddisp;
 
   Change *change;

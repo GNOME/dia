@@ -357,6 +357,8 @@ EXPORTS
  find_paper
  find_slope_directions
  
+ focus_get_object
+ focus_get_first_on_object
  focus_previous
  focus_next
 
