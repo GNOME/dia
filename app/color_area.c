@@ -383,19 +383,19 @@ color_area_events (GtkWidget *widget,
 	  g_object_unref (color_area_mask);
 	}
 
-	color_area_pixmap = gdk_pixmap_new (widget->window,
-					  widget->allocation.width,
-					  widget->allocation.height, -1);
-        color_area_mask = gdk_pixmap_new (widget->window,
-					widget->allocation.width,
-					widget->allocation.height, 1);
+	color_area_pixmap = gdk_pixmap_new (color_area->window,
+					  color_area->allocation.width,
+					  color_area->allocation.height, -1);
+        color_area_mask = gdk_pixmap_new (color_area->window,
+					color_area->allocation.width,
+					color_area->allocation.height, 1);
       break;
     case GDK_EXPOSE:
-      if (GTK_WIDGET_DRAWABLE (widget))
+      if (GTK_WIDGET_DRAWABLE (color_area))
 	{
 	  if (!color_area_gc)
 	    {
-	      color_area_gc = gdk_gc_new (widget->window);
+	      color_area_gc = gdk_gc_new (color_area->window);
 	      mask_gc = gdk_gc_new (color_area_mask);
 	    }
 
@@ -444,6 +444,9 @@ color_area_create (int        width,
 		   GdkPixmap *swap_pmap,
 		   GdkBitmap *swap_msk)
 {
+  GtkWidget *event_box;
+
+  event_box = gtk_event_box_new();
   color_area = gtk_drawing_area_new ();
   gtk_widget_set_size_request (color_area, width, height);
   gtk_widget_set_events (color_area, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK);
@@ -455,6 +458,8 @@ color_area_create (int        width,
   swap_pixmap    = swap_pmap;
   swap_mask      = swap_msk;
 
-  return color_area;
+  gtk_widget_show(color_area);
+  gtk_container_add(GTK_CONTAINER(event_box), color_area);
+  return event_box;
 }
 

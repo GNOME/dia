@@ -132,7 +132,7 @@ linewidth_area_events (GtkWidget *widget,
       }
       break;
     case GDK_EXPOSE:
-      linewidth_area_draw (widget);
+      linewidth_area_draw (linewidth_area_widget);
       break;
 
     case GDK_BUTTON_PRESS:
@@ -142,7 +142,7 @@ linewidth_area_events (GtkWidget *widget,
 	
 	if (target != 0) {
 	  active_linewidth = target;
-	  linewidth_area_draw(widget);
+	  linewidth_area_draw(linewidth_area_widget);
 	  attributes_set_default_linewidth(BASE_WIDTH*(target-1));
 	}
       }
@@ -168,7 +168,9 @@ GtkWidget *
 linewidth_area_create (void)
 {
   GtkWidget *linewidth_area;
+  GtkWidget *event_box;
 
+  event_box = gtk_event_box_new();
   linewidth_area = gtk_drawing_area_new ();
   gtk_drawing_area_size (GTK_DRAWING_AREA (linewidth_area),
 			 AREA_WIDTH, AREA_HEIGHT);
@@ -180,7 +182,10 @@ linewidth_area_create (void)
   attributes_set_default_linewidth(BASE_WIDTH*active_linewidth);
 
   linewidth_area_widget = linewidth_area;
-  return linewidth_area;
+
+  gtk_container_add(GTK_CONTAINER(event_box), linewidth_area);
+  gtk_widget_show(linewidth_area);
+  return event_box;
 }
 
 static void

@@ -1,3 +1,13 @@
+2003-04-03  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/linewidth_area.c (linewidth_area_create) 
+	(linewidth_area_events): 
+	* app/color_area.c (color_area_events, color_area_create): 
+	Made tooltips work by embedding drawing_area in event_box.
+
+	* app/interface.c (create_display_shell,
+	(create_lineprops_area, create_color_area): Added a few tooltips.
+
 2003-04-01  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/pixmaps/off-grid.xpm: 

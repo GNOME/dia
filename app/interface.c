@@ -367,6 +367,7 @@ create_display_shell(DDisplay *ddisp,
       GTK_WIDGET_UNSET_FLAGS(ddisp->origin, GTK_CAN_FOCUS);
       widget = gtk_arrow_new(GTK_ARROW_RIGHT, GTK_SHADOW_OUT);
       gtk_container_add(GTK_CONTAINER(ddisp->origin), widget);
+      gtk_tooltips_set_tip(tool_tips, widget, _("Diagram menu."), NULL);
       gtk_widget_show(widget);
       gtk_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
 		     GTK_SIGNAL_FUNC(origin_button_press), ddisp);
@@ -488,6 +489,8 @@ create_display_shell(DDisplay *ddisp,
   
   g_signal_connect(G_OBJECT(ddisp->grid_status), "toggled",
 		   grid_toggle_snap, ddisp);
+  gtk_tooltips_set_tip(tool_tips, ddisp->grid_status,
+		       _("Toggles snap-to-grid for this window."), NULL);
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->grid_status,
 		      FALSE, FALSE, 0);
 
@@ -992,9 +995,11 @@ create_color_area (GtkWidget *parent)
 
   gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
 
-  gtk_tooltips_set_tip (tool_tips, col_area, _("Foreground & background colors.  The small black "
-                        "and white squares reset colors.  The small arrows swap colors.  Double "
-                        "click to change colors."),
+  gtk_tooltips_set_tip (tool_tips, col_area, 
+			_("Foreground & background colors for new objects.  "
+			  "The small black and white squares reset colors.  "
+			  "The small arrows swap colors.  Double click to "
+			  "change colors."),
                         NULL);
 
   gtk_widget_show (alignment);
@@ -1006,7 +1011,7 @@ create_color_area (GtkWidget *parent)
   line_area = linewidth_area_create ();
   gtk_container_add (GTK_CONTAINER (alignment), line_area);
   gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
-
+  gtk_tooltips_set_tip(tool_tips, line_area, _("Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."), NULL);
   gtk_widget_show (alignment);
 
   gtk_widget_show (col_area);
@@ -1038,14 +1043,17 @@ create_lineprops_area(GtkWidget *parent)
 
   chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL);
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE, TRUE);
+  gtk_tooltips_set_tip(tool_tips, chooser, _("Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."), NULL);
   gtk_widget_show(chooser);
 
   chooser = dia_line_chooser_new(change_line_style, NULL);
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, TRUE, TRUE, FALSE, TRUE);
+  gtk_tooltips_set_tip(tool_tips, chooser, _("Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."), NULL);
   gtk_widget_show(chooser);
 
   chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL);
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE);
+  gtk_tooltips_set_tip(tool_tips, chooser, _("Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."), NULL);
   gtk_widget_show(chooser);
 }
 
