@@ -62,7 +62,7 @@ struct _DiagramData {
 
   struct  {
     /* grid line intervals */
-    real width_x, width_y;
+    real width_x, width_y, width_w;
     /* the interval between visible grid lines */
     guint visible_x, visible_y;
     /* the interval between major lines (non-stippled).
@@ -77,6 +77,10 @@ struct _DiagramData {
     /* The color of the grid lines.
      */
     Color colour;
+    /** True if this grid is a hex grid. */
+    gboolean hex;
+    /** Size of each edge on a hex grid. */
+    real hex_size;
   } grid;
 
   struct {

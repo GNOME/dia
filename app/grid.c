@@ -50,7 +50,7 @@ grid_draw_horizontal_lines(DDisplay *ddisp, Rectangle *update, real length)
   guint major_lines = ddisp->diagram->data->grid.major_lines;
   DiaRenderer *renderer = ddisp->renderer;
   DiaInteractiveRendererInterface *irenderer;
-  int major_count;
+  int major_count = 0;
 
   irenderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
 
@@ -87,7 +87,7 @@ grid_draw_vertical_lines(DDisplay *ddisp, Rectangle *update, real length)
   guint major_lines = ddisp->diagram->data->grid.major_lines;
   DiaRenderer *renderer = ddisp->renderer;
   DiaInteractiveRendererInterface *irenderer;
-  int major_count;
+  int major_count = 0;
 
   irenderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
 
@@ -114,6 +114,100 @@ grid_draw_vertical_lines(DDisplay *ddisp, Rectangle *update, real length)
   }
 }
 
+static void
+grid_draw_hex(DDisplay *ddisp, Rectangle *update, real length)
+{
+  real horiz_pos, vert_pos;
+  int to_x, to_y, x, y;
+  DiaRenderer *renderer = ddisp->renderer;
+  DiaInteractiveRendererInterface *irenderer;
+
+  irenderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
+
+  /* First horizontal lines: */
+  vert_pos = ceil( update->top / (length * sqrt(3)) ) * length * sqrt(3);
+  while (vert_pos <= update->bottom) {
+    horiz_pos = ceil( (update->left) / (3 * length) ) * length * 3 - length * 2.5;
+    while (horiz_pos <= update->right) {
+      ddisplay_transform_coords(ddisp, horiz_pos, vert_pos, &x, &y);
+      ddisplay_transform_coords(ddisp, horiz_pos + length, vert_pos, &to_x, &y);
+	  
+      irenderer->draw_pixel_line(renderer,
+				 x, y, to_x, y,
+				 &ddisp->diagram->data->grid.colour);
+      horiz_pos += 3 * length;
+    }
+	
+    vert_pos += sqrt(3) * length;
+  }
+
+  /*  Second horizontal lines: */
+  vert_pos = ceil( update->top / (length * sqrt(3)) ) * length * sqrt(3) - 0.5 * sqrt(3) * length;
+  while (vert_pos <= update->bottom) {
+    horiz_pos = ceil( (update->left) / (3 * length) ) * length * 3 - length;
+    while (horiz_pos <= update->right) {
+      ddisplay_transform_coords(ddisp, horiz_pos, vert_pos, &x, &y);
+      ddisplay_transform_coords(ddisp, horiz_pos+length, vert_pos, &to_x, &y);
+	  
+      irenderer->draw_pixel_line(renderer,
+				 x, y, to_x, y,
+				 &ddisp->diagram->data->grid.colour);
+      horiz_pos += 3 * length;
+    }
+	
+    vert_pos += sqrt(3) * length;
+  }
+
+  /* First \'s and /'s */
+  vert_pos = ceil( update->top / (length * sqrt(3)) ) * length * sqrt(3) - length * sqrt(3);
+  while (vert_pos <= update->bottom) {
+    horiz_pos = ceil( (update->left) / (3 * length) ) * length * 3 - length * 2.5;
+    while (horiz_pos <= update->right) {
+      ddisplay_transform_coords(ddisp, horiz_pos + length, vert_pos, &x, &y);
+      ddisplay_transform_coords(ddisp, horiz_pos + 1.5 * length, vert_pos + length * sqrt(3) * 0.5, &to_x, &to_y);
+	  
+      irenderer->draw_pixel_line(renderer,
+				 x, y, to_x, to_y,
+				 &ddisp->diagram->data->grid.colour);
+
+      ddisplay_transform_coords(ddisp, horiz_pos, vert_pos, &x, &y);
+      ddisplay_transform_coords(ddisp, horiz_pos - 0.5 * length, vert_pos + length * sqrt(3) * 0.5, &to_x, &to_y);
+	  
+      irenderer->draw_pixel_line(renderer,
+				 x, y, to_x, to_y,
+				 &ddisp->diagram->data->grid.colour);
+      horiz_pos += 3 * length;
+    }
+	
+    vert_pos += sqrt(3) * length;
+  }
+
+  /*  Second \'s and /'s */
+  vert_pos = ceil( update->top / (length * sqrt(3)) ) * length * sqrt(3) - 0.5 * sqrt(3) * length;
+  while (vert_pos <= update->bottom) {
+    horiz_pos = ceil( (update->left) / (3 * length) ) * length * 3 - length;
+    while (horiz_pos <= update->right) {
+      ddisplay_transform_coords(ddisp, horiz_pos, vert_pos, &x, &y);
+      ddisplay_transform_coords(ddisp, horiz_pos - 0.5 * length, vert_pos + 0.5 * sqrt(3) * length, &to_x, &to_y);
+	  
+      irenderer->draw_pixel_line(renderer,
+				 x, y, to_x, to_y,
+				 &ddisp->diagram->data->grid.colour);
+
+      ddisplay_transform_coords(ddisp, horiz_pos + length, vert_pos, &x, &y);
+      ddisplay_transform_coords(ddisp, horiz_pos + 1.5 * length, vert_pos + 0.5 * sqrt(3) * length, &to_x, &to_y);
+	  
+      irenderer->draw_pixel_line(renderer,
+				 x, y, to_x, to_y,
+				 &ddisp->diagram->data->grid.colour);
+      horiz_pos += 3 * length;
+    }
+	
+    vert_pos += sqrt(3) * length;
+  }
+
+}
+
 void
 grid_draw(DDisplay *ddisp, Rectangle *update)
 {
@@ -127,6 +221,7 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
     /* distance between visible grid lines */
     real width_x = ddisp->diagram->data->grid.width_x;
     real width_y = ddisp->diagram->data->grid.width_y;
+    real width_w = ddisp->diagram->data->grid.width_w;
     if (ddisp->diagram->data->grid.dynamic) {
       width_x = width_y = calculate_dynamic_grid(ddisp, &width_x, &width_y);
     } else {
@@ -140,12 +235,16 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
     DIA_RENDERER_GET_CLASS(renderer)->set_dashlength(renderer,
 						     ddisplay_untransform_length(ddisp, 31));
     
-    if (ddisplay_transform_length(ddisp, width_y) >= 2.0 &&
-	ddisplay_transform_length(ddisp, width_x) >= 2.0) {
-      /* Vertical lines: */
-      grid_draw_vertical_lines(ddisp, update, width_x);
-      /* Horizontal lines: */
-      grid_draw_horizontal_lines(ddisp, update, width_y);
+    if (ddisp->diagram->data->grid.hex) {
+      grid_draw_hex(ddisp, update, width_w);
+    } else {
+      if (ddisplay_transform_length(ddisp, width_y) >= 2.0 &&
+	  ddisplay_transform_length(ddisp, width_x) >= 2.0) {
+	/* Vertical lines: */
+	grid_draw_vertical_lines(ddisp, update, width_x);
+	/* Horizontal lines: */
+	grid_draw_horizontal_lines(ddisp, update, width_y);
+      }
     }
   }
 }
@@ -205,12 +304,37 @@ void
 snap_to_grid(DDisplay *ddisp, coord *x, coord *y)
 {
   if (ddisp->grid.snap) {
-    real width_x = ddisp->diagram->data->grid.width_x;
-    real width_y = ddisp->diagram->data->grid.width_y;
-    if (prefs.grid.dynamic) {
-      calculate_dynamic_grid(ddisp, &width_x, &width_y);
+    if (prefs.grid.hex) {
+      real width_x = ddisp->diagram->data->grid.width_w;
+      real x_mod = (*x - 1*width_x) - floor((*x - 1*width_x) / (3*width_x)) * 3 * width_x;
+      real y_mod = (*y - 0.25*sqrt(3) * width_x) -
+	floor((*y - 0.25 * sqrt(3) * width_x) / (sqrt(3)*width_x)) * sqrt(3) * width_x;
+
+      if ( x_mod < (1.5 * width_x) ) {
+	if ( y_mod < 0.5 * sqrt(3) * width_x ) {
+	  *x = floor((*x + 0.5*width_x) / (3*width_x)) * 3 * width_x + 2 * width_x;
+	  *y = floor((*y - 0.25 * sqrt(3) * width_x) / (sqrt(3)*width_x)) * sqrt(3) * width_x + 0.5 * sqrt(3) * width_x;
+	} else {
+	  *x = floor((*x + 0.5*width_x) / (3*width_x)) * 3 * width_x + 1.5 * width_x;
+	  *y = floor((*y - 0.25 * sqrt(3) * width_x) / (sqrt(3)*width_x)) * sqrt(3) * width_x + sqrt(3) * width_x;
+	}
+      } else {
+	if ( y_mod < 0.5 * sqrt(3) * width_x ) {
+	  *x = floor((*x + 0.5*width_x) / (3*width_x)) * 3 * width_x ;
+	  *y = floor((*y - 0.25 * sqrt(3) * width_x) / (sqrt(3)*width_x)) * sqrt(3) * width_x + 0.5 * sqrt(3) * width_x;
+	} else {
+	  *x = floor((*x + 0.5*width_x) / (3*width_x)) * 3 * width_x + 0.5 * width_x;
+	  *y = floor((*y - 0.25 * sqrt(3) * width_x) / (sqrt(3)*width_x)) * sqrt(3) * width_x + sqrt(3) * width_x;
+	}
+      }
+    } else {
+      real width_x = ddisp->diagram->data->grid.width_x;
+      real width_y = ddisp->diagram->data->grid.width_y;
+      if (prefs.grid.dynamic) {
+	calculate_dynamic_grid(ddisp, &width_x, &width_y);
+      }
+      *x = ROUND((*x) / width_x) * width_x;
+      *y = ROUND((*y) / width_y) * width_y;
     }
-    *x = ROUND((*x) / width_x) * width_x;
-    *y = ROUND((*y) / width_y) * width_y;
   }
 }

@@ -37,6 +37,7 @@ static GtkWidget *dynamic_check;
 static GtkWidget *width_x_entry, *width_y_entry;
 static GtkWidget *visible_x_entry, *visible_y_entry;
 static GtkWidget *bg_colour, *grid_colour, *pagebreak_colour;
+static GtkWidget *hex_check, *hex_size_entry;
 
 static void diagram_properties_respond(GtkWidget *widget,
                                        gint response_id,
@@ -54,12 +55,25 @@ diagram_properties_update_sensitivity(GtkToggleButton *widget,
 				      gpointer userdata)
 {
   Diagram *dia = ddisplay_active_diagram();
+  gboolean dyn_grid, square_grid, hex_grid;
+
   dia->data->grid.dynamic =
         gtk_toggle_button_get_active(GTK_CHECK_BUTTON(dynamic_check));
-  gtk_widget_set_sensitive(width_x_entry, !dia->data->grid.dynamic);
-  gtk_widget_set_sensitive(width_y_entry, !dia->data->grid.dynamic);
-  gtk_widget_set_sensitive(visible_x_entry, !dia->data->grid.dynamic);
-  gtk_widget_set_sensitive(visible_y_entry, !dia->data->grid.dynamic);
+  dyn_grid = dia->data->grid.dynamic;
+  if (!dyn_grid)
+    dia->data->grid.hex =
+        gtk_toggle_button_get_active(GTK_CHECK_BUTTON(hex_check));
+
+  square_grid = !dyn_grid && !dia->data->grid.hex;
+  hex_grid = !dyn_grid && dia->data->grid.hex;
+
+
+  gtk_widget_set_sensitive(width_x_entry, square_grid);
+  gtk_widget_set_sensitive(width_y_entry, square_grid);
+  gtk_widget_set_sensitive(visible_x_entry, square_grid);
+  gtk_widget_set_sensitive(visible_y_entry, square_grid);
+  gtk_widget_set_sensitive(hex_check, !dyn_grid);
+  gtk_widget_set_sensitive(hex_size_entry, hex_grid);
 }
 
 static void
@@ -164,6 +178,28 @@ create_diagram_properties_dialog(Diagram *dia)
 		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
   gtk_widget_show(visible_y_entry);
 
+  /* Hexes! */
+  hex_check = gtk_check_button_new_with_label(_("Hex grid"));
+  gtk_table_attach(GTK_TABLE(table), hex_check, 1,2, 4,5,
+		   GTK_FILL, GTK_FILL, 0, 0);
+  g_signal_connect(G_OBJECT(hex_check), "toggled", 
+		   diagram_properties_update_sensitivity, NULL);
+	    
+  gtk_widget_show(hex_check);
+
+  label = gtk_label_new(_("Hex grid size"));
+  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
+  gtk_table_attach(GTK_TABLE(table), label, 0,1, 5,6,
+		   GTK_FILL, GTK_FILL, 0, 0);
+  gtk_widget_show(label);
+
+  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 10.0));
+  hex_size_entry = gtk_spin_button_new(adj, 1.0, 0);
+  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(hex_size_entry), TRUE);
+  gtk_table_attach(GTK_TABLE(table), hex_size_entry, 1,2, 5,6,
+		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
+  gtk_widget_show(hex_size_entry);
+
   label = gtk_label_new(_("Grid"));
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), table, label);
   gtk_widget_show(table);
@@ -241,6 +277,10 @@ diagram_properties_retrieve(Diagram *dia)
 			    dia->data->grid.visible_x);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(visible_y_entry),
 			    dia->data->grid.visible_y);
+  gtk_toggle_button_set_active(GTK_CHECK_BUTTON(hex_check),
+			   dia->data->grid.hex);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(hex_size_entry),
+			    dia->data->grid.hex_size);
 
   dia_color_selector_set_color(DIACOLORSELECTOR(bg_colour),
 			       &dia->data->bg_color);
@@ -291,6 +331,10 @@ diagram_properties_respond(GtkWidget *widget,
         gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(visible_x_entry));
       active_diagram->data->grid.visible_y =
         gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(visible_y_entry));
+      active_diagram->data->grid.hex =
+        gtk_toggle_button_get_active(GTK_CHECK_BUTTON(hex_check));
+      active_diagram->data->grid.hex_size =
+        gtk_spin_button_get_value(GTK_SPIN_BUTTON(hex_size_entry));
       dia_color_selector_get_color(DIACOLORSELECTOR(bg_colour),
   				 &active_diagram->data->bg_color);
       dia_color_selector_get_color(DIACOLORSELECTOR(grid_colour),

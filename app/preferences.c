@@ -159,6 +159,9 @@ DiaPrefData prefs_data[] =
   { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 3, N_("Y Size:") },
   { "grid_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.grid_color), &default_colour, 3, N_("Color:") },
   { "grid_major", PREF_UINT, PREF_OFFSET(grid.major_lines), &default_major_lines, 3, N_("Lines per major line") },
+  { "grid_hex", PREF_BOOLEAN, PREF_OFFSET(grid.hex), &default_false, 3, N_("Hex grid") },
+  { "grid_w", PREF_UREAL, PREF_OFFSET(grid.w), &default_real_one, 3, N_("Hex Size:")
+ },
   /*  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 3, N_("Solid lines:") },  */
 
   { "render_bounding_boxes", PREF_BOOLEAN,PREF_OFFSET(render_bounding_boxes),

@@ -34,6 +34,8 @@ struct DiaPreferences {
     real x;
     real y;
     int major_lines;
+    int hex;
+    real w;
   } grid;
   
   struct {

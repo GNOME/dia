@@ -1,5 +1,16 @@
 2004-07-01  Lars Clausen  <lars@raeder.dk>
 
+	* app/display.c (new_display): 
+	* app/dia-props.c: 
+	* lib/diagramdata.c (new_diagram_data): 
+	* lib/diagramdata.h: 
+	* app/preferences.h: 
+	* app/preferences.c: 
+	* app/grid.c: 
+	* app/diagram.c: 
+	* lib/diagramdata.c (new_diagram_data): Patch from Peter Poulsen
+	<peter_poulsen@stofanet.dk>: Add hexagonal grid!
+
 	* HACKING: 
 	* doc/pl/authors.xml: 
 	* doc/en/authors.xml: 

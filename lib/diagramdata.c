@@ -112,9 +112,12 @@ new_diagram_data (NewDiagramData *prefs)
   data->grid.dynamic = TRUE;
   data->grid.width_x = 1.0;
   data->grid.width_y = 1.0;
+  data->grid.width_w = 1.0;
   data->grid.visible_x = 1;
   data->grid.visible_y = 1;
   data->grid.colour = prefs->grid_color;
+  data->grid.hex = FALSE;
+  data->grid.hex_size = 1.0;
 
   data->guides.nhguides = 0;
   data->guides.hguides = NULL;
