@@ -1,3 +1,7 @@
+2005-03-16  Lars Clausen  <lars@LittlePooter.local.>
+
+	* app/interface.c (create_tools): Removed debug printf.
+
 2005-03-15  Lars Clausen  <lars@raeder.dk>
 
 	* lib/widgets.[ch]: Constification.
