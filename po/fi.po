@@ -1,51 +1,39 @@
 # Dia - finnish translation
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Sami Gerdt <sgerdt@cs.joensuu.fi>, 2000.
-# 148 apply
-# 291 fit to
-# 297 by
-# 361 snap to grid = kiinnitä ruudukkoon?
-# 393 PNG suomeksi?
-# 438 export diagram? 
-# 460 modify object(s) muunna objekt(ia)eja
-# 561 jotain hepreaa --käy katsomassa..
-# 1653 cardinality?
-# 1761 DOF?
-# 1793 MiX?
-# 2051 identifier= tunnistaja?
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2000-06-24 10:30+0800\n"
-"PO-Revision-Date: 2000-05-30 09:00+0300\n"
+"POT-Creation-Date: 2000-07-08 00:56+0300\n"
+"PO-Revision-Date: 2000-07-18 01:00+0300\n"
 "Last-Translator: Sami Gerdt <sgerdt@cs.joensuu.fi>\n"
 "Language-Team: finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=iso-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:133
+#: app/app_procs.c:135
 msgid "Export loaded file and exit"
 msgstr "Kirjoita siirtotiedostoon ja poistu"
 
-#: app/app_procs.c:134
-msgid "OUTPUT"
-msgstr "TULOSTUS"
-
 #: app/app_procs.c:136
-msgid "Show this help message"
-msgstr "Näytä tämä apu-viesti"
+msgid "OUTPUT"
+msgstr "ULOSANTO"
 
-#: app/app_procs.c:156
+#: app/app_procs.c:138
+msgid "Show this help message"
+msgstr "Näytä tämä ohjeviesti"
+
+#: app/app_procs.c:158
 msgid "Can't connect to session manager!\n"
 msgstr "Ei voi yhdistää istunnon-hallintaan!\n"
 
-#: app/app_procs.c:167
+#: app/app_procs.c:169
 msgid "[OPTION...] [FILE...]"
 msgstr "[ASETUS...] [TIEDOSTO]"
 
-#: app/app_procs.c:170
+#: app/app_procs.c:172
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -55,22 +43,22 @@ msgstr ""
 "Aja '%s --help' nähdäksesi täydellisen luettelon käytettävissä olevista\n"
 "komentoriviasetuksista\n"
 
-#: app/app_procs.c:213 app/app_procs.c:215
+#: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Etsittäessä objekti-kirjastoja standardi-objekteja ei löytynyt, "
 "poistutaan...\n"
 
-#: app/app_procs.c:232
+#: app/app_procs.c:238
 msgid "Need valid input file\n"
 msgstr "Tarvitaan käypä syöte-tiedosto\n"
 
-#: app/app_procs.c:291 app/app_procs.c:297
+#: app/app_procs.c:297 app/app_procs.c:303
 msgid "Quit, are you sure?"
 msgstr "Lopetus, oletko varma?"
 
-#: app/app_procs.c:304
+#: app/app_procs.c:310
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -78,21 +66,21 @@ msgstr ""
 "Muunneltuja (tallentamattomia) diagrammeja.\n"
 "Haluatko varmasti lopettaa?"
 
-#: app/app_procs.c:314 app/app_procs.c:319
+#: app/app_procs.c:320 app/app_procs.c:325
 msgid "Quit"
 msgstr "Lopetus"
 
-#: app/app_procs.c:331 app/layer_dialog.c:986 app/lineprops_area.c:549
+#: app/app_procs.c:337 app/layer_dialog.c:986 app/lineprops_area.c:549
 #: app/lineprops_area.c:747 app/linewidth_area.c:239
 #: app/paginate_psprint.c:242
 msgid "Cancel"
 msgstr "Peru"
 
-#: app/app_procs.c:399
+#: app/app_procs.c:405
 msgid "Could not create per-user Dia config directory"
-msgstr "Ei voinut luoda käyttäjäkohtaista DIA-configurointi-tiedostoa"
+msgstr "Ei voinut luoda käyttäjäkohtaista DIA-konfigurointitiedostoa"
 
-#: app/app_procs.c:419
+#: app/app_procs.c:425
 msgid "Objects and filters internal to dia"
 msgstr "Objektit ja filtterit DIAn sisäisiä"
 
@@ -149,7 +137,7 @@ msgstr "Myötävaikuttajat:"
 #: app/paginate_psprint.c:234 app/preferences.c:598 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: app/defaults.c:47 app/defaults.c:55
 msgid "Object defaults"
@@ -158,7 +146,7 @@ msgstr "Objektin oletusarvot"
 #: app/defaults.c:72 app/pagesetup.c:77 app/preferences.c:607
 #: app/properties.c:91
 msgid "Apply"
-msgstr ""
+msgstr "Sovella"
 
 #: app/defaults.c:82 app/layer_dialog.c:261 app/pagesetup.c:83
 #: app/plugin-manager.c:146 app/preferences.c:616 app/properties.c:101
@@ -170,34 +158,28 @@ msgid "This object has no defaults."
 msgstr "Tällä objektilla ei ole oletusarvoja."
 
 #: app/dia_embedd.c:176
-#, fuzzy
 msgid "File/New diagram"
-msgstr "_Uusi diagrammi"
+msgstr "Tiedosto/Uusi diagrammi"
 
 #: app/dia_embedd.c:180
-#, fuzzy
 msgid "File/Open..."
-msgstr "/Tiedosto/_Avaa"
+msgstr "Tiedosto/Avaa..."
 
 #: app/dia_embedd.c:184
-#, fuzzy
 msgid "File/Save As..."
-msgstr "/Tiedosto/Tallenna _nimellä..."
+msgstr "Tiedosto/Tallenna nimellä..."
 
 #: app/dia_embedd.c:188
-#, fuzzy
 msgid "File/Close"
-msgstr "/Tiedosto/_Sulje"
+msgstr "Tiedosto/Sulje"
 
 #: app/dia_embedd.c:192
-#, fuzzy
 msgid "File/Exit"
-msgstr "/Tiedosto/_Poistu"
+msgstr "Tiedosto/Poistu"
 
 #: app/dia_embedd.c:196
-#, fuzzy
 msgid "View/New View"
-msgstr "/Näytä/Uusi _näkymä"
+msgstr "Näytä/Uusi näkymä"
 
 #: app/dia_embedd.c:261
 msgid "Could not initialize Bonobo!"
@@ -233,11 +215,11 @@ msgstr "/Muokkaa/Liimaa teksti"
 
 #: app/diagram.c:194
 msgid "/Objects/Send to Back"
-msgstr "/Objektit/Lähetä taakse"
+msgstr "/Objektit/Siirrä taustalle"
 
 #: app/diagram.c:196
 msgid "/Objects/Bring to Front"
-msgstr "/Objektit/Tuo eteen"
+msgstr "/Objektit/Tuo päällimmäiseksi"
 
 #: app/diagram.c:199
 msgid "/Objects/Group"
@@ -288,8 +270,7 @@ msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objektit/Tasaa pystysuoraan/Vierekkäin"
 
 #. paper size
-#: app/diapagelayout.c:133 app/paginate_gnomeprint.c:197
-#: app/paginate_gnomeprint.c:202
+#: app/diapagelayout.c:133
 msgid "Paper Size"
 msgstr "Paperin koko"
 
@@ -320,27 +301,26 @@ msgid "Right:"
 msgstr "Oikea:"
 
 #. Scaling
-#: app/diapagelayout.c:266 app/paginate_gnomeprint.c:178
-#: app/paginate_gnomeprint.c:183
+#: app/diapagelayout.c:266
 msgid "Scaling"
-msgstr "Sovitus"
+msgstr "Skaalaus"
 
 #: app/diapagelayout.c:277
 msgid "Scale:"
-msgstr "Sovita:"
+msgstr "Skaala:"
 
 #: app/diapagelayout.c:289
 msgid "Fit to:"
-msgstr "Mahtuu:"
+msgstr "Sovita:"
 
 #: app/diapagelayout.c:301
 msgid "by"
-msgstr ""
+msgstr "-"
 
 #: app/diapagelayout.c:704
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
-msgstr ""
+msgstr "%0.3gcm x %0.3gcm"
 
 #: app/diapagelayout.c:806 app/pagesetup.c:60 app/pagesetup.c:68
 msgid "Page Setup"
@@ -350,7 +330,9 @@ msgstr "Sivun asetukset"
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
-msgstr "Tämä objekti ei tue Peru/Tee uudestaan -toimintoja."
+msgstr ""
+"Tämä objekti ei tue Peru/Tee uudestaan -toimintoja.\n"
+"Peru toiminto."
 
 #: app/disp_callbacks.c:166
 msgid "No object menu"
@@ -404,11 +386,12 @@ msgstr "/Näytä/Näytä liitoskohdat"
 
 #: app/display.c:846
 msgid "/View/AntiAliased"
-msgstr "/Näytä/VastaAliassoidut"
+msgstr "/Näytä/Vasta-aliasoitu"
 
-#: app/export_png.c:78 app/load_save.c:501 app/render_eps.c:162
-#: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
-#: plug-ins/pstricks/render_pstricks.c:185
+#: app/export_png.c:78 app/load_save.c:504 app/render_eps.c:162
+#: app/render_svg.c:150 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
+#: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/wpg/wpg.c:937
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Ei voinut avata '%s'-tiedostoa kirjoittamista varten.\n"
@@ -423,11 +406,11 @@ msgstr "Ei pystynyt luomaan PNG-hederi tieto-rakennetta"
 
 #: app/export_png.c:103
 msgid "Error occurred while writing PNG"
-msgstr "Virhe ilmaantui kirjoittettaessa PNG:tä"
+msgstr "Tapahtui virhe kirjoittettaessa PNG:tä"
 
 #: app/export_png.c:156
 msgid "Portable Network Graphics"
-msgstr "Portable Network Graphics (suom. siirrettävää verkkografiikkaa)"
+msgstr "Portable Network Graphics"
 
 #: app/filedlg.c:94 app/filedlg.c:368
 msgid "By extension"
@@ -456,7 +439,7 @@ msgid ""
 "Do you want to overwrite it?"
 msgstr ""
 "Tiedosto '%s' on jo olemassa.\n"
-"Korvataanko uudella jolloin vanha tuhoutuu?"
+"Korvataanko uudella (vanha tuhoutuu)?"
 
 #: app/filedlg.c:295
 msgid "Save Diagram"
@@ -473,7 +456,7 @@ msgstr ""
 
 #: app/filedlg.c:492
 msgid "Export Diagram"
-msgstr "Vienti diagrammi"
+msgstr "Vie diagrammi"
 
 #: app/filedlg.c:519
 msgid "Export Options"
@@ -493,7 +476,7 @@ msgstr "Ruudukon y-koko:"
 
 #: app/interface.c:35
 msgid "Modify object(s)"
-msgstr "Muunna objekt(ia)eja"
+msgstr "Muunna objektia(eja)"
 
 #: app/interface.c:36 app/menus.c:193
 msgid "Modify"
@@ -505,7 +488,7 @@ msgstr "Suurenna"
 
 #: app/interface.c:45
 msgid "Scroll around the diagram"
-msgstr "Vieritä diagrammin ympärillä"
+msgstr "Vieritä diagrammia"
 
 #: app/interface.c:46 app/menus.c:195
 msgid "Scroll"
@@ -521,11 +504,11 @@ msgstr "Teksti"
 
 #: app/interface.c:55
 msgid "Create Box"
-msgstr "Lue boksi"
+msgstr "Luo laatikko"
 
 #: app/interface.c:56 app/menus.c:197
 msgid "Box"
-msgstr "Boksi"
+msgstr "Laatikko"
 
 #: app/interface.c:60
 msgid "Create Ellipse"
@@ -544,12 +527,10 @@ msgid "Polygon"
 msgstr "Monikulmio"
 
 #: app/interface.c:70
-#, fuzzy
 msgid "Create Beziergon"
 msgstr "Luo Bezier-viiva"
 
 #: app/interface.c:71 app/menus.c:200
-#, fuzzy
 msgid "Beziergon"
 msgstr "Bezier-viiva"
 
@@ -632,7 +613,7 @@ msgstr "Laske taso"
 
 #: app/layer_dialog.c:69
 msgid "Delete Layer"
-msgstr "Tuhoa taso"
+msgstr "Poista taso"
 
 #: app/layer_dialog.c:203
 msgid "Layers"
@@ -680,11 +661,11 @@ msgstr "Rivin leveys"
 msgid "Line width:"
 msgstr "Rivin leveys:"
 
-#: app/load_save.c:92
+#: app/load_save.c:95
 msgid "Error reading diagram file\n"
 msgstr "Virhe luettaessa diagrammitiedostoa\n"
 
-#: app/load_save.c:143
+#: app/load_save.c:146
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -692,32 +673,32 @@ msgstr ""
 "Virhe Ladattaessa diagrammia.\n"
 "Linkitettyä objektia ei löytynyt dokumentista."
 
-#: app/load_save.c:146
+#: app/load_save.c:149
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
 "Virhe ladattaessa diagrammia.\n"
-"Liitoskohtia ei ole olemassa."
+"Liitoskohtaa ei ole olemassa."
 
-#: app/load_save.c:149
+#: app/load_save.c:152
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
 "Virhe ladattaessa diagrammia.\n"
-"Liitos hoitajaa ei ole olemassa."
+"Liitos-kahvaa ei ole olemassa."
 
-#: app/load_save.c:193
+#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Ei pystynyt aukaisemaan '%s'-tiedostoa luettavaksi.\n"
 
-#: app/load_save.c:199
+#: app/load_save.c:202
 msgid "You must specify a file, not a directory.\n"
 msgstr "Sinun täytyy määritellä tiedosto, ei hakemistoa.\n"
 
-#: app/load_save.c:208 app/load_save.c:213
+#: app/load_save.c:211 app/load_save.c:216
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -726,7 +707,7 @@ msgstr ""
 "Virhe ladattaessa diagrammia %s.\n"
 "Tuntematon tiedostotyyppi."
 
-#: app/load_save.c:220
+#: app/load_save.c:223
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -735,12 +716,12 @@ msgstr ""
 "Virhe ladattaessa diagrammia %s.\n"
 "Ei ole Dia-tiedosto."
 
-#: app/load_save.c:599
+#: app/load_save.c:602
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Tiedoston '%s' tallennus epäonnistui.\n"
 
-#: app/load_save.c:619 app/load_save.c:624
+#: app/load_save.c:622 app/load_save.c:627
 msgid "Native Dia Diagram"
 msgstr "Alkuperäinen DIAn diagrammi"
 
@@ -762,7 +743,7 @@ msgstr "_Vienti..."
 
 #: app/menus.c:61
 msgid "Page Set_up..."
-msgstr "Sivun asetukset..."
+msgstr "Sivun a_setukset..."
 
 #: app/menus.c:63
 msgid "_Print Diagram..."
@@ -770,7 +751,7 @@ msgstr "_Tulosta diagrammi..."
 
 #: app/menus.c:78
 msgid "_Delete"
-msgstr "_Tuhoa"
+msgstr "_Poista"
 
 #: app/menus.c:84
 msgid "Copy Text"
@@ -786,7 +767,7 @@ msgstr "Liimaa _teksti"
 
 #: app/menus.c:109
 msgid "Zoom _In"
-msgstr "Zoomaa sisään"
+msgstr "Zoomaa sisää_n"
 
 #: app/menus.c:109
 #, c-format
@@ -812,7 +793,7 @@ msgstr "Muokkaa ruudukkoa..."
 
 #: app/menus.c:114
 msgid "_AntiAliased"
-msgstr "_VastaAliassoitu"
+msgstr "_Vasta-aliasoitu"
 
 #: app/menus.c:117
 msgid "_Visible Grid"
@@ -911,19 +892,19 @@ msgstr "Alla "
 
 #: app/menus.c:181
 msgid "Send to _Back"
-msgstr "Lähetä _taakse"
+msgstr "Siirrä _taustalle"
 
 #: app/menus.c:182
 msgid "Bring to _Front"
-msgstr "Tuo _eteen"
+msgstr "Tuo _päällimmäiseksi"
 
 #: app/menus.c:184
 msgid "_Group"
-msgstr "Kasaa ryhmään"
+msgstr "_Kasaa ryhmään"
 
 #: app/menus.c:185
 msgid "_Ungroup"
-msgstr "Pura ryhmä"
+msgstr "_Pura ryhmä"
 
 #: app/menus.c:187
 msgid "Align _Horizontal"
@@ -942,24 +923,20 @@ msgid "_Layers"
 msgstr "_Tasot"
 
 #: app/menus.c:231
-#, fuzzy
 msgid "_Select"
-msgstr "Valitse"
+msgstr "_Valitse"
 
 #: app/menus.c:232
-#, fuzzy
 msgid "_Objects"
-msgstr "/_Objektit"
+msgstr "_Objektit"
 
 #: app/menus.c:233
-#, fuzzy
 msgid "_Tools"
-msgstr "Työkalut"
+msgstr "_Työkalut"
 
 #: app/menus.c:234
-#, fuzzy
 msgid "_Dialogs"
-msgstr "/_Dialogit"
+msgstr "_Dialogit"
 
 #: app/menus.c:242 app/menus.c:256
 msgid "/_File"
@@ -979,7 +956,7 @@ msgstr "/Tiedosto/_Ominaisuudet..."
 
 #: app/menus.c:246
 msgid "/File/P_lugins"
-msgstr ""
+msgstr "Tiedosto/_Liitännäiset"
 
 #: app/menus.c:247 app/menus.c:263
 msgid "/File/sep1"
@@ -991,7 +968,7 @@ msgstr "/Tiedosto/_Poistu"
 
 #: app/menus.c:249
 msgid "/_Help"
-msgstr ""
+msgstr "/_Help"
 
 #: app/menus.c:250
 msgid "/Help/_About"
@@ -999,12 +976,11 @@ msgstr "/Help/_Tietoja"
 
 #: app/menus.c:255
 msgid "/tearoff"
-msgstr ""
+msgstr "/irroita"
 
 #: app/menus.c:257
-#, fuzzy
 msgid "/File/tearoff"
-msgstr "/Tiedosto/_Uusi"
+msgstr "/Tiedosto/irroita"
 
 #: app/menus.c:260
 msgid "/File/_Save"
@@ -1020,7 +996,7 @@ msgstr "/Tiedosto/_Vienti..."
 
 #: app/menus.c:264
 msgid "/File/Page Set_up..."
-msgstr "/Tiedosto/Sivun asetukset..."
+msgstr "/Tiedosto/Sivun asetu_kset..."
 
 #: app/menus.c:265
 msgid "/File/_Print Diagram..."
@@ -1039,9 +1015,8 @@ msgid "/_Edit"
 msgstr "/_Muokkaa"
 
 #: app/menus.c:270
-#, fuzzy
 msgid "/Edit/tearoff"
-msgstr "/Muokkaa/Liimaa"
+msgstr "/Muokkaa/irroita"
 
 #: app/menus.c:271
 msgid "/Edit/_Copy"
@@ -1049,7 +1024,7 @@ msgstr "/Muokkaa/_Kopioi"
 
 #: app/menus.c:272
 msgid "/Edit/C_ut"
-msgstr "/Muokkaa/Leikkaa"
+msgstr "/Muokkaa/L_eikkaa"
 
 #: app/menus.c:273
 msgid "/Edit/_Paste"
@@ -1057,11 +1032,11 @@ msgstr "/Muokkaa/_Liimaa"
 
 #: app/menus.c:274
 msgid "/Edit/_Delete"
-msgstr "/Muokkaa/_Tuhoa"
+msgstr "/Muokkaa/_Poista"
 
 #: app/menus.c:275
 msgid "/Edit/_Undo"
-msgstr "/Muokkaa/_Peru"
+msgstr "/Muokkaa/Pe_ru"
 
 #: app/menus.c:276
 msgid "/Edit/_Redo"
@@ -1076,9 +1051,8 @@ msgid "/_View"
 msgstr "/_Näytä"
 
 #: app/menus.c:281
-#, fuzzy
 msgid "/View/tearoff"
-msgstr "/Näytä/sep1"
+msgstr "/Näytä/irroita"
 
 #: app/menus.c:282
 msgid "/View/Zoom _In"
@@ -1093,19 +1067,18 @@ msgid "/View/_Zoom"
 msgstr "/Näytä/_Zoomaus"
 
 #: app/menus.c:285
-#, fuzzy
 msgid "/View/Zoom/tearoff"
-msgstr "/Näytä/_Zoomaus"
+msgstr "/Näytä/Zoomaus/irroita"
 
 #: app/menus.c:286
 #, c-format
 msgid "/View/Zoom/400%"
-msgstr "Näytä/Zoomaus/400%"
+msgstr "/Näytä/Zoomaus/400%"
 
 #: app/menus.c:287
 #, c-format
 msgid "/View/Zoom/283%"
-msgstr "Näytä/Zoomaus/283%"
+msgstr "/Näytä/Zoomaus/283%"
 
 #: app/menus.c:288
 #, c-format
@@ -1153,7 +1126,7 @@ msgstr "/Näytä/Muokkaa ruudukkoa..."
 
 #: app/menus.c:298
 msgid "/View/_AntiAliased"
-msgstr "/Näytä/_VastaAliassoutu"
+msgstr "/Näytä/_Vasta-aliasoitu"
 
 #: app/menus.c:300
 msgid "/View/_Visible Grid"
@@ -1184,14 +1157,12 @@ msgid "/View/Show _All"
 msgstr "/Näytä/Näytä _kaikki"
 
 #: app/menus.c:307
-#, fuzzy
 msgid "/_Select"
-msgstr "Valitse"
+msgstr "/_Valitse"
 
 #: app/menus.c:308
-#, fuzzy
 msgid "/Select/tearoff"
-msgstr "/Valitse/Invertoi"
+msgstr "/Valitse/irroita"
 
 #: app/menus.c:309
 msgid "/Select/All"
@@ -1242,17 +1213,16 @@ msgid "/_Objects"
 msgstr "/_Objektit"
 
 #: app/menus.c:322
-#, fuzzy
 msgid "/Objects/tearoff1"
-msgstr "/Objektit/sep1"
+msgstr "/Objektit/irroita1"
 
 #: app/menus.c:323
 msgid "/Objects/Send to _Back"
-msgstr "/Objektit/Lähetä _taakse"
+msgstr "/Objektit/Siirrä _taustalle"
 
 #: app/menus.c:324
 msgid "/Objects/Bring to _Front"
-msgstr "/Objektit/Tuo _eteen"
+msgstr "/Objektit/Tuo _päällimmäiseksi"
 
 #: app/menus.c:325 app/menus.c:328
 msgid "/Objects/sep1"
@@ -1271,28 +1241,24 @@ msgid "/Objects/Align _Horizontal"
 msgstr "/Objektit/Tasaus _vaakasuoraan"
 
 #: app/menus.c:330
-#, fuzzy
 msgid "/Objects/Align Horizontal/tearoff"
-msgstr "/Objektit/Tasaa vaakasuoraan/Keskelle"
+msgstr "/Objektit/Tasaa vaakasuoraan/irroita"
 
 #: app/menus.c:336
 msgid "/Objects/Align _Vertical"
 msgstr "/Objektit/Tasaus _pystysuoraan"
 
 #: app/menus.c:337
-#, fuzzy
 msgid "/Objects/Align Vertical/tearoff"
-msgstr "/Objektit/Tasaa pystysuoraan/Keskelle"
+msgstr "/Objektit/Tasaa pystysuoraan/irroita"
 
 #: app/menus.c:344
-#, fuzzy
 msgid "/_Tools"
-msgstr "/Työkalut/"
+msgstr "/_Työkalut"
 
 #: app/menus.c:345
-#, fuzzy
 msgid "/Tools/tearoff"
-msgstr "/Työkalut/Muokkaa"
+msgstr "/Työkalut/irroita"
 
 #: app/menus.c:346
 msgid "/Tools/Modify"
@@ -1312,7 +1278,7 @@ msgstr "/Työkalut/Teksti"
 
 #: app/menus.c:350
 msgid "/Tools/Box"
-msgstr "/Työkalut/Boksi"
+msgstr "/Työkalut/Laatikko"
 
 #: app/menus.c:351
 msgid "/Tools/Ellipse"
@@ -1323,7 +1289,6 @@ msgid "/Tools/Polygon"
 msgstr "/Työkalut/Monikulmio"
 
 #: app/menus.c:353
-#, fuzzy
 msgid "/Tools/Beziergon"
 msgstr "/Työkalut/Bezier-viiva"
 
@@ -1356,9 +1321,8 @@ msgid "/_Dialogs"
 msgstr "/_Dialogit"
 
 #: app/menus.c:362
-#, fuzzy
 msgid "/Dialogs/tearoff"
-msgstr "/Dialogit/_Tasot"
+msgstr "/Dialogit/irroita"
 
 #: app/menus.c:363
 msgid "/Dialogs/_Properties"
@@ -1377,21 +1341,20 @@ msgid "/Tools/"
 msgstr "/Työkalut/"
 
 #: app/menus.c:513
-#, fuzzy
 msgid "Diagram Menu"
-msgstr "Diagrammit:"
+msgstr "Diagrammi valikko"
 
-#: app/paginate_gnomeprint.c:158
+#: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
 msgstr "Tulosta diagrammi"
-
-#: app/paginate_gnomeprint.c:167 app/paginate_psprint.c:206
-msgid "Printer"
-msgstr "Tulostin"
 
 #: app/paginate_psprint.c:194
 msgid "Select Printer"
 msgstr "Valitse Tulostin"
+
+#: app/paginate_psprint.c:206
+msgid "Printer"
+msgstr "Tulostin"
 
 #: app/paginate_psprint.c:219
 msgid "File"
@@ -1460,14 +1423,14 @@ msgstr "Pakkaa tallennetut tiedostot:"
 
 #: app/preferences.c:103
 msgid "Number of undo levels:"
-msgstr "Perumis -tasojen lukumäärä:"
+msgstr "Perumis-tasojen lukumäärä:"
 
 #: app/preferences.c:104
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
 msgstr ""
-"Käänteinen merkitys: veto-valinnat\n"
+"Käänteinen veto valitsee\n"
 "Päällekkäin menevät objektit:"
 
 #: app/preferences.c:105
@@ -1537,19 +1500,19 @@ msgstr "Objektin ominaisuudet"
 
 #: app/properties.c:114
 msgid "This object has no properties."
-msgstr "Tällä objektilla ei ole ominaisuuksia"
+msgstr "Tällä objektilla ei ole ominaisuuksia."
 
 #: app/render_eps.c:1137
 msgid "Encapsulated Postscript"
 msgstr "Kapseloitua postscriptiä"
 
-#: app/render_svg.c:789
+#: app/render_svg.c:793
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "Scalable Vector Graphics"
 
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr ""
+msgstr "Sisäinen virhe: Asetetaan bezierin päätepisteen kulmatyyppi"
 
 #: lib/diagramdata.c:50
 msgid "Background"
@@ -1571,7 +1534,7 @@ msgstr "Kirjasinlajia %s ei löytynyt, käytetään Courieria.\n"
 
 #: lib/message.c:118
 msgid "Notice"
-msgstr "Huomio"
+msgstr "Huomaa"
 
 #: lib/message.c:129
 msgid "Warning"
@@ -1581,12 +1544,12 @@ msgstr "Varoitus"
 msgid "Error"
 msgstr "Virhe"
 
-#: lib/plug-ins.c:192
+#: lib/plug-ins.c:205
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Ei pystynyt vähentämään oikeata polkua tiedostolle '%s'"
 
-#: lib/plug-ins.c:197
+#: lib/plug-ins.c:210
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1595,33 +1558,33 @@ msgstr ""
 "Liitännäisen '%s' lataaminen ei onnistunut\n"
 "%s"
 
-#: lib/plug-ins.c:208
+#: lib/plug-ins.c:221
 #, c-format
 msgid "Could not find plugin init function in `%s'"
-msgstr ""
+msgstr "Liitännäisen init-funktiota ei löytynyt tiedostosta '%s'"
 
-#: lib/plug-ins.c:235
+#: lib/plug-ins.c:248
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr "Liitännäisen '%s' "
+msgstr "Liitännäistä %s ei voitu ladata pois muistista"
 
-#: lib/plug-ins.c:288
+#: lib/plug-ins.c:301
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "'%s' ei ole hakemisto"
 
-#: lib/plug-ins.c:294
+#: lib/plug-ins.c:307
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Tiedoston '%s' avaus ei onnistunut"
 
 #: lib/properties.c:371 lib/properties.c:403
 msgid "No edit widget"
-msgstr ""
+msgstr "Ei muokkaus-työkalua"
 
 #: lib/widgets.c:296
 msgid "Solid"
-msgstr "Kiinteä"
+msgstr "Viiva"
 
 #: lib/widgets.c:302
 msgid "Dashed"
@@ -1629,24 +1592,24 @@ msgstr "Katkoviiva"
 
 #: lib/widgets.c:308
 msgid "Dash-Dot"
-msgstr ""
+msgstr "Viiva-piste"
 
 #: lib/widgets.c:314
 msgid "Dash-Dot-Dot"
-msgstr ""
+msgstr "Viiva-piste-piste"
 
 #: lib/widgets.c:320
 msgid "Dotted"
-msgstr ""
+msgstr "Pistemäinen"
 
 #. fs->sizebox = GTK_HBOX(box);
 #: lib/widgets.c:338
 msgid "Dash length: "
-msgstr ""
+msgstr "Viivan pituus: "
 
 #: lib/widgets.c:660
 msgid "Lines"
-msgstr "Rivit"
+msgstr "Perinteinen"
 
 #: lib/widgets.c:666
 msgid "Hollow Triangle"
@@ -1666,11 +1629,11 @@ msgstr "Täytetty timantti"
 
 #: lib/widgets.c:690
 msgid "Half Head"
-msgstr ""
+msgstr "Puolikas"
 
 #: lib/widgets.c:696
 msgid "Slashed Cross"
-msgstr ""
+msgstr "Risti"
 
 #: lib/widgets.c:703
 msgid "Filled Ellipse"
@@ -1690,7 +1653,7 @@ msgstr "Leveys: "
 
 #: lib/widgets.c:854 objects/standard/image.c:529
 msgid "Select image file"
-msgstr "Valitse kuva-tiedosto"
+msgstr "Valitse kuvatiedosto"
 
 #: lib/widgets.c:884
 msgid "Browse"
@@ -1713,20 +1676,17 @@ msgid "Multivalue"
 msgstr "Moniarvo"
 
 #: objects/ER/attribute.c:238 objects/ER/entity.c:204
-#: objects/ER/relationship.c:296 objects/flowchart/diamond.c:243
-#: objects/flowchart/ellipse.c:243 objects/flowchart/parallelogram.c:251
+#: objects/ER/relationship.c:296
 msgid "Border width:"
 msgstr "Reunaleveys:"
 
 #: objects/ER/attribute.c:249 objects/ER/entity.c:215
-#: objects/ER/relationship.c:307 objects/flowchart/diamond.c:258
-#: objects/flowchart/ellipse.c:258 objects/flowchart/parallelogram.c:266
+#: objects/ER/relationship.c:307
 msgid "Foreground color:"
 msgstr "Etualan väri:"
 
 #: objects/ER/attribute.c:257 objects/ER/entity.c:223
-#: objects/ER/relationship.c:315 objects/flowchart/diamond.c:269
-#: objects/flowchart/ellipse.c:269 objects/flowchart/parallelogram.c:277
+#: objects/ER/relationship.c:315
 msgid "Background color:"
 msgstr "Taka-alan väri"
 
@@ -1748,7 +1708,7 @@ msgstr "Olio/suhde -diagrammi objektit"
 
 #: objects/ER/participation.c:418
 msgid "Total:"
-msgstr "Yhteensä"
+msgstr "Yhteensä:"
 
 #: objects/ER/participation.c:451 objects/FS/flow-ortho.c:726
 #: objects/GRAFCET/vector.c:400 objects/SADT/arrow.c:646
@@ -1768,11 +1728,11 @@ msgstr "Poista osa"
 
 #: objects/ER/relationship.c:268
 msgid "Left Cardinality:"
-msgstr ""
+msgstr "Vasen kardinaliteetti:"
 
 #: objects/ER/relationship.c:276
 msgid "Right Cardinality:"
-msgstr ""
+msgstr "Oikea kardinaliteetti:"
 
 #: objects/ER/relationship.c:284
 msgid "Rotate"
@@ -1823,7 +1783,7 @@ msgstr "Orth-virtauksen tyyppi:"
 
 #: objects/FS/fs.c:39
 msgid "Function structure diagram objects"
-msgstr ""
+msgstr "Funktion rakenne -diagrammi objekteja"
 
 #: objects/FS/function.c:572
 msgid "Function:"
@@ -1851,15 +1811,15 @@ msgstr "   Vie"
 
 #: objects/FS/function.c:630
 msgid "   Transfer"
-msgstr ""
+msgstr "   Siirrä"
 
 #: objects/FS/function.c:631
 msgid "      Transport"
-msgstr ""
+msgstr "      Kuljeta"
 
 #: objects/FS/function.c:632
 msgid "      Transmit"
-msgstr ""
+msgstr "      Lähetä"
 
 #: objects/FS/function.c:633
 msgid "   Guide"
@@ -1867,7 +1827,7 @@ msgstr "   Opas"
 
 #: objects/FS/function.c:634
 msgid "      Translate"
-msgstr ""
+msgstr "      Käännä"
 
 #: objects/FS/function.c:635
 msgid "      Rotate"
@@ -1891,7 +1851,7 @@ msgstr "   Vakauta"
 
 #: objects/FS/function.c:640
 msgid "   Secure"
-msgstr "   Turvallinen"
+msgstr "   Varmista"
 
 #: objects/FS/function.c:641
 msgid "   Position"
@@ -1915,7 +1875,7 @@ msgstr "Haara"
 
 #: objects/FS/function.c:646
 msgid "   Separate"
-msgstr "   Erota"
+msgstr "   Eroita"
 
 #: objects/FS/function.c:647
 msgid "      Remove"
@@ -1923,7 +1883,7 @@ msgstr "      Poista"
 
 #: objects/FS/function.c:648
 msgid "   Refine"
-msgstr ""
+msgstr "   Hienonna"
 
 #: objects/FS/function.c:649
 msgid "   Distribute"
@@ -1935,15 +1895,15 @@ msgstr "   Hajauta"
 
 #: objects/FS/function.c:651
 msgid "Provision"
-msgstr ""
+msgstr "varaus"
 
 #: objects/FS/function.c:652
 msgid "   Store"
-msgstr ""
+msgstr "   Varastoi"
 
 #: objects/FS/function.c:653
 msgid "   Supply"
-msgstr ""
+msgstr "   Varasto"
 
 #: objects/FS/function.c:654
 msgid "   Extract"
@@ -1951,11 +1911,11 @@ msgstr "   Pura"
 
 #: objects/FS/function.c:655
 msgid "Control Magnitude"
-msgstr ""
+msgstr "Kontrollin magnitudi"
 
 #: objects/FS/function.c:656
 msgid "   Actuate"
-msgstr "   "
+msgstr "   Pätevöitä"
 
 #: objects/FS/function.c:657
 msgid "   Regulate"
@@ -1967,7 +1927,7 @@ msgstr "   Muuta"
 
 #: objects/FS/function.c:659
 msgid "   Form"
-msgstr ""
+msgstr "   Kaavake"
 
 #: objects/FS/function.c:660
 msgid "Convert"
@@ -1975,11 +1935,11 @@ msgstr "Muunna"
 
 #: objects/FS/function.c:662
 msgid "   Sense"
-msgstr ""
+msgstr "   Tunnista"
 
 #: objects/FS/function.c:663
 msgid "   Indicate"
-msgstr ""
+msgstr "   Osoita"
 
 #: objects/FS/function.c:664
 msgid "   Display"
@@ -1997,11 +1957,9 @@ msgstr "   Mittaa"
 #: objects/SADT/box.c:205 objects/SADT/box.c:247
 #: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
 #: objects/chronogram/chronoref.c:254 objects/chronogram/chronoref.c:319
-#: objects/custom/custom_object.c:382 objects/flowchart/box.c:346
-#: objects/flowchart/diamond.c:313 objects/flowchart/diamond.c:442
-#: objects/flowchart/ellipse.c:313 objects/flowchart/ellipse.c:442
-#: objects/flowchart/parallelogram.c:336 objects/flowchart/parallelogram.c:483
-#: objects/standard/textobj.c:271
+#: objects/custom/custom_object.c:383 objects/flowchart/box.c:345
+#: objects/flowchart/diamond.c:325 objects/flowchart/ellipse.c:325
+#: objects/flowchart/parallelogram.c:350 objects/standard/textobj.c:263
 msgid "Font:"
 msgstr "Kirjasin:"
 
@@ -2013,10 +1971,9 @@ msgstr "Kirjasin:"
 #: objects/SADT/box.c:206 objects/SADT/box.c:248
 #: objects/chronogram/chronoline.c:333 objects/chronogram/chronoline.c:425
 #: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
-#: objects/custom/custom_object.c:393 objects/flowchart/box.c:357
-#: objects/flowchart/diamond.c:324 objects/flowchart/diamond.c:453
-#: objects/flowchart/ellipse.c:324 objects/flowchart/ellipse.c:453
-#: objects/flowchart/parallelogram.c:347 objects/flowchart/parallelogram.c:494
+#: objects/custom/custom_object.c:394 objects/flowchart/box.c:356
+#: objects/flowchart/diamond.c:336 objects/flowchart/ellipse.c:336
+#: objects/flowchart/parallelogram.c:361
 msgid "Font size:"
 msgstr "Kirjasin koko:"
 
@@ -2029,7 +1986,7 @@ msgstr "Tekstin väri:"
 
 #: objects/GRAFCET/action.c:196
 msgid "Macro call"
-msgstr "Makro kutsu"
+msgstr "Makro-kutsu"
 
 #: objects/GRAFCET/condition.c:198
 msgid "Condition:"
@@ -2049,7 +2006,7 @@ msgstr "Alku askel"
 
 #: objects/GRAFCET/step.c:253
 msgid "Macro entry step"
-msgstr ""
+msgstr "Makron tulo askel"
 
 #: objects/GRAFCET/step.c:254
 msgid "Macro exit step"
@@ -2057,7 +2014,7 @@ msgstr "Makron poistumis askel"
 
 #: objects/GRAFCET/step.c:255
 msgid "Macro call step"
-msgstr "Makron kutsu askel"
+msgstr "Makron kutsu-askel"
 
 #: objects/GRAFCET/step.c:256
 msgid "Subprogram call step"
@@ -2097,7 +2054,7 @@ msgstr "JA"
 
 #: objects/GRAFCET/vergent.c:179 objects/GRAFCET/vergent.c:212
 msgid "Vergent type:"
-msgstr ""
+msgstr "Vergentin tyyppi:"
 
 #: objects/GRAFCET/vergent.c:458 objects/SADT/box.c:538
 #: objects/standard/line.c:177
@@ -2106,18 +2063,16 @@ msgstr "Lisää liitoskohta"
 
 #: objects/GRAFCET/vergent.c:459
 msgid "Delete  connection point"
-msgstr "Tuhoa liitoskohta"
+msgstr "Poista liitoskohta"
 
 #: objects/GRAFCET/vergent.c:463
 msgid "GRAFCET OR/AND vergent"
-msgstr ""
+msgstr "GRAFCET ja/tai vergentti"
 
 #: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
 #: objects/SADT/box.c:207 objects/SADT/box.c:249
 #: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:426
 #: objects/chronogram/chronoref.c:256 objects/chronogram/chronoref.c:321
-#: objects/flowchart/diamond.c:338 objects/flowchart/ellipse.c:338
-#: objects/flowchart/parallelogram.c:361
 msgid "Font color:"
 msgstr "Kirjasin väri:"
 
@@ -2131,7 +2086,7 @@ msgstr "Tuo lähde muualta (ei näy ylöspäin)"
 
 #: objects/SADT/arrow.c:189
 msgid "Imply resource (not shown downstairs)"
-msgstr ""
+msgstr "Viittaa lähteeseen (ei näy alaspäin)"
 
 #: objects/SADT/arrow.c:190
 msgid "Dotted arrow"
@@ -2147,17 +2102,16 @@ msgstr "Virtaustyyli:"
 
 #: objects/SADT/arrow.c:201 objects/SADT/arrow.c:238
 msgid "Automatically gray vertical flows:"
-msgstr "Automaattisesti harmaat vaakatasovirtaukset"
+msgstr "Automaattisesti harmaat vaakatasovirtaukset:"
 
 #: objects/SADT/arrow.c:651
 msgid "SADT Arrow"
 msgstr "SADT nuoli"
 
 #: objects/SADT/box.c:204 objects/SADT/box.c:246
-#: objects/custom/custom_object.c:357 objects/flowchart/box.c:332
-#: objects/flowchart/diamond.c:299 objects/flowchart/diamond.c:428
-#: objects/flowchart/ellipse.c:299 objects/flowchart/ellipse.c:428
-#: objects/flowchart/parallelogram.c:322 objects/flowchart/parallelogram.c:469
+#: objects/custom/custom_object.c:358 objects/flowchart/box.c:331
+#: objects/flowchart/diamond.c:311 objects/flowchart/ellipse.c:311
+#: objects/flowchart/parallelogram.c:336
 msgid "Text padding:"
 msgstr "Tekstin täyttö:"
 
@@ -2167,11 +2121,11 @@ msgstr "Toiminnan/Tiedon tunnistaja"
 
 #: objects/SADT/box.c:539 objects/standard/line.c:178
 msgid "Delete connection point"
-msgstr "Tuhoa liitoskohta"
+msgstr "Poista liitoskohta"
 
 #: objects/SADT/box.c:544
 msgid "SADT box"
-msgstr "SADT boksi"
+msgstr "SADT laatikko"
 
 #: objects/SADT/sadt.c:37
 msgid "SADT diagram objects"
@@ -2272,21 +2226,21 @@ msgstr "Uusi"
 #: objects/UML/class_dialog.c:674 objects/UML/class_dialog.c:1547
 #: objects/UML/class_dialog.c:1708 objects/UML/class_dialog.c:2168
 msgid "Delete"
-msgstr "Tuhoa"
+msgstr "Poista"
 
 #: objects/UML/class_dialog.c:680 objects/UML/class_dialog.c:1553
 #: objects/UML/class_dialog.c:1715 objects/UML/class_dialog.c:2174
 msgid "Move up"
-msgstr "Siirry ylöspäin"
+msgstr "Siirrä ylöspäin"
 
 #: objects/UML/class_dialog.c:686 objects/UML/class_dialog.c:1559
 #: objects/UML/class_dialog.c:1722 objects/UML/class_dialog.c:2180
 msgid "Move down"
-msgstr "Siirry alaspäin"
+msgstr "Siirrä alaspäin"
 
 #: objects/UML/class_dialog.c:697
 msgid "Attribute data"
-msgstr ""
+msgstr "Ominaisuus tietoa"
 
 #: objects/UML/class_dialog.c:717 objects/UML/class_dialog.c:1593
 #: objects/UML/class_dialog.c:1755 objects/UML/class_dialog.c:2211
@@ -2319,7 +2273,7 @@ msgstr "Toimeenpano"
 
 #: objects/UML/class_dialog.c:790 objects/UML/class_dialog.c:1654
 msgid "Class scope"
-msgstr ""
+msgstr "Luokan vaikutusalue"
 
 #. Operations page:
 #: objects/UML/class_dialog.c:1513
@@ -2328,7 +2282,7 @@ msgstr "Operaatiot"
 
 #: objects/UML/class_dialog.c:1571
 msgid "Operation data"
-msgstr ""
+msgstr "Operaatio tietoa"
 
 #: objects/UML/class_dialog.c:1660
 msgid "abstract"
@@ -2426,7 +2380,7 @@ msgstr "Yksinkertainen"
 
 #: objects/UML/message.c:665
 msgid "Recursive"
-msgstr "Itseensä palautuva"
+msgstr "Rekursiivinen"
 
 #: objects/UML/object.c:755
 msgid "Explicit state:"
@@ -2446,7 +2400,7 @@ msgstr "Toiminnallinen objekti"
 
 #: objects/UML/object.c:796
 msgid "multiple instance"
-msgstr ""
+msgstr "Moninainen hetki"
 
 #: objects/UML/state.c:508
 msgid "Begin"
@@ -2536,7 +2490,7 @@ msgstr "Tietodon väri:"
 
 #: objects/chronogram/chronoline.c:328 objects/chronogram/chronoline.c:419
 msgid "Data line width:"
-msgstr "Tiedon rivnleveys:"
+msgstr "Tiedon rivinleveys:"
 
 #: objects/chronogram/chronoline.c:329 objects/chronogram/chronoline.c:421
 #: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
@@ -2557,11 +2511,11 @@ msgstr "Pienen askeleen rivinleveys:"
 
 #: objects/custom/custom.c:117
 msgid "Custom"
-msgstr ""
+msgstr "Custom"
 
 #: objects/custom/custom.c:117
 msgid "Custom XML shapes loader"
-msgstr ""
+msgstr "Custom XML shapes loader"
 
 #: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
 msgid "Flip horizontal"
@@ -2571,49 +2525,47 @@ msgstr "Pyöräytä vakatasossa"
 msgid "Flip vertical"
 msgstr "Pyöräytä Pystytasossa"
 
-#: objects/custom/custom_object.c:348 objects/flowchart/box.c:310
-#: objects/flowchart/diamond.c:280 objects/flowchart/diamond.c:420
-#: objects/flowchart/ellipse.c:280 objects/flowchart/ellipse.c:420
-#: objects/flowchart/parallelogram.c:288 objects/flowchart/parallelogram.c:447
-#: objects/standard/box.c:223 objects/standard/ellipse.c:214
-#: objects/standard/polygon.c:219
+#: objects/custom/custom_object.c:349 objects/flowchart/box.c:309
+#: objects/flowchart/diamond.c:303 objects/flowchart/ellipse.c:303
+#: objects/flowchart/parallelogram.c:314 objects/standard/box.c:223
+#: objects/standard/ellipse.c:214 objects/standard/polygon.c:219
 msgid "Draw background"
 msgstr "Piirrä tausta"
 
-#: objects/custom/custom_object.c:371 objects/standard/textobj.c:260
+#: objects/custom/custom_object.c:372 objects/standard/textobj.c:252
 msgid "Alignment:"
 msgstr "Tasaus:"
 
-#: objects/custom/custom_object.c:1337
+#: objects/custom/custom_object.c:1338
 msgid "Flip Horizontal"
 msgstr "Pyöräytä vakatasossa"
 
-#: objects/custom/custom_object.c:1338
+#: objects/custom/custom_object.c:1339
 msgid "Flip Vertical"
 msgstr "Pyöräytä Pystytasossa"
 
-#: objects/flowchart/box.c:165 objects/standard/box.c:149
+#: objects/flowchart/box.c:163 objects/standard/box.c:149
 msgid "Corner radius"
 msgstr "Kulmanpyöristyssäde"
 
-#: objects/flowchart/box.c:167
+#: objects/flowchart/box.c:165 objects/flowchart/diamond.c:161
+#: objects/flowchart/ellipse.c:161 objects/flowchart/parallelogram.c:167
 msgid "Text padding"
 msgstr "Tekstin täyttö"
 
-#: objects/flowchart/box.c:318 objects/standard/box.c:231
+#: objects/flowchart/box.c:317 objects/standard/box.c:231
 msgid "Corner rounding:"
 msgstr "Kulman pyöristys:"
-
-#: objects/flowchart/diamond.c:288 objects/flowchart/ellipse.c:288
-#: objects/flowchart/parallelogram.c:296
-msgid "Line style:"
-msgstr "Viivan tyyli:"
 
 #: objects/flowchart/flowchart.c:32
 msgid "Flowchart objects"
 msgstr "Vuokaavio objektit"
 
-#: objects/flowchart/parallelogram.c:307 objects/flowchart/parallelogram.c:455
+#: objects/flowchart/parallelogram.c:165
+msgid "Shear angle"
+msgstr "Vääntökulma:"
+
+#: objects/flowchart/parallelogram.c:322
 msgid "Shear angle:"
 msgstr "Vääntökulma:"
 
@@ -2623,7 +2575,7 @@ msgstr "Lisää kahva"
 
 #: objects/network/bus.c:570
 msgid "Delete Handle"
-msgstr "Tuhoa kahva"
+msgstr "Poista kahva"
 
 #: objects/network/network.c:47
 msgid "Network diagram objects"
@@ -2635,7 +2587,7 @@ msgstr "Lisää osa"
 
 #: objects/standard/bezier.c:527
 msgid "Delete Segment"
-msgstr "Tuhoa osa"
+msgstr "Poista osa"
 
 #: objects/standard/bezier.c:529
 msgid "Symmetric control"
@@ -2643,11 +2595,15 @@ msgstr "Symmetrinen kontrolli"
 
 #: objects/standard/bezier.c:531
 msgid "Smooth control"
-msgstr "Pehmeä"
+msgstr "Pehmeä kontrolli"
 
 #: objects/standard/bezier.c:533
 msgid "Cusp control"
 msgstr "Leikkauspiste kontrolli"
+
+#: objects/standard/arc.c:129
+msgid "Curve distance"
+msgstr "Polun etäisyys"
 
 #: objects/standard/image.c:165
 msgid "Image file"
@@ -2697,25 +2653,25 @@ msgstr "Aloituspiste"
 msgid "End point"
 msgstr "Lopetuspiste"
 
-#: objects/standard/polygon.c:513 objects/standard/polyline.c:484
+#: objects/standard/polygon.c:514 objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "Lisää kulma"
 
-#: objects/standard/polygon.c:514 objects/standard/polyline.c:485
+#: objects/standard/polygon.c:515 objects/standard/polyline.c:485
 msgid "Delete Corner"
-msgstr "Tuhoa kulma"
+msgstr "Poista kulma"
 
 #: objects/standard/standard.c:40
 msgid "Standard objects"
 msgstr "Standardi-objektit"
 
-#: objects/standard/textobj.c:282
+#: objects/standard/textobj.c:274
 msgid "Fontsize:"
 msgstr "Kirjasin koko:"
 
 #: objects/sybase/sybase.c:40
 msgid "Sybase replication domain diagram objects"
-msgstr ""
+msgstr "Sybase replication domain diagrammi objekteja"
 
 #: plug-ins/cgm/cgm.c:1083
 msgid ""
@@ -2723,31 +2679,47 @@ msgid ""
 "Image not exported to CGM."
 msgstr ""
 "Kuvan rivipituus on suurempi kuin solun enimmäskoko.\n"
-"Kuvaa ei viety CGM:ään"
+"Kuvaa ei viety CGM:ään."
 
 #: plug-ins/cgm/cgm.c:1252
 msgid "Computer Graphics Metafile"
-msgstr ""
+msgstr "Computer Graphics Metafile"
 
 #: plug-ins/cgm/cgm.c:1266
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile vienti-filtteri"
 
-#: plug-ins/dxf/dxf-export.c:561
+#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:491
 msgid "Drawing Interchange File"
-msgstr ""
+msgstr "Drawing Interchange File"
 
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
 msgstr "Drawing Interchange File tuonti- ja vientifiltterit"
 
+#: plug-ins/hpgl/hpgl.c:624
+msgid "HP Graphics Language export filter"
+msgstr "HP Graphics Language vienti-filtteri"
+
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
-msgstr "TeX PsTricks vientifiltteri"
+msgstr "TeX Pstricks vientifiltteri"
 
 #: plug-ins/pstricks/render_pstricks.c:749
 msgid "TeX PSTricks macros"
-msgstr "TeX PsTricks makrot"
+msgstr "TeX PSTricks makrot"
+
+#: plug-ins/wpg/wpg.c:1043
+#, c-format
+msgid "File: %s type/version unsupported.\n"
+msgstr "Tiedosto: %s tyyppi/versio ei tuettu.\n"
+
+#: plug-ins/wpg/wpg.c:1192
+msgid "WordPerfect Graphics export filter"
+msgstr "WordPerfect Graphics vienti-filtteri"
+
+#~ msgid "Line style:"
+#~ msgstr "Viivan tyyli:"
 
 #~ msgid "Objects"
 #~ msgstr "Objektit"
