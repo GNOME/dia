@@ -31,6 +31,8 @@ struct _MagnifyTool {
   int moved;
   int x, y;
   int oldx, oldy;
+
+  gboolean zoom_out;
 };
 
 Tool *create_magnify_tool(void);

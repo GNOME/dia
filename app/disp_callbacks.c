@@ -411,7 +411,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
       switch (bevent->button)
 	{
 	case 1:
-	  (*active_tool->double_click_func) (active_tool, bevent, ddisp);
+	  if (*active_tool->double_click_func)
+	    (*active_tool->double_click_func) (active_tool, bevent, ddisp);
 	  break;
 
 	case 2:
@@ -438,7 +439,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
       switch (bevent->button)
 	{
 	case 1:
-	  (*active_tool->button_press_func) (active_tool, bevent, ddisp);
+	  if (*active_tool->button_press_func)
+	    (*active_tool->button_press_func) (active_tool, bevent, ddisp);
 	  break;
 
 	case 2:
@@ -467,7 +469,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
       switch (bevent->button)
 	{
 	case 1:
-	  (*active_tool->button_release_func) (active_tool, bevent, ddisp);
+	  if (*active_tool->button_release_func)
+	    (*active_tool->button_release_func) (active_tool, bevent, ddisp);
 	  break;
 
 	case 2:
@@ -491,7 +494,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	mevent->state = tmask;
 	mevent->is_hint = FALSE;
       }
-      (*active_tool->motion_func) (active_tool, mevent, ddisp);
+      if (*active_tool->motion_func)
+	(*active_tool->motion_func) (active_tool, mevent, ddisp);
       break;
 
     case GDK_KEY_PRESS:

@@ -128,6 +128,8 @@ dia_core_files = \
 	    gtkhwrapbox.c \
 	    gtkvwrapbox.h \
 	    gtkvwrapbox.c \
+	    cursor.c \
+	    cursor.h \
 	    $(print_files)
 
 

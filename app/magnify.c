@@ -18,6 +18,7 @@
 #include <math.h>
 
 #include "magnify.h"
+#include "cursor.h"
 
 static void
 magnify_button_press(MagnifyTool *tool, GdkEventButton *event,
@@ -30,12 +31,6 @@ magnify_button_press(MagnifyTool *tool, GdkEventButton *event,
   gdk_pointer_grab (ddisp->canvas->window, FALSE,
 		    GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
 		    NULL, NULL, event->time);
-}
-
-static void
-magnify_double_click(MagnifyTool *tool, GdkEventButton *event,
-		     DDisplay *ddisp)
-{
 }
 
 static void
@@ -94,6 +89,18 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
 {
   intPoint tl, br;
 
+  if ((event->state & GDK_SHIFT_MASK) != 0) {
+    if (!tool->zoom_out) {
+      tool->zoom_out = TRUE;
+      ddisplay_set_all_cursor(get_cursor(CURSOR_ZOOM_OUT));
+    }
+  } else {
+    if (tool->zoom_out) {
+      tool->zoom_out = FALSE;
+      ddisplay_set_all_cursor(get_cursor(CURSOR_ZOOM_IN));
+    }
+  }
+
   if (tool->box_active) { 
     tool->moved = TRUE;
 
@@ -132,11 +139,14 @@ create_magnify_tool(void)
   tool->tool.button_press_func = (ButtonPressFunc) &magnify_button_press;
   tool->tool.button_release_func = (ButtonPressFunc) &magnify_button_release;
   tool->tool.motion_func = (MotionFunc) &magnify_motion;
-  tool->tool.double_click_func = (DoubleClickFunc) &magnify_double_click;
+  tool->tool.double_click_func = NULL;
 
   tool->gc = NULL;
   tool->box_active = FALSE;
+  tool->zoom_out = FALSE;
 
+  ddisplay_set_all_cursor(get_cursor(CURSOR_ZOOM_IN));
+  
   return (Tool *) tool;
 }
 
@@ -144,4 +154,5 @@ void
 free_magnify_tool(Tool *tool)
 {
   g_free(tool);
+  ddisplay_set_all_cursor(default_cursor);
 }
