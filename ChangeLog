@@ -1,3 +1,15 @@
+2004-03-04  Lars Clausen  <lars@raeder.dk>
+
+	* lib/Makefile.am: 
+	* lib/pixmaps/Makefile.am: 
+	* configure.in: 
+	Better installation handling of pixmaps.
+	
+	* lib/diagdkrenderer.c: 
+	* lib/diagtkfontsel.h (struct _DiaGtkFontSelectionClass): 
+	* lib/diagtkfontsel.c (dia_gtk_font_selection_show_available_fonts): 
+	Constness fixes.
+
 2004-03-03  Lars Clausen  <lars@raeder.dk>
 
 	* lib/diagtkfontsel.h (struct _DiaGtkFontSelection): 

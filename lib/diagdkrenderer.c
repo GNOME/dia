@@ -94,9 +94,12 @@ static void draw_image (DiaRenderer *renderer,
 static void draw_rect (DiaRenderer *renderer,
                        Point *ul_corner, Point *lr_corner,
                        Color *color);
-void draw_fill_rect (DiaGdkRenderer *renderer,
-		     Point *ul_corner, Point *lr_corner,
-		     Color *color, gboolean fill);
+static void fill_rect (DiaRenderer *renderer,
+		       Point *ul_corner, Point *lr_corner,
+		       Color *color);
+static void draw_fill_rect (DiaGdkRenderer *renderer,
+			    Point *ul_corner, Point *lr_corner,
+			    Color *color, gboolean fill);
 static void draw_polyline (DiaRenderer *renderer,
                            Point *points, int num_points,
                            Color *color);
@@ -742,7 +745,7 @@ draw_image (DiaRenderer *object,
 /*
  * medium level functions
  */
-void
+static void
 draw_fill_rect (DiaGdkRenderer *renderer,
                 Point *ul_corner, Point *lr_corner,
                 Color *color, gboolean fill)

@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
+SUBDIRS=pixmaps
+
 stdprop_files = \
 	properties.h \
 	properties.c \
@@ -150,12 +152,6 @@ AM_CPPFLAGS = \
 
 sheetdir = $(pkgdatadir)/sheets
 
-imagedir = $(pkgdatadir)/images
-
-image_DATA = \
-	pixmaps/broken-chain.xpm \
-	pixmaps/unbroken-chain.xpm
-
 INCLUDES = -I$(top_srcdir)/intl $(DEBUG_FLAGS) $(GDK_PIXBUF_CFLAGS) \
   $(XML_CFLAGS) $(GNOME_CFLAGS) $(GTK_CFLAGS) \
   -DDIA_SHEETDIR=\"$(sheetdir)\" \
@@ -163,6 +159,4 @@ INCLUDES = -I$(top_srcdir)/intl $(DEBUG_FLAGS) $(GDK_PIXBUF_CFLAGS) \
 
 EXTRA_DIST = \
 	pixmaps/broken.xpm \
-	pixmaps/broken-chain.xpm \
-	pixmaps/unbroken-chain.xpm \
 	libdia.def makefile.msc
