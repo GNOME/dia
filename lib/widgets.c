@@ -113,6 +113,15 @@ dia_size_selector_ratio_callback(GtkAdjustment *limits, gpointer userdata)
 }
 
 static void
+dia_size_selector_destroy_callback(GtkWidget *widget) 
+{
+  DiaSizeSelector *ss = DIA_SIZE_SELECTOR(widget);
+
+  g_object_unref(ss->broken_link);
+  g_object_unref(ss->unbroken_link);
+}
+
+static void
 dia_size_selector_lock_pressed(GtkWidget *widget, gpointer data)
 {
   DiaSizeSelector *ss = DIA_SIZE_SELECTOR(data);
@@ -135,7 +144,6 @@ static void
 dia_size_selector_init (DiaSizeSelector *ss)
 {
   /* Here's where we set up the real thing */
-  GdkPixmap *pixmap;
   GtkAdjustment *adj;
   adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0, 10,
 					  0.1, 1.0, 1.0));
@@ -184,6 +192,8 @@ dia_size_selector_init (DiaSizeSelector *ss)
   g_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(ss->height)), 
 		   "value_changed",
 		   G_CALLBACK(dia_size_selector_ratio_callback), (gpointer)ss);
+  g_signal_connect(GTK_OBJECT(ss), "destroy",
+		   G_CALLBACK(dia_size_selector_destroy_callback), NULL);
 }
 
 guint
@@ -286,7 +296,7 @@ struct _DiaFontSelectorClass
  */
 
 typedef struct {
-  gchar *name;
+  const gchar *name;
   PangoFontFamily *family;
   time_t last_select;
   int entry_nr;
@@ -314,7 +324,7 @@ dia_font_selector_add_font(const char *lowername, const gchar *fontname,
   fse->entry_nr = g_list_length(menu_entry_list)+4; /* Skip first entries */
   g_hash_table_insert(font_hash_table, g_strdup(lowername), fse);
   if (is_other_font) {
-    menu_entry_list = g_list_append(menu_entry_list, fontname);
+    menu_entry_list = g_list_append(menu_entry_list, g_strdup(fontname));
   } else {
     if (!g_strcasecmp(fontname, "sans")) fse->entry_nr = 0;
     if (!g_strcasecmp(fontname, "serif")) fse->entry_nr = 1;
@@ -516,11 +526,10 @@ dia_font_selector_new ()
 }
 
 static PangoFontFamily *
-dia_font_selector_get_family_from_name(GtkWidget *widget, gchar *fontname)
+dia_font_selector_get_family_from_name(GtkWidget *widget, const gchar *fontname)
 {
   PangoFontFamily **families;
   int n_families,i;
-  DiaFontFamily diafamily = DIA_FONT_FAMILY_ANY;
     
   pango_context_list_families (dia_font_get_context(),
 			       &families, &n_families);
@@ -725,8 +734,6 @@ void
 dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 {
   int font_nr;
-  DiaFontStyle style = dia_font_get_style(font);
-  GtkMenuItem *menuitem;
   FontSelectorEntry *fse;
   const gchar *fontname = dia_font_get_family(font);
 
@@ -1334,12 +1341,9 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   GtkWidget *omenu;
   GtkWidget *menu;
   GtkWidget *submenu;
-  GtkWidget *length;
-  GtkWidget *width;
   GtkWidget *box;
   GtkWidget *label;
   GtkWidget *size;
-  GtkAdjustment *adj;
   GSList *group;
   
   omenu = gtk_option_menu_new();

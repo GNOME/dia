@@ -706,10 +706,16 @@ layer_replace_object_with_list(Layer *layer, Object *remove_obj,
   g_list_free_1(list);
 }
 
+static void
+layer_remove_dynobj(gpointer obj, gpointer userdata)
+{
+  dynobj_list_remove_object((Object*)obj);
+}
+
 void layer_set_object_list(Layer *layer, GList *list)
 {
   g_list_foreach(layer->objects, set_parent_layer, NULL);
-  g_list_foreach(layer->objects, dynobj_list_remove_object, NULL);
+  g_list_foreach(layer->objects, layer_remove_dynobj, NULL);
   g_list_free(layer->objects);
   layer->objects = list;
   g_list_foreach(layer->objects, set_parent_layer, layer);

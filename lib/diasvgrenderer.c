@@ -185,8 +185,6 @@ set_dashlength(DiaRenderer *self, real length)
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
-  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-
   switch(mode) {
   case FILLSTYLE_SOLID:
     break;
@@ -731,9 +729,6 @@ draw_image(DiaRenderer *self,
 static void
 dia_svg_renderer_init (GTypeInstance   *instance, gpointer g_class)
 {
-  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (instance);
-
-  
 }
 
 static gpointer parent_class = NULL;
@@ -742,8 +737,6 @@ static gpointer parent_class = NULL;
 static void
 dia_svg_renderer_finalize (GObject *object)
 {
-  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (object);
-
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 

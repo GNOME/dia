@@ -1157,7 +1157,7 @@ dia_gtk_font_selection_set_preview_text  (DiaGtkFontSelection *fontsel,
 
 void
 dia_gtk_font_selection_set_context (DiaGtkFontSelection *fs,
-				    const PangoContext  *context)
+				    PangoContext  *context)
 {
   fs->context = context;
   dia_gtk_font_selection_show_available_fonts (fs);

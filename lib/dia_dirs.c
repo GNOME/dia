@@ -25,6 +25,9 @@
 #include <windows.h>
 #include <direct.h>
 #define mkdir(s,a) _mkdir(s)
+#else
+#include <sys/stat.h>
+#include <sys/types.h>
 #endif
 
 gchar*

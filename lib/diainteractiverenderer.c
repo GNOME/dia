@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * diainteractiverenderer.c - interface definition, implementation
- *                            live in app/*
+ *                            live in app
  * Copyright (C) 2002 Hans Breuer (refactoring)
  *
  * This program is free software; you can redistribute it and/or modify

@@ -503,7 +503,7 @@ real dia_font_descent(const char* string, DiaFont* font, real height)
 }
 
 typedef struct {
-  gchar *string;
+  const gchar *string;
   DiaFont *font;
   real height;
   PangoLayout *layout;

@@ -94,9 +94,9 @@ static void draw_image (DiaRenderer *renderer,
 static void draw_rect (DiaRenderer *renderer,
                        Point *ul_corner, Point *lr_corner,
                        Color *color);
-static void fill_rect (DiaRenderer *object,
-                       Point *ul_corner, Point *lr_corner,
-                       Color *color);
+void draw_fill_rect (DiaGdkRenderer *renderer,
+		     Point *ul_corner, Point *lr_corner,
+		     Color *color, gboolean fill);
 static void draw_polyline (DiaRenderer *renderer,
                            Point *points, int num_points,
                            Color *color);
@@ -381,8 +381,6 @@ set_dashlength (DiaRenderer *object, real length)
 static void 
 set_fillstyle (DiaRenderer *object, FillStyle mode)
 {
-  DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
-
   switch(mode) {
   case FILLSTYLE_SOLID:
     break;
@@ -545,7 +543,6 @@ draw_string (DiaRenderer *object,
              Color *color)
 {
   DiaGdkRenderer *renderer = DIA_GDK_RENDERER (object);
-  GdkGC *gc = renderer->gc;
   GdkColor gdkcolor;
 
   int x,y;
@@ -583,7 +580,6 @@ draw_string (DiaRenderer *object,
    guint8 *graybitmap;
    int width, height;
    int rowstride;
-   double font_height;
    GdkPixbuf *rgba = NULL;
 
 

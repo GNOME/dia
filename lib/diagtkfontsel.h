@@ -77,7 +77,7 @@ struct _DiaGtkFontSelection
   GtkWidget *filter_button;
   GtkWidget *preview_entry;
 
-  PangoContext *context;
+  const PangoContext *context;
   
   PangoFontFamily *family;	/* Current family */
   PangoFontFace *face;		/* Current face */

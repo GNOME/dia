@@ -72,8 +72,6 @@ dia_transform_get_type (void)
 static void
 dia_transform_finalize (GObject *object)
 {
-  DiaTransform *dia_transform = DIA_TRANSFORM (object);
-
   /* don't free the fields, we don't own them */
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -83,7 +81,6 @@ static void
 dia_transform_class_init (DiaTransformClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
-  DiaTransformClass *dia_transform_class = DIA_TRANSFORM_CLASS (klass);
 
   parent_class = g_type_class_peek_parent (klass);
 

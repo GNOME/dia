@@ -1,4 +1,23 @@
-2004-03-02  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+2004-03-03  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diagtkfontsel.h (struct _DiaGtkFontSelection): 
+	* lib/diagdkrenderer.c: 
+	* lib/diasvgrenderer.c:
+	* lib/dialibartrenderer.c:
+	* lib/diainteractiverenderer.c: 
+	* lib/prop_text.c (multistringprop_handle_key): 
+	* lib/dia_dirs.c: 
+	* lib/dia_image.c (dia_image_rgba_data): 
+	* lib/widgets.c: 
+	* lib/diagramdata.c (layer_set_object_list): 
+	* lib/font.h: 
+	* lib/font.c: 
+	Getting rid of compile warnings.
+
+	* lib/widgets.c: Handle destroy properly, i.e. unref the two extra
+	images.  Also remove unused decls.
+
+2004-03-02  Lars Clausen  <lars@raeder.dk>
 
 	* lib/widgets.h: 
 	* lib/widgets.c (dia_size_selector_init): Add images to the size

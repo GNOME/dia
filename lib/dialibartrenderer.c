@@ -100,7 +100,6 @@ get_height_pixels (DiaRenderer *self)
 static void
 begin_render(DiaRenderer *self)
 {
-  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
 #ifdef HAVE_FREETYPE
   /* pango_ft2_get_context API docs :
    * ... Use of this function is discouraged, ...
@@ -122,8 +121,6 @@ begin_render(DiaRenderer *self)
 static void
 end_render(DiaRenderer *self)
 {
-  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
-
   dia_font_pop_context();
 }
 
@@ -262,8 +259,6 @@ set_dashlength(DiaRenderer *self, real length)
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
-  DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
-
   switch(mode) {
   case FILLSTYLE_SOLID:
     break;
@@ -993,13 +988,9 @@ draw_string (DiaRenderer *self,
   PangoLayout* layout;
   int width, height;
   int i, j;
-  int iwidth;
-  int len;
   double affine[6], tmpaffine[6];
-  double xpos, ypos;
   guint32 rgba;
   int rowstride;
-  double zoom;
   double font_height;
 
   point_copy(&start_pos,pos);
@@ -1216,9 +1207,7 @@ draw_image(DiaRenderer *self,
   double x,y;
   int src_width, src_height;
   guint8 *img_data;
-  guint8 *img_mask;
   double affine[6];
-  int i,j;
   int rowstride;
 
   /* Todo: Handle some kind of clipping! */
@@ -1334,7 +1323,6 @@ dia_libart_renderer_get_type (void)
 static void
 dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
   /* Here we set the functions that we define for this renderer. */

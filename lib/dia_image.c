@@ -213,9 +213,6 @@ dia_image_rgba_data(DiaImage image)
 {
   int size;
   guint8 *rgb_pixels;
-  int width = dia_image_width(image);
-  int height = dia_image_height(image);
-  int rowstride = dia_image_rowstride(image);
 
   if (gdk_pixbuf_get_has_alpha(image->image)) {
     guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
