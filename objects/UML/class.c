@@ -675,6 +675,8 @@ umlclass_destroy(UMLClass *umlclass)
   UMLOperation *op;
   UMLFormalParameter *param;
   
+  element_destroy(&umlclass->element);
+  
   g_free(umlclass->name);
   if (umlclass->stereotype != NULL)
     g_free(umlclass->stereotype);
@@ -737,8 +739,6 @@ umlclass_destroy(UMLClass *umlclass)
     g_list_free(umlclass->properties_dialog->deleted_connections);
     g_free(umlclass->properties_dialog);
   }
-
-  element_destroy(&umlclass->element);
 }
 
 static Object *

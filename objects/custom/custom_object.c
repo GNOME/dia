@@ -1138,9 +1138,9 @@ custom_destroy(Custom *custom)
   if (custom->info->has_text)
     text_destroy(custom->text);
 
-  g_free(custom->connections);
-
   element_destroy(&custom->element);
+  
+  g_free(custom->connections);
 }
 
 static Object *
