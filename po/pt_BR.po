@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 1.0\n"
-"POT-Creation-Date: 2003-02-28 04:31+0100\n"
-"PO-Revision-Date: 2003-02-28 02:30-0300\n"
+"POT-Creation-Date: 2003-04-07 03:33+0200\n"
+"PO-Revision-Date: 2003-04-07 02:00-0300\n"
 "Last-Translator: Alexandre Folle de Menezes <afmenez@terra.com.br>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
@@ -139,7 +139,7 @@ msgstr ""
 # app/app_procs.c:353
 # app/app_procs.c:454
 #. no standard buttons
-#: app/app_procs.c:546
+#: app/app_procs.c:550
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -151,19 +151,19 @@ msgstr ""
 
 # app/commands.c:528
 # app/commands.c:528
-#: app/app_procs.c:550
+#: app/app_procs.c:554
 msgid "Quit Dia"
 msgstr "Sair do Dia"
 
 # app/app_procs.c:455 app/app_procs.c:462
 # app/app_procs.c:556 app/app_procs.c:563
-#: app/app_procs.c:612 app/app_procs.c:619
+#: app/app_procs.c:616 app/app_procs.c:623
 msgid "Could not create per-user Dia config directory"
 msgstr "Impossível criar o diretório de configuração pessoal do Dia"
 
 # app/app_procs.c:464
 # app/app_procs.c:565
-#: app/app_procs.c:621
+#: app/app_procs.c:625
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -173,7 +173,7 @@ msgstr ""
 
 # app/app_procs.c:486
 # app/app_procs.c:587
-#: app/app_procs.c:643 app/diaconv.c:249
+#: app/app_procs.c:647 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objetos e filtros internos do dia"
 
@@ -486,7 +486,7 @@ msgstr "OK"
 # app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 # app/paginate_psprint.c:264
 #: app/dialogs.c:52 app/layer_dialog.c:1006 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/linewidth_area.c:252
+#: app/lineprops_area.c:679 app/linewidth_area.c:257
 #: app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Cancelar"
@@ -640,17 +640,17 @@ msgstr "Nenhum menu de objeto"
 
 # app/display.c:162
 # app/display.c:162
-#: app/display.c:90
+#: app/display.c:93
 msgid "Diagram modified!"
 msgstr "Diagrama modificado!"
 
-#: app/display.c:890
+#: app/display.c:960
 msgid "<unnamed>"
 msgstr "<semnome>"
 
 # app/display.c:927
 # app/display.c:927
-#: app/display.c:892
+#: app/display.c:962
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -661,13 +661,13 @@ msgstr ""
 
 # app/display.c:916
 # app/display.c:916
-#: app/display.c:903
+#: app/display.c:973
 msgid "Close Diagram"
 msgstr "Fechar Diagrama"
 
 # objects/FS/function.c:620
 # objects/FS/function.c:620
-#: app/display.c:908
+#: app/display.c:978
 msgid "Discard Changes"
 msgstr "Descartar Alterações"
 
@@ -682,7 +682,7 @@ msgstr "Descartar Alterações"
 # plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:180
 # plug-ins/wpg/wpg.c:930
 #: app/export_png.c:114 app/load_save.c:746 plug-ins/cgm/cgm.c:1156
-#: plug-ins/dxf/dxf-export.c:480 plug-ins/hpgl/hpgl.c:731
+#: plug-ins/dxf/dxf-export.c:504 plug-ins/hpgl/hpgl.c:731
 #: plug-ins/metapost/render_metapost.c:733
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
@@ -1021,31 +1021,76 @@ msgstr "Criar Imagem"
 msgid "Image"
 msgstr "Imagem"
 
+# app/menus.c:725
+# app/menus.c:725
+#: app/interface.c:370
+msgid "Diagram menu."
+msgstr "Menu de diagramas."
+
 # app/display.c:141 app/display.c:142 app/interface.c:442
 # app/display.c:141 app/display.c:142 app/interface.c:447
-#: app/interface.c:470
+#: app/interface.c:479
 msgid "Zoom"
 msgstr "Zoom"
 
+#: app/interface.c:493
+msgid "Toggles snap-to-grid for this window."
+msgstr "Troca snap-to-grid para esta janela."
+
 # app/interface.c:489
 # app/interface.c:494
-#: app/interface.c:514
+#: app/interface.c:537
 msgid "NULL tooldata in tool_select_update"
-msgstr "dados de ferramenta NULOS em tool_select_update"
+msgstr "Dados de ferramenta NULOS em tool_select_update"
 
 # app/interface.c:937
 # app/interface.c:942
-#: app/interface.c:975
+#: app/interface.c:999
 msgid ""
-"Foreground & background colors.  The small black and white squares reset "
-"colors.  The small arrows swap colors.  Double click to change colors."
+"Foreground & background colors for new objects.  The small black and white "
+"squares reset colors.  The small arrows swap colors.  Double click to change "
+"colors."
 msgstr ""
-"Cores de primeiro e segundo plano. Os quadrados pequenos voltam às cores "
-"padrão. As setas trocam as cores. Clique duplo para mudar as cores."
+"Cores de primeiro e segundo plano para novos objetos. Os pequenos quadrados "
+"preto e branco restauram as cores. As pequenas setas trocam as cores. Clique "
+"duplo para mudar as cores."
+
+#: app/interface.c:1014
+msgid ""
+"Line widths.  Click on a line to set the default line width for new "
+"objects.  Double-click to set the line width more precisely."
+msgstr ""
+"Larguras de linha.  Clique em uma linha para definir a largura de linha "
+"padrão para novos objetos.  Clique duplo para definir a largura de linha "
+"mais precisamente."
+
+#: app/interface.c:1046
+msgid ""
+"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
+"arrow parameters with Details..."
+msgstr ""
+"Estilo de seta no início de novas linhas.  Clique para escolher um seta, "
+"ou defina os parâmetros de estilo de seta com Detalhes..."
+
+#: app/interface.c:1051
+msgid ""
+"Line style for new lines.  Click to pick a line style, or set line style "
+"parameters with Details..."
+msgstr ""
+"Estilo de linha para novas linhas.  Clique para escolher um estilo de linha, "
+"ou defina os parâmetros de estilo de linha com Detalhes..."
+
+#: app/interface.c:1056
+msgid ""
+"Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
+"parameters with Details..."
+msgstr ""
+"Estilo de seta no final de novas linhas.  Clique para escolher um seta, "
+"ou defina os parâmetros de estilo de seta com Detalhes..."
 
 # app/interface.c:1083
 # app/interface.c:1088
-#: app/interface.c:1124
+#: app/interface.c:1152
 msgid "Diagram Editor"
 msgstr "Editor de Diagramas"
 
@@ -1128,7 +1173,7 @@ msgstr "Nome da camada:"
 # app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
 # app/properties.c:92 lib/message.c:101
 #: app/layer_dialog.c:996 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:243 app/paginate_psprint.c:268
+#: app/linewidth_area.c:248 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
@@ -1154,14 +1199,14 @@ msgstr "Propriedades do estilo de linha"
 # objects/chronogram/chronoref.c:160
 # app/linewidth_area.c:216 objects/chronogram/chronoline.c:181
 # objects/chronogram/chronoref.c:160
-#: app/linewidth_area.c:224 lib/properties.h:473
+#: app/linewidth_area.c:229 lib/properties.h:473
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Largura da linha"
 
 # app/linewidth_area.c:224
 # app/linewidth_area.c:224
-#: app/linewidth_area.c:230
+#: app/linewidth_area.c:235
 msgid "Line width:"
 msgstr "Largura da linha:"
 
@@ -3143,6 +3188,12 @@ msgstr "Côncavo Preenchido"
 #: lib/arrows.c:61
 msgid "Blanked Concave"
 msgstr "Côncavo Vazio"
+
+# objects/FS/function.c:805
+# objects/FS/function.c:805
+#: lib/arrows.c:62
+msgid "Round"
+msgstr "Arredondado"
 
 # lib/bezier_conn.c:528
 # lib/bezier_conn.c:528
@@ -6384,7 +6435,7 @@ msgstr "Filtros de importação e exportação para o formato DXF"
 
 # plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:680
 # plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:680
-#: plug-ins/dxf/dxf-export.c:522 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:546 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -6499,8 +6550,7 @@ msgstr "Scalable Vector Graphics"
 # plug-ins/svg/svg.c:36
 #: plug-ins/svg/svg.c:37
 msgid "Scalable Vector Graphics import and export filters"
-msgstr ""
-"Filtros de importação e exportação para o formato Scalable Vector Graphics"
+msgstr "Filtros de importação e exportação para o formato Scalable Vector Graphics"
 
 # objects/standard/standard.c:45
 # objects/standard/standard.c:45
@@ -6587,8 +6637,7 @@ msgstr "Padrões não são suportados pelo Dia"
 # plug-ins/xfig/xfig-import.c:77
 #: plug-ins/xfig/xfig-import.c:446
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr ""
-"Linhas com pontilhamento triplo não suportadas, usando pontilhamento duplo"
+msgstr "Linhas com pontilhamento triplo não suportadas, usando pontilhamento duplo"
 
 # plug-ins/xfig/xfig-import.c:406
 # plug-ins/xfig/xfig-import.c:406
@@ -6865,9 +6914,7 @@ msgstr "Impossível carregar a biblioteca XSLT (%s) : %s"
 
 #: plug-ins/xslt/xslt.c:326
 msgid "No valid configuration files found for the XSLT plugin, not loading."
-msgstr ""
-"Nenhum arquivo de configuração válido encontrado para o plugin XSLT, não "
-"carregando."
+msgstr "Nenhum arquivo de configuração válido encontrado para o plugin XSLT, não carregando."
 
 #: plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
@@ -8077,8 +8124,7 @@ msgstr "Terminal tático de comunicações via satélite"
 # sheets/MSE.sheet.in.h:8
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr ""
-"Componentes de Equipamento Móvel de Comunicações do Exército dos E.U.A."
+msgstr "Componentes de Equipamento Móvel de Comunicações do Exército dos E.U.A."
 
 # sheets/network.sheet.in.h:1
 #: sheets/network.sheet.in.h:1
@@ -8888,8 +8934,7 @@ msgstr "UML"
 # lib/font.c:532
 # lib/font.c:532
 #~ msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
-#~ msgstr ""
-#~ "Aviso: FreeType foi selecionado, mas a biblioteca não foi carregada: %d\n"
+#~ msgstr "Aviso: FreeType foi selecionado, mas a biblioteca não foi carregada: %d\n"
 
 # lib/font.c:541
 # lib/font.c:541
