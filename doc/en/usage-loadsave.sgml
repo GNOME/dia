@@ -67,6 +67,29 @@
       should not try to compress them manually&mdash;it will not help.
      </para>
     </sect2>
+    <sect2 id="loadsave-filetypes-import">
+    <title>Import Formats</title>
+     <para>
+      <application>Dia</application> is able to import the following file types:
+      <itemizedlist>
+       <listitem>
+        <para>
+	 SVG
+	</para>
+       </listitem>
+       <listitem>
+        <para>
+	 DXF
+	</para>
+       </listitem>
+       <listitem>
+        <para>
+	 XFig
+	</para>
+       </listitem>
+      </itemizedlist> 
+     </para>
+    </sect2>
 <!-- Add loadsave-filestypes-dif section in future -->
     <sect2 id="loadsave-filetypes-export">
     <title>Exporting: Support for Other Formats</title>
@@ -79,6 +102,15 @@
         Computer Graphics Metafile
        </para>
       </listitem>
+      <listitem>
+       <para>
+        Dia shape file
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        DXF
+       </para>	
       <listitem>
        <para>
         HPGL
@@ -101,16 +133,31 @@
       </listitem>
       <listitem>
        <para>
-        TeX
+        TeX Metapost macros
        </para>
       </listitem>
+      <listitem>
+       <para>
+        TeX PSTricks macros
+       </para>
+      </listitem>	
       <listitem>
        <para>
         WPG
        </para>
       </listitem>
+      <listitem>
+       <para>
+        XFig
+       </para>
+      </listitem> 
+      <listitem>
+       <para>
+        XSLT
+       </para>
+      </listitem>
      </itemizedlist>
-     <application>Dia</application> cannot load files in these formats.  These
+     <application>Dia</application> cannot load files in most of these formats.  These
      formats are useful for diagrams that you need to use in another
      application or to distribute to users of another operating system that
      <application>Dia</application> does not support.
@@ -128,7 +175,7 @@
      <para>
       To create a file in one of these formats, select
        <menuchoice>                                                                             <guimenu>File</guimenu>
-         <guimenuitem>Open...</guimenuitem>
+         <guimenuitem>Export...</guimenuitem>
        </menuchoice>
       from the <interface>Main Popup Menu</interface>. Choose a name
       and the desired format in the resulting dialog, which works like a

@@ -1,3 +1,8 @@
+2002-12-01  Steffen Macke <sdteffen@web.de>
+	
+	* doc/en/usage-loadsave.sgml: updated information on import
+	and export formats
+	
 2002-11-28  Steffen Macke <sdteffen@web.de>
 	
 	* app/render_libart.c: art_config.h was included twice
