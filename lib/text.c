@@ -300,6 +300,10 @@ text_calc_boundingbox(Text *text, Rectangle *box)
 
   box->right = box->left + text->max_width;
   
+  if (text->cursor_pos == 0) {
+    box->left -= 0.05; /* Half the cursor width */
+  }
+
   box->top = text->position.y - text->ascent;
 
   box->bottom = box->top + text->height*text->numlines;
