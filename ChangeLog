@@ -1,5 +1,9 @@
 2004-05-21  Lars Clausen <lars@raeder.dk>
 
+	* NEWS: Release tag.
+
+	* config.h.win32: Now 0.93+cvs
+
 	* RELEASE-PROCESS: Update with new info about release branches.
 	
 	* Many files:  Moved devel branch back into main trunk.  Should

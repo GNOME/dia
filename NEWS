@@ -1,3 +1,11 @@
+dia-0.93: 29-Apr-2004
+
+Ready for release.
+
+dia-0.93-pre3: 13-Apr-2004
+
+Fixed disappearing toolbox when quit is cancelled.
+
 dia-0.93-pre2: 04-Apr-2004
 
 Fixed crash bug in ellipse, plus various compilation problems.  Also
