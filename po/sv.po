@@ -3,6 +3,7 @@
 # Andreas Hyden <a.hyden@cyberpoint.se>
 # Tomas Ögren <stric@ing.umu.se>, 2000
 # Christian Rose <menthos@menthos.com>, 2000.
+# Richard Hult <rhult@codefactory.se>, 2001.
 #
 # $Id$
 #
@@ -2104,7 +2105,7 @@ msgstr "Abstrakt"
 
 #: objects/UML/class.c:102 objects/UML/class_dialog.c:217
 msgid "Suppress Attributes"
-msgstr "Strunta i attribut"
+msgstr "Undertryck i attribut"
 
 #: objects/UML/class.c:104
 msgid "Suppress Operations"
@@ -2147,7 +2148,7 @@ msgstr "Operationer synliga"
 
 #: objects/UML/class_dialog.c:229
 msgid "Suppress operations"
-msgstr "Strunta i operationer"
+msgstr "Undertryck operationer"
 
 #: objects/UML/class_dialog.c:237
 msgid "Foreground Color"
