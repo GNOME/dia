@@ -1,5 +1,11 @@
 2002-08-04  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/interface.c (create_display_shell): 
+	* app/commands.c: Now uses gtk_clipboard functions, for they are
+	much simpler.  Also handles Win32 clipboard.  Non-ascii chars
+	don't seem to get handled correctly by text_insert_char in
+	lib/text.c.
+	
 	* app/commands.c (received_selection_handler): Got utf8 handling
 	on paste, and individual char handling out of commands.c.  Pasting
 	non-ASCII is still broken, somehow.  It's all lib/text.c's fault.

@@ -312,11 +312,6 @@ create_display_shell(DDisplay *ddisp,
 		      GTK_SIGNAL_FUNC (ddisplay_size_allocate),
 		      ddisp);
 */
-  /* Clipboard handling signals */
-  gtk_signal_connect (GTK_OBJECT(ddisp->shell), "selection_get",
-		      GTK_SIGNAL_FUNC (get_selection_handler), NULL);
-  gtk_signal_connect (GTK_OBJECT(ddisp->shell), "selection_received",
-		      GTK_SIGNAL_FUNC (received_selection_handler), NULL);
 
   /*  the table containing all widgets  */
   table = gtk_table_new (4, 3, FALSE);

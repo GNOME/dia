@@ -29,6 +29,7 @@
 #include <glib.h>
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <gtk/gtk.h>
 
 /* Added by Andrew Ferrier: for use of gnome_about_new() */
 
@@ -222,49 +223,20 @@ edit_paste_callback(gpointer data, guint action, GtkWidget *widget)
   diagram_flush(ddisp->diagram);
 }
 
-/* Signal handler for getting the selection from whoever */
-void
-received_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
-			   gpointer data)
+/* Signal handler for getting the clipboard contents */
+/* Note that the clipboard is for M$-style cut/copy/paste copying, while
+   the selection is for Unix-style mark-and-copy.  We can't really do
+   mark-and-copy.
+*/
+
+static void
+insert_text(DDisplay *ddisp, Focus *focus, const gchar *text)
 {
-  Focus *focus = active_focus();
-  gchar *text;
   int i, strlen;
   ObjectChange *change = NULL;
-  int modified, any_modified = FALSE;
-  Object *obj;
-  DDisplay *ddisp = ddisplay_active();
+  int modified = FALSE, any_modified = FALSE;
+  Object *obj = focus->obj;
 
-  if ((focus == NULL) || (!focus->has_focus)) return;
-
-  obj = focus->obj;
-
-  /* **** IMPORTANT **** Check to see if retrieval succeeded  */
-  if (selection->length < 0)
-  {
-    g_print ("Selection retrieval failed\n");
-    return;
-  }
-  /* Make sure we got the data in the expected form */
-  if (selection->type != GDK_SELECTION_TYPE_STRING)
-  {
-    g_print ("Selection \"STRING\" was not returned as a string!\n");
-    return;
-  }
-
-  text = (gchar *)selection->data;
-  if (!g_utf8_validate(text, -1, NULL)) {
-    /* Try to convert from locale */
-    gchar *newtext = g_locale_to_utf8(text, -1, NULL, NULL, NULL);
-    if (newtext == NULL) {
-      message_error("Can't convert selection to utf8\n");
-      return;
-    } else {
-      text = newtext;
-    }
-  }
-
-  modified = FALSE;
   while (text != NULL) {
     gchar *next_line = g_utf8_strchr(text, -1, '\n');
     if (next_line != text) {
@@ -296,22 +268,24 @@ received_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
     undo_set_transactionpoint(ddisp->diagram->undo);
 }
 
-static char *current_clipboard;
 
-void
-get_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
-		      gpointer data) {
-  if (current_clipboard) {
-    gtk_selection_data_set(selection, GDK_TARGET_STRING,
-			   8, current_clipboard, strlen(current_clipboard));
-  }
+static void
+received_clipboard_handler(GtkClipboard *clipboard, 
+			   const gchar *text,
+			   gpointer data) {
+  Focus *focus = active_focus();
+  DDisplay *ddisp = (DDisplay *)data;
+  
+  if (text == NULL) return;
+
+  if ((focus == NULL) || (!focus->has_focus)) return;
+
+  insert_text(ddisp, focus, text);
 }
-
 
 static PropDescription text_prop_singleton_desc[] = {
     { "text", PROP_TYPE_TEXT },
     PROP_DESC_END};
-
 
 static void 
 make_text_prop_singleton(GPtrArray **props, TextProperty **prop) 
@@ -347,17 +321,17 @@ edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
   /* Get the first text property */
   obj->ops->get_props(obj, textprops);
   
-  if (current_clipboard) g_free(current_clipboard);
-
-  current_clipboard = g_strdup(prop->text_data);
+  /* GTK docs claim the selection clipboard is ignored on Win32.
+   * The "clipboard" clipboard is mostly ignored in Unix
+   */
+#ifdef G_OS_WIN32
+  gtk_clipboard_set_text(gtk_clipboard_get(GDK_NONE),
+			 prop->text_data, -1);
+#else
+  gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY),
+			 prop->text_data, -1);
+#endif
   prop_list_free(textprops);
-
-  gtk_selection_owner_set(GTK_WIDGET(ddisp->shell),
-			  GDK_SELECTION_PRIMARY,
-			  GDK_CURRENT_TIME);
-  gtk_selection_add_target(GTK_WIDGET(ddisp->shell),
-			   GDK_SELECTION_PRIMARY,
-			   GDK_TARGET_STRING, 0);
 }
 
 void
@@ -385,16 +359,16 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
   /* Get the first text property */
   obj->ops->get_props(obj, textprops);
   
-  if (current_clipboard) g_free(current_clipboard);
-
-  current_clipboard = g_strdup(prop->text_data);
-
-  gtk_selection_owner_set(GTK_WIDGET(ddisp->shell),
-			  GDK_SELECTION_PRIMARY,
-			  GDK_CURRENT_TIME);
-  gtk_selection_add_target(GTK_WIDGET(ddisp->shell),
-			   GDK_SELECTION_PRIMARY,
-			   GDK_TARGET_STRING, 0);
+  /* GTK docs claim the selection clipboard is ignored on Win32.
+   * The "clipboard" clipboard is mostly ignored in Unix
+   */
+#ifdef G_OS_WIN32
+  gtk_clipboard_set_text(gtk_clipboard_get(GDK_NONE),
+			 prop->text_data, -1);
+#else
+  gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY),
+			 prop->text_data, -1);
+#endif
 
   prop_list_free(textprops);
 
@@ -413,8 +387,13 @@ edit_paste_text_callback(gpointer data, guint action, GtkWidget *widget)
 
   ddisp = ddisplay_active();
 
-  gtk_selection_convert(ddisp->shell, GDK_SELECTION_PRIMARY, GDK_TARGET_STRING,
-			GDK_CURRENT_TIME);
+#ifdef G_OS_WIN32
+  gtk_clipboard_request_text(gtk_clipboard_get(GDK_NONE), 
+			     received_clipboard_handler, ddisp);
+#else
+  gtk_clipboard_request_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY), 
+			     received_clipboard_handler, ddisp);
+#endif
 }
 
 void
