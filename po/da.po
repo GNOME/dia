@@ -1,16 +1,14 @@
 # Danish translation of dia.
 # Copyright (C) 1999 Free Software Foundation, Inc.
 # Lars Clausen <lrclause@cs.uiuc.edu>, 1999.
-# Based on the Norwegian version by
-# Kjartan Maraas <kmaraas@fib.hl.no>, 1999.
+# Kenneth Christiansen <kenneth@ripen.dk>, 1999
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "POT-Creation-Date: 1999-04-08 17:01+0200\n"
-"PO-Revision-Date: 1999-03-19 01:21-0600\n"
-"Last-Translator: Lars Clausen <lrclause@cs.uiuc.edu>\n"
+"PO-Revision-Date: 1999-09-15 16:21-0600\n"
+"Last-Translator: Kenneth Christiansen <kenneth@ripen.dk>\n"
 "Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -22,11 +20,11 @@ msgstr "Eksportér den indlæste fil til Postscript og afslut"
 
 #: app/app_procs.c:118
 msgid "OUTPUT"
-msgstr "UDDATA"
+msgstr "OUTPUT"
 
 #: app/app_procs.c:135
 msgid "Can't connect to session manager!\n"
-msgstr ""
+msgstr "Kan ikke kontakte sessionshåndtereren!\n"
 
 #: app/app_procs.c:169 app/app_procs.c:171
 msgid ""
@@ -34,9 +32,8 @@ msgid ""
 msgstr "Kunne ikke finde standardobjekter i objektbiblioteket, afslutter...\n"
 
 #: app/app_procs.c:199
-#, fuzzy
 msgid "Need valid input file\n"
-msgstr "en gyldig ind-fil kræves for --export-file-to-ps\n"
+msgstr "Kræver gyldig inddate fil\n"
 
 #: app/app_procs.c:240
 msgid "Quit, are you sure?"
@@ -149,7 +146,7 @@ msgstr "Eksportér til postskript"
 #: app/commands.c:410
 #, c-format
 msgid "Untitled-%d"
-msgstr "Uden navn-%d"
+msgstr "Unavngivet-%d"
 
 #: app/commands.c:467
 msgid "No existing object to paste.\n"
@@ -157,12 +154,12 @@ msgstr "Ingen eksisterende objekter kan indsættes.\n"
 
 #: app/commands.c:526
 msgid "Copyright (C) 1999"
-msgstr "Copyright (C) 1999"
+msgstr "Ophavsret (C)  1999"
 
 #: app/commands.c:528 app/commands.c:555
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
-"Vær venlig at besøge http://www.lysator.liu.se/~alla/dia for mere information"
+"Besøg venligst http://www.lysator.liu.se/~alla/dia for mere information"
 
 #: app/commands.c:535
 msgid "About Dia"
@@ -171,7 +168,7 @@ msgstr "Om dia"
 #: app/commands.c:551
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
-msgstr "Dia v %s af Alexander Larsson"
+msgstr "Dia version %s af Alexander Larsson"
 
 #: app/commands.c:559 app/layer_dialog.c:946 lib/message.c:62
 msgid "OK"
@@ -227,7 +224,7 @@ msgstr "/Objekter/Justér horizontalt/Samme afstand"
 
 #: app/diagram.c:143
 msgid "/Objects/Align Vertical/Top"
-msgstr "/Objekter/Justér vertikalt/Top"
+msgstr "/Objekter/Justér vertikalt/Øverst"
 
 #: app/diagram.c:144
 msgid "/Objects/Align Vertical/Center"
@@ -491,7 +488,7 @@ msgstr "_Fast til gitter"
 
 #: app/menus.c:94
 msgid "Toggle _Rulers"
-msgstr "_Linealer"
+msgstr "_Linealer til/fra"
 
 # FIXME: Visning?
 #: app/menus.c:97
@@ -540,15 +537,15 @@ msgstr "_Gruppér"
 
 #: app/menus.c:123
 msgid "_Ungroup"
-msgstr "Afgruppér"
+msgstr "_Afgruppér"
 
 #: app/menus.c:125
 msgid "Align _Horizontal"
-msgstr "Justér _horizontalt"
+msgstr "Justér _vandret"
 
 #: app/menus.c:126
 msgid "Align _Vertical"
-msgstr "Justér _vertikalt"
+msgstr "Justér _lodret"
 
 #: app/menus.c:131
 msgid "_Properties"
@@ -568,28 +565,28 @@ msgstr "Dialoger"
 
 #: app/menus.c:159 app/menus.c:171
 msgid "/_File"
-msgstr "/_Fil"
+msgstr "/_Filer"
 
 #. {"/File/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:160 app/menus.c:173
 msgid "/File/_New"
-msgstr "/Fil/_Ny"
+msgstr "/Filer/_Ny"
 
 #: app/menus.c:161 app/menus.c:174
 msgid "/File/_Open"
-msgstr "/Fil/_Åben"
+msgstr "/Filer/_Åben"
 
 #: app/menus.c:162
 msgid "/File/_Preferences..."
-msgstr "/Fil/_Indstillinger..."
+msgstr "/Filer/_Indstillinger..."
 
 #: app/menus.c:163 app/menus.c:178
 msgid "/File/sep1"
-msgstr "/Fil/sep1"
+msgstr "/Filer/sep1"
 
 #: app/menus.c:164 app/menus.c:180
 msgid "/File/_Quit"
-msgstr "/Fil/_Afslut"
+msgstr "/Filer/_Afslut"
 
 #: app/menus.c:165
 msgid "/_Help"
@@ -601,19 +598,19 @@ msgstr "/Hjælp/_Om"
 
 #: app/menus.c:175
 msgid "/File/_Save"
-msgstr "/Fil/_Gem"
+msgstr "/Filer/_Gem"
 
 #: app/menus.c:176
 msgid "/File/Save _As..."
-msgstr "/Fil/Gem _som..."
+msgstr "/Filer/Gem _som..."
 
 #: app/menus.c:177
 msgid "/File/_Export To EPS"
-msgstr "/Fil/_Eksportér til EPS"
+msgstr "/Filer/_Eksportér til EPS"
 
 #: app/menus.c:179
 msgid "/File/_Close"
-msgstr "/Fil/_Luk"
+msgstr "/Filer/_Luk"
 
 #: app/menus.c:181
 msgid "/_Edit"
@@ -815,7 +812,7 @@ msgstr "_Objektegenskaber"
 
 #: app/defaults.c:61 app/preferences.c:494 app/properties.c:60
 msgid "Apply"
-msgstr "Udfør"
+msgstr "Anvend"
 
 #: app/properties.c:73
 msgid "This object has no properties."
@@ -839,7 +836,7 @@ msgstr "Nye udsyn"
 
 #: app/preferences.c:76
 msgid "Reset tools after create:"
-msgstr "Nulstil værktøj:"
+msgstr "Nulstil værktøj efter opret::"
 
 #: app/preferences.c:78
 msgid "Grid:"
@@ -1032,12 +1029,12 @@ msgstr "Komposition"
 #. type
 #: objects/UML/class.c:75
 msgid "Create a class"
-msgstr "Lav en klasse"
+msgstr "Opret en klasse"
 
 #. type
 #: objects/UML/class.c:84
 msgid "Create a template class"
-msgstr ""
+msgstr "Opret skabelonklasse"
 
 #. Class page:
 #: objects/UML/class.c:628 objects/UML/class_dialog.c:90
@@ -1164,11 +1161,11 @@ msgstr "Standardværdi:"
 #. Templates page:
 #: objects/UML/class_dialog.c:2029
 msgid "Templates"
-msgstr ""
+msgstr "Skabeloner"
 
 #: objects/UML/class_dialog.c:2035
 msgid "Template class"
-msgstr ""
+msgstr "Skabelon klasse"
 
 #: objects/UML/class_dialog.c:2092
 msgid "Formal parameter data"
@@ -1214,7 +1211,7 @@ msgstr "Lav en (stor) pakke"
 #. type
 #: objects/UML/note.c:89
 msgid "Create a note"
-msgstr "Lav en note"
+msgstr "Opret en note"
 
 #. type
 #: objects/UML/realizes.c:107
@@ -1237,12 +1234,12 @@ msgstr "Editor for UML Statisk Struktur Diagrammer."
 #. type
 #: objects/UML/usecase.c:89
 msgid "Create a use case"
-msgstr "Lav billede"
+msgstr "Opret billede"
 
 #. type
 #: objects/UML/object.c:118
 msgid "Create an object"
-msgstr "Lav et objekt"
+msgstr "Opret objekt"
 
 #: objects/UML/object.c:677
 msgid "Explicit state:"
@@ -1305,7 +1302,7 @@ msgstr "Asynkron"
 
 #: objects/UML/message.c:605
 msgid "Create"
-msgstr "Lav"
+msgstr "Opret"
 
 #: objects/UML/message.c:610
 msgid "Destroy"
@@ -1322,7 +1319,7 @@ msgstr "Rekursiv"
 #. type
 #: objects/UML/component.c:91
 msgid "Create a component"
-msgstr "Lav en komponent"
+msgstr "Opret en komponent"
 
 #. type
 #: objects/ER/attribute.c:121 objects/ER/attribute.c:453
@@ -1366,12 +1363,12 @@ msgstr "Baggrundsfarve:"
 #. type
 #: objects/ER/entity.c:115 objects/ER/entity.c:415
 msgid "Entity"
-msgstr ""
+msgstr "Entitet"
 
 #. type
 #: objects/ER/entity.c:124
 msgid "Weak Entity"
-msgstr ""
+msgstr "Svag entitet"
 
 #: objects/ER/entity.c:196
 msgid "Weak"
@@ -1379,16 +1376,16 @@ msgstr "Svag"
 
 #: objects/ER/er.c:52
 msgid "ER"
-msgstr ""
+msgstr "ER"
 
 #: objects/ER/er.c:53
 msgid "Editor for Entity Relations Diagrams."
-msgstr ""
+msgstr "Editor for Entitet relationsdiagrammer"
 
 #. type
 #: objects/ER/participation.c:97
 msgid "Create a participation"
-msgstr "Lav en deltagelse"
+msgstr "Opret en deltagelse"
 
 #: objects/ER/participation.c:393
 msgid "Total:"
@@ -1534,8 +1531,8 @@ msgid ""
 "The image file '%s' was not found in that directory.\n"
 "Using the file '%s' instead\n"
 msgstr ""
-"Kunne ikke finde billedfilen '%s' i den folder.\n"
-"Brguer filen '%s' istedet.\n"
+"Kunne ikke finde billedfilen '%s' i den mappe.\n"
+"Bruger filen '%s' istedet.\n"
 
 #. Didn't find file in current dir.
 #: objects/standard/image.c:875 objects/standard/image.c:901
