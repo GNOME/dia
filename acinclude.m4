@@ -96,8 +96,9 @@ else:
   dnl distinct variables so they can be overridden if need be.  However,
   dnl general consensus is that you shouldn't need this ability.
 
-  AC_SUBST([PYTHON_PREFIX], [${prefix}])
-  AC_SUBST([PYTHON_EXEC_PREFIX], [${exec_prefix}])
+  dnl FIXME: with this you'll get NONE/lib/sitepackages below
+  dnl AC_SUBST([PYTHON_PREFIX], [${prefix}])
+  dnl AC_SUBST([PYTHON_EXEC_PREFIX], [${exec_prefix}])
 
   dnl At times (like when building shared libraries) you may want
   dnl to know which OS platform Python thinks this is.
