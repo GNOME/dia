@@ -1,12 +1,9 @@
 <chapter label="6" id="selecting-chapter">
 <title>Selecting Objects</title>
-<sect1 id="selecting">
- <title>Selecting Objects</title>
- 
-  <sect2 id="selecting-introduction">
+  <sect1 id="selecting-introduction">
   <title>Selection Introduction</title>
    <para>
-       Selecting objects is probably the most frequently task that is used
+       Selecting objects is probably the most frequently task which is used
        to be done when using <application>Dia</application>. From the moment
        you create a new object to the moment you think the diagram looks the
        way it should be, you will always have to select objects to set them
@@ -15,7 +12,7 @@
    </para>
    <para>
        Selecting objects can be done in many different ways, and there are
-       also many operations that can be perform on these selected objects.
+       also many operations can be performed on these selected objects.
    </para>
    <para>
        You can select objects to simply drag them around the diagram, or to
@@ -31,12 +28,12 @@
         <!-- need to make a link link to it -->
      </para>
     </note>
-  </sect2>
+  </sect1>
  
   <!-- +How to Select Objects  -->
-  <sect2 id="how-to-select">
+  <sect1 id="how-to-select">
   <title>How To Select Objects</title>
-    <sect3 id="basic-selection">
+    <sect2 id="basic-selection">
     <title>Basic Selection</title>
      <para>
          The basic way to select an object is by clicking on it.
@@ -51,9 +48,9 @@
          any free space of the diagram, the green points will desappear and selection
          of an other object becomes possible.
      </para>
-    </sect3>
+    </sect2>
  
-    <sect3 id="multi-selection">
+    <sect2 id="multi-selection">
     <title>Multiple Selection</title>
      <para>
          The simplest way to select more than one object at the time, is by clicking
@@ -74,27 +71,27 @@
          different objects and you don't want waste time by selecting them one by one.
      </para>
      <para>
-         When selected, objects act like a group. Meaning that if you try to drag one
-         of them, it is the whole group that will move. The same if you try to delete
-         one of them, it is the whole group that will be removed from the diagram.
+         When selected, objects act like a group. Meaning if you try to drag one
+         of them, it is the whole group which moves. The same if you try to delete
+         one of them, it is the whole group will be removed from the diagram.
      </para>
      <para>
          Then if you click on any free space on the diagram or if you change to another
          layer, you will loose the selection. Or if you want to add some more objects
          to your selection, simply hold down the Shift key again and click on the items
-         that you want add.
+         you want add.
      </para>
      <note>
       <para>
-         Assuming that you selected some objects on your diagram, it is still possible
+         Assuming you selected some objects on your diagram, it is still possible
          to resize one of them without changing the size or position of other selected
          objects. To learn how to resize objects see the Resizing Objects section.
          <!-- need to set up some link right here -->
       </para>
      </note>
-    </sect3>
+    </sect2>
  
-    <sect3 id="other-selection">
+    <sect2 id="other-selection">
     <title>Other Ways for Selecting Objects</title>
     <para>
        Other ways for selecting objects are describe below, all these options can be
@@ -131,7 +128,7 @@
             <para>
               Often you will have to keep your selections persistent, to do so, you
               can form an arbitrary group with the selected items or cut and paste
-              them in a new layer that will contain all the objects of your selection.
+              them in a new layer which will contain all the objects of your selection.
             </para>
             <para>
               To learn more about managing groups see the Managing Groups section, and
@@ -165,9 +162,9 @@
          </listitem>
       </varlistentry>
     </variablelist>
-    </sect3>
+    </sect2>
  
-    <sect3 id="selection-connected">
+    <sect2 id="selection-connected">
     <title>Selecting Connected Objects</title>
      <para>
        One really useful and powerful feature of <application>Dia</application> is its
@@ -180,7 +177,7 @@
      </para>
      <para>
        The second could be it is easier to manage objects that behave efficiently in
-       following established rules and that can be acceded in a few clicks.
+       following established rules and can be accessed in a few clicks.
      </para>
      <note>
       <para>                                                                                    To learn more about advantages in connecting different objects together, you
@@ -197,7 +194,7 @@
        </menuchoice> button.
      </para>
      <para>
-       If this object doesn't have any object connected to it, that will do nothing.
+       If this object doesn't have any object connected to it, it will do nothing.
        Otherwise, all the connected objects will be magicaly selected and will form
        a new group of temporary selected objects.
      </para>
@@ -211,17 +208,16 @@
         connected all together.
       </para>
      </note>
-    </sect3>
- 
-    <sect3 id="selection-transitive">
+    </sect2>
+    <sect2 id="selection-transitive">
     <title>Selecting  Transitive Objects</title>
      <para>
       Technic shown above is pretty fine when you only want select a small number of
       connected objects at the time.
      </para>
      <para>
-       Sometimes you will have to select a whole bunch of objects that are connected
-       all together and that way of selecting objects step by step won't be really
+       Sometimes you will have to select a whole bunch of objects which are connected
+       all together. This way of selecting objects step by step won't be really
        efficient if it happens to often.
      </para>
      <para>
@@ -240,17 +236,16 @@
      <para>
        And that's it, all objects that were connected to the root object you
        choose are now selected and ready to be manipulate and waiting for you to
-       apply on them any number of operation that you would like.
+       apply on them any number of operations you would like.
      </para>
-    </sect3>
- 
-    <sect3 id="selection-same-type">
+    </sect2>
+    <sect2 id="selection-same-type">
     <title>Selecting Same Type of Objects</title>                                            <para>
         <application>Dia</application> implements as well some trick to select objects
-        that issued from the same type.
+        issued from the same type.
      </para>
      <para>
-        Meaning that if, for any reason, you need to select objects matching the same
+        Meaning if, for any reason, you need to select objects matching the same
         type (all Rectangles, Lines or any custom Shape) you could do it by selecting
         an object of the type you need to select and click, in the
         <interface>Main Popup Menu</interface>, the
@@ -260,10 +255,9 @@
        </menuchoice> button.
      </para>
      <para>
-       This will automaticaly select all objects that correspond to the type you have
+       This will automaticaly select all objects which correspond to the type you have
        chosen. Only objects present in the current layer will be selected.
      </para>
-    </sect3>
    </sect2>
 </sect1>
 </chapter> 

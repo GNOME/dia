@@ -1,23 +1,21 @@
 <chapter label="1" id="quickstart-chapter">
 <title>Quickstart</title>
-<sect1 id="quickstart">
- <title>Quickstart</title>
-  <sect2 id="starting-dia">
+  <sect1 id="starting-dia">
   <title>Starting Dia</title>
    <para>
     You can start Dia by going into the Applications section on the Main Menu
     and clicking on the Dia icon.  Or, you can type <command>dia</command> in
     a xterm window.
    </para>
-  </sect2>
-  <sect2 id="quickstart-intro">
+  </sect1>
+  <sect1 id="quickstart-intro">
   <title>Quickstart Introduction</title>
    <para>
-    The Dia Quickstart is meant for the user who doesn't want to read a whole
+    The Dia Quickstart for the user who doesn't want to read a whole
     manual to make a basic diagram.
    </para>
-  </sect2>
-  <sect2 id="creating-canvas">
+  </sect1>
+  <sect1 id="creating-canvas">
   <title>Creating a Canvas</title>
    <para>
     All diagrams are drawn in their own <emphasis>canvas</emphasis>.  To
@@ -28,8 +26,8 @@
     </menuchoice>
     A new canvas window will appear.
    </para>
-  </sect2>
-  <sect2 id="making-diagram">
+  </sect1>
+  <sect1 id="making-diagram">
   <title>Making a Diagram</title>
    <para>
     A diagram is made up of objects.  Objects are shapes that can be different
@@ -47,21 +45,21 @@
     liking.
    </para>
    <para>
-    Layers are a way of creating multiple-images so that they are one image.
+    Layers create multiple-images so they are one image.
     By doing this, a user can edit one layer without worrying about affecting
     any of the other layers.
    </para>
    <para>
-    Transparency is hard at work in Dia.  Transparency allows objects to have
-    transparent parts of an object, so that anything behind the transparent
+    Transparency allows objects to have
+    transparent parts of an object, so anything behind the transparent
     section shows through.
    </para>
    <para>
     Plug-ins allow the average user to easily add new object types to Dia, to
     help extend its functionability.
    </para>
-  </sect2>
-  <sect2 id="save-print-diagram">
+  </sect1>
+  <sect1 id="save-print-diagram">
   <title>Saving and Printing Your Diagram</title>
    <para>                                                                           Saving your diagram and printing your diagram is as easy as creating and
     modifying your document.
@@ -104,8 +102,8 @@
      </listitem>
     </itemizedlist>
    </para>
-   </sect2>
-   <sect2 id="who-appeal-too">                                                     <title>Who Does Dia Appeal To?</title>
+   </sect1>
+   <sect1 id="who-appeal-too">                                                     <title>Who Does Dia Appeal To?</title>
     <para>
      Dia can appeal to many people in a variety of industries.
      <itemizedlist>
@@ -129,7 +127,6 @@
       </listitem>                                                             
      </itemizedlist>
     </para>
-   </sect2>
  </sect1>
 </chapter>                                              
 

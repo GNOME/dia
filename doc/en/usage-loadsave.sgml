@@ -1,7 +1,7 @@
 <chapter label="7" id="loadsave-chapter">
 <title>Loading and Saving Diagrams</title>
-<sect1 id="loadsave">
- <title>Loading and Saving Diagrams</title>
+<sect1 id="loadsave-intro">
+ <title>Loading and Saving Introduction</title>
   <para>
    <application>Dia</application> follows the saving model common to most
    desktop applications: you must explicitly save any canvases that you
@@ -37,8 +37,8 @@
   <application>Dia</application> from the command line with the name
    of the file to open given as an argument.
   </para>
- 
-   <sect2 id="loadsave-filetypes">
+ </sect1>
+   <sect1 id="loadsave-filetypes">
    <title>File Types</title>
     <para>
      A few words on file types are in order. You should be aware that not all
@@ -46,7 +46,7 @@
      after saving and that most supported file formats lose information to
      some degree.
     </para>
-    <sect3 id="loadsave-filetypes-dia">
+    <sect2 id="loadsave-filetypes-dia">
     <title>Native Dia Diagram Files</title>
      <para>
       The only format guaranteed to be lossless is
@@ -66,9 +66,9 @@
       <application>Dia</application> XML files are already compressed, you 
       should not try to compress them manually&mdash;it will not help.
      </para>
-    </sect3>
+    </sect2>
 <!-- Add loadsave-filestypes-dif section in future -->
-    <sect3 id="loadsave-filetypes-export">
+    <sect2 id="loadsave-filetypes-export">
     <title>Exporting: Support for Other Formats</title>
      <para>
      <application>Dia</application> supports exporting to many other types of
@@ -135,7 +135,6 @@
       <interface>save</interface> dialog. An appropriate file extension
       is automatically added.
      </para>
-    </sect3>
    </sect2>
   </sect1>
 </chapter> 

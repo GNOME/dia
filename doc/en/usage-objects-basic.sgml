@@ -1,7 +1,7 @@
 <chapter label="4" id="basic-objects-chapter">
 <title>Basic Objects</title>
-<sect1 id="basic-objects">
- <title>Basic Objects</title>
+<sect1 id="basic-objects-introduction">
+<title>Basic Objects Introduction</title>
   <para>
    The first, and most common type of object is the basic object.  Basic objects normally are geometric shapes, which can be customized.  <application>Dia</application> offers
 the user numerous basic objects.
@@ -50,7 +50,7 @@ the user numerous basic objects.
    <sect2 id="polygon">
    <title>Polygon</title>
     <para>
-     A polygon is any closed shape that is made up of straight lines.  The
+     A polygon is any closed shape made up of straight lines.  The
      polygon tool, allows the user to draw any shape with all straight lines.
     </para>
    </sect2>
@@ -105,9 +105,9 @@ the user numerous basic objects.
     </para>
     <para>
      To add an image, click on the image button and then add it to the canvas.
-     An object that says "Broken Image" will appear.  Double-click on that to
+     An object that says "Broken Image" will appear.  Double-click to
      open the properties.  Click on "Browse" and select your file.  Click "OK"
-     after that and then the image will be updated accordingly.
+     and then the image will be updated accordingly.
     </para>
    </sect2>
   </sect1>

@@ -35,6 +35,7 @@
       Width controls the width, in pixels, of a new diagram.
     </para>
    </listitem>
+   <listitem>
     <para>
       Height controls the height, in pixels, of a new diagram.
     </para>

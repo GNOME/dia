@@ -171,7 +171,7 @@
    <para>
     Each object has its own properties assigned to it.  They can be accessed
     by double-clicking on an object already on the canvas.  A window will appear
-    that allows you to edit numerous properties including:
+    allowing you to edit numerous properties including:
     <itemizedlist>
      <listitem>
       <para>
@@ -195,7 +195,7 @@
    </para>
    <para>
     The color control is located near the bottom of the toolbox. There are two
-    squares that make up the control.  The one on the top left is the
+    squares make up the control.  The one on the top left is the
     foreground color.  The one in the bottom right is the background color.
     To edit the colors, click on the desired box and select the color in the
     color window that appears.

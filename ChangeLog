@@ -1,3 +1,8 @@
+2001-01-23  Kevin Breit <battery841@mediaone.net>
+
+	* doc/en/*sgml: made some grammar changes and fixed a few markup bugs.
+			thanks to John Fleck!
+
 2001-01-21  Kevin Breit <battery841@mediaone.net>
 
 	* doc/en/*sgml: made just minor changes to a few lines; nothing major.

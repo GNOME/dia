@@ -1,13 +1,14 @@
 <chapter label="5" id="special-objects-chapter">
 <title>Special Objects</title>
  <sect1 id="special-objects">
- <title>Special Objects</title>
+ <title>Special Objects Introduction</title>
    <para>
      The previous discussion explained what a basic object is.  The next section
      goes a step further and teaches how to create objects, how to use pre-made
-     objects that are more detailed than just shapes, and much more!
+     objects which are more detailed than just shapes, and much more!
    </para>
-   <sect2 id="special-object-categories">
+ </sect1>
+   <sect1 id="special-object-categories">
    <title>Special Object Categories</title>
      <para>
        Special objects are broken into different categories.  This way, someone
@@ -105,7 +106,7 @@
            <term>Sybase</term>
            <listitem>
              <para>
-               Designs diagrams that display the flow of a Sybase computer
+               Designs diagrams display the flow of a Sybase computer
                network.
              </para>
            </listitem>
@@ -122,12 +123,11 @@
            <term>Pnumatic/Hydraulic</term>
            <listitem>
              <para>
-               Allows diagraming of a device that employes hydraulics.
+               Allows diagraming of a device which employes hydraulics.
              </para>
            </listitem>
          </varlistentry>
        </variablelist>
      </para> 
-   </sect2>
  </sect1>
 </chapter>                   

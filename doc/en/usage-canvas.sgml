@@ -1,16 +1,14 @@
 <chapter label="2" id="canvas-chapter">
 <title>The Canvas</title>
  <sect1 id="canvas">
- <title>The Canvas</title>
-  <sect2 id="canvas-introduction">
   <title>Canvas Introduction</title>
    <para>
     The canvas is the main part of Dia.  The Dia canvas is the window where all
     the user's objects will be placed on the screen and arranged.  When the
     diagram is printed or saved, the contents of the canvas will be saved.
    </para>
-  </sect2>
-  <sect2 id="gridlines">
+  </sect1>
+  <sect1 id="gridlines">
   <title>Gridlines</title>
    <para>
     Gridlines are similar to the lines on graph paper.  They allow the user
@@ -26,20 +24,25 @@
     </menuchoice>.
     In the Grid Lines tab, the user should click on the Visible button so it says No.
    </para>
-  </sect2>
-  <sect2 id="Rulers">
+  </sect1>
+  <sect1 id="Rulers">
   <title>Rulers</title>
    <para>
     Rulers appear on the top and the left of the <application>Dia</application>
     canvas.  They show, in centimeters, how large your canvas is.
    </para>
    <para>
-    On each ruler exists an arrow.  The arrow moves on the ruler in coordination with where the mouse pointer is.  For example, if the user moves the mouse up, the vertical ruler's arrow will move up, indicating the change.  These arrows become useful when an object needs to line up exactly at a certain measurement point.
+    On each ruler exists an arrow.  The arrow moves on the ruler in coordination
+    with where the mouse pointer is.  For example, if the user moves the mouse
+    up, the vertical ruler's arrow will move up, indicating the change.  These
+    arrows become useful when an object needs to line up exactly at a certain
+    measurement point.
+	</para>
    <para>
     Rulers, unlike gridlines, cannot be removed.
    </para>
-  </sect2>
-  <sect2 id="background-color">
+  </sect1>
+  <sect1 id="background-color">
   <title>Background Color</title>
    <para>
     The background color option allows you to change what the background looks
@@ -61,16 +64,15 @@
     The gridlines will change their color automatically to stay visible if
     the background color is changed to black.
    </para>
-  </sect2>
-  <sect2 id="zooming">
+  </sect1>
+  <sect1 id="zooming">
   <title>Zooming</title>
    <para>
     The canvas can be zoomed up to 400%.  Zoom can be done by clicking on the
     magnifying glass on the toolbox and clicking on the canvas.  To zoom out,
     hold the shift button and click again on the canvas.
    </para>
-  </sect2>
- </sect1>
+  </sect1>
 </chapter>
 
 
