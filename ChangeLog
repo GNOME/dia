@@ -1,3 +1,25 @@
+2004-10-31  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/wmf/wmf.cpp : patch from Robert Ögren <gtk@roboros.com>
+	to finally fix the long lasting clipping issue, bug #85831
+	Also fixed the line style issue for printing on XP and don't 
+	miss to ReleaseDC()
+
+	* plug-ins/wmf/wmf_gdi.[hc] : added ReleaseDC()
+
+	* plug-ins/python/diasvg.py : filter illegal characters from <text/> section
+	(e.g. &lt; instead of <), fixes bug #155697 (Duncan Palmer)
+
+	* plug-ins/python/pydia-error.[hc] : improvede exception handling to transfer 
+	some info from the console (soon gone on windoze) to message_error()
+	* plug-ins/python/pydia-render.c plug-ins/python/diamodule.c : use it.
+	Also some setlocale() hack to let Python behave as expected for LC_NUMERIC
+
+	plug-ins/python/diasvg_import.py : re.compile() only once per expression
+	and some more playing with scaling
+
+	* plug-ins/python/makefile.msc : updated
+
 2004-10-30  Hans Breuer  <hans@breuer.org>
 
         * shapes/Civil/civil_arrow_right.shape : removed

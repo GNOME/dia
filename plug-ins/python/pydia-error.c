@@ -26,6 +26,37 @@
 #include "message.h"
 
 /*
+ * A little helper to dump pythons last error info either to file only or 
+ * additional popup a message_error
+ */
+void 
+_pyerror_report_last (gboolean popup, const char* fn, const char* file, int line)
+{
+  PyObject *exc, *v, *tb, *ef;
+  char* sLoc;
+
+  if (strlen(fn) > 0)
+    sLoc = g_strdup_printf ("PyDia Error (%s):\n", fn); /* GNU_PRETTY_FUNCTION is enough */
+  else
+    sLoc = g_strdup_printf ("PyDia Error (%s:%d):\n", file, line);
+
+  PyErr_Fetch (&exc, &v, &tb);
+  PyErr_NormalizeException(&exc, &v, &tb);
+
+  ef = PyDiaError_New(sLoc, popup ? FALSE : TRUE);
+  PyFile_WriteObject (exc, ef, 0);
+  PyFile_WriteObject (v, ef, 0);
+  PyTraceBack_Print(tb, ef);
+  if (((PyDiaError*)ef)->str && popup) 
+    message_error (((PyDiaError*)ef)->str->str);
+  g_free (sLoc);
+  Py_DECREF (ef);
+  Py_XDECREF(exc);
+  Py_XDECREF(v);
+  Py_XDECREF(tb);
+}
+
+/*
  * New
  */
 PyObject* PyDiaError_New (const char* s, gboolean unbuffered)

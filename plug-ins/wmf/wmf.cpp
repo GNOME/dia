@@ -175,11 +175,9 @@ UsePen(WmfRenderer* renderer, Color* colour)
 	  }
 
 	  renderer->hPen = W32::ExtCreatePen (
-	    renderer->fnPenStyle & PS_SOLID ? renderer->fnPenStyle :
-	      (renderer->fnPenStyle & ~(PS_STYLE_MASK)) | (PS_GEOMETRIC | PS_USERSTYLE),
+	    (renderer->fnPenStyle & ~(PS_STYLE_MASK)) | (PS_GEOMETRIC | (num_dashes > 0 ? PS_USERSTYLE : 0)),
 	    renderer->nLineWidth,
-	    &logbrush, num_dashes, dashes);
-
+	    &logbrush, num_dashes, num_dashes > 0 ? dashes : 0);
 	}
 	else 
 #endif /* G_OS_WIN32 */
@@ -282,7 +280,7 @@ end_render(DiaRenderer *self)
     
 	g_free(pData);
 
-        W32::DeleteDC(hdc);
+        W32::ReleaseDC(NULL, hdc);
     } else {
         W32::RECT r = {0, 0, 0, 0};
         r.right = W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALWIDTH); 
@@ -1104,6 +1102,7 @@ export_data(DiagramData *data, const gchar *filename,
 {
     WmfRenderer *renderer;
     W32::HDC  file;
+    W32::HDC refDC;
     Rectangle *extent;
     gint len;
     double scale;
@@ -1120,11 +1119,17 @@ export_data(DiagramData *data, const gchar *filename,
     else {
         scale = floor (32000.0 / (data->extents.bottom - data->extents.top));
     }
-    bbox.right = (int)((data->extents.right - data->extents.left) * scale);
-    bbox.bottom = (int)((data->extents.bottom - data->extents.top) * scale);
+    scale /= 2; // Without this there can be some smallint overflow, dunno why
+
+    refDC = W32::GetDC(NULL);
+    
+    bbox.right = (int)((data->extents.right - data->extents.left) * scale *
+        100 * W32::GetDeviceCaps(refDC, HORZSIZE) / W32::GetDeviceCaps(refDC, HORZRES));
+    bbox.bottom = (int)((data->extents.bottom - data->extents.top) * scale *
+        100 * W32::GetDeviceCaps(refDC, VERTSIZE) / W32::GetDeviceCaps(refDC, VERTRES));
 
     file = (W32::HDC)W32::CreateEnhMetaFile(
-                    W32::GetDC(NULL), // handle to a reference device context
+                    refDC, // handle to a reference device context
 #ifdef SAVE_EMF
                     filename, // pointer to a filename string
 #else
@@ -1152,16 +1157,16 @@ export_data(DiagramData *data, const gchar *filename,
     /* calculate offsets */
     renderer->xoff = - data->extents.left;
     renderer->yoff = - data->extents.top;
-    renderer->scale = scale / 25.4; /* don't know why this is required ... */
-
+    renderer->scale = scale;
+    
     /* initialize placeable header */
     /* bounding box in twips 1/1440 of an inch */
     renderer->pmh.Key = 0x9AC6CDD7;
     renderer->pmh.Handle = 0;
     renderer->pmh.Left   = 0;
     renderer->pmh.Top    = 0;
-    renderer->pmh.Right  = (gint16)(SC(data->extents.right - data->extents.left) * 25.4);
-    renderer->pmh.Bottom = (gint16)(SC(data->extents.bottom - data->extents.top) * 25.4);
+    renderer->pmh.Right  = (gint16)SC(data->extents.right - data->extents.left);
+    renderer->pmh.Bottom = (gint16)SC(data->extents.bottom - data->extents.top);
     renderer->pmh.Inch   = 1440 * 10;
     renderer->pmh.Reserved = 0;
 
@@ -1178,8 +1183,8 @@ export_data(DiagramData *data, const gchar *filename,
     /* bounding box in device units */
     bbox.left = 0;
     bbox.top = 0;
-    bbox.right = (int)(SC(data->extents.right - data->extents.left) * 25.4);
-    bbox.bottom = (int)(SC(data->extents.bottom - data->extents.top) * 25.4);
+    bbox.right = (int)SC(data->extents.right - data->extents.left);
+    bbox.bottom = (int)SC(data->extents.bottom - data->extents.top);
 
     /* initialize drawing */
     W32::SetBkMode(renderer->hFileDC, TRANSPARENT);
@@ -1188,8 +1193,6 @@ export_data(DiagramData *data, const gchar *filename,
                            bbox.left, bbox.top,
                            bbox.right, bbox.bottom);
 
-    renderer->scale *= 0.95; /* just a little smaller ... */
-
     /* write extents */
     DIAG_NOTE(renderer, "export_data extents %f,%f -> %f,%f\n", 
               extent->left, extent->top, extent->right, extent->bottom);
@@ -1197,6 +1200,8 @@ export_data(DiagramData *data, const gchar *filename,
     data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
     g_object_unref(renderer);
+    
+    W32::ReleaseDC (NULL, refDC);
 }
 
 static const gchar *extensions[] = { "wmf", NULL };

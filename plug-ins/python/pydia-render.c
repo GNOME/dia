@@ -20,6 +20,7 @@
 #include <config.h>
 #include <glib.h>
 
+#include <locale.h>
 
 #include "intl.h"
 #include "message.h"
@@ -61,7 +62,8 @@ struct _DiaPyRenderer
 
   char*     filename;
   PyObject* self; 
-  PyObject* diagram_data; 
+  PyObject* diagram_data;
+  char*     old_locale;
 };
 
 struct _DiaPyRendererClass
@@ -80,6 +82,8 @@ begin_render(DiaRenderer *renderer, DiagramData *data)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
+  DIA_PY_RENDERER(renderer)->old_locale = setlocale(LC_NUMERIC, "C");
+
   func = PyObject_GetAttrString (self, "begin_render");
   if (func && PyCallable_Check(func)) {
     Py_INCREF(self);
@@ -89,7 +93,7 @@ begin_render(DiaRenderer *renderer, DiagramData *data)
                          DIA_PY_RENDERER(renderer)->filename);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF (func);
@@ -107,13 +111,15 @@ end_render(DiaRenderer *renderer)
     Py_INCREF(self);
     Py_INCREF(func);
     res = PyEval_CallObject (func, (PyObject *)NULL);
-    ON_RES(res);
+    ON_RES(res, FALSE);
     Py_DECREF(func);
     Py_DECREF(self);
   }
 
   Py_DECREF (DIA_PY_RENDERER(renderer)->diagram_data);
   g_free (DIA_PY_RENDERER(renderer)->filename);
+
+  setlocale(LC_NUMERIC, DIA_PY_RENDERER(renderer)->old_locale);
 }
 
 static void
@@ -128,7 +134,7 @@ set_linewidth(DiaRenderer *renderer, real linewidth)
     arg = Py_BuildValue ("(d)", linewidth);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -161,7 +167,7 @@ set_linecaps(DiaRenderer *renderer, LineCaps mode)
     arg = Py_BuildValue ("(i)", mode);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -194,7 +200,7 @@ set_linejoin(DiaRenderer *renderer, LineJoin mode)
     arg = Py_BuildValue ("(i)", mode);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -232,7 +238,7 @@ set_linestyle(DiaRenderer *renderer, LineStyle mode)
     arg = Py_BuildValue ("(i)", mode);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -254,7 +260,7 @@ set_dashlength(DiaRenderer *renderer, real length)
     arg = Py_BuildValue ("(d)", length);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -283,7 +289,7 @@ set_fillstyle(DiaRenderer *renderer, FillStyle mode)
     arg = Py_BuildValue ("(i)", mode);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -305,7 +311,7 @@ set_font(DiaRenderer *renderer, DiaFont *font, real height)
     arg = Py_BuildValue ("(Od)", PyDiaFont_New (font), height);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -331,7 +337,7 @@ draw_line(DiaRenderer *renderer,
                                   PyDiaColor_New (line_colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -356,7 +362,7 @@ draw_polyline(DiaRenderer *renderer,
                                  PyDiaColor_New (line_colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -381,7 +387,7 @@ draw_polygon(DiaRenderer *renderer,
                                  PyDiaColor_New (line_colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -406,7 +412,7 @@ fill_polygon(DiaRenderer *renderer,
                                  PyDiaColor_New (colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -431,7 +437,7 @@ draw_rect(DiaRenderer *renderer,
                                  PyDiaColor_New (colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -456,7 +462,7 @@ fill_rect(DiaRenderer *renderer,
                                  PyDiaColor_New (colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -484,7 +490,7 @@ draw_arc(DiaRenderer *renderer,
                                      PyDiaColor_New (colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -512,7 +518,7 @@ fill_arc(DiaRenderer *renderer,
                                      PyDiaColor_New (colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -539,7 +545,7 @@ draw_ellipse(DiaRenderer *renderer,
                                    PyDiaColor_New (colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -566,7 +572,7 @@ fill_ellipse(DiaRenderer *renderer,
                                    PyDiaColor_New (colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -592,7 +598,7 @@ draw_bezier(DiaRenderer *renderer,
                                  PyDiaColor_New (colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -618,7 +624,7 @@ fill_bezier(DiaRenderer *renderer,
                                  PyDiaColor_New (colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -658,7 +664,7 @@ draw_string(DiaRenderer *renderer,
                                    PyDiaColor_New (colour));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -685,7 +691,7 @@ draw_image(DiaRenderer *renderer,
                                    PyDiaImage_New (image));
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF(func);

@@ -238,6 +238,9 @@ typedef struct _MetaFileDeviceContext
 
 HDC GetDC(void* hwnd);
 
+BOOL
+ReleaseDC(void* hwnd, HDC);
+
 HGDIOBJ
 SelectObject(HDC hdc, HGDIOBJ hobj);
 

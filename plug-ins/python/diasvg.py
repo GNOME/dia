@@ -1,5 +1,5 @@
 #  PyDia SVG Renderer
-#  Copyright (c) 2003, Hans Breuer <hans@breuer.org>
+#  Copyright (c) 2003, 2004 Hans Breuer <hans@breuer.org>
 #
 #  A full blown SVG(Z) renderer. As of this writing less bugs in the output
 #  than the Dia SVG renderer written in C
@@ -18,7 +18,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys, dia
+import sys, string, dia
 
 class SvgRenderer :
 	def __init__ (self) :
@@ -158,6 +158,9 @@ class SvgRenderer :
 		fweight = (400, 200, 300, 500, 600, 700, 800, 900) [(self.font.style  >> 4)  & 0x7]
 		self.f.write('<text x="%.3f" y="%.3f"  fill="%s" text-anchor="%s" font-size="%.2f" font-family="%s" font-style="%s" font-weight="%d">\n' \
 			% (pos.x, pos.y, self._rgb(color), talign, self.font_size, self.font.family, fstyle,  fweight))
+		# avoid writing XML special characters (ampersand must be first to not break the rest)
+		for rep in [('&', '&amp;'), ('<', '&lt;'), ('>', '&gt;'), ('"', '&quot;'), ("'", '&apos;')] :
+			text = string.replace (text, rep[0], rep[1])
 		self.f.write(text)
 		self.f.write('</text>\n')
 	def draw_image (self, point, width, height, image) :
@@ -171,7 +174,7 @@ class SvgRenderer :
 		return rgb
 	def _stroke_style(self) :
 		# return the current line style as svg string
-		dashlen = self.dash_length
+		dashlen =self.dash_length
 		# dashlen/style interpretation like the DiaGdkRenderer
 		dotlen = dashlen * 0.1
 		caps = self.line_caps

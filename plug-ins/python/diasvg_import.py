@@ -6,7 +6,8 @@
 #  SVG importer written in C, but as long as PyDia has issues 
 #  this will _not_ be the case. Known issues (at least) :
 #  - xlink stuff (should probably have some StdProp equivalent)
-#  - some lack of transformation dealing
+#  - lack of full transformation dealing
+#  - real percentage scaling, is it woth it ? 
 #  - see FIXME in this file
 
 #    This program is free software; you can redistribute it and/or modify
@@ -23,14 +24,26 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import string, math, os
+import string, math, os, re
 
 # Dias unit is cm, the default scale should be determined from svg:width and viewBox
-dfUserScale = 0.05
+dfPcm = 35.43307
+dfUserScale = 1.0
+dfFontSize = 0.7
+dfViewLength = 32.0 # wrong approach for "% unit" 
 dictUnitScales = {
-	"em" : 3.0, "ex" : 3.0, #FIXME: these should be _relative_ to current font
-	"px" : 1.0, "pt" : 0.0352778, "pc" : 0.4233333, 
-	"cm" : 1.0, "mm" : 10.0, "in" : 25.4}
+	"em" : 1.0, "ex" : 2.0, #FIXME these should be _relative_ to current font
+	"px" : 1.0 / dfPcm, "pt" : 1.25 / dfPcm, "pc" : 15.0 / dfPcm, 
+	"cm" : 35.43307 / dfPcm, "mm" : 3.543307 / dfPcm, "in" : 90.0 / dfPcm}
+
+# only compile once
+rColor = re.compile(r"rgb\s*\(\s*(\d+)[, ]+(\d+)[, +](\d+)\s*\)")
+# not really parsing numbers (Scaled will deal with more)
+rTranslate = re.compile(r"translate\s*\(\s*([^,]+),([^)]+)\s*\)")
+#FIXME: parse more - e.g. AQT - of the strange path data
+rPathWhat = re.compile("[MmLlCcSsZz]")   # what
+rPathData = re.compile("[^MmLlCcSsZz]+") # data
+rPathValue = re.compile("[\s,]+") # values
 
 def Scaled(s) :
 	# em, ex, px, pt, pc, cm, mm, in, and percentages
@@ -40,16 +53,20 @@ def Scaled(s) :
 	else :
 		unit = s[-2:]
 		try :
-			return float(s[:-2]) * dictUnitScales[unit]
+			if unit[0] == "e" :
+				#print "Scaling", unit, dfFontSize
+				return float(s[:-2]) * dfFontSize * dictUnitScales[unit]
+			else :
+				return float(s[:-2]) * dictUnitScales[unit]
 		except :
+			if s[-1] == "%" :
+				return float(s[:-1]) * dfViewLength / 100.0
 			# warn about invalid unit ??
 			print "Unknown unit", s[:-2], s[-2:]
 			return float(s) * dfUserScale
 def Color(s) :
 	# deliver a StdProp compatible Color (or the original string)
-	import re
-	r = re.compile(r"rgb\s*\(\s*(\d+)[, ]+(\d+)[, +](\d+)\s*\)")
-	m = r.match(s)
+	m = rColor.match(s)
 	if m :
 		return (int(m.group(1)) / 255.0, int(m.group(2)) / 255.0, int(m.group(2)) / 255.0)
 	# any more ugly color definitions not compatible with pango_color_parse() ?
@@ -89,8 +106,12 @@ class Object :
 		sp = string.split(s,",")
 		n = len(sp)
 		if n > 0 :
-			dlen = Scaled(sp[0])
-  		if n == 0 : # can't really happen
+			# sp[0] == "none" : # ? stupid generator ?
+			try :
+				dlen = Scaled(sp[0])
+			except :
+				n = 0
+		if n == 0 : # should not really happen
 			self.props["line-style"] = (0, 1.0) # LINESTYLE_SOLID,
 		elif n == 2 : 
 			if dlen > 0.1 : # FIXME:  
@@ -105,10 +126,7 @@ class Object :
 		# just to handle/ignore it
 		self.props["id"] = s
 	def transform(self, s) :
-		import re
-		# not really parsing numbers (Scaled will deal with more)
-		r = re.compile(r"translate\s*\(\s*([^,]+),([^)]+)\s*\)")
-		m = r.match(s)
+		m = rTranslate.match(s)
 		if m :
 			#print "matched", m.group(1), m.group(2), "->", Scaled(m.group(1)), Scaled(m.group(2))
 			self.translation = (Scaled(m.group(1)), Scaled(m.group(2)))
@@ -120,15 +138,14 @@ class Object :
 		pass
 	def ApplyProps(self, o) :
 		pass
+	def CopyProps(self, dest) :
+		# to be used to inherit group props to childs _before_ they get their own
+		# doesn't use the member functions to avoid scaling once more
+		for p in self.props.keys() :
+			dest.props[p] = self.props[p]
 	def Create(self) :
 		ot = dia.get_object_type (self.dt)
 		o, h1, h2 = ot.create(self.props["x"], self.props["y"])
-		# apply props from style
-		if self.props.has_key("class") :
-			cl = self.props["class"]
-			st = cssStyle.Lookup(cl)
-			print "applying style", cl, st
-			self.style(st)
 		# apply common props
 		if self.props.has_key("stroke-width") and o.properties.has_key("line_width") :
 			o.properties["line_width"] = self.props["stroke-width"]
@@ -186,6 +203,7 @@ class Svg(Object) :
 		dfUserScale = d
 	def viewBox(self,s) :
 		global dfUserScale
+		global dfViewLength
 		self.props["viewBox"] = s
 		sp = string.split(s, " ")
 		w = float(sp[2]) - float(sp[0])
@@ -198,6 +216,8 @@ class Svg(Object) :
 			dfUserScale = self.bbox_w / w
 		elif self.bbox_h :
 			dfUserScale = self.bbox_h / h
+		# FIXME: ugly, simple aproach to "%" unit
+		dfViewLength = math.sqrt(w*h)
 	def xmlns(self,s) :
 		self.props["xmlns"] = s
 	def version(self,s) :
@@ -267,10 +287,13 @@ class Group(Object) :
 		if len(lst) > 0 :
 			grp = dia.group_create(lst)
 			if self.translation :
+				# want to move by top left corner ...
+				hNW = grp.handles[0] # HANDLE_RESIZE_NW
+				# ... but pos is the point moved
 				pos = grp.properties["obj_pos"].value
 				#FIXME:  looking at scascale.py this isn't completely correct
-				x1 = pos.x + self.translation[0]
-				y1 = pos.y + self.translation[1]
+				x1 = hNW.pos.x + self.translation[0]
+				y1 = hNW.pos.y + self.translation[1]
 				grp.move(x1, y1)
 			return grp
 		else :
@@ -279,14 +302,6 @@ class Group(Object) :
 		print " " * indent, self
 		for o in self.childs :
 			o.Dump(indent + 1)
-	def CopyProps(self, dest) :
-		# to be used to inherit group props to childs _before_ they get their own
-		for p in self.props.keys() :
-			sf = "dest." + string.replace(p, "-", "_") + "(\"" + str(self.props[p]) + "\")"
-			try : # accessor first
-				eval(sf)
-			except :
-				dest.props[p] = self.props[p]
 
 # One of my test files is quite ugly (produced by Batik) : it dumps identical image data 
 # multiple times into the svg. This directory helps to reduce them to the necessary
@@ -353,30 +368,26 @@ class Path(Object) :
 	def d(self, s) :
 		self.props["data"] = s
 		#FIXME: parse more - e.g. AQT - of the strange path data
-		import re
-		rw = re.compile("[MmLlCcSsz]")   # what
-		rd = re.compile("[^MmLlCcSsz]+") # data
-		rv = re.compile("[\s,]+") # values
-		spd = rw.split(s)
-		spw = rd.split(s)
+		spd = rPathWhat.split(s)
+		spw = rPathData.split(s)
 		i = 1
 		# current point
 		xc = 0.0; yc = 0.0 # the current or second control point - ugly svg states ;(
 		for s1 in spw :
 			k = 0 # range further adjusted for last possibly empty -k-1
 			if s1 == "M" : # moveto
-				sp = rv.split(spd[i])
+				sp = rPathValue.split(spd[i])
 				if sp[0] == "" : k = 1
 				xc = Scaled(sp[k]); yc = Scaled(sp[k+1])
 				self.pts.append((0, xc, yc))
 			elif s1 == "L" : #lineto
-				sp = rv.split(spd[i])
+				sp = rPathValue.split(spd[i])
 				if sp[0] == "" : k = 1
 				for j in range(k, len(sp)-k-1, 2) :
 					xc = Scaled(sp[j]); yc = Scaled(sp[j+1])
 					self.pts.append((1, xc, yc))
 			elif s1 == "C" : # curveto
-				sp = rv.split(spd[i])
+				sp = rPathValue.split(spd[i])
 				if sp[0] == "" : k = 1
 				for j in range(k, len(sp)-k-1, 6) :
 					self.pts.append((2, Scaled(sp[j]), Scaled(sp[j+1]), 
@@ -386,7 +397,7 @@ class Path(Object) :
 					xc =2 * Scaled(sp[j+4]) - Scaled(sp[j+2])
 					yc =2 * Scaled(sp[j+5]) - Scaled(sp[j+3])
 			elif s1 == "S" : # smooth curveto
-				sp = rv.split(spd[i])
+				sp = rPathValue.split(spd[i])
 				if sp[0] == "" : k = 1
 				for j in range(k, len(sp)-k-1, 4) :
 					x = Scaled(sp[j+2])
@@ -397,7 +408,7 @@ class Path(Object) :
 									x1, y1,
 									x, y))
 					xc = 2 * x - x1; yc = 2 * y - y1
-			elif s1 == "z" : # close
+			elif s1 == "z" or s1 == "Z" : # close
 				self.dt = "Standard - Beziergon"
 			elif s1 == "" : # too much whitespaces ;-)
 				pass
@@ -476,7 +487,7 @@ class Text(Object) :
 	def __init__(self) :
 		Object.__init__(self)
 		self.dt = "Standard - Text"
-		self.props["font-size"] = 2.0
+		self.props["font-size"] = 1.0
 		# text_font, text_height, text_color, text_alignment
 	def Set(self, d) :
 		if self.props.has_key("text") :
@@ -486,6 +497,11 @@ class Text(Object) :
 	def text_anchor(self,s) :
 		self.props["text-anchor"] = s
 	def font_size(self,s) :
+		global dfFontSize
+		# ugh, just maintain another global state
+		if s[-2:-1] != "e" : # FIXME ???
+			dfFontSize = Scaled(s)
+			print "FontSize is", dfFontSize
 		self.props["font-size"] = Scaled(s)
 		# ?? self.props["y"] = self.props["y"] - Scaled(s)
 	def font_weight(self, s) :
@@ -560,6 +576,16 @@ class Importer :
 			if 'g' == name :
 				o = Group()
 				stack.append(o)
+			elif 'tspan' == name :
+				#FIXME: to take all the style coming with it into account 
+				# Dia would need to support layouted text ...
+				txn, txo = ctx[-1]
+				if attrs.has_key("dy") :
+					txo.Set("" + "\n") # just a new line (best we can do?)
+				elif attrs.has_key("dx") :
+					txo.Set(" ")
+				ctx.append((txn, txo)) #push the same object
+				return
 			else :
 				s = string.capitalize(name) + "()"
 				try :
@@ -570,6 +596,8 @@ class Importer :
 				grp.CopyProps(o)
 			for a in attrs :
 				if a == "class" : # eeek : keyword !
+					st = cssStyle.Lookup(attrs[a])
+					o.style(st)
 					o.props[a] = attrs[a]
 					continue
 				ma = string.replace(a, "-", "_")

@@ -415,6 +415,11 @@ HDC GetDC(void* hwnd)
   return NULL; 
 }
 
+BOOL ReleaseDC (void* hwnd, HDC hdc)
+{
+  return FALSE;
+}
+
 UINT
 GetACP() 
 { 

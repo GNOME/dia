@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <Python.h>
+#include <locale.h>
 
 #include "pydia-diagram.h"
 #include "pydia-display.h"
@@ -247,6 +248,8 @@ gboolean
 PyDia_import_data (const gchar* filename, DiagramData *dia, void *user_data)
 {
     PyObject *diaobj, *res, *arg, *func = user_data;
+    char* old_locale;
+
     if (!func || !PyCallable_Check (func)) {
         message_error ("Import called without valid callback function.");
         return FALSE;
@@ -260,15 +263,20 @@ PyDia_import_data (const gchar* filename, DiagramData *dia, void *user_data)
       
     Py_INCREF(func);
 
+    /* Python tries to guarantee this, make it work for these plugins too */
+    old_locale = setlocale(LC_NUMERIC, "C");
+
     arg = Py_BuildValue ("(sO)", filename, diaobj);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, TRUE);
     }
     Py_XDECREF (arg);
 
     Py_DECREF(func);
     Py_XDECREF(diaobj);
+
+    setlocale(LC_NUMERIC, old_locale);
 
     return !!res;
 }
@@ -327,7 +335,7 @@ PyDia_callback_func (DiagramData *dia, guint flags, void *user_data)
     arg = Py_BuildValue ("(Oi)", diaobj, flags);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res);
+      ON_RES(res, TRUE);
     }
     Py_XDECREF (arg);
 
@@ -403,7 +411,7 @@ static PyMethodDef dia_methods[] = {
     { NULL, NULL }
 };
 
-void initdia(void);
+DL_EXPORT(void) initdia(void);
 
 DL_EXPORT(void)
 initdia(void)
