@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-09 18:43+0200\n"
-"PO-Revision-Date: 2004-10-10 00:13+0200\n"
+"POT-Creation-Date: 2004-10-14 10:42+0200\n"
+"PO-Revision-Date: 2004-10-14 14:18+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -806,7 +806,7 @@ msgstr "Data s hodnotou NULL v tool_select_update"
 msgid "No sheet named %s"
 msgstr "Neexistuje list nazvaný %s"
 
-#: app/interface.c:1046
+#: app/interface.c:1047
 msgid "Other sheets"
 msgstr "Ostatní listy"
 
@@ -2288,15 +2288,15 @@ msgstr ""
 "Nelze otevřít `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:814
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:605
 msgid "Left"
 msgstr "Vlevo"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:820
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:611
 msgid "Center"
 msgstr "Uprostřed"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:826
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:617
 msgid "Right"
 msgstr "Vpravo"
 
@@ -2360,61 +2360,69 @@ msgstr "Barva výplně"
 msgid "Text colour"
 msgstr "Barva textu"
 
-#: lib/widgets.c:418
-msgid "Other fonts..."
-msgstr "Jiná písma..."
+#: lib/widgets.c:356
+msgid "Other fonts"
+msgstr "Jiná písma"
 
-#: lib/widgets.c:545
+#: lib/widgets.c:426
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Nelze nalézt rodinu písma pro %s\n"
 
-#. We hit the Other fonts... entry
-#: lib/widgets.c:610
-msgid "Select font"
-msgstr "Vyberte písmo"
-
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:962 objects/FS/function.c:1063
+#: lib/widgets.c:753 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Nepřerušovaná"
 
-#: lib/widgets.c:968
+#: lib/widgets.c:759
 msgid "Dashed"
 msgstr "Čárkovaná"
 
-#: lib/widgets.c:974
+#: lib/widgets.c:765
 msgid "Dash-Dot"
 msgstr "Čárka - tečka"
 
-#: lib/widgets.c:980
+#: lib/widgets.c:771
 msgid "Dash-Dot-Dot"
 msgstr "Čárka - tečka - tečka"
 
-#: lib/widgets.c:986
+#: lib/widgets.c:777
 msgid "Dotted"
 msgstr "Tečkovaná"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:1005
+#: lib/widgets.c:796
 msgid "Dash length: "
 msgstr "Délka čárky:"
 
-#: lib/widgets.c:1160
+#: lib/widgets.c:924
 msgid "Select color"
 msgstr "Vyberte barvu"
 
-#: lib/widgets.c:1378
+#: lib/widgets.c:951
+msgid "More colors..."
+msgstr "Další barvy..."
+
+#: lib/widgets.c:1067
+msgid "More arrows"
+msgstr "Další šipky"
+
+#: lib/widgets.c:1080
 msgid "Size: "
 msgstr "Velikost: "
 
-#: lib/widgets.c:1527
+#: lib/widgets.c:1223
 msgid "Select image file"
 msgstr "Vyberte soubor s obrázkem"
 
-#: lib/widgets.c:1563
+#: lib/widgets.c:1259
 msgid "Browse"
 msgstr "Probírat"
+
+# ???
+#: lib/widgets.c:1850
+msgid "Reset menu"
+msgstr "Vynulovat menu"
 
 #: objects/ER/attribute.c:153
 msgid "Key:"
@@ -8070,6 +8078,9 @@ msgstr "Datový server Sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Replikační server Sybase"
+
+#~ msgid "Select font"
+#~ msgstr "Vyberte písmo"
 
 #~ msgid "Diagram editor"
 #~ msgstr "Editor diagramů"
