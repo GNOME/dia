@@ -46,6 +46,7 @@ lib/dialibartrenderer.c
 lib/dia_xml.c
 lib/filter.c
 lib/font.c
+lib/diagtkfontsel.c
 lib/message.c
 lib/object_defaults.c
 lib/plug-ins.c
@@ -56,6 +57,7 @@ lib/prop_inttypes.c
 lib/prop_widgets.c
 lib/text.c
 lib/widgets.c
+objects/bondgraph/bondgraph.c
 objects/chronogram/chronogram.c
 objects/chronogram/chronoline.c
 objects/chronogram/chronoref.c
