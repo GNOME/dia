@@ -1356,7 +1356,6 @@ msgid "User Interface"
 msgstr "Interface utilisateur"
 
 #: app/preferences.c:116
-#, fuzzy
 msgid "Diagram Defaults"
 msgstr "Menu des diagrammes"
 
@@ -1389,12 +1388,10 @@ msgstr ""
 "tous les objets ayant une intersection avec lui :"
 
 #: app/preferences.c:138
-#, fuzzy
 msgid "New diagram:"
 msgstr "_Nouveau diagramme"
 
 #: app/preferences.c:139
-#, fuzzy
 msgid "Paper type:"
 msgstr "Type de message :"
 
@@ -1606,14 +1603,11 @@ msgstr ""
 #: lib/font.c:517
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
-msgstr "Avertissement: FreeType a été demandée, mais la bibliothèque ne se charge pas: %d"
+msgstr "Avertissement: FreeType a été demandée, mais la bibliothèque ne se charge pas: %d\n"
 
 #: lib/font.c:526
-#, fuzzy
 msgid "Warning: No X fonts found.  The world is ending."
-msgstr ""
-"Avertissement : Pas de police X trouvée pour %s, \n"
-"utilisation de %s à la place.\n"
+msgstr "Avertissement : Pas de police X trouvée. C'est la fin du monde."
 
 #: lib/font.c:612 lib/font.c:637
 #, c-format
