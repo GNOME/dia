@@ -1,5 +1,5 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998 Alexander Larsson
+ * Copyright (C) 1998,1999 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,10 @@
 #include <glib.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include <tree.h>
+
 #include "utils.h"
 #include "dia_xml.h"
 #include "message.h"
@@ -293,6 +296,7 @@ data_string(DataNode data)
 {
   const char *val;
   char *str, *p;
+  int len;
   
   if (data_type(data)!=DATATYPE_STRING) {
     message_error("Taking string value of non-string node.");
@@ -300,40 +304,59 @@ data_string(DataNode data)
   }
 
   val = xmlGetProp(data, "val");
-
-  if (val == NULL) {
-    return NULL;
-  }
-  
-  str  = g_malloc(sizeof(char)*(strlen(val)+1));
-
-  p = str;
-  while (*val) {
-    if (*val == '\\') {
-      val++;
-      switch (*val) {
-      case '0':
-	/* Just skip this. \0 means nothing */
-	break;
-      case 'n':
-	*p++ = '\n';
-	break;
-      case 't':
-	*p++ = '\t';
-	break;
-      case '\\':
-	*p++ = '\\';
-	break;
-      default:
-	message_error("Error in string tag.");
+  if (val != NULL) { /* Old kind of string. Left for backwards compatibility */
+    str  = g_malloc(sizeof(char)*(strlen(val)+1));
+    
+    p = str;
+    while (*val) {
+      if (*val == '\\') {
+	val++;
+	switch (*val) {
+	case '0':
+	  /* Just skip this. \0 means nothing */
+	  break;
+	case 'n':
+	  *p++ = '\n';
+	  break;
+	case 't':
+	  *p++ = '\t';
+	  break;
+	case '\\':
+	  *p++ = '\\';
+	  break;
+	default:
+	  message_error("Error in string tag.");
+	}
+      } else {
+	*p++ = *val;
       }
-    } else {
-      *p++ = *val;
+      val++;
     }
-    val++;
+    *p = 0;
+    return str;
   }
-  *p = 0;
-  return str;
+
+  if (data->childs!=NULL) {
+    p = xmlNodeListGetString(data->doc, data->childs, TRUE);
+
+    if (*p!='#')
+      message_error("Error in file, string not starting with #\n");
+    
+    len = strlen(p)-1; /* Ignore first '#' */
+      
+    str = g_malloc(len+1);
+
+    strncpy(str, p+1, len);
+    str[len]=0; /* For safety */
+
+    str[strlen(str)-1] = 0; /* Remove last '#' */
+    
+    free(p);
+
+    return str;
+  }
+    
+  return NULL;
 }
 
 Font *
@@ -479,44 +502,88 @@ data_add_rectangle(AttributeNode attr, Rectangle *rect)
 
 }
 
+static int
+escaped_str_len(char *str)
+{
+  int len;
+  char c;
+  
+  if (str==NULL)
+    return 0;
+  
+  len = 0;
+
+  while ((c=*str++) != 0) {
+    switch (c) {
+    case '&':
+      len += 5; /* "&amp;" */
+      break;
+    case '<':
+    case '>':
+      len += 4; /* "&lt;" or "&gt;" */
+      break;
+    default:
+      len++;
+    }
+  }
+  
+  return len;
+}
+
+static void
+escape_string(char *buffer, char *str)
+{
+  int len;
+  char c;
+  
+  *buffer = 0;
+  
+  if (str==NULL) 
+    return;
+  
+  len = 0;
+
+  while ((c=*str++) != 0) {
+    switch (c) {
+    case '&':
+      strcpy(buffer, "&amp;");
+      buffer += 5;
+      break;
+    case '<':
+      strcpy(buffer, "&lt;");
+      buffer += 4;
+      break;
+    case '>':
+      strcpy(buffer, "&gt;");
+      buffer += 4;
+     break;
+    default:
+      *buffer = c;
+      buffer++;
+    }
+  }
+  *buffer = 0;
+}
+
 void
 data_add_string(AttributeNode attr, char *str)
 {
   DataNode data_node;
-  char *str2, *p;
+  char *escaped_str;
+  int len;
 
-  data_node = xmlNewChild(attr, NULL, "string", NULL);
-  
   if (str==NULL) {
-    /* No val if NULL */
+    data_node = xmlNewChild(attr, NULL, "string", NULL);
   } else {
-    str2 = g_malloc(strlen(str)*2+1);
-
-    p = str2;
-    while (*str) {
-      switch (*str) {
-      case '\\': 
-	*p++ = '\\';
-	*p++ = '\\';
-	break;
-      case '\n':
-	*p++ = '\\';
-	*p++ = 'n';
-	break;
-      case '\t':
-	*p++ = '\\';
-	*p++ = 't';
-	break;
-      default:
-	*p++ = *str;
-      }
-      str++;
-    }
-    *p = 0;
-
-    xmlSetProp(data_node, "val", str2);
-
-    g_free(str2);
+    len = 2+escaped_str_len(str);
+    escaped_str = g_malloc(len+1);
+    *escaped_str='#';
+    escape_string(escaped_str+1, str);
+    strcat(escaped_str, "#");
+    
+    data_node = xmlNewChild(attr, NULL, "string", escaped_str);
+  
+    g_free(escaped_str);
   }
 }
 
