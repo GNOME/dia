@@ -1,6 +1,6 @@
 [Desktop Entry]
 _Name=Dia
-_Comment=A Diagram Editor
+_Comment=Diagram editor
 Exec=dia
 Icon=dia_gnome_icon.png
 Terminal=0

@@ -1,5 +1,8 @@
 2002-07-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* dia.desktop.in (_Comment): Changed after suggestion from
+	calum.benson@ireland.sun.com (bug 88345)
+
 	* app/sheets_dialog_callbacks.c: Fix from Dolores Alia de Saravia
 	<loli@unsa.edu.ar> that makes user/system distinction better.
 
