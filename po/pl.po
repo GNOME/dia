@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-15 23:35+0200\n"
-"PO-Revision-Date: 2003-07-04 12:00+0100\n"
+"POT-Creation-Date: 2003-07-28 00:08+0200\n"
+"PO-Revision-Date: 2003-07-28 00:06+0100\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -118,6 +118,9 @@ msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
+"To nie powinno się wydarzyć. Prześlij raport o błędzie na do\n"
+"bugzilla.gnome.org, opisując co spowodowało pojawienie się tego\n"
+"komunikatu. (w języku angielskim)\n"
 
 #. no standard buttons
 #: app/app_procs.c:561
@@ -136,15 +139,15 @@ msgstr "Zakończ pracę z Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:618
+#: app/app_procs.c:620
 msgid "Thank you for using Dia.\n"
-msgstr ""
+msgstr "Dziękujemy za korzystanie z Dia.\n"
 
-#: app/app_procs.c:632 app/app_procs.c:639
+#: app/app_procs.c:634 app/app_procs.c:641
 msgid "Could not create per-user Dia config directory"
 msgstr "Nie można utworzyć katalogu użytkownika z konfiguracją Dia"
 
-#: app/app_procs.c:641
+#: app/app_procs.c:643
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -152,7 +155,7 @@ msgstr ""
 "Nie można utworzyć katalogu konfiguracyjnego Dia dla użytkownika. Upewnij "
 "się czy zmienna środowiskowa HOME wskazuje na istniejący katalog."
 
-#: app/app_procs.c:663 app/diaconv.c:249
+#: app/app_procs.c:665 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Wewnętrzne obiekty i filtry Dia"
 
@@ -235,7 +238,7 @@ msgstr "Dia, wersja %s. Autor: Alexander Larsson"
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
 #: app/commands.c:641
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
-msgstr "Opiekunowie: Lars Clausen and Cyrille Chepelov"
+msgstr "Opiekunowie: Lars Clausen i Cyrille Chepelov"
 
 #: app/commands.c:645
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
@@ -488,13 +491,19 @@ msgstr "Widzialne odstępy"
 msgid "Grid"
 msgstr "Siatka"
 
-#: app/dia-props.c:155
+#: app/dia-props.c:156
 msgid "Background Colour"
 msgstr "Kolor tła"
 
-#: app/dia-props.c:166 lib/diagramdata.c:58
+#: app/dia-props.c:167 lib/diagramdata.c:58
 msgid "Background"
 msgstr "Tło"
+
+#. Can we be sure that the filename is the 'proper title'?
+#: app/dia-props.c:185
+#, c-format
+msgid "Diagram Properties: %s"
+msgstr "Właściwości diagramu: %s"
 
 #: app/disp_callbacks.c:77 app/properties.c:141
 msgid ""
@@ -508,21 +517,23 @@ msgstr ""
 msgid "No object menu"
 msgstr "Brak menu obiektu"
 
-#: app/disp_callbacks.c:820
+#: app/disp_callbacks.c:830
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
 msgstr ""
+"Upuszczony obiekt nie pasuje do swojego obiektu nadrzędnego.\n"
+"Rozwiń obiekt nadrzędny lub upuść obiekt gdziekolwiek."
 
 #: app/display.c:93
 msgid "Diagram modified!"
 msgstr "Diagram został zmodyfikowany!"
 
-#: app/display.c:991
+#: app/display.c:992
 msgid "<unnamed>"
 msgstr "<bez nazwy>"
 
-#: app/display.c:993
+#: app/display.c:994
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -531,11 +542,11 @@ msgstr ""
 "Diagram \"%s\"\n"
 "nie został zapisany. Czy chcesz zapisać zmiany teraz?"
 
-#: app/display.c:1004
+#: app/display.c:1005
 msgid "Close Diagram"
 msgstr "Zamknij diagram"
 
-#: app/display.c:1009
+#: app/display.c:1010
 msgid "Discard Changes"
 msgstr "Porzuć zmiany"
 
@@ -544,7 +555,7 @@ msgstr "Porzuć zmiany"
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
 #: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
-#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:87
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Nie można otworzyć pliku wyjściowego %s: %s\n"
@@ -733,23 +744,23 @@ msgstr "Krzywa Beziera"
 msgid "Image"
 msgstr "Obraz"
 
-#: app/interface.c:379
+#: app/interface.c:371
 msgid "Diagram menu."
 msgstr "Menu diagramu."
 
-#: app/interface.c:488
+#: app/interface.c:480
 msgid "Zoom"
 msgstr "Powiększenie"
 
-#: app/interface.c:502
+#: app/interface.c:494
 msgid "Toggles snap-to-grid for this window."
 msgstr "Przełącza opcję wyrównywania do siatki dla tego okna."
 
-#: app/interface.c:546
+#: app/interface.c:538
 msgid "NULL tooldata in tool_select_update"
 msgstr "Dane narzędzia o wartości NULL w tool_select_update"
 
-#: app/interface.c:1008
+#: app/interface.c:1014
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -759,7 +770,7 @@ msgstr ""
 "domyślne kolory.  Strzałki zamieniają kolory.  Podwójne kliknięcie koloru "
 "pozwala go zmienić."
 
-#: app/interface.c:1023
+#: app/interface.c:1029
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -767,7 +778,7 @@ msgstr ""
 "Szerokość linii.   Kliknij linię aby ustawić domyślną szerokość dla nowego "
 "obiektu. Podwójne kliknięcie umożliwia dokładniejszą zmianę szerokości linii."
 
-#: app/interface.c:1055
+#: app/interface.c:1061
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -775,7 +786,7 @@ msgstr ""
 "Styl strzałki dla początku nowych linii. Kliknij aby wybrać strzałkę lub "
 "ustawić parametry strzałki za pomocą opcji Szczegóły..."
 
-#: app/interface.c:1060
+#: app/interface.c:1066
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -783,7 +794,7 @@ msgstr ""
 "Styl nowych linii. Kliknij aby wybrać styl linii lub ustawić parametry stylu "
 "linii za pomocą opcji Szczegóły..."
 
-#: app/interface.c:1065
+#: app/interface.c:1071
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -791,7 +802,7 @@ msgstr ""
 "Styl strzałki dla zakończenia nowych linii. Kliknij aby wybrać strzałkę lub "
 "ustawić parametry strzałki za pomocą opcji Szczegóły..."
 
-#: app/interface.c:1169
+#: app/interface.c:1179
 msgid "Diagram Editor"
 msgstr "Edytor diagramu"
 
@@ -856,12 +867,12 @@ msgstr "Szczegóły..."
 msgid "Line Style Properties"
 msgstr "Właściwości stylu linii"
 
-#: app/linewidth_area.c:238 lib/properties.h:475
+#: app/linewidth_area.c:239 lib/properties.h:475
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Szerokość linii"
 
-#: app/linewidth_area.c:250
+#: app/linewidth_area.c:251
 msgid "Line width:"
 msgstr "Szerokość linii:"
 
@@ -894,7 +905,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Należy podać plik, nie katalog.\n"
 
 #: app/load_save.c:282 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
-#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:80
+#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:78
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nie można otworzyć: \"%s\" do odczytu.\n"
@@ -1149,9 +1160,8 @@ msgid "_Ungroup"
 msgstr "_Rozdziel"
 
 #: app/menus.c:210
-#, fuzzy
 msgid "_Parent"
-msgstr "Zapobieganie"
+msgstr ""
 
 #: app/menus.c:211
 msgid "_Unparent Children"
@@ -1166,9 +1176,8 @@ msgid "Align _Vertical"
 msgstr "Wyrównanie pio_nowe"
 
 #: app/menus.c:216
-#, fuzzy
 msgid "_Properties..."
-msgstr "_Właściwości"
+msgstr "_Właściwości..."
 
 #: app/menus.c:241
 msgid "_Layers"
@@ -1195,9 +1204,8 @@ msgid "_Input Methods"
 msgstr "Metody we_jściowe"
 
 #: app/menus.c:272
-#, fuzzy
 msgid "_Help"
-msgstr "/Pomo_c"
+msgstr "Pomo_c"
 
 #: app/menus.c:283 app/menus.c:318
 msgid "/_File"
@@ -1500,9 +1508,8 @@ msgid "/Objects/_Ungroup"
 msgstr "/Obiekty/Rozdziel"
 
 #: app/menus.c:421
-#, fuzzy
 msgid "/Objects/_Parent"
-msgstr "/Obiekty/Grupuj"
+msgstr ""
 
 #: app/menus.c:422
 msgid "/Objects/_Unparent Children"
@@ -1510,7 +1517,7 @@ msgstr ""
 
 #: app/menus.c:424
 msgid "/Objects/Align _Horizontal"
-msgstr "/Obiekty/Wyrównanie poziome"
+msgstr "/Obiekty/_Wyrównanie poziome"
 
 #: app/menus.c:426
 msgid "/Objects/Align Horizontal/Left"
@@ -1565,9 +1572,8 @@ msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Obiekty/Wyrównanie pionowe/Przylegnięcie"
 
 #: app/menus.c:441
-#, fuzzy
 msgid "/Objects/_Properties..."
-msgstr "Właściwości obiektu"
+msgstr "/Obiekty/_Właściwości..."
 
 #: app/menus.c:442
 msgid "/_Tools"
@@ -1717,39 +1723,39 @@ msgstr "Wczytywanie podczas uruchamiania"
 msgid "File Name"
 msgstr "Nazwa pliku"
 
-#: app/preferences.c:98
+#: app/preferences.c:99
 msgid "User Interface"
 msgstr "Interfejs użytkownika"
 
-#: app/preferences.c:99
+#: app/preferences.c:100
 msgid "Diagram Defaults"
 msgstr "Domyślne ustawienia diagramu"
 
-#: app/preferences.c:100
+#: app/preferences.c:101
 msgid "View Defaults"
 msgstr "Domyślny widok"
 
-#: app/preferences.c:101
+#: app/preferences.c:102
 msgid "Grid Lines"
 msgstr "Linie siatki"
 
-#: app/preferences.c:102
+#: app/preferences.c:103
 msgid "Diagram Tree"
 msgstr "Drzewo diagramu"
 
-#: app/preferences.c:116
+#: app/preferences.c:117
 msgid "Reset tools after create:"
 msgstr "Modyfikacja po utworzeniu:"
 
-#: app/preferences.c:117
+#: app/preferences.c:118
 msgid "Compress saved files:"
 msgstr "Kompresja zapisywanych plików:"
 
-#: app/preferences.c:118
+#: app/preferences.c:119
 msgid "Number of undo levels:"
 msgstr "Liczba poziomów cofnięć:"
 
-#: app/preferences.c:119
+#: app/preferences.c:120
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1757,102 +1763,110 @@ msgstr ""
 "Zaznaczanie przecinających się obiektów\n"
 "przy odwrotnym przeciąganiu"
 
-#: app/preferences.c:120
+#: app/preferences.c:121
 msgid "Recent documents list size:"
 msgstr "Rozmiar listy ostatnio otw. dokumentów:"
 
-#: app/preferences.c:121
+#: app/preferences.c:122
 msgid "Use menu bar:"
 msgstr "Pasek menu:"
 
-#: app/preferences.c:123
+#: app/preferences.c:124
 msgid "Keep tool box on top of diagram windows:"
 msgstr "Skrzynka narzędziowa nad oknami diagramu:"
 
-#: app/preferences.c:125
+#: app/preferences.c:126
 msgid "New diagram:"
 msgstr "Nowy diagram:"
 
-#: app/preferences.c:126
+#: app/preferences.c:127
 msgid "Portrait:"
 msgstr "Pionowo:"
 
-#: app/preferences.c:128
+#: app/preferences.c:129
 msgid "Paper type:"
 msgstr "Typ papieru:"
 
-#: app/preferences.c:131
+#: app/preferences.c:132
 msgid "New window:"
 msgstr "Nowe okno:"
 
-#: app/preferences.c:132
+#: app/preferences.c:133
 msgid "Width:"
 msgstr "Szerokość:"
 
-#: app/preferences.c:133
+#: app/preferences.c:134
 msgid "Height:"
 msgstr "Wysokość:"
 
-#: app/preferences.c:134
+#: app/preferences.c:135
 msgid "Magnify:"
 msgstr "Powiększenie:"
 
-#: app/preferences.c:136
+#: app/preferences.c:137
 msgid "Connection Points:"
 msgstr "Punkty połączenia:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:137 app/preferences.c:140 app/preferences.c:145
+#: app/preferences.c:138 app/preferences.c:141 app/preferences.c:146
 msgid "Visible:"
 msgstr "Wyświetlanie:"
 
-#: app/preferences.c:139
+#: app/preferences.c:140
 msgid "Page breaks:"
 msgstr "Podział stron:"
 
-#: app/preferences.c:141 app/preferences.c:149
+#: app/preferences.c:142 app/preferences.c:151
 msgid "Colour:"
 msgstr "Kolor:"
 
-#: app/preferences.c:142 app/preferences.c:150
+#: app/preferences.c:143
 msgid "Solid lines:"
 msgstr "Linie ciągłe:"
 
-#: app/preferences.c:146
+#: app/preferences.c:147
 msgid "Snap to:"
 msgstr "Przyciąganie do:"
 
-#: app/preferences.c:147
+#: app/preferences.c:148
+msgid "Dynamic grid resizing"
+msgstr "Dynamiczna zmiana rozmiaru siatki"
+
+#: app/preferences.c:149
 msgid "X Size:"
 msgstr "Rozmiar poziomy:"
 
-#: app/preferences.c:148
+#: app/preferences.c:150
 msgid "Y Size:"
 msgstr "Rozmiar pionowy:"
 
-#: app/preferences.c:161
+#: app/preferences.c:152
+msgid "Lines per major line"
+msgstr "Linii na główną linię"
+
+#: app/preferences.c:167
 msgid "Diagram tree window:"
 msgstr "Okno drzewa diagramu"
 
-#: app/preferences.c:163
+#: app/preferences.c:169
 msgid "Save hidden object types:"
 msgstr "Zapis ukrytych typów obiektów:"
 
-#: app/preferences.c:290
+#: app/preferences.c:296
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Nie można otworzyć \"%s\" do zapisu"
 
-#: app/preferences.c:565 lib/prop_inttypes.c:151
+#: app/preferences.c:572 lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Tak"
 
-#: app/preferences.c:565 app/preferences.c:576 lib/prop_inttypes.c:153
+#: app/preferences.c:572 app/preferences.c:583 lib/prop_inttypes.c:153
 #: lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nie"
 
-#: app/preferences.c:676
+#: app/preferences.c:683
 msgid "Preferences"
 msgstr "Preferencje"
 
@@ -2810,7 +2824,7 @@ msgstr "Zezwalanie"
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
 #: objects/FS/function.c:657
 msgid "Form Entrance"
-msgstr "Dane wej. Formularza"
+msgstr "Dane wej. formularza"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
 #: objects/FS/function.c:659 objects/FS/function.c:893
@@ -4494,7 +4508,7 @@ msgstr "PLIK DIF (Drawing Interchange File)"
 
 #: plug-ins/dxf/dxf-import.c:481 plug-ins/dxf/dxf-import.c:498
 msgid "Bad vertex bulge\n"
-msgstr ""
+msgstr "Zła wypukłość wierzchołka\n"
 
 #: plug-ins/dxf/dxf-import.c:1051
 #, c-format
@@ -4812,36 +4826,36 @@ msgstr "To jest plik FIG w wersji %d.%d, nie można go odczytać.\n"
 msgid "XFig File Format"
 msgstr "Format pliku XFig"
 
-#: plug-ins/xslt/xslt.c:95
+#: plug-ins/xslt/xslt.c:93
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Błąd podczas przetwarzania %s\n"
 
-#: plug-ins/xslt/xslt.c:103
+#: plug-ins/xslt/xslt.c:101
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Błąd podczas przetwarzania arkusza stylów %s\n"
 
-#: plug-ins/xslt/xslt.c:109
+#: plug-ins/xslt/xslt.c:107
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Błąd podczas próby zastosowania arkusza stylów: %s\n"
 
-#: plug-ins/xslt/xslt.c:117
+#: plug-ins/xslt/xslt.c:115
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Błąd podczas przetwarzania arkusza stylów: %s\n"
 
-#: plug-ins/xslt/xslt.c:125
+#: plug-ins/xslt/xslt.c:123
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Błąd podczas próby zastosowania arkusza stylów: %s\n"
 
-#: plug-ins/xslt/xslt.c:287
+#: plug-ins/xslt/xslt.c:303
 msgid "XSL Transformation filter"
 msgstr "Filtr Przekształcania XSL"
 
-#: plug-ins/xslt/xslt.c:315
+#: plug-ins/xslt/xslt.c:327
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Nie znaleziono poprawnych plików konfiguracyjnych dla wtyczki XSLT. Nie "
@@ -4869,7 +4883,7 @@ msgstr ""
 
 #: sheets/Assorted.sheet.in.h:2
 msgid "Assorted"
-msgstr ""
+msgstr "Posegregowane"
 
 #: sheets/Assorted.sheet.in.h:3
 msgid "Chevron"
@@ -6186,326 +6200,3 @@ msgstr "UML"
 #: sheets/UML.sheet.in.h:27
 msgid "Use case"
 msgstr "Przypadek użycia"
-
-#~ msgid "/Dialogs/_Properties..."
-#~ msgstr "/Okna dialogowe/_Właściwości..."
-
-#~ msgid "Create Text"
-#~ msgstr "Tekst"
-
-#~ msgid "Create Box"
-#~ msgstr "Prostokąt"
-
-#~ msgid "Create Ellipse"
-#~ msgstr "Elipsa"
-
-#~ msgid "Create Polygon"
-#~ msgstr "Wielokąt"
-
-#~ msgid "Create Beziergon"
-#~ msgstr "Obszar Beziera"
-
-#~ msgid "Create Line"
-#~ msgstr "Linia"
-
-#~ msgid "Create Arc"
-#~ msgstr "Łuk"
-
-#~ msgid "Create Zigzagline"
-#~ msgstr "Linia prostopadle łamana"
-
-#~ msgid "Create Polyline"
-#~ msgstr "Linia łamana"
-
-#~ msgid "Create Bezierline"
-#~ msgstr "Krzywa Beziera"
-
-#~ msgid "Create Image"
-#~ msgstr "Obraz"
-
-#~ msgid "Show at startup:"
-#~ msgstr "Wyświetlanie przy uruchamianiu:"
-
-#~ msgid "Default width:"
-#~ msgstr "Domyślna szerokość:"
-
-#~ msgid "Default height:"
-#~ msgstr "Domyślna wysokość:"
-
-#~ msgid "Remember last size:"
-#~ msgstr "Zapamiętywanie ostatniego rozmiaru:"
-
-#~ msgid "Could not load XSLT library (%s) : %s"
-#~ msgstr "Nie można wczytać biblioteki XSLT (%s) : %s"
-
-#~ msgid "A pnp bipolar transistor"
-#~ msgstr "Bipolarny tranzystor pnp"
-
-#~ msgid "A relay"
-#~ msgstr "Opóźnienie"
-
-#~ msgid "Create a process"
-#~ msgstr "Proces"
-
-#~ msgid "Create a flow"
-#~ msgstr "Przepływ"
-
-#~ msgid "Create a function"
-#~ msgstr "Funkcja"
-
-#~ msgid "A macro call step"
-#~ msgstr "Krok wywołania makra"
-
-#~ msgid "A macro entry step"
-#~ msgstr "Krok rozpoczęcia makra"
-
-#~ msgid "A macro exit step"
-#~ msgstr "Krok zakończenia makra"
-
-#~ msgid "A regular step"
-#~ msgstr "Zwykły krok"
-
-#~ msgid "A transition"
-#~ msgstr "Przemiana"
-
-#~ msgid "An initial step"
-#~ msgstr "Początkowy krok"
-
-#~ msgid "A Nand gate"
-#~ msgstr "Bramka NOR"
-
-#~ msgid "A Not"
-#~ msgstr "NOT"
-
-#~ msgid "A Xor gate"
-#~ msgstr "Bramka XOR"
-
-#~ msgid "An And gate"
-#~ msgstr "Bramka AND"
-
-#~ msgid "An Inverter"
-#~ msgstr "Inwerter"
-
-#~ msgid "A File"
-#~ msgstr "Plik"
-
-#~ msgid "Create a branch"
-#~ msgstr "Gałąź"
-
-#~ msgid "Create a class"
-#~ msgstr "Klasa"
-
-#~ msgid "Create a component"
-#~ msgstr "Komponent"
-
-#~ msgid "Create a initial/end state"
-#~ msgstr "Początkowy/końcowy krok"
-
-#~ msgid "Create a lifeline"
-#~ msgstr "Linia danych"
-
-#~ msgid "Create a message"
-#~ msgstr "Komunikat"
-
-#~ msgid "Create a node"
-#~ msgstr "Węzeł"
-
-#~ msgid "Create a note"
-#~ msgstr "Notatka"
-
-#~ msgid "Create a state"
-#~ msgstr "Stan"
-
-#~ msgid "Create a template class"
-#~ msgstr "Klasa szablonowa"
-
-#~ msgid "Create a use case"
-#~ msgstr "Tworzenie przypadku użycia"
-
-#~ msgid "Create an activity"
-#~ msgstr "Tworzenie aktywności"
-
-#~ msgid "Create an actor"
-#~ msgstr "Aktor"
-
-#~ msgid "Create an object"
-#~ msgstr "Obiekt"
-
-#~ msgid "Untitled-%d"
-#~ msgstr "BezNazwy-%d"
-
-#~ msgid ""
-#~ "The anti aliased renderer is buggy, and may cause\n"
-#~ "crashes.  We know there are bugs in it, so don't\n"
-#~ "bother submitting another report if it crashes"
-#~ msgstr ""
-#~ "Mechanizm renderujący z antyaliasingiem jest pełen błędów\n"
-#~ "i może spowodować zawieszenie programu. Na pewno są\n"
-#~ "tam błędy więc jeśli znajdziesz jakiś nie omieszkaj\n"
-#~ "wysłać raportu po zawieszeniu się programu."
-
-#~ msgid "Apply"
-#~ msgstr "Zaopatrzanie"
-
-#~ msgid "Line gaps"
-#~ msgstr "Odstępy linii"
-
-#~ msgid "Start at object edge"
-#~ msgstr "Początek na krawędzi obiektu"
-
-#~ msgid "_Visible Grid"
-#~ msgstr "_Widoczna siatka"
-
-#~ msgid "/View/_Visible Grid"
-#~ msgstr "/Widok/_Widoczna siatka"
-
-#~ msgid "/Objects/Align Vertical/Center"
-#~ msgstr "/Obiekty/Wyrównanie pionowe/Wyśrodkowanie"
-
-#~ msgid "Text padding:"
-#~ msgstr "Wyściółka tekstu:"
-
-#~ msgid "Alignment:"
-#~ msgstr "Wyrównywanie:"
-
-#~ msgid "Font:"
-#~ msgstr "Czcionka:"
-
-#~ msgid "Font size:"
-#~ msgstr "Rozmiar czcionki:"
-
-#~ msgid "Corner rounding:"
-#~ msgstr "Zaokrąglanie narożnika:"
-
-#~ msgid "Shear angle:"
-#~ msgstr "Kąt ostry:"
-
-#~ msgid "Flow type:"
-#~ msgstr "Rodzaj przepływu:"
-
-#~ msgid "Orthflow:"
-#~ msgstr "Przepływ prostopadły:"
-
-#~ msgid "Orthflow type:"
-#~ msgstr "Rodzaj przepływu:"
-
-#~ msgid "Begin"
-#~ msgstr "Początek"
-
-#~ msgid "End"
-#~ msgstr "Koniec"
-
-#~ msgid "State Type"
-#~ msgstr "Typ stanu"
-
-#~ msgid "A Diagram Editor"
-#~ msgstr "Edytor diagramu"
-
-#~ msgid "Image file:"
-#~ msgstr "Plik z obrazem:"
-
-#~ msgid "Keep aspect ratio:"
-#~ msgstr "Zachowane proporcje:"
-
-#~ msgid "Polygon import is not implemented yet"
-#~ msgstr "Import wielokątów jest jeszcze nie zaimplementowany"
-
-#~ msgid "Spline import is not implemented yet"
-#~ msgstr "Importowanie krzywych jeszcze nie jest zaimplementowane"
-
-#~ msgid "Maintainer: James Henstridge"
-#~ msgstr "Opiekun projektu: James Henstridge"
-
-#~ msgid "Fontsize:"
-#~ msgstr "Rozmiar czcionki:"
-
-#~ msgid "An error occured while creating the print context"
-#~ msgstr "Podczas tworzenia kontekstu wydruku wystąpił błąd"
-
-#~ msgid "yes"
-#~ msgstr "tak"
-
-#~ msgid "no"
-#~ msgstr "nie"
-
-#~ msgid "Load"
-#~ msgstr "Załadowanie"
-
-#~ msgid "Unload"
-#~ msgstr "Wyładowanie"
-
-#~ msgid "<Toolbox>/File/Exit"
-#~ msgstr "<Toolbox>/Plik/Zakończ"
-
-#~ msgid ""
-#~ "Warning no X Font for %s found, \n"
-#~ "using %s instead.\n"
-#~ msgstr ""
-#~ "Uwaga, nie odnaleziono czcionki dla %s,\n"
-#~ "wykorzystana zostanie %s.\n"
-
-#~ msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
-#~ msgstr "Uwaga: wybrano FreeType, lecz biblioteka nie może wczytać: %d\n"
-
-#~ msgid "Warning: No X fonts found.  The world is ending."
-#~ msgstr "Uwaga: Nie odnaleziono czcionek X. Koniec świata."
-
-#~ msgid ""
-#~ "Warning: No fonts loaded.  Are there any font files in the X font path?"
-#~ msgstr ""
-#~ "Ostrzeżenie: Nie wczytano czcionek. Czy w ścieżce do czcionek X znajdują "
-#~ "się jakieś pliki czcionek?"
-
-#~ msgid "Error, couldn't locate font. Shouldn't happen.\n"
-#~ msgstr "Błąd, nie można odnaleźć czcionki. To nie powinno się zdarzyć.\n"
-
-#~ msgid "Font %s not found, using Courier instead.\n"
-#~ msgstr "Nie odnaleziono czcionki %s, zostanie wykorzystana Courier.\n"
-
-#~ msgid "Font %s has no style %s, using %s\n"
-#~ msgstr "Dla czcionki %s brak jest stylu %s, użyto %s\n"
-
-#~ msgid "Helvetica-Oblique"
-#~ msgstr "Helvetica-Oblique"
-
-#~ msgid "Quit, are you sure?"
-#~ msgstr "Czy na pewno zakończyć?"
-
-#~ msgid "Quit"
-#~ msgstr "Zakończ"
-
-#~ msgid "Really close?"
-#~ msgstr "Rzeczywiście zamknąć?"
-
-#~ msgid "_New"
-#~ msgstr "_Nowy"
-
-#~ msgid "Up"
-#~ msgstr "W górę"
-
-#~ msgid "_Up"
-#~ msgstr "W gó_rę"
-
-#~ msgid "Down"
-#~ msgstr "W dół"
-
-#~ msgid "_Down"
-#~ msgstr "W _dół"
-
-#~ msgid "_Remove"
-#~ msgstr "_Usuń"
-
-#~ msgid "`%s' is not a directory"
-#~ msgstr "\"%s\" nie jest katalogiem"
-
-#~ msgid "Sybase replication domain diagram objects"
-#~ msgstr "Obiekty do projektowania diagramów domenowych replikacji Sybase"
-
-#~ msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-#~ msgstr ""
-#~ "Zmienna DIA_PLUGIN_PATH nie została ustawiona. Style są niedostępne.\n"
-
-#~ msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
-#~ msgstr ""
-#~ "Nie można wczytać wtyczki XSLT: zmienna DIA_PLUGIN_PATH nie została "
-#~ "ustawiona"
