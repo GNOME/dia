@@ -1,3 +1,10 @@
+1999-09-28  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/undo.c:
+	undo_clear() didn't set stack->depth to zero.
+	This made other undo functions crash after this had been called
+	on a "full" stack.
+
 1999-09-19  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/UML/class.h: 

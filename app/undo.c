@@ -112,12 +112,12 @@ depth(UndoStack *stack)
   Change *change;
   change = stack->current_change;
 
-  i = 1;
-  while (change != NULL) {
+  i = 0;
+  while (change->prev != NULL) {
     change = change->prev;
     i++;
   }
-  return i-1;
+  return i;
 }
 
 void
@@ -243,6 +243,8 @@ undo_clear(UndoStack *stack)
 {
   Change *change;
 
+  DEBUG_PRINTF(("undo_clear()\n"));
+  
   change = stack->current_change;
     
   while (change->prev != NULL) {
@@ -250,7 +252,7 @@ undo_clear(UndoStack *stack)
   }
   
   stack->current_change = change;
-  
+  stack->depth = 0;
   undo_remove_redo_info(stack);
 }
 
