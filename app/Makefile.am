@@ -65,7 +65,7 @@ INCLUDES = -I$(srcdir)/../lib
 
 LDFLAGS = -export-dynamic
 
-LDADD =  @GTK_LIBS@  ../lib/libdia.a
+LDADD = ../lib/libdia.a  @GTK_LIBS@
 
 
 run_dia.sh: Makefile.am
