@@ -152,7 +152,7 @@ zoom_activate_callback(GtkWidget *dummy, gpointer user_data) {
   gchar *zoom_text = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(ddisp->zoom_status)->entry));
   float zoom_amount, magnify;
 
-  if (sscanf(zoom_text, "%f", &zoom_amount)) {
+  if (sscanf(zoom_text, "%f", &zoom_amount) == 1) {
     Point middle;
     Rectangle *visible;
 

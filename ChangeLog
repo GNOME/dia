@@ -1,5 +1,8 @@
 2002-06-11  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* app/interface.c: sscanf now returns EOF on empty string, so
+	handle no match for zoom factor better => correct zoom at start.
+
 	* app/sheets.c (create_object_pixmap): Tried to display empty error.
 	(sheets_optionmenu_create): Died when not finding specified
 	sheet.  Don't think it should.
