@@ -78,6 +78,7 @@ dia_core_files = \
 	    handle_ops.h \
 	    interface.c \
 	    interface.h \
+	    dia-app-icons.h \
 	    modify_tool.c \
 	    modify_tool.h \
 	    scroll_tool.c \
