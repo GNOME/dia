@@ -631,15 +631,16 @@ bezierconn_init(BezierConn *bez, int num_points)
     bez->corner_types[i] = BEZ_CORNER_SYMMETRIC;
   }
 
+  obj->handles[0] = g_new(Handle,1);
   obj->handles[0]->connect_type = HANDLE_CONNECTABLE;
   obj->handles[0]->connected_to = NULL;
   obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[0]->id = HANDLE_MOVE_STARTPOINT;
 
   for (i = 1; i < num_points; i++) {
-    bez->object.handles[3*i-2] = g_new(Handle, 1);
-    bez->object.handles[3*i-1] = g_new(Handle, 1);
-    bez->object.handles[3*i] = g_new(Handle, 1);
+    obj->handles[3*i-2] = g_new(Handle, 1);
+    obj->handles[3*i-1] = g_new(Handle, 1);
+    obj->handles[3*i] = g_new(Handle, 1);
   
     obj->handles[3*i-2]->connect_type = HANDLE_NONCONNECTABLE;
     obj->handles[3*i-2]->connected_to = NULL;

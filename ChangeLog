@@ -1,11 +1,16 @@
 2001-08-15  Cyrille Chepelov <chepelov@calixo.net>
 
+	* lib/bezier_conn.c: (bezierconn_init): Lars, you forgot to
+	allocate the first handle :-)
+	
+	* lib/object.c: (object_init): <gratuitous>g_new() used instead of
+	a cast and a sizeof.</gratuitous>
+
 	* objects/custom/custom_object.c: (custom_copy): don't call
 	text_get_attrbutes if the shape has no text...
-	(custom_update_data): The
-	info->resize_with_text was a bit directive; basically, the shape's
-	bounding box was forced to be proportional to the text's bounding
-	box.... This fixes #57187.
+	(custom_update_data): The info->resize_with_text code was a bit
+	directive; basically, the shape's bounding box was forced to be 
+	proportional to the text's bounding box.... This fixes #57187.
 	
 	* objects/custom/shape_info.c: (load_shape_info): Set an obvious
 	default for info->aspect_ratio; unobfuscated a line about

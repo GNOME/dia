@@ -34,13 +34,13 @@ object_init(Object *obj,
 {
   obj->num_handles = num_handles;
   if (num_handles>0)
-    obj->handles = g_malloc(sizeof(Handle *)*num_handles);
+    obj->handles = g_new0(Handle,num_handles);
   else
     obj->handles = NULL;
 
   obj->num_connections = num_connections;
   if (num_connections>0)
-    obj->connections = g_malloc(sizeof(ConnectionPoint *) * num_connections);
+    obj->connections = g_new0(ConnectionPoint,num_connections);
   else
     obj->connections = NULL;
 }
