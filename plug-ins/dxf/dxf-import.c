@@ -91,7 +91,8 @@ LineStyle get_dia_linestyle_dxf(char *dxflinestyle) {
 /* reads a line entity from the dxf file and creates a line object in dia*/
 void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 	int codedxf;
-	
+	char *old_locale;
+
 	/* line data */
 	Point start, end;
 
@@ -115,15 +116,30 @@ void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 					 break;		
  			case  8: layer = layer_find_by_name(data->value, dia);
 					 break;
-			case 10: start.x = atof(data->value);
+			case 10:
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    start.x = atof(data->value);
+			    setlocale(LC_NUMERIC, "C");
 					 break;
-			case 11: end.x = atof(data->value);
+			case 11: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    end.x = atof(data->value);
+			    setlocale(LC_NUMERIC, "C");
 					 break;
-			case 20: start.y = (-1)*atof(data->value);
+			case 20: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    start.y = (-1)*atof(data->value);
+			    setlocale(LC_NUMERIC, "C");
 					 break;
-			case 21: end.y = (-1)*atof(data->value);
+			case 21: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    end.y = (-1)*atof(data->value);
+			    setlocale(LC_NUMERIC, "C");
 					 break;
-			case 39: line_width = atof(data->value)/10.0;		 		 		 
+			case 39: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    line_width = atof(data->value)/10.0;		 		 		 
+			    setlocale(LC_NUMERIC, "C");
 					 break;
 		}
 		
@@ -181,13 +197,25 @@ void read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 		switch(codedxf){
 			case  8: layer = layer_find_by_name(data->value, dia);
 					 break;
-			case 10: center.x = atof(data->value);
+			case 10: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    center.x = atof(data->value);
+			    setlocale(LC_NUMERIC, "C");
 					 break;
-			case 20: center.y = (-1)*atof(data->value);
+			case 20: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    center.y = (-1)*atof(data->value);
+			    setlocale(LC_NUMERIC, "C");
 					 break;
-			case 39: line_width = atof(data->value)/10.0;		 		 		
+			case 39: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    line_width = atof(data->value)/10.0;
+			    setlocale(LC_NUMERIC, "C");
 					 break;
-			case 40: radius = atof(data->value);
+			case 40: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    radius = atof(data->value);
+			    setlocale(LC_NUMERIC, "C");
 					 break;
 		}
 		
@@ -245,15 +273,30 @@ void read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 		switch(codedxf){
 			case  8: layer = layer_find_by_name(data->value, dia);
 					 break;
-			case 10: center.x = atof(data->value);
+			case 10: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    center.x = atof(data->value);
+			    setlocale(LC_NUMERIC, "C");
 					 break;
-			case 11: ratio_width_height = atof(data->value);		
+			case 11: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    ratio_width_height = atof(data->value);
+			    setlocale(LC_NUMERIC, "C");
 					 break;
-			case 20: center.y = (-1)*atof(data->value);
+			case 20: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    center.y = (-1)*atof(data->value);
+			    setlocale(LC_NUMERIC, "C");
 					 break;
-			case 39: line_width = atof(data->value)/10.0;		 		 		
+			case 39: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    line_width = atof(data->value)/10.0;
+			    setlocale(LC_NUMERIC, "C");
 					 break;
-			case 40: width = atof(data->value) * 2;
+			case 40: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    width = atof(data->value) * 2;
+			    setlocale(LC_NUMERIC, "C");
 					 break;
 		}
 		
@@ -312,9 +355,15 @@ void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
 					 break;
 			case  8: layer = layer_find_by_name(data->value, dia);
 					 break;
-			case 10: location.x = atof(data->value);
+			case 10: 
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    location.x = atof(data->value);
+			    setlocale(LC_NUMERIC, "C");
 					 break;
-			case 20: location.y = (-1)*atof(data->value);
+			case 20:
+			    old_locale = setlocale(LC_NUMERIC, "C");
+			    location.y = (-1)*atof(data->value);
+			    setlocale(LC_NUMERIC, "C");
 					 break;
 		  case 40: height = atof(data->value);
 		 			 break;
