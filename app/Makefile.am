@@ -213,7 +213,9 @@ EXTRA_DIST = \
 	pixmaps/scroll.xpm \
 	pixmaps/snap-to-grid.xpm \
 	pixmaps/snap-to-grid-mask.xpm \
-	pixmaps/swap.xpm
+	pixmaps/swap.xpm \
+	pixmaps/on-grid.xpm \
+	pixmaps/off-grid.xpm
 
 run_dia.sh: Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh

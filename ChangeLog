@@ -1,5 +1,9 @@
 2003-04-01  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/pixmaps/off-grid.xpm: 
+	* app/pixmaps/on-grid.xpm: 
+	* app/Makefile.am (EXTRA_DIST): Added snap to grid icons.
+
 	* app/display.h: 
 	* app/commands.c (view_snap_to_grid_callback): 
 	* app/display.c (ddisplay_set_snap_to_grid) 
