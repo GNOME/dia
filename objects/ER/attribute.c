@@ -49,7 +49,7 @@ typedef struct _Attribute Attribute;
 struct _AttributeState {
   ObjectState obj_state;
 
-  gchar *name;
+  utfchar *name;
   real name_width;
 
   gboolean key;
@@ -66,7 +66,7 @@ struct _Attribute {
   Element element;
 
   DiaFont *font;
-  gchar *name;
+  utfchar *name;
   real name_width;
 
   ConnectionPoint connections[8];
@@ -388,7 +388,11 @@ attribute_create(Point *startpoint,
   /* choose default font name for your locale. see also font_data structure
      in lib/font.c. if "Courier" works for you, it would be better.  */
   attribute->font = font_getfont(_("Courier"));
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  attribute->name = charconv_local8_to_utf8 (_("Attribute"));
+#else
   attribute->name = g_strdup(_("Attribute"));
+#endif
 
   attribute->name_width =
     font_string_width(attribute->name, attribute->font, FONT_HEIGHT);

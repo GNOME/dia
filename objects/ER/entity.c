@@ -55,7 +55,7 @@ struct _Entity {
   Color inner_color;
   
   DiaFont *font;
-  char *name;
+  utfchar *name;
   real name_width;
   
   int weak;
@@ -339,7 +339,11 @@ entity_create(Point *startpoint,
   /* choose default font name for your locale. see also font_data structure
      in lib/font.c. if "Courier" works for you, it would be better.  */
   entity->font = font_getfont(_("Courier"));
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  entity->name = charconv_local8_to_utf8 (_("Entity"));
+#else
   entity->name = g_strdup(_("Entity"));
+#endif
 
   entity->name_width =
     font_string_width(entity->name, entity->font, FONT_HEIGHT);

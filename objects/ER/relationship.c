@@ -50,9 +50,9 @@ struct _Relationship {
   Element element;
 
   DiaFont *font;
-  gchar *name;
-  gchar *left_cardinality;
-  gchar *right_cardinality;
+  utfchar *name;
+  utfchar *left_cardinality;
+  utfchar *right_cardinality;
   real name_width;
   real left_card_width;
   real right_card_width;
@@ -417,7 +417,11 @@ relationship_create(Point *startpoint,
   /* choose default font name for your locale. see also font_data structure
      in lib/font.c. if "Courier" works for you, it would be better.  */
   relationship->font = font_getfont(_("Courier"));
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  relationship->name = charconv_local8_to_utf8 (_("Relationship"));
+#else
   relationship->name = g_strdup(_("Relationship"));
+#endif
   relationship->left_cardinality = g_strdup("");
   relationship->right_cardinality = g_strdup("");
   relationship->identifying = FALSE;

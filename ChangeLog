@@ -1,5 +1,14 @@
 2002-01-30  Akira TAGOH  <tagoh@redhat.com>
 
+	* objects/ER/relationship.c: use utfchar instead of char for structure.
+	(relationship_create): name needs to convert to UTF-8.
+
+	* objects/ER/attribute.c: use utfchar instead of char for structure.
+	(attribute_create): name needs to convert to UTF-8.
+
+	* objects/ER/entity.c: use utfchar instead of char for structure.
+	(entity_create): name needs to convert to UTF-8.
+
 	* app/interface.c (fill_sheet_wbox): needs to convert UTF-8 to locale
 	encoding for tooltips, if GTK_TALKS_UTF8 isn't defined.
 	(fill_sheet_menu): needs to convert UTF-8 to locale encoding for menu
