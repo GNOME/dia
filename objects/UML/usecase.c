@@ -31,20 +31,34 @@
 
 #include "pixmaps/case.xpm"
 
+typedef struct _UsecasePropertiesDialog UsecasePropertiesDialog;
 typedef struct _Usecase Usecase;
+
 struct _Usecase {
   Element element;
 
   ConnectionPoint connections[8];
 
   Text *text;
+  int text_outside;
 };
+
+
+struct _UsecasePropertiesDialog {
+  GtkWidget *dialog;
+  
+  GtkToggleButton *text_out;
+};
+
 
 #define USECASE_WIDTH 3
 #define USECASE_HEIGHT 1.76
 #define USECASE_MIN_RATIO 1.5
 #define USECASE_MAX_RATIO 3
 #define USECASE_LINEWIDTH 0.1
+#define USECASE_MARGIN_Y 0.3
+
+static UsecasePropertiesDialog *properties_dialog;
 
 static real usecase_distance_from(Usecase *usecase, Point *point);
 static void usecase_select(Usecase *usecase, Point *clicked_point,
@@ -64,8 +78,10 @@ static void usecase_save(Usecase *usecase, ObjectNode obj_node,
 			 const char *filename);
 static Object *usecase_load(ObjectNode obj_node, int version,
 			    const char *filename);
-
 static void usecase_update_data(Usecase *usecase);
+static void usecase_apply_properties(Usecase *usecase);
+static GtkWidget *usecase_get_properties(Usecase *dep);
+
 
 static ObjectTypeOps usecase_type_ops =
 {
@@ -100,8 +116,8 @@ static ObjectOps usecase_ops = {
   (CopyFunc)            usecase_copy,
   (MoveFunc)            usecase_move,
   (MoveHandleFunc)      usecase_move_handle,
-  (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
+  (GetPropertiesFunc)   usecase_get_properties,
+  (ApplyPropertiesFunc) usecase_apply_properties,
   (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
@@ -144,7 +160,11 @@ usecase_move(Usecase *usecase, Point *to)
   
   p = *to;
   p.x += usecase->element.width/2.0;
-  p.y += (usecase->element.height - h)/2.0 + usecase->text->ascent;
+  if (usecase->text_outside) {
+      p.y += usecase->element.height - h + usecase->text->ascent;
+  } else {
+      p.y += (usecase->element.height - h)/2.0 + usecase->text->ascent;
+  }
   text_set_position(usecase->text, &p);
   usecase_update_data(usecase);
 }
@@ -163,10 +183,19 @@ usecase_draw(Usecase *usecase, Renderer *renderer)
 
   x = elem->corner.x;
   y = elem->corner.y;
-  w = elem->width;
-  h = elem->height;
-  c.x = x + w/2.0;
-  c.y = y + h/2.0;
+
+  if (usecase->text_outside) {
+      w = USECASE_WIDTH;
+      h = USECASE_HEIGHT;
+      c.x = x + elem->width/2.0;
+      c.y = y + USECASE_HEIGHT / 2.0;     
+   } else {
+      w = elem->width;
+      h = elem->height;
+      c.x = x + w/2.0;
+      c.y = y + h/2.0;    
+  }
+
 
   renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer->ops->set_linewidth(renderer, USECASE_LINEWIDTH);
@@ -190,25 +219,29 @@ usecase_update_data(Usecase *usecase)
 {
   real w, h, ratio;
   Point c, half, r;
-
+  
   Element *elem = &usecase->element;
   Object *obj = (Object *) usecase;
   
   w = usecase->text->max_width;
   h = usecase->text->height*usecase->text->numlines;
-  
-  ratio = w/h;
 
-  if (ratio > USECASE_MAX_RATIO) 
-      ratio = USECASE_MAX_RATIO;
+  if (!usecase->text_outside) { 
+      ratio = w/h;
+
+      if (ratio > USECASE_MAX_RATIO) 
+	  ratio = USECASE_MAX_RATIO;
   
-  if (ratio < USECASE_MIN_RATIO) {
-      ratio = USECASE_MIN_RATIO;
-      r.y = w / ratio + h;
-      r.x = r.y * ratio;
+      if (ratio < USECASE_MIN_RATIO) {
+	  ratio = USECASE_MIN_RATIO;
+	  r.y = w / ratio + h;
+	  r.x = r.y * ratio;
+      } else {
+	  r.x = ratio*h + w;
+	  r.y = r.x / ratio;
+      }
   } else {
-      r.x = ratio*h + w;
-      r.y = r.x / ratio;
+      r.x = r.y = 0;
   }
 
   elem->width = (r.x > USECASE_WIDTH) ? r.x: USECASE_WIDTH;
@@ -229,14 +262,26 @@ usecase_update_data(Usecase *usecase)
   usecase->connections[3].pos.x = elem->corner.x;
   usecase->connections[3].pos.y = c.y;
   usecase->connections[4].pos.x = elem->corner.x + elem->width;
-  usecase->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  usecase->connections[5].pos.x = c.x - half.x;
-  usecase->connections[5].pos.y = c.y + half.y;
-  usecase->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  usecase->connections[6].pos.y = elem->corner.y + elem->height;
-  usecase->connections[7].pos.x = c.x + half.x;
-  usecase->connections[7].pos.y = c.y + half.y;
+  usecase->connections[4].pos.y = c.y;
   
+  if (usecase->text_outside) { 
+      elem->width = MAX(elem->width, w);
+      elem->height += h + USECASE_MARGIN_Y;
+      usecase->connections[5].pos.x = elem->corner.x;
+      usecase->connections[5].pos.y = elem->corner.y + elem->height;
+      usecase->connections[6].pos.x = c.x;
+      usecase->connections[6].pos.y = elem->corner.y + elem->height;
+      usecase->connections[7].pos.x = elem->corner.x + elem->width;
+      usecase->connections[7].pos.y = elem->corner.y + elem->height;
+  } else {
+      usecase->connections[5].pos.x = c.x - half.x;
+      usecase->connections[5].pos.y = c.y + half.y;
+      usecase->connections[6].pos.x = c.x;
+      usecase->connections[6].pos.y = elem->corner.y + elem->height;
+      usecase->connections[7].pos.x = c.x + half.x;
+      usecase->connections[7].pos.y = c.y + half.y;
+  }
+
   element_update_boundingbox(elem);
 
   obj->position = elem->corner;
@@ -273,7 +318,7 @@ usecase_create(Point *startpoint,
   p.y += USECASE_HEIGHT/2.0;
   
   usecase->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
-  
+  usecase->text_outside = 0;
   element_init(elem, 8, 8);
   
   for (i=0;i<8;i++) {
@@ -381,3 +426,61 @@ usecase_load(ObjectNode obj_node, int version, const char *filename)
 
 
 
+
+static void
+usecase_apply_properties(Usecase *usecase)
+{
+  UsecasePropertiesDialog *prop_dialog;
+  real h;
+  Point p;
+
+  prop_dialog = properties_dialog;
+  usecase->text_outside = prop_dialog->text_out->active;
+  usecase_update_data(usecase);
+
+  h = usecase->text->height*usecase->text->numlines;
+  p = usecase->element.corner;
+  p.x += usecase->element.width/2.0;
+  if (usecase->text_outside) {
+      p.y += usecase->element.height - h + usecase->text->ascent;
+  } else {
+      p.y += (usecase->element.height - h)/2.0 + usecase->text->ascent;
+  }
+  text_set_position(usecase->text, &p);
+}
+
+static void
+fill_in_dialog(Usecase *usecase)
+{
+  UsecasePropertiesDialog *prop_dialog;
+  prop_dialog = properties_dialog;
+  gtk_toggle_button_set_active(prop_dialog->text_out, usecase->text_outside);
+}
+
+static GtkWidget *
+usecase_get_properties(Usecase *dep)
+{
+  UsecasePropertiesDialog *prop_dialog;
+  GtkWidget *dialog;
+  GtkWidget *checkbox;
+
+  if (properties_dialog == NULL) {
+
+    prop_dialog = g_new(UsecasePropertiesDialog, 1);
+    properties_dialog = prop_dialog;
+
+    dialog = gtk_vbox_new(FALSE, 0);
+    prop_dialog->dialog = dialog;
+    
+    checkbox = gtk_check_button_new_with_label(_("Text outside:"));
+    prop_dialog->text_out = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+    gtk_box_pack_start (GTK_BOX (dialog), checkbox, TRUE, TRUE, 0);
+
+  }
+  
+  fill_in_dialog(dep);
+  gtk_widget_show (properties_dialog->dialog);
+
+  return properties_dialog->dialog;
+}

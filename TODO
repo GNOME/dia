@@ -23,6 +23,7 @@ general:
 functions:
 * Turn on/off showing of connectionpoints
 * undo, see event model later in this file.
+* auto-save backup files
 
 objects:
 * Add bezier object.
