@@ -304,7 +304,7 @@ objects/UML/Makefile
 objects/EML/Makefile
 objects/ER/Makefile
 objects/FS/Makefile
-objects/sybase/Makefile
+dnl objects/sybase/Makefile
 objects/flowchart/Makefile
 objects/custom/Makefile
 objects/GRAFCET/Makefile
@@ -322,6 +322,7 @@ shapes/jigsaw/Makefile
 shapes/MSE/Makefile
 shapes/SDL/Makefile
 shapes/Logic/Makefile
+shapes/sybase/Makefile
 app/Makefile
 samples/Makefile
 sheets/Makefile

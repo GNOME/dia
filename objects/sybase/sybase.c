@@ -45,12 +45,12 @@ dia_plugin_init(PluginInfo *info)
 			    NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
-  object_register_type(&dataserver_type);
-  object_register_type(&repserver_type);
-  object_register_type(&ltm_type);
-  object_register_type(&stableq_type);
-  object_register_type(&client_type);
-  object_register_type(&rsm_type);
+  /* object_register_type(&dataserver_type); */
+  /* object_register_type(&repserver_type); */
+  /* object_register_type(&ltm_type); */
+  /* object_register_type(&stableq_type); */
+  /* object_register_type(&client_type); */
+  /* object_register_type(&rsm_type); */
 
   return DIA_PLUGIN_INIT_OK;
 }

@@ -201,7 +201,7 @@ run_dia.sh: Makefile.am
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/ER/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/network/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/FS/.libs >> run_dia.sh
-	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/sybase/.libs >> run_dia.sh
+## echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/sybase/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/flowchart/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/SADT/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/GRAFCET/.libs >> run_dia.sh

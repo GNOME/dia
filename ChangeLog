@@ -1,5 +1,6 @@
 2001-05-16  Cyrille Chepelov  <chepelov@calixo.net>
 
+	
 	* plug-ins/svg/render_svg.c: typo made exported ellipses
 	corrupted (zero Y pseudo-radius).
 
@@ -10,6 +11,20 @@
 	without problems (please check this against your diagrams). More
 	flexibility should be gained that way. I intend to hunt and
 	eradicate all renderobjects as I can commit cycles to that. 
+
+	* objects/Makefile.am:
+	* configure.in:
+	* app/Makefile.am:
+	* objects/sybase/sybase.c:
+	* shapes/sybase/Makefile.am(NEW):
+	* shapes/sybase/client.(xpm|shape) (NEW):
+	* shapes/sybase/dataserver.(xpm|shape) (NEW):
+	* shapes/sybase/ltm.(xpm|shape) (NEW):
+	* shapes/sybase/repserver.(xpm|shape) (NEW):
+	* shapes/sybase/rsm.(xpm|shape) (NEW):
+	* shapes/sybase/stableq.(xpm|shape) (NEW): converted Sybase
+	renderobjects into shapes. The Sybase objects are now not compiled
+	anymore, and ready to be nuked if nobody objects in the next few weeks.
 	
 	* app/commands.c:
 	* app/diagram.[ch]:
@@ -23,7 +38,7 @@
 	* app/select.c: Added patch #52364 from Hubert Figuiere. This adds
 	a menu bar reflecting the popup menu, to each display window. This
 	is optional (changing the preference currently doesn't affect
-	already opened windows).
+	already opened windows; a few other rough edges to cut).
 
 	* plug-ins/wpg/wpg.c:
 	* plug-ins/xfig/xfig-import.c:
