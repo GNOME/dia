@@ -655,7 +655,7 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
   int i=0, select = 0;
   PangoFontFace **faces;
   int nfaces;
-  GtkWidget *menu = gtk_menu_new();
+  GtkWidget *menu = NULL;
   long stylebits = 0;
   int menu_item_nr = 0;
   GSList *group = NULL;
@@ -668,6 +668,7 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
       return;
   }
 
+  menu = gtk_menu_new ();
   pango_font_family_list_faces(fse->family, &faces, &nfaces);
 
   for (i = 0; i < nfaces; i++) {

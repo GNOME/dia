@@ -1,3 +1,13 @@
+2004-05-17  Hans Breuer  <hans@breuer.org>
+
+	* lib/object_defaults.c : don't 'failed to load external 
+	entity "NULL"' when the defaults file does not exist, 
+	bug #108764
+
+	* lib/widgets.c : fixed possible menu leak
+	* lib/dialinechooser.c lib/diaarrowchooser.c : finally
+	avoid finalization of floating references, bug #142307
+
 2004-04-21  Tomasz Kłoczko <kloczek@pld.org.pl>
 
 	* acinclude.m4: minor fixes (added missing [] quotation).

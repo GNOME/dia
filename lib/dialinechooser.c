@@ -115,6 +115,7 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
   GdkGC *gc;
   GdkGCValues gcvalues;
   char dash_list[6];
+  int line_width = 2;
 
   if (GTK_WIDGET_DRAWABLE(widget)) {
     width = widget->allocation.width - misc->xpad * 2;
@@ -130,18 +131,18 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     gdk_gc_get_values(gc, &gcvalues);
     switch (line->lstyle) {
     case LINESTYLE_SOLID:
-      gdk_gc_set_line_attributes(gc, 1, GDK_LINE_SOLID,
+      gdk_gc_set_line_attributes(gc, line_width, GDK_LINE_SOLID,
 				 gcvalues.cap_style, gcvalues.join_style);
       break;
     case LINESTYLE_DASHED:
-      gdk_gc_set_line_attributes(gc, 1, GDK_LINE_ON_OFF_DASH,
+      gdk_gc_set_line_attributes(gc, line_width, GDK_LINE_ON_OFF_DASH,
 				 gcvalues.cap_style, gcvalues.join_style);
       dash_list[0] = 10;
       dash_list[1] = 10;
       gdk_gc_set_dashes(gc, 0, dash_list, 2);
       break;
     case LINESTYLE_DASH_DOT:
-      gdk_gc_set_line_attributes(gc, 1, GDK_LINE_ON_OFF_DASH,
+      gdk_gc_set_line_attributes(gc, line_width, GDK_LINE_ON_OFF_DASH,
 				 gcvalues.cap_style, gcvalues.join_style);
       dash_list[0] = 10;
       dash_list[1] = 4;
@@ -150,7 +151,7 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
       gdk_gc_set_dashes(gc, 0, dash_list, 4);
       break;
     case LINESTYLE_DASH_DOT_DOT:
-      gdk_gc_set_line_attributes(gc, 1, GDK_LINE_ON_OFF_DASH,
+      gdk_gc_set_line_attributes(gc, line_width, GDK_LINE_ON_OFF_DASH,
 				 gcvalues.cap_style, gcvalues.join_style);
       dash_list[0] = 10;
       dash_list[1] = 2;
@@ -161,7 +162,7 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
       gdk_gc_set_dashes(gc, 0, dash_list, 6);
       break;
     case LINESTYLE_DOTTED:
-      gdk_gc_set_line_attributes(gc, 1, GDK_LINE_ON_OFF_DASH,
+      gdk_gc_set_line_attributes(gc, line_width, GDK_LINE_ON_OFF_DASH,
 				 gcvalues.cap_style, gcvalues.join_style);
       dash_list[0] = 2;
       dash_list[1] = 2;
@@ -305,6 +306,8 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   lchooser->selector = DIALINESTYLESELECTOR(wid);
 
   menu = gtk_menu_new();
+  g_object_ref(G_OBJECT(menu));
+  gtk_object_sink(GTK_OBJECT(menu));
   g_object_set_data_full(G_OBJECT(lchooser), button_menu_key, menu,
 			 (GDestroyNotify)gtk_widget_unref);
   for (i = 0; i <= LINESTYLE_DOTTED; i++) {
