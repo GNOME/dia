@@ -509,7 +509,6 @@ real dia_font_descent(const char* string, DiaFont* font, real height)
 typedef struct {
   gchar *string;
   DiaFont *font;
-  real height;
   PangoLayout *layout;
   int usecount;
 } LayoutCacheItem;
@@ -523,7 +522,6 @@ layout_cache_equals(gconstpointer e1, gconstpointer e2)
     *i2 = (LayoutCacheItem*)e2;
 
   return strcmp(i1->string, i2->string) == 0 &&
-    fabs(i1->height - i2->height) < 0.00001 &&
     pango_font_description_equal(i1->font->pfd, i2->font->pfd);
 }
 
@@ -533,8 +531,7 @@ layout_cache_hash(gconstpointer el)
   LayoutCacheItem *item = (LayoutCacheItem*)el;
 
   return g_str_hash(item->string) ^
-    (int)(item->height*1000) ^
-    (int)(item->font->pfd);
+    pango_font_description_hash(item->font->pfd);
 }
 
 static long layout_cache_last_use;
@@ -606,7 +603,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     guint length;
     gchar *desc = NULL;
 
-    LayoutCacheItem *cached;
+    LayoutCacheItem *cached, *item;
 
     layout_cache_last_use = time(0);
     if (layoutcache == NULL) {
@@ -622,26 +619,27 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
        *  then DiaFonts are freed too early. 
        */
       g_timeout_add(10*1000, layout_cache_cleanup, (gpointer)layoutcache);
-    } else {
-      LayoutCacheItem item;
-      item.string = string;
-      item.font = font;
-      item.height = height;
-      cached = g_hash_table_lookup(layoutcache, &item);
-      if (cached != NULL) {
-	g_object_ref(cached->layout);
-	cached->usecount ++;
-	return cached->layout;
-      }
     }
 
-    cached = g_new0(LayoutCacheItem,1);
-    cached->string = g_strdup(string);
-    cached->font = font;
-    dia_font_ref(font);
-    cached->height = height;
-
     height *= 0.7;
+    dia_font_set_height(font, height);
+
+    item = g_new0(LayoutCacheItem,1);
+    item->string = g_strdup(string);
+    item->font = font;
+    
+    /* If it's in the cache, use that instead. */
+    cached = g_hash_table_lookup(layoutcache, item);
+    if (cached != NULL) {
+      g_object_ref(cached->layout);
+      g_free(item->string);
+      g_free(item);
+      cached->usecount ++;
+      return cached->layout;
+    }
+
+    dia_font_ref(font);
+
     /* This could should account for DPI, but it doesn't do right.  Grrr...
     {
       GdkScreen *screen = gdk_screen_get_default();
@@ -653,11 +651,10 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     }
     */
 
-    dia_font_set_height(font,height);
     layout = pango_layout_new(dia_font_get_context());
 
     length = string ? strlen(string) : 0;
-    pango_layout_set_text(layout,string,length);
+    pango_layout_set_text(layout, string, length);
         
     list = pango_attr_list_new();
     desc = g_utf8_strdown(pango_font_description_get_family(font->pfd), -1);
@@ -675,10 +672,10 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     pango_layout_set_justify(layout,FALSE);
     pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
   
-    cached->layout = layout;
+    item->layout = layout;
     g_object_ref(layout);
-    cached->usecount = 1;
-    g_hash_table_replace(layoutcache, cached, cached);
+    item->usecount = 1;
+    g_hash_table_replace(layoutcache, item, item);
 
     return layout;
 }

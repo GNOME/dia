@@ -1,3 +1,16 @@
+2004-08-02  Lars Clausen  <lars@raeder.dk>
+
+	* lib/font.c (dia_font_build_layout): Don't try to save an
+	allocation of LayoutCacheItem if it breaks layout cache hash.
+	Also make hash function correct, remove explicit height entry
+	(it's in pfd), and make sure things are correctly unreffed.
+	Finally fixes #148141.
+
+	* lib/text.c (text_set_attributes, text_set_font): Safely unref
+	when changing font, and actually set the new font in
+	text_set_font(!).
+	(text_get_attributes): Ref copied font.
+
 2004-08-01  Lars Clausen  <lars@raeder.dk>
 
 	* NEWS: 

@@ -275,8 +275,9 @@ text_set_height(Text *text, real height)
 void
 text_set_font(Text *text, DiaFont *font)
 {
-  dia_font_unref(text->font);
-  text->font = dia_font_ref(text->font);
+  DiaFont *old_font = text->font;
+  text->font = dia_font_ref(font);
+  dia_font_unref(old_font);
   
   calc_width(text);
   calc_ascent_descent(text);
@@ -1016,7 +1017,10 @@ data_text(AttributeNode text_attr)
 void
 text_get_attributes(Text *text, TextAttributes *attr)
 {    
-  attr->font = text->font;
+  DiaFont *old_font;
+  old_font = attr->font;
+  attr->font = dia_font_ref(text->font);
+  if (old_font != NULL) dia_font_unref(old_font);
   attr->height = text->height;
   attr->position = text->position;
   attr->color = text->color;
@@ -1027,8 +1031,9 @@ void
 text_set_attributes(Text *text, TextAttributes *attr)
 {
   if (text->font != attr->font) {
-      dia_font_unref(text->font);
-      text->font = dia_font_ref(attr->font);
+    DiaFont *old_font = text->font;
+    text->font = dia_font_ref(attr->font);
+    dia_font_unref(old_font);
   }
   text->height = attr->height;
   text->position = attr->position;
