@@ -1,5 +1,7 @@
 2002-12-01  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* configure.in: Added Cisco makefile, sorted Makefiles list.
+
 	* shapes/Makefile.am (SUBDIRS): Added Cisco dir
 
 	* configure.in: Now checks for availability of PangoFT2 and
