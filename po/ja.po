@@ -700,7 +700,7 @@ msgstr "/ファイル(_F)/エクスポート(_E)..."
 
 #: app/menus.c:198
 msgid "/File/Page Set_up..."
-msgstr "/ファイル(_F)/名前をつけて保存(_A)"
+msgstr "/ファイル(_F)/ページ設定(_U)"
 
 #: app/menus.c:199
 msgid "/File/_Print Diagram..."
@@ -708,7 +708,7 @@ msgstr "/ファイル(_F)/印刷(_P)..."
 
 #: app/menus.c:200
 msgid "/File/sep2"
-msgstr "/ファイル(_F)/sep1"
+msgstr "/ファイル(_F)/sep2"
 
 #: app/menus.c:201
 msgid "/File/_Close"
