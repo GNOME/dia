@@ -174,6 +174,48 @@ charconv_utf8_to_local8(const utfchar *utf)
   return lres;
 }
 
+/* The string here is statically allocated and must NOT be g_free()'d.*/
+extern utfchar *
+charconv_unichar_to_utf8(unichar uc)
+{
+  /* algorithm taken from Tom Tromey's libunicode utf8_write() routine
+     Copyright (C) 1999 Tom Tromey. 
+     License is LGPL v2 (or later) */
+  int i,first;
+  size_t len = 0;
+  static char outbuf[7];
+  unicode_char_t c = uc;
+  
+  if ((c < 0x80) && (c > 0)) {
+      first = 0;
+      len = 1;
+  } else if (c < 0x800) {
+      first = 0xc0;
+      len = 2;
+  } else if (c < 0x10000) {
+    first = 0xe0;
+    len = 3;
+  } else if (c < 0x200000) {
+    first = 0xf0;
+    len = 4;
+  } else if (c < 0x4000000) {
+    first = 0xf8;
+    len = 5;
+  } else {
+    first = 0xfc;
+    len = 6;
+  }
+  
+  for (i = len - 1; i > 0; --i) {
+    outbuf[i] = (c & 0x3f) | 0x80;
+    c >>= 6;
+  }
+  outbuf[0] = c | first;
+  outbuf[len] = 0;
+  
+  return outbuf;
+}
+
 
 #else /* !HAVE_UNICODE */
 
@@ -187,6 +229,19 @@ extern gchar *
 charconv_utf8_to_local8(const utfchar *utf)
 {
   return g_strdup(utf);
+}
+
+
+/* The string here is statically allocated and must NOT be g_free()'d.*/
+extern utfchar *
+charconv_unichar_to_utf8(unichar uc)
+{
+  static char outbuf[2];
+
+  outbuf[0] = uc;
+  outbuf[1] = 0;
+  
+  return outbuf;
 }
 
 #endif

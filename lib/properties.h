@@ -114,7 +114,7 @@ struct _Property {
   const PropDescription *descr;
   gpointer extra_data;
   union {
-    gchar char_data;
+    unichar char_data;
     gboolean bool_data;
     gint int_data;
     struct {
@@ -122,7 +122,7 @@ struct _Property {
       guint nvals;
     } intarray_data;
     real real_data;
-    gchar *string_data; /* malloc'd string owned by Property structure */
+    utfchar *string_data; /* malloc'd string owned by Property structure */
     Point point_data;
     struct {
       Point *pts;

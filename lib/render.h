@@ -26,6 +26,7 @@ typedef struct _Renderer Renderer;
 #include "color.h"
 #include "font.h"
 #include "dia_image.h"
+#include "charconv.h"
 
 typedef enum {
   LINECAPS_BUTT,
@@ -167,7 +168,7 @@ typedef void (*FillBezierFunc) (Renderer *renderer,
 
 /* Print a string at pos, using the current font */
 typedef void (*DrawStringFunc) (Renderer *renderer,
-				const char *text,
+				const utfchar *text,
 				Point *pos,
 				Alignment alignment,
 				Color *color);
@@ -180,7 +181,7 @@ typedef void (*DrawImageFunc) (Renderer *renderer,
 
 /* Pre-render a string, register its glyphs for future use. */
 typedef void (*PreDrawStringFunc) (Renderer *renderer,
-                                   const char *text);
+                                   const utfchar *text);
 
 /******************************************************
  **  Functions defined for every Interactive Renderer
@@ -194,7 +195,7 @@ typedef void (*PreDrawStringFunc) (Renderer *renderer,
    exact widths otherwise.
  */
 typedef real (*GetTextWidthFunc) (Renderer *renderer,
-				  const char *text, int length);
+				  const utfchar *text, int length);
 
 /* Clear the current clipping region.
    This function needs only be defined for interactive

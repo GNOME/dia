@@ -917,12 +917,14 @@ dia_file_selector_new ()
 void
 dia_file_selector_set_file(DiaFileSelector *fs, gchar *file)
 {
+  /* UTF8 conversions here ? */
   gtk_entry_set_text(GTK_ENTRY(fs->entry), file);
 }
 
 gchar *
 dia_file_selector_get_file(DiaFileSelector *fs)
 {
+  /* UTF8 conversions here ? */
   return gtk_entry_get_text(GTK_ENTRY(fs->entry));
 }
 

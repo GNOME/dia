@@ -8,6 +8,18 @@
 	* objects/chronogram/chronoline.c:
 	* objects/chronogram/chronoref.c: took advantage of the above to
 	make nicer looking dialogs.
+
+	* lib/charconv.[ch]: added charconv_unichar_to_utf8 ("inspired"
+	from libunicode's internals).
+	* lib/message.c: convert strings to local encoding prior to
+	display (UNICODE_WORK_IN_PROGRESS)
+	* lib/properties.[ch]: convert strings to local encoding prior to
+	display, and back to UTF8 (UNICODE_WORK_IN_PROGRESS).
+	* lib/render.h: tagged strings as (utfchar *) instead of (char *)
+	* lib/stringprerenderer.[ch]: ditto
+
+	(lib/text.c has been audited for UTF8, but the size of the changes
+	make them inappropriate for commit before 0.89)
 	
 2001-06-12  Cyrille Chepelov  <chepelov@calixo.net>
 

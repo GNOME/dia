@@ -163,6 +163,9 @@ typedef gchar utfchar;
 extern utfchar *charconv_local8_to_utf8(const gchar *local);
 extern gchar *charconv_utf8_to_local8(const utfchar *utf);
 
+/* The string here is statically allocated and must NOT be g_free()'d.*/
+extern utfchar *charconv_unichar_to_utf8(unichar uc);
+
 #define CHARCONV_H
 #endif  /* CHARCONV_H */
 

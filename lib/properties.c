@@ -38,6 +38,7 @@
 #include "intl.h"
 #include "widgets.h"
 #include "connpoint_line.h"
+#include "charconv.h"
 
 #define LIBDIA_COMPILATION
 #undef G_INLINE_FUNC
@@ -355,6 +356,10 @@ prop_get_widget(Property *prop)
   GtkWidget *ret = NULL;
   GtkAdjustment *adj;
   gchar buf[256];
+#ifdef UNICODE_WORK_IN_PROGRESS
+  utfchar *utfbuf;
+  gchar *locbuf;
+#endif
 
   switch (prop->type) {
   case PROP_TYPE_INVALID:
@@ -362,9 +367,16 @@ prop_get_widget(Property *prop)
     break;
   case PROP_TYPE_CHAR:
     ret = gtk_entry_new();
+#ifdef UNICODE_WORK_IN_PROGRESS
+    utfbuf = charconv_unichar_to_utf8(PROP_VALUE_CHAR(*prop));/*keep for gtk2*/
+    locbuf = charconv_utf8_to_local8(utfbuf);
+    gtk_entry_set_text(GTK_ENTRY(ret), locbuf);
+    g_free(locbuf);
+#else
     buf[0] = PROP_VALUE_CHAR(*prop);
     buf[1] = '\0';
     gtk_entry_set_text(GTK_ENTRY(ret), buf);
+#endif
     break;
   case PROP_TYPE_BOOL:
     ret = gtk_toggle_button_new_with_label(_("No"));
@@ -439,21 +451,32 @@ prop_get_widget(Property *prop)
     break;
   case PROP_TYPE_STRING:
     ret = gtk_entry_new();
-    if (PROP_VALUE_STRING(*prop))
+    if (PROP_VALUE_STRING(*prop)) {
+#ifdef UNICODE_WORK_IN_PROGRESS
+      locbuf = charconv_utf8_to_local8(PROP_VALUE_STRING(*prop));
+      gtk_entry_set_text(GTK_ENTRY(ret), locbuf);
+      g_free(locbuf);
+#else
       gtk_entry_set_text(GTK_ENTRY(ret), PROP_VALUE_STRING(*prop));
+#endif
+    }
     break;
   case PROP_TYPE_MULTISTRING: {
     GtkWidget *text;
-    /* ret = gtk_hbox_new(FALSE,GPOINTER_TO_INT(prop->extra_data)); */
     text = gtk_text_new(NULL,NULL);
     gtk_text_set_editable(GTK_TEXT(text),TRUE);
-    /* gtk_box_pack_start(GTK_BOX(ret),text,TRUE,TRUE); */ 
     if (PROP_VALUE_STRING(*prop)) {
       gtk_text_set_point(GTK_TEXT(text), 0);
       gtk_text_forward_delete(GTK_TEXT(text),
                               gtk_text_get_length(GTK_TEXT(text)));
+#ifdef UNICODE_WORK_IN_PROGRESS
+      locbuf = charconv_utf8_to_local8(PROP_VALUE_STRING(*prop));
+      gtk_text_insert(GTK_TEXT(text), NULL, NULL, NULL, locbuf,-1);
+      g_free(locbuf);
+#else
       gtk_text_insert(GTK_TEXT(text), NULL, NULL, NULL,
                       PROP_VALUE_STRING(*prop),-1);
+#endif
     }
     ret = text;
     break;
@@ -517,12 +540,24 @@ prop_get_widget(Property *prop)
 void
 prop_set_from_widget(Property *prop, GtkWidget *widget)
 {
+#ifdef UNICODE_WORK_IN_PROGRESS
+  gchar *locbuf;
+  utfchar *utfbuf;
+  unichar uc;
+#endif
   switch (prop->type) {
   case PROP_TYPE_INVALID:
     g_warning("invalid property type for `%s'",  prop->name);
     break;
   case PROP_TYPE_CHAR:
+#ifdef UNICODE_WORK_IN_PROGRESS
+    locbuf = gtk_editable_get_chars(GTK_EDITABLE(widget),0,1);
+    utfbuf = charconv_local8_to_utf8(locbuf); g_free(locbuf);
+    uni_get_utf8(utfbuf,&uc); g_free(utfbuf);
+    PROP_VALUE_CHAR(*prop) = uc;
+#else
     PROP_VALUE_CHAR(*prop) = gtk_entry_get_text(GTK_ENTRY(widget))[0];
+#endif
     break;
   case PROP_TYPE_BOOL:
     PROP_VALUE_BOOL(*prop) = GTK_TOGGLE_BUTTON(widget)->active;
@@ -543,14 +578,17 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
     PROP_VALUE_REAL(*prop) = gtk_spin_button_get_value_as_float(
 					GTK_SPIN_BUTTON(widget));
     break;
+  case PROP_TYPE_STRING:
   case PROP_TYPE_MULTISTRING:
     g_free(PROP_VALUE_STRING(*prop));
+#ifdef UNICODE_WORK_IN_PROGRESS
+    locbuf = gtk_editable_get_chars(GTK_EDITABLE(widget),0, -1);   
+    utfbuf = charconv_local8_to_utf8(locbuf); g_free(locbuf);
+    PROP_VALUE_STRING(*prop) = utfbuf;  
+#else
     PROP_VALUE_STRING(*prop) = 
       gtk_editable_get_chars(GTK_EDITABLE(widget),0, -1);
-    break;
-  case PROP_TYPE_STRING:
-    g_free(PROP_VALUE_STRING(*prop));
-    PROP_VALUE_STRING(*prop) = g_strdup(gtk_entry_get_text(GTK_ENTRY(widget)));
+#endif
     break;
   case PROP_TYPE_NOTEBOOK_BEGIN:
   case PROP_TYPE_NOTEBOOK_END:
@@ -617,6 +655,9 @@ prop_load(Property *prop, ObjectNode obj_node)
   gchar *str;
   guint i;
   Text *text;
+#ifdef UNICODE_WORK_IN_PROGRESS
+  unichar uc;
+#endif
 
   g_return_if_fail(prop != NULL);
 
@@ -657,7 +698,12 @@ prop_load(Property *prop, ObjectNode obj_node)
   case PROP_TYPE_CHAR:
     str = data_string(data);
     if (str && str[0]) {
+#ifdef UNICODE_WORK_IN_PROGRESS
+      uni_get_utf8(str,&uc);
+      PROP_VALUE_CHAR(*prop) = uc;
+#else
       PROP_VALUE_CHAR(*prop) = str[0];
+#endif
       g_free(str);
     } else
       g_warning("Could not read character data for attribute %s", prop->name);
@@ -831,9 +877,13 @@ prop_save(Property *prop, ObjectNode obj_node)
     data_add_point(attr,&PROP_VALUE_ENDPOINTS(*prop).endpoints[1]);
     break;
   case PROP_TYPE_CHAR:
+#ifdef UNICODE_WORK_IN_PROGRESS
+    data_add_string(charconv_unichar_to_utf8(PROP_VALUE_CHAR(*prop)));
+#else
     buf[0] = PROP_VALUE_CHAR(*prop);
     buf[1] = '\0';
     data_add_string(attr, buf);
+#endif
     break;
   case PROP_TYPE_BOOL:
     data_add_boolean(attr, PROP_VALUE_BOOL(*prop));
@@ -1048,7 +1098,7 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
       continue;
     switch (offsets[j].type) {
     case PROP_TYPE_CHAR:
-      PROP_VALUE_CHAR(props[i]) = struct_member(obj, offsets[j].offset, gchar);
+      PROP_VALUE_CHAR(props[i]) = struct_member(obj,offsets[j].offset,unichar);
       break;
     case PROP_TYPE_BOOL:
       PROP_VALUE_BOOL(props[i]) =
@@ -1190,7 +1240,7 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
     props[i].type = offsets[j].type;
     switch (offsets[j].type) {
     case PROP_TYPE_CHAR:
-      struct_member(obj, offsets[j].offset, gchar) = PROP_VALUE_CHAR(props[i]);
+      struct_member(obj, offsets[j].offset,unichar)=PROP_VALUE_CHAR(props[i]);
       break;
     case PROP_TYPE_BOOL:
       struct_member(obj, offsets[j].offset, gboolean) =

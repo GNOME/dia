@@ -30,8 +30,8 @@ struct _Text {
   /* Text data: */
   char **line;
   int numlines;
-  int *strlen;
-  int *alloclen;
+  int *strlen;  /* in characters */
+  int *alloclen; /* in bytes */
 
   /* Attributes: */
   Font *font;

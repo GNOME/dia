@@ -77,7 +77,7 @@ static void fill_bezier(StringPrerenderer *renderer,
                         int numpoints,
                         Color *color);
 static void draw_string(StringPrerenderer *renderer,
-                        const char *text,
+                        const utfchar *text,
                         Point *pos, Alignment alignment,
                         Color *color);
 static void draw_image(StringPrerenderer *renderer,
@@ -147,7 +147,7 @@ destroy_string_prerenderer(const StringPrerenderer *prerenderer)
 
 static void 
 draw_string(StringPrerenderer *prerenderer,
-            const char *text,
+            const utfchar *text,
             Point *pos, Alignment alignment,
             Color *color)
 {
