@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-09-15 19:25+0200\n"
-"PO-Revision-Date: 2003-09-16 02:40+0200\n"
+"PO-Revision-Date: 2003-09-20 13:49+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3975,7 +3975,7 @@ msgstr "Comentario"
 #: objects/UML/class.c:112 objects/UML/class_dialog.c:291
 #: objects/UML/class_dialog.c:344 objects/UML/class_dialog.c:1894
 msgid "Abstract"
-msgstr "Resumen"
+msgstr "Abstracta"
 
 #: objects/UML/class.c:114 objects/UML/class_dialog.c:300
 msgid "Suppress Attributes"
