@@ -67,6 +67,11 @@ ToolButton tool_data[] =
     { CREATE_OBJECT_TOOL, "Standard - Polygon", NULL }
   },
   { NULL,
+    N_("Create Beziergon"),
+    N_("Beziergon"),
+    { CREATE_OBJECT_TOOL, "Standard - Beziergon", NULL }
+  },
+  { NULL,
     N_("Create Line"),
     N_("Line"),
     { CREATE_OBJECT_TOOL, "Standard - Line", NULL }

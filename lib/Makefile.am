@@ -51,6 +51,8 @@ libdia_a_SOURCES =  \
 		element.h \
 		polyshape.c \
 		polyshape.h \
+		beziershape.c \
+		beziershape.h \
 		objchange.c \
 		objchange.h \
 		widgets.c \

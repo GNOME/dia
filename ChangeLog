@@ -1,3 +1,16 @@
+2000-05-28  James Henstridge  <james@daa.com.au>
+
+	* app/interface.c (tool_data): add beziergon to toolbox.
+
+	* objects/standard/standard.c (dia_plugin_init): initialise the new
+	Beziergon object type.
+
+	* objects/standard/beziergon.c: an object based on BezierShape.
+
+	* lib/dummy_dep.h (dummy_dep): added to dummy_dep.
+
+	* lib/beziershape.[ch]: new files implementing a bezier shape.
+
 2000-05-26  James Henstridge  <james@daa.com.au>
 
 	* lib/text.c (text_key_event): handle multibyte inserts.

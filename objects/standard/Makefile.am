@@ -11,7 +11,8 @@ libstandard_objects_la_SOURCES = 	arc.c \
 			bezier.c \
 			standard.c \
 			image.c \
-			polygon.c
+			polygon.c \
+			beziergon.c
 
 libstandard_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
@@ -27,4 +28,5 @@ EXTRA_DIST = \
 	pixmaps/bezier.xpm \
 	pixmaps/text.xpm \
 	pixmaps/zigzag.xpm \
-	pixmaps/polygon.xpm
+	pixmaps/polygon.xpm \
+	pixmaps/beziergon.xpm

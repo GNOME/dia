@@ -29,6 +29,7 @@
 #include "poly_conn.h"
 #include "polyshape.h"
 #include "bezier_conn.h"
+#include "beziershape.h"
 #include "widgets.h"
 #include "intl.h"
 #include "lazyprops.h"
@@ -46,6 +47,7 @@ static void *dummy_dep[] G_GNUC_UNUSED = {
   polyconn_init,
   polyshape_init,
   bezierconn_init,
+  beziershape_init,
   new_text,
   font_getfont,
   new_render_store,

@@ -1,0 +1,634 @@
+/* Dia -- an diagram creation/manipulation program
+ * Copyright (C) 1999 Alexander Larsson
+ *
+ * beziergon.c - a beziergon shape
+ * Copyright (C) 2000 James Henstridge
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+#include <assert.h>
+#include <gtk/gtk.h>
+#include <math.h>
+
+#include "config.h"
+#include "intl.h"
+#include "object.h"
+#include "beziershape.h"
+#include "connectionpoint.h"
+#include "render.h"
+#include "attributes.h"
+#include "widgets.h"
+#include "diamenu.h"
+#include "message.h"
+#include "properties.h"
+
+#include "pixmaps/beziergon.xpm"
+
+/*
+TODO:
+Have connections be remembered across delete corner
+Move connections correctly on delete corner
+Add/remove connection points
+Fix crashes:)
+*/
+
+#define DEFAULT_WIDTH 0.15
+
+typedef struct _BeziergonProperties BeziergonProperties;
+typedef struct _BeziergonDefaultsDialog BeziergonDefaultsDialog;
+
+typedef struct _Beziergon {
+  BezierShape bezier;
+
+  /* This is purely to be able to correctly free ConnectionPoints.
+     See what a GC would get you? */
+  GList *connections;
+
+  Color line_color;
+  LineStyle line_style;
+  Color inner_color;
+  gboolean show_background;
+  real dashlength;
+  real line_width;
+} Beziergon;
+
+struct _BeziergonProperties {
+  gboolean show_background;
+};
+
+struct _BeziergonDefaultsDialog {
+  GtkWidget *vbox;
+
+  GtkToggleButton *show_background;
+};
+
+
+static BeziergonDefaultsDialog *beziergon_defaults_dialog;
+static BeziergonProperties default_properties;
+
+
+static void beziergon_move_handle(Beziergon *beziergon, Handle *handle,
+		Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static void beziergon_move(Beziergon *beziergon, Point *to);
+static void beziergon_select(Beziergon *beziergon, Point *clicked_point,
+			     Renderer *interactive_renderer);
+static void beziergon_draw(Beziergon *beziergon, Renderer *renderer);
+static Object *beziergon_create(Point *startpoint,
+				void *user_data,
+				Handle **handle1,
+				Handle **handle2);
+static real beziergon_distance_from(Beziergon *beziergon, Point *point);
+static void beziergon_update_data(Beziergon *beziergon);
+static void beziergon_destroy(Beziergon *beziergon);
+static Object *beziergon_copy(Beziergon *beziergon);
+
+static PropDescription *beziergon_describe_props(Beziergon *beziergon);
+static void beziergon_get_props(Beziergon *beziergon, Property *props,
+				guint nprops);
+static void beziergon_set_props(Beziergon *beziergon, Property *props,
+				guint nprops);
+
+static void beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
+			  const char *filename);
+static Object *beziergon_load(ObjectNode obj_node, int version,
+			     const char *filename);
+static DiaMenu *beziergon_get_object_menu(Beziergon *beziergon,
+					  Point *clickedpoint);
+
+static GtkWidget *beziergon_get_defaults(void);
+static void beziergon_apply_defaults(void);
+
+static ObjectTypeOps beziergon_type_ops =
+{
+  (CreateFunc)beziergon_create,   /* create */
+  (LoadFunc)  beziergon_load,     /* load */
+  (SaveFunc)  beziergon_save,      /* save */
+  (GetDefaultsFunc)   beziergon_get_defaults,
+  (ApplyDefaultsFunc) beziergon_apply_defaults
+};
+
+static ObjectType beziergon_type =
+{
+  "Standard - Beziergon",   /* name */
+  0,                         /* version */
+  (char **) beziergon_xpm,      /* pixmap */
+  
+  &beziergon_type_ops       /* ops */
+};
+
+ObjectType *_beziergon_type = (ObjectType *) &beziergon_type;
+
+
+static ObjectOps beziergon_ops = {
+  (DestroyFunc)         beziergon_destroy,
+  (DrawFunc)            beziergon_draw,
+  (DistanceFunc)        beziergon_distance_from,
+  (SelectFunc)          beziergon_select,
+  (CopyFunc)            beziergon_copy,
+  (MoveFunc)            beziergon_move,
+  (MoveHandleFunc)      beziergon_move_handle,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      beziergon_get_object_menu,
+  (DescribePropsFunc)   beziergon_describe_props,
+  (GetPropsFunc)        beziergon_get_props,
+  (SetPropsFunc)        beziergon_set_props,
+};
+
+static PropDescription beziergon_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_LINE_STYLE,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_SHOW_BACKGROUND,
+  PROP_DESC_END
+};
+
+static PropDescription *
+beziergon_describe_props(Beziergon *beziergon)
+{
+  if (beziergon_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(beziergon_props);
+  return beziergon_props;
+}
+
+static PropOffset beziergon_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Beziergon, line_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Beziergon, line_color) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Beziergon, line_style), offsetof(Beziergon, dashlength) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Beziergon, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Beziergon, show_background) },
+  { NULL, 0, 0 }
+};
+
+static void
+beziergon_get_props(Beziergon *beziergon, Property *props, guint nprops)
+{
+  object_get_props_from_offsets((Object *)beziergon, beziergon_offsets,
+				props, nprops);
+}
+
+static void
+beziergon_set_props(Beziergon *beziergon, Property *props, guint nprops)
+{
+  object_set_props_from_offsets((Object *)beziergon, beziergon_offsets,
+				props, nprops);
+  beziergon_update_data(beziergon);
+}
+
+static void
+beziergon_apply_defaults(void)
+{
+  default_properties.show_background = gtk_toggle_button_get_active(beziergon_defaults_dialog->show_background);
+}
+
+static void
+init_default_values(void) {
+  static int defaults_initialized = 0;
+
+  if (!defaults_initialized) {
+    default_properties.show_background = 1;
+    defaults_initialized = 1;
+  }
+}
+
+static GtkWidget *
+beziergon_get_defaults(void)
+{
+  GtkWidget *vbox;
+  GtkWidget *hbox;
+  GtkWidget *checkbox;
+
+  if (beziergon_defaults_dialog == NULL) {
+  
+    init_default_values();
+
+    beziergon_defaults_dialog = g_new(BeziergonDefaultsDialog, 1);
+
+    vbox = gtk_vbox_new(FALSE, 5);
+    beziergon_defaults_dialog->vbox = vbox;
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    checkbox = gtk_check_button_new_with_label(_("Draw background"));
+    beziergon_defaults_dialog->show_background = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+
+    gtk_widget_show (vbox);
+  }
+
+  gtk_toggle_button_set_active(beziergon_defaults_dialog->show_background, 
+			       default_properties.show_background);
+
+  return beziergon_defaults_dialog->vbox;
+}
+
+
+static real
+beziergon_distance_from(Beziergon *beziergon, Point *point)
+{
+  return beziershape_distance_from(&beziergon->bezier, point,
+				   beziergon->line_width);
+}
+
+static Handle *
+beziergon_closest_handle(Beziergon *beziergon, Point *point)
+{
+  return beziershape_closest_handle(&beziergon->bezier, point);
+}
+
+static int
+beziergon_closest_segment(Beziergon *beziergon, Point *point)
+{
+  return beziershape_closest_segment(&beziergon->bezier, point,
+				     beziergon->line_width);
+}
+
+static void
+beziergon_select(Beziergon *beziergon, Point *clicked_point,
+		  Renderer *interactive_renderer)
+{
+  beziershape_update_data(&beziergon->bezier);
+}
+
+static void
+beziergon_move_handle(Beziergon *beziergon, Handle *handle,
+		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+{
+  assert(beziergon!=NULL);
+  assert(handle!=NULL);
+  assert(to!=NULL);
+
+  beziershape_move_handle(&beziergon->bezier, handle, to, reason);
+  beziergon_update_data(beziergon);
+}
+
+
+static void
+beziergon_move(Beziergon *beziergon, Point *to)
+{
+  beziershape_move(&beziergon->bezier, to);
+  beziergon_update_data(beziergon);
+}
+
+static void
+beziergon_draw(Beziergon *beziergon, Renderer *renderer)
+{
+  BezierShape *bezier = &beziergon->bezier;
+  BezPoint *points;
+  int n;
+  
+  points = &bezier->points[0];
+  n = bezier->numpoints;
+
+  renderer->ops->set_linewidth(renderer, beziergon->line_width);
+  renderer->ops->set_linestyle(renderer, beziergon->line_style);
+  renderer->ops->set_dashlength(renderer, beziergon->dashlength);
+  renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  if (beziergon->show_background)
+    renderer->ops->fill_bezier(renderer, points, n, &beziergon->inner_color);
+
+  renderer->ops->draw_bezier(renderer, points, n, &beziergon->line_color);
+
+  /* these lines should only be displayed when object is selected.
+   * Unfortunately the draw function is not aware of the selected
+   * state.  This is a compromise until I fix this properly. */
+  if (renderer->is_interactive) {
+    beziershape_draw_control_lines(&beziergon->bezier, renderer);
+  }
+}
+
+static Object *
+beziergon_create(Point *startpoint,
+		  void *user_data,
+		  Handle **handle1,
+		  Handle **handle2)
+{
+  Beziergon *beziergon;
+  BezierShape *bezier;
+  Object *obj;
+  Point defaultx = { 1.0, 0.0 };
+  Point defaulty = { 0.0, 1.0 };
+  int i;
+
+  init_default_values();
+
+  /*beziergon_init_defaults();*/
+  beziergon = g_new(Beziergon, 1);
+  bezier = &beziergon->bezier;
+  obj = (Object *) beziergon;
+
+  obj->type = &beziergon_type;
+  obj->ops = &beziergon_ops;
+
+  beziershape_init(bezier);
+
+  bezier->points[0].p1 = *startpoint;
+  bezier->points[0].p3 = *startpoint;
+  bezier->points[2].p3 = *startpoint;
+
+  bezier->points[1].p1 = *startpoint;
+  point_add(&bezier->points[1].p1, &defaultx);
+  bezier->points[2].p2 = *startpoint;
+  point_sub(&bezier->points[2].p2, &defaultx);
+
+  bezier->points[1].p3 = *startpoint;
+  point_add(&bezier->points[1].p3, &defaulty);
+  bezier->points[1].p2 = bezier->points[1].p3;
+  point_add(&bezier->points[1].p2, &defaultx);
+  bezier->points[2].p1 = bezier->points[1].p3;
+  point_sub(&bezier->points[2].p1, &defaultx);
+  
+  beziergon->line_width =  attributes_get_default_linewidth();
+  beziergon->line_color = attributes_get_foreground();
+  beziergon->inner_color = attributes_get_background();
+  attributes_get_default_line_style(&beziergon->line_style,
+				    &beziergon->dashlength);
+  beziergon->show_background = default_properties.show_background;
+
+  beziergon->connections = NULL;
+
+  for (i=0; i<2; i++) {
+    ConnectionPoint *newconn = g_new(ConnectionPoint, 1);
+    object_add_connectionpoint(obj, newconn);
+    newconn->object = obj;
+    newconn->connected = NULL;
+    beziergon->connections = g_list_prepend(beziergon->connections, newconn);
+  }
+
+  beziergon_update_data(beziergon);
+
+  *handle1 = bezier->object.handles[0];
+  *handle2 = bezier->object.handles[3];
+  return (Object *)beziergon;
+}
+
+static void
+beziergon_destroy(Beziergon *beziergon)
+{
+  GList *connlist;
+
+  beziershape_destroy(&beziergon->bezier);
+  for (connlist = beziergon->connections; connlist != NULL; connlist = g_list_next(connlist)) {
+    g_free(connlist->data);
+  }
+  g_list_free(beziergon->connections);
+}
+
+static Object *
+beziergon_copy(Beziergon *beziergon)
+{
+  Beziergon *newbeziergon;
+  BezierShape *bezier, *newbezier;
+  Object *newobj;
+  int i;
+
+  bezier = &beziergon->bezier;
+ 
+  newbeziergon = g_malloc(sizeof(Beziergon));
+  newbezier = &newbeziergon->bezier;
+  newobj = (Object *) newbeziergon;
+
+  beziershape_copy(bezier, newbezier);
+
+  newbeziergon->line_color = beziergon->line_color;
+  newbeziergon->line_width = beziergon->line_width;
+  newbeziergon->line_style = beziergon->line_style;
+  newbeziergon->dashlength = beziergon->dashlength;
+  newbeziergon->show_background = beziergon->show_background;
+
+  newbeziergon->connections = NULL;
+
+  for (i = 0; i < bezier->numpoints - 1; i++) {
+    ConnectionPoint *newconn = g_new(ConnectionPoint, 1);
+    /* Shouldn't this be a function in object.c? */
+    newobj->connections[i] = newconn;
+    *newconn = *(bezier->object.connections[i]);
+    newbeziergon->connections = g_list_prepend(newbeziergon->connections, newconn);
+  }
+
+  return (Object *)newbeziergon;
+}
+
+
+static void
+beziergon_update_data(Beziergon *beziergon)
+{
+  BezierShape *bezier = &beziergon->bezier;
+  Object *obj = (Object *) beziergon;
+  int i;
+
+  beziershape_update_data(bezier);
+  
+  beziershape_update_boundingbox(bezier);
+  /* fix boundingbox for line_width: */
+  obj->bounding_box.top -= beziergon->line_width/2;
+  obj->bounding_box.left -= beziergon->line_width/2;
+  obj->bounding_box.bottom += beziergon->line_width/2;
+  obj->bounding_box.right += beziergon->line_width/2;
+
+  obj->position = bezier->points[0].p1;
+
+  for (i = 0; i < bezier->numpoints - 1; i++) {
+    obj->connections[i]->pos = bezier->points[i].p3;
+  }
+}
+
+static void
+beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
+	      const char *filename)
+{
+  beziershape_save(&beziergon->bezier, obj_node);
+
+  if (!color_equals(&beziergon->line_color, &color_black))
+    data_add_color(new_attribute(obj_node, "line_color"),
+		   &beziergon->line_color);
+  
+  if (beziergon->line_width != 0.1)
+    data_add_real(new_attribute(obj_node, "line_width"),
+		  beziergon->line_width);
+  
+  if (!color_equals(&beziergon->inner_color, &color_white))
+    data_add_color(new_attribute(obj_node, "inner_color"),
+		   &beziergon->inner_color);
+  
+  data_add_boolean(new_attribute(obj_node, "show_background"),
+		   beziergon->show_background);
+
+  if (beziergon->line_style != LINESTYLE_SOLID)
+    data_add_enum(new_attribute(obj_node, "line_style"),
+		  beziergon->line_style);
+
+  if (beziergon->line_style != LINESTYLE_SOLID &&
+      beziergon->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+    data_add_real(new_attribute(obj_node, "dashlength"),
+		  beziergon->dashlength);
+  
+}
+
+static Object *
+beziergon_load(ObjectNode obj_node, int version, const char *filename)
+{
+  Beziergon *beziergon;
+  BezierShape *bezier;
+  Object *obj;
+  AttributeNode attr;
+  int i;
+
+  beziergon = g_malloc(sizeof(Beziergon));
+
+  bezier = &beziergon->bezier;
+  obj = (Object *) beziergon;
+  
+  obj->type = &beziergon_type;
+  obj->ops = &beziergon_ops;
+
+  beziershape_load(bezier, obj_node);
+
+  beziergon->line_color = color_black;
+  attr = object_find_attribute(obj_node, "line_color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &beziergon->line_color);
+
+  beziergon->line_width = 0.1;
+  attr = object_find_attribute(obj_node, "line_width");
+  if (attr != NULL)
+    beziergon->line_width = data_real(attribute_first_data(attr));
+
+  beziergon->inner_color = color_white;
+  attr = object_find_attribute(obj_node, "inner_color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &beziergon->inner_color);
+  
+  beziergon->show_background = TRUE;
+  attr = object_find_attribute(obj_node, "show_background");
+  if (attr != NULL)
+    beziergon->show_background = data_boolean( attribute_first_data(attr) );
+
+  beziergon->line_style = LINESTYLE_SOLID;
+  attr = object_find_attribute(obj_node, "line_style");
+  if (attr != NULL)
+    beziergon->line_style = data_enum(attribute_first_data(attr));
+
+  beziergon->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute(obj_node, "dashlength");
+  if (attr != NULL)
+    beziergon->dashlength = data_real(attribute_first_data(attr));
+
+  beziergon->connections = NULL;
+
+  for (i=0; i<beziergon->bezier.numpoints; i++) {
+    ConnectionPoint *newconn = g_new(ConnectionPoint, 1);
+    object_add_connectionpoint(obj, newconn);
+    newconn->object = obj;
+    newconn->connected = NULL;
+    beziergon->connections = g_list_prepend(beziergon->connections, newconn);
+  }
+
+  beziergon_update_data(beziergon);
+
+  return (Object *)beziergon;
+}
+
+#if 0
+/* Have to have BezierShape have its own pointchange */
+static void
+beziergon_change_free(struct PointChange *change)
+{
+}
+
+static void beziergon_change_apply(struct PointChange *change, Object *obj)
+{
+}
+
+static void beziergon_change_revert(struct PointChange *change, Object *obj)
+{
+}
+
+static ObjectChange *
+beziergon_create_change (Beziergon *beziergon)
+{
+  return NULL;
+}
+#endif
+
+static ObjectChange *
+beziergon_add_segment_callback (Object *obj, Point *clicked, gpointer data)
+{
+  Beziergon *bezier = (Beziergon*) obj;
+  int segment;
+  ObjectChange *change;
+  ConnectionPoint *newconn = g_new(ConnectionPoint, 1);
+  
+  segment = beziergon_closest_segment(bezier, clicked);
+  change = beziershape_add_segment(&bezier->bezier, segment, clicked);
+
+  object_add_connectionpoint(obj, newconn);
+  newconn->object = obj;
+  newconn->connected = NULL;
+  bezier->connections = g_list_prepend(bezier->connections, newconn);
+
+  beziergon_update_data(bezier);
+  return change;
+}
+
+static ObjectChange *
+beziergon_delete_segment_callback (Object *obj, Point *clicked, gpointer data)
+{
+  int seg_nr;
+  Beziergon *bezier = (Beziergon*) obj;
+  ObjectChange *change;
+  ConnectionPoint *oldconn;
+  
+  seg_nr = beziergon_closest_segment(bezier, clicked);
+  change = beziershape_remove_segment(&bezier->bezier, seg_nr);
+
+  oldconn = obj->connections[seg_nr];
+  object_remove_connectionpoint(obj, oldconn);
+  bezier->connections = g_list_remove(bezier->connections, oldconn);
+  g_free(oldconn);
+
+  beziergon_update_data(bezier);
+  return change;
+}
+
+
+static DiaMenuItem beziergon_menu_items[] = {
+  { N_("Add Segment"), beziergon_add_segment_callback, NULL, 1 },
+  { N_("Delete Segment"), beziergon_delete_segment_callback, NULL, 1 },
+};
+
+static DiaMenu beziergon_menu = {
+  "Beziergon",
+  sizeof(beziergon_menu_items)/sizeof(DiaMenuItem),
+  beziergon_menu_items,
+  NULL
+};
+
+static DiaMenu *
+beziergon_get_object_menu(Beziergon *beziergon, Point *clickedpoint)
+{
+  /* Set entries sensitive/selected etc here */
+  beziergon_menu_items[0].active = 1;
+  beziergon_menu_items[1].active = beziergon->bezier.numpoints > 3;
+  return &beziergon_menu;
+}

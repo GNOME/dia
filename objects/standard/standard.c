@@ -30,6 +30,7 @@ extern ObjectType *_bezierline_type;
 extern ObjectType *_textobj_type;
 extern ObjectType *_image_type;
 extern ObjectType *_polygon_type;
+extern ObjectType *_beziergon_type;
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -50,6 +51,7 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(_textobj_type);
   object_register_type(_image_type);
   object_register_type(_polygon_type);
+  object_register_type(_beziergon_type);
 
   return DIA_PLUGIN_INIT_OK;
 }
