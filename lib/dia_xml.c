@@ -173,14 +173,17 @@ data_real(DataNode data)
 {
   char *val;
   real res;
-  
+  char *old_locale;
+
   if (data_type(data)!=DATATYPE_REAL) {
     message_error("Taking real value of non-real node.");
     return 0;
   }
 
   val = xmlGetProp(data, "val");
+  old_locale = setlocale(LC_NUMERIC, "C");
   res = g_strtod(val, NULL);
+  setlocale(LC_NUMERIC, old_locale);
   if (val) free(val);
   
   return res;
@@ -254,14 +257,17 @@ data_point(DataNode data, Point *point)
 {
   char *val;
   char *str;
-  
+  char *old_locale;
+
   if (data_type(data)!=DATATYPE_POINT) {
     message_error("Taking point value of non-point node.");
     return;
   }
   
   val = xmlGetProp(data, "val");
+  old_locale = setlocale(LC_NUMERIC, "C");
   point->x = g_strtod(val, &str);
+  setlocale(LC_NUMERIC, old_locale);
   while ((*str != ',') && (*str!=0))
     str++;
   if (*str==0){
@@ -271,7 +277,9 @@ data_point(DataNode data, Point *point)
     return;
   }
     
+  old_locale = setlocale(LC_NUMERIC, "C");
   point->y = g_strtod(str+1, NULL);
+  setlocale(LC_NUMERIC, old_locale);
   free(val);
 }
 
@@ -280,6 +288,7 @@ data_rectangle(DataNode data, Rectangle *rect)
 {
   char *val;
   char *str;
+  char *old_locale;
   
   if (data_type(data)!=DATATYPE_RECTANGLE) {
     message_error("Taking rectangle value of non-rectangle node.");
@@ -288,7 +297,9 @@ data_rectangle(DataNode data, Rectangle *rect)
   
   val = xmlGetProp(data, "val");
   
+  old_locale = setlocale(LC_NUMERIC, "C");
   rect->left = g_strtod(val, &str);
+  setlocale(LC_NUMERIC, old_locale);
   
   while ((*str != ',') && (*str!=0))
     str++;
@@ -299,7 +310,9 @@ data_rectangle(DataNode data, Rectangle *rect)
     return;
   }
     
+  old_locale = setlocale(LC_NUMERIC, "C");
   rect->top = g_strtod(str+1, &str);
+  setlocale(LC_NUMERIC, old_locale);
 
   while ((*str != ';') && (*str!=0))
     str++;
@@ -310,7 +323,9 @@ data_rectangle(DataNode data, Rectangle *rect)
     return;
   }
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   rect->right = g_strtod(str+1, &str);
+  setlocale(LC_NUMERIC, old_locale);
 
   while ((*str != ',') && (*str!=0))
     str++;
@@ -321,7 +336,9 @@ data_rectangle(DataNode data, Rectangle *rect)
     return;
   }
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   rect->bottom = g_strtod(str+1, NULL);
+  setlocale(LC_NUMERIC, old_locale);
   
   free(val);
 }
