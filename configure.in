@@ -126,7 +126,7 @@ AM_ICONV
 
 dnl check for libunicode 
 AC_ARG_ENABLE(unicode, 
-[  --enable-unicode    enable (LIMITED, EXPERIMENTAL) unicode support],,
+[  --enable-unicode        enable (LIMITED, EXPERIMENTAL) unicode support],,
         enable_unicode=yes)
 UNICODE_CFLAGS=
 UNICODE_LIBS=
@@ -157,7 +157,7 @@ CPPFLAGS=$OLDCPPFLAGS
 
 dnl check for libfreetype
 AC_ARG_ENABLE(freetype, 
-[  --enable-freetype    enable (LIMITED, EXPERIMENTAL) freetype support],,
+[  --enable-freetype       enable (LIMITED, EXPERIMENTAL) freetype support],,
         freetype=yes)
 FREETYPE_CFLAGS=
 FREETYPE_LIBS=
@@ -165,18 +165,21 @@ have_freetype=false
 yn_have_freetype=no
 
 if test "$enable_freetype" = "yes"; then
-  AC_MSG_CHECKING(for libfreetype)
-  if freetype-config --libs > /dev/null 2>&1; then
-    vers=`freetype-config --version`
-    have_freetype=true     
-    yn_have_freetype=yes        
-    FREETYPE_CFLAGS=`freetype-config --cflags`
-    FREETYPE_LIBS=`freetype-config --libs`
-    AC_DEFINE(HAVE_FREETYPE,, Freetype support library available)
-    AC_MSG_RESULT([found, version $vers])
-  else
-    AC_MSG_RESULT([not found])
-  fi
+  AC_CHECK_FT2(2.0.5, have_freetype=true, have_freetype=false)
+  FREETYPE_CFLAGS=FT2_CFLAGS
+  FREETYPE_LIBS=FT2_LIBS
+dnl  AC_MSG_CHECKING(for libfreetype)
+dnl if freetype-config --libs > /dev/null 2>&1; then
+dnl    vers=`freetype-config --version`
+dnl    have_freetype=true     
+dnl    yn_have_freetype=yes        
+dnl    FREETYPE_CFLAGS=`freetype-config --cflags`
+dnl    FREETYPE_LIBS=`freetype-config --libs`
+dnl    AC_DEFINE(HAVE_FREETYPE,, Freetype support library available)
+dnl    AC_MSG_RESULT([found, version $vers])
+dnl  else
+dnl    AC_MSG_RESULT([not found])
+dnl  fi
 else
   have_freetype=false
 fi

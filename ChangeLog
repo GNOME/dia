@@ -1,3 +1,8 @@
+2002-03-05  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* configure.in: Using Freetypes own check for ver >= 1.0.5.  You
+	may need to rerun aclocal.
+
 2002-03-04  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/font.c: First attempt at Unicodeness for Freetype.
