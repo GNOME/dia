@@ -130,7 +130,7 @@ gtk_message_internal(const char* title, const char *fmt,
     }
     gtk_widget_show (dialog);
     g_signal_connect (G_OBJECT (dialog), "response",
-		      G_CALLBACK (gtk_widget_destroy),
+		      G_CALLBACK (gtk_widget_hide),
 		      NULL);
     /* Store relevant info to allow repeats to be collapsed */
     msginfo = g_new0(DiaMessageInfo, 1);
