@@ -1,5 +1,10 @@
 2000-04-08  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
+	* objects/standard/polygon.c: Fixed startup crash bug (do'h!).
+
+	* lib/polyshape.c: Fix closest segment finding, exposes deeper
+	bugs in adding corners to 'wraparound' segment.
+
 	* objects/standard/polygon.c: Added connection points (fixed so
 	far), set menu sensitivity.
 

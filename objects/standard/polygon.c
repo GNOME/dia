@@ -38,7 +38,6 @@ TODO:
 Have connections be remembered across delete corner
 Move connections correctly on delete corner
 Add/remove connection points
-Fix create size
 Fix crashes:)
 */
 
@@ -326,6 +325,8 @@ polygon_create(Point *startpoint,
   obj->type = &polygon_type;
   obj->ops = &polygon_ops;
 
+  polyshape_init(poly);
+
   poly->points[0] = *startpoint;
   poly->points[1] = *startpoint;
   point_add(&poly->points[1], &defaultx);
@@ -340,8 +341,6 @@ polygon_create(Point *startpoint,
   attributes_get_default_line_style(&polygon->line_style,
 				    &polygon->dashlength);
   polygon->show_background = default_properties.show_background;
-
-  polyshape_init(poly);
 
   for (i=0;i<3;i++) {
     obj->connections[i] = &polygon->connections[i];

@@ -99,9 +99,9 @@ polyshape_closest_segment(PolyShape *poly, Point *point, real line_width)
   real dist;
   int closest;
 
-  dist = distance_line_point( &poly->points[poly->num_points-1], &poly->points[0],
+  dist = distance_line_point( &poly->points[poly->numpoints-1], &poly->points[0],
 			      line_width, point);
-  closest = 0;
+  closest = poly->numpoints-1;
   for (i=0;i<poly->numpoints-1;i++) {
     real new_dist = 
       distance_line_point( &poly->points[i], &poly->points[i+1],
