@@ -1,3 +1,8 @@
+2000-07-02  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* doc/diagram.dtd: changed string-element so it conforms to the
+	output from dia.
+
 2000-06-30  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* configure.in: added chinese. 

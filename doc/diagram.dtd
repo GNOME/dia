@@ -51,8 +51,7 @@
 <!ELEMENT rectangle EMPTY>
 <!ATTLIST rectangle  val CDATA #REQUIRED>
 
-<!ELEMENT string EMPTY>
-<!ATTLIST string  val CDATA #IMPLIED>
+<!ELEMENT string (#PCDATA)>
 
 <!ELEMENT font EMPTY>
 <!ATTLIST font name CDATA #REQUIRED>
