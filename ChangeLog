@@ -1,3 +1,7 @@
+2001-06-08  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* plug-ins/xfig/xfig-import.c: corrected a typo (fixes #55910)
+
 2001-06-07  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/app_procs.c (app_init): added a call to unicode_init() (only

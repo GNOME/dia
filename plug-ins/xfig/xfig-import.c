@@ -70,7 +70,7 @@ static void
 fig_warn(int warning) {
     if (warnings == NULL) {
 	warnings = g_malloc(sizeof(char*)*MAX_WARNING);
-	warnings[0] = _("Polygon import is not implemented yes");
+	warnings[0] = _("Polygon import is not implemented yet");
 	warnings[1] = _("Patterns are not supported by Dia");
 	warnings[2] = _("Triple-dotted lines are not supported by Dia, using double-dotted");
 	warnings[3] = _("Negative corner radius, negating");
