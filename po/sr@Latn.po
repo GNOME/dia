@@ -9,85 +9,85 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-03 22:49+0100\n"
-"PO-Revision-Date: 2003-11-03 23:15+0100\n"
+"POT-Creation-Date: 2003-11-22 21:04+0100\n"
+"PO-Revision-Date: 2003-11-22 21:04+0100\n"
 "Last-Translator: Dejan Matijević <dmax@neobee.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:173
+#: app/app_procs.c:169
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s greška: nezna kako da izveze u %s\n"
 
-#: app/app_procs.c:183
+#: app/app_procs.c:179
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s greška: ulazno i izlazno ime datoteke su isti: %s"
 
-#: app/app_procs.c:191
+#: app/app_procs.c:187
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s graška: treba ispravan ulazni tip %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:197
+#: app/app_procs.c:193
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s —> %s\n"
 
-#: app/app_procs.c:239
+#: app/app_procs.c:235
 #, c-format
 msgid "Can't find output format %s\n"
 msgstr "Ne mogu da nađem vrstu izlaza %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:323
+#: app/app_procs.c:319
 #, c-format
 msgid "Export to file format and exit.  Supported formats are: %s"
 msgstr "Izvezi u vrstu datoteke i izađi. Podržane vrste su: %s"
 
 #. &export_file_name
-#: app/app_procs.c:332
+#: app/app_procs.c:328
 msgid "Export loaded file and exit"
 msgstr "Izvezi učitanu datoteku i izađi"
 
-#: app/app_procs.c:332 app/diaconv.c:94
+#: app/app_procs.c:328 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "IZLAZ"
 
 #. &export_file_format
-#: app/app_procs.c:334
+#: app/app_procs.c:330
 msgid "FORMAT"
 msgstr "VRSTA"
 
-#: app/app_procs.c:337
+#: app/app_procs.c:333
 msgid "Don't show the splash screen"
 msgstr "Ne prikazuj naslovni ekran"
 
-#: app/app_procs.c:339
+#: app/app_procs.c:335
 msgid "Display credits list and exit"
 msgstr "Prikaži zasluge i izađi"
 
-#: app/app_procs.c:341
+#: app/app_procs.c:337
 msgid "Display version and exit"
 msgstr "Pokaži verziju i izađi"
 
-#: app/app_procs.c:343 app/diaconv.c:95
+#: app/app_procs.c:339 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Prikaži ovaj pomoćni tekst"
 
-#: app/app_procs.c:375
+#: app/app_procs.c:371
 msgid "Can't connect to session manager!\n"
 msgstr "Ne može se povezati sa upravnikom sesije!\n"
 
-#: app/app_procs.c:390 app/diaconv.c:119
+#: app/app_procs.c:386 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPCIJA...] [DATOTEKA...]"
 
-#: app/app_procs.c:394 app/diaconv.c:126
+#: app/app_procs.c:390 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -98,22 +98,22 @@ msgstr ""
 "linije.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:413
+#: app/app_procs.c:409
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia verzija %s, prevedena %s %s\n"
 
-#: app/app_procs.c:415
+#: app/app_procs.c:411
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia verzija %s\n"
 
-#: app/app_procs.c:495 app/app_procs.c:497 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:491 app/app_procs.c:493 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nemože da nađe standardane objekte kada traži object-libs, izlazi...\n"
 
-#: app/app_procs.c:589
+#: app/app_procs.c:585
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -122,7 +122,7 @@ msgstr ""
 "opisujući se greška može izazvati.\n"
 
 #. no standard buttons
-#: app/app_procs.c:601
+#: app/app_procs.c:597
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -132,21 +132,21 @@ msgstr ""
 "Da li ste sigurni da želite da završite Dia\n"
 "bez prethodnog snimanja?"
 
-#: app/app_procs.c:605
+#: app/app_procs.c:601
 msgid "Quit Dia"
 msgstr "Prekini Diu"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:660
+#: app/app_procs.c:656
 msgid "Thank you for using Dia.\n"
 msgstr "Hvala vam što koristite Diu.\n"
 
-#: app/app_procs.c:674 app/app_procs.c:681
+#: app/app_procs.c:670 app/app_procs.c:677
 msgid "Could not create per-user Dia config directory"
 msgstr "Ne mogu da napravim direktorijum sa Dia podešavanjima za korisnika"
 
-#: app/app_procs.c:683
+#: app/app_procs.c:679
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -154,7 +154,7 @@ msgstr ""
 "Ne mogu da napravim direktorijum sa Dia podešavanjima za korisnika. Proverite "
 "da li promenljiva okruženja HOME pokazuje na postojeći direktorijum."
 
-#: app/app_procs.c:705 app/diaconv.c:249
+#: app/app_procs.c:701 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objekti i filteri interni za diu"
 
@@ -551,11 +551,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Dijagram izmenjen!"
 
-#: app/display.c:992
+#: app/display.c:991
 msgid "<unnamed>"
 msgstr "<bez imena>"
 
-#: app/display.c:994
+#: app/display.c:993
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -564,11 +564,11 @@ msgstr ""
 "Dijagram „%s“\n"
 "nije sačuvan. Da sačuvam izmene sada?"
 
-#: app/display.c:1005
+#: app/display.c:1004
 msgid "Close Diagram"
 msgstr "Zatvori dijagram"
 
-#: app/display.c:1010
+#: app/display.c:1009
 msgid "Discard Changes"
 msgstr "Odbaci promene"
 
@@ -689,25 +689,25 @@ msgstr "Izvezi dijagram"
 msgid "Export Options"
 msgstr "Opcije izvoza"
 
-#: app/interface.c:43
+#: app/interface.c:45
 msgid "Modify object(s)"
 msgstr "Izmeni objekat(e)"
 
-#: app/interface.c:44 app/menus.c:221
+#: app/interface.c:46 app/menus.c:221
 msgid "Modify"
 msgstr "Izmeni"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:48 app/interface.c:49 app/menus.c:222
+#: app/interface.c:50 app/interface.c:51 app/menus.c:222
 #: objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Uveličaj"
 
-#: app/interface.c:53
+#: app/interface.c:55
 msgid "Scroll around the diagram"
 msgstr "Uspravno pomeranje oko dijagrama"
 
-#: app/interface.c:54 app/menus.c:223
+#: app/interface.c:56 app/menus.c:223
 msgid "Scroll"
 msgstr "Pomeranje teksta"
 
@@ -715,7 +715,7 @@ msgstr "Pomeranje teksta"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/interface.c:59 app/menus.c:224 lib/properties.c:77
+#: app/interface.c:60 app/interface.c:61 app/menus.c:224 lib/properties.c:77
 #: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:124
 #: objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:121 objects/UML/component_feature.c:154
@@ -725,65 +725,65 @@ msgstr "Pomeranje teksta"
 msgid "Text"
 msgstr "Tekst"
 
-#: app/interface.c:63 app/interface.c:64 app/menus.c:225
+#: app/interface.c:65 app/interface.c:66 app/menus.c:225
 msgid "Box"
 msgstr "Kućica"
 
-#: app/interface.c:68 app/interface.c:69 app/menus.c:226
+#: app/interface.c:70 app/interface.c:71 app/menus.c:226
 msgid "Ellipse"
 msgstr "Elipsa"
 
-#: app/interface.c:73 app/interface.c:74 app/menus.c:227
+#: app/interface.c:75 app/interface.c:76 app/menus.c:227
 msgid "Polygon"
 msgstr "Poligon"
 
 # Ovo je sklop od „bezierov“ i „poligon“, pa može i kod nas
-#: app/interface.c:78 app/interface.c:79 app/menus.c:228
+#: app/interface.c:80 app/interface.c:81 app/menus.c:228
 msgid "Beziergon"
 msgstr "Beziergon"
 
-#: app/interface.c:83 app/interface.c:84 app/menus.c:230
+#: app/interface.c:85 app/interface.c:86 app/menus.c:230
 #: objects/standard/line.c:247
 msgid "Line"
 msgstr "Linija"
 
-#: app/interface.c:88 app/interface.c:89 app/menus.c:231
+#: app/interface.c:90 app/interface.c:91 app/menus.c:231
 msgid "Arc"
 msgstr "Luk"
 
-#: app/interface.c:93 app/interface.c:94 app/menus.c:232
+#: app/interface.c:95 app/interface.c:96 app/menus.c:232
 msgid "Zigzagline"
 msgstr "Cik-cak linija"
 
-#: app/interface.c:98 app/interface.c:99 app/menus.c:233
+#: app/interface.c:100 app/interface.c:101 app/menus.c:233
 msgid "Polyline"
 msgstr "Izlomljena linija"
 
-#: app/interface.c:103 app/interface.c:104 app/menus.c:234
+#: app/interface.c:105 app/interface.c:106 app/menus.c:234
 msgid "Bezierline"
 msgstr "Bezierova linija"
 
-#: app/interface.c:108 app/interface.c:109 app/menus.c:236
+#: app/interface.c:110 app/interface.c:111 app/menus.c:236
 msgid "Image"
 msgstr "Slika"
 
-#: app/interface.c:371
+#: app/interface.c:373
 msgid "Diagram menu."
 msgstr "Meni dijagrama."
 
-#: app/interface.c:480
+#: app/interface.c:482
 msgid "Zoom"
 msgstr "Uvećaj"
 
-#: app/interface.c:494
+#: app/interface.c:496
 msgid "Toggles snap-to-grid for this window."
 msgstr "Isključuje ili uključuje prijanjanje uz mrežu za ovaj prozor."
 
-#: app/interface.c:538
+#: app/interface.c:540
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata u tool_select_update"
 
-#: app/interface.c:1020
+#: app/interface.c:1023
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -792,7 +792,7 @@ msgstr ""
 "Boja i boja pozadine za nove objekte. Mali crni i beli kvadrati vraćaju "
 "stare boje. Male strelice razmenjuju boje. Dvostrukim klikom menjate boje."
 
-#: app/interface.c:1035
+#: app/interface.c:1038
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -801,7 +801,7 @@ msgstr ""
 "novih objekata. Kliknite dva puta da postavite debljinu linije pnešto "
 "preciznije."
 
-#: app/interface.c:1067
+#: app/interface.c:1070
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -809,7 +809,7 @@ msgstr ""
 "Stil strelica za početak novih linija. Kliknite da izaberete strelicu, ili "
 "postavite osobine strelica pomoću „Detalja“..."
 
-#: app/interface.c:1072
+#: app/interface.c:1075
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -817,7 +817,7 @@ msgstr ""
 "Stil linija za nove linije. Kliknite da izaberete stil linija, ili postavite "
 "osobine stila linija pomoću „Detalja“..."
 
-#: app/interface.c:1077
+#: app/interface.c:1080
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -825,7 +825,7 @@ msgstr ""
 "Stil strelica za krajeve linija. Kliknite da izaberete strelicu, ili "
 "postavite osobine strelica pomoću „Detalja“..."
 
-#: app/interface.c:1185
+#: app/interface.c:1188
 msgid "Diagram Editor"
 msgstr "Uređivać Dijagrama"
 
@@ -4037,7 +4037,7 @@ msgstr "Šablon"
 
 #  Class page:
 #. Class page:
-#: objects/UML/class.c:178 objects/UML/class.c:936
+#: objects/UML/class.c:178 objects/UML/class.c:938
 #: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Klasa"
@@ -5139,18 +5139,22 @@ msgid "Trapezoid"
 msgstr "Trapezoid"
 
 #: sheets/Assorted.sheet.in.h:38
+msgid "Turn-up arrow"
+msgstr "Okreni-gore strelica"
+
+#: sheets/Assorted.sheet.in.h:39
 msgid "Up arrow"
 msgstr "Nagore strelica"
 
-#: sheets/Assorted.sheet.in.h:39
+#: sheets/Assorted.sheet.in.h:40
 msgid "Up-down arrow"
 msgstr "Gore–dole strelica"
 
-#: sheets/Assorted.sheet.in.h:40
+#: sheets/Assorted.sheet.in.h:41
 msgid "Up-down-left arrow"
 msgstr "Gore–dole–levo strelica"
 
-#: sheets/Assorted.sheet.in.h:41
+#: sheets/Assorted.sheet.in.h:42
 msgid "Vertical parallelogram"
 msgstr "Uspravni paralelogram"
 
