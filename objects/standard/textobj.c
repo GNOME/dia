@@ -90,8 +90,10 @@ static Object *textobj_copy(Textobj *textobj);
 static GtkWidget *textobj_get_properties(Textobj *textobj);
 static void textobj_apply_properties(Textobj *textobj);
 
-static void textobj_save(Textobj *textobj, ObjectNode obj_node);
-static Object *textobj_load(ObjectNode obj_node, int version);
+static void textobj_save(Textobj *textobj, ObjectNode obj_node,
+			 const char *filename);
+static Object *textobj_load(ObjectNode obj_node, int version,
+			    const char *filename);
 static int textobj_is_empty(Textobj *textobj);
 static GtkWidget *textobj_get_defaults();
 static void textobj_apply_defaults();
@@ -458,7 +460,7 @@ textobj_copy(Textobj *textobj)
 }
 
 static void
-textobj_save(Textobj *textobj, ObjectNode obj_node)
+textobj_save(Textobj *textobj, ObjectNode obj_node, const char *filename)
 {
   object_save(&textobj->object, obj_node);
 
@@ -467,7 +469,7 @@ textobj_save(Textobj *textobj, ObjectNode obj_node)
 }
 
 static Object *
-textobj_load(ObjectNode obj_node, int version)
+textobj_load(ObjectNode obj_node, int version, const char *filename)
 {
   Textobj *textobj;
   Object *obj;

@@ -490,18 +490,18 @@ help_about_callback(GtkWidget *widget, gpointer data)
   gtk_window_set_wmclass (GTK_WINDOW (dialog), "about_dialog", "Dia");
   gtk_window_set_title (GTK_WINDOW (dialog), _("About Dia"));
   gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, FALSE, FALSE);
-  gtk_window_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
+  gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   gtk_signal_connect (GTK_OBJECT (dialog), "destroy",
 		      GTK_SIGNAL_FUNC (gtk_widget_destroy), 
 		      GTK_OBJECT (dialog));
 
   frame = gtk_frame_new (NULL);
   gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
-  gtk_container_border_width (GTK_CONTAINER (frame), 5);
+  gtk_container_set_border_width (GTK_CONTAINER (frame), 5);
   gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), frame);
 
   vbox = gtk_vbox_new (FALSE, 1);
-  gtk_container_border_width (GTK_CONTAINER (vbox), 1);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 1);
   gtk_container_add (GTK_CONTAINER (frame), vbox);
 
   label = gtk_label_new ("Dia v" VERSION " by Alexander Larsson");

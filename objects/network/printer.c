@@ -26,8 +26,10 @@ static Object *printer_create(Point *startpoint,
 			      void *user_data,
 			      Handle **handle1,
 			      Handle **handle2);
-static void printer_save(RenderObject *printer, ObjectNode obj_node);
-static Object *printer_load(ObjectNode obj_node, int version);
+static void printer_save(RenderObject *printer, ObjectNode obj_node,
+			 const char *filename);
+static Object *printer_load(ObjectNode obj_node, int version,
+			    const char *filename);
 
 static ObjectTypeOps printer_type_ops =
 {
@@ -244,13 +246,14 @@ printer_create(Point *startpoint,
 }
 
 static void
-printer_save(RenderObject *printer, ObjectNode obj_node)
+printer_save(RenderObject *printer, ObjectNode obj_node,
+	     const char *filename)
 {
   render_object_save(printer, obj_node);
 }
 
 static Object *
-printer_load(ObjectNode obj_node, int version)
+printer_load(ObjectNode obj_node, int version, const char *filename)
 {
   if (printer_desc.store == NULL) {
     render_to_store();

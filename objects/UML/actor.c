@@ -60,8 +60,10 @@ static Object *actor_create(Point *startpoint,
 static void actor_destroy(Actor *actor);
 static Object *actor_copy(Actor *actor);
 
-static void actor_save(Actor *actor, ObjectNode obj_node);
-static Object *actor_load(ObjectNode obj_node, int version);
+static void actor_save(Actor *actor, ObjectNode obj_node,
+		       const char *filename);
+static Object *actor_load(ObjectNode obj_node, int version,
+			  const char *filename);
 
 static void actor_update_data(Actor *actor);
 
@@ -346,7 +348,7 @@ actor_copy(Actor *actor)
 
 
 static void
-actor_save(Actor *actor, ObjectNode obj_node)
+actor_save(Actor *actor, ObjectNode obj_node, const char *filename)
 {
   element_save(&actor->element, obj_node);
 
@@ -355,7 +357,7 @@ actor_save(Actor *actor, ObjectNode obj_node)
 }
 
 static Object *
-actor_load(ObjectNode obj_node, int version)
+actor_load(ObjectNode obj_node, int version, const char *filename)
 {
   Actor *actor;
   Element *elem;

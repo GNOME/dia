@@ -86,8 +86,10 @@ static Object *entity_copy(Entity *entity);
 static GtkWidget *entity_get_properties(Entity *entity);
 static void entity_apply_properties(Entity *entity);
 
-static void entity_save(Entity *entity, ObjectNode obj_node );
-static Object *entity_load(ObjectNode obj_node, int version);
+static void entity_save(Entity *entity, ObjectNode obj_node,
+			const char *filename);
+static Object *entity_load(ObjectNode obj_node, int version,
+			   const char *filename);
 
 static ObjectTypeOps entity_type_ops =
 {
@@ -474,7 +476,7 @@ entity_copy(Entity *entity)
 }
 
 static void
-entity_save(Entity *entity, ObjectNode obj_node)
+entity_save(Entity *entity, ObjectNode obj_node, const char *filename)
 {
   element_save(&entity->element, obj_node);
 
@@ -491,7 +493,7 @@ entity_save(Entity *entity, ObjectNode obj_node)
 }
 
 static Object *
-entity_load(ObjectNode obj_node, int version)
+entity_load(ObjectNode obj_node, int version, const char *filename)
 {
   Entity *entity;
   Element *elem;

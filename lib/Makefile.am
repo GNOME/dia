@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
+SUBDIRS = pixmaps
+
 noinst_LIBRARIES =     libdia.a
 libdia_a_SOURCES =  \
 		diagramdata.h \

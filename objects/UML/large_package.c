@@ -74,8 +74,10 @@ static Object *largepackage_create(Point *startpoint,
 static void largepackage_destroy(LargePackage *pkg);
 static Object *largepackage_copy(LargePackage *pkg);
 
-static void largepackage_save(LargePackage *pkg, ObjectNode obj_node);
-static Object *largepackage_load(ObjectNode obj_node, int version);
+static void largepackage_save(LargePackage *pkg, ObjectNode obj_node,
+			      const char *filename);
+static Object *largepackage_load(ObjectNode obj_node, int version,
+				 const char *filename);
 
 static void largepackage_update_data(LargePackage *pkg);
 static GtkWidget *largepackage_get_properties(LargePackage *pkg);
@@ -364,7 +366,8 @@ largepackage_copy(LargePackage *pkg)
 
 
 static void
-largepackage_save(LargePackage *pkg, ObjectNode obj_node)
+largepackage_save(LargePackage *pkg, ObjectNode obj_node,
+		  const char *filename)
 {
   element_save(&pkg->element, obj_node);
 
@@ -375,7 +378,7 @@ largepackage_save(LargePackage *pkg, ObjectNode obj_node)
 }
 
 static Object *
-largepackage_load(ObjectNode obj_node, int version)
+largepackage_load(ObjectNode obj_node, int version, const char *filename)
 {
   LargePackage *pkg;
   AttributeNode attr;

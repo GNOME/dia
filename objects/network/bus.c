@@ -67,8 +67,9 @@ static void bus_update_data(Bus *bus);
 static void bus_destroy(Bus *bus);
 static Object *bus_copy(Bus *bus);
 
-static void bus_save(Bus *bus, ObjectNode obj_node);
-static Object *bus_load(ObjectNode obj_node, int version);
+static void bus_save(Bus *bus, ObjectNode obj_node, const char *filename);
+static Object *bus_load(ObjectNode obj_node, int version,
+			const char *filename);
 static GtkWidget *bus_get_properties(Bus *bus);
 static void bus_apply_properties(Bus *bus);
 
@@ -519,7 +520,7 @@ bus_update_data(Bus *bus)
 
 
 static void
-bus_save(Bus *bus, ObjectNode obj_node)
+bus_save(Bus *bus, ObjectNode obj_node, const char *filename)
 {
   int i;
   AttributeNode attr;
@@ -534,7 +535,7 @@ bus_save(Bus *bus, ObjectNode obj_node)
 }
 
 static Object *
-bus_load(ObjectNode obj_node, int version)
+bus_load(ObjectNode obj_node, int version, const char *filename)
 {
   Bus *bus;
   Connection *conn;

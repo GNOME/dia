@@ -26,6 +26,8 @@ typedef void* DiaImage;
 
 extern void dia_image_init(void);
 
+extern DiaImage dia_image_get_broken(void);
+
 extern DiaImage dia_image_load(gchar *filename);
 extern void dia_image_release(DiaImage image);
 extern void dia_image_draw(DiaImage image, GdkWindow *window,

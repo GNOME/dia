@@ -111,8 +111,10 @@ static void association_destroy(Association *assoc);
 static Object *association_copy(Association *assoc);
 static GtkWidget *association_get_properties(Association *assoc);
 static void association_apply_properties(Association *assoc);
-static void association_save(Association *assoc, ObjectNode obj_node);
-static Object *association_load(ObjectNode obj_node, int version);
+static void association_save(Association *assoc, ObjectNode obj_node,
+			     const char *filename);
+static Object *association_load(ObjectNode obj_node, int version,
+				const char *filename);
 
 static void association_update_data(Association *assoc);
 
@@ -562,7 +564,8 @@ association_copy(Association *assoc)
 
 
 static void
-association_save(Association *assoc, ObjectNode obj_node)
+association_save(Association *assoc, ObjectNode obj_node,
+		 const char *filename)
 {
   int i;
   AttributeNode attr;
@@ -591,7 +594,7 @@ association_save(Association *assoc, ObjectNode obj_node)
 }
 
 static Object *
-association_load(ObjectNode obj_node, int version)
+association_load(ObjectNode obj_node, int version, const char *filename)
 {
   Association *assoc;
   AttributeNode attr;

@@ -99,8 +99,10 @@ static void message_destroy(Message *message);
 static Object *message_copy(Message *message);
 static GtkWidget *message_get_properties(Message *message);
 static void message_apply_properties(Message *message);
-static void message_save(Message *message, ObjectNode obj_node);
-static Object *message_load(ObjectNode obj_node, int version);
+static void message_save(Message *message, ObjectNode obj_node,
+			 const char *filename);
+static Object *message_load(ObjectNode obj_node, int version,
+			    const char *filename);
 
 
 static ObjectTypeOps message_type_ops =
@@ -401,7 +403,7 @@ message_update_data(Message *message)
 
 
 static void
-message_save(Message *message, ObjectNode obj_node)
+message_save(Message *message, ObjectNode obj_node, const char *filename)
 {
   connection_save(&message->connection, obj_node);
 
@@ -414,7 +416,7 @@ message_save(Message *message, ObjectNode obj_node)
 }
 
 static Object *
-message_load(ObjectNode obj_node, int version)
+message_load(ObjectNode obj_node, int version, const char *filename)
 {
   Message *message;
   AttributeNode attr;

@@ -755,10 +755,11 @@ static void
 dia_file_selector_ok(GtkWidget *widget, gpointer data)
 {
   GtkFileSelection *dialog = GTK_FILE_SELECTION(data);
-  DiaFileSelector *fs = DIAFILESELECTOR(gtk_object_get_user_data(GTK_OBJECT(dialog)));
+  DiaFileSelector *fs =
+    DIAFILESELECTOR(gtk_object_get_user_data(GTK_OBJECT(dialog)));
   gtk_entry_set_text(GTK_ENTRY(fs->entry),
 		     gtk_file_selection_get_filename(dialog));
-  gtk_widget_destroy(GTK_WIDGET(dialog));
+  gtk_widget_hide(GTK_WIDGET(dialog));
 }
 
 static void
@@ -767,22 +768,27 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
   GtkFileSelection *dialog;
   DiaFileSelector *fs = DIAFILESELECTOR(data);
   
-  fs->dialog = GTK_FILE_SELECTION(gtk_file_selection_new("Select image file"));
-  dialog = fs->dialog;
-  if (dialog->help_button != NULL)
-    gtk_widget_hide(dialog->help_button);
-  
-  gtk_signal_connect (GTK_OBJECT (dialog->ok_button), "clicked",
-		      (GtkSignalFunc) dia_file_selector_ok,
-		      dialog);
-  
-  gtk_signal_connect_object(GTK_OBJECT (dialog->cancel_button), "clicked",
-			    (GtkSignalFunc) gtk_widget_destroy,
-			    GTK_OBJECT(dialog));
-  gtk_object_set_user_data(GTK_OBJECT(dialog), fs);
+  if (fs->dialog == NULL) {
+    dialog = fs->dialog =
+      GTK_FILE_SELECTION(gtk_file_selection_new("Select image file"));
 
-  gtk_file_selection_set_filename(dialog,
+    if (dialog->help_button != NULL)
+      gtk_widget_hide(dialog->help_button);
+    
+    gtk_signal_connect (GTK_OBJECT (dialog->ok_button), "clicked",
+			(GtkSignalFunc) dia_file_selector_ok,
+			dialog);
+    
+    gtk_signal_connect_object(GTK_OBJECT (dialog->cancel_button), "clicked",
+			      (GtkSignalFunc) gtk_widget_hide,
+			      GTK_OBJECT(dialog));
+    
+    gtk_object_set_user_data(GTK_OBJECT(dialog), fs);
+  }
+
+  gtk_file_selection_set_filename(fs->dialog,
 				  gtk_entry_get_text(fs->entry));
+  
   gtk_widget_show(GTK_WIDGET(fs->dialog));
 }
 
@@ -790,6 +796,7 @@ static void
 dia_file_selector_init (DiaFileSelector *fs)
 {
   /* Here's where we set up the real thing */
+  fs->dialog = NULL;
   fs->entry = GTK_ENTRY(gtk_entry_new());
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->entry), FALSE, TRUE, 0);
   gtk_widget_show(GTK_WIDGET(fs->entry));

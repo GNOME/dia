@@ -58,8 +58,10 @@ static Object *note_create(Point *startpoint,
 static void note_destroy(Note *note);
 static Object *note_copy(Note *note);
 
-static void note_save(Note *note, ObjectNode obj_node);
-static Object *note_load(ObjectNode obj_node, int version);
+static void note_save(Note *note, ObjectNode obj_node,
+		      const char *filename);
+static Object *note_load(ObjectNode obj_node, int version,
+			 const char *filename);
 
 static void note_update_data(Note *note);
 
@@ -322,7 +324,7 @@ note_copy(Note *note)
 
 
 static void
-note_save(Note *note, ObjectNode obj_node)
+note_save(Note *note, ObjectNode obj_node, const char *filename)
 {
   element_save(&note->element, obj_node);
 
@@ -331,7 +333,7 @@ note_save(Note *note, ObjectNode obj_node)
 }
 
 static Object *
-note_load(ObjectNode obj_node, int version)
+note_load(ObjectNode obj_node, int version, const char *filename)
 {
   Note *note;
   AttributeNode attr;

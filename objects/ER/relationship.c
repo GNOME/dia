@@ -94,8 +94,10 @@ static Object *relationship_copy(Relationship *relationship);
 static GtkWidget *relationship_get_properties(Relationship *relationship);
 static void relationship_apply_properties(Relationship *relationship);
 
-static void relationship_save(Relationship *relationship, ObjectNode obj_node );
-static Object *relationship_load(ObjectNode obj_node, int version);
+static void relationship_save(Relationship *relationship,
+			      ObjectNode obj_node, const char *filename);
+static Object *relationship_load(ObjectNode obj_node, int version,
+				 const char *filename);
 
 static ObjectTypeOps relationship_type_ops =
 {
@@ -583,7 +585,8 @@ relationship_copy(Relationship *relationship)
 }
 
 static void
-relationship_save(Relationship *relationship, ObjectNode obj_node)
+relationship_save(Relationship *relationship, ObjectNode obj_node,
+		  const char *filename)
 {
   element_save(&relationship->element, obj_node);
 
@@ -606,7 +609,7 @@ relationship_save(Relationship *relationship, ObjectNode obj_node)
 }
 
 static Object *
-relationship_load(ObjectNode obj_node, int version)
+relationship_load(ObjectNode obj_node, int version, const char *filename)
 {
   Relationship *relationship;
   Element *elem;

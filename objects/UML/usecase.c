@@ -58,8 +58,10 @@ static Object *usecase_create(Point *startpoint,
 static void usecase_destroy(Usecase *usecase);
 static Object *usecase_copy(Usecase *usecase);
 
-static void usecase_save(Usecase *usecase, ObjectNode obj_node);
-static Object *usecase_load(ObjectNode obj_node, int version);
+static void usecase_save(Usecase *usecase, ObjectNode obj_node,
+			 const char *filename);
+static Object *usecase_load(ObjectNode obj_node, int version,
+			    const char *filename);
 
 static void usecase_update_data(Usecase *usecase);
 
@@ -328,7 +330,7 @@ usecase_copy(Usecase *usecase)
 
 
 static void
-usecase_save(Usecase *usecase, ObjectNode obj_node)
+usecase_save(Usecase *usecase, ObjectNode obj_node, const char *filename)
 {
   element_save(&usecase->element, obj_node);
 
@@ -337,7 +339,7 @@ usecase_save(Usecase *usecase, ObjectNode obj_node)
 }
 
 static Object *
-usecase_load(ObjectNode obj_node, int version)
+usecase_load(ObjectNode obj_node, int version, const char *filename)
 {
   Usecase *usecase;
   Element *elem;

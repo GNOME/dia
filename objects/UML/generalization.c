@@ -76,8 +76,10 @@ static Object *generalization_copy(Generalization *genlz);
 static GtkWidget *generalization_get_properties(Generalization *genlz);
 static void generalization_apply_properties(Generalization *genlz);
 
-static void generalization_save(Generalization *genlz, ObjectNode obj_node);
-static Object *generalization_load(ObjectNode obj_node, int version);
+static void generalization_save(Generalization *genlz, ObjectNode obj_node,
+				const char *filename);
+static Object *generalization_load(ObjectNode obj_node, int version,
+				   const char *filename);
 
 static void generalization_update_data(Generalization *genlz);
 
@@ -330,7 +332,8 @@ generalization_copy(Generalization *genlz)
 
 
 static void
-generalization_save(Generalization *genlz, ObjectNode obj_node)
+generalization_save(Generalization *genlz, ObjectNode obj_node,
+		    const char *filename)
 {
   orthconn_save(&genlz->orth, obj_node);
 
@@ -341,7 +344,8 @@ generalization_save(Generalization *genlz, ObjectNode obj_node)
 }
 
 static Object *
-generalization_load(ObjectNode obj_node, int version)
+generalization_load(ObjectNode obj_node, int version,
+		    const char *filename)
 {
   Generalization *genlz;
   AttributeNode attr;

@@ -239,7 +239,7 @@ app_exit(void)
 			GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
     
     gtk_window_set_title (GTK_WINDOW (dialog), _("Quit, are you sure?"));
-    gtk_container_border_width (GTK_CONTAINER (dialog), 0);
+    gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
     label = gtk_label_new (_("Modified diagrams exists.\n"
 			   "Are you sure you want to quit?"));
   

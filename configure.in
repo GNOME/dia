@@ -124,6 +124,7 @@ AC_CHECK_FUNCS(select strcspn strdup strtol snprintf)
 AC_OUTPUT(
 Makefile
 lib/Makefile
+lib/pixmaps/Makefile
 intl/Makefile
 po/Makefile.in
 objects/Makefile

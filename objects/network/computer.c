@@ -26,8 +26,10 @@ static Object *computer_create(Point *startpoint,
 			       void *user_data,
 			       Handle **handle1,
 			       Handle **handle2);
-static void computer_save(RenderObject *computer, ObjectNode obj_node);
-static Object *computer_load(ObjectNode obj_node, int version);
+static void computer_save(RenderObject *computer, ObjectNode obj_node,
+			  const char *filename);
+static Object *computer_load(ObjectNode obj_node, int version,
+			     const char *filename);
 
 static ObjectTypeOps computer_type_ops =
 {
@@ -228,13 +230,14 @@ computer_create(Point *startpoint,
 }
 
 static void
-computer_save(RenderObject *computer, ObjectNode obj_node)
+computer_save(RenderObject *computer, ObjectNode obj_node,
+	      const char *filename)
 {
   render_object_save(computer, obj_node);
 }
 
 static Object *
-computer_load(ObjectNode obj_node, int version)
+computer_load(ObjectNode obj_node, int version, const char *filename)
 {
   if (computer_desc.store == NULL) {
     render_to_store();

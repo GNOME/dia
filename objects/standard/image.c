@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include <assert.h>
+#include <string.h>
 #include <gtk/gtk.h>
 #include <math.h>
 
@@ -110,8 +111,8 @@ static Object *image_copy(Image *image);
 static GtkWidget *image_get_properties(Image *image);
 static void image_apply_properties(Image *image);
 
-static void image_save(Image *image, ObjectNode obj_node );
-static Object *image_load(ObjectNode obj_node, int version);
+static void image_save(Image *image, ObjectNode obj_node, const char *filename);
+static Object *image_load(ObjectNode obj_node, int version, const char *filename);
 static GtkWidget *image_get_defaults();
 static void image_apply_defaults();
 
@@ -528,10 +529,9 @@ image_draw(Image *image, Renderer *renderer)
     renderer->ops->draw_image(renderer, &elem->corner, elem->width,
 			      elem->height, image->image);
   } else {
-    renderer->ops->set_linewidth(renderer, image->border_width);
-    renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-    renderer->ops->draw_line(renderer, &ul_corner, &lr_corner, 
-			     &image->border_color);
+    DiaImage broken = dia_image_get_broken();
+    renderer->ops->draw_image(renderer, &elem->corner, elem->width,
+			      elem->height, broken);
   }
 }
 
@@ -623,9 +623,9 @@ image_create(Point *startpoint,
   image->draw_border = default_properties.draw_border;
   image->keep_aspect = default_properties.keep_aspect;
 
-  image_update_data(image);
-
   image->properties_dialog = NULL;
+
+  image_update_data(image);
   
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
@@ -689,9 +689,28 @@ image_copy(Image *image)
   return (Object *)newimage;
 }
 
-static void
-image_save(Image *image, ObjectNode obj_node)
+static char *
+get_basename(const char *filename)
 {
+  char *basename;
+  char *end;
+  int len;
+
+  end = strrchr(filename, '/');
+  len = end - filename + 1;
+  basename = g_malloc((len+1)*sizeof(char));
+  memcpy(basename, filename, len);
+  basename[len] = 0; /* zero terminate string */
+  
+  return basename;
+}
+
+
+static void
+image_save(Image *image, ObjectNode obj_node, const char *filename)
+{
+  char *basename;
+  
   element_save(&image->element, obj_node);
 
   data_add_real(new_attribute(obj_node, "border_width"),
@@ -704,20 +723,38 @@ image_save(Image *image, ObjectNode obj_node)
   data_add_boolean(new_attribute(obj_node, "draw_border"), image->draw_border);
   data_add_boolean(new_attribute(obj_node, "keep_aspect"), image->keep_aspect);
 
-  /* Question here:  Should the file be saved along with the diagram, or
-     just a filename? */
-  data_add_string(new_attribute(obj_node, "file"), image->file);
+  if (image->file != NULL) {
+    if (*image->file=='/') { /* Absolute pathname */
+      basename = get_basename(filename);
+
+      if (strncmp(basename, image->file, strlen(basename))==0) {
+	/* Save the relative path: */
+	data_add_string(new_attribute(obj_node, "file"), image->file + strlen(basename));
+      } else {
+	/* Save the absolute path: */
+	data_add_string(new_attribute(obj_node, "file"), image->file);
+      }
+      
+      g_free(basename);
+      
+    } else {
+      /* Relative path. Just save the path+filename. */
+      data_add_string(new_attribute(obj_node, "file"), image->file);
+    }
+    
+  }
 }
 
 static Object *
-image_load(ObjectNode obj_node, int version)
+image_load(ObjectNode obj_node, int version, const char *filename)
 {
   Image *image;
   Element *elem;
   Object *obj;
   int i;
   AttributeNode attr;
-
+  char *basename;
+  
   image = g_malloc(sizeof(Image));
   elem = (Element *)image;
   obj = (Object *)image;
@@ -770,7 +807,79 @@ image_load(ObjectNode obj_node, int version)
   }
 
   if (strcmp(image->file, "")) {
-    image->image = dia_image_load(image->file);
+    basename = get_basename(filename);
+
+    if (*image->file=='/') { /* Absolute pathname */
+      image->image = dia_image_load(image->file);
+      if (image->image == NULL) {
+	/* Not found, try in same dir as diagram. */
+	char *temp_string;
+	const char *image_file_name;
+
+	basename = get_basename(filename);
+	image_file_name = strrchr(image->file, '/') + 1;
+
+	temp_string = g_malloc(strlen(basename) +
+			       strlen(image_file_name) +1);
+
+	strcpy(temp_string, basename);
+	strcat(temp_string, image_file_name);
+	
+
+	image->image = dia_image_load(temp_string);
+
+	if (image->image != NULL) {
+	  /* Found file in same dir as diagram. */
+	  message_warning("The image file '%s' was not found in that directory.\n"
+			  "Using the file '%s' instead\n", image->file, temp_string);
+	  g_free(image->file);
+	  image->file = temp_string;
+	} else {
+	  g_free(temp_string);
+	  
+	  image->image = dia_image_load((char *)image_file_name);
+	  if (image->image != NULL) {
+	    /* Found file in current dir. */
+	    message_warning("The image file '%s' was not found in that directory.\n"
+			    "Using the file '%s' instead\n", image->file, image_file_name);
+	    g_free(image->file);
+	    image->file = strdup(image_file_name);
+	  } else {
+	    message_warning("The image file '%s' was not found.\n",
+			    image_file_name);
+	  }
+	}
+      }
+    } else { /* Relative pathname: */
+      char *temp_string;
+
+      temp_string = g_malloc(strlen(basename) +
+			     strlen(image->file) +1);
+
+      strcpy(temp_string, basename);
+      strcat(temp_string, image->file);
+
+      image->image = dia_image_load(temp_string);
+
+      if (image->image != NULL) {
+	/* Found file in same dir as diagram. */
+	g_free(image->file);
+	image->file = temp_string;
+      } else {
+	g_free(temp_string);
+	  
+	image->image = dia_image_load(image->file);
+	if (image->image != NULL) {
+	  /* Found file in current dir. */
+	  g_free(image->file);
+	  image->file = strdup(image->file);
+	} else {
+	  message_warning("The image file '%s' was not found.\n",
+			  image->file);
+	}
+      }
+    }
+    g_free(basename);
   }
 
   image_update_data(image);

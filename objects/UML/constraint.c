@@ -77,8 +77,10 @@ static void constraint_destroy(Constraint *constraint);
 static Object *constraint_copy(Constraint *constraint);
 static GtkWidget *constraint_get_properties(Constraint *constraint);
 static void constraint_apply_properties(Constraint *constraint);
-static void constraint_save(Constraint *constraint, ObjectNode obj_node);
-static Object *constraint_load(ObjectNode obj_node, int version);
+static void constraint_save(Constraint *constraint, ObjectNode obj_node,
+			    const char *filename);
+static Object *constraint_load(ObjectNode obj_node, int version,
+			       const char *filename);
 
 
 static ObjectTypeOps constraint_type_ops =
@@ -342,7 +344,8 @@ constraint_update_data(Constraint *constraint)
 
 
 static void
-constraint_save(Constraint *constraint, ObjectNode obj_node)
+constraint_save(Constraint *constraint, ObjectNode obj_node,
+		const char *filename)
 {
   connection_save(&constraint->connection, obj_node);
 
@@ -353,7 +356,7 @@ constraint_save(Constraint *constraint, ObjectNode obj_node)
 }
 
 static Object *
-constraint_load(ObjectNode obj_node, int version)
+constraint_load(ObjectNode obj_node, int version, const char *filename)
 {
   Constraint *constraint;
   AttributeNode attr;

@@ -91,8 +91,8 @@ static Object *ellipse_copy(Ellipse *ellipse);
 static GtkWidget *ellipse_get_properties(Ellipse *ellipse);
 static void ellipse_apply_properties(Ellipse *ellipse);
 
-static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node);
-static Object *ellipse_load(ObjectNode obj_node, int version);
+static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
+static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename);
 static GtkWidget *ellipse_get_defaults();
 static void ellipse_apply_defaults();
 
@@ -466,7 +466,7 @@ ellipse_copy(Ellipse *ellipse)
 
 
 static void
-ellipse_save(Ellipse *ellipse, ObjectNode obj_node)
+ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
 {
   element_save(&ellipse->element, obj_node);
 
@@ -480,7 +480,7 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node)
 		ellipse->line_style);
 }
 
-static Object *ellipse_load(ObjectNode obj_node, int version)
+static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename)
 {
   Ellipse *ellipse;
   Element *elem;

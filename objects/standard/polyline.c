@@ -94,8 +94,10 @@ static Object *polyline_copy(Polyline *polyline);
 static GtkWidget *polyline_get_properties(Polyline *polyline);
 static void polyline_apply_properties(Polyline *polyline);
 
-static void polyline_save(Polyline *polyline, ObjectNode obj_node);
-static Object *polyline_load(ObjectNode obj_node, int version);
+static void polyline_save(Polyline *polyline, ObjectNode obj_node,
+			  const char *filename);
+static Object *polyline_load(ObjectNode obj_node, int version,
+			     const char *filename);
 static DiaMenu *polyline_get_object_menu(Polyline *polyline, Point *clickedpoint);
 static GtkWidget *polyline_get_defaults();
 static void polyline_apply_defaults();
@@ -531,7 +533,8 @@ polyline_update_data(Polyline *polyline)
 }
 
 static void
-polyline_save(Polyline *polyline, ObjectNode obj_node)
+polyline_save(Polyline *polyline, ObjectNode obj_node,
+	      const char *filename)
 {
   polyconn_save(&polyline->poly, obj_node);
 
@@ -560,7 +563,7 @@ polyline_save(Polyline *polyline, ObjectNode obj_node)
 }
 
 static Object *
-polyline_load(ObjectNode obj_node, int version)
+polyline_load(ObjectNode obj_node, int version, const char *filename)
 {
   Polyline *polyline;
   PolyConn *poly;

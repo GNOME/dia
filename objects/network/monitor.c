@@ -26,8 +26,10 @@ static Object *monitor_create(Point *startpoint,
 			      void *user_data,
 			      Handle **handle1,
 			      Handle **handle2);
-static void monitor_save(RenderObject *monitor, ObjectNode obj_node);
-static Object *monitor_load(ObjectNode obj_node, int version);
+static void monitor_save(RenderObject *monitor, ObjectNode obj_node,
+			 const char *filename);
+static Object *monitor_load(ObjectNode obj_node, int version,
+			    const char *filename);
 
 static ObjectTypeOps monitor_type_ops =
 {
@@ -195,13 +197,14 @@ monitor_create(Point *startpoint,
 }
 
 static void
-monitor_save(RenderObject *monitor, ObjectNode obj_node)
+monitor_save(RenderObject *monitor, ObjectNode obj_node,
+	     const char *filename)
 {
   render_object_save(monitor, obj_node);
 }
 
 static Object *
-monitor_load(ObjectNode obj_node, int version)
+monitor_load(ObjectNode obj_node, int version, const char *filename)
 {
   if (monitor_desc.store == NULL) {
     render_to_store();

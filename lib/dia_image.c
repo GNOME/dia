@@ -19,7 +19,10 @@
 #include "geometry.h"
 #include "render.h"
 #include "dia_image.h"
+#include <gtk/gtkwidget.h>
 #include <gdk_imlib.h>
+
+#include "pixmaps/broken.xpm"
 
 void
 dia_image_init(void)
@@ -30,6 +33,18 @@ dia_image_init(void)
   gtk_widget_push_colormap(gdk_imlib_get_colormap());
 }
 
+
+DiaImage
+dia_image_get_broken(void)
+{
+  static DiaImage broken = NULL;
+
+  if (broken == NULL) {
+    broken = gdk_imlib_create_image_from_xpm_data(broken_xpm);
+  }
+  
+  return broken;
+}
 
 DiaImage 
 dia_image_load(gchar *filename) 

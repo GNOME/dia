@@ -46,8 +46,10 @@ static Object *umlclass_create(Point *startpoint,
 static void umlclass_destroy(UMLClass *umlclass);
 static Object *umlclass_copy(UMLClass *umlclass);
 
-static void umlclass_save(UMLClass *umlclass, ObjectNode obj_node);
-static Object *umlclass_load(ObjectNode obj_node, int version);
+static void umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
+			  const char *filename);
+static Object *umlclass_load(ObjectNode obj_node, int version,
+			     const char *filename);
 
 static ObjectTypeOps umlclass_type_ops =
 {
@@ -878,7 +880,8 @@ umlclass_copy(UMLClass *umlclass)
 
 
 static void
-umlclass_save(UMLClass *umlclass, ObjectNode obj_node)
+umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
+	      const char *filename)
 {
   UMLAttribute *attr;
   UMLOperation *op;
@@ -935,7 +938,8 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node)
   }
 }
 
-static Object *umlclass_load(ObjectNode obj_node, int version)
+static Object *umlclass_load(ObjectNode obj_node, int version,
+			     const char *filename)
 {
   UMLClass *umlclass;
   Element *elem;

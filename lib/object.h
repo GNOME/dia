@@ -71,13 +71,15 @@ typedef Object* (*CreateFunc) (Point *startpoint,
   in the save format. All objects must be capable of reading all earlier
   version.
 */
-typedef Object* (*LoadFunc) (ObjectNode obj_node, int version);
+typedef Object* (*LoadFunc) (ObjectNode obj_node, int version,
+			     const char *filename);
 
 /*
   This function save the object's data to file fd. No header is required.
   The data should be written using the functions in lib/files.h
 */
-typedef void (*SaveFunc) (Object* obj, ObjectNode obj_node);
+typedef void (*SaveFunc) (Object* obj, ObjectNode obj_node,
+			  const char *filename);
 
 
 /*

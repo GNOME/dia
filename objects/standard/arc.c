@@ -104,8 +104,8 @@ static Object *arc_copy(Arc *arc);
 static GtkWidget *arc_get_properties(Arc *arc);
 static void arc_apply_properties(Arc *arc);
 
-static void arc_save(Arc *arc, ObjectNode obj_node);
-static Object *arc_load(ObjectNode obj_node, int version);
+static void arc_save(Arc *arc, ObjectNode obj_node, const char *filename);
+static Object *arc_load(ObjectNode obj_node, int version, const char *filename);
 static GtkWidget *arc_get_defaults();
 static void arc_apply_defaults();
 
@@ -722,7 +722,7 @@ arc_update_data(Arc *arc)
 }
 
 static void
-arc_save(Arc *arc, ObjectNode obj_node)
+arc_save(Arc *arc, ObjectNode obj_node, const char *filename)
 {
   connection_save(&arc->connection, obj_node);
 
@@ -753,7 +753,7 @@ arc_save(Arc *arc, ObjectNode obj_node)
 }
 
 static Object *
-arc_load(ObjectNode obj_node, int version)
+arc_load(ObjectNode obj_node, int version, const char *filename)
 {
   Arc *arc;
   Connection *conn;

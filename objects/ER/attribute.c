@@ -92,8 +92,10 @@ static Object *attribute_copy(Attribute *attribute);
 static GtkWidget *attribute_get_properties(Attribute *attribute);
 static void attribute_apply_properties(Attribute *attribute);
 
-static void attribute_save(Attribute *attribute, ObjectNode obj_node);
-static Object *attribute_load(ObjectNode obj_node, int version);
+static void attribute_save(Attribute *attribute, ObjectNode obj_node,
+			   const char *filename);
+static Object *attribute_load(ObjectNode obj_node, int version,
+			      const char *filename);
 
 static ObjectTypeOps attribute_type_ops =
 {
@@ -516,7 +518,8 @@ attribute_copy(Attribute *attribute)
 
 
 static void
-attribute_save(Attribute *attribute, ObjectNode obj_node)
+attribute_save(Attribute *attribute, ObjectNode obj_node,
+	       const char *filename)
 {
   element_save(&attribute->element, obj_node);
 
@@ -538,7 +541,8 @@ attribute_save(Attribute *attribute, ObjectNode obj_node)
 		   attribute->multivalue);
 }
 
-static Object *attribute_load(ObjectNode obj_node, int version)
+static Object *attribute_load(ObjectNode obj_node, int version,
+			      const char *filename)
 {
   Attribute *attribute;
   Element *elem;

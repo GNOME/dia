@@ -94,8 +94,10 @@ static Object *zigzagline_copy(Zigzagline *zigzagline);
 static GtkWidget *zigzagline_get_properties(Zigzagline *zigzagline);
 static void zigzagline_apply_properties(Zigzagline *zigzagline);
 
-static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node);
-static Object *zigzagline_load(ObjectNode obj_node, int version);
+static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
+			    const char *filename);
+static Object *zigzagline_load(ObjectNode obj_node, int version,
+			       const char *filename);
 static GtkWidget *zigzagline_get_defaults();
 static void zigzagline_apply_defaults();
 
@@ -255,7 +257,7 @@ zigzagline_get_properties(Zigzagline *zigzagline)
 
 static void
 zigzagline_init_defaults() {
-  static defaults_initialized = 0;
+  static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
     default_properties.start_arrow.length = 0.8;
@@ -516,7 +518,8 @@ zigzagline_update_data(Zigzagline *zigzagline)
 }
 
 static void
-zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node)
+zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
+		const char *filename)
 {
   orthconn_save(&zigzagline->orth, obj_node);
 
@@ -545,7 +548,7 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node)
 }
 
 static Object *
-zigzagline_load(ObjectNode obj_node, int version)
+zigzagline_load(ObjectNode obj_node, int version, const char *filename)
 {
   Zigzagline *zigzagline;
   OrthConn *orth;

@@ -81,8 +81,10 @@ static real lifeline_distance_from(Lifeline *lifeline, Point *point);
 static void lifeline_update_data(Lifeline *lifeline);
 static void lifeline_destroy(Lifeline *lifeline);
 static Object *lifeline_copy(Lifeline *lifeline);
-static void lifeline_save(Lifeline *lifeline, ObjectNode obj_node);
-static Object *lifeline_load(ObjectNode obj_node, int version);
+static void lifeline_save(Lifeline *lifeline, ObjectNode obj_node,
+			  const char *filename);
+static Object *lifeline_load(ObjectNode obj_node, int version,
+			     const char *filename);
 static void lifeline_apply_properties(Lifeline *lif);
 static GtkWidget *lifeline_get_properties(Lifeline *lif);
 
@@ -431,7 +433,8 @@ lifeline_update_data(Lifeline *lifeline)
 
 
 static void
-lifeline_save(Lifeline *lifeline, ObjectNode obj_node)
+lifeline_save(Lifeline *lifeline, ObjectNode obj_node,
+	      const char *filename)
 {
   connection_save(&lifeline->connection, obj_node);
 
@@ -446,7 +449,7 @@ lifeline_save(Lifeline *lifeline, ObjectNode obj_node)
 }
 
 static Object *
-lifeline_load(ObjectNode obj_node, int version)
+lifeline_load(ObjectNode obj_node, int version, const char *filename)
 {
   Lifeline *lifeline;
   AttributeNode attr;

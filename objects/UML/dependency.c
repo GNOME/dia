@@ -80,8 +80,10 @@ static void dependency_destroy(Dependency *dep);
 static Object *dependency_copy(Dependency *dep);
 static GtkWidget *dependency_get_properties(Dependency *dep);
 static void dependency_apply_properties(Dependency *dep);
-static void dependency_save(Dependency *dep, ObjectNode obj_node);
-static Object *dependency_load(ObjectNode obj_node, int version);
+static void dependency_save(Dependency *dep, ObjectNode obj_node,
+			    const char *filename);
+static Object *dependency_load(ObjectNode obj_node, int version,
+			       const char *filename);
 
 static void dependency_update_data(Dependency *dep);
 
@@ -342,7 +344,7 @@ dependency_copy(Dependency *dep)
 
 
 static void
-dependency_save(Dependency *dep, ObjectNode obj_node)
+dependency_save(Dependency *dep, ObjectNode obj_node, const char *filename)
 {
   orthconn_save(&dep->orth, obj_node);
 
@@ -355,7 +357,7 @@ dependency_save(Dependency *dep, ObjectNode obj_node)
 }
 
 static Object *
-dependency_load(ObjectNode obj_node, int version)
+dependency_load(ObjectNode obj_node, int version, const char *filename)
 {
   AttributeNode attr;
   Dependency *dep;

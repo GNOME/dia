@@ -1,5 +1,44 @@
 1999-02-28  Alexander Larsson  <alla@lysator.liu.se>
 
+	* INSTALL:
+	New info about imlib requirements.
+
+	* Configure.in:
+	Added lib/pixmaps/Makefile to created makefiles.
+
+	* app/app_procs.c:
+	* app/commands.c:
+	Change from obsoleted to newer gtk calls.
+	
+	* load_save.c:
+	Pass filename of the diagram when loading and saving.
+	This creates better oportunities to handle filename saving.
+
+	* lib/object.h:
+	Pass filenames to load and save methods.
+	
+	* lib/dia_image.[ch]:
+	Added dia_image_get_broken() call that returns a image which
+	is used for 'broken' images.
+	
+	* lib/pixmaps/.cvsignore:
+	* lib/pixmaps/Makefile.am:
+	* lib/pixmaps/broken.xpm:
+	New files for the broken image bitmap.
+
+	* lib/widgets.c:
+	Fixed bug with double destroyed filedialog.
+
+	* objects/*/*.c:
+	Updated load and save prototypes to use the new filename argument.
+
+	* objects/image.c:
+	Render broken image instead of line when got no image.
+	Use the new filename in load and save to save (if possible)
+	relative pathnames and to better try to find loaded images.
+
+1999-02-28  Alexander Larsson  <alla@lysator.liu.se>
+
 	* TODO:
 	Some updates to the todo file.
 	

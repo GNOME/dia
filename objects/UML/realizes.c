@@ -76,8 +76,10 @@ static void realizes_destroy(Realizes *realize);
 static Object *realizes_copy(Realizes *realize);
 static GtkWidget *realizes_get_properties(Realizes *realize);
 static void realizes_apply_properties(Realizes *realize);
-static void realizes_save(Realizes *realize, ObjectNode obj_node);
-static Object *realizes_load(ObjectNode obj_node, int version);
+static void realizes_save(Realizes *realize, ObjectNode obj_node,
+			  const char *filename);
+static Object *realizes_load(ObjectNode obj_node, int version,
+			     const char *filename);
 
 static void realizes_update_data(Realizes *realize);
 
@@ -328,7 +330,7 @@ realizes_copy(Realizes *realize)
 
 
 static void
-realizes_save(Realizes *realize, ObjectNode obj_node)
+realizes_save(Realizes *realize, ObjectNode obj_node, const char *filename)
 {
   orthconn_save(&realize->orth, obj_node);
 
@@ -339,7 +341,7 @@ realizes_save(Realizes *realize, ObjectNode obj_node)
 }
 
 static Object *
-realizes_load(ObjectNode obj_node, int version)
+realizes_load(ObjectNode obj_node, int version, const char *filename)
 {
   Realizes *realize;
   AttributeNode attr;

@@ -99,8 +99,8 @@ static Object *box_copy(Box *box);
 static GtkWidget *box_get_properties(Box *box);
 static void box_apply_properties(Box *box);
 
-static void box_save(Box *box, ObjectNode obj_node );
-static Object *box_load(ObjectNode obj_node, int version);
+static void box_save(Box *box, ObjectNode obj_node, const char *filename);
+static Object *box_load(ObjectNode obj_node, int version, const char *filename);
 static GtkWidget *box_get_defaults();
 static void box_apply_defaults();
 
@@ -270,7 +270,7 @@ box_apply_defaults()
 
 static void
 init_default_values() {
-  static defaults_initialized = 0;
+  static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
     default_properties.show_background = 1;
@@ -667,7 +667,7 @@ box_copy(Box *box)
 }
 
 static void
-box_save(Box *box, ObjectNode obj_node)
+box_save(Box *box, ObjectNode obj_node, const char *filename)
 {
   element_save(&box->element, obj_node);
 
@@ -686,7 +686,7 @@ box_save(Box *box, ObjectNode obj_node)
 }
 
 static Object *
-box_load(ObjectNode obj_node, int version)
+box_load(ObjectNode obj_node, int version, const char *filename)
 {
   Box *box;
   Element *elem;

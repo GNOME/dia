@@ -66,8 +66,10 @@ static void participation_destroy(Participation *dep);
 static Object *participation_copy(Participation *dep);
 static GtkWidget *participation_get_properties(Participation *dep);
 static void participation_apply_properties(Participation *dep);
-static void participation_save(Participation *dep, ObjectNode obj_node);
-static Object *participation_load(ObjectNode obj_node, int version);
+static void participation_save(Participation *dep, ObjectNode obj_node,
+			       const char *filename);
+static Object *participation_load(ObjectNode obj_node, int version,
+				  const char *filename);
 
 static void participation_update_data(Participation *dep);
 
@@ -316,7 +318,8 @@ participation_copy(Participation *participation)
 
 
 static void
-participation_save(Participation *participation, ObjectNode obj_node)
+participation_save(Participation *participation, ObjectNode obj_node,
+		   const char *filename)
 {
   orthconn_save(&participation->orth, obj_node);
 
@@ -325,7 +328,7 @@ participation_save(Participation *participation, ObjectNode obj_node)
 }
 
 static Object *
-participation_load(ObjectNode obj_node, int version)
+participation_load(ObjectNode obj_node, int version, const char *filename)
 {
   AttributeNode attr;
   Participation *participation;

@@ -60,8 +60,10 @@ static Object *smallpackage_create(Point *startpoint,
 static void smallpackage_destroy(SmallPackage *pkg);
 static Object *smallpackage_copy(SmallPackage *pkg);
 
-static void smallpackage_save(SmallPackage *pkg, ObjectNode obj_node);
-static Object *smallpackage_load(ObjectNode obj_node, int version);
+static void smallpackage_save(SmallPackage *pkg, ObjectNode obj_node,
+			      const char *filename);
+static Object *smallpackage_load(ObjectNode obj_node, int version,
+				 const char *filename);
 
 static void smallpackage_update_data(SmallPackage *pkg);
 
@@ -321,7 +323,8 @@ smallpackage_copy(SmallPackage *pkg)
 
 
 static void
-smallpackage_save(SmallPackage *pkg, ObjectNode obj_node)
+smallpackage_save(SmallPackage *pkg, ObjectNode obj_node,
+		  const char *filename)
 {
   element_save(&pkg->element, obj_node);
 
@@ -330,7 +333,7 @@ smallpackage_save(SmallPackage *pkg, ObjectNode obj_node)
 }
 
 static Object *
-smallpackage_load(ObjectNode obj_node, int version)
+smallpackage_load(ObjectNode obj_node, int version, const char *filename)
 {
   SmallPackage *pkg;
   AttributeNode attr;

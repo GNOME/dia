@@ -97,8 +97,8 @@ static void line_apply_properties(Line *line);
 static GtkWidget *line_get_defaults();
 static void line_apply_defaults();
 
-static void line_save(Line *line, ObjectNode obj_node);
-static Object *line_load(ObjectNode obj_node, int version);
+static void line_save(Line *line, ObjectNode obj_node, const char *filename);
+static Object *line_load(ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps line_type_ops =
 {
@@ -253,7 +253,7 @@ line_get_properties(Line *line)
 
 static void
 line_init_defaults() {
-  static defaults_initialized = 0;
+  static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
     default_properties.start_arrow.length = 0.8;
@@ -541,7 +541,7 @@ line_update_data(Line *line)
 
 
 static void
-line_save(Line *line, ObjectNode obj_node)
+line_save(Line *line, ObjectNode obj_node, const char *filename)
 {
   connection_save(&line->connection, obj_node);
 
@@ -570,7 +570,7 @@ line_save(Line *line, ObjectNode obj_node)
 }
 
 static Object *
-line_load(ObjectNode obj_node, int version)
+line_load(ObjectNode obj_node, int version, const char *filename)
 {
   Line *line;
   Connection *conn;

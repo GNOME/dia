@@ -86,8 +86,10 @@ static Object *objet_create(Point *startpoint,
 				   Handle **handle2);
 static void objet_destroy(Objet *pkg);
 static Object *objet_copy(Objet *pkg);
-static void objet_save(Objet *pkg, ObjectNode obj_node);
-static Object *objet_load(ObjectNode obj_node, int version);
+static void objet_save(Objet *pkg, ObjectNode obj_node,
+		       const char *filename);
+static Object *objet_load(ObjectNode obj_node, int version,
+			  const char *filename);
 static void objet_update_data(Objet *pkg);
 static GtkWidget *objet_get_properties(Objet *dep);
 static void objet_apply_properties(Objet *dep);
@@ -467,7 +469,7 @@ objet_copy(Objet *pkg)
 
 
 static void
-objet_save(Objet *pkg, ObjectNode obj_node)
+objet_save(Objet *pkg, ObjectNode obj_node, const char *filename)
 {
   element_save(&pkg->element, obj_node);
 
@@ -494,7 +496,7 @@ objet_save(Objet *pkg, ObjectNode obj_node)
 }
 
 static Object *
-objet_load(ObjectNode obj_node, int version)
+objet_load(ObjectNode obj_node, int version, const char *filename)
 {
   Objet *pkg;
   AttributeNode attr;

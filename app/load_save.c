@@ -36,7 +36,7 @@
 #include "message.h"
 
 static GList *
-read_objects(xmlNodePtr objects, GHashTable *objects_hash)
+read_objects(xmlNodePtr objects, GHashTable *objects_hash, char *filename)
 {
   GList *list;
   ObjectType *type;
@@ -64,13 +64,13 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash)
       
       type = object_get_type((char *)typestr);
       
-      obj = type->ops->load(obj_node, version);
+      obj = type->ops->load(obj_node, version, filename);
       list = g_list_append(list, obj);
       
       g_hash_table_insert(objects_hash, (char *)id, obj);
       
     } else if (strcmp(obj_node->name, "group")==0) {
-      obj = group_create(read_objects(obj_node, objects_hash));
+      obj = group_create(read_objects(obj_node, objects_hash, filename));
       list = g_list_append(list, obj);
     } else {
       message_error(_("Error reading diagram file\n"));
@@ -224,7 +224,7 @@ diagram_load(char *filename)
 
     /* Read in all objects: */
     
-    list = read_objects(layer_node, objects_hash);
+    list = read_objects(layer_node, objects_hash, filename);
     layer->objects = list;
     read_connections( list, layer_node, objects_hash);
 
@@ -249,7 +249,7 @@ diagram_load(char *filename)
 
 void
 write_objects(GList *objects, xmlNodePtr objects_node,
-	      GHashTable *objects_hash, int *obj_nr)
+	      GHashTable *objects_hash, int *obj_nr, char *filename)
 {
   char buffer[31];
   ObjectNode obj_node;
@@ -262,7 +262,8 @@ write_objects(GList *objects, xmlNodePtr objects_node,
 
     if IS_GROUP(obj) {
       group_node = xmlNewChild(objects_node, NULL, "group", NULL);
-      write_objects(group_objects(obj), group_node, objects_hash, obj_nr);
+      write_objects(group_objects(obj), group_node,
+		    objects_hash, obj_nr, filename);
     } else {
       obj_node = xmlNewChild(objects_node, NULL, "object", NULL);
     
@@ -274,7 +275,7 @@ write_objects(GList *objects, xmlNodePtr objects_node,
       snprintf(buffer, 30, "O%d", *obj_nr);
       xmlSetProp(obj_node, "id", buffer);
 
-      (*obj->type->ops->save)(obj, obj_node);
+      (*obj->type->ops->save)(obj, obj_node, filename);
 
       /* Add object -> obj_nr to hash table */
       g_hash_table_insert(objects_hash, obj, GINT_TO_POINTER(*obj_nr));
@@ -403,7 +404,8 @@ diagram_save(Diagram *dia, char *filename)
     else
       xmlSetProp(layer_node, "visible", "false");
     
-    write_objects(layer->objects, layer_node, objects_hash, &obj_nr);
+    write_objects(layer->objects, layer_node,
+		  objects_hash, &obj_nr, filename);
   
     res = write_connections(layer->objects, layer_node, objects_hash);
     if (!res)

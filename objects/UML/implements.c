@@ -79,8 +79,10 @@ static void implements_destroy(Implements *implements);
 static Object *implements_copy(Implements *implements);
 static GtkWidget *implements_get_properties(Implements *implements);
 static void implements_apply_properties(Implements *implements);
-static void implements_save(Implements *implements, ObjectNode obj_node);
-static Object *implements_load(ObjectNode obj_node, int version);
+static void implements_save(Implements *implements, ObjectNode obj_node,
+			    const char *filename);
+static Object *implements_load(ObjectNode obj_node, int version,
+			       const char *filename);
 
 
 static ObjectTypeOps implements_type_ops =
@@ -392,7 +394,8 @@ implements_update_data(Implements *implements)
 
 
 static void
-implements_save(Implements *implements, ObjectNode obj_node)
+implements_save(Implements *implements, ObjectNode obj_node,
+		const char *filename)
 {
   connection_save(&implements->connection, obj_node);
 
@@ -405,7 +408,7 @@ implements_save(Implements *implements, ObjectNode obj_node)
 }
 
 static Object *
-implements_load(ObjectNode obj_node, int version)
+implements_load(ObjectNode obj_node, int version, const char *filename)
 {
   Implements *implements;
   AttributeNode attr;
