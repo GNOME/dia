@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-01 18:42+0100\n"
-"PO-Revision-Date: 2004-11-01 21:52+0100\n"
+"POT-Creation-Date: 2004-11-09 10:41+0100\n"
+"PO-Revision-Date: 2004-11-09 14:24+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -39,10 +39,9 @@ msgstr "Chyba %s: je třeba platný vstupní soubor %s\n"
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-# FIXME: s/filer/filter/
 #: app/app_procs.c:307
 #, c-format
-msgid "Can't find output format/filer %s\n"
+msgid "Can't find output format/filter %s\n"
 msgstr "Nemohu najít výstupní formát/filtr %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
@@ -108,16 +107,16 @@ msgstr "Dia verze %s, sestavená %s %s\n"
 msgid "Dia version %s\n"
 msgstr "Dia verze %s\n"
 
-#: app/app_procs.c:549 app/app_procs.c:551
+#: app/app_procs.c:554 app/app_procs.c:556
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
-#: app/app_procs.c:592
+#: app/app_procs.c:597
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: app/app_procs.c:634
+#: app/app_procs.c:639
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -126,7 +125,7 @@ msgstr ""
 "a popište, jak jste způsobili zobrazení této zprávy.\n"
 
 #. no standard buttons
-#: app/app_procs.c:646
+#: app/app_procs.c:651
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -136,21 +135,21 @@ msgstr ""
 "Jste si jisti, že chcete ukončit program Dia\n"
 "bez uložení těchto změn?"
 
-#: app/app_procs.c:650
+#: app/app_procs.c:655
 msgid "Quit Dia"
 msgstr "Ukončit Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:701
+#: app/app_procs.c:707
 msgid "Thank you for using Dia.\n"
 msgstr "Děkujeme vám, že používáte Dia.\n"
 
-#: app/app_procs.c:717 app/app_procs.c:724
+#: app/app_procs.c:724 app/app_procs.c:731
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: app/app_procs.c:726
+#: app/app_procs.c:733
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -158,15 +157,15 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: app/app_procs.c:748
+#: app/app_procs.c:755
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
-#: app/app_procs.c:787
+#: app/app_procs.c:794
 msgid "[OPTION...] [FILE...]"
 msgstr "[VOLBA...] [SOUBOR...]"
 
-#: app/app_procs.c:790
+#: app/app_procs.c:797
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -176,7 +175,7 @@ msgstr ""
 "Spuštěním '%s --help' zobrazíte kompletní seznam voleb dostupných z "
 "příkazové řádky.\n"
 
-#: app/app_procs.c:875
+#: app/app_procs.c:882
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -184,7 +183,7 @@ msgstr ""
 "Původní autor Dia byl:\n"
 "\n"
 
-#: app/app_procs.c:880
+#: app/app_procs.c:887
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -194,7 +193,7 @@ msgstr ""
 "Současní správci Dia jsou:\n"
 "\n"
 
-#: app/app_procs.c:885
+#: app/app_procs.c:892
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -204,7 +203,7 @@ msgstr ""
 "Další autoři jsou:\n"
 "\n"
 
-#: app/app_procs.c:890
+#: app/app_procs.c:897
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -476,7 +475,7 @@ msgstr "/_Vlastnosti"
 msgid "/_Hide this type"
 msgstr "/S_krýt tento typ"
 
-#: app/diagram_tree_window.c:76
+#: app/diagram_tree_window.c:73
 msgid "Diagram tree"
 msgstr "Strom diagramů"
 
@@ -557,7 +556,7 @@ msgstr ""
 msgid "Properties..."
 msgstr "Vlastnosti..."
 
-#: app/disp_callbacks.c:926
+#: app/disp_callbacks.c:935
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -594,7 +593,7 @@ msgstr "Zahodit změny"
 #: plug-ins/cairo/diacairo.c:929 plug-ins/cgm/cgm.c:1157
 #: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:732
 #: plug-ins/metapost/render_metapost.c:964
-#: plug-ins/pstricks/render_pstricks.c:802 plug-ins/shape/shape-export.c:135
+#: plug-ins/pstricks/render_pstricks.c:804 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:152 plug-ins/wpg/wpg.c:1066
 #: plug-ins/xfig/xfig-export.c:1100 plug-ins/xslt/xslt.c:94
 #, c-format
@@ -636,23 +635,23 @@ msgstr "Výška obrázku:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:122 app/filedlg.c:404
+#: app/filedlg.c:122 app/filedlg.c:435
 msgid "By extension"
 msgstr "Podle přípony"
 
-#: app/filedlg.c:184
+#: app/filedlg.c:213
 msgid "Open Diagram"
 msgstr "Otevřít diagram"
 
-#: app/filedlg.c:215
+#: app/filedlg.c:243
 msgid "Open Options"
 msgstr "Volby pro otevření"
 
-#: app/filedlg.c:223 app/filedlg.c:526
+#: app/filedlg.c:251 app/filedlg.c:559
 msgid "Determine file type:"
 msgstr "Zjistit typ souboru:"
 
-#: app/filedlg.c:259
+#: app/filedlg.c:288
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
@@ -661,7 +660,7 @@ msgstr ""
 "kódování.\n"
 "Něco se pokazí."
 
-#: app/filedlg.c:265 app/filedlg.c:448
+#: app/filedlg.c:294 app/filedlg.c:480
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -670,21 +669,21 @@ msgstr ""
 "Soubor '%s' již existuje.\n"
 "Chcete jej přepsat?"
 
-#: app/filedlg.c:273 app/filedlg.c:455
+#: app/filedlg.c:302 app/filedlg.c:487
 msgid "File already exists"
 msgstr "Soubor již existuje"
 
-#: app/filedlg.c:306
+#: app/filedlg.c:335
 msgid "Save Diagram"
 msgstr "Uložit diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:311
+#: app/filedlg.c:345
 msgid "Compress diagram files"
 msgstr "Komprimovat soubory s diagramy"
 
-#: app/filedlg.c:320
+#: app/filedlg.c:354
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -693,7 +692,7 @@ msgstr ""
 "urychluje načítání a ukládání. Některé programy pro zpracování textu však "
 "neumí s komprimovanými soubory pracovat."
 
-#: app/filedlg.c:474
+#: app/filedlg.c:506
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -702,11 +701,11 @@ msgstr ""
 "Nelze zjistit, který exportní filtr se má\n"
 "použít pro uložení '%s'"
 
-#: app/filedlg.c:493
+#: app/filedlg.c:525
 msgid "Export Diagram"
 msgstr "Exportovat diagram"
 
-#: app/filedlg.c:518
+#: app/filedlg.c:551
 msgid "Export Options"
 msgstr "Volby exportu"
 
@@ -802,16 +801,20 @@ msgstr "Přepne lnutí k mřížce pro toto okno."
 msgid "NULL tooldata in tool_select_update"
 msgstr "Data s hodnotou NULL v tool_select_update"
 
-#: app/interface.c:958
+#: app/interface.c:957
 #, c-format
 msgid "No sheet named %s"
 msgstr "Neexistuje list nazvaný %s"
 
-#: app/interface.c:1048
+#: app/interface.c:989
 msgid "Other sheets"
 msgstr "Ostatní listy"
 
-#: app/interface.c:1124
+#: app/interface.c:1047 sheets/Misc.sheet.in.h:3
+msgid "Misc"
+msgstr "Ostatní"
+
+#: app/interface.c:1108
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -820,7 +823,7 @@ msgstr ""
 "Barvy popředí a pozadí pro nové objekty. Malý černý a bílý čtvereček "
 "vynuluje barvy. Šipečky prohazují barvy. Dvojité kliknutí změní barvu."
 
-#: app/interface.c:1139
+#: app/interface.c:1123
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -828,7 +831,7 @@ msgstr ""
 "Šířky čar. Kliknutím na čáru nastavíte implicitní šířku čáry pro nové "
 "objekty. Dvojitým kliknutím nastavíte šířku čáry přesněji."
 
-#: app/interface.c:1179
+#: app/interface.c:1163
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -836,7 +839,7 @@ msgstr ""
 "Styl šipky na začátku nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: app/interface.c:1184
+#: app/interface.c:1168
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -844,7 +847,7 @@ msgstr ""
 "Styl čáry pro nové čáry. Kliknutím zvolte styl čáry nebo nastavte styl čáry "
 "tlačítkem Podrobnosti..."
 
-#: app/interface.c:1198
+#: app/interface.c:1182
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -852,7 +855,7 @@ msgstr ""
 "Styl šipky na konci nových čar. Kliknutím zvolte šipku nebo nastavte "
 "parametry šipky tlačítkem Podrobnosti..."
 
-#: app/interface.c:1308
+#: app/interface.c:1289
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
@@ -1029,19 +1032,19 @@ msgstr "/Soubor/Zásuvné modu_ly..."
 msgid "/File/_Quit"
 msgstr "/Soubor/_Konec"
 
-#: app/menus.c:69 app/menus.c:230
+#: app/menus.c:69 app/menus.c:231
 msgid "/_Help"
 msgstr "/Nápo_věda"
 
-#: app/menus.c:71 app/menus.c:232
+#: app/menus.c:71 app/menus.c:233
 msgid "/Help/_Manual"
 msgstr "/Nápověda/_Manuál"
 
-#: app/menus.c:73 app/menus.c:234
+#: app/menus.c:73 app/menus.c:235
 msgid "/Help/---"
 msgstr "/Nápověda/---"
 
-#: app/menus.c:74 app/menus.c:235
+#: app/menus.c:74 app/menus.c:236
 msgid "/Help/_About..."
 msgstr "/Nápověda/O _aplikaci..."
 
@@ -1185,265 +1188,269 @@ msgstr "/Zobrazit/Zvětšení/35,4%"
 msgid "/View/Zoom/25%"
 msgstr "/Zobrazit/Zvětšení/25%"
 
-#: app/menus.c:148 app/menus.c:156
+#: app/menus.c:148 app/menus.c:157
 msgid "/View/---"
 msgstr "/Zobrazit/---"
 
-#: app/menus.c:150
+#: app/menus.c:149
+msgid "/View/_Fullscr_een"
+msgstr "/Zobrazit/Přes _celou obrazovku"
+
+#: app/menus.c:151
 msgid "/View/_AntiAliased"
 msgstr "/Zobrazit/_Antialiasing"
 
-#: app/menus.c:152
+#: app/menus.c:153
 msgid "/View/Show _Grid"
 msgstr "/Zobrazit/Zobrazovat mříž_ku"
 
-#: app/menus.c:153
+#: app/menus.c:154
 msgid "/View/_Snap To Grid"
 msgstr "/Zobrazit/_Lnout k mřížce"
 
-#: app/menus.c:154
+#: app/menus.c:155
 msgid "/View/Show _Rulers"
 msgstr "/Zobrazit/Zobrazovat _pravítka"
 
-#: app/menus.c:155
+#: app/menus.c:156
 msgid "/View/Show _Connection Points"
 msgstr "/Zobrazit/Zobrazovat přípojné _body"
 
-#: app/menus.c:157
+#: app/menus.c:158
 msgid "/View/New _View"
 msgstr "/Zobrazit/Nový po_hled"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:159
+#: app/menus.c:160
 msgid "/View/Show _All"
 msgstr "/Zobrazit/Zobr_azit vše"
 
-#: app/menus.c:160
+#: app/menus.c:161
 msgid "/View/Re_draw"
 msgstr "/Zobrazit/Znov_u vykreslit"
 
-#: app/menus.c:161
+#: app/menus.c:162
 msgid "/_Objects"
 msgstr "/_Objekty"
 
-#: app/menus.c:163
+#: app/menus.c:164
 msgid "/Objects/Send to _Back"
 msgstr "/Objekty/Poslat do_zadu"
 
-#: app/menus.c:164
+#: app/menus.c:165
 msgid "/Objects/Bring to _Front"
 msgstr "/Objekty/Vynést do_předu"
 
-#: app/menus.c:165
+#: app/menus.c:166
 msgid "/Objects/Send Backwards"
 msgstr "/Objekty/Poslat dozadu"
 
-#: app/menus.c:166
+#: app/menus.c:167
 msgid "/Objects/Bring Forwards"
 msgstr "/Objekty/Vynést dopředu"
 
-#: app/menus.c:167 app/menus.c:171 app/menus.c:175 app/menus.c:189
+#: app/menus.c:168 app/menus.c:172 app/menus.c:176 app/menus.c:190
 msgid "/Objects/---"
 msgstr "/Objekty/---"
 
-#: app/menus.c:168
+#: app/menus.c:169
 msgid "/Objects/_Group"
 msgstr "/Objekty/_Seskupit"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:170
+#: app/menus.c:171
 msgid "/Objects/_Ungroup"
 msgstr "/Objekty/_Rozdělit"
 
-#: app/menus.c:172
+#: app/menus.c:173
 msgid "/Objects/_Parent"
 msgstr "/Objekty/V_nořit"
 
-#: app/menus.c:173
+#: app/menus.c:174
 msgid "/Objects/_Unparent"
 msgstr "/Objekty/V_ynořit"
 
-#: app/menus.c:174
+#: app/menus.c:175
 msgid "/Objects/_Unparent Children"
 msgstr "/Objekty/V_ynořit vnořené"
 
-#: app/menus.c:176
+#: app/menus.c:177
 msgid "/Objects/Align"
 msgstr "/Objekty/Zarovnat"
 
-#: app/menus.c:178
+#: app/menus.c:179
 msgid "/Objects/Align/Left"
 msgstr "/Objekty/Zarovnat/Vlevo"
 
-#: app/menus.c:179
+#: app/menus.c:180
 msgid "/Objects/Align/Center"
 msgstr "/Objekty/Zarovnat/Centrum"
 
-#: app/menus.c:180
+#: app/menus.c:181
 msgid "/Objects/Align/Right"
 msgstr "/Objekty/Zarovnat/Vpravo"
 
-#: app/menus.c:181
+#: app/menus.c:182
 msgid "/Objects/Align/Top"
 msgstr "/Objekty/Zarovnat/Nahoru"
 
-#: app/menus.c:182
+#: app/menus.c:183
 msgid "/Objects/Align/Middle"
 msgstr "/Objekty/Zarovnat/Doprostřed"
 
-#: app/menus.c:183
+#: app/menus.c:184
 msgid "/Objects/Align/Bottom"
 msgstr "/Objekty/Zarovnat/Dolů"
 
-#: app/menus.c:184
+#: app/menus.c:185
 msgid "/Objects/Align/---"
 msgstr "/Objekty/Zarovnat/---"
 
-#: app/menus.c:185
+#: app/menus.c:186
 msgid "/Objects/Align/Spread Out Horizontally"
 msgstr "/Objekty/Zarovnat/Rozprostřít vodorovně"
 
-#: app/menus.c:186
+#: app/menus.c:187
 msgid "/Objects/Align/Spread Out Vertically"
 msgstr "/Objekty/Zarovnat/Rozprostřít svisle"
 
-#: app/menus.c:187
+#: app/menus.c:188
 msgid "/Objects/Align/Adjacent"
 msgstr "/Objekty/Zarovnat/Přilehlé"
 
-#: app/menus.c:188
+#: app/menus.c:189
 msgid "/Objects/Align/Stacked"
 msgstr "/Objekty/Zarovnat/Na sobě"
 
-#: app/menus.c:190
+#: app/menus.c:191
 msgid "/Objects/_Properties..."
 msgstr "/Objekty/_Vlastnosti..."
 
-#: app/menus.c:191
+#: app/menus.c:192
 msgid "/_Select"
 msgstr "/_Vybrat"
 
-#: app/menus.c:193
+#: app/menus.c:194
 msgid "/Select/All"
 msgstr "/Vybrat/Vše"
 
-#: app/menus.c:194
+#: app/menus.c:195
 msgid "/Select/None"
 msgstr "/Vybrat/Nic"
 
-#: app/menus.c:195 app/menus.c:208
+#: app/menus.c:196 app/menus.c:209
 msgid "/Select/Invert"
 msgstr "/Vybrat/Invertovat"
 
-#: app/menus.c:196
+#: app/menus.c:197
 msgid "/Select/Connected"
 msgstr "/Vybrat/Připojené"
 
-#: app/menus.c:197
+#: app/menus.c:198
 msgid "/Select/Transitive"
 msgstr "/Vybrat/Tranzitivní"
 
-#: app/menus.c:198
+#: app/menus.c:199
 msgid "/Select/Same Type"
 msgstr "/Vybrat/Stejný typ"
 
-#: app/menus.c:199
+#: app/menus.c:200
 msgid "/Select/---"
 msgstr "/Vybrat/---"
 
-#: app/menus.c:200
+#: app/menus.c:201
 msgid "/Select/Replace"
 msgstr "/Vybrat/Nahradit"
 
-#: app/menus.c:202
+#: app/menus.c:203
 msgid "/Select/Union"
 msgstr "/Vybrat/Sjednocení"
 
-#: app/menus.c:204
+#: app/menus.c:205
 msgid "/Select/Intersect"
 msgstr "/Vybrat/Průnik"
 
-#: app/menus.c:206
+#: app/menus.c:207
 msgid "/Select/Remove"
 msgstr "/Vybrat/Odstranit"
 
-#: app/menus.c:210
+#: app/menus.c:211
 msgid "/_Tools"
 msgstr "/Nás_troje"
 
-#: app/menus.c:212
+#: app/menus.c:213
 msgid "/Tools/Modify"
 msgstr "/Nástroje/Upravit"
 
-#: app/menus.c:213
+#: app/menus.c:214
 msgid "/Tools/Magnify"
 msgstr "/Nástroje/Zvětšit"
 
-#: app/menus.c:214
+#: app/menus.c:215
 msgid "/Tools/Scroll"
 msgstr "/Nástroje/Posunovat"
 
-#: app/menus.c:215
+#: app/menus.c:216
 msgid "/Tools/Text"
 msgstr "/Nástroje/Text"
 
-#: app/menus.c:216
+#: app/menus.c:217
 msgid "/Tools/Box"
 msgstr "/Nástroje/Čtyřúhelník"
 
-#: app/menus.c:217
+#: app/menus.c:218
 msgid "/Tools/Ellipse"
 msgstr "/Nástroje/Elipsa"
 
-#: app/menus.c:218
+#: app/menus.c:219
 msgid "/Tools/Polygon"
 msgstr "/Nástroje/Mnohoúhelník"
 
-#: app/menus.c:219
+#: app/menus.c:220
 msgid "/Tools/Beziergon"
 msgstr "/Nástroje/Beziérův útvar"
 
-#: app/menus.c:220 app/menus.c:226
+#: app/menus.c:221 app/menus.c:227
 msgid "/Tools/---"
 msgstr "/Nástroje/---"
 
-#: app/menus.c:221
+#: app/menus.c:222
 msgid "/Tools/Line"
 msgstr "/Nástroje/Čára"
 
-#: app/menus.c:222
+#: app/menus.c:223
 msgid "/Tools/Arc"
 msgstr "/Nástroje/Oblouk"
 
-#: app/menus.c:223
+#: app/menus.c:224
 msgid "/Tools/Zigzagline"
 msgstr "/Nástroje/Klikatice"
 
-#: app/menus.c:224
+#: app/menus.c:225
 msgid "/Tools/Polyline"
 msgstr "/Nástroje/Lomená čára"
 
-#: app/menus.c:225
+#: app/menus.c:226
 msgid "/Tools/Bezierline"
 msgstr "/Nástroje/Beziérova čára"
 
-#: app/menus.c:227
+#: app/menus.c:228
 msgid "/Tools/Image"
 msgstr "/Nástroje/Obrázek"
 
-#: app/menus.c:228
+#: app/menus.c:229
 msgid "/_Input Methods"
 msgstr "/Vst_upní metody"
 
-#: app/menus.c:399
+#: app/menus.c:400
 msgid "NULL tooldata in tool_menu_select"
 msgstr "tooldata mají hodnotu NULL v tool_menu_select"
 
-#: app/menus.c:497
+#: app/menus.c:498
 msgid "Diagram Menu"
 msgstr "Menu diagramu"
 
-#: app/menus.c:632
+#: app/menus.c:633
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1468,22 +1475,22 @@ msgstr "Tiskárna"
 msgid "File"
 msgstr "Soubor"
 
-#: app/paginate_psprint.c:377
+#: app/paginate_psprint.c:378
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Nemohu spustit příkaz '%s': %s"
 
-#: app/paginate_psprint.c:380
+#: app/paginate_psprint.c:381
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Nemohu otevřít '%s' pro zápis: %s"
 
-#: app/paginate_psprint.c:397
+#: app/paginate_psprint.c:398
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Chyba při tisku: příkaz '%s' vrátil %d\n"
 
-#: app/paginate_psprint.c:408
+#: app/paginate_psprint.c:409
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Chyba při tisku: příkaz '%s' způsobil sigpipe."
@@ -1496,7 +1503,7 @@ msgstr "Zásuvné moduly"
 msgid "Loaded"
 msgstr "Načten"
 
-#: app/plugin-manager.c:262 objects/UML/class.c:112
+#: app/plugin-manager.c:262 objects/UML/class.c:111
 #: objects/UML/large_package.c:128
 msgid "Name"
 msgstr "Název"
@@ -1638,24 +1645,24 @@ msgstr "Čar na hlavní čáru"
 msgid "Hex Size:"
 msgstr "Velikost šesterečku:"
 
-#: app/preferences.c:182
+#: app/preferences.c:179
 msgid "Diagram tree window:"
 msgstr "Okno se stromem diagramů:"
 
-#: app/preferences.c:184
+#: app/preferences.c:181
 msgid "Save hidden object types"
 msgstr "Ukládat skryté typy souborů"
 
-#: app/preferences.c:391 lib/prop_inttypes.c:158
+#: app/preferences.c:386 lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Ano"
 
-#: app/preferences.c:391 app/preferences.c:402 lib/prop_inttypes.c:160
+#: app/preferences.c:386 app/preferences.c:397 lib/prop_inttypes.c:160
 #: lib/prop_inttypes.c:186
 msgid "No"
 msgstr "Ne"
 
-#: app/preferences.c:504
+#: app/preferences.c:499
 msgid "Preferences"
 msgstr "Nastavení"
 
@@ -1816,8 +1823,8 @@ msgid "Description:"
 msgstr "Popis:"
 
 #: app/sheets_dialog.c:618 objects/FS/flow-ortho.c:168 objects/FS/flow.c:146
-#: objects/UML/class_dialog.c:911 objects/UML/class_dialog.c:1845
-#: objects/UML/class_dialog.c:2074 objects/UML/class_dialog.c:2590
+#: objects/UML/class_dialog.c:918 objects/UML/class_dialog.c:1852
+#: objects/UML/class_dialog.c:2081 objects/UML/class_dialog.c:2597
 #: objects/Istar/link.c:167 objects/Jackson/phenomenon.c:144
 #: objects/KAOS/metaandorrel.c:164 objects/KAOS/metabinrel.c:181
 msgid "Type:"
@@ -1829,9 +1836,9 @@ msgstr "List"
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:133
 #: objects/ER/relationship.c:138 objects/UML/association.c:200
-#: objects/UML/association.c:1213 objects/UML/class_dialog.c:900
-#: objects/UML/class_dialog.c:1834 objects/UML/class_dialog.c:2063
-#: objects/UML/class_dialog.c:2579 objects/UML/dependency.c:133
+#: objects/UML/association.c:1213 objects/UML/class_dialog.c:907
+#: objects/UML/class_dialog.c:1841 objects/UML/class_dialog.c:2070
+#: objects/UML/class_dialog.c:2586 objects/UML/dependency.c:133
 #: objects/UML/generalization.c:129 objects/UML/realizes.c:130
 msgid "Name:"
 msgstr "Název:"
@@ -2289,15 +2296,15 @@ msgstr ""
 "Nelze otevřít `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:605
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:609
 msgid "Left"
 msgstr "Vlevo"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:611
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:615
 msgid "Center"
 msgstr "Uprostřed"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:617
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:621
 msgid "Right"
 msgstr "Vpravo"
 
@@ -2333,7 +2340,7 @@ msgstr "Zarovnání textu"
 #. all this just to make the defaults selectable ...
 #: lib/properties.c:79 lib/properties.h:525 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/UML/class.c:138 objects/UML/class_dialog.c:351
+#: objects/UML/class.c:137 objects/UML/class_dialog.c:351
 #: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Písmo"
@@ -2371,57 +2378,57 @@ msgid "Couldn't find font family for %s\n"
 msgstr "Nelze nalézt rodinu písma pro %s\n"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:753 objects/FS/function.c:1063
+#: lib/widgets.c:757 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Nepřerušovaná"
 
-#: lib/widgets.c:759
+#: lib/widgets.c:763
 msgid "Dashed"
 msgstr "Čárkovaná"
 
-#: lib/widgets.c:765
+#: lib/widgets.c:769
 msgid "Dash-Dot"
 msgstr "Čárka - tečka"
 
-#: lib/widgets.c:771
+#: lib/widgets.c:775
 msgid "Dash-Dot-Dot"
 msgstr "Čárka - tečka - tečka"
 
-#: lib/widgets.c:777
+#: lib/widgets.c:781
 msgid "Dotted"
 msgstr "Tečkovaná"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:796
+#: lib/widgets.c:800
 msgid "Dash length: "
 msgstr "Délka čárky:"
 
-#: lib/widgets.c:924
+#: lib/widgets.c:928
 msgid "Select color"
 msgstr "Vyberte barvu"
 
-#: lib/widgets.c:951
+#: lib/widgets.c:956
 msgid "More colors..."
 msgstr "Další barvy..."
 
-#: lib/widgets.c:1067
+#: lib/widgets.c:1081
 msgid "More arrows"
 msgstr "Další šipky"
 
-#: lib/widgets.c:1080
+#: lib/widgets.c:1094
 msgid "Size: "
 msgstr "Velikost: "
 
-#: lib/widgets.c:1223
+#: lib/widgets.c:1239
 msgid "Select image file"
 msgstr "Vyberte soubor s obrázkem"
 
-#: lib/widgets.c:1259
+#: lib/widgets.c:1275
 msgid "Browse"
 msgstr "Probírat"
 
 # ???
-#: lib/widgets.c:1850
+#: lib/widgets.c:1871
 msgid "Reset menu"
 msgstr "Vynulovat menu"
 
@@ -3727,7 +3734,7 @@ msgid "Miscellaneous objects"
 msgstr "Ostatní objekty"
 
 #. property rows
-#: objects/SADT/arrow.c:134 objects/UML/class.c:143
+#: objects/SADT/arrow.c:134 objects/UML/class.c:142
 #: objects/UML/class_dialog.c:357
 msgid "Normal"
 msgstr "Normální"
@@ -3800,7 +3807,7 @@ msgstr "Objekty diagramu SADT"
 msgid "Actor"
 msgstr "Účinkující"
 
-#: objects/UML/association.c:1226 objects/UML/class_dialog.c:2107
+#: objects/UML/association.c:1226 objects/UML/class_dialog.c:2114
 msgid "Direction:"
 msgstr "Směr:"
 
@@ -3843,86 +3850,86 @@ msgstr "Agregát"
 msgid "Composition"
 msgstr "Kompozice"
 
-#: objects/UML/class.c:110 objects/UML/class.c:247 objects/UML/class.c:1163
+#: objects/UML/class.c:109 objects/UML/class.c:246 objects/UML/class.c:1162
 #: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Třída"
 
-#: objects/UML/class.c:114 objects/UML/classicon.c:135
+#: objects/UML/class.c:113 objects/UML/classicon.c:135
 #: objects/UML/component.c:122 objects/UML/large_package.c:126
 #: objects/UML/object.c:147 objects/UML/small_package.c:122
 msgid "Stereotype"
 msgstr "Stereotyp"
 
-#: objects/UML/class.c:116 objects/UML/class.c:153
+#: objects/UML/class.c:115 objects/UML/class.c:152
 #: objects/UML/class_dialog.c:382 sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Komentář"
 
-#: objects/UML/class.c:118 objects/UML/class.c:147
+#: objects/UML/class.c:117 objects/UML/class.c:146
 #: objects/UML/class_dialog.c:296 objects/UML/class_dialog.c:367
-#: objects/UML/class_dialog.c:1933
+#: objects/UML/class_dialog.c:1940
 msgid "Abstract"
 msgstr "Abstraktní"
 
-#: objects/UML/class.c:120
+#: objects/UML/class.c:119
 msgid "Template"
 msgstr "Šablona"
 
-#: objects/UML/class.c:123 objects/UML/class_dialog.c:305
+#: objects/UML/class.c:122 objects/UML/class_dialog.c:305
 msgid "Suppress Attributes"
 msgstr "Potlačit atributy"
 
-#: objects/UML/class.c:125
+#: objects/UML/class.c:124
 msgid "Suppress Operations"
 msgstr "Potlačit operace"
 
-#: objects/UML/class.c:127
+#: objects/UML/class.c:126
 msgid "Visible Attributes"
 msgstr "Viditelné atributy"
 
-#: objects/UML/class.c:129
+#: objects/UML/class.c:128
 msgid "Visible Operations"
 msgstr "Viditelné operace"
 
-#: objects/UML/class.c:131
+#: objects/UML/class.c:130
 msgid "Visible Comments"
 msgstr "Viditelné komentáře"
 
-#: objects/UML/class.c:133 objects/UML/class_dialog.c:321
+#: objects/UML/class.c:132 objects/UML/class_dialog.c:321
 msgid "Wrap Operations"
 msgstr "Operace zalamování"
 
-#: objects/UML/class.c:135
+#: objects/UML/class.c:134
 msgid "Wrap after char"
 msgstr "Zalamovat po znaku"
 
-#: objects/UML/class.c:145 objects/UML/class_dialog.c:362
+#: objects/UML/class.c:144 objects/UML/class_dialog.c:362
 msgid "Polymorphic"
 msgstr "Polymorfní"
 
-#: objects/UML/class.c:149
+#: objects/UML/class.c:148
 msgid "Classname"
 msgstr "Název třídy"
 
-#: objects/UML/class.c:151
+#: objects/UML/class.c:150
 msgid "Abstract Classname"
 msgstr "Název abstraktní třídy"
 
-#: objects/UML/class.c:157 objects/UML/class.c:159 objects/UML/class.c:161
-#: objects/UML/class.c:163 objects/UML/class.c:165 objects/UML/class.c:167
+#: objects/UML/class.c:156 objects/UML/class.c:158 objects/UML/class.c:160
+#: objects/UML/class.c:162 objects/UML/class.c:164 objects/UML/class.c:166
 msgid " "
 msgstr " "
 
-#: objects/UML/class.c:172 objects/UML/object.c:151
+#: objects/UML/class.c:171 objects/UML/object.c:151
 msgid "Attributes"
 msgstr "Atributy"
 
-#: objects/UML/class.c:174
+#: objects/UML/class.c:173
 msgid "Operations"
 msgstr "Operace"
 
-#: objects/UML/class.c:241
+#: objects/UML/class.c:240
 msgid "Show Comments"
 msgstr "Zobrazit komentáře"
 
@@ -3935,14 +3942,14 @@ msgstr "_Třída"
 msgid "Class name:"
 msgstr "Název třídy:"
 
-#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1856
+#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:1863
 #: objects/UML/dependency.c:135 objects/UML/generalization.c:131
 #: objects/UML/realizes.c:132
 msgid "Stereotype:"
 msgstr "Stereotyp:"
 
-#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:933
-#: objects/UML/class_dialog.c:1974 objects/UML/class_dialog.c:2096
+#: objects/UML/class_dialog.c:288 objects/UML/class_dialog.c:940
+#: objects/UML/class_dialog.c:1981 objects/UML/class_dialog.c:2103
 msgid "Comment:"
 msgstr "Komentář:"
 
@@ -3997,125 +4004,125 @@ msgid "Background Color"
 msgstr "Barva pozadí"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:833
+#: objects/UML/class_dialog.c:840
 msgid "_Attributes"
 msgstr "_Atributy"
 
-#: objects/UML/class_dialog.c:861 objects/UML/class_dialog.c:1792
-#: objects/UML/class_dialog.c:2020 objects/UML/class_dialog.c:2540
+#: objects/UML/class_dialog.c:868 objects/UML/class_dialog.c:1799
+#: objects/UML/class_dialog.c:2027 objects/UML/class_dialog.c:2547
 msgid "_New"
 msgstr "_Nový"
 
-#: objects/UML/class_dialog.c:867 objects/UML/class_dialog.c:1798
-#: objects/UML/class_dialog.c:2027 objects/UML/class_dialog.c:2546
+#: objects/UML/class_dialog.c:874 objects/UML/class_dialog.c:1805
+#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2553
 msgid "_Delete"
 msgstr "_Odstranit"
 
-#: objects/UML/class_dialog.c:873 objects/UML/class_dialog.c:1804
-#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2552
+#: objects/UML/class_dialog.c:880 objects/UML/class_dialog.c:1811
+#: objects/UML/class_dialog.c:2041 objects/UML/class_dialog.c:2559
 msgid "Move up"
 msgstr "Posun nahoru"
 
-#: objects/UML/class_dialog.c:879 objects/UML/class_dialog.c:1810
-#: objects/UML/class_dialog.c:2041 objects/UML/class_dialog.c:2558
+#: objects/UML/class_dialog.c:886 objects/UML/class_dialog.c:1817
+#: objects/UML/class_dialog.c:2048 objects/UML/class_dialog.c:2565
 msgid "Move down"
 msgstr "Posun dolů"
 
-#: objects/UML/class_dialog.c:890
+#: objects/UML/class_dialog.c:897
 msgid "Attribute data"
 msgstr "Data atributu"
 
-#: objects/UML/class_dialog.c:922
+#: objects/UML/class_dialog.c:929
 msgid "Value:"
 msgstr "Hodnota:"
 
-#: objects/UML/class_dialog.c:945 objects/UML/class_dialog.c:1869
+#: objects/UML/class_dialog.c:952 objects/UML/class_dialog.c:1876
 msgid "Visibility:"
 msgstr "Viditelnost:"
 
-#: objects/UML/class_dialog.c:954 objects/UML/class_dialog.c:1878
+#: objects/UML/class_dialog.c:961 objects/UML/class_dialog.c:1885
 msgid "Public"
 msgstr "Veřejný"
 
-#: objects/UML/class_dialog.c:962 objects/UML/class_dialog.c:1886
+#: objects/UML/class_dialog.c:969 objects/UML/class_dialog.c:1893
 msgid "Private"
 msgstr "Soukromý"
 
-#: objects/UML/class_dialog.c:970 objects/UML/class_dialog.c:1894
+#: objects/UML/class_dialog.c:977 objects/UML/class_dialog.c:1901
 msgid "Protected"
 msgstr "Chráněný"
 
-#: objects/UML/class_dialog.c:978 objects/UML/class_dialog.c:1902
+#: objects/UML/class_dialog.c:985 objects/UML/class_dialog.c:1909
 msgid "Implementation"
 msgstr "Implementace"
 
-#: objects/UML/class_dialog.c:999 objects/UML/class_dialog.c:1918
+#: objects/UML/class_dialog.c:1006 objects/UML/class_dialog.c:1925
 msgid "Class scope"
 msgstr "Pole působnosti třídy"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1764
+#: objects/UML/class_dialog.c:1771
 msgid "_Operations"
 msgstr "_Operace"
 
-#: objects/UML/class_dialog.c:1822
+#: objects/UML/class_dialog.c:1829
 msgid "Operation data"
 msgstr "Data operace"
 
-#: objects/UML/class_dialog.c:1924
+#: objects/UML/class_dialog.c:1931
 msgid "Inheritance type:"
 msgstr "Typ dědičnosti:"
 
-#: objects/UML/class_dialog.c:1941
+#: objects/UML/class_dialog.c:1948
 msgid "Polymorphic (virtual)"
 msgstr "Polymorfní (virtuální)"
 
-#: objects/UML/class_dialog.c:1949
+#: objects/UML/class_dialog.c:1956
 msgid "Leaf (final)"
 msgstr "Listová (konečná)"
 
-#: objects/UML/class_dialog.c:1967
+#: objects/UML/class_dialog.c:1974
 msgid "Query"
 msgstr "Dotaz"
 
-#: objects/UML/class_dialog.c:1991
+#: objects/UML/class_dialog.c:1998
 msgid "Parameters:"
 msgstr "Parametry:"
 
-#: objects/UML/class_dialog.c:2053
+#: objects/UML/class_dialog.c:2060
 msgid "Parameter data"
 msgstr "Data parametrů"
 
-#: objects/UML/class_dialog.c:2085
+#: objects/UML/class_dialog.c:2092
 msgid "Def. value:"
 msgstr "Implicitní hodnota:"
 
-#: objects/UML/class_dialog.c:2116
+#: objects/UML/class_dialog.c:2123
 msgid "Undefined"
 msgstr "Nedefinovaná"
 
-#: objects/UML/class_dialog.c:2124
+#: objects/UML/class_dialog.c:2131
 msgid "In"
 msgstr "In"
 
-#: objects/UML/class_dialog.c:2133
+#: objects/UML/class_dialog.c:2140
 msgid "Out"
 msgstr "Out"
 
-#: objects/UML/class_dialog.c:2142
+#: objects/UML/class_dialog.c:2149
 msgid "In & Out"
 msgstr "In & Out"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2506
+#: objects/UML/class_dialog.c:2513
 msgid "_Templates"
 msgstr "_Šablony"
 
-#: objects/UML/class_dialog.c:2512 sheets/UML.sheet.in.h:29
+#: objects/UML/class_dialog.c:2519 sheets/UML.sheet.in.h:29
 msgid "Template class"
 msgstr "Třída šablony"
 
-#: objects/UML/class_dialog.c:2569
+#: objects/UML/class_dialog.c:2576
 msgid "Formal parameter data"
 msgstr "Data formálních parametrů"
 
@@ -4844,15 +4851,15 @@ msgstr "export/import bitmapy založené na gdk-pixbuf"
 msgid "TeX Pstricks export filter"
 msgstr "Exportní filtr TeX Pstricks"
 
-#: plug-ins/pstricks/render_pstricks.c:652
+#: plug-ins/pstricks/render_pstricks.c:653
 msgid "Not valid UTF8"
 msgstr "Není platné UTF8"
 
-#: plug-ins/pstricks/render_pstricks.c:873
+#: plug-ins/pstricks/render_pstricks.c:877
 msgid "TeX PSTricks macros"
 msgstr "Makra formátu TeX PSTricks"
 
-#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1142
+#: plug-ins/python/pydia-render.c:717 plug-ins/wmf/wmf.cpp:1186
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Nelze otevřít '%s' pro zápis.\n"
@@ -4907,11 +4914,11 @@ msgstr "kořenový element byl '%s' -- očekávalo se 'svg'."
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Importní a exportní filtry do formátu Scalable Vector Graphics"
 
-#: plug-ins/wmf/wmf.cpp:1209
+#: plug-ins/wmf/wmf.cpp:1253
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:1225
+#: plug-ins/wmf/wmf.cpp:1269
 msgid "WMF export filter"
 msgstr "Exportní filtr formátu WMF"
 
@@ -6531,10 +6538,6 @@ msgstr "Komponenty zařízení mobilního účastníka armády US"
 #: sheets/Misc.sheet.in.h:2
 msgid "Folder"
 msgstr "Adresář"
-
-#: sheets/Misc.sheet.in.h:3
-msgid "Misc"
-msgstr "Ostatní"
 
 #: sheets/Misc.sheet.in.h:4
 msgid "Miscellaneous Shapes"
