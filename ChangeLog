@@ -1,7 +1,14 @@
 2003-08-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
-	* lib/polyshape.c (find_tip_directions): Reasonable directions for
-	connectionpoints. 
+	* lib/beziershape.c (beziershape_update_data): Autoroute
+	directions for beziershapes!
+
+	* lib/connectionpoint.c (find_slope_directions): 
+	* lib/connectionpoint.h: Function for finding the available
+	directions on a slope.
+
+	* lib/polyshape.c: Reasonable directions for
+	connectionpoints. 	
 
 2003-08-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 

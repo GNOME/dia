@@ -51,6 +51,10 @@ struct _ConnectionPoint {
   gchar directions;  /* Directions that this connection point is open to */
 };
 
+/* Returns the available directions on a slope.
+ * The right-hand side of the line is assumed to be within the object,
+ * and thus not available. */
+gint find_slope_directions(Point from, Point to);
 /** Update the object-settable parts of a connectionpoints.
  * p: A ConnectionPoint pointer (non-NULL).
  * x: The x coordinate of the connectionpoint.

@@ -650,13 +650,27 @@ beziershape_update_data(BezierShape *bezier)
   /* Update connection points: */
   last = bezier->points[0].p1;
   for (i = 1; i < bezier->numpoints; i++) {
+    Point slopepoint1, slopepoint2;
+    slopepoint1 = bezier->points[i].p1;
+    point_sub(&slopepoint1, &last);
+    point_scale(&slopepoint1, .5);
+    point_add(&slopepoint1, &last);
+    slopepoint2 = bezier->points[i].p2;
+    point_sub(&slopepoint2, &bezier->points[i].p3);
+    point_scale(&slopepoint2, .5);
+    point_add(&slopepoint2, &bezier->points[i].p3);
+
     bezier->object.connections[2*i-2]->pos = last;
+    bezier->object.connections[2*i-2]->directions =
+      find_slope_directions(last, bezier->points[i].p1);
     bezier->object.connections[2*i-1]->pos.x =
       (last.x + 3*bezier->points[i].p1.x + 3*bezier->points[i].p2.x +
        bezier->points[i].p3.x)/8;
     bezier->object.connections[2*i-1]->pos.y =
       (last.y + 3*bezier->points[i].p1.y + 3*bezier->points[i].p2.y +
        bezier->points[i].p3.y)/8;
+    bezier->object.connections[2*i-1]->directions = 
+      find_slope_directions(slopepoint1, slopepoint2);
     last = bezier->points[i].p3;
   }
 }

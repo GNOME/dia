@@ -19,6 +19,42 @@
 #include "config.h"
 #include "connectionpoint.h"
 
+/* Returns the available directions on a slope.
+ * The right-hand side of the line is assumed to be within the object,
+ * and thus not available. */
+gint
+find_slope_directions(Point from, Point to)
+{
+  gint dirs;
+  gint slope;
+
+  if (fabs(from.y-to.y) < 0.0000001)
+    return (from.x > to.x?DIR_SOUTH:DIR_NORTH);
+  if (fabs(from.x-to.x) < 0.0000001)
+    return (from.y > to.y?DIR_WEST:DIR_EAST);
+
+  point_sub(&to, &from);
+  slope = fabs(to.y/to.x);
+
+  dirs = 0;
+  if (slope < 2) { /* Flat enough to allow north-south */
+    if (to.x > 0) { /* The outside is north, not south */
+      dirs |= DIR_NORTH;
+    } else {
+      dirs |= DIR_SOUTH;
+    }
+  }
+  if (slope > .5) { /* Steep enough to allow east-west */
+    if (to.y > 0) {  /* The outside is east, not west */
+      dirs |= DIR_EAST;
+    } else {
+      dirs |= DIR_WEST;
+    }
+  }
+  return dirs;
+}
+
+
 /** Update the object-settable parts of a connectionpoints.
  * p: A ConnectionPoint pointer (non-NULL).
  * x: The x coordinate of the connectionpoint.
