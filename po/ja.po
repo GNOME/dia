@@ -24,7 +24,7 @@ msgstr "OUTPUT"
 
 #: app/app_procs.c:131
 msgid "Show this help message"
-msgstr ""
+msgstr "¤³¤Î¥Ø¥ë¥×¥á¥Ã¥»¡¼¥¸¤òÉ½¼¨¤¹¤ë"
 
 #: app/app_procs.c:150
 msgid "Can't connect to session manager!\n"
@@ -66,7 +66,7 @@ msgstr ""
 
 #: app/app_procs.c:287
 msgid "Quit"
-msgstr ""
+msgstr "½ªÎ»"
 
 #: app/app_procs.c:299 app/layer_dialog.c:980 app/lineprops_area.c:516
 #: app/lineprops_area.c:714
@@ -409,8 +409,8 @@ msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
-"Ê¸»ú¤ÈÇØ·Ê¤Î¿§¤Ç¤¹¡£¹õ¤ÈÇò¤Î¾®¤µ¤Ê»Í³Ñ¤Ï¡¢¿§¤ò¥ê¥»¥Ã¥È¤·¤Þ¤¹¡£¾®¤µ¤ÊÌð°õ¤Ï¿§¤"
-"ò¸ò´¹¤·¤Þ¤¹¡£¥À¥Ö¥ë¥¯¥ê¥Ã¥¯¤¹¤ë¤È¿§¤òÊÑ¹¹¤·¤Þ¤¹¡£"
+"Ê¸»ú¤ÈÇØ·Ê¤Î¿§¤Ç¤¹¡£¹õ¤ÈÇò¤Î¾®¤µ¤Ê»Í³Ñ¤Ï¡¢¿§¤ò¥ê¥»¥Ã¥È¤·¤Þ¤¹¡£¾®¤µ¤ÊÌð°õ¤Ï¿§
+"ò¸ò´¹¤·¤Þ¤¹¡£¥À¥Ö¥ë¥¯¥ê¥Ã¥¯¤¹¤ë¤È¿§¤òÊÑ¹¹¤·¤Þ¤¹¡
 
 #: app/interface.c:646
 msgid "Diagram Editor"
@@ -1862,160 +1862,3 @@ msgstr "¿åÊ¿°ÌÃÖ(_H)"
 msgid "Flip Vertical"
 msgstr "¿âÄ¾°ÌÃÖ(_V)"
 
-#~ msgid "Create an actor"
-#~ msgstr "¥¢¥¯¥¿¡¼¤ÎºîÀ®"
-
-#~ msgid "Association, two classes are associated."
-#~ msgstr "´ØÏ¢¡¢2¤Ä¤Î¥¯¥é¥¹¤¬´ØÏ¢ÉÕ¤±¤µ¤ì¤Þ¤¹¡£"
-
-#~ msgid "Aggregation, one class is part of another."
-#~ msgstr "¥¢¥°¥ê¥²¡¼¥·¥ç¥ó¡¢°ì¤Ä¤Î¥¯¥é¥¹¤¬¤â¤¦°ì¤Ä¤Î¥Ñ¡¼¥Ä¤È¤Ê¤ê¤Þ¤¹¡£"
-
-#~ msgid "Create a class"
-#~ msgstr "¥¯¥é¥¹¤ÎºîÀ®"
-
-#~ msgid "Create a template class"
-#~ msgstr "¥Æ¥ó¥×¥ì¡¼¥È¥¯¥é¥¹¤ÎºîÀ®"
-
-#~ msgid "Create a dependency"
-#~ msgstr "°ÍÂ¸´Ø·¸¤ÎºîÀ®"
-
-#~ msgid "Generalization, class inheritance."
-#~ msgstr "¥¸¥§¥Í¥é¥é¥¤¥¼¡¼¥·¥ç¥ó¡¢¥¯¥é¥¹¤ÎÇÉÀ¸"
-
-#~ msgid "Implements, class implements a specific interface."
-#~ msgstr "¼ÂÁõ¡¢¥¯¥é¥¹¤¬¤¢¤ë¥¤¥ó¥¿¡¼¥Õ¥§¡¼¥¹¤ò¼ÂÁõ¤¹¤ë"
-
-#~ msgid "Create a (large) package"
-#~ msgstr "(Âç¤­¤Ê)¥Ñ¥Ã¥±¡¼¥¸¤ÎºîÀ®"
-
-#~ msgid "Create a note"
-#~ msgstr "¥Î¡¼¥È¤ÎºîÀ®"
-
-#~ msgid "Realizes, implements a specific interface."
-#~ msgstr "¥ê¥¢¥é¥¤¥º¡¢¤¢¤ë¥¤¥ó¥¿¡¼¥Õ¥§¡¼¥¹¤Î¼ÂÁõ"
-
-#~ msgid "Create a (small) package"
-#~ msgstr "(¾®¤µ¤Ê)¥Ñ¥Ã¥±¡¼¥¸¤ÎºîÀ®"
-
-#~ msgid "UML"
-#~ msgstr "UML"
-
-#~ msgid "Editor for UML Static Structure Diagrams."
-#~ msgstr "UML¥¹¥¿¥Æ¥£¥Ã¥¯¥¹¥È¥é¥¯¥Á¥ã¥À¥¤¥¢¥°¥é¥à¤Î¥¨¥Ç¥£¥¿"
-
-#~ msgid "Create a use case"
-#~ msgstr "¥æ¡¼¥¹¥±¡¼¥¹¤ÎºîÀ®"
-
-#~ msgid "Create an object"
-#~ msgstr "¥ª¥Ö¥¸¥§¥¯¥È¤ÎºîÀ®"
-
-#~ msgid "Create a message"
-#~ msgstr "¥á¥Ã¥»¡¼¥¸¤ÎºîÀ®"
-
-#~ msgid "Create a state machine"
-#~ msgstr "¥¹¥Æ¡¼¥È¥Þ¥·¥ó¤ÎºîÀ®"
-
-#~ msgid "Create a class stereotype icon"
-#~ msgstr "¥¯¥é¥¹¤Î¥¹¥Æ¥ì¥ª¥¿¥¤¥×¥¢¥¤¥³¥ó¤òºîÀ®¤¹¤ë"
-
-#~ msgid "Create a component"
-#~ msgstr "¥³¥ó¥Ý¡¼¥Í¥ó¥È"
-
-#~ msgid "Weak Entity"
-#~ msgstr "¥¦¥£¡¼¥¯¥¨¥ó¥Æ¥£¥Æ¥£"
-
-#~ msgid "ER"
-#~ msgstr "ER"
-
-#~ msgid "Editor for Entity Relations Diagrams."
-#~ msgstr "¥¨¥ó¥Æ¥£¥Æ¥£´Ø·¸¥À¥¤¥¢¥°¥é¥à¤Î¥¨¥Ç¥£¥¿¡£"
-
-#~ msgid "Create a participation"
-#~ msgstr "ÉôÊ¬¤ÎºîÀ®"
-
-#~ msgid "Ethernet bus."
-#~ msgstr "¥¤¡¼¥µ¥Í¥Ã¥È¡¦¥Ð¥¹"
-
-#~ msgid "A Computer with a tower case."
-#~ msgstr "¥¿¥ï¡¼¥±¡¼¥¹¤Î¥³¥ó¥Ô¥å¡¼¥¿¡£"
-
-#~ msgid "The symbol for storage. Disc or database."
-#~ msgstr "¥¹¥È¥ì¡¼¥¸¤Î¥·¥ó¥Ü¥ë¡£¥Ç¥£¥¹¥¯¤ä¥Ç¡¼¥¿¥Ù¡¼¥¹"
-
-#~ msgid "A monitor, with a stand"
-#~ msgstr "¥¹¥¿¥ó¥ÉÉÕ¤­¤Î¥â¥Ë¥¿"
-
-#~ msgid "Network"
-#~ msgstr "¥Í¥Ã¥È¥ï¡¼¥¯"
-
-#~ msgid "Objects to design network diagrams with"
-#~ msgstr "¥Í¥Ã¥È¥ï¡¼¥¯¥À¥¤¥¢¥°¥é¥à¤ò¥Ç¥¶¥¤¥ó¤¹¤ë¤¿¤á¤Î¥ª¥Ö¥¸¥§¥¯¥È"
-
-#~ msgid "A simple Printer"
-#~ msgstr "¥·¥ó¥×¥ë¥×¥ê¥ó¥¿"
-
-#~ msgid "A Antenna for wireless transmissions"
-#~ msgstr "ÌµÀþÄÌ¿®¤Î¥¢¥ó¥Æ¥Ê"
-
-#~ msgid "A WAN Connection"
-#~ msgstr "WAN¥³¥Í¥¯¥·¥ç¥ó"
-
-#~ msgid "A stackable hub or switch"
-#~ msgstr "¥¹¥¿¥Ã¥«¥Ö¥ë¤Ê¥Ï¥Ö¡¦¥¹¥¤¥Ã¥Á"
-
-#~ msgid "A simple Modem"
-#~ msgstr "¥·¥ó¥×¥ë¥â¥Ç¥à"
-
-#~ msgid "A modular switching system"
-#~ msgstr "¥â¥¸¥å¥é¡¼¥¹¥¤¥Ã¥Á¥ó¥°¥·¥¹¥Æ¥à"
-
-#~ msgid "A RJ45 Wall-Plug"
-#~ msgstr "RJ45ÊÉ¥×¥é¥°"
-
-#~ msgid "A Wall-Plug for the scEAD Cabling System"
-#~ msgstr "scEAD¥±¡¼¥Ö¥ë¥·¥¹¥Æ¥à¤ÎÊÉ¥×¥é¥°"
-
-#~ msgid "Create an orthogonal polyline flow"
-#~ msgstr "orthogonal polyline flow¤òºî¤ë"
-
-#~ msgid "Create a flow"
-#~ msgstr "¥Õ¥í¡¼¤ÎºîÀ®"
-
-#~ msgid "FS"
-#~ msgstr "FS"
-
-#~ msgid "Editor for Function Structure Diagrams."
-#~ msgstr "´Ø¿ô¹½Â¤¥À¥¤¥¢¥°¥é¥à¤Î¥¨¥Ç¥£¥¿¡£"
-
-#~ msgid "Create a function"
-#~ msgstr "´Ø¿ô¤ÎºîÀ®"
-
-#~ msgid "A Sybase Client Application."
-#~ msgstr "¥µ¥¤¥Ù¡¼¥¹¥¯¥é¥¤¥¢¥ó¥È¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¡£"
-
-#~ msgid "A Sybase Dataserver."
-#~ msgstr "¥µ¥¤¥Ù¡¼¥¹¥Ç¡¼¥¿¥µ¡¼¥Ð¡£"
-
-#~ msgid "Log Transfer Manager or Rep Agent."
-#~ msgstr "¥í¥°¥È¥é¥ó¥¹¥Õ¥¡¡¼¥Þ¥Í¡¼¥¸¥ã¡¦¥ì¥×¥ê¥±¡¼¥·¥ç¥ó¥¨¡¼¥¸¥§¥ó¥È"
-
-#~ msgid "Sybase Replication Server."
-#~ msgstr "¥µ¥¤¥Ù¡¼¥¹¥ì¥×¥ê¥±¡¼¥·¥ç¥ó¥µ¡¼¥Ð"
-
-#~ msgid "Replication Server Manager."
-#~ msgstr "¥ì¥×¥ê¥±¡¼¥·¥ç¥ó¥µ¡¼¥Ð¥Þ¥Í¡¼¥¸¥ã¡£"
-
-#~ msgid "Stable Disk Device."
-#~ msgstr "¸ÇÄê¥Ç¥£¥¹¥¯¥Ç¥Ð¥¤¥¹¡£"
-
-#~ msgid "Sybase"
-#~ msgstr "¥µ¥¤¥Ù¡¼¥¹"
-
-#~ msgid "Objects to design Sybase replication domain diagrams with"
-#~ msgstr ""
-#~ "¥µ¥¤¥Ù¡¼¥¹¥ì¥×¥ê¥±¡¼¥·¥ç¥ó¥É¥á¥¤¥ó¥À¥¤¥¢¥°¥é¥à¤ò¥Ç¥¶¥¤¥ó¤¹¤ë¤¿¤á¤Î¥ª¥Ö¥¸¥§¥¯¥"
-#~ "È"
-
-#~ msgid "Number of handles:"
-#~ msgstr "¥Ï¥ó¥É¥ë¤Î¿ô¡§"
