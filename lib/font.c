@@ -331,18 +331,20 @@ init_x11_font(FontPrivate *font)
       break;
   }
 
-  for (i=0;i<NUM_LAST_RESORT_FONTS;i++) {
-    x11_font = last_resort_fonts[i];
-    bufsize = strlen(x11_font)+6;  /* Should be enought*/
-    buffer = (char *)g_malloc(bufsize);
-    snprintf(buffer, bufsize, x11_font, 100);
-    
-    gdk_font = gdk_font_load(buffer);
-    g_free(buffer);
-    if (gdk_font!=NULL) {
-      message_warning(_("Warning no X Font for %s found, \nusing %s instead.\n"), font->public.name, x11_font);
-      font->fontname_x11 = x11_font;
-      break;
+  if (font->fontname_x11 == NULL) {
+    for (i=0;i<NUM_LAST_RESORT_FONTS;i++) {
+      x11_font = last_resort_fonts[i];
+      bufsize = strlen(x11_font)+6;  /* Should be enought*/
+      buffer = (char *)g_malloc(bufsize);
+      snprintf(buffer, bufsize, x11_font, 100);
+      
+      gdk_font = gdk_font_load(buffer);
+      g_free(buffer);
+      if (gdk_font!=NULL) {
+	message_warning(_("Warning no X Font for %s found, \nusing %s instead.\n"), font->public.name, x11_font);
+	font->fontname_x11 = x11_font;
+	break;
+      }
     }
   }
 

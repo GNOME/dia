@@ -1,5 +1,20 @@
 1999-03-28  Alexander Larsson  <alla@lysator.liu.se>
 
+	* lib/font.c (init_x11_font):
+	Stupid bug fixed.
+
+1999-03-28  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
+
+	* objects/UML/pixmaps/classicon.xpm: 
+	* objects/UML/classicon.c:
+	* objects/UML/uml.c:
+	Added the class stereotype icon objects.
+
+	* app/commands.c:
+	Changed default ps extension from .ps to .eps.
+	
+1999-03-28  Alexander Larsson  <alla@lysator.liu.se>
+
 	* lib/Makefile.am:
 	Added diamenu.h and intl.h
 

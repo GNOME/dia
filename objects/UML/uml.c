@@ -42,6 +42,7 @@ extern ObjectType lifeline_type;
 extern ObjectType objet_type;
 extern ObjectType message_type;
 extern ObjectType component_type;
+extern ObjectType classicon_type;
 
 void register_objects(void) {
   object_register_type(&umlclass_type);
@@ -60,7 +61,7 @@ void register_objects(void) {
   object_register_type(&objet_type);
   object_register_type(&message_type);  
   object_register_type(&component_type);
-
+  object_register_type(&classicon_type);
 }
 
 extern SheetObject umlclass_sheetobj;
@@ -81,6 +82,7 @@ extern SheetObject lifeline_sheetobj;
 extern SheetObject objet_sheetobj;
 extern SheetObject message_sheetobj;
 extern SheetObject component_sheetobj;
+extern SheetObject classicon_sheetobj;
 
 int get_version(void) {
   return 0;
@@ -109,7 +111,7 @@ void register_sheets(void) {
   sheet_append_sheet_obj(sheet, &objet_sheetobj);
   sheet_append_sheet_obj(sheet, &message_sheetobj);
   sheet_append_sheet_obj(sheet, &component_sheetobj);
-    
+  sheet_append_sheet_obj(sheet, &classicon_sheetobj);
 
   register_sheet(sheet);
 }

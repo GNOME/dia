@@ -23,7 +23,8 @@ libuml_objects_la_SOURCES = \
 			message.c \
 			object.c \
 			lifeline.c \
-			component.c 
+			component.c \
+			classicon.c
 
 libuml_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
 libuml_objects_la_LIBADD = @GTK_LIBS@

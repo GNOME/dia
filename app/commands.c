@@ -384,8 +384,8 @@ file_export_to_eps_callback(GtkWidget *widget, gpointer data)
 			     "clicked", GTK_SIGNAL_FUNC(gtk_widget_destroy),
 			     GTK_OBJECT (window));
 
-  /* put a .ps extention on the file name */
-  set_default_file_selection_extension (window, ".ps");
+  /* put a .eps extention on the file name */
+  set_default_file_selection_extension (window, ".eps");
   gtk_widget_show (window);
 
   /* Make dialog modal: */

@@ -3,5 +3,6 @@
 EXTRA_DIST = umlclass.xpm umlclass_template.xpm note.xpm dependency.xpm \
   realizes.xpm generalization.xpm implements.xpm constraint.xpm \
   association.xpm aggregation.xpm smallpackage.xpm largepackage.xpm \
-  actor.xpm case.xpm component.xpm message.xpm object.xpm lifeline.xpm
+  actor.xpm case.xpm component.xpm message.xpm object.xpm lifeline.xpm \
+  classicon.xpm
 
