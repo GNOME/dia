@@ -190,6 +190,11 @@ dia_plugin_init(PluginInfo *info)
 			      NULL, NULL))
       return DIA_PLUGIN_INIT_ERROR;
     
+    /* if we get this far we still may be running non-interactive. To avoid complains
+          * from color_convert() we are initializing ourselves ;)
+          */
+    color_init ();
+    
     filter_register_export(&export_filter);
     filter_register_import(&import_filter);
   }

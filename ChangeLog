@@ -1,5 +1,18 @@
 2004-10-31  Hans Breuer  <hans@breuer.org>
 
+    * plug-ins/pixbuf/pixbuf.c : when running non interactive
+    Dia won't call color_init() as it assumes no display. If
+    we have one as tested ourselve we can as well color_init()
+    to avoid g_warnings() and produce the right collors.
+    Fixes bug #155495.
+    
+    * app/app-procs.c : try to be a little more helpful
+    and correct with regard to the command line options.
+    Renamed --export-to-format to --export-filter and some
+    other string changes
+
+2004-10-31  Hans Breuer  <hans@breuer.org>
+
         * plug-ins/wmf/wmf_gdi.cpp plug-ins/wmf/wmf_gdi.h :
         added GetDeviceCaps() dummy implementation to make 
        'wmf' compile on Linux, too.

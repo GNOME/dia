@@ -304,7 +304,7 @@ handle_initial_diagram(const char *in_file_name,
     if (ef == NULL) {
       ef = filter_get_by_name(export_file_format);
       if (ef == NULL) {
-	g_error(_("Can't find output format %s\n"), export_file_format);
+	g_error(_("Can't find output format/filer %s\n"), export_file_format);
 	return FALSE;
       }
       g_free (export_file_name);
@@ -370,13 +370,6 @@ myXmlErrorReporting (void *ctx, const char* msg, ...)
 #define WMF ""
 #endif
 
-#if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
-/* Translators:  This is an option, not to be translated */
-#define BITMAPS "png, "
-#else
-/* Translators:  This is an option, not to be translated */
-#define BITMAPS "bmp, gif, jpg, png, pnm, ras, tif, "
-#endif
 
 void
 app_init (int argc, char **argv)
@@ -398,9 +391,17 @@ app_init (int argc, char **argv)
   poptContext poptCtx = NULL;
   gchar *export_format_string = 
      /* Translators:  The argument is a list of options, not to be translated */
-    g_strdup_printf(_("Export to file format and exit.  Supported formats are: %s"),
+    g_strdup_printf(_("Select the filter/format.  Supported are: %s"),
 		    "cgm, dia, dxf, eps, " EPS_PANGO
-		    "fig, mp, plt, hpgl, " BITMAPS
+		    "fig, mp, plt, hpgl, " "png ("
+#  if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
+		    "png-libart, "
+#  endif
+#  ifdef HAVE_CAIRO
+		    "png-cairo, "
+#  endif
+		    /* we always have pixbuf but don't know exactly all it's *few* save formats */
+		    "gdkpixbuf), jpg, ras, wbmp, "
 		    "shape, svg, tex, " WMF
 		    "wpg");
 
@@ -408,8 +409,8 @@ app_init (int argc, char **argv)
   {
     {"export", 'e', POPT_ARG_STRING, NULL /* &export_file_name */, 0,
      N_("Export loaded file and exit"), N_("OUTPUT")},
-    {"export-to-format",'t', POPT_ARG_STRING, NULL /* &export_file_format */,
-     0, export_format_string, N_("FORMAT")
+    {"filter",'t', POPT_ARG_STRING, NULL /* &export_file_format */,
+     0, export_format_string, N_("TYPE")
     },
     {"size", 's', POPT_ARG_STRING, NULL, 0,
      N_("Export graphics size"), N_("WxH")},
