@@ -36,6 +36,11 @@
 #include "color.h"
 #include "font.h"
 
+#ifdef HAVE_FREETYPE
+#include <pango/pango.h>
+#include <pango/pangoft2.h>
+#endif
+
 static int get_width_pixels (DiaRenderer *);
 static int get_height_pixels (DiaRenderer *);
 
@@ -515,6 +520,68 @@ draw_string (DiaRenderer *object,
   
   point_copy(&start_pos,pos);
 
+  color_convert(color, &gdkcolor);
+  gdk_gc_set_foreground(gc, &gdkcolor);
+
+  /* My apologies for adding more #hell, but the alternative is an abhorrent
+   * kludge.
+   */
+#ifdef HAVE_FREETYPE
+ {
+   FT_Bitmap ftbitmap;
+   guint8 *graybitmap;
+   int width, height;
+   int rowstride;
+   double font_height;
+   GdkPixbuf *background = NULL;
+
+#define TWIDDLE 6.37
+   switch (alignment) {
+   case ALIGN_LEFT:
+     break;
+   case ALIGN_CENTER:
+     start_pos.x -= dia_font_string_width (
+					   text, object->font,
+					   object->font_height*TWIDDLE)/2;
+     break;
+   case ALIGN_RIGHT:
+     start_pos.x -= dia_font_string_width(
+					  text, object->font,
+					  object->font_height*TWIDDLE);
+     break;
+   }
+   
+   start_pos.y -= dia_font_ascent(text, object->font,
+				  object->font_height*TWIDDLE);
+
+   dia_transform_coords(renderer->transform, 
+			start_pos.x, start_pos.y, &x, &y);
+
+   layout = dia_font_scaled_build_layout(
+					 text, object->font,
+					 object->font_height,
+					 dia_transform_length (renderer->transform, TWIDDLE));
+   /*   y -= get_layout_first_baseline(layout);  */
+   pango_layout_get_pixel_size(layout, &width, &height);
+   rowstride = 32*((width+31)/31);
+   
+   graybitmap = (guint8*)g_new0(guint8, height*rowstride);
+
+   ftbitmap.rows = height;
+   ftbitmap.width = width;
+   ftbitmap.pitch = rowstride;
+   ftbitmap.buffer = graybitmap;
+   ftbitmap.num_grays = 256;
+   ftbitmap.pixel_mode = ft_pixel_mode_grays;
+   ftbitmap.palette_mode = 0;
+   ftbitmap.palette = 0;
+   pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
+   gdk_gc_set_function(gc, GDK_COPY_INVERT);
+   gdk_draw_gray_image(renderer->pixmap, gc, x, y, width, height, 
+		       GDK_RGB_DITHER_NONE, graybitmap, rowstride);
+   gdk_gc_set_function(gc, GDK_COPY);
+ }
+#else
   switch (alignment) {
   case ALIGN_LEFT:
     break;
@@ -533,15 +600,13 @@ draw_string (DiaRenderer *object,
   }
   dia_transform_coords(renderer->transform, start_pos.x, start_pos.y, &x, &y);
 
-  color_convert(color, &gdkcolor);
-  gdk_gc_set_foreground(gc, &gdkcolor);
-
   layout = dia_font_scaled_build_layout(
               text, object->font,
               object->font_height,
               dia_transform_length (renderer->transform, 10.0) / 10.0);
   y -= get_layout_first_baseline(layout);  
   gdk_draw_layout(renderer->pixmap,gc,x,y,layout);
+#endif
 
       /* abuse_layout_object(layout,text); */
   

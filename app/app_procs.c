@@ -388,7 +388,11 @@ app_init (int argc, char **argv)
 
   color_init();
 
+#ifdef HAVE_FREETYPE
+  dia_font_init(pango_ft2_get_context(10,10));
+#else
   dia_font_init(gdk_pango_context_get());
+#endif
 
   /* Init cursors: */
   default_cursor = gdk_cursor_new(GDK_LEFT_PTR);
