@@ -1,3 +1,7 @@
+2002-06-03  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* sheets/network.sheet.in: corrected a typo in plotter invocation.
+
 2002-06-03  Steffen Macke  <sdteffen@web.de>
 
 	* shapes/network/digitizing_board.png:
