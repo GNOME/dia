@@ -1,4 +1,19 @@
+2003-04-18  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/autoroute.c: Added last cases of autoroute layout, fixed
+	floating point comparison bug, cleaned up layouters.
+
 2003-04-17  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/connectionpoint.h: Changed DIR_* macros to go around the
+	clock. 
+
+	* lib/orth_conn.[ch] (orthconn_set_points): New function to set all
+	points at once.
+	* objects/standard/zigzagline.c (zigzagline_move_handle): Removed
+	old cruft, added call to autoroute (currently cannot be turned
+	off).  Need to check what undo thinks about this.
+	* lib/autoroute.[ch]: Fairly working simple layout.
 
 	* lib/Makefile.am (libdia_la_SOURCES): Added autoroute files.
 	* lib/autoroute.[ch]: Start of proper autorouting functionality.

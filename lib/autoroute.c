@@ -96,7 +96,7 @@ autoroute_layout_orthconn(OrthConn *conn)
 	}
 	if (this_layout != NULL) {
 	  this_badness = calculate_badness(this_layout, this_num_points);
-	  if (this_badness < min_badness) {
+	  if (this_badness-min_badness < -0.00001) {
 	    printf("Dir %d to %d badness %f < %f\n", startdir, enddir,
 		   this_badness, min_badness);
 	    min_badness = this_badness;
@@ -150,23 +150,24 @@ calculate_badness(Point *ps, guint num_points)
 static Point *
 autoroute_layout_parallel(Point *to, guint *num_points)
 {
+  Point *ps = NULL;
   if (fabs(to->x) > MIN_DIST) {
-    Point *ps = g_new0(Point, 4);
     real top = MIN(-MIN_DIST, to->y-MIN_DIST);
     printf("Doing parallel layout: Wide\n");
+    *num_points = 4;
+    ps = g_new0(Point, *num_points);
     /* points[0] is 0,0 */
     ps[1].y = top;
     ps[2].x = to->x;
     ps[2].y = top;
     ps[3] = *to;
-    *num_points = 4;
-    return ps;
   } else if (to->y > 0) { /* Close together, end below */
-    Point *ps = g_new0(Point, 6);
     real top = -MIN_DIST;
     real off = to->x+MIN_DIST*(to->x>0?1.0:-1.0);
     real bottom = to->y-MIN_DIST;
     printf("Doing parallel layout: Narrow\n");
+    *num_points = 6;
+    ps = g_new0(Point, *num_points);
     /* points[0] is 0,0 */
     ps[1].y = top;
     ps[2].x = off;
@@ -176,14 +177,13 @@ autoroute_layout_parallel(Point *to, guint *num_points)
     ps[4].x = to->x;
     ps[4].y = bottom;
     ps[5] = *to;
-    *num_points = 6;
-    return ps;
   } else {
-    Point *ps = g_new0(Point, 6);
     real top = to->y-MIN_DIST;
     real off = MIN_DIST*(to->x>0?-1.0:1.0);
     real bottom = -MIN_DIST;
     printf("Doing parallel layout: Narrow\n");
+    *num_points = 6;
+    ps = g_new0(Point, *num_points);
     /* points[0] is 0,0 */
     ps[1].y = bottom;
     ps[2].x = off;
@@ -193,52 +193,87 @@ autoroute_layout_parallel(Point *to, guint *num_points)
     ps[4].x = to->x;
     ps[4].y = top;
     ps[5] = *to;
-    *num_points = 6;
-    return ps;
   }
-  return NULL;
+  return ps;
 }
 
 static Point *
 autoroute_layout_orthogonal(Point *to, int enddir, guint *num_points)
 {
   /* This one doesn't consider enddir yet, not more complex layouts. */
+  Point *ps = NULL;
+  real dirmult = (enddir==DIR_WEST?1.0:-1.0);
   if (to->y < -MIN_DIST) {
-    if (to->x > MIN_DIST) {
+    if (dirmult*to->x > MIN_DIST) {
       printf("Doing orthogonal layout: Three-way\n");
-      Point *ps = g_new0(Point, 3);
+      *num_points = 3;
+      ps = g_new0(Point, *num_points);
       /* points[0] is 0,0 */
-      ps[1].x = 0.0;
       ps[1].y = to->y;
       ps[2] = *to;
-      *num_points = 3;
-      return ps;
+    } else {
+      real off;
+      if (dirmult*to->x > 0) off = -dirmult*MIN_DIST;
+      else off = -dirmult*(MIN_DIST+fabs(to->x));
+      *num_points = 5;
+      ps = g_new0(Point, *num_points);
+      ps[1].y = -MIN_DIST;
+      ps[2].x = off;
+      ps[2].y = -MIN_DIST;
+      ps[3].x = off;
+      ps[3].y = to->y;
+      ps[4] = *to;
     }
-  } 
+  } else {
+    if (dirmult*to->x > 2*MIN_DIST) {
+      real mid = to->x/2;
+      *num_points = 5;
+      ps = g_new0(Point, *num_points);
+      ps[1].y = -MIN_DIST;
+      ps[2].x = mid;
+      ps[2].y = -MIN_DIST;
+      ps[3].x = mid;
+      ps[3].y = to->y;
+      ps[4] = *to;
+    } else {
+      real off;
+      if (dirmult*to->x > 0) off = -dirmult*MIN_DIST;
+      else off = -dirmult*(MIN_DIST+fabs(to->x));
+      *num_points = 5;
+      ps = g_new0(Point, *num_points);
+      ps[1].y = -MIN_DIST;
+      ps[2].x = off;
+      ps[2].y = -MIN_DIST;
+      ps[3].x = off;
+      ps[3].y = to->y;
+      ps[4] = *to;
+    }
+  }
   printf("Doing orthogonal layout\n");
   
-  return NULL;
+  return ps;
 }
 
 static Point *
 autoroute_layout_opposite(Point *to,guint *num_points)
 {
+  Point *ps = NULL;
   if (to->y < -MIN_DIST) {
     /* If we could have a two-point zig-zag line, it'd go here. */
-    Point *ps = g_new0(Point, 4);
     real mid = to->y/2;
     printf("Doing opposite layout: Three-way\n");
+    *num_points = 4;
+    ps = g_new0(Point, *num_points);
     /* points[0] is 0,0 */
     ps[1].y = mid;
     ps[2].x = to->x;
     ps[2].y = mid;
     ps[3] = *to;
-    *num_points = 4;
-    return ps;
   } else if (fabs(to->x) > 2*MIN_DIST) {
-    Point *ps = g_new0(Point, 6);
     real mid = to->x/2;
     printf("Doing opposite layout: Doorhanger\n");
+    *num_points = 6;
+    ps = g_new0(Point, *num_points);
     /* points[0] is 0,0 */
     ps[1].y = -MIN_DIST;
     ps[2].x = mid;
@@ -248,12 +283,11 @@ autoroute_layout_opposite(Point *to,guint *num_points)
     ps[4].x = to->x;
     ps[4].y = to->y+MIN_DIST;
     ps[5] = *to;
-    *num_points = 6;
-    return ps;
   } else {
-    Point *ps = g_new0(Point, 6);
     real off = MIN_DIST*(to->x>0?-1.0:1.0);
     printf("Doing opposite layout: Overlap\n");
+    *num_points = 6;
+    ps = g_new0(Point, *num_points);
     ps[1].y = -MIN_DIST;
     ps[2].x = off;
     ps[2].y = -MIN_DIST;
@@ -262,10 +296,8 @@ autoroute_layout_opposite(Point *to,guint *num_points)
     ps[4].x = to->x;
     ps[4].y = to->y+MIN_DIST;
     ps[5] = *to;
-    *num_points = 6;
-    return ps;
   }
-  return NULL;
+  return ps;
 }
 
 static void
