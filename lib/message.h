@@ -18,10 +18,10 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
-extern void message(char *title, const char *format, ...);
-extern void message_notice(const char *format, ...);
-extern void message_warning(const char *format, ...);
-extern void message_error(const char *format, ...);
+void message(char *title, const char *format, ...);
+void message_notice(const char *format, ...);
+void message_warning(const char *format, ...);
+void message_error(const char *format, ...);
 
 #endif /* MESSAGES_H */
 

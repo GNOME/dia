@@ -32,10 +32,10 @@ struct LayerDialog {
   GtkWidget *buttons[4];
 };
 
-extern void create_layer_dialog(void);
-extern void layer_dialog_update_diagram_list(void);
-extern void layer_dialog_show(void);
-extern void layer_dialog_set_diagram(Diagram *dia);
+void create_layer_dialog(void);
+void layer_dialog_update_diagram_list(void);
+void layer_dialog_show(void);
+void layer_dialog_set_diagram(Diagram *dia);
 
 
 /* DiaLayerWidget: */
@@ -75,10 +75,10 @@ struct _DiaLayerWidgetClass
   GtkListItemClass parent_class;
 };
 
-extern guint      dia_layer_widget_get_type(void);
-extern GtkWidget* dia_layer_widget_new(Diagram *dia, Layer *layer);
-extern void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer);
-extern void dia_layer_update_from_layer(DiaLayerWidget *widget);
+guint      dia_layer_widget_get_type(void);
+GtkWidget* dia_layer_widget_new(Diagram *dia, Layer *layer);
+void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer);
+void dia_layer_update_from_layer(DiaLayerWidget *widget);
 
 #endif /* LAYER_DIALOG_H */
 

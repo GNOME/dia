@@ -18,8 +18,8 @@
 #ifndef APP_PROCS_H
 #define APP_PROCS_H
 
-extern void app_init(int argc, char **argv);
-extern void app_exit(void);
-extern int app_is_embedded(void);
+void app_init(int argc, char **argv);
+void app_exit(void);
+int app_is_embedded(void);
 
 #endif /* APP_PROCS_H */

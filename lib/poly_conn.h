@@ -35,23 +35,22 @@ struct _PolyConn {
   Point *points;
 };
 
-extern void polyconn_update_data(PolyConn *poly);
-extern void polyconn_update_boundingbox(PolyConn *poly);
-extern void polyconn_simple_draw(PolyConn *poly, Renderer *renderer,
-				 real width);
-extern void polyconn_init(PolyConn *poly);
-extern void polyconn_destroy(PolyConn *poly);
-extern void polyconn_copy(PolyConn *from, PolyConn *to);
-extern void polyconn_save(PolyConn *poly, ObjectNode obj_node);
-extern void polyconn_load(PolyConn *poly, ObjectNode obj_node);  /* NOTE: Does object_init() */
-extern ObjectChange *polyconn_add_point(PolyConn *poly, int segment, Point *point);
-extern ObjectChange *polyconn_remove_point(PolyConn *poly, int point);
-extern void polyconn_move_handle(PolyConn *poly, Handle *id,
-				 Point *to, HandleMoveReason reason);
-extern void polyconn_move(PolyConn *poly, Point *to);
-extern real polyconn_distance_from(PolyConn *poly, Point *point,
-				   real line_width);
-extern Handle *polyconn_closest_handle(PolyConn *poly, Point *point);
-extern int polyconn_closest_segment(PolyConn *poly, Point *point,
-				    real line_width);
+void polyconn_update_data(PolyConn *poly);
+void polyconn_update_boundingbox(PolyConn *poly);
+void polyconn_simple_draw(PolyConn *poly, Renderer *renderer, real width);
+void polyconn_init(PolyConn *poly);
+void polyconn_destroy(PolyConn *poly);
+void polyconn_copy(PolyConn *from, PolyConn *to);
+void polyconn_save(PolyConn *poly, ObjectNode obj_node);
+void polyconn_load(PolyConn *poly, ObjectNode obj_node);  /* NOTE: Does object_init() */
+ObjectChange *polyconn_add_point(PolyConn *poly, int segment, Point *point);
+ObjectChange *polyconn_remove_point(PolyConn *poly, int point);
+void polyconn_move_handle(PolyConn *poly, Handle *id,
+			  Point *to, HandleMoveReason reason);
+void polyconn_move(PolyConn *poly, Point *to);
+real polyconn_distance_from(PolyConn *poly, Point *point,
+			    real line_width);
+Handle *polyconn_closest_handle(PolyConn *poly, Point *point);
+int polyconn_closest_segment(PolyConn *poly, Point *point,
+			     real line_width);
 #endif /* POLY_CONN_H */

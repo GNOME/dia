@@ -21,11 +21,11 @@
 #include <glib.h>
 
 /* The object_list is not copied: */
-extern void cnp_store_objects(GList *object_list);
+void cnp_store_objects(GList *object_list);
 
 /* Gets a copy of the stored objects: */
-extern GList *cnp_get_stored_objects(void);
+GList *cnp_get_stored_objects(void);
 
-extern gint cnp_exist_stored_objects(void);
+gint cnp_exist_stored_objects(void);
 
 #endif /* CUT_N_PASTE_H */

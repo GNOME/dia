@@ -8,6 +8,6 @@ libpstricks_filter_la_SOURCES = \
 	render_pstricks.h
 
 libpstricks_filter_la_LDFLAGS = -export-dynamic -module -avoid-version
-libpstricks_filter_la_LIBADD = @GTK_LIBS@
+libpstricks_filter_la_LIBADD = $(GTK_LIBS)
 
-INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@
+INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS)

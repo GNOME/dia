@@ -28,9 +28,9 @@ struct _Color {
   float blue;
 };
 
-extern void color_init(void);
-extern void color_convert(Color *color, GdkColor *gdkcolor);
-extern gboolean color_equals(Color *color1, Color *color2);
+void color_init(void);
+void color_convert(Color *color, GdkColor *gdkcolor);
+gboolean color_equals(Color *color1, Color *color2);
 
 #ifdef G_OS_WIN32
 #  ifdef LIBDIA_COMPILATION

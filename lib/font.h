@@ -55,13 +55,13 @@ struct _SuckFont {
 
 extern GList *font_names; /* GList with 'char *' data.*/
 
-extern void font_init(void);
-extern Font *font_getfont(const char *name);
-extern GdkFont *font_get_gdkfont(Font *font, int height);
-extern SuckFont *font_get_suckfont(Font *font, int height);
-extern char *font_get_psfontname(Font *font);
-extern real font_string_width(const char *string, Font *font, real height);
-extern real font_ascent(Font *font, real height);
-extern real font_descent(Font *font, real height);
+void font_init(void);
+Font *font_getfont(const char *name);
+GdkFont *font_get_gdkfont(Font *font, int height);
+SuckFont *font_get_suckfont(Font *font, int height);
+char *font_get_psfontname(Font *font);
+real font_string_width(const char *string, Font *font, real height);
+real font_ascent(Font *font, real height);
+real font_descent(Font *font, real height);
 
 #endif /* FONT_H */

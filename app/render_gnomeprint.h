@@ -43,11 +43,6 @@ struct _RendererGPrint {
   real dot_length;
 };
 
-extern RendererGPrint *new_gnomeprint_renderer(Diagram *dia,
-					       GnomePrintContext *ctx);
+RendererGPrint *new_gnomeprint_renderer(Diagram *dia,
+					GnomePrintContext *ctx);
 #endif /* RENDER_GNOMEPRINT_H */
-
-
-
-
-

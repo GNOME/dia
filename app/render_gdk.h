@@ -49,13 +49,13 @@ struct _RendererGdk {
   int font_height;
 };
 
-extern RendererGdk *new_gdk_renderer(DDisplay *ddisp);
-extern void destroy_gdk_renderer(RendererGdk *renderer);
-extern void gdk_renderer_set_size(RendererGdk *renderer, GdkWindow *window,
-				  int width, int height);
-extern void renderer_gdk_copy_to_window(RendererGdk *renderer,
-					GdkWindow *window,
-					int x, int y,
-					int width, int height);
+RendererGdk *new_gdk_renderer(DDisplay *ddisp);
+void destroy_gdk_renderer(RendererGdk *renderer);
+void gdk_renderer_set_size(RendererGdk *renderer, GdkWindow *window,
+			   int width, int height);
+void renderer_gdk_copy_to_window(RendererGdk *renderer,
+				 GdkWindow *window,
+				 int x, int y,
+				 int width, int height);
 
 #endif /* RENDER_GDK_H */

@@ -36,6 +36,15 @@
 #include "message.h"
 #include "dia_dirs.h"
 
+#if defined(G_OS_WIN32) || defined(__EMX__)
+#  define PLUG_IN_EXT ".dll"
+#  define PLUG_IN_EXT_LEN 4
+#else
+/* this one should work on any platform where libtool is used to compile dia */
+#  define PLUG_IN_EXT ".la"
+#  define PLUG_IN_EXT_LEN 3
+#endif
+
 struct _PluginInfo {
   GModule *module;
   gchar *filename;      /* plugin filename */
@@ -298,15 +307,8 @@ dia_register_plugins_in_dir(const gchar *directory)
   while ((dirp = readdir(dp)) != NULL) {
     gint len = strlen(dirp->d_name);
 
-#ifndef G_OS_WIN32
-#ifndef __EMX__
-    if (len > 3 && !strcmp(&dirp->d_name[len-3], ".la")) {
-#else
-    if (len > 4 && !strcmp(&dirp->d_name[len-4], ".dll")) {    
-#endif
-#else
-    if (len > 3) {
-#endif
+    if (len > PLUG_IN_EXT_LEN &&
+	!strcmp(&dirp->d_name[len-PLUG_IN_EXT_LEN], PLUG_IN_EXT)) {
       gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
 				    dirp->d_name, NULL);
 

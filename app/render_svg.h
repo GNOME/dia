@@ -52,8 +52,8 @@ struct _RendererSVG {
   real fontsize;
 };
 
-extern RendererSVG *new_svg_renderer(DiagramData *data, const char *filename);
-extern void destroy_svg_renderer(RendererSVG *renderer);
+RendererSVG *new_svg_renderer(DiagramData *data, const char *filename);
+void destroy_svg_renderer(RendererSVG *renderer);
 
 extern DiaExportFilter svg_export_filter;
 

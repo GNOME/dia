@@ -384,6 +384,7 @@ beziergon_copy(Beziergon *beziergon)
   newbeziergon->line_width = beziergon->line_width;
   newbeziergon->line_style = beziergon->line_style;
   newbeziergon->dashlength = beziergon->dashlength;
+  newbeziergon->inner_color = beziergon->inner_color;
   newbeziergon->show_background = beziergon->show_background;
 
   return (Object *)newbeziergon;

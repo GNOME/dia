@@ -65,55 +65,54 @@ struct _Layer {
   int visible;
 };
 
-extern DiagramData *new_diagram_data(void);
-extern void diagram_data_destroy(DiagramData *data);
+DiagramData *new_diagram_data(void);
+void diagram_data_destroy(DiagramData *data);
 
-extern Layer *new_layer(char *name);
-extern void layer_destroy(Layer *layer);
+Layer *new_layer(char *name);
+void layer_destroy(Layer *layer);
 
-extern void data_raise_layer(DiagramData *data, Layer *layer);
-extern void data_lower_layer(DiagramData *data, Layer *layer);
+void data_raise_layer(DiagramData *data, Layer *layer);
+void data_lower_layer(DiagramData *data, Layer *layer);
 
-extern void data_add_layer(DiagramData *data, Layer *layer);
-extern void data_add_layer_at(DiagramData *data, Layer *layer, int pos);
-extern void data_set_active_layer(DiagramData *data, Layer *layer);
-extern void data_delete_layer(DiagramData *data, Layer *layer);
-extern void data_select(DiagramData *data, Object *obj);
-extern void data_unselect(DiagramData *data, Object *obj);
-extern void data_remove_all_selected(DiagramData *data);
-extern int data_update_extents(DiagramData *data); /* returns true if changed. */
-extern GList *data_get_sorted_selected(DiagramData *data);
-extern GList *data_get_sorted_selected_remove(DiagramData *data);
+void data_add_layer(DiagramData *data, Layer *layer);
+void data_add_layer_at(DiagramData *data, Layer *layer, int pos);
+void data_set_active_layer(DiagramData *data, Layer *layer);
+void data_delete_layer(DiagramData *data, Layer *layer);
+void data_select(DiagramData *data, Object *obj);
+void data_unselect(DiagramData *data, Object *obj);
+void data_remove_all_selected(DiagramData *data);
+int data_update_extents(DiagramData *data); /* returns true if changed. */
+GList *data_get_sorted_selected(DiagramData *data);
+GList *data_get_sorted_selected_remove(DiagramData *data);
 
 typedef void (*ObjectRenderer)(Object *obj, Renderer *renderer,
 			       int active_layer,
 			       gpointer data);
-extern void data_render(DiagramData *data, Renderer *renderer, Rectangle *update,
-			ObjectRenderer obj_renderer /* Can be NULL */,
-			gpointer gdata);  
-extern void layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
-			 ObjectRenderer obj_renderer /* Can be NULL */,
-			 gpointer data,
-			 int active_layer);
+void data_render(DiagramData *data, Renderer *renderer, Rectangle *update,
+		 ObjectRenderer obj_renderer /* Can be NULL */,
+		 gpointer gdata);  
+void layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
+		  ObjectRenderer obj_renderer /* Can be NULL */,
+		  gpointer data,
+		  int active_layer);
 
-extern int layer_object_index(Layer *layer, Object *obj);
-extern void layer_add_object(Layer *layer, Object *obj);
-extern void layer_add_object_at(Layer *layer, Object *obj, int pos);
-extern void layer_add_objects(Layer *layer, GList *obj_list);
-extern void layer_add_objects_first(Layer *layer, GList *obj_list);
-extern void layer_remove_object(Layer *layer, Object *obj);
-extern void layer_remove_objects(Layer *layer, GList *obj_list);
-extern GList *layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle *rect);
-extern GList *layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect);
-extern Object *layer_find_closest_object(Layer *layer, Point *pos,
-					 real maxdist);
-extern real layer_find_closest_connectionpoint(Layer *layer,
-					       ConnectionPoint **closest,
-					       Point *pos);
-extern int layer_update_extents(Layer *layer); /* returns true if changed. */
-extern void layer_replace_object_with_list(Layer *layer, Object *obj,
-					   GList *list);
-extern void layer_set_object_list(Layer *layer, GList *list);
+int layer_object_index(Layer *layer, Object *obj);
+void layer_add_object(Layer *layer, Object *obj);
+void layer_add_object_at(Layer *layer, Object *obj, int pos);
+void layer_add_objects(Layer *layer, GList *obj_list);
+void layer_add_objects_first(Layer *layer, GList *obj_list);
+void layer_remove_object(Layer *layer, Object *obj);
+void layer_remove_objects(Layer *layer, GList *obj_list);
+GList *layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle*rect);
+GList *layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect);
+Object *layer_find_closest_object(Layer *layer, Point *pos, real maxdist);
+real layer_find_closest_connectionpoint(Layer *layer,
+					ConnectionPoint **closest,
+					Point *pos);
+int layer_update_extents(Layer *layer); /* returns true if changed. */
+void layer_replace_object_with_list(Layer *layer, Object *obj,
+				    GList *list);
+void layer_set_object_list(Layer *layer, GList *list);
 /* Make sure all objects that are in the layer and not in the new
    list eventually gets destroyed. */
 #endif /* DIAGRAMDATA_H */

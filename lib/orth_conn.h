@@ -50,26 +50,26 @@ struct _OrthConn {
    */
 };
 
-extern void orthconn_update_data(OrthConn *orth);
-extern void orthconn_update_boundingbox(OrthConn *orth);
-extern void orthconn_simple_draw(OrthConn *orth, Renderer *renderer,
-				 real width);
-extern void orthconn_init(OrthConn *orth, Point *startpoint);
-extern void orthconn_destroy(OrthConn *orth);
-extern void orthconn_copy(OrthConn *from, OrthConn *to);
-extern void orthconn_save(OrthConn *orth, ObjectNode obj_node);
-extern void orthconn_load(OrthConn *orth, ObjectNode obj_node);  /* NOTE: Does object_init() */
-extern void orthconn_move_handle(OrthConn *orth, Handle *id,
-				 Point *to, HandleMoveReason reason);
-extern void orthconn_move(OrthConn *orth, Point *to);
-extern real orthconn_distance_from(OrthConn *orth, Point *point,
-				   real line_width);
-extern Handle* orthconn_get_middle_handle(OrthConn *orth);
+void orthconn_update_data(OrthConn *orth);
+void orthconn_update_boundingbox(OrthConn *orth);
+void orthconn_simple_draw(OrthConn *orth, Renderer *renderer,
+			  real width);
+void orthconn_init(OrthConn *orth, Point *startpoint);
+void orthconn_destroy(OrthConn *orth);
+void orthconn_copy(OrthConn *from, OrthConn *to);
+void orthconn_save(OrthConn *orth, ObjectNode obj_node);
+void orthconn_load(OrthConn *orth, ObjectNode obj_node);  /* NOTE: Does object_init() */
+void orthconn_move_handle(OrthConn *orth, Handle *id,
+			  Point *to, HandleMoveReason reason);
+void orthconn_move(OrthConn *orth, Point *to);
+real orthconn_distance_from(OrthConn *orth, Point *point,
+			    real line_width);
+Handle* orthconn_get_middle_handle(OrthConn *orth);
 
-extern int orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint);
-extern int orthconn_can_add_segment(OrthConn *orth, Point *clickedpoint);
-extern ObjectChange *orthconn_delete_segment(OrthConn *orth, Point *clickedpoint);
-extern ObjectChange *orthconn_add_segment(OrthConn *orth, Point *clickedpoint);
+int orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint);
+int orthconn_can_add_segment(OrthConn *orth, Point *clickedpoint);
+ObjectChange *orthconn_delete_segment(OrthConn *orth, Point *clickedpoint);
+ObjectChange *orthconn_add_segment(OrthConn *orth, Point *clickedpoint);
 #endif /* ORTH_CONN_H */
 
 

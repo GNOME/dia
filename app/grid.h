@@ -40,9 +40,9 @@ struct _Grid {
 
 #include "display.h"
 
-extern void grid_draw(DDisplay *ddisp, Rectangle *update);
-extern void snap_to_grid(Grid *grid, coord *x, coord *y);
-extern void grid_show_dialog(Grid *grid, DDisplay *ddisp);
-extern void grid_destroy_dialog(Grid *grid);
+void grid_draw(DDisplay *ddisp, Rectangle *update);
+void snap_to_grid(Grid *grid, coord *x, coord *y);
+void grid_show_dialog(Grid *grid, DDisplay *ddisp);
+void grid_destroy_dialog(Grid *grid);
 
 #endif GRID_H

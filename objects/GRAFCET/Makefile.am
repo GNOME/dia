@@ -17,7 +17,7 @@ libgrafcet_objects_la_SOURCES = \
 
 libgrafcet_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
-INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@
+INCLUDES = -I$(top_srcdir)/intl -I$(srcdir)/../../lib $(GTK_CFLAGS) $(GNOME_CFLAGS)
 
 EXTRA_DIST = \
 	pixmaps/etape.xpm \

@@ -365,6 +365,7 @@ polygon_copy(Polygon *polygon)
   newpolygon->line_width = polygon->line_width;
   newpolygon->line_style = polygon->line_style;
   newpolygon->dashlength = polygon->dashlength;
+  newpolygon->inner_color = polygon->inner_color;
   newpolygon->show_background = polygon->show_background;
 
   return (Object *)newpolygon;

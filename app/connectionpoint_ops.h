@@ -22,14 +22,14 @@
 #include "diagram.h"
 #include "display.h"
 
-extern void connectionpoint_draw(ConnectionPoint *conpoint,
-				 DDisplay *ddisp);
-extern void connectionpoint_add_update(ConnectionPoint *conpoint,
-				       Diagram *dia);
-extern void diagram_update_connections_selection(Diagram *dia);
-extern void diagram_update_connections_object(Diagram *dia, Object *obj,
-					      int update_nonmoved);
-extern void ddisplay_connect_selected(DDisplay *ddisp);
-extern void diagram_unconnect_selected(Diagram *dia);
+void connectionpoint_draw(ConnectionPoint *conpoint,
+			  DDisplay *ddisp);
+void connectionpoint_add_update(ConnectionPoint *conpoint,
+				Diagram *dia);
+void diagram_update_connections_selection(Diagram *dia);
+void diagram_update_connections_object(Diagram *dia, Object *obj,
+				       int update_nonmoved);
+void ddisplay_connect_selected(DDisplay *ddisp);
+void diagram_unconnect_selected(Diagram *dia);
 
 #endif /* CONNECTIONPOINT_OPS_H */

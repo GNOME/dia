@@ -21,12 +21,12 @@
 #include <stdarg.h>
 #include "config.h"
 
-extern int nearest_pow (int num);
-extern int format_string_length_upper_bound (const char* fmt,
-					     va_list *args);
+int nearest_pow (int num);
+int format_string_length_upper_bound (const char* fmt,
+				      va_list *args);
 
 #ifndef HAVE_SNPRINTF
-extern int snprintf ( char *str, size_t n, const char *format, ... );
+int snprintf ( char *str, size_t n, const char *format, ... );
 #endif
 
 #endif /* UTILS_H */

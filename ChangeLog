@@ -1,5 +1,81 @@
 2000-06-24  James Henstridge  <james@daa.com.au>
 
+	* objects/standard/beziergon.c (beziergon_copy): same here.
+
+	* objects/standard/polygon.c (polygon_copy): copy the fill colour
+	as well.
+
+	* app/undo.h: 
+	* app/tool.h (tool_options_dialog_show): 
+	* app/scroll_tool.h (free_scroll_tool): 
+	* app/render_svg.h: 
+	* app/render_libart.h (renderer_libart_copy_to_window): 
+	* app/render_gdk.h (renderer_gdk_copy_to_window): 
+	* app/properties.h (properties_hide_if_shown): 
+	* app/preferences.h (prefs_load): 
+	* app/object_ops.h: 
+	* app/modify_tool.h (free_modify_tool): 
+	* app/magnify.h (free_magnify_tool): 
+	* app/linewidth_area.h (linewidth_area_create): 
+	* app/layer_dialog.h: 
+	* app/handle_ops.h (handle_is_clicked): 
+	* app/group.h: 
+	* app/grid.h (grid_destroy_dialog): 
+	* app/defaults.h (defaults_show): 
+	* app/cut_n_paste.h (cnp_exist_stored_objects): 
+	* app/create_object.h (free_create_object_tool): 
+	* app/connectionpoint_ops.h (diagram_unconnect_selected): 
+	* app/commands.h: 
+	* app/color_area.h (color_area_create): 
+	* app/app_procs.h (app_is_embedded): remove extern keyword from
+	function prototypes.
+
+	* lib/text.h: 
+	* lib/sheet.h (load_all_sheets): 
+	* lib/render_store.h: 
+	* lib/render_object.h (render_object_load): 
+	* lib/polyshape.h (polyshape_closest_segment): 
+	* lib/poly_conn.h (polyconn_closest_segment): 
+	* lib/orth_conn.h: 
+	* lib/object.h: 
+	* lib/objchange.h (new_object_state_change): 
+	* lib/neworth_conn.h (neworthconn_add_segment): 
+	* lib/message.h (message_error): 
+	* lib/lazyprops.h: 
+	* lib/geometry.h: 
+	* lib/font.h (font_descent): 
+	* lib/focus.h (remove_focus): 
+	* lib/element.h: 
+	* lib/diagramdata.h: 
+	* lib/dia_xml.h (data_add_composite): 
+	* lib/dia_image.h: 
+	* lib/connpoint_line.h: 
+	* lib/connection.h (connection_move_handle): 
+	* lib/color.h: 
+	* lib/attributes.h (attributes_set_default_line_style): 
+	* lib/arrows.h (arrow_draw): remove extern keyword from function
+	definitions.  It is not required for functions.
+
+	* plug-ins/dxf/Makefile.am (INCLUDES): 
+	* plug-ins/pstricks/Makefile.am (INCLUDES): 
+	* plug-ins/cgm/Makefile.am (INCLUDES): 
+	* objects/SADT/Makefile.am (INCLUDES): 
+	* objects/chronogram/Makefile.am (INCLUDES): 
+	* objects/GRAFCET/Makefile.am (INCLUDES): 
+	* objects/flowchart/Makefile.am (INCLUDES): 
+	* objects/sybase/Makefile.am (INCLUDES): 
+	* objects/FS/Makefile.am (INCLUDES): 
+	* objects/standard/Makefile.am (INCLUDES): 
+	* objects/network/Makefile.am (INCLUDES):
+	* objects/UML/Makefile.am (INCLUDES): same here.
+
+	* objects/ER/Makefile.am: changed inclusion of some macros to
+	variables.
+
+	* lib/plug-ins.c (dia_register_plugins_in_dir): use a few defines to
+	handle the plug in extension, rather than have all the #ifdef's in
+	the code.
+
 	* plug-ins/Makefile.am: add renderer.inc to dist.
 
 	* plug-ins/dxf/dxf-import.c: Updates from Steffen Macke.

@@ -47,39 +47,37 @@ typedef enum{
   DATATYPE_FONT
 } DataType;
 
-extern AttributeNode object_find_attribute(ObjectNode obj_node,
-					   const char *attrname);
-extern AttributeNode composite_find_attribute(DataNode composite_node,
-					      const char *attrname);
-extern int attribute_num_data(AttributeNode attribute);
-extern DataNode attribute_first_data(AttributeNode attribute);
-extern DataNode data_next(DataNode data);
-extern DataType data_type(DataNode data);
-extern int data_int(DataNode data);
-extern int data_enum(DataNode data);
-extern real data_real(DataNode data);
-extern int data_boolean(DataNode data);
-extern void data_color(DataNode data, Color *col);
-extern void data_point(DataNode data, Point *point);
-extern void data_rectangle(DataNode data, Rectangle *rect);
-extern char *data_string(DataNode data);
-extern Font *data_font(DataNode data);
+AttributeNode object_find_attribute(ObjectNode obj_node,
+				    const char *attrname);
+AttributeNode composite_find_attribute(DataNode composite_node,
+				       const char *attrname);
+int attribute_num_data(AttributeNode attribute);
+DataNode attribute_first_data(AttributeNode attribute);
+DataNode data_next(DataNode data);
+DataType data_type(DataNode data);
+int data_int(DataNode data);
+int data_enum(DataNode data);
+real data_real(DataNode data);
+int data_boolean(DataNode data);
+void data_color(DataNode data, Color *col);
+void data_point(DataNode data, Point *point);
+void data_rectangle(DataNode data, Rectangle *rect);
+char *data_string(DataNode data);
+Font *data_font(DataNode data);
 
-extern AttributeNode new_attribute(ObjectNode obj_node,
-				   const char *attrname);
-extern AttributeNode composite_add_attribute(DataNode composite_node,
-					     const char *attrname);
-extern void data_add_int(AttributeNode attr, int data);
-extern void data_add_enum(AttributeNode attr, int data);
-extern void data_add_real(AttributeNode attr, real data);
-extern void data_add_boolean(AttributeNode attr, int data);
-extern void data_add_color(AttributeNode attr, Color *col);
-extern void data_add_point(AttributeNode attr, Point *point);
-extern void data_add_rectangle(AttributeNode attr, Rectangle *rect);
-extern void data_add_string(AttributeNode attr, char *str);
-extern void data_add_font(AttributeNode attr, Font *font);
-extern DataNode data_add_composite(AttributeNode attr,
-				   char *type); /* type can be NULL */
+AttributeNode new_attribute(ObjectNode obj_node, const char *attrname);
+AttributeNode composite_add_attribute(DataNode composite_node,
+				      const char *attrname);
+void data_add_int(AttributeNode attr, int data);
+void data_add_enum(AttributeNode attr, int data);
+void data_add_real(AttributeNode attr, real data);
+void data_add_boolean(AttributeNode attr, int data);
+void data_add_color(AttributeNode attr, Color *col);
+void data_add_point(AttributeNode attr, Point *point);
+void data_add_rectangle(AttributeNode attr, Rectangle *rect);
+void data_add_string(AttributeNode attr, char *str);
+void data_add_font(AttributeNode attr, Font *font);
+DataNode data_add_composite(AttributeNode attr, char *type); /* can be NULL */
 
 #endif /* DIA_XML_H */
 

@@ -62,30 +62,30 @@ struct _TextAttributes {
 };
 
 /* makes an internal copy of the string */
-extern Text *new_text(const char *string, Font *font, real height,
-		      Point *pos, Color *color, Alignment align);
-extern void text_destroy(Text *text);
-extern Text *text_copy(Text *text);
-extern char *text_get_string_copy(Text *text);
-extern void text_set_string(Text *text, const char *string);
-extern void text_set_height(Text *text, real height);
-extern void text_set_font(Text *text, Font *font);
-extern void text_set_position(Text *text, Point *pos);
-extern void text_set_color(Text *text, Color *col);
-extern void text_set_alignment(Text *text, Alignment align);
-extern real text_distance_from(Text *text, Point *point);
-extern void text_calc_boundingbox(Text *text, Rectangle *box);
-extern void text_draw(Text *text, Renderer *renderer);
-extern void text_set_cursor(Text *text, Point *clicked_point,
-			    Renderer *interactive_renderer);
-extern void text_set_cursor_at_end( Text* text );
-extern void text_grab_focus(Text *text, Object *object);
-extern int text_is_empty(Text *text);
-extern void text_get_attributes(Text *text, TextAttributes *attr);
-extern void text_set_attributes(Text *text, TextAttributes *attr);
+Text *new_text(const char *string, Font *font, real height,
+	       Point *pos, Color *color, Alignment align);
+void text_destroy(Text *text);
+Text *text_copy(Text *text);
+char *text_get_string_copy(Text *text);
+void text_set_string(Text *text, const char *string);
+void text_set_height(Text *text, real height);
+void text_set_font(Text *text, Font *font);
+void text_set_position(Text *text, Point *pos);
+void text_set_color(Text *text, Color *col);
+void text_set_alignment(Text *text, Alignment align);
+real text_distance_from(Text *text, Point *point);
+void text_calc_boundingbox(Text *text, Rectangle *box);
+void text_draw(Text *text, Renderer *renderer);
+void text_set_cursor(Text *text, Point *clicked_point,
+		     Renderer *interactive_renderer);
+void text_set_cursor_at_end( Text* text );
+void text_grab_focus(Text *text, Object *object);
+int text_is_empty(Text *text);
+void text_get_attributes(Text *text, TextAttributes *attr);
+void text_set_attributes(Text *text, TextAttributes *attr);
 
-extern void data_add_text(AttributeNode attr, Text *text);
-extern Text *data_text(AttributeNode attr);
+void data_add_text(AttributeNode attr, Text *text);
+Text *data_text(AttributeNode attr);
 #endif /* TEXT_H */
 
 

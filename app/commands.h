@@ -20,15 +20,15 @@
 
 #include <gtk/gtk.h>
 
-extern void file_quit_callback(GtkWidget *widget, gpointer data);
-extern void file_import_from_xfig_callback(GtkWidget *widget, gpointer data);
-extern void file_pagesetup_callback(GtkWidget *widget, gpointer data);
-extern void file_print_callback(GtkWidget *widget, gpointer data);
-extern void file_close_callback(GtkWidget *widget, gpointer data);
-extern void file_new_callback(GtkWidget *widget, gpointer data);
-extern void file_preferences_callback(GtkWidget *widget, gpointer data);
+void file_quit_callback(GtkWidget *widget, gpointer data);
+void file_import_from_xfig_callback(GtkWidget *widget, gpointer data);
+void file_pagesetup_callback(GtkWidget *widget, gpointer data);
+void file_print_callback(GtkWidget *widget, gpointer data);
+void file_close_callback(GtkWidget *widget, gpointer data);
+void file_new_callback(GtkWidget *widget, gpointer data);
+void file_preferences_callback(GtkWidget *widget, gpointer data);
 
-extern void help_about_callback(GtkWidget *widget, gpointer data);
+void help_about_callback(GtkWidget *widget, gpointer data);
 
 void edit_copy_callback(GtkWidget *widget, gpointer data);
 void edit_cut_callback(GtkWidget *widget, gpointer data);
@@ -45,51 +45,51 @@ void received_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
 void get_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
 			   gpointer data);
 
-extern void view_zoom_in_callback(GtkWidget *widget, gpointer data);
-extern void view_zoom_out_callback(GtkWidget *widget, gpointer data);
-extern void view_zoom_set_callback(GtkWidget *widget, gpointer data);
+void view_zoom_in_callback(GtkWidget *widget, gpointer data);
+void view_zoom_out_callback(GtkWidget *widget, gpointer data);
+void view_zoom_set_callback(GtkWidget *widget, gpointer data);
 
 #ifdef GNOME
-extern void view_aa_callback(GtkWidget *widget,
-			     gpointer  callback_data);
-extern void view_visible_grid_callback (GtkWidget *widget,
-				       gpointer  callback_data);
-extern void view_snap_to_grid_callback (GtkWidget *widget,
-				       gpointer  callback_data);
-extern void view_toggle_rulers_callback(GtkWidget *widget,
-					gpointer  callback_data);
-extern void view_show_cx_pts_callback  (GtkWidget *widget,
-                                        gpointer  callback_data);
+void view_aa_callback(GtkWidget *widget,
+		      gpointer  callback_data);
+void view_visible_grid_callback (GtkWidget *widget,
+				 gpointer  callback_data);
+void view_snap_to_grid_callback (GtkWidget *widget,
+				 gpointer  callback_data);
+void view_toggle_rulers_callback(GtkWidget *widget,
+				 gpointer  callback_data);
+void view_show_cx_pts_callback  (GtkWidget *widget,
+				 gpointer  callback_data);
 #else  /* GNOME */
-extern void view_aa_callback(gpointer  callback_data,
-			     guint callback_action,
-			     GtkWidget *widget);
-extern void view_visible_grid_callback(gpointer  callback_data,
-				       guint callback_action,
-				       GtkWidget *widget);
-extern void view_snap_to_grid_callback(gpointer  callback_data,
-				       guint callback_action,
-				       GtkWidget *widget);
-extern void view_toggle_rulers_callback(gpointer  callback_data,
-				       guint callback_action,
-				       GtkWidget *widget);
-extern void view_show_cx_pts_callback  (gpointer callback_data,
-					guint callback_action,
-				        GtkWidget *widget);
+void view_aa_callback(gpointer  callback_data,
+		      guint callback_action,
+		      GtkWidget *widget);
+void view_visible_grid_callback(gpointer  callback_data,
+				guint callback_action,
+				GtkWidget *widget);
+void view_snap_to_grid_callback(gpointer  callback_data,
+				guint callback_action,
+				GtkWidget *widget);
+void view_toggle_rulers_callback(gpointer  callback_data,
+				 guint callback_action,
+				 GtkWidget *widget);
+void view_show_cx_pts_callback  (gpointer callback_data,
+				 guint callback_action,
+				 GtkWidget *widget);
 #endif /* GNOME */
-extern void view_new_view_callback(GtkWidget *widget, gpointer data);
-extern void view_show_all_callback(GtkWidget *widget, gpointer data);
-extern void view_edit_grid_callback(GtkWidget *widget, gpointer data);
+void view_new_view_callback(GtkWidget *widget, gpointer data);
+void view_show_all_callback(GtkWidget *widget, gpointer data);
+void view_edit_grid_callback(GtkWidget *widget, gpointer data);
 
-extern void objects_place_over_callback(GtkWidget *widget, gpointer data);
-extern void objects_place_under_callback(GtkWidget *widget, gpointer data);
-extern void objects_group_callback(GtkWidget *widget, gpointer data);
-extern void objects_ungroup_callback(GtkWidget *widget, gpointer data);
+void objects_place_over_callback(GtkWidget *widget, gpointer data);
+void objects_place_under_callback(GtkWidget *widget, gpointer data);
+void objects_group_callback(GtkWidget *widget, gpointer data);
+void objects_ungroup_callback(GtkWidget *widget, gpointer data);
 
-extern void dialogs_properties_callback(GtkWidget *widget, gpointer data);
-extern void dialogs_layers_callback(GtkWidget *widget, gpointer data);
+void dialogs_properties_callback(GtkWidget *widget, gpointer data);
+void dialogs_layers_callback(GtkWidget *widget, gpointer data);
 
-extern void objects_align_h_callback(GtkWidget *widget, gpointer data);
-extern void objects_align_v_callback(GtkWidget *widget, gpointer data);
+void objects_align_h_callback(GtkWidget *widget, gpointer data);
+void objects_align_v_callback(GtkWidget *widget, gpointer data);
 
 #endif /* COMMANDS_H */

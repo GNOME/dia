@@ -35,23 +35,22 @@ struct _PolyShape {
   Point *points;
 };
 
-extern void polyshape_update_data(PolyShape *poly);
-extern void polyshape_update_boundingbox(PolyShape *poly);
-extern void polyshape_simple_draw(PolyShape *poly, Renderer *renderer,
-				 real width);
-extern void polyshape_init(PolyShape *poly);
-extern void polyshape_destroy(PolyShape *poly);
-extern void polyshape_copy(PolyShape *from, PolyShape *to);
-extern void polyshape_save(PolyShape *poly, ObjectNode obj_node);
-extern void polyshape_load(PolyShape *poly, ObjectNode obj_node);  /* NOTE: Does object_init() */
-extern ObjectChange *polyshape_add_point(PolyShape *poly, int segment, Point *point);
-extern ObjectChange *polyshape_remove_point(PolyShape *poly, int point);
-extern void polyshape_move_handle(PolyShape *poly, Handle *id,
-				 Point *to, HandleMoveReason reason);
-extern void polyshape_move(PolyShape *poly, Point *to);
-extern real polyshape_distance_from(PolyShape *poly, Point *point,
-				   real line_width);
-extern Handle *polyshape_closest_handle(PolyShape *poly, Point *point);
-extern int polyshape_closest_segment(PolyShape *poly, Point *point,
-				    real line_width);
+void polyshape_update_data(PolyShape *poly);
+void polyshape_update_boundingbox(PolyShape *poly);
+void polyshape_simple_draw(PolyShape *poly, Renderer *renderer, real width);
+void polyshape_init(PolyShape *poly);
+void polyshape_destroy(PolyShape *poly);
+void polyshape_copy(PolyShape *from, PolyShape *to);
+void polyshape_save(PolyShape *poly, ObjectNode obj_node);
+void polyshape_load(PolyShape *poly, ObjectNode obj_node);  /* NOTE: Does object_init() */
+ObjectChange *polyshape_add_point(PolyShape *poly, int segment, Point *point);
+ObjectChange *polyshape_remove_point(PolyShape *poly, int point);
+void polyshape_move_handle(PolyShape *poly, Handle *id,
+			   Point *to, HandleMoveReason reason);
+void polyshape_move(PolyShape *poly, Point *to);
+real polyshape_distance_from(PolyShape *poly, Point *point,
+			     real line_width);
+Handle *polyshape_closest_handle(PolyShape *poly, Point *point);
+int polyshape_closest_segment(PolyShape *poly, Point *point,
+			      real line_width);
 #endif /* POLY_CONN_H */

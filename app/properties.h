@@ -21,9 +21,9 @@
 #include "object.h"
 #include "diagram.h"
 
-extern void properties_show(Diagram *dia, Object *obj);
-extern void properties_update_if_shown(Diagram *dia, Object *obj);
-extern void properties_hide_if_shown(Diagram *dia, Object *obj);
+void properties_show(Diagram *dia, Object *obj);
+void properties_update_if_shown(Diagram *dia, Object *obj);
+void properties_hide_if_shown(Diagram *dia, Object *obj);
 
 
 #endif /* PROPERTIES_H */

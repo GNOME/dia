@@ -259,35 +259,35 @@ typedef DiaMenu *(*ObjectMenuFunc) (Object* obj, Point *position);
  **  The functions provided in object.c
  *************************************/
 
-extern void object_init(Object *obj, int num_handles, int num_connections);
-extern void object_destroy(Object *obj); /* Unconnects handles, so don't
+void object_init(Object *obj, int num_handles, int num_connections);
+void object_destroy(Object *obj); /* Unconnects handles, so don't
 					    free handles before calling. */
-extern void object_copy(Object *from, Object *to);
+void object_copy(Object *from, Object *to);
 
-extern void object_save(Object *obj, ObjectNode obj_node);
-extern void object_load(Object *obj, ObjectNode obj_node);
+void object_save(Object *obj, ObjectNode obj_node);
+void object_load(Object *obj, ObjectNode obj_node);
 
-extern void destroy_object_list(GList *list);
-extern void object_add_handle(Object *obj, Handle *handle);
-extern void object_add_handle_at(Object *obj, Handle *handle, int pos);
-extern void object_remove_handle(Object *obj, Handle *handle);
-extern void object_add_connectionpoint(Object *obj, ConnectionPoint *conpoint);
-extern void object_remove_connectionpoint(Object *obj,
-					  ConnectionPoint *conpoint);
-extern void object_add_connectionpoint_at(Object *obj, 
-					  ConnectionPoint *conpoint,
-					  int pos);
-extern void object_connect(Object *obj, Handle *handle,
-			   ConnectionPoint *conpoint);
-extern void object_unconnect(Object *connected_obj, Handle *handle);
-extern void object_remove_connections_to(ConnectionPoint *conpoint);
-extern void object_unconnect_all(Object *connected_obj);
-extern void object_registry_init(void);
-extern void object_register_type(ObjectType *type);
-extern ObjectType *object_get_type(char *name);
-extern int object_return_false(Object *obj); /* Just returns FALSE */
-extern void *object_return_null(Object *obj); /* Just returns NULL */
-extern void object_return_void(Object *obj); /* Just an empty function */
+void destroy_object_list(GList *list);
+void object_add_handle(Object *obj, Handle *handle);
+void object_add_handle_at(Object *obj, Handle *handle, int pos);
+void object_remove_handle(Object *obj, Handle *handle);
+void object_add_connectionpoint(Object *obj, ConnectionPoint *conpoint);
+void object_remove_connectionpoint(Object *obj,
+				   ConnectionPoint *conpoint);
+void object_add_connectionpoint_at(Object *obj, 
+				   ConnectionPoint *conpoint,
+				   int pos);
+void object_connect(Object *obj, Handle *handle,
+		    ConnectionPoint *conpoint);
+void object_unconnect(Object *connected_obj, Handle *handle);
+void object_remove_connections_to(ConnectionPoint *conpoint);
+void object_unconnect_all(Object *connected_obj);
+void object_registry_init(void);
+void object_register_type(ObjectType *type);
+ObjectType *object_get_type(char *name);
+int object_return_false(Object *obj); /* Just returns FALSE */
+void *object_return_null(Object *obj); /* Just returns NULL */
+void object_return_void(Object *obj); /* Just an empty function */
 
 /*****************************************
  **  The structures used to define an object

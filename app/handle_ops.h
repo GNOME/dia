@@ -21,8 +21,8 @@
 #include "handle.h"
 #include "display.h"
 
-extern void handle_draw(Handle *handle, DDisplay *ddisp);
-extern void handle_add_update(Handle *handle, Diagram *dia);
-extern int handle_is_clicked(DDisplay *ddisp, Handle *handle, Point *pos);
+void handle_draw(Handle *handle, DDisplay *ddisp);
+void handle_add_update(Handle *handle, Diagram *dia);
+int handle_is_clicked(DDisplay *ddisp, Handle *handle, Point *pos);
   
 #endif /* HANDLE_OPS_H */

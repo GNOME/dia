@@ -37,18 +37,18 @@ struct _Element {
   real height;
 };
 
-extern void element_update_handles(Element *elem);
-extern void element_update_boundingbox(Element *elem);
-extern void element_init(Element *elem, int num_handles, int num_connections);
-extern void element_destroy(Element *elem);
-extern void element_copy(Element *from, Element *to);
-extern void element_move_handle(Element *elem, HandleId id,
-				Point *to, HandleMoveReason reason);
-extern void element_move_handle_aspect(Element *elem, HandleId id,
-				       Point *to, real aspect_ratio);
+void element_update_handles(Element *elem);
+void element_update_boundingbox(Element *elem);
+void element_init(Element *elem, int num_handles, int num_connections);
+void element_destroy(Element *elem);
+void element_copy(Element *from, Element *to);
+void element_move_handle(Element *elem, HandleId id,
+			 Point *to, HandleMoveReason reason);
+void element_move_handle_aspect(Element *elem, HandleId id,
+				Point *to, real aspect_ratio);
 
-extern void element_save(Element *elem, ObjectNode obj_node);
-extern void element_load(Element *elem, ObjectNode obj_node);
+void element_save(Element *elem, ObjectNode obj_node);
+void element_load(Element *elem, ObjectNode obj_node);
 
 /* base property stuff ... */
 #define ELEMENT_COMMON_PROPERTIES \

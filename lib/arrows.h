@@ -43,9 +43,9 @@ typedef struct {
   real width;
 } Arrow;
 
-extern void arrow_draw(Renderer *renderer, ArrowType type,
-		       Point *to, Point *from,
-		       real length, real width, real linewidth,
-		       Color *fg_color, Color *bg_color);
+void arrow_draw(Renderer *renderer, ArrowType type,
+		Point *to, Point *from,
+		real length, real width, real linewidth,
+		Color *fg_color, Color *bg_color);
 
 #endif /* ARROWS_H */

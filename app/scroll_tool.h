@@ -31,8 +31,8 @@ struct _ScrollTool {
   Point last_pos;
 };
 
-extern Tool *create_scroll_tool(void);
-extern void free_scroll_tool(Tool *tool);
+Tool *create_scroll_tool(void);
+void free_scroll_tool(Tool *tool);
 
 #endif /* SCROLL_TOOL_H */
 

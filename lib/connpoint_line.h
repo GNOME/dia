@@ -45,45 +45,37 @@ typedef struct {
 } ConnPointLine;
 
 
-extern ConnPointLine *connpointline_create(Object *parent, 
-					   int num_connections);
-extern void connpointline_destroy(ConnPointLine *cpl);
-extern void connpointline_update(ConnPointLine *cpl);
-extern void connpointline_putonaline(ConnPointLine *cpl,Point *start,Point *end);
-extern int connpointline_can_add_point(ConnPointLine *cpl,
-				       Point *clicked);
-extern int connpointline_can_remove_point(ConnPointLine *cpl,
-					  Point *clicked);
+ConnPointLine *connpointline_create(Object *parent, 
+				    int num_connections);
+void connpointline_destroy(ConnPointLine *cpl);
+void connpointline_update(ConnPointLine *cpl);
+void connpointline_putonaline(ConnPointLine *cpl,Point *start,Point *end);
+int connpointline_can_add_point(ConnPointLine *cpl,
+				Point *clicked);
+int connpointline_can_remove_point(ConnPointLine *cpl,
+				   Point *clicked);
 
-extern ObjectChange *connpointline_add_points(ConnPointLine *cpl, 
-					      Point *clickedpoint, 
-					      int count);
-extern ObjectChange *connpointline_remove_points(ConnPointLine *cpl, 
-						 Point *clickedpoint, 
-						 int count);
-extern ConnPointLine *connpointline_load(Object *obj,ObjectNode obj_node,
-					 const gchar *name, int default_nc,
-					 int *realconncount);
-extern void connpointline_save(ConnPointLine *cpl,ObjectNode obj_node,
-			       const gchar *name);
-extern ConnPointLine *connpointline_copy(Object *newobj,ConnPointLine *cpl,
-					 int *realconncount);
+ObjectChange *connpointline_add_points(ConnPointLine *cpl, 
+				       Point *clickedpoint, 
+				       int count);
+ObjectChange *connpointline_remove_points(ConnPointLine *cpl, 
+					  Point *clickedpoint, 
+					  int count);
+ConnPointLine *connpointline_load(Object *obj,ObjectNode obj_node,
+				  const gchar *name, int default_nc,
+				  int *realconncount);
+void connpointline_save(ConnPointLine *cpl,ObjectNode obj_node,
+			const gchar *name);
+ConnPointLine *connpointline_copy(Object *newobj,ConnPointLine *cpl,
+				  int *realconncount);
 
-inline static ObjectChange *
-connpointline_add_point(ConnPointLine *cpl, Point *clickedpoint)
-{ 
-  return connpointline_add_points(cpl,clickedpoint,1); 
-}
+#define connpointline_add_point(cpl, clickedpoint) \
+    connpointline_add_points(cpl, clickedpoint, 1)
+#define connpointline_remove_point(cpl, clickedpoint) \
+    connpointline_remove_points(cpl, clickedpoint, 1)
 
-inline static ObjectChange *
-connpointline_remove_point(ConnPointLine *cpl, Point *clickedpoint)
-{
-  return connpointline_remove_points(cpl,clickedpoint,1);
-}
-
-
-extern int connpointline_adjust_count(ConnPointLine *cpl,
-				      int newcount, Point *where);
+int connpointline_adjust_count(ConnPointLine *cpl,
+			       int newcount, Point *where);
 
 #endif __CONNPOINT_LINE_H
 

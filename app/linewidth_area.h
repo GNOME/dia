@@ -20,7 +20,7 @@
 
 #include <gtk/gtk.h>
 
-extern GtkWidget *linewidth_area_create (void);
+GtkWidget *linewidth_area_create (void);
 
 
 #endif /* LINEWDITH_AREA_H */

@@ -56,26 +56,26 @@ struct _NewOrthConn {
   ConnPointLine *midpoints;
 };
 
-extern void neworthconn_update_data(NewOrthConn *orth);
-extern void neworthconn_update_boundingbox(NewOrthConn *orth);
-extern void neworthconn_simple_draw(NewOrthConn *orth, Renderer *renderer,
-				 real width);
-extern void neworthconn_init(NewOrthConn *orth, Point *startpoint);
-extern void neworthconn_destroy(NewOrthConn *orth);
-extern void neworthconn_copy(NewOrthConn *from, NewOrthConn *to);
-extern void neworthconn_save(NewOrthConn *orth, ObjectNode obj_node);
-extern void neworthconn_load(NewOrthConn *orth, ObjectNode obj_node);  /* NOTE: Does object_init() */
-extern void neworthconn_move_handle(NewOrthConn *orth, Handle *id,
-				 Point *to, HandleMoveReason reason);
-extern void neworthconn_move(NewOrthConn *orth, Point *to);
-extern real neworthconn_distance_from(NewOrthConn *orth, Point *point,
-				   real line_width);
-extern Handle* neworthconn_get_middle_handle(NewOrthConn *orth);
+void neworthconn_update_data(NewOrthConn *orth);
+void neworthconn_update_boundingbox(NewOrthConn *orth);
+void neworthconn_simple_draw(NewOrthConn *orth, Renderer *renderer,
+			     real width);
+void neworthconn_init(NewOrthConn *orth, Point *startpoint);
+void neworthconn_destroy(NewOrthConn *orth);
+void neworthconn_copy(NewOrthConn *from, NewOrthConn *to);
+void neworthconn_save(NewOrthConn *orth, ObjectNode obj_node);
+void neworthconn_load(NewOrthConn *orth, ObjectNode obj_node);  /* NOTE: Does object_init() */
+void neworthconn_move_handle(NewOrthConn *orth, Handle *id,
+			     Point *to, HandleMoveReason reason);
+void neworthconn_move(NewOrthConn *orth, Point *to);
+real neworthconn_distance_from(NewOrthConn *orth, Point *point,
+			       real line_width);
+Handle* neworthconn_get_middle_handle(NewOrthConn *orth);
 
-extern int neworthconn_can_delete_segment(NewOrthConn *orth, Point *clickedpoint);
-extern int neworthconn_can_add_segment(NewOrthConn *orth, Point *clickedpoint);
-extern ObjectChange *neworthconn_delete_segment(NewOrthConn *orth, Point *clickedpoint);
-extern ObjectChange *neworthconn_add_segment(NewOrthConn *orth, Point *clickedpoint);
+int neworthconn_can_delete_segment(NewOrthConn *orth, Point *clickedpoint);
+int neworthconn_can_add_segment(NewOrthConn *orth, Point *clickedpoint);
+ObjectChange *neworthconn_delete_segment(NewOrthConn *orth, Point *clickedpoint);
+ObjectChange *neworthconn_add_segment(NewOrthConn *orth, Point *clickedpoint);
 #endif /* NEWORTH_CONN_H */
 
 

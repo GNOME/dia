@@ -63,10 +63,10 @@ typedef ObjectState * (*GetStateFunc) (Object* obj);
 typedef void (*SetStateFunc) (Object* obj, ObjectState *state);
 
 
-extern ObjectChange *new_object_state_change(Object *obj,
-					     ObjectState *old_state,
-					     GetStateFunc get_state,
-					     SetStateFunc set_state );
+ObjectChange *new_object_state_change(Object *obj,
+				      ObjectState *old_state,
+				      GetStateFunc get_state,
+				      SetStateFunc set_state );
 
 #endif /* CHANGE_H */
 

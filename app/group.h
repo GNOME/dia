@@ -23,10 +23,10 @@ extern ObjectType group_type;
 /* Make sure there are no connections from objects to objects
  * outside of the created group before calling group_create().
  */
-extern Object *group_create(GList *objects);
-extern GList *group_objects(Object *group);
+Object *group_create(GList *objects);
+GList *group_objects(Object *group);
 
-extern void group_destroy_shallow(Object *group);
+void group_destroy_shallow(Object *group);
 
 #define IS_GROUP(obj) ((obj)->type == &group_type)
 

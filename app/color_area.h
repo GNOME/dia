@@ -20,9 +20,9 @@
 
 #include <gtk/gtk.h>
 
-extern GtkWidget *color_area_create (int        width,
-				     int        height,
-				     GdkPixmap *default_pmap,
-				     GdkPixmap *swap_pmap);
+GtkWidget *color_area_create (int        width,
+			      int        height,
+			      GdkPixmap *default_pmap,
+			      GdkPixmap *swap_pmap);
 
 #endif /* COLOR_AREA_H */

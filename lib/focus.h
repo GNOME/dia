@@ -33,9 +33,9 @@ struct _Focus {
 		   ObjectChange **change);
 };
 
-extern void request_focus(Focus *focus);
-extern Focus *active_focus(void);
-extern void remove_focus(void);
+void request_focus(Focus *focus);
+Focus *active_focus(void);
+void remove_focus(void);
 
 #endif /* FOCUS_H */
 

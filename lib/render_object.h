@@ -59,12 +59,12 @@ struct _RenderObject {
   real magnify;
 };
 
-extern Object *new_render_object(Point *startpoint,
-				 Handle **handle1,
-				 Handle **handle2,
-				 const RenderObjectDescriptor *desc);
-extern void render_object_save(RenderObject *rend_obj, ObjectNode obj_node);
-extern Object *render_object_load(ObjectNode obj_node, 
-				  const RenderObjectDescriptor *desc);
+Object *new_render_object(Point *startpoint,
+			  Handle **handle1,
+			  Handle **handle2,
+			  const RenderObjectDescriptor *desc);
+void render_object_save(RenderObject *rend_obj, ObjectNode obj_node);
+Object *render_object_load(ObjectNode obj_node, 
+			   const RenderObjectDescriptor *desc);
 #endif /* RENDER_OBJECT_H */
 

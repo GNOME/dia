@@ -52,10 +52,10 @@ struct DiaPreferences {
 
 extern struct DiaPreferences prefs;
 
-extern void prefs_show(void);
-extern void prefs_set_defaults(void);
-extern void prefs_save(void);
-extern void prefs_load(void);
+void prefs_show(void);
+void prefs_set_defaults(void);
+void prefs_save(void);
+void prefs_load(void);
 
 #endif /* DIA_IMAGE_H */
 

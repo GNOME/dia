@@ -23,25 +23,25 @@
 #include "arrows.h"
 #include "render.h"
 
-extern Color attributes_get_foreground(void);
-extern Color attributes_get_background(void);
-extern void attributes_set_foreground(Color *color);
-extern void attributes_set_background(Color *color);
-extern void attributes_swap_fgbg(void);
-extern void attributes_default_fgbg(void);
+Color attributes_get_foreground(void);
+Color attributes_get_background(void);
+void attributes_set_foreground(Color *color);
+void attributes_set_background(Color *color);
+void attributes_swap_fgbg(void);
+void attributes_default_fgbg(void);
 
-extern real attributes_get_default_linewidth(void);
-extern void attributes_set_default_linewidth(real width);
+real attributes_get_default_linewidth(void);
+void attributes_set_default_linewidth(real width);
 
-extern Arrow attributes_get_default_start_arrow(void);
-extern void attributes_set_default_start_arrow(Arrow arrow);
+Arrow attributes_get_default_start_arrow(void);
+void attributes_set_default_start_arrow(Arrow arrow);
 
-extern Arrow attributes_get_default_end_arrow(void);
-extern void attributes_set_default_end_arrow(Arrow arrow);
+Arrow attributes_get_default_end_arrow(void);
+void attributes_set_default_end_arrow(Arrow arrow);
 
-extern void attributes_get_default_line_style(LineStyle *style,
-					      real *dash_length);
-extern void attributes_set_default_line_style(LineStyle style,
-					      real dash_length);
+void attributes_get_default_line_style(LineStyle *style,
+				       real *dash_length);
+void attributes_set_default_line_style(LineStyle style,
+				       real dash_length);
 
 #endif /* ATTRIBUTES_H */

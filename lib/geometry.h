@@ -207,13 +207,13 @@ point_copy_add_scaled(Point *dst, Point *src, Point *vct, real alpha)
 }
 #endif
 
-extern void rectangle_union(Rectangle *r1, Rectangle *r2);
-extern void int_rectangle_union(IntRectangle *r1, IntRectangle *r2);
-extern void rectangle_intersection(Rectangle *r1, Rectangle *r2);
-extern int rectangle_intersects(Rectangle *r1, Rectangle *r2);
-extern int point_in_rectangle(Rectangle* r, Point *p);
-extern int rectangle_in_rectangle(Rectangle* outer, Rectangle *inner);
-extern void rectangle_add_point(Rectangle *r, Point *p);
+void rectangle_union(Rectangle *r1, Rectangle *r2);
+void int_rectangle_union(IntRectangle *r1, IntRectangle *r2);
+void rectangle_intersection(Rectangle *r1, Rectangle *r2);
+int rectangle_intersects(Rectangle *r1, Rectangle *r2);
+int point_in_rectangle(Rectangle* r, Point *p);
+int rectangle_in_rectangle(Rectangle* outer, Rectangle *inner);
+void rectangle_add_point(Rectangle *r, Point *p);
 
 G_INLINE_FUNC real distance_point_point(Point *p1, Point *p2);
 #ifdef G_CAN_INLINE
@@ -237,22 +237,22 @@ distance_point_point_manhattan(Point *p1, Point *p2)
 }
 #endif
 
-extern real distance_rectangle_point(Rectangle *rect, Point *point);
-extern real distance_line_point(Point *line_start, Point *line_end,
-				real line_width, Point *point);
+real distance_rectangle_point(Rectangle *rect, Point *point);
+real distance_line_point(Point *line_start, Point *line_end,
+			 real line_width, Point *point);
 
-extern real distance_polygon_point(Point *poly, guint npoints,
-				   real line_width, Point *point);
+real distance_polygon_point(Point *poly, guint npoints,
+			    real line_width, Point *point);
 
 /* bezier distance calculations */
-extern real distance_bez_seg_point(Point *b1, Point *b2, Point *b3, Point *b4,
-				   real line_width, Point *point);
-extern real distance_bez_line_point(BezPoint *b, guint npoints,
-				    real line_width, Point *point);
-extern real distance_bez_shape_point(BezPoint *b, guint npoints,
-				     real line_width, Point *point);
+real distance_bez_seg_point(Point *b1, Point *b2, Point *b3, Point *b4,
+			    real line_width, Point *point);
+real distance_bez_line_point(BezPoint *b, guint npoints,
+			     real line_width, Point *point);
+real distance_bez_shape_point(BezPoint *b, guint npoints,
+			      real line_width, Point *point);
 
-extern real distance_ellipse_point(Point *centre, real width, real height,
-				   real line_width, Point *point);
+real distance_ellipse_point(Point *centre, real width, real height,
+			    real line_width, Point *point);
 
 #endif /* GEOMETRY_H */

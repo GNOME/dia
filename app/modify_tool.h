@@ -51,7 +51,7 @@ struct _ModifyTool {
   Point *orig_pos;
 };
 
-extern Tool *create_modify_tool(void);
-extern void free_modify_tool(Tool *tool);
+Tool *create_modify_tool(void);
+void free_modify_tool(Tool *tool);
 
 #endif /* MODIFY_TOOL_H */

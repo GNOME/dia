@@ -39,9 +39,9 @@ struct _RendererEPS {
   real dot_length;
 };
 
-extern RendererEPS *new_eps_renderer(Diagram *dia, char *filename);
-extern RendererEPS *new_psprint_renderer(Diagram *dia, FILE *file);
-extern void destroy_eps_renderer(RendererEPS *renderer);
+RendererEPS *new_eps_renderer(Diagram *dia, char *filename);
+RendererEPS *new_psprint_renderer(Diagram *dia, FILE *file);
+void destroy_eps_renderer(RendererEPS *renderer);
 
 extern DiaExportFilter eps_export_filter;
 

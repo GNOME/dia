@@ -65,15 +65,15 @@ MAKE_SAVE_FOO(text,Text *)
 
 #ifndef __LAZYPROPS_C
 #define MAKE_LOAD_FOO(typename,type) \
-  extern type load_##typename(ObjectNode *obj_node, const gchar *attrname, \
+  type load_##typename(ObjectNode *obj_node, const gchar *attrname, \
 		  type defaultvalue);
 
 #define MAKE_LOAD_FOO2(typename,type) \
-  extern void  load_##typename(ObjectNode *obj_node, const gchar *attrname, \
+  void  load_##typename(ObjectNode *obj_node, const gchar *attrname, \
 			       type *value, type *defaultvalue);
 #else
 #define MAKE_LOAD_FOO(typename,type) \
-  extern type load_##typename(ObjectNode *obj_node, const gchar *attrname, \
+  type load_##typename(ObjectNode *obj_node, const gchar *attrname, \
 		  type defaultvalue);  \
   type  \
   load_##typename(ObjectNode *obj_node, const gchar *attrname, \
@@ -86,7 +86,7 @@ MAKE_SAVE_FOO(text,Text *)
        return defaultvalue; \
   }
 #define MAKE_LOAD_FOO2(typename,type) \
-  extern void  load_##typename(ObjectNode *obj_node, const gchar *attrname, \
+  void  load_##typename(ObjectNode *obj_node, const gchar *attrname, \
 			       type *value, type *defaultvalue); \
   void  \
   load_##typename(ObjectNode *obj_node, const gchar *attrname, type *value, \
@@ -261,11 +261,11 @@ typedef AttributeDialog AttributePage;
 
 /* This defines a real attribute. */
 typedef GtkSpinButton *RealAttribute;
-extern RealAttribute __propdlg_build_real(GtkWidget *dialog, 
-					  const gchar *desc,
-					  gfloat lower,
-					  gfloat upper,
-					  gfloat step_increment);
+RealAttribute __propdlg_build_real(GtkWidget *dialog, 
+				   const gchar *desc,
+				   gfloat lower,
+				   gfloat upper,
+				   gfloat step_increment);
 
 #define __PROPDLG_BUILD_REAL(propdlg, field, desc, lower, upper, \
                              step_increment)\
@@ -310,7 +310,7 @@ typedef GtkSpinButton *IntAttribute;
 
 /* This defines a Boolean attribute : */
 typedef GtkToggleButton *BoolAttribute; 
-extern BoolAttribute __propdlg_build_bool(GtkWidget *dialog, 
+BoolAttribute __propdlg_build_bool(GtkWidget *dialog, 
 				   const gchar *desc);
 #define __PROPDLG_BUILD_BOOL(propdlg, field, desc)  \
    (propdlg)->field = __propdlg_build_bool((propdlg)->dialog.d,(desc));
@@ -329,8 +329,8 @@ extern BoolAttribute __propdlg_build_bool(GtkWidget *dialog,
 typedef DiaFontSelector *FontAttribute;
 typedef DiaFontSelector *TextFontAttribute;
 
-extern FontAttribute __propdlg_build_font(GtkWidget *dialog, 
-					  const gchar *desc);
+FontAttribute __propdlg_build_font(GtkWidget *dialog, 
+				   const gchar *desc);
 #define __PROPDLG_BUILD_FONT(propdlg,field,desc) \
    (propdlg)->field = __propdlg_build_font((propdlg)->dialog.d,(desc));
 #define __PROPDLG_BUILD_TEXTFONT(propdlg,field,desc) \
@@ -390,8 +390,8 @@ typedef RealAttribute TextFontHeightAttribute;
 /* This defines a Color attribute : */
 typedef DiaColorSelector *ColorAttribute;
 typedef DiaColorSelector *TextColorAttribute; 
-extern ColorAttribute __propdlg_build_color(GtkWidget *dialog,
-					     const gchar *desc);
+ColorAttribute __propdlg_build_color(GtkWidget *dialog,
+				     const gchar *desc);
 #define __PROPDLG_BUILD_COLOR(propdlg,field,desc) \
    (propdlg)->field = __propdlg_build_color((propdlg)->dialog.d,(desc));
 
@@ -444,8 +444,8 @@ typedef RealAttribute LineWidthAttribute;
  foo_dashlength, of the correct types (LineStyle and real).
  (I'm not really happy about this).*/
 typedef DiaLineStyleSelector *LineStyleAttribute;
-extern LineStyleAttribute __propdlg_build_linestyle(GtkWidget *dialog,
-						    const gchar *desc);
+LineStyleAttribute __propdlg_build_linestyle(GtkWidget *dialog,
+					     const gchar *desc);
 #define __PROPDLG_BUILD_LINESTYLE(propdlg,field,desc) \
    (propdlg)->field = __propdlg_build_linestyle((propdlg)->dialog.d,(desc));
 
@@ -464,8 +464,8 @@ extern LineStyleAttribute __propdlg_build_linestyle(GtkWidget *dialog,
 
 /* This defines an Arrow attribute. */
 typedef DiaArrowSelector *ArrowAttribute;
-extern ArrowAttribute __propdlg_build_arrow(GtkWidget *dialog, 
-					    const gchar *desc);
+ArrowAttribute __propdlg_build_arrow(GtkWidget *dialog, 
+				     const gchar *desc);
 #define __PROPDLG_BUILD_ARROW(propdlg,field,desc) \
    (propdlg)->field = __propdlg_build_arrow((propdlg)->dialog.d,(desc));
 
@@ -494,11 +494,11 @@ typedef PropDlgEnumEntry *EnumAttribute;
 /* enumentries is a pointer to a NULL-terminated array of PropDlgEnumEntry,
    to which the _BUILD_ function has the right to write once (the button field)
 */
-extern void __propdlg_build_enum(GtkWidget *dialog,
-				       const gchar *desc,
-				       PropDlgEnumEntry *enumentries);
-extern void __propdlg_set_enum(PropDlgEnumEntry *enumentries,int value);
-extern int __propdlg_get_enum(PropDlgEnumEntry *enumentries);
+void __propdlg_build_enum(GtkWidget *dialog,
+			  const gchar *desc,
+			  PropDlgEnumEntry *enumentries);
+void __propdlg_set_enum(PropDlgEnumEntry *enumentries,int value);
+int __propdlg_get_enum(PropDlgEnumEntry *enumentries);
 
 #define __PROPDLG_BUILD_ENUM(propdlg,field,desc,enumentries) \
     (propdlg)->field = (enumentries); \
@@ -515,8 +515,8 @@ extern int __propdlg_get_enum(PropDlgEnumEntry *enumentries);
 
 /* This defines a string (gchar *) attribute. */
 typedef GtkEntry *StringAttribute;
-extern StringAttribute __propdlg_build_string(GtkWidget *dialog,
-					      const gchar *desc);
+StringAttribute __propdlg_build_string(GtkWidget *dialog,
+				       const gchar *desc);
 #define __PROPDLG_BUILD_STRING(propdlg,field,desc) \
  (propdlg)->field = __propdlg_build_string((propdlg)->dialog.d,(desc));
 #define __PROPDLG_SHOW_STRING(propdlg,field) \
@@ -531,9 +531,9 @@ extern StringAttribute __propdlg_build_string(GtkWidget *dialog,
 
 /* This defines a string (gchar *) attribute. */
 typedef GtkText *MultiStringAttribute;
-extern MultiStringAttribute __propdlg_build_multistring(GtkWidget *dialog,
-							const gchar *desc,
-							int numlines);
+MultiStringAttribute __propdlg_build_multistring(GtkWidget *dialog,
+						 const gchar *desc,
+						 int numlines);
 #define __PROPDLG_BUILD_MULTISTRING(propdlg,field,desc,numlines) \
  (propdlg)->field = __propdlg_build_multistring((propdlg)->dialog.d, \
                 (desc),(numlines));
@@ -570,7 +570,7 @@ extern MultiStringAttribute __propdlg_build_multistring(GtkWidget *dialog,
  text_set_string((propdlg)->parent->field, gtk_editable_get_chars( \
                GTK_EDITABLE((propdlg)->field),0, -1));
 
-extern void  __propdlg_build_static(GtkWidget *dialog, const gchar *desc);
+void  __propdlg_build_static(GtkWidget *dialog, const gchar *desc);
 #define __PROPDLG_BUILD_STATIC(propdlg,desc) \
   __propdlg_build_static((propdlg)->dialog.d,(desc));
 #define PROPDLG_SHOW_STATIC(propdlg,desc) \
@@ -579,7 +579,7 @@ extern void  __propdlg_build_static(GtkWidget *dialog, const gchar *desc);
    }
 
 /* This simply puts a separator line. */
-extern void __propdlg_build_separator(GtkWidget *dialog);
+void __propdlg_build_separator(GtkWidget *dialog);
 
 #define __PROPDLG_BUILD_SEPARATOR(propdlg) \
   __propdlg_build_separator((propdlg)->dialog.d);

@@ -25,21 +25,21 @@
 typedef struct _DiaImage *DiaImage;
 
 
-extern void dia_image_init(void);
+void dia_image_init(void);
 
-extern DiaImage dia_image_get_broken(void);
+DiaImage dia_image_get_broken(void);
 
-extern DiaImage dia_image_load(gchar *filename);
-extern void dia_image_add_ref(DiaImage image);
-extern void dia_image_release(DiaImage image);
-extern void dia_image_draw(DiaImage image, GdkWindow *window,
-			   int x, int y, int width, int height);
+DiaImage dia_image_load(gchar *filename);
+void dia_image_add_ref(DiaImage image);
+void dia_image_release(DiaImage image);
+void dia_image_draw(DiaImage image, GdkWindow *window,
+		    int x, int y, int width, int height);
 
-extern int dia_image_width(DiaImage image);
-extern int dia_image_height(DiaImage image);
-extern guint8 *dia_image_rgb_data(DiaImage image);
-extern guint8 *dia_image_mask_data(DiaImage image);
-extern char *dia_image_filename(DiaImage image);
+int dia_image_width(DiaImage image);
+int dia_image_height(DiaImage image);
+guint8 *dia_image_rgb_data(DiaImage image);
+guint8 *dia_image_mask_data(DiaImage image);
+char *dia_image_filename(DiaImage image);
 
 #endif /* DIA_IMAGE_H */
 

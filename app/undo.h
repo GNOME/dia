@@ -45,35 +45,35 @@ struct _UndoStack {
   int depth;
 };
 
-extern UndoStack *new_undo_stack(Diagram *dia);
-extern void undo_destroy(UndoStack *stack);
-extern void undo_push_change(UndoStack *stack, Change *change);
-extern void undo_set_transactionpoint(UndoStack *stack);
-extern void undo_revert_to_last_tp(UndoStack *stack);
-extern void undo_apply_to_next_tp(UndoStack *stack);
-extern void undo_clear(UndoStack *stack);
+UndoStack *new_undo_stack(Diagram *dia);
+void undo_destroy(UndoStack *stack);
+void undo_push_change(UndoStack *stack, Change *change);
+void undo_set_transactionpoint(UndoStack *stack);
+void undo_revert_to_last_tp(UndoStack *stack);
+void undo_apply_to_next_tp(UndoStack *stack);
+void undo_clear(UndoStack *stack);
 
 /* Specific undo functions: */
 
-extern Change *undo_move_objects(Diagram *dia, Point *orig_pos,
-				 Point *dest_pos, GList *obj_list);
-extern Change *undo_move_handle(Diagram *dia,
-				Handle *handle, Object *obj,
-				Point orig_pos, Point dest_pos);
-extern Change *undo_connect(Diagram *dia, Object *obj, Handle *handle,
-			    ConnectionPoint *connectionpoint);
-extern Change *undo_unconnect(Diagram *dia, Object *obj, Handle *handle);
-extern Change *undo_delete_objects(Diagram *dia, GList *obj_list); /* Reads current obj list */
-extern Change *undo_insert_objects(Diagram *dia, GList *obj_list,
-				   int applied);
-extern Change *undo_reorder_objects(Diagram *dia, GList *changed_list,
-				    GList *orig_list); /* Reads current obj list */
-extern Change *undo_object_change(Diagram *dia, Object *obj,
-				  ObjectChange *obj_change);
-extern Change *undo_group_objects(Diagram *dia, GList *obj_list,
-				  Object *group, GList *orig_list);
-extern Change *undo_ungroup_objects(Diagram *dia, GList *obj_list,
-				    Object *group, int group_index);
+Change *undo_move_objects(Diagram *dia, Point *orig_pos,
+			  Point *dest_pos, GList *obj_list);
+Change *undo_move_handle(Diagram *dia,
+			 Handle *handle, Object *obj,
+			 Point orig_pos, Point dest_pos);
+Change *undo_connect(Diagram *dia, Object *obj, Handle *handle,
+		     ConnectionPoint *connectionpoint);
+Change *undo_unconnect(Diagram *dia, Object *obj, Handle *handle);
+Change *undo_delete_objects(Diagram *dia, GList *obj_list); /* Reads current obj list */
+Change *undo_insert_objects(Diagram *dia, GList *obj_list,
+			    int applied);
+Change *undo_reorder_objects(Diagram *dia, GList *changed_list,
+			     GList *orig_list); /* Reads current obj list */
+Change *undo_object_change(Diagram *dia, Object *obj,
+			   ObjectChange *obj_change);
+Change *undo_group_objects(Diagram *dia, GList *obj_list,
+			   Object *group, GList *orig_list);
+Change *undo_ungroup_objects(Diagram *dia, GList *obj_list,
+			     Object *group, int group_index);
 
 #endif /* UNDO_H */
 

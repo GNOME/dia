@@ -44,12 +44,12 @@ struct _Sheet {
   GSList *objects; /* list of SheetObject */
 };
 
-extern Sheet *new_sheet(char *name, char *description);
-extern void sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *type);
-extern void sheet_append_sheet_obj(Sheet *sheet, SheetObject *type);
-extern void register_sheet(Sheet *sheet);
-extern GSList *get_sheets_list(void);
+Sheet *new_sheet(char *name, char *description);
+void sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *type);
+void sheet_append_sheet_obj(Sheet *sheet, SheetObject *type);
+void register_sheet(Sheet *sheet);
+GSList *get_sheets_list(void);
 
-extern void load_all_sheets(void);
+void load_all_sheets(void);
 
 #endif /* SHEET_H */

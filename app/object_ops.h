@@ -22,19 +22,19 @@
 #include "display.h"
 #include "diagram.h"
 
-extern void object_add_updates(Object *obj, Diagram *dia);
-extern void object_add_updates_list(GList *list, Diagram *dia);
-extern ConnectionPoint *object_find_connectpoint_display(DDisplay *ddisp,
-							 Point *pos);
+void object_add_updates(Object *obj, Diagram *dia);
+void object_add_updates_list(GList *list, Diagram *dia);
+ConnectionPoint *object_find_connectpoint_display(DDisplay *ddisp,
+						  Point *pos);
 
-extern void object_connect_display(DDisplay *ddisp, Object *obj,
-				   Handle *handle);
+void object_connect_display(DDisplay *ddisp, Object *obj,
+			    Handle *handle);
 /* Adds Undo info for connected objects. */
 
-extern GList *object_copy_list(GList *list);
-extern Point object_list_corner(GList *list);
-extern void object_list_move_delta(GList *objects, Point *delta);
-extern void object_list_align_h(GList *objects, Diagram *dia, int align);
-extern void object_list_align_v(GList *objects, Diagram *dia, int align);
+GList *object_copy_list(GList *list);
+Point object_list_corner(GList *list);
+void object_list_move_delta(GList *objects, Point *delta);
+void object_list_align_h(GList *objects, Diagram *dia, int align);
+void object_list_align_v(GList *objects, Diagram *dia, int align);
 #endif /* OBJECT_OPS_H */
 

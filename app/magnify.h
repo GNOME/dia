@@ -33,7 +33,7 @@ struct _MagnifyTool {
   int oldx, oldy;
 };
 
-extern Tool *create_magnify_tool(void);
-extern void free_magnify_tool(Tool *tool);
+Tool *create_magnify_tool(void);
+void free_magnify_tool(Tool *tool);
 
 #endif /* MAGNIFY_H */
