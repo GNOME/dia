@@ -1,5 +1,10 @@
 1999-10-17  Alexander Larsson  <alla@lysator.liu.se>
 
+	* README:
+	Put a pointer to objects/custom/README.
+	
+1999-10-17  Alexander Larsson  <alla@lysator.liu.se>
+
 	* dia.spec:
 	Updated version to 0.80
 

@@ -33,7 +33,11 @@ be copy-pasted from an object like the one you're doing. Rendering to
 screen/postscript is done through a 'Renderer' abstraction that can be found 
 in lib/render.h.
  
-
+XML based objects:
+------------------
+You can (from version 0.80) create new objects using a SVG like XML languange.
+The file objects/custom/README has more information about this.
+ 
 Note on handles and connection points:
 --------------------------------------
 
