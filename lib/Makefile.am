@@ -137,7 +137,7 @@ libdia_la_SOURCES =  \
 
 libdia_la_LDFLAGS = -export-dynamic -module -avoid-version
 
-CPPFLAGS = \
+AM_CPPFLAGS = \
 	$(LIBART_CFLAGS) \
 	-DLIBDIR=\"$(libdir)\" \
 	-DDATADIR=\"$(pkgdatadir)\"

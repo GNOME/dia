@@ -1,5 +1,11 @@
 2004-02-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/Makefile.am (AM_CPPFLAGS): Override AM_CPPFLAGS instead of
+	CPPFLAGS, as per automake warning.
+	* app/Makefile.am (AM_LDFLAGS): Override AM_LDFLAGS instead of
+	LDFLAGS, as per automake warning.
+	(run_dia.sh): More robust creation, and more easily moved.
+
 	* app/undo.c (group_objects_revert): Don't double-free the objects
 	list.  (#129221) Call object_add_updates on grouped objects.
 	(ungroup_objects_revert): Call object_add_updates on grouped objects.

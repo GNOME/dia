@@ -184,7 +184,7 @@ dia_embedd_LDADD = ../lib/libdia.la \
 #$(BONOBO_LIBS)
 
 if HAVE_GCC
-LDFLAGS = -export-dynamic
+AM_LDFLAGS = -export-dynamic
 endif
 
 EXTRA_DIST = \
@@ -229,22 +229,26 @@ EXTRA_DIST = \
 
 run_dia.sh: Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh
-	echo DIA_LIB_PATH=`pwd`/../objects//:`pwd`/../plug-ins// >> run_dia.sh
-	echo DIA_PLUGIN_PATH=`pwd`/../plug-ins >> run_dia.sh
-	echo DIA_SHAPE_PATH=`pwd`/../shapes >> run_dia.sh
-	echo DIA_INT_SHAPE_PATH=`pwd`/../objects >> run_dia.sh
-	echo DIA_SHEET_PATH=`pwd`/../sheets >> run_dia.sh
+	echo DIA_APP_PATH=\"`pwd`\" >>run_dia.sh
+	echo DIA_BASE_PATH=\"'$$DIA_APP_PATH'/..\" >>run_dia.sh
+	echo DIA_LIBS_PATH=\"'$$DiA_APP_PATH'/.libs\" >>run_dia.sh
+	echo >> run_dia.sh
+	echo DIA_LIB_PATH=\"'$$DIA_BASE_PATH'/objects//:'$$DIA_BASE_PATH'/plug-ins//\" >> run_dia.sh
+	echo DIA_PLUGIN_PATH=\"'$$DIA_BASE_PATH'/plug-ins\" >> run_dia.sh
+	echo DIA_SHAPE_PATH=\"'$$DIA_BASE_PATH'/shapes\" >> run_dia.sh
+	echo DIA_INT_SHAPE_PATH=\"'$$DIA_BASE_PATH'/objects\" >> run_dia.sh
+	echo DIA_SHEET_PATH=\"'$$DIA_BASE_PATH'/sheets\" >> run_dia.sh
 	echo >> run_dia.sh
 	echo "export DIA_LIB_PATH DIA_SHAPE_PATH DIA_INT_SHAPE_PATH DIA_SHEET_PATH DIA_PLUGIN_PATH" >> run_dia.sh
 	echo "if [ \"x\$$DEBUGGER\" != \"x\" ] ; then " >> run_dia.sh
-	echo "  if [ ! -f `pwd`/.libs/lt-dia -o `pwd`/.libs/lt-dia -ot `pwd`/.libs/dia ] ; then" >> run_dia.sh
+	echo "  if [ ! -f \"\$$DIA_LIBS_PATH/lt-dia\" -o \"\$$DIA_LIBS_PATH/lt-dia\" -ot \"\$$DIA_LIBS_PATH/dia\" ] ; then" >> run_dia.sh
 	echo "    echo \"libtool relink stage necessary before debugging is possible.\"" >> run_dia.sh
 	echo "    echo \"please run \$$0 once without a debugger.\"" >> run_dia.sh
 	echo "    exit 1" >> run_dia.sh
 	echo "  fi" >> run_dia.sh
-	echo "   \$$DEBUGGER \"`pwd`/.libs/lt-dia\" \"\$$*\"" >> run_dia.sh
+	echo "   \$$DEBUGGER \"\$$DIA_LIBS_PATH/lt-dia\" \"\$$*\"" >> run_dia.sh
 	echo "else" >> run_dia.sh
-	echo "   \"`pwd`/dia\" \"\$$*\"" >> run_dia.sh
+	echo "   \"\$$DIA_APP_PATH/dia\" \"\$$*\"" >> run_dia.sh
 	echo "fi" >> run_dia.sh
 	chmod a+x run_dia.sh
 
