@@ -249,6 +249,7 @@ component_draw(Component *cmp, Renderer *renderer)
       cmp->st_stereotype[0] != '\0') {
     p1 = cmp->text->position;
     p1.y -= cmp->text->height;
+    renderer->ops->set_font(renderer, cmp->text->font, cmp->text->height);
     renderer->ops->draw_string(renderer, cmp->st_stereotype, &p1, 
 			       ALIGN_LEFT, &color_black);
   }
