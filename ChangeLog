@@ -1,5 +1,8 @@
 2003-01-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/commands.c (view_aa_callback): AA warning only for Windows
+	-- I trust the Unix side well enough.
+
 	* app/render_libart.c (get_text_width): 
 	* lib/dialibartrenderer.h (struct _DiaLibartRenderer): Font and
 	font height can be taken from parent instance.
