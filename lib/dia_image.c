@@ -72,10 +72,19 @@ dia_image_load(gchar *filename)
 {
   DiaImage dia_img;
   GdkPixbuf *image;
+  GError *error = NULL;
 
-  image = gdk_pixbuf_new_from_file(filename, NULL);
-  if (image == NULL)
+  image = gdk_pixbuf_new_from_file(filename, &error);
+  if (image == NULL) {
+    /* dia_image_load() function is also (mis)used to check file
+     * existance. Don't warn if the file is simply not there but
+     * only if there is something else wrong while loading it.
+     */
+    if (g_file_test(filename, G_FILE_TEST_EXISTS))
+      g_warning (error->message);
+    g_error_free (error);
     return NULL;
+  }
 
   dia_img = g_new(struct _DiaImage, 1);
   dia_img->image = image;

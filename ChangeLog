@@ -1,3 +1,31 @@
+2004-10-30  Hans Breuer  <hans@breuer.org>
+
+	* doc/sheet.dtd doc/diagram.dtd : the namespace does *not* 
+	match the website anymore, i.e. sould remain unchanged. 
+	See below and lib/dia_xml.h for the reasoning
+
+	* lib/libdia.def : removed dia_color_selector_get_type
+
+	* lib/dia_image.c(dia_image_load) : check for pixbuf warnings
+	(like broken PNG) and g_warning if appropriate
+
+	* app/interface.c : #include "message.h"
+
+	* app/diaunitspinner.hc : replaced the superfluous #if-0-juggling,
+	used #error "Moved to lib/widgets.[hc]" instead (IMO it would be
+	better to just move diaunitspinner to lib/ instead of polluting
+	widgets.[hc] even more ;)
+	* app/makefile.msc lib/libdia.def : updated
+
+	* app/filedlg.c : patch from gtk@roboros.com, fixes #156224
+	* app/app_procs.c : patch from gtk@roboros.com, fixes #156088
+
+	* config.h.win32 : #define HAVE_CAIRO to let the Cairo plug-in
+	do something useful when compiled
+
+	* plug-ins/cairo/diacairo.c : added 'PNG with alpha' rendering.
+	Also some more #ifdefed backends usage.
+
 2004-10-10  Lars Clausen  <lars@raeder.dk>
 
 	* lib/widgets.c: Better labels for color selector menu.

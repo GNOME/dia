@@ -349,7 +349,7 @@ myXmlErrorReporting (void *ctx, const char* msg, ...)
 
   va_start(args, msg);
   string = g_strdup_vprintf (msg, args);
-  g_print (string ? string : "xml error (null)?");
+  g_print ("%s", string ? string : "xml error (null)?");
   va_end(args);
 
   g_free(string);

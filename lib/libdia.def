@@ -157,7 +157,7 @@ EXPORTS
  dia_arrow_selector_new
  dia_arrow_selector_set_arrow
  dia_color_selector_get_color
- dia_color_selector_get_type
+; dia_color_selector_get_type
  dia_color_selector_new
  dia_color_selector_set_color
  dia_config_filename
@@ -301,6 +301,11 @@ EXPORTS
 
  diagram_data_destroy
  new_diagram_data
+
+ dia_unit_spinner_get_type
+ dia_unit_spinner_get_value
+ dia_unit_spinner_new
+ dia_unit_spinner_set_value
 
 ; dia_svg_parse_style
 

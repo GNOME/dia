@@ -45,7 +45,6 @@ OBJECTS = \
 !ENDIF
 	diapsrenderer.obj \
 	dia-props.obj \
-	diaunitspinner.obj \
 	disp_callbacks.obj \
 	display.obj \
 	dynamic_refresh.obj \

@@ -18,13 +18,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#error "Moved to lib/widgets.[hc]"
 
 #ifndef DIAUNITSPINNER_H
 #define DIAUNITSPINNER_H
 
 #include <gtk/gtk.h>
 
-#if 0
 #define DIA_UNIT_SPINNER(obj) GTK_CHECK_CAST(obj, dia_unit_spinner_get_type(), DiaUnitSpinner)
 #define DIA_UNIT_SPINNER_CLASS(klass) GTK_CHECK_CLASS_CAST(klass, dia_unit_spinner_get_type(), DiaUnitSpinnerClass)
 #define DIA_IS_UNIT_SPINNER(obj) GTK_CHECK_TYPE(obj, dia_unit_spinner_get_type())
@@ -60,5 +60,4 @@ GtkWidget *dia_unit_spinner_new       (GtkAdjustment *adjustment,
 void       dia_unit_spinner_set_value (DiaUnitSpinner *self, gfloat val);
 gfloat     dia_unit_spinner_get_value (DiaUnitSpinner *self);
 
-#endif
 #endif

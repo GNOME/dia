@@ -29,6 +29,12 @@
 #include <glib.h>
 #include <errno.h>
 
+/*
+ * To me the following looks rather suspicious. Why do we need to compile
+ * the Cairo plug-in at all if we don't have Cairo. As a result we'll
+ * show it in the menus/plugin details and the user expects something
+ * although there isn't any functionality behind it. Urgh.  --hb 
+ */
 #ifdef HAVE_CAIRO
 #include <cairo.h>
 #endif
@@ -67,6 +73,7 @@ struct _DiaCairoRenderer
   DiagramData *dia;
 
   real scale;
+  gboolean with_alpha;
 };
 
 struct _DiaCairoRendererClass
@@ -101,10 +108,12 @@ begin_render(DiaRenderer *self)
 
   cairo_set_target_surface (renderer->cr, renderer->surface);
 
-  /*FIXME: I'd like this to clear the alpha background, but it doesn't work
-      * cairo_set_alpha (renderer->cr, 0.0);
-      */
   /* clear background */
+  if (renderer->with_alpha)
+    {
+      cairo_set_operator (renderer->cr, CAIRO_OPERATOR_SRC);
+      cairo_set_alpha (renderer->cr, 0.0);
+    }
   cairo_set_rgb_color (renderer->cr,
                        renderer->dia->bg_color.red, 
                        renderer->dia->bg_color.green, 
@@ -113,10 +122,12 @@ begin_render(DiaRenderer *self)
                    renderer->dia->extents.left, renderer->dia->extents.top,
                    renderer->dia->extents.right, renderer->dia->extents.bottom);
   cairo_fill (renderer->cr);
-  /*FIXME : how is this supposed to work ?
-   * cairo_set_operator (renderer->cr, DIA_CAIRO_OPERATOR_SRC);
-   * cairo_set_alpha (renderer->cr, 1.0);
-    */
+  if (renderer->with_alpha)
+    {
+      /* restore to default drawing */
+      cairo_set_operator (renderer->cr, CAIRO_OPERATOR_OVER);
+      cairo_set_alpha (renderer->cr, 1.0);
+    }
   DIAG_STATE(renderer->cr)
 }
 
@@ -895,6 +906,11 @@ typedef enum OutputKind
 {
   OUTPUT_PS = 1,
   OUTPUT_PNG,
+  OUTPUT_PNGA,
+  OUTPUT_PDF,
+  OUTPUT_WMF,
+  OUTPUT_EMF,
+  OUTPUT_CB
 } OutputKind;
 
 /* dia export funtion */
@@ -916,6 +932,7 @@ export_data(DiagramData *data, const gchar *filename,
 
   renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
   renderer->dia = data; /* FIXME: not sure if this a good idea */
+  renderer->scale = 1.0;
 
   switch (kind) {
 #ifdef CAIRO_HAS_PS_SURFACE
@@ -930,6 +947,9 @@ export_data(DiagramData *data, const gchar *filename,
     break;
 #endif  
 #ifdef CAIRO_HAS_PNG_SURFACE
+  case OUTPUT_PNGA :
+    renderer->with_alpha = TRUE;
+    /* fall through */
   case OUTPUT_PNG :
     /* quite arbitrary, but consistent with ../pixbuf ;-) */
     renderer->scale = 20.0 * data->paper.scaling; 
@@ -942,6 +962,31 @@ export_data(DiagramData *data, const gchar *filename,
                                                   (int)width, (int)height);
     /* although it is slow enough with out this prefer quality over speed */
     cairo_surface_set_filter (renderer->surface, CAIRO_FILTER_BEST);
+    break;
+#endif
+#ifdef CAIRO_HAS_PDF_SURFACE
+  case OUTPUT_PDF :
+    /* I just don't get how the scalin is supposed to work, dpi versus page size ? */
+    renderer->scale = 20.0 * data->paper.scaling;
+    DIAG_NOTE(g_message ("PDF Surface %dx%d\n", (int)width, (int)height));
+    renderer->surface = cairo_pdf_surface_create (file,
+                                                  data->paper.width / 2.54, data->paper.height / 2.54,
+                                                  150, 150);
+    break;
+#endif
+#ifdef CAIRO_HAS_WIN32_SURFACE
+  case OUTPUT_EMF :
+    renderer->scale = 72.0;
+    renderer->surface = cairo_win32_surface_create (filename, NULL, CAIRO_WIN32_TARGET_EMF, 0, 0);
+    break;
+  case OUTPUT_WMF :
+    renderer->scale = 72.0;
+    renderer->surface = cairo_win32_surface_create (filename, NULL, CAIRO_WIN32_TARGET_WMF, 0, 0);
+    break;
+  case OUTPUT_CB :
+    /* just testing, does not create a file but puts content in the clpboard */
+    renderer->scale = 72.0;
+    renderer->surface = cairo_win32_surface_create (filename, NULL, CAIRO_WIN32_TARGET_CLIPBOARD, 0, 0);
     break;
 #endif
   default :
@@ -958,8 +1003,8 @@ export_data(DiagramData *data, const gchar *filename,
             data->extents.left, data->extents.top, data->extents.right, data->extents.bottom));
 
   data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
-  fclose (file);
   g_object_unref(renderer);
+  fclose (file);
 }
 
 static const gchar *ps_extensions[] = { "ps", NULL };
@@ -968,7 +1013,16 @@ static DiaExportFilter ps_export_filter = {
     ps_extensions,
     export_data,
     (void*)OUTPUT_PS,
-    NULL
+    "ps-cairo" /* unique name */
+};
+
+static const gchar *pdf_extensions[] = { "pdf", NULL };
+static DiaExportFilter pdf_export_filter = {
+    N_("Cairo Portable Document Format"),
+    pdf_extensions,
+    export_data,
+    (void*)OUTPUT_PDF,
+    "pdf-cairo"
 };
 
 static const gchar *png_extensions[] = { "png", NULL };
@@ -977,20 +1031,59 @@ static DiaExportFilter png_export_filter = {
     png_extensions,
     export_data,
     (void*)OUTPUT_PNG,
-    NULL
+    "png-cairo"
 };
 
-#endif
+static DiaExportFilter pnga_export_filter = {
+    N_("Cairo PNG (with alpha)"),
+    png_extensions,
+    export_data,
+    (void*)OUTPUT_PNGA,
+    "png-cairo"
+};
+
+static const gchar *emf_extensions[] = { "wmf", NULL };
+static DiaExportFilter emf_export_filter = {
+    N_("Cairo WMF"),
+    emf_extensions,
+    export_data,
+    (void*)OUTPUT_EMF,
+    "emf-cairo"
+};
+
+static const gchar *wmf_extensions[] = { "wmf", NULL };
+static DiaExportFilter wmf_export_filter = {
+    N_("Cairo old WMF"),
+    wmf_extensions,
+    export_data,
+    (void*)OUTPUT_WMF,
+    "wmf-cairo"
+};
+
+static const gchar *cb_extensions[] = { "cb", NULL };
+static DiaExportFilter cb_export_filter = {
+    N_("Cairo Clipboard"),
+    cb_extensions,
+    export_data,
+    (void*)OUTPUT_CB,
+    "clipboard-cairo"
+};
+
+#endif /* HAVE_CAIRO */
 
 static gboolean
 _plugin_can_unload (PluginInfo *info)
 {
+    /* XXX: to make this work something like filter_unregister() would 
+     * be required, but is it worth the trouble ?
+     */
     return FALSE;
 }
 
-static void
+static gboolean
 _plugin_unload (PluginInfo *info)
 {
+    return TRUE;
 }
 
 /* --- dia plug-in interface --- */
@@ -1006,13 +1099,21 @@ dia_plugin_init(PluginInfo *info)
                             _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;
 
-#if HAVE_CAIRO
 #ifdef CAIRO_HAS_PS_SURFACE
   filter_register_export(&ps_export_filter);
 #endif
+#ifdef CAIRO_HAS_PDF_SURFACE
+  filter_register_export(&pdf_export_filter);
+#endif
 #ifdef CAIRO_HAS_PNG_SURFACE
   filter_register_export(&png_export_filter);
+  filter_register_export(&pnga_export_filter);
 #endif
+#ifdef CAIRO_HAS_WIN32_SURFACE
+  filter_register_export(&emf_export_filter);
+  filter_register_export(&wmf_export_filter);
+  filter_register_export(&cb_export_filter);
 #endif
+
   return DIA_PLUGIN_INIT_OK;
 }

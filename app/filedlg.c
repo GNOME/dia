@@ -51,8 +51,8 @@ file_dialog_hide (GtkWidget *filesel)
   gtk_widget_hide (filesel);
   if ((user_data = gtk_object_get_user_data(GTK_OBJECT(filesel))) != NULL) {
     diagram_remove_related_dialog(user_data, filesel);
+    g_object_unref(G_OBJECT(user_data)); 
   }
-  g_object_unref(G_OBJECT(user_data)); 
   gtk_object_set_user_data(GTK_OBJECT(filesel), NULL);
 
 #if 0

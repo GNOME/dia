@@ -38,6 +38,7 @@
 #include "diaarrowchooser.h"
 #include "dialinechooser.h"
 #include "widgets.h"
+#include "message.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "dia-app-icons.h"
