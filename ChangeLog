@@ -1,5 +1,9 @@
 2003-02-03  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/app_procs.c (debug_break): Added some code to avoid
+	over-eager optimizations removing the call.  Surely there's a
+	nicer way, but I'm not sure how.
+
 	* app/diapsft2renderer.c (draw_bezier_outline): Removed paps relic
 	that set text to black.
 

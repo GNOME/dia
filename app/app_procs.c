@@ -188,10 +188,12 @@ do_convert(const char *infname,
 }
 
 void debug_break(void); /* shut gcc up */
+int debug_break_dont_optimize = 1;
 void
 debug_break(void)
 {
-  /* Break here. All symbols are loaded. */
+  if (debug_break_dont_optimize > 0) 
+    debug_break_dont_optimize -= 1;
 }
 
 gboolean
