@@ -109,7 +109,7 @@ static GnomeUIInfo viewmenu[] = {
   GNOMEUIINFO_ITEM_NONE(N_("Zoom _In"), N_("Zoom in 50%"), view_zoom_in_callback),
   GNOMEUIINFO_ITEM_NONE(N_("Zoom _Out"), N_("Zoom out 50%"), view_zoom_out_callback),
   GNOMEUIINFO_SUBTREE(N_("_Zoom"), zoommenu),
-  GNOMEUIINFO_ITEM_NONE(N_("Diagram Propeties..."), NULL, view_diagram_properties_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("Diagram Properties..."), NULL, view_diagram_properties_callback),
 #ifdef HAVE_LIBART  
   GNOMEUIINFO_TOGGLEITEM(N_("_AntiAliased"), NULL,
 			 view_aa_callback, NULL),

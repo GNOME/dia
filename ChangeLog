@@ -1,3 +1,8 @@
+2000-09-07  Karsten Weiss  <knweiss@gmx.de>
+
+	* dia.desktop: Added German translation
+	* app/menus.c: "Diagram Propeties..." -> "Diagram Properties..."
+
 2000-08-29  Manuel de Vega Barreiro <barreiro@arrakis.es>
 
         * configure.in (ALL_LINGUAS): added "es"
