@@ -1,3 +1,10 @@
+2002-01-25  James Henstridge  <james@daa.com.au>
+
+	* configure.in: updates to compile with gtk 1.3.x.  Also stripped
+	out much of the gnome checks (left in AM_CONDITIONAL statements
+	til the rest of the checks get stripped out).
+	* (various Makefiles): updates.
+
 2002-01-24  Hans Breuer  <hans@breuer.org>
 
 	* app/interface.c : switch off GTK's double buffering

@@ -36,7 +36,7 @@ $(SHEETS): build-sheets.stamp
 
 build-sheets.stamp: $(sheet_in_files)
 	for sheet in $(SHEETS); do \
-	  $(top_builddir)/xml-i18n-merge -x -u $(top_srcdir)/po $(srcdir)/$$sheet.in $$sheet; \
+	  $(top_builddir)/intltool-merge -x -u $(top_srcdir)/po $(srcdir)/$$sheet.in $$sheet; \
 	done
 	touch build-sheets.stamp
 

@@ -62,12 +62,10 @@ echo "Running gettextize...  Ignore non-fatal messages."
 #echo "no" | gettextize --copy --force
 # finally, no, we don't try to force. Otherwise gettextize spends its time 
 # telling its life in po/ChangeLog.
-gettextize --copy
+glib-gettextize --copy
 
 echo "Running xml-i18n-toolize"
-xml-i18n-toolize --copy --force --automake
-[ -f xml-i18n-update.in.kg ] && cp xml-i18n-update.in.kg xml-i18n-update.in
-[ -f xml-i18n-merge.in.kg ] && cp xml-i18n-merge.in.kg xml-i18n-merge.in
+intltoolize --copy --force
 
 echo "Running libtoolize"
 libtoolize --copy --force
