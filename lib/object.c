@@ -21,7 +21,6 @@
 #include <gtk/gtk.h>
 
 #include "object.h"
-#include "files.h"
 #include "message.h"
 
 #include "dummy_dep.h"

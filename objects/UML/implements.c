@@ -23,7 +23,6 @@
 #include "object.h"
 #include "connection.h"
 #include "render.h"
-#include "files.h"
 #include "sheet.h"
 #include "handle.h"
 

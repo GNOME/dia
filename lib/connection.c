@@ -19,7 +19,6 @@
 #include <assert.h>
 
 #include "connection.h"
-#include "files.h"
 #include "message.h"
 
 void

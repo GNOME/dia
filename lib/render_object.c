@@ -17,7 +17,6 @@
  */
 
 #include "render_object.h"
-#include "files.h"
 
 static real rendobj_distance_from(RenderObject *rend_obj, Point *point);
 static void rendobj_select(RenderObject *rend_obj, Point *clicked_point,

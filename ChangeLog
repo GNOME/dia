@@ -1,5 +1,45 @@
 1998-12-05  Alexander Larsson  <alla@lysator.liu.se>
 
+	* TODO:
+	Removed the xml load/save line.
+
+	* lib/files.[ch]:
+	Removed files.
+	
+	* lib/Makefile.am:
+	Removed building of files.c
+
+	* app/load_save.c:
+	* lib/connection.c:
+	* lib/element.c:
+	* lib/object.c:
+	* lib/orth_conn.c:
+	* lib/render_object.c:
+	* objects/UML/actor.c:
+	* objects/UML/association.c:
+	* objects/UML/class.c:
+	* objects/UML/constraint.c:
+	* objects/UML/dependency.c:
+	* objects/UML/generalization.c:
+	* objects/UML/implements.c:
+	* objects/UML/large_package.c:
+	* objects/UML/note.c:
+	* objects/UML/realizes.c:
+	* objects/UML/small_package.c:
+	* objects/UML/uml.c:
+	* objects/UML/usecase.c:
+	* objects/network/bus.c:
+	* objects/standard/arc.c:
+	* objects/standard/box.c:
+	* objects/standard/ellipse.c:
+	* objects/standard/line.c:
+	* objects/standard/textobj.c:
+	* objects/standard/zigzagline.c:
+	Removed all includes of files.h
+
+	
+1998-12-05  Alexander Larsson  <alla@lysator.liu.se>
+
 	* dialog.dtd:
 	Made the val property of string be implied.
 	This makes it possible to save strings that

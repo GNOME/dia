@@ -24,7 +24,6 @@
 #include "connectionpoint.h"
 #include "render.h"
 #include "attributes.h"
-#include "files.h"
 #include "widgets.h"
 
 #include "pixmaps/line.xpm"

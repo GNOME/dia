@@ -25,7 +25,6 @@
 #include "font.h"
 #include "text.h"
 #include "attributes.h"
-#include "files.h"
 #include "widgets.h"
 
 #include "pixmaps/text.xpm"

@@ -27,7 +27,6 @@
 #include <parser.h>
 
 #include "load_save.h"
-#include "files.h"
 #include "dia_xml.h"
 #include "group.h"
 #include "message.h"

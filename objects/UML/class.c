@@ -22,7 +22,6 @@
 
 #include "render.h"
 #include "attributes.h"
-#include "files.h"
 #include "sheet.h"
 
 #include "class.h"

@@ -44,8 +44,6 @@ UML:
           (Mostly stereotypes)
 
 Big stuff:
- * load/save in xml-format. Needs much support so objects can easily
-   save their variables and so the format is easy for other programs to generate.
  * some kind of 'plug-in api' so that libraries like uml can add new
    functions to the menus (like: load UMX). This means some parts of
    the Diagram struct has to move to lib/blahblah.h so that object-libraries

@@ -6,8 +6,6 @@ libdia_a_SOURCES =  \
 		geometry.c \
 		color.h \
 		color.c \
-		files.c \
-		files.h \
 		dia_xml.c \
 		dia_xml.h \
 		attributes.h \
