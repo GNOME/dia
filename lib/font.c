@@ -286,7 +286,6 @@ dia_font_new_from_style(DiaFontStyle style, real height)
   
   retval = DIA_FONT(g_type_create_instance(dia_font_get_type()));
   retval->pfd = pfd;
-  dia_font_ref(retval);
   return retval;
 }
 
@@ -305,6 +304,7 @@ dia_font_finalize(GObject* object)
     font = DIA_FONT(object);
     
     if (font->pfd) pango_font_description_free(font->pfd);
+    G_OBJECT_CLASS(parent_class)->finalize(object);
 }
 
 DiaFont* dia_font_ref(DiaFont* font)

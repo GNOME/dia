@@ -26,7 +26,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#ifndef _MSC_VER
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
 

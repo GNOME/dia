@@ -325,8 +325,12 @@ _obj_store (gpointer key,
   g_assert (0 == strcmp (obj->type->name, name));
 
   p = strstr (name, " - ");
-  if (p)
-    layer_name = g_strndup (name, p - name);
+  if (p) {
+    if (p > name)
+      layer_name = g_strndup (name, p - name);
+    else
+      layer_name = g_strdup("NULL");
+  }
   else
     layer_name = g_strdup ("default");
 

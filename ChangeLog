@@ -1,3 +1,33 @@
+2004-01-11  Hans Breuer  <hans@breuer.org>
+
+	* lib/properties.h :
+	* objects/custom/custom_object.c : more properties optional
+	to be backward compatible for older diagrams not having them 
+	set. (Try to load samples/all_objects.dia)
+	
+	[less memory leaks thanks valgrind ;-]
+	
+	* app/recent_files.c (recent_file_history_write) : 
+	g_free(history_filename);
+	(recent_file_menu_item) : use g_path_get_basename() 
+	which already strdups, free result of g_strescape()
+	
+	* app/filedlg.c (create_export_menu) : return of
+	filter_get_export_filter_label() must be g_free()'d
+	(create_open_menu) : same for import
+	
+	* app/export_png.c (export_png_ok) : destroy info ptr
+	with png_destroy_write_struct()
+	
+	* app/app_procs.c (app_init) : g_free(export_format_string);
+	
+	* lib/font.c (dia_font_finalize) : finalize parent_class, too
+	(dia_font_new_from_style) : stop leaking almost all DiaFont by not
+	refing it a second time, g_type_create_from_instance() is enough
+	
+	* lib/object_defaults.c (_obj_store) : don't mess with names
+	len 0 (should avoid 'Invalid read of size 1, but doesn't ;)
+	
 2004-01-11  Steffen Macke <sdteffen@web.de>
 
 	* app/diapsftrenderer.c: including ftoutln.h

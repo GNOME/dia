@@ -82,13 +82,15 @@ static void
 recent_file_menuitem_create(GtkWidget *menu, 
                             RecentFileData *filedata, guint pos)
 {
-	gchar *basename, *label;
+	gchar *basename, *escaped, *label;
 	GtkWidget *item;
 	GtkAccelGroup *accel_group;
 
-	basename = g_strdup(g_basename(filedata->filename));
+	basename = g_path_get_basename(filedata->filename);
 	basename = g_strdelimit(basename, "_", '\\');
-	basename = g_strescape(basename, NULL);
+	escaped  = g_strescape(basename, NULL);
+	g_free(basename);
+	basename = escaped;
 	basename = g_strdelimit(basename, "\\", '_');
 
 	label = g_strdup_printf("%d. %s", pos, basename);
@@ -299,6 +301,7 @@ recent_file_history_write() {
 	history_filename = dia_config_filename("history");
 	if((fp = fopen(history_filename,"w")) == NULL) {
 		message_error(N_("Can't open history file for writing."));
+		g_free(history_filename);
 		return;
 	}
 	recent_list_pointer = g_list_first(recent_files);
@@ -314,6 +317,7 @@ recent_file_history_write() {
 	}
 	fclose(fp);
 	g_list_free(recent_files);
+	g_free(history_filename);
 }
 
 /* remove a broken file from the history and update menu accordingly

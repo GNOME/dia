@@ -108,6 +108,7 @@ create_open_menu(void)
   GtkWidget *menu;
   GtkWidget *item;
   GList *tmp;
+  
 
   menu = gtk_menu_new();
   item = gtk_menu_item_new_with_label(_("By extension"));
@@ -120,11 +121,13 @@ create_open_menu(void)
   
   for (tmp = filter_get_import_filters(); tmp != NULL; tmp = tmp->next) {
     DiaImportFilter *ifilter = tmp->data;
+    gchar *filter_label;
 
     if (!ifilter)
       continue;
-    item = gtk_menu_item_new_with_label(
-		filter_get_import_filter_label(ifilter));
+    filter_label = filter_get_import_filter_label(ifilter);
+    item = gtk_menu_item_new_with_label(filter_label);
+    g_free(filter_label);
     gtk_object_set_user_data(GTK_OBJECT(item), ifilter);
     g_signal_connect(GTK_OBJECT(item), "activate",
                        GTK_SIGNAL_FUNC(open_set_extension), NULL);
@@ -386,10 +389,13 @@ create_export_menu(void)
   
   for (tmp = filter_get_export_filters(); tmp != NULL; tmp = tmp->next) {
     DiaExportFilter *ef = tmp->data;
+    gchar *filter_label;
 
     if (!ef)
       continue;
-    item = gtk_menu_item_new_with_label(filter_get_export_filter_label(ef));
+    filter_label = filter_get_export_filter_label(ef);
+    item = gtk_menu_item_new_with_label(filter_label);
+    g_free(filter_label);
     gtk_object_set_user_data(GTK_OBJECT(item), ef);
     g_signal_connect(GTK_OBJECT(item), "activate",
 		     G_CALLBACK(export_set_extension), NULL);

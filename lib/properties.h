@@ -476,6 +476,9 @@ extern PropEnumData prop_std_text_align_data[];
 #define PROP_STD_LINE_WIDTH \
   { "line_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("Line width"), NULL, &prop_std_line_width_data }
+#define PROP_STD_LINE_WIDTH_OPTIONAL \
+  { "line_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
+    N_("Line width"), NULL, &prop_std_line_width_data }
 #define PROP_STD_LINE_COLOUR \
   { "line_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("Line colour"), NULL, NULL }
@@ -484,6 +487,9 @@ extern PropEnumData prop_std_text_align_data[];
     N_("Line colour"), NULL, NULL }
 #define PROP_STD_LINE_STYLE \
   { "line_style", PROP_TYPE_LINESTYLE, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
+    N_("Line style"), NULL, NULL }
+#define PROP_STD_LINE_STYLE_OPTIONAL \
+  { "line_style", PROP_TYPE_LINESTYLE, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL, \
     N_("Line style"), NULL, NULL }
 
 #define PROP_STD_FILL_COLOUR \

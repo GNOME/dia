@@ -424,6 +424,11 @@ app_init (int argc, char **argv)
 #endif
   }
 
+#ifdef HAVE_POPT
+  /* done with option parsing, don't leak */
+  g_free(export_format_string);
+#endif
+  
   if (version) {
 #if (defined __TIME__) && (defined __DATE__)
     /* TRANSLATOR: 2nd and 3rd %s are time and date respectively. */
