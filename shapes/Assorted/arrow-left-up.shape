@@ -53,7 +53,7 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>
-    <svg:polygon style="fill: #ffffff" points="6,2 7,2 5,0 3,2 4,2 4,4 2,4 2,3 0,5 2,7 2,6 6,6 "/>
-    <svg:polygon style="stroke-width: 0.1; stroke: #000000" points="6,2 7,2 5,0 3,2 4,2 4,4 2,4 2,3 0,5 2,7 2,6 6,6 "/>
+    <svg:polygon style="fill: background" points="6,2 7,2 5,0 3,2 4,2 4,4 2,4 2,3 0,5 2,7 2,6 6,6 "/>
+    <svg:polygon style="stroke-width: 0.1; stroke: foreground" points="6,2 7,2 5,0 3,2 4,2 4,4 2,4 2,3 0,5 2,7 2,6 6,6 "/>
   </svg:svg>
 </shape>

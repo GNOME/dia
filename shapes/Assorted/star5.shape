@@ -46,8 +46,8 @@
   </connections>
   <aspectratio type="free"/>
   <svg:svg>
-    <svg:polygon style="fill: #ffffff" points="0,4.5 5,4.5 7,0 9,4.5 14,4.5 10,7.5 12,12.5 7,9 2,12.5 4,7.5 "/>
-    <svg:polygon style="stroke-width: 0.1; stroke: #000000" points="0,4.5 5,4.5 7,0 9,4.5 14,4.5 10,7.5 12,12.5 7,9 2,12.5 4,7.5 "/>
+    <svg:polygon style="fill: background" points="0,4.5 5,4.5 7,0 9,4.5 14,4.5 10,7.5 12,12.5 7,9 2,12.5 4,7.5 "/>
+    <svg:polygon style="stroke-width: 0.1; stroke: foreground" points="0,4.5 5,4.5 7,0 9,4.5 14,4.5 10,7.5 12,12.5 7,9 2,12.5 4,7.5 "/>
   </svg:svg>
   <!-- Alan Horkan was here 2002 -->
 </shape>

@@ -74,34 +74,34 @@ xmlns:svg="http://www.w3.org/2000/svg">
   <aspectratio type="fixed" />
 
   <svg:svg>
-    <svg:ellipse style="fill: #ffffff" cx="1.5" cy="1.5" rx="1"
+    <svg:ellipse style="fill: foreground" cx="1.5" cy="1.5" rx="1"
     ry="1" />
 
-    <svg:ellipse style="stroke-width: 1; stroke: #000000" cx="1.5"
+    <svg:ellipse style="stroke-width: 1; stroke: background" cx="1.5"
     cy="1.5" rx="1" ry="1" />
 
-    <svg:line style="stroke-width: 1; stroke: #000000" x1="1.5"
+    <svg:line style="stroke-width: 1; stroke: background" x1="1.5"
     y1="0.5" x2="1.5" y2="0" />
 
-    <svg:line style="stroke-width: 1; stroke: #000000" x1="0.792893"
+    <svg:line style="stroke-width: 1; stroke: background" x1="0.792893"
     y1="0.792893" x2="0.43934" y2="0.43934" />
 
-    <svg:line style="stroke-width: 1; stroke: #000000" x1="0" y1="1.5"
+    <svg:line style="stroke-width: 1; stroke: background" x1="0" y1="1.5"
     x2="0.5" y2="1.5" />
 
-    <svg:line style="stroke-width: 1; stroke: #000000" x1="0.792893"
+    <svg:line style="stroke-width: 1; stroke: background" x1="0.792893"
     y1="2.20711" x2="0.43934" y2="2.56066" />
 
-    <svg:line style="stroke-width: 1; stroke: #000000" x1="1.5"
+    <svg:line style="stroke-width: 1; stroke: background" x1="1.5"
     y1="2.5" x2="1.5" y2="3" />
 
-    <svg:line style="stroke-width: 1; stroke: #000000" x1="2.20711"
+    <svg:line style="stroke-width: 1; stroke: background" x1="2.20711"
     y1="2.20711" x2="2.56066" y2="2.56066" />
 
-    <svg:line style="stroke-width: 1; stroke: #000000" x1="2.5"
+    <svg:line style="stroke-width: 1; stroke: background" x1="2.5"
     y1="1.5" x2="3" y2="1.5" />
 
-    <svg:line style="stroke-width: 1; stroke: #000000" x1="2.20711"
+    <svg:line style="stroke-width: 1; stroke: background" x1="2.20711"
     y1="0.792893" x2="2.56066" y2="0.43934" />
   </svg:svg>
 </shape>

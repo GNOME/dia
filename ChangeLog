@@ -1,5 +1,14 @@
 2005-03-05  Lars Clausen  <lars@raeder.dk>
 
+	* shapes/Assorted/arrow-left-up.shape: 
+	* shapes/Assorted/heptagon.shape: 
+	* shapes/Assorted/star5.shape: 
+	* shapes/Assorted/trapezoid.shape: 
+	* shapes/Assorted/triangle-rightangle.shape: Fixed bad use of
+	defaults, see bug #169143.
+
+	* sheets/Assorted.sheet.in: Fixed typo patch applied, bug #169114.
+
 	* configure.in: 
 	* doc/en/Makefile.am: Finally figured out the right way to ask for
 	the manpage xslt.  Closes bug #144539.

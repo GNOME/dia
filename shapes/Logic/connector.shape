@@ -10,7 +10,7 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>
-    <svg:ellipse style="fill: #020202" cx="9.25" cy="4.25" rx="0.25" ry="0.25"/>
-    <svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="9.25" cy="4.25" rx="0.25" ry="0.25"/>
+    <svg:ellipse style="fill: foreground" cx="9.25" cy="4.25" rx="0.25" ry="0.25"/>
+    <svg:ellipse style="stroke-width: 0.1; stroke: foreground" cx="9.25" cy="4.25" rx="0.25" ry="0.25"/>
   </svg:svg>
 </shape>

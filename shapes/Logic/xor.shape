@@ -10,8 +10,8 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>
-    <svg:path style="fill: #ffffff" d="M 5 3 C 7,4 7,6 7,8 C 6,7 4,7 3,8 C 3,6 3,4 5,3z"/>
-    <svg:path style="stroke-width: 0.1; stroke: #000000" d="M 5 3 C 7,4 7,6 7,8 C 6,7 4,7 3,8 C 3,6 3,4 5,3"/>
-    <svg:path style="stroke-width: 1.0; stroke: #000000" d="M 3 9 C 4,8 6,8 7,9"/>
+    <svg:path style="fill: background" d="M 5 3 C 7,4 7,6 7,8 C 6,7 4,7 3,8 C 3,6 3,4 5,3z"/>
+    <svg:path style="stroke-width: 0.1; stroke: foreground" d="M 5 3 C 7,4 7,6 7,8 C 6,7 4,7 3,8 C 3,6 3,4 5,3"/>
+    <svg:path style="stroke-width: 1.0; stroke: foreground" d="M 3 9 C 4,8 6,8 7,9"/>
   </svg:svg>
 </shape>

@@ -10,9 +10,9 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>
-    <svg:path style="fill: #ffffff" d="M 6.5 3 C 8.5,3 8.5,6 8.5,8 C 7.5,8 5.5,8 4.5,8 C 4.5,6 4.5,3 6.5,3z"/>
-    <svg:path style="stroke-width: 0.1; stroke: #000000" d="M 6.5 3 C 8.5,3 8.5,6 8.5,8 C 7.5,8 5.5,8 4.5,8 C 4.5,6 4.5,3 6.5,3"/>
-    <svg:ellipse style="fill: #ffffff" cx="6.5" cy="2.75" rx="0.25" ry="0.25"/>
-    <svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="6.5" cy="2.75" rx="0.25" ry="0.25"/>
+    <svg:path style="fill: background" d="M 6.5 3 C 8.5,3 8.5,6 8.5,8 C 7.5,8 5.5,8 4.5,8 C 4.5,6 4.5,3 6.5,3z"/>
+    <svg:path style="stroke-width: 0.1; stroke: foreground" d="M 6.5 3 C 8.5,3 8.5,6 8.5,8 C 7.5,8 5.5,8 4.5,8 C 4.5,6 4.5,3 6.5,3"/>
+    <svg:ellipse style="fill: background" cx="6.5" cy="2.75" rx="0.25" ry="0.25"/>
+    <svg:ellipse style="stroke-width: 0.1; stroke: foreground" cx="6.5" cy="2.75" rx="0.25" ry="0.25"/>
   </svg:svg>
 </shape>
