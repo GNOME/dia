@@ -406,7 +406,7 @@ set_font(RendererGdk *renderer, DiaFont *font, real height)
     ddisplay_transform_length(renderer->ddisp, height);
 
 #ifdef HAVE_FREETYPE
-  renderer->freetype_font = font_get_freetypefont(font, renderer->font_height);
+  renderer->freetype_font = font_get_freetypefont(font, height);
 #else
   renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
 #endif
