@@ -1,3 +1,8 @@
+2000-09-16  Asbjorn Pettersen  <asbjornP@dualog.no>
+
+	* app/filedlg.c: add include <sys/types.h> to
+	remove warning. (OS/2)
+
 2000-09-13  Cyrille Chepelov <chepelov@calixo.net>
 
 	* objects/chronogram/chronoline_event.c (reparse_clevent):
