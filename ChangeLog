@@ -1,3 +1,13 @@
+2004-04-01  Lars Clausen  <lars@raeder.dk>
+
+	* app/preferences.c:   All preferences are now
+	handled by persistence, old prefs load and store code is gone.
+
+	* lib/persistence.[ch]: Added string and color persistents.  This is
+	a different string from the one used in the printer dialog, that
+	one has a GtkEntry attached -- may want to make that one an
+	encapsulation of this one or something.
+
 2004-03-31  Lars Clausen  <lars@raeder.dk>
 
 	* app/app_procs.c: Do persistence before prefs.  Prefs are to be

@@ -40,9 +40,10 @@
 
 /* Hash table from window role (string) to PersistentWindow structure.
  */
-static GHashTable *persistent_windows, *persistent_strings, *persistent_lists;
+static GHashTable *persistent_windows, *persistent_entrystrings, *persistent_lists;
 static GHashTable *persistent_integers, *persistent_reals;
-static GHashTable *persistent_booleans, *persistent_enums;
+static GHashTable *persistent_booleans, *persistent_strings;
+static GHashTable *persistent_colors;
 
 /* *********************** LOADING FUNCTIONS *********************** */
 
@@ -75,7 +76,7 @@ persistence_load_window(gchar *role, xmlNodePtr node)
 
 /** Load a persistent string into the strings hashtable */
 static void
-persistence_load_string(gchar *role, xmlNodePtr node)
+persistence_load_entrystring(gchar *role, xmlNodePtr node)
 {
   AttributeNode attr;
   gchar *string = NULL;
@@ -88,7 +89,7 @@ persistence_load_string(gchar *role, xmlNodePtr node)
     return;
 
   if (string != NULL)
-    g_hash_table_insert(persistent_strings, role, string);
+    g_hash_table_insert(persistent_entrystrings, role, string);
 }
 
 static void
@@ -182,6 +183,45 @@ persistence_load_boolean(gchar *role, xmlNodePtr node)
     printf("Boolean %s registered before loading persistence!\n", role);
 }
 
+static void
+persistence_load_string(gchar *role, xmlNodePtr node)
+{
+  AttributeNode attr;
+  gchar *stringval;
+
+  /* Find the contents? */
+  attr = composite_find_attribute(node, "stringvalue");
+  if (attr != NULL) {
+    stringval = data_string(attribute_first_data(attr));
+  } else 
+    return;
+
+  if (g_hash_table_lookup(persistent_strings, role) == NULL) 
+    g_hash_table_insert(persistent_strings, role, stringval);
+  else 
+    printf("String %s registered before loading persistence!\n", role);
+}
+
+static void
+persistence_load_color(gchar *role, xmlNodePtr node)
+{
+  AttributeNode attr;
+  Color *colorval;
+
+  /* Find the contents? */
+  attr = composite_find_attribute(node, "colorvalue");
+  if (attr != NULL) {
+    colorval = g_new(Color, 1);
+    data_color(attribute_first_data(attr), colorval);
+  } else 
+    return;
+
+  if (g_hash_table_lookup(persistent_colors, role) == NULL) 
+    g_hash_table_insert(persistent_colors, role, colorval);
+  else 
+    printf("Color %s registered before loading persistence!\n", role);
+}
+
 static xmlNodePtr
 find_node_named (xmlNodePtr p, const char *name)
 {
@@ -229,17 +269,19 @@ static void
 persistence_init()
 {
   persistence_set_type_handler("window", persistence_load_window);
-  persistence_set_type_handler("entrystring", persistence_load_string);
+  persistence_set_type_handler("entrystring", persistence_load_entrystring);
   persistence_set_type_handler("list", persistence_load_list);
   persistence_set_type_handler("integer", persistence_load_integer);
   persistence_set_type_handler("real", persistence_load_real);
   persistence_set_type_handler("boolean", persistence_load_boolean);
+  persistence_set_type_handler("string", persistence_load_string);
+  persistence_set_type_handler("color", persistence_load_color);
 
   if (persistent_windows == NULL) {
     persistent_windows = g_hash_table_new(g_str_hash, g_str_equal);
   }
-  if (persistent_strings == NULL) {
-    persistent_strings = g_hash_table_new(g_str_hash, g_str_equal);
+  if (persistent_entrystrings == NULL) {
+    persistent_entrystrings = g_hash_table_new(g_str_hash, g_str_equal);
   }
   if (persistent_lists == NULL) {
     persistent_lists = g_hash_table_new(g_str_hash, g_str_equal);
@@ -252,6 +294,12 @@ persistence_init()
   }
   if (persistent_booleans == NULL) {
     persistent_booleans = g_hash_table_new(g_str_hash, g_str_equal);
+  }
+  if (persistent_strings == NULL) {
+    persistent_strings = g_hash_table_new(g_str_hash, g_str_equal);
+  }
+  if (persistent_colors == NULL) {
+    persistent_colors = g_hash_table_new(g_str_hash, g_str_equal);
   }
 }
 
@@ -306,18 +354,6 @@ persistence_save_window(gpointer key, gpointer value, gpointer data)
 
 /* Save the contents of a string  */
 static void
-persistence_save_string(gpointer key, gpointer value, gpointer data)
-{  
-  xmlNodePtr tree = (xmlNodePtr)data;
-  ObjectNode stringnode;
-
-  stringnode = (ObjectNode)xmlNewChild(tree, NULL, "entrystring", NULL);
-
-  xmlSetProp(stringnode, "role", (char *)key);
-  data_add_string(new_attribute(stringnode, "stringvalue"), (char *)value);
-}
-
-static void
 persistence_save_list(gpointer key, gpointer value, gpointer data)
 {  
   xmlNodePtr tree = (xmlNodePtr)data;
@@ -339,6 +375,18 @@ persistence_save_list(gpointer key, gpointer value, gpointer data)
   data_add_string(new_attribute(listnode, "listvalue"), buf->str);
   /* Does data_add_string keep the string?  If so, use TRUE */
   g_string_free(buf, FALSE);
+}
+
+static void
+persistence_save_entrystring(gpointer key, gpointer value, gpointer data)
+{  
+  xmlNodePtr tree = (xmlNodePtr)data;
+  ObjectNode stringnode;
+
+  stringnode = (ObjectNode)xmlNewChild(tree, NULL, "entrystring", NULL);
+
+  xmlSetProp(stringnode, "role", (char *)key);
+  data_add_string(new_attribute(stringnode, "stringvalue"), (char *)value);
 }
 
 static void
@@ -377,6 +425,30 @@ persistence_save_boolean(gpointer key, gpointer value, gpointer data)
   data_add_boolean(new_attribute(booleannode, "booleanvalue"), *(gboolean *)value);
 }
 
+static void
+persistence_save_string(gpointer key, gpointer value, gpointer data)
+{  
+  xmlNodePtr tree = (xmlNodePtr)data;
+  ObjectNode stringnode;
+
+  stringnode = (ObjectNode)xmlNewChild(tree, NULL, "string", NULL);
+
+  xmlSetProp(stringnode, "role", (char *)key);
+  data_add_string(new_attribute(stringnode, "stringvalue"), (gchar *)value);
+}
+
+static void
+persistence_save_color(gpointer key, gpointer value, gpointer data)
+{  
+  xmlNodePtr tree = (xmlNodePtr)data;
+  ObjectNode colornode;
+
+  colornode = (ObjectNode)xmlNewChild(tree, NULL, "color", NULL);
+
+  xmlSetProp(colornode, "role", (char *)key);
+  data_add_color(new_attribute(colornode, "colorvalue"), (Color *)value);
+}
+
 
 void
 persistence_save_type(xmlDocPtr doc, GHashTable *entries, GHFunc func)
@@ -403,18 +475,14 @@ persistence_save()
 			"dia");
   xmlSetNs(doc->xmlRootNode, name_space);
 
-  printf("Saving windows\n");
   persistence_save_type(doc, persistent_windows, persistence_save_window);
-  printf("Saving strings\n");
-  persistence_save_type(doc, persistent_strings, persistence_save_string);
-  printf("Saving lists\n");
+  persistence_save_type(doc, persistent_entrystrings, persistence_save_string);
   persistence_save_type(doc, persistent_lists, persistence_save_list);
-  printf("Saving integers\n");
   persistence_save_type(doc, persistent_integers, persistence_save_integer);
-  printf("Saving reals\n");
   persistence_save_type(doc, persistent_reals, persistence_save_real);
-  printf("Saving booleans\n");
   persistence_save_type(doc, persistent_booleans, persistence_save_boolean);
+  persistence_save_type(doc, persistent_strings, persistence_save_string);
+  persistence_save_type(doc, persistent_colors, persistence_save_color);
 
   xmlDiaSaveFile(filename, doc);
   g_free(filename);
@@ -559,10 +627,10 @@ persistence_update_string_entry(GtkWidget *widget, GdkEvent *event,
   gchar *role = (gchar*)userdata;
 
   if (event->type == GDK_FOCUS_CHANGE) {
-    gchar *string = (gchar *)g_hash_table_lookup(persistent_strings, role);
+    gchar *string = (gchar *)g_hash_table_lookup(persistent_entrystrings, role);
     gchar *entrystring = gtk_entry_get_text(GTK_ENTRY(widget));
     if (string == NULL || strcmp(string, entrystring)) {
-      g_hash_table_insert(persistent_strings, role, g_strdup(entrystring));
+      g_hash_table_insert(persistent_entrystrings, role, g_strdup(entrystring));
       if (string != NULL) g_free(string);
     }
   }
@@ -579,12 +647,12 @@ gboolean
 persistence_change_string_entry(gchar *role, gchar *string,
 				GtkWidget *widget)
 {
-  gchar *old_string = (gchar*)g_hash_table_lookup(persistent_strings, role);
+  gchar *old_string = (gchar*)g_hash_table_lookup(persistent_entrystrings, role);
   if (old_string != NULL) {
     if (widget != NULL) {
       gtk_entry_set_text(GTK_ENTRY(widget), string);
     }
-    g_hash_table_insert(persistent_strings, role, g_strdup(string));
+    g_hash_table_insert(persistent_entrystrings, role, g_strdup(string));
     g_free(old_string);
   }
 
@@ -600,15 +668,15 @@ persistence_register_string_entry(gchar *role, GtkWidget *entry)
 {
   gchar *string;
   if (role == NULL) return;
-  if (persistent_strings == NULL) {
-    persistent_strings = g_hash_table_new(g_str_hash, g_str_equal);
+  if (persistent_entrystrings == NULL) {
+    persistent_entrystrings = g_hash_table_new(g_str_hash, g_str_equal);
   }    
-  string = (gchar *)g_hash_table_lookup(persistent_strings, role);
+  string = (gchar *)g_hash_table_lookup(persistent_entrystrings, role);
   if (string != NULL) {
     gtk_entry_set_text(GTK_ENTRY(entry), string);
   } else {
     string = g_strdup(gtk_entry_get_text(GTK_ENTRY(entry)));
-    g_hash_table_insert(persistent_strings, role, string);
+    g_hash_table_insert(persistent_entrystrings, role, string);
   }
   g_signal_connect(G_OBJECT(entry), "event", 
 		   G_CALLBACK(persistence_update_string_entry), role);
@@ -626,7 +694,6 @@ persistence_register_list(const gchar *role)
 {
   PersistentList *list;
   if (role == NULL) return NULL;
-  printf("Registering %s\n", role);
   if (persistent_lists == NULL) {
     persistent_lists = g_hash_table_new(g_str_hash, g_str_equal);
   } else {   
@@ -794,7 +861,7 @@ persistence_get_real(gchar *role)
   realval = (real *)g_hash_table_lookup(persistent_reals, role);
   if (realval != NULL) return *realval;
   printf("No real to get for %s\n", role);
-  return 0;
+  return 0.0;
 }
 
 void
@@ -806,7 +873,6 @@ persistence_set_real(gchar *role, real newvalue)
     return;
   }
   realval = (real *)g_hash_table_lookup(persistent_reals, role);
-  printf("Setting real %s to %f\n", role, newvalue);
   if (realval != NULL) *realval = newvalue;
   else printf("No real to set for %s\n", role);
 }
@@ -841,7 +907,7 @@ persistence_get_boolean(gchar *role)
   booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
   if (booleanval != NULL) return *booleanval;
   printf("No boolean to get for %s\n", role);
-  return 0;
+  return FALSE;
 }
 
 void
@@ -853,7 +919,100 @@ persistence_set_boolean(gchar *role, gboolean newvalue)
     return;
   }
   booleanval = (gboolean *)g_hash_table_lookup(persistent_booleans, role);
-  printf("Setting boolean %s to %d\n", role, newvalue);
   if (booleanval != NULL) *booleanval = newvalue;
   else printf("No boolean to set for %s\n", role);
+}
+
+/* ********* STRINGS ********** */
+gchar *
+persistence_register_string(gchar *role, gchar *defaultvalue)
+{
+  gchar *stringval;
+  if (role == NULL) return 0;
+  if (persistent_strings == NULL) {
+    persistent_strings = g_hash_table_new(g_str_hash, g_str_equal);
+  }    
+  stringval = (gchar *)g_hash_table_lookup(persistent_strings, role);
+  if (stringval == NULL) {
+    stringval = g_strdup(defaultvalue);
+    g_hash_table_insert(persistent_strings, role, stringval);
+  }
+  return stringval;
+}
+
+gchar *
+persistence_get_string(gchar *role)
+{
+  gchar *stringval;
+  if (persistent_strings == NULL) {
+    printf("No persistent strings to get for %s!\n", role);
+    return 0;
+  }
+  stringval = (gchar *)g_hash_table_lookup(persistent_strings, role);
+  if (stringval != NULL) return stringval;
+  printf("No string to get for %s\n", role);
+  return NULL;
+}
+
+void
+persistence_set_string(gchar *role, gchar *newvalue)
+{
+  gchar *stringval;
+  if (persistent_strings == NULL) {
+    printf("No persistent strings yet for %s!\n", role);
+    return;
+  }
+  stringval = (gchar *)g_hash_table_lookup(persistent_strings, role);
+  if (stringval != NULL) {
+    g_hash_table_insert(persistent_strings, role, g_strdup(newvalue));
+    g_free(stringval);
+  }
+  else printf("No string to set for %s\n", role);
+}
+
+/* ********* COLORS ********** */
+/* Remember that colors returned are private, not to be deallocated.
+ * They will be smashed in some undefined way by persistence_set_color */
+Color *
+persistence_register_color(gchar *role, Color *defaultvalue)
+{
+  Color *colorval;
+  if (role == NULL) return 0;
+  if (persistent_colors == NULL) {
+    persistent_colors = g_hash_table_new(g_str_hash, g_str_equal);
+  }    
+  colorval = (Color *)g_hash_table_lookup(persistent_colors, role);
+  if (colorval == NULL) {
+    colorval = g_new(Color, 1);
+    *colorval = *defaultvalue;
+    g_hash_table_insert(persistent_colors, role, colorval);
+  }
+  return colorval;
+}
+
+Color *
+persistence_get_color(gchar *role)
+{
+  Color *colorval;
+  if (persistent_colors == NULL) {
+    printf("No persistent colors to get for %s!\n", role);
+    return 0;
+  }
+  colorval = (Color *)g_hash_table_lookup(persistent_colors, role);
+  if (colorval != NULL) return colorval;
+  printf("No color to get for %s\n", role);
+  return 0;
+}
+
+void
+persistence_set_color(gchar *role, Color *newvalue)
+{
+  Color *colorval;
+  if (persistent_colors == NULL) {
+    printf("No persistent colors yet for %s!\n", role);
+    return;
+  }
+  colorval = (Color *)g_hash_table_lookup(persistent_colors, role);
+  if (colorval != NULL) *colorval = *newvalue;
+  else printf("No color to set for %s\n", role);
 }
