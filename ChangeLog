@@ -1,5 +1,25 @@
 2003-04-08  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/persistence.h: Removed call prototype for update_window, now
+	done internally.
+	* app/persistence.c (persistence_register_window): A number of
+	fixes.  Doesn't forget position when window is closed.  Now
+	actually loads prefs.
+
+	* app/layer_dialog.c (create_layer_dialog): Removed extraneous
+	event connect.
+
+	* app/preferences.c (prefs_data): 
+	* app/diagram_tree_window.h: 
+	* app/diagram_tree_window.c: Added persistence registering.
+	Removed prefs items storing size and openness. 
+
+	* app/sheets_dialog.c (create_sheets_main_dialog): Added
+	persistence registering.  Doesn't remember openness, only size, as
+	it's not automatically created at startup.  It shouldn't, either,
+	as it's rather big.  Instead, we should register the creation
+	function somehow.  Later.
+
 	* app/Makefile.am (dia_core_files): Added persistence files.
 
 	* lib/dia_dirs.h: 

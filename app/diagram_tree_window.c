@@ -32,6 +32,7 @@
 #include "diagram_tree.h"
 #include "diagram_tree_window.h"
 #include "diagram_tree_menu.h"
+#include "persistence.h"
 
 
 gchar *DIA_TREE_DEFAULT_HIDDEN = "DefaultDiaTreeTypeGuardDontChange!";
@@ -59,18 +60,6 @@ diagram_tree_window_destroyed(GtkWidget *window)
   if (menu_item_) menu_item_->active = FALSE;
 }
 
-/* diagtree resize window callback */
-static void
-diagram_tree_window_size_request(GtkWidget *window, GtkAllocation *req,
-				 gpointer data) 
-{
-  if (config_ && config_->save_size) {
-    config_->width = req->width;
-    config_->height = req->height;
-    prefs_save();
-  }
-}
-
 /* create a diagram_tree_window window */
 static GtkWidget*
 diagram_tree_window_new(DiagramTreeConfig *config) 
@@ -85,8 +74,7 @@ diagram_tree_window_new(DiagramTreeConfig *config)
   g_return_val_if_fail(window, NULL);
   
   gtk_window_set_title(GTK_WINDOW(window), N_("Diagram tree"));
-  gtk_window_set_default_size(GTK_WINDOW(window),
-			      config->width, config->height);
+  gtk_window_set_role(GTK_WINDOW(window), "diagram_tree");
 
   /* simply hide the window when it is closed */
   gtk_signal_connect(GTK_OBJECT(window), "destroy",
@@ -94,9 +82,6 @@ diagram_tree_window_new(DiagramTreeConfig *config)
 
   gtk_signal_connect(GTK_OBJECT(window), "delete_event",
 		     GTK_SIGNAL_FUNC(diagram_tree_window_hide), NULL);
-
-  gtk_signal_connect(GTK_OBJECT(window), "size-allocate",
-		     GTK_SIGNAL_FUNC(diagram_tree_window_size_request), NULL);
 
   /* the diagtree */
   if (!diagtree_)
@@ -127,7 +112,8 @@ diagram_tree_window_new(DiagramTreeConfig *config)
 
   gtk_widget_show(tree);
   gtk_widget_show(scroll);
-  gtk_widget_realize(window);
+
+  persistence_register_window(window);
 
   return window;
 }
@@ -144,11 +130,10 @@ create_diagram_tree_window(DiagramTreeConfig *config, GtkWidget *menuitem)
 {
   config_ = config;
   menu_item_ = GTK_CHECK_MENU_ITEM(menuitem);
-  gtk_check_menu_item_set_active(menu_item_, config_->show_tree);
-  if (!diagwindow_ && config_->show_tree) {
+  if (!diagwindow_) {
     diagwindow_ = diagram_tree_window_new(config_);
-    gtk_widget_show(diagwindow_);
   }
+  gtk_check_menu_item_set_active(menu_item_, GTK_WIDGET_REALIZED(diagwindow_));
 }
 
 /* menu callbacks */

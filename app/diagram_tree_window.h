@@ -31,10 +31,6 @@
 typedef struct _DiagramTreeConfig DiagramTreeConfig;
 
 struct _DiagramTreeConfig {
-  gboolean show_tree;		/* show dtree at startup */
-  gboolean save_size;		/* save current size as default */
-  guint width;			/* default width of the dtree window */
-  guint height;			/* default height of the dtree window */
   DiagramTreeSortType dia_sort;	/* default sort mode for diagrams */
   DiagramTreeSortType obj_sort;	/* default sort mode for objects */
   gboolean save_hidden;		/* remember current hidden types on restart */

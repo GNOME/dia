@@ -34,7 +34,6 @@ typedef struct {
 
 void persistence_load();
 void persistence_restore_window(GtkWindow *window);
-void persistence_update_window(GtkWindow *window, GdkEvent *event, gpointer data);
 void persistence_save();
 void persistence_register_window(GtkWindow *window);
 

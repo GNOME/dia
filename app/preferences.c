@@ -83,8 +83,6 @@ static int default_undo_depth = 15;
 static guint default_recent_documents = 5;
 static Color default_colour = { 0.85, .90, .90 }; /* Grid colour */
 static Color pbreak_colour = { 0.0, 0.0, 0.6 }; 
-static guint default_dtree_width = 220;
-static guint default_dtree_height = 100;
 static guint default_dtree_dia_sort = DIA_TREE_SORT_INSERT;
 static guint default_dtree_obj_sort = DIA_TREE_SORT_INSERT;
 static const gchar *default_paper_name = NULL;
@@ -161,14 +159,6 @@ DiaPrefData prefs_data[] =
     &default_false,0,"prefer psprint:", NULL, TRUE},
 
   { NULL, PREF_NONE, 0, NULL, 4, N_("Diagram tree window:") },
-  { "show_diagram_tree", PREF_BOOLEAN, PREF_OFFSET(dia_tree.show_tree),
-    &default_false, 4, N_("Show at startup:")},
-  { "diagram_tree_width", PREF_UINT, PREF_OFFSET(dia_tree.width),
-    &default_dtree_width, 4, N_("Default width:")},
-  { "diagram_tree_height", PREF_UINT, PREF_OFFSET(dia_tree.height),
-    &default_dtree_height, 4, N_("Default height:")},
-  { "diagram_tree_save_size", PREF_BOOLEAN, PREF_OFFSET(dia_tree.save_size),
-    &default_false, 4, N_("Remember last size:")},
   { "diagram_tree_save_hidden", PREF_BOOLEAN, PREF_OFFSET(dia_tree.save_hidden),
     &default_false, 4, N_("Save hidden object types:")},
   { "diagram_tree_dia_sort", PREF_UINT, PREF_OFFSET(dia_tree.dia_sort),

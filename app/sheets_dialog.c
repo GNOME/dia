@@ -44,6 +44,8 @@
 #include "sheets_dialog_callbacks.h"
 #include "sheets_dialog.h"
 
+#include "persistence.h"
+
 GtkWidget*
 create_sheets_main_dialog (void)
 {
@@ -317,6 +319,8 @@ create_sheets_main_dialog (void)
                       NULL);
 
   gtk_window_add_accel_group (GTK_WINDOW (sheets_main_dialog), accel_group);
+
+  persistence_register_window(GTK_WINDOW(sheets_main_dialog));
 
   return sheets_main_dialog;
 }
