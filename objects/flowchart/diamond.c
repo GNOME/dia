@@ -810,7 +810,7 @@ diamond_copy(Diamond *diamond)
 
   newdiamond->text = text_copy(diamond->text);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<16;i++) {
     newobj->connections[i] = &newdiamond->connections[i];
     newdiamond->connections[i].object = newobj;
     newdiamond->connections[i].connected = NULL;
@@ -895,9 +895,9 @@ diamond_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     diamond->text = data_text(attribute_first_data(attr));
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, 16);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<16;i++) {
     obj->connections[i] = &diamond->connections[i];
     diamond->connections[i].object = obj;
     diamond->connections[i].connected = NULL;

@@ -895,7 +895,7 @@ pgram_copy(Pgram *pgram)
 
   newpgram->text = text_copy(pgram->text);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<16;i++) {
     newobj->connections[i] = &newpgram->connections[i];
     newpgram->connections[i].object = newobj;
     newpgram->connections[i].connected = NULL;
@@ -989,9 +989,9 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     pgram->text = data_text(attribute_first_data(attr));
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, 16);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<16;i++) {
     obj->connections[i] = &pgram->connections[i];
     pgram->connections[i].object = obj;
     pgram->connections[i].connected = NULL;

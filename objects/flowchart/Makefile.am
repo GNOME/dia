@@ -10,6 +10,6 @@ libflowchart_objects_la_SOURCES = \
 			ellipse.c \
 			flowchart.c
 
-libflowchart_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
+libflowchart_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 INCLUDES = -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@

@@ -309,12 +309,11 @@ load_shape_info(const gchar *filename)
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(Point));
       xmlNodePtr pt_node;
 
-      g_message("Parsing connections section");
-      for (pt_node = node->childs; pt_node != NULL; pt_node = pt_node->next)
-	if (pt_node->ns == shape_ns && !strcmp(node->name, "point")) {
+      for (pt_node = node->childs; pt_node != NULL; pt_node = pt_node->next) {
+	if (pt_node->ns == shape_ns && !strcmp(pt_node->name, "point")) {
 	  Point pt = { 0.0, 0.0 };
 	  CHAR *str;
-	  
+
 	  str = xmlGetProp(pt_node, "x");
 	  if (str) {
 	    pt.x = g_strtod(str, NULL);
@@ -327,6 +326,7 @@ load_shape_info(const gchar *filename)
 	  }
 	  g_array_append_val(arr, pt);
 	}
+      }
       info->nconnections = arr->len;
       info->connections = (Point *)arr->data;
       g_array_free(arr, FALSE);
@@ -371,7 +371,7 @@ shape_info_print(ShapeInfo *info)
   g_print("Description : %s\n", info->description);
   g_print("Connections :\n");
   for (i = 0; i < info->nconnections; i++)
-    g_print("  %g, %g\n", info->connections[i].x, info->connections[i].y);
+    g_print("  (%g, %g)\n", info->connections[i].x, info->connections[i].y);
   g_print("Shape bounds: (%g, %g) - (%g, %g)\n",
 	  info->shape_bounds.left, info->shape_bounds.top,
 	  info->shape_bounds.right, info->shape_bounds.bottom);

@@ -1,5 +1,30 @@
 1999-08-21  James Henstridge  <james@daa.com.au>
 
+	* objects/flowchart/ellipse.c: 
+	* objects/flowchart/diamond.c: 
+	* objects/flowchart/parallelogram.c: 
+	* objects/flowchart/box.c: Fixed up a few bugs in these objects when
+	copying or loading these object types.  Not all the connection
+	points would be initialised correctly.
+
+	* objects/flowchart/Makefile.am (libflowchart_objects_la_LDFLAGS):
+	similar here.
+
+	* objects/custom/Makefile.am (libcustom_objects_la_LDFLAGS): do not
+	build a versioned library.  It will only ever be dlopen'd, so this
+	is not a problem.
+
+	* objects/custom/custom_object.c (custom_distance_from): allow
+	selecting the object by clicking on the text.  This fixes problems
+	where the text box is outside the graphic.
+
+	* objects/custom/shape_info.c (load_shape_info): fixed up reading
+	of connections points.  It should be possible to add connections
+	to custom objects now.
+
+	* objects/custom/custom_object.c (custom_update_data): fixed resizing
+	due to changes to text.
+
 	* configure.in: added extra makefiles.
 	
 	* objects/custom/shape_info.[ch]:

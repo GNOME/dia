@@ -9,6 +9,6 @@ libcustom_objects_la_SOURCES = \
 			custom_object.c \
 			custom.c
 
-libcustom_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
+libcustom_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 INCLUDES = -I$(srcdir)/../../lib $(CFLAGS) $(GTK_CFLAGS) $(GNOME_CFLAGS) $(XML_CFLAGS)

@@ -784,7 +784,7 @@ ellipse_copy(Ellipse *ellipse)
 
   newellipse->text = text_copy(ellipse->text);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<16;i++) {
     newobj->connections[i] = &newellipse->connections[i];
     newellipse->connections[i].object = newobj;
     newellipse->connections[i].connected = NULL;
@@ -869,9 +869,9 @@ ellipse_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     ellipse->text = data_text(attribute_first_data(attr));
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, 16);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<16;i++) {
     obj->connections[i] = &ellipse->connections[i];
     ellipse->connections[i].object = obj;
     ellipse->connections[i].connected = NULL;

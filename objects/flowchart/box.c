@@ -928,7 +928,7 @@ box_copy(Box *box)
 
   newbox->text = text_copy(box->text);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<16;i++) {
     newobj->connections[i] = &newbox->connections[i];
     newbox->connections[i].object = newobj;
     newbox->connections[i].connected = NULL;
@@ -1022,9 +1022,9 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     box->text = data_text(attribute_first_data(attr));
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, 16);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<16;i++) {
     obj->connections[i] = &box->connections[i];
     box->connections[i].object = obj;
     box->connections[i].connected = NULL;

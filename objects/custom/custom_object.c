@@ -524,13 +524,20 @@ custom_distance_from(Custom *custom, Point *point)
   Element *elem = &custom->element;
   Rectangle rect;
   Point p;
+  real dist1, dist2;
 
   rect.left = elem->corner.x - custom->border_width/2;
   rect.right = elem->corner.x + elem->width + custom->border_width/2;
   rect.top = elem->corner.y - custom->border_width/2;
   rect.bottom = elem->corner.y + elem->height + custom->border_width/2;
 
-  return distance_rectangle_point(&rect, point);
+  dist1 = distance_rectangle_point(&rect, point);
+  if (custom->info->has_text) {
+    dist2 = text_distance_from(custom->text, point);
+    if (dist2 < dist1)
+      return dist2;
+  }
+  return dist1;
 }
 
 static void
@@ -643,12 +650,12 @@ custom_draw(Custom *custom, Renderer *renderer)
   if (custom->info->has_text) {
     Rectangle tb;
     
-    if (renderer->is_interactive) {
+    /*if (renderer->is_interactive) {
       transform_rect(custom, &custom->info->text_bounds, &tb);
       p1.x = tb.left;  p1.y = tb.top;
       p2.x = tb.right; p2.y = tb.bottom;
       renderer->ops->draw_rect(renderer, &p1, &p2, &custom->border_color);
-    }
+      }*/
     text_draw(custom->text, renderer);
   }
 }
@@ -713,9 +720,9 @@ custom_update_data(Custom *custom)
 
     transform_rect(custom, &info->text_bounds, &tb);
 
-    width = custom->text->height * custom->text->numlines +
+    width = custom->text->max_width + 2*custom->padding+custom->border_width;
+    height = custom->text->height * custom->text->numlines +
       2 * custom->padding + custom->border_width;
-    height = custom->text->max_width + 2*custom->padding+custom->border_width;
 
     xscale = width / (tb.right - tb.left);
     yscale = height / (tb.bottom - tb.top);
@@ -723,7 +730,7 @@ custom_update_data(Custom *custom)
     xscale = MAX(xscale, yscale);
     if (xscale > 1.0) {
       elem->width  *= xscale;
-      elem->height *= yscale;
+      elem->height *= xscale;
     }
   }
   /* update transformation coefficients after the possible resize ... */
@@ -736,6 +743,7 @@ custom_update_data(Custom *custom)
 
   /* reposition the text element to the new text bounding box ... */
   if (info->has_text) {
+    transform_rect(custom, &info->text_bounds, &tb);
     switch (custom->text->alignment) {
     case ALIGN_LEFT:
       p.x = tb.left;
