@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia-0.82\n"
-"POT-Creation-Date: 2000-08-06 10:12+0800\n"
-"PO-Revision-Date: 2000-07-31 20:45+00:00\n"
+"POT-Creation-Date: 2000-08-10 18:45+0000\n"
+"PO-Revision-Date: 2000-08-10 18:47+00:00\n"
 "Last-Translator: Valek Filippov <frob@df.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -133,10 +133,10 @@ msgid "Contributors:"
 msgstr "Разработчики:"
 
 #. setup buttons
-#: app/commands.c:553 app/layer_dialog.c:976 app/lineprops_area.c:540
-#: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
-#: app/paginate_psprint.c:234 app/preferences.c:598 app/properties.c:82
-#: lib/message.c:85
+#: app/commands.c:553 app/dia-props.c:84 app/layer_dialog.c:976
+#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:230
+#: app/pagesetup.c:72 app/paginate_psprint.c:234 app/preferences.c:598
+#: app/properties.c:82 lib/message.c:85
 msgid "OK"
 msgstr "ОК"
 
@@ -154,13 +154,14 @@ msgstr ""
 msgid "Object defaults"
 msgstr "Исх. свойства объекта"
 
-#: app/defaults.c:73 app/pagesetup.c:77 app/preferences.c:607
-#: app/properties.c:91
+#: app/defaults.c:73 app/dia-props.c:93 app/pagesetup.c:77
+#: app/preferences.c:607 app/properties.c:91
 msgid "Apply"
 msgstr "Применить"
 
-#: app/defaults.c:83 app/layer_dialog.c:261 app/pagesetup.c:83
-#: app/plugin-manager.c:146 app/preferences.c:616 app/properties.c:101
+#: app/defaults.c:83 app/dia-props.c:103 app/layer_dialog.c:261
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:616
+#: app/properties.c:101
 msgid "Close"
 msgstr "Закрыть"
 
@@ -195,6 +196,38 @@ msgstr "Вид/Новое окно"
 #: app/dia_embedd.c:282
 msgid "Could not initialize Bonobo!"
 msgstr "Не удалось инициализировать Bonobo!"
+
+#: app/dia-props.c:58 app/dia-props.c:65
+msgid "Diagram Properties"
+msgstr "Свойства диаграммы"
+
+#: app/dia-props.c:128
+msgid "x"
+msgstr "x"
+
+#: app/dia-props.c:132
+msgid "y"
+msgstr "y"
+
+#: app/dia-props.c:137
+msgid "Spacing"
+msgstr "Интервал"
+
+#: app/dia-props.c:157
+msgid "Visible spacing"
+msgstr "Видимый интервал"
+
+#: app/dia-props.c:177
+msgid "Grid"
+msgstr "Сетка"
+
+#: app/dia-props.c:187
+msgid "Background Colour"
+msgstr "Цвет фона"
+
+#: app/dia-props.c:198 lib/diagramdata.c:53
+msgid "Background"
+msgstr "Фон"
 
 #: app/diagram.c:179
 msgid "/Edit/Copy"
@@ -281,59 +314,59 @@ msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Объекты/Выравнивание верт./Смежное"
 
 #. paper size
-#: app/diapagelayout.c:133
+#: app/diapagelayout.c:108
 msgid "Paper Size"
 msgstr "Размер бумаги"
 
 #. orientation
-#: app/diapagelayout.c:163
+#: app/diapagelayout.c:141
 msgid "Orientation"
 msgstr "Ориентаация"
 
 #. margins
-#: app/diapagelayout.c:201
+#: app/diapagelayout.c:179
 msgid "Margins"
 msgstr "Отступы"
 
-#: app/diapagelayout.c:213
+#: app/diapagelayout.c:191
 msgid "Top:"
 msgstr "Сверху:"
 
-#: app/diapagelayout.c:226
+#: app/diapagelayout.c:204
 msgid "Bottom:"
 msgstr "Снизу:"
 
-#: app/diapagelayout.c:239
+#: app/diapagelayout.c:217
 msgid "Left:"
 msgstr "Слева:"
 
-#: app/diapagelayout.c:252
+#: app/diapagelayout.c:230
 msgid "Right:"
 msgstr "Справа:"
 
 #. Scaling
-#: app/diapagelayout.c:266
+#: app/diapagelayout.c:244
 msgid "Scaling"
 msgstr "Масштабирование"
 
-#: app/diapagelayout.c:277
+#: app/diapagelayout.c:255
 msgid "Scale:"
 msgstr "Масштаб:"
 
-#: app/diapagelayout.c:289
+#: app/diapagelayout.c:267
 msgid "Fit to:"
 msgstr "Заполнять по:"
 
-#: app/diapagelayout.c:301
+#: app/diapagelayout.c:279
 msgid "by"
 msgstr " "
 
-#: app/diapagelayout.c:704
+#: app/diapagelayout.c:674
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: app/diapagelayout.c:806 app/pagesetup.c:60 app/pagesetup.c:68
+#: app/diapagelayout.c:776 app/pagesetup.c:60 app/pagesetup.c:68
 msgid "Page Setup"
 msgstr "Настройка страницы"
 
@@ -357,11 +390,11 @@ msgstr "Масштаб"
 msgid "Diagram modified!"
 msgstr "Диаграмма изменена!"
 
-#: app/display.c:756 app/display.c:762
+#: app/display.c:753 app/display.c:759
 msgid "Really close?"
 msgstr "Действительно закрыть?"
 
-#: app/display.c:767
+#: app/display.c:764
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -369,33 +402,33 @@ msgstr ""
 "Эта диаграмма не была сохранена.\n"
 "Вы уверены, что хотите закрыть это окно?"
 
-#: app/display.c:785 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
+#: app/display.c:782 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Да"
 
-#: app/display.c:795 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
+#: app/display.c:792 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
 #: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Нет"
 
-#: app/display.c:831
+#: app/display.c:828
 msgid "/View/Show Rulers"
 msgstr "/Вид/Показывать линейки"
 
-#: app/display.c:833
+#: app/display.c:830
 msgid "/View/Visible Grid"
 msgstr "/Вид/Показывать сетку"
 
-#: app/display.c:835
+#: app/display.c:832
 msgid "/View/Snap To Grid"
 msgstr "/Вид/Выравнивать по сетке"
 
-#: app/display.c:837
+#: app/display.c:834
 msgid "/View/Show Connection Points"
 msgstr "/Вид/Показывать соединительные точки"
 
-#: app/display.c:840
+#: app/display.c:837
 msgid "/View/AntiAliased"
 msgstr "/Вид/Сглаженный"
 
@@ -1508,10 +1541,6 @@ msgstr "Encapsulated PostScript"
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Внутренняя ошибка: установка типа угла для конечной точки кривой Безье"
-
-#: lib/diagramdata.c:60
-msgid "Background"
-msgstr "Фон"
 
 #: lib/font.c:386
 #, c-format
@@ -2715,6 +2744,10 @@ msgstr "Файл: %s тип/версия не поддерживаются.\n"
 msgid "WordPerfect Graphics export filter"
 msgstr "Фильтр экспорта файлов WordPerfect Graphics"
 
-#: plug-ins/svg/render_svg.c:820
+#: plug-ins/svg/render_svg.c:821
 msgid "Scalable Vector Graphics"
 msgstr "Маштабируемая векторная графика (SVG)"
+
+#: plug-ins/svg/svg.c:36
+msgid "Scalable Vector Graphics export filter"
+msgstr "Фильтр экспорта маштабируемой векторной графики (SVG)"
