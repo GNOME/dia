@@ -1,3 +1,19 @@
+2000-08-01  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/svg/render_svg.c (new_svg_renderer): updated doctype
+	output to use the newest draft DTD.
+
+	* plug-ins/svg/svg.c: initialisation code for plugin.
+
+	* plug-ins/svg/render_svg.c: move svg export code to a plugin.
+
+	* plug-ins/svg/Makefile.am: makefile for svg plugin.
+
+	* app/app_procs.c (internal_plugin_init): don't register the svg
+	export filter here.
+
+	* app/Makefile.am (dia_core_files): don't compile in render_svg.[ch]
+
 2000-07-31  James Henstridge  <james@daa.com.au>
 
 	* objects/standard/textobj.c (textobj_get_defaults): 

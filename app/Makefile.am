@@ -104,8 +104,6 @@ dia_core_files = \
 	    render_libart.h \
 	    render_eps.c \
 	    render_eps.h \
-	    render_svg.c \
-	    render_svg.h \
 	    export_png.c \
 	    undo.c \
 	    undo.h \

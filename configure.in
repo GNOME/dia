@@ -11,7 +11,7 @@ AM_MAINTAINER_MODE
 
 dnl Initialize libtool
 AC_DISABLE_STATIC
-AM_PROG_LIBTOOL
+AC_PROG_LIBTOOL
 
 dnl Build time sanity check
 AM_SANITY_CHECK
@@ -268,6 +268,7 @@ plug-ins/pstricks/Makefile
 plug-ins/dxf/Makefile
 plug-ins/hpgl/Makefile
 plug-ins/wpg/Makefile
+plug-ins/svg/Makefile
 )
 
 echo "

@@ -23,7 +23,6 @@ app/plugin-manager.c
 app/preferences.c
 app/properties.c
 app/render_eps.c
-app/render_svg.c
 app/select.c
 lib/bezier_conn.c
 lib/diagramdata.c
@@ -104,3 +103,4 @@ plug-ins/hpgl/hpgl.c
 plug-ins/pstricks/pstricks.c
 plug-ins/pstricks/render_pstricks.c
 plug-ins/wpg/wpg.c
+plug-ins/svg/render_svg.c

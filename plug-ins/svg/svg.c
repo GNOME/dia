@@ -1,8 +1,9 @@
+/* -*- Mode: C; c-basic-offset: 4 -*- */
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
- * render_svg.c - an SVG renderer for dia, based on render_eps.c
- * Copyright (C) 1999 James Henstridge
+ * svg.c: SVG export filters for dia
+ * Copyright (C) 2000 James Henstridge
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,43 +19,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef RENDER_SVG_H
-#define RENDER_SVG_H
 
-#include <stdio.h>
-
-typedef struct _RendererSVG RendererSVG;
-
-#include <tree.h>
-
-#include "geometry.h"
-#include "render.h"
-#include "display.h"
+#include "config.h"
+#include "intl.h"
 #include "filter.h"
-
-struct _RendererSVG {
-  Renderer renderer;
-
-  char *filename;
-
-  xmlDocPtr doc;
-  xmlNodePtr root;
-
-  LineStyle saved_line_style;
-  real dash_length;
-  real dot_length;
-
-  real linewidth;
-  const char *linecap;
-  const char *linejoin;
-  char *linestyle; /* not const -- must free */
-
-  real fontsize;
-};
-
-RendererSVG *new_svg_renderer(DiagramData *data, const char *filename);
-void destroy_svg_renderer(RendererSVG *renderer);
+#include "plug-ins.h"
 
 extern DiaExportFilter svg_export_filter;
 
-#endif /* RENDER_SVG_H */
+DIA_PLUGIN_CHECK_INIT
+
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
+{
+  if (!dia_plugin_info_init(info, "SVG",
+                            _("Scalable Vector Graphics export filter"),
+                            NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
+
+  filter_register_export(&svg_export_filter);
+
+  return DIA_PLUGIN_INIT_OK;
+}

@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * render_svg.c - an SVG renderer for dia, based on render_eps.c
- * Copyright (C) 1999 James Henstridge
+ * Copyright (C) 1999, 2000 James Henstridge
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,10 +32,37 @@
 #endif
 
 #include "config.h"
+#include <tree.h>
+#include "geometry.h"
+#include "render.h"
+#include "filter.h"
 #include "intl.h"
-#include "render_svg.h"
 #include "message.h"
 #include "diagramdata.h"
+
+typedef struct _RendererSVG RendererSVG;
+struct _RendererSVG {
+  Renderer renderer;
+
+  char *filename;
+
+  xmlDocPtr doc;
+  xmlNodePtr root;
+
+  LineStyle saved_line_style;
+  real dash_length;
+  real dot_length;
+
+  real linewidth;
+  const char *linecap;
+  const char *linejoin;
+  char *linestyle; /* not const -- must free */
+
+  real fontsize;
+};
+
+static RendererSVG *new_svg_renderer(DiagramData *data, const char *filename);
+static void destroy_svg_renderer(RendererSVG *renderer);
 
 static void begin_render(RendererSVG *renderer, DiagramData *data);
 static void end_render(RendererSVG *renderer);
@@ -134,7 +161,7 @@ static RenderOps SvgRenderOps = {
   (DrawImageFunc) draw_image,
 };
 
-RendererSVG *
+static RendererSVG *
 new_svg_renderer(DiagramData *data, const char *filename)
 {
   RendererSVG *renderer;
@@ -167,8 +194,8 @@ new_svg_renderer(DiagramData *data, const char *filename)
   renderer->doc = xmlNewDoc("1.0");
   renderer->doc->standalone = FALSE;
   xmlCreateIntSubset(renderer->doc, "svg",
-		     "-//W3C//DTD SVG December 1999//EN",
-		     "http://www.w3.org/Graphics/SVG/svg-19991203.dtd");
+		     "-//W3C//DTD SVG 20000303 Stylable//EN",
+		     "http://www.w3.org/TR/2000/03/WD-SVG-20000303/DTD/svg-20000303-stylable.dtd");
   renderer->root = xmlNewDocNode(renderer->doc, NULL, "svg", NULL);
   renderer->doc->root = renderer->root;
 
@@ -233,7 +260,7 @@ end_render(RendererSVG *renderer)
   xmlFreeDoc(renderer->doc);
 }
 
-void destroy_svg_renderer(RendererSVG *renderer)
+static void destroy_svg_renderer(RendererSVG *renderer)
 {
   g_free(renderer);
 }

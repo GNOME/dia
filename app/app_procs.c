@@ -61,7 +61,6 @@
 #include "preferences.h"
 #include "dia_dirs.h"
 #include "render_eps.h"
-#include "render_svg.h"
 #include "sheet.h"
 #include "plug-ins.h"
 
@@ -435,7 +434,6 @@ internal_plugin_init(PluginInfo *info)
   /* register export filters */
   filter_register_export(&dia_export_filter);
   filter_register_export(&eps_export_filter);
-  filter_register_export(&svg_export_filter);
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
   filter_register_export(&png_export_filter);
 #endif
