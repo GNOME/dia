@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?> <!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>EML</name>
+  <description>Editor for EML Static Structure Diagrams.</description>
+  <contents>
+    <object name="EML - Process" >
+      <description>Create a process</description>
+    </object>
+    <object name="EML - Instantiation">
+      <description>Instantiation. One process create others</description>
+    </object>
+    <object name="EML - Interaction">
+      <description>Interaction between processes.</description>
+    </object>
+    <object name="EML - Interaction orthorthogonal">
+      <description>Interaction between processes.</description>
+    </object>
+  </contents>
+</sheet>

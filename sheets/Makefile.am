@@ -20,7 +20,8 @@ SHEETS = \
 	jigsaw.sheet \
 	MSE.sheet \
 	SDL.sheet \
-        Logic.sheet
+        Logic.sheet \
+	EML.sheet
 
 CLEANFILES = sheet-translation-report
 
