@@ -1,3 +1,8 @@
+2003-01-22  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/diagram_tree_window.c (diagram_tree_window_new): Correct
+	handling of destroy event.
+
 2003-01-22  Alan Horkan <horkana@tcd.ie>
 
 	* app/commands.c (file_new_callback): Changed Untitled to Diagram

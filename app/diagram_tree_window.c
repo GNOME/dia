@@ -49,6 +49,16 @@ diagram_tree_window_hide(GtkWidget *window)
   gtk_widget_hide(window);
 }
 
+/* diagtree window destroy callback */
+static void
+diagram_tree_window_destroyed(GtkWidget *window)
+{
+  diagwindow_ = NULL;
+  g_free(diagtree_);
+  diagtree_ = NULL;
+  if (menu_item_) menu_item_->active = FALSE;
+}
+
 /* diagtree resize window callback */
 static void
 diagram_tree_window_size_request(GtkWidget *window, GtkAllocation *req,
@@ -80,7 +90,7 @@ diagram_tree_window_new(DiagramTreeConfig *config)
 
   /* simply hide the window when it is closed */
   gtk_signal_connect(GTK_OBJECT(window), "destroy",
-		     GTK_SIGNAL_FUNC(diagram_tree_window_hide), NULL);
+		     GTK_SIGNAL_FUNC(diagram_tree_window_destroyed), NULL);
 
   gtk_signal_connect(GTK_OBJECT(window), "delete_event",
 		     GTK_SIGNAL_FUNC(diagram_tree_window_hide), NULL);
