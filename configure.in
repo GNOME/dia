@@ -269,6 +269,7 @@ shapes/Electric/Makefile
 shapes/Civil/Makefile
 shapes/jigsaw/Makefile
 shapes/MSE/Makefile
+shapes/SDL/Makefile
 app/Makefile
 samples/Makefile
 sheets/Makefile

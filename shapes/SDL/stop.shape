@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+  <name>Stop</name>
+  <description>Interrupt processing</description>
+  <icon>stop.xpm</icon>
+  <connections>
+    <point x="0.5" y="0"/>
+  </connections>
+  <svg:svg width="1" height="1">
+    <svg:line x1="0" y1="0" x2="1" y2="1" svg:style="stroke-width:1"/>
+    <svg:line x1="1" y1="0" x2="0" y2="1" svg:style="stroke-width:1"/>
+  </svg:svg>
+</shape>

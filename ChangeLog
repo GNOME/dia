@@ -1,5 +1,12 @@
 2000-10-04  James Henstridge  <james@daa.com.au>
 
+	* shapes/SDL/: add SDL shapes from Rubens Ramos
+	<rubens_ramos@yahoo.com>
+
+	* acinclude.m4 (DIA_CHECK_CFLAG): fix up macro.
+
+	* sheets/Makefile.am (SHEETS): add SDL.sheet to list.
+
 	* shapes/MSE/: add Mobile Subscriber Equipment shapes from
 	W. Michael Petullo <mike@flyn.org>.
 

@@ -1,8 +1,7 @@
 
-shapedir = $(pkgdatadir)/shapes/jigsaw
+shapedir = $(pkgdatadir)/shapes/MSE
 
 SHAPES = \
-	Makefile.am \
 	demultiplexer.shape \
 	demultiplexer.xpm \
 	large_extension_node.shape \

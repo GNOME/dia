@@ -18,7 +18,8 @@ SHEETS = \
 	Electric.sheet \
 	civil.sheet \
 	jigsaw.sheet \
-	MSE.sheet
+	MSE.sheet \
+	SDL.sheet
 
 EXTRA_DIST = $(SHEETS)
 
