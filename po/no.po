@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 1999-12-24 22:20+0800\n"
-"PO-Revision-Date: 1999-12-13 23:53+01:00\n"
+"POT-Creation-Date: 1999-12-28 00:50+0100\n"
+"PO-Revision-Date: 1999-12-28 00:54+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,9 +14,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: app/app_procs.c:130
-#, fuzzy
 msgid "Export loaded file and exit"
-msgstr "Eksporter lest fil til postskript og avslutt"
+msgstr "Eksporter innlest fil og avslutt"
 
 #: app/app_procs.c:131
 msgid "OUTPUT"
@@ -512,9 +511,8 @@ msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åpne: '%s' for skriving.\n"
 
 #: app/load_save.c:554
-#, fuzzy
 msgid "Native Dia Diagram"
-msgstr "Lagre diagram"
+msgstr "Dia diagram"
 
 #: app/menus.c:35 app/menus.c:45
 msgid "_New diagram"
@@ -525,9 +523,8 @@ msgid "Create new diagram"
 msgstr "Lag nytt diagram"
 
 #: app/menus.c:52
-#, fuzzy
 msgid "_Export..."
-msgstr "   Eksport"
+msgstr "_Eksportér..."
 
 #: app/menus.c:56
 msgid "Page Set_up..."
@@ -701,9 +698,8 @@ msgid "/File/Save _As..."
 msgstr "/Fil/Lagre _som..."
 
 #: app/menus.c:196
-#, fuzzy
 msgid "/File/_Export..."
-msgstr "/Fil/_Eksporter til EPS"
+msgstr "/Fil/_Eksportér..."
 
 #: app/menus.c:198
 msgid "/File/Page Set_up..."
@@ -908,9 +904,8 @@ msgid "This object has no properties."
 msgstr "Dette objektet har ingen egenskaper."
 
 #: app/render_eps.c:1101
-#, fuzzy
 msgid "Encapsulated Postscript"
-msgstr "Eksporter til postskript"
+msgstr "Encapsulated Postskript"
 
 #: app/defaults.c:43
 msgid "Object defaults"
@@ -994,7 +989,7 @@ msgstr "Innstillinger"
 
 #: app/render_svg.c:834
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "Skalerbar vektorgrafikk"
 
 #: app/lineprops_area.c:496
 msgid "Arrow Properties"
@@ -1847,19 +1842,9 @@ msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
+"Bildets radlengde større enn maksimum cellematrise.\n"
+"Bilde ikke eksportert til CGM."
 
 #: plug-ins/cgm/cgm.c:919
 msgid "Computer Graphics Metafile"
-msgstr ""
-
-#~ msgid "Export to SVG"
-#~ msgstr "Eksporter til SVG"
-
-#~ msgid "_Export To EPS"
-#~ msgstr "_Eksporter til EPS"
-
-#~ msgid "Export To S_VG"
-#~ msgstr "Eksporter til S_VG"
-
-#~ msgid "/File/Export To S_VG"
-#~ msgstr "/Fil/Eksporter til S_VG"
+msgstr "Computer Graphics Metafile"
