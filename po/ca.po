@@ -1,39 +1,37 @@
-# Danish translation of dia.
-# Copyright (C) 1999 Free Software Foundation, Inc.
-# Lars Clausen <lrclause@cs.uiuc.edu>, 1999.
-# Kenneth Christiansen <kenneth@ripen.dk>, 1999
-# Keld Simonsen <keld@dkuug.dk>, 2000-04-12.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia v. 0.83\n"
+"Project-Id-Version: dia v. 0.84\n"
 "POT-Creation-Date: 2000-04-18 21:46+0200\n"
 "PO-Revision-Date: 2000-04-16 01:27+0200\n"
-"Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
-"Language-Team: Danish <dansk@klid.dk>\n"
+"Last-Translator: Softcatala <linux@softcatala.org>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: app/app_procs.c:135
 msgid "Export loaded file and exit"
-msgstr "Eksportér den indlæste fil og afslut"
+msgstr "Exporta el fitxer carregat i surt"
 
 #: app/app_procs.c:136
 msgid "OUTPUT"
-msgstr "UDSKRIFT"
+msgstr "SORTIDA"
 
 #: app/app_procs.c:138
 msgid "Show this help message"
-msgstr "Vis denne hjælpemeddelelse"
+msgstr "Mostra aquest missatge d'ajuda"
 
 #: app/app_procs.c:158
 msgid "Can't connect to session manager!\n"
-msgstr "Kan ikke kontakte sessionshåndteringen!\n"
+msgstr "No s'ha pogut connectar al gestor de sessions!\n"
 
 #: app/app_procs.c:169
 msgid "[OPTION...] [FILE...]"
-msgstr "[FLAG...] [FIL...]"
+msgstr "[OPCIÓ...] [ARXIU..]"
 
 #: app/app_procs.c:172
 #, c-format
@@ -41,50 +39,53 @@ msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"fejl ved flag %s: %s.\n"
-"Kør '%s --help' for at se en komplet liste over mulige kommandolinieflag.\n"
+"Error a l'opció %s: %s.\n"
+"Executeu '%s --help' per visualitzar una llista completa de les opcions "
+"disponibles per a la línia d'ordres.\n"
 
 #: app/app_procs.c:215 app/app_procs.c:217
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
-msgstr "Kunne ikke finde standardobjekter i objektbiblioteket, afslutter...\n"
+msgstr ""
+"No s'han pogut trobar objectes estàndard quan s'han cercat biblioteques "
+"d'objectes, sortint...\n"
 
 #: app/app_procs.c:234
 msgid "Need valid input file\n"
-msgstr "Kræver gyldig inddatafil\n"
+msgstr "Cal un arxiu d'entrada vàlid\n"
 
 #: app/app_procs.c:293 app/app_procs.c:299
 msgid "Quit, are you sure?"
-msgstr "Afslut, er du sikker?"
+msgstr "Esteu segurs que voleu sortir?"
 
 #: app/app_procs.c:306
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
 msgstr ""
-"Der er ændrede diagrammer.\n"
-"Er du sikker på at du vil afslutte?"
+"Hi ha diagrames que s'han modificat.\n"
+"Esteu segurs que voleu sortir?"
 
 #: app/app_procs.c:316 app/app_procs.c:321
 msgid "Quit"
-msgstr "Afslut"
+msgstr "Surt"
 
 #: app/app_procs.c:333 app/layer_dialog.c:980 app/lineprops_area.c:549
 #: app/lineprops_area.c:747
 msgid "Cancel"
-msgstr "Annullér"
+msgstr "Cancel·la"
 
 #: app/app_procs.c:401
 msgid "Could not create per-user Dia config directory"
-msgstr "Kunne ikke oprette Dia konfigmappe for bruger"
+msgstr "No s'ha pogut crear un directori de configuració del Dia"
 
 #: app/app_procs.c:424
 msgid "Objects and filters internal to dia"
-msgstr "Interne objekter og filtre for dia"
+msgstr ""
 
 #: app/color_area.c:260 lib/widgets.c:492
 msgid "Select color"
-msgstr "Vælg farve"
+msgstr "Seleccioneu el color"
 
 #: app/commands.c:91
 #, c-format
@@ -92,137 +93,140 @@ msgid ""
 "No such file found\n"
 "%s\n"
 msgstr ""
-"Ingen sådan fil fundet\n"
+"Aquest fitxer no s'ha trobat\n"
 "%s\n"
 
 #: app/commands.c:111
 msgid "Import from XFig"
-msgstr "Importér fra XFig"
+msgstr "Importa des del XFig"
 
 #: app/commands.c:167
 #, c-format
 msgid "Untitled-%d"
-msgstr "Unavngivet-%d"
+msgstr "Sense nom-%d"
 
 #: app/commands.c:228
 msgid "No existing object to paste.\n"
-msgstr "Ingen eksisterende objekter kan indsættes.\n"
+msgstr "No existeix cap objecte per enganxar.\n"
 
 #: app/commands.c:446
 msgid "About Dia"
-msgstr "Om dia"
+msgstr "Quant al Dia"
 
 #: app/commands.c:502
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
-msgstr "Dia version %s af Alexander Larsson"
+msgstr "Dia v %s ha estat creat per Alexander Larsson"
 
 #: app/commands.c:506
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
-"Besøg venligst http://www.lysator.liu.se/~alla/dia for flere oplysninger"
+"Visiteu l'adreça http://www.lysator.liu.se/~alla/dia per a més informació"
 
 #: app/commands.c:515 app/layer_dialog.c:970 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/preferences.c:595 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
-msgstr "Ok"
+msgstr "D'acord"
 
 #: app/diagram.c:156
 msgid "/Edit/Copy"
-msgstr "/Redigér/Kopiér"
+msgstr "/Edita/Copia"
 
 #: app/diagram.c:158
 msgid "/Edit/Cut"
-msgstr "/Redigér/Klip ud"
+msgstr "/Edita/Retalla"
 
 #: app/diagram.c:160
 msgid "/Edit/Paste"
-msgstr "/Redigér/Indsæt"
+msgstr "/Edita/Enganxa"
 
 #: app/diagram.c:163
 msgid "/Edit/Delete"
-msgstr "/Redigér/Slet"
+msgstr "/Edita/Suprimeix"
 
 #: app/diagram.c:167 app/menus.c:262
+#, fuzzy
 msgid "/Edit/Copy Text"
-msgstr "/Redigér/Kopiér tekst"
+msgstr "/Edita/Copia"
 
 #: app/diagram.c:169 app/menus.c:263
+#, fuzzy
 msgid "/Edit/Cut Text"
-msgstr "/Redigér/Klip tekst ud"
+msgstr "/Edita/Retalla"
 
 #: app/diagram.c:171
+#, fuzzy
 msgid "/Edit/Paste Text"
-msgstr "/Redigér/Indsæt tekst"
+msgstr "/Edita/Enganxa"
 
 #: app/diagram.c:174
 msgid "/Objects/Send to Back"
-msgstr "/Objekter/Send bagud"
+msgstr "/Objectes/Envia al darrere"
 
 #: app/diagram.c:176
 msgid "/Objects/Bring to Front"
-msgstr "/Objekter/Hent frem"
+msgstr "/Objectes/Porta'l al frontal"
 
 #: app/diagram.c:179
 msgid "/Objects/Group"
-msgstr "/Objekter/Gruppér"
+msgstr "/Objectes/Agrupa"
 
 #: app/diagram.c:181
 msgid "/Objects/Ungroup"
-msgstr "/Objekter/Afgruppér"
+msgstr "/Objectes/Desagrupa"
 
 #: app/diagram.c:184 app/menus.c:312
 msgid "/Objects/Align Horizontal/Left"
-msgstr "/Objekter/Justér vandret/Venstre"
+msgstr "/Objectes/Alineació horitzontal/Esquerra"
 
 #: app/diagram.c:186 app/menus.c:313
 msgid "/Objects/Align Horizontal/Center"
-msgstr "/Objekter/Justér vandret/Midt"
+msgstr "/Objectes/Alineació horitzontal/Centre"
 
 #: app/diagram.c:188 app/menus.c:314
 msgid "/Objects/Align Horizontal/Right"
-msgstr "/Objekter/Justér vandret/Højre"
+msgstr "/Objectes/Alineació horitzontal/Dreta"
 
 #: app/diagram.c:190 app/menus.c:315
 msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Objekter/Justér vandret/Samme afstand"
+msgstr "/Objectes/Alineació horitzontal/Equidistant"
 
 #: app/diagram.c:192 app/menus.c:316
 msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/Objekter/Justér vandret/Ved siden"
+msgstr "/Objectes/Alineació horitzontal/Adjacent"
 
 #: app/diagram.c:194 app/menus.c:318
 msgid "/Objects/Align Vertical/Top"
-msgstr "/Objekter/Justér lodret/Øverst"
+msgstr "/Objectes/Alineació vertical/Superior"
 
 #: app/diagram.c:196 app/menus.c:319
 msgid "/Objects/Align Vertical/Center"
-msgstr "/Objekter/Justér lodret/Midt"
+msgstr "/Objectes/Alineació vertical/Centre"
 
 #: app/diagram.c:198 app/menus.c:320
 msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Objekter/Justér lodret/Bund"
+msgstr "/Objectes/Alineació vertical/Inferior"
 
 #: app/diagram.c:200 app/menus.c:321
 msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Objekter/Justér lodret/Samme afstand"
+msgstr "/Objectes/Alineació vertical/Equidistant"
 
 #: app/diagram.c:202 app/menus.c:322
 msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/Objekter/Justér lodret/Ved siden"
+msgstr "/Objectes/Alineació vertical/Adjacent"
 
 #: app/disp_callbacks.c:69 app/properties.c:164
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
-"Dette objekt understøtter ikke fortryd/gentag.\n"
-"Fortryd-information slettes."
+"Aquest objecte no suporta Desfés/Refés.\n"
+"S'ha esborrat la informació per a Desfés"
 
 #: app/disp_callbacks.c:166
 msgid "No object menu"
-msgstr "Ingen objektmenu"
+msgstr "Sense menú d'objectes"
 
 #: app/display.c:64 app/display.c:65
 msgid "Zoom"
@@ -230,263 +234,267 @@ msgstr "Zoom"
 
 #: app/display.c:84
 msgid "Diagram modified!"
-msgstr "Diagrammet er ændret!"
+msgstr "S'ha modificat el diagrama!"
 
 #: app/display.c:789 app/display.c:795
 msgid "Really close?"
-msgstr "Virkelig lukke?"
+msgstr "Esteu segurs que voleu tancar?"
 
 #: app/display.c:800
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
 msgstr ""
-"Dette diagram er ikke gemt.\n"
-"Er du sikker på at du vil lukke vinduet?"
+"Aquest diagrama no s'ha desat.\n"
+"Esteu segurs que voleu tancar aquesta finestra?"
 
 #: app/display.c:818 app/preferences.c:489 lib/properties.c:266
 msgid "Yes"
-msgstr "Ja"
+msgstr "Sí"
 
 #: app/display.c:828 app/preferences.c:489 app/preferences.c:500
 #: lib/properties.c:268 lib/properties.c:289
 msgid "No"
-msgstr "Nej"
+msgstr "No"
 
 #: app/display.c:864
 msgid "/View/Show Rulers"
-msgstr "/Vis/Vis _linealer"
+msgstr "/Veure/Mostra les regles"
 
 #: app/display.c:866
 msgid "/View/Visible Grid"
-msgstr "/Vis/_Synligt gitter"
+msgstr "/Veure/Quadrícula visible"
 
-# FIXME:  Fast til?
 #: app/display.c:868
 msgid "/View/Snap To Grid"
-msgstr "/Vis/_Lås til gitter"
+msgstr "/Veure/Desplaça a la quadrícula"
 
 #: app/display.c:870
 msgid "/View/Show Connection Points"
-msgstr "/Vis/Vis forbindelsespunkter"
+msgstr "/Veure/Mostra els punts de connexió"
 
 #: app/display.c:873
+#, fuzzy
 msgid "/View/AntiAliased"
-msgstr "/Vis/Antiliaseret"
+msgstr "/Veure/_AntiAliased"
 
 #: app/grid.c:190
 msgid "Grid options"
-msgstr "Indstillinger for gitter"
+msgstr "Opcions de la quadrícula"
 
 #: app/grid.c:199
 msgid "Grid x size:"
-msgstr "X størrelse:"
+msgstr "Mida de la quadrícula: eix x "
 
 #: app/grid.c:217
 msgid "Grid y size:"
-msgstr "Y størrelse:"
+msgstr "Mida de la quadrícula: eix y"
 
-# FIXME: Ændr?
 #: app/interface.c:33
 msgid "Modify object(s)"
-msgstr "Ændr objekt(er)"
+msgstr "Modifica l'objecte(s)"
 
 #: app/interface.c:34 app/menus.c:177
+#, fuzzy
 msgid "Modify"
-msgstr "Ændr"
+msgstr "Magnifica"
 
 #: app/interface.c:38 app/interface.c:39 app/menus.c:178
 msgid "Magnify"
-msgstr "Forstørrelse"
+msgstr "Magnifica"
 
-# FIXME: Scroll?
 #: app/interface.c:43
 msgid "Scroll around the diagram"
-msgstr "Scroll rundt i diagrammet"
+msgstr "Desplaça pel diagrama"
 
 #: app/interface.c:44 app/menus.c:179
 msgid "Scroll"
-msgstr "Rul"
+msgstr ""
 
 #: app/interface.c:48
 msgid "Create Text"
-msgstr "Lav tekst"
+msgstr "Crea text"
 
 #: app/interface.c:49 app/menus.c:180
 msgid "Text"
-msgstr "Tekst"
+msgstr "Text"
 
 #: app/interface.c:53
 msgid "Create Box"
-msgstr "Lav box"
+msgstr "Crea una caixa"
 
 #: app/interface.c:54 app/menus.c:181
 msgid "Box"
-msgstr "Boks"
+msgstr ""
 
 #: app/interface.c:58
 msgid "Create Ellipse"
-msgstr "Lav ellipse"
+msgstr "Crea una el·lipse"
 
 #: app/interface.c:59 app/menus.c:182
+#, fuzzy
 msgid "Ellipse"
-msgstr "Ellipse"
+msgstr "Crea una el·lipse"
 
 #: app/interface.c:63
+#, fuzzy
 msgid "Create Polygon"
-msgstr "Lav polygon"
+msgstr "Crea una polilínia"
 
 #: app/interface.c:64 app/menus.c:183
 msgid "Polygon"
-msgstr "Polygon"
+msgstr ""
 
 #: app/interface.c:68
 msgid "Create Line"
-msgstr "Lav linie"
+msgstr "Crea una línia"
 
 #: app/interface.c:69 app/menus.c:184 objects/standard/line.c:177
 msgid "Line"
-msgstr "Linie"
+msgstr "Línia"
 
 #: app/interface.c:73
 msgid "Create Arc"
-msgstr "Lav bue"
+msgstr "Crea un arc"
 
 #: app/interface.c:74 app/menus.c:185
 msgid "Arc"
-msgstr "Bue"
+msgstr ""
 
 #: app/interface.c:78
 msgid "Create Zigzagline"
-msgstr "Lav zigzag-linie"
+msgstr "Crea una línia en ziga-zaga"
 
 #: app/interface.c:79 app/menus.c:186
+#, fuzzy
 msgid "Zigzagline"
-msgstr "Zigzag-linie"
+msgstr "Crea una línia en ziga-zaga"
 
 #: app/interface.c:83
 msgid "Create Polyline"
-msgstr "Lav multilinie"
+msgstr "Crea una polilínia"
 
 #: app/interface.c:84 app/menus.c:187
+#, fuzzy
 msgid "Polyline"
-msgstr "Multilinie"
+msgstr "Crea una polilínia"
 
 #: app/interface.c:88
 msgid "Create Bezierline"
-msgstr "Lav en bezierlinie"
+msgstr "Crea una línia de Bezier"
 
 #: app/interface.c:89 app/menus.c:188
+#, fuzzy
 msgid "Bezierline"
-msgstr "Bezierlinie"
+msgstr "Crea una línia de Bezier"
 
 #: app/interface.c:93
 msgid "Create Image"
-msgstr "Lav billede"
+msgstr "Crea una imatge"
 
 #: app/interface.c:94 app/menus.c:189
+#, fuzzy
 msgid "Image"
-msgstr "Billedfil"
+msgstr "Fitxer de la imatge:"
 
 #: app/interface.c:299
 msgid "NULL tooldata in tool_select_update"
-msgstr "NULL værktøjdata i tool_select_update"
+msgstr ""
 
 #: app/interface.c:651
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
-"Forgrunds- og baggrundsfarver.  De små sorte og hvide firkanter nulstiller "
-"farverne.  Pilene bytter om på farverne.  Dobbelt-klik for at vælge andre "
-"farver."
+"Colors frontals i de fons. Els quadrats petits en blanc i negre reinicienels "
+"colors. Les sagetes petites intercanvien els colors. Feu un doble clic per "
+"canviar-los."
 
 #: app/interface.c:756
 msgid "Diagram Editor"
-msgstr "Diagramredigering"
+msgstr "Editor de diagrames"
 
 #: app/layer_dialog.c:66
 msgid "New Layer"
-msgstr "Nyt lag"
+msgstr "Capa nova "
 
 #: app/layer_dialog.c:67
 msgid "Raise Layer"
-msgstr "Hæv lag"
+msgstr "Puja la capa"
 
 #: app/layer_dialog.c:68
 msgid "Lower Layer"
-msgstr "Sænk lag"
+msgstr "Capa inferior"
 
 #: app/layer_dialog.c:69
 msgid "Delete Layer"
-msgstr "Slet lag"
+msgstr "Esborra la capa"
 
 #: app/layer_dialog.c:203
 msgid "Layers"
-msgstr "Lag"
+msgstr "Capes"
 
 #: app/layer_dialog.c:216
 msgid "Diagrams:"
-msgstr "Diagrammer:"
+msgstr "Diagrames:"
 
 #: app/defaults.c:82 app/layer_dialog.c:261 app/preferences.c:613
 #: app/properties.c:101
 msgid "Close"
-msgstr "Luk"
+msgstr "Tanca"
 
 #: app/layer_dialog.c:306
 msgid "New layer"
-msgstr "Nyt lag"
+msgstr "Capa nova "
 
 #: app/layer_dialog.c:509
 msgid "none"
-msgstr "ingen"
+msgstr "cap"
 
 #: app/layer_dialog.c:945
 msgid "Edit Layer Attributes"
-msgstr "Redigér lagets attributter"
+msgstr "Edita els atributs de la capa"
 
 #: app/layer_dialog.c:961
 msgid "Layer name:"
-msgstr "Lagets navn:"
+msgstr "Nom de la capa:"
 
 #: app/load_save.c:92
 msgid "Error reading diagram file\n"
-msgstr "Fejl under indlæsning af diagramfilen\n"
+msgstr "S'ha produït un error mentre es llegia el fixer del diagrama\n"
 
-# FIXME: Lænket?
 #: app/load_save.c:143
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
-"Fejl under indlæsning af diagram.\n"
-"Lænket objekt ikke fundet i dokumentet."
+"S'ha produït un error mentre es carregava el diagrama.\n"
+"L'objecte enllaçat no s'ha trobat al document"
 
 #: app/load_save.c:146
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
-"Fejl ved indlæsning af diagram.\n"
-"Forbindelsespunkt eksisterer ikke."
+"S'ha produït un error mentre es carregava el diagrama.\n"
+"El punt de connexió no existeix."
 
 #: app/load_save.c:149
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
-"Fejl ved indlæsning af diagram.\n"
-"Forbindelseshåndtag eksisterer ikke."
+"S'ha produït un error mentre es carregava el diagrama.\n"
+"La connexió associada no existeix"
 
 #: app/load_save.c:194
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Kunne ikke åbne: '%s' for læsning.\n"
+msgstr "No s'ha pogut obrir: '%s' per a la seva lectura.\n"
 
 #: app/load_save.c:200
 msgid "You must specify a file, not a directory.\n"
-msgstr "Du skal angive en fil, ikke en mappe.\n"
+msgstr "Heu d'especificar un fitxer, no un directori.\n"
 
 #: app/load_save.c:209 app/load_save.c:214
 #, c-format
@@ -494,8 +502,8 @@ msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
-"Fejl under indlæsning af diagrammet %s.\n"
-"Ukendt filtype."
+"S'ha produït un error mentre es carregava el diagrama %s.\n"
+"Es desconeix el tipus de fitxer"
 
 #: app/load_save.c:221
 #, c-format
@@ -503,81 +511,84 @@ msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
-"Fejl under indlæsning af diagrammet %s.\n"
-"Ikke en Dia fil."
+"S'ha produït un error mentre es carregava el diagrama %s.\n"
+"El fitxer no és un fitxer Dia"
 
 #: app/load_save.c:510 app/render_eps.c:161 app/render_svg.c:144
 #: plug-ins/cgm/cgm.c:1128
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr "Kunne ikke åbne: '%s' for skriving.\n"
+msgstr "No s'ha pogut obrir: '%s' per a la seva escriptura.\n"
 
 #: app/load_save.c:608
 #, c-format
 msgid "Failed to save file '%s'.\n"
-msgstr "Kunne ikke gemme fil '%s'.\n"
+msgstr "No s'ha pogut desar el fitxer '%s'.\n"
 
 #: app/load_save.c:628
 msgid "Native Dia Diagram"
-msgstr "Dia diagramformat"
+msgstr "Diagrama Dia original"
 
 #: app/menus.c:38 app/menus.c:49
 msgid "_New diagram"
-msgstr "_Nyt diagram"
+msgstr "_Nou diagrama"
 
 #: app/menus.c:38 app/menus.c:49
 msgid "Create new diagram"
-msgstr "Opret nyt diagram"
+msgstr "Crea un diagrama nou"
 
 #: app/menus.c:42
 msgid "Plug-ins"
-msgstr "Indstik"
+msgstr ""
 
 #: app/menus.c:56
 msgid "_Export..."
-msgstr "_Eksportér..."
+msgstr "_Exporta..."
 
 #: app/menus.c:60
 msgid "Page Set_up..."
-msgstr "Side_opsætning..."
+msgstr "Inicialització de la pàgina..."
 
 #: app/menus.c:62
 msgid "_Print Diagram..."
-msgstr "_Udskriv diagram..."
+msgstr "_Imprimeix el diagrama..."
 
 #: app/menus.c:77
 msgid "_Delete"
-msgstr "_Slet"
+msgstr "_Esborra"
 
 #: app/menus.c:83
+#, fuzzy
 msgid "Copy Text"
-msgstr "Kopiér tekst"
+msgstr "Text"
 
 #: app/menus.c:84
+#, fuzzy
 msgid "Cut Text"
-msgstr "Klip tekst ud"
+msgstr "Crea text"
 
 #: app/menus.c:85
+#, fuzzy
 msgid "Paste _Text"
-msgstr "Indsæt tekst"
+msgstr "Crea text"
 
 #: app/menus.c:108
 msgid "Zoom _In"
-msgstr "Zoom _ind"
+msgstr "Amplia el zoom"
 
 #: app/menus.c:108
 #, c-format
 msgid "Zoom in 50%"
-msgstr "Zoom ind 50%"
+msgstr "Amplia el zoom el 50%"
 
 #: app/menus.c:109
 msgid "Zoom _Out"
-msgstr "Zoom _ud"
+msgstr "Redueix el zoom"
 
 #: app/menus.c:109
 #, c-format
 msgid "Zoom out 50%"
-msgstr "Zoom ud 50%"
+msgstr "Redueix el zoom el 50%"
 
 #: app/menus.c:110
 msgid "_Zoom"
@@ -585,637 +596,651 @@ msgstr "_Zoom"
 
 #: app/menus.c:111
 msgid "Edit Grid..."
-msgstr "Redigér gitter..."
+msgstr "Edita la quadrícula..."
 
 #: app/menus.c:113
 msgid "_AntiAliased"
-msgstr "_Antialiaseret"
+msgstr "_AntiAliased"
 
 #: app/menus.c:116
 msgid "_Visible Grid"
-msgstr "_Synligt gitter"
+msgstr "_Quadrícula visible"
 
 #: app/menus.c:118
 msgid "_Snap To Grid"
-msgstr "_Hægt til gitter"
+msgstr "_Desplaça a la quadrícula"
 
 #: app/menus.c:120
 msgid "Show _Rulers"
-msgstr "Vis _linealer"
+msgstr "Mostra els _regles"
 
 #: app/menus.c:122
 msgid "Show _Connection Points"
-msgstr "Vis _forbindelsespunkter"
+msgstr "Mostra els punts de _connexió"
 
-# FIXME: Visning?
 #: app/menus.c:125
 msgid "New _View"
-msgstr "Ny _visning"
+msgstr "Nova _vista"
 
 #: app/menus.c:126
 msgid "Show _All"
-msgstr "Vis _alt"
+msgstr "Mostra-ho _tot"
 
 #: app/menus.c:131
 msgid "All"
-msgstr "Alt"
+msgstr ""
 
 #: app/menus.c:132 lib/widgets.c:654 objects/UML/association.c:991
 msgid "None"
-msgstr "Ingen"
+msgstr "Cap"
 
 #: app/menus.c:133 app/menus.c:142
+#, fuzzy
 msgid "Invert"
-msgstr "Invertér"
+msgstr "Converteix"
 
 #: app/menus.c:134
+#, fuzzy
 msgid "Connected"
-msgstr "Tilsluttet"
+msgstr "Connecta"
 
 #: app/menus.c:135
 msgid "Transitive"
-msgstr "Transitiv"
+msgstr ""
 
 #: app/menus.c:136
 msgid "Same Type"
-msgstr "Samme type"
+msgstr ""
 
 #: app/menus.c:138
+#, fuzzy
 msgid "Replace"
-msgstr "Ombyt"
+msgstr "Plantilles"
 
 #: app/menus.c:139
+#, fuzzy
 msgid "Union"
-msgstr "Union"
+msgstr "cap"
 
 #: app/menus.c:140
+#, fuzzy
 msgid "Intersect"
-msgstr "Skæring"
+msgstr "Interfície:"
 
 #: app/menus.c:141
+#, fuzzy
 msgid "Remove"
-msgstr "Fjern"
+msgstr "   Elimina"
 
 #: app/menus.c:147 lib/properties.c:1114 lib/widgets.c:176
 msgid "Left"
-msgstr "Venstre"
+msgstr "Esquerra"
 
 #: app/menus.c:148 app/menus.c:157 lib/properties.c:1115 lib/widgets.c:182
 msgid "Center"
-msgstr "Midt"
+msgstr "Centre"
 
 #: app/menus.c:149 lib/properties.c:1116 lib/widgets.c:188
 msgid "Right"
-msgstr "Højre"
+msgstr "Dreta"
 
 #: app/menus.c:150 app/menus.c:159
 msgid "Equal Distance"
-msgstr "Samme afstand"
+msgstr "Equidistant"
 
 #: app/menus.c:151 app/menus.c:160
 msgid "Adjacent"
-msgstr "Ved siden"
+msgstr "Adjacent"
 
 #: app/menus.c:156
 msgid "Top"
-msgstr "Øverst"
+msgstr "Superior"
 
 #: app/menus.c:158
 msgid "Bottom"
-msgstr "Nederst"
+msgstr "Inferior"
 
 #: app/menus.c:165
 msgid "Send to _Back"
-msgstr "Send _bagud"
+msgstr "Envia al _darrere"
 
 #: app/menus.c:166
 msgid "Bring to _Front"
-msgstr "Bring _frem"
+msgstr "Porta al _davant"
 
 #: app/menus.c:168
 msgid "_Group"
-msgstr "_Gruppér"
+msgstr "_Agrupa"
 
 #: app/menus.c:169
 msgid "_Ungroup"
-msgstr "_Afgruppér"
+msgstr "_Desagrupa"
 
 #: app/menus.c:171
 msgid "Align _Horizontal"
-msgstr "Justér _vandret"
+msgstr "Alinea _horitzontalment"
 
 #: app/menus.c:172
 msgid "Align _Vertical"
-msgstr "Justér _lodret"
+msgstr "Alinea _verticalment"
 
 #: app/menus.c:194
 msgid "_Properties"
-msgstr "_Egenskaber"
+msgstr "_Propietats"
 
 #: app/menus.c:195
 msgid "_Layers"
-msgstr "_Lag"
+msgstr "_Capes"
 
 #: app/menus.c:214
+#, fuzzy
 msgid "Select"
-msgstr "Vælg"
+msgstr "Seleccioneu el color"
 
 #: app/menus.c:215
 msgid "Objects"
-msgstr "Objekter"
+msgstr "Objectes"
 
 #: app/menus.c:216
 msgid "Tools"
-msgstr "Værktøjer"
+msgstr ""
 
 #: app/menus.c:217
 msgid "Dialogs"
-msgstr "Dialoger"
+msgstr "Diàlegs"
 
 #: app/menus.c:228 app/menus.c:241
 msgid "/_File"
-msgstr "/_Filer"
+msgstr "/_Fitxer"
 
 #. {"/File/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
 #: app/menus.c:229 app/menus.c:243
 msgid "/File/_New"
-msgstr "/Filer/_Ny"
+msgstr "/Fitxer/_Nou"
 
 #: app/menus.c:230 app/menus.c:244
 msgid "/File/_Open"
-msgstr "/Filer/Å_bn"
+msgstr "/Fitxer/_Obre"
 
 #: app/menus.c:231
 msgid "/File/_Preferences..."
-msgstr "/Filer/_Indstillinger..."
+msgstr "/Fitxer/_Preferències..."
 
 #: app/menus.c:232
+#, fuzzy
 msgid "/File/P_lugins"
-msgstr "/Filer/_Indstik"
+msgstr "/Fitxer/_Surt"
 
 #: app/menus.c:233 app/menus.c:248
 msgid "/File/sep1"
-msgstr "/Filer/sep1"
+msgstr "/Fitxer/sep1"
 
 #: app/menus.c:234 app/menus.c:253
 msgid "/File/_Quit"
-msgstr "/Filer/_Afslut"
+msgstr "/Fitxer/_Surt"
 
 #: app/menus.c:235
 msgid "/_Help"
-msgstr "/_Hjælp"
+msgstr "/_Ajuda"
 
 #: app/menus.c:236
 msgid "/Help/_About"
-msgstr "/Hjælp/_Om"
+msgstr "/Ajuda/_Quant a"
 
 #: app/menus.c:245
 msgid "/File/_Save"
-msgstr "/Filer/_Gem"
+msgstr "/Fitxer/_Desa"
 
 #: app/menus.c:246
 msgid "/File/Save _As..."
-msgstr "/Filer/Gem _som..."
+msgstr "/Fitxer/Desa _com a..."
 
 #: app/menus.c:247
 msgid "/File/_Export..."
-msgstr "/Filer/_Eksportér..."
+msgstr "/Fitxer/_Exporta..."
 
 #: app/menus.c:249
 msgid "/File/Page Set_up..."
-msgstr "/Filer/Side_opsætning..."
+msgstr "/Fitxer/Configuració de la pàgina..."
 
 #: app/menus.c:250
 msgid "/File/_Print Diagram..."
-msgstr "/File/_Udskriv diagram..."
+msgstr "/Fitxer/_Imprimeix el diagrama..."
 
 #: app/menus.c:251
 msgid "/File/sep2"
-msgstr "/Filer/sep2"
+msgstr "/Fitxer/sep2"
 
 #: app/menus.c:252
 msgid "/File/_Close"
-msgstr "/Filer/_Luk"
+msgstr "/Fitxer/_Tanca"
 
 #: app/menus.c:254
 msgid "/_Edit"
-msgstr "/_Redigér"
+msgstr "/_Edita"
 
 #. {"/Edit/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
 #: app/menus.c:256
 msgid "/Edit/_Copy"
-msgstr "/Redigér/_Kopiér"
+msgstr "/Edita/_Copia"
 
 #: app/menus.c:257
 msgid "/Edit/C_ut"
-msgstr "/Redigér/K_lip"
+msgstr "/Edita/R_etalla"
 
 #: app/menus.c:258
 msgid "/Edit/_Paste"
-msgstr "/Redigér/_Indsæt"
+msgstr "/Edita/_Enganxa"
 
 #: app/menus.c:259
 msgid "/Edit/_Delete"
-msgstr "/Redigér/_Slet"
+msgstr "/Edita/_Esborra"
 
 #: app/menus.c:260
 msgid "/Edit/_Undo"
-msgstr "/Redigér/Fortr_yd"
+msgstr "/Edita/_Desfés"
 
 #: app/menus.c:261
 msgid "/Edit/_Redo"
-msgstr "/Redigér/_Gentag"
+msgstr "/Edita/_Refés"
 
 #: app/menus.c:264
+#, fuzzy
 msgid "/Edit/Paste _Text"
-msgstr "/Redigér/Indsæt"
+msgstr "/Edita/Enganxa"
 
 #: app/menus.c:265
 msgid "/_View"
-msgstr "/_Vis"
+msgstr "/_Veure"
 
 #. {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:267
 msgid "/View/Zoom _In"
-msgstr "/Vis/Zoom _ind"
+msgstr "/Veure/_Amplia el zoom"
 
 #: app/menus.c:268
 msgid "/View/Zoom _Out"
-msgstr "/Vis/Zoom _ud"
+msgstr "/Veure/_Redueix el zoom"
 
 #: app/menus.c:269
 msgid "/View/_Zoom"
-msgstr "/Vis/_Zoom"
+msgstr "/Veure/_Zoom"
 
 #: app/menus.c:270
 #, c-format
 msgid "/View/Zoom/400%"
-msgstr "/Vis/Zoom/400%"
+msgstr "/Veure/Zoom/400%"
 
 #: app/menus.c:271
 #, c-format
 msgid "/View/Zoom/283%"
-msgstr "/Vis/Zoom/283%"
+msgstr "/Veure/Zoom/283%"
 
 #: app/menus.c:272
 #, c-format
 msgid "/View/Zoom/200%"
-msgstr "/Vis/Zoom/200%"
+msgstr "/Veure/Zoom/200%"
 
 #: app/menus.c:273
 #, c-format
 msgid "/View/Zoom/141%"
-msgstr "/Vis/Zoom/141%"
+msgstr "/Veure/Zoom/141%"
 
 #: app/menus.c:274
 #, c-format
 msgid "/View/Zoom/100%"
-msgstr "/Vis/Zoom/100%"
+msgstr "/Veure/Zoom/100%"
 
 #: app/menus.c:275
 #, c-format
 msgid "/View/Zoom/85%"
-msgstr "/Vis/Zoom/85%"
+msgstr "/Veure/Zoom/85%"
 
 #: app/menus.c:276
 #, c-format
 msgid "/View/Zoom/70.7%"
-msgstr "/Vis/Zoom/70.7%"
+msgstr "/Veure/Zoom/70.7%"
 
 #: app/menus.c:277
 #, c-format
 msgid "/View/Zoom/50%"
-msgstr "/Vis/Zoom/50%"
+msgstr "/Veure/Zoom/50%"
 
 #: app/menus.c:278
 #, c-format
 msgid "/View/Zoom/35.4%"
-msgstr "/Vis/Zoom/35.4%"
+msgstr "/Veure/Zoom/35.4%"
 
 #: app/menus.c:279
 #, c-format
 msgid "/View/Zoom/25%"
-msgstr "/Vis/Zoom/25%"
+msgstr "/Veure/Zoom/25%"
 
 #: app/menus.c:280
 msgid "/View/Edit Grid..."
-msgstr "/Vis/Redigér gitter..."
+msgstr "/Veure/Edita la quadrícula..."
 
 #: app/menus.c:282
 msgid "/View/_AntiAliased"
-msgstr "/Vis/_Antiliaseret"
+msgstr "/Veure/_AntiAliased"
 
 #: app/menus.c:284
 msgid "/View/_Visible Grid"
-msgstr "/Vis/_Synligt gitter"
+msgstr "/Veure/Quadrícula _Visible"
 
 #: app/menus.c:285
 msgid "/View/_Snap To Grid"
-msgstr "/Vis/_Fast til gitter"
+msgstr "/Veure/_Desplaça a la quadrícula"
 
 #: app/menus.c:286
 msgid "/View/Show _Rulers"
-msgstr "/Vis/Vis _linealer"
+msgstr "/Veure/Mostra els _regles"
 
 #: app/menus.c:287
 msgid "/View/Show _Connection Points"
-msgstr "/Vis/Vis _forbindelsespunkter"
+msgstr "/Veure/Mostra els punts de _connexió"
 
 #: app/menus.c:288
 msgid "/View/sep1"
-msgstr "/Vis/sep1"
+msgstr "/Veure/sep1"
 
 #: app/menus.c:289
 msgid "/View/New _View"
-msgstr "/Vis/Ny _visning"
+msgstr "/Veure/Nova _Vista"
 
 #: app/menus.c:290
 msgid "/View/Show _All"
-msgstr "/Vis/Vis _alt"
+msgstr "/Veure/Mostra-ho _tot"
 
 #: app/menus.c:291
+#, fuzzy
 msgid "/Select/All"
-msgstr "/Vælg/Alt"
+msgstr "Seleccioneu el color"
 
 #: app/menus.c:292
 msgid "/Select/None"
-msgstr "/Marker/Ingenting"
+msgstr ""
 
 #: app/menus.c:293 app/menus.c:302
 msgid "/Select/Invert"
-msgstr "/Marker/Invertér"
+msgstr ""
 
 #: app/menus.c:294
 msgid "/Select/Connected"
-msgstr "/Marker/Tilkoblede"
+msgstr ""
 
 #: app/menus.c:295
 msgid "/Select/Transitive"
-msgstr "/Marker/Transitive"
+msgstr ""
 
 #: app/menus.c:296
 msgid "/Select/Same Type"
-msgstr "/Marker/Samme type"
+msgstr ""
 
 #: app/menus.c:297
+#, fuzzy
 msgid "/Select/sep1"
-msgstr "/Vælg/sep1"
+msgstr "/Fitxer/sep1"
 
 #: app/menus.c:298
 msgid "/Select/Replace"
-msgstr "/Marker/Erstat"
+msgstr ""
 
 #: app/menus.c:299
 msgid "/Select/Union"
-msgstr "/Marker/Union"
+msgstr ""
 
 #: app/menus.c:300
 msgid "/Select/Intersect"
-msgstr "/Marker/Kryds"
+msgstr ""
 
 #: app/menus.c:301
 msgid "/Select/Remove"
-msgstr "/Marker/Fjern"
+msgstr ""
 
 #: app/menus.c:303
 msgid "/_Objects"
-msgstr "/_Objekter"
+msgstr "/_Objectes"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                    0, "<Tearoff>" },
 #: app/menus.c:305
 msgid "/Objects/Send to _Back"
-msgstr "/Objekter/Send _bagud"
+msgstr "/Objetes/Envia al _darrere"
 
 #: app/menus.c:306
 msgid "/Objects/Bring to _Front"
-msgstr "/Objekter/Hent _fremad"
+msgstr "/Objects/Porta al _davant"
 
 #: app/menus.c:307 app/menus.c:310
 msgid "/Objects/sep1"
-msgstr "/Objekter/sep1"
+msgstr "/Objectes/sep1"
 
 #: app/menus.c:308
 msgid "/Objects/_Group"
-msgstr "/Objekter/_Gruppér"
+msgstr "/Objectes/_Agrupa"
 
 #: app/menus.c:309
 msgid "/Objects/_Ungroup"
-msgstr "/Objekter/_Afgruppér"
+msgstr "/Objectes/_Desagrupa"
 
 #: app/menus.c:311
 msgid "/Objects/Align _Horizontal"
-msgstr "/Objekter/Justér vandret"
+msgstr "/Objects/Alinea _horitzontalment"
 
 #: app/menus.c:317
 msgid "/Objects/Align _Vertical"
-msgstr "/Objekter/Justér lodret"
+msgstr "/Objects/Alinea _verticalment"
 
 #: app/menus.c:324
 msgid "/Tools/Modify"
-msgstr "/Værktøj/Ændr"
+msgstr ""
 
 #: app/menus.c:325
+#, fuzzy
 msgid "/Tools/Magnify"
-msgstr "/Værktøj/Forstørrelse"
+msgstr "Magnifica"
 
 #: app/menus.c:326
 msgid "/Tools/Scroll"
-msgstr "/Værktøj/Rul"
+msgstr ""
 
 #: app/menus.c:327
 msgid "/Tools/Text"
-msgstr "/Værktøj/Tekst"
+msgstr ""
 
 #: app/menus.c:328
 msgid "/Tools/Box"
-msgstr "/Værktøj/Boks"
+msgstr ""
 
 #: app/menus.c:329
+#, fuzzy
 msgid "/Tools/Ellipse"
-msgstr "/Værktøj/Ellipse"
+msgstr "El·lipse buida"
 
 #: app/menus.c:330
 msgid "/Tools/Polygon"
-msgstr "/Værktøj/Polygon"
+msgstr ""
 
 #: app/menus.c:331
 msgid "/Tools/Line"
-msgstr "/Værktøj/Linje"
+msgstr ""
 
 #: app/menus.c:332
 msgid "/Tools/Arc"
-msgstr "/Værktøj/Bue"
+msgstr ""
 
 #: app/menus.c:333
 msgid "/Tools/Zigzagline"
-msgstr "/Værktøj/Sik-sak linje"
+msgstr ""
 
 #: app/menus.c:334
 msgid "/Tools/Polyline"
-msgstr "/Værktøj/Polylinje"
+msgstr ""
 
 #: app/menus.c:335
 msgid "/Tools/Bezierline"
-msgstr "/Værktøj/Bezierlinje"
+msgstr ""
 
 #: app/menus.c:336
 msgid "/Tools/Image"
-msgstr "/Værktøj/Billede"
+msgstr ""
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:339
 msgid "/_Dialogs"
-msgstr "/_Dialoger"
+msgstr "/_Diàlegs"
 
 #: app/menus.c:340
 msgid "/Dialogs/_Properties"
-msgstr "/Dialoger/_Egenskaber"
+msgstr "/Diàlegs/_Propietats"
 
 #: app/menus.c:341
 msgid "/Dialogs/_Layers"
-msgstr "/Dialoger/_Lag"
+msgstr "/Diàlegs/_Capes"
 
 #: app/menus.c:359
 msgid "NULL tooldata in tool_menu_select"
-msgstr "NULL værktøjdata i tool_menu_select"
+msgstr ""
 
 #: app/menus.c:390 app/menus.c:495
 msgid "/Tools/"
-msgstr "/Værktøj/"
+msgstr ""
 
 #: app/properties.c:52 app/properties.c:60
 msgid "Object properties"
-msgstr "_Objektegenskaber"
+msgstr "Propietats de l'objecte"
 
 #: app/defaults.c:72 app/preferences.c:604 app/properties.c:91
 msgid "Apply"
-msgstr "Anvend"
+msgstr "Aplica"
 
 #: app/properties.c:114
 msgid "This object has no properties."
-msgstr "Dette objekt har ingen indstillelige egenskaber."
+msgstr "Aquest objecte no té propietats"
 
 #: app/render_eps.c:1133
 msgid "Encapsulated Postscript"
-msgstr "Encapsulated postscript"
+msgstr "Encapsulated Postcript"
 
 #: app/defaults.c:47 app/defaults.c:55
 msgid "Object defaults"
-msgstr "Standardindstillinger for objekt"
+msgstr "Opcions per defecte de l'objecte"
 
 #: app/defaults.c:95
 msgid "This object has no defaults."
-msgstr "Dette objekt har ingen standardindstillinger."
+msgstr "Aquest objecte no té opcions per defecte"
 
 #: app/preferences.c:83
 msgid "User Interface"
-msgstr "Brugergrænseflade"
+msgstr "Interfície de l'usuari"
 
 #: app/preferences.c:84
 msgid "View Defaults"
-msgstr "Vis standard"
+msgstr "Veure les opcions per defecte"
 
 #: app/preferences.c:85
+#, fuzzy
 msgid "Grid Lines"
-msgstr "Gitterlinier"
+msgstr "Opcions de la quadrícula"
 
 #: app/preferences.c:99
 msgid "Reset tools after create:"
-msgstr "Nulstil værktøj efter opret:"
+msgstr "Reinicia les eines després de crear:"
 
 #: app/preferences.c:100
 msgid "Compress saved files:"
-msgstr "Komprimér gemte filer:"
+msgstr "Compacta els fitxers desats:"
 
 #: app/preferences.c:101
 msgid "Number of undo levels:"
-msgstr "Antal fortrydniveauer:"
+msgstr "Número de nivells de desfer:"
 
 #: app/preferences.c:102
 msgid "Rubberbanding from right to left selects intersecting objects"
-msgstr "Gummibånd fra højre til venstre udpeger skærende objekter"
+msgstr ""
 
-# FIXME: Visning?
 #: app/preferences.c:103
 msgid "New window:"
-msgstr "Nyt vindue:"
+msgstr "Finestra nova:"
 
 #: app/preferences.c:104
 msgid "Width:"
-msgstr "Bredde:"
+msgstr "Amplada:"
 
 #: app/preferences.c:105
 msgid "Height:"
-msgstr "Højde:"
+msgstr "Altura:"
 
 #: app/preferences.c:106
 msgid "Magnify:"
-msgstr "Forstør:"
+msgstr "Magnifica:"
 
 #: app/preferences.c:108
 msgid "Connection Points:"
-msgstr "Forbindelsespunkter:"
+msgstr "Punts de connexió:"
 
 #: app/preferences.c:109 app/preferences.c:112 app/preferences.c:120
 msgid "Visible:"
-msgstr "Synligt:"
+msgstr "Visible:"
 
 #: app/preferences.c:111
 msgid "Grid:"
-msgstr "Gitter:"
+msgstr "Quadrícula:"
 
 #: app/preferences.c:113
 msgid "Snap to:"
-msgstr "Hægt til:"
+msgstr "Desplaça a:"
 
 #: app/preferences.c:114
 msgid "X Size:"
-msgstr "X størrelse:"
+msgstr "Mida de l'eix X"
 
 #: app/preferences.c:115
 msgid "Y Size:"
-msgstr "Y størrelse:"
+msgstr "Mida de l'eix Y"
 
 #: app/preferences.c:116 app/preferences.c:121
+#, fuzzy
 msgid "Colour:"
-msgstr "Farve:"
+msgstr "Color"
 
 #: app/preferences.c:117 app/preferences.c:122
+#, fuzzy
 msgid "Solid lines:"
-msgstr "Ubrudte linier:"
+msgstr "Línies sòlides"
 
 #: app/preferences.c:119
 msgid "Page breaks:"
-msgstr "Sideskift:"
+msgstr ""
 
 #: app/preferences.c:232
-#, c-format
+#, fuzzy, c-format
 msgid "Could not open `%s' for writing"
-msgstr "Kunne ikke åbne '%s' for skriving"
+msgstr "No s'ha pogut obrir: '%s' per a la seva escriptura.\n"
 
 #: app/preferences.c:563 app/preferences.c:572
 msgid "Preferences"
-msgstr "Indstillinger"
+msgstr "Preferències"
 
 #: app/render_svg.c:784
 msgid "Scalable Vector Graphics"
-msgstr "Skalérbar vektorgrafik"
+msgstr "Gràfics vectorials escalables"
 
 #: app/lineprops_area.c:529
 msgid "Arrow Properties"
-msgstr "Pil _egenskaber"
+msgstr "Propietats de les sagetes"
 
 #: app/lineprops_area.c:586 app/lineprops_area.c:770
 msgid "Details..."
-msgstr "Detaljer..."
+msgstr "Detalls..."
 
 #: app/lineprops_area.c:726
 msgid "Line Style Properties"
-msgstr "Liniestilsegenskaber"
+msgstr "Propietats de l'estil de línia"
 
 #: lib/diagramdata.c:50
 msgid "Background"
-msgstr "Baggrund"
+msgstr "Fons"
 
 #: lib/font.c:355
 #, c-format
@@ -1223,124 +1248,125 @@ msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
 msgstr ""
-"Advarsel:  Fandt ingen X skrifttype for %s, \n"
-"bruger %s i stedet.\n"
+"Advertència, no s'ha trobat cap X tipus de lletra per a %s, \n"
+"i s'usa %s alternativament.\n"
 
 #: lib/font.c:409
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
-msgstr "Fandt ikke skrifttype %s, bruger Courier i stedet.\n"
+msgstr ""
+"No s'ha trobat el tipus de lletra %s. S'utilitzarà la Courier per defecte.\n"
 
 #: lib/message.c:118
 msgid "Notice"
-msgstr "Bemærk"
+msgstr "Nota"
 
 #: lib/message.c:129
 msgid "Warning"
-msgstr "Advarsel"
+msgstr "Advertència"
 
 #: lib/message.c:141
 msgid "Error"
-msgstr "Fejl"
+msgstr "Error"
 
 #: lib/widgets.c:296
 msgid "Solid"
-msgstr "Solid"
+msgstr "Sòlida"
 
 #: lib/widgets.c:302
 msgid "Dashed"
-msgstr "Streger"
+msgstr "Guionet"
 
 #: lib/widgets.c:308
 msgid "Dash-Dot"
-msgstr "Streg-prik"
+msgstr "Guionet-punt"
 
 #: lib/widgets.c:314
 msgid "Dash-Dot-Dot"
-msgstr "Streg-prik-prik"
+msgstr "Guionet-punt-punt"
 
 #: lib/widgets.c:320
 msgid "Dotted"
-msgstr "Prikket"
+msgstr "Punts"
 
 #. fs->sizebox = GTK_HBOX(box);
 #: lib/widgets.c:338
 msgid "Dash length: "
-msgstr "Streglængde: "
+msgstr "Mida dels guionets: "
 
 #: lib/widgets.c:660
 msgid "Lines"
-msgstr "Linier"
+msgstr "Línies"
 
 #: lib/widgets.c:666
 msgid "Hollow Triangle"
-msgstr "Hul trekant"
+msgstr "Triangle buit"
 
 #: lib/widgets.c:672
 msgid "Filled Triangle"
-msgstr "Udfyldt trekant"
+msgstr "Triangle ple"
 
 #: lib/widgets.c:678
 msgid "Hollow Diamond"
-msgstr "Hul firkant"
+msgstr "Diamant buit"
 
 #: lib/widgets.c:684
 msgid "Filled Diamond"
-msgstr "Udfyldt firkant"
+msgstr "Diamant ple"
 
 #: lib/widgets.c:690
 msgid "Half Head"
-msgstr "Halvt hoved"
+msgstr "Mig cap"
 
 #: lib/widgets.c:696
 msgid "Slashed Cross"
-msgstr "Streget kryds"
+msgstr "Creu en x"
 
 #: lib/widgets.c:703
 msgid "Filled Ellipse"
-msgstr "Udfyldt ellipse"
+msgstr "El·lipse plena"
 
 #: lib/widgets.c:709
 msgid "Hollow Ellipse"
-msgstr "Hul ellipse"
+msgstr "El·lipse buida"
 
 #: lib/widgets.c:725
 msgid "Length: "
-msgstr "Længde: "
+msgstr "Llargada: "
 
 #: lib/widgets.c:738
 msgid "Width: "
-msgstr "Bredde: "
+msgstr "Amplada: "
 
 #: lib/widgets.c:854 objects/standard/image.c:529
 msgid "Select image file"
-msgstr "Valgt billedfil"
+msgstr "Selecciona el fitxer d'imatge"
 
 #: lib/widgets.c:884
 msgid "Browse"
-msgstr "Gennemse"
+msgstr "Navega"
 
 #: lib/properties.c:356 lib/properties.c:388
 msgid "No edit widget"
-msgstr "Ingen redigér-widget"
+msgstr ""
 
 #: objects/UML/actor.c:282
 msgid "Actor"
-msgstr "Aktør"
+msgstr "Actor"
 
 #: objects/ER/participation.c:451 objects/FS/flow-ortho.c:726
 #: objects/UML/association.c:608 objects/UML/dependency.c:288
 #: objects/UML/generalization.c:280 objects/UML/realizes.c:283
 #: objects/standard/zigzagline.c:343
 msgid "Add segment"
-msgstr "Tilføj segment"
+msgstr "Afegeix un segment"
 
 #: objects/ER/participation.c:452 objects/FS/flow-ortho.c:727
 #: objects/UML/association.c:609 objects/UML/dependency.c:289
 #: objects/UML/generalization.c:281 objects/UML/realizes.c:284
 #: objects/standard/zigzagline.c:344
 msgid "Delete segment"
-msgstr "Slet segment"
+msgstr "Esborra el segment"
 
 #: objects/ER/attribute.c:206 objects/ER/entity.c:190
 #: objects/ER/relationship.c:260 objects/UML/association.c:969
@@ -1349,131 +1375,131 @@ msgstr "Slet segment"
 #: objects/UML/dependency.c:612 objects/UML/generalization.c:582
 #: objects/UML/large_package.c:562 objects/UML/realizes.c:580
 msgid "Name:"
-msgstr "Navn:"
+msgstr "Nom:"
 
 #: objects/UML/association.c:981
 msgid "Direction:"
-msgstr "Retning:"
+msgstr "Direcció:"
 
 #: objects/UML/association.c:998
 msgid "From A to B"
-msgstr "Fra A til B"
+msgstr ""
 
 #: objects/UML/association.c:1005
 msgid "From B to A"
-msgstr "Fra B til A"
+msgstr ""
 
 #: objects/UML/association.c:1029 objects/UML/association.c:1037
 msgid "Side A"
-msgstr "Side A"
+msgstr "Cara A"
 
 #: objects/UML/association.c:1031 objects/UML/association.c:1039
 msgid "Side B"
-msgstr "Side B"
+msgstr "Cara B"
 
 #: objects/UML/association.c:1045
 msgid "Role:"
-msgstr "Rolle:"
+msgstr "Rol:"
 
 #: objects/UML/association.c:1057
 msgid "Multiplicity:"
-msgstr "Multiplicitet:"
+msgstr "Multiplicitat:"
 
 #. Show arrow:
 #: objects/UML/association.c:1068
 msgid "Show arrow"
-msgstr "Vis pil"
+msgstr "Mostra sageta"
 
 #. Aggregate
 #: objects/UML/association.c:1074
 msgid "Aggregate"
-msgstr "Totalsum"
+msgstr "Agrega"
 
 #. Composition
 #: objects/UML/association.c:1082
 msgid "Composition"
-msgstr "Komposition"
+msgstr "Composició"
 
 #. Class page:
 #: objects/UML/class.c:608 objects/UML/class_dialog.c:171
 msgid "Class"
-msgstr "Klasse"
+msgstr "Classe"
 
 #: objects/UML/class_dialog.c:177
 msgid "Class name:"
-msgstr "Klassenavn:"
+msgstr "Nom de la classe:"
 
 #: objects/UML/class_dialog.c:188 objects/UML/dependency.c:624
 #: objects/UML/generalization.c:594 objects/UML/large_package.c:574
 #: objects/UML/object.c:767 objects/UML/realizes.c:592
 msgid "Stereotype:"
-msgstr "Stereotype:"
+msgstr "Estereotip:"
 
 #: objects/UML/class_dialog.c:199
 msgid "Abstract"
-msgstr "Abstrakt"
+msgstr "Abstracte"
 
 #: objects/UML/class_dialog.c:207
 msgid "Attributes visible"
-msgstr "Synlige attributter"
+msgstr "Atributs visibles"
 
 #: objects/UML/class_dialog.c:211
 msgid "Suppress Attributes"
-msgstr "Undertryk attributter"
+msgstr "Elimina els atributs"
 
 #: objects/UML/class_dialog.c:219
 msgid "Operations visible"
-msgstr "Synlige operationer"
+msgstr "Operacions visibles"
 
 #: objects/UML/class_dialog.c:223
 msgid "Suppress operations"
-msgstr "Undertryk operationer"
+msgstr "Elimina les operacions"
 
 #. Attributes page:
 #: objects/UML/class_dialog.c:640
 msgid "Attributes"
-msgstr "Attributter"
+msgstr "Atributs"
 
 #: objects/UML/class_dialog.c:668 objects/UML/class_dialog.c:1541
 #: objects/UML/class_dialog.c:1701 objects/UML/class_dialog.c:2162
 msgid "New"
-msgstr "Ny"
+msgstr "Nou"
 
 #: objects/UML/class_dialog.c:674 objects/UML/class_dialog.c:1547
 #: objects/UML/class_dialog.c:1708 objects/UML/class_dialog.c:2168
 msgid "Delete"
-msgstr "Slet"
+msgstr "Esborra"
 
 #: objects/UML/class_dialog.c:680 objects/UML/class_dialog.c:1553
 #: objects/UML/class_dialog.c:1715 objects/UML/class_dialog.c:2174
 msgid "Move up"
-msgstr "Flyt op"
+msgstr "Mou amunt"
 
 #: objects/UML/class_dialog.c:686 objects/UML/class_dialog.c:1559
 #: objects/UML/class_dialog.c:1722 objects/UML/class_dialog.c:2180
 msgid "Move down"
-msgstr "Flyt ned"
+msgstr "Mou avall"
 
 #: objects/UML/class_dialog.c:697
 msgid "Attribute data"
-msgstr "Attributdata"
+msgstr "Dades dels atributs"
 
 #: objects/UML/class_dialog.c:717 objects/UML/class_dialog.c:1593
 #: objects/UML/class_dialog.c:1755 objects/UML/class_dialog.c:2211
 msgid "Type:"
-msgstr "Type:"
+msgstr "Tipus:"
 
 #: objects/UML/class_dialog.c:729
 msgid "Value:"
-msgstr "Værdi:"
+msgstr "Valor:"
 
 #: objects/UML/class_dialog.c:741 objects/UML/class_dialog.c:1605
 msgid "Visibility:"
-msgstr "Synlighed:"
+msgstr "Visibilitat:"
 
 #: objects/UML/class_dialog.c:750 objects/UML/class_dialog.c:1614
 msgid "Public"
-msgstr "Offentlig"
+msgstr "Públic"
 
 #: objects/UML/class_dialog.c:758 objects/UML/class_dialog.c:1622
 msgid "Private"
@@ -1481,142 +1507,142 @@ msgstr "Privat"
 
 #: objects/UML/class_dialog.c:766 objects/UML/class_dialog.c:1630
 msgid "Protected"
-msgstr "Beskyttet"
+msgstr "Protegit"
 
 #: objects/UML/class_dialog.c:774 objects/UML/class_dialog.c:1638
 msgid "Implementation"
-msgstr "Implementation"
+msgstr "Aplicació"
 
 #: objects/UML/class_dialog.c:790 objects/UML/class_dialog.c:1654
 msgid "Class scope"
-msgstr "Klasseområde"
+msgstr "Abast de la classe"
 
 #. Operations page:
 #: objects/UML/class_dialog.c:1513
 msgid "Operations"
-msgstr "Operationer"
+msgstr "Operacions"
 
 #: objects/UML/class_dialog.c:1571
 msgid "Operation data"
-msgstr "Operationsdata"
+msgstr "Dades de les operacions"
 
 #: objects/UML/class_dialog.c:1660
 msgid "abstract"
-msgstr "abstrakt"
+msgstr "resum"
 
 #: objects/UML/class_dialog.c:1672
 msgid "Parameters:"
-msgstr "Parametre:"
+msgstr "Paràmetres:"
 
 #: objects/UML/class_dialog.c:1734
 msgid "Parameter data"
-msgstr "Parameter data"
+msgstr "Dades del paràmetre"
 
 #: objects/UML/class_dialog.c:1767
 msgid "Def. value:"
-msgstr "Standardværdi:"
+msgstr "Valor per defecte:"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2128
 msgid "Templates"
-msgstr "Skabeloner"
+msgstr "Plantilles"
 
 #: objects/UML/class_dialog.c:2134
 msgid "Template class"
-msgstr "Skabelonklasse"
+msgstr "Classe de plantilles"
 
 #: objects/UML/class_dialog.c:2191
 msgid "Formal parameter data"
-msgstr "Formelle parameterdata"
+msgstr "Dades dels paràmetres formals"
 
 #: objects/UML/constraint.c:511
 msgid "Constraint:"
-msgstr "Begrænsning:"
+msgstr "Restricció:"
 
 #: objects/UML/dependency.c:636
 msgid "Show arrow:"
-msgstr "Vis pil:"
+msgstr "Mostra sageta:"
 
 #: objects/UML/implements.c:561
 msgid "Interface:"
-msgstr "Brugergrænseflade:"
+msgstr "Interfície:"
 
 #: objects/UML/uml.c:56
 msgid "Unified Modelling Language diagram objects"
-msgstr "Unified Modelling Language diagramobjekter"
+msgstr ""
 
 #: objects/UML/usecase.c:544
 msgid "Text outside:"
-msgstr "Tekst udenfor:"
+msgstr "Text exterior:"
 
 #: objects/UML/usecase.c:549
 msgid "Collaboration"
-msgstr "Samarbejde"
+msgstr "Col·laboració"
 
 #: objects/UML/object.c:755
 msgid "Explicit state:"
-msgstr "Eksplicit tilstand:"
+msgstr "Estat explícit:"
 
 #: objects/UML/object.c:777
 msgid "Attributes:"
-msgstr "Attributter:"
+msgstr "Atributs:"
 
 #: objects/UML/object.c:787
 msgid "Show attributes"
-msgstr "Vis attributter"
+msgstr "Mostra els atributs"
 
 #: objects/UML/object.c:791
 msgid "Active object"
-msgstr "Aktivt objekt"
+msgstr "Objecte actiu"
 
 #: objects/UML/object.c:796
 msgid "multiple instance"
-msgstr "flere instanser"
+msgstr "Instància múltiple"
 
 #: objects/UML/lifeline.c:605
 msgid "Show focus of control:"
-msgstr "Vis kontrolfokus:"
+msgstr "Mostra el focus de control"
 
 #: objects/UML/lifeline.c:610
 msgid "Show destruction mark:"
-msgstr "Vis ødelæggelsesmærke:"
+msgstr "Mostra la marca de destrucció:"
 
 #: objects/UML/message.c:616
 msgid "Message:"
-msgstr "Meddelelse:"
+msgstr "Missatge:"
 
 #: objects/UML/message.c:630
 msgid "Message type:"
-msgstr "Meddelelsestype:"
+msgstr "Tipus de missatge:"
 
 #.
 #: objects/UML/message.c:635
 msgid "Call"
-msgstr "Kald"
+msgstr "Crida"
 
 #: objects/UML/message.c:640
 msgid "Return"
-msgstr "Returnér"
+msgstr "Retorn de carro"
 
 #: objects/UML/message.c:645
 msgid "Asynchronous"
-msgstr "Asynkron"
+msgstr "Asíncron"
 
 #: objects/UML/message.c:650
 msgid "Create"
-msgstr "Opret"
+msgstr "Crea"
 
 #: objects/UML/message.c:655
 msgid "Destroy"
-msgstr "Ødelæg"
+msgstr "Destrueix"
 
 #: objects/UML/message.c:660
 msgid "Simple"
-msgstr "Simpel"
+msgstr "Simple"
 
 #: objects/UML/message.c:665
 msgid "Recursive"
-msgstr "Rekursiv"
+msgstr "Recursiu"
 
 #: objects/UML/state.c:503
 msgid "Normal"
@@ -1624,73 +1650,73 @@ msgstr "Normal"
 
 #: objects/UML/state.c:508
 msgid "Begin"
-msgstr "Begynd"
+msgstr "Comença"
 
 #: objects/UML/state.c:513
 msgid "End"
-msgstr "Slut"
+msgstr "Acaba"
 
 #: objects/UML/classicon.c:608
 msgid "Control"
-msgstr "Kontrol"
+msgstr "Control"
 
 #: objects/UML/classicon.c:614
 msgid "Boundary"
-msgstr "Grænse"
+msgstr "Límits"
 
 #: objects/ER/entity.c:450 objects/UML/classicon.c:619
 msgid "Entity"
-msgstr "Entitet"
+msgstr "Entitat"
 
 #: objects/UML/classicon.c:627
 msgid "Is an object"
-msgstr "Er et objekt"
+msgstr "És un objecte"
 
 #: objects/ER/attribute.c:214
 msgid "Key"
-msgstr "Nøgle"
+msgstr "Clau"
 
 #: objects/ER/attribute.c:220
 msgid "Weak key"
-msgstr "Svag nøgle"
+msgstr "Clau feble"
 
 #: objects/ER/attribute.c:226
 msgid "Derived"
-msgstr "Afledt"
+msgstr "Derivada"
 
 #: objects/ER/attribute.c:232
 msgid "Multivalue"
-msgstr "Multiværdi"
+msgstr "Multivalor"
 
 #: objects/ER/attribute.c:238 objects/ER/entity.c:204
 #: objects/ER/relationship.c:296 objects/flowchart/diamond.c:243
 #: objects/flowchart/ellipse.c:243 objects/flowchart/parallelogram.c:251
 msgid "Border width:"
-msgstr "Kantbredde:"
+msgstr "Amplada de les vores:"
 
 #: objects/ER/attribute.c:249 objects/ER/entity.c:215
 #: objects/ER/relationship.c:307 objects/flowchart/diamond.c:258
 #: objects/flowchart/ellipse.c:258 objects/flowchart/parallelogram.c:266
 msgid "Foreground color:"
-msgstr "Forgrundsfarve:"
+msgstr "Color del primer pla:"
 
 #: objects/ER/attribute.c:257 objects/ER/entity.c:223
 #: objects/ER/relationship.c:315 objects/flowchart/diamond.c:269
 #: objects/flowchart/ellipse.c:269 objects/flowchart/parallelogram.c:277
 msgid "Background color:"
-msgstr "Baggrundsfarve:"
+msgstr "Color del fons:"
 
 #: objects/ER/attribute.c:509
 msgid "Attribute"
-msgstr "Attribut"
+msgstr "Atribut"
 
 #: objects/ER/entity.c:198
 msgid "Weak"
-msgstr "Svag"
+msgstr "Feble"
 
 #: objects/ER/er.c:40
 msgid "Entity/Relationship diagram objects"
-msgstr "Entitet-/ relationsdiagramobjekter"
+msgstr ""
 
 #: objects/ER/participation.c:418
 msgid "Total:"
@@ -1698,39 +1724,40 @@ msgstr "Total:"
 
 #: objects/ER/relationship.c:268
 msgid "Left Cardinality:"
-msgstr "Venstre kardinalitet:"
+msgstr "Cardinalitat esquerra:"
 
 #: objects/ER/relationship.c:276
 msgid "Right Cardinality:"
-msgstr "Højre kardinalitet:"
+msgstr "Cardinalitat dreta:"
 
 #: objects/ER/relationship.c:284
 msgid "Rotate"
-msgstr "Rotér"
+msgstr "Rota"
 
 #: objects/ER/relationship.c:290
 msgid "Identifying"
-msgstr "Identificerer"
+msgstr "Identificant"
 
 #: objects/ER/relationship.c:570
 msgid "Relationship"
-msgstr "Forhold"
+msgstr "Relació"
 
 #: objects/network/bus.c:569
 msgid "Add Handle"
-msgstr "Tilføj håndtag"
+msgstr "Afegeix un punt d'anclatge"
 
 #: objects/network/bus.c:570
 msgid "Delete Handle"
-msgstr "Slet håndtag"
+msgstr "Esborra un punt d'anclatge"
 
 #: objects/network/network.c:47
+#, fuzzy
 msgid "Network diagram objects"
-msgstr "Netværksdiagram-objekter"
+msgstr "_Nou diagrama"
 
 #: objects/flowchart/box.c:165 objects/standard/box.c:149
 msgid "Corner radius"
-msgstr "Hjørneradius:"
+msgstr "Radi de les cantonades"
 
 #: objects/custom/custom_object.c:348 objects/flowchart/box.c:310
 #: objects/flowchart/diamond.c:280 objects/flowchart/diamond.c:420
@@ -1738,23 +1765,23 @@ msgstr "Hjørneradius:"
 #: objects/flowchart/parallelogram.c:288 objects/flowchart/parallelogram.c:447
 #: objects/standard/box.c:223 objects/standard/ellipse.c:214
 msgid "Draw background"
-msgstr "Solid baggrund"
+msgstr "Dibuixa el fons"
 
 #: objects/flowchart/box.c:318 objects/standard/box.c:231
 msgid "Corner rounding:"
-msgstr "Hjørnerunding:"
+msgstr "Arrodoniment de les cantonades:"
 
 #: objects/standard/line.c:171
 msgid "Add connection point"
-msgstr "Tilføj forbindelsespunkt"
+msgstr "Afegeix un punt de connexió"
 
 #: objects/standard/line.c:172
 msgid "Delete connection point"
-msgstr "Slet forbindelsespunkt"
+msgstr "Esborra el punt de connexió"
 
 #: objects/custom/custom_object.c:371 objects/standard/textobj.c:260
 msgid "Alignment:"
-msgstr "Justering:"
+msgstr "Alineació:"
 
 #: objects/custom/custom_object.c:382 objects/flowchart/box.c:346
 #: objects/flowchart/diamond.c:313 objects/flowchart/diamond.c:442
@@ -1762,35 +1789,37 @@ msgstr "Justering:"
 #: objects/flowchart/parallelogram.c:336 objects/flowchart/parallelogram.c:483
 #: objects/standard/textobj.c:271
 msgid "Font:"
-msgstr "Skrifttype:"
+msgstr "Tipus de lletra:"
 
 #: objects/standard/textobj.c:282
 msgid "Fontsize:"
-msgstr "Skriftstørrelse:"
+msgstr "Mida del tipus de lletra:"
 
 #: objects/standard/image.c:165
+#, fuzzy
 msgid "Image file"
-msgstr "Billedfil"
+msgstr "Fitxer de la imatge:"
 
 #: objects/standard/image.c:167
+#, fuzzy
 msgid "Draw border"
-msgstr "Tegn kant"
+msgstr "Mostrar les vores"
 
 #: objects/standard/image.c:169
 msgid "Keep aspect ratio"
-msgstr "Behold bredde/højde forhold"
+msgstr "Mantenir la ràtio de l'aspecte"
 
 #: objects/standard/image.c:260
 msgid "Image file:"
-msgstr "Billedfil:"
+msgstr "Fitxer de la imatge:"
 
 #: objects/standard/image.c:271
 msgid "Keep aspect ratio:"
-msgstr "Behold bredde/højde forhold:"
+msgstr "Mantenir la ràtio de l'aspecte:"
 
 #: objects/standard/image.c:279
 msgid "Show border:"
-msgstr "Vis kant:"
+msgstr "Mostra les vores:"
 
 #. Found file in same dir as diagram.
 #: objects/standard/image.c:845 objects/standard/image.c:856
@@ -1799,294 +1828,375 @@ msgid ""
 "The image file '%s' was not found in that directory.\n"
 "Using the file '%s' instead\n"
 msgstr ""
-"Kunne ikke finde billedfilen '%s' i den mappe.\n"
-"Bruger filen '%s' istedet.\n"
+"El fitxer corresponent a la imatge '%s' no s'ha trobat al directori.\n"
+"S'utilitza alternativament el fitxer '%s'.\n"
 
 #. Didn't find file in current dir.
 #: objects/standard/image.c:862 objects/standard/image.c:888
 #, c-format
 msgid "The image file '%s' was not found.\n"
-msgstr "Kunne ikke finde billedfilen '%s'.\n"
+msgstr "El fitxer corresponent a la imatge '%s' no s'ha trobat.\n"
 
 #: objects/standard/polyline.c:484
 msgid "Add Corner"
-msgstr "Tilføj hjørne"
+msgstr "Afegeix la cantonada"
 
 #: objects/standard/polyline.c:485
 msgid "Delete Corner"
-msgstr "Slet hjørne"
+msgstr "Esborra la cantonada"
 
 #: objects/FS/flow-ortho.c:638 objects/FS/flow.c:624 objects/FS/flow.c:739
 msgid "Flow:"
-msgstr "Flyd:"
+msgstr "Flux:"
 
 #: objects/FS/flow-ortho.c:653 objects/FS/flow.c:639 objects/FS/flow.c:755
 msgid "Flow type:"
-msgstr "Flydtype:"
+msgstr "Tipus de flux:"
 
 #.
 #: objects/FS/flow-ortho.c:658 objects/FS/flow-ortho.c:723
 #: objects/FS/flow-ortho.c:785 objects/FS/flow.c:644 objects/FS/flow.c:699
 #: objects/FS/flow.c:760
 msgid "Energy"
-msgstr "Energi"
+msgstr "Energia"
 
 #: objects/FS/flow-ortho.c:665 objects/FS/flow-ortho.c:724
 #: objects/FS/flow-ortho.c:792 objects/FS/flow.c:651 objects/FS/flow.c:700
 #: objects/FS/flow.c:767
 msgid "Material"
-msgstr "Materiale"
+msgstr "Material"
 
 #: objects/FS/flow-ortho.c:671 objects/FS/flow-ortho.c:725
 #: objects/FS/flow-ortho.c:798 objects/FS/flow.c:657 objects/FS/flow.c:701
 #: objects/FS/flow.c:773 objects/FS/function.c:661
 msgid "Signal"
-msgstr "Signal"
+msgstr "Senyal"
 
 #: objects/FS/flow-ortho.c:764
 msgid "Orthflow:"
-msgstr "Ortflyd:"
+msgstr "Orthflow:"
 
 #: objects/FS/flow-ortho.c:780
 msgid "Orthflow type:"
-msgstr "OrtFlydtype:"
+msgstr "Orthflow type:"
 
 #: objects/FS/fs.c:39
 msgid "Function structure diagram objects"
-msgstr "Diagramobjekter for funktionsstruktur"
+msgstr ""
 
 #: objects/FS/function.c:572
 msgid "Function:"
-msgstr "Funktion:"
+msgstr "Funció:"
 
 #: objects/FS/function.c:582
 msgid "Wish function"
-msgstr "Ønskefunktion"
+msgstr "Funció desitjada"
 
 #: objects/FS/function.c:587
 msgid "User function"
-msgstr "Brugerfunktion"
+msgstr "Funció de l'usuari"
 
 #: objects/FS/function.c:627
 msgid "Channel"
-msgstr "Kanal"
+msgstr "Canal"
 
 #: objects/FS/function.c:628
 msgid "   Import"
-msgstr "   Importér"
+msgstr "   Importa"
 
 #: objects/FS/function.c:629
 msgid "   Export"
-msgstr "   Eksportér"
+msgstr "   Exporta"
 
 #: objects/FS/function.c:630
 msgid "   Transfer"
-msgstr "   Overfør"
+msgstr "   Transfereix"
 
 #: objects/FS/function.c:631
 msgid "      Transport"
-msgstr "    Transportér"
+msgstr "      Transporta"
 
 #: objects/FS/function.c:632
 msgid "      Transmit"
-msgstr "       Overfør"
+msgstr "      Transmet"
 
 #: objects/FS/function.c:633
 msgid "   Guide"
-msgstr "   Guide"
+msgstr "   Guia"
 
 #: objects/FS/function.c:634
 msgid "      Translate"
-msgstr "        Oversæt"
+msgstr "      Tradueix"
 
 #: objects/FS/function.c:635
 msgid "      Rotate"
-msgstr "      Rotér"
+msgstr "      Rota"
 
 #: objects/FS/function.c:636
 msgid "      Allow DOF"
-msgstr "     Tillad DOF"
+msgstr "      Permet DOF"
 
 #: objects/FS/function.c:637
 msgid "Support"
-msgstr "Support"
+msgstr "Suporta"
 
 #: objects/FS/function.c:638
 msgid "   Stop"
-msgstr "   Stop"
+msgstr "   Atura"
 
 #: objects/FS/function.c:639
 msgid "   Stabilize"
-msgstr "   Stabilisér"
+msgstr "   Estabilitza"
 
 #: objects/FS/function.c:640
 msgid "   Secure"
-msgstr "   Sikker"
+msgstr "   Assegura"
 
 #: objects/FS/function.c:641
 msgid "   Position"
-msgstr "   Placering"
+msgstr "   Posició"
 
 #: objects/FS/function.c:642
 msgid "Connect"
-msgstr "Forbind"
+msgstr "Connecta"
 
 #: objects/FS/function.c:643
 msgid "   Couple"
-msgstr "      Par"
+msgstr "   Aparella"
 
 #: objects/FS/function.c:644
 msgid "   Mix"
-msgstr "  Miks"
+msgstr "  Barreja"
 
 #: objects/FS/function.c:645
 msgid "Branch"
-msgstr "Gren"
+msgstr "Branca"
 
 #: objects/FS/function.c:646
 msgid "   Separate"
-msgstr "   Separat"
+msgstr "   Separa"
 
 #: objects/FS/function.c:647
 msgid "      Remove"
-msgstr "      Fjern"
+msgstr "   Elimina"
 
 #: objects/FS/function.c:648
 msgid "   Refine"
-msgstr "    Raffinér"
+msgstr "   Depura"
 
 #: objects/FS/function.c:649
 msgid "   Distribute"
-msgstr "   Distribuér"
+msgstr "   Distribueix"
 
 #: objects/FS/function.c:650
 msgid "   Dissipate"
-msgstr "   Spred"
+msgstr "   Dissipa"
 
 #: objects/FS/function.c:651
 msgid "Provision"
-msgstr "Provision"
+msgstr "Proveeix"
 
 #: objects/FS/function.c:652
 msgid "   Store"
-msgstr "     Gem"
+msgstr "   Desa"
 
 #: objects/FS/function.c:653
 msgid "   Supply"
-msgstr "   Indsæt"
+msgstr "   Oferta"
 
 #: objects/FS/function.c:654
 msgid "   Extract"
-msgstr "    Udtræk"
+msgstr "   Extreu"
 
 #: objects/FS/function.c:655
 msgid "Control Magnitude"
-msgstr "Kontroller størrelse"
+msgstr "Control de la magnitud"
 
 #: objects/FS/function.c:656
 msgid "   Actuate"
-msgstr "   Påvirk"
+msgstr "   Activa"
 
 #: objects/FS/function.c:657
 msgid "   Regulate"
-msgstr "   Regulér"
+msgstr "   Regula"
 
 #: objects/FS/function.c:658
 msgid "   Change"
-msgstr "   Ændr"
+msgstr "   Canvia"
 
 #: objects/FS/function.c:659
 msgid "   Form"
-msgstr "   Form"
+msgstr "   Formulari"
 
 #: objects/FS/function.c:660
 msgid "Convert"
-msgstr "Konvertér"
+msgstr "Converteix"
 
 #: objects/FS/function.c:662
 msgid "   Sense"
-msgstr "   Mærk"
+msgstr "   Sentit"
 
 #: objects/FS/function.c:663
 msgid "   Indicate"
-msgstr "   Indikér"
+msgstr "   Indica"
 
 #: objects/FS/function.c:664
 msgid "   Display"
-msgstr "   Skærm"
+msgstr "   Mostra"
 
 #: objects/FS/function.c:665
 msgid "   Measure"
-msgstr "   Mål"
+msgstr "   Mesura"
 
 #: objects/sybase/sybase.c:40
 msgid "Sybase replication domain diagram objects"
-msgstr "Diagramobjekter for Sybase replikeringsdomæner"
+msgstr ""
 
 #: objects/flowchart/box.c:167
 msgid "Text padding"
-msgstr "Tekstspaltefyld"
+msgstr "Farciment de text"
 
 #: objects/custom/custom_object.c:357 objects/flowchart/box.c:332
 #: objects/flowchart/diamond.c:299 objects/flowchart/diamond.c:428
 #: objects/flowchart/ellipse.c:299 objects/flowchart/ellipse.c:428
 #: objects/flowchart/parallelogram.c:322 objects/flowchart/parallelogram.c:469
 msgid "Text padding:"
-msgstr "Tekstspaltefyld:"
+msgstr "Farciment del text:"
 
 #: objects/custom/custom_object.c:393 objects/flowchart/box.c:357
 #: objects/flowchart/diamond.c:324 objects/flowchart/diamond.c:453
 #: objects/flowchart/ellipse.c:324 objects/flowchart/ellipse.c:453
 #: objects/flowchart/parallelogram.c:347 objects/flowchart/parallelogram.c:494
 msgid "Font size:"
-msgstr "Skriftstørrelse:"
+msgstr "Mida del tipus de lletra"
 
 #: objects/flowchart/diamond.c:288 objects/flowchart/ellipse.c:288
 #: objects/flowchart/parallelogram.c:296
 msgid "Line style:"
-msgstr "Linetype:"
+msgstr "Tipus de línia:"
 
 #: objects/flowchart/diamond.c:338 objects/flowchart/ellipse.c:338
 #: objects/flowchart/parallelogram.c:361
 msgid "Font color:"
-msgstr "Skriftfarve:"
+msgstr "Color del tipus de lletra:"
 
 #: objects/flowchart/flowchart.c:32
+#, fuzzy
 msgid "Flowchart objects"
-msgstr "Rutediagram objekter"
+msgstr "Objecte actiu"
 
 #: objects/flowchart/parallelogram.c:307 objects/flowchart/parallelogram.c:455
 msgid "Shear angle:"
-msgstr "Forskydningsvinkel:"
+msgstr "Retalla l'angle"
 
 #: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
+#, fuzzy
 msgid "Flip horizontal"
-msgstr "Rotér vandret"
+msgstr "Inverteix horitzontalment"
 
 #: objects/custom/custom_object.c:177 objects/custom/custom_object.c:195
+#, fuzzy
 msgid "Flip vertical"
-msgstr "Rotér lodret"
+msgstr "Inverteix verticalment"
 
 #: objects/custom/custom_object.c:1337
 msgid "Flip Horizontal"
-msgstr "Rotér vandret"
+msgstr "Inverteix horitzontalment"
 
 #: objects/custom/custom_object.c:1338
 msgid "Flip Vertical"
-msgstr "Rotér lodret"
+msgstr "Inverteix verticalment"
 
 #: plug-ins/cgm/cgm.c:1083
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
-"Billedets rækkelængde større end maksimum cellematrix.\n"
-"Billede ikke eksporteret til CGM."
+"La llargada de la imatge és superior a la llargada màxima de la cel·la.\n"
+"La imatge no es pot exportar a CGM."
 
 #: plug-ins/cgm/cgm.c:1252
 msgid "Computer Graphics Metafile"
-msgstr "Computer Grafik Metafil"
+msgstr "Computer Graphics Metafile"
 
 #: plug-ins/cgm/cgm.c:1266
+#, fuzzy
 msgid "Computer Graphics Metafile export filter"
-msgstr "Computer Grafik Metafil eksportfilter"
+msgstr "Computer Graphics Metafile"
+
+#~ msgid ""
+#~ "Couldn't find any libraries to load.\n"
+#~ "%s is not a directory.\n"
+#~ msgstr ""
+#~ "No s'ha pogut trobar cap biblioteca per carregar.\n"
+#~ "%s no és cap directori.\n"
+
+#~ msgid "Couldn't open \"%s\".\n"
+#~ msgstr "No s'ha pogut obrir \"%s\".\n"
+
+#~ msgid ""
+#~ "Error loading library: \"%s\":\n"
+#~ " %s\n"
+#~ msgstr ""
+#~ "S'ha produït un error mentre es carregava la biblioteca: \"%s\":\n"
+#~ "  %s\n"
+
+#~ msgid "The file \"%s\" is not a Dia object library.\n"
+#~ msgstr "El fitxer \"%s\" no és una biblioteca d'objectes de Dia"
+
+#~ msgid ""
+#~ "The object library\"%s\"is from an older version of Dia and cannot be used.\n"
+#~ "Please upgrade it."
+#~ msgstr ""
+#~ "La biblioteca d'objectes \"%s\" pertany a una versió anterior de Dia ino es "
+#~ "pot utilitzar.\n"
+#~ "Si us plau, actualitzeu-la"
+
+#~ msgid ""
+#~ "The object library \"%s\" is from an later version of Dia.\n"
+#~ "You need to upgrade Dia to use it."
+#~ msgstr ""
+#~ "La biblioteca d'objectes \"%s\" pertany a una versió posterior de Dia.\n"
+#~ "Cal que actualitzeu Dia per poder utilitzar-la."
+
+#~ msgid ""
+#~ "Unable to find register_sheets in library:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "No ha estat possible trobar els fulls de registre a la biblioteca:\n"
+
+#~ msgid "Line width:"
+#~ msgstr "Amplada de la línia:"
+
+#~ msgid "Color:"
+#~ msgstr "Color:"
+
+#~ msgid "Start arrow:"
+#~ msgstr "Inici de la sageta:"
+
+#~ msgid "End arrow:"
+#~ msgstr "Final de la sageta:"
+
+#~ msgid "Border width"
+#~ msgstr "Amplada de les vores"
+
+#~ msgid "Border colour"
+#~ msgstr "Color de les vores"
+
+#~ msgid "Inner colour"
+#~ msgstr "Color interior"
+
+#~ msgid "Line style"
+#~ msgstr "Estil de la línia"
+
+#~ msgid "Font"
+#~ msgstr "Tipus de lletra"
+
+#~ msgid "Font size"
+#~ msgstr "Mida del tipus de lletra"
+
+#~ msgid "Font colour"
+#~ msgstr "Color del tipus de lletra"
+
+#~ msgid "A custom with text inside."
+#~ msgstr "Un gràfic amb text a dins"
