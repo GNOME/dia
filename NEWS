@@ -2,7 +2,7 @@ dia-0.82:
 * Dia has a new maintainer now.
 * It is now possible to rearange the icons in the toolbox by editing
   simple XML files.  You can also create new sheets composed of your
-  favourite shapes.  This feature is the work of Cyrille Chepov
+  favourite shapes.  This feature is the work of Cyrille Chepelov
 * New bezierline object.  This object is by Lars Clausen and me (James).
 * Better integration with the gnome file manager -- dia files now have an
   icon, and you can double click on a file to launch dia.
