@@ -1,3 +1,8 @@
+2002-06-23  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* objects/chronogram/*.c: 
+	using dia_font_new_from_style()
+
 2002-06-23  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/font.c (dia_font_scaled_build_layout): Removed unworkable
