@@ -53,11 +53,11 @@ my $xml_extension =
 "desktop(\.in)+|".
 "directory(\.in)+|".
 "soundlist(\.in)+|".
-"sheet(\.in)+|".
 "keys(\.in)+|".
 "oaf(\.in)+|".
 "server(\.in)+|".
 "etspec|".
+"sheet(\.in)+|".
 "pong(\.in)+";
 
 my $PACKAGE = &find_package_name;

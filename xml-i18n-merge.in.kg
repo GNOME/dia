@@ -24,7 +24,8 @@
 #            Kenneth Christiansen <kenneth@gnu.org>
 #            Darin Adler <darin@eazel.com>
 #
-
+#  Proper XML UTF-8ification written by Cyrille Chepelov <chepelov@calixo.net>
+#
 
 ## Release information
 my $PROGRAM      = "xml-i18n-merge";
@@ -47,7 +48,8 @@ my $XML_STYLE_ARG = "0";
 my $KEYS_STYLE_ARG = "0";
 my $DESKTOP_STYLE_ARG = "0";
 my $QUIET_ARG = "0";
-
+my $PASS_THROUGH_ARG = "0";
+my $UTF8_ARG = "0";
 
 ## Handle options
 GetOptions (
@@ -57,7 +59,9 @@ GetOptions (
 	    "oaf-style|o" => \$OAF_STYLE_ARG,
 	    "xml-style|x" => \$XML_STYLE_ARG,
 	    "keys-style|k" => \$KEYS_STYLE_ARG,
-	    "desktop-style|d" => \$DESKTOP_STYLE_ARG
+	    "desktop-style|d" => \$DESKTOP_STYLE_ARG,
+            "pass-through|p" => \$PASS_THROUGH_ARG,
+            "utf8|u" => \$UTF8_ARG
 	    ) or &error;
 
 
@@ -69,6 +73,10 @@ my @languages;
 my %po_files_by_lang = ();
 my %translations = ();
 
+# Use this instead of \w for XML files to handle more possible characters.
+my $w = "[-A-Za-z0-9._:]";
+
+
 &split_on_argument;
 
 
@@ -79,7 +87,6 @@ sub split_on_argument {
 
     if ($VERSION_ARG) {
 	&version;
-
     } elsif ($HELP_ARG) {
 	&help;
     } elsif ($OAF_STYLE_ARG && @ARGV > 2) {
@@ -88,11 +95,13 @@ sub split_on_argument {
 	&preparation;
 	&oaf_merge_translations;
     } elsif ($XML_STYLE_ARG && @ARGV > 2) {
+        &utf8_sanity_check;
 	&place_normal;
 	&message;
 	&preparation;
 	&xml_merge_translations;
     } elsif ($KEYS_STYLE_ARG && @ARGV > 2) {
+        &utf8_sanity_check;
         &place_normal;
         &message;
         &preparation;
@@ -107,6 +116,23 @@ sub split_on_argument {
     }  
 }    
 
+sub utf8_sanity_check {
+    if (!$UTF8_ARG) {
+        if (!$PASS_THROUGH_ARG) {
+            print "****WARNING****: no default behavior to xml-i18n-merge (-p or -u) specified.\n";
+            print "Previous default was equivalent to -p, but generating broken \"XML\" files\n";
+            print "Please read the documentation and choose either -p or -u behavior\n";
+            print "For the moment, will assume -p, but this default may change in the future\n";
+            print "\n\n\n";  
+          
+            print "xml-i18n-merge will now sleep 5 seconds.\n";
+            sleep 5;
+            $PASS_THROUGH_ARG="1";
+        } else {
+            #print "xml-i18n-merge warning: \"XML\" with 8-bit pass-through is not likely to be \nreal XML.\n";           
+        }
+    }
+}
 
 sub place_normal {
     $PO_DIR = $ARGV[0];
@@ -136,9 +162,12 @@ sub help{
     print "  -q, --quiet                  quiet mode\n";
     print "  -o, --oaf-style              includes translations in the oaf style\n";
     print "  -x, --xml-style              includes translations in the xml style\n";
-    print "  -k, --keys-style		  includes translations in the keys style\n";
+    print "  -k, --keys-style             includes translations in the keys style\n";
     print "  -d, --desktop-style          includes translations in the desktop style\n";
-    print "\nReport bugs to <mjs\@eazel.com>.\n";
+    print "  -u, --utf8                   convert all strings to UTF-8 before merging\n";
+    print "  -p, --pass-through           use strings as found in .po files, without\n";
+    print "                               conversion (STRONGLY unrecommended with -x)\n";
+    print "\nReport bugs to bugzilla.eazel.com, module xml-i18n-tools or <mjs\@eazel.com>\n";
     exit;
 }
 
@@ -154,7 +183,6 @@ sub error{
 sub message {
     print "Merging translations into $OUTFILE.\n" unless $QUIET_ARG;
 }
-
 
 
 sub preparation {
@@ -184,6 +212,28 @@ sub po_file2lang
     return $tmp; 
 }
 
+sub get_po_encoding
+{
+    my ($in_po_file) = @_;
+    my $encoding = "";
+
+    open IN_PO_FILE, $in_po_file;
+    
+    while (<IN_PO_FILE>) {
+        ## example: "Content-Type: text/plain; charset=ISO-8859-1\n"
+        if (/Content-Type\:.*charset=([-a-zA-Z0-9]+)\\n/) {
+            $encoding = $1; 
+            last;
+        }
+    }
+    close IN_PO_FILE;
+    
+    if (!$encoding) {
+        print ("Warning: no encoding found in $in_po_file. Assuming ISO-8859-1\n");
+        $encoding = "ISO-8859-1";
+    }
+    return $encoding
+}
 
 sub create_translation_database
 {
@@ -191,24 +241,41 @@ sub create_translation_database
 
     	my $po_file = $po_files_by_lang{$lang};
 
-    	open PO_FILE, "<$po_file";	
+        if ($UTF8_ARG) {
+            my $encoding = get_po_encoding($po_file);
+            open PO_FILE, "iconv -f $encoding -t UTF-8 $po_file|";	
+        } else {
+            open PO_FILE, "<$po_file";	
+        }
 
         while (<PO_FILE>) {
             if (/^#,.*fuzzy/) {
                 $_ = <PO_FILE>; next;
             }
             if (/^msgid "(.*)"/ ) {
-		my $msgid = $1;
+		my $msgid = unescape_po_string($1);
                 $_ = <PO_FILE>;
 		
 		if (/^msgstr "(.+)"/) {
-		    my $msgstr = $1;
+		    my $msgstr = unescape_po_string($1);
 		    $translations{$lang . "|" . $msgid} = $msgstr; 
 		    # print "[$lang]$msgstr\n";
 		}
 	    }            
         }
     }
+}
+
+sub unescape_po_string
+{
+    my ($value) = @_;
+
+    # this is likely to be quite incomplete. 
+    # I suck at encoding thought as perl noi^W. -- CC
+    my $retval = $value;
+    $retval =~ s/\\([n\"\\])/$1/g;
+
+    return $retval;
 }
 
 sub lookup_translations 
@@ -260,16 +327,30 @@ sub entity_encode
 {
     my ($pre_encoded) = @_;
 
-    $pre_encoded =~ s/\\(.)/$1/g;
     my @list_of_chars = unpack ('C*', $pre_encoded);
 
-    return join ('', map (&entity_encode_int, @list_of_chars));
+    if ($PASS_THROUGH_ARG) {
+        return join ('', map (&entity_encode_int_even_high_bit, @list_of_chars));
+    } else {
+        return join ('', map (&entity_encode_int_minimalist, @list_of_chars));
+    }
 }
 
-sub entity_encode_int
+sub entity_encode_int_minimalist
 {
-    if ($_ > 127 || $_ == 34 || $_ == 38) {
-	return "&#" . $_ . ";";
+    if ($_ == 34) { return "&quot;" }
+    elsif ($_ == 38) { return "&amp;" }
+    elsif ($_ == 39) { return "&apos;" }
+    elsif ($_ == 60) { return "&lt;" }
+    elsif ($_ == 62) { return "&gt;" }
+    return chr $_;
+}
+
+sub entity_encode_int_even_high_bit
+{
+    if ($_ > 127 || $_ == 34 || $_ == 38 || $_ == 39 || $_ == 60 || $_ == 62) {
+        # the ($_ > 127) should probably be removed  
+	return "&#" . $_ . ";"; 
     } else {
 	return chr $_;
     }
@@ -290,18 +371,18 @@ sub oaf_merge_translations
 
     open OUTPUT, ">$OUTFILE";
 
-    while ($xml_source =~ /[ \t]*<[^<]*\s_\w+="[^"]*"[^<]*>/m) {
-        print OUTPUT $`;
+    while ($xml_source =~ /[ \t]*<[^<]*\s_$w+="[^"]*"[^<]*>/m) { #"
+        print OUTPUT $`; #` 
         my $orig_node = $&;
-	$xml_source = $';
+	$xml_source = $'; #'
 
         my $non_translated_line = $orig_node;
-        $non_translated_line =~ s/_(\w+)="/$1="/;
+        $non_translated_line =~ s/_($w+)="/$1="/;
             
         my $new_node = $non_translated_line;
             
         my $value_str = $orig_node;
-        $value_str =~ s/.*_\w+="([^"]*)".*/$1/s;
+        $value_str =~ s/.*_$w+="([^"]*)".*/$1/s; #"
 
         if ($value_str) {
             my %value_translation_map = entity_encode_translations
@@ -312,7 +393,7 @@ sub oaf_merge_translations
                     
                 my $translated_line = $orig_node;
                 $translated_line =~ s/name="([^"]*)"/name="$1-$key"/;
-                $translated_line =~ s/(\s*)_(\w+)="[^"]*"/$1$2="$translation"/;
+                $translated_line =~ s/(\s*)_($w+)="[^"]*"/$1$2="$translation"/;
 
                 $new_node .= "\n$translated_line";
             }
@@ -345,12 +426,13 @@ sub xml_merge_translations
 
     # First just unmark for translation all empty nodes
     # for example <_foo/> is just replaced by <foo/>
-    $xml_source =~ s/<_(\w+)\/>/<$1\/>/mg;
+    $xml_source =~ s/<_($w+)\/>/<$1\/>/mg;
 
     # Support for XML <_foo>blah</_foo> style translations
-    while ($xml_source =~ /([ \t]*)<_(\w+)>([^<]+)<\/_\2>/m) {
+    while ($xml_source =~ /([ \t]*)<_($w+)>([^<]+)<\/_\2>/m) {
         print OUTPUT $`;
-	$xml_source = $';    ##'
+	$xml_source = $'; #'
+
         my $spaces = $1;
         my $tag_name = $2;
         my $value_str = $3;
@@ -360,7 +442,8 @@ sub xml_merge_translations
         my $new_node = $non_translated_line;
 
         if ($value_str) {
-            my %value_translation_map = lookup_translations ($value_str);
+            my %value_translation_map = entity_encode_translations
+                (lookup_translations ($value_str));
 
             foreach my $key (sort keys %value_translation_map) {
                 my $translation = $value_translation_map{$key};

@@ -1,3 +1,16 @@
+2001-08-19  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* configure.in:
+	* sheets/Makefile.am: prepared the terrain for the Version of
+	xml-i18n-tools Which Comes After 0.9 (and which will feature at
+	last a sane behaviour with XML files). Some reasonible delay
+	before enforcing that version *will* be given.
+
+	* xml-i18n-merge.in.kg: included the current CVS xml-i18n-merge.in
+	
+	* lib/plug-ins.c: <xmlmemory.h> defines xmlFree(), otherwise it
+	becomes a nonexistent symbol.
+	
 2001-08-18  Hans Breuer  <hans@breuer.org>
 
 	* app/app_procs.c : made it compile without ENABLE_NLS
@@ -31,6 +44,7 @@
 
 	* lib/libdia.def : reflect api changes
 
+>>>>>>> 1.691
 2001-08-17  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* config.h.win32: added defines telling that gtk speaks UTF8.

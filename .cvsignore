@@ -1,4 +1,5 @@
 .deps
+stamp-h.in
 Makefile
 dia.desktop
 Makefile.in

@@ -31,7 +31,9 @@ AC_PROG_MAKE_SET
 AC_ISC_POSIX
 
 dnl stuff for xml-i18n-tools
-AC_PROG_XML_I18N_TOOLS
+AC_PROG_XML_I18N_TOOLS(0.9,G2)
+XML_I18N_TOOLS_NEWER_THAN_0_9 || AC_MSG_ERROR(unsatisfied dependency)
+
 
 dnl Checks for libraries.
 dnl AM_PATH_GLIB(1.2.9) dnl (for g_critical)

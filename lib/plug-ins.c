@@ -34,6 +34,7 @@
 #include <dirent.h>
 #endif
 
+#include <xmlmemory.h>
 #include <parser.h>
 #include <tree.h>
 #include "dia_xml_libxml.h"
