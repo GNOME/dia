@@ -567,8 +567,7 @@ freetype_add_font(char *dirname, char *filename) {
 		      sizeof(G_DIR_SEPARATOR_S));
   sprintf(fullname, "%s%s%s", dirname, G_DIR_SEPARATOR_S, filename);
 
-  facenum = 0;
-  do {
+  for (facenum = 0; facenum == 0 || facenum < first_face->num_faces; facenum++) {
     FreetypeFamily *new_font;
     FreetypeFace *new_face;
 
@@ -577,6 +576,15 @@ freetype_add_font(char *dirname, char *filename) {
       message_warning("Error reading face from %s:%d", filename, error);
       g_free(fullname);
       return;
+    }
+
+    if (face->family_name == NULL) {
+      if (facenum == 0) {
+	message_warning("Face with no family_name: %s", filename);
+	g_free(fullname);
+	return;
+      } else
+	continue; // One subface has no family name
     }
     
     new_font = (FreetypeFamily*)g_hash_table_lookup(freetype_fonts, face->family_name);
@@ -599,8 +607,7 @@ freetype_add_font(char *dirname, char *filename) {
 #endif
 
     if (facenum == 0) first_face = face;
-    facenum++;
-  } while (facenum < first_face->num_faces);
+  }
   g_free(fullname);
 }
 
