@@ -309,8 +309,122 @@ dia_page_layout_new(void)
 {
   DiaPageLayout *self = gtk_type_new(dia_page_layout_get_type());
 
-  gtk_option_menu_set_history(GTK_OPTION_MENU(self->paper_size), 1);
+  dia_page_layout_set_paper(self, "A4");
   return GTK_WIDGET(self);
+}
+
+const gchar *
+dia_page_layout_get_paper(DiaPageLayout *self)
+{
+  return paper_metrics[self->papernum].paper;
+}
+
+void
+dia_page_layout_set_paper(DiaPageLayout *self, const gchar *paper)
+{
+  gint i;
+
+  for (i = 0; paper_metrics[i].paper != NULL; i++) {
+    if (!g_strcasecmp(paper_metrics[i].paper, paper))
+      break;
+  }
+  if (paper_metrics[i].paper == NULL)
+    i = 1; /* A4 */
+  gtk_option_menu_set_history(GTK_OPTION_MENU(self->paper_size), i);
+  gtk_menu_item_activate(
+	GTK_MENU_ITEM(GTK_OPTION_MENU(self->paper_size)->menu_item));
+}
+
+void
+dia_page_layout_get_margins(DiaPageLayout *self,
+			    gfloat *tmargin, gfloat *bmargin,
+			    gfloat *lmargin, gfloat *rmargin)
+{
+  if (tmargin)
+    *tmargin = gtk_spin_button_get_value_as_float(
+			GTK_SPIN_BUTTON(self->tmargin));
+  if (bmargin)
+    *bmargin = gtk_spin_button_get_value_as_float(
+			GTK_SPIN_BUTTON(self->bmargin));
+  if (lmargin)
+    *lmargin = gtk_spin_button_get_value_as_float(
+			GTK_SPIN_BUTTON(self->lmargin));
+  if (rmargin)
+    *rmargin = gtk_spin_button_get_value_as_float(
+			GTK_SPIN_BUTTON(self->rmargin));
+}
+
+void
+dia_page_layout_set_margins(DiaPageLayout *self,
+			    gfloat tmargin, gfloat bmargin,
+			    gfloat lmargin, gfloat rmargin)
+{
+  self->block_changed = TRUE;
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->tmargin), tmargin);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->bmargin), bmargin);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->lmargin), lmargin);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(self->rmargin), rmargin);
+  self->block_changed = FALSE;
+
+  gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
+}
+
+DiaPageOrientation
+dia_page_layout_get_orientation(DiaPageLayout *self)
+{
+  if (GTK_TOGGLE_BUTTON(self->orient_portrait)->active)
+    return DIA_PAGE_ORIENT_PORTRAIT;
+  else
+    return DIA_PAGE_ORIENT_LANDSCAPE;
+}
+
+void
+dia_page_layout_set_orientation(DiaPageLayout *self,
+				DiaPageOrientation orient)
+{
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(self->orient_portrait),
+			       orient == DIA_PAGE_ORIENT_PORTRAIT);
+}
+
+void
+dia_page_layout_get_paper_size(const gchar *paper,
+			       gfloat *width, gfloat *height)
+{
+  gint i;
+
+  for (i = 0; paper_metrics[i].paper != NULL; i++) {
+    if (!g_strcasecmp(paper_metrics[i].paper, paper))
+      break;
+  }
+  if (paper_metrics[i].paper == NULL)
+    i = 1; /* A4 */
+  if (width)
+    *width = paper_metrics[i].pswidth;
+  if (height)
+    *height = paper_metrics[i].psheight;
+}
+
+void
+dia_page_layout_get_default_margins(const gchar *paper,
+				    gfloat *tmargin, gfloat *bmargin,
+				    gfloat *lmargin, gfloat *rmargin)
+{
+  gint i;
+
+  for (i = 0; paper_metrics[i].paper != NULL; i++) {
+    if (!g_strcasecmp(paper_metrics[i].paper, paper))
+      break;
+  }
+  if (paper_metrics[i].paper == NULL)
+    i = 1; /* A4 */
+  if (tmargin)
+    *tmargin = paper_metrics[i].tmargin;
+  if (bmargin)
+    *bmargin = paper_metrics[i].bmargin;
+  if (lmargin)
+    *lmargin = paper_metrics[i].lmargin;
+  if (rmargin)
+    *rmargin = paper_metrics[i].rmargin;
 }
 
 static void

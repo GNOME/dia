@@ -1,5 +1,8 @@
 1999-10-13  James Henstridge  <james@daa.com.au>
 
+	* app/diapagelayout.[ch]: added accessors to paper information.  The
+	widget should be just about complete now.
+
 	* app/diapagelayout.[ch]: fleshed out the page setup widget a bit more.
 	It actually does something now.
 
