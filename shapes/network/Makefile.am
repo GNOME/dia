@@ -56,7 +56,11 @@ SHAPES = \
 	genmonitor.shape \
 	genmonitor.xpm \
 	computer.shape \
-	computer.xpm
+	computer.xpm \
+	telephone.shape \
+	telephone.png \
+	firewall.shape \
+	firewall.xpm
 
 EXTRA_DIST = $(SHAPES)
 

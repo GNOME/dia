@@ -60,7 +60,9 @@ SHAPES = \
 	nmos_de.xpm \
 	pmos_de.shape \
 	pmos_de.xpm \
-	hjumper.shape
+	hjumper.shape \
+	microphone_de.shape \
+	microphone_de.xpm
 
 EXTRA_DIST = $(SHAPES)
 

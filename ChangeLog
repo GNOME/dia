@@ -1,6 +1,10 @@
 2002-05-13  Steffen Macke <sdteffen@web.de>
+
 	* AUTHORS:
 	* app/command.c: added M. C. Nelson to the Authors
+	* sheets/Circuit/Makefile.am: added firewall shape to build
+	* sheets/network/Makefile.am: added telephone and microphone
+	  shapes to build
 
 2002-05-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
