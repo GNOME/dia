@@ -2,143 +2,144 @@
 # Copyright (C) 1999,2000 Free Software Foundation, Inc.
 msgid ""
 msgstr ""
-"Project-Id-Version: Dia 0.86\n"
-"POT-Creation-Date: 2002-12-05 21:05-0600\n"
-"PO-Revision-Date: 2001-01-24 15:15+0100\n"
+"Project-Id-Version: Dia 0.91\n"
+"POT-Creation-Date: 2003-07-07 17:04+0200\n"
+"PO-Revision-Date: 2003-07-07 17:32+0200\n"
 "Last-Translator: Emese Kovacs <emese@gnome.hu>\n"
 "Language-Team: Hungarian <hu@gnome.hu>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:160
+#: app/app_procs.c:162
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr ""
 
-#: app/app_procs.c:171
+#: app/app_procs.c:173
 #, fuzzy, c-format
 msgid "%s error: need valid input file %s\n"
-msgstr "…rvÈnyes bemeneti f·jl kell\n"
+msgstr "√ârv√©nyes bemeneti f√°jl kell\n"
 
-#: app/app_procs.c:178
+#: app/app_procs.c:180
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr ""
 
 #. if (!quiet)
-#: app/app_procs.c:184
+#: app/app_procs.c:186
 #, c-format
 msgid "%s --> %s\n"
-msgstr ""
+msgstr "%s --> %s\n"
 
 #. &export_file_name
-#: app/app_procs.c:240
+#: app/app_procs.c:244
 msgid "Export loaded file and exit"
-msgstr "Betˆltˆtt f·jl export·l·sa Ès kilÈpÈs"
+msgstr "Bet√∂lt√∂tt f√°jl export√°l√°sa √©s kil√©p√©s"
 
-#: app/app_procs.c:240 app/diaconv.c:94
+#: app/app_procs.c:244 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "KIMENET"
 
 #. &export_file_format
-#: app/app_procs.c:242
+#: app/app_procs.c:246
 #, fuzzy
 msgid "Export to file format and exit"
-msgstr "Betˆltˆtt f·jl export·l·sa Ès kilÈpÈs"
+msgstr "Bet√∂lt√∂tt f√°jl export√°l√°sa √©s kil√©p√©s"
 
-#: app/app_procs.c:242 app/diaconv.c:92
+#: app/app_procs.c:246 app/diaconv.c:92
 msgid "eps,png,wmf,cgm,dxf,fig"
 msgstr ""
 
-#: app/app_procs.c:244
+#: app/app_procs.c:248
 msgid "Don't show the splash screen"
 msgstr ""
 
-#: app/app_procs.c:246
+#: app/app_procs.c:250
 msgid "Display credits list and exit"
 msgstr ""
 
-#: app/app_procs.c:248
+#: app/app_procs.c:252
 msgid "Display version and exit"
 msgstr ""
 
-#: app/app_procs.c:250 app/diaconv.c:95
+#: app/app_procs.c:254 app/diaconv.c:95
 msgid "Show this help message"
-msgstr "MegjelenÌti ezt a segÌtı szˆveget"
+msgstr "Megjelen√≠ti ezt a seg√≠t≈ë sz√∂veget"
 
 # app/app_procs.c:167
-#: app/app_procs.c:280
+#: app/app_procs.c:286
 msgid "Can't connect to session manager!\n"
-msgstr "A munkafolyamat-kezelı nem elÈrhetı!\n"
+msgstr "A munkafolyamat-kezel≈ë nem el√©rhet≈ë!\n"
 
 # app/app_procs.c:178
-#: app/app_procs.c:294 app/diaconv.c:119
+#: app/app_procs.c:301 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
-msgstr "[KAPCSOL”...] [F¡JL...]"
+msgstr "[KAPCSOL√ì...] [F√ÅJL...]"
 
 # app/app_procs.c:181
-#: app/app_procs.c:298 app/diaconv.c:126
+#: app/app_procs.c:305 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Hiba a %s kapcsolÛn·l: %s\n"
-"Az elÈrhetı parancssori kapcsolÛk megtekintÈsÈhez futtasd a '%s --help'-et.\n"
+"Hiba a %s kapcsol√≥n√°l: %s\n"
+"Az el√©rhet≈ë parancssori kapcsol√≥k megtekint√©s√©hez futtasd a '%s --help'-et.\n"
 
-#: app/app_procs.c:311
+#: app/app_procs.c:318
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
 msgstr ""
 
-#: app/app_procs.c:324
+#. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
+#: app/app_procs.c:331
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr ""
 
-#: app/app_procs.c:326
+#: app/app_procs.c:333
 #, c-format
 msgid "Dia version %s\n"
 msgstr ""
 
 # app/app_procs.c:229 app/app_procs.c:231
-#: app/app_procs.c:413 app/app_procs.c:415 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:419 app/app_procs.c:421 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
-"Objektum kˆnyvt·r keresÈse... Nem tal·lom az ·ltal·nos objektumokat, "
-"kilÈpek...\n"
+"Objektum k√∂nyvt√°r keres√©se... Nem tal√°lom az √°ltal√°nos objektumokat, "
+"kil√©pek...\n"
 
 #. no standard buttons
-#: app/app_procs.c:542
+#: app/app_procs.c:558
 #, fuzzy
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
 "without saving them?"
 msgstr ""
-"MÛdosÌtott diagramm van a rajzt·bl·n.\n"
-"TÈnyleg ki akarsz lÈpni?"
+"M√≥dos√≠tott diagramm van a rajzt√°bl√°n.\n"
+"T√©nyleg ki akarsz l√©pni?"
 
-#: app/app_procs.c:546
+#: app/app_procs.c:562
 #, fuzzy
 msgid "Quit Dia"
-msgstr "Dia nÈvjegye"
+msgstr "Dia n√©vjegye"
 
-#: app/app_procs.c:608 app/app_procs.c:615
+#: app/app_procs.c:626 app/app_procs.c:633
 msgid "Could not create per-user Dia config directory"
-msgstr "Nem tudtam a felhaszn·lÛnak Dia konfigur·ciÛs kˆnyvt·rat lÈtrehozni"
+msgstr "Nem tudtam a felhaszn√°l√≥nak Dia konfigur√°ci√≥s k√∂nyvt√°rat l√©trehozni"
 
-#: app/app_procs.c:617
+#: app/app_procs.c:635
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: app/app_procs.c:639 app/diaconv.c:249
+#: app/app_procs.c:657 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
-msgstr "A dia saj·t objektumai Ès sz˚rıi"
+msgstr "A dia saj√°t objektumai √©s sz≈±r≈ëi"
 
 #: app/autosave.c:93
 msgid "Recovering autosaved diagrams"
@@ -150,18 +151,24 @@ msgid ""
 "Please select those you wish to recover."
 msgstr ""
 
-#: app/color_area.c:301 lib/widgets.c:867
-msgid "Select color"
-msgstr "V·lassz ki egy szÌnt"
+#: app/color_area.c:316 app/color_area.c:363
+#, fuzzy
+msgid "Select foreground color"
+msgstr "El≈ët√©r sz√≠n:"
+
+#: app/color_area.c:317 app/color_area.c:364
+#, fuzzy
+msgid "Select background color"
+msgstr "H√°tt√©r sz√≠n:"
 
 #: app/commands.c:132
-#, c-format
-msgid "Untitled-%d"
-msgstr "NÈvtelen-%d"
+#, fuzzy, c-format
+msgid "Diagram%d.dia"
+msgstr "√Åbraszerkeszt≈ë"
 
 #: app/commands.c:198
 msgid "No existing object to paste.\n"
-msgstr "Nincs beillesztendı objektum.\n"
+msgstr "Nincs beillesztend≈ë objektum.\n"
 
 #: app/commands.c:468 app/commands.c:496
 msgid "Could not find help directory"
@@ -172,96 +179,88 @@ msgstr ""
 msgid ""
 "Could not open help directory:\n"
 "%s"
-msgstr "Nem tudom megnyitni a kˆvetkezıt: '%s' "
+msgstr "Nem tudom megnyitni a k√∂vetkez≈ët: '%s' "
 
 #.
 #. * Translators should localize the following string
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:536
+#: app/commands.c:534
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
+"Kov√°cs Emese <emese@gnome.hu>\n"
+"T√≠m√°r Andr√°s <timar@gnome.hu>"
 
-#: app/commands.c:550 dia.desktop.in.h:1
+#: app/commands.c:548 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:552
+#: app/commands.c:550
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
-msgstr ""
+msgstr "Copyright ¬© 1998-2002 The Free Software Foundation √©s a szerz≈ëk"
 
-#: app/commands.c:553
+#: app/commands.c:551
 #, fuzzy
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
-msgstr "L·togass el a http://www.lysator.liu.se/~alla/dia lapra"
+msgstr "L√°togass el a http://www.lysator.liu.se/~alla/dia lapra"
 
-#: app/commands.c:592
+#: app/commands.c:590
 msgid "About Dia"
-msgstr "Dia nÈvjegye"
+msgstr "A Dia n√©vjegye"
 
-#: app/commands.c:635
+#: app/commands.c:633
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
-msgstr "Dia v %s. Szerzı: Alexander Larsson"
+msgstr "Dia v %s. Szerz≈ë: Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:641
+#: app/commands.c:639
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
-msgstr ""
+msgstr "Karbantart√≥k: Lars Clausen √©s Cyrille Ch√©p√©lov"
 
-#: app/commands.c:645
+#: app/commands.c:643
 #, fuzzy
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
-msgstr "L·togass el a http://www.lysator.liu.se/~alla/dia lapra"
+msgstr "L√°togass el a http://www.lysator.liu.se/~alla/dia lapra"
 
-#: app/commands.c:650
+#: app/commands.c:648
 msgid "Contributors:"
-msgstr "Kˆszˆnet illeti mÈg:"
+msgstr "K√∂sz√∂net illeti m√©g:"
 
-#: app/commands.c:762
-msgid ""
-"The anti aliased renderer is buggy, and may cause\n"
-"crashes.  We know there are bugs in it, so don't\n"
-"bother submitting another report if it crashes"
-msgstr ""
-"Az ÈlsimÌt·st haszn·lÛ megjelenÌtı rutin hib·s,\n"
-"ezÈrt a program ˆsszeomolhat. Tudjunk a hib·rÛl, ezÈrt\n"
-"errıl kÈr¸nk ne k¸ldj hibajelentÈst."
-
-#: app/defaults.c:43 app/defaults.c:139
+#: app/defaults.c:43 app/defaults.c:146
 msgid "Object defaults"
-msgstr "Objektum alapÈrtÈkek"
+msgstr "Objektum alap√©rt√©kek"
 
 # app/defaults.c:96
 #: app/defaults.c:61
 msgid "This object has no defaults."
-msgstr "Nincs alapÈrtÈke az objektumnak."
+msgstr "Nincs alap√©rt√©ke az objektumnak."
 
 # app/preferences.c:88
-#: app/defaults.c:110
+#: app/defaults.c:111
 #, fuzzy
 msgid "Defaults: "
-msgstr "Alapbe·llÌt·sok"
+msgstr "Alapbe√°ll√≠t√°sok"
 
 #. &export_file_format
 #: app/diaconv.c:92
 #, fuzzy
 msgid "Export format to use"
-msgstr "Betˆltˆtt f·jl export·l·sa Ès kilÈpÈs"
+msgstr "Bet√∂lt√∂tt f√°jl export√°l√°sa √©s kil√©p√©s"
 
 #. &export_file_name
 #: app/diaconv.c:94
 #, fuzzy
 msgid "Export file name to use"
-msgstr "Betˆltˆtt f·jl export·l·sa Ès kilÈpÈs"
+msgstr "Bet√∂lt√∂tt f√°jl export√°l√°sa √©s kil√©p√©s"
 
 #: app/diaconv.c:96
 #, fuzzy
 msgid "Quiet operation"
-msgstr "Elnyomott attrib˙tumok"
+msgstr "Elnyomott attrib√∫tumok"
 
 # app/app_procs.c:181
 #: app/diaconv.c:147
@@ -270,8 +269,8 @@ msgid ""
 "Error: No arguments found.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Hiba a %s kapcsolÛn·l: %s\n"
-"Az elÈrhetı parancssori kapcsolÛk megtekintÈsÈhez futtasd a '%s --help'-et.\n"
+"Hiba a %s kapcsol√≥n√°l: %s\n"
+"Az el√©rhet≈ë parancssori kapcsol√≥k megtekint√©s√©hez futtasd a '%s --help'-et.\n"
 
 #: app/diaconv.c:157
 #, c-format
@@ -285,18 +284,18 @@ msgid ""
 "%s error: must specify only one of -t or -o.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Hiba a %s kapcsolÛn·l: %s\n"
-"Az elÈrhetı parancssori kapcsolÛk megtekintÈsÈhez futtasd a '%s --help'-et.\n"
+"Hiba a %s kapcsol√≥n√°l: %s\n"
+"Az el√©rhet≈ë parancssori kapcsol√≥k megtekint√©s√©hez futtasd a '%s --help'-et.\n"
 
 #: app/diaconv.c:172
 #, fuzzy, c-format
 msgid "%s error: no input file."
-msgstr "…rvÈnyes bemeneti f·jl kell\n"
+msgstr "√ârv√©nyes bemeneti f√°jl kell\n"
 
 #: app/diaconv.c:225
 #, fuzzy, c-format
 msgid "%s error: only one input file expected."
-msgstr "…rvÈnyes bemeneti f·jl kell\n"
+msgstr "√ârv√©nyes bemeneti f√°jl kell\n"
 
 #: app/diaconv.c:238
 #, c-format
@@ -306,17 +305,17 @@ msgstr ""
 # app/dia_embedd.c:352
 #: app/dia_embedd.c:352
 msgid "Could not initialize Bonobo!"
-msgstr "A Bonobo inicializ·l·sa nem siker¸lt!"
+msgstr "A Bonobo inicializ√°l√°sa nem siker√ºlt!"
 
 #: app/diagram_tree_menu.c:45
 #, fuzzy
 msgid "/_Sort objects"
-msgstr "AktÌv objektumok"
+msgstr "Akt√≠v objektumok"
 
 #: app/diagram_tree_menu.c:46
 #, fuzzy
 msgid "/Sort objects/by _name"
-msgstr "Nincs objektum-men¸"
+msgstr "Nincs objektum-men√º"
 
 #: app/diagram_tree_menu.c:48
 msgid "/Sort objects/by _type"
@@ -357,7 +356,7 @@ msgstr ""
 #: app/diagram_tree_menu.c:66
 #, fuzzy
 msgid "/Sort _diagrams"
-msgstr "¡bra export·l·sa"
+msgstr "√Åbra export√°l√°sa"
 
 #: app/diagram_tree_menu.c:67
 msgid "/Sort _diagrams/by _name"
@@ -370,7 +369,7 @@ msgstr ""
 #: app/diagram_tree_menu.c:71
 #, fuzzy
 msgid "/Sort diagrams/_Default"
-msgstr "¡bramen¸"
+msgstr "√Åbramen√º"
 
 #: app/diagram_tree_menu.c:72
 msgid "/Sort diagrams/Default/by _name"
@@ -383,46 +382,46 @@ msgstr ""
 #: app/diagram_tree_menu.c:82 app/diagram_tree_menu.c:93
 #, fuzzy
 msgid "/_Locate"
-msgstr "Betˆltve:"
+msgstr "Bet√∂ltve:"
 
 #: app/diagram_tree_menu.c:83
 #, fuzzy
 msgid "/_Properties"
-msgstr "_Tulajdons·gok"
+msgstr "_Tulajdons√°gok"
 
 #: app/diagram_tree_menu.c:84
 msgid "/_Hide this type"
 msgstr ""
 
-#: app/diagram_tree_window.c:77
+#: app/diagram_tree_window.c:76
 #, fuzzy
 msgid "Diagram tree"
-msgstr "¡braszerkesztı"
+msgstr "√Åbraszerkeszt≈ë"
 
 #: app/dialogs.c:51
 msgid "Ok"
 msgstr ""
 
-#: app/dialogs.c:52 app/layer_dialog.c:988 app/lineprops_area.c:438
-#: app/lineprops_area.c:638 app/linewidth_area.c:244
-#: app/paginate_psprint.c:274
+#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:453
+#: app/lineprops_area.c:679 app/linewidth_area.c:258
+#: app/paginate_psprint.c:276
 msgid "Cancel"
-msgstr "MÈgse"
+msgstr "M√©gsem"
 
 #. paper size
 #: app/diapagelayout.c:116
 msgid "Paper Size"
-msgstr "LapmÈret"
+msgstr "Pap√≠rm√©ret"
 
 #. orientation
 #: app/diapagelayout.c:149
 msgid "Orientation"
-msgstr "Ir·ny"
+msgstr "T√°jol√°s"
 
 #. margins
 #: app/diapagelayout.c:187
 msgid "Margins"
-msgstr "MargÛk"
+msgstr "Marg√≥k"
 
 #: app/diapagelayout.c:199
 msgid "Top:"
@@ -443,15 +442,15 @@ msgstr "Jobbra:"
 #. Scaling
 #: app/diapagelayout.c:252
 msgid "Scaling"
-msgstr "MÈretezÈs"
+msgstr "M√©retez√©s"
 
 #: app/diapagelayout.c:263
 msgid "Scale:"
-msgstr "LÈptÈk:"
+msgstr "L√©pt√©k:"
 
 #: app/diapagelayout.c:275
 msgid "Fit to:"
-msgstr "FÈrjen r·:"
+msgstr "F√©rjen r√°:"
 
 #: app/diapagelayout.c:287
 msgid "by"
@@ -462,515 +461,493 @@ msgstr "*"
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: app/diapagelayout.c:786 app/pagesetup.c:60 app/pagesetup.c:68
+#: app/diapagelayout.c:786 app/pagesetup.c:73
 msgid "Page Setup"
-msgstr "Oldalbe·llÌt·s"
+msgstr "Oldalbe√°ll√≠t√°s"
 
 # app/dia-props.c:60 app/dia-props.c:67
-#: app/dia-props.c:54
+#: app/dia-props.c:61
 msgid "Diagram Properties"
-msgstr "¡bra tulajdons·gai"
+msgstr "√Åbra tulajdons√°gai"
 
-#: app/dia-props.c:87
+#: app/dia-props.c:96
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:91
+#: app/dia-props.c:100
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:96
+#: app/dia-props.c:105
 #, fuzzy
 msgid "Spacing"
-msgstr "MÈretezÈs"
+msgstr "M√©retez√©s"
 
-#: app/dia-props.c:116
+#: app/dia-props.c:125
 #, fuzzy
 msgid "Visible spacing"
-msgstr "_L·thatÛ r·cs"
+msgstr "_L√°that√≥ r√°cs"
 
-#: app/dia-props.c:136
+#: app/dia-props.c:145
 msgid "Grid"
-msgstr "R·cs"
+msgstr "R√°cs"
 
-#: app/dia-props.c:146
+#: app/dia-props.c:155
 msgid "Background Colour"
-msgstr "H·ttÈr SzÌn"
+msgstr "H√°tt√©r Sz√≠n"
 
-#: app/dia-props.c:157 lib/diagramdata.c:58
+#: app/dia-props.c:166 lib/diagramdata.c:58
 msgid "Background"
-msgstr "H·ttÈr"
+msgstr "H√°tt√©r"
 
-#: app/disp_callbacks.c:76 app/properties.c:121
+#: app/disp_callbacks.c:77 app/properties.c:141
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
-"Ez az objektum nem t·mogatja a Visszavon·s/⁄jra funkciÛkat.\n"
-"Visszavon·sra vonatkozÛ inform·ciÛk tˆrˆlve."
+"Ez az objektum nem t√°mogatja a Visszavon√°s/√öjra funkci√≥kat.\n"
+"Visszavon√°sra vonatkoz√≥ inform√°ci√≥k t√∂r√∂lve."
 
-#: app/disp_callbacks.c:213
+#: app/disp_callbacks.c:219
 msgid "No object menu"
-msgstr "Nincs objektum-men¸"
+msgstr "Nincs objektum-men√º"
 
-#: app/display.c:90
+#: app/display.c:93
 msgid "Diagram modified!"
-msgstr "Az ·bra mÛdosÌtva lett!"
+msgstr "Az √°bra m√≥dos√≠tva lett!"
 
-#: app/display.c:866
+#: app/display.c:993
 msgid "<unnamed>"
-msgstr ""
+msgstr "<n√©vtelen>"
 
-#: app/display.c:868
+#: app/display.c:995
 #, fuzzy, c-format
 msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr ""
-"MÛdosÌtott ·bra van a rajzt·bl·n.\n"
-"TÈnyleg be akarod z·rni?"
+"M√≥dos√≠tott √°bra van a rajzt√°bl√°n.\n"
+"T√©nyleg be akarod z√°rni?"
 
-#: app/display.c:879
-#, fuzzy
+#: app/display.c:1006
 msgid "Close Diagram"
-msgstr "¡bra megnyit·sa"
+msgstr "√Åbra bez√°r√°sa"
 
-#: app/display.c:884
+#: app/display.c:1011
 msgid "Discard Changes"
 msgstr ""
 
-#: app/export_png.c:114 app/load_save.c:746 app/render_eps.c:535
-#: plug-ins/cgm/cgm.c:1156 plug-ins/dxf/dxf-export.c:480
-#: plug-ins/hpgl/hpgl.c:731 plug-ins/metapost/render_metapost.c:733
-#: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
-#: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
-#: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
-#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:90
-#, c-format
-msgid "Couldn't open: '%s' for writing.\n"
-msgstr "Nem tudom megnyitni: '%s' nem ÌrhatÛ.\n"
+#: app/export_png.c:116 app/load_save.c:747 app/render_eps.c:83
+#: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
+#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:734
+#: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
+#: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:87
+#, fuzzy, c-format
+msgid "Can't open output file %s: %s\n"
+msgstr "Nem tudom megnyitni a k√∂vetkez≈ët: '%s' "
 
-#: app/export_png.c:122
+#: app/export_png.c:124
 msgid "Could not create PNG write structure"
-msgstr "Nem tudtam ÌrhatÛ PNG strukt˙r·t lÈtrehozni"
+msgstr "Nem tudtam √≠rhat√≥ PNG strukt√∫r√°t l√©trehozni"
 
-#: app/export_png.c:131
+#: app/export_png.c:133
 msgid "Could not create PNG header info structure"
-msgstr "Nem tudtam lÈtrehozni a PNG fejlÈc info strukt˙r·t"
+msgstr "Nem tudtam l√©trehozni a PNG fejl√©c info strukt√∫r√°t"
 
-#: app/export_png.c:139
+#: app/export_png.c:141
 msgid "Error occurred while writing PNG"
-msgstr "A PNG Ìr·sakor hiba lÈpett fel"
+msgstr "A PNG √≠r√°sakor hiba l√©pett fel"
 
 # app/filedlg.c:524
 #. Create a dialog
-#: app/export_png.c:258
+#: app/export_png.c:265
 #, fuzzy
 msgid "PNG Export Options"
-msgstr "Export·l·s be·llÌt·sai"
+msgstr "Export√°l√°s be√°ll√≠t√°sai"
 
 #. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:259 objects/FS/function.c:661 objects/FS/function.c:663
+#: app/export_png.c:266 objects/FS/function.c:661 objects/FS/function.c:663
 #, fuzzy
 msgid "Export"
 msgstr "   Export"
 
-#: app/export_png.c:264
+#: app/export_png.c:271
 #, fuzzy
 msgid "Image width:"
-msgstr "KÈpf·jl:"
+msgstr "K√©pf√°jl:"
 
-#: app/export_png.c:267
+#: app/export_png.c:274
 #, fuzzy
 msgid "Image height:"
-msgstr "KÈpf·jl:"
+msgstr "K√©pf√°jl:"
 
-#: app/export_png.c:312
+#: app/export_png.c:319
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:102 app/filedlg.c:402
+#: app/filedlg.c:102 app/filedlg.c:370
 msgid "By extension"
-msgstr "KiterjesztÈs szerint"
+msgstr "Kiterjeszt√©s szerint"
 
 #: app/filedlg.c:161
 msgid "Open Diagram"
-msgstr "¡bra megnyit·sa"
+msgstr "√Åbra megnyit√°sa"
 
 # app/filedlg.c:184
-#: app/filedlg.c:187
+#: app/filedlg.c:189
 msgid "Open Options"
-msgstr "Megnyit·s be·llÌt·sai"
+msgstr "Megnyit√°s be√°ll√≠t√°sai"
 
 # app/filedlg.c:192 app/filedlg.c:532
-#: app/filedlg.c:195 app/filedlg.c:555
+#: app/filedlg.c:197 app/filedlg.c:485
 msgid "Determine file type:"
-msgstr "F·jltÌpus meghat·roz·sa:"
+msgstr "F√°jlt√≠pus meghat√°roz√°sa:"
 
-#: app/filedlg.c:236 app/filedlg.c:449
-msgid "File already exists"
-msgstr "A f·jl m·r lÈtezik"
-
-#: app/filedlg.c:242
+#: app/filedlg.c:234
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
 msgstr ""
 
-#: app/filedlg.c:248 app/filedlg.c:452
+#: app/filedlg.c:240 app/filedlg.c:412
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
-"A %s nev˚ f·jl m·r lÈtezik.\n"
-"Fˆl¸l szeretnÈd Ìrni?"
+"A %s nev≈± f√°jl m√°r l√©tezik.\n"
+"F√∂l√ºl szeretn√©d √≠rni?"
 
-#: app/filedlg.c:259 app/filedlg.c:464 app/preferences.c:595
-#: lib/prop_inttypes.c:151
-msgid "Yes"
-msgstr "Igen"
+#: app/filedlg.c:248 app/filedlg.c:418
+msgid "File already exists"
+msgstr "A f√°jl m√°r l√©tezik"
 
-#: app/filedlg.c:272 app/filedlg.c:477 app/preferences.c:595
-#: app/preferences.c:606 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
-msgid "No"
-msgstr "Nem"
-
-#: app/filedlg.c:317
+#: app/filedlg.c:283
 msgid "Save Diagram"
-msgstr "¡bra mentÈse"
+msgstr "√Åbra ment√©se"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:325
+#: app/filedlg.c:291
 #, fuzzy
 msgid "Compress diagram files"
-msgstr "Elmentett f·jlok tˆmˆrÌtÈse:"
+msgstr "Elmentett f√°jlok t√∂m√∂r√≠t√©se:"
 
-#: app/filedlg.c:332
+#: app/filedlg.c:298
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
 
-#: app/filedlg.c:509
+#: app/filedlg.c:437
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr ""
-"Nem tudtam meg·llapÌtani, hogy melyik export sz˚rıt haszn·ljam\n"
-"'%s' mentÈsÈhez"
+"Nem tudtam meg√°llap√≠tani, hogy melyik export sz≈±r≈ët haszn√°ljam\n"
+"'%s' ment√©s√©hez"
 
-#: app/filedlg.c:527
+#: app/filedlg.c:455
 msgid "Export Diagram"
-msgstr "¡bra export·l·sa"
+msgstr "√Åbra export√°l√°sa"
 
 # app/filedlg.c:524
-#: app/filedlg.c:547
+#: app/filedlg.c:477
 msgid "Export Options"
-msgstr "Export·l·s be·llÌt·sai"
+msgstr "Export√°l√°s be√°ll√≠t√°sai"
 
 # app/interface.c:37
 #: app/interface.c:43
 msgid "Modify object(s)"
-msgstr "Objektum(ok) mÛdosÌt·sa"
+msgstr "Objektum(ok) m√≥dos√≠t√°sa"
 
-#: app/interface.c:44 app/menus.c:216
+#: app/interface.c:44 app/menus.c:218
 msgid "Modify"
-msgstr "MÛdosÌt·s"
+msgstr "M√≥dos√≠t√°s"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:48 app/interface.c:49 app/menus.c:217
+#: app/interface.c:48 app/interface.c:49 app/menus.c:219
 #: objects/FS/function.c:951
 msgid "Magnify"
-msgstr "NagyÌt·s"
+msgstr "Nagy√≠t√°s"
 
 #: app/interface.c:53
 msgid "Scroll around the diagram"
-msgstr "Kˆrbegˆrget a diagrammon"
+msgstr "K√∂rbeg√∂rget a diagrammon"
 
-#: app/interface.c:54 app/menus.c:218
+#: app/interface.c:54 app/menus.c:220
 msgid "Scroll"
-msgstr "GˆrgetÈs"
-
-#: app/interface.c:58
-msgid "Create Text"
-msgstr "Szˆveg kÈszÌtÈse"
+msgstr "G√∂rget√©s"
 
 #. PROP_STD_TEXT_ALIGNMENT,
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:59 app/menus.c:219 lib/properties.c:77 lib/properties.h:495
-#: lib/properties.h:498 objects/UML/activity.c:123 objects/UML/actor.c:114
-#: objects/UML/classicon.c:137 objects/UML/component.c:120
-#: objects/UML/node.c:119 objects/UML/note.c:113 objects/UML/object.c:141
-#: objects/UML/small_package.c:120 objects/UML/state.c:133
-#: objects/UML/usecase.c:130
+#: app/interface.c:58 app/interface.c:59 app/menus.c:221 lib/properties.c:77
+#: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:123
+#: objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
+#: objects/UML/object.c:141 objects/UML/small_package.c:120
+#: objects/UML/state.c:133 objects/UML/usecase.c:130
 msgid "Text"
-msgstr "Szˆveg"
+msgstr "Sz√∂veg"
 
-#: app/interface.c:63
-msgid "Create Box"
-msgstr "Doboz kÈszÌtÈse"
-
-#: app/interface.c:64 app/menus.c:220
+#: app/interface.c:63 app/interface.c:64 app/menus.c:222
 msgid "Box"
 msgstr "Doboz"
 
-#: app/interface.c:68
-msgid "Create Ellipse"
-msgstr "Ellipszis kÈszÌtÈse"
-
-#: app/interface.c:69 app/menus.c:221
+#: app/interface.c:68 app/interface.c:69 app/menus.c:223
 msgid "Ellipse"
 msgstr "Ellipszis"
 
-#: app/interface.c:73
-msgid "Create Polygon"
-msgstr "Sokszˆg kÈszÌtÈse"
-
-#: app/interface.c:74 app/menus.c:222
+#: app/interface.c:73 app/interface.c:74 app/menus.c:224
 msgid "Polygon"
-msgstr "Sokszˆg"
+msgstr "Soksz√∂g"
 
-#: app/interface.c:78
-msgid "Create Beziergon"
-msgstr "Bezier-sÌkidom kÈszÌtÈse"
-
-#: app/interface.c:79 app/menus.c:223
+#: app/interface.c:78 app/interface.c:79 app/menus.c:225
 msgid "Beziergon"
-msgstr "Bezier-sÌkidom"
+msgstr "Bezier-s√≠kidom"
 
-#: app/interface.c:83
-msgid "Create Line"
-msgstr "Vonal kÈszÌtÈse"
-
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:242
+#: app/interface.c:83 app/interface.c:84 app/menus.c:227
+#: objects/standard/line.c:246
 msgid "Line"
 msgstr "Vonal"
 
-#: app/interface.c:88
-msgid "Create Arc"
-msgstr "KˆrÌv kÈszÌtÈse"
-
-#: app/interface.c:89 app/menus.c:226
+#: app/interface.c:88 app/interface.c:89 app/menus.c:228
 msgid "Arc"
-msgstr "KˆrÌv"
+msgstr "K√∂r√≠v"
 
-#: app/interface.c:93
-msgid "Create Zigzagline"
-msgstr "Cikkcakkvonal kÈszÌtÈse"
-
-#: app/interface.c:94 app/menus.c:227
+#: app/interface.c:93 app/interface.c:94 app/menus.c:229
 msgid "Zigzagline"
 msgstr "Cikkcakkvonal"
 
-#: app/interface.c:98
-msgid "Create Polyline"
-msgstr "Tˆrˆttvonal kÈszÌtÈse"
-
-#: app/interface.c:99 app/menus.c:228
+#: app/interface.c:98 app/interface.c:99 app/menus.c:230
 msgid "Polyline"
-msgstr "Tˆrˆttvonal"
+msgstr "T√∂r√∂ttvonal"
 
-#: app/interface.c:103
-msgid "Create Bezierline"
-msgstr "Bezier-gˆrbe kÈszÌtÈse"
-
-#: app/interface.c:104 app/menus.c:229
+#: app/interface.c:103 app/interface.c:104 app/menus.c:231
 msgid "Bezierline"
-msgstr "Bezier-gˆrbe"
+msgstr "Bezier-g√∂rbe"
 
-#: app/interface.c:108
-msgid "Create Image"
-msgstr "KÈp kÈszÌtÈse"
-
-#: app/interface.c:109 app/menus.c:231
+#: app/interface.c:108 app/interface.c:109 app/menus.c:233
 msgid "Image"
-msgstr "KÈp"
+msgstr "K√©p"
 
-#: app/interface.c:468
+#: app/interface.c:370
+#, fuzzy
+msgid "Diagram menu."
+msgstr "√Åbramen√º"
+
+#: app/interface.c:479
 msgid "Zoom"
-msgstr "KˆzelÌtÈs"
+msgstr "K√∂zel√≠t√©s"
 
-#: app/interface.c:512
+#: app/interface.c:493
+msgid "Toggles snap-to-grid for this window."
+msgstr ""
+
+#: app/interface.c:537
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:973
+#: app/interface.c:999
+#, fuzzy
 msgid ""
-"Foreground & background colors.  The small black and white squares reset "
-"colors.  The small arrows swap colors.  Double click to change colors."
+"Foreground & background colors for new objects.  The small black and white "
+"squares reset colors.  The small arrows swap colors.  Double click to change "
+"colors."
 msgstr ""
-"Elı- Ès h·ttÈrszÌnek. A kis fekete Ès fehÈr nÈgyzetek alapbe·llÌt·st "
-"ny˙jtanak. A kis nyilak felcserÈlik a szÌneket. Dupla klikkel szerkesztheted."
+"El≈ë- √©s h√°tt√©rsz√≠nek. A kis fekete √©s feh√©r n√©gyzetek alapbe√°ll√≠t√°st "
+"ny√∫jtanak. A kis nyilak felcser√©lik a sz√≠neket. Dupla klikkel szerkesztheted."
 
-#: app/interface.c:1122
+#: app/interface.c:1014
+msgid ""
+"Line widths.  Click on a line to set the default line width for new "
+"objects.  Double-click to set the line width more precisely."
+msgstr ""
+
+#: app/interface.c:1046
+msgid ""
+"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
+"arrow parameters with Details..."
+msgstr ""
+
+#: app/interface.c:1051
+msgid ""
+"Line style for new lines.  Click to pick a line style, or set line style "
+"parameters with Details..."
+msgstr ""
+
+#: app/interface.c:1056
+msgid ""
+"Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
+"parameters with Details..."
+msgstr ""
+
+#: app/interface.c:1152
 msgid "Diagram Editor"
-msgstr "¡braszerkesztı"
-
-#: app/layer_dialog.c:69
-msgid "New Layer"
-msgstr "⁄j rÈteg"
+msgstr "√Åbraszerkeszt≈ë"
 
 #: app/layer_dialog.c:70
-msgid "Raise Layer"
-msgstr "RÈteg elıtÈrbe"
+msgid "New Layer"
+msgstr "√öj r√©teg"
 
 #: app/layer_dialog.c:71
-msgid "Lower Layer"
-msgstr "RÈteg h·ttÈrbe"
+msgid "Raise Layer"
+msgstr "R√©teg el≈ët√©rbe"
 
 #: app/layer_dialog.c:72
+msgid "Lower Layer"
+msgstr "R√©teg h√°tt√©rbe"
+
+#: app/layer_dialog.c:73
 msgid "Delete Layer"
-msgstr "RÈteg tˆrlÈse"
+msgstr "R√©teg t√∂rl√©se"
 
-#: app/layer_dialog.c:206
+#: app/layer_dialog.c:214
 msgid "Layers"
-msgstr "RÈtegek"
+msgstr "R√©tegek"
 
-#: app/layer_dialog.c:218
+#: app/layer_dialog.c:228
 msgid "Diagrams:"
-msgstr "¡br·k:"
+msgstr "√Åbr√°k:"
 
-#: app/layer_dialog.c:263 app/pagesetup.c:83 app/preferences.c:739
+#: app/layer_dialog.c:273
 msgid "Close"
-msgstr "Bez·r·s"
+msgstr "Bez√°r√°s"
 
-#: app/layer_dialog.c:308
+#: app/layer_dialog.c:319
 msgid "New layer"
-msgstr "⁄j rÈteg"
+msgstr "√öj r√©teg"
 
-#: app/layer_dialog.c:511
+#: app/layer_dialog.c:525
 msgid "none"
-msgstr "semmi"
+msgstr "nincs"
 
-#: app/layer_dialog.c:953
+#: app/layer_dialog.c:971
 msgid "Edit Layer Attributes"
-msgstr "RÈteg jellemzık szerkesztÈse"
+msgstr "R√©teg tulajdons√°gainak szerkeszt√©se"
 
-#: app/layer_dialog.c:969
+#: app/layer_dialog.c:990
 msgid "Layer name:"
-msgstr "RÈteg neve:"
+msgstr "R√©teg neve:"
 
-#. setup buttons
-#: app/layer_dialog.c:978 app/lineprops_area.c:429 app/lineprops_area.c:628
-#: app/linewidth_area.c:235 app/pagesetup.c:72 app/paginate_psprint.c:266
-#: app/preferences.c:721
+#: app/layer_dialog.c:999 app/lineprops_area.c:444 app/lineprops_area.c:669
+#: app/linewidth_area.c:249 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
-#: app/lineprops_area.c:418
+#: app/lineprops_area.c:429
 msgid "Arrow Properties"
-msgstr "NyÌl tulajdons·gai"
+msgstr "Ny√≠l tulajdons√°gai"
 
-#: app/lineprops_area.c:475 app/lineprops_area.c:661
+#: app/lineprops_area.c:505 app/lineprops_area.c:702
 msgid "Details..."
-msgstr "RÈszletek..."
+msgstr "R√©szletek..."
 
-#: app/lineprops_area.c:617
+#: app/lineprops_area.c:658
 msgid "Line Style Properties"
-msgstr "VonalstÌlus tulajdons·gai"
+msgstr "Vonalst√≠lus tulajdons√°gai"
 
-#: app/linewidth_area.c:216 lib/properties.h:471
+#: app/linewidth_area.c:230 lib/properties.h:475
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
-msgstr "Vonal szÈlessÈge"
+msgstr "Vonal sz√©less√©ge"
 
-#: app/linewidth_area.c:222
+#: app/linewidth_area.c:236
 msgid "Line width:"
-msgstr "Vonal szÈlessÈge"
+msgstr "Vonal sz√©less√©ge"
 
-#: app/load_save.c:200
+#: app/load_save.c:201
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
-"Nem tudom betˆlteni a diagrammot.\n"
-"A csatolt objektum nem tal·lhatÛ a dokumentumban."
+"Nem tudom bet√∂lteni a diagrammot.\n"
+"A csatolt objektum nem tal√°lhat√≥ a dokumentumban."
 
-#: app/load_save.c:203
+#: app/load_save.c:204
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
-"Nem tudom betˆlteni a diagrammot.\n"
-"A csatlakoz·si pont nem lÈtezik."
+"Nem tudom bet√∂lteni a diagrammot.\n"
+"A csatlakoz√°si pont nem l√©tezik."
 
-#: app/load_save.c:206
+#: app/load_save.c:207
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
-"Nem tudom betˆlteni az ·br·t.\n"
-"A csatlakoz·si \"handle\" nem lÈtezik."
+"Nem tudom bet√∂lteni az √°br√°t.\n"
+"A csatlakoz√°si \"handle\" nem l√©tezik."
 
-#: app/load_save.c:255
+#: app/load_save.c:256
 msgid "You must specify a file, not a directory.\n"
-msgstr "F·jlt kell megadnod, nem kˆnyvt·rat.\n"
+msgstr "F√°jlt kell megadnod, nem k√∂nyvt√°rat.\n"
 
-#: app/load_save.c:262 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1168
-#: plug-ins/xfig/xfig-import.c:1347 plug-ins/xslt/xslt.c:81
+#: app/load_save.c:263 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:80
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Nem tudom megnyitni: '%s' nem olvashatÛ.\n"
+msgstr "Nem tudom megnyitni: '%s' nem olvashat√≥.\n"
 
-#: app/load_save.c:271 app/load_save.c:276
+#: app/load_save.c:272 app/load_save.c:277
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
-"Nem tudom betˆlteni a %s ·br·t.\n"
-"Ismeretlen f·jltÌpus."
+"Nem tudom bet√∂lteni a %s √°br√°t.\n"
+"Ismeretlen f√°jlt√≠pus."
 
-#: app/load_save.c:283
+#: app/load_save.c:284
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
-"Nem tudom betˆlteni a kˆvetkezı ·br·t: %s.\n"
-"Nem Dia f·jl."
+"Nem tudom bet√∂lteni a k√∂vetkez≈ë √°br√°t: %s.\n"
+"Nem Dia f√°jl."
 
-#: app/load_save.c:469
+#: app/load_save.c:470
 #, fuzzy, c-format
 msgid ""
 "Error loading diagram:\n"
 "%s.\n"
 "A valid Dia file defines at least one layer."
 msgstr ""
-"Nem tudom betˆlteni a kˆvetkezı ·br·t: %s.\n"
-"Nem Dia f·jl."
+"Nem tudom bet√∂lteni a k√∂vetkez≈ë √°br√°t: %s.\n"
+"Nem Dia f√°jl."
 
-#: app/load_save.c:779
+#: app/load_save.c:780
 #, c-format
 msgid "Failed to save file '%s'.\n"
-msgstr "'%s' f·jl mentÈse sikertelen\n"
+msgstr "'%s' f√°jl ment√©se sikertelen\n"
 
-#: app/load_save.c:849 app/load_save.c:854
+#: app/load_save.c:850 app/load_save.c:855
 msgid "Native Dia Diagram"
-msgstr "Eredeti Dia ·bra"
+msgstr "Eredeti Dia √°bra"
 
 #: app/menus.c:50 app/menus.c:70
 msgid "_New diagram"
-msgstr "⁄_j diagramm"
+msgstr "√ö_j diagramm"
 
 #: app/menus.c:50 app/menus.c:70
 msgid "Create new diagram"
-msgstr "⁄j ·bra kÈszÌtÈse"
+msgstr "√öj √°bra k√©sz√≠t√©se"
 
 #: app/menus.c:54
 #, fuzzy
 msgid "_Diagram tree"
-msgstr "¡braszerkesztı"
+msgstr "√Åbraszerkeszt≈ë"
 
 #: app/menus.c:54
 #, fuzzy
 msgid "Show diagram tree"
-msgstr "⁄_j diagramm"
+msgstr "√ö_j diagramm"
 
 #: app/menus.c:56
 msgid "_Sheets and Objects..."
@@ -982,90 +959,86 @@ msgstr ""
 
 # app/menus.c:43 app/plugin-manager.c:129 app/plugin-manager.c:135
 #: app/menus.c:61
-#, fuzzy
-msgid "P_lugins"
-msgstr "BıvÌtmÈnyek"
+msgid "P_lugins..."
+msgstr "_B≈ëv√≠tm√©nyek..."
 
 # app/menus.c:57
 #: app/menus.c:77
 msgid "_Export..."
-msgstr "_Export·l·s..."
+msgstr "_Export√°l√°s..."
 
 #: app/menus.c:81
 msgid "Page Set_up..."
-msgstr "Ol_dalbe·llÌt·s..."
+msgstr "_Oldalbe√°ll√≠t√°s..."
 
 #: app/menus.c:83
 msgid "_Print Diagram..."
-msgstr "¡bra _nyomtat·sa..."
+msgstr "√Åbra _nyomtat√°sa..."
 
 #: app/menus.c:98
 msgid "_Delete"
-msgstr "_Tˆrˆl"
+msgstr "_T√∂rl√©s"
 
 #: app/menus.c:104
 msgid "Copy Text"
-msgstr "Szˆveget m·sol"
+msgstr "Sz√∂veg m√°sol√°sa"
 
 #: app/menus.c:105
 msgid "Cut Text"
-msgstr "Szˆveget m·sol"
+msgstr "Sz√∂veg kiv√°g√°sa"
 
 #: app/menus.c:106
 msgid "Paste _Text"
-msgstr "Szˆveget _beilleszt"
+msgstr "Sz√∂veg _beilleszt√©se"
 
 #: app/menus.c:130
 msgid "Zoom _In"
-msgstr "_NagyÌt"
+msgstr "_Nagy√≠t√°s"
 
 #: app/menus.c:130
-#, c-format
 msgid "Zoom in 50%"
-msgstr "NagyÌt 50%"
+msgstr "50%-os nagy√≠t√°s"
 
 #: app/menus.c:131
 msgid "Zoom _Out"
-msgstr "_KicsinyÌt"
+msgstr "_Kicsiny√≠t√©s"
 
 #: app/menus.c:131
-#, c-format
 msgid "Zoom out 50%"
-msgstr "KicsinyÌt 50%"
+msgstr "50%-os kicsiny√≠t√©s"
 
 #: app/menus.c:132
 msgid "_Zoom"
-msgstr "NagyÌ_t·s"
+msgstr "_Nagy√≠t√°s"
 
 #: app/menus.c:134
 msgid "Diagram Properties..."
-msgstr "¡bra tulajdons·gai..."
+msgstr "√Åbra tulajdons√°gai..."
 
 #: app/menus.c:136
 msgid "_AntiAliased"
-msgstr "…_lsimÌtott"
+msgstr "√â_lsim√≠tott"
 
 #. TODO: Show Menu Bar  F9.  Hub's cool code.
 #: app/menus.c:140
-#, fuzzy
 msgid "Show _Grid"
-msgstr "Keret mutat·sa:"
+msgstr "_R√°cs megjelen√≠t√©se"
 
 #: app/menus.c:142
 msgid "_Snap To Grid"
-msgstr "_R·csra illeszt"
+msgstr "_R√°csra illeszt√©s"
 
 #: app/menus.c:144
 msgid "Show _Rulers"
-msgstr "VonalzÛk"
+msgstr "_Vonalz√≥k megjelen√≠t√©se"
 
 #: app/menus.c:146
 msgid "Show _Connection Points"
-msgstr "_Csatlakoz·si pontokat mutat"
+msgstr "_Csatlakoz√°si pontok megjelen√≠t√©se"
 
 #: app/menus.c:149
 msgid "New _View"
-msgstr "⁄j _nÈzet"
+msgstr "√öj _n√©zet"
 
 #: app/menus.c:150
 msgid "Show _All"
@@ -1073,78 +1046,77 @@ msgstr "_Mindent mutat"
 
 #: app/menus.c:151
 msgid "Redraw"
-msgstr ""
+msgstr "√öjrarajzol√°s"
 
 #: app/menus.c:156
 msgid "Replace"
-msgstr "CserÈl"
+msgstr "Csere"
 
 #: app/menus.c:158
 msgid "Union"
-msgstr "⁄niÛ"
+msgstr "Uni√≥"
 
 #: app/menus.c:160
 msgid "Intersect"
 msgstr "Metszet"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:162 app/sheets_dialog.c:783 objects/FS/function.c:671
+#: app/menus.c:162 app/sheets_dialog.c:784 objects/FS/function.c:671
 #: objects/FS/function.c:823 objects/FS/function.c:825
 msgid "Remove"
-msgstr "Tˆrˆl"
+msgstr "Elt√°vol√≠t√°s"
 
 #: app/menus.c:164 app/menus.c:172
 msgid "Invert"
-msgstr "Invert·l"
+msgstr "Invert√°l√°s"
 
 #: app/menus.c:170
 msgid "All"
 msgstr "Mindent"
 
-#: app/menus.c:171 lib/widgets.c:1009 objects/UML/association.c:1071
+#: app/menus.c:171 lib/arrows.c:38 objects/UML/association.c:1125
 msgid "None"
 msgstr "Nincs"
 
 #: app/menus.c:173
 msgid "Connected"
-msgstr "÷sszekˆtˆtt"
+msgstr "√ñsszek√∂t√∂tt"
 
 #: app/menus.c:174
 msgid "Transitive"
-msgstr "TranzitÌv"
+msgstr "Tranzit√≠v"
 
 #: app/menus.c:175
 msgid "Same Type"
-msgstr "Azonos tÌpus"
+msgstr "Azonos t√≠pus"
 
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:551
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:531
 msgid "Left"
 msgstr "Balra"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:557
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:464 lib/widgets.c:537
 msgid "Center"
-msgstr "KˆzÈpre"
+msgstr "K√∂z√©pre"
 
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:563
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:465 lib/widgets.c:543
 msgid "Right"
 msgstr "Jobbra"
 
 #: app/menus.c:186 app/menus.c:196
 msgid "Equal Distance"
-msgstr "Egyenlı t·vols·g"
+msgstr "Egyenl≈ë t√°vols√°g"
 
 #: app/menus.c:187 app/menus.c:197
 msgid "Adjacent"
-msgstr "Egym·s mellÈ"
+msgstr "Egym√°s mell√©"
 
 #: app/menus.c:192
 msgid "Top"
 msgstr "Fent"
 
 #: app/menus.c:193
-#, fuzzy
 msgid "Middle"
-msgstr "F·jl"
+msgstr "K√∂z√©pen"
 
 #: app/menus.c:194
 msgid "Bottom"
@@ -1152,16 +1124,16 @@ msgstr "Lent"
 
 #: app/menus.c:202
 msgid "Send to _Back"
-msgstr "_H·ttÈrbe k¸ld"
+msgstr "_H√°tt√©rbe k√ºld"
 
 #: app/menus.c:203
 msgid "Bring to _Front"
-msgstr "_ElıtÈrbe hoz"
+msgstr "_El≈ët√©rbe hoz"
 
 #: app/menus.c:204
 #, fuzzy
 msgid "Send Backwards"
-msgstr "_H·ttÈrbe k¸ld"
+msgstr "_H√°tt√©rbe k√ºld"
 
 #: app/menus.c:205
 msgid "Bring Forwards"
@@ -1169,11 +1141,11 @@ msgstr ""
 
 #: app/menus.c:207
 msgid "_Group"
-msgstr "_CsoportosÌt"
+msgstr "_Csoportos√≠t"
 
 #: app/menus.c:208
 msgid "_Ungroup"
-msgstr "Cso_port felbon·sa"
+msgstr "Cso_port felbon√°sa"
 
 #: app/menus.c:210
 msgid "Align _Horizontal"
@@ -1181,496 +1153,500 @@ msgstr "_Vizszintes"
 
 #: app/menus.c:211
 msgid "Align _Vertical"
-msgstr "_F¸ggıleges"
+msgstr "_F√ºgg≈ëleges"
 
-#: app/menus.c:236
-msgid "_Properties"
-msgstr "_Tulajdons·gok"
+#: app/menus.c:213
+#, fuzzy
+msgid "_Properties..."
+msgstr "_Tulajdons√°gok"
 
-#: app/menus.c:237
+#: app/menus.c:238
 msgid "_Layers"
-msgstr "_RÈtegek"
-
-#: app/menus.c:263
-msgid "_Select"
-msgstr "_Kijelˆl"
+msgstr "_R√©tegek"
 
 #: app/menus.c:264
+msgid "_Select"
+msgstr "_Kijel√∂l√©s"
+
+#: app/menus.c:265
 msgid "_Objects"
 msgstr "_Objektumok"
 
-#: app/menus.c:265
-msgid "_Tools"
-msgstr "_Eszkˆzˆk"
-
 #: app/menus.c:266
-msgid "_Dialogs"
-msgstr "_DialÛgusok"
+msgid "_Tools"
+msgstr "_Eszk√∂z√∂k"
 
 #: app/menus.c:267
+msgid "_Dialogs"
+msgstr "_Dial√≥gusok"
+
+#: app/menus.c:268
 msgid "_Input Methods"
 msgstr ""
 
-#: app/menus.c:278 app/menus.c:313
-msgid "/_File"
-msgstr "/_F·jl"
+#: app/menus.c:269
+msgid "_Help"
+msgstr "_S√∫g√≥"
 
 #: app/menus.c:280 app/menus.c:315
-msgid "/File/_New"
-msgstr "/F·jl/⁄_j"
+msgid "/_File"
+msgstr "/_F√°jl"
 
 #: app/menus.c:282 app/menus.c:317
-msgid "/File/_Open"
-msgstr "/F·jl/_Megnyit"
+msgid "/File/_New"
+msgstr "/F√°jl/√ö_j"
+
+#: app/menus.c:284 app/menus.c:319
+msgid "/File/_Open..."
+msgstr "/F√°jl/_Megnyit√°s..."
 
 # app/menus.c:253 app/menus.c:267 app/menus.c:270
 #. recent file list is dynamically inserted here
-#: app/menus.c:284 app/menus.c:289 app/menus.c:293 app/menus.c:295
-#: app/menus.c:324 app/menus.c:328
+#: app/menus.c:286 app/menus.c:291 app/menus.c:295 app/menus.c:297
+#: app/menus.c:326 app/menus.c:330
 msgid "/File/---"
-msgstr "/F·jl/---"
-
-#: app/menus.c:285
-#, fuzzy
-msgid "/File/_Diagram tree"
-msgstr "/F·jl/¡bra _nyomtat·sa..."
+msgstr "/F√°jl/---"
 
 #: app/menus.c:287
+#, fuzzy
+msgid "/File/_Diagram tree"
+msgstr "/F√°jl/√Åbra _nyomtat√°sa..."
+
+#: app/menus.c:289
 msgid "/File/Sheets and Objects..."
 msgstr ""
 
-#: app/menus.c:290
+#: app/menus.c:292
 msgid "/File/_Preferences..."
-msgstr "/F·jl/_Tulajdons·gok..."
+msgstr "/F√°jl/_Tulajdons√°gok..."
 
 # app/menus.c:252
-#: app/menus.c:292
-msgid "/File/P_lugins"
-msgstr "/F·jl/_BıvÌtmÈnyek"
+#: app/menus.c:294
+msgid "/File/P_lugins..."
+msgstr "/F√°jl/_B≈ëv√≠tm√©nyek..."
 
-#: app/menus.c:296 app/menus.c:332
+#: app/menus.c:298 app/menus.c:334
 msgid "/File/_Quit"
-msgstr "/F·jl/_KilÈpÈs"
+msgstr "/F√°jl/_Kil√©p√©s"
 
-#: app/menus.c:298
+#: app/menus.c:300 app/menus.c:460
 msgid "/_Help"
-msgstr "/_S˙gÛ"
+msgstr "/_S√∫g√≥"
 
-#: app/menus.c:300
-#, fuzzy
+#: app/menus.c:302 app/menus.c:462
 msgid "/Help/_Manual"
-msgstr "/S˙gÛ/_NÈvjegy"
+msgstr "/S√∫g√≥/_K√©zik√∂nyv"
 
-#: app/menus.c:302
-#, fuzzy
+#: app/menus.c:304 app/menus.c:464
 msgid "/Help/---"
-msgstr "/KijelˆlÈs/---"
+msgstr "/S√∫g√≥/---"
 
-#: app/menus.c:303
-msgid "/Help/_About"
-msgstr "/S˙gÛ/_NÈvjegy"
-
-#: app/menus.c:319
-msgid "/File/_Save"
-msgstr "/F·jl/Me_ntÈs"
+#: app/menus.c:305 app/menus.c:465
+msgid "/Help/_About..."
+msgstr "/S√∫g√≥/_N√©vjegy..."
 
 #: app/menus.c:321
-msgid "/File/Save _As..."
-msgstr "/F·jl/MentÈs m·skÈn_t..."
+msgid "/File/_Save"
+msgstr "/F√°jl/Me_nt√©s"
 
 #: app/menus.c:323
-msgid "/File/_Export..."
-msgstr "/F·jl/_Export·l·s..."
+msgid "/File/Save _As..."
+msgstr "/F√°jl/Ment√©s m√°sk√©n_t..."
 
 #: app/menus.c:325
+msgid "/File/_Export..."
+msgstr "/F√°jl/_Export√°l√°s..."
+
+#: app/menus.c:327
 msgid "/File/Page Set_up..."
-msgstr "/F·jl/_Oldalbe·llÌt·s..."
+msgstr "/F√°jl/_Oldalbe√°ll√≠t√°s..."
 
-#: app/menus.c:326
+#: app/menus.c:328
 msgid "/File/_Print Diagram..."
-msgstr "/F·jl/¡bra _nyomtat·sa..."
+msgstr "/F√°jl/√Åbra _nyomtat√°sa..."
 
-#: app/menus.c:329
+#: app/menus.c:331
 msgid "/File/_Close"
-msgstr "/F·jl/_Bez·r·s"
-
-#: app/menus.c:334
-msgid "/_Edit"
-msgstr "/_SzerkesztÈs"
+msgstr "/F√°jl/_Bez√°r√°s"
 
 #: app/menus.c:336
-msgid "/Edit/_Undo"
-msgstr "/SzerkesztÈs/_Visszavon·s"
+msgid "/_Edit"
+msgstr "/S_zerkeszt√©s"
 
 #: app/menus.c:338
+msgid "/Edit/_Undo"
+msgstr "/Szerkeszt√©s/_Visszavon√°s"
+
+#: app/menus.c:340
 msgid "/Edit/_Redo"
-msgstr "/SzerkesztÈs/_⁄jra"
+msgstr "/Szerkeszt√©s/_√öjra"
 
-#: app/menus.c:340 app/menus.c:349
-#, fuzzy
+#: app/menus.c:342 app/menus.c:351
 msgid "/Edit/---"
-msgstr "/Szerkeszt/Kiv·g"
-
-#: app/menus.c:341
-msgid "/Edit/_Copy"
-msgstr "/SzerkesztÈs/_M·sol·s"
+msgstr "/Szerkeszt√©s/---"
 
 #: app/menus.c:343
-msgid "/Edit/C_ut"
-msgstr "/SzerkesztÈs/_Kiv·g·s"
+msgid "/Edit/_Copy"
+msgstr "/Szerkeszt√©s/_M√°sol√°s"
 
 #: app/menus.c:345
-msgid "/Edit/_Paste"
-msgstr "/SzerkesztÈs/_BeillesztÈs"
+msgid "/Edit/C_ut"
+msgstr "/Szerkeszt√©s/_Kiv√°g√°s"
 
 #: app/menus.c:347
+msgid "/Edit/_Paste"
+msgstr "/Szerkeszt√©s/_Beilleszt√©s"
+
+#: app/menus.c:349
 msgid "/Edit/_Delete"
-msgstr "/SzerkesztÈs/_TˆrlÈs"
-
-#: app/menus.c:350
-msgid "/Edit/Copy Text"
-msgstr "/SzerkesztÈs/Szˆveg M·sol·sa"
-
-#: app/menus.c:351
-msgid "/Edit/Cut Text"
-msgstr "/SzerkesztÈs/Szˆveg Kiv·g·sa"
+msgstr "/Szerkeszt√©s/_T√∂rl√©s"
 
 #: app/menus.c:352
-msgid "/Edit/Paste _Text"
-msgstr "/SzerkesztÈs/Szˆveg BeillesztÈse"
+msgid "/Edit/Copy Text"
+msgstr "/Szerkeszt√©s/Sz√∂veg m√°sol√°sa"
 
 #: app/menus.c:353
-msgid "/_View"
-msgstr "/_NÈzet"
+msgid "/Edit/Cut Text"
+msgstr "/Szerkeszt√©s/Sz√∂veg kiv√°g√°sa"
+
+#: app/menus.c:354
+msgid "/Edit/Paste _Text"
+msgstr "/Szerkeszt√©s/Sz√∂veg beilleszt√©se"
 
 #: app/menus.c:355
-msgid "/View/Zoom _In"
-msgstr "/NÈzet/_NagyÌt"
+msgid "/_View"
+msgstr "/_N√©zet"
 
 #: app/menus.c:357
-msgid "/View/Zoom _Out"
-msgstr "/NÈzet/_KicsinyÌt"
+msgid "/View/Zoom _In"
+msgstr "/N√©zet/_Nagy√≠t√°s"
 
 #: app/menus.c:359
-msgid "/View/_Zoom"
-msgstr "/NÈzet/NagyÌ_t·s"
+msgid "/View/Zoom _Out"
+msgstr "/N√©zet/_Kicsiny√≠t√©s"
 
 #: app/menus.c:361
-#, c-format
-msgid "/View/Zoom/400%"
-msgstr "/NÈzet/NagyÌt·s/400%"
-
-#: app/menus.c:362
-#, c-format
-msgid "/View/Zoom/283%"
-msgstr "/NÈzet/NagyÌt·s/283%"
+msgid "/View/_Zoom"
+msgstr "/N√©zet/_Nagy√≠t√°s"
 
 #: app/menus.c:363
-#, c-format
-msgid "/View/Zoom/200%"
-msgstr "/NÈzet/NagyÌt·s/200%"
+msgid "/View/Zoom/400%"
+msgstr "/N√©zet/Nagy√≠t√°s/400%"
 
 #: app/menus.c:364
-#, c-format
-msgid "/View/Zoom/141%"
-msgstr "/NÈzet/NagyÌt·s/141%"
+msgid "/View/Zoom/283%"
+msgstr "/N√©zet/Nagy√≠t√°s/283%"
 
 #: app/menus.c:365
-#, c-format
-msgid "/View/Zoom/100%"
-msgstr "/NÈzet/NagyÌt·s/100%"
+msgid "/View/Zoom/200%"
+msgstr "/N√©zet/Nagy√≠t√°s/200%"
+
+#: app/menus.c:366
+msgid "/View/Zoom/141%"
+msgstr "/N√©zet/Nagy√≠t√°s/141%"
 
 #: app/menus.c:367
-#, c-format
-msgid "/View/Zoom/85%"
-msgstr "/NÈzet/NagyÌt·s/85%"
-
-#: app/menus.c:368
-#, c-format
-msgid "/View/Zoom/70.7%"
-msgstr "/NÈzet/NagyÌt·s/70.7%"
+msgid "/View/Zoom/100%"
+msgstr "/N√©zet/Nagy√≠t√°s/100%"
 
 #: app/menus.c:369
-#, c-format
-msgid "/View/Zoom/50%"
-msgstr "/NÈzet/NagyÌt·s/50%"
+msgid "/View/Zoom/85%"
+msgstr "/N√©zet/Nagy√≠t√°s/85%"
 
 #: app/menus.c:370
-#, c-format
-msgid "/View/Zoom/35.4%"
-msgstr "/NÈzet/NagyÌt·s/35.4%"
+msgid "/View/Zoom/70.7%"
+msgstr "/N√©zet/Nagy√≠t√°s/70.7%"
 
 #: app/menus.c:371
-#, c-format
-msgid "/View/Zoom/25%"
-msgstr "/NÈzet/NagyÌt·s/25%"
+msgid "/View/Zoom/50%"
+msgstr "/N√©zet/Nagy√≠t√°s/50%"
 
-#: app/menus.c:372 app/menus.c:381
-msgid "/View/---"
-msgstr "/NÈzet/---"
+#: app/menus.c:372
+msgid "/View/Zoom/35.4%"
+msgstr "/N√©zet/Nagy√≠t√°s/35.4%"
 
 #: app/menus.c:373
-#, fuzzy
-msgid "/View/Diagram Properties..."
-msgstr "/NÈzet/¡bra _tulajdons·gai"
+msgid "/View/Zoom/25%"
+msgstr "/N√©zet/Nagy√≠t√°s/25%"
+
+#: app/menus.c:374 app/menus.c:383
+msgid "/View/---"
+msgstr "/N√©zet/---"
 
 #: app/menus.c:375
-msgid "/View/_AntiAliased"
-msgstr "/NÈzet/…l_simÌtott"
+#, fuzzy
+msgid "/View/Diagram Properties..."
+msgstr "/N√©zet/√Åbra _tulajdons√°gai"
 
 #: app/menus.c:377
-#, fuzzy
-msgid "/View/Show _Grid"
-msgstr "/NÈzet/Mutat _Mindent"
-
-#: app/menus.c:378
-msgid "/View/_Snap To Grid"
-msgstr "/NÈzet/_R·csra illeszt"
+msgid "/View/_AntiAliased"
+msgstr "/N√©zet/√âl_sim√≠tott"
 
 #: app/menus.c:379
-msgid "/View/Show _Rulers"
-msgstr "/NÈzet/_VonalzÛk"
+#, fuzzy
+msgid "/View/Show _Grid"
+msgstr "/N√©zet/Mutat _Mindent"
 
 #: app/menus.c:380
-msgid "/View/Show _Connection Points"
-msgstr "/NÈzet/_Csatlakoz·si pontok"
+msgid "/View/_Snap To Grid"
+msgstr "/N√©zet/_R√°csra illeszt"
+
+#: app/menus.c:381
+msgid "/View/Show _Rulers"
+msgstr "/N√©zet/_Vonalz√≥k"
 
 #: app/menus.c:382
+msgid "/View/Show _Connection Points"
+msgstr "/N√©zet/_Csatlakoz√°si pontok"
+
+#: app/menus.c:384
 msgid "/View/New _View"
-msgstr "/NÈzet/⁄j _nÈzet"
+msgstr "/N√©zet/√öj _n√©zet"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:384
+#: app/menus.c:386
 msgid "/View/Show _All"
-msgstr "/NÈzet/Mutat _Mindent"
+msgstr "/N√©zet/Mutat _Mindent"
 
-#: app/menus.c:385
+#: app/menus.c:387
 #, fuzzy
 msgid "/View/Re_draw"
-msgstr "/NÈzet/⁄j _nÈzet"
-
-#: app/menus.c:386
-msgid "/_Select"
-msgstr "/_KijelˆlÈs"
+msgstr "/N√©zet/√öj _n√©zet"
 
 #: app/menus.c:388
+msgid "/_Select"
+msgstr "/_Kijel√∂l√©s"
+
+#: app/menus.c:390
 msgid "/Select/All"
-msgstr "/KijelˆlÈs/Mindent"
-
-#: app/menus.c:389
-msgid "/Select/None"
-msgstr "/KijelˆlÈs/Semmit"
-
-#: app/menus.c:390 app/menus.c:403
-msgid "/Select/Invert"
-msgstr "/KijelˆlÈs/Invert·l"
+msgstr "/Kijel√∂l√©s/Mindent"
 
 #: app/menus.c:391
-msgid "/Select/Connected"
-msgstr "/KijelˆlÈs/÷sszekˆtˆtt"
+msgid "/Select/None"
+msgstr "/Kijel√∂l√©s/Semmit"
 
-#: app/menus.c:392
-msgid "/Select/Transitive"
-msgstr "/Kijelˆl/TranzitÌv"
+#: app/menus.c:392 app/menus.c:405
+msgid "/Select/Invert"
+msgstr "/Kijel√∂l√©s/Invert√°l"
 
 #: app/menus.c:393
-msgid "/Select/Same Type"
-msgstr "/KijelˆlÈs/Azonos tÌpus"
+msgid "/Select/Connected"
+msgstr "/Kijel√∂l√©s/√ñsszek√∂t√∂tt"
 
 #: app/menus.c:394
-msgid "/Select/---"
-msgstr "/KijelˆlÈs/---"
+msgid "/Select/Transitive"
+msgstr "/Kijel√∂l/Tranzit√≠v"
 
 #: app/menus.c:395
-msgid "/Select/Replace"
-msgstr "/KijelˆlÈs/CserÈl"
+msgid "/Select/Same Type"
+msgstr "/Kijel√∂l√©s/Azonos t√≠pus"
+
+#: app/menus.c:396
+msgid "/Select/---"
+msgstr "/Kijel√∂l√©s/---"
 
 #: app/menus.c:397
-msgid "/Select/Union"
-msgstr "/KijelˆlÈs/⁄niÛ"
+msgid "/Select/Replace"
+msgstr "/Kijel√∂l√©s/Cser√©l"
 
 #: app/menus.c:399
-msgid "/Select/Intersect"
-msgstr "/KijelˆlÈs/Metszet"
+msgid "/Select/Union"
+msgstr "/Kijel√∂l√©s/√öni√≥"
 
 #: app/menus.c:401
-msgid "/Select/Remove"
-msgstr "/KijelˆlÈs/Tˆrˆl"
+msgid "/Select/Intersect"
+msgstr "/Kijel√∂l√©s/Metszet"
 
-#: app/menus.c:405
+#: app/menus.c:403
+msgid "/Select/Remove"
+msgstr "/Kijel√∂l√©s/T√∂r√∂l"
+
+#: app/menus.c:407
 msgid "/_Objects"
 msgstr "/_Objektumok"
 
-#: app/menus.c:407
-msgid "/Objects/Send to _Back"
-msgstr "/Objektumok/_H·ttÈrbe tesz"
-
-#: app/menus.c:408
-msgid "/Objects/Bring to _Front"
-msgstr "/Objektumok/_ElıtÈrbe hoz"
-
 #: app/menus.c:409
-#, fuzzy
-msgid "/Objects/Send Backwards"
-msgstr "/Objektumok/H·ttÈrbe k¸ld"
+msgid "/Objects/Send to _Back"
+msgstr "/Objektumok/_H√°tt√©rbe tesz"
 
 #: app/menus.c:410
+msgid "/Objects/Bring to _Front"
+msgstr "/Objektumok/_El≈ët√©rbe hoz"
+
+#: app/menus.c:411
+#, fuzzy
+msgid "/Objects/Send Backwards"
+msgstr "/Objektumok/H√°tt√©rbe k√ºld"
+
+#: app/menus.c:412
 #, fuzzy
 msgid "/Objects/Bring Forwards"
-msgstr "/Objektumok/ElıtÈrbe hoz"
+msgstr "/Objektumok/El≈ët√©rbe hoz"
 
-#: app/menus.c:411 app/menus.c:415 app/menus.c:421 app/menus.c:429
+#: app/menus.c:413 app/menus.c:417 app/menus.c:434
 msgid "/Objects/---"
 msgstr "/Objektumok/---"
 
-#: app/menus.c:412
+#: app/menus.c:414
 msgid "/Objects/_Group"
-msgstr "/Objektumok/_CsoportosÌt"
+msgstr "/Objektumok/_Csoportos√≠t"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:414
-msgid "/Objects/_Ungroup"
-msgstr "/Objektumok/Csoport f_elbon·sa"
-
 #: app/menus.c:416
-msgid "/Objects/Align _Horizontal"
-msgstr "/Objektumok/_Vizszintes igazÌt·s"
+msgid "/Objects/_Ungroup"
+msgstr "/Objektumok/Csoport f_elbon√°sa"
 
 #: app/menus.c:418
-msgid "/Objects/Align Horizontal/Left"
-msgstr "/Objektumok/Vizszintes igazÌt·s/Balra"
-
-#: app/menus.c:419
-msgid "/Objects/Align Horizontal/Center"
-msgstr "/Objektumok/Vizszintes igazÌt·s/KˆzÈpre"
+msgid "/Objects/Align _Horizontal"
+msgstr "/Objektumok/_Vizszintes igaz√≠t√°s"
 
 #: app/menus.c:420
-msgid "/Objects/Align Horizontal/Right"
-msgstr "/Objektumok/Vizszintes igazÌt·s/Jobbra"
+msgid "/Objects/Align Horizontal/Left"
+msgstr "/Objektumok/Vizszintes igaz√≠t√°s/Balra"
+
+#: app/menus.c:421
+msgid "/Objects/Align Horizontal/Center"
+msgstr "/Objektumok/Vizszintes igaz√≠t√°s/K√∂z√©pre"
 
 #: app/menus.c:422
-msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Objektumok/Vizszintes igazÌt·s/Egyenlı t·vols·g"
+msgid "/Objects/Align Horizontal/Right"
+msgstr "/Objektumok/Vizszintes igaz√≠t√°s/Jobbra"
 
 #: app/menus.c:423
-msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/Objektumok/Vizszintes igazÌt·s/Egym·s mellÈ"
+#, fuzzy
+msgid "/Objects/Align Horizontal/---"
+msgstr "/Objektumok/_Vizszintes igaz√≠t√°s"
 
 #: app/menus.c:424
-msgid "/Objects/Align _Vertical"
-msgstr "/Objektumok/_F¸ggıleges igazÌt·s"
+msgid "/Objects/Align Horizontal/Equal Distance"
+msgstr "/Objektumok/Vizszintes igaz√≠t√°s/Egyenl≈ë t√°vols√°g"
+
+#: app/menus.c:425
+msgid "/Objects/Align Horizontal/Adjacent"
+msgstr "/Objektumok/Vizszintes igaz√≠t√°s/Egym√°s mell√©"
 
 #: app/menus.c:426
-msgid "/Objects/Align Vertical/Top"
-msgstr "/Objektumok/F¸ggıleges igazÌt·s/Fent"
-
-#: app/menus.c:427
-#, fuzzy
-msgid "/Objects/Align Vertical/Middle"
-msgstr "/Objektumok/_F¸ggıleges igazÌt·s"
+msgid "/Objects/Align _Vertical"
+msgstr "/Objektumok/_F√ºgg≈ëleges igaz√≠t√°s"
 
 #: app/menus.c:428
-msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Objektumok/F¸ggıleges igazÌt·s/Lent"
+msgid "/Objects/Align Vertical/Top"
+msgstr "/Objektumok/F√ºgg≈ëleges igaz√≠t√°s/Fent"
+
+#: app/menus.c:429
+#, fuzzy
+msgid "/Objects/Align Vertical/Middle"
+msgstr "/Objektumok/_F√ºgg≈ëleges igaz√≠t√°s"
 
 #: app/menus.c:430
-msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Objektumok/F¸ggıleges igazÌt·s/Egyenlı t·vols·g"
+msgid "/Objects/Align Vertical/Bottom"
+msgstr "/Objektumok/F√ºgg≈ëleges igaz√≠t√°s/Lent"
 
 #: app/menus.c:431
-msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/Objektumok/F¸ggıleges igazÌt·s/Egym·s mellÈ"
+#, fuzzy
+msgid "/Objects/Align Vertical/---"
+msgstr "/Objektumok/_F√ºgg≈ëleges igaz√≠t√°s"
+
+#: app/menus.c:432
+msgid "/Objects/Align Vertical/Equal Distance"
+msgstr "/Objektumok/F√ºgg≈ëleges igaz√≠t√°s/Egyenl≈ë t√°vols√°g"
 
 #: app/menus.c:433
-msgid "/_Tools"
-msgstr "/_Eszkˆzˆk"
+msgid "/Objects/Align Vertical/Adjacent"
+msgstr "/Objektumok/F√ºgg≈ëleges igaz√≠t√°s/Egym√°s mell√©"
 
 #: app/menus.c:435
-msgid "/Tools/Modify"
-msgstr "/Eszkˆzˆk/MÛdosÌt·s"
+#, fuzzy
+msgid "/Objects/_Properties..."
+msgstr "Objektum tulajdons√°gok"
 
 #: app/menus.c:436
-msgid "/Tools/Magnify"
-msgstr "/Eszkˆzˆk/NagyÌt·s"
-
-#: app/menus.c:437
-msgid "/Tools/Scroll"
-msgstr "/Eszkˆzˆk/GˆrgetÈs"
+msgid "/_Tools"
+msgstr "/_Eszk√∂z√∂k"
 
 #: app/menus.c:438
-msgid "/Tools/Text"
-msgstr "/Eszkˆzˆk/Szˆveg"
+msgid "/Tools/Modify"
+msgstr "/Eszk√∂z√∂k/M√≥dos√≠t√°s"
 
 #: app/menus.c:439
-msgid "/Tools/Box"
-msgstr "/Eszkˆzˆk/Doboz"
+msgid "/Tools/Magnify"
+msgstr "/Eszk√∂z√∂k/Nagy√≠t√°s"
 
 #: app/menus.c:440
-msgid "/Tools/Ellipse"
-msgstr "/Eszkˆzˆk/Ellipszis"
+msgid "/Tools/Scroll"
+msgstr "/Eszk√∂z√∂k/G√∂rget√©s"
 
 #: app/menus.c:441
-msgid "/Tools/Polygon"
-msgstr "/Eszkˆzˆk/Sokszˆg"
+msgid "/Tools/Text"
+msgstr "/Eszk√∂z√∂k/Sz√∂veg"
 
 #: app/menus.c:442
-msgid "/Tools/Beziergon"
-msgstr "/Eszkˆzˆk/Bezier-sÌkidom"
+msgid "/Tools/Box"
+msgstr "/Eszk√∂z√∂k/Doboz"
 
-#: app/menus.c:443 app/menus.c:449
-#, fuzzy
-msgid "/Tools/---"
-msgstr "/Eszkˆzˆk/"
+#: app/menus.c:443
+msgid "/Tools/Ellipse"
+msgstr "/Eszk√∂z√∂k/Ellipszis"
 
 #: app/menus.c:444
-msgid "/Tools/Line"
-msgstr "/Eszkˆzˆk/Vonal"
+msgid "/Tools/Polygon"
+msgstr "/Eszk√∂z√∂k/Soksz√∂g"
 
 #: app/menus.c:445
-msgid "/Tools/Arc"
-msgstr "/Eszkˆzˆk/KˆrÌv"
+msgid "/Tools/Beziergon"
+msgstr "/Eszk√∂z√∂k/Bezier-s√≠kidom"
 
-#: app/menus.c:446
-msgid "/Tools/Zigzagline"
-msgstr "/Eszkˆzˆk/Cikkcakkvonal"
+#: app/menus.c:446 app/menus.c:452
+#, fuzzy
+msgid "/Tools/---"
+msgstr "/Eszk√∂z√∂k/"
 
 #: app/menus.c:447
-msgid "/Tools/Polyline"
-msgstr "/Eszkˆzˆk/Tˆrˆttvonal"
+msgid "/Tools/Line"
+msgstr "/Eszk√∂z√∂k/Vonal"
 
 #: app/menus.c:448
-msgid "/Tools/Bezierline"
-msgstr "/Eszkˆzˆk/Bezier-gˆrbe"
+msgid "/Tools/Arc"
+msgstr "/Eszk√∂z√∂k/K√∂r√≠v"
+
+#: app/menus.c:449
+msgid "/Tools/Zigzagline"
+msgstr "/Eszk√∂z√∂k/Cikkcakkvonal"
 
 #: app/menus.c:450
-msgid "/Tools/Image"
-msgstr "/Eszkˆzˆk/KÈp"
+msgid "/Tools/Polyline"
+msgstr "/Eszk√∂z√∂k/T√∂r√∂ttvonal"
 
 #: app/menus.c:451
-msgid "/_Dialogs"
-msgstr "/_P·rbeszÈdek"
+msgid "/Tools/Bezierline"
+msgstr "/Eszk√∂z√∂k/Bezier-g√∂rbe"
 
 #: app/menus.c:453
-msgid "/Dialogs/_Properties"
-msgstr "/P·rbeszÈdek/_Tulajdons·gok"
+msgid "/Tools/Image"
+msgstr "/Eszk√∂z√∂k/K√©p"
 
 #: app/menus.c:454
-msgid "/Dialogs/_Layers"
-msgstr "/P·rbeszÈdek/_RÈtegek"
+msgid "/_Dialogs"
+msgstr "/_P√°rbesz√©dek"
 
 #: app/menus.c:456
+#, fuzzy
+msgid "/Dialogs/_Layers..."
+msgstr "/P√°rbesz√©dek/_R√©tegek"
+
+#: app/menus.c:458
 msgid "/_Input Methods"
 msgstr ""
 
-#: app/menus.c:629
+#: app/menus.c:637
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata in tool_menu_select"
 
-#: app/menus.c:796
+#: app/menus.c:804
 msgid "Diagram Menu"
-msgstr "¡bramen¸"
+msgstr "√Åbramen√º"
 
-#: app/menus.c:1172
+#: app/menus.c:1180
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1681,263 +1657,248 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr ""
 
-#: app/pagesetup.c:77 app/preferences.c:730
-msgid "Apply"
-msgstr "Alkalmaz"
-
-#: app/paginate_psprint.c:226
+#: app/paginate_psprint.c:228
 msgid "Select Printer"
-msgstr "NyomtatÛ kiv·laszt·sa"
+msgstr "Nyomtat√≥ kiv√°laszt√°sa"
 
-#: app/paginate_psprint.c:238
+#: app/paginate_psprint.c:240
 msgid "Printer"
-msgstr "NyomtatÛ"
+msgstr "Nyomtat√≥"
 
-#: app/paginate_psprint.c:251
+#: app/paginate_psprint.c:253 sheets/Misc.sheet.in.h:1
 msgid "File"
-msgstr "F·jl"
+msgstr "F√°jl"
 
-#: app/paginate_psprint.c:340
+#: app/paginate_psprint.c:342
 #, fuzzy, c-format
 msgid "Could not run command '%s'"
-msgstr "Nem tudom megnyitni a kˆvetkezıt: '%s' "
+msgstr "Nem tudom megnyitni a k√∂vetkez≈ët: '%s' "
 
-#: app/paginate_psprint.c:343
+#: app/paginate_psprint.c:345
 #, fuzzy, c-format
 msgid "Could not open '%s' for writing"
-msgstr "Nem tudom megnyitni: '%s' nem ÌrhatÛ"
+msgstr "Nem tudom megnyitni: '%s' nem √≠rhat√≥"
 
-#: app/paginate_psprint.c:367
+#: app/paginate_psprint.c:370
 #, fuzzy
 msgid "Error occured while printing"
-msgstr "A PNG Ìr·sakor hiba lÈpett fel"
+msgstr "A PNG √≠r√°sakor hiba l√©pett fel"
 
 # app/menus.c:43 app/plugin-manager.c:129 app/plugin-manager.c:135
 #: app/plugin-manager.c:200
 msgid "Plug-ins"
-msgstr "BıvÌtmÈnyek"
+msgstr "B≈ëv√≠tm√©nyek"
 
-#: app/plugin-manager.c:254
+#: app/plugin-manager.c:256
 #, fuzzy
 msgid "Loaded"
-msgstr "Betˆltve:"
+msgstr "Bet√∂ltve:"
 
-#: app/plugin-manager.c:261 objects/UML/class.c:105
+#: app/plugin-manager.c:263 objects/UML/class.c:105
 #: objects/UML/large_package.c:120
 #, fuzzy
 msgid "Name"
-msgstr "NÈv:"
+msgstr "N√©v:"
 
-#: app/plugin-manager.c:267
+#: app/plugin-manager.c:269
 #, fuzzy
 msgid "Description"
-msgstr "LeÌr·s:"
+msgstr "Le√≠r√°s:"
 
-#: app/plugin-manager.c:276
+#: app/plugin-manager.c:278
 #, fuzzy
 msgid "Load at Startup"
-msgstr "Automatikus betˆltÈs indul·skor"
+msgstr "Automatikus bet√∂lt√©s indul√°skor"
 
-#: app/plugin-manager.c:283
+#: app/plugin-manager.c:285
 #, fuzzy
 msgid "File Name"
-msgstr "F·jl neve:"
+msgstr "F√°jl neve:"
 
 # app/preferences.c:87
-#: app/preferences.c:103
+#: app/preferences.c:98
 msgid "User Interface"
-msgstr "Felhaszn·lÛi fel¸let"
+msgstr "Felhaszn√°l√≥i fel√ºlet"
 
-#: app/preferences.c:104
+#: app/preferences.c:99
 #, fuzzy
 msgid "Diagram Defaults"
-msgstr "¡bramen¸"
+msgstr "√Åbramen√º"
 
 # app/preferences.c:88
-#: app/preferences.c:105
+#: app/preferences.c:100
 msgid "View Defaults"
-msgstr "Alapbe·llÌt·sok"
+msgstr "Alapbe√°ll√≠t√°sok"
 
-#: app/preferences.c:106
+#: app/preferences.c:101
 msgid "Grid Lines"
-msgstr "R·csvonalak"
+msgstr "R√°csvonalak"
 
-#: app/preferences.c:107
+#: app/preferences.c:102
 #, fuzzy
 msgid "Diagram Tree"
-msgstr "¡bramen¸"
+msgstr "√Åbramen√º"
 
-#: app/preferences.c:121
+#: app/preferences.c:116
 msgid "Reset tools after create:"
-msgstr "LÈtrehoz·s ut·n eszkˆzˆk be·llÌt·sa:"
+msgstr "L√©trehoz√°s ut√°n eszk√∂z√∂k be√°ll√≠t√°sa:"
 
-#: app/preferences.c:122
+#: app/preferences.c:117
 msgid "Compress saved files:"
-msgstr "Elmentett f·jlok tˆmˆrÌtÈse:"
+msgstr "Elmentett f√°jlok t√∂m√∂r√≠t√©se:"
 
-#: app/preferences.c:123
+#: app/preferences.c:118
 msgid "Number of undo levels:"
-msgstr "Visszavon·sok sz·ma:"
+msgstr "Visszavon√°sok sz√°ma:"
 
-#: app/preferences.c:124
+#: app/preferences.c:119
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
 msgstr ""
 
-#: app/preferences.c:125
+#: app/preferences.c:120
 msgid "Recent documents list size:"
 msgstr ""
 
-#: app/preferences.c:126
+#: app/preferences.c:121
 msgid "Use menu bar:"
 msgstr ""
 
-#: app/preferences.c:128
+#: app/preferences.c:123
 msgid "Keep tool box on top of diagram windows:"
 msgstr ""
 
-#: app/preferences.c:130
+#: app/preferences.c:125
 #, fuzzy
 msgid "New diagram:"
-msgstr "⁄_j diagramm"
+msgstr "√ö_j diagramm"
 
-#: app/preferences.c:131
+#: app/preferences.c:126
 #, fuzzy
 msgid "Portrait:"
 msgstr "Konstans:"
 
-#: app/preferences.c:133
+#: app/preferences.c:128
 #, fuzzy
 msgid "Paper type:"
-msgstr "‹zenet tÌpusa:"
+msgstr "√úzenet t√≠pusa:"
+
+#: app/preferences.c:131
+msgid "New window:"
+msgstr "√öj ablak:"
+
+#: app/preferences.c:132
+msgid "Width:"
+msgstr "Sz√©less√©g:"
+
+#: app/preferences.c:133
+msgid "Height:"
+msgstr "Magass√°g:"
+
+#: app/preferences.c:134
+msgid "Magnify:"
+msgstr "Nagy√≠t√°s:"
 
 #: app/preferences.c:136
-msgid "New window:"
-msgstr "⁄j ablak:"
-
-#: app/preferences.c:137
-msgid "Width:"
-msgstr "SzÈlessÈg:"
-
-#: app/preferences.c:138
-msgid "Height:"
-msgstr "Magass·g:"
-
-#: app/preferences.c:139
-msgid "Magnify:"
-msgstr "NagyÌt·s:"
-
-#: app/preferences.c:141
 msgid "Connection Points:"
-msgstr "Csatlakoz·si pontok:"
+msgstr "Csatlakoz√°si pontok:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:142 app/preferences.c:145 app/preferences.c:150
+#: app/preferences.c:137 app/preferences.c:140 app/preferences.c:145
 msgid "Visible:"
-msgstr "L·thatÛ:"
+msgstr "L√°that√≥:"
 
-#: app/preferences.c:144
+#: app/preferences.c:139
 msgid "Page breaks:"
-msgstr "LaptˆrÈs:"
+msgstr "Lapt√∂r√©s:"
 
-#: app/preferences.c:146 app/preferences.c:154
+#: app/preferences.c:141 app/preferences.c:149
 msgid "Colour:"
-msgstr "SzÌn:"
+msgstr "Sz√≠n:"
 
-#: app/preferences.c:147 app/preferences.c:155
+#: app/preferences.c:142 app/preferences.c:150
 msgid "Solid lines:"
 msgstr "Teli vonalak:"
 
-#: app/preferences.c:151
+#: app/preferences.c:146
 msgid "Snap to:"
-msgstr "R·csra ugrik:"
+msgstr "R√°csra ugrik:"
 
-#: app/preferences.c:152
+#: app/preferences.c:147
 msgid "X Size:"
-msgstr "X mÈret:"
+msgstr "X m√©ret:"
 
-#: app/preferences.c:153
+#: app/preferences.c:148
 msgid "Y Size:"
-msgstr "Y mÈret:"
+msgstr "Y m√©ret:"
 
-#: app/preferences.c:166
+#: app/preferences.c:161
 #, fuzzy
 msgid "Diagram tree window:"
-msgstr "¡bramen¸"
+msgstr "√Åbramen√º"
 
-#: app/preferences.c:168
-#, fuzzy
-msgid "Show at startup:"
-msgstr "Automatikus betˆltÈs indul·skor"
-
-#: app/preferences.c:170
-#, fuzzy
-msgid "Default width:"
-msgstr "Vonal szÈlessÈge"
-
-#: app/preferences.c:172
-msgid "Default height:"
-msgstr ""
-
-#: app/preferences.c:174
-msgid "Remember last size:"
-msgstr ""
-
-#: app/preferences.c:176
+#: app/preferences.c:163
 msgid "Save hidden object types:"
 msgstr ""
 
-#: app/preferences.c:303
+#: app/preferences.c:290
 #, c-format
 msgid "Could not open `%s' for writing"
-msgstr "Nem tudom megnyitni: '%s' nem ÌrhatÛ"
+msgstr "Nem tudom megnyitni: '%s' nem √≠rhat√≥"
 
-#: app/preferences.c:691 app/preferences.c:700
+#: app/preferences.c:565 lib/prop_inttypes.c:151
+msgid "Yes"
+msgstr "Igen"
+
+#: app/preferences.c:565 app/preferences.c:576 lib/prop_inttypes.c:153
+#: lib/prop_inttypes.c:179
+msgid "No"
+msgstr "Nem"
+
+#: app/preferences.c:676
 msgid "Preferences"
-msgstr "Tulajdons·gok"
+msgstr "Be√°ll√≠t√°sok"
 
-#: app/properties.c:48
+#: app/properties.c:52
 msgid "Object properties"
-msgstr "Objektum tulajdons·gok"
+msgstr "Objektum tulajdons√°gai"
 
-#: app/properties.c:68
+#: app/properties.c:78
 msgid "This object has no properties."
-msgstr "Nincsenek tulajdons·gai az objektumnak."
+msgstr "Nincsenek tulajdons√°gai az objektumnak."
 
-#: app/properties.c:165
-#, fuzzy
+#: app/properties.c:191
 msgid "Properties: "
-msgstr "_Tulajdons·gok"
+msgstr "Tulajdons√°gok:"
 
-#: app/properties.c:169
-#, fuzzy
+#: app/properties.c:195
 msgid "Object properties:"
-msgstr "Objektum tulajdons·gok"
+msgstr "Objektum tulajdons√°gai:"
 
 # app/menus.c:252
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
 #: app/recent_files.c:137
 #, fuzzy
-msgid "<Toolbox>/File/Plugins"
-msgstr "/F·jl/_BıvÌtmÈnyek"
+msgid "<Toolbox>/File/Plugins..."
+msgstr "/F√°jl/_B≈ëv√≠tm√©nyek"
 
 #: app/recent_files.c:259
 #, fuzzy
 msgid "<Toolbox>/File/Quit"
-msgstr "/F·jl/_KilÈpÈs"
+msgstr "/F√°jl/_Kil√©p√©s"
 
 #: app/recent_files.c:295
 #, fuzzy
 msgid "Can't open history file for writing."
-msgstr "Nem tudom megnyitni: '%s' nem ÌrhatÛ.\n"
+msgstr "Nem tudom megnyitni: '%s' nem √≠rhat√≥.\n"
 
-#: app/render_eps.c:975
+#: app/render_eps.c:119
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postscript"
 
-#: app/render_libart.c:320 lib/dialibartrenderer.c:266
+#: app/render_libart.c:320 lib/dialibartrenderer.c:269
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr ""
 
@@ -1955,256 +1916,356 @@ msgid ""
 "User sheet"
 msgstr ""
 
-#: app/sheets.c:261
+#: app/sheets.c:271
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
 msgstr ""
 
-#: app/sheets.c:363
+#: app/sheets.c:373
 #, c-format
 msgid "Widget not found: %s"
 msgstr ""
 
-#: app/sheets.c:439
+#: app/sheets.c:448
 #, fuzzy
 msgid "SVG Shape"
-msgstr "V·lassz ki egy kÈpf·jlt"
+msgstr "V√°lassz ki egy k√©pf√°jlt"
 
-#: app/sheets.c:441
+#: app/sheets.c:450
 msgid "Programmed Object"
 msgstr ""
 
-#: app/sheets_dialog.c:81
+#: app/sheets_dialog.c:83
 #, fuzzy
 msgid "Sheets and Objects"
-msgstr "Vonal kÈszÌtÈse"
+msgstr "Vonal k√©sz√≠t√©se"
 
-#: app/sheets_dialog.c:107 app/sheets_dialog_callbacks.c:186
+#: app/sheets_dialog.c:109 app/sheets_dialog_callbacks.c:177
 msgid "<- Copy"
 msgstr ""
 
-#: app/sheets_dialog.c:117 app/sheets_dialog_callbacks.c:188
+#: app/sheets_dialog.c:119 app/sheets_dialog_callbacks.c:179
 msgid "<- Copy All"
 msgstr ""
 
-#: app/sheets_dialog.c:124 app/sheets_dialog_callbacks.c:190
+#: app/sheets_dialog.c:126 app/sheets_dialog_callbacks.c:181
 #, fuzzy
 msgid "<- Move"
 msgstr "Felmozgat"
 
-#: app/sheets_dialog.c:134 app/sheets_dialog_callbacks.c:192
+#: app/sheets_dialog.c:136 app/sheets_dialog_callbacks.c:183
 msgid "<- Move All"
 msgstr ""
 
-#: app/sheets_dialog.c:231
-#, fuzzy
-msgid "Edit"
-msgstr "/_SzerkesztÈs"
-
 #: app/sheets_dialog.c:233
-#, fuzzy
-msgid "_Edit"
-msgstr "/_SzerkesztÈs"
+msgid "Edit"
+msgstr "Szerkeszt√©s"
 
-#: app/sheets_dialog.c:264
+#: app/sheets_dialog.c:235
+msgid "_Edit"
+msgstr "S_zerkeszt√©s"
+
+#: app/sheets_dialog.c:266
 #, fuzzy
 msgid "Revert"
-msgstr "Invert·l"
+msgstr "Invert√°l"
 
-#: app/sheets_dialog.c:353 objects/UML/class_dialog.c:828
+#: app/sheets_dialog.c:354 objects/UML/class_dialog.c:828
 #: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
 #: objects/UML/class_dialog.c:2499
 msgid "New"
-msgstr "⁄j"
+msgstr "√öj"
 
-#: app/sheets_dialog.c:361 app/sheets_dialog.c:793
-#, fuzzy
+#: app/sheets_dialog.c:362 app/sheets_dialog.c:794
 msgid "Type"
-msgstr "TÌpus:"
+msgstr "T√≠pus"
 
-#: app/sheets_dialog.c:376
-#, fuzzy
+#: app/sheets_dialog.c:377
 msgid "Browse..."
-msgstr "KeresÈs"
+msgstr "Tall√≥z√°s..."
 
-#: app/sheets_dialog.c:385
+#: app/sheets_dialog.c:386
 msgid "SVG Shape:"
 msgstr ""
 
-#: app/sheets_dialog.c:412 app/sheets_dialog.c:475
-#, fuzzy
+#: app/sheets_dialog.c:413 app/sheets_dialog.c:476
 msgid "description:"
-msgstr "LeÌr·s:"
+msgstr "le√≠r√°s:"
 
-#: app/sheets_dialog.c:424
-#, fuzzy
+#: app/sheets_dialog.c:425
 msgid "Sheet name:"
-msgstr "RÈteg neve:"
+msgstr "Munkalap neve:"
 
-#: app/sheets_dialog.c:445 app/sheets_dialog_callbacks.c:298
-#: app/sheets_dialog_callbacks.c:1093
-#, fuzzy
+#: app/sheets_dialog.c:446 app/sheets_dialog_callbacks.c:289
+#: app/sheets_dialog_callbacks.c:1085
 msgid "Line Break"
-msgstr "V·lassz ki egy szÌnt"
+msgstr "Sort√∂r√©s"
 
-#: app/sheets_dialog.c:567
-#, fuzzy
+#: app/sheets_dialog.c:568
 msgid "Edit Attributes"
-msgstr "RÈteg jellemzık szerkesztÈse"
+msgstr "Attrib√∫tumok szerkeszt√©se"
 
-#: app/sheets_dialog.c:582
-#, fuzzy
+#: app/sheets_dialog.c:583 sheets/UML.sheet.in.h:21
 msgid "Object"
-msgstr "_Objektumok"
+msgstr "Objektum"
 
-#: app/sheets_dialog.c:598 app/sheets_dialog.c:691
+#: app/sheets_dialog.c:599 app/sheets_dialog.c:692
 msgid "Description:"
-msgstr "LeÌr·s:"
+msgstr "Le√≠r√°s:"
 
-#: app/sheets_dialog.c:617 objects/FS/flow-ortho.c:166 objects/FS/flow.c:144
+#: app/sheets_dialog.c:618 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
-msgstr "TÌpus:"
+msgstr "T√≠pus:"
 
-#: app/sheets_dialog.c:655
-#, fuzzy
+#: app/sheets_dialog.c:656
 msgid "Sheet"
-msgstr "_Kijelˆl"
+msgstr "Munkalap"
 
-#: app/sheets_dialog.c:671 objects/ER/attribute.c:150 objects/ER/entity.c:128
-#: objects/ER/relationship.c:137 objects/UML/association.c:1049
-#: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1792
-#: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2536
-#: objects/UML/dependency.c:125 objects/UML/generalization.c:121
-#: objects/UML/realizes.c:122
+#: app/sheets_dialog.c:672 objects/ER/attribute.c:150 objects/ER/entity.c:128
+#: objects/ER/relationship.c:137 objects/UML/association.c:198
+#: objects/UML/association.c:1103 objects/UML/class_dialog.c:865
+#: objects/UML/class_dialog.c:1792 objects/UML/class_dialog.c:2022
+#: objects/UML/class_dialog.c:2536 objects/UML/dependency.c:127
+#: objects/UML/generalization.c:123 objects/UML/realizes.c:124
 msgid "Name:"
-msgstr "NÈv:"
+msgstr "N√©v:"
 
-#: app/sheets_dialog.c:808
-#, fuzzy
+#: app/sheets_dialog.c:809
 msgid "Object:"
-msgstr "_Objektumok"
+msgstr "Objektum:"
 
-#: app/sheets_dialog.c:835
-#, fuzzy
+#: app/sheets_dialog.c:836
 msgid "Sheet:"
-msgstr "_Kijelˆl"
+msgstr "Munkalap:"
 
-#: app/sheets_dialog.c:919
+#: app/sheets_dialog.c:920
 #, fuzzy
 msgid "Select SVG Shape File"
-msgstr "V·lassz ki egy kÈpf·jlt"
+msgstr "V√°lassz ki egy k√©pf√°jlt"
 
-#: app/sheets_dialog_callbacks.c:173
-#, fuzzy
+#: app/sheets_dialog_callbacks.c:164
 msgid "Copy ->"
-msgstr "Szˆveget m·sol"
+msgstr "M√°sol√°s ->"
 
-#: app/sheets_dialog_callbacks.c:175
+#: app/sheets_dialog_callbacks.c:166
 msgid "Copy All ->"
 msgstr ""
 
-#: app/sheets_dialog_callbacks.c:177
-#, fuzzy
+#: app/sheets_dialog_callbacks.c:168
 msgid "Move ->"
-msgstr "Felmozgat"
+msgstr "√Åthelyez√©s ->"
 
-#: app/sheets_dialog_callbacks.c:179
+#: app/sheets_dialog_callbacks.c:170
 msgid "Move All ->"
 msgstr ""
 
-#: app/sheets_dialog_callbacks.c:312
+#: app/sheets_dialog_callbacks.c:303
 #, c-format
 msgid ""
 "%s\n"
 "Shape"
 msgstr ""
+"%s\n"
+"Alak"
 
-#: app/sheets_dialog_callbacks.c:315
-#, fuzzy, c-format
+#: app/sheets_dialog_callbacks.c:306
+#, c-format
 msgid ""
 "%s\n"
 "Object"
-msgstr "_Objektumok"
+msgstr ""
+"%s\n"
+"Objektum"
 
-#: app/sheets_dialog_callbacks.c:318
+#: app/sheets_dialog_callbacks.c:309
 #, fuzzy, c-format
 msgid ""
 "%s\n"
 "Unassigned type"
-msgstr "‹zenet tÌpusa:"
+msgstr "√úzenet t√≠pusa:"
 
-#: app/sheets_dialog_callbacks.c:808
+#: app/sheets_dialog_callbacks.c:799
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr ""
 
-#: app/sheets_dialog_callbacks.c:816
+#: app/sheets_dialog_callbacks.c:807
 #, fuzzy, c-format
 msgid "Error examining %s: %s"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: app/sheets_dialog_callbacks.c:836
+#: app/sheets_dialog_callbacks.c:827
 #, fuzzy, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr "Nem tudtam meg·llapÌtani a megfelelı ˙tvonalat `%s'-hez"
+msgstr "Nem tudtam meg√°llap√≠tani a megfelel≈ë √∫tvonalat `%s'-hez"
 
-#: app/sheets_dialog_callbacks.c:905
+#: app/sheets_dialog_callbacks.c:896
 msgid "Sheet must have a Name"
 msgstr ""
 
-#: app/sheets_dialog_callbacks.c:1594 app/sheets_dialog_callbacks.c:1600
+#: app/sheets_dialog_callbacks.c:1586 app/sheets_dialog_callbacks.c:1592
 #, fuzzy, c-format
 msgid "Couldn't open '%s': %s"
-msgstr "Nem tudom megnyitni a kˆvetkezıt: '%s' "
+msgstr "Nem tudom megnyitni a k√∂vetkez≈ët: '%s' "
 
-#: app/sheets_dialog_callbacks.c:1651
+#: app/sheets_dialog_callbacks.c:1643
 #, fuzzy, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "Nem tudom megnyitni: '%s' nem ÌrhatÛ.\n"
+msgstr "Nem tudom megnyitni: '%s' nem √≠rhat√≥.\n"
 
-#: app/sheets_dialog_callbacks.c:1660
+#: app/sheets_dialog_callbacks.c:1652
 msgid "a user"
 msgstr ""
 
-#: app/sheets_dialog_callbacks.c:1673
-#, fuzzy, c-format
+#: app/sheets_dialog_callbacks.c:1665
+#, c-format
 msgid "File: %s"
-msgstr "F·jl"
+msgstr "F√°jl: %s"
 
-#: app/sheets_dialog_callbacks.c:1676
+#: app/sheets_dialog_callbacks.c:1668
 #, c-format
 msgid "Date: %s"
-msgstr ""
+msgstr "D√°tum: %s"
 
-#: app/sheets_dialog_callbacks.c:1680
+#: app/sheets_dialog_callbacks.c:1672
 #, c-format
 msgid "For: %s"
 msgstr ""
 
-#: app/sheets_dialog_callbacks.c:1697
+#: app/sheets_dialog_callbacks.c:1689
 msgid "add shapes here"
 msgstr ""
 
 #: app/splash.c:58
 msgid "Loading ..."
-msgstr ""
+msgstr "Bet√∂lt√©s ..."
 
-#: app/splash.c:75
+#: app/splash.c:76
 #, c-format
 msgid "Dia v %s"
-msgstr ""
+msgstr "Dia v %s"
 
 #: dia.desktop.in.h:2
-#, fuzzy
 msgid "Diagram editor"
-msgstr "¡braszerkesztı"
+msgstr "√Åbraszerkeszt≈ë"
+
+#: lib/arrows.c:39
+msgid "Lines"
+msgstr "Vonalak"
+
+#: lib/arrows.c:40
+msgid "Hollow Triangle"
+msgstr "Lyukas h√°romsz√∂g"
+
+#: lib/arrows.c:41
+msgid "Filled Triangle"
+msgstr "Kit√∂lt√∂tt h√°romsz√∂g"
+
+#: lib/arrows.c:42
+#, fuzzy
+msgid "Unfilled Triangle"
+msgstr "Kit√∂lt√∂tt h√°romsz√∂g"
+
+#: lib/arrows.c:43
+#, fuzzy
+msgid "Hollow Diamond"
+msgstr "Kit√∂lt√∂tt gy√©m√°nt"
+
+#: lib/arrows.c:44
+msgid "Filled Diamond"
+msgstr "Kit√∂lt√∂tt gy√©m√°nt"
+
+#: lib/arrows.c:45
+msgid "Half Head"
+msgstr "F√©l fej"
+
+#: lib/arrows.c:46
+msgid "Slashed Cross"
+msgstr ""
+
+#: lib/arrows.c:47
+msgid "Filled Ellipse"
+msgstr "Teli ellipszis"
+
+#: lib/arrows.c:48
+msgid "Hollow Ellipse"
+msgstr "Lyukas ellipszis"
+
+#: lib/arrows.c:49
+#, fuzzy
+msgid "Filled Dot"
+msgstr "Kit√∂lt√∂tt gy√©m√°nt"
+
+#: lib/arrows.c:50
+msgid "Dimension Origin"
+msgstr ""
+
+#: lib/arrows.c:51
+msgid "Blanked Dot"
+msgstr ""
+
+#: lib/arrows.c:52
+#, fuzzy
+msgid "Double Hollow triangle"
+msgstr "Lyukas h√°romsz√∂g"
+
+#: lib/arrows.c:53
+#, fuzzy
+msgid "Double Filled triangle"
+msgstr "Kit√∂lt√∂tt h√°romsz√∂g"
+
+#: lib/arrows.c:54
+#, fuzzy
+msgid "Filled Box"
+msgstr "Kit√∂lt√∂tt gy√©m√°nt"
+
+#: lib/arrows.c:55
+msgid "Blanked Box"
+msgstr ""
+
+#: lib/arrows.c:56
+#, fuzzy
+msgid "Slashed"
+msgstr "Szaggatott"
+
+#: lib/arrows.c:57
+msgid "Integral Symbol"
+msgstr ""
+
+#: lib/arrows.c:58
+#, fuzzy
+msgid "Crow Foot"
+msgstr "Bet≈±t√≠pus:"
+
+#: lib/arrows.c:59
+#, fuzzy
+msgid "Cross"
+msgstr "V√©dett"
+
+#: lib/arrows.c:60
+#, fuzzy
+msgid "Filled Concave"
+msgstr "Kit√∂lt√∂tt gy√©m√°nt"
+
+#: lib/arrows.c:61
+msgid "Blanked Concave"
+msgstr ""
+
+#: lib/arrows.c:62
+#, fuzzy
+msgid "Round"
+msgstr "Nincs"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "Belsı hiba: Setting corner tzpe of endpoint of bezier"
+msgstr "Bels≈ë hiba: Setting corner type of endpoint of bezier"
+
+#: lib/dialibartrenderer.c:1115
+msgid "This Dia version is compiled without libart/text support."
+msgstr ""
 
 #: lib/dia_xml.c:147
 #, c-format
@@ -2232,93 +2293,93 @@ msgstr ""
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:880
+#: lib/dia_xml.c:856
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
 
-#: lib/font.c:81
+#: lib/font.c:87
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr ""
 
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
-#: lib/diagtkfontsel.c:72
+#: lib/diagtkfontsel.c:74
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr ""
 
-#: lib/diagtkfontsel.c:207
+#: lib/diagtkfontsel.c:209
 #, fuzzy
 msgid "Font name"
-msgstr "F¸ggvÈny:"
+msgstr "F√ºggv√©ny:"
 
-#: lib/diagtkfontsel.c:208
+#: lib/diagtkfontsel.c:210
 msgid "The X string that represents this font."
 msgstr ""
 
-#: lib/diagtkfontsel.c:214
+#: lib/diagtkfontsel.c:216
 #, fuzzy
 msgid "Preview text"
-msgstr "Szˆveg kÈszÌtÈse"
+msgstr "Sz√∂veg k√©sz√≠t√©se"
 
-#: lib/diagtkfontsel.c:215
+#: lib/diagtkfontsel.c:217
 msgid "The text to display in order to demonstrate the selected font."
 msgstr ""
 
-#: lib/diagtkfontsel.c:319
+#: lib/diagtkfontsel.c:321
 msgid "_Family:"
 msgstr ""
 
-#: lib/diagtkfontsel.c:325
+#: lib/diagtkfontsel.c:327
 #, fuzzy
 msgid "_Style:"
-msgstr "LÈptÈk:"
+msgstr "L√©pt√©k:"
 
-#: lib/diagtkfontsel.c:331
+#: lib/diagtkfontsel.c:333
 #, fuzzy
 msgid "Si_ze:"
-msgstr "X mÈret:"
+msgstr "X m√©ret:"
 
 #. create the text entry widget
-#: lib/diagtkfontsel.c:460
+#: lib/diagtkfontsel.c:462
 #, fuzzy
 msgid "_Preview:"
-msgstr "_Tulajdons·gok"
+msgstr "_Tulajdons√°gok"
 
-#: lib/diagtkfontsel.c:1250
+#: lib/diagtkfontsel.c:1252
 #, fuzzy
 msgid "Font Selection"
-msgstr "÷sszekˆtˆtt"
+msgstr "√ñsszek√∂t√∂tt"
 
-#: lib/message.c:86
-msgid "There is one similar message."
-msgstr ""
-
-#: lib/message.c:91
-#, fuzzy
-msgid "Show repeated messages"
-msgstr "KÈp kÈszÌtÈse"
-
-#: lib/message.c:104
-#, fuzzy, c-format
-msgid "There are %d similar messages."
-msgstr "KÈp kÈszÌtÈse"
-
-#: lib/message.c:115 lib/message.c:194
+#: lib/message.c:78 lib/message.c:238
 msgid "Error"
 msgstr "Hiba"
 
-#: lib/message.c:117 lib/message.c:182
+#: lib/message.c:80 lib/message.c:226
 msgid "Warning"
-msgstr "FigyelmeztetÈs"
+msgstr "Figyelmeztet√©s"
+
+#: lib/message.c:106
+msgid "There is one similar message."
+msgstr ""
+
+#: lib/message.c:111
+#, fuzzy
+msgid "Show repeated messages"
+msgstr "K√©p k√©sz√≠t√©se"
+
+#: lib/message.c:170
+#, fuzzy, c-format
+msgid "There are %d similar messages."
+msgstr "K√©p k√©sz√≠t√©se"
 
 # lib/message.c:120
-#: lib/message.c:171
+#: lib/message.c:215
 msgid "Notice"
-msgstr "MegjegyzÈs"
+msgstr "Megjegyz√©s"
 
 #: lib/object_defaults.c:124
 #, fuzzy, c-format
@@ -2326,8 +2387,8 @@ msgid ""
 "Error loading defaults '%s'.\n"
 "Not a Dia diagram file."
 msgstr ""
-"Nem tudom betˆlteni a kˆvetkezı ·br·t: %s.\n"
-"Nem Dia f·jl."
+"Nem tudom bet√∂lteni a k√∂vetkez≈ë √°br√°t: %s.\n"
+"Nem Dia f√°jl."
 
 #: lib/plug-ins.c:120
 msgid "???"
@@ -2336,7 +2397,7 @@ msgstr ""
 #: lib/plug-ins.c:228
 #, c-format
 msgid "Could not deduce correct path for `%s'"
-msgstr "Nem tudtam meg·llapÌtani a megfelelı ˙tvonalat `%s'-hez"
+msgstr "Nem tudtam meg√°llap√≠tani a megfelel≈ë √∫tvonalat `%s'-hez"
 
 #: lib/plug-ins.c:234
 #, fuzzy, c-format
@@ -2344,251 +2405,160 @@ msgid ""
 "Could not load plugin '%s'\n"
 "%s"
 msgstr ""
-"%s bıvÌtmÈny betˆltÈse sikertlen\n"
+"%s b≈ëv√≠tm√©ny bet√∂lt√©se sikertlen\n"
 "%s"
 
 # lib/plug-ins.c:227
 #: lib/plug-ins.c:247
 #, c-format
 msgid "Could not find plugin init function in `%s'"
-msgstr "A bıvÌtmÈny inicializ·lÛ f¸ggvÈnye nem tal·lhatÛ `%s'-ben"
+msgstr "A b≈ëv√≠tm√©ny inicializ√°l√≥ f√ºggv√©nye nem tal√°lhat√≥ `%s'-ben"
 
 #: lib/plug-ins.c:249
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr ""
 
-#: lib/plug-ins.c:257
-msgid "dia_pluin_init() call failed"
+#: lib/plug-ins.c:257 lib/plug-ins.c:265
+msgid "dia_plugin_init() call failed"
 msgstr ""
 
 # lib/plug-ins.c:254
-#: lib/plug-ins.c:276
+#: lib/plug-ins.c:284
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr "%s bıvÌtmÈnyt nem tudtam elt·volÌtani"
+msgstr "%s b≈ëv√≠tm√©nyt nem tudtam elt√°vol√≠tani"
 
-#: lib/plug-ins.c:364
+#: lib/plug-ins.c:372
 #, fuzzy, c-format
 msgid ""
 "Could not open `%s'\n"
 "`%s'"
-msgstr "Nem tudom megnyitni a kˆvetkezıt: '%s' "
+msgstr "Nem tudom megnyitni a k√∂vetkez≈ët: '%s' "
 
-#: lib/properties.c:71 lib/properties.h:474
+#: lib/properties.c:71 lib/properties.h:478
 #, fuzzy
 msgid "Line colour"
-msgstr "V·lassz ki egy szÌnt"
+msgstr "V√°lassz ki egy sz√≠nt"
 
-#: lib/properties.c:72 lib/properties.h:477
+#: lib/properties.c:72 lib/properties.h:481
 #, fuzzy
 msgid "Line style"
 msgstr "Vonalak"
 
-#: lib/properties.c:73 lib/properties.h:481
+#: lib/properties.c:73 lib/properties.h:485
 #, fuzzy
 msgid "Fill colour"
-msgstr "ElıtÈr szÌn:"
+msgstr "El≈ët√©r sz√≠n:"
 
-#: lib/properties.c:74 lib/properties.h:484
+#: lib/properties.c:74 lib/properties.h:488
 msgid "Draw background"
-msgstr "H·ttÈr rajzol·sa"
+msgstr "H√°tt√©r rajzol√°sa"
 
-#: lib/properties.c:75 lib/properties.h:488
+#: lib/properties.c:75 lib/properties.h:492
 #, fuzzy
 msgid "Start arrow"
 msgstr "Pontozott"
 
-#: lib/properties.c:76 lib/properties.h:491
+#: lib/properties.c:76 lib/properties.h:495
 #, fuzzy
 msgid "End arrow"
 msgstr "Pontozott"
 
-#: lib/properties.c:78 lib/properties.h:501
+#: lib/properties.c:78 lib/properties.h:505
 #, fuzzy
 msgid "Text alignment"
-msgstr "ElhelyezkedÈs:"
+msgstr "Elhelyezked√©s:"
 
-#: lib/properties.c:79 lib/properties.h:504 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/step.c:162 objects/GRAFCET/transition.c:141
-#: objects/UML/class_dialog.c:327 objects/chronogram/chronoline.c:182
-#: objects/chronogram/chronoref.c:163
+#: lib/properties.c:79 lib/properties.h:508
+#: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
+#: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:164
+#: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
 #, fuzzy
 msgid "Font"
-msgstr "Bet˚tÌpus:"
+msgstr "Bet≈±t√≠pus:"
 
-#: lib/properties.c:80 lib/properties.h:507 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/step.c:164 objects/GRAFCET/transition.c:143
+#: lib/properties.c:80 lib/properties.h:511
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
+#: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:166
+#: objects/GRAFCET/transition.c:143
 #, fuzzy
 msgid "Font size"
-msgstr "Bet˚mÈret:"
+msgstr "Bet≈±m√©ret:"
 
-#: lib/properties.c:81 lib/properties.h:510 objects/GRAFCET/step.c:166
+#: lib/properties.c:81 lib/properties.h:514
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
+#: objects/GRAFCET/step.c:168
 #, fuzzy
 msgid "Text colour"
-msgstr "V·lassz ki egy szÌnt"
+msgstr "V√°lassz ki egy sz√≠nt"
 
-#: lib/widgets.c:217
+#: lib/widgets.c:197
 msgid "Other fonts..."
 msgstr ""
 
-#: lib/widgets.c:319
+#: lib/widgets.c:299
 #, fuzzy, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr ""
-"%s bıvÌtmÈny betˆltÈse sikertlen\n"
+"%s b≈ëv√≠tm√©ny bet√∂lt√©se sikertlen\n"
 "%s"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:362
+#: lib/widgets.c:342
 #, fuzzy
 msgid "Select font"
-msgstr "NyomtatÛ kiv·laszt·sa"
+msgstr "Nyomtat√≥ kiv√°laszt√°sa"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:672 objects/FS/function.c:1039
+#: lib/widgets.c:652 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "Teli"
 
-#: lib/widgets.c:678
+#: lib/widgets.c:658
 msgid "Dashed"
 msgstr "Szaggatott"
 
-#: lib/widgets.c:684
+#: lib/widgets.c:664
 msgid "Dash-Dot"
 msgstr "Vonal-Pont"
 
-#: lib/widgets.c:690
+#: lib/widgets.c:670
 msgid "Dash-Dot-Dot"
 msgstr "Vonal-Pont-Pont"
 
-#: lib/widgets.c:696
+#: lib/widgets.c:676
 msgid "Dotted"
 msgstr "Pontozott"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:714
+#: lib/widgets.c:694
 msgid "Dash length: "
 msgstr "Vonal hossza: "
 
-#: lib/widgets.c:1010
-msgid "Lines"
-msgstr "Vonalak"
+#: lib/widgets.c:848
+msgid "Select color"
+msgstr "Sz√≠n kiv√°laszt√°sa"
 
-#: lib/widgets.c:1011
-msgid "Hollow Triangle"
-msgstr "Lyukas h·romszˆg"
-
-#: lib/widgets.c:1012
-msgid "Filled Triangle"
-msgstr "Kitˆltˆtt h·romszˆg"
-
-#: lib/widgets.c:1013
-#, fuzzy
-msgid "Unfilled Triangle"
-msgstr "Kitˆltˆtt h·romszˆg"
-
-#: lib/widgets.c:1014
-msgid "Filled Diamond"
-msgstr "Kitˆltˆtt gyÈm·nt"
-
-#: lib/widgets.c:1015
-msgid "Half Head"
-msgstr "FÈl fej"
-
-#: lib/widgets.c:1016
-msgid "Slashed Cross"
-msgstr ""
-
-#: lib/widgets.c:1017
-msgid "Filled Ellipse"
-msgstr "Teli ellipszis"
-
-#: lib/widgets.c:1018
-msgid "Hollow Ellipse"
-msgstr "Lyukas ellipszis"
-
-#: lib/widgets.c:1019
-#, fuzzy
-msgid "Filled Dot"
-msgstr "Kitˆltˆtt gyÈm·nt"
-
-#: lib/widgets.c:1020
-msgid "Dimension Origin"
-msgstr ""
-
-#: lib/widgets.c:1021
-msgid "Blanked Dot"
-msgstr ""
-
-#: lib/widgets.c:1022
-#, fuzzy
-msgid "Double Hollow triangle"
-msgstr "Lyukas h·romszˆg"
-
-#: lib/widgets.c:1023
-#, fuzzy
-msgid "Double Filled triangle"
-msgstr "Kitˆltˆtt h·romszˆg"
-
-#: lib/widgets.c:1024
-#, fuzzy
-msgid "Filled Box"
-msgstr "Kitˆltˆtt gyÈm·nt"
-
-#: lib/widgets.c:1025
-msgid "Blanked Box"
-msgstr ""
-
-#: lib/widgets.c:1026
-#, fuzzy
-msgid "Slashed"
-msgstr "Szaggatott"
-
-#: lib/widgets.c:1027
-msgid "Integral Symbol"
-msgstr ""
-
-#: lib/widgets.c:1028
-#, fuzzy
-msgid "Crow Foot"
-msgstr "Bet˚tÌpus:"
-
-#: lib/widgets.c:1029
-#, fuzzy
-msgid "Cross"
-msgstr "VÈdett"
-
-#: lib/widgets.c:1030
-#, fuzzy
-msgid "Filled Concave"
-msgstr "Kitˆltˆtt gyÈm·nt"
-
-#: lib/widgets.c:1031
-msgid "Blanked Concave"
-msgstr ""
-
-#: lib/widgets.c:1068
+#: lib/widgets.c:1046
 msgid "Length: "
 msgstr "Hossz: "
 
-#: lib/widgets.c:1081
+#: lib/widgets.c:1059
 msgid "Width: "
-msgstr "SzÈlessÈg: "
+msgstr "Sz√©less√©g: "
 
-#: lib/widgets.c:1208
+#: lib/widgets.c:1187
 msgid "Select image file"
-msgstr "V·lassz ki egy kÈpf·jlt"
+msgstr "V√°lassz ki egy k√©pf√°jlt"
 
-#: lib/widgets.c:1238
+#: lib/widgets.c:1221
 msgid "Browse"
-msgstr "KeresÈs"
+msgstr "Keres√©s"
 
 #: objects/bondgraph/bondgraph.c:39
 #, fuzzy
 msgid "Bond graph objects"
-msgstr "⁄_j diagramm"
+msgstr "√ö_j diagramm"
 
 #: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
@@ -2601,11 +2571,11 @@ msgstr ""
 #: objects/chronogram/chronoline.c:149
 #, fuzzy
 msgid "Data name"
-msgstr "Oszt·ly neve:"
+msgstr "Oszt√°ly neve:"
 
 #: objects/chronogram/chronoline.c:151
 msgid "Events"
-msgstr ""
+msgstr "Esem√©nyek"
 
 #: objects/chronogram/chronoline.c:154
 msgid "Event specification"
@@ -2621,9 +2591,8 @@ msgid ""
 msgstr ""
 
 #: objects/chronogram/chronoline.c:161
-#, fuzzy
 msgid "Parameters"
-msgstr "ParamÈterek:"
+msgstr "Param√©terek"
 
 #: objects/chronogram/chronoline.c:163 objects/chronogram/chronoref.c:145
 #, fuzzy
@@ -2637,7 +2606,7 @@ msgstr ""
 #: objects/chronogram/chronoline.c:167
 #, fuzzy
 msgid "Rise time"
-msgstr "RÈteg elıtÈrbe"
+msgstr "R√©teg el≈ët√©rbe"
 
 #: objects/chronogram/chronoline.c:169
 msgid "Fall time"
@@ -2646,7 +2615,7 @@ msgstr ""
 #: objects/chronogram/chronoline.c:170
 #, fuzzy
 msgid "Multi-bit data"
-msgstr "Attrib˙tum ÈrtÈk"
+msgstr "Attrib√∫tum √©rt√©k"
 
 #: objects/chronogram/chronoline.c:172 objects/chronogram/chronoref.c:155
 msgid "Aspect"
@@ -2655,22 +2624,22 @@ msgstr ""
 #: objects/chronogram/chronoline.c:174
 #, fuzzy
 msgid "Data color"
-msgstr "V·lassz ki egy szÌnt"
+msgstr "V√°lassz ki egy sz√≠nt"
 
 #: objects/chronogram/chronoline.c:176
 #, fuzzy
 msgid "Data line width"
-msgstr "Vonal szÈlessÈge"
+msgstr "Vonal sz√©less√©ge"
 
 #: objects/chronogram/chronoline.c:178 objects/chronogram/chronoref.c:157
 #, fuzzy
 msgid "Line color"
-msgstr "V·lassz ki egy szÌnt"
+msgstr "V√°lassz ki egy sz√≠nt"
 
 #: objects/chronogram/chronoref.c:143
 #, fuzzy
 msgid "Time data"
-msgstr "Attrib˙tum ÈrtÈk"
+msgstr "Attrib√∫tum √©rt√©k"
 
 #: objects/chronogram/chronoref.c:149
 msgid "Major time step"
@@ -2683,7 +2652,7 @@ msgstr ""
 #: objects/chronogram/chronoref.c:161
 #, fuzzy
 msgid "Minor step line width"
-msgstr "Vonal szÈlessÈge"
+msgstr "Vonal sz√©less√©ge"
 
 #: objects/custom/custom.c:117
 msgid "Custom"
@@ -2701,19 +2670,19 @@ msgstr "_Vizszintes"
 #: objects/custom/custom_object.c:180 objects/custom/custom_object.c:199
 #, fuzzy
 msgid "Flip vertical"
-msgstr "_F¸ggıleges"
+msgstr "_F√ºgg≈ëleges"
 
-#: objects/custom/custom_object.c:1406
+#: objects/custom/custom_object.c:1412
 #, fuzzy
 msgid "Flip Horizontal"
 msgstr "_Vizszintes"
 
-#: objects/custom/custom_object.c:1407
+#: objects/custom/custom_object.c:1413
 #, fuzzy
 msgid "Flip Vertical"
-msgstr "_F¸ggıleges"
+msgstr "_F√ºgg≈ëleges"
 
-#: objects/custom/custom_object.c:1444
+#: objects/custom/custom_object.c:1450
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr ""
@@ -2731,16 +2700,16 @@ msgstr "Gyenge kulcs"
 #: objects/ER/attribute.c:156
 #, fuzzy
 msgid "Derived:"
-msgstr "Sz·rmaztatott"
+msgstr "Sz√°rmaztatott"
 
 #: objects/ER/attribute.c:158
 #, fuzzy
 msgid "Multivalue:"
-msgstr "TˆbbÈrtÈk˚"
+msgstr "T√∂bb√©rt√©k≈±"
 
 #: objects/ER/attribute.c:399 sheets/ER.sheet.in.h:1
 msgid "Attribute"
-msgstr "Attrib˙tum"
+msgstr "Attrib√∫tum"
 
 #: objects/ER/entity.c:130
 #, fuzzy
@@ -2749,7 +2718,7 @@ msgstr "Gyenge"
 
 #: objects/ER/entity.c:348 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
-msgstr "MegjelenÈs"
+msgstr "Megjelen√©s"
 
 #: objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
@@ -2760,78 +2729,78 @@ msgid "Total:"
 msgstr "Teljes:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
-#: objects/UML/association.c:686 objects/UML/dependency.c:351
-#: objects/UML/generalization.c:347 objects/UML/realizes.c:340
-#: objects/standard/zigzagline.c:495
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:556
+#: objects/standard/zigzagline.c:329 objects/UML/association.c:738
+#: objects/UML/dependency.c:356 objects/UML/generalization.c:352
+#: objects/UML/realizes.c:345
 msgid "Add segment"
-msgstr "Szegmens hozz·ad·sa"
+msgstr "Szegmens hozz√°ad√°sa"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
-#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
-#: objects/UML/association.c:687 objects/UML/dependency.c:352
-#: objects/UML/generalization.c:348 objects/UML/realizes.c:341
-#: objects/standard/zigzagline.c:496
+#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:557
+#: objects/standard/zigzagline.c:330 objects/UML/association.c:739
+#: objects/UML/dependency.c:357 objects/UML/generalization.c:353
+#: objects/UML/realizes.c:346
 msgid "Delete segment"
-msgstr "Szegmens tˆrlÈse"
+msgstr "Szegmens t√∂rl√©se"
 
 #: objects/ER/relationship.c:139
 msgid "Left Cardinality:"
-msgstr "Bal tı:"
+msgstr "Bal t≈ë:"
 
 #: objects/ER/relationship.c:141
 msgid "Right Cardinality:"
-msgstr "Jobb tı:"
+msgstr "Jobb t≈ë:"
 
 #: objects/ER/relationship.c:143
 #, fuzzy
 msgid "Rotate:"
-msgstr "Forgat·s"
+msgstr "Forgat√°s"
 
 #: objects/ER/relationship.c:145
 #, fuzzy
 msgid "Identifying:"
-msgstr "Meghat·roz·s"
+msgstr "Meghat√°roz√°s"
 
 #: objects/ER/relationship.c:427 sheets/ER.sheet.in.h:6
 msgid "Relationship"
-msgstr "Rokons·g"
+msgstr "Rokons√°g"
 
 #: objects/flowchart/box.c:147 objects/standard/box.c:131
 #, fuzzy
 msgid "Corner radius"
-msgstr "SaroklekerekÌtÈs:"
+msgstr "Saroklekerek√≠t√©s:"
 
-#: objects/SADT/box.c:136 objects/flowchart/box.c:149
-#: objects/flowchart/diamond.c:147 objects/flowchart/ellipse.c:146
-#: objects/flowchart/parallelogram.c:151
+#: objects/flowchart/box.c:149 objects/flowchart/diamond.c:147
+#: objects/flowchart/ellipse.c:146 objects/flowchart/parallelogram.c:151
+#: objects/SADT/box.c:136
 msgid "Text padding"
 msgstr ""
 
 #: objects/flowchart/flowchart.c:37
 #, fuzzy
 msgid "Flowchart objects"
-msgstr "AktÌv objektumok"
+msgstr "Akt√≠v objektumok"
 
 #: objects/flowchart/parallelogram.c:149
 msgid "Shear angle"
 msgstr ""
 
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow-ortho.c:157 objects/FS/flow-ortho.c:630
-#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/function.c:1061
+#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/flow-ortho.c:157
+#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1061
 msgid "Energy"
 msgstr "Energia"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow-ortho.c:158 objects/FS/flow-ortho.c:631
-#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/function.c:1037
+#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/flow-ortho.c:158
+#: objects/FS/flow-ortho.c:631 objects/FS/function.c:1037
 msgid "Material"
 msgstr "Anyag"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:632
-#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/function.c:999
+#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/flow-ortho.c:159
+#: objects/FS/flow-ortho.c:632 objects/FS/function.c:999
 #: objects/FS/function.c:1001 objects/FS/function.c:1137
 #: objects/FS/function.c:1139
 msgid "Signal"
@@ -2843,11 +2812,11 @@ msgstr ""
 
 #: objects/FS/function.c:138
 msgid "Wish function"
-msgstr "Whish f¸ggvÈny"
+msgstr "Whish f√ºggv√©ny"
 
 #: objects/FS/function.c:140
 msgid "User function"
-msgstr "Felhaszn·lÛi f¸ggvÈny"
+msgstr "Felhaszn√°l√≥i f√ºggv√©ny"
 
 #. Translators: Menu item Verb
 #: objects/FS/function.c:641
@@ -2875,7 +2844,7 @@ msgstr ""
 #: objects/FS/function.c:653
 #, fuzzy
 msgid "Receive"
-msgstr "RekurzÌv"
+msgstr "Rekurz√≠v"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
 #: objects/FS/function.c:655 objects/FS/function.c:927
@@ -2892,7 +2861,7 @@ msgstr ""
 #: objects/FS/function.c:659 objects/FS/function.c:893
 #, fuzzy
 msgid "Capture"
-msgstr "LÈtrehoz·s"
+msgstr "L√©trehoz√°s"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
 #: objects/FS/function.c:665
@@ -2915,13 +2884,13 @@ msgstr ""
 #: objects/FS/function.c:693
 #, fuzzy
 msgid "Transfer"
-msgstr "TranzitÌv"
+msgstr "Tranzit√≠v"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
 #: objects/FS/function.c:677 objects/FS/function.c:679
 #, fuzzy
 msgid "Transport"
-msgstr "TranzitÌv"
+msgstr "Tranzit√≠v"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
 #: objects/FS/function.c:681
@@ -2939,32 +2908,32 @@ msgstr "Felmozgat"
 #: objects/FS/function.c:687 objects/FS/function.c:689
 #, fuzzy
 msgid "Transmit"
-msgstr "TranzitÌv"
+msgstr "Tranzit√≠v"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
 #: objects/FS/function.c:691
 #, fuzzy
 msgid "Conduct"
-msgstr "÷sszekˆtˆtt"
+msgstr "√ñsszek√∂t√∂tt"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
 #: objects/FS/function.c:695
 #, fuzzy
 msgid "Convey"
-msgstr "Invert·l"
+msgstr "Invert√°l"
 
 #. Translators: Menu item Verb/Channel/Guide
 #: objects/FS/function.c:697 objects/FS/function.c:699
 #: objects/FS/function.c:701
 #, fuzzy
 msgid "Guide"
-msgstr "R·cs"
+msgstr "R√°cs"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Direct
 #: objects/FS/function.c:703
 #, fuzzy
 msgid "Direct"
-msgstr "Ir·ny:"
+msgstr "Ir√°ny:"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
 #: objects/FS/function.c:705
@@ -2980,25 +2949,25 @@ msgstr ""
 #: objects/FS/function.c:709
 #, fuzzy
 msgid "Translate"
-msgstr "TranzitÌv"
+msgstr "Tranzit√≠v"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #: objects/FS/function.c:711 objects/FS/function.c:713
 #, fuzzy
 msgid "Rotate"
-msgstr "Forgat·s"
+msgstr "Forgat√°s"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
 #: objects/FS/function.c:715
 #, fuzzy
 msgid "Turn"
-msgstr "VisszatÈrÈs"
+msgstr "Visszat√©r√©s"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
 #: objects/FS/function.c:717
 #, fuzzy
 msgid "Spin"
-msgstr "MÈretezÈs"
+msgstr "M√©retez√©s"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
 #: objects/FS/function.c:719 objects/FS/function.c:721
@@ -3015,7 +2984,7 @@ msgstr "Konstans:"
 #: objects/FS/function.c:725
 #, fuzzy
 msgid "Unlock"
-msgstr "Elt·volÌt"
+msgstr "Elt√°vol√≠t"
 
 #. Translators: Menu item Verb/Support
 #: objects/FS/function.c:727 objects/FS/function.c:729
@@ -3037,7 +3006,7 @@ msgstr ""
 #: objects/FS/function.c:737
 #, fuzzy
 msgid "Protect"
-msgstr "VÈdett"
+msgstr "V√©dett"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
 #: objects/FS/function.c:739 objects/FS/function.c:929
@@ -3068,7 +3037,7 @@ msgstr ""
 #: objects/FS/function.c:751 objects/FS/function.c:753
 #, fuzzy
 msgid "Secure"
-msgstr "RekurzÌv"
+msgstr "Rekurz√≠v"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
 #: objects/FS/function.c:755 objects/FS/function.c:787
@@ -3079,7 +3048,7 @@ msgstr ""
 #: objects/FS/function.c:757
 #, fuzzy
 msgid "Mount"
-msgstr "Bet˚tÌpus:"
+msgstr "Bet≈±t√≠pus:"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
 #: objects/FS/function.c:759
@@ -3101,31 +3070,31 @@ msgstr "Teli"
 #: objects/FS/function.c:765 objects/FS/function.c:767
 #, fuzzy
 msgid "Position"
-msgstr "KompozÌciÛ"
+msgstr "Kompoz√≠ci√≥"
 
 #. Translators: Menu item Verb/Support/Position/Orient
 #: objects/FS/function.c:769
 #, fuzzy
 msgid "Orient"
-msgstr "Ir·ny"
+msgstr "Ir√°ny"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: objects/FS/function.c:771
 #, fuzzy
 msgid "Align"
-msgstr "ElhelyezkedÈs:"
+msgstr "Elhelyezked√©s:"
 
 #. Translators: Menu item Verb/Support/Position/Locate
 #: objects/FS/function.c:773 objects/FS/function.c:1015
 #, fuzzy
 msgid "Locate"
-msgstr "Betˆltve:"
+msgstr "Bet√∂ltve:"
 
 #. Translators: Menu item Verb/Connect
 #: objects/FS/function.c:775 objects/FS/function.c:777
 #, fuzzy
 msgid "Connect"
-msgstr "÷sszekˆtˆtt"
+msgstr "√ñsszek√∂t√∂tt"
 
 #. Translators: Menu item Verb/Connect/Couple
 #: objects/FS/function.c:779 objects/FS/function.c:781
@@ -3171,10 +3140,10 @@ msgstr ""
 #: objects/FS/function.c:801
 #, fuzzy
 msgid "Coalesce"
-msgstr "Bez·r·s"
+msgstr "Bez√°r√°s"
 
 #. Translators: Menu item Verb/Branch
-#: objects/FS/function.c:803 objects/FS/function.c:805
+#: objects/FS/function.c:803 objects/FS/function.c:805 sheets/UML.sheet.in.h:5
 msgid "Branch"
 msgstr ""
 
@@ -3199,7 +3168,7 @@ msgstr ""
 #: objects/FS/function.c:817
 #, fuzzy
 msgid "Release"
-msgstr "CserÈl"
+msgstr "Cser√©l"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
 #: objects/FS/function.c:819
@@ -3210,7 +3179,7 @@ msgstr ""
 #: objects/FS/function.c:821
 #, fuzzy
 msgid "Disconnect"
-msgstr "÷sszekˆtˆtt"
+msgstr "√ñsszek√∂t√∂tt"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
 #: objects/FS/function.c:827
@@ -3252,31 +3221,31 @@ msgstr ""
 #: objects/FS/function.c:843
 #, fuzzy
 msgid "Strain"
-msgstr "MÈretezÈs"
+msgstr "M√©retez√©s"
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
 #: objects/FS/function.c:845
 #, fuzzy
 msgid "Filter"
-msgstr "F·jl"
+msgstr "F√°jl"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
 #: objects/FS/function.c:847
 #, fuzzy
 msgid "Percolate"
-msgstr "Saj·t"
+msgstr "Saj√°t"
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
 #: objects/FS/function.c:849
 #, fuzzy
 msgid "Clear"
-msgstr "Bez·r·s"
+msgstr "Bez√°r√°s"
 
 #. Translators: Menu item Verb/Branch/Distribute
 #: objects/FS/function.c:851 objects/FS/function.c:853
 #, fuzzy
 msgid "Distribute"
-msgstr "Attrib˙tum"
+msgstr "Attrib√∫tum"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
 #: objects/FS/function.c:855
@@ -3287,7 +3256,7 @@ msgstr ""
 #: objects/FS/function.c:857
 #, fuzzy
 msgid "Scatter"
-msgstr "LÈptÈk:"
+msgstr "L√©pt√©k:"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
 #: objects/FS/function.c:859
@@ -3318,7 +3287,7 @@ msgstr ""
 #: objects/FS/function.c:871
 #, fuzzy
 msgid "Dampen"
-msgstr "NÈv:"
+msgstr "N√©v:"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
 #: objects/FS/function.c:873
@@ -3339,7 +3308,7 @@ msgstr ""
 #: objects/FS/function.c:883 objects/FS/function.c:885
 #, fuzzy
 msgid "Store"
-msgstr "Szereplı"
+msgstr "Szerepl≈ë"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
 #: objects/FS/function.c:887
@@ -3351,13 +3320,13 @@ msgstr "Konstans:"
 #: objects/FS/function.c:889
 #, fuzzy
 msgid "Collect"
-msgstr "÷sszekˆtˆtt"
+msgstr "√ñsszek√∂t√∂tt"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
 #: objects/FS/function.c:891
 #, fuzzy
 msgid "Reserve"
-msgstr "RekurzÌv"
+msgstr "Rekurz√≠v"
 
 #. Translators: Menu item Verb/Provision/Supply
 #: objects/FS/function.c:895 objects/FS/function.c:897
@@ -3369,7 +3338,7 @@ msgstr "Alkalmaz"
 #: objects/FS/function.c:899
 #, fuzzy
 msgid "Fill"
-msgstr "F·jl"
+msgstr "F√°jl"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
 #: objects/FS/function.c:901
@@ -3380,7 +3349,7 @@ msgstr ""
 #: objects/FS/function.c:903
 #, fuzzy
 msgid "Replenish"
-msgstr "CserÈl"
+msgstr "Cser√©l"
 
 #. Translators: Menu item Verb/Provision/Supply/Expose
 #: objects/FS/function.c:905
@@ -3389,7 +3358,7 @@ msgid "Expose"
 msgstr "Ellipszis"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: objects/FS/function.c:907 sheets/Flowchart.sheet.in.h:9
+#: objects/FS/function.c:907 sheets/Flowchart.sheet.in.h:8
 #, fuzzy
 msgid "Extract"
 msgstr "Absztrakt"
@@ -3403,7 +3372,7 @@ msgstr ""
 #: objects/FS/function.c:913 objects/FS/function.c:915
 #, fuzzy
 msgid "Actuate"
-msgstr "Attrib˙tum"
+msgstr "Attrib√∫tum"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
 #: objects/FS/function.c:917
@@ -3420,14 +3389,14 @@ msgstr ""
 #: objects/FS/function.c:921 objects/FS/function.c:923
 #, fuzzy
 msgid "Regulate"
-msgstr "CserÈl"
+msgstr "Cser√©l"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
 #: objects/FS/function.c:925 objects/FS/function.c:1143
 #: objects/UML/classicon.c:122
 #, fuzzy
 msgid "Control"
-msgstr "KˆzÈpre"
+msgstr "K√∂z√©pre"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
 #: objects/FS/function.c:931
@@ -3438,7 +3407,7 @@ msgstr ""
 #: objects/FS/function.c:933
 #, fuzzy
 msgid "Disable"
-msgstr "L·thatÛ:"
+msgstr "L√°that√≥:"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
 #: objects/FS/function.c:935
@@ -3477,7 +3446,7 @@ msgstr "Alkalmaz"
 #: objects/FS/function.c:949
 #, fuzzy
 msgid "Reduce"
-msgstr "CserÈl"
+msgstr "Cser√©l"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
 #: objects/FS/function.c:953
@@ -3488,13 +3457,13 @@ msgstr ""
 #: objects/FS/function.c:955
 #, fuzzy
 msgid "Multiply"
-msgstr "Multiplicit·s:"
+msgstr "Multiplicit√°s:"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #: objects/FS/function.c:957
 #, fuzzy
 msgid "Scale"
-msgstr "LÈptÈk:"
+msgstr "L√©pt√©k:"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
 #: objects/FS/function.c:959
@@ -3535,13 +3504,13 @@ msgstr ""
 #: objects/FS/function.c:975
 #, fuzzy
 msgid "Pierce"
-msgstr "NyomtatÛ"
+msgstr "Nyomtat√≥"
 
 #. Translators: Menu item Verb/Convert
 #: objects/FS/function.c:977 objects/FS/function.c:979
 #, fuzzy
 msgid "Convert"
-msgstr "Invert·l"
+msgstr "Invert√°l"
 
 #. Translators: Menu item Verb/Convert/Transform
 #: objects/FS/function.c:981
@@ -3573,14 +3542,14 @@ msgstr ""
 #: objects/FS/function.c:991
 #, fuzzy
 msgid "Condense"
-msgstr "÷sszekˆtˆtt"
+msgstr "√ñsszek√∂t√∂tt"
 
 # objects/UML/implements.c:561
 #. Translators: Menu item Verb/Convert/Integrate
 #: objects/FS/function.c:993
 #, fuzzy
 msgid "Integrate"
-msgstr "Fel¸let:"
+msgstr "Fel√ºlet:"
 
 #. Translators: Menu item Verb/Convert/Differentiate
 #: objects/FS/function.c:995
@@ -3588,10 +3557,10 @@ msgid "Differentiate"
 msgstr ""
 
 #. Translators: Menu item Verb/Convert/Process
-#: objects/FS/function.c:997
+#: objects/FS/function.c:997 sheets/EML.sheet.in.h:5
 #, fuzzy
 msgid "Process"
-msgstr "VÈdett"
+msgstr "V√©dett"
 
 #. Translators: Menu item Verb/Signal/Sense
 #: objects/FS/function.c:1003 objects/FS/function.c:1005
@@ -3602,7 +3571,7 @@ msgstr ""
 #: objects/FS/function.c:1007
 #, fuzzy
 msgid "Perceive"
-msgstr "Saj·t"
+msgstr "Saj√°t"
 
 #. Translators: Menu item Verb/Signal/Sense/Recognize
 #: objects/FS/function.c:1009
@@ -3635,7 +3604,7 @@ msgid "Mark"
 msgstr ""
 
 #. Translators: Menu item Verb/Signal/Display
-#: objects/FS/function.c:1025 sheets/Flowchart.sheet.in.h:7
+#: objects/FS/function.c:1025 sheets/Flowchart.sheet.in.h:5
 msgid "Display"
 msgstr ""
 
@@ -3648,7 +3617,7 @@ msgstr ""
 #: objects/FS/function.c:1031
 #, fuzzy
 msgid "Calculate"
-msgstr "HÌv·s"
+msgstr "H√≠v√°s"
 
 #. Translators: Menu item Verb/Signal/Represent
 #: objects/FS/function.c:1033
@@ -3686,19 +3655,19 @@ msgstr ""
 #: objects/FS/function.c:1051
 #, fuzzy
 msgid "Foot"
-msgstr "Bet˚tÌpus:"
+msgstr "Bet≈±t√≠pus:"
 
 #. Translators: Menu item Noun/Material/Human/Head
 #: objects/FS/function.c:1053
 #, fuzzy
 msgid "Head"
-msgstr "FÈl fej"
+msgstr "F√©l fej"
 
 #. Translators: Menu item Noun/Material/Human/Finger
 #: objects/FS/function.c:1055
 #, fuzzy
 msgid "Finger"
-msgstr "NyomtatÛ"
+msgstr "Nyomtat√≥"
 
 #. Translators: Menu item Noun/Material/Human/Toe
 #: objects/FS/function.c:1057
@@ -3726,7 +3695,7 @@ msgstr "Energia"
 #: objects/FS/function.c:1067
 #, fuzzy
 msgid "Translation"
-msgstr "TranzitÌv"
+msgstr "Tranzit√≠v"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
 #: objects/FS/function.c:1069
@@ -3737,7 +3706,7 @@ msgstr ""
 #: objects/FS/function.c:1071
 #, fuzzy
 msgid "Rotation"
-msgstr "Forgat·s"
+msgstr "Forgat√°s"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Torque
 #: objects/FS/function.c:1073
@@ -3753,7 +3722,7 @@ msgstr ""
 #: objects/FS/function.c:1077
 #, fuzzy
 msgid "Vibration"
-msgstr "_L·thatÛ r·cs"
+msgstr "_L√°that√≥ r√°cs"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
 #: objects/FS/function.c:1079
@@ -3769,7 +3738,7 @@ msgstr ""
 #: objects/FS/function.c:1083
 #, fuzzy
 msgid "Electrical"
-msgstr "_F¸ggıleges"
+msgstr "_F√ºgg≈ëleges"
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
 #: objects/FS/function.c:1085
@@ -3785,7 +3754,7 @@ msgstr ""
 #: objects/FS/function.c:1089
 #, fuzzy
 msgid "Current"
-msgstr "KˆzÈpre"
+msgstr "K√∂z√©pre"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
 #: objects/FS/function.c:1091
@@ -3811,25 +3780,25 @@ msgstr ""
 #: objects/FS/function.c:1099
 #, fuzzy
 msgid "Heat"
-msgstr "LÈtrehoz·s"
+msgstr "L√©trehoz√°s"
 
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
 #: objects/FS/function.c:1101
 #, fuzzy
 msgid "Conduction"
-msgstr "KompozÌciÛ"
+msgstr "Kompoz√≠ci√≥"
 
 #. Translators: Menu item Noun/Energy/Thermal/Convection
 #: objects/FS/function.c:1103
 #, fuzzy
 msgid "Convection"
-msgstr "÷sszekˆtˆtt"
+msgstr "√ñsszek√∂t√∂tt"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
 #: objects/FS/function.c:1105 objects/FS/function.c:1113
 #, fuzzy
 msgid "Radiation"
-msgstr "KompozÌciÛ"
+msgstr "Kompoz√≠ci√≥"
 
 #. Translators: Menu item Noun/Energy/Pneumatic
 #: objects/FS/function.c:1107
@@ -3910,12 +3879,12 @@ msgstr ""
 #: objects/FS/function.c:1146
 #, fuzzy
 msgid "Wish Fn"
-msgstr "Whish f¸ggvÈny"
+msgstr "Whish f√ºggv√©ny"
 
 #: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
 #, fuzzy
 msgid "Macro call"
-msgstr "Gˆrget"
+msgstr "G√∂rget"
 
 #: objects/GRAFCET/action.c:134
 msgid "This action is a call to a macro-step"
@@ -3924,7 +3893,7 @@ msgstr ""
 #: objects/GRAFCET/condition.c:129
 #, fuzzy
 msgid "Condition"
-msgstr "KompozÌciÛ"
+msgstr "Kompoz√≠ci√≥"
 
 #: objects/GRAFCET/condition.c:129
 msgid "The boolean equation of the condition"
@@ -3933,7 +3902,7 @@ msgstr ""
 #: objects/GRAFCET/condition.c:131
 #, fuzzy
 msgid "The condition's font"
-msgstr "_Csatlakoz·si pontokat mutat"
+msgstr "_Csatlakoz√°si pontokat mutat"
 
 #: objects/GRAFCET/condition.c:133
 msgid "The condition's font size"
@@ -3942,7 +3911,7 @@ msgstr ""
 #: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:146
 #, fuzzy
 msgid "Color"
-msgstr "SzÌn:"
+msgstr "Sz√≠n:"
 
 #: objects/GRAFCET/condition.c:136
 msgid "The condition's color"
@@ -3952,23 +3921,23 @@ msgstr ""
 msgid "GRAFCET diagram objects"
 msgstr ""
 
-#: objects/GRAFCET/step.c:145
+#: objects/GRAFCET/step.c:145 sheets/GRAFCET.sheet.in.h:13
 msgid "Regular step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:146
+#: objects/GRAFCET/step.c:146 sheets/GRAFCET.sheet.in.h:6
 msgid "Initial step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:147
+#: objects/GRAFCET/step.c:147 sheets/GRAFCET.sheet.in.h:8
 msgid "Macro entry step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:148
+#: objects/GRAFCET/step.c:148 sheets/GRAFCET.sheet.in.h:9
 msgid "Macro exit step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:149
+#: objects/GRAFCET/step.c:149 sheets/GRAFCET.sheet.in.h:7
 msgid "Macro call step"
 msgstr ""
 
@@ -3976,30 +3945,30 @@ msgstr ""
 msgid "Subprogram call step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:156
+#: objects/GRAFCET/step.c:157
 #, fuzzy
 msgid "Step name"
-msgstr "RÈteg neve:"
+msgstr "R√©teg neve:"
 
-#: objects/GRAFCET/step.c:156
+#: objects/GRAFCET/step.c:157
 msgid "The name of the step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:158
+#: objects/GRAFCET/step.c:160
 #, fuzzy
 msgid "Step type"
-msgstr "SztereotÌpia:"
+msgstr "Sztereot√≠pia:"
 
-#: objects/GRAFCET/step.c:158
+#: objects/GRAFCET/step.c:160
 msgid "The kind of step"
 msgstr ""
 
-#: objects/GRAFCET/step.c:160
+#: objects/GRAFCET/step.c:162
 #, fuzzy
 msgid "Active"
-msgstr "AktÌv objektumok"
+msgstr "Akt√≠v objektumok"
 
-#: objects/GRAFCET/step.c:160
+#: objects/GRAFCET/step.c:162
 msgid "Shows a red dot to figure the step's activity"
 msgstr ""
 
@@ -4030,7 +3999,7 @@ msgstr ""
 #: objects/GRAFCET/transition.c:148
 #, fuzzy
 msgid "South point"
-msgstr "Mutasd a vezÈrlÈs fÛkusz·t:"
+msgstr "Mutasd a vez√©rl√©s f√≥kusz√°t:"
 
 #: objects/GRAFCET/vector.c:127
 msgid "Draw arrow heads on upward arcs:"
@@ -4047,18 +4016,18 @@ msgstr ""
 #: objects/GRAFCET/vergent.c:133
 #, fuzzy
 msgid "Vergent type:"
-msgstr "‹zenet tÌpusa:"
+msgstr "√úzenet t√≠pusa:"
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:236
+#: objects/standard/line.c:240
 #, fuzzy
 msgid "Add connection point"
-msgstr "_Csatlakoz·si pontokat mutat"
+msgstr "_Csatlakoz√°si pontokat mutat"
 
 #: objects/GRAFCET/vergent.c:391
 #, fuzzy
 msgid "Delete  connection point"
-msgstr "_Csatlakoz·si pontokat mutat"
+msgstr "_Csatlakoz√°si pontokat mutat"
 
 #: objects/GRAFCET/vergent.c:395
 msgid "GRAFCET OR/AND vergent"
@@ -4067,12 +4036,12 @@ msgstr ""
 #: objects/Misc/analog_clock.c:136
 #, fuzzy
 msgid "Arrow colour"
-msgstr "ElıtÈr szÌn:"
+msgstr "El≈ët√©r sz√≠n:"
 
 #: objects/Misc/analog_clock.c:138
 #, fuzzy
 msgid "Arrow line width"
-msgstr "Vonal szÈlessÈge"
+msgstr "Vonal sz√©less√©ge"
 
 #: objects/Misc/analog_clock.c:140
 msgid "Seconds arrow colour"
@@ -4081,12 +4050,12 @@ msgstr ""
 #: objects/Misc/analog_clock.c:142
 #, fuzzy
 msgid "Seconds arrow line width"
-msgstr "Vonal szÈlessÈge"
+msgstr "Vonal sz√©less√©ge"
 
 #: objects/Misc/analog_clock.c:144
 #, fuzzy
 msgid "Show hours"
-msgstr "VonalzÛk"
+msgstr "Vonalz√≥k"
 
 #: objects/Misc/libmisc.c:38
 msgid "Miscellaneous objects"
@@ -4095,17 +4064,17 @@ msgstr ""
 #: objects/network/bus.c:592
 #, fuzzy
 msgid "Add Handle"
-msgstr "Sarok hozz·ad·sa"
+msgstr "Sarok hozz√°ad√°sa"
 
 #: objects/network/bus.c:593
 #, fuzzy
 msgid "Delete Handle"
-msgstr "RÈteget tˆrˆl"
+msgstr "R√©teget t√∂r√∂l"
 
 #: objects/network/network.c:41
 #, fuzzy
 msgid "Network diagram objects"
-msgstr "⁄_j diagramm"
+msgstr "√ö_j diagramm"
 
 #. property rows
 #: objects/SADT/arrow.c:133 objects/UML/class_dialog.c:333
@@ -4143,10 +4112,10 @@ msgid ""
 "rendered gray"
 msgstr ""
 
-#: objects/SADT/arrow.c:557
+#: objects/SADT/arrow.c:562
 #, fuzzy
 msgid "SADT Arrow"
-msgstr "NyÌl mutat·sa"
+msgstr "Ny√≠l mutat√°sa"
 
 #: objects/SADT/box.c:143
 msgid "Activity/Data identifier"
@@ -4156,10 +4125,10 @@ msgstr ""
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr ""
 
-#: objects/SADT/box.c:440 objects/standard/line.c:237
+#: objects/SADT/box.c:440 objects/standard/line.c:241
 #, fuzzy
 msgid "Delete connection point"
-msgstr "_Csatlakoz·si pontokat mutat"
+msgstr "_Csatlakoz√°si pontokat mutat"
 
 #: objects/SADT/box.c:445
 msgid "SADT box"
@@ -4172,43 +4141,43 @@ msgstr ""
 #: objects/standard/arc.c:130
 #, fuzzy
 msgid "Curve distance"
-msgstr "tˆbbszˆrˆs elıfordul·s"
+msgstr "t√∂bbsz√∂r√∂s el≈ëfordul√°s"
 
-#: objects/standard/bezier.c:534 objects/standard/beziergon.c:492
+#: objects/standard/bezier.c:536 objects/standard/beziergon.c:494
 msgid "Add Segment"
 msgstr ""
 
-#: objects/standard/bezier.c:535 objects/standard/beziergon.c:493
+#: objects/standard/bezier.c:537 objects/standard/beziergon.c:495
 #, fuzzy
 msgid "Delete Segment"
-msgstr "RÈteget tˆrˆl"
+msgstr "R√©teget t√∂r√∂l"
 
-#: objects/standard/bezier.c:537 objects/standard/beziergon.c:495
+#: objects/standard/bezier.c:539 objects/standard/beziergon.c:497
 msgid "Symmetric control"
 msgstr ""
 
-#: objects/standard/bezier.c:539 objects/standard/beziergon.c:497
+#: objects/standard/bezier.c:541 objects/standard/beziergon.c:499
 #, fuzzy
 msgid "Smooth control"
-msgstr "Mutasd a vezÈrlÈs fÛkusz·t:"
+msgstr "Mutasd a vez√©rl√©s f√≥kusz√°t:"
 
-#: objects/standard/bezier.c:541 objects/standard/beziergon.c:499
+#: objects/standard/bezier.c:543 objects/standard/beziergon.c:501
 msgid "Cusp control"
 msgstr ""
 
 #: objects/standard/image.c:129
 #, fuzzy
 msgid "Image file"
-msgstr "KÈpf·jl:"
+msgstr "K√©pf√°jl:"
 
 #: objects/standard/image.c:131
 #, fuzzy
 msgid "Draw border"
-msgstr "Keret mutat·sa:"
+msgstr "Keret mutat√°sa:"
 
 #: objects/standard/image.c:133
 msgid "Keep aspect ratio"
-msgstr "Felbont·si ar·nyok megtart·sa"
+msgstr "Felbont√°si ar√°nyok megtart√°sa"
 
 #. Found file in same dir as diagram.
 #: objects/standard/image.c:663 objects/standard/image.c:674
@@ -4217,19 +4186,19 @@ msgid ""
 "The image file '%s' was not found in that directory.\n"
 "Using the file '%s' instead\n"
 msgstr ""
-"A '%s' kÈpf·jlt nem tal·ltam abban a kˆnyvt·rban.\n"
-"'%s'-t haszn·ltam helyette\n"
+"A '%s' k√©pf√°jlt nem tal√°ltam abban a k√∂nyvt√°rban.\n"
+"'%s'-t haszn√°ltam helyette\n"
 
 #. Didn't find file in current dir.
 #: objects/standard/image.c:680 objects/standard/image.c:706
 #, c-format
 msgid "The image file '%s' was not found.\n"
-msgstr "A '%s' nev˚ f·jlt nem tal·ltam meg.\n"
+msgstr "A '%s' nev≈± f√°jlt nem tal√°ltam meg.\n"
 
 #: objects/standard/line.c:135
 #, fuzzy
 msgid "Arrows"
-msgstr "NyÌl mutat·sa"
+msgstr "Ny√≠l mutat√°sa"
 
 #: objects/standard/line.c:140
 msgid "Start point"
@@ -4239,43 +4208,13 @@ msgstr ""
 msgid "End point"
 msgstr ""
 
-#: objects/standard/line.c:143
-#, fuzzy
-msgid "Line gaps"
-msgstr "Vonalak"
-
-#: objects/standard/line.c:145
-msgid "Absolute start gap"
-msgstr ""
-
-#: objects/standard/line.c:147
-msgid "Absolute end gap"
-msgstr ""
-
-#: objects/standard/line.c:149
-msgid "Fractional start gap"
-msgstr ""
-
-#: objects/standard/line.c:151
-msgid "Fractional end gap"
-msgstr ""
-
-#: objects/standard/line.c:153
-#, fuzzy
-msgid "Start at object edge"
-msgstr "Vonal kÈszÌtÈse"
-
-#: objects/standard/line.c:155
-msgid "End at object edge"
-msgstr ""
-
-#: objects/standard/polygon.c:452 objects/standard/polyline.c:488
+#: objects/standard/polygon.c:454 objects/standard/polyline.c:490
 msgid "Add Corner"
-msgstr "Sarok hozz·ad·sa"
+msgstr "Sarok hozz√°ad√°sa"
 
-#: objects/standard/polygon.c:453 objects/standard/polyline.c:489
+#: objects/standard/polygon.c:455 objects/standard/polyline.c:491
 msgid "Delete Corner"
-msgstr "Sarok tˆrlÈse"
+msgstr "Sarok t√∂rl√©se"
 
 #: objects/standard/standard.c:45
 msgid "Standard objects"
@@ -4283,64 +4222,64 @@ msgstr ""
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
-#: objects/UML/activity.c:299
+#: objects/UML/activity.c:302
 #, fuzzy
 msgid "Helvetica"
-msgstr "_F¸ggıleges"
+msgstr "_F√ºgg≈ëleges"
 
-#: objects/UML/actor.c:332 objects/UML/actor.c:334
+#: objects/UML/actor.c:335 objects/UML/actor.c:337 sheets/UML.sheet.in.h:2
 msgid "Actor"
-msgstr "Szereplı"
+msgstr "Szerepl≈ë"
 
-#: objects/UML/association.c:1061 objects/UML/class_dialog.c:2070
+#: objects/UML/association.c:1115 objects/UML/class_dialog.c:2070
 msgid "Direction:"
-msgstr "Ir·ny:"
+msgstr "Ir√°ny:"
 
-#: objects/UML/association.c:1078
+#: objects/UML/association.c:1132
 msgid "From A to B"
 msgstr ""
 
-#: objects/UML/association.c:1085
+#: objects/UML/association.c:1139
 msgid "From B to A"
 msgstr ""
 
-#: objects/UML/association.c:1109 objects/UML/association.c:1117
+#: objects/UML/association.c:1163 objects/UML/association.c:1171
 msgid "Side A"
 msgstr "A oldal"
 
-#: objects/UML/association.c:1111 objects/UML/association.c:1119
+#: objects/UML/association.c:1165 objects/UML/association.c:1173
 msgid "Side B"
 msgstr "B oldal"
 
-#: objects/UML/association.c:1125
+#: objects/UML/association.c:1179
 msgid "Role:"
 msgstr "Feladat:"
 
-#: objects/UML/association.c:1137
+#: objects/UML/association.c:1191
 msgid "Multiplicity:"
-msgstr "Multiplicit·s:"
+msgstr "Multiplicit√°s:"
 
 #. Show arrow:
-#: objects/UML/association.c:1148
+#: objects/UML/association.c:1202
 msgid "Show arrow"
-msgstr "NyÌl mutat·sa"
+msgstr "Ny√≠l mutat√°sa"
 
 #. Aggregate
-#: objects/UML/association.c:1154
+#: objects/UML/association.c:1208
 msgid "Aggregate"
-msgstr "Aggreg·l"
+msgstr "Aggreg√°l"
 
 #. Composition
-#: objects/UML/association.c:1162
+#: objects/UML/association.c:1216
 msgid "Composition"
-msgstr "KompozÌciÛ"
+msgstr "Kompoz√≠ci√≥"
 
 #: objects/UML/class.c:107 objects/UML/classicon.c:131
 #: objects/UML/component.c:116 objects/UML/large_package.c:118
 #: objects/UML/object.c:143 objects/UML/small_package.c:116
 #, fuzzy
 msgid "Stereotype"
-msgstr "SztereotÌpia:"
+msgstr "Sztereot√≠pia:"
 
 #: objects/UML/class.c:109 objects/UML/class_dialog.c:358
 #: sheets/SDL.sheet.in.h:3
@@ -4355,53 +4294,64 @@ msgstr "Absztrakt"
 
 #: objects/UML/class.c:113 objects/UML/class_dialog.c:299
 msgid "Suppress Attributes"
-msgstr "Elnyomott attrib˙tumok"
+msgstr "Elnyomott attrib√∫tumok"
 
 #: objects/UML/class.c:115
 #, fuzzy
 msgid "Suppress Operations"
-msgstr "Elnyomott attrib˙tumok"
+msgstr "Elnyomott attrib√∫tumok"
 
 #: objects/UML/class.c:117
 #, fuzzy
 msgid "Visible Attributes"
-msgstr "Attrib˙tumok"
+msgstr "Attrib√∫tumok"
 
 #: objects/UML/class.c:119
 #, fuzzy
 msgid "Visible Operations"
-msgstr "_L·thatÛ r·cs"
+msgstr "_L√°that√≥ r√°cs"
 
 #: objects/UML/class.c:121
 #, fuzzy
 msgid "Visible Comments"
-msgstr "_L·thatÛ r·cs"
+msgstr "_L√°that√≥ r√°cs"
 
-#: objects/UML/class.c:127
+#. Attributes page:
+#: objects/UML/class.c:124 objects/UML/class_dialog.c:800
+#: objects/UML/object.c:147
+msgid "Attributes"
+msgstr "Attrib√∫tumok"
+
+#. Operations page:
+#: objects/UML/class.c:126 objects/UML/class_dialog.c:1724
+msgid "Operations"
+msgstr "M≈±veletek"
+
+#: objects/UML/class.c:129
 #, fuzzy
 msgid "Template"
 msgstr "Sablonok"
 
 #. Class page:
-#: objects/UML/class.c:172 objects/UML/class.c:919
-#: objects/UML/class_dialog.c:255
+#: objects/UML/class.c:177 objects/UML/class.c:918
+#: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
 msgid "Class"
-msgstr "Oszt·ly"
+msgstr "Oszt√°ly"
 
-#: objects/UML/class.c:178
+#: objects/UML/class.c:183
 #, fuzzy
 msgid "Show comments"
 msgstr "Dokumentum"
 
 #: objects/UML/class_dialog.c:261
 msgid "Class name:"
-msgstr "Oszt·ly neve:"
+msgstr "Oszt√°ly neve:"
 
 #: objects/UML/class_dialog.c:272 objects/UML/class_dialog.c:1816
-#: objects/UML/dependency.c:127 objects/UML/generalization.c:123
-#: objects/UML/realizes.c:124
+#: objects/UML/dependency.c:129 objects/UML/generalization.c:125
+#: objects/UML/realizes.c:126
 msgid "Stereotype:"
-msgstr "SztereotÌpia:"
+msgstr "Sztereot√≠pia:"
 
 #: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:901
 #: objects/UML/class_dialog.c:1934 objects/UML/class_dialog.c:2058
@@ -4411,100 +4361,90 @@ msgstr "Dokumentum"
 
 #: objects/UML/class_dialog.c:296
 msgid "Attributes visible"
-msgstr "Attrib˙tumok l·thatÛk"
+msgstr "Attrib√∫tumok l√°that√≥k"
 
 #: objects/UML/class_dialog.c:305
 msgid "Operations visible"
-msgstr "M˚veletek l·thatÛak"
+msgstr "M≈±veletek l√°that√≥ak"
 
 #: objects/UML/class_dialog.c:308
 #, fuzzy
 msgid "Suppress operations"
-msgstr "Elnyomott attrib˙tumok"
+msgstr "Elnyomott attrib√∫tumok"
 
 #: objects/UML/class_dialog.c:314
 #, fuzzy
 msgid "Comments visible"
-msgstr "M˚veletek l·thatÛak"
+msgstr "M≈±veletek l√°that√≥ak"
 
 #. head line
 #: objects/UML/class_dialog.c:324
 msgid "Kind"
-msgstr ""
+msgstr "Fajta"
 
 #: objects/UML/class_dialog.c:329
-#, fuzzy
 msgid "Size"
-msgstr "X mÈret:"
+msgstr "M√©ret"
 
 #: objects/UML/class_dialog.c:338
 msgid "Polymorphic"
-msgstr ""
+msgstr "Polimorf"
 
 #: objects/UML/class_dialog.c:348
-#, fuzzy
 msgid "Class Name"
-msgstr "Oszt·ly neve:"
+msgstr "Oszt√°ly neve"
 
 #: objects/UML/class_dialog.c:353
-#, fuzzy
 msgid "Abstract Class"
-msgstr "Absztrakt"
+msgstr "Absztrakt oszt√°ly"
 
 #. should probably be refactored too.
 #: objects/UML/class_dialog.c:370
-#, fuzzy
 msgid "Foreground Color"
-msgstr "ElıtÈr szÌn:"
+msgstr "El≈ët√©rsz√≠n"
 
 #: objects/UML/class_dialog.c:378
-#, fuzzy
 msgid "Background Color"
-msgstr "H·ttÈr SzÌn"
-
-#. Attributes page:
-#: objects/UML/class_dialog.c:800 objects/UML/object.c:147
-msgid "Attributes"
-msgstr "Attrib˙tumok"
+msgstr "H√°tt√©rsz√≠n"
 
 #: objects/UML/class_dialog.c:834 objects/UML/class_dialog.c:1758
 #: objects/UML/class_dialog.c:1987 objects/UML/class_dialog.c:2505
 msgid "Delete"
-msgstr "Tˆrˆl"
+msgstr "T√∂rl√©s"
 
 #: objects/UML/class_dialog.c:840 objects/UML/class_dialog.c:1764
 #: objects/UML/class_dialog.c:1994 objects/UML/class_dialog.c:2511
 msgid "Move up"
-msgstr "Felmozgat"
+msgstr "Fel"
 
 #: objects/UML/class_dialog.c:846 objects/UML/class_dialog.c:1770
 #: objects/UML/class_dialog.c:2001 objects/UML/class_dialog.c:2517
 msgid "Move down"
-msgstr "Lemozgat"
+msgstr "Le"
 
 #: objects/UML/class_dialog.c:857
 msgid "Attribute data"
-msgstr "Attrib˙tum ÈrtÈk"
+msgstr "Attrib√∫tum √©rt√©k"
 
 #: objects/UML/class_dialog.c:889
 msgid "Value:"
-msgstr "…rtÈk:"
+msgstr "√ârt√©k:"
 
 #: objects/UML/class_dialog.c:914 objects/UML/class_dialog.c:1829
 msgid "Visibility:"
-msgstr "L·thatÛs·g:"
+msgstr "L√°that√≥s√°g:"
 
 #: objects/UML/class_dialog.c:923 objects/UML/class_dialog.c:1838
 msgid "Public"
-msgstr "Kˆzˆs"
+msgstr "Nyilv√°nos"
 
 #: objects/UML/class_dialog.c:931 objects/UML/class_dialog.c:1846
 msgid "Private"
-msgstr "Saj·t"
+msgstr "Szem√©lyes"
 
 #: objects/UML/class_dialog.c:939 objects/UML/class_dialog.c:1854
 msgid "Protected"
-msgstr "VÈdett"
+msgstr "V√©dett"
 
 #: objects/UML/class_dialog.c:947 objects/UML/class_dialog.c:1862
 msgid "Implementation"
@@ -4512,21 +4452,16 @@ msgstr "Implementation"
 
 #: objects/UML/class_dialog.c:963 objects/UML/class_dialog.c:1878
 msgid "Class scope"
-msgstr "Oszt·lynÈzet"
-
-#. Operations page:
-#: objects/UML/class_dialog.c:1724
-msgid "Operations"
-msgstr "M˚veletek"
+msgstr "Oszt√°lyn√©zet"
 
 #: objects/UML/class_dialog.c:1782
 msgid "Operation data"
-msgstr "M˚veletek adatai"
+msgstr "M≈±veletek adatai"
 
 #: objects/UML/class_dialog.c:1884
 #, fuzzy
 msgid "Inheritance type:"
-msgstr "‹zenet tÌpusa:"
+msgstr "√úzenet t√≠pusa:"
 
 #: objects/UML/class_dialog.c:1901
 msgid "Polymorphic (virtual)"
@@ -4542,15 +4477,15 @@ msgstr ""
 
 #: objects/UML/class_dialog.c:1951
 msgid "Parameters:"
-msgstr "ParamÈterek:"
+msgstr "Param√©terek:"
 
 #: objects/UML/class_dialog.c:2013
 msgid "Parameter data"
-msgstr "ParamÈterek adatai"
+msgstr "Param√©terek adatai"
 
 #: objects/UML/class_dialog.c:2046
 msgid "Def. value:"
-msgstr "Def. ÈrtÈkek:"
+msgstr "Def. √©rt√©kek:"
 
 #: objects/UML/class_dialog.c:2079
 #, fuzzy
@@ -4574,13 +4509,13 @@ msgstr ""
 msgid "Templates"
 msgstr "Sablonok"
 
-#: objects/UML/class_dialog.c:2471
+#: objects/UML/class_dialog.c:2471 sheets/UML.sheet.in.h:25
 msgid "Template class"
-msgstr "Sablon oszt·ly"
+msgstr "Sablon oszt√°ly"
 
 #: objects/UML/class_dialog.c:2528
 msgid "Formal parameter data"
-msgstr "Form·lis paramÈter-adat"
+msgstr "Form√°lis param√©ter-adat"
 
 #: objects/UML/classicon.c:123
 msgid "Boundary"
@@ -4589,41 +4524,41 @@ msgstr ""
 #: objects/UML/classicon.c:133
 #, fuzzy
 msgid "Is object"
-msgstr "AktÌv objektumok"
+msgstr "Akt√≠v objektumok"
 
 #: objects/UML/constraint.c:120
 msgid "Constraint:"
 msgstr "Konstans:"
 
-#: objects/UML/dependency.c:129
+#: objects/UML/dependency.c:131
 msgid "Show arrow:"
-msgstr "NyÌl mutat·sa:"
+msgstr "Ny√≠l mutat√°sa:"
 
 # objects/UML/implements.c:561
 #: objects/UML/implements.c:121
 msgid "Interface:"
-msgstr "Fel¸let:"
+msgstr "Fel√ºlet:"
 
 # objects/UML/lifeline.c:607
 #: objects/UML/lifeline.c:137
 #, fuzzy
 msgid "Draw focus of control:"
-msgstr "Mutasd a vezÈrlÈs fÛkusz·t:"
+msgstr "Mutasd a vez√©rl√©s f√≥kusz√°t:"
 
 #: objects/UML/lifeline.c:139
 #, fuzzy
 msgid "Draw destruction mark:"
-msgstr "Mutasd a megsemmisÌtÈsi kijelˆlÈst:"
+msgstr "Mutasd a megsemmis√≠t√©si kijel√∂l√©st:"
 
 #: objects/UML/lifeline.c:403
 #, fuzzy
 msgid "Add connection points"
-msgstr "_Csatlakoz·si pontokat mutat"
+msgstr "_Csatlakoz√°si pontokat mutat"
 
 #: objects/UML/lifeline.c:404
 #, fuzzy
 msgid "Remove connection points"
-msgstr "_Csatlakoz·si pontokat mutat"
+msgstr "_Csatlakoz√°si pontokat mutat"
 
 #: objects/UML/lifeline.c:408
 msgid "UML Lifeline"
@@ -4631,23 +4566,23 @@ msgstr ""
 
 #: objects/UML/message.c:130
 msgid "Call"
-msgstr "HÌv·s"
+msgstr "H√≠v√°s"
 
 #: objects/UML/message.c:131
 msgid "Create"
-msgstr "LÈtrehoz·s"
+msgstr "L√©trehoz√°s"
 
 #: objects/UML/message.c:132
 msgid "Destroy"
-msgstr "MegsemmisÌtÈs"
+msgstr "Megsemmis√≠t√©s"
 
 #: objects/UML/message.c:133
 msgid "Simple"
-msgstr "Egyszer˚"
+msgstr "Egyszer≈±"
 
 #: objects/UML/message.c:134
 msgid "Return"
-msgstr "VisszatÈrÈs"
+msgstr "Visszat√©r√©s"
 
 #: objects/UML/message.c:135
 msgid "Send"
@@ -4655,37 +4590,37 @@ msgstr ""
 
 #: objects/UML/message.c:136
 msgid "Recursive"
-msgstr "RekurzÌv"
+msgstr "Rekurz√≠v"
 
 #: objects/UML/message.c:143
 msgid "Message:"
-msgstr "‹zenet:"
+msgstr "√úzenet:"
 
 #: objects/UML/message.c:145
 msgid "Message type:"
-msgstr "‹zenet tÌpusa:"
+msgstr "√úzenet t√≠pusa:"
 
 #: objects/UML/object.c:145
 #, fuzzy
 msgid "Explicit state"
-msgstr "Meghet·rozott st·tusz:"
+msgstr "Meghet√°rozott st√°tusz:"
 
 #: objects/UML/object.c:150
 msgid "Active object"
-msgstr "AktÌv objektumok"
+msgstr "Akt√≠v objektumok"
 
 #: objects/UML/object.c:152
 msgid "Show attributes"
-msgstr "Attrib˙tumok mutat·sa"
+msgstr "Attrib√∫tumok mutat√°sa"
 
 #: objects/UML/object.c:154
 #, fuzzy
 msgid "Multiple instance"
-msgstr "tˆbbszˆrˆs elıfordul·s"
+msgstr "t√∂bbsz√∂r√∂s el≈ëfordul√°s"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:382
+#: objects/UML/state.c:385
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
@@ -4708,17 +4643,17 @@ msgstr ""
 msgid "Collaboration"
 msgstr ""
 
-#: plug-ins/cgm/cgm.c:1108
+#: plug-ins/cgm/cgm.c:1109
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
 
-#: plug-ins/cgm/cgm.c:1364
+#: plug-ins/cgm/cgm.c:1365
 msgid "Computer Graphics Metafile"
 msgstr ""
 
-#: plug-ins/cgm/cgm.c:1378
+#: plug-ins/cgm/cgm.c:1379
 msgid "Computer Graphics Metafile export filter"
 msgstr ""
 
@@ -4726,7 +4661,7 @@ msgstr ""
 msgid "Drawing Interchange File import and export filters"
 msgstr ""
 
-#: plug-ins/dxf/dxf-export.c:522 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:547 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr ""
 
@@ -4737,7 +4672,7 @@ msgstr ""
 #: plug-ins/dxf/dxf-import.c:1051
 #, fuzzy, c-format
 msgid "Scale: %f\n"
-msgstr "LÈptÈk:"
+msgstr "L√©pt√©k:"
 
 #: plug-ins/dxf/dxf-import.c:1313
 msgid "read_dxf_codes failed\n"
@@ -4748,11 +4683,11 @@ msgstr ""
 msgid "Unknown dxf code %d\n"
 msgstr ""
 
-#: plug-ins/hpgl/hpgl.c:771
+#: plug-ins/hpgl/hpgl.c:772
 msgid "HP Graphics Language"
 msgstr ""
 
-#: plug-ins/hpgl/hpgl.c:785
+#: plug-ins/hpgl/hpgl.c:786
 msgid "HP Graphics Language export filter"
 msgstr ""
 
@@ -4760,23 +4695,23 @@ msgstr ""
 msgid "TeX Metapost export filter"
 msgstr ""
 
-#: plug-ins/metapost/render_metapost.c:793
+#: plug-ins/metapost/render_metapost.c:794
 msgid "TeX Metapost macros"
 msgstr ""
 
-#: plug-ins/pixbuf/pixbuf.c:90
+#: plug-ins/pixbuf/pixbuf.c:95
 #, fuzzy, c-format
 msgid ""
 "Could not save file:\n"
 "%s\n"
 "%s"
-msgstr "Nem tudom megnyitni a kˆvetkezıt: '%s' "
+msgstr "Nem tudom megnyitni a k√∂vetkez≈ët: '%s' "
 
-#: plug-ins/pixbuf/pixbuf.c:154 plug-ins/pixbuf/pixbuf.c:162
+#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:172
 msgid "GdkPixbuf bitmap"
 msgstr ""
 
-#: plug-ins/pixbuf/pixbuf.c:175
+#: plug-ins/pixbuf/pixbuf.c:185
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr ""
 
@@ -4784,9 +4719,14 @@ msgstr ""
 msgid "TeX Pstricks export filter"
 msgstr ""
 
-#: plug-ins/pstricks/render_pstricks.c:827
+#: plug-ins/pstricks/render_pstricks.c:828
 msgid "TeX PSTricks macros"
 msgstr ""
+
+#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1030
+#, c-format
+msgid "Couldn't open: '%s' for writing.\n"
+msgstr "Nem tudom megnyitni: '%s' nem √≠rhat√≥.\n"
 
 #: plug-ins/python/python.c:92
 msgid "Python scripting support"
@@ -4796,15 +4736,15 @@ msgstr ""
 msgid "dia shape export filter"
 msgstr ""
 
-#: plug-ins/shape/shape-export.c:470
+#: plug-ins/shape/shape-export.c:471
 msgid "Can't export png without libart!"
 msgstr ""
 
-#: plug-ins/shape/shape-export.c:497
+#: plug-ins/shape/shape-export.c:498
 msgid "dia shape file"
 msgstr ""
 
-#: plug-ins/svg/render_svg.c:294 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
 #, fuzzy
 msgid "Scalable Vector Graphics"
 msgstr "Portable Network Graphics"
@@ -4822,7 +4762,7 @@ msgstr "Portable Network Graphics"
 #: plug-ins/xfig/xfig-import.c:349
 #, fuzzy
 msgid "Can't find standard object"
-msgstr "Vonal kÈszÌtÈse"
+msgstr "Vonal k√©sz√≠t√©se"
 
 #: plug-ins/svg/svg-import.c:230
 msgid "Unexpected SVG path element"
@@ -4849,16 +4789,16 @@ msgstr ""
 msgid "WMF export filter"
 msgstr ""
 
-#: plug-ins/wpg/wpg.c:1180
+#: plug-ins/wpg/wpg.c:1181
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr ""
 
-#: plug-ins/wpg/wpg.c:1310 plug-ins/wpg/wpg.c:1317
+#: plug-ins/wpg/wpg.c:1311 plug-ins/wpg/wpg.c:1318
 msgid "WPG"
 msgstr ""
 
-#: plug-ins/wpg/wpg.c:1331
+#: plug-ins/wpg/wpg.c:1332
 msgid "WordPerfect Graphics export filter"
 msgstr ""
 
@@ -4885,7 +4825,7 @@ msgstr ""
 #: plug-ins/xfig/xfig-import.c:450
 #, fuzzy, c-format
 msgid "Line style %d should not appear\n"
-msgstr "VonalstÌlus tulajdons·gai"
+msgstr "Vonalst√≠lus tulajdons√°gai"
 
 #: plug-ins/xfig/xfig-import.c:518
 #, c-format
@@ -4895,20 +4835,20 @@ msgstr ""
 #: plug-ins/xfig/xfig-import.c:537
 #, fuzzy
 msgid "Error while reading arrowhead\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
 #: plug-ins/xfig/xfig-import.c:628
 #, fuzzy, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr ""
-"%s bıvÌtmÈny betˆltÈse sikertlen\n"
+"%s b≈ëv√≠tm√©ny bet√∂lt√©se sikertlen\n"
 "%s"
 
 #: plug-ins/xfig/xfig-import.c:696
 #, fuzzy, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr ""
-"%s bıvÌtmÈny betˆltÈse sikertlen\n"
+"%s b≈ëv√≠tm√©ny bet√∂lt√©se sikertlen\n"
 "%s"
 
 #: plug-ins/xfig/xfig-import.c:711
@@ -4920,178 +4860,172 @@ msgstr ""
 msgid "Negative corner radius, negating"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:770 plug-ins/xfig/xfig-import.c:1007
+#: plug-ins/xfig/xfig-import.c:770 plug-ins/xfig/xfig-import.c:1074
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:865 plug-ins/xfig/xfig-import.c:897
+#: plug-ins/xfig/xfig-import.c:919 plug-ins/xfig/xfig-import.c:951
 #, fuzzy, c-format
 msgid "Couldn't read spline info: %s\n"
 msgstr ""
-"%s bıvÌtmÈny betˆltÈse sikertlen\n"
+"%s b≈ëv√≠tm√©ny bet√∂lt√©se sikertlen\n"
 "%s"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:884 plug-ins/xfig/xfig-import.c:902
+#: plug-ins/xfig/xfig-import.c:938 plug-ins/xfig/xfig-import.c:956
 msgid "Cannot convert approximated spline yet."
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:923
+#: plug-ins/xfig/xfig-import.c:990
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:984
+#: plug-ins/xfig/xfig-import.c:1051
 #, fuzzy, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr ""
-"%s bıvÌtmÈny betˆltÈse sikertlen\n"
+"%s b≈ëv√≠tm√©ny bet√∂lt√©se sikertlen\n"
 "%s"
 
-#: plug-ins/xfig/xfig-import.c:1068
+#: plug-ins/xfig/xfig-import.c:1135
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1109
+#: plug-ins/xfig/xfig-import.c:1176
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1116
+#: plug-ins/xfig/xfig-import.c:1183
 msgid "Compound end outside compound\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1135
+#: plug-ins/xfig/xfig-import.c:1202
 #, fuzzy, c-format
 msgid "Couldn't read color: %s\n"
 msgstr ""
-"%s bıvÌtmÈny betˆltÈse sikertlen\n"
+"%s b≈ëv√≠tm√©ny bet√∂lt√©se sikertlen\n"
 "%s"
 
-#: plug-ins/xfig/xfig-import.c:1180
+#: plug-ins/xfig/xfig-import.c:1247
 #, fuzzy, c-format
 msgid "Couldn't read group extend: %s\n"
-msgstr "Nem tudom megnyitni a kˆvetkezıt: '%s' "
+msgstr "Nem tudom megnyitni a k√∂vetkez≈ët: '%s' "
 
-#: plug-ins/xfig/xfig-import.c:1191
+#: plug-ins/xfig/xfig-import.c:1258
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1214
+#: plug-ins/xfig/xfig-import.c:1281
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1224
+#: plug-ins/xfig/xfig-import.c:1291
 #, fuzzy, c-format
 msgid "Error reading paper size: %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xfig/xfig-import.c:1234
+#: plug-ins/xfig/xfig-import.c:1301
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1246
+#: plug-ins/xfig/xfig-import.c:1313
 #, fuzzy, c-format
 msgid "Error reading paper orientation: %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xfig/xfig-import.c:1256
+#: plug-ins/xfig/xfig-import.c:1323
 #, fuzzy, c-format
 msgid "Error reading justification: %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xfig/xfig-import.c:1266
+#: plug-ins/xfig/xfig-import.c:1333
 #, fuzzy, c-format
 msgid "Error reading units: %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xfig/xfig-import.c:1280
+#: plug-ins/xfig/xfig-import.c:1347
 #, fuzzy, c-format
 msgid "Error reading magnification: %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xfig/xfig-import.c:1291
+#: plug-ins/xfig/xfig-import.c:1358
 #, fuzzy, c-format
 msgid "Error reading multipage indicator: %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xfig/xfig-import.c:1302
+#: plug-ins/xfig/xfig-import.c:1369
 #, fuzzy, c-format
 msgid "Error reading transparent color: %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xfig/xfig-import.c:1311 plug-ins/xfig/xfig-import.c:1366
+#: plug-ins/xfig/xfig-import.c:1378 plug-ins/xfig/xfig-import.c:1433
 #, fuzzy, c-format
 msgid "Error reading FIG file: %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xfig/xfig-import.c:1313 plug-ins/xfig/xfig-import.c:1368
+#: plug-ins/xfig/xfig-import.c:1380 plug-ins/xfig/xfig-import.c:1435
 msgid "Premature end of FIG file\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1322
+#: plug-ins/xfig/xfig-import.c:1389
 #, fuzzy, c-format
 msgid "Error reading resolution: %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xfig/xfig-import.c:1353
+#: plug-ins/xfig/xfig-import.c:1420
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1359
+#: plug-ins/xfig/xfig-import.c:1426
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1400
+#: plug-ins/xfig/xfig-import.c:1467
 msgid "XFig File Format"
 msgstr ""
 
-#: plug-ins/xslt/xslt.c:73
-msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-msgstr ""
-
-#: plug-ins/xslt/xslt.c:98
+#: plug-ins/xslt/xslt.c:95
 #, fuzzy, c-format
 msgid "Error while parsing %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xslt/xslt.c:108 plug-ins/xslt/xslt.c:114
+#: plug-ins/xslt/xslt.c:103
 #, fuzzy, c-format
 msgid "Error while parsing stylesheet %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xslt/xslt.c:126
+#: plug-ins/xslt/xslt.c:109
+#, fuzzy, c-format
+msgid "Error while applying stylesheet %s\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
+
+#: plug-ins/xslt/xslt.c:117
 #, fuzzy, c-format
 msgid "Error while parsing stylesheet: %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xslt/xslt.c:134
+#: plug-ins/xslt/xslt.c:125
 #, fuzzy, c-format
 msgid "Error while applying stylesheet: %s\n"
-msgstr "¡braf·jl beolvas·si hiba\n"
+msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
-#: plug-ins/xslt/xslt.c:182
+#: plug-ins/xslt/xslt.c:287
 #, fuzzy
 msgid "XSL Transformation filter"
-msgstr "TranzakciÛf·jl"
+msgstr "Tranzakci√≥f√°jl"
 
-#: plug-ins/xslt/xslt.c:197
-#, fuzzy, c-format
-msgid "Could not load XSLT library (%s) : %s"
-msgstr ""
-"%s bıvÌtmÈny betˆltÈse sikertlen\n"
-"%s"
-
-#: plug-ins/xslt/xslt.c:211
-msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
+#: plug-ins/xslt/xslt.c:315
+msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 
 #: plug-ins/xslt/xsltdialog.c:99
@@ -5101,7 +5035,7 @@ msgstr ""
 #: plug-ins/xslt/xsltdialog.c:114
 #, fuzzy
 msgid "From:"
-msgstr "Bet˚tÌpus:"
+msgstr "Bet≈±t√≠pus:"
 
 #: plug-ins/xslt/xsltdialog.c:149
 #, fuzzy
@@ -5123,139 +5057,145 @@ msgid "Chevron"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:4
-msgid "Curved Eight Point Star"
+msgid "Curved eight point star"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:5
-msgid "Curved Four Point Star"
+msgid "Curved four point star"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:6
 #, fuzzy
 msgid "Diamond"
-msgstr "Lyukas gyÈm·nt"
+msgstr "Lyukas gy√©m√°nt"
 
 #: sheets/Assorted.sheet.in.h:7
 #, fuzzy
-msgid "Down Arrow"
-msgstr "NyÌl mutat·sa"
+msgid "Down arrow"
+msgstr "Ny√≠l mutat√°sa"
 
 #: sheets/Assorted.sheet.in.h:8
-msgid "Eight Point Star"
+msgid "Eight point star"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:9
-msgid "Four Point Star"
-msgstr ""
+#, fuzzy
+msgid "Four point star"
+msgstr "Mutasd a vez√©rl√©s f√≥kusz√°t:"
 
 #: sheets/Assorted.sheet.in.h:10
 #, fuzzy
 msgid "Heart"
-msgstr "LÈtrehoz·s"
+msgstr "L√©trehoz√°s"
 
 #: sheets/Assorted.sheet.in.h:11
-msgid "Heptagon. Seven Sided Shape"
+msgid "Heptagon. Seven sided shape"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:12
-msgid "Hexagon. Six Sided Shape"
+msgid "Hexagon. Six sided shape"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:13
 #, fuzzy
-msgid "Horizontal Parallelogram"
+msgid "Horizontal parallelogram"
 msgstr "_Vizszintes"
 
 #: sheets/Assorted.sheet.in.h:14
 #, fuzzy
-msgid "Isoceles Triangle"
-msgstr "Lyukas h·romszˆg"
+msgid "Isoceles triangle"
+msgstr "Lyukas h√°romsz√∂g"
 
 #: sheets/Assorted.sheet.in.h:15
 #, fuzzy
-msgid "Left Arrow"
-msgstr "NyÌl mutat·sa"
+msgid "Left arrow"
+msgstr "Ny√≠l mutat√°sa"
 
 #: sheets/Assorted.sheet.in.h:16
-msgid "Left-Right Arrow"
-msgstr ""
+#, fuzzy
+msgid "Left-right arrow"
+msgstr "Ny√≠l mutat√°sa"
 
 #: sheets/Assorted.sheet.in.h:17
-msgid "Left-Right-Up Arrow"
-msgstr ""
+#, fuzzy
+msgid "Left-right-up arrow"
+msgstr "Ny√≠l mutat√°sa"
 
 #: sheets/Assorted.sheet.in.h:18
-msgid "Left-Up Arrow"
-msgstr ""
+#, fuzzy
+msgid "Left-up arrow"
+msgstr "Ny√≠l mutat√°sa"
 
 #: sheets/Assorted.sheet.in.h:19
-msgid "Maltese Cross"
+msgid "Maltese cross"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:20
 #, fuzzy
-msgid "Notched Left Arrow"
+msgid "Notched left arrow"
 msgstr "Pontozott"
 
 #: sheets/Assorted.sheet.in.h:21
-msgid "Notched Right Arrow"
-msgstr ""
+#, fuzzy
+msgid "Notched right arrow"
+msgstr "Pontozott"
 
 #: sheets/Assorted.sheet.in.h:22
-msgid "Octogon. Eight Sided Shape"
+msgid "Octogon. Eight sided shape"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:23
-msgid "Pentagon Block Arrow"
+msgid "Pentagon block arrow"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:24
-msgid "Pentagon. Five Sided Shape"
+msgid "Pentagon. Five sided shape"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:25
-msgid "Perfect Circle"
+msgid "Perfect circle"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:26
-msgid "Perfect Square, Height equals Width"
+msgid "Perfect square, height equals width"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:27
 #, fuzzy
-msgid "Quad Arrow"
+msgid "Quad arrow"
 msgstr "Pontozott"
 
 #: sheets/Assorted.sheet.in.h:28
-msgid "Quarter Circle"
+msgid "Quarter circle"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:29
-msgid "Quarter Moon"
+msgid "Quarter moon"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:30
 #, fuzzy
-msgid "Right Angle Triangle"
-msgstr "Kitˆltˆtt h·romszˆg"
+msgid "Right angle triangle"
+msgstr "Kit√∂lt√∂tt h√°romsz√∂g"
 
 #: sheets/Assorted.sheet.in.h:31
 #, fuzzy
-msgid "Right Arrow"
+msgid "Right arrow"
 msgstr "Jobbra"
 
 #: sheets/Assorted.sheet.in.h:32
 #, fuzzy
-msgid "Seven Point Star"
-msgstr "NyomtatÛ kiv·laszt·sa"
+msgid "Seven point star"
+msgstr "Nyomtat√≥ kiv√°laszt√°sa"
 
 #: sheets/Assorted.sheet.in.h:33
-msgid "Sharp Eight Point Star"
+msgid "Sharp eight point star"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:34
-msgid "Six Point Star"
-msgstr ""
+#, fuzzy
+msgid "Six point star"
+msgstr "Nyomtat√≥ kiv√°laszt√°sa"
 
 #: sheets/Assorted.sheet.in.h:35
 msgid "Sun"
@@ -5263,8 +5203,8 @@ msgstr ""
 
 #: sheets/Assorted.sheet.in.h:36
 #, fuzzy
-msgid "Swiss Cross"
-msgstr "VÈdett"
+msgid "Swiss cross"
+msgstr "V√©dett"
 
 #: sheets/Assorted.sheet.in.h:37
 msgid "Trapezoid"
@@ -5272,466 +5212,462 @@ msgstr ""
 
 #: sheets/Assorted.sheet.in.h:38
 #, fuzzy
-msgid "Up Arrow"
-msgstr "NyÌl mutat·sa"
+msgid "Up arrow"
+msgstr "Ny√≠l mutat√°sa"
 
 #: sheets/Assorted.sheet.in.h:39
 #, fuzzy
-msgid "Up-Down Arrow"
-msgstr "NyÌl mutat·sa"
+msgid "Up-down arrow"
+msgstr "Ny√≠l mutat√°sa"
 
 #: sheets/Assorted.sheet.in.h:40
-msgid "Up-Down-Left Arrow"
-msgstr ""
+#, fuzzy
+msgid "Up-down-left arrow"
+msgstr "Ny√≠l mutat√°sa"
 
 #: sheets/Assorted.sheet.in.h:41
 #, fuzzy
-msgid "Vertical Parallelogram"
+msgid "Vertical parallelogram"
 msgstr "_Vizszintes"
 
 #: sheets/chronogram.sheet.in.h:1
-#, fuzzy
-msgid "A data line"
-msgstr "Vonal szÈlessÈge"
-
-#: sheets/chronogram.sheet.in.h:2
-msgid "A time scale"
-msgstr ""
-
-#: sheets/chronogram.sheet.in.h:3
 msgid "Chronogram"
 msgstr ""
 
-#: sheets/chronogram.sheet.in.h:4
+#: sheets/chronogram.sheet.in.h:2
+#, fuzzy
+msgid "Data line"
+msgstr "Vonal sz√©less√©ge"
+
+#: sheets/chronogram.sheet.in.h:3
 #, fuzzy
 msgid "Objects to design chronogram charts"
-msgstr "Objektumok h·lÛzati diagrammokhoz"
+msgstr "Objektumok h√°l√≥zati diagrammokhoz"
+
+#: sheets/chronogram.sheet.in.h:4
+#, fuzzy
+msgid "Time scale"
+msgstr "Attrib√∫tum √©rt√©k"
 
 #: sheets/Circuit.sheet.in.h:1
 #, fuzzy
-msgid "A Horizontal Jumper"
-msgstr "_Vizszintes"
+msgid "Circuit"
+msgstr "Ir√°ny:"
 
 #: sheets/Circuit.sheet.in.h:2
 #, fuzzy
-msgid "A Horizontally aligned inductor"
-msgstr "_Vizszintes"
+msgid "Components for circuit diagrams"
+msgstr "Elektomos √°ramk√∂ri elemek"
 
 #: sheets/Circuit.sheet.in.h:3
 #, fuzzy
-msgid "A Horizontally aligned inductor (European)"
-msgstr "_Vizszintes"
+msgid "Ground point"
+msgstr "Mutasd a vez√©rl√©s f√≥kusz√°t:"
 
 #: sheets/Circuit.sheet.in.h:4
 #, fuzzy
-msgid "A Horizontally aligned resistor"
+msgid "Horizontal jumper"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:5
 #, fuzzy
-msgid "A Horizontally aligned resistor (European)"
+msgid "Horizontally aligned LED"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:6
 #, fuzzy
-msgid "A Microphone"
-msgstr "Egyszer˚ r·diÛtelefon"
+msgid "Horizontally aligned capacitor"
+msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:7
 #, fuzzy
-msgid "A PMOS transistor"
-msgstr "TranzitÌv"
+msgid "Horizontally aligned diode"
+msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:8
-msgid "A Speaker"
-msgstr ""
+#, fuzzy
+msgid "Horizontally aligned fuse"
+msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:9
 #, fuzzy
-msgid "A Vertically aligned inductor"
+msgid "Horizontally aligned inductor"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:10
 #, fuzzy
-msgid "A Vertically aligned inductor (European)"
+msgid "Horizontally aligned inductor (European)"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:11
 #, fuzzy
-msgid "A Vertically aligned resistor"
+msgid "Horizontally aligned powersource"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:12
 #, fuzzy
-msgid "A Vertically aligned resistor (European)"
+msgid "Horizontally aligned resistor"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:13
 #, fuzzy
-msgid "A ground point"
-msgstr "Mutasd a vezÈrlÈs fÛkusz·t:"
+msgid "Horizontally aligned resistor (European)"
+msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:14
 #, fuzzy
-msgid "A horizontally aligned LED"
+msgid "Horizontally aligned zener diode"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:15
-#, fuzzy
-msgid "A horizontally aligned capacitor"
-msgstr "_Vizszintes"
+msgid "Lamp"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:16
 #, fuzzy
-msgid "A horizontally aligned diode"
-msgstr "_Vizszintes"
+msgid "Microphone"
+msgstr "Egyszer≈± r√°di√≥telefon"
 
 #: sheets/Circuit.sheet.in.h:17
 #, fuzzy
-msgid "A horizontally aligned fuse"
-msgstr "_Vizszintes"
+msgid "NMOS transistor"
+msgstr "Tranzit√≠v"
 
 #: sheets/Circuit.sheet.in.h:18
 #, fuzzy
-msgid "A horizontally aligned powersource"
-msgstr "_Vizszintes"
+msgid "NPN bipolar transistor"
+msgstr "Tranzit√≠v"
 
 #: sheets/Circuit.sheet.in.h:19
 #, fuzzy
-msgid "A horizontally aligned zener diode"
-msgstr "_Vizszintes"
+msgid "Operational amplifier"
+msgstr "Multim√©dia hangsz√≥r√≥ er≈ës√≠t≈ë n√©lk√ºl"
 
 #: sheets/Circuit.sheet.in.h:20
 #, fuzzy
-msgid "A lamp"
-msgstr "KÈsleltetÈs"
+msgid "PMOS transistor"
+msgstr "Tranzit√≠v"
 
 #: sheets/Circuit.sheet.in.h:21
 #, fuzzy
-msgid "A npn bipolar transistor"
-msgstr "TranzitÌv"
+msgid "PNP bipolar transistor"
+msgstr "Tranzit√≠v"
 
 #: sheets/Circuit.sheet.in.h:22
-#, fuzzy
-msgid "A pnp bipolar transistor"
-msgstr "TranzitÌv"
+msgid "Speaker"
+msgstr ""
 
 #: sheets/Circuit.sheet.in.h:23
 #, fuzzy
-msgid "A vertically aligned LED"
+msgid "Vertically aligned LED"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:24
 #, fuzzy
-msgid "A vertically aligned capacitor"
+msgid "Vertically aligned capacitor"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:25
 #, fuzzy
-msgid "A vertically aligned diode"
+msgid "Vertically aligned diode"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:26
 #, fuzzy
-msgid "A vertically aligned fuse"
+msgid "Vertically aligned fuse"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:27
 #, fuzzy
-msgid "A vertically aligned powersource"
+msgid "Vertically aligned inductor"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:28
 #, fuzzy
-msgid "A vertically aligned zener diode"
+msgid "Vertically aligned inductor (European)"
 msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:29
 #, fuzzy
-msgid "An NMOS transistor"
-msgstr "TranzitÌv"
+msgid "Vertically aligned powersource"
+msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:30
 #, fuzzy
-msgid "An operational amplifier"
-msgstr "MultimÈdia hangszÛrÛ erısÌtı nÈlk¸l"
+msgid "Vertically aligned resistor"
+msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:31
 #, fuzzy
-msgid "Circuit"
-msgstr "Ir·ny:"
+msgid "Vertically aligned resistor (European)"
+msgstr "_Vizszintes"
 
 #: sheets/Circuit.sheet.in.h:32
 #, fuzzy
-msgid "Components for circuit diagrams"
-msgstr "Elektomos ·ramkˆri elemek"
+msgid "Vertically aligned zener diode"
+msgstr "_Vizszintes"
 
 #: sheets/civil.sheet.in.h:1
-msgid "A Backflow Preventer"
+msgid "Aerator with bubbles"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:2
-#, fuzzy
-msgid "A Basin"
-msgstr "TranzitÌv"
+msgid "Backflow preventer"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:3
 #, fuzzy
-msgid "A Container"
-msgstr "Konstans:"
+msgid "Basin"
+msgstr "Tranzit√≠v"
 
 #: sheets/civil.sheet.in.h:4
 #, fuzzy
-msgid "A Frequency Converter"
-msgstr "Invert·l"
+msgid "Bivalent vertical rest"
+msgstr "_F√ºgg≈ëleges"
 
 #: sheets/civil.sheet.in.h:5
-msgid "A Gas Bottle"
+msgid "Civil"
 msgstr ""
 
 #: sheets/civil.sheet.in.h:6
-#, fuzzy
-msgid "A Motor"
-msgstr "Monitor"
+msgid "Civil Engineering Components"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:7
-msgid "A Preliminary Clarification Tank"
-msgstr ""
+#, fuzzy
+msgid "Container"
+msgstr "Konstans:"
 
 #: sheets/civil.sheet.in.h:8
-#, fuzzy
-msgid "A Rotor"
-msgstr "Monitor"
-
-#: sheets/civil.sheet.in.h:9
-msgid "A final-settling Basin"
+msgid "Final-settling basin"
 msgstr ""
 
-#: sheets/civil.sheet.in.h:10
+#: sheets/civil.sheet.in.h:9
 #, fuzzy
-msgid "A horizontal limiting line"
-msgstr "_Vizszintes"
+msgid "Frequency converter"
+msgstr "Invert√°l"
+
+#: sheets/civil.sheet.in.h:10
+msgid "Gas bottle"
+msgstr ""
 
 #: sheets/civil.sheet.in.h:11
 #, fuzzy
-msgid "A horizontally aligned Arrow"
+msgid "Horizontal limiting line"
 msgstr "_Vizszintes"
 
 #: sheets/civil.sheet.in.h:12
 #, fuzzy
-msgid "A vertical limiting line"
+msgid "Horizontal rest"
 msgstr "_Vizszintes"
 
 #: sheets/civil.sheet.in.h:13
 #, fuzzy
-msgid "A vertically aligned Arrow"
+msgid "Horizontally aligned arrow"
 msgstr "_Vizszintes"
 
 #: sheets/civil.sheet.in.h:14
-msgid "An Aerator with bubbles"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:15
-#, fuzzy
-msgid "Bivalent Vertical Rest"
-msgstr "_F¸ggıleges"
-
-#: sheets/civil.sheet.in.h:16
-msgid "Civil"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:17
-msgid "Civil Engineering Components"
-msgstr ""
-
-#: sheets/civil.sheet.in.h:18
-#, fuzzy
-msgid "Horizontal Rest"
-msgstr "_Vizszintes"
-
-#: sheets/civil.sheet.in.h:19
-#, fuzzy
-msgid "Horizontally aligned Valve"
-msgstr "_Vizszintes"
-
-#: sheets/civil.sheet.in.h:20
 #, fuzzy
 msgid "Horizontally aligned compressor"
 msgstr "_Vizszintes"
 
-#: sheets/civil.sheet.in.h:21
+#: sheets/civil.sheet.in.h:15
 #, fuzzy
 msgid "Horizontally aligned pump"
 msgstr "_Vizszintes"
 
-#: sheets/civil.sheet.in.h:22
+#: sheets/civil.sheet.in.h:16
 #, fuzzy
-msgid "Reference Line"
-msgstr "Vonal kÈszÌtÈse"
+msgid "Horizontally aligned valve"
+msgstr "_Vizszintes"
 
-#: sheets/civil.sheet.in.h:23
+#: sheets/civil.sheet.in.h:17
+#, fuzzy
+msgid "Motor"
+msgstr "Monitor"
+
+#: sheets/civil.sheet.in.h:18
+msgid "Preliminary clarification tank"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:19
+#, fuzzy
+msgid "Reference line"
+msgstr "Vonal k√©sz√≠t√©se"
+
+#: sheets/civil.sheet.in.h:20
+#, fuzzy
+msgid "Rotor"
+msgstr "Monitor"
+
+#: sheets/civil.sheet.in.h:21
 #, fuzzy
 msgid "Soil"
 msgstr "Teli"
 
+#: sheets/civil.sheet.in.h:22
+#, fuzzy
+msgid "Vertical limiting line"
+msgstr "_Vizszintes"
+
+#: sheets/civil.sheet.in.h:23
+#, fuzzy
+msgid "Vertical rest"
+msgstr "_F√ºgg≈ëleges"
+
 #: sheets/civil.sheet.in.h:24
 #, fuzzy
-msgid "Vertical Rest"
-msgstr "_F¸ggıleges"
+msgid "Vertically aligned arrow"
+msgstr "_Vizszintes"
 
 #: sheets/civil.sheet.in.h:25
-#, fuzzy
-msgid "Vertically aligned Propeller"
-msgstr "_Vizszintes"
-
-#: sheets/civil.sheet.in.h:26
-#, fuzzy
-msgid "Vertically aligned Valve"
-msgstr "_Vizszintes"
-
-#: sheets/civil.sheet.in.h:27
 #, fuzzy
 msgid "Vertically aligned compressor"
 msgstr "_Vizszintes"
 
-#: sheets/civil.sheet.in.h:28
+#: sheets/civil.sheet.in.h:26
+#, fuzzy
+msgid "Vertically aligned propeller"
+msgstr "_Vizszintes"
+
+#: sheets/civil.sheet.in.h:27
 #, fuzzy
 msgid "Vertically aligned pump"
 msgstr "_Vizszintes"
 
+#: sheets/civil.sheet.in.h:28
+#, fuzzy
+msgid "Vertically aligned valve"
+msgstr "_Vizszintes"
+
 #: sheets/civil.sheet.in.h:29
-msgid "Water Level"
+msgid "Water level"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:1
-msgid "A 'if not' (normally closed) ladder contact"
+msgid "'if not' (normally closed) ladder contact"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:2
-msgid "A 'if' (normally open) ladder contact"
+msgid "'if' (normally open) ladder contact"
 msgstr ""
 
 #: sheets/Contact.sheet.in.h:3
 #, fuzzy
-msgid "A 'jump' output variable"
-msgstr "Egyszer˚ nyomtatÛ"
+msgid "'jump' output variable"
+msgstr "Egyszer≈± nyomtat√≥"
 
 #: sheets/Contact.sheet.in.h:4
 #, fuzzy
-msgid "A 'reset' output variable"
-msgstr "Egyszer˚ nyomtatÛ"
+msgid "'reset' output variable"
+msgstr "Egyszer≈± nyomtat√≥"
 
 #: sheets/Contact.sheet.in.h:5
 #, fuzzy
-msgid "A 'set' output variable"
-msgstr "Egyszer˚ nyomtatÛ"
+msgid "'set' output variable"
+msgstr "Egyszer≈± nyomtat√≥"
 
 #: sheets/Contact.sheet.in.h:6
 #, fuzzy
-msgid "A negative output variable"
-msgstr "Egyszer˚ nyomtatÛ"
+msgid "Components for LADDER circuits"
+msgstr "Elektomos √°ramk√∂ri elemek"
 
 #: sheets/Contact.sheet.in.h:7
 #, fuzzy
-msgid "A power-saved 'reset' output variable"
-msgstr "Egyszer˚ nyomtatÛ"
+msgid "Ladder"
+msgstr "R√©tegek"
 
 #: sheets/Contact.sheet.in.h:8
 #, fuzzy
-msgid "A power-saved 'set' output variable"
-msgstr "Egyszer˚ nyomtatÛ"
+msgid "Negative output variable"
+msgstr "Egyszer≈± nyomtat√≥"
 
 #: sheets/Contact.sheet.in.h:9
 #, fuzzy
-msgid "A power-saved negative output variable"
-msgstr "Egyszer˚ nyomtatÛ"
+msgid "Power-saved 'reset' output variable"
+msgstr "Egyszer≈± nyomtat√≥"
 
 #: sheets/Contact.sheet.in.h:10
 #, fuzzy
-msgid "A power-saved simple output variable"
-msgstr "Egyszer˚ nyomtatÛ"
+msgid "Power-saved 'set' output variable"
+msgstr "Egyszer≈± nyomtat√≥"
 
 #: sheets/Contact.sheet.in.h:11
 #, fuzzy
-msgid "A receptivity output variable"
-msgstr "Egyszer˚ nyomtatÛ"
+msgid "Power-saved negative output variable"
+msgstr "Egyszer≈± nyomtat√≥"
 
 #: sheets/Contact.sheet.in.h:12
 #, fuzzy
-msgid "A simple output variable"
-msgstr "Egyszer˚ nyomtatÛ"
+msgid "Power-saved simple output variable"
+msgstr "Egyszer≈± nyomtat√≥"
 
 #: sheets/Contact.sheet.in.h:13
 #, fuzzy
-msgid "Components for LADDER circuits"
-msgstr "Elektomos ·ramkˆri elemek"
+msgid "Receptivity output variable"
+msgstr "Egyszer≈± nyomtat√≥"
 
 #: sheets/Contact.sheet.in.h:14
 #, fuzzy
-msgid "Ladder"
-msgstr "RÈtegek"
+msgid "Simple output variable"
+msgstr "Egyszer≈± nyomtat√≥"
 
-#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
-#, fuzzy
-msgid "A connection point"
-msgstr "_Csatlakoz·si pontokat mutat"
+#: sheets/Electric.sheet.in.h:1
+msgid "Command organ of a relay"
+msgstr ""
 
 #: sheets/Electric.sheet.in.h:2
-msgid "A lamp or indicator light"
-msgstr ""
+msgid "Components for electric circuits"
+msgstr "Elektomos √°ramk√∂ri elemek"
 
 #: sheets/Electric.sheet.in.h:3
-msgid "A normally closed contact"
-msgstr ""
+#, fuzzy
+msgid "Connection point"
+msgstr "Csatlakoz√°si pontok:"
 
 #: sheets/Electric.sheet.in.h:4
-msgid "A normally closed position switch"
-msgstr ""
+msgid "Electric"
+msgstr "Elektromos √°ramk√∂r√∂k"
 
 #: sheets/Electric.sheet.in.h:5
-msgid "A normally open contact"
+msgid "Lamp or indicator light"
 msgstr ""
 
 #: sheets/Electric.sheet.in.h:6
-msgid "A normally open position switch"
+msgid "Normally closed contact"
 msgstr ""
 
 #: sheets/Electric.sheet.in.h:7
-#, fuzzy
-msgid "A relay"
-msgstr "KÈsleltetÈs"
-
-#: sheets/Electric.sheet.in.h:8
-msgid "Components for electric circuits"
-msgstr "Elektomos ·ramkˆri elemek"
-
-#: sheets/Electric.sheet.in.h:9
-msgid "Electric"
-msgstr "Elektromos ·ramkˆrˆk"
-
-#: sheets/Electric.sheet.in.h:10
-msgid "The command organ of a relay"
+msgid "Normally closed position switch"
 msgstr ""
 
-#: sheets/EML.sheet.in.h:1
-#, fuzzy
-msgid "Create a process"
-msgstr "KˆrÌv kÈszÌtÈse"
+#: sheets/Electric.sheet.in.h:8
+msgid "Normally open contact"
+msgstr ""
 
-#: sheets/EML.sheet.in.h:2
+#: sheets/Electric.sheet.in.h:9
+msgid "Normally open position switch"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:10
+#, fuzzy
+msgid "Relay"
+msgstr "K√©sleltet√©s"
+
+#: sheets/EML.sheet.in.h:1
 msgid "EML"
 msgstr ""
 
-#: sheets/EML.sheet.in.h:3
+#: sheets/EML.sheet.in.h:2
 #, fuzzy
 msgid "Editor for EML Static Structure Diagrams."
 msgstr "Egyed-kapcsolat diagram objektumok"
 
-#: sheets/EML.sheet.in.h:4
+#: sheets/EML.sheet.in.h:3
 msgid "Instantiation. One process create others"
 msgstr ""
 
-#: sheets/EML.sheet.in.h:5
+#: sheets/EML.sheet.in.h:4
 msgid "Interaction between processes."
 msgstr ""
 
@@ -5747,217 +5683,206 @@ msgstr "Egyed-kapcsolat diagram objektumok"
 #: sheets/ER.sheet.in.h:5
 #, fuzzy
 msgid "Participation"
-msgstr "ElıkÈszÌtÈs"
+msgstr "El≈ëk√©sz√≠t√©s"
 
 #: sheets/ER.sheet.in.h:7
 #, fuzzy
-msgid "Weak Entity"
-msgstr "MegjelenÈs"
+msgid "Weak entity"
+msgstr "Megjelen√©s"
 
 #: sheets/Flowchart.sheet.in.h:1
-msgid "A box with text inside"
-msgstr "Szˆvegdoboz"
+#, fuzzy
+msgid "Box with text inside"
+msgstr "Sz√∂vegdoboz"
 
 #: sheets/Flowchart.sheet.in.h:2
-msgid "A diamond with text inside"
-msgstr "Rombusz szˆvegdoboz"
-
-#: sheets/Flowchart.sheet.in.h:3
-msgid "A ellipse with text inside"
-msgstr "Ellipszis alak˙ szˆvegdoboz"
-
-#: sheets/Flowchart.sheet.in.h:4
-msgid "A parallelogram with text inside"
-msgstr "Parallelogramma szˆvegdoboz"
-
-#: sheets/Flowchart.sheet.in.h:5
 #, fuzzy
 msgid "Collate"
-msgstr "HÌv·s"
+msgstr "H√≠v√°s"
+
+#: sheets/Flowchart.sheet.in.h:3
+msgid "Delay"
+msgstr "K√©sleltet√©s"
+
+#: sheets/Flowchart.sheet.in.h:4
+#, fuzzy
+msgid "Diamond with text inside"
+msgstr "Rombusz sz√∂vegdoboz"
 
 #: sheets/Flowchart.sheet.in.h:6
-msgid "Delay"
-msgstr "KÈsleltetÈs"
-
-#: sheets/Flowchart.sheet.in.h:8
 msgid "Document"
 msgstr "Dokumentum"
 
-#: sheets/Flowchart.sheet.in.h:10
+#: sheets/Flowchart.sheet.in.h:7
+#, fuzzy
+msgid "Ellipse with text inside"
+msgstr "Ellipszis alak√∫ sz√∂vegdoboz"
+
+#: sheets/Flowchart.sheet.in.h:9
 msgid "Flowchart"
-msgstr "Folyamat·bra"
+msgstr "Folyamat√°bra"
+
+#: sheets/Flowchart.sheet.in.h:10
+#, fuzzy
+msgid "Internal storage"
+msgstr "Bels≈ë t√°rol√≥"
 
 #: sheets/Flowchart.sheet.in.h:11
-msgid "Internal Storage"
-msgstr "Belsı t·rolÛ"
+#, fuzzy
+msgid "Magnetic disk"
+msgstr "M√°gneses lemez"
 
 #: sheets/Flowchart.sheet.in.h:12
-msgid "Magnetic Disk"
-msgstr "M·gneses lemez"
+#, fuzzy
+msgid "Magnetic drum"
+msgstr "M√°gneses dob"
 
 #: sheets/Flowchart.sheet.in.h:13
-msgid "Magnetic Drum"
-msgstr "M·gneses dob"
+#, fuzzy
+msgid "Magnetic tape"
+msgstr "M√°gneses szallag"
 
 #: sheets/Flowchart.sheet.in.h:14
-msgid "Magnetic Tape"
-msgstr "M·gneses szallag"
+#, fuzzy
+msgid "Manual input"
+msgstr "K√©zi bevitel"
 
 #: sheets/Flowchart.sheet.in.h:15
-msgid "Manual Input"
-msgstr "KÈzi bevitel"
+#, fuzzy
+msgid "Manual operation"
+msgstr "K√©zi m≈±velet"
 
 #: sheets/Flowchart.sheet.in.h:16
-msgid "Manual Operation"
-msgstr "KÈzi m˚velet"
+msgid "Merge"
+msgstr "Egyes√≠t√©s"
 
 #: sheets/Flowchart.sheet.in.h:17
-msgid "Merge"
-msgstr "EgyesÌtÈs"
+msgid "Objects to draw flowcharts"
+msgstr "Objektumok folymat√°br√°k rajzol√°s√°hoz"
 
 #: sheets/Flowchart.sheet.in.h:18
-msgid "Objects to draw flowcharts"
-msgstr "Objektumok folymat·br·k rajzol·s·hoz"
+#, fuzzy
+msgid "Off page connector"
+msgstr "K√©t oldalat √∂sszek√∂t≈ë √°bra"
 
 #: sheets/Flowchart.sheet.in.h:19
-msgid "Off Page Connector"
-msgstr "KÈt oldalat ˆsszekˆtı ·bra"
+#, fuzzy
+msgid "Offline storage"
+msgstr "Bels≈ë t√°rol√≥"
 
 #: sheets/Flowchart.sheet.in.h:20
-#, fuzzy
-msgid "Offline Storage"
-msgstr "Belsı t·rolÛ"
-
-#: sheets/Flowchart.sheet.in.h:21
 msgid "Or"
 msgstr "Vagy"
 
+#: sheets/Flowchart.sheet.in.h:21
+#, fuzzy
+msgid "Parallelogram with text inside"
+msgstr "Parallelogramma sz√∂vegdoboz"
+
 #: sheets/Flowchart.sheet.in.h:22
-msgid "Predefined Process"
-msgstr "Elıredefini·lt proced˙ra"
+#, fuzzy
+msgid "Predefined process"
+msgstr "El≈ëredefini√°lt proced√∫ra"
 
 #: sheets/Flowchart.sheet.in.h:23
 msgid "Preparation"
-msgstr "ElıkÈszÌtÈs"
+msgstr "El≈ëk√©sz√≠t√©s"
 
 #: sheets/Flowchart.sheet.in.h:24
-msgid "Punched Card"
+msgid "Punched card"
 msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:25
-msgid "Punched Tape"
+msgid "Punched tape"
 msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:26
 msgid "Sort"
-msgstr "RendezÈs"
+msgstr "Rendez√©s"
 
 #: sheets/Flowchart.sheet.in.h:27
 #, fuzzy
-msgid "Summing Junction"
-msgstr "Whish f¸ggvÈny"
+msgid "Summing junction"
+msgstr "Whish f√ºggv√©ny"
 
 #: sheets/Flowchart.sheet.in.h:28
 msgid "Terminal"
-msgstr "Termin·l"
+msgstr "Termin√°l"
 
 #: sheets/Flowchart.sheet.in.h:29
-msgid "Transaction File"
-msgstr "TranzakciÛf·jl"
+#, fuzzy
+msgid "Transaction file"
+msgstr "Tranzakci√≥f√°jl"
 
 #: sheets/Flowchart.sheet.in.h:30
 #, fuzzy
-msgid "Transmittal Tape"
-msgstr "TranzitÌv"
+msgid "Transmittal tape"
+msgstr "Tranzit√≠v"
 
 #: sheets/FS.sheet.in.h:1
-#, fuzzy
-msgid "Create a flow"
-msgstr "Doboz kÈszÌtÈse"
-
-#: sheets/FS.sheet.in.h:2
-#, fuzzy
-msgid "Create a function"
-msgstr "Felhaszn·lÛi f¸ggvÈny"
-
-#: sheets/FS.sheet.in.h:3
-msgid "Create an orthogonal polyline flow"
-msgstr ""
-
-#: sheets/FS.sheet.in.h:4
 #, fuzzy
 msgid "Editor for Function Structure Diagrams."
 msgstr "Egyed-kapcsolat diagram objektumok"
 
-#: sheets/FS.sheet.in.h:5
+#: sheets/FS.sheet.in.h:2
 msgid "FS"
+msgstr ""
+
+#: sheets/FS.sheet.in.h:3
+#, fuzzy
+msgid "Flow"
+msgstr "Mindent"
+
+#: sheets/FS.sheet.in.h:4
+#, fuzzy
+msgid "Function"
+msgstr "F√ºggv√©ny:"
+
+#: sheets/FS.sheet.in.h:5
+msgid "Orthogonal polyline flow"
 msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:1
 #, fuzzy
-msgid "A AND vergent"
-msgstr "Szegmens hozz·ad·sa"
+msgid "AND vergent"
+msgstr "Szegmens hozz√°ad√°sa"
 
 #: sheets/GRAFCET.sheet.in.h:2
-#, fuzzy
-msgid "A OR vergent"
-msgstr "Szegmens hozz·ad·sa"
+msgid "Action to associate to a step"
+msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:3
-#, fuzzy
-msgid "A condition (of an action)"
-msgstr "_Csatlakoz·si pontokat mutat"
+msgid "Arc (upward)"
+msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:4
 #, fuzzy
-msgid "A macro call step"
-msgstr "Gˆrget"
+msgid "Condition (of an action)"
+msgstr "_Csatlakoz√°si pontokat mutat"
 
 #: sheets/GRAFCET.sheet.in.h:5
-#, fuzzy
-msgid "A macro entry step"
-msgstr "Gˆrget"
-
-#: sheets/GRAFCET.sheet.in.h:6
-#, fuzzy
-msgid "A macro exit step"
-msgstr "Gˆrget"
-
-#: sheets/GRAFCET.sheet.in.h:7
-#, fuzzy
-msgid "A macro sub-program call step"
-msgstr "Gˆrget"
-
-#: sheets/GRAFCET.sheet.in.h:8
-#, fuzzy
-msgid "A regular step"
-msgstr "CserÈl"
-
-#: sheets/GRAFCET.sheet.in.h:9
-#, fuzzy
-msgid "A transition"
-msgstr "TranzitÌv"
-
-#: sheets/GRAFCET.sheet.in.h:10
-msgid "An action to associate to a step"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:11
-msgid "An arc (upward)"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:12
-msgid "An initial step"
-msgstr ""
-
-#: sheets/GRAFCET.sheet.in.h:13
 msgid "GRAFCET"
 msgstr ""
 
-#: sheets/GRAFCET.sheet.in.h:14
+#: sheets/GRAFCET.sheet.in.h:10
+#, fuzzy
+msgid "Macro sub-program call step"
+msgstr "G√∂rget"
+
+#: sheets/GRAFCET.sheet.in.h:11
+#, fuzzy
+msgid "OR vergent"
+msgstr "Szegmens hozz√°ad√°sa"
+
+#: sheets/GRAFCET.sheet.in.h:12
 #, fuzzy
 msgid "Objects to design GRAFCET charts"
-msgstr "Objektumok folymat·br·k rajzol·s·hoz"
+msgstr "Objektumok folymat√°br√°k rajzol√°s√°hoz"
+
+#: sheets/GRAFCET.sheet.in.h:14
+#, fuzzy
+msgid "Transition"
+msgstr "Tranzit√≠v"
 
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
@@ -6033,87 +5958,83 @@ msgstr ""
 
 #: sheets/Logic.sheet.in.h:1
 #, fuzzy
-msgid "A Nand gate"
-msgstr "Aggreg·l"
+msgid "AND gate"
+msgstr "Aggreg√°l"
 
 #: sheets/Logic.sheet.in.h:2
-#, fuzzy
-msgid "A Nor gate"
-msgstr "Aggreg·l"
-
-#: sheets/Logic.sheet.in.h:3
-#, fuzzy
-msgid "A Not"
-msgstr "Aggreg·l"
-
-#: sheets/Logic.sheet.in.h:4
-#, fuzzy
-msgid "A Xor gate"
-msgstr "Aggreg·l"
-
-#: sheets/Logic.sheet.in.h:5
-#, fuzzy
-msgid "A crossconnector"
-msgstr "÷sszekˆtˆtt"
-
-#: sheets/Logic.sheet.in.h:6
-#, fuzzy
-msgid "A simple Buffer"
-msgstr "Egyszer˚ nyomtatÛ"
-
-#: sheets/Logic.sheet.in.h:7
-#, fuzzy
-msgid "An And gate"
-msgstr "Aggreg·l"
-
-#: sheets/Logic.sheet.in.h:8
-#, fuzzy
-msgid "An Inverter"
-msgstr "Invert·l"
-
-#: sheets/Logic.sheet.in.h:9
-#, fuzzy
-msgid "An Or gate"
-msgstr "Aggreg·l"
-
-#: sheets/Logic.sheet.in.h:10
 msgid "Boolean Logic"
 msgstr ""
 
-#: sheets/Logic.sheet.in.h:11
+#: sheets/Logic.sheet.in.h:3
+#, fuzzy
+msgid "Crossconnector"
+msgstr "√ñsszek√∂t√∂tt"
+
+#: sheets/Logic.sheet.in.h:4
+#, fuzzy
+msgid "Inverter"
+msgstr "Invert√°l"
+
+#: sheets/Logic.sheet.in.h:5
 msgid "Logic"
 msgstr ""
 
-#: sheets/Misc.sheet.in.h:1
+#: sheets/Logic.sheet.in.h:6
 #, fuzzy
-msgid "A File"
-msgstr "F·jl"
+msgid "NAND gate"
+msgstr "Aggreg√°l"
 
-#: sheets/Misc.sheet.in.h:2
-msgid "A Folder"
+#: sheets/Logic.sheet.in.h:7
+#, fuzzy
+msgid "NOR gate"
+msgstr "Aggreg√°l"
+
+#: sheets/Logic.sheet.in.h:8
+msgid "NOT"
 msgstr ""
 
-#: sheets/Misc.sheet.in.h:3
+#: sheets/Logic.sheet.in.h:9
 #, fuzzy
-msgid "A traditional clock"
-msgstr "TranzitÌv"
+msgid "OR gate"
+msgstr "Aggreg√°l"
 
-#: sheets/Misc.sheet.in.h:4
+#: sheets/Logic.sheet.in.h:10
+#, fuzzy
+msgid "Simple buffer"
+msgstr "Egyszer≈± nyomtat√≥"
+
+#: sheets/Logic.sheet.in.h:11
+#, fuzzy
+msgid "XOR gate"
+msgstr "Aggreg√°l"
+
+#: sheets/Misc.sheet.in.h:2
+#, fuzzy
+msgid "Folder"
+msgstr "F√°jl"
+
+#: sheets/Misc.sheet.in.h:3
 msgid "Misc"
 msgstr ""
 
-#: sheets/Misc.sheet.in.h:5
+#: sheets/Misc.sheet.in.h:4
 msgid "Miscellaneous Shapes"
 msgstr ""
+
+#: sheets/Misc.sheet.in.h:5
+#, fuzzy
+msgid "Traditional clock"
+msgstr "Tranzit√≠v"
 
 #: sheets/MSE.sheet.in.h:1
 #, fuzzy
 msgid "Demultiplexer"
-msgstr "Multiplicit·s:"
+msgstr "Multiplicit√°s:"
 
 #: sheets/MSE.sheet.in.h:2
-msgid "Large Extension Node"
-msgstr ""
+#, fuzzy
+msgid "Large extension node"
+msgstr "Kiterjeszt√©s szerint"
 
 #: sheets/MSE.sheet.in.h:3
 msgid "MSE"
@@ -6122,19 +6043,20 @@ msgstr ""
 #: sheets/MSE.sheet.in.h:4
 #, fuzzy
 msgid "Multiplexer"
-msgstr "Multiplicit·s:"
+msgstr "Multiplicit√°s:"
 
 #: sheets/MSE.sheet.in.h:5
 #, fuzzy
-msgid "Node Center"
-msgstr "KˆzÈpre"
+msgid "Node center"
+msgstr "K√∂z√©pre"
 
 #: sheets/MSE.sheet.in.h:6
-msgid "Small Extension Node"
-msgstr ""
+#, fuzzy
+msgid "Small extension node"
+msgstr "Kiterjeszt√©s szerint"
 
 #: sheets/MSE.sheet.in.h:7
-msgid "Tactical Satellite Communications Terminal"
+msgid "Tactical satellite communications terminal"
 msgstr ""
 
 #: sheets/MSE.sheet.in.h:8
@@ -6142,236 +6064,275 @@ msgid "U.S. Army Mobile Subscriber Equipment Components"
 msgstr ""
 
 #: sheets/network.sheet.in.h:1
-msgid "A 3 1/2 inch diskette"
-msgstr "3 1/2-es hajlÈkonylemez"
+#, fuzzy
+msgid "3 1/2 inch diskette"
+msgstr "3 1/2-es hajl√©konylemez"
 
 #: sheets/network.sheet.in.h:2
-msgid "A Bigtower PC"
-msgstr "PC (nagy torony)"
+#, fuzzy
+msgid "ATM switch symbol"
+msgstr "ATM-switch jele"
 
 #: sheets/network.sheet.in.h:3
-msgid "A Computer"
-msgstr "Sz·mÌtÛgÈp"
+#, fuzzy
+msgid "Antenna for wireless transmission"
+msgstr "Antenna, dr√≥tn√©lk√ºli √°tvitelhez"
 
 #: sheets/network.sheet.in.h:4
-msgid "A Desktop PC"
-msgstr "Asztali PC"
+#, fuzzy
+msgid "Bigtower PC"
+msgstr "PC (nagy torony)"
 
 #: sheets/network.sheet.in.h:5
-msgid "A Digitizing Board"
-msgstr ""
+#, fuzzy
+msgid "Computer"
+msgstr "Sz√°m√≠t√≥g√©p"
 
 #: sheets/network.sheet.in.h:6
-msgid "A Firewall router"
-msgstr ""
-
-#: sheets/network.sheet.in.h:7
 #, fuzzy
-msgid "A Laptop PC"
+msgid "Desktop PC"
 msgstr "Asztali PC"
 
+#: sheets/network.sheet.in.h:7
+msgid "Digitizing board"
+msgstr ""
+
 #: sheets/network.sheet.in.h:8
-msgid "A Miditower PC"
-msgstr "PC (midi torony)"
+#, fuzzy
+msgid "Ethernet bus"
+msgstr "Ethernet s√≠n"
 
 #: sheets/network.sheet.in.h:9
-msgid "A Minitower PC"
-msgstr "PC (mini torony)"
+#, fuzzy
+msgid "External DAT drive"
+msgstr "K√ºls≈ë DAT meghajt√≥"
 
 #: sheets/network.sheet.in.h:10
-msgid "A Mobile Phone"
-msgstr "Egyszer˚ r·diÛtelefon"
+#, fuzzy
+msgid "Firewall router"
+msgstr "El≈ët√©r sz√≠n:"
 
 #: sheets/network.sheet.in.h:11
 #, fuzzy
-msgid "A Plotter"
-msgstr "Sz·mÌtÛgÈp"
+msgid "Laptop PC"
+msgstr "Asztali PC"
 
 #: sheets/network.sheet.in.h:12
-msgid "A RJ45 Wall-Plug"
-msgstr "RJ45 falicsatlakozÛ"
+#, fuzzy
+msgid "Miditower PC"
+msgstr "PC (midi torony)"
 
 #: sheets/network.sheet.in.h:13
 #, fuzzy
-msgid "A Telephone"
-msgstr "Egyszer˚ r·diÛtelefon"
+msgid "Minitower PC"
+msgstr "PC (mini torony)"
 
 #: sheets/network.sheet.in.h:14
-msgid "A UNIX Workstation"
-msgstr "UNIX Munka·llom·s"
+#, fuzzy
+msgid "Mobile phone"
+msgstr "Egyszer≈± r√°di√≥telefon"
 
 #: sheets/network.sheet.in.h:15
-msgid "A WAN Connection"
-msgstr "WAN kapcsolat"
+#, fuzzy
+msgid "Modular switching system"
+msgstr "Modul√°ris Switch"
 
 #: sheets/network.sheet.in.h:16
 #, fuzzy
-msgid "A WAN Link"
-msgstr "WAN kapcsolat"
-
-#: sheets/network.sheet.in.h:17
-msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr "FalicsatlakozÛ scEAD k·belezÈshez"
-
-#: sheets/network.sheet.in.h:18
-msgid "A Workstation Monitor"
-msgstr "Munka·llom·s monitora"
-
-#: sheets/network.sheet.in.h:19
-msgid "A ZIP Disk"
-msgstr "ZIP lemez"
-
-#: sheets/network.sheet.in.h:20
-msgid "A modular switching system"
-msgstr "Modul·ris Switch"
-
-#: sheets/network.sheet.in.h:21
-msgid "A monitor"
+msgid "Monitor"
 msgstr "Monitor"
 
+#: sheets/network.sheet.in.h:17
+msgid "Network"
+msgstr "H√°l√≥zatok"
+
+#: sheets/network.sheet.in.h:18
+#, fuzzy
+msgid "Network cloud"
+msgstr "H√°lozat felh≈ë"
+
+#: sheets/network.sheet.in.h:19
+msgid "Objects to design network diagrams with"
+msgstr "Objektumok h√°l√≥zati diagrammokhoz"
+
+#: sheets/network.sheet.in.h:20
+#, fuzzy
+msgid "Plotter"
+msgstr "Sz√°m√≠t√≥g√©p"
+
+#: sheets/network.sheet.in.h:21
+#, fuzzy
+msgid "RJ45 wall-plug"
+msgstr "RJ45 falicsatlakoz√≥"
+
 #: sheets/network.sheet.in.h:22
-msgid "A simple Modem"
-msgstr "Egyszer˚ modem"
+#, fuzzy
+msgid "Router symbol"
+msgstr "√ötv√°laszt√≥ jele"
 
 #: sheets/network.sheet.in.h:23
-msgid "A simple printer"
-msgstr "Egyszer˚ nyomtatÛ"
+#, fuzzy
+msgid "Simple modem"
+msgstr "Egyszer≈± modem"
 
 #: sheets/network.sheet.in.h:24
-msgid "A speaker with integrated amplifier"
-msgstr "MultimÈdia hangszÛrÛ erısÌtıvel"
+#, fuzzy
+msgid "Simple printer"
+msgstr "Egyszer≈± nyomtat√≥"
 
 #: sheets/network.sheet.in.h:25
-msgid "A speaker without amplifier"
-msgstr "MultimÈdia hangszÛrÛ erısÌtı nÈlk¸l"
+#, fuzzy
+msgid "Speaker with integrated amplifier"
+msgstr "Multim√©dia hangsz√≥r√≥ er≈ës√≠t≈ëvel"
 
 #: sheets/network.sheet.in.h:26
-msgid "A stackable hub or switch"
-msgstr "BıvÌthetı hub vagy switch"
+#, fuzzy
+msgid "Speaker without amplifier"
+msgstr "Multim√©dia hangsz√≥r√≥ er≈ës√≠t≈ë n√©lk√ºl"
 
 #: sheets/network.sheet.in.h:27
-msgid "ATM Switch Symbol"
-msgstr "ATM-switch jele"
+#, fuzzy
+msgid "Stackable hub or switch"
+msgstr "B≈ëv√≠thet≈ë hub vagy switch"
 
 #: sheets/network.sheet.in.h:28
-msgid "An Ethernet bus"
-msgstr "Ethernet sÌn"
+msgid "Storage"
+msgstr "T√°rol√≥"
 
 #: sheets/network.sheet.in.h:29
-msgid "An antenna for wireless transmission"
-msgstr "Antenna, drÛtnÈlk¸li ·tvitelhez"
-
-#: sheets/network.sheet.in.h:30
-msgid "An external DAT drive"
-msgstr "K¸lsı DAT meghajtÛ"
-
-#: sheets/network.sheet.in.h:31
-msgid "Network"
-msgstr "H·lÛzatok"
-
-#: sheets/network.sheet.in.h:32
-msgid "Network Cloud"
-msgstr "H·lozat felhı"
-
-#: sheets/network.sheet.in.h:33
-msgid "Objects to design network diagrams with"
-msgstr "Objektumok h·lÛzati diagrammokhoz"
-
-#: sheets/network.sheet.in.h:34
-msgid "Router Symbol"
-msgstr "⁄tv·lasztÛ jele"
-
-#: sheets/network.sheet.in.h:35
-msgid "Storage"
-msgstr "T·rolÛ"
-
-#: sheets/network.sheet.in.h:36
-msgid "Switch Symbol"
+#, fuzzy
+msgid "Switch symbol"
 msgstr "Switch jele"
 
+#: sheets/network.sheet.in.h:30
+#, fuzzy
+msgid "Telephone"
+msgstr "Egyszer≈± r√°di√≥telefon"
+
+#: sheets/network.sheet.in.h:31
+#, fuzzy
+msgid "UNIX workstation"
+msgstr "UNIX Munka√°llom√°s"
+
+#: sheets/network.sheet.in.h:32
+#, fuzzy
+msgid "WAN connection"
+msgstr "WAN kapcsolat"
+
+#: sheets/network.sheet.in.h:33
+#, fuzzy
+msgid "WAN link"
+msgstr "WAN kapcsolat"
+
+#: sheets/network.sheet.in.h:34
+#, fuzzy
+msgid "Wall-plug for the scEAD cabling system"
+msgstr "Falicsatlakoz√≥ scEAD k√°belez√©shez"
+
+#: sheets/network.sheet.in.h:35
+#, fuzzy
+msgid "Workstation monitor"
+msgstr "Munka√°llom√°s monitora"
+
+#: sheets/network.sheet.in.h:36
+#, fuzzy
+msgid "ZIP disk"
+msgstr "ZIP lemez"
+
 #: sheets/Pneumatic.sheet.in.h:1
-msgid "A 2/2 distributor"
-msgstr ""
+#, fuzzy
+msgid "2/2 distributor"
+msgstr "Attrib√∫tum"
 
 #: sheets/Pneumatic.sheet.in.h:2
-msgid "A 3/2 distributor"
-msgstr ""
+#, fuzzy
+msgid "3/2 distributor"
+msgstr "Attrib√∫tum"
 
 #: sheets/Pneumatic.sheet.in.h:3
-msgid "A 3/3 distributor"
-msgstr ""
+#, fuzzy
+msgid "3/3 distributor"
+msgstr "Attrib√∫tum"
 
 #: sheets/Pneumatic.sheet.in.h:4
-msgid "A 4/2 distributor"
-msgstr ""
+#, fuzzy
+msgid "4/2 distributor"
+msgstr "Attrib√∫tum"
 
 #: sheets/Pneumatic.sheet.in.h:5
-msgid "A 5/2 distributor"
-msgstr ""
+#, fuzzy
+msgid "5/2 distributor"
+msgstr "Attrib√∫tum"
 
 #: sheets/Pneumatic.sheet.in.h:6
-msgid "A 5/3 distributor"
-msgstr ""
+#, fuzzy
+msgid "5/3 distributor"
+msgstr "Attrib√∫tum"
+
+#: sheets/Pneumatic.sheet.in.h:7
+#, fuzzy
+msgid "A connection point"
+msgstr "_Csatlakoz√°si pontokat mutat"
 
 #: sheets/Pneumatic.sheet.in.h:8
-msgid "A double-effect jack"
+msgid "Air exhaust orifice"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:9
-msgid "A generic pressure source"
-msgstr ""
+#, fuzzy
+msgid "Components for pneumatic and hydraulic circuits"
+msgstr "Elektomos √°ramk√∂ri elemek"
 
 #: sheets/Pneumatic.sheet.in.h:10
-msgid "A hydraulic pressure source"
+msgid "Double-effect jack"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:11
-msgid "A normally-in simple-effect jack"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:12
-msgid "A normally-out simple-effect jack"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:13
-msgid "A pneumatic pressure source"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:14
-msgid "An air exhaust orifice"
-msgstr ""
-
-#: sheets/Pneumatic.sheet.in.h:15
-#, fuzzy
-msgid "Components for pneumatic and hydraulic circuits"
-msgstr "Elektomos ·ramkˆri elemek"
-
-#: sheets/Pneumatic.sheet.in.h:16
 msgid "Electric command (double coil)"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:17
+#: sheets/Pneumatic.sheet.in.h:12
 msgid "Electric command (single coil)"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:18
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "Generic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "Hydraulic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:15
 msgid "Indirect command by hydraulic driver"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:19
+#: sheets/Pneumatic.sheet.in.h:16
 msgid "Indirect command by pneumatic driver"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:20
+#: sheets/Pneumatic.sheet.in.h:17
 msgid "Mechanical command by spring"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:21
+#: sheets/Pneumatic.sheet.in.h:18
 msgid "Mechanical command by tappet"
 msgstr ""
 
-#: sheets/Pneumatic.sheet.in.h:22
+#: sheets/Pneumatic.sheet.in.h:19
 msgid "Muscular command"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Normally-in simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Normally-out simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Pneumatic pressure source"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:23
@@ -6383,21 +6344,21 @@ msgid "Push-button command"
 msgstr ""
 
 #: sheets/SADT.sheet.in.h:1
-msgid "A activity/data flow arrow"
+msgid "Activity/data box"
 msgstr ""
 
 #: sheets/SADT.sheet.in.h:2
-msgid "A flow label"
+msgid "Activity/data flow arrow"
 msgstr ""
 
 #: sheets/SADT.sheet.in.h:3
-msgid "An activity/data box"
+msgid "Flow label"
 msgstr ""
 
 #: sheets/SADT.sheet.in.h:4
 #, fuzzy
 msgid "Objects to design SADT diagrams"
-msgstr "Objektumok h·lÛzati diagrammokhoz"
+msgstr "Objektumok h√°l√≥zati diagrammokhoz"
 
 #: sheets/SADT.sheet.in.h:5
 msgid "SADT/IDEF0"
@@ -6409,46 +6370,46 @@ msgstr ""
 
 #: sheets/SDL.sheet.in.h:2
 #, fuzzy
-msgid "Block Type Reference"
-msgstr "Tulajdons·gok"
+msgid "Block type reference"
+msgstr "Tulajdons√°gok"
 
 #: sheets/SDL.sheet.in.h:4
 #, fuzzy
 msgid "Decision"
-msgstr "LeÌr·s:"
+msgstr "Le√≠r√°s:"
 
 #: sheets/SDL.sheet.in.h:5
 #, fuzzy
-msgid "Function Header"
-msgstr "F¸ggvÈny:"
+msgid "Function call"
+msgstr "F√ºggv√©ny:"
 
 #: sheets/SDL.sheet.in.h:6
 #, fuzzy
-msgid "Function call"
-msgstr "F¸ggvÈny:"
+msgid "Function header"
+msgstr "F√ºggv√©ny:"
 
 #: sheets/SDL.sheet.in.h:7
-msgid "Generic Text Note"
+msgid "Generic text note"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:8
 #, fuzzy
-msgid "In/Out Connector"
-msgstr "KÈt oldalat ˆsszekˆtı ·bra"
+msgid "In/Out connector"
+msgstr "K√©t oldalat √∂sszek√∂t≈ë √°bra"
 
 #: sheets/SDL.sheet.in.h:10
-msgid "Procedure Return"
+msgid "Procedure return"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:11
 #, fuzzy
-msgid "Process Type Reference"
-msgstr "Tulajdons·gok"
+msgid "Process type reference"
+msgstr "Tulajdons√°gok"
 
 #: sheets/SDL.sheet.in.h:12
 #, fuzzy
 msgid "Receive message"
-msgstr "RekurzÌv"
+msgstr "Rekurz√≠v"
 
 #: sheets/SDL.sheet.in.h:13
 msgid "SDL"
@@ -6456,237 +6417,405 @@ msgstr ""
 
 #: sheets/SDL.sheet.in.h:14
 #, fuzzy
-msgid "Save State"
+msgid "Save state"
 msgstr "Pontozott"
 
 #: sheets/SDL.sheet.in.h:15
 #, fuzzy
 msgid "Send message"
-msgstr "‹zenet:"
+msgstr "√úzenet:"
 
 #: sheets/SDL.sheet.in.h:16
 #, fuzzy
-msgid "Service Type Reference"
-msgstr "Tulajdons·gok"
+msgid "Service type reference"
+msgstr "Tulajdons√°gok"
 
 #: sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
 msgstr ""
 
-#: sheets/SDL.sheet.in.h:18
+#: sheets/SDL.sheet.in.h:18 sheets/UML.sheet.in.h:24
 #, fuzzy
 msgid "State"
 msgstr "Pontozott"
 
 #: sheets/sybase.sheet.in.h:1
-msgid "A Sybase Client Application"
+msgid "Log transfer manager or rep agent"
 msgstr ""
 
 #: sheets/sybase.sheet.in.h:2
-msgid "A Sybase Dataserver"
-msgstr ""
+#, fuzzy
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr "Objektumok h√°l√≥zati diagrammokhoz"
 
 #: sheets/sybase.sheet.in.h:3
-msgid "A Sybase Replication Server"
-msgstr ""
+#, fuzzy
+msgid "Replication server manager"
+msgstr "Rokons√°g"
 
 #: sheets/sybase.sheet.in.h:4
-msgid "Log Transfer Manager or Rep Agent"
+msgid "Stable storage device"
 msgstr ""
 
 #: sheets/sybase.sheet.in.h:5
 #, fuzzy
-msgid "Objects to design Sybase replication domain diagrams with"
-msgstr "Objektumok h·lÛzati diagrammokhoz"
+msgid "Sybase"
+msgstr "Szaggatott"
 
 #: sheets/sybase.sheet.in.h:6
-msgid "Replication Server Manager"
+msgid "Sybase client application"
 msgstr ""
 
 #: sheets/sybase.sheet.in.h:7
-msgid "Stable Storage Device"
+msgid "Sybase dataserver"
 msgstr ""
 
 #: sheets/sybase.sheet.in.h:8
 #, fuzzy
-msgid "Sybase"
-msgstr "Szaggatott"
+msgid "Sybase replication server"
+msgstr "Objektumok h√°l√≥zati diagrammokhoz"
 
 #: sheets/UML.sheet.in.h:1
+#, fuzzy
+msgid "Activity"
+msgstr "Akt√≠v objektumok"
+
+#: sheets/UML.sheet.in.h:3
 msgid "Aggregation, one class is part of another"
 msgstr ""
 
-#: sheets/UML.sheet.in.h:2
+#: sheets/UML.sheet.in.h:4
 msgid "Association, two classes are associated"
 msgstr ""
 
-#: sheets/UML.sheet.in.h:3
-msgid "Constraint, place a constraint on something"
-msgstr ""
-
-#: sheets/UML.sheet.in.h:4
-#, fuzzy
-msgid "Create a (large) package"
-msgstr "KÈp kÈszÌtÈse"
-
-#: sheets/UML.sheet.in.h:5
-#, fuzzy
-msgid "Create a (small) package"
-msgstr "KÈp kÈszÌtÈse"
-
-#: sheets/UML.sheet.in.h:6
-#, fuzzy
-msgid "Create a branch"
-msgstr "KˆrÌv kÈszÌtÈse"
-
 #: sheets/UML.sheet.in.h:7
 #, fuzzy
-msgid "Create a class"
-msgstr "Sablon oszt·ly"
+msgid "Class stereotype icon"
+msgstr "Sablon oszt√°ly"
 
 #: sheets/UML.sheet.in.h:8
 #, fuzzy
-msgid "Create a class stereotype icon"
-msgstr "Sablon oszt·ly"
+msgid "Component"
+msgstr "Dokumentum"
 
 #: sheets/UML.sheet.in.h:9
-#, fuzzy
-msgid "Create a component"
-msgstr "Sokszˆg kÈszÌtÈse"
+msgid "Constraint, place a constraint on something"
+msgstr ""
 
 #: sheets/UML.sheet.in.h:10
 #, fuzzy
-msgid "Create a dependency"
-msgstr "Bezier-gˆrbe kÈszÌtÈse"
+msgid "Dependency"
+msgstr "Bezier-g√∂rbe k√©sz√≠t√©se"
 
 #: sheets/UML.sheet.in.h:11
-#, fuzzy
-msgid "Create a fork/union"
-msgstr "Felhaszn·lÛi f¸ggvÈny"
-
-#: sheets/UML.sheet.in.h:12
-#, fuzzy
-msgid "Create a initial/end state"
-msgstr "Vonal kÈszÌtÈse"
-
-#: sheets/UML.sheet.in.h:13
-#, fuzzy
-msgid "Create a lifeline"
-msgstr "Bezier-gˆrbe kÈszÌtÈse"
-
-#: sheets/UML.sheet.in.h:14
-#, fuzzy
-msgid "Create a message"
-msgstr "KÈp kÈszÌtÈse"
-
-#: sheets/UML.sheet.in.h:15
-#, fuzzy
-msgid "Create a node"
-msgstr "Vonal kÈszÌtÈse"
-
-#: sheets/UML.sheet.in.h:16
-#, fuzzy
-msgid "Create a note"
-msgstr "Vonal kÈszÌtÈse"
-
-#: sheets/UML.sheet.in.h:17
-#, fuzzy
-msgid "Create a state"
-msgstr "Vonal kÈszÌtÈse"
-
-#: sheets/UML.sheet.in.h:18
-#, fuzzy
-msgid "Create a template class"
-msgstr "Sablon oszt·ly"
-
-#: sheets/UML.sheet.in.h:19
-#, fuzzy
-msgid "Create a use case"
-msgstr "KÈp kÈszÌtÈse"
-
-#: sheets/UML.sheet.in.h:20
-#, fuzzy
-msgid "Create an activity"
-msgstr "⁄j ·bra kÈszÌtÈse"
-
-#: sheets/UML.sheet.in.h:21
-#, fuzzy
-msgid "Create an actor"
-msgstr "⁄j ·bra kÈszÌtÈse"
-
-#: sheets/UML.sheet.in.h:22
-#, fuzzy
-msgid "Create an object"
-msgstr "Vonal kÈszÌtÈse"
-
-#: sheets/UML.sheet.in.h:23
 #, fuzzy
 msgid "Editor for UML Static Structure Diagrams"
 msgstr "Egyed-kapcsolat diagram objektumok"
 
-#: sheets/UML.sheet.in.h:24
+#: sheets/UML.sheet.in.h:12
+#, fuzzy
+msgid "Fork/union"
+msgstr "F√ºggv√©ny:"
+
+#: sheets/UML.sheet.in.h:13
 msgid "Generalization, class inheritance"
 msgstr ""
 
-#: sheets/UML.sheet.in.h:25
+#: sheets/UML.sheet.in.h:14
 msgid "Implements, class implements a specific interface"
 msgstr ""
 
-#: sheets/UML.sheet.in.h:26
+#: sheets/UML.sheet.in.h:15
+#, fuzzy
+msgid "Initial/end state"
+msgstr "Vonal k√©sz√≠t√©se"
+
+#: sheets/UML.sheet.in.h:16
+#, fuzzy
+msgid "Large package"
+msgstr "K√©p k√©sz√≠t√©se"
+
+#: sheets/UML.sheet.in.h:17
+#, fuzzy
+msgid "Lifeline"
+msgstr "Vonal"
+
+#: sheets/UML.sheet.in.h:18
+#, fuzzy
+msgid "Message"
+msgstr "√úzenet:"
+
+#: sheets/UML.sheet.in.h:19
+#, fuzzy
+msgid "Node"
+msgstr "Nincs"
+
+# lib/message.c:120
+#: sheets/UML.sheet.in.h:20
+#, fuzzy
+msgid "Note"
+msgstr "Megjegyz√©s"
+
+#: sheets/UML.sheet.in.h:22
 msgid "Realizes, implements a specific interface"
 msgstr ""
 
-#: sheets/UML.sheet.in.h:27
+#: sheets/UML.sheet.in.h:23
+#, fuzzy
+msgid "Small package"
+msgstr "K√©p k√©sz√≠t√©se"
+
+#: sheets/UML.sheet.in.h:26
 msgid "UML"
 msgstr ""
 
+#: sheets/UML.sheet.in.h:27
+msgid "Use case"
+msgstr ""
+
+#~ msgid "Untitled-%d"
+#~ msgstr "N√©vtelen-%d"
+
+#~ msgid ""
+#~ "The anti aliased renderer is buggy, and may cause\n"
+#~ "crashes.  We know there are bugs in it, so don't\n"
+#~ "bother submitting another report if it crashes"
+#~ msgstr ""
+#~ "Az √©lsim√≠t√°st haszn√°l√≥ megjelen√≠t≈ë rutin hib√°s,\n"
+#~ "ez√©rt a program √∂sszeomolhat. Tudjunk a hib√°r√≥l, ez√©rt\n"
+#~ "err≈ël k√©r√ºnk ne k√ºldj hibajelent√©st."
+
+#~ msgid "Create Text"
+#~ msgstr "Sz√∂veg k√©sz√≠t√©se"
+
+#~ msgid "Create Box"
+#~ msgstr "Doboz k√©sz√≠t√©se"
+
+#~ msgid "Create Ellipse"
+#~ msgstr "Ellipszis k√©sz√≠t√©se"
+
+#~ msgid "Create Polygon"
+#~ msgstr "Soksz√∂g k√©sz√≠t√©se"
+
+#~ msgid "Create Beziergon"
+#~ msgstr "Bezier-s√≠kidom k√©sz√≠t√©se"
+
+#~ msgid "Create Line"
+#~ msgstr "Vonal k√©sz√≠t√©se"
+
+#~ msgid "Create Arc"
+#~ msgstr "K√∂r√≠v k√©sz√≠t√©se"
+
+#~ msgid "Create Zigzagline"
+#~ msgstr "Cikkcakkvonal k√©sz√≠t√©se"
+
+#~ msgid "Create Polyline"
+#~ msgstr "T√∂r√∂ttvonal k√©sz√≠t√©se"
+
+#~ msgid "Create Bezierline"
+#~ msgstr "Bezier-g√∂rbe k√©sz√≠t√©se"
+
+#~ msgid "Create Image"
+#~ msgstr "K√©p k√©sz√≠t√©se"
+
+#~ msgid "/File/_Open"
+#~ msgstr "/F√°jl/_Megnyit"
+
+#~ msgid "/Dialogs/_Properties"
+#~ msgstr "/P√°rbesz√©dek/_Tulajdons√°gok"
+
+#~ msgid "Apply"
+#~ msgstr "Alkalmaz"
+
+#, fuzzy
+#~ msgid "Show at startup:"
+#~ msgstr "Automatikus bet√∂lt√©s indul√°skor"
+
+#, fuzzy
+#~ msgid "Default width:"
+#~ msgstr "Vonal sz√©less√©ge"
+
+#, fuzzy
+#~ msgid "Line gaps"
+#~ msgstr "Vonalak"
+
+#, fuzzy
+#~ msgid "Start at object edge"
+#~ msgstr "Vonal k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Could not load XSLT library (%s) : %s"
+#~ msgstr ""
+#~ "%s b≈ëv√≠tm√©ny bet√∂lt√©se sikertlen\n"
+#~ "%s"
+
+#, fuzzy
+#~ msgid "A lamp"
+#~ msgstr "K√©sleltet√©s"
+
+#, fuzzy
+#~ msgid "A pnp bipolar transistor"
+#~ msgstr "Tranzit√≠v"
+
+#, fuzzy
+#~ msgid "A relay"
+#~ msgstr "K√©sleltet√©s"
+
+#, fuzzy
+#~ msgid "Create a process"
+#~ msgstr "K√∂r√≠v k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Create a flow"
+#~ msgstr "Doboz k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Create a function"
+#~ msgstr "Felhaszn√°l√≥i f√ºggv√©ny"
+
+#, fuzzy
+#~ msgid "A macro call step"
+#~ msgstr "G√∂rget"
+
+#, fuzzy
+#~ msgid "A macro entry step"
+#~ msgstr "G√∂rget"
+
+#, fuzzy
+#~ msgid "A macro exit step"
+#~ msgstr "G√∂rget"
+
+#, fuzzy
+#~ msgid "A regular step"
+#~ msgstr "Cser√©l"
+
+#, fuzzy
+#~ msgid "A transition"
+#~ msgstr "Tranzit√≠v"
+
+#, fuzzy
+#~ msgid "A Nand gate"
+#~ msgstr "Aggreg√°l"
+
+#, fuzzy
+#~ msgid "A Not"
+#~ msgstr "Aggreg√°l"
+
+#, fuzzy
+#~ msgid "An And gate"
+#~ msgstr "Aggreg√°l"
+
+#, fuzzy
+#~ msgid "An Inverter"
+#~ msgstr "Invert√°l"
+
+#, fuzzy
+#~ msgid "A File"
+#~ msgstr "F√°jl"
+
+#, fuzzy
+#~ msgid "Create a branch"
+#~ msgstr "K√∂r√≠v k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Create a class"
+#~ msgstr "Sablon oszt√°ly"
+
+#, fuzzy
+#~ msgid "Create a component"
+#~ msgstr "Soksz√∂g k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Create a fork/union"
+#~ msgstr "Felhaszn√°l√≥i f√ºggv√©ny"
+
+#, fuzzy
+#~ msgid "Create a lifeline"
+#~ msgstr "Bezier-g√∂rbe k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Create a message"
+#~ msgstr "K√©p k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Create a node"
+#~ msgstr "Vonal k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Create a note"
+#~ msgstr "Vonal k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Create a state"
+#~ msgstr "Vonal k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Create a template class"
+#~ msgstr "Sablon oszt√°ly"
+
+#, fuzzy
+#~ msgid "Create a use case"
+#~ msgstr "K√©p k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Create an activity"
+#~ msgstr "√öj √°bra k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Create an actor"
+#~ msgstr "√öj √°bra k√©sz√≠t√©se"
+
+#, fuzzy
+#~ msgid "Create an object"
+#~ msgstr "Vonal k√©sz√≠t√©se"
+
 #~ msgid "_Visible Grid"
-#~ msgstr "_L·thatÛ r·cs"
+#~ msgstr "_L√°that√≥ r√°cs"
 
 #~ msgid "/View/_Visible Grid"
-#~ msgstr "/NÈzet/_L·thatÛ r·cs"
+#~ msgstr "/N√©zet/_L√°that√≥ r√°cs"
 
 #~ msgid "/Objects/Align Vertical/Center"
-#~ msgstr "/Objektumok/F¸ggıleges igazÌt·s/KˆzÈpre"
+#~ msgstr "/Objektumok/F√ºgg≈ëleges igaz√≠t√°s/K√∂z√©pre"
 
 #~ msgid "Alignment:"
-#~ msgstr "ElhelyezkedÈs:"
+#~ msgstr "Elhelyezked√©s:"
 
 #~ msgid "Font:"
-#~ msgstr "Bet˚tÌpus:"
+#~ msgstr "Bet≈±t√≠pus:"
 
 #, fuzzy
 #~ msgid "Font size:"
-#~ msgstr "Bet˚mÈret:"
+#~ msgstr "Bet≈±m√©ret:"
 
 #~ msgid "Corner rounding:"
-#~ msgstr "SaroklekerekÌtÈs:"
+#~ msgstr "Saroklekerek√≠t√©s:"
 
 #, fuzzy
 #~ msgid "State Type"
-#~ msgstr "Azonos tÌpus"
+#~ msgstr "Azonos t√≠pus"
 
 #~ msgid "A Diagram Editor"
-#~ msgstr "¡braszerkesztı program"
+#~ msgstr "√Åbraszerkeszt≈ë program"
 
 #~ msgid "Image file:"
-#~ msgstr "KÈpf·jl:"
+#~ msgstr "K√©pf√°jl:"
 
 #~ msgid "Keep aspect ratio:"
-#~ msgstr "Felbont·si ar·ny megtart·sa:"
+#~ msgstr "Felbont√°si ar√°ny megtart√°sa:"
 
 #~ msgid "Maintainer: James Henstridge"
-#~ msgstr "KarbantartÛ: James Henstridge"
+#~ msgstr "Karbantart√≥: James Henstridge"
 
 #~ msgid "Fontsize:"
-#~ msgstr "Bet˚mÈret:"
+#~ msgstr "Bet≈±m√©ret:"
 
 #~ msgid "Print Diagram"
-#~ msgstr "¡bra nyomtat·sa"
+#~ msgstr "√Åbra nyomtat√°sa"
 
 #, fuzzy
 #~ msgid "An error occured while creating the print context"
-#~ msgstr "A PNG Ìr·sakor hiba lÈpett fel"
+#~ msgstr "A PNG √≠r√°sakor hiba l√©pett fel"
 
 #~ msgid "yes"
 #~ msgstr "igen"
@@ -6695,44 +6824,44 @@ msgstr ""
 #~ msgstr "nem"
 
 #~ msgid "Load"
-#~ msgstr "Betˆlt"
+#~ msgstr "Bet√∂lt"
 
 #~ msgid "Unload"
-#~ msgstr "Elt·volÌt"
+#~ msgstr "Elt√°vol√≠t"
 
 #, fuzzy
 #~ msgid "<Toolbox>/File/Exit"
-#~ msgstr "F·jl/KilÈp"
+#~ msgstr "F√°jl/Kil√©p"
 
 #~ msgid ""
 #~ "Warning no X Font for %s found, \n"
 #~ "using %s instead.\n"
 #~ msgstr ""
 #~ "Figyelem! %s-hez nincs X font, \n"
-#~ "%s-t haszn·lok.\n"
+#~ "%s-t haszn√°lok.\n"
 
 #, fuzzy
 #~ msgid "Warning: No X fonts found.  The world is ending."
 #~ msgstr ""
 #~ "Figyelem! %s-hez nincs X font, \n"
-#~ "%s-t haszn·lok.\n"
+#~ "%s-t haszn√°lok.\n"
 
 # lib/font.c:440
 #~ msgid "Font %s not found, using Courier instead.\n"
-#~ msgstr "%s bet˚kÈszlet nincs, Couriert haszn·lok helyette.\n"
+#~ msgstr "%s bet≈±k√©szlet nincs, Couriert haszn√°lok helyette.\n"
 
 #~ msgid "Quit, are you sure?"
-#~ msgstr "KilÈpsz, tÈnyleg?"
+#~ msgstr "Kil√©psz, t√©nyleg?"
 
 #~ msgid "Quit"
-#~ msgstr "KilÈpÈs"
+#~ msgstr "Kil√©p√©s"
 
 #~ msgid "Really close?"
-#~ msgstr "TÈnyleg bez·rod?"
+#~ msgstr "T√©nyleg bez√°rod?"
 
 #, fuzzy
 #~ msgid "_New"
-#~ msgstr "⁄j"
+#~ msgstr "√öj"
 
 #, fuzzy
 #~ msgid "Down"
@@ -6740,148 +6869,132 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "_Remove"
-#~ msgstr "Tˆrˆl"
+#~ msgstr "T√∂r√∂l"
 
 #~ msgid "`%s' is not a directory"
-#~ msgstr "`%s' nem kˆnyvt·r"
-
-#, fuzzy
-#~ msgid "Sybase replication domain diagram objects"
-#~ msgstr "Objektumok h·lÛzati diagrammokhoz"
+#~ msgstr "`%s' nem k√∂nyvt√°r"
 
 #~ msgid "Error reading diagram file\n"
-#~ msgstr "¡braf·jl beolvas·si hiba\n"
+#~ msgstr "√Åbraf√°jl beolvas√°si hiba\n"
 
 #, fuzzy
 #~ msgid "Number of processes:"
-#~ msgstr "Visszavon·sok sz·ma:"
+#~ msgstr "Visszavon√°sok sz√°ma:"
 
 #, fuzzy
 #~ msgid "multiple"
-#~ msgstr "Multiplicit·s:"
+#~ msgstr "Multiplicit√°s:"
 
 #, fuzzy
 #~ msgid "Single"
-#~ msgstr "Egyszer˚"
+#~ msgstr "Egyszer≈±"
 
 #, fuzzy
 #~ msgid "Multiple"
-#~ msgstr "Multiplicit·s:"
+#~ msgstr "Multiplicit√°s:"
 
 #, fuzzy
 #~ msgid "Instantiation"
-#~ msgstr "TranzitÌv"
+#~ msgstr "Tranzit√≠v"
 
 #, fuzzy
 #~ msgid "Unidirectional"
-#~ msgstr "Ir·ny:"
+#~ msgstr "Ir√°ny:"
 
 #, fuzzy
 #~ msgid "Bidirectional"
-#~ msgstr "Ir·ny:"
+#~ msgstr "Ir√°ny:"
 
 # objects/UML/implements.c:561
 #, fuzzy
 #~ msgid "Interaction name:"
-#~ msgstr "Fel¸let:"
+#~ msgstr "Fel√ºlet:"
 
 #, fuzzy
 #~ msgid "bidirectional"
-#~ msgstr "Ir·ny:"
+#~ msgstr "Ir√°ny:"
 
 #, fuzzy
 #~ msgid "relation"
-#~ msgstr "ElıkÈszÌtÈs"
+#~ msgstr "El≈ëk√©sz√≠t√©s"
 
 #, fuzzy
 #~ msgid "Interface functions"
-#~ msgstr "Felhaszn·lÛi f¸ggvÈny"
-
-#, fuzzy
-#~ msgid "Function"
-#~ msgstr "F¸ggvÈny:"
+#~ msgstr "Felhaszn√°l√≥i f√ºggv√©ny"
 
 #, fuzzy
 #~ msgid "Function module:"
-#~ msgstr "F¸ggvÈny:"
+#~ msgstr "F√ºggv√©ny:"
 
 # objects/UML/implements.c:561
 #, fuzzy
 #~ msgid "Interfaces"
-#~ msgstr "Fel¸let:"
+#~ msgstr "Fel√ºlet:"
 
 # objects/UML/implements.c:561
 #, fuzzy
 #~ msgid "Interface"
-#~ msgstr "Fel¸let:"
+#~ msgstr "Fel√ºlet:"
 
 # objects/UML/implements.c:561
 #, fuzzy
 #~ msgid "Interface name:"
-#~ msgstr "Fel¸let:"
+#~ msgstr "Fel√ºlet:"
 
 #, fuzzy
 #~ msgid "Interface messages"
-#~ msgstr "RekurzÌv"
-
-#, fuzzy
-#~ msgid "Message"
-#~ msgstr "‹zenet:"
+#~ msgstr "Rekurz√≠v"
 
 #, fuzzy
 #~ msgid "Message parameters"
-#~ msgstr "‹zenet tÌpusa:"
+#~ msgstr "√úzenet t√≠pusa:"
 
 #, fuzzy
 #~ msgid "Message parameter"
-#~ msgstr "‹zenet tÌpusa:"
+#~ msgstr "√úzenet t√≠pusa:"
 
 #, fuzzy
 #~ msgid "Functions"
-#~ msgstr "F¸ggvÈny:"
+#~ msgstr "F√ºggv√©ny:"
 
 #, fuzzy
 #~ msgid "Messages"
-#~ msgstr "‹zenet:"
+#~ msgstr "√úzenet:"
 
 #, fuzzy
 #~ msgid "Process name:"
-#~ msgstr "VÈdett"
+#~ msgstr "V√©dett"
 
 #, fuzzy
 #~ msgid "Process reference name:"
-#~ msgstr "Tulajdons·gok"
+#~ msgstr "Tulajdons√°gok"
 
 #, fuzzy
 #~ msgid "Module name:"
-#~ msgstr "RÈteg neve:"
+#~ msgstr "R√©teg neve:"
 
 #, fuzzy
 #~ msgid "Function parameters"
-#~ msgstr "F¸ggvÈny:"
+#~ msgstr "F√ºggv√©ny:"
 
 #, fuzzy
 #~ msgid "Parameter"
-#~ msgstr "ParamÈterek:"
-
-#, fuzzy
-#~ msgid "Relation members"
-#~ msgstr "Rokons·g"
+#~ msgstr "Param√©terek:"
 
 #, fuzzy
 #~ msgid "/File/Open _Recent"
-#~ msgstr "/F·jl/_Megnyit"
+#~ msgstr "/F√°jl/_Megnyit"
 
 #, fuzzy
 #~ msgid "/File/Open Recent/---"
-#~ msgstr "/F·jl/_Megnyit"
+#~ msgstr "/F√°jl/_Megnyit"
 
 #~ msgid "Grid:"
-#~ msgstr "R·cs:"
+#~ msgstr "R√°cs:"
 
 #, fuzzy
 #~ msgid "/File/Open Recent/"
-#~ msgstr "/F·jl/_Megnyit"
+#~ msgstr "/F√°jl/_Megnyit"
 
 #~ msgid "abstract"
 #~ msgstr "absztrakt"
@@ -6890,87 +7003,84 @@ msgstr ""
 #~ "No such file found\n"
 #~ "%s\n"
 #~ msgstr ""
-#~ "Nincs ilyen f·jl\n"
+#~ "Nincs ilyen f√°jl\n"
 #~ "%s\n"
 
 #~ msgid "Import from XFig"
-#~ msgstr "Import·l·s Xfig-bıl"
+#~ msgstr "Import√°l√°s Xfig-b≈ël"
 
 #~ msgid "No edit widget"
 #~ msgstr "Nincs edit widget"
 
 #, fuzzy
 #~ msgid "Text color:"
-#~ msgstr "V·lassz ki egy szÌnt"
+#~ msgstr "V√°lassz ki egy sz√≠nt"
 
 #, fuzzy
 #~ msgid "Font color:"
-#~ msgstr "ElıtÈr szÌn:"
+#~ msgstr "El≈ët√©r sz√≠n:"
 
 #~ msgid "Attributes:"
-#~ msgstr "Attrib˙tumok:"
+#~ msgstr "Attrib√∫tumok:"
 
 #, fuzzy
 #~ msgid ""
 #~ "Dia v %s\n"
 #~ " by Alexander Larsson"
-#~ msgstr "Dia v %s. Szerzı: Alexander Larsson"
+#~ msgstr "Dia v %s. Szerz≈ë: Alexander Larsson"
 
 #, fuzzy
 #~ msgid "      Rotate"
-#~ msgstr "Forgat·s"
+#~ msgstr "Forgat√°s"
 
 #, fuzzy
 #~ msgid "      Remove"
-#~ msgstr "Tˆrˆl"
+#~ msgstr "T√∂r√∂l"
 
 #~ msgid "Border width:"
-#~ msgstr "Keret szÈlessÈg:"
-
-#~ msgid "Background color:"
-#~ msgstr "H·ttÈr szÌn:"
+#~ msgstr "Keret sz√©less√©g:"
 
 #~ msgid "Asynchronous"
 #~ msgstr "Aszinkron"
 
 #~ msgid "/Dialogs/tearoff"
-#~ msgstr "/DialÛgusok/tearoff"
+#~ msgstr "/Dial√≥gusok/tearoff"
 
 #~ msgid "/Edit/Copy"
-#~ msgstr "/Szerkeszt/M·sol"
+#~ msgstr "/Szerkeszt/M√°sol"
 
 #~ msgid "/Edit/Delete"
-#~ msgstr "/Szerkeszt/Tˆrˆl"
+#~ msgstr "/Szerkeszt/T√∂r√∂l"
 
 #~ msgid "/Edit/Paste"
 #~ msgstr "/Szerkeszt/Beilleszt"
 
 #~ msgid "/Edit/Paste Text"
-#~ msgstr "/Szerkeszt/Szˆveget Beilleszt"
+#~ msgstr "/Szerkeszt/Sz√∂veget Beilleszt"
 
 #~ msgid "/Edit/tearoff"
 #~ msgstr "/Szerkeszt/tearoff"
 
 #~ msgid "/File/sep1"
-#~ msgstr "/F·jl/sep1"
+#~ msgstr "/F√°jl/sep1"
 
 #~ msgid "/File/sep2"
-#~ msgstr "/F·jl/sep2"
+#~ msgstr "/F√°jl/sep2"
 
 #~ msgid "/File/tearoff"
-#~ msgstr "/F·jl/tearoff"
+#~ msgstr "/F√°jl/tearoff"
 
 #~ msgid "/Objects/Align Horizontal/tearoff"
 #~ msgstr "/Objektumok/Vizszintes/tearoff"
 
 #~ msgid "/Objects/Align Vertical/tearoff"
-#~ msgstr "/Objektumok/F¸ggıleges/tearoff"
+#~ msgstr "/Objektumok/F√ºgg≈ëleges/tearoff"
 
 #~ msgid "/Objects/Group"
-#~ msgstr "/Objektumok/CsoportosÌt"
+#~ msgstr "/Objektumok/Csoportos√≠t"
 
 #~ msgid "/Objects/Ungroup"
-#~ msgstr "/Objektumok/Csoport felbon·sa"
+#~ msgstr "/Objektumok/Csoport felbon√°sa"
 
 #~ msgid "/Objects/sep1"
 #~ msgstr "/Objektumok/sep1"
@@ -6979,49 +7089,46 @@ msgstr ""
 #~ msgstr "/Objektumok/tearoff1"
 
 #~ msgid "/Select/sep1"
-#~ msgstr "/Kijelˆl/sep1"
+#~ msgstr "/Kijel√∂l/sep1"
 
 #~ msgid "/Select/tearoff"
-#~ msgstr "/Kijelˆl/tearoff"
+#~ msgstr "/Kijel√∂l/tearoff"
 
 #~ msgid "/Tools/tearoff"
-#~ msgstr "/Eszkˆzˆk/tearoff"
+#~ msgstr "/Eszk√∂z√∂k/tearoff"
 
 #~ msgid "/View/Show Connection Points"
-#~ msgstr "/NÈzet/Csatlakoz·si pontokat mutat"
+#~ msgstr "/N√©zet/Csatlakoz√°si pontokat mutat"
 
 #~ msgid "/View/Show Rulers"
-#~ msgstr "/NÈzet/VonalzÛk"
+#~ msgstr "/N√©zet/Vonalz√≥k"
 
 #~ msgid "/View/Snap To Grid"
-#~ msgstr "/NÈzet/R·csra illeszt"
+#~ msgstr "/N√©zet/R√°csra illeszt"
 
 #~ msgid "/View/Visible Grid"
-#~ msgstr "/NÈzet/L·thatÛ r·cs"
+#~ msgstr "/N√©zet/L√°that√≥ r√°cs"
 
 #~ msgid "/View/Zoom/tearoff"
-#~ msgstr "/NÈzet/NagyÌt·s/tearoff"
+#~ msgstr "/N√©zet/Nagy√≠t√°s/tearoff"
 
 #~ msgid "/View/sep1"
-#~ msgstr "/NÈzet/sep1"
+#~ msgstr "/N√©zet/sep1"
 
 #~ msgid "/View/tearoff"
-#~ msgstr "/NÈzet/tearoff"
+#~ msgstr "/N√©zet/tearoff"
 
 #~ msgid "/tearoff"
 #~ msgstr "/tearoff"
 
 #~ msgid "File/Close"
-#~ msgstr "F·jl/Bez·r"
+#~ msgstr "F√°jl/Bez√°r"
 
 #~ msgid "File/New diagram"
-#~ msgstr "F·jl/⁄j diagramm"
-
-#~ msgid "File/Open..."
-#~ msgstr "F·jl/Megnyit..."
+#~ msgstr "F√°jl/√öj diagramm"
 
 #~ msgid "File/Save As..."
-#~ msgstr "F·jl/MentÈs m·skÈnt..."
+#~ msgstr "F√°jl/Ment√©s m√°sk√©nt..."
 
 #~ msgid "View/New View"
-#~ msgstr "NÈzet/⁄j nÈzet"
+#~ msgstr "N√©zet/√öj n√©zet"
