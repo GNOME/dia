@@ -96,17 +96,17 @@ create_object_menu(DiaMenu *dia_menu)
   GtkWidget *menu_item;
 
   menu = gtk_menu_new();
-  gtk_menu_ensure_uline_accel_group (GTK_MENU (menu)) ;
+  //FIXME: gtk_menu_ensure_uline_accel_group (GTK_MENU (menu)) ;
 
   if ( dia_menu->title ) {
     menu_item = gtk_menu_item_new_with_label(gettext(dia_menu->title));
     gtk_widget_set_sensitive(menu_item, FALSE);
-    gtk_menu_append(GTK_MENU(menu), menu_item);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     gtk_widget_show(menu_item);
   }
 
   menu_item = gtk_menu_item_new();
-  gtk_menu_append(GTK_MENU(menu), menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
   gtk_widget_show(menu_item);
 
   for (i=0;i<dia_menu->num_items;i++) {
@@ -116,7 +116,7 @@ create_object_menu(DiaMenu *dia_menu)
       menu_item = gtk_menu_item_new_with_label(gettext(label));
     else
       menu_item = gtk_menu_item_new();
-    gtk_menu_append(GTK_MENU(menu), menu_item);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     gtk_widget_show(menu_item);
     dia_menu->items[i].app_data = menu_item;
     if ( dia_menu->items[i].callback ) {
@@ -193,7 +193,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
       no_menu = gtk_menu_new();
 
       menu_item = gtk_menu_item_new_with_label(_("No object menu"));
-      gtk_menu_append(GTK_MENU(no_menu), menu_item);
+      gtk_menu_shell_append (GTK_MENU_SHELL (no_menu), menu_item);
       gtk_widget_show(menu_item);
       gtk_widget_set_sensitive(menu_item, FALSE);
     }
@@ -216,7 +216,7 @@ ddisplay_focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data)
   ddisp = (DDisplay *)data;
 
   GTK_WIDGET_SET_FLAGS(widget, GTK_HAS_FOCUS);
-  gtk_widget_draw_focus(widget);
+  //FIXME: gtk_widget_draw_focus(widget);
 
 #ifdef USE_XIM
   if (gdk_im_ready () && ddisp->ic)
@@ -241,7 +241,7 @@ ddisplay_focus_out_event(GtkWidget *widget, GdkEventFocus *event,gpointer data)
   ddisp = (DDisplay *)data;
 
   GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
-  gtk_widget_draw_focus (widget);
+  //FIXME: gtk_widget_draw_focus (widget);
 
 #ifdef USE_XIM
   gdk_im_end ();

@@ -155,11 +155,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
   if (!tmp) tmp = "/tmp";
 
   res = g_strconcat(tmp,G_DIR_SEPARATOR_S,"dia-xml-fix-encodingXXXXXX",NULL);
-#if GLIB_CHECK_VERSION(1,3,2)
   uf = g_mkstemp(res);
-#else
-  uf = mkstemp(res);
-#endif
   write(uf,buf,p-buf);
   write(uf," encoding=\"",11);
   write(uf,default_enc,strlen(default_enc));
@@ -919,7 +915,7 @@ int xmlDiaSaveFile(const char *filename,
 #ifdef HAVE_ZLIB_H
     if (cur->compression < 0) cur->compression = 0;
     if ((cur->compression > 0) && (cur->compression <= 9)) {
-        sprintf(mode, "w%d", cur->compression);
+        sprintf(mode, "wb%d", cur->compression);
         if (!strcmp(filename, "-")) 
             zoutput = gzdopen(1, mode);
         else
@@ -927,11 +923,8 @@ int xmlDiaSaveFile(const char *filename,
     }
     if (zoutput == NULL) {
 #endif
-#ifdef WIN32
+        /* b(=binary) required on win32, but portable*/
         output = fopen(filename, "wb");
-#else
-        output = fopen(filename, "w");
-#endif
         if (output == NULL) {
             return(-1);
         }

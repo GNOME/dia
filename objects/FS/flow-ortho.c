@@ -25,6 +25,7 @@
 #endif
 
 #include <assert.h>
+#define GTK_ENABLE_BROKEN /* GtkText */ 
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>

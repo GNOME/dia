@@ -28,9 +28,6 @@
 #endif
 #include <sys/types.h>
 #include <sys/stat.h>
-#ifdef HAVE_DIRENT_H
-#include <dirent.h>
-#endif
 #include <glib.h>
 
 #include "sheet.h"
@@ -61,23 +58,18 @@ custom_object_load(gchar *filename, ObjectType **otype)
 
 static void load_shapes_from_tree(const gchar *directory)
 {
-  DIR *dp;
-  struct dirent *dirp;
+  GDir *dp;
+  const char *dentry;
   struct stat statbuf;
 
-  dp = opendir(directory);
+  dp = g_dir_open(directory, 0, NULL);
   if (dp == NULL) {
     return;
   }
-  while ( (dirp = readdir(dp)) ) {
+  while ( (dentry = g_dir_read_name(dp)) ) {
     gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
-				  dirp->d_name, NULL);
+				  dentry, NULL);
     gchar *p;
-
-    if (!strcmp(dirp->d_name, ".") || !strcmp(dirp->d_name, "..")) {
-      g_free(filename);
-      continue;
-    }
 
     if (stat(filename, &statbuf) < 0) {
       g_free(filename);
@@ -89,13 +81,13 @@ static void load_shapes_from_tree(const gchar *directory)
       continue;
     }
     /* if it's not a directory, then it must be a .shape file */
-    if (!S_ISREG(statbuf.st_mode) || (strlen(dirp->d_name) < 6)) {
+    if (!S_ISREG(statbuf.st_mode) || (strlen(dentry) < 6)) {
       g_free(filename);
       continue;
     }
     
 
-    p = dirp->d_name + strlen(dirp->d_name) - 6;
+    p = dentry + strlen(dentry) - 6;
     if (0==strcmp(".shape",p)) {
       ObjectType *ot;
 
@@ -109,7 +101,7 @@ static void load_shapes_from_tree(const gchar *directory)
     }
     g_free(filename);
   }
-  closedir(dp);
+  g_dir_close(dp);
 }
 
 

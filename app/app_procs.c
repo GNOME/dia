@@ -201,7 +201,7 @@ app_init (int argc, char **argv)
 #ifdef HAVE_POPT
 #ifndef GNOME
   int rc = 0;
-#endif  
+#endif
   poptContext poptCtx = NULL;
   struct poptOption options[] =
   {
@@ -420,7 +420,7 @@ app_exit(void)
 {
   GList *list;
   GSList *slist;
-  gchar *filename;
+
   /*
    * The following "solves" a crash related to a second call of app_exit,
    * after gtk_main_quit was called. It may be a win32 gtk-1.3.x bug only
@@ -504,18 +504,6 @@ app_exit(void)
       return;
   }
   
-  /* Save menu accelerators */
-  filename = dia_config_filename("menus" G_DIR_SEPARATOR_S "toolbox");
-  if (filename!=NULL) {
-    GtkPatternSpec pattern;
-
-    gtk_pattern_spec_init(&pattern, "*<Toolbox>*");
-
-    gtk_item_factory_dump_rc (filename, &pattern, TRUE);
-    g_free (filename);
-    gtk_pattern_spec_free_segs(&pattern);
-  }
-
   /* Free loads of stuff (toolbox) */
 
   list = open_diagrams;

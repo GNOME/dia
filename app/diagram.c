@@ -128,19 +128,6 @@ diagram_destroy(Diagram *dia)
   
   g_free(dia->filename);
 
-  /* Save menu accelerators */
-  home_path = dia_config_filename("menus" G_DIR_SEPARATOR_S "display");
-
-  if (home_path != NULL) {
-    GtkPatternSpec pattern;
-
-    gtk_pattern_spec_init(&pattern, "*<Display>*");
-
-    gtk_item_factory_dump_rc (home_path, &pattern, TRUE);
-    g_free (home_path);
-    gtk_pattern_spec_free_segs(&pattern);
-  }
-
   open_diagrams = g_list_remove(open_diagrams, dia);
   layer_dialog_update_diagram_list();
 
@@ -484,6 +471,7 @@ diagram_flush(Diagram *dia)
 {
   GSList *l;
   DDisplay *ddisp;
+
   l = dia->displays;
   while(l!=NULL) {
     ddisp = (DDisplay *) l->data;

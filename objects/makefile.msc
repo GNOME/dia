@@ -1,9 +1,7 @@
 !IFNDEF PACKAGE
 
 PLUGINS = chronogram custom er flowchart fs grafcet \
-		network sadt standard uml
-
-#outdated:	labels
+		network sadt standard uml 
 
 # now shapes only: sybase 
 # specware eml 
@@ -25,12 +23,13 @@ TOP = ..\..\..
 PRJ_TOP = ..\..
 PKG_DEF = ..\objects.def
 
-!INCLUDE $(TOP)\build\win32\make.msc
+!INCLUDE $(TOP)\glib\build\win32\make.msc
 
-PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS) \
+PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
+	$(GLIB_CFLAGS) $(GTK2_CFLAGS) $(INTL_CFLAGS) \
 	$(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
 
-PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(INTL_LIBS) \
+PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(INTL_LIBS) \
 	$(LIBXML2_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib
 
@@ -115,23 +114,20 @@ OBJECTS = \
 
 !IFDEF OBJ_network
 OBJECTS = \
-	bus.obj \
-	network.obj \
-	wanlink.obj
-
-# these are already 'shaped'
-NOT_USED = \
 	computer.obj \
 	disc.obj \
 	monitor.obj \
 	printer.obj \
+	bus.obj \
+	network.obj \
 	antenna.obj \
 	modem.obj \
 	flash.obj \
 	hub.obj \
 	modularswitch.obj \
 	rj45plug.obj \
-	scead-plug.obj
+	scead-plug.obj \
+	wanlink.obj
 !ENDIF
 
 !IFDEF OBJ_sadt

@@ -1,8 +1,8 @@
 !IFNDEF PACKAGE
 
-PLUGINS = cgm dummy dxf hpgl metapost pstricks shape svg wmf wpg xfig
+PLUGINS = cgm dummy dxf hpgl pstricks shape svg wmf wpg xfig
 
-#broken since StdProp overhaul : diaimport 
+# Dead since StdProp overhal
 
 # The main target
 all : sub-all
@@ -21,13 +21,14 @@ TOP = ..\..\..
 PRJ_TOP = ..\..
 PKG_DEF = ..\objects.def
 
-!INCLUDE $(TOP)\build\win32\make.msc
+!INCLUDE $(TOP)\glib\build\win32\make.msc
 
-PKG_CFLAGS = $(GLIB_CFLAGS) $(GTK_CFLAGS) \
+PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
+	$(GLIB_CFLAGS) $(GTK2_CFLAGS) \
 	-I. $(LIBXML2_CFLAGS) -I$(PRJ_TOP)\lib \
 	-DVERSION=\"0.89\"
 
-PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) \
+PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) \
 	$(LIBXML2_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib
 
@@ -40,12 +41,6 @@ OBJECTS = \
   dxf.obj \
   dxf-export.obj \
   dxf-import.obj
-!ENDIF
-
-!IFDEF OBJ_metapost
-OBJECTS = \
-  metapost.obj \
-  render_metapost.obj
 !ENDIF
 
 !IFDEF OBJ_pstricks

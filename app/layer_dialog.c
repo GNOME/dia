@@ -847,8 +847,9 @@ dia_layer_widget_get_type(void)
       sizeof (DiaLayerWidgetClass),
       (GtkClassInitFunc) dia_layer_widget_class_init,
       (GtkObjectInitFunc) dia_layer_widget_init,
-      (GtkArgSetFunc) NULL,
-      (GtkArgGetFunc) NULL
+      NULL,
+      NULL,
+      (GtkClassInitFunc) NULL,
     };
     
     dlw_type = gtk_type_unique (gtk_list_item_get_type (), &dlw_info);

@@ -1034,7 +1034,6 @@ clip_region_add_rect(RendererGdk *renderer,
 		     Rectangle *rect)
 {
   DDisplay *ddisp = renderer->ddisp;
-  GdkRegion *old_reg;
   GdkRectangle clip_rect;
   int x1,y1;
   int x2,y2;
@@ -1047,12 +1046,7 @@ clip_region_add_rect(RendererGdk *renderer,
   clip_rect.width = x2 - x1 + 1;
   clip_rect.height = y2 - y1 + 1;
 
-  old_reg = renderer->clip_region;
-
-  renderer->clip_region =
-    gdk_region_union_with_rect( renderer->clip_region, &clip_rect );
-  
-  gdk_region_destroy(old_reg);
+  gdk_region_union_with_rect( renderer->clip_region, &clip_rect );
 
   gdk_gc_set_clip_region(renderer->render_gc, renderer->clip_region);
 }

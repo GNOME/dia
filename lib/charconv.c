@@ -70,15 +70,8 @@ int get_local_charset(char **charset)
     return local_is_utf8;
   }
 
-#ifdef HAVE_UNICODE 
-  local_is_utf8 = unicode_get_charset(charset);
-#else
-# if GLIB_CHECK_VERSION(1,3,0)
   local_is_utf8 = g_get_charset (charset);
-# else
-  *charset = NULL;
-# endif
-#endif
+
   if (local_is_utf8) {
       this_charset = *charset;
       return local_is_utf8;
@@ -137,80 +130,6 @@ check_conv_u2l(void){
 }
   
 
-extern utfchar *
-charconv_local8_to_utf8(const gchar *local)
-{
-  const gchar *l = local;
-  int lleft = strlen(local);
-  utfchar *utf,*u,*ures;
-  int uleft;
-  int lost = 0;
-
-  g_assert(local);
-  if (!local) return NULL; /* GIGO */
-
-  check_conv_l2u();
-  if (local_is_utf8) return g_strdup(local);
-
-  uleft = 6*lleft + 1; 
-  u = utf = g_malloc(uleft);
-  *u = 0;
-  unicode_iconv(conv_l2u,NULL,NULL,NULL,NULL); /* reset the state machines */
-  while ((uleft) && (lleft)) {
-    ssize_t res = unicode_iconv(conv_l2u,
-                                &l,&lleft,
-                                &u,&uleft);
-    *u = 0;
-    if (res==(ssize_t)-1) {
-      g_warning("unicode_iconv(l2u,...) failed, because '%s'",
-                strerror(errno));
-      break;
-    } else {
-      lost += (int)res; /* lost chars in the process. */
-    }
-  }
-  ures = g_strdup(utf); /* get the actual size. */
-  g_free(utf); 
-  return ures;
-}
-
-extern gchar *
-charconv_utf8_to_local8(const utfchar *utf)
-{
-  const utfchar *u = utf;
-  int uleft = strlen(utf);
-  gchar *local,*l,*lres;
-  int lleft;
-  int lost = 0;
-
-  g_assert(utf);
-  if (!utf) return NULL; /* GIGO */
-
-  check_conv_u2l();
-  if (local_is_utf8) return g_strdup(utf);
-
-  lleft = uleft +2;
-  l = local = g_malloc(lleft+2);
-  *l = 0;
-  unicode_iconv(conv_u2l,NULL,NULL,NULL,NULL); /* reset the state machines */
-  while ((uleft) && (lleft)) {
-    ssize_t res = unicode_iconv(conv_u2l,
-                                &u,&uleft,
-                                &l,&lleft);
-    *l = 0;
-    if (res==(ssize_t)-1) {
-      g_warning("unicode_iconv(u2l,...) failed, because '%s'",
-                strerror(errno));
-      break;
-    } else {
-      lost += (int)res; /* lost chars in the process. */
-    }
-  }
-  lres = g_strdup(local); /* get the actual size. */
-  g_free(local); 
-  return lres;
-}
-
 /* The string here is statically allocated and must NOT be g_free()'d.*/
 extern utfchar *
 charconv_unichar_to_utf8(guint uc)
@@ -256,31 +175,6 @@ charconv_unichar_to_utf8(guint uc)
 
 #else /* !HAVE_UNICODE */
 
-extern utfchar *
-charconv_local8_to_utf8(const gchar *local)
-{
-#if GLIB_CHECK_VERSION(1,3,1)
-  if (!local) /* g_strdup() handles NULL, g_locale_to_utf8() does not (yet) */
-    g_strdup(local);
-  return g_locale_to_utf8 (local, /* -1, NULL, NULL, */ NULL);
-#else
-  return g_strdup(local);
-#endif
-}
-
-extern gchar *
-charconv_utf8_to_local8(const utfchar *utf)
-{
-#if GLIB_CHECK_VERSION(1,3,1)
-  if (!utf) /* g_strdup() handles NULL, g_locale_from_utf8() does not (yet) */
-    g_strdup(utf);
-  return g_locale_from_utf8 (utf, /* -1, NULL, NULL, */ NULL);
-#else
-  return g_strdup(utf);
-#endif
-}
-
-
 /* The string here is statically allocated and must NOT be g_free()'d.*/
 extern utfchar *
 charconv_unichar_to_utf8(guint uc)
@@ -294,4 +188,24 @@ charconv_unichar_to_utf8(guint uc)
 }
 
 #endif
+
+/*
+ * here are the replacement function which are supported directly 
+ * with GLIB 2.0 code
+ */
+extern utfchar *
+charconv_local8_to_utf8(const gchar *local)
+{
+  if (!local) /* g_strdup() handles NULL, g_locale_to_utf8() does not (yet) */
+    g_strdup(local);
+  return g_locale_to_utf8 (local, -1, NULL, NULL, NULL);
+}
+
+extern gchar *
+charconv_utf8_to_local8(const utfchar *utf)
+{
+  if (!utf) /* g_strdup() handles NULL, g_locale_from_utf8() does not (yet) */
+    g_strdup(utf);
+  return g_locale_from_utf8 (utf, -1, NULL, NULL, NULL);
+}
 

@@ -1,13 +1,11 @@
 TOP = ..\..
 PRJ_TOP = ..
 PACKAGE = libdia
-!INCLUDE $(TOP)\build\win32\make.msc
+!INCLUDE $(TOP)\glib\build\win32\make.msc
 
-GDKPIXBUF = $(TOP)\dia-dev\gdk-pixbuf
-
-PKG_CFLAGS = -I.. \
-	$(GTK_CFLAGS) \
-	-I$(GDKPIXBUF)\.. \
+PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
+	-I.. \
+	$(GTK2_CFLAGS) \
 	$(LIBXML2_CFLAGS) \
 	$(ZLIB_CFLAGS) \
 	-I$(LIBART)\.. \
@@ -15,8 +13,8 @@ PKG_CFLAGS = -I.. \
 
 # in GTK_CFLAGS: $(GLIB_CFLAGS) 
 
-PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) \
-	$(LIBXML2_LIBS) $(ZLIB_LIBS) $(GDKPIXBUF)\gdk-pixbuf.lib
+PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) \
+	$(LIBXML2_LIBS) $(ZLIB_LIBS)
 
 OBJECTS = \
 	diagramdata.obj \

@@ -30,9 +30,6 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#ifdef HAVE_DIRENT_H
-#include <dirent.h>
-#endif
 
 #include <xmlmemory.h>
 #include <parser.h>
@@ -332,8 +329,9 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
                 ForEachInDirFilterFunc filter)
 {
   struct stat statbuf;
-  struct dirent *dirp;
-  DIR *dp;
+  const char *dentry;
+  GDir *dp;
+  GError *error = NULL;
 
   if (stat(directory, &statbuf) < 0)
     return;
@@ -342,19 +340,20 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
     return;
   }
 
-  dp = opendir(directory);
+  dp = g_dir_open(directory, 0, &error);
   if (dp == NULL) {
-    message_warning(_("Could not open `%s'"), directory);
+    message_warning(_("Could not open `%s'\n`%s'"), directory, error->message);
+    g_error_free (error);
     return;
   }
 
-  while ((dirp = readdir(dp)) != NULL) {
-    gchar *name = g_strconcat(directory,G_DIR_SEPARATOR_S,dirp->d_name,NULL);
+  while ((dentry = g_dir_read_name(dp)) != NULL) {
+    gchar *name = g_strconcat(directory,G_DIR_SEPARATOR_S,dentry,NULL);
 
     if (filter(name)) dofunc(name);
     g_free(name);
   }
-  closedir(dp);
+  g_dir_close(dp);
 }
 
 static gboolean 

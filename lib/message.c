@@ -44,7 +44,7 @@ gtk_message_internal(char *title, const char *fmt,
   GtkWidget *button;
   GtkWidget *bbox;
 #endif
-#ifdef UNICODE_WORK_IN_PROGRESS
+#if defined UNICODE_WORK_IN_PROGRESS || defined GTK_TALKS_UTF8_WE_DONT
   gchar *loc_buf;
   gchar *real_buf;
   gchar *loc_title;
@@ -65,7 +65,13 @@ gtk_message_internal(char *title, const char *fmt,
   
   vsprintf (buf, fmt, *args2);
 
-#ifdef UNICODE_WORK_IN_PROGRESS
+#if defined GTK_TALKS_UTF8_WE_DONT
+  loc_buf = g_locale_to_utf8 (buf, -1, NULL, NULL, NULL);
+  loc_title = g_locale_to_utf8 (title, -1, NULL, NULL, NULL);
+  real_buf = buf;
+  title = loc_title;
+  buf = loc_buf;
+#elif defined UNICODE_WORK_IN_PROGRESS
   loc_buf = charconv_utf8_to_local8(buf);
   loc_title = charconv_utf8_to_local8(title);
   real_buf = buf;
@@ -109,7 +115,7 @@ gtk_message_internal(char *title, const char *fmt,
 			    GTK_OBJECT(dialog_window));
 #endif
 
-#ifdef UNICODE_WORK_IN_PROGRESS
+#if defined UNICODE_WORK_IN_PROGRESS || defined GTK_TALKS_UTF8_WE_DONT
   buf = real_buf;
   g_free(loc_buf);
   g_free(loc_title);

@@ -43,7 +43,7 @@ static void fill_menu(GtkMenu *menu, GSList **group,
     gtk_object_set_user_data(GTK_OBJECT(menuitem), 
                              GINT_TO_POINTER(md->enum_value));
     *group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-    gtk_menu_append (menu, menuitem);
+    gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
     gtk_widget_show (menuitem);
 
     md++;
@@ -86,7 +86,7 @@ dia_font_selector_init (DiaFontSelector *fs)
     menuitem = gtk_radio_menu_item_new_with_label (group, fontname);
     gtk_object_set_user_data(GTK_OBJECT(menuitem), fontname);
     group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-    gtk_menu_append (GTK_MENU (menu), menuitem);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
     gtk_widget_show (menuitem);
 
     list = g_list_next(list);
@@ -112,8 +112,9 @@ dia_font_selector_get_type        (void)
       sizeof (DiaFontSelectorClass),
       (GtkClassInitFunc) dia_font_selector_class_init,
       (GtkObjectInitFunc) dia_font_selector_init,
-      (GtkArgSetFunc) NULL,
-      (GtkArgGetFunc) NULL
+      NULL,
+      NULL,
+      (GtkClassInitFunc) NULL
     };
     
     dfs_type = gtk_type_unique (gtk_option_menu_get_type (), &dfs_info);
@@ -203,19 +204,19 @@ dia_alignment_selector_init (DiaAlignmentSelector *fs)
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Left"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ALIGN_LEFT));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Center"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ALIGN_CENTER));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Right"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ALIGN_RIGHT));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
   
   gtk_menu_set_active(GTK_MENU (menu), DEFAULT_ALIGNMENT);
@@ -234,8 +235,9 @@ dia_alignment_selector_get_type        (void)
       sizeof (DiaAlignmentSelectorClass),
       (GtkClassInitFunc) dia_alignment_selector_class_init,
       (GtkObjectInitFunc) dia_alignment_selector_init,
-      (GtkArgSetFunc) NULL,
-      (GtkArgGetFunc) NULL
+      NULL,
+      NULL,
+	(GtkClassInitFunc) NULL,
     };
     
     dfs_type = gtk_type_unique (gtk_option_menu_get_type (), &dfs_info);
@@ -323,31 +325,31 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Solid"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_SOLID));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Dashed"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DASHED));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Dash-Dot"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DASH_DOT));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
 
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Dash-Dot-Dot"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DASH_DOT_DOT));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
   
   menuitem = gtk_radio_menu_item_new_with_label (group, _("Dotted"));
   gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(LINESTYLE_DOTTED));
   group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
   gtk_widget_show (menuitem);
   
   gtk_menu_set_active(GTK_MENU (menu), DEFAULT_LINESTYLE);
@@ -393,8 +395,9 @@ dia_line_style_selector_get_type        (void)
       sizeof (DiaLineStyleSelectorClass),
       (GtkClassInitFunc) dia_line_style_selector_class_init,
       (GtkObjectInitFunc) dia_line_style_selector_init,
-      (GtkArgSetFunc) NULL,
-      (GtkArgGetFunc) NULL
+      NULL,
+      NULL,
+    	(GtkClassInitFunc) NULL,
     };
     
     dfs_type = gtk_type_unique (gtk_vbox_get_type (), &dfs_info);
@@ -577,8 +580,9 @@ dia_color_selector_get_type        (void)
       sizeof (DiaColorSelectorClass),
       (GtkClassInitFunc) dia_color_selector_class_init,
       (GtkObjectInitFunc) dia_color_selector_init,
-      (GtkArgSetFunc) NULL,
-      (GtkArgGetFunc) NULL
+      NULL,
+      NULL,
+	(GtkClassInitFunc) NULL,
     };
     
     dfs_type = gtk_type_unique (gtk_button_get_type (), &dfs_info);
@@ -755,8 +759,9 @@ dia_arrow_selector_get_type        (void)
       sizeof (DiaArrowSelectorClass),
       (GtkClassInitFunc) dia_arrow_selector_class_init,
       (GtkObjectInitFunc) dia_arrow_selector_init,
-      (GtkArgSetFunc) NULL,
-      (GtkArgGetFunc) NULL
+      NULL,
+      NULL,
+	(GtkClassInitFunc) NULL,
     };
     
     dfs_type = gtk_type_unique (gtk_vbox_get_type (), &dfs_info);
@@ -901,8 +906,9 @@ dia_file_selector_get_type (void)
       sizeof (DiaFileSelectorClass),
       (GtkClassInitFunc) dia_file_selector_class_init,
       (GtkObjectInitFunc) dia_file_selector_init,
-      (GtkArgSetFunc) NULL,
-      (GtkArgGetFunc) NULL
+      NULL,
+      NULL,
+	(GtkClassInitFunc) NULL,
     };
     
     dfs_type = gtk_type_unique (gtk_hbox_get_type (), &dfs_info);

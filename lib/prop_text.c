@@ -27,6 +27,7 @@
 #include <config.h>
 #endif
 
+#define GTK_ENABLE_BROKEN /* GtkText */
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
 #include "widgets.h"

@@ -26,6 +26,8 @@
 #include <gtk/gtkhbox.h>
 #include <gtk/gtkfilesel.h>
 #include <gtk/gtkspinbutton.h>
+#include <gtk/gtklabel.h>
+#include <gtk/gtkcolorseldialog.h>
 
 #include "font.h"
 #include "render.h"

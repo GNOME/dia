@@ -1,3 +1,84 @@
+2002-01-18  Hans Breuer  <hans@breuer.org>
+
+	(make it compile with GTK+ 2.0)
+
+	* */makefile.msc : Use GTK+2.0 and libxml2
+	BEWARE: makefile.am not yet ported !
+ 
+	* app/app_procs.c : 
+	* app/diagram.c : remove gtk_item_factory_dump_rc code, (it 
+	wasn't read in again anyway) but set use gtk_menu_set_accel_path()
+	on menu creation
+
+	* app/commands.c : gdk_pixbuf_new_from_file wants an 
+	extra argument. Convert from DIR to GDir usage.
+
+	* app/diapagelayout.c : adapt to GtkTypeInfo changes and handle 
+	dia_page_layout_destroy() getting called more than once
+
+	* app/diaunitspinner.c : GtkEditable -> GtkEntry
+
+	* app/disp_callbacks.c : gtk_menu_append() -> gtk_menu_shell_append()
+
+	* app/display.h : wrap input contexts declarations into #ifdef USE_XIM.
+	IIRC this code will not compile unchanged when USE_XIM is defined ...
+
+	* app/gtk[hv]wrapbox.[hc] : use already ported version from The GIMP 1.3.x
+
+	* app/interface.c : there is no widget->klass anymore in Gtk, 
+	use GTK_WIDGET_GET_CLASS instead. gdk_pixbuf_new_from_file() extra
+	parameter. Some tweaking of GtkWrapBox usage to get four tools in
+	a row again. Add a //FIXME: to _gtk_accel_group_attach, undersore
+	prefixed functions shouldn't be exported/used outside of GTK
+
+	* app/layer_dialog.c : adapt to GtkTypeInfo changes
+
+	* app/menus.c : convert from gtk_item_factory_<dump|parse>_rc 
+	to gtk_accel_map_<save|load>. Also added common stock-icons
+	to the menu
+	
+	* app/preferences.c : use gtk_button_set_label() instead
+	of button->child which is gone. Also removed GLIB_CHECK_VERSION.
+
+	* app/recent_files.c : removed GLIB_CHECK_VERSION
+
+	* app/render_gdk.c : gdk_region_union_with_rect() modifies
+	inplace now and returns nothing
+
+	* app/splash.c : gdk_pixbuf_new_from_file() second arg and
+	GTK_WINDOW_DIALOG -> GTK_WINDOW_TOPLEVEL
+
+
+	* lib/charconv.c : string conversion now done by glib functions
+
+	* lib/color.c : GdkColorContext is gone, use GdkColormap instead.
+
+	* lib/dia_image.c : gdk_pixbuf_new_from_file() second arg
+
+	* lib/dia_xml.c : remove #ifdef GLIB_CHECK_VERSION, it's the
+	same on all platforms now!
+
+	* lib/font.c : IMPERATIVE FIXME!
+
+	* lib/message.c : GTK_TALKS_UTF8_WE_DONT(_yet) !
+
+	* lib/prop_text.c : #define GTK_ENABLE_BROKEN to use GtkText
+
+	* lib/plug-in.c :
+	* lib/sheet.c : convert from DIR to GDir usage
+
+	* lib/widgets.c : gtk_menu_(shell_)append and GtkTypeInfo
+
+	* lib/widgets.h : include gtk<label|colorseldialog>.h
+
+
+	* objects/fs/flow.c :
+	* objects/fs/flow-ortho.c : GTK_ENABLE_BROKEN to use GtkText
+
+	* objects/custom/custom.c : convert from DIR to GDir usage
+
+[TARGET_GTK2_0 : branched from HEAD with -D 2002-01-17]
+
 2002-01-04  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	Patch from Martin Cracauer <cracauer@cons.org>:
@@ -32,7 +113,8 @@
 
 	* lib/charconv.c lib/dia_xml.c : temporary back-ported to
 	glib-1.3.2 (for win32) IMHO causes recent cvs introduces too
-	many incompatible changes (and would force a gtk update)
+	many incompatible changes (and would force a gtk-win32-production
+	update)
 
 	* objects/makefile.msc : don't build C-Objects which are
 	already available as 'pure shape'
@@ -40,7 +122,6 @@
 	* plug-ins/makefile.msc : remove diaimport from build. It was
 	only available via mailing-list and is broken since the
 	StdProp overhaul.
-
 
 	Patch from Jose A Ortega Ruiz  <jaortega@acm.org>
 

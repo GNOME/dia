@@ -24,9 +24,6 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#ifdef HAVE_DIRENT_H
-#include <dirent.h>
-#endif
 #include <glib.h>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
@@ -138,22 +135,18 @@ void load_all_sheets(void) {
 static void 
 load_sheets_from_dir(const gchar *directory)
 {
-  DIR *dp;
-  struct dirent *dirp;
+  GDir *dp;
+  const char *dentry;
   struct stat statbuf;
   gchar *p;
 
-  dp = opendir(directory);
+  dp = g_dir_open(directory, 0, NULL);
   if (!dp) return;
 
-  while ( (dirp = readdir(dp)) ) {
+  while ( (dentry = g_dir_read_name(dp)) ) {
     gchar *filename = g_strconcat(directory,G_DIR_SEPARATOR_S,
-				  dirp->d_name,NULL);
+				  dentry,NULL);
 
-    if (!strcmp(dirp->d_name, ".") || !strcmp(dirp->d_name, "..")) {
-      g_free(filename);
-      continue;
-    }
     /* filter out non-files */
     if (stat(filename, &statbuf) < 0) {
       g_free(filename);
@@ -176,7 +169,7 @@ load_sheets_from_dir(const gchar *directory)
 				
   }
 
-  closedir(dp);
+  g_dir_close(dp);
 }
 
 static void 

@@ -28,9 +28,6 @@
 #include <sys/stat.h>
 #include <math.h>
 #include <glib.h>
-#ifdef HAVE_DIRENT_H
-#  include <dirent.h>
-#endif
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
@@ -118,7 +115,7 @@ file_print_callback(gpointer data, guint action, GtkWidget *widget)
     diagram_print_gdi(dia);
   else
 #  endif
-    diagram_print_ps(dia);
+  diagram_print_ps(dia);
 #endif
 }
 
@@ -461,8 +458,8 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
 {
   char *helpdir, *helpindex = NULL, *command;
   guint bestscore = G_MAXINT;
-  DIR *dp;
-  struct dirent *dirp;
+  GDir *dp;
+  const char *dentry;
 
   helpdir = dia_get_data_directory("help");
   if (!helpdir) {
@@ -471,22 +468,20 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
   }
 
   /* search through helpdir for the helpfile that matches the user's locale */
-  dp = opendir(helpdir);
-  while ((dirp = readdir(dp)) != NULL) {
+  dp = g_dir_open (helpdir, 0, NULL);
+  while ((dentry = g_dir_read_name(dp)) != NULL) {
     guint score;
 
-    if (!strcmp(dirp->d_name, ".") || !strcmp(dirp->d_name, ".."))
-      continue;
-
-    score = intl_score_locale(dirp->d_name);
+    score = intl_score_locale(dentry);
     if (score < bestscore) {
       if (helpindex)
 	g_free(helpindex);
-      helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dirp->d_name,
+      helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dentry,
 			      G_DIR_SEPARATOR_S "index.html", NULL);
       bestscore = score;
     }
   }
+  g_dir_close (dp);
   g_free(helpdir);
   if (!helpindex) {
     message_warning(_("Could not find help directory"));
@@ -550,7 +545,7 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
   if (!logo) {
       gchar* datadir = dia_get_data_directory(""); 
       g_snprintf(str, sizeof(str), "%s%sdia_logo.png", datadir, G_DIR_SEPARATOR_S);
-      logo = gdk_pixbuf_new_from_file(str);
+      logo = gdk_pixbuf_new_from_file(str, NULL);
       g_free(datadir);
   }
 
