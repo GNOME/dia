@@ -564,9 +564,11 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  modified = (focus->key_event)(focus, kevent->keyval,
 					kevent->string, kevent->length,
 					&obj_change);
-	  { /* Make sure object updates its data: */
+	  { /* Make sure object updates its data and its connected: */
 	    Point p = obj->position;
-	    (obj->ops->move)(obj,&p);  }
+	    (obj->ops->move)(obj,&p);  
+            diagram_update_connections_object(ddisp->diagram,obj,TRUE);
+          }
 	  
 	  object_add_updates(obj, ddisp->diagram);
 

@@ -1,3 +1,9 @@
+2001-06-06  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* app/disp_callbacks.c: make sure the objects' connected objects
+	are updated when the objects' size changes after a keypress event
+	(fixes #51222)
+
 2001-06-05  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/UML/message.c: got rid of #55564 and of message_copy()
