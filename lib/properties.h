@@ -170,19 +170,22 @@ GtkWidget *prop_get_widget(Property *prop);
 void       prop_set_from_widget(Property *prop, GtkWidget *widget);
 
 G_INLINE_FUNC Property *prop_list_from_matching_descs(PropDescription *plist,
-						      guint flags);
+						      guint flags,
+						      guint *nprops);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC Property *
-prop_list_from_matching_descs(PropDescription *plist, guint flags)
+prop_list_from_matching_descs(PropDescription *plist, guint flags,
+			      guint *nprops)
 {
   Property *ret;
-  gint count = 0, i;
+  guint count = 0, i;
 
   for (i = 0; plist[i].name != NULL; i++)
     if ((plist[i].flags & flags) == flags)
       count++;
 
-  ret = g_new0(Property, count+1);
+  ret = g_new0(Property, count);
+  if (nprops) *nprops = count;
   count = 0;
   for (i = 0; plist[i].name != NULL; i++)
     if ((plist[i].flags & flags) == flags) {
@@ -195,17 +198,25 @@ prop_list_from_matching_descs(PropDescription *plist, guint flags)
 }
 #endif
 
-G_INLINE_FUNC void prop_list_free(Property *props);
+G_INLINE_FUNC void prop_list_free(Property *props, guint nprops);
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void
-prop_list_free(Property *props)
+prop_list_free(Property *props, guint nprops)
 {
   int i;
 
-  for (i = 0; props[i].name != NULL; i++)
+  for (i = 0; i < nprops; i++)
     prop_free(&props[i]);
   g_free(props);
 }
 #endif
+
+/* apply some properties and return a corresponding object change */
+ObjectChange *object_apply_props(Object *obj, Property *props, guint nprops);
+
+/* standard properties dialogs that can be used for objects that
+ * implement describe_props, get_props and set_props */
+GtkWidget    *object_create_props_dialog     (Object *obj);
+ObjectChange *object_apply_props_from_dialog (Object *obj, GtkWidget *table);
 
 #endif

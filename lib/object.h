@@ -218,13 +218,13 @@ typedef const PropDescription *(* DescribePropsFunc) (Object *obj);
   (and type information) for a number of properties of
   the object.
 */
-typedef void (* GetPropsFunc) (Property *props, gint nprops);
+typedef void (* GetPropsFunc) (Object *obj, Property *props, gint nprops);
 
 /*
   This function is called to set the value of a number
   of properties of the object.
 */
-typedef void (* SetPropsFunc) (Property *props, gint nprops);
+typedef void (* SetPropsFunc) (Object *obj, Property *props, gint nprops);
 
 
 /*

@@ -19,7 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <glib.h>
+#include <gtk/gtk.h>
+#include <string.h>
 
 #include "geometry.h"
 #include "arrows.h"
@@ -212,6 +213,9 @@ prop_free(Property *prop)
     if (cp->ffunc)
       cp->ffunc(prop);
   }
+  /* zero out data member so we don't get problems if we try to refree the
+   * property. */
+  memset(&prop->d, '\0', sizeof(prop->d));
 }
 
 static void
@@ -346,3 +350,186 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
   }
 }
 
+
+/* --------------------------------------- */
+
+/* an ObjectChange structure for setting of properties */
+typedef struct _ObjectPropChange ObjectPropChange;
+struct _ObjectPropChange {
+  ObjectChange obj_change;
+
+  Object *obj;
+  Property *saved_props;
+  guint nsaved_props;
+};
+
+static void
+object_prop_change_apply_revert(ObjectPropChange *change, Object *obj)
+{
+  Property *old_props;
+  guint i;
+
+  /* create new properties structure with current values */
+  old_props = g_new0(Property, change->nsaved_props);
+  for (i = 0; i < change->nsaved_props; i++) {
+    old_props->name       = change->saved_props->name;
+    old_props->type       = change->saved_props->type;
+    old_props->extra_data = change->saved_props->extra_data;
+  }
+  if (change->obj->ops->get_props)
+    change->obj->ops->get_props(change->obj, old_props, change->nsaved_props);
+
+  /* set saved property values */
+  if (change->obj->ops->set_props)
+    change->obj->ops->set_props(change->obj, change->saved_props,
+				change->nsaved_props);
+
+  /* move old props to saved properties */
+  prop_list_free(change->saved_props, change->nsaved_props);
+  change->saved_props = old_props;
+}
+
+static void
+object_prop_change_free(ObjectPropChange *change)
+{
+  prop_list_free(change->saved_props, change->nsaved_props);
+}
+
+ObjectChange *
+object_apply_props(Object *obj, Property *props, guint nprops)
+{
+  ObjectPropChange *change;
+  Property *old_props;
+  guint i;
+
+  change = g_new(ObjectPropChange, 1);
+
+  change->obj_change.apply =
+    (ObjectChangeApplyFunc) object_prop_change_apply_revert;
+  change->obj_change.revert =
+    (ObjectChangeRevertFunc) object_prop_change_apply_revert;
+  change->obj_change.free =
+    (ObjectChangeFreeFunc) object_prop_change_free;
+
+  change->obj = obj;
+
+  /* create new properties structure with current values */
+  old_props = g_new0(Property, nprops);
+  for (i = 0; i < nprops; i++) {
+    old_props->name       = props->name;
+    old_props->type       = props->type;
+    old_props->extra_data = props->extra_data;
+  }
+  if (obj->ops->get_props)
+    obj->ops->get_props(obj, old_props, nprops);
+
+  /* set saved property values */
+  if (obj->ops->set_props)
+    obj->ops->set_props(obj, props, nprops);
+  prop_list_free(props, nprops);
+
+  change->saved_props = old_props;
+  change->nsaved_props = nprops;
+
+  return (ObjectChange *)change;
+}
+
+/* --------------------------------------- */
+
+static const gchar *prop_array_key   = "object-props:props";
+static const gchar *prop_num_key     = "object-props:nprops";
+static const gchar *prop_widgets_key = "object-props:widgets";
+
+static void
+object_props_dialog_destroy(GtkWidget *table)
+{
+  Property *props = gtk_object_get_data(GTK_OBJECT(table), prop_array_key);
+  guint nprops = GPOINTER_TO_UINT(gtk_object_get_data(GTK_OBJECT(table),
+						      prop_num_key));
+  GtkWidget **widgets = gtk_object_get_data(GTK_OBJECT(table),
+					    prop_widgets_key);
+
+  prop_list_free(props, nprops);
+  g_free(widgets);
+}
+
+GtkWidget *
+object_create_props_dialog(Object *obj)
+{
+  PropDescription *pdesc;
+  Property *props;
+  guint nprops = 0, i, j;
+  GtkWidget **widgets;
+
+  GtkWidget *table, *label;
+
+  g_return_val_if_fail(obj->ops->describe_props != NULL, NULL);
+  g_return_val_if_fail(obj->ops->get_props != NULL, NULL);
+  g_return_val_if_fail(obj->ops->set_props != NULL, NULL);
+
+  pdesc = obj->ops->describe_props(obj);
+  for (i = 0; pdesc[i].name != NULL; i++)
+    if ((pdesc[i].flags & PROP_FLAG_VISIBLE) != 0)
+      nprops++;
+
+  props = g_new0(Property, nprops);
+  widgets = g_new(GtkWidget *, nprops);
+
+  /* get the current values of all visible properties */
+  for (i = 0, j = 0; pdesc[i].name != NULL; i++)
+    if ((pdesc[i].flags & PROP_FLAG_VISIBLE) != 0) {
+      props[j].name       = pdesc[i].name;
+      props[j].type       = pdesc[i].type;
+      props[j].extra_data = pdesc[i].extra_data;
+      j++;
+    }
+  obj->ops->get_props(obj, props, nprops);
+
+  table = gtk_table_new(1, 2, FALSE);
+
+  /* construct the widgets table */
+  for (i = 0, j = 0; pdesc[i].name != NULL; i++)
+    if ((pdesc[i].flags & PROP_FLAG_VISIBLE) != 0) {
+      widgets[j] = prop_get_widget(&props[j]);
+
+      label = gtk_label_new(_(pdesc[i].description));
+      gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.0 /* 0.5 */);
+      gtk_table_attach(GTK_TABLE(table), label, 0,1, j,j+1,
+		       GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
+      gtk_table_attach(GTK_TABLE(table), widgets[j], 1,2, j,j+1,
+		       GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
+
+      gtk_widget_show(label);
+      gtk_widget_show(widgets[j]);
+
+      j++;
+    }
+  gtk_table_set_row_spacings(GTK_TABLE(table), 2);
+  gtk_table_set_col_spacings(GTK_TABLE(table), 5);
+
+  gtk_object_set_data(GTK_OBJECT(table), prop_array_key,   props);
+  gtk_object_set_data(GTK_OBJECT(table), prop_num_key,
+		      GUINT_TO_POINTER(nprops));
+  gtk_object_set_data(GTK_OBJECT(table), prop_widgets_key, widgets);
+
+  gtk_signal_connect(GTK_OBJECT(table), "destroy",
+		     GTK_SIGNAL_FUNC(object_props_dialog_destroy), NULL);
+
+  return table;
+}
+
+ObjectChange *
+object_apply_props_from_dialog(Object *obj, GtkWidget *table)
+{
+  Property *props = gtk_object_get_data(GTK_OBJECT(table), prop_array_key);
+  guint nprops = GPOINTER_TO_UINT(gtk_object_get_data(GTK_OBJECT(table),
+						      prop_num_key));
+  GtkWidget **widgets = gtk_object_get_data(GTK_OBJECT(table),
+					    prop_widgets_key);
+  guint i;
+
+  for (i = 0; i < nprops; i++)
+    prop_set_from_widget(&props[i], widgets[i]);
+
+  return object_apply_props(obj, props, nprops);
+}

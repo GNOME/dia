@@ -1,3 +1,13 @@
+2000-02-04  James Henstridge  <james@daa.com.au>
+
+	* lib/object.h: fixed up prototypes for new object methods.
+
+	* lib/properties.[ch]: added functions for automatically creating
+	a properties dialog from the output of describe_props, get_props and
+	set_props.
+	(object_apply_props): apply properties and return an ObjectChange
+	structure that can be used for undo.
+
 2000-02-03  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/GRAFCET/transition.c: minor leak plugged.
