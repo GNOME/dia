@@ -49,10 +49,8 @@ static GnomeUIInfo filemenu[] = {
   GNOMEUIINFO_MENU_PREFERENCES_ITEM(file_preferences_callback, NULL),
   GNOMEUIINFO_MENU_SAVE_AS_ITEM(file_save_as_callback, NULL),
 
-  { GNOME_APP_UI_ITEM, N_("_Export"), NULL,
+  { GNOME_APP_UI_ITEM, N_("_Export..."), NULL,
     file_export_callback, NULL, NULL },
-  { GNOME_APP_UI_ITEM, N_("_Export To EPS"), NULL,
-    file_export_to_eps_callback, NULL, NULL },
 
   GNOMEUIINFO_SEPARATOR,
   { GNOME_APP_UI_ITEM, N_("Page Set_up..."), NULL,
@@ -195,8 +193,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/File/_Open"),             "<control>O", file_open_callback,         0},
   {N_("/File/_Save"),             "<control>S", file_save_callback,         0},
   {N_("/File/Save _As..."),       "<control>W", file_save_as_callback,      0},
-  {N_("/File/_Export"),           NULL,         file_export_callback,       0},
-  {N_("/File/_Export To EPS"),    NULL,         file_export_to_eps_callback,0},
+  {N_("/File/_Export..."),        NULL,         file_export_callback,       0},
   {N_("/File/sep1"),              NULL,         NULL,                        0, "<Separator>"},
   {N_("/File/Page Set_up..."),    NULL,         file_pagesetup_callback,    0},
   {N_("/File/_Print Diagram..."), "<control>P", file_print_callback,        0},
