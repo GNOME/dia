@@ -167,8 +167,6 @@ main(int argc, char **argv)
 
   argv0 = argv[0];
 
-  disable_x11_fonts = 1;
-
   printf("hi !\n");
 
   set_message_func(stderr_message_internal);
