@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "POT-Creation-Date: 2002-11-17 17:27+0100\n"
-"PO-Revision-Date: 2002-10-28 21:46+0100\n"
+"PO-Revision-Date: 2002-11-24 16:29+0100\n"
 "Last-Translator: Juan Manuel García Molina <juanma_gm@wanadoo.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,8 +19,7 @@ msgstr ""
 #: app/app_procs.c:160
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr ""
-"%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
+msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
 
 #: app/app_procs.c:171
 #, c-format
@@ -106,8 +105,7 @@ msgid "Dia version %s\n"
 msgstr "Versión %s de Dia\n"
 
 #: app/app_procs.c:413 app/app_procs.c:415 app/diaconv.c:199 app/diaconv.c:201
-msgid ""
-"Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "No se encontraron objetos estándares en object-libs, saliendo...\n"
 
 #. no standard buttons
@@ -1732,7 +1730,7 @@ msgstr "Utilizar barra de menú:"
 
 #: app/preferences.c:128
 msgid "Keep tool box on top of diagram windows:"
-msgstr ""
+msgstr "Mantener la caja de herramientas encima de las ventanas del diagrama:"
 
 #: app/preferences.c:130
 msgid "New diagram:"
@@ -3873,8 +3871,7 @@ msgstr "Identificador de actividad/dato"
 
 #: objects/SADT/box.c:144
 msgid "The identifier which appears in the lower right corner of the Box"
-msgstr ""
-"El identificador que se muestra en la esquina inferior derecha de la caja"
+msgstr "El identificador que se muestra en la esquina inferior derecha de la caja"
 
 #: objects/SADT/box.c:440 objects/standard/line.c:182
 msgid "Delete connection point"
@@ -4469,8 +4466,7 @@ msgstr "Scalable Vector Graphics"
 
 #: plug-ins/svg/svg.c:37
 msgid "Scalable Vector Graphics import and export filters"
-msgstr ""
-"Filtro de importación y exportación de gráficos de vector escalables (SVG)"
+msgstr "Filtro de importación y exportación de gráficos de vector escalables (SVG)"
 
 #: plug-ins/svg/svg-import.c:204 plug-ins/svg/svg-import.c:218
 #: plug-ins/xfig/xfig-import.c:97 plug-ins/xfig/xfig-import.c:148
@@ -4537,8 +4533,7 @@ msgstr "Dia no admite patrones"
 
 #: plug-ins/xfig/xfig-import.c:446
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr ""
-"Dia no soporta las líneas triplemente punteadas que utilizan doble punteado"
+msgstr "Dia no soporta las líneas triplemente punteadas que utilizan doble punteado"
 
 #: plug-ins/xfig/xfig-import.c:450
 #, c-format
@@ -4703,8 +4698,7 @@ msgstr "Formato de archivo XFig"
 
 #: plug-ins/xslt/xslt.c:73
 msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-msgstr ""
-"No está fijado DIA_PLUGIN_PATH.  No están disponibles las hojas de estilo.\n"
+msgstr "No está fijado DIA_PLUGIN_PATH.  No están disponibles las hojas de estilo.\n"
 
 #: plug-ins/xslt/xslt.c:98
 #, c-format
@@ -6126,3 +6120,4 @@ msgstr "Realiza, implementa un interfaz específico"
 #: sheets/UML.sheet.in.h:27
 msgid "UML"
 msgstr "UML"
+
