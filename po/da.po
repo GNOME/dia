@@ -207,15 +207,13 @@ msgstr "Dette objekt har ingen standardindstillinger."
 
 #. &export_file_format
 #: app/diaconv.c:95
-#, fuzzy
 msgid "Export format to use"
-msgstr "Eksportér til filformat og afslut"
+msgstr "Format at konvertere til"
 
 #. &export_file_name
 #: app/diaconv.c:97
-#, fuzzy
 msgid "Export file name to use"
-msgstr "Eksportér til filformat og afslut"
+msgstr "Filnavn for konverteret fil"
 
 #: app/diaconv.c:99
 #, fuzzy
@@ -223,37 +221,37 @@ msgid "Quiet operation"
 msgstr "Undertryk operationer"
 
 #: app/diaconv.c:154
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error: No arguments found.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"fejl ved flag %s: %s.\n"
+"Fejl: Ingen argumenter angivet.\n"
 "Kør '%s --help' for at se en komplet liste over mulige kommandolinieflag.\n"
 
 #: app/diaconv.c:164
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: can specify only one of -t or -o."
 msgstr "%s fejl: kan kun angive én af -f eller -o."
 
 #: app/diaconv.c:170
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s error: must specify only one of -t or -o.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"fejl ved flag %s: %s.\n"
+"%s fejl: enten -t eller -o skal angives.\n"
 "Kør '%s --help' for at se en komplet liste over mulige kommandolinieflag.\n"
 
 #: app/diaconv.c:179
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: no input file."
-msgstr "%s fejl: behøver gyldig indfil %s\n"
+msgstr "%s fejl: behøver gyldig indfil"
 
 #: app/diaconv.c:232
-#, fuzzy, c-format
+#, c-format
 msgid "%s error: only one input file expected."
-msgstr "%s fejl: behøver gyldig indfil %s\n"
+msgstr "%s fejl: kun én indfil kan angives"
 
 #: app/diaconv.c:245
 #, c-format
@@ -265,14 +263,12 @@ msgid "Could not initialize Bonobo!"
 msgstr "Kunne ikke initialisere Bonobo!"
 
 #: app/diagram_tree_menu.c:45
-#, fuzzy
 msgid "/_Sort objects"
-msgstr "Rutediagram-objekter"
+msgstr "/_Sortér objekter"
 
 #: app/diagram_tree_menu.c:46
-#, fuzzy
 msgid "/Sort objects/by _name"
-msgstr "Ingen objektmenu"
+msgstr "/Sorter objekter/efter _navn"
 
 #: app/diagram_tree_menu.c:48
 msgid "/Sort objects/by _type"
@@ -311,9 +307,8 @@ msgid "/Sort objects/Default/as _inserted"
 msgstr ""
 
 #: app/diagram_tree_menu.c:66
-#, fuzzy
 msgid "/Sort _diagrams"
-msgstr "Eksporter diagram"
+msgstr "/Sortér diagrammer"
 
 #: app/diagram_tree_menu.c:67
 msgid "/Sort _diagrams/by _name"
@@ -326,7 +321,7 @@ msgstr ""
 #: app/diagram_tree_menu.c:71
 #, fuzzy
 msgid "/Sort diagrams/_Default"
-msgstr "Standardværdier for diagram"
+msgstr "/Sortér diagrammer/Standard"
 
 #: app/diagram_tree_menu.c:72
 msgid "/Sort diagrams/Default/by _name"
@@ -337,21 +332,18 @@ msgid "/Sort diagrams/Default/as _inserted"
 msgstr ""
 
 #: app/diagram_tree_menu.c:82 app/diagram_tree_menu.c:93
-#, fuzzy
 msgid "/_Locate"
-msgstr "Find"
+msgstr "/_Find"
 
 #: app/diagram_tree_menu.c:83
-#, fuzzy
 msgid "/_Properties"
-msgstr "_Egenskaber"
+msgstr "/_Egenskaber"
 
 #: app/diagram_tree_menu.c:84
 msgid "/_Hide this type"
 msgstr ""
 
 #: app/diagram_tree_window.c:77
-#, fuzzy
 msgid "Diagram tree"
 msgstr "Diagramtræ"
 
@@ -519,9 +511,8 @@ msgstr "Fejl opstod ved skrivning af PNG"
 
 #. Create a dialog
 #: app/export_png.c:252
-#, fuzzy
 msgid "PNG Export Options"
-msgstr "Indstillinger for eksport"
+msgstr "Indstillinger for PNG eksport"
 
 #. Translators: Menu item Verb/Channel/Export
 #: app/export_png.c:253 objects/FS/function.c:658 objects/FS/function.c:660
@@ -529,14 +520,12 @@ msgid "Export"
 msgstr "Eksportér"
 
 #: app/export_png.c:258
-#, fuzzy
 msgid "Image width:"
-msgstr "Billedfil:"
+msgstr "Billedbredde:"
 
 #: app/export_png.c:261
-#, fuzzy
 msgid "Image height:"
-msgstr "Billedfil:"
+msgstr "Billedhøjde:"
 
 #: app/export_png.c:306
 msgid "Portable Network Graphics"
@@ -578,9 +567,8 @@ msgstr "Gem diagram"
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
 #: app/filedlg.c:315
-#, fuzzy
 msgid "Compress diagram files"
-msgstr "Komprimér gemte filer:"
+msgstr "Komprimér gemte filer"
 
 #: app/filedlg.c:322
 msgid ""
@@ -854,14 +842,15 @@ msgstr ""
 "Ikke en Dia fil."
 
 #: app/load_save.c:476
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram:\n"
 "%s.\n"
 "A valid Dia file defines at least one layer."
 msgstr ""
-"Fejl under indlæsning af diagrammet %s.\n"
-"Ikke en Dia fil."
+"Fejl under indlæsning af diagrammet:\n"
+"%s.\n"
+"En Dia fil skal have mindst ét lag."
 
 #: app/load_save.c:767
 #, c-format
@@ -1763,18 +1752,16 @@ msgstr "Egenskaber for objekt:"
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
 #: app/recent_files.c:140
-#, fuzzy
 msgid "<Toolbox>/File/Plugins"
-msgstr "/Filer/Indstik"
+msgstr "<Toolbox>/Filer/Indstik"
 
 #: app/recent_files.c:265
 msgid "<Toolbox>/File/Exit"
 msgstr ""
 
 #: app/recent_files.c:267
-#, fuzzy
 msgid "<Toolbox>/File/Quit"
-msgstr "/Filer/_Afslut"
+msgstr "<Toolbox>/Filer/_Afslut"
 
 #: app/recent_files.c:304
 msgid "Can't open history file for writing."
@@ -1819,14 +1806,12 @@ msgid "Widget not found: %s"
 msgstr ""
 
 #: app/sheets.c:456
-#, fuzzy
 msgid "SVG Shape"
-msgstr "Form"
+msgstr "SVG Form"
 
 #: app/sheets.c:458
-#, fuzzy
 msgid "Programmed Object"
-msgstr "Kronogram diagram-objekter"
+msgstr "Programmeret objekt"
 
 #: app/sheets_dialog.c:85
 #, fuzzy
@@ -1842,9 +1827,8 @@ msgid "<- Copy All"
 msgstr ""
 
 #: app/sheets_dialog.c:127 app/sheets_dialog_callbacks.c:189
-#, fuzzy
 msgid "<- Move"
-msgstr "Flyt"
+msgstr "<- Flyt"
 
 #: app/sheets_dialog.c:137 app/sheets_dialog_callbacks.c:191
 msgid "<- Move All"
@@ -1857,9 +1841,8 @@ msgid "New"
 msgstr "Ny"
 
 #: app/sheets_dialog.c:207
-#, fuzzy
 msgid "_New"
-msgstr "Ny"
+msgstr "_Ny"
 
 #: app/sheets_dialog.c:227
 msgid "Up"
@@ -1879,19 +1862,16 @@ msgid "_Down"
 msgstr ""
 
 #: app/sheets_dialog.c:269
-#, fuzzy
 msgid "Edit"
-msgstr "/_Redigér"
+msgstr "Redigér"
 
 #: app/sheets_dialog.c:271
-#, fuzzy
 msgid "_Edit"
-msgstr "/_Redigér"
+msgstr "_Redigér"
 
 #: app/sheets_dialog.c:290
-#, fuzzy
 msgid "_Remove"
-msgstr "Fjern"
+msgstr "_Fjern"
 
 #: app/sheets_dialog.c:315
 #, fuzzy
@@ -1899,24 +1879,20 @@ msgid "Revert"
 msgstr "Invertér"
 
 #: app/sheets_dialog.c:416 app/sheets_dialog.c:860
-#, fuzzy
 msgid "Type"
-msgstr "Type:"
+msgstr "Type"
 
 #: app/sheets_dialog.c:431
-#, fuzzy
 msgid "Browse..."
-msgstr "Gennemse"
+msgstr "Gennemse..."
 
 #: app/sheets_dialog.c:440
-#, fuzzy
 msgid "SVG Shape:"
-msgstr "Form"
+msgstr "SVG form:"
 
 #: app/sheets_dialog.c:467 app/sheets_dialog.c:530
-#, fuzzy
 msgid "description:"
-msgstr "Beskrivelse:"
+msgstr "beskrivelse:"
 
 #: app/sheets_dialog.c:479
 #, fuzzy
@@ -1925,19 +1901,16 @@ msgstr "Trin-navn:"
 
 #: app/sheets_dialog.c:500 app/sheets_dialog_callbacks.c:297
 #: app/sheets_dialog_callbacks.c:1083
-#, fuzzy
 msgid "Line Break"
-msgstr "Linjefarve"
+msgstr "Linjeskift"
 
 #: app/sheets_dialog.c:630
-#, fuzzy
 msgid "Edit Attributes"
-msgstr "Redigér lagets attributter"
+msgstr "Redigér attributter"
 
 #: app/sheets_dialog.c:644
-#, fuzzy
 msgid "Object"
-msgstr "/_Objekter"
+msgstr "Objekt"
 
 #: app/sheets_dialog.c:679 objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
 #: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1911
@@ -1951,9 +1924,8 @@ msgid "Sheet"
 msgstr "_Vælg"
 
 #: app/sheets_dialog.c:875
-#, fuzzy
 msgid "Object:"
-msgstr "/_Objekter"
+msgstr "Objekt:"
 
 #: app/sheets_dialog.c:902
 #, fuzzy
@@ -1961,23 +1933,20 @@ msgid "Sheet:"
 msgstr "_Vælg"
 
 #: app/sheets_dialog.c:994
-#, fuzzy
 msgid "Select SVG Shape File"
-msgstr "Valgt billedfil"
+msgstr "Vælg SVG form fil"
 
 #: app/sheets_dialog_callbacks.c:172
-#, fuzzy
 msgid "Copy ->"
-msgstr "Kopiér tekst"
+msgstr "Kopiér ->"
 
 #: app/sheets_dialog_callbacks.c:174
 msgid "Copy All ->"
 msgstr ""
 
 #: app/sheets_dialog_callbacks.c:176
-#, fuzzy
 msgid "Move ->"
-msgstr "Flyt"
+msgstr "Flyt ->"
 
 #: app/sheets_dialog_callbacks.c:178
 msgid "Move All ->"
@@ -1989,42 +1958,42 @@ msgid "Filename must end with '%s': '%s'"
 msgstr ""
 
 #: app/sheets_dialog_callbacks.c:808
-#, fuzzy, c-format
+#, c-format
 msgid "Error examining %s: %s"
-msgstr "Fejl under læsning af enheder: %s\n"
+msgstr "Fejl under undersøgelse af %s: %s"
 
 #: app/sheets_dialog_callbacks.c:830
-#, fuzzy, c-format
+#, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr "Kunne ikke udlede korrekt sti for '%s'"
+msgstr "Kunne ikke forstå form fil: '%s'"
 
 #: app/sheets_dialog_callbacks.c:896
 msgid "Sheet must have a Name"
 msgstr ""
 
 #: app/sheets_dialog_callbacks.c:1584 app/sheets_dialog_callbacks.c:1590
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open '%s': %s"
-msgstr "Kunne ikke åbne '%s'"
+msgstr "Kunne ikke åbne '%s': %s"
 
 #: app/sheets_dialog_callbacks.c:1641
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "Kunne ikke åbne: '%s' for skriving.\n"
+msgstr "Kunne ikke åbne: '%s' for skriving"
 
 #: app/sheets_dialog_callbacks.c:1650
 msgid "a user"
 msgstr ""
 
 #: app/sheets_dialog_callbacks.c:1663
-#, fuzzy, c-format
+#, c-format
 msgid "File: %s"
-msgstr "Fil"
+msgstr "Fil: %s"
 
 #: app/sheets_dialog_callbacks.c:1666
-#, fuzzy, c-format
+#, c-format
 msgid "Date: %s"
-msgstr "Dia v %s"
+msgstr "Dato: %s"
 
 #: app/sheets_dialog_callbacks.c:1670
 #, c-format
@@ -2032,9 +2001,8 @@ msgid "For: %s"
 msgstr ""
 
 #: app/sheets_dialog_callbacks.c:1687
-#, fuzzy
 msgid "add shapes here"
-msgstr "dia form-fil"
+msgstr "tilføj former hér"
 
 #: app/splash.c:58
 msgid "Loading ..."
@@ -2065,9 +2033,8 @@ msgstr "Dia"
 #: objects/UML/note.c:303 objects/UML/realizes.c:367
 #: objects/UML/small_package.c:342 objects/standard/textobj.c:388
 #: plug-ins/dxf/dxf-import.c:530
-#, fuzzy
 msgid "Courier"
-msgstr "Sammenkobl"
+msgstr "Courier"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2343,14 +2310,12 @@ msgid "Integral Symbol"
 msgstr "Integraltegn"
 
 #: lib/widgets.c:858
-#, fuzzy
 msgid "Crow Foot"
-msgstr "Fod"
+msgstr "Kragefod"
 
 #: lib/widgets.c:859
-#, fuzzy
 msgid "Cross"
-msgstr "Processér"
+msgstr "Kors"
 
 #: lib/widgets.c:896
 msgid "Length: "
@@ -2451,9 +2416,8 @@ msgstr "Linjefarve"
 #: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:352
 #: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
 #: objects/chronogram/chronoref.c:434
-#, fuzzy
 msgid "Helvetica"
-msgstr "Rotér lodret"
+msgstr "Helvetica"
 
 #: objects/chronogram/chronoref.c:144
 msgid "Time data"
@@ -4099,14 +4063,12 @@ msgid "Kind"
 msgstr ""
 
 #: objects/UML/class_dialog.c:308
-#, fuzzy
 msgid "Size"
-msgstr "X størrelse:"
+msgstr "Størrelse"
 
 #: objects/UML/class_dialog.c:322
-#, fuzzy
 msgid "Class Name"
-msgstr "Klassenavn:"
+msgstr "Klassenavn"
 
 #: objects/UML/class_dialog.c:327
 #, fuzzy
@@ -4184,9 +4146,8 @@ msgid "Operation data"
 msgstr "Operationsdata"
 
 #: objects/UML/class_dialog.c:1991
-#, fuzzy
 msgid "Inheritance type:"
-msgstr "Meddelelsestype:"
+msgstr "Nedarvningstype:"
 
 #: objects/UML/class_dialog.c:2008
 msgid "Polymorphic (virtual)"
@@ -4213,23 +4174,20 @@ msgid "Def. value:"
 msgstr "Standardværdi:"
 
 #: objects/UML/class_dialog.c:2163
-#, fuzzy
 msgid "Undefined"
-msgstr "Raffinér"
+msgstr "Udefineret"
 
 #: objects/UML/class_dialog.c:2171
 msgid "In"
 msgstr ""
 
 #: objects/UML/class_dialog.c:2180
-#, fuzzy
 msgid "Out"
-msgstr "Klip"
+msgstr "Ud"
 
 #: objects/UML/class_dialog.c:2189
-#, fuzzy
 msgid "In & Out"
-msgstr "Inddata"
+msgstr "Ind og Ud"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2606
@@ -4389,14 +4347,12 @@ msgid "HP Graphics Language export filter"
 msgstr "HP Grafiksprog (HPGL) eksportfilter"
 
 #: plug-ins/metapost/metapost.c:34
-#, fuzzy
 msgid "TeX Metapost export filter"
-msgstr "TeX Pstricks eksportfilter"
+msgstr "TeX Metapost eksportfilter"
 
 #: plug-ins/metapost/render_metapost.c:735
-#, fuzzy
 msgid "TeX Metapost macros"
-msgstr "TeX PSTricks makroer"
+msgstr "TeX Metapost makroer"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -4435,9 +4391,8 @@ msgid "Windows Meta File"
 msgstr ""
 
 #: plug-ins/wmf/wmf.cpp:976
-#, fuzzy
 msgid "WMF export filter"
-msgstr "dia form eksportfilter"
+msgstr "WMF eksportfilter"
 
 #: plug-ins/wpg/wpg.c:1051
 #, c-format
@@ -4457,9 +4412,8 @@ msgid "No more user-definable colors - using black"
 msgstr ""
 
 #: plug-ins/xfig/xfig-export.c:792
-#, fuzzy
 msgid "XFig format"
-msgstr "XFig filformat"
+msgstr "XFig format"
 
 #: plug-ins/xfig/xfig-import.c:76
 msgid "Polygon import is not implemented yet"
@@ -4483,9 +4437,8 @@ msgid "Spline import is not implemented yet"
 msgstr "Spline-import er ikke implementeret endnu"
 
 #: plug-ins/xfig/xfig-import.c:82
-#, fuzzy
 msgid "Can't find standard object"
-msgstr "Standard objekter"
+msgstr "Kan ikke finde standard objekt"
 
 #: plug-ins/xfig/xfig-import.c:424
 #, c-format
@@ -4665,9 +4618,8 @@ msgid "A Horizontally aligned resistor (European)"
 msgstr "En vandret placeret modstand (europæisk)"
 
 #: sheets/Circuit.sheet.in.h:6
-#, fuzzy
 msgid "A Microphone"
-msgstr "En mobiltelefon"
+msgstr "En mikrofon"
 
 #: sheets/Circuit.sheet.in.h:7
 msgid "A PMOS transistor"
@@ -5326,9 +5278,8 @@ msgid "Logic"
 msgstr "Logik"
 
 #: sheets/Misc.sheet.in.h:1
-#, fuzzy
 msgid "A File"
-msgstr "Fil"
+msgstr "En fil"
 
 #: sheets/Misc.sheet.in.h:2
 msgid "A Folder"
@@ -5411,9 +5362,8 @@ msgid "A RJ45 Wall-Plug"
 msgstr "RJ45 vægstik"
 
 #: sheets/network.sheet.in.h:10
-#, fuzzy
 msgid "A Telephone"
-msgstr "En mobiltelefon"
+msgstr "En telefon"
 
 #: sheets/network.sheet.in.h:11
 msgid "A UNIX Workstation"
