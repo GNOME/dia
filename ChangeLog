@@ -1,8 +1,12 @@
 2003-07-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
-	* app/dia-props.c (diagram_properties_retrieve): Work in progress
-	on putting diagram name in properties window title -- need safe
-	diagram name function.
+	* app/dia-props.c (diagram_properties_retrieve): Use
+	diagram_get_name() to add the diagram name to the diagram
+	properties dialog.
+
+	* app/diagram.h: 
+	* app/diagram.c (diagram_get_name): New function to get a
+	reasonable diagram name.
 
 	* lib/diagramdata.h: Added major_lines, dynamic and colour to grid
 	info.  Still need to be able to set dynamic grid.  Also ought to

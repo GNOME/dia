@@ -176,14 +176,16 @@ create_diagram_properties_dialog(void)
  */
 static void diagram_properties_retrieve(Diagram *dia)
 {
-  gchar *title = _("Diagram Properties");
+  gchar *title;
+  gchar *name = diagram_get_name(dia);
 
   g_return_if_fail(dia != NULL);
 
   /* Can we be sure that the filename is the 'proper title'? */
-  /*  title = g_strdup_printf(_("Diagram Properties: %s"),
-      dia->filename */
+  title = g_strdup_printf(_("Diagram Properties: %s"), name);
   gtk_window_set_title(GTK_WINDOW(dialog), title);
+  g_free(name);
+  g_free(title);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_x_entry),
 			      dia->data->grid.width_x);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_y_entry),

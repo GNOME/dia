@@ -961,14 +961,8 @@ diagram_set_filename(Diagram *dia, char *filename)
   g_free(dia->filename);
   dia->filename = g_strdup(filename);
 
+  title = diagram_get_name(dia);
 
-  title = strrchr(filename, G_DIR_SEPARATOR);
-  if (title==NULL) {
-    title = filename;
-  } else {
-    title++;
-  }
-  
   l = dia->displays;
   while (l!=NULL) {
     ddisp = (DDisplay *) l->data;
@@ -978,10 +972,29 @@ diagram_set_filename(Diagram *dia, char *filename)
     l = g_slist_next(l);
   }
 
+  g_free(title);
+
   layer_dialog_update_diagram_list();
   recent_file_history_add((const char *)filename, NULL, 0);
 
   diagram_tree_update_name(diagram_tree(), dia);
+}
+
+/** Returns a string with a 'sensible' (human-readable) name for the
+ * diagram.  The string should be freed after use.
+ * This name may or may not be the same as the filename.
+ */
+gchar *
+diagram_get_name(Diagram *dia)
+{
+  gchar *title = strrchr(dia->filename, G_DIR_SEPARATOR);
+  if (title==NULL) {
+    title = dia->filename;
+  } else {
+    title++;
+  }
+  
+  return g_strdup(title);
 }
 
 int diagram_modified_exists(void)
