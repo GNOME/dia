@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
-"POT-Creation-Date: 2001-09-22 20:13-0400\n"
+"POT-Creation-Date: 2001-09-25 11:52-0400\n"
 "PO-Revision-Date: 2001-09-23 10:40+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -1328,6 +1328,7 @@ msgid "File"
 msgstr "Fil"
 
 #: app/paginate_psprint.c:330
+#, c-format
 msgid "Could not run command '%s'"
 msgstr "Kunne ikke køre kommando '%s'"
 
@@ -1628,6 +1629,7 @@ msgstr ""
 "bruger %s i stedet.\n"
 
 #: lib/font.c:533
+#, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr "Advarsel: FreeType valgt, men biblioteket ville ikke indlæses: %d\n"
 
@@ -1809,8 +1811,9 @@ msgid ""
 "problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
 "Dit lokale tegnsæt er UTF-8. På grund af problemer med libxml1 og "
-"understøttelsen for filer genereret af tidligere versioner af dia, vil "
-"du møde problemer. Rapportér venligst til dia-list@gnome.org hvis du ser denne besked."
+"understøttelsen for filer genereret af tidligere versioner af dia, vil du "
+"møde problemer. Rapportér venligst til dia-list@gnome.org hvis du ser denne "
+"besked."
 
 #: objects/ER/attribute.c:151
 msgid "Key:"
