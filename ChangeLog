@@ -1,5 +1,11 @@
 1999-05-16  Alexander Larsson  <alla@lysator.liu.se>
 
+	* app/render_eps.c:
+	First shot at latin1 encoded eps files.
+	Works, but the eps files get a bit large.
+	
+1999-05-16  Alexander Larsson  <alla@lysator.liu.se>
+
 	* objects/UML/class.[ch]: 
 	* objects/UML/uml.[ch]:
 	Reverted the line wrap changes.

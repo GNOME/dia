@@ -123,6 +123,19 @@ static RenderOps EpsRenderOps = {
   (DrawImageFunc) draw_image,
 };
 
+static void print_reencode_font(FILE *file, char *fontname)
+{
+  fprintf(file,
+	  "/%s-latin1\n"
+	  "    /%s findfont\n"
+	  "    dup length dict begin\n"
+	  "	{1 index /FID ne {def} {pop pop} ifelse} forall\n"
+	  "	/Encoding isolatin1encoding def\n"
+	  "    currentdict end\n"
+	  "definefont pop\n", fontname, fontname);
+}
+
+
 RendererEPS *
 new_eps_renderer(Diagram *dia, char *filename)
 {
@@ -179,6 +192,70 @@ new_eps_renderer(Diagram *dia, char *filename)
 	  name,
 	  (int) ceil((extent->right - extent->left)*scale),
 	  (int) ceil((extent->bottom - extent->top)*scale) );
+
+  fprintf(file,
+	  "[ /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright\n"
+	  "/parenleft /parenright /asterisk /plus /comma /hyphen /period /slash /zero /one\n"
+	  "/two /three /four /five /six /seven /eight /nine /colon /semicolon\n"
+	  "/less /equal /greater /question /at /A /B /C /D /E\n"
+	  "/F /G /H /I /J /K /L /M /N /O\n"
+	  "/P /Q /R /S /T /U /V /W /X /Y\n"
+	  "/Z /bracketleft /backslash /bracketright /asciicircum /underscore /quoteleft /a /b /c\n"
+	  "/d /e /f /g /h /i /j /k /l /m\n"
+	  "/n /o /p /q /r /s /t /u /v /w\n"
+	  "/x /y /z /braceleft /bar /braceright /asciitilde /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/space /exclamdown /cent /sterling /currency /yen /brokenbar /section /dieresis /copyright\n"
+	  "/ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron /degree /plusminus /twosuperior /threesuperior\n"
+	  "/acute /mu /paragraph /periodcentered /cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf\n"
+	  "/threequarters /questiondown /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla\n"
+	  "/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde\n"
+	  "/Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash /Ugrave /Uacute /Ucircumflex\n"
+	  "/Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring\n"
+	  "/ae /ccedilla /egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis\n"
+	  "/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide /oslash /ugrave\n"
+	  "/uacute /ucircumflex /udieresis /yacute /thorn /ydieresis] /isolatin1encoding exch def\n");
+
+  print_reencode_font(file, "Times-Roman");
+  print_reencode_font(file, "Times-Italic");
+  print_reencode_font(file, "Times-Bold");
+  print_reencode_font(file, "Times-BoldItalic");
+  print_reencode_font(file, "AvantGarde-Book");
+  print_reencode_font(file, "AvantGarde-BookOblique");
+  print_reencode_font(file, "AvantGarde-Demi");
+  print_reencode_font(file, "AvantGarde-DemiOblique");
+  print_reencode_font(file, "Bookman-Light");
+  print_reencode_font(file, "Bookman-LightItalic");
+  print_reencode_font(file, "Bookman-Demi");
+  print_reencode_font(file, "Bookman-DemiItalic");
+  print_reencode_font(file, "Courier");
+  print_reencode_font(file, "Courier-Oblique");
+  print_reencode_font(file, "Courier-Bold");
+  print_reencode_font(file, "Courier-BoldOblique");
+  print_reencode_font(file, "Helvetica");
+  print_reencode_font(file, "Helvetica-Oblique");
+  print_reencode_font(file, "Helvetica-Bold");
+  print_reencode_font(file, "Helvetica-BoldOblique");
+  print_reencode_font(file, "Helvetica-Narrow");
+  print_reencode_font(file, "Helvetica-Narrow-Oblique");
+  print_reencode_font(file, "Helvetica-Narrow-Bold");
+  print_reencode_font(file, "Helvetica-Narrow-BoldOblique");
+  print_reencode_font(file, "NewCenturySchoolbook-Roman");
+  print_reencode_font(file, "NewCenturySchoolbook-Italic");
+  print_reencode_font(file, "NewCenturySchoolbook-Bold");
+  print_reencode_font(file, "NewCenturySchoolbook-BoldItalic");
+  print_reencode_font(file, "Palatino-Roman");
+  print_reencode_font(file, "Palatino-Italic");
+  print_reencode_font(file, "Palatino-Bold");
+  print_reencode_font(file, "Palatino-BoldItalic");
+  print_reencode_font(file, "Symbol");
+  print_reencode_font(file, "ZapfChancery-MediumItalic");
+  print_reencode_font(file, "ZapfDingbats");
 
   fprintf(file,
 	  "/cp {closepath} bind def\n"
@@ -405,7 +482,7 @@ static void
 set_font(RendererEPS *renderer, Font *font, real height)
 {
 
-  fprintf(renderer->file, "/%s ff %f scf sf\n",
+  fprintf(renderer->file, "/%s-latin1 ff %f scf sf\n",
 	  font_get_psfontname(font), (double)height);
 }
 
