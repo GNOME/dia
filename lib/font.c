@@ -33,6 +33,7 @@
 #include <gdk/gdk.h>
 
 #include "font.h"
+#include "intl.h"
 
 static PangoContext* pango_context = NULL;
 static real global_size_one = 20.0;
@@ -52,8 +53,10 @@ cmp_families (const void *a, const void *b)
   
   return g_utf8_collate (a_name, b_name);
 }
+
 /* For debugging: List all font families */
-static void list_families()
+static void
+list_families()
 {
   PangoFontFamily **families;
   int nfamilies;
@@ -66,10 +69,27 @@ static void list_families()
   }
 }
 
+static void
+dia_font_check_for_font(char *fontname) {
+    DiaFont *check;
+    PangoFont *loaded;
+
+    check = dia_font_new(fontname, DIA_FONT_NORMAL, 1.0);
+    loaded = pango_context_load_font(pango_context,
+				     check->pfd);
+    if (loaded == NULL) {
+      message_error(_("Can't load font %s.\n"), fontname);
+    }
+}
+
 void
 dia_font_init(PangoContext* pcontext)
 {
   pango_context = pcontext;
+  /* We must have these three fonts! */
+  dia_font_check_for_font("sans");
+  dia_font_check_for_font("serif");
+  dia_font_check_for_font("monospace");
 }
 
 static GList *pango_contexts;
