@@ -672,6 +672,11 @@ dia_add_freetype_font(char *key, gpointer value, gpointer user_data) {
       font->cache[j] = NULL;
     }
 
+    /* Need to deal with spaces in names here */
+    if (!strcmp(font->public.style, "Regular"))
+      font->fontname_ps = g_strdup(font->public.name);
+    else
+      font->fontname_ps = g_strdup_printf("%s-%s", font->public.name, font->public.style);
     diafonts->diafonts = g_list_append(diafonts->diafonts, font);
   }
 
@@ -723,7 +728,6 @@ freetype_load_string(const char *string, FT_Face face, int len)
   for (i = 0; i < len; i++) {
     // convert character code to glyph index
     glyph_index = FT_Get_Char_Index( face, string[i] );
-                              
     // retrieve kerning distance and move pen position
     if ( use_kerning && previous_index && glyph_index )
     {
@@ -922,7 +926,7 @@ font_getfont_with_style(const char *name, const char *style)
   }
 
   message_notice(_("Font %s has no style %s, using %s\n"),
-		 style,
+		 name, style,
 		 ((DiaFont *)fonts->diafonts->data)->style);
   return (DiaFont *)fonts->diafonts->data;
 }

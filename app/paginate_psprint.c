@@ -129,6 +129,10 @@ paginate_psprint(Diagram *dia, FILE *file)
   old_locale = setlocale(LC_NUMERIC, "C");
   rend = new_psprint_renderer(dia, file);
 
+  /* Prepare the prolog (with fonts etc) */
+  data_render(dia->data, (Renderer *)rend, NULL, NULL, NULL);
+  eps_renderer_prolog_done(rend);
+
   /* the usable area of the page */
   width = dia->data->paper.width;
   height = dia->data->paper.height;

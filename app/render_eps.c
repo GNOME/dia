@@ -15,6 +15,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+/* The Document Structure Definitions used for the output is available at
+ * http://www-cdf.fnal.gov/offline/PostScript/psstruct.ps
+ * (Appendix G of the Red and White Book)
+ */
+
+/* Note: There is a use of setmatrix in ellipse, which is supposed to be
+ * avoided.  Could it be?
+ */
+
+/* Note that the EPS renderer now has two phases:  One to collect font
+ * info (and conceivably more, like color defs), and one to actually render.
+ */
+
 #include <config.h>
 
 #include <string.h>
@@ -24,6 +38,7 @@
 #include <unistd.h>
 #endif
 #include <locale.h>
+#include <errno.h>
 
 #include "intl.h"
 #include "render_eps.h"
@@ -37,7 +52,7 @@
 #endif
 
 
-static void begin_render(RendererEPS *renderer, DiagramData *data);
+static void begin_render(RendererEPS *renderer);
 static void end_render(RendererEPS *renderer);
 static void set_linewidth(RendererEPS *renderer, real linewidth);
 static void set_linecaps(RendererEPS *renderer, LineCaps mode);
@@ -104,6 +119,18 @@ static void predraw_string(RendererEPS *renderer,
                            const char *text); 
 #endif /* HAVE_UNICODE */
 
+/* These functions are used to create the prolog.  Currently takes care
+ * of defining necessary fonts.
+ */
+static void begin_prolog(RendererEPS *renderer);
+static void end_prolog(RendererEPS *renderer);
+static void prolog_define_font(RendererEPS *renderer,
+			       DiaFont *font, real height);
+static void prolog_check_string(RendererEPS *renderer,
+				const char *text,
+				Point *pos, Alignment alignment,
+				Color *color);
+
 static RenderOps EpsRenderOps = {
   (BeginRenderFunc) begin_render,
   (EndRenderFunc) end_render,
@@ -145,6 +172,48 @@ static RenderOps EpsRenderOps = {
 #endif /* HAVE_UNICODE */
 };
 
+static  RenderOps EpsPrologOps = {
+  (BeginRenderFunc) begin_prolog,
+  (EndRenderFunc) end_prolog,
+
+  (SetLineWidthFunc) NULL,
+  (SetLineCapsFunc) NULL,
+  (SetLineJoinFunc) NULL,
+  (SetLineStyleFunc) NULL,
+  (SetDashLengthFunc) NULL,
+  (SetFillStyleFunc) NULL,
+  (SetFontFunc) prolog_define_font,
+  
+  (DrawLineFunc) NULL,
+  (DrawPolyLineFunc) NULL,
+  
+  (DrawPolygonFunc) NULL,
+  (FillPolygonFunc) NULL,
+
+  (DrawRectangleFunc) NULL,
+  (FillRectangleFunc) NULL,
+
+  (DrawArcFunc) NULL,
+  (FillArcFunc) NULL,
+
+  (DrawEllipseFunc) NULL,
+  (FillEllipseFunc) NULL,
+
+  (DrawBezierFunc) NULL,
+  (FillBezierFunc) NULL,
+
+  (DrawStringFunc) prolog_check_string,
+
+  (DrawImageFunc) NULL,
+  
+#ifdef HAVE_UNICODE
+  (PreDrawStringFunc) NULL,
+#else
+  (PreDrawStringFunc) NULL,
+#endif /* HAVE_UNICODE */
+};
+
+
 
 #ifdef HAVE_UNICODE
 /* callback functions used by the PSUnicoder: */ 
@@ -172,10 +241,147 @@ static PSUnicoderCallbacks eps_unicoder_callbacks = {
   eps_get_string_width,
 };
 
-#else /* !HAVE_UNICODE */
+#endif
 
-static void print_reencode_font(FILE *file, char *fontname)
+#ifdef HAVE_FREETYPE
+/* Dumps a PFB style chunk into a file as ASCII.
+ * 'from' should start at the ASCII/BINARY indicator (after 080).
+ * Returns 1 if more is expected.
+ */
+static int
+dump_pfb_chunk(FILE *from, FILE *file) {
+  gchar chunktype = fgetc(from);
+  int length = 0;
+  int i, charcount;
+  int ch;
+  static char *hexChar = "0123456789abcdef";
+
+  if (chunktype == 3) { // Close chunk
+    fgetc(from); // Read up to EOF = (length << 8) + ch;
+    return 0;
+  }
+  if (ch == -1) {
+    printf("Read error: %s\n", strerror(errno));
+    return 0;
+  }
+
+  for (i = 0; i < 4; i++) {
+    ch = fgetc(from);
+    if (ch == -1) {
+      printf("Read error: %s\n", strerror(errno));
+      return 0;
+    }
+    length += ch << (i*8);
+  }
+  switch (chunktype) {
+  case 1: // ^A -- ASCII
+    for (i = 0; i < length; i++) {
+      ch = fgetc(from);
+      if (ch == -1) {
+	printf("Read error: %s\n", strerror(errno));
+	return 0;
+      }
+      fputc((ch == '\r'?'\n':ch), file); // Translate newlines
+    }
+    fgetc(from); // Skip 080 char
+    break;
+  case 2: // ^B -- Binary
+    charcount = 0;
+    for (i = 0; i < length; i++) {
+      ch = fgetc(from);
+      if (ch == -1) {
+	printf("Read error: %s\n", strerror(errno));
+	return 0;
+      }
+      fputc(hexChar[(ch>>4)&0xf], file); // Translate binary into hex
+      fputc(hexChar[ch&0xf], file);
+      if ((charcount++)%32 == 0) // Break lines after 64 chars
+	fputc('\n', file);
+    }
+    if (charcount%32 != 1) fputc('\f', file);
+    fgetc(from); // Skip 080 char
+    break;
+  default:
+    printf("Unknown chunk type %d\n", chunktype);
+    return 0;
+  }
+  return 1;
+}
+
+/* Simplest version:  Just dump the font file directly.
+ */
+static void
+eps_dump_font_file(FILE *file, char *from_file, DiaFont *font) {
+  char buf[81];
+  FILE *from = fopen(from_file, "r");
+  int num_read;
+  char first;
+  int i;
+
+  if (from == NULL) {
+    printf("Can't open font file %s: %s\n", from_file, strerror(errno));
+    return;
+  }
+
+  fprintf(file, "%%%%BeginResource: font %s\n", 
+	  font_get_psfontname(font));
+
+  first = fgetc(from);
+  if (first == '%') {
+    // ASCII file, just copy it blindly
+    fputc('%', file);
+    while ((num_read = fread(buf, 1, 80, from)) != 0) {
+      fwrite(buf, 1, num_read, file);
+    }
+  } else {
+    // Binary file.
+    while (dump_pfb_chunk(from, file))
+      ;
+  }
+  fprintf(file, "\n%%%%EndResource\n");
+  if (!feof(from)) {
+    printf("Can't read font file: %s\n", strerror(errno));
+  }
+  fclose(from);
+
+  return;
+}
+
+/* Add a font into the file */
+static void
+eps_add_font(FILE *file, DiaFont *font)
 {
+  char glyphname_max = 100;
+  char glyphname[glyphname_max+1];
+  int i, j;
+  
+  /* First find the correct face */
+  GList *face = font->family->freetype_family->faces;
+  for (; face != NULL; face = g_list_next(face)) {
+    FreetypeFace *a_face = (FreetypeFace*)face->data;
+    if (!strcmp(a_face->face->style_name, font->style) &&
+	!strcmp(a_face->face->family_name, font->name)) {
+      eps_dump_font_file(file, a_face->from_file, font);
+
+      return;
+    }
+  }
+}
+#endif
+
+static void print_define_font(gpointer key, gpointer value,
+			      gpointer data)
+{
+  DiaFont *font = (DiaFont *)value;
+  gchar *fontname = (gchar *)key;
+  FILE *file = (FILE *)data;
+
+
+#ifdef HAVE_FREETYPE
+  eps_add_font(file, font);
+#endif
+
+#ifndef HAVE_UNICODE
   /* Don't reencode the Symbol font, as it doesn't work in latin1 encoding.
    * Instead, just define Symbol-latin1 to be the same as Symbol. */
   if (!strcmp(fontname, "Symbol"))
@@ -192,8 +398,196 @@ static void print_reencode_font(FILE *file, char *fontname)
 	    "	/Encoding isolatin1encoding def\n"
 	    "    currentdict end\n"
 	    "definefont pop\n", fontname, fontname);
+#endif
 }
-#endif /* HAVE_UNICODE */
+
+/* This hashtable keeps track of the fonts used in the diagram.
+ * Indexed by psfontname, elements are DiaFonts.
+ */
+static GHashTable *font_table;
+
+void
+begin_prolog(RendererEPS *renderer)
+{
+  font_table = g_hash_table_new(g_str_hash, g_str_equal);
+
+  fprintf(renderer->file, "%%%%BeginProlog\n");
+
+#ifndef HAVE_UNICODE
+  fprintf(renderer->file,
+	  "[ /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright\n"
+	  "/parenleft /parenright /asterisk /plus /comma /hyphen /period /slash /zero /one\n"
+	  "/two /three /four /five /six /seven /eight /nine /colon /semicolon\n"
+	  "/less /equal /greater /question /at /A /B /C /D /E\n"
+	  "/F /G /H /I /J /K /L /M /N /O\n"
+	  "/P /Q /R /S /T /U /V /W /X /Y\n"
+	  "/Z /bracketleft /backslash /bracketright /asciicircum /underscore /quoteleft /a /b /c\n"
+	  "/d /e /f /g /h /i /j /k /l /m\n"
+	  "/n /o /p /q /r /s /t /u /v /w\n"
+	  "/x /y /z /braceleft /bar /braceright /asciitilde /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
+	  "/space /exclamdown /cent /sterling /currency /yen /brokenbar /section /dieresis /copyright\n"
+	  "/ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron /degree /plusminus /twosuperior /threesuperior\n"
+	  "/acute /mu /paragraph /periodcentered /cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf\n"
+	  "/threequarters /questiondown /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla\n"
+	  "/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde\n"
+	  "/Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash /Ugrave /Uacute /Ucircumflex\n"
+	  "/Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring\n"
+	  "/ae /ccedilla /egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis\n"
+	  "/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide /oslash /ugrave\n"
+	  "/uacute /ucircumflex /udieresis /yacute /thorn /ydieresis] /isolatin1encoding exch def\n");
+
+#endif /* !HAVE_UNICODE */
+  fprintf(renderer->file,
+	  "/cp {closepath} bind def\n"
+	  "/c {curveto} bind def\n"
+	  "/f {fill} bind def\n"
+	  "/a {arc} bind def\n"
+	  "/ef {eofill} bind def\n"
+	  "/ex {exch} bind def\n"
+	  "/gr {grestore} bind def\n"
+	  "/gs {gsave} bind def\n"
+	  "/sa {save} bind def\n"
+	  "/rs {restore} bind def\n"
+	  "/l {lineto} bind def\n"
+	  "/m {moveto} bind def\n"
+	  "/rm {rmoveto} bind def\n"
+	  "/n {newpath} bind def\n"
+	  "/s {stroke} bind def\n"
+	  "/sh {show} bind def\n"
+	  "/slc {setlinecap} bind def\n"
+	  "/slj {setlinejoin} bind def\n"
+	  "/slw {setlinewidth} bind def\n"
+	  "/srgb {setrgbcolor} bind def\n"
+	  "/rot {rotate} bind def\n"
+	  "/sc {scale} bind def\n"
+	  "/sd {setdash} bind def\n"
+	  "/ff {findfont} bind def\n"
+	  "/sf {setfont} bind def\n"
+	  "/scf {scalefont} bind def\n"
+	  "/sw {stringwidth pop} bind def\n"
+	  "/tr {translate} bind def\n"
+
+	  "\n/ellipsedict 8 dict def\n"
+	  "ellipsedict /mtrx matrix put\n"
+	  "/ellipse\n"
+	  "{ ellipsedict begin\n"
+          "   /endangle exch def\n"
+          "   /startangle exch def\n"
+          "   /yrad exch def\n"
+          "   /xrad exch def\n"
+          "   /y exch def\n"
+          "   /x exch def"
+	  "   /savematrix mtrx currentmatrix def\n"
+          "   x y tr xrad yrad sc\n"
+          "   0 0 1 startangle endangle arc\n"
+          "   savematrix setmatrix\n"
+          "   end\n"
+	  "} def\n\n"
+
+	  /*
+	    "/colortogray {\n"
+	    "/rgbdata exch store\n"
+	    "rgbdata length 3 idiv\n"
+	    "/npixls exch store\n"
+	    "/rgbindx 0 store\n"
+	    "0 1 npixls 1 sub {\n"
+	    "grays exch\n"
+	    "rgbdata rgbindx       get 20 mul\n"
+	    "rgbdata rgbindx 1 add get 32 mul\n"
+	    "rgbdata rgbindx 2 add get 12 mul\n"
+	    "add add 64 idiv\n"
+	    "put\n"
+	    "/rgbindx rgbindx 3 add store\n"
+	    "} for\n"
+	    "grays 0 npixls getinterval\n"
+	    "} bind def\n"
+	  */
+	  "/mergeprocs {\n"
+	  "dup length\n"
+	  "3 -1 roll\n"
+	  "dup\n"
+	  "length\n"
+	  "dup\n"
+	  "5 1 roll\n"
+	  "3 -1 roll\n"
+	  "add\n"
+	  "array cvx\n"
+	  "dup\n"
+	  "3 -1 roll\n"
+	  "0 exch\n"
+	  "putinterval\n"
+	  "dup\n"
+	  "4 2 roll\n"
+	  "putinterval\n"
+	  "} bind def\n"
+	  /*
+	    "/colorimage {\n"
+	    "pop pop\n"
+	    "{colortogray} mergeprocs\n"
+	    "image\n"
+	    "} bind def\n\n"
+	  */);
+}
+
+static void
+end_prolog(RendererEPS *renderer)
+{}
+
+static void
+prolog_define_font(RendererEPS *renderer, DiaFont *font, real height)
+{
+  g_hash_table_insert(font_table, font_get_psfontname(font), font);
+}
+
+static void
+prolog_check_string(RendererEPS *renderer,
+		    const char *text,
+		    Point *pos, Alignment alignment,
+		    Color *color)
+{
+  /* In here we can grab all the chars needed, to allow incremental
+   * font defs (or even just partial font defs).
+   */
+  /* But we won't do that just yet.
+   */
+}
+
+/* This function switches the RendererEPS into render mode */
+void
+eps_renderer_prolog_done(RendererEPS *renderer) {
+  g_hash_table_foreach(font_table, print_define_font, renderer->file);
+
+  fprintf(renderer->file, 
+	  "%%%%EndProlog\n\n"
+	  "%%%%BeginSetup\n"
+	  "%%%%EndSetup\n");
+  renderer->renderer.ops = &EpsRenderOps;
+}
+
+static void
+eps_renderer_set_scale(DiagramData *data, RendererEPS *renderer)
+{
+  double scale;
+  Rectangle *extent;
+  extent = &data->extents;
+  
+  scale = 28.346 * data->paper.scaling;
+
+  fprintf(renderer->file,
+	  "%f %f scale\n"
+	  "%f %f translate\n\n",
+	  scale, -scale,
+	  -extent->left, -extent->bottom );
+}
+
+  /*** PROLOG STUFF ENDS HERE ***/
+
 
 static RendererEPS *
 create_eps_renderer(DiagramData *data, const char *filename,
@@ -214,7 +608,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
   }
 
   renderer = g_new(RendererEPS, 1);
-  renderer->renderer.ops = &EpsRenderOps;
+  renderer->renderer.ops = &EpsPrologOps;
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
 
@@ -246,178 +640,14 @@ create_eps_renderer(DiagramData *data, const char *filename,
 	  "%%%%Orientation: Portrait\n"
 	  "%%%%BoundingBox: 0 0 %d %d\n" 
 	  "%%%%Pages: 1\n"
-	  "%%%%BeginSetup\n"
-	  "%%%%EndSetup\n"
 	  "%%%%EndComments\n",
-	  diafilename,
+	  g_basename(diafilename),
 	  VERSION,
 	  ctime(&time_now),
 	  name,
 	  (int) ceil((extent->right - extent->left)*scale),
 	  (int) ceil((extent->bottom - extent->top)*scale) );
 
-  fprintf(file, "%%%%BeginProlog\n");
-#ifndef HAVE_UNICODE
-  fprintf(file,
-	  "[ /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright\n"
-	  "/parenleft /parenright /asterisk /plus /comma /hyphen /period /slash /zero /one\n"
-	  "/two /three /four /five /six /seven /eight /nine /colon /semicolon\n"
-	  "/less /equal /greater /question /at /A /B /C /D /E\n"
-	  "/F /G /H /I /J /K /L /M /N /O\n"
-	  "/P /Q /R /S /T /U /V /W /X /Y\n"
-	  "/Z /bracketleft /backslash /bracketright /asciicircum /underscore /quoteleft /a /b /c\n"
-	  "/d /e /f /g /h /i /j /k /l /m\n"
-	  "/n /o /p /q /r /s /t /u /v /w\n"
-	  "/x /y /z /braceleft /bar /braceright /asciitilde /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/space /exclamdown /cent /sterling /currency /yen /brokenbar /section /dieresis /copyright\n"
-	  "/ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron /degree /plusminus /twosuperior /threesuperior\n"
-	  "/acute /mu /paragraph /periodcentered /cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf\n"
-	  "/threequarters /questiondown /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla\n"
-	  "/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde\n"
-	  "/Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash /Ugrave /Uacute /Ucircumflex\n"
-	  "/Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring\n"
-	  "/ae /ccedilla /egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis\n"
-	  "/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide /oslash /ugrave\n"
-	  "/uacute /ucircumflex /udieresis /yacute /thorn /ydieresis] /isolatin1encoding exch def\n");
-
-  print_reencode_font(file, "Times-Roman");
-  print_reencode_font(file, "Times-Italic");
-  print_reencode_font(file, "Times-Bold");
-  print_reencode_font(file, "Times-BoldItalic");
-  print_reencode_font(file, "AvantGarde-Book");
-  print_reencode_font(file, "AvantGarde-BookOblique");
-  print_reencode_font(file, "AvantGarde-Demi");
-  print_reencode_font(file, "AvantGarde-DemiOblique");
-  print_reencode_font(file, "Bookman-Light");
-  print_reencode_font(file, "Bookman-LightItalic");
-  print_reencode_font(file, "Bookman-Demi");
-  print_reencode_font(file, "Bookman-DemiItalic");
-  print_reencode_font(file, "Courier");
-  print_reencode_font(file, "Courier-Oblique");
-  print_reencode_font(file, "Courier-Bold");
-  print_reencode_font(file, "Courier-BoldOblique");
-  print_reencode_font(file, "Helvetica");
-  print_reencode_font(file, "Helvetica-Oblique");
-  print_reencode_font(file, "Helvetica-Bold");
-  print_reencode_font(file, "Helvetica-BoldOblique");
-  print_reencode_font(file, "Helvetica-Narrow");
-  print_reencode_font(file, "Helvetica-Narrow-Oblique");
-  print_reencode_font(file, "Helvetica-Narrow-Bold");
-  print_reencode_font(file, "Helvetica-Narrow-BoldOblique");
-  print_reencode_font(file, "NewCenturySchoolbook-Roman");
-  print_reencode_font(file, "NewCenturySchoolbook-Italic");
-  print_reencode_font(file, "NewCenturySchoolbook-Bold");
-  print_reencode_font(file, "NewCenturySchoolbook-BoldItalic");
-  print_reencode_font(file, "Palatino-Roman");
-  print_reencode_font(file, "Palatino-Italic");
-  print_reencode_font(file, "Palatino-Bold");
-  print_reencode_font(file, "Palatino-BoldItalic");
-  print_reencode_font(file, "Symbol");
-  print_reencode_font(file, "ZapfChancery-MediumItalic");
-  print_reencode_font(file, "ZapfDingbats");
-#endif /* !HAVE_UNICODE */
-
-  fprintf(file,
-	  "/cp {closepath} bind def\n"
-	  "/c {curveto} bind def\n"
-	  "/f {fill} bind def\n"
-	  "/a {arc} bind def\n"
-	  "/ef {eofill} bind def\n"
-	  "/ex {exch} bind def\n"
-	  "/gr {grestore} bind def\n"
-	  "/gs {gsave} bind def\n"
-	  "/sa {save} bind def\n"
-	  "/rs {restore} bind def\n"
-	  "/l {lineto} bind def\n"
-	  "/m {moveto} bind def\n"
-	  "/rm {rmoveto} bind def\n"
-	  "/n {newpath} bind def\n"
-	  "/s {stroke} bind def\n"
-	  "/sh {show} bind def\n"
-	  "/slc {setlinecap} bind def\n"
-	  "/slj {setlinejoin} bind def\n"
-	  "/slw {setlinewidth} bind def\n"
-	  "/srgb {setrgbcolor} bind def\n"
-	  "/rot {rotate} bind def\n"
-	  "/sc {scale} bind def\n"
-	  "/sd {setdash} bind def\n"
-	  "/ff {findfont} bind def\n"
-	  "/sf {setfont} bind def\n"
-	  "/scf {scalefont} bind def\n"
-	  "/sw {stringwidth pop} bind def\n"
-	  "/tr {translate} bind def\n"
-
-	  "\n/ellipsedict 8 dict def\n"
-	  "ellipsedict /mtrx matrix put\n"
-	  "/ellipse\n"
-	  "{ ellipsedict begin\n"
-          "   /endangle exch def\n"
-          "   /startangle exch def\n"
-          "   /yrad exch def\n"
-          "   /xrad exch def\n"
-          "   /y exch def\n"
-          "   /x exch def"
-	  "   /savematrix mtrx currentmatrix def\n"
-          "   x y tr xrad yrad sc\n"
-          "   0 0 1 startangle endangle arc\n"
-          "   savematrix setmatrix\n"
-          "   end\n"
-	  "} def\n\n"
-
-	  /*
-	  "/colortogray {\n"
-	  "/rgbdata exch store\n"
-	  "rgbdata length 3 idiv\n"
-	  "/npixls exch store\n"
-	  "/rgbindx 0 store\n"
-	  "0 1 npixls 1 sub {\n"
-	  "grays exch\n"
-	  "rgbdata rgbindx       get 20 mul\n"
-	  "rgbdata rgbindx 1 add get 32 mul\n"
-	  "rgbdata rgbindx 2 add get 12 mul\n"
-	  "add add 64 idiv\n"
-	  "put\n"
-	  "/rgbindx rgbindx 3 add store\n"
-	  "} for\n"
-	  "grays 0 npixls getinterval\n"
-	  "} bind def\n"
-	  */
-	  "/mergeprocs {\n"
-	  "dup length\n"
-	  "3 -1 roll\n"
-	  "dup\n"
-	  "length\n"
-	  "dup\n"
-	  "5 1 roll\n"
-	  "3 -1 roll\n"
-	  "add\n"
-	  "array cvx\n"
-	  "dup\n"
-	  "3 -1 roll\n"
-	  "0 exch\n"
-	  "putinterval\n"
-	  "dup\n"
-	  "4 2 roll\n"
-	  "putinterval\n"
-	  "} bind def\n"
-	  /*	  
-	  "/colorimage {\n"
-	  "pop pop\n"
-	  "{colortogray} mergeprocs\n"
-	  "image\n"
-	  "} bind def\n\n"
-	  */
-	  "%f %f scale\n"
-	  "%f %f translate\n"
-	  "%%%%EndProlog\n\n\n",
-	  scale, -scale,
-	  -extent->left, -extent->bottom );
 #ifdef HAVE_UNICODE
   renderer->psu = ps_unicoder_new(&eps_unicoder_callbacks,(gpointer)renderer);
 #endif 
@@ -446,12 +676,10 @@ new_psprint_renderer(Diagram *dia, FILE *file)
 {
   RendererEPS *renderer;
   time_t time_now;
-  double scale;
-  Rectangle *extent;
   char *name;
 
   renderer = g_new(RendererEPS, 1);
-  renderer->renderer.ops = &EpsRenderOps;
+  renderer->renderer.ops = &EpsPrologOps;
   renderer->renderer.is_interactive = 0;
   renderer->renderer.interactive_ops = NULL;
 
@@ -465,10 +693,7 @@ new_psprint_renderer(Diagram *dia, FILE *file)
   renderer->saved_line_style = LINESTYLE_SOLID;
   
   time_now  = time(NULL);
-  extent = &dia->data->extents;
-  
-  scale = 28.346;
-  
+
   name = getlogin();
   if (name==NULL)
     name = "a user";
@@ -481,8 +706,6 @@ new_psprint_renderer(Diagram *dia, FILE *file)
 	  "%%%%For: %s\n"
 	  "%%%%DocumentPaperSizes: %s\n"
 	  "%%%%Orientation: %s\n"
-	  "%%%%BeginSetup\n"
-	  "%%%%EndSetup\n"
 	  "%%%%EndComments\n",
 	  dia->filename,
 	  VERSION,
@@ -490,165 +713,6 @@ new_psprint_renderer(Diagram *dia, FILE *file)
 	  name,
 	  dia->data->paper.name,
 	  dia->data->paper.is_portrait ? "Portrait" : "Landscape");
-
-  fprintf(file, "%%%%BeginProlog\n");
-
-#ifndef HAVE_UNICODE
-  fprintf(file,
-	  "[ /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright\n"
-	  "/parenleft /parenright /asterisk /plus /comma /hyphen /period /slash /zero /one\n"
-	  "/two /three /four /five /six /seven /eight /nine /colon /semicolon\n"
-	  "/less /equal /greater /question /at /A /B /C /D /E\n"
-	  "/F /G /H /I /J /K /L /M /N /O\n"
-	  "/P /Q /R /S /T /U /V /W /X /Y\n"
-	  "/Z /bracketleft /backslash /bracketright /asciicircum /underscore /quoteleft /a /b /c\n"
-	  "/d /e /f /g /h /i /j /k /l /m\n"
-	  "/n /o /p /q /r /s /t /u /v /w\n"
-	  "/x /y /z /braceleft /bar /braceright /asciitilde /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef\n"
-	  "/space /exclamdown /cent /sterling /currency /yen /brokenbar /section /dieresis /copyright\n"
-	  "/ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron /degree /plusminus /twosuperior /threesuperior\n"
-	  "/acute /mu /paragraph /periodcentered /cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf\n"
-	  "/threequarters /questiondown /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla\n"
-	  "/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde\n"
-	  "/Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash /Ugrave /Uacute /Ucircumflex\n"
-	  "/Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring\n"
-	  "/ae /ccedilla /egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis\n"
-	  "/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide /oslash /ugrave\n"
-	  "/uacute /ucircumflex /udieresis /yacute /thorn /ydieresis] /isolatin1encoding exch def\n");
-
-  print_reencode_font(file, "Times-Roman");
-  print_reencode_font(file, "Times-Italic");
-  print_reencode_font(file, "Times-Bold");
-  print_reencode_font(file, "Times-BoldItalic");
-  print_reencode_font(file, "AvantGarde-Book");
-  print_reencode_font(file, "AvantGarde-BookOblique");
-  print_reencode_font(file, "AvantGarde-Demi");
-  print_reencode_font(file, "AvantGarde-DemiOblique");
-  print_reencode_font(file, "Bookman-Light");
-  print_reencode_font(file, "Bookman-LightItalic");
-  print_reencode_font(file, "Bookman-Demi");
-  print_reencode_font(file, "Bookman-DemiItalic");
-  print_reencode_font(file, "Courier");
-  print_reencode_font(file, "Courier-Oblique");
-  print_reencode_font(file, "Courier-Bold");
-  print_reencode_font(file, "Courier-BoldOblique");
-  print_reencode_font(file, "Helvetica");
-  print_reencode_font(file, "Helvetica-Oblique");
-  print_reencode_font(file, "Helvetica-Bold");
-  print_reencode_font(file, "Helvetica-BoldOblique");
-  print_reencode_font(file, "Helvetica-Narrow");
-  print_reencode_font(file, "Helvetica-Narrow-Oblique");
-  print_reencode_font(file, "Helvetica-Narrow-Bold");
-  print_reencode_font(file, "Helvetica-Narrow-BoldOblique");
-  print_reencode_font(file, "NewCenturySchoolbook-Roman");
-  print_reencode_font(file, "NewCenturySchoolbook-Italic");
-  print_reencode_font(file, "NewCenturySchoolbook-Bold");
-  print_reencode_font(file, "NewCenturySchoolbook-BoldItalic");
-  print_reencode_font(file, "Palatino-Roman");
-  print_reencode_font(file, "Palatino-Italic");
-  print_reencode_font(file, "Palatino-Bold");
-  print_reencode_font(file, "Palatino-BoldItalic");
-  print_reencode_font(file, "Symbol");
-  print_reencode_font(file, "ZapfChancery-MediumItalic");
-  print_reencode_font(file, "ZapfDingbats");
-#endif /* !HAVE_UNICODE */
-  fprintf(file,
-	  "/cp {closepath} bind def\n"
-	  "/c {curveto} bind def\n"
-	  "/f {fill} bind def\n"
-	  "/a {arc} bind def\n"
-	  "/ef {eofill} bind def\n"
-	  "/ex {exch} bind def\n"
-	  "/gr {grestore} bind def\n"
-	  "/gs {gsave} bind def\n"
-	  "/sa {save} bind def\n"
-	  "/rs {restore} bind def\n"
-	  "/l {lineto} bind def\n"
-	  "/m {moveto} bind def\n"
-	  "/rm {rmoveto} bind def\n"
-	  "/n {newpath} bind def\n"
-	  "/s {stroke} bind def\n"
-	  "/sh {show} bind def\n"
-	  "/slc {setlinecap} bind def\n"
-	  "/slj {setlinejoin} bind def\n"
-	  "/slw {setlinewidth} bind def\n"
-	  "/srgb {setrgbcolor} bind def\n"
-	  "/rot {rotate} bind def\n"
-	  "/sc {scale} bind def\n"
-	  "/sd {setdash} bind def\n"
-	  "/ff {findfont} bind def\n"
-	  "/sf {setfont} bind def\n"
-	  "/scf {scalefont} bind def\n"
-	  "/sw {stringwidth pop} bind def\n"
-	  "/tr {translate} bind def\n"
-
-	  "\n/ellipsedict 8 dict def\n"
-	  "ellipsedict /mtrx matrix put\n"
-	  "/ellipse\n"
-	  "{ ellipsedict begin\n"
-          "   /endangle exch def\n"
-          "   /startangle exch def\n"
-          "   /yrad exch def\n"
-          "   /xrad exch def\n"
-          "   /y exch def\n"
-          "   /x exch def"
-	  "   /savematrix mtrx currentmatrix def\n"
-          "   x y tr xrad yrad sc\n"
-          "   0 0 1 startangle endangle arc\n"
-          "   savematrix setmatrix\n"
-          "   end\n"
-	  "} def\n\n"
-
-	  /*
-	  "/colortogray {\n"
-	  "/rgbdata exch store\n"
-	  "rgbdata length 3 idiv\n"
-	  "/npixls exch store\n"
-	  "/rgbindx 0 store\n"
-	  "0 1 npixls 1 sub {\n"
-	  "grays exch\n"
-	  "rgbdata rgbindx       get 20 mul\n"
-	  "rgbdata rgbindx 1 add get 32 mul\n"
-	  "rgbdata rgbindx 2 add get 12 mul\n"
-	  "add add 64 idiv\n"
-	  "put\n"
-	  "/rgbindx rgbindx 3 add store\n"
-	  "} for\n"
-	  "grays 0 npixls getinterval\n"
-	  "} bind def\n"
-	  */
-	  "/mergeprocs {\n"
-	  "dup length\n"
-	  "3 -1 roll\n"
-	  "dup\n"
-	  "length\n"
-	  "dup\n"
-	  "5 1 roll\n"
-	  "3 -1 roll\n"
-	  "add\n"
-	  "array cvx\n"
-	  "dup\n"
-	  "3 -1 roll\n"
-	  "0 exch\n"
-	  "putinterval\n"
-	  "dup\n"
-	  "4 2 roll\n"
-	  "putinterval\n"
-	  "} bind def\n"
-	  /*
-	  "/colorimage {\n"
-	  "pop pop\n"
-	  "{colortogray} mergeprocs\n"
-	  "image\n"
-	  "} bind def\n\n"
-	  */
-	  "%%%%EndProlog\n\n\n");
   
 #ifdef HAVE_UNICODE
   renderer->psu = ps_unicoder_new(&eps_unicoder_callbacks,(gpointer)renderer);
@@ -657,7 +721,7 @@ new_psprint_renderer(Diagram *dia, FILE *file)
 }
 
 static void
-begin_render(RendererEPS *renderer, DiagramData *data)
+begin_render(RendererEPS *renderer)
 {
 }
 
@@ -1023,6 +1087,7 @@ fill_bezier(RendererEPS *renderer,
 
   fprintf(renderer->file, " f\n");
 }
+
 
 #ifdef HAVE_UNICODE
 
@@ -1640,6 +1705,9 @@ export_eps(DiagramData *data, const gchar *filename,
 
   old_locale = setlocale(LC_NUMERIC, "C");
   if ((renderer = create_eps_renderer(data, filename, diafilename))) {
+    data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
+    eps_renderer_prolog_done(renderer);
+    eps_renderer_set_scale(data, renderer);
     data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
     destroy_eps_renderer(renderer);
   }

@@ -49,6 +49,7 @@ struct _RendererEPS {
 
 RendererEPS *new_eps_renderer(Diagram *dia, char *filename);
 RendererEPS *new_psprint_renderer(Diagram *dia, FILE *file);
+void eps_renderer_prolog_done(RendererEPS *renderer);
 void destroy_eps_renderer(RendererEPS *renderer);
 
 extern DiaExportFilter eps_export_filter;
