@@ -1,5 +1,6 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
+ * Association updates Copyright(c) 2004 David Klotzbach
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +15,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ *
  */
+
+/*--------------------------------------------------------------------------**
+** In the fall of 2004, I started to use the UML portion of this dia        **
+** program in earnest. I had been using several commercial programs in my   **
+** work and wanted something I could use for my "home" projects. Even       **
+** though Dia was advertised has having complete support for the UML static **
+** structures, I found that I was used to having a design tool that was     **
+** much closer to the language as described by the OMG and the Three        **
+** Amigos.                                                                  **
+** Always willing to give back to the culture that has supported me for the **
+** last 30+ years, I have endeavored to make the UML portion of Dia more    **
+** compliant with the standard as is is currently described.                **
+** My changes do not include any of the enhancements as described in        **
+** UML 2.0.                                                                 **
+**                                                                          **
+** Association change Oct 31, 2004 - Dave Klotzbach                         **
+** dklotzbach@foxvalley.net                                                 **
+**                                                                          **
+** Now for a description of what I have done here in Association. To begin  **
+** with, the implementation of Association is darn near complete. However,  **
+** as described in "The Unified Modeling Language Users Guide", the roles   **
+** that an association may have do have "visibility" attributes, and these  **
+** attributes apply independently to each of the roles.                     **
+**                                                                          **
+** What is still missing from this version are the concepts of              **
+** "Qualification", "Interface Specifier" and "Association Classes"         **
+**--------------------------------------------------------------------------*/
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
@@ -38,6 +68,8 @@
 #include "properties.h"
 
 #include "pixmaps/association.xpm"
+
+extern char visible_char[];	/* The definitions are in UML.c. Used here to avoid getting out of sync */
 
 typedef struct _Association Association;
 typedef struct _AssociationState AssociationState;
@@ -65,6 +97,7 @@ typedef struct _AssociationEnd {
   real multi_ascent;
   real multi_descent;
   Alignment text_align;
+  UMLVisibility visibility;	/* This value is only relevant if role is not null */
   
   int arrow;
   AggregateType aggregate; /* Note: Can only be != NONE on ONE side! */
@@ -79,6 +112,8 @@ struct _AssociationState {
   struct {
     gchar *role;
     gchar *multiplicity;
+    UMLVisibility visibility;	/* This value is only relevant if role is not null */
+
     int arrow;
     AggregateType aggregate;
   } end[2];
@@ -112,6 +147,8 @@ struct _AssociationPropertiesDialog {
   struct {
     GtkEntry *role;
     GtkEntry *multiplicity;
+    GtkMenu  *attr_visible;
+    GtkOptionMenu   *attr_visible_button;
     GtkToggleButton *draw_arrow;
     GtkToggleButton *aggregate;
     GtkToggleButton *composition;
@@ -366,9 +403,19 @@ association_draw(Association *assoc, DiaRenderer *renderer)
     pos = end->text_pos;
 
     if (end->role != NULL) {
-      renderer_ops->draw_string(renderer, end->role,
-				 &pos, end->text_align,
-				 &color_black);
+      gchar *RoleNameAndVisibility = NULL;
+      int RoleNamelen;
+      
+      RoleNamelen = 3 + strlen (end->role);
+      RoleNameAndVisibility = g_malloc (sizeof (char) * (RoleNamelen + 1));
+      RoleNameAndVisibility[0] =visible_char[(int) end->visibility];
+      RoleNameAndVisibility[1] = 0;
+      strcat(RoleNameAndVisibility, end->role);
+      renderer_ops->draw_string(renderer, 
+                                RoleNameAndVisibility,
+				&pos, 
+				end->text_align,
+				&color_black);
       pos.y += ASSOCIATION_FONTHEIGHT;
     }
     if (end->multiplicity != NULL) {
@@ -411,6 +458,7 @@ association_get_state(Association *assoc)
     state->end[i].multiplicity = g_strdup(end->multiplicity);
     state->end[i].arrow = end->arrow;
     state->end[i].aggregate = end->aggregate;
+	state->end[i].visibility = end->visibility;
   }
 
   return state;
@@ -446,6 +494,7 @@ association_set_state(Association *assoc, AssociationState *state)
     end->multiplicity = state->end[i].multiplicity;
     end->arrow = state->end[i].arrow;
     end->aggregate = state->end[i].aggregate;
+	end->visibility = state->end[i].visibility;
 
     end->text_width = 0.0;
     end->role_ascent = 0.0;
@@ -783,7 +832,7 @@ association_copy(Association *assoc)
 
   orthconn_copy(orth, neworth);
 
-  newassoc->name = (assoc->name != NULL)? g_strdup(assoc->name):NULL;
+  newassoc->name = g_strdup(assoc->name);
   newassoc->direction = assoc->direction;
   for (i=0;i<2;i++) {
     newassoc->end[i] = assoc->end[i];
@@ -829,6 +878,8 @@ association_save(Association *assoc, ObjectNode obj_node,
 		  assoc->end[i].arrow);
     data_add_enum(composite_add_attribute(composite, "aggregate"),
 		  assoc->end[i].aggregate);
+  	data_add_enum(composite_add_attribute(composite, "visibility"),
+		assoc->end[i].visibility);
   }
 }
 
@@ -905,6 +956,11 @@ association_load(ObjectNode obj_node, int version, const char *filename)
     attr = composite_find_attribute(composite, "aggregate");
     if (attr != NULL)
       assoc->end[i].aggregate = data_enum(attribute_first_data(attr));
+  
+    assoc->end[i].visibility = FALSE;
+    attr = composite_find_attribute(composite, "visibility");
+    if (attr != NULL)
+      assoc->end[i].visibility =  data_enum( attribute_first_data(attr) );
 
     assoc->end[i].text_width = 0.0;
     if (assoc->end[i].role != NULL) {
@@ -962,6 +1018,11 @@ association_apply_properties(Association *assoc)
 
   for (i=0;i<2;i++) {
     AssociationEnd *end = &assoc->end[i];
+
+    end->visibility = (UMLVisibility)
+	 GPOINTER_TO_INT (gtk_object_get_user_data (
+			   GTK_OBJECT (gtk_menu_get_active (prop_dialog->end[i].attr_visible))));
+
     /* Role: */
     g_free(end->role);
     str = gtk_entry_get_text(prop_dialog->end[i].role);
@@ -1034,6 +1095,8 @@ fill_in_dialog(Association *assoc)
     else
       gtk_entry_set_text(prop_dialog->end[i].multiplicity, "");
 
+    gtk_option_menu_set_history(prop_dialog->end[i].attr_visible_button,
+			      (gint)assoc->end[i].visibility);
     gtk_toggle_button_set_active(prop_dialog->end[i].draw_arrow,
 				assoc->end[i].arrow);
     gtk_toggle_button_set_active(prop_dialog->end[i].aggregate,
@@ -1192,6 +1255,64 @@ association_get_properties(Association *assoc, gboolean is_default)
       gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
       gtk_widget_show (label);
       gtk_widget_show (entry);
+      gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+      gtk_widget_show(hbox);
+
+      hbox = gtk_hbox_new(FALSE, 5);
+      label = gtk_label_new(_("Visibility:"));
+      gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+
+      omenu = gtk_option_menu_new ();
+      menu = gtk_menu_new ();
+      prop_dialog->end[i].attr_visible = GTK_MENU(menu);
+      prop_dialog->end[i].attr_visible_button = GTK_OPTION_MENU(omenu);
+      submenu = NULL;
+      group = NULL;
+      menuitem = gtk_radio_menu_item_new_with_label (group, _("Public"));
+/*
+      gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+    		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
+*/
+      gtk_object_set_user_data(GTK_OBJECT(menuitem),
+    			   GINT_TO_POINTER(UML_PUBLIC) );
+      group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+      gtk_menu_append (GTK_MENU (menu), menuitem);
+      gtk_widget_show (menuitem);
+      menuitem = gtk_radio_menu_item_new_with_label (group, _("Private"));
+/*
+      gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+    		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
+*/
+      gtk_object_set_user_data(GTK_OBJECT(menuitem),
+    			   GINT_TO_POINTER(UML_PRIVATE) );
+      group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+      gtk_menu_append (GTK_MENU (menu), menuitem);
+      gtk_widget_show (menuitem);
+      menuitem = gtk_radio_menu_item_new_with_label (group, _("Protected"));
+/*
+      gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+    		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
+*/
+      gtk_object_set_user_data(GTK_OBJECT(menuitem),
+    			   GINT_TO_POINTER(UML_PROTECTED) );
+      group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+      gtk_menu_append (GTK_MENU (menu), menuitem);
+      gtk_widget_show (menuitem);
+      menuitem = gtk_radio_menu_item_new_with_label (group, _("Implementation"));
+/*
+      gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+    		      GTK_SIGNAL_FUNC (attributes_update), umlclass);
+*/
+      gtk_object_set_user_data(GTK_OBJECT(menuitem),
+    			   GINT_TO_POINTER(UML_IMPLEMENTATION) );
+      group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+      gtk_menu_append (GTK_MENU (menu), menuitem);
+      gtk_widget_show (menuitem);
+      
+      gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+      gtk_box_pack_start (GTK_BOX (hbox), omenu, FALSE, TRUE, 0);
+      gtk_widget_show(label);
+      gtk_widget_show(omenu);
       gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
       gtk_widget_show(hbox);
 

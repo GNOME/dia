@@ -12,13 +12,13 @@ xmlns:svg="http://www.w3.org/2000/svg">
   <aspectratio type="fixed" />
 
   <svg:svg width="0.7" height="0.7">
-    <svg:circle cx="0" cy="-0.7" r="0.1" />
+    <svg:circle style="fill: background" cx="0" cy="-0.7" r="0.1" />
 
-    <svg:line x1="-0.6" y1="0" x2="0" y2="-0.6" />
+    <svg:polygon style="fill: background"
+       points="-0.6,0 0,-0.6 0,-0.6 0.6,0 0.6,0 -0.6,0" />
 
-    <svg:line x1="0" y1="-0.6" x2="0.6" y2="0" />
-
-    <svg:line x1="0.6" y1="0" x2="-0.6" y2="0" />
+    <svg:polygon style="stroke-width: 1; stroke: foreground"
+       points="-0.6,0 0,-0.6 0,-0.6 0.6,0 0.6,0 -0.6,0" />
 
     <svg:line x1="0.6" y1="0.2" x2="-0.6" y2="0.2" />
   </svg:svg>

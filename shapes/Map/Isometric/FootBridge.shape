@@ -37,10 +37,10 @@
   </connections>
   <aspectratio type="fixed"/>
   <svg:svg>
-    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="0" y1="4" x2="8" y2="0"/>
-    <svg:polygon style="fill: #ffffff" points="4,2 8,0 15,4 11,6 "/>
-    <svg:polygon style="stroke-width: 0.1; stroke: #000000" points="4,2 8,0 15,4 11,6 "/>
-    <svg:polygon style="fill: #ffffff" points="12,12 16,10 15,4 11,6 "/>
-    <svg:polygon style="stroke-width: 0.1; stroke: #000000" points="12,12 16,10 15,4 11,6 "/>
+    <svg:line style="stroke-width: 0.1; stroke: foreground" x1="0" y1="4" x2="8" y2="0"/>
+    <svg:polygon style="fill: background" points="4,2 8,0 15,4 11,6 "/>
+    <svg:polygon style="stroke-width: 0.1; stroke: foreground" points="4,2 8,0 15,4 11,6 "/>
+    <svg:polygon style="fill: background" points="12,12 16,10 15,4 11,6 "/>
+    <svg:polygon style="stroke-width: 0.1; stroke: foreground" points="12,12 16,10 15,4 11,6 "/>
   </svg:svg>
 </shape>

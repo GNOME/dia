@@ -51,10 +51,10 @@ xmlns:svg="http://www.w3.org/2000/svg">
     <svg:rect style="fill: background" x="0" y="0" width="3"
     height="2" />
 
-    <svg:rect style="stroke-width: 1; stroke: #000000" x="0" y="0"
+    <svg:rect style="stroke-width: 1; stroke: foreground" x="0" y="0"
     width="3" height="2" />
 
-    <svg:line style="stroke-width: 1; stroke: #000000" x1="0" y1="2"
+    <svg:line style="stroke-width: 1; stroke: foreground" x1="0" y1="2"
     x2="3" y2="0" />
   </svg:svg>
 </shape>

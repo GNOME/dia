@@ -67,8 +67,19 @@ grid_draw_horizontal_lines(DDisplay *ddisp, Rectangle *update, real length)
   ddisplay_transform_coords(ddisp, update->left, pos, &x, &y);
   ddisplay_transform_coords(ddisp, update->right, update->bottom, &width, &height);
 
+  /*
+    Explanatory note from Lawrence Withers (lwithers@users.sf.net):
+    Think about it in terms of the maths and the modulo arithmetic; we
+    have a number P such that P < 0, and we want to find a number Q
+    such that Q >= 0, but (P % major_count) == (Q % major_count). To
+    do this, we say Q = P - (P * major_count), which is guaranteed to
+    give a correct answer if major_count > 0 (since the addition of
+    anf multiple of major_count won't alter the modulo).
+  */
+
   if (major_lines) {
     major_count = pos/length;
+    if(major_count < 0) major_count -= major_lines * major_count;
     major_count %= major_lines;
   }
 
@@ -105,6 +116,7 @@ grid_draw_vertical_lines(DDisplay *ddisp, Rectangle *update, real length)
 
   if (major_lines) {
     major_count = pos/length;
+    if(major_count < 0) major_count -= major_lines * major_count;
     major_count %= major_lines;
   }
 

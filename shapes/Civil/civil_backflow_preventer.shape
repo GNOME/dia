@@ -52,7 +52,7 @@ xmlns:svg="http://www.w3.org/2000/svg">
     style="stroke-width: 1; stroke: foreground; fill: background" x="0"
     y="0" width="1" height="1" />
 
-    <svg:line style="stroke-width: 1; stroke: #000000" x1="0.2"
+    <svg:line style="stroke-width: 1; stroke: foreground" x1="0.2"
     y1="0.8" x2="0.8" y2="0.2" />
   </svg:svg>
 </shape>

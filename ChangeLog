@@ -1,5 +1,11 @@
 2005-03-06  Lars Clausen  <lars@raeder.dk>
 
+	* objects/UML/association.c: Patch from Dave Klotzbach applied:
+	Add visibility to association arrow.  Fixes bug #157012.
+
+	* app/grid.c: Patch from Lawrence Withers fixes grid messiness,
+	closing bug #161040.
+
 	* app/layer_dialog.c (create_button_box): Use stock icons instead
 	of homemade onces.  Gets us rid of four more XPMs.
 
