@@ -1,5 +1,7 @@
 2002-07-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/render_libart.c: Got the context right, removed crashes.
+
 	* app/commands.c: 
 	* app/commands.h: 
 	Redraw menu item.

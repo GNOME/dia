@@ -294,11 +294,13 @@ static guint32 color_to_rgba(Color *col)
 static void
 begin_render(RendererLibart *renderer, DiagramData *data)
 {
+  dia_font_init(pango_ft2_get_context(10, 10));
 }
 
 static void
 end_render(RendererLibart *renderer)
 {
+  dia_font_init(gdk_pango_context_get());
 }
 
 
@@ -1150,7 +1152,7 @@ draw_string (RendererLibart *renderer,
 {
   /* Not working with Pango */
   DDisplay *ddisp = renderer->ddisp;
-  guint8 *bitmap;
+  guint8 *bitmap = NULL;
   int x,y;
   Point start_pos;
   PangoLayout* layout;
@@ -1207,6 +1209,7 @@ draw_string (RendererLibart *renderer,
    ftbitmap.pixel_mode = ft_pixel_mode_grays;
    ftbitmap.palette_mode = 0;
    ftbitmap.palette = 0;
+   printf("Rendering %s onto bitmap of size %dx%d\n", text, width, height);
    pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
  }
 #else
@@ -1220,18 +1223,19 @@ draw_string (RendererLibart *renderer,
   rgba = color_to_rgba(color);
 
   art_affine_translate (affine, xpos, ypos);
-  art_rgb_bitmap_affine (renderer->rgb_buffer,
-			 0, 0,
-			 renderer->renderer.pixel_width,
-			 renderer->renderer.pixel_height,
-			 renderer->renderer.pixel_width * 3,
-			 bitmap,
-			 width,
-			 height,
-			 width >> 8,
-			 rgba,
-			 affine,
-			 ART_FILTER_NEAREST, NULL);
+  if (bitmap != NULL)
+    art_rgb_bitmap_affine (renderer->rgb_buffer,
+			   0, 0,
+			   renderer->renderer.pixel_width,
+			   renderer->renderer.pixel_height,
+			   renderer->renderer.pixel_width * 3,
+			   bitmap,
+			   width,
+			   height,
+			   width >> 8,
+			   rgba,
+			   affine,
+			   ART_FILTER_NEAREST, NULL);
 
   g_free(bitmap);
 }
