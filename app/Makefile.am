@@ -141,6 +141,8 @@ dia_core_files = \
 	    dynamic_refresh.c \
 	    diapsrenderer.h \
 	    diapsrenderer.c \
+	    diapsft2renderer.h \
+	    diapsft2renderer.c \
 	    $(print_files)
 
 dia_SOURCES = \

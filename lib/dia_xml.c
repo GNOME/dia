@@ -829,7 +829,7 @@ data_add_string(AttributeNode attr, const char *str)
     xmlChar *sharped_str;
 
     if (str==NULL) {
-        data_node = diaXmlNewChild(attr, NULL, "string", NULL);
+        data_node = diaXmlNewChild(attr, NULL, "string", "##");
         return;
     } 
 

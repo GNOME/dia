@@ -1,3 +1,11 @@
+2002-12-06  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/Makefile.am (dia_core_files): Added diapsft2renderer.[ch].
+
+	* lib/dia_xml.c (data_add_string): Avoid #-less strings.
+	
+	* objects/bondgraph/Makefile.am: Removed unneeded EXTRA_DIST.
+
 2002-12-05  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/font.c: Now checking for the proper dia-style standard fonts.
