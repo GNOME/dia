@@ -352,9 +352,8 @@ set_font(RendererSVG *renderer, Font *font, real height)
 
 /* the return value of this function should not be saved anywhere */
 static gchar *
-get_style(RendererSVG *renderer,
-	  Color *colour,
-	  gboolean fill)
+get_draw_style(RendererSVG *renderer,
+	       Color *colour)
 {
   static GString *str = NULL;
 
@@ -374,10 +373,20 @@ get_style(RendererSVG *renderer,
 		      (int)ceil(255*colour->red), (int)ceil(255*colour->green),
 		      (int)ceil(255*colour->blue));
 
-  if (fill)
-    g_string_sprintfa(str, "; fill: #%02x%02x%02x",
-		      (int)ceil(255*colour->red), (int)ceil(255*colour->green),
-		      (int)ceil(255*colour->blue));
+  return str->str;
+}
+/* the return value of this function should not be saved anywhere */
+static gchar *
+get_fill_style(RendererSVG *renderer,
+	       Color *colour)
+{
+  static GString *str = NULL;
+
+  if (!str) str = g_string_new(NULL);
+
+  g_string_sprintf(str, "fill: #%02x%02x%02x",
+		   (int)ceil(255*colour->red), (int)ceil(255*colour->green),
+		   (int)ceil(255*colour->blue));
 
   return str->str;
 }
@@ -392,7 +401,7 @@ draw_line(RendererSVG *renderer,
 
   node = xmlNewChild(renderer->root, NULL, "line", NULL);
 
-  xmlSetProp(node, "style", get_style(renderer, line_colour, FALSE));
+  xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
 
   g_snprintf(buf, sizeof(buf), "%g", start->x);
   xmlSetProp(node, "x1", buf);
@@ -415,7 +424,7 @@ draw_polyline(RendererSVG *renderer,
 
   node = xmlNewChild(renderer->root, NULL, "polyline", NULL);
   
-  xmlSetProp(node, "style", get_style(renderer, line_colour, FALSE));
+  xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
@@ -435,7 +444,7 @@ draw_polygon(RendererSVG *renderer,
 
   node = xmlNewChild(renderer->root, NULL, "polygon", NULL);
   
-  xmlSetProp(node, "style", get_style(renderer, line_colour, FALSE));
+  xmlSetProp(node, "style", get_draw_style(renderer, line_colour));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
@@ -447,7 +456,7 @@ draw_polygon(RendererSVG *renderer,
 static void
 fill_polygon(RendererSVG *renderer, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      Color *colour)
 {
   int i;
   xmlNodePtr node;
@@ -455,7 +464,7 @@ fill_polygon(RendererSVG *renderer,
 
   node = xmlNewChild(renderer->root, NULL, "polygon", NULL);
   
-  xmlSetProp(node, "style", get_style(renderer, line_colour, TRUE));
+  xmlSetProp(node, "style", get_fill_style(renderer, colour));
 
   str = g_string_new(NULL);
   for (i = 0; i < num_points; i++)
@@ -474,7 +483,7 @@ draw_rect(RendererSVG *renderer,
 
   node = xmlNewChild(renderer->root, NULL, "rect", NULL);
 
-  xmlSetProp(node, "style", get_style(renderer, colour, FALSE));
+  xmlSetProp(node, "style", get_draw_style(renderer, colour));
 
   g_snprintf(buf, sizeof(buf), "%g", ul_corner->x);
   xmlSetProp(node, "x", buf);
@@ -496,7 +505,7 @@ fill_rect(RendererSVG *renderer,
 
   node = xmlNewChild(renderer->root, NULL, "rect", NULL);
 
-  xmlSetProp(node, "style", get_style(renderer, colour, TRUE));
+  xmlSetProp(node, "style", get_fill_style(renderer, colour));
 
   g_snprintf(buf, sizeof(buf), "%g", ul_corner->x);
   xmlSetProp(node, "x", buf);
@@ -521,7 +530,7 @@ draw_arc(RendererSVG *renderer,
 
   node = xmlNewChild(renderer->root, NULL, "path", NULL);
   
-  xmlSetProp(node, "style", get_style(renderer, colour, FALSE));
+  xmlSetProp(node, "style", get_draw_style(renderer, colour));
 
   /* this path might be incorrect ... */
   g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d 1 %g,%g",
@@ -545,7 +554,7 @@ fill_arc(RendererSVG *renderer,
 
   node = xmlNewChild(renderer->root, NULL, "path", NULL);
   
-  xmlSetProp(node, "style", get_style(renderer, colour, TRUE));
+  xmlSetProp(node, "style", get_fill_style(renderer, colour));
 
   /* this path might be incorrect ... */
   g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d 1 %g,%g L %g,%g z",
@@ -568,7 +577,7 @@ draw_ellipse(RendererSVG *renderer,
 
   node = xmlNewChild(renderer->root, NULL, "ellipse", NULL);
 
-  xmlSetProp(node, "style", get_style(renderer, colour, FALSE));
+  xmlSetProp(node, "style", get_draw_style(renderer, colour));
 
   g_snprintf(buf, sizeof(buf), "%g", center->x);
   xmlSetProp(node, "cx", buf);
@@ -591,7 +600,7 @@ fill_ellipse(RendererSVG *renderer,
 
   node = xmlNewChild(renderer->root, NULL, "ellipse", NULL);
 
-  xmlSetProp(node, "style", get_style(renderer, colour, TRUE));
+  xmlSetProp(node, "style", get_fill_style(renderer, colour));
 
   g_snprintf(buf, sizeof(buf), "%g", center->x);
   xmlSetProp(node, "cx", buf);
@@ -615,7 +624,7 @@ draw_bezier(RendererSVG *renderer,
 
   node = xmlNewChild(renderer->root, NULL, "path", NULL);
   
-  xmlSetProp(node, "style", get_style(renderer, colour, FALSE));
+  xmlSetProp(node, "style", get_draw_style(renderer, colour));
 
   str = g_string_new(NULL);
 
@@ -657,7 +666,7 @@ fill_bezier(RendererSVG *renderer,
 
   node = xmlNewChild(renderer->root, NULL, "path", NULL);
   
-  xmlSetProp(node, "style", get_style(renderer, colour, TRUE));
+  xmlSetProp(node, "style", get_fill_style(renderer, colour));
 
   str = g_string_new(NULL);
 
@@ -705,7 +714,7 @@ draw_string(RendererSVG *renderer,
 
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;
-  style = get_style(renderer, colour, TRUE);
+  style = get_fill_style(renderer, colour);
   renderer->linewidth = saved_width;
   switch (alignment) {
   case ALIGN_LEFT:

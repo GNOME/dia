@@ -1,3 +1,17 @@
+1999-09-05  James Henstridge  <james@daa.com.au>
+
+	* dia.spec: updated spec file to distribute $(prefix)/share/dia.
+
+	* app/render_svg.c (draw_image): some fixes so that the appropriate
+	style attributes are set.  Before it was setting line styles on
+	fill_* functions.  Now it only does this for the draw_* variants.
+
+	* app/Makefile.am (run_dia.sh): set the DIA_SHAPE_PATH environment
+	variable so that custom shapes can be loaded.
+
+	* shapes/: new directory for custom shapes.  The Circuit sheet has
+	been moved here.
+
 1999-09-02  James Henstridge  <james@daa.com.au>
 
 	* TODO: removed a few todo items that have been implemented.

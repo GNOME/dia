@@ -1,3 +1,5 @@
+%define prefix /usr
+
 Summary: A gtk+ based diagram creation program.
 Name: dia
 Version: 0.41
@@ -17,6 +19,8 @@ this first version there is support for UML static structure diagrams
 diagrams to a custom fileformat and export to postscript.
 
 %changelog
+* Sun Sep 5 1999  James Henstridge <james@daa.com.au>
+- added $(prefix)/share/dia to files list.
 * Thu Apr 29 1999  Enrico Scholz <enrico.scholz@wirtschaft.tu-chemnitz.de>
 - Made %setup quiet
 - Enabled build from cvs
@@ -30,9 +34,9 @@ diagrams to a custom fileformat and export to postscript.
 
 %build
 if [ -x ./configure ]; then
-  CFLAGS=$RPM_OPT_FLAGS ./configure --prefix=/usr --enable-gnome
+  CFLAGS=$RPM_OPT_FLAGS ./configure --prefix=%{prefix} --enable-gnome
 else 
-  CFLAGS=$RPM_OPT_FLAGS ./autogen.sh --prefix=/usr --enable-gnome
+  CFLAGS=$RPM_OPT_FLAGS ./autogen.sh --prefix=%{prefix} --enable-gnome
 fi  
 make
 
@@ -46,5 +50,7 @@ rm -fr $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc README TODO NEWS INSTALL COPYING ChangeLog AUTHORS
-/usr/bin/dia
-/usr/lib/dia
+%{prefix}/bin/dia
+%{prefix}/lib/dia
+%{prefix}/share/dia
+

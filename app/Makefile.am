@@ -87,7 +87,7 @@ LDFLAGS = --export-dynamic
 
 run_dia.sh: Makefile.am
 	 echo "#!$(SHELL) " > run_dia.sh
-	 echo "export DIA_LIB_PATH" >> run_dia.sh
+	 echo "export DIA_LIB_PATH DIA_SHAPE_PATH" >> run_dia.sh
 	 echo DIA_LIB_PATH=`pwd`/../objects/standard/.libs >> run_dia.sh
 	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/UML/.libs >> run_dia.sh
 	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/ER/.libs >> run_dia.sh
@@ -96,6 +96,7 @@ run_dia.sh: Makefile.am
 	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/sybase/.libs >> run_dia.sh
 	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/flowchart/.libs >> run_dia.sh
 	 echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/custom/.libs >> run_dia.sh
+	 echo DIA_SHAPE_PATH=`pwd`/../shapes >> run_dia.sh
 	 echo >> run_dia.sh
 	 echo "`pwd`/dia \$$*" >> run_dia.sh
 	 chmod a+x run_dia.sh

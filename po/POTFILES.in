@@ -8,6 +8,7 @@ app/display.c
 app/grid.c
 app/interface.c
 app/layer_dialog.c
+app/lineprops_area.c
 app/load_save.c
 app/menus.c
 app/preferences.c
@@ -47,8 +48,14 @@ objects/UML/small_package.c
 objects/UML/state.c
 objects/UML/uml.c
 objects/UML/usecase.c
+objects/custom/custom.c
+objects/custom/custom_object.c
+objects/custom/custom_util.c
+objects/custom/load_sheet.c
+objects/custom/shape_info.c
 objects/flowchart/box.c
 objects/flowchart/diamond.c
+objects/flowchart/ellipse.c
 objects/flowchart/flowchart.c
 objects/flowchart/parallelogram.c
 objects/network/antenna.c

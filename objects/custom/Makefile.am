@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = pixmaps Circuit
+SUBDIRS = pixmaps
 
 pkglib_LTLIBRARIES = 	libcustom_objects.la
 libcustom_objects_la_SOURCES = \
