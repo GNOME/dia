@@ -18,11 +18,14 @@
 #ifndef APP_PROCS_H
 #define APP_PROCS_H
 
+#include <lib/filter.h>
+
 void app_init(int argc, char **argv);
 void app_exit(void);
 int app_is_embedded(void);
 
-gboolean do_convert(const char *infname, const char *outfname);
+gboolean do_convert(const char *infname,
+		    const char *outfname, DiaExportFilter *ef);
 char *build_output_file_name(const char *infname, const char *format);
 
 void app_splash_init(const gchar* name);

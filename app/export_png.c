@@ -318,7 +318,9 @@ static const gchar *extensions[] = { "png", NULL };
 DiaExportFilter png_export_filter = {
   N_("Portable Network Graphics"),
   extensions,
-  export_png
+  export_png,
+  NULL,
+  "png-libart"
 };
 
 #endif

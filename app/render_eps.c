@@ -139,13 +139,17 @@ static const gchar *extensions[] = { "eps", "epsi", NULL };
 DiaExportFilter eps_ft2_export_filter = {
   N_("Encapsulated Postscript (using Pango fonts)"),
   extensions,
-  export_ft2_eps
+  export_ft2_eps,
+  NULL,
+  "eps-pango"
 };
 #endif
 
 DiaExportFilter eps_export_filter = {
-  N_("Encapsulated Postscript (using builtin PS fonts)"),
+  N_("Encapsulated Postscript (using PostScript Latin-1 fonts)"),
   extensions,
-  export_eps
+  export_eps,
+  NULL,
+  "eps-builtin"
 };
 

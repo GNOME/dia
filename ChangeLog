@@ -1,3 +1,22 @@
+2003-10-11  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/pixbuf/pixbuf.c: Unique name for pixbuf export: gdkpixbuf.
+
+	* app/export_png.c: Unique name for libart PNG export: png-libart.
+
+	* app/render_eps.c: Unique names for the two eps export methods:
+	eps-builtin, eps-pango.
+
+	* lib/filter.h: Binary compatibility change: 
+	Added unique name to export filters.  Can be NULL.
+	* lib/filter.c (filter_get_by_name): Finding a filter by
+	non-extension name.
+
+	* app/app_procs.h: Changed prototype for do_convert.
+	* app/app_procs.c (app_init): Support for non-extension file
+	format selection for export.  Also allow extension to differ from
+	that specified by the filters.  A bit of refactoring, too.
+
 2003-09-28  Steffen Macke <sdteffen@web.de>
 
 	* makefile.msc: added target po to update the translations

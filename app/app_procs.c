@@ -86,6 +86,11 @@
 extern DiaExportFilter png_export_filter;
 #endif
 
+static gboolean
+handle_initial_diagram(const char *input_file_name, 
+		       const char *export_file_name,
+		       const char *export_file_format);
+
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
 
@@ -147,13 +152,29 @@ build_output_file_name(const char *infname, const char *format)
 
 const char *argv0 = NULL;
 
-gboolean 
-do_convert(const char *infname,
-           const char *outfname)
+/** Convert infname to outfname, using input filter inf and export filter
+ * ef.  If either is null, try to guess them.
+ */
+gboolean
+do_convert(const char *infname, 
+	   const char *outfname, DiaExportFilter  *ef)
 {
-  DiaExportFilter *ef = NULL;
-  DiaImportFilter *inf = NULL;
+  DiaImportFilter *inf;
   DiagramData *diagdata = NULL;
+
+  inf = filter_guess_import_filter(infname);
+  if (!inf) 
+    inf = &dia_import_filter;
+
+  if (ef == NULL) {
+    ef = filter_guess_export_filter(outfname);
+    if (!ef) {
+      fprintf(stderr,
+	      _("%s error: don't know how to export into %s\n"),
+	      argv0,outfname);
+      exit(1);
+    }
+  }
 
   dia_is_interactive = FALSE;
 
@@ -165,20 +186,10 @@ do_convert(const char *infname,
   }
   
   diagdata = new_diagram_data(&prefs.new_diagram);
-  inf = filter_guess_import_filter(infname);
-  if (!inf) 
-    inf = &dia_import_filter;
   if (!inf->import(infname,diagdata,inf->user_data)) {
     fprintf(stderr,
             _("%s error: need valid input file %s\n"),
             argv0,infname);
-            exit(1);
-  }
-  ef = filter_guess_export_filter(outfname);
-  if (!ef) {
-    fprintf(stderr,
-            _("%s error: don't know how to export into %s\n"),
-            argv0,outfname);
             exit(1);
   }
   ef->export(diagdata, outfname, infname, ef->user_data);
@@ -202,6 +213,53 @@ gboolean
 app_is_interactive(void)
 {
   return dia_is_interactive;
+}
+
+/** Handle loading of diagrams given on command line, including conversions.
+ * Returns TRUE if any automatic conversions were performed.
+ */
+static gboolean
+handle_initial_diagram(const char *in_file_name, 
+		       const char *out_file_name,
+		       const char *export_file_format) {
+  DDisplay *ddisp = NULL;
+  Diagram *diagram = NULL;
+  gboolean made_conversions = FALSE;
+
+  if (export_file_format) {
+    char *export_file_name = NULL;
+    DiaExportFilter *ef;
+    /* First try guessing based on extension */
+    export_file_name = build_output_file_name(in_file_name,
+					      export_file_format);
+    ef = filter_guess_export_filter(export_file_name);
+    if (ef == NULL) {
+      ef = filter_get_by_name(export_file_format);
+      if (ef == NULL) {
+	g_error(_("Can't find output format %s\n"), export_file_format);
+	return FALSE;
+      }
+      export_file_name = build_output_file_name(in_file_name,
+						ef->extensions[0]);
+    }
+    made_conversions |= do_convert(in_file_name, (out_file_name != NULL?out_file_name:export_file_name), ef);
+    g_free(export_file_name);
+  } else if (out_file_name) {
+    made_conversions |= do_convert(in_file_name, out_file_name, NULL);
+  } else {
+    if (g_file_test(in_file_name, G_FILE_TEST_EXISTS)) {
+      diagram = diagram_load (in_file_name, NULL);
+    } else
+      diagram = new_diagram (in_file_name);
+	      
+    if (diagram != NULL) {
+      diagram_update_extents(diagram);
+      layer_dialog_set_diagram(diagram);
+                  
+      ddisp = new_display(diagram);
+    }
+  }
+  return made_conversions;
 }
 
 #ifdef G_OS_WIN32
@@ -311,13 +369,6 @@ app_init (int argc, char **argv)
         if(rc == 1) {
             poptPrintHelp(poptCtx, stderr, 0);
             exit(0);
-        }
-
-        if (export_file_format && export_file_name) {
-            fprintf(stderr,
-                    _("%s error: can specify only one of -f or -o."),
-                    argv[0]);
-            exit(1);
         }
 
     }
@@ -446,38 +497,17 @@ app_init (int argc, char **argv)
   if (argv) {
 #ifdef HAVE_POPT
       while (poptPeekArg(poptCtx)) {
-          Diagram *diagram = NULL;
-          DDisplay *ddisp = NULL;
           char *in_file_name = (char *)poptGetArg(poptCtx);
-
-          if (export_file_name) {
-              made_conversions |= do_convert(in_file_name,export_file_name);
-          } else if (export_file_format) {
-              export_file_name = build_output_file_name(in_file_name,
-                                                        export_file_format);
-              made_conversions |= do_convert(in_file_name,export_file_name);
-              g_free(export_file_name);
-          } else {
-	      if (g_file_test(in_file_name, G_FILE_TEST_EXISTS)) {
-		  diagram = diagram_load (in_file_name, NULL);
-	      } else
-		  diagram = new_diagram (in_file_name);
-	      
-              if (diagram != NULL) {
-		  diagram_update_extents(diagram);
-		  layer_dialog_set_diagram(diagram);
-                  
-		  ddisp = new_display(diagram);
-	      }
-          }
+	  
+	  made_conversions |= handle_initial_diagram(in_file_name,
+						     export_file_name,
+						     export_file_format);
       }
       poptFreeContext(poptCtx);
 #else
       int i;
 
       for (i=1; i<argc; i++) {
-          Diagram *diagram = NULL;
-          DDisplay *ddisp;
           char *in_file_name = argv[i]; /* unless it's an option... */
           
           if (0==strcmp(argv[i],"-t")) {
@@ -494,24 +524,9 @@ app_init (int argc, char **argv)
               }
           }
           
-          if (export_file_name) {
-              made_conversions |= do_convert(in_file_name,export_file_name);
-          } else if (export_file_format) {
-              export_file_name = build_output_file_name(in_file_name,
-                                                        export_file_format);
-              made_conversions |= do_convert(in_file_name,export_file_name);
-              g_free(export_file_name);
-          } else {
-              diagram = diagram_load(in_file_name, NULL);
-              
-              if (diagram != NULL) {
-                  diagram_update_extents(diagram);
-                  layer_dialog_set_diagram(diagram);
-                  
-                  ddisp = new_display(diagram);
-              }
-              /* Error messages are done in diagram_load() */
-          }
+	  made_conversions |= handle_initial_diagram(in_file_name,
+						     export_file_name,
+						     export_file_format);
       }
 #endif
   }

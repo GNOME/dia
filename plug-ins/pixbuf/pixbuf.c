@@ -162,7 +162,9 @@ static const gchar *extensions[] = { "png", "jpg", "jpeg", NULL };
 static DiaExportFilter export_filter = {
     N_("GdkPixbuf bitmap"),
     extensions,
-    export_data
+    export_data,
+    NULL,
+    "gdkpixbuf"
 };
 #endif
 

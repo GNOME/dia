@@ -78,7 +78,9 @@ filter_get_export_filter_label(DiaExportFilter *efilter)
   return ret;
 }
 
-/* guess the filter for a given filename. */
+/* Guess the filter for a given filename. 
+ * Returns the first filter found that matches the extension on the filename,
+ * or NULL if none such are found. */
 DiaExportFilter *
 filter_guess_export_filter(const gchar *filename)
 {
@@ -100,6 +102,27 @@ filter_guess_export_filter(const gchar *filename)
 	return ef;
   }
   return NULL;
+}
+
+/** Get an export filter by unique name.
+ */
+DiaExportFilter *
+filter_get_by_name(const gchar *name) 
+{
+  GList *tmp;
+  DiaExportFilter *filter = NULL;
+
+  for (tmp = export_filters; tmp != NULL; tmp = tmp->next) {
+    DiaExportFilter *ef = tmp->data;
+    if (ef->unique_name != NULL) {
+      if (!g_strcasecmp(ef->unique_name, name)) {
+	if (filter) 
+	  g_warning(_("Multiple export filters with unique name %s"), name);
+	filter = ef;
+      }
+    }
+  }
+  return filter;
 }
 
 static gint

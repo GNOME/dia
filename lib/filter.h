@@ -35,6 +35,12 @@ struct _DiaExportFilter {
   const gchar **extensions;
   DiaExportFunc export;
   void* user_data;
+  /* A unique name that this filter can always be addressed as from the
+   * command line.  If more than one filter can handle an extension, this
+   * will allow disambiguation.  Note that import and export filters are
+   * treated seperately for this.
+   */
+  const gchar *unique_name;
 };
 
 /* returns FALSE on error loading diagram */
@@ -48,6 +54,12 @@ struct _DiaImportFilter {
   const gchar **extensions;
   DiaImportFunc import;
   void* user_data;
+  /* A unique name that this filter can always be addressed as from the
+   * command line.  If more than one filter can handle an extension, this
+   * will allow disambiguation.  Note that import and export filters are
+   * treated seperately for this.
+   */
+  const gchar *unique_name;
 };
 
 /* gets called as menu callback */
@@ -74,6 +86,8 @@ gchar *filter_get_export_filter_label(DiaExportFilter *efilter);
 
 /* guess the filter for a given filename. */
 DiaExportFilter *filter_guess_export_filter(const gchar *filename);
+/* Get the filter for the unique filename. */
+DiaExportFilter *filter_get_by_name(const gchar *name);
 
 void filter_register_import(DiaImportFilter *ifilter);
 GList *filter_get_import_filters(void);
