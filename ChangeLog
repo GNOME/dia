@@ -1,9 +1,9 @@
 2001-06-25  Cyrille Chepelov  <chepelov@calixo.net>
 
-	* intl/*: upgraded to gettext-0.10.38
+	* intl/*: tested with gettext-0.10.38
 	* configure.in: moved a macro call around (AM_PROG_CC) to keep
 	some of autogen.sh from complaining.
-	* INSTALL: added a warning against older gettext
+	* INSTALL: added a warning against gettext older than at least 0.10.36
 	
 2001-06-19  Cyrille Chepelov  <chepelov@calixo.net>
 
