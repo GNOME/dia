@@ -437,7 +437,6 @@ text_draw(Text *text, Renderer *renderer)
     real str_width_first;
     real str_width_whole;
     Point p1, p2;
-
     curs_y = text->position.y - text->ascent + text->cursor_row*text->height; 
 
     str_width_first =
@@ -448,7 +447,6 @@ text_draw(Text *text, Renderer *renderer)
       renderer->interactive_ops->get_text_width(renderer,
 						text->line[text->cursor_row],
 						text->strlen[text->cursor_row]);
-
     curs_x = text->position.x + str_width_first;
 
     switch (text->alignment) {

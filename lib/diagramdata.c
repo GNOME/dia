@@ -601,8 +601,7 @@ real layer_find_closest_connectionpoint(Layer *layer,
   
   *closest = NULL;
   
-  l = layer->objects;
-  while(l!=NULL) {
+  for (l = layer->objects; l!=NULL; l = g_list_next(l) ) {
     obj = (Object *) l->data;
 
     if (obj == notthis) continue;
@@ -616,8 +615,7 @@ real layer_find_closest_connectionpoint(Layer *layer,
       }
     }
     
-    l = g_list_next(l);
-  }
+ }
 
   return mindist;
 }

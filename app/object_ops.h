@@ -35,7 +35,8 @@
 void object_add_updates(Object *obj, Diagram *dia);
 void object_add_updates_list(GList *list, Diagram *dia);
 ConnectionPoint *object_find_connectpoint_display(DDisplay *ddisp,
-						  Point *pos);
+						  Point *pos,
+						  Object *notthis);
 
 void object_connect_display(DDisplay *ddisp, Object *obj,
 			    Handle *handle);

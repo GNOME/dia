@@ -171,7 +171,7 @@ group_draw(Group *group, Renderer *renderer)
   while (list != NULL) {
     obj = (Object *) list->data;
     
-    obj->ops->draw(obj, renderer);
+    renderer->ops->draw_object(renderer, obj);
 
     list = g_list_next(list);
   }
