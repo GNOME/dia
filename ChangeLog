@@ -1,5 +1,10 @@
 1999-10-25  James Henstridge  <james@daa.com.au>
 
+	* app/...: added copyright messages to the top of my new code.
+
+	* app/paginate_psprint.c: some general clean ups.  Also, give an error
+	dialog if we can't open the command or output file for writing.
+
 	* app/diapagelayout.c (dia_page_layout_set_orientation): fixed
 	function so it would set orientation to landscape correctly.
 

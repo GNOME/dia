@@ -115,7 +115,9 @@ EXTRA_DIST = \
 	pixmaps/new.xpm \
 	pixmaps/raise.xpm \
 	pixmaps/scroll.xpm \
-	pixmaps/swap.xpm
+	pixmaps/swap.xpm \
+	pixmaps/portrait.xpm \
+	pixmaps/landscape.xpm
 
 run_dia.sh: Makefile.am
 	 echo "#!$(SHELL) " > run_dia.sh

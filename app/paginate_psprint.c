@@ -1,6 +1,27 @@
+/* Dia -- an diagram creation/manipulation program
+ * Copyright (C) 1998, 1999 Alexander Larsson
+ *
+ * paginate_psprint.[ch] -- pagination code for the postscript backend
+ * Copyright (C) 1999 James Henstridge
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
 #include <stdio.h>
-#include <math.h>
 #include "intl.h"
+#include "message.h"
 #include "diagram.h"
 #include "diagramdata.h"
 #include "render_eps.h"
@@ -8,34 +29,6 @@
 #include "diapagelayout.h"
 
 #include <gtk/gtk.h>
-
-/* Paper definitions stollen from gnome-libs.
- * All measurements are in centimetres. */
-static const struct _dia_paper_metrics {
-  gchar *paper;
-  gdouble pswidth, psheight;
-  gdouble lmargin, tmargin, rmargin, bmargin;
-} paper_metrics[] = {
-  { "A3", 29.7, 42.0, 2.8222, 2.8222, 2.8222, 2.8222 },
-  { "A4", 21.0, 29.7, 2.8222, 2.8222, 2.8222, 2.8222 },
-  { "A5", 14.85, 21.0, 2.8222, 2.8222, 2.8222, 2.8222 },
-  { "B4", 25.7528, 36.4772, 2.1167, 2.1167, 2.1167, 2.1167 },
-  { "B5", 17.6389, 25.0472, 2.8222, 2.8222, 2.8222, 2.8222 },
-  { "B5-Japan", 18.2386, 25.7528, 2.8222, 2.8222, 2.8222, 2.8222 },
-  { "Letter", 21.59, 27.94, 2.54, 2.54, 2.54, 2.54 },
-  { "Legal", 21.59, 35.56, 2.54, 2.54, 2.54, 2.54 },
-  { "Half-Letter", 21.59, 14.0, 2.54, 2.54, 2.54, 2.54 },
-  { "Executive", 18.45, 26.74, 2.54, 2.54, 2.54, 2.54 },
-  { "Tabloid", 28.01, 43.2858, 2.54, 2.54, 2.54, 2.54 },
-  { "Monarch", 9.8778, 19.12, 0.3528, 0.3528, 0.3528, 0.3528 },
-  { "SuperB", 29.74, 43.2858, 2.8222, 2.8222, 2.8222, 2.8222 },
-  { "Envelope-Commercial", 10.5128, 24.2, 0.1764, 0.1764, 0.1764, 0.1764 },
-  { "Envelope-Monarch", 9.8778, 19.12, 0.1764, 0.1764, 0.1764, 0.1764 },
-  { "Envelope-DL", 11.0, 22.0, 0.1764, 0.1764, 0.1764, 0.1764 },
-  { "Envelope-C5", 16.2278, 22.9306, 0.1764, 0.1764, 0.1764, 0.1764 },
-  { "EuroPostcard", 10.5128, 14.8167, 0.1764, 0.1764, 0.1764, 0.1764 },
-  { NULL, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }
-};
 
 /* keep track of print options between prints */
 typedef struct _dia_print_options {
@@ -83,7 +76,7 @@ print_page(DiagramData *data, RendererEPS *rend, Rectangle *bounds)
     fprintf(rend->file, "%f %f translate\n", lmargin/scale - bounds->left,
 	    -bmargin/scale - bounds->bottom);
   } else {
-    fprintf(rend->file, "90 rotate\n", -M_PI/2);
+    fprintf(rend->file, "90 rotate\n");
     fprintf(rend->file, "%f %f scale\n", 28.346457*scale, -28.346457*scale);
     fprintf(rend->file, "%f %f translate\n", lmargin/scale - bounds->left,
 	    tmargin/scale - bounds->top);
@@ -273,10 +266,16 @@ diagram_print_ps(Diagram *dia)
   last_print_options.output = g_strdup( gtk_entry_get_text(GTK_ENTRY(ofile)) );
   last_print_options.printer = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd));
   
-  if (!file)
-    g_warning("could not open file");
-  else
-    paginate_psprint(dia, file);
+  if (!file) {
+    if (is_pipe)
+      message_warning("Could not run command '%s'",
+		      gtk_entry_get_text(GTK_ENTRY(cmd)));
+    else
+      message_warning("Could not open '%s' for writing",
+		      gtk_entry_get_text(GTK_ENTRY(ofile)));
+    return;
+  }
+  paginate_psprint(dia, file);
   gtk_widget_destroy(dialog);
   if (is_pipe)
     pclose(file);

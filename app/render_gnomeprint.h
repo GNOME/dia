@@ -1,5 +1,8 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998 Alexander Larsson
+ * Copyright (C) 1998, 1999 Alexander Larsson
+ *
+ * render_gnomeprint.[ch] -- gnome-print renderer for dia.
+ * Copyright (C) 1999 James Henstridge
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
 #ifndef RENDER_GNOMEPRINT_H
 #define RENDER_GNOMEPRINT_H
 
