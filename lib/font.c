@@ -664,7 +664,8 @@ dia_add_freetype_font(char *key, gpointer value, gpointer user_data) {
 
     if (face->ascender != 0 || face->descender != 0) {
       int descent = abs(face->descender);
-      font->ascent_ratio = ((real)face->ascender+1)/(face->ascender+descent);
+      // The -1 is a piece of magic.  Probably rounding errors.
+      font->ascent_ratio = ((real)face->ascender-1)/(face->ascender+descent);
       font->descent_ratio = ((real)descent)/(face->ascender+descent);
     }
 
@@ -762,7 +763,7 @@ freetype_load_string(const char *string, FT_Face face, int len)
     // increment number of glyphs
     num_glyphs++;
   }
-  fts->width = width*2.54/72.0;
+  fts->width = width;
   LC_DEBUG (fprintf(stderr, "Width of %s is %f\n", string, fts->width));
   return fts;
 }
@@ -837,6 +838,7 @@ freetype_render_string(FreetypeString *fts, int x, int y,
     // increment pen position 
     pen_x += face->glyph->advance.x >> 6;
     pen_y += face->glyph->advance.y >> 6;   // unuseful for now..
+
 
     // record current glyph index for kerning
     previous_index = glyph_index;
@@ -1066,19 +1068,22 @@ font_get_psfontname(DiaFont *font)
   return fontprivate->fontname_ps;
 }
 
+/* Returns the height in cm */
 real
 font_string_width(const char *string, DiaFont *font, real height)
 {
 #ifdef HAVE_FREETYPE
   FT_Face face;
   FreetypeString *ft_string;
+  real height_ratio;
 
   /* This is currently broken */
   LC_DEBUG (fprintf(stderr, "font_string_width: %s %s %f\n", font->name, font->style, height));
   face = font_get_freetypefont(font, height*72/2.54);
   ft_string = freetype_load_string(string, face, strlen(string));
-  LC_DEBUG (fprintf(stderr, "result width is %f\n", ft_string->width));
-  return ft_string->width;
+  height_ratio = (face->height>>6)/height;
+  LC_DEBUG(fprintf(stderr, "result width is %f, height %f, face height %d, ratio %f\n", ft_string->width, height, (face->height>>6), height_ratio));
+  return ft_string->width/height_ratio;
 #else
   GdkFont *gdk_font;
   GdkWChar *wcstr;

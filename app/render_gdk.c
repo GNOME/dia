@@ -949,7 +949,7 @@ draw_string (RendererGdk *renderer,
 
   ddisplay_transform_coords(ddisp, pos->x, pos->y, &x, &y);
   fts = freetype_load_string(text, renderer->freetype_font, strlen(text));
-  iwidth = fts->width*72.0/2.54;
+  iwidth = fts->width;
 
   switch (alignment) {
   case ALIGN_LEFT:
@@ -1068,6 +1068,7 @@ draw_image(RendererGdk *renderer,
 		 real_width, real_height);
 }
 
+/* Get the width of the given text in cm */
 static real
 get_text_width(RendererGdk *renderer,
 	       const utfchar *text, int length)

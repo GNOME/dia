@@ -56,6 +56,7 @@ struct _FreetypeString {
   gint num_glyphs;
   FT_Glyph *glyphs;
   gchar *text;
+  /* The width of this string in pixels */
   real width;
   /* Something that stores a rendering */
 };
@@ -127,8 +128,11 @@ DiaFont *font_getfont_with_style(const char *name, const char *style);
 void freetype_render_string(FreetypeString *fts, int x, int y, 
 			    BitmapCopyFunc func, gpointer userdata);
 #endif
+/* Get the width of the string with the given font in cm */
 real font_string_width(const char *string, DiaFont *font, real height);
+/* Get the max ascent of the font in cm (a positive number) */
 real font_ascent(DiaFont *font, real height);
+/* Get the max descent of the font in cm (a positive number) */
 real font_descent(DiaFont *font, real height);
 
 #endif /* FONT_H */

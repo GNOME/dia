@@ -189,10 +189,10 @@ typedef void (*PreDrawStringFunc) (Renderer *renderer,
  **  to pixels on the screen.
  ******************************************************/
 
-/* Returns the EXACT width of text in pixels, using the current font
-   This operation just has to be defined for renderers that are
-   interactive, (ie. the screen). As you can't generally calculate
-   exact widths otherwise.
+/* Returns the EXACT width of text in cm, using the current font.
+   There has been some confusion as to the definition of this.
+   It used to say the width was in pixels, but actual width returned
+   was cm.  You shouldn't know about pixels anyway.
  */
 typedef real (*GetTextWidthFunc) (Renderer *renderer,
 				  const utfchar *text, int length);

@@ -1205,12 +1205,12 @@ draw_string (RendererLibart *renderer,
   {
     utfchar *utfbuf = charconv_local8_to_utf8(text);
     fts = freetype_load_string(utfbuf, renderer->freetype_font, strlen(text));
-    iwidth = fts->width*72.0/2.54;
+    iwidth = fts->width;
     g_free(utfbuf);
   }
 #else
   fts = freetype_load_string(text, renderer->freetype_font, strlen(text));
-  iwidth = fts->width*72.0/2.54;
+  iwidth = fts->width;
 #endif
   switch (alignment) {
   case ALIGN_LEFT:

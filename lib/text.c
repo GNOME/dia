@@ -313,17 +313,23 @@ text_calc_boundingbox(Text *text, Rectangle *box)
 
   box->right = box->left + text->max_width;
   
-  if (text->cursor_pos == 0) {
-    box->left -= 0.05; /* Half the cursor width */
-  } else {
-    box->right += 0.05; /* Half the cursor width. Assume that
-                           if it isn't at position zero, it might be 
-                           at the last position possible. */
-  }
-
   box->top = text->position.y - text->ascent;
 
   box->bottom = box->top + text->height*text->numlines;
+
+  if (text->focus.has_focus) {
+    if (text->cursor_pos == 0) {
+      box->left -= 0.05; /* Half the cursor width */
+    } else {
+      box->right += 0.05; /* Half the cursor width. Assume that
+			     if it isn't at position zero, it might be 
+			     at the last position possible. */
+    }
+   
+    /* Account for the size of the cursor top and bottom */
+    box->top -= 0.05;
+    box->bottom += 0.1;
+  }
 }
 
 
@@ -432,7 +438,6 @@ text_draw(Text *text, Renderer *renderer)
       renderer->interactive_ops->get_text_width(renderer,
 						text->line[text->cursor_row],
 						text->strlen[text->cursor_row]);
-
     curs_x = text->position.x + str_width_first;
 
     switch (text->alignment) {
