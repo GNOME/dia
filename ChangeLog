@@ -1,5 +1,26 @@
 2000-08-06  James Henstridge  <james@daa.com.au>
 
+	* plug-ins/svg/render_svg.c (new_svg_renderer): update public
+	identifier and dtd url for SVG output.
+	(new_svg_renderer): fix the output of the viewBox output.  The
+	second two numbers are the width and height -- not the right
+	and bottom sides of the box.
+
+	* shapes/*/*.shape: update svg namespace URI.
+
+	* objects/custom/shape_info.c (load_shape_info): change the
+	namespace URI for custom shapes yet again to match the Candidate
+	Recommedation.  It looks like this one will probably be the final
+	one.
+
+	* app/display.c (new_display): remove the code that sets ic and
+	ic_attr members to NULL, as one of the previous function calls
+	causes the display to be realised.  This means that the ic gets
+	lost.  Thanks to Yukihiro Nakai <ynakai@redhat.com> for finding
+	this one.
+
+2000-08-06  James Henstridge  <james@daa.com.au>
+
 	* shapes/Makefile.am (SUBDIRS): add Civil back to list.
 
 	* NEWS: fixed date in NEWS file, as I will release today.

@@ -32,7 +32,7 @@ A typical shape file may look something like this:
   <?xml version="1.0"?>
 
   <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-         xmlns:svg="http://www.w3.org/TR/2000/03/WD-SVG-20000303/DTD/svg-20000303-stylable.dtd">
+         xmlns:svg="http://www.w3.org/2000/svg">
     <name>Circuit - NPN Transistor</name>
     <icon>npn.xpm</icon>
     <connections>

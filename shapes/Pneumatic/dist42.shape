@@ -1,7 +1,7 @@
 <?xml version="1.0"?> <!-- -*- xml -*- -->
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/TR/2000/03/WD-SVG-20000303/DTD/svg-20000303-stylable.dtd">
+       xmlns:svg="http://www.w3.org/2000/svg">
   <name>Pneum - dist42</name>
   <description>dist42</description>
   <icon>dist42.xpm</icon>

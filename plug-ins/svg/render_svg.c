@@ -194,8 +194,8 @@ new_svg_renderer(DiagramData *data, const char *filename)
   renderer->doc = xmlNewDoc("1.0");
   renderer->doc->standalone = FALSE;
   xmlCreateIntSubset(renderer->doc, "svg",
-		     "-//W3C//DTD SVG 20000303 Stylable//EN",
-		     "http://www.w3.org/TR/2000/03/WD-SVG-20000303/DTD/svg-20000303-stylable.dtd");
+		     "-//W3C//DTD SVG 20000802//EN",
+		     "http://www.w3.org/TR/2000/CR-SVG-20000802/DTD/svg-20000802.dtd");
   renderer->root = xmlNewDocNode(renderer->doc, NULL, "svg", NULL);
   renderer->doc->root = renderer->root;
 
@@ -209,7 +209,8 @@ new_svg_renderer(DiagramData *data, const char *filename)
   xmlSetProp(renderer->root, "height", buf);
   g_snprintf(buf, sizeof(buf), "%d %d %d %d",
 	     (int)floor(extent->left), (int)floor(extent->top),
-	     (int)ceil(extent->right), (int)ceil(extent->bottom));
+	     (int)ceil(extent->right - extent->left),
+	     (int)ceil(extent->bottom - extent->top));
   xmlSetProp(renderer->root, "viewBox", buf);
   
   time_now = time(NULL);

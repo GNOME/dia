@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
-       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+       xmlns:svg="http://www.w3.org/2000/svg">
   <name>Custom - Test</name>
   <description>A test of the custom object</description>
   <connections>

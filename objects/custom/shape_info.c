@@ -752,14 +752,10 @@ load_shape_info(const gchar *filename)
     g_warning("could not find shape namespace");
     return NULL;
   }
-  if (!(svg_ns = xmlSearchNsByHref(doc, root,
-		"http://www.w3.org/TR/2000/03/WD-SVG-20000303/DTD/svg-20000303-stylable.dtd"))) {
-    if (!(svg_ns = xmlSearchNsByHref(doc, root,
-		"http://www.w3.org/Graphics/SVG/svg-19990730.dtd"))) {
-      xmlFreeDoc(doc);
-      g_warning("could not find svg namespace");
-      return NULL;
-    }
+  if (!(svg_ns = xmlSearchNsByHref(doc, root, "http://www.w3.org/2000/svg"))) {
+    xmlFreeDoc(doc);
+    g_warning("could not find svg namespace");
+    return NULL;
   }
   if (root->ns != shape_ns || strcmp(root->name, "shape")) {
     g_warning("root element was %s -- expecting shape", root->name);
