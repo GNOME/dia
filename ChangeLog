@@ -1,3 +1,12 @@
+1999-09-17  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/menus.c:
+ 	Add equal distance alignment.
+
+	* app/object_ops.c:
+	Add equal distance alignment.
+	Fix bug in adjacent alignment.
+
 1999-09-16  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/UML/constraint.c: 

@@ -272,6 +272,9 @@ object_list_align_v(GList *objects, int align)
     freespc = (bottom - top - freespc)/(double)nobjs;
     y_pos = top;
     break;
+  case 5: /* ADJACENT */
+    y_pos = top;
+    break;
   default:
     message_warning("Wrong argument to object_list_align_h()\n");
   }
@@ -296,8 +299,12 @@ object_list_align_v(GList *objects, int align)
       pos.y = y_pos;
       break;
     case 4: /* EQUAL DISTANCE */
-      pos.y = y_pos;
+      pos.y = y_pos + obj->position.y - obj->bounding_box.top;
       y_pos += obj->bounding_box.bottom - obj->bounding_box.top + freespc;
+      break;
+    case 5: /* ADJACENT */
+      pos.y = y_pos + obj->position.y - obj->bounding_box.top;
+      y_pos += obj->bounding_box.bottom - obj->bounding_box.top;
       break;
     }
     
@@ -366,6 +373,9 @@ object_list_align_h(GList *objects, int align)
     freespc = (right - left - freespc)/(double)nobjs;
     x_pos = left;
     break;
+  case 5: /* ADJACENT */
+    x_pos = left;
+    break;
   default:
     message_warning("Wrong argument to object_list_align_h()\n");
   }
@@ -388,8 +398,12 @@ object_list_align_h(GList *objects, int align)
       pos.x = x_pos;
       break;
     case 4: /* EQUAL DISTANCE */
-      pos.x = x_pos;
+      pos.x = x_pos + obj->position.x - obj->bounding_box.left;
       x_pos += obj->bounding_box.right - obj->bounding_box.left + freespc;
+      break;
+    case 5: /* ADJACENT */
+      pos.x = x_pos + obj->position.x - obj->bounding_box.left;
+      x_pos += obj->bounding_box.right - obj->bounding_box.left;
       break;
     }
     

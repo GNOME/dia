@@ -239,11 +239,13 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/Align Horizontal/Center"), NULL, objects_align_h_callback,  1},
   {N_("/Objects/Align Horizontal/Right"),  NULL, objects_align_h_callback,  2},
   {N_("/Objects/Align Horizontal/Equal Distance"), NULL, objects_align_h_callback,    4},
+  {N_("/Objects/Align Horizontal/Adjacent"), NULL, objects_align_h_callback,    5},
   {N_("/Objects/Align _Vertical"),         NULL, NULL,                      0, "<Branch>"},
   {N_("/Objects/Align Vertical/Top"),      NULL, objects_align_v_callback,  0},
   {N_("/Objects/Align Vertical/Center"),   NULL, objects_align_v_callback,  1},
   {N_("/Objects/Align Vertical/Bottom"),   NULL, objects_align_v_callback,  2},
   {N_("/Objects/Align Vertical/Equal Distance"),   NULL, objects_align_v_callback,    4},
+  {N_("/Objects/Align Vertical/Adjacent"),   NULL, objects_align_v_callback,    5},
 
   /*  {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" }, */
   {N_("/_Dialogs"),               NULL,         NULL,                       0, "<Branch>"},
