@@ -487,8 +487,18 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
     if (score < bestscore) {
       if (helpindex)
 	g_free(helpindex);
+      #ifdef G_OS_WIN32
+      /* use HTML Help on win32 if available */
+      helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dentry,
+			      G_DIR_SEPARATOR_S "dia.chm", NULL);
+      if (!g_file_test(helpindex, G_FILE_TEST_EXISTS)) {
+	helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dentry,
+			      G_DIR_SEPARATOR_S "index.html", NULL);
+      }
+      #else
       helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dentry,
 			      G_DIR_SEPARATOR_S "index.html", NULL);
+      #endif
       bestscore = score;
     }
   }
@@ -500,7 +510,8 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
   }
 
 #ifdef G_OS_WIN32
-  ShellExecuteA (0, NULL, helpindex, NULL, helpdir, 0); 
+  #define SW_SHOWNORMAL 1
+  ShellExecuteA (0, "open", helpindex, NULL, helpdir, SW_SHOWNORMAL);
 #else
   command = getenv("BROWSER");
   command = g_strdup_printf("%s 'file://%s' &", command ? command : "netscape", helpindex);

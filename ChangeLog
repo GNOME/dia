@@ -1,6 +1,7 @@
 2003-08-25  Steffen Macke <sdteffen@web.de>
 
-	* diagramdata.h: including dynamic_obj.h
+	* app/commands.c: using CHM instead of HTML on win32 if available
+	* lib/diagramdata.h: including dynamic_obj.h
 
 2003-08-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
