@@ -1,5 +1,13 @@
 2003-02-04  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/disp_callbacks.c (ddisplay_canvas_events): Only add a
+	display flush when getting focus in, or we may get an update after
+	the diagram has been destroyed in some cases.  Fixes bug #105221.
+
+	* plug-ins/xfig/xfig-import.c: Notes on the splines used by XFig.
+
+	* lib/diarenderer.c: Notes on the basis matrix for our beziers.
+
 	* app/app_procs.c (app_init): Fixed missing popt context for Gnome
 	- gnome-compiled Dia will now read files specified on the command line.
 
@@ -12,6 +20,8 @@
 	if's. 
 	
 2003-02-03  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/xfig/xfig-import.c: Notes on spline conversions.
 
 	* app/app_procs.c (debug_break): Added some code to avoid
 	over-eager optimizations removing the call.  Surely there's a

@@ -453,11 +453,14 @@ ddisplay_canvas_events (GtkWidget *canvas,
         display_set_active(ddisp);
         break;
 
-      case GDK_FOCUS_CHANGE:
-        display_set_active(ddisp);
-        ddisplay_do_update_menu_sensitivity(ddisp);
+      case GDK_FOCUS_CHANGE: {
+	GdkEventFocus *focus = (GdkEventFocus*)event;
+	if (focus->in) {
+	  display_set_active(ddisp);
+	  ddisplay_do_update_menu_sensitivity(ddisp);
+	}
         break;
-      
+      }
       case GDK_2BUTTON_PRESS:
         display_set_active(ddisp);
         bevent = (GdkEventButton *) event;
