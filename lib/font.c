@@ -46,7 +46,6 @@
  */
 
 /* TODO:
-   TrueType printing -- await support (or answers) from libfreetype.
    BoundingBox calculcations.
 */
 
@@ -1164,6 +1163,7 @@ font_get_suckfont (GdkFont *font, utfchar *text)
 	return suckfont;
 }
 
+#ifdef HAVE_FREETYPE
 FT_Face
 font_get_freetype_face(DiaFont *font)
 {
@@ -1176,6 +1176,7 @@ font_get_freetype_face(DiaFont *font)
   
   return fontprivate->fontface_freetype;
 }
+#endif
 
 char *
 font_get_psfontname(DiaFont *font)
