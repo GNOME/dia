@@ -45,19 +45,6 @@ ICON_PNG_PAIRS= \
         dia_diagram_icon ../dia-diagram.png \
 	dia_app_icon ../dia_gnome_icon.png
 
-# Needed for EXTRA_DIST
-ICON_PNGS= \
-	pixmaps/connectable.png \
-	pixmaps/connectable-empty.png \
-	pixmaps/selectable.png \
-	pixmaps/selectable-empty.png \
-	pixmaps/on-grid.png \
-	pixmaps/off-grid.png \
-	pixmaps/visible.png \
-	pixmaps/visible-empty.png \
-	../dia-diagram.png \
-	../dia_gnome_icon.png
-
 dia-app-icons.h:
 	gdk-pixbuf-csource --build-list \
 	$(ICON_PNG_PAIRS) > dia-app-icons.h
@@ -234,7 +221,6 @@ EXTRA_DIST = \
 	dia.def \
 	dia.ico \
 	dia.rc \
-	$(ICON_PNGS) \
 	pixmaps/arrow.xpm \
 	pixmaps/default.xpm \
 	pixmaps/delete.xpm \

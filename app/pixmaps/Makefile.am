@@ -1,5 +1,3 @@
-imagedir = $(pkgdatadir)/images
-
 IMAGES = \
 	connectable.png \
 	connectable-empty.png \
@@ -11,6 +9,3 @@ IMAGES = \
 	visible-empty.png
 
 EXTRA_DIST = $(IMAGES)
-
-image_DATA = $(IMAGES)
-
