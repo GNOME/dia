@@ -58,7 +58,7 @@ static void fill_menu(GtkMenu *menu, GSList **group,
 
 static void
 dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff,
-			     Style style);
+			     DiaFontStyle dia_style);
 
 static GHashTable *font_nr_hashtable = NULL;
 
@@ -230,7 +230,7 @@ static char *style_labels[] = {
 
 void
 dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff,
-			     Style style)
+                             DiaFontStyle dia_style)
 {
   int i=0, select = 0;
   PangoFontFace **faces;
@@ -245,17 +245,24 @@ dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff,
     PangoFontDescription *pfd = pango_font_face_describe(faces[i]);
     PangoStyle style = pango_font_description_get_style(pfd);
     PangoWeight weight = pango_font_description_get_weight(pfd);
-    int stylenum = dia_font_pango_style_weight_to_dia(style, weight);
-    stylebits |= 1 << stylenum;
+    /**
+     * FIXME: quite bad hack, need to think about a proper api --hb
+     */
+    stylebits |= 1 << (((weight - 200) / 100) + (9 * style));
     pango_font_description_free(pfd);
   }
 
-  for (i = STYLE_ULTRALIGHT; i <= STYLE_HEAVY_ITALIC; i++) {
+  for (i = DIA_FONT_ULTRALIGHT; i <= (DIA_FONT_HEAVY | DIA_FONT_ITALIC); i++) {
     GtkWidget *menuitem;
-    if (!(stylebits & (1 << i))) continue;
-    menuitem = gtk_menu_item_new_with_label (style_labels[i]);
+    /**
+     * bad hack continued ...
+     */
+    int weight = DIA_FONT_STYLE_GET_WEIGHT(i) >> 4;
+    int obliquity = DIA_FONT_STYLE_GET_OBLIQUITY(i) >> 2;
+    if (!(stylebits & (1 << (weight * 9 * obliquity)))) continue;
+    menuitem = gtk_menu_item_new_with_label (style_labels[weight*3+obliquity]);
     gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
-    if (style == i) select = menu_item_nr;
+    if (dia_style == i) select = menu_item_nr;
     menu_item_nr++;
     gtk_menu_append (GTK_MENU (menu), menuitem);
     gtk_widget_show (menuitem);
@@ -265,7 +272,7 @@ dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff,
   gtk_option_menu_remove_menu(fs->style_omenu);
   gtk_option_menu_set_menu(fs->style_omenu, menu);
   fs->style_menu = GTK_MENU(menu);
-  if (style != -1) {
+  if (dia_style != 0) {
     gtk_option_menu_set_history(GTK_OPTION_MENU(fs->style_omenu), select);
     gtk_menu_set_active(fs->style_menu, select);
   }
@@ -309,7 +316,7 @@ dia_font_selector_get_font(DiaFontSelector *fs)
 {
   GtkWidget *menuitem;
   char *fontname;
-  Style style;
+  DiaFontStyle style;
   PangoFontFamily *pff;
 
   menuitem = gtk_menu_get_active(fs->font_menu);

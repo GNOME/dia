@@ -639,9 +639,19 @@ data_font(DataNode data)
   }
 
   name = xmlGetProp(data, "name");
-  font = dia_font_new_from_legacy_name(name);
-  if (name) xmlFree(name);
-  
+  if (name) {
+    font = dia_font_new_from_legacy_name(name);
+    xmlFree(name);
+  } else {
+    DiaFontStyle style;
+    char* family = xmlGetProp(data, "family");
+    char* style_name = xmlGetProp(data, "style");
+    style = style_name ? atoi(style_name) : 0;
+
+    font = dia_font_new (family, style, 1.0);
+    if (family) xmlFree(family);
+    if (style_name) xmlFree(style_name);
+  }
   return font;
 }
 
@@ -810,9 +820,15 @@ void
 data_add_font(AttributeNode attr, const DiaFont *font)
 {
   DataNode data_node;
- 
+  DiaFontStyle style;
+  char buffer[20+1]; /* Enought for 64bit int + zero */
+
   data_node = xmlNewChild(attr, NULL, "font", NULL);
-  xmlSetProp(data_node, "name", dia_font_get_legacy_name(font));
+  style = dia_font_get_style (font);
+  xmlSetProp(data_node, "family", dia_font_get_family(font));
+  g_snprintf(buffer, 20, "%d", dia_font_get_style(font));
+ 
+  xmlSetProp(data_node, "style", buffer);
 }
 
 DataNode

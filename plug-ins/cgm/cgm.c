@@ -37,16 +37,7 @@
 #include "filter.h"
 #include "plug-ins.h"
 
-#if G_OS_WIN32
-#include <pango/pangowin32.h>
-#define pango_platform_font_map_for_display() \
-    pango_win32_font_map_for_display()
-#else
-#include <pango/pangoft2.h>
-#define pango_platform_font_map_for_display() \
-    pango_ft2_font_map_for_display()
-      /* Could have used X's font map ? */
-#endif
+#include <gdk/gdk.h>
 
 static const gchar *dia_version_string = "Dia-" VERSION;
 #define IS_ODD(n) (n & 0x01)
@@ -163,7 +154,7 @@ init_fonts(void)
     if (alreadyrun) return;
     alreadyrun = TRUE;
 
-    fmap = pango_platform_font_map_for_display();
+    fmap = gdk_pango_context_get();
     pango_font_map_list_families(fmap,&families,&n_families);
     
     fonthash = g_hash_table_new(g_str_hash, g_str_equal);

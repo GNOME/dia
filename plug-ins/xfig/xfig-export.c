@@ -324,6 +324,7 @@ static int figFont(Rendererfig *renderer) {
   int i;
   const char *legacy_name;
 
+  /* FIXME: this is broken */
   legacy_name = dia_font_get_legacy_name(renderer->font);
   for (i = 0; fig_fonts[i] != NULL; i++) {
     if (!strcmp(legacy_name, fig_fonts[i]))

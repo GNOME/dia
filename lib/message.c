@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
+#undef GTK_DISABLE_DEPRECATED /* for gtk_object_get_user_data */
 #include <gtk/gtk.h>
 #include <glib.h>
 

@@ -44,32 +44,6 @@ typedef enum {
  * the next one up bold, or something.  But this will do for now.
  * We should probably store the actual weight...
  */
-typedef enum {
-  STYLE_ULTRALIGHT = 1,
-  STYLE_ULTRALIGHT_OBLIQUE,
-  STYLE_ULTRALIGHT_ITALIC,
-  STYLE_LIGHT,
-  STYLE_LIGHT_OBLIQUE,
-  STYLE_LIGHT_ITALIC,
-  STYLE_NORMAL,
-  STYLE_OBLIQUE,
-  STYLE_ITALIC,
-  STYLE_MEDIUM,
-  STYLE_MEDIUM_OBLIQUE,
-  STYLE_MEDIUM_ITALIC,
-  STYLE_DEMIBOLD,
-  STYLE_DEMIBOLD_OBLIQUE,
-  STYLE_DEMIBOLD_ITALIC,
-  STYLE_BOLD,
-  STYLE_BOLD_OBLIQUE,
-  STYLE_BOLD_ITALIC,
-  STYLE_ULTRABOLD,
-  STYLE_ULTRABOLD_OBLIQUE,
-  STYLE_ULTRABOLD_ITALIC,
-  STYLE_HEAVY,
-  STYLE_HEAVY_OBLIQUE,
-  STYLE_HEAVY_ITALIC,
-} Style;
 
 /* storing different style info like 
  * (DIA_FONT_SANS | DIA_FONT_ITALIC | DIA_FONT_BOLD)
@@ -140,7 +114,7 @@ void dia_font_init(PangoContext* pcontext);
                              
     /* Get a font matching family,style,height. MUST be freed with
        dia_font_unref(). */
-DiaFont* dia_font_new(const char *family, Style style,
+DiaFont* dia_font_new(const char *family, DiaFontStyle style,
                       real height);
 
     /* Get a font matching style. This is the preferred method to
@@ -149,10 +123,6 @@ DiaFont* dia_font_new_from_style(DiaFontStyle style, real height);
 
     /* Get a font from a legacy font name */ 
 DiaFont* dia_font_new_from_legacy_name(const char *name);
-    /* Get a font matching family,style,height. MUST be freed with
-       dia_font_free(). "family" is guaranteed to be a static string. */
-DiaFont *dia_font_new_from_static(const char *family, Style style,
-                                  real height);
 
     /* Get a simple font name from a font.
        Name will be valid for the duration of the DiaFont* lifetime. */ 
@@ -165,11 +135,7 @@ DiaFont* dia_font_ref(DiaFont* font);
 void dia_font_unref(DiaFont* font);
 
     /* Retrieves the style of the font */
-Style dia_font_get_style(const DiaFont* font);
-
-/* These are only for those who mess with Pango fonts directly (widgets.c) */
-int dia_font_pango_style_weight_to_dia(int style, int weight);
-void dia_font_dia_style_to_pango(int style, PangoStyle *pango_style, PangoWeight *pango_weight);
+DiaFontStyle dia_font_get_style(const DiaFont* font);
 
     /* Retrieves the family of the font. Caller must NOT free. */
 G_CONST_RETURN char* dia_font_get_family(const DiaFont* font);

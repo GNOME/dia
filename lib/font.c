@@ -90,34 +90,13 @@ dia_font_init_instance(DiaFont* font)
   GObject *gobject = G_OBJECT(font); 
 }
 
-/* Fills everything *BUT* family. */
-static DiaFont*
-dia_font_fill_descriptor(PangoFontDescription* pfd, Style style, real height)
-{
-    DiaFont* retval;
-    PangoStyle pstyle;
-    PangoWeight pweight;
-    
-    pango_font_description_set_variant(pfd,PANGO_VARIANT_NORMAL);
-    pango_font_description_set_stretch(pfd,PANGO_STRETCH_NORMAL);
-    pango_font_description_set_size(pfd, dcm_to_pdu(height) );
-
-    dia_font_dia_style_to_pango(style, &pstyle, &pweight);
-    pango_font_description_set_style(pfd, pstyle);
-    pango_font_description_set_weight(pfd, pweight);
-    
-    retval = DIA_FONT(g_type_create_instance(dia_font_get_type()));
-    retval->pfd = pfd;
-    dia_font_ref(retval);
-    return retval;
-}
-
 DiaFont*
-dia_font_new(const char *family, Style style, real height)
+dia_font_new(const char *family, DiaFontStyle style, real height)
 {
-    PangoFontDescription* pfd = pango_font_description_new();
-    pango_font_description_set_family(pfd,family);
-    return dia_font_fill_descriptor(pfd,style,height);
+  DiaFont* retval = dia_font_new_from_style(style, height);
+
+  pango_font_description_set_family(retval->pfd,family);
+  return retval;
 }
 
 DiaFont*
@@ -188,14 +167,6 @@ dia_font_new_from_style(DiaFontStyle style, real height)
   return retval;
 }
 
-DiaFont*
-dia_font_new_from_static(const char *family, Style style, real height)
-{
-    PangoFontDescription* pfd = pango_font_description_new();
-    pango_font_description_set_family_static(pfd,family);
-    return dia_font_fill_descriptor(pfd,style,height);
-}
-
 DiaFont* dia_font_copy(const DiaFont* font)
 {
     if (!font) return NULL;
@@ -224,66 +195,66 @@ void dia_font_unref(DiaFont* font)
     g_object_unref(G_OBJECT(font));
 }
 
-Style dia_font_get_style(const DiaFont* font)
+DiaFontStyle 
+dia_font_get_style(const DiaFont* font)
 {
-    PangoStyle pstyle = pango_font_description_get_style(font->pfd);
-    PangoWeight pweight = pango_font_description_get_weight(font->pfd);
-    
-    return dia_font_pango_style_weight_to_dia(pstyle, pweight);
+  guint style;
+
+  static int weight_map[] = {
+    DIA_FONT_ULTRALIGHT, DIA_FONT_LIGHT,
+    DIA_FONT_WEIGHT_NORMAL, /* intentionaly ==0 */
+    DIA_FONT_MEDIUM, DIA_FONT_DEMIBOLD, /* not yet in Pango */
+    DIA_FONT_BOLD, DIA_FONT_ULTRABOLD, DIA_FONT_HEAVY    
+  };
+
+  PangoStyle pango_style = pango_font_description_get_style(font->pfd);
+  PangoWeight pango_weight = pango_font_description_get_weight(font->pfd);
+
+  g_assert(PANGO_WEIGHT_ULTRALIGHT <= pango_weight && pango_weight <= PANGO_WEIGHT_HEAVY); 
+  g_assert(PANGO_WEIGHT_ULTRALIGHT == 200);
+  g_assert(PANGO_WEIGHT_NORMAL == 400);
+  g_assert(PANGO_WEIGHT_BOLD == 700);
+
+  style  = weight_map[pango_style - PANGO_WEIGHT_ULTRALIGHT] << 4;
+  style |= (pango_style << 2);
+
+  return style;
 }
 
 G_CONST_RETURN char*
 dia_font_get_family(const DiaFont* font)
 {
-    return pango_font_description_get_family(font->pfd);
+  return pango_font_description_get_family(font->pfd);
 }
 
 real
 dia_font_get_height(const DiaFont* font)
 {
-    return pdu_to_dcm(pango_font_description_get_size(font->pfd));
+  return pdu_to_dcm(pango_font_description_get_size(font->pfd));
 }
 
 void
 dia_font_set_height(DiaFont* font, real height)
 {
-    pango_font_description_set_size(font->pfd, dcm_to_pdu(height));    
+  pango_font_description_set_size(font->pfd, dcm_to_pdu(height));    
 }
 
 
 G_CONST_RETURN char*
 dia_font_get_psfontname(const DiaFont *font)
 {
-        /* FIXME: this will very likely not work ! */
-    return dia_font_get_legacy_name(font);
-}
-
-static G_CONST_RETURN char*
-dia_font_style_to_legacy_name(Style style) 
-{
-    switch(style) {
-        case STYLE_BOLD_ITALIC:
-            return "-BoldOblique";
-        case STYLE_BOLD:
-            return "-Bold";
-        case STYLE_ITALIC:
-            return "-Oblique";
-        case STYLE_NORMAL: /* fall-through */
-        default:
-            return "";
-    }
+    /* FIXME: this will very likely not work ! */
+  return dia_font_get_legacy_name(font);
 }
 
 G_CONST_RETURN char*
-dia_font_get_legacy_name(const DiaFont* font) 
+dia_font_get_legacy_name(const DiaFont *font)
 {
-    if (font->legacy_name) return font->legacy_name;
-    
-    ((DiaFont*)font)->legacy_name =
-        g_strconcat(dia_font_get_family(font),
-                    dia_font_style_to_legacy_name(dia_font_get_style(font)),
-                    NULL);
+  /* FIXME: this is broken ! New fonts don't have this ! */
+  if (font->legacy_name)
     return font->legacy_name;
+
+  return "Courier";
 }
 
 /* Conversion between our style and pango style/weight */
@@ -292,21 +263,6 @@ dia_font_pango_style_weight_to_dia(int style, int weight)
 {
   return style + (3*(weight-200)/100) + 1;
 }
-
-void 
-dia_font_dia_style_to_pango(int          style, 
-                            PangoStyle  *pango_style, 
-                            PangoWeight *pango_weight) 
-{
-  if (style == 0 || style > STYLE_HEAVY_ITALIC) {
-    *pango_style = PANGO_STYLE_NORMAL;
-    *pango_weight = PANGO_WEIGHT_NORMAL;
-    return;
-  }
-  *pango_style = (style-1)%3;
-  *pango_weight = (style-1)/3*100+200;
-}
-
 
 /* ************************************************************************ */
 /* Non-scaled versions of the utility routines                              */
@@ -442,8 +398,6 @@ real dia_font_scaled_descent(const char* string, DiaFont* font,
     return bottom-bline;
 }
 
-#define TWEAK_STRING_WIDTH
-
 PangoLayout*
 dia_font_scaled_build_layout(const char* string, DiaFont* font,
                             real height, real zoom_factor)
@@ -466,18 +420,14 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
     target_zoomed_width = nozoom_width * scaling;
 
         /* First try: no tweaks. */
-#ifdef TWEAK_STRING_WIDTH
-    real_width = dia_font_string_width(string,font,
-					    height * scaling);
-        if (real_width <= target_zoomed_width) {
-#endif   
+    real_width = dia_font_string_width(string,font, height * scaling);
+    if (real_width <= target_zoomed_width) {
         return dia_font_build_layout(string,font,height*scaling);
-#ifdef TWEAK_STRING_WIDTH
-	}
+    }
 
     altered_font = dia_font_copy(font);
 
-        /* Third try. Using the "reduce overall size" strategy. */
+        /* Last try. Using the "reduce overall size" strategy. */
     for (altered_scaling = scaling;
          altered_scaling > (scaling / 2);
          altered_scaling *= (target_zoomed_width/real_width>0.98?0.98:
@@ -497,7 +447,6 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
     g_warning("Failed to appropriately tweak zoomed font.");
     dia_font_unref(altered_font);
     return dia_font_build_layout(string,font,height*scaling);    
-#endif
 }
 
 /**
@@ -591,6 +540,7 @@ dia_font_new_from_legacy_name(const char* name)
   } else {      
     /* We tried our best, let Pango complain */
     retval = dia_font_new (name, DIA_FONT_WEIGHT_NORMAL, height);
+    retval->legacy_name = NULL;
   }
   
   return retval;
