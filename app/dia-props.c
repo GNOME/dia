@@ -31,10 +31,8 @@
 #include "display.h"
 #include "widgets.h"
 #include "display.h"
-#include "persistence.h"
 
 static GtkWidget *dialog = NULL;
-static GtkWidget *diagram_omenu;
 static GtkWidget *dynamic_check;
 static GtkWidget *width_x_entry, *width_y_entry;
 static GtkWidget *visible_x_entry, *visible_y_entry;
@@ -43,28 +41,6 @@ static GtkWidget *bg_colour, *grid_colour, *pagebreak_colour;
 static void diagram_properties_respond(GtkWidget *widget,
                                        gint response_id,
                                        gpointer user_data);
-static void diagram_properties_retrieve(Diagram *dia);
-void create_diagram_properties_dialog(void);
-void diagram_properties_update_diagram_list(void);
-
-/* diagram_properties_set_diagram
- * Called when the active diagram is changed. It updates the contents
- * of the diagram properties dialog
- */
-void
-diagram_properties_set_diagram(Diagram *dia)
-{
-  int i;
-
-  if (dialog && dia != NULL)
-  {
-    diagram_properties_retrieve(dia);
-
-    i = g_list_index(dia_open_diagrams(), dia);
-    if (i >= 0)
-      gtk_option_menu_set_history(GTK_OPTION_MENU(diagram_omenu), i);
-  }
-}
 
 static void
 diagram_properties_dialog_destroyed(GtkWidget *widget, gpointer userdata)
@@ -73,135 +49,31 @@ diagram_properties_dialog_destroyed(GtkWidget *widget, gpointer userdata)
   dialog = NULL;
 }
 
-/* Update widget sensitivity to deal with dynamic grid and lack of diagram */
 static void
 diagram_properties_update_sensitivity(GtkToggleButton *widget,
 				      gpointer userdata)
 {
   Diagram *dia = ddisplay_active_diagram();
-  if (dia == NULL) {
-    gtk_widget_set_sensitive(dynamic_check, FALSE);
-    gtk_widget_set_sensitive(width_x_entry, FALSE);
-    gtk_widget_set_sensitive(width_y_entry, FALSE);
-    gtk_widget_set_sensitive(visible_x_entry, FALSE);
-    gtk_widget_set_sensitive(visible_y_entry, FALSE);
-    gtk_widget_set_sensitive(bg_colour, FALSE);
-    gtk_widget_set_sensitive(grid_colour, FALSE);
-    gtk_widget_set_sensitive(pagebreak_colour, FALSE);
-  } else {
-    dia->data->grid.dynamic =
-      gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dynamic_check));
-    gtk_widget_set_sensitive(dynamic_check, TRUE);
-    gtk_widget_set_sensitive(width_x_entry, !dia->data->grid.dynamic);
-    gtk_widget_set_sensitive(width_y_entry, !dia->data->grid.dynamic);
-    gtk_widget_set_sensitive(visible_x_entry, !dia->data->grid.dynamic);
-    gtk_widget_set_sensitive(visible_y_entry, !dia->data->grid.dynamic);
-    gtk_widget_set_sensitive(bg_colour, TRUE);
-    gtk_widget_set_sensitive(grid_colour, TRUE);
-    gtk_widget_set_sensitive(pagebreak_colour, TRUE);
-  }
+  dia->data->grid.dynamic =
+        gtk_toggle_button_get_active(GTK_CHECK_BUTTON(dynamic_check));
+  gtk_widget_set_sensitive(width_x_entry, !dia->data->grid.dynamic);
+  gtk_widget_set_sensitive(width_y_entry, !dia->data->grid.dynamic);
+  gtk_widget_set_sensitive(visible_x_entry, !dia->data->grid.dynamic);
+  gtk_widget_set_sensitive(visible_y_entry, !dia->data->grid.dynamic);
 }
 
 static void
-diagram_properties_select_diagram_callback(GtkWidget *widget, gpointer gdata)
-{
-  Diagram *dia = (Diagram *)gdata;
-
-  diagram_properties_set_diagram(dia);
-}
-
-void
-diagram_properties_update_diagram_list(void)
-{
-  GtkWidget *new_menu;
-  GtkWidget *menu_item;
-  GList *dia_list;
-  Diagram *dia;
-  char *filename;
-  int i;
-  int current_nr;
-
-  if (dialog == NULL) return;
-        
-  new_menu = gtk_menu_new();
-
-  current_nr = -1;
-  
-  i = 0;
-  dia_list = dia_open_diagrams();
-  while (dia_list != NULL) {
-    dia = (Diagram *) dia_list->data;
-
-    if (ddisplay_active() && dia == ddisplay_active()->diagram) {
-      current_nr = i;
-    }
-    
-    filename = strrchr(dia->filename, G_DIR_SEPARATOR);
-    if (filename==NULL) {
-      filename = dia->filename;
-    } else {
-      filename++;
-    }
-    printf("Adding filename %s to menu\n", filename);
-
-    menu_item = gtk_menu_item_new_with_label(filename);
-
-    g_signal_connect (GTK_OBJECT (menu_item), "activate",
-		      /**/
-		      (GtkSignalFunc) diagram_properties_select_diagram_callback,
-		      (gpointer) dia);
-
-    gtk_menu_append( GTK_MENU(new_menu), menu_item);
-    gtk_widget_show (menu_item);
-
-    dia_list = g_list_next(dia_list);
-    i++;
-  }
-
-  if (dia_open_diagrams()==NULL) {
-    menu_item = gtk_menu_item_new_with_label (_("none"));
-    g_signal_connect (GTK_OBJECT (menu_item), "activate",
-		      /**/
-		      (GtkSignalFunc) diagram_properties_select_diagram_callback,
-		      (gpointer) NULL);
-    gtk_menu_append( GTK_MENU(new_menu), menu_item);
-    gtk_widget_show (menu_item);
-  }
-  
-  gtk_option_menu_remove_menu(GTK_OPTION_MENU(diagram_omenu));
-
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(diagram_omenu),
-			   new_menu);
-
-  gtk_option_menu_set_history(GTK_OPTION_MENU(diagram_omenu),
-			      current_nr);
-  gtk_menu_set_active(GTK_MENU(new_menu), current_nr);
-
-  if (current_nr == -1) {
-    dia = NULL;
-    if (dia_open_diagrams()!=NULL) {
-      dia = (Diagram *) dia_open_diagrams()->data;
-    }
-    /**/
-    diagram_properties_set_diagram(dia);
-  }
-}
-
-void
-create_diagram_properties_dialog()
+create_diagram_properties_dialog(Diagram *dia)
 {
   GtkWidget *dialog_vbox;
   GtkWidget *notebook;
   GtkWidget *table;
   GtkWidget *label;
-  GtkWidget *hbox;
-  GtkWidget *menu;
-  GtkWidget *separator;
   GtkAdjustment *adj;
 
   dialog = gtk_dialog_new_with_buttons(
              _("Diagram Properties"),
-	     NULL,
+             GTK_WINDOW(ddisplay_active()->shell),
              GTK_DIALOG_DESTROY_WITH_PARENT,
              GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
              GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
@@ -210,6 +82,8 @@ create_diagram_properties_dialog()
 
   //GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
+
+  dialog_vbox = GTK_DIALOG(dialog)->vbox;
 
   gtk_window_set_role(GTK_WINDOW(dialog), "diagram_properties");
 
@@ -220,28 +94,6 @@ create_diagram_properties_dialog()
 		   G_CALLBACK(gtk_widget_hide), NULL);
   g_signal_connect(G_OBJECT(dialog), "destroy_event",
 		   G_CALLBACK(diagram_properties_dialog_destroyed), NULL);
-
-  dialog_vbox = GTK_DIALOG(dialog)->vbox;
-
-  hbox = gtk_hbox_new(FALSE, 1);
-  
-  label = gtk_label_new(_("Diagrams:"));
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
-  gtk_widget_show (label);
-  
-  diagram_omenu = gtk_option_menu_new();
-  gtk_box_pack_start(GTK_BOX(hbox), diagram_omenu, TRUE, TRUE, 2);
-  gtk_widget_show (diagram_omenu);
-
-  menu = gtk_menu_new();
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(diagram_omenu), menu);
-
-  gtk_box_pack_start(GTK_BOX(dialog_vbox), hbox, FALSE, FALSE, 2);
-  gtk_widget_show (hbox);
-
-  separator = gtk_hseparator_new();
-  gtk_box_pack_start(GTK_BOX(dialog_vbox), separator, FALSE, FALSE, 2);
-  gtk_widget_show (separator);
 
   notebook = gtk_notebook_new();
   gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook), GTK_POS_TOP);
@@ -379,8 +231,8 @@ diagram_properties_retrieve(Diagram *dia)
   gtk_window_set_title(GTK_WINDOW(dialog), title);
   g_free(name);
   g_free(title);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dynamic_check),
-			       dia->data->grid.dynamic);
+  gtk_toggle_button_set_active(GTK_CHECK_BUTTON(dynamic_check),
+			   dia->data->grid.dynamic);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_x_entry),
 			    dia->data->grid.width_x);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_y_entry),
@@ -403,11 +255,8 @@ diagram_properties_retrieve(Diagram *dia)
 void
 diagram_properties_show(Diagram *dia)
 {
-  if (!dialog) {
-    create_diagram_properties_dialog();
-    persistence_register_window(GTK_WINDOW(dialog));
-    diagram_properties_update_diagram_list();
-  }
+  if (!dialog)
+    create_diagram_properties_dialog(dia);
  
   diagram_properties_retrieve(dia);
   
@@ -427,7 +276,7 @@ diagram_properties_respond(GtkWidget *widget,
       response_id != GTK_RESPONSE_APPLY) {
     if (active_diagram) {
       active_diagram->data->grid.dynamic =
-        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dynamic_check));
+        gtk_toggle_button_get_active(GTK_CHECK_BUTTON(dynamic_check));
       active_diagram->data->grid.width_x =
         gtk_spin_button_get_value(GTK_SPIN_BUTTON(width_x_entry));
       active_diagram->data->grid.width_y =
@@ -449,3 +298,17 @@ diagram_properties_respond(GtkWidget *widget,
   if (response_id != GTK_RESPONSE_APPLY)
     gtk_widget_hide(dialog);
 }
+
+/* diagram_properties_set_diagram
+ * Called when the active diagram is changed. It updates the contents
+ * of the diagram properties dialog
+ */
+void
+diagram_properties_set_diagram(Diagram *dia)
+{
+  if (dialog && dia != NULL)
+  {
+    diagram_properties_retrieve(dia);
+  }
+}
+

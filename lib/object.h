@@ -35,6 +35,8 @@
 #include "diagramdata.h"
 #include "parent.h"
 
+G_BEGIN_DECLS
+
 /** This enumeration gives a bitset of modifier keys currently held down.
  */
 typedef enum {
@@ -266,7 +268,7 @@ typedef DiaMenu *(*ObjectMenuFunc) (Object* obj, Point *position);
  **  The functions provided in object.c
  *************************************/
 
-void object_init(Object *obj, int num_handles, int num_connections);
+void dia_object_new(int num_handles, int num_connections);
 void object_destroy(Object *obj); /* Unconnects handles, so don't
 					    free handles before calling. */
 void object_copy(Object *from, Object *to);
@@ -333,6 +335,15 @@ typedef struct _Affine {
 } Affine;
 
 
+#define DIA_TYPE_OBJECT           (dia_object_get_type ())
+#define DIA_OBJECT(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_OBJECT, DiaObject))
+#define DIA_OBJECT_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_OBJECT, DiaObjectClass))
+#define DIA_IS_OBJECT(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_OBJECT))
+#define DIA_OBJECT_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_OBJECT, DiaObjectClass))
+
+GType dia_object_get_type (void) G_GNUC_CONST;
+
+
 /*
   This structure gives access to the functions used to manipulate an object
   See information above on the use of the functions
@@ -375,6 +386,7 @@ struct _ObjectOps {
 */
 
 struct _Object {
+  GObject           parent_instance;
   ObjectType       *type;
   Point             position;
   Rectangle         bounding_box;
@@ -420,7 +432,9 @@ struct _ObjectTypeOps {
    Structure so that the ObjectFactory can create objects
    of unknown type. (Read in from a shared lib.)
  */
-struct _ObjectType {
+struct _DiaObjectClass {
+  GObjectClass parent_class;
+
   char *name;
   int version;
 
@@ -459,6 +473,8 @@ Object  *dia_object_default_create (const ObjectType *type,
 gboolean       dia_object_defaults_save (const gchar *filename);
 Layer         *dia_object_get_parent_layer(Object *obj);
 gboolean       dia_object_is_selected (const Object *obj);
+
+G_END_DECLS
 
 #endif /* OBJECT_H */
 

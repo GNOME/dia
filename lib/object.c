@@ -27,6 +27,62 @@
 
 #include "dummy_dep.h"
 
+static void dia_object_class_init (DiaObjectClass *klass);
+static void object_init(DiaObject *obj, int num_handles, int num_connections);
+
+static gpointer parent_class = NULL;
+
+GType
+dia_Object_get_type (void)
+{
+  static GType object_type = 0;
+
+  if (!object_type)
+    {
+      static const GTypeInfo object_info =
+      {
+        sizeof (DiaObjectClass),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) dia_object_class_init,
+        NULL,           /* class_finalize */
+        NULL,           /* class_data */
+        sizeof (DiaObject),
+        0,              /* n_preallocs */
+	NULL            /* init */
+      };
+
+      object_type = g_type_register_static (G_TYPE_OBJECT,
+                                            "DiaObject",
+                                            &object_info, 0);
+    }
+  
+  return object_type;
+}
+
+static void
+dia_object_finalize(GObject *object) {
+}
+
+static void
+dia_object_class_init (DiaObjectClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaObjectClass *object_class = DIA_OBJECT_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = dia_object_finalize;
+}
+
+DiaObject *
+dia_object_new(int num_handles, int num_connections) {
+  DiaObject *obj = g_object_new(DIA_TYPE_OBJECT, NULL);
+  object_init(obj, num_handles, num_connections);
+  return obj;
+}
+
+
 void
 object_init(Object *obj,
 	    int num_handles,

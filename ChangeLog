@@ -1,4 +1,12 @@
-2004-04-30  Lars Clausen  <larsrc@linux.local>
+2004-05-02  Lars Clausen  <lars@raeder.dk>
+
+	* lib/object.[ch]: Starting to convert Object to DiaObject, son of
+	GObject. 
+
+	* app/dia-props.c: Undo the attempt at making it really
+	multi-diagram, now going for a one-diagram dialog.
+
+2004-04-30  Lars Clausen  <lars@raeder.dk>
 
 	* app/undo.c: Undoing broken undo stuff for diagram properties and
 	page setup.  Shouldn't be mixed into undo at all.
