@@ -1,5 +1,13 @@
 2000-04-08  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
+	* objects/standard/polygon.c: Added connection points (fixed so
+	far), set menu sensitivity.
+
+	* lib/polyshape.c: Changed to box-style handles, fixed for start
+	and ends not being special, added initial connections,
+
+	* lib/dummy_dep.h: Added polyshape (gotcha!)
+
 	* objects/standard/pixmaps/ellipse.xpm: 
 	* objects/standard/pixmaps/box.xpm: 
 	Filled element pixmaps with white.

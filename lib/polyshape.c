@@ -51,8 +51,8 @@ polyshape_create_change(PolyShape *poly, enum change_type type,
 static void setup_handle(Handle *handle)
 {
   handle->id = HANDLE_CORNER;
-  handle->type = HANDLE_MINOR_CONTROL;
-  handle->connect_type = HANDLE_CONNECTABLE;
+  handle->type = HANDLE_MAJOR_CONTROL;
+  handle->connect_type = HANDLE_NONCONNECTABLE;
   handle->connected_to = NULL;
 }
 
@@ -99,10 +99,10 @@ polyshape_closest_segment(PolyShape *poly, Point *point, real line_width)
   real dist;
   int closest;
 
-  dist = distance_line_point( &poly->points[0], &poly->points[1],
+  dist = distance_line_point( &poly->points[poly->num_points-1], &poly->points[0],
 			      line_width, point);
   closest = 0;
-  for (i=1;i<poly->numpoints-1;i++) {
+  for (i=0;i<poly->numpoints-1;i++) {
     real new_dist = 
       distance_line_point( &poly->points[i], &poly->points[i+1],
 			   line_width, point);
@@ -299,7 +299,7 @@ polyshape_init(PolyShape *poly)
 
   obj = &poly->object;
 
-  object_init(obj, 3, 0);
+  object_init(obj, 3, 3);
   
   poly->numpoints = 3;
 
@@ -309,20 +309,20 @@ polyshape_init(PolyShape *poly)
   poly->object.handles[1] = g_malloc(sizeof(Handle));
   poly->object.handles[2] = g_malloc(sizeof(Handle));
 
-  obj->handles[0]->connect_type = HANDLE_CONNECTABLE;
+  obj->handles[0]->connect_type = HANDLE_NONCONNECTABLE;
   obj->handles[0]->connected_to = NULL;
-  obj->handles[0]->type = HANDLE_MINOR_CONTROL;
+  obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[0]->id = HANDLE_CORNER;
   
-  obj->handles[1]->connect_type = HANDLE_CONNECTABLE;
+  obj->handles[1]->connect_type = HANDLE_NONCONNECTABLE;
   obj->handles[1]->connected_to = NULL;
-  obj->handles[1]->type = HANDLE_MINOR_CONTROL;
+  obj->handles[1]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[1]->id = HANDLE_CORNER;
 
-  obj->handles[1]->connect_type = HANDLE_CONNECTABLE;
-  obj->handles[1]->connected_to = NULL;
-  obj->handles[1]->type = HANDLE_MINOR_CONTROL;
-  obj->handles[1]->id = HANDLE_CORNER;
+  obj->handles[2]->connect_type = HANDLE_NONCONNECTABLE;
+  obj->handles[2]->connected_to = NULL;
+  obj->handles[2]->type = HANDLE_MAJOR_CONTROL;
+  obj->handles[2]->id = HANDLE_CORNER;
 
   polyshape_update_data(poly);
 }

@@ -33,6 +33,15 @@
 
 #include "pixmaps/polygon.xpm"
 
+/*
+TODO:
+Have connections be remembered across delete corner
+Move connections correctly on delete corner
+Add/remove connection points
+Fix create size
+Fix crashes:)
+*/
+
 #define DEFAULT_WIDTH 0.15
 
 typedef struct _PolygonProperties PolygonProperties;
@@ -40,6 +49,8 @@ typedef struct _PolygonDefaultsDialog PolygonDefaultsDialog;
 
 typedef struct _Polygon {
   PolyShape poly;
+
+  ConnectionPoint *connections;
 
   Color line_color;
   LineStyle line_style;
@@ -301,17 +312,19 @@ polygon_create(Point *startpoint,
   PolyShape *poly;
   Object *obj;
   Point defaultx = { 1.0, 0.0 };
-  Point defaulty = { 1.0, 0.0 };
+  Point defaulty = { 0.0, 1.0 };
+  int i;
+
+  init_default_values();
+
 
   /*polygon_init_defaults();*/
   polygon = g_malloc(sizeof(Polygon));
   poly = &polygon->poly;
   obj = (Object *) polygon;
-  
+
   obj->type = &polygon_type;
   obj->ops = &polygon_ops;
-
-  polyshape_init(poly);
 
   poly->points[0] = *startpoint;
   poly->points[1] = *startpoint;
@@ -319,13 +332,24 @@ polygon_create(Point *startpoint,
   poly->points[2] = *startpoint;
   point_add(&poly->points[2], &defaulty);
 
-  polygon_update_data(polygon);
+  polygon->connections = (ConnectionPoint *)g_malloc(3*sizeof(ConnectionPoint));
 
   polygon->line_width =  attributes_get_default_linewidth();
   polygon->line_color = attributes_get_foreground();
+  polygon->inner_color = attributes_get_background();
   attributes_get_default_line_style(&polygon->line_style,
 				    &polygon->dashlength);
   polygon->show_background = default_properties.show_background;
+
+  polyshape_init(poly);
+
+  for (i=0;i<3;i++) {
+    obj->connections[i] = &polygon->connections[i];
+    polygon->connections[i].object = obj;
+    polygon->connections[i].connected = NULL;
+  }
+
+  polygon_update_data(polygon);
 
   *handle1 = poly->object.handles[0];
   *handle2 = poly->object.handles[2];
@@ -368,6 +392,7 @@ polygon_update_data(Polygon *polygon)
 {
   PolyShape *poly = &polygon->poly;
   Object *obj = (Object *) polygon;
+  int i;
 
   polyshape_update_data(poly);
   
@@ -379,6 +404,10 @@ polygon_update_data(Polygon *polygon)
   obj->bounding_box.right += polygon->line_width/2;
 
   obj->position = poly->points[0];
+
+  for (i = 0; i < poly->numpoints; i++) {
+    polygon->connections[i].pos = poly->points[i];
+  }
 }
 
 static void
@@ -472,7 +501,7 @@ polygon_add_corner_callback (Object *obj, Point *clicked, gpointer data)
   Polygon *poly = (Polygon*) obj;
   int segment;
   ObjectChange *change;
-
+  
   segment = polygon_closest_segment(poly, clicked);
   change = polyshape_add_point(&poly->poly, segment, clicked);
   polygon_update_data(poly);
@@ -516,6 +545,6 @@ polygon_get_object_menu(Polygon *polygon, Point *clickedpoint)
 {
   /* Set entries sensitive/selected etc here */
   polygon_menu_items[0].active = 1;
-  polygon_menu_items[1].active = polygon->poly.numpoints > 2;
+  polygon_menu_items[1].active = polygon->poly.numpoints > 3;
   return &polygon_menu;
 }
