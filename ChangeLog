@@ -1,5 +1,10 @@
 1999-11-17  James Henstridge  <james@daa.com.au>
 
+	* app/Makefile.am (EXTRA_DIST): added extra files to extra dist list.
+
+	* app/scroll_tool.c (scroll_motion): added `grabbing hand' type
+	scrolling by pressing the shift key when using the scroll tool.
+
 	* sheets/Makefile.am: fixed makefile so that install actually works
 	if the directories $(pkgdatadir)/sheets/UML and $(pkgdatadir)/sheets/ER
 	don't exist.

@@ -27,6 +27,7 @@ struct _ScrollTool {
   Tool tool;
 
   int scrolling;
+  int use_hand;
   Point last_pos;
 };
 
