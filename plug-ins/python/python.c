@@ -5,6 +5,7 @@
 #include <Python.h>
 #include <stdio.h>
 #include <glib.h>
+#include <dirent.h>
 
 #include "intl.h"
 #include "plug-ins.h"
