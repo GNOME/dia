@@ -69,11 +69,16 @@ void
 app_init (int    argc,
            char **argv)
 {
+  Diagram *diagram;
+  DDisplay *ddisp;
+        
   gtk_set_locale ();
   setlocale(LC_NUMERIC, "C");
 
   gtk_init (&argc, &argv);
 
+  /* Here could be popt stuff for options */
+    
   gtk_rc_parse ("diagtkrc"); 
 
   /*  enable_core_dumps(); */
@@ -104,6 +109,16 @@ app_init (int    argc,
   create_toolbox();
 
   create_layer_dialog();
+    
+  /* In case argc > 1 load diagram files */
+  while (argc > 1) {
+      diagram = diagram_load(argv[argc]);
+      if (diagram != NULL) {
+	  diagram_update_extents(diagram);
+	  ddisp = new_display(diagram);
+	  diagram_add_ddisplay(diagram, ddisp);
+      }
+  }
 }
 
 static void

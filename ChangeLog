@@ -1,3 +1,10 @@
+1999-01-05  Alexander Larsson  <alla@lysator.liu.se>
+
+	This is the asierra-990105 patch done by asierra@servidor.unam.mx.
+		
+	* app/app_procs.c:
+	Added support for reading diagrams from the command line.
+
 1998-12-21  Alexander Larsson  <alla@lysator.liu.se>
 
 	This is the asierra-981220 patch done by asierra@servidor.unam.mx.
