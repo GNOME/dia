@@ -41,15 +41,34 @@
  * should get the renderer to use one pass. */
 #define BAND_HEIGHT 50
 
+struct png_callback_data {
+  DiagramData *data;
+  gchar *filename;
+};
+
+/* Static data.  When the dialog is not reentrant, you could have all data
+   be static.  I don't like it that way, though:)  I only hold static that
+   which pertains to the dialog itself (including the aspect ratio, as that 
+   is used to connect the two entries). */
+static GtkWidget *export_png_dialog;
+static GtkSpinButton *export_png_width_entry, *export_png_height_entry;
+static GtkWidget *export_png_okay_button, *export_png_cancel_button;
+static real export_png_aspect_ratio;
+
+/* The heart of the png exporter.
+   Deals with a bit of dialog handling and all the rendering and writing.
+*/
 static void
-export_png(DiagramData *data, const gchar *filename, 
-           const gchar *diafilename, void* user_data)
-{
+export_png_ok(GtkButton *button, gpointer userdata) {
+  struct png_callback_data *cbdata = (struct png_callback_data *)userdata;
+  DiagramData *data = cbdata->data;
   Rectangle *ext = &data->extents;
   DDisplay *ddisp;
   RendererLibart *renderer;
   guint32 width, height, band, row, i;
   real band_height;
+  guint32 imagewidth, imageheight;
+  real imagezoom;
 
   FILE *fp;
   png_structp png;
@@ -57,26 +76,35 @@ export_png(DiagramData *data, const gchar *filename,
   png_color_8 sig_bit;
   png_bytep *row_ptr;
 
+  /* We don't want multiple clicks:) */
+  gtk_widget_hide(export_png_dialog);
+
   width  = (guint32) ((ext->right - ext->left) * DPCM * data->paper.scaling);
   height = (guint32) ((ext->bottom - ext->top) * DPCM * data->paper.scaling);
 
+  imagewidth = gtk_spin_button_get_value_as_int(export_png_width_entry);
+  imageheight = gtk_spin_button_get_value_as_int(export_png_height_entry);
+
+  imagezoom = ((real)imageheight/height) * DPCM * data->paper.scaling;
+
   /* we render in bands to try to keep memory consumption down ... */
-  band = MIN(height, BAND_HEIGHT);
-  band_height = (real)band / (DPCM * data->paper.scaling);
+  band = MIN(imageheight, BAND_HEIGHT);
+  band_height = (real)band / imagezoom;
 
   /* create a fake ddisp to keep the renderer happy */
   ddisp = g_new0(DDisplay, 1);
-  ddisp->zoom_factor = DPCM * data->paper.scaling;
+  ddisp->zoom_factor = imagezoom;
   ddisp->visible = *ext;
   ddisp->visible.bottom = MIN(ddisp->visible.bottom,
 			      ddisp->visible.top + band_height);
+
   renderer = new_libart_renderer(ddisp, 0);
-  libart_renderer_set_size(renderer, NULL, width, band);
+  libart_renderer_set_size(renderer, NULL, imagewidth, band);
   ddisp->renderer = (Renderer *)renderer;
 
-  fp = fopen(filename, "wb");
+  fp = fopen(cbdata->filename, "wb");
   if (fp == NULL) {
-    message_error(_("Couldn't open: '%s' for writing.\n"), filename);
+    message_error(_("Couldn't open: '%s' for writing.\n"), cbdata->filename);
     goto error;
   }
 
@@ -106,12 +134,12 @@ export_png(DiagramData *data, const gchar *filename,
   }
   /* the compiler said band may be clobbered by setjmp, so we set it again
    * here. */
-  band = MIN(height, BAND_HEIGHT);
+  band = MIN(imageheight, BAND_HEIGHT);
 
   png_init_io(png, fp);
 
   /* header fields */
-  png_set_IHDR(png, info, width, height, 8,
+  png_set_IHDR(png, info, imagewidth, imageheight, 8,
 	       PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE,
 	       PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
   sig_bit.red = 8;
@@ -125,9 +153,9 @@ export_png(DiagramData *data, const gchar *filename,
 
   row_ptr = g_new(png_bytep, band);
 
-  for (row = 0; row < height; row += band) {
+  for (row = 0; row < imageheight; row += band) {
     /* render band */
-    for (i = 0; i < width*band; i++) {
+    for (i = 0; i < imagewidth*band; i++) {
       renderer->rgb_buffer[3*i]   = 0xff * data->bg_color.red;
       renderer->rgb_buffer[3*i+1] = 0xff * data->bg_color.green;
       renderer->rgb_buffer[3*i+2] = 0xff * data->bg_color.blue;
@@ -135,8 +163,8 @@ export_png(DiagramData *data, const gchar *filename,
     data_render(data, (Renderer *)renderer, &ddisp->visible, NULL,NULL);
     /* write rows to png file */
     for (i = 0; i < band; i++)
-      row_ptr[i] = renderer->rgb_buffer + 3 * i * width;
-    png_write_rows(png, row_ptr, MIN(band, height - row));
+      row_ptr[i] = renderer->rgb_buffer + 3 * i * imagewidth;
+    png_write_rows(png, row_ptr, MIN(band, imageheight - row));
 
     ddisp->visible.top    += band_height;
     ddisp->visible.bottom += band_height;
@@ -149,7 +177,162 @@ export_png(DiagramData *data, const gchar *filename,
  error:
   destroy_libart_renderer(renderer);
   g_free(ddisp);
+  gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_okay_button), userdata);
+  gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_cancel_button), userdata);
+  g_free(cbdata->filename);
+  g_free(cbdata);
   return;
+}
+
+/* Stuff to do when cancelling:
+   disconnect signals (since the dialog persists)
+   hide dialog
+   free callback data
+*/
+static void
+export_png_cancel(GtkButton *button, gpointer userdata) {
+  struct png_callback_data *cbdata = (struct png_callback_data *)userdata;
+
+  gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_okay_button), userdata);
+  gtk_signal_disconnect_by_data(GTK_OBJECT(export_png_cancel_button), userdata);
+
+  gtk_widget_hide(export_png_dialog);
+  g_free(cbdata->filename);
+  g_free(cbdata);
+}
+
+/* Adjust the aspect ratio */
+static void
+export_png_ratio(GtkAdjustment *limits, gpointer userdata) {
+  /* This variable makes sure that we don't have a loopback effect. */
+  static gboolean in_progress;
+  if (in_progress) return;
+  in_progress = TRUE;
+  if (userdata == export_png_height_entry) {
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(userdata),
+			      (int)((real)gtk_spin_button_get_value_as_int(export_png_width_entry))/export_png_aspect_ratio);
+  } else {
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(userdata),
+			      (int)((real)gtk_spin_button_get_value_as_int(export_png_height_entry))*export_png_aspect_ratio);
+  }
+  in_progress = FALSE;
+}
+
+/* Functions to create dialog widgets.  These should, if used in other
+   dialogs, go into a separate file.  They are intended for fairly small
+   transient dialogs such as parameters for exports.  The functions are
+   meant to be transparent in that they don't make their own structures,
+   they're just collections of common actions.
+*/
+/** Creates a new dialog with a title and Ok and Cancel buttons.
+    Default texts are supplied for Ok and Cancel buttons if NULL.
+    Returns the created dialog and sets the two widget pointers.
+    This function does not call gtk_widget_show(), do
+    gtk_widget_show_all() when all has been added.
+ */
+static GtkWidget *
+dialog_make(char *title, char *okay_text, char *cancel_text,
+	    GtkWidget **okay_button, GtkWidget **cancel_button) {
+  GtkWidget *dialog = gtk_dialog_new();
+  GtkWidget *label = gtk_label_new(title);
+
+  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), label);
+
+  *okay_button = gtk_button_new_with_label((okay_text!=NULL?okay_text:_("Ok")));
+  *cancel_button = gtk_button_new_with_label((cancel_text!=NULL?cancel_text:_("Cancel")));
+
+  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->action_area), 
+		    *okay_button);
+  gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->action_area), 
+		    *cancel_button);
+
+  return dialog;
+}
+
+/** Adds a spinbutton with an attached label to a dialog.
+    To get an integer spinbutton, give decimals as 0.
+ */
+static GtkSpinButton *
+dialog_add_spinbutton(GtkWidget *dialog, char *title,
+		      real min, real max, real decimals) {
+    GtkAdjustment *limits =
+      GTK_ADJUSTMENT(gtk_adjustment_new(10.0, min, max, 1.0, 10.0, 100.0));
+    GtkWidget *box = gtk_hbox_new(FALSE, 10);
+    GtkWidget *label = gtk_label_new(title);
+    GtkWidget *entry = gtk_spin_button_new(limits, 10.0, decimals);
+
+    gtk_box_pack_start_defaults(GTK_BOX(box), label);
+    gtk_box_pack_start_defaults(GTK_BOX(box), entry);
+    gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), box);
+
+    return GTK_SPIN_BUTTON(entry);
+}
+
+static void
+export_png(DiagramData *data, const gchar *filename, 
+           const gchar *diafilename, void* user_data)
+{
+  /* Create the callback data.  Can't be stack allocated, as the function
+     returns before the callback is called.  Must be freed by the
+     final callbacks. */
+  struct png_callback_data *cbdata = 
+    (struct png_callback_data *)g_malloc(sizeof(struct png_callback_data));
+  Rectangle *ext = &data->extents;
+  guint32 width, height;
+
+  /* Note that this dialog, while not modal, is no reentrant, as it creates
+     a single dialog and uses that every time.  Trying to do two exports at
+     the same time will lead to confusion.
+  */
+
+  if (export_png_dialog == NULL) {
+    /* Create a dialog */
+    export_png_dialog = dialog_make(_("PNG Export Options"),
+				    _("Export"), NULL,
+				    &export_png_okay_button,
+				    &export_png_cancel_button);
+    /* Add two integer entries */
+    export_png_width_entry =
+      dialog_add_spinbutton(export_png_dialog, _("Image width:"),
+			    0.0, 10000.0, 0);
+    export_png_height_entry =
+      dialog_add_spinbutton(export_png_dialog, _("Image height:"),
+			    0.0, 10000.0, 0);
+
+    /* Make sure that the aspect ratio stays the same */
+    gtk_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(export_png_width_entry)), 
+		       "value_changed",
+		       export_png_ratio, (gpointer)export_png_height_entry);
+    gtk_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(export_png_height_entry)), 
+		       "value_changed",
+		       export_png_ratio, (gpointer)export_png_width_entry);
+
+  }
+
+  /* Find the default size */
+  width  = (guint32) ((ext->right - ext->left) * DPCM * data->paper.scaling);
+  height = (guint32) ((ext->bottom - ext->top) * DPCM * data->paper.scaling);
+
+  /* Store aspect ratio */
+  export_png_aspect_ratio = ((real)width)/height;
+
+  /* Set the default size */
+  gtk_spin_button_set_value(export_png_width_entry, (float)width);
+  /* This is set from the aspect ratio */
+  /*  gtk_spin_button_set_value(export_png_height_entry, (float)height);*/
+
+  /* Store pertinent data in callback data structure */
+  cbdata->data = data;
+  cbdata->filename = g_strdup(filename);
+
+  /* Set OK and Cancel buttons to call the relevant callbacks with cbdata */
+  gtk_signal_connect(GTK_OBJECT(export_png_okay_button), "clicked",
+			    export_png_ok, (gpointer)cbdata);
+  gtk_signal_connect(GTK_OBJECT(export_png_cancel_button), "clicked",
+			    export_png_cancel, (gpointer)cbdata);
+
+  /* Show the whole thing */
+  gtk_widget_show_all(export_png_dialog);
 }
 
 static const gchar *extensions[] = { "png", NULL };

@@ -592,7 +592,8 @@ freetype_scan_directory(char *dirname) {
   /* Scan the dir */
   fontdir = opendir(dirname);
   if (fontdir == NULL) {
-    message_warning("Couldn't open font dir %s", dirname);
+    /* Some X font dirs are bogus: The :unscaled ones */
+    /*    message_warning("Couldn't open font dir %s", dirname); */
     return;
   }
 
@@ -885,7 +886,6 @@ font_getfont_with_style(const char *name, const char *style)
 {
   DiaFontFamily *fonts;
   GList *faces;
-  char *realstyle = style;
 
   LC_DEBUG (fprintf(stderr, "font_getfont_with_style %s %s\n", name, style));
   g_assert(name!=NULL);
@@ -899,7 +899,7 @@ font_getfont_with_style(const char *name, const char *style)
 	// Found old-style font
 	if (font_data[i].fontname_freetype == NULL) continue;
 	fonts = (DiaFontFamily *)g_hash_table_lookup(fonts_hash, font_data[i].fontname_freetype);
-	realstyle = font_data[i].fontstyle_freetype;
+	style = font_data[i].fontstyle_freetype;
 	break;
       }
     }
@@ -915,13 +915,13 @@ font_getfont_with_style(const char *name, const char *style)
   }
  
   for (faces = fonts->diafonts; faces != NULL; faces = g_list_next(faces)) {
-    if (!strcmp(((DiaFont *)faces->data)->style, realstyle)) {
+    if (!strcmp(((DiaFont *)faces->data)->style, style)) {
       return (DiaFont *)faces->data;
     }
   }
 
   message_notice(_("Font %s has no style %s, using %s\n"),
-		 realstyle,
+		 style,
 		 ((DiaFont *)fonts->diafonts->data)->style);
   return (DiaFont *)fonts->diafonts->data;
 }
