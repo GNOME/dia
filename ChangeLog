@@ -1,5 +1,10 @@
 2001-04-06  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* plug-ins/dxf-import.c: setlocale-related clean-ups and fixes ;
+	preliminary support for arcs (doesn't work). Circles and ellipses are
+	now transparent. Coordinate and width scaling are now a common 
+	static constant (probably before morphing into a preference).
+	
 	* sheet/checktrans.py: improved error reporting. Made checktrans
 	count lack of <name xml:lang="code"> as a lack of translation for
 	language "code" (no, it's not a plot to bring down other

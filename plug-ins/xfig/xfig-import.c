@@ -176,10 +176,12 @@ void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
 	LineStyle style = LINESTYLE_SOLID;
 	Layer *layer = NULL;
 		
-	do {
-		if(read_dxf_codes(filedxf, data) == FALSE){
-			return;
-		}
+        old_locale = setlocale(LC_NUMERIC, "C");
+        do {
+            if(read_dxf_codes(filedxf, data) == FALSE){
+                setlocale(LC_NUMERIC, old_locale);
+                return;
+            }
 		codedxf = atoi(data->code);
 		switch(codedxf){
 			case 6:	 style = get_dia_linestyle_dxf(data->value);
@@ -187,33 +189,24 @@ void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
  			case  8: layer = layer_find_by_name(data->value, dia);
 					 break;
 			case 10:
-			    old_locale = setlocale(LC_NUMERIC, "C");
 			    start.x = atof(data->value);
-			    setlocale(LC_NUMERIC, "C");
 					 break;
 			case 11: 
-			    old_locale = setlocale(LC_NUMERIC, "C");
 			    end.x = atof(data->value);
-			    setlocale(LC_NUMERIC, "C");
 					 break;
 			case 20: 
-			    old_locale = setlocale(LC_NUMERIC, "C");
 			    start.y = (-1)*atof(data->value);
-			    setlocale(LC_NUMERIC, "C");
 					 break;
 			case 21: 
-			    old_locale = setlocale(LC_NUMERIC, "C");
 			    end.y = (-1)*atof(data->value);
-			    setlocale(LC_NUMERIC, "C");
 					 break;
 			case 39: 
-			    old_locale = setlocale(LC_NUMERIC, "C");
 			    line_width = atof(data->value)/10.0;		 		 		 
-			    setlocale(LC_NUMERIC, "C");
 					 break;
 		}
 		
-	}while(codedxf != 0);
+	} while(codedxf != 0);
+        setlocale(LC_NUMERIC, old_locale);
 
 	line_obj = otype->ops->create(&start, otype->default_user_data,
 				      &h1, &h2);
