@@ -1,9 +1,13 @@
+News in version 0.41:
+* Some internalization bugfixes.
+Note that some translations still has problems. "sv" works.
+
 News in version 0.40: 
 
 * Internationalization
 * Preferences handling
 * Image objects
-* New standard objects: polyline,
+* New standard objects: polyline
 * New UML objects: lifeline, object, message, class icon
 * New network object: printer
 * Better standard objects

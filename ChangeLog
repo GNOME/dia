@@ -1,5 +1,13 @@
 1999-04-08  Alexander Larsson  <alla@lysator.liu.se>
 
+	* Released Dia 0.41
+	Tag called DIA_0_41
+
+	* NEWS:
+	Updates for 0.41.
+	
+1999-04-08  Alexander Larsson  <alla@lysator.liu.se>
+
 	* configure.in:
 	Updated version number to 0.41
 
