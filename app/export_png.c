@@ -68,7 +68,7 @@ export_png(DiagramData *data, const gchar *filename, const gchar *diafilename)
   ddisp->visible = *ext;
   ddisp->visible.bottom = MIN(ddisp->visible.bottom,
 			      ddisp->visible.top + band_height);
-  renderer = new_libart_renderer(ddisp);
+  renderer = new_libart_renderer(ddisp, 0);
   libart_renderer_set_size(renderer, NULL, width, band);
   ddisp->renderer = (Renderer *)renderer;
 

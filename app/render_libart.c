@@ -165,13 +165,13 @@ static InteractiveRenderOps LibartInteractiveRenderOps = {
 };
 
 RendererLibart *
-new_libart_renderer(DDisplay *ddisp)
+new_libart_renderer(DDisplay *ddisp, int interactive)
 {
   RendererLibart *renderer;
 
   renderer = g_new(RendererLibart, 1);
   renderer->renderer.ops = &LibartRenderOps;
-  renderer->renderer.is_interactive = 1;
+  renderer->renderer.is_interactive = interactive;
   renderer->renderer.interactive_ops = &LibartInteractiveRenderOps;
   renderer->ddisp = ddisp;
 

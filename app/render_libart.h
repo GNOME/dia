@@ -58,7 +58,7 @@ struct _RendererLibart {
 #endif  
 };
 
-extern RendererLibart *new_libart_renderer(DDisplay *ddisp);
+extern RendererLibart *new_libart_renderer(DDisplay *ddisp, int interactive);
 extern void destroy_libart_renderer(RendererLibart *renderer);
 extern void libart_renderer_set_size(RendererLibart *renderer,
 				     GdkWindow *window,
