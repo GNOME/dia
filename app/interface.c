@@ -756,6 +756,7 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
   int rows;
   GtkStyle *style;
   GSList *tmp;
+  GtkWidget *first_button = NULL;
 
   gtk_container_foreach(GTK_CONTAINER(sheet_wbox),
 			(GtkCallback)gtk_widget_destroy, NULL);
@@ -822,6 +823,7 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
     data->user_data = sheet_obj->user_data;
     gtk_object_set_data_full(GTK_OBJECT(button), "Dia::ToolButtonData",
 			     data, (GdkDestroyNotify)g_free);
+    if (first_button == NULL) first_button = button;
     
     gtk_signal_connect (GTK_OBJECT (button), "toggled",
 			GTK_SIGNAL_FUNC (tool_select_update), data);
@@ -833,6 +835,10 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
     gtk_tooltips_set_tip (tool_tips, button,
 			  gettext(sheet_obj->description), NULL);
   }
+  if (first_button != NULL)
+    tool_select_update(first_button, 
+		       gtk_object_get_data(GTK_OBJECT(first_button),
+					   "Dia::ToolButtonData"));
 }
 
 void

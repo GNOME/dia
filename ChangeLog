@@ -1,5 +1,8 @@
 2002-07-23  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/interface.c (fill_sheet_wbox): Fix for bug #88601: Select an
+	object from the new sheet when changing.
+
 	* app/app_procs.c (app_init): Uses more standard size icon, from
 	patch #56433.  Keeping old icon as dia_gnome_icon_large.png.
 
