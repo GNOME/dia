@@ -1,4 +1,4 @@
-/* xxxxxx -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -141,7 +141,9 @@ box_get_properties(Box *box)
     adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 0.0, 0.0);
     spinner = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(spinner), TRUE);
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinner), box->border_width);
+    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(spinner), TRUE);
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinner),
+			      box->border_width);
     prop_dialog->border_width_spinner = GTK_SPIN_BUTTON(spinner);
 
     gtk_box_pack_start(GTK_BOX (dialog),
