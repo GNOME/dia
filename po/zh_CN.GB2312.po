@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2000-09-05 00:09+0800\n"
+"POT-Creation-Date: 2000-09-29 22:30+0800\n"
 "PO-Revision-Date: 2000-09-01 19:25+0800\n"
 "Last-Translator: Wang Jian <lark@linux.net.cn>\n"
 "Language-Team: zh_CN\n"
@@ -279,12 +279,12 @@ msgid ""
 "Are you sure you want to close this window?"
 msgstr ""
 
-#: app/display.c:782 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
+#: app/display.c:782 app/filedlg.c:242 app/filedlg.c:431 app/preferences.c:492
 #: lib/properties.c:279
 msgid "Yes"
 msgstr ""
 
-#: app/display.c:792 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
+#: app/display.c:792 app/filedlg.c:255 app/filedlg.c:444 app/preferences.c:492
 #: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr ""
@@ -313,49 +313,49 @@ msgstr ""
 msgid "Portable Network Graphics"
 msgstr ""
 
-#: app/filedlg.c:94 app/filedlg.c:368
+#: app/filedlg.c:95 app/filedlg.c:369
 msgid "By extension"
 msgstr ""
 
-#: app/filedlg.c:153
+#: app/filedlg.c:154
 msgid "Open Diagram"
 msgstr ""
 
-#: app/filedlg.c:179
+#: app/filedlg.c:180
 msgid "Open Options"
 msgstr ""
 
-#: app/filedlg.c:187 app/filedlg.c:527
+#: app/filedlg.c:188 app/filedlg.c:528
 msgid "Determine file type:"
 msgstr ""
 
-#: app/filedlg.c:227 app/filedlg.c:415
+#: app/filedlg.c:228 app/filedlg.c:416
 msgid "File already exists"
 msgstr ""
 
-#: app/filedlg.c:231 app/filedlg.c:418
+#: app/filedlg.c:232 app/filedlg.c:419
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
 
-#: app/filedlg.c:295
+#: app/filedlg.c:296
 msgid "Save Diagram"
 msgstr ""
 
-#: app/filedlg.c:475
+#: app/filedlg.c:476
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr ""
 
-#: app/filedlg.c:492
+#: app/filedlg.c:493
 msgid "Export Diagram"
 msgstr ""
 
-#: app/filedlg.c:519
+#: app/filedlg.c:520
 msgid "Export Options"
 msgstr ""
 
@@ -565,7 +565,7 @@ msgid ""
 "connection handle does not exist."
 msgstr ""
 
-#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1020
+#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:489 plug-ins/wpg/wpg.c:1020
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr ""
@@ -660,7 +660,7 @@ msgid "_Zoom"
 msgstr ""
 
 #: app/menus.c:112
-msgid "Diagram Propeties..."
+msgid "Diagram Properties..."
 msgstr ""
 
 #: app/menus.c:114
@@ -2534,7 +2534,7 @@ msgstr ""
 msgid "Computer Graphics Metafile export filter"
 msgstr ""
 
-#: plug-ins/dxf/dxf-export.c:557 plug-ins/dxf/dxf-import.c:491
+#: plug-ins/dxf/dxf-export.c:557 plug-ins/dxf/dxf-import.c:543
 msgid "Drawing Interchange File"
 msgstr ""
 
