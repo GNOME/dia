@@ -1,3 +1,12 @@
+2002-05-13  Cyrille Chepelov  <cyrille@chepelov.org>
+
+        * RELEASE-PROCESS: added James' notes on how to properly make the
+	tarball.
+
+	* configure.in: removed macro nesting related to libpng.h, which
+	was causing some problems on some systems (like mine, which made
+	the snapshots bad).
+	
 2002-05-13  Steffen Macke <sdteffen@web.de>
 
 	* AUTHORS:

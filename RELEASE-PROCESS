@@ -32,6 +32,8 @@ When a new version is about to be released:
    the Bugzilla, however it is encouraged that bug reports are made
    directly (or simultaneously) to the mailing list.
 
+   Please see the section below on how to make a tarball (yes, please do).
+
 3a) if a release-critical bug happens before D+10 (say, at D+n), the
    release process is paused until the bug is fixed and a new release
    candidate tarball $VERSION-pre2 is re-made. Go to either step 3a or
@@ -45,13 +47,33 @@ When a new version is about to be released:
    rejected as INVALID).
 
 4) once the new release is complete and uploaded, announcements on
-   freshmeat and the dia web site are made. 
+   freshmeat, the dia web site, the dia mailing list,
+   gnome-announce-list@gnome.org and maybe a gnotices story
+   (news.gnome.org) are made. 
 
 5) the CVS HEAD freeze is lifted one week /after/ the release is
    generally available, unless a release critical bug is discovered in
    the release. If the latter is the case, a new, fixed "brown bag" release is
    released and announced as soon as possible (extending the one-week
    delay on the CVS HEAD thaw).
+
+How to make a tarball
+---------------------
+  1. make sure you have up to date build tools installed on the system.
+      Libtool is an important one, as new releases add support for new
+     platforms.
+  2. make sure "make distcheck" runs to completion.  With automake >=
+     1.5, the checks also make sure "make uninstall" removes all files 
+     that got installed.
+  3. check to see if the tarball builds in normal and --enable-gnome
+     modes (this task should disapear with the move to 2.0; there is no
+     reason to have separate dialog and menu code).
+  4. Upload to ftp.gnome.org.  This is basically just scp'ing the
+     tarball to widget.gnome.org, then running a command like
+     "install-module --package dia-0.90.tar.gz --old
+     dia-0.88.1.tar.gz", which will create bz2 tarballs, diffs to the
+     previous version, and signal the ftp mirrors (currently just
+     ftp.gnome.org and planetmirror.com) to synchronise.  
 
 Issues to solve
 ---------------
