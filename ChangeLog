@@ -1,3 +1,7 @@
+2002-03-12  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/render.c: New abstract super class for renderers.
+
 2002-03-07  Akira TAGOH  <tagoh@redhat.com>
 
 	* objects/ER/attribute.c (attribute_save): save a font property.

@@ -45,6 +45,11 @@
  * Author: Federico Mena <federico@nuclecu.unam.mx>
  */
 
+/* TODO:
+   TrueType printing -- await support (or answers) from libfreetype.
+   BoundingBox calculcations.
+*/
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif

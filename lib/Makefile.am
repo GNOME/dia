@@ -57,6 +57,7 @@ libdia_a_SOURCES =  \
 		connectionpoint.h \
 		handle.h \
 		render.h \
+		render.c \
 		object.h \
 		object.c \
 		connection.c \
