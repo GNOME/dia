@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>FootBridge</name>
+  <icon>FootBridge.png</icon>
+  <connections>
+    <point x="0" y="4"/>
+    <point x="8" y="0"/>
+    <point x="4" y="2"/>
+    <point x="4" y="2"/>
+    <point x="8" y="0"/>
+    <point x="15" y="4"/>
+    <point x="11" y="6"/>
+    <point x="6" y="1"/>
+    <point x="11.5" y="2"/>
+    <point x="13" y="5"/>
+    <point x="4" y="2"/>
+    <point x="8" y="0"/>
+    <point x="15" y="4"/>
+    <point x="11" y="6"/>
+    <point x="6" y="1"/>
+    <point x="11.5" y="2"/>
+    <point x="13" y="5"/>
+    <point x="12" y="12"/>
+    <point x="16" y="10"/>
+    <point x="15" y="4"/>
+    <point x="11" y="6"/>
+    <point x="14" y="11"/>
+    <point x="15.5" y="7"/>
+    <point x="13" y="5"/>
+    <point x="12" y="12"/>
+    <point x="16" y="10"/>
+    <point x="15" y="4"/>
+    <point x="11" y="6"/>
+    <point x="14" y="11"/>
+    <point x="15.5" y="7"/>
+    <point x="13" y="5"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:line style="stroke-width: 0.1; stroke: #000000" x1="0" y1="4" x2="8" y2="0"/>
+    <svg:polygon style="fill: #ffffff" points="4,2 8,0 15,4 11,6 "/>
+    <svg:polygon style="stroke-width: 0.1; stroke: #000000" points="4,2 8,0 15,4 11,6 "/>
+    <svg:polygon style="fill: #ffffff" points="12,12 16,10 15,4 11,6 "/>
+    <svg:polygon style="stroke-width: 0.1; stroke: #000000" points="12,12 16,10 15,4 11,6 "/>
+  </svg:svg>
+</shape>

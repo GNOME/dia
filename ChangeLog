@@ -1,3 +1,11 @@
+2004-03-05  Lars Clausen  <larsrc@linux.local>
+
+	* configure.in: 
+	* sheets/Makefile.am (SUBDIRS): 
+	* sheets/IsometricMap.sheet.in: 
+	* shapes/Map/Isometric/*
+	* shapes/Makefile.am (SUBDIRS): Added Isometric shapes.
+
 2004-03-04  Lars Clausen  <lars@raeder.dk>
 
 	* lib/Makefile.am: 
