@@ -1,3 +1,8 @@
+1999-04-08  Alexander Larsson  <alla@lysator.liu.se>
+
+	* Released Dia 0.80
+	Tag called DIA_0_80
+	
 1999-10-17  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* app/Makefile.am
