@@ -1,3 +1,8 @@
+2004-02-22  Hubert Figuiere  <hfiguiere@teaser.fr>
+
+	* app/Makefile.am (run_dia.sh): Fixed a typo in wrapper that prevented
+	running with a debugger.
+
 2004-02-19  Lars Clausen  <lc@pc770>
 
 	* app/undo.[ch]: Adding last-saved information to undo to allow a

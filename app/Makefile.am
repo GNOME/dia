@@ -231,7 +231,7 @@ run_dia.sh: Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh
 	echo DIA_APP_PATH=\"`pwd`\" >>run_dia.sh
 	echo DIA_BASE_PATH=\"'$$DIA_APP_PATH'/..\" >>run_dia.sh
-	echo DIA_LIBS_PATH=\"'$$DiA_APP_PATH'/.libs\" >>run_dia.sh
+	echo DIA_LIBS_PATH=\"'$$DIA_APP_PATH'/.libs\" >>run_dia.sh
 	echo >> run_dia.sh
 	echo DIA_LIB_PATH=\"'$$DIA_BASE_PATH'/objects//:'$$DIA_BASE_PATH'/plug-ins//\" >> run_dia.sh
 	echo DIA_PLUGIN_PATH=\"'$$DIA_BASE_PATH'/plug-ins\" >> run_dia.sh
