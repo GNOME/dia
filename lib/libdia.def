@@ -401,5 +401,11 @@ EXPORTS
  filter_get_callbacks
  filter_register_callback
 
+ ellipse_bbox
+ line_bbox
+ polybezier_bbox
+ polyline_bbox
+ rectangle_bbox
+
 ; custom_register_objects
 

@@ -53,7 +53,9 @@ OBJECTS = \
 	plug-ins.obj \
 	polyshape.obj \
 	beziershape.obj \
-	paper.obj
+	paper.obj \
+	string_prerenderer.obj \
+	boundingbox.obj
 
 ## common stuff
 ## compiler and linker switches

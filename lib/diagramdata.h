@@ -25,6 +25,7 @@ typedef struct _Layer Layer;
 
 #include "object.h"
 #include "paper.h"
+#include "diavar.h"
 
 struct _DiagramData {
   Rectangle extents;      /* The extents of the diagram        */
@@ -66,7 +67,7 @@ struct _Layer {
   int visible;
 };
 
-extern int render_bounding_boxes;
+DIAVAR int render_bounding_boxes;
 
 DiagramData *new_diagram_data(void);
 void diagram_data_destroy(DiagramData *data);

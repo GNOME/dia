@@ -406,9 +406,9 @@ layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
 	p1.y = obj->bounding_box.top;
 	p2.x = obj->bounding_box.right;
 	p2.y = obj->bounding_box.bottom;
-	col.red = 0xff;
-	col.green = 0x00;
-	col.blue = 0xff;
+	col.red = 1.0;
+	col.green = 0.0;
+	col.blue = 1.0;
 
         renderer->ops->set_linewidth(renderer,0.01);
 	renderer->ops->draw_rect(renderer, &p1, &p2, &col);

@@ -83,6 +83,7 @@ real diagram_find_closest_connectionpoint(Diagram *dia,
 					  Point *pos);
 void diagram_update_extents(Diagram *dia);
 
+void diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items);
 void diagram_update_menubar_sensitivity(Diagram *dia, UpdatableMenuItems *items);
 void diagram_update_popupmenu_sensitivity(Diagram *dia);
 

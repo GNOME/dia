@@ -421,7 +421,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
   if (text_delete_all(text, (ObjectChange **)&change)) { 
     (change->apply)(change, ddisp->diagram);
     
-    diagram_update_menu_sensitivity(ddisp->diagram);
+    diagram_update_menu_sensitivity(ddisp->diagram, &ddisp->updatable_menu_items);
     diagram_flush(ddisp->diagram);
   }
 }

@@ -1,3 +1,28 @@
+2001-06-03  Hans Breuer  <hans@breuer.org>
+
+	* app/diagram.h : added prototype for diagram_update_menu_sensitivity()
+	* app/commands.c : give the right number of parameters
+	to diagram_update_menu_sensitivity ()
+
+	* app/preferences.c : do proper initialization for DiaPrefsData:
+	render_bounding_boxes. It would be a real surprise if 'hidden'
+	properties would have ever worked before.
+	Don't try to access the widgets of hidden property, it does not
+	have one.
+
+	* lib/diagramdata.h : make render_bounding_boxes a DIAVAR, cause
+	it is defined in libdia, but initialized from dia app, which 
+	otherwise gave nice start-up crashes.
+
+	* lib/diagramdata.c : initialize the color for rendering bounding 
+	boxes in the Dia range (0 .. 1.0)
+
+	* lib/libdia.def : added *_bbox functions for export
+
+	* lib/makefile.msc : added new sources
+
+	* objects/custom/custom_object.c : use HAVE_UNISTD_H
+
 2001-05-30  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/interface.c:

@@ -129,7 +129,7 @@ struct DiaPrefsData prefs_data[] =
   { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, 2, N_("Solid lines:") },
 
   { "render_bounding_boxes", PREF_BOOLEAN,PREF_OFFSET(render_bounding_boxes),
-    &default_false,0,"render bounding boxes:",TRUE},
+    &default_false,0,"render bounding boxes:",NULL, TRUE},
 };
 
 #define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(struct DiaPrefsData))
@@ -712,6 +712,7 @@ prefs_update_prefs_from_dialog(void)
   char *ptr;
   
   for (i=0;i<NUM_PREFS_DATA;i++) {
+    if (prefs_data[i].hidden) continue;
     widget = prefs_data[i].widget;
     ptr = (char *)&prefs + prefs_data[i].offset;
     
@@ -727,6 +728,7 @@ prefs_update_dialog_from_prefs(void)
   char *ptr;
   
   for (i=0;i<NUM_PREFS_DATA;i++) {
+    if (prefs_data[i].hidden) continue;
     widget = prefs_data[i].widget;
     ptr = (char *)&prefs + prefs_data[i].offset;
     
