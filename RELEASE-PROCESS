@@ -70,10 +70,9 @@ How to make a tarball
      reason to have separate dialog and menu code).
   4. Upload to ftp.gnome.org.  This is basically just scp'ing the
      tarball to widget.gnome.org, then running a command like
-     "install-module --package dia-0.90.tar.gz --old
-     dia-0.88.1.tar.gz", which will create bz2 tarballs, diffs to the
-     previous version, and signal the ftp mirrors (currently just
-     ftp.gnome.org and planetmirror.com) to synchronise.  
+     "install-module dia-0.90.tar.gz", which will create bz2
+     tarballs, diffs to the previous version, and signal the ftp mirrors
+     (currently just ftp.gnome.org and planetmirror.com) to synchronise. 
 
 Issues to solve
 ---------------
