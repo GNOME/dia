@@ -138,6 +138,8 @@ plug-ins/wpg/wpg.c
 plug-ins/xfig/xfig.c
 plug-ins/xfig/xfig-export.c
 plug-ins/xfig/xfig-import.c
+plug-ins/xslt/xslt.c
+plug-ins/xslt/xsltdialog.c
 sheets/chronogram.sheet.in
 sheets/Circuit.sheet.in
 sheets/civil.sheet.in
