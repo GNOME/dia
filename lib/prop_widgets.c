@@ -460,7 +460,9 @@ listprop_get_widget(ListProperty *prop, PropDialog *dialog)
 
 static GtkWidget *
 make_item(const gchar *line) {
-  return gtk_list_item_new_with_label(line);
+  GtkWidget *item = gtk_list_item_new_with_label(line);
+  gtk_widget_show(item);
+  return item;
 }
 
 static void 

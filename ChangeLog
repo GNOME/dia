@@ -1,3 +1,7 @@
+2003-04-10  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/prop_widgets.c: Show labels on ListProp.
+
 2003-04-11  Steffen Macke <sdteffen@web.de>
 
 	* doc/en/dia-manual.xml: removed reference of non-existing authors 
