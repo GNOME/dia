@@ -15,7 +15,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#include "config.h"
+
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -24,7 +28,6 @@
 #include <string.h>
 #include <glib.h>
 
-#include "config.h"
 #include "intl.h"
 
 #include <tree.h>
@@ -51,6 +54,16 @@
 #define fchmod(f,m) (0)
 #endif
 
+static void
+GHFuncUnknownObjects(gpointer key,
+                     gpointer value,
+                     gpointer user_data)
+{
+  GString* s = (GString*)user_data;
+  g_string_append(s, "\n");
+  g_string_append(s, (gchar*)key);
+}
+
 static GList *
 read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
 {
@@ -62,6 +75,11 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
   char *versionstr;
   char *id;
   int version;
+  GHashTable* unknown_hash;
+  GString*    unknown_str;
+
+  unknown_hash = g_hash_table_new(g_str_hash, g_str_equal);
+  unknown_str  = g_string_new("Unknown types while reading diagram file");
 
   list = NULL;
 
@@ -83,11 +101,17 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
       type = object_get_type((char *)typestr);
       if (typestr) free(typestr);
       
-      obj = type->ops->load(obj_node, version, filename);
-      list = g_list_append(list, obj);
+      if (!type) {
+	if (NULL == g_hash_table_lookup(unknown_hash, typestr))
+	    g_hash_table_insert(unknown_hash, typestr, 0);
+      }
+      else
+      {
+        obj = type->ops->load(obj_node, version, filename);
+        list = g_list_append(list, obj);
       
-      g_hash_table_insert(objects_hash, (char *)id, obj);
-   
+        g_hash_table_insert(objects_hash, (char *)id, obj);
+      }
     } else if (strcmp(obj_node->name, "group")==0) {
       obj = group_create(read_objects(obj_node, objects_hash, filename));
       list = g_list_append(list, obj);
@@ -97,6 +121,16 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
 
     obj_node = obj_node->next;
   }
+  /* show all the unknown types in one message */
+  if (0 < g_hash_table_size(unknown_hash)) {
+    g_hash_table_foreach(unknown_hash,
+			 GHFuncUnknownObjects,
+			 unknown_str);
+    message_error(unknown_str->str);
+  }
+  g_hash_table_destroy(unknown_hash);
+  g_string_free(unknown_str, TRUE);
+
   return list;
 }
 
