@@ -62,6 +62,7 @@ void view_show_cx_pts_callback  (gpointer data, guint action,
 
 void view_new_view_callback(gpointer data, guint action, GtkWidget *widget);
 void view_show_all_callback(gpointer data, guint action, GtkWidget *widget);
+void view_redraw_callback(gpointer data, guint action, GtkWidget *widget);
 void view_diagram_properties_callback(gpointer data, guint action,
 				      GtkWidget *widget);
 
