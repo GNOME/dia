@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-04-16 15:40+0200\n"
+"POT-Creation-Date: 2001-04-16 22:54+0200\n"
 "PO-Revision-Date: 2001-04-05 00:31+0200\n"
 "Last-Translator: Cyrille Chépélov <chepelov@calixo.net>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Quit"
 msgstr "Quitter"
 
-#: app/app_procs.c:367 app/display.c:926 app/layer_dialog.c:989
+#: app/app_procs.c:367 app/display.c:940 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
@@ -299,15 +299,15 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagramme modifié !"
 
-#: app/display.c:876
+#: app/display.c:890
 msgid "Close Diagram?"
 msgstr "Fermer le diagramme ?"
 
-#: app/display.c:882
+#: app/display.c:896
 msgid "Really close?"
 msgstr "Vraiment fermer ?"
 
-#: app/display.c:887
+#: app/display.c:901
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -315,13 +315,13 @@ msgstr ""
 "Ce diagramme n'a pas été enregistré.\n"
 "Enregistrer les changements maintenant ?"
 
-#: app/display.c:905 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:496
-#: lib/properties.c:286
+#: app/display.c:919 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:496
+#: lib/properties.c:288
 msgid "Yes"
 msgstr "Oui"
 
-#: app/display.c:915 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:496
-#: app/preferences.c:507 lib/properties.c:288 lib/properties.c:309
+#: app/display.c:929 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:496
+#: app/preferences.c:507 lib/properties.c:290 lib/properties.c:311
 msgid "No"
 msgstr "Non"
 
@@ -425,8 +425,8 @@ msgstr "Déplacement"
 msgid "Create Text"
 msgstr "Créer du texte"
 
-#: app/interface.c:58 app/menus.c:195 lib/properties.h:362
-#: lib/properties.h:386
+#: app/interface.c:58 app/menus.c:195 lib/properties.c:1262
+#: lib/properties.h:366
 msgid "Text"
 msgstr "Texte"
 
@@ -579,7 +579,7 @@ msgstr "Détails..."
 msgid "Line Style Properties"
 msgstr "Propriétés du style de ligne"
 
-#: app/linewidth_area.c:216 lib/properties.h:338
+#: app/linewidth_area.c:216 lib/properties.h:342
 msgid "Line width"
 msgstr "Largeur de ligne"
 
@@ -789,17 +789,17 @@ msgstr "Transitif"
 msgid "Same Type"
 msgstr "Même type"
 
-#: app/menus.c:162 lib/properties.c:1224 lib/properties.h:326
+#: app/menus.c:162 lib/properties.c:1247 lib/properties.h:330
 #: lib/widgets.c:199
 msgid "Left"
 msgstr "Gauche"
 
-#: app/menus.c:163 app/menus.c:172 lib/properties.c:1225 lib/properties.h:327
+#: app/menus.c:163 app/menus.c:172 lib/properties.c:1248 lib/properties.h:331
 #: lib/widgets.c:205
 msgid "Center"
 msgstr "Centre"
 
-#: app/menus.c:164 lib/properties.c:1226 lib/properties.h:328
+#: app/menus.c:164 lib/properties.c:1249 lib/properties.h:332
 #: lib/widgets.c:211
 msgid "Right"
 msgstr "Droite"
@@ -1571,23 +1571,23 @@ msgstr "« %s » n'est pas un répertoire"
 msgid "Could not open `%s'"
 msgstr "Ne peut ouvrir « %s »"
 
-#: lib/properties.c:379 lib/properties.c:411
+#: lib/properties.c:382 lib/properties.c:414
 msgid "No edit widget"
 msgstr "Pas de widget d'édition"
 
-#: lib/properties.h:341 lib/properties.h:380
+#: lib/properties.c:1256 lib/properties.h:345
 msgid "Line colour"
 msgstr "Couleur de ligne :"
 
-#: lib/properties.h:344 lib/properties.h:381
+#: lib/properties.c:1257 lib/properties.h:348
 msgid "Line style"
 msgstr "Style de ligne"
 
-#: lib/properties.h:348 lib/properties.h:382
+#: lib/properties.c:1258 lib/properties.h:352
 msgid "Fill colour"
 msgstr "Couleur de remplissage"
 
-#: lib/properties.h:351 lib/properties.h:383
+#: lib/properties.c:1259 lib/properties.h:355
 #: objects/custom/custom_object.c:358 objects/flowchart/box.c:317
 #: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
 #: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
@@ -1596,27 +1596,29 @@ msgstr "Couleur de remplissage"
 msgid "Draw background"
 msgstr "Dessiner le fond"
 
-#: lib/properties.h:355 lib/properties.h:384
+#: lib/properties.c:1260 lib/properties.h:359
 msgid "Start arrow"
 msgstr "Flèche de début"
 
-#: lib/properties.h:358 lib/properties.h:385
+#: lib/properties.c:1261 lib/properties.h:362
 msgid "End arrow"
 msgstr "Flèche de fin"
 
-#: lib/properties.h:365 lib/properties.h:387
+#: lib/properties.c:1263 lib/properties.h:369
 msgid "Text alignment"
 msgstr "Alignement"
 
-#: lib/properties.h:368 lib/properties.h:388 objects/GRAFCET/transition.c:143
+#: lib/properties.c:1264 lib/properties.h:372 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/transition.c:140
 msgid "Font"
 msgstr "Police"
 
-#: lib/properties.h:371 lib/properties.h:389 objects/GRAFCET/transition.c:145
+#: lib/properties.c:1265 lib/properties.h:375 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/transition.c:142
 msgid "Font size"
 msgstr "Taille de police"
 
-#: lib/properties.h:374 lib/properties.h:390
+#: lib/properties.c:1266 lib/properties.h:378
 msgid "Text colour"
 msgstr "Couleur du texte"
 
@@ -1937,7 +1939,6 @@ msgid "Conduct"
 msgstr "Conduire"
 
 #: objects/FS/function.c:635
-#, fuzzy
 msgid "Convey"
 msgstr "Convoyer"
 
@@ -1967,7 +1968,6 @@ msgid "Rotate"
 msgstr "Tourner"
 
 #: objects/FS/function.c:645
-#, fuzzy
 msgid "Turn"
 msgstr "Tourner"
 
@@ -2000,9 +2000,8 @@ msgid "Insulate"
 msgstr "Isoler"
 
 #: objects/FS/function.c:656
-#, fuzzy
 msgid "Protect"
-msgstr "Protégé"
+msgstr "Protéger"
 
 #: objects/FS/function.c:657 objects/FS/function.c:752
 msgid "Prevent"
@@ -2101,7 +2100,6 @@ msgid "Pack"
 msgstr "Compacter"
 
 #: objects/FS/function.c:688
-#, fuzzy
 msgid "Coalesce"
 msgstr "Grouper"
 
@@ -2175,7 +2173,6 @@ msgid "Percolate"
 msgstr "Percoler"
 
 #: objects/FS/function.c:712
-#, fuzzy
 msgid "Clear"
 msgstr "Eclaircir"
 
@@ -2272,12 +2269,10 @@ msgid "Control Magnitude"
 msgstr "Contrôle d'amplitude"
 
 #: objects/FS/function.c:744 objects/FS/function.c:745
-#, fuzzy
 msgid "Actuate"
 msgstr "Agir"
 
 #: objects/FS/function.c:746
-#, fuzzy
 msgid "Start"
 msgstr "Débuter"
 
@@ -2308,9 +2303,8 @@ msgid "Limit"
 msgstr "Limiter"
 
 #: objects/FS/function.c:756
-#, fuzzy
 msgid "Interrupt"
-msgstr "Inverser"
+msgstr "Interrompre"
 
 #: objects/FS/function.c:757 objects/FS/function.c:758
 msgid "Change"
@@ -2514,7 +2508,6 @@ msgid "Mech. Energy"
 msgstr "Énergie mécanique"
 
 #: objects/FS/function.c:821
-#, fuzzy
 msgid "Translation"
 msgstr "Translation"
 
@@ -2523,7 +2516,6 @@ msgid "Force"
 msgstr "Force"
 
 #: objects/FS/function.c:823
-#, fuzzy
 msgid "Rotation"
 msgstr "Rotation"
 
@@ -2628,12 +2620,10 @@ msgid "Acoustic Energy"
 msgstr "Énergie acoustique"
 
 #: objects/FS/function.c:850
-#, fuzzy
 msgid "Optical Energy"
 msgstr "Énergie optique"
 
 #: objects/FS/function.c:851
-#, fuzzy
 msgid "Solar Energy"
 msgstr "Énergie solaire"
 
@@ -2662,7 +2652,6 @@ msgid "Wish Fn"
 msgstr "Fonction désirée"
 
 #: objects/GRAFCET/action.c:197 objects/GRAFCET/action.c:238
-#: objects/GRAFCET/condition.c:205 objects/GRAFCET/condition.c:247
 #: objects/GRAFCET/step.c:275 objects/GRAFCET/step.c:315
 #: objects/SADT/annotation.c:495 objects/SADT/annotation.c:537
 #: objects/SADT/box.c:210 objects/SADT/box.c:252
@@ -2675,7 +2664,6 @@ msgid "Font:"
 msgstr "Police :"
 
 #: objects/GRAFCET/action.c:198 objects/GRAFCET/action.c:239
-#: objects/GRAFCET/condition.c:206 objects/GRAFCET/condition.c:248
 #: objects/GRAFCET/step.c:276 objects/GRAFCET/step.c:316
 #: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
 #: objects/SADT/box.c:211 objects/SADT/box.c:253
@@ -2688,7 +2676,6 @@ msgid "Font size:"
 msgstr "Taille de police :"
 
 #: objects/GRAFCET/action.c:199 objects/GRAFCET/action.c:240
-#: objects/GRAFCET/condition.c:207 objects/GRAFCET/condition.c:249
 #: objects/GRAFCET/step.c:277
 msgid "Text color:"
 msgstr "Couleur du texte :"
@@ -2697,9 +2684,29 @@ msgstr "Couleur du texte :"
 msgid "Macro call"
 msgstr "Appel de macro"
 
-#: objects/GRAFCET/condition.c:203
-msgid "Condition:"
-msgstr "Condition :"
+#: objects/GRAFCET/condition.c:129
+msgid "Condition"
+msgstr "Condition"
+
+#: objects/GRAFCET/condition.c:129
+msgid "The boolean equation of the condition"
+msgstr "L'équation booléenne de la condition"
+
+#: objects/GRAFCET/condition.c:131
+msgid "The condition's font"
+msgstr "La police de la condition"
+
+#: objects/GRAFCET/condition.c:133
+msgid "The condition's font size"
+msgstr "La taille de la police de la condition"
+
+#: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:145
+msgid "Color"
+msgstr "Couleur"
+
+#: objects/GRAFCET/condition.c:136
+msgid "The condition's color"
+msgstr "La couleur de la condition"
 
 #: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
@@ -2745,36 +2752,31 @@ msgstr "Type d'étape"
 msgid "Color:"
 msgstr "Couleur :"
 
-#: objects/GRAFCET/transition.c:141
+#: objects/GRAFCET/transition.c:138
 msgid "Receptivity"
 msgstr "Réceptivité"
 
-#: objects/GRAFCET/transition.c:141
+#: objects/GRAFCET/transition.c:138
 msgid "The boolean equation of the receptivity"
 msgstr "L'équation booléenne de la réceptivité"
 
-#: objects/GRAFCET/transition.c:143
+#: objects/GRAFCET/transition.c:140
 msgid "The receptivity's font"
 msgstr "La police de la réceptivité"
 
-#: objects/GRAFCET/transition.c:145
+#: objects/GRAFCET/transition.c:142
 msgid "The receptivity's font size"
 msgstr "La taille de la police de la réceptivité"
 
-#: objects/GRAFCET/transition.c:148
-#, fuzzy
-msgid "Color"
-msgstr "Couleur"
-
-#: objects/GRAFCET/transition.c:148
+#: objects/GRAFCET/transition.c:145
 msgid "The receptivity's color"
 msgstr "La couleur de la réceptivité"
 
-#: objects/GRAFCET/transition.c:149
+#: objects/GRAFCET/transition.c:146
 msgid "North point"
 msgstr "Point Nord"
 
-#: objects/GRAFCET/transition.c:150
+#: objects/GRAFCET/transition.c:147
 msgid "South point"
 msgstr "Point Sud"
 

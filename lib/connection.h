@@ -50,4 +50,13 @@ void connection_load(Connection *conn, ObjectNode obj_node);
 void connection_move_handle(Connection *conn, HandleId id,
 			    Point *to, HandleMoveReason reason);
 
+/* base property stuff... */
+#define CONNECTION_COMMON_PROPERTIES \
+  OBJECT_COMMON_PROPERTIES, \
+  { "conn_endpoints", PROP_TYPE_ENDPOINTS, 0, "Connection endpoints", NULL}
+
+#define CONNECTION_COMMON_PROPERTIES_OFFSETS \
+  OBJECT_COMMON_PROPERTIES_OFFSETS, \
+  { "conn_endpoints", PROP_TYPE_ENDPOINTS, offsetof(Connection,endpoints)}
+
 #endif /* CONNECTION_H */

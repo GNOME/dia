@@ -36,7 +36,7 @@
 #include "widgets.h"
 #include "message.h"
 #include "color.h"
-#include "lazyprops.h"
+#include "properties.h"
 #include "geometry.h"
 #include "text.h"
 
@@ -52,20 +52,6 @@
 #define CONDITION_ARROW_SIZE 0.0 /* XXX The norm says there's no arrow head.
                                     a lot of people do put it, though. */
 
-typedef struct _ConditionPropertiesDialog ConditionPropertiesDialog;
-typedef struct _ConditionDefaultsDialog ConditionDefaultsDialog;
-typedef struct _ConditionState ConditionState;
-
-struct _ConditionState {
-  ObjectState obj_state;
-  
-  Font *cond_font;
-  real cond_fontheight;
-  Color cond_color;
-
-  gchar *cond_value;
-};
-
 typedef struct _Condition {
   Connection connection;
   
@@ -80,35 +66,6 @@ typedef struct _Condition {
   Rectangle labelbb;
 } Condition;
 
-struct _ConditionPropertiesDialog {
-  AttributeDialog dialog;
-  Condition *parent;
-
-  StringAttribute cond_value;
-  FontAttribute cond_font;
-  FontHeightAttribute cond_fontheight;
-  TextColorAttribute cond_color;
-};
-
-typedef struct _ConditionDefaults {
-  Font *font;
-  real font_size;
-  Color font_color;
-} ConditionDefaults;
-
-struct _ConditionDefaultsDialog {
-  AttributeDialog dialog;
-  ConditionDefaults *parent;
-
-  FontAttribute font;
-  FontHeightAttribute font_size;
-  ColorAttribute font_color;
-};
-
-static ConditionPropertiesDialog *condition_properties_dialog;
-static ConditionDefaultsDialog *condition_defaults_dialog;
-static ConditionDefaults defaults;
-
 static void condition_move_handle(Condition *condition, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void condition_move(Condition *condition, Point *to);
@@ -122,28 +79,21 @@ static Object *condition_create(Point *startpoint,
 static real condition_distance_from(Condition *condition, Point *point);
 static void condition_update_data(Condition *condition);
 static void condition_destroy(Condition *condition);
-static Object *condition_copy(Condition *condition);
-static GtkWidget *condition_get_properties(Condition *condition);
-static ObjectChange *condition_apply_properties(Condition *condition);
-
-static ConditionState *condition_get_state(Condition *condition);
-static void condition_set_state(Condition *condition, ConditionState *state);
-
-static void condition_save(Condition *condition, ObjectNode obj_node,
-			    const char *filename);
 static Object *condition_load(ObjectNode obj_node, int version,
 			       const char *filename);
-
-static GtkWidget *condition_get_defaults(void);
-static void condition_apply_defaults(void);
+static PropDescription *condition_describe_props(Condition *condition);
+static void condition_get_props(Condition *condition, 
+                                Property *props, guint nprops);
+static void condition_set_props(Condition *condition, 
+                                Property *props, guint nprops);
 
 static ObjectTypeOps condition_type_ops =
 {
   (CreateFunc)condition_create,   /* create */
-  (LoadFunc)  condition_load,     /* load */
-  (SaveFunc)  condition_save,      /* save */
-  (GetDefaultsFunc)   condition_get_defaults, 
-  (ApplyDefaultsFunc) condition_apply_defaults
+  (LoadFunc)  condition_load /*using_properties*/,     /* load */
+  (SaveFunc)  object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType condition_type =
@@ -161,99 +111,69 @@ static ObjectOps condition_ops = {
   (DrawFunc)            condition_draw,
   (DistanceFunc)        condition_distance_from,
   (SelectFunc)          condition_select,
-  (CopyFunc)            condition_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            condition_move,
   (MoveHandleFunc)      condition_move_handle,
-  (GetPropertiesFunc)   condition_get_properties,
-  (ApplyPropertiesFunc) condition_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   condition_describe_props,
+  (GetPropsFunc)        condition_get_props,
+  (SetPropsFunc)        condition_set_props
 };
 
-static ObjectChange *
-condition_apply_properties(Condition *condition)
+
+static PropDescription condition_props[] = {
+  CONNECTION_COMMON_PROPERTIES,
+  { "condition",PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Condition"),N_("The boolean equation of the condition")},
+  { "cond_font",PROP_TYPE_FONT, PROP_FLAG_VISIBLE,
+    N_("Font"),N_("The condition's font") },
+  { "cond_fontheight",PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
+    N_("Font size"),N_("The condition's font size"),
+    &prop_std_text_height_data},
+  { "cond_color",PROP_TYPE_COLOUR,PROP_FLAG_VISIBLE,
+    N_("Color"),N_("The condition's color")},
+  PROP_DESC_END
+};
+
+static PropDescription *
+condition_describe_props(Condition *condition) 
 {
-  ObjectState *old_state;
-  ConditionPropertiesDialog *dlg = condition_properties_dialog;
+  if (condition_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(condition_props);
+  }
+  return condition_props;
+}
 
-  PROPDLG_SANITY_CHECK(dlg,condition);
+static PropOffset condition_offsets[] = {
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
+  {"condition",PROP_TYPE_STRING,offsetof(Condition,cond_value)},
+  {"cond_font",PROP_TYPE_FONT,offsetof(Condition,cond_font)},
+  {"cond_fontheight",PROP_TYPE_REAL,offsetof(Condition,cond_fontheight)},
+  {"cond_color",PROP_TYPE_COLOUR,offsetof(Condition,cond_color)},
+  { NULL,0,0 }
+};
+
+static void
+condition_get_props(Condition *condition, Property *props, guint nprops)
+{  
+  object_get_props_from_offsets(&condition->connection.object,
+                                condition_offsets,props,nprops);
+}
+
+static void
+condition_set_props(Condition *condition, Property *props, guint nprops)
+{
+  object_set_props_from_offsets(&condition->connection.object,
+                                condition_offsets,props,nprops);
   
-  old_state = (ObjectState *)condition_get_state(condition);
-
-  PROPDLG_APPLY_FONT(dlg,cond_font);
-  PROPDLG_APPLY_FONTHEIGHT(dlg,cond_fontheight);
-  PROPDLG_APPLY_COLOR(dlg,cond_color);
-  PROPDLG_APPLY_STRING(dlg,cond_value);
   boolequation_set_value(condition->cond,condition->cond_value);
   condition->cond->font = condition->cond_font;
   condition->cond->fontheight = condition->cond_fontheight;
   condition->cond->color = condition->cond_color;
-  
   condition_update_data(condition);
-  return new_object_state_change(&condition->connection.object, old_state, 
-				 (GetStateFunc)condition_get_state,
-				 (SetStateFunc)condition_set_state);
 }
-
-static PROPDLG_TYPE
-condition_get_properties(Condition *condition)
-{
-  ConditionPropertiesDialog *dlg = condition_properties_dialog;
-  
-  PROPDLG_CREATE(dlg,condition);
-  PROPDLG_SHOW_STRING(dlg,cond_value,_("Condition:"));
-  PROPDLG_SHOW_SEPARATOR(dlg);
-  PROPDLG_SHOW_FONT(dlg,cond_font,_("Font:"));
-  PROPDLG_SHOW_FONTHEIGHT(dlg,cond_fontheight,_("Font size:"));
-  PROPDLG_SHOW_COLOR(dlg,cond_color,_("Text color:"));
-  PROPDLG_READY(dlg);
-  
-  condition_properties_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
-}
-
-static void 
-condition_apply_defaults(void)
-{
-  ConditionDefaultsDialog *dlg = condition_defaults_dialog;  
-
-  PROPDLG_APPLY_FONT(dlg,font);
-  PROPDLG_APPLY_FONTHEIGHT(dlg,font_size);
-  PROPDLG_APPLY_COLOR(dlg,font_color);
-
-
-}
-
-static void
-init_default_values(void) {
-  static int defaults_initialised = 0;
-  
-  if (!defaults_initialised) {
-    defaults.font = font_getfont(CONDITION_FONT);
-    defaults.font_size = CONDITION_FONT_HEIGHT;
-    defaults.font_color = color_black;
-
-    defaults_initialised = 1;
-  }
-}
-
-static PROPDLG_TYPE
-condition_get_defaults(void)
-{
-  ConditionDefaultsDialog *dlg = condition_defaults_dialog;
-  init_default_values();
-  PROPDLG_CREATE(dlg, &defaults);
-
-  PROPDLG_SHOW_FONT(dlg,font,_("Font:"));
-  PROPDLG_SHOW_FONTHEIGHT(dlg,font_size,_("Font size:"));
-  PROPDLG_SHOW_COLOR(dlg,font_color,_("Text color:"));
-  PROPDLG_READY(dlg);
-
-  condition_defaults_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
-}
-
 
 static real
 condition_distance_from(Condition *condition, Point *point)
@@ -396,7 +316,10 @@ condition_create(Point *startpoint,
   Object *obj;
   Point defaultlen  = {0.0,CONDITION_ARROW_SIZE}, pos;
 
-  init_default_values();
+  Font *default_font; 
+  real default_fontheight;
+  Color fg_color;
+
   condition = g_malloc0(sizeof(Condition));
   conn = &condition->connection;
   obj = &conn->object;
@@ -412,12 +335,16 @@ condition_create(Point *startpoint,
   connection_init(conn, 2,0);
 
   pos = conn->endpoints[1];
-  condition->cond = boolequation_create("",defaults.font,defaults.font_size,
-				 &defaults.font_color);
+
+  attributes_get_default_font(&default_font,&default_fontheight);
+  fg_color = attributes_get_foreground();
+  
+  condition->cond = boolequation_create("",default_font,default_fontheight,
+				 &fg_color);
   condition->cond_value = g_strdup("");
-  condition->cond_font = defaults.font;
-  condition->cond_fontheight = defaults.font_size;
-  condition->cond_color = defaults.font_color;
+  condition->cond_font = default_font;
+  condition->cond_fontheight = default_fontheight;
+  condition->cond_color = fg_color;
 
   extra->start_trans = 
     extra->start_long = 
@@ -442,120 +369,11 @@ condition_destroy(Condition *condition)
 }
 
 static Object *
-condition_copy(Condition *condition)
-{
-  Condition *newcondition;
-  Connection *conn, *newconn;
-  Object *newobj;
-  
-  conn = &condition->connection;
- 
-  newcondition = g_malloc0(sizeof(Condition));
-  newconn = &newcondition->connection;
-  newobj = &newconn->object;
-
-  connection_copy(conn, newconn);
-  
-  newcondition->cond = boolequation_create(condition->cond_value,
-					   condition->cond_font,
-					   condition->cond_fontheight,
-					   &condition->cond_color);
-  newcondition->cond_value = g_strdup(condition->cond_value);
-  newcondition->cond_font = condition->cond_font;
-  newcondition->cond_fontheight = condition->cond_fontheight;
-  newcondition->cond_color = condition->cond_color;
-
-  return &newcondition->connection.object;
-}
-
-static ConditionState *
-condition_get_state(Condition *condition)
-{
-  ConditionState *state = g_new0(ConditionState, 1);
-
-  OBJECT_GET_STRING(condition,state,cond_value);
-  OBJECT_GET_FONT(condition,state,cond_font);
-  OBJECT_GET_COLOR(condition,state,cond_color);
-  OBJECT_GET_FONTHEIGHT(condition,state,cond_fontheight);
-  
-  return state;
-}
-
-static void
-condition_set_state(Condition *condition, ConditionState *state)
-{
-  OBJECT_SET_STRING(condition,state,cond_value);
-  OBJECT_SET_FONT(condition,state,cond_font);
-  OBJECT_SET_COLOR(condition,state,cond_color);
-  OBJECT_SET_FONTHEIGHT(condition,state,cond_fontheight);
-  boolequation_set_value(condition->cond,condition->cond_value);
-  condition->cond->font = condition->cond_font;
-  condition->cond->fontheight = condition->cond_fontheight;
-  condition->cond->color = condition->cond_color;
-
-  g_free(state);
-  condition_update_data(condition);
-}
-
-
-static void
-condition_save(Condition *condition, ObjectNode obj_node,
-		const char *filename)
-{
-  connection_save(&condition->connection, obj_node);
-
-  save_boolequation(obj_node,"condition",condition->cond);
-  save_font(obj_node,"cond_font",condition->cond_font);
-  save_real(obj_node,"cond_fontheight",condition->cond_fontheight);
-  save_color(obj_node,"cond_color",&condition->cond_color);
-}
-
-static Object *
 condition_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Condition *condition;
-  Connection *conn;
-  ConnectionBBExtras *extra;
-  Object *obj;
-
-  init_default_values();
-  condition = g_malloc0(sizeof(Condition));
-
-  conn = &condition->connection;
-  obj = &conn->object;
-  extra = &conn->extra_spacing;
-
-  obj->type = &condition_type;
-  obj->ops = &condition_ops;
-
-  connection_load(conn, obj_node);
-  connection_init(conn, 2,0);
-
-  condition->cond_font = load_font(obj_node,"cond_font",defaults.font);
-  condition->cond_fontheight = load_real(obj_node,"cond_fontheight",
-                                        defaults.font_size);
-  load_color(obj_node,"cond_color",&condition->cond_color,
-             &defaults.font_color);
-
-  condition->cond = load_boolequation(obj_node,"condition",NULL,
-                                             condition->cond_font,
-                                             condition->cond_fontheight,
-                                             &condition->cond_color);
-
-  condition->cond_value = g_strdup(condition->cond->value);
-
-  extra->start_trans = 
-    extra->start_long = 
-    extra->end_long = CONDITION_LINE_WIDTH/2.0;
-  extra->end_trans = MAX(CONDITION_LINE_WIDTH,CONDITION_ARROW_SIZE) / 2.0;
-
-  condition_update_data(condition);
-
-  return &condition->connection.object;
+  return object_load_using_properties(&condition_type,
+                                      obj_node,version,filename);
 }
-
-
-
 
 
 

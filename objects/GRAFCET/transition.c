@@ -88,10 +88,7 @@ static Object *transition_create(Point *startpoint,
 static real transition_distance_from(Transition *transition, Point *point);
 static void transition_update_data(Transition *transition);
 static void transition_destroy(Transition *transition);
-static Object *transition_copy(Transition *transition);
 
-static void transition_save(Transition *transition, ObjectNode obj_node,
-			    const char *filename);
 static Object *transition_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *transition_describe_props(Transition *transition);
@@ -103,8 +100,8 @@ static void transition_set_props(Transition *transition,
 static ObjectTypeOps transition_type_ops =
 {
   (CreateFunc)transition_create,   /* create */
-  (LoadFunc)  transition_load,     /* load */
-  (SaveFunc)  transition_save,      /* save */
+  (LoadFunc)  transition_load /*using_properties*/,
+  (SaveFunc)  object_save_using_properties,      /* save */
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
@@ -124,7 +121,7 @@ static ObjectOps transition_ops = {
   (DrawFunc)            transition_draw,
   (DistanceFunc)        transition_distance_from,
   (SelectFunc)          transition_select,
-  (CopyFunc)            transition_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            transition_move,
   (MoveHandleFunc)      transition_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -155,7 +152,6 @@ static PropDescription *
 transition_describe_props(Transition *transition) 
 {
   if (transition_props[0].quark == 0) {
-    g_message("doing a calculate_quarks !");
     prop_desc_list_calculate_quarks(transition_props);
   }
   return transition_props;
@@ -433,38 +429,11 @@ transition_destroy(Transition *transition)
 }
 
 static Object *
-transition_copy(Transition *transition)
-{
-  Point startpoint = {0.0,0.0};
-  Handle *handle1,*handle2;
-  Object *obj = &transition->element.object;
-  Object *newobj = obj->type->ops->create(&startpoint,NULL,
-                                          &handle1,&handle2);
-  object_copy_props(newobj,obj);
-  return newobj;
-}
-
-
-static void
-transition_save(Transition *transition, ObjectNode obj_node,
-		const char *filename)
-{
-  object_save_props(&transition->element.object,obj_node);
-}
-
-static Object *
 transition_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Object *transition;
-  Point startpoint = {0.0,0.0};
-  Handle *handle1,*handle2;
-  
-  transition = transition_type.ops->create(&startpoint,NULL,
-                                            &handle1,&handle2);
-  object_load_props(transition,obj_node);
-  return transition;
+  return object_load_using_properties(&transition_type,
+                                      obj_node,version,filename);
 }
-
 
 
 

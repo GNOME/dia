@@ -1,7 +1,7 @@
 2001-04-16  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/display.c: remove the display idle handler in case we
-	destroy the ddisplay (causes crashes in ddd, probably random
+	destroy the ddisplay (caused crashes in ddd, probably random
 	crashes elsewhere).
 
 	* autogen.sh: 
@@ -9,6 +9,13 @@
 	* Makefile.am: hack around gettext-0.10.36's new "features".
 	
 	* lib/properties.[ch]: added new function object_copy_props().
+	Added new property type PROP_TYPE_ENDPOINTS
+
+	* lib/connection.h: added support for load/saving through the
+	properties interface.
+
+	* lib/object.[ch]: object_load/save/copy_using_properties()
+	support functions (code factorisations).
 	
 	* objects/GRAFCET/boolequation.c: check against null values in
 	boolequation_set_value() and boolequation_destroy().
@@ -16,6 +23,9 @@
 	* objects/GRAFCET/transition.c: Converted from lazyprops to
 	standard properties. 31% less (x86) code !
 
+	* objects/GRAFCET/condition.c: also converted from lazyprops to
+	standard properties. Also killed lots of code.
+	
 2001-04-13  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/wmf/wmf.cpp : changed text conversion from

@@ -60,6 +60,7 @@ typedef enum {
   PROP_TYPE_COLOUR,
   PROP_TYPE_FONT,
   PROP_TYPE_FILE,
+  PROP_TYPE_ENDPOINTS,
 
   PROP_LAST
 } PropType;
@@ -114,7 +115,9 @@ struct _Property {
     Arrow arrow_data;
     Color colour_data;
     Font *font_data;
-    
+    struct {
+      Point endpoints[2];
+    } endpoints_data;
     gpointer other_data;
   } d;
 };
@@ -147,6 +150,7 @@ struct _PropEnumData {
 #define PROP_VALUE_FONT(prop)          ((prop).d.font_data)
 #define PROP_VALUE_FILE(prop)          ((prop).d.string_data)
 #define PROP_VALUE_OTHER(prop)         ((prop).d.other_data)
+#define PROP_VALUE_ENDPOINTS(prop)     ((prop).d.endpoints_data)
 
 /* Copy the data member of the property
  * If NULL, then just copy data member straight */
@@ -375,18 +379,4 @@ extern PropEnumData prop_std_text_align_data[];
 
 #endif
 
-#ifdef FOR_TRANSLATORS_ONLY
-static char *list [] = {
-	N_("Line colour"),
-	N_("Line style"),
-	N_("Fill colour"),
-	N_("Draw background"),
-	N_("Start arrow"),
-	N_("End arrow"),
-	N_("Text"),
-	N_("Text alignment"),
-	N_("Font"),
-	N_("Font size"),
-	N_("Text colour")
-};
-#endif
+

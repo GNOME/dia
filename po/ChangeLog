@@ -1,26 +1,6 @@
-2001-04-16  gettextize  <bug-gnu-utils@gnu.org>
+2001-04-16  Cyrille Chepelov  <chepelov@calixo.net>
 
-	* Makefile.in.in: Upgrade to gettext-0.10.36.
-
-2001-04-16  gettextize  <bug-gnu-utils@gnu.org>
-
-	* Makefile.in.in: Upgrade to gettext-0.10.36.
-
-2001-04-16  gettextize  <bug-gnu-utils@gnu.org>
-
-	* Makefile.in.in: Upgrade to gettext-0.10.36.
-
-2001-04-16  gettextize  <bug-gnu-utils@gnu.org>
-
-	* Makefile.in.in: Upgrade to gettext-0.10.36.
-
-2001-04-16  gettextize  <bug-gnu-utils@gnu.org>
-
-	* Makefile.in.in: Upgrade to gettext-0.10.36.
-
-2001-04-16  gettextize  <bug-gnu-utils@gnu.org>
-
-	* Makefile.in.in: Upgrade to gettext-0.10.36.
+	* fr.po: Updated French translation.
 
 2001-04-11  Christian Meyer  <chrisime@gnome.org>
 

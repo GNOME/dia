@@ -183,6 +183,7 @@ prop_copy(Property *dest, Property *src)
   case PROP_TYPE_ARROW:
   case PROP_TYPE_COLOUR:
   case PROP_TYPE_FONT:
+  case PROP_TYPE_ENDPOINTS:
     dest->d = src->d;
     break;
   case PROP_TYPE_STRING:
@@ -241,6 +242,7 @@ prop_free(Property *prop)
   case PROP_TYPE_LINESTYLE:
   case PROP_TYPE_ARROW:
   case PROP_TYPE_COLOUR:
+  case PROP_TYPE_ENDPOINTS:
   case PROP_TYPE_FONT:
     break;
   case PROP_TYPE_STRING:
@@ -375,6 +377,7 @@ prop_get_widget(Property *prop)
   case PROP_TYPE_POINTARRAY:
   case PROP_TYPE_BEZPOINT:
   case PROP_TYPE_BEZPOINTARRAY:
+  case PROP_TYPE_ENDPOINTS:
   case PROP_TYPE_RECT:
     ret = gtk_label_new(_("No edit widget"));
     break;
@@ -453,6 +456,7 @@ prop_set_from_widget(Property *prop, GtkWidget *widget)
   case PROP_TYPE_POINTARRAY:
   case PROP_TYPE_BEZPOINT:
   case PROP_TYPE_BEZPOINTARRAY:
+  case PROP_TYPE_ENDPOINTS:
   case PROP_TYPE_RECT:
     /* nothing */
     break;
@@ -522,6 +526,11 @@ prop_load(Property *prop, ObjectNode obj_node)
   switch (prop->type) {
   case PROP_TYPE_INVALID:
     g_warning("Can't load invalid");
+    break;
+  case PROP_TYPE_ENDPOINTS:
+    data_point(data, &PROP_VALUE_ENDPOINTS(*prop).endpoints[0]);
+    data = data_next(data);
+    data_point(data, &PROP_VALUE_ENDPOINTS(*prop).endpoints[1]);
     break;
   case PROP_TYPE_CHAR:
     str = data_string(data);
@@ -650,6 +659,10 @@ prop_save(Property *prop, ObjectNode obj_node)
   switch (prop->type) {
   case PROP_TYPE_INVALID:
     g_warning("Can't save invalid");
+    break;
+  case PROP_TYPE_ENDPOINTS:
+    data_add_point(attr,&PROP_VALUE_ENDPOINTS(*prop).endpoints[0]);
+    data_add_point(attr,&PROP_VALUE_ENDPOINTS(*prop).endpoints[1]);
     break;
   case PROP_TYPE_CHAR:
     buf[0] = PROP_VALUE_CHAR(*prop);
@@ -859,6 +872,11 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
       PROP_VALUE_POINT(props[i]) =
 	struct_member(obj, offsets[j].offset, Point);
       break;
+    case PROP_TYPE_ENDPOINTS:
+      memcpy(&PROP_VALUE_ENDPOINTS(props[i]),
+             &struct_member(obj,offsets[j].offset,Point),
+             sizeof(PROP_VALUE_ENDPOINTS(props[i])));
+      break;
     case PROP_TYPE_POINTARRAY:
       g_free(PROP_VALUE_POINTARRAY(props[i]).pts);
       PROP_VALUE_POINTARRAY(props[i]).npts =
@@ -962,6 +980,11 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
     case PROP_TYPE_POINT:
       struct_member(obj, offsets[j].offset, Point) =
 	PROP_VALUE_POINT(props[i]);
+      break;
+    case PROP_TYPE_ENDPOINTS:
+      memcpy(&struct_member(obj,offsets[j].offset,Point),
+             &PROP_VALUE_ENDPOINTS(props[i]),
+             sizeof(PROP_VALUE_ENDPOINTS(props[i])));
       break;
     case PROP_TYPE_POINTARRAY:
       g_free(struct_member(obj, offsets[j].offset, Point *));
@@ -1225,5 +1248,21 @@ PropEnumData prop_std_text_align_data[] = {
   { N_("Center"), ALIGN_CENTER },
   { N_("Right"), ALIGN_RIGHT },
   { NULL, 0 }
+};
+#endif
+
+#ifdef FOR_TRANSLATORS_ONLY
+static char *list [] = {
+	N_("Line colour"),
+	N_("Line style"),
+	N_("Fill colour"),
+	N_("Draw background"),
+	N_("Start arrow"),
+	N_("End arrow"),
+	N_("Text"),
+	N_("Text alignment"),
+	N_("Font"),
+	N_("Font size"),
+	N_("Text colour")
 };
 #endif

@@ -375,4 +375,34 @@ object_return_void(Object *obj)
   return;
 }
 
+Object *
+object_load_using_properties(const ObjectType *type,
+                             ObjectNode obj_node, int version,
+                             const char *filename)
+{
+  Object *obj;
+  Point startpoint = {0.0,0.0};
+  Handle *handle1,*handle2;
+  
+  obj = type->ops->create(&startpoint,NULL, &handle1,&handle2);
+  object_load_props(obj,obj_node);
+  return obj;
+}
+
+void 
+object_save_using_properties(Object *obj, ObjectNode obj_node, 
+                             int version, const char *filename)
+{
+  object_save_props(obj,obj_node);
+}
+
+Object *object_copy_using_properties(Object *obj)
+{
+  Point startpoint = {0.0,0.0};
+  Handle *handle1,*handle2;
+  Object *newobj = obj->type->ops->create(&startpoint,NULL,
+                                          &handle1,&handle2);
+  object_copy_props(newobj,obj);
+  return newobj;
+}
 

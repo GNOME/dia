@@ -34,6 +34,7 @@ typedef enum _ModifierKeys ModifierKeys;
 #include "objchange.h"
 #include "diamenu.h"
 #include "dia_xml.h"
+#include "properties.h"
 
 /* This enumeration gives a bitset of modifier keys currently held down.
  */
@@ -146,7 +147,6 @@ typedef void (*SelectFunc) (Object*   obj,
   as the initial object can be deleted any time
 */
 typedef Object* (*CopyFunc) (Object* obj);
-
 
 /*
   Function called to move the entire object.
@@ -289,6 +289,16 @@ int object_return_false(Object *obj); /* Just returns FALSE */
 void *object_return_null(Object *obj); /* Just returns NULL */
 void object_return_void(Object *obj); /* Just an empty function */
 
+/* These functions can be used as a default implementation for an object which
+   can be completely described, loaded and saved through standard properties.
+*/
+Object *object_load_using_properties(const ObjectType *type,
+                                     ObjectNode obj_node, int version,
+                                     const char *filename);
+void object_save_using_properties(Object *obj, ObjectNode obj_node, 
+                                  int version, const char *filename);
+Object *object_copy_using_properties(Object *obj);
+
 /*****************************************
  **  The structures used to define an object
  *****************************************/
@@ -394,5 +404,6 @@ struct _ObjectType {
   { "obj_pos", PROP_TYPE_POINT, offsetof(Object, position) }, \
   { "obj_bb", PROP_TYPE_POINT, offsetof(Object, bounding_box) }
 
+   
 #endif /* OBJECT_H */
 
