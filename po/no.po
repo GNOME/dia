@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.89\n"
-"POT-Creation-Date: 2002-12-20 22:33+0100\n"
-"PO-Revision-Date: 2002-12-20 22:36+0100\n"
+"POT-Creation-Date: 2003-01-04 00:34+0100\n"
+"PO-Revision-Date: 2003-01-04 00:36+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -595,6 +595,8 @@ msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
 msgstr ""
+"Noen tegn i filnavnet er hverken UTF-8 eller din lokale koding.\n"
+"Noe vil gå galt."
 
 #: app/filedlg.c:248 app/filedlg.c:452
 #, c-format
@@ -2140,7 +2142,7 @@ msgstr "Intern feil: Setter hjørnetype av endepunktet for bezieren"
 
 #: lib/dialibartrenderer.c:1117
 msgid "This Dia version is compiled without libart/text support."
-msgstr ""
+msgstr "Denne versjonen av Dia er kompilert uten støtte for libart/text."
 
 #: lib/dia_xml.c:147
 #, c-format
@@ -2180,7 +2182,7 @@ msgstr ""
 "generert med forrige versjon av dia vil du oppleve problemer. Vennligst "
 "rapporter til dia-list@gnome.org hvis du ser denne meldingen."
 
-#: lib/font.c:86
+#: lib/font.c:93
 #, c-format
 msgid "Can't load font %s.\n"
 msgstr "Kan ikke laste skrift %s.\n"
