@@ -277,7 +277,6 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
     gdk_draw_rectangle (renderer->pixmap, renderer->gc, 1, 0, 0, nav->width, nav->height);
 
     /*render the data*/
-    renderer->rendertext = FALSE;/*disable text rendering*/
     data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
 
     g_object_ref (renderer->pixmap);

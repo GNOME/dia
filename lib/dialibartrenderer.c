@@ -111,8 +111,11 @@ begin_render(DiaRenderer *self)
 # define FONT_SCALE (1.0)
 #elif defined G_OS_WIN32
   dia_font_push_context(pango_win32_get_context());
-  /* we need to scale but can't as simple as with ft2 */
-# define FONT_SCALE (1.0 / 22.0)
+  /* I shall never claim again to have understood Dias/Pangos font size
+   * relations ;). This was (1.0/22.0) but nowadays 1.0 seems to be
+   * fine with Pango/win32, too.  --hb
+   */
+# define FONT_SCALE (1.0)
 #endif
 }
 
@@ -1137,6 +1140,7 @@ draw_string (DiaRenderer *self,
        bitmap[DEPTH*(i*rowstride+j)+3] = gdk_image_get_pixel (image, j, i) ? 255 : 0;
      }
    }
+   g_object_unref (G_OBJECT (image));
  }
 #endif
 

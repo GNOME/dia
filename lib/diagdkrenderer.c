@@ -151,8 +151,6 @@ renderer_init (DiaGdkRenderer *renderer, void* p)
   renderer->saved_line_style = LINESTYLE_SOLID;
   renderer->dash_length = 10;
   renderer->dot_length = 2;
-
-  renderer->rendertext = TRUE;
 }
 
 static void
@@ -554,8 +552,6 @@ draw_string (DiaRenderer *object,
   Point start_pos;
   PangoLayout* layout = NULL;
   
-  if(renderer->rendertext == FALSE) return;/* renderer do not want to render text */
-
   if (text == NULL || *text == '\0') return; /* Don't render empty strings. */
 
   point_copy(&start_pos,pos);
@@ -563,7 +559,21 @@ draw_string (DiaRenderer *object,
   color_convert(color, &gdkcolor);
 
   start_pos.x -= get_alignment_adjustment(object, text, alignment);
-   
+
+  {
+    int height_pixels = dia_transform_length(renderer->transform, object->font_height);
+    if (height_pixels < 2) {
+      int width_pixels = dia_transform_length(
+                            renderer->transform, 
+                            dia_font_string_width(text, object->font, object->font_height));
+      gdk_gc_set_foreground(renderer->gc, &gdkcolor);
+      gdk_gc_set_dashes(renderer->gc, 0, "\1\2", 2);
+      gdk_draw_line(renderer->pixmap, renderer->gc,
+                    start_pos.x, start_pos.y, start_pos.x + width_pixels, start_pos.y);
+      return;
+    }
+  }
+
   /* My apologies for adding more #hell, but the alternative is an abhorrent
    * kludge.
    */
