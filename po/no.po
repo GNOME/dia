@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.89\n"
-"POT-Creation-Date: 2001-09-02 22:50+0200\n"
-"PO-Revision-Date: 2001-09-13 22:08+0200\n"
+"POT-Creation-Date: 2001-09-23 10:58+0200\n"
+"PO-Revision-Date: 2001-09-23 11:04+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -83,18 +83,18 @@ msgstr ""
 msgid "%s error: can specify only one of -f or -o."
 msgstr ""
 
-#: app/app_procs.c:321 app/app_procs.c:323
+#: app/app_procs.c:320 app/app_procs.c:322
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Kunne ikke finne standardobjekter under søk etter objektbibliotek, "
 "avslutter...\n"
 
-#: app/app_procs.c:444 app/app_procs.c:450
+#: app/app_procs.c:441 app/app_procs.c:447
 msgid "Quit, are you sure?"
 msgstr "Avslutt, er du sikker?"
 
-#: app/app_procs.c:457
+#: app/app_procs.c:454
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -102,21 +102,21 @@ msgstr ""
 "Endret diagram eksisterer.\n"
 "Er du sikker på at du vil avslutte?"
 
-#: app/app_procs.c:467 app/app_procs.c:472
+#: app/app_procs.c:464 app/app_procs.c:469
 msgid "Quit"
 msgstr "Avslutt"
 
-#: app/app_procs.c:484 app/display.c:966 app/layer_dialog.c:989
+#: app/app_procs.c:481 app/display.c:966 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: app/app_procs.c:559 app/app_procs.c:566
+#: app/app_procs.c:556 app/app_procs.c:563
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunne ikke opprette per-bruker konfigurasjonskatalog for Dia"
 
-#: app/app_procs.c:568
+#: app/app_procs.c:565
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -124,7 +124,7 @@ msgstr ""
 "Kunne ikke opprette per-bruker konfigurasjonskatalog. Vennligst sjekk at "
 "miljøvariabelen $HOME peker til en eksisterende katalog."
 
-#: app/app_procs.c:590
+#: app/app_procs.c:587
 msgid "Objects and filters internal to dia"
 msgstr "Interne bjekter og filtre for dia"
 
@@ -345,7 +345,7 @@ msgstr "Nei"
 #: app/export_png.c:79 app/load_save.c:616 app/render_eps.c:212
 #: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
-#: plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:176
+#: plug-ins/shape/shape-export.c:193 plug-ins/svg/render_svg.c:180
 #: plug-ins/wpg/wpg.c:930
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
@@ -667,12 +667,12 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ikke en dia fil."
 
-#: app/load_save.c:771
+#: app/load_save.c:744
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Klarte ikke å lagre file '%s'.\n"
 
-#: app/load_save.c:791 app/load_save.c:796
+#: app/load_save.c:764 app/load_save.c:769
 msgid "Native Dia Diagram"
 msgstr "Dia diagram"
 
@@ -1449,37 +1449,34 @@ msgstr "Bruk menylinje:"
 msgid "Connection Points:"
 msgstr "Forbindelsespunkter:"
 
-#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:160
+#. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
+#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:157
 msgid "Visible:"
 msgstr "Synlig:"
 
 #: app/preferences.c:151
-msgid "Grid:"
-msgstr "Rutenett:"
+msgid "Page breaks:"
+msgstr "Sideskift:"
 
-#: app/preferences.c:153
-msgid "Snap to:"
-msgstr "Fest til:"
-
-#: app/preferences.c:154
-msgid "X Size:"
-msgstr "X-størrelse:"
-
-#: app/preferences.c:155
-msgid "Y Size:"
-msgstr "Y-størrelse:"
-
-#: app/preferences.c:156 app/preferences.c:161
+#: app/preferences.c:153 app/preferences.c:161
 msgid "Colour:"
 msgstr "Farge:"
 
-#: app/preferences.c:157 app/preferences.c:162
+#: app/preferences.c:154 app/preferences.c:162
 msgid "Solid lines:"
 msgstr "Helfylte linjer:"
 
+#: app/preferences.c:158
+msgid "Snap to:"
+msgstr "Fest til:"
+
 #: app/preferences.c:159
-msgid "Page breaks:"
-msgstr "Sideskift:"
+msgid "X Size:"
+msgstr "X-størrelse:"
+
+#: app/preferences.c:160
+msgid "Y Size:"
+msgstr "Y-størrelse:"
 
 #: app/preferences.c:282
 #, c-format
@@ -1620,7 +1617,7 @@ msgstr "Kunne ikke åpne `%s'"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Intern feil: Setter hjørnetype av endepunktet for bezieren"
 
-#: lib/font.c:427
+#: lib/font.c:428
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1629,25 +1626,25 @@ msgstr ""
 "Advarsel, ingen X skrifttype for %s funnet, \n"
 "bruker %s i stedet.\n"
 
-#: lib/font.c:532
+#: lib/font.c:533
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr "Advarsel: FreeType valgt, men biblioteket ville ikke lastes: %d\n"
 
-#: lib/font.c:541
+#: lib/font.c:542
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Advarsel: Ingen X-skrifttyper funnet. Verden går under."
 
-#: lib/font.c:848
+#: lib/font.c:849
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr ""
 
-#: lib/font.c:850 lib/font.c:851 lib/font.c:884
+#: lib/font.c:851 lib/font.c:852 lib/font.c:885
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Skrifttype %s ikke funnet, bruker Courier i stedet.\n"
 
-#: lib/font.c:861
+#: lib/font.c:862
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr ""
@@ -1777,33 +1774,33 @@ msgstr "Velg bildefil"
 msgid "Browse"
 msgstr "Bla gjennom"
 
-#: lib/dia_xml.c:128
+#: lib/dia_xml.c:146
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
 "assuming it is encoded in %s"
 msgstr ""
 
-#: lib/dia_xml.c:458
+#: lib/dia_xml.c:476
 msgid "Taking point value of non-point node."
 msgstr "Tar punktverdi for node som ikke er et punkt."
 
-#: lib/dia_xml.c:470
+#: lib/dia_xml.c:488
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Ukorrekt punktverdi for x, \"%s\" %f; forkaster den."
 
-#: lib/dia_xml.c:478
+#: lib/dia_xml.c:496
 msgid "Error parsing point."
 msgstr "Feil ved lesing av punkt."
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:486
+#: lib/dia_xml.c:504
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Ukorrekt punktverdi for y, \"%s\" %f; forkaster den."
 
-#: lib/dia_xml.c:920
+#: lib/dia_xml.c:867
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -3557,11 +3554,11 @@ msgstr "TeX PSTricks eksportfilter"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makroer"
 
-#: plug-ins/shape/shape-export.c:921
+#: plug-ins/shape/shape-export.c:937
 msgid "Can't export png without libart!"
 msgstr "Kan ikke eksportere png uten libart!"
 
-#: plug-ins/shape/shape-export.c:948
+#: plug-ins/shape/shape-export.c:964
 msgid "dia shape file"
 msgstr "dia form-fil"
 
@@ -3569,7 +3566,7 @@ msgstr "dia form-fil"
 msgid "dia shape export filter"
 msgstr "dia form-eksportfilter"
 
-#: plug-ins/svg/render_svg.c:821
+#: plug-ins/svg/render_svg.c:835
 msgid "Scalable Vector Graphics"
 msgstr "Skalerbar vektorgrafikk"
 
@@ -4292,14 +4289,12 @@ msgid "A macro entry step"
 msgstr "Et innledende steg i makro"
 
 #: sheets/GRAFCET.sheet.in.h:6
-#, fuzzy
 msgid "A macro exit step"
-msgstr "Makroens avsluttende steg"
+msgstr "En makros avsluttende steg"
 
 #: sheets/GRAFCET.sheet.in.h:7
-#, fuzzy
 msgid "A macro sub-program call step"
-msgstr "Underprograms kall-steg"
+msgstr "En makros underprograms kall-steg"
 
 #: sheets/GRAFCET.sheet.in.h:8
 msgid "A regular step"
@@ -4314,9 +4309,8 @@ msgid "An action to associate to a step"
 msgstr "En handling som skal assosieres til et steg"
 
 #: sheets/GRAFCET.sheet.in.h:11
-#, fuzzy
 msgid "An arc (upward)"
-msgstr "En bue"
+msgstr "En bue (oppover)"
 
 #: sheets/GRAFCET.sheet.in.h:12
 msgid "An initial step"
@@ -4624,47 +4618,43 @@ msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:5
 msgid "A 5/2 distributor"
-msgstr ""
+msgstr "En 5/2 distributør"
 
 #: sheets/Pneumatic.sheet.in.h:6
 msgid "A 5/3 distributor"
-msgstr ""
+msgstr "En 5/3-distributør"
 
 #: sheets/Pneumatic.sheet.in.h:8
-#, fuzzy
 msgid "A double-effect jack"
-msgstr "En normalt åpen kontakt"
+msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:9
 msgid "A generic pressure source"
-msgstr ""
+msgstr "En vanlig trykk-kilde"
 
 #: sheets/Pneumatic.sheet.in.h:10
 msgid "A hydraulic pressure source"
-msgstr ""
+msgstr "En hydraulisk trykk-kilde"
 
 #: sheets/Pneumatic.sheet.in.h:11
-#, fuzzy
 msgid "A normally-in simple-effect jack"
-msgstr "En normalt åpen kontakt"
+msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:12
-#, fuzzy
 msgid "A normally-out simple-effect jack"
-msgstr "En normalt åpen kontakt"
+msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:13
 msgid "A pneumatic pressure source"
-msgstr ""
+msgstr "En pneumatisk trykk-kilde"
 
 #: sheets/Pneumatic.sheet.in.h:14
 msgid "An air exhaust orifice"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:15
-#, fuzzy
 msgid "Components for pneumatic and hydraulic circuits"
-msgstr "Objekter for elektriske kretser"
+msgstr "Komponenter for pneumatikk og for hydrauliske kretser"
 
 #: sheets/Pneumatic.sheet.in.h:16
 msgid "Electric command (double coil)"
@@ -4695,45 +4685,40 @@ msgid "Muscular command"
 msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:23
-#, fuzzy
 msgid "Pneumatic/Hydraulic"
-msgstr "Hydraulisk"
+msgstr "Pneumatikk/Hydraulikk"
 
 #: sheets/Pneumatic.sheet.in.h:24
 msgid "Push-button command"
 msgstr ""
 
 #: sheets/SADT.sheet.in.h:1
-#, fuzzy
 msgid "A activity/data flow arrow"
-msgstr "Identifikator for aktivitet/data"
+msgstr "En aktivitet-/dataflytpil"
 
 #: sheets/SADT.sheet.in.h:2
 msgid "A flow label"
-msgstr ""
+msgstr "En flytetikett"
 
 #: sheets/SADT.sheet.in.h:3
-#, fuzzy
 msgid "An activity/data box"
-msgstr "Identifikator for aktivitet/data"
+msgstr "En aktivitet-/databoks"
 
 #: sheets/SADT.sheet.in.h:4
-#, fuzzy
 msgid "Objects to design SADT diagrams"
-msgstr "Objekter til utforming av nettverksdiagrammer"
+msgstr "Objekter til utforming av SADT-diagrammer"
 
 #: sheets/SADT.sheet.in.h:5
 msgid "SADT/IDEF0"
-msgstr ""
+msgstr "SADT/IDEFO"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Action being executed"
-msgstr ""
+msgstr "Handling som utføres"
 
 #: sheets/SDL.sheet.in.h:2
-#, fuzzy
 msgid "Block Type Reference"
-msgstr "Innstillinger"
+msgstr "Blokktypereferanse"
 
 #: sheets/SDL.sheet.in.h:3
 msgid "Comment"
@@ -4756,27 +4741,24 @@ msgid "Generic Text Note"
 msgstr ""
 
 #: sheets/SDL.sheet.in.h:8
-#, fuzzy
 msgid "In/Out Connector"
-msgstr "Utenfor-siden-forbindelse"
+msgstr "Inn-/ut forbindelse"
 
 #: sheets/SDL.sheet.in.h:10
 msgid "Procedure Return"
-msgstr ""
+msgstr "Retur fra prosedyre"
 
 #: sheets/SDL.sheet.in.h:11
-#, fuzzy
 msgid "Process Type Reference"
-msgstr "Innstillinger"
+msgstr "Prossesstype referanse"
 
 #: sheets/SDL.sheet.in.h:12
-#, fuzzy
 msgid "Receive message"
-msgstr "Lag en melding"
+msgstr "Motta melding"
 
 #: sheets/SDL.sheet.in.h:13
 msgid "SDL"
-msgstr ""
+msgstr "SDL"
 
 #: sheets/SDL.sheet.in.h:14
 msgid "Save State"
@@ -4787,13 +4769,12 @@ msgid "Send message"
 msgstr "Send melding"
 
 #: sheets/SDL.sheet.in.h:16
-#, fuzzy
 msgid "Service Type Reference"
-msgstr "Innstillinger"
+msgstr "Tjenestetype referanse"
 
 #: sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
-msgstr ""
+msgstr "Spesifikasjons- og beskrivelsesspråk."
 
 #: sheets/SDL.sheet.in.h:18
 msgid "State"
@@ -4910,9 +4891,8 @@ msgid "Create an object"
 msgstr "Lag et objekt"
 
 #: sheets/UML.sheet.in.h:20
-#, fuzzy
 msgid "Editor for UML Static Structure Diagrams"
-msgstr "Editor for diagrammer over funksjonsstruktur."
+msgstr "Redigering for UML Statisk Struktur Diagrammer"
 
 #: sheets/UML.sheet.in.h:21
 msgid "Generalization, class inheritance"
