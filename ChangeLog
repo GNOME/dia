@@ -1,3 +1,13 @@
+2002-06-03  Steffen Macke  <sdteffen@web.de>
+
+	* shapes/network/digitizing_board.png:
+	* shapes/network/digitizing_board.shape:
+	* shapes/network/plotter.png:
+	* shapes/network/plotter.shape:
+	* shapes/network/Makefile.am
+	* sheets/network.sheet.in: added new plotter and digitizing
+	board shapes
+	
 2002-06-02  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* lib/font.c: made a symptomatic fix to a segfault reported by 

@@ -96,5 +96,11 @@
     <object name="Network - A Telephone">
       <_description>A Telephone</_description>
     </object>
+    <object name="Network - A Plotter">
+      <_description>A Plotter</_description>
+    </object>
+    <object name="Network - Digitizing Board">
+      <_description>A Digitizing Board</_description>
+      </object>
   </contents>
 </sheet>

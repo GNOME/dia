@@ -60,7 +60,11 @@ SHAPES = \
 	telephone.shape \
 	telephone.png \
 	firewall.shape \
-	firewall.xpm
+	firewall.xpm \
+	plotter.shape \
+	plotter.png \
+	digitizing_board.shape \
+	digitizing_board.png
 
 EXTRA_DIST = $(SHAPES)
 
