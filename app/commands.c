@@ -500,7 +500,10 @@ help_manual_callback(gpointer data, guint action, GtkWidget *widget)
 #ifdef G_OS_WIN32
   ShellExecuteA (0, NULL, helpindex, NULL, helpdir, 0); 
 #else
-  command = g_strdup_printf("netscape '%s' &", helpindex);
+  command = getenv("BROWSER");
+  if (command == NULL)
+    command = g_strdup_printf("netscape");
+  command = g_strdup_printf("%s '%s' &", command, helpindex);
   system(command);
   g_free(command);
 #endif
