@@ -373,6 +373,7 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
   real offs;
   real width, height;
   real avail_width;
+  real top_left;
 
   /* save starting points */
   center = bottom_right = elem->corner;
@@ -437,72 +438,79 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
   }
   text_set_position(pgram->text, &p);
   
-  /* Update connections: */
-  pgram->connections[0].pos.x = elem->corner.x;
-  pgram->connections[0].pos.y = elem->corner.y;
-  pgram->connections[1].pos.x = elem->corner.x + elem->width / 4.0;
-  pgram->connections[1].pos.y = elem->corner.y;
-  pgram->connections[2].pos.x = elem->corner.x + elem->width / 2.0;
-  pgram->connections[2].pos.y = elem->corner.y;
-  pgram->connections[3].pos.x = elem->corner.x + elem->width * 3.0 / 4.0;
-  pgram->connections[3].pos.y = elem->corner.y;
-  pgram->connections[4].pos.x = elem->corner.x + elem->width;
-  pgram->connections[4].pos.y = elem->corner.y;
-  pgram->connections[5].pos.x = elem->corner.x;
-  pgram->connections[5].pos.y = elem->corner.y + elem->height / 4.0;
-  pgram->connections[6].pos.x = elem->corner.x + elem->width;
-  pgram->connections[6].pos.y = elem->corner.y + elem->height / 4.0;
-  pgram->connections[7].pos.x = elem->corner.x;
-  pgram->connections[7].pos.y = elem->corner.y + elem->height / 2.0;
-  pgram->connections[8].pos.x = elem->corner.x + elem->width;
-  pgram->connections[8].pos.y = elem->corner.y + elem->height / 2.0;
-  pgram->connections[9].pos.x = elem->corner.x;
-  pgram->connections[9].pos.y = elem->corner.y + elem->height * 3.0 / 4.0;
-  pgram->connections[10].pos.x = elem->corner.x + elem->width;
-  pgram->connections[10].pos.y = elem->corner.y + elem->height * 3.0 / 4.0;
-  pgram->connections[11].pos.x = elem->corner.x;
-  pgram->connections[11].pos.y = elem->corner.y + elem->height;
-  pgram->connections[12].pos.x = elem->corner.x + elem->width / 4.0;
-  pgram->connections[12].pos.y = elem->corner.y + elem->height;
-  pgram->connections[13].pos.x = elem->corner.x + elem->width / 2.0;
-  pgram->connections[13].pos.y = elem->corner.y + elem->height;
-  pgram->connections[14].pos.x = elem->corner.x + elem->width * 3.0 / 4.0;
-  pgram->connections[14].pos.y = elem->corner.y + elem->height;
-  pgram->connections[15].pos.x = elem->corner.x + elem->width;
-  pgram->connections[15].pos.y = elem->corner.y + elem->height;
-
-  offs = elem->height / 4.0 * pgram->shear_grad;
-  if (offs > 0) {
-    pgram->connections[0].pos.x += 4*offs;
-    pgram->connections[1].pos.x += 3*offs;
-    pgram->connections[2].pos.x += 2*offs;
-    pgram->connections[3].pos.x += offs;
-    pgram->connections[5].pos.x += 3*offs;
-    pgram->connections[6].pos.x -= offs;
-    pgram->connections[7].pos.x += 2*offs;
-    pgram->connections[8].pos.x -= 2*offs;
-    pgram->connections[9].pos.x += offs;
-    pgram->connections[10].pos.x -= 3*offs;
-    pgram->connections[12].pos.x -= offs;
-    pgram->connections[13].pos.x -= 2*offs;
-    pgram->connections[14].pos.x -= 3*offs;
-    pgram->connections[15].pos.x -= 4*offs;
-  } else {
-    pgram->connections[1].pos.x += offs;
-    pgram->connections[2].pos.x += 2*offs;
-    pgram->connections[3].pos.x += 3*offs;
-    pgram->connections[4].pos.x += 4*offs;
-    pgram->connections[5].pos.x -= offs;
-    pgram->connections[6].pos.x += 3*offs;
-    pgram->connections[7].pos.x -= 2*offs;
-    pgram->connections[8].pos.x += 2*offs;
-    pgram->connections[9].pos.x -= 3*offs;
-    pgram->connections[10].pos.x += offs;
-    pgram->connections[11].pos.x -= 4*offs;
-    pgram->connections[12].pos.x -= 3*offs;
-    pgram->connections[13].pos.x -= 2*offs;
-    pgram->connections[14].pos.x -= offs;
+  /* 1/4 of how much more to the left the bottom line is */
+  offs = -(elem->height / 4.0 * pgram->shear_grad);
+  width = elem->width - 4.0*fabs(offs);
+  top_left = elem->corner.x;
+  if (offs < 0.0) {
+    top_left -= 4*offs;
   }
+
+  /* Update connections: */
+  connpoint_update(&pgram->connections[0],
+		   top_left,
+		   elem->corner.y,
+		   DIR_NORTHWEST);
+  connpoint_update(&pgram->connections[1],
+		   top_left + width / 4.0,
+		   elem->corner.y,
+		   DIR_NORTH);
+  connpoint_update(&pgram->connections[2],
+		   top_left + width / 2.0,
+		   elem->corner.y,
+		   DIR_NORTH);
+  connpoint_update(&pgram->connections[3],
+		   top_left + width * 3.0 / 4.0,
+		   elem->corner.y,
+		   DIR_NORTH);
+  connpoint_update(&pgram->connections[4],
+		   top_left + width,
+		   elem->corner.y,
+		   DIR_NORTHEAST);
+  connpoint_update(&pgram->connections[5],
+		   top_left + offs,
+		   elem->corner.y + elem->height / 4.0,
+		   DIR_WEST);
+  connpoint_update(&pgram->connections[6],
+		   top_left + width + offs,
+		   elem->corner.y + elem->height / 4.0,
+		   DIR_EAST);
+  connpoint_update(&pgram->connections[7],
+		   top_left + 2.0 * offs,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_WEST);
+  connpoint_update(&pgram->connections[8],
+		   top_left + width + 2.0 * offs,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_WEST);
+  connpoint_update(&pgram->connections[9],
+		   top_left + 3.0 * offs,
+		   elem->corner.y + elem->height * 3.0 / 4.0,
+		   DIR_WEST);
+  connpoint_update(&pgram->connections[10],
+		   top_left + width + 3.0 * offs,
+		   elem->corner.y + elem->height * 3.0 / 4.0,
+		   DIR_EAST);
+  connpoint_update(&pgram->connections[11],
+		   top_left + 4.0 * offs,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTHWEST);
+  connpoint_update(&pgram->connections[12],
+		   top_left + 4.0 * offs + width / 4.0,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTH);
+  connpoint_update(&pgram->connections[13],
+		   top_left + 4.0 * offs + width / 2.0,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTH);
+  connpoint_update(&pgram->connections[14],
+		   top_left + 4.0 * offs + 3.0 * width / 4.0,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTH);
+  connpoint_update(&pgram->connections[15],
+		   top_left + 4.0 * offs + width,
+		   elem->corner.y + elem->height,
+		   DIR_SOUTHEAST);
 
   extra->border_trans = pgram->border_width/2.0;
   element_update_boundingbox(elem);
