@@ -1,14 +1,26 @@
-2004-03-22  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+2004-03-23  Lars Clausen  <lars@raeder.dk>
 
-	* lib/dialibartrenderer.c: 
+	* lib/dialibartrenderer.c: Better highlighting for text.
+
+	* lib/diagdkrenderer.h (struct _DiaGdkRenderer): 
+	* lib/diagdkrenderer.c: Better highlighting for all, using same
+	principles as libart highlighter.
+
+2004-03-22  Lars Clausen  <lars@raeder.dk>
+
+	* lib/dialibartrenderer.[ch]: 
 	* lib/diagdkrenderer.c: 
-	* app/Makefile.am: 
 	* lib/object.h: 
+	* app/object_ops.c:
+	* app/diagram.[ch]:
+	* app/display.[ch]:
+	* app/Makefile.am: 
 	* app/modify_tool.c: 
 	* app/create_object.c: 
 	* app/highlight.[ch]: 
-	Added primitive object highlighting.  So far just highlights the
-	bounding box, i.e. it is invisible on boxes and huge on connectors.
+	Added simple object highlighting.  In GDK rendering, highlights
+	the bbox, in libart highlights the outline of the object (except
+	for texts).
 
 2004-03-22  Lars Clausen  <lars@raeder.dk>
 

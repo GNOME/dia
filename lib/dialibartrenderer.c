@@ -156,6 +156,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
 
   if (renderer->highlight_color != NULL) {
+    /* Can't tell that this does anything:( -LC */
     renderer->cap_style = ART_PATH_STROKE_CAP_ROUND;
   } else {
     switch(mode) {
@@ -177,16 +178,21 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 {
   DiaLibartRenderer *renderer = DIA_LIBART_RENDERER (self);
 
-  switch(mode) {
-  case LINEJOIN_MITER:
-    renderer->cap_style = ART_PATH_STROKE_JOIN_MITER;
-    break;
-  case LINEJOIN_ROUND:
+  if (renderer->highlight_color != NULL) {
+    /* Can't tell that this does anything:( -LC */
     renderer->cap_style = ART_PATH_STROKE_JOIN_ROUND;
-    break;
-  case LINEJOIN_BEVEL:
-    renderer->cap_style = ART_PATH_STROKE_JOIN_BEVEL;
-    break;
+  } else {
+    switch(mode) {
+    case LINEJOIN_MITER:
+      renderer->cap_style = ART_PATH_STROKE_JOIN_MITER;
+      break;
+    case LINEJOIN_ROUND:
+      renderer->cap_style = ART_PATH_STROKE_JOIN_ROUND;
+      break;
+    case LINEJOIN_BEVEL:
+      renderer->cap_style = ART_PATH_STROKE_JOIN_BEVEL;
+      break;
+    }
   }
 }
 
@@ -990,6 +996,66 @@ fill_bezier(DiaRenderer *self,
 }
 
 
+/* Draw a highlighted version of a string.
+ */
+static void
+draw_highlighted_string(DiaLibartRenderer *renderer,
+			PangoLayout *layout,
+			real x, real y,
+			guint32 rgba)
+{
+  ArtVpath *vpath;
+  ArtSVP *svp;
+  int width, height;
+  double top, bottom, left, right;
+    
+  pango_layout_get_pixel_size(layout, &width, &height);
+  dia_transform_coords_double(renderer->transform,
+                              x, y, &left, &top);
+  left -= 3;
+  right = left+width+6;
+  bottom = top+height;
+  
+  if ((left>right) || (top>bottom))
+    return;
+
+  vpath = art_new (ArtVpath, 6);
+
+  vpath[0].code = ART_MOVETO;
+  vpath[0].x = left;
+  vpath[0].y = top;
+  vpath[1].code = ART_LINETO;
+  vpath[1].x = right;
+  vpath[1].y = top;
+  vpath[2].code = ART_LINETO;
+  vpath[2].x = right;
+  vpath[2].y = bottom;
+  vpath[3].code = ART_LINETO;
+  vpath[3].x = left;
+  vpath[3].y = bottom;
+  vpath[4].code = ART_LINETO;
+  vpath[4].x = left;
+  vpath[4].y = top;
+  vpath[5].code = ART_END;
+  vpath[5].x = 0;
+  vpath[5].y = 0;
+  
+  svp = art_svp_from_vpath (vpath);
+  
+  art_free( vpath );
+  
+  art_rgb_svp_alpha (svp,
+		     0, 0, 
+		     renderer->pixel_width,
+		     renderer->pixel_height,
+		     rgba,
+		     renderer->rgb_buffer, renderer->pixel_width*3,
+		     NULL);
+
+  art_svp_free( svp );
+}
+
+
 static void
 draw_string (DiaRenderer *self,
 	     const gchar *text,
@@ -1010,6 +1076,8 @@ draw_string (DiaRenderer *self,
   double font_height;
 
   point_copy(&start_pos,pos);
+
+  rgba = color_to_rgba(renderer, color);
 
   /* Something's screwed up with the zooming for fonts.
      It's like it zooms double.  Yet removing some of the zooms
@@ -1047,6 +1115,13 @@ draw_string (DiaRenderer *self,
   layout = dia_font_scaled_build_layout(
               text, self->font, self->font_height,
               dia_transform_length(renderer->transform, 1.0));
+
+  if (renderer->highlight_color != NULL) {
+    draw_highlighted_string(renderer, layout, start_pos.x, start_pos.y, rgba);
+    g_object_unref(G_OBJECT(layout));
+    return;
+  }
+
   /*
   ddisp->zoom_factor = old_zoom;
   */
@@ -1154,8 +1229,6 @@ draw_string (DiaRenderer *self,
   /* abuse_layout_object(layout,text); */
   
   g_object_unref(G_OBJECT(layout));
-
-  rgba = color_to_rgba(renderer, color);
 
   art_affine_identity(affine);
   art_affine_translate(tmpaffine, x, y);

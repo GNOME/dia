@@ -37,6 +37,9 @@ struct _DiaGdkRenderer
   LineStyle saved_line_style;
   int dash_length;
   int dot_length;
+
+  /** If non-NULL, this rendering is a highlighting with the given color. */
+  Color *highlight_color;
 };
 
 struct _DiaGdkRendererClass
