@@ -806,16 +806,113 @@ menus_get_image_menu (GtkWidget **menu,
     *accel_group = display_accels;
 }
 
+#ifdef GNOME
+/* a function that performs a similar task to gnome_app_find_menu_pos,
+ * but works from the GnomeUIInfo structures, and takes an untranslated path.  It ignores 
+
+ * but doesn't perform any translation of the menu items, and removes
+ * underscores when performing the string comparisons */
+static GtkWidget *
+dia_gnome_menu_get_widget (GnomeUIInfo *uiinfo, const gchar *path)
+{
+  GtkWidget *ret;
+  gchar *name_end;
+  gint path_len, label_len, i, j;
+  gboolean label_matches;
+
+  g_return_val_if_fail (uiinfo != NULL, NULL);
+  g_return_val_if_fail (path != NULL, NULL);
+
+  name_end = strchr(path, '/');
+  if (name_end == NULL)
+    path_len = strlen(path);
+  else
+    path_len = name_end - path;
+
+  if (path_len == 0)
+    return NULL; /* zero path component */
+
+  for (; uiinfo->type != GNOME_APP_UI_ENDOFINFO; uiinfo++)
+    switch (uiinfo->type) {
+    case GNOME_APP_UI_BUILDER_DATA:
+    case GNOME_APP_UI_HELP:
+    case GNOME_APP_UI_ITEM_CONFIGURABLE:
+      /* we won't bother handling these two options */
+      break;
+
+    case GNOME_APP_UI_RADIOITEMS:
+      /* descend the radioitem list, without trimming the path */
+      ret = dia_gnome_menu_get_widget((GnomeUIInfo *)uiinfo->moreinfo,
+				      path);
+      if (ret)
+	return ret;
+      break;
+
+    case GNOME_APP_UI_SEPARATOR:
+    case GNOME_APP_UI_ITEM:
+    case GNOME_APP_UI_TOGGLEITEM:
+      /* check for matching label */
+      if (!uiinfo->label)
+	break;
+      /* check the path component against the label, ignoring underscores */
+      label_matches = TRUE;
+      label_len = strlen(uiinfo->label);
+      for (i = 0, j = 0; i < label_len; i++) {
+	if (uiinfo->label[i] == '_') {
+	  /* nothing */;
+	} else if (uiinfo->label[i] != path[j]) {
+	  label_matches = FALSE;
+	  break;
+	} else {
+	  j++;
+	}
+      }
+      if (label_matches && j == path_len && i == label_len)
+	return uiinfo->widget;
+      break;
+
+    case GNOME_APP_UI_SUBTREE:
+    case GNOME_APP_UI_SUBTREE_STOCK:
+      /* descend if label matches, trimming off the start of the path */
+      if (!uiinfo->label)
+	break;
+      /* check the path component against the label, ignoring underscores */
+      label_matches = TRUE;
+      label_len = strlen(uiinfo->label);
+      for (i = 0, j = 0; i < label_len; i++) {
+	if (uiinfo->label[i] == '_') {
+	  /* nothing */;
+	} else if (uiinfo->label[i] != path[j]) {
+	  label_matches = FALSE;
+	  break;
+	} else {
+	  j++;
+	}
+      }
+      /* does the stripped label match? then recurse. */
+      if (label_matches && j == path_len && i == label_len) {
+	ret = dia_gnome_menu_get_widget((GnomeUIInfo *)uiinfo->moreinfo,
+					path + path_len + 1);
+	if (ret)
+	  return ret;
+      }
+      break;
+    default:
+      g_warning ("unexpected GnomeUIInfo element type %d", (int) uiinfo->type);
+      break;
+    }
+  /* if we fall through, return NULL */
+  return NULL;
+}
+#endif
+
 GtkWidget *
 menus_get_item_from_path (char *path)
 {
   GtkWidget *widget = NULL;
 
 # ifdef GNOME
-  gint pos;
   char *menu_name;
-  GtkWidget *parentw = NULL;
-  GtkMenuShell *parent;
   DDisplay *ddisp;
 
   /* drop the "<Display>/" or "<Toolbox>/" at the start */
@@ -827,20 +924,10 @@ menus_get_item_from_path (char *path)
     ddisp = ddisplay_active ();
     if (! ddisp)
       return NULL;
-    
-    parentw = gnome_app_find_menu_pos(display_menus, path, &pos);
+    widget = dia_gnome_menu_get_widget(display_menu, path);
   } else if (strncmp(menu_name, "<Toolbox>", strlen("<Toolbox>")) == 0) {
-    parentw = gnome_app_find_menu_pos(toolbox_menubar, path, &pos);
+    widget = dia_gnome_menu_get_widget(toolbox_menu, path);
   } 
-  if (! parentw) {
-    g_warning("Can't find menu entry '%s'!\nThis is probably a i18n problem "
-	      "(try LANG=C).", path);
-    return NULL;
-  }
-
-  parent = GTK_MENU_SHELL (parentw);
-  widget = (GtkWidget *) g_list_nth (parent->children, pos-1)->data;
-
 # else
 
   if (display_item_factory) {
@@ -850,15 +937,12 @@ menus_get_item_from_path (char *path)
   if (widget == NULL) {
     widget = gtk_item_factory_get_widget(toolbox_item_factory, path);
   }
-
-  if (widget == NULL) {
-     g_warning("Can't find menu entry '%s'!\nThis is probably a i18n problem "
-	       "(try LANG=C).",
-	       path);
-  }
-
 # endif
+
+  if (! widget) {
+    g_warning("Can't find menu entry '%s'!\nThis is probably a i18n problem "
+	       "(try LANG=C).", path);
+  }
 
   return widget;
 }
-

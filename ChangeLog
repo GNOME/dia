@@ -1,5 +1,13 @@
 2001-02-21  James Henstridge  <james@daa.com.au>
 
+	* app/menus.c (dia_gnome_menu_get_widget): new function to find a
+	widget by its path name.  Walks the GnomeUIInfo heirachy rather
+	than widget tree, compares untranslated label names and ignores
+	underscores in the labels.
+	(menus_get_item_from_path): use dia_gnome_menu_get_widget so that
+	lookups are not dependent on the current locale, as with
+	gnome_app_find_menu_pos.
+
 	* acconfig.h: guard against multiple inclusion of config.h.
 
 	* app/select.c (select_style_callback): simply set the selection
