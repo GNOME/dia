@@ -418,7 +418,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/Align Horizontal/Left"),   NULL, objects_align_h_callback,  DIA_ALIGN_LEFT},
   {N_("/Objects/Align Horizontal/Center"), NULL, objects_align_h_callback,  DIA_ALIGN_CENTER},
   {N_("/Objects/Align Horizontal/Right"),  NULL, objects_align_h_callback,  DIA_ALIGN_RIGHT},
-  {N_("/Objects/---"),             NULL,         NULL,        0, "<Separator>"},
+  {N_("/Objects/Align Horizontal/---"),             NULL,         NULL,        0, "<Separator>"},
   {N_("/Objects/Align Horizontal/Equal Distance"), NULL, objects_align_h_callback,    DIA_ALIGN_EQUAL},
   {N_("/Objects/Align Horizontal/Adjacent"), NULL, objects_align_h_callback,    DIA_ALIGN_ADJACENT},
   {N_("/Objects/Align _Vertical"),         NULL, NULL,          0, "<Branch>"},
@@ -426,7 +426,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/Align Vertical/Top"),      NULL, objects_align_v_callback,  DIA_ALIGN_TOP},
   {N_("/Objects/Align Vertical/Middle"),   NULL, objects_align_v_callback,  DIA_ALIGN_CENTER},
   {N_("/Objects/Align Vertical/Bottom"),   NULL, objects_align_v_callback,  DIA_ALIGN_BOTTOM},
-  {N_("/Objects/---"),             NULL,         NULL,        0, "<Separator>"}, 
+  {N_("/Objects/Align Vertical/---"),             NULL,         NULL,        0, "<Separator>"}, 
   {N_("/Objects/Align Vertical/Equal Distance"),   NULL, objects_align_v_callback,    DIA_ALIGN_EQUAL},
   {N_("/Objects/Align Vertical/Adjacent"), NULL, objects_align_v_callback,  DIA_ALIGN_ADJACENT},
 
