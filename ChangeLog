@@ -1,8 +1,27 @@
 2002-05-20  Hans Breuer  <hans@breuer.org>
 
+	* app/load_save.c : starting to increase
+	Dias tolerance on incomplete/broken files. The 
+	corresponding bug is #56233. But the patch there does
+	neither apply anymore nor does it really fix the problem
+	but only delays it, e.g. even if it would be allowed
+	to read a file without any layers, the later code can't
+	handle it.
+	* lib/dia_xml.c : attribute_<num|first>_data(), data_type()
+	handle passing in NULL for the node gracefully.
+
+	* shapes/network/printer.shape : added two more connection
+	points - one at each side - to fix bug #60359
+
+	* app/commands.c (edit_copy_callback) : 
+	add ddisplay_do_update_menu_sensitivity() to make 
+	sequence select-copy-paste work.
+
+2002-05-20  Hans Breuer  <hans@breuer.org>
+
 	* app/create_object.c (create_object_button_press) :
-	added a call to ddisp_do_update_menu_sensitivity()
-	to make Ctrl^D etc work after objec creation. 
+	added a call to ddisplay_do_update_menu_sensitivity()
+	to make Ctrl^D etc work after object creation. 
 	Fixes #80983.
 
 2002-05-18  Lars Clausen  <lrclause@cs.uiuc.edu>

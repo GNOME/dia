@@ -281,7 +281,7 @@ attribute_num_data(AttributeNode attribute)
   xmlNode *data;
   int nr=0;
 
-  data =  attribute->xmlChildrenNode;
+  data =  attribute ? attribute->xmlChildrenNode : NULL;
   while (data != NULL) {
     if (xmlIsBlankNode(data)) {
       data = data->next;
@@ -296,7 +296,7 @@ attribute_num_data(AttributeNode attribute)
 DataNode
 attribute_first_data(AttributeNode attribute)
 {
-  xmlNode *data = attribute->xmlChildrenNode;
+  xmlNode *data = attribute ? attribute->xmlChildrenNode : NULL;
   while (data && xmlIsBlankNode(data)) data = data->next;
   return (DataNode) data;
 }
@@ -317,7 +317,7 @@ data_type(DataNode data)
 {
   const char *name;
 
-  name = data->name;
+  name = data ? data->name : "";
   if (strcmp(name, "composite")==0) {
     return DATATYPE_COMPOSITE;
   } else if (strcmp(name, "int")==0) {

@@ -160,6 +160,8 @@ edit_copy_callback(gpointer data, guint action, GtkWidget *widget)
   copy_list = diagram_get_sorted_selected(ddisp->diagram);
 
   cnp_store_objects(object_copy_list(copy_list));
+
+  ddisplay_do_update_menu_sensitivity(ddisp);
 }
 
 void

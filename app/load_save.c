@@ -94,6 +94,8 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
       continue;
     }
 
+    if (!obj_node) break;
+
     if (strcmp(obj_node->name, "object")==0) {
       typestr = xmlGetProp(obj_node, "type");
       versionstr = xmlGetProp(obj_node, "version");
@@ -124,7 +126,7 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
       obj = group_create(read_objects(obj_node, objects_hash, filename));
       list = g_list_append(list, obj);
     } else {
-      message_error(_("Error reading diagram file\n"));
+      /* silently ignore other nodes */
     }
 
     obj_node = obj_node->next;
@@ -224,6 +226,14 @@ hash_free_string(gpointer       key,
   g_free(key);
 }
 
+static xmlNodePtr
+find_node_named (xmlNodePtr p, const char *name)
+{
+  while (p && 0 != strcmp(p->name, name))
+    p = p->next;
+  return p;
+}
+
 static gboolean
 diagram_data_load(const char *filename, DiagramData *data, void* user_data)
 {
@@ -278,9 +288,8 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   g_ptr_array_remove(data->layers, data->active_layer);
   layer_destroy(data->active_layer);
   
-  diagramdata = doc->xmlRootNode->xmlChildrenNode;
-  while (diagramdata && xmlIsBlankNode(diagramdata)) 
-    diagramdata = diagramdata->next;
+  diagramdata = 
+    find_node_named (doc->xmlRootNode->xmlChildrenNode, "diagramdata");
 
   /* Read in diagram data: */
   data->bg_color = color_white;
@@ -407,7 +416,8 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   }
 
   /* Read in all layers: */
-  layer_node = diagramdata->next;
+  layer_node =
+    find_node_named (doc->xmlRootNode->xmlChildrenNode, "layer");
 
   objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
 
@@ -419,13 +429,19 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
       layer_node = layer_node->next;
       continue;
     }
+
+    if (!layer_node) break;
     
     name = (char *)xmlGetProp(layer_node, "name");
+    if (!name) break; /* name is mandatory */
+
     visible = (char *)xmlGetProp(layer_node, "visible");
 
 #ifndef UNICODE_WORK_IN_PROGRESS
-    { gchar *locname = charconv_utf8_to_local8(name);
-    layer = new_layer(locname);
+    { 
+      gchar *locname = charconv_utf8_to_local8(name);
+      layer = new_layer(locname);
+      g_free (locname);
     }
 #else
     layer = new_layer(g_strdup(name));
@@ -455,7 +471,14 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   g_hash_table_foreach(objects_hash, hash_free_string, NULL);
   
   g_hash_table_destroy(objects_hash);
-  
+
+  if (data->layers->len < 1) {
+    message_error (_("Error loading diagram:\n%s.\n"
+                     "A valid Dia file defines at least one layer."),
+		     filename);
+    return FALSE;
+  }
+
   return TRUE;
 }
 
