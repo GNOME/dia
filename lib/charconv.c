@@ -152,8 +152,8 @@ charconv_utf8_to_local8(const utfchar *utf)
   check_conv_u2l();
   if (local_is_utf8) return g_strdup(utf);
 
-  lleft = uleft;
-  l = local = g_malloc(lleft);
+  lleft = uleft +2;
+  l = local = g_malloc(lleft+2);
   *l = 0;
   unicode_iconv(conv_u2l,NULL,NULL,NULL,NULL); /* reset the state machines */
   while ((uleft) && (lleft)) {
