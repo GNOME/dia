@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86(cvs)\n"
-"POT-Creation-Date: 2002-05-26 11:03+0200\n"
-"PO-Revision-Date: 2001-04-22 15:08+0200\n"
+"POT-Creation-Date: 2002-05-28 19:35+0200\n"
+"PO-Revision-Date: 2002-05-28 19:23+0200\n"
 "Last-Translator: Jörgen Scheibengruber <mfcn@gmx.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -167,7 +167,15 @@ msgstr "Dia v %s von Alexander Larsson"
 
 #: app/commands.c:601
 msgid "Maintainer: James Henstridge"
-msgstr "Maintainer: James Henstridge"
+msgstr ""
+"Maintainer: James Henstridge\n"
+"\n"
+"Deutsche Übersetzung:\n"
+"Jörgen Scheibengruber <mfcn@gmx.de>,\n"
+"Karsten Weiss <knweiss@gmx.de>,\n"
+"Christian Meyer <chrisime@gnome.org>,\n"
+"Benedikt Roth <Benedikt.Roth@gmx.net> und \n"
+"Daniel Egger <Daniel.Egger@suse.de>"
 
 #: app/commands.c:605
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
@@ -360,7 +368,7 @@ msgstr "Diagrammbaum"
 
 #: app/dialogs.c:51
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #. paper size
 #: app/diapagelayout.c:112
@@ -522,9 +530,8 @@ msgstr "Während des PNG-Schreibens trat ein Fehler auf"
 
 #. Create a dialog
 #: app/export_png.c:252
-#, fuzzy
 msgid "PNG Export Options"
-msgstr "Export-Optionen"
+msgstr "PNG Export-Optionen"
 
 #. Translators: Menu item Verb/Channel/Export
 #: app/export_png.c:253 objects/FS/function.c:658 objects/FS/function.c:660
@@ -532,14 +539,12 @@ msgid "Export"
 msgstr "Exportieren"
 
 #: app/export_png.c:258
-#, fuzzy
 msgid "Image width:"
-msgstr "Bilddatei:"
+msgstr "Bildbreite:"
 
 #: app/export_png.c:261
-#, fuzzy
 msgid "Image height:"
-msgstr "Bilddatei:"
+msgstr "Bildhöhe:"
 
 #: app/export_png.c:306
 msgid "Portable Network Graphics"
@@ -581,15 +586,17 @@ msgstr "Diagramm speichern"
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
 #: app/filedlg.c:315
-#, fuzzy
 msgid "Compress diagram files"
-msgstr "Dateien beim Speichern komprimieren:"
+msgstr "Diagrammdateien komprimieren"
 
 #: app/filedlg.c:322
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 msgstr ""
+"Kompression reduziert die Dateigröße auf weniger als 1/10 und beschleunigt "
+"das Laden und Speichern. Einige Texteditoren können komprimierte Dateien "
+"nicht bearbeiten."
 
 #: app/filedlg.c:499
 #, c-format
@@ -638,11 +645,11 @@ msgstr "Text erstellen"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:60 app/menus.c:211 lib/properties.c:77 lib/properties.h:501
-#: lib/properties.h:504 objects/UML/actor.c:115 objects/UML/classicon.c:137
+#: app/interface.c:60 app/menus.c:211 lib/properties.c:77 lib/properties.h:503
+#: lib/properties.h:506 objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
 #: objects/UML/object.c:142 objects/UML/small_package.c:120
-#: objects/UML/state.c:137 objects/UML/usecase.c:130
+#: objects/UML/state.c:143 objects/UML/usecase.c:130
 msgid "Text"
 msgstr "Text"
 
@@ -795,7 +802,7 @@ msgstr "Details..."
 msgid "Line Style Properties"
 msgstr "Eigenschaften der Linie"
 
-#: app/linewidth_area.c:216 lib/properties.h:477
+#: app/linewidth_area.c:216 lib/properties.h:479
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Linienbreite"
@@ -857,14 +864,15 @@ msgstr ""
 "Keine Dia-Datei."
 
 #: app/load_save.c:476
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram:\n"
 "%s.\n"
 "A valid Dia file defines at least one layer."
 msgstr ""
-"Fehler beim Laden des Diagramms %s.\n"
-"Keine Dia-Datei."
+"Fehler beim Laden des Diagramms:\n"
+"%s.\n"
+"Eine gültige Dia-Datei definiert mindestens eine Ebene."
 
 #: app/load_save.c:767
 #, c-format
@@ -892,13 +900,12 @@ msgid "Show diagram tree"
 msgstr "Diagrammbaum zeigen"
 
 #: app/menus.c:56
-#, fuzzy
 msgid "_Sheets and Objects..."
-msgstr "Standardobjekte"
+msgstr "Objekt_bögen ..."
 
 #: app/menus.c:57
 msgid "Modify sheets and their objects"
-msgstr ""
+msgstr "Objektbögen bearbeiten"
 
 #: app/menus.c:61
 msgid "P_lugins"
@@ -1029,16 +1036,16 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Gleicher Typ"
 
-#: app/menus.c:178 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:381
+#: app/menus.c:178 lib/properties.c:62 lib/properties.h:467 lib/widgets.c:381
 msgid "Left"
 msgstr "Links"
 
-#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/properties.h:466
+#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/properties.h:468
 #: lib/widgets.c:387
 msgid "Center"
 msgstr "Mitte"
 
-#: app/menus.c:180 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:393
+#: app/menus.c:180 lib/properties.c:64 lib/properties.h:469 lib/widgets.c:393
 msgid "Right"
 msgstr "Rechts"
 
@@ -1130,7 +1137,7 @@ msgstr "/Datei/_Diagrammbaum"
 
 #: app/menus.c:269
 msgid "/File/Sheets and Objects..."
-msgstr ""
+msgstr "/Datei/Objektbögen..."
 
 #: app/menus.c:272
 msgid "/File/_Preferences..."
@@ -1615,7 +1622,7 @@ msgstr "Diagrammvorgaben"
 
 #: app/preferences.c:123
 msgid "View Defaults"
-msgstr "Vorgaben einstellen"
+msgstr "Ansichtsvorgaben"
 
 #: app/preferences.c:124
 msgid "Grid Lines"
@@ -1627,7 +1634,7 @@ msgstr "Diagrammbaum"
 
 #: app/preferences.c:139
 msgid "Reset tools after create:"
-msgstr "Werkzeug nach dem Erzeugen zurücksetzen:"
+msgstr "Werkzeuge nach dem Erzeugen zurücksetzen:"
 
 #: app/preferences.c:140
 msgid "Compress saved files:"
@@ -1635,7 +1642,7 @@ msgstr "Dateien beim Speichern komprimieren:"
 
 #: app/preferences.c:141
 msgid "Number of undo levels:"
-msgstr "Anzahl Schritte, die zurückgenommen werden können:"
+msgstr "Anzahl der Schritte die rückgängig gemacht werden können:"
 
 #: app/preferences.c:142
 msgid ""
@@ -1648,7 +1655,7 @@ msgstr ""
 # CHECK Translation
 #: app/preferences.c:143
 msgid "Recent documents list size:"
-msgstr "Zuletzt benutzte Dokumente Listengröße:"
+msgstr "Maximale Anzahl der zuletzt benutzten Dokumente:"
 
 #: app/preferences.c:146
 msgid "New diagram:"
@@ -1701,7 +1708,7 @@ msgstr "Durchgezogene Linien:"
 
 #: app/preferences.c:166
 msgid "Snap to:"
-msgstr "Einrasten bei:"
+msgstr "Einrasten:"
 
 #: app/preferences.c:167
 msgid "X Size:"
@@ -1717,7 +1724,7 @@ msgstr "Diagrammbaum Fenster"
 
 #: app/preferences.c:183
 msgid "Show at startup:"
-msgstr "Beim Starten anzeigen:"
+msgstr "Beim Start zeigen:"
 
 #: app/preferences.c:185
 msgid "Default width:"
@@ -1729,7 +1736,7 @@ msgstr "Vorgabehöhe:"
 
 #: app/preferences.c:189
 msgid "Remember last size:"
-msgstr "Die letzte Größe in Erinnerung behalten:"
+msgstr "Die letzte Größe speichern:"
 
 #: app/preferences.c:191
 msgid "Save hidden object types:"
@@ -1784,12 +1791,12 @@ msgstr "Gekapseltes PostScript"
 
 #: app/render_libart.c:433
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
-msgstr ""
+msgstr "gdk_renderer: Es wurde ein nicht unterstützter Füllmodus angegeben!\n"
 
 #: app/render_libart.c:448
 #, c-format
 msgid "Can't find font '%s' in height %d\n"
-msgstr ""
+msgstr "Die Schriftart '%s' konnte nicht in der Höhe %d gefunden werden\n"
 
 #: app/sheets.c:163 app/sheets_dialog_callbacks.c:317
 #, c-format
@@ -1797,6 +1804,8 @@ msgid ""
 "%s\n"
 "System sheet"
 msgstr ""
+"%s\n"
+"Systemobjektbogen"
 
 #: app/sheets.c:165 app/sheets_dialog_callbacks.c:319
 #, c-format
@@ -1804,49 +1813,47 @@ msgid ""
 "%s\n"
 "User sheet"
 msgstr ""
+"%\n"
+"Benutzerobjektbogen"
 
 #: app/sheets.c:282
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
-msgstr ""
+msgstr "Konnte das Symbol 'custom_type' aus keinem Module finden."
 
 #: app/sheets.c:380
 #, c-format
 msgid "Widget not found: %s"
-msgstr ""
+msgstr "Widget konnte nicht gefunden haben: %s"
 
 #: app/sheets.c:456
-#, fuzzy
 msgid "SVG Shape"
-msgstr "Modellieren"
+msgstr "SVG-Form"
 
 #: app/sheets.c:458
-#, fuzzy
 msgid "Programmed Object"
-msgstr "Chronogramm Diagramm-Objekte"
+msgstr "Programmiertes Objekt"
 
 #: app/sheets_dialog.c:85
-#, fuzzy
 msgid "Sheets and Objects"
-msgstr "Standardobjekte"
+msgstr "Objektbögen"
 
 #: app/sheets_dialog.c:110 app/sheets_dialog_callbacks.c:185
 msgid "<- Copy"
-msgstr ""
+msgstr "<- Kopieren"
 
 #: app/sheets_dialog.c:120 app/sheets_dialog_callbacks.c:187
 msgid "<- Copy All"
-msgstr ""
+msgstr "<- Alle Kopieren"
 
 #: app/sheets_dialog.c:127 app/sheets_dialog_callbacks.c:189
-#, fuzzy
 msgid "<- Move"
-msgstr "Bewegen"
+msgstr "<- Verschieben"
 
 #: app/sheets_dialog.c:137 app/sheets_dialog_callbacks.c:191
 msgid "<- Move All"
-msgstr ""
+msgstr "<- Alle Verschieben"
 
 #: app/sheets_dialog.c:205 app/sheets_dialog.c:409
 #: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
@@ -1855,87 +1862,73 @@ msgid "New"
 msgstr "Neu"
 
 #: app/sheets_dialog.c:207
-#, fuzzy
 msgid "_New"
-msgstr "Neu"
+msgstr "_Neu"
 
 #: app/sheets_dialog.c:227
 msgid "Up"
-msgstr ""
+msgstr "Rauf"
 
 #: app/sheets_dialog.c:229
 msgid "_Up"
-msgstr ""
+msgstr "Ra_uf"
 
 #: app/sheets_dialog.c:249
-#, fuzzy
 msgid "Down"
-msgstr "Runterschieben"
+msgstr "Runter"
 
 #: app/sheets_dialog.c:251
 msgid "_Down"
-msgstr ""
+msgstr "_Runter"
 
 #: app/sheets_dialog.c:269
-#, fuzzy
 msgid "Edit"
-msgstr "/_Bearbeiten"
+msgstr "_Bearbeiten"
 
 #: app/sheets_dialog.c:271
-#, fuzzy
 msgid "_Edit"
-msgstr "/_Bearbeiten"
+msgstr "_Bearbeiten"
 
 #: app/sheets_dialog.c:290
-#, fuzzy
 msgid "_Remove"
-msgstr "Entfernen"
+msgstr "_Entfernen"
 
 #: app/sheets_dialog.c:315
-#, fuzzy
 msgid "Revert"
 msgstr "Invertieren"
 
 #: app/sheets_dialog.c:416 app/sheets_dialog.c:860
-#, fuzzy
 msgid "Type"
-msgstr "Typ:"
+msgstr "Typ"
 
 #: app/sheets_dialog.c:431
-#, fuzzy
 msgid "Browse..."
-msgstr "Auswählen"
+msgstr "Auswählen..."
 
 #: app/sheets_dialog.c:440
-#, fuzzy
 msgid "SVG Shape:"
-msgstr "Modellieren"
+msgstr "SVG-Form:"
 
 #: app/sheets_dialog.c:467 app/sheets_dialog.c:530
-#, fuzzy
 msgid "description:"
 msgstr "Beschreibung:"
 
 #: app/sheets_dialog.c:479
-#, fuzzy
 msgid "Sheet name:"
-msgstr "Schrittname"
+msgstr "Name des Objektbogens:"
 
 #: app/sheets_dialog.c:500 app/sheets_dialog_callbacks.c:297
 #: app/sheets_dialog_callbacks.c:1083
-#, fuzzy
 msgid "Line Break"
-msgstr "Zeilenfarbe"
+msgstr "Zeilenumbruch"
 
 #: app/sheets_dialog.c:630
-#, fuzzy
 msgid "Edit Attributes"
-msgstr "Attribute der Ebene ändern"
+msgstr "Attribute ändern"
 
 #: app/sheets_dialog.c:644
-#, fuzzy
 msgid "Object"
-msgstr "_Objekte"
+msgstr "Objekt"
 
 #: app/sheets_dialog.c:679 objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
 #: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1911
@@ -1944,95 +1937,88 @@ msgid "Type:"
 msgstr "Typ:"
 
 #: app/sheets_dialog.c:717
-#, fuzzy
 msgid "Sheet"
-msgstr "Au_swählen"
+msgstr "Objektbogen"
 
 #: app/sheets_dialog.c:875
-#, fuzzy
 msgid "Object:"
-msgstr "_Objekte"
+msgstr "Objekt:"
 
 #: app/sheets_dialog.c:902
-#, fuzzy
 msgid "Sheet:"
-msgstr "Au_swählen"
+msgstr "Objektbogen:"
 
 #: app/sheets_dialog.c:994
-#, fuzzy
 msgid "Select SVG Shape File"
-msgstr "Bilddatei auswählen"
+msgstr "Datei die eine SVG-Form enthält auswählen"
 
 #: app/sheets_dialog_callbacks.c:172
-#, fuzzy
 msgid "Copy ->"
-msgstr "Text kopieren"
+msgstr "Kopieren ->"
 
 #: app/sheets_dialog_callbacks.c:174
 msgid "Copy All ->"
-msgstr ""
+msgstr "Alle Kopieren ->"
 
 #: app/sheets_dialog_callbacks.c:176
-#, fuzzy
 msgid "Move ->"
-msgstr "Bewegen"
+msgstr "Verschieben ->"
 
 #: app/sheets_dialog_callbacks.c:178
 msgid "Move All ->"
-msgstr ""
+msgstr "Alle Verschieben ->"
 
 #: app/sheets_dialog_callbacks.c:800
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr ""
+msgstr "Dateiname muß mit '%s' enden: '%s'"
 
 #: app/sheets_dialog_callbacks.c:808
-#, fuzzy, c-format
+#, c-format
 msgid "Error examining %s: %s"
-msgstr "Fehler beim Lesen der Einheiten: %s\n"
+msgstr "Fehler beim Begutachten %s: %s"
 
 #: app/sheets_dialog_callbacks.c:830
-#, fuzzy, c-format
+#, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr "Der korrekten Pfad für \"%s\" konnte nicht hergeleitet werden."
+msgstr "Die Formdatei konnte nicht interpretiert werden: '%s'"
 
 #: app/sheets_dialog_callbacks.c:896
 msgid "Sheet must have a Name"
-msgstr ""
+msgstr "Der Objektbogen muß einen Namen haben"
 
 #: app/sheets_dialog_callbacks.c:1584 app/sheets_dialog_callbacks.c:1590
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open '%s': %s"
-msgstr "'%s' konnte nicht geöffnet werden"
+msgstr "'%s' konnte nicht geöffnet werden: %s"
 
 #: app/sheets_dialog_callbacks.c:1641
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "Die Datei '%s' konnte nicht zum Schreiben geöffnet werden.\n"
+msgstr "Die Datei '%s' konnte nicht zum Schreiben geöffnet werden"
 
 #: app/sheets_dialog_callbacks.c:1650
 msgid "a user"
-msgstr ""
+msgstr "Ein Benutzer"
 
 #: app/sheets_dialog_callbacks.c:1663
-#, fuzzy, c-format
+#, c-format
 msgid "File: %s"
-msgstr "Datei"
+msgstr "Datei: %s"
 
 #: app/sheets_dialog_callbacks.c:1666
-#, fuzzy, c-format
+#, c-format
 msgid "Date: %s"
-msgstr "Dia v %s"
+msgstr "Datum: %s"
 
 #: app/sheets_dialog_callbacks.c:1670
 #, c-format
 msgid "For: %s"
-msgstr ""
+msgstr "Für: %s"
 
 #: app/sheets_dialog_callbacks.c:1687
-#, fuzzy
 msgid "add shapes here"
-msgstr "Dia Form-Datei"
+msgstr "Formen hier hinzufügen"
 
 #: app/splash.c:58
 msgid "Loading ..."
@@ -2132,6 +2118,8 @@ msgstr "Warnung: Es wurden keine X-Schriftarten gefunden. Die Welt geht unter."
 #: lib/font.c:667
 msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
 msgstr ""
+"Warnung: Es wurden keine Schriftarten geladen. Gibt es Schriftarten im X-"
+"Schriftenpfad?"
 
 #: lib/font.c:959
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
@@ -2196,19 +2184,19 @@ msgstr "\"%s\" ist kein Verzeichnis"
 msgid "Could not open `%s'"
 msgstr "'%s' konnte nicht geöffnet werden"
 
-#: lib/properties.c:71 lib/properties.h:480
+#: lib/properties.c:71 lib/properties.h:482
 msgid "Line colour"
 msgstr "Zeilenfarbe"
 
-#: lib/properties.c:72 lib/properties.h:483
+#: lib/properties.c:72 lib/properties.h:485
 msgid "Line style"
 msgstr "Linienstil"
 
-#: lib/properties.c:73 lib/properties.h:487
+#: lib/properties.c:73 lib/properties.h:489
 msgid "Fill colour"
 msgstr "Füllfarbe"
 
-#: lib/properties.c:74 lib/properties.h:490 objects/custom/custom_object.c:320
+#: lib/properties.c:74 lib/properties.h:492 objects/custom/custom_object.c:320
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -2216,32 +2204,32 @@ msgstr "Füllfarbe"
 msgid "Draw background"
 msgstr "Hintergrund zeichnen"
 
-#: lib/properties.c:75 lib/properties.h:494
+#: lib/properties.c:75 lib/properties.h:496
 msgid "Start arrow"
 msgstr "Startpfeil"
 
-#: lib/properties.c:76 lib/properties.h:497
+#: lib/properties.c:76 lib/properties.h:499
 msgid "End arrow"
 msgstr "Endpfeil"
 
-#: lib/properties.c:78 lib/properties.h:507
+#: lib/properties.c:78 lib/properties.h:509
 msgid "Text alignment"
 msgstr "Textanordnung"
 
-#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:133
+#: lib/properties.c:79 lib/properties.h:512 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/UML/class_dialog.c:306 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Schrift"
 
-#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:135
+#: lib/properties.c:80 lib/properties.h:515 objects/GRAFCET/condition.c:135
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Schriftgröße"
 
-#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:169
+#: lib/properties.c:81 lib/properties.h:518 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Schriftfarbe"
@@ -2448,7 +2436,7 @@ msgstr "Zeilenfarbe"
 #: objects/FS/function.c:417 objects/SADT/annotation.c:357
 #: objects/UML/actor.c:332 objects/UML/classicon.c:415
 #: objects/UML/component.c:348 objects/UML/message.c:369
-#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
+#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:352
 #: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
 #: objects/chronogram/chronoref.c:434
 msgid "Helvetica"
@@ -2550,11 +2538,11 @@ msgstr "Schwach:"
 #: objects/ER/entity.c:349 objects/ER/entity.c:351 objects/UML/classicon.c:124
 #: sheets/ER.sheet.in.h:4
 msgid "Entity"
-msgstr "Entität"
+msgstr "Einheit"
 
 #: objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
-msgstr "Entität/Beziehungsdiagram Objekte"
+msgstr "Einheit/Beziehungsdiagram Objekte"
 
 #: objects/ER/participation.c:113
 msgid "Total:"
@@ -4125,22 +4113,19 @@ msgstr "Operationen unterdrücken"
 #. head line
 #: objects/UML/class_dialog.c:303
 msgid "Kind"
-msgstr ""
+msgstr "Art"
 
 #: objects/UML/class_dialog.c:308
-#, fuzzy
 msgid "Size"
-msgstr "X-Gitterabstand:"
+msgstr "Größe"
 
 #: objects/UML/class_dialog.c:322
-#, fuzzy
 msgid "Class Name"
-msgstr "Klassenname:"
+msgstr "Klassenname"
 
 #: objects/UML/class_dialog.c:327
-#, fuzzy
 msgid "Abstract Class"
-msgstr "Abstrakt"
+msgstr "Abstrakte Klasse"
 
 #. should probably be refactored too.
 #: objects/UML/class_dialog.c:337
@@ -4461,12 +4446,11 @@ msgstr "Skalierbare Vektorgrafik (SVG) Exportfilter"
 
 #: plug-ins/wmf/wmf.cpp:962
 msgid "Windows Meta File"
-msgstr ""
+msgstr "Windows Metadatei"
 
 #: plug-ins/wmf/wmf.cpp:976
-#, fuzzy
 msgid "WMF export filter"
-msgstr "Dia Form-Exportfilter"
+msgstr "WMF-Exportfilter"
 
 #: plug-ins/wpg/wpg.c:1051
 #, c-format
@@ -4514,9 +4498,8 @@ msgid "Spline import is not implemented yet"
 msgstr "Spline-Import ist noch nicht implementiert"
 
 #: plug-ins/xfig/xfig-import.c:82
-#, fuzzy
 msgid "Can't find standard object"
-msgstr "Standardobjekte"
+msgstr "Das Standardobjekt konnte nicht gefunden werden"
 
 #: plug-ins/xfig/xfig-import.c:424
 #, c-format
@@ -4662,1385 +4645,1188 @@ msgid "XFig File Format"
 msgstr "XFig Dateiformat"
 
 #: sheets/chronogram.sheet.in.h:1
-#, fuzzy
 msgid "A data line"
-msgstr "Datenzeilen Breite"
+msgstr "Eine Datenlinie"
 
 #: sheets/chronogram.sheet.in.h:2
 msgid "A time scale"
-msgstr ""
+msgstr "Eine Zeitskala"
 
 #: sheets/chronogram.sheet.in.h:3
 msgid "Chronogram"
-msgstr ""
+msgstr "Chronogramm"
 
 #: sheets/chronogram.sheet.in.h:4
 msgid "Objects to design chronogram charts"
-msgstr ""
+msgstr "Objekte um eine Chronogrammdarstellung zu entwerfen"
 
 #: sheets/Circuit.sheet.in.h:1
-#, fuzzy
 msgid "A Horizontal Jumper"
-msgstr "H_orizontal anordnen"
+msgstr "Ein Horizontaler Jumper"
 
 #: sheets/Circuit.sheet.in.h:2
 msgid "A Horizontally aligned inductor"
-msgstr ""
+msgstr "Eine horizontal ausgerichtete Induktivität"
 
 #: sheets/Circuit.sheet.in.h:3
 msgid "A Horizontally aligned inductor (European)"
-msgstr ""
+msgstr "Eine horizontal ausgerichtete Induktivität (europäisch)"
 
 #: sheets/Circuit.sheet.in.h:4
 msgid "A Horizontally aligned resistor"
-msgstr ""
+msgstr "Ein horizontal ausgerichteter Widerstand"
 
 #: sheets/Circuit.sheet.in.h:5
 msgid "A Horizontally aligned resistor (European)"
-msgstr ""
+msgstr "Ein horizontal ausgerichteter Widerstand (europäisch)"
 
 #: sheets/Circuit.sheet.in.h:6
 msgid "A Microphone"
-msgstr ""
+msgstr "Ein Mikrofon"
 
 #: sheets/Circuit.sheet.in.h:7
 msgid "A PMOS transistor"
-msgstr ""
+msgstr "Ein PMOS Transistor"
 
 #: sheets/Circuit.sheet.in.h:8
 msgid "A Speaker"
-msgstr ""
+msgstr "Ein Lautsprecher"
 
 #: sheets/Circuit.sheet.in.h:9
 msgid "A Vertically aligned inductor"
-msgstr ""
+msgstr "Eine vertikal ausgerichtete Induktivität"
 
 #: sheets/Circuit.sheet.in.h:10
 msgid "A Vertically aligned inductor (European)"
-msgstr ""
+msgstr "Eine vertikal ausgerichtete Induktivität (europäisch)"
 
 #: sheets/Circuit.sheet.in.h:11
 msgid "A Vertically aligned resistor"
-msgstr ""
+msgstr "Ein vertikal ausgerichteter Widerstand"
 
 #: sheets/Circuit.sheet.in.h:12
 msgid "A Vertically aligned resistor (European)"
-msgstr ""
+msgstr "Ein vertikal ausgerichteter Widerstand (europäisch)"
 
 #: sheets/Circuit.sheet.in.h:13
-#, fuzzy
 msgid "A ground point"
-msgstr "Endpunkt"
+msgstr "Ein Massepunkt"
 
 #: sheets/Circuit.sheet.in.h:14
 msgid "A horizontally aligned LED"
-msgstr ""
+msgstr "Eine horizontal ausgerichtete LED"
 
 #: sheets/Circuit.sheet.in.h:15
 msgid "A horizontally aligned capacitor"
-msgstr ""
+msgstr "Eine horizontal ausgerichtete Kapazität"
 
 #: sheets/Circuit.sheet.in.h:16
 msgid "A horizontally aligned diode"
-msgstr ""
+msgstr "Eine horizontal ausgerichtete Diode"
 
 #: sheets/Circuit.sheet.in.h:17
 msgid "A horizontally aligned fuse"
-msgstr ""
+msgstr "Eine horizontal ausgerichtete Sicherung"
 
 #: sheets/Circuit.sheet.in.h:18
 msgid "A horizontally aligned powersource"
-msgstr ""
+msgstr "Eine horizontal ausgerichtete Stromquelle"
 
 #: sheets/Circuit.sheet.in.h:19
 msgid "A horizontally aligned zener diode"
-msgstr ""
+msgstr "Eine horizontal ausgerichtete Zener-Diode"
 
 #: sheets/Circuit.sheet.in.h:20
 msgid "A lamp"
-msgstr ""
+msgstr "Ein Lämpchen"
 
 #: sheets/Circuit.sheet.in.h:21
 msgid "A npn bipolar transistor"
-msgstr ""
+msgstr "Ein bipolarer npn-Transistor"
 
 #: sheets/Circuit.sheet.in.h:22
 msgid "A pnp bipolar transistor"
-msgstr ""
+msgstr "Ein bipolarer pnp-Transistor"
 
 #: sheets/Circuit.sheet.in.h:23
 msgid "A vertically aligned LED"
-msgstr ""
+msgstr "Eine vertikal ausgerichtete LED"
 
 #: sheets/Circuit.sheet.in.h:24
 msgid "A vertically aligned capacitor"
-msgstr ""
+msgstr "Eine vertikal ausgerichtete Kapazität"
 
 #: sheets/Circuit.sheet.in.h:25
 msgid "A vertically aligned diode"
-msgstr ""
+msgstr "Eine vertikal ausgerichtete Diode"
 
 #: sheets/Circuit.sheet.in.h:26
 msgid "A vertically aligned fuse"
-msgstr ""
+msgstr "Eine vertikal ausgerichtete Sicherung"
 
 #: sheets/Circuit.sheet.in.h:27
 msgid "A vertically aligned powersource"
-msgstr ""
+msgstr "Eine vertikal ausgerichtete Stromquelle"
 
 #: sheets/Circuit.sheet.in.h:28
 msgid "A vertically aligned zener diode"
-msgstr ""
+msgstr "Eine vertikal ausgerichtete Zener-Diode"
 
 #: sheets/Circuit.sheet.in.h:29
 msgid "An NMOS transistor"
-msgstr ""
+msgstr "Ein NMOS-Transistor"
 
 #: sheets/Circuit.sheet.in.h:30
 msgid "An operational amplifier"
-msgstr ""
+msgstr "Ein Operationsverstärker"
 
 #: sheets/Circuit.sheet.in.h:31
-#, fuzzy
 msgid "Circuit"
-msgstr "Direkt"
+msgstr "Schaltkreis"
 
 #: sheets/Circuit.sheet.in.h:32
 msgid "Components for circuit diagrams"
-msgstr ""
+msgstr "Komponenten für Schaltkreisdiagramme"
 
 #: sheets/civil.sheet.in.h:1
 msgid "A Backflow Preventer"
-msgstr ""
+msgstr "Eine Rückflussprävention"
 
 #: sheets/civil.sheet.in.h:2
 msgid "A Basin"
-msgstr ""
+msgstr "Ein Becken"
 
 #: sheets/civil.sheet.in.h:3
-#, fuzzy
 msgid "A Container"
-msgstr "Enthalten"
+msgstr "Ein Behälter"
 
 #: sheets/civil.sheet.in.h:4
 msgid "A Frequency Converter"
-msgstr ""
+msgstr "Ein Frequenzumwandler"
 
 #: sheets/civil.sheet.in.h:5
 msgid "A Gas Bottle"
-msgstr ""
+msgstr "Eine Gasflasche"
 
 #: sheets/civil.sheet.in.h:6
-#, fuzzy
 msgid "A Motor"
-msgstr "Akteur"
+msgstr "Ein Motor"
 
 #: sheets/civil.sheet.in.h:7
 msgid "A Preliminary Clarification Tank"
-msgstr ""
+msgstr "Ein Vorklärbecken"
 
 #: sheets/civil.sheet.in.h:8
-#, fuzzy
 msgid "A Rotor"
-msgstr "Akteur"
+msgstr "Ein Rotor"
 
 #: sheets/civil.sheet.in.h:9
 msgid "A final-settling Basin"
-msgstr ""
+msgstr "Ein Nachklärbecken"
 
 #: sheets/civil.sheet.in.h:10
 msgid "A horizontal limiting line"
-msgstr ""
+msgstr "Eine horizontale Begrenzungslinie"
 
 #: sheets/civil.sheet.in.h:11
 msgid "A horizontally aligned Arrow"
-msgstr ""
+msgstr "Ein horizontaler Pfeil"
 
 #: sheets/civil.sheet.in.h:12
 msgid "A vertical limiting line"
-msgstr ""
+msgstr "Eine vertikale Begrenzungslinie"
 
 #: sheets/civil.sheet.in.h:13
 msgid "A vertically aligned Arrow"
-msgstr ""
+msgstr "Ein vertikaler Pfeil"
 
 #: sheets/civil.sheet.in.h:14
 msgid "An Aerator with bubbles"
-msgstr ""
+msgstr "Ein Tellerbelüfter mit Blasen"
 
 #: sheets/civil.sheet.in.h:15
 msgid "Bivalent Vertical Rest"
-msgstr ""
+msgstr "Eine zweiwertige vertikale Auflage"
 
 #: sheets/civil.sheet.in.h:16
 msgid "Civil"
-msgstr ""
+msgstr "Zivil"
 
 #: sheets/civil.sheet.in.h:17
 msgid "Civil Engineering Components"
-msgstr ""
+msgstr "Komponenten aus der zivilen Technik"
 
 #: sheets/civil.sheet.in.h:18
-#, fuzzy
 msgid "Horizontal Rest"
-msgstr "Horizontal spiegeln"
+msgstr "Horizontale Auflage"
 
 #: sheets/civil.sheet.in.h:19
 msgid "Horizontally aligned Valve"
-msgstr ""
+msgstr "Ein horizontal ausgerichtetes Ventil"
 
 #: sheets/civil.sheet.in.h:20
 msgid "Horizontally aligned compressor"
-msgstr ""
+msgstr "Ein horizontal ausgerichteter Kompressor"
 
 #: sheets/civil.sheet.in.h:21
 msgid "Horizontally aligned pump"
-msgstr ""
+msgstr "Eine horizontal ausgerichtete Pumpe"
 
 #: sheets/civil.sheet.in.h:22
-#, fuzzy
 msgid "Reference Line"
-msgstr "Linie erzeugen"
+msgstr "Bezugslinie"
 
 #: sheets/civil.sheet.in.h:23
-#, fuzzy
 msgid "Soil"
-msgstr "Durchgezogen"
+msgstr "Erdreich"
 
 #: sheets/civil.sheet.in.h:24
-#, fuzzy
 msgid "Vertical Rest"
-msgstr "Vertikal spiegeln"
+msgstr "Vertikale Auflage"
 
 #: sheets/civil.sheet.in.h:25
 msgid "Vertically aligned Propeller"
-msgstr ""
+msgstr "Ein vertikal ausgerichteter Propeller"
 
 #: sheets/civil.sheet.in.h:26
 msgid "Vertically aligned Valve"
-msgstr ""
+msgstr "Ein vertikal ausgerichtetes Ventil"
 
 #: sheets/civil.sheet.in.h:27
 msgid "Vertically aligned compressor"
-msgstr ""
+msgstr "Vertikal ausgerichteter Kompressor"
 
 #: sheets/civil.sheet.in.h:28
 msgid "Vertically aligned pump"
-msgstr ""
+msgstr "Eine vertikal ausgerichtete Pumpe"
 
 #: sheets/civil.sheet.in.h:29
 msgid "Water Level"
-msgstr ""
+msgstr "Wasserspiegel"
 
 #: sheets/Contact.sheet.in.h:1
 msgid "A 'if not' (normally closed) ladder contact"
-msgstr ""
+msgstr "Ein (im Ausgangszustand geschlossener) 'wenn nicht'-Leiterkontakt"
 
 #: sheets/Contact.sheet.in.h:2
 msgid "A 'if' (normally open) ladder contact"
-msgstr ""
+msgstr "Ein (im Ausgangszustand offener) Leiterkontakt"
 
 #: sheets/Contact.sheet.in.h:3
 msgid "A 'jump' output variable"
-msgstr ""
+msgstr "Eine 'Sprung' Ausgabevariable"
 
 #: sheets/Contact.sheet.in.h:4
 msgid "A 'reset' output variable"
-msgstr ""
+msgstr "Eine 'Rücksetzen' Ausgabevariable"
 
 #: sheets/Contact.sheet.in.h:5
 msgid "A 'set' output variable"
-msgstr ""
+msgstr "Eine 'Setzen' Ausgabevariable"
 
 #: sheets/Contact.sheet.in.h:6
 msgid "A negative output variable"
-msgstr ""
+msgstr "Eine negative Ausgabevariable"
 
 #: sheets/Contact.sheet.in.h:7
 msgid "A power-saved 'reset' output variable"
-msgstr ""
+msgstr "Eine power-saved 'Rücksetz' Ausgabevariable"
 
 #: sheets/Contact.sheet.in.h:8
 msgid "A power-saved 'set' output variable"
-msgstr ""
+msgstr "Eine power-saved 'Setzen' Ausgabevariable"
 
 #: sheets/Contact.sheet.in.h:9
 msgid "A power-saved negative output variable"
-msgstr ""
+msgstr "Eine negative power-saved Ausgabevariable"
 
 #: sheets/Contact.sheet.in.h:10
 msgid "A power-saved simple output variable"
-msgstr ""
+msgstr "Eine einfache power-saved Ausgabevariable"
 
 #: sheets/Contact.sheet.in.h:11
-#, fuzzy
 msgid "A receptivity output variable"
-msgstr "Die Schriftgröße der Aufnahmefähigkeit"
+msgstr "Die 'Aufnahmefähigkeit' Ausgabevariable"
 
 #: sheets/Contact.sheet.in.h:12
 msgid "A simple output variable"
-msgstr ""
+msgstr "Eine einfache Ausgabevariable"
 
 #: sheets/Contact.sheet.in.h:13
 msgid "Components for LADDER circuits"
-msgstr ""
+msgstr "Komponenten für Leiter-Schaltkreise"
 
 #: sheets/Contact.sheet.in.h:14
-#, fuzzy
 msgid "Ladder"
-msgstr "Ebenen"
+msgstr "Leiter"
 
 #: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
-#, fuzzy
 msgid "A connection point"
-msgstr "Verbindungspunkt hinzufügen"
+msgstr "Ein Verbindungspunkt"
 
 #: sheets/Electric.sheet.in.h:2
 msgid "A lamp or indicator light"
-msgstr ""
+msgstr "Ein Lämpchen oder Indikatorleuchte"
 
 #: sheets/Electric.sheet.in.h:3
 msgid "A normally closed contact"
-msgstr ""
+msgstr "Ein im Ausgangszustand geschlossener Kontakt"
 
 #: sheets/Electric.sheet.in.h:4
 msgid "A normally closed position switch"
-msgstr ""
+msgstr "Ein im Ausgangszustand geschlossender Schalter"
 
 #: sheets/Electric.sheet.in.h:5
 msgid "A normally open contact"
-msgstr ""
+msgstr "Ein im Ausgangszustand offener Kontakt"
 
 #: sheets/Electric.sheet.in.h:6
 msgid "A normally open position switch"
-msgstr ""
+msgstr "Ein im Ausgangszustand offener Schalter"
 
 #: sheets/Electric.sheet.in.h:7
 msgid "A relay"
-msgstr ""
+msgstr "Ein Relais"
 
 #: sheets/Electric.sheet.in.h:8
 msgid "Components for electric circuits"
-msgstr ""
+msgstr "Komponenten für elektrische Schaltkreise"
 
 #: sheets/Electric.sheet.in.h:9
-#, fuzzy
 msgid "Electric"
 msgstr "Elektrisch"
 
 #: sheets/Electric.sheet.in.h:10
 msgid "The command organ of a relay"
-msgstr ""
+msgstr "Der steuernde Teil eines Relais"
 
 #: sheets/EML.sheet.in.h:1
-#, fuzzy
 msgid "Create a process"
-msgstr "Bogen erzeugen"
+msgstr "Einen Prozess erzeugen"
 
 #: sheets/EML.sheet.in.h:2
 msgid "EML"
-msgstr ""
+msgstr "EML"
 
 #: sheets/EML.sheet.in.h:3
 msgid "Editor for EML Static Structure Diagrams."
-msgstr ""
+msgstr "Editor für statische EML-Strukturdiagramme"
 
 #: sheets/EML.sheet.in.h:4
 msgid "Instantiation. One process create others"
-msgstr ""
+msgstr "Instanzierung. Ein Prozess erzeugt andere"
 
 #: sheets/EML.sheet.in.h:5
 msgid "Interaction between processes."
-msgstr ""
+msgstr "Interaktion zwischen Prozessen"
 
 #: sheets/ER.sheet.in.h:2
 msgid "ER"
-msgstr ""
+msgstr "ER"
 
 #: sheets/ER.sheet.in.h:3
-#, fuzzy
 msgid "Editor for Entity Relations Diagrams"
-msgstr "Entität/Beziehungsdiagram Objekte"
+msgstr "Editor für Einheit/Beziehungsdiagram"
 
 #: sheets/ER.sheet.in.h:5
-#, fuzzy
 msgid "Participation"
-msgstr "Strahlung"
+msgstr "Beteiligung"
 
 #: sheets/ER.sheet.in.h:7
-#, fuzzy
 msgid "Weak Entity"
-msgstr "Entität"
+msgstr "Schwache Einheit"
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "A box with text inside"
-msgstr ""
+msgstr "Ein Kasten mit Textinhalt"
 
 #: sheets/Flowchart.sheet.in.h:2
 msgid "A diamond with text inside"
-msgstr ""
+msgstr "Eine Raute mit Textinhalt"
 
 #: sheets/Flowchart.sheet.in.h:3
 msgid "A ellipse with text inside"
-msgstr ""
+msgstr "Eine Ellipse mit Textinhalt"
 
 #: sheets/Flowchart.sheet.in.h:4
 msgid "A parallelogram with text inside"
-msgstr ""
+msgstr "Ein Parallelogramm mit Textinhalt"
 
 #: sheets/Flowchart.sheet.in.h:5
-#, fuzzy
 msgid "Collate"
-msgstr "Ausrechnen"
+msgstr "Vereinigung"
 
 #: sheets/Flowchart.sheet.in.h:6
-#, fuzzy
 msgid "Delay"
-msgstr "Anzeigen"
+msgstr "Verzögerung"
 
 # CHECK Translation
 #: sheets/Flowchart.sheet.in.h:8
-#, fuzzy
 msgid "Document"
-msgstr "Montieren"
+msgstr "Dokument"
 
 #: sheets/Flowchart.sheet.in.h:10
-#, fuzzy
 msgid "Flowchart"
-msgstr "Flussdiagramm-Objekte"
+msgstr "Flussdiagramm"
 
 #: sheets/Flowchart.sheet.in.h:11
-#, fuzzy
 msgid "Internal Storage"
-msgstr "Integralsymbol"
+msgstr "Interner Speicher"
 
 #: sheets/Flowchart.sheet.in.h:12
-#, fuzzy
 msgid "Magnetic Disk"
-msgstr "Magnetische Energie"
+msgstr "Magnetische Platte"
 
 #: sheets/Flowchart.sheet.in.h:13
-#, fuzzy
 msgid "Magnetic Drum"
-msgstr "Magnetische Energie"
+msgstr "Magnetische Trommel"
 
 #: sheets/Flowchart.sheet.in.h:14
-#, fuzzy
 msgid "Magnetic Tape"
-msgstr "Magnetische Energie"
+msgstr "Magnetisches Band"
 
 #: sheets/Flowchart.sheet.in.h:15
 msgid "Manual Input"
-msgstr ""
+msgstr "Manuelle Eingabe"
 
 #: sheets/Flowchart.sheet.in.h:16
-#, fuzzy
 msgid "Manual Operation"
-msgstr "Methoden"
+msgstr "Manueller Vorgang"
 
 #: sheets/Flowchart.sheet.in.h:17
-#, fuzzy
 msgid "Merge"
-msgstr "Messen"
+msgstr "Zusammenfassen"
 
 #: sheets/Flowchart.sheet.in.h:18
 msgid "Objects to draw flowcharts"
-msgstr ""
+msgstr "Objekte um Flussdiagramme zu zeichnen"
 
 #: sheets/Flowchart.sheet.in.h:19
 msgid "Off Page Connector"
-msgstr ""
+msgstr "Verbindung zu einer anderen Seite"
 
 #: sheets/Flowchart.sheet.in.h:20
 msgid "Offline Storage"
-msgstr ""
+msgstr "Offline Speicher"
 
 #: sheets/Flowchart.sheet.in.h:21
 msgid "Or"
-msgstr ""
+msgstr "Oder"
 
 #: sheets/Flowchart.sheet.in.h:22
-#, fuzzy
 msgid "Predefined Process"
-msgstr "Vorlieben"
+msgstr "Vordefinierter Prozess"
 
 #: sheets/Flowchart.sheet.in.h:23
-#, fuzzy
 msgid "Preparation"
-msgstr "Relation"
+msgstr "Vorbereitung"
 
 #: sheets/Flowchart.sheet.in.h:24
 msgid "Punched Card"
-msgstr ""
+msgstr "Abgeschnittene Karte"
 
 #: sheets/Flowchart.sheet.in.h:25
 msgid "Punched Tape"
-msgstr ""
+msgstr "Abgeschnittenes Band"
 
 #: sheets/Flowchart.sheet.in.h:26
-#, fuzzy
 msgid "Sort"
-msgstr "Unterstützung"
+msgstr "Sortierung"
 
 #: sheets/Flowchart.sheet.in.h:27
-#, fuzzy
 msgid "Summing Junction"
-msgstr "Wunschfunktion"
+msgstr "Vereinigungsverbindung"
 
 #: sheets/Flowchart.sheet.in.h:28
-#, fuzzy
 msgid "Terminal"
-msgstr "Thermisch"
+msgstr "Terminal"
 
 #: sheets/Flowchart.sheet.in.h:29
-#, fuzzy
 msgid "Transaction File"
-msgstr "Übersetzung"
+msgstr "Transaktionsdatei"
 
 #: sheets/Flowchart.sheet.in.h:30
-#, fuzzy
 msgid "Transmittal Tape"
-msgstr "Übertragen"
+msgstr "Übertragungsband"
 
 #: sheets/FS.sheet.in.h:1
-#, fuzzy
 msgid "Create a flow"
-msgstr "Rechteck erzeugen"
+msgstr "Einen Fluß erzeugen"
 
 #: sheets/FS.sheet.in.h:2
-#, fuzzy
 msgid "Create a function"
-msgstr "Benutzerfunktion"
+msgstr "Eine Funktion erzeugen"
 
 #: sheets/FS.sheet.in.h:3
 msgid "Create an orthogonal polyline flow"
-msgstr ""
+msgstr "Erzeuge einen orthogonalen, mehrlinigen Fluß"
 
 #: sheets/FS.sheet.in.h:4
-#, fuzzy
 msgid "Editor for Function Structure Diagrams."
-msgstr "Funktionsstruktur-Diagramm Objekte"
+msgstr "Editor für Funktionsstrukturdiagramme"
 
 #: sheets/FS.sheet.in.h:5
 msgid "FS"
-msgstr ""
+msgstr "FS"
 
 #: sheets/GRAFCET.sheet.in.h:1
-#, fuzzy
 msgid "A AND vergent"
-msgstr "GRAFCET oder/und Rand"
+msgstr "Eine UND Verzweigung"
 
 #: sheets/GRAFCET.sheet.in.h:2
-#, fuzzy
 msgid "A OR vergent"
-msgstr "GRAFCET oder/und Rand"
+msgstr "Eine ODER Verzweigung"
 
 #: sheets/GRAFCET.sheet.in.h:3
-#, fuzzy
 msgid "A condition (of an action)"
-msgstr "Die Schrift der Voraussetzung"
+msgstr "Eine Bedingung (einer Aktion)"
 
 #: sheets/GRAFCET.sheet.in.h:4
-#, fuzzy
 msgid "A macro call step"
-msgstr "Makroaufrufsschritt"
+msgstr "Ein Schritt, der ein Makro aufruft"
 
 #: sheets/GRAFCET.sheet.in.h:5
-#, fuzzy
 msgid "A macro entry step"
-msgstr "Makroeintragsschritt"
+msgstr "Ein Schritt, der den Eingang zu einem Makro bildet"
 
 #: sheets/GRAFCET.sheet.in.h:6
-#, fuzzy
 msgid "A macro exit step"
-msgstr "Makrobeendungsschritt"
+msgstr "Ein Schritt, der das Ende eines Makros bildet"
 
 #: sheets/GRAFCET.sheet.in.h:7
-#, fuzzy
 msgid "A macro sub-program call step"
-msgstr "Unterprogrammaufrufsschritt"
+msgstr "Ein Schritt, der ein Subprogramm in einem Makro aufruft"
 
 #: sheets/GRAFCET.sheet.in.h:8
-#, fuzzy
 msgid "A regular step"
-msgstr "Regulärer Schritt"
+msgstr "Ein normaler Schritt"
 
 #: sheets/GRAFCET.sheet.in.h:9
-#, fuzzy
 msgid "A transition"
-msgstr "Übersetzung"
+msgstr "Ein Übergang"
 
 #: sheets/GRAFCET.sheet.in.h:10
-#, fuzzy
 msgid "An action to associate to a step"
-msgstr "Diese Aktion ist ein Aufruf zu einem Makroschritt"
+msgstr "Eine Aktion, die mit einem Schrit verbunden ist"
 
 #: sheets/GRAFCET.sheet.in.h:11
 msgid "An arc (upward)"
-msgstr ""
+msgstr "Ein Bogen (aufwärts)"
 
 #: sheets/GRAFCET.sheet.in.h:12
-#, fuzzy
 msgid "An initial step"
-msgstr "Initialisierungsschritt"
+msgstr "Ein Initiationsschritt"
 
 #: sheets/GRAFCET.sheet.in.h:13
 msgid "GRAFCET"
-msgstr ""
+msgstr "GRAFCET"
 
 #: sheets/GRAFCET.sheet.in.h:14
 msgid "Objects to design GRAFCET charts"
-msgstr ""
+msgstr "Objekte um ein GRAFCET-Diagramm zu entwerfen"
 
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
-msgstr ""
+msgstr "Puzzle"
 
 #: sheets/jigsaw.sheet.in.h:2
 msgid "Jigsaw - part_iiii"
-msgstr ""
+msgstr "Puzzle - Teil_iiii"
 
 #: sheets/jigsaw.sheet.in.h:3
 msgid "Jigsaw - part_iiio"
-msgstr ""
+msgstr "Puzzle - Teil_iiio"
 
 #: sheets/jigsaw.sheet.in.h:4
 msgid "Jigsaw - part_iioi"
-msgstr ""
+msgstr "Puzzle - Teil_iioi"
 
 #: sheets/jigsaw.sheet.in.h:5
 msgid "Jigsaw - part_iioo"
-msgstr ""
+msgstr "Puzzle - Teil_iioo"
 
 #: sheets/jigsaw.sheet.in.h:6
 msgid "Jigsaw - part_ioii"
-msgstr ""
+msgstr "Puzzle - Teil_ioii"
 
 #: sheets/jigsaw.sheet.in.h:7
 msgid "Jigsaw - part_ioio"
-msgstr ""
+msgstr "Puzzle - Teil_ioio"
 
 #: sheets/jigsaw.sheet.in.h:8
 msgid "Jigsaw - part_iooi"
-msgstr ""
+msgstr "Puzzle - Teil_iooi"
 
 #: sheets/jigsaw.sheet.in.h:9
 msgid "Jigsaw - part_iooo"
-msgstr ""
+msgstr "Puzzle - Teil_iooo"
 
 #: sheets/jigsaw.sheet.in.h:10
 msgid "Jigsaw - part_oiii"
-msgstr ""
+msgstr "Puzzle - Teil_oiii"
 
 #: sheets/jigsaw.sheet.in.h:11
 msgid "Jigsaw - part_oiio"
-msgstr ""
+msgstr "Puzzle - Teil_oiio"
 
 #: sheets/jigsaw.sheet.in.h:12
 msgid "Jigsaw - part_oioi"
-msgstr ""
+msgstr "Puzzle - Teil_oioi"
 
 #: sheets/jigsaw.sheet.in.h:13
 msgid "Jigsaw - part_oioo"
-msgstr ""
+msgstr "Puzzle - Teil_oioo"
 
 #: sheets/jigsaw.sheet.in.h:14
 msgid "Jigsaw - part_ooii"
-msgstr ""
+msgstr "Puzzle - Teil_ooii"
 
 #: sheets/jigsaw.sheet.in.h:15
 msgid "Jigsaw - part_ooio"
-msgstr ""
+msgstr "Puzzle - Teil_ooio"
 
 #: sheets/jigsaw.sheet.in.h:16
 msgid "Jigsaw - part_oooi"
-msgstr ""
+msgstr "Puzzle - Teil_oooi"
 
 #: sheets/jigsaw.sheet.in.h:17
 msgid "Jigsaw - part_oooo"
-msgstr ""
+msgstr "Puzzle - Teil_oooo"
 
 #: sheets/jigsaw.sheet.in.h:18
 msgid "Pieces of a jigsaw"
-msgstr ""
+msgstr "Puzzleteile"
 
 #: sheets/Logic.sheet.in.h:1
 msgid "A Nand gate"
-msgstr ""
+msgstr "Ein NAND-Gatter"
 
 #: sheets/Logic.sheet.in.h:2
-#, fuzzy
 msgid "A Nor gate"
-msgstr "Aggregat"
+msgstr "Ein NOR-Gatter"
 
 #: sheets/Logic.sheet.in.h:3
 msgid "A Not"
-msgstr ""
+msgstr "Ein Nicht"
 
 #: sheets/Logic.sheet.in.h:4
-#, fuzzy
 msgid "A Xor gate"
-msgstr "Aggregat"
+msgstr "Ein XOR-Gatter"
 
 #: sheets/Logic.sheet.in.h:5
-#, fuzzy
 msgid "A crossconnector"
-msgstr "Trennen"
+msgstr "Ein Verbindungspunkt"
 
 #: sheets/Logic.sheet.in.h:6
 msgid "A simple Buffer"
-msgstr ""
+msgstr "Ein einfacher Puffer"
 
 #: sheets/Logic.sheet.in.h:7
 msgid "An And gate"
-msgstr ""
+msgstr "Ein Und-Gatter"
 
 #: sheets/Logic.sheet.in.h:8
-#, fuzzy
 msgid "An Inverter"
-msgstr "Invertieren"
+msgstr "Ein Inverter"
 
 #: sheets/Logic.sheet.in.h:9
-#, fuzzy
 msgid "An Or gate"
-msgstr "Aggregat"
+msgstr "Ein ODER-Gatter"
 
 #: sheets/Logic.sheet.in.h:10
-#, fuzzy
 msgid "Boolean Logic"
-msgstr "Biologisch"
+msgstr "Boolsche Logik"
 
 # CHECK Translation
 # Sperren?
 #: sheets/Logic.sheet.in.h:11
-#, fuzzy
 msgid "Logic"
-msgstr "Verriegeln"
+msgstr "Logik"
 
 #: sheets/Misc.sheet.in.h:1
-#, fuzzy
 msgid "A File"
-msgstr "Datei"
+msgstr "Eine Datei"
 
 #: sheets/Misc.sheet.in.h:2
 msgid "A Folder"
-msgstr ""
+msgstr "Ein Ordner"
 
 #: sheets/Misc.sheet.in.h:3
 msgid "Misc"
-msgstr ""
+msgstr "Diverse"
 
 #: sheets/Misc.sheet.in.h:4
 msgid "Miscellaneous Shapes"
-msgstr ""
+msgstr "Diverse Formen"
 
 #: sheets/MSE.sheet.in.h:1
-#, fuzzy
 msgid "Demultiplexer"
-msgstr "mehrere"
+msgstr "Demultiplexer"
 
 #: sheets/MSE.sheet.in.h:2
 msgid "Large Extension Node"
-msgstr ""
+msgstr "Großer Erweiterungsknoten"
 
 #: sheets/MSE.sheet.in.h:3
 msgid "MSE"
-msgstr ""
+msgstr "MSE"
 
 #: sheets/MSE.sheet.in.h:4
-#, fuzzy
 msgid "Multiplexer"
-msgstr "Mehrere"
+msgstr "Multiplexer"
 
 #: sheets/MSE.sheet.in.h:5
-#, fuzzy
 msgid "Node Center"
-msgstr "Mitte"
+msgstr "Knotenzentrum"
 
 #: sheets/MSE.sheet.in.h:6
 msgid "Small Extension Node"
-msgstr ""
+msgstr "Kleiner Erweiterungsknoten"
 
 #: sheets/MSE.sheet.in.h:7
 msgid "Tactical Satellite Communications Terminal"
-msgstr ""
+msgstr "Kommunikationsterminal eines taktischen Satelitten"
 
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
-msgstr ""
+msgstr "U.S. Armee 'Mobile Subscriber Equipment'-Komponenten"
 
 #: sheets/network.sheet.in.h:1
 msgid "A 3 1/2 inch diskette"
-msgstr ""
+msgstr "Eine 3 1/2 Zoll Diskette"
 
 #: sheets/network.sheet.in.h:2
 msgid "A Bigtower PC"
-msgstr ""
+msgstr "Ein Bigtower PC"
 
 #: sheets/network.sheet.in.h:3
-#, fuzzy
 msgid "A Computer"
-msgstr "Eckpunkt hinzufügen"
+msgstr "Ein Computer"
 
 #: sheets/network.sheet.in.h:4
 msgid "A Desktop PC"
-msgstr ""
+msgstr "Ein Desktop PC"
 
 #: sheets/network.sheet.in.h:5
 msgid "A Firewall router"
-msgstr ""
+msgstr "Ein Firewall-Router"
 
 #: sheets/network.sheet.in.h:6
 msgid "A Miditower PC"
-msgstr ""
+msgstr "Ein Miditower PC"
 
 #: sheets/network.sheet.in.h:7
 msgid "A Minitower PC"
-msgstr ""
+msgstr "Ein Minitower PC"
 
 #: sheets/network.sheet.in.h:8
 msgid "A Mobile Phone"
-msgstr ""
+msgstr "Ein Handy"
 
 #: sheets/network.sheet.in.h:9
 msgid "A RJ45 Wall-Plug"
-msgstr ""
+msgstr "Eine RJ45-Steckdose"
 
 #: sheets/network.sheet.in.h:10
 msgid "A Telephone"
-msgstr ""
+msgstr "Ein Telefon"
 
 #: sheets/network.sheet.in.h:11
 msgid "A UNIX Workstation"
-msgstr ""
+msgstr "Eine Unix Workstation"
 
 #: sheets/network.sheet.in.h:12
-#, fuzzy
 msgid "A WAN Connection"
-msgstr "Konvektion"
+msgstr "Eine WAN Anschluß"
 
 #: sheets/network.sheet.in.h:13
 msgid "A WAN Link"
-msgstr ""
+msgstr "Eine WAN Verbindung"
 
 #: sheets/network.sheet.in.h:14
 msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr ""
+msgstr "Eine Steckdose für das scEAD Verkabelungssystem"
 
 #: sheets/network.sheet.in.h:15
 msgid "A Workstation Monitor"
-msgstr ""
+msgstr "Ein Worksation Monitor"
 
 #: sheets/network.sheet.in.h:16
 msgid "A ZIP Disk"
-msgstr ""
+msgstr "Eine Zip-Diskette"
 
 #: sheets/network.sheet.in.h:17
 msgid "A modular switching system"
-msgstr ""
+msgstr "Ein modulares Switchsystem"
 
 #: sheets/network.sheet.in.h:18
 msgid "A monitor"
-msgstr ""
+msgstr "Ein Monitor"
 
 #: sheets/network.sheet.in.h:19
 msgid "A simple Modem"
-msgstr ""
+msgstr "Ein einfaches Modem"
 
 #: sheets/network.sheet.in.h:20
-#, fuzzy
 msgid "A simple printer"
-msgstr "Drucker auswählen"
+msgstr "Ein einfacher Drucker"
 
 #: sheets/network.sheet.in.h:21
 msgid "A speaker with integrated amplifier"
-msgstr ""
+msgstr "Ein Lautsprecher mit eingebautem Verstärker"
 
 #: sheets/network.sheet.in.h:22
 msgid "A speaker without amplifier"
-msgstr ""
+msgstr "Ein Lautsprecher ohne Verstärker"
 
 #: sheets/network.sheet.in.h:23
 msgid "A stackable hub or switch"
-msgstr ""
+msgstr "Ein stapelbarer Hub oder Switch"
 
 #: sheets/network.sheet.in.h:24
 msgid "ATM Switch Symbol"
-msgstr ""
+msgstr "Ein ATM-Switchsymbol"
 
 #: sheets/network.sheet.in.h:25
 msgid "An Ethernet bus"
-msgstr ""
+msgstr "Ein Ethernetbus"
 
 #: sheets/network.sheet.in.h:26
 msgid "An antenna for wireless transmission"
-msgstr ""
+msgstr "Eine Antenne für kabellose Übertragung"
 
 #: sheets/network.sheet.in.h:27
 msgid "An external DAT drive"
-msgstr ""
+msgstr "Ein externes DAT-Laufwerk"
 
 #: sheets/network.sheet.in.h:28
-#, fuzzy
 msgid "Network"
-msgstr "Neu"
+msgstr "Netzwerk"
 
 #: sheets/network.sheet.in.h:29
 msgid "Network Cloud"
-msgstr ""
+msgstr "Netzwerkwolke"
 
 #: sheets/network.sheet.in.h:30
 msgid "Objects to design network diagrams with"
-msgstr ""
+msgstr "Objekte um ein Netzwerkdiagramm zu entwerfen"
 
 #: sheets/network.sheet.in.h:31
-#, fuzzy
 msgid "Router Symbol"
-msgstr "Integralsymbol"
+msgstr "Routersymbol"
 
 #: sheets/network.sheet.in.h:32
-#, fuzzy
 msgid "Storage"
-msgstr "Lagern"
+msgstr "Speicher"
 
 #: sheets/network.sheet.in.h:33
-#, fuzzy
 msgid "Switch Symbol"
-msgstr "Umschalten"
+msgstr "Switchsymbol"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A 2/2 distributor"
-msgstr ""
+msgstr "Ein 2:2 Verteiler"
 
 #: sheets/Pneumatic.sheet.in.h:2
 msgid "A 3/2 distributor"
-msgstr ""
+msgstr "Ein 3:2 Verteiler"
 
 #: sheets/Pneumatic.sheet.in.h:3
 msgid "A 3/3 distributor"
-msgstr ""
+msgstr "Ein 3:3 Verteiler"
 
 #: sheets/Pneumatic.sheet.in.h:4
 msgid "A 4/2 distributor"
-msgstr ""
+msgstr "Ein 4:2 Verteiler"
 
 #: sheets/Pneumatic.sheet.in.h:5
 msgid "A 5/2 distributor"
-msgstr ""
+msgstr "Ein 5:2 Verteiler"
 
 #: sheets/Pneumatic.sheet.in.h:6
 msgid "A 5/3 distributor"
-msgstr ""
+msgstr "Ein 5:3 Verteiler"
 
 #: sheets/Pneumatic.sheet.in.h:8
 msgid "A double-effect jack"
-msgstr ""
+msgstr "Eine Doppeleffektbuchse"
 
 #: sheets/Pneumatic.sheet.in.h:9
 msgid "A generic pressure source"
-msgstr ""
+msgstr "Eine Druckquelle"
 
 #: sheets/Pneumatic.sheet.in.h:10
 msgid "A hydraulic pressure source"
-msgstr ""
+msgstr "Eine hydraulische Druckquelle"
 
 #: sheets/Pneumatic.sheet.in.h:11
 msgid "A normally-in simple-effect jack"
-msgstr ""
+msgstr "Eine im Ausgangszustand einlassende Einwegbuchse"
 
 #: sheets/Pneumatic.sheet.in.h:12
 msgid "A normally-out simple-effect jack"
-msgstr ""
+msgstr "Eine im Ausgangszustand auslassende Einwegbuchse"
 
 #: sheets/Pneumatic.sheet.in.h:13
 msgid "A pneumatic pressure source"
-msgstr ""
+msgstr "Eine pneumatische Druckquelle"
 
 #: sheets/Pneumatic.sheet.in.h:14
 msgid "An air exhaust orifice"
-msgstr ""
+msgstr "Eine Luftauslassdüse"
 
 #: sheets/Pneumatic.sheet.in.h:15
 msgid "Components for pneumatic and hydraulic circuits"
-msgstr ""
+msgstr "Komponenten für pneumatische und hydraulische Schaltkreise"
 
 #: sheets/Pneumatic.sheet.in.h:16
 msgid "Electric command (double coil)"
-msgstr ""
+msgstr "Eine elektrische Steuerung (doppelte Windung)"
 
 #: sheets/Pneumatic.sheet.in.h:17
 msgid "Electric command (single coil)"
-msgstr ""
+msgstr "Elektrische Steuerung (einfache Windung)"
 
 #: sheets/Pneumatic.sheet.in.h:18
 msgid "Indirect command by hydraulic driver"
-msgstr ""
+msgstr "Indirekte Steuerung über hydraulischen Treiber"
 
 #: sheets/Pneumatic.sheet.in.h:19
 msgid "Indirect command by pneumatic driver"
-msgstr ""
+msgstr "Indirekte Steuerung über einen pneumatischen Treiber"
 
 #: sheets/Pneumatic.sheet.in.h:20
 msgid "Mechanical command by spring"
-msgstr ""
+msgstr "Mechanische Steuerung über eine Feder"
 
 #: sheets/Pneumatic.sheet.in.h:21
 msgid "Mechanical command by tappet"
-msgstr ""
+msgstr "Mechanische Steuerung über Ventilstößel"
 
 #: sheets/Pneumatic.sheet.in.h:22
 msgid "Muscular command"
-msgstr ""
+msgstr "Muskelkraftsteuerung"
 
 #: sheets/Pneumatic.sheet.in.h:23
-#, fuzzy
 msgid "Pneumatic/Hydraulic"
-msgstr "Hydraulisch"
+msgstr "Pneumatisch/Hydraulisch"
 
 #: sheets/Pneumatic.sheet.in.h:24
 msgid "Push-button command"
-msgstr ""
+msgstr "Druckknopf-Steuerung"
 
 #: sheets/SADT.sheet.in.h:1
-#, fuzzy
 msgid "A activity/data flow arrow"
-msgstr "Aktivitäts-/Datenmerkmal"
+msgstr "Ein Aktivitäts-/Datenflusspfeil"
 
 #: sheets/SADT.sheet.in.h:2
 msgid "A flow label"
-msgstr ""
+msgstr "Ein Beschriftung des Flusses"
 
 #: sheets/SADT.sheet.in.h:3
 msgid "An activity/data box"
-msgstr ""
+msgstr "Ein Aktivitäts-/Datenkasten"
 
 #: sheets/SADT.sheet.in.h:4
 msgid "Objects to design SADT diagrams"
-msgstr ""
+msgstr "Objekte um ein SADT-Diagramm zu entwerfen"
 
 #: sheets/SADT.sheet.in.h:5
 msgid "SADT/IDEF0"
-msgstr ""
+msgstr "SADT/IDEF0"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Action being executed"
-msgstr ""
+msgstr "Aktion die ausgeführt wird"
 
 #: sheets/SDL.sheet.in.h:2
 msgid "Block Type Reference"
-msgstr ""
+msgstr "Eine Referrenz vom Typ Block"
 
 #: sheets/SDL.sheet.in.h:3
-#, fuzzy
 msgid "Comment"
-msgstr "Mitte"
+msgstr "Kommentar"
 
 #: sheets/SDL.sheet.in.h:4
-#, fuzzy
 msgid "Decision"
-msgstr "Beschreibung:"
+msgstr "Entscheidung"
 
 #: sheets/SDL.sheet.in.h:5
-#, fuzzy
 msgid "Function Header"
-msgstr "Funktionsname:"
+msgstr "Funktionskopfteil"
 
 #: sheets/SDL.sheet.in.h:6
-#, fuzzy
 msgid "Function call"
-msgstr "Funktion"
+msgstr "Funktionsaufruf"
 
 #: sheets/SDL.sheet.in.h:7
 msgid "Generic Text Note"
-msgstr ""
+msgstr "Allgemeine Textanmerkung"
 
 #: sheets/SDL.sheet.in.h:8
-#, fuzzy
 msgid "In/Out Connector"
-msgstr "Verbinden"
+msgstr "Rein/Raus-Verbindung"
 
 #: sheets/SDL.sheet.in.h:10
 msgid "Procedure Return"
-msgstr ""
+msgstr "Prozedurrückkehr"
 
 #: sheets/SDL.sheet.in.h:11
-#, fuzzy
 msgid "Process Type Reference"
-msgstr "Vorgangs-Referenzbezeichner:"
+msgstr "Eine Referrenz vom Typ Prozess"
 
 #: sheets/SDL.sheet.in.h:12
-#, fuzzy
 msgid "Receive message"
-msgstr "Schnittstellennachrichten"
+msgstr "Nachricht empfangen"
 
 #: sheets/SDL.sheet.in.h:13
 msgid "SDL"
-msgstr ""
+msgstr "SDL"
 
 #: sheets/SDL.sheet.in.h:14
 msgid "Save State"
-msgstr ""
+msgstr "Zustand Speichern"
 
 #: sheets/SDL.sheet.in.h:15
-#, fuzzy
 msgid "Send message"
-msgstr "Nachricht"
+msgstr "Nachricht versenden"
 
 #: sheets/SDL.sheet.in.h:16
 msgid "Service Type Reference"
-msgstr ""
+msgstr "Eine Referrenz vom Typ Service"
 
 #: sheets/SDL.sheet.in.h:17
 msgid "Specification and Description Language."
-msgstr ""
+msgstr "Spezifikations- und Beschreibungssprache"
 
 #: sheets/SDL.sheet.in.h:18
-#, fuzzy
 msgid "State"
-msgstr "Start"
+msgstr "Zustand"
 
 #: sheets/sybase.sheet.in.h:1
 msgid "A Sybase Client Application"
-msgstr ""
+msgstr "Eine Sybase Client-Anwendung"
 
 #: sheets/sybase.sheet.in.h:2
 msgid "A Sybase Dataserver"
-msgstr ""
+msgstr "Ein Sybase Datenserver"
 
 #: sheets/sybase.sheet.in.h:3
 msgid "A Sybase Replication Server"
-msgstr ""
+msgstr "Ein Sybase Replikations-Server"
 
 #: sheets/sybase.sheet.in.h:4
 msgid "Log Transfer Manager or Rep Agent"
-msgstr ""
+msgstr "Logtransfermanager oder Replikationsagent"
 
 #: sheets/sybase.sheet.in.h:5
-#, fuzzy
 msgid "Objects to design Sybase replication domain diagrams with"
-msgstr "Sybase Replikationsdiagramm-Objekte"
+msgstr "Objekte um ein Sybase Replikationsdiagramm zu entwerfen"
 
 #: sheets/sybase.sheet.in.h:6
 msgid "Replication Server Manager"
-msgstr ""
+msgstr "Replikationsservermanager"
 
 #: sheets/sybase.sheet.in.h:7
 msgid "Stable Storage Device"
-msgstr ""
+msgstr "Stabiles Speichersytem"
 
 #: sheets/sybase.sheet.in.h:8
-#, fuzzy
 msgid "Sybase"
-msgstr "Gestrichelt"
+msgstr "Sybase"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Aggregation, one class is part of another"
-msgstr ""
+msgstr "Aggregation, eine Klasse ist Teil einer anderen"
 
 #: sheets/UML.sheet.in.h:2
 msgid "Association, two classes are associated"
-msgstr ""
+msgstr "Assoziation, zwei Klassen werden miteinander assoziiert"
 
 #: sheets/UML.sheet.in.h:3
 msgid "Constraint, place a constraint on something"
-msgstr ""
+msgstr "Einschränkung, etwas mit einer Einschränkung belegen"
 
 #: sheets/UML.sheet.in.h:4
 msgid "Create a (large) package"
-msgstr ""
+msgstr "Ein (großes) Paket erzeugen"
 
 #: sheets/UML.sheet.in.h:5
-#, fuzzy
 msgid "Create a (small) package"
-msgstr "Bild erzeugen"
+msgstr "Ein (kleines) Paket erzeugen"
 
 #: sheets/UML.sheet.in.h:6
-#, fuzzy
 msgid "Create a branch"
-msgstr "Bogen erzeugen"
+msgstr "Einen Zweig erzeugen"
 
 #: sheets/UML.sheet.in.h:7
-#, fuzzy
 msgid "Create a class"
-msgstr "Vorlage-Klasse"
+msgstr "Eine Klasse erzeugen"
 
 #: sheets/UML.sheet.in.h:8
 msgid "Create a class stereotype icon"
-msgstr ""
+msgstr "Ein Klassenstereotypsymbol erzeugen"
 
 #: sheets/UML.sheet.in.h:9
-#, fuzzy
 msgid "Create a component"
-msgstr "Vieleck erzeugen"
+msgstr "Eine Komponente erzeugen"
 
 #: sheets/UML.sheet.in.h:10
-#, fuzzy
 msgid "Create a dependency"
-msgstr "Bezierlinie erzeugen"
+msgstr "Eine Abhängigkeit erzeugen"
 
 #: sheets/UML.sheet.in.h:11
-#, fuzzy
 msgid "Create a lifeline"
-msgstr "Bezierlinie erzeugen"
+msgstr "Eine Lebenslinie erzeugen"
 
 #: sheets/UML.sheet.in.h:12
-#, fuzzy
 msgid "Create a message"
-msgstr "Bild erzeugen"
+msgstr "Eine Nachricht erzeugen"
 
 #: sheets/UML.sheet.in.h:13
-#, fuzzy
 msgid "Create a node"
-msgstr "Linie erzeugen"
+msgstr "Einen Knoten erzeugen"
 
 #: sheets/UML.sheet.in.h:14
-#, fuzzy
 msgid "Create a note"
-msgstr "Linie erzeugen"
+msgstr "Eine Bemerkung erzeugen"
 
 #: sheets/UML.sheet.in.h:15
-#, fuzzy
 msgid "Create a state machine"
-msgstr "Linie erzeugen"
+msgstr "Eine Zustandsmaschine erzeugen"
 
 #: sheets/UML.sheet.in.h:16
-#, fuzzy
 msgid "Create a template class"
-msgstr "Vorlage-Klasse"
+msgstr "Eine Vorlagen-Klasse erzeugen"
 
 #: sheets/UML.sheet.in.h:17
-#, fuzzy
 msgid "Create a use case"
-msgstr "Bild erzeugen"
+msgstr "Einen Anwendungsfall erzeugen"
 
 #: sheets/UML.sheet.in.h:18
-#, fuzzy
 msgid "Create an actor"
-msgstr "Eine neues Diagramm erzeugen"
+msgstr "Einen Akteur erzeugen"
 
 #: sheets/UML.sheet.in.h:19
-#, fuzzy
 msgid "Create an object"
-msgstr "Linie erzeugen"
+msgstr "Ein Objekt erzeugen"
 
 #: sheets/UML.sheet.in.h:20
 msgid "Editor for UML Static Structure Diagrams"
-msgstr ""
+msgstr "Editor für statische UML Strukturdiagramme"
 
 #: sheets/UML.sheet.in.h:21
 msgid "Generalization, class inheritance"
-msgstr ""
+msgstr "Verallgemeinerung, Klassenvererbung"
 
 #: sheets/UML.sheet.in.h:22
 msgid "Implements, class implements a specific interface"
-msgstr ""
+msgstr "Implementierung, Klasse implementiert eine Schnittstelle"
 
 #: sheets/UML.sheet.in.h:23
 msgid "Realizes, implements a specific interface"
-msgstr ""
+msgstr "Realisierung, implementiert eine spezielle Schnittstelle"
 
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
-msgstr ""
-
-#~ msgid "Error reading diagram file\n"
-#~ msgstr "Fehler beim Lesen der Diagrammdatei\n"
-
-#~ msgid "Event Modelling Language diagram"
-#~ msgstr "'Event Modelling Language'-Diagramm"
-
-#~ msgid "Number of processes:"
-#~ msgstr "Anzahl der Prozesse:"
-
-#~ msgid "multiple"
-#~ msgstr "mehrere"
-
-#~ msgid "Single"
-#~ msgstr "Eins"
-
-#~ msgid "Multiple"
-#~ msgstr "Mehrere"
-
-# CHECK Translation
-#~ msgid "Instantiation"
-#~ msgstr "Erzeugung"
-
-#~ msgid "Unidirectional"
-#~ msgstr "Unidirektional"
-
-#~ msgid "Bidirectional"
-#~ msgstr "Bidirektional"
-
-#~ msgid "Interaction name:"
-#~ msgstr "Interaktionsname:"
-
-#~ msgid "bidirectional"
-#~ msgstr "bidirectional"
-
-#~ msgid "relation"
-#~ msgstr "Relation"
-
-#~ msgid "Interface functions"
-#~ msgstr "Schnittstellenfunktionen"
-
-#~ msgid "Function"
-#~ msgstr "Funktion"
-
-#~ msgid "Function module:"
-#~ msgstr "Funktionsmodul:"
-
-#~ msgid "Function name:"
-#~ msgstr "Funktionsname:"
-
-#~ msgid "Interfaces"
-#~ msgstr "Schnittstellen"
-
-#~ msgid "Interface"
-#~ msgstr "Schnittstelle"
-
-#~ msgid "Interface name:"
-#~ msgstr "Schnittstellename:"
-
-#~ msgid "Interface messages"
-#~ msgstr "Schnittstellennachrichten"
-
-#~ msgid "Message"
-#~ msgstr "Nachricht"
-
-#~ msgid "Message parameters"
-#~ msgstr "Nachrichtenparameter"
-
-#~ msgid "Message parameter"
-#~ msgstr "Nachrichtenparameter"
-
-#~ msgid "Functions"
-#~ msgstr "Funktionen"
-
-#~ msgid "Messages"
-#~ msgstr "Nachrichten"
-
-#~ msgid "Process name:"
-#~ msgstr "Vorgangs-Bezeichner:"
-
-#~ msgid "Process reference name:"
-#~ msgstr "Vorgangs-Referenzbezeichner:"
-
-#~ msgid "Process lifetime:"
-#~ msgstr "Vorgangs-Lebensdauer:"
-
-#~ msgid "Module name:"
-#~ msgstr "Modulname:"
-
-#~ msgid "Function parameters"
-#~ msgstr "Funktionsparameter"
-
-#~ msgid "Parameter"
-#~ msgstr "Parameter"
-
-# CHECK Translation
-#~ msgid "Relation members"
-#~ msgstr "Teile der Relation"
-
-# CHECK Translation
-#~ msgid "Relation member"
-#~ msgstr "Teil der Relation"
+msgstr "UML"
