@@ -69,3 +69,5 @@ rm -fr $RPM_BUILD_ROOT
 %{prefix}/share/locale/*/*/*
 %{prefix}/share/mime-info/*
 %{prefix}/share/pixmaps/*
+%doc %{prefix}/share/gnome/help/dia
+# if you are building without gnome support, use /usr/share/dia/help instead

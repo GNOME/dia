@@ -11,6 +11,7 @@ endif
 
 noinst_LIBRARIES =     libdia.a
 libdia_a_SOURCES =  \
+		diavar.h \
 		diamenu.h \
 		diagramdata.h \
 		diagramdata.c \

@@ -18,10 +18,14 @@ print_files = \
 	render_gnomeprint.h \
 	paginate_gnomeprint.c \
 	paginate_gnomeprint.h
+embed_extra_print_files =
 else
 print_files = \
 	paginate_psprint.c \
 	paginate_psprint.h
+embed_extra_print_files = \
+	render_gnomeprint.c \
+	render_gnomeprint.h
 endif
 
 noinst_PROGRAMS = run_dia.sh
@@ -126,11 +130,9 @@ dia_core_files = \
 	    cursor.c \
 	    cursor.h \
 	    splash.c \
-	    splash.h \
 	    recent_files.h \
 	    recent_files.c \
 	    $(print_files)
-
 
 dia_SOURCES = \
 	    $(dia_core_files) \
@@ -148,6 +150,7 @@ dia_LDADD = ../lib/libdia.a \
 
 dia_embedd_SOURCES = \
 	    $(dia_core_files) \
+	    $(embed_extra_print_files) \
 	    dia_embedd.c
 
 dia_embedd_LDADD = ../lib/libdia.a \
@@ -181,7 +184,13 @@ EXTRA_DIST = \
 	pixmaps/hand-open-data.xbm \
 	pixmaps/hand-open-mask.xbm \
 	pixmaps/hand-closed-data.xbm \
-	pixmaps/hand-closed-mask.xbm
+	pixmaps/hand-closed-mask.xbm \
+	pixmaps/snap-to-grid.xpm \
+	pixmaps/snap-to-grid-mask.xpm \
+	pixmaps/magnify-plus-data.xbm \
+	pixmaps/magnify-plus-mask.xbm \
+	pixmaps/magnify-minus-data.xbm \
+	pixmaps/magnify-minus-mask.xbm
 
 run_dia.sh: Makefile.am
 	echo "#!$(SHELL) " > run_dia.sh

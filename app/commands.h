@@ -29,6 +29,7 @@ void file_close_callback(gpointer data, guint action, GtkWidget *widget);
 void file_new_callback(gpointer data, guint action, GtkWidget *widget);
 void file_preferences_callback(gpointer data, guint action, GtkWidget *widget);
 
+void help_manual_callback(gpointer data, guint action, GtkWidget *widget);
 void help_about_callback(gpointer data, guint action, GtkWidget *widget);
 
 void edit_copy_callback(gpointer data, guint action, GtkWidget *widget);

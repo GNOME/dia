@@ -1,3 +1,46 @@
+2001-03-16  James Henstridge  <james@daa.com.au>
+
+	* app/Makefile.am (EXTRA_DIST): add extra pixmaps.
+
+	* objects/UML/Makefile.am (libuml_objects_la_SOURCES): add
+	stereotype.h
+
+	* lib/Makefile.am (libdia_a_SOURCES): add diavar.h here.
+
+	* app/Makefile.am (dia_core_files): remove splash.h from file
+	list, as it doesn't exist.
+
+	* doc/en/Makefile.am (uninstall-local): remove the docdir on
+	uninstall.
+
+	* doc/Makefile.am (uninstall-local): target to remove the C
+	symlink.
+
+	* dia.spec (%files): include the documentation in the package.
+
+	* app/menus.c (toolbox_menu_items): add menu item for manual,
+	which calls help_manual_callback.
+
+	* app/commands.c (help_manual_callback): find help file and load
+	netscape to view it.
+
+	* app/commands.h: add prototype for help_manual_callback()
+
+	* doc/Makefile.am (helpdir): similar here.
+
+	* doc/en/Makefile.am (helpdir): make the helpdir
+	$(pkgdatadir)/help/en in the non gnome case.
+
+	* configure.in (HAVE_GNOME): add conditional.
+
+	* doc/en/Makefile.am: handle the graphics in a more general way,
+	so it is easier for Kevin to add them to the build (just add them
+	to the GRAPHICS var).
+
+	* app/Makefile.am (embed_extra_print_files): make the case of
+	building without gnome-print support but with bonobo support work.
+	dia-embedd needs to be include the gnome-print
+
 2001-03-09  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* samples/Makefile.am: included all samples in the distribution....

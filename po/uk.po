@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.82\n"
-"POT-Creation-Date: 2001-01-19 13:09+0200\n"
+"POT-Creation-Date: 2001-03-16 22:28+0800\n"
 "PO-Revision-Date: 1999-12-28 09:11+0200\n"
 "Last-Translator: Yuri Syrota <rasta@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -70,9 +70,9 @@ msgstr ""
 msgid "Quit"
 msgstr "Вих╕д"
 
-#: app/app_procs.c:355 app/display.c:892 app/layer_dialog.c:986
-#: app/lineprops_area.c:549 app/lineprops_area.c:747 app/linewidth_area.c:241
-#: app/paginate_psprint.c:243
+#: app/app_procs.c:355 app/display.c:909 app/layer_dialog.c:989
+#: app/lineprops_area.c:553 app/lineprops_area.c:751 app/linewidth_area.c:246
+#: app/paginate_psprint.c:247
 msgid "Cancel"
 msgstr "В╕дм╕на"
 
@@ -84,11 +84,11 @@ msgstr "Неможливо створити користувацький каталог конф╕гурац╕╖ Dia"
 msgid "Objects and filters internal to dia"
 msgstr "Об'╓кти та ф╕льтри всередин╕ dia"
 
-#: app/color_area.c:260 lib/widgets.c:492
+#: app/color_area.c:264 lib/widgets.c:492
 msgid "Select color"
 msgstr "Виб╕р кольору"
 
-#: app/commands.c:86
+#: app/commands.c:89
 #, c-format
 msgid ""
 "No such file found\n"
@@ -97,51 +97,55 @@ msgstr ""
 "Такого файлу не знайдено\n"
 "%s\n"
 
-#: app/commands.c:106
+#: app/commands.c:109
 msgid "Import from XFig"
 msgstr "╤мпорт з XFig"
 
-#: app/commands.c:162
+#: app/commands.c:165
 #, c-format
 msgid "Untitled-%d"
 msgstr "Неназвана-%d"
 
-#: app/commands.c:223
+#: app/commands.c:226
 msgid "No existing object to paste.\n"
 msgstr "Не ╕сну╓ об'╓кту для вставляння.\n"
 
-#: app/commands.c:458
+#: app/commands.c:483 app/commands.c:506
+msgid "Could not find help directory"
+msgstr ""
+
+#: app/commands.c:550
 msgid "About Dia"
 msgstr "Про Dia"
 
-#: app/commands.c:501
+#: app/commands.c:593
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia верс╕╖ %s. Автор: Alexander Larsson"
 
-#: app/commands.c:506
+#: app/commands.c:598
 msgid "Maintainer: James Henstridge"
 msgstr "Головний розробник: James Henstridge"
 
-#: app/commands.c:510
+#: app/commands.c:602
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Будь ласка, звертайтесь за додатковою ╕нформац╕╓ю за адресою "
 "http://www.lysator.liu.se/~alla/dia"
 
-#: app/commands.c:515
+#: app/commands.c:607
 msgid "Contributors:"
 msgstr "Розробники:"
 
 #. setup buttons
-#: app/commands.c:532 app/dia-props.c:86 app/layer_dialog.c:976
-#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:232
-#: app/pagesetup.c:72 app/paginate_psprint.c:235 app/preferences.c:602
+#: app/commands.c:624 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/lineprops_area.c:544 app/lineprops_area.c:741 app/linewidth_area.c:237
+#: app/pagesetup.c:72 app/paginate_psprint.c:239 app/preferences.c:604
 #: app/properties.c:82 lib/message.c:87
 msgid "OK"
 msgstr "Гаразд"
 
-#: app/commands.c:639
+#: app/commands.c:710
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -156,12 +160,12 @@ msgid "Object defaults"
 msgstr "Типов╕ властивост╕ об'╓кту"
 
 #: app/defaults.c:73 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:611 app/properties.c:91
+#: app/preferences.c:613 app/properties.c:91
 msgid "Apply"
 msgstr "Застосувати"
 
-#: app/defaults.c:83 app/dia-props.c:105 app/layer_dialog.c:261
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:620
+#: app/defaults.c:83 app/dia-props.c:105 app/layer_dialog.c:264
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:622
 #: app/properties.c:101
 msgid "Close"
 msgstr "Закрити"
@@ -170,7 +174,7 @@ msgstr "Закрити"
 msgid "This object has no defaults."
 msgstr "Цей об'╓кт не ма╓ типових властивостей."
 
-#: app/dia_embedd.c:236
+#: app/dia_embedd.c:352
 msgid "Could not initialize Bonobo!"
 msgstr "Не вдалося ╕н╕ц╕ал╕зувати Bonobo!"
 
@@ -202,68 +206,68 @@ msgstr "С╕тка"
 msgid "Background Colour"
 msgstr "Кол╕р тла"
 
-#: app/dia-props.c:200 lib/diagramdata.c:53
+#: app/dia-props.c:200 lib/diagramdata.c:59
 msgid "Background"
 msgstr "Тло"
 
 #. paper size
-#: app/diapagelayout.c:108
+#: app/diapagelayout.c:112
 msgid "Paper Size"
 msgstr "Розм╕р аркушу"
 
 #. orientation
-#: app/diapagelayout.c:141
+#: app/diapagelayout.c:145
 msgid "Orientation"
 msgstr "Ор╕╓нтац╕я"
 
 #. margins
-#: app/diapagelayout.c:179
+#: app/diapagelayout.c:183
 msgid "Margins"
 msgstr "В╕дступи"
 
-#: app/diapagelayout.c:191
+#: app/diapagelayout.c:195
 msgid "Top:"
 msgstr "Вгор╕:"
 
-#: app/diapagelayout.c:204
+#: app/diapagelayout.c:208
 msgid "Bottom:"
 msgstr "Внизу:"
 
-#: app/diapagelayout.c:217
+#: app/diapagelayout.c:221
 msgid "Left:"
 msgstr "Л╕воруч:"
 
-#: app/diapagelayout.c:230
+#: app/diapagelayout.c:234
 msgid "Right:"
 msgstr "Праворуч:"
 
 #. Scaling
-#: app/diapagelayout.c:244
+#: app/diapagelayout.c:248
 msgid "Scaling"
 msgstr "Масштабування"
 
-#: app/diapagelayout.c:255
+#: app/diapagelayout.c:259
 msgid "Scale:"
 msgstr "Масштаб:"
 
-#: app/diapagelayout.c:267
+#: app/diapagelayout.c:271
 msgid "Fit to:"
 msgstr "Заповнити до:"
 
-#: app/diapagelayout.c:279
+#: app/diapagelayout.c:283
 msgid "by"
 msgstr " "
 
-#: app/diapagelayout.c:674
+#: app/diapagelayout.c:678
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gсм x %0.3gсм"
 
-#: app/diapagelayout.c:776 app/pagesetup.c:60 app/pagesetup.c:68
+#: app/diapagelayout.c:780 app/pagesetup.c:60 app/pagesetup.c:68
 msgid "Page Setup"
 msgstr "Наладнання стор╕нки"
 
-#: app/disp_callbacks.c:70 app/properties.c:164
+#: app/disp_callbacks.c:74 app/properties.c:164
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -271,27 +275,27 @@ msgstr ""
 "Цей об'╓кт не п╕дтриму╓ в╕дм╕ну\n"
 "╤нформац╕я в╕дм╕ни знищена."
 
-#: app/disp_callbacks.c:167
+#: app/disp_callbacks.c:171
 msgid "No object menu"
 msgstr "Нема╓ меню об╓'кту"
 
-#: app/display.c:128 app/display.c:129 app/interface.c:399
+#: app/display.c:132 app/display.c:133 app/interface.c:399
 msgid "Zoom"
 msgstr "Масштаб"
 
-#: app/display.c:149
+#: app/display.c:153
 msgid "Diagram modified!"
 msgstr "Д╕аграму зм╕нено!"
 
-#: app/display.c:842
+#: app/display.c:859
 msgid "Close Diagram?"
 msgstr "Закрити д╕аграму?"
 
-#: app/display.c:848
+#: app/display.c:865
 msgid "Really close?"
 msgstr "Дейсно закрити?"
 
-#: app/display.c:853
+#: app/display.c:870
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -299,20 +303,20 @@ msgstr ""
 "Цю д╕аграму не було збережено.\n"
 "Зберегти зм╕ни зараз?"
 
-#: app/display.c:871 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:494
-#: lib/properties.c:279
+#: app/display.c:888 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:496
+#: lib/properties.c:283
 msgid "Yes"
 msgstr "Так"
 
-#: app/display.c:881 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:494
-#: app/preferences.c:505 lib/properties.c:281 lib/properties.c:302
+#: app/display.c:898 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:496
+#: app/preferences.c:507 lib/properties.c:285 lib/properties.c:306
 msgid "No"
 msgstr "Н╕"
 
-#: app/export_png.c:79 app/load_save.c:583 app/render_eps.c:165
-#: plug-ins/cgm/cgm.c:1129 plug-ins/dxf/dxf-export.c:513
-#: plug-ins/hpgl/hpgl.c:556 plug-ins/pstricks/render_pstricks.c:188
-#: plug-ins/shape/shape-export.c:195 plug-ins/svg/render_svg.c:181
+#: app/export_png.c:79 app/load_save.c:583 app/render_eps.c:201
+#: plug-ins/cgm/cgm.c:1135 plug-ins/dxf/dxf-export.c:516
+#: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
+#: plug-ins/shape/shape-export.c:194 plug-ins/svg/render_svg.c:180
 #: plug-ins/wpg/wpg.c:932
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
@@ -388,11 +392,11 @@ msgstr "Експортувати параметри"
 msgid "Modify object(s)"
 msgstr "Зм╕нити об'╓кт(и)"
 
-#: app/interface.c:43 app/menus.c:183
+#: app/interface.c:43 app/menus.c:192
 msgid "Modify"
 msgstr "Модиф╕кувати"
 
-#: app/interface.c:47 app/interface.c:48 app/menus.c:184
+#: app/interface.c:47 app/interface.c:48 app/menus.c:193
 msgid "Magnify"
 msgstr "Зб╕льшити"
 
@@ -400,7 +404,7 @@ msgstr "Зб╕льшити"
 msgid "Scroll around the diagram"
 msgstr "Прокрутити в╕кно д╕аграми"
 
-#: app/interface.c:53 app/menus.c:185
+#: app/interface.c:53 app/menus.c:194
 msgid "Scroll"
 msgstr "Прокрутити"
 
@@ -408,7 +412,7 @@ msgstr "Прокрутити"
 msgid "Create Text"
 msgstr "Створити блок тексту"
 
-#: app/interface.c:58 app/menus.c:186
+#: app/interface.c:58 app/menus.c:195 lib/properties.h:382
 msgid "Text"
 msgstr "Текст"
 
@@ -416,7 +420,7 @@ msgstr "Текст"
 msgid "Create Box"
 msgstr "Створити прямокутник"
 
-#: app/interface.c:63 app/menus.c:187
+#: app/interface.c:63 app/menus.c:196
 msgid "Box"
 msgstr "Прямокутник"
 
@@ -424,7 +428,7 @@ msgstr "Прямокутник"
 msgid "Create Ellipse"
 msgstr "Створити ел╕пс"
 
-#: app/interface.c:68 app/menus.c:188
+#: app/interface.c:68 app/menus.c:197
 msgid "Ellipse"
 msgstr "Ел╕пс"
 
@@ -432,7 +436,7 @@ msgstr "Ел╕пс"
 msgid "Create Polygon"
 msgstr "Створити многокутник"
 
-#: app/interface.c:73 app/menus.c:189
+#: app/interface.c:73 app/menus.c:198
 msgid "Polygon"
 msgstr "Многокутник"
 
@@ -440,7 +444,7 @@ msgstr "Многокутник"
 msgid "Create Beziergon"
 msgstr "Створити \"без'╓кутник\""
 
-#: app/interface.c:78 app/menus.c:190
+#: app/interface.c:78 app/menus.c:199
 msgid "Beziergon"
 msgstr "Без'╓кутник"
 
@@ -448,7 +452,7 @@ msgstr "Без'╓кутник"
 msgid "Create Line"
 msgstr "Створити л╕н╕ю"
 
-#: app/interface.c:83 app/menus.c:191 objects/standard/line.c:183
+#: app/interface.c:83 app/menus.c:200 objects/standard/line.c:188
 msgid "Line"
 msgstr "Л╕н╕я"
 
@@ -456,7 +460,7 @@ msgstr "Л╕н╕я"
 msgid "Create Arc"
 msgstr "Створити дугу"
 
-#: app/interface.c:88 app/menus.c:192
+#: app/interface.c:88 app/menus.c:201
 msgid "Arc"
 msgstr "Дуга"
 
@@ -464,7 +468,7 @@ msgstr "Дуга"
 msgid "Create Zigzagline"
 msgstr "Створити згин"
 
-#: app/interface.c:93 app/menus.c:193
+#: app/interface.c:93 app/menus.c:202
 msgid "Zigzagline"
 msgstr "Згин"
 
@@ -472,7 +476,7 @@ msgstr "Згин"
 msgid "Create Polyline"
 msgstr "Створити ламану"
 
-#: app/interface.c:98 app/menus.c:194
+#: app/interface.c:98 app/menus.c:203
 msgid "Polyline"
 msgstr "Ламана"
 
@@ -480,7 +484,7 @@ msgstr "Ламана"
 msgid "Create Bezierline"
 msgstr "Створити криву Без'╓"
 
-#: app/interface.c:103 app/menus.c:195
+#: app/interface.c:103 app/menus.c:204
 msgid "Bezierline"
 msgstr "Крива Без'╓"
 
@@ -488,7 +492,7 @@ msgstr "Крива Без'╓"
 msgid "Create Image"
 msgstr "Створити зображення"
 
-#: app/interface.c:108 app/menus.c:196
+#: app/interface.c:108 app/menus.c:205
 msgid "Image"
 msgstr "Зображення"
 
@@ -509,65 +513,65 @@ msgstr ""
 msgid "Diagram Editor"
 msgstr "Редактор д╕аграм"
 
-#: app/layer_dialog.c:66
+#: app/layer_dialog.c:69
 msgid "New Layer"
 msgstr "Новий шар"
 
-#: app/layer_dialog.c:67
+#: app/layer_dialog.c:70
 msgid "Raise Layer"
 msgstr "П╕дняти шар"
 
-#: app/layer_dialog.c:68
+#: app/layer_dialog.c:71
 msgid "Lower Layer"
 msgstr "Опустити шар"
 
-#: app/layer_dialog.c:69
+#: app/layer_dialog.c:72
 msgid "Delete Layer"
 msgstr "Видалити шар"
 
-#: app/layer_dialog.c:203
+#: app/layer_dialog.c:206
 msgid "Layers"
 msgstr "Шари"
 
-#: app/layer_dialog.c:216
+#: app/layer_dialog.c:219
 msgid "Diagrams:"
 msgstr "Д╕аграми:"
 
-#: app/layer_dialog.c:306
+#: app/layer_dialog.c:309
 msgid "New layer"
 msgstr "Новий шар"
 
-#: app/layer_dialog.c:509
+#: app/layer_dialog.c:512
 msgid "none"
 msgstr "нема╓"
 
-#: app/layer_dialog.c:951
+#: app/layer_dialog.c:954
 msgid "Edit Layer Attributes"
 msgstr "Редагування ознак шару"
 
-#: app/layer_dialog.c:967
+#: app/layer_dialog.c:970
 msgid "Layer name:"
 msgstr "Назва шару:"
 
-#: app/lineprops_area.c:529
+#: app/lineprops_area.c:533
 msgid "Arrow Properties"
 msgstr "Властивост╕ стр╕лки"
 
-#: app/lineprops_area.c:586 app/lineprops_area.c:770
+#: app/lineprops_area.c:590 app/lineprops_area.c:774
 msgid "Details..."
 msgstr "Детал╕..."
 
-#: app/lineprops_area.c:726
+#: app/lineprops_area.c:730
 msgid "Line Style Properties"
 msgstr "Властивост╕ стилю л╕н╕╖"
 
-#: app/linewidth_area.c:211
+#: app/linewidth_area.c:216
 msgid "Line width"
 msgstr "Ширина л╕н╕╖"
 
-#: app/linewidth_area.c:219 objects/chronogram/chronoline.c:331
-#: objects/chronogram/chronoline.c:422 objects/chronogram/chronoref.c:251
-#: objects/chronogram/chronoref.c:316
+#: app/linewidth_area.c:224 objects/chronogram/chronoline.c:336
+#: objects/chronogram/chronoline.c:427 objects/chronogram/chronoref.c:256
+#: objects/chronogram/chronoref.c:321
 msgid "Line width:"
 msgstr "Ширина л╕н╕╖:"
 
@@ -599,7 +603,8 @@ msgstr ""
 "Помилка завантаження д╕аграми.\n"
 "обробника з'╓днання не ╕сну╓."
 
-#: app/load_save.c:230 plug-ins/dxf/dxf-import.c:490 plug-ins/wpg/wpg.c:1038
+#: app/load_save.c:230 plug-ins/dxf/dxf-import.c:493 plug-ins/wpg/wpg.c:1038
+#: plug-ins/xfig/xfig-import.c:1391
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Не вдилось в╕дкрити: \"%s\" для зчитування.\n"
@@ -635,646 +640,656 @@ msgstr "Не вдалося зберегти файл \"%s\".\n"
 msgid "Native Dia Diagram"
 msgstr "Р╕дна д╕аграма Dia"
 
-#: app/menus.c:39 app/menus.c:50
+#: app/menus.c:43 app/menus.c:54
 msgid "_New diagram"
 msgstr "Нова д╕аграма"
 
-#: app/menus.c:39 app/menus.c:50
+#: app/menus.c:43 app/menus.c:54
 msgid "Create new diagram"
 msgstr "Створити нову д╕аграму"
 
-#: app/menus.c:43 app/plugin-manager.c:129 app/plugin-manager.c:135
+#: app/menus.c:47 app/plugin-manager.c:129 app/plugin-manager.c:135
 msgid "Plug-ins"
 msgstr "Доповнення"
 
-#: app/menus.c:57
+#: app/menus.c:61
 msgid "_Export..."
 msgstr "Експортувати..."
 
-#: app/menus.c:61
+#: app/menus.c:65
 msgid "Page Set_up..."
 msgstr "Наладнання стор╕нки..."
 
-#: app/menus.c:63
+#: app/menus.c:67
 msgid "_Print Diagram..."
 msgstr "Надрукувати д╕аграму..."
 
-#: app/menus.c:78
+#: app/menus.c:82
 msgid "_Delete"
 msgstr "Видалити"
 
-#: app/menus.c:84
+#: app/menus.c:88
 msgid "Copy Text"
 msgstr "Скоп╕ювати текст"
 
-#: app/menus.c:85
+#: app/menus.c:89
 msgid "Cut Text"
 msgstr "Вир╕зати текст"
 
-#: app/menus.c:86
+#: app/menus.c:90
 msgid "Paste _Text"
 msgstr "Вставити текст"
 
-#: app/menus.c:109
+#: app/menus.c:113
 msgid "Zoom _In"
 msgstr "Зб╕льшити"
 
-#: app/menus.c:109
+#: app/menus.c:113
 #, c-format
 msgid "Zoom in 50%"
 msgstr "Зб╕льшити на 50%"
 
-#: app/menus.c:110
+#: app/menus.c:114
 msgid "Zoom _Out"
 msgstr "Зменшити"
 
-#: app/menus.c:110
+#: app/menus.c:114
 #, c-format
 msgid "Zoom out 50%"
 msgstr "Зменшити на 50%"
 
-#: app/menus.c:111
+#: app/menus.c:115
 msgid "_Zoom"
 msgstr "Масштаб"
 
-#: app/menus.c:112
+#: app/menus.c:116
 msgid "Diagram Properties..."
 msgstr "Властивост╕ д╕аграми..."
 
-#: app/menus.c:114
+#: app/menus.c:118
 msgid "_AntiAliased"
 msgstr "Згладжування"
 
-#: app/menus.c:117
+#: app/menus.c:121
 msgid "_Visible Grid"
 msgstr "Показувати с╕тку"
 
-#: app/menus.c:119
+#: app/menus.c:123
 msgid "_Snap To Grid"
 msgstr "При╓днувати до с╕тки"
 
-#: app/menus.c:121
+#: app/menus.c:125
 msgid "Show _Rulers"
 msgstr "Показувати л╕н╕йки"
 
-#: app/menus.c:123
+#: app/menus.c:127
 msgid "Show _Connection Points"
 msgstr "Показувати тояки з'╓днання"
 
-#: app/menus.c:126
+#: app/menus.c:130
 msgid "New _View"
 msgstr "Нове в╕кно"
 
-#: app/menus.c:127
+#: app/menus.c:131
 msgid "Show _All"
 msgstr "Показати все"
 
-#: app/menus.c:132
-msgid "All"
-msgstr "Все"
-
-#: app/menus.c:133 lib/widgets.c:654 objects/UML/association.c:991
-msgid "None"
-msgstr "Нема╓"
-
-#: app/menus.c:134 app/menus.c:147
-msgid "Invert"
-msgstr "╤нвертувати"
-
-#: app/menus.c:135
-msgid "Connected"
-msgstr "При╓днаний"
-
 #: app/menus.c:136
-msgid "Transitive"
-msgstr "Транзитивний"
-
-#: app/menus.c:137
-msgid "Same Type"
-msgstr "Того ж типу"
-
-#: app/menus.c:139
 msgid "Replace"
 msgstr "Зам╕нити"
 
-#: app/menus.c:141
+#: app/menus.c:138
 msgid "Union"
 msgstr "Об'╓днання"
 
-#: app/menus.c:143
+#: app/menus.c:140
 msgid "Intersect"
 msgstr "Перетин"
 
-#: app/menus.c:145
+#: app/menus.c:142
 msgid "Remove"
 msgstr "Видалити"
 
-#: app/menus.c:153 lib/properties.c:1176 lib/properties.h:324
+#: app/menus.c:144 app/menus.c:152
+msgid "Invert"
+msgstr "╤нвертувати"
+
+#: app/menus.c:150
+msgid "All"
+msgstr "Все"
+
+#: app/menus.c:151 lib/widgets.c:654 objects/UML/association.c:1001
+msgid "None"
+msgstr "Нема╓"
+
+#: app/menus.c:153
+msgid "Connected"
+msgstr "При╓днаний"
+
+#: app/menus.c:154
+msgid "Transitive"
+msgstr "Транзитивний"
+
+#: app/menus.c:155
+msgid "Same Type"
+msgstr "Того ж типу"
+
+#: app/menus.c:162 lib/properties.c:1180 lib/properties.h:322
 #: lib/widgets.c:176
 msgid "Left"
 msgstr "Л╕воруч"
 
-#: app/menus.c:154 app/menus.c:163 lib/properties.c:1177 lib/properties.h:325
+#: app/menus.c:163 app/menus.c:172 lib/properties.c:1181 lib/properties.h:323
 #: lib/widgets.c:182
 msgid "Center"
 msgstr "В центр"
 
-#: app/menus.c:155 lib/properties.c:1178 lib/properties.h:326
+#: app/menus.c:164 lib/properties.c:1182 lib/properties.h:324
 #: lib/widgets.c:188
 msgid "Right"
 msgstr "Праворуч"
 
-#: app/menus.c:156 app/menus.c:165
+#: app/menus.c:165 app/menus.c:174
 msgid "Equal Distance"
 msgstr "Р╕вни в╕дстан╕"
 
-#: app/menus.c:157 app/menus.c:166
+#: app/menus.c:166 app/menus.c:175
 msgid "Adjacent"
 msgstr "Сум╕жно"
 
-#: app/menus.c:162
+#: app/menus.c:171
 msgid "Top"
 msgstr "Вверх"
 
-#: app/menus.c:164
+#: app/menus.c:173
 msgid "Bottom"
 msgstr "Вниз"
 
-#: app/menus.c:171
+#: app/menus.c:180
 msgid "Send to _Back"
 msgstr "Перем╕стити вниз"
 
-#: app/menus.c:172
+#: app/menus.c:181
 msgid "Bring to _Front"
 msgstr "Перем╕стити наверх"
 
-#: app/menus.c:174
+#: app/menus.c:183
 msgid "_Group"
 msgstr "Згрупувати"
 
-#: app/menus.c:175
+#: app/menus.c:184
 msgid "_Ungroup"
 msgstr "Розгрупувати"
 
-#: app/menus.c:177
+#: app/menus.c:186
 msgid "Align _Horizontal"
 msgstr "Вир╕внювання горизонтальне"
 
-#: app/menus.c:178
+#: app/menus.c:187
 msgid "Align _Vertical"
 msgstr "Вир╕внювання вертикальне"
 
-#: app/menus.c:201
+#: app/menus.c:210
 msgid "_Properties"
 msgstr "Властивост╕"
 
-#: app/menus.c:202
+#: app/menus.c:211
 msgid "_Layers"
 msgstr "Шари"
 
-#: app/menus.c:221
+#: app/menus.c:231
 msgid "_Select"
 msgstr "Вибрати"
 
-#: app/menus.c:222
+#: app/menus.c:232
 msgid "_Objects"
 msgstr "Об'╓кти"
 
-#: app/menus.c:223
+#: app/menus.c:233
 msgid "_Tools"
 msgstr "╤нструменти"
 
-#: app/menus.c:224
+#: app/menus.c:234
 msgid "_Dialogs"
 msgstr "Д╕алоги"
 
-#: app/menus.c:238 app/menus.c:254
+#: app/menus.c:245 app/menus.c:266
 msgid "/_File"
 msgstr "/Файл"
 
-#: app/menus.c:239 app/menus.c:255
+#: app/menus.c:247 app/menus.c:268
 msgid "/File/_New"
 msgstr "/Файл/Новий"
 
-#: app/menus.c:240 app/menus.c:256
+#: app/menus.c:248 app/menus.c:269
 msgid "/File/_Open"
 msgstr "/Файл/В╕дкрити"
 
-#: app/menus.c:241
+#: app/menus.c:249
 msgid "/File/Open _Recent"
 msgstr "/Файл/В╕дкрити недавн╕й"
 
-#: app/menus.c:242
+#: app/menus.c:250
 msgid "/File/Open Recent/---"
 msgstr "/Файл/В╕дкрити недавн╕й/---"
 
-#: app/menus.c:244
+#: app/menus.c:252
 msgid "/File/_Preferences..."
 msgstr "/Файл/Параметри..."
 
-#: app/menus.c:245
+#: app/menus.c:253
 msgid "/File/P_lugins"
 msgstr "/Файл/Доповнення"
 
-#: app/menus.c:246 app/menus.c:260 app/menus.c:263
+#: app/menus.c:254 app/menus.c:273 app/menus.c:276
 msgid "/File/---"
 msgstr "/Файл/---"
 
-#: app/menus.c:247 app/menus.c:266
+#: app/menus.c:255 app/menus.c:279
 msgid "/File/_Quit"
 msgstr "/Файл/Вийти"
 
-#: app/menus.c:248
+#: app/menus.c:256
 msgid "/_Help"
 msgstr "/Дов╕дка"
 
-#: app/menus.c:249
+#: app/menus.c:258
+#, fuzzy
+msgid "/Help/_Manual"
+msgstr "/Дов╕дка/Про"
+
+#: app/menus.c:259
+#, fuzzy
+msgid "/Help/---"
+msgstr "/Вибрати/---"
+
+#: app/menus.c:260
 msgid "/Help/_About"
 msgstr "/Дов╕дка/Про"
 
-#: app/menus.c:257
+#: app/menus.c:270
 msgid "/File/_Save"
 msgstr "/Файл/Зберегти"
 
-#: app/menus.c:258
+#: app/menus.c:271
 msgid "/File/Save _As..."
 msgstr "/Файл/Зберегти як..."
 
-#: app/menus.c:259
+#: app/menus.c:272
 msgid "/File/_Export..."
 msgstr "/Файл/Експортувати..."
 
-#: app/menus.c:261
+#: app/menus.c:274
 msgid "/File/Page Set_up..."
 msgstr "/Файл/Наладнання стор╕нки..."
 
-#: app/menus.c:262
+#: app/menus.c:275
 msgid "/File/_Print Diagram..."
 msgstr "/Файл/Надрукувати д╕аграму..."
 
-#: app/menus.c:264
+#: app/menus.c:277
 msgid "/File/_Close"
 msgstr "/Файл/Закрити"
 
-#: app/menus.c:267
+#: app/menus.c:280
 msgid "/_Edit"
 msgstr "/Редагування"
 
-#: app/menus.c:268
+#: app/menus.c:282
 msgid "/Edit/_Copy"
 msgstr "/Редагування/Скоп╕ювати"
 
-#: app/menus.c:269
+#: app/menus.c:283
 msgid "/Edit/C_ut"
 msgstr "/Редагування/Вир╕зати"
 
-#: app/menus.c:270
+#: app/menus.c:284
 msgid "/Edit/_Paste"
 msgstr "/Редагування/Вставити"
 
-#: app/menus.c:271
+#: app/menus.c:285
 msgid "/Edit/_Delete"
 msgstr "/Редагування/Видалити"
 
-#: app/menus.c:272
+#: app/menus.c:286
 msgid "/Edit/_Undo"
 msgstr "/Редагування/В╕дм╕нити"
 
-#: app/menus.c:273
+#: app/menus.c:287
 msgid "/Edit/_Redo"
 msgstr "/Редагування/Повернути"
 
-#: app/menus.c:274
+#: app/menus.c:288
 msgid "/Edit/Copy Text"
 msgstr "/Редагування/Скоп╕ювати текст"
 
-#: app/menus.c:275
+#: app/menus.c:289
 msgid "/Edit/Cut Text"
 msgstr "/Редагування/Вир╕зати текст"
 
-#: app/menus.c:276
+#: app/menus.c:290
 msgid "/Edit/Paste _Text"
 msgstr "/Редагування/Вставити текст"
 
-#: app/menus.c:277
+#: app/menus.c:291
 msgid "/_View"
 msgstr "/Показ"
 
-#: app/menus.c:278
+#: app/menus.c:293
 msgid "/View/Zoom _In"
 msgstr "/Показ/Зб╕льшити"
 
-#: app/menus.c:279
+#: app/menus.c:294
 msgid "/View/Zoom _Out"
 msgstr "/Показ/Зменшити"
 
-#: app/menus.c:280
+#: app/menus.c:295
 msgid "/View/_Zoom"
 msgstr "/Показ/Масштаб"
 
-#: app/menus.c:281
+#: app/menus.c:297
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Показ/Масштаб/400%"
 
-#: app/menus.c:282
+#: app/menus.c:298
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Показ/Масштаб/283%"
 
-#: app/menus.c:283
+#: app/menus.c:299
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Показ/Масштаб/200%"
 
-#: app/menus.c:284
+#: app/menus.c:300
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Показ/Масштаб/141%"
 
-#: app/menus.c:285
+#: app/menus.c:301
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Показ/Масштаб/100%"
 
-#: app/menus.c:286
+#: app/menus.c:302
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Показ/Масштаб/85%"
 
-#: app/menus.c:287
+#: app/menus.c:303
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Показ/Масштаб/70.7%"
 
-#: app/menus.c:288
+#: app/menus.c:304
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Показ/Масштаб/50%"
 
-#: app/menus.c:289
+#: app/menus.c:305
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Показ/Масштаб/35.4%"
 
-#: app/menus.c:290
+#: app/menus.c:306
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Показ/Масштаб/25%"
 
-#: app/menus.c:291
+#: app/menus.c:307
 msgid "/View/Diagram Properties"
 msgstr "/Показ/Властивост╕ д╕аграми"
 
-#: app/menus.c:293
+#: app/menus.c:309
 msgid "/View/_AntiAliased"
 msgstr "/Показ/Згладжування"
 
-#: app/menus.c:295
+#: app/menus.c:311
 msgid "/View/_Visible Grid"
 msgstr "/Показ/Показувати с╕тку"
 
-#: app/menus.c:296
+#: app/menus.c:312
 msgid "/View/_Snap To Grid"
 msgstr "/Показ/При╓днувати до с╕тки"
 
-#: app/menus.c:297
+#: app/menus.c:313
 msgid "/View/Show _Rulers"
 msgstr "/Показ/Показувати л╕н╕йки"
 
-#: app/menus.c:298
+#: app/menus.c:314
 msgid "/View/Show _Connection Points"
 msgstr "/Показ/Показувати точки з'╓днання"
 
-#: app/menus.c:299
+#: app/menus.c:315
 msgid "/View/---"
 msgstr "/Показ/---"
 
-#: app/menus.c:300
+#: app/menus.c:316
 msgid "/View/New _View"
 msgstr "/Показ/Нове в╕кно"
 
-#: app/menus.c:301
+#: app/menus.c:317
 msgid "/View/Show _All"
 msgstr "/Показ/Показати все"
 
-#: app/menus.c:302
+#: app/menus.c:318
 msgid "/_Select"
 msgstr "/Вибрати"
 
-#: app/menus.c:303
+#: app/menus.c:320
 msgid "/Select/All"
 msgstr "/Виб╕р/Все"
 
-#: app/menus.c:304
+#: app/menus.c:321
 msgid "/Select/None"
 msgstr "/Виб╕р/Н╕чого"
 
-#: app/menus.c:305 app/menus.c:314
+#: app/menus.c:322 app/menus.c:335
 msgid "/Select/Invert"
 msgstr "/Виб╕р/╤нвертувати"
 
-#: app/menus.c:306
+#: app/menus.c:323
 msgid "/Select/Connected"
 msgstr "/Виб╕р/З'╓днаний"
 
-#: app/menus.c:307
+#: app/menus.c:324
 msgid "/Select/Transitive"
 msgstr "/Виб╕р/Транзитивний"
 
-#: app/menus.c:308
+#: app/menus.c:325
 msgid "/Select/Same Type"
 msgstr "/Виб╕р/Того ж типу"
 
-#: app/menus.c:309
+#: app/menus.c:326
 msgid "/Select/---"
 msgstr "/Вибрати/---"
 
-#: app/menus.c:310
+#: app/menus.c:327
 msgid "/Select/Replace"
 msgstr "/Виб╕р/Зам╕нити"
 
-#: app/menus.c:311
+#: app/menus.c:329
 msgid "/Select/Union"
 msgstr "/Виб╕р/Об'╓днання"
 
-#: app/menus.c:312
+#: app/menus.c:331
 msgid "/Select/Intersect"
 msgstr "/Виб╕р/Перетин"
 
-#: app/menus.c:313
+#: app/menus.c:333
 msgid "/Select/Remove"
 msgstr "/Виб╕р/Видалити"
 
-#: app/menus.c:315
+#: app/menus.c:337
 msgid "/_Objects"
 msgstr "/Об'╓кти"
 
-#: app/menus.c:316
+#: app/menus.c:339
 msgid "/Objects/Send to _Back"
 msgstr "/Об'╓кти/Перем╕стити вниз"
 
-#: app/menus.c:317
+#: app/menus.c:340
 msgid "/Objects/Bring to _Front"
 msgstr "/Об'╓кти/Перем╕стити наверх"
 
-#: app/menus.c:318 app/menus.c:321
+#: app/menus.c:341 app/menus.c:344
 msgid "/Objects/---"
 msgstr "/Об'╓кти/---"
 
-#: app/menus.c:319
+#: app/menus.c:342
 msgid "/Objects/_Group"
 msgstr "/Об'╓кти/Згрупувати"
 
-#: app/menus.c:320
+#: app/menus.c:343
 msgid "/Objects/_Ungroup"
 msgstr "/Об'╓кти/Розгрупувати"
 
-#: app/menus.c:322
+#: app/menus.c:345
 msgid "/Objects/Align _Horizontal"
 msgstr "/Об'╓кти/Вир╕внювання горизонтальне"
 
-#: app/menus.c:323
+#: app/menus.c:347
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Об'╓кти/Вир╕внювання горизонтальне/Л╕воруч"
 
-#: app/menus.c:324
+#: app/menus.c:348
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Об'╓кти/Вир╕внювання горизонтальне/В центр"
 
-#: app/menus.c:325
+#: app/menus.c:349
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Об'╓кти/Вир╕внювання горизонтальне/Л╕воруч"
 
-#: app/menus.c:326
+#: app/menus.c:350
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Об'╓кти/Вир╕внювання горизонтальне/Р╕вн╕ в╕дстан╕"
 
-#: app/menus.c:327
+#: app/menus.c:351
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Об'╓кти/Вир╕внювання горизонтальне/Сум╕жне"
 
-#: app/menus.c:328
+#: app/menus.c:352
 msgid "/Objects/Align _Vertical"
 msgstr "/Об'╓кти/Вир╕внювання вертикальне"
 
-#: app/menus.c:329
+#: app/menus.c:354
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Об'╓кти/Вир╕внювання вертикальне/Догори"
 
-#: app/menus.c:330
+#: app/menus.c:355
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Об'╓кти/Вир╕внювання вертикальне/В центр"
 
-#: app/menus.c:331
+#: app/menus.c:356
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Об'╓кти/Вир╕внювання вертикальне/Донизу"
 
-#: app/menus.c:332
+#: app/menus.c:357
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Об'╓кти/Вир╕внювання вертикальне/Р╕вн╕ в╕дстан╕"
 
-#: app/menus.c:333
+#: app/menus.c:358
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Об'╓кти/Вир╕внювання вертикальне/Сум╕жне"
 
-#: app/menus.c:335
+#: app/menus.c:360
 msgid "/_Tools"
 msgstr "/╤нструменти"
 
-#: app/menus.c:336
+#: app/menus.c:362
 msgid "/Tools/Modify"
 msgstr "/╤нструменти/Модиф╕кувати"
 
-#: app/menus.c:337
+#: app/menus.c:363
 msgid "/Tools/Magnify"
 msgstr "/╤нструменти/Зб╕льшити"
 
-#: app/menus.c:338
+#: app/menus.c:364
 msgid "/Tools/Scroll"
 msgstr "/╤нструменти/Прокрутити"
 
-#: app/menus.c:339
+#: app/menus.c:365
 msgid "/Tools/Text"
 msgstr "/╤нструменти/Текст"
 
-#: app/menus.c:340
+#: app/menus.c:366
 msgid "/Tools/Box"
 msgstr "/╤нструменти/Прямокутник"
 
-#: app/menus.c:341
+#: app/menus.c:367
 msgid "/Tools/Ellipse"
 msgstr "/╤нструменти/Ел╕пс"
 
-#: app/menus.c:342
+#: app/menus.c:368
 msgid "/Tools/Polygon"
 msgstr "/╤нструменти/Многокутник"
 
-#: app/menus.c:343
+#: app/menus.c:369
 msgid "/Tools/Beziergon"
 msgstr "/╤нструменти/Без'╓кутник"
 
-#: app/menus.c:344
+#: app/menus.c:370
 msgid "/Tools/Line"
 msgstr "/╤нструменти/Л╕н╕я"
 
-#: app/menus.c:345
+#: app/menus.c:371
 msgid "/Tools/Arc"
 msgstr "/╤нструменти/Дуга"
 
-#: app/menus.c:346
+#: app/menus.c:372
 msgid "/Tools/Zigzagline"
 msgstr "/╤нструменти/Згин"
 
-#: app/menus.c:347
+#: app/menus.c:373
 msgid "/Tools/Polyline"
 msgstr "/╤нструменти/Ламана"
 
-#: app/menus.c:348
+#: app/menus.c:374
 msgid "/Tools/Bezierline"
 msgstr "/╤нструменти/Крива Без'╓"
 
-#: app/menus.c:349
+#: app/menus.c:375
 msgid "/Tools/Image"
 msgstr "/╤нструменти/Зображення"
 
-#: app/menus.c:351
+#: app/menus.c:377
 msgid "/_Dialogs"
 msgstr "/Д╕алоги"
 
-#: app/menus.c:352
+#: app/menus.c:379
 msgid "/Dialogs/_Properties"
 msgstr "/Д╕алоги/Властивост╕"
 
-#: app/menus.c:353
+#: app/menus.c:380
 msgid "/Dialogs/_Layers"
 msgstr "/Д╕алоги/Шари"
 
-#: app/menus.c:525
+#: app/menus.c:552
 msgid "NULL tooldata in tool_menu_select"
 msgstr "Дан╕ ╕нструменту NULL в tool_select_update"
 
-#: app/menus.c:809
+#: app/menus.c:779
 msgid "Diagram Menu"
 msgstr "Меню д╕аграми"
 
-#: app/paginate_gnomeprint.c:148
+#: app/paginate_gnomeprint.c:152
 msgid "Print Diagram"
 msgstr "Надрукувати д╕аграму"
 
-#: app/paginate_gnomeprint.c:175
+#: app/paginate_gnomeprint.c:179
 msgid "An error occured while creating the print context"
 msgstr "Сталася помилка п╕д створення вм╕сту друку"
 
-#: app/paginate_psprint.c:195
+#: app/paginate_psprint.c:199
 msgid "Select Printer"
 msgstr "Вибрати принтер"
 
-#: app/paginate_psprint.c:207
+#: app/paginate_psprint.c:211
 msgid "Printer"
 msgstr "Принтер"
 
-#: app/paginate_psprint.c:220
+#: app/paginate_psprint.c:224
 msgid "File"
 msgstr "Файл"
 
@@ -1286,12 +1301,12 @@ msgstr "так"
 msgid "no"
 msgstr "н╕"
 
-#: app/plugin-manager.c:181 objects/ER/attribute.c:206 objects/ER/entity.c:190
-#: objects/ER/relationship.c:260 objects/UML/association.c:969
-#: objects/UML/class_dialog.c:731 objects/UML/class_dialog.c:1607
-#: objects/UML/class_dialog.c:1769 objects/UML/class_dialog.c:2225
-#: objects/UML/dependency.c:612 objects/UML/generalization.c:582
-#: objects/UML/large_package.c:609 objects/UML/realizes.c:580
+#: app/plugin-manager.c:181 objects/ER/attribute.c:149 objects/ER/entity.c:129
+#: objects/ER/relationship.c:135 objects/UML/association.c:979
+#: objects/UML/class_dialog.c:735 objects/UML/class_dialog.c:1611
+#: objects/UML/class_dialog.c:1773 objects/UML/class_dialog.c:2229
+#: objects/UML/dependency.c:141 objects/UML/generalization.c:133
+#: objects/UML/large_package.c:611 objects/UML/realizes.c:136
 msgid "Name:"
 msgstr "Назва:"
 
@@ -1408,7 +1423,7 @@ msgstr "Розд╕лювач╕ стор╕нок:"
 msgid "Could not open `%s' for writing"
 msgstr "Не вдалось в╕дкрити: \"%s\" для записування"
 
-#: app/preferences.c:570 app/preferences.c:579
+#: app/preferences.c:572 app/preferences.c:581
 msgid "Preferences"
 msgstr "Установки"
 
@@ -1420,21 +1435,21 @@ msgstr "Властивост╕ об'╓кта"
 msgid "This object has no properties."
 msgstr "В цього об'╓кта нема╓ властивостей."
 
-#: app/render_eps.c:1142
+#: app/render_eps.c:1599
 msgid "Encapsulated Postscript"
 msgstr "Вбудований Postscript"
 
 #. remove recent files if list get's too long
-#: app/recent_files.c:69
+#: app/recent_files.c:73
 msgid "/File/Plugins"
 msgstr "/Файл/Доповнення"
 
-#: app/recent_files.c:75 app/recent_files.c:77 app/recent_files.c:102
-#: app/recent_files.c:104
+#: app/recent_files.c:79 app/recent_files.c:81 app/recent_files.c:110
+#: app/recent_files.c:112
 msgid "/File/Open Recent/"
 msgstr "/Файл/В╕дкрити недавн╕й/"
 
-#: app/recent_files.c:153
+#: app/recent_files.c:161
 msgid "Can't open history file for writing."
 msgstr "Неможливо в╕дкрити файл ╕стор╕╖ для запису."
 
@@ -1451,11 +1466,12 @@ msgstr ""
 "Dia верс╕╖ %s\n"
 "Автор: Alexander Larsson"
 
-#: lib/bezier_conn.c:525
+#: lib/bezier_conn.c:526
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "Внутр╕шня помилка: встановлення типу кута для к╕нцево╖ точки криво╖ Без'е"
+msgstr ""
+"Внутр╕шня помилка: встановлення типу кута для к╕нцево╖ точки криво╖ Без'е"
 
-#: lib/font.c:387
+#: lib/font.c:389
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1464,7 +1480,7 @@ msgstr ""
 "Увага, не було знайдено шрифт для %s,\n"
 "зам╕сть нього використову╓ться %s.\n"
 
-#: lib/font.c:441
+#: lib/font.c:443
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Шрифт %s не знайдено, буде використано шрифт Courier.\n"
@@ -1515,9 +1531,62 @@ msgstr "\"%s\" не ╓ каталогом"
 msgid "Could not open `%s'"
 msgstr "Не вдалось в╕дкрити: \"%s\""
 
-#: lib/properties.c:371 lib/properties.c:403
+#: lib/properties.c:375 lib/properties.c:407
 msgid "No edit widget"
 msgstr "Нема╓ в╕джету редагування"
+
+#: lib/properties.h:376
+#, fuzzy
+msgid "Line colour"
+msgstr "Кол╕р л╕н╕╖:"
+
+#: lib/properties.h:377
+#, fuzzy
+msgid "Line style"
+msgstr "Л╕н╕╖"
+
+#: lib/properties.h:378
+#, fuzzy
+msgid "Fill colour"
+msgstr "Кол╕р шрифту:"
+
+#: lib/properties.h:379 objects/custom/custom_object.c:356
+#: objects/flowchart/box.c:317 objects/flowchart/diamond.c:310
+#: objects/flowchart/ellipse.c:310 objects/flowchart/parallelogram.c:321
+#: objects/standard/beziergon.c:222 objects/standard/box.c:232
+#: objects/standard/ellipse.c:220 objects/standard/polygon.c:226
+msgid "Draw background"
+msgstr "Намалювати тло"
+
+#: lib/properties.h:380
+#, fuzzy
+msgid "Start arrow"
+msgstr "Пунктирна стр╕лка"
+
+#: lib/properties.h:381
+#, fuzzy
+msgid "End arrow"
+msgstr "Пунктирна стр╕лка"
+
+#: lib/properties.h:383
+#, fuzzy
+msgid "Text alignment"
+msgstr "Вир╕внювання:"
+
+#: lib/properties.h:384
+#, fuzzy
+msgid "Font"
+msgstr "Шрифт:"
+
+#: lib/properties.h:385
+#, fuzzy
+msgid "Font size"
+msgstr "Розм╕р шрифту:"
+
+#: lib/properties.h:386
+#, fuzzy
+msgid "Text colour"
+msgstr "Кол╕р тексту:"
 
 #: lib/widgets.c:296
 msgid "Solid"
@@ -1588,7 +1657,7 @@ msgstr "Довжина: "
 msgid "Width: "
 msgstr "Ширина: "
 
-#: lib/widgets.c:854 objects/standard/image.c:540
+#: lib/widgets.c:854 objects/standard/image.c:538
 msgid "Select image file"
 msgstr "Вибрати файл зображення"
 
@@ -1596,849 +1665,833 @@ msgstr "Вибрати файл зображення"
 msgid "Browse"
 msgstr "Переглянути"
 
-#: objects/ER/attribute.c:214
-msgid "Key"
+#: objects/ER/attribute.c:151
+#, fuzzy
+msgid "Key:"
 msgstr "Ключ"
 
-#: objects/ER/attribute.c:220
-msgid "Weak key"
+#: objects/ER/attribute.c:153
+#, fuzzy
+msgid "Weak key:"
 msgstr "Слабкий ключ"
 
-#: objects/ER/attribute.c:226
-msgid "Derived"
+#: objects/ER/attribute.c:155
+#, fuzzy
+msgid "Derived:"
 msgstr "Пох╕дний"
 
-#: objects/ER/attribute.c:232
-msgid "Multivalue"
+#: objects/ER/attribute.c:157
+#, fuzzy
+msgid "Multivalue:"
 msgstr "Багатозначний"
 
-#: objects/ER/attribute.c:238 objects/ER/entity.c:204
-#: objects/ER/relationship.c:296
-msgid "Border width:"
-msgstr "Ширина рамки:"
-
-#: objects/ER/attribute.c:249 objects/ER/entity.c:215
-#: objects/ER/relationship.c:307
-msgid "Foreground color:"
-msgstr "Кол╕р переднього плану:"
-
-#: objects/ER/attribute.c:257 objects/ER/entity.c:223
-#: objects/ER/relationship.c:315
-msgid "Background color:"
-msgstr "Кол╕р тла:"
-
-#: objects/ER/attribute.c:509
+#: objects/ER/attribute.c:389
 msgid "Attribute"
 msgstr "Ознака"
 
-#: objects/ER/entity.c:198
-msgid "Weak"
+#: objects/ER/entity.c:131
+#, fuzzy
+msgid "Weak:"
 msgstr "Слабкий"
 
-#: objects/ER/entity.c:450 objects/UML/classicon.c:721
+#: objects/ER/entity.c:343 objects/UML/classicon.c:135
 msgid "Entity"
 msgstr "Сутн╕сть"
 
-#: objects/ER/er.c:40
+#: objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
 msgstr "Об'╓кти д╕аграми Сутностей та в╕дношень"
 
-#: objects/ER/participation.c:418
+#: objects/ER/participation.c:113
 msgid "Total:"
 msgstr "Загалом:"
 
-#: objects/ER/participation.c:451 objects/FS/flow-ortho.c:726
-#: objects/GRAFCET/vector.c:400 objects/SADT/arrow.c:646
-#: objects/UML/association.c:608 objects/UML/dependency.c:288
-#: objects/UML/generalization.c:280 objects/UML/realizes.c:283
-#: objects/standard/zigzagline.c:343
+#: objects/ER/participation.c:393 objects/FS/flow-ortho.c:798
+#: objects/GRAFCET/vector.c:403 objects/SADT/arrow.c:660
+#: objects/UML/association.c:618 objects/UML/dependency.c:386
+#: objects/UML/generalization.c:374 objects/UML/realizes.c:378
+#: objects/standard/zigzagline.c:337
 msgid "Add segment"
 msgstr "Додати сегмент"
 
-#: objects/ER/participation.c:452 objects/FS/flow-ortho.c:727
-#: objects/GRAFCET/vector.c:401 objects/SADT/arrow.c:647
-#: objects/UML/association.c:609 objects/UML/dependency.c:289
-#: objects/UML/generalization.c:281 objects/UML/realizes.c:284
-#: objects/standard/zigzagline.c:344
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:799
+#: objects/GRAFCET/vector.c:404 objects/SADT/arrow.c:661
+#: objects/UML/association.c:619 objects/UML/dependency.c:387
+#: objects/UML/generalization.c:375 objects/UML/realizes.c:379
+#: objects/standard/zigzagline.c:338
 msgid "Delete segment"
 msgstr "Видалити сегмент"
 
-#: objects/ER/relationship.c:268
+#: objects/ER/relationship.c:137
 msgid "Left Cardinality:"
 msgstr "Л╕ва потужн╕сть:"
 
-#: objects/ER/relationship.c:276
+#: objects/ER/relationship.c:139
 msgid "Right Cardinality:"
 msgstr "Права потужн╕сть:"
 
-#: objects/ER/relationship.c:284
-msgid "Rotate"
+#: objects/ER/relationship.c:141
+#, fuzzy
+msgid "Rotate:"
 msgstr "Обертати"
 
-#: objects/ER/relationship.c:290
-msgid "Identifying"
+#: objects/ER/relationship.c:143
+#, fuzzy
+msgid "Identifying:"
 msgstr "╤дентиф╕кац╕я"
 
-#: objects/ER/relationship.c:570
+#: objects/ER/relationship.c:418
 msgid "Relationship"
 msgstr "В╕дношення"
 
-#: objects/FS/flow-ortho.c:638 objects/FS/flow.c:629 objects/FS/flow.c:745
-msgid "Flow:"
-msgstr "Пот╕к:"
-
-#: objects/FS/flow-ortho.c:653 objects/FS/flow.c:644 objects/FS/flow.c:761
-msgid "Flow type:"
-msgstr "Тип потоку:"
-
 #.
-#: objects/FS/flow-ortho.c:658 objects/FS/flow-ortho.c:723
-#: objects/FS/flow-ortho.c:788 objects/FS/flow.c:649 objects/FS/flow.c:702
-#: objects/FS/flow.c:766
+#: objects/FS/flow-ortho.c:177 objects/FS/flow-ortho.c:729
+#: objects/FS/flow-ortho.c:795 objects/FS/flow-ortho.c:860
+#: objects/FS/flow.c:157 objects/FS/flow.c:720 objects/FS/flow.c:773
+#: objects/FS/flow.c:837
 msgid "Energy"
 msgstr "Енерг╕я"
 
-#: objects/FS/flow-ortho.c:665 objects/FS/flow-ortho.c:724
-#: objects/FS/flow-ortho.c:795 objects/FS/flow.c:656 objects/FS/flow.c:703
-#: objects/FS/flow.c:773
+#: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:736
+#: objects/FS/flow-ortho.c:796 objects/FS/flow-ortho.c:867
+#: objects/FS/flow.c:158 objects/FS/flow.c:727 objects/FS/flow.c:774
+#: objects/FS/flow.c:844
 msgid "Material"
 msgstr "Матер╕ал"
 
-#: objects/FS/flow-ortho.c:671 objects/FS/flow-ortho.c:725
-#: objects/FS/flow-ortho.c:801 objects/FS/flow.c:662 objects/FS/flow.c:704
-#: objects/FS/flow.c:779 objects/FS/function.c:661
+#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:742
+#: objects/FS/flow-ortho.c:797 objects/FS/flow-ortho.c:873
+#: objects/FS/flow.c:159 objects/FS/flow.c:733 objects/FS/flow.c:775
+#: objects/FS/flow.c:850 objects/FS/function.c:718
 msgid "Signal"
 msgstr "Сигнал"
 
-#: objects/FS/flow-ortho.c:767
+#: objects/FS/flow-ortho.c:186 objects/FS/flow.c:166
+#: objects/UML/class_dialog.c:747 objects/UML/class_dialog.c:1623
+#: objects/UML/class_dialog.c:1785 objects/UML/class_dialog.c:2241
+msgid "Type:"
+msgstr "Тип:"
+
+#: objects/FS/flow-ortho.c:709 objects/FS/flow.c:700 objects/FS/flow.c:816
+msgid "Flow:"
+msgstr "Пот╕к:"
+
+#: objects/FS/flow-ortho.c:724 objects/FS/flow.c:715 objects/FS/flow.c:832
+msgid "Flow type:"
+msgstr "Тип потоку:"
+
+#: objects/FS/flow-ortho.c:839
 msgid "Orthflow:"
 msgstr "Ортопот╕к:"
 
-#: objects/FS/flow-ortho.c:783
+#: objects/FS/flow-ortho.c:855
 msgid "Orthflow type:"
 msgstr "Тип ортопотоку:"
 
-#: objects/FS/fs.c:39
+#: objects/FS/fs.c:43
 msgid "Function structure diagram objects"
 msgstr "Об'╓кти д╕аграми функц╕онально╖ структури"
 
-#: objects/FS/function.c:572
-msgid "Function:"
-msgstr "Функц╕я:"
-
-#: objects/FS/function.c:582
+#: objects/FS/function.c:150 objects/FS/function.c:639
 msgid "Wish function"
 msgstr "Бажана"
 
-#: objects/FS/function.c:587
+#: objects/FS/function.c:152 objects/FS/function.c:644
 msgid "User function"
 msgstr "Користувацька"
 
-#: objects/FS/function.c:627
+#: objects/FS/function.c:629
+msgid "Function:"
+msgstr "Функц╕я:"
+
+#: objects/FS/function.c:684
 msgid "Channel"
 msgstr "Канал"
 
-#: objects/FS/function.c:628
+#: objects/FS/function.c:685
 msgid "   Import"
 msgstr "   ╤мпорт"
 
-#: objects/FS/function.c:629
+#: objects/FS/function.c:686
 msgid "   Export"
 msgstr "   Експорт"
 
-#: objects/FS/function.c:630
+#: objects/FS/function.c:687
 msgid "   Transfer"
 msgstr "   Перенесення"
 
-#: objects/FS/function.c:631
+#: objects/FS/function.c:688
 msgid "      Transport"
 msgstr "      Транспорт"
 
-#: objects/FS/function.c:632
+#: objects/FS/function.c:689
 msgid "      Transmit"
 msgstr "      Передавання"
 
-#: objects/FS/function.c:633
+#: objects/FS/function.c:690
 msgid "   Guide"
 msgstr "   Кер╕вництво"
 
-#: objects/FS/function.c:634
+#: objects/FS/function.c:691
 msgid "      Translate"
 msgstr "      Переклад"
 
-#: objects/FS/function.c:635
+#: objects/FS/function.c:692
 msgid "      Rotate"
 msgstr "      Обертання"
 
-#: objects/FS/function.c:636
+#: objects/FS/function.c:693
 msgid "      Allow DOF"
 msgstr "      Дозволити DOF"
 
-#: objects/FS/function.c:637
+#: objects/FS/function.c:694
 msgid "Support"
 msgstr "Подтримка"
 
-#: objects/FS/function.c:638
+#: objects/FS/function.c:695
 msgid "   Stop"
 msgstr "   Стоп"
 
-#: objects/FS/function.c:639
+#: objects/FS/function.c:696
 msgid "   Stabilize"
 msgstr "   Стаб╕л╕зувати"
 
-#: objects/FS/function.c:640
+#: objects/FS/function.c:697
 msgid "   Secure"
 msgstr "   Захистити"
 
-#: objects/FS/function.c:641
+#: objects/FS/function.c:698
 msgid "   Position"
 msgstr "   Позиц╕я"
 
-#: objects/FS/function.c:642
+#: objects/FS/function.c:699
 msgid "Connect"
 msgstr "Зв'язок"
 
-#: objects/FS/function.c:643
+#: objects/FS/function.c:700
 msgid "   Couple"
 msgstr "   Пара"
 
-#: objects/FS/function.c:644
+#: objects/FS/function.c:701
 msgid "   Mix"
 msgstr "   Сум╕ш"
 
-#: objects/FS/function.c:645
+#: objects/FS/function.c:702
 msgid "Branch"
 msgstr "Г╕лка"
 
-#: objects/FS/function.c:646
+#: objects/FS/function.c:703
 msgid "   Separate"
 msgstr "   Розд╕лити"
 
-#: objects/FS/function.c:647
+#: objects/FS/function.c:704
 msgid "      Remove"
 msgstr "      Видалити"
 
-#: objects/FS/function.c:648
+#: objects/FS/function.c:705
 msgid "   Refine"
 msgstr "   Очистити"
 
-#: objects/FS/function.c:649
+#: objects/FS/function.c:706
 msgid "   Distribute"
 msgstr "   Розповсюдити"
 
-#: objects/FS/function.c:650
+#: objects/FS/function.c:707
 msgid "   Dissipate"
 msgstr "   Розс╕яти"
 
-#: objects/FS/function.c:651
+#: objects/FS/function.c:708
 msgid "Provision"
 msgstr "Постачання"
 
-#: objects/FS/function.c:652
+#: objects/FS/function.c:709
 msgid "   Store"
 msgstr "   Збер╕гати"
 
-#: objects/FS/function.c:653
+#: objects/FS/function.c:710
 msgid "   Supply"
 msgstr "   П╕дтримувати"
 
-#: objects/FS/function.c:654
+#: objects/FS/function.c:711
 msgid "   Extract"
 msgstr "   Д╕стати"
 
-#: objects/FS/function.c:655
+#: objects/FS/function.c:712
 msgid "Control Magnitude"
 msgstr "Контрольне значення"
 
-#: objects/FS/function.c:656
+#: objects/FS/function.c:713
 msgid "   Actuate"
 msgstr "   Привести в д╕ю"
 
-#: objects/FS/function.c:657
+#: objects/FS/function.c:714
 msgid "   Regulate"
 msgstr "   Регулювати"
 
-#: objects/FS/function.c:658
+#: objects/FS/function.c:715
 msgid "   Change"
 msgstr "   Зм╕нити"
 
-#: objects/FS/function.c:659
+#: objects/FS/function.c:716
 msgid "   Form"
 msgstr "   Формувати"
 
-#: objects/FS/function.c:660
+#: objects/FS/function.c:717
 msgid "Convert"
 msgstr "Перетворити"
 
-#: objects/FS/function.c:662
+#: objects/FS/function.c:719
 msgid "   Sense"
 msgstr "   Визначити"
 
-#: objects/FS/function.c:663
+#: objects/FS/function.c:720
 msgid "   Indicate"
 msgstr "   Вказати"
 
-#: objects/FS/function.c:664
+#: objects/FS/function.c:721
 msgid "   Display"
 msgstr "   Показати"
 
-#: objects/FS/function.c:665
+#: objects/FS/function.c:722
 msgid "   Measure"
 msgstr "   Вим╕ряти"
 
-#: objects/GRAFCET/action.c:193 objects/GRAFCET/action.c:234
-#: objects/GRAFCET/condition.c:200 objects/GRAFCET/condition.c:242
-#: objects/GRAFCET/step.c:268 objects/GRAFCET/step.c:308
-#: objects/GRAFCET/transition.c:209 objects/GRAFCET/transition.c:249
-#: objects/SADT/annotation.c:494 objects/SADT/annotation.c:536
-#: objects/SADT/box.c:205 objects/SADT/box.c:247
-#: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
-#: objects/chronogram/chronoref.c:254 objects/chronogram/chronoref.c:319
-#: objects/custom/custom_object.c:386 objects/flowchart/box.c:348
-#: objects/flowchart/diamond.c:328 objects/flowchart/ellipse.c:328
-#: objects/flowchart/parallelogram.c:353 objects/standard/textobj.c:266
+#: objects/GRAFCET/action.c:197 objects/GRAFCET/action.c:238
+#: objects/GRAFCET/condition.c:205 objects/GRAFCET/condition.c:247
+#: objects/GRAFCET/step.c:275 objects/GRAFCET/step.c:315
+#: objects/GRAFCET/transition.c:215 objects/GRAFCET/transition.c:255
+#: objects/SADT/annotation.c:495 objects/SADT/annotation.c:537
+#: objects/SADT/box.c:210 objects/SADT/box.c:252
+#: objects/chronogram/chronoline.c:337 objects/chronogram/chronoline.c:429
+#: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
+#: objects/custom/custom_object.c:390 objects/flowchart/box.c:353
+#: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
+#: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
 msgid "Font:"
 msgstr "Шрифт:"
 
-#: objects/GRAFCET/action.c:194 objects/GRAFCET/action.c:235
-#: objects/GRAFCET/condition.c:201 objects/GRAFCET/condition.c:243
-#: objects/GRAFCET/step.c:269 objects/GRAFCET/step.c:309
-#: objects/GRAFCET/transition.c:210 objects/GRAFCET/transition.c:250
-#: objects/SADT/annotation.c:495 objects/SADT/annotation.c:537
-#: objects/SADT/box.c:206 objects/SADT/box.c:248
-#: objects/chronogram/chronoline.c:333 objects/chronogram/chronoline.c:425
-#: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
-#: objects/custom/custom_object.c:397 objects/flowchart/box.c:359
-#: objects/flowchart/diamond.c:339 objects/flowchart/ellipse.c:339
-#: objects/flowchart/parallelogram.c:364
+#: objects/GRAFCET/action.c:198 objects/GRAFCET/action.c:239
+#: objects/GRAFCET/condition.c:206 objects/GRAFCET/condition.c:248
+#: objects/GRAFCET/step.c:276 objects/GRAFCET/step.c:316
+#: objects/GRAFCET/transition.c:216 objects/GRAFCET/transition.c:256
+#: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
+#: objects/SADT/box.c:211 objects/SADT/box.c:253
+#: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
+#: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
+#: objects/custom/custom_object.c:401 objects/flowchart/box.c:364
+#: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
+#: objects/flowchart/parallelogram.c:368
 msgid "Font size:"
 msgstr "Розм╕р шрифту:"
 
-#: objects/GRAFCET/action.c:195 objects/GRAFCET/action.c:236
-#: objects/GRAFCET/condition.c:202 objects/GRAFCET/condition.c:244
-#: objects/GRAFCET/step.c:270 objects/GRAFCET/transition.c:211
-#: objects/GRAFCET/transition.c:251
+#: objects/GRAFCET/action.c:199 objects/GRAFCET/action.c:240
+#: objects/GRAFCET/condition.c:207 objects/GRAFCET/condition.c:249
+#: objects/GRAFCET/step.c:277 objects/GRAFCET/transition.c:217
+#: objects/GRAFCET/transition.c:257
 msgid "Text color:"
 msgstr "Кол╕р тексту:"
 
-#: objects/GRAFCET/action.c:196
+#: objects/GRAFCET/action.c:200
 msgid "Macro call"
 msgstr "Виклик макроса"
 
-#: objects/GRAFCET/condition.c:198
+#: objects/GRAFCET/condition.c:203
 msgid "Condition:"
 msgstr "Умова:"
 
-#: objects/GRAFCET/grafcet.c:40
+#: objects/GRAFCET/grafcet.c:44
 msgid "GRAFCET diagram objects"
 msgstr "Об'╓кти д╕аграми GRAFCET"
 
-#: objects/GRAFCET/step.c:251
+#: objects/GRAFCET/step.c:258
 msgid "Regular step"
 msgstr "Звичайний крок"
 
-#: objects/GRAFCET/step.c:252
+#: objects/GRAFCET/step.c:259
 msgid "Initial step"
 msgstr "Початковий крок"
 
-#: objects/GRAFCET/step.c:253
+#: objects/GRAFCET/step.c:260
 msgid "Macro entry step"
 msgstr "Крок входу в макрос"
 
-#: objects/GRAFCET/step.c:254
+#: objects/GRAFCET/step.c:261
 msgid "Macro exit step"
 msgstr "Крок виходу з макросу"
 
-#: objects/GRAFCET/step.c:255
+#: objects/GRAFCET/step.c:262
 msgid "Macro call step"
 msgstr "Крок виклику макросу"
 
-#: objects/GRAFCET/step.c:256
+#: objects/GRAFCET/step.c:263
 msgid "Subprogram call step"
 msgstr "Крок виклику п╕дпрограми"
 
-#: objects/GRAFCET/step.c:265
+#: objects/GRAFCET/step.c:272
 msgid "Step name"
 msgstr "Назва кроку"
 
-#: objects/GRAFCET/step.c:266
+#: objects/GRAFCET/step.c:273
 msgid "Active"
 msgstr "Д╕ючий"
 
-#: objects/GRAFCET/step.c:267
+#: objects/GRAFCET/step.c:274
 msgid "Step type"
 msgstr "Тип кроку"
 
-#: objects/GRAFCET/step.c:310
+#: objects/GRAFCET/step.c:317
 msgid "Color:"
 msgstr "Кол╕р:"
 
-#: objects/GRAFCET/transition.c:208
+#: objects/GRAFCET/transition.c:214
 msgid "Receptivity:"
 msgstr "Сприйнятлив╕сть:"
 
-#: objects/GRAFCET/vector.c:172 objects/GRAFCET/vector.c:206
+#: objects/GRAFCET/vector.c:176 objects/GRAFCET/vector.c:210
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Малювати к╕нчик стр╕лки на сх╕дних дугах:"
 
-#: objects/GRAFCET/vergent.c:169
+#: objects/GRAFCET/vergent.c:173
 msgid "OR"
 msgstr "АБО"
 
-#: objects/GRAFCET/vergent.c:170
+#: objects/GRAFCET/vergent.c:174
 msgid "AND"
 msgstr "╤"
 
-#: objects/GRAFCET/vergent.c:179 objects/GRAFCET/vergent.c:212
+#: objects/GRAFCET/vergent.c:183 objects/GRAFCET/vergent.c:216
 msgid "Vergent type:"
 msgstr "Тип хребта:"
 
-#: objects/GRAFCET/vergent.c:458 objects/SADT/box.c:538
-#: objects/standard/line.c:177
+#: objects/GRAFCET/vergent.c:463 objects/SADT/box.c:539
+#: objects/standard/line.c:182
 msgid "Add connection point"
 msgstr "Додати точку з'╓днання"
 
-#: objects/GRAFCET/vergent.c:459
+#: objects/GRAFCET/vergent.c:464
 msgid "Delete  connection point"
 msgstr "Стерти точку з'╓днання"
 
-#: objects/GRAFCET/vergent.c:463
+#: objects/GRAFCET/vergent.c:468
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET АБО/╤ хребет"
 
-#: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
-#: objects/SADT/box.c:207 objects/SADT/box.c:249
-#: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:426
-#: objects/chronogram/chronoref.c:256 objects/chronogram/chronoref.c:321
+#: objects/SADT/annotation.c:497 objects/SADT/annotation.c:539
+#: objects/SADT/box.c:212 objects/SADT/box.c:254
+#: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
+#: objects/chronogram/chronoref.c:261 objects/chronogram/chronoref.c:326
 msgid "Font color:"
 msgstr "Кол╕р шрифту:"
 
-#: objects/SADT/arrow.c:187 objects/UML/state.c:602
+#: objects/SADT/arrow.c:191 objects/UML/state.c:134
 msgid "Normal"
 msgstr "Нормальний"
 
-#: objects/SADT/arrow.c:188
+#: objects/SADT/arrow.c:192
 msgid "Import resource (not shown upstairs)"
 msgstr "╤мпорт ресурсу (не показувати з╕рочки)"
 
-#: objects/SADT/arrow.c:189
+#: objects/SADT/arrow.c:193
 msgid "Imply resource (not shown downstairs)"
 msgstr "Мати на уваз╕ ресурс (не показувати з╕рочки)"
 
-#: objects/SADT/arrow.c:190
+#: objects/SADT/arrow.c:194
 msgid "Dotted arrow"
 msgstr "Пунктирна стр╕лка"
 
-#: objects/SADT/arrow.c:191
+#: objects/SADT/arrow.c:195
 msgid "disable arrow heads"
 msgstr "вимкнути наконечники стр╕лок"
 
-#: objects/SADT/arrow.c:200 objects/SADT/arrow.c:237
+#: objects/SADT/arrow.c:204 objects/SADT/arrow.c:241
 msgid "Flow style:"
 msgstr "Стиль потоку:"
 
-#: objects/SADT/arrow.c:201 objects/SADT/arrow.c:238
+#: objects/SADT/arrow.c:205 objects/SADT/arrow.c:242
 msgid "Automatically gray vertical flows:"
 msgstr "Автоматично вид╕ляти вертикальн╕ потоки:"
 
-#: objects/SADT/arrow.c:651
+#: objects/SADT/arrow.c:665
 msgid "SADT Arrow"
 msgstr "SADT стр╕лка"
 
-#: objects/SADT/box.c:204 objects/SADT/box.c:246
-#: objects/custom/custom_object.c:361 objects/flowchart/box.c:334
-#: objects/flowchart/diamond.c:314 objects/flowchart/ellipse.c:314
-#: objects/flowchart/parallelogram.c:339
+#: objects/SADT/box.c:209 objects/SADT/box.c:251
+#: objects/custom/custom_object.c:365 objects/flowchart/box.c:339
+#: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
+#: objects/flowchart/parallelogram.c:343
 msgid "Text padding:"
 msgstr "В╕дступи тексту:"
 
-#: objects/SADT/box.c:208
+#: objects/SADT/box.c:213
 msgid "Activity/Data identifier"
 msgstr "╤дентиф╕катор д╕яльност╕/даних"
 
-#: objects/SADT/box.c:539 objects/standard/line.c:178
+#: objects/SADT/box.c:540 objects/standard/line.c:183
 msgid "Delete connection point"
 msgstr "Стерти точку з'╓днання"
 
-#: objects/SADT/box.c:544
+#: objects/SADT/box.c:545
 msgid "SADT box"
 msgstr "SADT ком╕рка"
 
-#: objects/SADT/sadt.c:37
+#: objects/SADT/sadt.c:41
 msgid "SADT diagram objects"
 msgstr "Об'╓кти д╕аграми SADT"
 
-#: objects/UML/actor.c:380
+#: objects/UML/actor.c:384
 msgid "Actor"
 msgstr "Агент"
 
-#: objects/UML/association.c:981
+#: objects/UML/association.c:991
 msgid "Direction:"
 msgstr "Напрямок:"
 
-#: objects/UML/association.c:998
+#: objects/UML/association.c:1008
 msgid "From A to B"
 msgstr "В╕д А до Б"
 
-#: objects/UML/association.c:1005
+#: objects/UML/association.c:1015
 msgid "From B to A"
 msgstr "В╕д Б до А"
 
-#: objects/UML/association.c:1029 objects/UML/association.c:1037
+#: objects/UML/association.c:1039 objects/UML/association.c:1047
 msgid "Side A"
 msgstr "Сторона A"
 
-#: objects/UML/association.c:1031 objects/UML/association.c:1039
+#: objects/UML/association.c:1041 objects/UML/association.c:1049
 msgid "Side B"
 msgstr "Сторона Б"
 
-#: objects/UML/association.c:1045
+#: objects/UML/association.c:1055
 msgid "Role:"
 msgstr "Роль:"
 
-#: objects/UML/association.c:1057
+#: objects/UML/association.c:1067
 msgid "Multiplicity:"
 msgstr "Чисельн╕сть:"
 
 #. Show arrow:
-#: objects/UML/association.c:1068
+#: objects/UML/association.c:1078
 msgid "Show arrow"
 msgstr "Показати стр╕лку"
 
 #. Aggregate
-#: objects/UML/association.c:1074
+#: objects/UML/association.c:1084
 msgid "Aggregate"
 msgstr "Сукупн╕сть"
 
 #. Composition
-#: objects/UML/association.c:1082
+#: objects/UML/association.c:1092
 msgid "Composition"
 msgstr "Композиц╕я"
 
-#: objects/UML/class.c:96 objects/UML/component.c:111
-#: objects/UML/small_package.c:111
+#: objects/UML/class.c:100
 msgid "Name"
 msgstr "Назва"
 
-#: objects/UML/class.c:98 objects/UML/classicon.c:146
-#: objects/UML/component.c:113 objects/UML/object.c:164
-#: objects/UML/small_package.c:113
+#: objects/UML/class.c:102 objects/UML/classicon.c:142
+#: objects/UML/component.c:116 objects/UML/object.c:168
+#: objects/UML/small_package.c:116
 msgid "Stereotype"
 msgstr "Стереотип"
 
-#: objects/UML/class.c:100 objects/UML/class_dialog.c:205
+#: objects/UML/class.c:104 objects/UML/class_dialog.c:209
 msgid "Abstract"
 msgstr "Абстракц╕я"
 
-#: objects/UML/class.c:102 objects/UML/class_dialog.c:217
+#: objects/UML/class.c:106 objects/UML/class_dialog.c:221
 msgid "Suppress Attributes"
 msgstr "Приховати ознаки"
 
-#: objects/UML/class.c:104
+#: objects/UML/class.c:108
 msgid "Suppress Operations"
 msgstr "Приховати операц╕╖"
 
-#: objects/UML/class.c:106
+#: objects/UML/class.c:110
 msgid "Visible Attributes"
 msgstr "Видим╕ ознаки"
 
-#: objects/UML/class.c:108
+#: objects/UML/class.c:112
 msgid "Visible Operations"
 msgstr "Видим╕ операц╕╖"
 
-#: objects/UML/class.c:114
+#: objects/UML/class.c:118
 msgid "Template"
 msgstr "Шаблон"
 
 #. Class page:
-#: objects/UML/class.c:687 objects/UML/class_dialog.c:177
+#: objects/UML/class.c:686 objects/UML/class_dialog.c:181
 msgid "Class"
 msgstr "Клас"
 
-#: objects/UML/class_dialog.c:183
+#: objects/UML/class_dialog.c:187
 msgid "Class name:"
 msgstr "Назва класу:"
 
-#: objects/UML/class_dialog.c:194 objects/UML/dependency.c:624
-#: objects/UML/generalization.c:594 objects/UML/large_package.c:621
-#: objects/UML/object.c:830 objects/UML/realizes.c:592
+#: objects/UML/class_dialog.c:198 objects/UML/dependency.c:143
+#: objects/UML/generalization.c:135 objects/UML/large_package.c:623
+#: objects/UML/object.c:828 objects/UML/realizes.c:138
 msgid "Stereotype:"
 msgstr "Стереотип:"
 
-#: objects/UML/class_dialog.c:213
+#: objects/UML/class_dialog.c:217
 msgid "Attributes visible"
 msgstr "Видим╕ ознаки"
 
-#: objects/UML/class_dialog.c:225
+#: objects/UML/class_dialog.c:229
 msgid "Operations visible"
 msgstr "Видим╕ д╕╖"
 
-#: objects/UML/class_dialog.c:229
+#: objects/UML/class_dialog.c:233
 msgid "Suppress operations"
 msgstr "Сховати операц╕╖"
 
-#: objects/UML/class_dialog.c:237
+#: objects/UML/class_dialog.c:241
 msgid "Foreground Color"
 msgstr "Кол╕р переднього плану"
 
-#: objects/UML/class_dialog.c:247
+#: objects/UML/class_dialog.c:251
 msgid "Background Color"
 msgstr "Кол╕р тла"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:666
+#: objects/UML/class_dialog.c:670
 msgid "Attributes"
 msgstr "Ознаки"
 
-#: objects/UML/class_dialog.c:694 objects/UML/class_dialog.c:1567
-#: objects/UML/class_dialog.c:1727 objects/UML/class_dialog.c:2188
+#: objects/UML/class_dialog.c:698 objects/UML/class_dialog.c:1571
+#: objects/UML/class_dialog.c:1731 objects/UML/class_dialog.c:2192
 msgid "New"
 msgstr "Новий"
 
-#: objects/UML/class_dialog.c:700 objects/UML/class_dialog.c:1573
-#: objects/UML/class_dialog.c:1734 objects/UML/class_dialog.c:2194
+#: objects/UML/class_dialog.c:704 objects/UML/class_dialog.c:1577
+#: objects/UML/class_dialog.c:1738 objects/UML/class_dialog.c:2198
 msgid "Delete"
 msgstr "Видалити"
 
-#: objects/UML/class_dialog.c:706 objects/UML/class_dialog.c:1579
-#: objects/UML/class_dialog.c:1741 objects/UML/class_dialog.c:2200
+#: objects/UML/class_dialog.c:710 objects/UML/class_dialog.c:1583
+#: objects/UML/class_dialog.c:1745 objects/UML/class_dialog.c:2204
 msgid "Move up"
 msgstr "Перенести вверх"
 
-#: objects/UML/class_dialog.c:712 objects/UML/class_dialog.c:1585
-#: objects/UML/class_dialog.c:1748 objects/UML/class_dialog.c:2206
+#: objects/UML/class_dialog.c:716 objects/UML/class_dialog.c:1589
+#: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:2210
 msgid "Move down"
 msgstr "Перенести вниз"
 
-#: objects/UML/class_dialog.c:723
+#: objects/UML/class_dialog.c:727
 msgid "Attribute data"
 msgstr "Дан╕ ознаки"
 
-#: objects/UML/class_dialog.c:743 objects/UML/class_dialog.c:1619
-#: objects/UML/class_dialog.c:1781 objects/UML/class_dialog.c:2237
-msgid "Type:"
-msgstr "Тип:"
-
-#: objects/UML/class_dialog.c:755
+#: objects/UML/class_dialog.c:759
 msgid "Value:"
 msgstr "Значення:"
 
-#: objects/UML/class_dialog.c:767 objects/UML/class_dialog.c:1631
+#: objects/UML/class_dialog.c:771 objects/UML/class_dialog.c:1635
 msgid "Visibility:"
 msgstr "Видим╕сть:"
 
-#: objects/UML/class_dialog.c:776 objects/UML/class_dialog.c:1640
+#: objects/UML/class_dialog.c:780 objects/UML/class_dialog.c:1644
 msgid "Public"
 msgstr "Сусп╕льний"
 
-#: objects/UML/class_dialog.c:784 objects/UML/class_dialog.c:1648
+#: objects/UML/class_dialog.c:788 objects/UML/class_dialog.c:1652
 msgid "Private"
 msgstr "Приватний"
 
-#: objects/UML/class_dialog.c:792 objects/UML/class_dialog.c:1656
+#: objects/UML/class_dialog.c:796 objects/UML/class_dialog.c:1660
 msgid "Protected"
 msgstr "Захищений"
 
-#: objects/UML/class_dialog.c:800 objects/UML/class_dialog.c:1664
+#: objects/UML/class_dialog.c:804 objects/UML/class_dialog.c:1668
 msgid "Implementation"
 msgstr "Реал╕зац╕я"
 
-#: objects/UML/class_dialog.c:816 objects/UML/class_dialog.c:1680
+#: objects/UML/class_dialog.c:820 objects/UML/class_dialog.c:1684
 msgid "Class scope"
 msgstr "Розмах класу"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1539
+#: objects/UML/class_dialog.c:1543
 msgid "Operations"
 msgstr "Операц╕╖"
 
-#: objects/UML/class_dialog.c:1597
+#: objects/UML/class_dialog.c:1601
 msgid "Operation data"
 msgstr "Дан╕ операц╕╖"
 
-#: objects/UML/class_dialog.c:1686
+#: objects/UML/class_dialog.c:1690
 msgid "abstract"
 msgstr "абстрактний"
 
-#: objects/UML/class_dialog.c:1698
+#: objects/UML/class_dialog.c:1702
 msgid "Parameters:"
 msgstr "Параметри:"
 
-#: objects/UML/class_dialog.c:1760
+#: objects/UML/class_dialog.c:1764
 msgid "Parameter data"
 msgstr "Дан╕ параметру"
 
-#: objects/UML/class_dialog.c:1793
+#: objects/UML/class_dialog.c:1797
 msgid "Def. value:"
 msgstr "Типове значення:"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2154
+#: objects/UML/class_dialog.c:2158
 msgid "Templates"
 msgstr "Шаблони"
 
-#: objects/UML/class_dialog.c:2160
+#: objects/UML/class_dialog.c:2164
 msgid "Template class"
 msgstr "Клас-шаблон"
 
-#: objects/UML/class_dialog.c:2217
+#: objects/UML/class_dialog.c:2221
 msgid "Formal parameter data"
 msgstr "Дан╕ формального параметру"
 
-#: objects/UML/classicon.c:148
-msgid "Is object"
-msgstr "Це об'╓кт"
-
-#: objects/UML/classicon.c:710
+#: objects/UML/classicon.c:133
 msgid "Control"
 msgstr "Керування"
 
-#: objects/UML/classicon.c:716
+#: objects/UML/classicon.c:134
 msgid "Boundary"
 msgstr "Межа"
 
-#: objects/UML/classicon.c:729
-msgid "Is an object"
+#: objects/UML/classicon.c:144
+msgid "Is object"
 msgstr "Це об'╓кт"
 
-#: objects/UML/constraint.c:511
+#: objects/UML/constraint.c:131
 msgid "Constraint:"
 msgstr "Обмеження:"
 
-#: objects/UML/dependency.c:636
+#: objects/UML/dependency.c:145
 msgid "Show arrow:"
 msgstr "Показати стр╕лку:"
 
-#: objects/UML/implements.c:561
+#: objects/UML/implements.c:133
 msgid "Interface:"
 msgstr "╤нтерфейс:"
 
-#: objects/UML/lifeline.c:607
-msgid "Show focus of control:"
+#: objects/UML/lifeline.c:149
+#, fuzzy
+msgid "Draw focus of control:"
 msgstr "Показати фокус керування:"
 
-#: objects/UML/lifeline.c:612
-msgid "Show destruction mark:"
+#: objects/UML/lifeline.c:151
+#, fuzzy
+msgid "Draw destruction mark:"
 msgstr "Показати позначку деструкц╕╖:"
 
-#: objects/UML/message.c:616
-msgid "Message:"
-msgstr "Пов╕домлення:"
-
-#: objects/UML/message.c:630
-msgid "Message type:"
-msgstr "Тип пов╕домлення:"
-
-#.
-#: objects/UML/message.c:635
+#: objects/UML/message.c:161
 msgid "Call"
 msgstr "Виклик"
 
-#: objects/UML/message.c:640
-msgid "Return"
-msgstr "Повернення"
-
-#: objects/UML/message.c:645
-msgid "Asynchronous"
-msgstr "Асинхронний"
-
-#: objects/UML/message.c:650
+#: objects/UML/message.c:162
 msgid "Create"
 msgstr "Створити"
 
-#: objects/UML/message.c:655
+#: objects/UML/message.c:163
 msgid "Destroy"
 msgstr "Знищити"
 
-#: objects/UML/message.c:660
+#: objects/UML/message.c:164
 msgid "Simple"
 msgstr "Простий"
 
-#: objects/UML/message.c:665
+#: objects/UML/message.c:165
+msgid "Return"
+msgstr "Повернення"
+
+#: objects/UML/message.c:166
+msgid "Send"
+msgstr ""
+
+#: objects/UML/message.c:167
 msgid "Recursive"
 msgstr "Рекурсивний"
 
-#: objects/UML/object.c:167
+#: objects/UML/message.c:174
+msgid "Message:"
+msgstr "Пов╕домлення:"
+
+#: objects/UML/message.c:176
+msgid "Message type:"
+msgstr "Тип пов╕домлення:"
+
+#: objects/UML/object.c:171
 msgid "Class name"
 msgstr "Назва класу"
 
-#: objects/UML/object.c:818
+#: objects/UML/object.c:816
 msgid "Explicit state:"
 msgstr "Виключний стан:"
 
-#: objects/UML/object.c:840
+#: objects/UML/object.c:838
 msgid "Attributes:"
 msgstr "Ознаки:"
 
-#: objects/UML/object.c:850
+#: objects/UML/object.c:848
 msgid "Show attributes"
 msgstr "Показати ознаки"
 
-#: objects/UML/object.c:854
+#: objects/UML/object.c:852
 msgid "Active object"
 msgstr "Активний об'╓кт"
 
-#: objects/UML/object.c:859
+#: objects/UML/object.c:857
 msgid "multiple instance"
 msgstr "множинн╕ входження"
 
-#: objects/UML/node.c:115
-msgid "Node name"
-msgstr "Назва вузла"
-
-#: objects/UML/state.c:147
-msgid "State Type"
-msgstr "Тип стану"
-
-#: objects/UML/state.c:607
+#: objects/UML/state.c:135
 msgid "Begin"
 msgstr "Початок"
 
-#: objects/UML/state.c:612
+#: objects/UML/state.c:136
 msgid "End"
 msgstr "К╕нець"
 
-#: objects/UML/uml.c:56
+#: objects/UML/state.c:143
+msgid "State Type"
+msgstr "Тип стану"
+
+#: objects/UML/uml.c:60
 msgid "Unified Modelling Language diagram objects"
 msgstr "Об'╓кти д╕аграм Ун╕ф╕ковано╖ Мови Моделювання (UML)"
 
-#: objects/UML/usecase.c:133
+#: objects/UML/usecase.c:137
 msgid "Text outside"
 msgstr "Текст назовн╕"
 
-#: objects/UML/usecase.c:135 objects/UML/usecase.c:650
+#: objects/UML/usecase.c:139
 msgid "Collaboration"
 msgstr "Сп╕впраця"
 
-#: objects/UML/usecase.c:645
-msgid "Text outside:"
-msgstr "Зовн╕шн╕й текст:"
-
-#: objects/chronogram/chronogram.c:36
+#: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
 msgstr "Об'╓кти д╕аграми хронограми"
 
-#: objects/chronogram/chronoline.c:301 objects/chronogram/chronoline.c:404
+#: objects/chronogram/chronoline.c:306 objects/chronogram/chronoline.c:409
 msgid "Aspect"
 msgstr "Вигляд"
 
-#: objects/chronogram/chronoline.c:302 objects/chronogram/chronoline.c:405
+#: objects/chronogram/chronoline.c:307 objects/chronogram/chronoline.c:410
 msgid "Parameters"
 msgstr "Параметри"
 
-#: objects/chronogram/chronoline.c:303
+#: objects/chronogram/chronoline.c:308
 msgid "Data"
 msgstr "Дан╕"
 
-#: objects/chronogram/chronoline.c:305
+#: objects/chronogram/chronoline.c:310
 msgid "Data name:"
 msgstr "Назва даних:"
 
-#: objects/chronogram/chronoline.c:307
+#: objects/chronogram/chronoline.c:312
 msgid "Events:"
 msgstr "Под╕╖:"
 
-#: objects/chronogram/chronoline.c:308
+#: objects/chronogram/chronoline.c:313
 msgid ""
 "Event specification:\n"
 "@ time    set the pointer at an absolute time.\n"
@@ -2454,50 +2507,50 @@ msgstr ""
 "u тривал╕сть  встановлю╓ сигнал у невизначений стан на вказаний час.\n"
 "Приклад: @ 1.0 (2.0)1.0(2.0)\n"
 
-#: objects/chronogram/chronoline.c:316 objects/chronogram/chronoline.c:407
-#: objects/chronogram/chronoref.c:244 objects/chronogram/chronoref.c:309
+#: objects/chronogram/chronoline.c:321 objects/chronogram/chronoline.c:412
+#: objects/chronogram/chronoref.c:249 objects/chronogram/chronoref.c:314
 msgid "Start time:"
 msgstr "Чос початку:"
 
-#: objects/chronogram/chronoline.c:318 objects/chronogram/chronoline.c:409
-#: objects/chronogram/chronoref.c:245 objects/chronogram/chronoref.c:310
+#: objects/chronogram/chronoline.c:323 objects/chronogram/chronoline.c:414
+#: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
 msgid "End time:"
 msgstr "Час завершення:"
 
-#: objects/chronogram/chronoline.c:320 objects/chronogram/chronoline.c:411
+#: objects/chronogram/chronoline.c:325 objects/chronogram/chronoline.c:416
 msgid "Rise time:"
 msgstr "Час п╕дйому:"
 
-#: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
+#: objects/chronogram/chronoline.c:327 objects/chronogram/chronoline.c:418
 msgid "Fall time:"
 msgstr "Час пад╕ння:"
 
-#: objects/chronogram/chronoline.c:324 objects/chronogram/chronoline.c:415
+#: objects/chronogram/chronoline.c:329 objects/chronogram/chronoline.c:420
 msgid "Multi-bit data"
 msgstr "Багатоб╕тов╕ дан╕"
 
-#: objects/chronogram/chronoline.c:326 objects/chronogram/chronoline.c:418
+#: objects/chronogram/chronoline.c:331 objects/chronogram/chronoline.c:423
 msgid "Data color:"
 msgstr "Кол╕р даних:"
 
-#: objects/chronogram/chronoline.c:328 objects/chronogram/chronoline.c:419
+#: objects/chronogram/chronoline.c:333 objects/chronogram/chronoline.c:424
 msgid "Data line width:"
 msgstr "Ширина л╕н╕╖ даних:"
 
-#: objects/chronogram/chronoline.c:329 objects/chronogram/chronoline.c:421
-#: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
+#: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:426
+#: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
 msgid "Line color:"
 msgstr "Кол╕р л╕н╕╖:"
 
-#: objects/chronogram/chronoref.c:247 objects/chronogram/chronoref.c:312
+#: objects/chronogram/chronoref.c:252 objects/chronogram/chronoref.c:317
 msgid "Major time step:"
 msgstr "Основний крок часу:"
 
-#: objects/chronogram/chronoref.c:248 objects/chronogram/chronoref.c:313
+#: objects/chronogram/chronoref.c:253 objects/chronogram/chronoref.c:318
 msgid "Minor time step:"
 msgstr "Допом╕жний крок часу:"
 
-#: objects/chronogram/chronoref.c:252 objects/chronogram/chronoref.c:317
+#: objects/chronogram/chronoref.c:257 objects/chronogram/chronoref.c:322
 msgid "Minor step line width:"
 msgstr "Ширина л╕н╕╖ допом╕жного кроку:"
 
@@ -2509,92 +2562,84 @@ msgstr "Користувацька"
 msgid "Custom XML shapes loader"
 msgstr "Завантаження користувацьких XML-форм"
 
-#: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
+#: objects/custom/custom_object.c:179 objects/custom/custom_object.c:197
 msgid "Flip horizontal"
 msgstr "В╕дзеркалити горизонтально"
 
-#: objects/custom/custom_object.c:177 objects/custom/custom_object.c:195
+#: objects/custom/custom_object.c:181 objects/custom/custom_object.c:199
 msgid "Flip vertical"
 msgstr "В╕дзеркалити вертикально"
 
-#: objects/custom/custom_object.c:352 objects/flowchart/box.c:312
-#: objects/flowchart/diamond.c:306 objects/flowchart/ellipse.c:306
-#: objects/flowchart/parallelogram.c:317 objects/standard/beziergon.c:218
-#: objects/standard/box.c:226 objects/standard/ellipse.c:216
-#: objects/standard/polygon.c:222
-msgid "Draw background"
-msgstr "Намалювати тло"
-
-#: objects/custom/custom_object.c:375 objects/standard/textobj.c:255
+#: objects/custom/custom_object.c:379 objects/standard/textobj.c:259
 msgid "Alignment:"
 msgstr "Вир╕внювання:"
 
-#: objects/custom/custom_object.c:1341
+#: objects/custom/custom_object.c:1343
 msgid "Flip Horizontal"
 msgstr "В╕дзеркалити горизонтально"
 
-#: objects/custom/custom_object.c:1342
+#: objects/custom/custom_object.c:1344
 msgid "Flip Vertical"
 msgstr "В╕дзеркалити вертикально"
 
-#: objects/flowchart/box.c:163 objects/standard/box.c:149
+#: objects/flowchart/box.c:167 objects/standard/box.c:153
 msgid "Corner radius"
 msgstr "Рад╕ус кута"
 
-#: objects/flowchart/box.c:165 objects/flowchart/diamond.c:161
-#: objects/flowchart/ellipse.c:161 objects/flowchart/parallelogram.c:167
+#: objects/flowchart/box.c:169 objects/flowchart/diamond.c:165
+#: objects/flowchart/ellipse.c:165 objects/flowchart/parallelogram.c:171
 msgid "Text padding"
 msgstr "В╕дступи тексту"
 
-#: objects/flowchart/box.c:320 objects/standard/box.c:234
+#: objects/flowchart/box.c:325 objects/standard/box.c:240
 msgid "Corner rounding:"
 msgstr "Заокруглен╕ кути:"
 
-#: objects/flowchart/flowchart.c:32
+#: objects/flowchart/flowchart.c:37
 msgid "Flowchart objects"
 msgstr "Об'╓кти д╕аграми поток╕в"
 
-#: objects/flowchart/parallelogram.c:165
+#: objects/flowchart/parallelogram.c:169
 msgid "Shear angle"
 msgstr "Кут зм╕щення"
 
-#: objects/flowchart/parallelogram.c:325
+#: objects/flowchart/parallelogram.c:329
 msgid "Shear angle:"
 msgstr "Кут зм╕щення:"
 
-#: objects/network/bus.c:569
+#: objects/network/bus.c:574
 msgid "Add Handle"
 msgstr "Додати обробник"
 
-#: objects/network/bus.c:570
+#: objects/network/bus.c:575
 msgid "Delete Handle"
 msgstr "Стерти обробник"
 
-#: objects/network/network.c:47
+#: objects/network/network.c:51
 msgid "Network diagram objects"
 msgstr "Об'╓кти д╕аграми мереж╕"
 
-#: objects/standard/bezier.c:526 objects/standard/beziergon.c:544
+#: objects/standard/bezier.c:523 objects/standard/beziergon.c:544
 msgid "Add Segment"
 msgstr "Додати сегмент"
 
-#: objects/standard/bezier.c:527 objects/standard/beziergon.c:545
+#: objects/standard/bezier.c:524 objects/standard/beziergon.c:545
 msgid "Delete Segment"
 msgstr "Стерти сегмент"
 
-#: objects/standard/bezier.c:529 objects/standard/beziergon.c:547
+#: objects/standard/bezier.c:526 objects/standard/beziergon.c:547
 msgid "Symmetric control"
 msgstr "Симетричка точка"
 
-#: objects/standard/bezier.c:531 objects/standard/beziergon.c:549
+#: objects/standard/bezier.c:528 objects/standard/beziergon.c:549
 msgid "Smooth control"
 msgstr "Гладка точка"
 
-#: objects/standard/bezier.c:533 objects/standard/beziergon.c:551
+#: objects/standard/bezier.c:530 objects/standard/beziergon.c:551
 msgid "Cusp control"
 msgstr "Керуюча точка"
 
-#: objects/standard/arc.c:129
+#: objects/standard/arc.c:133
 msgid "Curve distance"
 msgstr "Довжина криво╖"
 
@@ -2610,20 +2655,20 @@ msgstr "Намалювати рамку"
 msgid "Keep aspect ratio"
 msgstr "Збер╕гати пропорц╕╖"
 
-#: objects/standard/image.c:271
+#: objects/standard/image.c:273
 msgid "Image file:"
 msgstr "Файл зображення:"
 
-#: objects/standard/image.c:282
+#: objects/standard/image.c:284
 msgid "Keep aspect ratio:"
 msgstr "Збер╕гати пропорц╕╖:"
 
-#: objects/standard/image.c:290
+#: objects/standard/image.c:292
 msgid "Show border:"
 msgstr "Показати рамку:"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:856 objects/standard/image.c:867
+#: objects/standard/image.c:853 objects/standard/image.c:864
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -2633,40 +2678,40 @@ msgstr ""
 "Зам╕сть нього використову╓ться файл \"%s\"\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:873 objects/standard/image.c:899
+#: objects/standard/image.c:870 objects/standard/image.c:896
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Файл зображення \"%s\" не знайдено.\n"
 
-#: objects/standard/line.c:118
+#: objects/standard/line.c:121
 msgid "Start point"
 msgstr "Початкова точка"
 
-#: objects/standard/line.c:120
+#: objects/standard/line.c:123
 msgid "End point"
 msgstr "К╕нцева точка"
 
-#: objects/standard/polygon.c:517 objects/standard/polyline.c:484
+#: objects/standard/polygon.c:518 objects/standard/polyline.c:480
 msgid "Add Corner"
 msgstr "Додати кут"
 
-#: objects/standard/polygon.c:518 objects/standard/polyline.c:485
+#: objects/standard/polygon.c:519 objects/standard/polyline.c:481
 msgid "Delete Corner"
 msgstr "Видалити кут"
 
-#: objects/standard/standard.c:40
+#: objects/standard/standard.c:45
 msgid "Standard objects"
 msgstr "Стандартн╕ об'╓кти"
 
-#: objects/standard/textobj.c:277
+#: objects/standard/textobj.c:281
 msgid "Fontsize:"
 msgstr "Розм╕р шрифту:"
 
-#: objects/sybase/sybase.c:40
+#: objects/sybase/sybase.c:44
 msgid "Sybase replication domain diagram objects"
 msgstr "Об'╓кти д╕аграми репл╕кац╕йного домену Sybase"
 
-#: plug-ins/cgm/cgm.c:1083
+#: plug-ins/cgm/cgm.c:1086
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -2674,15 +2719,15 @@ msgstr ""
 "Довжина рядка зображення б╕льши максимальною╖ к╕лькост╕ ком╕рок масиву.\n"
 "Зображення не ехпортовано в CGM."
 
-#: plug-ins/cgm/cgm.c:1253
+#: plug-ins/cgm/cgm.c:1259
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
 
-#: plug-ins/cgm/cgm.c:1267
+#: plug-ins/cgm/cgm.c:1273
 msgid "Computer Graphics Metafile export filter"
 msgstr "Ф╕льтр експорту в Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:558 plug-ins/dxf/dxf-import.c:544
+#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:547
 msgid "Drawing Interchange File"
 msgstr "DIF (формат файлу обм╕ну зображеннями)"
 
@@ -2690,7 +2735,7 @@ msgstr "DIF (формат файлу обм╕ну зображеннями)"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Ф╕льтр експорту/╕мпорту DIF (Drawing Interchange File)"
 
-#: plug-ins/hpgl/hpgl.c:613
+#: plug-ins/hpgl/hpgl.c:616
 msgid "HP Graphics Language export filter"
 msgstr "Ф╕льтр експорту в HP Graphics Language"
 
@@ -2698,15 +2743,15 @@ msgstr "Ф╕льтр експорту в HP Graphics Language"
 msgid "TeX Pstricks export filter"
 msgstr "Ф╕льтр експорту фал╕в TeX PSTricks"
 
-#: plug-ins/pstricks/render_pstricks.c:761
+#: plug-ins/pstricks/render_pstricks.c:763
 msgid "TeX PSTricks macros"
 msgstr "Макроси TeX PSTricks"
 
-#: plug-ins/shape/shape-export.c:915
+#: plug-ins/shape/shape-export.c:914
 msgid "Can't export png without libart!"
 msgstr "Неможливо експортувати в PNG без libart!"
 
-#: plug-ins/shape/shape-export.c:938
+#: plug-ins/shape/shape-export.c:937
 msgid "dia shape file"
 msgstr "файл форми dia"
 
@@ -2714,7 +2759,7 @@ msgstr "файл форми dia"
 msgid "dia shape export filter"
 msgstr "ф╕льтр експорту фал╕в форми dia"
 
-#: plug-ins/svg/render_svg.c:826
+#: plug-ins/svg/render_svg.c:825
 msgid "Scalable Vector Graphics"
 msgstr "SVG (векторна граф╕ка)"
 
@@ -2730,3 +2775,178 @@ msgstr "Файл: тип/верс╕я %s не п╕дтриму╓ться.\n"
 #: plug-ins/wpg/wpg.c:1199
 msgid "WordPerfect Graphics export filter"
 msgstr "Ф╕льтр експорту в WordPerfect Graphics"
+
+#: plug-ins/xfig/xfig.c:38
+#, fuzzy
+msgid "Fig Format import filter"
+msgstr "ф╕льтр експорту фал╕в форми dia"
+
+#: plug-ins/xfig/xfig-import.c:712
+#, c-format
+msgid "Error while reading %dth of %d points: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:731
+#, fuzzy
+msgid "Error while reading arrowhead\n"
+msgstr "Помилка зчитування файлу д╕аграми\n"
+
+#: plug-ins/xfig/xfig-import.c:805
+msgid "Patterns are not implemented\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:850
+#, fuzzy, c-format
+msgid "Couldn't read ellipse info: %s\n"
+msgstr ""
+"Не вдалося завантажити доповнення \"%s\"\n"
+"%s"
+
+#: plug-ins/xfig/xfig-import.c:884 plug-ins/xfig/xfig-import.c:1045
+#, fuzzy, c-format
+msgid "Line style %d not supported\n"
+msgstr "Властивост╕ стилю л╕н╕╖"
+
+#: plug-ins/xfig/xfig-import.c:961
+#, fuzzy, c-format
+msgid "Couldn't read polyline info: %s\n"
+msgstr ""
+"Не вдалося завантажити доповнення \"%s\"\n"
+"%s"
+
+#: plug-ins/xfig/xfig-import.c:976
+#, c-format
+msgid "Couldn't read flipped bit: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1019
+#, c-format
+msgid "Unknown polyline subtype: %d\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1113
+#, c-format
+msgid "Couldn't read text info: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1159
+#, c-format
+msgid "Couldn't identify FIG object: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1173
+msgid "Compound end outside compound\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1196
+#, fuzzy, c-format
+msgid "Couldn't read color: %s\n"
+msgstr ""
+"Не вдалося завантажити доповнення \"%s\"\n"
+"%s"
+
+#: plug-ins/xfig/xfig-import.c:1225
+#, fuzzy, c-format
+msgid "Couldn't read group extend: %s\n"
+msgstr "Не вдалось в╕дкрити: \"%s\""
+
+#. Arc.
+#. Spline which includes closed/open control/interpolated spline.
+#: plug-ins/xfig/xfig-import.c:1235
+#, c-format
+msgid "Object type %d not implemented yet\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1238
+#, c-format
+msgid "Unknown object type %d\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1257
+#, c-format
+msgid "`%s' is not one of `%s' or `%s'\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1267
+#, fuzzy, c-format
+msgid "Error reading paper size: %s\n"
+msgstr "Помилка зчитування файлу д╕аграми\n"
+
+#: plug-ins/xfig/xfig-import.c:1289
+#, fuzzy, c-format
+msgid "Error reading paper orientation: %s\n"
+msgstr "Помилка зчитування файлу д╕аграми\n"
+
+#: plug-ins/xfig/xfig-import.c:1299
+#, fuzzy, c-format
+msgid "Error reading justification: %s\n"
+msgstr "Помилка зчитування файлу д╕аграми\n"
+
+#: plug-ins/xfig/xfig-import.c:1309
+#, fuzzy, c-format
+msgid "Error reading units: %s\n"
+msgstr "Помилка зчитування файлу д╕аграми\n"
+
+#: plug-ins/xfig/xfig-import.c:1323
+#, fuzzy, c-format
+msgid "Error reading magnification: %s\n"
+msgstr "Помилка зчитування файлу д╕аграми\n"
+
+#: plug-ins/xfig/xfig-import.c:1334
+#, fuzzy, c-format
+msgid "Error reading multipage indicator: %s\n"
+msgstr "Помилка зчитування файлу д╕аграми\n"
+
+#: plug-ins/xfig/xfig-import.c:1345
+#, fuzzy, c-format
+msgid "Error reading transparent color: %s\n"
+msgstr "Помилка зчитування файлу д╕аграми\n"
+
+#: plug-ins/xfig/xfig-import.c:1354 plug-ins/xfig/xfig-import.c:1410
+#, fuzzy, c-format
+msgid "Error reading FIG file: %s\n"
+msgstr "Помилка зчитування файлу д╕аграми\n"
+
+#: plug-ins/xfig/xfig-import.c:1356 plug-ins/xfig/xfig-import.c:1412
+msgid "Premature end of FIG file\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1365
+#, fuzzy, c-format
+msgid "Error reading resolution: %s\n"
+msgstr "Помилка зчитування файлу д╕аграми\n"
+
+#: plug-ins/xfig/xfig-import.c:1397
+#, c-format
+msgid "Doesn't look like a Fig file: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1403
+#, c-format
+msgid "This is a FIG version %d.%d file, I may not understand it\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1456
+msgid "XFig File Format"
+msgstr ""
+
+#~ msgid "Border width:"
+#~ msgstr "Ширина рамки:"
+
+#~ msgid "Foreground color:"
+#~ msgstr "Кол╕р переднього плану:"
+
+#~ msgid "Background color:"
+#~ msgstr "Кол╕р тла:"
+
+#~ msgid "Is an object"
+#~ msgstr "Це об'╓кт"
+
+#~ msgid "Asynchronous"
+#~ msgstr "Асинхронний"
+
+#~ msgid "Node name"
+#~ msgstr "Назва вузла"
+
+#~ msgid "Text outside:"
+#~ msgstr "Зовн╕шн╕й текст:"

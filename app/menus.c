@@ -242,19 +242,21 @@ static GnomeUIInfo display_menu[] = {
 
 static GtkItemFactoryEntry toolbox_menu_items[] =
 {
-  {N_("/_File"),               NULL,         NULL,                      0, "<Branch>"},
-  {   "/File/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
+  {N_("/_File"),               NULL,         NULL,       0,    "<Branch>" },
+  {   "/File/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
   {N_("/File/_New"),           "<control>N", file_new_callback,         0 },
   {N_("/File/_Open"),          "<control>O", file_open_callback,        0 },
-  {N_("/File/Open _Recent"),   NULL,         NULL,                      0, "<Branch>"},
+  {N_("/File/Open _Recent"),   NULL,         NULL,       0,    "<Branch>" },
   {N_("/File/Open Recent/---"),
-                               NULL,         NULL,                      0, "<Separator>"},
+                               NULL,         NULL,       0, "<Separator>" },
   {N_("/File/_Preferences..."),NULL,         file_preferences_callback, 0 },
   {N_("/File/P_lugins"),       NULL,         file_plugins_callback,     0 },
-  {N_("/File/---"),            NULL,         NULL,                      0, "<Separator>"},
+  {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/File/_Quit"),          "<control>Q", file_quit_callback,        0 },
-  {N_("/_Help"),               NULL,         NULL,                      0, "<Branch>" },
-  {   "/Help/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
+  {N_("/_Help"),               NULL,         NULL,       0,    "<Branch>" },
+  {   "/Help/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
+  {N_("/Help/_Manual"),        NULL,         help_manual_callback,      0 },
+  {N_("/Help/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/Help/_About"),         NULL,         help_about_callback,       0 },
 };
 

@@ -19,7 +19,7 @@
 #include "config.h"
 
 #ifdef HAVE_UNISTD_H
-#include <unistd.h>
+#  include <unistd.h>
 #endif
 #include <stdlib.h>
 #include <stdio.h>
@@ -28,6 +28,9 @@
 #include <sys/stat.h>
 #include <math.h>
 #include <glib.h>
+#ifdef HAVE_DIRENT_H
+#  include <dirent.h>
+#endif
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
@@ -466,6 +469,51 @@ edit_redo_callback(gpointer data, guint action, GtkWidget *widget)
 
   diagram_flush(dia);
 } 
+
+void
+help_manual_callback(gpointer data, guint action, GtkWidget *widget)
+{
+  char *helpdir, *helpindex = NULL, *command;
+  guint bestscore = G_MAXINT;
+  DIR *dp;
+  struct dirent *dirp;
+
+  helpdir = dia_get_data_directory("help");
+  if (!helpdir) {
+    message_warning(_("Could not find help directory"));
+    return;
+  }
+
+  /* search through helpdir for the helpfile that matches the user's locale */
+  dp = opendir(helpdir);
+  while ((dirp = readdir(dp)) != NULL) {
+    guint score;
+
+    if (!strcmp(dirp->d_name, ".") || !strcmp(dirp->d_name, ".."))
+      continue;
+
+    score = intl_score_locale(dirp->d_name);
+    if (score < bestscore) {
+      if (helpindex)
+	g_free(helpindex);
+      helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dirp->d_name,
+			      G_DIR_SEPARATOR_S "index.html", NULL);
+      bestscore = score;
+    }
+  }
+  g_free(helpdir);
+  if (!helpindex) {
+    message_warning(_("Could not find help directory"));
+    return;
+  }
+
+  /* XXXX - need win32 version of this code */
+  command = g_strdup_printf("netscape '%s' &", helpindex);
+  system(command);
+  g_free(command);
+
+  g_free(helpindex);
+}
 
 void
 help_about_callback(gpointer data, guint action, GtkWidget *widget)

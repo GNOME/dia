@@ -56,9 +56,11 @@ GNOME_CFLAGS=""
 GNOME_LIBS=""
 BONOBO_LIBS=""
 bonobo_msg=no
+have_gnome=false
 have_bonobo=false
 if test "$GNOME" = "yes"; then
   AC_DEFINE(GNOME)
+  have_gnome=true
   components="gnomeui"
   hcomponents=""
   if test "$enable_gnome_print" = "yes"; then
@@ -95,8 +97,9 @@ if test "$GNOME" = "yes"; then
   GNOME_CFLAGS=`gnome-config $hcomponents $components --cflags`
   GNOME_LIBS=`gnome-config $components --libs`
 fi
+AM_CONDITIONAL(HAVE_GNOME, $have_gnome)
 AM_CONDITIONAL(HAVE_GNOME_PRINT,
-	test "$GNOME" = "yes" && test "$enable_gnome_print" = "yes")
+	$have_gnome && test "$enable_gnome_print" = "yes")
 AM_CONDITIONAL(HAVE_BONOBO, $have_bonobo)
 
 AC_SUBST(GNOME_CFLAGS)

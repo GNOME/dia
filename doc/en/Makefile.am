@@ -1,5 +1,9 @@
 
+if HAVE_GNOME
 helpdir = $(datadir)/gnome/help/dia/en
+else
+helpdir = $(pkgdatadir)/help/en
+endif
 
 help_DATA = topic.dat
 
@@ -18,9 +22,14 @@ SGML_FILES = \
 	usage-objects.sgml \
 	usage-quickstart.sgml
 
+GRAPHICS = \
+	graphics/greendots.png \
+	graphics/home_network.png \
+	graphics/line_props.png
+
 EXTRA_DIST = \
 	topic.dat \
-	graphics/greendots.png \
+	$(GRAPHICS) \
 	$(SGML_FILES)
 
 if HAVE_DB2HTML
@@ -47,5 +56,9 @@ install-data-hook: stamp-doc
 	for file in $(srcdir)/dia-manual/stylesheet-images/*.gif; do \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/stylesheet-images/`basename $$file`; \
 	done
-	$(INSTALL_DATA) $(srcdir)/graphics/greendots.png $(DESTDIR)$(helpdir)
+	cd $(srcdir) && for file in $(GRAPHICS); do \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir); \
+	done
 
+uninstall-local:
+	rm -rf $(DESTDIR)$(helpdir)

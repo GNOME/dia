@@ -26,7 +26,8 @@ libuml_objects_la_SOURCES = \
 			state.c \
 			node.c \
 			branch.c \
-			stereotype.c
+			stereotype.c \
+			stereotype.h
 
 libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
