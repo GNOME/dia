@@ -401,7 +401,7 @@ get_draw_style(RendererSVG *renderer,
   if (!str) str = g_string_new(NULL);
   g_string_truncate(str, 0);
 
-  g_string_sprintf(str, "stroke-width: %g", renderer->linewidth);
+  g_string_sprintf(str, "fill: none; stroke-width: %g", renderer->linewidth);
   if (strcmp(renderer->linecap, "butt"))
     g_string_sprintfa(str, "; stroke-linecap: %s", renderer->linecap);
   if (strcmp(renderer->linejoin, "miter"))
@@ -558,6 +558,19 @@ fill_rect(RendererSVG *renderer,
   xmlSetProp(node, "height", buf);
 }
 
+static int sweep(real x1,real y1,real x2,real y2,real x3,real y3)
+{
+  real X2=x2-x1;
+  real Y2=y2-y1;
+  real X3=x3-x1;
+  real Y3=y3-y1;
+  real L=sqrt(X2*X2+Y2*Y2);
+  real cost=X2/L;
+  real sint=Y2/L;
+  real res=-X3*sint+Y3*cost;
+  return res>0;
+}
+
 static void
 draw_arc(RendererSVG *renderer, 
 	 Point *center,
@@ -568,16 +581,22 @@ draw_arc(RendererSVG *renderer,
   xmlNodePtr node;
   char buf[512];
   real rx = width / 2, ry = height / 2;
+  real x1=center->x + rx*cos(angle1*M_PI/180);
+  real y1=center->y - ry*sin(angle1*M_PI/180);
+  real x2=center->x + rx*cos(angle2*M_PI/180);
+  real y2=center->y - ry*sin(angle2*M_PI/180);
+  int swp = sweep(x1,y1,x2,y2,center->x,center->y);
+  int l_arc = (angle2 - angle1) > 180;
 
   node = xmlNewChild(renderer->root, NULL, "path", NULL);
   
   xmlSetProp(node, "style", get_draw_style(renderer, colour));
 
   /* this path might be incorrect ... */
-  g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d 1 %g,%g",
-	     center->x + rx*cos(angle1), center->y + ry * sin(angle1),
-	     rx, ry, (angle2 - angle1 > 0),
-	     center->x + rx*cos(angle2), center->y + ry * sin(angle2));
+  g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d %d %g,%g",
+	     x1, y1,
+	     rx, ry,l_arc ,swp ,
+	     x2, y2);
 
   xmlSetProp(node, "d", buf);
 }
@@ -592,16 +611,22 @@ fill_arc(RendererSVG *renderer,
   xmlNodePtr node;
   char buf[512];
   real rx = width / 2, ry = height / 2;
+  real x1=center->x + rx*cos(angle1*M_PI/180);
+  real y1=center->y - ry*sin(angle1*M_PI/180);
+  real x2=center->x + rx*cos(angle2*M_PI/180);
+  real y2=center->y - ry*sin(angle2*M_PI/180);
+  int swp = sweep(x1,y1,x2,y2,center->x,center->y);
+  int l_arc = (angle2 - angle1) > 180;
 
   node = xmlNewChild(renderer->root, NULL, "path", NULL);
   
   xmlSetProp(node, "style", get_fill_style(renderer, colour));
 
   /* this path might be incorrect ... */
-  g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d 1 %g,%g L %g,%g z",
-	     center->x + rx*cos(angle1), center->y + ry * sin(angle1),
-	     rx, ry, (angle2 - angle1 > 0),
-	     center->x + rx*cos(angle2), center->y + ry * sin(angle2),
+  g_snprintf(buf, sizeof(buf), "M %g,%g A %g,%g 0 %d %d %g,%g L %g,%g z",
+	     x1, y1,
+	     rx, ry,l_arc ,swp ,
+	     x2, y2,
 	     center->x, center->y);
 
   xmlSetProp(node, "d", buf);
@@ -768,13 +793,13 @@ draw_string(RendererSVG *renderer,
   renderer->linewidth = saved_width;
   switch (alignment) {
   case ALIGN_LEFT:
-    style = g_strconcat(style, "; text-anchor: left", NULL);
+    style = g_strconcat(style, "; text-anchor: start", NULL);
     break;
   case ALIGN_CENTER:
-    style = g_strconcat(style, "; text-anchor: middle", NULL);
+    style = g_strconcat(style, "; text-anchor: center", NULL);
     break;
   case ALIGN_RIGHT:
-    style = g_strconcat(style, "; text-anchor: right", NULL);
+    style = g_strconcat(style, "; text-anchor: end", NULL);
     break;
   }
   tmp = g_strdup_printf("%s; font-size: %g", style, renderer->fontsize);
