@@ -1269,11 +1269,17 @@ custom_destroy(Custom *custom)
   if (custom->info->has_text)
     text_destroy(custom->text);
 
+  /*
+   * custom_destroy is called per object. It _must not_ destroy class stuff
+   * (ShapeInfo) cause it does not hold a reference to it. Fixes e.g. 
+   * bug #158288, #160550, ...
+   */
+#if 0
   for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
        GraphicElement *el = tmp->data;
        switch (el->type) {
        case GE_TEXT: 
-           text_destroy(el->text.object); 
+           text_destroy(el->text.object);
            break;
        case GE_IMAGE: 
            dia_image_release(el->image.image); 
@@ -1289,6 +1295,7 @@ custom_destroy(Custom *custom)
            break;
        }
   }
+#endif
   /* TODO: free allocated ext props (string, etc.) */
 
   element_destroy(&custom->element);

@@ -291,65 +291,34 @@ association_draw(Association *assoc, DiaRenderer *renderer)
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   
+  startarrow.length = ASSOCIATION_TRIANGLESIZE;
+  startarrow.width = ASSOCIATION_TRIANGLESIZE;
   if (assoc->end[0].arrow) {
     startarrow.type = ARROW_LINES;
+  } else if (assoc->end[0].aggregate != AGGREGATE_NONE) {
+    startarrow.length = ASSOCIATION_DIAMONDLEN;
+    startarrow.width = ASSOCIATION_TRIANGLESIZE*0.6;
+    startarrow.type = assoc->end[0].aggregate == AGGREGATE_NORMAL ?
+      ARROW_HOLLOW_DIAMOND : ARROW_FILLED_DIAMOND;
   } else {
     startarrow.type = ARROW_NONE;
   }
+  endarrow.length = ASSOCIATION_TRIANGLESIZE;
+  endarrow.width = ASSOCIATION_TRIANGLESIZE;
   if (assoc->end[1].arrow) {
     endarrow.type = ARROW_LINES;
+  } else if (assoc->end[1].aggregate != AGGREGATE_NONE) {
+    endarrow.length = ASSOCIATION_DIAMONDLEN;
+    endarrow.width = ASSOCIATION_TRIANGLESIZE*0.6;
+    endarrow.type = assoc->end[1].aggregate == AGGREGATE_NORMAL ?
+      ARROW_HOLLOW_DIAMOND : ARROW_FILLED_DIAMOND;
   } else {
     endarrow.type = ARROW_NONE;
   }
-  startarrow.length = ASSOCIATION_TRIANGLESIZE;
-  startarrow.width = ASSOCIATION_TRIANGLESIZE;
-  endarrow.length = ASSOCIATION_TRIANGLESIZE;
-  endarrow.width = ASSOCIATION_TRIANGLESIZE;
   renderer_ops->draw_polyline_with_arrows(renderer, points, n,
 					   ASSOCIATION_WIDTH,
 					   &color_black,
 					   &startarrow, &endarrow);
-
-  /* Shouldn't these be instead of the normal arrows? */
-  switch (assoc->end[0].aggregate) {
-  case AGGREGATE_NORMAL:
-    arrow_draw(renderer, ARROW_HOLLOW_DIAMOND,
-	       &points[0], &points[1],
-	       ASSOCIATION_DIAMONDLEN, ASSOCIATION_TRIANGLESIZE*0.6,
-	       ASSOCIATION_WIDTH,
-	       &color_black, &color_white);
-    break;
-  case AGGREGATE_COMPOSITION:
-    arrow_draw(renderer, ARROW_FILLED_DIAMOND,
-	       &points[0], &points[1],
-	       ASSOCIATION_DIAMONDLEN, ASSOCIATION_TRIANGLESIZE*0.6,
-	       ASSOCIATION_WIDTH,
-	       &color_black, &color_white);
-    break;
-  case AGGREGATE_NONE:
-    /* Nothing */
-    break;
-  }
-
-  switch (assoc->end[1].aggregate) {
-  case AGGREGATE_NORMAL:
-    arrow_draw(renderer, ARROW_HOLLOW_DIAMOND,
-	       &points[n-1], &points[n-2],
-	       ASSOCIATION_DIAMONDLEN, ASSOCIATION_TRIANGLESIZE*0.6,
-	       ASSOCIATION_WIDTH,
-	       &color_black, &color_white);
-    break;
-  case AGGREGATE_COMPOSITION:
-    arrow_draw(renderer, ARROW_FILLED_DIAMOND,
-	       &points[n-1], &points[n-2],
-	       ASSOCIATION_DIAMONDLEN, ASSOCIATION_TRIANGLESIZE*0.6,
-	       ASSOCIATION_WIDTH,
-	       &color_black, &color_white);
-    break;
-  case AGGREGATE_NONE:
-    /* Nothing */
-    break;
-  }
 
   /* Name: */
   renderer_ops->set_font(renderer, assoc_font, ASSOCIATION_FONTHEIGHT);
@@ -508,9 +477,6 @@ association_set_state(Association *assoc, AssociationState *state)
   association_update_data(assoc);
 }
 
-#define FIX_ASSOC_END
-
-#ifdef FIX_ASSOC_END
 static void
 association_update_data_end(Association *assoc, int endnum)
 {
@@ -534,7 +500,7 @@ association_update_data_end(Association *assoc, int endnum)
   }
 
   /* If the points are the same, find a better candidate: */
-  if (points[fp].x == points[sp].x && points[sp].y == points[sp].y) {
+  if (points[fp].x == points[sp].x && points[fp].y == points[sp].y) {
       sp += (endnum ? -1 : 1);
       if (sp < 0)
 	  sp = 0;
@@ -585,7 +551,6 @@ association_update_data_end(Association *assoc, int endnum)
   
   rectangle_union(&obj->bounding_box, &rect);
 }
-#endif /* FIX_ASSOC_END */
 
 static void
 association_update_data(Association *assoc)
@@ -597,14 +562,9 @@ association_update_data(Association *assoc)
   DiaObject *obj = &orth->object;
   PolyBBExtras *extra = &orth->extra_spacing;
   int num_segm, i;
-#ifndef FIX_ASSOC_END
-  int n;
-#endif
   Point *points;
   Rectangle rect;
-#ifndef FIX_ASSOC_END
-  AssociationEnd *end;
-#endif
+  Orientation dir;
   
   orthconn_update_data(orth);  
   
@@ -634,8 +594,14 @@ association_update_data(Association *assoc)
     if (assoc->orth.orientation[i]==VERTICAL)
       i--;
   }
+  dir = assoc->orth.orientation[i];
+  /* also adapt for degenerated segement */
+  if (VERTICAL == dir && points[i].y == points[i+1].y)
+    dir = HORIZONTAL;
+  else if (HORIZONTAL == dir && points[i].x == points[i+1].x)
+    dir = VERTICAL;
 
-  switch (assoc->orth.orientation[i]) {
+  switch (dir) {
   case HORIZONTAL:
     assoc->text_align = ALIGN_CENTER;
     assoc->text_pos.x = 0.5*(points[i].x+points[i+1].x);
@@ -658,88 +624,8 @@ association_update_data(Association *assoc)
 
   rectangle_union(&obj->bounding_box, &rect);
 
-#ifdef FIX_ASSOC_END
   association_update_data_end(assoc, 0);
   association_update_data_end(assoc, 1);
-#else  /* !FIX_ASSOC_END */
-  /* Update the text-points of the ends: */
-  /* END 0: */
-  end = &assoc->end[0];
-  end->text_pos = points[0];
-  switch (assoc->orth.orientation[0]) {
-  case HORIZONTAL:
-    end->text_pos.y -= end->role_descent;
-    if (points[0].x < points[1].x) {
-      end->text_align = ALIGN_LEFT;
-      end->text_pos.x += get_aggregate_pos_diff(end);
-    } else {
-      end->text_align = ALIGN_RIGHT;    
-      end->text_pos.x -= get_aggregate_pos_diff(end);
-    }
-    break;
-  case VERTICAL:
-    end->text_pos.y += end->role_ascent;
-    end->text_pos.y += ASSOCIATION_FONTHEIGHT;
-    end->text_pos.x += ASSOCIATION_DIAMONDWIDTH / 2;
-    if (points[0].y > points[1].y) {
-      if (end->role!=NULL)
-          end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
-      if (end->multiplicity!=NULL)
-          end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
-      end->text_pos.y -= get_aggregate_pos_diff(end);
-    } else {
-      end->text_pos.y += get_aggregate_pos_diff(end);
-    }
-    end->text_align = ALIGN_LEFT;
-    break;
-  }
-  /* Add the text recangle to the bounding box: */
-  rect.left = end->text_pos.x;
-  rect.right = rect.left + end->text_width;
-  rect.top = end->text_pos.y - end->role_ascent;
-  rect.bottom = rect.top + 2*ASSOCIATION_FONTHEIGHT;
-  
-  rectangle_union(&obj->bounding_box, &rect);
-
-  /* END 1: */
-  end = &assoc->end[1];
-  n = assoc->orth.numpoints - 1;
-  end->text_pos = points[n];
-  switch (assoc->orth.orientation[n-1]) {
-  case HORIZONTAL:
-    end->text_pos.y -= end->role_descent;
-    if (points[n].x < points[n-1].x) {
-      end->text_align = ALIGN_LEFT;
-      end->text_pos.x += get_aggregate_pos_diff(end);
-    } else {
-      end->text_align = ALIGN_RIGHT;
-      end->text_pos.x -= get_aggregate_pos_diff(end);
-    }
-    break;
-  case VERTICAL:
-    end->text_pos.y += end->role_ascent;
-    end->text_pos.y += ASSOCIATION_FONTHEIGHT;
-    end->text_pos.x += ASSOCIATION_DIAMONDWIDTH / 2;
-    if (points[n].y > points[n-1].y) {
-      if (end->role!=NULL)
-	end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
-      if (end->multiplicity!=NULL)
-	end->text_pos.y -= ASSOCIATION_FONTHEIGHT;
-      end->text_pos.y -= get_aggregate_pos_diff(end);
-    } else {
-      end->text_pos.y += get_aggregate_pos_diff(end);
-    }
-    end->text_align = ALIGN_LEFT;
-    break;
-  }
-  /* Add the text rectangle to the bounding box: */
-  rect.left = end->text_pos.x;
-  rect.right = rect.left + end->text_width;
-  rect.top = end->text_pos.y - end->role_ascent;
-  rect.bottom = rect.top + 2*ASSOCIATION_FONTHEIGHT;
-  
-  rectangle_union(&obj->bounding_box, &rect);
-#endif /* !FIX_ASSOC_END */
 }
 
 static coord get_aggregate_pos_diff(AssociationEnd *end)

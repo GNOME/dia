@@ -27,6 +27,7 @@ EXPORTS
  diagram_is_selected
  diagram_load
  new_diagram
+ diagram_get_type
  diagram_remove_all_selected
  diagram_save
  diagram_select

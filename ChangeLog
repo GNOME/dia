@@ -1,3 +1,17 @@
+2004-12-12  Hans Breuer  <hans@breuer.org>
+
+	* lib/libdia.def app/dia.def : updated externals
+
+	* objects/custom/custom_object.c : custom_destroy is called per object. 
+	It _must not_ destroy class stuff (ShapeInfo) cause it does not hold a 
+	reference to it. Fixes e.g. bug #158288, #160550, ...
+
+	* objects/UML/association.c(association_draw) : completed proting to
+	draw_polyline_with_arrows()
+	(association_update_data_end) : fixed typo in point compare
+	(association_update_data) : for name placement take degenerated 
+	segements into account. Together this fixes bug #143891
+
 2004-12-11  Hans Breuer  <hans@breuer.org>
 
 	* lib/widgets.c(set_size_sensitivity) : revert inverted
