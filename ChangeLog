@@ -1,3 +1,8 @@
+2003-05-06  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/UML/uml.c (uml_get_operation_string): Avoid ':' on
+	type-less operations.
+
 003-05-03  Hasbullah Bin Pit  <sebol@ikhlas.com>
 
         * configure.in(ALL_LINGUAS): Added "ms".

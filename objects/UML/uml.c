@@ -181,7 +181,7 @@ uml_get_operation_string (UMLOperation *operation)
   }
 
   len += 1; /* ')' */
-  if (operation->type != NULL) {
+  if (operation->type != NULL && operation->type[0]) {
     len += 2 + strlen (operation->type);
   }
   if(operation->query != 0) {
@@ -243,7 +243,8 @@ uml_get_operation_string (UMLOperation *operation)
   }
   strcat (str, ")");
 
-  if (operation->type != NULL) {
+  if (operation->type != NULL &&
+      operation->type[0]) {
     strcat (str, ": ");
     strcat (str, operation->type);
   }
