@@ -525,10 +525,10 @@ draw_fill_arc (DiaRenderer *object,
   dangle = angle2-angle1;
   if (dangle<0)
     dangle += 360.0;
-  
+
   gdk_draw_arc(renderer->pixmap,
 	       gc, fill,
-	       left, top, right-left, bottom-top,
+	       left, top, right-left+(fill?1:0), bottom-top+(fill?1:0),
 	       (int) (angle1*64.0), (int) (dangle*64.0));
 }
 static void 

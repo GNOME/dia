@@ -25,12 +25,11 @@
  
 #include "filter.h"
 #include "plug-ins.h"
+#include "message.h"
 
 #include "diagnomeprintrenderer.h"
 
-#include <libgnomeprint/gnome-print-ps2.h>
-#include <libgnomeprint/gnome-print-pdf.h>
-#include <libgnomeprint/gnome-print-svg.h>
+#include <libgnomeprint/gnome-print.h>
 
 /* dia export funtion */
 static void
@@ -38,37 +37,48 @@ export_data(DiagramData *data, const gchar *filename,
             const gchar *diafilename, void* user_data)
 {
   GnomePrintConfig *config;
-  GnomePrintContext *ctx;
+  GnomePrintContext *ctx = NULL;
   DiaGnomePrintRenderer *renderer;
   real width, height;
   gboolean portrait = data->paper.is_portrait;
   gdouble matrix[6] = { 1.0, 0.0, -1.0, 0.0, 0.0, 0.0 };
+  real magic = 72.0 / 2.54;
 
-  width  = (data->extents.right - data->extents.left);
-  height = (data->extents.bottom - data->extents.top);
-  // better
-  width = data->paper.width * data->paper.scaling;
-  height = data->paper.height * data->paper.scaling;
+  width = data->paper.width * data->paper.scaling * magic;
+  height = data->paper.height * data->paper.scaling * magic;
 
   config = gnome_print_config_default ();
   gnome_print_config_set (config, GNOME_PRINT_KEY_OUTPUT_FILENAME, filename);
   gnome_print_config_set_boolean (config, "Settings.Output.Job.PrintToFile", TRUE);
+
+  if (data->paper.name) /* probably always set, but play safe */
+    gnome_print_config_set (config, GNOME_PRINT_KEY_PAPER_SIZE, data->paper.name);
 
   gnome_print_config_set (config, GNOME_PRINT_KEY_PAPER_ORIENTATION, 
                           portrait ? "R0" : "R90");
   gnome_print_config_set_double (config, GNOME_PRINT_KEY_PAPER_WIDTH, width);
   gnome_print_config_set_double (config, GNOME_PRINT_KEY_PAPER_HEIGHT, height);
 
+  gnome_print_config_set (config, GNOME_PRINT_KEY_DOCUMENT_NAME, diafilename);
+  gnome_print_config_set (config, GNOME_PRINT_KEY_PREFERED_UNIT, "cm");
+
   /* a dirty hack: allow to pass in GnomePrintContext* via user_data */
   if ((int)user_data == 0)
-    ctx = gnome_print_ps2_new (config);
+    gnome_print_config_set (config, "Settings.Engine.Backend.Driver", "gnome-print-ps");
   else if ((int)user_data == 1)
-    ctx = gnome_print_pdf_new (config);
+    gnome_print_config_set (config, "Settings.Engine.Backend.Driver", "gnome-print-pdf");
   else if ((int)user_data == 2)
-    ctx = gnome_print_svg_new (config);
+    gnome_print_config_set (config, "Settings.Engine.Backend.Driver", "gnome-print-svg");
   else {
     ctx = GNOME_PRINT_CONTEXT (user_data);
     g_object_ref (ctx);
+  }
+  if (!ctx)
+    ctx = gnome_print_context_new (config);
+  if (!ctx) {
+    message_error (_("Gome Print Backend\n '%s'\n not available"),
+	           gnome_print_config_get (config, "Settings.Engine.Backend.Driver"));
+    return;
   }
 
   renderer = g_object_new (DIA_GNOME_PRINT_TYPE_RENDERER,
@@ -76,10 +86,12 @@ export_data(DiagramData *data, const gchar *filename,
                            "context", ctx,
                            NULL);
 
+  /* missing pagination (and it doesn't make much sense if we can get the size we want, does it?) */
   gnome_print_beginpage (ctx, NULL);
 
-  gnome_print_scale (ctx, 1 * data->paper.scaling, -1 * data->paper.scaling);
-  gnome_print_translate (ctx, 0, portrait ? -height : -width);
+  /* trial and error */
+  gnome_print_scale (ctx, 1 * data->paper.scaling * magic, -1 * data->paper.scaling * magic);
+  gnome_print_translate (ctx, 0, (portrait ? -height : -width) / magic);
 
   data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 

@@ -1304,7 +1304,6 @@ draw_image(DiaRenderer *self,
     double real_width, real_height;
     double x,y;
     int src_width, src_height;
-    guint8 *img_data;
     double affine[6];
     int rowstride;
     real_width = dia_transform_length(renderer->transform, width);
@@ -1323,10 +1322,9 @@ draw_image(DiaRenderer *self,
     affine[4] = x;
     affine[5] = y;
 
-    img_data = dia_image_rgba_data(image);
-
-    if (img_data != NULL) {
+    if (dia_image_rgba_data(image)) {
       /* If there is an alpha channel, we can use it directly. */
+      const guint8 *img_data = dia_image_rgba_data(image);
       art_rgb_rgba_affine(renderer->rgb_buffer,
 			  0, 0,
 			  renderer->pixel_width,
@@ -1337,7 +1335,7 @@ draw_image(DiaRenderer *self,
 			  affine, ART_FILTER_NEAREST, NULL);
       /* Note that dia_image_rgba_data doesn't copy */
     } else {
-      img_data = dia_image_rgb_data(image);
+      guint8 *img_data = dia_image_rgb_data(image);
 
       art_rgb_affine(renderer->rgb_buffer,
 		     0, 0,
@@ -1433,8 +1431,13 @@ dia_libart_renderer_get_type (void)
 static void
 dia_libart_renderer_class_init (DiaLibartRendererClass *klass)
 {
+  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
+  parent_class = g_type_class_peek_parent (klass);
+
+  gobject_class->finalize = renderer_finalize;
+	
   /* Here we set the functions that we define for this renderer. */
   renderer_class->get_width_pixels = get_width_pixels;
   renderer_class->get_height_pixels = get_height_pixels;

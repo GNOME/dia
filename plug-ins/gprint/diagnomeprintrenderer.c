@@ -163,12 +163,14 @@ set_dashlength(DiaRenderer *self, real length)
 {  
   DiaGnomePrintRenderer *renderer = DIA_GNOME_PRINT_RENDERER (self);
 
+  /* FIXME: I don't get it ;) */
+  const real magic = 72.0 / 2.54;
   /* dot = 20% of len */
   if (length<0.001)
     length = 0.001;
   
-  renderer->dash_length = length;
-  renderer->dot_length = length*0.2;
+  renderer->dash_length = magic * length;
+  renderer->dot_length = magic * length*0.2;
   
   set_linestyle(self, renderer->saved_line_style);
 }
@@ -659,8 +661,6 @@ draw_image(DiaRenderer *self,
 	   DiaImage image)
 {
   DiaGnomePrintRenderer *renderer = DIA_GNOME_PRINT_RENDERER (self);
-  int img_width, img_height;
-  int x, y;
   int w = dia_image_width(image);
   int h = dia_image_height(image);
   int rs = dia_image_rowstride(image);

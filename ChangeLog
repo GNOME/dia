@@ -1,5 +1,26 @@
 2004-11-27  Hans Breuer  <hans@breuer.org>
 
+	* lib/dialibartrenderer.c : sometimes its good to read
+	compiler warnings. Not only define renderer_finalize
+	but actually *use* it. Should plug a potential huge
+	memory leak.
+
+	* configure.in plug-ins/Makefile.am 
+	  plug-ins/gprint/Makefile.am : build the experimental
+	gnomeprint plug-in on *NIX, too.
+	* plug-ins/gprint/diagnomeprint.c : don't include
+	specific (private) backend headers but instead select
+	the desired backend via config key setting
+
+	* lib/diagdkrenderer.c : add 1 to size of filled arc 
+	to be rendered by gdk. Fixes bug #150896.
+
+	* plug-ins/gprint/diagnomeprint.c 
+	  plug-ins/gprint/diagnomeprintrenderer.c : added magic
+	to better match page and dash sizes
+
+2004-11-27  Hans Breuer  <hans@breuer.org>
+
 	* plug-ins/shape/shape-export.c : it's g_strdup_printf
 
 2004-11-27  Hans Breuer  <hans@breuer.org>
@@ -188,7 +209,7 @@
 2004-11-02  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class.c (umlclass_load): Actually load the saved
-	fonts and font sizes.
+	fonts and font sizes. Fixes bug #157016
 
 	* configure.in: Require at least GTK+ 2.4.
 
