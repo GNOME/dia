@@ -59,7 +59,7 @@ pyplugin_DATA = \
 
 endif
 
-EXTRA_DATA = \
+EXTRA_DIST = \
 	python-startup.py \
 	debug_objects.py \
 	export-object.py \

@@ -1,3 +1,29 @@
+dia-0.88:  11-May-2001
+* Input method support should work correctly now.
+* SVG shape files now use namespace from final W3C recommendation.
+  Addon shapes will have to be modified to use the
+  http://www.w3.org/2000/SVG namespace for SVG.  SVG export filter
+  also uses correct doctype.
+* menus should now work in both gtk+ and gnome builds and have no i18n
+  related problems.  Don't look in app/menus.c.
+* pstricks renderer output should now work fine without modification now.
+* gdk-pixbuf is now a requirement for building dia.  It no longer
+  falls back to imlib if it can't find gdk-pixbuf.
+* handle "file not found" errors better in the image object type.
+* Dia now has documentation thanks to the GDP.  The help menu now has
+  more than just an about menu item.
+* Antialiased drawing mode probably won't crash dia anymore
+* Dia has a splash screen now (which can be turned off with the
+  --nosplash option).
+* Updated bonobo support (when --enable-bonobo is used)
+* added expose event compression for the dia canvas, which makes dia
+  more usable over remote X connections.
+* Many objects updated to use properties interface.
+* experimental unicode print support (--enable-unicode)
+* updates to the python plugin and now distribute it with dia (--with-python)
+* many new shapes and export filter plugins.
+* other bug fixes.
+
 dia-0.86:  6-August-2000
 * Dia is now an official GNU program.
 * Bug fixes to polygon, so that undo/redo of adding a point works correctly,

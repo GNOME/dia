@@ -1,6 +1,5 @@
 %define name dia
-%define ver 0.87
-%define prefix /usr
+%define ver 0.88
 
 Summary: A gtk+ based diagram creation program.
 Name: %name
@@ -10,7 +9,6 @@ Copyright: GPL
 Group: Applications/
 Source: ftp://ftp.gnome.org/pub/GNOME/stable/sources/dia/%{name}-%{ver}.tar.gz
 URL: http://www.lysator.liu.se/~alla/dia/dia.html
-Packager: Francis J. Lacoste <francis@Contre.COM>
 BuildRoot: /var/tmp/%{name}-%{ver}-root
 
 Requires: libxml >= 1.8.5
@@ -24,6 +22,9 @@ flowchart and others.  The native file format for Dia is XML (optionally
 gzip compressed).  It has print support, and can export to a number of formats such as EPS, SVG, CGM and PNG.
 
 %changelog
+* Fri May 11 2001  James Henstridge  <james@daa.com.au>
+- update version number.
+- Use make install rather than install-strip as it is causing some problems.
 * Sun Aug 6 2000  James Henstridge <james@daa.com.au>
 - update description as it was out of date, and increment version number.
 * Sun Sep 5 1999  James Henstridge <james@daa.com.au>
@@ -45,17 +46,17 @@ gzip compressed).  It has print support, and can export to a number of formats s
 unset LINGUAS || :
 
 if [ -x ./configure ]; then
-  CFLAGS=$RPM_OPT_FLAGS ./configure --prefix=%{prefix} --enable-gnome
+  CFLAGS=$RPM_OPT_FLAGS ./configure --prefix=%{_prefix} --enable-gnome
 else 
-  CFLAGS=$RPM_OPT_FLAGS ./autogen.sh --prefix=%{prefix} --enable-gnome
+  CFLAGS=$RPM_OPT_FLAGS ./autogen.sh --prefix=%{_prefix} --enable-gnome
 fi  
 make
 
 %install
 rm -fr $RPM_BUILD_ROOT
-make prefix=$RPM_BUILD_ROOT%{prefix} install-strip
+make prefix=$RPM_BUILD_ROOT%{_prefix} install
 
-gzip --best $RPM_BUILD_ROOT%{prefix}/man/man1/dia.1
+gzip --best $RPM_BUILD_ROOT%{_prefix}/man/man1/dia.1
 
 %clean
 rm -fr $RPM_BUILD_ROOT
@@ -63,13 +64,13 @@ rm -fr $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc README TODO NEWS INSTALL COPYING ChangeLog AUTHORS doc
-%{prefix}/bin/dia
-%{prefix}/lib/dia
-%{prefix}/man/man1/dia.1.gz
-%{prefix}/share/dia
-%{prefix}/share/gnome/apps/Applications/dia.desktop
-%{prefix}/share/locale/*/*/*
-%{prefix}/share/mime-info/*
-%{prefix}/share/pixmaps/*
-%doc %{prefix}/share/gnome/help/dia
+%{_prefix}/bin/dia
+%{_prefix}/lib/dia
+%{_prefix}/man/man1/dia.1.gz
+%{_prefix}/share/dia
+%{_prefix}/share/gnome/apps/Applications/dia.desktop
+%{_prefix}/share/locale/*/*/*
+%{_prefix}/share/mime-info/*
+%{_prefix}/share/pixmaps/*
+%doc %{_prefix}/share/gnome/help/dia
 # if you are building without gnome support, use /usr/share/dia/help instead

@@ -1,3 +1,18 @@
+2001-05-11  James Henstridge  <james@daa.com.au>
+
+	* NEWS: remember to add news items this time.
+
+	* dia.spec: update spec file for 0.88 release.
+
+	* configure.in: up version number to 0.88
+
+	* plug-ins/python/Makefile.am (EXTRA_DIST): fix up typo that was
+	preventing any of the useful python scripts from being
+	distributed.
+
+	* sheets/Makefile.am (sheet-translation-report): fix bustage I
+	introduced in my fixups for the 0.87 release :(
+
 2001-05-10  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/xfig/xfig-import.c: Finally got groups working.

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-05-09 12:16+0800\n"
+"POT-Creation-Date: 2001-05-11 16:56+0800\n"
 "PO-Revision-Date: 2001-05-05 11:55GMT +0200\n"
 "Last-Translator: Vasif İsmayıloğlu MD <azerb_linux@hotmail.com>\n"
 "Language-Team: Azerbaijani Turkish <linuxaz@azerimal.net>\n"
@@ -616,7 +616,7 @@ msgstr ""
 "bağlantı idarəcisi yoxdur ."
 
 #: app/load_save.c:231 plug-ins/dxf/dxf-import.c:577 plug-ins/wpg/wpg.c:1036
-#: plug-ins/xfig/xfig-import.c:1002
+#: plug-ins/xfig/xfig-import.c:1063
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "`%s''ni oxumaq üçün aça bilmədim .\n"
@@ -3515,148 +3515,166 @@ msgstr "WordPerfect Graphics ixrac süzgəci"
 msgid "Fig Format import and export filter"
 msgstr "Fiq Format idxal süzgəci"
 
-#: plug-ins/xfig/xfig-import.c:280
-msgid "Patterns are not implemented\n"
+#: plug-ins/xfig/xfig-import.c:73
+#, fuzzy
+msgid "Polygon import is not implemented yes"
+msgstr "%d cism növü hələlik dəsyəklənmir\n"
+
+#: plug-ins/xfig/xfig-import.c:74
+#, fuzzy
+msgid "Patterns are not supported by Dia"
 msgstr "Naxışlar dəstəklənmir\n"
 
-#: plug-ins/xfig/xfig-import.c:318
-#, c-format
-msgid "Line style %d not supported\n"
+#: plug-ins/xfig/xfig-import.c:75
+msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:76
+msgid "Negative corner radius, negating"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:77
+#, fuzzy
+msgid "Spline import is not implemented yet"
+msgstr "%d cism növü hələlik dəsyəklənmir\n"
+
+#: plug-ins/xfig/xfig-import.c:357
+#, fuzzy, c-format
+msgid "Line style %d should not appear\n"
 msgstr "Sətir tərzi %d dəstəklənmir\n"
 
-#: plug-ins/xfig/xfig-import.c:356
+#: plug-ins/xfig/xfig-import.c:395
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "%2d nöqtənin %1d oxunması sırasında xəta: %3s\n"
 
-#: plug-ins/xfig/xfig-import.c:375
+#: plug-ins/xfig/xfig-import.c:414
 msgid "Error while reading arrowhead\n"
 msgstr "Ox başını oxuyarkən xəta oldu\n"
 
-#: plug-ins/xfig/xfig-import.c:458
+#: plug-ins/xfig/xfig-import.c:505
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Ellips infosunu oxuya bilmirəm: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:524
+#: plug-ins/xfig/xfig-import.c:574
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Çoxlu sətir infosunu oxuya bilmədim: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:539
+#: plug-ins/xfig/xfig-import.c:589
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Bit oxuna bilmir: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:591 plug-ins/xfig/xfig-import.c:674
+#: plug-ins/xfig/xfig-import.c:645 plug-ins/xfig/xfig-import.c:729
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Namə'lum çoxlu sətir alt növü: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:652
+#: plug-ins/xfig/xfig-import.c:707
 #, fuzzy, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Mətn infosu oxuna bilmir: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:723
+#: plug-ins/xfig/xfig-import.c:781
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Mətn infosu oxuna bilmir: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:769
+#: plug-ins/xfig/xfig-import.c:828
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "FIG cismi başa salina bilmir: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:783
+#: plug-ins/xfig/xfig-import.c:835
 msgid "Compound end outside compound\n"
 msgstr "Sıxlaşdırılmış bitiı sıxışdırma xaricindədir\n"
 
-#: plug-ins/xfig/xfig-import.c:806
+#: plug-ins/xfig/xfig-import.c:854
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Rəng oxuna bilmir: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:835
+#: plug-ins/xfig/xfig-import.c:896
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Qrup əlavələri oxuna bilmir: %s\n"
 
-#. Spline which includes closed/open control/interpolated spline.
-#: plug-ins/xfig/xfig-import.c:847
-#, c-format
-msgid "Object type %d not implemented yet\n"
-msgstr "%d cism növü hələlik dəsyəklənmir\n"
-
-#: plug-ins/xfig/xfig-import.c:850
+#: plug-ins/xfig/xfig-import.c:907
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Namə'lum cism növü %d\n"
 
-#: plug-ins/xfig/xfig-import.c:869
+#: plug-ins/xfig/xfig-import.c:930
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "`%s' `%s' və ya `%s'deyil\n"
 
-#: plug-ins/xfig/xfig-import.c:879
+#: plug-ins/xfig/xfig-import.c:940
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Kağız böyüklüyünü oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:901
+#: plug-ins/xfig/xfig-import.c:950
+#, c-format
+msgid "Unknown paper size `%s', using default\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:962
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Kağız istiqamətini oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:911
+#: plug-ins/xfig/xfig-import.c:972
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Tərəfləməni oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:921
+#: plug-ins/xfig/xfig-import.c:982
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Vahidləri oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:935
+#: plug-ins/xfig/xfig-import.c:996
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Böyütmələri oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:946
+#: plug-ins/xfig/xfig-import.c:1007
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Çoxlu səhifə indikatorunu oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:957
+#: plug-ins/xfig/xfig-import.c:1018
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Şəffaf rəngləri oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:966 plug-ins/xfig/xfig-import.c:1021
+#: plug-ins/xfig/xfig-import.c:1027 plug-ins/xfig/xfig-import.c:1082
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "FİG faylını oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:968 plug-ins/xfig/xfig-import.c:1023
+#: plug-ins/xfig/xfig-import.c:1029 plug-ins/xfig/xfig-import.c:1084
 msgid "Premature end of FIG file\n"
 msgstr "FİG faykının erkən bitişi\n"
 
-#: plug-ins/xfig/xfig-import.c:977
+#: plug-ins/xfig/xfig-import.c:1038
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Rezolyusiya oxuyarkən xəta oldu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1008
+#: plug-ins/xfig/xfig-import.c:1069
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "FİG faylı kimi görünmür: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1014
+#: plug-ins/xfig/xfig-import.c:1075
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Bu, FİG buraxılış %d.%d faylıdır. Başa düışə bilmirəm\n"
 
-#: plug-ins/xfig/xfig-import.c:1067
+#: plug-ins/xfig/xfig-import.c:1116
 msgid "XFig File Format"
 msgstr "XFİG Fayl Şəkli"
