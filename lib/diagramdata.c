@@ -404,7 +404,7 @@ normal_render(Object *obj, Renderer *renderer,
 	      int active_layer,
 	      gpointer data)
 {
-  obj->ops->draw(obj, renderer);
+  renderer->ops->draw_object(renderer, obj);
 }
 
 

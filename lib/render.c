@@ -99,6 +99,8 @@ static void draw_bezier_with_arrows(Renderer *renderer,
 				    Color *color,
 				    Arrow *start_arrow,
 				    Arrow *end_arrow);
+static void draw_object(Renderer *renderer,
+			Object *object);
 
 static RenderOps AbstractRenderOps = {
   begin_render,
@@ -154,6 +156,8 @@ static RenderOps AbstractRenderOps = {
   NULL, /* DrawPolyLineWithArrowsFunc */
   NULL, /* DrawArcWithArrowsFunc */
   draw_bezier_with_arrows,
+
+  draw_object,
 };
 
 RenderOps *
@@ -373,4 +377,10 @@ draw_bezier_with_arrows(Renderer *renderer,
   points[0].p1 = startpoint;
   points[num_points-1].p3 = endpoint;
   
+}
+
+static void
+draw_object(Renderer *renderer,
+	    Object *object) {
+  object->ops->draw(object, renderer);
 }

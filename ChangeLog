@@ -1,5 +1,17 @@
 2002-07-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/xfig/xfig-export.c: First use of draw_object render
+	function: All shapes are now groups in XFig export.
+
+	* lib/diagramdata.c (normal_render): 
+	* lib/render.c: 
+	* lib/render.h: 
+	* app/display.c (ddisplay_obj_render): 
+	New render function for drawing objects, allows renderers to group
+	or otherwise specially handle objects.  We may want to reconsider
+	calling it in app/display.c, as we 'know' the object draw function
+	is the default one there.
+
 	* lib/Makefile.am: Removed extra \ that broke stuff.
 
 	* plug-ins/xfig/xfig-import.c: 

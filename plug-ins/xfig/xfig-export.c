@@ -114,6 +114,8 @@ static void draw_image(Rendererfig *renderer,
 		       Point *point,
 		       real width, real height,
 		       DiaImage image);
+static void draw_object(Rendererfig *renderer,
+			Object *object);
 
 static void color_begin_render(Rendererfig *renderer, DiagramData *data);
 static void color_draw_line(Rendererfig *renderer, 
@@ -234,6 +236,8 @@ init_fig_renderops()
   figRenderOps->draw_string = (DrawStringFunc) draw_string;
 
   figRenderOps->draw_image = (DrawImageFunc) draw_image;
+
+  figRenderOps->draw_object = (DrawObjectFunc) draw_object;
 }
 
 static void figWarn(Rendererfig *renderer, int warning) {
@@ -725,6 +729,13 @@ static void draw_image(Rendererfig *renderer,
 	  figCoord(renderer, point->x+width), figCoord(renderer, point->y+height), 
 	  figCoord(renderer, point->x), figCoord(renderer, point->y+height), 
 	  figCoord(renderer, point->x), figCoord(renderer, point->y));
+}
+
+static void draw_object(Rendererfig *renderer,
+			Object *object) {
+  fprintf(renderer->file, "6 0 0 0 0\n");
+  object->ops->draw(object, renderer);
+  fprintf(renderer->file, "-6\n");
 }
 
 static void

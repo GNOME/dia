@@ -27,6 +27,7 @@ typedef struct _Renderer Renderer;
 #include "font.h"
 #include "dia_image.h"
 #include "arrows.h"
+#include "object.h"
 
 typedef enum {
   LINECAPS_BUTT,
@@ -271,6 +272,8 @@ typedef void (*DrawBezierWithArrowsFunc) (Renderer *renderer,
 					  Arrow *start_arrow,
 					  Arrow *end_arrow);
 
+typedef void (*DrawObjectFunc) (Renderer *renderer,
+				Object *object);
 
 struct _RenderOps {
   /* Control ops: */
@@ -325,6 +328,8 @@ struct _RenderOps {
   DrawPolyLineWithArrowsFunc draw_polyline_with_arrows;
   DrawArcWithArrowsFunc draw_arc_with_arrows;
   DrawBezierWithArrowsFunc draw_bezier_with_arrows;
+
+  DrawObjectFunc draw_object;
 };
 
 struct _InteractiveRenderOps {

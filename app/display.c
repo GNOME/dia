@@ -458,7 +458,7 @@ ddisplay_obj_render(Object *obj, Renderer *renderer,
   DDisplay *ddisp = (DDisplay *)data;
   int i;
 
-  obj->ops->draw(obj, renderer);
+  renderer->ops->draw_object(renderer, obj);
   if (active_layer && ddisp->show_cx_pts) {
     for (i=0;i<obj->num_connections;i++) {
       connectionpoint_draw(obj->connections[i], ddisp);
