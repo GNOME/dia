@@ -1,7 +1,9 @@
 [Desktop Entry]
 Name=Dia
+Name[ja]=Dia
 Name[pl]=Dia
 Comment=A Diagram Editor
+Comment[ja]=¥À¥¤¥ä¥°¥é¥à¥¨¥Ç¥£¥¿
 Comment[pl]=Edytor diagramów w Gtk+ 
 Exec=dia
 Icon=dia_gnome_icon.png
