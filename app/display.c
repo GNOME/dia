@@ -740,6 +740,9 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
   int width, height;
 
   if (ddisp->renderer)
+    DIA_RENDERER_GET_CLASS(ddisp->renderer)->end_render(ddisp->renderer);
+
+  if (ddisp->renderer)
     g_object_unref (ddisp->renderer);
 
   ddisp->aa_renderer = aa_renderer;
@@ -754,7 +757,9 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
   } else {
     ddisp->renderer = new_gdk_renderer(ddisp);
   }
+
   dia_renderer_set_size(ddisp->renderer, ddisp->canvas->window, width, height);
+  DIA_RENDERER_GET_CLASS(ddisp->renderer)->begin_render(ddisp->renderer);
 }
 
 void

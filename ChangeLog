@@ -1,5 +1,10 @@
 2002-10-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/paginate_psprint.c: Removed unnecessary decl of autosave
+	stuff.
+
+	* app/display.c (ddisplay_set_renderer): Calls to begin/end render.
+
 	* app/export_png.c (export_png_ok): Saving more variables from the
 	evil setjmp.
 
