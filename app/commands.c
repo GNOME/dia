@@ -902,7 +902,17 @@ objects_ungroup_callback(GtkWidget *widget, gpointer data)
 void
 dialogs_properties_callback(GtkWidget *widget, gpointer data)
 {
-  properties_show(ddisplay_active()->diagram, NULL);
+  Diagram *dia;
+  Object *selected;
+
+  dia = ddisplay_active()->diagram; 
+
+  if (dia->data->selected != NULL) {
+       selected = dia->data->selected->data;
+  } else {
+         selected = NULL;
+  } 
+  properties_show(dia, selected);
 }
 
 void
