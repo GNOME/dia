@@ -296,7 +296,7 @@ void draw_bezier_outline(DiaPsRenderer *renderer,
   outline_info.OUT = renderer->file;
 
   fprintf(renderer->file, 
-	  "gsave %f %f translate %f %f scale 0 0 0 setrgbcolor\n",
+	  "gsave %f %f translate %f %f scale\n",
 	  pos_x, pos_y, 2.54/72.0, -2.54/72.0);
   fprintf(renderer->file, "start_ol\n");
 
