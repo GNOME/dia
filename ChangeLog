@@ -1,5 +1,12 @@
 2004-01-10  Hans Breuer  <hans@breuer.org>
 
+	* app/filedlg.c app/app_procs.c : don't try to destroy 
+	'gtk_dialog_run'-dialogs dialogs by connecting to the "response"
+	signal but simply by gtk_widget_destroy() after gtk_dialog_run()
+	returns. Fixes 'has no handler' bugs like #121019
+
+2004-01-10  Hans Breuer  <hans@breuer.org>
+
 	* objects/UML/class.c objects/UML/class_dialog.c : 
 	handle umlclass->name being empty to avoid, i.e. fix #127968
 

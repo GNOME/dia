@@ -566,13 +566,13 @@ app_exit(void)
     button = gtk_button_new_from_stock (GTK_STOCK_QUIT);
     gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_OK);
 
-    g_signal_connect_after (G_OBJECT (dialog), "response",
-		            G_CALLBACK(gtk_widget_destroy),
-		            NULL);
     gtk_widget_show_all (dialog);
 
-    if (gtk_dialog_run(GTK_DIALOG(dialog)) != GTK_RESPONSE_OK)
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) != GTK_RESPONSE_OK) {
+      gtk_widget_destroy(GTK_DIALOG(dialog));
       return;
+    }
+    gtk_widget_destroy(GTK_DIALOG(dialog));
   }
 
   prefs_save();

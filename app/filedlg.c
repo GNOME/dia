@@ -258,14 +258,13 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
                                      buffer);
     gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
-    g_signal_connect_after (G_OBJECT (dialog), "response",
-                            G_CALLBACK(gtk_widget_destroy),
-                            NULL);
 
     if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
       gtk_widget_hide(savedlg);
+      gtk_widget_destroy(GTK_DIALOG (dialog));
       return;
     }
+    gtk_widget_destroy(GTK_DIALOG (dialog));
   }
 
   dia->data->is_compressed = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton));
@@ -422,19 +421,19 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 	       _("The file '%s' already exists.\n"
 		 "Do you want to overwrite it?"), filename);
     dialog = gtk_message_dialog_new (GTK_WINDOW(fs),
-                                     GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
+                                     GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, 
+				     GTK_MESSAGE_QUESTION,
                                      GTK_BUTTONS_YES_NO,
                                      buffer);
     gtk_window_set_title (GTK_WINDOW (dialog), _("File already exists"));
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
-    g_signal_connect_after (G_OBJECT (dialog), "response",
-                            G_CALLBACK(gtk_widget_destroy),
-                            NULL);
 
     if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
       gtk_widget_hide(exportdlg);
+      gtk_widget_destroy(GTK_DIALOG (dialog));
       return;
     }
+    gtk_widget_destroy(GTK_DIALOG (dialog));
   }
 
   ef = gtk_object_get_user_data(GTK_OBJECT(GTK_OPTION_MENU(export_omenu)
