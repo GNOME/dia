@@ -694,8 +694,13 @@ dia_font_scaled_string_width(const char* string, DiaFont *font, real height,
 {
     int lw,lh;
     real result;
-    PangoLayout* layout = dia_font_scaled_build_layout(string, font,
-						       height, zoom_factor);
+    PangoLayout* layout;
+
+    if (string == NULL || string[0] == '\0') {
+      return 0.0;
+    }
+
+    layout = dia_font_scaled_build_layout(string, font, height, zoom_factor);
     pango_layout_get_size(layout,&lw,&lh);
     g_object_unref(G_OBJECT(layout));
     
@@ -715,6 +720,10 @@ dia_font_vertical_extents(const char* string, DiaFont* font,
     PangoLayout* layout;
     PangoLayoutIter* iter;
     guint i;
+
+    if (string == NULL || string[0] == '\0') {
+      return FALSE;
+    }
 
     layout = dia_font_scaled_build_layout(string, font,
                                           height, zoom_factor);
@@ -745,7 +754,7 @@ dia_font_scaled_ascent(const char* string, DiaFont* font, real height,
                       real zoom_factor)
 {
   real top,bline,bottom;
-  if (string[0] == '\0') {
+  if (!string || string[0] == '\0') {
     /* This hack won't work for fonts that don't cover ASCII */
     dia_font_vertical_extents("XjgM149",font,height,zoom_factor,
 			      0,&top,&bline,&bottom);

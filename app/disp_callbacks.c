@@ -668,19 +668,15 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
         focus = active_focus();
         if (focus != NULL) {
-          if (!(state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) ) {
+	  if (gtk_im_context_filter_keypress(GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
+	    return_val = key_handled = TRUE;
+	  } else if (!(state & (GDK_CONTROL_MASK | GDK_MOD1_MASK)) ) {
 	    /* Keys goes to the active focus. */
 	    obj = focus->obj;
-	    if (diagram_is_selected(ddisp->diagram, obj)) {
-	      
-	      if (!gtk_im_context_filter_keypress
-		  (GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
-		/*! key event not swallowed by the input method ? */
-		handle_key_event(ddisp, focus, kevent->keyval,
-				 kevent->string, kevent->length);
-		
-		diagram_flush(ddisp->diagram);
-	      }
+	    if (diagram_is_selected(ddisp->diagram, obj)) { 
+	      handle_key_event(ddisp, focus, kevent->keyval, 
+		  kevent->string, kevent->length); 
+	      diagram_flush(ddisp->diagram);
 	    }
 	    return_val = key_handled = TRUE;
 	  }

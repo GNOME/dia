@@ -403,6 +403,9 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
       g_free(data->paper.name);
       data->paper.name = data_string(attribute_first_data(attr));
     }
+    if (data->paper.name == NULL || data->paper.name[0] == '\0') {
+      data->paper.name = g_strdup(prefs.new_diagram.papertype);
+    }
     /* set default margins for paper size ... */
     dia_page_layout_get_default_margins(data->paper.name,
 					&data->paper.tmargin,

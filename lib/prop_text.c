@@ -178,6 +178,9 @@ stringprop_load(StringProperty *prop, AttributeNode attr, DataNode data)
 {
   g_free(prop->string_data);
   prop->string_data = data_string(data);
+  if (prop->string_data == NULL) {
+    prop->string_data = g_strdup("");
+  }
 }
 
 static void 

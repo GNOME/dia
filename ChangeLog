@@ -1,5 +1,10 @@
 2004-07-01  Lars Clausen  <lars@raeder.dk>
 
+	* lib/font.c: 
+	* app/load_save.c (diagram_data_load): 
+	* lib/prop_text.c (stringprop_load): Avoid NULL strings when
+	loading, and guard against them when fonting.
+
 	* lib/diarenderer.c (draw_rounded_polyline): Patch from
 	anthonym@overture.com:  Make limited rounding a corner-specific
 	rendering-only thing.
