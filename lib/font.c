@@ -585,7 +585,7 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
     }
 
     /* Everything has failed. Returning non-tweaked variant. */
-    g_warning("Failed to appropriately tweak zoomed font.");
+    g_warning("Failed to appropriately tweak zoomed font for zoom factor %f.", zoom_factor);
     dia_font_unref(altered_font);
     return dia_font_build_layout(string,font,height*scaling);    
 }

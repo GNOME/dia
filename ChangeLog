@@ -1,3 +1,8 @@
+2002-08-27  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/paginate_psprint.c (print_page): Fixed text printing after
+	tip from Dov Grobgeld.
+
 2002-08-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/paginate_psprint.c (print_page): Fixed color of clip

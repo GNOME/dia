@@ -96,17 +96,15 @@ print_page(DiagramData *data, RendererEPS *rend, Rectangle *bounds)
 	    tmargin/scale - bounds->top);
   }
 
-  fprintf(rend->file, "1 1 1 srgb\n");
-
   /* set up clip mask */
   fprintf(rend->file, "n %f %f m ", bounds->left, bounds->top);
   fprintf(rend->file, "%f %f l ", bounds->right, bounds->top);
   fprintf(rend->file, "%f %f l ", bounds->right, bounds->bottom);
   fprintf(rend->file, "%f %f l ", bounds->left, bounds->bottom);
   fprintf(rend->file, "%f %f l ", bounds->left, bounds->top);
-  fprintf(rend->file, "clip\n");
-
-  fprintf(rend->file, "0 0 0 srgb\n");
+  /* Tip from Dov Grobgeld: Clip does not destroy the path, so we should
+     do a newpath afterwards */
+  fprintf(rend->file, "clip n\n"); 
 
   /* render the region */
   data_render(data, (Renderer *)rend, bounds, NULL, NULL);
