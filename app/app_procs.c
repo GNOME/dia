@@ -424,7 +424,7 @@ app_init (int argc, char **argv)
      N_("Display version and exit"), NULL },
     { NULL }
   };
-#elif definded HAVE_POPT
+#elif defined HAVE_POPT
   poptContext context = NULL;
   struct poptOption options[] =
   {

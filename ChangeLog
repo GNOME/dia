@@ -1,3 +1,8 @@
+2004-11-23  Hans Breuer  <hans@breuer.org>
+
+	* app/app_procs.c : fixed typo which broke the
+	build for HAVE_POPT case
+	
 2004-11-21  Hans Breuer  <hans@breuer.org>
 
 	* app/app_procs.c : some more #if-mess, but one day
