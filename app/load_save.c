@@ -586,13 +586,14 @@ diagram_data_save(DiagramData *data, const char *filename)
   fclose(file);
 
   doc = xmlNewDoc("1.0");
-  
-  name_space = xmlNewGlobalNs( doc, "http://www.lysator.liu.se/~alla/dia/",
-			       "dia" );
- 
-  doc->root = xmlNewDocNode(doc, name_space, "diagram", NULL);
 
-  tree = xmlNewChild(doc->root, NULL, "diagramdata", NULL);
+  doc->root = xmlNewDocNode(doc, NULL, "diagram", NULL);
+
+  name_space = xmlNewNs(doc->root, "http://www.lysator.liu.se/~alla/dia/",
+			"dia");
+  xmlSetNs(doc->root, name_space);
+
+  tree = xmlNewChild(doc->root, name_space, "diagramdata", NULL);
   
   attr = new_attribute((ObjectNode)tree, "background");
   data_add_color(attr, &data->bg_color);
@@ -647,7 +648,7 @@ diagram_data_save(DiagramData *data, const char *filename)
   obj_nr = 0;
 
   for (i = 0; i < data->layers->len; i++) {
-    layer_node = xmlNewChild(doc->root, NULL, "layer", NULL);
+    layer_node = xmlNewChild(doc->root, name_space, "layer", NULL);
     layer = (Layer *) g_ptr_array_index(data->layers, i);
     xmlSetProp(layer_node, "name", layer->name);
     if (layer->visible)

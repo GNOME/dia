@@ -1,3 +1,8 @@
+2000-11-29  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* app/load_save.c (diagram_data_save): avoid using obsoleted
+	libxml calls (only matters when compiling with libxml2)
+
 2000-11-25  James Henstridge  <james@daa.com.au>
 
 	* app/disp_callbacks.c (ddisplay_drop_object): add a function to
