@@ -38,11 +38,52 @@
 #include "pydia-text.h"
 
 #include "object.h"
+#include "group.h"
 #include "app/diagram.h"
 #include "app/display.h"
 #include "app/load_save.h"
 
 #include "lib/message.h"
+
+static PyObject *
+PyDia_GroupCreate(PyObject *self, PyObject *args)
+{
+    int i, len;
+    GList *list = NULL;
+    PyObject *lst;
+    PyObject *ret;
+
+    if (!PyArg_ParseTuple(args, "O!:dia.group_create",
+                          &PyList_Type, &lst))
+	return NULL;
+
+    len = PyList_Size(lst);
+    for (i = 0; i < len; i++)
+      {
+        PyObject *o = PyList_GetItem(lst, i);
+
+        if (0 && !PyDiaObject_Check(o))
+          {
+            PyErr_SetString(PyExc_TypeError, "Only DiaObjects can be grouped.");
+            g_list_free(list);
+            return NULL;
+          }
+
+        list = g_list_append(list, ((PyDiaObject *)o)->object);
+      }
+
+    if (list)
+      ret = PyDiaObject_New(group_create(list));
+    else
+      {
+        Py_INCREF(Py_None);
+        ret = Py_None;
+      }
+    //Urgh : group_create() eats list
+    //g_list_free(list);
+
+    return ret;
+}
 
 static PyObject *
 PyDia_Diagrams(PyObject *self, PyObject *args)
@@ -347,6 +388,7 @@ PyDia_Message (PyObject *self, PyObject *args)
 }
 
 static PyMethodDef dia_methods[] = {
+    { "group_create", PyDia_GroupCreate, 1 },
     { "diagrams", PyDia_Diagrams, 1 },
     { "load", PyDia_Load, 1 },
     { "message", PyDia_Message, 1 },

@@ -104,9 +104,28 @@ PyDiaDiagramData_GetSortedSelected(PyDiaDiagramData *self, PyObject *args)
     return ret;
 }
 
+/* copy of PyDiaDiagramData_AddLayer */
+static PyObject *
+PyDiaDiagramData_AddLayer(PyDiaDiagramData *self, PyObject *args)
+{
+    gchar *name;
+    int pos = -1;
+    Layer *layer;
+
+    if (!PyArg_ParseTuple(args, "s|i:DiaDiagramData.add_layer", &name, &pos))
+	return NULL;
+    layer = new_layer(g_strdup(name),self->data);
+    if (pos != -1)
+	data_add_layer_at(self->data, layer, pos);
+    else
+	data_add_layer(self->data, layer);
+    return PyDiaLayer_New(layer);
+}
+
 static PyMethodDef PyDiaDiagramData_Methods[] = {
     {"update_extents", (PyCFunction)PyDiaDiagramData_UpdateExtents, 1},
     {"get_sorted_selected", (PyCFunction)PyDiaDiagramData_GetSortedSelected, 1},
+    {"add_layer", (PyCFunction)PyDiaDiagramData_AddLayer, 1},
     {NULL, 0, 0, NULL}
 };
 

@@ -389,6 +389,14 @@ int PyDiaProperty_ApplyToObject (Object   *object,
         ptp->point_data.y = p[1];
         ret = 0;
       }
+    else if (3 == len && 0 == strcmp(PROP_TYPE_COLOUR, prop->type))
+      {
+        ColorProperty *ctp = (ColorProperty*)prop;
+        ctp->color_data.red   = p[0];
+        ctp->color_data.green = p[1];
+        ctp->color_data.blue  = p[2];
+        ret = 0;
+      }
     else if (4 >= len && 0 == strcmp(PROP_TYPE_RECT, prop->type))
       {
         RectProperty* rtp = (RectProperty*)prop;

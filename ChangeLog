@@ -1,3 +1,32 @@
+2003-08-02  Hans Breuer  <hans@breuer.org>
+
+	* lib/connections.c (connection_move_handle): return
+	something to make it compile
+	* lib/object.c(190) : error C4033: 'object_list_move_delta_r' 
+	must return a value -> dito
+	[Is there a warnings-as-errors switch we could use with gcc 
+	 to avoid such in future ?]
+
+	* plug-ins/python/pydia-object.h : define *_Check macros
+	* plug-ins/python/diamodule.c : provide dia.group_create()
+	* plug-ins/python/pydia-diagramdata.c : add 
+	DiaDiagramData.add_layer()
+	* plug-ins/python/pydia-property.c : allow to set color by
+	tuple of doubles
+
+	*  plug-ins/python/diasvg_import.py : based on the above
+	implement a) group support, b) rgb(1,2,3) color handling,
+	and somewhat fishy data:image/png;base64 support (create
+	temporary files from inline image data)
+	d) dump the import errors as text into an 'Error' layer
+
+	*  plug-ins/python/diasvg.py : add xmlns:xlink, removed a
+	stray " in draw_rect and corrected error message formating 
+
+	* plug-ins/pydia/pydia-geometry.c : removed ## to make it
+	compile with gcc 3.3, fixes bug #117204. Thanks to Daniel 
+	Jacobowitz.
+	
 2003-08-01  Hubert Figuiere  <hfiguiere@teaser.fr>
 
 	* app/magnify.c (create_magnify_tool): allocate with g_new0()

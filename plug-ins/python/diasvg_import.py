@@ -2,13 +2,13 @@
 #  Copyright (c) 2003, Hans Breuer <hans@breuer.org>
 #
 #  Pure Python Dia Import Filter - to show how it is done.
-#  It tries to be also tries to be more featureful and
-#  robust then the SVG importer written in C, but as long
-#  as PyDia has issues this will _not_ be the case. Known issues :
+#  It also tries to be more featureful and robust then the 
+#  SVG importer written in C, but as long as PyDia has issues 
+#  this will _not_ be the case. Known issues (at least) :
 #  - Can't set 'bez_points' yet, requires support in PyDia and lib/bez*.c
 #    and here
-#  - Groups are not handled yet on the Dia side
-#  - xlink stuff
+#  - xlink stuff (should probably have some StdProp equivalent)
+#  - total lack of transformation dealing
 #  - see FIXME in this file
 
 #    This program is free software; you can redistribute it and/or modify
@@ -25,7 +25,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import string, math
+import string, math, os
 
 # Dias unit is cm, the default scale should be determined from svg:width and viewBox
 dfUserScale = 0.05
@@ -47,6 +47,15 @@ def Scaled(s) :
 			# warn about invalid unit ??
 			print "Unknown unit", s[:-2], s[-2:]
 			return float(s) * dfUserScale
+def Color(s) :
+	# deliver a StdProp compatible Color (or the original string)
+	import re
+	r = re.compile(r"rgb\s*\(\s*(\d+)[, ]+(\d+)[, +](\d+)\s*\)")
+	m = r.match(s)
+	if m :
+		return (int(m.group(1)) / 255.0, int(m.group(2)) / 255.0, int(m.group(2)) / 255.0)
+	# any more ugly color definitions not compatible with pango_color_parse() ?
+	return s
 class Object :
 	def __init__(self) :
 		self.props = {"x" : 0, "y" : 0}
@@ -74,32 +83,40 @@ class Object :
 		self.props["stroke-width"] = Scaled(s)
 	def fill(self,s) :
 		self.props["fill"] = s
+	def fill_rule(self,s) :
+		self.props["fill-rule"] = s
+	def id(self, s) :
+		# just to handle/ignore it
+		self.props["id"] = s
 	def __repr__(self) :
 		return self.dt + " : " + str(self.props)
+	def Dump(self, indent) :
+		print " " * indent, self
 	def Set(self, d) :
 		pass
 	def ApplyProps(self, o) :
 		pass
 	def Create(self) :
-		print self.dt
 		ot = dia.get_object_type (self.dt)
 		o, h1, h2 = ot.create(self.props["x"], self.props["y"])
 		# apply common props
 		if self.props.has_key("stroke") and o.properties.has_key("line_colour") :
 			if self.props["stroke"] != "none" :
 				try :
-					o.properties["line_colour"] = self.props["stroke"]
+					o.properties["line_colour"] = Color(self.props["stroke"])
 				except :
-					pass # FIXME: not sure how to handle rgb(192,27,38)
+					# rgb(192,27,38) handled by Color() but ...
+					o.properties["line_colour"] = self.props["stroke"]
 		if self.props.has_key("fill") and o.properties.has_key("fill_colour") :
 			if self.props["fill"] == "none" :
 				o.properties["show_background"] = 0
 			else :
 				o.properties["show_background"] = 1
 				try :
-					o.properties["fill_colour"] =self.props["fill"]
+					o.properties["fill_colour"] =Color(self.props["fill"])
 				except :
-					pass # not sure how to handle rgb(192,27,38)
+					# rgb(192,27,38) handled by Color() but ...
+					o.properties["fill_colour"] =self.props["fill"]
 		if self.props.has_key("stroke-width") and o.properties.has_key("line_width") :
 			o.properties["line_width"] = self.props["stroke-width"]
 		self.ApplyProps(o)
@@ -153,14 +170,32 @@ class Svg(Object) :
 class Group(Object) :
 	def __init__(self) :
 		Object.__init__(self)
-		self.dt = "None"
+		self.dt = "Group"
 		self.childs = []
 	def Add(self, o) :
 		self.childs.append(o)
 	def Create(self) :
+		lst = []
 		for o in self.childs :
-			o.Create()
-		return None
+			od = o.Create()
+			if od :
+				#print od
+				#DON'T : layer.add_object(od)
+				lst.append(od)
+		# create group including list objects
+		if len(lst) > 0 :
+			return dia.group_create(lst)
+		else :
+			return None
+	def Dump(self, indent) :
+		print " " * indent, self
+		for o in self.childs :
+			o.Dump(indent + 1)
+# One of my test files is quite ugly (produced by Batik) : it dumps identical image data 
+# multiple times into the svg. This directory helps to reduce them to the necessary
+# memory comsumption
+_imageData = {} 
+
 class Image(Object) :
 	def __init__(self) :
 		Object.__init__(self)
@@ -171,6 +206,18 @@ class Image(Object) :
 		#print s
 		if s[:8] == "file:///" :
 			self.props["uri"] = s.encode("UTF-8")
+		elif s[:22] == "data:image/png;base64," :
+			if _imageData.has_key(s[22:]) :
+				self.props["uri"] = _imageData[s[22:]] # use file reference
+			else :
+				# an ugly temporary file name, on windoze in %TEMP%
+				fname = os.tempnam(None, "diapy-") + ".png"
+				dd = s[22:].decode ("base64")
+				f = open(fname, "wb")
+				f.write(dd)
+				f.close()
+				# not really an uri but the reader appears to be robust enough ;-)
+				_imageData[s[22:]] = "file:///" + fname
 		else :
 			pass #FIXME how to import data into dia ??
 	def Create(self) :
@@ -283,7 +330,7 @@ class Text(Object) :
 		self.props["text-anchor"] = s
 	def font_size(self,s) :
 		self.props["font-size"] = Scaled(s)
-		# ?? self.props["y"] =self.props["y"] - Scaled(s)
+		# ?? self.props["y"] = self.props["y"] - Scaled(s)
 	def font_weight(self, s) :
 		self.props["font-weight"] = s
 	def font_style(self, s) :
@@ -328,13 +375,19 @@ class Importer :
 	def Parse(self, sData) :
 		import xml.parsers.expat
 		ctx = []
+		stack = []
 		# 3 handler functions
 		def start_element(name, attrs) :
 			#print "<" + name + ">"
 			if 0 == string.find(name, "svg:") :
 				name = name[4:]
-			ctx.append(name) #push
-			if 'g' == name : o = Group()
+			if len(stack) > 0 :
+				grp = stack[-1]
+			else :
+				grp = None
+			if 'g' == name :
+				o = Group()
+				stack.append(o)
 			else :
 				s = string.capitalize(name) + "()"
 				try :
@@ -349,18 +402,24 @@ class Importer :
 				try :
 					eval(s)
 				except AttributeError, msg :
-					if not self.errors.has_key(msg) :
-						self.errors[msg] = s
+					if not self.errors.has_key(s) :
+						self.errors[s] = msg
 				except SyntaxError, msg :
-					if not self.errors.has_key(msg) :
-						self.errors[msg] = s
-			self.objects.append(o)
-		def end_element(name):	
+					if not self.errors.has_key(s) :
+						self.errors[s] = msg
+			if grp is None :
+				self.objects.append(o)
+			else :
+				grp.Add(o)
+			ctx.append((name, o)) #push
+		def end_element(name) :
+			if 'g' == name :
+				del stack[-1]
 			del ctx[-1] # pop
 		def char_data(data):
-			# may be called multiple times for one string,
-			if len(self.objects) > 0 : # FIXME
-				self.objects[-1].Set(data)
+			# may be called multiple times for one string
+			if ctx[-1][0] == "text" :
+				ctx[-1][1].Set(data)
 
 		p = xml.parsers.expat.ParserCreate()
 		p.StartElementHandler = start_element
@@ -368,19 +427,32 @@ class Importer :
 		p.CharacterDataHandler = char_data
 
 		p.Parse(sData)
+
 	def Render(self,data) :
 		layer = data.active_layer
 		for o in self.objects :
 			od = o.Create()
 			if od :
 				layer.add_object(od)
+		# create an 'Unhandled' layer and dump our Unknown
+		# create an 'Errors' layer and dump our errors
+		if len(self.errors.keys()) > 0 :
+			layer = data.add_layer("Errors")
+			s = ""
+			for e in self.errors.keys() :
+				s = s + e + " -> " + str(self.errors[e]) + "\n"
+			o = Text()
+			o.props["fill"] = "red"
+			o.Set(s)
+			layer.add_object(o.Create())
+		# create a 'Description' layer 
 		data.update_extents ()
 		return 1
 	def Dump(self) :
 		for o in self.objects :
-			print o
+			o.Dump(0)
 		for e in self.errors.keys() :
-			print e, self.errors[e]
+			print e, "->", self.errors[e]
 
 def Test() :
 	import sys

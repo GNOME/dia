@@ -1,7 +1,7 @@
 #  PyDia SVG Renderer
 #  Copyright (c) 2003, Hans Breuer <hans@breuer.org>
 #
-#  A full blown SVGZ renderer. As of this writing less bugs in the output
+#  A full blown SVG(Z) renderer. As of this writing less bugs in the output
 #  than the Dia SVG renderer written in C
 
 #    This program is free software; you can redistribute it and/or modify
@@ -35,7 +35,8 @@ class SvgRenderer :
 		yofs = - r[1]
 		self.f.write('''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created by diasvg.py -->
-<svg width="%.3fcm" height="%.3fcm" viewBox="%.3f %.3f %.3f %.3f">
+<svg width="%.3fcm" height="%.3fcm" viewBox="%.3f %.3f %.3f %.3f"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
 ''' % (r.right - r.left, r.bottom - r.top, r[0], r[1], r[2], r[3]))
 		#self.f.write("<!-- %s -->\n" % (str(data.extents)))
 		#self.f.write("<!-- %s -->\n" % (data.active_layer.name))
@@ -83,7 +84,7 @@ class SvgRenderer :
 			self.f.write ('%.3f,%.3f ' % (pt.x, pt.y))
 		self.f.write('"/>\n')
 	def draw_rect (self, rect, color) :
-		self.f.write('<rect x="%.3f" y="%.3f" width="%.3f" height="%.3f" fill="none" stroke="%s" stroke-width="%.3f %s"/>\n' \
+		self.f.write('<rect x="%.3f" y="%.3f" width="%.3f" height="%.3f" fill="none" stroke="%s" stroke-width="%.3f" %s/>\n' \
 					% (	rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
 				  		self._rgb(color), self.line_width, self._stroke_style()))
 	def fill_rect (self, rect, color) :
@@ -132,7 +133,7 @@ class SvgRenderer :
 				self.f.write ('C %.3f,%.3f %.3f,%.3f %.3f,%.3f ' \
 					% (bp.p1.x, bp.p1.y, bp.p2.x, bp.p2.y, bp.p3.x, bp.p3.y))
 			else :
-				dia.message(2, "Invalid BezPoint type (%d)" % bp.type)
+				dia.message(2, "Invalid BezPoint type (%d)" * bp.type)
 		self.f.write('"/>\n')
 	def fill_bezier (self, bezpoints, color) :
 		self.f.write('<path stroke="none" fill="%s" stroke-width="%.3f" d="' \

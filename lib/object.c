@@ -178,7 +178,7 @@ object_copy_list(GList *list_orig)
   return list_copy;
 }
 
-extern ObjectChange*
+ObjectChange*
 object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
 {
   GList *list;
@@ -187,7 +187,7 @@ object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
   ObjectChange *objchange = NULL;
 
   if (delta->x == 0 && delta->y == 0)
-       return;
+       return NULL;
 
   list = objects;
   while (list != NULL) {

@@ -40,6 +40,9 @@ extern PyTypeObject PyDiaObjectType_Type;
 PyObject *PyDiaObject_New(Object *object);
 PyObject *PyDiaObjectType_New(ObjectType *otype);
 
+#define PyDiaObject_Check(o) ((o)->ob_type == &PyDiaObject_Type)
+#define PyDiaObjectType_Check(o) ((o)->ob_type == &PyDiaObjectType_Type)
+
 #ifdef _MSC_VER
 #  pragma warning(default:4047)
   /* see: Python FAQ 3.24 "Initializer not a constant." */

@@ -211,7 +211,7 @@ PyDiaRectangle_GetAttr(PyDiaRectangle *self, gchar *attr)
 {
 #define I_OR_F(v) \
   (self->is_int ? \
-   PyInt_FromLong(self->r.ri.##v) : PyFloat_FromDouble(self->r.rf.##v))
+   PyInt_FromLong(self->r.ri. v) : PyFloat_FromDouble(self->r.rf. v))
 
   if (!strcmp(attr, "__members__"))
     return Py_BuildValue("[ssss]", "top", "left", "right", "bottom" );

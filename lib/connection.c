@@ -39,6 +39,7 @@ connection_move_handle(Connection *conn, HandleId id,
     message_error("Internal error in connection_move_handle.\n");
     break;
   }
+  return NULL;
 }
 
 void
