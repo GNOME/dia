@@ -1,3 +1,30 @@
+1999-03-19  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/diagram.[ch]:
+	Added function diagram_update_menu_sensitivity() which
+	sets the sensitivity of some menu items. This function
+	is called at each diagram state change (from diagram_modified()).
+	This is needed 	because otherwise the keyboard accelerators
+	don't work correctly.
+
+	* app/display.[ch]:
+	Changed display_set_menu_sensitivity() to display_update_menu_state().
+	Moved lots of code to diagram_update_menu_sensitivity() in
+	diagram.c. Optimized to only look up menu-items from path:s once.
+	
+	* app/disp_callbacks.c:
+	* app/interface.c:
+	When we get a GDK_FOCUS_CHANGE, update menu sensitivity.
+	Need to set GDK_FOCUS_CHANGE_MASK.
+	
+	* app/create_object.c:
+	Call diagram_modified when an object has been created and
+	selected so that the menu sensitivity is updated. 
+
+	* app/menus.[ch]:
+	removed menus_set_sensitive() and menus_set_state(). Exported
+	renamed function menus_get_item_from_path().
+
 1999-03-15  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/disp_callbacks.c:

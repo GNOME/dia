@@ -144,7 +144,11 @@ create_display_shell(DDisplay *ddisp,
 			  "Dia");
   gtk_window_set_policy (GTK_WINDOW (ddisp->shell), TRUE, TRUE, TRUE);
   gtk_object_set_user_data (GTK_OBJECT (ddisp->shell), (gpointer) ddisp);
-  gtk_widget_set_events (ddisp->shell, GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK);
+  gtk_widget_set_events (ddisp->shell,
+			 GDK_POINTER_MOTION_MASK |
+			 GDK_POINTER_MOTION_HINT_MASK |
+			 GDK_FOCUS_CHANGE_MASK);
+                      /* GDK_ALL_EVENTS_MASK */
 
   gtk_signal_connect (GTK_OBJECT (ddisp->shell), "delete_event",
                       GTK_SIGNAL_FUNC (ddisplay_delete),

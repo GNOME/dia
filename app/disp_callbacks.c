@@ -209,6 +209,10 @@ ddisplay_canvas_events (GtkWidget *canvas,
       }
       break;
 
+    case GDK_FOCUS_CHANGE:
+      diagram_update_menu_sensitivity(ddisp->diagram);
+      break;
+      
     case GDK_2BUTTON_PRESS:
       bevent = (GdkEventButton *) event;
       state = bevent->state;
@@ -246,7 +250,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
 	case 3:
 	  popup_shell = ddisp->shell;
-          display_set_menu_sensitivity(ddisp);
+          display_update_menu_state(ddisp);
 #         ifdef GNOME
 	  gnome_popup_menu_do_popup(ddisp->popup, NULL, NULL, bevent, NULL);
 #         else
@@ -366,7 +370,9 @@ ddisplay_canvas_events (GtkWidget *canvas,
       state = kevent->state;
       break;
 
+      
     default:
+      /*printf("Got event of type %d\n", event->type);*/
       break;
     }
   

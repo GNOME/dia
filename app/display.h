@@ -99,7 +99,6 @@ extern void ddisplay_render_pixmap(DDisplay *ddisp);
 extern DDisplay *ddisplay_active(void);
 
 extern void ddisplay_close(DDisplay *ddisp);
-extern void display_set_menu_sensitivity(DDisplay *ddisp);
 
 extern void ddisplay_set_title(DDisplay *ddisp, char *title);
 extern void ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor);
@@ -112,6 +111,7 @@ extern void ddisplay_scroll_down(DDisplay *ddisp);
 extern void ddisplay_scroll_left(DDisplay *ddisp);
 extern void ddisplay_scroll_right(DDisplay *ddisp);
 
+extern void display_update_menu_state(DDisplay *ddisp);
 extern void ddisplay_update_statusbar(DDisplay *ddisp);
 #endif /* DDISPLAY_H */
 

@@ -732,58 +732,37 @@ ddisplay_close(DDisplay *ddisp)
   gtk_widget_grab_focus(dialog);
   gtk_grab_add(dialog);
   
-  gtk_widget_show (dialog);
+  gtk_widget_show(dialog);
 }
 
 void
-display_set_menu_sensitivity(DDisplay *ddisp)
+display_update_menu_state(DDisplay *ddisp)
 {
   Diagram *dia;
+  static int initialized = 0;
+
+  static GtkWidget *rulers;
+  static GtkWidget *visible_grid;
+  static GtkWidget *snap_to_grid;
+
+  if (initialized==0) {
+    rulers = menus_get_item_from_path(_("<Display>/View/Toggle Rulers"));
+    visible_grid = menus_get_item_from_path(_("<Display>/View/Visible Grid"));
+    snap_to_grid = menus_get_item_from_path(_("<Display>/View/Snap To Grid"));
+    
+    initialized = 1;
+  }
   
   dia = ddisp->diagram;
 
-  menus_set_sensitive(_("<Display>/Edit/Copy"),
-		      dia->data->selected_count > 0);
-  menus_set_sensitive(_("<Display>/Edit/Cut"),
-		      dia->data->selected_count > 0);
-  menus_set_sensitive(_("<Display>/Edit/Paste"),
-		      cnp_exist_stored_objects());
-# ifndef GNOME
-  menus_set_sensitive(_("<Display>/Edit/Delete"),
-		      dia->data->selected_count > 0);
-# endif
+  diagram_update_menu_sensitivity(dia);
 
-  menus_set_sensitive(_("<Display>/Objects/Send to Back"),
-		      dia->data->selected_count > 0);
-  menus_set_sensitive(_("<Display>/Objects/Bring to Front"),
-		      dia->data->selected_count > 0);
-  
-  menus_set_sensitive(_("<Display>/Objects/Group"),
-		      dia->data->selected_count > 1);
-  menus_set_sensitive(_("<Display>/Objects/Ungroup"),
-		      (dia->data->selected_count == 1) &&
-		      IS_GROUP((Object *)dia->data->selected->data));
-
-  menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Left"),
-		      dia->data->selected_count > 1);
-  menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Center"),
-		      dia->data->selected_count > 1);
-  menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Right"),
-		      dia->data->selected_count > 1);
-  menus_set_sensitive(_("<Display>/Objects/Align Horizontal/Equal Distance"),
-		      dia->data->selected_count > 1);
-  menus_set_sensitive(_("<Display>/Objects/Align Vertical/Top"),
-		      dia->data->selected_count > 1);
-  menus_set_sensitive(_("<Display>/Objects/Align Vertical/Center"),
-		      dia->data->selected_count > 1);
-  menus_set_sensitive(_("<Display>/Objects/Align Vertical/Bottom"),
-		      dia->data->selected_count > 1);
-  menus_set_sensitive(_("<Display>/Objects/Align Vertical/Equal Distance"),
-		      dia->data->selected_count > 1);
-
-  menus_set_state (_("<Display>/View/Toggle Rulers"), GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0);
-  menus_set_state (_("<Display>/View/Visible Grid"), ddisp->grid.visible);
-  menus_set_state (_("<Display>/View/Snap To Grid"), ddisp->grid.snap);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(rulers),
+				 GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(visible_grid),
+				 ddisp->grid.visible);
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(snap_to_grid),
+				 ddisp->grid.snap);
 }
 
 /* This is called when ddisp->shell is destroyed... */

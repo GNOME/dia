@@ -327,7 +327,7 @@ menus_get_image_menu (GtkWidget **menu,
 }
 
 
-static GtkWidget *get_menu_item_from_path (char *path)
+GtkWidget *menus_get_item_from_path (char *path)
 {
   GtkWidget *widget;
 
@@ -357,32 +357,3 @@ static GtkWidget *get_menu_item_from_path (char *path)
   return widget;
 }
 
-
-void
-menus_set_sensitive (char *path,
-                     int   sensitive)
-{
-  GtkWidget *widget = get_menu_item_from_path (path);
-
-  if (widget != NULL) 
-    gtk_widget_set_sensitive (widget, sensitive);
-  else
-    message_error(_("Unable to set sensitivity for menu "
-		    "which doesn't exist: %s"), path);
-}
-
-
-void
-menus_set_state (char *path,
-                 int   state)
-{
-  GtkWidget *widget = get_menu_item_from_path (path);
-
-  if (widget != NULL) {
-    if (GTK_IS_CHECK_MENU_ITEM (widget))
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (widget), state);
-  }  else {
-    message_error(_("Unable to set state for menu which doesn't exist: %s"),
-		  path);
-  }
-}

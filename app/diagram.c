@@ -26,6 +26,7 @@
 #include "render_eps.h"
 #include "focus.h"
 #include "message.h"
+#include "menus.h"
 #include "layer_dialog.h"
 
 GList *open_diagrams = NULL;
@@ -69,7 +70,8 @@ diagram_destroy(Diagram *dia)
 void
 diagram_modified(Diagram *dia)
 {
-  diagram_set_modified (dia, TRUE);
+  diagram_set_modified(dia, TRUE);
+  diagram_update_menu_sensitivity(dia);
 }
 
 void
@@ -84,12 +86,90 @@ diagram_set_modified(Diagram *dia, int modified)
     while (displays != NULL)
     {
       DDisplay *display = (DDisplay*) displays->data;
-      ddisplay_update_statusbar (display);
-      displays = g_slist_next (displays);
+      ddisplay_update_statusbar(display);
+      displays = g_slist_next(displays);
     }
   }
 }
-     
+
+void diagram_update_menu_sensitivity(Diagram *dia)
+{
+  static int initialized = 0;
+  static GtkWidget *copy;
+  static GtkWidget *cut;
+  static GtkWidget *paste;
+#ifndef GNOME
+  static GtkWidget *delete;
+#endif
+
+  static GtkWidget *send_to_back;
+  static GtkWidget *bring_to_front;
+
+  static GtkWidget *group;
+  static GtkWidget *ungroup;
+
+  static GtkWidget *align_h_l;
+  static GtkWidget *align_h_c;
+  static GtkWidget *align_h_r;
+  static GtkWidget *align_h_e;
+
+  static GtkWidget *align_v_t;
+  static GtkWidget *align_v_c;
+  static GtkWidget *align_v_b;
+  static GtkWidget *align_v_e;
+
+  if (initialized==0) {
+    copy = menus_get_item_from_path(_("<Display>/Edit/Copy"));
+    cut = menus_get_item_from_path(_("<Display>/Edit/Cut"));
+    paste = menus_get_item_from_path(_("<Display>/Edit/Paste"));
+#ifndef GNOME
+    delete = menus_get_item_from_path(_("<Display>/Edit/Delete"));
+#endif
+
+    send_to_back = menus_get_item_from_path(_("<Display>/Objects/Send to Back"));
+    bring_to_front = menus_get_item_from_path(_("<Display>/Objects/Bring to Front"));
+  
+    group = menus_get_item_from_path(_("<Display>/Objects/Group"));
+    ungroup = menus_get_item_from_path(_("<Display>/Objects/Ungroup"));
+
+    align_h_l = menus_get_item_from_path(_("<Display>/Objects/Align Horizontal/Left"));
+    align_h_c = menus_get_item_from_path(_("<Display>/Objects/Align Horizontal/Center"));
+    align_h_r = menus_get_item_from_path(_("<Display>/Objects/Align Horizontal/Right"));
+    align_h_e = menus_get_item_from_path(_("<Display>/Objects/Align Horizontal/Equal Distance"));
+    align_v_t = menus_get_item_from_path(_("<Display>/Objects/Align Vertical/Top"));
+    align_v_c = menus_get_item_from_path(_("<Display>/Objects/Align Vertical/Center"));
+    align_v_b = menus_get_item_from_path(_("<Display>/Objects/Align Vertical/Bottom"));
+    align_v_e = menus_get_item_from_path(_("<Display>/Objects/Align Vertical/Equal Distance"));
+
+    initialized = 1;
+  }
+  
+  gtk_widget_set_sensitive(copy, dia->data->selected_count > 0);
+  gtk_widget_set_sensitive(cut, dia->data->selected_count > 0);
+  gtk_widget_set_sensitive(paste, cnp_exist_stored_objects());
+#ifndef GNOME
+  gtk_widget_set_sensitive(delete, dia->data->selected_count > 0);
+#endif
+
+  gtk_widget_set_sensitive(send_to_back, dia->data->selected_count > 0);
+  gtk_widget_set_sensitive(bring_to_front, dia->data->selected_count > 0);
+  
+  gtk_widget_set_sensitive(group, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(ungroup,
+			   (dia->data->selected_count == 1) &&
+			   IS_GROUP((Object *)dia->data->selected->data));
+
+  gtk_widget_set_sensitive(align_h_l, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(align_h_c, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(align_h_r, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(align_h_e, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(align_v_t, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(align_v_c, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(align_v_b, dia->data->selected_count > 1);
+  gtk_widget_set_sensitive(align_v_e, dia->data->selected_count > 1);
+}
+
+
 void
 diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp)
 {

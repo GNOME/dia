@@ -35,8 +35,7 @@ extern void menus_get_toolbox_menubar(GtkWidget **menubar,
 extern void menus_get_image_menu(GtkWidget **menu,
 				 GtkAccelGroup **accel);
 
-extern void menus_set_sensitive(char *path, int sensitive);
-extern void menus_set_state(char *path, int state);
+extern GtkWidget *menus_get_item_from_path(char *path);
 
 #endif /* MENUS_H */
 

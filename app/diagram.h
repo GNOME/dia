@@ -73,6 +73,8 @@ extern real diagram_find_closest_connectionpoint(Diagram *dia,
 						 Point *pos);
 extern void diagram_update_extents(Diagram *dia);
 
+extern void diagram_update_menu_sensitivity(Diagram *dia);
+
 extern void diagram_place_under_selected(Diagram *dia);
 extern void diagram_place_over_selected(Diagram *dia);
 extern void diagram_group_selected(Diagram *dia);
