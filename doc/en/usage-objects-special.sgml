@@ -37,7 +37,7 @@
            <term>ER</term>
            <listitem>
              <para>
-               Not totally sure
+               Editor for Entity Relations Diagrams 
              </para>
            </listitem>
          </varlistentry>
@@ -45,7 +45,7 @@
            <term>FS</term>
            <listitem>
              <para>
-               Phew...toughy!
+               Editor for Function Structure Diagrams 
              </para>
            </listitem>
          </varlistentry>
@@ -64,7 +64,8 @@
            <term>GRAFCET</term>
            <listitem>
              <para>
-               Does something with GRAFs probably
+               A chart which diagrams the step, the action, the transition, and
+               the condition associated to the transition. 
              </para>
            </listitem>
          </varlistentry>
@@ -94,7 +95,7 @@
            </listitem>
          </varlistentry>
          <varlistentry>
-           <term>Networm</term>
+           <term>Network</term>
            <listitem>
              <para>
                Used by network administrators to create a design of their

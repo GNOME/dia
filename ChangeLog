@@ -1,3 +1,8 @@
+2001-02-20  Kevin Breit <battery841@mediaone.net>
+
+	* doc/en/usage-objects-special.sgml: Fixed a few of the special
+        object descriptions.  More to come in the next few days.
+
 2001-02-20  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/render_eps.c: Fixed for internationalized floating point
