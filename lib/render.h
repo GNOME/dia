@@ -21,8 +21,7 @@
 #include "geometry.h"
 #include "color.h"
 #include "font.h"
-
-#include <gdk_imlib.h>
+#include "dia_image.h"
 
 typedef struct _RenderOps RenderOps;
 typedef struct _InteractiveRenderOps InteractiveRenderOps;
@@ -175,7 +174,7 @@ typedef void (*DrawStringFunc) (Renderer *renderer,
 typedef void (*DrawImageFunc) (Renderer *renderer,
 			       Point *point,
 			       real width, real height,
-			       GdkImlibImage *image);
+			       DiaImage *image);
 
 /******************************************************
  **  Functions defined for every Interactive Renderer

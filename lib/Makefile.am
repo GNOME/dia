@@ -46,6 +46,8 @@ libdia_a_SOURCES =  \
 		element.h \
 		widgets.c \
 		widgets.h \
+		dia_image.c \
+		dia_image.h \
 		dummy_dep.h
 
 CPPFLAGS = @CPPFLAGS@ @GTK_CFLAGS@

@@ -19,8 +19,6 @@
 #include <gtk/gtk.h>
 #include <math.h>
 
-#include <gdk_imlib.h>
-
 #include "message.h"
 #include "object.h"
 #include "element.h"
@@ -28,6 +26,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "widgets.h"
+#include "dia_image.h"
 
 #include "pixmaps/image.xpm"
 
@@ -46,10 +45,9 @@ struct _Image {
 
   real border_width;
   Color border_color;
-  Color inner_color;
   LineStyle line_style;
   
-  GdkImlibImage *image;
+  DiaImage *image;
   gchar *file;
   gboolean draw_border;
   gboolean keep_aspect;
@@ -59,7 +57,6 @@ struct _Image {
 
 typedef struct _ImageProperties {
   Color *fg_color;
-  Color *bg_color;
   real border_width;
   LineStyle line_style;
 
@@ -74,7 +71,6 @@ struct _ImagePropertiesDialog {
 
   GtkSpinButton *border_width;
   DiaColorSelector *fg_color;
-  DiaColorSelector *bg_color;
   DiaLineStyleSelector *line_style;
 
   DiaFileSelector *file;
@@ -162,7 +158,6 @@ image_apply_properties(Image *image)
 
   image->border_width = gtk_spin_button_get_value_as_float(prop_dialog->border_width);
   dia_color_selector_get_color(prop_dialog->fg_color, &image->border_color);
-  dia_color_selector_get_color(prop_dialog->bg_color, &image->inner_color);
   image->line_style = dia_line_style_selector_get_linestyle(prop_dialog->line_style);
 
   image->draw_border = gtk_toggle_button_get_active(prop_dialog->draw_border);
@@ -171,13 +166,13 @@ image_apply_properties(Image *image)
   new_file = dia_file_selector_get_file(prop_dialog->file);
   if (image->file) g_free(image->file);
   if (image->image) {
-    gdk_imlib_destroy_image(image->image);
+    dia_image_release(image->image);
   }
-  image->image = gdk_imlib_load_image(new_file);
+  image->image = dia_image_load(new_file);
   if ((image->image != NULL) && (image->keep_aspect)) {
     /* Must... keep... aspect... ratio... */
-    float ratio = (float)image->image->rgb_height/
-      (float)image->image->rgb_width;
+    float ratio = (float)dia_image_pixel_height(image->image)/
+      (float)dia_image_pixel_width(image->image);
     image->element.height = image->element.width * ratio;
   }
   image->file = g_strdup(new_file);
@@ -233,17 +228,6 @@ image_get_properties(Image *image)
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
     hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new("Background color:");
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    prop_dialog->bg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Line style:");
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
@@ -290,8 +274,6 @@ image_get_properties(Image *image)
 			    image->border_width);
   dia_color_selector_set_color(prop_dialog->fg_color, 
 			       &image->border_color);
-  dia_color_selector_set_color(prop_dialog->bg_color, 
-			       &image->inner_color);
   dia_file_selector_set_file(prop_dialog->file, image->file);
   dia_line_style_selector_set_linestyle(prop_dialog->line_style,
 					image->line_style);
@@ -615,7 +597,6 @@ image_create(Point *startpoint,
     
   image->border_width =  attributes_get_default_linewidth();
   image->border_color = attributes_get_foreground();
-  image->inner_color = attributes_get_background();
   image->line_style = default_properties.line_style;
   
   element_init(elem, 8, 8);
@@ -628,11 +609,11 @@ image_create(Point *startpoint,
 
   if (strcmp(default_properties.file, "")) {
     image->file = g_strdup(default_properties.file);
-    image->image = gdk_imlib_load_image(image->file);
+    image->image = dia_image_load(image->file);
 
     if (image->image) {
-      elem->width = (elem->width*(float)image->image->rgb_width)/
-	(float)image->image->rgb_height;
+      elem->width = (elem->width*(float)dia_image_pixel_width(image->image))/
+	(float)dia_image_pixel_height(image->image);
     }
   } else {
     image->file = g_strdup("");
@@ -662,7 +643,7 @@ image_destroy(Image *image) {
     g_free(image->file);
 
   if (image->image != NULL)
-    gdk_imlib_destroy_image(image->image);
+    dia_image_release(image->image);
 
   element_destroy(&image->element);
 }
@@ -685,7 +666,6 @@ image_copy(Image *image)
 
   newimage->border_width = image->border_width;
   newimage->border_color = image->border_color;
-  newimage->inner_color = image->inner_color;
   newimage->line_style = image->line_style;
   
   for (i=0;i<8;i++) {
@@ -700,7 +680,7 @@ image_copy(Image *image)
 
   newimage->file = g_strdup(image->file);
   if (strcmp(image->file, "")) {
-    newimage->image = gdk_imlib_load_image(image->file);
+    newimage->image = dia_image_load(image->file);
   }
 
   newimage->draw_border = image->draw_border;
@@ -718,8 +698,6 @@ image_save(Image *image, ObjectNode obj_node)
 		image->border_width);
   data_add_color(new_attribute(obj_node, "border_color"),
 		 &image->border_color);
-  data_add_color(new_attribute(obj_node, "inner_color"),
-		 &image->inner_color);
   data_add_enum(new_attribute(obj_node, "line_style"),
 		image->line_style);
 
@@ -761,11 +739,6 @@ image_load(ObjectNode obj_node, int version)
   if (attr != NULL)
     data_color(attribute_first_data(attr), &image->border_color);
   
-  image->inner_color = color_white;
-  attr = object_find_attribute(obj_node, "inner_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &image->inner_color);
-  
   image->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
@@ -797,7 +770,7 @@ image_load(ObjectNode obj_node, int version)
   }
 
   if (strcmp(image->file, "")) {
-    image->image = gdk_imlib_load_image(image->file);
+    image->image = dia_image_load(image->file);
   }
 
   image_update_data(image);

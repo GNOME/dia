@@ -1,3 +1,21 @@
+1999-02-13  Alexander Larsson  <alla@lysator.liu.se>
+
+	Patch from Lars Clausen <lrclause@shasta.cs.uiuc.edu>
+	
+	* lib/dia_image.[ch]:
+	* lib/Makefile.am:
+	New files. DiaImage wraps the GdkImlibImage.
+
+	* lib/render.h:
+	* app/render_eps.c:
+	* app/render_gdk.c:
+	* lib/render_store.[ch]:
+	* objects/standard/image.c:
+	Use the new DiaImagetype.
+
+	* lib/widgets.c:
+	Removed unused variable to eliminate  warning.
+
 1999-02-11  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/standard/box.c:

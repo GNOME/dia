@@ -696,8 +696,6 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
   GtkFileSelection *dialog;
   DiaFileSelector *fs = DIAFILESELECTOR(data);
   
-  gdouble col[3];
-
   fs->dialog = GTK_FILE_SELECTION(gtk_file_selection_new("Select image file"));
   dialog = fs->dialog;
   if (dialog->help_button != NULL)

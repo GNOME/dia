@@ -83,7 +83,7 @@ static void draw_string(RendererGdk *renderer,
 static void draw_image(RendererGdk *renderer,
 		       Point *point,
 		       real width, real height,
-		       GdkImlibImage *image);
+		       DiaImage *image);
 
 static real get_text_width(RendererGdk *renderer,
 			   const char *text, int length);
@@ -870,9 +870,10 @@ static void
 draw_image(RendererGdk *renderer,
 	   Point *point,
 	   real width, real height,
-	   GdkImlibImage *image)
+	   DiaImage *dia_image)
 {
   int real_width, real_height, real_x, real_y;
+  GdkImlibImage *image = (GdkImlibImage *)dia_image;
   
   real_width = ddisplay_transform_length(renderer->ddisp, width);
   real_height = ddisplay_transform_length(renderer->ddisp, height);

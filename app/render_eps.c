@@ -86,7 +86,7 @@ static void draw_string(RendererEPS *renderer,
 static void draw_image(RendererEPS *renderer,
 		       Point *point,
 		       real width, real height,
-		       GdkImlibImage *image);
+		       DiaImage *image);
 
 static RenderOps EpsRenderOps = {
   (BeginRenderFunc) begin_render,
@@ -639,13 +639,14 @@ static void
 draw_image(RendererEPS *renderer,
 	   Point *point,
 	   real width, real height,
-	   GdkImlibImage *image)
+	   DiaImage *dia_image)
 {
   int img_width, img_height;
   int v;
   int                 x, y;
   unsigned char      *ptr;
   real ratio;
+  GdkImlibImage *image = (GdkImlibImage *)dia_image;
 
   img_width = image->rgb_width;
   img_height = image->rgb_height;

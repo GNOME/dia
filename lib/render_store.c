@@ -20,6 +20,7 @@
 
 #include "render_store.h"
 #include "message.h"
+#include "dia_image.h"
 
 typedef struct _RenderStorePrivate RenderStorePrivate;
 
@@ -459,7 +460,7 @@ void
 rs_add_draw_image(Renderer *store,
 		  Point *point,
 		  real width, real height,
-		  void *image)
+		  DiaImage *image)
 {
 }
 

@@ -19,6 +19,7 @@
 #define RENDER_STORE_H
 
 #include "render.h"
+#include "dia_image.h"
 
 typedef struct _RenderStore RenderStore;
 
@@ -91,6 +92,6 @@ extern void rs_add_draw_string(RenderStore *store,
 extern void rs_add_draw_image(Renderer *renderer,
 			   Point *point,
 			   real width, real height,
-			   void *not_decided_yet);
+			   DiaImage *image);
 
 #endif /* RENDER_STORE_H */
