@@ -950,8 +950,10 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
     point_sub(&points[lastline-1], &move_line);
   }
   /* Don't draw degenerate line segments at end of line */
-  DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, &points[firstline], 
-			       lastline-firstline, color);
+  if (lastline-firstline > 1) /* probably hiding a bug above, but don't try to draw a negative
+                                                                  * number of points at all, fixes bug #148139 */
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, &points[firstline], 
+                                                    lastline-firstline, color);
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
     arrow_draw(renderer, start_arrow->type,
 	       &start_arrow_head, &points[firstline+1],
@@ -1021,10 +1023,11 @@ draw_rounded_polyline_with_arrows(DiaRenderer *renderer,
     point_sub(&points[lastline-1], &move_line);
   }
   /* Don't draw degenerate line segments at end of line */
-  DIA_RENDERER_GET_CLASS(renderer)->draw_rounded_polyline(renderer,
-                                                          &points[firstline],
-                                                          lastline-firstline,
-                                                          color, radius);
+  if (lastline-firstline > 1) /* only if there is something */
+    DIA_RENDERER_GET_CLASS(renderer)->draw_rounded_polyline(renderer,
+                                                            &points[firstline],
+                                                            lastline-firstline,
+                                                            color, radius);
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
     arrow_draw(renderer, start_arrow->type,
 	       &start_arrow_head, &points[firstline+1],

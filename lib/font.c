@@ -521,6 +521,10 @@ layout_cache_equals(gconstpointer e1, gconstpointer e2)
   LayoutCacheItem *i1 = (LayoutCacheItem*)e1,
     *i2 = (LayoutCacheItem*)e2;
 
+  /* don't try strcmp() with null pointers ... */
+  if (!i1->string || i2->string)
+    return FALSE;
+  
   return strcmp(i1->string, i2->string) == 0 &&
     pango_font_description_equal(i1->font->pfd, i2->font->pfd);
 }

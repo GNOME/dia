@@ -554,6 +554,8 @@ read_rect_svg(xmlNodePtr node, DiagramData *dia) {
   ptprop = g_ptr_array_index(props,0);
   ptprop->point_data = start;
 
+  end.x = start.x + width;
+  end.y = start.y + height;
   ptprop = g_ptr_array_index(props,1);
   ptprop->point_data = end;
 
