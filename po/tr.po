@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2000-08-06 10:12+0800\n"
-"PO-Revision-Date: 2000-07-27 13:56+0200\n"
+"Project-Id-Version: dia 0.86\n"
+"POT-Creation-Date: 2000-08-06 13:21+0200\n"
+"PO-Revision-Date: 2000-08-06 13:23+0200\n"
 "Last-Translator: Fatih Demir <kabalak@gmx.net>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -144,6 +144,9 @@ msgid ""
 "crashes.  We know there are bugs in it, so don't\n"
 "bother submitting another report if it crashes"
 msgstr ""
+"Düzeltmelei gösterim þu an tam piþmiþ süt gibi deðil.\n"
+"Burada çoðu hatanýn barýndýðýný biliyoruz\n"
+"ve lütfen bunla alakalý hata raporlarýný göndermeyin"
 
 #: app/defaults.c:48 app/defaults.c:56
 msgid "Object defaults"
