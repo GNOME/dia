@@ -174,9 +174,68 @@ zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
   orthconn_update_data(&zigzagline->orth);
 }
 
+/** Returns TRUE if this zigzagline would be better off horizontal */
 static gboolean
-zigzagline_check_orientation(ConnectionPoint *p1, ConnectionPoint *p2)
+zigzagline_check_orientation(ConnectionPoint *p1, ConnectionPoint *p2,
+			     Point *pos1, Point *pos2)
 {
+  real horiz_dist, vert_dist;
+  int dir1, dir2;
+
+  horiz_dist = pos2->x-pos1->x;
+  vert_dist = pos2->y-pos1->y;
+
+  if (vert_dist < 0.00000001) return TRUE;
+  if (horiz_dist < 0.00000001) return FALSE;
+
+  if (p1 == NULL) {
+    dir1 = DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST;
+  } else {
+    dir1 = p1->directions;
+  }
+  if (p2 == NULL) {
+    dir2 = DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST;
+  } else {
+    dir2 = p2->directions;
+  }
+
+  if (fabs(horiz_dist) > fabs(vert_dist)) {
+    if (horiz_dist > 0) { /* West-to-east */
+      if ((dir1 & DIR_EAST) && (dir2 & DIR_WEST))
+	return TRUE;
+    } else {
+      if ((dir1 & DIR_WEST) && (dir2 & DIR_EAST))
+	return TRUE;
+    }
+  } else {
+    if (vert_dist > 0) { /* North-to-south */
+      if ((dir1 & DIR_SOUTH) && (dir2 & DIR_NORTH))
+	return FALSE;
+    } else {
+      if ((dir1 & DIR_NORTH) && (dir2 & DIR_SOUTH))
+	return FALSE;
+    }
+  }
+  
+  /* We didn't find the best direction.  Try the minor direction */
+  if (fabs(horiz_dist) <= fabs(vert_dist)) {
+    if (horiz_dist > 0) { /* West-to-east */
+      if ((dir1 & DIR_EAST) && (dir2 & DIR_WEST))
+	return TRUE;
+    } else {
+      if ((dir1 & DIR_WEST) && (dir2 & DIR_EAST))
+	return TRUE;
+    }
+  } else {
+    if (vert_dist > 0) { /* North-to-south */
+      if ((dir1 & DIR_SOUTH) && (dir2 & DIR_NORTH))
+	return FALSE;
+    } else {
+      if ((dir1 & DIR_NORTH) && (dir2 & DIR_SOUTH))
+	return FALSE;
+    }
+  }
+
   return TRUE;
 }
 
@@ -189,13 +248,41 @@ zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
   assert(to!=NULL);
 
   orthconn_move_handle(&zigzagline->orth, handle, to, reason);
-  if (reason == HANDLE_MOVE_CREATE || reason == HANDLE_MOVE_CREATE_FINAL) {
+  if (reason == HANDLE_MOVE_CREATE) {
+    /* This only works for the creation stage, as we assume # of points */
     gboolean horizontal;
     OrthConn *orth = &zigzagline->orth;
+    ConnectionPoint *cp2 = NULL;
 
-    printf("Final move reason %d\n", reason);
-    horizontal = zigzagline_check_orientation(orth->object.connections[0],
-					      orth->object.connections[orth->numpoints-1]);
+    /* The second connectionpoint is not updated yet, so we find it here */
+    layer_find_closest_connectionpoint(dia_object_get_parent_layer((Object*)zigzagline), &cp2, &orth->points[3]);
+    if (cp2 != NULL &&
+	(cp2->pos.x - orth->points[3].x < 0.00000001 ||
+	 cp2->pos.y - orth->points[3].y < 0.00000001))
+	cp2 = NULL;
+    horizontal = zigzagline_check_orientation(orth->object.handles[0]->connected_to,
+					      cp2,
+					      &orth->points[0], 
+					      &orth->points[3]);
+    if (horizontal) {
+      real mid = (orth->points[0].x + orth->points[3].x)/2;
+      orth->points[1].x = mid;
+      orth->points[1].y = orth->points[0].y;
+      orth->points[2].x = mid;
+      orth->points[2].y = orth->points[3].y;
+      orth->orientation[0] = HORIZONTAL;
+      orth->orientation[1] = VERTICAL;
+      orth->orientation[2] = HORIZONTAL;
+    } else {
+      real mid = (orth->points[0].y + orth->points[3].y)/2;
+      orth->points[1].x = orth->points[0].x;
+      orth->points[1].y = mid;
+      orth->points[2].x = orth->points[3].x;
+      orth->points[2].y = mid;
+      orth->orientation[0] = VERTICAL;
+      orth->orientation[1] = HORIZONTAL;
+      orth->orientation[2] = VERTICAL;
+    }
   }
   zigzagline_update_data(zigzagline);
 }

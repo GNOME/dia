@@ -1,3 +1,13 @@
+2002-07-28  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/diagramdata.c: 
+	* lib/object.c: 
+	* lib/object.h: 
+	* lib/diagramdata.h: 
+	* objects/standard/zigzagline.c: 
+	First working example of zigzagline hints, currently only between
+	Box and Zigzagline.
+
 2002-07-27  Steffen Macke <sdteffen@web.de>
 
 	* plug-ins/svg/render_svg.c: added support for rounded

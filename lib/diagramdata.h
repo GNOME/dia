@@ -23,7 +23,9 @@
 typedef struct _DiagramData DiagramData;
 typedef struct _Layer Layer;
 
-#include "object.h"
+/* #include "object.h" later after declaring types */
+#include "color.h"
+#include "geometry.h"
 #include "paper.h"
 #include "diavar.h"
 
@@ -65,7 +67,14 @@ struct _Layer {
 			     in the same layer! */
 
   int visible;
+
+  DiagramData *parent_diagram; /* Back-pointer to the diagram.  This
+				  must only be set by functions internal
+				  to the diagram, and accessed via
+				  layer_get_parent_diagram() */
 };
+
+#include "object.h"
 
 DIAVAR int render_bounding_boxes;
 
@@ -117,6 +126,7 @@ int layer_update_extents(Layer *layer); /* returns true if changed. */
 void layer_replace_object_with_list(Layer *layer, Object *obj,
 				    GList *list);
 void layer_set_object_list(Layer *layer, GList *list);
+DiagramData *layer_get_parent_diagram(Layer *layer);
 /* Make sure all objects that are in the layer and not in the new
    list eventually gets destroyed. */
 

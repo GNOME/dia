@@ -35,6 +35,7 @@ typedef enum _ModifierKeys ModifierKeys;
 #include "diamenu.h"
 #include "dia_xml.h"
 #include "properties.h"
+#include "diagramdata.h"
 
 /* This enumeration gives a bitset of modifier keys currently held down.
  */
@@ -355,6 +356,11 @@ struct _Object {
   ConnectionPoint **connections;
   
   ObjectOps *ops;
+
+  Layer *parent_layer; /* Back-pointer to the owning layer.
+			  This may only be set by functions internal to
+			  the layer, and accessed via 
+			  dia_object_get_parent_layer() */
 };
 
 struct _ObjectTypeOps {
@@ -413,6 +419,7 @@ Object        *dia_object_default_create (ObjectType *type,
 					  Handle **handle1,
 					  Handle **handle2);
 gboolean       dia_object_defaults_save (gchar *filename);
+Layer         *dia_object_get_parent_layer(Object *obj);
 
 #endif /* OBJECT_H */
 

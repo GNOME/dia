@@ -28,6 +28,7 @@
 #include "paper.h"
 
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
+static void set_parent_layer(gpointer layer, gpointer object);
 
 DiagramData *
 new_diagram_data (void)
@@ -164,6 +165,7 @@ void
 data_add_layer(DiagramData *data, Layer *layer)
 {
   g_ptr_array_add(data->layers, layer);
+  layer->parent_diagram = data;
   layer_update_extents(layer);
   data_update_extents(data);
 }
@@ -183,6 +185,7 @@ data_add_layer_at(DiagramData *data, Layer *layer, int pos)
     g_ptr_array_index(data->layers, pos) = layer;
   }
   
+  layer->parent_diagram = data;
   layer_update_extents(layer);
   data_update_extents(data);
 }
@@ -202,6 +205,7 @@ data_delete_layer(DiagramData *data, Layer *layer)
   if (data->active_layer == layer) {
     data_remove_all_selected(data);
   }
+  layer->parent_diagram = NULL;
   g_ptr_array_remove(data->layers, layer);
 
   if (data->active_layer == layer) {
@@ -450,6 +454,11 @@ layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
   }
 }
 
+static void
+set_parent_layer(gpointer element, gpointer user_data) {
+  ((Object*)element)->parent_layer = (Layer*)user_data;
+}
+
 int
 layer_object_index(Layer *layer, Object *obj)
 {
@@ -460,30 +469,35 @@ void
 layer_add_object(Layer *layer, Object *obj)
 {
   layer->objects = g_list_append(layer->objects, (gpointer) obj);
+  set_parent_layer(obj, layer);
 }
 
 void
 layer_add_object_at(Layer *layer, Object *obj, int pos)
 {
   layer->objects = g_list_insert(layer->objects, (gpointer) obj, pos);
+  set_parent_layer(obj, layer);
 }
 
 void
 layer_add_objects(Layer *layer, GList *obj_list)
 {
   layer->objects = g_list_concat(layer->objects, obj_list);
+  g_list_foreach(obj_list, set_parent_layer, layer);
 }
 
 void
 layer_add_objects_first(Layer *layer, GList *obj_list)
 {
   layer->objects = g_list_concat(obj_list, layer->objects);
+  g_list_foreach(obj_list, set_parent_layer, layer);
 }
 
 void
 layer_remove_object(Layer *layer, Object *obj)
 {
   layer->objects = g_list_remove(layer->objects, obj);
+  set_parent_layer(obj, NULL);
 }
 
 void
@@ -496,6 +510,7 @@ layer_remove_objects(Layer *layer, GList *obj_list)
     layer->objects = g_list_remove(layer->objects, obj);
     
     obj_list = g_list_next(obj_list);
+    set_parent_layer(obj, NULL);
   }
 }
 
@@ -641,7 +656,9 @@ layer_replace_object_with_list(Layer *layer, Object *remove_obj,
   list = g_list_find(layer->objects, remove_obj);
 
   assert(list!=NULL);
-  
+  set_parent_layer(remove_obj, NULL);
+  g_list_foreach(insert_list, set_parent_layer, layer);
+
   if (list->prev == NULL) {
     layer->objects = insert_list;
   } else {
@@ -659,10 +676,14 @@ layer_replace_object_with_list(Layer *layer, Object *remove_obj,
 
 void layer_set_object_list(Layer *layer, GList *list)
 {
+  g_list_foreach(layer->objects, set_parent_layer, NULL);
   g_list_free(layer->objects);
   layer->objects = list;
+  g_list_foreach(layer->objects, set_parent_layer, layer);
 }
 
-
-
-
+DiagramData *
+layer_get_parent_diagram(Layer *layer)
+{
+  return layer->parent_diagram;
+}

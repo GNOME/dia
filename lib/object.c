@@ -311,6 +311,10 @@ void object_load(Object *obj, ObjectNode obj_node)
     data_rectangle( attribute_first_data(attr), &obj->bounding_box );
 }
 
+Layer *dia_object_get_parent_layer(Object *obj) {
+  return obj->parent_layer;
+}
+
 /****** Object register: **********/
 
 static guint hash(gpointer key)
