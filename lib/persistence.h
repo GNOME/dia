@@ -35,8 +35,8 @@ typedef struct {
 
 typedef void (NullaryFunc)();
 
-void persistence_load();
-void persistence_save();
+void persistence_load(void);
+void persistence_save(void);
 void persistence_register_window(GtkWindow *window);
 void persistence_register_window_create(gchar *role, NullaryFunc *func);
 void persistence_register_string_entry(gchar *role, GtkWidget *entry);

@@ -1,5 +1,12 @@
 2004-07-17  Lars Clausen  <lars@raeder.dk>
 
+	* lib/persistence.h: Have "void" in prototypes (#142663)
+
+	* lib/widgets.c (dia_font_selector_init): Better string handling
+	(#142663) 
+
+	* lib/persistence.c (persistence_save_type): Small fixes (#142663)
+
 	* objects/standard/image.c (image_load): Use path of diagram
 	rather than running directory as base for image file place.
 

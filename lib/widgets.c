@@ -449,11 +449,10 @@ dia_font_selector_init (DiaFontSelector *fs)
     for (other_fonts = g_list_last(other_fonts);
 	 other_fonts != NULL; other_fonts = g_list_previous(other_fonts)) {
       
-      gchar *lowername = g_ascii_strdown((gchar*)other_fonts->data,
-					 strlen((gchar*)other_fonts->data));
+      const gchar *name = other_fonts->data;
+      gchar *lowername = g_ascii_strdown (name, -1);
+      dia_font_selector_add_font(lowername, name, TRUE);
 
-      dia_font_selector_add_font(lowername,
-				 (gchar*)other_fonts->data, TRUE);
       g_free(lowername);
     }
   }
