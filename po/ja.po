@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-08 23:35+0900\n"
-"PO-Revision-Date: 2004-08-08 22:38+0900\n"
+"POT-Creation-Date: 2004-08-20 12:17+0900\n"
+"PO-Revision-Date: 2004-08-20 12:15+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -986,8 +986,8 @@ msgid "Failed to save file '%s'.\n"
 msgstr "ファイル '%s' の保存に失敗しました。\n"
 
 #: app/load_save.c:1008 app/load_save.c:1013
-msgid "Native Dia Diagram"
-msgstr "ネィテイブな Dia ダイアグラム"
+msgid "Dia Diagram File"
+msgstr "Dia ダイアグラム・ファイル"
 
 #: app/menus.c:49 app/menus.c:84
 msgid "/_File"
@@ -4827,7 +4827,7 @@ msgid "Can't export png without libart!"
 msgstr "libartなしで PNG はエキスポートできません！"
 
 #: plug-ins/shape/shape-export.c:497
-msgid "dia shape file"
+msgid "Dia Shape File"
 msgstr "Dia シェイプ・ファイル"
 
 #: plug-ins/shape/shape.c:36
