@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.89\n"
-"POT-Creation-Date: 2002-05-30 07:59+0200\n"
+"POT-Creation-Date: 2002-06-03 18:44+0200\n"
 "PO-Revision-Date: 2002-01-25 18:00+0100\n"
 "Last-Translator: Cyrille Chépélov <cyrille@chepelov.org>\n"
 "Language-Team: Gnome French Team <gnomefr@traduc.org>\n"
@@ -111,7 +111,7 @@ msgstr ""
 msgid "Quit"
 msgstr "Quitter"
 
-#: app/app_procs.c:518 app/dialogs.c:52 app/display.c:966
+#: app/app_procs.c:518 app/dialogs.c:52 app/display.c:967
 #: app/layer_dialog.c:1015 app/lineprops_area.c:436 app/lineprops_area.c:636
 #: app/linewidth_area.c:246 app/paginate_psprint.c:268 app/sheets_dialog.c:570
 #: app/sheets_dialog.c:802 app/sheets_dialog.c:961
@@ -468,15 +468,15 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagramme modifié !"
 
-#: app/display.c:916
+#: app/display.c:917
 msgid "Close Diagram?"
 msgstr "Fermer le diagramme ?"
 
-#: app/display.c:922
+#: app/display.c:923
 msgid "Really close?"
 msgstr "Vraiment fermer ?"
 
-#: app/display.c:927
+#: app/display.c:928
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -484,12 +484,12 @@ msgstr ""
 "Ce diagramme n'a pas été enregistré.\n"
 "Enregistrer les changements maintenant ?"
 
-#: app/display.c:945 app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:607
+#: app/display.c:946 app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:607
 #: lib/prop_inttypes.c:196
 msgid "Yes"
 msgstr "Oui"
 
-#: app/display.c:955 app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:607
+#: app/display.c:956 app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:607
 #: app/preferences.c:618 lib/prop_inttypes.c:198 lib/prop_inttypes.c:224
 msgid "No"
 msgstr "Non"
@@ -2087,7 +2087,7 @@ msgstr ""
 "vous allez rencontrer des problèmes. Veuillez signaler à la liste dia-"
 "list@gnome.org (en anglais) que vous avez vu ce message."
 
-#: lib/font.c:527
+#: lib/font.c:529
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -2096,33 +2096,43 @@ msgstr ""
 "Avertissement : Pas de police X trouvée pour %s, \n"
 "utilisation de %s à la place.\n"
 
-#: lib/font.c:804
+#: lib/font.c:537
+#, c-format
+msgid ""
+"Unable to load any GDK font for %s font; even last resorts alternatives "
+"failed.\n"
+"This is fatal, sorry."
+msgstr ""
+"dia n'arrive pas à charger une fonte GDK pour la police %s ; \n"
+"tous les recours ont échoué. Ceci est fatal, désolé."
+
+#: lib/font.c:814
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr ""
 "Avertissement: FreeType a été demandée, mais la bibliothèque ne se charge "
 "pas: %d\n"
 
-#: lib/font.c:813
+#: lib/font.c:823
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Avertissement : Pas de police X trouvée. C'est la fin du monde."
 
-#: lib/font.c:858
+#: lib/font.c:868
 msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
 msgstr ""
 "Avertissement: aucune police chargée. Avez vous au moins un fichier de "
 "police dans votre chemin de polices X ?"
 
-#: lib/font.c:1150
+#: lib/font.c:1160
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "Erreur, n'a pu localiser une fonte. Cela ne devrait pas être arrivé\n"
 
-#: lib/font.c:1152 lib/font.c:1186
+#: lib/font.c:1162 lib/font.c:1196
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Police %s non trouvée, utilisation de la police Courier à la place.\n"
 
-#: lib/font.c:1162
+#: lib/font.c:1172
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "La fonte %s n'a pas de style %s, utilisation de %s\n"
@@ -5353,118 +5363,126 @@ msgid "A Desktop PC"
 msgstr "Un PC de bureau"
 
 #: sheets/network.sheet.in.h:5
+msgid "A Digitizing Board"
+msgstr "Une table de numérisation"
+
+#: sheets/network.sheet.in.h:6
 msgid "A Firewall router"
 msgstr "Un Routeur pare-feu"
 
-#: sheets/network.sheet.in.h:6
+#: sheets/network.sheet.in.h:7
 msgid "A Miditower PC"
 msgstr "Un PC, format moyenne tour"
 
-#: sheets/network.sheet.in.h:7
+#: sheets/network.sheet.in.h:8
 msgid "A Minitower PC"
 msgstr "Un PC, format mini-tour"
 
-#: sheets/network.sheet.in.h:8
+#: sheets/network.sheet.in.h:9
 msgid "A Mobile Phone"
 msgstr "Un téléphone mobile"
 
-#: sheets/network.sheet.in.h:9
+#: sheets/network.sheet.in.h:10
+msgid "A Plotter"
+msgstr "Une table traçante"
+
+#: sheets/network.sheet.in.h:11
 msgid "A RJ45 Wall-Plug"
 msgstr "Une prise murale RJ45"
 
-#: sheets/network.sheet.in.h:10
+#: sheets/network.sheet.in.h:12
 msgid "A Telephone"
 msgstr "Un téléphone"
 
-#: sheets/network.sheet.in.h:11
+#: sheets/network.sheet.in.h:13
 msgid "A UNIX Workstation"
 msgstr "Une station de travail UNIX"
 
-#: sheets/network.sheet.in.h:12
+#: sheets/network.sheet.in.h:14
 msgid "A WAN Connection"
 msgstr "Une connexion WAN"
 
-#: sheets/network.sheet.in.h:13
+#: sheets/network.sheet.in.h:15
 msgid "A WAN Link"
 msgstr "Une laison WAN."
 
-#: sheets/network.sheet.in.h:14
+#: sheets/network.sheet.in.h:16
 msgid "A Wall-Plug for the scEAD Cabling System"
 msgstr "Une prise murale pour le système de câblage scEAD"
 
-#: sheets/network.sheet.in.h:15
+#: sheets/network.sheet.in.h:17
 msgid "A Workstation Monitor"
 msgstr "Un moniteur de station de travail"
 
-#: sheets/network.sheet.in.h:16
+#: sheets/network.sheet.in.h:18
 msgid "A ZIP Disk"
 msgstr "Un lecteur ZIP"
 
-#: sheets/network.sheet.in.h:17
+#: sheets/network.sheet.in.h:19
 msgid "A modular switching system"
 msgstr "Un système de commutation modulaire"
 
-#: sheets/network.sheet.in.h:18
+#: sheets/network.sheet.in.h:20
 msgid "A monitor"
 msgstr "Un moniteur"
 
-#: sheets/network.sheet.in.h:19
+#: sheets/network.sheet.in.h:21
 msgid "A simple Modem"
 msgstr "Un modem simple"
 
-#: sheets/network.sheet.in.h:20
+#: sheets/network.sheet.in.h:22
 msgid "A simple printer"
 msgstr "Une imprimante simple"
 
-#: sheets/network.sheet.in.h:21
+#: sheets/network.sheet.in.h:23
 msgid "A speaker with integrated amplifier"
 msgstr "Un haut-parleur avec amplificateur intégré"
 
-#: sheets/network.sheet.in.h:22
+#: sheets/network.sheet.in.h:24
 msgid "A speaker without amplifier"
 msgstr "Un haut-parleur"
 
-#: sheets/network.sheet.in.h:23
+#: sheets/network.sheet.in.h:25
 msgid "A stackable hub or switch"
 msgstr "Un hub ou commutateur empilable"
 
-#: sheets/network.sheet.in.h:24
+#: sheets/network.sheet.in.h:26
 msgid "ATM Switch Symbol"
 msgstr "Symbole de commutateur ATM"
 
-#: sheets/network.sheet.in.h:25
+#: sheets/network.sheet.in.h:27
 msgid "An Ethernet bus"
 msgstr "Un bus Ethernet"
 
-#: sheets/network.sheet.in.h:26
+#: sheets/network.sheet.in.h:28
 msgid "An antenna for wireless transmission"
 msgstr "Une antenne pour transmissions sans fil"
 
-#: sheets/network.sheet.in.h:27
+#: sheets/network.sheet.in.h:29
 msgid "An external DAT drive"
 msgstr "Un lecteur de DAT externe"
 
-#: sheets/network.sheet.in.h:28
+#: sheets/network.sheet.in.h:30
 msgid "Network"
 msgstr "Réseau"
 
-#: sheets/network.sheet.in.h:29
+#: sheets/network.sheet.in.h:31
 msgid "Network Cloud"
 msgstr "Nuage de réseau"
 
-#: sheets/network.sheet.in.h:30
+#: sheets/network.sheet.in.h:32
 msgid "Objects to design network diagrams with"
 msgstr "Objets pour dessiner des diagrammes réseau"
 
-#: sheets/network.sheet.in.h:31
+#: sheets/network.sheet.in.h:33
 msgid "Router Symbol"
 msgstr "Symbole de routeur"
 
-#: sheets/network.sheet.in.h:32
+#: sheets/network.sheet.in.h:34
 msgid "Storage"
 msgstr "Stockage"
 
-#: sheets/network.sheet.in.h:33
+#: sheets/network.sheet.in.h:35
 msgid "Switch Symbol"
 msgstr "Symbole de commutateur"
 
@@ -5775,6 +5793,3 @@ msgstr "Réalise, implémente une interface spécifique"
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
-
-#~ msgid "Sybase replication domain diagram objects"
-#~ msgstr "Diagrammes pour la conception de réplication de domaines Sybase"
