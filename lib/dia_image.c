@@ -173,7 +173,12 @@ dia_image_rgb_data(DiaImage image)
     }
     return rgb_pixels;
   } else {
-    g_memmove(rgb_pixels, gdk_pixbuf_get_pixels(image->image), size);
+    int i;
+    guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
+    
+    for(i = 0; i < height; i++) {	
+      g_memmove(&rgb_pixels[i*width*3], &pixels[i*rowstride], width*3);
+    }
     return rgb_pixels;
   }
 }
