@@ -1,3 +1,7 @@
+2002-07-22  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* POTFILES.in: Adding autosave.c
+
 2002-07-16  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* no.po: Updated Norwegian (bokmål) translation.

@@ -2,6 +2,7 @@
 # Please keep this sorted alphabetically!
 # 
 app/app_procs.c
+app/autosave.c
 app/color_area.c
 app/commands.c
 app/defaults.c
