@@ -1161,12 +1161,12 @@ libart_freetype_copy_glyph(FT_GlyphSlot glyph, int xpos, int ypos,
   int rowstride = bitmap->pitch;
   int width = bitmap->width;
   int height = bitmap->rows;
-  // For now, we're wasteful of memory and allocate a new RGBA buffer
-  // every time.
+  /* For now, we're wasteful of memory and allocate a new RGBA buffer */
+  /* every time. */
   guint32 *rgba_buffer = (guint32 *)g_malloc(sizeof(guint32)*width*height);
   int x, y;
 
-  if (rowstride < 0) { // Cartesian bitmap
+  if (rowstride < 0) { /* Cartesian bitmap */
     buffer = buffer+rowstride*(bitmap->rows-1);
   }
 

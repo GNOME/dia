@@ -138,7 +138,7 @@ static void
 dia_font_selector_init (DiaFontSelector *fs)
 {
 #ifdef HAVE_FREETYPE
-  // Go through hash table and build menu
+  /* Go through hash table and build menu */
   GtkWidget *menu;
   GtkWidget *omenu;
   int i;
@@ -298,7 +298,7 @@ dia_font_selector_set_styles(DiaFontSelector *fs, DiaFont *font)
     style_list = g_list_next(style_list);
   }
   gtk_widget_show(menu);
-  // Need to dealloc the menu, methinks
+  /* Need to dealloc the menu, methinks */
   gtk_option_menu_remove_menu(fs->style_omenu);
   gtk_option_menu_set_menu(fs->style_omenu, menu);
   fs->style_menu = GTK_MENU(menu);

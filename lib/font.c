@@ -547,7 +547,7 @@ freetype_try_attachments(FT_Face face, char *filename) {
   int len = strlen(filename);
   if (!strcmp(filename+len-4, ".pfa") ||
       !strcmp(filename+len-4, ".pfb")) {
-    // Type1 font, may have .afm file containing kerning
+    /* Type1 font, may have .afm file containing kerning */
     char *afmname = (char *)g_new(char *, len+1);
     
     strncpy(afmname, filename, len-4);
@@ -690,7 +690,7 @@ dia_add_freetype_font(char *key, gpointer value, gpointer user_data) {
 
     if (face->ascender != 0 || face->descender != 0) {
       int descent = abs(face->descender);
-      // The -1 is a piece of magic.  Probably rounding errors.
+      /* The -1 is a piece of magic.  Probably rounding errors. */
       font->ascent_ratio = ((real)face->ascender-1)/(face->ascender+descent);
       font->descent_ratio = ((real)descent)/(face->ascender+descent);
     }
@@ -751,7 +751,7 @@ freetype_load_string(const char *string, FT_Face face, int len)
 
   fts = (FreetypeString*)g_malloc(sizeof(FreetypeString));
   fts->text = g_strndup(string, len);
-  //  fts->glyphs = (FT_Glyph*)g_malloc(sizeof(FT_Glyph*)*len);
+  /*  fts->glyphs = (FT_Glyph*)g_malloc(sizeof(FT_Glyph*)*len); */
   fts->face = face;
   fts->width = 0.0;
 
@@ -763,25 +763,25 @@ freetype_load_string(const char *string, FT_Face face, int len)
 #else
     unichar c = g_utf8_get_char(p);
 #endif
-    // If len is less that full string, stop here.
+    /* If len is less that full string, stop here. */
     if (num_glyphs == len) break;
 
-    // store current pen position
-    // Why?
+    /* store current pen position */
+    /* Why? */
     /*
       pos[ num_glyphs ].x = pen_x;
       pos[ num_glyphs ].y = pen_y;
     */                      
     
-    // load glyph image into the slot.
-    error = FT_Load_Char( face, c, FT_LOAD_NO_HINTING );
-    //    error = FT_Load_Char( face, c, FT_LOAD_DEFAULT );
+    /* load glyph image into the slot. */
+    /*error = FT_Load_Char( face, c, FT_LOAD_NO_HINTING ); */
+    error = FT_Load_Char( face, c, FT_LOAD_DEFAULT );
     if (error) {
       LC_DEBUG (fprintf(stderr, "Couldn't load glyph #%d: %d\n", i, error));
       continue;
     }
 
-    // retrieve kerning distance and move pen position
+    /* retrieve kerning distance and move pen position */
     if ( use_kerning && previous_index && glyph_index )
     {
       FT_Vector  delta;
@@ -795,13 +795,13 @@ freetype_load_string(const char *string, FT_Face face, int len)
       }
     }
                               
-    // increment pen position
+    /* increment pen position */
     width += (real)face->glyph->advance.x / 64;
 
-    // record current glyph index
+    /* record current glyph index */
     previous_index = glyph_index;
     
-    // increment number of glyphs
+    /* increment number of glyphs */
     num_glyphs++;
   }
   fts->width = width;
@@ -842,19 +842,19 @@ freetype_render_string(FreetypeString *fts, int x, int y,
     unichar c = g_utf8_get_char(p);
 #endif
 
-    // store current pen position
-    // Why?
+    /* store current pen position */
+    /* Why? */
     /*
       pos[ num_glyphs ].x = pen_x;
       pos[ num_glyphs ].y = pen_y;
     */                      
     
-    // load glyph image into the slot.
-    error = FT_Load_Char( face, c, FT_LOAD_RENDER | FT_LOAD_NO_HINTING );
-    //    error = FT_Load_Char( face, c, FT_LOAD_RENDER );
-    if (error) continue;  // ignore errors, jump to next glyph
+    /* load glyph image into the slot. */
+    /*error = FT_Load_Char( face, c, FT_LOAD_RENDER | FT_LOAD_NO_HINTING ); */
+    error = FT_Load_Char( face, c, FT_LOAD_RENDER );
+    if (error) continue;  /* ignore errors, jump to next glyph */
 
-    // retrieve kerning distance and move pen position
+    /* retrieve kerning distance and move pen position */
     if ( use_kerning && previous_index && glyph_index )
     {
       FT_Vector  delta;
@@ -868,18 +868,18 @@ freetype_render_string(FreetypeString *fts, int x, int y,
       }
     }
                             
-    // now, draw to our target surface
+    /* now, draw to our target surface */
     (*func)(face->glyph, 
 	    (pen_x>>6)+face->glyph->bitmap_left,
 	    (pen_y>>6)-face->glyph->bitmap_top,
 	    userdata);
     
-    // increment pen position 
+    /* increment pen position  */
     pen_x += face->glyph->advance.x;
-    pen_y += face->glyph->advance.y;   // unuseful for now..
+    pen_y += face->glyph->advance.y;   /* unuseful for now.. */
 
 
-    // record current glyph index for kerning
+    /* record current glyph index for kerning */
     previous_index = glyph_index;
   }
 }
@@ -937,7 +937,7 @@ font_getfont_with_style(const char *name, const char *style)
     int i;
     for (i = 0; i < sizeof(font_data)/sizeof(*font_data); i++) {
       if (!strcmp(font_data[i].fontname, name)) {
-	// Found old-style font
+	/* Found old-style font */
 	if (font_data[i].fontname_freetype == NULL) continue;
 	fonts = (DiaFontFamily *)g_hash_table_lookup(fonts_hash, font_data[i].fontname_freetype);
 	style = font_data[i].fontstyle_freetype;
@@ -1235,7 +1235,7 @@ font_string_width(const char *string, DiaFont *font, real height)
   face = font_get_freetypefont(font, 72/2.54);
   ft_string = freetype_load_string(string, face, strlen(string));
   height_ratio = 72/2.54;
-  //  height_ratio = 72/2.54;
+  /*  height_ratio = 72/2.54; */
   LC_DEBUG(fprintf(stderr, "result width is %f, height %f, face height %d, ratio %f, return %fcm\n", ft_string->width, height, (face->height>>6), height_ratio, ft_string->width/height_ratio));
   return height*ft_string->width/height_ratio;
 #else

@@ -67,7 +67,6 @@
 #include "ps-utf8.h"
 #endif
 
-
 static void begin_render(RendererEPS *renderer);
 static void end_render(RendererEPS *renderer);
 static void set_linewidth(RendererEPS *renderer, real linewidth);
@@ -221,6 +220,7 @@ init_eps_renderer() {
   EpsPrologOps->draw_string = (DrawStringFunc) prolog_check_string;
 
   EpsPrologOps->draw_image = (DrawImageFunc) null_func;
+  
 };
 
 
@@ -264,8 +264,8 @@ dump_pfb_chunk(FILE *from, FILE *file) {
   int ch;
   static char *hexChar = "0123456789abcdef";
 
-  if (chunktype == 3) { // Close chunk
-    fgetc(from); // Read up to EOF
+  if (chunktype == 3) { /* Close chunk */
+    fgetc(from); /* Read up to EOF */
     return 0;
   }
   if (ch == -1) {
@@ -282,21 +282,21 @@ dump_pfb_chunk(FILE *from, FILE *file) {
     length += ch << (i*8);
   }
   switch (chunktype) {
-  case 1: // ^A -- ASCII
+  case 1: /* ^A -- ASCII */
     for (i = 0; i < length; i++) {
       ch = fgetc(from);
       if (ch == EOF) {
 	printf("Read error: %s\n", strerror(errno));
 	return 0;
       }
-      if (fputc((ch == '\r'?'\n':ch), file) == EOF) { // Translate newlines
+      if (fputc((ch == '\r'?'\n':ch), file) == EOF) { /* Translate newlines */
 	printf("Write error: %s\n", strerror(errno));
 	return 0;
       }
     }
-    fgetc(from); // Skip 080 char
+    fgetc(from); /* Skip 080 char */
     break;
-  case 2: // ^B -- Binary
+  case 2: /* ^B -- Binary */
     charcount = 0;
     for (i = 0; i < length; i++) {
       ch = fgetc(from);
@@ -304,20 +304,20 @@ dump_pfb_chunk(FILE *from, FILE *file) {
 	printf("Read error: %s\n", strerror(errno));
 	return 0;
       }
-      // Translate binary into hex
+      /* Translate binary into hex */
       if (fputc(hexChar[(ch>>4)&0xf], file) == EOF ||
 	  fputc(hexChar[ch&0xf], file) == EOF) {
 	printf("Write error: %s\n", strerror(errno));
 	return 0;
       }
-      if ((++charcount)%32 == 0) // Break lines after 64 chars
+      if ((++charcount)%32 == 0) /* Break lines after 64 chars */
 	if (fputc('\n', file) == EOF) {
 	  printf("Write error: %s\n", strerror(errno));
 	  return 0;
 	}
     }
     if (charcount%32 != 1) fputc('\n', file);
-    fgetc(from); // Skip 080 char
+    fgetc(from); /* Skip 080 char */
     break;
   default:
     printf("Unknown chunk type %d\n", chunktype);
@@ -372,10 +372,10 @@ eps_dump_truetype(FILE *in, FILE *out, DiaFont *font) {
   }
 
   fprintf(out,"%%!PS-TrueTypeFont\n");
-  //  if(pt->maxMemType42)
-  //    fprintf(out,"%%%%VMUsage: %ld %ld\n",pt->minMemType42, pt->maxMemType42);
+  /*  if(pt->maxMemType42) */
+  /*    fprintf(out,"%%%%VMUsage: %ld %ld\n",pt->minMemType42, pt->maxMemType42); */
   fprintf(out,"%d dict begin\n",11);
-  // Hopefully this shall be the ps name
+  /* Hopefully this shall be the ps name */
   fprintf(out,"/FontName /%s def\n", font_get_psfontname(font));
   fprintf(out,"/Encoding StandardEncoding def\n");
   fprintf(out,"/PaintType 0 def\n/FontMatrix [1 0 0 1 0 0] def\n");
@@ -384,7 +384,7 @@ eps_dump_truetype(FILE *in, FILE *out, DiaFont *font) {
 	  head->xMax, head->yMax);
   fprintf(out,"/FontType 42 def\n");
   fprintf(out,"/FontInfo 8 dict dup begin\n");
-  // Is this Table_Version or Font_Revision?
+  /* Is this Table_Version or Font_Revision? */
   fprintf(out,"/version (%d.%d) def\n",
 	  (head->Font_Revision>>16)&0xFFFF,
 	  head->Font_Revision&0xFFFF);
@@ -441,19 +441,18 @@ eps_dump_font_file(FILE *file, char *from_file, DiaFont *font) {
   fprintf(file, "%%%%BeginResource: font %s\n", 
 	  font_get_psfontname(font));
 
-
-  if (FT_IS_SFNT(face)) { // Truetype font
+  if (FT_IS_SFNT(face)) { /* Truetype font */
     eps_dump_truetype(from, file, font);
   } else {
     first = fgetc(from);
     if (first == '%') {
-      // ASCII file, just copy it blindly
+      /* ASCII file, just copy it blindly */
       fputc('%', file);
       while ((num_read = fread(buf, 1, 80, from)) != 0) {
 	fwrite(buf, 1, num_read, file);
       }
     } else {
-      // Binary file.
+      /* Binary file. */
       while (dump_pfb_chunk(from, file))
 	;
     }

@@ -620,7 +620,7 @@ dia_menu_signal_connect_func (GnomeUIInfo *uiinfo, gchar *signal_name,
 {
     /* only connect the signal if uiinfo->moreinfo not NULL */
     /* otherwise it is non sens and generate extraneous warnings */
-    /* see bug 55047 <http://bugzilla.gnome.org/show_bug.cgi?id=55047> */
+    /* see bug 55047 <http:/*bugzilla.gnome.org/show_bug.cgi?id=55047> */
     if (uiinfo->moreinfo != NULL) {
         gtk_signal_connect (GTK_OBJECT(uiinfo->widget), signal_name,
                             GTK_SIGNAL_FUNC(dia_menu_signal_proxy), uiinfo);

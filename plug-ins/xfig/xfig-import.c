@@ -898,11 +898,11 @@ fig_read_text(FILE *file, DiagramData *dia) {
     if (newobj == NULL) goto exit;
 
     props = prop_list_from_descs(xfig_text_descs,pdtpp_true);
-    g_assert(props->len == 1);
+    g_assert(props->len == 4);
 
     tprop = g_ptr_array_index(props,0);
     tprop->text_data = g_strdup(text_buf);
-    //g_free(text_buf);
+    /*g_free(text_buf); */
     tprop->attr.alignment = sub_type;
     tprop->attr.position.x = x/FIG_UNIT;
     tprop->attr.position.y = y/FIG_UNIT;

@@ -182,9 +182,9 @@ main(int argc, char **argv)
   }
 
   printf("hip !\n");
-  //dia_image_init();
+  /*dia_image_init();*/
   printf("hop !\n");
-  //color_init();
+  /*color_init();*/
   color_black.red = color_black.green = color_black.blue = 0.0;
   color_white.red = color_white.green = color_white.blue = 1.0;
 

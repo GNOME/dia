@@ -28,7 +28,7 @@
 #include "pydia-color.h"
 #include "pydia-text.h"
 
-//#include "propinternals.h" /* include mess: needs tree.h, we don't */
+/*#include "propinternals.h" /* include mess: needs tree.h, we don't */
 #include "prop_inttypes.h"
 #include "prop_geomtypes.h"
 #include "prop_attr.h"
@@ -140,7 +140,7 @@ static PyObject * PyDia_get_String (StringProperty *prop)
     return PyString_FromString("(NULL)");
   else if (1 == prop->num_lines)
     return PyString_FromString(prop->string_data);
-  else // FIXME: MULTISTRING ? 
+  else /* FIXME: MULTISTRING ?  */
     return PyString_FromString(prop->string_data);
 }
 static PyObject * PyDia_get_Text (TextProperty *prop)

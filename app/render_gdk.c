@@ -924,9 +924,9 @@ gdk_freetype_copy_glyph(FT_GlyphSlot glyph, int pen_x, int pen_y,
   guchar *buffer = bitmap->buffer;
   int rowstride = bitmap->pitch;
 
-  // Seems FT and GDK disagree on what color '0' is, so we have to
-  // swap the foreground and background colors.
-  if (rowstride < 0) { // Cartesian bitmap
+  /* Seems FT and GDK disagree on what color '0' is, so we have to */
+  /* swap the foreground and background colors. */
+  if (rowstride < 0) { /* Cartesian bitmap */
     buffer = buffer+rowstride*(bitmap->rows-1);
   }
 

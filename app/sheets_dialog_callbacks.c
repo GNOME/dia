@@ -1544,7 +1544,7 @@ on_sheets_dialog_button_move_all_clicked
 
     gtk_widget_destroy(iter_list->data);
 
-    // MCNFIXME:  do we have to resanitize the radio_group?
+    /* MCNFIXME:  do we have to resanitize the radio_group? */
   }
   
   /* Force the 1st button in the target wrapbox to be active after moving */
@@ -1590,6 +1590,8 @@ write_user_sheet(Sheet *sheet)
   xmlNodePtr root;
   xmlNodePtr node;
   xmlNodePtr object_node;
+  xmlNodePtr desc_node;
+  xmlNodePtr icon_node;
   gchar buf[512];
   time_t time_now;
   char *username;
@@ -1713,15 +1715,16 @@ write_user_sheet(Sheet *sheet)
     }
       
     xmlAddChild(object_node, xmlNewText("\n"));
-    object_node = xmlNewChild(object_node, NULL, "description", NULL);
-    xmlAddChild(object_node, xmlNewText(sheetobject->description));
-    xmlAddChild(node, xmlNewText("\n"));
+    desc_node = xmlNewChild(object_node, NULL, "description", NULL);
+    xmlAddChild(desc_node, xmlNewText(sheetobject->description));
+    /*    xmlAddChild(object_node, xmlNewText("\n")); */
 
     if (sheetobject->has_icon_on_sheet == TRUE)
     {
-      object_node = xmlNewChild(object_node, NULL, "icon", NULL);
-      xmlAddChild(object_node, xmlNewText(sheetobject->pixmap_file));
-      xmlAddChild(node, xmlNewText("\n"));
+      xmlAddChild(object_node, xmlNewText("\n"));
+      icon_node = xmlNewChild(desc_node, NULL, "icon", NULL);
+      xmlAddChild(icon_node, xmlNewText(sheetobject->pixmap_file));
+      xmlAddChild(object_node, xmlNewText("\n"));
     }
   }
   xmlSetDocCompressMode(doc, 0);

@@ -1116,7 +1116,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       break; 
     }
     case GE_TEXT:
-      //text_calc_boundingbox(el->text.object,&rect);
+      /*text_calc_boundingbox(el->text.object,&rect); */
       rect = el->text.text_bounds;
       break;
     }

@@ -625,7 +625,7 @@ draw_cross(Renderer *renderer, Point *to, Point *from,
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
   
   renderer->ops->draw_line(renderer, &poly[0],&poly[2], color);
-  //renderer->ops->draw_line(renderer, &poly[4],&poly[5], color);
+  /*renderer->ops->draw_line(renderer, &poly[4],&poly[5], color); */
 }
 
 static void 

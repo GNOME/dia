@@ -227,7 +227,7 @@ PyDiaProperties_AssSub (PyDiaProperties* self, PyObject *key, PyObject *val)
     name = PyString_AsString(key);
     p = object_prop_by_name (self->object, name);  
 
-    //g_print ("AssSub(key: '%s', type <%s>)\n", name, (p ? p->type : "none"));
+    /*g_print ("AssSub(key: '%s', type <%s>)\n", name, (p ? p->type : "none")); */
     if (p) {
       if (0 == PyDiaProperty_ApplyToObject(self->object, name, p, val)) {
         /* if applied the property is deleted */

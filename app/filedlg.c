@@ -310,8 +310,8 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg),
 				    dia->filename ? dia->filename
 				    : "." G_DIR_SEPARATOR_S);
-    // Need better way to make it a reasonable size.  Isn't there some
-    // standard look for them (or is that just Gnome?)
+    /* Need better way to make it a reasonable size.  Isn't there some*/
+    /* standard look for them (or is that just Gnome?)*/
     compressbutton = gtk_check_button_new_with_label(_("Compress diagram files"));
     gtk_box_pack_start_defaults(GTK_BOX(GTK_FILE_SELECTION(savedlg)->main_vbox),
 				compressbutton);

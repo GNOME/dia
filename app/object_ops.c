@@ -271,30 +271,6 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
     list = g_list_next(list);
   }
 
-  switch (align) {
-  case DIA_ALIGN_TOP: /* TOP */
-    y_pos = top;
-    break;
-  case DIA_ALIGN_CENTER: /* CENTER */
-    y_pos = (top + bottom)/2.0;
-    break;
-  case DIA_ALIGN_BOTTOM: /* BOTTOM */
-    y_pos = bottom;
-    break;
-  case DIA_ALIGN_POSITION: /* OBJECT POSITION */
-    y_pos = (top + bottom)/2.0;
-    break;
-  case DIA_ALIGN_EQUAL: /* EQUAL DISTANCE */
-    freespc = (bottom - top - freespc)/(double)(nobjs - 1);
-    y_pos = top;
-    break;
-  case DIA_ALIGN_ADJACENT: /* ADJACENT */
-    y_pos = top;
-    break;
-  default:
-    message_warning("Wrong argument to object_list_align_v()\n");
-  }
-  
   /*
    * These alignments can alter the order of elements, so we need
    * to sort them out by position.
@@ -320,6 +296,30 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
       g_free(object_array);
   }
 
+  switch (align) {
+  case DIA_ALIGN_TOP: /* TOP */
+    y_pos = top;
+    break;
+  case DIA_ALIGN_CENTER: /* CENTER */
+    y_pos = (top + bottom)/2.0;
+    break;
+  case DIA_ALIGN_BOTTOM: /* BOTTOM */
+    y_pos = bottom;
+    break;
+  case DIA_ALIGN_POSITION: /* OBJECT POSITION */
+    y_pos = (top + bottom)/2.0;
+    break;
+  case DIA_ALIGN_EQUAL: /* EQUAL DISTANCE */
+    freespc = (bottom - top - freespc)/(double)(nobjs - 1);
+    y_pos = top;
+    break;
+  case DIA_ALIGN_ADJACENT: /* ADJACENT */
+    y_pos = top;
+    break;
+  default:
+    message_warning("Wrong argument to object_list_align_v()\n");
+  }
+  
   dest_pos = g_new(Point, nobjs);
   orig_pos = g_new(Point, nobjs);
 

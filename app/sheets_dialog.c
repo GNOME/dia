@@ -198,7 +198,7 @@ create_sheets_main_dialog (void)
   gtk_widget_show (hbox1);
   gtk_box_pack_start (GTK_BOX (dialog_action_area1), hbox1, TRUE, TRUE, 0);
 
-  button_new = gtk_button_new(); // _with_label (_("New"));
+  button_new = gtk_button_new(); /* _with_label (_("New")); */
   {
     GtkWidget *label;
 
@@ -262,7 +262,7 @@ create_sheets_main_dialog (void)
                               GDK_d, GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
 
-  button_edit = gtk_button_new(); // _with_label (_("Edit"));
+  button_edit = gtk_button_new(); /* _with_label (_("Edit")); */
   {
     GtkWidget *label;
 
@@ -281,7 +281,7 @@ create_sheets_main_dialog (void)
                               GDK_e, GDK_CONTROL_MASK,
                               GTK_ACCEL_VISIBLE);
 
-  button_remove = gtk_button_new(); // _with_label (_("Remove"));
+  button_remove = gtk_button_new(); /* _with_label (_("Remove")); */
   {
     GtkWidget *label;
 
