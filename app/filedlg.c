@@ -407,8 +407,10 @@ file_save_callback(gpointer data, guint action, GtkWidget *widget)
   if (diagram->unsaved) {
     file_save_as_callback(data, action, widget);
   } else {
+    gchar *filename = g_filename_from_utf8(diagram->filename, -1, NULL, NULL, NULL);
     diagram_update_extents(diagram);
-    diagram_save(diagram, diagram->filename);
+    diagram_save(diagram, filename);
+    g_free (filename);
   }
 }
 

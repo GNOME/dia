@@ -1,5 +1,11 @@
 2004-11-27  Hans Breuer  <hans@breuer.org>
 
+	* app/filedlg.c(file_save_callback) : convert to
+	filename encoding before passing to diagram_save()
+	Fixes bug #158381, thanks to Robert Ögren
+
+2004-11-27  Hans Breuer  <hans@breuer.org>
+
 	* lib/dialibartrenderer.c : sometimes its good to read
 	compiler warnings. Not only define renderer_finalize
 	but actually *use* it. Should plug a potential huge
