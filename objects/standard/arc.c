@@ -151,6 +151,8 @@ static PropOffset arc_offsets[] = {
   { "start_arrow", PROP_TYPE_ARROW, offsetof(Arc, start_arrow) },
   { "end_arrow", PROP_TYPE_ARROW, offsetof(Arc, end_arrow) },
   { "curve_distance", PROP_TYPE_REAL, offsetof(Arc, curve_distance) },
+  { "start_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[0]) },
+  { "end_point", PROP_TYPE_POINT, offsetof(Connection, endpoints[1]) },
   { NULL, 0, 0 }
 };
 

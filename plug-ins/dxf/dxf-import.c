@@ -300,19 +300,20 @@ void read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
         }
     } while(codedxf != 0);
     setlocale(LC_NUMERIC, old_locale);
-    printf("start_angle: %f end_angle: %f\n",start_angle,end_angle);
 
+    /* printf("c.x=%f c.y=%f s",center.x,center.y); */
     start.x = center.x + cos(start_angle) * radius; 
     start.y = center.y - sin(start_angle) * radius;
     end.x = center.x + cos(end_angle) * radius;
     end.y = center.y - sin(end_angle) * radius;
+    /*printf("s.x=%f s.y=%f e.x=%f e.y=%f\n",start.x,start.y,end.x,end.y);*/
 
-    curve_distance = M_PI * radius * fabs(start_angle-end_angle);
 
-    //curve_distance = radius * (1 - cos ((end_angle - start_angle)/2));
+    if (end_angle < start_angle) end_angle += 2.0*M_PI;
+    curve_distance = radius * (1 - cos ((end_angle - start_angle)/2));
 
-    printf("start_angle: %f end_angle: %f radius:%f  curve_distance:%f\n",
-           start_angle,end_angle,radius,curve_distance);
+    /*printf("start_angle: %f end_angle: %f radius:%f  curve_distance:%f\n",
+      start_angle,end_angle,radius,curve_distance);*/
    
     arc_obj = otype->ops->create(&center, otype->default_user_data,
                                      &h1, &h2);

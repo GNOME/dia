@@ -1,3 +1,14 @@
+2001-04-07  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* plug-ins/dxf-import.c: some progress with the arcs; still some
+	clean-ups to do and line width scaling issues to figure out.
+
+	* objects/standard/arc.c: start_point and end_point properties
+	(duplicated from standard/line.c)
+
+	* plug-ins/xfig/xfig-import.c: zip ! zap ! no more dead DXF import
+	code there.
+	
 2001-04-06  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* plug-ins/dxf-import.c: setlocale-related clean-ups and fixes ;
