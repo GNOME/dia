@@ -418,7 +418,6 @@ bezierconn_straighten_corner(BezierConn *bez, int comp_nr) {
   /* Neat thing would be to have the kind of straigthening depend on
      which handle was chosen:  Mid-handle does average, other leaves that
      handle where it is. */
-  message_warning("Segment %d type %d\n", comp_nr, bez->points[comp_nr].corner_type);
   switch (bez->points[comp_nr].corner_type) {
   case BEZ_CORNER_SYMMETRIC: {
     Point pt1, pt2;
@@ -721,6 +720,9 @@ bezierconn_save(BezierConn *bez, ObjectNode obj_node)
     data_add_point(attr, &bez->points[i].p1);
     data_add_point(attr, &bez->points[i].p2);
     data_add_point(attr, &bez->points[i].p3);
+    if (bez->points[i].corner_type != BEZ_CORNER_SYMMETRIC) {
+      data_add_enum(attr, bez->points[i].corner_type);
+    }
   }
 }
 
@@ -759,6 +761,12 @@ bezierconn_load(BezierConn *bez, ObjectNode obj_node) /* NOTE: Does object_init(
       data = data_next(data);
       data_point(data, &bez->points[i].p3);
       data = data_next(data);
+      if (data && data_type(data) == DATATYPE_ENUM) {
+	bez->points[i].corner_type = data_enum(data);
+	data = data_next(data);
+      } else {
+	bez->points[i].corner_type = BEZ_CORNER_SYMMETRIC;
+      }
     }
   }
 

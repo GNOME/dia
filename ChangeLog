@@ -6,6 +6,7 @@
 	* lib/bezier_conn.c: Support for cuspy, smooth and symmetric
 	bezier points.  Only one minor problem known:  Menus are active
 	for endpoints minor handles.
+	11:28: Save and load now works, too.
 
 2000-04-15  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
