@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.94-pre6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-26 12:45-0400\n"
-"PO-Revision-Date: 2004-09-26 22:44-0400\n"
+"POT-Creation-Date: 2004-10-09 20:03-0400\n"
+"PO-Revision-Date: 2004-10-09 22:44-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -796,7 +796,16 @@ msgstr "Toggles snap-to-grid for this window."
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:1071
+#: app/interface.c:957
+#, c-format
+msgid "No sheet named %s"
+msgstr "No sheet named %s"
+
+#: app/interface.c:1047
+msgid "Other sheets"
+msgstr "Other sheets"
+
+#: app/interface.c:1123
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -806,7 +815,7 @@ msgstr ""
 "squares reset colours.  The small arrows swap colours.  Double click to "
 "change colours."
 
-#: app/interface.c:1086
+#: app/interface.c:1138
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -814,7 +823,7 @@ msgstr ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 
-#: app/interface.c:1126
+#: app/interface.c:1178
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -822,7 +831,7 @@ msgstr ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 
-#: app/interface.c:1131
+#: app/interface.c:1183
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -830,7 +839,7 @@ msgstr ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 
-#: app/interface.c:1145
+#: app/interface.c:1197
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -838,7 +847,7 @@ msgstr ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 
-#: app/interface.c:1255
+#: app/interface.c:1307
 msgid "Diagram Editor"
 msgstr "Diagram Editor"
 
@@ -1815,7 +1824,7 @@ msgstr "Sheet"
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:133
 #: objects/ER/relationship.c:138 objects/UML/association.c:200
-#: objects/UML/association.c:1126 objects/UML/class_dialog.c:900
+#: objects/UML/association.c:1213 objects/UML/class_dialog.c:900
 #: objects/UML/class_dialog.c:1834 objects/UML/class_dialog.c:2063
 #: objects/UML/class_dialog.c:2579 objects/UML/dependency.c:133
 #: objects/UML/generalization.c:129 objects/UML/realizes.c:130
@@ -1954,7 +1963,7 @@ msgstr "Dia Diagram Editor"
 msgid "Edit your Diagrams"
 msgstr "Edit your Diagrams"
 
-#: lib/arrows.c:40 objects/UML/association.c:1149 objects/Jackson/domain.c:96
+#: lib/arrows.c:40 objects/UML/association.c:1236 objects/Jackson/domain.c:96
 msgid "None"
 msgstr "None"
 
@@ -2272,15 +2281,15 @@ msgstr ""
 "Could not open `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:792
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:605
 msgid "Left"
 msgstr "Left"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:798
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:611
 msgid "Center"
 msgstr "Centre"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:804
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:617
 msgid "Right"
 msgstr "Right"
 
@@ -2344,61 +2353,64 @@ msgstr "Fill colour"
 msgid "Text colour"
 msgstr "Text colour"
 
-#: lib/widgets.c:396
-msgid "Other fonts..."
-msgstr "Other fonts..."
+#: lib/widgets.c:356
+msgid "Other fonts"
+msgstr "Other fonts"
 
-#: lib/widgets.c:523
+#: lib/widgets.c:426
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Could not find font family for %s\n"
 
-#. We hit the Other fonts... entry
-#: lib/widgets.c:588
-msgid "Select font"
-msgstr "Select font"
-
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:940 objects/FS/function.c:1063
+#: lib/widgets.c:753 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Solid"
 
-#: lib/widgets.c:946
+#: lib/widgets.c:759
 msgid "Dashed"
 msgstr "Dashed"
 
-#: lib/widgets.c:952
+#: lib/widgets.c:765
 msgid "Dash-Dot"
 msgstr "Dash-Dot"
 
-#: lib/widgets.c:958
+#: lib/widgets.c:771
 msgid "Dash-Dot-Dot"
 msgstr "Dash-Dot-Dot"
 
-#: lib/widgets.c:964
+#: lib/widgets.c:777
 msgid "Dotted"
 msgstr "Dotted"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:983
+#: lib/widgets.c:796
 msgid "Dash length: "
 msgstr "Dash length: "
 
-#: lib/widgets.c:1138
+#: lib/widgets.c:951
 msgid "Select color"
 msgstr "Select colour"
 
-#: lib/widgets.c:1356
+#: lib/widgets.c:1131
+msgid "More arrows"
+msgstr "More arrows"
+
+#: lib/widgets.c:1144
 msgid "Size: "
 msgstr "Size: "
 
-#: lib/widgets.c:1505
+#: lib/widgets.c:1287
 msgid "Select image file"
 msgstr "Select image file"
 
-#: lib/widgets.c:1541
+#: lib/widgets.c:1323
 msgid "Browse"
 msgstr "Browse"
+
+#: lib/widgets.c:1914
+msgid "Reset menu"
+msgstr "Reset menu"
 
 #: objects/ER/attribute.c:153
 msgid "Key:"
@@ -2442,7 +2454,7 @@ msgstr "Total:"
 
 #: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
 #: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:462
-#: objects/UML/association.c:752 objects/UML/component_feature.c:183
+#: objects/UML/association.c:839 objects/UML/component_feature.c:183
 #: objects/UML/dependency.c:372 objects/UML/generalization.c:368
 #: objects/UML/realizes.c:359 objects/standard/zigzagline.c:346
 msgid "Add segment"
@@ -2450,7 +2462,7 @@ msgstr "Add segment"
 
 #: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
 #: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:463
-#: objects/UML/association.c:753 objects/UML/component_feature.c:184
+#: objects/UML/association.c:840 objects/UML/component_feature.c:184
 #: objects/UML/dependency.c:373 objects/UML/generalization.c:369
 #: objects/UML/realizes.c:360 objects/standard/zigzagline.c:347
 msgid "Delete segment"
@@ -3775,46 +3787,46 @@ msgstr "SADT diagram objects"
 msgid "Actor"
 msgstr "Actor"
 
-#: objects/UML/association.c:1139 objects/UML/class_dialog.c:2107
+#: objects/UML/association.c:1226 objects/UML/class_dialog.c:2107
 msgid "Direction:"
 msgstr "Direction:"
 
-#: objects/UML/association.c:1156
+#: objects/UML/association.c:1243
 msgid "From A to B"
 msgstr "From A to B"
 
-#: objects/UML/association.c:1163
+#: objects/UML/association.c:1250
 msgid "From B to A"
 msgstr "From B to A"
 
-#: objects/UML/association.c:1187 objects/UML/association.c:1195
+#: objects/UML/association.c:1274 objects/UML/association.c:1282
 msgid "Side A"
 msgstr "Side A"
 
-#: objects/UML/association.c:1189 objects/UML/association.c:1197
+#: objects/UML/association.c:1276 objects/UML/association.c:1284
 msgid "Side B"
 msgstr "Side B"
 
-#: objects/UML/association.c:1203
+#: objects/UML/association.c:1290
 msgid "Role:"
 msgstr "Role:"
 
-#: objects/UML/association.c:1215
+#: objects/UML/association.c:1302
 msgid "Multiplicity:"
 msgstr "Multiplicity:"
 
 #. Show arrow:
-#: objects/UML/association.c:1226
+#: objects/UML/association.c:1313
 msgid "Show arrow"
 msgstr "Show arrow"
 
 #. Aggregate
-#: objects/UML/association.c:1232
+#: objects/UML/association.c:1319
 msgid "Aggregate"
 msgstr "Aggregate"
 
 #. Composition
-#: objects/UML/association.c:1240
+#: objects/UML/association.c:1327
 msgid "Composition"
 msgstr "Composition"
 
