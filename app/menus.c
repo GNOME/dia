@@ -112,14 +112,15 @@ static GnomeUIInfo editmenu[] = {
           NULL, GNOME_APP_PIXMAP_NONE, NULL, 0, (GdkModifierType) 0, NULL }
 
 static GnomeUIInfo zoommenu[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA("400%",  NULL, view_zoom_set_callback, 4000),
+  GNOMEUIINFO_ITEM_NONE_DATA("_400%",  NULL, view_zoom_set_callback, 4000),
   GNOMEUIINFO_ITEM_NONE_DATA("283%",  NULL, view_zoom_set_callback, 2828),
-  GNOMEUIINFO_ITEM_NONE_DATA("200%",  NULL, view_zoom_set_callback, 2000),
+  GNOMEUIINFO_ITEM_NONE_DATA("_200%",  NULL, view_zoom_set_callback, 2000),
+/*  GNOMEUIINFO_ITEM_NONE_DATA("150%",  NULL, view_zoom_set_callback, 1500),   TODO:TestMe! */
   GNOMEUIINFO_ITEM_NONE_DATA("141%",  NULL, view_zoom_set_callback, 1414),
-  GNOMEUIINFO_ITEM_NONE_DATA("100%",  NULL, view_zoom_set_callback, 1000),
+  GNOMEUIINFO_ITEM_NONE_DATA("_100%",  NULL, view_zoom_set_callback, 1000),
   GNOMEUIINFO_ITEM_NONE_DATA("85%",   NULL, view_zoom_set_callback, 850),
   GNOMEUIINFO_ITEM_NONE_DATA("70.7%", NULL, view_zoom_set_callback, 707),
-  GNOMEUIINFO_ITEM_NONE_DATA("50%",   NULL, view_zoom_set_callback, 500),
+  GNOMEUIINFO_ITEM_NONE_DATA("_50%",   NULL, view_zoom_set_callback, 500),
   GNOMEUIINFO_ITEM_NONE_DATA("35.4%", NULL, view_zoom_set_callback, 354),
   GNOMEUIINFO_ITEM_NONE_DATA("25%",   NULL, view_zoom_set_callback, 250),
   GNOMEUIINFO_END
@@ -129,12 +130,14 @@ static GnomeUIInfo viewmenu[] = {
   GNOMEUIINFO_ITEM_NONE(N_("Zoom _In"), N_("Zoom in 50%"), view_zoom_in_callback),
   GNOMEUIINFO_ITEM_NONE(N_("Zoom _Out"), N_("Zoom out 50%"), view_zoom_out_callback),
   GNOMEUIINFO_SUBTREE(N_("_Zoom"), zoommenu),
+  GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_ITEM_NONE(N_("Diagram Properties..."), NULL, view_diagram_properties_callback),
 #ifdef HAVE_LIBART  
   GNOMEUIINFO_TOGGLEITEM(N_("_AntiAliased"), NULL,
 			 view_aa_callback, NULL),
 #endif  
-  GNOMEUIINFO_TOGGLEITEM(N_("_Visible Grid"), NULL,
+/* TODO: Show Menu Bar  F9.  Hub's cool code.  */
+  GNOMEUIINFO_TOGGLEITEM(N_("Show _Grid"), NULL,
 			 view_visible_grid_callback, NULL),
   GNOMEUIINFO_TOGGLEITEM(N_("_Snap To Grid"), NULL,
 			 view_snap_to_grid_callback, NULL),
@@ -164,8 +167,8 @@ static GnomeUIInfo selecttype_radiolist[] = {
 };
 
 static GnomeUIInfo selectmenu[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("All"), NULL, select_all_callback, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("None"), NULL, select_none_callback, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("All"), "<ctrl>A", select_all_callback, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("None"), "<ctrl><shift>A", select_none_callback, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Invert"), NULL, select_invert_callback, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Connected"), NULL, select_connected_callback, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Transitive"), NULL, select_transitive_callback, 0),
@@ -179,6 +182,7 @@ static GnomeUIInfo objects_align_h[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Left"), NULL, objects_align_h_callback, DIA_ALIGN_LEFT),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_h_callback, DIA_ALIGN_CENTER),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Right"), NULL, objects_align_h_callback, DIA_ALIGN_RIGHT),
+  GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_h_callback, DIA_ALIGN_EQUAL),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback,DIA_ALIGN_ADJACENT),
   GNOMEUIINFO_END
@@ -186,8 +190,9 @@ static GnomeUIInfo objects_align_h[] = {
 
 static GnomeUIInfo objects_align_v[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Top"), NULL, objects_align_v_callback, DIA_ALIGN_TOP),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_v_callback, DIA_ALIGN_CENTER),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Middle"), NULL, objects_align_v_callback, DIA_ALIGN_CENTER),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_v_callback, DIA_ALIGN_BOTTOM),
+  GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_v_callback, DIA_ALIGN_EQUAL),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback, DIA_ALIGN_ADJACENT),
   GNOMEUIINFO_END
@@ -216,11 +221,13 @@ static GnomeUIInfo toolsmenu[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Ellipse"), NULL, NULL, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Polygon"), NULL, NULL, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Beziergon"), NULL, NULL, 0),
+  GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Line"), NULL, NULL, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Arc"), NULL, NULL, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Zigzagline"), NULL, NULL, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Polyline"), NULL, NULL, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Bezierline"), NULL, NULL, 0),
+  GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Image"), NULL, NULL, 0),
   GNOMEUIINFO_END
 };
@@ -232,7 +239,7 @@ static GnomeUIInfo dialogsmenu[] = {
 };
 
 static GnomeUIInfo helpmenu[] = {
-  GNOMEUIINFO_HELP("dia"),
+  GNOMEUIINFO_HELP("Dia"),
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_MENU_ABOUT_ITEM(help_about_callback, NULL),
   GNOMEUIINFO_END
@@ -311,7 +318,7 @@ static GtkItemFactoryEntry display_menu_items[] =
       "<StockItem>", GTK_STOCK_OPEN },
   {N_("/File/_Save"),             "<control>S", file_save_callback,         0,
       "<StockItem>", GTK_STOCK_SAVE },
-  {N_("/File/Save _As..."),       "<control>W", file_save_as_callback,      0,
+  {N_("/File/Save _As..."),       "<control><shift>S", file_save_as_callback,      0,
       "<StockItem>", GTK_STOCK_SAVE_AS },
   {N_("/File/_Export..."),        NULL,         file_export_callback,       0},
   {N_("/File/---"),               NULL,         NULL,        0, "<Separator>"},
@@ -319,13 +326,18 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/File/_Print Diagram..."), "<control>P", file_print_callback,        0,
       "<StockItem>", GTK_STOCK_PRINT },
   {N_("/File/---"),               NULL,         NULL,        0, "<Separator>"},
-  {N_("/File/_Close"),            NULL,         file_close_callback,        0,
+  {N_("/File/_Close"),            "<control>W",         file_close_callback,        0,
       "<StockItem>", GTK_STOCK_CLOSE },
   {   "/File/---MRU",             NULL,         NULL,        0, "<Separator>"},
   {N_("/File/_Quit"),              "<control>Q", file_quit_callback,        0,
       "<StockItem>", GTK_STOCK_QUIT},
   {N_("/_Edit"),                  NULL,         NULL,           0, "<Branch>"},
   {   "/Edit/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
+  {N_("/Edit/_Undo"),             "<control>Z", edit_undo_callback,         0,
+      "<StockItem>", GTK_STOCK_UNDO },
+  {N_("/Edit/_Redo"),             "<control><shift>Z", edit_redo_callback,         0,
+      "<StockItem>", GTK_STOCK_REDO },
+  {N_("/Edit/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/Edit/_Copy"),             "<control>C", edit_copy_callback,         0,
       "<StockItem>", GTK_STOCK_COPY },
   {N_("/Edit/C_ut"),              "<control>X", edit_cut_callback,          0,
@@ -334,10 +346,7 @@ static GtkItemFactoryEntry display_menu_items[] =
       "<StockItem>", GTK_STOCK_PASTE },
   {N_("/Edit/_Delete"),           "<control>D", edit_delete_callback,       0,
       "<StockItem>", GTK_STOCK_DELETE },
-  {N_("/Edit/_Undo"),             "<control>Z", edit_undo_callback,         0,
-      "<StockItem>", GTK_STOCK_UNDO },
-  {N_("/Edit/_Redo"),             "<control>R", edit_redo_callback,         0,
-      "<StockItem>", GTK_STOCK_REDO },
+  {N_("/Edit/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/Edit/Copy Text"),         NULL,         edit_copy_text_callback,    0},
   {N_("/Edit/Cut Text"),          NULL,         edit_cut_text_callback,     0},
   {N_("/Edit/Paste _Text"),       NULL,         edit_paste_text_callback,   0},
@@ -360,17 +369,19 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/View/Zoom/50%"),          NULL,         view_zoom_set_callback,   500},
   {N_("/View/Zoom/35.4%"),        NULL,         view_zoom_set_callback,   354},
   {N_("/View/Zoom/25%"),          NULL,         view_zoom_set_callback,   250},
+  {N_("/View/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/View/Diagram Properties..."),NULL,         view_diagram_properties_callback, 0},
 #ifdef HAVE_LIBART  
   {N_("/View/_AntiAliased"),      NULL,         view_aa_callback,           0, "<ToggleItem>"},
 #endif
-  {N_("/View/_Visible Grid"),     NULL,         view_visible_grid_callback, 0, "<ToggleItem>"},
+  {N_("/View/Show _Grid"),     NULL,         view_visible_grid_callback, 0, "<ToggleItem>"},
   {N_("/View/_Snap To Grid"),     NULL,         view_snap_to_grid_callback, 0, "<ToggleItem>"},
   {N_("/View/Show _Rulers"),      NULL,         view_toggle_rulers_callback,0, "<ToggleItem>"},
   {N_("/View/Show _Connection Points"),	  NULL,		view_show_cx_pts_callback,   0,	"<ToggleItem>"},
   {N_("/View/---"),               NULL,         NULL,        0, "<Separator>"},
-  {N_("/View/New _View"),         "<control>I", view_new_view_callback,     0},
-  {N_("/View/Show _All"),         "<control>A", view_show_all_callback,     0},
+  {N_("/View/New _View"),         NULL, view_new_view_callback,     0},
+  /* Show All, Best Fit.  Same as the Gimp, Ctrl+E */
+  {N_("/View/Show _All"),         "<control>E", view_show_all_callback,     0},
   {N_("/View/Re_draw"),           NULL,         view_redraw_callback,       0},
   {N_("/_Select"),                NULL,         NULL,           0, "<Branch>"},
   {   "/Select/tearoff",          NULL,         NULL,         0, "<Tearoff>" },
@@ -399,13 +410,15 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/Bring Forwards"),"<control><shift>F", objects_place_up_callback,0},
   {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
   {N_("/Objects/_Group"),         "<control>G", objects_group_callback,     0},
-  {N_("/Objects/_Ungroup"),       "<control>U", objects_ungroup_callback,   0},
+  /* deliberately not using Ctrl+U for Ungroup */
+  {N_("/Objects/_Ungroup"),       "<control><shift>G", objects_ungroup_callback,   0}, 
   {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
   {N_("/Objects/Align _Horizontal"),       NULL, NULL,          0, "<Branch>"},
   {   "/Objects/Align Horizontal/tearoff", NULL, NULL,        0, "<Tearoff>" },
   {N_("/Objects/Align Horizontal/Left"),   NULL, objects_align_h_callback,  DIA_ALIGN_LEFT},
   {N_("/Objects/Align Horizontal/Center"), NULL, objects_align_h_callback,  DIA_ALIGN_CENTER},
   {N_("/Objects/Align Horizontal/Right"),  NULL, objects_align_h_callback,  DIA_ALIGN_RIGHT},
+  {N_("/Objects/---"),             NULL,         NULL,        0, "<Separator>"},
   {N_("/Objects/Align Horizontal/Equal Distance"), NULL, objects_align_h_callback,    DIA_ALIGN_EQUAL},
   {N_("/Objects/Align Horizontal/Adjacent"), NULL, objects_align_h_callback,    DIA_ALIGN_ADJACENT},
   {N_("/Objects/Align _Vertical"),         NULL, NULL,          0, "<Branch>"},
@@ -413,6 +426,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/Align Vertical/Top"),      NULL, objects_align_v_callback,  DIA_ALIGN_TOP},
   {N_("/Objects/Align Vertical/Center"),   NULL, objects_align_v_callback,  DIA_ALIGN_CENTER},
   {N_("/Objects/Align Vertical/Bottom"),   NULL, objects_align_v_callback,  DIA_ALIGN_BOTTOM},
+  {N_("/Objects/---"),             NULL,         NULL,        0, "<Separator>"}, 
   {N_("/Objects/Align Vertical/Equal Distance"),   NULL, objects_align_v_callback,    DIA_ALIGN_EQUAL},
   {N_("/Objects/Align Vertical/Adjacent"), NULL, objects_align_v_callback,  DIA_ALIGN_ADJACENT},
 
@@ -426,13 +440,14 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Tools/Ellipse"),          NULL,     NULL,                           0},
   {N_("/Tools/Polygon"),          NULL,     NULL,                           0},
   {N_("/Tools/Beziergon"),        NULL,     NULL,                           0},
+  {N_("/Tools/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/Tools/Line"),             NULL,     NULL,                           0},
   {N_("/Tools/Arc"),              NULL,     NULL,                           0},
   {N_("/Tools/Zigzagline"),       NULL,     NULL,                           0},
   {N_("/Tools/Polyline"),         NULL,     NULL,                           0},
   {N_("/Tools/Bezierline"),       NULL,     NULL,                           0},
+  {N_("/Tools/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/Tools/Image"),            NULL,     NULL,                           0},
-
   {N_("/_Dialogs"),               NULL,     NULL,               0, "<Branch>"},
   {   "/Dialogs/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
   {N_("/Dialogs/_Properties"),    NULL,     dialogs_properties_callback,    0},
