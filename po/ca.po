@@ -5,9 +5,9 @@
 # Traducció per Softcatalà <info@softcatala.org>
 msgid ""
 msgstr ""
-"Project-Id-Version: dia v. 0.84\n"
-"POT-Creation-Date: 2000-08-02 13:41+0200\n"
-"PO-Revision-Date: 2000-07-30 19:00+0200\n"
+"Project-Id-Version: dia 0.85\n"
+"POT-Creation-Date: 2000-08-02 20:33+0200\n"
+"PO-Revision-Date: 2000-08-02 19:02+0200\n"
 "Last-Translator: Quico Llach <quico@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -122,7 +122,7 @@ msgstr "Dia v %s ha estat creat per Alexander Larsson"
 
 #: app/commands.c:527
 msgid "Maintainer: James Henstridge"
-msgstr ""
+msgstr "Manteniment: James Henstridge"
 
 #: app/commands.c:531
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
@@ -130,9 +130,8 @@ msgstr ""
 "Visiteu l'adreça http://www.lysator.liu.se/~alla/dia per a més informació"
 
 #: app/commands.c:536
-#, fuzzy
 msgid "Contributors:"
-msgstr "Restricció:"
+msgstr "Col·laboradors:"
 
 #. setup buttons
 #: app/commands.c:553 app/layer_dialog.c:976 app/lineprops_area.c:540
@@ -148,6 +147,9 @@ msgid ""
 "crashes.  We know there are bugs in it, so don't\n"
 "bother submitting another report if it crashes"
 msgstr ""
+"El 'anti aliased renderer' conté errors, i us pot penjar\n"
+"l'ordinador. Ja sabem que conté errors, de manera que\n"
+"no us molesteu en enviar-nos un altre informe si es penja"
 
 #: app/defaults.c:48 app/defaults.c:56
 msgid "Object defaults"
@@ -168,34 +170,28 @@ msgid "This object has no defaults."
 msgstr "Aquest objecte no té opcions per defecte"
 
 #: app/dia_embedd.c:185
-#, fuzzy
 msgid "File/New diagram"
-msgstr "_Nou diagrama"
+msgstr "Fitxer/Nou diagrama"
 
 #: app/dia_embedd.c:189
-#, fuzzy
 msgid "File/Open..."
-msgstr "/Fitxer/_Obre"
+msgstr "Fitxer/Obre..."
 
 #: app/dia_embedd.c:193
-#, fuzzy
 msgid "File/Save As..."
-msgstr "/Fitxer/Desa _com a..."
+msgstr "Fitxer/Anomena i desa..."
 
 #: app/dia_embedd.c:197
-#, fuzzy
 msgid "File/Close"
-msgstr "/Fitxer/_Tanca"
+msgstr "Fitxer/Tanca"
 
 #: app/dia_embedd.c:201
-#, fuzzy
 msgid "File/Exit"
-msgstr "/Fitxer/_Surt"
+msgstr "Fitxer/Surt"
 
 #: app/dia_embedd.c:205
-#, fuzzy
 msgid "View/New View"
-msgstr "/Veure/Nova _Vista"
+msgstr "Visualitza/Nova Vista"
 
 #: app/dia_embedd.c:282
 msgid "Could not initialize Bonobo!"
@@ -437,9 +433,8 @@ msgid "Open Diagram"
 msgstr "Obre el diagrama"
 
 #: app/filedlg.c:179
-#, fuzzy
 msgid "Open Options"
-msgstr "Operacions"
+msgstr "Obre les opcions"
 
 #: app/filedlg.c:187 app/filedlg.c:527
 msgid "Determine file type:"
@@ -532,14 +527,12 @@ msgid "Polygon"
 msgstr "Polígon"
 
 #: app/interface.c:70
-#, fuzzy
 msgid "Create Beziergon"
-msgstr "Crea una línia de Bezier"
+msgstr "Crea un Beziergon"
 
 #: app/interface.c:71 app/menus.c:200
-#, fuzzy
 msgid "Beziergon"
-msgstr "Línia de Bezier"
+msgstr "Beziergon"
 
 #: app/interface.c:75
 msgid "Create Line"
@@ -795,9 +788,8 @@ msgid "_Zoom"
 msgstr "_Zoom"
 
 #: app/menus.c:112
-#, fuzzy
 msgid "Diagram Propeties..."
-msgstr "/Diàlegs/_Propietats"
+msgstr "Propietats del diagrama..."
 
 #: app/menus.c:114
 msgid "_AntiAliased"
@@ -931,24 +923,20 @@ msgid "_Layers"
 msgstr "_Capes"
 
 #: app/menus.c:231
-#, fuzzy
 msgid "_Select"
-msgstr "Selecciona"
+msgstr "_Selecciona"
 
 #: app/menus.c:232
-#, fuzzy
 msgid "_Objects"
-msgstr "/_Objectes"
+msgstr "_Objectes"
 
 #: app/menus.c:233
-#, fuzzy
 msgid "_Tools"
-msgstr "Eines"
+msgstr "_Eines"
 
 #: app/menus.c:234
-#, fuzzy
 msgid "_Dialogs"
-msgstr "/_Diàlegs"
+msgstr "_Diàlegs"
 
 #: app/menus.c:242 app/menus.c:256
 msgid "/_File"
@@ -988,12 +976,11 @@ msgstr "/Ajuda/_Quant a"
 
 #: app/menus.c:255
 msgid "/tearoff"
-msgstr ""
+msgstr "/tearoff"
 
 #: app/menus.c:257
-#, fuzzy
 msgid "/File/tearoff"
-msgstr "/Fitxer/_Nou"
+msgstr "/Fitxer/tearoff"
 
 #: app/menus.c:260
 msgid "/File/_Save"
@@ -1028,9 +1015,8 @@ msgid "/_Edit"
 msgstr "/_Edita"
 
 #: app/menus.c:270
-#, fuzzy
 msgid "/Edit/tearoff"
-msgstr "/Edita/Enganxa"
+msgstr "/Edita/tearoff"
 
 #: app/menus.c:271
 msgid "/Edit/_Copy"
@@ -1065,9 +1051,8 @@ msgid "/_View"
 msgstr "/_Veure"
 
 #: app/menus.c:281
-#, fuzzy
 msgid "/View/tearoff"
-msgstr "/Veure/sep1"
+msgstr "/Visualitza/tearoff"
 
 #: app/menus.c:282
 msgid "/View/Zoom _In"
@@ -1082,9 +1067,8 @@ msgid "/View/_Zoom"
 msgstr "/Veure/_Zoom"
 
 #: app/menus.c:285
-#, fuzzy
 msgid "/View/Zoom/tearoff"
-msgstr "/Veure/_Zoom"
+msgstr "/Visualitza/Zoom/tearoff"
 
 #: app/menus.c:286
 #, c-format
@@ -1137,9 +1121,8 @@ msgid "/View/Zoom/25%"
 msgstr "/Veure/Zoom/25%"
 
 #: app/menus.c:296
-#, fuzzy
 msgid "/View/Diagram Properties"
-msgstr "/Diàlegs/_Propietats"
+msgstr "/Visualitza/Propietats del diagrama"
 
 #: app/menus.c:298
 msgid "/View/_AntiAliased"
@@ -1174,14 +1157,12 @@ msgid "/View/Show _All"
 msgstr "/Veure/Mostra-ho _tot"
 
 #: app/menus.c:307
-#, fuzzy
 msgid "/_Select"
-msgstr "Selecciona"
+msgstr "/_Selecciona"
 
 #: app/menus.c:308
-#, fuzzy
 msgid "/Select/tearoff"
-msgstr "/Selecciona/Inverteix"
+msgstr "/Selecciona/tearoff"
 
 #: app/menus.c:309
 msgid "/Select/All"
@@ -1232,9 +1213,8 @@ msgid "/_Objects"
 msgstr "/_Objectes"
 
 #: app/menus.c:322
-#, fuzzy
 msgid "/Objects/tearoff1"
-msgstr "/Objectes/sep1"
+msgstr "/Objectes/tearoff1"
 
 #: app/menus.c:323
 msgid "/Objects/Send to _Back"
@@ -1261,28 +1241,24 @@ msgid "/Objects/Align _Horizontal"
 msgstr "/Objects/Alinea _horitzontalment"
 
 #: app/menus.c:330
-#, fuzzy
 msgid "/Objects/Align Horizontal/tearoff"
-msgstr "/Objectes/Alineació horitzontal/Centre"
+msgstr "/Objectes/Alineació horitzontal/tearoff"
 
 #: app/menus.c:336
 msgid "/Objects/Align _Vertical"
 msgstr "/Objects/Alinea _verticalment"
 
 #: app/menus.c:337
-#, fuzzy
 msgid "/Objects/Align Vertical/tearoff"
-msgstr "/Objectes/Alineació vertical/Centre"
+msgstr "/Objectes/Alineació vertical/tearoff"
 
 #: app/menus.c:344
-#, fuzzy
 msgid "/_Tools"
-msgstr "/Eines/"
+msgstr "/_Eines"
 
 #: app/menus.c:345
-#, fuzzy
 msgid "/Tools/tearoff"
-msgstr "/Eines/Modifica"
+msgstr "/Eines/tearoff"
 
 #: app/menus.c:346
 msgid "/Tools/Modify"
@@ -1313,9 +1289,8 @@ msgid "/Tools/Polygon"
 msgstr "/Eines/Polígon"
 
 #: app/menus.c:353
-#, fuzzy
 msgid "/Tools/Beziergon"
-msgstr "/Eines/Línia Bezier"
+msgstr "/Eines/Beziergon"
 
 #: app/menus.c:354
 msgid "/Tools/Line"
@@ -1346,9 +1321,8 @@ msgid "/_Dialogs"
 msgstr "/_Diàlegs"
 
 #: app/menus.c:362
-#, fuzzy
 msgid "/Dialogs/tearoff"
-msgstr "/Diàlegs/_Capes"
+msgstr "/Diàlegs/tearoff"
 
 #: app/menus.c:363
 msgid "/Dialogs/_Properties"
@@ -1367,9 +1341,8 @@ msgid "/Tools/"
 msgstr "/Eines/"
 
 #: app/menus.c:513
-#, fuzzy
 msgid "Diagram Menu"
-msgstr "Diagrames:"
+msgstr "Menú de diagrames"
 
 #: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
@@ -2588,7 +2561,6 @@ msgid "Flowchart objects"
 msgstr "Objectes de diagrama de flux"
 
 #: objects/flowchart/parallelogram.c:165
-#, fuzzy
 msgid "Shear angle"
 msgstr "Retalla l'angle"
 
@@ -2629,9 +2601,8 @@ msgid "Cusp control"
 msgstr "Control de cusp"
 
 #: objects/standard/arc.c:129
-#, fuzzy
 msgid "Curve distance"
-msgstr "Instància múltiple"
+msgstr "Distància corba"
 
 #: objects/standard/image.c:165
 msgid "Image file"
@@ -2674,13 +2645,12 @@ msgid "The image file '%s' was not found.\n"
 msgstr "El fitxer corresponent a la imatge '%s' no s'ha trobat.\n"
 
 #: objects/standard/line.c:118
-#, fuzzy
 msgid "Start point"
-msgstr "Hora d'inici:"
+msgstr "Punt d'inici"
 
 #: objects/standard/line.c:120
 msgid "End point"
-msgstr ""
+msgstr "Punt final"
 
 #: objects/standard/polygon.c:517 objects/standard/polyline.c:484
 msgid "Add Corner"
@@ -2720,35 +2690,32 @@ msgstr "Filtre d'exportació del Computer Graphics Metafile"
 
 #: plug-ins/dxf/dxf-export.c:557 plug-ins/dxf/dxf-import.c:491
 msgid "Drawing Interchange File"
-msgstr ""
+msgstr "Drawing Interchange File"
 
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
-msgstr ""
+msgstr "Filtres d'importació i exportació de Drawing Interchange File"
 
 #: plug-ins/hpgl/hpgl.c:624
-#, fuzzy
 msgid "HP Graphics Language export filter"
-msgstr "Filtre d'exportació del Computer Graphics Metafile"
+msgstr "Filtre d'exportació de l'HP Graphics Language"
 
 #: plug-ins/pstricks/pstricks.c:14
-#, fuzzy
 msgid "TeX Pstricks export filter"
-msgstr "Filtre d'exportació del Computer Graphics Metafile"
+msgstr "Filtre d'exportació del TeX Pstricks"
 
 #: plug-ins/pstricks/render_pstricks.c:749
 msgid "TeX PSTricks macros"
-msgstr ""
+msgstr "Macros de TeX PSTricks"
 
 #: plug-ins/wpg/wpg.c:1043
 #, c-format
 msgid "File: %s type/version unsupported.\n"
-msgstr ""
+msgstr "Fitxer: %s tipus/versió no suportada.\n"
 
 #: plug-ins/wpg/wpg.c:1192
-#, fuzzy
 msgid "WordPerfect Graphics export filter"
-msgstr "Filtre d'exportació del Computer Graphics Metafile"
+msgstr "Filtre d'exportació de WordPerfect Graphics"
 
 #: plug-ins/svg/render_svg.c:820
 msgid "Scalable Vector Graphics"
