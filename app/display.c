@@ -157,6 +157,9 @@ new_display(Diagram *dia)
   g_hash_table_insert (display_ht, ddisp->shell, ddisp);
   g_hash_table_insert (display_ht, ddisp->canvas, ddisp);
 
+  ddisp->ic = NULL;
+  ddisp->ic_attr = NULL;
+
   return ddisp;  /*  set the user data  */
 }
 

@@ -176,6 +176,157 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
 }
 
 gint
+ddisplay_focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data)
+{
+  DDisplay *ddisp;
+
+  g_return_val_if_fail (widget != NULL, FALSE);
+  g_return_val_if_fail (event != NULL, FALSE);
+  g_return_val_if_fail (data != NULL, FALSE);
+
+  ddisp = (DDisplay *)data;
+
+  GTK_WIDGET_SET_FLAGS(widget, GTK_HAS_FOCUS);
+  gtk_widget_draw_focus(widget);
+
+#ifdef USE_XIM
+  if (ddisp->ic)
+    gdk_im_begin(ddisp->ic, widget->window);
+#endif
+
+  return FALSE;
+}
+
+gint
+ddisplay_focus_out_event(GtkWidget *widget, GdkEventFocus *event,gpointer data)
+{
+  DDisplay *ddisp;
+  int return_val;
+  
+  g_return_val_if_fail (widget != NULL, FALSE);
+  g_return_val_if_fail (event != NULL, FALSE);
+  g_return_val_if_fail (data != NULL, FALSE);
+
+  return_val = FALSE;
+
+  ddisp = (DDisplay *)data;
+
+  GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
+  gtk_widget_draw_focus (widget);
+
+#ifdef USE_XIM
+  gdk_im_end ();
+#endif
+
+  return return_val;
+}
+
+void
+ddisplay_realize(GtkWidget *widget, gpointer data)
+{
+  DDisplay *ddisp;
+
+  g_return_if_fail(widget != NULL);
+  g_return_if_fail(data != NULL);
+
+  ddisp = (DDisplay *)data;
+
+#ifdef USE_XIM
+  if (gdk_im_ready() && (ddisp->ic_attr = gdk_ic_attr_new()) != NULL) {
+    gint width, height;
+    GdkColormap *colormap;
+    GdkICAttr *attr = ddisp->ic_attr;
+    GdkICAttributesType attrmask = GDK_IC_ALL_REQ;
+    GdkIMStyle style;
+    GdkIMStyle supported_style =
+      GDK_IM_PREEDIT_NONE |
+      GDK_IM_PREEDIT_NOTHING |
+      GDK_IM_PREEDIT_POSITION |
+      GDK_IM_STATUS_NONE |
+      GDK_IM_STATUS_NOTHING;
+
+    if (widget->style && widget->style->font->type != GDK_FONT_FONTSET)
+      supported_style &= ~GDK_IM_PREEDIT_POSITION;
+
+    attr->style = style = gdk_im_decide_style(supported_style);
+    attr->client_window = widget->window;
+
+    if ((colormap = gtk_widget_get_colormap(widget)) !=
+	gtk_widget_get_default_colormap()) {
+      attrmask |= GDK_IC_PREEDIT_COLORMAP;
+      attr->preedit_colormap = colormap;
+    }
+
+    attrmask |= GDK_IC_PREEDIT_FOREGROUND;
+    attrmask |= GDK_IC_PREEDIT_BACKGROUND;
+    attr->preedit_foreground = widget->style->fg[GTK_STATE_NORMAL];
+    attr->preedit_background = widget->style->base[GTK_STATE_NORMAL];
+
+
+    switch (style & GDK_IM_PREEDIT_MASK) {
+    case GDK_IM_PREEDIT_POSITION:
+      if (ddisp->canvas->style &&
+	  ddisp->canvas->style->font->type != GDK_FONT_FONTSET) {
+	g_warning("over-the-spot style requires fontset");
+	break;
+      }
+      attrmask |= GDK_IC_PREEDIT_POSITION_REQ;
+      gdk_window_get_size(widget->window, &width, &height);
+      attr->spot_location.x = 0;
+      attr->spot_location.y = 14;
+      attr->preedit_area.x = 0;
+      attr->preedit_area.y = 0;
+      attr->preedit_area.width = width;
+      attr->preedit_area.height = height;
+      attr->preedit_fontset = widget->style->font;
+    }
+    ddisp->ic = gdk_ic_new(attr, attrmask);
+    if (ddisp->ic == NULL)
+      g_warning("could not create input context");
+    else {
+      gtk_widget_add_events(ddisp->canvas, gdk_ic_get_events(ddisp->ic));
+
+      if (GTK_WIDGET_HAS_FOCUS(widget))
+	gdk_im_begin(ddisp->ic, widget->window);
+    }
+  }
+#endif
+}
+
+void
+ddisplay_unrealize (GtkWidget *widget, gpointer data)
+{
+  DDisplay *ddisp;
+  
+  g_return_if_fail (widget != NULL);
+  g_return_if_fail (data != NULL);
+
+  ddisp = (DDisplay *) data;
+
+#ifdef USE_XIM
+  if (ddisp->ic)
+    gdk_ic_destroy (ddisp->ic);
+  ddisp->ic = NULL;
+  if (ddisp->ic_attr)
+    gdk_ic_attr_destroy (ddisp->ic_attr);
+  ddisp->ic_attr = NULL;
+#endif
+ 
+}
+
+#ifdef USE_XIM
+static void
+set_input_dialog(DDisplay *ddisp, int x, int y)
+{
+  if (ddisp->ic && (gdk_ic_get_style(ddisp->ic) & GDK_IM_PREEDIT_POSITION)) {
+    ddisp->ic_attr->spot_location.x = x;
+    ddisp->ic_attr->spot_location.y = y; 
+    gdk_ic_set_attr(ddisp->ic, ddisp->ic_attr, GDK_IC_SPOT_LOCATION);
+  }
+}
+#endif
+
+gint
 ddisplay_canvas_events (GtkWidget *canvas,
 			GdkEvent  *event,
 			DDisplay *ddisp)
@@ -196,6 +347,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
   int width, height;
   int new_size;
   int modified;
+  int x, y;
 
   return_val = FALSE;
  
@@ -348,6 +500,11 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  ObjectChange *obj_change = NULL;
 	
 	  object_add_updates(obj, ddisp->diagram);
+#ifdef USE_XIM
+	  ddisplay_transform_coords(ddisp, obj->position.x, obj->position.y,
+				    &x, &y);
+	  set_input_dialog(ddisp, x, y);
+#endif
 	  modified = (focus->key_event)(focus, kevent->keyval,
 					kevent->string, kevent->length,
 					&obj_change);

@@ -57,6 +57,9 @@
 /* define if you have gdk_pixbuf */
 #undef HAVE_GDK_PIXBUF
 
+/* define to enable XIM support */
+#undef USE_XIM
+
 
 /* Leave that blank line there!!  Autoheader needs it.
    If you're adding to this file, keep in mind:

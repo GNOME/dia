@@ -64,6 +64,10 @@ struct _DDisplay {
   
   GSList *update_areas;           /* Update areas list                 */
   GSList *display_areas;          /* Display areas list                */
+
+  /* input contexts */
+  GdkIC *ic;
+  GdkICAttr *ic_attr;
 };
 
 extern GdkCursor *default_cursor;

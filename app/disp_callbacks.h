@@ -27,12 +27,17 @@
 	 GDK_ENTER_NOTIFY_MASK | GDK_KEY_PRESS_MASK |  \
 	 GDK_KEY_RELEASE_MASK
 
-extern gint ddisplay_canvas_events (GtkWidget *, GdkEvent *, DDisplay *ddisp);
-extern gint ddisplay_hsb_update (GtkAdjustment *adjustment,
-				 DDisplay *ddisp);
-extern gint ddisplay_vsb_update (GtkAdjustment *adjustment,
-				 DDisplay *ddisp);
-extern gint ddisplay_delete (GtkWidget *widget, GdkEvent  *event, gpointer data);
-extern void ddisplay_destroy (GtkWidget *widget, gpointer data);
+gint ddisplay_focus_in_event (GtkWidget *widget, GdkEventFocus *event,
+			      gpointer data);
+gint ddisplay_focus_out_event (GtkWidget *widget, GdkEventFocus *event,
+			       gpointer data);
+void ddisplay_realize (GtkWidget *widget, gpointer data);
+void ddisplay_unrealize (GtkWidget *widget, gpointer data);
+
+gint ddisplay_canvas_events (GtkWidget *, GdkEvent *, DDisplay *ddisp);
+gint ddisplay_hsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);
+gint ddisplay_vsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);
+gint ddisplay_delete (GtkWidget *widget, GdkEvent  *event, gpointer data);
+void ddisplay_destroy (GtkWidget *widget, gpointer data);
 
 #endif /* DISP_CALLBACKS_H */

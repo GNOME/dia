@@ -758,6 +758,12 @@ text_key_event(Focus *focus, guint keyval, char *str, int strlen,
     if (text->cursor_pos > text->strlen[text->cursor_row])
       text->cursor_pos = text->strlen[text->cursor_row];
     break;
+  case GDK_Home:
+    text->cursor_pos = 0;
+    break;
+  case GDK_End:
+    text->cursor_pos = text->strlen[text->cursor_row];
+    break;
   case GDK_Delete:
     return_val = TRUE;
     row = text->cursor_row;
@@ -802,10 +808,14 @@ text_key_event(Focus *focus, guint keyval, char *str, int strlen,
     break;
   default:
     if (strlen>0) {
+      int i;
+
       return_val = TRUE;
-      *change = text_create_change(text, TYPE_INSERT_CHAR, str[0],
-				   text->cursor_pos, text->cursor_row);
-      text_insert_char(text, str[0]);
+      for (i = 0; i < strlen; i++) {
+	*change = text_create_change(text, TYPE_INSERT_CHAR, str[i],
+				     text->cursor_pos, text->cursor_row);
+	text_insert_char(text, str[i]);
+      }
     }
     break;
   }  

@@ -170,6 +170,18 @@ create_display_shell(DDisplay *ddisp,
   gtk_signal_connect (GTK_OBJECT (ddisp->shell), "destroy",
                       GTK_SIGNAL_FUNC (ddisplay_destroy),
                       ddisp);
+  gtk_signal_connect (GTK_OBJECT (ddisp->shell), "focus_out_event",
+		      GTK_SIGNAL_FUNC (ddisplay_focus_out_event),
+		      ddisp);
+  gtk_signal_connect (GTK_OBJECT (ddisp->shell), "focus_in_event",
+		      GTK_SIGNAL_FUNC (ddisplay_focus_in_event),
+		      ddisp);
+  gtk_signal_connect (GTK_OBJECT (ddisp->shell), "realize",
+                      GTK_SIGNAL_FUNC (ddisplay_realize),
+                      ddisp);
+  gtk_signal_connect (GTK_OBJECT (ddisp->shell), "unrealize",
+                      GTK_SIGNAL_FUNC (ddisplay_unrealize),
+		      ddisp);
 
   /* Clipboard handling signals */
   gtk_signal_connect (GTK_OBJECT(ddisp->shell), "selection_get",
