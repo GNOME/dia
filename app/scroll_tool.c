@@ -44,9 +44,9 @@ create_scroll_tool(void)
   tool->tool.double_click_func = (DoubleClickFunc) &scroll_double_click;
 
   tool->scrolling = FALSE;
-  tool->use_hand = FALSE;
+  tool->use_hand = TRUE;
 
-  ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
+  ddisplay_set_all_cursor(get_cursor(CURSOR_GRAB));
   
   return (Tool *)tool;
 }
@@ -73,7 +73,7 @@ scroll_button_press(ScrollTool *tool, GdkEventButton *event,
 {
   Point clickedpoint;
 
-  tool->use_hand = (event->state & GDK_SHIFT_MASK) != 0;
+  tool->use_hand = (event->state & GDK_SHIFT_MASK) == 0;
   if (tool->use_hand)
     ddisplay_set_all_cursor(get_cursor(CURSOR_GRABBING));
   else
@@ -100,7 +100,7 @@ scroll_motion(ScrollTool *tool, GdkEventMotion *event,
   /* set the cursor appropriately, and change use_hand if needed */
   if (!tool->scrolling) {
     /* try to minimise the number of cursor type changes */
-    if ((event->state & GDK_SHIFT_MASK) != 0) {
+    if ((event->state & GDK_SHIFT_MASK) == 0) {
       if (!tool->use_hand) {
 	tool->use_hand = TRUE;
 	ddisplay_set_all_cursor(get_cursor(CURSOR_GRAB));
@@ -143,7 +143,7 @@ static void
 scroll_button_release(ScrollTool *tool, GdkEventButton *event,
 		      DDisplay *ddisp)
 {
-  tool->use_hand = (event->state & GDK_SHIFT_MASK) != 0;
+  tool->use_hand = (event->state & GDK_SHIFT_MASK) == 0;
   if (tool->use_hand) {
     ddisplay_set_all_cursor(get_cursor(CURSOR_GRAB));
   } else
