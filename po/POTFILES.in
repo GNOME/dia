@@ -85,6 +85,7 @@ objects/network/bus.c
 objects/network/network.c
 objects/standard/bezier.c
 objects/standard/box.c
+objects/standard/arc.c
 objects/standard/ellipse.c
 objects/standard/image.c
 objects/standard/line.c
@@ -96,7 +97,9 @@ objects/standard/zigzagline.c
 objects/sybase/sybase.c
 plug-ins/cgm/cgm.c
 plug-ins/dxf/dxf-export.c
+plug-ins/dxf/dxf-import.c
 plug-ins/dxf/dxf.c
+plug-ins/hpgl/hpgl.c
 plug-ins/pstricks/pstricks.c
 plug-ins/pstricks/render_pstricks.c
-
+plug-ins/wpg/wpg.c

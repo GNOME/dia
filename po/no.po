@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2000-06-24 10:30+0800\n"
-"PO-Revision-Date: 2000-06-04 00:59+02:00\n"
+"POT-Creation-Date: 2000-06-27 23:45+0200\n"
+"PO-Revision-Date: 2000-06-27 23:46+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -271,8 +271,7 @@ msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objekter/Juster vertikalt/Ved siden av"
 
 #. paper size
-#: app/diapagelayout.c:133 app/paginate_gnomeprint.c:197
-#: app/paginate_gnomeprint.c:202
+#: app/diapagelayout.c:133
 msgid "Paper Size"
 msgstr "Papirstørrelse"
 
@@ -303,8 +302,7 @@ msgid "Right:"
 msgstr "Høyre:"
 
 #. Scaling
-#: app/diapagelayout.c:266 app/paginate_gnomeprint.c:178
-#: app/paginate_gnomeprint.c:183
+#: app/diapagelayout.c:266
 msgid "Scaling"
 msgstr "Skalering"
 
@@ -393,7 +391,8 @@ msgstr "/Vis/Antialiased"
 
 #: app/export_png.c:78 app/load_save.c:501 app/render_eps.c:162
 #: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
-#: plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/wpg/wpg.c:937
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åpne: '%s' for skriving.\n"
@@ -690,7 +689,7 @@ msgstr ""
 "Feil under lasting av diagram.\n"
 "Håndtak for forbindelse eksisterer ikke."
 
-#: app/load_save.c:193
+#: app/load_save.c:193 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunne ikke åpne: '%s' for lesing.\n"
@@ -1345,17 +1344,17 @@ msgstr "/Verktøy/"
 msgid "Diagram Menu"
 msgstr "Diagrammeny"
 
-#: app/paginate_gnomeprint.c:158
+#: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
 msgstr "Skriv ut diagram"
-
-#: app/paginate_gnomeprint.c:167 app/paginate_psprint.c:206
-msgid "Printer"
-msgstr "Skriver"
 
 #: app/paginate_psprint.c:194
 msgid "Select Printer"
 msgstr "Velg skriver"
+
+#: app/paginate_psprint.c:206
+msgid "Printer"
+msgstr "Skriver"
 
 #: app/paginate_psprint.c:219
 msgid "File"
@@ -1545,12 +1544,12 @@ msgstr "Advarsel"
 msgid "Error"
 msgstr "Feil"
 
-#: lib/plug-ins.c:192
+#: lib/plug-ins.c:201
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Kunne ikke finne korrekt sti for `%s'"
 
-#: lib/plug-ins.c:197
+#: lib/plug-ins.c:206
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1559,22 +1558,22 @@ msgstr ""
 "Kunne ikke laste tillegg `%s'\n"
 "%s"
 
-#: lib/plug-ins.c:208
+#: lib/plug-ins.c:217
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Kunne ikke finne initialiseringsfunksjon for tillegg i `%s'"
 
-#: lib/plug-ins.c:235
+#: lib/plug-ins.c:244
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "%s tillegg kunne ikke lastes ut"
 
-#: lib/plug-ins.c:288
+#: lib/plug-ins.c:297
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "`%s' er ikke en katalog"
 
-#: lib/plug-ins.c:294
+#: lib/plug-ins.c:303
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åpne `%s'"
@@ -1677,20 +1676,17 @@ msgid "Multivalue"
 msgstr "Multiverdi"
 
 #: objects/ER/attribute.c:238 objects/ER/entity.c:204
-#: objects/ER/relationship.c:296 objects/flowchart/diamond.c:243
-#: objects/flowchart/ellipse.c:243 objects/flowchart/parallelogram.c:251
+#: objects/ER/relationship.c:296
 msgid "Border width:"
 msgstr "Grensebredde:"
 
 #: objects/ER/attribute.c:249 objects/ER/entity.c:215
-#: objects/ER/relationship.c:307 objects/flowchart/diamond.c:258
-#: objects/flowchart/ellipse.c:258 objects/flowchart/parallelogram.c:266
+#: objects/ER/relationship.c:307
 msgid "Foreground color:"
 msgstr "Forgrunnsfarge:"
 
 #: objects/ER/attribute.c:257 objects/ER/entity.c:223
-#: objects/ER/relationship.c:315 objects/flowchart/diamond.c:269
-#: objects/flowchart/ellipse.c:269 objects/flowchart/parallelogram.c:277
+#: objects/ER/relationship.c:315
 msgid "Background color:"
 msgstr "Bakgrunnsfarge:"
 
@@ -1961,11 +1957,9 @@ msgstr "   Mål"
 #: objects/SADT/box.c:205 objects/SADT/box.c:247
 #: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
 #: objects/chronogram/chronoref.c:254 objects/chronogram/chronoref.c:319
-#: objects/custom/custom_object.c:382 objects/flowchart/box.c:346
-#: objects/flowchart/diamond.c:313 objects/flowchart/diamond.c:442
-#: objects/flowchart/ellipse.c:313 objects/flowchart/ellipse.c:442
-#: objects/flowchart/parallelogram.c:336 objects/flowchart/parallelogram.c:483
-#: objects/standard/textobj.c:271
+#: objects/custom/custom_object.c:383 objects/flowchart/box.c:345
+#: objects/flowchart/diamond.c:325 objects/flowchart/ellipse.c:325
+#: objects/flowchart/parallelogram.c:350 objects/standard/textobj.c:263
 msgid "Font:"
 msgstr "Skrifttype:"
 
@@ -1977,10 +1971,9 @@ msgstr "Skrifttype:"
 #: objects/SADT/box.c:206 objects/SADT/box.c:248
 #: objects/chronogram/chronoline.c:333 objects/chronogram/chronoline.c:425
 #: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
-#: objects/custom/custom_object.c:393 objects/flowchart/box.c:357
-#: objects/flowchart/diamond.c:324 objects/flowchart/diamond.c:453
-#: objects/flowchart/ellipse.c:324 objects/flowchart/ellipse.c:453
-#: objects/flowchart/parallelogram.c:347 objects/flowchart/parallelogram.c:494
+#: objects/custom/custom_object.c:394 objects/flowchart/box.c:356
+#: objects/flowchart/diamond.c:336 objects/flowchart/ellipse.c:336
+#: objects/flowchart/parallelogram.c:361
 msgid "Font size:"
 msgstr "Størrelse på skrifttype:"
 
@@ -2080,8 +2073,6 @@ msgstr "GRAFCET OG/ELLER vergent"
 #: objects/SADT/box.c:207 objects/SADT/box.c:249
 #: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:426
 #: objects/chronogram/chronoref.c:256 objects/chronogram/chronoref.c:321
-#: objects/flowchart/diamond.c:338 objects/flowchart/ellipse.c:338
-#: objects/flowchart/parallelogram.c:361
 msgid "Font color:"
 msgstr "Skriftfarge:"
 
@@ -2118,10 +2109,9 @@ msgid "SADT Arrow"
 msgstr "SADT pil"
 
 #: objects/SADT/box.c:204 objects/SADT/box.c:246
-#: objects/custom/custom_object.c:357 objects/flowchart/box.c:332
-#: objects/flowchart/diamond.c:299 objects/flowchart/diamond.c:428
-#: objects/flowchart/ellipse.c:299 objects/flowchart/ellipse.c:428
-#: objects/flowchart/parallelogram.c:322 objects/flowchart/parallelogram.c:469
+#: objects/custom/custom_object.c:358 objects/flowchart/box.c:331
+#: objects/flowchart/diamond.c:311 objects/flowchart/ellipse.c:311
+#: objects/flowchart/parallelogram.c:336
 msgid "Text padding:"
 msgstr "Tekstfyll:"
 
@@ -2536,49 +2526,47 @@ msgstr "Vend horisontalt"
 msgid "Flip vertical"
 msgstr "Vend vertikalt"
 
-#: objects/custom/custom_object.c:348 objects/flowchart/box.c:310
-#: objects/flowchart/diamond.c:280 objects/flowchart/diamond.c:420
-#: objects/flowchart/ellipse.c:280 objects/flowchart/ellipse.c:420
-#: objects/flowchart/parallelogram.c:288 objects/flowchart/parallelogram.c:447
-#: objects/standard/box.c:223 objects/standard/ellipse.c:214
-#: objects/standard/polygon.c:219
+#: objects/custom/custom_object.c:349 objects/flowchart/box.c:309
+#: objects/flowchart/diamond.c:303 objects/flowchart/ellipse.c:303
+#: objects/flowchart/parallelogram.c:314 objects/standard/box.c:223
+#: objects/standard/ellipse.c:214 objects/standard/polygon.c:219
 msgid "Draw background"
 msgstr "Tegn bakgrunn"
 
-#: objects/custom/custom_object.c:371 objects/standard/textobj.c:260
+#: objects/custom/custom_object.c:372 objects/standard/textobj.c:252
 msgid "Alignment:"
 msgstr "Justering:"
 
-#: objects/custom/custom_object.c:1337
+#: objects/custom/custom_object.c:1338
 msgid "Flip Horizontal"
 msgstr "Vend horisontalt"
 
-#: objects/custom/custom_object.c:1338
+#: objects/custom/custom_object.c:1339
 msgid "Flip Vertical"
 msgstr "Vend vertikalt"
 
-#: objects/flowchart/box.c:165 objects/standard/box.c:149
+#: objects/flowchart/box.c:163 objects/standard/box.c:149
 msgid "Corner radius"
 msgstr "Hjørneradius:"
 
-#: objects/flowchart/box.c:167
+#: objects/flowchart/box.c:165 objects/flowchart/diamond.c:161
+#: objects/flowchart/ellipse.c:161 objects/flowchart/parallelogram.c:167
 msgid "Text padding"
 msgstr "Tekstfyll"
 
-#: objects/flowchart/box.c:318 objects/standard/box.c:231
+#: objects/flowchart/box.c:317 objects/standard/box.c:231
 msgid "Corner rounding:"
 msgstr "Avrunding av hjørner:"
-
-#: objects/flowchart/diamond.c:288 objects/flowchart/ellipse.c:288
-#: objects/flowchart/parallelogram.c:296
-msgid "Line style:"
-msgstr "Linjestil:"
 
 #: objects/flowchart/flowchart.c:32
 msgid "Flowchart objects"
 msgstr "Objekter for flytdiagram"
 
-#: objects/flowchart/parallelogram.c:307 objects/flowchart/parallelogram.c:455
+#: objects/flowchart/parallelogram.c:165
+msgid "Shear angle"
+msgstr "Klippevinkel"
+
+#: objects/flowchart/parallelogram.c:322
 msgid "Shear angle:"
 msgstr "Klippevinkel:"
 
@@ -2613,6 +2601,10 @@ msgstr "Jevn kontroll"
 #: objects/standard/bezier.c:533
 msgid "Cusp control"
 msgstr "Cusp kontroll"
+
+#: objects/standard/arc.c:129
+msgid "Curve distance"
+msgstr "Kurveavstand"
 
 #: objects/standard/image.c:165
 msgid "Image file"
@@ -2662,11 +2654,11 @@ msgstr "Startpunkt"
 msgid "End point"
 msgstr "Endepunkt"
 
-#: objects/standard/polygon.c:513 objects/standard/polyline.c:484
+#: objects/standard/polygon.c:514 objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "Legg til hjørne"
 
-#: objects/standard/polygon.c:514 objects/standard/polyline.c:485
+#: objects/standard/polygon.c:515 objects/standard/polyline.c:485
 msgid "Delete Corner"
 msgstr "Slett hjørne"
 
@@ -2674,7 +2666,7 @@ msgstr "Slett hjørne"
 msgid "Standard objects"
 msgstr "Standard objekter"
 
-#: objects/standard/textobj.c:282
+#: objects/standard/textobj.c:274
 msgid "Fontsize:"
 msgstr "Størrelse på skrifttype:"
 
@@ -2698,13 +2690,17 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile eksportfilter"
 
-#: plug-ins/dxf/dxf-export.c:561
+#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:491
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
 msgstr "Drawing Interchange File import- og eksportfilter"
+
+#: plug-ins/hpgl/hpgl.c:624
+msgid "HP Graphics Language export filter"
+msgstr "HP Graphics Language eksportfilter"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -2713,3 +2709,12 @@ msgstr "TeX PSTricks eksportfilter"
 #: plug-ins/pstricks/render_pstricks.c:749
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makroer"
+
+#: plug-ins/wpg/wpg.c:1043
+#, c-format
+msgid "File: %s type/version unsupported.\n"
+msgstr "Fil: %s type/versjon ikke støttet.\n"
+
+#: plug-ins/wpg/wpg.c:1192
+msgid "WordPerfect Graphics export filter"
+msgstr "WordPerfect Graphics Metafile eksportfilter"
