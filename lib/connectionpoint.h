@@ -28,9 +28,11 @@
 #include "object.h"
 
 /* Connections directions, used as hints to zigzaglines */
+/* Ordered this way to let *2 be rotate clockwise, /2 rotate counterclockwise.
+ * Used as bits */
 #define DIR_NORTH 1
-#define DIR_SOUTH 2
-#define DIR_EAST  4
+#define DIR_EAST  2
+#define DIR_SOUTH 4
 #define DIR_WEST  8
 
 struct _ConnectionPoint {

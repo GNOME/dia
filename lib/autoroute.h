@@ -26,8 +26,7 @@
 #include "diavar.h"
 
 gboolean
-autoroute_layout_orthconn(OrthConn *conn,
-			  ConnectionPoint *from, ConnectionPoint *to);
+autoroute_layout_orthconn(OrthConn *conn);
 
 
 #endif /* AUTOROUTE_H */

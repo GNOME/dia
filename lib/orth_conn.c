@@ -423,6 +423,42 @@ orthconn_init(OrthConn *orth, Point *startpoint)
   orthconn_update_data(orth);
 }
 
+/** This function does *not* set up handles */
+void
+orthconn_set_points(OrthConn *orth, int num_points, Point *points) 
+{
+  int i;
+  gboolean horiz;
+
+  orth->numpoints = num_points;
+
+  if (orth->points)
+    g_free(orth->points);
+
+  orth->points = g_malloc((orth->numpoints)*sizeof(Point));
+
+  for (i=0;i<orth->numpoints;i++) {
+    orth->points[i] = points[i];
+  }
+
+  /* Set up the orientation array. */
+  /* Maybe we could get rid of this array altogether? */
+  if (orth->numpoints < 2) {
+    orth->numorient = 0;
+    if (orth->orientation) g_free(orth->orientation);
+    orth->orientation = NULL;
+  } else {
+    orth->numorient = orth->numpoints-1;
+    if (orth->orientation) g_free(orth->orientation);
+    orth->orientation = g_new(Orientation, orth->numorient);
+    horiz = (fabs(orth->points[0].y-orth->points[1].y) < 0.00000001);
+    for (i = 0; i < orth->numorient; i++) {
+      if (horiz) orth->orientation[i] = HORIZONTAL;
+      else orth->orientation[i] = VERTICAL;
+    }
+  }
+}
+
 void
 orthconn_copy(OrthConn *from, OrthConn *to)
 {

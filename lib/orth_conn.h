@@ -61,6 +61,7 @@ void orthconn_simple_draw(OrthConn *orth, DiaRenderer *renderer,
 			  real width);
 void orthconn_init(OrthConn *orth, Point *startpoint);
 void orthconn_destroy(OrthConn *orth);
+void orthconn_set_points(OrthConn *orth, int num_points, Point *points);
 void orthconn_copy(OrthConn *from, OrthConn *to);
 void orthconn_save(OrthConn *orth, ObjectNode obj_node);
 void orthconn_load(OrthConn *orth, ObjectNode obj_node);  /* NOTE: Does object_init() */

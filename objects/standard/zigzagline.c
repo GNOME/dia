@@ -32,6 +32,7 @@
 #include "widgets.h"
 #include "message.h"
 #include "properties.h"
+#include "autoroute.h"
 
 #include "pixmaps/zigzag.xpm"
 
@@ -171,126 +172,12 @@ zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
   orthconn_update_data(&zigzagline->orth);
 }
 
-/** Returns TRUE if this connection point allows horizontal connection
- * from our direction.
- */
-static gboolean
-zigzagline_horizontal_endpoint_allowed(ConnectionPoint *p1) {
-  if (p1 == NULL) return TRUE;
-  return p1->directions & (DIR_EAST|DIR_WEST);
-}
-
-/** Returns TRUE if this connection point allows vertical connection
- * from our direction.
- */
-static gboolean
-zigzagline_vertical_endpoint_allowed(ConnectionPoint *p1) {
-  if (p1 == NULL) return TRUE;
-  return p1->directions & (DIR_NORTH|DIR_SOUTH);
-}
-
-/** Returns TRUE if this zigzagline would be better off horizontal */
-static gboolean
-zigzagline_check_orientation(ConnectionPoint *p1, ConnectionPoint *p2,
-			     Point *pos1, Point *pos2)
-{
-  real horiz_dist, vert_dist;
-  int dir1, dir2;
-
-  horiz_dist = pos2->x-pos1->x;
-  vert_dist = pos2->y-pos1->y;
-
-  if (fabs(vert_dist) < 0.00000001) return TRUE;
-  if (fabs(horiz_dist) < 0.00000001) return FALSE;
-
-  if (p1 == NULL) {
-    dir1 = DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST;
-  } else {
-    dir1 = p1->directions;
-  }
-  if (p2 == NULL) {
-    dir2 = DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST;
-  } else {
-    dir2 = p2->directions;
-  }
-
-  if (fabs(horiz_dist) > fabs(vert_dist)) {
-    if (horiz_dist > 0) { /* West-to-east */
-      if ((dir1 & DIR_EAST) && (dir2 & DIR_WEST))
-	return TRUE;
-    } else {
-      if ((dir1 & DIR_WEST) && (dir2 & DIR_EAST))
-	return TRUE;
-    }
-  } else {
-    if (vert_dist > 0) { /* North-to-south */
-      if ((dir1 & DIR_SOUTH) && (dir2 & DIR_NORTH))
-	return FALSE;
-    } else {
-      if ((dir1 & DIR_NORTH) && (dir2 & DIR_SOUTH))
-	return FALSE;
-    }
-  }
-  
-  /* We didn't find the best direction.  Try the minor direction */
-  if (fabs(horiz_dist) <= fabs(vert_dist)) {
-    if (horiz_dist > 0) { /* West-to-east */
-      if ((dir1 & DIR_EAST) && (dir2 & DIR_WEST))
-	return TRUE;
-    } else {
-      if ((dir1 & DIR_WEST) && (dir2 & DIR_EAST))
-	return TRUE;
-    }
-  } else {
-    if (vert_dist > 0) { /* North-to-south */
-      if ((dir1 & DIR_SOUTH) && (dir2 & DIR_NORTH))
-	return FALSE;
-    } else {
-      if ((dir1 & DIR_NORTH) && (dir2 & DIR_SOUTH))
-	return FALSE;
-    }
-  }
-  /* It's going to suck to be a zigzagline */
-  /* No good match found */
-  return TRUE;
-}
-
-/** Returns TRUE if this endpoint must change direction to look good. 
- * @param zigzagline The line itself.
- * @param cp The connectionpoint being connected to, or NULL.
- * @param handlenum The number of the handle considered (0 or npoints-2)
- * @param p1 The point defining the other end of this line segment.
- */
-static gboolean zigzagline_endpoint_must_change(Zigzagline *zigzagline,
-						ConnectionPoint *cp,
-						int handlenum,
-						Point *p1) 
-{
-  OrthConn *orth = (OrthConn*)zigzagline;
-  int dir;
-  if (cp == NULL) return FALSE;
-  if (orth->orientation[handlenum] == HORIZONTAL) {
-    if (p1->x < cp->pos.x &&
-	(cp->directions & DIR_WEST) == 0) return TRUE;
-    if (p1->x >= cp->pos.x &&
-	(cp->directions & DIR_EAST) == 0) return TRUE;
-    return FALSE;
-  }
-  if (orth->orientation[handlenum] == VERTICAL) {
-    if (p1->y < cp->pos.y &&
-	(cp->directions & DIR_NORTH) == 0) return TRUE;
-    if (p1->y >= cp->pos.y &&
-	(cp->directions & DIR_SOUTH) == 0) return TRUE;
-    return FALSE;
-  }
-  return FALSE;
-}
-
 static void
 zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   OrthConn *orth = (OrthConn*)zigzagline;
+  Object *obj = (Object*)orth;
   int handle_nr;
   gboolean change_start = FALSE, change_end = FALSE;
 
@@ -299,55 +186,9 @@ zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
   assert(to!=NULL);
 
   orthconn_move_handle(orth, handle, to, reason);
-#if 0
-  handle_nr = get_handle_nr(orth, handle);
-  if (handle_nr == 0 || handle_nr == orth->numpoints-2) {
-    /* An ending handle, must adjust orientation */
-    layer_find_closest_connectionpoint(dia_object_get_parent_layer((Object*)zigzagline), &cp1, &orth->points[handle_nr], (Object *)zigzagline);
-    change_start = zigzagline_endpoint_must_change(zigzagline, cp1, 0);
-    change_end = zigzagline_endpoint_must_change(zigzagline, cp1, orth->numpoints-2);
 
-    /* To add:  When creating, favor three-segment lines */
-    
-  }
-#endif
-#if 1
-  if (reason == HANDLE_MOVE_CREATE) {
-    /* This only works for the creation stage, as we assume # of points */
-    gboolean horizontal;
-    ConnectionPoint *cp2 = NULL;
+  autoroute_layout_orthconn(orth);
 
-    /* The second connectionpoint is not updated yet, so we find it here */
-    layer_find_closest_connectionpoint(dia_object_get_parent_layer((Object*)zigzagline), &cp2, &orth->points[3], (Object *)zigzagline);
-    if (cp2 != NULL &&
-	(cp2->pos.x - orth->points[3].x > 0.00000001 ||
-	 cp2->pos.y - orth->points[3].y > 0.00000001))
-	cp2 = NULL;
-    horizontal = zigzagline_check_orientation(orth->object.handles[0]->connected_to,
-					      cp2,
-					      &orth->points[0], 
-					      &orth->points[3]);
-    if (horizontal) {
-      real mid = (orth->points[0].x + orth->points[3].x)/2;
-      orth->points[1].x = mid;
-      orth->points[1].y = orth->points[0].y;
-      orth->points[2].x = mid;
-      orth->points[2].y = orth->points[3].y;
-      orth->orientation[0] = HORIZONTAL;
-      orth->orientation[1] = VERTICAL;
-      orth->orientation[2] = HORIZONTAL;
-    } else {
-      real mid = (orth->points[0].y + orth->points[3].y)/2;
-      orth->points[1].x = orth->points[0].x;
-      orth->points[1].y = mid;
-      orth->points[2].x = orth->points[3].x;
-      orth->points[2].y = mid;
-      orth->orientation[0] = VERTICAL;
-      orth->orientation[1] = HORIZONTAL;
-      orth->orientation[2] = VERTICAL;
-    }
-  }
-#endif
   zigzagline_update_data(zigzagline);
 }
 
