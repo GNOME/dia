@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2000-09-01 19:22+0800\n"
+"POT-Creation-Date: 2000-09-05 00:09+0800\n"
 "PO-Revision-Date: 2000-09-01 19:25+0800\n"
 "Last-Translator: Wang Jian <lark@linux.net.cn>\n"
 "Language-Team: zh_CN\n"
@@ -51,7 +51,7 @@ msgstr ""
 
 #: app/app_procs.c:296 app/app_procs.c:302
 msgid "Quit, are you sure?"
-msgstr ""
+msgstr "退出, 你确定吗?"
 
 #: app/app_procs.c:309
 msgid ""
@@ -61,17 +61,17 @@ msgstr ""
 
 #: app/app_procs.c:319 app/app_procs.c:324
 msgid "Quit"
-msgstr ""
+msgstr "退出"
 
 #: app/app_procs.c:336 app/layer_dialog.c:986 app/lineprops_area.c:549
 #: app/lineprops_area.c:747 app/linewidth_area.c:239
 #: app/paginate_psprint.c:242
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: app/app_procs.c:404
 msgid "Could not create per-user Dia config directory"
-msgstr ""
+msgstr "无法建立用户各自的 Dia 配置目录"
 
 #: app/app_procs.c:424
 msgid "Objects and filters internal to dia"
@@ -79,7 +79,7 @@ msgstr ""
 
 #: app/color_area.c:260 lib/widgets.c:492
 msgid "Select color"
-msgstr ""
+msgstr "选择颜色"
 
 #: app/commands.c:92
 #, c-format
@@ -87,40 +87,42 @@ msgid ""
 "No such file found\n"
 "%s\n"
 msgstr ""
+"没有找到这个文件\n"
+"%s\n"
 
 #: app/commands.c:112
 msgid "Import from XFig"
-msgstr ""
+msgstr "从 XFig 中导入"
 
 #: app/commands.c:168
 #, c-format
 msgid "Untitled-%d"
-msgstr ""
+msgstr "Untitled-%d"
 
 #: app/commands.c:229
 msgid "No existing object to paste.\n"
-msgstr ""
+msgstr "没有要粘贴的对象.\n"
 
 #: app/commands.c:464
 msgid "About Dia"
-msgstr ""
+msgstr "关于 Dia"
 
 #: app/commands.c:522
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
-msgstr ""
+msgstr "Dia v %s, Alexander Larsson"
 
 #: app/commands.c:527
 msgid "Maintainer: James Henstridge"
-msgstr ""
+msgstr "维护者: James Henstridge"
 
 #: app/commands.c:531
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
-msgstr ""
+msgstr "请访问 http://www.lysator.liu.se/~alla/dia 获得更多信息"
 
 #: app/commands.c:536
 msgid "Contributors:"
-msgstr ""
+msgstr "提供帮助者:"
 
 #. setup buttons
 #: app/commands.c:553 app/dia-props.c:84 app/layer_dialog.c:976
@@ -128,7 +130,7 @@ msgstr ""
 #: app/pagesetup.c:72 app/paginate_psprint.c:234 app/preferences.c:598
 #: app/properties.c:82 lib/message.c:85
 msgid "OK"
-msgstr ""
+msgstr "确定"
 
 #: app/commands.c:654
 msgid ""
@@ -139,26 +141,26 @@ msgstr ""
 
 #: app/defaults.c:48 app/defaults.c:56
 msgid "Object defaults"
-msgstr ""
+msgstr "对象默认值"
 
 #: app/defaults.c:73 app/dia-props.c:93 app/pagesetup.c:77
 #: app/preferences.c:607 app/properties.c:91
 msgid "Apply"
-msgstr ""
+msgstr "应用"
 
 #: app/defaults.c:83 app/dia-props.c:103 app/layer_dialog.c:261
 #: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:616
 #: app/properties.c:101
 msgid "Close"
-msgstr ""
+msgstr "关闭"
 
 #: app/defaults.c:96
 msgid "This object has no defaults."
-msgstr ""
+msgstr "这个对象没有默认值."
 
 #: app/dia_embedd.c:266
 msgid "Could not initialize Bonobo!"
-msgstr ""
+msgstr "无法初始化 Bonobo!"
 
 #: app/dia-props.c:58 app/dia-props.c:65
 msgid "Diagram Properties"
@@ -166,71 +168,71 @@ msgstr ""
 
 #: app/dia-props.c:128
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #: app/dia-props.c:132
 msgid "y"
-msgstr ""
+msgstr "y"
 
 #: app/dia-props.c:137
 msgid "Spacing"
-msgstr ""
+msgstr "间距"
 
 #: app/dia-props.c:157
 msgid "Visible spacing"
-msgstr ""
+msgstr "可见间距"
 
 #: app/dia-props.c:177
 msgid "Grid"
-msgstr ""
+msgstr "栅格"
 
 #: app/dia-props.c:187
 msgid "Background Colour"
-msgstr ""
+msgstr "背景颜色"
 
 #: app/dia-props.c:198 lib/diagramdata.c:53
 msgid "Background"
-msgstr ""
+msgstr "背景"
 
 #. paper size
 #: app/diapagelayout.c:108
 msgid "Paper Size"
-msgstr ""
+msgstr "纸张大小"
 
 #. orientation
 #: app/diapagelayout.c:141
 msgid "Orientation"
-msgstr ""
+msgstr "方向"
 
 #. margins
 #: app/diapagelayout.c:179
 msgid "Margins"
-msgstr ""
+msgstr "边距"
 
 #: app/diapagelayout.c:191
 msgid "Top:"
-msgstr ""
+msgstr "顶部:"
 
 #: app/diapagelayout.c:204
 msgid "Bottom:"
-msgstr ""
+msgstr "底部:"
 
 #: app/diapagelayout.c:217
 msgid "Left:"
-msgstr ""
+msgstr "左边:"
 
 #: app/diapagelayout.c:230
 msgid "Right:"
-msgstr ""
+msgstr "右边:"
 
 #. Scaling
 #: app/diapagelayout.c:244
 msgid "Scaling"
-msgstr ""
+msgstr "缩放"
 
 #: app/diapagelayout.c:255
 msgid "Scale:"
-msgstr ""
+msgstr "比例:"
 
 #: app/diapagelayout.c:267
 msgid "Fit to:"
