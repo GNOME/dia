@@ -1,6 +1,6 @@
 2002-08-26  Cyrille Chepelov  <cyrille@chepelov.org>
 
-	* po/Makefile.am: enabled intltool-merge translation cache for
+	* sheets/Makefile.am: enabled intltool-merge translation cache for
 	sheets.
 
 	* Makefile.am:
@@ -10,8 +10,8 @@
 	(derived from a patch by Andrew Ferrier <andrew@new-destiny.co.uk>) 
 	(Closes: #91144)
 
-	Heh, by the way, thanks Christophe.
-
+	Heh, by the way, thanks Christophe. I feel better now.
+	
 2002-08-25  Christophe Merlet  <christophe@merlet.net>
 
 	* app/command.c: Removed invalid multibyte sequence in Chepelov.
