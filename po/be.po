@@ -1,0 +1,6143 @@
+# translation of be.po to Belarusian
+# translation of dia.po to Belarusian
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Vital Khilko <dojlid@mova.org>, 2003
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: be\n"
+"POT-Creation-Date: 2003-03-04 21:04-0600\n"
+"PO-Revision-Date: 2003-07-20 17:11+0300\n"
+"Last-Translator: Vital Khilko <dojlid@mova.org>\n"
+"Language-Team: Belarusian <i18n@mova.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0\n"
+
+#: app/app_procs.c:160
+#, c-format
+msgid "%s error: input and output file name is identical: %s"
+msgstr ""
+
+#: app/app_procs.c:171
+#, c-format
+msgid "%s error: need valid input file %s\n"
+msgstr ""
+
+#: app/app_procs.c:178
+#, c-format
+msgid "%s error: don't know how to export into %s\n"
+msgstr ""
+
+#. if (!quiet)
+#: app/app_procs.c:184
+#, c-format
+msgid "%s --> %s\n"
+msgstr "%s --> %s\n"
+
+#. &export_file_name
+#: app/app_procs.c:242
+msgid "Export loaded file and exit"
+msgstr "Экспартаваць загружаны файл і выйсьці"
+
+#: app/app_procs.c:242 app/diaconv.c:94
+msgid "OUTPUT"
+msgstr "ВЫВАД"
+
+#. &export_file_format
+#: app/app_procs.c:244
+msgid "Export to file format and exit"
+msgstr "Экспартаваць у фармат файла й выйсьці"
+
+#: app/app_procs.c:244 app/diaconv.c:92
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "eps,png,wmf,cgm,dxf,fig"
+
+#: app/app_procs.c:246
+msgid "Don't show the splash screen"
+msgstr "Не адлюстроўваць застаўку"
+
+#: app/app_procs.c:248
+msgid "Display credits list and exit"
+msgstr "Адлюстраваць сьпіс падзякаў і выйсьці"
+
+#: app/app_procs.c:250
+msgid "Display version and exit"
+msgstr "Адлюстраваць вэрсыю й выйсьці"
+
+#: app/app_procs.c:252 app/diaconv.c:95
+msgid "Show this help message"
+msgstr "Адлюстроўвае гэтае паведамленьне даведкі"
+
+#: app/app_procs.c:283
+msgid "Can't connect to session manager!\n"
+msgstr "Немагчыма далучыцца да кіраўніка сэансаў!\n"
+
+#: app/app_procs.c:298 app/diaconv.c:119
+msgid "[OPTION...] [FILE...]"
+msgstr "[ВЫБАР...] [ФАЙЛ...]"
+
+#: app/app_procs.c:302 app/diaconv.c:126
+#, c-format
+msgid ""
+"Error on option %s: %s.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Памылка ў выбары %s: %s.\n"
+"Выканайце '%s --help' каб убачыць поўны сьпіс даступных выбараў каманднага радка.\n"
+
+#: app/app_procs.c:315
+#, c-format
+msgid "%s error: can specify only one of -f or -o."
+msgstr ""
+
+#. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
+#: app/app_procs.c:328
+#, c-format
+msgid "Dia version %s, compiled %s %s\n"
+msgstr "Дыя вэрсыі %s, скампілявана %s %s\n"
+
+#: app/app_procs.c:330
+#, c-format
+msgid "Dia version %s\n"
+msgstr "Дыя вэрсыі %s\n"
+
+#: app/app_procs.c:417 app/app_procs.c:419 app/diaconv.c:199 app/diaconv.c:201
+msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgstr ""
+
+#. no standard buttons
+#: app/app_procs.c:546
+msgid ""
+"Modified diagrams exist.\n"
+"Are you sure you want to quit Dia\n"
+"without saving them?"
+msgstr ""
+"Існуюць зьмененыя дыяграмы.\n"
+"Вы сапраўды жадаеце выйсьці з Дыя\n"
+"бяз іхняга захаваньня?"
+
+#: app/app_procs.c:550
+msgid "Quit Dia"
+msgstr "Выйсьці з Дыя"
+
+#: app/app_procs.c:612 app/app_procs.c:619
+msgid "Could not create per-user Dia config directory"
+msgstr ""
+
+#: app/app_procs.c:621
+msgid ""
+"Could not create per-user Dia config directory. Please make sure that the "
+"environment variable HOME points to an existing directory."
+msgstr ""
+
+#: app/app_procs.c:643 app/diaconv.c:249
+msgid "Objects and filters internal to dia"
+msgstr ""
+
+#: app/autosave.c:93
+msgid "Recovering autosaved diagrams"
+msgstr "Аднаўленьне аўтазахаваных дыяграмаў"
+
+#: app/autosave.c:101
+msgid ""
+"Autosaved files exist.\n"
+"Please select those you wish to recover."
+msgstr ""
+"Існуюць аўтазахаваныя файлы.\n"
+"Калі ласка, выбярыце той які жадаеце аднавіць."
+
+#: app/color_area.c:314 lib/widgets.c:848
+msgid "Select color"
+msgstr "Выбярыце колер"
+
+#: app/commands.c:132
+#, c-format
+msgid "Diagram%d.dia"
+msgstr "Дыяграма-%d.dia"
+
+#: app/commands.c:198
+msgid "No existing object to paste.\n"
+msgstr "Няма аб'екта каб уставіць.\n"
+
+#: app/commands.c:468 app/commands.c:496
+msgid "Could not find help directory"
+msgstr "Немагчыма адшукаць каталёг даведкі"
+
+#: app/commands.c:475
+#, c-format
+msgid ""
+"Could not open help directory:\n"
+"%s"
+msgstr ""
+"Немагчыма адкрыць каталёг даведкі:\n"
+"%s"
+
+#.
+#. * Translators should localize the following string
+#. * which will give them credit in the About box.
+#. * E.g. "Fulano de Tal <fulano@detal.com>"
+#.
+#: app/commands.c:536
+msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
+msgstr ""
+"Belarusian Language Linux Team\n"
+"Пляцоўка: http://www.mova.linux.by\n"
+"Э.скрыня:  i18n@mova.org"
+
+#: app/commands.c:550 dia.desktop.in.h:1
+msgid "Dia"
+msgstr "Дыя"
+
+#: app/commands.c:552
+msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
+msgstr "Аўтарскія правы © 1998-2002 Фонд вольнага праграмовага забясьпячэньня й аўтары"
+
+#: app/commands.c:553
+msgid ""
+"Dia is a program for drawing structured diagrams.\n"
+"Please visit http://www.lysator.liu.se/~alla/dia for more information."
+msgstr ""
+"Дыя гэта праграма для рысаваньня структураваных дыяграм.\n"
+"Калі ласка, наведайце http://www.lysator.liu.se/~alla/dia для \n"
+"атрыманьня дадатковых зьвестак"
+
+#: app/commands.c:592
+msgid "About Dia"
+msgstr "Пра Дыя"
+
+#: app/commands.c:635
+#, c-format
+msgid "Dia v %s by Alexander Larsson"
+msgstr "Дыя в.%s ад Аляксандра Лярсан"
+
+#. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
+#: app/commands.c:641
+msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
+msgstr "Майнтайнэры: Лярс Кляўзэн і Кірыл Чэпелеў"
+
+#: app/commands.c:645
+msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
+msgstr "Калі ласка, наведайце http://www.lysator.liu.se/~alla/dia для атрыманьня дадатковых зьвестак"
+
+#: app/commands.c:650
+msgid "Contributors:"
+msgstr "Памочнікі:"
+
+#: app/defaults.c:43 app/defaults.c:146
+msgid "Object defaults"
+msgstr "Дапомнасьці аб'екта"
+
+#: app/defaults.c:61
+msgid "This object has no defaults."
+msgstr "Гэты аб'ект ня мае дапомнасьцяў."
+
+#: app/defaults.c:111
+msgid "Defaults: "
+msgstr "Дапомнасьці: "
+
+#. &export_file_format
+#: app/diaconv.c:92
+msgid "Export format to use"
+msgstr ""
+
+#. &export_file_name
+#: app/diaconv.c:94
+msgid "Export file name to use"
+msgstr ""
+
+#: app/diaconv.c:96
+msgid "Quiet operation"
+msgstr "Апэрацыя выхаду"
+
+#: app/diaconv.c:147
+#, c-format
+msgid ""
+"Error: No arguments found.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Памылка: Адсутнічаюць аргумэнты.\n"
+"Выканайце '%s --help' каб убачыць поўны сьпіс даступных выбараў каманднага радка.\n"
+
+#: app/diaconv.c:157
+#, c-format
+msgid "%s error: can specify only one of -t or -o."
+msgstr ""
+
+#: app/diaconv.c:163
+#, c-format
+msgid ""
+"%s error: must specify only one of -t or -o.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+
+#: app/diaconv.c:172
+#, c-format
+msgid "%s error: no input file."
+msgstr "%s памылка: няма ўваходнага файла."
+
+#: app/diaconv.c:225
+#, c-format
+msgid "%s error: only one input file expected."
+msgstr ""
+
+#: app/diaconv.c:238
+#, c-format
+msgid "%s error: popt library not available on this system"
+msgstr ""
+
+#: app/dia_embedd.c:352
+msgid "Could not initialize Bonobo!"
+msgstr "Немагчыма ініцыялізаваць Bonobo!"
+
+#: app/diagram_tree_menu.c:45
+msgid "/_Sort objects"
+msgstr "/_Сартаваць аб'екты"
+
+#: app/diagram_tree_menu.c:46
+msgid "/Sort objects/by _name"
+msgstr "/Сартаваць аб'екты/па _назвах"
+
+#: app/diagram_tree_menu.c:48
+msgid "/Sort objects/by _type"
+msgstr "/Сартаваць аб'екты/па _тыпах"
+
+#: app/diagram_tree_menu.c:50
+msgid "/Sort objects/as _inserted"
+msgstr "/Сартаваць аб'екты/як _устаўленае"
+
+#: app/diagram_tree_menu.c:53
+msgid "/Sort objects/All by name"
+msgstr "/Сартаваць аб'екты/Усё па назвах"
+
+#: app/diagram_tree_menu.c:55
+msgid "/Sort objects/All by type"
+msgstr "/Сартаваць аб'екты/Усё па тыпах"
+
+#: app/diagram_tree_menu.c:57
+msgid "/Sort objects/All as inserted"
+msgstr "/Сартаваць аб'екты/Усё як устаўленае"
+
+#: app/diagram_tree_menu.c:59
+msgid "/Sort objects/_Default"
+msgstr "/Сартаваць аб'екты/_Дапомна"
+
+#: app/diagram_tree_menu.c:60
+msgid "/Sort objects/Default/by _name"
+msgstr "/Сартаваць аб'екты/Дапомна/па _назвах"
+
+#: app/diagram_tree_menu.c:62
+msgid "/Sort objects/Default/by _type"
+msgstr "/Сартаваць аб'екты/Дапомна/па _тыпах"
+
+#: app/diagram_tree_menu.c:64
+msgid "/Sort objects/Default/as _inserted"
+msgstr "/Сартаваць аб'екты/Дапомна/як _устаўленае"
+
+#: app/diagram_tree_menu.c:66
+msgid "/Sort _diagrams"
+msgstr "/Сартаваць _дыяграмы"
+
+#: app/diagram_tree_menu.c:67
+msgid "/Sort _diagrams/by _name"
+msgstr "/Сартаваць _дыяграмы/па _назвах"
+
+#: app/diagram_tree_menu.c:69
+msgid "/Sort _diagrams/as _inserted"
+msgstr "/Сартаваць дыяграмы/як _устаўленае"
+
+#: app/diagram_tree_menu.c:71
+msgid "/Sort diagrams/_Default"
+msgstr "/Сартаваць дыяграмы/_Дапомна"
+
+#: app/diagram_tree_menu.c:72
+msgid "/Sort diagrams/Default/by _name"
+msgstr "/Сартаваць дыяграмы/Дапомна/па _назвах"
+
+#: app/diagram_tree_menu.c:74
+msgid "/Sort diagrams/Default/as _inserted"
+msgstr "/Сартаваць дыяграмы/Дапомна/як _устаўленае"
+
+#: app/diagram_tree_menu.c:82 app/diagram_tree_menu.c:93
+msgid "/_Locate"
+msgstr "/Разь_мешчаньне"
+
+#: app/diagram_tree_menu.c:83
+msgid "/_Properties"
+msgstr "/_Уласьцівасьці"
+
+#: app/diagram_tree_menu.c:84
+msgid "/_Hide this type"
+msgstr "/_Схаваць гэты тып"
+
+#: app/diagram_tree_window.c:87
+msgid "Diagram tree"
+msgstr "Дрэва дыяграмы"
+
+#: app/dialogs.c:51
+msgid "Ok"
+msgstr "Добра"
+
+#: app/dialogs.c:52 app/layer_dialog.c:1006 app/lineprops_area.c:453
+#: app/lineprops_area.c:679 app/linewidth_area.c:252
+#: app/paginate_psprint.c:276
+msgid "Cancel"
+msgstr "Адмяніць"
+
+#. paper size
+#: app/diapagelayout.c:116
+msgid "Paper Size"
+msgstr "Памер паперы"
+
+#. orientation
+#: app/diapagelayout.c:149
+msgid "Orientation"
+msgstr "Арыентацыя"
+
+#. margins
+#: app/diapagelayout.c:187
+msgid "Margins"
+msgstr "Палі"
+
+#: app/diapagelayout.c:199
+msgid "Top:"
+msgstr "Наверсе:"
+
+#: app/diapagelayout.c:212
+msgid "Bottom:"
+msgstr "Нанізе:"
+
+#: app/diapagelayout.c:225
+msgid "Left:"
+msgstr "Леваруч:"
+
+#: app/diapagelayout.c:238
+msgid "Right:"
+msgstr "Праваруч:"
+
+#. Scaling
+#: app/diapagelayout.c:252
+msgid "Scaling"
+msgstr "Маштабаваньне"
+
+#: app/diapagelayout.c:263
+msgid "Scale:"
+msgstr "Маштаб:"
+
+#: app/diapagelayout.c:275
+msgid "Fit to:"
+msgstr "Запаўненьне:"
+
+#: app/diapagelayout.c:287
+msgid "by"
+msgstr " "
+
+#: app/diapagelayout.c:682
+#, c-format
+msgid "%0.3gcm x %0.3gcm"
+msgstr "%0.3gcm x %0.3gcm"
+
+#: app/diapagelayout.c:786 app/pagesetup.c:73
+msgid "Page Setup"
+msgstr "Усталёўкі старонкі"
+
+#: app/dia-props.c:61
+msgid "Diagram Properties"
+msgstr "Уласьцівасьці дыяграмы"
+
+#: app/dia-props.c:96
+msgid "x"
+msgstr "x"
+
+#: app/dia-props.c:100
+msgid "y"
+msgstr "y"
+
+#: app/dia-props.c:105
+msgid "Spacing"
+msgstr "Прапарцыянальнасьць"
+
+#: app/dia-props.c:125
+msgid "Visible spacing"
+msgstr ""
+
+#: app/dia-props.c:145
+msgid "Grid"
+msgstr "Сетка"
+
+#: app/dia-props.c:155
+msgid "Background Colour"
+msgstr "Колер тла"
+
+#: app/dia-props.c:166 lib/diagramdata.c:58
+msgid "Background"
+msgstr "Тло"
+
+#: app/disp_callbacks.c:76 app/properties.c:125
+msgid ""
+"This object doesn't support Undo/Redo.\n"
+"Undo information erased."
+msgstr ""
+"Гэты аб'ект не падтрымлівае Адкат/Вяртаньне.\n"
+"Зьвесткі адкату сьцёртыя."
+
+#: app/disp_callbacks.c:213
+msgid "No object menu"
+msgstr "Няма мэню аб'екта"
+
+#: app/display.c:90
+msgid "Diagram modified!"
+msgstr "Дыяграма зьменена!"
+
+#: app/display.c:890
+msgid "<unnamed>"
+msgstr "<бяз назвы>"
+
+#: app/display.c:892
+#, c-format
+msgid ""
+"The diagram '%s'\n"
+"has not been saved. Save changes now?"
+msgstr ""
+"Дыяграма '%s'\n"
+"не была захавана. Захаваць зьмены зараз?"
+
+#: app/display.c:903
+msgid "Close Diagram"
+msgstr "Закрыць дыяграму"
+
+#: app/display.c:908
+msgid "Discard Changes"
+msgstr "Адмяніць зьмены"
+
+#: app/export_png.c:114 app/load_save.c:746 plug-ins/cgm/cgm.c:1156
+#: plug-ins/dxf/dxf-export.c:504 plug-ins/hpgl/hpgl.c:731
+#: plug-ins/metapost/render_metapost.c:733
+#: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
+#: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
+#: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:83
+#, c-format
+msgid "Couldn't open: '%s' for writing.\n"
+msgstr "Немагчыма адкрыць: '%s' для запісу.\n"
+
+#: app/export_png.c:122
+msgid "Could not create PNG write structure"
+msgstr "Немагчыма стварыць структуру запісу PNG"
+
+#: app/export_png.c:131
+msgid "Could not create PNG header info structure"
+msgstr ""
+
+#: app/export_png.c:139
+msgid "Error occurred while writing PNG"
+msgstr ""
+
+#. Create a dialog
+#: app/export_png.c:263
+msgid "PNG Export Options"
+msgstr "Выбары экспартаваньня ў PNG"
+
+#. Translators: Menu item Verb/Channel/Export
+#: app/export_png.c:264 objects/FS/function.c:661 objects/FS/function.c:663
+msgid "Export"
+msgstr "Экспартаваньне"
+
+#: app/export_png.c:269
+msgid "Image width:"
+msgstr "Шырыня відарыса:"
+
+#: app/export_png.c:272
+msgid "Image height:"
+msgstr "Вышыня відарыса:"
+
+#: app/export_png.c:317
+msgid "Portable Network Graphics"
+msgstr ""
+
+#: app/filedlg.c:102 app/filedlg.c:370
+msgid "By extension"
+msgstr "Па пашырэньнях"
+
+#: app/filedlg.c:161
+msgid "Open Diagram"
+msgstr "Адкрыць дыяграму"
+
+#: app/filedlg.c:189
+msgid "Open Options"
+msgstr "Выбары адкрыцьця"
+
+#: app/filedlg.c:197 app/filedlg.c:485
+msgid "Determine file type:"
+msgstr "Выбырыце тып файла:"
+
+#: app/filedlg.c:234
+msgid ""
+"Some characters in the filename are neither UTF-8 nor your local encoding.\n"
+"Some things will break."
+msgstr ""
+
+#: app/filedlg.c:240 app/filedlg.c:412
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to overwrite it?"
+msgstr ""
+"Файл '%s' ужо існуе.\n"
+"Вы жадаеце перазапісаць яго?"
+
+#: app/filedlg.c:248 app/filedlg.c:418
+msgid "File already exists"
+msgstr "Файл ужо існуе"
+
+#: app/filedlg.c:283
+msgid "Save Diagram"
+msgstr "Захаваць дыяграму"
+
+#. Need better way to make it a reasonable size.  Isn't there some
+#. standard look for them (or is that just Gnome?)
+#: app/filedlg.c:291
+msgid "Compress diagram files"
+msgstr "Сьціскаць файлы дыяграмаў"
+
+#: app/filedlg.c:298
+msgid ""
+"Compression reduces file size to less than 1/10th size and speeds up loading "
+"and saving.  Some text programs cannot manipulate compressed files."
+msgstr ""
+
+#: app/filedlg.c:437
+#, c-format
+msgid ""
+"Could not determine which export filter\n"
+"to use to save '%s'"
+msgstr ""
+
+#: app/filedlg.c:455
+msgid "Export Diagram"
+msgstr "Экспартаваць дыяграму"
+
+#: app/filedlg.c:477
+msgid "Export Options"
+msgstr "Выбары экспартаваньня"
+
+#: app/interface.c:43
+msgid "Modify object(s)"
+msgstr "Зьмяняе аб'ект(ы)"
+
+#: app/interface.c:44 app/menus.c:216
+msgid "Modify"
+msgstr "Зьмяненьне"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Magnify
+#: app/interface.c:48 app/interface.c:49 app/menus.c:217
+#: objects/FS/function.c:951
+msgid "Magnify"
+msgstr "Павялічвае"
+
+#: app/interface.c:53
+msgid "Scroll around the diagram"
+msgstr "Пракручвае дыяграму"
+
+#: app/interface.c:54 app/menus.c:218
+msgid "Scroll"
+msgstr "Пракрутка"
+
+#: app/interface.c:58
+msgid "Create Text"
+msgstr "Стварае тэкст"
+
+#. PROP_STD_TEXT_ALIGNMENT,
+#. PROP_STD_TEXT_FONT,
+#. PROP_STD_TEXT_HEIGHT,
+#. PROP_STD_TEXT_COLOUR,
+#: app/interface.c:59 app/menus.c:219 lib/properties.c:77 lib/properties.h:497
+#: lib/properties.h:500 objects/UML/activity.c:123 objects/UML/actor.c:114
+#: objects/UML/classicon.c:137 objects/UML/component.c:120
+#: objects/UML/node.c:119 objects/UML/note.c:113 objects/UML/object.c:141
+#: objects/UML/small_package.c:120 objects/UML/state.c:133
+#: objects/UML/usecase.c:130
+msgid "Text"
+msgstr "Тэкст"
+
+#: app/interface.c:63
+msgid "Create Box"
+msgstr "Стварае прамакутнік"
+
+#: app/interface.c:64 app/menus.c:220
+msgid "Box"
+msgstr "Прамакутнік"
+
+#: app/interface.c:68
+msgid "Create Ellipse"
+msgstr "Стварае эліпс"
+
+#: app/interface.c:69 app/menus.c:221
+msgid "Ellipse"
+msgstr "Эліпс"
+
+#: app/interface.c:73
+msgid "Create Polygon"
+msgstr "Стварае палігон"
+
+#: app/interface.c:74 app/menus.c:222
+msgid "Polygon"
+msgstr "Палігон"
+
+#: app/interface.c:78
+msgid "Create Beziergon"
+msgstr ""
+
+#: app/interface.c:79 app/menus.c:223
+msgid "Beziergon"
+msgstr ""
+
+#: app/interface.c:83
+msgid "Create Line"
+msgstr "Стварае рысу"
+
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:246
+msgid "Line"
+msgstr "Рыса"
+
+#: app/interface.c:88
+msgid "Create Arc"
+msgstr "Стварае дугу"
+
+#: app/interface.c:89 app/menus.c:226
+msgid "Arc"
+msgstr "Дуга"
+
+#: app/interface.c:93
+msgid "Create Zigzagline"
+msgstr "Стварае зыгзаг"
+
+#: app/interface.c:94 app/menus.c:227
+msgid "Zigzagline"
+msgstr "Зыгзаг"
+
+#: app/interface.c:98
+msgid "Create Polyline"
+msgstr "Стварае ломаную"
+
+#: app/interface.c:99 app/menus.c:228
+msgid "Polyline"
+msgstr "Ломаная"
+
+#: app/interface.c:103
+msgid "Create Bezierline"
+msgstr ""
+
+#: app/interface.c:104 app/menus.c:229
+msgid "Bezierline"
+msgstr ""
+
+#: app/interface.c:108
+msgid "Create Image"
+msgstr "Стварае відарыс"
+
+#: app/interface.c:109 app/menus.c:231
+msgid "Image"
+msgstr "Відарыс"
+
+#: app/interface.c:470
+msgid "Zoom"
+msgstr "Маштаб"
+
+#: app/interface.c:514
+msgid "NULL tooldata in tool_select_update"
+msgstr ""
+
+#: app/interface.c:975
+msgid ""
+"Foreground & background colors.  The small black and white squares reset "
+"colors.  The small arrows swap colors.  Double click to change colors."
+msgstr ""
+
+#: app/interface.c:1124
+msgid "Diagram Editor"
+msgstr "Рэдактар дыяграмы"
+
+#: app/layer_dialog.c:69
+msgid "New Layer"
+msgstr "Новы слой"
+
+#: app/layer_dialog.c:70
+msgid "Raise Layer"
+msgstr "Узьняць слой"
+
+#: app/layer_dialog.c:71
+msgid "Lower Layer"
+msgstr "Апусьціць слой"
+
+#: app/layer_dialog.c:72
+msgid "Delete Layer"
+msgstr "Выдаліць слой"
+
+#: app/layer_dialog.c:213
+msgid "Layers"
+msgstr "Слаі"
+
+#: app/layer_dialog.c:227
+msgid "Diagrams:"
+msgstr "Дыяграмы:"
+
+#: app/layer_dialog.c:272
+msgid "Close"
+msgstr "Закрыць"
+
+#: app/layer_dialog.c:317
+msgid "New layer"
+msgstr "Новы слой"
+
+#: app/layer_dialog.c:520
+msgid "none"
+msgstr "няма"
+
+#: app/layer_dialog.c:968
+msgid "Edit Layer Attributes"
+msgstr "Рэдагаваньне атрыбутаў слоя"
+
+#: app/layer_dialog.c:987
+msgid "Layer name:"
+msgstr "Назва слоя:"
+
+#: app/layer_dialog.c:996 app/lineprops_area.c:444 app/lineprops_area.c:669
+#: app/linewidth_area.c:243 app/paginate_psprint.c:268
+msgid "OK"
+msgstr "Добра"
+
+#: app/lineprops_area.c:429
+msgid "Arrow Properties"
+msgstr "Уласьцівасьці стрэлкі"
+
+#: app/lineprops_area.c:505 app/lineprops_area.c:702
+msgid "Details..."
+msgstr "Падрабязнасьці..."
+
+#: app/lineprops_area.c:658
+msgid "Line Style Properties"
+msgstr "Уласьцівасьці стылю рысы"
+
+#: app/linewidth_area.c:224 lib/properties.h:473
+#: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
+msgid "Line width"
+msgstr "Шырыня рысы"
+
+#: app/linewidth_area.c:230
+msgid "Line width:"
+msgstr "Шырыня рысы:"
+
+#: app/load_save.c:200
+msgid ""
+"Error loading diagram.\n"
+"Linked object not found in document."
+msgstr ""
+"Памылка загрузкі дыяграмы.\n"
+"Злучаны аб'ект адсутнічае ў дакумэньце."
+
+#: app/load_save.c:203
+msgid ""
+"Error loading diagram.\n"
+"connection point does not exist."
+msgstr ""
+"Памылка загрузкі дыяграмы.\n"
+"Пункт далучэньня адсутнічае."
+
+#: app/load_save.c:206
+msgid ""
+"Error loading diagram.\n"
+"connection handle does not exist."
+msgstr ""
+
+#: app/load_save.c:255
+msgid "You must specify a file, not a directory.\n"
+msgstr ""
+
+#: app/load_save.c:262 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1168
+#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:76
+#, c-format
+msgid "Couldn't open: '%s' for reading.\n"
+msgstr "Немагчыма адкрыць: '%s' для чытаньня.\n"
+
+#: app/load_save.c:271 app/load_save.c:276
+#, c-format
+msgid ""
+"Error loading diagram %s.\n"
+"Unknown file type."
+msgstr ""
+"Памылка чытаньня дыяграмы %s.\n"
+"Невядомы тып файла."
+
+#: app/load_save.c:283
+#, c-format
+msgid ""
+"Error loading diagram %s.\n"
+"Not a Dia file."
+msgstr ""
+"Памылка чытаньня дыяграмы %s.\n"
+"Гэта не файл Дыя."
+
+#: app/load_save.c:469
+#, c-format
+#, fuzzy
+msgid ""
+"Error loading diagram:\n"
+"%s.\n"
+"A valid Dia file defines at least one layer."
+msgstr ""
+"Памылка чытаньня дыяграмы:\n"
+" %s.\n"
+
+#: app/load_save.c:779
+#, c-format
+msgid "Failed to save file '%s'.\n"
+msgstr "Збой захаваньня файла '%s'.\n"
+
+#: app/load_save.c:849 app/load_save.c:854
+msgid "Native Dia Diagram"
+msgstr "Свая дыяграма Дыя"
+
+#: app/menus.c:50 app/menus.c:70
+msgid "_New diagram"
+msgstr "_Стварыць дыяграму"
+
+#: app/menus.c:50 app/menus.c:70
+msgid "Create new diagram"
+msgstr "Стварае новую дыяграму"
+
+#: app/menus.c:54
+msgid "_Diagram tree"
+msgstr "_Дрэва дыяграмы"
+
+#: app/menus.c:54
+msgid "Show diagram tree"
+msgstr "Адлюстроўвае дрэва дыяграмы"
+
+#: app/menus.c:56
+msgid "_Sheets and Objects..."
+msgstr "_Табліцы й аб'екты..."
+
+#: app/menus.c:57
+msgid "Modify sheets and their objects"
+msgstr "Мадыфікуе табліцы й іхнія аб'екты"
+
+#: app/menus.c:61
+msgid "P_lugins..."
+msgstr "_Дадаткі..."
+
+#: app/menus.c:77
+msgid "_Export..."
+msgstr "_Экспартаваньне..."
+
+#: app/menus.c:81
+msgid "Page Set_up..."
+msgstr "Усталёўкі ст_аронкі..."
+
+#: app/menus.c:83
+msgid "_Print Diagram..."
+msgstr "_Друк дыяграмы..."
+
+#: app/menus.c:98
+msgid "_Delete"
+msgstr "Вы_даліць"
+
+#: app/menus.c:104
+msgid "Copy Text"
+msgstr "Капіяваць тэкст"
+
+#: app/menus.c:105
+msgid "Cut Text"
+msgstr "Выразаць тэкст"
+
+#: app/menus.c:106
+msgid "Paste _Text"
+msgstr "Уставіць тэкст"
+
+#: app/menus.c:130
+msgid "Zoom _In"
+msgstr "Па_вялічыць маштаб"
+
+#: app/menus.c:130
+msgid "Zoom in 50%"
+msgstr "Маштаб +50%"
+
+#: app/menus.c:131
+msgid "Zoom _Out"
+msgstr "Па_меншыць маштаб"
+
+#: app/menus.c:131
+msgid "Zoom out 50%"
+msgstr "Маштаб -50%"
+
+#: app/menus.c:132
+msgid "_Zoom"
+msgstr "_Маштаб"
+
+#: app/menus.c:134
+msgid "Diagram Properties..."
+msgstr "Уласьцівасьці дыяграмы..."
+
+#: app/menus.c:136
+msgid "_AntiAliased"
+msgstr "З_гладзіць"
+
+#. TODO: Show Menu Bar  F9.  Hub's cool code.
+#: app/menus.c:140
+msgid "Show _Grid"
+msgstr "Паказываць _сетку"
+
+#: app/menus.c:142
+msgid "_Snap To Grid"
+msgstr "_Раўнаць па сетцы"
+
+#: app/menus.c:144
+msgid "Show _Rulers"
+msgstr "Паказаць _лінаркі"
+
+#: app/menus.c:146
+msgid "Show _Connection Points"
+msgstr "Паказаць пункты _далучэньня"
+
+#: app/menus.c:149
+msgid "New _View"
+msgstr "Новае _акно"
+
+#: app/menus.c:150
+msgid "Show _All"
+msgstr "Паказаць _усе"
+
+#: app/menus.c:151
+msgid "Redraw"
+msgstr "Перарысаваць"
+
+#: app/menus.c:156
+msgid "Replace"
+msgstr "Замяніць"
+
+#: app/menus.c:158
+msgid "Union"
+msgstr "Аб'яднаньне"
+
+#: app/menus.c:160
+msgid "Intersect"
+msgstr ""
+
+#. Translators: Menu item Verb/Channel/Export/Remove
+#: app/menus.c:162 app/sheets_dialog.c:780 objects/FS/function.c:671
+#: objects/FS/function.c:823 objects/FS/function.c:825
+msgid "Remove"
+msgstr "Выдаліць"
+
+#: app/menus.c:164 app/menus.c:172
+msgid "Invert"
+msgstr "Інвэртаваць"
+
+#: app/menus.c:170
+msgid "All"
+msgstr "Усё"
+
+#: app/menus.c:171 lib/arrows.c:38 objects/UML/association.c:1076
+msgid "None"
+msgstr "Няма"
+
+#: app/menus.c:173
+msgid "Connected"
+msgstr "Далучанае"
+
+#: app/menus.c:174
+msgid "Transitive"
+msgstr "Транзытыўнае"
+
+#: app/menus.c:175
+msgid "Same Type"
+msgstr "Таго ж тыпу"
+
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:461 lib/widgets.c:531
+msgid "Left"
+msgstr "Леваруч"
+
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:462 lib/widgets.c:537
+msgid "Center"
+msgstr "Цэнтар"
+
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:463 lib/widgets.c:543
+msgid "Right"
+msgstr "Праваруч"
+
+#: app/menus.c:186 app/menus.c:196
+msgid "Equal Distance"
+msgstr "Роўныя адлегласьці"
+
+#: app/menus.c:187 app/menus.c:197
+msgid "Adjacent"
+msgstr "Сумежнасьць"
+
+#: app/menus.c:192
+msgid "Top"
+msgstr "Наверсе"
+
+#: app/menus.c:193
+msgid "Middle"
+msgstr "Пасярэдзіне"
+
+#: app/menus.c:194
+msgid "Bottom"
+msgstr "Нанізе"
+
+#: app/menus.c:202
+msgid "Send to _Back"
+msgstr "Даслаць _долу"
+
+#: app/menus.c:203
+msgid "Bring to _Front"
+msgstr "Даслаць у_гору"
+
+#: app/menus.c:204
+msgid "Send Backwards"
+msgstr "Апусьціць ніжэй"
+
+#: app/menus.c:205
+msgid "Bring Forwards"
+msgstr "Падняць вышэй"
+
+#: app/menus.c:207
+msgid "_Group"
+msgstr "_Згрупаваць"
+
+#: app/menus.c:208
+msgid "_Ungroup"
+msgstr "_Разгрупаваць"
+
+#: app/menus.c:210
+msgid "Align _Horizontal"
+msgstr "Раўнаць па _гарызанталі"
+
+#: app/menus.c:211
+msgid "Align _Vertical"
+msgstr "Раўнаць па _вэртыкалі"
+
+#: app/menus.c:236
+msgid "_Properties"
+msgstr "_Уласьцівасьці"
+
+#: app/menus.c:237
+msgid "_Layers"
+msgstr "_Слаі"
+
+#: app/menus.c:263
+msgid "_Select"
+msgstr "_Вылучэньне"
+
+#: app/menus.c:264
+msgid "_Objects"
+msgstr "_Аб'екты"
+
+#: app/menus.c:265
+msgid "_Tools"
+msgstr "_Інструмэнты"
+
+#: app/menus.c:266
+msgid "_Dialogs"
+msgstr "_Дыялёгі"
+
+#: app/menus.c:267
+msgid "_Input Methods"
+msgstr "Мэтады _ўводу"
+
+#: app/menus.c:278 app/menus.c:313
+msgid "/_File"
+msgstr "/_Файл"
+
+#: app/menus.c:280 app/menus.c:315
+msgid "/File/_New"
+msgstr "/Файл/Стварыць"
+
+#: app/menus.c:282 app/menus.c:317
+msgid "/File/_Open..."
+msgstr "/Файл/_Адкрыць..."
+
+#. recent file list is dynamically inserted here
+#: app/menus.c:284 app/menus.c:289 app/menus.c:293 app/menus.c:295
+#: app/menus.c:324 app/menus.c:328
+msgid "/File/---"
+msgstr "/Файл/---"
+
+#: app/menus.c:285
+msgid "/File/_Diagram tree"
+msgstr "/Файл/_Дрэва дыяграмы"
+
+#: app/menus.c:287
+msgid "/File/Sheets and Objects..."
+msgstr "/Файл/Табліцыы й аб'екты..."
+
+#: app/menus.c:290
+msgid "/File/_Preferences..."
+msgstr "/Файл/_Уласьцівасьці..."
+
+#: app/menus.c:292
+msgid "/File/P_lugins..."
+msgstr "/Файл/_Дадаткі..."
+
+#: app/menus.c:296 app/menus.c:332
+msgid "/File/_Quit"
+msgstr "/Файл/_Выйсьці"
+
+#: app/menus.c:298
+msgid "/_Help"
+msgstr "/_Дапамога"
+
+#: app/menus.c:300
+msgid "/Help/_Manual"
+msgstr "/Дапамога/_Кіраўніцтва"
+
+#: app/menus.c:302
+msgid "/Help/---"
+msgstr "/Дапамога/---"
+
+#: app/menus.c:303
+msgid "/Help/_About..."
+msgstr "/Дапамога/_Пра праграму..."
+
+#: app/menus.c:319
+msgid "/File/_Save"
+msgstr "/Файл/_Захаваць"
+
+#: app/menus.c:321
+msgid "/File/Save _As..."
+msgstr "/Файл/Захаваць _як..."
+
+#: app/menus.c:323
+msgid "/File/_Export..."
+msgstr "/Файл/_Экспартаваць..."
+
+#: app/menus.c:325
+msgid "/File/Page Set_up..."
+msgstr "/Файл/Усталёўкі старонкі..."
+
+#: app/menus.c:326
+msgid "/File/_Print Diagram..."
+msgstr "/Файл/_Друкаваць дыяграму..."
+
+#: app/menus.c:329
+msgid "/File/_Close"
+msgstr "/Файл/_Закрыць"
+
+#: app/menus.c:334
+msgid "/_Edit"
+msgstr "/_Рэдагаваньне"
+
+#: app/menus.c:336
+msgid "/Edit/_Undo"
+msgstr "/Рэдагаваньне/_Адмяніць"
+
+#: app/menus.c:338
+msgid "/Edit/_Redo"
+msgstr "/Рэдагаваньне/_Вярнуць"
+
+#: app/menus.c:340 app/menus.c:349
+msgid "/Edit/---"
+msgstr "/Рэдагаваньне/---"
+
+#: app/menus.c:341
+msgid "/Edit/_Copy"
+msgstr "/Рэдагаваньне/_Капіяваць"
+
+#: app/menus.c:343
+msgid "/Edit/C_ut"
+msgstr "/Рэдагаваньне/Вы_разаць"
+
+#: app/menus.c:345
+msgid "/Edit/_Paste"
+msgstr "/Рэдагаваньне/_Уставіць"
+
+#: app/menus.c:347
+msgid "/Edit/_Delete"
+msgstr "/Рэдагаваньне/Вы_даліць"
+
+#: app/menus.c:350
+msgid "/Edit/Copy Text"
+msgstr "/Рэдагаваньне/Капіяваць тэкст"
+
+#: app/menus.c:351
+msgid "/Edit/Cut Text"
+msgstr "/Рэдагаваньне/Выразаць тэкст"
+
+#: app/menus.c:352
+msgid "/Edit/Paste _Text"
+msgstr "/Рэдагаваньне/Уставіць _тэкст"
+
+#: app/menus.c:353
+msgid "/_View"
+msgstr "/_Выгляд"
+
+#: app/menus.c:355
+msgid "/View/Zoom _In"
+msgstr "/Выгляд/Па_вялічыць маштаб"
+
+#: app/menus.c:357
+msgid "/View/Zoom _Out"
+msgstr "/Выгляд/Па_меншыць маштаб"
+
+#: app/menus.c:359
+msgid "/View/_Zoom"
+msgstr "/Выгляд/_Маштаб"
+
+#: app/menus.c:361
+msgid "/View/Zoom/400%"
+msgstr "/Выгляд/Маштаб/400%"
+
+#: app/menus.c:362
+msgid "/View/Zoom/283%"
+msgstr "/Выгляд/Маштаб/283%"
+
+#: app/menus.c:363
+msgid "/View/Zoom/200%"
+msgstr "/Выгляд/Маштаб/200%"
+
+#: app/menus.c:364
+msgid "/View/Zoom/141%"
+msgstr "/Выгляд/Маштаб/141%"
+
+#: app/menus.c:365
+msgid "/View/Zoom/100%"
+msgstr "/Выгляд/Маштаб/100%"
+
+#: app/menus.c:367
+msgid "/View/Zoom/85%"
+msgstr "/Выгляд/Маштаб/85%"
+
+#: app/menus.c:368
+msgid "/View/Zoom/70.7%"
+msgstr "/Выгляд/Маштаб/70,7%"
+
+#: app/menus.c:369
+msgid "/View/Zoom/50%"
+msgstr "/Выгляд/Маштаб/50%"
+
+#: app/menus.c:370
+msgid "/View/Zoom/35.4%"
+msgstr "/Выгляд/Маштаб/35,4%"
+
+#: app/menus.c:371
+msgid "/View/Zoom/25%"
+msgstr "/Выгляд/Маштаб/25%"
+
+#: app/menus.c:372 app/menus.c:381
+msgid "/View/---"
+msgstr "/Выгляд/---"
+
+#: app/menus.c:373
+msgid "/View/Diagram Properties..."
+msgstr "/Выгляд/Уласьцівасьці дыяграмы..."
+
+#: app/menus.c:375
+msgid "/View/_AntiAliased"
+msgstr "/Выгляд/З_гладзіць"
+
+#: app/menus.c:377
+msgid "/View/Show _Grid"
+msgstr "/Выгляд/Паказываць _сетку"
+
+#: app/menus.c:378
+msgid "/View/_Snap To Grid"
+msgstr "/Выгляд/_Трымацца сеткі"
+
+#: app/menus.c:379
+msgid "/View/Show _Rulers"
+msgstr "/Выгляд/Паказаць _лінаркі"
+
+#: app/menus.c:380
+msgid "/View/Show _Connection Points"
+msgstr "/Выгляд/Паказаць пункты _далучэньня"
+
+#: app/menus.c:382
+msgid "/View/New _View"
+msgstr "/Выгляд/Новы _выгляд"
+
+#. Show All, Best Fit.  Same as the Gimp, Ctrl+E
+#: app/menus.c:384
+msgid "/View/Show _All"
+msgstr "/Выгляд/Паказаць усё"
+
+#: app/menus.c:385
+msgid "/View/Re_draw"
+msgstr "/Выгляд/Пера_рысаваць"
+
+#: app/menus.c:386
+msgid "/_Select"
+msgstr "/_Вылучэньне"
+
+#: app/menus.c:388
+msgid "/Select/All"
+msgstr "/Вылучэньне/Усё"
+
+#: app/menus.c:389
+msgid "/Select/None"
+msgstr "/Вылучэньне/Нічога"
+
+#: app/menus.c:390 app/menus.c:403
+msgid "/Select/Invert"
+msgstr "/Вылучэньне/Інвэртаваць"
+
+#: app/menus.c:391
+msgid "/Select/Connected"
+msgstr "/Вылучэньне/Далучанае"
+
+#: app/menus.c:392
+msgid "/Select/Transitive"
+msgstr "/Вылучэньне/Транзытыўнае"
+
+#: app/menus.c:393
+msgid "/Select/Same Type"
+msgstr "/Вылучэньне/Таго ж тыпу"
+
+#: app/menus.c:394
+msgid "/Select/---"
+msgstr "/Вылучэньне/---"
+
+#: app/menus.c:395
+msgid "/Select/Replace"
+msgstr "/Вылучэньне/Замяніць"
+
+#: app/menus.c:397
+msgid "/Select/Union"
+msgstr "/Вылучэньне/Аб'яднаньне"
+
+#: app/menus.c:399
+msgid "/Select/Intersect"
+msgstr "/Вылучэньне/Перакрыжаваньне"
+
+#: app/menus.c:401
+msgid "/Select/Remove"
+msgstr "/Вылучэньне/Выдаліць"
+
+#: app/menus.c:405
+msgid "/_Objects"
+msgstr "/Аб'екты"
+
+#: app/menus.c:407
+msgid "/Objects/Send to _Back"
+msgstr "/Аб'екты/Даслаць _долу"
+
+#: app/menus.c:408
+msgid "/Objects/Bring to _Front"
+msgstr "/Аб'екты/Даслаць у_гору"
+
+#: app/menus.c:409
+msgid "/Objects/Send Backwards"
+msgstr "/Аб'екты/Апусьціць ніжэй"
+
+#: app/menus.c:410
+msgid "/Objects/Bring Forwards"
+msgstr "/Аб'екты/Падняць вышэй"
+
+#: app/menus.c:411 app/menus.c:415
+msgid "/Objects/---"
+msgstr "/Аб'екты/---"
+
+#: app/menus.c:412
+msgid "/Objects/_Group"
+msgstr "/Аб'екты/_Згрупаваць"
+
+#. deliberately not using Ctrl+U for Ungroup
+#: app/menus.c:414
+msgid "/Objects/_Ungroup"
+msgstr "/Аб'екты/_Разгрупаваць"
+
+#: app/menus.c:416
+msgid "/Objects/Align _Horizontal"
+msgstr "/Аб'екты/Раўнаньне па _гарызанталі"
+
+#: app/menus.c:418
+msgid "/Objects/Align Horizontal/Left"
+msgstr "/Аб'екты/Раўнаньне па гарызанталі/Леваруч"
+
+#: app/menus.c:419
+msgid "/Objects/Align Horizontal/Center"
+msgstr "/Аб'екты/Раўнаньне па гарызанталі/Цэнтар"
+
+#: app/menus.c:420
+msgid "/Objects/Align Horizontal/Right"
+msgstr "/Аб'екты/Раўнаньне па гарызанталі/Праваруч"
+
+#: app/menus.c:421
+msgid "/Objects/Align Horizontal/---"
+msgstr "/Аб'екты/Раўнаньне па гарызанталі/---"
+
+#: app/menus.c:422
+msgid "/Objects/Align Horizontal/Equal Distance"
+msgstr "/Аб'екты/Раўнаньне па гарызанталі/Роўныя адлегласьці"
+
+#: app/menus.c:423
+msgid "/Objects/Align Horizontal/Adjacent"
+msgstr "/Аб'екты/Раўнаньне на гарызанталі/Сумежнасьць"
+
+#: app/menus.c:424
+msgid "/Objects/Align _Vertical"
+msgstr "/Аб'екты/Раўнаньне па _вэртыкалі"
+
+#: app/menus.c:426
+msgid "/Objects/Align Vertical/Top"
+msgstr "/Аб'екты/Раўнаньне па вэртыкалі/Верх"
+
+#: app/menus.c:427
+msgid "/Objects/Align Vertical/Middle"
+msgstr "/Аб'екты/Раўнаньне па вэртыкалі/Сярэдзіна"
+
+#: app/menus.c:428
+msgid "/Objects/Align Vertical/Bottom"
+msgstr "/Аб'екты/Раўнаньне па вэртыкалі/Долу"
+
+#: app/menus.c:429
+msgid "/Objects/Align Vertical/---"
+msgstr "/Аб'екты/Раўнаньне па вэртыкалі/---"
+
+#: app/menus.c:430
+msgid "/Objects/Align Vertical/Equal Distance"
+msgstr "/Аб'екты/Раўнаньне па вэртыкалі/Роўныя адлегласьці"
+
+#: app/menus.c:431
+msgid "/Objects/Align Vertical/Adjacent"
+msgstr "/Аб'екты/Раўнаньне па вэртыкалі/Сумежнасьць"
+
+#: app/menus.c:433
+msgid "/_Tools"
+msgstr "/_Інструмэнты"
+
+#: app/menus.c:435
+msgid "/Tools/Modify"
+msgstr "/Інструмэнты/Зьмена"
+
+#: app/menus.c:436
+msgid "/Tools/Magnify"
+msgstr "/Інструмэнты/Павялічэньне"
+
+#: app/menus.c:437
+msgid "/Tools/Scroll"
+msgstr "/Інструмэнты/Пракрутка"
+
+#: app/menus.c:438
+msgid "/Tools/Text"
+msgstr "/Інструмэнты/Тэкст"
+
+#: app/menus.c:439
+msgid "/Tools/Box"
+msgstr "/Інструмэнты/Прамакутнік"
+
+#: app/menus.c:440
+msgid "/Tools/Ellipse"
+msgstr "/Інструмэнты/Эліпс"
+
+#: app/menus.c:441
+msgid "/Tools/Polygon"
+msgstr "/Інструмэнты/Палігон"
+
+#: app/menus.c:442
+msgid "/Tools/Beziergon"
+msgstr "/Інструмэнты/Бязьекутнік"
+
+#: app/menus.c:443 app/menus.c:449
+msgid "/Tools/---"
+msgstr "/Інструмэнты/---"
+
+#: app/menus.c:444
+msgid "/Tools/Line"
+msgstr "/Інструмэнты/Рыса"
+
+#: app/menus.c:445
+msgid "/Tools/Arc"
+msgstr "/Інструмэнты/Дуга"
+
+#: app/menus.c:446
+msgid "/Tools/Zigzagline"
+msgstr "/Інструмэнты/Зігзаг"
+
+#: app/menus.c:447
+msgid "/Tools/Polyline"
+msgstr "/Інструмэнты/Ломаная"
+
+#: app/menus.c:448
+msgid "/Tools/Bezierline"
+msgstr "/Інструмэнты/Крывая Бязье"
+
+#: app/menus.c:450
+msgid "/Tools/Image"
+msgstr "/Інструмэнты/Відарыс"
+
+#: app/menus.c:451
+msgid "/_Dialogs"
+msgstr "/_Дыялёгі"
+
+#: app/menus.c:453
+msgid "/Dialogs/_Properties..."
+msgstr "/Дыялёгі/_Уласьцівасьці..."
+
+#: app/menus.c:454
+msgid "/Dialogs/_Layers..."
+msgstr "/Дыялёгі/_Слаі..."
+
+#: app/menus.c:456
+msgid "/_Input Methods"
+msgstr "/Мэтады _ўводу"
+
+#: app/menus.c:629
+msgid "NULL tooldata in tool_menu_select"
+msgstr "NULL даньні інструмэнта ў tool_menu_select"
+
+#: app/menus.c:796
+msgid "Diagram Menu"
+msgstr "Мэню дыяграмы"
+
+#: app/menus.c:1172
+#, c-format
+msgid ""
+"Can't find menu entry '%s'!\n"
+"This is probably a i18n problem (try LANG=C)."
+msgstr ""
+
+#: app/modify_tool.c:315
+msgid "Couldn't get GTK settings"
+msgstr "Немагчыма атрымаць усталёўкі GTK"
+
+#: app/paginate_psprint.c:228
+msgid "Select Printer"
+msgstr "Выбярыце друкарку"
+
+#: app/paginate_psprint.c:240
+msgid "Printer"
+msgstr "Друкарка"
+
+#: app/paginate_psprint.c:253
+msgid "File"
+msgstr "Файл"
+
+#: app/paginate_psprint.c:342
+#, c-format
+msgid "Could not run command '%s'"
+msgstr "Немагчыма выканаць каманду '%s'"
+
+#: app/paginate_psprint.c:345
+#, c-format
+msgid "Could not open '%s' for writing"
+msgstr "Немагчыма адкрыць '%s' для запісу"
+
+#: app/paginate_psprint.c:370
+msgid "Error occured while printing"
+msgstr "Адбылася памылка падчас друку"
+
+#: app/plugin-manager.c:200
+msgid "Plug-ins"
+msgstr "Дадаткі"
+
+#: app/plugin-manager.c:256
+msgid "Loaded"
+msgstr "Загружанае"
+
+#: app/plugin-manager.c:263 objects/UML/class.c:105
+#: objects/UML/large_package.c:120
+msgid "Name"
+msgstr "Назва"
+
+#: app/plugin-manager.c:269
+msgid "Description"
+msgstr "Апісаньне"
+
+#: app/plugin-manager.c:278
+msgid "Load at Startup"
+msgstr "Загружаюцца падчас запуску"
+
+#: app/plugin-manager.c:285
+msgid "File Name"
+msgstr "Назва файла"
+
+#: app/preferences.c:100
+msgid "User Interface"
+msgstr "Інтэрфэйс карыстальніка"
+
+#: app/preferences.c:101
+msgid "Diagram Defaults"
+msgstr "Дапомнасьці дыяграмы"
+
+#: app/preferences.c:102
+msgid "View Defaults"
+msgstr "Адлюстраваньне дапомнасьцяў"
+
+#: app/preferences.c:103
+msgid "Grid Lines"
+msgstr "Лініі сеткі"
+
+#: app/preferences.c:104
+msgid "Diagram Tree"
+msgstr "Дрэва дыяграмы"
+
+#: app/preferences.c:118
+msgid "Reset tools after create:"
+msgstr "Скідаць інструмэнты пасьля стварэньня:"
+
+#: app/preferences.c:119
+msgid "Compress saved files:"
+msgstr "Сьціскаць захаваныя файлы:"
+
+#: app/preferences.c:120
+msgid "Number of undo levels:"
+msgstr "Колькасьць крокаў адкату:"
+
+#: app/preferences.c:121
+msgid ""
+"Reverse dragging selects\n"
+"intersecting objects:"
+msgstr ""
+
+#: app/preferences.c:122
+msgid "Recent documents list size:"
+msgstr "Памер сьпісу ранейшых файлаў:"
+
+#: app/preferences.c:123
+msgid "Use menu bar:"
+msgstr "Выкарыстоўваць панэлю мэню:"
+
+#: app/preferences.c:125
+msgid "Keep tool box on top of diagram windows:"
+msgstr "Трымаць акно прыладаў па-над вакном дыяграмы:"
+
+#: app/preferences.c:127
+msgid "New diagram:"
+msgstr "Новая дыяграма:"
+
+#: app/preferences.c:128
+msgid "Portrait:"
+msgstr "Партрэт:"
+
+#: app/preferences.c:130
+msgid "Paper type:"
+msgstr "Тып паперы:"
+
+#: app/preferences.c:133
+msgid "New window:"
+msgstr "Новае акно:"
+
+#: app/preferences.c:134
+msgid "Width:"
+msgstr "Шырыня:"
+
+#: app/preferences.c:135
+msgid "Height:"
+msgstr "Вышыня:"
+
+#: app/preferences.c:136
+msgid "Magnify:"
+msgstr "Павялічэньне:"
+
+#: app/preferences.c:138
+msgid "Connection Points:"
+msgstr "Пункты далучэньня:"
+
+#. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
+#: app/preferences.c:139 app/preferences.c:142 app/preferences.c:147
+msgid "Visible:"
+msgstr "Бачнасьць:"
+
+#: app/preferences.c:141
+msgid "Page breaks:"
+msgstr "Межы старонкі:"
+
+#: app/preferences.c:143 app/preferences.c:151
+msgid "Colour:"
+msgstr "Колер:"
+
+#: app/preferences.c:144 app/preferences.c:152
+msgid "Solid lines:"
+msgstr "Цьвёрдыя лініі:"
+
+#: app/preferences.c:148
+msgid "Snap to:"
+msgstr "Раўнаць па:"
+
+#: app/preferences.c:149
+msgid "X Size:"
+msgstr "Памер па Х:"
+
+#: app/preferences.c:150
+msgid "Y Size:"
+msgstr "Памер па Y:"
+
+#: app/preferences.c:163
+msgid "Diagram tree window:"
+msgstr "Акно дрэва дыяграмы:"
+
+#: app/preferences.c:165
+msgid "Show at startup:"
+msgstr "Паказаць падчас загрузкі:"
+
+#: app/preferences.c:167
+msgid "Default width:"
+msgstr "Дапомная шырыня:"
+
+#: app/preferences.c:169
+msgid "Default height:"
+msgstr "Дапомная вышыня:"
+
+#: app/preferences.c:171
+msgid "Remember last size:"
+msgstr "Запомніць апошні памер:"
+
+#: app/preferences.c:173
+msgid "Save hidden object types:"
+msgstr "Захоўваць тыпы схаваных аб'ектаў:"
+
+#: app/preferences.c:300
+#, c-format
+msgid "Could not open `%s' for writing"
+msgstr "Немагчыма адкрыць `%s' для запісу"
+
+#: app/preferences.c:575 lib/prop_inttypes.c:151
+msgid "Yes"
+msgstr "Так"
+
+#: app/preferences.c:575 app/preferences.c:586 lib/prop_inttypes.c:153
+#: lib/prop_inttypes.c:179
+msgid "No"
+msgstr "Не"
+
+#: app/preferences.c:686
+msgid "Preferences"
+msgstr "Перавагі"
+
+#: app/properties.c:48
+msgid "Object properties"
+msgstr "Уласьцівасьці аб'екта"
+
+#: app/properties.c:72
+msgid "This object has no properties."
+msgstr "Гэты аб'ект ня мае ўласьцівасьцяў."
+
+#: app/properties.c:175
+msgid "Properties: "
+msgstr "Уласьцівасьці:"
+
+#: app/properties.c:179
+msgid "Object properties:"
+msgstr "Уласьцівасьці аб'екта:"
+
+#. Use the Plugins menu item to get a pointer to the File menu,
+#. but any item on the File menu will do
+#: app/recent_files.c:137
+msgid "<Toolbox>/File/Plugins..."
+msgstr "<Toolbox>/Файл/Дадаткі..."
+
+#: app/recent_files.c:259
+msgid "<Toolbox>/File/Quit"
+msgstr "<Toolbox>/Файл/Выйсьці"
+
+#: app/recent_files.c:295
+msgid "Can't open history file for writing."
+msgstr "Немагчыма адкрыць файл гісторыі для запісу."
+
+#: app/render_eps.c:114
+msgid "Encapsulated Postscript"
+msgstr "Убудаваны Postscript"
+
+#: app/render_libart.c:320 lib/dialibartrenderer.c:269
+msgid "gdk_renderer: Unsupported fill mode specified!\n"
+msgstr "gdk_renderer: Пазначаны рэжым запаўненьня які не падтрымліваецца!\n"
+
+#: app/sheets.c:154
+#, c-format
+msgid ""
+"%s\n"
+"System sheet"
+msgstr ""
+"%s\n"
+"Сыстэмная табліца"
+
+#: app/sheets.c:156
+#, c-format
+msgid ""
+"%s\n"
+"User sheet"
+msgstr ""
+"%s\n"
+"Табліца карыстальніка"
+
+#: app/sheets.c:271
+msgid ""
+"Can't get symbol 'custom_type' from any module.\n"
+"Editing shapes is disabled."
+msgstr ""
+
+#: app/sheets.c:373
+#, c-format
+msgid "Widget not found: %s"
+msgstr "Віджэт адсутнічае: %s"
+
+#: app/sheets.c:448
+msgid "SVG Shape"
+msgstr "SVG Форма"
+
+#: app/sheets.c:450
+msgid "Programmed Object"
+msgstr "Запраграмаваны аб'ект"
+
+#: app/sheets_dialog.c:81
+msgid "Sheets and Objects"
+msgstr "Табліцы й аб'екты"
+
+#: app/sheets_dialog.c:107 app/sheets_dialog_callbacks.c:177
+msgid "<- Copy"
+msgstr "<- Капіяваць"
+
+#: app/sheets_dialog.c:117 app/sheets_dialog_callbacks.c:179
+msgid "<- Copy All"
+msgstr "<- Капіяваць усё"
+
+#: app/sheets_dialog.c:124 app/sheets_dialog_callbacks.c:181
+msgid "<- Move"
+msgstr "<- Перанесьці"
+
+#: app/sheets_dialog.c:134 app/sheets_dialog_callbacks.c:183
+msgid "<- Move All"
+msgstr "<- Перанесьці ўсё"
+
+#: app/sheets_dialog.c:231
+msgid "Edit"
+msgstr "Рэдагаваньне"
+
+#: app/sheets_dialog.c:233
+msgid "_Edit"
+msgstr "Р_эдагаваць"
+
+#: app/sheets_dialog.c:264
+msgid "Revert"
+msgstr "Вярнуць"
+
+#: app/sheets_dialog.c:350 objects/UML/class_dialog.c:828
+#: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
+#: objects/UML/class_dialog.c:2499
+msgid "New"
+msgstr "Стварыць"
+
+#: app/sheets_dialog.c:358 app/sheets_dialog.c:790
+msgid "Type"
+msgstr "Тып"
+
+#: app/sheets_dialog.c:373
+msgid "Browse..."
+msgstr "Праглядзець..."
+
+#: app/sheets_dialog.c:382
+msgid "SVG Shape:"
+msgstr "SVG форма:"
+
+#: app/sheets_dialog.c:409 app/sheets_dialog.c:472
+msgid "description:"
+msgstr "Апісаньне:"
+
+#: app/sheets_dialog.c:421
+msgid "Sheet name:"
+msgstr "Назва табліцы:"
+
+#: app/sheets_dialog.c:442 app/sheets_dialog_callbacks.c:289
+#: app/sheets_dialog_callbacks.c:1085
+msgid "Line Break"
+msgstr "Рыса мяжы"
+
+#: app/sheets_dialog.c:564
+msgid "Edit Attributes"
+msgstr "Рэдагаваць атрыбуты"
+
+#: app/sheets_dialog.c:579
+msgid "Object"
+msgstr "Аб'ект"
+
+#: app/sheets_dialog.c:595 app/sheets_dialog.c:688
+msgid "Description:"
+msgstr "Апісаньне:"
+
+#: app/sheets_dialog.c:614 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
+#: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
+#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
+msgid "Type:"
+msgstr "Тып:"
+
+#: app/sheets_dialog.c:652
+msgid "Sheet"
+msgstr "Табліца"
+
+#: app/sheets_dialog.c:668 objects/ER/attribute.c:150 objects/ER/entity.c:128
+#: objects/ER/relationship.c:137 objects/UML/association.c:1054
+#: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1792
+#: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2536
+#: objects/UML/dependency.c:125 objects/UML/generalization.c:121
+#: objects/UML/realizes.c:122
+msgid "Name:"
+msgstr "Назва:"
+
+#: app/sheets_dialog.c:805
+msgid "Object:"
+msgstr "Аб'ект:"
+
+#: app/sheets_dialog.c:832
+msgid "Sheet:"
+msgstr "Табліца:"
+
+#: app/sheets_dialog.c:916
+msgid "Select SVG Shape File"
+msgstr "Выбярыце файл з SVG формай"
+
+#: app/sheets_dialog_callbacks.c:164
+msgid "Copy ->"
+msgstr "Капіяваць ->"
+
+#: app/sheets_dialog_callbacks.c:166
+msgid "Copy All ->"
+msgstr "Капіяваць усё ->"
+
+#: app/sheets_dialog_callbacks.c:168
+msgid "Move ->"
+msgstr "Перанесьці ->"
+
+#: app/sheets_dialog_callbacks.c:170
+msgid "Move All ->"
+msgstr "Перанесьці ўсё ->"
+
+#: app/sheets_dialog_callbacks.c:303
+#, c-format
+msgid ""
+"%s\n"
+"Shape"
+msgstr ""
+"%s\n"
+"Форма"
+
+#: app/sheets_dialog_callbacks.c:306
+#, c-format
+msgid ""
+"%s\n"
+"Object"
+msgstr ""
+"%s\n"
+"Аб'ект"
+
+#: app/sheets_dialog_callbacks.c:309
+#, c-format
+msgid ""
+"%s\n"
+"Unassigned type"
+msgstr ""
+"%s\n"
+"Непрызначаны тып"
+
+#: app/sheets_dialog_callbacks.c:799
+#, c-format
+msgid "Filename must end with '%s': '%s'"
+msgstr "Назва файла мусіць сканчацца на '%s': '%s'"
+
+#: app/sheets_dialog_callbacks.c:807
+#, c-format
+msgid "Error examining %s: %s"
+msgstr "Памылка праверкі %s: %s"
+
+#: app/sheets_dialog_callbacks.c:827
+#, c-format
+msgid "Could not interpret shape file: '%s'"
+msgstr "Немагчыма распазнаць файл формы: `%s'"
+
+#: app/sheets_dialog_callbacks.c:896
+msgid "Sheet must have a Name"
+msgstr "Табліца мусіць мець назву"
+
+#: app/sheets_dialog_callbacks.c:1586 app/sheets_dialog_callbacks.c:1592
+#, c-format
+msgid "Couldn't open '%s': %s"
+msgstr "Немагчыма адкрыць '%s': %s"
+
+#: app/sheets_dialog_callbacks.c:1643
+#, c-format
+msgid "Couldn't open: '%s' for writing"
+msgstr "Немагчыма адкрыць: '%s' для запісу "
+
+#: app/sheets_dialog_callbacks.c:1652
+msgid "a user"
+msgstr "карыстальнік"
+
+#: app/sheets_dialog_callbacks.c:1665
+#, c-format
+msgid "File: %s"
+msgstr "Файл: %s"
+
+#: app/sheets_dialog_callbacks.c:1668
+#, c-format
+msgid "Date: %s"
+msgstr "Дата: %s"
+
+#: app/sheets_dialog_callbacks.c:1672
+#, c-format
+msgid "For: %s"
+msgstr "Для: %s"
+
+#: app/sheets_dialog_callbacks.c:1689
+msgid "add shapes here"
+msgstr "дадайце формы сюды"
+
+#: app/splash.c:58
+msgid "Loading ..."
+msgstr "Загрузка ..."
+
+#: app/splash.c:76
+#, c-format
+msgid "Dia v %s"
+msgstr "Дыя вэрсыі %s"
+
+#: dia.desktop.in.h:2
+msgid "Diagram editor"
+msgstr "Рэдактар дыяграмаў"
+
+#: lib/arrows.c:39
+msgid "Lines"
+msgstr "Рысы"
+
+#: lib/arrows.c:40
+msgid "Hollow Triangle"
+msgstr "Парожні трохкутнік"
+
+#: lib/arrows.c:41
+msgid "Filled Triangle"
+msgstr "Запоўнены трохкутнік"
+
+#: lib/arrows.c:42
+msgid "Unfilled Triangle"
+msgstr "Незапоўнены трохкутнік"
+
+#: lib/arrows.c:43
+msgid "Hollow Diamond"
+msgstr ""
+
+#: lib/arrows.c:44
+msgid "Filled Diamond"
+msgstr ""
+
+#: lib/arrows.c:45
+msgid "Half Head"
+msgstr ""
+
+#: lib/arrows.c:46
+msgid "Slashed Cross"
+msgstr ""
+
+#: lib/arrows.c:47
+msgid "Filled Ellipse"
+msgstr "Запоўнены эліпс"
+
+#: lib/arrows.c:48
+msgid "Hollow Ellipse"
+msgstr "Парожні эліпс"
+
+#: lib/arrows.c:49
+msgid "Filled Dot"
+msgstr "Запоўнены круг"
+
+#: lib/arrows.c:50
+msgid "Dimension Origin"
+msgstr ""
+
+#: lib/arrows.c:51
+msgid "Blanked Dot"
+msgstr "Пусты круг"
+
+#: lib/arrows.c:52
+msgid "Double Hollow triangle"
+msgstr ""
+
+#: lib/arrows.c:53
+msgid "Double Filled triangle"
+msgstr ""
+
+#: lib/arrows.c:54
+msgid "Filled Box"
+msgstr ""
+
+#: lib/arrows.c:55
+msgid "Blanked Box"
+msgstr ""
+
+#: lib/arrows.c:56
+msgid "Slashed"
+msgstr "Заштрыхаваны"
+
+#: lib/arrows.c:57
+msgid "Integral Symbol"
+msgstr ""
+
+#: lib/arrows.c:58
+msgid "Crow Foot"
+msgstr ""
+
+#: lib/arrows.c:59
+msgid "Cross"
+msgstr "Перакрыжаваньне"
+
+#: lib/arrows.c:60
+msgid "Filled Concave"
+msgstr ""
+
+#: lib/arrows.c:61
+msgid "Blanked Concave"
+msgstr ""
+
+#: lib/bezier_conn.c:528
+msgid "Internal error: Setting corner type of endpoint of bezier"
+msgstr ""
+
+#: lib/dialibartrenderer.c:1115
+msgid "This Dia version is compiled without libart/text support."
+msgstr ""
+
+#: lib/dia_xml.c:147
+#, c-format
+msgid ""
+"The file %s has no encoding specification;\n"
+"assuming it is encoded in %s"
+msgstr ""
+
+#: lib/dia_xml.c:466
+msgid "Taking point value of non-point node."
+msgstr "Узяць значэньне пункту бязкропкавага вузла."
+
+#: lib/dia_xml.c:478
+#, c-format
+msgid "Incorrect x Point value \"%s\" %f; discarding it."
+msgstr "Памылковае значэньне пункту x \"%s\" %f; адкідаем яго."
+
+#: lib/dia_xml.c:486
+msgid "Error parsing point."
+msgstr "Памылка апрацоўкі пункта."
+
+#. don't bother with useless warnings (see above)
+#: lib/dia_xml.c:494
+#, c-format
+msgid "Incorrect y Point value \"%s\" %f; discarding it."
+msgstr "Памылковае значэньне пункта y \"%s\" %f; адкідаем яго."
+
+#: lib/dia_xml.c:856
+msgid ""
+"Your local character set is UTF-8. Because of issues with libxml1 and the "
+"support of files generated by previous versions of dia, you will encounter  "
+"problems. Please report to dia-list@gnome.org if you see this message."
+msgstr ""
+
+#: lib/font.c:87
+#, c-format
+msgid "Can't load font %s.\n"
+msgstr "Немагчыма загрузіць шрыфт %s.\n"
+
+#. This is the default text shown in the preview entry, though the user
+#. can set it. Remember that some fonts only have capital letters.
+#: lib/diagtkfontsel.c:74
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "абвгдеёжзіў АБВГДЕЁЖЗІЎ"
+
+#: lib/diagtkfontsel.c:209
+msgid "Font name"
+msgstr "Назва шрыфта"
+
+#: lib/diagtkfontsel.c:210
+msgid "The X string that represents this font."
+msgstr ""
+
+#: lib/diagtkfontsel.c:216
+msgid "Preview text"
+msgstr "Прагляд тэкста"
+
+#: lib/diagtkfontsel.c:217
+msgid "The text to display in order to demonstrate the selected font."
+msgstr ""
+
+#: lib/diagtkfontsel.c:321
+msgid "_Family:"
+msgstr "_Сямейства:"
+
+#: lib/diagtkfontsel.c:327
+msgid "_Style:"
+msgstr "_Стыль:"
+
+#: lib/diagtkfontsel.c:333
+msgid "Si_ze:"
+msgstr "_Памер:"
+
+#. create the text entry widget
+#: lib/diagtkfontsel.c:462
+msgid "_Preview:"
+msgstr "_Прагляд:"
+
+#: lib/diagtkfontsel.c:1252
+msgid "Font Selection"
+msgstr "Выбар шрыфта"
+
+#: lib/message.c:78 lib/message.c:238
+msgid "Error"
+msgstr "Памылка"
+
+#: lib/message.c:80 lib/message.c:226
+msgid "Warning"
+msgstr "Папярэджаньне"
+
+#: lib/message.c:106
+msgid "There is one similar message."
+msgstr ""
+
+#: lib/message.c:111
+msgid "Show repeated messages"
+msgstr ""
+
+#: lib/message.c:170
+#, c-format
+msgid "There are %d similar messages."
+msgstr ""
+
+#: lib/message.c:215
+msgid "Notice"
+msgstr "Заўвага"
+
+#: lib/object_defaults.c:124
+#, c-format
+msgid ""
+"Error loading defaults '%s'.\n"
+"Not a Dia diagram file."
+msgstr ""
+
+#: lib/plug-ins.c:120
+msgid "???"
+msgstr "???"
+
+#: lib/plug-ins.c:228
+#, c-format
+msgid "Could not deduce correct path for `%s'"
+msgstr ""
+
+#: lib/plug-ins.c:234
+#, c-format
+msgid ""
+"Could not load plugin '%s'\n"
+"%s"
+msgstr ""
+"Немагчыма загрузіць дадатак '%s'\n"
+"%s"
+
+#: lib/plug-ins.c:247
+#, c-format
+msgid "Could not find plugin init function in `%s'"
+msgstr ""
+
+#: lib/plug-ins.c:249
+msgid "Missing symbol 'dia_plugin_init'"
+msgstr ""
+
+#: lib/plug-ins.c:257 lib/plug-ins.c:265
+msgid "dia_plugin_init() call failed"
+msgstr "збой выкліку dia_plugin_init()"
+
+#: lib/plug-ins.c:284
+#, c-format
+msgid "%s Plugin could not be unloaded"
+msgstr "%s Дадатак ня можа быць выгружаны"
+
+#: lib/plug-ins.c:372
+#, c-format
+msgid ""
+"Could not open `%s'\n"
+"`%s'"
+msgstr ""
+"Немагчыма адкрыць `%s'\n"
+"`%s'"
+
+#: lib/properties.c:71 lib/properties.h:476
+msgid "Line colour"
+msgstr "Колер рысы"
+
+#: lib/properties.c:72 lib/properties.h:479
+msgid "Line style"
+msgstr "Стыль рысы"
+
+#: lib/properties.c:73 lib/properties.h:483
+msgid "Fill colour"
+msgstr "Колер запаўненьня"
+
+#: lib/properties.c:74 lib/properties.h:486
+msgid "Draw background"
+msgstr "Рысаваць тло"
+
+#: lib/properties.c:75 lib/properties.h:490
+msgid "Start arrow"
+msgstr "Пачатковая стрэлка"
+
+#: lib/properties.c:76 lib/properties.h:493
+msgid "End arrow"
+msgstr "Канчатковая стрэлка"
+
+#: lib/properties.c:78 lib/properties.h:503
+msgid "Text alignment"
+msgstr ""
+
+#: lib/properties.c:79 lib/properties.h:506
+#: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
+#: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
+#: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
+msgid "Font"
+msgstr "Шрыфт"
+
+#: lib/properties.c:80 lib/properties.h:509
+#: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
+#: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
+#: objects/GRAFCET/transition.c:143
+msgid "Font size"
+msgstr "Памер шрыфта"
+
+#: lib/properties.c:81 lib/properties.h:512
+#: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
+#: objects/GRAFCET/step.c:166
+msgid "Text colour"
+msgstr "Колер тэкста"
+
+#: lib/widgets.c:197
+msgid "Other fonts..."
+msgstr "Іншыя шрыфты..."
+
+#: lib/widgets.c:299
+#, c-format
+msgid "Couldn't find font family for %s\n"
+msgstr "Немагчыма адшукаць сямейства шрыфта для %s\n"
+
+#. We hit the Other fonts... entry
+#: lib/widgets.c:342
+msgid "Select font"
+msgstr "Выбярыце шрыфт"
+
+#. Translators: Menu item Noun/Material/Solid
+#: lib/widgets.c:652 objects/FS/function.c:1039
+msgid "Solid"
+msgstr ""
+
+#: lib/widgets.c:658
+msgid "Dashed"
+msgstr ""
+
+#: lib/widgets.c:664
+msgid "Dash-Dot"
+msgstr ""
+
+#: lib/widgets.c:670
+msgid "Dash-Dot-Dot"
+msgstr ""
+
+#: lib/widgets.c:676
+msgid "Dotted"
+msgstr ""
+
+#. fs->sizebox = GTK_HBOX(box);
+#: lib/widgets.c:694
+msgid "Dash length: "
+msgstr ""
+
+#: lib/widgets.c:1046
+msgid "Length: "
+msgstr "Даўжыня: "
+
+#: lib/widgets.c:1059
+msgid "Width: "
+msgstr "Шырыня: "
+
+#: lib/widgets.c:1187
+msgid "Select image file"
+msgstr "Выбярыце файл відарыса"
+
+#: lib/widgets.c:1221
+msgid "Browse"
+msgstr "Прагляд"
+
+#: objects/bondgraph/bondgraph.c:39
+msgid "Bond graph objects"
+msgstr ""
+
+#: objects/chronogram/chronogram.c:40
+msgid "Chronogram diagram objects"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:147
+msgid "Data"
+msgstr "Даньні"
+
+#: objects/chronogram/chronoline.c:149
+msgid "Data name"
+msgstr "Назва даньняў"
+
+#: objects/chronogram/chronoline.c:151
+msgid "Events"
+msgstr "Падзеі"
+
+#: objects/chronogram/chronoline.c:154
+msgid "Event specification"
+msgstr "Спэцыфікацыя падзеі"
+
+#: objects/chronogram/chronoline.c:155
+msgid ""
+"@ time    set the pointer at an absolute time.\n"
+"( duration  sets the signal up, then wait 'duration'.\n"
+") duration  sets the signal down, then wait 'duration'.\n"
+"u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
+"example : @ 1.0 (2.0)1.0(2.0)\n"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:161
+msgid "Parameters"
+msgstr "Парамэтры"
+
+#: objects/chronogram/chronoline.c:163 objects/chronogram/chronoref.c:145
+msgid "Start time"
+msgstr "Час пачатку"
+
+#: objects/chronogram/chronoline.c:165 objects/chronogram/chronoref.c:147
+msgid "End time"
+msgstr "Час заканчэньня"
+
+#: objects/chronogram/chronoline.c:167
+msgid "Rise time"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:169
+msgid "Fall time"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:170
+msgid "Multi-bit data"
+msgstr "Мультыбітныя даньні"
+
+#: objects/chronogram/chronoline.c:172 objects/chronogram/chronoref.c:155
+msgid "Aspect"
+msgstr "Від"
+
+#: objects/chronogram/chronoline.c:174
+msgid "Data color"
+msgstr "Колер даньняў"
+
+#: objects/chronogram/chronoline.c:176
+msgid "Data line width"
+msgstr "Шырыня рысы даньняў"
+
+#: objects/chronogram/chronoline.c:178 objects/chronogram/chronoref.c:157
+msgid "Line color"
+msgstr "Колер рысы"
+
+#: objects/chronogram/chronoref.c:143
+msgid "Time data"
+msgstr ""
+
+#: objects/chronogram/chronoref.c:149
+msgid "Major time step"
+msgstr ""
+
+#: objects/chronogram/chronoref.c:151
+msgid "Minor time step"
+msgstr ""
+
+#: objects/chronogram/chronoref.c:161
+msgid "Minor step line width"
+msgstr ""
+
+#: objects/custom/custom.c:117
+msgid "Custom"
+msgstr ""
+
+#: objects/custom/custom.c:117
+msgid "Custom XML shapes loader"
+msgstr "Загрузчык XML-форм карыстальніка"
+
+#: objects/custom/custom_object.c:178 objects/custom/custom_object.c:197
+msgid "Flip horizontal"
+msgstr "Гарызантальнае люстра"
+
+#: objects/custom/custom_object.c:180 objects/custom/custom_object.c:199
+msgid "Flip vertical"
+msgstr "Вэртыкальнае люстра"
+
+#: objects/custom/custom_object.c:1406
+msgid "Flip Horizontal"
+msgstr "Гарызантальнае люстра"
+
+#: objects/custom/custom_object.c:1407
+msgid "Flip Vertical"
+msgstr "Вэртыкальнае люстра"
+
+#: objects/custom/custom_object.c:1444
+#, c-format
+msgid "Cannot open icon file %s for object type '%s'."
+msgstr "Немагчыма адкрыць файл піктаграмаў %s для аб'екта тыпу \"%s\"."
+
+#: objects/ER/attribute.c:152
+msgid "Key:"
+msgstr "Ключ:"
+
+#: objects/ER/attribute.c:154
+msgid "Weak key:"
+msgstr ""
+
+#: objects/ER/attribute.c:156
+msgid "Derived:"
+msgstr ""
+
+#: objects/ER/attribute.c:158
+msgid "Multivalue:"
+msgstr "Шматзначнасьць:"
+
+#: objects/ER/attribute.c:399 sheets/ER.sheet.in.h:1
+msgid "Attribute"
+msgstr "Атрыбут"
+
+#: objects/ER/entity.c:130
+msgid "Weak:"
+msgstr "Тыдзень:"
+
+#: objects/ER/entity.c:348 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+msgid "Entity"
+msgstr ""
+
+#: objects/ER/er.c:44
+msgid "Entity/Relationship diagram objects"
+msgstr ""
+
+#: objects/ER/participation.c:114
+msgid "Total:"
+msgstr "Агулам:"
+
+#: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:556
+#: objects/standard/zigzagline.c:495 objects/UML/association.c:691
+#: objects/UML/dependency.c:351 objects/UML/generalization.c:347
+#: objects/UML/realizes.c:340
+msgid "Add segment"
+msgstr "Дадаць сегмэнт"
+
+#: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
+#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:557
+#: objects/standard/zigzagline.c:496 objects/UML/association.c:692
+#: objects/UML/dependency.c:352 objects/UML/generalization.c:348
+#: objects/UML/realizes.c:341
+msgid "Delete segment"
+msgstr "Выдаліць сегмэнт"
+
+#: objects/ER/relationship.c:139
+msgid "Left Cardinality:"
+msgstr "Левая магутнасьць:"
+
+#: objects/ER/relationship.c:141
+msgid "Right Cardinality:"
+msgstr "Правая магутнасьць:"
+
+#: objects/ER/relationship.c:143
+msgid "Rotate:"
+msgstr "Паварочваць:"
+
+#: objects/ER/relationship.c:145
+msgid "Identifying:"
+msgstr "Ідэнтыфікацыя:"
+
+#: objects/ER/relationship.c:427 sheets/ER.sheet.in.h:6
+msgid "Relationship"
+msgstr "Стасунак"
+
+#: objects/flowchart/box.c:147 objects/standard/box.c:131
+msgid "Corner radius"
+msgstr "Радыюс кута"
+
+#: objects/flowchart/box.c:149 objects/flowchart/diamond.c:147
+#: objects/flowchart/ellipse.c:146 objects/flowchart/parallelogram.c:151
+#: objects/SADT/box.c:136
+msgid "Text padding"
+msgstr ""
+
+#: objects/flowchart/flowchart.c:37
+msgid "Flowchart objects"
+msgstr ""
+
+#: objects/flowchart/parallelogram.c:149
+msgid "Shear angle"
+msgstr "Кут зруху"
+
+#. Translators: Menu item Noun/Energy
+#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/flow-ortho.c:157
+#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1061
+msgid "Energy"
+msgstr "Энэргія"
+
+#. Translators: Menu item Noun/Material
+#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/flow-ortho.c:158
+#: objects/FS/flow-ortho.c:631 objects/FS/function.c:1037
+msgid "Material"
+msgstr "Матэрыял"
+
+#. Translators: Menu item Verb/Signal
+#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/flow-ortho.c:159
+#: objects/FS/flow-ortho.c:632 objects/FS/function.c:999
+#: objects/FS/function.c:1001 objects/FS/function.c:1137
+#: objects/FS/function.c:1139
+msgid "Signal"
+msgstr "Сыгнал"
+
+#: objects/FS/fs.c:43
+msgid "Function structure diagram objects"
+msgstr ""
+
+#: objects/FS/function.c:138
+msgid "Wish function"
+msgstr "Шуканая функцыя"
+
+#: objects/FS/function.c:140
+msgid "User function"
+msgstr "Функцыя карыстальніка"
+
+#. Translators: Menu item Verb
+#: objects/FS/function.c:641
+msgid "Verb"
+msgstr ""
+
+#. Translators: Menu item Verb/Channel
+#: objects/FS/function.c:643 objects/FS/function.c:645
+#: objects/FS/function.c:685
+msgid "Channel"
+msgstr "Канал"
+
+#. Translators: Menu item Verb/Channel/Import
+#: objects/FS/function.c:647 objects/FS/function.c:649
+msgid "Import"
+msgstr "Імпартаваньне"
+
+#. Translators: Menu item Verb/Channel/Import/Input
+#: objects/FS/function.c:651
+msgid "Input"
+msgstr "Уваход"
+
+#. Translators: Menu item Verb/Channel/Import/Receive
+#: objects/FS/function.c:653
+msgid "Receive"
+msgstr "Прыйманьне"
+
+#. Translators: Menu item Verb/Channel/Import/Allow
+#: objects/FS/function.c:655 objects/FS/function.c:927
+msgid "Allow"
+msgstr "Дазволіць"
+
+#. Translators: Menu item Verb/Channel/Import/Form Entrance
+#: objects/FS/function.c:657
+msgid "Form Entrance"
+msgstr ""
+
+#. Translators: Menu item Verb/Channel/Import/Capture
+#: objects/FS/function.c:659 objects/FS/function.c:893
+msgid "Capture"
+msgstr "Захоп"
+
+#. Translators: Menu item Verb/Channel/Export/Discharge
+#: objects/FS/function.c:665
+msgid "Discharge"
+msgstr ""
+
+#. Translators: Menu item Verb/Channel/Export/Eject
+#: objects/FS/function.c:667
+msgid "Eject"
+msgstr "Вызваліць"
+
+#. Translators: Menu item Verb/Channel/Export/Dispose
+#: objects/FS/function.c:669
+msgid "Dispose"
+msgstr ""
+
+#. Translators: Menu item Verb/Channel/Transfer
+#: objects/FS/function.c:673 objects/FS/function.c:675
+#: objects/FS/function.c:693
+msgid "Transfer"
+msgstr "Перадача"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transport
+#: objects/FS/function.c:677 objects/FS/function.c:679
+msgid "Transport"
+msgstr "Транспарт"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
+#: objects/FS/function.c:681
+msgid "Lift"
+msgstr ""
+
+#. Translators: Menu item Verb/Channel/Transfer/Transport/Move
+#: objects/FS/function.c:683
+msgid "Move"
+msgstr ""
+
+#. Translators: Menu item Verb/Channel/Transfer/Transmit
+#: objects/FS/function.c:687 objects/FS/function.c:689
+msgid "Transmit"
+msgstr "Перадаваць"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
+#: objects/FS/function.c:691
+msgid "Conduct"
+msgstr "Суправаджаць"
+
+#. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
+#: objects/FS/function.c:695
+msgid "Convey"
+msgstr "Пераўтвараць"
+
+#. Translators: Menu item Verb/Channel/Guide
+#: objects/FS/function.c:697 objects/FS/function.c:699
+#: objects/FS/function.c:701
+msgid "Guide"
+msgstr "Кіраваць"
+
+#. Translators: Menu item Verb/Channel/Guide/Guide/Direct
+#: objects/FS/function.c:703
+msgid "Direct"
+msgstr "Накірунак"
+
+#. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
+#: objects/FS/function.c:705
+msgid "Straighten"
+msgstr "Выпраўляць"
+
+#. Translators: Menu item Verb/Channel/Guide/Guide/Steer
+#: objects/FS/function.c:707
+msgid "Steer"
+msgstr ""
+
+#. Translators: Menu item Verb/Channel/Guide/Translate
+#: objects/FS/function.c:709
+msgid "Translate"
+msgstr "Перакладаць"
+
+#. Translators: Menu item Verb/Channel/Guide/Rotate
+#: objects/FS/function.c:711 objects/FS/function.c:713
+msgid "Rotate"
+msgstr "Паварочваць"
+
+#. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
+#: objects/FS/function.c:715
+msgid "Turn"
+msgstr ""
+
+#. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
+#: objects/FS/function.c:717
+msgid "Spin"
+msgstr "Круціць"
+
+#. Translators: Menu item Verb/Channel/Guide/Allow DOF
+#: objects/FS/function.c:719 objects/FS/function.c:721
+msgid "Allow DOF"
+msgstr "Дазваляць DOF"
+
+#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
+#: objects/FS/function.c:723
+msgid "Constrain"
+msgstr "Стрымліваць"
+
+#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
+#: objects/FS/function.c:725
+msgid "Unlock"
+msgstr "Разблякаваць"
+
+#. Translators: Menu item Verb/Support
+#: objects/FS/function.c:727 objects/FS/function.c:729
+msgid "Support"
+msgstr "Падтрымліваць"
+
+#. Translators: Menu item Verb/Support/Stop
+#: objects/FS/function.c:731 objects/FS/function.c:733
+#: sheets/SDL.sheet.in.h:19
+msgid "Stop"
+msgstr "Стоп"
+
+#. Translators: Menu item Verb/Support/Stop/Insulate
+#: objects/FS/function.c:735
+msgid "Insulate"
+msgstr ""
+
+#. Translators: Menu item Verb/Support/Stop/Protect
+#: objects/FS/function.c:737
+msgid "Protect"
+msgstr "Абараняць"
+
+#. Translators: Menu item Verb/Support/Stop/Prevent
+#: objects/FS/function.c:739 objects/FS/function.c:929
+msgid "Prevent"
+msgstr "Папярэджваць"
+
+#. Translators: Menu item Verb/Support/Stop/Shield
+#: objects/FS/function.c:741
+msgid "Shield"
+msgstr "Экранаваць"
+
+#. Translators: Menu item Verb/Support/Stop/Inhibit
+#: objects/FS/function.c:743
+msgid "Inhibit"
+msgstr "Перашкаджаць"
+
+#. Translators: Menu item Verb/Support/Stabilize
+#: objects/FS/function.c:745 objects/FS/function.c:747
+msgid "Stabilize"
+msgstr "Стабілізаваць"
+
+#. Translators: Menu item Verb/Support/Stabilize/Steady
+#: objects/FS/function.c:749
+msgid "Steady"
+msgstr "Утаймоўваць"
+
+#. Translators: Menu item Verb/Support/Secure
+#: objects/FS/function.c:751 objects/FS/function.c:753
+msgid "Secure"
+msgstr "Абараняць"
+
+#. Translators: Menu item Verb/Support/Secure/Attach
+#: objects/FS/function.c:755 objects/FS/function.c:787
+msgid "Attach"
+msgstr "Далучаць"
+
+#. Translators: Menu item Verb/Support/Secure/Mount
+#: objects/FS/function.c:757
+msgid "Mount"
+msgstr "Падмацоўваць"
+
+#. Translators: Menu item Verb/Support/Secure/Lock
+#: objects/FS/function.c:759
+msgid "Lock"
+msgstr "Блякаваць"
+
+#. Translators: Menu item Verb/Support/Secure/Fasten
+#: objects/FS/function.c:761
+msgid "Fasten"
+msgstr ""
+
+#. Translators: Menu item Verb/Support/Secure/Hold
+#: objects/FS/function.c:763
+msgid "Hold"
+msgstr ""
+
+#. Translators: Menu item Verb/Support/Position
+#: objects/FS/function.c:765 objects/FS/function.c:767
+msgid "Position"
+msgstr "Пазыцыянаваць"
+
+#. Translators: Menu item Verb/Support/Position/Orient
+#: objects/FS/function.c:769
+msgid "Orient"
+msgstr "Арыентаваць"
+
+#. Translators: Menu item Verb/Support/Position/Align
+#: objects/FS/function.c:771
+msgid "Align"
+msgstr "Раўнаньне"
+
+#. Translators: Menu item Verb/Support/Position/Locate
+#: objects/FS/function.c:773 objects/FS/function.c:1015
+msgid "Locate"
+msgstr "Разьмяшчаць"
+
+#. Translators: Menu item Verb/Connect
+#: objects/FS/function.c:775 objects/FS/function.c:777
+msgid "Connect"
+msgstr "Далучэньне"
+
+#. Translators: Menu item Verb/Connect/Couple
+#: objects/FS/function.c:779 objects/FS/function.c:781
+msgid "Couple"
+msgstr "Злучаць"
+
+#. Translators: Menu item Verb/Connect/Couple/Join
+#: objects/FS/function.c:783
+msgid "Join"
+msgstr "Далучаць"
+
+#. Translators: Menu item Verb/Connect/Couple/Assemble
+#: objects/FS/function.c:785
+msgid "Assemble"
+msgstr "Зьбіраць"
+
+#. Translators: Menu item Verb/Connect/Mix
+#: objects/FS/function.c:789 objects/FS/function.c:791
+msgid "Mix"
+msgstr "Перамешваць"
+
+#. Translators: Menu item Verb/Connect/Mix/Combine
+#: objects/FS/function.c:793
+msgid "Combine"
+msgstr "Камбінаваць"
+
+#. Translators: Menu item Verb/Connect/Mix/Blend
+#: objects/FS/function.c:795
+msgid "Blend"
+msgstr "Змешваць"
+
+#. Translators: Menu item Verb/Connect/Mix/Add
+#: objects/FS/function.c:797
+msgid "Add"
+msgstr "Дадаваць"
+
+#. Translators: Menu item Verb/Connect/Mix/Pack
+#: objects/FS/function.c:799
+msgid "Pack"
+msgstr "Пакаваць"
+
+#. Translators: Menu item Verb/Connect/Mix/Coalesce
+#: objects/FS/function.c:801
+msgid "Coalesce"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch
+#: objects/FS/function.c:803 objects/FS/function.c:805
+msgid "Branch"
+msgstr "Разгалінаць"
+
+#. Translators: Menu item Verb/Branch/Separate
+#: objects/FS/function.c:807 objects/FS/function.c:809
+#: objects/FS/function.c:811
+msgid "Separate"
+msgstr "Падзяляць"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Switch
+#: objects/FS/function.c:813
+msgid "Switch"
+msgstr "Пераключаць"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Divide
+#: objects/FS/function.c:815
+msgid "Divide"
+msgstr "Дзяліць"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Release
+#: objects/FS/function.c:817
+msgid "Release"
+msgstr "Выпускаць"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Detach
+#: objects/FS/function.c:819
+msgid "Detach"
+msgstr "Адлучаць"
+
+#. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
+#: objects/FS/function.c:821
+msgid "Disconnect"
+msgstr "Адлучаць"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Cut
+#: objects/FS/function.c:827
+msgid "Cut"
+msgstr "Выразаць"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Polish
+#: objects/FS/function.c:829
+msgid "Polish"
+msgstr "Паліраваць"
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Sand
+#: objects/FS/function.c:831
+msgid "Sand"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Drill
+#: objects/FS/function.c:833
+msgid "Drill"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
+#: objects/FS/function.c:835
+msgid "Lathe"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Refine
+#: objects/FS/function.c:837 objects/FS/function.c:839
+msgid "Refine"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Refine/Purify
+#: objects/FS/function.c:841
+msgid "Purify"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Refine/Strain
+#: objects/FS/function.c:843
+msgid "Strain"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Refine/Filter
+#: objects/FS/function.c:845
+msgid "Filter"
+msgstr "Фільтраваць"
+
+#. Translators: Menu item Verb/Branch/Refine/Percolate
+#: objects/FS/function.c:847
+msgid "Percolate"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Refine/Clear
+#: objects/FS/function.c:849
+msgid "Clear"
+msgstr "Ачысьціць"
+
+#. Translators: Menu item Verb/Branch/Distribute
+#: objects/FS/function.c:851 objects/FS/function.c:853
+msgid "Distribute"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Distribute/Diverge
+#: objects/FS/function.c:855
+msgid "Diverge"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Distribute/Scatter
+#: objects/FS/function.c:857
+msgid "Scatter"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Distribute/Disperse
+#: objects/FS/function.c:859
+msgid "Disperse"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Distribute/Diffuse
+#: objects/FS/function.c:861 objects/FS/function.c:875
+msgid "Diffuse"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Distribute/Empty
+#: objects/FS/function.c:863
+msgid "Empty"
+msgstr "Пусты"
+
+#. Translators: Menu item Verb/Branch/Dissipate
+#: objects/FS/function.c:865 objects/FS/function.c:867
+msgid "Dissipate"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Dissipate/Absorb
+#: objects/FS/function.c:869
+msgid "Absorb"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Dissipate/Dampen
+#: objects/FS/function.c:871
+msgid "Dampen"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Dissipate/Dispel
+#: objects/FS/function.c:873
+msgid "Dispel"
+msgstr ""
+
+#. Translators: Menu item Verb/Branch/Dissipate/Resist
+#: objects/FS/function.c:877
+msgid "Resist"
+msgstr ""
+
+#. Translators: Menu item Verb/Provision
+#: objects/FS/function.c:879 objects/FS/function.c:881
+msgid "Provision"
+msgstr ""
+
+#. Translators: Menu item Verb/Provision/Store
+#: objects/FS/function.c:883 objects/FS/function.c:885
+msgid "Store"
+msgstr "Запомніць"
+
+#. Translators: Menu item Verb/Provision/Store/Contain
+#: objects/FS/function.c:887
+msgid "Contain"
+msgstr "Утрымліваць"
+
+#. Translators: Menu item Verb/Provision/Store/Collect
+#: objects/FS/function.c:889
+msgid "Collect"
+msgstr "Зьбіраць"
+
+#. Translators: Menu item Verb/Provision/Store/Reserve
+#: objects/FS/function.c:891
+msgid "Reserve"
+msgstr "Рэзэрваваць"
+
+#. Translators: Menu item Verb/Provision/Supply
+#: objects/FS/function.c:895 objects/FS/function.c:897
+msgid "Supply"
+msgstr "Падтрымліваць"
+
+#. Translators: Menu item Verb/Provision/Supply/Fill
+#: objects/FS/function.c:899
+msgid "Fill"
+msgstr "Запаўняць"
+
+#. Translators: Menu item Verb/Provision/Supply/Provide
+#: objects/FS/function.c:901
+msgid "Provide"
+msgstr "Прадастаўляць"
+
+#. Translators: Menu item Verb/Provision/Supply/Replenish
+#: objects/FS/function.c:903
+msgid "Replenish"
+msgstr ""
+
+#. Translators: Menu item Verb/Provision/Supply/Expose
+#: objects/FS/function.c:905
+msgid "Expose"
+msgstr ""
+
+#. Translators: Menu item Verb/Provision/Extract
+#: objects/FS/function.c:907 sheets/Flowchart.sheet.in.h:9
+msgid "Extract"
+msgstr "Вызваляць"
+
+#. Translators: Menu item Verb/Control Magnitude
+#: objects/FS/function.c:909 objects/FS/function.c:911
+msgid "Control Magnitude"
+msgstr ""
+
+#. Translators: Menu item Verb/Control Magnitude/Actuate
+#: objects/FS/function.c:913 objects/FS/function.c:915
+msgid "Actuate"
+msgstr ""
+
+#. Translators: Menu item Verb/Control Magnitude/Actuate/Start
+#: objects/FS/function.c:917
+msgid "Start"
+msgstr "Пачаць"
+
+#. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
+#: objects/FS/function.c:919
+msgid "Initiate"
+msgstr "Ініцыяваць"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate
+#: objects/FS/function.c:921 objects/FS/function.c:923
+msgid "Regulate"
+msgstr "Рэгуляваць"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Control
+#: objects/FS/function.c:925 objects/FS/function.c:1143
+#: objects/UML/classicon.c:122
+msgid "Control"
+msgstr "Кіраваць"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
+#: objects/FS/function.c:931
+msgid "Enable"
+msgstr "Уключыць"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
+#: objects/FS/function.c:933
+msgid "Disable"
+msgstr "Выключыць"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
+#: objects/FS/function.c:935
+msgid "Limit"
+msgstr "Абмежаваць"
+
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
+#: objects/FS/function.c:937
+msgid "Interrupt"
+msgstr "Перарваць"
+
+#. Translators: Menu item Verb/Control Magnitude/Change
+#: objects/FS/function.c:939 objects/FS/function.c:941
+msgid "Change"
+msgstr "Зьмяніць"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Increase
+#: objects/FS/function.c:943
+msgid "Increase"
+msgstr "Павялічваць"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Decrease
+#: objects/FS/function.c:945
+msgid "Decrease"
+msgstr "Памяншаць"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Amplify
+#: objects/FS/function.c:947
+msgid "Amplify"
+msgstr "Узмацняць"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Reduce
+#: objects/FS/function.c:949
+msgid "Reduce"
+msgstr "Паслабляць"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Normalize
+#: objects/FS/function.c:953
+msgid "Normalize"
+msgstr "Нармалізаваць"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Multiply
+#: objects/FS/function.c:955
+msgid "Multiply"
+msgstr "Памнажаць"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Scale
+#: objects/FS/function.c:957
+msgid "Scale"
+msgstr "Маштабаваць"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Rectify
+#: objects/FS/function.c:959
+msgid "Rectify"
+msgstr "Выпраўляць"
+
+#. Translators: Menu item Verb/Control Magnitude/Change/Adjust
+#: objects/FS/function.c:961
+msgid "Adjust"
+msgstr "Падбіраць"
+
+#. Translators: Menu item Verb/Control Magnitude/Form
+#: objects/FS/function.c:963 objects/FS/function.c:965
+msgid "Form"
+msgstr "Фармаваць"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Compact
+#: objects/FS/function.c:967
+msgid "Compact"
+msgstr ""
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Crush
+#: objects/FS/function.c:969
+msgid "Crush"
+msgstr "Разтрушчваць"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Shape
+#: objects/FS/function.c:971
+msgid "Shape"
+msgstr "Фармаваць"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Compress
+#: objects/FS/function.c:973
+msgid "Compress"
+msgstr "Сьціскаць"
+
+#. Translators: Menu item Verb/Control Magnitude/Form/Pierce
+#: objects/FS/function.c:975
+msgid "Pierce"
+msgstr ""
+
+#. Translators: Menu item Verb/Convert
+#: objects/FS/function.c:977 objects/FS/function.c:979
+msgid "Convert"
+msgstr "Пераўтвараць"
+
+#. Translators: Menu item Verb/Convert/Transform
+#: objects/FS/function.c:981
+msgid "Transform"
+msgstr "Трансфармаваць"
+
+#. Translators: Menu item Verb/Convert/Liquefy
+#: objects/FS/function.c:983
+msgid "Liquefy"
+msgstr ""
+
+#. Translators: Menu item Verb/Convert/Solidify
+#: objects/FS/function.c:985
+msgid "Solidify"
+msgstr ""
+
+#. Translators: Menu item Verb/Convert/Evaporate
+#: objects/FS/function.c:987
+msgid "Evaporate"
+msgstr ""
+
+#. Translators: Menu item Verb/Convert/Sublimate
+#: objects/FS/function.c:989
+msgid "Sublimate"
+msgstr ""
+
+#. Translators: Menu item Verb/Convert/Condense
+#: objects/FS/function.c:991
+msgid "Condense"
+msgstr "Кандэнсаваць"
+
+#. Translators: Menu item Verb/Convert/Integrate
+#: objects/FS/function.c:993
+msgid "Integrate"
+msgstr ""
+
+#. Translators: Menu item Verb/Convert/Differentiate
+#: objects/FS/function.c:995
+msgid "Differentiate"
+msgstr ""
+
+#. Translators: Menu item Verb/Convert/Process
+#: objects/FS/function.c:997
+msgid "Process"
+msgstr "Апрацоўваць"
+
+#. Translators: Menu item Verb/Signal/Sense
+#: objects/FS/function.c:1003 objects/FS/function.c:1005
+msgid "Sense"
+msgstr "Адчуваць"
+
+#. Translators: Menu item Verb/Signal/Sense/Perceive
+#: objects/FS/function.c:1007
+msgid "Perceive"
+msgstr "Успрымаць"
+
+#. Translators: Menu item Verb/Signal/Sense/Recognize
+#: objects/FS/function.c:1009
+msgid "Recognize"
+msgstr "Распазнаваць"
+
+#. Translators: Menu item Verb/Signal/Sense/Discern
+#: objects/FS/function.c:1011
+msgid "Discern"
+msgstr "Адрозьніваць"
+
+#. Translators: Menu item Verb/Signal/Sense/Check
+#: objects/FS/function.c:1013
+msgid "Check"
+msgstr "Кантраляваць"
+
+#. Translators: Menu item Verb/Signal/Sense/Verify
+#: objects/FS/function.c:1017
+msgid "Verify"
+msgstr "Правяраць"
+
+#. Translators: Menu item Verb/Signal/Indicate
+#: objects/FS/function.c:1019 objects/FS/function.c:1021
+msgid "Indicate"
+msgstr "Укаызваць"
+
+#. Translators: Menu item Verb/Signal/Indicate/Mark
+#: objects/FS/function.c:1023
+msgid "Mark"
+msgstr "Пазначаць"
+
+#. Translators: Menu item Verb/Signal/Display
+#: objects/FS/function.c:1025 sheets/Flowchart.sheet.in.h:7
+msgid "Display"
+msgstr "Паказываць"
+
+#. Translators: Menu item Verb/Signal/Measure
+#: objects/FS/function.c:1027 objects/FS/function.c:1029
+msgid "Measure"
+msgstr "Вымяраць"
+
+#. Translators: Menu item Verb/Signal/Measure/Calculate
+#: objects/FS/function.c:1031
+msgid "Calculate"
+msgstr "Вылічаць"
+
+#. Translators: Menu item Verb/Signal/Represent
+#: objects/FS/function.c:1033
+msgid "Represent"
+msgstr "Прадастаўляць"
+
+#. Translators: Menu item Noun
+#: objects/FS/function.c:1035
+msgid "Noun"
+msgstr ""
+
+#. Translators: Menu item Noun/Material/Liquid
+#: objects/FS/function.c:1041
+msgid "Liquid"
+msgstr "Вадкасьць"
+
+#. Translators: Menu item Noun/Material/Gas
+#: objects/FS/function.c:1043
+msgid "Gas"
+msgstr "Газ"
+
+#. Translators: Menu item Noun/Material/Human
+#: objects/FS/function.c:1045 objects/FS/function.c:1047
+#: objects/FS/function.c:1131
+msgid "Human"
+msgstr "Чалавек"
+
+#. Translators: Menu item Noun/Material/Human/Hand
+#: objects/FS/function.c:1049
+msgid "Hand"
+msgstr "Рука"
+
+#. Translators: Menu item Noun/Material/Human/Foot
+#: objects/FS/function.c:1051
+msgid "Foot"
+msgstr "Нага"
+
+#. Translators: Menu item Noun/Material/Human/Head
+#: objects/FS/function.c:1053
+msgid "Head"
+msgstr "Галава"
+
+#. Translators: Menu item Noun/Material/Human/Finger
+#: objects/FS/function.c:1055
+msgid "Finger"
+msgstr "Палец"
+
+#. Translators: Menu item Noun/Material/Human/Toe
+#: objects/FS/function.c:1057
+msgid "Toe"
+msgstr "Насок"
+
+#. Translators: Menu item Noun/Material/Biological
+#: objects/FS/function.c:1059
+msgid "Biological"
+msgstr "Біялягічны"
+
+#. Translators: Menu item Noun/Energy/Mechanical
+#: objects/FS/function.c:1063
+msgid "Mechanical"
+msgstr "Мэханічная"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
+#: objects/FS/function.c:1065
+msgid "Mech. Energy"
+msgstr "Мэх. энэргія"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Translation
+#: objects/FS/function.c:1067
+msgid "Translation"
+msgstr ""
+
+#. Translators: Menu item Noun/Energy/Mechanical/Force
+#: objects/FS/function.c:1069
+msgid "Force"
+msgstr "Сіла"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Rotation
+#: objects/FS/function.c:1071
+msgid "Rotation"
+msgstr "Вярчэньне"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Torque
+#: objects/FS/function.c:1073
+msgid "Torque"
+msgstr ""
+
+#. Translators: Menu item Noun/Energy/Mechanical/Random Motion
+#: objects/FS/function.c:1075
+msgid "Random Motion"
+msgstr "Выпадковы рух"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Vibration
+#: objects/FS/function.c:1077
+msgid "Vibration"
+msgstr "Вібрацыя"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
+#: objects/FS/function.c:1079
+msgid "Rotational Energy"
+msgstr "Энэргія вярчэньня"
+
+#. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
+#: objects/FS/function.c:1081
+msgid "Translational Energy"
+msgstr "Традыцыйная энэргія"
+
+#. Translators: Menu item Noun/Energy/Electricity
+#: objects/FS/function.c:1083
+msgid "Electrical"
+msgstr "Электрычная"
+
+#. Translators: Menu item Noun/Energy/Electricity/Electricity
+#: objects/FS/function.c:1085
+msgid "Electricity"
+msgstr "Электрычнасьць"
+
+#. Translators: Menu item Noun/Energy/Electricity/Voltage
+#: objects/FS/function.c:1087
+msgid "Voltage"
+msgstr "Напруга"
+
+#. Translators: Menu item Noun/Energy/Electricity/Current
+#: objects/FS/function.c:1089
+msgid "Current"
+msgstr ""
+
+#. Translators: Menu item Noun/Energy/Hydraulic
+#: objects/FS/function.c:1091
+msgid "Hydraulic"
+msgstr "Гідраўлічная"
+
+#. Translators: Menu item Noun/Energy/Hydraulic/Pressure
+#: objects/FS/function.c:1093
+msgid "Pressure"
+msgstr "Ціск"
+
+#. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
+#: objects/FS/function.c:1095
+msgid "Volumetric Flow"
+msgstr ""
+
+#. Translators: Menu item Noun/Energy/Thermal
+#: objects/FS/function.c:1097
+msgid "Thermal"
+msgstr "Цеплавая"
+
+#. Translators: Menu item Noun/Energy/Thermal/Heat
+#: objects/FS/function.c:1099
+msgid "Heat"
+msgstr ""
+
+#. Translators: Menu item Noun/Energy/Thermal/Conduction
+#: objects/FS/function.c:1101
+msgid "Conduction"
+msgstr ""
+
+#. Translators: Menu item Noun/Energy/Thermal/Convection
+#: objects/FS/function.c:1103
+msgid "Convection"
+msgstr "Канвэкцыя"
+
+#. Translators: Menu item Noun/Energy/Thermal/Radiation
+#: objects/FS/function.c:1105 objects/FS/function.c:1113
+msgid "Radiation"
+msgstr "Радыяцыйная"
+
+#. Translators: Menu item Noun/Energy/Pneumatic
+#: objects/FS/function.c:1107
+msgid "Pneumatic"
+msgstr "Пнэўматычная"
+
+#. Translators: Menu item Noun/Energy/Chemical
+#: objects/FS/function.c:1109
+msgid "Chemical"
+msgstr "Хімічная"
+
+#. Translators: Menu item Noun/Energy/Radioactive
+#: objects/FS/function.c:1111
+msgid "Radioactive"
+msgstr "Радыёактыўная"
+
+#. Translators: Menu item Noun/Energy/Radioactive/Microwaves
+#: objects/FS/function.c:1115
+msgid "Microwaves"
+msgstr "Мікрахвалі"
+
+#. Translators: Menu item Noun/Energy/Radioactive/Radio waves
+#: objects/FS/function.c:1117
+msgid "Radio waves"
+msgstr "Радыёхвалі"
+
+#. Translators: Menu item Noun/Energy/Radioactive/X-Rays
+#: objects/FS/function.c:1119
+msgid "X-Rays"
+msgstr "Х - выпраменьваньне"
+
+#. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
+#: objects/FS/function.c:1121
+msgid "Gamma Rays"
+msgstr "γ - выпраменьваньне"
+
+#. Translators: Menu item Noun/Energy/Acoustic Energy
+#: objects/FS/function.c:1123
+msgid "Acoustic Energy"
+msgstr "Акустычная энэргія"
+
+#. Translators: Menu item Noun/Energy/Optical Energy
+#: objects/FS/function.c:1125
+msgid "Optical Energy"
+msgstr "Аптычная энэргія"
+
+#. Translators: Menu item Noun/Energy/Solar Energy
+#: objects/FS/function.c:1127
+msgid "Solar Energy"
+msgstr "Сонечная энэргія"
+
+#. Translators: Menu item Noun/Energy/Magnetic Energy
+#: objects/FS/function.c:1129
+msgid "Magnetic Energy"
+msgstr "Магнітная энэргія"
+
+#. Translators: Menu item Noun/Energy/Human/Human Motion
+#: objects/FS/function.c:1133
+msgid "Human Motion"
+msgstr "Чалавечы рух"
+
+#. Translators: Menu item Noun/Energy/Human/Human Force
+#: objects/FS/function.c:1135
+msgid "Human Force"
+msgstr "Чалавечая моц"
+
+#. Translators: Menu item Noun/Signal/Status
+#: objects/FS/function.c:1141
+msgid "Status"
+msgstr "Стан"
+
+#: objects/FS/function.c:1145
+msgid "User/Device Fn"
+msgstr ""
+
+#: objects/FS/function.c:1146
+msgid "Wish Fn"
+msgstr "Жаданая функцыя"
+
+#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
+msgid "Macro call"
+msgstr ""
+
+#: objects/GRAFCET/action.c:134
+msgid "This action is a call to a macro-step"
+msgstr ""
+
+#: objects/GRAFCET/condition.c:129
+msgid "Condition"
+msgstr "Умова"
+
+#: objects/GRAFCET/condition.c:129
+msgid "The boolean equation of the condition"
+msgstr ""
+
+#: objects/GRAFCET/condition.c:131
+msgid "The condition's font"
+msgstr ""
+
+#: objects/GRAFCET/condition.c:133
+msgid "The condition's font size"
+msgstr "Памер шрыфта умовы"
+
+#: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:146
+msgid "Color"
+msgstr "Колер"
+
+#: objects/GRAFCET/condition.c:136
+msgid "The condition's color"
+msgstr "Колер умовы"
+
+#: objects/GRAFCET/grafcet.c:45
+msgid "GRAFCET diagram objects"
+msgstr ""
+
+#: objects/GRAFCET/step.c:145
+msgid "Regular step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:146
+msgid "Initial step"
+msgstr "Пачатковы крок"
+
+#: objects/GRAFCET/step.c:147
+msgid "Macro entry step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:148
+msgid "Macro exit step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:149
+msgid "Macro call step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:150
+msgid "Subprogram call step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:156
+msgid "Step name"
+msgstr "Назва кроку"
+
+#: objects/GRAFCET/step.c:156
+msgid "The name of the step"
+msgstr "Назва кроку"
+
+#: objects/GRAFCET/step.c:158
+msgid "Step type"
+msgstr "Тып кроку"
+
+#: objects/GRAFCET/step.c:158
+msgid "The kind of step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:160
+msgid "Active"
+msgstr "Актыўны"
+
+#: objects/GRAFCET/step.c:160
+msgid "Shows a red dot to figure the step's activity"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:139
+msgid "Receptivity"
+msgstr "Успрыймальнасьць"
+
+#: objects/GRAFCET/transition.c:139
+msgid "The boolean equation of the receptivity"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:141
+msgid "The receptivity's font"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:143
+msgid "The receptivity's font size"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:146
+msgid "The receptivity's color"
+msgstr ""
+
+#: objects/GRAFCET/transition.c:147
+msgid "North point"
+msgstr "Паўночны пункт"
+
+#: objects/GRAFCET/transition.c:148
+msgid "South point"
+msgstr "Паўднёвы пункт"
+
+#: objects/GRAFCET/vector.c:127
+msgid "Draw arrow heads on upward arcs:"
+msgstr ""
+
+#: objects/GRAFCET/vergent.c:121
+msgid "OR"
+msgstr "ЦІ"
+
+#: objects/GRAFCET/vergent.c:122
+msgid "AND"
+msgstr "І"
+
+#: objects/GRAFCET/vergent.c:133
+msgid "Vergent type:"
+msgstr ""
+
+#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
+#: objects/standard/line.c:240
+msgid "Add connection point"
+msgstr "Дадаць пункт далучэньня"
+
+#: objects/GRAFCET/vergent.c:391
+msgid "Delete  connection point"
+msgstr "Выдаліць пункт далучэньня"
+
+#: objects/GRAFCET/vergent.c:395
+msgid "GRAFCET OR/AND vergent"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:136
+msgid "Arrow colour"
+msgstr "Колер стрэлкі"
+
+#: objects/Misc/analog_clock.c:138
+msgid "Arrow line width"
+msgstr "Шырыня рысы стрэлкі"
+
+#: objects/Misc/analog_clock.c:140
+msgid "Seconds arrow colour"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:142
+msgid "Seconds arrow line width"
+msgstr ""
+
+#: objects/Misc/analog_clock.c:144
+msgid "Show hours"
+msgstr "Паказаць гадзіны"
+
+#: objects/Misc/libmisc.c:38
+msgid "Miscellaneous objects"
+msgstr "Розныя аб'екты"
+
+#: objects/network/bus.c:592
+msgid "Add Handle"
+msgstr "Дадаць апрацоўшчык"
+
+#: objects/network/bus.c:593
+msgid "Delete Handle"
+msgstr "Выдаліць апрацоўшчык"
+
+#: objects/network/network.c:41
+msgid "Network diagram objects"
+msgstr "Аб'екты сеткавае дыяграмы"
+
+#. property rows
+#: objects/SADT/arrow.c:133 objects/UML/class_dialog.c:333
+msgid "Normal"
+msgstr "Звычайны"
+
+#: objects/SADT/arrow.c:134
+msgid "Import resource (not shown upstairs)"
+msgstr ""
+
+#: objects/SADT/arrow.c:135
+msgid "Imply resource (not shown downstairs)"
+msgstr ""
+
+#: objects/SADT/arrow.c:136
+msgid "Dotted arrow"
+msgstr "Кропкавая стрэлка"
+
+#: objects/SADT/arrow.c:137
+msgid "disable arrow heads"
+msgstr ""
+
+#: objects/SADT/arrow.c:143
+msgid "Flow style:"
+msgstr "Стыль плыні:"
+
+#: objects/SADT/arrow.c:145
+msgid "Automatically gray vertical flows:"
+msgstr "Аўтаматычна вылучаць вэртыкальныя плыні:"
+
+#: objects/SADT/arrow.c:146
+msgid ""
+"To improve the ease of reading, flows which begin and end vertically can be "
+"rendered gray"
+msgstr ""
+
+#: objects/SADT/arrow.c:561
+msgid "SADT Arrow"
+msgstr "SADT стрэлка"
+
+#: objects/SADT/box.c:143
+msgid "Activity/Data identifier"
+msgstr "Ідэнтыфікатар актыўнасьці/даньняў"
+
+#: objects/SADT/box.c:144
+msgid "The identifier which appears in the lower right corner of the Box"
+msgstr ""
+
+#: objects/SADT/box.c:440 objects/standard/line.c:241
+msgid "Delete connection point"
+msgstr "Выдаліць пункт далучэньня"
+
+#: objects/SADT/box.c:445
+msgid "SADT box"
+msgstr "Ячэя SADT"
+
+#: objects/SADT/sadt.c:41
+msgid "SADT diagram objects"
+msgstr ""
+
+#: objects/standard/arc.c:130
+msgid "Curve distance"
+msgstr "Даўжыня крывой"
+
+#: objects/standard/bezier.c:534 objects/standard/beziergon.c:492
+msgid "Add Segment"
+msgstr "Дадаць сэгмэнт"
+
+#: objects/standard/bezier.c:535 objects/standard/beziergon.c:493
+msgid "Delete Segment"
+msgstr "Выдаліць сэгмэнт"
+
+#: objects/standard/bezier.c:537 objects/standard/beziergon.c:495
+msgid "Symmetric control"
+msgstr "Сымэтрычны пункт"
+
+#: objects/standard/bezier.c:539 objects/standard/beziergon.c:497
+msgid "Smooth control"
+msgstr "Згладжаны пункт"
+
+#: objects/standard/bezier.c:541 objects/standard/beziergon.c:499
+msgid "Cusp control"
+msgstr ""
+
+#: objects/standard/image.c:129
+msgid "Image file"
+msgstr "Файл відарыса"
+
+#: objects/standard/image.c:131
+msgid "Draw border"
+msgstr "Рысаваць рамку"
+
+#: objects/standard/image.c:133
+msgid "Keep aspect ratio"
+msgstr "Захоўваць прапорцыі"
+
+#. Found file in same dir as diagram.
+#: objects/standard/image.c:663 objects/standard/image.c:674
+#, c-format
+msgid ""
+"The image file '%s' was not found in that directory.\n"
+"Using the file '%s' instead\n"
+msgstr ""
+
+#. Didn't find file in current dir.
+#: objects/standard/image.c:680 objects/standard/image.c:706
+#, c-format
+msgid "The image file '%s' was not found.\n"
+msgstr ""
+
+#: objects/standard/line.c:135
+msgid "Arrows"
+msgstr "Стрэлкі"
+
+#: objects/standard/line.c:140
+msgid "Start point"
+msgstr "Пачатковы пункт"
+
+#: objects/standard/line.c:142
+msgid "End point"
+msgstr "Канчатковы пункт"
+
+#: objects/standard/polygon.c:452 objects/standard/polyline.c:488
+msgid "Add Corner"
+msgstr "Дадаць кут"
+
+#: objects/standard/polygon.c:453 objects/standard/polyline.c:489
+msgid "Delete Corner"
+msgstr "Выдаліць кут"
+
+#: objects/standard/standard.c:45
+msgid "Standard objects"
+msgstr "Стандартныя аб'екты"
+
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/UML/activity.c:299
+msgid "Helvetica"
+msgstr "Helvetica"
+
+#: objects/UML/actor.c:332 objects/UML/actor.c:334
+msgid "Actor"
+msgstr "Агент"
+
+#: objects/UML/association.c:1066 objects/UML/class_dialog.c:2070
+msgid "Direction:"
+msgstr "Накірунак:"
+
+#: objects/UML/association.c:1083
+msgid "From A to B"
+msgstr "Ад А да В"
+
+#: objects/UML/association.c:1090
+msgid "From B to A"
+msgstr "Ад В да А"
+
+#: objects/UML/association.c:1114 objects/UML/association.c:1122
+msgid "Side A"
+msgstr "Бок А"
+
+#: objects/UML/association.c:1116 objects/UML/association.c:1124
+msgid "Side B"
+msgstr "Бок В"
+
+#: objects/UML/association.c:1130
+msgid "Role:"
+msgstr "Роля:"
+
+#: objects/UML/association.c:1142
+msgid "Multiplicity:"
+msgstr ""
+
+#. Show arrow:
+#: objects/UML/association.c:1153
+msgid "Show arrow"
+msgstr ""
+
+#. Aggregate
+#: objects/UML/association.c:1159
+msgid "Aggregate"
+msgstr "Агрэгаваць"
+
+#. Composition
+#: objects/UML/association.c:1167
+msgid "Composition"
+msgstr "Кампазыцыя"
+
+#: objects/UML/class.c:107 objects/UML/classicon.c:131
+#: objects/UML/component.c:116 objects/UML/large_package.c:118
+#: objects/UML/object.c:143 objects/UML/small_package.c:116
+msgid "Stereotype"
+msgstr "Стэрэатып"
+
+#: objects/UML/class.c:109 objects/UML/class_dialog.c:358
+#: sheets/SDL.sheet.in.h:3
+msgid "Comment"
+msgstr "Камэнтар"
+
+#: objects/UML/class.c:111 objects/UML/class_dialog.c:290
+#: objects/UML/class_dialog.c:343 objects/UML/class_dialog.c:1893
+msgid "Abstract"
+msgstr "Абстракцыя"
+
+#: objects/UML/class.c:113 objects/UML/class_dialog.c:299
+msgid "Suppress Attributes"
+msgstr ""
+
+#: objects/UML/class.c:115
+msgid "Suppress Operations"
+msgstr ""
+
+#: objects/UML/class.c:117
+msgid "Visible Attributes"
+msgstr "Бачныя атрыбуты"
+
+#: objects/UML/class.c:119
+msgid "Visible Operations"
+msgstr "Бачныя апэрацыі"
+
+#: objects/UML/class.c:121
+msgid "Visible Comments"
+msgstr "Бачныя камэнтары"
+
+#. Attributes page:
+#: objects/UML/class.c:124 objects/UML/class_dialog.c:800
+#: objects/UML/object.c:147
+msgid "Attributes"
+msgstr "Атрыбуты"
+
+#. Operations page:
+#: objects/UML/class.c:126 objects/UML/class_dialog.c:1724
+msgid "Operations"
+msgstr "Апэрацыі"
+
+#: objects/UML/class.c:129
+msgid "Template"
+msgstr "Шаблён"
+
+#. Class page:
+#: objects/UML/class.c:177 objects/UML/class.c:918
+#: objects/UML/class_dialog.c:255
+msgid "Class"
+msgstr "Кляса"
+
+#: objects/UML/class.c:183
+msgid "Show comments"
+msgstr "Паказаць камэнтары"
+
+#: objects/UML/class_dialog.c:261
+msgid "Class name:"
+msgstr "Назва клясы:"
+
+#: objects/UML/class_dialog.c:272 objects/UML/class_dialog.c:1816
+#: objects/UML/dependency.c:127 objects/UML/generalization.c:123
+#: objects/UML/realizes.c:124
+msgid "Stereotype:"
+msgstr "Стэрэатып:"
+
+#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:901
+#: objects/UML/class_dialog.c:1934 objects/UML/class_dialog.c:2058
+msgid "Comment:"
+msgstr "Камэнтар:"
+
+#: objects/UML/class_dialog.c:296
+msgid "Attributes visible"
+msgstr "Бачнасьць атрыбутаў"
+
+#: objects/UML/class_dialog.c:305
+msgid "Operations visible"
+msgstr "Бачнасьць апэрацыяў"
+
+#: objects/UML/class_dialog.c:308
+msgid "Suppress operations"
+msgstr ""
+
+#: objects/UML/class_dialog.c:314
+msgid "Comments visible"
+msgstr "Бачнасьць камэнтараў"
+
+#. head line
+#: objects/UML/class_dialog.c:324
+msgid "Kind"
+msgstr ""
+
+#: objects/UML/class_dialog.c:329
+msgid "Size"
+msgstr "Памер"
+
+#: objects/UML/class_dialog.c:338
+msgid "Polymorphic"
+msgstr ""
+
+#: objects/UML/class_dialog.c:348
+msgid "Class Name"
+msgstr "Назва клясы"
+
+#: objects/UML/class_dialog.c:353
+msgid "Abstract Class"
+msgstr "Абстрактная кляса"
+
+#. should probably be refactored too.
+#: objects/UML/class_dialog.c:370
+msgid "Foreground Color"
+msgstr "Асноўны колер"
+
+#: objects/UML/class_dialog.c:378
+msgid "Background Color"
+msgstr "Колер тла"
+
+#: objects/UML/class_dialog.c:834 objects/UML/class_dialog.c:1758
+#: objects/UML/class_dialog.c:1987 objects/UML/class_dialog.c:2505
+msgid "Delete"
+msgstr "Выдаліць"
+
+#: objects/UML/class_dialog.c:840 objects/UML/class_dialog.c:1764
+#: objects/UML/class_dialog.c:1994 objects/UML/class_dialog.c:2511
+msgid "Move up"
+msgstr "Пасунуць угору"
+
+#: objects/UML/class_dialog.c:846 objects/UML/class_dialog.c:1770
+#: objects/UML/class_dialog.c:2001 objects/UML/class_dialog.c:2517
+msgid "Move down"
+msgstr "Пасунуць долу"
+
+#: objects/UML/class_dialog.c:857
+msgid "Attribute data"
+msgstr "Даньні атрыбута"
+
+#: objects/UML/class_dialog.c:889
+msgid "Value:"
+msgstr "Значэньне:"
+
+#: objects/UML/class_dialog.c:914 objects/UML/class_dialog.c:1829
+msgid "Visibility:"
+msgstr "Бачнасьць:"
+
+#: objects/UML/class_dialog.c:923 objects/UML/class_dialog.c:1838
+msgid "Public"
+msgstr "Агульны (Public)"
+
+#: objects/UML/class_dialog.c:931 objects/UML/class_dialog.c:1846
+msgid "Private"
+msgstr "Прыватны (Private)"
+
+#: objects/UML/class_dialog.c:939 objects/UML/class_dialog.c:1854
+msgid "Protected"
+msgstr "Абаронены (Protected)"
+
+#: objects/UML/class_dialog.c:947 objects/UML/class_dialog.c:1862
+msgid "Implementation"
+msgstr ""
+
+#: objects/UML/class_dialog.c:963 objects/UML/class_dialog.c:1878
+msgid "Class scope"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1782
+msgid "Operation data"
+msgstr "Даньні апэрацыі"
+
+#: objects/UML/class_dialog.c:1884
+msgid "Inheritance type:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1901
+msgid "Polymorphic (virtual)"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1909
+msgid "Leaf (final)"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1927
+msgid "Query"
+msgstr "Запыт"
+
+#: objects/UML/class_dialog.c:1951
+msgid "Parameters:"
+msgstr "Парамэтры:"
+
+#: objects/UML/class_dialog.c:2013
+msgid "Parameter data"
+msgstr "Даньні парамэтра"
+
+#: objects/UML/class_dialog.c:2046
+msgid "Def. value:"
+msgstr "Вызн. значэньне:"
+
+#: objects/UML/class_dialog.c:2079
+msgid "Undefined"
+msgstr "Невызначаны"
+
+#: objects/UML/class_dialog.c:2087
+msgid "In"
+msgstr "У"
+
+#: objects/UML/class_dialog.c:2096
+msgid "Out"
+msgstr "З"
+
+#: objects/UML/class_dialog.c:2105
+msgid "In & Out"
+msgstr "У й З"
+
+#. Templates page:
+#: objects/UML/class_dialog.c:2465
+msgid "Templates"
+msgstr "Шаблёны"
+
+#: objects/UML/class_dialog.c:2471
+msgid "Template class"
+msgstr "Шаблён клясы"
+
+#: objects/UML/class_dialog.c:2528
+msgid "Formal parameter data"
+msgstr ""
+
+#: objects/UML/classicon.c:123
+msgid "Boundary"
+msgstr "Межы"
+
+#: objects/UML/classicon.c:133
+msgid "Is object"
+msgstr "Гэта аб'ект"
+
+#: objects/UML/constraint.c:120
+msgid "Constraint:"
+msgstr "Абмежаваньне:"
+
+#: objects/UML/dependency.c:129
+msgid "Show arrow:"
+msgstr ""
+
+#: objects/UML/implements.c:121
+msgid "Interface:"
+msgstr "Інтэрфэйс:"
+
+#: objects/UML/lifeline.c:137
+msgid "Draw focus of control:"
+msgstr ""
+
+#: objects/UML/lifeline.c:139
+msgid "Draw destruction mark:"
+msgstr ""
+
+#: objects/UML/lifeline.c:403
+msgid "Add connection points"
+msgstr "Дадаць пункт далучэньня"
+
+#: objects/UML/lifeline.c:404
+msgid "Remove connection points"
+msgstr "Выдаліць пункт далучэньня"
+
+#: objects/UML/lifeline.c:408
+msgid "UML Lifeline"
+msgstr "Лінія жыцьця UML"
+
+#: objects/UML/message.c:130
+msgid "Call"
+msgstr "Выклік"
+
+#: objects/UML/message.c:131
+msgid "Create"
+msgstr "Стварыць"
+
+#: objects/UML/message.c:132
+msgid "Destroy"
+msgstr "Зьнішчыць"
+
+#: objects/UML/message.c:133
+msgid "Simple"
+msgstr "Просты"
+
+#: objects/UML/message.c:134
+msgid "Return"
+msgstr "Вярнуць"
+
+#: objects/UML/message.c:135
+msgid "Send"
+msgstr "Даслаць"
+
+#: objects/UML/message.c:136
+msgid "Recursive"
+msgstr "Рэкурсыўна"
+
+#: objects/UML/message.c:143
+msgid "Message:"
+msgstr "Паведамленьне:"
+
+#: objects/UML/message.c:145
+msgid "Message type:"
+msgstr "Тып паведамленьня:"
+
+#: objects/UML/object.c:145
+msgid "Explicit state"
+msgstr "Выключны стан"
+
+#: objects/UML/object.c:150
+msgid "Active object"
+msgstr "Актыўны аб'ект"
+
+#: objects/UML/object.c:152
+msgid "Show attributes"
+msgstr "Паказаць атрыбуты"
+
+#: objects/UML/object.c:154
+msgid "Multiple instance"
+msgstr ""
+
+#. Would like to create a state_term instead, but making the connections
+#. * is a pain
+#: objects/UML/state.c:382
+msgid ""
+"This diagram uses the State object for initial/final states.\n"
+"That option will go away in future versions.\n"
+"Please use the Initial/Final State object instead\n"
+msgstr ""
+
+#: objects/UML/state_term.c:121
+msgid "Is final"
+msgstr "Гэта канец"
+
+#: objects/UML/uml.c:63
+msgid "Unified Modelling Language diagram objects"
+msgstr ""
+
+#: objects/UML/usecase.c:124
+msgid "Text outside"
+msgstr ""
+
+#: objects/UML/usecase.c:126
+msgid "Collaboration"
+msgstr ""
+
+#: plug-ins/cgm/cgm.c:1108
+msgid ""
+"Image row length larger than maximum cell array.\n"
+"Image not exported to CGM."
+msgstr ""
+
+#: plug-ins/cgm/cgm.c:1364
+msgid "Computer Graphics Metafile"
+msgstr ""
+
+#: plug-ins/cgm/cgm.c:1378
+msgid "Computer Graphics Metafile export filter"
+msgstr "Фільтар экспартаваньня файлаў Computer Graphics Metafile"
+
+#: plug-ins/dxf/dxf.c:37
+msgid "Drawing Interchange File import and export filters"
+msgstr "Фільтар экспартаваньня/імпартаваньня DIF (Drawing Interchange File)"
+
+#: plug-ins/dxf/dxf-export.c:546 plug-ins/dxf/dxf-import.c:1379
+msgid "Drawing Interchange File"
+msgstr "DIF (фармат файла абмену відарысамі)"
+
+#: plug-ins/dxf/dxf-import.c:481 plug-ins/dxf/dxf-import.c:498
+msgid "Bad vertex bulge\n"
+msgstr ""
+
+#: plug-ins/dxf/dxf-import.c:1051
+#, c-format
+msgid "Scale: %f\n"
+msgstr ""
+
+#: plug-ins/dxf/dxf-import.c:1313
+msgid "read_dxf_codes failed\n"
+msgstr "збой read_dxf_codes\n"
+
+#: plug-ins/dxf/dxf-import.c:1345
+#, c-format
+msgid "Unknown dxf code %d\n"
+msgstr "Невядомы код dxf %d\n"
+
+#: plug-ins/hpgl/hpgl.c:771
+msgid "HP Graphics Language"
+msgstr ""
+
+#: plug-ins/hpgl/hpgl.c:785
+msgid "HP Graphics Language export filter"
+msgstr ""
+
+#: plug-ins/metapost/metapost.c:34
+msgid "TeX Metapost export filter"
+msgstr ""
+
+#: plug-ins/metapost/render_metapost.c:793
+msgid "TeX Metapost macros"
+msgstr "Макрас TeX Metapost"
+
+#: plug-ins/pixbuf/pixbuf.c:95
+#, c-format
+msgid ""
+"Could not save file:\n"
+"%s\n"
+"%s"
+msgstr ""
+"Немагчыма захаваць файл:\n"
+"%s\n"
+"%s"
+
+#: plug-ins/pixbuf/pixbuf.c:163 plug-ins/pixbuf/pixbuf.c:172
+msgid "GdkPixbuf bitmap"
+msgstr "GdkPixbuf растар"
+
+#: plug-ins/pixbuf/pixbuf.c:185
+msgid "gdk-pixbuf based bitmap export/import"
+msgstr ""
+
+#: plug-ins/pstricks/pstricks.c:14
+msgid "TeX Pstricks export filter"
+msgstr ""
+
+#: plug-ins/pstricks/render_pstricks.c:827
+msgid "TeX PSTricks macros"
+msgstr "Макрас TeX Pstricks"
+
+#: plug-ins/python/python.c:92
+msgid "Python scripting support"
+msgstr "Падтрымка сцэнараў Python"
+
+#: plug-ins/shape/shape.c:36
+msgid "dia shape export filter"
+msgstr ""
+
+#: plug-ins/shape/shape-export.c:470
+msgid "Can't export png without libart!"
+msgstr "Немагчыма экспартаваць png бяз libart!"
+
+#: plug-ins/shape/shape-export.c:497
+msgid "dia shape file"
+msgstr "файл формы Дыя"
+
+#: plug-ins/svg/render_svg.c:300 plug-ins/svg/svg-import.c:642
+msgid "Scalable Vector Graphics"
+msgstr "Здольная маштабавацца вэктарная графіка (SVG)"
+
+#: plug-ins/svg/svg.c:37
+msgid "Scalable Vector Graphics import and export filters"
+msgstr ""
+
+#: plug-ins/svg/svg-import.c:204 plug-ins/svg/svg-import.c:218
+#: plug-ins/xfig/xfig-import.c:97 plug-ins/xfig/xfig-import.c:148
+#: plug-ins/xfig/xfig-import.c:177 plug-ins/xfig/xfig-import.c:205
+#: plug-ins/xfig/xfig-import.c:231 plug-ins/xfig/xfig-import.c:256
+#: plug-ins/xfig/xfig-import.c:282 plug-ins/xfig/xfig-import.c:313
+#: plug-ins/xfig/xfig-import.c:349
+msgid "Can't find standard object"
+msgstr "Стандартны аб'ект не адшуканы"
+
+#: plug-ins/svg/svg-import.c:230
+msgid "Unexpected SVG path element"
+msgstr ""
+
+#: plug-ins/svg/svg-import.c:288
+msgid "Courier"
+msgstr "Кур'ер"
+
+#: plug-ins/svg/svg-import.c:591
+msgid "Could not find SVG namespace."
+msgstr ""
+
+#: plug-ins/svg/svg-import.c:597
+#, c-format
+msgid "root element was '%s' -- expecting 'svg'."
+msgstr ""
+
+#: plug-ins/wmf/wmf.cpp:1089
+msgid "Windows Meta File"
+msgstr "Windows Meta File"
+
+#: plug-ins/wmf/wmf.cpp:1103
+msgid "WMF export filter"
+msgstr ""
+
+#: plug-ins/wpg/wpg.c:1180
+#, c-format
+msgid "File: %s type/version unsupported.\n"
+msgstr "Файл: %s тып/вэрсыя не падтрымліваюцца.\n"
+
+#: plug-ins/wpg/wpg.c:1310 plug-ins/wpg/wpg.c:1317
+msgid "WPG"
+msgstr "WPG"
+
+#: plug-ins/wpg/wpg.c:1331
+msgid "WordPerfect Graphics export filter"
+msgstr "Фільтар экспартаваньня файлаў WordPerfect Graphics"
+
+#: plug-ins/xfig/xfig.c:39
+msgid "Fig Format import and export filter"
+msgstr ""
+
+#: plug-ins/xfig/xfig-export.c:399
+msgid "No more user-definable colors - using black"
+msgstr ""
+
+#: plug-ins/xfig/xfig-export.c:918
+msgid "XFig format"
+msgstr "Фармат XFig"
+
+#: plug-ins/xfig/xfig-import.c:418
+msgid "Patterns are not supported by Dia"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:446
+msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:450
+#, c-format
+msgid "Line style %d should not appear\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:518
+#, c-format
+msgid "Error while reading %dth of %d points: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:537
+msgid "Error while reading arrowhead\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:628
+#, c-format
+msgid "Couldn't read ellipse info: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:696
+#, c-format
+msgid "Couldn't read polyline info: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:711
+#, c-format
+msgid "Couldn't read flipped bit: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:729
+msgid "Negative corner radius, negating"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:770 plug-ins/xfig/xfig-import.c:1074
+#, c-format
+msgid "Unknown polyline subtype: %d\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:919 plug-ins/xfig/xfig-import.c:951
+#, c-format
+msgid "Couldn't read spline info: %s\n"
+msgstr ""
+
+#. Open approximated spline
+#. Closed approximated spline
+#: plug-ins/xfig/xfig-import.c:938 plug-ins/xfig/xfig-import.c:956
+msgid "Cannot convert approximated spline yet."
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:990
+#, c-format
+msgid "Unknown spline subtype: %d\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1051
+#, c-format
+msgid "Couldn't read arc info: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1135
+#, c-format
+msgid "Couldn't read text info: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1176
+#, c-format
+msgid "Couldn't identify FIG object: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1183
+msgid "Compound end outside compound\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1202
+#, c-format
+msgid "Couldn't read color: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1247
+#, c-format
+msgid "Couldn't read group extend: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1258
+#, c-format
+msgid "Unknown object type %d\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1281
+#, c-format
+msgid "`%s' is not one of `%s' or `%s'\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1291
+#, c-format
+msgid "Error reading paper size: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1301
+#, c-format
+msgid "Unknown paper size `%s', using default\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1313
+#, c-format
+msgid "Error reading paper orientation: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1323
+#, c-format
+msgid "Error reading justification: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1333
+#, c-format
+msgid "Error reading units: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1347
+#, c-format
+msgid "Error reading magnification: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1358
+#, c-format
+msgid "Error reading multipage indicator: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1369
+#, c-format
+msgid "Error reading transparent color: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1378 plug-ins/xfig/xfig-import.c:1433
+#, c-format
+msgid "Error reading FIG file: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1380 plug-ins/xfig/xfig-import.c:1435
+msgid "Premature end of FIG file\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1389
+#, c-format
+msgid "Error reading resolution: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1420
+#, c-format
+msgid "Doesn't look like a Fig file: %s\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1426
+#, c-format
+msgid "This is a FIG version %d.%d file, I may not understand it\n"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:1467
+msgid "XFig File Format"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:91
+#, c-format
+msgid "Error while parsing %s\n"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:99
+#, c-format
+msgid "Error while parsing stylesheet %s\n"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:105
+#, c-format
+msgid "Error while applying stylesheet %s\n"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:113
+#, c-format
+msgid "Error while parsing stylesheet: %s\n"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:121
+#, c-format
+msgid "Error while applying stylesheet: %s\n"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:283
+msgid "XSL Transformation filter"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:298
+#, c-format
+msgid "Could not load XSLT library (%s) : %s"
+msgstr ""
+
+#: plug-ins/xslt/xslt.c:326
+msgid "No valid configuration files found for the XSLT plugin, not loading."
+msgstr ""
+
+#: plug-ins/xslt/xsltdialog.c:99
+msgid "Export through XSLT"
+msgstr ""
+
+#: plug-ins/xslt/xsltdialog.c:114
+msgid "From:"
+msgstr "Ад:s"
+
+#: plug-ins/xslt/xsltdialog.c:149
+msgid "To:"
+msgstr "Да:"
+
+#: sheets/Assorted.sheet.in.h:1
+msgid ""
+"An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
+"Geometric Shapes"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:2
+msgid "Assorted"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:3
+msgid "Chevron"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:4
+msgid "Curved Eight Point Star"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:5
+msgid "Curved Four Point Star"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:6
+msgid "Diamond"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:7
+msgid "Down Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:8
+msgid "Eight Point Star"
+msgstr "8-кропкавая зорка"
+
+#: sheets/Assorted.sheet.in.h:9
+msgid "Four Point Star"
+msgstr "5-кропкавая зорка"
+
+#: sheets/Assorted.sheet.in.h:10
+msgid "Heart"
+msgstr "Сэрца"
+
+#: sheets/Assorted.sheet.in.h:11
+msgid "Heptagon. Seven Sided Shape"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:12
+msgid "Hexagon. Six Sided Shape"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:13
+msgid "Horizontal Parallelogram"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:14
+msgid "Isoceles Triangle"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:15
+msgid "Left Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:16
+msgid "Left-Right Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:17
+msgid "Left-Right-Up Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:18
+msgid "Left-Up Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:19
+msgid "Maltese Cross"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:20
+msgid "Notched Left Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:21
+msgid "Notched Right Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:22
+msgid "Octogon. Eight Sided Shape"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:23
+msgid "Pentagon Block Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:24
+msgid "Pentagon. Five Sided Shape"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:25
+msgid "Perfect Circle"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:26
+msgid "Perfect Square, Height equals Width"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:27
+msgid "Quad Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:28
+msgid "Quarter Circle"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:29
+msgid "Quarter Moon"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:30
+msgid "Right Angle Triangle"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:31
+msgid "Right Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:32
+msgid "Seven Point Star"
+msgstr "7-кропкавая зорка"
+
+#: sheets/Assorted.sheet.in.h:33
+msgid "Sharp Eight Point Star"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:34
+msgid "Six Point Star"
+msgstr "6-кропкавая зорка"
+
+#: sheets/Assorted.sheet.in.h:35
+msgid "Sun"
+msgstr "Сонца"
+
+#: sheets/Assorted.sheet.in.h:36
+msgid "Swiss Cross"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:37
+msgid "Trapezoid"
+msgstr "Трапэцыя"
+
+#: sheets/Assorted.sheet.in.h:38
+msgid "Up Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:39
+msgid "Up-Down Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:40
+msgid "Up-Down-Left Arrow"
+msgstr ""
+
+#: sheets/Assorted.sheet.in.h:41
+msgid "Vertical Parallelogram"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:1
+msgid "A data line"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:2
+msgid "A time scale"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:3
+msgid "Chronogram"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:4
+msgid "Objects to design chronogram charts"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:1
+msgid "A Horizontal Jumper"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:2
+msgid "A Horizontally aligned inductor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:3
+msgid "A Horizontally aligned inductor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:4
+msgid "A Horizontally aligned resistor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:5
+msgid "A Horizontally aligned resistor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:6
+msgid "A Microphone"
+msgstr "Мікрафон"
+
+#: sheets/Circuit.sheet.in.h:7
+msgid "A PMOS transistor"
+msgstr "Транзыстар PMOS"
+
+#: sheets/Circuit.sheet.in.h:8
+msgid "A Speaker"
+msgstr "Дынамік"
+
+#: sheets/Circuit.sheet.in.h:9
+msgid "A Vertically aligned inductor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:10
+msgid "A Vertically aligned inductor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:11
+msgid "A Vertically aligned resistor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:12
+msgid "A Vertically aligned resistor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:13
+msgid "A ground point"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:14
+msgid "A horizontally aligned LED"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:15
+msgid "A horizontally aligned capacitor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:16
+msgid "A horizontally aligned diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:17
+msgid "A horizontally aligned fuse"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:18
+msgid "A horizontally aligned powersource"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:19
+msgid "A horizontally aligned zener diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:20
+msgid "A lamp"
+msgstr "Лямпа"
+
+#: sheets/Circuit.sheet.in.h:21
+msgid "A npn bipolar transistor"
+msgstr "Біпалярны транзыстар n-P-n"
+
+#: sheets/Circuit.sheet.in.h:22
+msgid "A pnp bipolar transistor"
+msgstr "Біпалярны транзыстар P-n-P"
+
+#: sheets/Circuit.sheet.in.h:23
+msgid "A vertically aligned LED"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:24
+msgid "A vertically aligned capacitor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:25
+msgid "A vertically aligned diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:26
+msgid "A vertically aligned fuse"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:27
+msgid "A vertically aligned powersource"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:28
+msgid "A vertically aligned zener diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:29
+msgid "An NMOS transistor"
+msgstr "Транзыстар NMOS"
+
+#: sheets/Circuit.sheet.in.h:30
+msgid "An operational amplifier"
+msgstr "Апэрацыйны ўзмацняльнік"
+
+#: sheets/Circuit.sheet.in.h:31
+msgid "Circuit"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:32
+msgid "Components for circuit diagrams"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:1
+msgid "A Backflow Preventer"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:2
+msgid "A Basin"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:3
+msgid "A Container"
+msgstr "Кантэйнэр"
+
+#: sheets/civil.sheet.in.h:4
+msgid "A Frequency Converter"
+msgstr "Пераўтваральнік часьціні"
+
+#: sheets/civil.sheet.in.h:5
+msgid "A Gas Bottle"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:6
+msgid "A Motor"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:7
+msgid "A Preliminary Clarification Tank"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:8
+msgid "A Rotor"
+msgstr "Ротар"
+
+#: sheets/civil.sheet.in.h:9
+msgid "A final-settling Basin"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:10
+msgid "A horizontal limiting line"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:11
+msgid "A horizontally aligned Arrow"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:12
+msgid "A vertical limiting line"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:13
+msgid "A vertically aligned Arrow"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:14
+msgid "An Aerator with bubbles"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:15
+msgid "Bivalent Vertical Rest"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:16
+msgid "Civil"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:17
+msgid "Civil Engineering Components"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:18
+msgid "Horizontal Rest"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:19
+msgid "Horizontally aligned Valve"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:20
+msgid "Horizontally aligned compressor"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:21
+msgid "Horizontally aligned pump"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:22
+msgid "Reference Line"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:23
+msgid "Soil"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:24
+msgid "Vertical Rest"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:25
+msgid "Vertically aligned Propeller"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:26
+msgid "Vertically aligned Valve"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:27
+msgid "Vertically aligned compressor"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:28
+msgid "Vertically aligned pump"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:29
+msgid "Water Level"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:1
+msgid "A 'if not' (normally closed) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:2
+msgid "A 'if' (normally open) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:3
+msgid "A 'jump' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:4
+msgid "A 'reset' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:5
+msgid "A 'set' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:6
+msgid "A negative output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:7
+msgid "A power-saved 'reset' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:8
+msgid "A power-saved 'set' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:9
+msgid "A power-saved negative output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:10
+msgid "A power-saved simple output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:11
+msgid "A receptivity output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:12
+msgid "A simple output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:13
+msgid "Components for LADDER circuits"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:14
+msgid "Ladder"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
+msgid "A connection point"
+msgstr "Пункт далучэньня"
+
+#: sheets/Electric.sheet.in.h:2
+msgid "A lamp or indicator light"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:3
+msgid "A normally closed contact"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:4
+msgid "A normally closed position switch"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:5
+msgid "A normally open contact"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:6
+msgid "A normally open position switch"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:7
+msgid "A relay"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:8
+msgid "Components for electric circuits"
+msgstr "Кампанэнты электрычных схемаў"
+
+#: sheets/Electric.sheet.in.h:9
+msgid "Electric"
+msgstr "Электрычнасьць"
+
+#: sheets/Electric.sheet.in.h:10
+msgid "The command organ of a relay"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:1
+msgid "Create a process"
+msgstr "Стварае працэс"
+
+#: sheets/EML.sheet.in.h:2
+msgid "EML"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:3
+msgid "Editor for EML Static Structure Diagrams."
+msgstr ""
+
+#: sheets/EML.sheet.in.h:4
+msgid "Instantiation. One process create others"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:5
+msgid "Interaction between processes."
+msgstr ""
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:3
+msgid "Editor for Entity Relations Diagrams"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:5
+msgid "Participation"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:7
+msgid "Weak Entity"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:1
+msgid "A box with text inside"
+msgstr "Прамакутнік з тэкставай устаўкай"
+
+#: sheets/Flowchart.sheet.in.h:2
+msgid "A diamond with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:3
+msgid "A ellipse with text inside"
+msgstr "Эліпс з тэкставай устаўкай"
+
+#: sheets/Flowchart.sheet.in.h:4
+msgid "A parallelogram with text inside"
+msgstr "Паралеляграм з тэкставай устаўкай"
+
+#: sheets/Flowchart.sheet.in.h:5
+msgid "Collate"
+msgstr "Збор"
+
+#: sheets/Flowchart.sheet.in.h:6
+msgid "Delay"
+msgstr "Затрымка"
+
+#: sheets/Flowchart.sheet.in.h:8
+msgid "Document"
+msgstr "Дакумэнт"
+
+#: sheets/Flowchart.sheet.in.h:10
+msgid "Flowchart"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:11
+msgid "Internal Storage"
+msgstr "Нутранае сховішча"
+
+#: sheets/Flowchart.sheet.in.h:12
+msgid "Magnetic Disk"
+msgstr "Магнітны дыск"
+
+#: sheets/Flowchart.sheet.in.h:13
+msgid "Magnetic Drum"
+msgstr "Магнітны барабан"
+
+#: sheets/Flowchart.sheet.in.h:14
+msgid "Magnetic Tape"
+msgstr "Магнітная стужка"
+
+#: sheets/Flowchart.sheet.in.h:15
+msgid "Manual Input"
+msgstr "Ручны ўвод"
+
+#: sheets/Flowchart.sheet.in.h:16
+msgid "Manual Operation"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:17
+msgid "Merge"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:18
+msgid "Objects to draw flowcharts"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:19
+msgid "Off Page Connector"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:20
+msgid "Offline Storage"
+msgstr "Адлучанае сховішча"
+
+#: sheets/Flowchart.sheet.in.h:21
+msgid "Or"
+msgstr "Ці"
+
+#: sheets/Flowchart.sheet.in.h:22
+msgid "Predefined Process"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:23
+msgid "Preparation"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:24
+msgid "Punched Card"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:25
+msgid "Punched Tape"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:26
+msgid "Sort"
+msgstr "Сартаваньне"
+
+#: sheets/Flowchart.sheet.in.h:27
+msgid "Summing Junction"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:28
+msgid "Terminal"
+msgstr "Тэрмінал"
+
+#: sheets/Flowchart.sheet.in.h:29
+msgid "Transaction File"
+msgstr "Файл транзакцыі"
+
+#: sheets/Flowchart.sheet.in.h:30
+msgid "Transmittal Tape"
+msgstr ""
+
+#: sheets/FS.sheet.in.h:1
+msgid "Create a flow"
+msgstr "Стварае плыню"
+
+#: sheets/FS.sheet.in.h:2
+msgid "Create a function"
+msgstr "Стварае функцыю"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Create an orthogonal polyline flow"
+msgstr ""
+
+#: sheets/FS.sheet.in.h:4
+msgid "Editor for Function Structure Diagrams."
+msgstr ""
+
+#: sheets/FS.sheet.in.h:5
+msgid "FS"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:1
+msgid "A AND vergent"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:2
+msgid "A OR vergent"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:3
+msgid "A condition (of an action)"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:4
+msgid "A macro call step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:5
+msgid "A macro entry step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:6
+msgid "A macro exit step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:7
+msgid "A macro sub-program call step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:8
+msgid "A regular step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:9
+msgid "A transition"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:10
+msgid "An action to associate to a step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:11
+msgid "An arc (upward)"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:12
+msgid "An initial step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:13
+msgid "GRAFCET"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:14
+msgid "Objects to design GRAFCET charts"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:1
+msgid "A Nand gate"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:2
+msgid "A Nor gate"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:3
+msgid "A Not"
+msgstr "Не"
+
+#: sheets/Logic.sheet.in.h:4
+msgid "A Xor gate"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:5
+msgid "A crossconnector"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:6
+msgid "A simple Buffer"
+msgstr "Просты буфэр"
+
+#: sheets/Logic.sheet.in.h:7
+msgid "An And gate"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:8
+msgid "An Inverter"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:9
+msgid "An Or gate"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:10
+msgid "Boolean Logic"
+msgstr "Булева лёгіка"
+
+#: sheets/Logic.sheet.in.h:11
+msgid "Logic"
+msgstr "Лёгіка"
+
+#: sheets/Misc.sheet.in.h:1
+msgid "A File"
+msgstr "Файл"
+
+#: sheets/Misc.sheet.in.h:2
+msgid "A Folder"
+msgstr "Тэчка"
+
+#: sheets/Misc.sheet.in.h:3
+msgid "A traditional clock"
+msgstr "Традыцыйны гадзіньнік"
+
+#: sheets/Misc.sheet.in.h:4
+msgid "Misc"
+msgstr "Рознае"
+
+#: sheets/Misc.sheet.in.h:5
+msgid "Miscellaneous Shapes"
+msgstr "Розныя формы"
+
+#: sheets/MSE.sheet.in.h:1
+msgid "Demultiplexer"
+msgstr "Дэмультыплексар"
+
+#: sheets/MSE.sheet.in.h:2
+msgid "Large Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:3
+msgid "MSE"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:4
+msgid "Multiplexer"
+msgstr "Мультыплексар"
+
+#: sheets/MSE.sheet.in.h:5
+msgid "Node Center"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:6
+msgid "Small Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:7
+msgid "Tactical Satellite Communications Terminal"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:8
+msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr ""
+
+#: sheets/network.sheet.in.h:1
+msgid "A 3 1/2 inch diskette"
+msgstr "3,5'' гнуткі дыск"
+
+#: sheets/network.sheet.in.h:2
+msgid "A Bigtower PC"
+msgstr "ПК \"Вялікая вежа\""
+
+#: sheets/network.sheet.in.h:3
+msgid "A Computer"
+msgstr "Кампутар"
+
+#: sheets/network.sheet.in.h:4
+msgid "A Desktop PC"
+msgstr "Настольны ПК"
+
+#: sheets/network.sheet.in.h:5
+msgid "A Digitizing Board"
+msgstr ""
+
+#: sheets/network.sheet.in.h:6
+msgid "A Firewall router"
+msgstr "Файервол"
+
+#: sheets/network.sheet.in.h:7
+msgid "A Laptop PC"
+msgstr "ПК \"Laptop\""
+
+#: sheets/network.sheet.in.h:8
+msgid "A Miditower PC"
+msgstr "ПК сярэдняга памеру"
+
+#: sheets/network.sheet.in.h:9
+msgid "A Minitower PC"
+msgstr "ПК \"Мінівежа\""
+
+#: sheets/network.sheet.in.h:10
+msgid "A Mobile Phone"
+msgstr "Мабільны тэлефон"
+
+#: sheets/network.sheet.in.h:11
+msgid "A Plotter"
+msgstr "Плотэр"
+
+#: sheets/network.sheet.in.h:12
+msgid "A RJ45 Wall-Plug"
+msgstr "Разэтка RJ45"
+
+#: sheets/network.sheet.in.h:13
+msgid "A Telephone"
+msgstr "Тэлефон"
+
+#: sheets/network.sheet.in.h:14
+msgid "A UNIX Workstation"
+msgstr "Працоўная станцыя UNIX"
+
+#: sheets/network.sheet.in.h:15
+msgid "A WAN Connection"
+msgstr "Далучэньне WAN"
+
+#: sheets/network.sheet.in.h:16
+msgid "A WAN Link"
+msgstr "Лучыва WAN"
+
+#: sheets/network.sheet.in.h:17
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr "Разэтка для кабэльнае сыстэмы scEAD"
+
+#: sheets/network.sheet.in.h:18
+msgid "A Workstation Monitor"
+msgstr "Манітор працоўнае станцыі"
+
+#: sheets/network.sheet.in.h:19
+msgid "A ZIP Disk"
+msgstr "ZIP-дыск"
+
+#: sheets/network.sheet.in.h:20
+msgid "A modular switching system"
+msgstr ""
+
+#: sheets/network.sheet.in.h:21
+msgid "A monitor"
+msgstr "Манітор"
+
+#: sheets/network.sheet.in.h:22
+msgid "A simple Modem"
+msgstr "Просты мадэм"
+
+#: sheets/network.sheet.in.h:23
+msgid "A simple printer"
+msgstr "Простая друкарка"
+
+#: sheets/network.sheet.in.h:24
+msgid "A speaker with integrated amplifier"
+msgstr "Дынамік з убудаваным узмацняльнікам"
+
+#: sheets/network.sheet.in.h:25
+msgid "A speaker without amplifier"
+msgstr "Дынамік бяз ўзмацняльніка"
+
+#: sheets/network.sheet.in.h:26
+msgid "A stackable hub or switch"
+msgstr "Камутатар ці канцэнтратар"
+
+#: sheets/network.sheet.in.h:27
+msgid "ATM Switch Symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:28
+msgid "An Ethernet bus"
+msgstr "Шына Ethernet"
+
+#: sheets/network.sheet.in.h:29
+msgid "An antenna for wireless transmission"
+msgstr "Антэна для безправадной перадачы"
+
+#: sheets/network.sheet.in.h:30
+msgid "An external DAT drive"
+msgstr "Вонкавы DAT накапляльнік"
+
+#: sheets/network.sheet.in.h:31
+msgid "Network"
+msgstr "Сетка"
+
+#: sheets/network.sheet.in.h:32
+msgid "Network Cloud"
+msgstr "Сеткавае воблака"
+
+#: sheets/network.sheet.in.h:33
+msgid "Objects to design network diagrams with"
+msgstr ""
+
+#: sheets/network.sheet.in.h:34
+msgid "Router Symbol"
+msgstr "Сымбаль шляхавіка"
+
+#: sheets/network.sheet.in.h:35
+msgid "Storage"
+msgstr "Сховішча"
+
+#: sheets/network.sheet.in.h:36
+msgid "Switch Symbol"
+msgstr "Сымбаль пераключэньня"
+
+#: sheets/Pneumatic.sheet.in.h:1
+msgid "A 2/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:2
+msgid "A 3/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:3
+msgid "A 3/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:4
+msgid "A 4/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:5
+msgid "A 5/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:6
+msgid "A 5/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:8
+msgid "A double-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:9
+msgid "A generic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:10
+msgid "A hydraulic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:11
+msgid "A normally-in simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:12
+msgid "A normally-out simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "A pneumatic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "An air exhaust orifice"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:15
+msgid "Components for pneumatic and hydraulic circuits"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:16
+msgid "Electric command (double coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:17
+msgid "Electric command (single coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:18
+msgid "Indirect command by hydraulic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:19
+msgid "Indirect command by pneumatic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Mechanical command by spring"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Mechanical command by tappet"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Muscular command"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:23
+msgid "Pneumatic/Hydraulic"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:24
+msgid "Push-button command"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:1
+msgid "A activity/data flow arrow"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:2
+msgid "A flow label"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:3
+msgid "An activity/data box"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:4
+msgid "Objects to design SADT diagrams"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:5
+msgid "SADT/IDEF0"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:1
+msgid "Action being executed"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:2
+msgid "Block Type Reference"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:4
+msgid "Decision"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:5
+msgid "Function Header"
+msgstr "Загаловак функцыі"
+
+#: sheets/SDL.sheet.in.h:6
+msgid "Function call"
+msgstr "Выклік функцыі"
+
+#: sheets/SDL.sheet.in.h:7
+msgid "Generic Text Note"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:8
+msgid "In/Out Connector"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:10
+msgid "Procedure Return"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:11
+msgid "Process Type Reference"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:12
+msgid "Receive message"
+msgstr "Атрыманьне паведамленьня"
+
+#: sheets/SDL.sheet.in.h:13
+msgid "SDL"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:14
+msgid "Save State"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:15
+msgid "Send message"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:16
+msgid "Service Type Reference"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:17
+msgid "Specification and Description Language."
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:18
+msgid "State"
+msgstr "Стан"
+
+#: sheets/sybase.sheet.in.h:1
+msgid "A Sybase Client Application"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:2
+msgid "A Sybase Dataserver"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:3
+msgid "A Sybase Replication Server"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Log Transfer Manager or Rep Agent"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:5
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Replication Server Manager"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Stable Storage Device"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:8
+msgid "Sybase"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:1
+msgid "Aggregation, one class is part of another"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:2
+msgid "Association, two classes are associated"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:3
+msgid "Constraint, place a constraint on something"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:4
+msgid "Create a (large) package"
+msgstr "Стварае (вялікі) пакет"
+
+#: sheets/UML.sheet.in.h:5
+msgid "Create a (small) package"
+msgstr "Стварае (маленькі) пакет"
+
+#: sheets/UML.sheet.in.h:6
+msgid "Create a branch"
+msgstr "Стварае галіну"
+
+#: sheets/UML.sheet.in.h:7
+msgid "Create a class"
+msgstr "Стварае клясу"
+
+#: sheets/UML.sheet.in.h:8
+msgid "Create a class stereotype icon"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:9
+msgid "Create a component"
+msgstr "Стварае кампанэнт"
+
+#: sheets/UML.sheet.in.h:10
+msgid "Create a dependency"
+msgstr "Стварае залежнасьць"
+
+#: sheets/UML.sheet.in.h:11
+msgid "Create a fork/union"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:12
+msgid "Create a initial/end state"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:13
+msgid "Create a lifeline"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:14
+msgid "Create a message"
+msgstr "Стварае паведамленьне"
+
+#: sheets/UML.sheet.in.h:15
+msgid "Create a node"
+msgstr "Стварае вузел"
+
+#: sheets/UML.sheet.in.h:16
+msgid "Create a note"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:17
+msgid "Create a state"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:18
+msgid "Create a template class"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:19
+msgid "Create a use case"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:20
+msgid "Create an activity"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:21
+msgid "Create an actor"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:22
+msgid "Create an object"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:23
+msgid "Editor for UML Static Structure Diagrams"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:24
+msgid "Generalization, class inheritance"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:25
+msgid "Implements, class implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:26
+msgid "Realizes, implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:27
+msgid "UML"
+msgstr "UML"
+
