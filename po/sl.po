@@ -669,7 +669,7 @@ msgstr "Iz_vozi..."
 
 #: app/menus.c:65
 msgid "Page Set_up..."
-msgstr "Nastavitev _strani..."
+msgstr "N_astavitev strani..."
 
 #: app/menus.c:67
 msgid "_Print Diagram..."
@@ -899,7 +899,7 @@ msgstr "/Datoteka/---"
 
 #: app/menus.c:256 app/menus.c:280
 msgid "/File/_Quit"
-msgstr "/Datoteka/_Izhod"
+msgstr "/Datoteka/Iz_hod"
 
 #: app/menus.c:257
 msgid "/_Help"
