@@ -773,9 +773,10 @@ export_svg(DiagramData *data, const gchar *filename, const gchar *diafilename)
 {
   RendererSVG *renderer;
 
-  renderer = new_svg_renderer(data, filename);
-  data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
-  destroy_svg_renderer(renderer);
+  if ((renderer = new_svg_renderer(data, filename))) {
+    data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
+    destroy_svg_renderer(renderer);
+  }
 }
 
 static const gchar *extensions[] = { "svg", NULL };

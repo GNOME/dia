@@ -1091,9 +1091,10 @@ export_eps(DiagramData *data, const gchar *filename, const gchar *diafilename)
 {
   RendererEPS *renderer;
 
-  renderer = create_eps_renderer(data, filename, diafilename);
-  data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
-  destroy_eps_renderer(renderer);
+  if ((renderer = create_eps_renderer(data, filename, diafilename))) {
+    data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
+    destroy_eps_renderer(renderer);
+  }
 }
 
 static const gchar *extensions[] = { "eps", "epsi", NULL };
