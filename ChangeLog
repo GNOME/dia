@@ -1,3 +1,14 @@
+2001-01-02  Steffen Macke <sdteffen@yahoo.com>
+
+	* app/Makefile.am: added missing plug-ins to run_dia.sh
+
+	* lib/paper.c: added paper sizes A0, A1, A2
+
+	* objects/UML/class.c
+	objects/UML/class.h
+	objects/UML/class_dialog.c: added support for colored UML
+	classes
+	
 2000-12-30  Kevin Breit <battery841@mediaone.net>
 
 	* doc/en/usage-customization.sgml: added more content
