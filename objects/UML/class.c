@@ -675,6 +675,8 @@ umlclass_calculate_data(UMLClass *umlclass)
   GList *list;
   real maxwidth = 0.0;
   real width;
+
+  if (umlclass->destroyed) return;
   
 /*  umlclass->font_ascent =
           dia_font_ascent(umlclass->normal_font, umlclass->font_height);
@@ -994,6 +996,8 @@ umlclass_destroy(UMLClass *umlclass)
   UMLAttribute *attr;
   UMLOperation *op;
   UMLFormalParameter *param;
+
+  umlclass->destroyed = TRUE;
 
   dia_font_unref(umlclass->normal_font);
   dia_font_unref(umlclass->abstract_font);

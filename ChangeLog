@@ -1,5 +1,9 @@
 2004-02-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/UML/class.[ch]: Puny kludge to avoid GtkList objects
+	being updated half-way through destruction.  To be removed when
+	the lists are replaced by something better.
+
 	* objects/UML/class_dialog.c: Patch from luc@handhelds.org:
 	Accelerators for class dialog.  Bug #130995.
 	Patch from luc@handhelds.org: Better aligning of widgets.  Bug #130994.

@@ -93,6 +93,12 @@ struct _UMLClass {
 
   /* Dialog: */
   UMLClassDialog *properties_dialog;
+
+  /** Until GtkList replaced by something better, set this when being
+   * destroyed, and don't do umlclass_calculate_data when it is set.
+   * This is to avoid a half-way destroyed list being updated.
+   */
+  gboolean destroyed; 
 };
 
 struct _UMLClassDialog {

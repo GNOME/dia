@@ -133,7 +133,7 @@ libdia_la_SOURCES =  \
 #		charconv.c \
 #		charconv.h 
 #		render.h \
-#		render.c \
+#		render.c 
 
 libdia_la_LDFLAGS = -export-dynamic -module -avoid-version
 
