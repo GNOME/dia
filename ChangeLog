@@ -1,5 +1,8 @@
 2002-02-09  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
 
+	* lib/widgets.c: Fixed font reselection problem and first font
+	bogus warning.
+
 	* objects/UML/actor.c (actor_update_data): Changed to have
 	connection points below text.
 

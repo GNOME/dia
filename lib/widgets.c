@@ -29,6 +29,7 @@
 #include <gtk/gtksignal.h>
 
 void dia_font_selector_set_styles (DiaFontSelector *fs, DiaFont *font);
+guchar **dia_font_selector_get_sorted_names();
 
 struct menudesc {
   char *name;
@@ -112,8 +113,23 @@ dia_font_selector_collect_names(gpointer key, gpointer value,
 }
 
 static int
-dia_font_selector_sort_string(void **s1, void **s2) {
-  return strcasecmp((char *)*s1, (char *)*s2);
+dia_font_selector_sort_string(const void *s1, const void *s2) {
+  return strcasecmp(*(char **)s1, *(char **)s2);
+}
+
+static guchar **
+dia_font_selector_get_fonts_sorted() {
+  struct select_pair pair;
+  int num_fonts;
+
+  num_fonts = g_hash_table_size(freetype_fonts);
+  pair.array = (guchar **)g_malloc(sizeof(guchar*)*num_fonts);
+  pair.counter = 0;
+  g_hash_table_foreach(freetype_fonts, dia_font_selector_collect_names,
+		       (gpointer)&pair);
+  
+  qsort(pair.array, num_fonts, sizeof(guchar *), dia_font_selector_sort_string);
+  return pair.array;
 }
 
 #endif
@@ -125,30 +141,28 @@ dia_font_selector_init (DiaFontSelector *fs)
   // Go through hash table and build menu
   GtkWidget *menu;
   GtkWidget *omenu;
-  struct select_pair pair;
-  int i, num_fonts;
-  
+  int i;
+  guchar **fontnames;
+  int num_fonts;
+
   omenu = gtk_option_menu_new();
   fs->font_omenu = GTK_OPTION_MENU(omenu);
   menu = gtk_menu_new ();
   fs->font_menu = GTK_MENU(menu);
 
+  fontnames = dia_font_selector_get_fonts_sorted();
   num_fonts = g_hash_table_size(freetype_fonts);
-  pair.array = (guchar **)g_malloc(sizeof(guchar*)*num_fonts);
-  pair.counter = 0;
-  g_hash_table_foreach(freetype_fonts, dia_font_selector_collect_names,
-		       (gpointer)&pair);
-  
-  qsort(pair.array, num_fonts, sizeof(guchar *), dia_font_selector_sort_string);
 
   for (i = 0; i < num_fonts; i++) {
     GtkWidget *menuitem;
-    menuitem = gtk_menu_item_new_with_label (pair.array[i]);
-    gtk_object_set_user_data(GTK_OBJECT(menuitem), pair.array[i]);
+    menuitem = gtk_menu_item_new_with_label (fontnames[i]);
+    gtk_object_set_user_data(GTK_OBJECT(menuitem), fontnames[i]);
     gtk_signal_connect(GTK_OBJECT(menuitem), "select", dia_font_selector_scroll_popup, NULL);
     gtk_menu_append (GTK_MENU (menu), menuitem);
     gtk_widget_show (menuitem);
   }
+
+  g_free(fontnames);
 
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->font_omenu), menu);
   gtk_widget_show(menu);
@@ -196,17 +210,6 @@ dia_font_selector_init (DiaFontSelector *fs)
 #endif
 }
 
-#ifdef HAVE_FREETYPE
-static void
-dia_font_selector_set_font_nr (gpointer key, gpointer value, gpointer user_data)
-{
-  static int i = 0;
-
-  g_hash_table_insert(font_nr_hashtable, (char *)key, GINT_TO_POINTER(i++));
-}
-#endif
-
-
 guint
 dia_font_selector_get_type        (void)
 {
@@ -214,6 +217,10 @@ dia_font_selector_get_type        (void)
   GList *list;
   char *fontname;
   int i;
+#ifdef HAVE_FREETYPE
+  guchar **fontnames;
+  int num_fonts;
+#endif
 
   if (!dfs_type) {
     GtkTypeInfo dfs_info = {
@@ -236,10 +243,17 @@ dia_font_selector_get_type        (void)
     font_nr_hashtable = g_hash_table_new(g_str_hash, g_str_equal);
 
 #ifdef HAVE_FREETYPE
-    g_hash_table_foreach(freetype_fonts, dia_font_selector_set_font_nr,
-			 NULL);
+    num_fonts = g_hash_table_size(freetype_fonts);
+    fontnames = dia_font_selector_get_fonts_sorted();
+    for (i = 0; i < num_fonts; i++) {
+      /* Notice adding 1, to be able to discern from NULL return value */
+      g_hash_table_insert(font_nr_hashtable,
+			  fontnames[i], GINT_TO_POINTER(i+1));
+    }
+    g_free(fontnames);
 #else
-    i=0;
+    /* Notice starting at 1, to be able to discern from NULL return value */
+    i=1;
     list = font_names;
     while (list != NULL) {
       fontname = (char *) list->data;
@@ -284,7 +298,7 @@ dia_font_selector_set_styles(DiaFontSelector *fs, DiaFont *font)
   // Need to dealloc the menu, methings
   gtk_option_menu_remove_menu(fs->style_omenu);
   gtk_option_menu_set_menu(fs->style_omenu, menu);
-  fs->style_menu = menu;
+  fs->style_menu = GTK_MENU(menu);
 }
 #endif
 
@@ -298,10 +312,11 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 				    font->name);
 
   if (font_nr_ptr==NULL) {
-    message_error("Trying to set invalid font!\n");
+    message_error("Trying to set invalid font %s!\n", font->name);
     font_nr = 0;
   } else {
-    font_nr = GPOINTER_TO_INT(font_nr_ptr);
+    /* Notice subtracting 1, to be able to discern from NULL return value */
+    font_nr = GPOINTER_TO_INT(font_nr_ptr)-1;
   }
   
 #ifdef HAVE_FREETYPE

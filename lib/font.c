@@ -753,7 +753,7 @@ freetype_load_string(const char *string, FT_Face face, int len)
                               
     // increment pen position
     width += face->glyph->advance.x >> 6;
-                              
+
     // record current glyph index
     previous_index = glyph_index;
     
