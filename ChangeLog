@@ -1,5 +1,8 @@
 2002-08-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/dia_image.c (dia_image_rgb_data): 
+	Bugfixes in image data retrieval.
+	
 	* app/render_eps.c: Refactoring of new_*_renderer.
 
 2002-08-23  Lars Clausen  <lrclause@cs.uiuc.edu>

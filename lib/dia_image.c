@@ -156,7 +156,7 @@ dia_image_rgb_data(DiaImage image)
 {
   int size = gdk_pixbuf_get_rowstride(image->image)*
     gdk_pixbuf_get_height(image->image);
-  guint8 *rgb_pixels = g_malloc(size*3);
+  guint8 *rgb_pixels = g_malloc(size);
   int width = dia_image_width(image);
   int height = dia_image_height(image);
   int rowstride = dia_image_rowstride(image);
@@ -174,7 +174,7 @@ dia_image_rgb_data(DiaImage image)
     }
     return rgb_pixels;
   } else {
-    g_memmove(rgb_pixels, gdk_pixbuf_get_pixels(image->image), size*3);
+    g_memmove(rgb_pixels, gdk_pixbuf_get_pixels(image->image), size);
     return rgb_pixels;
   }
 }
