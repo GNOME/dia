@@ -1,3 +1,10 @@
+2000-03-12  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/render_libart.c (new_libart_renderer):
+	Fix from segg <segg@infonet.ca> to compile without libart.
+	I forgot to change the stub for new_libart_renderer when doing
+	the interactive renderer stuff for libart.
+
 2000-03-11  Alastair McKinstry  <mckinstry@computer.org>
 
 	* dia.desktop: Added Irish translation.

@@ -1567,7 +1567,7 @@ fill_pixel_rect(RendererLibart *renderer,
 #else
 
 RendererLibart *
-new_libart_renderer(DDisplay *ddisp)
+new_libart_renderer(DDisplay *ddisp, int interactive)
 {
   return NULL;
 }
