@@ -1,4 +1,4 @@
-# Canadian English translation of dia 0.93+cvs
+# Canadian English translation of dia 0.94-pre6.
 # Copyright (C) 2004 Adam Weinberger and the GNOME Foundation
 # This file is distributed under the same licence as the dia package.
 # Maintainer: Adam Weinberger <adamw@FreeBSD.org>
@@ -6,11 +6,11 @@
 #: app/sheets.c:453
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.93+cvs\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-07 17:04-0400\n"
-"PO-Revision-Date: 2004-08-07 13:37-0400\n"
-"Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
+"Project-Id-Version: dia 0.94-pre6\n"
+"Report-Msgid-Bugs-To: <http://bugzilla.gnome.org/enter_bug.cgi?product=l10n&component=Canadian+English+%5Ben_CA%5D>\n"
+"POT-Creation-Date: 2004-08-09 22:34-0400\n"
+"PO-Revision-Date: 2004-08-09 22:44-0400\n"
+"Last-Translator: Alexander Winston <alexander.winston@comcast.net>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -975,8 +975,8 @@ msgid "Failed to save file '%s'.\n"
 msgstr "Failed to save file '%s'.\n"
 
 #: app/load_save.c:1008 app/load_save.c:1013
-msgid "Native Dia Diagram"
-msgstr "Native Dia Diagram"
+msgid "Dia Diagram File"
+msgstr "Dia Diagram File"
 
 #: app/menus.c:49 app/menus.c:84
 msgid "/_File"
@@ -3034,7 +3034,7 @@ msgid "Expose"
 msgstr "Expose"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: objects/FS/function.c:931 sheets/Flowchart.sheet.in.h:7
+#: objects/FS/function.c:931 sheets/Flowchart.sheet.in.h:8
 msgid "Extract"
 msgstr "Extract"
 
@@ -3269,7 +3269,7 @@ msgid "Mark"
 msgstr "Mark"
 
 #. Translators: Menu item Verb/Signal/Display
-#: objects/FS/function.c:1049 sheets/Flowchart.sheet.in.h:5
+#: objects/FS/function.c:1049 sheets/Flowchart.sheet.in.h:6
 msgid "Display"
 msgstr "Display"
 
@@ -4816,8 +4816,8 @@ msgid "Can't export png without libart!"
 msgstr "Can't export png without libart!"
 
 #: plug-ins/shape/shape-export.c:497
-msgid "dia shape file"
-msgstr "dia shape file"
+msgid "Dia Shape File"
+msgstr "Dia Shape File"
 
 #: plug-ins/shape/shape.c:36
 msgid "dia shape export filter"
@@ -5115,7 +5115,10 @@ msgstr "From:"
 msgid "To:"
 msgstr "To:"
 
-#: sheets/Assorted.sheet.in.h:1
+#. Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
+#. Leave as is for now, renaming too much hassle.
+#. Will probably need to split into seperate sheets soon anyway.
+#: sheets/Assorted.sheet.in.h:4
 msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
@@ -5123,167 +5126,168 @@ msgstr ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
 
-#: sheets/Assorted.sheet.in.h:2
+#. Please talk to me before making any changes to this sheet
+#: sheets/Assorted.sheet.in.h:6
 msgid "Assorted"
 msgstr "Assorted"
 
-#: sheets/Assorted.sheet.in.h:3
+#: sheets/Assorted.sheet.in.h:7
 msgid "Chevron"
 msgstr "Chevron"
 
-#: sheets/Assorted.sheet.in.h:4
+#: sheets/Assorted.sheet.in.h:8
 msgid "Curved eight point star"
 msgstr "Curved eight point star"
 
-#: sheets/Assorted.sheet.in.h:5
+#: sheets/Assorted.sheet.in.h:9
 msgid "Curved four point star"
 msgstr "Curved four point star"
 
-#: sheets/Assorted.sheet.in.h:6
+#: sheets/Assorted.sheet.in.h:10
 msgid "Diamond"
 msgstr "Diamond"
 
-#: sheets/Assorted.sheet.in.h:7
+#: sheets/Assorted.sheet.in.h:11
 msgid "Down arrow"
 msgstr "Down arrow"
 
-#: sheets/Assorted.sheet.in.h:8
+#: sheets/Assorted.sheet.in.h:12
 msgid "Eight point star"
 msgstr "Eight point star"
 
-#: sheets/Assorted.sheet.in.h:9
+#: sheets/Assorted.sheet.in.h:13
 msgid "Four point star"
 msgstr "Four point star"
 
-#: sheets/Assorted.sheet.in.h:10
+#: sheets/Assorted.sheet.in.h:14
 msgid "Heart"
 msgstr "Heart"
 
-#: sheets/Assorted.sheet.in.h:11
+#: sheets/Assorted.sheet.in.h:15
 msgid "Heptagon. Seven sided shape"
 msgstr "Heptagon. Seven sided shape"
 
-#: sheets/Assorted.sheet.in.h:12
+#: sheets/Assorted.sheet.in.h:16
 msgid "Hexagon. Six sided shape"
 msgstr "Hexagon. Six sided shape"
 
-#: sheets/Assorted.sheet.in.h:13
+#: sheets/Assorted.sheet.in.h:17
 msgid "Horizontal parallelogram"
 msgstr "Horizontal parallelogram"
 
-#: sheets/Assorted.sheet.in.h:14
+#: sheets/Assorted.sheet.in.h:18
 msgid "Isoceles triangle"
 msgstr "Isoceles triangle"
 
-#: sheets/Assorted.sheet.in.h:15
+#: sheets/Assorted.sheet.in.h:19
 msgid "Left arrow"
 msgstr "Left arrow"
 
-#: sheets/Assorted.sheet.in.h:16
+#: sheets/Assorted.sheet.in.h:20
 msgid "Left-right arrow"
 msgstr "Left-right arrow"
 
-#: sheets/Assorted.sheet.in.h:17
+#: sheets/Assorted.sheet.in.h:21
 msgid "Left-right-up arrow"
 msgstr "Left-right-up arrow"
 
-#: sheets/Assorted.sheet.in.h:18
+#: sheets/Assorted.sheet.in.h:22
 msgid "Left-up arrow"
 msgstr "Left-up arrow"
 
-#: sheets/Assorted.sheet.in.h:19
+#: sheets/Assorted.sheet.in.h:23
 msgid "Maltese cross"
 msgstr "Maltese cross"
 
-#: sheets/Assorted.sheet.in.h:20
+#: sheets/Assorted.sheet.in.h:24
 msgid "Notched left arrow"
 msgstr "Notched left arrow"
 
-#: sheets/Assorted.sheet.in.h:21
+#: sheets/Assorted.sheet.in.h:25
 msgid "Notched right arrow"
 msgstr "Notched right arrow"
 
-#: sheets/Assorted.sheet.in.h:22
+#: sheets/Assorted.sheet.in.h:26
 msgid "Octogon. Eight sided shape"
 msgstr "Octogon. Eight sided shape"
 
-#: sheets/Assorted.sheet.in.h:23
+#: sheets/Assorted.sheet.in.h:27
 msgid "Pentagon block arrow"
 msgstr "Pentagon block arrow"
 
-#: sheets/Assorted.sheet.in.h:24
+#: sheets/Assorted.sheet.in.h:28
 msgid "Pentagon. Five sided shape"
 msgstr "Pentagon. Five sided shape"
 
-#: sheets/Assorted.sheet.in.h:25
+#: sheets/Assorted.sheet.in.h:29
 msgid "Perfect circle"
 msgstr "Perfect circle"
 
-#: sheets/Assorted.sheet.in.h:26
+#: sheets/Assorted.sheet.in.h:30
 msgid "Perfect square, height equals width"
 msgstr "Perfect square, height equals width"
 
-#: sheets/Assorted.sheet.in.h:27
+#: sheets/Assorted.sheet.in.h:31
 msgid "Quad arrow"
 msgstr "Quad arrow"
 
-#: sheets/Assorted.sheet.in.h:28
+#: sheets/Assorted.sheet.in.h:32
 msgid "Quarter circle"
 msgstr "Quarter circle"
 
-#: sheets/Assorted.sheet.in.h:29
+#: sheets/Assorted.sheet.in.h:33
 msgid "Quarter moon"
 msgstr "Quarter moon"
 
-#: sheets/Assorted.sheet.in.h:30
+#: sheets/Assorted.sheet.in.h:34
 msgid "Right angle triangle"
 msgstr "Right angle triangle"
 
-#: sheets/Assorted.sheet.in.h:31
+#: sheets/Assorted.sheet.in.h:35
 msgid "Right arrow"
 msgstr "Right arrow"
 
-#: sheets/Assorted.sheet.in.h:32
+#: sheets/Assorted.sheet.in.h:36
 msgid "Seven point star"
 msgstr "Seven point star"
 
-#: sheets/Assorted.sheet.in.h:33
+#: sheets/Assorted.sheet.in.h:37
 msgid "Sharp eight point star"
 msgstr "Sharp eight point star"
 
-#: sheets/Assorted.sheet.in.h:34
+#: sheets/Assorted.sheet.in.h:38
 msgid "Six point star"
 msgstr "Six point star"
 
-#: sheets/Assorted.sheet.in.h:35
+#: sheets/Assorted.sheet.in.h:39
 msgid "Sun"
 msgstr "Sun"
 
-#: sheets/Assorted.sheet.in.h:36
+#: sheets/Assorted.sheet.in.h:40
 msgid "Swiss cross"
 msgstr "Swiss cross"
 
-#: sheets/Assorted.sheet.in.h:37
+#: sheets/Assorted.sheet.in.h:41
 msgid "Trapezoid"
 msgstr "Trapezoid"
 
-#: sheets/Assorted.sheet.in.h:38
+#: sheets/Assorted.sheet.in.h:42
 msgid "Turn-up arrow"
 msgstr "Turn-up arrow"
 
-#: sheets/Assorted.sheet.in.h:39
+#: sheets/Assorted.sheet.in.h:43
 msgid "Up arrow"
 msgstr "Up arrow"
 
-#: sheets/Assorted.sheet.in.h:40
+#: sheets/Assorted.sheet.in.h:44
 msgid "Up-down arrow"
 msgstr "Up-down arrow"
 
-#: sheets/Assorted.sheet.in.h:41
+#: sheets/Assorted.sheet.in.h:45
 msgid "Up-down-left arrow"
 msgstr "Up-down-left arrow"
 
-#: sheets/Assorted.sheet.in.h:42
+#: sheets/Assorted.sheet.in.h:46
 msgid "Vertical parallelogram"
 msgstr "Vertical parallelogram"
 
@@ -5315,187 +5319,188 @@ msgstr "Centrifugal Pump or Fan"
 msgid "Centrifuge"
 msgstr "Centrifuge"
 
-#: sheets/ChemEng.sheet.in.h:8
+#. For: zenith
+#: sheets/ChemEng.sheet.in.h:9
 msgid "ChemEng"
 msgstr "ChemEng"
 
-#: sheets/ChemEng.sheet.in.h:9
+#: sheets/ChemEng.sheet.in.h:10
 msgid "Clarifier or Settling Tank"
 msgstr "Clarifier or Settling Tank"
 
-#: sheets/ChemEng.sheet.in.h:10
+#: sheets/ChemEng.sheet.in.h:11
 msgid "Collection for chemical engineering"
 msgstr "Collection for chemical engineering"
 
-#: sheets/ChemEng.sheet.in.h:11
+#: sheets/ChemEng.sheet.in.h:12
 msgid "Compressor or Turbine"
 msgstr "Compressor or Turbine"
 
-#: sheets/ChemEng.sheet.in.h:12
+#: sheets/ChemEng.sheet.in.h:13
 msgid "Covered tank"
 msgstr "Covered tank"
 
-#: sheets/ChemEng.sheet.in.h:13
+#: sheets/ChemEng.sheet.in.h:14
 msgid "Cyclone and hydrocyclone"
 msgstr "Cyclone and hydrocyclone"
 
-#: sheets/ChemEng.sheet.in.h:14
+#: sheets/ChemEng.sheet.in.h:15
 msgid "Double-Pipe Exchanger"
 msgstr "Double-Pipe Exchanger"
 
-#: sheets/ChemEng.sheet.in.h:15
+#: sheets/ChemEng.sheet.in.h:16
 msgid "Ejector or Injector"
 msgstr "Ejector or Injector"
 
-#: sheets/ChemEng.sheet.in.h:16
+#: sheets/ChemEng.sheet.in.h:17
 msgid "Fan or Stirrer"
 msgstr "Fan or Stirrer"
 
-#: sheets/ChemEng.sheet.in.h:17
+#: sheets/ChemEng.sheet.in.h:18
 msgid "Fixed-Sheet Exchanger"
 msgstr "Fixed-Sheet Exchanger"
 
-#: sheets/ChemEng.sheet.in.h:18
+#: sheets/ChemEng.sheet.in.h:19
 msgid "Floating-Head or U-Tube Exchanger"
 msgstr "Floating-Head or U-Tube Exchanger"
 
-#: sheets/ChemEng.sheet.in.h:19
+#: sheets/ChemEng.sheet.in.h:20
 msgid "Fluid Contacting Vessel, simple"
 msgstr "Fluid Contacting Vessel, simple"
 
-#: sheets/ChemEng.sheet.in.h:20
+#: sheets/ChemEng.sheet.in.h:21
 msgid "Forced-Flow Air Cooler"
 msgstr "Forced-Flow Air Cooler"
 
-#: sheets/ChemEng.sheet.in.h:21
+#: sheets/ChemEng.sheet.in.h:22
 msgid "Gas Holder, basic"
 msgstr "Gas Holder, basic"
 
-#: sheets/ChemEng.sheet.in.h:22
+#: sheets/ChemEng.sheet.in.h:23
 msgid "Heating/Cooling Coil"
 msgstr "Heating/Cooling Coil"
 
-#: sheets/ChemEng.sheet.in.h:23
+#: sheets/ChemEng.sheet.in.h:24
 msgid "Heating/Cooling Coil, vertical"
 msgstr "Heating/Cooling Coil, vertical"
 
-#: sheets/ChemEng.sheet.in.h:24
+#: sheets/ChemEng.sheet.in.h:25
 msgid "Induced-Flow Air Cooler"
 msgstr "Induced-Flow Air Cooler"
 
-#: sheets/ChemEng.sheet.in.h:25
+#: sheets/ChemEng.sheet.in.h:26
 msgid "Kettle Reboiler"
 msgstr "Kettle Reboiler"
 
-#: sheets/ChemEng.sheet.in.h:26
+#: sheets/ChemEng.sheet.in.h:27
 msgid "Knock-out Drum (with demister pad)"
 msgstr "Knock-out Drum (with demister pad)"
 
-#: sheets/ChemEng.sheet.in.h:27
+#: sheets/ChemEng.sheet.in.h:28
 msgid "Measurement"
 msgstr "Measurement"
 
-#: sheets/ChemEng.sheet.in.h:28
+#: sheets/ChemEng.sheet.in.h:29
 msgid "Mixer"
 msgstr "Mixer"
 
-#: sheets/ChemEng.sheet.in.h:29
+#: sheets/ChemEng.sheet.in.h:30
 msgid "Open Tank"
 msgstr "Open Tank"
 
-#: sheets/ChemEng.sheet.in.h:30
+#: sheets/ChemEng.sheet.in.h:31
 msgid "Plate Exchanger"
 msgstr "Plate Exchanger"
 
-#: sheets/ChemEng.sheet.in.h:31
+#: sheets/ChemEng.sheet.in.h:32
 msgid "Pneumatic Line"
 msgstr "Pneumatic Line"
 
-#: sheets/ChemEng.sheet.in.h:32
+#: sheets/ChemEng.sheet.in.h:33
 msgid "Pneumatic Line, vertical"
 msgstr "Pneumatic Line, vertical"
 
-#: sheets/ChemEng.sheet.in.h:33
+#: sheets/ChemEng.sheet.in.h:34
 msgid "Positive Displacement Rotary Pump or Compressor"
 msgstr "Positive Displacement Rotary Pump or Compressor"
 
-#: sheets/ChemEng.sheet.in.h:34
+#: sheets/ChemEng.sheet.in.h:35
 msgid "Reactor or Absorption Vessel, simple"
 msgstr "Reactor or Absorption Vessel, simple"
 
-#: sheets/ChemEng.sheet.in.h:35
+#: sheets/ChemEng.sheet.in.h:36
 msgid "Reciprocating Compressor or Pump"
 msgstr "Reciprocating Compressor or Pump"
 
-#: sheets/ChemEng.sheet.in.h:36
+#: sheets/ChemEng.sheet.in.h:37
 msgid "Regulable Valve"
 msgstr "Regulable Valve"
 
-#: sheets/ChemEng.sheet.in.h:37
+#: sheets/ChemEng.sheet.in.h:38
 msgid "Regulable Valve, vertical"
 msgstr "Regulable Valve, vertical"
 
-#: sheets/ChemEng.sheet.in.h:38
+#: sheets/ChemEng.sheet.in.h:39
 msgid "Sealed Tank"
 msgstr "Sealed Tank"
 
-#: sheets/ChemEng.sheet.in.h:39
+#: sheets/ChemEng.sheet.in.h:40
 msgid "Simple Furnace"
 msgstr "Simple Furnace"
 
-#: sheets/ChemEng.sheet.in.h:40
+#: sheets/ChemEng.sheet.in.h:41
 msgid "Simple Heat Exchanger"
 msgstr "Simple Heat Exchanger"
 
-#: sheets/ChemEng.sheet.in.h:41
+#: sheets/ChemEng.sheet.in.h:42
 msgid "Simple Heat Exchanger, vertical"
 msgstr "Simple Heat Exchanger, vertical"
 
-#: sheets/ChemEng.sheet.in.h:42
+#: sheets/ChemEng.sheet.in.h:43
 msgid "Simple Vessel"
 msgstr "Simple Vessel"
 
-#: sheets/ChemEng.sheet.in.h:43
+#: sheets/ChemEng.sheet.in.h:44
 msgid "Spray Drier"
 msgstr "Spray Drier"
 
-#: sheets/ChemEng.sheet.in.h:44
+#: sheets/ChemEng.sheet.in.h:45
 msgid "Spraying Device"
 msgstr "Spraying Device"
 
-#: sheets/ChemEng.sheet.in.h:45
+#: sheets/ChemEng.sheet.in.h:46
 msgid "Storage Sphere"
 msgstr "Storage Sphere"
 
-#: sheets/ChemEng.sheet.in.h:46
+#: sheets/ChemEng.sheet.in.h:47
 msgid "Tank with Fixed Roof"
 msgstr "Tank with Fixed Roof"
 
-#: sheets/ChemEng.sheet.in.h:47
+#: sheets/ChemEng.sheet.in.h:48
 msgid "Tank with Floating Roof"
 msgstr "Tank with Floating Roof"
 
-#: sheets/ChemEng.sheet.in.h:48
+#: sheets/ChemEng.sheet.in.h:49
 msgid "Tray Column, detailed"
 msgstr "Tray Column, detailed"
 
-#: sheets/ChemEng.sheet.in.h:49
+#: sheets/ChemEng.sheet.in.h:50
 msgid "Tray Column, simple"
 msgstr "Tray Column, simple"
 
-#: sheets/ChemEng.sheet.in.h:50
+#: sheets/ChemEng.sheet.in.h:51
 msgid "Valve"
 msgstr "Valve"
 
-#: sheets/ChemEng.sheet.in.h:51
+#: sheets/ChemEng.sheet.in.h:52
 msgid "Valve, vertical"
 msgstr "Valve, vertical"
 
-#: sheets/ChemEng.sheet.in.h:52
+#: sheets/ChemEng.sheet.in.h:53
 msgid "Water Cooler"
 msgstr "Water Cooler"
 
-#: sheets/ChemEng.sheet.in.h:53
+#: sheets/ChemEng.sheet.in.h:54
 msgid "Water Cooler, vertical"
 msgstr "Water Cooler, vertical"
 
@@ -5567,63 +5572,67 @@ msgstr "Microphone"
 msgid "NMOS transistor"
 msgstr "NMOS transistor"
 
-#: sheets/Circuit.sheet.in.h:18
+#.
+#.
+#: sheets/Circuit.sheet.in.h:20
 msgid "NPN bipolar transistor"
 msgstr "NPN bipolar transistor"
 
-#: sheets/Circuit.sheet.in.h:19
+#: sheets/Circuit.sheet.in.h:21
 msgid "Operational amplifier"
 msgstr "Operational amplifier"
 
-#: sheets/Circuit.sheet.in.h:20
+#: sheets/Circuit.sheet.in.h:22
 msgid "PMOS transistor"
 msgstr "PMOS transistor"
 
-#: sheets/Circuit.sheet.in.h:21
+#.
+#.
+#: sheets/Circuit.sheet.in.h:25
 msgid "PNP bipolar transistor"
 msgstr "PNP bipolar transistor"
 
-#: sheets/Circuit.sheet.in.h:22 sheets/ciscomisc.sheet.in.h:39
+#: sheets/Circuit.sheet.in.h:26 sheets/ciscomisc.sheet.in.h:39
 msgid "Speaker"
 msgstr "Speaker"
 
-#: sheets/Circuit.sheet.in.h:23
+#: sheets/Circuit.sheet.in.h:27
 msgid "Vertically aligned LED"
 msgstr "Vertically aligned LED"
 
-#: sheets/Circuit.sheet.in.h:24
+#: sheets/Circuit.sheet.in.h:28
 msgid "Vertically aligned capacitor"
 msgstr "Vertically aligned capacitor"
 
-#: sheets/Circuit.sheet.in.h:25
+#: sheets/Circuit.sheet.in.h:29
 msgid "Vertically aligned diode"
 msgstr "Vertically aligned diode"
 
-#: sheets/Circuit.sheet.in.h:26
+#: sheets/Circuit.sheet.in.h:30
 msgid "Vertically aligned fuse"
 msgstr "Vertically aligned fuse"
 
-#: sheets/Circuit.sheet.in.h:27
+#: sheets/Circuit.sheet.in.h:31
 msgid "Vertically aligned inductor"
 msgstr "Vertically aligned inductor"
 
-#: sheets/Circuit.sheet.in.h:28
+#: sheets/Circuit.sheet.in.h:32
 msgid "Vertically aligned inductor (European)"
 msgstr "Vertically aligned inductor (European)"
 
-#: sheets/Circuit.sheet.in.h:29
+#: sheets/Circuit.sheet.in.h:33
 msgid "Vertically aligned powersource"
 msgstr "Vertically aligned powersource"
 
-#: sheets/Circuit.sheet.in.h:30
+#: sheets/Circuit.sheet.in.h:34
 msgid "Vertically aligned resistor"
 msgstr "Vertically aligned resistor"
 
-#: sheets/Circuit.sheet.in.h:31
+#: sheets/Circuit.sheet.in.h:35
 msgid "Vertically aligned resistor (European)"
 msgstr "Vertically aligned resistor (European)"
 
-#: sheets/Circuit.sheet.in.h:32
+#: sheets/Circuit.sheet.in.h:36
 msgid "Vertically aligned zener diode"
 msgstr "Vertically aligned zener diode"
 
@@ -5931,115 +5940,118 @@ msgstr "Function"
 msgid "Orthogonal polyline flow"
 msgstr "Orthogonal polyline flow"
 
-#: sheets/Flowchart.sheet.in.h:1
+#. XXX
+#: sheets/Flowchart.sheet.in.h:2
 msgid "Collate"
 msgstr "Collate"
 
-#: sheets/Flowchart.sheet.in.h:2
+#: sheets/Flowchart.sheet.in.h:3
 msgid "Connector"
 msgstr "Connector"
 
-#: sheets/Flowchart.sheet.in.h:3 sheets/SDL.sheet.in.h:4
+#: sheets/Flowchart.sheet.in.h:4 sheets/SDL.sheet.in.h:4
 msgid "Decision"
 msgstr "Decision"
 
-#: sheets/Flowchart.sheet.in.h:4
+#: sheets/Flowchart.sheet.in.h:5
 msgid "Delay"
 msgstr "Delay"
 
-#: sheets/Flowchart.sheet.in.h:6
+#: sheets/Flowchart.sheet.in.h:7
 msgid "Document"
 msgstr "Document"
 
-#: sheets/Flowchart.sheet.in.h:8
+#: sheets/Flowchart.sheet.in.h:9
 msgid "Flowchart"
 msgstr "Flowchart"
 
-#: sheets/Flowchart.sheet.in.h:9
+#: sheets/Flowchart.sheet.in.h:10
 msgid "Input/Output"
 msgstr "Input/Output"
 
-#: sheets/Flowchart.sheet.in.h:10
+#: sheets/Flowchart.sheet.in.h:11
 msgid "Internal storage"
 msgstr "Internal storage"
 
-#: sheets/Flowchart.sheet.in.h:11
+#: sheets/Flowchart.sheet.in.h:12
 msgid "Magnetic disk"
 msgstr "Magnetic disk"
 
-#: sheets/Flowchart.sheet.in.h:12
+#: sheets/Flowchart.sheet.in.h:13
 msgid "Magnetic drum"
 msgstr "Magnetic drum"
 
-#: sheets/Flowchart.sheet.in.h:13
+#: sheets/Flowchart.sheet.in.h:14
 msgid "Magnetic tape"
 msgstr "Magnetic tape"
 
-#: sheets/Flowchart.sheet.in.h:14
+#: sheets/Flowchart.sheet.in.h:15
 msgid "Manual input"
 msgstr "Manual input"
 
-#: sheets/Flowchart.sheet.in.h:15
+#: sheets/Flowchart.sheet.in.h:16
 msgid "Manual operation"
 msgstr "Manual operation"
 
-#: sheets/Flowchart.sheet.in.h:16
+#: sheets/Flowchart.sheet.in.h:17
 msgid "Merge"
 msgstr "Merge"
 
-#: sheets/Flowchart.sheet.in.h:17
+#: sheets/Flowchart.sheet.in.h:18
 msgid "Objects to draw flowcharts"
 msgstr "Objects to draw flowcharts"
 
-#: sheets/Flowchart.sheet.in.h:18
+#. XXX
+#: sheets/Flowchart.sheet.in.h:20
 msgid "Off page connector"
 msgstr "Off page connector"
 
-#: sheets/Flowchart.sheet.in.h:19
+#: sheets/Flowchart.sheet.in.h:21
 msgid "Offline storage"
 msgstr "Offline storage"
 
-#: sheets/Flowchart.sheet.in.h:20
+#: sheets/Flowchart.sheet.in.h:22
 msgid "Or"
 msgstr "Or"
 
-#: sheets/Flowchart.sheet.in.h:21
+#: sheets/Flowchart.sheet.in.h:23
 msgid "Predefined process"
 msgstr "Predefined process"
 
-#: sheets/Flowchart.sheet.in.h:22
+#: sheets/Flowchart.sheet.in.h:24
 msgid "Preparation"
 msgstr "Preparation"
 
-#: sheets/Flowchart.sheet.in.h:23
+#: sheets/Flowchart.sheet.in.h:25
 msgid "Process/Auxiliary Operation"
 msgstr "Process/Auxiliary Operation"
 
-#: sheets/Flowchart.sheet.in.h:24
+#: sheets/Flowchart.sheet.in.h:26
 msgid "Punched card"
 msgstr "Punched card"
 
-#: sheets/Flowchart.sheet.in.h:25
+#: sheets/Flowchart.sheet.in.h:27
 msgid "Punched tape"
 msgstr "Punched tape"
 
-#: sheets/Flowchart.sheet.in.h:26
+#: sheets/Flowchart.sheet.in.h:28
 msgid "Sort"
 msgstr "Sort"
 
-#: sheets/Flowchart.sheet.in.h:27
+#. XXX
+#: sheets/Flowchart.sheet.in.h:30
 msgid "Summing junction"
 msgstr "Summing junction"
 
-#: sheets/Flowchart.sheet.in.h:28
+#: sheets/Flowchart.sheet.in.h:31
 msgid "Terminal Interrupt"
 msgstr "Terminal Interrupt"
 
-#: sheets/Flowchart.sheet.in.h:29
+#: sheets/Flowchart.sheet.in.h:32
 msgid "Transaction file"
 msgstr "Transaction file"
 
-#: sheets/Flowchart.sheet.in.h:30
+#: sheets/Flowchart.sheet.in.h:33
 msgid "Transmittal tape"
 msgstr "Transmittal tape"
 
@@ -6139,47 +6151,49 @@ msgstr "Factory"
 msgid "Footbridge, Pedestrian Bridge"
 msgstr "Footbridge, Pedestrian Bridge"
 
-#: sheets/IsometricMap.sheet.in.h:16
+#. use dc:description instead?
+#: sheets/IsometricMap.sheet.in.h:17
 msgid "Isometric Directional Map Shapes"
 msgstr "Isometric Directional Map Shapes"
 
-#: sheets/IsometricMap.sheet.in.h:17
+#: sheets/IsometricMap.sheet.in.h:18
 msgid "Long Straight Road Section"
 msgstr "Long Straight Road Section"
 
-#: sheets/IsometricMap.sheet.in.h:18
+#. use dc:title instead?
+#: sheets/IsometricMap.sheet.in.h:20
 msgid "Map, Isometric"
 msgstr "Map, Isometric"
 
-#: sheets/IsometricMap.sheet.in.h:19
+#: sheets/IsometricMap.sheet.in.h:21
 msgid "One Way Road Sign"
 msgstr "One Way Road Sign"
 
-#: sheets/IsometricMap.sheet.in.h:20
+#: sheets/IsometricMap.sheet.in.h:22
 msgid "River"
 msgstr "River"
 
-#: sheets/IsometricMap.sheet.in.h:21
+#: sheets/IsometricMap.sheet.in.h:23
 msgid "Road Section"
 msgstr "Road Section"
 
-#: sheets/IsometricMap.sheet.in.h:22
+#: sheets/IsometricMap.sheet.in.h:24
 msgid "Roof1"
 msgstr "Roof1"
 
-#: sheets/IsometricMap.sheet.in.h:23
+#: sheets/IsometricMap.sheet.in.h:25
 msgid "T-Junction"
 msgstr "T-Junction"
 
-#: sheets/IsometricMap.sheet.in.h:24
+#: sheets/IsometricMap.sheet.in.h:26
 msgid "Train 1, angled downward"
 msgstr "Train 1, angled downward"
 
-#: sheets/IsometricMap.sheet.in.h:25
+#: sheets/IsometricMap.sheet.in.h:27
 msgid "Train 2, angled upward"
 msgstr "Train 2, angled upward"
 
-#: sheets/IsometricMap.sheet.in.h:26
+#: sheets/IsometricMap.sheet.in.h:28
 msgid "Tree 1"
 msgstr "Tree 1"
 
