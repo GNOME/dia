@@ -431,40 +431,41 @@ ddisplay_update_handler(DDisplay *ddisp)
   
   /* Renders updates to pixmap + copies display_areas to canvas(screen) */
 
-  renderer = ddisp->renderer;
-
-  (renderer->interactive_ops->clip_region_clear)(renderer);
-
+  /* Only update if update_areas exist */
   l = ddisp->update_areas;
-  if (l==NULL)
-    totrect = ddisp->visible;
-  else 
+  if (l != NULL)
+  {
     totrect = *(Rectangle *) l->data;
+  
+    renderer = ddisp->renderer;
 
-  while(l!=NULL) {
-    r = (Rectangle *) l->data;
+    (renderer->interactive_ops->clip_region_clear)(renderer);
 
-    rectangle_union(&totrect, r);
-    (renderer->interactive_ops->clip_region_add_rect)(renderer,  r);
+    while(l!=NULL) {
+      r = (Rectangle *) l->data;
+
+      rectangle_union(&totrect, r);
+      (renderer->interactive_ops->clip_region_add_rect)(renderer,  r);
+      
+      l = g_slist_next(l);
+    }
     
-    l = g_slist_next(l);
-  }
-  
-  /* Free update_areas list: */
-  l = ddisp->update_areas;
-  while(l!=NULL) {
-    g_free(l->data);
-    l = g_slist_next(l);
-  }
-  g_slist_free(ddisp->update_areas);
-  ddisp->update_areas = NULL;
+    /* Free update_areas list: */
+    l = ddisp->update_areas;
+    while(l!=NULL) {
+      g_free(l->data);
+      l = g_slist_next(l);
+    }
+    g_slist_free(ddisp->update_areas);
+    ddisp->update_areas = NULL;
 
-  totrect.left -= 0.1;
-  totrect.right += 0.1;
-  totrect.top -= 0.1;
-  totrect.bottom += 0.1;
-  
-  ddisplay_render_pixmap(ddisp, &totrect);
+    totrect.left -= 0.1;
+    totrect.right += 0.1;
+    totrect.top -= 0.1;
+    totrect.bottom += 0.1;
+    
+    ddisplay_render_pixmap(ddisp, &totrect);
+  }
 
   l = ddisp->display_areas;
   while(l!=NULL) {
@@ -538,8 +539,8 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
   /* Erase background */
   (renderer->interactive_ops->fill_pixel_rect)(renderer,
 					       0, 0,
-					       renderer->pixel_width-1,
-					       renderer->pixel_height-1,
+					       renderer->pixel_width,
+					       renderer->pixel_height,
 					       &ddisp->diagram->data->bg_color);
 
   /* Draw grid */

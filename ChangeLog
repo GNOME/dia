@@ -5,6 +5,15 @@
 	won't prevent dia from terminating, but should give more
 	user-friendly information about why did it terminate.
 
+	Two patches from <robert.young@dsto.defence.gov.au>:
+	
+	* app/display.c: fix the size of the canvas area which gets
+	redrawn. There was an off-by one error (Closes #83659)
+
+	* app/display.c: make sure we redraw all screen only when we
+	really have to (some update_areas were mistakenly ignored) (Closes
+	#83496). 
+	
 2002-06-01  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* dia.spec:
