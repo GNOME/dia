@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: dia VERSION\n"
 "POT-Creation-Date: 2002-12-05 21:05-0600\n"
 "PO-Revision-Date: 2002-08-22 16:49GMT+2\n"
 "Last-Translator: Harald Ersch <hersch@romatsa.ro>\n"
