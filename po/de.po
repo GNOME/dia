@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.41\n"
-"POT-Creation-Date: 1999-10-16 17:01+0200\n"
+"POT-Creation-Date: 1999-10-30 12:13+0200\n"
 "PO-Revision-Date: 1999-08-19 21:27+02:00\n"
 "Last-Translator: Karsten Weiss <karsten@addx.au.s.shuttle.de>\n"
 "Language-Team: de <de@li.org>\n"
@@ -14,34 +14,34 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:128
+#: app/app_procs.c:127
 msgid "Export loaded file to postscript and exit"
 msgstr "Geladene Datei als PostScript exportieren und beenden"
 
-#: app/app_procs.c:129
+#: app/app_procs.c:128
 msgid "OUTPUT"
 msgstr "AUSGABE"
 
-#: app/app_procs.c:146
+#: app/app_procs.c:145
 msgid "Can't connect to session manager!\n"
 msgstr "Kann keine Verbindung zum Sitzungsmanager aufnehmen!\n"
 
-#: app/app_procs.c:184 app/app_procs.c:186
+#: app/app_procs.c:183 app/app_procs.c:185
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Standard-Objekte wurden bei der Suche nach Objektbibliotheken nicht "
 "gefunden. Abbruch...\n"
 
-#: app/app_procs.c:201
+#: app/app_procs.c:200
 msgid "Need valid input file\n"
 msgstr "Benötige eine gültige Eingabedatei\n"
 
-#: app/app_procs.c:239
+#: app/app_procs.c:241
 msgid "Quit, are you sure?"
 msgstr "Beenden. Sind Sie sicher?"
 
-#: app/app_procs.c:241
+#: app/app_procs.c:243
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -49,20 +49,20 @@ msgstr ""
 "Es sind noch ungespeicherte Diagramme vorhanden.\n"
 "Sind Sie sicher, daß Sie die Anwendung beenden möchten?"
 
-#: app/app_procs.c:250
+#: app/app_procs.c:252
 msgid "Quit"
 msgstr "Beenden"
 
-#: app/app_procs.c:262 app/layer_dialog.c:980 app/lineprops_area.c:516
+#: app/app_procs.c:264 app/layer_dialog.c:980 app/lineprops_area.c:516
 #: app/lineprops_area.c:714
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: app/app_procs.c:296
+#: app/app_procs.c:316
 msgid "Could not create per-user Dia config directory"
 msgstr ""
 
-#: app/app_procs.c:341
+#: app/app_procs.c:370
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
@@ -71,13 +71,13 @@ msgstr ""
 "Konnte keine ladbaren Bibliotheken finden.\n"
 "%s ist keine Verzeichnis.\n"
 
-#: app/app_procs.c:348
+#: app/app_procs.c:377
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr "Konnte \"%s\" nicht öffnen.\n"
 
-#: app/app_procs.c:361 app/app_procs.c:362 app/app_procs.c:389
-#: app/app_procs.c:390
+#: app/app_procs.c:390 app/app_procs.c:391 app/app_procs.c:418
+#: app/app_procs.c:419
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
@@ -86,12 +86,12 @@ msgstr ""
 "Fehler beim Laden der Bibliothek: \"%s\":\n"
 " %s\n"
 
-#: app/app_procs.c:367 app/app_procs.c:368
+#: app/app_procs.c:396 app/app_procs.c:397
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr "Die Datei \"%s\" ist keine Dia-Objektbibliothek.\n"
 
-#: app/app_procs.c:374 app/app_procs.c:375
+#: app/app_procs.c:403 app/app_procs.c:404
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -102,7 +102,7 @@ msgstr ""
 "nicht benutzt werden.\n"
 "Bitte upgraden."
 
-#: app/app_procs.c:381 app/app_procs.c:382
+#: app/app_procs.c:410 app/app_procs.c:411
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
@@ -111,7 +111,7 @@ msgstr ""
 "Die Objektbibliothek \"%s\" stammt von einer älteren Version von Dia.\n"
 "Sie müssen Dia aktualisieren, um es zu benutzen."
 
-#: app/app_procs.c:455
+#: app/app_procs.c:484
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -124,15 +124,15 @@ msgstr ""
 msgid "Select color"
 msgstr "Farbe wählen"
 
-#: app/commands.c:133
+#: app/commands.c:136
 msgid "Open diagram"
 msgstr "Diagramm öffnen"
 
-#: app/commands.c:194 app/commands.c:365 app/commands.c:483
+#: app/commands.c:197 app/commands.c:368 app/commands.c:486
 msgid "File already exists"
 msgstr "Datei ist bereits vorhanden"
 
-#: app/commands.c:197 app/commands.c:368 app/commands.c:486
+#: app/commands.c:200 app/commands.c:371 app/commands.c:489
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -141,21 +141,21 @@ msgstr ""
 "Die Datei '%s' ist schon vorhanden.\n"
 "Möchten Sie sie überschreiben?"
 
-#: app/commands.c:209 app/commands.c:380 app/commands.c:498 app/display.c:732
+#: app/commands.c:212 app/commands.c:383 app/commands.c:501 app/display.c:743
 #: app/preferences.c:459
 msgid "Yes"
 msgstr "Ja"
 
-#: app/commands.c:222 app/commands.c:393 app/commands.c:511 app/display.c:743
+#: app/commands.c:225 app/commands.c:396 app/commands.c:514 app/display.c:754
 #: app/preferences.c:459 app/preferences.c:470
 msgid "No"
 msgstr "Nein"
 
-#: app/commands.c:265
+#: app/commands.c:268
 msgid "Save diagram"
 msgstr "Diagramm speichern"
 
-#: app/commands.c:300
+#: app/commands.c:303
 #, c-format
 msgid ""
 "No such file found\n"
@@ -164,62 +164,45 @@ msgstr ""
 "Keine solche Datei gefunden\n"
 "%s\n"
 
-#: app/commands.c:320
+#: app/commands.c:323
 msgid "Import from XFig"
 msgstr "Aus XFig importieren"
 
-#: app/commands.c:434
+#: app/commands.c:437
 msgid "Export to postscript"
 msgstr "Als PostScript exportieren"
 
-#: app/commands.c:552
+#: app/commands.c:555
 msgid "Export to SVG"
 msgstr "Als SVG _exportieren"
 
-#: app/commands.c:603
+#: app/commands.c:615
 #, c-format
 msgid "Untitled-%d"
 msgstr "Namenlos-%d"
 
-#: app/commands.c:664
+#: app/commands.c:676
 msgid "No existing object to paste.\n"
 msgstr "Kein existierendes Objekt zum Einfügen.\n"
 
-#: app/commands.c:767
+#: app/commands.c:779
 msgid "About Dia"
 msgstr "Über Dia"
 
-#: app/commands.c:804
+#: app/commands.c:816
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s von Alexander Larsson"
 
-#: app/commands.c:808
+#: app/commands.c:820
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Weitere Informationen unter http://www.lysator.liu.se/~alla/dia"
 
-#: app/commands.c:817 app/layer_dialog.c:970 app/lineprops_area.c:507
+#: app/commands.c:829 app/layer_dialog.c:970 app/lineprops_area.c:507
 #: app/lineprops_area.c:704 app/preferences.c:543 app/properties.c:54
 #: lib/message.c:72
 msgid "OK"
 msgstr "OK"
-
-#: app/defaults.c:43
-msgid "Object defaults"
-msgstr "Objekt-Voreinstellungen"
-
-#: app/defaults.c:52 app/layer_dialog.c:261 app/preferences.c:563
-#: app/properties.c:73
-msgid "Close"
-msgstr "Schließen"
-
-#: app/defaults.c:61 app/preferences.c:553 app/properties.c:63
-msgid "Apply"
-msgstr "Übernehmen"
-
-#: app/defaults.c:73
-msgid "This object has no defaults."
-msgstr "Dieses Objekt hat keine Voreinstellungen."
 
 #: app/diagram.c:135
 msgid "/Edit/Copy"
@@ -253,35 +236,35 @@ msgstr "/Objekte/Gruppieren"
 msgid "/Objects/Ungroup"
 msgstr "/Objekte/Gruppe aufheben"
 
-#: app/diagram.c:156 app/menus.c:238
+#: app/diagram.c:156 app/menus.c:243
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Objekte/Horizontal anordnen/Links"
 
-#: app/diagram.c:158 app/menus.c:239
+#: app/diagram.c:158 app/menus.c:244
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objekte/Horizontal anordnen/Mitte"
 
-#: app/diagram.c:160 app/menus.c:240
+#: app/diagram.c:160 app/menus.c:245
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objekte/Horizontal anordnen/Rechts"
 
-#: app/diagram.c:162 app/menus.c:241
+#: app/diagram.c:162 app/menus.c:246
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objekte/Horizontal anordnen/Gleicher Abstand"
 
-#: app/diagram.c:164 app/menus.c:244
+#: app/diagram.c:164 app/menus.c:249
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Objekte/Vertikal anordnen/Oben"
 
-#: app/diagram.c:166 app/menus.c:245
+#: app/diagram.c:166 app/menus.c:250
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Objekte/Vertikal anordnen/Mitte"
 
-#: app/diagram.c:168 app/menus.c:246
+#: app/diagram.c:168 app/menus.c:251
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objekte/Vertikal anordnen/Unten"
 
-#: app/diagram.c:170 app/menus.c:247
+#: app/diagram.c:170 app/menus.c:252
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objekte/Vertikal anordnen/Gleicher Abstand"
 
@@ -305,11 +288,11 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Das Diagramm wurde verändert!"
 
-#: app/display.c:720
+#: app/display.c:731
 msgid "Really close?"
 msgstr "Wirklich schließen?"
 
-#: app/display.c:723
+#: app/display.c:734
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -317,19 +300,19 @@ msgstr ""
 "Dieses Diagramm wurde nicht gespeichert.\n"
 "Sind Sie sicher, daß Sie das Fenster schließen möchten?"
 
-#: app/display.c:776
+#: app/display.c:787
 msgid "/View/Show Rulers"
 msgstr "/Ansicht/Lineale anzeigen"
 
-#: app/display.c:778
+#: app/display.c:789
 msgid "/View/Visible Grid"
 msgstr "/Ansicht/Gitter sichtbar"
 
-#: app/display.c:780
+#: app/display.c:791
 msgid "/View/Snap To Grid"
 msgstr "/Ansicht/Am Gitter einrasten"
 
-#: app/display.c:782
+#: app/display.c:793
 msgid "/View/Show Connection Points"
 msgstr "/Ansicht/Verbindungspunkte anzeigen"
 
@@ -426,6 +409,11 @@ msgstr "Ebenen"
 msgid "Diagrams:"
 msgstr "Diagramme:"
 
+#: app/defaults.c:52 app/layer_dialog.c:261 app/preferences.c:563
+#: app/properties.c:73
+msgid "Close"
+msgstr "Schließen"
+
 #: app/layer_dialog.c:306
 msgid "New layer"
 msgstr "Neue Ebene"
@@ -442,25 +430,11 @@ msgstr "Attribute der Ebene ändern"
 msgid "Layer name:"
 msgstr "Name der Ebene:"
 
-#: app/lineprops_area.c:496
-#, fuzzy
-msgid "Arrow Properties"
-msgstr "_Eigenschaften"
-
-#: app/lineprops_area.c:553 app/lineprops_area.c:737
-msgid "Details..."
-msgstr ""
-
-#: app/lineprops_area.c:693
-#, fuzzy
-msgid "Line Style Properties"
-msgstr "Objekteigenschaften"
-
-#: app/load_save.c:77
+#: app/load_save.c:78
 msgid "Error reading diagram file\n"
 msgstr "Fehler beim Lesen der Diagrammdatei\n"
 
-#: app/load_save.c:124
+#: app/load_save.c:125
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -468,16 +442,16 @@ msgstr ""
 "Fehler beim Laden des Diagramms.\n"
 "Gelinktes Objekt wurde nicht im Dokument gefunden."
 
-#: app/load_save.c:160
+#: app/load_save.c:162
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kann '%s' nicht zum Lesen öffnen.\n"
 
-#: app/load_save.c:166
+#: app/load_save.c:168
 msgid "You must specify a file, not a directory.\n"
 msgstr "Sie müssen eine Datei und kein Verzeichnis angeben.\n"
 
-#: app/load_save.c:175 app/load_save.c:180
+#: app/load_save.c:177 app/load_save.c:182
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -486,7 +460,7 @@ msgstr ""
 "Fehler beim Laden des Diagramms %s.\n"
 "Unbekannter Dateityp."
 
-#: app/load_save.c:187
+#: app/load_save.c:189
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -495,7 +469,7 @@ msgstr ""
 "Fehler beim Laden des Diagramms %s.\n"
 "Keine Dia-Datei."
 
-#: app/load_save.c:378 app/render_eps.c:152
+#: app/load_save.c:439 app/render_eps.c:152 app/render_svg.c:144
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Die Datei '%s' konnte nicht zum Schreiben geöffnet werden.\n"
@@ -516,369 +490,403 @@ msgstr "Als EPS _exportieren"
 msgid "Export To S_VG"
 msgstr "Als S_VG exportieren"
 
-#: app/menus.c:56
+#: app/menus.c:57
+msgid "Page Set_up..."
+msgstr ""
+
+#: app/menus.c:59
 msgid "_Print Diagram..."
 msgstr ""
 
-#: app/menus.c:71
+#: app/menus.c:74
 #, fuzzy
 msgid "_Delete"
 msgstr "Löschen"
 
-#: app/menus.c:99
+#: app/menus.c:102
 msgid "Zoom _In"
 msgstr "Vergrößern"
 
-#: app/menus.c:99
+#: app/menus.c:102
 #, c-format
 msgid "Zoom in 50%"
 msgstr "50% vergrößern"
 
-#: app/menus.c:100
+#: app/menus.c:103
 msgid "Zoom _Out"
 msgstr "Verkleinern"
 
-#: app/menus.c:100
+#: app/menus.c:103
 #, c-format
 msgid "Zoom out 50%"
 msgstr "50% verkleinern"
 
-#: app/menus.c:101
+#: app/menus.c:104
 msgid "_Zoom"
 msgstr "_Zoom"
 
-#: app/menus.c:102
+#: app/menus.c:105
 msgid "Edit Grid..."
 msgstr "Gitter bearbeiten..."
 
-#: app/menus.c:103
+#: app/menus.c:106
 msgid "_Visible Grid"
 msgstr "Gitter sichtbar"
 
-#: app/menus.c:105
+#: app/menus.c:108
 msgid "_Snap To Grid"
 msgstr "Am Gitter einrasten"
 
-#: app/menus.c:107
+#: app/menus.c:110
 msgid "Show _Rulers"
 msgstr "Lineale anzeigen"
 
-#: app/menus.c:109
+#: app/menus.c:112
 msgid "Show _Connection Points"
 msgstr "Verbindungspunkte anzeigen"
 
-#: app/menus.c:112
+#: app/menus.c:115
 msgid "New _View"
 msgstr "Neue Ansicht"
 
-#: app/menus.c:113
+#: app/menus.c:116
 msgid "Show _All"
 msgstr "Alles anzeigen"
 
-#: app/menus.c:118 lib/widgets.c:176 objects/UML/association.c:1025
+#: app/menus.c:121 lib/widgets.c:176 objects/UML/association.c:1025
 msgid "Left"
 msgstr "Links"
 
-#: app/menus.c:119 app/menus.c:127 lib/widgets.c:182
+#: app/menus.c:122 app/menus.c:130 lib/widgets.c:182
 msgid "Center"
 msgstr "Mitte"
 
-#: app/menus.c:120 lib/widgets.c:188 objects/UML/association.c:1018
+#: app/menus.c:123 lib/widgets.c:188 objects/UML/association.c:1018
 msgid "Right"
 msgstr "Rechts"
 
-#: app/menus.c:121 app/menus.c:129
+#: app/menus.c:124 app/menus.c:132
 msgid "Equal Distance"
 msgstr "Gleicher Abstand"
 
-#: app/menus.c:126
+#: app/menus.c:129
 msgid "Top"
 msgstr "Oben"
 
-#: app/menus.c:128
+#: app/menus.c:131
 msgid "Bottom"
 msgstr "Unten"
 
-#: app/menus.c:134
+#: app/menus.c:137
 msgid "Send to _Back"
 msgstr "Ganz nach hinten"
 
-#: app/menus.c:135
+#: app/menus.c:138
 msgid "Bring to _Front"
 msgstr "Ganz nach vorne"
 
-#: app/menus.c:137
+#: app/menus.c:140
 msgid "_Group"
 msgstr "_Gruppieren"
 
-#: app/menus.c:138
+#: app/menus.c:141
 msgid "_Ungroup"
 msgstr "Gruppe aufheben"
 
-#: app/menus.c:140
+#: app/menus.c:143
 msgid "Align _Horizontal"
 msgstr "_Horizontal anordnen"
 
-#: app/menus.c:141
+#: app/menus.c:144
 msgid "Align _Vertical"
 msgstr "_Vertikal anordnen"
 
-#: app/menus.c:146
+#: app/menus.c:149
 msgid "_Properties"
 msgstr "_Eigenschaften"
 
-#: app/menus.c:147
+#: app/menus.c:150
 msgid "_Layers"
 msgstr "_Ebenen"
 
-#: app/menus.c:166
+#: app/menus.c:169
 msgid "Objects"
 msgstr "Objekte"
 
-#: app/menus.c:167
+#: app/menus.c:170
 msgid "Dialogs"
 msgstr "Dialoge"
 
-#: app/menus.c:174 app/menus.c:186
+#: app/menus.c:177 app/menus.c:189
 msgid "/_File"
 msgstr "_Datei"
 
 #. {"/File/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:175 app/menus.c:188
+#: app/menus.c:178 app/menus.c:191
 msgid "/File/_New"
 msgstr "/Datei/_Neu"
 
-#: app/menus.c:176 app/menus.c:189
+#: app/menus.c:179 app/menus.c:192
 msgid "/File/_Open"
 msgstr "/Datei/Ö_ffnen"
 
-#: app/menus.c:177
+#: app/menus.c:180
 msgid "/File/_Preferences..."
 msgstr "/Datei/_Einstellungen..."
 
-#: app/menus.c:178 app/menus.c:195
+#: app/menus.c:181 app/menus.c:197
 msgid "/File/sep1"
 msgstr "/Datei/sep1"
 
-#: app/menus.c:179 app/menus.c:197
+#: app/menus.c:182 app/menus.c:202
 msgid "/File/_Quit"
 msgstr "/Datei/_Beenden"
 
-#: app/menus.c:180
+#: app/menus.c:183
 msgid "/_Help"
 msgstr "/_Hilfe"
 
-#: app/menus.c:181
+#: app/menus.c:184
 msgid "/Help/_About"
 msgstr "/Hilfe/_Info"
 
-#: app/menus.c:190
+#: app/menus.c:193
 msgid "/File/_Save"
 msgstr "/Datei/_Speichern"
 
-#: app/menus.c:191
+#: app/menus.c:194
 msgid "/File/Save _As..."
 msgstr "/Datei/Speichern _unter..."
 
-#: app/menus.c:192
+#: app/menus.c:195
 msgid "/File/_Export To EPS"
 msgstr "/Datei/Als EPS _exportieren"
 
-#: app/menus.c:193
+#: app/menus.c:196
 msgid "/File/Export To S_VG"
 msgstr "/Datei/Als S_VG exportieren"
 
-#: app/menus.c:194
+#: app/menus.c:198
+#, fuzzy
+msgid "/File/Page Set_up..."
+msgstr "/Datei/Speichern _unter..."
+
+#: app/menus.c:199
 msgid "/File/_Print Diagram..."
 msgstr ""
 
-#: app/menus.c:196
+#: app/menus.c:200
+#, fuzzy
+msgid "/File/sep2"
+msgstr "/Datei/sep1"
+
+#: app/menus.c:201
 msgid "/File/_Close"
 msgstr "/Datei/S_chließen"
 
-#: app/menus.c:198
+#: app/menus.c:203
 msgid "/_Edit"
 msgstr "/_Bearbeiten"
 
 #. {"/Edit/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:200
+#: app/menus.c:205
 msgid "/Edit/_Copy"
 msgstr "/Bearbeiten/_Kopieren"
 
-#: app/menus.c:201
+#: app/menus.c:206
 msgid "/Edit/C_ut"
 msgstr "/Bearbeiten/_Ausschneiden"
 
-#: app/menus.c:202
+#: app/menus.c:207
 msgid "/Edit/_Paste"
 msgstr "/Bearbeiten/_Einfügen"
 
-#: app/menus.c:203
+#: app/menus.c:208
 msgid "/Edit/_Delete"
 msgstr "/Bearbeiten/_Löschen"
 
-#: app/menus.c:204
+#: app/menus.c:209
 msgid "/Edit/_Undo"
 msgstr "/Bearbeiten/Rückgängig (_Undo)"
 
-#: app/menus.c:205
+#: app/menus.c:210
 msgid "/Edit/_Redo"
 msgstr "/Bearbeiten/Wiederherstellen (_Redo)"
 
-#: app/menus.c:206
+#: app/menus.c:211
 msgid "/_View"
 msgstr "/_Ansicht"
 
 #. {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:208
+#: app/menus.c:213
 msgid "/View/Zoom _In"
 msgstr "/Ansicht/Vergrößern"
 
-#: app/menus.c:209
+#: app/menus.c:214
 msgid "/View/Zoom _Out"
 msgstr "/Ansicht/Verkleinern"
 
-#: app/menus.c:210
+#: app/menus.c:215
 msgid "/View/_Zoom"
 msgstr "/Ansicht/_Zoom"
 
-#: app/menus.c:211
+#: app/menus.c:216
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Ansicht/Zoom/400%"
 
-#: app/menus.c:212
+#: app/menus.c:217
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Ansicht/Zoom/283%"
 
-#: app/menus.c:213
+#: app/menus.c:218
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Ansicht/Zoom/200%"
 
-#: app/menus.c:214
+#: app/menus.c:219
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Ansicht/Zoom/141%"
 
-#: app/menus.c:215
+#: app/menus.c:220
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Ansicht/Zoom/100%"
 
-#: app/menus.c:216
+#: app/menus.c:221
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Ansicht/Zoom/85%"
 
-#: app/menus.c:217
+#: app/menus.c:222
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Ansicht/Zoom/70.7%"
 
-#: app/menus.c:218
+#: app/menus.c:223
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Ansicht/Zoom/50%"
 
-#: app/menus.c:219
+#: app/menus.c:224
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Ansicht/Zoom/35.4%"
 
-#: app/menus.c:220
+#: app/menus.c:225
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Ansicht/Zoom/25%"
 
-#: app/menus.c:221
+#: app/menus.c:226
 msgid "/View/Edit Grid..."
 msgstr "/Ansicht/Gitter bearbeiten..."
 
-#: app/menus.c:222
+#: app/menus.c:227
 msgid "/View/_Visible Grid"
 msgstr "/Ansicht/Gitter sichtbar"
 
-#: app/menus.c:223
+#: app/menus.c:228
 msgid "/View/_Snap To Grid"
 msgstr "/Ansicht/Am Gitter einrasten"
 
-#: app/menus.c:224
+#: app/menus.c:229
 msgid "/View/Show _Rulers"
 msgstr "/Ansicht/Lineale anzeigen"
 
-#: app/menus.c:225
+#: app/menus.c:230
 msgid "/View/Show _Connection Points"
 msgstr "/Ansicht/Verbindungspunkte anzeigen"
 
-#: app/menus.c:226
+#: app/menus.c:231
 msgid "/View/sep1"
 msgstr "/Ansicht/sep1"
 
-#: app/menus.c:227
+#: app/menus.c:232
 msgid "/View/New _View"
 msgstr "/Ansicht/Neue Ansicht"
 
-#: app/menus.c:228
+#: app/menus.c:233
 msgid "/View/Show _All"
 msgstr "/Ansicht/Alles anzeigen"
 
-#: app/menus.c:229
+#: app/menus.c:234
 msgid "/_Objects"
 msgstr "/_Objekte"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                    0, "<Tearoff>" },
-#: app/menus.c:231
+#: app/menus.c:236
 msgid "/Objects/Send to _Back"
 msgstr "/Objekte/Ganz nach hinten"
 
-#: app/menus.c:232
+#: app/menus.c:237
 msgid "/Objects/Bring to _Front"
 msgstr "/Objekte/Ganz nach vorne"
 
-#: app/menus.c:233 app/menus.c:236
+#: app/menus.c:238 app/menus.c:241
 msgid "/Objects/sep1"
 msgstr "/Objekte/sep1"
 
-#: app/menus.c:234
+#: app/menus.c:239
 msgid "/Objects/_Group"
 msgstr "/Objekte/_Gruppieren"
 
-#: app/menus.c:235
+#: app/menus.c:240
 msgid "/Objects/_Ungroup"
 msgstr "/Objekte/Gruppe aufheben"
 
-#: app/menus.c:237
+#: app/menus.c:242
 msgid "/Objects/Align _Horizontal"
 msgstr "/Objekte/_Horizontal anordnen"
 
-#: app/menus.c:242
+#: app/menus.c:247
 #, fuzzy
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Objekte/Horizontal anordnen/Mitte"
 
-#: app/menus.c:243
+#: app/menus.c:248
 msgid "/Objects/Align _Vertical"
 msgstr "/Objekte/_Vertikal anordnen"
 
-#: app/menus.c:248
+#: app/menus.c:253
 #, fuzzy
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objekte/Vertikal anordnen/Mitte"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:251
+#: app/menus.c:256
 msgid "/_Dialogs"
 msgstr "/_Dialoge"
 
-#: app/menus.c:252
+#: app/menus.c:257
 msgid "/Dialogs/_Properties"
 msgstr "/Dialoge/Eigenschaften"
 
-#: app/menus.c:253
+#: app/menus.c:258
 msgid "/Dialogs/_Layers"
 msgstr "/Dialoge/_Ebenen"
+
+#: app/properties.c:45
+msgid "Object properties"
+msgstr "Objekteigenschaften"
+
+#: app/defaults.c:61 app/preferences.c:553 app/properties.c:63
+msgid "Apply"
+msgstr "Übernehmen"
+
+#: app/properties.c:85
+msgid "This object has no properties."
+msgstr "Dieses Objekt hat keine Eigenschaften."
+
+#: app/defaults.c:43
+msgid "Object defaults"
+msgstr "Objekt-Voreinstellungen"
+
+#: app/defaults.c:73
+msgid "This object has no defaults."
+msgstr "Dieses Objekt hat keine Voreinstellungen."
 
 #: app/preferences.c:72
 msgid "User Interface"
@@ -948,15 +956,21 @@ msgstr "Verbindungspunkte:"
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: app/properties.c:45
-msgid "Object properties"
+#: app/lineprops_area.c:496
+#, fuzzy
+msgid "Arrow Properties"
+msgstr "_Eigenschaften"
+
+#: app/lineprops_area.c:553 app/lineprops_area.c:737
+msgid "Details..."
+msgstr ""
+
+#: app/lineprops_area.c:693
+#, fuzzy
+msgid "Line Style Properties"
 msgstr "Objekteigenschaften"
 
-#: app/properties.c:85
-msgid "This object has no properties."
-msgstr "Dieses Objekt hat keine Eigenschaften."
-
-#: lib/diagramdata.c:39
+#: lib/diagramdata.c:47
 msgid "Background"
 msgstr "Hintergrund"
 
@@ -1006,6 +1020,7 @@ msgstr "Strich-Punkt-Punkt"
 msgid "Dotted"
 msgstr "Gepunktet"
 
+#. fs->sizebox = GTK_HBOX(box);
 #: lib/widgets.c:338
 msgid "Dash length: "
 msgstr "Strichlänge: "
@@ -1055,9 +1070,35 @@ msgid "Browse"
 msgstr "Auswählen"
 
 #. type
-#: objects/ER/attribute.c:141 objects/ER/attribute.c:517
-msgid "Attribute"
-msgstr "Attribut"
+#: objects/UML/actor.c:91
+msgid "Create an actor"
+msgstr "Einen Akteur erzeugen"
+
+#: objects/UML/actor.c:292
+msgid "Actor"
+msgstr "Akteur"
+
+#. type
+#: objects/UML/association.c:165
+msgid "Association, two classes are associated."
+msgstr "Assoziation, zwei Klassen sind assoziiert."
+
+#. type
+#: objects/UML/association.c:175
+msgid "Aggregation, one class is part of another."
+msgstr "Aggregation, eine Klasse ist Teil einer anderen."
+
+#: objects/ER/participation.c:459 objects/UML/association.c:630
+#: objects/UML/dependency.c:298 objects/UML/generalization.c:291
+#: objects/UML/realizes.c:294 objects/standard/zigzagline.c:599
+msgid "Add segment"
+msgstr "Segment hinzufügen"
+
+#: objects/ER/participation.c:460 objects/UML/association.c:631
+#: objects/UML/dependency.c:299 objects/UML/generalization.c:292
+#: objects/UML/realizes.c:295 objects/standard/zigzagline.c:600
+msgid "Delete segment"
+msgstr "Segment löschen"
 
 #: objects/ER/attribute.c:214 objects/ER/entity.c:208
 #: objects/ER/relationship.c:267 objects/UML/association.c:989
@@ -1067,6 +1108,401 @@ msgstr "Attribut"
 #: objects/UML/large_package.c:570 objects/UML/realizes.c:589
 msgid "Name:"
 msgstr "Name:"
+
+#: objects/UML/association.c:1001
+msgid "Direction:"
+msgstr "Richtung:"
+
+#: objects/UML/association.c:1049 objects/UML/association.c:1057
+msgid "Side A"
+msgstr "Seite A"
+
+#: objects/UML/association.c:1051 objects/UML/association.c:1059
+msgid "Side B"
+msgstr "Seite B"
+
+# CHECK - "Funktion"?
+#: objects/UML/association.c:1065
+msgid "Role:"
+msgstr "Rolle:"
+
+# CHECK
+#: objects/UML/association.c:1077
+msgid "Multiplicity:"
+msgstr "Anzahl:"
+
+#. Show arrow:
+#: objects/UML/association.c:1088
+msgid "Show arrow"
+msgstr "Pfeil anzeigen"
+
+#. Aggregate
+#: objects/UML/association.c:1094
+msgid "Aggregate"
+msgstr "Aggregat"
+
+#. Composition
+#: objects/UML/association.c:1102
+msgid "Composition"
+msgstr "Zusammensetzung"
+
+#. type
+#: objects/UML/class.c:75
+msgid "Create a class"
+msgstr "Eine Klasse erzeugen"
+
+#. type
+#: objects/UML/class.c:84
+msgid "Create a template class"
+msgstr "Eine Template-Klasse erzeugen"
+
+#. Class page:
+#: objects/UML/class.c:628 objects/UML/class_dialog.c:171
+msgid "Class"
+msgstr "Klasse"
+
+#: objects/UML/class_dialog.c:177
+msgid "Class name:"
+msgstr "Klassenname:"
+
+# CHECK
+#: objects/UML/class_dialog.c:188 objects/UML/dependency.c:632
+#: objects/UML/generalization.c:603 objects/UML/large_package.c:582
+#: objects/UML/object.c:775 objects/UML/realizes.c:601
+msgid "Stereotype:"
+msgstr "Stereotyp:"
+
+#: objects/UML/class_dialog.c:199
+msgid "Abstract"
+msgstr "Abstrakt"
+
+#: objects/UML/class_dialog.c:207
+msgid "Attributes visible"
+msgstr "Attribute sichtbar"
+
+#: objects/UML/class_dialog.c:211
+msgid "Suppress Attributes"
+msgstr "Attribute unterdrücken"
+
+#: objects/UML/class_dialog.c:219
+msgid "Operations visible"
+msgstr "Operationen sichtbar"
+
+#: objects/UML/class_dialog.c:223
+msgid "Suppress operations"
+msgstr "Operationen unterdrücken"
+
+#. Attributes page:
+#: objects/UML/class_dialog.c:640
+msgid "Attributes"
+msgstr "Attribute"
+
+#: objects/UML/class_dialog.c:668 objects/UML/class_dialog.c:1541
+#: objects/UML/class_dialog.c:1701 objects/UML/class_dialog.c:2162
+msgid "New"
+msgstr "Neu"
+
+#: objects/UML/class_dialog.c:674 objects/UML/class_dialog.c:1547
+#: objects/UML/class_dialog.c:1708 objects/UML/class_dialog.c:2168
+msgid "Delete"
+msgstr "Löschen"
+
+#: objects/UML/class_dialog.c:680 objects/UML/class_dialog.c:1553
+#: objects/UML/class_dialog.c:1715 objects/UML/class_dialog.c:2174
+msgid "Move up"
+msgstr "Hinaufschieben"
+
+#: objects/UML/class_dialog.c:686 objects/UML/class_dialog.c:1559
+#: objects/UML/class_dialog.c:1722 objects/UML/class_dialog.c:2180
+msgid "Move down"
+msgstr "Hinunterschieben"
+
+#: objects/UML/class_dialog.c:697
+msgid "Attribute data"
+msgstr "Attributdaten"
+
+#: objects/UML/class_dialog.c:717 objects/UML/class_dialog.c:1593
+#: objects/UML/class_dialog.c:1755 objects/UML/class_dialog.c:2211
+msgid "Type:"
+msgstr "Typ:"
+
+#: objects/UML/class_dialog.c:729
+msgid "Value:"
+msgstr "Wert:"
+
+#: objects/UML/class_dialog.c:741 objects/UML/class_dialog.c:1605
+msgid "Visibility:"
+msgstr "Sichtbarkeit:"
+
+#: objects/UML/class_dialog.c:750 objects/UML/class_dialog.c:1614
+msgid "Public"
+msgstr "Public"
+
+#: objects/UML/class_dialog.c:758 objects/UML/class_dialog.c:1622
+msgid "Private"
+msgstr "Private"
+
+#: objects/UML/class_dialog.c:766 objects/UML/class_dialog.c:1630
+msgid "Protected"
+msgstr "Protected"
+
+#: objects/UML/class_dialog.c:774 objects/UML/class_dialog.c:1638
+msgid "Implementation"
+msgstr "Implementierung"
+
+#: objects/UML/class_dialog.c:790 objects/UML/class_dialog.c:1654
+msgid "Class scope"
+msgstr "Klassen-Gültigkeitsbereich"
+
+# CHECK - "Methoden"
+#. Operations page:
+#: objects/UML/class_dialog.c:1513
+msgid "Operations"
+msgstr "Operationen"
+
+#: objects/UML/class_dialog.c:1571
+msgid "Operation data"
+msgstr "Daten der Operationen"
+
+#: objects/UML/class_dialog.c:1660
+msgid "abstract"
+msgstr "abstrakt"
+
+#: objects/UML/class_dialog.c:1672
+msgid "Parameters:"
+msgstr "Parameter:"
+
+#: objects/UML/class_dialog.c:1734
+msgid "Parameter data"
+msgstr "Parameterdaten"
+
+#: objects/UML/class_dialog.c:1767
+msgid "Def. value:"
+msgstr "Std.-Wert:"
+
+#. Templates page:
+#: objects/UML/class_dialog.c:2128
+msgid "Templates"
+msgstr "Templates"
+
+#: objects/UML/class_dialog.c:2134
+msgid "Template class"
+msgstr "Template-Klasse"
+
+#: objects/UML/class_dialog.c:2191
+msgid "Formal parameter data"
+msgstr "Formelle Parameterdaten"
+
+#. type
+#: objects/UML/constraint.c:117
+msgid "Constraint, place a constraint on something."
+msgstr "Eine Beschränkung auf etwas festlegen."
+
+#: objects/UML/constraint.c:519
+msgid "Constraint:"
+msgstr "Beschränkung:"
+
+#. type
+#: objects/UML/dependency.c:127
+msgid "Create a dependency"
+msgstr "Eine Abhängigkeit erzeugen"
+
+#: objects/UML/dependency.c:644
+msgid "Show arrow:"
+msgstr "Pfeil anzeigen:"
+
+#. type
+#: objects/UML/generalization.c:120
+msgid "Generalization, class inheritance."
+msgstr "Verallgemeinerung, Klassenvererbung."
+
+#. type
+#: objects/UML/implements.c:120
+msgid "Implements, class implements a specific interface."
+msgstr "Implementiert, Klasse implementiert eine spezifische Schnittstelle."
+
+#: objects/UML/implements.c:569
+msgid "Interface:"
+msgstr "Schnittstelle:"
+
+# CHECK
+#. type
+#: objects/UML/large_package.c:119
+msgid "Create a (large) package"
+msgstr "Ein (großes) Paket erstellen"
+
+#. type
+#: objects/UML/note.c:89
+msgid "Create a note"
+msgstr "Eine Notiz erzeugen"
+
+#. type
+#: objects/UML/realizes.c:123
+msgid "Realizes, implements a specific interface."
+msgstr "Realisiert, implementiert eine spezifische Schnittstelle."
+
+# CHECK
+#. type
+#: objects/UML/small_package.c:91
+msgid "Create a (small) package"
+msgstr "Ein (kleines) Paket erstellen"
+
+#: objects/UML/uml.c:99
+msgid "UML"
+msgstr "UML"
+
+#: objects/UML/uml.c:100
+msgid "Editor for UML Static Structure Diagrams."
+msgstr "Editor für statische UML-Struktur-Diagramme."
+
+# CHECK - Sollen man "Use Case" übersetzen?
+#. type
+#: objects/UML/usecase.c:115
+msgid "Create a use case"
+msgstr "Einen neuen Use Case erzeugen"
+
+# CHECK
+#: objects/UML/usecase.c:552
+msgid "Text outside:"
+msgstr "Text außerhalb:"
+
+#: objects/UML/usecase.c:557
+msgid "Collaboration"
+msgstr "Zusammenarbeit"
+
+#. type
+#: objects/UML/object.c:144
+msgid "Create an object"
+msgstr "Ein Objekt erzeugen"
+
+#: objects/UML/object.c:763
+msgid "Explicit state:"
+msgstr "Expliziter Zustand:"
+
+#: objects/UML/object.c:785
+msgid "Attributes:"
+msgstr "Attribute:"
+
+#: objects/UML/object.c:795
+msgid "Show attributes"
+msgstr "Attribute anzeigen"
+
+#: objects/UML/object.c:799
+msgid "Active object"
+msgstr "Aktives Objekt"
+
+# CHECK
+#: objects/UML/object.c:804
+msgid "multiple instance"
+msgstr "mehrfache instanz"
+
+#. type
+#: objects/UML/lifeline.c:124
+msgid "Create a lifeline"
+msgstr "Eine Lebenslinie erzeugen"
+
+# CHECK
+#: objects/UML/lifeline.c:613
+msgid "Show focus of control:"
+msgstr "Steuerungsfokus anzeigen:"
+
+# CHECK
+#: objects/UML/lifeline.c:618
+msgid "Show destruction mark:"
+msgstr "Zerstörungsmarkierung anzeigen:"
+
+#. type
+#: objects/UML/message.c:141
+msgid "Create a message"
+msgstr "Eine Nachricht erzeugen"
+
+#: objects/UML/message.c:624
+msgid "Message:"
+msgstr "Nachricht:"
+
+#: objects/UML/message.c:638
+msgid "Message type:"
+msgstr "Nachrichtentyp:"
+
+#.
+#: objects/UML/message.c:643
+msgid "Call"
+msgstr "Aufruf"
+
+#: objects/UML/message.c:648
+msgid "Return"
+msgstr "Rückkehr"
+
+#: objects/UML/message.c:653
+msgid "Asynchronous"
+msgstr "Asynchron"
+
+#: objects/UML/message.c:658
+msgid "Create"
+msgstr "Erzeugen"
+
+#: objects/UML/message.c:663
+msgid "Destroy"
+msgstr "Zerstören"
+
+#: objects/UML/message.c:668
+msgid "Simple"
+msgstr "Einfach"
+
+#: objects/UML/message.c:673
+msgid "Recursive"
+msgstr "Rekursiv"
+
+#. type
+#: objects/UML/state.c:128
+msgid "Create a state machine"
+msgstr "Einen Zustandsautomaten erzeugen"
+
+#: objects/UML/state.c:511
+msgid "Normal"
+msgstr "Normal"
+
+#: objects/UML/state.c:516
+msgid "Begin"
+msgstr "Anfang"
+
+#: objects/UML/state.c:521
+msgid "End"
+msgstr "Ende"
+
+#. type
+#: objects/UML/classicon.c:127
+msgid "Create a class stereotype icon"
+msgstr "Ein Klassenstereotyp-Icon erzeugen"
+
+# CHECK
+#: objects/UML/classicon.c:616
+msgid "Control"
+msgstr "Steuerung"
+
+# CHECK
+#: objects/UML/classicon.c:622
+msgid "Boundary"
+msgstr "Grenze"
+
+#. type
+#: objects/ER/entity.c:129 objects/ER/entity.c:468 objects/UML/classicon.c:627
+msgid "Entity"
+msgstr "Entität"
+
+#: objects/UML/classicon.c:635
+msgid "Is an object"
+msgstr "Ist ein Objekt"
+
+#. type
+#: objects/UML/component.c:91
+msgid "Create a component"
+msgstr "Eine Komponente erzeugen"
+
+#. type
+#: objects/ER/attribute.c:141 objects/ER/attribute.c:517
+msgid "Attribute"
+msgstr "Attribut"
 
 #: objects/ER/attribute.c:222
 msgid "Key"
@@ -1111,11 +1547,6 @@ msgid "Background color:"
 msgstr "Hintergrundfarbe:"
 
 #. type
-#: objects/ER/entity.c:129 objects/ER/entity.c:468 objects/UML/classicon.c:627
-msgid "Entity"
-msgstr "Entität"
-
-#. type
 #: objects/ER/entity.c:138
 msgid "Weak Entity"
 msgstr "Schwache Entität"
@@ -1142,18 +1573,6 @@ msgstr "Eine Partizipation erzeugen"
 msgid "Total:"
 msgstr "Insgesamt:"
 
-#: objects/ER/participation.c:459 objects/UML/association.c:630
-#: objects/UML/dependency.c:298 objects/UML/generalization.c:291
-#: objects/UML/realizes.c:294 objects/standard/zigzagline.c:599
-msgid "Add segment"
-msgstr "Segment hinzufügen"
-
-#: objects/ER/participation.c:460 objects/UML/association.c:631
-#: objects/UML/dependency.c:299 objects/UML/generalization.c:292
-#: objects/UML/realizes.c:295 objects/standard/zigzagline.c:600
-msgid "Delete segment"
-msgstr "Segment löschen"
-
 # CHECK - Beziehung habe ich nicht genommen, da das Icon ein "R" darstellt
 #. type
 #: objects/ER/relationship.c:144 objects/ER/relationship.c:577
@@ -1177,39 +1596,220 @@ msgid "Identifying"
 msgstr "Identifizierend"
 
 #. type
+#: objects/network/bus.c:128
+msgid "Ethernet bus."
+msgstr "Ethernetbus."
+
+#: objects/network/bus.c:578
+#, fuzzy
+msgid "Add Handle"
+msgstr "Eckpunkt hinzufügen"
+
+#: objects/network/bus.c:579
+#, fuzzy
+msgid "Delete Handle"
+msgstr "Ebene löschen"
+
+#. type
+#: objects/network/computer.c:55
+msgid "A Computer with a tower case."
+msgstr "Ein Computer mit einem Towergehäuse."
+
+#. type
+#: objects/network/disc.c:55
+msgid "The symbol for storage. Disc or database."
+msgstr "Das Symbol für Speicher. Festplatte oder Datenbank."
+
+#. type
+#: objects/network/monitor.c:56
+msgid "A monitor, with a stand"
+msgstr "Ein Monitor, mit Fuß"
+
+#: objects/network/network.c:77
+msgid "Network"
+msgstr "Netzwerk"
+
+#: objects/network/network.c:78
+msgid "Objects to design network diagrams with"
+msgstr "Objekte, mit denen Netzwerkdiagramme entworfen werden können"
+
+#. type
+#: objects/network/printer.c:56
+msgid "A simple Printer"
+msgstr "Ein einfacher Drucker"
+
+#. type
+#: objects/network/antenna.c:56
+msgid "A Antenna for wireless transmissions"
+msgstr "Eine Antenne für drahtlose Übertragungen"
+
+#. type
+#: objects/network/flash.c:56
+msgid "A WAN Connection"
+msgstr "Eine WAN-Verbindung"
+
+# CHECK - "stapelbar" trifft es wohl nicht ganz
+#. type
+#: objects/network/hub.c:58
+msgid "A stackable hub or switch"
+msgstr "Ein stapelbarer Hub oder Switch"
+
+#. type
+#: objects/network/modem.c:56
+msgid "A simple Modem"
+msgstr "Ein einfaches Modem"
+
+#. type
+#: objects/network/modularswitch.c:59
+msgid "A modular switching system"
+msgstr "Ein modulares Vermittlungssystem"
+
+#. type
+#: objects/network/rj45plug.c:56
+msgid "A RJ45 Wall-Plug"
+msgstr "Ein RJ45-Wandstecker"
+
+#. type
+#: objects/network/scead-plug.c:57
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr "Ein Wandstecker für das scEAD-Kabelsystem"
+
+#: objects/standard/arc.c:205 objects/standard/line.c:202
+#: objects/standard/polyline.c:207 objects/standard/zigzagline.c:207
+msgid "Line width:"
+msgstr "Linienbreite:"
+
+#: objects/standard/arc.c:219 objects/standard/line.c:216
+#: objects/standard/polyline.c:221 objects/standard/textobj.c:234
+#: objects/standard/zigzagline.c:221
+msgid "Color:"
+msgstr "Farbe:"
+
+#: objects/custom/custom_object.c:316 objects/flowchart/box.c:300
+#: objects/flowchart/diamond.c:295 objects/flowchart/ellipse.c:295
+#: objects/flowchart/parallelogram.c:303 objects/standard/arc.c:230
+#: objects/standard/box.c:252 objects/standard/ellipse.c:225
+#: objects/standard/image.c:288 objects/standard/image.c:383
+#: objects/standard/line.c:227 objects/standard/polyline.c:232
+#: objects/standard/zigzagline.c:232
+msgid "Line style:"
+msgstr "Linienstil:"
+
+#: objects/standard/arc.c:241 objects/standard/line.c:238
+#: objects/standard/polyline.c:243 objects/standard/zigzagline.c:246
+msgid "Start arrow:"
+msgstr "Pfeilanfang:"
+
+#: objects/standard/arc.c:255 objects/standard/line.c:252
+#: objects/standard/polyline.c:257 objects/standard/zigzagline.c:260
+msgid "End arrow:"
+msgstr "Pfeilende:"
+
+#: objects/custom/custom_object.c:308 objects/custom/custom_object.c:472
+#: objects/flowchart/box.c:292 objects/flowchart/box.c:450
+#: objects/flowchart/diamond.c:287 objects/flowchart/diamond.c:427
+#: objects/flowchart/ellipse.c:287 objects/flowchart/ellipse.c:427
+#: objects/flowchart/parallelogram.c:295 objects/flowchart/parallelogram.c:454
+#: objects/standard/box.c:244 objects/standard/box.c:332
+msgid "Draw background"
+msgstr "Hintergrund zeichnen"
+
+#: objects/flowchart/box.c:311 objects/flowchart/box.c:458
+#: objects/standard/box.c:263 objects/standard/box.c:340
+msgid "Corner rounding:"
+msgstr "Ecken-Abrundung:"
+
+#: objects/custom/custom_object.c:347 objects/custom/custom_object.c:495
+#: objects/standard/textobj.c:198 objects/standard/textobj.c:292
+msgid "Alignment:"
+msgstr "Anordnung:"
+
+#: objects/custom/custom_object.c:358 objects/custom/custom_object.c:506
+#: objects/flowchart/box.c:340 objects/flowchart/box.c:486
+#: objects/flowchart/diamond.c:320 objects/flowchart/diamond.c:449
+#: objects/flowchart/ellipse.c:320 objects/flowchart/ellipse.c:449
+#: objects/flowchart/parallelogram.c:343 objects/flowchart/parallelogram.c:490
+#: objects/standard/textobj.c:209 objects/standard/textobj.c:303
+msgid "Font:"
+msgstr "Schriftart:"
+
+#: objects/standard/textobj.c:220 objects/standard/textobj.c:314
+msgid "Fontsize:"
+msgstr "Schriftgröße:"
+
+#: objects/standard/image.c:235 objects/standard/image.c:356
+msgid "Image file:"
+msgstr "Bilddatei:"
+
+#: objects/standard/image.c:246
+msgid "Keep aspect ratio"
+msgstr "Bildverhältnis beibehalten"
+
+#: objects/standard/image.c:254
+msgid "Show border"
+msgstr "Rahmen anzeigen"
+
+#: objects/standard/image.c:367
+msgid "Keep aspect ratio:"
+msgstr "Bildverhältnis beibehalten:"
+
+#: objects/standard/image.c:375
+msgid "Show border:"
+msgstr "Rahmen anzeigen:"
+
+#. Found file in same dir as diagram.
+#: objects/standard/image.c:939 objects/standard/image.c:950
+#, c-format
+msgid ""
+"The image file '%s' was not found in that directory.\n"
+"Using the file '%s' instead\n"
+msgstr ""
+"Die Bilddatei '%s' wurde in diesem Verzeichnis nicht gefunden.\n"
+"Benutze stattdessen die Datei '%s'\n"
+
+#. Didn't find file in current dir.
+#: objects/standard/image.c:956 objects/standard/image.c:982
+#, c-format
+msgid "The image file '%s' was not found.\n"
+msgstr "Die Bilddatei '%s' wurde nicht gefunden.\n"
+
+#: objects/standard/polyline.c:741
+msgid "Add Corner"
+msgstr "Eckpunkt hinzufügen"
+
+#: objects/standard/polyline.c:742
+msgid "Delete Corner"
+msgstr "Eckpunkt löschen"
+
+#. type
 #: objects/FS/flow-ortho.c:134
 msgid "Create an orthogonal polyline flow"
 msgstr "Einen orthogonalen Linienzug-Strom erzeugen"
 
-#: objects/FS/flow-ortho.c:568 objects/FS/flow-poly.c:634
-#: objects/FS/flow-poly.c:749 objects/FS/flow.c:631 objects/FS/flow.c:746
+#: objects/FS/flow-ortho.c:568 objects/FS/flow.c:631 objects/FS/flow.c:746
 msgid "Flow:"
 msgstr "Strom:"
 
-#: objects/FS/flow-ortho.c:583 objects/FS/flow-poly.c:649
-#: objects/FS/flow-poly.c:765 objects/FS/flow.c:646 objects/FS/flow.c:762
+#: objects/FS/flow-ortho.c:583 objects/FS/flow.c:646 objects/FS/flow.c:762
 msgid "Flow type:"
 msgstr "Stromtyp:"
 
 #.
 #: objects/FS/flow-ortho.c:588 objects/FS/flow-ortho.c:641
-#: objects/FS/flow-ortho.c:701 objects/FS/flow-poly.c:654
-#: objects/FS/flow-poly.c:709 objects/FS/flow-poly.c:770 objects/FS/flow.c:651
-#: objects/FS/flow.c:706 objects/FS/flow.c:767
+#: objects/FS/flow-ortho.c:701 objects/FS/flow.c:651 objects/FS/flow.c:706
+#: objects/FS/flow.c:767
 msgid "Energy"
 msgstr "Energie"
 
 #: objects/FS/flow-ortho.c:595 objects/FS/flow-ortho.c:642
-#: objects/FS/flow-ortho.c:708 objects/FS/flow-poly.c:661
-#: objects/FS/flow-poly.c:710 objects/FS/flow-poly.c:777 objects/FS/flow.c:658
-#: objects/FS/flow.c:707 objects/FS/flow.c:774
+#: objects/FS/flow-ortho.c:708 objects/FS/flow.c:658 objects/FS/flow.c:707
+#: objects/FS/flow.c:774
 msgid "Material"
 msgstr "Material"
 
 #: objects/FS/flow-ortho.c:601 objects/FS/flow-ortho.c:643
-#: objects/FS/flow-ortho.c:714 objects/FS/flow-poly.c:667
-#: objects/FS/flow-poly.c:711 objects/FS/flow-poly.c:783 objects/FS/flow.c:664
-#: objects/FS/flow.c:708 objects/FS/flow.c:780 objects/FS/function.c:596
+#: objects/FS/flow-ortho.c:714 objects/FS/flow.c:664 objects/FS/flow.c:708
+#: objects/FS/flow.c:780 objects/FS/function.c:596
 msgid "Signal"
 msgstr "Signal"
 
@@ -1224,7 +1824,7 @@ msgid "Orthflow type:"
 msgstr "Orth.-Strom-Typ:"
 
 #. type
-#: objects/FS/flow-poly.c:133 objects/FS/flow.c:133
+#: objects/FS/flow.c:133
 msgid "Create a flow"
 msgstr "Einen Strom erzeugen"
 
@@ -1418,662 +2018,6 @@ msgid "   Measure"
 msgstr "   Messen"
 
 #. type
-#: objects/UML/actor.c:91
-msgid "Create an actor"
-msgstr "Einen Akteur erzeugen"
-
-#: objects/UML/actor.c:292
-msgid "Actor"
-msgstr "Akteur"
-
-#. type
-#: objects/UML/association.c:165
-msgid "Association, two classes are associated."
-msgstr "Assoziation, zwei Klassen sind assoziiert."
-
-#. type
-#: objects/UML/association.c:175
-msgid "Aggregation, one class is part of another."
-msgstr "Aggregation, eine Klasse ist Teil einer anderen."
-
-#: objects/UML/association.c:1001
-msgid "Direction:"
-msgstr "Richtung:"
-
-#: objects/UML/association.c:1049 objects/UML/association.c:1057
-msgid "Side A"
-msgstr "Seite A"
-
-#: objects/UML/association.c:1051 objects/UML/association.c:1059
-msgid "Side B"
-msgstr "Seite B"
-
-# CHECK - "Funktion"?
-#: objects/UML/association.c:1065
-msgid "Role:"
-msgstr "Rolle:"
-
-# CHECK
-#: objects/UML/association.c:1077
-msgid "Multiplicity:"
-msgstr "Anzahl:"
-
-#. Show arrow:
-#: objects/UML/association.c:1088
-msgid "Show arrow"
-msgstr "Pfeil anzeigen"
-
-#. Aggregate
-#: objects/UML/association.c:1094
-msgid "Aggregate"
-msgstr "Aggregat"
-
-#. Composition
-#: objects/UML/association.c:1102
-msgid "Composition"
-msgstr "Zusammensetzung"
-
-#. type
-#: objects/UML/class.c:75
-msgid "Create a class"
-msgstr "Eine Klasse erzeugen"
-
-#. type
-#: objects/UML/class.c:84
-msgid "Create a template class"
-msgstr "Eine Template-Klasse erzeugen"
-
-#. Class page:
-#: objects/UML/class.c:628 objects/UML/class_dialog.c:171
-msgid "Class"
-msgstr "Klasse"
-
-#: objects/UML/class_dialog.c:177
-msgid "Class name:"
-msgstr "Klassenname:"
-
-# CHECK
-#: objects/UML/class_dialog.c:188 objects/UML/dependency.c:632
-#: objects/UML/generalization.c:603 objects/UML/large_package.c:582
-#: objects/UML/object.c:775 objects/UML/realizes.c:601
-msgid "Stereotype:"
-msgstr "Stereotyp:"
-
-#: objects/UML/class_dialog.c:199
-msgid "Abstract"
-msgstr "Abstrakt"
-
-#: objects/UML/class_dialog.c:207
-msgid "Attributes visible"
-msgstr "Attribute sichtbar"
-
-#: objects/UML/class_dialog.c:211
-msgid "Suppress Attributes"
-msgstr "Attribute unterdrücken"
-
-#: objects/UML/class_dialog.c:219
-msgid "Operations visible"
-msgstr "Operationen sichtbar"
-
-#: objects/UML/class_dialog.c:223
-msgid "Suppress operations"
-msgstr "Operationen unterdrücken"
-
-#. Attributes page:
-#: objects/UML/class_dialog.c:640
-msgid "Attributes"
-msgstr "Attribute"
-
-#: objects/UML/class_dialog.c:668 objects/UML/class_dialog.c:1541
-#: objects/UML/class_dialog.c:1701 objects/UML/class_dialog.c:2162
-msgid "New"
-msgstr "Neu"
-
-#: objects/UML/class_dialog.c:674 objects/UML/class_dialog.c:1547
-#: objects/UML/class_dialog.c:1708 objects/UML/class_dialog.c:2168
-msgid "Delete"
-msgstr "Löschen"
-
-#: objects/UML/class_dialog.c:680 objects/UML/class_dialog.c:1553
-#: objects/UML/class_dialog.c:1715 objects/UML/class_dialog.c:2174
-msgid "Move up"
-msgstr "Hinaufschieben"
-
-#: objects/UML/class_dialog.c:686 objects/UML/class_dialog.c:1559
-#: objects/UML/class_dialog.c:1722 objects/UML/class_dialog.c:2180
-msgid "Move down"
-msgstr "Hinunterschieben"
-
-#: objects/UML/class_dialog.c:697
-msgid "Attribute data"
-msgstr "Attributdaten"
-
-#: objects/UML/class_dialog.c:717 objects/UML/class_dialog.c:1593
-#: objects/UML/class_dialog.c:1755 objects/UML/class_dialog.c:2211
-msgid "Type:"
-msgstr "Typ:"
-
-#: objects/UML/class_dialog.c:729
-msgid "Value:"
-msgstr "Wert:"
-
-#: objects/UML/class_dialog.c:741 objects/UML/class_dialog.c:1605
-msgid "Visibility:"
-msgstr "Sichtbarkeit:"
-
-#: objects/UML/class_dialog.c:750 objects/UML/class_dialog.c:1614
-msgid "Public"
-msgstr "Public"
-
-#: objects/UML/class_dialog.c:758 objects/UML/class_dialog.c:1622
-msgid "Private"
-msgstr "Private"
-
-#: objects/UML/class_dialog.c:766 objects/UML/class_dialog.c:1630
-msgid "Protected"
-msgstr "Protected"
-
-#: objects/UML/class_dialog.c:774 objects/UML/class_dialog.c:1638
-msgid "Implementation"
-msgstr "Implementierung"
-
-#: objects/UML/class_dialog.c:790 objects/UML/class_dialog.c:1654
-msgid "Class scope"
-msgstr "Klassen-Gültigkeitsbereich"
-
-# CHECK - "Methoden"
-#. Operations page:
-#: objects/UML/class_dialog.c:1513
-msgid "Operations"
-msgstr "Operationen"
-
-#: objects/UML/class_dialog.c:1571
-msgid "Operation data"
-msgstr "Daten der Operationen"
-
-#: objects/UML/class_dialog.c:1660
-msgid "abstract"
-msgstr "abstrakt"
-
-#: objects/UML/class_dialog.c:1672
-msgid "Parameters:"
-msgstr "Parameter:"
-
-#: objects/UML/class_dialog.c:1734
-msgid "Parameter data"
-msgstr "Parameterdaten"
-
-#: objects/UML/class_dialog.c:1767
-msgid "Def. value:"
-msgstr "Std.-Wert:"
-
-#. Templates page:
-#: objects/UML/class_dialog.c:2128
-msgid "Templates"
-msgstr "Templates"
-
-#: objects/UML/class_dialog.c:2134
-msgid "Template class"
-msgstr "Template-Klasse"
-
-#: objects/UML/class_dialog.c:2191
-msgid "Formal parameter data"
-msgstr "Formelle Parameterdaten"
-
-#. type
-#: objects/UML/classicon.c:127
-msgid "Create a class stereotype icon"
-msgstr "Ein Klassenstereotyp-Icon erzeugen"
-
-# CHECK
-#: objects/UML/classicon.c:616
-msgid "Control"
-msgstr "Steuerung"
-
-# CHECK
-#: objects/UML/classicon.c:622
-msgid "Boundary"
-msgstr "Grenze"
-
-#: objects/UML/classicon.c:635
-msgid "Is an object"
-msgstr "Ist ein Objekt"
-
-#. type
-#: objects/UML/component.c:91
-msgid "Create a component"
-msgstr "Eine Komponente erzeugen"
-
-#. type
-#: objects/UML/constraint.c:117
-msgid "Constraint, place a constraint on something."
-msgstr "Eine Beschränkung auf etwas festlegen."
-
-#: objects/UML/constraint.c:519
-msgid "Constraint:"
-msgstr "Beschränkung:"
-
-#. type
-#: objects/UML/dependency.c:127
-msgid "Create a dependency"
-msgstr "Eine Abhängigkeit erzeugen"
-
-#: objects/UML/dependency.c:644
-msgid "Show arrow:"
-msgstr "Pfeil anzeigen:"
-
-#. type
-#: objects/UML/generalization.c:120
-msgid "Generalization, class inheritance."
-msgstr "Verallgemeinerung, Klassenvererbung."
-
-#. type
-#: objects/UML/implements.c:120
-msgid "Implements, class implements a specific interface."
-msgstr "Implementiert, Klasse implementiert eine spezifische Schnittstelle."
-
-#: objects/UML/implements.c:569
-msgid "Interface:"
-msgstr "Schnittstelle:"
-
-# CHECK
-#. type
-#: objects/UML/large_package.c:119
-msgid "Create a (large) package"
-msgstr "Ein (großes) Paket erstellen"
-
-#. type
-#: objects/UML/lifeline.c:124
-msgid "Create a lifeline"
-msgstr "Eine Lebenslinie erzeugen"
-
-# CHECK
-#: objects/UML/lifeline.c:613
-msgid "Show focus of control:"
-msgstr "Steuerungsfokus anzeigen:"
-
-# CHECK
-#: objects/UML/lifeline.c:618
-msgid "Show destruction mark:"
-msgstr "Zerstörungsmarkierung anzeigen:"
-
-#. type
-#: objects/UML/message.c:141
-msgid "Create a message"
-msgstr "Eine Nachricht erzeugen"
-
-#: objects/UML/message.c:624
-msgid "Message:"
-msgstr "Nachricht:"
-
-#: objects/UML/message.c:638
-msgid "Message type:"
-msgstr "Nachrichtentyp:"
-
-#.
-#: objects/UML/message.c:643
-msgid "Call"
-msgstr "Aufruf"
-
-#: objects/UML/message.c:648
-msgid "Return"
-msgstr "Rückkehr"
-
-#: objects/UML/message.c:653
-msgid "Asynchronous"
-msgstr "Asynchron"
-
-#: objects/UML/message.c:658
-msgid "Create"
-msgstr "Erzeugen"
-
-#: objects/UML/message.c:663
-msgid "Destroy"
-msgstr "Zerstören"
-
-#: objects/UML/message.c:668
-msgid "Simple"
-msgstr "Einfach"
-
-#: objects/UML/message.c:673
-msgid "Recursive"
-msgstr "Rekursiv"
-
-#. type
-#: objects/UML/note.c:89
-msgid "Create a note"
-msgstr "Eine Notiz erzeugen"
-
-#. type
-#: objects/UML/object.c:144
-msgid "Create an object"
-msgstr "Ein Objekt erzeugen"
-
-#: objects/UML/object.c:763
-msgid "Explicit state:"
-msgstr "Expliziter Zustand:"
-
-#: objects/UML/object.c:785
-msgid "Attributes:"
-msgstr "Attribute:"
-
-#: objects/UML/object.c:795
-msgid "Show attributes"
-msgstr "Attribute anzeigen"
-
-#: objects/UML/object.c:799
-msgid "Active object"
-msgstr "Aktives Objekt"
-
-# CHECK
-#: objects/UML/object.c:804
-msgid "multiple instance"
-msgstr "mehrfache instanz"
-
-#. type
-#: objects/UML/realizes.c:123
-msgid "Realizes, implements a specific interface."
-msgstr "Realisiert, implementiert eine spezifische Schnittstelle."
-
-# CHECK
-#. type
-#: objects/UML/small_package.c:91
-msgid "Create a (small) package"
-msgstr "Ein (kleines) Paket erstellen"
-
-#. type
-#: objects/UML/state.c:128
-msgid "Create a state machine"
-msgstr "Einen Zustandsautomaten erzeugen"
-
-#: objects/UML/state.c:511
-msgid "Normal"
-msgstr "Normal"
-
-#: objects/UML/state.c:516
-msgid "Begin"
-msgstr "Anfang"
-
-#: objects/UML/state.c:521
-msgid "End"
-msgstr "Ende"
-
-#: objects/UML/uml.c:99
-msgid "UML"
-msgstr "UML"
-
-#: objects/UML/uml.c:100
-msgid "Editor for UML Static Structure Diagrams."
-msgstr "Editor für statische UML-Struktur-Diagramme."
-
-# CHECK - Sollen man "Use Case" übersetzen?
-#. type
-#: objects/UML/usecase.c:115
-msgid "Create a use case"
-msgstr "Einen neuen Use Case erzeugen"
-
-# CHECK
-#: objects/UML/usecase.c:552
-msgid "Text outside:"
-msgstr "Text außerhalb:"
-
-#: objects/UML/usecase.c:557
-msgid "Collaboration"
-msgstr "Zusammenarbeit"
-
-#: objects/custom/custom_object.c:190
-#, fuzzy
-msgid "A custom with text inside."
-msgstr "Ein Rechteck, das Text enthält."
-
-#: objects/custom/custom_object.c:308 objects/custom/custom_object.c:472
-#: objects/flowchart/box.c:292 objects/flowchart/box.c:450
-#: objects/flowchart/diamond.c:287 objects/flowchart/diamond.c:427
-#: objects/flowchart/ellipse.c:287 objects/flowchart/ellipse.c:427
-#: objects/flowchart/parallelogram.c:295 objects/flowchart/parallelogram.c:454
-#: objects/standard/box.c:244 objects/standard/box.c:332
-msgid "Draw background"
-msgstr "Hintergrund zeichnen"
-
-#: objects/custom/custom_object.c:316 objects/flowchart/box.c:300
-#: objects/flowchart/diamond.c:295 objects/flowchart/ellipse.c:295
-#: objects/flowchart/parallelogram.c:303 objects/standard/arc.c:230
-#: objects/standard/box.c:252 objects/standard/ellipse.c:225
-#: objects/standard/image.c:288 objects/standard/image.c:383
-#: objects/standard/line.c:227 objects/standard/polyline.c:232
-#: objects/standard/zigzagline.c:232
-msgid "Line style:"
-msgstr "Linienstil:"
-
-#: objects/custom/custom_object.c:333 objects/custom/custom_object.c:481
-#: objects/flowchart/box.c:326 objects/flowchart/box.c:472
-#: objects/flowchart/diamond.c:306 objects/flowchart/diamond.c:435
-#: objects/flowchart/ellipse.c:306 objects/flowchart/ellipse.c:435
-#: objects/flowchart/parallelogram.c:329 objects/flowchart/parallelogram.c:476
-msgid "Text padding:"
-msgstr "Textfüllung:"
-
-#: objects/custom/custom_object.c:347 objects/custom/custom_object.c:495
-#: objects/standard/textobj.c:196 objects/standard/textobj.c:290
-msgid "Alignment:"
-msgstr "Anordnung:"
-
-#: objects/custom/custom_object.c:358 objects/custom/custom_object.c:506
-#: objects/flowchart/box.c:340 objects/flowchart/box.c:486
-#: objects/flowchart/diamond.c:320 objects/flowchart/diamond.c:449
-#: objects/flowchart/ellipse.c:320 objects/flowchart/ellipse.c:449
-#: objects/flowchart/parallelogram.c:343 objects/flowchart/parallelogram.c:490
-#: objects/standard/textobj.c:207 objects/standard/textobj.c:301
-msgid "Font:"
-msgstr "Schriftart:"
-
-#: objects/custom/custom_object.c:369 objects/custom/custom_object.c:517
-#: objects/flowchart/box.c:351 objects/flowchart/box.c:497
-#: objects/flowchart/diamond.c:331 objects/flowchart/diamond.c:460
-#: objects/flowchart/ellipse.c:331 objects/flowchart/ellipse.c:460
-#: objects/flowchart/parallelogram.c:354 objects/flowchart/parallelogram.c:501
-msgid "Font size:"
-msgstr "Schriftgröße:"
-
-#: objects/custom/custom_object.c:383 objects/flowchart/box.c:365
-#: objects/flowchart/diamond.c:345 objects/flowchart/ellipse.c:345
-#: objects/flowchart/parallelogram.c:368
-msgid "Font color:"
-msgstr "Schriftfarbe:"
-
-#: objects/custom/custom_object.c:1377
-#, fuzzy
-msgid "Flip Horizontal"
-msgstr "_Horizontal anordnen"
-
-#: objects/custom/custom_object.c:1378
-#, fuzzy
-msgid "Flip Vertical"
-msgstr "_Vertikal anordnen"
-
-#: objects/flowchart/box.c:179
-msgid "A box with text inside."
-msgstr "Ein Rechteck, das Text enthält."
-
-#: objects/flowchart/box.c:311 objects/flowchart/box.c:458
-#: objects/standard/box.c:263 objects/standard/box.c:340
-msgid "Corner rounding:"
-msgstr "Ecken-Abrundung:"
-
-#: objects/flowchart/diamond.c:175
-msgid "A diamond with text inside."
-msgstr "Ein Diamant, der Text enthält."
-
-#: objects/flowchart/ellipse.c:175
-#, fuzzy
-msgid "A ellipse with text inside."
-msgstr "Ein Rechteck, das Text enthält."
-
-#: objects/flowchart/flowchart.c:264
-msgid "Flowchart"
-msgstr "Flußdiagramm"
-
-#: objects/flowchart/flowchart.c:265
-msgid "Objects to draw flowcharts"
-msgstr "Objekte mit denen man Flußdiagramme zeichnen kann"
-
-#: objects/flowchart/parallelogram.c:180
-msgid "A parallelogram with text inside."
-msgstr "Ein Parallelogramm, das Text enthält."
-
-#: objects/flowchart/parallelogram.c:314 objects/flowchart/parallelogram.c:462
-msgid "Shear angle:"
-msgstr "Neigungswinkel:"
-
-#. type
-#: objects/network/antenna.c:56
-msgid "A Antenna for wireless transmissions"
-msgstr "Eine Antenne für drahtlose Übertragungen"
-
-#. type
-#: objects/network/bus.c:128
-msgid "Ethernet bus."
-msgstr "Ethernetbus."
-
-#: objects/network/bus.c:578
-#, fuzzy
-msgid "Add Handle"
-msgstr "Eckpunkt hinzufügen"
-
-#: objects/network/bus.c:579
-#, fuzzy
-msgid "Delete Handle"
-msgstr "Ebene löschen"
-
-#. type
-#: objects/network/computer.c:55
-msgid "A Computer with a tower case."
-msgstr "Ein Computer mit einem Towergehäuse."
-
-#. type
-#: objects/network/disc.c:55
-msgid "The symbol for storage. Disc or database."
-msgstr "Das Symbol für Speicher. Festplatte oder Datenbank."
-
-#. type
-#: objects/network/flash.c:56
-msgid "A WAN Connection"
-msgstr "Eine WAN-Verbindung"
-
-# CHECK - "stapelbar" trifft es wohl nicht ganz
-#. type
-#: objects/network/hub.c:58
-msgid "A stackable hub or switch"
-msgstr "Ein stapelbarer Hub oder Switch"
-
-#. type
-#: objects/network/modem.c:56
-msgid "A simple Modem"
-msgstr "Ein einfaches Modem"
-
-#. type
-#: objects/network/modularswitch.c:59
-msgid "A modular switching system"
-msgstr "Ein modulares Vermittlungssystem"
-
-#. type
-#: objects/network/monitor.c:56
-msgid "A monitor, with a stand"
-msgstr "Ein Monitor, mit Fuß"
-
-#: objects/network/network.c:77
-msgid "Network"
-msgstr "Netzwerk"
-
-#: objects/network/network.c:78
-msgid "Objects to design network diagrams with"
-msgstr "Objekte, mit denen Netzwerkdiagramme entworfen werden können"
-
-#. type
-#: objects/network/printer.c:56
-msgid "A simple Printer"
-msgstr "Ein einfacher Drucker"
-
-#. type
-#: objects/network/rj45plug.c:56
-msgid "A RJ45 Wall-Plug"
-msgstr "Ein RJ45-Wandstecker"
-
-#. type
-#: objects/network/scead-plug.c:57
-msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr "Ein Wandstecker für das scEAD-Kabelsystem"
-
-#: objects/standard/arc.c:205 objects/standard/line.c:202
-#: objects/standard/polyline.c:207 objects/standard/zigzagline.c:207
-msgid "Line width:"
-msgstr "Linienbreite:"
-
-#: objects/standard/arc.c:219 objects/standard/line.c:216
-#: objects/standard/polyline.c:221 objects/standard/textobj.c:232
-#: objects/standard/zigzagline.c:221
-msgid "Color:"
-msgstr "Farbe:"
-
-#: objects/standard/arc.c:241 objects/standard/line.c:238
-#: objects/standard/polyline.c:243 objects/standard/zigzagline.c:246
-msgid "Start arrow:"
-msgstr "Pfeilanfang:"
-
-#: objects/standard/arc.c:255 objects/standard/line.c:252
-#: objects/standard/polyline.c:257 objects/standard/zigzagline.c:260
-msgid "End arrow:"
-msgstr "Pfeilende:"
-
-#: objects/standard/image.c:235 objects/standard/image.c:356
-msgid "Image file:"
-msgstr "Bilddatei:"
-
-#: objects/standard/image.c:246
-msgid "Keep aspect ratio"
-msgstr "Bildverhältnis beibehalten"
-
-#: objects/standard/image.c:254
-msgid "Show border"
-msgstr "Rahmen anzeigen"
-
-#: objects/standard/image.c:367
-msgid "Keep aspect ratio:"
-msgstr "Bildverhältnis beibehalten:"
-
-#: objects/standard/image.c:375
-msgid "Show border:"
-msgstr "Rahmen anzeigen:"
-
-#. Found file in same dir as diagram.
-#: objects/standard/image.c:939 objects/standard/image.c:950
-#, c-format
-msgid ""
-"The image file '%s' was not found in that directory.\n"
-"Using the file '%s' instead\n"
-msgstr ""
-"Die Bilddatei '%s' wurde in diesem Verzeichnis nicht gefunden.\n"
-"Benutze stattdessen die Datei '%s'\n"
-
-#. Didn't find file in current dir.
-#: objects/standard/image.c:956 objects/standard/image.c:982
-#, c-format
-msgid "The image file '%s' was not found.\n"
-msgstr "Die Bilddatei '%s' wurde nicht gefunden.\n"
-
-#: objects/standard/polyline.c:741
-msgid "Add Corner"
-msgstr "Eckpunkt hinzufügen"
-
-#: objects/standard/polyline.c:742
-msgid "Delete Corner"
-msgstr "Eckpunkt löschen"
-
-#: objects/standard/textobj.c:218 objects/standard/textobj.c:312
-msgid "Fontsize:"
-msgstr "Schriftgröße:"
-
-#. type
 #: objects/sybase/client.c:55
 msgid "A Sybase Client Application."
 msgstr "Eine Sybase-Clientanwendung."
@@ -2116,6 +2060,72 @@ msgstr "Sybase"
 msgid "Objects to design Sybase replication domain diagrams with"
 msgstr ""
 "Objekte, mit denen Sybase-Replikationsdiagramme entworfen werden können"
+
+#: objects/flowchart/box.c:179
+msgid "A box with text inside."
+msgstr "Ein Rechteck, das Text enthält."
+
+#: objects/custom/custom_object.c:333 objects/custom/custom_object.c:481
+#: objects/flowchart/box.c:326 objects/flowchart/box.c:472
+#: objects/flowchart/diamond.c:306 objects/flowchart/diamond.c:435
+#: objects/flowchart/ellipse.c:306 objects/flowchart/ellipse.c:435
+#: objects/flowchart/parallelogram.c:329 objects/flowchart/parallelogram.c:476
+msgid "Text padding:"
+msgstr "Textfüllung:"
+
+#: objects/custom/custom_object.c:369 objects/custom/custom_object.c:517
+#: objects/flowchart/box.c:351 objects/flowchart/box.c:497
+#: objects/flowchart/diamond.c:331 objects/flowchart/diamond.c:460
+#: objects/flowchart/ellipse.c:331 objects/flowchart/ellipse.c:460
+#: objects/flowchart/parallelogram.c:354 objects/flowchart/parallelogram.c:501
+msgid "Font size:"
+msgstr "Schriftgröße:"
+
+#: objects/custom/custom_object.c:383 objects/flowchart/box.c:365
+#: objects/flowchart/diamond.c:345 objects/flowchart/ellipse.c:345
+#: objects/flowchart/parallelogram.c:368
+msgid "Font color:"
+msgstr "Schriftfarbe:"
+
+#: objects/flowchart/diamond.c:175
+msgid "A diamond with text inside."
+msgstr "Ein Diamant, der Text enthält."
+
+#: objects/flowchart/ellipse.c:175
+#, fuzzy
+msgid "A ellipse with text inside."
+msgstr "Ein Rechteck, das Text enthält."
+
+#: objects/flowchart/flowchart.c:264
+msgid "Flowchart"
+msgstr "Flußdiagramm"
+
+#: objects/flowchart/flowchart.c:265
+msgid "Objects to draw flowcharts"
+msgstr "Objekte mit denen man Flußdiagramme zeichnen kann"
+
+#: objects/flowchart/parallelogram.c:180
+msgid "A parallelogram with text inside."
+msgstr "Ein Parallelogramm, das Text enthält."
+
+#: objects/flowchart/parallelogram.c:314 objects/flowchart/parallelogram.c:462
+msgid "Shear angle:"
+msgstr "Neigungswinkel:"
+
+#: objects/custom/custom_object.c:190
+#, fuzzy
+msgid "A custom with text inside."
+msgstr "Ein Rechteck, das Text enthält."
+
+#: objects/custom/custom_object.c:1384
+#, fuzzy
+msgid "Flip Horizontal"
+msgstr "_Horizontal anordnen"
+
+#: objects/custom/custom_object.c:1385
+#, fuzzy
+msgid "Flip Vertical"
+msgstr "_Vertikal anordnen"
 
 #~ msgid "Number of handles:"
 #~ msgstr "Anzahl Anschlüsse:"
