@@ -1,3 +1,12 @@
+2005-02-19  Lars Clausen  <lars@raeder.dk>
+
+	* app/menus.c (display_menu_items): Applied patch from bug #94019:
+	Menu cleanup and addition of icons.  Also a few additional stock
+	icons. 
+
+	* app/layer_dialog.c (create_layer_dialog): Bug #159598: Clean up
+	the layers dialog.
+
 2005-02-14  Lars Clausen  <lars@LittlePooter.local.>
 
 	* INSTALL (ftp): Fixed Pango release typo (bug #153007)

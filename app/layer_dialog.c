@@ -223,7 +223,7 @@ create_layer_dialog(void)
 
   hbox = gtk_hbox_new(FALSE, 1);
   
-  label = gtk_label_new(_("Diagrams:"));
+  label = gtk_label_new(_("Diagram:"));
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show (label);
   
@@ -268,7 +268,7 @@ create_layer_dialog(void)
   gtk_container_set_border_width(GTK_CONTAINER(GTK_DIALOG(dialog)->action_area),
 				 2);
 
-  button = gtk_button_new_with_label (_("Close"));
+  button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
   g_signal_connect_swapped(GTK_OBJECT (button), "clicked",
@@ -324,11 +324,14 @@ layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
   GList *list = NULL;
   GtkWidget *layer_widget;
   int pos;
+  static int next_layer_num = 1;
 
   dia = layer_dialog->diagram;
 
   if (dia != NULL) {
-    layer = new_layer(g_strdup(_("New layer")),dia->data);
+    gchar* new_layer_name = g_strdup_printf(_("New layer %d"),
+					    next_layer_num++);
+    layer = new_layer(new_layer_name, dia->data);
 
     assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
     selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
@@ -993,7 +996,7 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
   gtk_widget_show (dialog->name_entry);
   gtk_widget_show (hbox);
 
-  button = gtk_button_new_with_label (_("OK"));
+  button = gtk_button_new_from_stock (GTK_STOCK_OK);
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
@@ -1003,7 +1006,7 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
   gtk_widget_grab_default (button);
   gtk_widget_show (button);
 
-  button = gtk_button_new_with_label (_("Cancel"));
+  button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
