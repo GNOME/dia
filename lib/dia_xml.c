@@ -864,7 +864,7 @@ warn_about_broken_libxml1(void)
 #define OVERRUN_SAFETY 16
 
 /* diarc option */
-int pretty_formated_xml = FALSE;
+int pretty_formated_xml = TRUE;
 
 int xmlDiaSaveFile(const char *filename,
                    xmlDocPtr cur)
