@@ -1,3 +1,22 @@
+1999-10-11  James Henstridge  <james@daa.com.au>
+
+	* objects/flowchart/document.shape: a shape file for the `document'
+	flowchart shape.
+
+	* lib/custom.h: new header with the custom shape prototypes.
+
+	* app/app_procs.c: register custom objects as well.
+	(register_objects_in): close shared libraries if they don't load
+	correctly, and call g_module_make_resident on libraries that load
+	correctly.
+
+	* app/Makefile.am (dia_LDADD): added libcustom_objects.a to link list.
+
+	* objects/custom/custom.c: removed get_version, added custom_ prefix
+	to register_objects and register_sheets.
+
+	* objects/custom/Makefile.am: converted to a normal library.
+
 1999-10-10  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/lineprops_area.c:

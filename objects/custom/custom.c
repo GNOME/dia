@@ -28,12 +28,6 @@
 #include "load_sheet.h"
 #include "shape_info.h"
 
-int
-get_version(void)
-{
-  return 0;
-}
-
 static GList *sheets = NULL;
 
 static void
@@ -74,7 +68,7 @@ load_sheets_from_dir(const gchar *directory)
 }
 
 void
-register_objects(void)
+custom_register_objects(void)
 {
   char *shape_path;
   char *home_dir;
@@ -101,7 +95,7 @@ register_objects(void)
 }
 
 void
-register_sheets(void)
+custom_register_sheets(void)
 {
   GList *tmp;
 

@@ -10,10 +10,16 @@ libflowchart_objects_la_SOURCES = \
 
 libflowchart_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
-INCLUDES = -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@
+INCLUDES = -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@ \
+  -DSHAPE_DIR=\""$(shapedir)"\"
+
+shapedir = $(pkgdatadir)/shape-internal/flowchart
+shape_DATA = document.shape
 
 EXTRA_DIST = \
+	document.shape \
 	pixmaps/box.xpm \
 	pixmaps/diamond.xpm \
 	pixmaps/ellipse.xpm \
-	pixmaps/pgram.xpm
+	pixmaps/pgram.xpm \
+	pixmaps/document.xpm

@@ -80,7 +80,8 @@ dia_SOURCES = \
 	    pixmaps.h \
 	    $(print_files)
 
-dia_LDADD = ../lib/libdia.a @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@
+dia_LDADD = ../lib/libdia.a ../objects/custom/libcustom_objects.a \
+    @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@
 
 CPPFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\" \

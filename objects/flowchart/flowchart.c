@@ -18,16 +18,21 @@
 #include "intl.h"
 #include "object.h"
 #include "sheet.h"
+#include "custom.h"
+
+#include "pixmaps/document.xpm"
 
 extern ObjectType fc_box_type;
 extern ObjectType pgram_type;
 extern ObjectType diamond_type;
 extern ObjectType fc_ellipse_type;
+static ObjectType *doc_type = NULL;
 
 extern SheetObject box_sheetobj;
 extern SheetObject pgram_sheetobj;
 extern SheetObject diamond_sheetobj;
 extern SheetObject ellipse_sheetobj;
+static SheetObject *doc_sheetobj = NULL;
 
 int get_version(void) {
   return 0;
@@ -38,6 +43,11 @@ void register_objects(void) {
   object_register_type(&pgram_type);
   object_register_type(&diamond_type);
   object_register_type(&fc_ellipse_type);
+
+  custom_object_load(SHAPE_DIR "/document.shape", &doc_type, &doc_sheetobj);
+  doc_type->pixmap = document_xpm;
+  doc_sheetobj->pixmap = document_xpm;
+  object_register_type(doc_type);
 }
 
 void register_sheets(void) {
@@ -49,6 +59,7 @@ void register_sheets(void) {
   sheet_append_sheet_obj(sheet, &pgram_sheetobj);
   sheet_append_sheet_obj(sheet, &diamond_sheetobj);
   sheet_append_sheet_obj(sheet, &ellipse_sheetobj);
+  sheet_append_sheet_obj(sheet, doc_sheetobj);
 
   register_sheet(sheet);
 }

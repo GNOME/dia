@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
-pkglib_LTLIBRARIES = 	libcustom_objects.la
-libcustom_objects_la_SOURCES = \
+noinst_LIBRARIES = 	libcustom_objects.a
+libcustom_objects_a_SOURCES = \
 			shape_info.c \
 			shape_info.h \
 			custom_object.c \
@@ -10,8 +10,6 @@ libcustom_objects_la_SOURCES = \
 			load_sheet.c \
 			load_sheet.h \
 			custom.c
-
-libcustom_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 shapedir = $(pkgdatadir)/shapes
 

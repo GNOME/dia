@@ -53,6 +53,7 @@ libdia_a_SOURCES =  \
 		dia_image.h \
 		intl.c \
 		intl.h \
+		custom.h \
 		dummy_dep.h
 
 INCLUDES = @XML_CFLAGS@ @GNOME_CFLAGS@ @GTK_CFLAGS@

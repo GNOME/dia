@@ -57,6 +57,7 @@
 #include "layer_dialog.h"
 #include "load_save.h"
 #include "preferences.h"
+#include "custom.h"
 
 static void register_all_objects(void);
 static void register_all_sheets(void);
@@ -365,18 +366,21 @@ register_objects_in(char *directory)
       if (!g_module_symbol(libhandle, "get_version", (gpointer)&version_func)) {
 	message_warning(_("The file \"%s\" is not a Dia object library.\n"), file_name);
 	printf(_("The file \"%s\" is not a Dia object library.\n"), file_name);
+	g_module_close(libhandle);
 	continue;
       }
 
       if ( (*version_func)() < current_version ) {
 	message_warning(_("The object library \"%s\" is from an older version of Dia and cannot be used.\nPlease upgrade it."), file_name);
 	printf(_("The object library \"%s\" is from an older version of Dia and cannot be used.\nPlease upgrade it."), file_name);
+	g_module_close(libhandle);
 	continue;
       }
       
       if ( (*version_func)() > current_version ) {
 	message_warning(_("The object library \"%s\" is from an later version of Dia.\nYou need to upgrade Dia to use it."), file_name);
 	printf(_("The object library \"%s\" is from an later version of Dia.\nYou need to upgrade Dia to use it."), file_name);
+	g_module_close(libhandle);
 	continue;
       }
 
@@ -384,11 +388,13 @@ register_objects_in(char *directory)
 	error = g_module_error();
 	message_warning(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
 	printf(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
+	g_module_close(libhandle);
 	continue;
       }
       
       (*register_func)();
 
+      g_module_make_resident(libhandle);
       modules_list = g_list_append(modules_list, libhandle);
     } 
   }
@@ -405,6 +411,8 @@ register_all_objects(void)
   char lib_dir[256];
   
   object_register_type(&group_type);
+
+  custom_register_objects();
 
   home_path = getenv("HOME");
   library_path = getenv("DIA_LIB_PATH");
@@ -438,20 +446,20 @@ register_all_sheets(void)
   GModule *libhandle;
   const gchar *error;
 
-  list = modules_list;
-  while (list != NULL) {
+  for (list = modules_list; list != NULL; list = g_list_next(list)) {
     libhandle = (GModule *) list->data;
 
-    if (!g_module_symbol(libhandle, "register_sheets", (gpointer)&register_func)) {
+    if (!g_module_symbol(libhandle, "register_sheets",
+			 (gpointer)&register_func)) {
       error = g_module_error();
-      message_warning(_("Unable to find register_sheets in library:\n%s"), error);
-      list = g_list_next(list);
+      message_warning(_("Unable to find register_sheets in library:\n%s"),
+		      error);
       continue;
     }
 
     (*register_func)();
-    
-    list = g_list_next(list);
   } 
+
+  custom_register_sheets();
 }
 
