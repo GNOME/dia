@@ -1,3 +1,11 @@
+1999-10-16  James Henstridge  <james@daa.com.au>
+
+	* objects/custom/custom_object.c (custom_update_data): changed
+	resizing behaviour a bit so that shapes don't grow huge when you try
+	to resize them to smaller than the size required by the text box.
+	Also, now shapes will not grow with fixed aspect ratio when you enter
+	text into them unless the shape has the fixed aspect ratio flag set.
+
 1999-10-15  James Henstridge  <james@daa.com.au>
 
 	* objects/flowchart/flowchart.c: add new shapes to flowchart sheet.

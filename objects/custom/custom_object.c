@@ -926,6 +926,30 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   custom->yscale = elem->height / (info->shape_bounds.bottom -
 				   info->shape_bounds.top);
 
+  /* resize shape if text does not fit inside text_bounds */
+  if (info->has_text) {
+    real width, height;
+    real xscale = 0.0, yscale = 0.0;
+
+    transform_rect(custom, &info->text_bounds, &tb);
+
+    width = custom->text->max_width + 2*custom->padding+custom->border_width;
+    height = custom->text->height * custom->text->numlines +
+      2 * custom->padding + custom->border_width;
+
+    xscale = width / (tb.right - tb.left);
+    yscale = height / (tb.bottom - tb.top);
+
+    if (xscale > 1.0) {
+      elem->width  *= xscale;
+      custom->xscale *= xscale;
+    }
+    if (yscale > 1.0) {
+      elem->height *= yscale;
+      custom->yscale *= yscale;
+    }
+  }
+
   /* if aspect ratio should be fixed, make sure xscale == yscale */
   switch (info->aspect_type) {
   case SHAPE_ASPECT_FREE:
@@ -951,26 +975,6 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 				       info->shape_bounds.top);
     }
     break;
-  }
-  /* resize shape if text does not fit inside text_bounds */
-  if (info->has_text) {
-    real width, height;
-    real xscale = 0.0, yscale = 0.0;
-
-    transform_rect(custom, &info->text_bounds, &tb);
-
-    width = custom->text->max_width + 2*custom->padding+custom->border_width;
-    height = custom->text->height * custom->text->numlines +
-      2 * custom->padding + custom->border_width;
-
-    xscale = width / (tb.right - tb.left);
-    yscale = height / (tb.bottom - tb.top);
-
-    xscale = MAX(xscale, yscale);
-    if (xscale > 1.0) {
-      elem->width  *= xscale;
-      elem->height *= xscale;
-    }
   }
 
   /* move shape if necessary ... */
