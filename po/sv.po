@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2001-11-05 00:14+0100\n"
-"PO-Revision-Date: 2001-11-05 00:17+0100\n"
+"POT-Creation-Date: 2001-11-22 13:18+0100\n"
+"PO-Revision-Date: 2001-11-22 13:20+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -175,7 +175,7 @@ msgstr "Bidragsgivare:"
 #. setup buttons
 #: app/commands.c:604 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:688
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:704
 #: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "OK"
@@ -196,12 +196,12 @@ msgid "Object defaults"
 msgstr "Standardvärden för objekt"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:697 app/properties.c:101
+#: app/preferences.c:713 app/properties.c:101
 msgid "Apply"
 msgstr "Verkställ"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:706
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:722
 #: app/properties.c:111
 msgid "Close"
 msgstr "Stäng"
@@ -339,12 +339,12 @@ msgstr ""
 "Detta diagram har inte sparats.\n"
 "Vill du spara ändringar nu?"
 
-#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:580
+#: app/display.c:945 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:596
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:580
-#: app/preferences.c:591
+#: app/display.c:955 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:596
+#: app/preferences.c:607
 msgid "No"
 msgstr "Nej"
 
@@ -1399,35 +1399,39 @@ msgstr "Läs in"
 msgid "Unload"
 msgstr "Ladda ur"
 
-#: app/preferences.c:115
+#: app/preferences.c:120
 msgid "User Interface"
 msgstr "Användargränssnitt"
 
-#: app/preferences.c:116
+#: app/preferences.c:121
 msgid "Diagram Defaults"
 msgstr "Standardalternativ för diagram"
 
-#: app/preferences.c:117
+#: app/preferences.c:122
 msgid "View Defaults"
 msgstr "Standardvärden för vyer"
 
-#: app/preferences.c:118
+#: app/preferences.c:123
 msgid "Grid Lines"
 msgstr "Rutlinjer"
 
-#: app/preferences.c:132
+#: app/preferences.c:124
+msgid "Diagram Tree"
+msgstr "Diagramträd"
+
+#: app/preferences.c:138
 msgid "Reset tools after create:"
 msgstr "Återställ verktyg när objekt har skapats:"
 
-#: app/preferences.c:133
+#: app/preferences.c:139
 msgid "Compress saved files:"
 msgstr "Komprimera sparade filer:"
 
-#: app/preferences.c:134
+#: app/preferences.c:140
 msgid "Number of undo levels:"
 msgstr "Antal nivåer för ångra:"
 
-#: app/preferences.c:135
+#: app/preferences.c:141
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1435,77 +1439,89 @@ msgstr ""
 "Omvänd dragning markerar\n"
 "korsande objekt:"
 
-#: app/preferences.c:138
+#: app/preferences.c:144
 msgid "New diagram:"
 msgstr "Nytt diagram:"
 
-#: app/preferences.c:139
+#: app/preferences.c:145
 msgid "Paper type:"
 msgstr "Papperstyp:"
 
-#: app/preferences.c:142
+#: app/preferences.c:148
 msgid "New window:"
 msgstr "Nytt fönster:"
 
-#: app/preferences.c:143
+#: app/preferences.c:149
 msgid "Width:"
 msgstr "Bredd:"
 
-#: app/preferences.c:144
+#: app/preferences.c:150
 msgid "Height:"
 msgstr "Höjd:"
 
-#: app/preferences.c:145
+#: app/preferences.c:151
 msgid "Magnify:"
 msgstr "Förstora:"
 
-#: app/preferences.c:146
+#: app/preferences.c:152
 msgid "Use menu bar:"
 msgstr "Använd menyrad:"
 
-#: app/preferences.c:148
-msgid "Show diagram tree at startup:"
-msgstr "Visa diagramträd vid uppstart:"
-
-#: app/preferences.c:150
+#: app/preferences.c:154
 msgid "Connection Points:"
 msgstr "Anslutningspunkter:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:151 app/preferences.c:154 app/preferences.c:159
+#: app/preferences.c:155 app/preferences.c:158 app/preferences.c:163
 msgid "Visible:"
 msgstr "Synligt:"
 
-#: app/preferences.c:153
+#: app/preferences.c:157
 msgid "Page breaks:"
 msgstr "Sidbrytningar:"
 
-#: app/preferences.c:155 app/preferences.c:163
+#: app/preferences.c:159 app/preferences.c:167
 msgid "Colour:"
 msgstr "Färg:"
 
-#: app/preferences.c:156 app/preferences.c:164
+#: app/preferences.c:160 app/preferences.c:168
 msgid "Solid lines:"
 msgstr "Hela linjer:"
 
-#: app/preferences.c:160
+#: app/preferences.c:164
 msgid "Snap to:"
 msgstr "Fäst vid:"
 
-#: app/preferences.c:161
+#: app/preferences.c:165
 msgid "X Size:"
 msgstr "X-storlek:"
 
-#: app/preferences.c:162
+#: app/preferences.c:166
 msgid "Y Size:"
 msgstr "Y-storlek:"
 
-#: app/preferences.c:287
+#: app/preferences.c:176
+msgid "Diagram tree window:"
+msgstr "Diagramträdsfönster:"
+
+#: app/preferences.c:178
+msgid "Show at startup:"
+msgstr "Visa vid uppstart:"
+
+#: app/preferences.c:180
+msgid "Default width:"
+msgstr "Standardbredd:"
+
+#: app/preferences.c:182
+msgid "Default height:"
+msgstr "Standardhöjd:"
+
+#: app/preferences.c:303
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/preferences.c:656 app/preferences.c:665
+#: app/preferences.c:672 app/preferences.c:681
 msgid "Preferences"
 msgstr "Inställningar"
 
