@@ -1,3 +1,54 @@
+2001-01-06  Hans Breuer <Hans@Breuer.Org>
+
+	* plug-ins/python/diamodule.c : finally ported to win32.
+	Added new objects and implemented register_export function.
+
+	* plug-ins/python/pydia-object.h
+	* plug-ins/python/pydia-display.c
+	* plug-ins/python/pydia-handle.c
+	PyObject_HEAD_INIT needs some tweakink on win32. Done in
+	pydia-object.h; others files simply using it.
+
+	* plug-ins/python/pydia-layer.c : reflect 
+	layer_find_closest_connection(_)point renaming
+
+	* plug-ins/python/pydia-object.c : add property properties.
+	Also change bounding_box to DiaRectangle.
+
+	* plug-ins/python/python.c : extended error reporting; use
+	all *.py files from Dia's plug-in dir instead of hardcoded
+	test.py. This sollution should be fine with Win32, but on
+	Unix it may need some tweaking (dunno) ...
+
+	* plug-ins/python/export-object.py
+	* plug-ins/python/export-render.py : test and documentation 
+	implementations for export filter implementations in Python
+
+	* plug-ins/python/pydia-color.[hc]
+	* plug-ins/python/pydia-diagramdata.[hc]
+	* plug-ins/python/pydia-error.[hc]
+	* plug-ins/python/pydia-export.[hc]
+	* plug-ins/python/pydia-font.[hc]
+	* plug-ins/python/pydia-geometry.[hc]
+	* plug-ins/python/pydia-image.[hc]
+	* plug-ins/python/pydia-properties.[hc]
+	* plug-ins/python/pydia-property.c
+	* plug-ins/python/pydia-render.c : new objects in new files 
+
+	* plug-ins/python/makefile.am : added new files but can't test it
+
+	* plug-ins/python/pydia.def
+	* plug-ins/python/makefile.msc : for win32 build
+
+	* plug-ins/cgm/cgm.c
+	* plug-ins/dxf/dxf-import.c
+	* plug-ins/dxf/dxf-export.c
+	* plug-ins/hpgl/hpgl.c : reflect export API change
+
+	* plug-ins/shape/shape-export.c : reflect export API change
+	and check for libart (better the availibility of a png exporter) 
+	at run-time instead of compile-time. 
+
 2001-01-06  Steffen Macke <sdteffen@yahoo.com>
 
 	* app/recent_files.h was missing from Hans's commit

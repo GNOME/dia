@@ -21,6 +21,7 @@
 
 #include "pydia-display.h"
 #include "pydia-diagram.h"
+#include "pydia-object.h" /* for PyObject_HEAD_INIT */
 
 PyObject *
 PyDiaDisplay_New(DDisplay *disp)

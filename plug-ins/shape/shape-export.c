@@ -903,7 +903,6 @@ export_shape(DiagramData *data, const gchar *filename,
     Rectangle *ext = &data->extents;
     gfloat scaling_x, scaling_y;
 
-#ifdef HAVE_LIBART
     /* create the png preview shown in the toolbox */
     point = strrchr(filename, '.');
     i = (int)(point-filename);
@@ -912,14 +911,18 @@ export_shape(DiagramData *data, const gchar *filename,
     g_free(point);
     exportfilter = filter_guess_export_filter(png_filename);
 
-    /* get the scaling right */
-    old_scaling = data->paper.scaling;
-    scaling_x = 22/((ext->right - ext->left) * 20);
-    scaling_y = 22/((ext->bottom - ext->top) * 20);
-    data->paper.scaling = MIN(scaling_x, scaling_y);
-    exportfilter->export(data, png_filename, diafilename, user_data);
-    data->paper.scaling = old_scaling;
-    
+    if (!exportfilter) {
+      message_warning(_("Can't export png without libart!"));
+    }
+    else {
+      /* get the scaling right */
+      old_scaling = data->paper.scaling;
+      scaling_x = 22/((ext->right - ext->left) * 20);
+      scaling_y = 22/((ext->bottom - ext->top) * 20);
+      data->paper.scaling = MIN(scaling_x, scaling_y);
+      exportfilter->export(data, png_filename, diafilename, user_data);
+      data->paper.scaling = old_scaling;
+    }
     /* create the shape */
     old_locale = setlocale(LC_NUMERIC, "C");
     if((renderer = new_shape_renderer(data, filename))) {
@@ -928,7 +931,6 @@ export_shape(DiagramData *data, const gchar *filename,
     }
     setlocale(LC_NUMERIC, old_locale);
     g_free(png_filename);
-#endif
 }
 
 static const gchar *extensions[] = { "shape", NULL };

@@ -542,7 +542,8 @@ draw_image(MyRenderer *renderer,
 }
 
 static void
-export_data(DiagramData *data, const gchar *filename, const gchar *diafilename)
+export_data(DiagramData *data, const gchar *filename, 
+            const gchar *diafilename, void* user_data)
 {
     MyRenderer *renderer;
     FILE *file;

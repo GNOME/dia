@@ -499,7 +499,8 @@ draw_image(Rendererdxf *renderer,
 }
 
 static void
-export_dxf(DiagramData *data, const gchar *filename, const gchar *diafilename)
+export_dxf(DiagramData *data, const gchar *filename, 
+           const gchar *diafilename, void* user_data)
 {
     Rendererdxf *renderer;
     FILE *file;

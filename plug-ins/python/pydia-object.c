@@ -22,6 +22,8 @@
 #include "pydia-object.h"
 #include "pydia-cpoint.h"
 #include "pydia-handle.h"
+#include "pydia-geometry.h"
+#include "pydia-properties.h"
 
 PyObject *
 PyDiaObject_New(Object *object)
@@ -180,15 +182,12 @@ static PyObject *
 PyDiaObject_GetAttr(PyDiaObject *self, gchar *attr)
 {
     if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[ssss]", "bounding_box", "connections",
-			     "handles", "type");
+	return Py_BuildValue("[sssss]", "bounding_box", "connections",
+			     "handles", "properties", "type");
     else if (!strcmp(attr, "type"))
 	return PyDiaObjectType_New(self->object->type);
     else if (!strcmp(attr, "bounding_box"))
-	return Py_BuildValue("(dddd)", self->object->bounding_box.top,
-			     self->object->bounding_box.left,
-			     self->object->bounding_box.bottom,
-			     self->object->bounding_box.right);
+	return PyDiaRectangle_New(&(self->object->bounding_box), NULL);
     else if (!strcmp(attr, "handles")) {
 	int i;
 	PyObject *ret = PyTuple_New(self->object->num_handles);
@@ -204,6 +203,8 @@ PyDiaObject_GetAttr(PyDiaObject *self, gchar *attr)
 	    PyTuple_SetItem(ret, i, PyDiaConnectionPoint_New(
 				self->object->connections[i]));
 	return ret;
+    } else if (!strcmp(attr, "properties")) {
+	return PyDiaProperties_New(self->object);
     }
 
     return Py_FindMethod(PyDiaObject_Methods, (PyObject *)self, attr);

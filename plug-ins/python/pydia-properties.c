@@ -1,0 +1,287 @@
+/* Python plug-in for dia
+ * Copyright (C) 1999  James Henstridge
+ * Copyright (C) 2000  Hans Breuer
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+#include <glib.h>
+
+#include "pydia-object.h"
+#include "pydia-properties.h"
+
+/*
+ * New
+ */
+PyObject* 
+PyDiaProperties_New (Object* obj)
+{
+  PyDiaProperties *self;
+  
+  self = PyObject_NEW(PyDiaProperties, &PyDiaProperties_Type);
+  if (!self) return NULL;
+  
+  self->object = obj;  /* XXX: should be ref counted */
+  self->nprops = -1;
+  
+  return (PyObject *)self;
+}
+
+/*
+ * Dealloc
+ */
+static void
+PyDiaProperties_Dealloc(PyDiaObject *self)
+{
+  self->object = NULL; /* XXX: should dec ref */
+  PyMem_DEL(self);
+}
+
+/*
+ * Compare
+ */
+static int
+PyDiaProperties_Compare(PyDiaProperties *self,
+                      PyDiaProperties *other)
+{
+  return memcmp(&(self->object), &(other->object), sizeof(Object*));
+}
+
+/*
+ * Hash
+ */
+static long
+PyDiaProperties_Hash(PyObject *self)
+{
+  return (long)self;
+}
+
+/*
+ * Repr / _Str
+ */
+static PyObject *
+PyDiaProperties_Str(PyDiaProperties *self)
+{
+  PyObject* py_s;
+  gchar* s = g_strdup_printf("<DiaProperties at 0x%08x of DiaObject at 0x%08x>",
+                             self, self->object );
+  py_s = PyString_FromString(s);
+  g_free (s);
+  return py_s;
+}
+
+/*
+ * Implement the dictionary interface for the Properties object
+ */
+static PyObject *
+PyDiaProperties_Get(PyDiaProperties *self, PyObject *args)
+{
+  PyObject *key;
+  PyObject *failobj = Py_None;
+  PyObject *val = NULL;
+
+  if (!PyArg_ParseTuple(args, "O|O:get", &key, &failobj))
+    return NULL;
+
+  if (self->object->ops->get_props != NULL) {
+    Property prop;
+
+    prop.name = PyString_AsString(key);
+    prop.type = PROP_TYPE_INVALID;
+    if (prop.name) {
+      /* Get the first property with name */
+      self->object->ops->get_props(self->object, &prop, 1);
+      if (prop.type != PROP_TYPE_INVALID)
+        val = PyDiaProperty_New(&prop); /* makes a copy, too. */
+      prop_free(&prop);
+    }
+  }
+ 
+  if (val == NULL) { 
+    val = failobj;
+    Py_INCREF(val);
+  }
+
+  return val;
+}
+
+static PyObject *
+PyDiaProperties_HasKey(PyDiaProperties *self, PyObject *args)
+{
+  PyObject *key;
+  long ok = 0;
+
+  if (!PyArg_ParseTuple(args, "O:has_key", &key))
+    return NULL;
+
+  if (!PyString_Check(key))
+    ok = 0; /* is this too drastic? */
+
+  if (self->object->ops->get_props != NULL) {
+    Property prop;
+    PropDescription *desc;
+
+    prop.name = PyString_AsString(key);
+
+    desc = self->object->ops->describe_props(self->object);
+    desc = prop_desc_list_find_prop (desc, prop.name);
+
+    prop.type = desc->type;
+
+    if (prop.name) {
+      /* Get the first property with name */
+      self->object->ops->get_props(self->object, &prop, 1);
+      ok = (prop.type != PROP_TYPE_INVALID);
+      prop_free(&prop);
+    }
+  }
+
+  return PyInt_FromLong(ok);
+}
+
+static PyObject *
+PyDiaProperties_Keys(PyDiaProperties *self, PyObject *args)
+{
+  PyObject *list;
+  const PropDescription *desc = NULL;
+
+  if (!PyArg_NoArgs(args))
+    return NULL;
+
+  list = PyList_New(0);
+
+  if (self->object->ops->describe_props)
+    desc = self->object->ops->describe_props(self->object);
+  if (desc) {
+    int i;
+    for (i = 0; desc[i].name; i++)
+      PyList_Append(list, PyString_FromString(desc[i].name));
+  }
+
+  return list;
+}
+
+static int
+PyDiaProperties_Length (PyDiaProperties* self)
+{
+  if (self->nprops < 0) {
+    const PropDescription *desc = NULL;
+
+    if (self->object->ops->describe_props)
+      desc = self->object->ops->describe_props(self->object);
+
+    self->nprops = 0;
+    if (desc) {
+      int i;
+      for (i = 0; desc[i].name; i++)
+        self->nprops++;
+    }
+  }
+
+  return self->nprops;
+}
+
+static PyObject *
+PyDiaProperties_Subscript (PyDiaProperties *self, register PyObject *key)
+{
+  PyObject *v = NULL;
+
+  if (!self->object->ops->describe_props) {
+    PyErr_SetObject(PyExc_KeyError, key);
+    return NULL;
+  }
+  else {
+    Property prop;
+    PropDescription *desc;
+
+    prop.name = PyString_AsString(key);
+
+    desc = self->object->ops->describe_props(self->object);
+    desc = prop_desc_list_find_prop (desc, prop.name);
+
+    prop.type = desc->type;
+
+    if (prop.name) {
+      /* Get the first property with name */
+      self->object->ops->get_props(self->object, &prop, 1);
+      if (prop.type != PROP_TYPE_INVALID)
+        v = PyDiaProperty_New(&prop); /* makes a copy, too. */
+      prop_free(&prop);
+    }
+  }
+
+  if (v == NULL)
+    PyErr_SetObject(PyExc_KeyError, key);
+
+  return v;
+}
+
+static int
+PyDiaProperties_AssSub (PyDiaProperties* mp, PyObject *v, PyObject *w)
+{
+  // FIXME: this isn't really supported
+  if (w == NULL)
+    return PyDict_DelItem((PyObject *)mp, v);
+  else
+    return PyDict_SetItem((PyObject *)mp, v, w);
+}
+
+static PyMappingMethods PyDiaProperties_AsMapping = {
+	(inquiry)PyDiaProperties_Length, /*mp_length*/
+	(binaryfunc)PyDiaProperties_Subscript, /*mp_subscript*/
+	(objobjargproc)PyDiaProperties_AssSub, /*mp_ass_subscript*/
+};
+
+static PyMethodDef mapp_methods[] = {
+	{"get",     PyDiaProperties_Get,     METH_VARARGS},
+	{"has_key",	PyDiaProperties_HasKey,  METH_VARARGS},
+	{"keys",	PyDiaProperties_Keys},
+	{NULL,		NULL}		/* sentinel */
+};
+
+/*
+ * GetAttr
+ */
+static PyObject*
+PyDiaProperties_GetAttr(PyDiaProperties *self, gchar *attr)
+{
+  return Py_FindMethod(mapp_methods, (PyObject *)self, attr);
+}
+
+/*
+ * Python object
+ */
+PyTypeObject PyDiaProperties_Type = {
+    PyObject_HEAD_INIT(&PyType_Type)
+    0,
+    "DiaProperties",
+    sizeof(PyDiaProperties),
+    0,
+    (destructor)PyDiaProperties_Dealloc,
+    (printfunc)0,
+    (getattrfunc)PyDiaProperties_GetAttr,
+    (setattrfunc)0,
+    (cmpfunc)PyDiaProperties_Compare,
+    (reprfunc)0,
+    0,
+    0,
+    &PyDiaProperties_AsMapping, /* PyMappingMethods */
+    (hashfunc)PyDiaProperties_Hash,
+    (ternaryfunc)0,
+    (reprfunc)PyDiaProperties_Str,
+    0L,0L,0L,0L,
+    NULL
+};
+

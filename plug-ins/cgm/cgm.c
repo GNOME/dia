@@ -1114,7 +1114,8 @@ draw_image(RendererCGM *renderer,
 }
 
 static void
-export_cgm(DiagramData *data, const gchar *filename, const gchar *diafilename)
+export_cgm(DiagramData *data, const gchar *filename, 
+           const gchar *diafilename, void* user_data)
 {
     RendererCGM *renderer;
     FILE *file;

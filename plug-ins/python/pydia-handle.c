@@ -21,6 +21,7 @@
 
 #include "pydia-handle.h"
 #include "pydia-cpoint.h"
+#include "pydia-object.h" /* for PyObject_HEAD_INIT */
 
 PyObject *
 PyDiaHandle_New(Handle *handle)

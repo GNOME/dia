@@ -1,0 +1,63 @@
+TOP = ..\..\..
+
+!INCLUDE $(TOP)\build\win32\make.msc
+PY2=2
+
+!IFNDEF PY2
+PYTHON = ..\..\..\..\python
+!IFNDEF DEBUG
+EXTRALIBS = $(PYTHON)\libs\python15.lib user32.lib
+!ELSE
+EXTRALIBS = $(PYTHON)\libs\python15_d.lib user32.lib
+!ENDIF
+!ELSE
+PYTHON = ..\..\..\..\python20
+!IFNDEF DEBUG
+EXTRALIBS = $(PYTHON)\libs\python20.lib user32.lib
+!ELSE
+EXTRALIBS = $(PYTHON)\Python-2.0\PCbuild\python20_d.lib user32.lib
+!ENDIF
+!ENDIF
+
+!IFNDEF DEBUG
+# Debug Release!
+OPTIMIZE = -Zi -MD
+!ENDIF
+
+CFLAGS = -DHAVE_CONFIG_H -I..\.. -I..\..\lib \
+	-I$(PYTHON)\include $(GLIB_CFLAGS) $(GTK_CFLAGS) $(INTL_CFLAGS)
+
+EXTRALIBS = $(EXTRALIBS) ..\..\lib\libdia.lib ..\..\app\dia.lib
+
+OBJECTS = \
+	diamodule.obj \
+	pydia-color.obj \
+	pydia-cpoint.obj \
+	pydia-diagram.obj \
+	pydia-diagramdata.obj \
+	pydia-display.obj \
+	pydia-error.obj \
+	pydia-export.obj \
+	pydia-font.obj \
+	pydia-geometry.obj \
+	pydia-handle.obj \
+	pydia-image.obj \
+	pydia-layer.obj \
+	pydia-object.obj \
+	pydia-properties.obj \
+	pydia-property.obj \
+	pydia-render.obj \
+
+OBJECTS2 = \
+	python.obj \
+	pydia-error.obj \
+
+all : \
+	dia.pyd \
+	dia-python.dll
+
+dia.pyd : $(OBJECTS) pydia.def
+	$(CC) $(CFLAGS) -LD -Fe$@ $(OBJECTS) $(LDFLAGS) $(EXTRALIBS) $(GTK_LIBS) $(GLIB_LIBS) /def:pydia.def
+
+dia-python.dll : $(OBJECTS2)
+	$(CC) $(CFLAGS) -LD -Fe$@ $(OBJECTS2) $(LDFLAGS) $(EXTRALIBS) $(GTK_LIBS) $(GLIB_LIBS) dia.lib /def:..\objects.def
