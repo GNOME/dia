@@ -1,5 +1,22 @@
 2004-02-27  Lars Clausen  <lars@raeder.dk>
 
+	* KNOWN_BUGS: Added info on most commonly reported bugs, with
+	BugZilla numbers.
+	
+	* app/disp_callbacks.c (popup_object_menu): Unified properties
+	entry, fixes bug #105080.
+
+	* app/diagram.c (diagram_update_menu_sensitivity): 
+	* app/menus.h (struct _UpdatableMenuItems): 
+	* app/menus.c (menus_initialize_updatable_items): Menu items
+	changed around, align menus flattened, properties entry ghosted,
+	dialogs menu removed, more shortcuts added.  Closing bugs #94018,
+	#117495, #135125.
+	Also taking out Gnome menus for now.  They don't allow shortcuts,
+	so what are they good for?
+
+2004-02-27  Lars Clausen  <lars@raeder.dk>
+
 	* app/menus.c (display_menu_items): 
 	* app/commands.[ch]: Added duplicate menu item from Alan Horkan
 	(bug #95546).

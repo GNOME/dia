@@ -278,6 +278,7 @@ diagram_selected_can_parent(Diagram *dia) {
 void 
 diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
 {
+  /* Edit menu */
   gtk_widget_set_sensitive(GTK_WIDGET(items->copy),
 			   dia->data->selected_count > 0);
   gtk_widget_set_sensitive(GTK_WIDGET(items->cut),
@@ -288,7 +289,6 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
   gtk_widget_set_sensitive(GTK_WIDGET(items->edit_delete),
 			   dia->data->selected_count > 0);
   #endif
-    
   gtk_widget_set_sensitive(GTK_WIDGET(items->copy_text),
 			   active_focus() != NULL);
   gtk_widget_set_sensitive(GTK_WIDGET(items->cut_text),
@@ -296,6 +296,7 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
   gtk_widget_set_sensitive(GTK_WIDGET(items->paste_text),
 			   active_focus() != NULL);
   
+  /* Objects menu */
   gtk_widget_set_sensitive(GTK_WIDGET(items->send_to_back),
 			   dia->data->selected_count > 0);
   gtk_widget_set_sensitive(GTK_WIDGET(items->bring_to_front),
@@ -315,7 +316,10 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
 			   dia->data->selected_count > 1);
   gtk_widget_set_sensitive(GTK_WIDGET(items->ungroup),
 			   diagram_selected_any_groups(dia));
+  gtk_widget_set_sensitive(GTK_WIDGET(items->properties),
+			   dia->data->selected_count > 0);
   
+  /* Objects->Align menu */
   gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_l),
 			   dia->data->selected_count > 1);
   gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_c),

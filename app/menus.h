@@ -30,7 +30,7 @@ struct _UpdatableMenuItems
   GtkMenuItem *copy;
   GtkMenuItem *cut;
   GtkMenuItem *paste;
-#ifndef GNOME
+#ifndef GNOME_MENUS_ARE_BORING
   GtkMenuItem *edit_delete;
 #endif
   GtkMenuItem *copy_text;
@@ -60,6 +60,8 @@ struct _UpdatableMenuItems
   GtkMenuItem *align_v_b;
   GtkMenuItem *align_v_e;
   GtkMenuItem *align_v_a;
+
+  GtkMenuItem *properties;
 };
 
 typedef struct _UpdatableMenuItems UpdatableMenuItems;

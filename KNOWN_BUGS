@@ -61,7 +61,8 @@ Link: http://bugzilla.gnome.org/show_bug.cgi?id=106409
         no text strings internally for use with other tools.
 http://bugzilla.gnome.org/show_bug.cgi?id=111364
 
-Missing test in PNG export on Win32, or in AA view on Win32
+134313: Missing test in PNG export on Win32, or in AA view on Win32
+Not the first one with that, though.
 
 59881: Cannot resize grouped objects.
 http://bugzilla.gnome.org/show_bug.cgi?id=59881
@@ -79,6 +80,9 @@ http://bugzilla.gnome.org/show_bug.cgi?id=112377
 
 120412: PNG images with alpha don't have alpha in EPS/PS output
 http://bugzilla.gnome.org/show_bug.cgi?id=120412
+
+132222: Fonts outside of selection area look block (0.91+)
+Link: http://bugzilla.gnome.org/show_bug.cgi?id=132222
 
 Old KNOWN_BUGS contents below.  These should probably be synced with
 Bugzilla.

@@ -93,6 +93,30 @@ dia_menu_free(DiaMenu *dia_menu) {
   dia_menu->app_data_free = NULL;
 }
 
+/*
+  This add a Properties... menu item to the GtkMenu passed, at the
+  end and set the callback to raise de properties dialog
+
+  pass TRUE in separator if you want to insert a separator before the poperty
+  menu item.
+*/
+static void 
+add_properties_menu_item (GtkMenu *menu, gboolean separator) 
+{
+  GtkWidget *menu_item = NULL;
+
+  if (separator) {
+    menu_item = gtk_menu_item_new();
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
+    gtk_widget_show(menu_item);
+  }
+
+  menu_item = gtk_menu_item_new_with_label(_("Properties..."));
+  g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(dialogs_properties_callback), NULL);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
+  gtk_widget_show(menu_item);
+}
+
 static void
 create_object_menu(DiaMenu *dia_menu)
 {
@@ -154,34 +178,20 @@ create_object_menu(DiaMenu *dia_menu)
     }
   }
 
+  /* Finally add a Properties... menu item for objects*/
+  add_properties_menu_item(GTK_MENU_SHELL (menu), i > 0);
+
   dia_menu->app_data = menu;
   dia_menu->app_data_free = dia_menu_free;
 }
 
-/*
-  This add a Properties... menu item to the GtkMenu passed, at the
-  end and set the callback to raise de properties dialog
-
-  pass TRUE in separator if you want to insert a separator before the poperty
-  menu item.
-*/
-static void 
-add_properties_menu_item (GtkMenu *menu, gboolean separator) 
-{
-  GtkWidget *menu_item = NULL;
-
-  if (separator) {
-    menu_item = gtk_menu_item_new();
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
-    gtk_widget_show(menu_item);
-  }
-
-  menu_item = gtk_menu_item_new_with_label(_("Properties..."));
-  g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(dialogs_properties_callback), NULL);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
-  gtk_widget_show(menu_item);
-}
-
+static DiaMenuItem empty_menu_items[] = { };
+static DiaMenu empty_menu = {
+  NULL,
+  sizeof(empty_menu_items)/sizeof(DiaMenuItem),
+  empty_menu_items,
+  NULL
+};
 
 static void
 popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
@@ -191,8 +201,8 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   GtkMenu *menu = NULL;
   DiaMenu *dia_menu = NULL;
   GList *selected_list;
-  static GtkWidget *no_menu = NULL;
   int i;
+  int num_items;
   
   diagram = ddisp->diagram;
   if (diagram->data->selected_count != 1)
@@ -211,41 +221,39 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
   
   /* Possibly react differently at a handle? */
 
-  /* Get its menu */
+  /* Get its menu, and remember the # of object-generated items */
   if (obj->ops->get_object_menu == NULL) {
-    dia_menu = NULL;
+    dia_menu = &empty_menu;
+    if (dia_menu->title &&
+	(0 != strcmp(dia_menu->title,obj->type->name))) {
+      dia_menu->app_data_free(dia_menu);
+    }
+    dia_menu->title = obj->type->name;
+    num_items = 0;
   } else {
     dia_menu = (obj->ops->get_object_menu)(obj, &object_menu_clicked_point);
+    num_items = dia_menu->num_items;
   }
 
-  if (dia_menu != NULL) {
-    if (dia_menu->app_data == NULL) {
-      create_object_menu(dia_menu);
-      add_properties_menu_item(GTK_MENU(dia_menu->app_data), TRUE);
-    }
-    /* Update active/nonactive menuitems */
-    for (i=0;i<dia_menu->num_items;i++) {
-      DiaMenuItem *item = &dia_menu->items[i];
-      gtk_widget_set_sensitive(GTK_WIDGET(item->app_data),
-			       item->active & DIAMENU_ACTIVE);
-      if (item->active & DIAMENU_TOGGLE) {
-	g_signal_handlers_block_by_func(GTK_CHECK_MENU_ITEM(item->app_data),
+  if (dia_menu->app_data == NULL) {
+    create_object_menu(dia_menu);
+  }
+  /* Update active/nonactive menuitems */
+  for (i=0;i<num_items;i++) {
+    DiaMenuItem *item = &dia_menu->items[i];
+    gtk_widget_set_sensitive(GTK_WIDGET(item->app_data),
+			     item->active & DIAMENU_ACTIVE);
+    if (item->active & DIAMENU_TOGGLE) {
+      g_signal_handlers_block_by_func(GTK_CHECK_MENU_ITEM(item->app_data),
+				      (GtkSignalFunc)object_menu_proxy, item);
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->app_data),
+				     item->active & DIAMENU_TOGGLE_ON);
+      g_signal_handlers_unblock_by_func(GTK_CHECK_MENU_ITEM(item->app_data),
 					(GtkSignalFunc)object_menu_proxy, item);
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->app_data),
-				       item->active & DIAMENU_TOGGLE_ON);
-	g_signal_handlers_unblock_by_func(GTK_CHECK_MENU_ITEM(item->app_data),
-					  (GtkSignalFunc)object_menu_proxy, item);
-      }
     }
-
-    menu = GTK_MENU(dia_menu->app_data);
-  } else {
-    if (no_menu == NULL) {
-      no_menu = gtk_menu_new();
-      add_properties_menu_item(GTK_MENU(no_menu), FALSE);
-    }
-    menu = GTK_MENU(no_menu);
   }
+
+  menu = GTK_MENU(dia_menu->app_data);
   /* add the properties menu item to raise the properties from the contextual menu */
   
   popup_shell = ddisp->shell;

@@ -24,7 +24,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <string.h>
 
-#ifdef GNOME
+#ifdef GNOME_MENUS_ARE_BORING
 #include <gnome.h>
 #endif
 #include "intl.h"
@@ -44,7 +44,10 @@
 
 static void plugin_callback (GtkWidget *widget, gpointer data);
 
-#ifdef GNOME
+/* GNOME menus cannot have shortcuts??? They don't give much 
+ * with gtk2, anyway.  Leaving out. */
+
+#ifdef GNOME_MENUS_ARE_BORING
 
 static GnomeUIInfo toolbox_filemenu[] = {
   GNOMEUIINFO_MENU_NEW_ITEM(N_("_New diagram"), N_("Create new diagram"),
@@ -100,6 +103,7 @@ static GnomeUIInfo editmenu[] = {
     GDK_DELETE, 0 },
   GNOMEUIINFO_MENU_UNDO_ITEM(edit_undo_callback, NULL),
   GNOMEUIINFO_MENU_REDO_ITEM(edit_redo_callback, NULL),
+  GNOMEUIINFO_ITEM_NONE(N_("Duplicate"), NULL, edit_redo_callback),
   GNOMEUIINFO_ITEM_NONE(N_("Copy Text"), NULL, edit_copy_text_callback),
   GNOMEUIINFO_ITEM_NONE(N_("Cut Text"), NULL, edit_cut_text_callback),
   GNOMEUIINFO_ITEM_NONE(N_("Paste _Text"), NULL, edit_paste_text_callback),
@@ -356,27 +360,30 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Edit/Copy Text"),         NULL,         edit_copy_text_callback,    0},
   {N_("/Edit/Cut Text"),          NULL,         edit_cut_text_callback,     0},
   {N_("/Edit/Paste _Text"),       NULL,         edit_paste_text_callback,   0},
+  {N_("/_Diagram"),               NULL,         NULL,           0, "<Branch>"},
+  {   "/Diagram/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
+  {N_("/Diagram/_Properties..."), NULL,         view_diagram_properties_callback, 0},
+  {N_("/Diagram/_Layers..."),     NULL,     dialogs_layers_callback,        0},
   {N_("/_View"),                  NULL,         NULL,           0, "<Branch>"},
   {   "/View/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/View/Zoom _In"),          NULL,          view_zoom_in_callback,     0,
+  {N_("/View/Zoom _In"),          "<control>+", view_zoom_in_callback,     0,
       "<StockItem>", GTK_STOCK_ZOOM_IN },
-  {N_("/View/Zoom _Out"),         NULL,          view_zoom_out_callback,    0,
+  {N_("/View/Zoom _Out"),         "<control>-", view_zoom_out_callback,    0,
       "<StockItem>", GTK_STOCK_ZOOM_OUT },
   {N_("/View/_Zoom"),             NULL,         NULL,           0, "<Branch>"},
   {   "/View/Zoom/tearoff",       NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/View/Zoom/400%"),         NULL,         view_zoom_set_callback,  4000},
+  {N_("/View/Zoom/400%"),         "<alt>4",     view_zoom_set_callback,  4000},
   {N_("/View/Zoom/283%"),         NULL,         view_zoom_set_callback,  2828},
-  {N_("/View/Zoom/200%"),         NULL,         view_zoom_set_callback,  2000},
+  {N_("/View/Zoom/200%"),         "<alt>2",     view_zoom_set_callback,  2000},
   {N_("/View/Zoom/141%"),         NULL,         view_zoom_set_callback,  1414},
-  {N_("/View/Zoom/100%"),         NULL,         view_zoom_set_callback,  1000,
+  {N_("/View/Zoom/100%"),         "<alt>1",     view_zoom_set_callback,  1000,
       "<StockItem>", GTK_STOCK_ZOOM_100 },
   {N_("/View/Zoom/85%"),          NULL,         view_zoom_set_callback,   850},
   {N_("/View/Zoom/70.7%"),        NULL,         view_zoom_set_callback,   707},
-  {N_("/View/Zoom/50%"),          NULL,         view_zoom_set_callback,   500},
+  {N_("/View/Zoom/50%"),          "<alt>5",     view_zoom_set_callback,   500},
   {N_("/View/Zoom/35.4%"),        NULL,         view_zoom_set_callback,   354},
   {N_("/View/Zoom/25%"),          NULL,         view_zoom_set_callback,   250},
   {N_("/View/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/View/Diagram Properties..."),NULL,         view_diagram_properties_callback, 0},
 #ifdef HAVE_LIBART  
   {N_("/View/_AntiAliased"),      NULL,         view_aa_callback,           0, "<ToggleItem>"},
 #endif
@@ -389,25 +396,6 @@ static GtkItemFactoryEntry display_menu_items[] =
   /* Show All, Best Fit.  Same as the Gimp, Ctrl+E */
   {N_("/View/Show _All"),         "<control>E", view_show_all_callback,     0},
   {N_("/View/Re_draw"),           NULL,         view_redraw_callback,       0},
-  {N_("/_Select"),                NULL,         NULL,           0, "<Branch>"},
-  {   "/Select/tearoff",          NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/Select/All"),             "<control>A", select_all_callback,        0},
-  {N_("/Select/None"),            "<ctrl><shift>A", select_none_callback,   0},
-  {N_("/Select/Invert"),          NULL,         select_invert_callback,     0},
-  {N_("/Select/Connected"),       NULL,         select_connected_callback,  0},
-  {N_("/Select/Transitive"),      NULL,         select_transitive_callback, 0},
-  {N_("/Select/Same Type"),       NULL,         select_same_type_callback,  0},
-  {N_("/Select/---"),             NULL,         NULL,        0, "<Separator>"},
-  {N_("/Select/Replace"),       NULL, select_style_callback,
-   SELECT_REPLACE, "<RadioItem>"},
-  {N_("/Select/Union"),     NULL, select_style_callback,
-   SELECT_UNION, "/Select/Replace"},
-  {N_("/Select/Intersect"), NULL, select_style_callback,
-   SELECT_INTERSECTION, "/Select/Replace"},
-  {N_("/Select/Remove"),    NULL, select_style_callback,
-   SELECT_REMOVE, "/Select/Replace"},
-  {N_("/Select/Invert"),    NULL, select_style_callback,
-   SELECT_INVERT, "/Select/Replace"},
   {N_("/_Objects"),               NULL,         NULL,           0, "<Branch>"},
   {   "/Objects/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
   {N_("/Objects/Send to _Back"),  "<control>B",objects_place_under_callback,0},
@@ -423,46 +411,58 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/Objects/_Unparent"),       "<control><shift>L", objects_unparent_callback,   0},
   {N_("/Objects/_Unparent Children"),       NULL, objects_unparent_children_callback,   0},
   {N_("/Objects/---"),            NULL,         NULL,        0, "<Separator>"},
-  {N_("/Objects/Align _Horizontal"),       NULL, NULL,          0, "<Branch>"},
-  {   "/Objects/Align Horizontal/tearoff", NULL, NULL,        0, "<Tearoff>" },
-  {N_("/Objects/Align Horizontal/Left"),   NULL, objects_align_h_callback,  DIA_ALIGN_LEFT},
-  {N_("/Objects/Align Horizontal/Center"), NULL, objects_align_h_callback,  DIA_ALIGN_CENTER},
-  {N_("/Objects/Align Horizontal/Right"),  NULL, objects_align_h_callback,  DIA_ALIGN_RIGHT},
-  {N_("/Objects/Align Horizontal/---"),             NULL,         NULL,        0, "<Separator>"},
-  {N_("/Objects/Align Horizontal/Equal Distance"), NULL, objects_align_h_callback,    DIA_ALIGN_EQUAL},
-  {N_("/Objects/Align Horizontal/Adjacent"), NULL, objects_align_h_callback,    DIA_ALIGN_ADJACENT},
-  {N_("/Objects/Align _Vertical"),         NULL, NULL,          0, "<Branch>"},
-  {   "/Objects/Align Vertical/tearoff",   NULL, NULL,        0, "<Tearoff>" },
-  {N_("/Objects/Align Vertical/Top"),      NULL, objects_align_v_callback,  DIA_ALIGN_TOP},
-  {N_("/Objects/Align Vertical/Middle"),   NULL, objects_align_v_callback,  DIA_ALIGN_CENTER},
-  {N_("/Objects/Align Vertical/Bottom"),   NULL, objects_align_v_callback,  DIA_ALIGN_BOTTOM},
-  {N_("/Objects/Align Vertical/---"),             NULL,         NULL,        0, "<Separator>"}, 
-  {N_("/Objects/Align Vertical/Equal Distance"),   NULL, objects_align_v_callback,    DIA_ALIGN_EQUAL},
-  {N_("/Objects/Align Vertical/Adjacent"), NULL, objects_align_v_callback,  DIA_ALIGN_ADJACENT},
+  {N_("/Objects/Align"),       NULL, NULL,          0, "<Branch>"},
+  {   "/Objects/Align/tearoff", NULL, NULL,        0, "<Tearoff>" },
+  {N_("/Objects/Align/Left"),   NULL, objects_align_h_callback,  DIA_ALIGN_LEFT},
+  {N_("/Objects/Align/Center"), NULL, objects_align_h_callback,  DIA_ALIGN_CENTER},
+  {N_("/Objects/Align/Right"),  NULL, objects_align_h_callback,  DIA_ALIGN_RIGHT},
+  {N_("/Objects/Align/Top"),      NULL, objects_align_v_callback,  DIA_ALIGN_TOP},
+  {N_("/Objects/Align/Middle"),   NULL, objects_align_v_callback,  DIA_ALIGN_CENTER},
+  {N_("/Objects/Align/Bottom"),   NULL, objects_align_v_callback,  DIA_ALIGN_BOTTOM},
+  {N_("/Objects/Align/---"),             NULL,         NULL,        0, "<Separator>"},
+  {N_("/Objects/Align/Spread Out Horizontally"), NULL, objects_align_h_callback,    DIA_ALIGN_EQUAL},
+  {N_("/Objects/Align/Spread Out Vertically"),   NULL, objects_align_v_callback,    DIA_ALIGN_EQUAL},
+  {N_("/Objects/Align/Adjacent"), NULL, objects_align_h_callback,    DIA_ALIGN_ADJACENT},
+  {N_("/Objects/Align/Stacked"), NULL, objects_align_v_callback,  DIA_ALIGN_ADJACENT},
   {N_("/Objects/---"),            NULL,     NULL,                           0, "<Separator>"},
   {N_("/Objects/_Properties..."), NULL,     dialogs_properties_callback,    0},
+  {N_("/_Select"),                NULL,         NULL,           0, "<Branch>"},
+  {   "/Select/tearoff",          NULL,         NULL,         0, "<Tearoff>" },
+  {N_("/Select/All"),             "<control>A", select_all_callback,        0},
+  {N_("/Select/None"),            "<ctrl><shift>A", select_none_callback,   0},
+  {N_("/Select/Invert"),          NULL,         select_invert_callback,     0},
+  {N_("/Select/Connected"),       NULL,         select_connected_callback,  0},
+  {N_("/Select/Transitive"),      "<control>T", select_transitive_callback, 0},
+  {N_("/Select/Same Type"),       NULL,         select_same_type_callback,  0},
+  {N_("/Select/---"),             NULL,         NULL,        0, "<Separator>"},
+  {N_("/Select/Replace"),       NULL, select_style_callback,
+   SELECT_REPLACE, "<RadioItem>"},
+  {N_("/Select/Union"),     NULL, select_style_callback,
+   SELECT_UNION, "/Select/Replace"},
+  {N_("/Select/Intersect"), NULL, select_style_callback,
+   SELECT_INTERSECTION, "/Select/Replace"},
+  {N_("/Select/Remove"),    NULL, select_style_callback,
+   SELECT_REMOVE, "/Select/Replace"},
+  {N_("/Select/Invert"),    NULL, select_style_callback,
+   SELECT_INVERT, "/Select/Replace"},
   {N_("/_Tools"),                 NULL,     NULL,               0, "<Branch>"},
-  {   "/Tools/tearoff",           NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/Tools/Modify"),           NULL,     NULL,                           0},
-  {N_("/Tools/Magnify"),          NULL,     NULL,                           0},
-  {N_("/Tools/Scroll"),           NULL,     NULL,                           0},
-  {N_("/Tools/Text"),             NULL,     NULL,                           0},
-  {N_("/Tools/Box"),              NULL,     NULL,                           0},
-  {N_("/Tools/Ellipse"),          NULL,     NULL,                           0},
-  {N_("/Tools/Polygon"),          NULL,     NULL,                           0},
-  {N_("/Tools/Beziergon"),        NULL,     NULL,                           0},
-  {N_("/Tools/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/Tools/Line"),             NULL,     NULL,                           0},
-  {N_("/Tools/Arc"),              NULL,     NULL,                           0},
-  {N_("/Tools/Zigzagline"),       NULL,     NULL,                           0},
+  {   "/Tools/tearoff",           NULL,     NULL,         0, "<Tearoff>" },
+  {N_("/Tools/Modify"),           "<alt>.", NULL,                         0},
+  {N_("/Tools/Magnify"),          "<alt>M", NULL,                           0},
+  {N_("/Tools/Scroll"),           "<alt>S", NULL,                           0},
+  {N_("/Tools/Text"),             "<alt>T", NULL,                           0},
+  {N_("/Tools/Box"),              "<alt>R", NULL,                           0},
+  {N_("/Tools/Ellipse"),          "<alt>E", NULL,                           0},
+  {N_("/Tools/Polygon"),          "<alt>P", NULL,                           0},
+  {N_("/Tools/Beziergon"),        "<alt>B", NULL,                           0},
+  {N_("/Tools/---"),              NULL,     NULL,       0, "<Separator>" },
+  {N_("/Tools/Line"),             "<alt>L", NULL,                           0},
+  {N_("/Tools/Arc"),              "<alt>A", NULL,                           0},
+  {N_("/Tools/Zigzagline"),       "<alt>Z", NULL,                           0},
   {N_("/Tools/Polyline"),         NULL,     NULL,                           0},
-  {N_("/Tools/Bezierline"),       NULL,     NULL,                           0},
-  {N_("/Tools/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/Tools/Image"),            NULL,     NULL,                           0},
-  {N_("/_Dialogs"),               NULL,     NULL,               0, "<Branch>"},
-  {   "/Dialogs/tearoff",         NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/Dialogs/_Layers..."),     NULL,     dialogs_layers_callback,        0},
-
+  {N_("/Tools/Bezierline"),       "<alt>C", NULL,                           0},
+  {N_("/Tools/---"),              NULL,     NULL,       0, "<Separator>" },
+  {N_("/Tools/Image"),            "<alt>I", NULL,                           0},
   {N_("/_Input Methods"),         NULL,     NULL,               0, "<Branch>"},
   {   "/Input Methods/tearoff",   NULL,     NULL,               0, "<Tearoff>" },
   {N_("/_Help"),               NULL,         NULL,       0,    "<Branch>" },
@@ -487,7 +487,7 @@ static GtkAccelGroup *toolbox_accels = NULL;
 static GtkWidget *display_menus = NULL;
 static GtkAccelGroup *display_accels = NULL;
 
-#ifdef GNOME
+#ifdef GNOME_MENUS_ARE_BORING
 static GHashTable *toolbox_extras = NULL;
 static GHashTable *display_extras = NULL;
 #else
@@ -495,7 +495,7 @@ static GtkItemFactory *toolbox_item_factory = NULL;
 static GtkItemFactory *display_item_factory = NULL;
 #endif
 
-#ifndef GNOME
+#ifndef GNOME_MENUS_ARE_BORING
 #ifdef ENABLE_NLS
 
 static gchar *
@@ -662,7 +662,7 @@ save_accels(gpointer data)
   return TRUE;
 }
 
-#ifdef GNOME
+#ifdef GNOME_MENUS_ARE_BORING
 /* create the GnomeUIBuilderData structure that connects the callbacks
  * so that they have the same signature as type 1 GtkItemFactory
  * callbacks */
@@ -734,7 +734,7 @@ menus_set_tools_callback (const char * menu_name, GtkItemFactory *item_factory)
 static void
 menus_init(void)
 {
-#ifndef GNOME
+#ifndef GNOME_MENUS_ARE_BORING
   GtkItemFactoryEntry *translated_entries;
 #else
   GtkWidget *menuitem;
@@ -747,7 +747,7 @@ menus_init(void)
   
   initialise = FALSE;
 
-#ifdef GNOME
+#ifdef GNOME_MENUS_ARE_BORING
   /* the toolbox menu */
   toolbox_accels = gtk_accel_group_new();
   toolbox_menubar = gtk_menu_bar_new();
@@ -868,7 +868,7 @@ menus_get_image_menubar (GtkWidget **menu, GtkItemFactory **display_mbar_item_fa
     if (menu) 
     {
 	GtkAccelGroup *display_mbar_accel_group;
-#ifndef GNOME
+#ifndef GNOME_MENUS_ARE_BORING
 	/* the display menubar. Pure gtk. TODO: make it GNOME */
 	display_mbar_accel_group = gtk_accel_group_new ();
 	*display_mbar_item_factory =  gtk_item_factory_new (GTK_TYPE_MENU_BAR,
@@ -901,7 +901,7 @@ menus_get_image_menubar (GtkWidget **menu, GtkItemFactory **display_mbar_item_fa
     }
 }
 
-#ifdef GNOME
+#ifdef GNOME_MENUS_ARE_BORING
 /* a function that performs a similar task to gnome_app_find_menu_pos,
  * but works from the GnomeUIInfo structures, and takes an untranslated path.  It ignores 
 
@@ -1106,7 +1106,7 @@ menus_add_path (const gchar *path)
 
 #endif
 
-#ifndef GNOME
+#ifndef GNOME_MENUS_ARE_BORING
 GtkWidget *
 menus_add_path (const gchar *path)
 {
@@ -1146,7 +1146,7 @@ menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
   GtkWidget *wid = NULL;
   GtkMenuItem *widget = NULL;
 
-# ifdef GNOME
+# ifdef GNOME_MENUS_ARE_BORING
       /* DDisplay *ddisp; */
   const gchar *menu_name;
 
@@ -1199,7 +1199,7 @@ menus_initialize_updatable_items (UpdatableMenuItems *items,
 {
     static GString *path;
     
-#   ifdef GNOME
+#   ifdef GNOME_MENUS_ARE_BORING
     /* This should only happen with popmenu. I don't remember why... */
     if ((strcmp(display, "<Display>") == 0) && (ddisplay_active () == NULL))
     {
@@ -1213,7 +1213,7 @@ menus_initialize_updatable_items (UpdatableMenuItems *items,
     items->cut = menus_get_item_from_path(path->str, factory);
     g_string_append (g_string_assign(path, display),"/Edit/Paste");
     items->paste = menus_get_item_from_path(path->str, factory);
-#   ifndef GNOME
+#   ifndef GNOME_MENUS_ARE_BORING
     g_string_append (g_string_assign(path, display),"/Edit/Delete");
     items->edit_delete = menus_get_item_from_path(path->str, factory);
 #   endif
@@ -1246,26 +1246,28 @@ menus_initialize_updatable_items (UpdatableMenuItems *items,
     g_string_append (g_string_assign(path, display),"/Objects/Unparent Children");
     items->unparent_children = menus_get_item_from_path(path->str, factory);
 
-    g_string_append (g_string_assign(path, display),"/Objects/Align Horizontal/Left");
+    g_string_append (g_string_assign(path, display),"/Objects/Align/Left");
     items->align_h_l = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align Horizontal/Center");
+    g_string_append (g_string_assign(path, display),"/Objects/Align/Center");
     items->align_h_c = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align Horizontal/Right");
+    g_string_append (g_string_assign(path, display),"/Objects/Align/Right");
     items->align_h_r = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align Horizontal/Equal Distance");
+    g_string_append (g_string_assign(path, display),"/Objects/Align/Spread Out Horizontally");
     items->align_h_e = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align Horizontal/Adjacent");
+    g_string_append (g_string_assign(path, display),"/Objects/Align/Adjacent");
     items->align_h_a = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Top");
+    g_string_append (g_string_assign(path, display),"/Objects/Align/Top");
     items->align_v_t = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Middle");
+    g_string_append (g_string_assign(path, display),"/Objects/Align/Middle");
     items->align_v_c = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Bottom");
+    g_string_append (g_string_assign(path, display),"/Objects/Align/Bottom");
     items->align_v_b = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Equal Distance");
+    g_string_append (g_string_assign(path, display),"/Objects/Align/Spread Out Vertically");
     items->align_v_e = menus_get_item_from_path(path->str, factory);
-    g_string_append (g_string_assign(path, display),"/Objects/Align Vertical/Adjacent");
+    g_string_append (g_string_assign(path, display),"/Objects/Align/Stacked");
     items->align_v_a = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),"/Objects/Properties...");
+    items->properties = menus_get_item_from_path(path->str, factory);
     
     g_string_free (path,FALSE);
 }
