@@ -812,7 +812,6 @@ diagram_autosave(Diagram *dia)
   /* Must check if the diagram is still valid, or Death Ensues! */
   GList *diagrams = open_diagrams;
   Diagram *diagram;
-  printf("diagram_autosave\n");
   while (diagrams != NULL) {
     diagram = (Diagram *)diagrams->data;
     if (diagram == dia &&
@@ -820,7 +819,6 @@ diagram_autosave(Diagram *dia)
 	!diagram->autosaved) {
       save_filename = g_strdup_printf("%s.autosave", dia->filename);
 
-      printf("diagram_autosave: Saving\n");
       if (dia->autosavefilename != NULL) 
 	g_free(dia->autosavefilename);
       dia->autosavefilename = save_filename;
