@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <tree.h>
 #include <parser.h>
+#include <xmlmemory.h>
 #include <float.h>
 #include <ctype.h>
 #include <string.h>

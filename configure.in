@@ -12,7 +12,6 @@ AM_CONFIG_HEADER(config.h)
 dnl do this check now, to keep autogen quiet.
 AC_PROG_CC 
 
-
 dnl Initialize maintainer mode
 AM_MAINTAINER_MODE
 
@@ -31,8 +30,9 @@ AC_PROG_MAKE_SET
 AC_ISC_POSIX
 
 dnl stuff for xml-i18n-tools
-AC_PROG_XML_I18N_TOOLS(0.9,G2)
-XML_I18N_TOOLS_NEWER_THAN_0_9 || AC_MSG_ERROR(unsatisfied dependency)
+AC_PROG_XML_I18N_TOOLS(0.9,UTF-8) 
+dnl make that 0.10 as soon as the version number is bumped.
+dnl XML_I18N_TOOLS_NEWER_THAN_0_9 || AC_MSG_ERROR(unsatisfied dependency)
 
 
 dnl Checks for libraries.

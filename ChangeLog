@@ -1,3 +1,7 @@
+2001-08-25  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* objects/custom/shape_info.c: added missing #include <xmlmemory.h>
+
 2001-08-19  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* configure.in:
