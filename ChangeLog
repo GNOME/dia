@@ -1,3 +1,8 @@
+2001-09-01  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* objects/standard/bezier.c: used g_new0 instead of g_new, to take
+	care of #59837.
+
 2001-09-01  James Henstridge  <james@daa.com.au>
 
 	* */Makefile.am: various changes to include missing files, and fix

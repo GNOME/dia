@@ -274,7 +274,7 @@ bezierline_create(Point *startpoint,
   Point defaultlen = { .3, .3 };
 
   /*bezierline_init_defaults();*/
-  bezierline = g_new(Bezierline, 1);
+  bezierline = g_new0(Bezierline, 1);
   bez = &bezierline->bez;
   obj = &bez->object;
   
@@ -323,7 +323,7 @@ bezierline_copy(Bezierline *bezierline)
   
   bez = &bezierline->bez;
  
-  newbezierline = g_new(Bezierline, 1);
+  newbezierline = g_new0(Bezierline, 1);
   newbez = &newbezierline->bez;
   newobj = &bez->object;
 
@@ -416,7 +416,7 @@ bezierline_load(ObjectNode obj_node, int version, const char *filename)
   Object *obj;
   AttributeNode attr;
 
-  bezierline = g_new(Bezierline, 1);
+  bezierline = g_new0(Bezierline, 1);
 
   bez = &bezierline->bez;
   obj = &bez->object;
