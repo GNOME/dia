@@ -73,7 +73,7 @@ msgstr "Annullér"
 
 #: app/app_procs.c:387
 msgid "Could not create per-user Dia config directory"
-msgstr ""
+msgstr "Kunne ikke oprete Dia konfigmappe for bruger"
 
 #: app/app_procs.c:444
 #, c-format
@@ -81,7 +81,7 @@ msgid ""
 "Couldn't find any libraries to load.\n"
 "%s is not a directory.\n"
 msgstr ""
-"Kunne ikke finde mapper at indlæse.\n"
+"Kunne ikke finde nogen biblioteker at indlæse.\n"
 "%s er ikke en mappe.\n"
 
 #: app/app_procs.c:451
@@ -450,7 +450,6 @@ msgstr ""
 "Forbindelsespunkt eksisterer ikke."
 
 #: app/load_save.c:145
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -559,9 +558,8 @@ msgid "_Visible Grid"
 msgstr "_Synligt gitter"
 
 #: app/menus.c:111
-#, fuzzy
 msgid "_Snap To Grid"
-msgstr "_Fast til gitter"
+msgstr "_Hægt til gitter"
 
 #: app/menus.c:113
 msgid "Show _Rulers"
@@ -902,9 +900,8 @@ msgid "This object has no properties."
 msgstr "Dette objekt har ingen indstillelige egenskaber."
 
 #: app/render_eps.c:1101
-#, fuzzy
 msgid "Encapsulated Postscript"
-msgstr "Eksportér til postskript"
+msgstr "Encapsulated postskript"
 
 #: app/defaults.c:47 app/defaults.c:55
 msgid "Object defaults"
@@ -928,16 +925,15 @@ msgstr "Gitterlinier"
 
 #: app/preferences.c:98
 msgid "Reset tools after create:"
-msgstr "Nulstil værktøj efter opret::"
+msgstr "Nulstil værktøj efter opret:"
 
 #: app/preferences.c:99
 msgid "Compress saved files:"
 msgstr "Komprimér gemte filer:"
 
 #: app/preferences.c:100
-#, fuzzy
 msgid "Number of undo levels:"
-msgstr "Antal håndtag:"
+msgstr "Antal fortrydniveauer:"
 
 # FIXME: Visning?
 #: app/preferences.c:102
@@ -970,7 +966,7 @@ msgstr "Gitter:"
 
 #: app/preferences.c:112
 msgid "Snap to:"
-msgstr ""
+msgstr "Hægt til:"
 
 #: app/preferences.c:113
 msgid "X Size:"
@@ -1015,7 +1011,7 @@ msgstr "Detaljer..."
 
 #: app/lineprops_area.c:726
 msgid "Line Style Properties"
-msgstr "_Liniestilsegenskaber"
+msgstr "Liniestilsegenskaber"
 
 #: lib/diagramdata.c:50
 msgid "Background"
@@ -1185,7 +1181,7 @@ msgstr "Vis pil"
 #. Aggregate
 #: objects/UML/association.c:1074
 msgid "Aggregate"
-msgstr "Sammensat"
+msgstr "Totalsum"
 
 #. Composition
 #: objects/UML/association.c:1082
@@ -1224,9 +1220,8 @@ msgid "Operations visible"
 msgstr "Synlige operationer"
 
 #: objects/UML/class_dialog.c:223
-#, fuzzy
 msgid "Suppress operations"
-msgstr "Undertryk attributter"
+msgstr "Undertryk operationer"
 
 #. Attributes page:
 #: objects/UML/class_dialog.c:640
@@ -1378,11 +1373,11 @@ msgstr "Vis ødelæggelsesmærke:"
 
 #: objects/UML/message.c:616
 msgid "Message:"
-msgstr "Besked:"
+msgstr "Meddelelse:"
 
 #: objects/UML/message.c:630
 msgid "Message type:"
-msgstr "Type besked:"
+msgstr "Meddelelsestype:"
 
 #.
 #: objects/UML/message.c:635
@@ -1501,21 +1496,19 @@ msgstr "Rotér"
 
 #: objects/ER/relationship.c:290
 msgid "Identifying"
-msgstr "Identificérer"
+msgstr "Identificerer"
 
 #: objects/ER/relationship.c:570
 msgid "Relationship"
 msgstr "Forhold"
 
 #: objects/network/bus.c:569
-#, fuzzy
 msgid "Add Handle"
-msgstr "Tilføj hjørne"
+msgstr "Tilføj håndtag"
 
 #: objects/network/bus.c:570
-#, fuzzy
 msgid "Delete Handle"
-msgstr "Slet lag"
+msgstr "Slet håndtag"
 
 #: objects/flowchart/box.c:165 objects/standard/box.c:149
 msgid "Corner radius"
