@@ -276,8 +276,13 @@ static PyObject *
 PyDiaPoint_Str(PyDiaPoint *self)
 {
     PyObject* py_s;
+#if 0 /* gives crashes with nan */
     gchar* s = g_strdup_printf ("(%f,%f)",
                                 (float)(self->pt.x), (float)(self->pt.y));
+#else
+    gchar* s = g_strdup_printf ("(%e,%e)",
+                                (float)(self->pt.x), (float)(self->pt.y));
+#endif
     py_s = PyString_FromString(s);
     g_free(s);
     return py_s;
@@ -293,9 +298,15 @@ PyDiaRectangle_Str(PyDiaRectangle *self)
                            (self->r.ri.left), (self->r.ri.top),
                            (self->r.ri.right), (self->r.ri.bottom));
     else
+#if 0 /* gives crashes with nan */
       s = g_strdup_printf ("((%f,%f),(%f,%f))",
                            (float)(self->r.rf.left), (float)(self->r.rf.top),
                            (float)(self->r.rf.right), (float)(self->r.rf.bottom));
+#else
+      s = g_strdup_printf ("((%e,%e),(%e,%e))",
+                           (float)(self->r.rf.left), (float)(self->r.rf.top),
+                           (float)(self->r.rf.right), (float)(self->r.rf.bottom));
+#endif
     py_s = PyString_FromString(s);
     g_free(s);
     return py_s;

@@ -98,7 +98,10 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
       return PyFloat_FromDouble(self->property.d.real_data);
     case PROP_TYPE_STRING :
     case PROP_TYPE_FILE :
-      return PyString_FromString(self->property.d.string_data);
+      if (self->property.d.string_data)
+        return PyString_FromString(self->property.d.string_data);
+      else
+        return PyString_FromString("(NULL)");
     case PROP_TYPE_POINT :
       return PyDiaPoint_New (&(self->property.d.point_data));
     case PROP_TYPE_POINTARRAY :

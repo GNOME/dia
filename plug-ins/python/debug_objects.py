@@ -10,7 +10,25 @@ def dia_debug_cb (data, flags) :
 		for o in layer.objects :
 			print str(o), str(o.bounding_box)
 
+def dia_debug_props_cb (data, flags) :
+	for layer in data.layers :
+		print "Layer :", layer.name
+		for o in layer.objects :
+			print str(o)
+			props = o.properties
+			for s in props.keys() :
+				try :
+					p = props[s].value
+					# p = props[s].type
+				except :
+					p = None
+				print s, str(p)
+
 # dia-python keeps a reference to the renderer class and uses it on demand
 dia.register_callback ("Dia BoundingBox Debugger", 
                        "<Display>/Debug/Bounding Boxes", 
                        dia_debug_cb)
+
+dia.register_callback ("Dia Property API Debugger", 
+                       "<Display>/Debug/Property API", 
+                       dia_debug_props_cb)

@@ -714,6 +714,7 @@ menus_init(void)
       /* It would be faster to directly connect the cbf to the menu entry
        * but using action_data with a counter should improve error handling.  
        */
+      cbcount++; /* increase always, because it's the index into the list */
       new_menupath = strstr (cbf->menupath, "<Display>");
       if (new_menupath) {
         new_entry.path = new_menupath + strlen("<Display>");
@@ -728,7 +729,6 @@ menus_init(void)
 	    gtk_item_factory_create_item(toolbox_item_factory, &new_entry, NULL,1);
         continue;
       }
-      cbcount++; /* increase always, because it's the index into the list */
       g_warning ("Don't know where to add \"%s\" menu entry.", cbf->menupath);
     } /* for filter_callbacks */
   } /* if filter_callbacks */
@@ -913,7 +913,7 @@ plugin_callback_cb ( gpointer data, guint action, GtkWidget *widget)
     return;
   }
 
-  cbfilters = g_list_nth (cbfilters, action);
+  cbfilters = g_list_nth (cbfilters, action - 1);
   cbf = cbfilters ? (DiaCallbackFilter *)cbfilters->data : NULL; 
   if (!cbf) {
     g_warning ("Can't find callback No. %d.", action);

@@ -1,3 +1,19 @@
+2001-05-02  Hans Breuer  <hans@breuer.org>
+
+	* plug-ins/python/debug_objects.py : added another
+	test to get massive crashes from the Property API due
+	to unintialized data.
+
+	* app/menu.c : the callback_action wasn't incremented
+	(should have checked my last optimization). Now more
+	than one plug-in callback is supported again.
+
+	* plug-ins/python/pydia-geometry.c : avoid crashes from
+	glib, when trying to g_strdup_printf unintialized floats.
+
+	* plug-ins/python/pydia-property.c : avoid crashes from
+	because of string_data == NULL (PROP_TYPE_FILE, PROP_TYPE_STRING)
+
 2001-05-01  Hans Breuer  <hans@breuer.org>
 
 	* objects/makefile.msc : added eml
