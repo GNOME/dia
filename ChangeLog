@@ -1,9 +1,28 @@
+2003-08-25  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/diagramdata.c (layer_find_closest_object_except): Look all
+	the way through the object list, so the foremost object is selected.
+
+	* lib/diagramdata.h: Removing dynamic_obj.h, it should only be
+	included for diagramdata.c.
+
+	* lib/prop_text.c (multistringprop_handle_key): Attempt at making
+	newline in multistringprop not close the dialog.  Failed so far.
+
 2003-08-25  Steffen Macke <sdteffen@web.de>
 
 	* app/commands.c: using CHM instead of HTML on win32 if available
 	* lib/diagramdata.h: including dynamic_obj.h
 
 2003-08-25  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/properties.c (properties_key_event): Make Enter = Ok for
+	properties dialogs.  Still some problems with this and Esc for
+	Cancel, for instances escaping out of a menu closes the dialog.
+
+	* objects/UML/association.c (association_get_properties): 
+	* objects/UML/class_dialog.c (class_create_page): Grab appropriate
+	focus. 
 
 	* app/diapsft2renderer.c (draw_string): Use
 	dia_font_scaled_build_layout to ensure similarity of text.

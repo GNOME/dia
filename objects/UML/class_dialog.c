@@ -267,6 +267,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		      entry, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox),
 		      hbox, FALSE, TRUE, 0);
+  gtk_widget_grab_focus(entry);
 
   hbox = gtk_hbox_new(FALSE, 5);
   label = gtk_label_new(_("Stereotype:"));

@@ -28,6 +28,7 @@
 #endif
 
 #include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
 #include "widgets.h"
 #include "properties.h"
 #include "propinternals.h"
@@ -103,6 +104,19 @@ stringprop_set_from_widget(StringProperty *prop, GtkWidget *widget)
     g_strdup (gtk_entry_get_text (GTK_ENTRY(widget)));
 }
 
+static gboolean
+multistringprop_handle_key(GtkWidget *wid, GdkEventKey *event, 
+			   gpointer user_data)
+{
+  /** Normal textview doesn't grab return, so to avoid closing the dialog...*/
+  /** Actually, this doesn't seem to work -- I guess the dialog closes
+   * becore this is called :(
+   */
+  if (event->keyval == GDK_Return) 
+    return TRUE;
+  return FALSE;
+}
+
 static GtkWidget *
 multistringprop_get_widget(StringProperty *prop, PropDialog *dialog) 
 { 
@@ -110,6 +124,8 @@ multistringprop_get_widget(StringProperty *prop, PropDialog *dialog)
   GtkWidget *frame = gtk_frame_new(NULL);
   gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
   gtk_container_add(GTK_CONTAINER(frame), ret);
+  g_signal_connect(G_OBJECT(ret), "key-release-event", 
+		   multistringprop_handle_key, NULL);
   gtk_widget_show(ret);
   prophandler_connect(&prop->common,GTK_OBJECT(ret),"changed");
   return frame;

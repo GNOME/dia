@@ -1114,6 +1114,7 @@ association_get_properties(Association *assoc, gboolean is_default)
     entry = gtk_entry_new();
     prop_dialog->name = GTK_ENTRY(entry);
     gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
+    gtk_widget_grab_focus(entry);
     gtk_widget_show (label);
     gtk_widget_show (entry);
     gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);

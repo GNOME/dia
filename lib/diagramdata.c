@@ -24,6 +24,7 @@
 #include "diagramdata.h"
 #include "diarenderer.h"
 #include "paper.h"
+#include "dynamic_obj.h"
 
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 static void set_parent_layer(gpointer layer, gpointer object);
@@ -588,15 +589,13 @@ layer_find_closest_object_except(Layer *layer, Point *pos,
     /* Check bounding box here too. Might give speedup. */
     dist = obj->ops->distance_from(obj, pos);
 
-    if (dist<=maxdist) {
+    if (maxdist-dist > 0.00000001) {
       for (avoid_tmp = avoid; avoid_tmp != NULL; avoid_tmp = avoid_tmp->next) {
 	if (avoid_tmp->data == obj) {
 	  goto NEXTOBJECT;
 	}
       }
       closest = obj;
-      maxdist = dist;
-      if (dist < 0.000000001) return closest;
     }
   NEXTOBJECT:
   ;
