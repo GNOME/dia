@@ -355,16 +355,11 @@ attributes_list_move_up_callback(GtkWidget *button,
   UMLClassDialog *prop_dialog;
   GtkList *gtklist;
   GtkWidget *list_item;
-  UMLAttribute *attr;
-  char *label_text;
-  
   int i;
   
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->attributes_list);
 
-  /* TODO: This can be done better, move list_item instead of
-           delete/create new. But i didn't manage it... */
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
     
@@ -372,25 +367,11 @@ attributes_list_move_up_callback(GtkWidget *button,
     if (i>0)
       i--;
 
-    attr = (UMLAttribute *) gtk_object_get_user_data(GTK_OBJECT(list_item));
-    gtk_object_set_user_data(GTK_OBJECT(list_item), NULL);
-    
+    gtk_widget_ref(list_item);
     list = g_list_prepend(NULL, list_item);
-    
-    label_text = GTK_LABEL(GTK_BIN(list_item)->child)->label;
-    
-    list_item = gtk_list_item_new_with_label (label_text);
-    gtk_object_set_user_data(GTK_OBJECT(list_item), attr);
-    gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
-			GTK_SIGNAL_FUNC (attribute_list_item_destroy_callback),
-			NULL);
-    gtk_widget_show(list_item);
-
     gtk_list_remove_items(gtklist, list);
-    g_list_free(list);
-    
-    list = g_list_prepend(NULL, list_item);
     gtk_list_insert_items(gtklist, list, i);
+    gtk_widget_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
   }
@@ -404,15 +385,11 @@ attributes_list_move_down_callback(GtkWidget *button,
   UMLClassDialog *prop_dialog;
   GtkList *gtklist;
   GtkWidget *list_item;
-  UMLAttribute *attr;
-  char *label_text;
   int i;
 
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->attributes_list);
 
-  /* TODO: This can be done better, move list_item instead of
-           delete/create new. But i didn't manage it... */
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
     
@@ -420,25 +397,12 @@ attributes_list_move_down_callback(GtkWidget *button,
     if (i<(g_list_length(gtklist->children)-1))
       i++;
 
-    attr = (UMLAttribute *) gtk_object_get_user_data(GTK_OBJECT(list_item));
-    gtk_object_set_user_data(GTK_OBJECT(list_item), NULL);
     
+    gtk_widget_ref(list_item);
     list = g_list_prepend(NULL, list_item);
-    
-    label_text = GTK_LABEL(GTK_BIN(list_item)->child)->label;
-    
-    list_item = gtk_list_item_new_with_label (label_text);
-    gtk_object_set_user_data(GTK_OBJECT(list_item), attr);
-    gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
-			GTK_SIGNAL_FUNC (attribute_list_item_destroy_callback),
-			NULL);
-    gtk_widget_show(list_item);
-
     gtk_list_remove_items(gtklist, list);
-    g_list_free(list);
-    
-    list = g_list_prepend(NULL, list_item);
     gtk_list_insert_items(gtklist, list, i);
+    gtk_widget_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
   }
@@ -748,6 +712,9 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
  ******************** OPERATIONS *****************************
  *************************************************************/
 
+/* Forward declaration: */
+static void operations_get_current_values(UMLClassDialog *prop_dialog);
+
 static void
 parameters_set_sensitive(UMLClassDialog *prop_dialog, gint val)
 {
@@ -933,15 +900,11 @@ parameters_list_move_up_callback(GtkWidget *button,
   GtkWidget *list_item;
   UMLOperation *current_op;
   UMLParameter *param;
-  char *label_text;
-  
   int i;
   
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->parameters_list);
 
-  /* TODO: This can be done better, move list_item instead of
-           delete/create new. But i didn't manage it... */
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
     
@@ -954,8 +917,6 @@ parameters_list_move_up_callback(GtkWidget *button,
     /* Move parameter in current operations list: */
     current_op = (UMLOperation *)
       gtk_object_get_user_data(GTK_OBJECT(prop_dialog->current_op));
-    param = (UMLParameter *)
-      gtk_object_get_user_data(GTK_OBJECT(prop_dialog->current_param));
     
     current_op->parameters = g_list_remove(current_op->parameters,
 					   (gpointer) param);
@@ -964,21 +925,15 @@ parameters_list_move_up_callback(GtkWidget *button,
 					   i);
 
     /* Move parameter in gtk list: */
+    gtk_widget_ref(list_item);
     list = g_list_prepend(NULL, list_item);
-    
-    label_text = GTK_LABEL(GTK_BIN(list_item)->child)->label;
-    
-    list_item = gtk_list_item_new_with_label (label_text);
-    gtk_object_set_user_data(GTK_OBJECT(list_item), param);
-    gtk_widget_show(list_item);
-
     gtk_list_remove_items(gtklist, list);
-    g_list_free(list);
-    
-    list = g_list_prepend(NULL, list_item);
     gtk_list_insert_items(gtklist, list, i);
+    gtk_widget_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
+
+    operations_get_current_values(prop_dialog);
   }
 }
 
@@ -992,15 +947,11 @@ parameters_list_move_down_callback(GtkWidget *button,
   GtkWidget *list_item;
   UMLOperation *current_op;
   UMLParameter *param;
-  char *label_text;
-  
   int i;
   
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->parameters_list);
 
-  /* TODO: This can be done better, move list_item instead of
-           delete/create new. But i didn't manage it... */
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
     
@@ -1013,8 +964,6 @@ parameters_list_move_down_callback(GtkWidget *button,
     /* Move parameter in current operations list: */
     current_op = (UMLOperation *)
       gtk_object_get_user_data(GTK_OBJECT(prop_dialog->current_op));
-    param = (UMLParameter *)
-      gtk_object_get_user_data(GTK_OBJECT(prop_dialog->current_param));
     
     current_op->parameters = g_list_remove(current_op->parameters,
 					   (gpointer) param);
@@ -1023,21 +972,15 @@ parameters_list_move_down_callback(GtkWidget *button,
 					   i);
 
     /* Move parameter in gtk list: */
+    gtk_widget_ref(list_item);
     list = g_list_prepend(NULL, list_item);
-    
-    label_text = GTK_LABEL(GTK_BIN(list_item)->child)->label;
-    
-    list_item = gtk_list_item_new_with_label (label_text);
-    gtk_object_set_user_data(GTK_OBJECT(list_item), param);
-    gtk_widget_show(list_item);
-
     gtk_list_remove_items(gtklist, list);
-    g_list_free(list);
-    
-    list = g_list_prepend(NULL, list_item);
     gtk_list_insert_items(gtklist, list, i);
+    gtk_widget_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
+
+    operations_get_current_values(prop_dialog);
   }
 }
 
@@ -1275,16 +1218,11 @@ operations_list_move_up_callback(GtkWidget *button,
   UMLClassDialog *prop_dialog;
   GtkList *gtklist;
   GtkWidget *list_item;
-  UMLOperation *op;
-  char *label_text;
-  
   int i;
   
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->operations_list);
 
-  /* TODO: This can be done better, move list_item instead of
-           delete/create new. But i didn't manage it... */
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
     
@@ -1292,28 +1230,15 @@ operations_list_move_up_callback(GtkWidget *button,
     if (i>0)
       i--;
 
-    op = (UMLOperation *) gtk_object_get_user_data(GTK_OBJECT(list_item));
-    gtk_object_set_user_data(GTK_OBJECT(list_item), NULL);
-    
+    gtk_widget_ref(list_item);
     list = g_list_prepend(NULL, list_item);
-    
-    label_text = GTK_LABEL(GTK_BIN(list_item)->child)->label;
-    
-    list_item = gtk_list_item_new_with_label (label_text);
-    gtk_object_set_user_data(GTK_OBJECT(list_item), op);
-    gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
-			GTK_SIGNAL_FUNC (operations_list_item_destroy_callback),
-			NULL);
-    gtk_widget_show(list_item);
-
     gtk_list_remove_items(gtklist, list);
-    g_list_free(list);
-    
-    list = g_list_prepend(NULL, list_item);
     gtk_list_insert_items(gtklist, list, i);
+    gtk_widget_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
   }
+
 }
 
 static void
@@ -1324,16 +1249,11 @@ operations_list_move_down_callback(GtkWidget *button,
   UMLClassDialog *prop_dialog;
   GtkList *gtklist;
   GtkWidget *list_item;
-  UMLOperation *op;
-  char *label_text;
-  
   int i;
   
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->operations_list);
 
-  /* TODO: This can be done better, move list_item instead of
-           delete/create new. But i didn't manage it... */
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
     
@@ -1341,25 +1261,11 @@ operations_list_move_down_callback(GtkWidget *button,
     if (i<(g_list_length(gtklist->children)-1))
       i++;
 
-    op = (UMLOperation *) gtk_object_get_user_data(GTK_OBJECT(list_item));
-    gtk_object_set_user_data(GTK_OBJECT(list_item), NULL);
-    
+    gtk_widget_ref(list_item);
     list = g_list_prepend(NULL, list_item);
-    
-    label_text = GTK_LABEL(GTK_BIN(list_item)->child)->label;
-    
-    list_item = gtk_list_item_new_with_label (label_text);
-    gtk_object_set_user_data(GTK_OBJECT(list_item), op);
-    gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
-			GTK_SIGNAL_FUNC (operations_list_item_destroy_callback),
-			NULL);
-    gtk_widget_show(list_item);
-
     gtk_list_remove_items(gtklist, list);
-    g_list_free(list);
-    
-    list = g_list_prepend(NULL, list_item);
     gtk_list_insert_items(gtklist, list, i);
+    gtk_widget_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
   }
@@ -1951,16 +1857,11 @@ templates_list_move_up_callback(GtkWidget *button,
   UMLClassDialog *prop_dialog;
   GtkList *gtklist;
   GtkWidget *list_item;
-  UMLFormalParameter *param;
-  char *label_text;
-  
   int i;
   
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->templates_list);
 
-  /* TODO: This can be done better, move list_item instead of
-           delete/create new. But i didn't manage it... */
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
     
@@ -1968,25 +1869,11 @@ templates_list_move_up_callback(GtkWidget *button,
     if (i>0)
       i--;
 
-    param = (UMLFormalParameter *) gtk_object_get_user_data(GTK_OBJECT(list_item));
-    gtk_object_set_user_data(GTK_OBJECT(list_item), NULL);
-    
+    gtk_widget_ref(list_item);
     list = g_list_prepend(NULL, list_item);
-    
-    label_text = GTK_LABEL(GTK_BIN(list_item)->child)->label;
-    
-    list_item = gtk_list_item_new_with_label (label_text);
-    gtk_object_set_user_data(GTK_OBJECT(list_item), param);
-    gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
-			GTK_SIGNAL_FUNC (templates_list_item_destroy_callback),
-			NULL);
-    gtk_widget_show(list_item);
-
     gtk_list_remove_items(gtklist, list);
-    g_list_free(list);
-    
-    list = g_list_prepend(NULL, list_item);
     gtk_list_insert_items(gtklist, list, i);
+    gtk_widget_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
   }
@@ -2000,15 +1887,11 @@ templates_list_move_down_callback(GtkWidget *button,
   UMLClassDialog *prop_dialog;
   GtkList *gtklist;
   GtkWidget *list_item;
-  UMLFormalParameter *param;
-  char *label_text;
   int i;
 
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->templates_list);
 
-  /* TODO: This can be done better, move list_item instead of
-           delete/create new. But i didn't manage it... */
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
     
@@ -2016,25 +1899,11 @@ templates_list_move_down_callback(GtkWidget *button,
     if (i<(g_list_length(gtklist->children)-1))
       i++;
 
-    param = (UMLFormalParameter *) gtk_object_get_user_data(GTK_OBJECT(list_item));
-    gtk_object_set_user_data(GTK_OBJECT(list_item), NULL);
-    
+    gtk_widget_ref(list_item);
     list = g_list_prepend(NULL, list_item);
-    
-    label_text = GTK_LABEL(GTK_BIN(list_item)->child)->label;
-    
-    list_item = gtk_list_item_new_with_label (label_text);
-    gtk_object_set_user_data(GTK_OBJECT(list_item), param);
-    gtk_signal_connect (GTK_OBJECT (list_item), "destroy",
-			GTK_SIGNAL_FUNC (templates_list_item_destroy_callback),
-			NULL);
-    gtk_widget_show(list_item);
-
     gtk_list_remove_items(gtklist, list);
-    g_list_free(list);
-    
-    list = g_list_prepend(NULL, list_item);
     gtk_list_insert_items(gtklist, list, i);
+    gtk_widget_unref(list_item);
 
     gtk_list_select_child(gtklist, list_item);
   }

@@ -31,6 +31,7 @@ extern void object_connect_display(DDisplay *ddisp, Object *obj,
 extern GList *object_copy_list(GList *list);
 extern Point object_list_corner(GList *list);
 extern void object_list_move_delta(GList *objects, Point *delta);
-extern void object_list_align(GList *objects, int align);
+extern void object_list_align_h(GList *objects, int align);
+extern void object_list_align_v(GList *objects, int align);
 #endif /* OBJECT_OPS_H */
 

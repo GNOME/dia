@@ -214,78 +214,163 @@ object_list_move_delta(GList *objects, Point *delta)
 }
 
 
-/* Align. Maybe this enum should be in a header file
- 
-enum {
-    DIA_NO_HALIGN=0,
-    DIA_ALIGN_LEFT,
-    DIA_ALIGN_HCENTER,
-    DIA_ALIGN_RIGHT,
-    DIA_NO_VALIGN=0,
-    DIA_ALIGN_TOP=4,
-    DIA_ALIGN_VCENTER=8,
-    DIA_ALIGN_BOTTOM=12
-};
-
- Todo:
- * H eq. distance
- * v eq. distance
- */
-
-
+/*
+  Align objects horizontally:
+  0 TOP
+  1 CENTER
+  2 BOTTOM
+  3 OBJECT POSITION
+*/
 void
-object_list_align(GList *objects, int align)
+object_list_align_h(GList *objects, int align)
 {
   GList *list;
+  real y_pos;
   Object *obj;
   Point pos;
-  real dx;
-  int halign, valign;
-  real w=0, h=0, x, y, x1 = 1000, y1 = 1000, x2 = -1000, y2 = -1000;  
+  real top, bottom;
 
-  list = objects;
-  
-  halign = align & 3;
-  valign = (align >> 2) & 3;
-    
-  /* get block's corners */
+  if (objects==NULL)
+    return;
+
+  obj = (Object *) objects->data; /*  First object */
+
+  top = obj->bounding_box.top;
+  bottom = obj->bounding_box.bottom;
+
+  list = objects->next;
   while (list != NULL) {
     obj = (Object *) list->data;
+
+    if (obj->bounding_box.top < top)
+      top = obj->bounding_box.top;
+    if (obj->bounding_box.bottom > bottom)
+      bottom = obj->bounding_box.bottom;
     
-    pos = obj->position;
-    w = obj->bounding_box.right - obj->bounding_box.left;
-    h = obj->bounding_box.bottom - obj->bounding_box.top;
-           
-    if (x1 > pos.x) x1 = pos.x;
-    if (y1 > pos.y) y1 = pos.y;
-    if (x2 < pos.x+w) x2 = pos.x+w;
-    if (y2 < pos.y+h) y2 = pos.y+h; 
-      
     list = g_list_next(list);
   }
-    
-  list = objects;
 
-  x = x1 + (x2 - x1)*(halign-1)/2;
-  y = y1 + (y2 - y1)*(valign-1)/2;
-    
-  /* Move objects */
+  
+  switch (align) {
+  case 0: /* TOP */
+    y_pos = top;
+    break;
+  case 1: /* CENTER */
+    y_pos = (top + bottom)/2.0;
+    break;
+  case 2: /* BOTTOM */
+    y_pos = bottom;
+    break;
+  case 3: /* OBJECT POSITION */
+    y_pos = (top + bottom)/2.0;
+    break;
+  default:
+    message_warning("Wrong argument to object_list_align_h()\n");
+  }
+
+  list = objects;
   while (list != NULL) {
     obj = (Object *) list->data;
-    pos = obj->position;
-      
-    if (halign > 0) {  
-	dx = -(halign-1)*(obj->bounding_box.right - obj->bounding_box.left)/2;
-	pos.x = x + dx;
-    }
 
-    if (valign > 0) {  
-	dx = -(valign-1)*(obj->bounding_box.bottom - obj->bounding_box.top)/2;
-	pos.y = y + dx;
+    pos.x = obj->position.x;
+    
+    switch (align) {
+    case 0: /* TOP */
+      pos.y = y_pos + obj->position.y - obj->bounding_box.top;
+      break;
+    case 1: /* CENTER */
+      pos.y = y_pos + obj->position.y - (obj->bounding_box.top + obj->bounding_box.bottom)/2.0;
+      break;
+    case 2: /* BOTTOM */
+      pos.y = y_pos - (obj->bounding_box.bottom - obj->position.y);
+      break;
+    case 3: /* OBJECT POSITION */
+      pos.y = y_pos;
+      break;
     }
-      
+    
     obj->ops->move(obj, &pos);
+
     list = g_list_next(list);
   }
 }
 
+/*
+  Align objects horizontally:
+  0 LEFT
+  1 CENTER
+  2 RIGHT
+  3 OBJECT POSITION
+*/
+void
+object_list_align_v(GList *objects, int align)
+{
+  GList *list;
+  real x_pos;
+  Object *obj;
+  Point pos;
+  real left, right;
+
+  if (objects==NULL)
+    return;
+
+  obj = (Object *) objects->data; /*  First object */
+
+  left = obj->bounding_box.left;
+  right = obj->bounding_box.right;
+
+  list = objects->next;
+  while (list != NULL) {
+    obj = (Object *) list->data;
+
+    if (obj->bounding_box.left < left)
+      left = obj->bounding_box.left;
+    if (obj->bounding_box.right > right)
+      right = obj->bounding_box.right;
+    
+    list = g_list_next(list);
+  }
+
+  switch (align) {
+  case 0: /* LEFT */
+    x_pos = left;
+    break;
+  case 1: /* CENTER */
+    x_pos = (left + right)/2.0;
+    break;
+  case 2: /* RIGHT */
+    x_pos = right;
+    break;
+  case 3: /* OBJECT POSITION */
+    x_pos = (left + right)/2.0;
+    break;
+  default:
+    message_warning("Wrong argument to object_list_align_h()\n");
+  }
+
+  list = objects;
+  while (list != NULL) {
+    obj = (Object *) list->data;
+
+    switch (align) {
+    case 0: /* LEFT */
+      pos.x = x_pos + obj->position.x - obj->bounding_box.left;
+      break;
+    case 1: /* CENTER */
+      pos.x = x_pos + obj->position.x - (obj->bounding_box.left + obj->bounding_box.right)/2.0;
+      break;
+    case 2: /* RIGHT */
+      pos.x = x_pos - (obj->bounding_box.right - obj->position.x);
+      break;
+    case 3: /* OBJECT POSITION */
+      pos.x = x_pos;
+      break;
+    }
+    
+    pos.y = obj->position.y;
+    
+    obj->ops->move(obj, &pos);
+
+    list = g_list_next(list);
+  }
+}

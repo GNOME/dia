@@ -248,6 +248,9 @@ struct _ObjectOps {
   from the application point of view except
   when connection objects. (Then handles and
   connections are changed).
+
+  position is not necessarly the corner of the object, but rather
+  some 'good' spot on it which will be natural to snap to.
 */
 
 struct _Object {

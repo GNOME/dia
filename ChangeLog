@@ -1,3 +1,33 @@
+1999-01-12  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+
+	* TODO:
+	Update of todo.
+	
+	* app/menus.c:
+	Menus for alignment updated.
+
+	* app/object_ops.[ch]:
+	Functions for object alignment updated.
+
+	* app/commands.[ch]:
+	Object alignment callbacks updated.
+	New diagrams are called Untitled-<nr>.
+
+	* app/layer_dialog.c:
+	Active layer selected when showing layers from new
+	diagram.
+
+	* app/load_save.c:
+	Compress xml files when saving.
+	Use xml namespace 'dia'.
+
+	* lib/object.h:
+	Minor comment update.
+
+	* objects/UML/class_dialog.c:
+	Cleanup of the gkt_list_item moving code.
+	Fixed bug with update of operation when moving parameters.
+
 1999-01-10  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/layer_dialog.[ch]:

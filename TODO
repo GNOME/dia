@@ -14,6 +14,8 @@ general:
 * save more stuff in the diagram file. grid, bg etc.
 * is there a better way to calculate font-properties. Rendering 100 pixel hig fonts
   is very slow.
+* Update to automake 1.4 and libtool 1.3 when they're released. It has
+  much better support for dlopen:ed modules.
 
 gtk:
  Keyboard accelerator '+' and '-' doesn't work.

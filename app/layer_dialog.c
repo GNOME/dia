@@ -517,20 +517,30 @@ layer_dialog_set_diagram(Diagram *dia)
   DiagramData *data;
   GtkWidget *layer_widget;
   Layer *layer;
-  int i;
+  Layer *active_layer;
+  int sel_pos;
+  int i,j;
 
+  
+  if (dia!=NULL)
+    active_layer = dia->data->active_layer;
+  
   gtk_list_clear_items(GTK_LIST(layer_dialog->layer_list), 0, -1);
   layer_dialog->diagram = dia;
 
   if (dia != NULL) {
     data = dia->data;
-    
-    for (i=data->layers->len-1;i>=0;i--) {
+
+    sel_pos = 0;
+    for (i=data->layers->len-1,j=0;i>=0;i--,j++) {
       layer = (Layer *) g_ptr_array_index(data->layers, i);
       layer_widget = dia_layer_widget_new(dia, layer);
       gtk_widget_show(layer_widget);
       gtk_container_add(GTK_CONTAINER(layer_dialog->layer_list), layer_widget);
+      if (layer==active_layer)
+	sel_pos = j;
     }
+    gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), sel_pos);
   }
 }
 

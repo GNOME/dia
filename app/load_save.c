@@ -350,17 +350,23 @@ diagram_save(Diagram *dia, char *filename)
   int i;
   Layer *layer;
   AttributeNode attr;
-  
+  xmlNs *name_space;
+  int ret;
+   
   file = fopen(filename, "w");
 
   if (file==NULL) {
     message_error("Couldn't open: '%s' for writing.\n", filename);
     return FALSE;
   }
+  fclose(file);
 
   doc = xmlNewDoc("1.0");
   
-  doc->root = xmlNewDocNode(doc, NULL, "diagram", NULL);
+  name_space = xmlNewGlobalNs( doc, "http://www.lysator.liu.se/~alla/dia/",
+			       "dia" );
+ 
+  doc->root = xmlNewDocNode(doc, name_space, "diagram", NULL);
 
   tree = xmlNewChild(doc->root, NULL, "diagramdata", NULL);
   
@@ -386,12 +392,13 @@ diagram_save(Diagram *dia, char *filename)
     if (!res)
       return FALSE;
   }
-  
-  xmlDocDump(file, doc);
-  xmlFreeDoc(doc);
-  
-  fclose(file);
   g_hash_table_destroy(objects_hash);
+
+  xmlSetDocCompressMode(doc, 9);
+  ret = xmlSaveFile (filename, doc);
+  xmlFreeDoc(doc);
+  if (ret < 0)
+    return FALSE;
 
   dia->unsaved = FALSE;
   dia->modified = FALSE;

@@ -335,8 +335,12 @@ file_new_callback(GtkWidget *widget, gpointer data)
 {
   Diagram *dia;
   DDisplay *ddisp;
+  static int untitled_nr = 1;
+  char buffer[24];
+
+  snprintf(buffer, 24, "Untitled-%d", untitled_nr++);
   
-  dia = new_diagram("untitled.dia");
+  dia = new_diagram(buffer);
   ddisp = new_display(dia);
   diagram_add_ddisplay(dia, ddisp);
 }
@@ -650,11 +654,38 @@ dialogs_layers_callback(GtkWidget *widget, gpointer data)
 
 
 void
-objects_align_callback(GtkWidget *widget, gpointer data)
+objects_align_h_callback(GtkWidget *widget, gpointer data)
 {
-  int align = (int)data;
-  object_list_align(ddisplay_active()->diagram->data->selected, align);
-  ddisplay_add_update_all(ddisplay_active());
-  diagram_flush(ddisplay_active()->diagram);     
+  int align;
+  Diagram *dia;
+  GList *objects;
+
+  align = GPOINTER_TO_INT(data);
+  dia = ddisplay_active()->diagram;
+  objects = dia->data->selected;
+  
+  object_add_updates_list(objects, dia);
+  object_list_align_h(objects, align);
+  object_add_updates_list(objects, dia);
+  diagram_update_connections_selection(dia);
+  diagram_flush(dia);     
+}
+
+void
+objects_align_v_callback(GtkWidget *widget, gpointer data)
+{
+  int align;
+  Diagram *dia;
+  GList *objects;
+
+  align = GPOINTER_TO_INT(data);
+  dia = ddisplay_active()->diagram;
+  objects = dia->data->selected;
+
+  object_add_updates_list(objects, dia);
+  object_list_align_v(objects, align);
+  object_add_updates_list(objects, dia);
+  diagram_update_connections_selection(dia);
+  diagram_flush(dia);     
 }
 
