@@ -65,7 +65,7 @@ export_data(DiagramData *data, const gchar *filename,
 
   renderer = g_object_new (DIA_TYPE_GDK_RENDERER, NULL);
   renderer->transform = dia_transform_new (&rect, &zoom);
-  renderer->pixmap = gdk_pixmap_new(NULL, width, height, 24);
+  renderer->pixmap = gdk_pixmap_new(NULL, width, height, gdk_visual_get_system()->depth);
   renderer->gc = gdk_gc_new(renderer->pixmap);
 
   /* draw background */
@@ -76,13 +76,18 @@ export_data(DiagramData *data, const gchar *filename,
 
   data_render(data, DIA_RENDERER (renderer), NULL, NULL, NULL);
 
-  pixbuf = gdk_pixbuf_get_from_drawable (NULL, renderer->pixmap, NULL,
+  pixbuf = gdk_pixbuf_get_from_drawable (NULL, renderer->pixmap, 
+                                         gdk_colormap_get_system (),
                                          0, 0, 0, 0,
                                          width, height);
   if (pixbuf)
     {
       gdk_pixbuf_save (pixbuf, filename, format, &error, NULL);
       g_object_unref (pixbuf);
+    }
+  else
+    {
+      message_error ("Failed to create pixbuf from drawable.");
     }
 
   if (error)
@@ -149,7 +154,7 @@ import_data (const gchar *filename, DiagramData *data, void* user_data)
   return FALSE;
 }
 
-static const gchar *extensions[] = { "png", "bmp", "jpg", "jpeg", NULL };
+static const gchar *extensions[] = { "png", "jpg", "jpeg", NULL };
 static DiaExportFilter export_filter = {
     N_("GdkPixbuf bitmap"),
     extensions,

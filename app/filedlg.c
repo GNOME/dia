@@ -241,7 +241,7 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 		 "Do you want to overwrite it?"), utf8filename);
     g_free(utf8filename);
 
-    dialog = gtk_message_dialog_new (GTK_WINDOW(w),
+    dialog = gtk_message_dialog_new (GTK_WINDOW(fs),
                                      GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
                                      GTK_BUTTONS_YES_NO,
                                      buffer);
@@ -411,7 +411,7 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
     g_snprintf(buffer, 300,
 	       _("The file '%s' already exists.\n"
 		 "Do you want to overwrite it?"), filename);
-    dialog = gtk_message_dialog_new (GTK_WINDOW(w),
+    dialog = gtk_message_dialog_new (GTK_WINDOW(fs),
                                      GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
                                      GTK_BUTTONS_YES_NO,
                                      buffer);

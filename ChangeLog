@@ -1,5 +1,18 @@
 2003-02-01  Hans Breuer  <hans@breuer.org>
 
+	* app/filedlg.c : don't try to use a button as
+	'overwrite-file-dialog'-parent, use the FileSelDialog
+	instead
+
+	* plug-ins/pixbuf/pixbuf.c : make it work with 
+	system-visual-depth < 24. Remove 'bmp' from output
+	format extensions, it just was wishful thinking.
+
+	* plug-ins/python/Makefile.am : added the four new python 
+	plug-ins mentioned below to pyplugin_DATA and EXTRA_DIST
+
+2003-02-01  Hans Breuer  <hans@breuer.org>
+
 	* NEWS : updated content beside dependencies
 
 2003-02-01  Hans Breuer  <hans@breuer.org>

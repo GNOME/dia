@@ -57,7 +57,11 @@ pkgdata_DATA = python-startup.py
 
 pyplugindir = $(pkgdatadir)/python
 pyplugin_DATA = \
-	gtkcons.py
+	gtkcons.py \
+	diasvg.py \
+	group_props.py \
+	otypes.py \
+	pydiadoc.py
 ## are the other python plugins good for more than just testing purposes?
 
 endif
@@ -67,4 +71,8 @@ EXTRA_DIST = \
 	debug_objects.py \
 	export-object.py \
 	export-render.py \
+	diasvg.py \
+	group_props.py \
+	otypes.py \
+	pydiadoc.py \
 	gtkcons.py
