@@ -122,8 +122,9 @@ persistence_load_list(gchar *role, xmlNodePtr node)
     GList *list = NULL;
     int i;
     for (i = 0; strings[i] != NULL; i++) {
-      list = g_list_append(list, strings[i]);
+      list = g_list_append(list, g_strdup(strings[i]));
     }
+    /* This frees the strings, too? */
     g_strfreev(strings);
     g_hash_table_insert(persistent_lists, role, list);
   }
@@ -535,8 +536,15 @@ persistent_list_add(const gchar *role, const gchar *item)
   if (plist->sorted) {
     /* Sorting not implemented yet. */
   } else {
-    GList *tmplist = g_list_remove(plist->glist, item);
-    /* Might leak this */
+    GList *tmplist = plist->glist;
+    GList *old_elem = g_list_find_custom(tmplist, item, strcmp);
+    while (old_elem != NULL) {
+      printf("Removing old element %s\n", old_elem->data);
+      tmplist = g_list_remove_link(tmplist, old_elem);
+      g_free(old_elem->data);
+      g_list_free_1(old_elem);
+      old_elem = g_list_find_custom(tmplist, item, strcmp);
+    }
     tmplist = g_list_prepend(tmplist, g_strdup(item));
     tmplist = persistent_list_cut_length(tmplist, plist->max_members);
     plist->glist = tmplist;

@@ -1,6 +1,10 @@
-2004-03-25  Lars Clausen  <larsrc@linux.local>
+2004-03-26  Lars Clausen  <lars@raeder.dk>
 
-	* app/diagram.c: 
+	* app/persistence.c:
+	* app/recent_files.[ch]: Redoing the recent-files list using
+	persistence, reducing code by about 50%.  Still a problem when
+	selecting an item from the menu -- possibly it doesn't like the
+	menu being destroyed while in the callback?
 
 2004-03-25  Lars Clausen  <lars@raeder.dk>
 

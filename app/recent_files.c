@@ -47,7 +47,6 @@
 #include "message.h"
 #include "persistence.h"
 
-static guint recent_files_menuitem_offset = 0;
 static GtkTooltips *tooltips = 0;
 
 static void open_recent_file_callback (GtkWidget *widget, gpointer data);
@@ -66,35 +65,38 @@ recent_file_filemenu_get(void)
 static void
 recent_file_history_clear_menu()
 {
-    int i;
-    int number_of_items = MIN(prefs.recent_documents_list_size,
-			      g_list_length(persistent_list_get_glist("recent-files")));
-    GList *glist = persistent_list_get_glist("recent-files");
     GtkWidget *file_menu = recent_file_filemenu_get();
     GtkMenuItem *menu_item = 
 	menus_get_item_from_path(N_("<Toolbox>/File/Quit"), NULL);
 
     GList *menu_items = GTK_MENU_SHELL(file_menu)->children;
-    GList *list_item = g_list_find(menu_items, (gpointer)menu_item);
+    GList *next_item;
     
-    recent_files_menuitem_offset
-	= g_list_position(menu_items, list_item) - 2;  /* fudge factor */
-
-    for (i = 0; i < number_of_items; i++) {
-	GList *item = g_list_nth (menu_items, recent_files_menuitem_offset);
-	/* Unlink first, then destroy */
-	printf("Destroying menu item %d of %d: %s\n",
-	       recent_files_menuitem_offset,
-	       g_list_length(menu_items),
-	       g_list_nth(glist, i));
-	menu_items = g_list_remove_link(menu_items, item);
-	gtk_widget_destroy(item->data);
-	g_list_free_1(item);
+    for (;menu_items != NULL; menu_items = next_item) {
+	GtkMenuItem *item;
+	next_item = g_list_next(menu_items);
+	item = GTK_MENU_ITEM(menu_items->data);
+	if (g_signal_handler_find(G_OBJECT(item), G_SIGNAL_MATCH_FUNC,
+				  0, 0, NULL, open_recent_file_callback, NULL)) {
+	    GList *tmplist;
+	    /* Unlink first, then destroy */
+	    printf("Destroying menu item %s (%p, listitem %p)\n", 
+		   gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(item)))),
+		   item, menu_items);
+	    g_list_remove_link(GTK_MENU_SHELL(file_menu)->children,
+			       menu_items);
+	    gtk_widget_destroy(GTK_WIDGET(item));
+	    g_list_free_1(menu_items);
+	}
     }
 }
 
+/** Create a single menu item at position pos in the recent files list.
+ * Pos starts from 0.
+ */
 static void
-recent_file_menuitem_create(GtkWidget *menu, gchar *filename, guint pos)
+recent_file_menuitem_create(GtkWidget *menu, gchar *filename, 
+			    guint pos, guint offset)
 {
     gchar *basename, *escaped, *label;
     GtkWidget *item;
@@ -107,11 +109,11 @@ recent_file_menuitem_create(GtkWidget *menu, gchar *filename, guint pos)
     basename = escaped;
     basename = g_strdelimit(basename, "\\", '_');
     
-    label = g_strdup_printf("%d. %s", pos, basename);
+    label = g_strdup_printf("%d. %s", pos+1, basename);
     item = gtk_menu_item_new_with_label(label);
-    
+    printf("Created new item %p for %p\n", item, filename);
     gtk_menu_insert(GTK_MENU(menu), item,
-		    pos + recent_files_menuitem_offset);
+		    pos + offset);
     
     g_signal_connect(GTK_OBJECT(item), "activate",
 		     G_CALLBACK(open_recent_file_callback), filename);
@@ -119,13 +121,13 @@ recent_file_menuitem_create(GtkWidget *menu, gchar *filename, guint pos)
     gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), item,
 			 filename, NULL);
     
-    if (pos < 10)
+    if (pos < 9)
     {
 	accel_group = gtk_accel_group_new();
 	gtk_window_add_accel_group(GTK_WINDOW(interface_get_toolbox_shell()),
 				   accel_group);
 	gtk_widget_add_accelerator(item, "activate", accel_group,
-				   GDK_1 + pos - 1,
+				   GDK_1 + pos,
 				   GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
     }
     
@@ -152,13 +154,12 @@ recent_file_history_make_menu()
     GList *list_item = g_list_find(GTK_MENU_SHELL(file_menu)->children,
 				   (gpointer)menu_item);
     
-    recent_files_menuitem_offset
-	= g_list_position(GTK_MENU_SHELL(file_menu)->children,
-			  list_item) - 2;  /* fudge factor */
+    int_offset = g_list_position(GTK_MENU_SHELL(file_menu)->children,
+			  list_item) - 1;  /* fudge factor */
 
-    for (i = 1; items != NULL && i <= prefs.recent_documents_list_size;
+    for (i = 0; items != NULL && i < prefs.recent_documents_list_size;
 	 items = g_list_next(items), i++) {
-	recent_file_menuitem_create(file_menu, (gchar *)items->data, i);
+	recent_file_menuitem_create(file_menu, (gchar *)items->data, i, offset);
     }
 }
 
@@ -171,7 +172,7 @@ void
 recent_file_history_add(const char *fname)
 {
     recent_file_history_clear_menu();
-    printf("Adding recent file %s\n", fname);
+    printf("Adding recent file %s (%p)\n", fname, fname);
     persistent_list_add("recent-files", fname);
     
     recent_file_history_make_menu();
