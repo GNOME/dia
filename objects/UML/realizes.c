@@ -196,6 +196,7 @@ realizes_draw(Realizes *realize, Renderer *renderer)
   Point *points;
   int n;
   Point pos;
+  Arrow arrow;
   
   points = &orth->points[0];
   n = orth->numpoints;
@@ -206,12 +207,13 @@ realizes_draw(Realizes *realize, Renderer *renderer)
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_polyline(renderer, points, n, &color_black);
-
-  arrow_draw(renderer, ARROW_HOLLOW_TRIANGLE,
-	     &points[0], &points[1],
-	     REALIZES_TRIANGLESIZE, REALIZES_TRIANGLESIZE, REALIZES_WIDTH,
-	     &color_black, &color_white);
+  arrow.type = ARROW_HOLLOW_TRIANGLE;
+  arrow.width = REALIZES_TRIANGLESIZE;
+  arrow.length = REALIZES_TRIANGLESIZE;
+  renderer->ops->draw_polyline_with_arrows(renderer, points, n,
+					   REALIZES_WIDTH,
+					   &color_black,
+					   &arrow, NULL);
 
   renderer->ops->set_font(renderer, realize_font, REALIZES_FONTHEIGHT);
   pos = realize->text_pos;
@@ -286,13 +288,17 @@ realizes_update_data(Realizes *realize)
   case HORIZONTAL:
     realize->text_align = ALIGN_CENTER;
     realize->text_pos.x = 0.5*(points[i].x+points[i+1].x);
-    realize->text_pos.y = points[i].y -
+    realize->text_pos.y = points[i].y;
+    if (realize->name)
+      realize->text_pos.y -=
         dia_font_descent(realize->name,realize_font, REALIZES_FONTHEIGHT);
     break;
   case VERTICAL:
     realize->text_align = ALIGN_LEFT;
     realize->text_pos.x = points[i].x + 0.1;
-    realize->text_pos.y = 0.5*(points[i].y+points[i+1].y) -
+    realize->text_pos.y = 0.5*(points[i].y+points[i+1].y);
+    if (realize->name)
+      realize->text_pos.y -=
         dia_font_descent(realize->name, realize_font, REALIZES_FONTHEIGHT);
     break;
   }
@@ -302,8 +308,9 @@ realizes_update_data(Realizes *realize)
   if (realize->text_align == ALIGN_CENTER)
     rect.left -= realize->text_width/2.0;
   rect.right = rect.left + realize->text_width;
-  rect.top = realize->text_pos.y -
-      dia_font_ascent(realize->name,realize_font, REALIZES_FONTHEIGHT);
+  rect.top = realize->text_pos.y;
+  if (realize->name)
+    rect.top -= dia_font_ascent(realize->name,realize_font, REALIZES_FONTHEIGHT);
   rect.bottom = rect.top + 2*REALIZES_FONTHEIGHT;
 
   rectangle_union(&obj->bounding_box, &rect);

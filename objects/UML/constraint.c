@@ -224,7 +224,8 @@ static void
 constraint_draw(Constraint *constraint, Renderer *renderer)
 {
   Point *endpoints;
-  
+  Arrow arrow;
+
   assert(constraint != NULL);
   assert(renderer != NULL);
 
@@ -235,15 +236,16 @@ constraint_draw(Constraint *constraint, Renderer *renderer)
   renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_line(renderer,
-			   &endpoints[0], &endpoints[1],
-			   &color_black);
-  
-  arrow_draw(renderer, ARROW_LINES,
-	     &endpoints[1], &endpoints[0],
-	     CONSTRAINT_ARROWLEN, CONSTRAINT_ARROWWIDTH, CONSTRAINT_WIDTH,
-	     &color_black, &color_white);
+  arrow.type = ARROW_LINES;
+  arrow.length = CONSTRAINT_ARROWLEN;
+  arrow.width = CONSTRAINT_ARROWWIDTH;
 
+  renderer->ops->draw_line_with_arrows(renderer,
+				       &endpoints[0], &endpoints[1],
+				       CONSTRAINT_WIDTH,
+				       &color_black,
+				       NULL, &arrow);
+  
   renderer->ops->set_font(renderer, constraint_font,
 			  CONSTRAINT_FONTHEIGHT);
   renderer->ops->draw_string(renderer,

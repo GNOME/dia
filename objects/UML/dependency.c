@@ -201,7 +201,8 @@ dependency_draw(Dependency *dep, Renderer *renderer)
   Point *points;
   int n;
   Point pos;
-  
+  Arrow arrow;
+
   points = &orth->points[0];
   n = orth->numpoints;
   
@@ -211,13 +212,15 @@ dependency_draw(Dependency *dep, Renderer *renderer)
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_polyline(renderer, points, n, &color_black);
+  arrow.type = ARROW_LINES;
+  arrow.length = DEPENDENCY_ARROWLEN;
+  arrow.width = DEPENDENCY_ARROWWIDTH;
 
-  if (dep->draw_arrow)
-    arrow_draw(renderer, ARROW_LINES,
-	       &points[n-1], &points[n-2],
-	       DEPENDENCY_ARROWLEN, DEPENDENCY_ARROWWIDTH, DEPENDENCY_WIDTH,
-	       &color_black, &color_white);
+  renderer->ops->draw_polyline_with_arrows(renderer,
+					   points, n,
+					   DEPENDENCY_WIDTH,
+					   &color_black,
+					   NULL, &arrow);
 
   renderer->ops->set_font(renderer, dep_font, DEPENDENCY_FONTHEIGHT);
   pos = dep->text_pos;
@@ -291,17 +294,21 @@ dependency_update_data(Dependency *dep)
   case HORIZONTAL:
     dep->text_align = ALIGN_CENTER;
     dep->text_pos.x = 0.5*(points[i].x+points[i+1].x);
-    dep->text_pos.y = points[i].y - dia_font_descent(dep->name,
-                                                     dep_font,
-                                                     DEPENDENCY_FONTHEIGHT);
+    dep->text_pos.y = points[i].y;
+    if (dep->name)
+      dep->text_pos.y -= dia_font_descent(dep->name,
+					  dep_font,
+					  DEPENDENCY_FONTHEIGHT);
     break;
   case VERTICAL:
     dep->text_align = ALIGN_LEFT;
     dep->text_pos.x = points[i].x + 0.1;
     dep->text_pos.y =
-      0.5*(points[i].y+points[i+1].y) -dia_font_descent(dep->name,
-                                                        dep_font,
-                                                        DEPENDENCY_FONTHEIGHT);
+      0.5*(points[i].y+points[i+1].y);
+    if (dep->name)
+      dep->text_pos.y -= dia_font_descent(dep->name,
+					  dep_font,
+					  DEPENDENCY_FONTHEIGHT);
     break;
   }
 
@@ -310,9 +317,11 @@ dependency_update_data(Dependency *dep)
   if (dep->text_align == ALIGN_CENTER)
     rect.left -= dep->text_width/2.0;
   rect.right = rect.left + dep->text_width;
-  rect.top = dep->text_pos.y - dia_font_ascent(dep->name,
-                                               dep_font,
-                                               DEPENDENCY_FONTHEIGHT);
+  rect.top = dep->text_pos.y;
+  if (dep->name)
+    rect.top -= dia_font_ascent(dep->name,
+				dep_font,
+				DEPENDENCY_FONTHEIGHT);
   rect.bottom = rect.top + 2*DEPENDENCY_FONTHEIGHT;
 
   rectangle_union(&obj->bounding_box, &rect);

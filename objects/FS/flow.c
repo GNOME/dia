@@ -326,21 +326,22 @@ static void
 flow_draw(Flow *flow, Renderer *renderer)
 {
   Point *endpoints, p1, p2;
-  ArrowType arrow_type;
+  Arrow arrow;
   int n1 = 1, n2 = 0;
   Color* render_color = NULL;
 
   assert(flow != NULL);
   assert(renderer != NULL);
 
-  arrow_type = ARROW_FILLED_TRIANGLE;
+  arrow.type = ARROW_FILLED_TRIANGLE;
+  arrow.width = FLOW_ARROWWIDTH;
+  arrow.length = FLOW_ARROWLEN;
  
   endpoints = &flow->connection.endpoints[0];
   
   renderer->ops->set_linewidth(renderer, FLOW_WIDTH);
 
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
-
 
   switch (flow->type) {
   case FLOW_SIGNAL:
@@ -361,14 +362,11 @@ flow_draw(Flow *flow, Renderer *renderer)
   p1 = endpoints[n1];
   p2 = endpoints[n2];
 
-  renderer->ops->draw_line(renderer,
-			   &p1, &p2,
-			   render_color); 
-
-  arrow_draw(renderer, arrow_type,
-	     &p1, &p2,
-	     FLOW_ARROWLEN, FLOW_ARROWWIDTH, FLOW_WIDTH,
-	     render_color, &color_white);
+  renderer->ops->draw_line_with_arrows(renderer,
+				       &p1, &p2,
+				       FLOW_WIDTH,
+				       render_color,
+				       &arrow, NULL); 
 
   renderer->ops->set_font(renderer, flow_font,FLOW_FONTHEIGHT);
 
@@ -422,7 +420,7 @@ flow_create(Point *startpoint,
 
   if ( flow_default_label ) {
     flow->text = text_copy( flow_default_label ) ;
-    text_set_position( flow->text, &p ) ;
+    text_set_position( flow->text, &conn->endpoints[1] ) ;
   } else {
     Color* color = NULL;
 
@@ -444,7 +442,7 @@ flow_create(Point *startpoint,
     }
 
     flow->text = new_text("", flow_font, FLOW_FONTHEIGHT, 
-                          &p, color, ALIGN_CENTER);
+                          &conn->endpoints[0], color, ALIGN_CENTER);
   }
 
   flow->text_handle.id = HANDLE_MOVE_TEXT;
@@ -457,11 +455,10 @@ flow_create(Point *startpoint,
     extra->end_long =
     extra->start_trans = FLOW_WIDTH/2.0;
   extra->end_trans = MAX(FLOW_WIDTH, FLOW_ARROWLEN) / 2.0;
-  
   flow_update_data(flow);
-
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
+  printf("%f, %f\n", flow->text->position.x, flow->text->position.y);
   return &flow->connection.object;
 }
 

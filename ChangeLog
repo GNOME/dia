@@ -1,5 +1,21 @@
 2002-07-22  Lars Clausen  <lrclause@cs.uiuc.edu>
-	
+
+	* objects/UML/implements.c (implements_update_data): 
+	* objects/UML/realizes.c (realizes_update_data): 
+	* objects-UML/dependency.c (dependency_update_data): 
+	Test for null strings before calling on ascent.
+
+	* objects/UML/realizes.c (realizes_draw): 
+	* objects/UML/message.c (message_draw): 
+	* objects/UML/generalization.c (generalization_draw): 
+	* objects/UML/dependency.c (dependency_draw) 
+	* objects/UML/constraint.c (constraint_draw): 
+	* objects/GRAFCET/condition.c (condition_draw): 
+	* objects/UML/association.c (association_draw): 
+	* objects/FS/flow-ortho.c (orthflow_draw): 
+	* objects/FS/flow.c (flow_draw): Change to use
+	draw_foo_with_arrows.  Pretty pretty arrows.  Yay me!
+
 	* lib/render.h: 
 	* lib/arrows.c (calculate_arrow_point): 
 	* lib/arrows.h: 

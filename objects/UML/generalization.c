@@ -194,6 +194,7 @@ generalization_draw(Generalization *genlz, Renderer *renderer)
   Point *points;
   int n;
   Point pos;
+  Arrow arrow;
   
   points = &orth->points[0];
   n = orth->numpoints;
@@ -203,13 +204,15 @@ generalization_draw(Generalization *genlz, Renderer *renderer)
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_polyline(renderer, points, n, &color_black);
+  arrow.type = ARROW_HOLLOW_TRIANGLE;
+  arrow.length = GENERALIZATION_TRIANGLESIZE;
+  arrow.width = GENERALIZATION_TRIANGLESIZE;
 
-  arrow_draw(renderer, ARROW_HOLLOW_TRIANGLE,
-	     &points[0], &points[1],
-	     GENERALIZATION_TRIANGLESIZE, GENERALIZATION_TRIANGLESIZE,
-	     GENERALIZATION_WIDTH,
-	     &color_black, &color_white);
+  renderer->ops->draw_polyline_with_arrows(renderer,
+					   points, n,
+					   GENERALIZATION_WIDTH,
+					   &color_black,
+					   &arrow, NULL);
 
   renderer->ops->set_font(renderer, genlz_font, GENERALIZATION_FONTHEIGHT);
   pos = genlz->text_pos;

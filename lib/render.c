@@ -354,7 +354,7 @@ draw_line_with_arrows(Renderer *renderer,
 {
   Point oldstart = *startpoint;
   Point oldend = *endpoint;
-  if (start_arrow->type != ARROW_NONE) {
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
     Point arrow_head;
     calculate_arrow_point(start_arrow, startpoint, endpoint, 
@@ -367,7 +367,7 @@ draw_line_with_arrows(Renderer *renderer,
 	       &arrow_head, endpoint,
 	       start_arrow->length, start_arrow->width,
 	       line_width,
-	       &color_black, &color_white);
+	       color, &color_white);
 #ifdef STEM
     Point line_start = startpoint;
     startpoint = arrow_head;
@@ -377,7 +377,7 @@ draw_line_with_arrows(Renderer *renderer,
     renderer->ops->draw_line(renderer, &line_start, startpoint, color);
 #endif
   }
-  if (end_arrow->type != ARROW_NONE) {
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
     Point arrow_head;
     calculate_arrow_point(end_arrow, endpoint, startpoint,
@@ -390,7 +390,7 @@ draw_line_with_arrows(Renderer *renderer,
 	       &arrow_head, startpoint,
 	       end_arrow->length, end_arrow->width,
 	       line_width,
-	       &color_black, &color_white);
+	       color, &color_white);
 #ifdef STEM
     Point line_start = endpoint;
     endpoint = arrow_head;
@@ -416,20 +416,20 @@ draw_polyline_with_arrows(Renderer *renderer,
 {
   Point oldstart = points[0];
   Point oldend = points[num_points-1];
-  if (start_arrow->type != ARROW_NONE) {
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
     Point arrow_head;
     calculate_arrow_point(start_arrow, &points[0], &points[1], 
 			  &move_arrow, &move_line,
 			  line_width);
-    arrow_head = *&points[0];
+    arrow_head = points[0];
     point_sub(&arrow_head, &move_arrow);
     point_sub(&points[0], &move_line);
     arrow_draw(renderer, start_arrow->type,
 	       &arrow_head, &points[1],
 	       start_arrow->length, start_arrow->width,
 	       line_width,
-	       &color_black, &color_white);
+	       color, &color_white);
 #ifdef STEM
     Point line_start = &points[0];
     &points[0] = arrow_head;
@@ -439,7 +439,7 @@ draw_polyline_with_arrows(Renderer *renderer,
     renderer->ops->draw_line(renderer, &line_start, &points[0], color);
 #endif
   }
-  if (end_arrow->type != ARROW_NONE) {
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
     Point arrow_head;
     calculate_arrow_point(end_arrow, &points[num_points-1], 
@@ -453,7 +453,7 @@ draw_polyline_with_arrows(Renderer *renderer,
 	       &arrow_head, &points[num_points-2],
 	       end_arrow->length, end_arrow->width,
 	       line_width,
-	       &color_black, &color_white);
+	       color, &color_white);
 #ifdef STEM
     Point line_start = &points[num_points-1];
     &points[num_points-1] = arrow_head;
@@ -483,7 +483,7 @@ draw_bezier_with_arrows(Renderer *renderer,
   startpoint = points[0].p1;
   endpoint = points[num_points-1].p3;
 
-  if (start_arrow->type != ARROW_NONE) {
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow;
     Point move_line;
     Point arrow_head;
@@ -497,7 +497,7 @@ draw_bezier_with_arrows(Renderer *renderer,
 	       &arrow_head, &points[1].p1,
 	       start_arrow->length, start_arrow->width,
 	       line_width,
-	       &color_black, &color_white);
+	       color, &color_white);
     renderer->ops->draw_line(renderer, &arrow_head, &points[0].p1,
 			     &color_white);
     if (0) {
@@ -509,7 +509,7 @@ draw_bezier_with_arrows(Renderer *renderer,
       renderer->ops->draw_line(renderer, &line_start, &points[0].p1, color);
     }
   }
-  if (end_arrow->type != ARROW_NONE) {
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
   }
   renderer->ops->draw_bezier(renderer, points, num_points, color);
 

@@ -223,6 +223,7 @@ association_draw(Association *assoc, Renderer *renderer)
   Point poly[3];
   int n,i;
   Point pos;
+  Arrow startarrow, endarrow;
   
   points = &orth->points[0];
   n = orth->numpoints;
@@ -231,17 +232,27 @@ association_draw(Association *assoc, Renderer *renderer)
   renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
-
-  renderer->ops->draw_polyline(renderer, points, n, &color_black);
-
+  
   if (assoc->end[0].arrow) {
-    arrow_draw(renderer, ARROW_LINES,
-	       &points[0], &points[1],
-	       ASSOCIATION_TRIANGLESIZE, ASSOCIATION_TRIANGLESIZE,
-	       ASSOCIATION_WIDTH,
-	       &color_black, &color_white);
+    startarrow.type = ARROW_LINES;
+  } else {
+    startarrow.type = ARROW_NONE;
   }
+  if (assoc->end[1].arrow) {
+    endarrow.type = ARROW_LINES;
+  } else {
+    endarrow.type = ARROW_NONE;
+  }
+  startarrow.length = ASSOCIATION_TRIANGLESIZE;
+  startarrow.width = ASSOCIATION_TRIANGLESIZE;
+  endarrow.length = ASSOCIATION_TRIANGLESIZE;
+  endarrow.width = ASSOCIATION_TRIANGLESIZE;
+  renderer->ops->draw_polyline_with_arrows(renderer, points, n,
+					   ASSOCIATION_WIDTH,
+					   &color_black,
+					   &startarrow, &endarrow);
 
+  /* Shouldn't these be instead of the normal arrows? */
   switch (assoc->end[0].aggregate) {
   case AGGREGATE_NORMAL:
     arrow_draw(renderer, ARROW_HOLLOW_DIAMOND,
@@ -260,14 +271,6 @@ association_draw(Association *assoc, Renderer *renderer)
   case AGGREGATE_NONE:
     /* Nothing */
     break;
-  }
-
-  if (assoc->end[1].arrow) {
-    arrow_draw(renderer, ARROW_LINES,
-	       &points[n-1], &points[n-2],
-	       ASSOCIATION_TRIANGLESIZE, ASSOCIATION_TRIANGLESIZE,
-	       ASSOCIATION_WIDTH,
-	       &color_black, &color_white);
   }
 
   switch (assoc->end[1].aggregate) {

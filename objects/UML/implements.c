@@ -380,9 +380,11 @@ implements_update_data(Implements *implements)
   /* Add boundingbox for text: */
   rect.left = implements->text_pos.x;
   rect.right = rect.left + implements->text_width;
-  rect.top = implements->text_pos.y - dia_font_ascent(implements->text,
-                                                      implements_font,
-                                                      IMPLEMENTS_FONTHEIGHT);
+  rect.top = implements->text_pos.y;
+  if (implements->text)
+    rect.top -= dia_font_ascent(implements->text,
+				implements_font,
+				IMPLEMENTS_FONTHEIGHT);
   rect.bottom = rect.top + IMPLEMENTS_FONTHEIGHT;
   rectangle_union(&obj->bounding_box, &rect);
 }

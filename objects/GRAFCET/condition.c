@@ -292,15 +292,20 @@ condition_draw(Condition *condition, Renderer *renderer)
   renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  renderer->ops->draw_line(renderer,
-			   &conn->endpoints[0],&conn->endpoints[1],
-			   &color_black);
   if (CONDITION_ARROW_SIZE > (CONDITION_LINE_WIDTH/2.0)) {
-    arrow_draw(renderer, ARROW_FILLED_TRIANGLE,
-               &conn->endpoints[1],&conn->endpoints[0],
-               CONDITION_ARROW_SIZE,CONDITION_ARROW_SIZE/2,
-               CONDITION_LINE_WIDTH,
-               &color_black,&color_white);
+    Arrow arrow;
+    arrow.type = ARROW_FILLED_TRIANGLE;
+    arrow.width = CONDITION_ARROW_SIZE;
+    arrow.length = CONDITION_ARROW_SIZE/2;
+    renderer->ops->draw_line_with_arrows(renderer,
+					 &conn->endpoints[0],&conn->endpoints[1],
+					 CONDITION_LINE_WIDTH,
+					 &color_black,
+					 &arrow, NULL);
+  } else {
+    renderer->ops->draw_line(renderer,
+			     &conn->endpoints[0],&conn->endpoints[1],
+			     &color_black);
   }
 
   boolequation_draw(condition->cond,renderer);

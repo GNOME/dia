@@ -352,15 +352,18 @@ orthflow_move(Orthflow *orthflow, Point *to)
 static void
 orthflow_draw(Orthflow *orthflow, Renderer *renderer)
 {
-  ArrowType arrow_type;
   int n = orthflow->orth.numpoints ;
   Color* render_color = &orthflow_color_signal;
   Point *points;
-  
+  real linewidth;
+  Arrow arrow;
+
   assert(orthflow != NULL);
   assert(renderer != NULL);
 
-  arrow_type = ARROW_FILLED_TRIANGLE;
+  arrow.type = ARROW_FILLED_TRIANGLE;
+  arrow.width = ORTHFLOW_ARROWWIDTH;
+  arrow.length = ORTHFLOW_ARROWLEN;
  
   points = &orthflow->orth.points[0];
 
@@ -368,29 +371,33 @@ orthflow_draw(Orthflow *orthflow, Renderer *renderer)
 
   switch (orthflow->type) {
   case ORTHFLOW_SIGNAL:
-    renderer->ops->set_linewidth(renderer, ORTHFLOW_WIDTH);
+    linewidth = ORTHFLOW_WIDTH;
     renderer->ops->set_dashlength(renderer, ORTHFLOW_DASHLEN);
     renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
     render_color = &orthflow_color_signal ;
     break ;
   case ORTHFLOW_MATERIAL:
-    renderer->ops->set_linewidth(renderer, ORTHFLOW_MATERIAL_WIDTH ) ;
+    linewidth = ORTHFLOW_MATERIAL_WIDTH;
     renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
     render_color = &orthflow_color_material ;
     break ;
   case ORTHFLOW_ENERGY:
-    renderer->ops->set_linewidth(renderer, ORTHFLOW_WIDTH);
+    linewidth = ORTHFLOW_WIDTH;
     renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
     render_color = &orthflow_color_energy ;
   }
 
-  renderer->ops->draw_polyline(renderer, points, n,
-			       render_color); 
-
-  arrow_draw(renderer, arrow_type,
+  renderer->ops->set_linewidth(renderer, linewidth);
+  renderer->ops->draw_polyline_with_arrows(renderer, points, n,
+					   ORTHFLOW_WIDTH,
+					   render_color,
+					   &arrow, NULL); 
+#if 0
+  arrow_draw(renderer, 
 	     &points[n-1], &points[n-2],
-	     ORTHFLOW_ARROWLEN, ORTHFLOW_ARROWWIDTH, ORTHFLOW_WIDTH,
+	     ORTHFLOW_ARROWLEN, ORTHFLOW_ARROWWIDTH, 
 	     render_color, &color_white);
+#endif
 
   renderer->ops->set_font(renderer, orthflow_font,
                           ORTHFLOW_FONTHEIGHT);

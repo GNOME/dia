@@ -253,7 +253,7 @@ static void
 message_draw(Message *message, Renderer *renderer)
 {
   Point *endpoints, p1, p2, px;
-  ArrowType arrow_type;
+  Arrow arrow;
   int n1 = 1, n2 = 0;
   gchar *mname = NULL;
 
@@ -261,12 +261,14 @@ message_draw(Message *message, Renderer *renderer)
   assert(renderer != NULL);
 
   if (message->type==MESSAGE_SEND) 
-      arrow_type = ARROW_HALF_HEAD;
+      arrow.type = ARROW_HALF_HEAD;
   else if (message->type==MESSAGE_SIMPLE) 
-      arrow_type = ARROW_LINES;
+      arrow.type = ARROW_LINES;
   else 
-      arrow_type = ARROW_FILLED_TRIANGLE;
- 
+      arrow.type = ARROW_FILLED_TRIANGLE;
+  arrow.length = MESSAGE_ARROWLEN;
+  arrow.width = MESSAGE_ARROWWIDTH;
+
   endpoints = &message->connection.endpoints[0];
   
   renderer->ops->set_linewidth(renderer, MESSAGE_WIDTH);
@@ -302,14 +304,11 @@ message_draw(Message *message, Renderer *renderer)
       p1.y = p2.y;
   } 
 
-  renderer->ops->draw_line(renderer,
-			   &p1, &p2,
-			   &color_black); 
-
-  arrow_draw(renderer, arrow_type,
-	     &p1, &p2,
-	     MESSAGE_ARROWLEN, MESSAGE_ARROWWIDTH, MESSAGE_WIDTH,
-	     &color_black, &color_white);
+  renderer->ops->draw_line_with_arrows(renderer,
+				       &p1, &p2,
+				       MESSAGE_WIDTH,
+				       &color_black,
+				       &arrow, NULL); 
 
   renderer->ops->set_font(renderer, message_font,
 			  MESSAGE_FONTHEIGHT);
