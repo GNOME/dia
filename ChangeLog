@@ -1,5 +1,10 @@
 2003-10-19  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* Makefile.am: 
+	* dia.1:
+	Removed old Dia manual, put new one in doc/en/.  Translations
+	should go in doc/??/.
+
 	* doc/en/dia-manual.xml: 
 	* doc/pl/dia-manual.sgml: 
 	* dia.spec (Release): 
