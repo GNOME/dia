@@ -71,6 +71,9 @@ extern void text_set_cursor(Text *text, Point *clicked_point,
 			    Renderer *interactive_renderer);
 extern void text_grab_focus(Text *text, Object *object);
 extern int text_is_empty(Text *text);
+
+extern void data_add_text(AttributeNode attr, Text *text);
+extern Text *data_text(AttributeNode attr);
 #endif /* TEXT_H */
 
 

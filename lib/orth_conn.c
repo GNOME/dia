@@ -504,43 +504,58 @@ orthconn_destroy(OrthConn *orth)
 
 
 void
-orthconn_save(OrthConn *orth, int fd)
+orthconn_save(OrthConn *orth, ObjectNode obj_node)
 {
   int i;
+  AttributeNode attr;
 
-  object_save(&orth->object, fd);
+  object_save(&orth->object, obj_node);
 
-  write_int32(fd, orth->numpoints);
+  attr = new_attribute(obj_node, "orth_points");
+  
   for (i=0;i<orth->numpoints;i++) {
-    write_point(fd, &orth->points[i]);
+    data_add_point(attr, &orth->points[i]);
   }
 
+  attr = new_attribute(obj_node, "orth_orient");
   for (i=0;i<orth->numpoints-1;i++) {
-    write_int32(fd, orth->orientation[i]);
+    data_add_enum(attr, orth->orientation[i]);
   }
 }
 
 void
-orthconn_load(OrthConn *orth, int fd) /* NOTE: Does object_init() */
+orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() */
 {
   int i;
+  AttributeNode attr;
+  DataNode data;
   
   Object *obj = &orth->object;
 
-  object_load(obj, fd);
-  
-  orth->numpoints = read_int32(fd);
+  object_load(obj, obj_node);
+
+  attr = object_find_attribute(obj_node, "orth_points");
+
+  if (attr != NULL)
+    orth->numpoints = attribute_num_data(attr);
+  else
+    orth->numpoints = 0;
 
   object_init(obj, 2 + orth->numpoints-1, 0);
-  
+
+  data = attribute_first_data(attr);
   orth->points = g_malloc((orth->numpoints)*sizeof(Point));
   for (i=0;i<orth->numpoints;i++) {
-    read_point(fd, &orth->points[i]);
+    data_point(data, &orth->points[i]);
+    data = data_next(data);
   }
 
+  attr = object_find_attribute(obj_node, "orth_orient");
+
+  data = attribute_first_data(attr);
   orth->orientation = g_malloc((orth->numpoints-1)*sizeof(Orientation));
   for (i=0;i<orth->numpoints-1;i++) {
-    orth->orientation[i] = read_int32(fd);
+    orth->orientation[i] = data_enum(data);
   }
 
   obj->handles[0] = &orth->endpoint_handles[0];

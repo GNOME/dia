@@ -133,17 +133,30 @@ connection_destroy(Connection *conn)
 
 
 void
-connection_save(Connection *conn, int fd)
+connection_save(Connection *conn, ObjectNode obj_node)
 {
-  object_save(&conn->object, fd);
-  write_point(fd, &conn->endpoints[0]);
-  write_point(fd, &conn->endpoints[1]);
+  AttributeNode attr;
+  
+  object_save(&conn->object, obj_node);
+
+  attr = new_attribute(obj_node, "conn_endpoints");
+  data_add_point(attr, &conn->endpoints[0]);
+  data_add_point(attr, &conn->endpoints[1]);
 }
 
 void
-connection_load(Connection *conn, int fd)
+connection_load(Connection *conn, ObjectNode obj_node)
 {
-  object_load(&conn->object, fd);
-  read_point(fd, &conn->endpoints[0]);
-  read_point(fd, &conn->endpoints[1]);
+  AttributeNode attr;
+  DataNode data;
+
+  object_load(&conn->object, obj_node);
+
+  attr = object_find_attribute(obj_node, "conn_endpoints");
+  if (attr != NULL) {
+    data = attribute_first_data(attr);
+    data_point( data , &conn->endpoints[0] );
+    data = data_next(data);
+    data_point( data , &conn->endpoints[1] );
+  }
 }

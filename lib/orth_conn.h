@@ -51,8 +51,8 @@ extern void orthconn_simple_draw(OrthConn *orth, Renderer *renderer,
 extern void orthconn_init(OrthConn *orth, Point *startpoint);
 extern void orthconn_destroy(OrthConn *orth);
 extern void orthconn_copy(OrthConn *from, OrthConn *to);
-extern void orthconn_save(OrthConn *orth, int fd);
-extern void orthconn_load(OrthConn *orth, int fd); /* NOTE: Does object_init() */
+extern void orthconn_save(OrthConn *orth, ObjectNode obj_node);
+extern void orthconn_load(OrthConn *orth, ObjectNode obj_node);  /* NOTE: Does object_init() */
 extern void orthconn_move_handle(OrthConn *orth, Handle *id,
 				 Point *to, HandleMoveReason reason);
 extern void orthconn_move(OrthConn *orth, Point *to);

@@ -1,3 +1,44 @@
+1998-12-02  Alexander Larsson  <alla@lysator.liu.se>
+
+	* dialog.dtd:
+	New file. DTD that describes the xml file format
+	dia uses.
+
+	* lib/dia_xml.[ch]:
+	New files. Support for saving object to xml files.
+
+	* configure.in:
+	* app/Makefile.am:
+	* lib/Makefile.am:
+	Added check for and usage of gnome-xml library.
+
+	* app/load_save.c:
+	Major chages. Now saves/loads diagrams as xml.
+
+	* lib/object.[ch]:
+	* lib/element.[ch]:
+	* lib/connection.[ch]:
+	* lib/orth_conn.[ch]:
+	* lib/render_object.[ch]:
+	* lib/text.[ch]:
+	Updated object support load/save functions for xml:
+
+	* object/standard/arc.c:
+	* object/standard/box.c:
+	* object/standard/ellipse.c:
+	* object/standard/line.c:
+	* object/standard/textobj.c:
+	* object/standard/zigzagline.c:
+	Updated all standard objects to use xml.
+	
+	NOTE NOTE NOTE
+	Only the standard objects are converted right now, don't
+	save or load uml or network diagrams yet. Also, since this
+	is new code it is deemed a bit unstable.
+	
+	* TODO
+	Added a know bug.
+
 1998-12-01  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/UML/class.c:

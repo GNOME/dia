@@ -292,20 +292,38 @@ element_destroy(Element *elem)
 }
 
 
-void element_save(Element *elem, int fd)
+void element_save(Element *elem, ObjectNode obj_node)
 {
-  object_save(&elem->object, fd);
+  object_save(&elem->object, obj_node);
 
-  write_point(fd, &elem->corner);
-  write_real(fd, elem->width);
-  write_real(fd, elem->height);
+  data_add_point(new_attribute(obj_node, "elem_corner"),
+		 &elem->corner);
+  data_add_real(new_attribute(obj_node, "elem_width"),
+		 elem->width);
+  data_add_real(new_attribute(obj_node, "elem_height"),
+		 elem->height);
 }
 
-void element_load(Element *elem, int fd)
+void element_load(Element *elem, ObjectNode obj_node)
 {
-  object_load(&elem->object, fd);
-  
-  read_point(fd, &elem->corner);
-  elem->width = read_real(fd);
-  elem->height = read_real(fd);
+  AttributeNode attr;
+
+  object_load(&elem->object, obj_node);
+
+  elem->corner.x = 0.0;
+  elem->corner.y = 0.0;
+  attr = object_find_attribute(obj_node, "elem_corner");
+  if (attr != NULL)
+    data_point( attribute_first_data(attr), &elem->corner );
+
+  elem->width = 1.0;
+  attr = object_find_attribute(obj_node, "elem_width");
+  if (attr != NULL)
+    elem->width = data_real( attribute_first_data(attr));
+
+  elem->height = 1.0;
+  attr = object_find_attribute(obj_node, "elem_height");
+  if (attr != NULL)
+    elem->height = data_real( attribute_first_data(attr));
+
 }

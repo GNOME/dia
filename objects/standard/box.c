@@ -75,8 +75,8 @@ static Object *box_copy(Box *box);
 static GtkWidget *box_get_properties(Box *box);
 static void box_apply_properties(Box *box);
 
-static void box_save(Box *box, int fd);
-static Object *box_load(int fd, int version);
+static void box_save(Box *box, ObjectNode obj_node );
+static Object *box_load(ObjectNode obj_node, int version);
 
 static ObjectTypeOps box_type_ops =
 {
@@ -404,23 +404,28 @@ box_copy(Box *box)
 }
 
 static void
-box_save(Box *box, int fd)
+box_save(Box *box, ObjectNode obj_node)
 {
-  element_save(&box->element, fd);
+  element_save(&box->element, obj_node);
 
-  write_real(fd, box->border_width);
-  write_color(fd, &box->border_color);
-  write_color(fd, &box->inner_color);
-  write_int32(fd, box->line_style);
+  data_add_real(new_attribute(obj_node, "border_width"),
+		box->border_width);
+  data_add_color(new_attribute(obj_node, "border_color"),
+		 &box->border_color);
+  data_add_color(new_attribute(obj_node, "inner_color"),
+		 &box->inner_color);
+  data_add_enum(new_attribute(obj_node, "line_style"),
+		box->line_style);
 }
 
 static Object *
-box_load(int fd, int version)
+box_load(ObjectNode obj_node, int version)
 {
   Box *box;
   Element *elem;
   Object *obj;
   int i;
+  AttributeNode attr;
 
   box = g_malloc(sizeof(Box));
   elem = &box->element;
@@ -429,14 +434,29 @@ box_load(int fd, int version)
   obj->type = &box_type;
   obj->ops = &box_ops;
 
-  element_load(elem, fd);
+  element_load(elem, obj_node);
   
   box->properties_dialog = NULL;
+
+  box->border_width = 0.1;
+  attr = object_find_attribute(obj_node, "border_width");
+  if (attr != NULL)
+    box->border_width =  data_real( attribute_first_data(attr) );
+
+  box->border_color = color_black;
+  attr = object_find_attribute(obj_node, "border_color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &box->border_color);
   
-  box->border_width =  read_real(fd);
-  read_color(fd, &box->border_color);
-  read_color(fd, &box->inner_color);
-  box->line_style = read_int32(fd);
+  box->inner_color = color_white;
+  attr = object_find_attribute(obj_node, "inner_color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &box->inner_color);
+  
+  box->line_style = LINESTYLE_SOLID;
+  attr = object_find_attribute(obj_node, "line_style");
+  if (attr != NULL)
+    box->line_style =  data_enum( attribute_first_data(attr) );
 
   element_init(elem, 8, 8);
 

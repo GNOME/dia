@@ -38,8 +38,8 @@ extern void connection_init(Connection *conn,
 			    int num_handles, int num_connections);
 extern void connection_destroy(Connection *conn);
 extern void connection_copy(Connection *from, Connection *to);
-extern void connection_save(Connection *conn, int fd);
-extern void connection_load(Connection *conn, int fd);
+extern void connection_save(Connection *conn, ObjectNode obj_node);
+extern void connection_load(Connection *conn, ObjectNode obj_node);
 extern void connection_move_handle(Connection *conn, HandleId id,
 				   Point *to, HandleMoveReason reason);
 

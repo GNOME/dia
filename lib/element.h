@@ -47,8 +47,8 @@ extern void element_move_handle(Element *elem, HandleId id,
 extern void element_move_handle_aspect(Element *elem, HandleId id,
 				       Point *to, real aspect_ratio);
 
-extern void element_save(Element *elem, int fd);
-extern void element_load(Element *elem, int fd);
+extern void element_save(Element *elem, ObjectNode obj_node);
+extern void element_load(Element *elem, ObjectNode obj_node);
 #endif /* ELEMENT_H */
 
 

@@ -229,16 +229,29 @@ object_unconnect_all(Object *obj)
   }
 }
 
-void object_save(Object *obj, int fd)
+void object_save(Object *obj, ObjectNode obj_node)
 {
-  write_point(fd, &obj->position);
-  write_rectangle(fd, &obj->bounding_box);
+  data_add_point(new_attribute(obj_node, "obj_pos"),
+		 &obj->position);
+  data_add_rectangle(new_attribute(obj_node, "obj_bb"),
+		     &obj->bounding_box);
 }
 
-void object_load(Object *obj, int fd)
+void object_load(Object *obj, ObjectNode obj_node)
 {
-  read_point(fd, &obj->position);
-  read_rectangle(fd, &obj->bounding_box);
+  AttributeNode attr;
+
+  obj->position.x = 0.0;
+  obj->position.y = 0.0;
+  attr = object_find_attribute(obj_node, "obj_pos");
+  if (attr != NULL)
+    data_point( attribute_first_data(attr), &obj->position );
+
+  obj->bounding_box.left = obj->bounding_box.right = 0.0;
+  obj->bounding_box.top = obj->bounding_box.bottom = 0.0;
+  attr = object_find_attribute(obj_node, "obj_bb");
+  if (attr != NULL)
+    data_rectangle( attribute_first_data(attr), &obj->bounding_box );
 }
 
 /****** Object register: **********/

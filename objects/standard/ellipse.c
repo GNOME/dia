@@ -75,8 +75,8 @@ static Object *ellipse_copy(Ellipse *ellipse);
 static GtkWidget *ellipse_get_properties(Ellipse *ellipse);
 static void ellipse_apply_properties(Ellipse *ellipse);
 
-static void ellipse_save(Ellipse *ellipse, int fd);
-static Object *ellipse_load(int fd, int version);
+static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node);
+static Object *ellipse_load(ObjectNode obj_node, int version);
 
 static ObjectTypeOps ellipse_type_ops =
 {
@@ -406,23 +406,27 @@ ellipse_copy(Ellipse *ellipse)
 
 
 static void
-ellipse_save(Ellipse *ellipse, int fd)
+ellipse_save(Ellipse *ellipse, ObjectNode obj_node)
 {
-  element_save(&ellipse->element, fd);
+  element_save(&ellipse->element, obj_node);
 
-  write_real(fd, ellipse->border_width);
-  write_color(fd, &ellipse->border_color);
-  write_color(fd, &ellipse->inner_color);
-  write_int32(fd, ellipse->line_style);
- 
+  data_add_real(new_attribute(obj_node, "border_width"),
+		ellipse->border_width);
+  data_add_color(new_attribute(obj_node, "border_color"),
+		 &ellipse->border_color);
+  data_add_color(new_attribute(obj_node, "inner_color"),
+		 &ellipse->inner_color);
+  data_add_enum(new_attribute(obj_node, "line_style"),
+		ellipse->line_style);
 }
 
-static Object *ellipse_load(int fd, int version)
+static Object *ellipse_load(ObjectNode obj_node, int version)
 {
   Ellipse *ellipse;
   Element *elem;
   Object *obj;
   int i;
+  AttributeNode attr;
 
   ellipse = g_malloc(sizeof(Ellipse));
   elem = &ellipse->element;
@@ -431,14 +435,29 @@ static Object *ellipse_load(int fd, int version)
   obj->type = &ellipse_type;
   obj->ops = &ellipse_ops;
 
-  element_load(elem, fd);
+  element_load(elem, obj_node);
 
   ellipse->properties_dialog = NULL;
 
-  ellipse->border_width = read_real(fd);
-  read_color(fd, &ellipse->border_color);
-  read_color(fd, &ellipse->inner_color);
-  ellipse->line_style = read_int32(fd);
+  ellipse->border_width = 0.1;
+  attr = object_find_attribute(obj_node, "border_width");
+  if (attr != NULL)
+    ellipse->border_width =  data_real( attribute_first_data(attr) );
+
+  ellipse->border_color = color_black;
+  attr = object_find_attribute(obj_node, "border_color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &ellipse->border_color);
+  
+  ellipse->inner_color = color_white;
+  attr = object_find_attribute(obj_node, "inner_color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &ellipse->inner_color);
+  
+  ellipse->line_style = LINESTYLE_SOLID;
+  attr = object_find_attribute(obj_node, "line_style");
+  if (attr != NULL)
+    ellipse->line_style =  data_enum( attribute_first_data(attr) );
 
   element_init(elem, 8, 8);
 

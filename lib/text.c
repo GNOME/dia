@@ -743,3 +743,80 @@ int text_is_empty(Text *text)
   }
   return TRUE;
 }
+
+void
+data_add_text(AttributeNode attr, Text *text)
+{
+  DataNode composite;
+  char *str;
+
+  composite = data_add_composite(attr, "text");
+
+  str = text_get_string_copy(text);
+  data_add_string(composite_add_attribute(composite, "string"),
+		  str);
+  g_free(str);
+  data_add_font(composite_add_attribute(composite, "font"),
+		text->font);
+  data_add_real(composite_add_attribute(composite, "height"),
+		text->height);
+  data_add_point(composite_add_attribute(composite, "pos"),
+		    &text->position);
+  data_add_color(composite_add_attribute(composite, "color"),
+		 &text->color);
+  data_add_enum(composite_add_attribute(composite, "alignment"),
+		text->alignment);
+}
+
+
+Text *
+data_text(AttributeNode text_attr)
+{
+  char *string = "";
+  Font *font;
+  real height;
+  Point pos = {0.0, 0.0};
+  Color col;
+  Alignment align;
+  AttributeNode attr;
+  DataNode composite_node;
+
+  composite_node = attribute_first_data(text_attr);
+
+  attr = composite_find_attribute(text_attr, "string");
+  if (attr != NULL)
+    string = data_string(attribute_first_data(attr));
+
+  font = font_getfont("Courier");
+  attr = composite_find_attribute(text_attr, "font");
+  if (attr != NULL)
+    font = data_font(attribute_first_data(attr));
+
+  height = 1.0;
+  attr = composite_find_attribute(text_attr, "height");
+  if (attr != NULL)
+    height = data_real(attribute_first_data(attr));
+
+  attr = composite_find_attribute(text_attr, "pos");
+  if (attr != NULL)
+    data_point(attribute_first_data(attr), &pos);
+
+  col = color_black;
+  attr = composite_find_attribute(text_attr, "color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &col);
+
+  align = ALIGN_LEFT;
+  attr = composite_find_attribute(text_attr, "alignment");
+  if (attr != NULL)
+    align = data_enum(attribute_first_data(attr));
+  
+  return new_text(string, font, height, &pos, &col, align);
+}
+
+
+
+
+
+
+

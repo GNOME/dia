@@ -71,8 +71,8 @@ static Object *zigzagline_copy(Zigzagline *zigzagline);
 static GtkWidget *zigzagline_get_properties(Zigzagline *zigzagline);
 static void zigzagline_apply_properties(Zigzagline *zigzagline);
 
-static void zigzagline_save(Zigzagline *zigzagline, int fd);
-static Object *zigzagline_load(int fd, int version);
+static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node);
+static Object *zigzagline_load(ObjectNode obj_node, int version);
 
 static ObjectTypeOps zigzagline_type_ops =
 {
@@ -327,21 +327,25 @@ zigzagline_update_data(Zigzagline *zigzagline)
 }
 
 static void
-zigzagline_save(Zigzagline *zigzagline, int fd)
+zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node)
 {
-  orthconn_save(&zigzagline->orth, fd);
+  orthconn_save(&zigzagline->orth, obj_node);
 
-  write_color(fd, &zigzagline->line_color);
-  write_real(fd, zigzagline->line_width);
-  write_int32(fd, zigzagline->line_style);
+  data_add_color(new_attribute(obj_node, "line_color"),
+		 &zigzagline->line_color);
+  data_add_real(new_attribute(obj_node, "line_width"),
+		zigzagline->line_width);
+  data_add_enum(new_attribute(obj_node, "line_style"),
+		zigzagline->line_style);
 }
 
 static Object *
-zigzagline_load(int fd, int version)
+zigzagline_load(ObjectNode obj_node, int version)
 {
   Zigzagline *zigzagline;
   OrthConn *orth;
   Object *obj;
+  AttributeNode attr;
 
   zigzagline = g_malloc(sizeof(Zigzagline));
 
@@ -353,11 +357,22 @@ zigzagline_load(int fd, int version)
 
   zigzagline->properties_dialog = NULL;
 
-  orthconn_load(orth, fd);
+  orthconn_load(orth, obj_node);
 
-  read_color(fd, &zigzagline->line_color);
-  zigzagline->line_width = read_real(fd);
-  zigzagline->line_style = read_int32(fd);
+  zigzagline->line_color = color_black;
+  attr = object_find_attribute(obj_node, "line_color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &zigzagline->line_color);
+
+  zigzagline->line_width = 0.1;
+  attr = object_find_attribute(obj_node, "line_width");
+  if (attr != NULL)
+    zigzagline->line_width = data_real(attribute_first_data(attr));
+
+  zigzagline->line_style = LINESTYLE_SOLID;
+  attr = object_find_attribute(obj_node, "line_style");
+  if (attr != NULL)
+    zigzagline->line_style = data_enum(attribute_first_data(attr));
 
   zigzagline_update_data(zigzagline);
 

@@ -70,8 +70,8 @@ static Object *line_copy(Line *line);
 static GtkWidget *line_get_properties(Line *line);
 static void line_apply_properties(Line *line);
 
-static void line_save(Line *line, int fd);
-static Object *line_load(int fd, int version);
+static void line_save(Line *line, ObjectNode obj_node);
+static Object *line_load(ObjectNode obj_node, int version);
 
 static ObjectTypeOps line_type_ops =
 {
@@ -357,25 +357,25 @@ line_update_data(Line *line)
 
 
 static void
-line_save(Line *line, int fd)
+line_save(Line *line, ObjectNode obj_node)
 {
-  Connection *conn;
+  connection_save(&line->connection, obj_node);
 
-  conn = &line->connection;
- 
-  connection_save(conn, fd);
-
-  write_color(fd, &line->line_color);
-  write_real(fd, line->line_width);
-  write_int32(fd, line->line_style);
+  data_add_color(new_attribute(obj_node, "line_color"),
+		 &line->line_color);
+  data_add_real(new_attribute(obj_node, "line_width"),
+		line->line_width);
+  data_add_enum(new_attribute(obj_node, "line_style"),
+		line->line_style);
 }
 
 static Object *
-line_load(int fd, int version)
+line_load(ObjectNode obj_node, int version)
 {
   Line *line;
   Connection *conn;
   Object *obj;
+  AttributeNode attr;
 
   line = g_malloc(sizeof(Line));
 
@@ -385,11 +385,22 @@ line_load(int fd, int version)
   obj->type = &line_type;
   obj->ops = &line_ops;
 
-  connection_load(conn, fd);
-  
-  read_color(fd, &line->line_color);
-  line->line_width = read_real(fd);
-  line->line_style = read_int32(fd);
+  connection_load(conn, obj_node);
+
+  line->line_color = color_black;
+  attr = object_find_attribute(obj_node, "line_color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &line->line_color);
+
+  line->line_width = 0.1;
+  attr = object_find_attribute(obj_node, "line_width");
+  if (attr != NULL)
+    line->line_width = data_real(attribute_first_data(attr));
+
+  line->line_style = LINESTYLE_SOLID;
+  attr = object_find_attribute(obj_node, "line_style");
+  if (attr != NULL)
+    line->line_style = data_enum(attribute_first_data(attr));
 
   line->properties_dialog = NULL;
 

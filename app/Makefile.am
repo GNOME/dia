@@ -57,7 +57,9 @@ dia_SOURCES = \
 	    tool.h \
 	    pixmaps.h 
 
-CPPFLAGS = @GTK_CFLAGS@ -DLIBDIR=\"$(libdir)\"
+dia_LDADD = ../lib/libdia.a  @GTK_LIBS@ @XML_LIBS@
+
+CPPFLAGS = @GTK_CFLAGS@ -DLIBDIR=\"$(libdir)\" @XML_CFLAGS@
 
 CFLAGS = @CFLAGS@
 
@@ -65,7 +67,6 @@ INCLUDES = -I$(srcdir)/../lib
 
 LDFLAGS = -export-dynamic
 
-LDADD = ../lib/libdia.a  @GTK_LIBS@
 
 
 run_dia.sh: Makefile.am

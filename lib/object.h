@@ -30,6 +30,7 @@ typedef struct _ObjectTypeOps ObjectTypeOps;
 #include "render.h"
 #include "connectionpoint.h"
 #include "handle.h"
+#include "dia_xml.h"
 
 
 /************************************
@@ -69,13 +70,13 @@ typedef Object* (*CreateFunc) (Point *startpoint,
   in the save format. All objects must be capable of reading all earlier
   version.
 */
-typedef Object* (*LoadFunc) (int fd, int version);
+typedef Object* (*LoadFunc) (ObjectNode obj_node, int version);
 
 /*
   This function save the object's data to file fd. No header is required.
   The data should be written using the functions in lib/files.h
 */
-typedef void (*SaveFunc) (Object* obj, int fd);
+typedef void (*SaveFunc) (Object* obj, ObjectNode obj_node);
 
 
 /*
@@ -190,8 +191,8 @@ extern void object_init(Object *obj, int num_handles, int num_connections);
 extern void object_destroy(Object *obj);
 extern void object_copy(Object *from, Object *to);
 
-extern void object_save(Object *obj, int fd);
-extern void object_load(Object *obj, int fd);
+extern void object_save(Object *obj, ObjectNode obj_node);
+extern void object_load(Object *obj, ObjectNode obj_node);
 
 extern void object_add_handle(Object *obj, Handle *handle);
 extern void object_remove_handle(Object *obj, Handle *handle);

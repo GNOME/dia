@@ -18,232 +18,135 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <stdio.h>
 #include <fcntl.h>
+#include <glib.h>
+
+/* gnome-xml: */
+#include <tree.h>
+#include <parser.h>
 
 #include "load_save.h"
 #include "files.h"
+#include "dia_xml.h"
 #include "group.h"
 #include "message.h"
 
-#define MAGIC_COOKIE 0x57FE34A3
-#define FILE_VERSION 0x00000001
-
-static guint
-pointer_hash(gpointer some_pointer)
-{
-  return (guint) some_pointer;
-}
-
-
-static void
-write_types(int fd, GList *list, GHashTable *types_hash, int *type_num)
-{
-  Object *obj;
-  ObjectType *type;
-  
-  while (list != NULL) {
-    obj = (Object *)list->data;
-    type = obj->type;
-    if (g_hash_table_lookup(types_hash, type) == NULL) {
-      g_hash_table_insert(types_hash, type, (gpointer)*type_num);
-      
-      /* write type to disk. */
-      write_int32(fd, *type_num);
-      write_string(fd, type->name);
-      write_int32(fd, type->version);
-      
-      (*type_num)++;
-    }
-
-    if IS_GROUP(obj) {
-      write_types(fd, group_objects(obj), types_hash, type_num);
-    }
-    
-    list = g_list_next(list);
-  }
-}
-
-static void
-write_objects(int fd, GList *list, GHashTable *types_hash,
-	      GHashTable *objects_hash, int *object_num)
-{
-  Object *obj;
-  int type_num;
-  
-  while (list != NULL) {
-    obj = (Object *)list->data;
-    
-    g_hash_table_insert(objects_hash, obj, (gpointer)*object_num);
-    (*object_num)++;
-
-    type_num = (int)g_hash_table_lookup(types_hash, obj->type);
-    
-    write_int32(fd, type_num);
-    write_int32(fd, obj->type->version);
-
-    if (IS_GROUP(obj)) {
-      write_objects(fd, group_objects(obj), types_hash,
-		    objects_hash, object_num);
-      write_int32(fd, 0); /* No more objects in group */
-    } else {
-      obj->type->ops->save(obj, fd);
-    }
-
-    list = g_list_next(list);
-  }
-}
-
-int
-write_connections(int fd, GList *list, GHashTable *objects_hash)
-{
-  Object *obj;
-  int object_num;
-  int i;
-  
-  while (list != NULL) {
-    obj = (Object *)list->data;
-
-    object_num = (int)g_hash_table_lookup(objects_hash, obj);
-
-    for (i=0;i<obj->num_handles;i++) {
-      ConnectionPoint *con_point;
-      Handle *handle;
-      
-      handle = obj->handles[i];
-      con_point = handle->connected_to;
-      
-      if ( con_point != NULL ) {
-	Object *other_obj;
-	int con_point_nr;
-	
-	other_obj = con_point->object;
-	
-	con_point_nr=0;
-	while (other_obj->connections[con_point_nr] != con_point) {
-	  con_point_nr++;
-	  if (con_point_nr>=other_obj->num_connections) {
-	    message_error("Error loading diagram\n");
-	    return FALSE;
-	  }
-	}
-
-	write_int32(fd, object_num); /* From what object */
-	write_int32(fd, i);  /* from what handle on that object*/
-	write_int32(fd,
-		    (int)g_hash_table_lookup(objects_hash, other_obj));
-	             /* to what object */
- 	write_int32(fd, con_point_nr); /* to what connection_point on that object */
-      }
-    }
-
-    if (IS_GROUP(obj)) {
-      if ( !write_connections(fd, group_objects(obj), objects_hash) )
-	return FALSE;
-    }
-    list = g_list_next(list);
-  }
-  return TRUE;
-}
-
-
-int
-diagram_save(Diagram *dia, char *filename)
-{
-  GHashTable *types_hash;
-  GHashTable *objects_hash;
-  int type_num;
-  int object_num;
-  int fd;
-  
-  fd = open(filename, O_CREAT|O_TRUNC|O_WRONLY , S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
-
-  if (fd==-1) {
-    message_error("Couldn't open: '%s' for writing.\n", filename);
-    return FALSE;
-  }
-  
-  write_int32(fd, MAGIC_COOKIE);
-  write_int32(fd, FILE_VERSION);
-
-  /* Write out used types:
-     index of first type is 1, because  0==NULL => no such type */
-  types_hash = g_hash_table_new( (GHashFunc) pointer_hash, NULL);
-  type_num = 1;
-  write_types(fd, dia->objects, types_hash, &type_num);
-  write_int32(fd, 0); /* Terminate list of used types. */
-
-  /* Write out diagram data: */
-  write_color(fd, &dia->bg_color);
-
-  /* Write out objects: */
-  objects_hash = g_hash_table_new( (GHashFunc) pointer_hash, NULL);
-  object_num = 1;
-
-  write_objects(fd, dia->objects, types_hash, objects_hash, &object_num);
-  write_int32(fd, 0); /* No more objects */
-
-  /* Save the connections between the objects */
-  if ( !write_connections(fd, dia->objects, objects_hash) )
-    return FALSE;
-  write_int32(fd, 0); /* No more connections */
-  
-  close(fd);
-
-  g_hash_table_destroy(types_hash);
-  g_hash_table_destroy(objects_hash);
-
-  dia->unsaved = FALSE;
-  dia->modified = FALSE;
-  
-  return TRUE;
-}
-
-static GList *read_objects(int fd, GHashTable *types_hash,
-			  GHashTable *objects_hash, int *object_num)
+static GList *
+read_objects(xmlNodePtr objects, GHashTable *objects_hash)
 {
   GList *list;
-  int type_num;
-  int stored_num;
-  int version;
   ObjectType *type;
   Object *obj;
+  ObjectNode obj_node;
+  const char *typestr;
+  const char *versionstr;
+  const char *id;
+  int version;
 
   list = NULL;
-  
-  while ( (type_num=read_int32(fd)) != 0) {
-    version = read_int32(fd);
-    type = g_hash_table_lookup(types_hash, (gpointer)type_num);
 
-    stored_num = *object_num;
-    (*object_num)++;
-    if (type == &group_type) {
-      obj = group_create(read_objects(fd, types_hash,
-				      objects_hash, object_num));
+  obj_node = objects->childs;
+  
+  while ( obj_node != NULL) {
+
+    if (strcmp(obj_node->name, "object")==0) {
+      typestr = xmlGetProp(obj_node, "type");
+      versionstr = xmlGetProp(obj_node, "version");
+      id = xmlGetProp(obj_node, "id");
+      
+      version = 0;
+      if (versionstr != NULL)
+	version = atoi(versionstr);
+      
+      type = object_get_type((char *)typestr);
+      
+      obj = type->ops->load(obj_node, version);
+      list = g_list_append(list, obj);
+      
+      g_hash_table_insert(objects_hash, (char *)id, obj);
+      
+    } else if (strcmp(obj_node->name, "group")==0) {
+      obj = group_create(read_objects(obj_node, objects_hash));
+      list = g_list_append(list, obj);
     } else {
-      obj = type->ops->load(fd, version);
+      message_error("Error reading diagram file\n");
     }
-    list = g_list_append(list, obj);
-    g_hash_table_insert(objects_hash, (gpointer) stored_num, obj);
+
+    obj_node = obj_node->next;
   }
   return list;
 }
 
+void
+read_connections(GList *objects, xmlNodePtr objects_node,
+		 GHashTable *objects_hash)
+{
+  ObjectNode obj_node;
+  GList *list;
+  xmlNodePtr connections;
+  xmlNodePtr connection;
+  const char *handlestr;
+  const char *tostr;
+  const char *connstr;
+  int handle, conn;
+  Object *to;
+  
+  list = objects;
+  obj_node = objects_node->childs;
+  while (list != NULL) {
+    Object *obj = (Object *) list->data;
+
+    if IS_GROUP(obj) {
+      read_connections(group_objects(obj), obj_node, objects_hash);
+    } else {
+      connections = obj_node->childs;
+      while ((connections!=NULL) &&
+	     (strcmp(connections->name, "connections")!=0))
+	connections = connections->next;
+      if (connections != NULL) {
+	connection = connections->childs;
+	while (connection != NULL) {
+	  handlestr = xmlGetProp(connection, "handle");
+	  tostr = xmlGetProp(connection, "to");
+	  connstr = xmlGetProp(connection, "connection");
+	  handle = atoi(handlestr);
+	  conn = atoi(connstr);
+
+
+	  to = g_hash_table_lookup(objects_hash, tostr);
+
+	  if (to == NULL) {
+	    message_error("Error loading diagram.\n"
+			  "Linked object not found in document.");
+	  } else {
+	    object_connect(obj, obj->handles[handle],
+			   to->connections[conn]);
+	  }
+
+	  connection = connection->next;
+	}
+      }
+      
+    }
+    
+    list = g_list_next(list);
+    obj_node = obj_node->next;
+  }
+}
 
 Diagram *
 diagram_load(char *filename)
 {
-  GHashTable *types_hash;
   GHashTable *objects_hash;
   int fd;
-  gint32 res;
-  int type_num;
-  int object_num;
-  int version;
-  GList *list;
-  ObjectType *type;
-  char *type_name;
-  Diagram *dia;
   struct stat stat_buf;
+  GList *list;
+  Diagram *dia;
+  xmlDocPtr doc;
+  xmlNodePtr diagramdata;
+  xmlNodePtr objects;
+  AttributeNode attr;
   
   fd = open(filename, O_RDONLY);
 
@@ -257,83 +160,208 @@ diagram_load(char *filename)
     message_error("You must specify a filename.\n");
     return NULL;
   }
+  
+  close(fd);
 
-  res = read_int32(fd);
-  if (res != MAGIC_COOKIE) {
-    message_error("Trying to load a file that is not a diagram.\n");
+  doc = xmlParseFile(filename);
+
+  if (doc == NULL){
+    message_error("Error loading diagram.\n");
     return NULL;
   }
   
-  res = read_int32(fd);
-  if (res > FILE_VERSION) {
-    message_error("Trying to load a file that has a higher version than supported.\n");
-    return NULL;
-  }
-
-  /* Read in all used object types: */
-  types_hash = g_hash_table_new((GHashFunc) pointer_hash, NULL);
-  while ( (type_num=read_int32(fd)) != 0) {
-    type_name = read_string(fd);
-
-    version = read_int32(fd);
-    
-    type = object_get_type(type_name);
-    if (type == NULL) {
-      message_error("Don't know anything about the type '%s'.\n", type_name);
-      g_free(type_name);
-      return NULL;
-    }
-    if (type->version<version) {
-      message_error("Your version of the '%s' object is to old, upgrade.\n", type_name);
-      g_free(type_name);
-      return NULL;
-    }
-    g_free(type_name);
-
-    g_hash_table_insert(types_hash, (gpointer) type_num, type);
-  }
-
   /* Create the diagram: */
   dia = new_diagram(filename);
 
   dia->unsaved = FALSE;
-  
+
+  diagramdata = doc->root->childs;
+
   /* Read in diagram data: */
-  read_color(fd, &dia->bg_color);
+  dia->bg_color = color_white;
+  attr = composite_find_attribute(diagramdata, "background");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &dia->bg_color);
 
   /* Read in all objects: */
-  object_num = 1;
-  objects_hash = g_hash_table_new((GHashFunc) pointer_hash, NULL);
+  objects = diagramdata->next;
   
-  list = read_objects(fd, types_hash, objects_hash, &object_num);
+  objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
   
+  list = read_objects(objects, objects_hash);
   diagram_add_object_list(dia, list);
+  read_connections( list, objects, objects_hash);
   
-  /* Read in connections: */
 
-  while ( (object_num=read_int32(fd)) != 0) {
-    int to_nr, handle_nr, con_point_nr;
-    Object *from, *to;
+  xmlFreeDoc(doc);
 
-    handle_nr = read_int32(fd);
-    to_nr = read_int32(fd);
-    con_point_nr = read_int32(fd);
-
-    from = g_hash_table_lookup(objects_hash, (gpointer)object_num);
-    to = g_hash_table_lookup(objects_hash, (gpointer)to_nr);
-
-    object_connect(from, from->handles[handle_nr], to->connections[con_point_nr]);
-  }
-
-  close(fd);
-
-  g_hash_table_destroy(types_hash);
   g_hash_table_destroy(objects_hash);
   
   dia->unsaved = FALSE;
   dia->modified = FALSE;
 
   return dia;
+}
+
+
+
+void
+write_objects(GList *objects, xmlNodePtr objects_node,
+	      GHashTable *objects_hash, int *obj_nr)
+{
+  char buffer[31];
+  ObjectNode obj_node;
+  xmlNodePtr group_node;
+  GList *list;
+
+  list = objects;
+  while (list != NULL) {
+    Object *obj = (Object *) list->data;
+
+    if IS_GROUP(obj) {
+      group_node = xmlNewChild(objects_node, NULL, "group", NULL);
+      write_objects(group_objects(obj), group_node, objects_hash, obj_nr);
+    } else {
+      obj_node = xmlNewChild(objects_node, NULL, "object", NULL);
+    
+      xmlSetProp(obj_node, "type", obj->type->name);
+      
+      snprintf(buffer, 30, "%d", obj->type->version);
+      xmlSetProp(obj_node, "version", buffer);
+      
+      snprintf(buffer, 30, "O%d", *obj_nr);
+      xmlSetProp(obj_node, "id", buffer);
+
+      (*obj->type->ops->save)(obj, obj_node);
+
+      /* Add object -> obj_nr to hash table */
+      g_hash_table_insert(objects_hash, obj, GINT_TO_POINTER(*obj_nr));
+      (*obj_nr)++;
+      
+    }
+    
+    list = g_list_next(list);
+  }
+}
+
+int
+write_connections(GList *objects, xmlNodePtr objects_node,
+		  GHashTable *objects_hash)
+{
+  ObjectNode obj_node;
+  GList *list;
+  xmlNodePtr connections;
+  xmlNodePtr connection;
+  char buffer[31];
+  int i;
+
+  list = objects;
+  obj_node = objects_node->childs;
+  while (list != NULL) {
+    Object *obj = (Object *) list->data;
+
+    if IS_GROUP(obj) {
+      write_connections(group_objects(obj), obj_node, objects_hash);
+    } else {
+      connections = NULL;
+    
+      for (i=0;i<obj->num_handles;i++) {
+	ConnectionPoint *con_point;
+	Handle *handle;
+	
+	handle = obj->handles[i];
+	con_point = handle->connected_to;
+	
+	if ( con_point != NULL ) {
+	  Object *other_obj;
+	  int con_point_nr;
+	  
+	  other_obj = con_point->object;
+	  
+	  con_point_nr=0;
+	  while (other_obj->connections[con_point_nr] != con_point) {
+	    con_point_nr++;
+	    if (con_point_nr>=other_obj->num_connections) {
+	      message_error("Error saving diagram\n");
+	      return FALSE;
+	    }
+	  }
+	  
+	  if (connections == NULL)
+	    connections = xmlNewChild(obj_node, NULL, "connections", NULL);
+	  
+	  connection = xmlNewChild(connections, NULL, "connection", NULL);
+	  /* from what handle on this object*/
+	  snprintf(buffer, 30, "%d", i);
+	  xmlSetProp(connection, "handle", buffer);
+	  /* to what object */
+	  snprintf(buffer, 30, "O%d",
+		   GPOINTER_TO_INT(g_hash_table_lookup(objects_hash,
+						       other_obj)));
+	  xmlSetProp(connection, "to", buffer);
+	  /* to what connection_point on that object */
+	  snprintf(buffer, 30, "%d", con_point_nr);
+	  xmlSetProp(connection, "connection", buffer);
+	}
+      }
+    }
+    
+    list = g_list_next(list);
+    obj_node = obj_node->next;
+  }
+  return TRUE;
+}
+
+int
+diagram_save(Diagram *dia, char *filename)
+{
+  FILE *file;
+  xmlDocPtr doc;
+  xmlNodePtr tree;
+  xmlNodePtr objects_node;
+  GHashTable *objects_hash;
+  int res;
+  int obj_nr;
+  
+  AttributeNode attr;
+  
+  file = fopen(filename, "w");
+
+  if (file==NULL) {
+    message_error("Couldn't open: '%s' for writing.\n", filename);
+    return FALSE;
+  }
+
+  doc = xmlNewDoc("1.0");
+  
+  doc->root = xmlNewDocNode(doc, NULL, "diagram", NULL);
+
+  tree = xmlNewChild(doc->root, NULL, "diagramdata", NULL);
+  
+  attr = new_attribute((ObjectNode)tree, "background");
+  data_add_color(attr, &dia->bg_color);
+
+  objects_node = xmlNewChild(doc->root, NULL, "objects", NULL);
+
+  objects_hash = g_hash_table_new(g_direct_hash, g_direct_equal);
+
+  obj_nr = 0;
+  write_objects(dia->objects, objects_node, objects_hash, &obj_nr);
+  
+  res = write_connections(dia->objects, objects_node, objects_hash);
+  if (!res)
+    return FALSE;
+  
+  xmlDocDump(file, doc);
+  xmlFreeDoc(doc);
+  
+  fclose(file);
+  g_hash_table_destroy(objects_hash);
+
+  dia->unsaved = FALSE;
+  dia->modified = FALSE;
+
+  return TRUE;
 }
 
 

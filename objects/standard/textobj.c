@@ -71,8 +71,8 @@ static Object *textobj_copy(Textobj *textobj);
 static GtkWidget *textobj_get_properties(Textobj *textobj);
 static void textobj_apply_properties(Textobj *textobj);
 
-static void textobj_save(Textobj *textobj, int fd);
-static Object *textobj_load(int fd, int version);
+static void textobj_save(Textobj *textobj, ObjectNode obj_node);
+static Object *textobj_load(ObjectNode obj_node, int version);
 static int textobj_is_empty(Textobj *textobj);
 
 static ObjectTypeOps textobj_type_ops =
@@ -114,7 +114,6 @@ textobj_apply_properties(Textobj *textobj)
   Font *font;
   real font_size;
   Color col;
-  GtkWidget *menuitem;
   
   prop_dialog = textobj->properties_dialog;
 
@@ -354,18 +353,21 @@ textobj_copy(Textobj *textobj)
 }
 
 static void
-textobj_save(Textobj *textobj, int fd)
+textobj_save(Textobj *textobj, ObjectNode obj_node)
 {
-  object_save(&textobj->object, fd);
+  object_save(&textobj->object, obj_node);
 
-  write_text(fd, textobj->text);
+  data_add_text(new_attribute(obj_node, "text"),
+		textobj->text);
 }
 
 static Object *
-textobj_load(int fd, int version)
+textobj_load(ObjectNode obj_node, int version)
 {
   Textobj *textobj;
   Object *obj;
+  AttributeNode attr;
+  Point startpoint = {0.0, 0.0};
 
   textobj = g_malloc(sizeof(Textobj));
   obj = &textobj->object;
@@ -373,10 +375,15 @@ textobj_load(int fd, int version)
   obj->type = &textobj_type;
   obj->ops = &textobj_ops;
 
-  object_load(obj, fd);
+  object_load(obj, obj_node);
 
-  textobj->text = read_text(fd);
-  
+  attr = object_find_attribute(obj_node, "text");
+  if (attr != NULL)
+    textobj->text = data_text( attribute_first_data(attr) );
+  else
+    textobj->text = new_text("", font_getfont("Courier"), 1.0,
+			     &startpoint, &color_black, ALIGN_CENTER);
+
   textobj->properties_dialog = NULL;
   
   object_init(obj, 1, 0);

@@ -59,6 +59,9 @@ Big stuff:
 
 BUGS:
 =====
+* UML - Association with direction==Right doesn't always show arrow.
+  Problem with bounding box.
+
 * selecting with rubberband and draggin mouse to other window with same diagram
   gives ugly box left on screen.
 

@@ -80,8 +80,8 @@ static Object *arc_copy(Arc *arc);
 static GtkWidget *arc_get_properties(Arc *arc);
 static void arc_apply_properties(Arc *arc);
 
-static void arc_save(Arc *arc, int fd);
-static Object *arc_load(int fd, int version);
+static void arc_save(Arc *arc, ObjectNode obj_node);
+static Object *arc_load(ObjectNode obj_node, int version);
 
 static ObjectTypeOps arc_type_ops =
 {
@@ -510,22 +510,27 @@ arc_update_data(Arc *arc)
 }
 
 static void
-arc_save(Arc *arc, int fd)
+arc_save(Arc *arc, ObjectNode obj_node)
 {
-  connection_save(&arc->connection, fd);
+  connection_save(&arc->connection, obj_node);
 
-  write_color(fd, &arc->arc_color);
-  write_real(fd, arc->curve_distance);
-  write_real(fd, arc->line_width);
-  write_int32(fd, arc->line_style);
+  data_add_color(new_attribute(obj_node, "arc_color"),
+		 &arc->arc_color);
+  data_add_real(new_attribute(obj_node, "curve_distance"),
+		arc->curve_distance);
+  data_add_real(new_attribute(obj_node, "line_width"),
+		arc->line_width);
+  data_add_enum(new_attribute(obj_node, "line_style"),
+		arc->line_style);
 }
 
 static Object *
-arc_load(int fd, int version)
+arc_load(ObjectNode obj_node, int version)
 {
   Arc *arc;
   Connection *conn;
   Object *obj;
+  AttributeNode attr;
 
   arc = g_malloc(sizeof(Arc));
 
@@ -535,12 +540,27 @@ arc_load(int fd, int version)
   obj->type = &arc_type;;
   obj->ops = &arc_ops;
 
-  connection_load(conn, fd);
+  connection_load(conn, obj_node);
 
-  read_color(fd, &arc->arc_color);
-  arc->curve_distance = read_real(fd);
-  arc->line_width = read_real(fd);
-  arc->line_style = read_int32(fd);
+  arc->arc_color = color_black;
+  attr = object_find_attribute(obj_node, "arc_color");
+  if (attr != NULL)
+    data_color(attribute_first_data(attr), &arc->arc_color);
+
+  arc->curve_distance = 0.1;
+  attr = object_find_attribute(obj_node, "curve_distance");
+  if (attr != NULL)
+    arc->curve_distance = data_real(attribute_first_data(attr));
+
+  arc->line_width = 0.1;
+  attr = object_find_attribute(obj_node, "line_width");
+  if (attr != NULL)
+    arc->line_width = data_real(attribute_first_data(attr));
+
+  arc->line_style = LINESTYLE_SOLID;
+  attr = object_find_attribute(obj_node, "line_style");
+  if (attr != NULL)
+    arc->line_style = data_enum(attribute_first_data(attr));
 
   arc->properties_dialog = NULL;
 

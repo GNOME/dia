@@ -8,6 +8,8 @@ libdia_a_SOURCES =  \
 		color.c \
 		files.c \
 		files.h \
+		dia_xml.c \
+		dia_xml.h \
 		attributes.h \
 		attributes.c \
 		render_store.c \
@@ -44,7 +46,7 @@ libdia_a_SOURCES =  \
 		widgets.h \
 		dummy_dep.h
 
-CPPFLAGS = @GTK_CFLAGS@
+CPPFLAGS = @CPPFLAGS@ @GTK_CFLAGS@
 
-CFLAGS = @CFLAGS@
+CFLAGS = @CFLAGS@ @XML_CFLAGS@
 

@@ -98,22 +98,28 @@ new_render_object(Point *startpoint,
 }
 
 
-void render_object_save(RenderObject *rend_obj, int fd)
+void render_object_save(RenderObject *rend_obj, ObjectNode obj_node)
 {
-  element_save(&rend_obj->element, fd);
+  element_save(&rend_obj->element, obj_node);
 
-  write_real(fd, rend_obj->magnify);
-  if (rend_obj->desc->use_text)
-    write_text(fd, rend_obj->text);
+  data_add_real(new_attribute(obj_node, "magnify"),
+		rend_obj->magnify);
+  
+  if (rend_obj->desc->use_text) {
+    data_add_text(new_attribute(obj_node, "text"),
+		  rend_obj->text);
+  }
 }
 
-Object *render_object_load(int fd, 
+Object *render_object_load(ObjectNode obj_node, 
 			   const RenderObjectDescriptor *desc)
 {
   RenderObject *rend_obj;
   Element *elem;
   Object *obj;
+  AttributeNode attr;
   int i;
+  Point startpoint = {0.0, 0.0};
 
   rend_obj = g_malloc(sizeof(RenderObject));
   elem = &rend_obj->element;
@@ -122,13 +128,24 @@ Object *render_object_load(int fd,
   obj->type = desc->obj_type;
   obj->ops = &rendobj_ops;
 
-  element_load(elem, fd);
+  element_load(elem, obj_node);
 
   rend_obj->desc = desc;
-  rend_obj->magnify =  read_real(fd);
-  if (desc->use_text)
-    rend_obj->text = read_text(fd);
-  
+
+  rend_obj->magnify =  1.0;
+  attr = object_find_attribute(obj_node, "magnify");
+  if (attr != NULL)
+    rend_obj->magnify = data_real( attribute_first_data(attr) );
+
+  if (desc->use_text) {
+    attr = object_find_attribute(obj_node, "text");
+    if (attr != NULL)
+      rend_obj->text = data_text( attribute_first_data(attr) );
+    else
+      rend_obj->text = new_text("", font_getfont("Courier"), 1.0,
+			       &startpoint, &color_black, ALIGN_CENTER);
+  }
+
   element_init(elem, 8, desc->num_connection_points);
 
   rend_obj->connections = g_new(ConnectionPoint,

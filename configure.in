@@ -18,7 +18,6 @@ AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-AC_PROG_RANLIB
 
 dnl Checks for libraries.
 AM_PATH_GTK(1.0.0)
@@ -36,6 +35,20 @@ fi
 fi
 
 DIA_DLSYM_USCORE
+
+dnl	
+dnl Locate the gnome-xml library
+dnl
+AC_CHECK_PROG(XML_CONFIG, xml-config, xml-config)
+if test "$XML_CONFIG" != "" 
+then
+  XML_LIBS="`xml-config --libs`"
+  XML_CFLAGS="`xml-config --cflags`"
+else
+  AC_MSG_ERROR(Can't find gnome-xml library.)
+fi
+AC_SUBST(XML_LIBS)
+AC_SUBST(XML_CFLAGS)
 
 dnl Checks for header files.
 AC_HEADER_DIRENT
