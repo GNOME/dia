@@ -3,6 +3,11 @@
 	* objects/flowchart/box.c (box_update_data): Made resizing
 	possible again (only set width & height when resized too small).
 
+	Patch from Soeren Sandmann <sandmann@daimi.au.dk>:
+
+ 	* app/disp_callbacks.c (ddisplay_canvas_events): Handle
+ 	GdkScrollEvents.
+	
 2002-09-05  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* app/authors.h: now showing Akira TAGOH's name in the native script.

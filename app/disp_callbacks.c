@@ -416,6 +416,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
   GdkEventMotion *mevent;
   GdkEventButton *bevent;
   GdkEventKey *kevent;
+  GdkEventScroll *sevent;
   gint tx, ty;
   GdkModifierType tmask;
   guint state = 0;
@@ -447,6 +448,29 @@ ddisplay_canvas_events (GtkWidget *canvas,
 				eevent->area.x + eevent->area.width,
 				eevent->area.y + eevent->area.height);
       ddisplay_flush(ddisp);
+      break;
+
+    case GDK_SCROLL:
+      sevent = (GdkEventScroll *) event;
+
+      switch (sevent->direction)
+	{
+	case GDK_SCROLL_UP:
+	  ddisplay_scroll_up(ddisp);
+	  break;
+	case GDK_SCROLL_DOWN:
+	  ddisplay_scroll_down(ddisp);
+	  break;
+	case GDK_SCROLL_LEFT:
+	  ddisplay_scroll_left(ddisp);
+	  break;
+	case GDK_SCROLL_RIGHT:
+	  ddisplay_scroll_right(ddisp);
+	  break;
+	default:
+	  break;
+	}
+      ddisplay_flush (ddisp);
       break;
 
     case GDK_CONFIGURE:
@@ -534,22 +558,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	     popup_object_menu(ddisp, bevent);
 	     break;
 	  }
-        case 4: /* for wheel mouse; button 4 and 5 */
-          ddisplay_scroll_up(ddisp);
-          ddisplay_flush(ddisp);
-          break;
-        case 5:
-          ddisplay_scroll_down(ddisp);
-          ddisplay_flush(ddisp);
-          break;
-        case 6: /* for two-wheel mouse; button 6 and 7 */
-          ddisplay_scroll_left(ddisp);
-          ddisplay_flush(ddisp);
-          break;
-        case 7:
-          ddisplay_scroll_right(ddisp);
-          ddisplay_flush(ddisp);
-          break;
         default:
 	  break;
 	}
