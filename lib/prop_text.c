@@ -33,7 +33,7 @@
 #include "properties.h"
 #include "propinternals.h"
 #include "text.h"
-
+#include "charconv.h"
 
 /*****************************************************/
 /* The STRING, FILE and MULTISTRING property types.  */
@@ -94,13 +94,13 @@ static void
 stringprop_reset_widget(StringProperty *prop, WIDGET *widget)
 {
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  gchar *utfbuf = charconv_utf8_to_local8(prop->string_data);
-  gtk_entry_set_text(GTK_ENTRY(widget), utfchar);
-  g_free(locchar);
-#elif GTK_TALKS_UTF8_WE_DONT
+  gchar *locbuf = charconv_utf8_to_local8(prop->string_data);
+  gtk_entry_set_text(GTK_ENTRY(widget), locbuf);
+  g_free(locbuf);
+#elif  defined(GTK_TALKS_UTF8_WE_DONT)
   utfchar *utfbuf = charconv_local8_to_utf8(prop->string_data);
-  gtk_entry_set_text(GTK_ENTRY(widget), utfchar);
-  g_free(utfchar);
+  gtk_entry_set_text(GTK_ENTRY(widget), utfbuf);
+  g_free(utfbuf);
 #else
   gtk_entry_set_text(GTK_ENTRY(widget), prop->string_data);
 #endif
@@ -114,7 +114,7 @@ stringprop_set_from_widget(StringProperty *prop, WIDGET *widget)
   utfchar *utfbuf = charconv_local8_to_utf8(val);
   g_free(val);
   val = utfbuf;
-#elif GTK_TALKS_UTF8_WE_DONT
+#elif defined(GTK_TALKS_UTF8_WE_DONT)
   gchar *locbuf = charconv_utf8_to_local8(val);
   g_free(val);
   val = locbuf;
@@ -144,7 +144,7 @@ multistringprop_reset_widget(StringProperty *prop, WIDGET *widget)
                           gtk_text_get_length(GTK_TEXT(widget)));
   gtk_text_insert(GTK_TEXT(widget), NULL, NULL, NULL, locbuf,-1);
   g_free(locbuf);
-#elif GTK_TALKS_UTF8_WE_DONT
+#elif defined(GTK_TALKS_UTF8_WE_DONT)
   utfchar *utfbuf = charconv_local8_to_utf8(prop->string_data);
   gtk_text_set_point(GTK_TEXT(widget), 0);
   gtk_text_forward_delete(GTK_TEXT(widget),

@@ -100,13 +100,13 @@ charprop_set_from_widget(CharProperty *prop, WIDGET *widget)
   locbuf = gtk_editable_get_chars(GTK_EDITABLE(widget),0,1);
   utfbuf = charconv_local8_to_utf8(locbuf); g_free(locbuf);
   uni_get_utf8(utfbuf,&uc); g_free(utfbuf);
-  prof->char_data = uc;
+  prop->char_data = uc;
 #elif defined(GTK_TALKS_UTF8_WE_DONT) 
   utfchar *utfbuf;
   unichar uc;
   utfbuf = gtk_editable_get_chars(GTK_EDITABLE(widget),0,1);  
   uni_get_utf8(utfbuf,&uc); g_free(utfbuf);
-  prof->char_data = uc;
+  prop->char_data = uc;
 #else 
   gchar *buf = gtk_entry_get_text(GTK_ENTRY(widget));
   prop->char_data = buf[0];

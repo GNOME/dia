@@ -9,6 +9,10 @@
 #define HAVE_FCNTL_H 
 #define HAVE_GDK_PIXBUF
 
+#define GTK_TALKS_UTF8
+#define GTK_TALKS_UTF8_WE_DONT
+#define GTK_CHARSET_MISMATCH
+
 #include <io.h> 
 
 #ifndef S_ISDIR

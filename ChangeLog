@@ -1,5 +1,15 @@
 2001-08-17  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* config.h.win32: added defines telling that gtk speaks UTF8.
+	Hans, I believe this reflects what GTK on Win32 does.
+
+	* app/app_procs.c: if GTK talks UTF8, we'll feed it UTF8 localised
+	strings.	
+	* lib/prop_inttypes.c: 
+	* lib/prop_text.c:
+	* lib/prop_widgets.c: fixed typos in the GTK_TALKS_UTF8_WE_DONT
+	code path.
+	
 	* lib/plug-ins.c: (dia_register_plugins_in_dir): If there is a
 	trailing // (or whatever (G_DIR_SEPARATOR * 2) is), a recursive
 	search for plug-ins is done.
