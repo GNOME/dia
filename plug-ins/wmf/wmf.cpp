@@ -929,6 +929,8 @@ draw_image(DiaRenderer *self,
 #endif /* SAVE_EMF */
 }
 
+//XXX: use RoundRect
+
 /* GObject boiler plate */
 static void wmf_renderer_class_init (WmfRendererClass *klass);
 
@@ -1119,7 +1121,9 @@ static const gchar *extensions[] = { "wmf", NULL };
 static DiaExportFilter my_export_filter = {
     N_("Windows Meta File"),
     extensions,
-    export_data
+    export_data,
+    NULL, /* user data */
+    "wmf::native"
 };
 
 

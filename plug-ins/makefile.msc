@@ -1,7 +1,7 @@
 !IFNDEF PACKAGE
 
 # dummy
-PLUGINS = cgm dxf hpgl metapost pixbuf pstricks shape svg wmf wpg xfig xslt
+PLUGINS = cairo cgm dxf hpgl metapost pixbuf pstricks shape svg wmf wpg xfig xslt
 
 #broken since StdProp overhaul : diaimport 
 
@@ -44,6 +44,12 @@ PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) \
 #
 # Special object definitions for the various plugins, if needed
 #
+
+!IFDEF OBJ_cairo
+PKG_CFLAGS = $(PKG_CFLAGS) $(CAIRO_CFLAGS)
+PKG_LINK = $(PKG_LINK) $(CAIRO_LIBS)
+OBJECTS = diacairo.obj
+!ENDIF
 
 !IFDEF OBJ_dxf
 OBJECTS = \

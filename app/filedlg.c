@@ -340,15 +340,16 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
 void
 file_save_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  DDisplay *ddisp;
+  Diagram *diagram;
 
-  ddisp = ddisplay_active();
+  diagram = ddisplay_active_diagram();
+  if (!diagram) return;
 
-  if (ddisp->diagram->unsaved) {
+  if (diagram->unsaved) {
     file_save_as_callback(data, action, widget);
   } else {
-    diagram_update_extents(ddisp->diagram);
-    diagram_save(ddisp->diagram, ddisp->diagram->filename);
+    diagram_update_extents(diagram);
+    diagram_save(diagram, diagram->filename);
   }
 }
 

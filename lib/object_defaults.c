@@ -107,7 +107,11 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
   if (!filename) 
     {
       gchar *default_filename = dia_config_filename("defaults.dia");
-      doc = xmlDiaParseFile(default_filename);
+
+      if (g_file_test(default_filename, G_FILE_TEST_EXISTS))
+        doc = xmlDiaParseFile(default_filename);
+      else
+        doc = NULL;
       g_free (default_filename);
     } 
   else

@@ -202,7 +202,6 @@ diagram_print_ps(Diagram *dia)
   GtkWidget *iscmd, *isofile;
   GtkWidget *cmd, *ofile;
   gboolean cont = FALSE;
-  DDisplay *ddisp;
   gchar *printcmd = NULL;
   gchar *orig_command, *orig_file;
 
@@ -215,9 +214,6 @@ diagram_print_ps(Diagram *dia)
    */
   struct sigaction pipe_action, old_action;
 #endif
-
-  ddisp = ddisplay_active();
-  dia = ddisp->diagram;
 
   /* create the dialog */
   dialog = gtk_dialog_new();

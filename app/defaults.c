@@ -40,7 +40,7 @@ static gint defaults_respond(GtkWidget *widget, gint response_id, gpointer data)
 static void create_dialog()
 {
   dialog = gtk_dialog_new_with_buttons(
-             _("DiaObject defaults"),
+             _("Object defaults"),
              NULL, 0,
              GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
              GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
@@ -143,7 +143,7 @@ defaults_show(DiaObjectType *objtype)
       g_free(title);
     }
   else
-      gtk_window_set_title (GTK_WINDOW (dialog), _("DiaObject defaults"));
+      gtk_window_set_title (GTK_WINDOW (dialog), _("Object defaults"));
 
   if (object_part != defaults) {
     gtk_window_resize (GTK_WINDOW(dialog), 1, 1); /* shrink to default */

@@ -52,7 +52,7 @@ static void create_dialog()
 /*   GList *buttons; */
 
   dialog = gtk_dialog_new_with_buttons(
-             _("DiaObject properties"),
+             _("Object properties"),
              GTK_WINDOW (ddisplay_active()->shell), 
              GTK_DIALOG_DESTROY_WITH_PARENT,
              GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
@@ -204,7 +204,7 @@ properties_show(Diagram *dia, DiaObject *obj)
     gtk_window_set_title(GTK_WINDOW(dialog), buf);
     g_free(buf);
   } else {
-    gtk_window_set_title(GTK_WINDOW(dialog), _("DiaObject properties:"));
+    gtk_window_set_title(GTK_WINDOW(dialog), _("Object properties:"));
   }
 
   g_signal_connect (G_OBJECT (properties), "destroy",

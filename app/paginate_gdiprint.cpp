@@ -30,16 +30,6 @@
 #include <math.h>
 #include <string.h>
 
-#ifdef __GNUC__
-/*
- * Super dirty: hide g++ keyword(?) 'export'
- *  otherwise we get:
- * ../lib/filter.h:35: declaration does not declare anything
- * ../lib/filter.h:35: parse error before `export'
- */
-#define export Export
-#endif
-
 // it's so ugly --hb ;(
 // include before, cause it has extern "C" already
 
@@ -87,7 +77,7 @@ print_page(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC,
 
   /* render the region */
   W32::StartPage((W32::HDC)hDC);
-  pExp->export(&page_data, "", "", (W32::HDC)hDC);
+  pExp->export_func(&page_data, "", "", (W32::HDC)hDC);
   W32::EndPage((W32::HDC)hDC);
 
   return nobjs;
@@ -145,7 +135,7 @@ diagram_print_gdi(Diagram *dia)
   DiaExportFilter* pExp = NULL;
   int i;
 
-  pExp = filter_guess_export_filter("dummy.wmf");
+  pExp = filter_get_by_name("wmf::native");
 
   if (!pExp) {
     message_error("Can't print without the WMF plugin installed");

@@ -96,7 +96,8 @@ file_pagesetup_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia;
 
-  dia = ddisplay_active()->diagram;
+  dia = ddisplay_active_diagram();
+  if (!dia) return;
   create_page_setup_dlg(dia);
 }
 
@@ -105,7 +106,8 @@ file_print_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Diagram *dia;
 
-  dia = ddisplay_active()->diagram;
+  dia = ddisplay_active_diagram();
+  if (!dia) return;
 #ifdef G_OS_WIN32
   /* This option could be used with Gnome too. Does it make sense there ? */
   if (!prefs.prefer_psprint)
@@ -150,6 +152,7 @@ edit_copy_callback(gpointer data, guint action, GtkWidget *widget)
   DDisplay *ddisp;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
   copy_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
 
   cnp_store_objects(object_copy_list(copy_list));
@@ -166,6 +169,7 @@ edit_cut_callback(gpointer data, guint action, GtkWidget *widget)
   Change *change;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
 
   diagram_selected_break_external(ddisp->diagram);
 
@@ -195,6 +199,7 @@ edit_paste_callback(gpointer data, guint action, GtkWidget *widget)
   Change *change;
   
   ddisp = ddisplay_active();
+  if (!ddisp) return;
 
   if (!cnp_exist_stored_objects()) {
     message_warning(_("No existing object to paste.\n"));
@@ -245,6 +250,7 @@ edit_duplicate_callback(gpointer data, guint action, GtkWidget *widget)
   Change *change;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
   duplicate_list = object_copy_list(diagram_get_sorted_selected(ddisp->diagram));
   duplicate_corner = object_list_corner(duplicate_list);
   
@@ -365,6 +371,7 @@ edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
   if ((focus == NULL) || (!focus->has_focus)) return;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
 
   obj = focus->obj;
 
@@ -402,6 +409,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
   if ((focus == NULL) || (!focus->has_focus)) return;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
 
   obj = focus->obj;
   text = (Text *)focus->user_data; 
@@ -441,6 +449,7 @@ edit_paste_text_callback(gpointer data, guint action, GtkWidget *widget)
   DDisplay *ddisp;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
 
 #ifdef G_OS_WIN32
   gtk_clipboard_request_text(gtk_clipboard_get(GDK_NONE), 
@@ -461,6 +470,7 @@ edit_delete_callback(gpointer data, guint action, GtkWidget *widget)
   Change *change;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
 
   diagram_selected_break_external(ddisp->diagram);
 
@@ -479,11 +489,10 @@ edit_delete_callback(gpointer data, guint action, GtkWidget *widget)
 void
 edit_undo_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  DDisplay *ddisp;
   Diagram *dia;
   
-  ddisp = ddisplay_active();
-  dia = ddisp->diagram;
+  dia = ddisplay_active_diagram();
+  if (!dia) return;
 
   undo_revert_to_last_tp(dia->undo);
   diagram_modified(dia);
@@ -494,11 +503,10 @@ edit_undo_callback(gpointer data, guint action, GtkWidget *widget)
 void
 edit_redo_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  DDisplay *ddisp;
   Diagram *dia;
   
-  ddisp = ddisplay_active();
-  dia = ddisp->diagram;
+  dia = ddisplay_active_diagram();
+  if (!dia) return;
 
   undo_apply_to_next_tp(dia->undo);
   diagram_modified(dia);
@@ -751,6 +759,7 @@ view_zoom_in_callback(gpointer data, guint action, GtkWidget *widget)
   Rectangle *visible;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
   visible = &ddisp->visible;
   middle.x = visible->left*0.5 + visible->right*0.5;
   middle.y = visible->top*0.5 + visible->bottom*0.5;
@@ -766,6 +775,7 @@ view_zoom_out_callback(gpointer data, guint action, GtkWidget *widget)
   Rectangle *visible;
   
   ddisp = ddisplay_active();
+  if (!ddisp) return;
   visible = &ddisp->visible;
   middle.x = visible->left*0.5 + visible->right*0.5;
   middle.y = visible->top*0.5 + visible->bottom*0.5;
@@ -782,6 +792,7 @@ view_zoom_set_callback(gpointer data, guint action, GtkWidget *widget)
   Rectangle *visible;
   
   ddisp = ddisplay_active();
+  if (!ddisp) return;
   visible = &ddisp->visible;
   middle.x = visible->left*0.5 + visible->right*0.5;
   middle.y = visible->top*0.5 + visible->bottom*0.5;
@@ -798,6 +809,7 @@ view_show_cx_pts_callback(gpointer data, guint action, GtkWidget *widget)
   int old_val;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
 
   old_val = ddisp->show_cx_pts;
   ddisp->show_cx_pts = GTK_CHECK_MENU_ITEM(widget)->active;
@@ -815,6 +827,7 @@ view_aa_callback(gpointer data, guint action, GtkWidget *widget)
   int aa;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
  
   aa =  GTK_CHECK_MENU_ITEM(widget)->active;
   
@@ -832,6 +845,7 @@ view_visible_grid_callback(gpointer data, guint action, GtkWidget *widget)
   int old_val;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
   
   old_val = ddisp->grid.visible;
   ddisp->grid.visible = GTK_CHECK_MENU_ITEM(widget)->active; 
@@ -848,6 +862,7 @@ view_snap_to_grid_callback(gpointer data, guint action, GtkWidget *widget)
   DDisplay *ddisp;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
   
   ddisplay_set_snap_to_grid(ddisp, GTK_CHECK_MENU_ITEM(widget)->active);
 }
@@ -857,6 +872,7 @@ void view_toggle_rulers_callback(gpointer data, guint action, GtkWidget*widget)
   DDisplay *ddisp;
   
   ddisp = ddisplay_active();
+  if (!ddisp) return;
 
   /* The following is borrowed straight from the Gimp: */
   
@@ -895,13 +911,12 @@ void view_toggle_rulers_callback(gpointer data, guint action, GtkWidget*widget)
 extern void
 view_new_view_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  DDisplay *ddisp;
   Diagram *dia;
 
-  ddisp = ddisplay_active();
-  dia = ddisp->diagram;
+  dia = ddisplay_active_diagram();
+  if (!dia) return;
   
-  ddisp = new_display(dia);
+  new_display(dia);
 }
 
 void
@@ -914,6 +929,7 @@ view_show_all_callback(gpointer data, guint action, GtkWidget *widget)
   Point middle;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
   dia = ddisp->diagram;
 
   width = dia_renderer_get_width_pixels (ddisp->renderer);
@@ -941,6 +957,7 @@ view_redraw_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   ddisp = ddisplay_active();
+  if (!ddisp) return;
   ddisplay_add_update_all(ddisp);
   ddisplay_flush(ddisp);
 }
@@ -951,6 +968,7 @@ view_diagram_properties_callback(gpointer data, guint action, GtkWidget *widget)
   DDisplay *ddisp;
 
   ddisp = ddisplay_active();
+  if (!ddisp) return;
   diagram_properties_show(ddisp->diagram);
 }
 
@@ -958,55 +976,55 @@ view_diagram_properties_callback(gpointer data, guint action, GtkWidget *widget)
 void
 objects_place_over_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  diagram_place_over_selected(ddisplay_active()->diagram);
+  diagram_place_over_selected(ddisplay_active_diagram());
 }
 
 void
 objects_place_under_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  diagram_place_under_selected(ddisplay_active()->diagram);
+  diagram_place_under_selected(ddisplay_active_diagram());
 }
 
 void
 objects_place_up_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  diagram_place_up_selected(ddisplay_active()->diagram);
+  diagram_place_up_selected(ddisplay_active_diagram());
 }
 
 void
 objects_place_down_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  diagram_place_down_selected(ddisplay_active()->diagram);
+  diagram_place_down_selected(ddisplay_active_diagram());
 }
 
 void
 objects_parent_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  diagram_parent_selected(ddisplay_active()->diagram);
+  diagram_parent_selected(ddisplay_active_diagram());
 }
 
 void
 objects_unparent_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  diagram_unparent_selected(ddisplay_active()->diagram);
+  diagram_unparent_selected(ddisplay_active_diagram());
 }
 
 void
 objects_unparent_children_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  diagram_unparent_children_selected(ddisplay_active()->diagram);
+  diagram_unparent_children_selected(ddisplay_active_diagram());
 }
 
 void
 objects_group_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  diagram_group_selected(ddisplay_active()->diagram);
+  diagram_group_selected(ddisplay_active_diagram());
 } 
 
 void
 objects_ungroup_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  diagram_ungroup_selected(ddisplay_active()->diagram);
+  diagram_ungroup_selected(ddisplay_active_diagram());
 } 
 
 void
@@ -1015,7 +1033,8 @@ dialogs_properties_callback(gpointer data, guint action, GtkWidget *widget)
   Diagram *dia;
   DiaObject *selected;
 
-  dia = ddisplay_active()->diagram; 
+  dia = ddisplay_active_diagram();
+  if (!dia) return;
 
   if (dia->data->selected != NULL) {
     selected = dia->data->selected->data;
@@ -1028,7 +1047,7 @@ dialogs_properties_callback(gpointer data, guint action, GtkWidget *widget)
 void
 dialogs_layers_callback(gpointer data, guint action, GtkWidget *widget)
 {
-  layer_dialog_set_diagram(ddisplay_active()->diagram);
+  layer_dialog_set_diagram(ddisplay_active_diagram());
   layer_dialog_show();
 }
 
@@ -1042,15 +1061,16 @@ objects_align_h_callback(gpointer data, guint action, GtkWidget *widget)
 
   align = action;
 
-  dia = ddisplay_active()->diagram;
+  dia = ddisplay_active_diagram();
+  if (!dia) return;
   objects = dia->data->selected;
   
   object_add_updates_list(objects, dia);
   object_list_align_h(objects, dia, align);
   diagram_update_connections_selection(dia);
   object_add_updates_list(objects, dia);
-  diagram_flush(dia);     
   diagram_modified(dia);
+  diagram_flush(dia);     
 
   undo_set_transactionpoint(dia->undo);
 }
@@ -1064,15 +1084,16 @@ objects_align_v_callback(gpointer data, guint action, GtkWidget *widget)
 
   align = action;
 
-  dia = ddisplay_active()->diagram;
+  dia = ddisplay_active_diagram();
+  if (!dia) return;
   objects = dia->data->selected;
 
   object_add_updates_list(objects, dia);
   object_list_align_v(objects, dia, align);
   diagram_update_connections_selection(dia);
   object_add_updates_list(objects, dia);
-  diagram_flush(dia);     
   diagram_modified(dia);
+  diagram_flush(dia);     
 
   undo_set_transactionpoint(dia->undo);
 }

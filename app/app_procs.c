@@ -238,10 +238,21 @@ do_convert(const char *infname,
             argv0,infname);
             exit(1);
   }
-  /* is user_data supposed to work that way? */
-  if (size)
-    ef->user_data = (void *) size;
-  ef->export_func(diagdata, outfname, infname, ef->user_data);
+  /* Do our best in providing the size to the filter, but don't abuse user_data 
+   * too much for it. It _must not_ be changed after initialization and there 
+   * are quite some filter selecting their output format by it. --hb
+   */
+  if (size) {
+    if (ef == filter_get_by_name ("png-libart"))
+      ef->export_func(diagdata, outfname, infname, size);
+    else {
+      g_warning ("--size parameter unsupported for %s filter", 
+                 ef->unique_name ? ef->unique_name : "selected");
+      ef->export_func(diagdata, outfname, infname, ef->user_data);
+    }
+  }
+  else
+    ef->export_func(diagdata, outfname, infname, ef->user_data);
   /* if (!quiet) */ fprintf(stdout,
                       _("%s --> %s\n"),
                         infname,outfname);

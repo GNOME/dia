@@ -1,3 +1,28 @@
+2004-05-31  Hans Breuer  <hans@breuer.org>
+
+	* lib/object_defaults.c : don't 'failed to load external 
+	entity "NULL"' when the defaults file does not exist, 
+	bug #108764 [again: somehow this got lost]
+
+	* app/paginate_gdiprint.cpp : don guess the WMF export 
+	filter used for printing but find it by unique name.
+	Also update for export_func renaming
+	* plug-ins/wmf/wmf.cpp plug-ins/cairo/diacairo.c
+	provide some unique names
+
+	* app/commands.c app/disp_callbacks.c app/paginate_psprint.c 
+	  app/select.c : fix bug #140789 by always checking if there
+	still is an active diagram before accessing it
+
+	* app/defaults.c app/properties.c : user visible string should 
+	not read DiaObject but stay as "Object defaults/properties"
+
+	* app/app_procs.c : reduce the hack to pass --size to the
+	export via user_data to the only filter supporting it. Other
+	filters would crash on it or do worse ;(
+
+	* plug-ins/wpg/wpg.c : not every 'Object' is a DiaObject ...
+
 2004-05-31  Lars Clausen  <lars@raeder.dk>
 
 	* lib/widgets.h: 

@@ -53,10 +53,12 @@ object_menu_proxy(GtkWidget *widget, gpointer data)
 {
   DiaMenuItem *dia_menu_item;
   ObjectChange *obj_change;
-
+  DiaObject *obj;
   DDisplay *ddisp = ddisplay_active();
-  DiaObject *obj = (DiaObject *)ddisp->diagram->data->selected->data;
 
+  if (!ddisp) return;
+
+  obj = (DiaObject *)ddisp->diagram->data->selected->data;
   dia_menu_item = (DiaMenuItem *) data;
 
 
@@ -81,12 +83,12 @@ object_menu_proxy(GtkWidget *widget, gpointer data)
     undo_clear(ddisp->diagram->undo);
   }
 
-
   diagram_flush(ddisp->diagram);
 }
 
 static void
-dia_menu_free(DiaMenu *dia_menu) {
+dia_menu_free(DiaMenu *dia_menu) 
+{
   if (dia_menu->app_data)
     gtk_object_destroy((GtkObject *)dia_menu->app_data);
   dia_menu->app_data = NULL;
@@ -125,7 +127,6 @@ create_object_menu(DiaMenu *dia_menu)
   GtkWidget *menu_item;
 
   menu = gtk_menu_new();
-      //FIXME?: gtk_menu_ensure_uline_accel_group (GTK_MENU (menu)) ;
 
   if ( dia_menu->title ) {
     menu_item = gtk_menu_item_new_with_label(gettext(dia_menu->title));
@@ -272,7 +273,7 @@ ddisplay_focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data)
   ddisp = (DDisplay *)data;
 
   GTK_WIDGET_SET_FLAGS(widget, GTK_HAS_FOCUS);
-      /* FIXME?: gtk_widget_draw_focus(widget); */
+
   gtk_im_context_focus_in(GTK_IM_CONTEXT(ddisp->im_context));
   
   return FALSE;
@@ -355,8 +356,10 @@ ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
 		 event->button, event->time);
 }
 
-static void handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
-                             const gchar *str, int strlen) {
+static void 
+handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
+                 const gchar *str, int strlen) 
+{
   DiaObject *obj = focus->obj;
   Point p = obj->position;
   ObjectChange *obj_change = NULL;
@@ -386,8 +389,10 @@ static void handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
 }
   
 
-void ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
-                                DDisplay     *ddisp) {
+void 
+ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
+                           DDisplay     *ddisp) 
+{
       /* When using IM, we'll not get many key events past the IM filter,
          mostly IM Commits.
 
@@ -403,8 +408,10 @@ void ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
     handle_key_event(ddisp, focus, 0, str, g_utf8_strlen(str,-1));
 }
 
-void ddisplay_im_context_preedit_changed(GtkIMContext *context,
-                                         DDisplay *ddisp) {
+void 
+ddisplay_im_context_preedit_changed(GtkIMContext *context,
+                                    DDisplay *ddisp) 
+{
   gint cursor_pos;
   Focus *focus = active_focus();
 
@@ -420,19 +427,6 @@ void ddisplay_im_context_preedit_changed(GtkIMContext *context,
       ddisplay_im_context_preedit_reset(ddisp, focus);
     }
   }
-/*  char *str;
-  PangoAttrList *attrs;
-  gint cursor_pos;
-    
-  gtk_im_context_get_preedit_string(ddisp->im_context,
-                                    &str,&attrs,&cursor_pos);
-
-  g_message("received a 'preedit changed'; str=%s cursor_pos=%i",
-            str,cursor_pos);
-
-  g_free(str);
-  pango_attr_list_unref(attrs);
-*/
 }
 
 /** Main input handler for a diagram canvas.

@@ -35,6 +35,7 @@ select_all_callback(gpointer data, guint action, GtkWidget *widget)
   GList *objects;
   DDisplay * ddisp = ddisplay_active();
 
+  if (!ddisp) return;
   dia = ddisp->diagram;
 
   objects = dia->data->active_layer->objects;
@@ -56,8 +57,11 @@ select_all_callback(gpointer data, guint action, GtkWidget *widget)
 void
 select_none_callback(gpointer data, guint action, GtkWidget *widget)
 {
+  Diagram * dia;
   DDisplay * ddisp = ddisplay_active();
-  Diagram * dia = ddisp->diagram;
+
+  if (!ddisp) return;
+  dia = ddisp->diagram;
 
   diagram_remove_all_selected(dia, TRUE);
 
@@ -73,6 +77,7 @@ select_invert_callback(gpointer data, guint action, GtkWidget *widget)
   GList *tmp;
   DDisplay * ddisp = ddisplay_active();
 
+  if (!ddisp) return;
   dia = ddisp->diagram;
 
   tmp = dia->data->active_layer->objects;
@@ -95,9 +100,12 @@ select_invert_callback(gpointer data, guint action, GtkWidget *widget)
 void
 select_connected_callback(gpointer data, guint action, GtkWidget *widget)
 {
+  Diagram *dia;
   DDisplay * ddisp = ddisplay_active();
-  Diagram *dia = ddisp->diagram;
   GList *objects, *tmp;
+
+  if (!ddisp) return;
+  dia = ddisp->diagram;
 
   objects = dia->data->selected;
 
@@ -181,8 +189,11 @@ void
 select_transitive_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp = ddisplay_active();
-  Diagram *dia = ddisp->diagram;
+  Diagram *dia;
   GList *objects, *tmp;
+
+  if (!ddisp) return;
+  dia = ddisp->diagram;
 
   objects = dia->data->selected;
 
@@ -204,6 +215,7 @@ select_same_type_callback(gpointer data, guint action, GtkWidget *widget)
   Diagram *dia;
   GList *objects, *tmp, *tmp2;
 
+  if (!ddisp) return;
   dia = ddisp->diagram;
 
   tmp = dia->data->active_layer->objects;
