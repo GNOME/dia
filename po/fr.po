@@ -2487,17 +2487,13 @@ msgid "Events:"
 msgstr "Événements :"
 
 #: objects/chronogram/chronoline.c:313
-#, fuzzy
-msgid ""#, fuzzy
-
-"Event specification:\n"
+msgid "Event specification:\n"
 "@ time    set the pointer at an absolute time.\n"
 "( duration  sets the signal up, then wait 'duration'.\n"
 ") duration  sets the signal down, then wait 'duration'.\n"
 "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
 "example : @ 1.0 (2.0)1.0(2.0)\n"
-msgstr ""
-"Spécification d'événement :\n"
+msgstr "Spécification d'événement :\n"
 "@ date   définit le pointeur à une date absolue.\n"
 "( durée  définit un front montant, puis attend « durée ».\n"
 ") durée  définit un front descendant, puis attend « durée ».\n"
