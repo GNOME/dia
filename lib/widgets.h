@@ -51,6 +51,8 @@ struct _DiaFontSelector
   GtkOptionMenu *style_omenu;
   GtkMenu *font_menu;
   GtkMenu *style_menu;
+  gint old_font; /* The menu item # that was previously selected, for
+		    when the Other Fonts dialog is cancelled */
 
   gchar *textsample;
 };

@@ -243,6 +243,7 @@ dia_font_selector_init (DiaFontSelector *fs)
   menu = gtk_menu_new ();
   fs->style_menu = GTK_MENU(menu);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->style_omenu), menu);
+  fs->old_font = 0;
 
   gtk_widget_show(menu);
   gtk_widget_show(omenu);
@@ -320,10 +321,30 @@ dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data)
     diafont = dia_font_new(fontname, DIA_FONT_NORMAL | DIA_FONT_WEIGHT_NORMAL, 1.0);
     dia_font_selector_set_font(dfs, diafont);
     break;
-  case GTK_RESPONSE_NONE:
-  case GTK_RESPONSE_CANCEL:
-  default:
-    /* noop */;
+  default: {
+    /* Must set menu back to old font */
+    FontSelectorEntry *fse;
+    gchar *lowername;
+    GtkWidget *active;
+    gchar *fontname;
+
+    gtk_option_menu_set_history(GTK_OPTION_MENU(dfs->font_omenu), 
+				dfs->old_font);
+    gtk_menu_set_active(dfs->font_menu, dfs->old_font);
+    gtk_check_menu_item_set_active(gtk_menu_get_active(dfs->font_menu), TRUE);
+
+    active = gtk_menu_get_active(dfs->font_menu);
+    if (active == NULL) {
+      message_error("Can't find font entry for old font %d\n", dfs->old_font);
+      return;
+    }
+    fontname = (gchar *)gtk_object_get_user_data(GTK_OBJECT(active));
+    lowername = g_utf8_strdown(fontname, -1);
+    fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
+    g_free(lowername);
+    dia_font_selector_set_styles(dfs, fse, -1);
+    dfs->old_font = fse->entry_nr;
+  }
   }
   gtk_widget_hide(GTK_WIDGET(fs));
 }
@@ -354,6 +375,7 @@ dia_font_selector_menu_callback(GtkWidget *button, gpointer data)
     fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, lowername);
     g_free(lowername);
     dia_font_selector_set_styles(fs, fse, -1);
+    fs->old_font = fse->entry_nr;
   }
 }
 
@@ -484,6 +506,7 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
   gtk_option_menu_set_history(GTK_OPTION_MENU(fs->font_omenu), font_nr);
   gtk_menu_set_active(fs->font_menu, font_nr);
   gtk_check_menu_item_set_active(gtk_menu_get_active(fs->font_menu), TRUE);
+  fs->old_font = font_nr;
 }
 
 DiaFont *

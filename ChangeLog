@@ -1,3 +1,8 @@
+2004-01-03  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/widgets.[ch]: Make sure old font is re-chosen when the Other
+	Fonts dialog is closed without pressing Ok (bug #128646).
+
 2004-01-02  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/Makefile.am: Quote arguments correctly for run_dia.sh (bug
