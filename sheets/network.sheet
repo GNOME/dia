@@ -4,6 +4,7 @@
   <name>Network</name>
   <name xml:lang="de">Netzwerke</name>
   <name xml:lang="hu">Hálózatok</name>
+  <name xml:lang="fr">Réseau</name>
   <description xml:lang="no">Objekter til utforming av nettverksdiagrammer</description>
   <description xml:lang="fr">Objets pour dessiner des diagrammes réseau</description>
   <description xml:lang="de">Objekte für Netzwerkdiagrammentwurf</description>
@@ -126,73 +127,86 @@
     <object name="Network - A Workstation Monitor">
       <description xml:lang="de">Ein Workstation Monitor</description>
       <description xml:lang="hu">Munkaállomás monitora</description>
-      <description xml:lang="no">Skjerm til arbeidsstasjon</description>
+      <description xml:lang="no">Skjerm til
+      arbeidsstasjon</description>
+      <description xml:lang="fr">Un moniteur de station de travail</description>
       <description>A Workstation Monitor</description>
     </object>
     <object name="Network - A Workstation">
       <description xml:lang="de">Eine UNIX Workstation</description>
       <description xml:lang="hu">UNIX Munkaállomás</description>
       <description xml:lang="no">En UNIX-arbeidsstasjon</description>
+      <description xml:lang="fr">Une station de travail UNIX</description>
       <description>A UNIX Workstation</description>
     </object>
     <object name="Network - A Desktop PC">
       <description xml:lang="de">Ein Desktop PC</description>
       <description xml:lang="hu">Asztali PC</description>
       <description xml:lang="no">Desktop PC</description>
+      <description xml:lang="fr">Un PC de bureau</description>
       <description>A Desktop PC</description>
     </object>
     <object name="Network - A Bigtower PC">
       <description xml:lang="de">Ein Bigtower PC</description>
       <description xml:lang="hu">PC (nagy torony)</description>
       <description xml:lang="no">PC, stort tårn</description>
+      <description xml:lang="fr">Un PC, format grande tour</description>
       <description>A Bigtower PC</description>
     </object>
     <object name="Network - A Miditower PC">
       <description xml:lang="no">PC, middels stort tårn</description>
       <description xml:lang="de">Ein Miditower PC</description>
       <description xml:lang="hu">PC (midi torony)</description>
+      <description xml:lang="fr">Un PC, format moyenne tour</description>
       <description>A Miditower PC</description>
     </object>
     <object name="Network - A Minitower PC">
       <description xml:lang="no">PC - lite tårn</description>
       <description xml:lang="de">Ein Minitower PC</description>
       <description xml:lang="hu">PC (mini torony)</description>
+      <description xml:lang="fr">Un PC, format mini-tour</description>
       <description>A Minitower PC</description>
     </object>
     <object name="Network - An amplifier speaker">
       <description xml:lang="no">En høyttaler med forsterker</description>
       <description xml:lang="de">Ein Multimedia Lautsprecher mit Verstärker</description>
       <description xml:lang="hu">Multimédia hangszóró erõsítõvel</description>
+      <description xml:lang="fr">Un haut-parleur avec amplificateur intégré</description>
       <description>A speaker with integrated amplifier</description>
     </object>
     <object name="Network - A speaker">
       <description xml:lang="no">En høyttaler</description>
       <description xml:lang="de">Ein Multimedia Lautsprecher</description>
       <description xml:lang="hu">Multimédia hangszóró erõsítõ nélkül</description>
-      <description>A speaker without amplifier</description>
+      <description xml:lang="fr">Un haut-parleur</description>
+     <description>A speaker without amplifier</description>
     </object>
     <object name="Network - A Diskette">
       <description xml:lang="no">En 3½-toms diskett</description>
       <description xml:lang="de">Eine 3 1/2 Zoll Diskette</description>
       <description xml:lang="hu">3 1/2-es hajlékonylemez</description>
+      <description xml:lang="fr">Un lecteur de disquettes 3½</description>
       <description>A 3 1/2 inch diskette</description>
     </object>
     <object name="Network - A ZIP Disk">
       <description xml:lang="no">En ZIP-disk</description>
       <description xml:lang="de">Ein ZIP-Medium</description>
       <description xml:lang="hu">ZIP lemez</description>
+      <description xml:lang="fr">Un lecteur ZIP</description>
       <description>A ZIP Disk</description>
     </object>
     <object name="Network - An external DAT drive">
       <description xml:kang="no">En ekstern DAT-stasjon</description>
       <description xml:lang="de">Ein externer DAT-Streamer</description>
       <description xml:lang="hu">Külsõ DAT meghajtó</description>
+      <description xml:lang="fr">Un lecteur de DAT externe</description>
       <description>An external DAT drive</description>
     </object>
     <object name="Network - A Mobile Phone">
       <description xml:lang="no">En mobiltelefon</description>
       <description xml:lang="de">Ein einfaches Handy</description>
       <description xml:lang="hu">Egyszerû rádiótelefon</description>
+      <description xml:lang="fr">Un téléphone mobile</description>
       <description>A Mobile Phone</description>
     </object>
   </contents>

@@ -187,6 +187,7 @@
     </object>
     <object name="Circuit - Horizontal Jumper">
       <description xml:lang="no">En horisontal jumper</description>
+      <description xml:lang="fr">Un cavalier horizontal</description>
       <description>A Horizontal Jumper</description>
     </object>
   </contents>

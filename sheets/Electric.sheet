@@ -4,6 +4,7 @@
   <name>Electric</name>
   <name xml:lang="de">Stromkreis</name>
   <name xml:lang="hu">Elektromos áramkörök</name>
+  <name xml:lang="fr">Electricité</name>
   <description xml:lang="fr">Composants de circuits électriques</description>
   <description xml:lang="de">Komponenten für Stromkreise</description>
   <description xml:lang="hu">Elektomos áramköri elemek</description>
@@ -57,3 +58,4 @@
 	points -->
   </contents>	
 </sheet>
+

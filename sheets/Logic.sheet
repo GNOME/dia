@@ -2,34 +2,45 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Logic</name>
+  <name xml:lang="fr">Logique</name>
   <description>Boolean Logic</description>
+  <description xml:lang="fr">Portes logiques</description>
   <contents>
     <object name="Logic - Or">
       <description>An Or gate</description>
+      <description xml:lang="fr">Une porte OU</description>
     </object>
     <object name="Logic - And">
       <description>An And gate</description>
+      <description xml:lang="fr">Une porte ET</description>
     </object>
     <object name="Logic - Xor">
       <description>A Xor gate</description>
+      <description xml:lang="fr">Une porte OU EXCLUSIF</description>
     </object>
     <object name="Logic - Buffer">
       <description>A simple Buffer</description>
+      <description xml:lang="fr">Un tampon simple</description>
     </object>
     <object name="Logic - Inverter">
       <description>An Inverter</description>
+      <description xml:lang="fr">Un inverseur</description>
     </object>
     <object name="Logic - Nand">
       <description>A Nand gate</description>
+      <description xml:lang="fr">Une porte NON-ET</description>
     </object>
     <object name="Logic - Nor">
       <description>A Nor gate</description>
+      <description xml:lang="fr">Une porte NON-OU</description>
     </object>
     <object name="Logic - Not">
       <description>A Not</description>
+      <description xml:lang="fr">Un NON</description>
     </object>
     <object name="Logic - Connector">
       <description>A crossconnector</description>
+      <description>Une connexion de croisement</description>
     </object>
   </contents>
 </sheet>

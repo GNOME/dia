@@ -73,7 +73,7 @@
     <object name="GRAFCET - Arc">
       <description xml:lang="fr">Un arc (montant)</description>
       <description xml:lang="de">Ein Bogen</description>
-      <description>An arc</description>
+      <description>An arc (upward)</description>
     </object>
   </contents>
 </sheet>

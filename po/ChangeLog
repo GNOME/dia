@@ -1,3 +1,8 @@
+2001-03-29  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* fr.po: Added missing French translations ; fixed some which
+	were obviously wrong (should fix some parts of Debian #82885)
+
 2001-03-27  Kjartan Maraas  <kmaraas@gnome.org
 
 	* no.po: Updated Norwegian (bokmål) translation.

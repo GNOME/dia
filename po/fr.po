@@ -113,7 +113,7 @@ msgstr "Aucun objet à coller.\n"
 
 #: app/commands.c:483 app/commands.c:506
 msgid "Could not find help directory"
-msgstr ""
+msgstr "Répertoire d'aide introuvable"
 
 #: app/commands.c:550
 msgid "About Dia"
@@ -951,8 +951,9 @@ msgid "/Edit/_Delete"
 msgstr "/Édition/_Supprimer"
 
 #: app/menus.c:286
+#, fuzzy
 msgid "/Edit/_Undo"
-msgstr "/Édition/_Annnuler"
+msgstr "/Édition/_Annuler"
 
 #: app/menus.c:287
 msgid "/Edit/_Redo"
@@ -2192,7 +2193,7 @@ msgstr "Stéréotype"
 
 #: objects/UML/class.c:104 objects/UML/class_dialog.c:209
 msgid "Abstract"
-msgstr "Résumé"
+msgstr "Abstraite"
 
 #: objects/UML/class.c:106 objects/UML/class_dialog.c:221
 msgid "Suppress Attributes"
@@ -2400,7 +2401,7 @@ msgstr "Retour"
 
 #: objects/UML/message.c:166
 msgid "Send"
-msgstr ""
+msgstr "Envoyer"
 
 #: objects/UML/message.c:167
 msgid "Recursive"
@@ -2772,40 +2773,36 @@ msgstr "Filtre d'export WordPerfect"
 #: plug-ins/xfig/xfig.c:38
 #, fuzzy
 msgid "Fig Format import filter"
-msgstr "Filtre d'export de forme dia"
+msgstr "Filtre d'import depuis le format Fig"
 
 #: plug-ins/xfig/xfig-import.c:712
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
-msgstr ""
+msgstr "Erreur pendant la lecture du %d-ième point (de %d points)\n"
 
 #: plug-ins/xfig/xfig-import.c:731
 #, fuzzy
 msgid "Error while reading arrowhead\n"
-msgstr "Erreur lors de la lecture du fichier diagramme\n"
+msgstr "Erreur lors de la lecture d'une tête de flèche\n"
 
 #: plug-ins/xfig/xfig-import.c:805
 msgid "Patterns are not implemented\n"
-msgstr ""
+msgstr "Les motifs ne sont pas encore implémentés\n"
 
 #: plug-ins/xfig/xfig-import.c:850
 #, fuzzy, c-format
 msgid "Couldn't read ellipse info: %s\n"
-msgstr ""
-"Ne peut charger le greffon « %s »\n"
-"%s"
+msgstr "N'a pu lire les données de l'ellipse : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:884 plug-ins/xfig/xfig-import.c:1045
 #, fuzzy, c-format
 msgid "Line style %d not supported\n"
-msgstr "Propriétés du style de ligne"
+msgstr "Propriétés du style de ligne\n"
 
 #: plug-ins/xfig/xfig-import.c:961
 #, fuzzy, c-format
 msgid "Couldn't read polyline info: %s\n"
-msgstr ""
-"Ne peut charger le greffon « %s »\n"
-"%s"
+msgstr "N'a pu lire les données de la polyligne : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:976
 #, c-format
@@ -2815,117 +2812,111 @@ msgstr ""
 #: plug-ins/xfig/xfig-import.c:1019
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
-msgstr ""
+msgstr "Type de polyligne inconnu : %d\n"
 
 #: plug-ins/xfig/xfig-import.c:1113
 #, c-format
 msgid "Couldn't read text info: %s\n"
-msgstr ""
+msgstr "Information de texte illisible : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1159
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
-msgstr ""
+msgstr "N'a pu identifier l'objet FIG : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1173
 msgid "Compound end outside compound\n"
-msgstr ""
+msgstr "Fin de composite hors du composite\n"
 
 #: plug-ins/xfig/xfig-import.c:1196
 #, fuzzy, c-format
 msgid "Couldn't read color: %s\n"
-msgstr ""
-"Ne peut charger le greffon « %s »\n"
-"%s"
+msgstr "Couleur illisible : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1225
 #, fuzzy, c-format
 msgid "Couldn't read group extend: %s\n"
-msgstr "Ne peut ouvrir « %s »"
+msgstr "Ne peut lire l'extension de groupe : %s\n"
 
 #. Arc.
 #. Spline which includes closed/open control/interpolated spline.
 #: plug-ins/xfig/xfig-import.c:1235
 #, c-format
 msgid "Object type %d not implemented yet\n"
-msgstr ""
+msgstr "Type d'objet %d pas encore implémenté\n"
 
 #: plug-ins/xfig/xfig-import.c:1238
 #, c-format
 msgid "Unknown object type %d\n"
-msgstr ""
+msgstr "Type d'objet %d inconnu\n"
 
 #: plug-ins/xfig/xfig-import.c:1257
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
-msgstr ""
+msgstr "`%s' n'est ni `%s' ni `%s'\n"
 
 #: plug-ins/xfig/xfig-import.c:1267
 #, fuzzy, c-format
 msgid "Error reading paper size: %s\n"
-msgstr "Erreur lors de la lecture du fichier diagramme\n"
+msgstr "Erreur lors de la lecture de la taille du papier : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1289
 #, fuzzy, c-format
 msgid "Error reading paper orientation: %s\n"
-msgstr "Erreur lors de la lecture du fichier diagramme\n"
+msgstr "Erreur lors de la lecture de l'orientation du papier : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1299
 #, fuzzy, c-format
 msgid "Error reading justification: %s\n"
-msgstr "Erreur lors de la lecture du fichier diagramme\n"
+msgstr "Erreur lors de la lecture de la justification : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1309
 #, fuzzy, c-format
 msgid "Error reading units: %s\n"
-msgstr "Erreur lors de la lecture du fichier diagramme\n"
+msgstr "Erreur lors de la lecture des unités : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1323
 #, fuzzy, c-format
 msgid "Error reading magnification: %s\n"
-msgstr "Erreur lors de la lecture du fichier diagramme\n"
+msgstr "Erreur lors de la lecture du facteur d'échelle : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1334
 #, fuzzy, c-format
 msgid "Error reading multipage indicator: %s\n"
-msgstr "Erreur lors de la lecture du fichier diagramme\n"
+msgstr "Erreur lors de la lecture de l'indicateur de multi-pagination : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1345
 #, fuzzy, c-format
 msgid "Error reading transparent color: %s\n"
-msgstr ""
-"Erreur au chargement de la bibliothèque : \"%s\":\n"
-" %s\n"
+msgstr "Erreur lors de la lecture de la couleur transparente : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1354 plug-ins/xfig/xfig-import.c:1410
 #, fuzzy, c-format
 msgid "Error reading FIG file: %s\n"
-msgstr "Erreur lors de la lecture du fichier diagramme\n"
+msgstr "Erreur lors de la lecture du fichier FIG : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1356 plug-ins/xfig/xfig-import.c:1412
 msgid "Premature end of FIG file\n"
-msgstr ""
+msgstr "Fin prématurée de fichier FIG\n"
 
 #: plug-ins/xfig/xfig-import.c:1365
 #, fuzzy, c-format
 msgid "Error reading resolution: %s\n"
-msgstr ""
-"Erreur au chargement de la bibliothèque : \"%s\":\n"
-" %s\n"
+msgstr "Erreur lors de la lecture de la résolution : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1397
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
-msgstr ""
+msgstr "Ceci ne semble pas être un fichier Fig : %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1403
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
-msgstr ""
+msgstr "Ceci est un fichier FIG version %d.%d, je peux ne pas le comprendre\n"
 
 #: plug-ins/xfig/xfig-import.c:1456
 msgid "XFig File Format"
-msgstr ""
+msgstr "Format de fichier XFig"
 
 #~ msgid "Border width:"
 #~ msgstr "Largeur du bord :"
