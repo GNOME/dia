@@ -242,7 +242,7 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
   static gboolean type_quarks_calculated = FALSE;
 
   if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[sss]", "name", "type", "value", "visible");
+    return Py_BuildValue("[ssss]", "name", "type", "value", "visible");
   else if (!strcmp(attr, "name"))
     return PyString_FromString(self->property->name);
   else if (!strcmp(attr, "type"))
@@ -262,7 +262,7 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
     for (i = 0; i < G_N_ELEMENTS(prop_type_map); i++)
       if (prop_type_map[i].quark == self->property->type_quark)
         return prop_type_map[i].propget(self->property);
-    if (0 == PROP_FLAG_WIDGET_ONLY & self->property->descr->flags)
+    if (0 == (PROP_FLAG_WIDGET_ONLY & self->property->descr->flags))
       g_warning ("No handler for type '%s'", self->property->type);
 
     Py_INCREF(Py_None);
@@ -303,7 +303,11 @@ int PyDiaProperty_ApplyToObject (DiaObject   *object,
 
         return 0;
       }
-    /* XXX: conversions ??? */
+    else
+      {
+         g_warning("PyDiaProperty_ApplyToObject : no property conversion %s -> %s",
+	    inprop->type, prop->type);
+      }
   } else if (PyString_Check (val)) {
     gchar    *str = PyString_AsString (val);
 
@@ -352,6 +356,11 @@ int PyDiaProperty_ApplyToObject (DiaObject   *object,
         p->int_data = (int)PyFloat_AsDouble(val);
         ret = 0;
       }
+    else
+      {
+         g_warning("PyDiaProperty_ApplyToObject : no conversion %s -> %s",
+	    key, prop->type);
+      }
   } else if (PyInt_Check(val)) {
     if (0 == strcmp(PROP_TYPE_BOOL, prop->type))
       {
@@ -370,6 +379,11 @@ int PyDiaProperty_ApplyToObject (DiaObject   *object,
         IntProperty *p = (IntProperty*)prop;
         p->int_data = (int)PyInt_AsLong(val);
         ret = 0;
+      }
+    else
+      {
+         g_warning("PyDiaProperty_ApplyToObject : no conversion %s -> %s",
+	    key, prop->type);
       }
   } else if (PyTuple_Check (val)) {
     int i, len = PyTuple_Size(val);

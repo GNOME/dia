@@ -178,7 +178,13 @@ DIA_PLUGIN_CHECK_INIT
 PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
-  if (app_is_interactive()) {
+  /*
+   * If GTK is not initialized yet don't register this plug-in. This is
+   * almost the same as app_is_interactive() but avoids to make plug-ins
+   * depend on Dia's app core function. Also what we really need is a 
+   * display, not an interactive app ;)
+   */
+  if (gdk_display_get_default ()) {
     if (!dia_plugin_info_init(info, "Pixbuf",
 			      _("gdk-pixbuf based bitmap export/import"),
 			      NULL, NULL))

@@ -89,7 +89,7 @@ struct _UMLClass {
   
   real operationsbox_height;
   GList *operations_strings;
-  GList **operations_wrappos;
+  GList *operations_wrappos;
   int max_wrapped_line_width;
 
   real templates_height;

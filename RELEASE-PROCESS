@@ -25,7 +25,8 @@ When a new version is about to be released:
    Make sure to check for open Bugzilla bugs with the PATCH keyword.
 
 1) The core developers agree on the next version number. It's called
-   $VERSION thereafter. 
+   $VERSION thereafter. They also look if DIA_PLUGIN_API_VERSION needs
+   to be updated.
 
 2) D+3: a release candidate tarball is made. It is called
    $VERSION-pre1. Simultaneously, a CVS branch is made with the name

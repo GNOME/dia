@@ -102,6 +102,9 @@ struct _WmfRenderer
     PLACEABLEMETAHEADER pmh;
     double xoff, yoff;
     double scale;
+
+    int nDashLen; /* the scaled dash length */
+    gboolean platform_is_nt; /* advanced line styles supported */
 };
 
 struct _WmfRendererClass
@@ -132,9 +135,59 @@ UsePen(WmfRenderer* renderer, Color* colour)
     W32::HPEN hOldPen;
     if (colour) {
 	W32::COLORREF rgb = W32COLOR(colour);
-	renderer->hPen = W32::CreatePen(renderer->fnPenStyle, 
-					renderer->nLineWidth,
-					rgb);
+#ifdef G_OS_WIN32
+	if (renderer->platform_is_nt && renderer->hPrintDC) {
+          W32::LOGBRUSH logbrush;
+	  W32::DWORD    dashes[6];
+	  int num_dashes = 0;
+	  int dashlen = renderer->nDashLen;
+	  int dotlen  = renderer->nDashLen / 10;
+	  
+	  logbrush.lbStyle = BS_SOLID;
+	  logbrush.lbColor = rgb;
+	  logbrush.lbHatch = 0;
+
+          switch (renderer->fnPenStyle & PS_STYLE_MASK) {
+	  case PS_SOLID :
+	    break;
+	  case PS_DASH :
+	    num_dashes = 2;
+	    dashes[0] = dashes[1] = dashlen; 
+	    break;
+	  case PS_DASHDOT :
+	    num_dashes = 4;
+	    dashes[1] = dashes[3] = MAX((dashlen - dotlen) / 2, 1);
+	    dashes[0] = dashlen;
+	    dashes[2] = dotlen;
+	    break;
+	  case PS_DASHDOTDOT :
+	    num_dashes = 6;
+	    dashes[0] = dashlen;
+	    dashes[1] = dashes[3] = dashes[5] = MAX((dashlen - 2 * dotlen)/3, 1);
+	    dashes[2] = dashes[4] = dotlen;
+	    break;
+	  case PS_DOT :
+	    num_dashes = 2;
+	    dashes[0] = dashes[1] = dotlen;
+	    break;
+	  default :
+	    g_assert_not_reached ();
+	  }
+
+	  renderer->hPen = W32::ExtCreatePen (
+	    renderer->fnPenStyle & PS_SOLID ? renderer->fnPenStyle :
+	      (renderer->fnPenStyle & ~(PS_STYLE_MASK)) | (PS_GEOMETRIC | PS_USERSTYLE),
+	    renderer->nLineWidth,
+	    &logbrush, num_dashes, dashes);
+
+	}
+	else 
+#endif /* G_OS_WIN32 */
+	{
+	  renderer->hPen = W32::CreatePen(renderer->fnPenStyle, 
+					  renderer->nLineWidth,
+					  rgb);
+	}
     } else {
 	renderer->hPen = (W32::HPEN)W32::GetStockObject(NULL_PEN);
     }
@@ -184,6 +237,10 @@ begin_render(DiaRenderer *self)
     WmfRenderer *renderer = WMF_RENDERER (self);
 
     DIAG_NOTE(renderer, "begin_render\n");
+
+    /* FIXME: still not sure if the renderer output should be platform dependent */
+    if (renderer->platform_is_nt)
+      renderer->fnPenStyle = PS_GEOMETRIC;
 
     /* make unfilled the default */
     W32::SelectObject(renderer->hFileDC, 
@@ -258,14 +315,22 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
     WmfRenderer *renderer = WMF_RENDERER (self);
 
     DIAG_NOTE(renderer, "set_linecaps %d\n", mode);
+	
+    // all the advanced line rendering is unsupported on win9x
+    if (!renderer->platform_is_nt)
+      return;
 
+    renderer->fnPenStyle &= ~(PS_ENDCAP_MASK);
     switch(mode) {
     case LINECAPS_BUTT:
-	break;
+      renderer->fnPenStyle |= PS_ENDCAP_FLAT;
+      break;
     case LINECAPS_ROUND:
-	break;
+      renderer->fnPenStyle |= PS_ENDCAP_ROUND;
+      break;
     case LINECAPS_PROJECTING:
-	break;
+      renderer->fnPenStyle |= PS_ENDCAP_SQUARE;
+      break;
     default:
 	message_error("WmfRenderer : Unsupported fill mode specified!\n");
     }
@@ -278,15 +343,22 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 
     DIAG_NOTE(renderer, "set_join %d\n", mode);
 
+    if (!renderer->platform_is_nt)
+      return;
+
+    renderer->fnPenStyle &= ~(PS_JOIN_MASK);
     switch(mode) {
     case LINEJOIN_MITER:
-	break;
+      renderer->fnPenStyle |= PS_JOIN_MITER;
+      break;
     case LINEJOIN_ROUND:
-	break;
+      renderer->fnPenStyle |= PS_JOIN_ROUND;
+      break;
     case LINEJOIN_BEVEL:
-	break;
+      renderer->fnPenStyle |= PS_JOIN_BEVEL;
+      break;
     default:
-	message_error("WmfRenderer : Unsupported fill mode specified!\n");
+      message_error("WmfRenderer : Unsupported fill mode specified!\n");
     }
 }
 
@@ -298,28 +370,34 @@ set_linestyle(DiaRenderer *self, LineStyle mode)
     DIAG_NOTE(renderer, "set_linestyle %d\n", mode);
 
     /* line type */
+    renderer->fnPenStyle &= ~(PS_STYLE_MASK);
     switch (mode) {
     case LINESTYLE_SOLID:
-      renderer->fnPenStyle = PS_SOLID;
+      renderer->fnPenStyle |= PS_SOLID;
       break;
     case LINESTYLE_DASHED:
-      renderer->fnPenStyle = PS_DASH;
+      renderer->fnPenStyle |= PS_DASH;
       break;
     case LINESTYLE_DASH_DOT:
-      renderer->fnPenStyle = PS_DASHDOT;
+      renderer->fnPenStyle |= PS_DASHDOT;
       break;
     case LINESTYLE_DASH_DOT_DOT:
-      renderer->fnPenStyle = PS_DASHDOTDOT;
+      renderer->fnPenStyle |= PS_DASHDOTDOT;
       break;
     case LINESTYLE_DOTTED:
-      renderer->fnPenStyle = PS_DOT;
+      renderer->fnPenStyle |= PS_DOT;
       break;
     default:
 	message_error("WmfRenderer : Unsupported fill mode specified!\n");
     }
     
+    if (renderer->platform_is_nt)
+      return;
+
     /* Non-solid linestyles are only displayed if width <= 1. 
-     * Better implementation will require custom linestyles */
+     * Better implementation will require custom linestyles
+     * not available on win9x ...
+     */
     switch (mode) {
     case LINESTYLE_DASHED:
     case LINESTYLE_DASH_DOT:
@@ -338,6 +416,7 @@ set_dashlength(DiaRenderer *self, real length)
     DIAG_NOTE(renderer, "set_dashlength %f\n", length);
 
     /* dot = 10% of len */
+    renderer->nDashLen = SC(length);
 }
 
 static void
@@ -1064,7 +1143,10 @@ export_data(DiagramData *data, const gchar *filename,
     renderer->hFileDC = file;
     renderer->sFileName = g_strdup(filename);
     renderer->hPrintDC = (W32::HDC)user_data;
-           
+
+    /* printing is platform dependent */
+    renderer->platform_is_nt = (W32::GetVersion () < 0x80000000);
+
     extent = &data->extents;
 
     /* calculate offsets */
@@ -1139,7 +1221,14 @@ dia_plugin_init(PluginInfo *info)
                               NULL, NULL))
         return DIA_PLUGIN_INIT_ERROR;
 
+#ifdef G_OS_WIN32
+    /*
+     * On non windoze platforms this plug-in currently is only
+     * useful at compile/develoment time. The output is broken
+     * when processed by wmf_gdi.cpp ...
+     */
     filter_register_export(&my_export_filter);
+#endif
 
     return DIA_PLUGIN_INIT_OK;
 }

@@ -471,7 +471,7 @@ persistence_save()
   doc->xmlRootNode = xmlNewDocNode(doc, NULL, "persistence", NULL);
 
   name_space = xmlNewNs(doc->xmlRootNode, 
-                        "http://www.gnome.org/projects/dia",
+                        DIA_XML_NAME_SPACE_BASE,
 			"dia");
   xmlSetNs(doc->xmlRootNode, name_space);
 

@@ -140,6 +140,13 @@ CreatePen(wmfint iStyle, wmfint iWidth, COLORREF color)
   return hobj;
 }
 
+HPEN
+ExtCreatePen(wmfint iStyle, wmfint iWidth, LOGBRUSH* lb, DWORD nDashes, DWORD* pDashes)
+{
+  //TODO : support the advanced style, e.g. PS_USERSTYLE 
+  return CreatePen (iStyle, iWidth, lb->lbColor);
+}
+
 HFONT
 CreateFont(int iWidth, int iHeight, int iEscapement, int iOrientation, int iWeight,
            DWORD dwItalic, DWORD dwUnderline, DWORD dwStrikeOut, 
@@ -446,6 +453,13 @@ IntersectClipRect(HDC hdc, wmfint d, wmfint c, wmfint b, wmfint a)
   fwrite_le(&c, sizeof(wmfint), 1, hdc->file);
   fwrite_le(&d, sizeof(wmfint), 1, hdc->file);
   return 0;
+}
+
+DWORD
+GetVersion()
+{
+  //FIXME : this claims kind of win95
+  return 0x80000000;
 }
 
 } // eof namespace

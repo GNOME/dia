@@ -26,7 +26,27 @@
 #include <gmodule.h>
 #include "diatypes.h"
 
-#define DIA_PLUGIN_API_VERSION 4
+/*
+ * The api version to ensure dia core and the plug-ins agree on
+ * talking about the same thing. If some incompatible change is 
+ * made to the interface between plug-ins and core it needs to
+ * be incremented to allow the core to detect outdated plug-ins
+ * and avoid to load them - which otherwise would produce strange
+ * misinterpretations or even crashes.
+ *
+ * Some of the things which require a new plug-in api version are :
+ *  - Changes to DiaRenderer's vtable, that is adding new methods, 
+ *    especially if they are shifting the placement of previously 
+ *    defined ones, see : lib/diarenderer.h
+ *  - Changes to lib/object.h:_ObjectOps
+ *  - Changes to _DiaExportFilter, _DiaImportFilter, lib/filter.h
+ *  - New, incompatibe versions of libraries where both the core
+ *    and the plug-in depend on (Dia >0.90 crashing on pygtk 1.x
+ *    could have been avoided this way)
+ * The list is by no means complete. If in doubt about your change
+ * please ask on dia-list or alternative increment ;-)      --hb
+ */
+#define DIA_PLUGIN_API_VERSION 5
 
 typedef enum {
   DIA_PLUGIN_INIT_OK,

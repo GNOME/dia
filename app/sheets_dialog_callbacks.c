@@ -1664,7 +1664,7 @@ write_user_sheet(Sheet *sheet)
   doc->standalone = FALSE;
   root = xmlNewDocNode(doc, NULL, "sheet", NULL);
   doc->xmlRootNode = root;
-  xmlSetProp(root, "xmlns", "http://www.lysator.liu.se/~alla/dia/dia-sheet-ns");
+  xmlSetProp(root, "xmlns", DIA_XML_NAME_SPACE_BASE "/dia-sheet-ns");
 
   /* comments */
   xmlAddChild(root, xmlNewText("\n"));

@@ -301,6 +301,7 @@ static DiaExportFilter my_export_filter = {
     export_xslt
 };
 
+DIA_PLUGIN_CHECK_INIT
 
 PluginInitResult
 dia_plugin_init(PluginInfo *info)

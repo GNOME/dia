@@ -482,6 +482,7 @@ dia_object_is_selected (const DiaObject *obj)
 {
   Layer *layer = obj->parent_layer;
   DiagramData *diagram = layer ? layer->parent_diagram : NULL;
+  GList * selected;
 
   /* although this is a little bogus, it is better than crashing
    * It appears as if neither group members nor "parented" objects do have their 
@@ -492,7 +493,7 @@ dia_object_is_selected (const DiaObject *obj)
   if (!diagram)
     return FALSE;
   
-  GList *selected = diagram->selected;
+  selected = diagram->selected;
   for (; selected != NULL; selected = g_list_next(selected)) {
     if (selected->data == obj) return TRUE;
   }

@@ -25,6 +25,19 @@
 #include "diavar.h"
 #include <libxml/tree.h>
 
+/*
+ * Though the Dia homepage is now http://www.gnome.org/projects/dia
+ * Dia's xml namespace definition still needs to point to the
+ * original site. In fact the xml namespace definition has nothing to do
+ * with existing website, they just need to be unique to allow to
+ * differentiate between varying definitions. Changing the namespace
+ * from the old to the new site would strictly speaking break all
+ * older diagrams - although some tools may not take the actual
+ * key into account.
+ * See also : doc/diagram.dtd
+ */
+#define DIA_XML_NAME_SPACE_BASE "http://www.lysator.liu.se/~alla/dia"
+
 DIAVAR int pretty_formated_xml;
 
 typedef xmlNodePtr XML_NODE;

@@ -310,9 +310,7 @@ state_create_activity(Point *startpoint,
   elem->width = STATE_WIDTH;
   elem->height = STATE_HEIGHT;
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. */
-  font = dia_font_new_from_legacy_name (_("Helvetica"));
+  font = dia_font_new_from_style (DIA_FONT_SANS, 0.8);
   p = *startpoint;
   p.x += STATE_WIDTH/2.0;
   p.y += STATE_HEIGHT/2.0;

@@ -1,7 +1,7 @@
 !IFNDEF PACKAGE
 
 PLUGINS = bondgraph chronogram custom er flowchart fs grafcet \
-	misc network sadt standard uml
+	Istar Jackson Kaos misc network sadt standard uml
 
 #outdated:	labels
 
@@ -15,9 +15,9 @@ sub-all:
 	for %d in ($(PLUGINS)) do nmake -nologo -f makefile.msc sub-one THIS=%d
 
 sub-one:
-	cd $(THIS)
-	nmake -nologo -f ..\makefile.msc $(THIS).dll PACKAGE=$(THIS) OBJ_$(THIS)=1
-	cd ..
+	@cd $(THIS)
+	@nmake -nologo -f ..\makefile.msc $(THIS).dll PACKAGE=$(THIS) OBJ_$(THIS)=1
+	@cd ..
 
 clean:
 	for %d in ($(PLUGINS)) do nmake -nologo -f makefile.msc sub-clean THIS=%d
@@ -118,6 +118,32 @@ OBJECTS = \
 	transition.obj \
 	vector.obj \
 	vergent.obj
+!ENDIF
+
+!IFDEF OBJ_Istar
+OBJECTS = \
+	actor.obj \
+	goal.obj \
+	istar.obj \
+	link.obj \
+	other.obj
+!ENDIF
+
+!IFDEF OBJ_Jackson
+OBJECTS = \
+	domain.obj \
+	jackson.obj \
+	phenomenon.obj \
+	requirement.obj
+!ENDIF
+
+!IFDEF OBJ_Kaos
+OBJECTS = \
+	goal.obj \
+	kaos.obj \
+	metaandorrel.obj \
+	metabinrel.obj \
+	other.obj
 !ENDIF
 
 !IFDEF OBJ_labels

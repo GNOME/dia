@@ -1,5 +1,5 @@
 #    Group Properties Prototype
-#    Copyright (c) 2003, Hans Breuer <hans@breuer.org>
+#    Copyright (c) 2003, 2004 Hans Breuer <hans@breuer.org>
 #
 #        with multiple selected (but not grouped) objects builds a dialog
 #    which contains widgets to change all different properties of the
@@ -66,15 +66,12 @@ class CPropsDialog :
 			w.show()
 			menu = gtk.Menu()
 			milist = None
-			optsAvail = {} # to filter duplicated options
 			for opt in props[s].opts :
 				#print opt
-				if not optsAvail.has_key(str(opt.value)) :
-					menuitem = gtk.RadioMenuItem (milist, str(opt.value))
-					milist = menuitem # GSlist
-					menu.append(menuitem)
-					menuitem.show()
-					optsAvail[str(opt.value)] = 1
+				menuitem = gtk.RadioMenuItem (milist, str(opt.value))
+				milist = menuitem # GSlist
+				menu.append(menuitem)
+				menuitem.show()
 			menu.show ()
 			w = gtk.OptionMenu()
 			w.set_menu(menu)
@@ -111,7 +108,6 @@ class CPropsDialog :
 			if cb.get_active() :
 				for o in grp :
 					s = self.props.keys()[i]
-					#print s, o.properties[s].value
 					o.properties[s] = self.props[s].opts[om.get_history()]
 		self.data.update_extents ()
 		self.diagram.flush()
@@ -159,6 +155,16 @@ def dia_objects_props_cb (data, flags) :
 				break
 		if o1 != None :
 			del allProps[s]
+		else :
+			# if there is something left ensure unique values
+			uniques = {}
+			for o in allProps[s].opts :
+				if uniques.has_key(o.value) :
+					continue
+				uniques[o.value] = o
+			allProps[s].opts = []
+			for v in uniques.keys() :
+				allProps[s].opts.append(uniques[v])
 	# display the dialog
 	dlg = CPropsDialog(d, data, allProps)
 

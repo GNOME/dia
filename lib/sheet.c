@@ -210,7 +210,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
   if (xmlIsBlankNode(root)) return;
 
   if (!(ns = xmlSearchNsByHref(doc,root,
-	   "http://www.lysator.liu.se/~alla/dia/dia-sheet-ns"))) {
+	   DIA_XML_NAME_SPACE_BASE "/dia-sheet-ns"))) {
     g_warning("could not find sheet namespace");
     xmlFreeDoc(doc); 
     return;

@@ -15,8 +15,34 @@ typedef enum
   PS_DASH,
   PS_DOT,
   PS_DASHDOT,
-  PS_DASHDOTDOT
+  PS_DASHDOTDOT,
+  PS_NULL,
+  PS_INSIDEFRAME,
+  PS_USERSTYLE,
+  /* ... */
+  PS_STYLE_MASK = 0x000F,
+
+  PS_ENDCAP_ROUND  = (0<<8),
+  PS_ENDCAP_SQUARE = (1<<8),
+  PS_ENDCAP_FLAT   = (2<<8),
+  PS_ENDCAP_MASK   = (0xF<<8),
+
+  PS_JOIN_ROUND = (0<<12),
+  PS_JOIN_BEVEL = (1<<12),
+  PS_JOIN_MITER = (2<<12),
+  PS_JOIN_MASK  = (0xF<<12),
+
+  PS_COSMETIC = (0<<16),
+  PS_GEOMETRIC = (1<<16),
+  PS_TYPE_MASK = (0xF<<16) 
 } ePenStyle;
+
+typedef enum
+{
+  BS_SOLID = 0,
+  BS_NULL
+  /* ... */
+} eBrushStyle;
 
 typedef enum
 {
@@ -156,6 +182,13 @@ typedef struct
 
 typedef struct
 {
+  wmfint lbStyle;
+  COLORREF lbColor;
+  DWORD lbHatch;
+} LOGBRUSH;
+
+typedef struct
+{
   wmfint Width, Height;
   wmfint Escapement, Orientation;
   wmfint Weight;
@@ -192,7 +225,6 @@ typedef struct _GdiObject
   };
 } * HBRUSH, * HPEN, * HFONT;
 
-typedef struct _MetaFileDeviceContext* HDC;
 typedef struct _MetaFileDeviceContext
 {
   FILE* file;
@@ -202,7 +234,7 @@ typedef struct _MetaFileDeviceContext
   HGDIOBJ hPen;
   HGDIOBJ hBrush;
   HGDIOBJ hFont;
-};
+} * HDC;
 
 HDC GetDC(void* hwnd);
 
@@ -220,6 +252,9 @@ CreateSolidBrush(COLORREF color);
 
 HPEN
 CreatePen(wmfint iStyle, wmfint iWidth, COLORREF color);
+
+HPEN
+ExtCreatePen(wmfint iStyle, wmfint iWidth, LOGBRUSH*, DWORD, DWORD*);
 
 HFONT
 CreateFont(int iWidth, int iHeight, int iEscapement, int iOrientation, int iWeight,
@@ -287,6 +322,11 @@ SetMapMode(HDC hdc, wmfint m);
 
 wmfint
 IntersectClipRect(HDC hdc, wmfint d, wmfint c, wmfint b, wmfint a);
+
+/* This is not really part of GDI, but advanced GDI programming must make
+ * use of the windoze versions, cause win9x GDI is 16 bit only and highly limited ...
+ */
+DWORD GetVersion ();
 
 } /* namespace W32 */
 

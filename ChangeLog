@@ -1,3 +1,68 @@
+2004-07-04  Hans Breuer  <hans@breuer.org>
+
+	* lib/persistence.c app/load_save.c app/sheet_dialog_callbacks.c
+	  lib/object_defaults.c : revert changing of Dia's XML namespace
+	* lib/dia_xml.h : #define DIA_XML_NAME_SPACE_BASE with a comment
+	about its purpose and relation to real world urls.
+
+	* lib/plug-ins.h : increment DIA_PLUGIN_API_VERSION and 
+	added comment about when to o so
+	[Should have been long time ago and probably multiple times
+	to avoid crashing on older plug-ins]
+	* RELEASE-PROCESS : mention DIA_PLUGIN_API_VERSION
+	* plug-ins/xslt/xslt.c : use DIA_PLUGIN_CHECK_INIT
+
+	* lib/object.c objects/UML/class.c : there are still compilers not 
+	supporting C99 and other GCCISMs like allocating dynamic sized arrays 
+	on the stack
+	* objects/UML/class.h : there is a differnce between a list pointer
+	and a list pointer pointer. We and GLib want the former.
+
+	* plug-ins/pixbuf/pixbuf.c : don't use app_is_interactive () to detect
+	if Gtk is initialized. Using gdk_display_get_default () avoids the
+	app/* dependency and is also closer to the requirements of the
+	plug-ins working.
+
+	* plug-ins/cairo/diacairo.c : initialize "unique name" field. Also
+	some #ifdefed support for Cairo backends not public available yet.
+
+	* plug-ins/wmf/wmf.cpp : finally do extended linestyles if the
+	windoze platform supports them. This should fix bug #109818, at
+	least for the majority running NT or above ...
+	* plug-ins/wmf/wmf_gdi.[hc] : portability stuff for the above
+
+	* objects/makefile.msc : build Istar, Jackson and Kaos
+
+	* objects/UML/class.c(umlclass_load) : don't wrap by default to 
+	keep old diagrams as they were - instead of this nice new effect ;-)
+	Also make "wrap_operations" PROP_TYPE_BOOL in PropDescriptions
+
+	* objects/UML/class.c : mark for translation _("Wrap ...
+
+	* objects/UML/class.c : more correct types, also some default properties
+	dialog pages adjustment (triggering a bug in lib/prop_widgets.c ?;)
+
+	* objects/UML/activity.c : removed a leftover from the 
+	use-localization-for-font-substitution-hack
+
+	* shapes/ChemEng shapes/Cybernetic shapes/Map/Isometric :
+	'cvs admin -kb *.png' PNG files should already be *added* as binary,
+	otherwise they are not readable on line-end-converting-platforms
+
+	* plug-ins/python/use g_new0(Dia<Im|Ex>portFiler), avoids crashing 
+	filter_get_by_name()
+
+	* plug-ins/python/pydia-property.c : some more g_warnings for
+	not implemented conversions
+
+	* plug-ins/python/group_props.py : ensure unique property values
+	at the right place. Now something like :
+	- load an old UML class diagram
+	- change one of the classes to wrap operations
+	- select all classes (/Select/Same Type)
+	- /Dialogs/Group Properties : check wrap_operations, select '1'
+	- Ok, works like a charm :-)
+
 2004-07-04  Lars Clausen  <lars@raeder.dk>
 
 	* lib/diagdkrenderer.c (draw_string): Don't unref NULL

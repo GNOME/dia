@@ -223,7 +223,7 @@ PyDia_RegisterExport(PyObject *self, PyObject *args)
 
     Py_INCREF(renderer); /* stay alive, where to kill ?? */
 
-    filter = g_new (DiaExportFilter, 1);
+    filter = g_new0 (DiaExportFilter, 1);
     filter->description = g_strdup (name);
     filter->extensions = g_new (gchar*, 2);
     filter->extensions[0] = g_strdup (ext);
@@ -287,7 +287,7 @@ PyDia_RegisterImport(PyObject *self, PyObject *args)
 
     Py_INCREF(func); /* stay alive, where to kill ?? */
 
-    filter = g_new (DiaImportFilter, 1);
+    filter = g_new0 (DiaImportFilter, 1);
     filter->description = g_strdup (name);
     filter->extensions = g_new (gchar*, 2);
     filter->extensions[0] = g_strdup (ext);
@@ -354,7 +354,7 @@ PyDia_RegisterCallback(PyObject *self, PyObject *args)
 
     Py_INCREF(func); /* stay alive, where to kill ?? */
 
-    filter = g_new (DiaCallbackFilter, 1);
+    filter = g_new0 (DiaCallbackFilter, 1);
     filter->description = g_strdup (desc);
     filter->menupath = g_strdup (menupath);
     filter->callback = &PyDia_callback_func;

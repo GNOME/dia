@@ -66,6 +66,8 @@ static PropDescription *umlclass_describe_props(UMLClass *umlclass);
 static void umlclass_get_props(UMLClass *umlclass, GPtrArray *props);
 static void umlclass_set_props(UMLClass *umlclass, GPtrArray *props);
 
+static void fill_in_fontdata(UMLClass *umlclass);
+
 static ObjectTypeOps umlclass_type_ops =
 {
   (CreateFunc) umlclass_create,
@@ -103,36 +105,73 @@ static PropDescription umlclass_props[] = {
   PROP_STD_TEXT_COLOUR_OPTIONAL,
   PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_STD_FILL_COLOUR_OPTIONAL,
-  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+
+  PROP_STD_NOTEBOOK_BEGIN,
+  PROP_NOTEBOOK_PAGE("class", PROP_FLAG_DONT_MERGE, N_("Class")),
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Name"), NULL, NULL },
-  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Stereotype"), NULL, NULL },
-  { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  { "comment", PROP_TYPE_STRING, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Comment"), NULL, NULL },
-  { "abstract", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "abstract", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Abstract"), NULL, NULL },
-  { "suppress_attributes", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "template", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Template"), NULL, NULL },
+
+  { "suppress_attributes", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Suppress Attributes"), NULL, NULL },
-  { "suppress_operations", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "suppress_operations", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Suppress Operations"), NULL, NULL },
-  { "visible_attributes", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "visible_attributes", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Visible Attributes"), NULL, NULL },
-  { "visible_operations", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "visible_operations", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Visible Operations"), NULL, NULL },
-  { "visible_comments", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "visible_comments", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Visible Comments"), NULL, NULL },
-  { "wrap_operations", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "wrap_operations", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Wrap Operations"), NULL, NULL },
-  { "wrap_after_char", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  { "wrap_after_char", PROP_TYPE_INT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Wrap after char"), NULL, NULL },
-  
+
+  /* all this just to make the defaults selectable ... */
+  PROP_NOTEBOOK_PAGE("font", PROP_FLAG_DONT_MERGE, N_("Font")),
+  PROP_STD_MULTICOL_BEGIN,
+  PROP_MULTICOL_COLUMN("font"),
+  /* FIXME: apparently multicol does not work correctly, this should be FIRST column */
+  { "normal_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Normal"), NULL, NULL },
+  { "polymorphic_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Polymorphic"), NULL, NULL },
+  { "abstract_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Abstract"), NULL, NULL },
+  { "classname_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Classname"), NULL, NULL },
+  { "abstract_classname_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Abstract Classname"), NULL, NULL },
+  { "comment_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_("Comment"), NULL, NULL },
+
+  PROP_MULTICOL_COLUMN("height"),
+  { "normal_font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_(" "), NULL, NULL },
+  { "polymorphic_font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_(" "), NULL, NULL },
+  { "abstract_font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_(" "), NULL, NULL },
+  { "classname_font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_(" "), NULL, NULL },
+  { "abstract_classname_font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_(" "), NULL, NULL },
+  { "comment_font_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
+  N_(" "), NULL, NULL },
+  PROP_STD_MULTICOL_END,
+  PROP_STD_NOTEBOOK_END,
+
   { "attributes", PROP_TYPE_STRINGLIST, PROP_FLAG_DONT_SAVE,
   N_("Attributes"), NULL, NULL }, 
   { "operations", PROP_TYPE_STRINGLIST, PROP_FLAG_DONT_SAVE,
   N_("Operations"), NULL, NULL }, 
-
-  { "template", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
-  N_("Template"), NULL, NULL },
 
   /* formal_params XXX */
 
@@ -149,20 +188,41 @@ umlclass_describe_props(UMLClass *umlclass)
 
 static PropOffset umlclass_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
+
   { "line_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, line_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, fill_color) },
   { "name", PROP_TYPE_STRING, offsetof(UMLClass, name) },
   { "stereotype", PROP_TYPE_STRING, offsetof(UMLClass, stereotype) },
   { "comment", PROP_TYPE_STRING, offsetof(UMLClass, comment) },
-  { "abstract", PROP_TYPE_INT, offsetof(UMLClass , abstract) },
-  { "suppress_attributes", PROP_TYPE_INT, offsetof(UMLClass , suppress_attributes) },
-  { "visible_attributes", PROP_TYPE_INT, offsetof(UMLClass , visible_attributes) },
-  { "visible_comments", PROP_TYPE_INT, offsetof(UMLClass , visible_comments) },
-  { "suppress_operations", PROP_TYPE_INT, offsetof(UMLClass , suppress_operations) },
-  { "visible_operations", PROP_TYPE_INT, offsetof(UMLClass , visible_operations) },
-  { "visible_comments", PROP_TYPE_INT, offsetof(UMLClass , visible_comments) },
-  { "wrap_operations", PROP_TYPE_INT, offsetof(UMLClass , wrap_operations) },
+  { "abstract", PROP_TYPE_BOOL, offsetof(UMLClass, abstract) },
+  { "template", PROP_TYPE_BOOL, offsetof(UMLClass, template) },
+  { "suppress_attributes", PROP_TYPE_BOOL, offsetof(UMLClass , suppress_attributes) },
+  { "visible_attributes", PROP_TYPE_BOOL, offsetof(UMLClass , visible_attributes) },
+  { "visible_comments", PROP_TYPE_BOOL, offsetof(UMLClass , visible_comments) },
+  { "suppress_operations", PROP_TYPE_BOOL, offsetof(UMLClass , suppress_operations) },
+  { "visible_operations", PROP_TYPE_BOOL, offsetof(UMLClass , visible_operations) },
+  { "visible_comments", PROP_TYPE_BOOL, offsetof(UMLClass , visible_comments) },
+  { "wrap_operations", PROP_TYPE_BOOL, offsetof(UMLClass , wrap_operations) },
   { "wrap_after_char", PROP_TYPE_INT, offsetof(UMLClass , wrap_after_char) },
+  
+  /* all this just to make the defaults selectable ... */
+  PROP_OFFSET_STD_MULTICOL_BEGIN,
+  PROP_OFFSET_MULTICOL_COLUMN("font"),
+  { "normal_font", PROP_TYPE_FONT, offsetof(UMLClass, normal_font) },
+  { "abstract_font", PROP_TYPE_FONT, offsetof(UMLClass, abstract_font) },
+  { "polymorphic_font", PROP_TYPE_FONT, offsetof(UMLClass, polymorphic_font) },
+  { "classname_font", PROP_TYPE_FONT, offsetof(UMLClass, classname_font) },
+  { "abstract_classname_font", PROP_TYPE_FONT, offsetof(UMLClass, abstract_classname_font) },
+  { "comment_font", PROP_TYPE_FONT, offsetof(UMLClass, comment_font) },
+
+  PROP_OFFSET_MULTICOL_COLUMN("height"),
+  { "normal_font_height", PROP_TYPE_REAL, offsetof(UMLClass, font_height) },
+  { "abstract_font_height", PROP_TYPE_REAL, offsetof(UMLClass, abstract_font_height) },
+  { "polymorphic_font_height", PROP_TYPE_REAL, offsetof(UMLClass, polymorphic_font_height) },
+  { "classname_font_height", PROP_TYPE_REAL, offsetof(UMLClass, classname_font_height) },
+  { "abstract_classname_font_height", PROP_TYPE_REAL, offsetof(UMLClass, abstract_classname_font_height) },
+  { "comment_font_height", PROP_TYPE_REAL, offsetof(UMLClass, comment_font_height) },
+  PROP_OFFSET_STD_MULTICOL_END,
 
   { "operations", PROP_TYPE_STRINGLIST, offsetof(UMLClass , operations_strings) },
   { "attributes", PROP_TYPE_STRINGLIST, offsetof(UMLClass , attributes_strings) },
@@ -208,6 +268,8 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
 {
   object_set_props_from_offsets(&umlclass->element.object, umlclass_offsets,
                                 props);
+  /* kind of dirty, object_load_props() may leave us in an inconsistent state --hb */
+  fill_in_fontdata(umlclass);
   /* Update data: */
   umlclass_calculate_data(umlclass);
   umlclass_update_data(umlclass);
@@ -439,12 +501,14 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
                              &p1, &p2,
                              &umlclass->line_color);
     if (!umlclass->suppress_operations) {
+      GList *wrapsublist = NULL;
+      gchar *part_opstr;
+      int wrap_pos, last_wrap_pos, ident, wrapping_needed;
+
       p.x = x + UMLCLASS_BORDER/2.0 + 0.1;
       p.y = p1.y + 0.1;
 
-      int wrap_pos, last_wrap_pos, ident, wrapping_needed;
-      GList *wrapsublist = NULL;
-      gchar part_opstr[umlclass->max_wrapped_line_width];
+      part_opstr = g_alloca (umlclass->max_wrapped_line_width);
 
       i = 0;
       list = umlclass->operations;
@@ -467,15 +531,15 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
 
         wrapping_needed = 0;
         opstr = (gchar*) g_list_nth(umlclass->operations_strings, i)->data;
-        if( umlclass->wrap_operations == TRUE) {
+        if( umlclass->wrap_operations ) {
           wrapsublist = (GList*)g_list_nth( umlclass->operations_wrappos, i)->data;
-          wrapping_needed = GPOINTER_TO_INT( wrapsublist->data);
+          wrapping_needed = GPOINTER_TO_INT( wrapsublist->data );
         }
 
         ascent = dia_font_ascent(opstr, font, font_height);
         renderer_ops->set_font(renderer, font, font_height);
         
-        if( umlclass->wrap_operations == TRUE && wrapping_needed) {
+        if( umlclass->wrap_operations && wrapping_needed) {
           
           wrapsublist = g_list_next( wrapsublist);
           ident = GPOINTER_TO_INT( wrapsublist->data);
@@ -725,6 +789,9 @@ umlclass_calculate_data(UMLClass *umlclass)
   GList *list;
   real maxwidth = 0.0;
   real width;
+  int pos_next_comma, pos_brace, wrap_pos, last_wrap_pos, ident, offset, maxlinewidth, length;
+  GList *sublist, *wrapsublist;
+  
 
   if (umlclass->destroyed) return;
   
@@ -830,18 +897,20 @@ umlclass_calculate_data(UMLClass *umlclass)
           umlclass->attributesbox_height = 0.4;
 
   /* operations box: */
+  umlclass->operationsbox_height = 2*0.1;
+  /* neither leak previously calculated strings ... */
   if (umlclass->operations_strings != NULL) {
     g_list_foreach(umlclass->operations_strings, (GFunc)g_free, NULL);
     g_list_free(umlclass->operations_strings);
+    umlclass->operations_strings = NULL;
+  }
+  /* ... nor their wrappings */
+  if (umlclass->operations_wrappos != NULL) {
+    g_list_foreach(umlclass->operations_wrappos, (GFunc)g_list_free, NULL);
+    g_list_free(umlclass->operations_wrappos);
+    umlclass->operations_wrappos = NULL;
   }
 
-  umlclass->operationsbox_height = 2*0.1;
-
-  int pos_next_comma, pos_brace, wrap_pos, last_wrap_pos, ident, offset, maxlinewidth, length;
-  GList *sublist, *wrapsublist;
-  
-  umlclass->operations_strings = NULL;
-  umlclass->operations_wrappos = NULL;
   if (0 != g_list_length(umlclass->operations)) {
     i = 0;
     list = umlclass->operations;
@@ -853,13 +922,14 @@ umlclass_calculate_data(UMLClass *umlclass)
         g_list_append(umlclass->operations_strings, opstr);
       
       length = 0;
-      if( umlclass->wrap_operations == TRUE) {
+      if( umlclass->wrap_operations ) {
       
         length = strlen( (const gchar*)opstr);
         
         sublist = NULL;
         if( length > umlclass->wrap_after_char) {
-          
+          gchar *part_opstr;
+
           sublist = g_list_append( sublist, GINT_TO_POINTER( 1));
           
           /* count maximal line width to create a secure buffer (part_opstr)
@@ -888,7 +958,7 @@ umlclass_calculate_data(UMLClass *umlclass)
           }   
           umlclass->max_wrapped_line_width = MAX( umlclass->max_wrapped_line_width, maxlinewidth+1);
           
-          gchar part_opstr[umlclass->max_wrapped_line_width];
+          part_opstr = g_alloca(umlclass->max_wrapped_line_width);
           pos_next_comma = pos_brace = wrap_pos = offset = 0;
           
           wrapsublist = g_list_next( sublist);
@@ -938,26 +1008,26 @@ umlclass_calculate_data(UMLClass *umlclass)
         umlclass->operations_wrappos = g_list_append( umlclass->operations_wrappos, sublist);
       } 
       
-      if( umlclass->wrap_operations == FALSE || !(length > umlclass->wrap_after_char)) {
-        
-      if (op->inheritance_type == UML_ABSTRACT) {
-        width = dia_font_string_width(opstr,
-                                      umlclass->abstract_font,
-                                      umlclass->abstract_font_height);
-        umlclass->operationsbox_height += umlclass->abstract_font_height;
-      } else if (op->inheritance_type == UML_POLYMORPHIC) {
-        width = dia_font_string_width(opstr,
-                                      umlclass->polymorphic_font,
-                                      umlclass->polymorphic_font_height);
-        umlclass->operationsbox_height += umlclass->polymorphic_font_height;        
-      } else {
-        width = dia_font_string_width(opstr,
-                                      umlclass->normal_font,
-                                      umlclass->font_height);
-        umlclass->operationsbox_height += umlclass->font_height;
-      }
-        
-      maxwidth = MAX(width, maxwidth);
+      if( !umlclass->wrap_operations || !(length > umlclass->wrap_after_char)) {
+
+        if (op->inheritance_type == UML_ABSTRACT) {
+          width = dia_font_string_width(opstr,
+                                        umlclass->abstract_font,
+                                        umlclass->abstract_font_height);
+          umlclass->operationsbox_height += umlclass->abstract_font_height;
+        } else if (op->inheritance_type == UML_POLYMORPHIC) {
+          width = dia_font_string_width(opstr,
+                                        umlclass->polymorphic_font,
+                                        umlclass->polymorphic_font_height);
+          umlclass->operationsbox_height += umlclass->polymorphic_font_height;        
+        } else {
+          width = dia_font_string_width(opstr,
+                                        umlclass->normal_font,
+                                        umlclass->font_height);
+          umlclass->operationsbox_height += umlclass->font_height;
+        }
+          
+        maxwidth = MAX(width, maxwidth);
       
       }
                   
@@ -1509,6 +1579,7 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   int num, num_attr, num_ops;
   GList *list;
   
+
   umlclass = g_malloc0(sizeof(UMLClass));
   elem = &umlclass->element;
   obj = &elem->object;
@@ -1517,7 +1588,10 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   obj->ops = &umlclass_ops;
 
   element_load(elem, obj_node);
-  
+
+  object_load_props(obj,obj_node);
+  /* a bunch of properties still need their own special handling */
+
   /* Class info: */
   umlclass->name = NULL;
   attr_node = object_find_attribute(obj_node, "name");
@@ -1564,7 +1638,8 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   if (attr_node != NULL)
     umlclass->visible_comments = data_boolean(attribute_first_data(attr_node));
 
-  umlclass->wrap_operations = TRUE;
+  /* new since 0.94, don't wrap by default to keep old diagrams intact */
+  umlclass->wrap_operations = FALSE;
   attr_node = object_find_attribute(obj_node, "wrap_operations");
   if (attr_node != NULL)
     umlclass->wrap_operations = data_boolean(attribute_first_data(attr_node));
@@ -1598,66 +1673,6 @@ static DiaObject *umlclass_load(ObjectNode obj_node, int version,
   attr_node = object_find_attribute(obj_node, "text_color");
   if(attr_node != NULL)
     data_color(attribute_first_data(attr_node), &umlclass->text_color); 
-
-  umlclass->normal_font = NULL;
-  attr_node = object_find_attribute (obj_node, "normal_font");
-  if (attr_node != NULL)
-          umlclass->normal_font = data_font (attribute_first_data (attr_node));
-
-  umlclass->abstract_font = NULL;
-  attr_node = object_find_attribute (obj_node, "abstract_font");
-  if (attr_node != NULL)
-          umlclass->abstract_font = data_font (attribute_first_data (attr_node));
-
-  umlclass->polymorphic_font = NULL;
-  attr_node = object_find_attribute (obj_node, "polymorphic_font");
-  if (attr_node != NULL)
-          umlclass->polymorphic_font = data_font (attribute_first_data (attr_node));
-
-  umlclass->classname_font = NULL;
-  attr_node = object_find_attribute (obj_node, "classname_font");
-  if (attr_node != NULL)
-          umlclass->classname_font = data_font (attribute_first_data (attr_node));
-
-  umlclass->abstract_classname_font = NULL;
-  attr_node = object_find_attribute (obj_node, "abstract_classname_font");
-  if (attr_node != NULL)
-          umlclass->abstract_classname_font = data_font (attribute_first_data (attr_node));
-
-  umlclass->comment_font = NULL;
-  attr_node = object_find_attribute (obj_node, "comment_font");
-  if (attr_node != NULL)
-          umlclass->comment_font = data_font (attribute_first_data (attr_node));
-
-  umlclass->font_height = 0.0;
-  attr_node = object_find_attribute (obj_node, "font_height");
-  if (attr_node != NULL)
-          umlclass->font_height = data_real (attribute_first_data (attr_node));
-
-  umlclass->abstract_font_height = 0.0;
-  attr_node = object_find_attribute (obj_node, "abstract_font_height");
-  if (attr_node != NULL)
-          umlclass->abstract_font_height = data_real (attribute_first_data (attr_node));
-
-  umlclass->polymorphic_font_height = 0.0;
-  attr_node = object_find_attribute (obj_node, "polymorphic_font_height");
-  if (attr_node != NULL)
-          umlclass->polymorphic_font_height = data_real (attribute_first_data (attr_node));
-
-  umlclass->classname_font_height = 0.0;
-  attr_node = object_find_attribute (obj_node, "classname_font_height");
-  if (attr_node != NULL)
-          umlclass->classname_font_height = data_real (attribute_first_data (attr_node));
-
-  umlclass->abstract_classname_font_height = 0.0;
-  attr_node = object_find_attribute (obj_node, "abstract_classname_font_height");
-  if (attr_node != NULL)
-          umlclass->abstract_classname_font_height = data_real (attribute_first_data (attr_node));
-
-  umlclass->comment_font_height = 0.0;
-  attr_node = object_find_attribute (obj_node, "comment_font_height");
-  if (attr_node != NULL)
-          umlclass->comment_font_height = data_real (attribute_first_data (attr_node));
 
   /* Attribute info: */
   attr_node = object_find_attribute(obj_node, "attributes");

@@ -397,7 +397,7 @@ dia_object_defaults_save (const gchar *filename)
   doc->xmlRootNode = xmlNewDocNode(doc, NULL, "diagram", NULL);
 
   ni.name_space = xmlNewNs(doc->xmlRootNode, 
-                           "http://www.gnome.org/projects/dia",
+                           DIA_XML_NAME_SPACE_BASE,
 			   "dia");
   xmlSetNs(doc->xmlRootNode, ni.name_space);
 
