@@ -40,6 +40,13 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
+/* used when resizing to decide which side of the shape to expand/shrink */
+typedef enum {
+  ANCHOR_MIDDLE,
+  ANCHOR_START,
+  ANCHOR_END
+} AnchorShape;
+
 typedef struct _Diamond Diamond;
 typedef struct _DiamondPropertiesDialog DiamondPropertiesDialog;
 typedef struct _DiamondDefaultsDialog DiamondDefaultsDialog;
@@ -126,7 +133,7 @@ static void diamond_move_handle(Diamond *diamond, Handle *handle,
 			    ModifierKeys modifiers);
 static void diamond_move(Diamond *diamond, Point *to);
 static void diamond_draw(Diamond *diamond, Renderer *renderer);
-static void diamond_update_data(Diamond *diamond);
+static void diamond_update_data(Diamond *diamond, AnchorShape h,AnchorShape v);
 static Object *diamond_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
@@ -212,7 +219,7 @@ diamond_apply_properties(Diamond *diamond)
   dia_color_selector_get_color(diamond_properties_dialog->font_color, &col);
   text_set_color(diamond->text, &col);
   
-  diamond_update_data(diamond);
+  diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
   return new_object_state_change((Object *)diamond, old_state, 
 				 (GetStateFunc)diamond_get_state,
 				 (SetStateFunc)diamond_set_state);
@@ -554,13 +561,35 @@ static void
 diamond_move_handle(Diamond *diamond, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
+
   assert(diamond!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
   element_move_handle(&diamond->element, handle->id, to, reason);
 
-  diamond_update_data(diamond);
+  switch (handle->id) {
+  case HANDLE_RESIZE_NW:
+    horiz = ANCHOR_END; vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_N:
+    vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_NE:
+    horiz = ANCHOR_START; vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_E:
+    horiz = ANCHOR_START; break;
+  case HANDLE_RESIZE_SE:
+    horiz = ANCHOR_START; vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_S:
+    vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_SW:
+    horiz = ANCHOR_END; vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_W:
+    horiz = ANCHOR_END; break;
+  default:
+    break;
+  }
+  diamond_update_data(diamond, horiz, vert);
 }
 
 static void
@@ -568,7 +597,7 @@ diamond_move(Diamond *diamond, Point *to)
 {
   diamond->element.corner = *to;
   
-  diamond_update_data(diamond);
+  diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
 static void
@@ -640,18 +669,26 @@ diamond_set_state(Diamond *diamond, DiamondState *state)
 
   g_free(state);
   
-  diamond_update_data(diamond);
+  diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
 
 static void
-diamond_update_data(Diamond *diamond)
+diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &diamond->element;
   Object *obj = (Object *) diamond;
+  Point center, bottom_right;
   Point p;
   real dw, dh;
   real width, height;
+
+  /* save starting points */
+  center = bottom_right = elem->corner;
+  center.x += elem->width/2;
+  bottom_right.x += elem->width;
+  center.y += elem->height/2;
+  bottom_right.y += elem->height;
 
   width = diamond->text->max_width + 2*diamond->padding+diamond->border_width;
   height = diamond->text->height * diamond->text->numlines +
@@ -664,6 +701,20 @@ diamond_update_data(Diamond *diamond)
     if (grad > 4)     grad = 4;
     elem->width  = width  + height * grad;
     elem->height = height + width  / grad;
+  }
+
+  /* move shape if necessary ... */
+  switch (horiz) {
+  case ANCHOR_MIDDLE:
+    elem->corner.x = center.x - elem->width/2; break;
+  case ANCHOR_END:
+    elem->corner.x = bottom_right.x - elem->width; break;
+  }
+  switch (vert) {
+  case ANCHOR_MIDDLE:
+    elem->corner.y = center.y - elem->height/2; break;
+  case ANCHOR_END:
+    elem->corner.y = bottom_right.y - elem->height; break;
   }
 
   p = elem->corner;
@@ -770,7 +821,7 @@ diamond_create(Point *startpoint,
     diamond->connections[i].connected = NULL;
   }
 
-  diamond_update_data(diamond);
+  diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
@@ -903,7 +954,7 @@ diamond_load(ObjectNode obj_node, int version, const char *filename)
     diamond->connections[i].connected = NULL;
   }
 
-  diamond_update_data(diamond);
+  diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return (Object *)diamond;
 }

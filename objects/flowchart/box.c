@@ -40,6 +40,12 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
+typedef enum {
+  ANCHOR_MIDDLE,
+  ANCHOR_START,
+  ANCHOR_END
+} AnchorShape;
+
 typedef struct _Box Box;
 typedef struct _BoxPropertiesDialog BoxPropertiesDialog;
 typedef struct _BoxDefaultsDialog BoxDefaultsDialog;
@@ -131,7 +137,7 @@ static void box_move_handle(Box *box, Handle *handle,
 			    ModifierKeys modifiers);
 static void box_move(Box *box, Point *to);
 static void box_draw(Box *box, Renderer *renderer);
-static void box_update_data(Box *box);
+static void box_update_data(Box *box, AnchorShape horix, AnchorShape vert);
 static Object *box_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
@@ -218,7 +224,7 @@ box_apply_properties(Box *box)
   dia_color_selector_get_color(box_properties_dialog->font_color, &col);
   text_set_color(box->text, &col);
   
-  box_update_data(box);
+  box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
   return new_object_state_change((Object *)box, old_state, 
 				 (GetStateFunc)box_get_state,
 				 (SetStateFunc)box_set_state);
@@ -583,13 +589,35 @@ static void
 box_move_handle(Box *box, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
+
   assert(box!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
   element_move_handle(&box->element, handle->id, to, reason);
 
-  box_update_data(box);
+  switch (handle->id) {
+  case HANDLE_RESIZE_NW:
+    horiz = ANCHOR_END; vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_N:
+    vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_NE:
+    horiz = ANCHOR_START; vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_E:
+    horiz = ANCHOR_START; break;
+  case HANDLE_RESIZE_SE:
+    horiz = ANCHOR_START; vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_S:
+    vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_SW:
+    horiz = ANCHOR_END; vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_W:
+    horiz = ANCHOR_END; break;
+  default:
+    break;
+  }
+  box_update_data(box, horiz, vert);
 }
 
 static void
@@ -597,7 +625,7 @@ box_move(Box *box, Point *to)
 {
   box->element.corner = *to;
   
-  box_update_data(box);
+  box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
 static void
@@ -747,18 +775,26 @@ box_set_state(Box *box, BoxState *state)
 
   g_free(state);
   
-  box_update_data(box);
+  box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
 
 static void
-box_update_data(Box *box)
+box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &box->element;
   Object *obj = (Object *) box;
+  Point center, bottom_right;
   Point p;
   real radius;
   real width, height;
+
+  /* save starting points */
+  center = bottom_right = elem->corner;
+  center.x += elem->width/2;
+  bottom_right.x += elem->width;
+  center.y += elem->height/2;
+  bottom_right.y += elem->height;
 
   width = box->text->max_width + box->padding*2 + box->border_width;
   height = box->text->height * box->text->numlines + box->padding*2 +
@@ -766,6 +802,20 @@ box_update_data(Box *box)
 
   if (width > elem->width) elem->width = width;
   if (height > elem->height) elem->height = height;
+
+  /* move shape if necessary ... */
+  switch (horiz) {
+  case ANCHOR_MIDDLE:
+    elem->corner.x = center.x - elem->width/2; break;
+  case ANCHOR_END:
+    elem->corner.x = bottom_right.x - elem->width; break;
+  }
+  switch (vert) {
+  case ANCHOR_MIDDLE:
+    elem->corner.y = center.y - elem->height/2; break;
+  case ANCHOR_END:
+    elem->corner.y = bottom_right.y - elem->height; break;
+  }
   
   p = elem->corner;
   p.x += elem->width / 2.0;
@@ -887,7 +937,7 @@ box_create(Point *startpoint,
     box->connections[i].connected = NULL;
   }
 
-  box_update_data(box);
+  box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
@@ -1030,7 +1080,7 @@ box_load(ObjectNode obj_node, int version, const char *filename)
     box->connections[i].connected = NULL;
   }
 
-  box_update_data(box);
+  box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return (Object *)box;
 }

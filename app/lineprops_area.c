@@ -509,6 +509,7 @@ dia_arrow_chooser_init (DiaArrowChooser *arrow)
   wid = gtk_button_new_with_label(_("OK"));
   GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
   gtk_container_add(GTK_CONTAINER(GTK_DIALOG(arrow->dialog)->action_area),wid);
+  gtk_widget_grab_default(wid);
   gtk_signal_connect_object(GTK_OBJECT(wid), "clicked",
 			    GTK_SIGNAL_FUNC(dia_arrow_chooser_dialog_ok),
 			    GTK_OBJECT(arrow));
@@ -706,6 +707,7 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
   gtk_container_add(GTK_CONTAINER(GTK_DIALOG(lchooser->dialog)->action_area),
 		    wid);
+  gtk_widget_grab_default(wid);
   gtk_signal_connect_object(GTK_OBJECT(wid), "clicked",
 			    GTK_SIGNAL_FUNC(dia_line_chooser_dialog_ok),
 			    GTK_OBJECT(lchooser));

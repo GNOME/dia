@@ -41,6 +41,13 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
+/* used when resizing to decide which side of the shape to expand/shrink */
+typedef enum {
+  ANCHOR_MIDDLE,
+  ANCHOR_START,
+  ANCHOR_END
+} AnchorShape;
+
 typedef struct _Custom Custom;
 typedef struct _CustomPropertiesDialog CustomPropertiesDialog;
 typedef struct _CustomDefaultsDialog CustomDefaultsDialog;
@@ -136,7 +143,7 @@ static void custom_move_handle(Custom *custom, Handle *handle,
 			    ModifierKeys modifiers);
 static void custom_move(Custom *custom, Point *to);
 static void custom_draw(Custom *custom, Renderer *renderer);
-static void custom_update_data(Custom *custom);
+static void custom_update_data(Custom *custom, AnchorShape h, AnchorShape v);
 static Object *custom_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
@@ -227,7 +234,7 @@ custom_apply_properties(Custom *custom)
     text_set_color(custom->text, &col);
   }
   
-  custom_update_data(custom);
+  custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
   return new_object_state_change((Object *)custom, old_state, 
 				 (GetStateFunc)custom_get_state,
 				 (SetStateFunc)custom_set_state);
@@ -604,13 +611,35 @@ static void
 custom_move_handle(Custom *custom, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
+
   assert(custom!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
   element_move_handle(&custom->element, handle->id, to, reason);
 
-  custom_update_data(custom);
+  switch (handle->id) {
+  case HANDLE_RESIZE_NW:
+    horiz = ANCHOR_END; vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_N:
+    vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_NE:
+    horiz = ANCHOR_START; vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_E:
+    horiz = ANCHOR_START; break;
+  case HANDLE_RESIZE_SE:
+    horiz = ANCHOR_START; vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_S:
+    vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_SW:
+    horiz = ANCHOR_END; vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_W:
+    horiz = ANCHOR_END; break;
+  default:
+    break;
+  }
+  custom_update_data(custom, horiz, vert);
 }
 
 static void
@@ -618,7 +647,7 @@ custom_move(Custom *custom, Point *to)
 {
   custom->element.corner = *to;
   
-  custom_update_data(custom);
+  custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
 static void
@@ -766,19 +795,27 @@ custom_set_state(Custom *custom, CustomState *state)
 
   g_free(state);
   
-  custom_update_data(custom);
+  custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
 
 static void
-custom_update_data(Custom *custom)
+custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &custom->element;
   ShapeInfo *info = custom->info;
   Object *obj = (Object *) custom;
+  Point center, bottom_right;
   Point p;
   Rectangle tb;
   int i;
+
+  /* save starting points */
+  center = bottom_right = elem->corner;
+  center.x += elem->width/2;
+  bottom_right.x += elem->width;
+  center.y += elem->height/2;
+  bottom_right.y += elem->height;
 
   /* update the translation coefficients first ... */
   custom->xscale = elem->width / (info->shape_bounds.right -
@@ -814,6 +851,21 @@ custom_update_data(Custom *custom)
       elem->height *= xscale;
     }
   }
+
+  /* move shape if necessary ... */
+  switch (horiz) {
+  case ANCHOR_MIDDLE:
+    elem->corner.x = center.x - elem->width/2; break;
+  case ANCHOR_END:
+    elem->corner.x = bottom_right.x - elem->width; break;
+  }
+  switch (vert) {
+  case ANCHOR_MIDDLE:
+    elem->corner.y = center.y - elem->height/2; break;
+  case ANCHOR_END:
+    elem->corner.y = bottom_right.y - elem->height; break;
+  }
+
   /* update transformation coefficients after the possible resize ... */
   custom->xscale = elem->width / (info->shape_bounds.right -
 				  info->shape_bounds.left);
@@ -932,7 +984,7 @@ custom_create(Point *startpoint,
     custom->connections[i].connected = NULL;
   }
 
-  custom_update_data(custom);
+  custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
@@ -1080,7 +1132,7 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
     custom->connections[i].connected = NULL;
   }
 
-  custom_update_data(custom);
+  custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return (Object *)custom;
 }

@@ -1,3 +1,20 @@
+1999-08-24  James Henstridge  <james@daa.com.au>
+
+	* objects/flowchart/ellipse.c (ellipse_update_data): made some changes
+	to try to stop ellipse to get infinite width/height when we resize,
+	while trying to keep the text inside the ellipse.
+
+	* objects/flowchart/box.c, objects/flowchart/parallelogram.c,
+	* objects/flowchart/diamond.c, objects/flowchart/ellipse.c: fixed
+	resizing behaviour, so that you can't push objects round the screen
+	with the resize handles.
+
+	* app/lineprops_area.c (dia_arrow_chooser_init, dia_line_chooser_init):
+	get the OK buttons in the dialogs to take default clicks.
+
+	* objects/custom/custom_object.c: added code so that resizing the
+	shape does not end up pushing it round the screen.
+
 1999-08-23  Alexander Larsson  <alla@lysator.liu.se>
 
         * app/display.[ch]:

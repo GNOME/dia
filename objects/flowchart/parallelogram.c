@@ -36,6 +36,13 @@
 
 #include "pixmaps/pgram.xpm"
 
+/* used when resizing to decide which side of the shape to expand/shrink */
+typedef enum {
+  ANCHOR_MIDDLE,
+  ANCHOR_START,
+  ANCHOR_END
+} AnchorShape;
+
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
@@ -131,7 +138,7 @@ static void pgram_move_handle(Pgram *pgram, Handle *handle,
 			    ModifierKeys modifiers);
 static void pgram_move(Pgram *pgram, Point *to);
 static void pgram_draw(Pgram *pgram, Renderer *renderer);
-static void pgram_update_data(Pgram *pgram);
+static void pgram_update_data(Pgram *pgram, AnchorShape h, AnchorShape v);
 static Object *pgram_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
@@ -219,7 +226,7 @@ pgram_apply_properties(Pgram *pgram)
   dia_color_selector_get_color(pgram_properties_dialog->font_color, &col);
   text_set_color(pgram->text, &col);
   
-  pgram_update_data(pgram);
+  pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
   return new_object_state_change((Object *)pgram, old_state, 
 				 (GetStateFunc)pgram_get_state,
 				 (SetStateFunc)pgram_set_state);
@@ -595,13 +602,35 @@ static void
 pgram_move_handle(Pgram *pgram, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
+
   assert(pgram!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
   element_move_handle(&pgram->element, handle->id, to, reason);
 
-  pgram_update_data(pgram);
+  switch (handle->id) {
+  case HANDLE_RESIZE_NW:
+    horiz = ANCHOR_END; vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_N:
+    vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_NE:
+    horiz = ANCHOR_START; vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_E:
+    horiz = ANCHOR_START; break;
+  case HANDLE_RESIZE_SE:
+    horiz = ANCHOR_START; vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_S:
+    vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_SW:
+    horiz = ANCHOR_END; vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_W:
+    horiz = ANCHOR_END; break;
+  default:
+    break;
+  }
+  pgram_update_data(pgram, horiz, vert);
 }
 
 static void
@@ -609,7 +638,7 @@ pgram_move(Pgram *pgram, Point *to)
 {
   pgram->element.corner = *to;
   
-  pgram_update_data(pgram);
+  pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
 static void
@@ -692,18 +721,26 @@ pgram_set_state(Pgram *pgram, PgramState *state)
 
   g_free(state);
   
-  pgram_update_data(pgram);
+  pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
 
 static void
-pgram_update_data(Pgram *pgram)
+pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &pgram->element;
   Object *obj = (Object *) pgram;
+  Point center, bottom_right;
   Point p;
   real offs;
   real width, height;
+
+  /* save starting points */
+  center = bottom_right = elem->corner;
+  center.x += elem->width/2;
+  bottom_right.x += elem->width;
+  center.y += elem->height/2;
+  bottom_right.y += elem->height;
 
   /* this takes the shearing of the parallelogram into account, so the
    * text can be extend to the edges of the parallelogram */
@@ -716,6 +753,20 @@ pgram_update_data(Pgram *pgram)
 			       * pgram->text->numlines);
   if (width > elem->width) elem->width = width;
   
+  /* move shape if necessary ... */
+  switch (horiz) {
+  case ANCHOR_MIDDLE:
+    elem->corner.x = center.x - elem->width/2; break;
+  case ANCHOR_END:
+    elem->corner.x = bottom_right.x - elem->width; break;
+  }
+  switch (vert) {
+  case ANCHOR_MIDDLE:
+    elem->corner.y = center.y - elem->height/2; break;
+  case ANCHOR_END:
+    elem->corner.y = bottom_right.y - elem->height; break;
+  }
+
   p = elem->corner;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - pgram->text->height * pgram->text->numlines / 2 +
@@ -853,7 +904,7 @@ pgram_create(Point *startpoint,
     pgram->connections[i].connected = NULL;
   }
 
-  pgram_update_data(pgram);
+  pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
@@ -997,7 +1048,7 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
     pgram->connections[i].connected = NULL;
   }
 
-  pgram_update_data(pgram);
+  pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return (Object *)pgram;
 }

@@ -40,6 +40,13 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
+/* used when resizing to decide which side of the shape to expand/shrink */
+typedef enum {
+  ANCHOR_MIDDLE,
+  ANCHOR_START,
+  ANCHOR_END
+} AnchorShape;
+
 typedef struct _Ellipse Ellipse;
 typedef struct _EllipsePropertiesDialog EllipsePropertiesDialog;
 typedef struct _EllipseDefaultsDialog EllipseDefaultsDialog;
@@ -126,7 +133,7 @@ static void ellipse_move_handle(Ellipse *ellipse, Handle *handle,
 			    ModifierKeys modifiers);
 static void ellipse_move(Ellipse *ellipse, Point *to);
 static void ellipse_draw(Ellipse *ellipse, Renderer *renderer);
-static void ellipse_update_data(Ellipse *ellipse);
+static void ellipse_update_data(Ellipse *ellipse, AnchorShape h,AnchorShape v);
 static Object *ellipse_create(Point *startpoint,
 			  void *user_data,
 			  Handle **handle1,
@@ -212,7 +219,7 @@ ellipse_apply_properties(Ellipse *ellipse)
   dia_color_selector_get_color(ellipse_properties_dialog->font_color, &col);
   text_set_color(ellipse->text, &col);
   
-  ellipse_update_data(ellipse);
+  ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
   return new_object_state_change((Object *)ellipse, old_state, 
 				 (GetStateFunc)ellipse_get_state,
 				 (SetStateFunc)ellipse_set_state);
@@ -552,13 +559,35 @@ static void
 ellipse_move_handle(Ellipse *ellipse, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
+
   assert(ellipse!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
   element_move_handle(&ellipse->element, handle->id, to, reason);
 
-  ellipse_update_data(ellipse);
+  switch (handle->id) {
+  case HANDLE_RESIZE_NW:
+    horiz = ANCHOR_END; vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_N:
+    vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_NE:
+    horiz = ANCHOR_START; vert = ANCHOR_END; break;
+  case HANDLE_RESIZE_E:
+    horiz = ANCHOR_START; break;
+  case HANDLE_RESIZE_SE:
+    horiz = ANCHOR_START; vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_S:
+    vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_SW:
+    horiz = ANCHOR_END; vert = ANCHOR_START; break;
+  case HANDLE_RESIZE_W:
+    horiz = ANCHOR_END; break;
+  default:
+    break;
+  }
+  ellipse_update_data(ellipse, horiz, vert);
 }
 
 static void
@@ -566,7 +595,7 @@ ellipse_move(Ellipse *ellipse, Point *to)
 {
   ellipse->element.corner = *to;
   
-  ellipse_update_data(ellipse);
+  ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
 static void
@@ -633,24 +662,38 @@ ellipse_set_state(Ellipse *ellipse, EllipseState *state)
 
   g_free(state);
   
-  ellipse_update_data(ellipse);
+  ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
 
 static void
-ellipse_update_data(Ellipse *ellipse)
+ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &ellipse->element;
   Object *obj = (Object *) ellipse;
+  Point center, bottom_right;
   Point p, c;
   real dw, dh;
   real width, height;
   real radius1, radius2;
   int i;
 
+  /* save starting points */
+  center = bottom_right = elem->corner;
+  center.x += elem->width/2;
+  bottom_right.x += elem->width;
+  center.y += elem->height/2;
+  bottom_right.y += elem->height;
+
   width = ellipse->text->max_width + 2 * ellipse->padding;
   height = ellipse->text->height * ellipse->text->numlines +
     2 * ellipse->padding;
+
+  /* stop ellipse from getting infinite width/height */
+  if (elem->width / elem->height > 4)
+    elem->width = elem->height * 4;
+  else if (elem->height / elem->width > 4)
+    elem->height = elem->width * 4;
 
   c.x = elem->corner.x + elem->width / 2;
   c.y = elem->corner.y + elem->height / 2;
@@ -660,9 +703,23 @@ ellipse_update_data(Ellipse *ellipse)
   radius2 = distance_point_point(&c, &p);
   
   if (radius1 < radius2) {
-    /* increase size of the parallelogram while keeping its aspect ratio */
+    /* increase size of the ellipse while keeping its aspect ratio */
     elem->width  *= radius2 / radius1;
     elem->height *= radius2 / radius1;
+  }
+
+  /* move shape if necessary ... */
+  switch (horiz) {
+  case ANCHOR_MIDDLE:
+    elem->corner.x = center.x - elem->width/2; break;
+  case ANCHOR_END:
+    elem->corner.x = bottom_right.x - elem->width; break;
+  }
+  switch (vert) {
+  case ANCHOR_MIDDLE:
+    elem->corner.y = center.y - elem->height/2; break;
+  case ANCHOR_END:
+    elem->corner.y = bottom_right.y - elem->height; break;
   }
 
   p = elem->corner;
@@ -744,7 +801,7 @@ ellipse_create(Point *startpoint,
     ellipse->connections[i].connected = NULL;
   }
 
-  ellipse_update_data(ellipse);
+  ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
@@ -877,7 +934,7 @@ ellipse_load(ObjectNode obj_node, int version, const char *filename)
     ellipse->connections[i].connected = NULL;
   }
 
-  ellipse_update_data(ellipse);
+  ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return (Object *)ellipse;
 }
