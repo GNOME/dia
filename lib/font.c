@@ -45,12 +45,14 @@
  * Author: Federico Mena <federico@nuclecu.unam.mx>
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> /* strlen */
 
-#include "config.h"
 #include "intl.h"
 #include "utils.h"
 #include "font.h"

@@ -19,7 +19,6 @@
 #define UTILS_H
 
 #include <stdarg.h>
-#include "config.h"
 
 int nearest_pow (int num);
 int format_string_length_upper_bound (const char* fmt,

@@ -22,6 +22,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
  
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <stdio.h>
 /* Information used here is taken from the FIG Format 3.2 specification
    <URL:http://www.xfig.org/userman/fig-format.html>
@@ -36,7 +40,6 @@
 #include <errno.h>
 #include <locale.h>
 
-#include "config.h"
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"

@@ -4,6 +4,7 @@
   <name>Flowchart</name>
   <name xml:lang="de">Fluﬂdiagramm</name>
   <name xml:lang="hu">Folyamat·bra</name>
+  <name xml:lang="no">Flytdiagram</name>
   <description xml:lang="no">Objekter som brukes til Â tegne flytdiagrammer</description>
   <description xml:lang="fr">Objets pour dessiner des graphes de flux</description>
   <description xml:lang="de">Objekte um Fluﬂdiagramme zu zeichnen</description>

@@ -40,7 +40,6 @@
 /* this matches the setting `100%' setting in dia. */
 #define DPCM 20
 
-#include "config.h"
 #include <tree.h>
 #include "geometry.h"
 #include "render.h"

@@ -20,13 +20,16 @@
  * please send e-mail to David Thompson <dcthomp@mail.utexas.edu>
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <assert.h>
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
 
-#include "config.h"
 #include "intl.h"
 #include "object.h"
 #include "objchange.h"

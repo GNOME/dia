@@ -20,7 +20,6 @@
 
 #include <gtk/gtk.h>
 
-#include "config.h"
 #ifdef GNOME
 #include <gnome.h>
 #endif

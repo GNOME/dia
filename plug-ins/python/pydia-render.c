@@ -1,6 +1,6 @@
+#include "config.h"
 #include <glib.h>
 
-#include "config.h"
 
 #include "intl.h"
 #include "message.h"

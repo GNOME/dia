@@ -33,12 +33,12 @@
  *   before / on the way ...)
  */
 
+#include "config.h"
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <glib.h>
 
-#include "config.h"
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"

@@ -27,12 +27,15 @@
  *   to be used by simple format renderers; move them to libdia?
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <glib.h>
 
-#include "config.h"
 #include "intl.h"
 #include "message.h"
 #include "geometry.h"

@@ -1,8 +1,6 @@
 #ifndef INTL_H
 #define INTL_H
 
-#include "config.h"
-
 #include <glib.h>
 #ifdef GNOME
 #  include <gnome.h>

@@ -18,7 +18,6 @@
 #ifndef DIA_XML_H
 #define DIA_XML_H
 
-#include "config.h"
 #include <glib.h>
 #include "geometry.h"
 #include "color.h"

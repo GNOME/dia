@@ -35,7 +35,6 @@
 #define childs children
 #endif
 
-#include "config.h"
 #include <tree.h>
 #include "geometry.h"
 #include "render.h"

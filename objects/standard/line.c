@@ -16,11 +16,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <assert.h>
 #include <gtk/gtk.h>
 #include <math.h>
 
-#include "config.h"
 #include "intl.h"
 #include "object.h"
 #include "connection.h"

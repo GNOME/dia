@@ -26,8 +26,6 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include "config.h"
-
 #include "geometry.h"
 #include "font.h"
 #include "text.h"

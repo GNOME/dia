@@ -1,3 +1,11 @@
+2001-02-23  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* */*.c: #incude <config.h> at the top.
+	* */*.h: Remove include of "config.h" since it should only
+	be included in .c files and at the very top for things to
+	work.
+	* sheets/*.sheet: Updated Norwegian translations.
+	
 2001-02-22  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* objects/UML/small_package.c: 
