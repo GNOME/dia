@@ -28,8 +28,12 @@
 #include <libart_lgpl/art_misc.h>
 #include <libart_lgpl/art_affine.h>
 #include <libart_lgpl/art_svp_vpath.h>
+#include <libart_lgpl/art_bpath.h>
+#include <libart_lgpl/art_vpath_bpath.h>
 #include <libart_lgpl/art_rgb.h>
 #include <libart_lgpl/art_rgb_svp.h>
+#include <libart_lgpl/art_rgb_affine.h>
+#include <libart_lgpl/art_filterlevel.h>
 
 static void begin_render(RendererLibart *renderer, DiagramData *data);
 static void end_render(RendererLibart *renderer);
@@ -935,23 +939,168 @@ fill_ellipse(RendererLibart *renderer,
 static void
 draw_bezier(RendererLibart *renderer, 
 	    BezPoint *points,
-	    int numpoints, /* numpoints = 4+3*n, n=>0 */
-	    Color *color)
+	    int numpoints, 
+	    Color *line_color)
 {
   DDisplay *ddisp = renderer->ddisp;
+  ArtVpath *vpath, *vpath_dashed;
+  ArtBpath *bpath;
+  ArtSVP *svp;
+  guint32 rgba;
+  double x,y;
   int i;
+
+  rgba = color_to_rgba(line_color);
   
+  bpath = art_new (ArtBpath, numpoints+1);
+
+  for (i=0;i<numpoints;i++) {
+    switch(points[i].type) {
+    case BEZ_MOVE_TO:
+      ddisplay_transform_coords_double(ddisp,
+				       points[i].p1.x, points[i].p1.y,
+				       &x, &y);
+      bpath[i].code = ART_MOVETO;
+      bpath[i].x3 = x;
+      bpath[i].y3 = y;
+      break;
+    case BEZ_LINE_TO:
+      ddisplay_transform_coords_double(ddisp,
+				       points[i].p1.x, points[i].p1.y,
+				       &x, &y);
+      bpath[i].code = ART_LINETO;
+      bpath[i].x3 = x;
+      bpath[i].y3 = y;
+      break;
+    case BEZ_CURVE_TO:
+      bpath[i].code = ART_CURVETO;
+      ddisplay_transform_coords_double(ddisp,
+				       points[i].p1.x, points[i].p1.y,
+				       &x, &y);
+      bpath[i].x1 = x;
+      bpath[i].y1 = y;
+      ddisplay_transform_coords_double(ddisp,
+				       points[i].p2.x, points[i].p2.y,
+				       &x, &y);
+      bpath[i].x2 = x;
+      bpath[i].y2 = y;
+      ddisplay_transform_coords_double(ddisp,
+				       points[i].p3.x, points[i].p3.y,
+				       &x, &y);
+      bpath[i].x3 = x;
+      bpath[i].y3 = y;
+      break;
+    }
+  }
+  bpath[i].code = ART_END;
+  bpath[i].x1 = 0;
+  bpath[i].y1 = 0;
+
+  vpath = art_bez_path_to_vec(bpath, 0.25);
+  art_free(bpath);
+  
+  if (renderer->dash_enabled) {
+    vpath_dashed = art_vpath_dash(vpath, &renderer->dash);
+    art_free( vpath );
+    vpath = vpath_dashed;
+  }
+
+  svp = art_svp_vpath_stroke (vpath,
+			      renderer->join_style,
+			      renderer->cap_style,
+			      renderer->line_width,
+			      4,
+			      0.25);
+  
+  art_free( vpath );
+  
+  art_rgb_svp_alpha (svp,
+		     0, 0, 
+		     renderer->renderer.pixel_width,
+		     renderer->renderer.pixel_height,
+		     rgba,
+		     renderer->rgb_buffer, renderer->renderer.pixel_width*3,
+		     NULL);
+
+  art_svp_free( svp );
 }
 
 static void
 fill_bezier(RendererLibart *renderer, 
 	    BezPoint *points, /* Last point must be same as first point */
-	    int numpoints, /* numpoints = 4+3*n, n=>0 */
+	    int numpoints, 
 	    Color *color)
 {
   DDisplay *ddisp = renderer->ddisp;
+  ArtVpath *vpath;
+  ArtBpath *bpath;
+  ArtSVP *svp;
+  guint32 rgba;
+  double x,y;
   int i;
+
+  rgba = color_to_rgba(color);
   
+  bpath = art_new (ArtBpath, numpoints+1);
+
+  for (i=0;i<numpoints;i++) {
+    switch(points[i].type) {
+    case BEZ_MOVE_TO:
+      ddisplay_transform_coords_double(ddisp,
+				       points[i].p1.x, points[i].p1.y,
+				       &x, &y);
+      bpath[i].code = ART_MOVETO;
+      bpath[i].x3 = x;
+      bpath[i].y3 = y;
+      break;
+    case BEZ_LINE_TO:
+      ddisplay_transform_coords_double(ddisp,
+				       points[i].p1.x, points[i].p1.y,
+				       &x, &y);
+      bpath[i].code = ART_LINETO;
+      bpath[i].x3 = x;
+      bpath[i].y3 = y;
+      break;
+    case BEZ_CURVE_TO:
+      bpath[i].code = ART_CURVETO;
+      ddisplay_transform_coords_double(ddisp,
+				       points[i].p1.x, points[i].p1.y,
+				       &x, &y);
+      bpath[i].x1 = x;
+      bpath[i].y1 = y;
+      ddisplay_transform_coords_double(ddisp,
+				       points[i].p2.x, points[i].p2.y,
+				       &x, &y);
+      bpath[i].x2 = x;
+      bpath[i].y2 = y;
+      ddisplay_transform_coords_double(ddisp,
+				       points[i].p3.x, points[i].p3.y,
+				       &x, &y);
+      bpath[i].x3 = x;
+      bpath[i].y3 = y;
+      break;
+    }
+  }
+  bpath[i].code = ART_END;
+  bpath[i].x1 = 0;
+  bpath[i].y1 = 0;
+
+  vpath = art_bez_path_to_vec(bpath, 0.25);
+  art_free(bpath);
+
+  svp = art_svp_from_vpath (vpath);
+  
+  art_free( vpath );
+  
+  art_rgb_svp_alpha (svp,
+		     0, 0, 
+		     renderer->renderer.pixel_width,
+		     renderer->renderer.pixel_height,
+		     rgba,
+		     renderer->rgb_buffer, renderer->renderer.pixel_width*3,
+		     NULL);
+
+  art_svp_free( svp );
 }
 
 static void
@@ -988,13 +1137,39 @@ draw_image(RendererLibart *renderer,
 	   real width, real height,
 	   DiaImage image)
 {
-  int real_width, real_height, real_x, real_y;
+  double real_width, real_height;
+  double x,y;
+  int src_width, src_height;
+  guint8 *img_data;
+  double affine[6];
+
+  /* Todo: Handle some kind of clipping! */
   
   real_width = ddisplay_transform_length(renderer->ddisp, width);
   real_height = ddisplay_transform_length(renderer->ddisp, height);
-  ddisplay_transform_coords(renderer->ddisp, point->x, point->y,
-			    &real_x, &real_y);
+  ddisplay_transform_coords_double(renderer->ddisp, point->x, point->y,
+			    &x, &y);
 
+  img_data = dia_image_rgb_data(image);
+  src_width = dia_image_width(image);
+  src_height = dia_image_height(image);
+  
+  affine[0] = real_width/(double)src_width;
+  affine[1] = 0;
+  affine[2] = 0;
+  affine[3] = real_height/(double)src_height;
+  affine[4] = x;
+  affine[5] = y;
+
+  art_rgb_affine(renderer->rgb_buffer,
+		 0, 0,
+		 renderer->renderer.pixel_width,
+		 renderer->renderer.pixel_height,
+		 renderer->renderer.pixel_width*3,
+		 img_data, src_width, src_height, src_width*3,
+		 affine, ART_FILTER_NEAREST, NULL);
+		 
+		 
   /*  dia_image_draw(image,  renderer->pixmap, real_x, real_y,
       real_width, real_height);*/
 }
@@ -1026,8 +1201,6 @@ clip_region_add_rect(RendererLibart *renderer,
 		     Rectangle *rect)
 {
   DDisplay *ddisp = renderer->ddisp;
-  GdkRegion *old_reg;
-  GdkRectangle clip_rect;
   int x1,y1;
   int x2,y2;
   IntRectangle r;

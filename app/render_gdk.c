@@ -784,7 +784,7 @@ static struct bezier_curve bezier = { NULL, 0, 0 };
 static void
 draw_bezier(RendererGdk *renderer, 
 	    BezPoint *points,
-	    int numpoints, /* numpoints = 4+3*n, n=>0 */
+	    int numpoints,
 	    Color *color)
 {
   DDisplay *ddisp = renderer->ddisp;

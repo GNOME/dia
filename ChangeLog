@@ -1,3 +1,12 @@
+2000-01-29  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/render_libart.c:
+	Added support for images and bezier curves.
+	Only text/fonts missing now.
+
+	* app/render_gdk.c:
+	Removed old erronous comment.
+
 2000-01-29  Cyrille Chepelov <chepelov@calixo.net>
 
 	* objects/chronogram/chronoline_event.c: removed references to
