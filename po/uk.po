@@ -290,8 +290,8 @@ msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
-"Цей об'╓кт не п╕дтриму╓ В╕дкат/Повтор\n"
-"╤нформац╕я про в╕дкат знищена."
+"Цей об'╓кт не п╕дтриму╓ в╕дм╕ну\n"
+"╤нформац╕я в╕дм╕ни знищена."
 
 #: app/disp_callbacks.c:163
 msgid "No object menu"
@@ -742,7 +742,7 @@ msgstr "/Редагування/Видалити"
 
 #: app/menus.c:209
 msgid "/Edit/_Undo"
-msgstr "/Редагування/В╕дкат"
+msgstr "/Редагування/В╕дм╕нити"
 
 #: app/menus.c:210
 msgid "/Edit/_Redo"
