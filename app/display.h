@@ -135,6 +135,8 @@ void ddisplay_scroll_up(DDisplay *ddisp);
 void ddisplay_scroll_down(DDisplay *ddisp);
 void ddisplay_scroll_left(DDisplay *ddisp);
 void ddisplay_scroll_right(DDisplay *ddisp);
+gboolean ddisplay_scroll_center_point(DDisplay *ddisp, Point *p);
+gboolean ddisplay_scroll_to_object(DDisplay *ddisp, Object *obj);
 
 void display_update_menu_state(DDisplay *ddisp);
 void ddisplay_update_statusbar(DDisplay *ddisp);

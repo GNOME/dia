@@ -1,3 +1,10 @@
+2003-07-07  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/display.h: 
+	* app/display.c (ddisplay_scroll_to_object,
+	ddisplay_scroll_center_point):  New function for easy scrolling to
+	object or point.
+
 2003-07-06  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/xslt/Makefile.am: Patch from Hubert Figuiere:  Add
@@ -33,6 +40,12 @@
 2003-06-13  Guntupalli Karunakar  <karunakar@freedomink.org>
 
 	* configure.in: Added "ml" for Malayalam in ALL_LINGUAS.
+
+2003-06-05  Andrew Halper  <ashalper@cox.net>
+
+	* app/diagram_tree.c : add scrolling of drawing area
+	to desired object on "Locate".  Patch modified to use new ddisplay
+	function ddisplay_scroll_to_object().
 
 2003-05-15  Hans Breuer  <hans@breuer.org>
 

@@ -3,6 +3,9 @@
  *
  * diagram_tree.c : a tree showing open diagrams
  * Copyright (C) 2001 Jose A Ortega Ruiz
+ *
+ * patch to center objects in drawing viewport when doing "Locate"
+ * Copyright (C) 2003 Andrew Halper
  *  
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -60,13 +63,15 @@ static void
 select_node(DiagramTree *tree, GtkCTreeNode *node, gboolean raise)
 {
   Diagram *d = NULL;
-  GtkCTreeNode *dnode =
-    (is_object_node(node))? GTK_CTREE_ROW(node)->parent : node;
+  GtkCTreeNode *dnode = (is_object_node(node)) ?
+    GTK_CTREE_ROW(node)->parent : node;
+  Object *o = (Object *)gtk_ctree_node_get_row_data(tree->tree, node);
+
+ 
   d = (Diagram *)gtk_ctree_node_get_row_data(tree->tree, dnode);
   if (d) {
     GSList *dlist = d->displays;
     if (is_object_node(node)) {
-      Object *o = (Object *)gtk_ctree_node_get_row_data(tree->tree, node);
       if (o) {
 	update_object(tree, node, o);
 	diagram_unselect_objects(d, d->data->selected);
@@ -74,9 +79,15 @@ select_node(DiagramTree *tree, GtkCTreeNode *node, gboolean raise)
       }
     }
     while (dlist) {
-      DDisplay *dis = (DDisplay *)dlist->data;
-      if (raise) gdk_window_raise(dis->shell->window);
-      gtk_widget_draw(dis->shell, NULL);
+      DDisplay *ddisp = (DDisplay *)dlist->data;
+      if (raise) {
+	gdk_window_raise(ddisp->shell->window);
+	/* if object exists */
+	if (o) {
+	  ddisplay_scroll_to_object(ddisp, o);
+	}
+      }
+      gtk_widget_draw(ddisp->shell, NULL);
       dlist = g_slist_next(dlist);
     }
   }
@@ -105,8 +116,10 @@ button_press_callback(GtkCTree *tree, GdkEventButton *event,
   else dtree->last = NULL;
 
   if (dtree->last) update_last_node(dtree);
-  
+
+  /* if doubleclick */
   if (dtree->last && event->type == GDK_2BUTTON_PRESS) {
+    /* equivalent of "Locate" */
     select_node(dtree, dtree->last, TRUE);
   } else if (dtree->last && event->type == GDK_BUTTON_PRESS) {
     if (event->button == 3) {

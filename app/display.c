@@ -704,6 +704,7 @@ update_snap_grid_status(DDisplay *ddisp)
 			       ddisp->grid.snap);
 }
 
+/** Scroll display to where point x,y (window coords) is visible */
 gboolean
 ddisplay_autoscroll(DDisplay *ddisp, int x, int y)
 {
@@ -753,6 +754,7 @@ ddisplay_autoscroll(DDisplay *ddisp, int x, int y)
   return FALSE;
 }
 
+/** Scroll the display by delta (diagram coords) */
 gboolean 
 ddisplay_scroll(DDisplay *ddisp, Point *delta)
 {
@@ -766,6 +768,8 @@ ddisplay_scroll(DDisplay *ddisp, Point *delta)
 
   Point new_origo = ddisp->origo;
   point_add(&new_origo, delta);
+
+  printf("ddisplay_scroll %f, %f\n", delta->x, delta->y);
 
   rectangle_union(&extents, visible);
 
@@ -829,6 +833,35 @@ void ddisplay_scroll_right(DDisplay *ddisp)
   delta.y = 0;
   
   ddisplay_scroll(ddisp, &delta);
+}
+
+/** Scroll display to have the diagram point p at the center. 
+ * Returns TRUE if anything changed. */
+gboolean
+ddisplay_scroll_center_point(DDisplay *ddisp, Point *p)
+{
+  Point center;
+
+  /* Find current center */
+  center.x = (ddisp->visible.right+ddisp->visible.left)/2;
+  center.y = (ddisp->visible.top+ddisp->visible.bottom)/2;
+
+  point_sub(p, &center);
+  return ddisplay_scroll(ddisp, p);
+}
+
+/** Scroll display so that obj is centered.
+ * Returns TRUE if anything changed.  */
+gboolean
+ddisplay_scroll_to_object(DDisplay *ddisp, Object *obj)
+{
+  Rectangle r = obj->bounding_box;
+
+  Point p;
+  p.x = (r.left+r.right)/2;
+  p.y = (r.top+r.bottom)/2;
+
+  return ddisplay_scroll_center_point(ddisp, &p);
 }
 
 void
