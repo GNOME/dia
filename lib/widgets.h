@@ -43,7 +43,7 @@
 #define IS_DIAFONTSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_font_selector_get_type ())
 
 
-guint      dia_font_selector_get_type        (void);
+GtkType    dia_font_selector_get_type        (void);
 GtkWidget* dia_font_selector_new             (void);
 void       dia_font_selector_set_font        (DiaFontSelector *fs, DiaFont *font);
 void       dia_font_selector_set_preview     (DiaFontSelector *fs, gchar *text);
@@ -55,7 +55,7 @@ DiaFont *     dia_font_selector_get_font        (DiaFontSelector *fs);
 #define IS_DIAALIGNMENTSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_alignment_selector_get_type ())
 
 
-guint      dia_alignment_selector_get_type      (void);
+GtkType    dia_alignment_selector_get_type      (void);
 GtkWidget* dia_alignment_selector_new           (void);
 Alignment  dia_alignment_selector_get_alignment (DiaAlignmentSelector *as);
 void       dia_alignment_selector_set_alignment (DiaAlignmentSelector *as,
@@ -70,7 +70,7 @@ void       dia_alignment_selector_set_alignment (DiaAlignmentSelector *as,
 #define DEFAULT_LINESTYLE_DASHLEN 1.0
 
 
-guint      dia_line_style_selector_get_type      (void);
+GtkType    dia_line_style_selector_get_type      (void);
 GtkWidget* dia_line_style_selector_new           (void);
 void       dia_line_style_selector_get_linestyle (DiaLineStyleSelector *as,
 						  LineStyle *linestyle, 
@@ -106,7 +106,7 @@ struct _DiaColorSelectorClass
   GtkButtonClass parent_class;
 };
 
-guint      dia_color_selector_get_type  (void);
+GtkType    dia_color_selector_get_type  (void);
 GtkWidget* dia_color_selector_new       (void);
 void       dia_color_selector_get_color (DiaColorSelector *cs, Color *color);
 void       dia_color_selector_set_color (DiaColorSelector *cs,
@@ -123,7 +123,7 @@ void       dia_color_selector_set_color (DiaColorSelector *cs,
 #define DEFAULT_ARROW_WIDTH DEFAULT_ARROW_SIZE
 
 
-guint      dia_arrow_selector_get_type      (void);
+GtkType    dia_arrow_selector_get_type      (void);
 GtkWidget* dia_arrow_selector_new           (void);
 Arrow      dia_arrow_selector_get_arrow     (DiaArrowSelector *as);
 void       dia_arrow_selector_set_arrow     (DiaArrowSelector *as,
@@ -136,7 +136,7 @@ void       dia_arrow_selector_set_arrow     (DiaArrowSelector *as,
 #define IS_DIAFILESELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_file_selector_get_type ())
 
 
-guint      dia_file_selector_get_type        (void);
+GtkType    dia_file_selector_get_type        (void);
 GtkWidget* dia_file_selector_new             (void);
 void       dia_file_selector_set_file        (DiaFileSelector *fs, char *file);
 const gchar *dia_file_selector_get_file        (DiaFileSelector *fs);

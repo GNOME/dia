@@ -75,7 +75,7 @@ struct _DiaLayerWidgetClass
   GtkListItemClass parent_class;
 };
 
-guint      dia_layer_widget_get_type(void);
+GtkType    dia_layer_widget_get_type(void);
 GtkWidget* dia_layer_widget_new(Diagram *dia, Layer *layer);
 void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer);
 void dia_layer_update_from_layer(DiaLayerWidget *widget);

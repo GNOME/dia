@@ -494,10 +494,10 @@ dia_font_selector_init (DiaFontSelector *fs)
   gtk_box_pack_start_defaults(GTK_BOX(fs), GTK_WIDGET(fs->style_omenu));
 }
 
-guint
+GtkType
 dia_font_selector_get_type        (void)
 {
-  static guint dfs_type = 0;
+  static GtkType dfs_type = 0;
 
   if (!dfs_type) {
     GtkTypeInfo dfs_info = {
@@ -825,10 +825,10 @@ dia_alignment_selector_init (DiaAlignmentSelector *fs)
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs), menu);
 }
 
-guint
+GtkType
 dia_alignment_selector_get_type        (void)
 {
-  static guint dfs_type = 0;
+  static GtkType dfs_type = 0;
 
   if (!dfs_type) {
     GtkTypeInfo dfs_info = {
@@ -1013,10 +1013,10 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   
 }
 
-guint
+GtkType
 dia_line_style_selector_get_type        (void)
 {
-  static guint dfs_type = 0;
+  static GtkType dfs_type = 0;
 
   if (!dfs_type) {
     GtkTypeInfo dfs_info = {
@@ -1204,10 +1204,10 @@ dia_color_selector_init (DiaColorSelector *cs)
                       NULL);
 }
 
-guint
+GtkType
 dia_color_selector_get_type        (void)
 {
-  static guint dfs_type = 0;
+  static GtkType dfs_type = 0;
 
   if (!dfs_type) {
     GtkTypeInfo dfs_info = {
@@ -1383,10 +1383,10 @@ dia_arrow_selector_init (DiaArrowSelector *as)
 
 }
 
-guint
+GtkType
 dia_arrow_selector_get_type        (void)
 {
-  static guint dfs_type = 0;
+  static GtkType dfs_type = 0;
 
   if (!dfs_type) {
     GtkTypeInfo dfs_info = {
@@ -1558,10 +1558,10 @@ dia_file_selector_init (DiaFileSelector *fs)
 }
 
 
-guint
+GtkType
 dia_file_selector_get_type (void)
 {
-  static guint dfs_type = 0;
+  static GtkType dfs_type = 0;
 
   if (!dfs_type) {
     GtkTypeInfo dfs_info = {

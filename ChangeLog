@@ -1,5 +1,10 @@
 2004-03-15  Lars Clausen  <lars@raeder.dk>
 
+	* widgets.[ch]:
+	* app/layer_dialog.[ch]:
+	Patch from Steve Langasek <vorlon@debian.org>:
+	Fixes startup crash on Alpha (bug #137169)
+	
 	* objects/standard/box.c: Aspect fixing like ellipses.
 
 	* app/Makefile.am (dia_core_files): Include dia-app-icons.h
