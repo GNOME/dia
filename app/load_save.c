@@ -60,7 +60,7 @@ static void read_connections(GList *objects, xmlNodePtr layer_node,
 static void GHFuncUnknownObjects(gpointer key,
 				 gpointer value,
 				 gpointer user_data);
-static GList *read_objects(xmlNodePtr objects, Layer *layer,
+static GList *read_objects(xmlNodePtr objects,
 			   GHashTable *objects_hash,
 			   const char *filename, DiaObject *parent);
 static void hash_free_string(gpointer       key,
@@ -90,8 +90,25 @@ GHFuncUnknownObjects(gpointer key,
   g_free(key);
 }
 
+/**
+ * Recursive function to read objects from a specific level in the xml.
+ *
+ * Nowadays there are quite a few of them :
+ * - Layers : a diagram may have different layers, but this function does *not*
+ *   add the created objects to them as it does not know on which nesting level it
+ *   is called. So the topmost caller must add the returned objects to the layer.
+ * - Groups : groups in itself can have an arbitrary nesting level including other
+ *   groups or objects or both of them. A group not containing any objects is by 
+ *   definition useless. So it is not created. This is to avoid trouble with some older
+ *   diagrams which happen to be saved with empty groups.
+ * - Parents : if the parent relations would have been there from the beginning of
+ *   Dias file format they probably would have been added as nesting level 
+ *   themselves. But to maintain forward compatibility (allow to let older versions
+ *   of Dia to see as much as possible) they were added all on the same level and
+ *   the parent child relation is reconstructed from additional attributes.
+ */
 static GList *
-read_objects(xmlNodePtr objects, Layer *layer,
+read_objects(xmlNodePtr objects, 
              GHashTable *objects_hash,const char *filename, DiaObject *parent)
 {
   GList *list;
@@ -141,7 +158,6 @@ read_objects(xmlNodePtr objects, Layer *layer,
       else
       {
         obj = type->ops->load(obj_node, version, filename);
-        layer_add_object(layer,obj);
         list = g_list_append(list, obj);
 
         if (parent)
@@ -158,7 +174,7 @@ read_objects(xmlNodePtr objects, Layer *layer,
         {
           if (strcmp(child_node->name, "children") == 0)
           {
-	    GList *children_read = read_objects(child_node, layer, objects_hash, filename, obj);
+	    GList *children_read = read_objects(child_node, objects_hash, filename, obj);
             list = g_list_concat(list, children_read);
             break;
           }
@@ -170,10 +186,7 @@ read_objects(xmlNodePtr objects, Layer *layer,
     } else if (   strcmp(obj_node->name, "group")==0
                && obj_node->children) {
       /* don't create empty groups */
-      obj = group_create(read_objects(obj_node, layer,
-                                      objects_hash, filename, NULL));
-      layer_add_object(layer,obj);
-      
+      obj = group_create(read_objects(obj_node, objects_hash, filename, NULL));
       list = g_list_append(list, obj);
     } else {
       /* silently ignore other nodes */
@@ -552,10 +565,8 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
 
     /* Read in all objects: */
     
-    list = read_objects(layer_node, layer, objects_hash, filename, NULL);
-    /* Objects should already have been added to the layer by read_objects */
-    /* However, if this is included, we crash.  Need more investigation. XXX */
-    /*    g_list_free(list);*/
+    list = read_objects(layer_node, objects_hash, filename, NULL);
+    layer_add_objects (layer, list);
     read_connections( list, layer_node, objects_hash);
 
     data_add_layer(data, layer);

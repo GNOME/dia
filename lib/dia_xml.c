@@ -384,7 +384,6 @@ data_real(DataNode data)
 {
   char *val;
   real res;
-  char *old_locale;
 
   if (data_type(data)!=DATATYPE_REAL) {
     message_error("Taking real value of non-real node.");
@@ -392,9 +391,7 @@ data_real(DataNode data)
   }
 
   val = xmlGetProp(data, "val");
-  old_locale = setlocale(LC_NUMERIC, "C");
-  res = strtod(val, NULL);
-  setlocale(LC_NUMERIC, old_locale);
+  res = g_ascii_strtod(val, NULL);
   if (val) xmlFree(val);
   
   return res;
@@ -468,7 +465,6 @@ data_point(DataNode data, Point *point)
 {
   char *val;
   char *str;
-  char *old_locale;
   real ax,ay;
 
   if (data_type(data)!=DATATYPE_POINT) {
@@ -477,8 +473,7 @@ data_point(DataNode data, Point *point)
   }
   
   val = xmlGetProp(data, "val");
-  old_locale = setlocale(LC_NUMERIC, "C");
-  point->x = strtod(val, &str);
+  point->x = g_ascii_strtod(val, &str);
   ax = fabs(point->x);
   if ((ax > 1e9) || ((ax < 1e-9) && (ax != 0.0)) || isnan(ax) || isinf(ax)) {
     /* there is no provision to keep values larger when saving, 
@@ -490,20 +485,18 @@ data_point(DataNode data, Point *point)
   while ((*str != ',') && (*str!=0))
     str++;
   if (*str==0){
-    setlocale(LC_NUMERIC, old_locale);
     point->y = 0.0;
-    g_error(_("Error parsing point."));
+    g_warning(_("Error parsing point."));
     xmlFree(val);
     return;
   }
-  point->y = strtod(str+1, NULL);
+  point->y = g_ascii_strtod(str+1, NULL);
   ay = fabs(point->y);
   if ((ay > 1e9) || ((ay < 1e-9) && (ay != 0.0)) || isnan(ay) || isinf(ay)) {
     if (!(ay < 1e-9)) /* don't bother with useless warnings (see above) */
       g_warning(_("Incorrect y Point value \"%s\" %f; discarding it."),str+1,point->y);
     point->y = 0.0;
   }
-  setlocale(LC_NUMERIC, old_locale);
   xmlFree(val);
 }
 
@@ -512,7 +505,6 @@ data_rectangle(DataNode data, Rectangle *rect)
 {
   char *val;
   char *str;
-  char *old_locale;
   
   if (data_type(data)!=DATATYPE_RECTANGLE) {
     message_error("Taking rectangle value of non-rectangle node.");
@@ -521,9 +513,7 @@ data_rectangle(DataNode data, Rectangle *rect)
   
   val = xmlGetProp(data, "val");
   
-  old_locale = setlocale(LC_NUMERIC, "C");
-  rect->left = strtod(val, &str);
-  setlocale(LC_NUMERIC, old_locale);
+  rect->left = g_ascii_strtod(val, &str);
   
   while ((*str != ',') && (*str!=0))
     str++;
@@ -534,9 +524,7 @@ data_rectangle(DataNode data, Rectangle *rect)
     return;
   }
     
-  old_locale = setlocale(LC_NUMERIC, "C");
-  rect->top = strtod(str+1, &str);
-  setlocale(LC_NUMERIC, old_locale);
+  rect->top = g_ascii_strtod(str+1, &str);
 
   while ((*str != ';') && (*str!=0))
     str++;
@@ -547,9 +535,7 @@ data_rectangle(DataNode data, Rectangle *rect)
     return;
   }
 
-  old_locale = setlocale(LC_NUMERIC, "C");
-  rect->right = strtod(str+1, &str);
-  setlocale(LC_NUMERIC, old_locale);
+  rect->right = g_ascii_strtod(str+1, &str);
 
   while ((*str != ',') && (*str!=0))
     str++;
@@ -560,9 +546,7 @@ data_rectangle(DataNode data, Rectangle *rect)
     return;
   }
 
-  old_locale = setlocale(LC_NUMERIC, "C");
-  rect->bottom = strtod(str+1, NULL);
-  setlocale(LC_NUMERIC, old_locale);
+  rect->bottom = g_ascii_strtod(str+1, NULL);
   
   xmlFree(val);
 }
@@ -727,12 +711,9 @@ void
 data_add_real(AttributeNode attr, real data)
 {
   DataNode data_node;
-  char buffer[40+1]; /* Large enought? */
-  char *old_locale;
+  char buffer[G_ASCII_DTOSTR_BUF_SIZE]; /* Large enought */
 
-  old_locale = setlocale(LC_NUMERIC, "C");
-  g_snprintf(buffer, 40, "%g", data);
-  setlocale(LC_NUMERIC, old_locale);
+  g_ascii_dtostr(buffer, G_ASCII_DTOSTR_BUF_SIZE, data);
   
   data_node = xmlNewChild(attr, NULL, "real", NULL);
   xmlSetProp(data_node, "val", buffer);

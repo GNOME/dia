@@ -1272,6 +1272,15 @@ custom_destroy(Custom *custom)
        case GE_IMAGE: 
            dia_image_release(el->image.image); 
            break;
+       case GE_LINE :
+       case GE_POLYLINE :
+       case GE_POLYGON :
+       case GE_RECT :
+       case GE_ELLIPSE :
+       case GE_PATH :
+       case GE_SHAPE :
+	   /* no extra data/object to free with these */
+           break;
        }
   }
   /* TODO: free allocated ext props (string, etc.) */

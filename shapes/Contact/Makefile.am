@@ -5,37 +5,37 @@ contactdir = $(shapedir)/Contact
 
 SHAPES = \
 	c_ifnot.shape \
-	c_ifnot.xpm \
+	c_ifnot.png \
 	c_if.shape \
-	c_if.xpm \
+	c_if.png \
 	c_lamp.shape \
-	c_lamp.xpm \
+	c_lamp.png \
 	c_relay.shape \
-	c_relay.xpm \
+	c_relay.png \
 	l_if.shape	\
-	l_if.xpm	\
+	l_if.png	\
 	l_ifnot.shape	\
-	l_ifnot.xpm	\
+	l_ifnot.png	\
 	l_out.shape	\
-	l_out.xpm	\
+	l_out.png	\
 	l_outnot.shape	\
-	l_outnot.xpm	\
+	l_outnot.png	\
 	l_outr.shape	\
-	l_outr.xpm	\
+	l_outr.png	\
 	l_outs.shape	\
-	l_outs.xpm	\
+	l_outs.png	\
 	l_outj.shape 	\
-	l_outj.xpm 	\
+	l_outj.png 	\
 	l_outrcep.shape \
-	l_outrcep.xpm 	\
+	l_outrcep.png 	\
 	l_sout.shape 	\
-	l_sout.xpm	\
+	l_sout.png	\
 	l_soutnot.shape	\
-	l_soutnot.xpm	\
+	l_soutnot.png	\
 	l_soutr.shape	\
-	l_soutr.xpm	\
+	l_soutr.png	\
 	l_souts.shape	\
-	l_souts.xpm	
+	l_souts.png	
 
 
 EXTRA_DIST = $(SHAPES)

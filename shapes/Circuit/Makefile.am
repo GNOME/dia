@@ -5,65 +5,65 @@ circuitdir = $(shapedir)/Circuit
 
 SHAPES = \
 	ground.shape \
-	ground.xpm \
+	ground.png \
 	hcapacitor.shape \
-	hcapacitor.xpm \
+	hcapacitor.png \
 	hdiode.shape \
-	hdiode.xpm \
+	hdiode.png \
 	hinductor.shape \
-	hinductor.xpm \
+	hinductor.png \
 	hresistor.shape \
-	hresistor.xpm \
+	hresistor.png \
 	hzener.shape \
-	hzener.xpm \
+	hzener.png \
 	npn.shape \
-	npn.xpm \
+	npn.png \
 	opamp.shape \
-	opamp.xpm \
+	opamp.png \
 	pnp.shape \
-	pnp.xpm \
+	pnp.png \
 	vcapacitor.shape \
-	vcapacitor.xpm \
+	vcapacitor.png \
 	vdiode.shape \
-	vdiode.xpm \
+	vdiode.png \
 	vinductor.shape \
-	vinductor.xpm \
+	vinductor.png \
 	vresistor.shape \
-	vresistor.xpm \
+	vresistor.png \
 	vzener.shape \
-	vzener.xpm \
+	vzener.png \
 	hinductor_de.shape \
-	hinductor_de.xpm \
+	hinductor_de.png \
 	vinductor_de.shape \
-	vinductor_de.xpm \
+	vinductor_de.png \
 	hresistor_de.shape \
-	vresistor_de.xpm \
+	vresistor_de.png \
 	vresistor_de.shape \
-	hresistor_de.xpm \
+	hresistor_de.png \
 	hpowersource_de.shape \
-	hpowersource_de.xpm \
+	hpowersource_de.png \
         vpowersource_de.shape \
-	vpowersource_de.xpm \
+	vpowersource_de.png \
 	lamp_de.shape \
-	lamp_de.xpm \
+	lamp_de.png \
 	speaker_de.shape \
-	speaker_de.xpm \
+	speaker_de.png \
 	hfuse_de.shape \
-	hfuse_de.xpm \
+	hfuse_de.png \
 	vfuse_de.shape \
-	vfuse_de.xpm \
+	vfuse_de.png \
 	hled_de.shape \
-	hled_de.xpm \
+	hled_de.png \
 	vled_de.shape \
-	vled_de.xpm \
+	vled_de.png \
 	nmos_de.shape \
-	nmos_de.xpm \
+	nmos_de.png \
 	pmos_de.shape \
-	pmos_de.xpm \
+	pmos_de.png \
 	hjumper.shape \
 	hjumper.png \
 	microphone_de.shape \
-	microphone_de.xpm
+	microphone_de.png
 
 EXTRA_DIST = $(SHAPES)
 

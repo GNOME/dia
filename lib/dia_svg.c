@@ -23,7 +23,6 @@
 
 #include "config.h"
 
-#include <locale.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -38,7 +37,6 @@ void
 dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
 {
   char *str, *ptr;
-  char *old_locale;
   gchar temp[FONT_NAME_LENGTH_MAX+1]; /* font-family names will be limited to 40 characters */
   int i = 0;
   gboolean over = FALSE;  
@@ -109,9 +107,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
       temp[i] = '\0';
 
       if (!over) {
-          old_locale = setlocale(LC_NUMERIC, "C");
-          s->font_height = g_strtod(temp, NULL);
-          setlocale(LC_NUMERIC, old_locale);
+          s->font_height = g_ascii_strtod(temp, NULL);
       }
     } else if (!strncmp("text-anchor:", ptr, 12)) {
       ptr += 12;
@@ -125,8 +121,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
 
     } else if (!strncmp("stroke-width:", ptr, 13)) {
       ptr += 13;
-      old_locale = setlocale(LC_NUMERIC, "C");
-      s->line_width = strtod(ptr, &ptr);
+      s->line_width = g_ascii_strtod(ptr, &ptr);
     } else if (!strncmp("stroke:", ptr, 7)) {
       ptr += 7;
       while ((ptr[0] != '\0') && g_ascii_isspace(ptr[0])) ptr++;
@@ -212,9 +207,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
       if (!strncmp(ptr, "default", 7))
 	s->dashlength = 1.0;
       else {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	s->dashlength = strtod(ptr, &ptr);
-	setlocale(LC_NUMERIC, old_locale);
+	s->dashlength = g_ascii_strtod(ptr, &ptr);
       }
     } else if (!strncmp("stroke-dasharray:", ptr, 17)) {
       /* FIXME? do we need to read an array here (not clear from
@@ -229,9 +222,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgGraphicStyle *s)
       if (!strncmp(ptr, "default", 7))
 	s->dashlength = 1.0;
       else {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	s->dashlength = strtod(ptr, &ptr);
-	setlocale(LC_NUMERIC, old_locale);
+	s->dashlength = g_ascii_strtod(ptr, &ptr);
       }
     }
 

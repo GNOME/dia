@@ -26,30 +26,30 @@ SHAPES = \
 	punchedcard.shape \
 	punchedtape.shape \
 	transmittape.shape \
-	display.xpm \
-	document.xpm \
-	transaction.xpm \
-	offpageconn.xpm \
-	manualop.xpm \
-	preparation.xpm \
-	manualinput.xpm \
-	predefdproc.xpm \
-	terminal.xpm \
-	magdisk.xpm \
-	magtape.xpm \
-	intstorage.xpm \
-	merge.xpm \
-	extract.xpm \
-	delay.xpm \
-	sumjunction.xpm \
-	collate.xpm \
-	sort.xpm \
-	or.xpm \
-	magdrum.xpm \
-	offlinestore.xpm \
-	punchedcard.xpm \
-	punchedtape.xpm \
-	transmittape.xpm
+	display.png \
+	document.png \
+	transaction.png \
+	offpageconn.png \
+	manualop.png \
+	preparation.png \
+	manualinput.png \
+	predefdproc.png \
+	terminal.png \
+	magdisk.png \
+	magtape.png \
+	intstorage.png \
+	merge.png \
+	extract.png \
+	delay.png \
+	sumjunction.png \
+	collate.png \
+	sort.png \
+	or.png \
+	magdrum.png \
+	offlinestore.png \
+	punchedcard.png \
+	punchedtape.png \
+	transmittape.png
 
 
 EXTRA_DIST = $(SHAPES)

@@ -3,37 +3,37 @@ shapedir = $(pkgdatadir)/shapes/jigsaw
 
 SHAPES = \
 	part_iiii.shape \
-	part_iiii.xpm \
+	part_iiii.png \
 	part_iiio.shape \
-	part_iiio.xpm \
+	part_iiio.png \
 	part_iioi.shape \
-	part_iioi.xpm \
+	part_iioi.png \
 	part_iioo.shape \
-	part_iioo.xpm \
+	part_iioo.png \
 	part_ioii.shape \
-	part_ioii.xpm \
+	part_ioii.png \
 	part_ioio.shape \
-	part_ioio.xpm \
+	part_ioio.png \
 	part_iooi.shape \
-	part_iooi.xpm \
+	part_iooi.png \
 	part_iooo.shape \
-	part_iooo.xpm \
+	part_iooo.png \
 	part_oiii.shape \
-	part_oiii.xpm \
+	part_oiii.png \
 	part_oiio.shape \
-	part_oiio.xpm \
+	part_oiio.png \
 	part_oioi.shape \
-	part_oioi.xpm \
+	part_oioi.png \
 	part_oioo.shape \
-	part_oioo.xpm \
+	part_oioo.png \
 	part_ooii.shape \
-	part_ooii.xpm \
+	part_ooii.png \
 	part_ooio.shape \
-	part_ooio.xpm \
+	part_ooio.png \
 	part_oooi.shape \
-	part_oooi.xpm \
+	part_oooi.png \
 	part_oooo.shape \
-	part_oooo.xpm
+	part_oooo.png
 
 EXTRA_DIST = $(SHAPES)
 

@@ -5,45 +5,45 @@ pneumadir = $(shapedir)/Pneumatic
 
 SHAPES = \
 	dejack.shape 	\
-	dejack.xpm	\
+	dejack.png	\
 	comelec1.shape	\
-	comelec1.xpm	\
+	comelec1.png	\
 	comelec2.shape	\
-	comelec2.xpm	\
+	comelec2.png	\
 	commusc.shape	\
-	commusc.xpm	\
+	commusc.png	\
 	compb.shape	\
-	compb.xpm	\
+	compb.png	\
 	compilh.shape	\
-	compilh.xpm	\
+	compilh.png	\
 	compilp.shape	\
-	compilp.xpm	\
+	compilp.png	\
 	compush.shape	\
-	compush.xpm	\
+	compush.png	\
 	comspr.shape	\
-	comspr.xpm	\
+	comspr.png	\
 	dist22.shape	\
-	dist22.xpm	\
+	dist22.png	\
 	dist32.shape	\
-	dist32.xpm	\
+	dist32.png	\
 	dist42.shape	\
-	dist42.xpm	\
+	dist42.png	\
 	dist52.shape	\
-	dist52.xpm	\
+	dist52.png	\
 	drain.shape	\
-	drain.xpm	\
+	drain.png	\
 	press.shape	\
-	press.xpm	\
+	press.png	\
 	presshy.shape	\
-	presshy.xpm	\
+	presshy.png	\
 	presspn.shape	\
-	presspn.xpm	\
+	presspn.png	\
 	seijack.shape	\
-	seijack.xpm	\
+	seijack.png	\
 	seojack.shape	\
-	seojack.xpm	\
+	seojack.png	\
 	cnx.shape	\
-	cnx.xpm
+	cnx.png
 
 
 EXTRA_DIST = $(SHAPES)

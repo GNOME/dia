@@ -3,17 +3,17 @@ shapedir = $(pkgdatadir)/shapes/MSE
 
 SHAPES = \
 	demultiplexer.shape \
-	demultiplexer.xpm \
+	demultiplexer.png \
 	large_extension_node.shape \
-	large_extension_node.xpm \
+	large_extension_node.png \
 	multiplexer.shape \
-	multiplexer.xpm \
+	multiplexer.png \
 	node_center.shape \
-	node_center.xpm \
+	node_center.png \
 	small_extension_node.shape \
-	small_extension_node.xpm \
+	small_extension_node.png \
 	tacsat.shape \
-	tacsat.xpm
+	tacsat.png
 
 EXTRA_DIST = $(SHAPES)
 

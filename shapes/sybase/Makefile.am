@@ -3,17 +3,17 @@ shapedir = $(pkgdatadir)/shapes/sybase
 
 SHAPES = \
 	client.shape \
-	client.xpm \
+	client.png \
 	dataserver.shape \
-	dataserver.xpm \
+	dataserver.png \
 	ltm.shape \
-	ltm.xpm \
+	ltm.png \
 	repserver.shape \
-	repserver.xpm \
+	repserver.png \
 	rsm.shape \
-	rsm.xpm \
+	rsm.png \
 	stableq.shape \
-	stableq.xpm
+	stableq.png
 
 EXTRA_DIST = $(SHAPES)
 

@@ -5,57 +5,57 @@ civildir = $(shapedir)/Civil
 
 SHAPES = \
 	bvrest.shape \
-	bvrest.xpm \
+	bvrest.png \
 	civil_aerator.shape \
-	civil_aerator.xpm \
+	civil_aerator.png \
 	civil_arrow_right.shape \
-	civil_arrow_right.xpm \
+	civil_arrow_right.png \
 	civil_arrow_up.shape \
-	civil_arrow_up.xpm \
+	civil_arrow_up.png \
 	civil_backflow_preventer.shape \
-	civil_backflow_preventer.xpm \
+	civil_backflow_preventer.png \
 	civil_basin.shape \
-	civil_basin.xpm \
+	civil_basin.png \
 	civil_container.shape \
-	civil_container.xpm \
+	civil_container.png \
 	civil_final-settling_basin.shape \
-	civil_final-settling_basin.xpm \
+	civil_final-settling_basin.png \
 	civil_frequency_converter.shape \
-	civil_frequency_converter.xpm \
-        civil_gas_bottle.xpm \
+	civil_frequency_converter.png \
+        civil_gas_bottle.png \
         civil_gas_bottle.shape \
 	civil_horizontal_limiting_line.shape \
-	civil_horizontal_limiting_line.xpm \
+	civil_horizontal_limiting_line.png \
 	civil_horizontal_valve.shape \
-	civil_horizontal_valve.xpm \
+	civil_horizontal_valve.png \
 	civil_motor.shape \
-	civil_motor.xpm \
+	civil_motor.png \
 	civil_preliminary_clarification_tank.shape \
-	civil_preliminary_clarification_tank.xpm \
+	civil_preliminary_clarification_tank.png \
 	civil_rotor.shape \
-	civil_rotor.xpm \
+	civil_rotor.png \
 	civil_soil.shape \
-	civil_soil.xpm \
+	civil_soil.png \
 	civil_vertical_limiting_line.shape \
-	civil_vertical_limiting_line.xpm \
+	civil_vertical_limiting_line.png \
 	civil_vertical_propeller.shape \
-	civil_vertical_propeller.xpm \
+	civil_vertical_propeller.png \
 	hcompressor.shape \
-	hcompressor.xpm \
+	hcompressor.png \
 	vcompressor.shape \
-	vcompressor.xpm \
+	vcompressor.png \
 	hpump.shape \
-	hpump.xpm \
+	hpump.png \
 	vpump.shape \
-	vpump.xpm \
+	vpump.png \
 	hrest.shape \
-	hrest.xpm \
+	hrest.png \
 	vrest.shape \
-	vrest.xpm \
+	vrest.png \
 	line.shape \
-	line.xpm \
+	line.png \
 	water_level.shape \
-	water_level.xpm
+	water_level.png
 
 EXTRA_DIST = $(SHAPES)
 

@@ -296,13 +296,18 @@ handle_initial_diagram(const char *in_file_name,
     export_file_name = build_output_file_name(in_file_name,
 					      export_file_format);
 
-    ef = filter_guess_export_filter(export_file_name);
+    /* to make the --size hack even uglier but work again for the only filter supporting it */
+    if (   size && strcmp(export_file_format, "png") == 0)
+      ef = filter_get_by_name ("png-libart");
+    if (!ef)
+      ef = filter_guess_export_filter(export_file_name);
     if (ef == NULL) {
       ef = filter_get_by_name(export_file_format);
       if (ef == NULL) {
 	g_error(_("Can't find output format %s\n"), export_file_format);
 	return FALSE;
       }
+      g_free (export_file_name);
       export_file_name = build_output_file_name(in_file_name,
 						ef->extensions[0]);
     }
@@ -310,7 +315,13 @@ handle_initial_diagram(const char *in_file_name,
       (out_file_name != NULL?out_file_name:export_file_name), ef, size);
     g_free(export_file_name);
   } else if (out_file_name) {
-    made_conversions |= do_convert(in_file_name, out_file_name, NULL,
+    DiaExportFilter *ef = NULL;
+
+    /* if this looks like an ugly hack to you, agreed ;)  */
+    if (size && strstr(out_file_name, ".png"))
+      ef = filter_get_by_name ("png-libart");
+    
+    made_conversions |= do_convert(in_file_name, out_file_name, ef,
 				   size);
   } else {
     if (g_file_test(in_file_name, G_FILE_TEST_EXISTS)) {

@@ -2,11 +2,11 @@
 UMLsheetdir = $(pkgdatadir)/sheets/UML
 
 PIX = \
-	umlclass_template.xpm \
-	aggregation.xpm \
-	receptacle.xpm \
-	eventsource.xpm \
-	eventsink.xpm
+	umlclass_template.png \
+	aggregation.png \
+	receptacle.png \
+	eventsource.png \
+	eventsink.png
 
 UMLsheet_DATA = $(PIX)
 EXTRA_DIST = $(PIX)

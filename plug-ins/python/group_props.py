@@ -159,9 +159,9 @@ def dia_objects_props_cb (data, flags) :
 			# if there is something left ensure unique values
 			uniques = {}
 			for o in allProps[s].opts :
-				if uniques.has_key(o.value) :
+				if uniques.has_key(str(o.value)) :
 					continue
-				uniques[o.value] = o
+				uniques[str(o.value)] = o
 			allProps[s].opts = []
 			for v in uniques.keys() :
 				allProps[s].opts.append(uniques[v])

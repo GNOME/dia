@@ -985,13 +985,12 @@ static DiaExportFilter png_export_filter = {
 static gboolean
 _plugin_can_unload (PluginInfo *info)
 {
-    return TRUE;
+    return FALSE;
 }
 
-static gboolean
+static void
 _plugin_unload (PluginInfo *info)
 {
-    return TRUE;
 }
 
 /* --- dia plug-in interface --- */

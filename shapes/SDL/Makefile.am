@@ -3,39 +3,39 @@ shapedir = $(pkgdatadir)/shapes/SDL
 
 SHAPES = \
 	block.shape \
-	block.xpm \
+	block.png \
 	comment.shape \
-	comment.xpm \
+	comment.png \
 	decision.shape \
-	decision.xpm \
+	decision.png \
 	function.shape \
-	function.xpm \
+	function.png \
 	header.shape \
-	header.xpm \
+	header.png \
 	inout.shape \
-	inout.xpm \
+	inout.png \
 	macro.shape \
-	macro.xpm \
+	macro.png \
 	note.shape \
-	note.xpm \
+	note.png \
 	process.shape \
-	process.xpm \
+	process.png \
 	receive.shape \
-	receive.xpm \
+	receive.png \
 	return.shape \
-	return.xpm \
+	return.png \
 	save.shape \
-	save.xpm \
+	save.png \
 	send.shape \
-	send.xpm \
+	send.png \
 	service.shape \
-	service.xpm \
+	service.png \
 	state.shape \
-	state.xpm \
+	state.png \
 	stop.shape \
-	stop.xpm \
+	stop.png \
 	task.shape \
-	task.xpm
+	task.png
 
 EXTRA_DIST = $(SHAPES)
 

@@ -446,7 +446,7 @@ PropNumData rotation_data;
     "DiaObject position", "Where the object is located"}, \
   { "obj_bb", PROP_TYPE_RECT, 0, \
     "DiaObject bounding box", "The bounding box of the object"}, \
-  { "obj_rotate", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \
+  { "obj_rotate", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, \
     N_("Rotation"), "Degrees of rotation", &rotation_data }
 
 #define OBJECT_COMMON_PROPERTIES_OFFSETS \

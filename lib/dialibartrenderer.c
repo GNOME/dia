@@ -346,10 +346,15 @@ draw_line(DiaRenderer *self,
     vpath = vpath_dashed;
   }
 
+#if 0 /* if only someone would initialized the matrices or is my liabrt broken ? --hb */  
   vpath_transformed =
     art_vpath_affine_transform(vpath, renderer->matrices->data);
 
   art_free(vpath);
+#else
+  /* just to have minimal changes */
+  vpath_transformed = vpath;
+#endif
 
   svp = art_svp_vpath_stroke (vpath_transformed,
 			      renderer->join_style,
@@ -583,12 +588,14 @@ draw_rect(DiaRenderer *self,
     vpath = vpath_dashed;
   }
 
+#if 0 /* if only someone would initialized the matrices or is my libart broken ? --hb */  
   {
     vpath_transformed =
       art_vpath_affine_transform(vpath, renderer->matrices->data);
     art_free(vpath);
     vpath = vpath_transformed;
   }
+#endif 
   {
     art_affine_translate(translate, left, top);
     vpath_transformed =

@@ -4,69 +4,69 @@ shapedir = $(pkgdatadir)/shapes/Network
 
 SHAPES = \
 	nwcloud.shape \
-	nwcloud.xpm \
+	nwcloud.png \
 	router-symbol.shape \
-	router-symbol.xpm \
+	router-symbol.png \
 	switch-atm-symbol.shape \
-	switch-atm-symbol.xpm \
+	switch-atm-symbol.png \
 	switch-symbol.shape \
-	switch-symbol.xpm \
+	switch-symbol.png \
 	dat_external.shape \
-	dat_external.xpm \
+	dat_external.png \
 	diskette.shape \
-	diskette.xpm \
+	diskette.png \
 	mobile_phone.shape \
-	mobile_phone.xpm \
+	mobile_phone.png \
 	monitor.shape \
-	monitor.xpm \
+	monitor.png \
 	pc_bigtower.shape \
-	pc_bigtower.xpm \
+	pc_bigtower.png \
 	pc_desktop.shape \
-	pc_desktop.xpm \
+	pc_desktop.png \
 	pc_miditower.shape \
-	pc_miditower.xpm \
+	pc_miditower.png \
 	pc_minitower.shape \
-	pc_minitower.xpm \
+	pc_minitower.png \
 	speaker.shape \
-	speaker.xpm \
+	speaker.png \
 	speaker_amp.shape \
-	speaker_amp.xpm \
+	speaker_amp.png \
 	workstation.shape \
-	workstation.xpm \
+	workstation.png \
 	zip-disk.shape \
-	zip-disk.xpm \
+	zip-disk.png \
 	disc.shape \
-	disc.xpm \
+	disc.png \
 	hub.shape \
-	hub.xpm \
+	hub.png \
 	flash.shape \
-	flash.xpm \
+	flash.png \
 	rj45plug.shape \
-	rj45plug.xpm \
+	rj45plug.png \
 	sceadplug.shape \
-	sceadplug.xpm \
+	sceadplug.png \
 	antenna.shape \
-	antenna.xpm \
+	antenna.png \
 	modem.shape \
-	modem.xpm \
+	modem.png \
 	modularswitch.shape \
-	modularswitch.xpm \
+	modularswitch.png \
 	printer.shape \
-	printer.xpm \
+	printer.png \
 	genmonitor.shape \
-	genmonitor.xpm \
+	genmonitor.png \
 	computer.shape \
-	computer.xpm \
+	computer.png \
 	telephone.shape \
 	telephone.png \
 	firewall.shape \
-	firewall.xpm \
+	firewall.png \
 	plotter.shape \
 	plotter.png \
 	digitizing_board.shape \
 	digitizing_board.png \
 	patch-panel.shape  \
-	patch-panel.xpm
+	patch-panel.png
 
 EXTRA_DIST = $(SHAPES)
 

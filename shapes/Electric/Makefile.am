@@ -5,35 +5,35 @@ electricdir = $(shapedir)/Electric
 
 SHAPES = \
 	cnx.shape \
-	cnx.xpm \
+	cnx.png \
 	command.shape \
-	command.xpm \
+	command.png \
 	contact_f.shape \
-	contact_f.xpm \
+	contact_f.png \
 	contact_o.shape \
-	contact_o.xpm \
+	contact_o.png \
 	intpos_f.shape \
-	intpos_f.xpm \
+	intpos_f.png \
 	intpos_o.shape \
-	intpos_o.xpm \
+	intpos_o.png \
 	lamp.shape \
-	lamp.xpm \
+	lamp.png \
 	relay.shape \
-	relay.xpm \
+	relay.png \
 	vcommand.shape \
-	vcommand.xpm \
+	vcommand.png \
 	vcontact_f.shape \
-	vcontact_f.xpm \
+	vcontact_f.png \
 	vcontact_o.shape \
-	vcontact_o.xpm \
+	vcontact_o.png \
 	vintpos_f.shape \
-	vintpos_f.xpm \
+	vintpos_f.png \
 	vintpos_o.shape \
-	vintpos_o.xpm \
+	vintpos_o.png \
 	vlamp.shape \
-	vlamp.xpm \
+	vlamp.png \
 	vrelay.shape \
-	vrelay.xpm
+	vrelay.png
 
 EXTRA_DIST = $(SHAPES)
 

@@ -195,6 +195,6 @@ dia_get_absolute_filename (const gchar *filename)
     message_warning("Too many ..'s in filename %s\n", filename);
     return filename;
   }
-  free(fullname);
+  g_free(fullname);
   return canonical;
 }

@@ -1,3 +1,38 @@
+2004-07-18  Hans Breuer  <hans@breuer.org>
+
+	* shapes/(Circuit|Contatct|MSE|network|Pneumatic|SDL|sybase)/Makefile.am 
+	  sheets/UML/*.png : icons in png format
+	Partial fixup of stuff broken with the following comment:
+	"7 days : xpm->png, namespace fix, first rotation bits."
+
+	* app/load_save.c(read_objects) : don't add objects to the layer.
+	This function is called recursively and only the topmost objects
+	belong in the layers object list. Fixes bug #145417 and is the
+	the real fix for bug #142480
+	
+	* app/app_procs.c : make the --size hack even uglier, but work again
+	
+	* lib/libartrenderer.c (draw_line, draw_rect) : disable broken code
+	using art_vpath_affine_transform()
+	
+	* lib/dia_dirs.c(dia_get_absolute_filename) : must not free()
+	but g_free() what is returned by g_build_filename()
+	
+	* objects/custom_object.c(custom_destroy) : handle all enum values
+	in switch to get rid of the warning
+	
+	* objects/custom/shape_info.c : use g_ascii_strtod(), get rid 
+	of setlocale()/strtod()
+	* lib/dia_svg.c : dito
+	* lib/dia_xml.c : almost
+
+	* lib/object.h : set PROP_FLAG_OPTIONAL for "obj_rotate" to stop
+	complaining on missing attribute
+	
+	* plug-ins/python/group_props.py : use the string representation of 
+	value to ensure "unique values". If the strings would not be different
+	the user cann't see the difference either
+
 2004-07-17  Lars Clausen  <lars@raeder.dk>
 
 	* lib/persistence.h: Have "void" in prototypes (#142663)
