@@ -10,7 +10,7 @@ man_MANS = dia.1
 pixmapdir = $(gnomedatadir)/pixmaps
 pixmap_DATA = dia_gnome_icon.png dia-diagram.png
 
-Applicationsdir = $(gnomedatadir)/gnome/apps/Applications
+Applicationsdir = $(gnomedatadir)/applications
 applications_in_files = dia.desktop.in
 Applications_DATA = $(applications_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@

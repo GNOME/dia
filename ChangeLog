@@ -1,3 +1,9 @@
+2003-07-15  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* Makefile.am: 
+	* dia.desktop.in: Patch from Mark McLoughlin <mark@skynet.ie>:
+	Set up desktop info more properly.
+
 2003-07-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* activity.c:
