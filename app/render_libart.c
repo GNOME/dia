@@ -191,8 +191,12 @@ new_libart_renderer(DDisplay *ddisp, int interactive)
   renderer->dash_length = 10;
   renderer->dot_length = 1;
 
+#ifdef HAVE_FREETYPE
+  renderer->freetype_font = NULL;
+#else
   renderer->gdk_font = NULL;
   renderer->suck_font = NULL;
+#endif
 
   return renderer;
 }
@@ -412,8 +416,12 @@ set_font(RendererLibart *renderer, DiaFont *font, real height)
   renderer->font_height =
     ddisplay_transform_length(renderer->ddisp, height);
 
+#ifdef HAVE_FREETYPE
+  renderer->freetype_font = font_get_freetypefont(font, renderer->font_height);
+#else
   renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
   renderer->suck_font = font_get_suckfont(font, renderer->font_height);
+#endif
 }
 
 static void
@@ -1110,6 +1118,37 @@ fill_bezier(RendererLibart *renderer,
   art_svp_free( svp );
 }
 
+struct libart_freetype_user_data {
+  RendererLibart *renderer;
+  guint32 rgba;
+};
+
+static void
+libart_freetype_copy_glyph(FT_GlyphSlot glyph, int xpos, int ypos, 
+			   gpointer userdata) {
+  struct libart_freetype_user_data *data =
+    (struct libart_freetype_user_data *)userdata;
+  double affine[6];
+  FT_Bitmap *bitmap = &glyph->bitmap;
+  guchar *buffer = bitmap->buffer;
+  int rowstride = bitmap->pitch;
+  int width = bitmap->width;
+  int height = bitmap->rows;
+
+  art_affine_translate(affine, xpos, ypos);
+  art_rgb_bitmap_affine(data->renderer->rgb_buffer,
+			0, 0,
+			data->renderer->renderer.pixel_width,
+			data->renderer->renderer.pixel_height,
+			data->renderer->renderer.pixel_width*3,
+			buffer,
+			width, height,
+			rowstride,
+			data->rgba,
+			affine,
+			ART_FILTER_NEAREST, NULL);
+}
+
 static void
 draw_string(RendererLibart *renderer,
 	    const char *text,
@@ -1125,6 +1164,44 @@ draw_string(RendererLibart *renderer,
   double xpos, ypos;
   guint32 rgba;
 
+#ifdef HAVE_FREETYPE
+  FreetypeString *fts;
+  struct libart_freetype_user_data data;
+
+  ddisplay_transform_coords(ddisp, pos->x, pos->y,
+			    &x, &y);
+
+#if defined (GTK_TALKS_UTF8_WE_DONT)
+  {
+    utfchar *utfbuf = charconv_local8_to_utf8(text);
+    fts = freetype_load_string(utfbuf, renderer->freetype_font, strlen(text));
+    iwidth = fts->width*72.0/2.54;
+    g_free(utfbuf);
+  }
+#else
+  fts = freetype_load_string(text, renderer->freetype_font, strlen(text));
+  iwidth = fts->width*72.0/2.54;
+#endif
+  switch (alignment) {
+  case ALIGN_LEFT:
+    break;
+  case ALIGN_CENTER:
+    x -= iwidth/2;
+    break;
+  case ALIGN_RIGHT:
+    x -= iwidth;
+    break;
+  }
+
+  xpos = (double) x + 1; 
+  ypos = (double) y;
+  
+  data.rgba = color_to_rgba(color);
+  data.renderer = renderer;
+  
+  freetype_render_string(fts, xpos, ypos, libart_freetype_copy_glyph, &data);
+
+#else
   ddisplay_transform_coords(ddisp, pos->x, pos->y,
 			    &x, &y);
 
@@ -1177,9 +1254,7 @@ draw_string(RendererLibart *renderer,
     dx = ch->left_sb + ch->width + ch->right_sb;
     xpos += dx;
   }
-
-  
-  
+#endif
 }
 
 static void
@@ -1253,6 +1328,9 @@ get_text_width(RendererLibart *renderer,
 {
   int iwidth;
   
+#ifdef HAVE_FREETYPE
+  iwidth = freetype_load_string(text, renderer->freetype_font, length)->width;
+#else
 #if defined (GTK_TALKS_UTF8_WE_DONT)
   {
     utfchar *utfbuf = charconv_local8_to_utf8(text);
@@ -1261,6 +1339,7 @@ get_text_width(RendererLibart *renderer,
   }
 #else
   iwidth = gdk_text_width(renderer->gdk_font, text, length);
+#endif
 #endif
 
   return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);

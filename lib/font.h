@@ -103,6 +103,11 @@ struct _SuckFont {
 
 DIAVAR GList *font_names; /* GList with 'char *' data.*/
 
+#ifdef HAVE_FREETYPE
+typedef void (*BitmapCopyFunc)(FT_GlyphSlot glyph, int x, int y,
+			       gpointer userdata);
+#endif
+
 void font_init(void);
 void font_init_freetype(void);
 DiaFont *font_getfont(const char *name);
@@ -110,6 +115,8 @@ GdkFont *font_get_gdkfont(DiaFont *font, int height);
 SuckFont *font_get_suckfont(DiaFont *font, int height);
 char *font_get_psfontname(DiaFont *font);
 #ifdef HAVE_FREETYPE
+FreetypeString *freetype_load_string(const char *string, FT_Face face, int len);
+void freetype_free_string(FreetypeString *fts);
 FT_Face font_get_freetypefont(DiaFont *font, real height);
 gboolean freetype_file_is_fontfile(char *filename);
 void freetype_add_font(char *dirname, char *filename);
@@ -117,6 +124,8 @@ void freetype_scan_directory(char *dirname);
 void font_init_freetype();
 char *font_get_freetypefontname(DiaFont *font);
 DiaFont *font_getfont_with_style(const char *name, const char *style);
+void freetype_render_string(FreetypeString *fts, int x, int y, 
+			    BitmapCopyFunc func, gpointer userdata);
 #endif
 real font_string_width(const char *string, DiaFont *font, real height);
 real font_ascent(DiaFont *font, real height);

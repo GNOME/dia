@@ -897,6 +897,37 @@ fill_bezier(RendererGdk *renderer,
 		   bezier.gdk_points, bezier.currpoint);
 }
 
+struct gdk_freetype_user_data {
+  GdkPixmap *pixmap;
+  GdkGC *gc;
+};
+
+void
+gdk_freetype_copy_glyph(FT_GlyphSlot glyph, int pen_x, int pen_y,
+			gpointer userdata)
+{
+  struct gdk_freetype_user_data *data = 
+    (struct gdk_freetype_user_data *)userdata;
+  FT_Bitmap *bitmap = &glyph->bitmap;
+  guchar *buffer = bitmap->buffer;
+  int rowstride = bitmap->pitch;
+
+  // Seems FT and GDK disagree on what color '0' is, so we have to
+  // swap the foreground and background colors.
+  if (rowstride < 0) { // Cartesian bitmap
+    buffer = buffer+rowstride*(bitmap->rows-1);
+  }
+
+  if (bitmap->pixel_mode == ft_pixel_mode_mono) {
+    
+  } else {
+    gdk_draw_gray_image(data->pixmap, data->gc, pen_x, pen_y,
+			bitmap->width, bitmap->rows,
+			GDK_RGB_DITHER_NONE,
+			buffer, rowstride);
+  }
+}
+
 static void
 draw_string (RendererGdk *renderer,
 	     const utfchar *text,
@@ -906,13 +937,15 @@ draw_string (RendererGdk *renderer,
 #ifdef HAVE_FREETYPE
   DDisplay *ddisp = renderer->ddisp;
   GdkGC *gc = renderer->render_gc;
-  GdkColor gdkcolor;
   int x,y;
   int iwidth;
   FreetypeString *fts;
+  struct gdk_freetype_user_data userdata;
+  GdkColor gdkcolor;
 
-  ddisplay_transform_coords(ddisp, pos->x, pos->y,
-			    &x, &y);
+  gdk_gc_set_function(renderer->render_gc, GDK_COPY_INVERT);
+
+  ddisplay_transform_coords(ddisp, pos->x, pos->y, &x, &y);
   fts = freetype_load_string(text, renderer->freetype_font, strlen(text));
   iwidth = fts->width*72.0/2.54;
 
@@ -927,10 +960,13 @@ draw_string (RendererGdk *renderer,
     break;
   }
   
-  
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
-  freetype_render_string(renderer->pixmap, fts, gc, x, y);
+
+  userdata.pixmap = renderer->pixmap;
+  userdata.gc = gc;
+
+  freetype_render_string(fts, x, y, gdk_freetype_copy_glyph, &userdata);
 #else
   DDisplay *ddisp = renderer->ddisp;
   GdkGC *gc = renderer->render_gc;
@@ -1040,7 +1076,7 @@ get_text_width(RendererGdk *renderer,
   utfchar *utfbuf, *utf, *p;
 
 #ifdef HAVE_FREETYPE
-  iwidth = freetype_load_string(text, renderer->freetype_font, length);
+  iwidth = freetype_load_string(text, renderer->freetype_font, length)->width;
 #else
 # if defined (GTK_TALKS_UTF8_WE_DONT)
   {

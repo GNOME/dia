@@ -21,6 +21,7 @@
 #include "widgets.h"
 #include "message.h"
 
+#include <stdlib.h>
 #include <glib.h>
 #include <gdk/gdk.h>
 #include <gtk/gtkradiomenuitem.h>
@@ -92,20 +93,6 @@ dia_font_selector_scroll_popup(GtkWidget *widget)
 }
 
 static void
-dia_font_selector_set_font_menu (gpointer key, gpointer value, gpointer user_data)
-{
-  char *fontname = (char *)key;
-  GtkWidget *menuitem;
-  GtkMenu *menu = GTK_MENU(user_data);
-
-  menuitem = gtk_menu_item_new_with_label (fontname);
-  gtk_object_set_user_data(GTK_OBJECT(menuitem), fontname);
-  gtk_signal_connect(GTK_OBJECT(menuitem), "select", dia_font_selector_scroll_popup, NULL);
-  gtk_menu_append (GTK_MENU (menu), menuitem);
-  gtk_widget_show (menuitem);
-}
-
-static void
 dia_font_selector_font_selected(GtkWidget *button, gpointer data)
 {
   DiaFontSelector *fs = DIAFONTSELECTOR(data);
@@ -114,8 +101,16 @@ dia_font_selector_font_selected(GtkWidget *button, gpointer data)
   char *fontname = (char *)gtk_object_get_user_data(GTK_OBJECT(active));
   dia_font_selector_set_styles(fs, font_getfont(fontname));
 }
-#endif
 
+struct select_pair { guchar **array; int counter; };
+
+static void
+dia_font_selector_collect_names(gpointer key, gpointer value,
+				gpointer userdata) {
+  struct select_pair *pair = (struct select_pair *)userdata;
+  pair->array[pair->counter++] = (guchar *)key;
+}
+#endif
 
 static void
 dia_font_selector_init (DiaFontSelector *fs)
@@ -124,15 +119,32 @@ dia_font_selector_init (DiaFontSelector *fs)
   // Go through hash table and build menu
   GtkWidget *menu;
   GtkWidget *omenu;
+  struct select_pair pair;
+  int i, num_fonts;
   
   omenu = gtk_option_menu_new();
   fs->font_omenu = GTK_OPTION_MENU(omenu);
   menu = gtk_menu_new ();
   fs->font_menu = GTK_MENU(menu);
 
-  g_hash_table_foreach(freetype_fonts, dia_font_selector_set_font_menu,
-		       menu);
+  num_fonts = g_hash_table_size(freetype_fonts);
+  pair.array = (guchar **)g_malloc(sizeof(guchar*)*num_fonts);
+  pair.counter = 0;
+  g_hash_table_foreach(freetype_fonts, dia_font_selector_collect_names,
+		       (gpointer)&pair);
   
+  qsort(pair.array, num_fonts, sizeof(guchar *), strcmp);
+
+  for (i = 0; i < num_fonts; i++) {
+    GtkWidget *menuitem;
+
+    menuitem = gtk_menu_item_new_with_label (pair.array[i]);
+    gtk_object_set_user_data(GTK_OBJECT(menuitem), pair.array[i]);
+    gtk_signal_connect(GTK_OBJECT(menuitem), "select", dia_font_selector_scroll_popup, NULL);
+    gtk_menu_append (GTK_MENU (menu), menuitem);
+    gtk_widget_show (menuitem);
+  }
+
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->font_omenu), menu);
   gtk_widget_show(menu);
   gtk_widget_show(omenu);

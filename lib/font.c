@@ -777,32 +777,8 @@ freetype_free_string(FreetypeString *fts)
 }
 
 void
-freetype_copy_glyph_bitmap(GdkPixmap *pixmap, GdkGC *gc,
-			   FT_GlyphSlot glyph, int pen_x, int pen_y)
-{
-  FT_Bitmap *bitmap = &glyph->bitmap;
-  guchar *buffer = bitmap->buffer;
-  int rowstride = bitmap->pitch;
-  int width = bitmap->width;
-  int height = bitmap->rows;
-
-  if (rowstride < 0) { // Cartesian bitmap
-    buffer = buffer+rowstride*(bitmap->rows-1);
-  }
-
-  if (bitmap->pixel_mode == ft_pixel_mode_mono) {
-    
-  } else {
-    gdk_draw_gray_image(pixmap, gc, pen_x, pen_y,
-			bitmap->width, bitmap->rows,
-			GDK_RGB_DITHER_NONE,
-			buffer, rowstride);
-  }
-}
-
-void
-freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
-		       GdkGC *gc, int x, int y)
+freetype_render_string(FreetypeString *fts, int x, int y, 
+		       BitmapCopyFunc func, gpointer userdata)
 {
   gchar *string;
   int i, len;
@@ -812,10 +788,6 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
   FT_Face face = fts->face;
 
   LC_DEBUG (fprintf(stderr, "freetype_render_string\n"));
-
-  // Seems FT and GDK disagree on what color '0' is, so we have to
-  // swap the foreground and background colors.
-  gdk_gc_set_function(gc, GDK_COPY_INVERT);
 
   string = fts->text;
   len = strlen(string);
@@ -858,10 +830,11 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
     if (error) continue;  // ignore errors, jump to next glyph
 
     // now, draw to our target surface
-    freetype_copy_glyph_bitmap( pixmap, gc, face->glyph,
-				pen_x + face->glyph->bitmap_left,
-				pen_y - face->glyph->bitmap_top + (face->size->metrics.descender >> 6) );
-                         
+    (*func)(face->glyph, 
+	    pen_x+face->glyph->bitmap_left,
+	    pen_y-face->glyph->bitmap_top+(face->size->metrics.descender>>6),
+	    userdata);
+    
     // increment pen position 
     pen_x += face->glyph->advance.x >> 6;
     pen_y += face->glyph->advance.y >> 6;   // unuseful for now..
@@ -869,7 +842,6 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
     // record current glyph index for kerning
     previous_index = glyph_index;
   }
-  gdk_gc_set_function(gc, GDK_COPY);
 }
 #endif
 
