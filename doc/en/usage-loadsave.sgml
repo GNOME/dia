@@ -1,0 +1,171 @@
+<chapter label="7" id="loadsave-chapter">
+<title>Loading and Saving Diagrams</title>
+<sect1 id="loadsave">
+ <title>Loading and Saving Diagrams</title>
+  <para>
+   <application>Dia</application> follows the saving model common to most
+   desktop applications: you must explicitly save any canvases that you
+   wish to retain for future use. To save a file, choose
+    <menuchoice>
+     <guimenu>File</guimenu>
+      <guimenuitem>Save</guimenuitem>
+    </menuchoice>
+   from the <interface>Main Popup Menu</interface>. The result is a
+   standard save dialog. Your canvas is saved in
+   <application>Dia</application> XML format. No file extension is
+   autometically added, so it is a good idea to explicitly add
+  '.dia' to the name you enter.
+  </para>
+  <para>
+   To load a canvas from a file previously saved by
+   <application>Dia</application> or created by another application,
+   select
+    <menuchoice>
+     <guimenu>File</guimenu>
+     <guimenuitem>Open...</guimenuitem>
+    </menuchoice>
+   from the <interface>Main Menu Bar</interface>. The result is an
+   <interface>open dialog</interface>; select the file you want
+   and choose <guibutton>Open</guibutton>. The <interface>open
+   dialog</interface> is standard apart from the popup menu labeled
+   <guimenu>Determine file type</guimenu>. Choose the format of the file
+   to open (<application>Dia</application> XML or Drawing Interchange)
+   if <application>Dia</application> does not correctly determine the
+   file format unassisted.
+  </para>
+  <para>An alternate file-loading method is to start
+  <application>Dia</application> from the command line with the name
+   of the file to open given as an argument.
+  </para>
+ 
+   <sect2 id="loadsave-filetypes">
+   <title>File Types</title>
+    <para>
+     A few words on file types are in order. You should be aware that not all
+     format of files can be re-loaded into <application>Dia</application>
+     after saving and that most supported file formats lose information to
+     some degree.
+    </para>
+    <sect3 id="loadsave-filetypes-dia">
+    <title>Native Dia Diagram Files</title>
+     <para>
+      The only format guaranteed to be lossless is
+      <application>Dia</application> XML. Happily, you are unlikely to
+      accidentally save in a lossy format because
+       <menuchoice>
+        <guimenu>File</guimenu>
+         <guimenuitem>Save</guimenuitem>
+       </menuchoice>
+      always produces a file in <application>Dia</application> XML format.
+     </para>
+     <para>
+      Files in <application>Dia</application> XML format are automatically
+      compressed using gzip to save disk space. This is almost necessary
+      since, without compression, even simple diagrams are very large because
+      they store much redundant information. Because
+      <application>Dia</application> XML files are already compressed, you 
+      should not try to compress them manually&mdash;it will not help.
+     </para>
+    </sect3>
+<!-- Add loadsave-filestypes-dif section in future -->
+    <sect3 id="loadsave-filetypes-export">
+    <title>Exporting: Support for Other Formats</title>
+     <para>
+     <application>Dia</application> supports exporting to many other types of
+     file, such as:
+     <itemizedlist>
+      <listitem>
+       <para>
+        Computer Graphics Metafile
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        HPGL
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        EPS
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        PNG
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        SVG
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        TeX
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        WPG
+       </para>
+      </listitem>
+     </itemizedlist>
+     <application>Dia</application> cannot load files in these formats.  These
+     formats are useful for diagrams that you need to use in another
+     application or to distribute to users of another operating system that
+     <application>Dia</application> does not support.
+     <!--Lets go through later and make this a variablelist, as well as describe
+     the strengths of each of these formats  -->
+<!--      Computer Graphics Metafile, HPGL, EPS, PNG, SVG,
+      TeX, and WPG formats are supported for crating files
+      only&mdash;<application>Dia</application> cannot load files in these
+      formats. These formats are useful for diagrams that you need to use
+      in another application (e.g., the World-wide Web) or distribute to
+      users of an operating system that <application>Dia</application>
+      does not support.
+-->
+     </para>
+     <para>
+      To create a file in one of these formats, select
+       <menuchoice>                                                                             <guimenu>File</guimenu>
+         <guimenuitem>Open...</guimenuitem>
+       </menuchoice>
+      from the <interface>Main Popup Menu</interface>. Choose a name
+      and the desired format in the resulting dialog, which works like a
+      <interface>save</interface> dialog. An appropriate file extension
+      is automatically added.
+     </para>
+    </sect3>
+   </sect2>
+  </sect1>
+ <sect1 id="prefs">
+ <title>Customization</title>
+ <para>
+  To change the behavior settings, select
+  <menuchoice>
+   <guimenu>File</guimenu> <guimenuitem>Preferences...</guimenuitem>
+   </menuchoice> from the <interface>Main Menu Bar</interface>.  This opens the    <interface>Preferences</interface> dialog, shown in <!--[TODO: add
+   screenshot].--> <!-- <xref linkend="preferences-fig">. -->
+ </para>
+ <para>
+  The configurable properties in the <guilabel>User Interface</guilabel> tab
+  are:
+  <itemizedlist>
+   <listitem>
+    <para>
+     Reset tools after create &mdash; If this button is checked&hellip;[TODO:
+     find out what this does]
+    </para>
+   </listitem>
+  </itemizedlist>
+  </para>
+  <para>
+   After you have made all the changes you want, click on
+   <guibutton>OK</guibutton> to apply the changes and close the
+   <interface>Preferences</interface> dialog. To cancel the changes and return
+   to previous values, click the <guibutton>Close</guibutton> button. You may
+   preview the effect of your changes using the Apply
+   button.
+  </para>
+ </sect1>
+</chapter> 

@@ -1,0 +1,272 @@
+<chapter label="6" id="selecting-chapter">
+<title>Selecting Objects</title>
+<sect1 id="selecting">
+ <title>Selecting Objects</title>
+ 
+  <!-- (introductory info...)  -->
+  <sect2 id="selecting-introduction">
+  <title>Selection Introduction</title>
+   <para>
+       Selecting objects is probably the most frequently task that is used
+       to be done when using <application>Dia</application>. From the moment
+       you create a new object to the moment you think the diagram looks the
+       way it should be, you will always have to select objects to set them
+       up properly.
+       <!-- I must confess that this intro really sucks -->
+   </para>
+   <para>
+       Selecting objects can be done in many different ways, and there are
+       also many operations that can be perform on these selected objects.
+   </para>
+   <para>
+       You can select objects to simply drag them around the diagram, or to
+       group them in a logical way to manipulate them more easily, to connect
+       them each others, or to simply remove them from the diagram.
+   </para>
+   <note>
+     <!-- this note is for those that already know how to select objects but can't
+            do it. It's a quick link related to the Layer's problems.  -->
+     <para>
+        Only objects present in the current layer can be selected. If an object
+        doesn't want to be select it's probably because it is situated in another
+        layer. To know how to change the current layer or how to manipulate many
+        layers, please refer to the Managing Layers section.
+        <!-- need to make a link link to it -->
+     </para>
+    </note>
+  </sect2>
+ 
+  <!-- +How to Select Objects  -->
+  <sect2 id="how-to-select">
+  <title>How To Select Objects</title>
+    <sect3 id="basic-selection">
+    <title>Basic Selection</title>
+     <para>
+         The basic way to select an object is by clicking on it.
+     </para>
+     <para>
+         When the object is selected it appears on the diagram with some little
+         green points on its corners and on its sides.
+     </para>
+     <para>
+         Once the green points appeared, you can start manipulate this object as you
+         wish. When you're done with it you can deselect this object by clicking on
+         any free space of the diagram, the green points will desappear and selection
+         of an other object becomes possible.
+     </para>
+    </sect3>
+ 
+    <sect3 id="multi-selection">
+    <title>Multiple Selection</title>
+     <para>
+         The simplest way to select more than one object at the time, is by clicking
+         on a free space of the diagram with the left mouse button and moving the mouse
+         while pressing on it. Doing so will draw a thin rectangle on the Canvas. All
+         objects present in this area will be selected when depressing the button.
+     </para>
+     <para>
+         An other way to do so is by holding down the Shift key while selecting the
+         objects by clicking them one by one.
+     </para>
+     <para>
+         Once your selection is complete, each of the selected objects must appear
+         with its own green points as described above.
+     </para>
+     <para>
+         Multiple selection is useful when you want apply the same operation on many
+         different objects and you don't want waste time by selecting them one by one.
+     </para>
+     <para>
+         When selected, objects act like a group. Meaning that if you try to drag one
+         of them, it is the whole group that will move. The same if you try to delete
+         one of them, it is the whole group that will be removed from the diagram.
+     </para>
+     <para>
+         Then if you click on any free space on the diagram or if you change to another
+         layer, you will loose the selection. Or if you want to add some more objects
+         to your selection, simply hold down the Shift key again and click on the items
+         that you want add.
+     </para>
+     <note>
+      <para>
+         Assuming that you selected some objects on your diagram, it is still possible
+         to resize one of them without changing the size or position of other selected
+         objects. To learn how to resize objects see the Resizing Objects section.
+         <!-- need to set up some link right here -->
+      </para>
+     </note>
+    </sect3>
+ 
+    <sect3 id="other-selection">
+    <title>Other Ways for Selecting Objects</title>
+    <para>
+       Other ways for selecting objects are describe below, all these options can be
+       reached in the <interface>Main Popup Menu</interface> under the
+       <menuchoice><guimenu>Select</guimenu></menuchoice> menu :
+    </para>
+    <variablelist>
+      <varlistentry>
+         <term>Selecting all objects</term>
+         <listitem>
+          <para>
+            Choosing the <menuchoice><guimenuitem>All</guimenuitem></menuchoice>
+            option will let you select all the objects present on the current layer,
+            the same way as you could do it by hand.
+          </para>
+          <para>
+            This option is a shortcut of when your diagram contains a lot of objects
+            and you don't want waste your time in selecting objects one by one.
+          </para>
+         </listitem>
+      </varlistentry>
+      <varlistentry>
+         <term>Deselecting all objects </term>
+         <listitem>
+          <para>
+             Selecting the <menuchoice><guimenuitem>None</guimenuitem></menuchoice>
+             option will deselect objects you have selected before. It has the
+             same effect as when you clicking on any free part of your diagram.
+          </para>
+          <para>                                                                                     After you have deselected objects you cannot perform any operation on
+             them anymore. So you have to select them again to continue
+          </para>
+          <tip>
+            <para>
+              Often you will have to keep your selections persistent, to do so, you
+              can form an arbitrary group with the selected items or cut and paste
+              them in a new layer that will contain all the objects of your selection.
+            </para>
+            <para>
+              To learn more about managing groups see the Managing Groups section, and
+              to learn more about layers you can also check the Managing Layers section.              <!-- need to set up links here. -->
+            </para>
+          </tip>
+         </listitem>
+      </varlistentry>
+      <varlistentry>
+         <term>Inverting the selection</term>
+         <listitem>
+           <para>
+              Admiting you have ten items on your diagram and want to select only eight
+              of them. One way to select these eight objects can be done by the
+              <menuchoice><guimenuitem>Invert</guimenuitem></menuchoice> option under
+              the <menuchoice><guimenu>Select</guimenu></menuchoice> menu.
+           </para>
+           <para>
+              Simply select by hand the two objects you don't need, then check the
+              <menuchoice><guimenuitem>Invert</guimenuitem></menuchoice> option and you
+              will get the eight objects you wanted being selected and the two others
+              left on their owns.
+           </para>
+           <tip>
+             <para>
+                An other way to do this is to select <menuchoice><guimenuitem>All</guimenuitem>
+                </menuchoice> the items as described above, and then press the Shift key 
+                and deselect the objects you don't need.
+             </para>
+           </tip>
+         </listitem>
+      </varlistentry>
+    </variablelist>
+    </sect3>
+ 
+    <sect3 id="selection-connected">
+    <title>Selecting Connected Objects</title>
+     <para>
+       One really useful and powerful feature of <application>Dia</application> is its
+       ability of handling connection between objects.
+     </para>
+     <para>
+       Connections, in <application>Dia</application>, can be used for many purposes. The
+       first, and not the least, is to explicitly specify a direct relationship
+       between two objects.
+     </para>
+     <para>
+       The second could be it is easier to manage objects that behave efficiently in
+       following established rules and that can be acceded in a few clicks.
+     </para>
+     <note>
+      <para>                                                                                    To learn more about advantages in connecting different objects together, you
+        should read the Connecting Objects section.
+      </para>
+     </note>
+     <para>
+       Selecting objects connected to a particular object, is as simple than selecting
+       this particular object, right click on the Canvas to get the
+       <interface>Main Popup Menu</interface> appear and click on the
+       <menuchoice>
+          <guimenu>Select</guimenu>
+          <guimenuitem>Connected</guimenuitem>
+       </menuchoice> button.
+     </para>
+     <para>
+       If this object doesn't have any object connected to it, that will do nothing.
+       Otherwise, all the connected objects will be magicaly selected and will form
+       a new group of temporary selected objects.
+     </para>
+     <note>
+      <para>
+        If you repeat this manipulation again, that will be all the connected objects
+        to this new group that will be add to the selection.
+      </para>
+      <para>
+        You can redo the operation until you have selected all objects that were
+        connected all together.
+      </para>
+     </note>
+    </sect3>
+ 
+    <sect3 id="selection-transitive">
+    <title>Selecting  Transitive Objects</title>
+     <para>
+      Technic shown above is pretty fine when you only want select a small number of
+      connected objects at the time.
+     </para>
+     <para>
+       Sometimes you will have to select a whole bunch of objects that are connected
+       all together and that way of selecting objects step by step won't be really
+       efficient if it happens to often.
+     </para>
+     <para>
+       This is the reason why <application>Dia</application> offers you to do all these
+       steps at once.
+     </para>
+     <para>
+        To do so, select the root object you desire, then right click on the
+        Canvas to have the
+       <interface>Main Popup Menu</interface> appear on screen, but this time choose the 
+       <menuchoice>
+          <guimenu>Select</guimenu>
+          <guimenuitem>Transitive</guimenuitem>
+       </menuchoice> button instead of <guimenuitem>Connected</guimenuitem>.
+     </para>
+     <para>
+       And that's it, all objects that were connected to the root object you
+       choose are now selected and ready to be manipulate and waiting for you to
+       apply on them any number of operation that you would like.
+     </para>
+    </sect3>
+ 
+    <sect3 id="selection-same-type">
+    <title>Selecting Same Type of Objects</title>                                            <para>
+        <application>Dia</application> implements as well some trick to select objects
+        that issued from the same type.
+     </para>
+     <para>
+        Meaning that if, for any reason, you need to select objects matching the same
+        type (all Rectangles, Lines or any custom Shape) you could do it by selecting
+        an object of the type you need to select and click, in the
+        <interface>Main Popup Menu</interface>, the
+        <menuchoice>
+          <guimenu>Select</guimenu>
+          <guimenuitem>Same Type</guimenuitem>
+       </menuchoice> button.
+     </para>
+     <para>
+       This will automaticaly select all objects that correspond to the type you have
+       chosen. Only objects present in the current layer will be selected.
+     </para>
+    </sect3>
+   </sect2>
+</sect1>
+</chapter> 
