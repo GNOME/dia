@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.93+cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-02 14:52-0400\n"
-"PO-Revision-Date: 2004-08-02 13:37-0400\n"
+"POT-Creation-Date: 2004-08-07 17:04-0400\n"
+"PO-Revision-Date: 2004-08-07 13:37-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -633,7 +633,7 @@ msgstr "Image height:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:122 app/filedlg.c:403
+#: app/filedlg.c:122 app/filedlg.c:404
 msgid "By extension"
 msgstr "By extension"
 
@@ -645,7 +645,7 @@ msgstr "Open Diagram"
 msgid "Open Options"
 msgstr "Open Options"
 
-#: app/filedlg.c:223 app/filedlg.c:525
+#: app/filedlg.c:223 app/filedlg.c:526
 msgid "Determine file type:"
 msgstr "Determine file type:"
 
@@ -657,7 +657,7 @@ msgstr ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
 
-#: app/filedlg.c:265 app/filedlg.c:447
+#: app/filedlg.c:265 app/filedlg.c:448
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -666,7 +666,7 @@ msgstr ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 
-#: app/filedlg.c:273 app/filedlg.c:454
+#: app/filedlg.c:273 app/filedlg.c:455
 msgid "File already exists"
 msgstr "File already exists"
 
@@ -688,7 +688,7 @@ msgstr ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
 
-#: app/filedlg.c:473
+#: app/filedlg.c:474
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -697,11 +697,11 @@ msgstr ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 
-#: app/filedlg.c:492
+#: app/filedlg.c:493
 msgid "Export Diagram"
 msgstr "Export Diagram"
 
-#: app/filedlg.c:517
+#: app/filedlg.c:518
 msgid "Export Options"
 msgstr "Export Options"
 
@@ -3815,7 +3815,7 @@ msgstr "Aggregate"
 msgid "Composition"
 msgstr "Composition"
 
-#: objects/UML/class.c:110 objects/UML/class.c:245 objects/UML/class.c:1157
+#: objects/UML/class.c:110 objects/UML/class.c:247 objects/UML/class.c:1163
 #: sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Class"
@@ -3894,9 +3894,9 @@ msgstr "Attributes"
 msgid "Operations"
 msgstr "Operations"
 
-#: objects/UML/class.c:251
-msgid "Show comments"
-msgstr "Show comments"
+#: objects/UML/class.c:241
+msgid "Show Comments"
+msgstr "Show Comments"
 
 #. Class page:
 #: objects/UML/class_dialog.c:265
