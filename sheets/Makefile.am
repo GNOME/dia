@@ -1,4 +1,4 @@
-SUBDIRS = UML ER
+SUBDIRS = UML ER GRAFCET
 
 sheetdir = $(pkgdatadir)/sheets
 
@@ -10,7 +10,9 @@ SHEETS = \
 	network.sheet \
 	Flowchart.sheet \
 	Circuit.sheet \
-	Contact.sheet
+	Contact.sheet \
+	GRAFCET.sheet \
+	chronogram.sheet
 
 EXTRA_DIST = $(SHEETS)
 

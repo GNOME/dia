@@ -29,6 +29,7 @@
 #include "attributes.h"
 #include "widgets.h"
 #include "arrows.h"
+#include "connpoint_line.h"
 
 #include "pixmaps/line.xpm"
 
@@ -59,7 +60,7 @@ typedef struct _LineProperties {
 typedef struct _Line {
   Connection connection;
 
-  ConnectionPoint middle_point;
+  ConnPointLine *cpl;
 
   Color line_color;
   real line_width;
@@ -119,6 +120,7 @@ static void line_set_state(Line *line, LineState *state);
 
 static void line_save(Line *line, ObjectNode obj_node, const char *filename);
 static Object *line_load(ObjectNode obj_node, int version, const char *filename);
+static DiaMenu *line_get_object_menu(Line *line, Point *clickedpoint);
 
 static ObjectTypeOps line_type_ops =
 {
@@ -149,7 +151,7 @@ static ObjectOps line_ops = {
   (MoveHandleFunc)      line_move_handle,
   (GetPropertiesFunc)   line_get_properties,
   (ApplyPropertiesFunc) line_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      line_get_object_menu
 };
 
 static ObjectChange *
@@ -376,6 +378,51 @@ line_get_defaults()
 }
 */
 
+static ObjectChange *
+line_add_connpoint_callback(Object *obj, Point *clicked, gpointer data) 
+{
+  ObjectChange *oc;
+  oc = connpointline_add_point(((Line *)obj)->cpl,clicked);
+  line_update_data((Line *)obj);
+  return oc;
+}
+
+static ObjectChange *
+line_remove_connpoint_callback(Object *obj, Point *clicked, gpointer data) 
+{
+  ObjectChange *oc;
+  oc = connpointline_remove_point(((Line *)obj)->cpl,clicked);
+  line_update_data((Line *)obj);
+  return oc;
+}
+
+static DiaMenuItem object_menu_items[] = {
+  { N_("Add connection point"), line_add_connpoint_callback, NULL, 1 },
+  { N_("Delete connection point"), line_remove_connpoint_callback, 
+    NULL, 1 },
+};
+
+static DiaMenu object_menu = {
+  N_("Line"),
+  sizeof(object_menu_items)/sizeof(DiaMenuItem),
+  object_menu_items,
+  NULL
+};
+
+static DiaMenu *
+line_get_object_menu(Line *line, Point *clickedpoint)
+{
+  ConnPointLine *cpl;
+
+  cpl = line->cpl;
+  /* Set entries sensitive/selected etc here */
+  object_menu_items[0].active = 
+    connpointline_can_add_point(cpl, clickedpoint);
+  object_menu_items[1].active = 
+    connpointline_can_remove_point(cpl,clickedpoint);
+  return &object_menu;
+}
+
 static real
 line_distance_from(Line *line, Point *point)
 {
@@ -484,11 +531,10 @@ line_create(Point *startpoint,
   obj->type = &line_type;
   obj->ops = &line_ops;
 
-  connection_init(conn, 2, 1);
+  connection_init(conn, 2, 0);
+  
+  line->cpl = connpointline_create(obj,1);
 
-  obj->connections[0] = &line->middle_point;
-  line->middle_point.object = obj;
-  line->middle_point.connected = NULL;
   attributes_get_default_line_style(&line->line_style, &line->dashlength);
   line->start_arrow = attributes_get_default_start_arrow();
   line->end_arrow = attributes_get_default_end_arrow();
@@ -511,7 +557,8 @@ line_copy(Line *line)
   Line *newline;
   Connection *conn, *newconn;
   Object *newobj;
-  
+  int rcc = 0;
+
   conn = &line->connection;
   
   newline = g_malloc(sizeof(Line));
@@ -520,11 +567,7 @@ line_copy(Line *line)
   
   connection_copy(conn, newconn);
 
-  newobj->connections[0] = &newline->middle_point;
-  newline->middle_point.object = newobj;
-  newline->middle_point.connected = NULL;
-  newline->middle_point.pos = line->middle_point.pos;
-  newline->middle_point.last_pos = line->middle_point.last_pos;
+  newline->cpl = connpointline_copy(newobj,line->cpl,&rcc);
   
   newline->line_color = line->line_color;
   newline->line_width = line->line_width;
@@ -532,6 +575,8 @@ line_copy(Line *line)
   newline->dashlength = line->dashlength;
   newline->start_arrow = line->start_arrow;
   newline->end_arrow = line->end_arrow;
+
+  line_update_data(line);
 
   return (Object *)newline;
 }
@@ -574,11 +619,6 @@ line_update_data(Line *line)
   Connection *conn = &line->connection;
   Object *obj = (Object *) line;
   
-  line->middle_point.pos.x =
-    conn->endpoints[0].x*0.5 + conn->endpoints[1].x*0.5;
-  line->middle_point.pos.y =
-    conn->endpoints[0].y*0.5 + conn->endpoints[1].y*0.5;
-
   connection_update_boundingbox(conn);
   /* fix boundingbox for line_width: */
   obj->bounding_box.top -= line->line_width/2;
@@ -602,6 +642,8 @@ line_update_data(Line *line)
   }
 
   obj->position = conn->endpoints[0];
+
+  connpointline_update(line->cpl,&conn->endpoints[0],&conn->endpoints[1]);
   
   connection_update_handles(conn);
 }
@@ -611,6 +653,8 @@ static void
 line_save(Line *line, ObjectNode obj_node, const char *filename)
 {
   connection_save(&line->connection, obj_node);
+
+  connpointline_save(line->cpl,obj_node,"numcp");
 
   if (!color_equals(&line->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
@@ -711,11 +755,9 @@ line_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     line->dashlength = data_real(attribute_first_data(attr));
 
-  connection_init(conn, 2, 1);
+  connection_init(conn, 2, 0);
 
-  obj->connections[0] = &line->middle_point;
-  line->middle_point.object = obj;
-  line->middle_point.connected = NULL;
+  line->cpl = connpointline_load(obj,obj_node,"numcp",1,NULL);
   line_update_data(line);
 
   return (Object *)line;

@@ -89,6 +89,7 @@ dia_SOURCES = \
 	    $(print_files)
 
 dia_LDADD = ../lib/libdia.a ../objects/custom/libcustom_objects.a \
+    $(EFENCE) \
     @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@
 
 CPPFLAGS = \
@@ -141,10 +142,13 @@ run_dia.sh: Makefile.am
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/FS/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/sybase/.libs >> run_dia.sh
 	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/flowchart/.libs >> run_dia.sh
+	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/SADT/.libs >> run_dia.sh
+	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/GRAFCET/.libs >> run_dia.sh
+	echo DIA_LIB_PATH=\$$DIA_LIB_PATH:`pwd`/../objects/chronogram/.libs >> run_dia.sh
 	echo DIA_SHAPE_PATH=`pwd`/../shapes >> run_dia.sh
 	echo DIA_INT_SHAPE_PATH=`pwd`/../objects >> run_dia.sh
 	echo DIA_SHEET_PATH=`pwd`/../sheets >> run_dia.sh
 	echo >> run_dia.sh
-	echo "`pwd`/dia \$$*" >> run_dia.sh
+	echo "\$$DEBUGGER `pwd`/dia \$$*" >> run_dia.sh
 	chmod a+x run_dia.sh
 

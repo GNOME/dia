@@ -693,6 +693,25 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   gtk_menu_append (GTK_MENU (menu), menuitem);
   gtk_widget_show (menuitem);
 
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Slashed Cross"));
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), 
+			   GINT_TO_POINTER(ARROW_SLASHED_CROSS));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Filled Ellipse"));
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_FILLED_ELLIPSE));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Hollow Ellipse"));
+  gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(ARROW_HOLLOW_ELLIPSE));
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
   gtk_menu_set_active(GTK_MENU (menu), DEFAULT_ARROW);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
   gtk_signal_connect_object(GTK_OBJECT(menu), "selection-done", 

@@ -1,0 +1,50 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>GRAFCET</name>
+  <description xml:lang="fr">Objets pour l'écriture de Grafcets.</description>
+  <description>Objects to design GRAFCET charts</description>
+  <contents>
+    <object name="GRAFCET - Step" intdata="0">
+      <description xml:lang="fr">Une étape normale</description>
+      <description>A regular step</description>
+    </object>
+    <object name="GRAFCET - Step" intdata="1">
+      <description xml:lang="fr">Une étape initiale</description>
+      <description>An initial step</description>
+      <icon>GRAFCET/etapei.xpm</icon>
+    </object>
+    <object name="GRAFCET - Step" intdata="2">
+      <description xml:lang="fr">Une étape d'entrée de macro</description>
+      <description>A macro entry step</description>
+      <icon>GRAFCET/etapeme.xpm</icon>
+    </object>
+    <object name="GRAFCET - Step" intdata="3">
+      <description xml:lang="fr">Une étape de sortie de macro</description>
+      <description>A macro exit step</description>
+      <icon>GRAFCET/etapems.xpm</icon>
+    </object>
+    <object name="GRAFCET - Action">
+      <description xml:lang="fr">Une action à associer à une étape
+      </description>
+      <description>An action to associate to a step</description>
+    </object>
+    <object name="GRAFCET - Transition">
+      <description xml:lang="fr">Une transition</description>
+      <description>A transition</description>
+    </object>
+    <object name="GRAFCET - Vergent" intdata="0">
+      <description xml:lang="fr">Un vergent en OU</description>
+      <description>A OR vergent</description>
+    </object>
+    <object name="GRAFCET - Vergent" intdata="1">
+      <description xml:lang="fr">Un vergent en ET</description>
+      <description>A AND vergent</description>
+      <icon>GRAFCET/vergent_and.xpm</icon>
+    </object>
+    <object name="GRAFCET - Vector">
+      <description xml:lang="fr">Un arc (montant)</description>
+      <description>An arc</description>
+    </object>
+  </contents>
+</sheet>

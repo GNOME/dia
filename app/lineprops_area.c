@@ -232,13 +232,46 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 	gdk_draw_line(win, gc, x, y+height/2, x+width-5-height*3/4,y+height/2);
       }
       break;
+    case ARROW_SLASHED_CROSS:
+      if (arrow->left) {
+        gdk_draw_line(win, gc, x+5,y+height/2, x+width,y+height/2); /*line*/
+        gdk_draw_line(win, gc, x+5,y+height-5, x+height-5,y+5);   /*slash*/
+        gdk_draw_line(win, gc, x+height/2,y+height-5, x+height/2,y+5); 
+	/*cross */
+      } else {
+        gdk_draw_line(win, gc, x,y+height/2, x+width-5,y+height/2); /*line*/
+        gdk_draw_line(win, gc, x+width-height/2-5,y+height-5, x+width-5,y+5);  
+	/*slash*/
+        gdk_draw_line(win, gc, x+width-height/2,y+height-5, x+width-height/2,
+		      y+5);  /*cross*/
+      }
+      break;
     case ARROW_HALF_HEAD:
       if (arrow->left) {
 	gdk_draw_line(win, gc, x+5,y+height/2, x+width,y+height/2);
 	gdk_draw_line(win, gc, x+5,y+height/2, x+5+height/2,y+5);
       } else {
 	gdk_draw_line(win, gc, x,y+height/2, x+width-5,y+height/2);
-	gdk_draw_line(win, gc, x+width-5,y+height/2, x+width-5-height/2,y+height-5);
+	gdk_draw_line(win, gc, x+width-5,y+height/2, x+width-5-height/2,
+		      y+height-5);
+      }
+      break;
+    case ARROW_FILLED_ELLIPSE:
+      if (arrow->left) {
+	gdk_draw_line(win,gc,x+5+8,y+height/2,x+width,y+height/2);
+	gdk_draw_arc(win,gc,TRUE,x+5,y+height/2-6,12,12,0,64*360);
+      } else {
+	gdk_draw_line(win,gc,x,y+height/2,x+width-5-8,y+height/2);
+	gdk_draw_arc(win,gc,TRUE,x+width-5-12,y+height/2-6,12,12,0,64*360);
+      }
+      break;
+    case ARROW_HOLLOW_ELLIPSE:
+      if (arrow->left) {
+	gdk_draw_line(win,gc,x+5+8,y+height/2,x+width,y+height/2);
+	gdk_draw_arc(win,gc,FALSE,x+5,y+height/2-4,8,8,0,64*360);
+      } else {
+	gdk_draw_line(win,gc,x,y+height/2,x+width-5-8,y+height/2);
+	gdk_draw_arc(win,gc,FALSE,x+width-5-8,y+height/2-4,8,8,0,64*360);
       }
       break;
     }    
@@ -538,7 +571,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
   menu = gtk_menu_new();
   gtk_object_set_data_full(GTK_OBJECT(chooser), button_menu_key, menu,
 			   (GtkDestroyNotify)gtk_widget_unref);
-  for (i = 0; i <= ARROW_HALF_HEAD; i++) {
+  for (i = 0; i <= ARROW_HOLLOW_ELLIPSE; i++) {
     mi = gtk_menu_item_new();
     gtk_object_set_data(GTK_OBJECT(mi), menuitem_enum_key, GINT_TO_POINTER(i));
     ar = dia_arrow_preview_new(i, left);

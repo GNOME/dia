@@ -1,0 +1,560 @@
+/* Dia -- an diagram creation/manipulation program
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * GRAFCET chart support 
+ * Copyright(C) 2000 Cyrille Chepelov
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+#include <assert.h>
+#include <gtk/gtk.h>
+#include <math.h>
+
+#include "config.h"
+#include "intl.h"
+#include "object.h"
+#include "connection.h"
+#include "connectionpoint.h"
+#include "render.h"
+#include "attributes.h"
+#include "widgets.h"
+#include "message.h"
+#include "color.h"
+#include "lazyprops.h"
+#include "geometry.h"
+#include "text.h"
+
+
+#include "grafcet.h"
+#include "action_text_draw.h"
+
+#include "pixmaps/action.xpm"
+
+#define ACTION_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH
+#define ACTION_FONT "Helvetica-Bold"
+#define ACTION_FONT_HEIGHT 0.8
+#define ACTION_HEIGHT (2.0)
+
+typedef struct _ActionPropertiesDialog ActionPropertiesDialog;
+typedef struct _ActionDefaultsDialog ActionDefaultsDialog;
+typedef struct _ActionState ActionState;
+
+struct _ActionState {
+  ObjectState obj_state;
+  
+  TextAttributes text_attrib;
+  gboolean macro_call;
+};
+
+typedef struct _Action {
+  Connection connection;
+  
+  Text *text;
+  gboolean macro_call;
+
+  /* computed values : */
+  real space_width; /* width of a space in the current font */
+  real label_width;
+  Rectangle labelbb; /* The bounding box of the label itself */
+  Point labelstart;
+} Action;
+
+struct _ActionPropertiesDialog {
+  AttributeDialog dialog;
+  Action *parent;
+
+  BoolAttribute macro_call;
+  TextFontAttribute text_font;
+  TextFontHeightAttribute text_fontheight;
+  TextColorAttribute text_color;
+};
+
+typedef struct _ActionDefaults {
+  Font *font;
+  real font_size;
+  Color font_color;
+  /* macro_call is not here ; that's voluntary. */
+} ActionDefaults;
+
+struct _ActionDefaultsDialog {
+  AttributeDialog dialog;
+  ActionDefaults *parent;
+
+  FontAttribute font;
+  FontHeightAttribute font_size;
+  ColorAttribute font_color;
+};
+
+static ActionPropertiesDialog *action_properties_dialog;
+static ActionDefaultsDialog *action_defaults_dialog;
+static ActionDefaults defaults;
+
+static void action_move_handle(Action *action, Handle *handle,
+				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static void action_move(Action *action, Point *to);
+static void action_select(Action *action, Point *clicked_point,
+			      Renderer *interactive_renderer);
+static void action_draw(Action *action, Renderer *renderer);
+static Object *action_create(Point *startpoint,
+				 void *user_data,
+				 Handle **handle1,
+				 Handle **handle2);
+static real action_distance_from(Action *action, Point *point);
+static void action_update_data(Action *action);
+static void action_destroy(Action *action);
+static Object *action_copy(Action *action);
+static GtkWidget *action_get_properties(Action *action);
+static ObjectChange *action_apply_properties(Action *action);
+
+static ActionState *action_get_state(Action *action);
+static void action_set_state(Action *action, ActionState *state);
+
+static void action_save(Action *action, ObjectNode obj_node,
+			    const char *filename);
+static Object *action_load(ObjectNode obj_node, int version,
+			       const char *filename);
+
+static GtkWidget *action_get_defaults();
+static void action_apply_defaults();
+
+static ObjectTypeOps action_type_ops =
+{
+  (CreateFunc)action_create,   /* create */
+  (LoadFunc)  action_load,     /* load */
+  (SaveFunc)  action_save,      /* save */
+  (GetDefaultsFunc)   action_get_defaults, 
+  (ApplyDefaultsFunc) action_apply_defaults
+};
+
+ObjectType action_type =
+{
+  "GRAFCET - Action",   /* name */
+  0,                         /* version */
+  (char **) action_xpm,      /* pixmap */
+  
+  &action_type_ops       /* ops */
+};
+
+
+static ObjectOps action_ops = {
+  (DestroyFunc)         action_destroy,
+  (DrawFunc)            action_draw,
+  (DistanceFunc)        action_distance_from,
+  (SelectFunc)          action_select,
+  (CopyFunc)            action_copy,
+  (MoveFunc)            action_move,
+  (MoveHandleFunc)      action_move_handle,
+  (GetPropertiesFunc)   action_get_properties,
+  (ApplyPropertiesFunc) action_apply_properties,
+  (ObjectMenuFunc)      NULL
+};
+
+static ObjectChange *
+action_apply_properties(Action *action)
+{
+  ObjectState *old_state;
+  ActionPropertiesDialog *dlg = action_properties_dialog;
+
+  PROPDLG_SANITY_CHECK(dlg,action);
+  
+  old_state = (ObjectState *)action_get_state(action);
+
+  PROPDLG_APPLY_TEXTFONT(dlg,text);
+  PROPDLG_APPLY_TEXTFONTHEIGHT(dlg,text);
+  PROPDLG_APPLY_TEXTCOLOR(dlg,text);
+  PROPDLG_APPLY_BOOL(dlg,macro_call);
+  
+  action_update_data(action);
+  return new_object_state_change((Object *)action, old_state, 
+				 (GetStateFunc)action_get_state,
+				 (SetStateFunc)action_set_state);
+}
+
+static PROPDLG_TYPE
+action_get_properties(Action *action)
+{
+  ActionPropertiesDialog *dlg = action_properties_dialog;
+  
+  PROPDLG_CREATE(dlg,action);
+  PROPDLG_SHOW_TEXTFONT(dlg,text,_("Font:"));
+  PROPDLG_SHOW_TEXTFONTHEIGHT(dlg,text,_("Font size:"));
+  PROPDLG_SHOW_TEXTCOLOR(dlg,text,_("Text color:"));
+  PROPDLG_SHOW_BOOL(dlg,macro_call,_("Macro call"));
+  PROPDLG_READY(dlg);
+  
+  action_properties_dialog = dlg;
+
+  PROPDLG_RETURN(dlg);
+}
+
+static void 
+action_apply_defaults()
+{
+  ActionDefaultsDialog *dlg = action_defaults_dialog;  
+
+  PROPDLG_APPLY_FONT(dlg,font);
+  PROPDLG_APPLY_FONTHEIGHT(dlg,font_size);
+  PROPDLG_APPLY_COLOR(dlg,font_color);
+}
+
+static void
+init_default_values() {
+  static int defaults_initialized = 0;
+  
+  if (!defaults_initialized) {
+    defaults.font = font_getfont(ACTION_FONT);
+    defaults.font_size = ACTION_FONT_HEIGHT;
+    defaults.font_color = color_black;
+
+    defaults_initialized = 1;
+  }
+}
+
+static PROPDLG_TYPE
+action_get_defaults()
+{
+  ActionDefaultsDialog *dlg = action_defaults_dialog;
+  init_default_values();
+  PROPDLG_CREATE(dlg, &defaults);
+
+  PROPDLG_SHOW_FONT(dlg,font,_("Font:"));
+  PROPDLG_SHOW_FONTHEIGHT(dlg,font_size,_("Font size:"));
+  PROPDLG_SHOW_COLOR(dlg,font_color,_("Text color:"));
+  PROPDLG_READY(dlg);
+
+  action_defaults_dialog = dlg;
+
+  PROPDLG_RETURN(dlg);
+}
+
+
+static real
+action_distance_from(Action *action, Point *point)
+{
+  Connection *conn = &action->connection;
+  real dist; Point p1,p2;
+  dist = distance_rectangle_point(&action->labelbb,point);
+  p1.x = p2.x = (conn->endpoints[0].x+conn->endpoints[1].x)/2;
+  p1.y = conn->endpoints[0].y; p2.y = conn->endpoints[0].y;
+  dist = MIN(dist,distance_line_point(&conn->endpoints[0],&p1,
+				      ACTION_LINE_WIDTH,point));
+  dist = MIN(dist,distance_line_point(&conn->endpoints[1],&p2,
+				      ACTION_LINE_WIDTH,point));
+  dist = MIN(dist,distance_line_point(&p2,&p1,ACTION_LINE_WIDTH,point));
+  return dist;
+}
+
+static void
+action_select(Action *action, Point *clicked_point,
+		  Renderer *interactive_renderer)
+{
+  action_update_data(action);
+  text_grab_focus(action->text, (Object *)action);
+}
+
+static void
+action_move_handle(Action *action, Handle *handle,
+		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
+{
+  g_assert(action!=NULL);
+  g_assert(handle!=NULL);
+  g_assert(to!=NULL);
+
+#if 0
+  if (handle->id == HANDLE_MOVE_STARTPOINT) {
+    Point to2;
+    /* move also the second point */
+    to2 = *to;
+    point_sub(&to2,&action->connection.endpoints[0]);
+    point_add(&to2,&action->connection.endpoints[1]);
+    connection_move_handle(&action->connection, HANDLE_MOVE_ENDPOINT, 
+			   to, reason);
+  }
+#endif
+  connection_move_handle(&action->connection, handle->id, to, reason);
+  action_update_data(action);
+}
+
+
+static void
+action_move(Action *action, Point *to)
+{
+  Point start_to_end;
+  Point *endpoints = &action->connection.endpoints[0]; 
+
+  start_to_end = endpoints[1];
+  point_sub(&start_to_end, &endpoints[0]);
+
+  endpoints[1] = endpoints[0] = *to;
+  point_add(&endpoints[1], &start_to_end);
+
+  action_update_data(action);
+}
+
+static void
+action_update_data(Action *action)
+{
+  Connection *conn = &action->connection;
+  Object *obj = (Object *) action;
+
+  obj->position = conn->endpoints[0];
+  connection_update_boundingbox(conn);
+  /* fix boundingbox for line_width: */
+  obj->bounding_box.top -= ACTION_LINE_WIDTH/2;
+  obj->bounding_box.left -= ACTION_LINE_WIDTH/2;
+  obj->bounding_box.bottom += ACTION_LINE_WIDTH/2;
+  obj->bounding_box.right += ACTION_LINE_WIDTH/2;
+
+  
+
+  /* compute the label's width and bounding box */
+  action->space_width = action_text_spacewidth(action->text);
+
+  action->labelstart = conn->endpoints[1];
+  action->labelbb.left = action->labelstart.x;
+  action->labelstart.y += .3 * action->text->height; 
+  action->labelstart.x = action->labelbb.left + action->space_width;
+  if (action->macro_call) {
+    action->labelstart.x += 2.0 * action->space_width;
+  }
+  text_set_position(action->text,&action->labelstart);
+
+  action_text_calc_boundingbox(action->text,&action->labelbb);
+
+  if (action->macro_call) {
+    action->labelbb.right += 2.0 * action->space_width;
+  }
+  action->labelbb.top = conn->endpoints[1].y - .5*ACTION_HEIGHT;
+  action->labelbb.bottom = action->labelstart.y + .5*ACTION_HEIGHT;
+  
+  action->label_width = action->labelbb.right - 
+    action->labelbb.left;
+
+  /* fix boundingbox for line_width: */
+  action->labelbb.top -= ACTION_LINE_WIDTH/2;
+  action->labelbb.left -= ACTION_LINE_WIDTH/2;
+  action->labelbb.bottom += ACTION_LINE_WIDTH/2;
+  action->labelbb.right += ACTION_LINE_WIDTH/2;
+
+  rectangle_union(&obj->bounding_box,&action->labelbb);
+  connection_update_handles(conn);
+}
+
+
+static void 
+action_draw(Action *action, Renderer *renderer)
+{
+  Connection *conn = &action->connection;
+  Point ul,br,p1,p2;
+  int i;
+  real chunksize;
+
+  renderer->ops->set_linewidth(renderer, ACTION_LINE_WIDTH);
+  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
+
+  /* first, draw the line or polyline from the step to the action label */
+  if (conn->endpoints[0].y == conn->endpoints[1].y) {
+    /* simpler case */
+    renderer->ops->draw_line(renderer,
+			     &conn->endpoints[0],&conn->endpoints[1],
+			     &color_black);
+  } else {
+    Point pts[4];
+    pts[0] = conn->endpoints[0];
+    pts[3] = conn->endpoints[1];
+    pts[1].y = pts[0].y;
+    pts[2].y = pts[3].y;
+    pts[1].x = pts[2].x = .5 * (pts[0].x + pts[3].x);
+    
+    renderer->ops->draw_polyline(renderer,
+				 pts,sizeof(pts)/sizeof(pts[0]),
+				 &color_black);
+  }
+
+  /* Now, draw the action label. */
+  ul.x = conn->endpoints[1].x;
+  ul.y = conn->endpoints[1].y - .5 * ACTION_HEIGHT;
+  br.x = ul.x + action->label_width;
+  br.y = ul.y + ACTION_HEIGHT;
+
+  renderer->ops->fill_rect(renderer,&ul,&br,&color_white);
+
+  action_text_draw(action->text,renderer);
+
+  p1.x = p2.x = ul.x; 
+  p1.y = ul.y; p2.y = br.y;
+
+  for (i=0; i<action->text->numlines-1; i++) {
+    chunksize = font_string_width(action->text->line[i],
+				      action->text->font,
+				      action->text->height);
+    p1.x = p2.x = p1.x + chunksize + 2 * action->space_width;
+    renderer->ops->draw_line(renderer,&p1,&p2,&color_black);
+  }
+
+  if (action->macro_call) {
+    p1.x = p2.x = ul.x + 2.0 * action->space_width;
+    renderer->ops->draw_line(renderer,&p1,&p2,&color_black);
+    p1.x = p2.x = br.x - 2.0 * action->space_width;
+    renderer->ops->draw_line(renderer,&p1,&p2,&color_black);
+  }
+    
+  renderer->ops->draw_rect(renderer,&ul,&br,&color_black);
+}
+
+static Object *
+action_create(Point *startpoint,
+		  void *user_data,
+		  Handle **handle1,
+		  Handle **handle2)
+{
+  Action *action;
+  Connection *conn;
+  Object *obj;
+  Point defaultlen  = {1.0,0.0}, pos;
+
+  init_default_values();
+  action = g_malloc0(sizeof(Action));
+  conn = &action->connection;
+  obj = (Object *) action;
+  
+  obj->type = &action_type;
+  obj->ops = &action_ops;
+  
+  conn->endpoints[0] = *startpoint;
+  conn->endpoints[1] = *startpoint;
+  point_add(&conn->endpoints[1], &defaultlen);
+
+  connection_init(conn, 2,0);
+
+  pos = conn->endpoints[1];
+  action->text = new_text("",defaults.font,defaults.font_size,
+			  &pos, /* never used */
+			  &defaults.font_color, ALIGN_LEFT);
+  action->macro_call = FALSE;
+
+  action_update_data(action);
+
+  *handle1 = &conn->endpoint_handles[0];
+  *handle2 = &conn->endpoint_handles[1];
+
+  return (Object *)action;
+}
+
+static void
+action_destroy(Action *action)
+{
+  text_destroy(action->text);
+  connection_destroy(&action->connection);
+}
+
+static Object *
+action_copy(Action *action)
+{
+  Action *newaction;
+  Connection *conn, *newconn;
+  Object *newobj;
+  
+  conn = &action->connection;
+ 
+  newaction = g_malloc0(sizeof(Action));
+  newconn = &newaction->connection;
+  newobj = (Object *) newaction;
+
+  connection_copy(conn, newconn);
+
+  newaction->text = text_copy(action->text);
+  newaction->macro_call = action->macro_call;
+
+  return (Object *)newaction;
+}
+
+static ActionState *
+action_get_state(Action *action)
+{
+  ActionState *state = g_new0(ActionState, 1);
+
+  state->obj_state.free = NULL;
+  text_get_attributes(action->text, &state->text_attrib);
+  state->macro_call = action->macro_call;
+
+  return state;
+}
+
+static void
+action_set_state(Action *action, ActionState *state)
+{
+  text_set_attributes(action->text, &state->text_attrib);
+  action->macro_call = state->macro_call;
+
+  g_free(state);
+  
+  action_update_data(action);
+}
+
+
+static void
+action_save(Action *action, ObjectNode obj_node,
+		const char *filename)
+{
+  connection_save(&action->connection, obj_node);
+
+  save_text(obj_node,"text",action->text);
+  save_boolean(obj_node,"macro_call",action->macro_call);
+}
+
+static Object *
+action_load(ObjectNode obj_node, int version, const char *filename)
+{
+  Action *action;
+  Connection *conn;
+  Object *obj;
+
+  init_default_values();
+  action = g_malloc0(sizeof(Action));
+
+  conn = &action->connection;
+  obj = (Object *) action;
+  
+  obj->type = &action_type;
+  obj->ops = &action_ops;
+
+  connection_load(conn, obj_node);
+  connection_init(conn, 2,0);
+
+  action->text = load_text(obj_node,"text",NULL);
+  if (!action->text) {
+    action->text = new_text("",defaults.font,defaults.font_size,
+			    &conn->endpoints[1], /* never used */
+			    &defaults.font_color, ALIGN_LEFT);
+  }
+  action->macro_call = load_boolean(obj_node,"macro_call",FALSE);
+
+  action_update_data(action);
+
+  return (Object *)action;
+}
+
+
+
+
+
+
+
+
+
+
+

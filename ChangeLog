@@ -1,3 +1,47 @@
+2000-01-26 Cyrille Chepelov <chepelov@calixo.net>
+	* lib/lazyprops.[ch]:(NEW) Added a bunch of macros for loading, 
+	saving and editing of properties (and default properties). 
+	See the new objects (GRAFCET, SADT, chonograms) for examples.
+	For already too hairy stuff, see objects/chronogram/chronoline.c.
+
+	* lib/connpoint_line.[ch] (NEW): This subobject manages a line of 
+	evenly spaced connection points, which the user can add or remove at
+	will. An object can own several connection point lines. See the SADT
+	Box, or the GRAFCET vergents for examples.
+
+	* lib/dummy_dep.h: added dependencies to new files. Told gcc to keep 
+	quiet about unused stuff.
+
+	* objects/GRAFCET (NEW):
+	* samples/grafcet.dia (NEW):
+	Added support for GRAFCET charts. 
+
+	* objects/chronogram (NEW):
+	* samples/chronograms.dia (NEW):
+	Added support for chronograms (feature requested by Ronald L. Chichest;
+	I found I'd use it often, too).
+
+	* objects/standard/line.c: Replace the middle connectionpoint by 
+	a whole connection point line, which defaults to one point (hint, 
+	hint). New Line object menu to take advantage of this. 
+	"Bothwards" compatibility is preserved (although you may loose 
+	connections if you load a newer file in a older dia).
+
+	* app/lineprops_area.c:
+	* lib/arrows.[ch]:
+	* lib/widgets.c: Added hollow and filled ellipse arrow head type. 
+	(feature requested by Benjamin Kahn).
+	Merged in Steffen Macke's slashed arrow head type.
+
+	* app/Makefile.am (app/run_dia.sh actually):
+	Added $DEBUGGER in front of dia's invocation, so that
+	you can call "DEBUGGER=ddd app/run_dia.sh" (maybe naive, but useful).
+	Added $(EFENCE) to app/dia's LDFLAGS, so that you can do 
+	"EFENCE=-lefence" to link with Electric Fence.
+
+	* configure.in: Made gcc do more aggressive optimisations on i386, and
+	enabled warnings.
+	
 2000-01-24  James Henstridge  <james@daa.com.au>
 
 	* lib/geometry.[ch]: added inline versions of functions.  Used

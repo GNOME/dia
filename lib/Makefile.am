@@ -58,6 +58,10 @@ libdia_a_SOURCES =  \
 		custom.h \
 		filter.c \
 		filter.h \
+		connpoint_line.c \
+		connpoint_line.h \
+		lazyprops.c \
+		lazyprops.h \
 		dummy_dep.h
 
 sheetdir = $(pkgdatadir)/sheets

@@ -136,6 +136,16 @@ case "$host" in
     ;;
 esac
 
+dnl Relieve register pressure on i386. Other architectures may become unable
+dnl to debug, and usually have more registers anyway.
+case "$host" in 
+  i?86-pc-*)
+    echo CFLAGS="$CFLAGS -fomit-frame-pointer"
+    ;;
+esac
+
+CFLAGS="$CFLAGS -Wall -Winline -finline-functions"
+
 AC_OUTPUT(
 Makefile
 lib/Makefile
@@ -150,6 +160,8 @@ objects/FS/Makefile
 objects/sybase/Makefile
 objects/flowchart/Makefile
 objects/custom/Makefile
+objects/GRAFCET/Makefile
+objects/chronogram/Makefile
 shapes/Makefile
 shapes/Circuit/Makefile
 shapes/flowchart/Makefile
@@ -159,6 +171,7 @@ samples/Makefile
 sheets/Makefile
 sheets/UML/Makefile
 sheets/ER/Makefile
+sheets/GRAFCET/Makefile
 plug-ins/Makefile
 plug-ins/cgm/Makefile
 )

@@ -15,6 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#include <glib.h>
 #include "connection.h"
 #include "element.h"
 #include "font.h"
@@ -28,12 +29,14 @@
 #include "bezier_conn.h"
 #include "widgets.h"
 #include "intl.h"
+#include "lazyprops.h"
+#include "connpoint_line.h"
 
 /* This is a file with dummy dependencies so that all
    object files will be linked into the app.
 */
 
-static void *dummy_dep[] = {
+static void *dummy_dep[] G_GNUC_UNUSED = {
   connection_move_handle,
   element_update_boundingbox,
   orthconn_update_data,
@@ -47,5 +50,7 @@ static void *dummy_dep[] = {
   arrow_draw,
   dia_font_selector_new, /* widgets.o */
   new_object_state_change, /* objchange.o */
-  intl_score_locale /* intl.o */
+  intl_score_locale, /* intl.o */
+  __propdlg_build_arrow, /* lazyprops.o */
+  connpointline_create /* connpoint_line.o */
 };
