@@ -147,6 +147,10 @@ EXPORTS
  dia_alignment_selector_get_type
  dia_alignment_selector_new
  dia_alignment_selector_set_alignment
+ dia_arrow_chooser_new
+ dia_arrow_chooser_set_arrow_type
+ dia_arrow_chooser_get_arrow_type
+ dia_arrow_chooser_get_type
  dia_arrow_selector_get_arrow
  dia_arrow_selector_get_type
  dia_arrow_selector_new

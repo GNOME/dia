@@ -1,3 +1,19 @@
+2004-03-01  Hubert Figuiere  <hfiguiere@teaser.fr>
+
+	* app/Makefile.am (dia_core_files): 
+	* app/interface.c (create_lineprops_area):
+	* app/render_pixmap.[ch]:
+	* lib/Makefile.am:
+	* lib/diaarrowchooser.[ch]:
+	* lib/libdia.def:
+	* lib/prop_attr.c:
+	* lib/propdialogs.c:
+	* lib/render_pixmap.[ch]:
+	* lib/widgets.c (dia_arrow_fill_menu): Use arrow preview instead
+	of text labels. This involve moving away arrow_chooser to lib from
+	app.
+	
+
 2004-02-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/UML/class.[ch]: Puny kludge to avoid GtkList objects

@@ -24,6 +24,7 @@
 #include "message.h"
 #include "dia_dirs.h"
 #include "arrows.h"
+#include "diaarrowchooser.h"
 
 #include <stdlib.h>
 #include <glib.h>
@@ -1085,17 +1086,24 @@ arrow_type_change_callback(GtkObject *as, gboolean arg1, gpointer data)
 static void dia_arrow_fill_menu(GtkMenu *menu, GSList **group, 
                       const struct menudesc *menudesc)
 {
-  GtkWidget *menuitem;
+  GtkWidget *mi, *ar;
   const struct menudesc *md = menudesc;
 
   while (md->name) {
-    menuitem = gtk_radio_menu_item_new_with_label (*group, md->name);
-    gtk_object_set_user_data(
-			     GTK_OBJECT(menuitem), 
-			     GINT_TO_POINTER(((struct menudesc*)md)->enum_value));
-    *group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
-    gtk_menu_shell_append (GTK_MENU_SHELL(menu), menuitem);
-    gtk_widget_show (menuitem);
+    mi = gtk_menu_item_new();
+    gtk_object_set_user_data(GTK_OBJECT(mi),
+			GINT_TO_POINTER(md->enum_value));
+#if 0
+    if (tool_tips) {
+      gtk_tooltips_set_tip(tool_tips, mi, md->name, NULL);
+    }
+#endif
+    ar = dia_arrow_preview_new(md->enum_value, FALSE);
+
+    gtk_container_add(GTK_CONTAINER(mi), ar);
+    gtk_widget_show(ar);
+    gtk_menu_shell_append (GTK_MENU_SHELL(menu), mi);
+    gtk_widget_show(mi);
 
     md++;
   }
@@ -1226,7 +1234,8 @@ dia_arrow_selector_set_arrow (DiaArrowSelector *as,
   }
   gtk_menu_set_active(GTK_MENU (as->arrow_type_menu), arrow_type_index);
   gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), arrow_type_index);
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(as->arrow_type_menu))), TRUE);
+/* TODO: restore CheckMenu version of menu */
+/*  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(as->arrow_type_menu))), TRUE);*/
   set_size_sensitivity(as);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->width), arrow.width);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->length), arrow.length);

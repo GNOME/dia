@@ -128,8 +128,6 @@ dia_core_files = \
 	    diagram_tree_menu.c \
 	    diagram_tree_menu_callbacks.h \
 	    diagram_tree_menu_callbacks.c \
-	    render_pixmap.h \
-	    render_pixmap.c \
 	    sheets.c \
 	    sheets.h \
 	    sheets_dialog.c \

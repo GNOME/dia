@@ -24,17 +24,9 @@
 
 #include <gtk/gtk.h>
 
-typedef struct _DiaArrowChooser DiaArrowChooser;
-typedef struct _DiaArrowChooserClass DiaArrowChooserClass;
-
-typedef void (*DiaChangeArrowCallback) (Arrow atype, gpointer user_data);
 typedef void (*DiaChangeLineCallback) (LineStyle lstyle, real dash_length,
                                        gpointer user_data);
 
-GtkWidget *dia_arrow_chooser_new (gboolean left,
-				  DiaChangeArrowCallback callback,
-				  gpointer user_data);
-void dia_arrow_chooser_set_arrow_type(DiaArrowChooser *arrow, ArrowType atype);
 GtkWidget *dia_line_chooser_new  (DiaChangeLineCallback callback,
 				  gpointer user_data);
 

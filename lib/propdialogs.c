@@ -138,7 +138,7 @@ prop_dialog_add_widget(PropDialog *dialog, GtkWidget *label, GtkWidget *widget)
   gtk_table_attach(GTK_TABLE(dialog->curtable),widget, 
                    1,2,
                    dialog->currow, dialog->currow+1,
-                   GTK_FILL, GTK_FILL|GTK_EXPAND,
+                   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND,
                    0,0);
   gtk_widget_show(label);
   gtk_widget_show(widget);

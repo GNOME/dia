@@ -35,6 +35,7 @@
 #include "intl.h"
 #include "navigation.h"
 #include "persistence.h"
+#include "diaarrowchooser.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "dia-app-icons.h"
@@ -1108,7 +1109,7 @@ create_lineprops_area(GtkWidget *parent)
 {
   GtkWidget *chooser;
 
-  chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL);
+  chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL, tool_tips);
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE, TRUE);
   gtk_tooltips_set_tip(tool_tips, chooser, _("Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details..."), NULL);
   gtk_widget_show(chooser);
@@ -1118,8 +1119,8 @@ create_lineprops_area(GtkWidget *parent)
   gtk_tooltips_set_tip(tool_tips, chooser, _("Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."), NULL);
   gtk_widget_show(chooser);
 
-  chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL);
-  dia_arrow_chooser_set_arrow_type(chooser, ARROW_FILLED_CONCAVE);
+  chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL, tool_tips);
+  dia_arrow_chooser_set_arrow_type(DIA_ARROW_CHOOSER(chooser), ARROW_FILLED_CONCAVE);
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE);
   gtk_tooltips_set_tip(tool_tips, chooser, _("Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details..."), NULL);
   gtk_widget_show(chooser);
