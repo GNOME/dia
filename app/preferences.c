@@ -296,7 +296,7 @@ prefs_save(void)
 
 
 void
-prefs_load(void)
+prefs_init(void)
 {
   prefs_set_defaults();
 

@@ -44,7 +44,7 @@
 static GList *open_diagrams = NULL;
 
 static void diagram_class_init (DiagramClass *klass);
-static void object_init(DiaObject *obj);
+static void diagram_init(Diagram *obj, const char *filename);
 
 static gpointer parent_class = NULL;
 
@@ -77,7 +77,8 @@ diagram_get_type (void)
 }
 
 static void
-diagram_finalize(GObject *object) {
+diagram_finalize(GObject *object) 
+{
   Diagram *dia = DIA_DIAGRAM(object);
   Diagram *other_diagram;
 
@@ -87,13 +88,8 @@ diagram_finalize(GObject *object) {
   
   g_free(dia->filename);
 
-  other_diagram = g_list_find(open_diagrams, dia);
-  if (g_list_next(other_diagram) != NULL) other_diagram = g_list_next(other_diagram);
-  else if (g_list_previous(other_diagram) != NULL) other_diagram = g_list_previous(other_diagram);
-  else other_diagram = NULL;
-  printf("Found other diagram %p for %p\n", other_diagram, dia);
   open_diagrams = g_list_remove(open_diagrams, dia);
-  diagram_set_current(other_diagram);
+  layer_dialog_update_diagram_list();
 
   undo_destroy(dia->undo);
   
@@ -113,8 +109,8 @@ diagram_class_init (DiagramClass *klass)
 }
 
 /** Creates the raw, uninitialize diagram */
-DiaObject *
-diagram_new(int num_handles, int num_connections) {
+Diagram *
+diagram_new() {
   Diagram *dia = g_object_new(DIA_TYPE_DIAGRAM, NULL);
   return dia;
 }
@@ -155,9 +151,8 @@ diagram_init(Diagram *dia, const char *filename)
   if (!g_list_find(open_diagrams, dia))
     open_diagrams = g_list_prepend(open_diagrams, dia);
 
-  if (app_is_interactive()) {
-    diagram_set_current(dia);
-  }
+  if (app_is_interactive())
+    layer_dialog_update_diagram_list();
 }
 
 int
@@ -206,12 +201,6 @@ new_diagram(const char *filename)  /* Note: filename is copied */
   diagram_init(dia, filename);
 
   return dia;
-}
-
-void
-diagram_set_current(Diagram *dia) {
-  layer_dialog_set_diagram(dia);
-  diagram_properties_set_diagram(dia);
 }
 
 void
@@ -1275,7 +1264,7 @@ diagram_set_filename(Diagram *dia, char *filename)
 
   g_free(title);
 
-  diagram_set_current(dia);
+  layer_dialog_update_diagram_list();
   recent_file_history_add((const char *)filename);
 
   diagram_tree_update_name(diagram_tree(), dia);

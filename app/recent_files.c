@@ -216,7 +216,7 @@ open_recent_file_callback(GtkWidget *widget, gpointer data)
 	diagram = diagram_load(filename, ifilter);
 	if (diagram != NULL) {
 	    diagram_update_extents(diagram);
-	    diagram_set_current(diagram);
+	    layer_dialog_set_diagram(diagram);
 	    new_display(diagram);
 	} else
 	    recent_file_history_remove (filename);

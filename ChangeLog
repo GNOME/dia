@@ -1,3 +1,28 @@
+2004-05-04  Lars Clausen  <lars@raeder.dk>
+
+	* app/app_procs.c (app_init): Consistently open a new diagram if
+	none specified, with standard name Diagram1.dia.
+
+	* app/layer_dialog.c: 
+	* app/diagram.c (diagram_finalize): 
+	* app/commands.c (dialogs_layers_callback): 
+	* app/filedlg.c (file_export_ok_callback): 
+	* app/app_procs.c (app_exit): 
+	* app/display.c (display_set_active): 
+	* app/interface.c (dia_dnd_file_drag_data_received): 
+	* app/recent_files.c: 
+	Undone attempt at unifying the multi-diagram windows (like
+	layers).  It broke the layers and didn't make much sense for the
+	diagram properties dialog anyway.
+
+	* lib/group.c: 
+	* lib/diatypes.h: 
+	* lib/diagramdata.c: 
+	* lib/object.h: 
+	* lib/object.c: Undone attempts at GObject'ifying DiaObject -- too
+	many subclasses have to be fixed.  Fixed remaining
+	Object/ObjectType renaming issues.
+
 2004-05-02  Lars Clausen  <lars@raeder.dk>
 
 	* lib/object.[ch]: Making DiaObject a GObject.  Now can I avoid

@@ -1201,16 +1201,16 @@ display_set_active(DDisplay *ddisp)
     active_display = ddisp;
 
     /* perform notification here (such as switch layers dialog) */
+    layer_dialog_set_diagram(ddisp ? ddisp->diagram : NULL);
+    diagram_properties_set_diagram(ddisp ? ddisp->diagram : NULL);
+
     if (ddisp) {
-      diagram_set_current(ddisp->diagram);
       display_update_menu_state(ddisp);
 
       if (prefs.toolbox_on_top) {
         gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
                                      GTK_WINDOW(ddisp->shell));
       }
-    } else {
-      diagram_set_current(NULL);
     }
   }
 }

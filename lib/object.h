@@ -374,7 +374,7 @@ struct _ObjectOps {
   some 'good' spot on it which will be natural to snap to.
 */
 
-struct _Object {
+struct _DiaObject {
   DiaObjectType    *type;
   Point             position;
   Rectangle         bounding_box;

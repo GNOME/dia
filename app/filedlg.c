@@ -155,7 +155,7 @@ file_open_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 
   if (diagram != NULL) {
     diagram_update_extents(diagram);
-    diagram_set_current(diagram);
+    layer_dialog_set_diagram(diagram);
 
     ddisp = new_display(diagram);
   }

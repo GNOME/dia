@@ -1226,7 +1226,7 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
 
           if (diagram != NULL) {
             diagram_update_extents(diagram);
-	    diagram_set_current(diagram);
+            layer_dialog_set_diagram(diagram);
             
             ddisp = new_display(diagram);
           }

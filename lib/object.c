@@ -27,10 +27,7 @@
 
 #include "dummy_dep.h"
 
-static void dia_object_class_init (DiaObjectClass *klass);
-static void object_init(DiaObject *obj, int num_handles, int num_connections);
-
-static gpointer parent_class = NULL;
+void object_init(DiaObject *obj, int num_handles, int num_connections);
 
 void
 object_init(DiaObject *obj,

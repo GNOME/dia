@@ -70,7 +70,7 @@ extern struct DiaPreferences prefs;
 void prefs_show(void);
 void prefs_set_defaults(void);
 void prefs_save(void);
-void prefs_load(void);
+void prefs_init(void);
 
 #endif /* DIA_IMAGE_H */
 

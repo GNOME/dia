@@ -312,7 +312,7 @@ handle_initial_diagram(const char *in_file_name,
     if (diagram != NULL) {
       diagram_update_extents(diagram);
       if (app_is_interactive()) {
-	diagram_set_current(diagram);
+	layer_dialog_set_diagram(diagram);
 	ddisp = new_display(diagram);
       }
     }
@@ -530,11 +530,12 @@ app_init (int argc, char **argv)
     exit(1);
   }
 
-  if (dia_is_interactive) {
-    persistence_load();
+  persistence_load();
 
-    /** Must load prefs after persistence */
-    prefs_load();
+  /** Must load prefs after persistence */
+  prefs_init();
+
+  if (dia_is_interactive) {
 
     /* further initialization *before* reading files */  
     active_tool = create_modify_tool();
@@ -544,8 +545,6 @@ app_init (int argc, char **argv)
     persistence_register_window_create("layer_window",
 				       (NullaryFunc*)&create_layer_dialog);
 
-    persistence_register_window_create("diagram_properties",
-				       (NullaryFunc*)create_diagram_properties_dialog());
 
     /*fill recent file menu */
     recent_file_history_init();
@@ -561,11 +560,22 @@ app_init (int argc, char **argv)
 
     /* In current setup, we can't find the autosaved files. */
     /*autosave_restore_documents();*/
-  } else {
-    prefs_load();
+
   }
+
   made_conversions = handle_all_diagrams(files, export_file_name,
 					 export_file_format, size);
+  if (dia_is_interactive && files == NULL) {
+    Diagram *diagram = new_diagram (_("Diagram1.dia"));
+	      
+    if (diagram != NULL) {
+      diagram_update_extents(diagram);
+      if (app_is_interactive()) {
+	layer_dialog_set_diagram(diagram);
+	new_display(diagram);
+      }
+    }
+  }
   g_slist_free(files);
   if (made_conversions) exit(0);
 
@@ -766,8 +776,8 @@ process_opts(int argc, char **argv,
 #ifdef HAVE_POPT
       while (poptPeekArg(poptCtx)) {
           char *in_file_name = (char *)poptGetArg(poptCtx);
-
-	  *files = g_slist_append(*files, in_file_name);
+	  if (*in_file_name != '\0')
+	    *files = g_slist_append(*files, in_file_name);
       }
       poptFreeContext(poptCtx);
 #else
