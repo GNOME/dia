@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "POT-Creation-Date: 2001-08-31 20:43+0800\n"
-"PO-Revision-Date: 2001-06-19 23:26+0800\n"
+"PO-Revision-Date: 2001-09-01 11:31+0800\n"
 "Last-Translator: Wang Jian <lark@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -1032,9 +1032,8 @@ msgid "/View/Zoom/25%"
 msgstr "/查看/缩放/25%"
 
 #: app/menus.c:314
-#, fuzzy
 msgid "/View/Diagram Properties..."
-msgstr "/查看/图表属性"
+msgstr "/查看/图表属性..."
 
 #: app/menus.c:316
 msgid "/View/_AntiAliased"
@@ -1348,9 +1347,8 @@ msgid "User Interface"
 msgstr "用户接口"
 
 #: app/preferences.c:116
-#, fuzzy
 msgid "Diagram Defaults"
-msgstr "图表菜单"
+msgstr "图表默认值"
 
 #: app/preferences.c:117
 msgid "View Defaults"
@@ -1370,7 +1368,7 @@ msgstr "压缩保存的文件："
 
 #: app/preferences.c:134
 msgid "Number of undo levels:"
-msgstr "撤消级别："
+msgstr "可撤消次数："
 
 #: app/preferences.c:135
 msgid ""
@@ -1379,14 +1377,12 @@ msgid ""
 msgstr ""
 
 #: app/preferences.c:138
-#, fuzzy
 msgid "New diagram:"
-msgstr "新建图表(_N)"
+msgstr "新建图表："
 
 #: app/preferences.c:139
-#, fuzzy
 msgid "Paper type:"
-msgstr "消息类型:"
+msgstr "纸张类型："
 
 #: app/preferences.c:142
 msgid "New window:"
@@ -1406,7 +1402,7 @@ msgstr "放大："
 
 #: app/preferences.c:146
 msgid "Use menu bar:"
-msgstr ""
+msgstr "使用菜单："
 
 #: app/preferences.c:148
 msgid "Connection Points:"
@@ -1595,18 +1591,15 @@ msgstr ""
 #: lib/font.c:532
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
-msgstr ""
+msgstr "警告：选用了 FreeType，但是无法载入动态库：%d\n"
 
 #: lib/font.c:541
-#, fuzzy
 msgid "Warning: No X fonts found.  The world is ending."
-msgstr ""
-"警告：没有找到 %s 的 X 字体，\n"
-"使用 %s。\n"
+msgstr "警告：没有找到 X 字体。程序无法继续。"
 
 #: lib/font.c:848
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
-msgstr ""
+msgstr "错误，无法定位字体。该情况不应该发生。\n"
 
 #: lib/font.c:850 lib/font.c:851 lib/font.c:884
 #, c-format
@@ -1616,7 +1609,7 @@ msgstr "没有找到字体 %s，使用 Courier 字体。\n"
 #: lib/font.c:861
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
-msgstr ""
+msgstr "字体 %s 没有风格 %s，使用 %s\n"
 
 #: lib/message.c:149
 msgid "Notice"
@@ -1750,15 +1743,17 @@ msgid ""
 "The file %s has no encoding specification;\n"
 "assuming it is encoded in %s"
 msgstr ""
+"文件 %s 没有指定编码；\n"
+"假定编码为 %s"
 
 #: lib/dia_xml.c:458
 msgid "Taking point value of non-point node."
-msgstr ""
+msgstr "获取非点节点的点值。"
 
 #: lib/dia_xml.c:470
-#, fuzzy, c-format
+#, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
-msgstr "不正确的 x 点值 %f；放弃它。"
+msgstr "不正确的 x 点值“%s” %f；放弃它。"
 
 #: lib/dia_xml.c:478
 msgid "Error parsing point."
@@ -1766,9 +1761,9 @@ msgstr "分析点时发生错误。"
 
 #. don't bother with useless warnings (see above)
 #: lib/dia_xml.c:486
-#, fuzzy, c-format
+#, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr "不正确的 y 点值 %f；放弃它。"
+msgstr "不正确的 y 点值“%s” %f；放弃它。"
 
 #: lib/dia_xml.c:920
 msgid ""
@@ -3777,443 +3772,3 @@ msgstr "这是一个 版本为 %d.%d 的文件，无法解释它\n"
 #: plug-ins/xfig/xfig-import.c:1205
 msgid "XFig File Format"
 msgstr "XFig 文件格式"
-
-#, fuzzy
-#~ msgid "A data line"
-#~ msgstr "数据线宽:"
-
-#, fuzzy
-#~ msgid "A Horizontal Jumper"
-#~ msgstr "水平对齐(_H)"
-
-#, fuzzy
-#~ msgid "A Horizontally aligned inductor"
-#~ msgstr "水平对齐(_H)"
-
-#, fuzzy
-#~ msgid "A Horizontally aligned resistor"
-#~ msgstr "水平翻转"
-
-#, fuzzy
-#~ msgid "A PMOS transistor"
-#~ msgstr "触及的"
-
-#, fuzzy
-#~ msgid "A ground point"
-#~ msgstr "终点"
-
-#, fuzzy
-#~ msgid "A horizontally aligned fuse"
-#~ msgstr "水平对齐(_H)"
-
-#, fuzzy
-#~ msgid "An NMOS transistor"
-#~ msgstr "触及的"
-
-#, fuzzy
-#~ msgid "An operational amplifier"
-#~ msgstr "水平对齐(_H)"
-
-#, fuzzy
-#~ msgid "Circuit"
-#~ msgstr "方向"
-
-#, fuzzy
-#~ msgid "A Basin"
-#~ msgstr "触及的"
-
-#, fuzzy
-#~ msgid "A Container"
-#~ msgstr "条件:"
-
-#, fuzzy
-#~ msgid "A Frequency Converter"
-#~ msgstr "插入"
-
-#, fuzzy
-#~ msgid "A horizontal limiting line"
-#~ msgstr "水平对齐(_H)"
-
-#, fuzzy
-#~ msgid "Bivalent Vertical Rest"
-#~ msgstr "垂直翻转"
-
-#, fuzzy
-#~ msgid "Horizontal Rest"
-#~ msgstr "水平翻转"
-
-#, fuzzy
-#~ msgid "Horizontally aligned compressor"
-#~ msgstr "水平对齐(_H)"
-
-#, fuzzy
-#~ msgid "Horizontally aligned pump"
-#~ msgstr "水平对齐(_H)"
-
-#, fuzzy
-#~ msgid "Reference Line"
-#~ msgstr "创建直线"
-
-#, fuzzy
-#~ msgid "Soil"
-#~ msgstr "实心"
-
-#, fuzzy
-#~ msgid "Vertical Rest"
-#~ msgstr "垂直翻转"
-
-#, fuzzy
-#~ msgid "A simple output variable"
-#~ msgstr "选择打印机"
-
-#, fuzzy
-#~ msgid "Ladder"
-#~ msgstr "图层"
-
-#, fuzzy
-#~ msgid "A connection point"
-#~ msgstr "添加联接点"
-
-#, fuzzy
-#~ msgid "A relay"
-#~ msgstr "   显示"
-
-#, fuzzy
-#~ msgid "Electric"
-#~ msgstr "垂直翻转"
-
-#, fuzzy
-#~ msgid "Create a process"
-#~ msgstr "创建圆弧"
-
-#, fuzzy
-#~ msgid "Editor for EML Static Structure Diagrams."
-#~ msgstr "功能结构图表对象"
-
-#, fuzzy
-#~ msgid "Editor for Entity Relations Diagrams"
-#~ msgstr "实体/关系图表对象"
-
-#, fuzzy
-#~ msgid "Participation"
-#~ msgstr "条件:"
-
-#, fuzzy
-#~ msgid "Weak Entity"
-#~ msgstr "实体"
-
-#, fuzzy
-#~ msgid "Collate"
-#~ msgstr "连接的"
-
-#, fuzzy
-#~ msgid "Delay"
-#~ msgstr "   显示"
-
-#, fuzzy
-#~ msgid "Document"
-#~ msgstr "安装"
-
-#, fuzzy
-#~ msgid "Flowchart"
-#~ msgstr "流程图对象"
-
-#, fuzzy
-#~ msgid "Internal Storage"
-#~ msgstr "界面:"
-
-#, fuzzy
-#~ msgid "Manual Input"
-#~ msgstr "操作"
-
-#, fuzzy
-#~ msgid "Manual Operation"
-#~ msgstr "操作"
-
-#, fuzzy
-#~ msgid "Merge"
-#~ msgstr "发散"
-
-#, fuzzy
-#~ msgid "Off Page Connector"
-#~ msgstr "连接"
-
-#, fuzzy
-#~ msgid "Offline Storage"
-#~ msgstr "界面:"
-
-#, fuzzy
-#~ msgid "Predefined Process"
-#~ msgstr "首选项"
-
-#, fuzzy
-#~ msgid "Preparation"
-#~ msgstr "操作"
-
-#, fuzzy
-#~ msgid "Sort"
-#~ msgstr "支持"
-
-#, fuzzy
-#~ msgid "Terminal"
-#~ msgstr "物质"
-
-#, fuzzy
-#~ msgid "Transaction File"
-#~ msgstr "触及的"
-
-#, fuzzy
-#~ msgid "Transmittal Tape"
-#~ msgstr "发射"
-
-#, fuzzy
-#~ msgid "Create a flow"
-#~ msgstr "创建方框"
-
-#, fuzzy
-#~ msgid "Create a function"
-#~ msgstr "创建直线"
-
-#, fuzzy
-#~ msgid "Editor for Function Structure Diagrams."
-#~ msgstr "功能结构图表对象"
-
-#, fuzzy
-#~ msgid "A AND vergent"
-#~ msgstr "发散"
-
-#, fuzzy
-#~ msgid "A OR vergent"
-#~ msgstr "添加图段"
-
-#, fuzzy
-#~ msgid "A condition (of an action)"
-#~ msgstr "删除联接点"
-
-#, fuzzy
-#~ msgid "A macro entry step"
-#~ msgstr "替换"
-
-#, fuzzy
-#~ msgid "A regular step"
-#~ msgstr "替换"
-
-#, fuzzy
-#~ msgid "A transition"
-#~ msgstr "触及的"
-
-#, fuzzy
-#~ msgid "A crossconnector"
-#~ msgstr "断开连接"
-
-#, fuzzy
-#~ msgid "A simple Buffer"
-#~ msgstr "选择打印机"
-
-#, fuzzy
-#~ msgid "An Inverter"
-#~ msgstr "插入"
-
-#, fuzzy
-#~ msgid "Logic"
-#~ msgstr "锁定"
-
-#, fuzzy
-#~ msgid "Demultiplexer"
-#~ msgstr "等距"
-
-#, fuzzy
-#~ msgid "Multiplexer"
-#~ msgstr "等距"
-
-#, fuzzy
-#~ msgid "Node Center"
-#~ msgstr "中"
-
-#, fuzzy
-#~ msgid "A Computer"
-#~ msgstr "添加转角"
-
-#, fuzzy
-#~ msgid "A WAN Connection"
-#~ msgstr "条件:"
-
-#, fuzzy
-#~ msgid "A WAN Link"
-#~ msgstr "条件:"
-
-#, fuzzy
-#~ msgid "A monitor"
-#~ msgstr "条件:"
-
-#, fuzzy
-#~ msgid "A simple Modem"
-#~ msgstr "选择打印机"
-
-#, fuzzy
-#~ msgid "A simple printer"
-#~ msgstr "选择打印机"
-
-#, fuzzy
-#~ msgid "ATM Switch Symbol"
-#~ msgstr "转换"
-
-#, fuzzy
-#~ msgid "Network"
-#~ msgstr "新建"
-
-#, fuzzy
-#~ msgid "Network Cloud"
-#~ msgstr "新建"
-
-#, fuzzy
-#~ msgid "Router Symbol"
-#~ msgstr "转换"
-
-#, fuzzy
-#~ msgid "Storage"
-#~ msgstr "弄直"
-
-#, fuzzy
-#~ msgid "Switch Symbol"
-#~ msgstr "转换"
-
-#, fuzzy
-#~ msgid "Block Type Reference"
-#~ msgstr "首选项"
-
-#, fuzzy
-#~ msgid "Comment"
-#~ msgstr "中"
-
-#, fuzzy
-#~ msgid "Decision"
-#~ msgstr "描述："
-
-#, fuzzy
-#~ msgid "In/Out Connector"
-#~ msgstr "连接"
-
-#, fuzzy
-#~ msgid "Process Type Reference"
-#~ msgstr "首选项"
-
-#, fuzzy
-#~ msgid "Receive message"
-#~ msgstr "接收"
-
-#, fuzzy
-#~ msgid "Save State"
-#~ msgstr "起点"
-
-#, fuzzy
-#~ msgid "Send message"
-#~ msgstr "消息:"
-
-#, fuzzy
-#~ msgid "Service Type Reference"
-#~ msgstr "首选项"
-
-#, fuzzy
-#~ msgid "State"
-#~ msgstr "起点"
-
-#, fuzzy
-#~ msgid "Sybase"
-#~ msgstr "划线"
-
-#, fuzzy
-#~ msgid "Create a (large) package"
-#~ msgstr "创建图像"
-
-#, fuzzy
-#~ msgid "Create a (small) package"
-#~ msgstr "创建图像"
-
-#, fuzzy
-#~ msgid "Create a branch"
-#~ msgstr "创建圆弧"
-
-#, fuzzy
-#~ msgid "Create a class"
-#~ msgstr "模板类"
-
-#, fuzzy
-#~ msgid "Create a class stereotype icon"
-#~ msgstr "模板类"
-
-#, fuzzy
-#~ msgid "Create a component"
-#~ msgstr "创建多边形"
-
-#, fuzzy
-#~ msgid "Create a dependency"
-#~ msgstr "创建贝塞尔曲线"
-
-#, fuzzy
-#~ msgid "Create a lifeline"
-#~ msgstr "创建贝塞尔曲线"
-
-#, fuzzy
-#~ msgid "Create a message"
-#~ msgstr "创建图像"
-
-#, fuzzy
-#~ msgid "Create a node"
-#~ msgstr "创建直线"
-
-#, fuzzy
-#~ msgid "Create a note"
-#~ msgstr "创建直线"
-
-#, fuzzy
-#~ msgid "Create a state machine"
-#~ msgstr "创建直线"
-
-#, fuzzy
-#~ msgid "Create a template class"
-#~ msgstr "模板类"
-
-#, fuzzy
-#~ msgid "Create a use case"
-#~ msgstr "创建图像"
-
-#, fuzzy
-#~ msgid "Create an actor"
-#~ msgstr "创建新的图表"
-
-#, fuzzy
-#~ msgid "Create an object"
-#~ msgstr "创建直线"
-
-#, fuzzy
-#~ msgid "Editor for UML Static Structure Diagrams"
-#~ msgstr "功能结构图表对象"
-
-#, fuzzy
-#~ msgid "A Diagram Editor"
-#~ msgstr "图表编辑器"
-
-#, fuzzy
-#~ msgid "Dia"
-#~ msgstr "   显示"
-
-#~ msgid ""
-#~ "No such file found\n"
-#~ "%s\n"
-#~ msgstr ""
-#~ "没有找到这个文件\n"
-#~ "%s\n"
-
-#~ msgid "Import from XFig"
-#~ msgstr "从 XFig 中导入"
-
-#~ msgid "No edit widget"
-#~ msgstr "没有编辑构件"
-
-#, fuzzy
-#~ msgid "Class name"
-#~ msgstr "类名:"
-
-#~ msgid "Attributes:"
-#~ msgstr "属性:"
