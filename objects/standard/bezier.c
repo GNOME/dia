@@ -269,10 +269,13 @@ bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
   }
 #endif
 
-  /* these lines should only be displayed when object is selected.
-   * Unfortunately the draw function is not aware of the selected
-   * state.  This is a compromise until I fix this properly. */
-  if (renderer->is_interactive) {
+  /* Only display lines while selected.  Calling dia_object_is_selected()
+   * every time may take a little long.  Some time can be saved by storing
+   * whether the object is currently selected in bezierline_select, and
+   * only checking while selected.  But we'll do that if needed.
+   */
+  if (renderer->is_interactive &&
+      dia_object_is_selected((Object*)bezierline)) {
     bezierconn_draw_control_lines(&bezierline->bez, renderer);
   }
 }

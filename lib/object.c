@@ -469,6 +469,23 @@ Layer *dia_object_get_parent_layer(Object *obj) {
   return obj->parent_layer;
 }
 
+/** Returns true if `obj' is currently selected.
+ * Note that this takes time proportional to the number of selected
+ * objects, so don't use it frivolously.
+ */
+gboolean
+dia_object_is_selected (const Object *obj)
+{
+  Layer *layer = obj->parent_layer;
+  DiagramData *diagram = layer->parent_diagram;
+
+  GList *selected = diagram->selected;
+  for (; selected != NULL; selected = g_list_next(selected)) {
+    if (selected->data == obj) return TRUE;
+  }
+  return FALSE;
+}
+
 /****** Object register: **********/
 
 static guint hash(gpointer key)
@@ -572,4 +589,3 @@ Object *object_copy_using_properties(Object *obj)
   object_copy_props(newobj,obj,FALSE);
   return newobj;
 }
-

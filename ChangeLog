@@ -1,3 +1,12 @@
+2004-01-04  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/standard/bezier.c (bezierline_draw): Don't draw
+	guidelines if not selected.
+
+	* lib/object.[ch] (dia_object_is_selected): Function to check whether
+	a given object is selected. O(n), where n is # selected objects.
+	
+
 2004-01-03  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/widgets.[ch]: Make sure old font is re-chosen when the Other

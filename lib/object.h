@@ -438,6 +438,7 @@ Object  *dia_object_default_create (const ObjectType *type,
                                     Handle **handle2);
 gboolean       dia_object_defaults_save (const gchar *filename);
 Layer         *dia_object_get_parent_layer(Object *obj);
+gboolean       dia_object_is_selected (const Object *obj);
 
 #endif /* OBJECT_H */
 
