@@ -1,3 +1,10 @@
+2000-05-07  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/FS/flow-poly.c:
+	* objects/FS/flow.c:
+	Fix division by zero in point_normalize().
+	Patch by David Thompson <dcthomp@mail.utexas.edu>
+
 2000-04-27  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/arrows.c:

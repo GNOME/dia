@@ -338,7 +338,12 @@ flow_create(Point *startpoint,
   point_scale( &p, 0.5 ) ;
   n.x = p.y ;
   n.y = -p.x ;
-  point_normalize( &n ) ;
+  if ( fabs(n.x) < 1.e-5 && fabs(n.y) < 1.e-5 ) {
+    n.x = 0. ;
+    n.y = -1. ;
+  } else {
+    point_normalize( &n ) ;
+  }
   point_scale( &n, 0.5*FLOW_FONTHEIGHT ) ;
   point_add( &p, &n ) ;
   point_add( &p, &conn->endpoints[0] ) ;
