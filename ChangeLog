@@ -1,5 +1,8 @@
 2003-01-23  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/app_procs.c (app_init): Run gtk_init before popt so we don't
+	bail out on gtk options.
+
 	* lib/message.c (gtk_message_internal): Better handling of destroy
 	event.
 

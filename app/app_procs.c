@@ -289,6 +289,7 @@ app_init (int argc, char **argv)
     /* This smaller icon is 48x48, standard Gnome size */
     gnome_window_icon_set_default_from_file (GNOME_ICONDIR"/dia_gnome_icon.png");
 #else
+    gtk_init (&argc, &argv);
 #ifdef HAVE_POPT
     poptCtx = poptGetContext(PACKAGE, argc, (const char **)argv, options, 0);
     poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
@@ -315,7 +316,6 @@ app_init (int argc, char **argv)
 
     }
 #endif
-    gtk_init (&argc, &argv);
 #endif
   }
 
