@@ -1,3 +1,8 @@
+2004-03-06  Steffen Macke sdteffen@web.de>
+
+	* shapes/Map/Isometric/Makefile.am: added Makfile for Isometric
+	shapes
+
 2004-03-06  Lars Clausen  <lars@raeder.dk>
 
 	* lib/arrows.h (DEFAULT_ARROW_SIZE): Downed default arrow size to
