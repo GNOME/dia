@@ -137,18 +137,8 @@ polyshape_closest_handle(PolyShape *poly, Point *point)
 real
 polyshape_distance_from(PolyShape *poly, Point *point, real line_width)
 {
-  int i;
-  real dist;
-  
-  /* FIXME: Need winding rule or something */
-  dist = distance_line_point( &poly->points[0], &poly->points[1],
-			      line_width, point);
-  for (i=1;i<poly->numpoints-1;i++) {
-    dist = MIN(dist,
-	       distance_line_point( &poly->points[i], &poly->points[i+1],
-				    line_width, point));
-  }
-  return dist;
+  return distance_polygon_point(poly->points, poly->numpoints,
+				line_width, point);
 }
 
 static void

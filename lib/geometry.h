@@ -35,6 +35,7 @@ typedef real coord;
 typedef struct _Point Point;
 typedef struct _Rectangle Rectangle;
 typedef struct _IntRectangle IntRectangle;
+typedef struct _BezPoint BezPoint;
 
 struct _Point {
   coord x;
@@ -54,6 +55,17 @@ struct _IntRectangle {
   int bottom;
   int right;
 };
+
+/* BezPoint types:
+ *   BEZ_MOVE_TO: move to point p1
+ *   BEZ_LINE_TO: line to point p1
+ *   BEZ_CURVE_TO: curve to point p3 using p1 and p2 as control points.
+ */
+struct _BezPoint {
+  enum {BEZ_MOVE_TO, BEZ_LINE_TO, BEZ_CURVE_TO} type;
+  Point p1, p2, p3;
+};
+
 
 #define ROUND(x) ((int) floor((x)+0.5))
 
@@ -229,7 +241,18 @@ extern real distance_rectangle_point(Rectangle *rect, Point *point);
 extern real distance_line_point(Point *line_start, Point *line_end,
 				real line_width, Point *point);
 
+extern real distance_polygon_point(Point *poly, guint npoints,
+				   real line_width, Point *point);
+
+/* bezier distance calculations */
+extern real distance_bez_seg_point(Point *b1, Point *b2, Point *b3, Point *b4,
+				   real line_width, Point *point);
+extern real distance_bez_line_point(BezPoint *b, guint npoints,
+				    real line_width, Point *point);
+extern real distance_bez_shape_point(BezPoint *b, guint npoints,
+				     real line_width, Point *point);
+
+extern real distance_ellipse_point(Point *centre, real width, real height,
+				   real line_width, Point *point);
+
 #endif /* GEOMETRY_H */
-
-
-

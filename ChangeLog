@@ -1,3 +1,25 @@
+2000-04-13  James Henstridge  <james@daa.com.au>
+
+	* lib/geometry.c (distance_bez_line_point): new function to calculate
+	the distance from an open bezier line to a point.
+	(distance_bez_shape_point): new function to calculate the distance
+	from a closed bezier shape.
+	(distance_ellipse_point): new function to calculate the distance from
+	a filled ellipse to a point.
+
+	* lib/geometry.h (BezPoint): moved this structure here from render.h
+
+2000-04-12  James Henstridge  <james@daa.com.au>
+
+	* lib/geometry.c (distance_bez_seg_point): new function to calculate
+	the distance from a bezier segment.
+
+	* lib/polyshape.c (polyshape_distance_from): use distance_polygon_point
+	to calculate the distance from the object.
+
+	* lib/geometry.c (distance_polygon_point): function for calculating
+	the distance from a polygon to a point.
+
 2000-04-12  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/interface.c:
