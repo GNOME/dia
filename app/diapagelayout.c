@@ -2,6 +2,7 @@
 #define PAGELAYOUT_TEST
 
 #include "diapagelayout.h"
+#include "diaunitspinner.h"
 
 #include "intl.h"
 
@@ -122,7 +123,7 @@ dia_page_layout_init(DiaPageLayout *self)
 		   GTK_FILL, GTK_FILL, 0, 0);
   gtk_widget_show(frame);
 
-  box = gtk_vbox_new(FALSE, 0);
+  box = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width(GTK_CONTAINER(box), 5);
   gtk_container_add(GTK_CONTAINER(frame), box);
   gtk_widget_show(box);
@@ -141,6 +142,10 @@ dia_page_layout_init(DiaPageLayout *self)
   }
   gtk_option_menu_set_menu(GTK_OPTION_MENU(self->paper_size), menu);
   gtk_widget_show(self->paper_size);
+
+  self->paper_label = gtk_label_new("");
+  gtk_box_pack_start(GTK_BOX(box), self->paper_label, TRUE, TRUE, 0);
+  gtk_widget_show(self->paper_label);
 
   /* orientation */
   frame = gtk_frame_new(_("Orientation"));
@@ -199,8 +204,9 @@ dia_page_layout_init(DiaPageLayout *self)
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(wid);
 
-  self->tmargin = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)), 1, 1);
+  self->tmargin = dia_unit_spinner_new(
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)),
+	2, DIA_UNIT_CENTIMETER);
   gtk_table_attach(GTK_TABLE(table), self->tmargin, 1,2, 0,1,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->tmargin);
@@ -211,8 +217,9 @@ dia_page_layout_init(DiaPageLayout *self)
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(wid);
 
-  self->bmargin = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)), 1, 1);
+  self->bmargin = dia_unit_spinner_new(
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)),
+	2, DIA_UNIT_CENTIMETER);
   gtk_table_attach(GTK_TABLE(table), self->bmargin, 1,2, 1,2,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->bmargin);
@@ -223,8 +230,9 @@ dia_page_layout_init(DiaPageLayout *self)
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(wid);
 
-  self->lmargin = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)), 1, 1);
+  self->lmargin = dia_unit_spinner_new(
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)),
+	2, DIA_UNIT_CENTIMETER);
   gtk_table_attach(GTK_TABLE(table), self->lmargin, 1,2, 2,3,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->lmargin);
@@ -235,8 +243,9 @@ dia_page_layout_init(DiaPageLayout *self)
 		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(wid);
 
-  self->rmargin = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)), 1, 1);
+  self->rmargin = dia_unit_spinner_new(
+	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,10)),
+	2, DIA_UNIT_CENTIMETER);
   gtk_table_attach(GTK_TABLE(table), self->rmargin, 1,2, 3,4,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(self->rmargin);
@@ -543,6 +552,8 @@ darea_expose_event(DiaPageLayout *self, GdkEventExpose *event)
 static void
 paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
 {
+  gchar buf[512];
+
   self->papernum = GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(item)));
   size_page(self, &self->darea->allocation);
   gtk_widget_queue_draw(self->darea);
@@ -577,6 +588,11 @@ paper_size_change(GtkMenuItem *item, DiaPageLayout *self)
       paper_metrics[self->papernum].psheight;
   }
   self->block_changed = FALSE;
+
+  g_snprintf(buf, sizeof(buf), _("%0.3gcm x %0.3gcm"),
+	     paper_metrics[self->papernum].pswidth,
+	     paper_metrics[self->papernum].psheight);
+  gtk_label_set(GTK_LABEL(self->paper_label), buf);
 
   gtk_signal_emit(GTK_OBJECT(self), pl_signals[CHANGED]);
 }

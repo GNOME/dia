@@ -1,3 +1,13 @@
+1999-10-19  James Henstridge  <james@daa.com.au>
+
+	* app/diapagelayout.c (dia_page_layout_init): use DiaUnitSpinner's for
+	the margin entries, as they allow interpretation of units.
+	(paper_size_change): display the current page dimensions.
+
+	* app/diaunitspinner.[ch]: a widget derived from the standard
+	GtkSpinButton that tries to take units into account.  So if you enter
+	"1in" into the entry, it will convert it to 2.54cm.
+
 1999-10-18  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/app_procs.c:

@@ -19,7 +19,7 @@ struct _DiaPageLayout {
   GtkTable parent;
 
   /*<private>*/
-  GtkWidget *paper_size;
+  GtkWidget *paper_size, *paper_label;
   GtkWidget *orient_portrait, *orient_landscape;
   GtkWidget *tmargin, *bmargin, *lmargin, *rmargin;
   GtkWidget *scaling;
