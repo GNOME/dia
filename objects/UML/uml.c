@@ -164,9 +164,12 @@ uml_get_operation_string (UMLOperation *operation)
 	len += 6;
 	break;	  
       }
-    len += strlen (param->name) + strlen (param->type);
-    if (param->type[0] && param->name[0]) {
-      len += 1;
+    len += strlen (param->name);
+    if (param->type != NULL) {
+      len += strlen (param->type);
+      if (param->type[0] && param->name[0]) {
+        len += 1;
+      }
     }
     if (param->value != NULL && param->value[0] != '\0') {
       len += 1 + strlen (param->value);
@@ -221,10 +224,13 @@ uml_get_operation_string (UMLOperation *operation)
 	break;
       }
     strcat (str, param->name);
-    if (param->type[0] && param->name[0]) {
-      strcat (str, ":");
+
+    if (param->type != NULL) {
+      if (param->type[0] && param->name[0]) {
+        strcat (str, ":");
+      }
+      strcat (str, param->type);
     }
-    strcat (str, param->type);
     
     if (param->value != NULL && param->value[0] != '\0') {
       strcat (str, "=");
