@@ -20,6 +20,8 @@
 #include <config.h>
 #endif
 
+#include <stdlib.h>
+
 #include "object_ops.h"
 #include "connectionpoint_ops.h"
 #include "handle_ops.h"
@@ -218,14 +220,17 @@ object_list_move_delta(GList *objects, Point *delta)
 }
 
 
+static int
+object_list_sort_vertical(const void *o1, const void *o2) {
+    Object *obj1 = *(Object **)o1;
+    Object *obj2 = *(Object **)o2;
+
+    return (obj1->bounding_box.bottom+obj1->bounding_box.top)/2 -
+	(obj2->bounding_box.bottom+obj2->bounding_box.top)/2;
+}
+
 /*
   Align objects by moving them vertically:
-  0 TOP
-  1 CENTER
-  2 BOTTOM
-  3 OBJECT POSITION
-  4 EQUAL DISTANCE
-  5 ADJACENT
 */
 void
 object_list_align_v(GList *objects, Diagram *dia, int align)
@@ -266,29 +271,53 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   }
 
   switch (align) {
-  case 0: /* TOP */
+  case DIA_ALIGN_TOP: /* TOP */
     y_pos = top;
     break;
-  case 1: /* CENTER */
+  case DIA_ALIGN_CENTER: /* CENTER */
     y_pos = (top + bottom)/2.0;
     break;
-  case 2: /* BOTTOM */
+  case DIA_ALIGN_BOTTOM: /* BOTTOM */
     y_pos = bottom;
     break;
-  case 3: /* OBJECT POSITION */
+  case DIA_ALIGN_POSITION: /* OBJECT POSITION */
     y_pos = (top + bottom)/2.0;
     break;
-  case 4: /* EQUAL DISTANCE */
+  case DIA_ALIGN_EQUAL: /* EQUAL DISTANCE */
     freespc = (bottom - top - freespc)/(double)(nobjs - 1);
     y_pos = top;
     break;
-  case 5: /* ADJACENT */
+  case DIA_ALIGN_ADJACENT: /* ADJACENT */
     y_pos = top;
     break;
   default:
     message_warning("Wrong argument to object_list_align_v()\n");
   }
   
+  /*
+   * These alignments can alter the order of elements, so we need
+   * to sort them out by position.
+   */
+  if (align == DIA_ALIGN_EQUAL || align == DIA_ALIGN_ADJACENT) {
+      Object **object_array = (Object **)g_malloc(sizeof(Object*)*nobjs);
+      int i = 0;
+
+      list = objects;
+      while (list != NULL) {
+	  obj = (Object *) list->data;
+	  object_array[i] = obj;
+	  i++;
+	  list = g_list_next(list);
+      }
+      qsort(object_array, nobjs, sizeof(Object*), object_list_sort_vertical);
+      list = NULL;
+      for (i = 0; i < nobjs; i++) {
+	  list = g_list_append(list, object_array[i]);
+      }
+      objects = list;
+      g_free(object_array);
+  }
+
   dest_pos = g_new(Point, nobjs);
   orig_pos = g_new(Point, nobjs);
 
@@ -300,23 +329,23 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
     pos.x = obj->position.x;
     
     switch (align) {
-    case 0: /* TOP */
+    case DIA_ALIGN_TOP: /* TOP */
       pos.y = y_pos + obj->position.y - obj->bounding_box.top;
       break;
-    case 1: /* CENTER */
+    case DIA_ALIGN_CENTER: /* CENTER */
       pos.y = y_pos + obj->position.y - (obj->bounding_box.top + obj->bounding_box.bottom)/2.0;
       break;
-    case 2: /* BOTTOM */
+    case DIA_ALIGN_BOTTOM: /* BOTTOM */
       pos.y = y_pos - (obj->bounding_box.bottom - obj->position.y);
       break;
-    case 3: /* OBJECT POSITION */
+    case DIA_ALIGN_POSITION: /* OBJECT POSITION */
       pos.y = y_pos;
       break;
-    case 4: /* EQUAL DISTANCE */
+    case DIA_ALIGN_EQUAL: /* EQUAL DISTANCE */
       pos.y = y_pos + obj->position.y - obj->bounding_box.top;
       y_pos += obj->bounding_box.bottom - obj->bounding_box.top + freespc;
       break;
-    case 5: /* ADJACENT */
+    case DIA_ALIGN_ADJACENT: /* ADJACENT */
       pos.y = y_pos + obj->position.y - obj->bounding_box.top;
       y_pos += obj->bounding_box.bottom - obj->bounding_box.top;
       break;
@@ -334,14 +363,18 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects));
 }
 
+
+static int
+object_list_sort_horizontal(const void *o1, const void *o2) {
+  Object *obj1 = *(Object **)o1;
+  Object *obj2 = *(Object **)o2;
+
+  return (obj1->bounding_box.right+obj1->bounding_box.left)/2 -
+    (obj2->bounding_box.right+obj2->bounding_box.left)/2;
+}
+
 /*
-  Align objects by moving then horizontally:
-  0 LEFT
-  1 CENTER
-  2 RIGHT
-  3 OBJECT POSITION
-  4 EQUAL DISTANCE
-  5 ADJACENT
+  Align objects by moving then horizontally
 */
 void
 object_list_align_h(GList *objects, Diagram *dia, int align)
@@ -381,24 +414,48 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
     list = g_list_next(list);
   }
 
+  /*
+   * These alignments can alter the order of elements, so we need
+   * to sort them out by position.
+   */
+  if (align == DIA_ALIGN_EQUAL || align == DIA_ALIGN_ADJACENT) {
+    Object **object_array = (Object **)g_malloc(sizeof(Object*)*nobjs);
+    int i = 0;
+
+    list = objects;
+    while (list != NULL) {
+      obj = (Object *) list->data;
+      object_array[i] = obj;
+      i++;
+      list = g_list_next(list);
+    }
+    qsort(object_array, nobjs, sizeof(Object*), object_list_sort_horizontal);
+    list = NULL;
+    for (i = 0; i < nobjs; i++) {
+      list = g_list_append(list, object_array[i]);
+    }
+    objects = list;
+    g_free(object_array);
+  }
+
   switch (align) {
-  case 0: /* LEFT */
+  case DIA_ALIGN_LEFT:
     x_pos = left;
     break;
-  case 1: /* CENTER */
+  case DIA_ALIGN_CENTER:
     x_pos = (left + right)/2.0;
     break;
-  case 2: /* RIGHT */
+  case DIA_ALIGN_RIGHT:
     x_pos = right;
     break;
-  case 3: /* OBJECT POSITION */
+  case DIA_ALIGN_POSITION:
     x_pos = (left + right)/2.0;
     break;
-  case 4: /* EQUAL DISTANCE */
+  case DIA_ALIGN_EQUAL:
     freespc = (right - left - freespc)/(double)(nobjs - 1);
     x_pos = left;
     break;
-  case 5: /* ADJACENT */
+  case DIA_ALIGN_ADJACENT:
     x_pos = left;
     break;
   default:
@@ -414,23 +471,23 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
     obj = (Object *) list->data;
 
     switch (align) {
-    case 0: /* LEFT */
+    case DIA_ALIGN_LEFT:
       pos.x = x_pos + obj->position.x - obj->bounding_box.left;
       break;
-    case 1: /* CENTER */
+    case DIA_ALIGN_CENTER:
       pos.x = x_pos + obj->position.x - (obj->bounding_box.left + obj->bounding_box.right)/2.0;
       break;
-    case 2: /* RIGHT */
+    case DIA_ALIGN_RIGHT:
       pos.x = x_pos - (obj->bounding_box.right - obj->position.x);
       break;
-    case 3: /* OBJECT POSITION */
+    case DIA_ALIGN_POSITION:
       pos.x = x_pos;
       break;
-    case 4: /* EQUAL DISTANCE */
+    case DIA_ALIGN_EQUAL:
       pos.x = x_pos + obj->position.x - obj->bounding_box.left;
       x_pos += obj->bounding_box.right - obj->bounding_box.left + freespc;
       break;
-    case 5: /* ADJACENT */
+    case DIA_ALIGN_ADJACENT:
       pos.x = x_pos + obj->position.x - obj->bounding_box.left;
       x_pos += obj->bounding_box.right - obj->bounding_box.left;
       break;
