@@ -42,7 +42,11 @@ SHAPES = \
 	flash.shape \
 	flash.xpm \
 	rj45plug.shape \
-	rj45plug.xpm
+	rj45plug.xpm \
+	sceadplug.shape \
+	sceadplug.xpm \
+	antenna.shape \
+	antenna.xpm
 
 EXTRA_DIST = $(SHAPES)
 

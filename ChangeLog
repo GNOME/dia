@@ -1,5 +1,10 @@
 2001-05-19  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* objects/network/network.c:
+	* shapes/network/sceadplug.(shape|xpm) (NEW):
+	* shapes/network/antenna.(shape|xpm) (NEW):
+	* shapes/network/Makefile.am: two less objects, two more shapes.
+	
 	* lib/Makefile.am:
 	* lib/diagramdata.c:
 	* lib/render.h:
