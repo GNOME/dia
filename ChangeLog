@@ -1,3 +1,11 @@
+1999-02-11  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/standard/box.c:
+	Added rounded corners on the box object.
+
+	* lib/widgets.[ch]:
+	Updated the DiaFileSelector widget.
+	
 1999-02-09  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
 
 	* objects/UML/object.c (objet_draw): 

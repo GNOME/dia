@@ -652,18 +652,84 @@ dia_arrow_type_selector_set_arrow_type (DiaArrowTypeSelector *as,
 
 /************* DiaFileSelector: ***************/
 static void
+dia_file_selector_unrealize(GtkWidget *widget)
+{
+  DiaFileSelector *fs = DIAFILESELECTOR(widget);
+
+  if (fs->browse != NULL) {
+    gtk_widget_destroy(GTK_WIDGET(fs->browse));
+    fs->browse = NULL;
+  }
+
+  if (fs->entry != NULL) {
+    gtk_widget_destroy(GTK_WIDGET(fs->entry));
+    fs->entry = NULL;
+  }
+
+  (* GTK_WIDGET_CLASS (gtk_type_class(gtk_hbox_get_type ()))->unrealize) (widget);
+}
+
+static void
 dia_file_selector_class_init (DiaFileSelectorClass *class)
 {
   GtkObjectClass *object_class;
+  GtkWidgetClass *widget_class;
   
   object_class = (GtkObjectClass*) class;
+  widget_class = (GtkWidgetClass*) class;
+  widget_class->unrealize = dia_file_selector_unrealize;
+}
+
+static void
+dia_file_selector_ok(GtkWidget *widget, gpointer data)
+{
+  GtkFileSelection *dialog = GTK_FILE_SELECTION(data);
+  DiaFileSelector *fs = DIAFILESELECTOR(gtk_object_get_user_data(GTK_OBJECT(dialog)));
+  gtk_entry_set_text(GTK_ENTRY(fs->entry),
+		     gtk_file_selection_get_filename(dialog));
+  gtk_widget_destroy(GTK_WIDGET(dialog));
+}
+
+static void
+dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
+{
+  GtkFileSelection *dialog;
+  DiaFileSelector *fs = DIAFILESELECTOR(data);
+  
+  gdouble col[3];
+
+  fs->dialog = GTK_FILE_SELECTION(gtk_file_selection_new("Select image file"));
+  dialog = fs->dialog;
+  if (dialog->help_button != NULL)
+    gtk_widget_hide(dialog->help_button);
+  
+  gtk_signal_connect (GTK_OBJECT (dialog->ok_button), "clicked",
+		      (GtkSignalFunc) dia_file_selector_ok,
+		      dialog);
+  
+  gtk_signal_connect_object(GTK_OBJECT (dialog->cancel_button), "clicked",
+			    (GtkSignalFunc) gtk_widget_destroy,
+			    GTK_OBJECT(dialog));
+  gtk_object_set_user_data(GTK_OBJECT(dialog), fs);
+
+  gtk_file_selection_set_filename(dialog,
+				  gtk_entry_get_text(fs->entry));
+  gtk_widget_show(GTK_WIDGET(fs->dialog));
 }
 
 static void
 dia_file_selector_init (DiaFileSelector *fs)
 {
   /* Here's where we set up the real thing */
-  /* We should really have a Browse button here */
+  fs->entry = GTK_ENTRY(gtk_entry_new());
+  gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->entry), FALSE, TRUE, 0);
+  gtk_widget_show(GTK_WIDGET(fs->entry));
+  fs->browse = GTK_BUTTON(gtk_button_new_with_label("Browse"));
+  gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->browse), FALSE, TRUE, 0);
+  gtk_signal_connect (GTK_OBJECT (fs->browse), "pressed",
+                      (GtkSignalFunc) dia_file_selector_browse_pressed,
+                      fs);
+  gtk_widget_show(GTK_WIDGET(fs->browse));
 }
 
 
@@ -683,7 +749,7 @@ dia_file_selector_get_type (void)
       (GtkArgGetFunc) NULL
     };
     
-    dfs_type = gtk_type_unique (gtk_entry_get_type (), &dfs_info);
+    dfs_type = gtk_type_unique (gtk_hbox_get_type (), &dfs_info);
 
   }
   
@@ -699,12 +765,12 @@ dia_file_selector_new ()
 void
 dia_file_selector_set_file(DiaFileSelector *fs, gchar *file)
 {
-  gtk_entry_set_text(GTK_ENTRY(fs), file);
+  gtk_entry_set_text(GTK_ENTRY(fs->entry), file);
 }
 
 gchar *
 dia_file_selector_get_file(DiaFileSelector *fs)
 {
-  return gtk_entry_get_text(GTK_ENTRY(fs));
+  return gtk_entry_get_text(GTK_ENTRY(fs->entry));
 }
 

@@ -23,6 +23,8 @@
 #include <gtk/gtkoptionmenu.h>
 #include <gtk/gtkdrawingarea.h>
 #include <gtk/gtkcolorsel.h>
+#include <gtk/gtkhbox.h>
+#include <gtk/gtkfilesel.h>
 
 #include "font.h"
 #include "render.h"
@@ -175,12 +177,15 @@ typedef struct _DiaFileSelectorClass  DiaFileSelectorClass;
 
 struct _DiaFileSelector
 {
-  GtkEntry oentry;
+  GtkHBox hbox;
+  GtkEntry *entry;
+  GtkButton *browse;
+  GtkFileSelection *dialog;
 };
 
 struct _DiaFileSelectorClass
 {
-  GtkEntryClass parent_class;
+  GtkHBoxClass parent_class;
 };
 
 guint      dia_file_selector_get_type        (void);
