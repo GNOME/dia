@@ -282,7 +282,10 @@ dump_pfb_chunk(FILE *from, FILE *file) {
 	printf("Read error: %s\n", strerror(errno));
 	return 0;
       }
-      fputc((ch == '\r'?'\n':ch), file); // Translate newlines
+      if (fputc((ch == '\r'?'\n':ch), file) == EOF) { // Translate newlines
+	printf("Write error: %s\n", strerror(errno));
+	return 0;
+      }
     }
     fgetc(from); // Skip 080 char
     break;

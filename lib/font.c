@@ -60,12 +60,13 @@
 #include <dirent.h>
 #endif
 
-#include "intl.h"
 #include "utils.h"
-#include "font.h"
 #include "color.h"
 #include "message.h"
+#include "intl.h"
+#include "text.h"
 #include "charconv.h" 
+#include "font.h"
 
 #ifndef LARS_TRACE_MESSAGES
 #define LC_DEBUG(op)
@@ -568,11 +569,14 @@ freetype_add_font(char *dirname, char *filename) {
       g_hash_table_insert(freetype_fonts, new_font->family, new_font);
     }
     
-
     new_face = (FreetypeFace*)g_malloc(sizeof(FreetypeFace));
     new_face->face = face;
     new_face->from_file = strdup(fullname);
     new_font->faces = g_list_append(new_font->faces, new_face);
+
+#ifdef HAVE_UNICODE
+    FT_Select_Charmap(face, ft_encoding_unicode);
+#endif
 
     if (facenum == 0) first_face = face;
     facenum++;
@@ -718,19 +722,25 @@ freetype_load_string(const char *string, FT_Face face, int len)
   gint glyph_index, previous_index = 0, num_glyphs = 0;
   gint error;
   FreetypeString *fts;
+  utfchar* p;
 
   LC_DEBUG (fprintf(stderr, "freetype_load_string %s len %d\n", string, len));
 
   fts = (FreetypeString*)g_malloc(sizeof(FreetypeString));
-  fts->num_glyphs = len;
-  fts->text = strdup(string);
+  fts->text = g_strndup(string, len);
   //  fts->glyphs = (FT_Glyph*)g_malloc(sizeof(FT_Glyph*)*len);
   fts->face = face;
   fts->width = 0.0;
 
-  for (i = 0; i < len; i++) {
+  fts->num_glyphs = 0;
+  for (p = string; (*p); p = uni_next(p)) {
+    unichar c;
+    uni_get_utf8(p,&c);
+
+    fts->num_glyphs++;
     // convert character code to glyph index
-    glyph_index = FT_Get_Char_Index( face, string[i] );
+    glyph_index = FT_Get_Char_Index( face, c );
+
     // retrieve kerning distance and move pen position
     if ( use_kerning && previous_index && glyph_index )
     {
@@ -788,19 +798,25 @@ freetype_render_string(FreetypeString *fts, int x, int y,
 {
   gchar *string;
   int i, len;
-  int previous_index = 0;
+  int glyph_index, previous_index = 0;
   int use_kerning = TRUE;
   int pen_x = x, pen_y = y;
   FT_Face face = fts->face;
+  int error;
+  utfchar *p;
 
   LC_DEBUG (fprintf(stderr, "freetype_render_string\n"));
 
   string = fts->text;
-  len = strlen(string);
-  for (i = 0; i < len; i++) {
+
+  for (p = string; (*p); p = uni_next(p)) {
+    unichar c;
+    uni_get_utf8(p,&c);
+
+    printf("Unicode char %d (%c)\n", c, c);
+
     // convert character code to glyph index
-    int glyph_index = FT_Get_Char_Index( face, string[i] );
-    int error;
+    glyph_index = FT_Get_Char_Index( face, c );
 
     if (glyph_index == 0) {
       LC_DEBUG (fprintf(stderr, "FT_Get_Char_Index: Couldn't find glyph\n"));
