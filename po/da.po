@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
 "POT-Creation-Date: 2000-05-18 11:20+0800\n"
-"PO-Revision-Date: 2000-05-29 11:27+0200\n"
+"PO-Revision-Date: 2000-06-04 02:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -113,26 +113,26 @@ msgstr "Ingen eksisterende objekter kan indsættes.\n"
 msgid "About Dia"
 msgstr "Om dia"
 
-#: app/commands.c:518
+#: app/commands.c:520
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia version %s af Alexander Larsson"
 
-#: app/commands.c:523
+#: app/commands.c:525
 msgid "Maintainer: James Henstridge"
 msgstr "Vedligeholder: James Henstridge"
 
-#: app/commands.c:527
+#: app/commands.c:529
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Besøg venligst http://www.lysator.liu.se/~alla/dia for flere oplysninger"
 
-#: app/commands.c:532
+#: app/commands.c:534
 msgid "Contributors:"
 msgstr "Bidragsydere:"
 
 #. setup buttons
-#: app/commands.c:549 app/layer_dialog.c:976 app/lineprops_area.c:540
+#: app/commands.c:551 app/layer_dialog.c:976 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
 #: app/paginate_psprint.c:234 app/preferences.c:601 app/properties.c:82
 #: lib/message.c:85
@@ -361,12 +361,12 @@ msgstr ""
 "Er du sikker på at du vil lukke vinduet?"
 
 #: app/display.c:791 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:495
-#: lib/properties.c:267
+#: lib/properties.c:279
 msgid "Yes"
 msgstr "Ja"
 
 #: app/display.c:801 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:495
-#: app/preferences.c:506 lib/properties.c:269 lib/properties.c:290
+#: app/preferences.c:506 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Nej"
 
@@ -583,11 +583,11 @@ msgstr "Lav billede"
 msgid "Image"
 msgstr "Billedfil"
 
-#: app/interface.c:315
+#: app/interface.c:320
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL værktøjdata i tool_select_update"
 
-#: app/interface.c:622
+#: app/interface.c:627
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -596,7 +596,7 @@ msgstr ""
 "farverne.  Pilene bytter om på farverne.  Dobbelt-klik for at vælge andre "
 "farver."
 
-#: app/interface.c:703
+#: app/interface.c:708
 msgid "Diagram Editor"
 msgstr "Diagramredigering"
 
@@ -861,17 +861,17 @@ msgstr "Skæring"
 msgid "Remove"
 msgstr "Fjern"
 
-#: app/menus.c:153 lib/properties.c:1118 lib/properties.h:313
+#: app/menus.c:153 lib/properties.c:1176 lib/properties.h:324
 #: lib/widgets.c:176
 msgid "Left"
 msgstr "Venstre"
 
-#: app/menus.c:155 app/menus.c:169 lib/properties.c:1119 lib/properties.h:314
+#: app/menus.c:155 app/menus.c:169 lib/properties.c:1177 lib/properties.h:325
 #: lib/widgets.c:182
 msgid "Center"
 msgstr "Midt"
 
-#: app/menus.c:157 lib/properties.c:1120 lib/properties.h:315
+#: app/menus.c:157 lib/properties.c:1178 lib/properties.h:326
 #: lib/widgets.c:188
 msgid "Right"
 msgstr "Højre"
@@ -1338,9 +1338,13 @@ msgstr "/Dialoger/_Lag"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL værktøjdata i tool_menu_select"
 
-#: app/menus.c:498
+#: app/menus.c:500
 msgid "/Tools/"
 msgstr "/Værktøj/"
+
+#: app/menus.c:513
+msgid "Diagram Menu"
+msgstr "Diagram-menu"
 
 #: app/paginate_gnomeprint.c:158
 msgid "Print Diagram"
@@ -1577,7 +1581,7 @@ msgstr "'%s' er ikke et katalog"
 msgid "Could not open `%s'"
 msgstr "Kunne ikke åbne '%s'"
 
-#: lib/properties.c:357 lib/properties.c:389
+#: lib/properties.c:371 lib/properties.c:403
 msgid "No edit widget"
 msgstr "Ingen redigér-widget"
 
@@ -2538,7 +2542,7 @@ msgstr "Rotér lodret"
 #: objects/flowchart/ellipse.c:280 objects/flowchart/ellipse.c:420
 #: objects/flowchart/parallelogram.c:288 objects/flowchart/parallelogram.c:447
 #: objects/standard/box.c:223 objects/standard/ellipse.c:214
-#: objects/standard/polygon.c:226
+#: objects/standard/polygon.c:219
 msgid "Draw background"
 msgstr "Solid baggrund"
 
@@ -2659,11 +2663,11 @@ msgstr "Startpunkt"
 msgid "End point"
 msgstr "Slutpunkt"
 
-#: objects/standard/polygon.c:597 objects/standard/polyline.c:484
+#: objects/standard/polygon.c:513 objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "Tilføj hjørne"
 
-#: objects/standard/polygon.c:598 objects/standard/polyline.c:485
+#: objects/standard/polygon.c:514 objects/standard/polyline.c:485
 msgid "Delete Corner"
 msgstr "Slet hjørne"
 
