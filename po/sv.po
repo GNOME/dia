@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2003-07-12 14:10+0200\n"
-"PO-Revision-Date: 2003-07-12 14:11+0200\n"
+"POT-Creation-Date: 2003-07-29 00:32+0200\n"
+"PO-Revision-Date: 2003-07-29 00:33+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -140,15 +140,15 @@ msgstr "Avsluta Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:618
+#: app/app_procs.c:620
 msgid "Thank you for using Dia.\n"
 msgstr "Tack för att du använder Dia.\n"
 
-#: app/app_procs.c:632 app/app_procs.c:639
+#: app/app_procs.c:634 app/app_procs.c:641
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunde inte skapa katalog med personliga Dia-inställningar."
 
-#: app/app_procs.c:641
+#: app/app_procs.c:643
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -156,7 +156,7 @@ msgstr ""
 "Kunde inte skapa en personlig Dia-konfigurationskatalog. Kontrollera att "
 "miljövariabeln HOME pekar till en existerande katalog."
 
-#: app/app_procs.c:663 app/diaconv.c:249
+#: app/app_procs.c:665 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Interna objekt och filter i dia"
 
@@ -499,13 +499,19 @@ msgstr "Synliga mellanrum"
 msgid "Grid"
 msgstr "Rutnät"
 
-#: app/dia-props.c:155
+#: app/dia-props.c:156
 msgid "Background Colour"
 msgstr "Bakgrundsfärg"
 
-#: app/dia-props.c:166 lib/diagramdata.c:58
+#: app/dia-props.c:167 lib/diagramdata.c:58
 msgid "Background"
 msgstr "Bakgrund"
+
+#. Can we be sure that the filename is the 'proper title'?
+#: app/dia-props.c:185
+#, c-format
+msgid "Diagram Properties: %s"
+msgstr "Diagramegenskaper: %s"
 
 #: app/disp_callbacks.c:77 app/properties.c:141
 msgid ""
@@ -519,7 +525,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "Ingen objektmeny"
 
-#: app/disp_callbacks.c:820
+#: app/disp_callbacks.c:830
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -531,11 +537,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Diagrammet är ändrat!"
 
-#: app/display.c:991
+#: app/display.c:992
 msgid "<unnamed>"
 msgstr "<namnlös>"
 
-#: app/display.c:993
+#: app/display.c:994
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -544,11 +550,11 @@ msgstr ""
 "Diagrammet \"%s\"\n"
 "har inte sparats. Vill du spara ändringar nu?"
 
-#: app/display.c:1004
+#: app/display.c:1005
 msgid "Close Diagram"
 msgstr "Stäng diagram"
 
-#: app/display.c:1009
+#: app/display.c:1010
 msgid "Discard Changes"
 msgstr "Förkasta ändringar"
 
@@ -557,7 +563,7 @@ msgstr "Förkasta ändringar"
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
 #: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
-#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:87
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Kan inte öppna utdatafilen %s: %s\n"
@@ -745,23 +751,23 @@ msgstr "Bezierkurva"
 msgid "Image"
 msgstr "Bild"
 
-#: app/interface.c:379
+#: app/interface.c:371
 msgid "Diagram menu."
 msgstr "Diagrammeny."
 
-#: app/interface.c:488
+#: app/interface.c:480
 msgid "Zoom"
 msgstr "Zooma"
 
-#: app/interface.c:502
+#: app/interface.c:494
 msgid "Toggles snap-to-grid for this window."
 msgstr "Växlar fäst vid rutnät för detta fönster."
 
-#: app/interface.c:546
+#: app/interface.c:538
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL-tooldata i tool_select_update"
 
-#: app/interface.c:1008
+#: app/interface.c:1014
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -771,7 +777,7 @@ msgstr ""
 "återställer färger. De små pilarna byter färger. Dubbelklicka för att ändra "
 "färger."
 
-#: app/interface.c:1023
+#: app/interface.c:1029
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -779,7 +785,7 @@ msgstr ""
 "Linjebredder. Klicka på en linje för att ställa in standardlinjebredden för "
 "nya objekt. Dubbelklicka för att ställa in linjebredden mer exakt."
 
-#: app/interface.c:1055
+#: app/interface.c:1061
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -787,7 +793,7 @@ msgstr ""
 "Pilstil vid början på nya linjer. Klicka för att välja en pil eller ställ in "
 "pilparametrar med Detaljer..."
 
-#: app/interface.c:1060
+#: app/interface.c:1066
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -795,7 +801,7 @@ msgstr ""
 "Linjestil för nya linjer. Klicka för att välja en linjestil eller ställ in "
 "linjeparametrar med Detaljer..."
 
-#: app/interface.c:1065
+#: app/interface.c:1071
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -803,7 +809,7 @@ msgstr ""
 "Pilstil vid slutet på nya linjer. Klicka för att välja en pil eller ställ in "
 "pilparametrar med Detaljer..."
 
-#: app/interface.c:1169
+#: app/interface.c:1179
 msgid "Diagram Editor"
 msgstr "Diagramredigerare"
 
@@ -868,12 +874,12 @@ msgstr "Detaljer..."
 msgid "Line Style Properties"
 msgstr "Linjeegenskaper"
 
-#: app/linewidth_area.c:238 lib/properties.h:475
+#: app/linewidth_area.c:239 lib/properties.h:475
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Linjebredd"
 
-#: app/linewidth_area.c:250
+#: app/linewidth_area.c:251
 msgid "Line width:"
 msgstr "Linjebredd:"
 
@@ -906,7 +912,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Du måste ange en fil, inte en katalog.\n"
 
 #: app/load_save.c:282 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
-#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:80
+#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:78
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunde inte öppna: \"%s\" för läsning.\n"
@@ -1726,39 +1732,39 @@ msgstr "Läs in vid uppstart"
 msgid "File Name"
 msgstr "Filnamn"
 
-#: app/preferences.c:98
+#: app/preferences.c:99
 msgid "User Interface"
 msgstr "Användargränssnitt"
 
-#: app/preferences.c:99
+#: app/preferences.c:100
 msgid "Diagram Defaults"
 msgstr "Standardalternativ för diagram"
 
-#: app/preferences.c:100
+#: app/preferences.c:101
 msgid "View Defaults"
 msgstr "Standardvärden för vyer"
 
-#: app/preferences.c:101
+#: app/preferences.c:102
 msgid "Grid Lines"
 msgstr "Rutlinjer"
 
-#: app/preferences.c:102
+#: app/preferences.c:103
 msgid "Diagram Tree"
 msgstr "Diagramträd"
 
-#: app/preferences.c:116
+#: app/preferences.c:117
 msgid "Reset tools after create:"
 msgstr "Återställ verktyg när objekt har skapats:"
 
-#: app/preferences.c:117
+#: app/preferences.c:118
 msgid "Compress saved files:"
 msgstr "Komprimera sparade filer:"
 
-#: app/preferences.c:118
+#: app/preferences.c:119
 msgid "Number of undo levels:"
 msgstr "Antal nivåer för ångra:"
 
-#: app/preferences.c:119
+#: app/preferences.c:120
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1766,102 +1772,110 @@ msgstr ""
 "Omvänd dragning markerar\n"
 "korsande objekt:"
 
-#: app/preferences.c:120
+#: app/preferences.c:121
 msgid "Recent documents list size:"
 msgstr "Storlek på lista över senaste dokument:"
 
-#: app/preferences.c:121
+#: app/preferences.c:122
 msgid "Use menu bar:"
 msgstr "Använd menyrad:"
 
-#: app/preferences.c:123
+#: app/preferences.c:124
 msgid "Keep tool box on top of diagram windows:"
 msgstr "Behåll verktygslåda ovanför diagramfönster:"
 
-#: app/preferences.c:125
+#: app/preferences.c:126
 msgid "New diagram:"
 msgstr "Nytt diagram:"
 
-#: app/preferences.c:126
+#: app/preferences.c:127
 msgid "Portrait:"
 msgstr "Stående:"
 
-#: app/preferences.c:128
+#: app/preferences.c:129
 msgid "Paper type:"
 msgstr "Papperstyp:"
 
-#: app/preferences.c:131
+#: app/preferences.c:132
 msgid "New window:"
 msgstr "Nytt fönster:"
 
-#: app/preferences.c:132
+#: app/preferences.c:133
 msgid "Width:"
 msgstr "Bredd:"
 
-#: app/preferences.c:133
+#: app/preferences.c:134
 msgid "Height:"
 msgstr "Höjd:"
 
-#: app/preferences.c:134
+#: app/preferences.c:135
 msgid "Magnify:"
 msgstr "Förstora:"
 
-#: app/preferences.c:136
+#: app/preferences.c:137
 msgid "Connection Points:"
 msgstr "Anslutningspunkter:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:137 app/preferences.c:140 app/preferences.c:145
+#: app/preferences.c:138 app/preferences.c:141 app/preferences.c:146
 msgid "Visible:"
 msgstr "Synligt:"
 
-#: app/preferences.c:139
+#: app/preferences.c:140
 msgid "Page breaks:"
 msgstr "Sidbrytningar:"
 
-#: app/preferences.c:141 app/preferences.c:149
+#: app/preferences.c:142 app/preferences.c:151
 msgid "Colour:"
 msgstr "Färg:"
 
-#: app/preferences.c:142 app/preferences.c:150
+#: app/preferences.c:143
 msgid "Solid lines:"
 msgstr "Hela linjer:"
 
-#: app/preferences.c:146
+#: app/preferences.c:147
 msgid "Snap to:"
 msgstr "Fäst vid:"
 
-#: app/preferences.c:147
+#: app/preferences.c:148
+msgid "Dynamic grid resizing"
+msgstr "Dynamisk storleksändring av rutnät"
+
+#: app/preferences.c:149
 msgid "X Size:"
 msgstr "X-storlek:"
 
-#: app/preferences.c:148
+#: app/preferences.c:150
 msgid "Y Size:"
 msgstr "Y-storlek:"
 
-#: app/preferences.c:161
+#: app/preferences.c:152
+msgid "Lines per major line"
+msgstr "Linjer per huvudlinje"
+
+#: app/preferences.c:167
 msgid "Diagram tree window:"
 msgstr "Diagramträdsfönster:"
 
-#: app/preferences.c:163
+#: app/preferences.c:169
 msgid "Save hidden object types:"
 msgstr "Spara dolda objekttyper:"
 
-#: app/preferences.c:290
+#: app/preferences.c:296
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/preferences.c:565 lib/prop_inttypes.c:151
+#: app/preferences.c:572 lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/preferences.c:565 app/preferences.c:576 lib/prop_inttypes.c:153
+#: app/preferences.c:572 app/preferences.c:583 lib/prop_inttypes.c:153
 #: lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nej"
 
-#: app/preferences.c:676
+#: app/preferences.c:683
 msgid "Preferences"
 msgstr "Inställningar"
 
@@ -4074,11 +4088,11 @@ msgstr "Standardobjekt"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
-#: objects/UML/activity.c:302
+#: objects/UML/activity.c:311
 msgid "Helvetica"
 msgstr "Helvetica"
 
-#: objects/UML/actor.c:335 objects/UML/actor.c:337 sheets/UML.sheet.in.h:2
+#: objects/UML/actor.c:343 objects/UML/actor.c:345 sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Aktör"
 
@@ -4177,7 +4191,7 @@ msgid "Template"
 msgstr "Mall"
 
 #. Class page:
-#: objects/UML/class.c:177 objects/UML/class.c:918
+#: objects/UML/class.c:177 objects/UML/class.c:930
 #: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
 msgid "Class"
 msgstr "Klass"
@@ -4449,7 +4463,7 @@ msgstr "Multipla instanser"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:385
+#: objects/UML/state.c:394
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
@@ -4819,36 +4833,36 @@ msgstr "Detta är en FIG-fil i version %d.%d, jag kanske inte förstår den\n"
 msgid "XFig File Format"
 msgstr "XFig-filformat"
 
-#: plug-ins/xslt/xslt.c:95
+#: plug-ins/xslt/xslt.c:93
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Fel vid tolkning av %s\n"
 
-#: plug-ins/xslt/xslt.c:103
+#: plug-ins/xslt/xslt.c:101
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Fel vid tolkning av stilmallen %s\n"
 
-#: plug-ins/xslt/xslt.c:109
+#: plug-ins/xslt/xslt.c:107
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "Fel vid tillämpning av stilmallen %s\n"
 
-#: plug-ins/xslt/xslt.c:117
+#: plug-ins/xslt/xslt.c:115
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Fel vid tolkning av stilmall: %s\n"
 
-#: plug-ins/xslt/xslt.c:125
+#: plug-ins/xslt/xslt.c:123
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Fel vid tillämpning av stilmall: %s\n"
 
-#: plug-ins/xslt/xslt.c:287
+#: plug-ins/xslt/xslt.c:303
 msgid "XSL Transformation filter"
 msgstr "XSL-transformationsfilter"
 
-#: plug-ins/xslt/xslt.c:315
+#: plug-ins/xslt/xslt.c:327
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Ingen giltig konfigurationsfil hittades för XSLT-insticksmodulen, läser inte "
