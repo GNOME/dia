@@ -291,4 +291,16 @@ real distance_bez_shape_point(BezPoint *b, guint npoints,
 real distance_ellipse_point(Point *centre, real width, real height,
 			    real line_width, Point *point);
 
+typedef real  Vector[3];
+typedef Vector  Matrix[3];
+
+void          transform_point             (Matrix, Point *, Point *);
+void          mult_matrix                 (Matrix, Matrix);
+void          identity_matrix             (Matrix);
+void          translate_matrix            (Matrix, real, real);
+void          scale_matrix                (Matrix, real, real);
+void          rotate_matrix               (Matrix, real);
+void          xshear_matrix               (Matrix, real);
+void          yshear_matrix               (Matrix, real);
+
 #endif /* GEOMETRY_H */

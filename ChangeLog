@@ -1,3 +1,24 @@
+2001-03-28  Cyrille Chepelov  <chepelov@calixo.net>
+
+	Added patch #52363 from Hubert Figuiere <hfiguiere@teaser.fr>:
+
+	** objects/network/network.c:
+	** objects/network/wanlink.c:
+	** objects/network/pixmaps/wanlink.c:
+	** sheets/network.sheet:
+	** objects/network/Makefile.am: a better object to use instead of
+	the older WAN Connection.
+	
+	** lib/geometry.[ch]: rotation matrix functions in geometry.c (derived from gimp)
+
+	** objects/GRAFCET/vector.c: renamed Vector to GRAFCETVector to avoid a
+	name clash 
+
+	* objects/GRAFCET/vector.c: Re-renamed GRAFCETVector into
+	Arc; kept the C file name (because CVS wouldn't like it), and
+	still registering the older object name (but advertising the newer
+	one in sheets/GRAFCET.sheet).	
+
 2001-03-24  Hans Breuer  <hans@breuer.org>
 
 	* app/dia.def : some plug-ins (currently only python, xfig) are using 

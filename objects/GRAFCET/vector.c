@@ -42,147 +42,156 @@
 #include "grafcet.h"
 #include "pixmaps/vector.xpm"
 
-#define VECTOR_LINE_WIDTH (GRAFCET_GENERAL_LINE_WIDTH)
-#define VECTOR_ARROW_LENGTH .8
-#define VECTOR_ARROW_WIDTH .6
-#define VECTOR_ARROW_TYPE ARROW_FILLED_TRIANGLE
+#define ARC_LINE_WIDTH (GRAFCET_GENERAL_LINE_WIDTH)
+#define ARC_ARROW_LENGTH .8
+#define ARC_ARROW_WIDTH .6
+#define ARC_ARROW_TYPE ARROW_FILLED_TRIANGLE
 
 #define HANDLE_MIDDLE HANDLE_CUSTOM1
 
-typedef struct _VectorPropertiesDialog VectorPropertiesDialog;
-typedef struct _VectorDefaultsDialog VectorDefaultsDialog;
-typedef struct _VectorDefaults VectorDefaults;
-typedef struct _VectorState VectorState;
+typedef struct _ArcPropertiesDialog ArcPropertiesDialog;
+typedef struct _ArcDefaultsDialog ArcDefaultsDialog;
+typedef struct _ArcDefaults ArcDefaults;
+typedef struct _ArcState ArcState;
 
-struct _VectorState {
+struct _ArcState {
   ObjectState obj_state;
 
   gboolean uparrow;
 };
 
-typedef struct _Vector {
+typedef struct _Arc {
   OrthConn orth;
 
   gboolean uparrow;
-} Vector;
+} Arc;
 
-struct _VectorPropertiesDialog {
+struct _ArcPropertiesDialog {
   AttributeDialog dialog;
-  Vector *parent;
+  Arc *parent;
 
   BoolAttribute uparrow;
 };
 
-struct _VectorDefaults {
+struct _ArcDefaults {
   gboolean uparrow;
 };
 
-struct _VectorDefaultsDialog {
+struct _ArcDefaultsDialog {
   AttributeDialog dialog;
-  VectorDefaults *parent;
+  ArcDefaults *parent;
 
   BoolAttribute uparrow;
 };
 
 
-static VectorPropertiesDialog *vector_properties_dialog;
-static VectorDefaultsDialog *vector_defaults_dialog;
-static VectorDefaults defaults; 
+static ArcPropertiesDialog *arc_properties_dialog;
+static ArcDefaultsDialog *arc_defaults_dialog;
+static ArcDefaults defaults; 
 
-static void vector_move_handle(Vector *vector, Handle *handle,
+static void arc_move_handle(Arc *arc, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void vector_move(Vector *vector, Point *to);
-static void vector_select(Vector *vector, Point *clicked_point,
+static void arc_move(Arc *arc, Point *to);
+static void arc_select(Arc *arc, Point *clicked_point,
 			      Renderer *interactive_renderer);
-static void vector_draw(Vector *vector, Renderer *renderer);
-static Object *vector_create(Point *startpoint,
+static void arc_draw(Arc *arc, Renderer *renderer);
+static Object *arc_create(Point *startpoint,
 				 void *user_data,
 				 Handle **handle1,
 				 Handle **handle2);
-static real vector_distance_from(Vector *vector, Point *point);
-static void vector_update_data(Vector *vector);
-static void vector_destroy(Vector *vector);
-static Object *vector_copy(Vector *vector);
-static PROPDLG_TYPE vector_get_properties(Vector *vector);
-static ObjectChange *vector_apply_properties(Vector *vector);
-static DiaMenu *vector_get_object_menu(Vector *vector,
+static real arc_distance_from(Arc *arc, Point *point);
+static void arc_update_data(Arc *arc);
+static void arc_destroy(Arc *arc);
+static Object *arc_copy(Arc *arc);
+static PROPDLG_TYPE arc_get_properties(Arc *arc);
+static ObjectChange *arc_apply_properties(Arc *arc);
+static DiaMenu *arc_get_object_menu(Arc *arc,
 					   Point *clickedpoint);
 
-static VectorState *vector_get_state(Vector *vector);
-static void vector_set_state(Vector *vector, VectorState *state);
+static ArcState *arc_get_state(Arc *arc);
+static void arc_set_state(Arc *arc, ArcState *state);
 
-static void vector_save(Vector *vector, ObjectNode obj_node,
+static void arc_save(Arc *arc, ObjectNode obj_node,
 			    const char *filename);
-static Object *vector_load(ObjectNode obj_node, int version,
+static Object *arc_load(ObjectNode obj_node, int version,
 			       const char *filename);
-static PROPDLG_TYPE vector_get_defaults(void);
-static void vector_apply_defaults(void); 
+static PROPDLG_TYPE arc_get_defaults(void);
+static void arc_apply_defaults(void); 
 
-static ObjectTypeOps vector_type_ops =
+static ObjectTypeOps arc_type_ops =
 {
-  (CreateFunc)vector_create,   /* create */
-  (LoadFunc)  vector_load,     /* load */
-  (SaveFunc)  vector_save,      /* save */
-  (GetDefaultsFunc)   vector_get_defaults,
-  (ApplyDefaultsFunc) vector_apply_defaults
+  (CreateFunc)arc_create,   /* create */
+  (LoadFunc)  arc_load,     /* load */
+  (SaveFunc)  arc_save,      /* save */
+  (GetDefaultsFunc)   arc_get_defaults,
+  (ApplyDefaultsFunc) arc_apply_defaults
 };
 
-ObjectType vector_type =
+ObjectType old_arc_type =
 {
   "GRAFCET - Vector",   /* name */
   0,                         /* version */
   (char **) vector_xpm,      /* pixmap */
   
-  &vector_type_ops       /* ops */
+  &arc_type_ops       /* ops */
 };
 
-static ObjectOps vector_ops = {
-  (DestroyFunc)         vector_destroy,
-  (DrawFunc)            vector_draw,
-  (DistanceFunc)        vector_distance_from,
-  (SelectFunc)          vector_select,
-  (CopyFunc)            vector_copy,
-  (MoveFunc)            vector_move,
-  (MoveHandleFunc)      vector_move_handle,
-  (GetPropertiesFunc)   vector_get_properties,
-  (ApplyPropertiesFunc) vector_apply_properties,
-  (ObjectMenuFunc)      vector_get_object_menu
+ObjectType grafcet_arc_type =
+{
+  "GRAFCET - Arc",   /* name */
+  0,                         /* version */
+  (char **) vector_xpm,      /* pixmap */
+  
+  &arc_type_ops       /* ops */
+};
+
+static ObjectOps arc_ops = {
+  (DestroyFunc)         arc_destroy,
+  (DrawFunc)            arc_draw,
+  (DistanceFunc)        arc_distance_from,
+  (SelectFunc)          arc_select,
+  (CopyFunc)            arc_copy,
+  (MoveFunc)            arc_move,
+  (MoveHandleFunc)      arc_move_handle,
+  (GetPropertiesFunc)   arc_get_properties,
+  (ApplyPropertiesFunc) arc_apply_properties,
+  (ObjectMenuFunc)      arc_get_object_menu
 };
 
 static ObjectChange *
-vector_apply_properties(Vector *vector)
+arc_apply_properties(Arc *arc)
 {
   ObjectState *old_state;
-  VectorPropertiesDialog *dlg = vector_properties_dialog;
+  ArcPropertiesDialog *dlg = arc_properties_dialog;
   
-  PROPDLG_SANITY_CHECK(dlg,vector);
+  PROPDLG_SANITY_CHECK(dlg,arc);
   
-  old_state = (ObjectState *)vector_get_state(vector);
+  old_state = (ObjectState *)arc_get_state(arc);
 
   PROPDLG_APPLY_BOOL(dlg,uparrow);
 
-  vector_update_data(vector);
-  return new_object_state_change(&vector->orth.object, old_state, 
-				 (GetStateFunc)vector_get_state,
-				 (SetStateFunc)vector_set_state);
+  arc_update_data(arc);
+  return new_object_state_change(&arc->orth.object, old_state, 
+				 (GetStateFunc)arc_get_state,
+				 (SetStateFunc)arc_set_state);
 }
 
 static PROPDLG_TYPE
-vector_get_properties(Vector *vector)
+arc_get_properties(Arc *arc)
 {
-  VectorPropertiesDialog *dlg = vector_properties_dialog;
+  ArcPropertiesDialog *dlg = arc_properties_dialog;
   
-  PROPDLG_CREATE(dlg,vector);
+  PROPDLG_CREATE(dlg,arc);
   PROPDLG_SHOW_BOOL(dlg,uparrow,_("Draw arrow heads on upward arcs:"));
   PROPDLG_READY(dlg);
 
-  vector_properties_dialog = dlg;
+  arc_properties_dialog = dlg;
 
   PROPDLG_RETURN(dlg);
 }
 
 static void
-vector_init_defaults(void) {
+arc_init_defaults(void) {
   static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
@@ -192,90 +201,90 @@ vector_init_defaults(void) {
 } 
 
 static void
-vector_apply_defaults(void)
+arc_apply_defaults(void)
 {
-  VectorDefaultsDialog *dlg = vector_defaults_dialog;  
+  ArcDefaultsDialog *dlg = arc_defaults_dialog;  
 
   PROPDLG_APPLY_BOOL(dlg,uparrow);  
 }
 
 
 static PROPDLG_TYPE
-vector_get_defaults()
+arc_get_defaults()
 {
-  VectorDefaultsDialog *dlg = vector_defaults_dialog;
-  vector_init_defaults();
+  ArcDefaultsDialog *dlg = arc_defaults_dialog;
+  arc_init_defaults();
 
   PROPDLG_CREATE(dlg, &defaults);
   PROPDLG_SHOW_BOOL(dlg,uparrow,_("Draw arrow heads on upward arcs:"));
   PROPDLG_READY(dlg);
 
-  vector_defaults_dialog = dlg;
+  arc_defaults_dialog = dlg;
   PROPDLG_RETURN(dlg);
 }
 
 static real
-vector_distance_from(Vector *vector, Point *point)
+arc_distance_from(Arc *arc, Point *point)
 {
-  OrthConn *orth = &vector->orth;
-  return orthconn_distance_from(orth, point, VECTOR_LINE_WIDTH);
+  OrthConn *orth = &arc->orth;
+  return orthconn_distance_from(orth, point, ARC_LINE_WIDTH);
 }
 
 static void
-vector_select(Vector *vector, Point *clicked_point,
+arc_select(Arc *arc, Point *clicked_point,
 		  Renderer *interactive_renderer)
 {
-  orthconn_update_data(&vector->orth);
+  orthconn_update_data(&arc->orth);
 }
 
 static void
-vector_move_handle(Vector *vector, Handle *handle,
+arc_move_handle(Arc *arc, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
-  assert(vector!=NULL);
+  assert(arc!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  orthconn_move_handle(&vector->orth, handle, to, reason);
-  vector_update_data(vector);
+  orthconn_move_handle(&arc->orth, handle, to, reason);
+  arc_update_data(arc);
 }
 
 
 static void
-vector_move(Vector *vector, Point *to)
+arc_move(Arc *arc, Point *to)
 {
-  orthconn_move(&vector->orth, to);
-  vector_update_data(vector);
+  orthconn_move(&arc->orth, to);
+  arc_update_data(arc);
 }
 
 static void
-vector_draw(Vector *vector, Renderer *renderer)
+arc_draw(Arc *arc, Renderer *renderer)
 {
-  OrthConn *orth = &vector->orth;
+  OrthConn *orth = &arc->orth;
   Point *points;
   int n,i;
   
   points = &orth->points[0];
   n = orth->numpoints;
   
-  renderer->ops->set_linewidth(renderer, VECTOR_LINE_WIDTH);
+  renderer->ops->set_linewidth(renderer, ARC_LINE_WIDTH);
   renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   renderer->ops->draw_polyline(renderer, points, n, &color_black);
 
-  if (vector->uparrow) {
+  if (arc->uparrow) {
     for (i=0;i<n-1; i++) {
       if ((points[i].y > points[i+1].y) &&
-	  (ABS(points[i+1].y-points[i].y) > 5 * VECTOR_ARROW_LENGTH)) {
+	  (ABS(points[i+1].y-points[i].y) > 5 * ARC_ARROW_LENGTH)) {
 	Point m;
 	m.x = points[i].x; /* == points[i+1].x */
-	m.y = .5 * (points[i].y + points[i+1].y) - (.5 * VECTOR_ARROW_LENGTH);
-	arrow_draw(renderer, VECTOR_ARROW_TYPE,
+	m.y = .5 * (points[i].y + points[i+1].y) - (.5 * ARC_ARROW_LENGTH);
+	arrow_draw(renderer, ARC_ARROW_TYPE,
 		   &m,&points[i],
-		   VECTOR_ARROW_LENGTH, VECTOR_ARROW_WIDTH,
-		   VECTOR_LINE_WIDTH,
+		   ARC_ARROW_LENGTH, ARC_ARROW_WIDTH,
+		   ARC_LINE_WIDTH,
 		   &color_black, &color_white);
       }
     }
@@ -283,98 +292,98 @@ vector_draw(Vector *vector, Renderer *renderer)
 }
 
 static Object *
-vector_create(Point *startpoint,
+arc_create(Point *startpoint,
 		  void *user_data,
 		  Handle **handle1,
 		  Handle **handle2)
 {
-  Vector *vector;
+  Arc *arc;
   OrthConn *orth;
   Object *obj;
 
-  vector_init_defaults();
-  vector = g_malloc(sizeof(Vector));
-  orth = &vector->orth;
+  arc_init_defaults();
+  arc = g_malloc(sizeof(Arc));
+  orth = &arc->orth;
   obj = &orth->object;
   
-  obj->type = &vector_type;
-  obj->ops = &vector_ops;
+  obj->type = &grafcet_arc_type;
+  obj->ops = &arc_ops;
   
   orthconn_init(orth, startpoint);
   
 
-  vector->uparrow = defaults.uparrow;
-  vector_update_data(vector);
+  arc->uparrow = defaults.uparrow;
+  arc_update_data(arc);
   
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
-  return &vector->orth.object;
+  return &arc->orth.object;
 }
 
 static void
-vector_destroy(Vector *vector)
+arc_destroy(Arc *arc)
 {
-  orthconn_destroy(&vector->orth);
+  orthconn_destroy(&arc->orth);
 }
 
 static Object *
-vector_copy(Vector *vector)
+arc_copy(Arc *arc)
 {
-  Vector *newvector;
+  Arc *newarc;
   OrthConn *orth, *neworth;
   Object *newobj;
   
-  orth = &vector->orth;
+  orth = &arc->orth;
  
-  newvector = g_malloc(sizeof(Vector));
-  neworth = &newvector->orth;
+  newarc = g_malloc(sizeof(Arc));
+  neworth = &newarc->orth;
   newobj = &neworth->object;
 
   orthconn_copy(orth, neworth);
 
-  newvector->uparrow = vector->uparrow;
+  newarc->uparrow = arc->uparrow;
 
-  return &newvector->orth.object;
+  return &newarc->orth.object;
 }
 
-static VectorState *
-vector_get_state(Vector *vector)
+static ArcState *
+arc_get_state(Arc *arc)
 {
-  VectorState *state = g_new(VectorState, 1);
+  ArcState *state = g_new(ArcState, 1);
 
   state->obj_state.free = NULL;
   
-  state->uparrow = vector->uparrow;
+  state->uparrow = arc->uparrow;
 
   return state;
 }
 
 static void
-vector_set_state(Vector *vector, VectorState *state)
+arc_set_state(Arc *arc, ArcState *state)
 {
-  vector->uparrow = state->uparrow;
+  arc->uparrow = state->uparrow;
 
   g_free(state);
   
-  vector_update_data(vector);
+  arc_update_data(arc);
 }
 
 static void
-vector_update_data(Vector *vector)
+arc_update_data(Arc *arc)
 {
-  OrthConn *orth = &vector->orth;
+  OrthConn *orth = &arc->orth;
   OrthConnBBExtras *extra = &orth->extra_spacing;
 
-  orthconn_update_data(&vector->orth);
+  orthconn_update_data(&arc->orth);
   
   extra->start_trans = 
     extra->start_long =
     extra->end_long  = 
-    extra->end_trans = VECTOR_LINE_WIDTH/2.0;
-  if (vector->uparrow) {
-    extra->middle_trans = (VECTOR_LINE_WIDTH + VECTOR_ARROW_WIDTH)/2.0;
+    extra->end_trans = ARC_LINE_WIDTH/2.0;
+  if (arc->uparrow) {
+    extra->middle_trans = (ARC_LINE_WIDTH + ARC_ARROW_WIDTH)/2.0;
   } else {
-    extra->middle_trans = VECTOR_LINE_WIDTH/2.0;
+    extra->middle_trans = ARC_LINE_WIDTH/2.0;
   }
     
   orthconn_update_boundingbox(orth);
@@ -382,41 +391,41 @@ vector_update_data(Vector *vector)
 
 
 static ObjectChange *
-vector_add_segment_callback(Object *obj, Point *clicked, gpointer data)
+arc_add_segment_callback(Object *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_add_segment((OrthConn *)obj, clicked);
-  vector_update_data((Vector *)obj);
+  arc_update_data((Arc *)obj);
   return change;
 }
 
 static ObjectChange *
-vector_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
+arc_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   change = orthconn_delete_segment((OrthConn *)obj, clicked);
-  vector_update_data((Vector *)obj);
+  arc_update_data((Arc *)obj);
   return change;
 }
 
 static DiaMenuItem object_menu_items[] = {
-  { N_("Add segment"), vector_add_segment_callback, NULL, 1 },
-  { N_("Delete segment"), vector_delete_segment_callback, NULL, 1 },
+  { N_("Add segment"), arc_add_segment_callback, NULL, 1 },
+  { N_("Delete segment"), arc_delete_segment_callback, NULL, 1 },
 };
 
 static DiaMenu object_menu = {
-  "Vector",
+  "Arc",
   sizeof(object_menu_items)/sizeof(DiaMenuItem),
   object_menu_items,
   NULL
 };
 
 static DiaMenu *
-vector_get_object_menu(Vector *vector, Point *clickedpoint)
+arc_get_object_menu(Arc *arc, Point *clickedpoint)
 {
   OrthConn *orth;
 
-  orth = &vector->orth;
+  orth = &arc->orth;
   /* Set entries sensitive/selected etc here */
   object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
   object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
@@ -425,36 +434,36 @@ vector_get_object_menu(Vector *vector, Point *clickedpoint)
 
 
 static void
-vector_save(Vector *vector, ObjectNode obj_node,
+arc_save(Arc *arc, ObjectNode obj_node,
 		const char *filename)
 {
-  orthconn_save(&vector->orth, obj_node);
+  orthconn_save(&arc->orth, obj_node);
 
-  save_boolean(obj_node,"uparrow",vector->uparrow);
+  save_boolean(obj_node,"uparrow",arc->uparrow);
 }
 
 static Object *
-vector_load(ObjectNode obj_node, int version, const char *filename)
+arc_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Vector *vector;
+  Arc *arc;
   OrthConn *orth;
   Object *obj;
 
-  vector_init_defaults();
+  arc_init_defaults();
 
-  vector = g_malloc(sizeof(Vector));
+  arc = g_malloc(sizeof(Arc));
 
-  orth = &vector->orth;
+  orth = &arc->orth;
   obj = &orth->object;
   
-  obj->type = &vector_type;
-  obj->ops = &vector_ops;
+  obj->type = &grafcet_arc_type;
+  obj->ops = &arc_ops;
 
   orthconn_load(orth, obj_node);
 
-  vector->uparrow = load_boolean(obj_node,"uparrow",TRUE);
+  arc->uparrow = load_boolean(obj_node,"uparrow",TRUE);
 
-  vector_update_data(vector);
+  arc_update_data(arc);
 
-  return &vector->orth.object;
+  return &arc->orth.object;
 }

@@ -52,6 +52,10 @@
       <description xml:lang="hu">WAN kapcsolat</description>
       <description>A WAN Connection</description>
     </object>
+    <object name="Network - WAN Link">
+      <description xml:lang="fr">Une laison WAN.</description>
+      <description>A WAN Link.</description>
+    </object>
     <object name="Network - Hub">
       <description xml:lang="no">En hub eller switch som kan stables</description>
       <description xml:lang="fr">Un hub ou commutateur empilable</description>
@@ -96,22 +100,26 @@
     </object>
     <object name="Network - Cloud">
       <description xml:lang="no">Nettverkssky</description>
+      <description xml:lang="fr">Nuage de réseau</description>
       <description xml:lang="de">Netzwerkwolke</description>
       <description xml:lang="hu">Hálozat felhõ</description>
       <description>Network Cloud</description>
     </object>
     <object name="Network - Router Symbol">
       <description xml:lang="no">Rutersymbol</description>
+      <description xml:lang="fr">Symbole de routeur</description>
       <description xml:lang="hu">Útválasztó jele</description>
       <description>Router Symbol</description>
     </object>
     <object name="Network - Switch Symbol">
       <description xml:lang="no">Symbol for en switch</description>
+      <description xml:lang="fr">Symbole de commutateur</description>
       <description xml:lang="hu">Switch jele</description>
       <description>Switch Symbol</description>
     </object>
     <object name="Network - Switch ATM Symbol">
       <description xml:lang="no">Symbol for en ATM-switch</description>
+      <description xml:lang="fr">Symbole de commutateur ATM</description>
       <description xml:lang="hu">ATM-switch jele</description>
       <description>ATM Switch Symbol</description>
     </object>

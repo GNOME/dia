@@ -70,7 +70,7 @@
       <icon>GRAFCET/vergent_and.xpm</icon>
     </object>
     <br/>
-    <object name="GRAFCET - Vector">
+    <object name="GRAFCET - Arc">
       <description xml:lang="fr">Un arc (montant)</description>
       <description xml:lang="de">Ein Bogen</description>
       <description>An arc</description>

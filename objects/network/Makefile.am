@@ -12,6 +12,7 @@ libnetwork_objects_la_SOURCES = \
 			      antenna.c \
 			      modem.c \
 			      flash.c \
+			      wanlink.c \
 			      hub.c \
 			      modularswitch.c \
 			      rj45plug.c \
@@ -27,6 +28,7 @@ EXTRA_DIST = \
 	pixmaps/computer.xpm \
 	pixmaps/disc.xpm \
 	pixmaps/flash.xpm \
+	pixmaps/wanlink.xpm \
 	pixmaps/hub.xpm \
 	pixmaps/modem.xpm \
 	pixmaps/modularswitch.xpm \

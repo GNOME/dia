@@ -36,6 +36,7 @@ extern ObjectType bus_type;
 extern ObjectType bus_type_std;
 extern ObjectType printer_type;
 extern ObjectType flash_type;
+extern ObjectType wanlink_type;
 extern ObjectType hub_type;
 extern ObjectType modularswitch_type;
 extern ObjectType rj45plug_type;
@@ -59,6 +60,7 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(&bus_type);
   object_register_type(&printer_type);
   object_register_type(&flash_type);
+  object_register_type(&wanlink_type);
   object_register_type(&hub_type);
   object_register_type(&modularswitch_type);
   object_register_type(&rj45plug_type);
