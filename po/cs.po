@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 2\n"
-"POT-Creation-Date: 2002-11-17 17:27+0100\n"
-"PO-Revision-Date: 2002-10-25 12:39GMT\n"
+"POT-Creation-Date: 2002-11-22 16:09+0100\n"
+"PO-Revision-Date: 2002-11-22 16:09GMT\n"
 "Last-Translator: Michal Bukovjan <bukm@centrum.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -504,11 +504,11 @@ msgstr "Žádné menu k objektu"
 msgid "Diagram modified!"
 msgstr "Diagram byl změněn!"
 
-#: app/display.c:867
+#: app/display.c:866
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
-#: app/display.c:869
+#: app/display.c:868
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -517,11 +517,11 @@ msgstr ""
 "Diagram '%s'\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: app/display.c:880
+#: app/display.c:879
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: app/display.c:885
+#: app/display.c:884
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
@@ -1611,7 +1611,7 @@ msgstr "tooldata mají hodnotu NULL v tool_menu_select"
 msgid "Diagram Menu"
 msgstr "Menu diagramu"
 
-#: app/menus.c:1164
+#: app/menus.c:1168
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1729,7 +1729,7 @@ msgstr "Používat lištu s menu:"
 
 #: app/preferences.c:128
 msgid "Keep tool box on top of diagram windows:"
-msgstr ""
+msgstr "Ponechat panel s nástroji nad okny s diagramy:"
 
 #: app/preferences.c:130
 msgid "New diagram:"
@@ -1847,11 +1847,11 @@ msgstr "Vlastnosti objektu:"
 msgid "<Toolbox>/File/Plugins"
 msgstr "<Toolbox>/Soubor/Zásuvné moduly"
 
-#: app/recent_files.c:258
+#: app/recent_files.c:259
 msgid "<Toolbox>/File/Quit"
 msgstr "<Toolbox>/Soubor/Konec"
 
-#: app/recent_files.c:294
+#: app/recent_files.c:295
 msgid "Can't open history file for writing."
 msgstr "Nelze otevřít soubor s historií pro zápis."
 
@@ -1859,7 +1859,7 @@ msgstr "Nelze otevřít soubor s historií pro zápis."
 msgid "Encapsulated Postscript"
 msgstr "Zapouzdřený PostScript"
 
-#: app/render_libart.c:319 lib/dialibartrenderer.c:263
+#: app/render_libart.c:319 lib/dialibartrenderer.c:266
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Byl zadán nepodporovaný typ výplně!\n"
 
