@@ -68,7 +68,7 @@
 
 
 #ifndef LARS_TRACE_MESSAGES
-#define fprintf(...) 
+#define fprintf(format...) 
 #endif
 
 #define FONTCACHE_SIZE 17

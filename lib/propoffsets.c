@@ -39,7 +39,8 @@ do_set_props_from_offsets(void *base,
     Property *prop = g_ptr_array_index(props,i);
     const PropOffset *ofs;
     for (ofs = offsets; ofs->name ; ofs++) {
-      if (prop->name_quark == ofs->name_quark) {
+      if ((prop->name_quark == ofs->name_quark) &&
+          (prop->type_quark == ofs->type_quark)) {
         prop->ops->set_from_offset(prop,base,ofs->offset,ofs->offset2);
         break;
       }                                    
@@ -59,7 +60,8 @@ do_get_props_from_offsets(void *base,
     Property *prop = g_ptr_array_index(props,i);
     const PropOffset *ofs;
     for (ofs = offsets; ofs->name ; ofs++) {
-      if (prop->name_quark == ofs->name_quark) {
+      if ((prop->name_quark == ofs->name_quark) &&
+          (prop->type_quark == ofs->type_quark)) {
         prop->ops->get_from_offset(prop,base,ofs->offset,ofs->offset2);
         break;
       }                                    
@@ -76,7 +78,9 @@ prop_offset_list_calculate_quarks(PropOffset *olist)
   
   for (i = 0; olist[i].name != NULL; i++) {
     if (olist[i].name_quark == 0) 
-      olist[i].name_quark = g_quark_from_string(olist[i].name);
+      olist[i].name_quark = g_quark_from_static_string(olist[i].name);
+    if (olist[i].type_quark == 0) 
+      olist[i].type_quark = g_quark_from_static_string(olist[i].type);
     if (!olist[i].ops) 
       olist[i].ops = prop_type_get_ops(olist[i].type);
   }

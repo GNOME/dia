@@ -174,8 +174,9 @@ find_prop_by_name_and_type(const GPtrArray *props, const gchar *name,
                            PropertyType type)
 {
   Property *ret = find_prop_by_name(props,name);
+  GQuark type_quark = g_quark_from_string(type);
   if (!ret) return NULL;
-  if (0 != strcmp(type,ret->type)) return NULL;
+  if (type_quark != ret->type_quark) return NULL;
   return ret;
 } 
 

@@ -41,6 +41,8 @@ prop_desc_list_calculate_quarks(PropDescription *plist)
   for (i = 0; plist[i].name != NULL; i++) {
     if (plist[i].quark == 0)
       plist[i].quark = g_quark_from_static_string(plist[i].name);
+    if (plist[i].type_quark == 0)
+      plist[i].type_quark = g_quark_from_static_string(plist[i].type);
     if (!plist[i].ops) 
       plist[i].ops = prop_type_get_ops(plist[i].type);
   }

@@ -333,7 +333,7 @@ bezpointprop_load(BezPointProperty *prop, AttributeNode attr, DataNode data)
 #if 0
   data_bezpoint(data,&prop->bezpoint_data);
 #else
-  g_critical("BezPoint_load() not implemented. Missing data_bezpoint().");
+  g_error("BezPoint_load() not implemented. Missing data_bezpoint().");
 #endif
 }
 
@@ -343,7 +343,7 @@ bezpointprop_save(BezPointProperty *prop, AttributeNode attr)
 #if 0
   data_add_bezpoint(attr, &prop->bezpoint_data);
 #else
-  g_critical("BezPoint_save() not implemented. Missing data_bezpoint().");
+  g_error("BezPoint_save() not implemented. Missing data_bezpoint().");
 #endif
 }
 
@@ -428,7 +428,7 @@ bezpointarrayprop_load(BezPointarrayProperty *prop,
     g_warning("attribute_num_data() and actual data count mismatch "
               "(shouldn't happen)");
 #else
-  g_critical("BezPointArray_load() not implemented. Missing data_bezpoint().");
+  g_error("BezPointArray_load() not implemented. Missing data_bezpoint().");
 #endif
 }
 
@@ -441,7 +441,7 @@ bezpointarrayprop_save(BezPointarrayProperty *prop, AttributeNode attr)
     data_add_bezpoint(attr, 
                       &g_array_index(prop->bezpointarray_data,BezPoint,i));
 #else
-  g_critical("BezPointArray_load() not implemented. Missing data_bezpoint().");
+  g_error("BezPointArray_load() not implemented. Missing data_bezpoint().");
 #endif
 }
 

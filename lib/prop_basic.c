@@ -76,6 +76,7 @@ make_new_prop(const char *name, PropertyType type, guint flags)
     descr->type = type;
     descr->flags = flags;
     descr->quark = g_quark_from_static_string(descr->name);
+    descr->type_quark = g_quark_from_static_string(descr->type);
     descr->ops = prop_type_get_ops(type);    
     g_hash_table_insert(hash,moniker,descr);
     /* we don't ever free anything allocated here. */    
@@ -201,6 +202,7 @@ void initialize_property(Property *prop, const PropDescription *pdesc,
             prop->name);
   }
   prop->type = pdesc->type;
+  prop->type_quark = pdesc->type_quark;
   prop->ops = &commonprop_ops;
   prop->real_ops = pdesc->ops;
   /* if late quark construction, we'll have NULL here */

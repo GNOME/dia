@@ -30,6 +30,7 @@ AC_PROG_MAKE_SET
 AC_ISC_POSIX
 
 dnl Checks for libraries.
+dnl AM_PATH_GLIB(1.2.9) dnl (for g_critical)
 AM_PATH_GTK(1.2.0)
 
 dnl XIM support (on by default)

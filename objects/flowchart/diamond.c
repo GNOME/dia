@@ -166,7 +166,7 @@ static PropDescription diamond_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  PROP_STD_TEXT,
+  PROP_STD_SAVED_TEXT,
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
 };
@@ -483,7 +483,7 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
     2 * diamond->padding + diamond->border_width;
 
   if (height > (elem->width - width) * elem->height / elem->width) {
-    /* increase size of the parallelogram while keeping its aspect ratio */
+    /* increase size of the diamond while keeping its aspect ratio */
     real grad = elem->width/elem->height;
     if (grad < 1.0/4) grad = 1.0/4;
     if (grad > 4)     grad = 4;

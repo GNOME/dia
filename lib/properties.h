@@ -223,6 +223,7 @@ struct _PropDescription {
   PropEventHandler event_handler;
 
   GQuark quark; /* quark for property name -- helps speed up lookups. */
+  GQuark type_quark;
 
   /* only used by dynamically constructed property descriptors (eg. groups) */ 
   PropEventHandlerChain chain_handler;
@@ -279,6 +280,7 @@ struct _Property {
   const gchar *name;
   GQuark name_quark; 
   PropertyType type;
+  GQuark type_quark;
   const PropDescription *descr;
   gpointer extra_data;
   PropEventData self;
@@ -371,6 +373,7 @@ struct _PropOffset {
   int offset;
   int offset2; /* maybe for point lists, etc */
   GQuark name_quark;
+  GQuark type_quark;
   const PropertyOps *ops;
 };
 
@@ -465,10 +468,10 @@ extern PropEnumData prop_std_text_align_data[];
     N_("End arrow"), NULL, NULL }
 
 #define PROP_STD_TEXT \
-  { "text", PROP_TYPE_STRING, PROP_FLAG_DONT_SAVE, \
+  { "text", PROP_TYPE_TEXT, PROP_FLAG_DONT_SAVE, \
     N_("Text"), NULL, NULL }
 #define PROP_STD_SAVED_TEXT \
-  { "text", PROP_TYPE_STRING, 0, \
+  { "text", PROP_TYPE_TEXT, 0, \
     N_("Text"), NULL, NULL }
 #define PROP_STD_TEXT_ALIGNMENT \
   { "text_alignment", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \

@@ -1,3 +1,32 @@
+2001-08-14  Cyrille Chepelov <chepelov@calixo.net>
+	
+	* lib/font.c: fprintf(...) --> fprintf(format...)
+
+	* configure.in: added a disabled versioned test for glib.
+	* lib/prop_geomtypes.c: (bezpointprop_load), (bezpointprop_save),
+	(bezpointarrayprop_load), (bezpointarrayprop_save): replaced
+	g_critical() with a simple g_error(). Proper fix is to implement
+	that stuff. 
+
+	* lib/properties.h: PROP_STD_TEXT is a PROP_TYPE_TEXT, not a
+	PROP_TYPE_STRING.
+	
+	* lib/properties.h: 	
+	* lib/propdesc.c: (prop_desc_list_calculate_quarks):
+	* lib/proplist.c: (find_prop_by_name_and_type):
+	* lib/prop_basic.c: (make_new_prop), (initialize_property):
+	* lib/propoffsets.c: (do_set_props_from_offsets),
+	(do_get_props_from_offsets), (prop_offset_list_calculate_quarks):
+	Added a type_quark member to PropDescription, Property and
+	PropOffset. Used it to implement a safety in
+	do_[sg]et_props_from_offsets().
+		
+	* objects/flowchart/diamond.c: the diamond's text was not saved,
+	and thus not even copied (c&p).
+	* objects/standard/textobj.c: ditto.
+
+	Most of the above changes thanks to Robert Young's testing. Thanks !
+	
 2001-08-14  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* sheets/*.sheet: Added some Norwegian translations (both nynorsk
