@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.85\n"
-"POT-Creation-Date: 2000-07-19 18:59+0200\n"
-"PO-Revision-Date: 2000-07-19 20:12+0200\n"
+"POT-Creation-Date: 2000-07-27 13:55+0200\n"
+"PO-Revision-Date: 2000-07-27 13:56+0200\n"
 "Last-Translator: Fatih Demir <kabalak@gmx.net>\n"
 "Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgstr "Dia'nýn iç nesne ve filtralarý"
 msgid "Select color"
 msgstr "Rengi seç"
 
-#: app/commands.c:91
+#: app/commands.c:92
 #, c-format
 msgid ""
 "No such file found\n"
@@ -95,43 +95,43 @@ msgstr ""
 "Böyle bir dosya yok \n"
 "%s\n"
 
-#: app/commands.c:111
+#: app/commands.c:112
 msgid "Import from XFig"
 msgstr "XFig'den dosyayý içer"
 
-#: app/commands.c:167
+#: app/commands.c:168
 #, c-format
 msgid "Untitled-%d"
 msgstr "Isimsiz-%d"
 
-#: app/commands.c:228
+#: app/commands.c:229
 msgid "No existing object to paste.\n"
 msgstr "Yapýþtýrýlanacak nesne yok .\n"
 
-#: app/commands.c:462
+#: app/commands.c:463
 msgid "About Dia"
 msgstr "Dia hakkýnda"
 
-#: app/commands.c:520
+#: app/commands.c:521
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Alexander Larsson'un Dia'sý, nesil %s"
 
-#: app/commands.c:525
+#: app/commands.c:526
 msgid "Maintainer: James Henstridge"
 msgstr "Yönetici : James Henstridge"
 
-#: app/commands.c:529
+#: app/commands.c:530
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Lütfen daha fazla bilgi için http://www.lysator.liu.se/~alla/dia'ya git"
 
-#: app/commands.c:534
+#: app/commands.c:535
 msgid "Contributors:"
 msgstr "Destekçiler :"
 
 #. setup buttons
-#: app/commands.c:551 app/layer_dialog.c:976 app/lineprops_area.c:540
+#: app/commands.c:552 app/layer_dialog.c:976 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
 #: app/paginate_psprint.c:234 app/preferences.c:598 app/properties.c:82
 #: lib/message.c:85
@@ -156,115 +156,115 @@ msgstr "Kapat"
 msgid "This object has no defaults."
 msgstr "Bu nesnenin önayarlý ayarlarý yoktur ."
 
-#: app/dia_embedd.c:176
+#: app/dia_embedd.c:185
 msgid "File/New diagram"
 msgstr "Dosya/Yeni çizge"
 
-#: app/dia_embedd.c:180
+#: app/dia_embedd.c:189
 msgid "File/Open..."
 msgstr "Dosya/Aç ..."
 
-#: app/dia_embedd.c:184
+#: app/dia_embedd.c:193
 msgid "File/Save As..."
 msgstr "Dosya/Farklý kaydet ..."
 
-#: app/dia_embedd.c:188
+#: app/dia_embedd.c:197
 msgid "File/Close"
 msgstr "Dosya/Kapat"
 
-#: app/dia_embedd.c:192
+#: app/dia_embedd.c:201
 msgid "File/Exit"
 msgstr "Dosya/Çýk"
 
-#: app/dia_embedd.c:196
+#: app/dia_embedd.c:205
 msgid "View/New View"
 msgstr "Göster/Yeni bakýþ"
 
-#: app/dia_embedd.c:261
+#: app/dia_embedd.c:282
 msgid "Could not initialize Bonobo!"
 msgstr "Bonobo'yu baþlatamadým !"
 
-#: app/diagram.c:176
+#: app/diagram.c:179
 msgid "/Edit/Copy"
 msgstr "/Deðiþtir/Kopyala"
 
-#: app/diagram.c:178
+#: app/diagram.c:181
 msgid "/Edit/Cut"
 msgstr "/Deðiþtir/Kes"
 
-#: app/diagram.c:180
+#: app/diagram.c:183
 msgid "/Edit/Paste"
 msgstr "/Deðiþtir/Yapýþtýr"
 
-#: app/diagram.c:183
+#: app/diagram.c:186
 msgid "/Edit/Delete"
 msgstr "/Deðiþtir/Sil"
 
-#: app/diagram.c:187 app/menus.c:277
+#: app/diagram.c:190 app/menus.c:277
 msgid "/Edit/Copy Text"
 msgstr "/Deðiþtir/Metni kopyala"
 
-#: app/diagram.c:189 app/menus.c:278
+#: app/diagram.c:192 app/menus.c:278
 msgid "/Edit/Cut Text"
 msgstr "/Deðiþtir/Metni kes"
 
-#: app/diagram.c:191
+#: app/diagram.c:194
 msgid "/Edit/Paste Text"
 msgstr "/Deðiþtir/Metni yapýþtýr"
 
-#: app/diagram.c:194
+#: app/diagram.c:197
 msgid "/Objects/Send to Back"
 msgstr "/Nesneler/Öne getir"
 
-#: app/diagram.c:196
+#: app/diagram.c:199
 msgid "/Objects/Bring to Front"
 msgstr "/Nesneler/Arkaya gönder"
 
-#: app/diagram.c:199
+#: app/diagram.c:202
 msgid "/Objects/Group"
 msgstr "/Nesneler/Kitleleþtir"
 
-#: app/diagram.c:201
+#: app/diagram.c:204
 msgid "/Objects/Ungroup"
 msgstr "/Nesneler/Kitleyi kaldýr"
 
-#: app/diagram.c:204 app/menus.c:331
+#: app/diagram.c:207 app/menus.c:331
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Nesneler/Ufki Taraflama/Sol"
 
-#: app/diagram.c:206 app/menus.c:332
+#: app/diagram.c:209 app/menus.c:332
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Nesneler/Ufki Taraflama/Orta"
 
-#: app/diagram.c:208 app/menus.c:333
+#: app/diagram.c:211 app/menus.c:333
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Nesneler/Ufki Taraflama/Sað"
 
-#: app/diagram.c:210 app/menus.c:334
+#: app/diagram.c:213 app/menus.c:334
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Nesneler/Ufki Taraflama/Eþit mesafe"
 
-#: app/diagram.c:212 app/menus.c:335
+#: app/diagram.c:215 app/menus.c:335
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Nesneler/Ufki Taraflama/Bitiþik"
 
-#: app/diagram.c:214 app/menus.c:338
+#: app/diagram.c:217 app/menus.c:338
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Nesneler/Dikey Taraflama/Üst"
 
-#: app/diagram.c:216 app/menus.c:339
+#: app/diagram.c:219 app/menus.c:339
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Nesneler/Dikey Taraflama/Orta"
 
-#: app/diagram.c:218 app/menus.c:340
+#: app/diagram.c:221 app/menus.c:340
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Nesneler/Dikey Taraflama/Alt"
 
-#: app/diagram.c:220 app/menus.c:341
+#: app/diagram.c:223 app/menus.c:341
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Nesneler/Dikey Taraflama/Eþit mesafe"
 
-#: app/diagram.c:222 app/menus.c:342
+#: app/diagram.c:225 app/menus.c:342
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Nesneler/Dikey Taraflama/Bitiþik"
 
@@ -345,11 +345,11 @@ msgstr "Büyült"
 msgid "Diagram modified!"
 msgstr "Çizge deðiþtirildi !"
 
-#: app/display.c:762 app/display.c:768
+#: app/display.c:756 app/display.c:762
 msgid "Really close?"
 msgstr "Vallahi mi kapatayým ?"
 
-#: app/display.c:773
+#: app/display.c:767
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -357,39 +357,39 @@ msgstr ""
 "Çizge kaydedilmedi .\n"
 "Bu pencereyi kapatmaktan emin misin ?"
 
-#: app/display.c:791 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
+#: app/display.c:785 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:492
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Evet"
 
-#: app/display.c:801 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
+#: app/display.c:795 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:492
 #: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Hayýr"
 
-#: app/display.c:837
+#: app/display.c:831
 msgid "/View/Show Rulers"
 msgstr "/Göster/Te'leri göster"
 
-#: app/display.c:839
+#: app/display.c:833
 msgid "/View/Visible Grid"
 msgstr "/Göster/Görünebilinir að"
 
-#: app/display.c:841
+#: app/display.c:835
 msgid "/View/Snap To Grid"
 msgstr "/Göster/Aða takýl"
 
-#: app/display.c:843
+#: app/display.c:837
 msgid "/View/Show Connection Points"
-msgstr ""
-# msgstr "/Göster/Baðlantý Noktalarýný Göster"
+msgstr "/Göster/Baðlantý Noktalarýný Göster"
 
-#: app/display.c:846
+# msgstr "/Göster/Baðlantý Noktalarýný Göster"
+#: app/display.c:840
 msgid "/View/AntiAliased"
 msgstr "/Göster/Düzeltmeli"
 
-#: app/export_png.c:78 app/load_save.c:504 app/render_eps.c:162
-#: app/render_svg.c:150 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
+#: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
+#: app/render_svg.c:150 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
 #: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
 #: plug-ins/wpg/wpg.c:937
 #, c-format
@@ -461,18 +461,6 @@ msgstr "Çizgeyi ithal et"
 #: app/filedlg.c:519
 msgid "Export Options"
 msgstr "Ithal seçenekleri"
-
-#: app/grid.c:190
-msgid "Grid options"
-msgstr "Að seçenekleri"
-
-#: app/grid.c:199
-msgid "Grid x size:"
-msgstr "Að x boyutu :"
-
-#: app/grid.c:217
-msgid "Grid y size:"
-msgstr "Að y boyutu :"
 
 #: app/interface.c:35
 msgid "Modify object(s)"
@@ -582,11 +570,11 @@ msgstr "Resmi yarat"
 msgid "Image"
 msgstr "Resim"
 
-#: app/interface.c:320
+#: app/interface.c:312
 msgid "NULL tooldata in tool_select_update"
 msgstr "tool_select_update'de NULL bilgisi verildi"
 
-#: app/interface.c:627
+#: app/interface.c:714
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -594,7 +582,7 @@ msgstr ""
 "Önayalan ve ardalan renkleri. Ufak siyah ve beyaz kareler renkleri geritir. "
 "Ufak oklar renkleri deðiþtirir. Çift-týklayýp renkleri deðiþtirebilirsin. "
 
-#: app/interface.c:708
+#: app/interface.c:795
 msgid "Diagram Editor"
 msgstr "Çizge editörü"
 
@@ -715,12 +703,12 @@ msgstr ""
 "%s çizgesi yüklenirken hata oldu .\n"
 "Bir Dia dosyasý deðildir ."
 
-#: app/load_save.c:602
+#: app/load_save.c:667
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "`%s' dosyas_iný kaydedemedim .\n"
 
-#: app/load_save.c:622 app/load_save.c:627
+#: app/load_save.c:687 app/load_save.c:692
 msgid "Native Dia Diagram"
 msgstr "Dia çizgesi"
 
@@ -787,8 +775,8 @@ msgid "_Zoom"
 msgstr "_Büyült"
 
 #: app/menus.c:112
-msgid "Edit Grid..."
-msgstr "Aðý deðiþtir ..."
+msgid "Diagram Propeties..."
+msgstr "Çizge özellikleri ..."
 
 #: app/menus.c:114
 msgid "_AntiAliased"
@@ -1120,8 +1108,8 @@ msgid "/View/Zoom/25%"
 msgstr "/Göster/Büyült/%25"
 
 #: app/menus.c:296
-msgid "/View/Edit Grid..."
-msgstr "/Göster/Aðý deðiþtir ..."
+msgid "/View/Diagram Properties"
+msgstr "/Göster/Çizge özellikleri"
 
 #: app/menus.c:298
 msgid "/View/_AntiAliased"
@@ -1513,7 +1501,7 @@ msgstr "Büyütülebilinen vektör grafikleri ( SVG )"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Iç hata : Bezyer çizgisinin bitiþ noktasýnýn köþe tipini belirtemedim"
 
-#: lib/diagramdata.c:50
+#: lib/diagramdata.c:60
 msgid "Background"
 msgstr "Ardalan"
 
@@ -2689,7 +2677,7 @@ msgstr "CGM"
 msgid "Computer Graphics Metafile export filter"
 msgstr "CGM ithal filtrasý"
 
-#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:491
+#: plug-ins/dxf/dxf-export.c:557 plug-ins/dxf/dxf-import.c:491
 msgid "Drawing Interchange File"
 msgstr "DIF"
 
