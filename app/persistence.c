@@ -40,41 +40,17 @@
 
 /* Hash table from window role (string) to PersistentWindow structure.
  */
-static GHashTable *persistent_windows, *persistent_strings;
+static GHashTable *persistent_windows, *persistent_strings, *persistent_lists;
 
-/* Returns the name used for a window in persistence.
- */
-static gchar *
-persistence_get_window_name(GtkWindow *window)
-{
-  gchar *name = gtk_window_get_role(window);
-  if (name == NULL) {
-    printf("Internal:  Window %s has no role.\n", gtk_window_get_title(window));
-    return NULL;
-  }
-  return name;
-}
+/* *********************** LOADING FUNCTIONS *********************** */
 
-static xmlNodePtr
-find_node_named (xmlNodePtr p, const char *name)
-{
-  while (p && 0 != strcmp(p->name, name))
-    p = p->next;
-  return p;
-}
+typedef void (*PersistenceLoadFunc)(gchar *role, xmlNodePtr node);
 
 static void
-persistence_load_window(xmlNodePtr node)
+persistence_load_window(gchar *role, xmlNodePtr node)
 {
   AttributeNode attr;
   PersistentWindow *wininfo = g_new0(PersistentWindow, 1);
-  gchar *name;
-
-  name = xmlGetProp(node, "role");
-  if (name == NULL) {
-    g_free(wininfo);
-    return;
-  }
 
   attr = composite_find_attribute(node, "xpos");
   if (attr != NULL)
@@ -97,20 +73,15 @@ persistence_load_window(xmlNodePtr node)
   } else {
     /* Do anything to avoid dups? */
   }
-  g_hash_table_insert(persistent_windows, name, wininfo);
+  g_hash_table_insert(persistent_windows, role, wininfo);
 }
 
 /** Load a persistent string into the strings hashtable */
 static void
-persistence_load_string(xmlNodePtr node)
+persistence_load_string(gchar *role, xmlNodePtr node)
 {
   AttributeNode attr;
-  gchar *name, *string = NULL;
-
-  name = xmlGetProp(node, "role");
-  if (name == NULL) {
-    return;
-  }
+  gchar *string = NULL;
 
   /* Find the contents? */
   attr = composite_find_attribute(node, "stringvalue");
@@ -125,7 +96,64 @@ persistence_load_string(xmlNodePtr node)
     /* Do anything to avoid dups? */
   }
   if (string != NULL)
-    g_hash_table_insert(persistent_strings, name, string);
+    g_hash_table_insert(persistent_strings, role, string);
+}
+
+static void
+persistence_load_list(gchar *role, xmlNodePtr node)
+{
+  AttributeNode attr;
+  gchar *string = NULL;
+
+  /* Find the contents? */
+  attr = composite_find_attribute(node, "listvalue");
+  if (attr != NULL)
+    string = data_string(attribute_first_data(attr));
+  else 
+    return;
+
+  if (persistent_lists == NULL) {
+    persistent_lists = g_hash_table_new(g_str_hash, g_str_equal);
+  } else {
+    /* Do anything to avoid dups? */
+  }
+  if (string != NULL) {
+    gchar **strings = g_strsplit(string, "\n", -1);
+    GList *list = NULL;
+    int i;
+    for (i = 0; strings[i] != NULL; i++) {
+      list = g_list_append(list, strings[i]);
+    }
+    g_strfreev(strings);
+    g_hash_table_insert(persistent_lists, role, list);
+  }
+}
+
+static xmlNodePtr
+find_node_named (xmlNodePtr p, const char *name)
+{
+  while (p && 0 != strcmp(p->name, name))
+    p = p->next;
+  return p;
+}
+
+/** Load the named type of entries using the given function.
+ * func is a void (*func)(gchar *role, xmlNodePtr *node)
+ */
+static void
+persistence_load_type(xmlDocPtr doc, gchar *name, PersistenceLoadFunc func)
+{
+  xmlNodePtr node;
+  node = find_node_named(doc->xmlRootNode->xmlChildrenNode, name);
+  while (node != NULL) {
+    gchar *name = xmlGetProp(node, "role");
+    if (name == NULL) {
+      return;
+    }
+
+    (*func)(name, node);
+    node = node->next;
+  }
 }
 
 /* Load all persistent data. */
@@ -143,24 +171,122 @@ persistence_load()
       xmlNsPtr namespace = xmlSearchNs(doc, doc->xmlRootNode, "dia");
       if (!strcmp (doc->xmlRootNode->name, "persistence") &&
 	  namespace != NULL) {
-	xmlNodePtr window_node, string_node;
-	window_node = find_node_named(doc->xmlRootNode->xmlChildrenNode,
-				      "window");
-	while (window_node != NULL) {
-	  persistence_load_window(window_node);
-	  window_node = window_node->next;
-	}
-	string_node = find_node_named(doc->xmlRootNode->xmlChildrenNode,
-				      "entrystring");
-	while (string_node != NULL) {
-	  persistence_load_string(string_node);
-	  string_node = string_node->next;
-	}
+	persistence_load_type(doc, "window", persistence_load_window);
+	persistence_load_type(doc, "entrystring", persistence_load_string);
+	persistence_load_type(doc, "list", persistence_load_list);
       }
     }
     xmlFreeDoc(doc);
   }
   g_free(filename);
+}
+
+/* *********************** SAVING FUNCTIONS *********************** */
+
+/* Save the position of a window  */
+static void
+persistence_save_window(gpointer key, gpointer value, gpointer data)
+{  
+  xmlNodePtr tree = (xmlNodePtr)data;
+  PersistentWindow *window_pos = (PersistentWindow *)value;
+  ObjectNode window;
+
+  window = (ObjectNode)xmlNewChild(tree, NULL, "window", NULL);
+  
+  xmlSetProp(window, "role", (char *)key);
+  data_add_int(new_attribute(window, "xpos"), window_pos->x);
+  data_add_int(new_attribute(window, "ypos"), window_pos->y);
+  data_add_int(new_attribute(window, "width"), window_pos->width);
+  data_add_int(new_attribute(window, "height"), window_pos->height);
+  data_add_boolean(new_attribute(window, "isopen"), window_pos->isopen);
+
+}
+
+/* Save the contents of a string  */
+static void
+persistence_save_string(gpointer key, gpointer value, gpointer data)
+{  
+  xmlNodePtr tree = (xmlNodePtr)data;
+  ObjectNode stringnode;
+
+  stringnode = (ObjectNode)xmlNewChild(tree, NULL, "entrystring", NULL);
+
+  xmlSetProp(stringnode, "role", (char *)key);
+  data_add_string(new_attribute(stringnode, "stringvalue"), (char *)value);
+}
+
+static void
+persistence_save_list(gpointer key, gpointer value, gpointer data)
+{  
+  xmlNodePtr tree = (xmlNodePtr)data;
+  ObjectNode listnode;
+  GString *buf;
+  GList *items;
+
+  listnode = (ObjectNode)xmlNewChild(tree, NULL, "list", NULL);
+
+  xmlSetProp(listnode, "role", (char *)key);
+  /* Make a string out of the list */
+  buf = g_string_new("");
+  for (items = (GList*)value; items != NULL; items = g_list_next(items)) {
+    g_string_append(buf, (gchar *)items->data);
+    if (g_list_next(items) != NULL) g_string_append(buf, "\n");
+  }
+  
+  data_add_string(new_attribute(listnode, "listvalue"), buf->str);
+  /* Does data_add_string keep the string?  If so, use TRUE */
+  g_string_free(buf, FALSE);
+}
+
+void
+persistence_save_type(xmlDocPtr doc, GHashTable *entries, GHFunc func)
+{
+  if (entries != NULL && g_hash_table_size(entries) != 0) {
+    g_hash_table_foreach(entries, func, doc->xmlRootNode);
+  }
+}
+
+/* Save all persistent data. */
+void
+persistence_save()
+{
+  xmlDocPtr doc;
+  xmlNs *name_space;
+  gchar *filename = dia_config_filename("persistence");
+
+  doc = xmlNewDoc("1.0");
+  doc->encoding = xmlStrdup("UTF-8");
+  doc->xmlRootNode = xmlNewDocNode(doc, NULL, "persistence", NULL);
+
+  name_space = xmlNewNs(doc->xmlRootNode, 
+                        "http://www.lysator.liu.se/~alla/dia/",
+			"dia");
+  xmlSetNs(doc->xmlRootNode, name_space);
+
+  persistence_save_type(doc, persistent_windows, persistence_save_window);
+  persistence_save_type(doc, persistent_strings, persistence_save_string);
+  persistence_save_type(doc, persistent_lists, persistence_save_list);
+
+  xmlDiaSaveFile(filename, doc);
+  g_free(filename);
+  xmlFreeDoc(doc);
+}
+
+/* *********************** USAGE FUNCTIONS *********************** */
+
+/* ********* WINDOWS ********* */
+
+/* Returns the name used for a window in persistence.
+ */
+static gchar *
+persistence_get_window_name(GtkWindow *window)
+{
+  gchar *name = gtk_window_get_role(window);
+  if (name == NULL) {
+    printf("Internal:  Window %s has no role.\n", gtk_window_get_title(window));
+    return NULL;
+  }
+  return name;
 }
 
 static void
@@ -274,6 +400,9 @@ persistence_register_window_create(gchar *role, NullaryFunc *func)
   }
 }
 
+
+/* ********* STRING ENTRIES ********** */
+
 static gboolean
 persistence_update_string_entry(GtkWidget *widget, GdkEvent *event,
 				gpointer userdata)
@@ -336,69 +465,88 @@ persistence_register_string_entry(gchar *role, GtkWidget *entry)
 		   G_CALLBACK(persistence_update_string_entry), role);
 }
 
-/* Save the position of a window  */
-static void
-persistence_save_window(gpointer key, gpointer value, gpointer data)
-{  
-  xmlNodePtr tree = (xmlNodePtr)data;
-  PersistentWindow *window_pos = (PersistentWindow *)value;
-  ObjectNode window;
+/* ********* LISTS ********** */
 
-  window = (ObjectNode)xmlNewChild(tree, NULL, "window", NULL);
-  
-  xmlSetProp(window, "role", (char *)key);
-  data_add_int(new_attribute(window, "xpos"), window_pos->x);
-  data_add_int(new_attribute(window, "ypos"), window_pos->y);
-  data_add_int(new_attribute(window, "width"), window_pos->width);
-  data_add_int(new_attribute(window, "height"), window_pos->height);
-  data_add_boolean(new_attribute(window, "isopen"), window_pos->isopen);
+/* Lists are used for e.g. recent files, selected fonts, etc. 
+ * Anywhere where the user occasionally picks from a long list and
+ * is likely to reuse the items.
+ */
 
-}
-
-/* Save the contents of a string  */
-static void
-persistence_save_string(gpointer key, gpointer value, gpointer data)
-{  
-  xmlNodePtr tree = (xmlNodePtr)data;
-  ObjectNode stringnode;
-
-  stringnode = (ObjectNode)xmlNewChild(tree, NULL, "entrystring", NULL);
-
-  xmlSetProp(stringnode, "role", (char *)key);
-  data_add_string(new_attribute(stringnode, "stringvalue"), (char *)value);
-}
-
-/* Save all persistent data. */
-void
-persistence_save()
+PersistentList *
+persistence_register_list(const gchar *role)
 {
-  xmlDocPtr doc;
-  xmlNs *name_space;
-  gchar *filename = dia_config_filename("persistence");
-
-  doc = xmlNewDoc("1.0");
-  doc->encoding = xmlStrdup("UTF-8");
-  doc->xmlRootNode = xmlNewDocNode(doc, NULL, "persistence", NULL);
-
-  name_space = xmlNewNs(doc->xmlRootNode, 
-                        "http://www.lysator.liu.se/~alla/dia/",
-			"dia");
-  xmlSetNs(doc->xmlRootNode, name_space);
-
-  /* Save any persistent window positions */
-  if (persistent_windows != NULL &&
-      g_hash_table_size(persistent_windows) != 0) {
-    g_hash_table_foreach(persistent_windows, persistence_save_window, 
-			 doc->xmlRootNode);
+  PersistentList *list;
+  if (role == NULL) return NULL;
+  if (persistent_lists == NULL) {
+    persistent_lists = g_hash_table_new(g_str_hash, g_str_equal);
+  } else {   
+    list = (PersistentList *)g_hash_table_lookup(persistent_lists, role);
+    if (list != NULL) {
+      return list;
+    }
   }
+  list = g_new(PersistentList, 1);
+  list->role = role;
+  list->glist = NULL;
+  list->sorted = FALSE;
+  list->max_members = G_MAXINT;
+  g_hash_table_insert(persistent_lists, role, list);
+  return list;
+}
 
-  if (persistent_strings != NULL &&
-      g_hash_table_size(persistent_strings) != 0) {
-    g_hash_table_foreach(persistent_strings, persistence_save_string, 
-			 doc->xmlRootNode);
+PersistentList *
+persistent_list_get(const gchar *role)
+{
+  if (role == NULL) return NULL;
+  if (persistent_lists != NULL) {
+    list = (PersistentList *)g_hash_table_lookup(persistent_lists, role);
+    if (list != NULL) {
+      return list;
+    }
   }
+  /* Not registered! */
+  return NULL
+}
 
-  xmlDiaSaveFile(filename, doc);
-  g_free(filename);
-  xmlFreeDoc(doc);
+GList *
+persistent_list_get_glist(PersistentList *plist)
+{
+  return plist->glist;
+}
+
+static GList *
+persistent_list_cut_length(GList *list, gint length)
+{
+  while (g_list_length(list) > length) {
+    GList *last = g_list_last(list);
+    list = g_list_remove_link(list, last);
+    g_list_free(last);
+  }
+  return list;
+}
+
+void
+persistent_list_add(PersistentList *plist, const gchar *item)
+{
+  if (plist->sorted) {
+    /* Sorting not implemented yet. */
+  } else {
+    GList *tmplist = g_list_remove(plist->glist, item);
+    tmplist = g_list_prepend(tmplist, item);
+    tmplist = persistent_list_cut_length(tmplist, plist->max_members);
+    plist->glist = tmplist;
+  }
+}
+
+void
+persistent_list_set_max_length(PersistentList *plist, gint max)
+{
+  plist->max_members = max;
+  plist->glist = persistent_list_cut_length(plist->glist, max);
+}
+
+void
+persistent_list_remove(PersistentList *plist, const gchar *item)
+{
+  plist->glist = g_list_remove(plist->glist, item);
 }

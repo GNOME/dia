@@ -43,4 +43,25 @@ void persistence_register_string_entry(gchar *role, GtkWidget *entry);
 gboolean persistence_change_string_entry(gchar *role, gchar *string,
 					 GtkWidget *widget);
 
+/** A persistently stored list of strings.
+ * The list contains no duplicates.
+ * If sorted is FALSE, any string added will be placed in front of the list
+ * (possibly removing it from further down), thus making it an LRU list.
+ * The list is not tied to any particular GTK widget, as it has uses
+ * in a number of different places (though mostly in menus)
+ */
+typedef struct _PersistentList {
+  const gchar *role;
+  GList *glist;
+  gboolean sorted;
+  gint max_members;
+} PersistentList;
+
+PersistentList *persistence_register_list(const gchar *role);
+PersistentList *persistent_list_get(const gchar *role);
+GList *persistent_list_get_glist(PersistentList *plist);
+void persistent_list_add(PersistentList *plist, const gchar *item);
+void persistent_list_set_max_length(PersistentList *plist, gint max);
+void persistent_list_remove(PersistentList *plist, const gchar *item);
+
 #endif

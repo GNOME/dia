@@ -61,32 +61,15 @@ typedef struct _RecentFileData
 static void open_recent_file_callback (GtkWidget *widget, RecentFileData *file);
 void recent_file_history_remove (const char *fname);
 
-static RecentFileData *
-recent_file_filedata_new(const char *fname, DiaImportFilter *ifilter)
-{
-	RecentFileData *filedata;
-
-	filedata = g_new(RecentFileData, 1);
-	filedata->filename = g_strdup(fname);
-
-	if (ifilter)
-		filedata->importfilterdescription
-		              = g_strdup(ifilter->description);
-	else
-		filedata->importfilterdescription = NULL;
-
-	return (filedata);
-}
-
 static void
 recent_file_menuitem_create(GtkWidget *menu, 
-                            RecentFileData *filedata, guint pos)
+                            gchar *filename, guint pos)
 {
 	gchar *basename, *escaped, *label;
 	GtkWidget *item;
 	GtkAccelGroup *accel_group;
 
-	basename = g_path_get_basename(filedata->filename);
+	basename = g_path_get_basename(filename);
 	basename = g_strdelimit(basename, "_", '\\');
 	escaped  = g_strescape(basename, NULL);
 	g_free(basename);
@@ -100,10 +83,10 @@ recent_file_menuitem_create(GtkWidget *menu,
 	                pos + recent_files_menuitem_offset);
 
 	g_signal_connect(GTK_OBJECT(item), "activate",
-			 G_CALLBACK(open_recent_file_callback),filedata);
+			 G_CALLBACK(open_recent_file_callback), filename);
 
 	gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), item,
-	                     filedata->filename, NULL);
+	                     filename, NULL);
 
 	if (pos < 10)
 	{
@@ -139,6 +122,26 @@ recent_file_filemenu_get(void)
 	return GTK_WIDGET(menus_get_item_from_path(N_("<Toolbox>/File/Plugins..."),
 	                                NULL))->parent;
 }
+
+/** Build and insert the recent files menu */
+void
+recent_file_history_make_menu(GList *items)
+{
+    GtkWidget *file_menu;
+    RecentFileData *filedata;
+    guint i, number_of_items;
+    GList *menu_items, *item, *next;
+
+    file_menu = recent_file_filemenu_get();
+    
+    for (i = 1; items != NULL; items = g_list_next(items), i++) {
+	if (i <= recent_files_length)
+	    recent_file_menuitem_create(file_menu, (gchar *)items->data, i);
+	else break;
+    }
+}
+
+/* Note:  Should an item be l
 
 void
 recent_file_history_add(const char *fname, DiaImportFilter *ifilter,
@@ -277,12 +280,17 @@ recent_file_history_init() {
 
 	tooltips = gtk_tooltips_new();
 
+	/*
 	buffer = g_new(char, 16000);
 	while (fgets(buffer, 16000, fp)!=NULL) {
 		filename = g_strchomp(buffer);
 		ifilter = filter_guess_import_filter(filename);
 		recent_file_history_add(filename, ifilter, 1);
-	}	
+		}	*/
+	persistence_register_list("recent-files");
+
+	recent_file_history_make_menu(persistent_list_get_glist("recent-files"));
+
 	fclose(fp);
 
 	g_free(buffer);
@@ -296,7 +304,7 @@ recent_file_history_write() {
 	FILE *fp;
 	gchar *history_filename;
 	RecentFileData *filedata;
-	
+	return;
 	/* should be ~/.dia/history */
 	history_filename = dia_config_filename("history");
 	if((fp = fopen(history_filename,"w")) == NULL) {
@@ -332,8 +340,17 @@ recent_file_history_remove (const char *fname)
     number_of_items = MIN(g_list_length(recent_files),
 			  recent_files_length);
     
-    file = g_list_first (recent_files);
+    file = persistent_list_get_glist(persistent_list_get("recent-files"));
+    /*file = g_list_first (recent_files);*/
     
+    /* Much easier to remove the whole thing and rebuild it. */
+    remove;
+    persistent_list_remove(persistent_list_get("recent-files"), fname);
+    rebuild;
+
+
+#if 0
+
     for (j = 0; j < number_of_items; j++) {
 	next = g_list_next (file);
 	if (strcmp (((RecentFileData *)file->data)->filename, fname) == 0) {
@@ -371,6 +388,7 @@ recent_file_history_remove (const char *fname)
 	}
 	file = next;
     }
+#endif
 }
     
 static void
