@@ -68,5 +68,10 @@ extern Change *undo_insert_objects(Diagram *dia, GList *obj_list,
 extern Change *undo_object_change(Diagram *dia, Object *obj,
 				  ObjectChange *obj_change);
   
+extern Change *undo_group_objects(Diagram *dia, GList *obj_list,
+				  Object *group, GList *orig_list);
+extern Change *undo_ungroup_objects(Diagram *dia, GList *obj_list,
+				    Object *group, int group_index);
+
 #endif /* UNDO_H */
 

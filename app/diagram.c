@@ -27,6 +27,7 @@
 #include "focus.h"
 #include "message.h"
 #include "menus.h"
+#include "properties.h"
 #include "cut_n_paste.h"
 #include "layer_dialog.h"
 
@@ -532,16 +533,18 @@ diagram_update_extents(Diagram *dia)
 
 /* Remove connections from obj to objects outside created group. */
 static void
-strip_connections(Object *obj, GList *not_strip_list)
+strip_connections(Object *obj, GList *not_strip_list, Diagram *dia)
 {
   int i;
   Handle *handle;
+  Change *change;
 
   for (i=0;i<obj->num_handles;i++) {
     handle = obj->handles[i];
     if ((handle->connected_to != NULL) &&
 	(g_list_find(not_strip_list, handle->connected_to->object)==NULL)) {
-      object_unconnect(obj, handle);
+      change = undo_unconnect(dia, obj, handle);
+      (change->apply)(change, dia);
     }
   }
 }
@@ -552,6 +555,10 @@ void diagram_group_selected(Diagram *dia)
   GList *group_list;
   Object *group;
   Object *obj;
+  GList *orig_list;
+
+
+  orig_list = g_list_copy(dia->data->active_layer->objects);
   
   /* We have to rebuild the selection list so that it is the same
      order as in the Diagram list. */
@@ -560,7 +567,19 @@ void diagram_group_selected(Diagram *dia)
   list = group_list;
   while (list != NULL) {
     obj = (Object *)list->data;
-    strip_connections(obj, dia->data->selected);
+
+    /* Remove connections from obj to objects outside created group. */
+    strip_connections(obj, dia->data->selected, dia);
+    
+    /* Have to hide any open properties dialog
+     * if it contains some object in cut_list */
+    properties_hide_if_shown(dia, obj);
+
+    /* Remove focus if active */
+    if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
+      remove_focus();
+    }
+
     object_add_updates(obj, dia);
     list = g_list_next(list);
   }
@@ -571,8 +590,12 @@ void diagram_group_selected(Diagram *dia)
   diagram_add_object(dia, group);
   diagram_select(dia, group);
 
+  undo_group_objects(dia, group_list, group, orig_list);
+  
   diagram_modified(dia);
   diagram_flush(dia);
+
+  undo_set_transactionpoint(dia->undo);
 }
 
 void diagram_ungroup_selected(Diagram *dia)
@@ -580,6 +603,7 @@ void diagram_ungroup_selected(Diagram *dia)
   Object *group;
   GList *group_list;
   GList *list;
+  int group_index;
   
   if (dia->data->selected_count != 1) {
     message_error("Trying to ungroup with more or less that one selected object.");
@@ -590,6 +614,8 @@ void diagram_ungroup_selected(Diagram *dia)
 
   if (IS_GROUP(group)) {
     diagram_unselect_object(dia, group);
+
+    group_index = layer_object_index(dia->data->active_layer, group);
     
     group_list = group_objects(group);
     list = group_list;
@@ -602,14 +628,16 @@ void diagram_ungroup_selected(Diagram *dia)
     }
 
     layer_replace_object_with_list(dia->data->active_layer,
-				   group, group_list);
-    
-    group_destroy_shallow(group);
+				   group, g_list_copy(group_list));
+
+    undo_ungroup_objects(dia, group_list, group, group_index);
+    properties_hide_if_shown(dia, group);
 
     diagram_modified(dia);
   }
   
   diagram_flush(dia);
+  undo_set_transactionpoint(dia->undo);
 }
 
 GList *

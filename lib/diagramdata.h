@@ -62,7 +62,7 @@ extern void data_lower_layer(DiagramData *data, Layer *layer);
 extern void data_add_layer(DiagramData *data, Layer *layer);
 extern void data_add_layer_at(DiagramData *data, Layer *layer, int pos);
 extern void data_set_active_layer(DiagramData *data, Layer *layer);
-extern void data_delete_active_layer(DiagramData *data);
+extern void data_delete_layer(DiagramData *data, Layer *layer);
 extern void data_select(DiagramData *data, Object *obj);
 extern void data_unselect(DiagramData *data, Object *obj);
 extern void data_remove_all_selected(DiagramData *data);
@@ -81,7 +81,9 @@ extern void layer_render(Layer *layer, Renderer *renderer,
 			 gpointer data,
 			 int active_layer);
 
+extern int layer_object_index(Layer *layer, Object *obj);
 extern void layer_add_object(Layer *layer, Object *obj);
+extern void layer_add_object_at(Layer *layer, Object *obj, int pos);
 extern void layer_add_objects(Layer *layer, GList *obj_list);
 extern void layer_add_objects_first(Layer *layer, GList *obj_list);
 extern void layer_remove_object(Layer *layer, Object *obj);

@@ -39,10 +39,15 @@ struct _OrthConn {
   Object object;
 
   int numpoints; /* >= 3 */
-  Point *points;
-  Handle endpoint_handles[2];
+  Point *points; /* [numpoints] */
   Orientation *orientation; /*[numpoints - 1]*/
-  Handle **midpoint_handles; /*[numpoints - 1], endpoints are NULL */
+  Handle **handles; /*[numpoints - 1] */
+  /* Each line segment has one handle. The first and last handles
+   * are placed in the end of their segment, the other in the middle.
+   * The end handles are connectable, the others not. (That would be
+   * problematic, as they can only move freely in one direction.)
+   * The array of pointers is ordered in segment order.
+   */
 };
 
 extern void orthconn_update_data(OrthConn *orth);

@@ -47,6 +47,15 @@ struct _ButtonData {
   char *tooltip;
 };
 
+enum LayerChangeType {
+  TYPE_DELETE_LAYER,
+  TYPE_ADD_LAYER,
+  TYPE_RAISE_LAYER,
+  TYPE_LOWER_LAYER
+};
+static Change *
+undo_layer(Diagram *dia, Layer *layer, enum LayerChangeType, int index);
+
 static void layer_dialog_new_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata);
@@ -313,7 +322,9 @@ layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
     gtk_list_insert_items(GTK_LIST(layer_dialog->layer_list), list, pos);
 
     gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), pos);
-    
+
+    undo_layer(dia, layer, TYPE_ADD_LAYER, dia->data->layers->len - pos);
+    undo_set_transactionpoint(dia->undo);
   }
 }
 
@@ -322,6 +333,7 @@ layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata)
 {
   Diagram *dia;
   GtkWidget *selected;
+  Layer *layer;
   int pos;
 
   dia = layer_dialog->diagram;
@@ -330,12 +342,18 @@ layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata)
     assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
     selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
 
-    data_delete_active_layer(dia->data);
+    layer = dia->data->active_layer;
+
+    data_delete_layer(dia->data, layer);
     diagram_add_update_all(dia);
     diagram_flush(dia);
     
     pos = gtk_list_child_position(GTK_LIST(layer_dialog->layer_list), selected);
     gtk_container_remove(GTK_CONTAINER(layer_dialog->layer_list), selected);
+
+    undo_layer(dia, layer, TYPE_DELETE_LAYER,
+	       dia->data->layers->len - pos);
+    undo_set_transactionpoint(dia->undo);
 
     if (--pos<0)
       pos = 0;
@@ -381,6 +399,9 @@ layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata)
       
       diagram_add_update_all(dia);
       diagram_flush(dia);
+      
+      undo_layer(dia, layer, TYPE_RAISE_LAYER, 0);
+      undo_set_transactionpoint(dia->undo);
     }
 
   }
@@ -423,6 +444,9 @@ layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata)
       
       diagram_add_update_all(dia);
       diagram_flush(dia);
+
+      undo_layer(dia, layer, TYPE_LOWER_LAYER, 0);
+      undo_set_transactionpoint(dia->undo);
     }
 
   }
@@ -969,11 +993,108 @@ layer_dialog_edit_layer(DiaLayerWidget *layer_widget)
 }
 
 
+/******** layer changes: */
 
+struct LayerChange {
+  Change change;
 
+  enum LayerChangeType type;
+  Layer *layer;
+  int index;
+  int applied;
+};
 
+static void
+layer_change_apply(struct LayerChange *change, Diagram *dia)
+{
+  change->applied = 1;
 
+  switch (change->type) {
+  case TYPE_DELETE_LAYER:
+    data_delete_layer(dia->data, change->layer);
+    break;
+  case TYPE_ADD_LAYER:
+    data_add_layer_at(dia->data, change->layer, change->index);
+    break;
+  case TYPE_RAISE_LAYER:
+    data_raise_layer(dia->data, change->layer);
+    break;
+  case TYPE_LOWER_LAYER:
+    data_lower_layer(dia->data, change->layer);
+    break;
+  }
 
+  diagram_add_update_all(dia);
 
+  if (layer_dialog->diagram == dia) {
+    layer_dialog_set_diagram(dia);
+  }
+}
 
+static void
+layer_change_revert(struct LayerChange *change, Diagram *dia)
+{
+  switch (change->type) {
+  case TYPE_DELETE_LAYER:
+    data_add_layer_at(dia->data, change->layer, change->index);
+    break;
+  case TYPE_ADD_LAYER:
+    data_delete_layer(dia->data, change->layer);
+    break;
+  case TYPE_RAISE_LAYER:
+    data_lower_layer(dia->data, change->layer);
+    break;
+  case TYPE_LOWER_LAYER:
+    data_raise_layer(dia->data, change->layer);
+    break;
+  }
 
+  diagram_add_update_all(dia);
+
+  if (layer_dialog->diagram == dia) {
+    layer_dialog_set_diagram(dia);
+  }
+
+  change->applied = 0;
+}
+
+static void
+layer_change_free(struct LayerChange *change)
+{
+  switch (change->type) {
+  case TYPE_DELETE_LAYER:
+    if (change->applied) {
+      layer_destroy(change->layer);
+    }
+    break;
+  case TYPE_ADD_LAYER:
+    if (!change->applied) {
+      layer_destroy(change->layer);
+    }
+    break;
+  case TYPE_RAISE_LAYER:
+    break;
+  case TYPE_LOWER_LAYER:
+    break;
+  }
+}
+
+static Change *
+undo_layer(Diagram *dia, Layer *layer, enum LayerChangeType type, int index)
+{
+  struct LayerChange *change;
+
+  change = g_new(struct LayerChange, 1);
+  
+  change->change.apply = (UndoApplyFunc) layer_change_apply;
+  change->change.revert = (UndoRevertFunc) layer_change_revert;
+  change->change.free = (UndoFreeFunc) layer_change_free;
+
+  change->type = type;
+  change->layer = layer;
+  change->index = index;
+  change->applied = 1;
+
+  undo_push_change(dia->undo, (Change *) change);
+  return (Change *)change;
+}

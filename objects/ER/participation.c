@@ -249,8 +249,6 @@ participation_update_data(Participation *participation)
   obj->bounding_box.left -= PARTICIPATION_WIDTH/2.0 + extra_width;
   obj->bounding_box.bottom += PARTICIPATION_WIDTH/2.0 + extra_width;
   obj->bounding_box.right += PARTICIPATION_WIDTH/2.0 + extra_width;
-  
-  obj->position = orth->points[0];
 }
 
 static Object *
@@ -279,8 +277,8 @@ participation_create(Point *startpoint,
   
   participation->properties_dialog = NULL;
   
-  *handle1 = &orth->endpoint_handles[0];
-  *handle2 = &orth->endpoint_handles[1];
+  *handle1 = orth->handles[0];
+  *handle2 = orth->handles[orth->numpoints-2];
 
   return (Object *)participation;
 }

@@ -1,3 +1,31 @@
+1999-07-25  Alexander Larsson  <alla@lysator.liu.se>
+
+        * app/diagram.c:
+	* app/group.[ch]:
+	* app/undo.[ch]:
+	Undoable grouping and ungrouping.
+
+	* app/layer_dialog.c:
+	* lib/diagramdata.[ch]:
+	Undoable layer ops.
+
+	* app/modify_tool.c:
+	Undoable unconnect on handle move.
+
+	* lib/orth_conn.[ch]:
+	Working undoable add/remove segment.
+	Removed endpoint_handles from OrthConn, renamed
+	midpoint_handles to handles and put the endpoint
+	handles there.
+
+	* objects/standard/zigzagline.c:
+	* objects/ER/participation.c:
+	* objects/UML/association.c:
+	* objects/UML/dependency.c:
+	* objects/UML/generalization.c:
+	* objects/UML/realizes.c:
+	Update for the changes in OrthConn
+	
 1999-07-23  Karsten Weiss  <karsten@addx.au.s.shuttle.de>
 
 	* configure.in: Added "de" to ALL_LINGUAS.

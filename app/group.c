@@ -175,6 +175,8 @@ group_destroy_shallow(Object *group)
   if (group->connections)
     g_free(group->connections);
 
+  g_list_free(((Group *)group)->objects);
+
   g_free(group);
 }
 
@@ -258,6 +260,9 @@ group_update_data(Group *group)
   group_update_handles(group);
 }
 
+/* Make sure there are no connections from objects to objects
+ * outside of the created group.
+ */
 Object *
 group_create(GList *objects)
 {
@@ -281,13 +286,6 @@ group_create(GList *objects)
   list = objects;
   while (list != NULL) {
     part_obj = (Object *) list->data;
-
-    /* break connections in to objects outside grouping */
-    for (i=0;i<part_obj->num_handles;i++) {
-      if ( (part_obj->handles[i]->connected_to != NULL) &&
-	   (g_list_find(objects, part_obj->handles[i]->connected_to->object)==NULL) )
-	object_unconnect(part_obj, part_obj->handles[i]);
-    }
 
     num_conn += part_obj->num_connections;
     

@@ -225,8 +225,6 @@ dependency_update_data(Dependency *dep)
   obj->bounding_box.bottom += DEPENDENCY_WIDTH/2.0 + DEPENDENCY_ARROWLEN;
   obj->bounding_box.right += DEPENDENCY_WIDTH/2.0 + DEPENDENCY_ARROWLEN;
   
-  obj->position = orth->points[0];
-
   /* Calc text pos: */
   num_segm = dep->orth.numpoints - 1;
   points = dep->orth.points;
@@ -294,8 +292,8 @@ dependency_create(Point *startpoint,
 
   dependency_update_data(dep);
   
-  *handle1 = &orth->endpoint_handles[0];
-  *handle2 = &orth->endpoint_handles[1];
+  *handle1 = orth->handles[0];
+  *handle2 = orth->handles[orth->numpoints-2];
 
   return (Object *)dep;
 }

@@ -170,22 +170,19 @@ data_set_active_layer(DiagramData *data, Layer *layer)
 }
 
 void
-data_delete_active_layer(DiagramData *data)
+data_delete_layer(DiagramData *data, Layer *layer)
 {
-  Layer *layer;
-  
   if (data->layers->len<=1)
     return;
 
-  data_remove_all_selected(data);
-
-  layer = data->active_layer;
-
+  if (data->active_layer == layer) {
+    data_remove_all_selected(data);
+  }
   g_ptr_array_remove(data->layers, layer);
 
-  data->active_layer = g_ptr_array_index(data->layers, 0);
-
-  layer_destroy(layer);
+  if (data->active_layer == layer) {
+    data->active_layer = g_ptr_array_index(data->layers, 0);
+  }
 }
 
 void
@@ -347,10 +344,22 @@ layer_render(Layer *layer, Renderer *renderer,
   }
 }
 
+int
+layer_object_index(Layer *layer, Object *obj)
+{
+  return (int)g_list_index(layer->objects, (gpointer) obj);
+}
+
 void
 layer_add_object(Layer *layer, Object *obj)
 {
   layer->objects = g_list_append(layer->objects, (gpointer) obj);
+}
+
+void
+layer_add_object_at(Layer *layer, Object *obj, int pos)
+{
+  layer->objects = g_list_insert(layer->objects, (gpointer) obj, pos);
 }
 
 void

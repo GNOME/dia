@@ -357,7 +357,10 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if (tool->break_connections) {
       /* break connections to the handle currently selected. */
       if (tool->handle->connected_to!=NULL) {
-	object_unconnect(tool->object, tool->handle);
+	Change *change = undo_unconnect(ddisp->diagram, tool->object,
+					tool->handle);
+					
+        (change->apply)(change, ddisp->diagram);
       }
     }
 

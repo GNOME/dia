@@ -221,8 +221,6 @@ realizes_update_data(Realizes *realize)
   obj->bounding_box.bottom += REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
   obj->bounding_box.right += REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
   
-  obj->position = orth->points[0];
-
   /* Calc text pos: */
   num_segm = realize->orth.numpoints - 1;
   points = realize->orth.points;
@@ -289,9 +287,8 @@ realizes_create(Point *startpoint,
 
   realizes_update_data(realize);
   
-  *handle1 = &orth->endpoint_handles[0];
-  *handle2 = &orth->endpoint_handles[1];
-
+  *handle1 = orth->handles[0];
+  *handle2 = orth->handles[orth->numpoints-2];
   return (Object *)realize;
 }
 

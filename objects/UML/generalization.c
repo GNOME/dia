@@ -221,8 +221,6 @@ generalization_update_data(Generalization *genlz)
   obj->bounding_box.bottom += GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
   obj->bounding_box.right += GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
   
-  obj->position = orth->points[0];
-
   /* Calc text pos: */
   num_segm = genlz->orth.numpoints - 1;
   points = genlz->orth.points;
@@ -289,8 +287,8 @@ generalization_create(Point *startpoint,
 
   generalization_update_data(genlz);
   
-  *handle1 = &orth->endpoint_handles[0];
-  *handle2 = &orth->endpoint_handles[1];
+  *handle1 = orth->handles[0];
+  *handle2 = orth->handles[orth->numpoints-2];
 
   return (Object *)genlz;
 }

@@ -21,6 +21,7 @@
 #include "properties.h"
 #include "connectionpoint_ops.h"
 #include "focus.h"
+#include "group.h"
 
 static void
 transaction_point_pointer(Change *change, Diagram *dia)
@@ -703,6 +704,197 @@ undo_object_change(Diagram *dia, Object *obj,
   change->obj_change = obj_change;
 
   printf("UNDO: Push new obj_change at %d\n", depth(dia->undo));
+  undo_push_change(dia->undo, (Change *) change);
+  return (Change *)change;
+}
+
+/******** Group object list: */
+
+struct GroupObjectsChange {
+  Change change;
+
+  Layer *layer;
+  Object *group;   /* owning reference if not applied */
+  GList *obj_list; /* This list is owned by the group. */
+  GList *orig_list; /* This list (not the object) is owned */
+  int applied;
+};
+
+static void
+group_objects_apply(struct GroupObjectsChange *change, Diagram *dia)
+{
+  GList *list;
+
+  printf("group_objects_apply()\n");
+  
+  change->applied = 1;
+  
+  diagram_unselect_objects(dia, change->obj_list);
+  layer_remove_objects(change->layer, change->obj_list);
+  layer_add_object(change->layer, change->group);
+  object_add_updates(change->group, dia);
+
+  list = change->obj_list;
+  while (list != NULL) {
+    Object *obj = (Object *)list->data;
+    
+  /* Have to hide any open properties dialog
+     if it contains some object in cut_list */
+    properties_hide_if_shown(dia, obj);
+
+    /* Remove focus if active */
+    if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
+      remove_focus();
+    }
+    
+    list = g_list_next(list);
+  }
+}
+
+static void
+group_objects_revert(struct GroupObjectsChange *change, Diagram *dia)
+{
+  GList *old_list;
+  
+  printf("group_objects_revert()\n");
+  change->applied = 0;
+  
+  diagram_unselect_object(dia, change->group);
+  object_add_updates(change->group, dia);
+
+  old_list = change->layer->objects;
+  change->layer->objects = g_list_copy(change->orig_list);
+  g_list_free(old_list);
+  
+  object_add_updates_list(change->obj_list, dia);
+
+  properties_hide_if_shown(dia, change->group);
+}
+
+static void
+group_objects_free(struct GroupObjectsChange *change)
+{
+  printf("group_objects_free()\n");
+  if (!change->applied) {
+    group_destroy_shallow(change->group);
+    change->group = NULL;
+    change->obj_list = NULL;
+  }
+  g_list_free(change->orig_list);
+}
+
+Change *
+undo_group_objects(Diagram *dia, GList *obj_list, Object *group,
+		   GList *orig_list)
+{
+  struct GroupObjectsChange *change;
+
+  change = g_new(struct GroupObjectsChange, 1);
+  
+  change->change.apply = (UndoApplyFunc) group_objects_apply;
+  change->change.revert = (UndoRevertFunc) group_objects_revert;
+  change->change.free = (UndoFreeFunc) group_objects_free;
+
+  change->layer = dia->data->active_layer;
+  change->group = group;
+  change->obj_list = obj_list;
+  change->orig_list = orig_list;
+  change->applied = 1;
+
+  printf("UNDO: Push new group objects at %d\n", depth(dia->undo));
+  undo_push_change(dia->undo, (Change *) change);
+  return (Change *)change;
+}
+
+/******** Ungroup object list: */
+
+struct UngroupObjectsChange {
+  Change change;
+
+  Layer *layer;
+  Object *group;   /* owning reference if applied */
+  GList *obj_list; /* This list is owned by the ungroup. */
+  int group_index;
+  int applied;
+};
+
+static void
+ungroup_objects_apply(struct UngroupObjectsChange *change, Diagram *dia)
+{
+  printf("ungroup_objects_apply()\n");
+  
+  change->applied = 1;
+  
+  diagram_unselect_object(dia, change->group);
+  object_add_updates(change->group, dia);
+  layer_replace_object_with_list(change->layer, change->group,
+				 g_list_copy(change->obj_list));
+  object_add_updates_list(change->obj_list, dia);
+  
+  properties_hide_if_shown(dia, change->group);
+}
+
+static void
+ungroup_objects_revert(struct UngroupObjectsChange *change, Diagram *dia)
+{
+  GList *list;
+  
+  printf("ungroup_objects_revert()\n");
+  change->applied = 0;
+  
+
+  diagram_unselect_objects(dia, change->obj_list);
+  layer_remove_objects(change->layer, change->obj_list);
+  layer_add_object_at(change->layer, change->group, change->group_index);
+  object_add_updates(change->group, dia);
+
+  list = change->obj_list;
+  while (list != NULL) {
+    Object *obj = (Object *)list->data;
+    
+  /* Have to hide any open properties dialog
+     if it contains some object in cut_list */
+    properties_hide_if_shown(dia, obj);
+
+    /* Remove focus if active */
+    if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
+      remove_focus();
+    }
+    
+    list = g_list_next(list);
+  }
+}
+
+static void
+ungroup_objects_free(struct UngroupObjectsChange *change)
+{
+  printf("ungroup_objects_free()\n");
+  if (change->applied) {
+    group_destroy_shallow(change->group);
+    change->group = NULL;
+    change->obj_list = NULL;
+  }
+}
+
+Change *
+undo_ungroup_objects(Diagram *dia, GList *obj_list, Object *group,
+		     int group_index)
+{
+  struct UngroupObjectsChange *change;
+
+  change = g_new(struct UngroupObjectsChange, 1);
+  
+  change->change.apply = (UndoApplyFunc) ungroup_objects_apply;
+  change->change.revert = (UndoRevertFunc) ungroup_objects_revert;
+  change->change.free = (UndoFreeFunc) ungroup_objects_free;
+
+  change->layer = dia->data->active_layer;
+  change->group = group;
+  change->obj_list = obj_list;
+  change->group_index = group_index;
+  change->applied = 1;
+
+  printf("UNDO: Push new ungroup objects at %d\n", depth(dia->undo));
   undo_push_change(dia->undo, (Change *) change);
   return (Change *)change;
 }

@@ -356,8 +356,6 @@ association_update_data(Association *assoc)
   obj->bounding_box.bottom += ASSOCIATION_WIDTH/2.0 + ASSOCIATION_DIAMONDLEN;
   obj->bounding_box.right += ASSOCIATION_WIDTH/2.0 + ASSOCIATION_DIAMONDLEN;
   
-  obj->position = orth->points[0];
-
   /* Calc text pos: */
   num_segm = assoc->orth.numpoints - 1;
   points = assoc->orth.points;
@@ -501,8 +499,8 @@ association_create(Point *startpoint,
 
   association_update_data(assoc);
   
-  *handle1 = &orth->endpoint_handles[0];
-  *handle2 = &orth->endpoint_handles[1];
+  *handle1 = orth->handles[0];
+  *handle2 = orth->handles[orth->numpoints-2];
 
   return (Object *)assoc;
 }

@@ -20,6 +20,9 @@
 
 extern ObjectType group_type;
 
+/* Make sure there are no connections from objects to objects
+ * outside of the created group before calling group_create().
+ */
 extern Object *group_create(GList *objects);
 extern GList *group_objects(Object *group);
 

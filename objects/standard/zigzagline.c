@@ -479,8 +479,8 @@ zigzagline_create(Point *startpoint,
   zigzagline->start_arrow = default_properties.start_arrow;
   zigzagline->end_arrow = default_properties.end_arrow;
   
-  *handle1 = &orth->endpoint_handles[0];
-  *handle2 = &orth->endpoint_handles[1];
+  *handle1 = orth->handles[0];
+  *handle2 = orth->handles[orth->numpoints-2];
   return (Object *)zigzagline;
 }
 
@@ -514,18 +514,12 @@ zigzagline_copy(Zigzagline *zigzagline)
   return (Object *)newzigzagline;
 }
 
-static void
-zigzagline_state_free(ObjectState *st)
-{
-  ZigzaglineState *state = (ZigzaglineState *)st;
-}
-
 static ZigzaglineState *
 zigzagline_get_state(Zigzagline *zigzagline)
 {
   ZigzaglineState *state = g_new(ZigzaglineState, 1);
 
-  state->obj_state.free = zigzagline_state_free;
+  state->obj_state.free = NULL;
   
   state->line_color = zigzagline->line_color;
   state->line_style = zigzagline->line_style;
@@ -581,8 +575,6 @@ zigzagline_update_data(Zigzagline *zigzagline)
     obj->bounding_box.bottom += arrow_width;
     obj->bounding_box.right += arrow_width;
   }
-
-  obj->position = orth->points[0];
 }
 
 static ObjectChange *
