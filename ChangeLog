@@ -1,3 +1,28 @@
+2002-05-18  Steffen Macke <sdteffen@web.de>
+
+	* doc/en/graphics/greendots.png:
+	* doc/en/home_network.png:
+	* doc/en/line_props.png: 
+	* dia-diagram.png:
+	* dia_gnome_icon.png:
+	* dia_gnome_menu_icon.png:
+	* dia_logo.png:
+	* shapes/network/telephone.png:
+	* shapes/Logic/and.png:
+	* shapes/Logic/buffer.png:
+	* shapes/Logic/connector.png:
+	* shapes/Logic/inverter.png:
+	* shapes/Logic/nand.png:
+	* shapes/Logic/nor.png:
+	* shapes/Logic/not.png:
+	* shapes/Logic/or.png:
+	* shapes/logic/xor.png:
+	* samples/ER-demo.dia:
+	* samples/SADT.dia:
+	* samples/UML-demo.dia:
+	* samples/chronograms.dia:
+	* samples/grafcet.dia: re-added as binary files
+
 2002-05-17  Hans Breuer  <hans@breuer.org>
 
 	* lib/libdia.def : reflect removing of render_store.[ch]
