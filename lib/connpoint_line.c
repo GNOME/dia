@@ -22,7 +22,7 @@
 #include <string.h>
 #include "connpoint_line.h"
 #include "connectionpoint.h"
-#include "lazyprops.h"
+#include "dia_xml.h"
 
 #define DEBUG_PARENT 0
 #define DEBUG_ORDER 0
@@ -178,7 +178,7 @@ void
 connpointline_save(ConnPointLine *cpl,ObjectNode obj_node,
 		   const gchar *name)
 {
-  save_int(obj_node,name,cpl->num_connections);
+  data_add_int(new_attribute(obj_node, name),cpl->num_connections);
 }
 
 ConnPointLine *
