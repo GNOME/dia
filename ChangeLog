@@ -26,6 +26,8 @@
 	* app/render_eps.c: made the local8->utf8 conversions dependent of
 	!UNICODE_WORK_IN_PROGRESS (this is not where the local8/utf8
 	boundary will be when this WIP is done).
+
+	* lib/dia_xml.c (data_point): fixed a format string typo.
 	
 2001-06-06  Cyrille Chepelov  <chepelov@calixo.net>
 

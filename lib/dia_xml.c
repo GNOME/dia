@@ -282,7 +282,7 @@ data_point(DataNode data, Point *point)
     /* there is no provision to keep values larger when saving, 
      * so do this 'reduction' silent */
     if (!(ax < 1e-9)) 
-      g_warning(_("Incorrect x Point value \"\" %f; discarding it."),val,point->x);
+      g_warning(_("Incorrect x Point value \"%s\" %f; discarding it."),val,point->x);
     point->x = 0.0;
   }
   while ((*str != ',') && (*str!=0))

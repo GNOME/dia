@@ -62,9 +62,9 @@ int get_local_charset(char **charset)
   local_is_utf8 = unicode_get_charset(charset);
   if (local_is_utf8) return local_is_utf8;
 
-  if (0==strcmp(charset,"US-ASCII")) {
+  if (0==strcmp(*charset,"US-ASCII")) {
     *charset = nl_langinfo(CODESET);
-    local_is_utf8 = (0==strcmp(charset,"UTF-8"));
+    local_is_utf8 = (0==strcmp(*charset,"UTF-8"));
   }
   return local_is_utf8;
 }
@@ -72,7 +72,7 @@ int get_local_charset(char **charset)
 
 static unicode_iconv_t conv_u2l = (unicode_iconv_t)0;
 static unicode_iconv_t conv_l2u = (unicode_iconv_t)0;
-static local_is_utf8 = 0;
+static int local_is_utf8 = 0;
 
 static void
 check_conv_l2u(void){
