@@ -1,3 +1,8 @@
+2002-09-01  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/xslt/xslt.c: Removed glib warning for unset
+	DIA_PLUGIN_PATH.
+
 2002-09-01  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* plug-ins/svg/render_svg.c: Applied (reversed...) patch from

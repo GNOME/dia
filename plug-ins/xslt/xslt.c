@@ -66,7 +66,13 @@ void xslt_ok() {
 	char *params[] = { "directory", NULL, NULL };
 	xsltStylesheetPtr style, codestyle;
 	xmlDocPtr doc, res;
+	gchar *pluginpath;
 
+	pluginpath = g_getenv("DIA_PLUGIN_PATH");
+	if (pluginpath == NULL) {
+	  message_warning(_("DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"));
+	  return;
+	}
 	params[1] = g_strconcat("'", g_dirname(filename), G_DIR_SEPARATOR_S, "'", NULL);
 	
 	file = fopen(diafilename, "r");
@@ -93,7 +99,7 @@ void xslt_ok() {
 		return;
 	}
 	
-	stylefname = g_strconcat(g_getenv("DIA_PLUGIN_PATH"),
+	stylefname = g_strconcat(pluginpath,
 				 G_DIR_SEPARATOR_S, "xslt", 
 				 G_DIR_SEPARATOR_S, xsl_from->xsl, NULL);
 
@@ -111,7 +117,7 @@ void xslt_ok() {
 	
 	g_free(stylefname);
 	
-	stylefname = g_strconcat(g_getenv("DIA_PLUGIN_PATH"), 
+	stylefname = g_strconcat(pluginpath,
 				 G_DIR_SEPARATOR_S, "xslt", 
 				 G_DIR_SEPARATOR_S, xsl_to->xsl, NULL);
 
