@@ -1,5 +1,6 @@
 # German translation of dia.
 # Copyright (C) 1999, 2000, 2001, 2002 Free Software Foundation, Inc.
+# Christian Neumair <chris@gnome-de.org>, 2002.
 # Karsten Weiss <knweiss@gmx.de>, 1999, 2000, 2002.
 # Daniel Egger <Daniel.Egger@suse.de>, 2000.
 # Benedikt Roth <Benedikt.Roth@gmx.net>, 2000
@@ -13,9 +14,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia 0.86 (cvs)\n"
-"POT-Creation-Date: 2002-12-05 21:05-0600\n"
-"PO-Revision-Date: 2002-11-28 13:33+0100\n"
+"Project-Id-Version: dia 0.90+ (cvs)\n"
+"POT-Creation-Date: 2002-12-15 21:18+0100\n"
+"PO-Revision-Date: 2002-12-15 21:17+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +47,7 @@ msgstr "%s --> %s\n"
 #. &export_file_name
 #: app/app_procs.c:240
 msgid "Export loaded file and exit"
-msgstr "Geladene Datei exportieren und beenden"
+msgstr "Die geöffnete Datei exportieren und beenden"
 
 #: app/app_procs.c:240 app/diaconv.c:94
 msgid "OUTPUT"
@@ -55,7 +56,7 @@ msgstr "AUSGABE"
 #. &export_file_format
 #: app/app_procs.c:242
 msgid "Export to file format and exit"
-msgstr "Nach Dateiformat exportieren und beenden"
+msgstr "In ein Dateiformat exportieren und beenden"
 
 #: app/app_procs.c:242 app/diaconv.c:92
 msgid "eps,png,wmf,cgm,dxf,fig"
@@ -63,7 +64,7 @@ msgstr "eps, png, wmf, cgm, dxf, fig"
 
 #: app/app_procs.c:244
 msgid "Don't show the splash screen"
-msgstr "Den Startbildschirm nicht zeigen"
+msgstr "Den Startbildschirm nicht anzeigen"
 
 #: app/app_procs.c:246
 msgid "Display credits list and exit"
@@ -71,11 +72,11 @@ msgstr "Mitwirkende anzeigen und beenden"
 
 #: app/app_procs.c:248
 msgid "Display version and exit"
-msgstr "Version anzeigen und beenden"
+msgstr "Die Dia-Version anzeigen und beenden"
 
 #: app/app_procs.c:250 app/diaconv.c:95
 msgid "Show this help message"
-msgstr "Diese Hilfemeldung zeigen"
+msgstr "Diese Hilfemeldung anzeigen"
 
 #: app/app_procs.c:280
 msgid "Can't connect to session manager!\n"
@@ -246,7 +247,7 @@ msgstr ""
 "und könnte Abstürze verursachen. Wir wissen über die Fehler bescheid\n"
 "und würden Sie bitten KEINE Meldung darüber zu erstattten."
 
-#: app/defaults.c:43 app/defaults.c:139
+#: app/defaults.c:43 app/defaults.c:145
 msgid "Object defaults"
 msgstr "Objekt-Voreinstellungen"
 
@@ -538,9 +539,9 @@ msgstr "Diagramm schließen"
 msgid "Discard Changes"
 msgstr "Änderungen verwerfen"
 
-#: app/export_png.c:114 app/load_save.c:746 app/render_eps.c:535
-#: plug-ins/cgm/cgm.c:1156 plug-ins/dxf/dxf-export.c:480
-#: plug-ins/hpgl/hpgl.c:731 plug-ins/metapost/render_metapost.c:733
+#: app/export_png.c:114 app/load_save.c:746 plug-ins/cgm/cgm.c:1156
+#: plug-ins/dxf/dxf-export.c:480 plug-ins/hpgl/hpgl.c:731
+#: plug-ins/metapost/render_metapost.c:733
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
 #: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
@@ -742,7 +743,7 @@ msgstr "Beziergon"
 msgid "Create Line"
 msgstr "Linie erzeugen"
 
-#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:242
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:246
 msgid "Line"
 msgstr "Linie"
 
@@ -965,7 +966,7 @@ msgstr "_Diagrammbaum"
 
 #: app/menus.c:54
 msgid "Show diagram tree"
-msgstr "Diagrammbaum zeigen"
+msgstr "Diagrammbaum anzeigen"
 
 #: app/menus.c:56
 msgid "_Sheets and Objects..."
@@ -1012,7 +1013,6 @@ msgid "Zoom _In"
 msgstr "_Heranzoomen"
 
 #: app/menus.c:130
-#, c-format
 msgid "Zoom in 50%"
 msgstr "50% vergrößern"
 
@@ -1021,7 +1021,6 @@ msgid "Zoom _Out"
 msgstr "_Wegzoomen"
 
 #: app/menus.c:131
-#, c-format
 msgid "Zoom out 50%"
 msgstr "50% verkleinern"
 
@@ -1052,7 +1051,7 @@ msgstr "_Lineale zeigen"
 
 #: app/menus.c:146
 msgid "Show _Connection Points"
-msgstr "Verbindungspunkte zeigen"
+msgstr "_Verbindungspunkte zeigen"
 
 #: app/menus.c:149
 msgid "New _View"
@@ -1339,52 +1338,42 @@ msgid "/View/_Zoom"
 msgstr "/Ansicht/_Zoomen"
 
 #: app/menus.c:361
-#, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Ansicht/Zoomen/400%"
 
 #: app/menus.c:362
-#, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Ansicht/Zoomen/283%"
 
 #: app/menus.c:363
-#, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Ansicht/Zoomen/200%"
 
 #: app/menus.c:364
-#, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Ansicht/Zoomen/141%"
 
 #: app/menus.c:365
-#, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Ansicht/Zoomen/100%"
 
 #: app/menus.c:367
-#, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Ansicht/Zoomen/85%"
 
 #: app/menus.c:368
-#, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Ansicht/Zoomen/70.7%"
 
 #: app/menus.c:369
-#, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Ansicht/Zoomen/50%"
 
 #: app/menus.c:370
-#, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Ansicht/Zoomen/35.4%"
 
 #: app/menus.c:371
-#, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Ansicht/Zoomen/25%"
 
@@ -1835,7 +1824,7 @@ msgstr "Diagrammbaum Fenster"
 
 #: app/preferences.c:168
 msgid "Show at startup:"
-msgstr "Beim Start zeigen:"
+msgstr "Beim Start anzeigen:"
 
 #: app/preferences.c:170
 msgid "Default width:"
@@ -1892,11 +1881,11 @@ msgstr "<Werkzeugkasten>/Datei/Beenden"
 msgid "Can't open history file for writing."
 msgstr "Chronikdatei kann zum Schreiben nicht geöffnet werden."
 
-#: app/render_eps.c:975
+#: app/render_eps.c:114
 msgid "Encapsulated Postscript"
 msgstr "Gekapseltes PostScript"
 
-#: app/render_libart.c:320 lib/dialibartrenderer.c:266
+#: app/render_libart.c:320 lib/dialibartrenderer.c:269
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Es wurde ein nicht unterstützter Füllmodus angegeben!\n"
 
@@ -2012,7 +2001,7 @@ msgstr "Objekt"
 msgid "Description:"
 msgstr "Beschreibung:"
 
-#: app/sheets_dialog.c:617 objects/FS/flow-ortho.c:166 objects/FS/flow.c:144
+#: app/sheets_dialog.c:617 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
@@ -2142,7 +2131,7 @@ msgstr "Formen hier hinzufügen"
 msgid "Loading ..."
 msgstr "Ladevorgang..."
 
-#: app/splash.c:75
+#: app/splash.c:76
 #, c-format
 msgid "Dia v %s"
 msgstr "Dia v %s"
@@ -2154,6 +2143,10 @@ msgstr "Diagrammeditor"
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Interner Fehler: Setzen der Eckentyp der Endpunkte der Bezierkurve"
+
+#: lib/dialibartrenderer.c:1117
+msgid "This Dia version is compiled without libart/text support."
+msgstr "Diese Dia-Version wurde ohne libart/text-Unterstützung kompiliert."
 
 #: lib/dia_xml.c:147
 #, c-format
@@ -2183,7 +2176,7 @@ msgstr "Fehler beim Parsen des Punktes."
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Falscher y-Punktwert \"%s\" %f; wird verworfen."
 
-#: lib/dia_xml.c:880
+#: lib/dia_xml.c:856
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2194,51 +2187,51 @@ msgstr ""
 "wurden, gibt, werden Sie auf Fehler stoßen. Bitte wenden Sie sich an dia-"
 "list@gnome.org, wenn Sie diese Meldung erhalten."
 
-#: lib/font.c:81
+#: lib/font.c:86
 #, c-format
 msgid "Can't load font %s.\n"
-msgstr ""
+msgstr "Schrift %s konnte nicht geladen werden.\n"
 
 #. This is the default text shown in the preview entry, though the user
 #. can set it. Remember that some fonts only have capital letters.
-#: lib/diagtkfontsel.c:72
+#: lib/diagtkfontsel.c:74
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
-#: lib/diagtkfontsel.c:207
+#: lib/diagtkfontsel.c:209
 msgid "Font name"
 msgstr "Schriftname"
 
-#: lib/diagtkfontsel.c:208
+#: lib/diagtkfontsel.c:210
 msgid "The X string that represents this font."
 msgstr "Die X-Zeichenkette, die diese Schrift repräsentiert."
 
-#: lib/diagtkfontsel.c:214
+#: lib/diagtkfontsel.c:216
 msgid "Preview text"
 msgstr "Vorschautext"
 
-#: lib/diagtkfontsel.c:215
+#: lib/diagtkfontsel.c:217
 msgid "The text to display in order to demonstrate the selected font."
 msgstr "Der zur Demonstration der gewählten Schriftart anzuzeigende Text."
 
-#: lib/diagtkfontsel.c:319
+#: lib/diagtkfontsel.c:321
 msgid "_Family:"
 msgstr "_Familie:"
 
-#: lib/diagtkfontsel.c:325
+#: lib/diagtkfontsel.c:327
 msgid "_Style:"
 msgstr "_Stil:"
 
-#: lib/diagtkfontsel.c:331
+#: lib/diagtkfontsel.c:333
 msgid "Si_ze:"
 msgstr "_Größe:"
 
 #. create the text entry widget
-#: lib/diagtkfontsel.c:460
+#: lib/diagtkfontsel.c:462
 msgid "_Preview:"
 msgstr "_Vorschau:"
 
-#: lib/diagtkfontsel.c:1250
+#: lib/diagtkfontsel.c:1252
 msgid "Font Selection"
 msgstr "Schriftwähler"
 
@@ -2248,7 +2241,7 @@ msgstr "Es ist eine gleichlautende Meldung vorhanden."
 
 #: lib/message.c:91
 msgid "Show repeated messages"
-msgstr "Wiederholt aufgetauchte Meldungen anzeigen"
+msgstr "Wiederholt auftauchende Meldungen anzeigen"
 
 #: lib/message.c:104
 #, c-format
@@ -2350,21 +2343,23 @@ msgstr "Endpfeil"
 msgid "Text alignment"
 msgstr "Textanordnung"
 
-#: lib/properties.c:79 lib/properties.h:504 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/step.c:162 objects/GRAFCET/transition.c:141
-#: objects/UML/class_dialog.c:327 objects/chronogram/chronoline.c:182
-#: objects/chronogram/chronoref.c:163
+#: lib/properties.c:79 lib/properties.h:504
+#: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
+#: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
+#: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
 msgid "Font"
 msgstr "Schrift"
 
-#: lib/properties.c:80 lib/properties.h:507 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/step.c:164 objects/GRAFCET/transition.c:143
+#: lib/properties.c:80 lib/properties.h:507
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
+#: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
+#: objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Schriftgröße"
 
-#: lib/properties.c:81 lib/properties.h:510 objects/GRAFCET/step.c:166
+#: lib/properties.c:81 lib/properties.h:510
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
+#: objects/GRAFCET/step.c:166
 msgid "Text colour"
 msgstr "Schriftfarbe"
 
@@ -2676,17 +2671,17 @@ msgstr "Insgesamt:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
 #: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
-#: objects/UML/association.c:686 objects/UML/dependency.c:351
-#: objects/UML/generalization.c:347 objects/UML/realizes.c:340
-#: objects/standard/zigzagline.c:495
+#: objects/standard/zigzagline.c:495 objects/UML/association.c:686
+#: objects/UML/dependency.c:351 objects/UML/generalization.c:347
+#: objects/UML/realizes.c:340
 msgid "Add segment"
 msgstr "Segment hinzufügen"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
 #: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
-#: objects/UML/association.c:687 objects/UML/dependency.c:352
-#: objects/UML/generalization.c:348 objects/UML/realizes.c:341
-#: objects/standard/zigzagline.c:496
+#: objects/standard/zigzagline.c:496 objects/UML/association.c:687
+#: objects/UML/dependency.c:352 objects/UML/generalization.c:348
+#: objects/UML/realizes.c:341
 msgid "Delete segment"
 msgstr "Segment löschen"
 
@@ -2714,9 +2709,9 @@ msgstr "Beziehung (Relation)"
 msgid "Corner radius"
 msgstr "Eckenradius"
 
-#: objects/SADT/box.c:136 objects/flowchart/box.c:149
-#: objects/flowchart/diamond.c:147 objects/flowchart/ellipse.c:146
-#: objects/flowchart/parallelogram.c:151
+#: objects/flowchart/box.c:149 objects/flowchart/diamond.c:147
+#: objects/flowchart/ellipse.c:146 objects/flowchart/parallelogram.c:151
+#: objects/SADT/box.c:136
 msgid "Text padding"
 msgstr "Textabstand"
 
@@ -2729,20 +2724,20 @@ msgid "Shear angle"
 msgstr "Scherenwinkel"
 
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow-ortho.c:157 objects/FS/flow-ortho.c:630
-#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/function.c:1061
+#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/flow-ortho.c:157
+#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1061
 msgid "Energy"
 msgstr "Energie"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow-ortho.c:158 objects/FS/flow-ortho.c:631
-#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/function.c:1037
+#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/flow-ortho.c:158
+#: objects/FS/flow-ortho.c:631 objects/FS/function.c:1037
 msgid "Material"
 msgstr "Material"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow-ortho.c:159 objects/FS/flow-ortho.c:632
-#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/function.c:999
+#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/flow-ortho.c:159
+#: objects/FS/flow-ortho.c:632 objects/FS/function.c:999
 #: objects/FS/function.c:1001 objects/FS/function.c:1137
 #: objects/FS/function.c:1139
 msgid "Signal"
@@ -3890,7 +3885,7 @@ msgid "Vergent type:"
 msgstr "Randtyp:"
 
 #: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:236
+#: objects/standard/line.c:240
 msgid "Add connection point"
 msgstr "Verbindungspunkt hinzufügen"
 
@@ -3988,7 +3983,7 @@ msgstr "Aktivitäts-/Datenmerkmal"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Der Bezeichner, der in der rechten, unteren Ecke des Kastens erscheint"
 
-#: objects/SADT/box.c:440 objects/standard/line.c:237
+#: objects/SADT/box.c:440 objects/standard/line.c:241
 msgid "Delete connection point"
 msgstr "Verbindungspunkt hinzufügen"
 
@@ -4063,37 +4058,6 @@ msgstr "Startpunkt"
 #: objects/standard/line.c:142
 msgid "End point"
 msgstr "Endpunkt"
-
-#: objects/standard/line.c:143
-msgid "Line gaps"
-msgstr "Zeilenabstände"
-
-#: objects/standard/line.c:145
-msgid "Absolute start gap"
-msgstr "Absoluter Startabstand"
-
-#: objects/standard/line.c:147
-msgid "Absolute end gap"
-msgstr "Anteiliger Endabstand"
-
-#: objects/standard/line.c:149
-msgid "Fractional start gap"
-msgstr "Anteiliger Startabstand"
-
-#: objects/standard/line.c:151
-msgid "Fractional end gap"
-msgstr "Anteiliger Endabstand"
-
-#: objects/standard/line.c:153
-#, fuzzy
-msgid "Start at object edge"
-msgstr "Standardobjekte"
-
-# CHECK
-#: objects/standard/line.c:155
-#, fuzzy
-msgid "End at object edge"
-msgstr "Graph-Bindungsobjekte"
 
 #: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"
