@@ -1,3 +1,32 @@
+2002-05-17  Hans Breuer  <hans@breuer.org>
+
+	* lib/libdia.def : reflect removing of render_store.[ch]
+
+	* */makefile.mingw : remove VERSION definition it's
+	done in config.h.win32. Dia still doesn't work if
+	build with mingw ...
+
+	* RELEASE-PROCESS : removed */makefile.mingw
+
+	* app/sheets_dialog_callbacks.c : if we use those
+	ugly charconv_gtk_* functions lib/charconv.h needs to
+	be #included ...
+	* lib/charconv.h : ... and needs to contain the 
+	necesseray prototypes _and_ #defines
+
+	* plug-ins/shape/shape-export.c : with libxml2 xmlNewGlobalNs
+	is deprecated and does nothing but spit a warning. This broke
+	the shape format writing. Fixed.
+	Also with libxml2 pretty formatted xml isn't the default
+	anymore, but needs to be enabled explicit: It is done now 
+	for shape files, which almost always needed to be edited by
+	hand ... 
+
+	* app/app_procs.c : #if G_OS_WIN32 redirect xmlErrorReporting
+	from stderr - which is invalid on Dia/win32 - to g_print -
+	which opens up a console window if necessary. This way
+	a xml-deprecation-error shouldn't stay unnoticed next time
+
 2002-05-17  Steffen Macke <sdteffen@web.de>
 
 	* shapes/Misc/folder.png:

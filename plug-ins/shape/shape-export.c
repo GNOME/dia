@@ -217,8 +217,17 @@ new_shape_renderer(DiagramData *data, const char *filename)
   /* set up the root node */
   renderer->doc = xmlNewDoc("1.0");
   renderer->doc->encoding = xmlStrdup("UTF-8");
+#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
+  /*
+   * xmlNewGlobalNs is deprececated and broken (does nothing)
+   * with libxml2.4.[2..20] at least
+   */
+  renderer->root = xmlNewDocNode(renderer->doc, NULL, "shape", NULL);
+  name_space = xmlNewNs(renderer->root, "http://www.daa.com.au/~james/dia-shape-ns", NULL);
+#else
   name_space = xmlNewGlobalNs(renderer->doc, "http://www.daa.com.au/~james/dia-shape-ns", NULL);
   renderer->root = xmlNewDocNode(renderer->doc, name_space, "shape", NULL);
+#endif
   renderer->svg_name_space = xmlNewNs(renderer->root, "http://www.w3.org/2000/svg", "svg");
   renderer->doc->xmlRootNode = renderer->root;
 
@@ -260,6 +269,13 @@ begin_render(RendererShape *renderer, DiagramData *data)
 static void
 end_render(RendererShape *renderer)
 {
+  int old_blanks_default = pretty_formated_xml;
+
+  /* FIXME HACK: we always want nice readable shape files,
+   *  but toggling it by a global var is ugly   --hb 
+   */
+  pretty_formated_xml = TRUE;
+
   g_free(renderer->linestyle);
   renderer->linestyle = NULL;
   
@@ -268,6 +284,7 @@ end_render(RendererShape *renderer)
   g_free(renderer->filename);
   renderer->filename = NULL;
   xmlFreeDoc(renderer->doc);
+  pretty_formated_xml = old_blanks_default;
 }
 
 static void 

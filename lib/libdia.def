@@ -361,20 +361,6 @@ EXPORTS
  rectangle_union
  rectangle_union
  remove_focus
- rs_add_draw_arc
- rs_add_draw_bezier
- rs_add_draw_ellipse
- rs_add_draw_line
- rs_add_draw_polygon
- rs_add_draw_rect
- rs_add_fill_arc
- rs_add_fill_ellipse
- rs_add_fill_polygon
- rs_add_fill_rect
- rs_add_set_linecaps
- rs_add_set_linejoin
- rs_add_set_linestyle
- rs_add_set_linewidth
  text_calc_boundingbox
  text_copy
  text_delete_all

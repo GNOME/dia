@@ -87,9 +87,7 @@ Files
 These files need to be updated at every release:
 
 config.h.win32
-app/makefile.mingw
 News
 configure.in
-plug-ins/makefile.mingw
 doc/en/dia-manual.sgml?
 dia.spec

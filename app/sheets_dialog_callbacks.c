@@ -61,6 +61,7 @@
 #include "../lib/dia_dirs.h"
 #include "../lib/dia_xml_libxml.h"
 #include "../lib/plug-ins.h"
+#include "../lib/charconv.h"
 
 #include "interface.h"
 #include "message.h"

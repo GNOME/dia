@@ -38,6 +38,12 @@ typedef gunichar unichar;
 #define utf8_gtk_entry_set_text gtk_entry_set_text
 #define utf8_gtk_editable_get_text gtk_editable_get_text
 
+/* IMHO the gtk text api is too big to do this ... --hb */
+#define charconv_gtk_entry_set_text(entry,text) \
+	gtk_entry_set_text(entry,text)
+#define charconv_gtk_editable_get_chars(entry,start,end) \
+		gtk_editable_get_chars(entry,start,end)
+
 /* The following code is for the case we don't HAVE_UNICODE. We'll have to 
    define the same-looking macros around libunicode, but only when that's 
    actually expected to work :-) */

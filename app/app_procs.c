@@ -52,6 +52,7 @@
 #endif
 
 #include <parser.h>
+#include <xmlerror.h>
 
 #ifdef G_OS_WIN32
 #include <direct.h>
@@ -197,6 +198,22 @@ app_is_interactive(void)
   return dia_is_interactive;
 }
 
+#ifdef G_OS_WIN32
+static void
+myXmlErrorReporting (void *ctx, const char* msg, ...)
+{
+  va_list args;
+  gchar *string;
+
+  va_start(args, msg);
+  string = g_strdup_vprintf (msg, args);
+  g_print (string);
+  va_end(args);
+
+  g_free(string);
+}
+#endif
+
 void
 app_init (int argc, char **argv)
 {
@@ -295,6 +312,10 @@ app_init (int argc, char **argv)
   }
 
   LIBXML_TEST_VERSION;
+
+#ifdef G_OS_WIN32
+  xmlSetGenericErrorFunc(NULL, myXmlErrorReporting);
+#endif
 
   stdprops_init();
 
