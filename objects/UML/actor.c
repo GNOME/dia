@@ -142,7 +142,7 @@ actor_move(Actor *actor, Point *to)
   
   elem->corner = *to;
   elem->corner.x -= elem->width/2.0;
-  elem->corner.y -= ACTOR_BODY;
+  elem->corner.y -= elem->height / 2.0;
 
   actor_update_data(actor);
 }
@@ -257,7 +257,7 @@ actor_update_data(Actor *actor)
 
   obj->position = elem->corner;
   obj->position.x += elem->width/2.0;
-  obj->position.y += ACTOR_BODY;
+  obj->position.y += elem->height / 2.0;
 
   element_update_handles(elem);
 }

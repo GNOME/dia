@@ -1,3 +1,12 @@
+1999-04-23  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
+
+	* objects/UML/classicon.c: 
+	Added object mode.
+
+	* objects/UML/actor.c: 
+	Changed position of 'snap-to-grid' so connection points are
+	in the grid.
+
 1999-04-22  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/UML/classicon.c:

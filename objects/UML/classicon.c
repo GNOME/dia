@@ -44,6 +44,7 @@ struct _Classicon {
   ConnectionPoint connections[8];
   
   int stereotype;
+  int is_object;
   Text *text;
 };
 
@@ -52,6 +53,7 @@ struct _ClassiconPropertiesDialog {
   GtkWidget *m_control;
   GtkWidget *m_bound;
   GtkWidget *m_entity;  
+  GtkWidget *is_object;
 };
 
 
@@ -179,6 +181,7 @@ classicon_draw(Classicon *icon, Renderer *renderer)
   Element *elem;
   real r, x, y, w, h;
   Point center, p1, p2;
+  int i;
   
   assert(icon != NULL);
   assert(renderer != NULL);
@@ -255,6 +258,21 @@ classicon_draw(Classicon *icon, Renderer *renderer)
   }
   
   text_draw(icon->text, renderer);
+
+  if (icon->is_object) {
+    renderer->ops->set_linewidth(renderer, 0.01);
+    if (icon->stereotype==CLASSICON_BOUNDARY)
+      x += r/2.0;
+    p1.y = p2.y = icon->text->position.y + icon->text->descent;
+    for (i=0; i<icon->text->numlines; i++) { 
+      p1.x = x + (w - icon->text->row_width[i])/2;
+      p2.x = p1.x + icon->text->row_width[i];
+      renderer->ops->draw_line(renderer,
+			       &p1, &p2,
+			       &color_black);
+      p1.y = p2.y += icon->text->height;
+    }
+  }
 }
 
 static void
@@ -360,6 +378,7 @@ classicon_create(Point *startpoint,
   font = font_getfont("Helvetica");
   
   cicon->stereotype = 0;
+  cicon->is_object = 0;
 
   /* The text position is recalculated later */
   p.x = 0.0;
@@ -419,7 +438,8 @@ classicon_copy(Classicon *cicon)
   }
 
   newcicon->stereotype = cicon->stereotype;
-  
+  newcicon->is_object = cicon->is_object;
+
   classicon_update_data(newcicon);
   
   return (Object *)newcicon;
@@ -436,6 +456,9 @@ classicon_save(Classicon *cicon, ObjectNode obj_node, const char *filename)
 
   data_add_int(new_attribute(obj_node, "stereotype"),
 		   cicon->stereotype);
+
+  data_add_boolean(new_attribute(obj_node, "is_object"),
+		   cicon->is_object);
 }
 
 static Object *
@@ -466,6 +489,11 @@ classicon_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
       cicon->stereotype = data_int(attribute_first_data(attr));
 
+  cicon->is_object = 0;
+  attr = object_find_attribute(obj_node, "is_object");
+  if (attr != NULL)
+      cicon->is_object = data_boolean(attribute_first_data(attr));
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {
@@ -490,6 +518,8 @@ classicon_apply_properties(Classicon *cicon)
 
   prop_dialog = properties_dialog;
 
+  cicon->is_object = GTK_TOGGLE_BUTTON(prop_dialog->is_object)->active;
+
   /* Read from dialog and put in object: */
   if (GTK_TOGGLE_BUTTON(prop_dialog->m_control)->active) {
       cicon->stereotype = CLASSICON_CONTROL;
@@ -510,6 +540,9 @@ fill_in_dialog(Classicon *cicon)
 
   prop_dialog = properties_dialog;
 
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prop_dialog->is_object), 
+			       cicon->is_object);
+
   switch (cicon->stereotype) {
   case CLASSICON_CONTROL:
       button = GTK_TOGGLE_BUTTON(prop_dialog->m_control);
@@ -529,6 +562,7 @@ classicon_get_properties(Classicon *dep)
 {
   ClassiconPropertiesDialog *prop_dialog;
   GtkWidget *dialog;
+  GtkWidget *label;
   GSList *group;
 
   if (properties_dialog == NULL) {
@@ -553,6 +587,14 @@ classicon_get_properties(Classicon *dep)
     prop_dialog->m_entity = gtk_radio_button_new_with_label(group, _("Entity"));
     gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->m_entity, TRUE, TRUE, 0);
     gtk_widget_show (prop_dialog->m_entity);
+
+    label = gtk_hseparator_new ();
+    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+
+    prop_dialog->is_object = gtk_check_button_new_with_label(_("Is an object"));
+    gtk_widget_show(prop_dialog->is_object);
+    gtk_box_pack_start (GTK_BOX (dialog), prop_dialog->is_object, TRUE, TRUE, 0);
   }
   
   fill_in_dialog(dep);
