@@ -195,8 +195,11 @@ typedef void (*MoveHandleFunc) (Object*          obj,
     gtk_object_sink(GTK_OBJECT(widget)); / * optional, but recommended * /
   If you don't do this, the widget will be destroyed when the
   properties dialog is closed.
+
+  If is_default is true, this dialog is for object defaults, and
+  the toolbox options should not be shown.
 */
-typedef GtkWidget *(*GetPropertiesFunc) (Object* obj);
+typedef GtkWidget *(*GetPropertiesFunc) (Object* obj, gboolean is_default);
 
 /*
   Thiss function is called when the user clicks on
