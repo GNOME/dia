@@ -157,7 +157,9 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     renderer_ops->set_linewidth(renderer, linewidth);
     renderer_ops->draw_line(renderer, &to, &from, &color_black);
     arrow_draw (renderer, arrow->atype, 
-                &to, &from, (real)height-linewidth, (real)height-linewidth,
+                &to, &from, 
+		.75*((real)height-linewidth), 
+		.75*((real)height-linewidth),
                 linewidth, &color_black, &color_white);
     renderer_ops->end_render(renderer);
     g_object_unref(renderer);

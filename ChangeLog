@@ -1,3 +1,11 @@
+2003-12-13  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/lineprops_area.c (dia_arrow_preview_expose): Make arrows
+	render a little smaller, so as to fit the big ones.
+
+	* lib/arrows.[ch]: New arrow type from W. Borgert
+	<debacle@debian.org>: Filled Dot and Triangle.
+
 2003-12-02  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* doc/pl/Makefile.am (install-data-hook): Fixed installation bug

@@ -50,8 +50,9 @@ struct menudesc arrow_types[] =
    {N_("Filled Dot"),ARROW_FILLED_DOT},
    {N_("Dimension Origin"),ARROW_DIMENSION_ORIGIN},
    {N_("Blanked Dot"),ARROW_BLANKED_DOT},
-   {N_("Double Hollow triangle"),ARROW_DOUBLE_HOLLOW_TRIANGLE},
-   {N_("Double Filled triangle"),ARROW_DOUBLE_FILLED_TRIANGLE},
+   {N_("Double Hollow Triangle"),ARROW_DOUBLE_HOLLOW_TRIANGLE},
+   {N_("Double Filled Triangle"),ARROW_DOUBLE_FILLED_TRIANGLE},
+   {N_("Filled Dot and Triangle"), ARROW_FILLED_DOT_N_TRIANGLE},
    {N_("Filled Box"),ARROW_FILLED_BOX},
    {N_("Blanked Box"),ARROW_BLANKED_BOX},
    {N_("Slashed"),ARROW_SLASH_ARROW},
@@ -241,6 +242,12 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
     point_sub(move_line, from);
     point_normalize(move_line);
     point_scale(move_line, 2*arrow->length);
+    return;
+  case ARROW_FILLED_DOT_N_TRIANGLE:
+    *move_line = *to;
+    point_sub(move_line, from);
+    point_normalize(move_line);
+    point_scale(move_line, arrow->length + arrow->width);
     return;
   default: 
     move_arrow->x = 0.0;
@@ -1042,6 +1049,42 @@ draw_open_rounded(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &p, width, length, angle_start - 180.0, angle_start, fg_color);  
 }
 
+static void
+draw_filled_dot_n_triangle(DiaRenderer *renderer, Point *to, Point *from,
+			   real length, real width, real linewidth,
+			   Color *fg_color, Color *bg_color)
+{
+  Point p_dot = *to, p_tri = *to, delta;
+  real len, rayon;
+  real rapport;
+  Point poly[3];
+
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  
+  delta = *from;
+  
+  point_sub(&delta, to);	
+  
+  len = sqrt(point_dot(&delta, &delta)); /* line length */
+  
+  /* dot */
+  rayon = (width / 2.0);
+  rapport = rayon / len;
+  p_dot.x += delta.x * rapport;
+  p_dot.y += delta.y * rapport;
+  DIA_RENDERER_GET_CLASS(renderer)->fill_ellipse(renderer, &p_dot,
+						 width, width, fg_color);
+  /* triangle */
+  rapport = width / len;
+  p_tri.x += delta.x * rapport;
+  p_tri.y += delta.y * rapport;
+  calculate_arrow(poly, &p_tri, from, length, width);
+  DIA_RENDERER_GET_CLASS(renderer)->fill_polygon(renderer, poly, 3, fg_color);
+}
+
 void
 arrow_draw(DiaRenderer *renderer, ArrowType type,
 	   Point *to, Point *from,
@@ -1135,6 +1178,10 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
   case ARROW_OPEN_ROUNDED:
     draw_open_rounded(renderer, to, from, length, width, linewidth,
 		      fg_color, bg_color);
+    break;
+  case ARROW_FILLED_DOT_N_TRIANGLE:
+    draw_filled_dot_n_triangle(renderer, to, from, length, width, linewidth,
+			       fg_color, bg_color);
     break;
   } 
 }
