@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2002-07-01 15:16+0200\n"
+"POT-Creation-Date: 2002-08-05 23:39+0200\n"
 "PO-Revision-Date: 2002-06-16 21:25+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -19,62 +19,70 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:158
+#: app/app_procs.c:160
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
 msgstr "%s-fel: indata- och utdatafilnamn är indentiska: %s"
 
-#: app/app_procs.c:169
+#: app/app_procs.c:171
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s-fel: behöver en giltig indatafil %s\n"
 
-#: app/app_procs.c:176
+#: app/app_procs.c:178
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s-fel: vet inte hur man exporterar till %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:182
+#: app/app_procs.c:184
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
 #. &export_file_name
-#: app/app_procs.c:236
+#: app/app_procs.c:240
 msgid "Export loaded file and exit"
 msgstr "Exportera inläst fil och avsluta"
 
-#: app/app_procs.c:236 app/diaconv.c:94
+#: app/app_procs.c:240 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "UTDATA"
 
 #. &export_file_format
-#: app/app_procs.c:238
+#: app/app_procs.c:242
 msgid "Export to file format and exit"
 msgstr "Exportera till filformat och avsluta"
 
-#: app/app_procs.c:238 app/diaconv.c:92
+#: app/app_procs.c:242 app/diaconv.c:92
 msgid "eps,png,wmf,cgm,dxf,fig"
 msgstr "eps,png,wmf,cgm,dxf,fig"
 
-#: app/app_procs.c:240
+#: app/app_procs.c:244
 msgid "Don't show the splash screen"
 msgstr "Visa inte startbilden"
 
-#: app/app_procs.c:242 app/diaconv.c:95
+#: app/app_procs.c:246
+msgid "Display credits list and exit"
+msgstr ""
+
+#: app/app_procs.c:248
+msgid "Display version and exit"
+msgstr ""
+
+#: app/app_procs.c:250 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Visa detta hjälpmeddelande"
 
-#: app/app_procs.c:271
+#: app/app_procs.c:280
 msgid "Can't connect to session manager!\n"
 msgstr "Kan inte få kontakt med sessionshanteraren!\n"
 
-#: app/app_procs.c:282 app/diaconv.c:119
+#: app/app_procs.c:294 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAGGA...] [FIL...]"
 
-#: app/app_procs.c:286 app/diaconv.c:126
+#: app/app_procs.c:298 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -84,12 +92,22 @@ msgstr ""
 "Kör \"%s --help\" för att se en fullständig lista över tillgängliga "
 "kommandoradsalternativ.\n"
 
-#: app/app_procs.c:299
+#: app/app_procs.c:311
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
 msgstr "%s-fel: endast en av -f eller -o kan anges."
 
-#: app/app_procs.c:350 app/app_procs.c:352 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:324
+#, c-format
+msgid "Dia version %s, compiled %s %s\n"
+msgstr ""
+
+#: app/app_procs.c:326
+#, fuzzy, c-format
+msgid "Dia version %s\n"
+msgstr "Dia v. %s"
+
+#: app/app_procs.c:409 app/app_procs.c:411 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
@@ -97,7 +115,7 @@ msgstr ""
 "avslutar...\n"
 
 #. no standard buttons
-#: app/app_procs.c:473
+#: app/app_procs.c:536
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -107,15 +125,15 @@ msgstr ""
 "Är du säker på att du vill avsluta\n"
 "Dia utan att spara dem?"
 
-#: app/app_procs.c:477
+#: app/app_procs.c:540
 msgid "Quit Dia"
 msgstr "Avsluta Dia"
 
-#: app/app_procs.c:537 app/app_procs.c:544
+#: app/app_procs.c:600 app/app_procs.c:607
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunde inte skapa katalog med personliga Dia-inställningar."
 
-#: app/app_procs.c:546
+#: app/app_procs.c:609
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -123,28 +141,39 @@ msgstr ""
 "Kunde inte skapa en personlig Dia-konfigurationskatalog. Kontrollera att "
 "miljövariabeln HOME pekar till en existerande katalog."
 
-#: app/app_procs.c:568 app/diaconv.c:249
+#: app/app_procs.c:631 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Interna objekt och filter i dia"
 
-#: app/color_area.c:301 lib/widgets.c:825
+#: app/autosave.c:92
+#, fuzzy
+msgid "Recovering autosaved diagrams"
+msgstr "Event Modelling Language-diagram"
+
+#: app/autosave.c:100
+msgid ""
+"Autosaved files exist.\n"
+"Please select those you wish to recover."
+msgstr ""
+
+#: app/color_area.c:301 lib/widgets.c:834
 msgid "Select color"
 msgstr "Välj färg"
 
-#: app/commands.c:130
+#: app/commands.c:132
 #, c-format
 msgid "Untitled-%d"
 msgstr "Namnlös-%d"
 
-#: app/commands.c:195
+#: app/commands.c:197
 msgid "No existing object to paste.\n"
 msgstr "Det finns inget existerande objekt att klistra in.\n"
 
-#: app/commands.c:467 app/commands.c:495
+#: app/commands.c:468 app/commands.c:496
 msgid "Could not find help directory"
 msgstr "Kunde inte hitta hjälpkatalogen"
 
-#: app/commands.c:474
+#: app/commands.c:475
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -158,58 +187,47 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:568
+#: app/commands.c:536
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 
-#: app/commands.c:582 dia.desktop.in.h:2
+#: app/commands.c:550 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:584
+#: app/commands.c:552
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr ""
 
-#: app/commands.c:585
+#: app/commands.c:553
 #, fuzzy
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
 msgstr "Besök http://www.lysator.liu.se/~alla/dia för mer information"
 
-#: app/commands.c:624
+#: app/commands.c:592
 msgid "About Dia"
 msgstr "Om Dia"
 
-#: app/commands.c:667
+#: app/commands.c:635
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:673
+#: app/commands.c:641
 msgid "Maintainers: Lars Clausen and Cyrille Chépélov"
 msgstr ""
 
-#: app/commands.c:677
+#: app/commands.c:645
 #, fuzzy
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr "Besök http://www.lysator.liu.se/~alla/dia för mer information"
 
-#: app/commands.c:682
+#: app/commands.c:650
 msgid "Contributors:"
 msgstr "Bidragsgivare:"
-
-#: app/commands.c:794
-msgid ""
-"The anti aliased renderer is buggy, and may cause\n"
-"crashes.  We know there are bugs in it, so don't\n"
-"bother submitting another report if it crashes"
-msgstr ""
-"Den kantutjämnande renderaren är buggig och kan orsaka\n"
-"krascher. Vi vet att det finns buggar i den, så det är\n"
-"inte nödvändigt att skicka in fler felrapporter om den\n"
-"kraschar"
 
 #: app/defaults.c:43 app/defaults.c:140
 msgid "Object defaults"
@@ -371,64 +389,64 @@ msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:989 app/lineprops_area.c:436
 #: app/lineprops_area.c:636 app/linewidth_area.c:246
-#: app/paginate_psprint.c:268
+#: app/paginate_psprint.c:272
 msgid "Cancel"
 msgstr "Avbryt"
 
 #. paper size
-#: app/diapagelayout.c:115
+#: app/diapagelayout.c:116
 msgid "Paper Size"
 msgstr "Pappersstorlek"
 
 #. orientation
-#: app/diapagelayout.c:148
+#: app/diapagelayout.c:149
 msgid "Orientation"
 msgstr "Orientering"
 
 #. margins
-#: app/diapagelayout.c:186
+#: app/diapagelayout.c:187
 msgid "Margins"
 msgstr "Marginaler"
 
-#: app/diapagelayout.c:198
+#: app/diapagelayout.c:199
 msgid "Top:"
 msgstr "Ovansida:"
 
-#: app/diapagelayout.c:211
+#: app/diapagelayout.c:212
 msgid "Bottom:"
 msgstr "Undersida:"
 
-#: app/diapagelayout.c:224
+#: app/diapagelayout.c:225
 msgid "Left:"
 msgstr "Vänster:"
 
-#: app/diapagelayout.c:237
+#: app/diapagelayout.c:238
 msgid "Right:"
 msgstr "Höger:"
 
 #. Scaling
-#: app/diapagelayout.c:251
+#: app/diapagelayout.c:252
 msgid "Scaling"
 msgstr "Skalning"
 
-#: app/diapagelayout.c:262
+#: app/diapagelayout.c:263
 msgid "Scale:"
 msgstr "Skala:"
 
-#: app/diapagelayout.c:274
+#: app/diapagelayout.c:275
 msgid "Fit to:"
 msgstr "Anpassa till:"
 
-#: app/diapagelayout.c:286
+#: app/diapagelayout.c:287
 msgid "by"
 msgstr "till"
 
-#: app/diapagelayout.c:681
+#: app/diapagelayout.c:682
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm × %0.3gcm"
 
-#: app/diapagelayout.c:785 app/pagesetup.c:60 app/pagesetup.c:68
+#: app/diapagelayout.c:786 app/pagesetup.c:60 app/pagesetup.c:68
 msgid "Page Setup"
 msgstr "Sidinställningar"
 
@@ -460,11 +478,11 @@ msgstr "Rutnät"
 msgid "Background Colour"
 msgstr "Bakgrundsfärg"
 
-#: app/dia-props.c:157 lib/diagramdata.c:59
+#: app/dia-props.c:157 lib/diagramdata.c:60
 msgid "Background"
 msgstr "Bakgrund"
 
-#: app/disp_callbacks.c:75 app/properties.c:122
+#: app/disp_callbacks.c:76 app/properties.c:122
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -472,11 +490,11 @@ msgstr ""
 "Detta objekt stöder inte Ångra/Gör om.\n"
 "Ångrainformationen raderad."
 
-#: app/disp_callbacks.c:196
+#: app/disp_callbacks.c:212
 msgid "No object menu"
 msgstr "Ingen objektmeny"
 
-#: app/display.c:88 app/display.c:89 app/interface.c:452
+#: app/display.c:88 app/display.c:89 app/interface.c:454
 msgid "Zoom"
 msgstr "Zooma"
 
@@ -484,11 +502,11 @@ msgstr "Zooma"
 msgid "Diagram modified!"
 msgstr "Diagrammet är ändrat!"
 
-#: app/display.c:856
+#: app/display.c:854
 msgid "<unnamed>"
 msgstr "<namnlös>"
 
-#: app/display.c:858
+#: app/display.c:856
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -497,21 +515,21 @@ msgstr ""
 "Diagrammet \"%s\"\n"
 "har inte sparats. Vill du spara ändringar nu?"
 
-#: app/display.c:869
+#: app/display.c:867
 msgid "Close Diagram"
 msgstr "Stäng diagram"
 
-#: app/display.c:874
+#: app/display.c:872
 msgid "Discard Changes"
 msgstr "Förkasta ändringar"
 
-#: app/export_png.c:115 app/load_save.c:625 app/render_eps.c:446
+#: app/export_png.c:115 app/load_save.c:740 app/render_eps.c:484
 #: plug-ins/cgm/cgm.c:1156 plug-ins/dxf/dxf-export.c:521
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
 #: plug-ins/pstricks/render_pstricks.c:196 plug-ins/python/pydia-render.c:671
-#: plug-ins/shape/shape-export.c:199 plug-ins/svg/render_svg.c:187
-#: plug-ins/wmf/wmf.cpp:897 plug-ins/wpg/wpg.c:935
-#: plug-ins/xfig/xfig-export.c:742 plug-ins/xslt/xslt.c:84
+#: plug-ins/shape/shape-export.c:200 plug-ins/svg/render_svg.c:200
+#: plug-ins/wmf/wmf.cpp:892 plug-ins/wpg/wpg.c:935
+#: plug-ins/xfig/xfig-export.c:753 plug-ins/xslt/xslt.c:84
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunde inte öppna: \"%s\" för skrivning.\n"
@@ -579,13 +597,13 @@ msgstr ""
 "Filen \"%s\" finns redan redan.\n"
 "Vill du skriva över den?"
 
-#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:604
+#: app/filedlg.c:249 app/filedlg.c:454 app/preferences.c:591
 #: lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ja"
 
-#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:604
-#: app/preferences.c:615 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
+#: app/filedlg.c:262 app/filedlg.c:467 app/preferences.c:591
+#: app/preferences.c:602 lib/prop_inttypes.c:153 lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Nej"
 
@@ -629,12 +647,12 @@ msgstr "Exportalternativ"
 msgid "Modify object(s)"
 msgstr "Modifiera objekt"
 
-#: app/interface.c:44 app/menus.c:208
+#: app/interface.c:44 app/menus.c:207
 msgid "Modify"
 msgstr "Modifiera"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:48 app/interface.c:49 app/menus.c:209
+#: app/interface.c:48 app/interface.c:49 app/menus.c:208
 #: objects/FS/function.c:951
 msgid "Magnify"
 msgstr "Förstora"
@@ -643,7 +661,7 @@ msgstr "Förstora"
 msgid "Scroll around the diagram"
 msgstr "Rulla i diagrammet"
 
-#: app/interface.c:54 app/menus.c:210
+#: app/interface.c:54 app/menus.c:209
 msgid "Scroll"
 msgstr "Rulla"
 
@@ -655,11 +673,12 @@ msgstr "Skapa text"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:59 app/menus.c:211 lib/properties.c:77 lib/properties.h:502
-#: lib/properties.h:505 objects/UML/actor.c:114 objects/UML/classicon.c:137
-#: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
-#: objects/UML/object.c:142 objects/UML/small_package.c:120
-#: objects/UML/state.c:143 objects/UML/usecase.c:130
+#: app/interface.c:59 app/menus.c:210 lib/properties.c:77 lib/properties.h:507
+#: lib/properties.h:510 objects/UML/activity.c:123 objects/UML/actor.c:114
+#: objects/UML/classicon.c:137 objects/UML/component.c:120
+#: objects/UML/node.c:119 objects/UML/note.c:113 objects/UML/object.c:142
+#: objects/UML/small_package.c:120 objects/UML/state.c:141
+#: objects/UML/usecase.c:130
 msgid "Text"
 msgstr "Text"
 
@@ -667,7 +686,7 @@ msgstr "Text"
 msgid "Create Box"
 msgstr "Skapa låda"
 
-#: app/interface.c:64 app/menus.c:212
+#: app/interface.c:64 app/menus.c:211
 msgid "Box"
 msgstr "Låda"
 
@@ -675,7 +694,7 @@ msgstr "Låda"
 msgid "Create Ellipse"
 msgstr "Skapa ellips"
 
-#: app/interface.c:69 app/menus.c:213
+#: app/interface.c:69 app/menus.c:212
 msgid "Ellipse"
 msgstr "Ellips"
 
@@ -683,7 +702,7 @@ msgstr "Ellips"
 msgid "Create Polygon"
 msgstr "Skapa polygon"
 
-#: app/interface.c:74 app/menus.c:214
+#: app/interface.c:74 app/menus.c:213
 msgid "Polygon"
 msgstr "Polygon"
 
@@ -691,7 +710,7 @@ msgstr "Polygon"
 msgid "Create Beziergon"
 msgstr "Skapa beziergon"
 
-#: app/interface.c:79 app/menus.c:215
+#: app/interface.c:79 app/menus.c:214
 msgid "Beziergon"
 msgstr "Beziergon"
 
@@ -699,7 +718,7 @@ msgstr "Beziergon"
 msgid "Create Line"
 msgstr "Skapa linje"
 
-#: app/interface.c:84 app/menus.c:216 objects/standard/line.c:188
+#: app/interface.c:84 app/menus.c:215 objects/standard/line.c:187
 msgid "Line"
 msgstr "Linje"
 
@@ -707,7 +726,7 @@ msgstr "Linje"
 msgid "Create Arc"
 msgstr "Skapa båge"
 
-#: app/interface.c:89 app/menus.c:217
+#: app/interface.c:89 app/menus.c:216
 msgid "Arc"
 msgstr "Båge"
 
@@ -715,7 +734,7 @@ msgstr "Båge"
 msgid "Create Zigzagline"
 msgstr "Skapa sicksacklinje"
 
-#: app/interface.c:94 app/menus.c:218
+#: app/interface.c:94 app/menus.c:217
 msgid "Zigzagline"
 msgstr "Sicksacklinje"
 
@@ -723,7 +742,7 @@ msgstr "Sicksacklinje"
 msgid "Create Polyline"
 msgstr "Skapa polylinje"
 
-#: app/interface.c:99 app/menus.c:219
+#: app/interface.c:99 app/menus.c:218
 msgid "Polyline"
 msgstr "Polylinje"
 
@@ -731,7 +750,7 @@ msgstr "Polylinje"
 msgid "Create Bezierline"
 msgstr "Skapa bezierkurva"
 
-#: app/interface.c:104 app/menus.c:220
+#: app/interface.c:104 app/menus.c:219
 msgid "Bezierline"
 msgstr "Bezierkurva"
 
@@ -739,15 +758,15 @@ msgstr "Bezierkurva"
 msgid "Create Image"
 msgstr "Skapa bild"
 
-#: app/interface.c:109 app/menus.c:221
+#: app/interface.c:109 app/menus.c:220
 msgid "Image"
 msgstr "Bild"
 
-#: app/interface.c:499
+#: app/interface.c:501
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL-tooldata i tool_select_update"
 
-#: app/interface.c:945
+#: app/interface.c:956
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -755,7 +774,7 @@ msgstr ""
 "För- och bakgrundsfärger. Symbolen med en svart och vit ruta återställer "
 "färgerna. Pilarna byter färger. Dubbelklicka för att ändra färgerna."
 
-#: app/interface.c:1094
+#: app/interface.c:1105
 msgid "Diagram Editor"
 msgstr "Diagramredigerare"
 
@@ -783,7 +802,7 @@ msgstr "Lager"
 msgid "Diagrams:"
 msgstr "Diagram:"
 
-#: app/layer_dialog.c:264 app/pagesetup.c:83 app/preferences.c:732
+#: app/layer_dialog.c:264 app/pagesetup.c:83 app/preferences.c:737
 msgid "Close"
 msgstr "Stäng"
 
@@ -805,8 +824,8 @@ msgstr "Lagernamn:"
 
 #. setup buttons
 #: app/layer_dialog.c:979 app/lineprops_area.c:427 app/lineprops_area.c:626
-#: app/linewidth_area.c:237 app/pagesetup.c:72 app/paginate_psprint.c:260
-#: app/preferences.c:714
+#: app/linewidth_area.c:237 app/pagesetup.c:72 app/paginate_psprint.c:264
+#: app/preferences.c:719
 msgid "OK"
 msgstr "OK"
 
@@ -822,8 +841,8 @@ msgstr "Detaljer..."
 msgid "Line Style Properties"
 msgstr "Linjeegenskaper"
 
-#: app/linewidth_area.c:216 lib/properties.h:478
-#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
+#: app/linewidth_area.c:216 lib/properties.h:483
+#: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Linjebredd"
 
@@ -831,7 +850,7 @@ msgstr "Linjebredd"
 msgid "Line width:"
 msgstr "Linjebredd:"
 
-#: app/load_save.c:193
+#: app/load_save.c:194
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -839,7 +858,7 @@ msgstr ""
 "Fel vid inläsning av diagram.\n"
 "Refererat objekt finns inte i dokumentet."
 
-#: app/load_save.c:196
+#: app/load_save.c:197
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -847,7 +866,7 @@ msgstr ""
 "Fel vid inläsning av diagram.\n"
 "Anslutningspunkten finns inte."
 
-#: app/load_save.c:199
+#: app/load_save.c:200
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -855,17 +874,17 @@ msgstr ""
 "Fel vid inläsning av diagram.\n"
 "Anslutningshandtaget finns inte."
 
-#: app/load_save.c:248
+#: app/load_save.c:249
 msgid "You must specify a file, not a directory.\n"
 msgstr "Du måste ange en fil, inte en katalog.\n"
 
-#: app/load_save.c:255 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1044
-#: plug-ins/xfig/xfig-import.c:1168 plug-ins/xslt/xslt.c:75
+#: app/load_save.c:256 plug-ins/dxf/dxf-import.c:615 plug-ins/wpg/wpg.c:1044
+#: plug-ins/xfig/xfig-import.c:1346 plug-ins/xslt/xslt.c:75
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunde inte öppna: \"%s\" för läsning.\n"
 
-#: app/load_save.c:264 app/load_save.c:269
+#: app/load_save.c:265 app/load_save.c:270
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -874,7 +893,7 @@ msgstr ""
 "Fel vid inläsning av diagrammet %s.\n"
 "Okänd filtyp."
 
-#: app/load_save.c:276
+#: app/load_save.c:277
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -883,7 +902,7 @@ msgstr ""
 "Fel vid inläsning av diagrammet %s.\n"
 "Inte en Dia-fil."
 
-#: app/load_save.c:462
+#: app/load_save.c:463
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -894,12 +913,12 @@ msgstr ""
 "%s.\n"
 "En giltig Dia-fil anger minst ett lager."
 
-#: app/load_save.c:746
+#: app/load_save.c:773
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Misslyckades med att spara filen \"%s\".\n"
 
-#: app/load_save.c:766 app/load_save.c:771
+#: app/load_save.c:843 app/load_save.c:848
 msgid "Native Dia Diagram"
 msgstr "Inhemskt Dia-diagram"
 
@@ -985,600 +1004,620 @@ msgstr "_Zooma"
 msgid "Diagram Properties..."
 msgstr "Diagramegenskaper..."
 
-#: app/menus.c:134
-msgid "_AntiAliased"
-msgstr "_Kantutjämnad"
-
-#: app/menus.c:137
+#: app/menus.c:133
 msgid "_Visible Grid"
 msgstr "_Synligt rutnät"
 
-#: app/menus.c:139
+#: app/menus.c:135
 msgid "_Snap To Grid"
 msgstr "_Fäst vid rutnät"
 
-#: app/menus.c:141
+#: app/menus.c:137
 msgid "Show _Rulers"
 msgstr "Visa _linjaler"
 
-#: app/menus.c:143
+#: app/menus.c:139
 msgid "Show _Connection Points"
 msgstr "Visa _anslutningspunkter"
 
-#: app/menus.c:146
+#: app/menus.c:142
 msgid "New _View"
 msgstr "Ny _vy"
 
-#: app/menus.c:147
+#: app/menus.c:143
 msgid "Show _All"
 msgstr "Visa _allt"
 
-#: app/menus.c:152
+#: app/menus.c:144
+msgid "Redraw"
+msgstr ""
+
+#: app/menus.c:149
 msgid "Replace"
 msgstr "Ersätt"
 
-#: app/menus.c:154
+#: app/menus.c:151
 msgid "Union"
 msgstr "Union"
 
-#: app/menus.c:156
+#: app/menus.c:153
 msgid "Intersect"
 msgstr "Skär"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:158 app/sheets_dialog.c:779 objects/FS/function.c:671
+#: app/menus.c:155 app/sheets_dialog.c:779 objects/FS/function.c:671
 #: objects/FS/function.c:823 objects/FS/function.c:825
 msgid "Remove"
 msgstr "Ta bort"
 
-#: app/menus.c:160 app/menus.c:168
+#: app/menus.c:157 app/menus.c:165
 msgid "Invert"
 msgstr "Invertera"
 
-#: app/menus.c:166
+#: app/menus.c:163
 msgid "All"
 msgstr "Allt"
 
-#: app/menus.c:167 lib/widgets.c:967 objects/UML/association.c:1067
+#: app/menus.c:164 lib/widgets.c:976 objects/UML/association.c:1070
 msgid "None"
 msgstr "Ingen"
 
-#: app/menus.c:169
+#: app/menus.c:166
 msgid "Connected"
 msgstr "Ansluten"
 
-#: app/menus.c:170
+#: app/menus.c:167
 msgid "Transitive"
 msgstr "Transitiv"
 
-#: app/menus.c:171
+#: app/menus.c:168
 msgid "Same Type"
 msgstr "Samma typ"
 
-#: app/menus.c:178 lib/properties.c:62 lib/properties.h:466 lib/widgets.c:509
+#: app/menus.c:175 lib/properties.c:62 lib/properties.h:471 lib/widgets.c:518
 msgid "Left"
 msgstr "Vänster"
 
-#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/properties.h:467
-#: lib/widgets.c:515
+#: app/menus.c:176 app/menus.c:185 lib/properties.c:63 lib/properties.h:472
+#: lib/widgets.c:524
 msgid "Center"
 msgstr "Mittpunkt"
 
-#: app/menus.c:180 lib/properties.c:64 lib/properties.h:468 lib/widgets.c:521
+#: app/menus.c:177 lib/properties.c:64 lib/properties.h:473 lib/widgets.c:530
 msgid "Right"
 msgstr "Höger"
 
-#: app/menus.c:181 app/menus.c:190
+#: app/menus.c:178 app/menus.c:187
 msgid "Equal Distance"
 msgstr "Lika avstånd"
 
-#: app/menus.c:182 app/menus.c:191
+#: app/menus.c:179 app/menus.c:188
 msgid "Adjacent"
 msgstr "Närliggande"
 
-#: app/menus.c:187
+#: app/menus.c:184
 msgid "Top"
 msgstr "Ovansida"
 
-#: app/menus.c:189
+#: app/menus.c:186
 msgid "Bottom"
 msgstr "Undersida"
 
-#: app/menus.c:196
+#: app/menus.c:193
 msgid "Send to _Back"
 msgstr "Lägg _underst"
 
-#: app/menus.c:197
+#: app/menus.c:194
 msgid "Bring to _Front"
 msgstr "Lägg _överst"
 
-#: app/menus.c:199
+#: app/menus.c:195
+#, fuzzy
+msgid "Send Backwards"
+msgstr "Lägg _underst"
+
+#: app/menus.c:196
+msgid "Bring Forwards"
+msgstr ""
+
+#: app/menus.c:198
 msgid "_Group"
 msgstr "_Gruppera"
 
-#: app/menus.c:200
+#: app/menus.c:199
 msgid "_Ungroup"
 msgstr "_Avgruppera"
 
-#: app/menus.c:202
+#: app/menus.c:201
 msgid "Align _Horizontal"
 msgstr "Justera _horisontellt"
 
-#: app/menus.c:203
+#: app/menus.c:202
 msgid "Align _Vertical"
 msgstr "Justera _vertikalt"
 
-#: app/menus.c:226
+#: app/menus.c:225
 msgid "_Properties"
 msgstr "_Egenskaper"
 
-#: app/menus.c:227
+#: app/menus.c:226
 msgid "_Layers"
 msgstr "_Lager"
 
-#: app/menus.c:248
+#: app/menus.c:247
 msgid "_Select"
 msgstr "_Markera"
 
-#: app/menus.c:249
+#: app/menus.c:248
 msgid "_Objects"
 msgstr "_Objekt"
 
-#: app/menus.c:250
+#: app/menus.c:249
 msgid "_Tools"
 msgstr "_Verktyg"
 
-#: app/menus.c:251
+#: app/menus.c:250
 msgid "_Dialogs"
 msgstr "_Dialoger"
 
-#: app/menus.c:262 app/menus.c:297
+#: app/menus.c:261 app/menus.c:296
 msgid "/_File"
 msgstr "/_Arkiv"
 
-#: app/menus.c:264 app/menus.c:299
+#: app/menus.c:263 app/menus.c:298
 msgid "/File/_New"
 msgstr "/Arkiv/_Ny"
 
-#: app/menus.c:266 app/menus.c:301
+#: app/menus.c:265 app/menus.c:300
 msgid "/File/_Open"
 msgstr "/Arkiv/_Öppna"
 
 #. recent file list is dynamically inserted here
-#: app/menus.c:268 app/menus.c:273 app/menus.c:277 app/menus.c:279
-#: app/menus.c:308 app/menus.c:312
+#: app/menus.c:267 app/menus.c:272 app/menus.c:276 app/menus.c:278
+#: app/menus.c:307 app/menus.c:311
 msgid "/File/---"
 msgstr "/Arkiv/---"
 
-#: app/menus.c:269
+#: app/menus.c:268
 msgid "/File/_Diagram tree"
 msgstr "/Arkiv/_Diagramträd"
 
-#: app/menus.c:271
+#: app/menus.c:270
 msgid "/File/Sheets and Objects..."
 msgstr "/Arkiv/Blad och objekt..."
 
-#: app/menus.c:274
+#: app/menus.c:273
 msgid "/File/_Preferences..."
 msgstr "/Arkiv/_Inställningar..."
 
-#: app/menus.c:276
+#: app/menus.c:275
 msgid "/File/P_lugins"
 msgstr "/Arkiv/Insticksmodu_ler"
 
-#: app/menus.c:280 app/menus.c:316
+#: app/menus.c:279 app/menus.c:315
 msgid "/File/_Quit"
 msgstr "/Arkiv/_Avsluta"
 
-#: app/menus.c:282
+#: app/menus.c:281
 msgid "/_Help"
 msgstr "/_Hjälp"
 
-#: app/menus.c:284
+#: app/menus.c:283
 msgid "/Help/_Manual"
 msgstr "/Hjälp/_Manual"
 
-#: app/menus.c:286
+#: app/menus.c:285
 msgid "/Help/---"
 msgstr "/Hjälp/---"
 
-#: app/menus.c:287
+#: app/menus.c:286
 msgid "/Help/_About"
 msgstr "/Hjälp/_Om"
 
-#: app/menus.c:303
+#: app/menus.c:302
 msgid "/File/_Save"
 msgstr "/Arkiv/_Spara"
 
-#: app/menus.c:305
+#: app/menus.c:304
 msgid "/File/Save _As..."
 msgstr "/Arkiv/Spara so_m..."
 
-#: app/menus.c:307
+#: app/menus.c:306
 msgid "/File/_Export..."
 msgstr "/Arkiv/_Exportera..."
 
-#: app/menus.c:309
+#: app/menus.c:308
 msgid "/File/Page Set_up..."
 msgstr "/File/Sidinst_ällningar..."
 
-#: app/menus.c:310
+#: app/menus.c:309
 msgid "/File/_Print Diagram..."
 msgstr "/Arkiv/Skriv _ut diagram..."
 
-#: app/menus.c:313
+#: app/menus.c:312
 msgid "/File/_Close"
 msgstr "/Arkiv/S_täng"
 
-#: app/menus.c:318
+#: app/menus.c:317
 msgid "/_Edit"
 msgstr "/_Redigera"
 
-#: app/menus.c:320
+#: app/menus.c:319
 msgid "/Edit/_Copy"
 msgstr "/Redigera/_Kopiera"
 
-#: app/menus.c:322
+#: app/menus.c:321
 msgid "/Edit/C_ut"
 msgstr "/Redigera/Klipp _ut"
 
-#: app/menus.c:324
+#: app/menus.c:323
 msgid "/Edit/_Paste"
 msgstr "/Redigera/Klistra _in"
 
-#: app/menus.c:326
+#: app/menus.c:325
 msgid "/Edit/_Delete"
 msgstr "/Redigera/_Ta bort"
 
-#: app/menus.c:328
+#: app/menus.c:327
 msgid "/Edit/_Undo"
 msgstr "/Redigera/_Ångra"
 
-#: app/menus.c:330
+#: app/menus.c:329
 msgid "/Edit/_Redo"
 msgstr "/Redigera/_Gör om"
 
-#: app/menus.c:332
+#: app/menus.c:331
 msgid "/Edit/Copy Text"
 msgstr "/Redigera/Kopiera text"
 
-#: app/menus.c:333
+#: app/menus.c:332
 msgid "/Edit/Cut Text"
 msgstr "/Redigera/Klipp ut text"
 
-#: app/menus.c:334
+#: app/menus.c:333
 msgid "/Edit/Paste _Text"
 msgstr "/Redigera/Klistra in _text"
 
-#: app/menus.c:335
+#: app/menus.c:334
 msgid "/_View"
 msgstr "/_Visa"
 
-#: app/menus.c:337
+#: app/menus.c:336
 msgid "/View/Zoom _In"
 msgstr "/Visa/Zooma _in"
 
-#: app/menus.c:339
+#: app/menus.c:338
 msgid "/View/Zoom _Out"
 msgstr "/Visa/Zooma _ut"
 
-#: app/menus.c:341
+#: app/menus.c:340
 msgid "/View/_Zoom"
 msgstr "/Visa/_Zooma"
 
-#: app/menus.c:343
+#: app/menus.c:342
 #, c-format
 msgid "/View/Zoom/400%"
 msgstr "/Visa/Zooma/400%"
 
-#: app/menus.c:344
+#: app/menus.c:343
 #, c-format
 msgid "/View/Zoom/283%"
 msgstr "/Visa/Zooma/283%"
 
-#: app/menus.c:345
+#: app/menus.c:344
 #, c-format
 msgid "/View/Zoom/200%"
 msgstr "/Visa/Zooma/200%"
 
-#: app/menus.c:346
+#: app/menus.c:345
 #, c-format
 msgid "/View/Zoom/141%"
 msgstr "/Visa/Zooma/141%"
 
-#: app/menus.c:347
+#: app/menus.c:346
 #, c-format
 msgid "/View/Zoom/100%"
 msgstr "/Visa/Zooma/100%"
 
-#: app/menus.c:349
+#: app/menus.c:348
 #, c-format
 msgid "/View/Zoom/85%"
 msgstr "/Visa/Zooma/85%"
 
-#: app/menus.c:350
+#: app/menus.c:349
 #, c-format
 msgid "/View/Zoom/70.7%"
 msgstr "/Visa/Zooma/70,7%"
 
-#: app/menus.c:351
+#: app/menus.c:350
 #, c-format
 msgid "/View/Zoom/50%"
 msgstr "/Visa/Zooma/50%"
 
-#: app/menus.c:352
+#: app/menus.c:351
 #, c-format
 msgid "/View/Zoom/35.4%"
 msgstr "/Visa/Zooma/35,4%"
 
-#: app/menus.c:353
+#: app/menus.c:352
 #, c-format
 msgid "/View/Zoom/25%"
 msgstr "/Visa/Zooma/25%"
 
-#: app/menus.c:354
+#: app/menus.c:353
 msgid "/View/Diagram Properties..."
 msgstr "/Visa/Diagramegenskaper..."
 
-#: app/menus.c:356
-msgid "/View/_AntiAliased"
-msgstr "/Visa/_Kantutjämning"
-
-#: app/menus.c:358
+#: app/menus.c:354
 msgid "/View/_Visible Grid"
 msgstr "/Visa/_Synligt rutnät"
 
-#: app/menus.c:359
+#: app/menus.c:355
 msgid "/View/_Snap To Grid"
 msgstr "/Visa/_Fäst vid rutnät"
 
-#: app/menus.c:360
+#: app/menus.c:356
 msgid "/View/Show _Rulers"
 msgstr "/Visa/Visa _linjaler"
 
-#: app/menus.c:361
+#: app/menus.c:357
 msgid "/View/Show _Connection Points"
 msgstr "/Visa/Visa _anslutningspunkter"
 
-#: app/menus.c:362
+#: app/menus.c:358
 msgid "/View/---"
 msgstr "/Visa/---"
 
-#: app/menus.c:363
+#: app/menus.c:359
 msgid "/View/New _View"
 msgstr "/Visa/Ny _vy"
 
-#: app/menus.c:364
+#: app/menus.c:360
 msgid "/View/Show _All"
 msgstr "/Visa/Visa _allt"
 
-#: app/menus.c:365
+#: app/menus.c:361
+#, fuzzy
+msgid "/View/Re_draw"
+msgstr "/Visa/Ny _vy"
+
+#: app/menus.c:362
 msgid "/_Select"
 msgstr "/_Markera"
 
-#: app/menus.c:367
+#: app/menus.c:364
 msgid "/Select/All"
 msgstr "/Markera/Allt"
 
-#: app/menus.c:368
+#: app/menus.c:365
 msgid "/Select/None"
 msgstr "/Markera/Inget"
 
-#: app/menus.c:369 app/menus.c:382
+#: app/menus.c:366 app/menus.c:379
 msgid "/Select/Invert"
 msgstr "/Markera/Invertera"
 
-#: app/menus.c:370
+#: app/menus.c:367
 msgid "/Select/Connected"
 msgstr "/Markera/Ansluten"
 
-#: app/menus.c:371
+#: app/menus.c:368
 msgid "/Select/Transitive"
 msgstr "/Markera/Transitiv"
 
-#: app/menus.c:372
+#: app/menus.c:369
 msgid "/Select/Same Type"
 msgstr "/Markera/Samma typ"
 
-#: app/menus.c:373
+#: app/menus.c:370
 msgid "/Select/---"
 msgstr "/Markera/---"
 
-#: app/menus.c:374
+#: app/menus.c:371
 msgid "/Select/Replace"
 msgstr "/Markera/Ersätt"
 
-#: app/menus.c:376
+#: app/menus.c:373
 msgid "/Select/Union"
 msgstr "/Markera/Union"
 
-#: app/menus.c:378
+#: app/menus.c:375
 msgid "/Select/Intersect"
 msgstr "/Markera/Skär"
 
-#: app/menus.c:380
+#: app/menus.c:377
 msgid "/Select/Remove"
 msgstr "/Markera/Ta bort"
 
-#: app/menus.c:384
+#: app/menus.c:381
 msgid "/_Objects"
 msgstr "/_Objekt"
 
-#: app/menus.c:386
+#: app/menus.c:383
 msgid "/Objects/Send to _Back"
 msgstr "/Objekt/Lägg _underst"
 
-#: app/menus.c:387
+#: app/menus.c:384
 msgid "/Objects/Bring to _Front"
 msgstr "/Objekt/Lägg _överst"
 
-#: app/menus.c:388 app/menus.c:391
+#: app/menus.c:385
+#, fuzzy
+msgid "/Objects/Send Backwards"
+msgstr "/Objekt/Lägg _underst"
+
+#: app/menus.c:386
+#, fuzzy
+msgid "/Objects/Bring Forwards"
+msgstr "/Objekt/Lägg _överst"
+
+#: app/menus.c:387 app/menus.c:390
 msgid "/Objects/---"
 msgstr "/Objekt/---"
 
-#: app/menus.c:389
+#: app/menus.c:388
 msgid "/Objects/_Group"
 msgstr "/Objekt/_Gruppera"
 
-#: app/menus.c:390
+#: app/menus.c:389
 msgid "/Objects/_Ungroup"
 msgstr "/Objekt/_Avgruppera"
 
-#: app/menus.c:392
+#: app/menus.c:391
 msgid "/Objects/Align _Horizontal"
 msgstr "/Objekt/Justera _horisontellt"
 
-#: app/menus.c:394
+#: app/menus.c:393
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Objekt/Justera horisontellt/Vänster"
 
-#: app/menus.c:395
+#: app/menus.c:394
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objekt/Justera horisontellt/Mittpunkt"
 
-#: app/menus.c:396
+#: app/menus.c:395
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objekt/Justera horisontellt/Höger"
 
-#: app/menus.c:397
+#: app/menus.c:396
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objekt/Justera horisontellt/Lika avstånd"
 
-#: app/menus.c:398
+#: app/menus.c:397
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Objekt/Justera horisontellt/Bredvid"
 
-#: app/menus.c:399
+#: app/menus.c:398
 msgid "/Objects/Align _Vertical"
 msgstr "/Objekt/Justera _vertikalt"
 
-#: app/menus.c:401
+#: app/menus.c:400
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Objekt/Justera vertikalt/Ovansida"
 
-#: app/menus.c:402
+#: app/menus.c:401
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Objekt/Justera vertikalt/Mittpunkt"
 
-#: app/menus.c:403
+#: app/menus.c:402
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objekt/Justera vertikalt/Undersida"
 
-#: app/menus.c:404
+#: app/menus.c:403
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objekt/Justera vertikalt/Lika avstånd"
 
-#: app/menus.c:405
+#: app/menus.c:404
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objekt/Justera vertikalt/Bredvid"
 
-#: app/menus.c:407
+#: app/menus.c:406
 msgid "/_Tools"
 msgstr "/_Verktyg"
 
-#: app/menus.c:409
+#: app/menus.c:408
 msgid "/Tools/Modify"
 msgstr "/Verktyg/Modifiera"
 
-#: app/menus.c:410
+#: app/menus.c:409
 msgid "/Tools/Magnify"
 msgstr "/Verktyg/Förstora"
 
-#: app/menus.c:411
+#: app/menus.c:410
 msgid "/Tools/Scroll"
 msgstr "/Verktyg/Rulla"
 
-#: app/menus.c:412
+#: app/menus.c:411
 msgid "/Tools/Text"
 msgstr "/Verktyg/Text"
 
-#: app/menus.c:413
+#: app/menus.c:412
 msgid "/Tools/Box"
 msgstr "/Verktyg/Låda"
 
-#: app/menus.c:414
+#: app/menus.c:413
 msgid "/Tools/Ellipse"
 msgstr "/Verktyg/Ellips"
 
-#: app/menus.c:415
+#: app/menus.c:414
 msgid "/Tools/Polygon"
 msgstr "/Verktyg/Polygon"
 
-#: app/menus.c:416
+#: app/menus.c:415
 msgid "/Tools/Beziergon"
 msgstr "/Verktyg/Beziergon"
 
-#: app/menus.c:417
+#: app/menus.c:416
 msgid "/Tools/Line"
 msgstr "/Verktyg/Linje"
 
-#: app/menus.c:418
+#: app/menus.c:417
 msgid "/Tools/Arc"
 msgstr "/Verktyg/Båge"
 
-#: app/menus.c:419
+#: app/menus.c:418
 msgid "/Tools/Zigzagline"
 msgstr "/Verktyg/Sicksacklinje"
 
-#: app/menus.c:420
+#: app/menus.c:419
 msgid "/Tools/Polyline"
 msgstr "/Verktyg/Polylinje"
 
-#: app/menus.c:421
+#: app/menus.c:420
 msgid "/Tools/Bezierline"
 msgstr "/Verktyg/Bezierkurva"
 
-#: app/menus.c:422
+#: app/menus.c:421
 msgid "/Tools/Image"
 msgstr "/Verktyg/Bild"
 
-#: app/menus.c:424
+#: app/menus.c:423
 msgid "/_Dialogs"
 msgstr "/_Dialoger"
 
-#: app/menus.c:426
+#: app/menus.c:425
 msgid "/Dialogs/_Properties"
 msgstr "/Dialoger/_Egenskaper"
 
-#: app/menus.c:427
+#: app/menus.c:426
 msgid "/Dialogs/_Layers"
 msgstr "/Dialoger/_Lager"
 
-#: app/menus.c:599
+#: app/menus.c:598
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL-tooldata i tool_menu_select"
 
-#: app/menus.c:766
+#: app/menus.c:765
 msgid "Diagram Menu"
 msgstr "Diagrammeny"
 
-#: app/pagesetup.c:77 app/preferences.c:723
+#: app/pagesetup.c:77 app/preferences.c:728
 msgid "Apply"
 msgstr "Verkställ"
 
-#: app/paginate_psprint.c:220
+#: app/paginate_psprint.c:224
 msgid "Select Printer"
 msgstr "Välj skrivare"
 
-#: app/paginate_psprint.c:232
+#: app/paginate_psprint.c:236
 msgid "Printer"
 msgstr "Skrivare"
 
-#: app/paginate_psprint.c:245
+#: app/paginate_psprint.c:249
 msgid "File"
 msgstr "Fil"
 
-#: app/paginate_psprint.c:334
+#: app/paginate_psprint.c:338
 #, c-format
 msgid "Could not run command '%s'"
 msgstr "Kunde inte köra kommandot \"%s\""
 
-#: app/paginate_psprint.c:337
+#: app/paginate_psprint.c:341
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/paginate_psprint.c:361
+#: app/paginate_psprint.c:365
 msgid "Error occured while printing"
 msgstr "Fel uppstod under utskrift"
 
@@ -1590,7 +1629,7 @@ msgstr "Insticksmoduler"
 msgid "Loaded"
 msgstr "Inläst"
 
-#: app/plugin-manager.c:261 objects/UML/class.c:101
+#: app/plugin-manager.c:261 objects/UML/class.c:105
 #: objects/UML/large_package.c:120
 msgid "Name"
 msgstr "Namn"
@@ -1607,39 +1646,39 @@ msgstr "Läs in vid uppstart"
 msgid "File Name"
 msgstr "Filnamn"
 
-#: app/preferences.c:125
+#: app/preferences.c:103
 msgid "User Interface"
 msgstr "Användargränssnitt"
 
-#: app/preferences.c:126
+#: app/preferences.c:104
 msgid "Diagram Defaults"
 msgstr "Standardalternativ för diagram"
 
-#: app/preferences.c:127
+#: app/preferences.c:105
 msgid "View Defaults"
 msgstr "Standardvärden för vyer"
 
-#: app/preferences.c:128
+#: app/preferences.c:106
 msgid "Grid Lines"
 msgstr "Rutlinjer"
 
-#: app/preferences.c:129
+#: app/preferences.c:107
 msgid "Diagram Tree"
 msgstr "Diagramträd"
 
-#: app/preferences.c:143
+#: app/preferences.c:121
 msgid "Reset tools after create:"
 msgstr "Återställ verktyg när objekt har skapats:"
 
-#: app/preferences.c:144
+#: app/preferences.c:122
 msgid "Compress saved files:"
 msgstr "Komprimera sparade filer:"
 
-#: app/preferences.c:145
+#: app/preferences.c:123
 msgid "Number of undo levels:"
 msgstr "Antal nivåer för ångra:"
 
-#: app/preferences.c:146
+#: app/preferences.c:124
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1647,101 +1686,106 @@ msgstr ""
 "Omvänd dragning markerar\n"
 "korsande objekt:"
 
-#: app/preferences.c:147
+#: app/preferences.c:125
 msgid "Recent documents list size:"
 msgstr "Storlek på lista över senaste dokument:"
 
-#: app/preferences.c:150
-msgid "New diagram:"
-msgstr "Nytt diagram:"
-
-#: app/preferences.c:151
-msgid "Paper type:"
-msgstr "Papperstyp:"
-
-#: app/preferences.c:154
-msgid "New window:"
-msgstr "Nytt fönster:"
-
-#: app/preferences.c:155
-msgid "Width:"
-msgstr "Bredd:"
-
-#: app/preferences.c:156
-msgid "Height:"
-msgstr "Höjd:"
-
-#: app/preferences.c:157
-msgid "Magnify:"
-msgstr "Förstora:"
-
-#: app/preferences.c:158
+#: app/preferences.c:126
 msgid "Use menu bar:"
 msgstr "Använd menyrad:"
 
-#: app/preferences.c:160
+#: app/preferences.c:128
+msgid "New diagram:"
+msgstr "Nytt diagram:"
+
+#: app/preferences.c:129
+#, fuzzy
+msgid "Portrait:"
+msgstr "Begränsning:"
+
+#: app/preferences.c:130
+msgid "Paper type:"
+msgstr "Papperstyp:"
+
+#: app/preferences.c:132
+msgid "New window:"
+msgstr "Nytt fönster:"
+
+#: app/preferences.c:133
+msgid "Width:"
+msgstr "Bredd:"
+
+#: app/preferences.c:134
+msgid "Height:"
+msgstr "Höjd:"
+
+#: app/preferences.c:135
+msgid "Magnify:"
+msgstr "Förstora:"
+
+#: app/preferences.c:137
 msgid "Connection Points:"
 msgstr "Anslutningspunkter:"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:161 app/preferences.c:164 app/preferences.c:169
+#: app/preferences.c:138 app/preferences.c:141 app/preferences.c:146
 msgid "Visible:"
 msgstr "Synligt:"
 
-#: app/preferences.c:163
+#: app/preferences.c:140
 msgid "Page breaks:"
 msgstr "Sidbrytningar:"
 
-#: app/preferences.c:165 app/preferences.c:173
+#: app/preferences.c:142 app/preferences.c:150
 msgid "Colour:"
 msgstr "Färg:"
 
-#: app/preferences.c:166 app/preferences.c:174
+#: app/preferences.c:143 app/preferences.c:151
 msgid "Solid lines:"
 msgstr "Hela linjer:"
 
-#: app/preferences.c:170
+#: app/preferences.c:147
 msgid "Snap to:"
 msgstr "Fäst vid:"
 
-#: app/preferences.c:171
+#: app/preferences.c:148
 msgid "X Size:"
 msgstr "X-storlek:"
 
-#: app/preferences.c:172
+#: app/preferences.c:149
 msgid "Y Size:"
 msgstr "Y-storlek:"
 
-#: app/preferences.c:185
+#: app/preferences.c:162
 msgid "Diagram tree window:"
 msgstr "Diagramträdsfönster:"
 
-#: app/preferences.c:187
+#: app/preferences.c:164
 msgid "Show at startup:"
 msgstr "Visa vid uppstart:"
 
-#: app/preferences.c:189
+#: app/preferences.c:166
 msgid "Default width:"
 msgstr "Standardbredd:"
 
-#: app/preferences.c:191
+#: app/preferences.c:168
 msgid "Default height:"
 msgstr "Standardhöjd:"
 
-#: app/preferences.c:193
+#: app/preferences.c:170
 msgid "Remember last size:"
 msgstr "Kom ihåg senaste storlek:"
 
-#: app/preferences.c:195
+#: app/preferences.c:172
 msgid "Save hidden object types:"
 msgstr "Spara dolda objekttyper:"
 
-#: app/preferences.c:318
+#: app/preferences.c:299
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunde inte öppna \"%s\" för skrivning"
 
-#: app/preferences.c:682 app/preferences.c:691
+#: app/preferences.c:687 app/preferences.c:696
 msgid "Preferences"
 msgstr "Inställningar"
 
@@ -1775,20 +1819,15 @@ msgstr "<Toolbox>/Arkiv/Avsluta"
 msgid "Can't open history file for writing."
 msgstr "Kunde inte öppna historikfilen för skrivning."
 
-#: app/render_eps.c:1454
+#: app/render_eps.c:1696
 msgid "Encapsulated Postscript"
 msgstr "Inkapslad Postscript"
 
-#: app/render_libart.c:429
+#: app/render_libart.c:437
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Fyllnadsläge som inte stöds angivet!\n"
 
-#: app/render_libart.c:441
-#, c-format
-msgid "Can't find font '%s' in height %d\n"
-msgstr "Kan inte hitta typsnittet \"%s\" med höjden %d\n"
-
-#: app/sheets.c:154 app/sheets_dialog_callbacks.c:311
+#: app/sheets.c:154
 #, c-format
 msgid ""
 "%s\n"
@@ -1797,7 +1836,7 @@ msgstr ""
 "%s\n"
 "Systemblad"
 
-#: app/sheets.c:156 app/sheets_dialog_callbacks.c:314
+#: app/sheets.c:156
 #, c-format
 msgid ""
 "%s\n"
@@ -1859,9 +1898,9 @@ msgstr "_Redigera"
 msgid "Revert"
 msgstr "Återställ"
 
-#: app/sheets_dialog.c:352 objects/UML/class_dialog.c:798
-#: objects/UML/class_dialog.c:1720 objects/UML/class_dialog.c:1948
-#: objects/UML/class_dialog.c:2467
+#: app/sheets_dialog.c:352 objects/UML/class_dialog.c:828
+#: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
+#: objects/UML/class_dialog.c:2499
 msgid "New"
 msgstr "Ny"
 
@@ -1886,7 +1925,7 @@ msgid "Sheet name:"
 msgstr "Bladnamn:"
 
 #: app/sheets_dialog.c:443 app/sheets_dialog_callbacks.c:298
-#: app/sheets_dialog_callbacks.c:1087
+#: app/sheets_dialog_callbacks.c:1092
 msgid "Line Break"
 msgstr "Radbrytning"
 
@@ -1903,8 +1942,8 @@ msgid "Description:"
 msgstr "Beskrivning:"
 
 #: app/sheets_dialog.c:614 objects/FS/flow-ortho.c:188 objects/FS/flow.c:167
-#: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1772
-#: objects/UML/class_dialog.c:2002 objects/UML/class_dialog.c:2516
+#: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
+#: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
 msgid "Type:"
 msgstr "Typ:"
 
@@ -1912,10 +1951,10 @@ msgstr "Typ:"
 msgid "Sheet"
 msgstr "Blad"
 
-#: app/sheets_dialog.c:668 objects/ER/attribute.c:151 objects/ER/entity.c:129
-#: objects/ER/relationship.c:138 objects/UML/association.c:1045
-#: objects/UML/class_dialog.c:835 objects/UML/class_dialog.c:1760
-#: objects/UML/class_dialog.c:1990 objects/UML/class_dialog.c:2504
+#: app/sheets_dialog.c:668 objects/ER/attribute.c:150 objects/ER/entity.c:128
+#: objects/ER/relationship.c:137 objects/UML/association.c:1048
+#: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1792
+#: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2536
 #: objects/UML/dependency.c:125 objects/UML/generalization.c:121
 #: objects/UML/realizes.c:122
 msgid "Name:"
@@ -1949,55 +1988,76 @@ msgstr "Flytta ->"
 msgid "Move All ->"
 msgstr "Flytta alla ->"
 
-#: app/sheets_dialog_callbacks.c:803
+#: app/sheets_dialog_callbacks.c:312
+#, fuzzy, c-format
+msgid ""
+"%s\n"
+"Shape"
+msgstr "Forma"
+
+#: app/sheets_dialog_callbacks.c:315
+#, fuzzy, c-format
+msgid ""
+"%s\n"
+"Object"
+msgstr "Objekt"
+
+#: app/sheets_dialog_callbacks.c:318
+#, fuzzy, c-format
+msgid ""
+"%s\n"
+"Unasigned type"
+msgstr "Meddelandetyp:"
+
+#: app/sheets_dialog_callbacks.c:808
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "Filnamnet måste sluta med \"%s\": \"%s\""
 
-#: app/sheets_dialog_callbacks.c:811
+#: app/sheets_dialog_callbacks.c:816
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "Fel vid granskning av %s: %s"
 
-#: app/sheets_dialog_callbacks.c:831
+#: app/sheets_dialog_callbacks.c:836
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "Kunde inte tolka figurfil: \"%s\""
 
-#: app/sheets_dialog_callbacks.c:900
+#: app/sheets_dialog_callbacks.c:905
 msgid "Sheet must have a Name"
 msgstr "Bladet måste ha ett namn"
 
-#: app/sheets_dialog_callbacks.c:1588 app/sheets_dialog_callbacks.c:1594
+#: app/sheets_dialog_callbacks.c:1593 app/sheets_dialog_callbacks.c:1599
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Kunde inte öppna \"%s\": %s"
 
-#: app/sheets_dialog_callbacks.c:1645
+#: app/sheets_dialog_callbacks.c:1650
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Kunde inte öppna: \"%s\" för skrivning"
 
-#: app/sheets_dialog_callbacks.c:1654
+#: app/sheets_dialog_callbacks.c:1659
 msgid "a user"
 msgstr "en användare"
 
-#: app/sheets_dialog_callbacks.c:1667
+#: app/sheets_dialog_callbacks.c:1672
 #, c-format
 msgid "File: %s"
 msgstr "Fil: %s"
 
-#: app/sheets_dialog_callbacks.c:1670
+#: app/sheets_dialog_callbacks.c:1675
 #, c-format
 msgid "Date: %s"
 msgstr "Datum: %s"
 
-#: app/sheets_dialog_callbacks.c:1674
+#: app/sheets_dialog_callbacks.c:1679
 #, c-format
 msgid "For: %s"
 msgstr "För: %s"
 
-#: app/sheets_dialog_callbacks.c:1691
+#: app/sheets_dialog_callbacks.c:1696
 msgid "add shapes here"
 msgstr "lägg till figurer här"
 
@@ -2010,9 +2070,10 @@ msgstr "Läser in..."
 msgid "Dia v %s"
 msgstr "Dia v. %s"
 
-#: dia.desktop.in.h:1
-msgid "A Diagram Editor"
-msgstr "En diagramredigerare"
+#: dia.desktop.in.h:2
+#, fuzzy
+msgid "Diagram editor"
+msgstr "Diagramredigerare"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -2071,15 +2132,15 @@ msgstr "Skapa ett meddelande"
 msgid "There are %d similar messages."
 msgstr "Skapa ett meddelande"
 
-#: lib/message.c:114 lib/message.c:193
+#: lib/message.c:115 lib/message.c:194
 msgid "Error"
 msgstr "Fel"
 
-#: lib/message.c:116 lib/message.c:181
+#: lib/message.c:117 lib/message.c:182
 msgid "Warning"
 msgstr "Varning"
 
-#: lib/message.c:170
+#: lib/message.c:171
 msgid "Notice"
 msgstr "Observera"
 
@@ -2137,190 +2198,198 @@ msgstr ""
 "Kunde inte öppna \"%s\"\n"
 "\"%s\""
 
-#: lib/properties.c:71 lib/properties.h:481
+#: lib/properties.c:71 lib/properties.h:486
 msgid "Line colour"
 msgstr "Linjefärg"
 
-#: lib/properties.c:72 lib/properties.h:484
+#: lib/properties.c:72 lib/properties.h:489
 msgid "Line style"
 msgstr "Linjetyp"
 
-#: lib/properties.c:73 lib/properties.h:488
+#: lib/properties.c:73 lib/properties.h:493
 msgid "Fill colour"
 msgstr "Fyllnadsfärg"
 
-#: lib/properties.c:74 lib/properties.h:491 objects/custom/custom_object.c:317
+#: lib/properties.c:74 lib/properties.h:496 objects/custom/custom_object.c:317
 #: objects/flowchart/box.c:273 objects/flowchart/diamond.c:266
 #: objects/flowchart/ellipse.c:266 objects/flowchart/parallelogram.c:276
-#: objects/standard/beziergon.c:221 objects/standard/box.c:232
-#: objects/standard/ellipse.c:220 objects/standard/polygon.c:227
 msgid "Draw background"
 msgstr "Rita bakgrund"
 
-#: lib/properties.c:75 lib/properties.h:495
+#: lib/properties.c:75 lib/properties.h:500
 msgid "Start arrow"
 msgstr "Startpil"
 
-#: lib/properties.c:76 lib/properties.h:498
+#: lib/properties.c:76 lib/properties.h:503
 msgid "End arrow"
 msgstr "Slutpil"
 
-#: lib/properties.c:78 lib/properties.h:508
+#: lib/properties.c:78 lib/properties.h:513
 msgid "Text alignment"
 msgstr "Textjustering"
 
-#: lib/properties.c:79 lib/properties.h:511 objects/GRAFCET/condition.c:132
-#: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:142
-#: objects/UML/class_dialog.c:309 objects/chronogram/chronoline.c:183
-#: objects/chronogram/chronoref.c:164
+#: lib/properties.c:79 lib/properties.h:516 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/step.c:162 objects/GRAFCET/transition.c:142
+#: objects/UML/class_dialog.c:327 objects/chronogram/chronoline.c:182
+#: objects/chronogram/chronoref.c:163
 msgid "Font"
 msgstr "Typsnitt"
 
-#: lib/properties.c:80 lib/properties.h:514 objects/GRAFCET/condition.c:134
-#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:144
-#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
+#: lib/properties.c:80 lib/properties.h:519 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:164 objects/GRAFCET/transition.c:144
+#: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
 msgid "Font size"
 msgstr "Typsnittsstorlek"
 
-#: lib/properties.c:81 lib/properties.h:517 objects/GRAFCET/step.c:167
-#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
+#: lib/properties.c:81 lib/properties.h:522 objects/GRAFCET/step.c:166
+#: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
 msgid "Text colour"
 msgstr "Textfärg"
 
-#: lib/widgets.c:203
+#: lib/widgets.c:211
 msgid "Other fonts..."
 msgstr ""
 
-#: lib/widgets.c:291
+#: lib/widgets.c:299
 #, fuzzy, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Kunde inte läsa färgen: %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:337
+#: lib/widgets.c:346
 #, fuzzy
 msgid "Select font"
 msgstr "Välj skrivare"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:630 objects/FS/function.c:1039
+#: lib/widgets.c:639 objects/FS/function.c:1039
 msgid "Solid"
 msgstr "Heldragen"
 
-#: lib/widgets.c:636
+#: lib/widgets.c:645
 msgid "Dashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:642
+#: lib/widgets.c:651
 msgid "Dash-Dot"
 msgstr "Streck-prick"
 
-#: lib/widgets.c:648
+#: lib/widgets.c:657
 msgid "Dash-Dot-Dot"
 msgstr "Streck-prick-prick"
 
-#: lib/widgets.c:654
+#: lib/widgets.c:663
 msgid "Dotted"
 msgstr "Punktmarkerad"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:672
+#: lib/widgets.c:681
 msgid "Dash length: "
 msgstr "Linjelängd: "
 
-#: lib/widgets.c:968
+#: lib/widgets.c:977
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:969
+#: lib/widgets.c:978
 msgid "Hollow Triangle"
 msgstr "Ihålig triangel"
 
-#: lib/widgets.c:970
+#: lib/widgets.c:979
 msgid "Filled Triangle"
 msgstr "Fylld triangel"
 
-#: lib/widgets.c:971
+#: lib/widgets.c:980
 msgid "Unfilled Triangle"
 msgstr "Ofylld triangel"
 
-#: lib/widgets.c:972
+#: lib/widgets.c:981
 msgid "Filled Diamond"
 msgstr "Fylld romb"
 
-#: lib/widgets.c:973
+#: lib/widgets.c:982
 msgid "Half Head"
 msgstr "Halvt huvud"
 
-#: lib/widgets.c:974
+#: lib/widgets.c:983
 msgid "Slashed Cross"
 msgstr "Kors med snedstreck"
 
-#: lib/widgets.c:975
+#: lib/widgets.c:984
 msgid "Filled Ellipse"
 msgstr "Fylld ellips"
 
-#: lib/widgets.c:976
+#: lib/widgets.c:985
 msgid "Hollow Ellipse"
 msgstr "Ihålig ellips"
 
-#: lib/widgets.c:977
+#: lib/widgets.c:986
 msgid "Filled Dot"
 msgstr "Fylld punkt"
 
-#: lib/widgets.c:978
+#: lib/widgets.c:987
 msgid "Dimension Origin"
 msgstr "Dimensionsursprung"
 
-#: lib/widgets.c:979
+#: lib/widgets.c:988
 msgid "Blanked Dot"
 msgstr "Tom punkt"
 
-#: lib/widgets.c:980
+#: lib/widgets.c:989
 msgid "Double Hollow triangle"
 msgstr "Dubbel ihålig triangel"
 
-#: lib/widgets.c:981
+#: lib/widgets.c:990
 msgid "Double Filled triangle"
 msgstr "Dubbel fylld triangel"
 
-#: lib/widgets.c:982
+#: lib/widgets.c:991
 msgid "Filled Box"
 msgstr "Fylld ruta"
 
-#: lib/widgets.c:983
+#: lib/widgets.c:992
 msgid "Blanked Box"
 msgstr "Tom ruta"
 
-#: lib/widgets.c:984
+#: lib/widgets.c:993
 msgid "Slashed"
 msgstr "Streckad"
 
-#: lib/widgets.c:985
+#: lib/widgets.c:994
 msgid "Integral Symbol"
 msgstr "Integralsymbol"
 
-#: lib/widgets.c:986
+#: lib/widgets.c:995
 msgid "Crow Foot"
 msgstr "Kråkfot"
 
-#: lib/widgets.c:987
+#: lib/widgets.c:996
 msgid "Cross"
 msgstr "Kors"
 
-#: lib/widgets.c:1024
+#: lib/widgets.c:997
+#, fuzzy
+msgid "Filled Concave"
+msgstr "Fylld ruta"
+
+#: lib/widgets.c:998
+#, fuzzy
+msgid "Blanked Concave"
+msgstr "Tom ruta"
+
+#: lib/widgets.c:1035
 msgid "Length: "
 msgstr "Längd: "
 
-#: lib/widgets.c:1037
+#: lib/widgets.c:1048
 msgid "Width: "
 msgstr "Bredd: "
 
-#: lib/widgets.c:1164 objects/standard/image.c:536
+#: lib/widgets.c:1175
 msgid "Select image file"
 msgstr "Välj bildfil"
 
-#: lib/widgets.c:1194
+#: lib/widgets.c:1205
 msgid "Browse"
 msgstr "Bläddra"
 
@@ -2328,23 +2397,23 @@ msgstr "Bläddra"
 msgid "Chronogram diagram objects"
 msgstr "Kronogramdiagramobjekt"
 
-#: objects/chronogram/chronoline.c:148
+#: objects/chronogram/chronoline.c:147
 msgid "Data"
 msgstr "Data"
 
-#: objects/chronogram/chronoline.c:150
+#: objects/chronogram/chronoline.c:149
 msgid "Data name"
 msgstr "Datanamn"
 
-#: objects/chronogram/chronoline.c:152
+#: objects/chronogram/chronoline.c:151
 msgid "Events"
 msgstr "Händelser"
 
-#: objects/chronogram/chronoline.c:155
+#: objects/chronogram/chronoline.c:154
 msgid "Event specification"
 msgstr "Händelseangivelse"
 
-#: objects/chronogram/chronoline.c:156
+#: objects/chronogram/chronoline.c:155
 msgid ""
 "@ time    set the pointer at an absolute time.\n"
 "( duration  sets the signal up, then wait 'duration'.\n"
@@ -2359,59 +2428,59 @@ msgstr ""
 "\"varaktighet\".\n"
 "exempel: @ 1.0 (2.0)1.0(2.0)\n"
 
-#: objects/chronogram/chronoline.c:162
+#: objects/chronogram/chronoline.c:161
 msgid "Parameters"
 msgstr "Parametrar"
 
-#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+#: objects/chronogram/chronoline.c:163 objects/chronogram/chronoref.c:145
 msgid "Start time"
 msgstr "Starttid"
 
-#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+#: objects/chronogram/chronoline.c:165 objects/chronogram/chronoref.c:147
 msgid "End time"
 msgstr "Sluttid"
 
-#: objects/chronogram/chronoline.c:168
+#: objects/chronogram/chronoline.c:167
 msgid "Rise time"
 msgstr "Stigtid"
 
-#: objects/chronogram/chronoline.c:170
+#: objects/chronogram/chronoline.c:169
 msgid "Fall time"
 msgstr "Falltid"
 
-#: objects/chronogram/chronoline.c:171
+#: objects/chronogram/chronoline.c:170
 msgid "Multi-bit data"
 msgstr "Flerbitarsdata"
 
-#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+#: objects/chronogram/chronoline.c:172 objects/chronogram/chronoref.c:155
 msgid "Aspect"
 msgstr "Förhållande"
 
-#: objects/chronogram/chronoline.c:175
+#: objects/chronogram/chronoline.c:174
 msgid "Data color"
 msgstr "Datafärg"
 
-#: objects/chronogram/chronoline.c:177
+#: objects/chronogram/chronoline.c:176
 msgid "Data line width"
 msgstr "Datalinjebredd"
 
-#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
+#: objects/chronogram/chronoline.c:178 objects/chronogram/chronoref.c:157
 msgid "Line color"
 msgstr "Linjefärg"
 
-#: objects/chronogram/chronoref.c:144
+#: objects/chronogram/chronoref.c:143
 msgid "Time data"
 msgstr "Tidsdata"
 
-#: objects/chronogram/chronoref.c:150
+#: objects/chronogram/chronoref.c:149
 msgid "Major time step"
 msgstr "Huvudtidssteg"
 
-#: objects/chronogram/chronoref.c:152
+#: objects/chronogram/chronoref.c:151
 msgid "Minor time step"
 msgstr "Deltidssteg"
 
-#: objects/chronogram/chronoref.c:162
+#: objects/chronogram/chronoref.c:161
 msgid "Minor step line width"
 msgstr "Linjebredd för delsteg"
 
@@ -2466,31 +2535,31 @@ msgstr "Vänd vertikalt"
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Kan inte öppna ikonfilen %s för objekttypen \"%s\"."
 
-#: objects/ER/attribute.c:153
+#: objects/ER/attribute.c:152
 msgid "Key:"
 msgstr "Nyckel:"
 
-#: objects/ER/attribute.c:155
+#: objects/ER/attribute.c:154
 msgid "Weak key:"
 msgstr "Svag nyckel:"
 
-#: objects/ER/attribute.c:157
+#: objects/ER/attribute.c:156
 msgid "Derived:"
 msgstr "Härledd:"
 
-#: objects/ER/attribute.c:159
+#: objects/ER/attribute.c:158
 msgid "Multivalue:"
 msgstr "Multivärde:"
 
-#: objects/ER/attribute.c:399 sheets/ER.sheet.in.h:1
+#: objects/ER/attribute.c:398 sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Attribut"
 
-#: objects/ER/entity.c:131
+#: objects/ER/entity.c:130
 msgid "Weak:"
 msgstr "Svag:"
 
-#: objects/ER/entity.c:348 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:347 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Enhet"
 
@@ -2498,57 +2567,57 @@ msgstr "Enhet"
 msgid "Entity/Relationship diagram objects"
 msgstr "Enhet/Relationsdiagramobjekt"
 
-#: objects/ER/participation.c:115
+#: objects/ER/participation.c:114
 msgid "Total:"
 msgstr "Totalt:"
 
-#: objects/ER/participation.c:395 objects/FS/flow-ortho.c:814
-#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
-#: objects/UML/association.c:682 objects/UML/dependency.c:341
-#: objects/UML/generalization.c:343 objects/UML/realizes.c:332
-#: objects/standard/zigzagline.c:343
+#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:821
+#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:549
+#: objects/UML/association.c:685 objects/UML/dependency.c:350
+#: objects/UML/generalization.c:346 objects/UML/realizes.c:339
+#: objects/standard/zigzagline.c:428
 msgid "Add segment"
 msgstr "Lägg till segment"
 
-#: objects/ER/participation.c:396 objects/FS/flow-ortho.c:815
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
-#: objects/UML/association.c:683 objects/UML/dependency.c:342
-#: objects/UML/generalization.c:344 objects/UML/realizes.c:333
-#: objects/standard/zigzagline.c:344
+#: objects/ER/participation.c:395 objects/FS/flow-ortho.c:822
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:550
+#: objects/UML/association.c:686 objects/UML/dependency.c:351
+#: objects/UML/generalization.c:347 objects/UML/realizes.c:340
+#: objects/standard/zigzagline.c:429
 msgid "Delete segment"
 msgstr "Ta bort segment"
 
-#: objects/ER/relationship.c:140
+#: objects/ER/relationship.c:139
 msgid "Left Cardinality:"
 msgstr "Vänsterkardinalitet:"
 
-#: objects/ER/relationship.c:142
+#: objects/ER/relationship.c:141
 msgid "Right Cardinality:"
 msgstr "Högerkardinalitet:"
 
-#: objects/ER/relationship.c:144
+#: objects/ER/relationship.c:143
 msgid "Rotate:"
 msgstr "Rotera:"
 
-#: objects/ER/relationship.c:146
+#: objects/ER/relationship.c:145
 msgid "Identifying:"
 msgstr "Identifierar:"
 
-#: objects/ER/relationship.c:427 sheets/ER.sheet.in.h:6
+#: objects/ER/relationship.c:426 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Förhållande"
 
-#: objects/flowchart/box.c:169 objects/standard/box.c:153
+#: objects/flowchart/box.c:169 objects/standard/box.c:131
 msgid "Corner radius"
 msgstr "Hörnradie"
 
-#: objects/SADT/box.c:137 objects/flowchart/box.c:171
+#: objects/SADT/box.c:136 objects/flowchart/box.c:171
 #: objects/flowchart/diamond.c:167 objects/flowchart/ellipse.c:167
 #: objects/flowchart/parallelogram.c:173
 msgid "Text padding"
 msgstr "Textmellanrum"
 
-#: objects/flowchart/box.c:281 objects/standard/box.c:240
+#: objects/flowchart/box.c:281
 msgid "Corner rounding:"
 msgstr "Hörnrundning:"
 
@@ -2565,43 +2634,43 @@ msgid "Shear angle:"
 msgstr "Tvära vinkel:"
 
 #.
-#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:745
-#: objects/FS/flow-ortho.c:811 objects/FS/flow-ortho.c:876
+#: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:752
+#: objects/FS/flow-ortho.c:818 objects/FS/flow-ortho.c:883
 #: objects/FS/flow.c:158 objects/FS/flow.c:658 objects/FS/flow.c:722
 #: objects/FS/function.c:1061
 msgid "Energy"
 msgstr "Energi"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:752
-#: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:883
+#: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
+#: objects/FS/flow-ortho.c:819 objects/FS/flow-ortho.c:890
 #: objects/FS/flow.c:159 objects/FS/flow.c:659 objects/FS/flow.c:729
 #: objects/FS/function.c:1037
 msgid "Material"
 msgstr "Material"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow-ortho.c:181 objects/FS/flow-ortho.c:758
-#: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:889
+#: objects/FS/flow-ortho.c:181 objects/FS/flow-ortho.c:765
+#: objects/FS/flow-ortho.c:820 objects/FS/flow-ortho.c:896
 #: objects/FS/flow.c:160 objects/FS/flow.c:660 objects/FS/flow.c:735
 #: objects/FS/function.c:999 objects/FS/function.c:1001
 #: objects/FS/function.c:1137 objects/FS/function.c:1139
 msgid "Signal"
 msgstr "Signal"
 
-#: objects/FS/flow-ortho.c:725 objects/FS/flow.c:701
+#: objects/FS/flow-ortho.c:732 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "Flöde:"
 
-#: objects/FS/flow-ortho.c:740 objects/FS/flow.c:717
+#: objects/FS/flow-ortho.c:747 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "Flödestyp:"
 
-#: objects/FS/flow-ortho.c:855
+#: objects/FS/flow-ortho.c:862
 msgid "Orthflow:"
 msgstr "Ortoflöde:"
 
-#: objects/FS/flow-ortho.c:871
+#: objects/FS/flow-ortho.c:878
 msgid "Orthflow type:"
 msgstr "Ortoflödestyp:"
 
@@ -3594,35 +3663,35 @@ msgstr "Användar-/enhetsfunktion"
 msgid "Wish Fn"
 msgstr "Önskad funktion"
 
-#: objects/GRAFCET/action.c:135 sheets/SDL.sheet.in.h:9
+#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
 msgid "Macro call"
 msgstr "Makroanrop"
 
-#: objects/GRAFCET/action.c:135
+#: objects/GRAFCET/action.c:134
 msgid "This action is a call to a macro-step"
 msgstr "Denna åtgärd är ett anrop till ett makrosteg"
 
-#: objects/GRAFCET/condition.c:130
+#: objects/GRAFCET/condition.c:129
 msgid "Condition"
 msgstr "Villkor"
 
-#: objects/GRAFCET/condition.c:130
+#: objects/GRAFCET/condition.c:129
 msgid "The boolean equation of the condition"
 msgstr "Villkoret i form av en boolesk ekvation"
 
-#: objects/GRAFCET/condition.c:132
+#: objects/GRAFCET/condition.c:131
 msgid "The condition's font"
 msgstr "Typsnitt på villkoret"
 
-#: objects/GRAFCET/condition.c:134
+#: objects/GRAFCET/condition.c:133
 msgid "The condition's font size"
 msgstr "Villkorets typsnittsstorlek"
 
-#: objects/GRAFCET/condition.c:137 objects/GRAFCET/transition.c:147
+#: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:147
 msgid "Color"
 msgstr "Färg"
 
-#: objects/GRAFCET/condition.c:137
+#: objects/GRAFCET/condition.c:136
 msgid "The condition's color"
 msgstr "Färg på villkoret"
 
@@ -3630,51 +3699,51 @@ msgstr "Färg på villkoret"
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET-diagramobjekt"
 
-#: objects/GRAFCET/step.c:146
+#: objects/GRAFCET/step.c:145
 msgid "Regular step"
 msgstr "Vanligt steg"
 
-#: objects/GRAFCET/step.c:147
+#: objects/GRAFCET/step.c:146
 msgid "Initial step"
 msgstr "Begynnelsesteg"
 
-#: objects/GRAFCET/step.c:148
+#: objects/GRAFCET/step.c:147
 msgid "Macro entry step"
 msgstr "Makroenhetssteg"
 
-#: objects/GRAFCET/step.c:149
+#: objects/GRAFCET/step.c:148
 msgid "Macro exit step"
 msgstr "Makroavslutningssteg"
 
-#: objects/GRAFCET/step.c:150
+#: objects/GRAFCET/step.c:149
 msgid "Macro call step"
 msgstr "Makroanropssteg"
 
-#: objects/GRAFCET/step.c:151
+#: objects/GRAFCET/step.c:150
 msgid "Subprogram call step"
 msgstr "Anrop av subprogramsteg"
 
-#: objects/GRAFCET/step.c:157
+#: objects/GRAFCET/step.c:156
 msgid "Step name"
 msgstr "Stegnamn"
 
-#: objects/GRAFCET/step.c:157
+#: objects/GRAFCET/step.c:156
 msgid "The name of the step"
 msgstr "Namnet på steget"
 
-#: objects/GRAFCET/step.c:159
+#: objects/GRAFCET/step.c:158
 msgid "Step type"
 msgstr "Stegtyp"
 
-#: objects/GRAFCET/step.c:159
+#: objects/GRAFCET/step.c:158
 msgid "The kind of step"
 msgstr "Typen av steg"
 
-#: objects/GRAFCET/step.c:161
+#: objects/GRAFCET/step.c:160
 msgid "Active"
 msgstr "Aktiv"
 
-#: objects/GRAFCET/step.c:161
+#: objects/GRAFCET/step.c:160
 msgid "Shows a red dot to figure the step's activity"
 msgstr "Visar en röd punkt för att åskådliggöra stegets aktivitet"
 
@@ -3706,32 +3775,32 @@ msgstr "Nordpunkt"
 msgid "South point"
 msgstr "Sydpunkt"
 
-#: objects/GRAFCET/vector.c:128
+#: objects/GRAFCET/vector.c:127
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Rita pilhuvuden på uppåtpekande bågar:"
 
-#: objects/GRAFCET/vergent.c:122
+#: objects/GRAFCET/vergent.c:121
 msgid "OR"
 msgstr "ELLER"
 
-#: objects/GRAFCET/vergent.c:123
+#: objects/GRAFCET/vergent.c:122
 msgid "AND"
 msgstr "OCH"
 
-#: objects/GRAFCET/vergent.c:134
+#: objects/GRAFCET/vergent.c:133
 msgid "Vergent type:"
 msgstr "Kanttyp:"
 
-#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
-#: objects/standard/line.c:182
+#: objects/GRAFCET/vergent.c:389 objects/SADT/box.c:438
+#: objects/standard/line.c:181
 msgid "Add connection point"
 msgstr "Lägg till anslutningspunkt"
 
-#: objects/GRAFCET/vergent.c:391
+#: objects/GRAFCET/vergent.c:390
 msgid "Delete  connection point"
 msgstr "Ta bort anslutningspunkt"
 
-#: objects/GRAFCET/vergent.c:395
+#: objects/GRAFCET/vergent.c:394
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET ELLER/OCH-kant"
 
@@ -3748,36 +3817,36 @@ msgid "Network diagram objects"
 msgstr "Nätverksdiagramobjekt"
 
 #. property rows
-#: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:315
-#: objects/UML/state.c:124
+#: objects/SADT/arrow.c:133 objects/UML/class_dialog.c:333
+#: objects/UML/state.c:122
 msgid "Normal"
 msgstr "Normal"
 
-#: objects/SADT/arrow.c:135
+#: objects/SADT/arrow.c:134
 msgid "Import resource (not shown upstairs)"
 msgstr "Importera resurs (visas inte uppåt)"
 
-#: objects/SADT/arrow.c:136
+#: objects/SADT/arrow.c:135
 msgid "Imply resource (not shown downstairs)"
 msgstr "Antyd resurs (visas inte nedåt)"
 
-#: objects/SADT/arrow.c:137
+#: objects/SADT/arrow.c:136
 msgid "Dotted arrow"
 msgstr "Punktmarkerad pil"
 
-#: objects/SADT/arrow.c:138
+#: objects/SADT/arrow.c:137
 msgid "disable arrow heads"
 msgstr "avaktivera pilrubriker"
 
-#: objects/SADT/arrow.c:144
+#: objects/SADT/arrow.c:143
 msgid "Flow style:"
 msgstr "Flödesstil:"
 
-#: objects/SADT/arrow.c:146
+#: objects/SADT/arrow.c:145
 msgid "Automatically gray vertical flows:"
 msgstr "Grålägg vertikala flöden automatiskt"
 
-#: objects/SADT/arrow.c:147
+#: objects/SADT/arrow.c:146
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
@@ -3785,23 +3854,23 @@ msgstr ""
 "För att underlätta läsning kan flöden som börjar och slutar vertikalt färgas "
 "gråa"
 
-#: objects/SADT/arrow.c:555
+#: objects/SADT/arrow.c:554
 msgid "SADT Arrow"
 msgstr "SADT-pil"
 
-#: objects/SADT/box.c:144
+#: objects/SADT/box.c:143
 msgid "Activity/Data identifier"
 msgstr "Aktivitet/Dataidentifierare"
 
-#: objects/SADT/box.c:145
+#: objects/SADT/box.c:144
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Identifieraren som visas i nedre högra hörnet i rutan"
 
-#: objects/SADT/box.c:440 objects/standard/line.c:183
+#: objects/SADT/box.c:439 objects/standard/line.c:182
 msgid "Delete connection point"
 msgstr "Ta bort anslutningsspunkt"
 
-#: objects/SADT/box.c:445
+#: objects/SADT/box.c:444
 msgid "SADT box"
 msgstr "SADT-rektangel"
 
@@ -3809,56 +3878,44 @@ msgstr "SADT-rektangel"
 msgid "SADT diagram objects"
 msgstr "SADT-diagramobjekt"
 
-#: objects/standard/arc.c:133
+#: objects/standard/arc.c:130
 msgid "Curve distance"
 msgstr "Kurvavstånd"
 
-#: objects/standard/bezier.c:524 objects/standard/beziergon.c:543
+#: objects/standard/bezier.c:533 objects/standard/beziergon.c:490
 msgid "Add Segment"
 msgstr "Lägg till segment"
 
-#: objects/standard/bezier.c:525 objects/standard/beziergon.c:544
+#: objects/standard/bezier.c:534 objects/standard/beziergon.c:491
 msgid "Delete Segment"
 msgstr "Ta bort segment"
 
-#: objects/standard/bezier.c:527 objects/standard/beziergon.c:546
+#: objects/standard/bezier.c:536 objects/standard/beziergon.c:493
 msgid "Symmetric control"
 msgstr "Symmetrikontroll"
 
-#: objects/standard/bezier.c:529 objects/standard/beziergon.c:548
+#: objects/standard/bezier.c:538 objects/standard/beziergon.c:495
 msgid "Smooth control"
 msgstr "Jämnhetskontroll"
 
-#: objects/standard/bezier.c:531 objects/standard/beziergon.c:550
+#: objects/standard/bezier.c:540 objects/standard/beziergon.c:497
 msgid "Cusp control"
 msgstr "Spetsighetskontroll"
 
-#: objects/standard/image.c:168
+#: objects/standard/image.c:129
 msgid "Image file"
 msgstr "Bildfil"
 
-#: objects/standard/image.c:170
+#: objects/standard/image.c:131
 msgid "Draw border"
 msgstr "Rita ram"
 
-#: objects/standard/image.c:172
+#: objects/standard/image.c:133
 msgid "Keep aspect ratio"
 msgstr "Behåll proportioner"
 
-#: objects/standard/image.c:271
-msgid "Image file:"
-msgstr "Bildfil:"
-
-#: objects/standard/image.c:282
-msgid "Keep aspect ratio:"
-msgstr "Behåll proportioner:"
-
-#: objects/standard/image.c:290
-msgid "Show border:"
-msgstr "Visa ram:"
-
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:841 objects/standard/image.c:852
+#: objects/standard/image.c:662 objects/standard/image.c:673
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -3868,24 +3925,24 @@ msgstr ""
 "Använder filen \"%s\" i stället.\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:858 objects/standard/image.c:884
+#: objects/standard/image.c:679 objects/standard/image.c:705
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Kunde inte hitta bildfilen \"%s\".\n"
 
-#: objects/standard/line.c:121
+#: objects/standard/line.c:120
 msgid "Start point"
 msgstr "Startpunkt"
 
-#: objects/standard/line.c:123
+#: objects/standard/line.c:122
 msgid "End point"
 msgstr "Slutpunkt"
 
-#: objects/standard/polygon.c:526 objects/standard/polyline.c:498
+#: objects/standard/polygon.c:451 objects/standard/polyline.c:487
 msgid "Add Corner"
 msgstr "Lägg till hörn"
 
-#: objects/standard/polygon.c:527 objects/standard/polyline.c:499
+#: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Delete Corner"
 msgstr "Ta bort hörn"
 
@@ -3893,258 +3950,290 @@ msgstr "Ta bort hörn"
 msgid "Standard objects"
 msgstr "Standardobjekt"
 
+#. choose default font name for your locale. see also font_data structure
+#. in lib/font.c.
+#: objects/UML/activity.c:298
+msgid "Helvetica"
+msgstr "Helvetica"
+
 #: objects/UML/actor.c:331 objects/UML/actor.c:333
 msgid "Actor"
 msgstr "Aktör"
 
-#: objects/UML/association.c:1057 objects/UML/class_dialog.c:2038
+#: objects/UML/association.c:1060 objects/UML/class_dialog.c:2070
 msgid "Direction:"
 msgstr "Riktning:"
 
-#: objects/UML/association.c:1074
+#: objects/UML/association.c:1077
 msgid "From A to B"
 msgstr "Från A till B"
 
-#: objects/UML/association.c:1081
+#: objects/UML/association.c:1084
 msgid "From B to A"
 msgstr "Från B till A"
 
-#: objects/UML/association.c:1105 objects/UML/association.c:1113
+#: objects/UML/association.c:1108 objects/UML/association.c:1116
 msgid "Side A"
 msgstr "Sida A"
 
-#: objects/UML/association.c:1107 objects/UML/association.c:1115
+#: objects/UML/association.c:1110 objects/UML/association.c:1118
 msgid "Side B"
 msgstr "Sida B"
 
-#: objects/UML/association.c:1121
+#: objects/UML/association.c:1124
 msgid "Role:"
 msgstr "Roll:"
 
-#: objects/UML/association.c:1133
+#: objects/UML/association.c:1136
 msgid "Multiplicity:"
 msgstr "Multiplicitet:"
 
 #. Show arrow:
-#: objects/UML/association.c:1144
+#: objects/UML/association.c:1147
 msgid "Show arrow"
 msgstr "Visa pil"
 
 #. Aggregate
-#: objects/UML/association.c:1150
+#: objects/UML/association.c:1153
 msgid "Aggregate"
 msgstr "Aggregat"
 
 #. Composition
-#: objects/UML/association.c:1158
+#: objects/UML/association.c:1161
 msgid "Composition"
 msgstr "Komposition"
 
-#: objects/UML/class.c:103 objects/UML/classicon.c:131
+#: objects/UML/class.c:107 objects/UML/classicon.c:131
 #: objects/UML/component.c:116 objects/UML/large_package.c:118
 #: objects/UML/object.c:144 objects/UML/small_package.c:116
 msgid "Stereotype"
 msgstr "Stereotyp"
 
-#: objects/UML/class.c:105 objects/UML/class_dialog.c:278
-#: objects/UML/class_dialog.c:320 objects/UML/class_dialog.c:1861
+#: objects/UML/class.c:109 objects/UML/class_dialog.c:358
+#: sheets/SDL.sheet.in.h:3
+msgid "Comment"
+msgstr "Kommentar"
+
+#: objects/UML/class.c:111 objects/UML/class_dialog.c:290
+#: objects/UML/class_dialog.c:343 objects/UML/class_dialog.c:1893
 msgid "Abstract"
 msgstr "Abstrakt"
 
-#: objects/UML/class.c:107 objects/UML/class_dialog.c:287
+#: objects/UML/class.c:113 objects/UML/class_dialog.c:299
 msgid "Suppress Attributes"
 msgstr "Undertryck i attribut"
 
-#: objects/UML/class.c:109
+#: objects/UML/class.c:115
 msgid "Suppress Operations"
 msgstr "Undertryck operationer"
 
-#: objects/UML/class.c:111
+#: objects/UML/class.c:117
 msgid "Visible Attributes"
 msgstr "Synliga attribut"
 
-#: objects/UML/class.c:113
+#: objects/UML/class.c:119
 msgid "Visible Operations"
 msgstr "Synliga operationer"
 
-#: objects/UML/class.c:119
+#: objects/UML/class.c:121
+#, fuzzy
+msgid "Visible Comments"
+msgstr "Synliga operationer"
+
+#: objects/UML/class.c:127
 msgid "Template"
 msgstr "Mall"
 
 #. Class page:
-#: objects/UML/class.c:778 objects/UML/class_dialog.c:243
+#: objects/UML/class.c:172 objects/UML/class.c:920
+#: objects/UML/class_dialog.c:255
 msgid "Class"
 msgstr "Klass"
 
-#: objects/UML/class_dialog.c:249
+#: objects/UML/class.c:178
+#, fuzzy
+msgid "Show comments"
+msgstr "Kommentar"
+
+#: objects/UML/class_dialog.c:261
 msgid "Class name:"
 msgstr "Klassnamn:"
 
-#: objects/UML/class_dialog.c:260 objects/UML/class_dialog.c:1784
+#: objects/UML/class_dialog.c:272 objects/UML/class_dialog.c:1816
 #: objects/UML/dependency.c:127 objects/UML/generalization.c:123
 #: objects/UML/realizes.c:124
 msgid "Stereotype:"
 msgstr "Stereotyp:"
 
-#: objects/UML/class_dialog.c:269 objects/UML/class_dialog.c:871
-#: objects/UML/class_dialog.c:1902 objects/UML/class_dialog.c:2026
+#: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:901
+#: objects/UML/class_dialog.c:1934 objects/UML/class_dialog.c:2058
 #, fuzzy
 msgid "Comment:"
 msgstr "Kommentar"
 
-#: objects/UML/class_dialog.c:284
+#: objects/UML/class_dialog.c:296
 msgid "Attributes visible"
 msgstr "Attribut synliga"
 
-#: objects/UML/class_dialog.c:293
+#: objects/UML/class_dialog.c:305
 msgid "Operations visible"
 msgstr "Operationer synliga"
 
-#: objects/UML/class_dialog.c:296
+#: objects/UML/class_dialog.c:308
 msgid "Suppress operations"
 msgstr "Undertryck operationer"
 
+#: objects/UML/class_dialog.c:314
+#, fuzzy
+msgid "Comments visible"
+msgstr "Operationer synliga"
+
 #. head line
-#: objects/UML/class_dialog.c:306
+#: objects/UML/class_dialog.c:324
 msgid "Kind"
 msgstr "Sort"
 
-#: objects/UML/class_dialog.c:311
+#: objects/UML/class_dialog.c:329
 msgid "Size"
 msgstr "Storlek"
 
-#: objects/UML/class_dialog.c:325
+#: objects/UML/class_dialog.c:338
+#, fuzzy
+msgid "Polymorphic"
+msgstr "Polymorfisk (virtuell)"
+
+#: objects/UML/class_dialog.c:348
 msgid "Class Name"
 msgstr "Klassnamn"
 
-#: objects/UML/class_dialog.c:330
+#: objects/UML/class_dialog.c:353
 msgid "Abstract Class"
 msgstr "Abstrakt klass"
 
 #. should probably be refactored too.
-#: objects/UML/class_dialog.c:340
+#: objects/UML/class_dialog.c:370
 msgid "Foreground Color"
 msgstr "Förgrundsfärg"
 
-#: objects/UML/class_dialog.c:348
+#: objects/UML/class_dialog.c:378
 msgid "Background Color"
 msgstr "Bakgrundsfärg"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:770 objects/UML/object.c:148
+#: objects/UML/class_dialog.c:800 objects/UML/object.c:148
 msgid "Attributes"
 msgstr "Attribut"
 
-#: objects/UML/class_dialog.c:804 objects/UML/class_dialog.c:1726
-#: objects/UML/class_dialog.c:1955 objects/UML/class_dialog.c:2473
+#: objects/UML/class_dialog.c:834 objects/UML/class_dialog.c:1758
+#: objects/UML/class_dialog.c:1987 objects/UML/class_dialog.c:2505
 msgid "Delete"
 msgstr "Ta bort"
 
-#: objects/UML/class_dialog.c:810 objects/UML/class_dialog.c:1732
-#: objects/UML/class_dialog.c:1962 objects/UML/class_dialog.c:2479
+#: objects/UML/class_dialog.c:840 objects/UML/class_dialog.c:1764
+#: objects/UML/class_dialog.c:1994 objects/UML/class_dialog.c:2511
 msgid "Move up"
 msgstr "Flytta upp"
 
-#: objects/UML/class_dialog.c:816 objects/UML/class_dialog.c:1738
-#: objects/UML/class_dialog.c:1969 objects/UML/class_dialog.c:2485
+#: objects/UML/class_dialog.c:846 objects/UML/class_dialog.c:1770
+#: objects/UML/class_dialog.c:2001 objects/UML/class_dialog.c:2517
 msgid "Move down"
 msgstr "Flytta ned"
 
-#: objects/UML/class_dialog.c:827
+#: objects/UML/class_dialog.c:857
 msgid "Attribute data"
 msgstr "Attributdata"
 
-#: objects/UML/class_dialog.c:859
+#: objects/UML/class_dialog.c:889
 msgid "Value:"
 msgstr "Värde:"
 
-#: objects/UML/class_dialog.c:884 objects/UML/class_dialog.c:1797
+#: objects/UML/class_dialog.c:914 objects/UML/class_dialog.c:1829
 msgid "Visibility:"
 msgstr "Synlighet:"
 
-#: objects/UML/class_dialog.c:893 objects/UML/class_dialog.c:1806
+#: objects/UML/class_dialog.c:923 objects/UML/class_dialog.c:1838
 msgid "Public"
 msgstr "Allmän"
 
-#: objects/UML/class_dialog.c:901 objects/UML/class_dialog.c:1814
+#: objects/UML/class_dialog.c:931 objects/UML/class_dialog.c:1846
 msgid "Private"
 msgstr "Privat"
 
-#: objects/UML/class_dialog.c:909 objects/UML/class_dialog.c:1822
+#: objects/UML/class_dialog.c:939 objects/UML/class_dialog.c:1854
 msgid "Protected"
 msgstr "Skyddad"
 
-#: objects/UML/class_dialog.c:917 objects/UML/class_dialog.c:1830
+#: objects/UML/class_dialog.c:947 objects/UML/class_dialog.c:1862
 msgid "Implementation"
 msgstr "Implementation"
 
-#: objects/UML/class_dialog.c:933 objects/UML/class_dialog.c:1846
+#: objects/UML/class_dialog.c:963 objects/UML/class_dialog.c:1878
 msgid "Class scope"
 msgstr "Klassräckvidd"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1692
+#: objects/UML/class_dialog.c:1724
 msgid "Operations"
 msgstr "Operationer"
 
-#: objects/UML/class_dialog.c:1750
+#: objects/UML/class_dialog.c:1782
 msgid "Operation data"
 msgstr "Operationsdata"
 
-#: objects/UML/class_dialog.c:1852
+#: objects/UML/class_dialog.c:1884
 msgid "Inheritance type:"
 msgstr "Ärvningstyp:"
 
-#: objects/UML/class_dialog.c:1869
+#: objects/UML/class_dialog.c:1901
 msgid "Polymorphic (virtual)"
 msgstr "Polymorfisk (virtuell)"
 
-#: objects/UML/class_dialog.c:1877
+#: objects/UML/class_dialog.c:1909
 msgid "Leaf (final)"
 msgstr "Löv (slutgiltig)"
 
-#: objects/UML/class_dialog.c:1895
+#: objects/UML/class_dialog.c:1927
 msgid "Query"
 msgstr "Fråga"
 
-#: objects/UML/class_dialog.c:1919
+#: objects/UML/class_dialog.c:1951
 msgid "Parameters:"
 msgstr "Parametrar:"
 
-#: objects/UML/class_dialog.c:1981
+#: objects/UML/class_dialog.c:2013
 msgid "Parameter data"
 msgstr "Parameterdata"
 
-#: objects/UML/class_dialog.c:2014
+#: objects/UML/class_dialog.c:2046
 msgid "Def. value:"
 msgstr "Standardvärde:"
 
-#: objects/UML/class_dialog.c:2047
+#: objects/UML/class_dialog.c:2079
 msgid "Undefined"
 msgstr "Odefinierad"
 
-#: objects/UML/class_dialog.c:2055
+#: objects/UML/class_dialog.c:2087
 msgid "In"
 msgstr "In"
 
-#: objects/UML/class_dialog.c:2064
+#: objects/UML/class_dialog.c:2096
 msgid "Out"
 msgstr "Ut"
 
-#: objects/UML/class_dialog.c:2073
+#: objects/UML/class_dialog.c:2105
 msgid "In & Out"
 msgstr "In och ut"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2433
+#: objects/UML/class_dialog.c:2465
 msgid "Templates"
 msgstr "Mallar"
 
-#: objects/UML/class_dialog.c:2439
+#: objects/UML/class_dialog.c:2471
 msgid "Template class"
 msgstr "Mallklass"
 
-#: objects/UML/class_dialog.c:2496
+#: objects/UML/class_dialog.c:2528
 msgid "Formal parameter data"
 msgstr "Formell parameterdata"
 
@@ -4240,19 +4329,24 @@ msgstr "Visa attribut"
 msgid "Multiple instance"
 msgstr "Multipla instanser"
 
-#: objects/UML/state.c:125
+#: objects/UML/state.c:123
 msgid "Begin"
 msgstr "Start"
 
-#: objects/UML/state.c:126
+#: objects/UML/state.c:124
 msgid "End"
 msgstr "Slut"
 
-#: objects/UML/state.c:133
+#: objects/UML/state.c:131
 msgid "State Type"
 msgstr "Tillståndstyp"
 
-#: objects/UML/uml.c:60
+#: objects/UML/state_term.c:121
+#, fuzzy
+msgid "Is final"
+msgstr "Löv (slutgiltig)"
+
+#: objects/UML/uml.c:63
 msgid "Unified Modelling Language diagram objects"
 msgstr "Unified Modelling Language-diagramobjekt"
 
@@ -4316,27 +4410,55 @@ msgstr "Python-skriptstöd"
 msgid "dia shape export filter"
 msgstr "exportfilter för dia-figurer"
 
-#: plug-ins/shape/shape-export.c:949
+#: plug-ins/shape/shape-export.c:950
 msgid "Can't export png without libart!"
 msgstr "Kan inte exportera png utan libart!"
 
-#: plug-ins/shape/shape-export.c:976
+#: plug-ins/shape/shape-export.c:977
 msgid "dia shape file"
 msgstr "dia-figurfil"
 
-#: plug-ins/svg/render_svg.c:871
+#: plug-ins/svg/render_svg.c:941 plug-ins/svg/svg-import.c:633
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
-#: plug-ins/svg/svg.c:36
-msgid "Scalable Vector Graphics export filter"
+#: plug-ins/svg/svg.c:37
+#, fuzzy
+msgid "Scalable Vector Graphics import and export filters"
 msgstr "Exportfilter för Scalable Vector Graphics"
 
-#: plug-ins/wmf/wmf.cpp:962
+#: plug-ins/svg/svg-import.c:200 plug-ins/svg/svg-import.c:214
+#: plug-ins/xfig/xfig-import.c:98 plug-ins/xfig/xfig-import.c:149
+#: plug-ins/xfig/xfig-import.c:178 plug-ins/xfig/xfig-import.c:206
+#: plug-ins/xfig/xfig-import.c:232 plug-ins/xfig/xfig-import.c:257
+#: plug-ins/xfig/xfig-import.c:283 plug-ins/xfig/xfig-import.c:314
+#: plug-ins/xfig/xfig-import.c:350
+msgid "Can't find standard object"
+msgstr "Kan inte hitta standardobjekt"
+
+#: plug-ins/svg/svg-import.c:226
+msgid "Unexpected SVG path element"
+msgstr ""
+
+#: plug-ins/svg/svg-import.c:281
+msgid "Courier"
+msgstr "Courier"
+
+#: plug-ins/svg/svg-import.c:582
+#, fuzzy
+msgid "Could not find SVG namespace."
+msgstr "Kunde inte hitta hjälpkatalogen"
+
+#: plug-ins/svg/svg-import.c:588
+#, c-format
+msgid "root element was '%s' -- expecting 'svg'."
+msgstr ""
+
+#: plug-ins/wmf/wmf.cpp:957
 msgid "Windows Meta File"
 msgstr "Windows Meta File (WMF)"
 
-#: plug-ins/wmf/wmf.cpp:976
+#: plug-ins/wmf/wmf.cpp:971
 msgid "WMF export filter"
 msgstr "Exportfilter för WMF"
 
@@ -4353,177 +4475,181 @@ msgstr "Exportfilter för WordPerfect-grafik"
 msgid "Fig Format import and export filter"
 msgstr "Import- och exportfilter för fig-format"
 
-#: plug-ins/xfig/xfig-export.c:368
+#: plug-ins/xfig/xfig-export.c:372
 msgid "No more user-definable colors - using black"
 msgstr "Inga fler användardefinierbara färger - använder svart"
 
-#: plug-ins/xfig/xfig-export.c:795
+#: plug-ins/xfig/xfig-export.c:806
 msgid "XFig format"
 msgstr "XFig-format"
 
-#: plug-ins/xfig/xfig-import.c:76
-msgid "Polygon import is not implemented yet"
-msgstr "Polygonimport är inte implementerat än"
-
-#: plug-ins/xfig/xfig-import.c:77
+#: plug-ins/xfig/xfig-import.c:416
 msgid "Patterns are not supported by Dia"
 msgstr "Dia stöder inte mönster"
 
-#: plug-ins/xfig/xfig-import.c:78
+#: plug-ins/xfig/xfig-import.c:444
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
 msgstr ""
 "Dia stöder inte trippelpunktmarkerade linjer, använder dubbelpunktmarkerade"
 
-#: plug-ins/xfig/xfig-import.c:80
-msgid "Negative corner radius, negating"
-msgstr "Negativ hörnradie, negerar"
-
-#: plug-ins/xfig/xfig-import.c:81
-msgid "Spline import is not implemented yet"
-msgstr "Splineimport är inte implementerat än"
-
-#: plug-ins/xfig/xfig-import.c:82
-msgid "Can't find standard object"
-msgstr "Kan inte hitta standardobjekt"
-
-#: plug-ins/xfig/xfig-import.c:424
+#: plug-ins/xfig/xfig-import.c:448
 #, c-format
 msgid "Line style %d should not appear\n"
 msgstr "Linjestil %d borde inte dyka upp\n"
 
-#: plug-ins/xfig/xfig-import.c:492
+#: plug-ins/xfig/xfig-import.c:516
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr "Fel vid läsning av %d:e av %d punkter: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:511
+#: plug-ins/xfig/xfig-import.c:535
 msgid "Error while reading arrowhead\n"
 msgstr "Fel vid läsning av pilhuvud\n"
 
-#: plug-ins/xfig/xfig-import.c:602
+#: plug-ins/xfig/xfig-import.c:626
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr "Kunde inte läsa ellipsinformation: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:670
+#: plug-ins/xfig/xfig-import.c:694
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr "Kunde inte läsa polylinjeinformation: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:685
+#: plug-ins/xfig/xfig-import.c:709
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr "Kunde inte läsa vänd bit: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:744 plug-ins/xfig/xfig-import.c:830
+#: plug-ins/xfig/xfig-import.c:727
+msgid "Negative corner radius, negating"
+msgstr "Negativ hörnradie, negerar"
+
+#: plug-ins/xfig/xfig-import.c:768 plug-ins/xfig/xfig-import.c:1005
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Okänd polylinjeundertyp: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:807
+#: plug-ins/xfig/xfig-import.c:863 plug-ins/xfig/xfig-import.c:895
+#, fuzzy, c-format
+msgid "Couldn't read spline info: %s\n"
+msgstr "Kunde inte läsa polylinjeinformation: %s\n"
+
+#. Open approximated spline
+#. Closed approximated spline
+#: plug-ins/xfig/xfig-import.c:882 plug-ins/xfig/xfig-import.c:900
+msgid "Cannot convert approximated spline yet."
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:921
+#, fuzzy, c-format
+msgid "Unknown spline subtype: %d\n"
+msgstr "Okänd polylinjeundertyp: %d\n"
+
+#: plug-ins/xfig/xfig-import.c:982
 #, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr "Kunde inte läsa båginformation: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:891
+#: plug-ins/xfig/xfig-import.c:1066
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr "Kunde inte läsa textinformation: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:933
+#: plug-ins/xfig/xfig-import.c:1108
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr "Kunde inte identifiera FIG-objekt: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:940
+#: plug-ins/xfig/xfig-import.c:1115
 msgid "Compound end outside compound\n"
 msgstr "Sammansättningen slutar utanför sammansättningen\n"
 
-#: plug-ins/xfig/xfig-import.c:959
+#: plug-ins/xfig/xfig-import.c:1134
 #, c-format
 msgid "Couldn't read color: %s\n"
 msgstr "Kunde inte läsa färgen: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1001
+#: plug-ins/xfig/xfig-import.c:1179
 #, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "Kunde inte läsa grupputökning: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1012
+#: plug-ins/xfig/xfig-import.c:1190
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Okänd objekttyp %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1035
+#: plug-ins/xfig/xfig-import.c:1213
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "\"%s\" är inte en av \"%s\" eller \"%s\"\n"
 
-#: plug-ins/xfig/xfig-import.c:1045
+#: plug-ins/xfig/xfig-import.c:1223
 #, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "Fel vid läsning av pappersstorlek: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1055
+#: plug-ins/xfig/xfig-import.c:1233
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Pappersstorleken \"%s\" är okänd, använder standardalternativet\n"
 
-#: plug-ins/xfig/xfig-import.c:1067
+#: plug-ins/xfig/xfig-import.c:1245
 #, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "Fel vid läsning av pappersorientering: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1077
+#: plug-ins/xfig/xfig-import.c:1255
 #, c-format
 msgid "Error reading justification: %s\n"
 msgstr "Fel vid läsning av justering: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1087
+#: plug-ins/xfig/xfig-import.c:1265
 #, c-format
 msgid "Error reading units: %s\n"
 msgstr "Fel vid läsning av enheter: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1101
+#: plug-ins/xfig/xfig-import.c:1279
 #, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "Fel vid läsning av förstoring: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1112
+#: plug-ins/xfig/xfig-import.c:1290
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "Fel vid läsning av flersidesindikator: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1123
+#: plug-ins/xfig/xfig-import.c:1301
 #, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr "Fel vid läsning av genomskinlig färg: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1132 plug-ins/xfig/xfig-import.c:1187
+#: plug-ins/xfig/xfig-import.c:1310 plug-ins/xfig/xfig-import.c:1365
 #, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "Fel vid läsning av FIG-fil: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1134 plug-ins/xfig/xfig-import.c:1189
+#: plug-ins/xfig/xfig-import.c:1312 plug-ins/xfig/xfig-import.c:1367
 msgid "Premature end of FIG file\n"
 msgstr "För tidigt slut på FIG-filen\n"
 
-#: plug-ins/xfig/xfig-import.c:1143
+#: plug-ins/xfig/xfig-import.c:1321
 #, c-format
 msgid "Error reading resolution: %s\n"
 msgstr "Fel vid läsning av upplösning: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1174
+#: plug-ins/xfig/xfig-import.c:1352
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr "Ser inte ut som en Fig-fil: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1180
+#: plug-ins/xfig/xfig-import.c:1358
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr "Detta är en FIG-fil i version %d.%d, jag kanske inte förstår den\n"
 
-#: plug-ins/xfig/xfig-import.c:1221
+#: plug-ins/xfig/xfig-import.c:1399
 msgid "XFig File Format"
 msgstr "XFig-filformat"
 
@@ -5768,10 +5894,6 @@ msgstr "Åtgärd som körs"
 msgid "Block Type Reference"
 msgstr "Blocktypsreferens"
 
-#: sheets/SDL.sheet.in.h:3
-msgid "Comment"
-msgstr "Kommentar"
-
 #: sheets/SDL.sheet.in.h:4
 msgid "Decision"
 msgstr "Beslut"
@@ -5901,60 +6023,113 @@ msgid "Create a dependency"
 msgstr "Skapa ett beroende"
 
 #: sheets/UML.sheet.in.h:11
+#, fuzzy
+msgid "Create a fork/union"
+msgstr "Skapa en funktion"
+
+#: sheets/UML.sheet.in.h:12
+#, fuzzy
+msgid "Create a initial/end state"
+msgstr "Skapa en tillståndsmaskin"
+
+#: sheets/UML.sheet.in.h:13
 msgid "Create a lifeline"
 msgstr "Skapa en livslinje"
 
-#: sheets/UML.sheet.in.h:12
+#: sheets/UML.sheet.in.h:14
 msgid "Create a message"
 msgstr "Skapa ett meddelande"
 
-#: sheets/UML.sheet.in.h:13
+#: sheets/UML.sheet.in.h:15
 msgid "Create a node"
 msgstr "Skapa en nod"
 
-#: sheets/UML.sheet.in.h:14
+#: sheets/UML.sheet.in.h:16
 msgid "Create a note"
 msgstr "Skapa en anteckning"
 
-#: sheets/UML.sheet.in.h:15
-msgid "Create a state machine"
-msgstr "Skapa en tillståndsmaskin"
+#: sheets/UML.sheet.in.h:17
+#, fuzzy
+msgid "Create a state"
+msgstr "Skapa en anteckning"
 
-#: sheets/UML.sheet.in.h:16
+#: sheets/UML.sheet.in.h:18
 msgid "Create a template class"
 msgstr "Skapa en mallklass"
 
-#: sheets/UML.sheet.in.h:17
+#: sheets/UML.sheet.in.h:19
 msgid "Create a use case"
 msgstr "Skapa ett användningsfall"
 
-#: sheets/UML.sheet.in.h:18
+#: sheets/UML.sheet.in.h:20
+#, fuzzy
+msgid "Create an activity"
+msgstr "Skapa en aktör"
+
+#: sheets/UML.sheet.in.h:21
 msgid "Create an actor"
 msgstr "Skapa en aktör"
 
-#: sheets/UML.sheet.in.h:19
+#: sheets/UML.sheet.in.h:22
 msgid "Create an object"
 msgstr "Skapa ett objekt"
 
-#: sheets/UML.sheet.in.h:20
+#: sheets/UML.sheet.in.h:23
 msgid "Editor for UML Static Structure Diagrams"
 msgstr "Redigerare för statiska UML-strukturdiagram"
 
-#: sheets/UML.sheet.in.h:21
+#: sheets/UML.sheet.in.h:24
 msgid "Generalization, class inheritance"
 msgstr "Generalisering, klassärvning"
 
-#: sheets/UML.sheet.in.h:22
+#: sheets/UML.sheet.in.h:25
 msgid "Implements, class implements a specific interface"
 msgstr "Implementerar, klassen implementerar ett specifikt gränssnitt"
 
-#: sheets/UML.sheet.in.h:23
+#: sheets/UML.sheet.in.h:26
 msgid "Realizes, implements a specific interface"
 msgstr "Realiserar, implementerar ett specifikt gränssnitt"
 
-#: sheets/UML.sheet.in.h:24
+#: sheets/UML.sheet.in.h:27
 msgid "UML"
 msgstr "UML"
+
+#~ msgid ""
+#~ "The anti aliased renderer is buggy, and may cause\n"
+#~ "crashes.  We know there are bugs in it, so don't\n"
+#~ "bother submitting another report if it crashes"
+#~ msgstr ""
+#~ "Den kantutjämnande renderaren är buggig och kan orsaka\n"
+#~ "krascher. Vi vet att det finns buggar i den, så det är\n"
+#~ "inte nödvändigt att skicka in fler felrapporter om den\n"
+#~ "kraschar"
+
+#~ msgid "_AntiAliased"
+#~ msgstr "_Kantutjämnad"
+
+#~ msgid "/View/_AntiAliased"
+#~ msgstr "/Visa/_Kantutjämning"
+
+#~ msgid "Can't find font '%s' in height %d\n"
+#~ msgstr "Kan inte hitta typsnittet \"%s\" med höjden %d\n"
+
+#~ msgid "A Diagram Editor"
+#~ msgstr "En diagramredigerare"
+
+#~ msgid "Image file:"
+#~ msgstr "Bildfil:"
+
+#~ msgid "Keep aspect ratio:"
+#~ msgstr "Behåll proportioner:"
+
+#~ msgid "Show border:"
+#~ msgstr "Visa ram:"
+
+#~ msgid "Polygon import is not implemented yet"
+#~ msgstr "Polygonimport är inte implementerat än"
+
+#~ msgid "Spline import is not implemented yet"
+#~ msgstr "Splineimport är inte implementerat än"
 
 #~ msgid "Maintainer: James Henstridge"
 #~ msgstr "Underhållare: James Henstridge"
@@ -5970,9 +6145,6 @@ msgstr "UML"
 
 #~ msgid "<Toolbox>/File/Exit"
 #~ msgstr "<Toolbox>/Arkiv/Avsluta"
-
-#~ msgid "Courier"
-#~ msgstr "Courier"
 
 #~ msgid ""
 #~ "Warning no X Font for %s found, \n"
@@ -6010,9 +6182,6 @@ msgstr "UML"
 
 #~ msgid "Font %s has no style %s, using %s\n"
 #~ msgstr "Typsnittet %s har ingen stil %s, använder %s\n"
-
-#~ msgid "Helvetica"
-#~ msgstr "Helvetica"
 
 #~ msgid "Helvetica-Oblique"
 #~ msgstr "Helvetica-Oblique"
@@ -6079,9 +6248,6 @@ msgstr "UML"
 
 #~ msgid "Error reading diagram file\n"
 #~ msgstr "Fel vid läsning av diagramfil\n"
-
-#~ msgid "Event Modelling Language diagram"
-#~ msgstr "Event Modelling Language-diagram"
 
 #~ msgid "Number of processes:"
 #~ msgstr "Antal processer:"
