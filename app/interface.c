@@ -167,6 +167,11 @@ zoom_activate_callback(GtkWidget *dummy, gpointer user_data) {
   }
 }
 
+static void
+zoom_test_callback_1(GtkWidget *entry, gchar *text, gpointer userdata) {
+  printf("Insert-at-cursor");
+}
+
 
 static GtkWidget*
 create_zoom_widget(DDisplay *ddisp) { 
@@ -192,6 +197,11 @@ create_zoom_widget(DDisplay *ddisp) {
 		      (GtkSignalFunc) zoom_activate_callback,
 		      ddisp);
 
+  gtk_signal_connect (GTK_OBJECT (GTK_COMBO(combo)->entry), "insert-at-cursor",
+		      (GtkSignalFunc) zoom_test_callback_1,
+		      ddisp);
+
+#if 0
   gtk_signal_connect (GTK_OBJECT (GTK_COMBO(combo)->list), "unmap",
 		      (GtkSignalFunc) zoom_activate_callback,
 		      ddisp);
@@ -199,6 +209,7 @@ create_zoom_widget(DDisplay *ddisp) {
   gtk_signal_connect (GTK_OBJECT (GTK_COMBO(combo)->list), "selection-changed",
 		      (GtkSignalFunc) zoom_activate_callback,
 		      ddisp);
+#endif
 
   return combo;
 }
@@ -419,10 +430,6 @@ create_display_shell(DDisplay *ddisp,
     ddisp->snap_to_grid = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
     g_string_append (g_string_assign(path, display),"/View/Show Connection Points");
     ddisp->show_cx_pts_mitem  = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
-#ifdef HAVE_LIBART
-    g_string_append(g_string_assign(path, display),"/View/AntiAliased");
-    ddisp->antialiased = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
-#endif
 
     menus_initialize_updatable_items (&ddisp->updatable_menu_items, ddisp->mbar_item_factory, display);
     g_string_free (path,FALSE);

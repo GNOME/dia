@@ -130,10 +130,6 @@ static GnomeUIInfo viewmenu[] = {
   GNOMEUIINFO_ITEM_NONE(N_("Zoom _Out"), N_("Zoom out 50%"), view_zoom_out_callback),
   GNOMEUIINFO_SUBTREE(N_("_Zoom"), zoommenu),
   GNOMEUIINFO_ITEM_NONE(N_("Diagram Properties..."), NULL, view_diagram_properties_callback),
-#ifdef HAVE_LIBART  
-  GNOMEUIINFO_TOGGLEITEM(N_("_AntiAliased"), NULL,
-			 view_aa_callback, NULL),
-#endif  
   GNOMEUIINFO_TOGGLEITEM(N_("_Visible Grid"), NULL,
 			 view_visible_grid_callback, NULL),
   GNOMEUIINFO_TOGGLEITEM(N_("_Snap To Grid"), NULL,
@@ -145,6 +141,7 @@ static GnomeUIInfo viewmenu[] = {
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_ITEM_NONE(N_("New _View"), NULL, view_new_view_callback),
   GNOMEUIINFO_ITEM_NONE(N_("Show _All"), NULL, view_show_all_callback),
+  GNOMEUIINFO_ITEM_NONE(N_("Redraw"), NULL, view_redraw_callback),
   GNOMEUIINFO_END
 };
 
@@ -354,9 +351,6 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/View/Zoom/35.4%"),        NULL,         view_zoom_set_callback,   354},
   {N_("/View/Zoom/25%"),          NULL,         view_zoom_set_callback,   250},
   {N_("/View/Diagram Properties..."),NULL,         view_diagram_properties_callback, 0},
-#ifdef HAVE_LIBART  
-  {N_("/View/_AntiAliased"),      NULL,         view_aa_callback,           0, "<ToggleItem>"},
-#endif
   {N_("/View/_Visible Grid"),     NULL,         view_visible_grid_callback, 0, "<ToggleItem>"},
   {N_("/View/_Snap To Grid"),     NULL,         view_snap_to_grid_callback, 0, "<ToggleItem>"},
   {N_("/View/Show _Rulers"),      NULL,         view_toggle_rulers_callback,0, "<ToggleItem>"},
@@ -364,6 +358,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/View/---"),               NULL,         NULL,        0, "<Separator>"},
   {N_("/View/New _View"),         "<control>I", view_new_view_callback,     0},
   {N_("/View/Show _All"),         "<control>A", view_show_all_callback,     0},
+  {N_("Redraw"),                  NULL,         view_redraw_callback,       0},
   {N_("/_Select"),                NULL,         NULL,           0, "<Branch>"},
   {   "/Select/tearoff",          NULL,         NULL,         0, "<Tearoff>" },
   {N_("/Select/All"),             NULL,         select_all_callback,        0},

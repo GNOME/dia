@@ -49,9 +49,6 @@ struct _DDisplay {
   GtkWidget *visible_grid;
   GtkWidget *snap_to_grid;
   GtkWidget *show_cx_pts_mitem;
-#ifdef HAVE_LIBART
-  GtkWidget *antialiased;
-#endif
   UpdatableMenuItems updatable_menu_items;
     
 

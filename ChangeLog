@@ -1,5 +1,11 @@
 2002-07-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/display.c: 
+	* app/display.h: 
+	* app/interface.c: 
+	* app/menus.c: 
+	Remove libart #defines from most places (still around for png export).
+
 	* app/render_libart.h: 
 	* app/render_libart.c: 
 	* configure.in (HAVE_LIBART): 
