@@ -1,3 +1,18 @@
+2001-07-27  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/properties.c: minor clean-ups with the event delivery code.
+
+	* EML/instantiation.c: brought this object back from stone and ice
+	age.	
+
+	* app/diaconv.c(NEW): added a command-line conversion tool. Still
+	lacks a man page and correctness. In fact, it doesn't work. Please
+	see #58196 if you want to finish it.
+	
+	* lib/message.[ch]: redefined things a little so that a different
+	message_internal routine could be passed.
+	applications can use that to fit themselves to the display model.
+
 2001-07-26  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/SADT/box.c: 

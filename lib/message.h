@@ -18,6 +18,12 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
+#include <stdarg.h>
+
+typedef void (*MessageInternal)(char *title, const char *fmt,
+                                va_list *args,  va_list *args2);
+
+void set_message_func(MessageInternal func);
 void message(char *title, const char *format, ...);
 void message_notice(const char *format, ...);
 void message_warning(const char *format, ...);

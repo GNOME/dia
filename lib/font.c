@@ -379,7 +379,7 @@ init_x11_font(FontPrivate *font)
   char *buffer;
   char *x11_font;
   real height;
-  
+
   fprintf(stderr, "init_x11_font\n");
   for (i=0;i<NUM_X11_FONTS;i++) {
     x11_font = font->fontname_x11_vec[i];

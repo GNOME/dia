@@ -29,8 +29,9 @@ embed_extra_print_files = \
 	render_gnomeprint.h
 endif
 
-noinst_PROGRAMS = run_dia.sh
+noinst_PROGRAMS = run_dia.sh run_diaconv.sh diaconv
 run_dia_sh_SOURCES = 
+run_diaconv_sh_SOURCES = 
 
 if HAVE_BONOBO
 dia_embedd = dia-embedd
@@ -46,22 +47,37 @@ oafinfodir = $(datadir)/oaf
 oafinfo_DATA = $(dia_oafinfo)
 
 dia_core_files = \
-	    connectionpoint_ops.h \
-	    connectionpoint_ops.c \
 	    diagram.c \
 	    diagram.h \
-	    commands.c \
-	    commands.h \
-	    app_procs.c \
-	    app_procs.h \
 	    preferences.c \
 	    preferences.h \
 	    load_save.c \
 	    load_save.h \
-	    disp_callbacks.c \
-	    disp_callbacks.h \
+	    group.c \
+	    group.h \
+	    properties.c \
+	    properties.h \
+	    defaults.c \
+	    defaults.h \
+	    render_eps.c \
+	    render_eps.h \
+	    render_libart.c \
+	    render_libart.h \
+	    undo.c \
+	    undo.h \
+	    object_ops.c \
+	    object_ops.h \
 	    layer_dialog.c \
 	    layer_dialog.h \
+	    export_png.c \
+	    commands.c \
+	    commands.h \
+	    app_procs.c \
+	    app_procs.h \
+	    connectionpoint_ops.h \
+	    connectionpoint_ops.c \
+	    disp_callbacks.c \
+	    disp_callbacks.h \
 	    display.c \
 	    display.h \
 	    select.c \
@@ -74,8 +90,6 @@ dia_core_files = \
 	    lineprops_area.h \
 	    grid.c \
 	    grid.h \
-	    group.c \
-	    group.h \
 	    handle_ops.c \
 	    handle_ops.h \
 	    interface.c \
@@ -84,10 +98,6 @@ dia_core_files = \
 	    modify_tool.h \
 	    scroll_tool.c \
 	    scroll_tool.h \
-	    properties.c \
-	    properties.h \
-	    defaults.c \
-	    defaults.h \
 	    create_object.c \
 	    create_object.h \
 	    magnify.c \
@@ -96,17 +106,8 @@ dia_core_files = \
 	    menus.h \
 	    cut_n_paste.c \
 	    cut_n_paste.h \
-	    object_ops.c \
-	    object_ops.h \
 	    render_gdk.c \
 	    render_gdk.h \
-	    render_libart.c \
-	    render_libart.h \
-	    render_eps.c \
-	    render_eps.h \
-	    export_png.c \
-	    undo.c \
-	    undo.h \
 	    tool.c \
 	    tool.h \
 	    pixmaps.h \
@@ -139,9 +140,19 @@ dia_SOURCES = \
 	    $(dia_core_files) \
 	    main.c 
 
+diaconv_SOURCES = \
+	$(dia_core_files) \
+	diaconv.c
+
 EFENCE =
 
 dia_LDADD = ../lib/libdia.a \
+	$(EFENCE) \
+	$(APP_LIBS) $(XML_LIBS) $(GTK_LIBS) $(INTLLIBS) $(GNOME_LIBS) \
+	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(FREETYPE_LIBS) \
+	$(UNICODE_LIBS)
+
+diaconv_LDADD = ../lib/libdia.a \
 	$(EFENCE) \
 	$(APP_LIBS) $(XML_LIBS) $(GTK_LIBS) $(INTLLIBS) $(GNOME_LIBS) \
 	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(FREETYPE_LIBS) \
@@ -225,4 +236,8 @@ run_dia.sh: Makefile.am
 	echo >> run_dia.sh
 	echo "\$$DEBUGGER `pwd`/dia \$$*" >> run_dia.sh
 	chmod a+x run_dia.sh
+
+run_diaconv.sh: run_dia.sh
+	cat run_dia.sh | sed -e "s%`pwd`/dia%`pwd`/diaconv%g" >run_diaconv.sh 
+	chmod a+x run_diaconv.sh
 

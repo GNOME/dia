@@ -186,7 +186,6 @@ dnl
 AC_CHECK_LIB(popt, poptSetOtherOptionHelp, [AC_DEFINE(HAVE_LIBPOPT)
 		   APP_LIBS="$APP_LIBS -lpopt"])
 AC_CHECK_HEADERS(popt.h)
-
 dnl
 dnl libart_lgpl
 dnl

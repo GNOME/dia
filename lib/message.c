@@ -32,7 +32,7 @@
 #include "charconv.h"
 
 static void
-message_internal(char *title, const char *fmt,
+gtk_message_internal(char *title, const char *fmt,
 		 va_list *args,  va_list *args2)
 {
   static gchar *buf = NULL;
@@ -116,6 +116,15 @@ message_internal(char *title, const char *fmt,
 #endif
 
   gtk_widget_show (dialog_window);
+}
+
+static MessageInternal message_internal = gtk_message_internal;
+
+void 
+set_message_func(MessageInternal func)
+{
+  g_assert(func);
+  message_internal = func;
 }
 
 void
