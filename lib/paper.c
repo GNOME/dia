@@ -133,6 +133,15 @@ get_paper_name_list()
   return name_list;
 }
 
+#ifdef _MSC_VER
+/* can't export inlined functions. Shouldn't they be declared as such
+ * in paper.h ? The following is a hack. Isn't there a proper sollution
+ * provided by glib ?
+ */
+#undef inline
+#define inline
+#endif
+
 inline const gchar *
 get_paper_name(int i)
 {
