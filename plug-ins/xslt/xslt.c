@@ -43,8 +43,6 @@ void xslt_ok(void);
 static char *diafilename;
 static char *filename;
 
-static GModule *xslt_module;
-
 static void
 export_xslt(DiagramData *data, const gchar *f, 
             const gchar *diaf, void* user_data)
@@ -109,12 +107,12 @@ xslt_ok()
 		message_error(_("Error while applying stylesheet %s\n"), stylefname);
 		return;
 	}       
-	
+
 	stylefname = xsl_to->xsl;
-	
+
 	codestyle = xsltParseStylesheetFile((const xmlChar *) stylefname);
 	if(codestyle == NULL) {
-	    message_error(_("Error while parsing stylesheet: %s\n"), xsl_to->xsl);
+	    message_error(_("Error while parsing stylesheet: %s\n"), stylefname);
 	    return;
 	}
 	
@@ -122,8 +120,8 @@ xslt_ok()
 	
 	doc = xsltApplyStylesheet(codestyle, res, (const char **) params);
 	if(doc == NULL) {
-	    message_error(_("Error while applying stylesheet: %s\n"), xsl_to->xsl);
-	    return;
+		message_error(_("Error while applying stylesheet: %s\n"), stylefname);
+		return;
 	}
 
 
@@ -144,7 +142,7 @@ xslt_ok()
 	xslt_clear();
 }
 
-static toxsl_t *read_implementations(xmlNodePtr cur) 
+static toxsl_t *read_implementations(xmlNodePtr cur, gchar *path) 
 {
     toxsl_t *first, *curto;
     first = curto = NULL;
@@ -162,6 +160,8 @@ static toxsl_t *read_implementations(xmlNodePtr cur)
 	
 	if (!(to->name && to->xsl)) {
 	    g_warning ("Name and stylesheet attributes are required for the implementation element %s in XSLT plugin configuration file", cur->name);
+	    if (to->name) xmlFree(to->name);
+	    if (to->xsl) xmlFree(to->xsl);
 	    g_free(to);
 	    to = NULL;
 	} else {
@@ -170,6 +170,12 @@ static toxsl_t *read_implementations(xmlNodePtr cur)
 	    } else {
 		curto->next = to;
 		curto = to;
+	    }
+	    /* make filename absolute */
+	    {
+		gchar *fname = g_strconcat(path, G_DIR_SEPARATOR_S, to->xsl, NULL);
+		xmlFree(to->xsl);
+		to->xsl = fname;
 	    }
 	}	    
 	cur = cur->next;
@@ -184,6 +190,7 @@ static PluginInitResult read_configuration(const char *config)
     xmlNodePtr cur;
     /* Primary xsl */
     fromxsl_t *cur_from = NULL;
+    gchar *path = NULL;
 
     if (!g_file_test(config, G_FILE_TEST_EXISTS))
 	return DIA_PLUGIN_INIT_ERROR;
@@ -203,6 +210,8 @@ static PluginInitResult read_configuration(const char *config)
 	return DIA_PLUGIN_INIT_ERROR;
     }
     
+    path = g_dirname(config);
+
     /* We don't care about the top level element's name */
     
     cur = cur->xmlChildrenNode;
@@ -227,8 +236,14 @@ static PluginInitResult read_configuration(const char *config)
 		    cur_from->next = new_from;
 		    cur_from = new_from;
 		}
+	        /* make filename absolute */
+	        {
+		    gchar *fname = g_strconcat(path, G_DIR_SEPARATOR_S, new_from->xsl, NULL);
+		    xmlFree(new_from->xsl);
+		    new_from->xsl = fname;
+	        }
 		
-		cur_from->xsls = read_implementations(cur);
+		cur_from->xsls = read_implementations(cur, path);
 		if (cur_from->xsls == NULL) {
 		    g_warning ("No implementation stylesheet for language %s in XSLT plugin configuration file", cur_from->name);
 		}
@@ -258,6 +273,7 @@ static PluginInitResult read_configuration(const char *config)
 	cur_from = cur_from->next;
     }
     */
+    g_free(path);
     xmlFreeDoc(doc);
     xmlCleanupParser();
 
@@ -290,18 +306,14 @@ dia_plugin_init(PluginInfo *info)
 			return DIA_PLUGIN_INIT_ERROR;
 	}
 	
-	path = dia_get_data_directory("plugins" G_DIR_SEPARATOR_S
-				      "xslt" G_DIR_SEPARATOR_S
-				      "stylesheets.xml");
+	path = dia_get_data_directory("xslt" G_DIR_SEPARATOR_S
+							  "stylesheets.xml");
 	global_res = read_configuration(path);
 	g_free (path);
 
-	path = g_strconcat(dia_config_filename("plugins"),
-			   G_DIR_SEPARATOR_S, "xslt",
-			   G_DIR_SEPARATOR_S, "stylesheets.xml", NULL);
-	
+	path = dia_config_filename("xslt" G_DIR_SEPARATOR_S 
+						     "stylesheets.xml");
 	user_res = read_configuration(path);
-	
 	g_free (path);
 	
 	if (global_res == DIA_PLUGIN_INIT_OK || user_res == DIA_PLUGIN_INIT_OK)

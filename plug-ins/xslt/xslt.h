@@ -22,11 +22,11 @@
  *
  */
 #include "config.h"
+#include <glib.h>
+#include <gtk/gtk.h>
 #ifndef G_OS_WIN32
 #include <dlfcn.h>
 #endif
-#include <glib.h>
-#include <gtk/gtk.h>
 #include "plug-ins.h"
 #include "intl.h"
 

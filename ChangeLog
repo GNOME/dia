@@ -1,5 +1,32 @@
 2003-07-19  Hans Breuer  <hans@breuer.org>
 
+	[
+	 Make the xslt plug-in work on win32, too. It appears
+	 to require a quite recent version of libxml and libxslt,
+	 otherwise windoze pathes aren't translated correctly
+	 during file processing
+	]
+
+	* plug-ins/xslt/xslt.h : #include <glib.h> before 
+	using G_OS_WIN32
+
+	* plug-ins/xslt/xslt.c : plugged some memory leaks and do
+	the 'script' file finding similar to how it is done
+	with the python scripts (no need for hardcoded pathes,
+	removed the 'plugin' part from the path)
+
+	* plug-ins/xslt/stylesheets.xml : added again. It does
+	not have any path but only the pure filename again
+
+	* plug-ins/xslt/stylesheets.xml.in : removed
+
+	* plug-ins/xslt/Makefile.am : removed 'plugin' and the
+	rule to process stylesheets.xml.in
+
+	* plug-ins/makefile.msc : added xslt
+
+2003-07-19  Hans Breuer  <hans@breuer.org>
+
 	Finally Dia learned to remember the recent selected sheet
 
 	* app/preferences.[hc] : added prefs.recent_sheet

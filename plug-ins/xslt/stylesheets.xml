@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<config>
+  <language name="UML" stylesheet="dia-uml.xsl">
+    <implementation name="C++" stylesheet="dia-uml2c++.xsl"/>
+    <implementation name="Java" stylesheet="dia-uml2java.xsl"/>
+    <implementation name="IDL" stylesheet="dia-uml2idl.xsl"/>        
+  </language>
+</config>
