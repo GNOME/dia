@@ -120,17 +120,21 @@ win32_printer_open (char* sName)
   return NULL;
 }
 
-void
+int
 win32_printer_close (FILE* f)
 {
+  int ret = 0;
+
   fflush (f);
   if (!pJob || !ScheduleJob (hPrinter, pJob->JobId))
   {
     PrintError ("Failed to schedule job", GetLastError());
+    ret = GetLastError();
   }
 
   if (f) 
     fclose (f);
   CloseHandle (hFile);
   ClosePrinter (hPrinter);
+  return ret;
 }

@@ -1,3 +1,22 @@
+2004-03-21  Hans Breuer  <hans@breuer.org>
+
+	* lib/makefile.msc : removed -DGTK_DISABLE_DEPRECATED; the 
+	burden should be shared and not be win32 only ;) [this time 
+	build was broken by adding GtkType to widget.h]
+
+	* objects/standard/box.c objects/standard/ellipse.c :
+	for code clarification compare (obj->aspect != FREE_ASPECT)
+	and not (obj->aspect); no binary effect.
+
+	* app/paginate_psprint.c : don't leak printcmd
+
+	* objects/standard/box.c objects/standard/ellipse.c : fix gccisms :
+	standard C requires variables to be declared at the beginning of 
+	a block, also there is no fabsf() with msvc
+	
+	* app/win32print.[ch] : make win32_printer_close() return an
+	error code, it's used as pclose replacement
+
 2004-03-20  Lars Clausen  <lars@raeder.dk>
 
 	* RELEASE-PROCESS: Mention PATCH keyword in release process.

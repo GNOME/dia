@@ -223,31 +223,33 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
     return ellipse_move(ellipse, &corner_to);
   } else {
     if (ellipse->aspect != FREE_ASPECT){
-        float width, height;
-        float new_width, new_height;
-        float to_width, aspect_width;
+        double width, height;
+        double new_width, new_height;
+        double to_width, aspect_width;
+        Point center;
+        Point nw_to, se_to;
+
         width = ellipse->element.width;
         height = ellipse->element.height;
-        Point center;
         center.x = elem->corner.x + width/2;
         center.y = elem->corner.y + height/2;
         switch (handle->id) {
         case HANDLE_RESIZE_E:
         case HANDLE_RESIZE_W:
-            new_width = 2 * fabsf(to->x - center.x);
+            new_width = 2 * fabs(to->x - center.x);
             new_height = new_width / width * height;
             break;
         case HANDLE_RESIZE_N:
         case HANDLE_RESIZE_S:
-            new_height = 2 * fabsf(to->y - center.y);
+            new_height = 2 * fabs(to->y - center.y);
             new_width = new_height / height * width;
             break;
         case HANDLE_RESIZE_NW:
         case HANDLE_RESIZE_NE:
         case HANDLE_RESIZE_SW:
         case HANDLE_RESIZE_SE:
-            to_width = 2 * fabsf(to->x - center.x);
-            aspect_width = 2 * fabsf(to->y - center.y) / height * width;
+            to_width = 2 * fabs(to->x - center.x);
+            aspect_width = 2 * fabs(to->y - center.y) / height * width;
             new_width = to_width < aspect_width ? to_width : aspect_width;
             new_height = new_width / width * height;
             break;
@@ -257,7 +259,6 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
 	    break;
         }
 	
-        Point nw_to, se_to;
         nw_to.x = center.x - new_width/2;
         nw_to.y = center.y - new_height/2;
         se_to.x = center.x + new_width/2;
@@ -267,9 +268,10 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
         element_move_handle(&ellipse->element, HANDLE_RESIZE_SE, &se_to, cp, reason, modifiers);
     } else {
         Point center;
+        Point opposite_to;
+
         center.x = elem->corner.x + elem->width/2;
         center.y = elem->corner.y + elem->height/2;
-        Point opposite_to;
         opposite_to.x = center.x - (to->x-center.x);
         opposite_to.y = center.y - (to->y-center.y);
 
@@ -503,7 +505,7 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
     data_add_boolean(new_attribute(obj_node, "show_background"),
 		     ellipse->show_background);
   
-  if (ellipse->aspect)
+  if (ellipse->aspect != FREE_ASPECT)
     data_add_enum(new_attribute(obj_node, "aspect"),
 		  ellipse->aspect);
 
