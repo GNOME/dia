@@ -410,7 +410,7 @@ action_create(Point *startpoint,
   action->cps = connpointline_create(obj,0);
 
   pos = conn->endpoints[1];
-  action_font = dia_font_new_with_style(ACTION_FONT,ACTION_FONT_HEIGHT); 
+  action_font = dia_font_new_from_style(ACTION_FONT,ACTION_FONT_HEIGHT); 
   action->text = new_text("",action_font, ACTION_FONT_HEIGHT,
                           &pos, /* never used */
                           &color_black, ALIGN_LEFT);
