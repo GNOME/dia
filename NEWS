@@ -1,3 +1,53 @@
+dia-0.93-pre1: 11-Mar-2004
+
+Major improvements in this release include:
+
+* Text-rendering is faster due to a Pango layout cache.
+
+* The Win32 version now also uses Freetype2 rendering, allowing more
+  unified appearance and antialiasing.
+
+* Standard Ellipse now has connection point and handle in center, and
+  is resized around the center.
+
+* Arrow head size selection now keeps aspect ratio by default.
+
+* Line style and arrow head selectors now visual instead of textual in
+  properties dialogs.
+
+* Several sets of shapes added, including isometric map, cybernetics, 
+
+* Added navigation window in lower-right corner.
+
+* UML objects can now have color.
+
+* Dia can now convert objects without requiring X.  PNG size can be
+  specified with --size.
+
+* Menus have been overhauled, more shortcuts added.
+
+* Preedit text input much improved.
+
+* Numerous improvements in metapost and xfig filters.
+
+* Default arrow size now 0.5 cm.
+
+* Minimum diagram size is very small now.
+
+* Improvements to the Python plug-in.
+
+* Shapes now support images.
+
+* Greeked text replacing very small font rendering.
+
+* Added XSLT sheets:  Python, OWL, Mac, Component List
+
+* Shapes can now have extra properties, shown only in the dialog.
+
+* New arrows: Half-circle and Filled Dot And Triangle.
+
+* Many, many bugs and leaks fixed.
+
 dia-0.92.2: 01-Nov-2003
 
 * Another Brown Bag release.  Parented objects lost all connections, now
