@@ -349,6 +349,7 @@ remove_handles(BezierShape *bezier, int pos)
   Handle *old_handle1, *old_handle2, *old_handle3;
   ConnectionPoint *old_cp1, *old_cp2;
   Point tmppoint;
+  Point controlvector;
 
   g_assert(pos > 0);
   g_assert(pos < bezier->numpoints);
@@ -358,11 +359,22 @@ remove_handles(BezierShape *bezier, int pos)
   /* delete the points */
   bezier->numpoints--;
   tmppoint = bezier->points[pos].p1;
+  if (pos == bezier->numpoints) {
+    controlvector = bezier->points[pos-1].p3;
+    point_sub(&controlvector, &bezier->points[pos].p1);
+  }
   for (i = pos; i < bezier->numpoints; i++) {
     bezier->points[i] = bezier->points[i+1];
     bezier->corner_types[i] = bezier->corner_types[i+1];
   }
   bezier->points[pos].p1 = tmppoint;
+  if (pos == bezier->numpoints) {
+    /* If this was the last point, we also need to move points[0] and
+       the control point in points[1]. */
+    bezier->points[0].p1 = bezier->points[bezier->numpoints-1].p3;
+    bezier->points[1].p1 = bezier->points[0].p1;
+    point_sub(&bezier->points[1].p1, &controlvector);
+  }
   bezier->points = g_realloc(bezier->points,
 			     bezier->numpoints * sizeof(BezPoint));
   bezier->corner_types = g_realloc(bezier->corner_types,
@@ -445,8 +457,6 @@ beziershape_remove_segment(BezierShape *bezier, int pos)
   g_assert(pos > 0);
   g_assert(bezier->numpoints > 2);
   g_assert(pos < bezier->numpoints);
-
-  printf("Removing pos %d, %d points\n", pos, bezier->numpoints);
 
   old_handle1 = bezier->object.handles[3*pos-3];
   old_handle2 = bezier->object.handles[3*pos-2];

@@ -1,3 +1,8 @@
+2002-05-10  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
+
+	* lib/beziershape.c (remove_handles): Fixing removal of last
+	segment.  Undo of removal still hokey.
+
 2002-05-10  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/bezier_conn.c (remove_handles): Proper offset for fixing
