@@ -23,7 +23,14 @@
 #include <config.h>
 
 #include <glib.h>
+
+#ifdef HAVE_UNICODE
 #define UNICODE_WORK_IN_PROGRESS /* here, it's mandatory or we break. */
+#else
+/* we won't actually break, because the code which is here will dumb itself
+down to nops and strdups */
+#endif
+
 #include "charconv.h" 
 
 #ifdef HAVE_UNICODE
@@ -58,8 +65,12 @@ int get_local_charset(char **charset)
     *charset = this_charset;
     return local_is_utf8;
   }
- 
+
+#ifdef HAVE_UNICODE 
   local_is_utf8 = unicode_get_charset(charset);
+#else
+  *charset = NULL;
+#endif
   this_charset = *charset;
   if (local_is_utf8) {
     return local_is_utf8;

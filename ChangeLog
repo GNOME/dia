@@ -1,3 +1,8 @@
+2001-06-14  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/charconv.c: corrected the degraded mode for when
+	!HAVE_UNICODE. Thanks to Ben A. Hetland for reporting this.	
+	
 2001-06-13  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/properties.[ch]: convenience macros around PROP_NOTEBOOKS ;
