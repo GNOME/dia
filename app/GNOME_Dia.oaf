@@ -23,6 +23,9 @@
 		       value="Dia Diagram embeddable"/>
 	<oaf_attribute name="description" type="string"
 		       value="A Dia diagram"/>
+	<oaf_attribute name="bonobo:supported_mime_types" type="stringv">
+            <item value="application/x-dia-diagram"/>
+        </oaf_attribute>
     </oaf_server>
 
 </oaf_info>

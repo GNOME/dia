@@ -175,11 +175,12 @@ smallpackage_get_props(SmallPackage * smallpackage, Property *props, guint nprop
     } else if (pquark == quarks[4].q) {
       props[i].type = PROP_TYPE_STRING;
       g_free(PROP_VALUE_STRING(props[i]));
-      if (smallpackage->stereotype != NULL)
+      if (smallpackage->stereotype != NULL &&
+	  smallpackage->stereotype[0] != '\0')
 	PROP_VALUE_STRING(props[i]) =
 	  stereotype_to_string(smallpackage->stereotype);
       else
-	PROP_VALUE_STRING(props[i]) = strdup("");	
+	PROP_VALUE_STRING(props[i]) = NULL;	
     }
   }
 }
@@ -210,7 +211,7 @@ smallpackage_set_props(SmallPackage *smallpackage, Property *props, guint nprops
 	if (smallpackage->stereotype != NULL)
 	  g_free(smallpackage->stereotype);
 	if (PROP_VALUE_STRING(props[i]) != NULL &&
-	    strlen(PROP_VALUE_STRING(props[i])) > 0)
+	    PROP_VALUE_STRING(props[i])[0] != '\0')
 	  smallpackage->stereotype =
 	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
 	else 

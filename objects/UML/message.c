@@ -549,8 +549,6 @@ message_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     message->text = data_string(attribute_first_data(attr));
-  else
-    message->text = strdup("");
 
   attr = object_find_attribute(obj_node, "text_pos");
   if (attr != NULL)

@@ -40,16 +40,6 @@
 #include "pixmaps/dependency.xpm"
 
 typedef struct _Dependency Dependency;
-typedef struct _DependencyState DependencyState;
-
-struct _DependencyState {
-  ObjectState obj_state;
-  
-  char *name;
-  char *stereotype;
-
-  int draw_arrow;
-};
 
 struct _Dependency {
   OrthConn orth;
@@ -88,10 +78,6 @@ static void dependency_destroy(Dependency *dep);
 static Object *dependency_copy(Dependency *dep);
 static DiaMenu *dependency_get_object_menu(Dependency *dep,
 					   Point *clickedpoint);
-
-static DependencyState *dependency_get_state(Dependency *dep);
-static void dependency_set_state(Dependency *dep,
-				  DependencyState *state);
 
 static void dependency_save(Dependency *dep, ObjectNode obj_node,
 			    const char *filename);
@@ -184,11 +170,11 @@ dependency_get_props(Dependency * dependency, Property *props, guint nprops)
     if (pquark == quarks[0].q) {
       props[i].type = PROP_TYPE_STRING;
       g_free(PROP_VALUE_STRING(props[i]));
-      if (strlen(dependency->stereotype) != 0)
+      if (dependency->stereotype && dependency->stereotype[0] != '\0')
 	PROP_VALUE_STRING(props[i]) =
 	  stereotype_to_string(dependency->stereotype);
       else
-	PROP_VALUE_STRING(props[i]) = strdup("");	
+	PROP_VALUE_STRING(props[i]) = NULL;
     }
   }
 
@@ -209,11 +195,11 @@ dependency_set_props(Dependency *dependency, Property *props, guint nprops)
       GQuark pquark = g_quark_from_string(props[i].name);
       if (pquark == quarks[0].q && props[i].type == PROP_TYPE_STRING) {
 	g_free(dependency->stereotype);
-	if (strlen(PROP_VALUE_STRING(props[i])) > 0)
+	dependency->stereotype = NULL;
+	if (PROP_VALUE_STRING(props[i]) &&
+	    PROP_VALUE_STRING(props[i])[0] != '\0')
 	  dependency->stereotype =
 	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
-	else 
-	  dependency->stereotype = strdup("");
       }
     }
   }
@@ -281,7 +267,7 @@ dependency_draw(Dependency *dep, Renderer *renderer)
   renderer->ops->set_font(renderer, dep_font, DEPENDENCY_FONTHEIGHT);
   pos = dep->text_pos;
   
-  if (strlen(dep->stereotype) != 0) {
+  if (dep->stereotype != NULL && dep->stereotype[0] != '\0') {
     renderer->ops->draw_string(renderer,
 			       dep->stereotype,
 			       &pos, dep->text_align,
@@ -290,7 +276,7 @@ dependency_draw(Dependency *dep, Renderer *renderer)
     pos.y += DEPENDENCY_FONTHEIGHT;
   }
   
-  if (strlen(dep->name) != 0) {
+  if (dep->name != NULL && dep->name[0] != '\0') {
     renderer->ops->draw_string(renderer,
 			       dep->name,
 			       &pos, dep->text_align,
@@ -312,10 +298,14 @@ dependency_update_data(Dependency *dep)
   
   orthconn_update_data(orth);
 
-  dep->text_width =
-    font_string_width(dep->name, dep_font, DEPENDENCY_FONTHEIGHT);
-  dep->text_width = MAX(dep->text_width,
-			font_string_width(dep->stereotype, dep_font, DEPENDENCY_FONTHEIGHT));
+  dep->text_width = 0.0;
+  if (dep->name)
+    dep->text_width = font_string_width(dep->name, dep_font,
+					DEPENDENCY_FONTHEIGHT);
+  if (dep->stereotype)
+    dep->text_width = MAX(dep->text_width,
+			  font_string_width(dep->stereotype, dep_font,
+					    DEPENDENCY_FONTHEIGHT));
   
   extra->start_trans = 
     extra->start_long = 
@@ -420,9 +410,9 @@ dependency_create(Point *startpoint,
     dep_font = font_getfont("Courier");
   }
   
-  dep = g_malloc(sizeof(Dependency));
+  dep = g_new(Dependency, 1);
   orth = &dep->orth;
-  obj = &orth->object;
+  obj = (Object *)dep;
   
   obj->type = &dependency_type;
 
@@ -431,8 +421,8 @@ dependency_create(Point *startpoint,
   orthconn_init(orth, startpoint);
 
   dep->draw_arrow = TRUE;
-  dep->name = strdup("");
-  dep->stereotype = strdup("");
+  dep->name = NULL;
+  dep->stereotype = NULL;
   dep->text_width = 0;
 
   dependency_update_data(dep);
@@ -440,7 +430,7 @@ dependency_create(Point *startpoint,
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 
-  return &dep->orth.object;
+  return (Object *)dep;
 }
 
 static void
@@ -461,57 +451,20 @@ dependency_copy(Dependency *dep)
   
   orth = &dep->orth;
   
-  newdep = g_malloc(sizeof(Dependency));
+  newdep = g_new(Dependency, 1);
   neworth = &newdep->orth;
-  newobj = &neworth->object;
+  newobj = (Object *)newdep;
 
   orthconn_copy(orth, neworth);
 
-  newdep->name = strdup(dep->name);
-  newdep->stereotype = strdup(dep->stereotype);
+  newdep->name = dep->name ? g_strdup(dep->name) : NULL;
+  newdep->stereotype = dep->stereotype ? g_strdup(dep->stereotype) : NULL;
   newdep->draw_arrow = dep->draw_arrow;
   newdep->text_width = dep->text_width;
   
   dependency_update_data(newdep);
   
   return &newdep->orth.object;
-}
-
-static void
-dependency_state_free(ObjectState *ostate)
-{
-  DependencyState *state = (DependencyState *)ostate;
-  g_free(state->name);
-  g_free(state->stereotype);
-}
-
-static DependencyState *
-dependency_get_state(Dependency *dep)
-{
-  DependencyState *state = g_new(DependencyState, 1);
-
-  state->obj_state.free = dependency_state_free;
-
-  state->name = g_strdup(dep->name);
-  state->stereotype = g_strdup(dep->stereotype);
-  state->draw_arrow = dep->draw_arrow;
-  
-  return state;
-}
-
-static void
-dependency_set_state(Dependency *dep, DependencyState *state)
-{
-  g_free(dep->name);
-  g_free(dep->stereotype);
-  dep->name = state->name;
-  dep->stereotype = state->stereotype;
-  
-  dep->draw_arrow = state->draw_arrow;
-
-  g_free(state);
-  
-  dependency_update_data(dep);
 }
 
 static void
@@ -542,7 +495,7 @@ dependency_load(ObjectNode obj_node, int version, const char *filename)
   dep = g_new(Dependency, 1);
 
   orth = &dep->orth;
-  obj = &orth->object;
+  obj = (Object *)dep;
 
   obj->type = &dependency_type;
   obj->ops = &dependency_ops;
@@ -557,15 +510,11 @@ dependency_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)
     dep->name = data_string(attribute_first_data(attr));
-  else
-    dep->name = strdup("");
   
   dep->stereotype = NULL;
   attr = object_find_attribute(obj_node, "stereotype");
   if (attr != NULL)
     dep->stereotype = data_string(attribute_first_data(attr));
-  else
-    dep->stereotype = strdup("");
 
   dependency_update_data(dep);
 

@@ -35,13 +35,6 @@
 #include "pixmaps/implements.xpm"
 
 typedef struct _Implements Implements;
-typedef struct _ImplementsState ImplementsState;
-
-struct _ImplementsState {
-  ObjectState obj_state;
-  
-  char *text;
-};
 
 struct _Implements {
   Connection connection;
@@ -83,9 +76,6 @@ static void implements_update_data(Implements *implements);
 static void implements_destroy(Implements *implements);
 static Object *implements_copy(Implements *implements);
 
-static ImplementsState *implements_get_state(Implements *implements);
-static void implements_set_state(Implements *implements,
-				 ImplementsState *state);
 static PropDescription *implements_describe_props(Implements *implements);
 static void implements_get_props(Implements * implements, Property *props, guint nprops);
 static void implements_set_props(Implements * implements, Property *props, guint nprops);
@@ -270,10 +260,11 @@ implements_draw(Implements *implements, Renderer *renderer)
 
 
   renderer->ops->set_font(renderer, implements_font, IMPLEMENTS_FONTHEIGHT);
-  renderer->ops->draw_string(renderer,
-			     implements->text,
-			     &implements->text_pos, ALIGN_LEFT,
-			     &color_black);
+  if (implements->text)
+    renderer->ops->draw_string(renderer,
+			       implements->text,
+			       &implements->text_pos, ALIGN_LEFT,
+			       &color_black);
 }
 
 static Object *
@@ -304,7 +295,7 @@ implements_create(Point *startpoint,
   
   connection_init(conn, 4, 0);
 
-  implements->text = strdup("");
+  implements->text = NULL;
   implements->text_width = 0.0;
   implements->text_pos = conn->endpoints[1];
   implements->text_pos.x -= 0.3;
@@ -368,36 +359,6 @@ implements_copy(Implements *implements)
 }
 
 static void
-implements_state_free(ObjectState *ostate)
-{
-  ImplementsState *state = (ImplementsState *)ostate;
-  g_free(state->text);
-}
-
-static ImplementsState *
-implements_get_state(Implements *implements)
-{
-  ImplementsState *state = g_new(ImplementsState, 1);
-
-  state->obj_state.free = implements_state_free;
-
-  state->text = g_strdup(implements->text);
-
-  return state;
-}
-
-static void
-implements_set_state(Implements *implements, ImplementsState *state)
-{
-  g_free(implements->text);
-  implements->text = state->text;
-  
-  g_free(state);
-  
-  implements_update_data(implements);
-}
-
-static void
 implements_update_data(Implements *implements)
 {
   Connection *conn = &implements->connection;
@@ -407,10 +368,12 @@ implements_update_data(Implements *implements)
   Point point;
   real len;
   Rectangle rect;
-  
-  implements->text_width =
-    font_string_width(implements->text, implements_font,
-		      IMPLEMENTS_FONTHEIGHT);
+
+  implements->text_width = 0.0;
+  if (implements->text)
+    implements->text_width = font_string_width(implements->text,
+					       implements_font,
+					       IMPLEMENTS_FONTHEIGHT);
 
   obj->position = conn->endpoints[0];
 
@@ -497,8 +460,6 @@ implements_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     implements->text = data_string(attribute_first_data(attr));
-  else
-    implements->text = strdup("");
 
   attr = object_find_attribute(obj_node, "text_pos");
   if (attr != NULL)

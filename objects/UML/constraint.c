@@ -168,11 +168,12 @@ constraint_get_props(Constraint * constraint, Property *props, guint nprops)
     if (pquark == quarks[0].q) {
       props[i].type = PROP_TYPE_STRING;
       g_free(PROP_VALUE_STRING(props[i]));
-      if (strlen(constraint->text) != 0)
+      if (constraint->text != NULL &&
+	  constraint->text[0] != '\0')
 	PROP_VALUE_STRING(props[i]) =
 	  bracketted_to_string(constraint->text, strlen("{"));
       else
-	PROP_VALUE_STRING(props[i]) = strdup("");	
+	PROP_VALUE_STRING(props[i]) = NULL;	
     }
   }
 }
@@ -192,11 +193,12 @@ constraint_set_props(Constraint *constraint, Property *props, guint nprops)
       GQuark pquark = g_quark_from_string(props[i].name);
       if (pquark == quarks[0].q && props[i].type == PROP_TYPE_STRING) {
 	g_free(constraint->text);
-	if (strlen(PROP_VALUE_STRING(props[i])) > 0)
+	if (PROP_VALUE_STRING(props[i]) != NULL &&
+	    PROP_VALUE_STRING(props[i])[0] != '\0')
 	  constraint->text=
 	    string_to_bracketted(PROP_VALUE_STRING(props[i]), "{", "}");
 	else 
-	  constraint->text = strdup("{}");
+	  constraint->text = g_strdup("{}");
       }
     }
   }

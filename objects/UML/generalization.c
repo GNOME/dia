@@ -39,14 +39,7 @@
 #include "pixmaps/generalization.xpm"
 
 typedef struct _Generalization Generalization;
-typedef struct _GeneralizationState GeneralizationState;
 
-struct _GeneralizationState {
-  ObjectState obj_state;
-
-  char *name;
-  char *stereotype; 
-};
 struct _Generalization {
   OrthConn orth;
 
@@ -81,9 +74,6 @@ static Object *generalization_copy(Generalization *genlz);
 static DiaMenu *generalization_get_object_menu(Generalization *genlz,
 						Point *clickedpoint);
 
-static GeneralizationState *generalization_get_state(Generalization *genlz);
-static void generalization_set_state(Generalization *genlz,
-				     GeneralizationState *state);
 static PropDescription *generalization_describe_props(Generalization *generalization);
 static void generalization_get_props(Generalization * generalization, Property *props, guint nprops);
 static void generalization_set_props(Generalization * generalization, Property *props, guint nprops);
@@ -173,11 +163,12 @@ generalization_get_props(Generalization * generalization, Property *props, guint
     if (pquark == quarks[0].q) {
       props[i].type = PROP_TYPE_STRING;
       g_free(PROP_VALUE_STRING(props[i]));
-      if (strlen(generalization->stereotype) != 0)
+      if (generalization->stereotype != NULL &&
+	  generalization->stereotype[0] != '\0')
 	PROP_VALUE_STRING(props[i]) =
 	  stereotype_to_string(generalization->stereotype);
       else
-	PROP_VALUE_STRING(props[i]) = strdup("");	
+	PROP_VALUE_STRING(props[i]) = NULL;
     }
   }
 
@@ -198,11 +189,12 @@ generalization_set_props(Generalization *generalization, Property *props, guint 
       GQuark pquark = g_quark_from_string(props[i].name);
       if (pquark == quarks[0].q && props[i].type == PROP_TYPE_STRING) {
 	g_free(generalization->stereotype);
-	if (strlen(PROP_VALUE_STRING(props[i])) > 0)
+	if (PROP_VALUE_STRING(props[i]) != NULL &&
+	    PROP_VALUE_STRING(props[i])[0] != '\0')
 	  generalization->stereotype =
 	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
 	else 
-	  generalization->stereotype = strdup("");
+	  generalization->stereotype = NULL;
       }
     }
   }
@@ -269,7 +261,7 @@ generalization_draw(Generalization *genlz, Renderer *renderer)
   renderer->ops->set_font(renderer, genlz_font, GENERALIZATION_FONTHEIGHT);
   pos = genlz->text_pos;
   
-  if (genlz->stereotype != NULL) {
+  if (genlz->stereotype != NULL && genlz->stereotype[0] != '\0') {
     renderer->ops->draw_string(renderer,
 			       genlz->stereotype,
 			       &pos, genlz->text_align,
@@ -278,7 +270,7 @@ generalization_draw(Generalization *genlz, Renderer *renderer)
     pos.y += GENERALIZATION_FONTHEIGHT;
   }
   
-  if (genlz->name != NULL) {
+  if (genlz->name != NULL && genlz->name[0] != '\0') {
     renderer->ops->draw_string(renderer,
 			       genlz->name,
 			       &pos, genlz->text_align,
@@ -301,10 +293,13 @@ generalization_update_data(Generalization *genlz)
   
   genlz->text_width = 0.0;
 
-  genlz->text_width =
-    font_string_width(genlz->name, genlz_font, GENERALIZATION_FONTHEIGHT);
-  genlz->text_width = MAX(genlz->text_width,
-			  font_string_width(genlz->stereotype, genlz_font, GENERALIZATION_FONTHEIGHT));
+  if (genlz->name)
+    genlz->text_width = font_string_width(genlz->name, genlz_font,
+					  GENERALIZATION_FONTHEIGHT);
+  if (genlz->stereotype)
+    genlz->text_width = MAX(genlz->text_width,
+			    font_string_width(genlz->stereotype, genlz_font,
+					      GENERALIZATION_FONTHEIGHT));
 
   extra = &orth->extra_spacing;
   
@@ -409,9 +404,9 @@ generalization_create(Point *startpoint,
     genlz_font = font_getfont("Courier");
   }
   
-  genlz = g_malloc(sizeof(Generalization));
+  genlz = g_new(Generalization, 1);
   orth = &genlz->orth;
-  obj = &orth->object;
+  obj = (Object *)genlz;
   extra = &orth->extra_spacing;
 
   obj->type = &generalization_type;
@@ -420,20 +415,23 @@ generalization_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
 
-  genlz->name = strdup("");
-  genlz->stereotype = strdup("");
+  genlz->name = NULL;
+  genlz->stereotype = NULL;
 
   generalization_update_data(genlz);
   
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 
-  return &genlz->orth.object;
+  return (Object *)genlz;
 }
 
 static void
 generalization_destroy(Generalization *genlz)
 {
+  g_free(genlz->name);
+  g_free(genlz->stereotype);
+
   orthconn_destroy(&genlz->orth);
 }
 
@@ -448,51 +446,17 @@ generalization_copy(Generalization *genlz)
   
   newgenlz = g_malloc(sizeof(Generalization));
   neworth = &newgenlz->orth;
-  newobj = &neworth->object;
+  newobj = (Object *)newgenlz;
 
   orthconn_copy(orth, neworth);
 
-  newgenlz->name = strdup(genlz->name);
-  newgenlz->stereotype = strdup(genlz->stereotype);
+  newgenlz->name = genlz->name ? strdup(genlz->name) : NULL;
+  newgenlz->stereotype = genlz->stereotype ? strdup(genlz->stereotype) : NULL;
   newgenlz->text_width = genlz->text_width;
   
   generalization_update_data(newgenlz);
   
-  return &newgenlz->orth.object;
-}
-
-static void
-generalization_state_free(ObjectState *ostate)
-{
-  GeneralizationState *state = (GeneralizationState *)ostate;
-  g_free(state->name);
-  g_free(state->stereotype);
-}
-
-static GeneralizationState *
-generalization_get_state(Generalization *genlz)
-{
-  GeneralizationState *state = g_new(GeneralizationState, 1);
-
-  state->obj_state.free = generalization_state_free;
-
-  state->name = g_strdup(genlz->name);
-  state->stereotype = g_strdup(genlz->stereotype);
-  
-  return state;
-}
-
-static void
-generalization_set_state(Generalization *genlz, GeneralizationState *state)
-{
-  g_free(genlz->name);
-  g_free(genlz->stereotype);
-  genlz->name = state->name;
-  genlz->stereotype = state->stereotype;
-  
-  g_free(state);
-  
-  generalization_update_data(genlz);
+  return (Object *)newgenlz;
 }
 
 static void
@@ -524,7 +488,7 @@ generalization_load(ObjectNode obj_node, int version,
   genlz = g_new(Generalization, 1);
 
   orth = &genlz->orth;
-  obj = &orth->object;
+  obj = (Object *)genlz;
   extra = &orth->extra_spacing;
 
   obj->type = &generalization_type;
@@ -536,15 +500,11 @@ generalization_load(ObjectNode obj_node, int version,
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)
     genlz->name = data_string(attribute_first_data(attr));
-  else
-    genlz->name = strdup("");
 
   genlz->stereotype = NULL;
   attr = object_find_attribute(obj_node, "stereotype");
   if (attr != NULL)
     genlz->stereotype = data_string(attribute_first_data(attr));
-  else
-    genlz->stereotype = strdup("");
 
   generalization_update_data(genlz);
 

@@ -175,11 +175,12 @@ component_get_props(Component * component, Property *props, guint nprops)
     } else if (pquark == quarks[4].q) {
       props[i].type = PROP_TYPE_STRING;
       g_free(PROP_VALUE_STRING(props[i]));
-      if (strlen(component->stereotype) != 0)
+      if (component->stereotype &&
+	  component->stereotype[0] != '\0')
 	PROP_VALUE_STRING(props[i]) =
 	  stereotype_to_string(component->stereotype);
       else
-	PROP_VALUE_STRING(props[i]) = strdup("");	
+	PROP_VALUE_STRING(props[i]) = NULL;
     }
   }
 }
@@ -208,11 +209,12 @@ component_set_props(Component *component, Property *props, guint nprops)
 	text_set_string(component->text, PROP_VALUE_STRING(props[i]));
       } else if (pquark == quarks[4].q && props[i].type == PROP_TYPE_STRING) {
 	g_free(component->stereotype);
-	if (strlen(PROP_VALUE_STRING(props[i])) > 0)
+	if (PROP_VALUE_STRING(props[i]) &&
+	    PROP_VALUE_STRING(props[i])[0] != '\0')
 	  component->stereotype =
 	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
 	else 
-	  component->stereotype = strdup("");
+	  component->stereotype = NULL;
       }
     }
   }
@@ -307,7 +309,8 @@ component_draw(Component *cmp, Renderer *renderer)
 			   &p1, &p2,
 			   &color_black);
 
-  if (strlen(cmp->stereotype) != 0) {
+  if (cmp->stereotype != NULL &&
+      cmp->stereotype[0] != '\0') {
     p1 = cmp->text->position;
     p1.y -= cmp->text->height;
     renderer->ops->draw_string(renderer, cmp->stereotype, &p1, 
@@ -334,11 +337,13 @@ component_update_data(Component *cmp)
   p.x += COMPONENT_CWIDTH + COMPONENT_MARGIN_X;
   p.y += COMPONENT_CHEIGHT;
   p.y += cmp->text->ascent;
-  if (strlen(cmp->stereotype) != 0)
+  if (cmp->stereotype &&
+      cmp->stereotype[0] != '\0')
     p.y += cmp->text->height;
   text_set_position(cmp->text, &p);
 
-  if (strlen(cmp->stereotype) != 0) {
+  if (cmp->stereotype &&
+      cmp->stereotype[0] != '\0') {
     Font *font;
     font = cmp->text->font;
     elem->height += cmp->text->height;
@@ -409,7 +414,7 @@ component_create(Point *startpoint,
     cmp->connections[i].connected = NULL;
   }
   elem->extra_spacing.border_trans = COMPONENT_BORDERWIDTH/2.0;
-  cmp->stereotype = strdup("");
+  cmp->stereotype = NULL;
 
   component_update_data(cmp);
 
@@ -457,10 +462,10 @@ component_copy(Component *cmp)
     newcmp->connections[i].last_pos = cmp->connections[i].last_pos;
   }
   component_update_data(newcmp);
-  if (strlen(cmp->stereotype) != 0)
-    newcmp->stereotype = cmp->stereotype;
+  if (cmp->stereotype != NULL)
+    newcmp->stereotype = g_strdup(cmp->stereotype);
   else
-    newcmp->stereotype = strdup("");
+    newcmp->stereotype = NULL;
   
   return &newcmp->element.object;
 }
@@ -505,8 +510,6 @@ component_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "stereotype");
   if (attr != NULL)
     cmp->stereotype = data_string(attribute_first_data(attr));
-  else
-    cmp->stereotype = strdup("");
 
   element_init(elem, 8, 8);
 

@@ -1,5 +1,22 @@
 2001-03-19  James Henstridge  <james@daa.com.au>
 
+	* app/GNOME_Dia.oaf: rename from GNOME_Dia.oafinfo.
+
+	* objects/UML/realizes.c: similar here.
+
+	* objects/UML/implements.c: similar here.
+
+	* objects/UML/component.c: similar here.
+
+	* objects/UML/generalization.c: same here.
+
+	* objects/UML/dependency.c: allow NULL for ->name and
+	->stereotype.  This fixes a number of problems in loading saved
+	files.
+
+	* lib/properties.c: various changes so that NULL string properties
+	should work.
+
 	* objects/standard/line.c (line_update_data):
 	line->extra.start_long and line->extra.end_long were not being
 	initialised.  This fixes potential problems with the bounding box

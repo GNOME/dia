@@ -517,7 +517,7 @@ umlclass_calculate_data(UMLClass *umlclass)
     i = strlen(umlclass->stereotype_string);
     umlclass->stereotype_string[i] = UML_STEREOTYPE_END;
     umlclass->stereotype_string[i+1] = 0;
-
+    
     width = font_string_width(umlclass->stereotype_string, umlclass->normal_font, font_height);
     maxwidth = MAX(width, maxwidth);
   } else {
@@ -1152,7 +1152,7 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
   umlclass->attributes_strings = NULL;
   umlclass->operations_strings = NULL;
   umlclass->templates_strings = NULL;
-  
+
   umlclass_calculate_data(umlclass);
   
   for (i=0;i<8;i++) {

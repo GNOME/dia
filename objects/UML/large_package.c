@@ -271,10 +271,9 @@ largepackage_draw(LargePackage *pkg, Renderer *renderer)
   }
   p1.y += LARGEPACKAGE_FONTHEIGHT;
 
-  renderer->ops->draw_string(renderer, pkg->name, &p1,
-			     ALIGN_LEFT, &color_black);
-
-
+  if (pkg->name)
+    renderer->ops->draw_string(renderer, pkg->name, &p1,
+			       ALIGN_LEFT, &color_black);
 }
 
 static void
@@ -489,8 +488,6 @@ largepackage_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)
     pkg->name = data_string(attribute_first_data(attr));
-  else
-    pkg->name = strdup("");
   
   pkg->stereotype = NULL;
   attr = object_find_attribute(obj_node, "stereotype");
@@ -500,9 +497,10 @@ largepackage_load(ObjectNode obj_node, int version, const char *filename)
   pkg->font = font_getfont("Courier");
 
   pkg->topwidth = 2.0;
-  pkg->topwidth = MAX(pkg->topwidth,
-		      font_string_width(pkg->name, pkg->font,
-					LARGEPACKAGE_FONTHEIGHT)+2*0.1);
+  if (pkg->name != NULL)
+    pkg->topwidth = MAX(pkg->topwidth,
+			font_string_width(pkg->name, pkg->font,
+					  LARGEPACKAGE_FONTHEIGHT)+2*0.1);
   if (pkg->stereotype != NULL)
     pkg->topwidth = MAX(pkg->topwidth,
 			font_string_width(pkg->stereotype, pkg->font,

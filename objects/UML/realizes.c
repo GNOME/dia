@@ -38,15 +38,6 @@
 #include "pixmaps/realizes.xpm"
 
 typedef struct _Realizes Realizes;
-typedef struct _RealizesState RealizesState;
-
-struct _RealizesState {
-  ObjectState obj_state;
-
-  char *name;
-  char *stereotype; 
-
-};
 
 struct _Realizes {
   OrthConn orth;
@@ -84,9 +75,6 @@ static Object *realizes_copy(Realizes *realize);
 static DiaMenu *realizes_get_object_menu(Realizes *realize,
 					 Point *clickedpoint);
 
-static RealizesState *realizes_get_state(Realizes *realize);
-static void realizes_set_state(Realizes *realize,
-			       RealizesState *state);
 static PropDescription *realizes_describe_props(Realizes *realizes);
 static void realizes_get_props(Realizes * realizes, Property *props, guint nprops);
 static void realizes_set_props(Realizes * realizes, Property *props, guint nprops);
@@ -176,11 +164,12 @@ realizes_get_props(Realizes * realizes, Property *props, guint nprops)
     if (pquark == quarks[0].q) {
       props[i].type = PROP_TYPE_STRING;
       g_free(PROP_VALUE_STRING(props[i]));
-      if (strlen(realizes->stereotype) != 0)
+      if (realizes->stereotype != NULL &&
+	  realizes->stereotype[0] != '\0')
 	PROP_VALUE_STRING(props[i]) =
 	  stereotype_to_string(realizes->stereotype);
       else
-	PROP_VALUE_STRING(props[i]) = strdup("");	
+	PROP_VALUE_STRING(props[i]) = NULL;
     }
   }
 
@@ -201,11 +190,12 @@ realizes_set_props(Realizes *realizes, Property *props, guint nprops)
       GQuark pquark = g_quark_from_string(props[i].name);
       if (pquark == quarks[0].q && props[i].type == PROP_TYPE_STRING) {
 	g_free(realizes->stereotype);
-	if (strlen(PROP_VALUE_STRING(props[i])) > 0)
+	if (PROP_VALUE_STRING(props[i]) != NULL &&
+	    PROP_VALUE_STRING(props[i])[0] != '\0')
 	  realizes->stereotype =
 	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
 	else 
-	  realizes->stereotype = strdup("");
+	  realizes->stereotype = NULL;
       }
     }
   }
@@ -273,7 +263,7 @@ realizes_draw(Realizes *realize, Renderer *renderer)
   renderer->ops->set_font(renderer, realize_font, REALIZES_FONTHEIGHT);
   pos = realize->text_pos;
   
-  if (strlen(realize->stereotype) != 0) {
+  if (realize->stereotype != NULL && realize->stereotype[0] != '\0') {
     renderer->ops->draw_string(renderer,
 			       realize->stereotype,
 			       &pos, realize->text_align,
@@ -282,7 +272,7 @@ realizes_draw(Realizes *realize, Renderer *renderer)
     pos.y += REALIZES_FONTHEIGHT;
   }
   
-  if (strlen(realize->name) != 0) {
+  if (realize->name != NULL && realize->name[0] != '\0') {
     renderer->ops->draw_string(renderer,
 			       realize->name,
 			       &pos, realize->text_align,
@@ -305,10 +295,14 @@ realizes_update_data(Realizes *realize)
   
   realize->text_width = 0.0;
 
-  realize->text_width =
-    font_string_width(realize->name, realize_font, REALIZES_FONTHEIGHT);
-  realize->text_width = MAX(realize->text_width,
-			    font_string_width(realize->stereotype, realize_font, REALIZES_FONTHEIGHT));
+  if (realize->name)
+    realize->text_width = font_string_width(realize->name, realize_font,
+					    REALIZES_FONTHEIGHT);
+  if (realize->stereotype)
+    realize->text_width = MAX(realize->text_width,
+			      font_string_width(realize->stereotype,
+						realize_font,
+						REALIZES_FONTHEIGHT));
 
   extra = &orth->extra_spacing;
   
@@ -424,8 +418,8 @@ realizes_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
   
-  realize->name = strdup("");
-  realize->stereotype = strdup("");
+  realize->name = NULL;
+  realize->stereotype = NULL;
   realize->text_width = 0;
 
   extra->start_trans = REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
@@ -462,47 +456,13 @@ realizes_copy(Realizes *realize)
 
   orthconn_copy(orth, neworth);
 
-  newrealize->name = strdup(realize->name);
-  newrealize->stereotype = strdup(realize->stereotype);
+  newrealize->name = realize->name ? strdup(realize->name) : NULL;
+  newrealize->stereotype = realize->stereotype ? strdup(realize->stereotype) : NULL;
   newrealize->text_width = realize->text_width;
   
   realizes_update_data(newrealize);
   
   return &newrealize->orth.object;
-}
-
-static void
-realizes_state_free(ObjectState *ostate)
-{
-  RealizesState *state = (RealizesState *)ostate;
-  g_free(state->name);
-  g_free(state->stereotype);
-}
-
-static RealizesState *
-realizes_get_state(Realizes *realize)
-{
-  RealizesState *state = g_new(RealizesState, 1);
-
-  state->obj_state.free = realizes_state_free;
-
-  state->name = g_strdup(realize->name);
-  state->stereotype = g_strdup(realize->stereotype);
-  
-  return state;
-}
-
-static void
-realizes_set_state(Realizes *realize, RealizesState *state)
-{
-  g_free(realize->name);
-  g_free(realize->stereotype);
-  realize->name = state->name;
-  realize->stereotype = state->stereotype;
-  
-  g_free(state);
-  
-  realizes_update_data(realize);
 }
 
 static void
@@ -544,15 +504,11 @@ realizes_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)
     realize->name = data_string(attribute_first_data(attr));
-  else
-    realize->name = strdup("");
   
   realize->stereotype = NULL;
   attr = object_find_attribute(obj_node, "stereotype");
   if (attr != NULL)
     realize->stereotype = data_string(attribute_first_data(attr));
-  else
-    realize->stereotype = strdup("");
 
   realize->text_width = 0.0;
 

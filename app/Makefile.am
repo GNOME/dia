@@ -33,7 +33,7 @@ run_dia_sh_SOURCES =
 
 if HAVE_BONOBO
 dia_embedd = dia-embedd
-dia_oafinfo = GNOME_Dia.oafinfo
+dia_oafinfo = GNOME_Dia.oaf
 else
 dia_embedd =
 dia_oafinfo =
@@ -162,7 +162,7 @@ dia_embedd_LDADD = ../lib/libdia.a \
 LDFLAGS = -export-dynamic
 
 EXTRA_DIST = \
-	GNOME_Dia.oafinfo \
+	GNOME_Dia.oaf \
 	render_gnomeprint.c \
 	render_gnomeprint.h \
 	paginate_gnomeprint.c \

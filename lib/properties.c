@@ -188,7 +188,10 @@ prop_copy(Property *dest, Property *src)
   case PROP_TYPE_STRING:
   case PROP_TYPE_FILE:
     g_free(PROP_VALUE_STRING(*dest));
-    PROP_VALUE_STRING(*dest) = g_strdup(PROP_VALUE_STRING(*src));
+    if (PROP_VALUE_STRING(*src))
+      PROP_VALUE_STRING(*dest) = g_strdup(PROP_VALUE_STRING(*src));
+    else
+      PROP_VALUE_STRING(*dest) = NULL;
     break;
   case PROP_TYPE_POINTARRAY:
     g_free(PROP_VALUE_POINTARRAY(*dest).pts);
@@ -365,7 +368,8 @@ prop_get_widget(Property *prop)
     break;
   case PROP_TYPE_STRING:
     ret = gtk_entry_new();
-    gtk_entry_set_text(GTK_ENTRY(ret), PROP_VALUE_STRING(*prop));
+    if (PROP_VALUE_STRING(*prop))
+      gtk_entry_set_text(GTK_ENTRY(ret), PROP_VALUE_STRING(*prop));
     break;
   case PROP_TYPE_POINT:
   case PROP_TYPE_POINTARRAY:

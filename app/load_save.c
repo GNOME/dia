@@ -97,7 +97,7 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
 	version = atoi(versionstr);
 	free(versionstr);
       }
-      
+
       type = object_get_type((char *)typestr);
       if (typestr) free(typestr);
       

@@ -553,6 +553,7 @@ font_string_width(const char *string, Font *font, real height)
   double width_height;
   GdkFont *gdk_font;
 
+
   /* Note: This is an ugly hack. It tries to overestimate the width with
      some magic stuff. No guarantees. */
   gdk_font = font_get_gdkfont(font, 100);
