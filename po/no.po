@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.41\n"
-"POT-Creation-Date: 1999-08-25 01:12+0200\n"
+"POT-Creation-Date: 1999-09-04 00:18+0200\n"
 "PO-Revision-Date: 1999-08-25 01:13+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -382,7 +382,7 @@ msgstr "Lag polilinje"
 msgid "Create Image"
 msgstr "Lag bilde"
 
-#: app/interface.c:546
+#: app/interface.c:556
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -390,7 +390,7 @@ msgstr ""
 "Forgrunns- og bakgrunnsfarger. De små sorte og hvite rutene tilbakesetter "
 "farger. De små pilene bytter farger. Dobbeltklikk for å endre farger."
 
-#: app/interface.c:630
+#: app/interface.c:640
 msgid "Diagram Editor"
 msgstr "Diagramredigering"
 
@@ -1042,7 +1042,7 @@ msgstr "Multiverdi"
 #: objects/ER/attribute.c:246 objects/ER/entity.c:222
 #: objects/ER/relationship.c:303 objects/flowchart/box.c:256
 #: objects/flowchart/diamond.c:251 objects/flowchart/parallelogram.c:259
-#: objects/standard/box.c:205 objects/standard/ellipse.c:198
+#: objects/standard/box.c:207 objects/standard/ellipse.c:188
 #: objects/standard/image.c:262
 msgid "Border width:"
 msgstr "Grensebredde:"
@@ -1050,7 +1050,7 @@ msgstr "Grensebredde:"
 #: objects/ER/attribute.c:257 objects/ER/entity.c:233
 #: objects/ER/relationship.c:314 objects/flowchart/box.c:271
 #: objects/flowchart/diamond.c:266 objects/flowchart/parallelogram.c:274
-#: objects/standard/box.c:220 objects/standard/ellipse.c:213
+#: objects/standard/box.c:222 objects/standard/ellipse.c:203
 #: objects/standard/image.c:277
 msgid "Foreground color:"
 msgstr "Forgrunnsfarge:"
@@ -1058,7 +1058,7 @@ msgstr "Forgrunnsfarge:"
 #: objects/ER/attribute.c:265 objects/ER/entity.c:241
 #: objects/ER/relationship.c:322 objects/flowchart/box.c:282
 #: objects/flowchart/diamond.c:277 objects/flowchart/parallelogram.c:285
-#: objects/standard/box.c:231 objects/standard/ellipse.c:224
+#: objects/standard/box.c:233 objects/standard/ellipse.c:214
 msgid "Background color:"
 msgstr "Bakgrunnsfarge:"
 
@@ -1744,45 +1744,43 @@ msgstr "Samarbeid"
 msgid "A box with text inside."
 msgstr "En boks med tekst inni."
 
-#: objects/flowchart/box.c:293 objects/flowchart/box.c:454
-#: objects/flowchart/diamond.c:288 objects/flowchart/diamond.c:430
-#: objects/flowchart/parallelogram.c:296 objects/flowchart/parallelogram.c:458
-#: objects/standard/box.c:242 objects/standard/box.c:333
+#: objects/flowchart/box.c:293 objects/flowchart/box.c:451
+#: objects/flowchart/diamond.c:288 objects/flowchart/diamond.c:429
+#: objects/flowchart/parallelogram.c:296 objects/flowchart/parallelogram.c:455
+#: objects/standard/box.c:244 objects/standard/box.c:332
 msgid "Draw background"
 msgstr "Tegn bakgrunn"
 
-#: objects/flowchart/box.c:301 objects/flowchart/box.c:462
-#: objects/flowchart/diamond.c:296 objects/flowchart/diamond.c:438
-#: objects/flowchart/parallelogram.c:304 objects/flowchart/parallelogram.c:466
-#: objects/standard/arc.c:230 objects/standard/box.c:250
-#: objects/standard/box.c:341 objects/standard/ellipse.c:235
-#: objects/standard/ellipse.c:287 objects/standard/image.c:288
-#: objects/standard/image.c:383 objects/standard/line.c:227
-#: objects/standard/polyline.c:232 objects/standard/zigzagline.c:232
+#: objects/flowchart/box.c:301 objects/flowchart/diamond.c:296
+#: objects/flowchart/parallelogram.c:304 objects/standard/arc.c:230
+#: objects/standard/box.c:252 objects/standard/ellipse.c:225
+#: objects/standard/image.c:288 objects/standard/image.c:383
+#: objects/standard/line.c:227 objects/standard/polyline.c:232
+#: objects/standard/zigzagline.c:232
 msgid "Line style:"
 msgstr "Linjestil:"
 
-#: objects/flowchart/box.c:312 objects/flowchart/box.c:473
-#: objects/standard/box.c:261 objects/standard/box.c:352
+#: objects/flowchart/box.c:312 objects/flowchart/box.c:459
+#: objects/standard/box.c:263 objects/standard/box.c:340
 msgid "Corner rounding:"
 msgstr "Avrunding av hjørner:"
 
-#: objects/flowchart/box.c:327 objects/flowchart/box.c:487
-#: objects/flowchart/diamond.c:307 objects/flowchart/diamond.c:449
-#: objects/flowchart/parallelogram.c:330 objects/flowchart/parallelogram.c:491
+#: objects/flowchart/box.c:327 objects/flowchart/box.c:473
+#: objects/flowchart/diamond.c:307 objects/flowchart/diamond.c:437
+#: objects/flowchart/parallelogram.c:330 objects/flowchart/parallelogram.c:477
 msgid "Text padding:"
 msgstr "Tekstfyll:"
 
-#: objects/flowchart/box.c:341 objects/flowchart/box.c:501
-#: objects/flowchart/diamond.c:321 objects/flowchart/diamond.c:463
-#: objects/flowchart/parallelogram.c:344 objects/flowchart/parallelogram.c:505
+#: objects/flowchart/box.c:341 objects/flowchart/box.c:487
+#: objects/flowchart/diamond.c:321 objects/flowchart/diamond.c:451
+#: objects/flowchart/parallelogram.c:344 objects/flowchart/parallelogram.c:491
 #: objects/standard/textobj.c:207 objects/standard/textobj.c:301
 msgid "Font:"
 msgstr "Skrifttype:"
 
-#: objects/flowchart/box.c:352 objects/flowchart/box.c:512
-#: objects/flowchart/diamond.c:332 objects/flowchart/diamond.c:474
-#: objects/flowchart/parallelogram.c:355 objects/flowchart/parallelogram.c:516
+#: objects/flowchart/box.c:352 objects/flowchart/box.c:498
+#: objects/flowchart/diamond.c:332 objects/flowchart/diamond.c:462
+#: objects/flowchart/parallelogram.c:355 objects/flowchart/parallelogram.c:502
 msgid "Font size:"
 msgstr "Størrelse på skrifttype:"
 
@@ -1807,7 +1805,7 @@ msgstr "Objekter for å tegne flytdiagrammer"
 msgid "A parallelogram with text inside."
 msgstr "Et parallellogram med tekst inni."
 
-#: objects/flowchart/parallelogram.c:315 objects/flowchart/parallelogram.c:477
+#: objects/flowchart/parallelogram.c:315 objects/flowchart/parallelogram.c:463
 msgid "Shear angle:"
 msgstr "Klippevinkel:"
 
