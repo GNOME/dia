@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2003-08-02 15:23+0200\n"
-"PO-Revision-Date: 2003-08-02 15:24+0200\n"
+"POT-Creation-Date: 2003-08-12 14:30+0200\n"
+"PO-Revision-Date: 2003-08-12 14:31+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1921,7 +1921,7 @@ msgstr "Kunde inte öppna historikfilen för skrivning."
 msgid "Encapsulated Postscript"
 msgstr "Inkapslad Postscript"
 
-#: app/render_libart.c:320 lib/dialibartrenderer.c:269
+#: app/render_libart.c:323 lib/dialibartrenderer.c:273
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Fyllnadsläge som inte stöds angivet!\n"
 
@@ -2274,11 +2274,11 @@ msgstr "Tom konkav"
 msgid "Round"
 msgstr "Runda"
 
-#: lib/bezier_conn.c:530
+#: lib/bezier_conn.c:532
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Internt fel: Inställning av hörntyp på slutpunkten av bezier"
 
-#: lib/dialibartrenderer.c:1115
+#: lib/dialibartrenderer.c:1119
 msgid "This Dia version is compiled without libart/text support."
 msgstr "Denna version av Dia är kompilerad utan stöd för libart/text."
 
@@ -3295,7 +3295,7 @@ msgid "Expose"
 msgstr "Exponera"
 
 #. Translators: Menu item Verb/Provision/Extract
-#: objects/FS/function.c:911 sheets/Flowchart.sheet.in.h:8
+#: objects/FS/function.c:911 sheets/Flowchart.sheet.in.h:7
 msgid "Extract"
 msgstr "Extrahera"
 
@@ -5460,32 +5460,32 @@ msgid "Weak entity"
 msgstr "Svag enhet"
 
 #: sheets/Flowchart.sheet.in.h:1
-msgid "Box with text inside"
-msgstr "Ruta med text inuti"
-
-#: sheets/Flowchart.sheet.in.h:2
 msgid "Collate"
 msgstr "Beräkna"
 
-#: sheets/Flowchart.sheet.in.h:3
-msgid "Delay"
-msgstr "Fördröjning"
+#: sheets/Flowchart.sheet.in.h:2
+msgid "Connector"
+msgstr "Anslutning"
+
+#: sheets/Flowchart.sheet.in.h:3 sheets/SDL.sheet.in.h:4
+msgid "Decision"
+msgstr "Beslut"
 
 #: sheets/Flowchart.sheet.in.h:4
-msgid "Diamond with text inside"
-msgstr "Romb med text inuti"
+msgid "Delay"
+msgstr "Fördröjning"
 
 #: sheets/Flowchart.sheet.in.h:6
 msgid "Document"
 msgstr "Dokument"
 
-#: sheets/Flowchart.sheet.in.h:7
-msgid "Ellipse with text inside"
-msgstr "Ellips med text inuti"
-
-#: sheets/Flowchart.sheet.in.h:9
+#: sheets/Flowchart.sheet.in.h:8
 msgid "Flowchart"
 msgstr "Flödesschema"
+
+#: sheets/Flowchart.sheet.in.h:9
+msgid "Input/Output"
+msgstr "Inmatning/Utmatning"
 
 #: sheets/Flowchart.sheet.in.h:10
 msgid "Internal storage"
@@ -5532,16 +5532,16 @@ msgid "Or"
 msgstr "Eller"
 
 #: sheets/Flowchart.sheet.in.h:21
-msgid "Parallelogram with text inside"
-msgstr "Parallellogram med text inuti"
-
-#: sheets/Flowchart.sheet.in.h:22
 msgid "Predefined process"
 msgstr "Fördefinierad process"
 
-#: sheets/Flowchart.sheet.in.h:23
+#: sheets/Flowchart.sheet.in.h:22
 msgid "Preparation"
 msgstr "Förberedelse"
+
+#: sheets/Flowchart.sheet.in.h:23
+msgid "Process/Auxiliary Operation"
+msgstr "Process/Extern operation"
 
 #: sheets/Flowchart.sheet.in.h:24
 msgid "Punched card"
@@ -5560,8 +5560,8 @@ msgid "Summing junction"
 msgstr "Summerande koppling"
 
 #: sheets/Flowchart.sheet.in.h:28
-msgid "Terminal"
-msgstr "Terminal"
+msgid "Terminal Interrupt"
+msgstr "Terminalavbrott"
 
 #: sheets/Flowchart.sheet.in.h:29
 msgid "Transaction file"
@@ -6060,10 +6060,6 @@ msgstr "Åtgärd som körs"
 msgid "Block type reference"
 msgstr "Blocktypsreferens"
 
-#: sheets/SDL.sheet.in.h:4
-msgid "Decision"
-msgstr "Beslut"
-
 #: sheets/SDL.sheet.in.h:5
 msgid "Function call"
 msgstr "Funktionsanrop"
@@ -6231,6 +6227,24 @@ msgstr "UML"
 #: sheets/UML.sheet.in.h:27
 msgid "Use case"
 msgstr "Användningsområde"
+
+#~ msgid "Auxiliary Operation"
+#~ msgstr "Extern operation"
+
+#~ msgid "Box with text inside"
+#~ msgstr "Ruta med text inuti"
+
+#~ msgid "Diamond with text inside"
+#~ msgstr "Romb med text inuti"
+
+#~ msgid "Ellipse with text inside"
+#~ msgstr "Ellips med text inuti"
+
+#~ msgid "Parallelogram with text inside"
+#~ msgstr "Parallellogram med text inuti"
+
+#~ msgid "Terminal"
+#~ msgstr "Terminal"
 
 #~ msgid "Reverse dragging selects intersecting objects"
 #~ msgstr "Omvänd dragning markerar korsande objekt"
