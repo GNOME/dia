@@ -1,3 +1,8 @@
+2003-01-22  Alan Horkan <horkana@tcd.ie>
+
+	* app/commands.c (file_new_callback): Changed Untitled to Diagram
+	for default name.
+
 2003-01-21  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/preferences.c (prefs_create_dialog): 

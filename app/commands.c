@@ -129,7 +129,7 @@ file_new_callback(gpointer data, guint action, GtkWidget *widget)
   static int untitled_nr = 1;
   char buffer[24];
 
-  g_snprintf(buffer, 24, _("Untitled-%d"), untitled_nr++);
+  g_snprintf(buffer, 24, _("Diagram%d.dia"), untitled_nr++);
   
   dia = new_diagram(buffer);
   ddisp = new_display(dia);
