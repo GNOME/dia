@@ -7,7 +7,7 @@ endif
 
 help_DATA = topic.dat
 
-SGML_FILES = \
+XML_FILES = \
 	dia-manual.xml \
 	authors.xml \
 	intro.xml \
@@ -31,10 +31,10 @@ GRAPHICS = \
 EXTRA_DIST = \
 	topic.dat \
 	$(GRAPHICS) \
-	$(SGML_FILES)
+	$(XML_FILES)
 
 if HAVE_DB2HTML
-stamp-doc: $(SGML_FILES)
+stamp-doc: $(XML_FILES)
 	cd $(srcdir) && $(DB2HTML) dia-manual.xml && touch stamp-doc
 else
 stamp-doc:
