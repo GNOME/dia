@@ -36,7 +36,7 @@ msgstr "N‰yt‰ t‰m‰ apu-viesti"
 
 #: app/app_procs.c:156
 msgid "Can't connect to session manager!\n"
-msgstr "Ei voi yhdist‰‰ istunnon-hallintaan!\n "
+msgstr "Ei voi yhdist‰‰ istunnon-hallintaan!\n"
 
 #: app/app_procs.c:167
 msgid "[OPTION...] [FILE...]"
@@ -316,8 +316,7 @@ msgstr "Sivun asetukset"
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
-msgstr ""
-"T‰m‰ objekti ei tue Peru/Tee uudestaan -toimintoja.\n"
+msgstr "T‰m‰ objekti ei tue Peru/Tee uudestaan -toimintoja."
 
 #: app/disp_callbacks.c:166
 msgid "No object menu"
@@ -667,11 +666,11 @@ msgstr ""
 #: app/load_save.c:193
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Ei pystynyt aukaisemaan '%s'-tiedostoa luettavaksi.\n""
+msgstr "Ei pystynyt aukaisemaan '%s'-tiedostoa luettavaksi.\n"
 
 #: app/load_save.c:199
 msgid "You must specify a file, not a directory.\n"
-msgstr "Sinun t‰ytyy m‰‰ritell‰ tiedosto, ei hakemistoa.\n""
+msgstr "Sinun t‰ytyy m‰‰ritell‰ tiedosto, ei hakemistoa.\n"
 
 #: app/load_save.c:208 app/load_save.c:213
 #, c-format
