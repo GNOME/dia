@@ -266,7 +266,7 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {N_("/File/_Quit"),          "<control>Q", file_quit_callback,        0 },
   {N_("/_Help"),               NULL,         NULL,       0,    "<Branch>" },
   {   "/Help/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
-  {N_("/Help/_Manual"),        NULL,         help_manual_callback,      0 },
+  {N_("/Help/_Manual"),        GDK_F1,         help_manual_callback,      0 },
   {N_("/Help/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/Help/_About"),         NULL,         help_about_callback,       0 },
 };

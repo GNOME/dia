@@ -1,3 +1,9 @@
+2001-12-03  Cyrille Chepelov  <chepelov@calixo.net>
+
+	Patch from Alan <horkana@tcd.ie>:
+
+	* app/menus.c: bind the F1 shortcut to the Help/_Manual function.
+
 2001-11-20  Hans Breuer  <hans@breuer.org>
 
 	* app/makefile.msc : add new diagram_tree_menu(_callbacks).obj
