@@ -1,3 +1,9 @@
+2001-05-26  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/boundingbox.c: fixed a minor logic error wrt closed shapes. 
+	The overshoot code is buggy, and the bounding boxes for polyshapes
+	looks a bit cheezy. To be done ASAP.
+
 2001-05-26  James Henstridge  <james@daa.com.au>
 
 	* configure.in: call AM_PATH_PYTHON rather than AM_PATH_PYTHON_JH.

@@ -230,37 +230,41 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
   rect->left = rect->right = pts[0].p1.x;
   rect->top = rect->bottom = pts[0].p1.y;
 
-  start_lextra.start_long = extra->start_long;
-  start_lextra.start_trans = MAX(extra->start_trans,extra->middle_trans);
-  start_lextra.end_long = 0;
-  start_lextra.end_trans = extra->middle_trans;
+  if (!closed) {
+    start_lextra.start_long = extra->start_long;
+    start_lextra.start_trans = MAX(extra->start_trans,extra->middle_trans);
+    start_lextra.end_long = 0;
+    start_lextra.end_trans = extra->middle_trans;
 
-  end_lextra.start_long = 0;
-  end_lextra.start_trans = extra->middle_trans;
-  end_lextra.end_long = extra->end_long;
-  end_lextra.end_trans = MAX(extra->end_trans,extra->middle_trans);
+    end_lextra.start_long = 0;
+    end_lextra.start_trans = extra->middle_trans;
+    end_lextra.end_long = extra->end_long;
+    end_lextra.end_trans = MAX(extra->end_trans,extra->middle_trans);
+  }
 
   full_lextra.start_long = extra->start_long;
   full_lextra.start_trans = MAX(extra->start_trans,extra->middle_trans);
   full_lextra.end_long = extra->end_long;
   full_lextra.end_trans = MAX(extra->end_trans,extra->middle_trans);
-  
-  lextra.start_long = 0;
-  lextra.start_trans = extra->middle_trans;
-  lextra.end_long = 0;
-  lextra.end_trans = extra->middle_trans;
 
-  end_bextra.start_long = 0;
-  end_bextra.start_trans = extra->middle_trans;
-  end_bextra.middle_trans = extra->middle_trans;
-  end_bextra.end_long = extra->end_long;
-  end_bextra.end_trans = extra->end_trans;
+  if (!closed) {
+    lextra.start_long = 0;
+    lextra.start_trans = extra->middle_trans;
+    lextra.end_long = 0;
+    lextra.end_trans = extra->middle_trans;
 
-  start_bextra.start_long = extra->start_long;
-  start_bextra.start_trans = extra->start_trans;
-  start_bextra.middle_trans = extra->middle_trans;
-  start_bextra.end_long = 0;
-  start_bextra.end_trans = extra->middle_trans;
+    start_bextra.start_long = extra->start_long;
+    start_bextra.start_trans = extra->start_trans;
+    start_bextra.middle_trans = extra->middle_trans;
+    start_bextra.end_long = 0;
+    start_bextra.end_trans = extra->middle_trans;
+
+    end_bextra.start_long = 0;
+    end_bextra.start_trans = extra->middle_trans;
+    end_bextra.middle_trans = extra->middle_trans;
+    end_bextra.end_long = extra->end_long;
+    end_bextra.end_trans = extra->end_trans;
+  }
 
   bextra.start_long = 0;
   bextra.start_trans = extra->middle_trans;
@@ -329,7 +333,16 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
     end = (pts[next].type == BEZ_MOVE_TO);
     point_copy(&vn,&pts[next].p1); /* whichever type pts[next] is. */
 
-    if (start) {
+    if (closed) {
+      if (pts[i].type == BEZ_LINE_TO) {
+        line_bbox(&vsc,&vx,&full_lextra,&rt);
+      } else {
+        bicubicbezier2D_bbox(&vsc,
+                             &pts[i].p1,&pts[i].p2,&pts[i].p3,
+                             &bextra,
+                             &rt);
+      }    
+    } else if (start) {
       if (pts[i].type == BEZ_LINE_TO) {
         if (end) {
           line_bbox(&vsc,&vx,&full_lextra,&rt);
@@ -349,7 +362,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
                                &rt);
         }
       }
-    } else if (end) { /* end but not start. */
+    } else if (end) { /* end but not start. Not closed anyway. */
       if (pts[i].type == BEZ_LINE_TO) {
         line_bbox(&vsc,&vx,&end_lextra,&rt);
       } else {
@@ -358,7 +371,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
                              &end_bextra,
                              &rt);
       } 
-    } else { /* normal case : middle segment. */
+    } else { /* normal case : middle segment (not closed shape). */
       if (pts[i].type == BEZ_LINE_TO) {
         line_bbox(&vsc,&vx,&lextra,&rt);
       } else {
