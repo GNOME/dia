@@ -591,7 +591,7 @@ create_standard_text(real xpos, real ypos, char *text,
 
     props[0].name = "text";
     props[0].type = PROP_TYPE_STRING;
-    PROP_VALUE_STRING(props[0]) = strdup(text);
+    PROP_VALUE_STRING(props[0]) = text;
     new_obj->ops->set_props(new_obj, props, 1);
 
     return new_obj;
@@ -729,14 +729,6 @@ fig_read_arrow(FILE *file) {
     }
 }
 
-static Color
-fig_color(int color_index) {
-    if (color_index == -1) return color_black; /* Default color */
-    if (color_index < 32) return fig_default_colors[color_index];
-    else return fig_colors[color_index-32];
-}
-
-
 static void
 fig_fix_text(char *text) {
     int i, j;
@@ -778,6 +770,42 @@ fig_read_text_line(FILE *file) {
 
     return text_buf;
 }
+
+static Color
+fig_color(int color_index) {
+    if (color_index == -1) return color_black; /* Default color */
+    if (color_index < 32) return fig_default_colors[color_index];
+    else return fig_colors[color_index-32];
+}
+
+static Color
+fig_area_fill_color(int area_fill, int color_index) {
+    Color col;
+    col = fig_color(color_index);
+    if (area_fill == -1) return col;
+    if (area_fill >= 0 && area_fill <= 20) {
+	if (color_index == -1 || color_index == 0) {
+	    col.red = 0xff*(20-area_fill)/20;
+	    col.green = 0xff*(20-area_fill)/20;
+	    col.blue = 0xff*(20-area_fill)/20;
+	} else {
+	    col.red = (col.red*area_fill)/20;
+	    col.green = (col.green*area_fill)/20;
+	    col.blue = (col.blue*area_fill)/20;
+	}
+    } else if (area_fill > 20 && area_fill <= 40) {
+	/* White and black area illegal here */
+	col.red += (0xff-col.red)*(area_fill-20)/20;
+	col.green += (0xff-col.green)*(area_fill-20)/20;
+	col.blue += (0xff-col.blue)*(area_fill-20)/20;
+    } else {
+	message_warning(_("Patterns are not implemented\n"));
+    }
+    
+    return col;
+}
+
+static GList *depths[1000];
 
 static Object *
 fig_read_ellipse(FILE *file, DiagramData *dia) {
@@ -859,23 +887,31 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
     props[num_props].type = PROP_TYPE_REAL;
     PROP_VALUE_REAL(props[num_props]) = thickness/FIG_ALT_UNIT;
     num_props++;
-    props[num_props].name = "line_color";
+    props[num_props].name = "line_colour";
     props[num_props].type = PROP_TYPE_COLOUR;
     PROP_VALUE_COLOUR(props[num_props]) = fig_color(pen_color);
     num_props++;
-    props[num_props].name = "background_color";
-    props[num_props].type = PROP_TYPE_COLOUR;
-    PROP_VALUE_COLOUR(props[num_props]) = fig_color(pen_color);
-    num_props++;
-    /* Depth field */
+    if (area_fill == -1) {
+	props[num_props].name = "show_background";
+	props[num_props].type = PROP_TYPE_BOOL;
+	PROP_VALUE_BOOL(props[num_props]) = FALSE;
+	num_props++;
+    } else {
+	props[num_props].name = "fill_colour";
+	props[num_props].type = PROP_TYPE_COLOUR;
+	PROP_VALUE_COLOUR(props[num_props]) = fig_area_fill_color(area_fill, fill_color);
+	num_props++;
+    }
     /* Pen style field (not used) */
-    /* Area_fill field */
     /* Style_val (size of dots and dashes) in 1/80 inch */
     /* Direction (not used) */
     /* Angle -- can't rotate yet */
 
     newobj->ops->set_props(newobj, props, num_props);
     
+    /* Depth field */
+    depths[depth] = g_list_prepend(depths[depth], newobj);
+
     return newobj;
 }
 
@@ -1012,11 +1048,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
      props[num_props].type = PROP_TYPE_REAL;
      PROP_VALUE_REAL(props[num_props]) = thickness/FIG_ALT_UNIT;
      num_props++;
-     props[num_props].name = "line_color";
-     props[num_props].type = PROP_TYPE_COLOUR;
-     PROP_VALUE_COLOUR(props[num_props]) = fig_color(pen_color);
-     num_props++;
-     props[num_props].name = "background_color";
+     props[num_props].name = "line_colour";
      props[num_props].type = PROP_TYPE_COLOUR;
      PROP_VALUE_COLOUR(props[num_props]) = fig_color(pen_color);
      num_props++;
@@ -1026,15 +1058,20 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 	 PROP_VALUE_BOOL(props[num_props]) = FALSE;
 	 num_props++;
      } else {
-	 /* Do stuff with fill patterns */
+	 props[num_props].name = "fill_colour";
+	 props[num_props].type = PROP_TYPE_COLOUR;
+	 PROP_VALUE_COLOUR(props[num_props]) = fig_area_fill_color(area_fill, fill_color);
+	 num_props++;
      }
-     /* Depth field */
      /* Pen style field (not used) */
      /* Style_val (size of dots and dashes) in 1/80 inch*/
      /* Join style */
      /* Cap style */
      newobj->ops->set_props(newobj, props, num_props);
      
+     /* Depth field */
+     depths[depth] = g_list_prepend(depths[depth], newobj);
+
      return newobj;
 }
 
@@ -1077,9 +1114,9 @@ fig_read_text(FILE *file, DiagramData *dia) {
     text_buf = fig_read_text_line(file);
 
     newobj = create_standard_text(x/FIG_UNIT, y/FIG_UNIT, text_buf, dia);
-    /*    g_free(text_buf);*/
+    g_free(text_buf);
 
-    props[num_props].name = "text_color";
+    props[num_props].name = "text_colour";
     props[num_props].type = PROP_TYPE_COLOUR;
     PROP_VALUE_COLOUR(props[num_props]) = fig_color(color);
     num_props++;
@@ -1094,13 +1131,15 @@ fig_read_text(FILE *file, DiagramData *dia) {
     /* Can't do the angle */
     /* Height and length are ignored */
     /* Flags */
-    /* Font */
     props[num_props].name = "text_font";
     props[num_props].type = PROP_TYPE_FONT;
     PROP_VALUE_FONT(props[num_props]) = font_getfont(fig_fonts[font]);
     num_props++;
 
     newobj->ops->set_props(newobj, props, num_props);
+
+    /* Depth field */
+    depths[depth] = g_list_prepend(depths[depth], newobj);
 
     return newobj;
 }
@@ -1196,7 +1235,7 @@ fig_read_object(FILE *file, DiagramData *dia) {
     message_error(_("Unknown object type %d\n"), objecttype);
     return FALSE;
   }
-  if (compound_stack != NULL) /* We're building a compound */
+  if (compound_stack != NULL && item != NULL) /* We're building a compound */
     compound_stack = g_slist_prepend(compound_stack, item);
   return TRUE;
 }
@@ -1340,6 +1379,9 @@ import_fig(gchar *filename, DiagramData *dia, void* user_data) {
   for (i = 0; i < FIG_MAX_USER_COLORS; i++) {
     fig_colors[i] = color_black;
   }
+  for (i = 0; i < 1000; i++) {
+      depths[i] = NULL;
+  }
 
   figfile = fopen(filename,"r");
   if(figfile == NULL){
@@ -1372,15 +1414,36 @@ import_fig(gchar *filename, DiagramData *dia, void* user_data) {
 
   if (!fig_read_meta_data(figfile, dia)) {
     fclose(figfile);
-    return TRUE;
+    return FALSE;
   }
   
   do {
     if (!fig_read_object(figfile, dia)) {
-      fclose(figfile);
-      return feof(figfile);
+      if (!feof(figfile)) {
+	  fclose(figfile);
+	  return FALSE;
+      } else {
+	  fclose(figfile);
+	  break;
+      }
     }
   } while (TRUE);
+
+  /* Now we can reorder for the depth fields */
+  for (i = 999; i >= 0; i--) {
+      GList *sorted_list;
+      GList *o;
+      
+      for (o = depths[i]; o != NULL; o = g_list_next(o)) {
+	  data_select(dia, (Object *)o->data);
+      }
+      g_list_free(depths[i]);
+      depths[i] = NULL;
+
+      sorted_list = data_get_sorted_selected_remove(dia);
+      layer_add_objects_first(dia->active_layer, sorted_list);
+      }
+  return TRUE;
 }
 
 /* interface from filter.h */
