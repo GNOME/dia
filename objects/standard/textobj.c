@@ -265,7 +265,7 @@ textobj_get_defaults()
     gtk_widget_show (label);
     fontsel = dia_font_selector_new();
     textobj_defaults_dialog->font = DIAFONTSELECTOR(fontsel);
-    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), fontsel, TRUE, TRUE, 0);
     gtk_widget_show (fontsel);
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
