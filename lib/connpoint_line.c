@@ -199,15 +199,16 @@ connpointline_putonaline(ConnPointLine *cpl,Point *start,Point *end)
   int i;
   GSList *elem;
 
-  se_vector.x = end->x-start->x;
-  se_vector.y = end->y-start->y;
+  point_copy(&se_vector, end);
+  point_sub(&se_vector, start);
   
-  point_normalize(&se_vector);
+  se_len = point_len(&se_vector);
+  
+  if (se_len > 0)
+    point_normalize(&se_vector);
   
   cpl->start = *start;
   cpl->end = *end;
-  
-  se_len = distance_point_point(start,end);
   
   pseudopoints = cpl->num_connections + 1; /* here, we count the start and end 
 					    points as eating real positions. */

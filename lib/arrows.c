@@ -101,7 +101,11 @@ draw_fill_ellipse(Renderer *renderer, Point *to, Point *from,
     width += linewidth;
   }
   point_copy(&vl,from); point_sub(&vl,to);
-  point_normalize(&vl);
+  if (point_len(&vl) > 0)
+    point_normalize(&vl);
+  else {
+    vl.x = 1.0; vl.y = 0.0;
+  }
   if (!finite(vl.x)) {
     vl.x = 1.0; vl.y = 0.0;
   }

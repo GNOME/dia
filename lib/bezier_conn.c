@@ -145,7 +145,9 @@ bezierconn_move_handle(BezierConn *bez, Handle *handle,
 	len = point_len(&pt);
 	pt = bez->points[comp_nr].p2;
 	point_sub(&pt, &bez->points[comp_nr].p3);
-	point_normalize(&pt);
+	if (point_len(&pt) > 0)
+	  point_normalize(&pt);
+	else { pt.x = 1.0; pt.y = 0.0; }	  
 	point_scale(&pt, -len);
 	point_add(&pt, &bez->points[comp_nr].p3);
 	bez->points[comp_nr+1].p1 = pt;
@@ -174,7 +176,9 @@ bezierconn_move_handle(BezierConn *bez, Handle *handle,
 	len = point_len(&pt);
 	pt = bez->points[comp_nr].p1;
 	point_sub(&pt, &bez->points[comp_nr-1].p3);
-	point_normalize(&pt);
+	if (point_len(&pt) > 0)
+	  point_normalize(&pt);
+	else { pt.x = 1.0; pt.y = 0.0; }	  
 	point_scale(&pt, -len);
 	point_add(&pt, &bez->points[comp_nr-1].p3);
 	bez->points[comp_nr-1].p2 = pt;
@@ -473,8 +477,10 @@ bezierconn_straighten_corner(BezierConn *bez, int comp_nr) {
     len1 = point_len(&pt1);
     len2 = point_len(&pt2);
     point_scale(&pt2, -1.0);
-    point_normalize(&pt1);
-    point_normalize(&pt2);
+    if (len1 > 0)
+      point_normalize(&pt1);
+    if (len2 > 0)
+      point_normalize(&pt2);
     point_add(&pt1, &pt2);
     point_scale(&pt1, 0.5);
     pt2 = pt1;

@@ -1,3 +1,10 @@
+2000-04-27  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/arrows.c:
+	* lib/bezier_conn.c:
+	* lib/connpoint_line.c:
+	Added checks for zero-length lines before calls to point_normalize.
+
 2000-04-24  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
 	* app/preferences.c (prefs_data): Changed
