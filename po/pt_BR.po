@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-20 19:05+0200\n"
-"PO-Revision-Date: 2004-09-20 16:04-0300\n"
+"POT-Creation-Date: 2004-10-10 18:41+0200\n"
+"PO-Revision-Date: 2004-10-10 14:16-0300\n"
 "Last-Translator: Afonso Celso Medina <medina@maua.,br>\n"
 "Language-Team: Português/Brasil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -809,7 +809,16 @@ msgstr "Alterna entre alinhar na grade ou não para esta janela."
 msgid "NULL tooldata in tool_select_update"
 msgstr "Dados de ferramenta NULOS em tool_select_update"
 
-#: app/interface.c:1071
+#: app/interface.c:957
+#, c-format
+msgid "No sheet named %s"
+msgstr "Nenhuma folha nomeada %s"
+
+#: app/interface.c:1047
+msgid "Other sheets"
+msgstr "Outras folhas"
+
+#: app/interface.c:1123
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -819,7 +828,7 @@ msgstr ""
 "preto e branco restauram as cores. As setas pequenas trocam as cores. Clique "
 "duplo para mudar as cores."
 
-#: app/interface.c:1086
+#: app/interface.c:1138
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -828,7 +837,7 @@ msgstr ""
 "padrão para novos objetos.  Clique duplo para definir a largura de linha "
 "mais precisamente."
 
-#: app/interface.c:1126
+#: app/interface.c:1178
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -836,7 +845,7 @@ msgstr ""
 "Estilo de seta no início de novas linhas.  Clique para escolher um seta, ou "
 "defina os parâmetros de estilo de seta através da opção Detalhes..."
 
-#: app/interface.c:1131
+#: app/interface.c:1183
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -844,7 +853,7 @@ msgstr ""
 "Estilo de linha para novas linhas.  Clique para escolher um estilo de linha, "
 "ou defina os parâmetros de estilo de linha através da opção Detalhes..."
 
-#: app/interface.c:1145
+#: app/interface.c:1197
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -852,7 +861,7 @@ msgstr ""
 "Estilo de seta no final de novas linhas.  Clique para escolher um seta ou "
 "defina os parâmetros de estilo de seta através da opção Detalhes..."
 
-#: app/interface.c:1255
+#: app/interface.c:1307
 msgid "Diagram Editor"
 msgstr "Editor de Diagramas"
 
@@ -1827,7 +1836,7 @@ msgstr "Folha"
 
 #: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:133
 #: objects/ER/relationship.c:138 objects/UML/association.c:200
-#: objects/UML/association.c:1126 objects/UML/class_dialog.c:900
+#: objects/UML/association.c:1213 objects/UML/class_dialog.c:900
 #: objects/UML/class_dialog.c:1834 objects/UML/class_dialog.c:2063
 #: objects/UML/class_dialog.c:2579 objects/UML/dependency.c:133
 #: objects/UML/generalization.c:129 objects/UML/realizes.c:130
@@ -1966,7 +1975,7 @@ msgstr "Editor de Diagramas Dia"
 msgid "Edit your Diagrams"
 msgstr "Editar o seu Diagrama"
 
-#: lib/arrows.c:40 objects/UML/association.c:1149 objects/Jackson/domain.c:96
+#: lib/arrows.c:40 objects/UML/association.c:1236 objects/Jackson/domain.c:96
 msgid "None"
 msgstr "Nenhum"
 
@@ -2285,15 +2294,15 @@ msgstr ""
 "Impossível abrir `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:792
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:605
 msgid "Left"
 msgstr "Esquerda"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:798
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:611
 msgid "Center"
 msgstr "Centralizar"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:804
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:617
 msgid "Right"
 msgstr "Direita"
 
@@ -2357,61 +2366,68 @@ msgstr "Cor de preenchimento"
 msgid "Text colour"
 msgstr "Cor do texto"
 
-#: lib/widgets.c:396
-msgid "Other fonts..."
-msgstr "Outras fontes..."
+#: lib/widgets.c:356
+msgid "Other fonts"
+msgstr "Outras fontes"
 
-#: lib/widgets.c:523
+#: lib/widgets.c:426
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Impossível encontrar a família da fonte para %s\n"
 
-#. We hit the Other fonts... entry
-#: lib/widgets.c:588
-msgid "Select font"
-msgstr "Selecionar fonte"
-
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:940 objects/FS/function.c:1063
+#: lib/widgets.c:753 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Sólido"
 
-#: lib/widgets.c:946
+#: lib/widgets.c:759
 msgid "Dashed"
 msgstr "Tracejado"
 
-#: lib/widgets.c:952
+#: lib/widgets.c:765
 msgid "Dash-Dot"
 msgstr "Traço-Ponto"
 
-#: lib/widgets.c:958
+#: lib/widgets.c:771
 msgid "Dash-Dot-Dot"
 msgstr "Traço-Ponto-Ponto"
 
-#: lib/widgets.c:964
+#: lib/widgets.c:777
 msgid "Dotted"
 msgstr "Pontilhado"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:983
+#: lib/widgets.c:796
 msgid "Dash length: "
 msgstr "Tamanho do traço: "
 
-#: lib/widgets.c:1138
+#: lib/widgets.c:951 lib/widgets.c:1058
 msgid "Select color"
 msgstr "Selecionar cor"
 
-#: lib/widgets.c:1356
+#: lib/widgets.c:1088
+msgid "More colors..."
+msgstr "Mais cores..."
+
+#: lib/widgets.c:1233
+msgid "More arrows"
+msgstr "Mais setas"
+
+#: lib/widgets.c:1246
 msgid "Size: "
 msgstr "Tamanho: "
 
-#: lib/widgets.c:1505
+#: lib/widgets.c:1389
 msgid "Select image file"
 msgstr "Selecione o arquivo de imagem"
 
-#: lib/widgets.c:1541
+#: lib/widgets.c:1425
 msgid "Browse"
 msgstr "Navegar"
+
+#: lib/widgets.c:2016
+msgid "Reset menu"
+msgstr "Redefine o menu"
 
 #: objects/ER/attribute.c:153
 msgid "Key:"
@@ -2455,7 +2471,7 @@ msgstr "Total:"
 
 #: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
 #: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:462
-#: objects/UML/association.c:752 objects/UML/component_feature.c:183
+#: objects/UML/association.c:839 objects/UML/component_feature.c:183
 #: objects/UML/dependency.c:372 objects/UML/generalization.c:368
 #: objects/UML/realizes.c:359 objects/standard/zigzagline.c:346
 msgid "Add segment"
@@ -2463,7 +2479,7 @@ msgstr "Adicionar segmento"
 
 #: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
 #: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:463
-#: objects/UML/association.c:753 objects/UML/component_feature.c:184
+#: objects/UML/association.c:840 objects/UML/component_feature.c:184
 #: objects/UML/dependency.c:373 objects/UML/generalization.c:369
 #: objects/UML/realizes.c:360 objects/standard/zigzagline.c:347
 msgid "Delete segment"
@@ -3788,46 +3804,46 @@ msgstr "Objetos de diagrama SADT"
 msgid "Actor"
 msgstr "Ator"
 
-#: objects/UML/association.c:1139 objects/UML/class_dialog.c:2107
+#: objects/UML/association.c:1226 objects/UML/class_dialog.c:2107
 msgid "Direction:"
 msgstr "Direção:"
 
-#: objects/UML/association.c:1156
+#: objects/UML/association.c:1243
 msgid "From A to B"
 msgstr "De A até B"
 
-#: objects/UML/association.c:1163
+#: objects/UML/association.c:1250
 msgid "From B to A"
 msgstr "De B até A"
 
-#: objects/UML/association.c:1187 objects/UML/association.c:1195
+#: objects/UML/association.c:1274 objects/UML/association.c:1282
 msgid "Side A"
 msgstr "Lado A"
 
-#: objects/UML/association.c:1189 objects/UML/association.c:1197
+#: objects/UML/association.c:1276 objects/UML/association.c:1284
 msgid "Side B"
 msgstr "Lado B"
 
-#: objects/UML/association.c:1203
+#: objects/UML/association.c:1290
 msgid "Role:"
 msgstr "Regra:"
 
-#: objects/UML/association.c:1215
+#: objects/UML/association.c:1302
 msgid "Multiplicity:"
 msgstr "Multiplicidade:"
 
 #. Show arrow:
-#: objects/UML/association.c:1226
+#: objects/UML/association.c:1313
 msgid "Show arrow"
 msgstr "Mostrar seta"
 
 #. Aggregate
-#: objects/UML/association.c:1232
+#: objects/UML/association.c:1319
 msgid "Aggregate"
 msgstr "Agregação"
 
 #. Composition
-#: objects/UML/association.c:1240
+#: objects/UML/association.c:1327
 msgid "Composition"
 msgstr "Composição"
 
