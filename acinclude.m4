@@ -96,11 +96,8 @@ else:
   dnl distinct variables so they can be overridden if need be.  However,
   dnl general consensus is that you shouldn't need this ability.
 
-  AC_SUBST(PYTHON_PREFIX)
-  PYTHON_PREFIX='${prefix}'
-
-  AC_SUBST(PYTHON_EXEC_PREFIX)
-  PYTHON_EXEC_PREFIX='${exec_prefix}'
+  AC_SUBST([PYTHON_PREFIX], [${prefix}])
+  AC_SUBST([PYTHON_EXEC_PREFIX], [${exec_prefix}])
 
   dnl At times (like when building shared libraries) you may want
   dnl to know which OS platform Python thinks this is.
@@ -119,8 +116,11 @@ else:
   dnl Also, if the package prefix isn't the same as python's prefix,
   dnl then the old $(pythondir) was pretty useless.
 
-  AC_SUBST(pythondir)
-  pythondir=$PYTHON_PREFIX"/lib/python"$PYTHON_VERSION/site-packages
+  AC_CACHE_CHECK([for $am_display_PYTHON script directory],
+    [am_cv_python_pythondir],
+    [am_cv_python_pythondir=`$PYTHON -c "from distutils import sysconfig; print sysconfig.get_python_lib(0,0,prefix='$PYTHON_PREFIX')" 2>/dev/null ||
+     echo "$PYTHON_PREFIX/lib/python$PYTHON_VERSION/site-packages"`])
+  AC_SUBST([pythondir], [$am_cv_python_pythondir])
 
   dnl pkgpythondir -- $PACKAGE directory under pythondir.  Was
   dnl   PYTHON_SITE_PACKAGE in previous betas, but this naming is
@@ -133,8 +133,11 @@ else:
   dnl pyexecdir -- directory for installing python extension modules
   dnl   (shared libraries)  Was PYTHON_SITE_EXEC in previous betas.
 
-  AC_SUBST(pyexecdir)
-  pyexecdir=$PYTHON_EXEC_PREFIX"/lib/python"$PYTHON_VERSION/site-packages
+  AC_CACHE_CHECK([for $am_display_PYTHON extension module directory],
+    [am_cv_python_pyexecdir],
+    [am_cv_python_pyexecdir=`$PYTHON -c "from distutils import sysconfig; print sysconfig.get_python_lib(1,0,prefix='$PYTHON_EXEC_PREFIX')" 2>/dev/null ||
+     echo "${PYTHON_EXEC_PREFIX}/lib/python${PYTHON_VERSION}/site-packages"`])
+  AC_SUBST([pyexecdir], [$am_cv_python_pyexecdir])
 
   dnl pkgpyexecdir -- $(pyexecdir)/$(PACKAGE)
   dnl   Maybe this should be put in python.am?
@@ -213,9 +216,9 @@ AC_REQUIRE([AM_CHECK_PYTHON_HEADERS])
 
 AC_MSG_CHECKING(for libpython${PYTHON_VERSION}.a)
 
-py_exec_prefix=`$PYTHON -c "import sys; print sys.exec_prefix"`
+py_config_dir=`$PYTHON -c "import os; print os.path.abspath('$pyexecdir/../config')"`
 
-py_makefile="${py_exec_prefix}/lib/python${PYTHON_VERSION}/config/Makefile"
+py_makefile="${py_config_dir}/Makefile"
 if test -f "$py_makefile"; then
 dnl extra required libs
   py_localmodlibs=`sed -n -e 's/^LOCALMODLIBS=\(.*\)/\1/p' $py_makefile`
@@ -223,8 +226,8 @@ dnl extra required libs
   py_other_libs=`sed -n -e 's/^LIBS=\(.*\)/\1/p' $py_makefile`
 
 dnl now the actual libpython
-  if test -e "${py_exec_prefix}/lib/python${PYTHON_VERSION}/config/libpython${PYTHON_VERSION}.a"; then
-    PYTHON_LIBS="-L${py_exec_prefix}/lib/python${PYTHON_VERSION}/config -lpython${PYTHON_VERSION} $py_localmodlibs $py_basemodlibs $py_other_libs"
+  if test -e "${py_config_dir}/libpython${PYTHON_VERSION}.a"; then
+    PYTHON_LIBS="-L${py_config_dir} -lpython${PYTHON_VERSION} $py_localmodlibs $py_basemodlibs $py_other_libs"
     AC_MSG_RESULT(found)
   else
     AC_MSG_RESULT(not found)

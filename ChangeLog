@@ -1,3 +1,8 @@
+2003-12-02  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* acinclude.m4: Better Python configure code patch (can't find
+	author, author please speak up!)
+
 2003-12-01  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/diagdkrenderer.c (get_cached_text): Stupid bugs replaced by
