@@ -57,6 +57,6 @@ rm -fr $RPM_BUILD_ROOT
 %{prefix}/man/man1/dia.1
 %{prefix}/share/dia
 %{prefix}/share/gnome/apps/Applications/dia.desktop
-%{prefix}/share/*/*/*
+%{prefix}/share/locale/*/*/*
 %{prefix}/share/mime-info/*
 %{prefix}/share/pixmaps/*
