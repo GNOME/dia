@@ -20,6 +20,7 @@
 
 #include "geometry.h"
 #include "color.h"
+#include "diagram_tree_window.h"
 
 struct DiaPreferences {
   struct {
@@ -61,7 +62,7 @@ struct DiaPreferences {
 
   int render_bounding_boxes;
   int pretty_formated_xml;
-  int show_diagram_tree;
+  DiagramTreeConfig dia_tree;
 };
 
 extern struct DiaPreferences prefs;

@@ -1,3 +1,72 @@
+2001-11-20  Hans Breuer  <hans@breuer.org>
+
+	* app/makefile.msc : add new diagram_tree_menu(_callbacks).obj
+
+2001-11-18  Jose A Ortega Ruiz  <jaortega@acm.org>
+
+	* app/diagram_tree.[hc] : Added new functions and types for
+	sorting diagram and objects, and attaching the popup menus.
+
+	* app/preferences.h: Added more diagram tree preferences, using a
+	DiagramTreeConfig struct in DiaPreferences. The new prefs are the
+	height and width of the diagram tree window and the default sort
+	orders for diagrams and objects.
+
+	* app/preferences.c (prefs_data): Added new entries for the new
+	diagram tree preferences.
+
+	* app/preferences.c (prefs_tabs): New tab for diagram tree
+	preferences.
+
+	* app/diagram_tree_window.[hc] (create_diagram_tree_window): 
+	* app/diagram_tree_window.c (diagram_tree_window_new): 
+	* app/interface.c (create_tree_window): The diagram tree window is
+	initialised using the DiagramTreeConfig part of prefs.
+
+
+2001-11-14  Jose A Ortega Ruiz  <jaortega@acm.org>
+
+	* app/diagram_tree_menu.[hc]: New files. Functions to create the
+	diagram tree popup menus.
+
+	* app/diagram_tree_menu_callbacks.[hc]: New files. Callbacks for
+	the diagram tree popup menus.
+
+	* app/Makefile.am (dia_core_files): diagram_tree_menu* files
+	added.
+
+2001-11-13  Jose A Ortega Ruiz  <jaortega@acm.org>
+
+	* app/diagram_tree.c (double_click_callback, diagram_tree_new):
+	double-clicking a diagram tree node raises the diagram window
+	to the foreground (and, if a object node was clicked, selects the
+	object in the diagram).
+
+	* app/diagram_tree.c (select_tree_widget): selecting an object
+	node with single click simply updates it (no raise).
+
+2001-11-08  Jose A Ortega Ruiz  <jaortega@acm.org>
+        These changes make the diagram tree lazy: it is not created unless
+	the diagram tree window is requested.
+	
+	* app/diagram_tree_window.[hc] (create_diagram_tree_window): new
+	function for creating the tree window.
+
+	* app/interface.c (create_tree_window): call
+	create_diagram_tree_window() instead of diagram_window().
+
+	* app/diagram_tree.c (diagram_tree_add, diagram_tree_remove) 
+	(diagram_tree_update, diagram_tree_update_name) 
+	(diagram_tree_add_object, diagram_tree_add_objects) 
+	(diagram_tree_remove_object, diagram_tree_remove_objects) 
+	(diagram_tree_update_object): accept a NULL tree as a nominal
+	argument (and do nothing in this case!), so that the diagram tree
+	is not initialised if not used.
+
+	* app/diagram_tree_window.c (diagram_tree): do not create the
+	diagram tree until diagram_window() or diagtree_show_callback()
+	are invoked.
+
 2001-10-31  Jose A Ortega Ruiz  <jaortega@acm.org>
 	[slightly modified and applied from Hans Breuer <hans@breuer.org>]
 

@@ -27,16 +27,29 @@
 #include <gtk/gtk.h>
 #include "diagram_tree.h"
 
-/* show the diagtree window (menu callback) */
-extern void diagtree_show_callback(gpointer data, guint action,
-				   GtkWidget *widget);
+/* configuration parameters */
+typedef struct _DiagramTreeConfig DiagramTreeConfig;
+
+struct _DiagramTreeConfig {
+  gboolean show_tree;		/* show dtree at startup */
+  guint width;			/* default width of the dtree window */
+  guint height;			/* default height of the dtree window */
+  DiagramTreeSortType dia_sort;	/* default sort mode for diagrams */
+  DiagramTreeSortType obj_sort;	/* default sort mode for objects */
+};
 
 /* get the diagram tree and window*/
 extern DiagramTree *
 diagram_tree(void);
 
-extern GtkWidget *
-diagram_tree_window(void);
+extern void
+create_diagram_tree_window(DiagramTreeConfig *config, GtkWidget *menuitem);
+
+
+/* show the diagtree window (menu callback) */
+extern void
+diagtree_show_callback(gpointer data, guint action,
+		       GtkWidget *widget);
 
 
 #endif /* DIAGRAM_TREE_WINDOW_H */

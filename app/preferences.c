@@ -87,6 +87,11 @@ static int default_int_h = 400;
 static int default_undo_depth = 15;
 static Color default_colour = { 0.85, .90, .90 }; /* Grid colour */
 static Color pbreak_colour = { 0.0, 0.0, 0.6 }; 
+static guint default_dtree_width = 220;
+static guint default_dtree_height = 100;
+static guint default_dtree_dia_sort = DIA_TREE_SORT_INSERT;
+static guint default_dtree_obj_sort = DIA_TREE_SORT_INSERT;
+
 #ifdef PREF_CHOICE
 static PaperInfo default_paper =
 { "A4", 2.82, 2.82, 2.82, 2.82, TRUE, 100.0, FALSE, 1, 1 };
@@ -116,6 +121,7 @@ struct DiaPrefsTab prefs_tabs[] =
   {N_("Diagram Defaults"), NULL, 0},
   {N_("View Defaults"), NULL, 0},
   {N_("Grid Lines"), NULL, 0},
+  {N_("Diagram Tree"), NULL, 0},
 };
 
 #define NUM_PREFS_TABS (sizeof(prefs_tabs)/sizeof(struct DiaPrefsTab))
@@ -144,8 +150,6 @@ struct DiaPrefsData prefs_data[] =
   { "new_view_height", PREF_UINT, PREF_OFFSET(new_view.height), &default_int_h, 1, N_("Height:") },
   { "new_view_zoom", PREF_UREAL, PREF_OFFSET(new_view.zoom), &default_real_zoom, 1, N_("Magnify:") },
   { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), &default_false, 0, N_("Use menu bar:") },
-  { "show_diagram_tree", PREF_BOOLEAN,PREF_OFFSET(show_diagram_tree),
-    &default_false, 0, N_("Show diagram tree at startup:")},
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("Connection Points:") },
   { "show_cx_pts", PREF_BOOLEAN, PREF_OFFSET(show_cx_pts), &default_true, 1, N_("Visible:") },
@@ -168,6 +172,18 @@ struct DiaPrefsData prefs_data[] =
 
   { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
     &default_false,0,"pretty formated xml:",NULL, TRUE},
+
+  { NULL, PREF_NONE, 4, NULL, 1, N_("Diagram tree window:") },
+  { "show_diagram_tree", PREF_BOOLEAN, PREF_OFFSET(dia_tree.show_tree),
+    &default_false, 4, N_("Show at startup:")},
+  { "diagram_tree_width", PREF_UINT, PREF_OFFSET(dia_tree.width),
+    &default_dtree_width, 4, N_("Default width:")},
+  { "diagram_tree_height", PREF_UINT, PREF_OFFSET(dia_tree.height),
+    &default_dtree_height, 4, N_("Default height:")},
+  { "diagram_tree_dia_sort", PREF_UINT, PREF_OFFSET(dia_tree.dia_sort),
+    &default_dtree_dia_sort, 4, "default diagram sort order", NULL, TRUE},
+  { "diagram_tree_obj_sort", PREF_UINT, PREF_OFFSET(dia_tree.obj_sort),
+    &default_dtree_obj_sort, 4, "default object sort order", NULL, TRUE},
 };
 
 #define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(struct DiaPrefsData))

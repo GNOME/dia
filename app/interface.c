@@ -1175,10 +1175,7 @@ toolbox_hide(void)
 void
 create_tree_window(void)
 {
-  if (prefs.show_diagram_tree) {
-    GtkCheckMenuItem *item = GTK_CHECK_MENU_ITEM
-      (menus_get_item_from_path("<Toolbox>/File/Diagram tree", NULL));
-    if (item) item->active = TRUE;
-    gtk_widget_show(diagram_tree_window());
-  }
+  GtkCheckMenuItem *item = GTK_CHECK_MENU_ITEM
+    (menus_get_item_from_path("<Toolbox>/File/Diagram tree", NULL));
+  create_diagram_tree_window(&prefs.dia_tree, GTK_WIDGET(item));
 }

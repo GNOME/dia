@@ -30,6 +30,16 @@
 /* the diagram tree adt */
 typedef struct _DiagramTree DiagramTree;
 
+
+/* sort types */
+typedef enum {
+  DIA_TREE_SORT_NAME,
+  DIA_TREE_SORT_TYPE,
+  DIA_TREE_SORT_INSERT
+} DiagramTreeSortType;
+
+
+
 /* create a new tree with a list of already open diagrams */
 extern DiagramTree*
 diagram_tree_new(GList *diagrams);
@@ -69,6 +79,42 @@ diagram_tree_remove_objects(DiagramTree *tree, GList *objects);
 extern void
 diagram_tree_update_object(DiagramTree *tree, Diagram *diagram,
 			   Object *object);
+
+/* operations on the last clicked node */
+extern void
+diagram_tree_raise(DiagramTree *tree);
+
+extern void
+diagram_tree_show_properties(const DiagramTree *tree);
+
+extern void
+diagram_tree_sort_objects(DiagramTree *tree, DiagramTreeSortType type);
+
+extern void
+diagram_tree_sort_all_objects(DiagramTree *tree, DiagramTreeSortType type);
+
+extern void
+diagram_tree_sort_diagrams(DiagramTree *tree, DiagramTreeSortType type);
+
+extern void
+diagram_tree_set_object_sort_type(DiagramTree *tree, DiagramTreeSortType type);
+
+extern void
+diagram_tree_set_diagram_sort_type(DiagramTree *tree, DiagramTreeSortType type);
+
+extern DiagramTreeSortType
+diagram_tree_diagram_sort_type(const DiagramTree *tree);
+
+extern DiagramTreeSortType
+diagram_tree_object_sort_type(const DiagramTree *tree);
+
+/* attach menus */
+extern void
+diagram_tree_attach_dia_menu(DiagramTree *tree, GtkWidget *menu);
+
+extern void
+diagram_tree_attach_obj_menu(DiagramTree *tree, GtkWidget *menu);
+
 
 /* get the tree widget */
 extern GtkWidget*

@@ -28,10 +28,12 @@
 #include "diagram.h"
 #include "diagram_tree.h"
 #include "diagram_tree_window.h"
+#include "diagram_tree_menu.h"
 
 GtkWidget *diagwindow_ = NULL;
 GtkCheckMenuItem *menu_item_ = NULL;
 DiagramTree *diagtree_ = NULL;
+DiagramTreeConfig *config_ = NULL;
 
 /* diagtree window hide callback */
 static void
@@ -43,23 +45,19 @@ diagram_tree_window_hide(GtkWidget *window)
 
 /* create a diagram_tree_window window */
 static GtkWidget*
-diagram_tree_window_new(void) 
+diagram_tree_window_new(DiagramTreeConfig *config) 
 {
   GtkWidget *window;
   GtkWidget *scroll;
   GtkWidget *tree;
   
-  /* the diagtree */
-  if (!diagtree_) diagtree_ = diagram_tree_new(open_diagrams);
-  tree = diagram_tree_widget(diagtree_);
-
   /* Create a new window */
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
   g_return_val_if_fail(window, NULL);
   
   gtk_window_set_title(GTK_WINDOW(window), N_("Diagram tree"));
-  gtk_widget_set_usize(window, 200, 250);
+  gtk_widget_set_usize(window, config->width, config->height);
 
   /* simply hide the window when it is closed */
   gtk_signal_connect(GTK_OBJECT(window), "destroy",
@@ -67,6 +65,17 @@ diagram_tree_window_new(void)
 
   gtk_signal_connect(GTK_OBJECT(window), "delete_event",
 		     GTK_SIGNAL_FUNC(diagram_tree_window_hide), NULL);
+
+  /* the diagtree */
+  if (!diagtree_)
+    {
+      diagtree_ = diagram_tree_new(open_diagrams);
+      diagram_tree_set_diagram_sort_type(diagtree_, config->dia_sort);
+      diagram_tree_set_object_sort_type(diagtree_, config->obj_sort);
+      create_dtree_dia_menu(diagtree_, GTK_WINDOW(window));
+      create_dtree_object_menu(diagtree_, GTK_WINDOW(window));
+    }
+  tree = diagram_tree_widget(diagtree_);
 
   /* put the tree in a scrolled window */
   scroll = gtk_scrolled_window_new(NULL, NULL);
@@ -86,15 +95,19 @@ diagram_tree_window_new(void)
 DiagramTree *
 diagram_tree(void)
 {
-  if (!diagtree_) diagtree_ = diagram_tree_new(NULL);
   return diagtree_;
 }
 
-GtkWidget *
-diagram_tree_window(void)
+void
+create_diagram_tree_window(DiagramTreeConfig *config, GtkWidget *menuitem)
 {
-  if (!diagwindow_) diagwindow_ = diagram_tree_window_new();
-  return diagwindow_;
+  config_ = config;
+  menu_item_ = GTK_CHECK_MENU_ITEM(menuitem);
+  gtk_check_menu_item_set_active(menu_item_, config_->show_tree);
+  if (!diagwindow_ && config_->show_tree) {
+    diagwindow_ = diagram_tree_window_new(config_);
+    gtk_widget_show(diagwindow_);
+  }
 }
 
 /* menu callbacks */
@@ -102,7 +115,7 @@ void
 diagtree_show_callback(gpointer data, guint action, GtkWidget *widget)
 {
   if (!diagwindow_) {
-    diagwindow_ = diagram_tree_window_new();
+    diagwindow_ = diagram_tree_window_new(config_);
   } else {
     GList *open = open_diagrams;
     while (open) {
