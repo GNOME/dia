@@ -127,7 +127,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
   gint i;
   gchar *png_filename;
   char *shapename, *dirname, *fullname;
-  const char *sheetname;
+  char *sheetname;
 
   file = fopen(filename, "w");
 
@@ -160,7 +160,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
   dirname = g_path_get_dirname(filename);
   sheetname = g_path_get_basename(dirname);
   shapename = g_strndup(g_basename(filename), strlen(g_basename(filename))-6);
-  fullname = g_strdup_print ("%s - %s", sheetname, shapename);
+  fullname = g_strdup_printf ("%s - %s", sheetname, shapename);
   g_free(dirname);
   g_free(sheetname);
   g_free(shapename);

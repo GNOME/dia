@@ -1,5 +1,9 @@
 2004-11-27  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/shape/shape-export.c : it's g_strdup_printf
+
+2004-11-27  Hans Breuer  <hans@breuer.org>
+
 	* app/app_procs.c : mention eps-builtin aka. "using
 	latin1", does not fix the eps-pango issues but #150571
 
