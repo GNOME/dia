@@ -1,5 +1,7 @@
 2004-11-02  Lars Clausen  <lars@raeder.dk>
 
+	* configure.in: Require at least GTK+ 2.4.
+
 	* app/filedlg.c: Changed to use 2.4 file dialog!  Finally,
 	finally, finally.  Not quite bulletproof yet, and I need to figure
 	out a minimum version of Gtk that doesn't spew warnings all over.
