@@ -1,5 +1,8 @@
 2005-03-19  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/xslt/xslt.c : don't crash if both places ($SHARE, $HOME)
+	have configurations, fixes bug #170962
+
 	* objects/UML/state.c : ("UML - State")::type is PROP_FLAG_OPTIONAL,
 	or better not used any longer. Fixes bug #169142.
 

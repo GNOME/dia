@@ -40,7 +40,7 @@
 
 
 /* Possible stylesheets */
-fromxsl_t *froms;
+fromxsl_t *froms = NULL;
 
 /* Selected stylesheets */
 toxsl_t *xsl_to;
@@ -242,6 +242,10 @@ static PluginInitResult read_configuration(const char *config)
 		if (froms == NULL)
 		    froms = cur_from = new_from;
 		else {
+		    if (!cur_from)
+		        cur_from = froms;
+		    while (cur_from->next)
+		        cur_from = cur_from->next;
 		    cur_from->next = new_from;
 		    cur_from = new_from;
 		}
