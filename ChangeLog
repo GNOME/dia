@@ -1,4 +1,20 @@
 2004-05-23  Hans Breuer  <hans@breuer.org>
+ 
+        * acinclude.m4 : another attempt to fix 
+	bug #142032 (still not sure it's the right one,
+	but works for me(tm), which the other does not ;)
+	
+	* plug-ins/cairo/Makefile.am
+	  plug-ins/Makefile.am 
+	  configure.in : support building the new cairo
+	plug-in, if given --with-cairo and the cairo
+	packages are found, see http://cairographics.org
+	and also http://hans.breuer.org/dia/dia-cairo.htm
+
+	* plug-ins/cairo/diacairo.c : make it compile
+	with DEBUG_CAIRO defined, too.
+
+2004-05-23  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/cairo/Makefile.am : initial attempt
 

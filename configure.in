@@ -120,6 +120,16 @@ dnl GTK2:     libgnomecanvas-2.0 ?
 PKG_CHECK_MODULES(GTK,$GTK_MODULES)
 AM_CONDITIONAL(HAVE_BONOBO,false)
 
+dnl Look for Cairo
+AC_ARG_WITH(cairo,
+[  --with-cairo           compile cairo plug-in],,with_cairo=no)
+if test "x$with_cairo" != "xno"; then
+  PKG_CHECK_MODULES(CAIRO, cairo,have_cairo=yes,have_cairo=no)
+  AC_SUBST(CAIRO_LIBS)
+  AC_SUBST(CAIRO_CFLAGS)
+fi
+AM_CONDITIONAL(WITH_CAIRO, test "x$with_cairo" != "xno")
+
 dnl XSLT
 
 # Check if XSLT is available at all
@@ -443,6 +453,7 @@ sheets/GRAFCET/Makefile
 sheets/UML/Makefile
 plug-ins/Makefile
 plug-ins/cgm/Makefile
+plug-ins/cairo/Makefile
 plug-ins/dxf/Makefile
 plug-ins/hpgl/Makefile
 plug-ins/metapost/Makefile
@@ -470,6 +481,7 @@ Configuration:
 	Gnome support:				${GNOME}
 	Python support:				${with_python}
 	Libart support (PNG export):		${have_libart}
+	Cairo support (experimental):		${have_cairo}
 "
 
 echo "Now type make to build dia..."

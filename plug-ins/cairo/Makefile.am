@@ -1,5 +1,5 @@
 
-if HAVE_CAIRO
+if WITH_CAIRO
 plugin_sources = diacairo.c
 plugin_extra_dist =
 else
@@ -17,4 +17,4 @@ libcairo_filter_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 libcairo_filter_la_LIBADD = $(CAIRO_LIBS)
 
-INCLUDES = -I$(srcdir)/../../lib $(CAIRO_CFLAGS)
+INCLUDES = -I$(srcdir)/../../lib $(GTK_CFLAGS) $(DEBUG_FLAGS) $(CAIRO_CFLAGS)
