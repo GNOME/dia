@@ -1,3 +1,8 @@
+2002-11-26  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/widgets.c: 
+	* lib/widgets.h: Allowing setting preview text for fonts.
+
 2002-11-26  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* objects/bondgraph/Makefile.am: 

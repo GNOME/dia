@@ -51,6 +51,8 @@ struct _DiaFontSelector
   GtkOptionMenu *style_omenu;
   GtkMenu *font_menu;
   GtkMenu *style_menu;
+
+  gchar *textsample;
 };
 
 struct _DiaFontSelectorClass
@@ -61,6 +63,7 @@ struct _DiaFontSelectorClass
 guint      dia_font_selector_get_type        (void);
 GtkWidget* dia_font_selector_new             (void);
 void       dia_font_selector_set_font        (DiaFontSelector *fs, DiaFont *font);
+void       dia_font_selector_set_preview     (DiaFontSelector *fs, gchar *text);
 DiaFont *     dia_font_selector_get_font        (DiaFontSelector *fs);
 
 /* DiaAlignmentSelector: */

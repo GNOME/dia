@@ -351,6 +351,8 @@ dia_font_selector_menu_callback(GtkWidget *button, gpointer data)
       dia_font_get_context());
     gtk_signal_connect(GTK_OBJECT(fsd), "response", 
 		       dia_font_selector_dialog_callback, data);
+    if (fs->textsample != NULL)
+      dia_gtk_font_selection_dialog_set_preview_text(fs, fs->textsample);
     gtk_widget_show(fsd);
   } else {
     FontSelectorEntry *fse;
@@ -457,6 +459,17 @@ dia_font_selector_set_styles(DiaFontSelector *fs, FontSelectorEntry *fse,
 }
 
 /* API functions */
+/** Set a string to be used for preview in the GTK font selector dialog.
+ * The start of this string will be copied.
+ */
+void
+dia_font_selector_set_preview(DiaFontSelector *fs, gchar *text) {
+  if (fs->textsample != NULL) g_free(fs->textsample);
+  fs->textsample = g_strndup(text, 15);
+}
+
+/** Set the current font to be shown in the font selector.
+ */
 void
 dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 {
