@@ -4,7 +4,6 @@ SUBDIRS = pixmaps
 
 pkglib_LTLIBRARIES = 	libfs_objects.la
 libfs_objects_la_SOURCES = \
-			fs.h \
 			fs.c \
 			flow.c \
 			flow-ortho.c \
