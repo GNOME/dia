@@ -1,3 +1,10 @@
+1998-10-29  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+
+	* lib/widgets.[ch]:
+	Added DiaColorSelector widget.
+	This is a colored button that pops up a color selection
+	dialog when pressed.
+
 1998-10-28  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/widgets.[ch]:

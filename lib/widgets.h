@@ -4,9 +4,12 @@
 #include <gdk/gdk.h>
 #include <gtk/gtkmenu.h>
 #include <gtk/gtkoptionmenu.h>
+#include <gtk/gtkdrawingarea.h>
+#include <gtk/gtkcolorsel.h>
 
 #include "font.h"
 #include "render.h"
+#include "color.h"
 
 /* DiaFontSelector: */
 #define DIAFONTSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_font_selector_get_type (), DiaFontSelector)
@@ -83,6 +86,39 @@ GtkWidget* dia_line_style_selector_new           (void);
 LineStyle  dia_line_style_selector_get_linestyle (DiaLineStyleSelector *as);
 void       dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
 						  LineStyle linestyle);
+
+/* DiaColorSelector: */
+#define DIACOLORSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_color_selector_get_type (), DiaColorSelector)
+#define DIACOLORSELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, dia_color_selector_get_type (), DiaColorSelectorClass)
+#define IS_DIACOLORSELECTOR(obj)       GTK_CHECK_TYPE (obj, dia_color_selector_get_type ())
+
+typedef struct _DiaColorSelector       DiaColorSelector;
+typedef struct _DiaColorSelectorClass  DiaColorSelectorClass;
+
+struct _DiaColorSelector
+{
+  GtkButton button;
+
+  GtkWidget *area;
+  GdkGC *gc;
+  Color col;
+
+  GtkWidget *col_sel;
+  
+};
+
+struct _DiaColorSelectorClass
+{
+  GtkButtonClass parent_class;
+};
+
+guint      dia_color_selector_get_type  (void);
+GtkWidget* dia_color_selector_new       (void);
+void       dia_color_selector_get_color (DiaColorSelector *cs, Color *color);
+void       dia_color_selector_set_color (DiaColorSelector *cs,
+					 Color *color);
+
+
 #endif /* WIDGETS_H */
 
 
