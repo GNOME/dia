@@ -2,7 +2,6 @@
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Alastair McKinstry <mckinstry@computer.org>, 2000.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: dia CVS\n"
@@ -199,19 +198,16 @@ msgid "/Edit/Delete"
 msgstr "/Eagar/Dealaigh"
 
 #: app/diagram.c:187 app/menus.c:277
-#, fuzzy
 msgid "/Edit/Copy Text"
-msgstr "/Eagar/Cóip"
+msgstr "/Eagar/Cóip Teacs"
 
 #: app/diagram.c:189 app/menus.c:278
-#, fuzzy
 msgid "/Edit/Cut Text"
-msgstr "/Eagar/Gearr"
+msgstr "/Eagar/Gearr Teacs"
 
 #: app/diagram.c:191
-#, fuzzy
 msgid "/Edit/Paste Text"
-msgstr "/Eagar/Greamaigh"
+msgstr "/Eagar/Greamaigh Teacs"
 
 #: app/diagram.c:194
 msgid "/Objects/Send to Back"
@@ -286,22 +282,18 @@ msgid "Margins"
 msgstr ""
 
 #: app/diapagelayout.c:213
-#, fuzzy
 msgid "Top:"
-msgstr "Barr"
+msgstr "Barr:"
 
 #: app/diapagelayout.c:226
-#, fuzzy
 msgid "Bottom:"
-msgstr "Bun"
+msgstr "Bun:"
 
 #: app/diapagelayout.c:239
-#, fuzzy
 msgid "Left:"
 msgstr "Clé"
 
 #: app/diapagelayout.c:252
-#, fuzzy
 msgid "Right:"
 msgstr "Deis"
 
@@ -312,9 +304,8 @@ msgid "Scaling"
 msgstr ""
 
 #: app/diapagelayout.c:277
-#, fuzzy
 msgid "Scale:"
-msgstr "Luach:"
+msgstr ""
 
 #: app/diapagelayout.c:289
 msgid "Fit to:"
@@ -327,12 +318,11 @@ msgstr ""
 #: app/diapagelayout.c:704
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
-msgstr ""
+msgstr "%0.3gcm x %0.3gcm"
 
 #: app/diapagelayout.c:806 app/pagesetup.c:60 app/pagesetup.c:68
-#, fuzzy
 msgid "Page Setup"
-msgstr "/Comhad/Cuardaigh Leathanach..."
+msgstr "Socraigh Leathanach"
 
 #: app/disp_callbacks.c:69 app/properties.c:164
 msgid ""
@@ -578,9 +568,8 @@ msgid "Create Image"
 msgstr ""
 
 #: app/interface.c:101 app/menus.c:206
-#, fuzzy
 msgid "Image"
-msgstr "Comhad Íomha"
+msgstr "Dealbh"
 
 #: app/interface.c:320
 msgid "NULL tooldata in tool_select_update"
@@ -655,9 +644,8 @@ msgstr ""
 #: app/linewidth_area.c:217 objects/chronogram/chronoline.c:331
 #: objects/chronogram/chronoline.c:422 objects/chronogram/chronoref.c:251
 #: objects/chronogram/chronoref.c:316
-#, fuzzy
 msgid "Line width:"
-msgstr "Stíl Líne:"
+msgstr ""
 
 #: app/load_save.c:92
 msgid "Error reading diagram file\n"
@@ -836,9 +824,8 @@ msgid "Replace"
 msgstr ""
 
 #: app/menus.c:141
-#, fuzzy
 msgid "Union"
-msgstr "tada"
+msgstr ""
 
 #: app/menus.c:143
 msgid "Intersect"
@@ -846,7 +833,7 @@ msgstr ""
 
 #: app/menus.c:145
 msgid "Remove"
-msgstr ""
+msgstr "Scríos"
 
 #: app/menus.c:153 lib/properties.c:1176 lib/properties.h:324
 #: lib/widgets.c:176
@@ -911,8 +898,11 @@ msgstr ""
 msgid "_Layers"
 msgstr ""
 
+#: app/menus.c:229
+msgid "Select"
+msgstr "Tóg"
+
 #: app/menus.c:231
-#, fuzzy
 msgid "_Select"
 msgstr "Tóg dath"
 
@@ -945,9 +935,8 @@ msgid "/File/_Preferences..."
 msgstr "/Comhad/_Roghnachais..."
 
 #: app/menus.c:246
-#, fuzzy
 msgid "/File/P_lugins"
-msgstr "/Comhad/Ealu"
+msgstr "/Comhad/Plogáilí"
 
 #: app/menus.c:247 app/menus.c:263
 msgid "/File/sep1"
@@ -955,7 +944,7 @@ msgstr "/Comhad/sep1"
 
 #: app/menus.c:248 app/menus.c:268
 msgid "/File/_Quit"
-msgstr "/Comhad/Ealu"
+msgstr "/Comhad/_Ealu"
 
 #: app/menus.c:249
 msgid "/_Help"
@@ -1036,12 +1025,11 @@ msgstr "/Eagar/_Leasú"
 # FIXME
 #: app/menus.c:276
 msgid "/Edit/_Redo"
-msgstr "/Eagar/_Redo"
+msgstr "/Eagar/_Athdheánamh"
 
 #: app/menus.c:279
-#, fuzzy
 msgid "/Edit/Paste _Text"
-msgstr "/Eagar/Greamaigh"
+msgstr "/Eagar/Greamaigh _Teacs"
 
 #: app/menus.c:280
 msgid "/_View"
@@ -1053,15 +1041,15 @@ msgstr ""
 
 #: app/menus.c:282
 msgid "/View/Zoom _In"
-msgstr ""
+msgstr "/Radharc/Zoom _In"
 
 #: app/menus.c:283
 msgid "/View/Zoom _Out"
-msgstr ""
+msgstr "/Radharc/Zoom _Out"
 
 #: app/menus.c:284
 msgid "/View/_Zoom"
-msgstr ""
+msgstr "/Radharc/_Zoom"
 
 #: app/menus.c:285
 msgid "/View/Zoom/tearoff"
@@ -1070,144 +1058,140 @@ msgstr ""
 #: app/menus.c:286
 #, c-format
 msgid "/View/Zoom/400%"
-msgstr ""
+msgstr "/Radharc/Zoom/400%"
 
 #: app/menus.c:287
 #, c-format
 msgid "/View/Zoom/283%"
-msgstr ""
+msgstr "/Radharc/Zoom/283%"
 
 #: app/menus.c:288
 #, c-format
 msgid "/View/Zoom/200%"
-msgstr ""
+msgstr "/Radharc/Zoom/200%"
 
 #: app/menus.c:289
 #, c-format
 msgid "/View/Zoom/141%"
-msgstr ""
+msgstr "/Radharc/Zoom/141%"
 
 #: app/menus.c:290
 #, c-format
 msgid "/View/Zoom/100%"
-msgstr ""
+msgstr "/Radharc/Zoom/100%"
 
 #: app/menus.c:291
 #, c-format
 msgid "/View/Zoom/85%"
-msgstr ""
+msgstr "/Radharc/Zoom/85%"
 
 #: app/menus.c:292
 #, c-format
 msgid "/View/Zoom/70.7%"
-msgstr ""
+msgstr "/Radharc/Zoom/70.7%"
 
 #: app/menus.c:293
 #, c-format
 msgid "/View/Zoom/50%"
-msgstr ""
+msgstr "/Radharc/Zoom/50%"
 
 #: app/menus.c:294
 #, c-format
 msgid "/View/Zoom/35.4%"
-msgstr ""
+msgstr "/Radharc/Zoom/35.4%"
 
 #: app/menus.c:295
 #, c-format
 msgid "/View/Zoom/25%"
-msgstr ""
+msgstr "/Radharc/Zoom/25%"
 
 #: app/menus.c:296
 msgid "/View/Edit Grid..."
-msgstr ""
+msgstr "/Radharc/Edit Grid..."
 
 #: app/menus.c:298
 msgid "/View/_AntiAliased"
-msgstr ""
+msgstr "/Radharc/_AntiAliased"
 
 #: app/menus.c:300
 msgid "/View/_Visible Grid"
-msgstr ""
+msgstr "/Radharc/_Visible Grid"
 
 #: app/menus.c:301
 msgid "/View/_Snap To Grid"
-msgstr ""
+msgstr "/Radharc/_Snap To Grid"
 
 #: app/menus.c:302
 msgid "/View/Show _Rulers"
-msgstr ""
+msgstr "/Radharc/Show _Rulers"
 
 #: app/menus.c:303
 msgid "/View/Show _Connection Points"
-msgstr ""
+msgstr "/Radharc/Show _Connection Points"
 
 #: app/menus.c:304
 msgid "/View/sep1"
-msgstr ""
+msgstr "/Radharc/sep1"
 
 #: app/menus.c:305
 msgid "/View/New _View"
-msgstr ""
+msgstr "/Radharc/Radharc _Nua"
 
 #: app/menus.c:306
 msgid "/View/Show _All"
-msgstr ""
+msgstr "/Radharc/Gach _rud"
 
 #: app/menus.c:307
-#, fuzzy
 msgid "/_Select"
 msgstr "Tóg dath"
 
 #: app/menus.c:308
-#, fuzzy
 msgid "/Select/tearoff"
-msgstr "/Comhad/sep1"
+msgstr ""
 
 #: app/menus.c:309
-#, fuzzy
 msgid "/Select/All"
-msgstr "Tóg dath"
+msgstr "/Tóg/Gach rud"
 
 #: app/menus.c:310
 msgid "/Select/None"
-msgstr ""
+msgstr "/Tóg/Tada"
 
 #: app/menus.c:311 app/menus.c:320 app/select.c:254
 msgid "/Select/Invert"
-msgstr ""
+msgstr "/Tóg/Invert"
 
 #: app/menus.c:312
 msgid "/Select/Connected"
-msgstr ""
+msgstr "/Tóg/Connected"
 
 #: app/menus.c:313
 msgid "/Select/Transitive"
-msgstr ""
+msgstr "/Tóg/Transitive"
 
 #: app/menus.c:314
 msgid "/Select/Same Type"
-msgstr ""
+msgstr "Tóg/Same Type"
 
 #: app/menus.c:315
-#, fuzzy
 msgid "/Select/sep1"
-msgstr "/Comhad/sep1"
+msgstr "/Tóg/sep1"
 
 #: app/menus.c:316 app/select.c:246
 msgid "/Select/Replace"
-msgstr ""
+msgstr "Tóg/Replace"
 
 #: app/menus.c:317 app/select.c:248
 msgid "/Select/Union"
-msgstr ""
+msgstr "/Tóg/Union"
 
 #: app/menus.c:318 app/select.c:250
 msgid "/Select/Intersect"
-msgstr ""
+msgstr "/Tóg/Intersect"
 
 #: app/menus.c:319 app/select.c:252
 msgid "/Select/Remove"
-msgstr ""
+msgstr "/Tóg/Scríos"
 
 #: app/menus.c:321
 msgid "/_Objects"
@@ -1347,34 +1331,28 @@ msgstr ""
 
 # FIXME
 #: app/paginate_gnomeprint.c:158
-#, fuzzy
 msgid "Print Diagram"
-msgstr "/Comhad/_Priontáil"
+msgstr ""
 
 #: app/paginate_gnomeprint.c:167 app/paginate_psprint.c:206
-#, fuzzy
 msgid "Printer"
-msgstr "Sa Lar"
+msgstr "Printéir"
 
 #: app/paginate_psprint.c:194
-#, fuzzy
 msgid "Select Printer"
-msgstr "Tóg dath"
+msgstr "Tóg Printéir"
 
 #: app/paginate_psprint.c:219
-#, fuzzy
 msgid "File"
-msgstr "/_Comhad"
+msgstr "Comhad"
 
 #: app/plugin-manager.c:62
-#, fuzzy
 msgid "yes"
-msgstr "Tá"
+msgstr "tá"
 
 #: app/plugin-manager.c:62
-#, fuzzy
 msgid "no"
-msgstr "tada"
+msgstr "níl"
 
 #: app/plugin-manager.c:181 objects/ER/attribute.c:206 objects/ER/entity.c:190
 #: objects/ER/relationship.c:260 objects/UML/association.c:969
@@ -1386,14 +1364,12 @@ msgid "Name:"
 msgstr "Ainm:"
 
 #: app/plugin-manager.c:193
-#, fuzzy
 msgid "File name:"
-msgstr "Ainm na Rang:"
+msgstr "Ainm Comhad:"
 
 #: app/plugin-manager.c:205
-#, fuzzy
 msgid "Description:"
-msgstr "Treo:"
+msgstr ""
 
 #: app/plugin-manager.c:219
 msgid "Loaded:"
@@ -1443,15 +1419,15 @@ msgstr ""
 
 #: app/preferences.c:105
 msgid "New window:"
-msgstr ""
+msgstr "Fuinneog Nua:"
 
 #: app/preferences.c:106
 msgid "Width:"
-msgstr ""
+msgstr "Leitheid:"
 
 #: app/preferences.c:107
 msgid "Height:"
-msgstr ""
+msgstr "Airde:"
 
 #: app/preferences.c:108
 msgid "Magnify:"
@@ -1991,18 +1967,16 @@ msgstr "Méid Chlófhoireann:"
 #: objects/GRAFCET/condition.c:202 objects/GRAFCET/condition.c:244
 #: objects/GRAFCET/step.c:270 objects/GRAFCET/transition.c:211
 #: objects/GRAFCET/transition.c:251
-#, fuzzy
 msgid "Text color:"
-msgstr "Dath Chlófhoireann:"
+msgstr "Dath Teacs:"
 
 #: objects/GRAFCET/action.c:196
 msgid "Macro call"
 msgstr ""
 
 #: objects/GRAFCET/condition.c:198
-#, fuzzy
 msgid "Condition:"
-msgstr "Treo:"
+msgstr ""
 
 #: objects/GRAFCET/grafcet.c:40
 msgid "GRAFCET diagram objects"
@@ -2045,7 +2019,6 @@ msgid "Step type"
 msgstr ""
 
 #: objects/GRAFCET/step.c:310
-#, fuzzy
 msgid "Color:"
 msgstr "Dath:"
 
@@ -2112,9 +2085,8 @@ msgid "disable arrow heads"
 msgstr ""
 
 #: objects/SADT/arrow.c:200 objects/SADT/arrow.c:237
-#, fuzzy
 msgid "Flow style:"
-msgstr "Stíl Líne:"
+msgstr ""
 
 #: objects/SADT/arrow.c:201 objects/SADT/arrow.c:238
 msgid "Automatically gray vertical flows:"
@@ -2456,9 +2428,8 @@ msgid "Data"
 msgstr ""
 
 #: objects/chronogram/chronoline.c:305
-#, fuzzy
 msgid "Data name:"
-msgstr "Ainm na Rang:"
+msgstr "Ainm na Data:"
 
 #: objects/chronogram/chronoline.c:307
 msgid "Events:"
@@ -2497,9 +2468,8 @@ msgid "Multi-bit data"
 msgstr ""
 
 #: objects/chronogram/chronoline.c:326 objects/chronogram/chronoline.c:418
-#, fuzzy
 msgid "Data color:"
-msgstr "Dath Chlófhoireann:"
+msgstr "Dath Data:"
 
 #: objects/chronogram/chronoline.c:328 objects/chronogram/chronoline.c:419
 msgid "Data line width:"
@@ -2507,9 +2477,8 @@ msgstr ""
 
 #: objects/chronogram/chronoline.c:329 objects/chronogram/chronoline.c:421
 #: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
-#, fuzzy
 msgid "Line color:"
-msgstr "Dath Chlófhoireann:"
+msgstr "Dath Líne:"
 
 #: objects/chronogram/chronoref.c:247 objects/chronogram/chronoref.c:312
 msgid "Major time step:"
@@ -2602,9 +2571,8 @@ msgid "Add Segment"
 msgstr ""
 
 #: objects/standard/bezier.c:527
-#, fuzzy
 msgid "Delete Segment"
-msgstr "Dealaigh"
+msgstr ""
 
 #: objects/standard/bezier.c:529
 msgid "Symmetric control"
