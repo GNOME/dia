@@ -833,7 +833,6 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   Object *obj = &elem->object;
   Point center, bottom_right;
   Point p;
-  Rectangle tb;
   static GArray *arr = NULL, *barr = NULL;
   
   int i;
@@ -853,28 +852,32 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 				   info->shape_bounds.top);
 
   /* resize shape if text does not fit inside text_bounds */
-  if (info->has_text) {
-    if (info->resize_with_text) {
-      real width, height;
-      real xscale = 0.0, yscale = 0.0;
+  if ((info->has_text) && (info->resize_with_text)) {
+    real text_width, text_height;
+    real xscale = 0.0, yscale = 0.0;
+    Rectangle tb;
+      
 
+    text_width = 
+      custom->text->max_width + 2*custom->padding+custom->border_width;
+    text_height = custom->text->height * custom->text->numlines +
+      2 * custom->padding + custom->border_width;
+
+    transform_rect(custom, &info->text_bounds, &tb);
+    xscale = text_width / (tb.right - tb.left);
+    
+    if (xscale > 1.00000001) {
+      elem->width  *= xscale;
+      custom->xscale *= xscale;
+      
+      /* Maybe now we won't need to do Y scaling */
       transform_rect(custom, &info->text_bounds, &tb);
+    }
 
-      width = custom->text->max_width + 2*custom->padding+custom->border_width;
-      height = custom->text->height * custom->text->numlines +
-	2 * custom->padding + custom->border_width;
-
-      xscale = width / (tb.right - tb.left);
-      yscale = height / (tb.bottom - tb.top);
-
-      if (fabs(xscale - 1.0) > 0.00000001) {
-	elem->width  *= xscale;
-	custom->xscale *= xscale;
-      }
-      if (fabs(yscale - 1.0) > 0.00000001) {
-	elem->height *= yscale;
-	custom->yscale *= yscale;
-      }
+    yscale = text_height / (tb.bottom - tb.top);
+    if (yscale > 1.00000001) {
+      elem->height *= yscale;
+      custom->yscale *= yscale;
     }
   }
 
@@ -943,6 +946,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   
   /* reposition the text element to the new text bounding box ... */
   if (info->has_text) {
+    Rectangle tb;
     transform_rect(custom, &info->text_bounds, &tb);
     switch (custom->text->alignment) {
     case ALIGN_LEFT:
@@ -1113,6 +1117,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   
   /* extend bouding box to include text bounds ... */
   if (info->has_text) {
+    Rectangle tb;
     text_calc_boundingbox(custom->text, &tb);
     rectangle_union(&obj->bounding_box, &tb);
   }

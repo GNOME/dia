@@ -896,6 +896,7 @@ load_shape_info(const gchar *filename)
   info->shape_bounds.left = DBL_MAX;
   info->shape_bounds.bottom = -DBL_MAX;
   info->shape_bounds.right = -DBL_MAX;
+  info->aspect_type = SHAPE_ASPECT_FREE; 
 
   for (node = root->childs; node != NULL; node = node->next) {
     if (node->type != XML_ELEMENT_NODE)
@@ -993,7 +994,9 @@ load_shape_info(const gchar *filename)
       info->resize_with_text = TRUE;
       str = xmlGetProp(node, "resize");
       if (str) {
-	info->resize_with_text = strcmp(str, "no");
+        info->resize_with_text = TRUE;
+        if (!strcmp(str,"no"))
+          info->resize_with_text = FALSE;
 	free(str);
       }
       info->text_align = ALIGN_CENTER;

@@ -2,7 +2,15 @@
 
 	* objects/custom/custom_object.c: (custom_copy): don't call
 	text_get_attrbutes if the shape has no text...
-
+	(custom_update_data): The
+	info->resize_with_text was a bit directive; basically, the shape's
+	bounding box was forced to be proportional to the text's bounding
+	box.... This fixes #57187.
+	
+	* objects/custom/shape_info.c: (load_shape_info): Set an obvious
+	default for info->aspect_ratio; unobfuscated a line about
+	info->resize_with_text;
+	
 2001-08-15  Cyrille Chepelov <chepelov@calixo.net>
 
 	* lib/properties.h: added comments next to the PROP_TYPEs to tell
