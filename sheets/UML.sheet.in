@@ -59,6 +59,21 @@
     <object name="UML - Component">
       <_description>Component</_description>
     </object>
+    <object name="UML - Component Feature" intdata="0">
+      <_description>Facet</_description>
+    </object>
+    <object name="UML - Component Feature" intdata="1">
+      <_description>Receptacle</_description>
+      <icon>UML/receptacle.xpm</icon>
+    </object>
+    <object name="UML - Component Feature" intdata="2">
+      <_description>Event Source</_description>
+      <icon>UML/eventsource.xpm</icon>
+    </object>
+    <object name="UML - Component Feature" intdata="3">
+      <_description>Event Sink</_description>
+      <icon>UML/eventsink.xpm</icon>
+    </object>
     <object name="UML - Node">
       <_description>Node</_description>
     </object>

@@ -22,6 +22,7 @@ libuml_objects_la_SOURCES = \
 			object.c \
 			lifeline.c \
 			component.c \
+			component_feature.c \
 			classicon.c \
 			state.c \
 			activity.c \
@@ -45,6 +46,7 @@ EXTRA_DIST = \
 	pixmaps/constraint.xpm \
 	pixmaps/dependency.xpm \
 	pixmaps/generalization.xpm \
+	pixmaps/facet.xpm \
 	pixmaps/implements.xpm \
 	pixmaps/largepackage.xpm \
 	pixmaps/lifeline.xpm \

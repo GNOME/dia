@@ -53,6 +53,7 @@ extern ObjectType node_type;
 extern ObjectType branch_type;
 extern ObjectType fork_type;
 extern ObjectType state_term_type;
+extern ObjectType compfeat_type;
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -88,6 +89,7 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(&node_type);    
   object_register_type(&branch_type);    
   object_register_type(&fork_type);
+  object_register_type(&compfeat_type);
    
   return DIA_PLUGIN_INIT_OK;
 }

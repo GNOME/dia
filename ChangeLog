@@ -1,3 +1,18 @@
+2003-08-20  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/authors.h: 
+	* sheets/UML.sheet.in: 
+	* sheets/UML/receptacle.xpm: 
+	* sheets/UML/Makefile.am: 
+	* sheets/UML/eventsource.xpm: 
+	* sheets/UML/eventsink.xpm: 
+	* objects/UML/pixmaps/facet.xpm: 
+	* objects/UML/uml.c (dia_plugin_init): 
+	* objects/UML/Makefile.am (libuml_objects_la_SOURCES): 
+	* objects/UML/component_feature.c: 
+	Patch from W. Borgert <debacle@debian.org>:  Add event sources and
+	event sinks.
+	
 2003-08-19  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/object.h: Turning some comments into doxygen style.
