@@ -154,7 +154,7 @@ metapost_renderer_get_type (void)
 
 static void
 metapost_renderer_finalize (GObject *object)
-{
+{ 
   MetapostRenderer *metapost_renderer = METAPOST_RENDERER (object);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -210,10 +210,13 @@ end_draw_op(MetapostRenderer *renderer)
 {
     fprintf(renderer->file, "\n    withpen pencircle scaled %5.4fx", 
             (double)renderer->line_width);
-    fprintf(renderer->file, "\n    withcolor (%5.4f, %5.4f, %5.4f)", 
-            (double)renderer->color.red,
-            (double)renderer->color.green,
-            (double)renderer->color.blue);
+    
+    if (!color_equals(&renderer->color, &color_black))
+        fprintf(renderer->file, "\n    withcolor (%5.4f, %5.4f, %5.4f)", 
+                (double)renderer->color.red,
+                (double)renderer->color.green,
+                (double)renderer->color.blue);
+    
     draw_with_linestyle(renderer);
     fprintf(renderer->file, ";\n");
 }
@@ -716,8 +719,15 @@ draw_string(DiaRenderer *self,
 	break;
     }
     fprintf(renderer->file,
-	    "(btex %s etex,(%fx,%fy));\n",
+	    "(btex %s etex,(%fx,%fy))",
 	    text, pos->x, pos->y);
+    if (!color_equals(&renderer->color, &color_black))
+        fprintf(renderer->file, "\n    withcolor (%5.4f, %5.4f, %5.4f)", 
+                (double)renderer->color.red, 
+                (double)renderer->color.green,
+                (double)renderer->color.blue);
+
+    fprintf(renderer->file,";\n");
 }
 
 static void
@@ -769,7 +779,6 @@ draw_image(DiaRenderer *self,
             fprintf(renderer->file, "\n");
         }
     } else {
-        guint8 *ptr = rgb_data;
         for (y = 0, iy = point->y; y < img_height; y++, iy += ystep) {
             for (x = 0, ix = point->x; x < img_width; x++, ix += xstep) {
                 int i = y*img_rowstride+x*3;
@@ -784,7 +793,7 @@ draw_image(DiaRenderer *self,
     }
     
     g_free(mask_data);
-    g_free (rgb_data);
+    g_free(rgb_data);
 }
 
 /* --- export filter interface --- */

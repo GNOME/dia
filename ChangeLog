@@ -1,3 +1,8 @@
+2003-12-31  Chris Sperandio <sperandi@eng.usf.edu>
+	
+	* plug-ins/metapost/render_metapost.c: Fixed string colorization.
+	Added checks against color_black.
+ 
 2003-12-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/xfig/xfig-export.c (figArrow): Output nothing for
