@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.92.2+cvs\n"
-"Report-Msgid-Bugs-To: <http://bugzilla.gnome.org/enter_bug.cgi?product=l10n&component=Canadian+English+%5Ben_CA%5D>\n"
-"POT-Creation-Date: 2004-03-11 11:12-0500\n"
-"PO-Revision-Date: 2004-03-11 11:21-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-04-08 11:30-0400\n"
+"PO-Revision-Date: 2004-04-08 11:31-0400\n"
 "Last-Translator: Alexander Winston <alexander.winston@comcast.net>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: app/app_procs.c:219
 #, c-format
@@ -119,7 +119,6 @@ msgstr ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 
-#. no standard buttons
 #: app/app_procs.c:603
 msgid ""
 "Modified diagrams exist.\n"
@@ -219,7 +218,8 @@ msgstr ""
 #.
 #: app/commands.c:592
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr "Alexander Winston <alexander.winston@comcast.net>"
+msgstr "Maintainer: Adam Weinberger <adamw@gnome.org>"
+"Alexander Winston <alexander.winston@comcast.net>"
 
 #: app/commands.c:606 dia.desktop.in.h:1
 msgid "Dia"
@@ -469,8 +469,8 @@ msgstr "Diagram tree"
 msgid "Ok"
 msgstr "Ok"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:276
-#: lib/diaarrowchooser.c:257 lib/dialinechooser.c:264
+#: app/dialogs.c:52 app/layer_dialog.c:1009 app/paginate_psprint.c:278
+#: lib/diaarrowchooser.c:257
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -874,8 +874,7 @@ msgstr "Edit Layer Attributes"
 msgid "Layer name:"
 msgstr "Layer name:"
 
-#: app/layer_dialog.c:999 app/paginate_psprint.c:268 lib/diaarrowchooser.c:248
-#: lib/dialinechooser.c:254
+#: app/layer_dialog.c:999 app/paginate_psprint.c:270 lib/diaarrowchooser.c:248
 msgid "OK"
 msgstr "OK"
 
@@ -1430,31 +1429,37 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Couldn't get GTK settings"
 
-#: app/paginate_psprint.c:228
+#: app/paginate_psprint.c:230
 msgid "Select Printer"
 msgstr "Select Printer"
 
-#: app/paginate_psprint.c:240 sheets/ciscocomputer.sheet.in.h:25
+#: app/paginate_psprint.c:242 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
 msgstr "Printer"
 
-#: app/paginate_psprint.c:253 sheets/Misc.sheet.in.h:1
+#: app/paginate_psprint.c:255 sheets/Misc.sheet.in.h:1
 msgid "File"
 msgstr "File"
 
-#: app/paginate_psprint.c:353
+#: app/paginate_psprint.c:358
 #, c-format
-msgid "Could not run command '%s'"
-msgstr "Could not run command '%s'"
+msgid "Could not run command '%s': %s"
+msgstr "Could not run command '%s': %s"
 
-#: app/paginate_psprint.c:356
+#: app/paginate_psprint.c:361
 #, c-format
-msgid "Could not open '%s' for writing"
-msgstr "Could not open '%s' for writing"
+msgid "Could not open '%s' for writing: %s"
+msgstr "Could not open '%s' for writing: %s"
 
-#: app/paginate_psprint.c:381
-msgid "Error occured while printing"
-msgstr "Error occured while printing"
+#: app/paginate_psprint.c:380
+#, c-format
+msgid "Printing error: command '%s' returned %d\n"
+msgstr "Printing error: command '%s' returned %d\n"
+
+#: app/paginate_psprint.c:390
+#, c-format
+msgid "Printing error: command '%s' caused sigpipe."
+msgstr "Printing error: command '%s' caused sigpipe."
 
 #: app/plugin-manager.c:200
 msgid "Plug-ins"
@@ -1770,7 +1775,7 @@ msgid "Sheet name:"
 msgstr "Sheet name:"
 
 #: app/sheets_dialog.c:446 app/sheets_dialog_callbacks.c:289
-#: app/sheets_dialog_callbacks.c:1085
+#: app/sheets_dialog_callbacks.c:1090
 msgid "Line Break"
 msgstr "Line Break"
 
@@ -1796,7 +1801,7 @@ msgstr "Type:"
 msgid "Sheet"
 msgstr "Sheet"
 
-#: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:130
+#: app/sheets_dialog.c:672 objects/ER/attribute.c:151 objects/ER/entity.c:133
 #: objects/ER/relationship.c:138 objects/UML/association.c:199
 #: objects/UML/association.c:1112 objects/UML/class_dialog.c:879
 #: objects/UML/class_dialog.c:1813 objects/UML/class_dialog.c:2042
@@ -1868,55 +1873,55 @@ msgstr ""
 "%s\n"
 "Unassigned type"
 
-#: app/sheets_dialog_callbacks.c:799
+#: app/sheets_dialog_callbacks.c:800
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "Filename must end with '%s': '%s'"
 
-#: app/sheets_dialog_callbacks.c:807
+#: app/sheets_dialog_callbacks.c:808
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "Error examining %s: %s"
 
-#: app/sheets_dialog_callbacks.c:827
+#: app/sheets_dialog_callbacks.c:828
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "Could not interpret shape file: '%s'"
 
-#: app/sheets_dialog_callbacks.c:896
+#: app/sheets_dialog_callbacks.c:897
 msgid "Sheet must have a Name"
 msgstr "Sheet must have a Name"
 
-#: app/sheets_dialog_callbacks.c:1586 app/sheets_dialog_callbacks.c:1592
+#: app/sheets_dialog_callbacks.c:1594 app/sheets_dialog_callbacks.c:1600
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Couldn't open '%s': %s"
 
-#: app/sheets_dialog_callbacks.c:1643
+#: app/sheets_dialog_callbacks.c:1651
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Couldn't open: '%s' for writing"
 
-#: app/sheets_dialog_callbacks.c:1652
+#: app/sheets_dialog_callbacks.c:1660
 msgid "a user"
 msgstr "a user"
 
-#: app/sheets_dialog_callbacks.c:1665
+#: app/sheets_dialog_callbacks.c:1673
 #, c-format
 msgid "File: %s"
 msgstr "File: %s"
 
-#: app/sheets_dialog_callbacks.c:1668
+#: app/sheets_dialog_callbacks.c:1676
 #, c-format
 msgid "Date: %s"
 msgstr "Date: %s"
 
-#: app/sheets_dialog_callbacks.c:1672
+#: app/sheets_dialog_callbacks.c:1680
 #, c-format
 msgid "For: %s"
 msgstr "For: %s"
 
-#: app/sheets_dialog_callbacks.c:1689
+#: app/sheets_dialog_callbacks.c:1697
 msgid "add shapes here"
 msgstr "add shapes here"
 
@@ -2030,18 +2035,34 @@ msgid "Cross"
 msgstr "Cross"
 
 #: lib/arrows.c:62
+msgid "1-or-many"
+msgstr "1-or-many"
+
+#: lib/arrows.c:63
+msgid "0-or-many"
+msgstr "0-or-many"
+
+#: lib/arrows.c:64
+msgid "1-or-0"
+msgstr "1-or-0"
+
+#: lib/arrows.c:65
+msgid "1 exactly"
+msgstr "1 exactly"
+
+#: lib/arrows.c:66
 msgid "Filled Concave"
 msgstr "Filled Concave"
 
-#: lib/arrows.c:63
+#: lib/arrows.c:67
 msgid "Blanked Concave"
 msgstr "Blanked Concave"
 
-#: lib/arrows.c:64
+#: lib/arrows.c:68
 msgid "Round"
 msgstr "Round"
 
-#: lib/arrows.c:65
+#: lib/arrows.c:69
 msgid "Open Round"
 msgstr "Open Round"
 
@@ -2091,7 +2112,7 @@ msgstr ""
 msgid "Arrow Properties"
 msgstr "Arrow Properties"
 
-#: lib/diaarrowchooser.c:311 lib/dialinechooser.c:287
+#: lib/diaarrowchooser.c:311 lib/dialinechooser.c:321
 msgid "Details..."
 msgstr "Details..."
 
@@ -2138,7 +2159,7 @@ msgstr "_Preview:"
 msgid "Font Selection"
 msgstr "Font Selection"
 
-#: lib/dialinechooser.c:243
+#: lib/dialinechooser.c:287
 msgid "Line Style Properties"
 msgstr "Line Style Properties"
 
@@ -2378,11 +2399,15 @@ msgstr "Multivalue:"
 msgid "Attribute"
 msgstr "Attribute"
 
-#: objects/ER/entity.c:132
+#: objects/ER/entity.c:135
 msgid "Weak:"
 msgstr "Weak:"
 
-#: objects/ER/entity.c:372 objects/UML/classicon.c:126 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:137
+msgid "Associative:"
+msgstr "Associative:"
+
+#: objects/ER/entity.c:406 objects/UML/classicon.c:126 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Entity"
 
@@ -4263,20 +4288,20 @@ msgstr "Flip horizontal"
 msgid "Flip vertical"
 msgstr "Flip vertical"
 
-#: objects/custom/custom_object.c:1423
+#: objects/custom/custom_object.c:1422
 msgid "Flip Horizontal"
 msgstr "Flip Horizontal"
 
-#: objects/custom/custom_object.c:1424
+#: objects/custom/custom_object.c:1423
 msgid "Flip Vertical"
 msgstr "Flip Vertical"
 
-#: objects/custom/custom_object.c:1461
+#: objects/custom/custom_object.c:1460
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Cannot open icon file %s for object type '%s'."
 
-#: objects/flowchart/box.c:148 objects/standard/box.c:132
+#: objects/flowchart/box.c:148 objects/standard/box.c:148
 msgid "Corner radius"
 msgstr "Corner radius"
 
@@ -4324,6 +4349,34 @@ msgstr "Smooth control"
 msgid "Cusp control"
 msgstr "Cusp control"
 
+#: objects/standard/box.c:135 objects/standard/ellipse.c:131
+msgid "Free"
+msgstr "Free"
+
+#: objects/standard/box.c:136 objects/standard/ellipse.c:132
+msgid "Fixed"
+msgstr "Fixed"
+
+#: objects/standard/box.c:137 objects/standard/box.c:687
+msgid "Square"
+msgstr "Square"
+
+#: objects/standard/box.c:150 objects/standard/ellipse.c:144
+msgid "Aspect ratio"
+msgstr "Aspect ratio"
+
+#: objects/standard/box.c:683 objects/standard/ellipse.c:661
+msgid "Free aspect"
+msgstr "Free aspect"
+
+#: objects/standard/box.c:685 objects/standard/ellipse.c:663
+msgid "Fixed aspect"
+msgstr "Fixed aspect"
+
+#: objects/standard/ellipse.c:133 objects/standard/ellipse.c:665
+msgid "Circle"
+msgstr "Circle"
+
 #: objects/standard/image.c:130
 msgid "Image file"
 msgstr "Image file"
@@ -4336,8 +4389,6 @@ msgstr "Draw border"
 msgid "Keep aspect ratio"
 msgstr "Keep aspect ratio"
 
-#. Found file in same dir as diagram.
-#. Found file in current dir.
 #: objects/standard/image.c:669 objects/standard/image.c:680
 #, c-format
 msgid ""
@@ -7271,209 +7322,3 @@ msgstr "Sybase dataserver"
 msgid "Sybase replication server"
 msgstr "Sybase replication server"
 
-#~ msgid "_New diagram"
-#~ msgstr "_New diagram"
-
-#~ msgid "Create new diagram"
-#~ msgstr "Create new diagram"
-
-#~ msgid "_Diagram tree"
-#~ msgstr "_Diagram tree"
-
-#~ msgid "Show diagram tree"
-#~ msgstr "Show diagram tree"
-
-#~ msgid "_Sheets and Objects..."
-#~ msgstr "_Sheets and Objects..."
-
-#~ msgid "Modify sheets and their objects"
-#~ msgstr "Modify sheets and their objects"
-
-#~ msgid "P_lugins..."
-#~ msgstr "P_lugins..."
-
-#~ msgid "_Export..."
-#~ msgstr "_Export..."
-
-#~ msgid "Page Set_up..."
-#~ msgstr "Page Set_up..."
-
-#~ msgid "_Print Diagram..."
-#~ msgstr "_Print Diagram..."
-
-#~ msgid "Copy Text"
-#~ msgstr "Copy Text"
-
-#~ msgid "Cut Text"
-#~ msgstr "Cut Text"
-
-#~ msgid "Paste _Text"
-#~ msgstr "Paste _Text"
-
-#~ msgid "Zoom _In"
-#~ msgstr "Zoom _In"
-
-#~ msgid "Zoom in 50%"
-#~ msgstr "Zoom in 50%"
-
-#~ msgid "Zoom _Out"
-#~ msgstr "Zoom _Out"
-
-#~ msgid "Zoom out 50%"
-#~ msgstr "Zoom out 50%"
-
-#~ msgid "_Zoom"
-#~ msgstr "_Zoom"
-
-#~ msgid "_AntiAliased"
-#~ msgstr "_AntiAliased"
-
-#~ msgid "Show _Grid"
-#~ msgstr "Show _Grid"
-
-#~ msgid "_Snap To Grid"
-#~ msgstr "_Snap To Grid"
-
-#~ msgid "Show _Rulers"
-#~ msgstr "Show _Rulers"
-
-#~ msgid "Show _Connection Points"
-#~ msgstr "Show _Connection Points"
-
-#~ msgid "New _View"
-#~ msgstr "New _View"
-
-#~ msgid "Show _All"
-#~ msgstr "Show _All"
-
-#~ msgid "Redraw"
-#~ msgstr "Redraw"
-
-#~ msgid "Replace"
-#~ msgstr "Replace"
-
-#~ msgid "Union"
-#~ msgstr "Union"
-
-#~ msgid "Intersect"
-#~ msgstr "Intersect"
-
-#~ msgid "Invert"
-#~ msgstr "Invert"
-
-#~ msgid "All"
-#~ msgstr "All"
-
-#~ msgid "Connected"
-#~ msgstr "Connected"
-
-#~ msgid "Transitive"
-#~ msgstr "Transitive"
-
-#~ msgid "Same Type"
-#~ msgstr "Same Type"
-
-#~ msgid "Equal Distance"
-#~ msgstr "Equal Distance"
-
-#~ msgid "Adjacent"
-#~ msgstr "Adjacent"
-
-#~ msgid "Top"
-#~ msgstr "Top"
-
-#~ msgid "Middle"
-#~ msgstr "Middle"
-
-#~ msgid "Bottom"
-#~ msgstr "Bottom"
-
-#~ msgid "Send to _Back"
-#~ msgstr "Send to _Back"
-
-#~ msgid "Bring to _Front"
-#~ msgstr "Bring to _Front"
-
-#~ msgid "Send Backwards"
-#~ msgstr "Send Backwards"
-
-#~ msgid "Bring Forwards"
-#~ msgstr "Bring Forwards"
-
-#~ msgid "_Group"
-#~ msgstr "_Group"
-
-#~ msgid "_Ungroup"
-#~ msgstr "_Ungroup"
-
-#~ msgid "_Parent"
-#~ msgstr "_Parent"
-
-#~ msgid "_Unparent"
-#~ msgstr "_Unparent"
-
-#~ msgid "_Unparent Children"
-#~ msgstr "_Unparent Children"
-
-#~ msgid "Align _Horizontal"
-#~ msgstr "Align _Horizontal"
-
-#~ msgid "Align _Vertical"
-#~ msgstr "Align _Vertical"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Properties..."
-
-#~ msgid "_Layers"
-#~ msgstr "_Layers"
-
-#~ msgid "_Select"
-#~ msgstr "_Select"
-
-#~ msgid "_Objects"
-#~ msgstr "_Objects"
-
-#~ msgid "_Tools"
-#~ msgstr "_Tools"
-
-#~ msgid "_Dialogs"
-#~ msgstr "_Dialogs"
-
-#~ msgid "_Input Methods"
-#~ msgstr "_Input Methods"
-
-#~ msgid "_Help"
-#~ msgstr "_Help"
-
-#~ msgid "/View/Diagram Properties..."
-#~ msgstr "/View/Diagram Properties..."
-
-#~ msgid "/Objects/Align Horizontal/---"
-#~ msgstr "/Objects/Align Horizontal/---"
-
-#~ msgid "/Objects/Align Horizontal/Equal Distance"
-#~ msgstr "/Objects/Align Horizontal/Equal Distance"
-
-#~ msgid "/Objects/Align Horizontal/Adjacent"
-#~ msgstr "/Objects/Align Horizontal/Adjacent"
-
-#~ msgid "/Objects/Align Vertical/---"
-#~ msgstr "/Objects/Align Vertical/---"
-
-#~ msgid "/Objects/Align Vertical/Equal Distance"
-#~ msgstr "/Objects/Align Vertical/Equal Distance"
-
-#~ msgid "/_Dialogs"
-#~ msgstr "/_Dialogs"
-
-#~ msgid "Length: "
-#~ msgstr "Length: "
-
-#~ msgid "Width: "
-#~ msgstr "Width: "
-
-#~ msgid "Delete"
-#~ msgstr "Delete"
-
-#~ msgid "Relay"
-#~ msgstr "Relay"
