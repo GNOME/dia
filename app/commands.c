@@ -479,7 +479,9 @@ view_zoom_set_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-view_visible_grid_callback(GtkWidget *widget, gpointer data)
+view_visible_grid_callback(gpointer callback_data,
+			   guint callback_action,
+			   GtkWidget *widget)
 {
   DDisplay *ddisp;
   int old_val;
@@ -496,7 +498,9 @@ view_visible_grid_callback(GtkWidget *widget, gpointer data)
 }
 
 void
-view_snap_to_grid_callback(GtkWidget *widget, gpointer data)
+view_snap_to_grid_callback(gpointer callback_data,
+			   guint callback_action,
+			   GtkWidget *widget)
 {
   DDisplay *ddisp;
   int old_val;
@@ -507,7 +511,9 @@ view_snap_to_grid_callback(GtkWidget *widget, gpointer data)
   ddisp->grid.snap = GTK_CHECK_MENU_ITEM (widget)->active;
 }
 
-void view_toggle_rulers_callback(GtkWidget *widget, gpointer data)
+void view_toggle_rulers_callback(gpointer callback_data,
+				 guint callback_action,
+				 GtkWidget *widget)
 {
   DDisplay *ddisp;
 

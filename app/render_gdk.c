@@ -17,15 +17,7 @@
  */
 
 #include <math.h>
-
 #include <gdk/gdk.h>
-#include <gtk/gtkfeatures.h>
-
-#ifndef GTK_HAVE_FEATURES_1_1_0 
-#define Font XXXFont /* Ugly namespace collision... */
-#include <gdk/gdkx.h>
-#undef Font
-#endif
 
 #include "render_gdk.h"
 #include "message.h"
@@ -316,12 +308,7 @@ set_linestyle(RendererGdk *renderer, LineStyle mode)
     renderer->line_style = GDK_LINE_ON_OFF_DASH;
     dash_list[0] = renderer->dash_length;
     dash_list[1] = renderer->dash_length;
-#ifndef GTK_HAVE_FEATURES_1_1_0 
-    XSetDashes(GDK_DISPLAY(), GDK_GC_XGC(renderer->render_gc),
-	       0, dash_list, 2);
-#else
     gdk_gc_set_dashes(renderer->render_gc, 0, dash_list, 2);
-#endif
     break;
   case LINESTYLE_DASH_DOT:
     renderer->line_style = GDK_LINE_ON_OFF_DASH;
@@ -332,12 +319,7 @@ set_linestyle(RendererGdk *renderer, LineStyle mode)
     dash_list[1] = hole_width;
     dash_list[2] = renderer->dot_length;
     dash_list[3] = hole_width;
-#ifndef GTK_HAVE_FEATURES_1_1_0 
-    XSetDashes(GDK_DISPLAY(), GDK_GC_XGC(renderer->render_gc),
-	       0, dash_list, 4);
-#else
     gdk_gc_set_dashes(renderer->render_gc, 0, dash_list, 4);
-#endif
     break;
   case LINESTYLE_DASH_DOT_DOT:
     renderer->line_style = GDK_LINE_ON_OFF_DASH;
@@ -350,12 +332,7 @@ set_linestyle(RendererGdk *renderer, LineStyle mode)
     dash_list[3] = hole_width;
     dash_list[4] = renderer->dot_length;
     dash_list[5] = hole_width;
-#ifndef GTK_HAVE_FEATURES_1_1_0 
-    XSetDashes(GDK_DISPLAY(), GDK_GC_XGC(renderer->render_gc),
-	       0, dash_list, 6);
-#else
     gdk_gc_set_dashes(renderer->render_gc, 0, dash_list, 6);
-#endif
     break;
   }
   gdk_gc_set_line_attributes(renderer->render_gc,

@@ -41,11 +41,7 @@ struct _DDisplay {
   GtkWidget *origin;              /* widgets for rulers                */
   GtkWidget *popup;               /* widget for popup menu             */
 
-#ifdef GTK_HAVE_FEATURES_1_1_0
-  GtkAccelGroup *accel;
-#else
-  GtkAcceleratorTable *accel;
-#endif
+  GtkAccelGroup *accel_group;
   
   GtkAdjustment *hsbdata;         /* horizontal data information       */
   GtkAdjustment *vsbdata;         /* vertical data information         */

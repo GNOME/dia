@@ -598,7 +598,7 @@ attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   list = gtk_list_new ();
   prop_dialog->attributes_list = GTK_LIST(list);
   gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_SINGLE);
-  gtk_container_add (GTK_CONTAINER (scrolled_win), list);
+  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
 				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
   gtk_widget_show (list);
@@ -1520,7 +1520,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   list = gtk_list_new ();
   prop_dialog->operations_list = GTK_LIST(list);
   gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_SINGLE);
-  gtk_container_add (GTK_CONTAINER (scrolled_win), list);
+  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
 				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
   gtk_widget_show (list);
@@ -1680,7 +1680,7 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   list = gtk_list_new ();
   prop_dialog->parameters_list = GTK_LIST(list);
   gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_SINGLE);
-  gtk_container_add (GTK_CONTAINER (scrolled_win), list);
+  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
 				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
   gtk_widget_show (list);
@@ -2178,7 +2178,7 @@ templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   list = gtk_list_new ();
   prop_dialog->templates_list = GTK_LIST(list);
   gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_SINGLE);
-  gtk_container_add (GTK_CONTAINER (scrolled_win), list);
+  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
 				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
   gtk_widget_show (list);

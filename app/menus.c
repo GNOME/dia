@@ -22,222 +22,116 @@
 #include "commands.h"
 #include "message.h"
 
-#ifdef GTK_HAVE_FEATURES_1_1_0
-#define MY_GTK_ACCEL_NAME accel_group
-#else
-#define MY_GTK_ACCEL_NAME table
-#endif /* GTK_HAVE_FEATURES_1_1_0 */
-
-static void menus_init (void);
-static void menus_create (GtkMenuEntry         *entries,
-			  int                   nmenu_entries);
-static gint menus_install_accel (GtkWidget *widget,
-				 gchar     *signal_name,
-				 gchar      key,
-				 gchar      modifiers,
-				 gchar     *path);
-static void menus_remove_accel (GtkWidget *widget,
-				gchar     *signal_name,
-				gchar     *path);
-static GtkMenuEntry menu_items[] =
+static GtkItemFactoryEntry toolbox_menu_items[] =
 {
-  {"<Toolbox>/File/New", "<control>N", file_new_callback, NULL},
-  {"<Toolbox>/File/Open", "<control>O", file_open_callback, NULL},
-  {"<Toolbox>/File/<separator>", NULL, NULL, NULL},
-  {"<Toolbox>/File/Quit", "<control>Q", file_quit_callback, NULL},
-  /*  {"<Toolbox>/Options/Test", NULL, NULL, NULL},*/
-  
-  {"<Display>/File/New", "<control>N", file_new_callback, NULL},
-  {"<Display>/File/Open", "<control>O", file_open_callback, NULL},
-  {"<Display>/File/Save", "<control>S", file_save_callback, NULL},
-  {"<Display>/File/Save as", NULL, file_save_as_callback, NULL},
-  {"<Display>/File/Export To EPS", NULL, file_export_to_eps_callback, NULL},
-  {"<Display>/File/<separator>", NULL, NULL, NULL},
-  {"<Display>/File/Close", NULL, file_close_callback, NULL},
-  {"<Display>/File/Quit", "<control>Q", file_quit_callback, NULL},
-  {"<Display>/Edit/Copy", "<control>C", edit_copy_callback, NULL},
-  {"<Display>/Edit/Cut", "<control>X", edit_cut_callback, NULL},
-  {"<Display>/Edit/Paste", "<control>V", edit_paste_callback, NULL},
-  {"<Display>/Edit/Delete", "<control>D", edit_delete_callback, NULL},
-  {"<Display>/View/Zoom in", "+", view_zoom_in_callback, NULL},
-  {"<Display>/View/Zoom out", "-", view_zoom_out_callback, NULL},
-  {"<Display>/View/Zoom/400%", NULL, view_zoom_set_callback, (gpointer) 400},
-  {"<Display>/View/Zoom/200%", NULL, view_zoom_set_callback, (gpointer) 200},
-  {"<Display>/View/Zoom/100%", NULL, view_zoom_set_callback, (gpointer) 100},
-  {"<Display>/View/Zoom/50%", NULL, view_zoom_set_callback, (gpointer) 50},
-  {"<Display>/View/Zoom/25%", NULL, view_zoom_set_callback, (gpointer) 25},
-  {"<Display>/View/Edit Grid...", NULL, view_edit_grid_callback, NULL},
-  {"<Display>/View/<check>Visible Grid", NULL, view_visible_grid_callback, NULL},
-  {"<Display>/View/<check>Snap To Grid", NULL, view_snap_to_grid_callback, NULL},
-  {"<Display>/View/<check>Toggle Rulers", NULL, view_toggle_rulers_callback, NULL},
-  {"<Display>/View/<separator>", NULL, NULL, NULL},
-  {"<Display>/View/New View", NULL, view_new_view_callback, NULL},
-  {"<Display>/View/Show All", NULL, view_show_all_callback, NULL},
-  {"<Display>/Objects/Place Under", NULL, objects_place_under_callback, NULL},
-  {"<Display>/Objects/Place Over", NULL, objects_place_over_callback, NULL},
-  {"<Display>/Objects/<separator>", NULL, NULL, NULL},
-  {"<Display>/Objects/Group", NULL, objects_group_callback, NULL},
-  {"<Display>/Objects/Ungroup", NULL, objects_ungroup_callback, NULL},
+  {"/_File",        NULL,         NULL,               0, "<Branch>"},
+  {"/File/_New",    "<control>N", file_new_callback,  0 },
+  {"/File/_Open",   "<control>O", file_open_callback, 0 },
+  {"/File/sep1",    NULL,         NULL,               0, "<Separator>"},
+  {"/File/_Quit",   "<control>Q", file_quit_callback, 0 },
+  {"/_Help",        NULL,         NULL,               0, "<LastBranch>" },
+  {"/Help/_About",  NULL,         NULL,               0 },
+};
+
+static void
+tearoff (gpointer             callback_data,
+	 guint                callback_action,
+	 GtkWidget           *widget)
+{
+  g_message ("ItemFactory: activated \"%s\"", gtk_item_factory_path_from_widget (widget));
+}
+
+static GtkItemFactoryEntry display_menu_items[] =
+{
+  {"/_File",                  NULL,         NULL,                        0, "<Branch>"},
+  /*  {"/File/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" }, */
+  {"/File/_New",              "<control>N", file_new_callback,           0},
+  {"/File/_Open",             "<control>O", file_open_callback,          0},
+  {"/File/_Save",             "<control>S", file_save_callback,          0},
+  {"/File/Save _As...",       NULL,         file_save_as_callback,       0},
+  {"/File/_Export To EPS",    NULL,         file_export_to_eps_callback, 0},
+  {"/File/sep1",              NULL,         NULL,                        0, "<Separator>"},
+  {"/File/_Close",            NULL,         file_close_callback,         0},
+  {"/File/_Quit",              "<control>Q", file_quit_callback,          0},
+  {"/_Edit",                  NULL,         NULL,                        0, "<Branch>"},
+  /*  {"/Edit/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" }, */
+  {"/Edit/_Copy",             "<control>C", edit_copy_callback,          0},
+  {"/Edit/C_ut",              "<control>X", edit_cut_callback,           0},
+  {"/Edit/_Paste",            "<control>V", edit_paste_callback,         0},
+  {"/Edit/_Delete",           "<control>D", edit_delete_callback,        0},
+  {"/_View",                  NULL,         NULL,                        0, "<Branch>"},
+  /*  {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" }, */
+  {"/View/Zoom _In",          "+",          view_zoom_in_callback,       0},
+  {"/View/Zoom _Out",         "-",          view_zoom_out_callback,      0},
+  {"/View/_Zoom",             NULL,         NULL,                        0, "<Branch>"},
+  {"/View/Zoom/400%",         NULL,         view_zoom_set_callback,      400},
+  {"/View/Zoom/200%",         NULL,         view_zoom_set_callback,      200},
+  {"/View/Zoom/100%",         NULL,         view_zoom_set_callback,      100},
+  {"/View/Zoom/50%",          NULL,         view_zoom_set_callback,      50},
+  {"/View/Zoom/25%",          NULL,         view_zoom_set_callback,      25},
+  {"/View/Edit Grid...",      NULL,         view_edit_grid_callback,     0},
+  {"/View/_Visible Grid",     NULL,         view_visible_grid_callback,  0, "<CheckItem>"},
+  {"/View/_Snap To Grid",     NULL,         view_snap_to_grid_callback,  0, "<CheckItem>"},
+  {"/View/Toggle _Rulers",    NULL,         view_toggle_rulers_callback, 0, "<CheckItem>"},
+  {"/View/sep1",              NULL,         NULL,                        0, "<Separator>"},
+  {"/View/New _View",         NULL,         view_new_view_callback,      0},
+  {"/View/Show _All",         NULL,         view_show_all_callback,      0},
+  {"/_Objects",               NULL,         NULL,                        0, "<Branch>"},
+  /*  {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" }, */
+  {"/Objects/Place _Under",   NULL,         objects_place_under_callback,0},
+  {"/Objects/Place _Over",    NULL,         objects_place_over_callback, 0},
+  {"/Objects/sep1",           NULL,         NULL,                        0, "<Separator>"},
+  {"/Objects/_Group",         NULL,         objects_group_callback,      0},
+  {"/Objects/_Ungroup",       NULL,         objects_ungroup_callback,    0},
 };
 
 /* calculate the number of menu_item's */
-static int nmenu_items = sizeof(menu_items) / sizeof(menu_items[0]);
+static int toolbox_nmenu_items = sizeof(toolbox_menu_items) / sizeof(toolbox_menu_items[0]);
+static int display_nmenu_items = sizeof(display_menu_items) / sizeof(display_menu_items[0]);
 
-static int initialize = TRUE;
-static GtkMenuFactory *factory = NULL;
-static GtkMenuFactory *subfactories[2];
-static GHashTable *entry_ht = NULL;
-
-static void 
-menus_init(void)
-{
-  if (initialize) {
-    initialize = FALSE;
-              
-    factory = gtk_menu_factory_new(GTK_MENU_FACTORY_MENU_BAR);
-    
-    subfactories[0] = gtk_menu_factory_new(GTK_MENU_FACTORY_MENU_BAR);
-    gtk_menu_factory_add_subfactory(factory, subfactories[0], "<Toolbox>");
-
-    subfactories[1] = gtk_menu_factory_new(GTK_MENU_FACTORY_MENU);
-    gtk_menu_factory_add_subfactory(factory, subfactories[1], "<Display>");
-
-    menus_create(menu_items, nmenu_items);
-  }
-}
-
+static GtkItemFactory *toolbox_item_factory = NULL;
+static GtkItemFactory *display_item_factory = NULL;
 
 void
-menus_get_toolbox_menubar (GtkWidget         **menubar,
-			   MY_GTK_ACCEL_TYPE **accel)
+menus_get_toolbox_menubar (GtkWidget **menubar,
+			   GtkAccelGroup **accel_group)
 {
-  if (initialize)
-    menus_init ();
-
-  if (menubar)
-    *menubar = subfactories[0]->widget;
-  if (accel) {
-    *accel = subfactories[0] -> MY_GTK_ACCEL_NAME;
-  }
-}
-
-void
-menus_get_image_menu (GtkWidget         **menu,
-		      MY_GTK_ACCEL_TYPE **accel)
-{
-  if (initialize)
-    menus_init ();
-
-    if (menu)
-      *menu = subfactories[1]->widget;
-    if (accel) {
-      *accel = subfactories[1]-> MY_GTK_ACCEL_NAME;
-    }
-}
-
-
-void
-menus_create (GtkMenuEntry *entries,
-	      int           nmenu_entries)
-{
-  char *accelerator;
-  int i;
-
-  if (initialize)
-    menus_init ();
+  *accel_group = gtk_accel_group_new ();
+  toolbox_item_factory =
+    gtk_item_factory_new (GTK_TYPE_MENU_BAR, "<Toolbox>", *accel_group);
+  gtk_item_factory_create_items (toolbox_item_factory,
+				 toolbox_nmenu_items,
+				 toolbox_menu_items, NULL);
   
-  if (entry_ht) {
-    for (i = 0; i < nmenu_entries; i++) {
-      accelerator = g_hash_table_lookup (entry_ht, entries[i].path);
-      if (accelerator) {
-	if (accelerator[0] == '\0')
-	  entries[i].accelerator = NULL;
-	else
-	  entries[i].accelerator = accelerator;
-      }
-    }
+  *menubar = gtk_item_factory_get_widget (toolbox_item_factory, "<Toolbox>");
+}
+void
+menus_get_image_menu (GtkWidget **menu,
+		      GtkAccelGroup **accel_group)
+{
+  *accel_group = gtk_accel_group_new ();
+  if (display_item_factory == NULL) {
+    display_item_factory =  gtk_item_factory_new (GTK_TYPE_MENU, "<Display>", *accel_group);
+    gtk_item_factory_create_items (display_item_factory,
+				   display_nmenu_items,
+				   display_menu_items, NULL);
   }
-  gtk_menu_factory_add_entries (factory, entries, nmenu_entries);
-
   
-#ifndef GTK_HAVE_FEATURES_1_1_0
-  for (i = 0; i < nmenu_entries; i++) {
-    if (entries[i].widget && GTK_BIN (entries[i].widget)->child) {
-	gtk_signal_connect (GTK_OBJECT (entries[i].widget), "install_accelerator",
-			    (GtkSignalFunc) menus_install_accel,
-			    entries[i].path);
-	gtk_signal_connect (GTK_OBJECT (entries[i].widget), "remove_accelerator",
-			    (GtkSignalFunc) menus_remove_accel,
-			    entries[i].path);
-    }
-  }
-#endif
-}
-
-
-static gint
-menus_install_accel (GtkWidget *widget,
-		     gchar     *signal_name,
-		     gchar      key,
-		     gchar      modifiers,
-		     gchar     *path)
-{
-  char accel[64];
-  char *t1, t2[2];
-
-  accel[0] = '\0';
-  if (modifiers & GDK_CONTROL_MASK)
-    strcat (accel, "<control>");
-  if (modifiers & GDK_SHIFT_MASK)
-    strcat (accel, "<shift>");
-  if (modifiers & GDK_MOD1_MASK)
-    strcat (accel, "<alt>");
-
-  t2[0] = key;
-  t2[1] = '\0';
-  strcat (accel, t2);
-
-  if (entry_ht)
-    {
-      t1 = g_hash_table_lookup (entry_ht, path);
-      g_free (t1);
-    }
-  else
-    entry_ht = g_hash_table_new (g_str_hash, g_str_equal);
-
-  g_hash_table_insert (entry_ht, path, g_strdup (accel));
-
-  return TRUE;
-}
-
-static void
-menus_remove_accel (GtkWidget *widget,
-		    gchar     *signal_name,
-		    gchar     *path)
-{
-  char *t;
-
-  if (entry_ht)
-    {
-      t = g_hash_table_lookup (entry_ht, path);
-      g_free (t);
-
-      g_hash_table_insert (entry_ht, path, g_strdup (""));
-    }
+  *menu = gtk_item_factory_get_widget (display_item_factory, "<Display>");
 }
 
 void
 menus_set_sensitive (char *path,
                      int   sensitive)
 {
-  GtkMenuPath *menu_path;
+  GtkWidget *widget;
+    
+  widget = gtk_item_factory_get_widget(display_item_factory, path);
+  if (widget == NULL)
+    widget = gtk_item_factory_get_widget(toolbox_item_factory, path);
 
-  if (initialize)
-    menus_init ();
-
-  menu_path = gtk_menu_factory_find (factory, path);
-  if (menu_path)
-    gtk_widget_set_sensitive (menu_path->widget, sensitive);
+  if (widget != NULL) 
+    gtk_widget_set_sensitive (widget, sensitive);
   else
     message_error("Unable to set sensitivity for menu which doesn't exist: %s", path);
 }
@@ -246,17 +140,27 @@ void
 menus_set_state (char *path,
                  int   state)
 {
-  GtkMenuPath *menu_path;
+  GtkWidget *widget;
+    
+  widget = gtk_item_factory_get_widget(display_item_factory, path);
+  if (widget == NULL)
+    widget = gtk_item_factory_get_widget(toolbox_item_factory, path);
 
-  if (initialize)
-    menus_init ();
-
-  menu_path = gtk_menu_factory_find (factory, path);
-  if (menu_path)
-    {
-      if (GTK_IS_CHECK_MENU_ITEM (menu_path->widget))
-        gtk_check_menu_item_set_state (GTK_CHECK_MENU_ITEM (menu_path->widget), state);
-    }
-  else
+  if (widget != NULL) {
+    if (GTK_IS_CHECK_MENU_ITEM (widget))
+      gtk_check_menu_item_set_state (GTK_CHECK_MENU_ITEM (widget), state);
+  }  else {
     message_error("Unable to set state for menu which doesn't exist: %s", path);
+  }
 }
+
+
+
+
+
+
+
+
+
+
+

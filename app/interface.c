@@ -201,16 +201,12 @@ create_display_shell(DDisplay *ddisp,
                     GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
 
   /*  the popup menu  */
-  menus_get_image_menu (&ddisp->popup, &ddisp->accel);
+  menus_get_image_menu (&ddisp->popup, &ddisp->accel_group);
 
   /*  the accelerator table/group for the popup */
-#ifdef GTK_HAVE_FEATURES_1_1_0
-  gtk_window_add_accel_group (GTK_WINDOW(ddisp->shell),
-				    ddisp->accel);
-#else
-  gtk_window_add_accelerator_table (GTK_WINDOW(ddisp->shell),
-				    ddisp->accel);
-#endif /* GTK_HAVE_FEATURES_1_1_0 */
+  gtk_accel_group_attach (ddisp->accel_group, GTK_OBJECT (ddisp->shell));
+  /*  gtk_window_add_accel_group (GTK_WINDOW(ddisp->shell),
+      ddisp->accel);*/
 
   gtk_widget_show (ddisp->hsb);
   gtk_widget_show (ddisp->vsb);
@@ -410,7 +406,7 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
   }
 
   gtk_widget_show(table);
-  gtk_container_add(GTK_CONTAINER(scrolled_window), table);
+  gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolled_window), table);
   
   return scrolled_window;
 }
@@ -546,7 +542,7 @@ create_toolbox ()
   GtkWidget *main_vbox;
   GtkWidget *vbox;
   GtkWidget *menubar;
-  MY_GTK_ACCEL_TYPE *accel;
+  GtkAccelGroup *accel_group;
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_widget_ref (window);
   gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
@@ -566,7 +562,9 @@ create_toolbox ()
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
   gtk_widget_show (main_vbox);
 
-  menus_get_toolbox_menubar(&menubar, &accel);
+  menus_get_toolbox_menubar(&menubar, &accel_group);
+  gtk_accel_group_attach (accel_group, GTK_OBJECT (window));
+  
   gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
   gtk_widget_show (menubar);
   

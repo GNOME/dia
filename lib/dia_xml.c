@@ -489,12 +489,6 @@ data_add_string(AttributeNode attr, char *str)
   
   if (str==NULL) {
     /* No val if NULL */
-  } else if (*str==0) {
-    /* Very ugly fix for bug in gnome-xml. */
-    /* Empty strings are not handled correctly as properties */
-    str2 = "\\0";
-
-    xmlSetProp(data_node, "val", str2);
   } else {
     str2 = g_malloc(strlen(str)*2+1);
 

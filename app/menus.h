@@ -20,16 +20,10 @@
 
 #include <gtk/gtk.h>
 
-#ifdef GTK_HAVE_FEATURES_1_1_0
-#define MY_GTK_ACCEL_TYPE GtkAccelGroup
-#else
-#define MY_GTK_ACCEL_TYPE GtkAcceleratorTable
-#endif /* GTK_HAVE_FEATURES_1_1_0 */
-
 extern void menus_get_toolbox_menubar (GtkWidget         **menubar,
-				       MY_GTK_ACCEL_TYPE **accel);
+				       GtkAccelGroup **accel);
 extern void menus_get_image_menu (GtkWidget         **menu,
-				  MY_GTK_ACCEL_TYPE **accel);
+				  GtkAccelGroup **accel);
 
 extern void menus_set_sensitive       (char                 *path,
 				       int                   sensitive);

@@ -16,11 +16,7 @@ general:
   is very slow.
 
 gtk:
- keyboard accelerators can be better:
-*  They don't work at all on 1.1.x
-*  On 1.0.x you have to open the pop-up menu once in a window befor you
-    can use them
-* move to gtk 1.1.5 (soon 1.2), needs some scrolled window updates.
+ Keyboard accelerator '+' and '-' doesn't work.
 
 functions:
 * undo, see event model later in this file.
