@@ -1,3 +1,8 @@
+2001-09-03  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* app/app_procs.c: removed a spurious } which caused a compilation
+	error in the (!HAVE_GNOME && HAVE_POPT_H) case
+
 2001-09-02  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/interface.c: (create_zoom_widget): connected one more signal

@@ -277,7 +277,6 @@ app_init (int argc, char **argv)
                     argv[0]);
             exit(1);
         }
-  }
 
     }
 #endif
