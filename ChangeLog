@@ -1,5 +1,8 @@
 2001-05-20  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* app/disp_callbacks.c (ddisplay_canvas_events): Take into account
+	wheel mouses for scrolling (from Patrick Sung <phsung@ualberta.ca>)
+	
 	* objects/custom/custom_object.c: If a shape's icon file doesn't 
 	exist, warn and substitute a default icon, instead of crashing.
 	(fixes #52913)

@@ -482,8 +482,24 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  else {
 	     popup_object_menu(ddisp, bevent);
 	     break;
-	  }	  
-	default:
+	  }
+        case 4: /* for wheel mouse; button 4 and 5 */
+          ddisplay_scroll_up(ddisp);
+          ddisplay_flush(ddisp);
+          break;
+        case 5:
+          ddisplay_scroll_down(ddisp);
+          ddisplay_flush(ddisp);
+          break;
+        case 6: /* for two-wheel mouse; button 6 and 7 */
+          ddisplay_scroll_left(ddisp);
+          ddisplay_flush(ddisp);
+          break;
+        case 7:
+          ddisplay_scroll_right(ddisp);
+          ddisplay_flush(ddisp);
+          break;
+        default:
 	  break;
 	}
       break;
@@ -565,7 +581,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	}
       }
       if (!key_handled) {
-	/* No focus to recive keys, take care of it ourselves. */
+	/* No focus to receive keys, take care of it ourselves. */
 	return_val = TRUE;
 	switch(kevent->keyval) {
 	case GDK_Up:
