@@ -1,3 +1,28 @@
+2004-12-04  Hans Breuer  <hans@breuer.org>
+
+	* objects/standard/image.c : fix the correct warning
+	`image_file_name' might be used uninitialized
+	
+	* app/filedlg.c : near complete rewrite
+	- removed 'related dialog', GtkOptionMenu, most global vars,
+	also don't hide the dialog but let it go.
+	- added: filter view by extension, hopefully working diagram
+	referencing, GtkComboBox usage
+	
+	* plug-in/pixbuf/pixbuf.c : switched to dynamic generation
+	of im/export filter entries. So the user interface reflects
+	the dynamic nature of pixbuf loaders
+
+	* lib/filter.[ch] : implement filter_unregister_*port
+	  lib/libdia.def : added new functions
+	  plug-ins/cgm/cgm.c plug-ins/dxf/dxf.c
+	  plug-ins/hpgl/hpgl.c plug-ins/metapost/metapost.c
+	  plug-ins/pstricks/pstricks.c plug-ins/svg/svg.c
+	  plug-ins/wpg/wpg.c plug-ins/xfig/xfig.c
+	  plug-ins/cairo/cairo.c plug-ins/pixbuf/pixbuf.c :
+	use them in _plugin_unload () thus all these plug-ins
+	can be loaded used and unloaded during Dia's runtime
+
 2004-12-04  Lars Clausen  <lars@raeder.dk>
 
 	* lib/diagramdata.h: Access methods for units defined per diagram.
@@ -10,7 +35,7 @@
 	* app/diagram.c (diagram_init): Force filename to be absolute
 	path, easing the job for load/save.
 
-2004-01-03  Hans Breuer  <hans@breuer.org>
+2004-12-03  Hans Breuer  <hans@breuer.org>
 
 	* lib/libdia.def : removed dia_marshal_*, they are implemented as macros.
 	added dia_font_set_height, dia_font_copy (note to self: don't try to

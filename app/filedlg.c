@@ -39,97 +39,91 @@
 #include "preferences.h"
 #include "interface.h"
 
-static GtkWidget *opendlg = NULL, *open_options = NULL, *open_omenu = NULL;
+static GtkWidget *opendlg = NULL;
 static GtkWidget *savedlg = NULL;
-static GtkWidget *exportdlg = NULL, *export_options = NULL, *export_omenu=NULL;
-static GtkWidget *compressbutton = NULL;
-
-static int
-file_dialog_hide (GtkWidget *filesel)
-{
-  gpointer user_data;
-
-  gtk_widget_hide (filesel);
-  if ((user_data = gtk_object_get_user_data(GTK_OBJECT(filesel))) != NULL) {
-    diagram_remove_related_dialog(user_data, filesel);
-    g_object_unref(G_OBJECT(user_data)); 
-  }
-  gtk_object_set_user_data(GTK_OBJECT(filesel), NULL);
-
-#if 0
-  menus_set_sensitive ("<Toolbox>/File/Open...", TRUE);
-  menus_set_sensitive ("<Image>/File/Open...", TRUE);
-
-  if (gdisplay_active ())
-    {
-      menus_set_sensitive ("<Image>/File/Save", TRUE);
-      menus_set_sensitive ("<Image>/File/Save as...", TRUE);
-    }
-#endif
-
-  return TRUE;
-}
+static GtkWidget *exportdlg = NULL;
 
 static void
-set_true_callback(GtkWidget *w, int *data)
-{
-  *data = TRUE;
-}
-
-static void
-toggle_compress_callback(GtkWidget *w, gpointer data)
+toggle_compress_callback(GtkWidget *widget)
 {
   /* Changes prefs exactly when the user toggles the setting, i.e.
-      * the setting really remembers what the user chose last time, but
-     * lets diagrams of the opposite kind stay that way unless the user
-     * intervenes.
-     */
+   * the setting really remembers what the user chose last time, but
+   * lets diagrams of the opposite kind stay that way unless the user
+   * intervenes.
+   */
   prefs.new_diagram.compress_save =
-    gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton));
+    gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
 }
 
-static void
-open_set_extension(GtkObject *item)
+/**
+ * Given an import filter index and optionally a filename for fallback
+ * return the import filter to use
+ */
+static DiaImportFilter *
+ifilter_by_index (int index, const char* filename)
 {
-  DiaImportFilter *ifilter = gtk_object_get_user_data(item);
-  GString *s;
-  const gchar *text = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(opendlg));
-  const gchar *last_dot = strrchr(text, '.');
-  gchar *basename = NULL;
+  DiaImportFilter *ifilter = NULL;
 
-  if (!ifilter || last_dot == text || text[0] == '\0' ||
-      ifilter->extensions[0] == NULL)
-    return;
+  if (index >= 0)
+    ifilter = g_list_nth_data (filter_get_import_filters(), index);
+  else if (filename) /* fallback, should not happen */
+    ifilter = filter_guess_import_filter(filename);
 
-  basename = g_path_get_basename (text);
-  last_dot = strrchr(basename, '.');
-  s = g_string_new(basename);
-  if (last_dot)
-    g_string_truncate(s, last_dot-basename);
-  g_string_append(s, ".");
-  g_string_append(s, ifilter->extensions[0]);
-  gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(opendlg),
-				    s->str);
-  g_string_free (s, TRUE);
-  g_free (basename);
+  return ifilter;
 }
 
+typedef void* (* FilterGuessFunc) (const gchar* filename); 
+
+/**
+ * Respond to the file chooser filter facility, that is match
+ * the extension of a given filename to the selected filter
+ */
+static gboolean
+matching_extensions_filter (const GtkFileFilterInfo* fi,
+                            gpointer               data)
+{
+  FilterGuessFunc guess_func = (FilterGuessFunc)data;
+
+  g_assert (guess_func);
+
+  if (!fi->filename)
+    return 0; /* filter it, IMO should not happen --hb */
+
+  if (guess_func (fi->filename))
+     return 1;
+
+  return 0;
+}
+
+/**
+ * React on the diagram::removed signal by destroying the dialog
+ *
+ * This function isn't used cause it conflicts with the pattern introduced:
+ * instead of destroying the dialog with the diagram, the dialog is keeping
+ * a refernce to it. As a result we could access the diagram even when the
+ * display of it is gone ...
+ */
+static void
+diagram_removed (Diagram* dia, GtkWidget* dialog)
+{
+  g_return_if_fail (DIA_IS_DIAGRAM (dia));
+  g_return_if_fail (GTK_IS_WIDGET (dialog));
+
+  gtk_widget_destroy (dialog);
+}
+
+/**
+ * Create the combobox menu to select Import Filter options
+ */
 static GtkWidget *
 create_open_menu(void)
 {
   GtkWidget *menu;
-  GtkWidget *item;
   GList *tmp;
   
 
-  menu = gtk_menu_new();
-  item = gtk_menu_item_new_with_label(_("By extension"));
-  gtk_container_add(GTK_CONTAINER(menu), item);
-  gtk_widget_show(item);
-  item = gtk_menu_item_new();
-  gtk_container_add(GTK_CONTAINER(menu), item);
-  gtk_widget_show(item);
-  
+  menu = gtk_combo_box_new_text ();
+  gtk_combo_box_append_text(GTK_COMBO_BOX(menu), _("By extension"));
   
   for (tmp = filter_get_import_filters(); tmp != NULL; tmp = tmp->next) {
     DiaImportFilter *ifilter = tmp->data;
@@ -138,55 +132,32 @@ create_open_menu(void)
     if (!ifilter)
       continue;
     filter_label = filter_get_import_filter_label(ifilter);
-    item = gtk_menu_item_new_with_label(filter_label);
+    gtk_combo_box_append_text (GTK_COMBO_BOX(menu), filter_label);
     g_free(filter_label);
-    gtk_object_set_user_data(GTK_OBJECT(item), ifilter);
-    g_signal_connect(GTK_OBJECT(item), "activate",
-                       GTK_SIGNAL_FUNC(open_set_extension), NULL);
-    gtk_container_add(GTK_CONTAINER(menu), item);
-    gtk_widget_show(item);
   }
   return menu;
 }
 
+/**
+ * Respond to the user finishing the Save Dialog either accept or cancel/destroy 
+ */
 static void
-file_open_ok_callback(GtkWidget *w, GtkFileChooser *fs)
+file_open_response_callback(GtkWidget *fs, 
+                            gint       response, 
+                            gpointer   user_data)
 {
   const char *filename;
   Diagram *diagram = NULL;
-  DiaImportFilter *ifilter;
-  DDisplay *ddisp;
-
-  filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fs));
-
-  ifilter = gtk_object_get_user_data(GTK_OBJECT(GTK_OPTION_MENU(open_omenu)
-						->menu_item));
-  diagram = diagram_load(filename, ifilter);
-
-  if (diagram != NULL) {
-    diagram_update_extents(diagram);
-    layer_dialog_set_diagram(diagram);
-
-    ddisp = new_display(diagram);
-  }
-
-  gtk_widget_hide(opendlg);
-}
-
-static void
-file_open_response_callback(GtkWidget *w, gint response, GtkFileChooser *fs)
-{
-  const char *filename;
-  Diagram *diagram = NULL;
-  DiaImportFilter *ifilter;
   DDisplay *ddisp;
 
   if (response == GTK_RESPONSE_ACCEPT) {
+    gint index = gtk_combo_box_get_active (GTK_COMBO_BOX(user_data));
+
+    if (index >= 0) /* remember it */
+      persistence_set_integer ("import-filter", index);
     filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fs));
     
-    ifilter = gtk_object_get_user_data(GTK_OBJECT(GTK_OPTION_MENU(open_omenu)
-						  ->menu_item));
-    diagram = diagram_load(filename, ifilter);
+    diagram = diagram_load(filename, ifilter_by_index (index - 1, filename));
     
     if (diagram != NULL) {
       diagram_update_extents(diagram);
@@ -195,9 +166,14 @@ file_open_response_callback(GtkWidget *w, gint response, GtkFileChooser *fs)
       ddisp = new_display(diagram);
     }
   }
-  gtk_widget_hide(opendlg);
+  gtk_widget_destroy(opendlg);
 }
 
+/**
+ * Handle menu click File/Open
+ *
+ * This is either with or without diagram
+ */
 void
 file_open_callback(gpointer data, guint action, GtkWidget *widget)
 {
@@ -207,6 +183,11 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
     GtkWindow *parent_window;
     gchar *filename = NULL;
     
+    /* FIXME: we should not use ddisp_active but instead get the current diagram
+     * from caller. Thus we could offer the option to "load into" if invoked by
+     * <Display/File/Open. It wouldn't make any sense if invoked by 
+     * <Toolbox>/File/Open ...
+     */
     ddisp = ddisplay_active();
     if (ddisp) {
       dia = ddisp->diagram;
@@ -214,6 +195,7 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
     } else {
       parent_window = GTK_WINDOW(interface_get_toolbox_shell());
     }
+    persistence_register_integer ("import-filter", 0);
     opendlg = gtk_file_chooser_dialog_new_with_backend(_("Open Diagram"), parent_window,
 					  GTK_FILE_CHOOSER_ACTION_OPEN,
 					  "default", /* default, not gnome-vfs */
@@ -231,49 +213,65 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
       g_free(fnabs);
       g_free(filename);
     }
-    g_signal_connect(GTK_OBJECT(opendlg), "response",
-		     G_CALLBACK(file_open_response_callback), opendlg);
-    g_signal_connect(GTK_OBJECT(opendlg), "delete_event",
-		     G_CALLBACK(file_dialog_hide), NULL);
     g_signal_connect(GTK_OBJECT(opendlg), "destroy",
 		     G_CALLBACK(gtk_widget_destroyed), &opendlg);
-    gtk_quit_add_destroy(1, GTK_OBJECT(opendlg));
   } else {
     gtk_widget_set_sensitive(opendlg, TRUE);
     if (GTK_WIDGET_VISIBLE(opendlg))
       return;
   }
-  if (!open_options) {
-    GtkWidget *hbox, *label, *omenu;
+  if (!gtk_file_chooser_get_extra_widget(GTK_FILE_CHOOSER(opendlg))) {
+    GtkWidget *hbox, *label, *omenu, *options;
+    GtkFileFilter* filter;
 
-    open_options = gtk_frame_new(_("Open Options"));
-    gtk_frame_set_shadow_type(GTK_FRAME(open_options), GTK_SHADOW_ETCHED_IN);
+    options = gtk_frame_new(_("Open Options"));
+    gtk_frame_set_shadow_type(GTK_FRAME(options), GTK_SHADOW_ETCHED_IN);
 
     hbox = gtk_hbox_new(FALSE, 1);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
-    gtk_container_add(GTK_CONTAINER(open_options), hbox);
+    gtk_container_add(GTK_CONTAINER(options), hbox);
     gtk_widget_show(hbox);
 
     label = gtk_label_new (_("Determine file type:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
 
-    open_omenu = omenu = gtk_option_menu_new();
+    omenu = create_open_menu();
     gtk_box_pack_start(GTK_BOX(hbox), omenu, TRUE, TRUE, 0);
     gtk_widget_show(omenu);
 
-    gtk_option_menu_set_menu(GTK_OPTION_MENU(omenu), create_open_menu());
-
     gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(opendlg),
-				      open_options);
+				      options);
+
+    gtk_widget_show(options);
+    g_signal_connect(GTK_OBJECT(opendlg), "response",
+		     G_CALLBACK(file_open_response_callback), omenu);
+    /* set up file filters */
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name (filter, _("All Files"));
+    gtk_file_filter_add_pattern (filter, "*");
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (opendlg), filter);
+    /* match the other selections extension */
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name (filter, _("Supported Formats"));
+    gtk_file_filter_add_custom (filter, GTK_FILE_FILTER_FILENAME,
+                                matching_extensions_filter, filter_guess_import_filter, NULL);
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (opendlg), filter);
+
+    /* candidate for user prefs */
+    gtk_combo_box_set_active (GTK_COMBO_BOX (omenu), persistence_get_integer ("import-filter"));
   }
 
-  gtk_widget_show(open_options);
   gtk_widget_show(opendlg);
 }
 
+/**
+ * Respond to a button press (also destroy) in the save as dialog.
+ */
 static void
-file_save_as_response_callback(GtkWidget *w, gint response, GtkFileChooser *fs)
+file_save_as_response_callback(GtkWidget *fs, 
+                               gint       response, 
+                               gpointer   user_data)
 {
   const char *filename;
   Diagram *dia;
@@ -291,7 +289,8 @@ file_save_as_response_callback(GtkWidget *w, gint response, GtkFileChooser *fs)
       if (!g_utf8_validate(filename, -1, NULL)) {
 	utf8filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
 	if (utf8filename == NULL) {
-	  message_warning(_("Some characters in the filename are neither UTF-8 nor your local encoding.\nSome things will break."));
+	  message_warning(_("Some characters in the filename are neither UTF-8\n" 
+			    "nor your local encoding.\nSome things will break."));
 	}
       }
       if (utf8filename == NULL) utf8filename = g_strdup(filename);
@@ -309,23 +308,31 @@ file_save_as_response_callback(GtkWidget *w, gint response, GtkFileChooser *fs)
       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
       if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
-	file_dialog_hide(savedlg);
+	/* don't hide/destroy the dialog, but simply go back to it */
+	gtk_window_present (GTK_WINDOW (fs));
 	gtk_widget_destroy(dialog);
 	return;
       }
       gtk_widget_destroy(dialog);
     }
 
-    dia->data->is_compressed = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton));
+    dia->data->is_compressed = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(user_data));
 
     diagram_update_extents(dia);
 
     diagram_set_filename(dia, filename);
     diagram_save(dia, filename);
   }
-  file_dialog_hide(savedlg);
+  gtk_widget_destroy(GTK_WIDGET(fs));
 }
 
+/**
+ * Respond to the File/Save As.. menu
+ *
+ * We have only one file save dialog at a time. So if the dialog alread exists
+ * and the user tries to Save as once more only the diagram refernced will 
+ * change. Maybe we should also indicate the refernced diagram in the dialog.
+ */
 void
 file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
 {
@@ -338,10 +345,12 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
   dia = ddisp->diagram;
 
   if (!savedlg) {
+    GtkWidget *compressbutton;
+
     savedlg = gtk_file_chooser_dialog_new_with_backend(_("Save Diagram"),
 					  GTK_WINDOW(ddisp->shell),
 					  GTK_FILE_CHOOSER_ACTION_SAVE,
-					  "default", /* default, not gnome-vfs */
+					  "gtk+", /* default, not gnome-vfs */
 					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					  GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 					  NULL);
@@ -355,31 +364,32 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(compressbutton),
 				 dia->data->is_compressed);
     g_signal_connect(G_OBJECT(compressbutton), "toggled",
-		     toggle_compress_callback, NULL);
+		     G_CALLBACK(toggle_compress_callback), NULL);
     gtk_widget_show(compressbutton);
     gtk_tooltips_set_tip(tool_tips, compressbutton,
-			 _("Compression reduces file size to less than 1/10th size and speeds up loading and saving.  Some text programs cannot manipulate compressed files."), NULL);
-    g_signal_connect_swapped(
-		(GTK_FILE_CHOOSER(savedlg)),
-		"response", G_CALLBACK(file_save_as_response_callback),
-		GTK_OBJECT(savedlg));
-    g_signal_connect(GTK_OBJECT(savedlg), "delete_event",
-		     G_CALLBACK(file_dialog_hide), NULL);
+			 _("Compression reduces file size to less than 1/10th "
+			   "size and speeds up loading and saving.  Some text "
+			   "programs cannot manipulate compressed files."), NULL);
+    g_signal_connect (GTK_FILE_CHOOSER(savedlg),
+		      "response", G_CALLBACK(file_save_as_response_callback), compressbutton);
     g_signal_connect(GTK_OBJECT(savedlg), "destroy",
 		     G_CALLBACK(gtk_widget_destroyed), &savedlg);
-    gtk_quit_add_destroy(1, GTK_OBJECT(savedlg));
   } else {
+    GtkWidget *compressbutton = gtk_file_chooser_get_extra_widget(GTK_FILE_CHOOSER(savedlg));
     gtk_widget_set_sensitive(savedlg, TRUE);
     g_signal_handlers_block_by_func(G_OBJECT(compressbutton), toggle_compress_callback, NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(compressbutton),
 				 dia->data->is_compressed);
     g_signal_handlers_unblock_by_func(G_OBJECT(compressbutton), toggle_compress_callback, NULL);
     if (gtk_object_get_user_data(GTK_OBJECT(savedlg)) != NULL)
-      diagram_remove_related_dialog(gtk_object_get_user_data(GTK_OBJECT(savedlg)), savedlg);
-    gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
-    diagram_add_related_dialog(dia, savedlg);
-    if (GTK_WIDGET_VISIBLE(savedlg))
+      g_object_unref(gtk_object_get_user_data(GTK_OBJECT(savedlg)));
+    if (GTK_WIDGET_VISIBLE(savedlg)) {
+      /* keep a refernce to the diagram */
+      g_object_ref(dia);
+      gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
+      gtk_window_present (GTK_WINDOW(savedlg));
       return;
+    }
   }
   if (dia && dia->filename)
     filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
@@ -390,12 +400,17 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     g_free(fnabs);
     g_free(filename);
   }
+  g_object_ref(dia);
   gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
-  diagram_add_related_dialog(dia, savedlg);
-  g_object_ref(dia); 
+
   gtk_widget_show(savedlg);
 }
 
+/**
+ * Respond to the File/Save menu entry.
+ *
+ * Delegates to Save As if there is no filename set yet.
+ */
 void
 file_save_callback(gpointer data, guint action, GtkWidget *widget)
 {
@@ -414,10 +429,31 @@ file_save_callback(gpointer data, guint action, GtkWidget *widget)
   }
 }
 
-static void
-export_set_extension(GtkObject *item)
+/**
+ * Given an export filter index and optionally a filename for fallback
+ * return the export filter to use
+ */
+static DiaExportFilter *
+efilter_by_index (int index, const char* filename)
 {
-  DiaExportFilter *efilter = gtk_object_get_user_data(item);
+  DiaExportFilter *efilter = NULL;
+
+  if (index >= 0)
+    efilter = g_list_nth_data (filter_get_export_filters(), index);
+  else if (filename) /* fallback, should not happen */
+    efilter = filter_guess_export_filter(filename);
+
+  return efilter;
+}
+
+/**
+ * Adapt the filename to the export filter selection
+ */
+static void
+export_set_extension(GtkWidget *widget)
+{
+  int index = gtk_combo_box_get_active (GTK_COMBO_BOX(widget)) - 1; /* Ignore "By Extension" */
+  DiaExportFilter *efilter = efilter_by_index (index, NULL);
   GString *s;
   const gchar *text = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(exportdlg));
   const gchar *last_dot = text ? strrchr(text, '.') : NULL;
@@ -433,27 +469,22 @@ export_set_extension(GtkObject *item)
     g_string_truncate(s, last_dot-basename);
   g_string_append(s, ".");
   g_string_append(s, efilter->extensions[0]);
-  gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(exportdlg),
-				    s->str);
+  gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(exportdlg), s->str);
   g_string_free (s, TRUE);
   g_free (basename);
 }
 
+/**
+ * Create a new "option menu" for the export options
+ */
 static GtkWidget *
 create_export_menu(void)
 {
   GtkWidget *menu;
-  GtkWidget *item;
   GList *tmp;
 
-  menu = gtk_menu_new();
-  item = gtk_menu_item_new_with_label(_("By extension"));
-  gtk_container_add(GTK_CONTAINER(menu), item);
-  gtk_widget_show(item);
-  item = gtk_menu_item_new();
-  gtk_container_add(GTK_CONTAINER(menu), item);
-  gtk_widget_show(item);
-  
+  menu = gtk_combo_box_new_text ();
+  gtk_combo_box_append_text(GTK_COMBO_BOX(menu), _("By extension"));
   
   for (tmp = filter_get_export_filters(); tmp != NULL; tmp = tmp->next) {
     DiaExportFilter *ef = tmp->data;
@@ -462,30 +493,36 @@ create_export_menu(void)
     if (!ef)
       continue;
     filter_label = filter_get_export_filter_label(ef);
-    item = gtk_menu_item_new_with_label(filter_label);
+    gtk_combo_box_append_text (GTK_COMBO_BOX(menu), filter_label);
     g_free(filter_label);
-    gtk_object_set_user_data(GTK_OBJECT(item), ef);
-    g_signal_connect(GTK_OBJECT(item), "activate",
-		     G_CALLBACK(export_set_extension), NULL);
-    gtk_container_add(GTK_CONTAINER(menu), item);
-    gtk_widget_show(item);
   }
+  g_signal_connect(GTK_OBJECT(menu), "changed",
+	           G_CALLBACK(export_set_extension), NULL);
   return menu;
 }
 
+/**
+ * A button hit in the Export Dialog
+ */
 static void
-file_export_response_callback(GtkWidget *w, gint response, GtkFileChooser *fs)
+file_export_response_callback(GtkWidget *fs, 
+                              gint       response, 
+                              gpointer   user_data)
 {
   const char *filename;
   Diagram *dia;
   DiaExportFilter *ef;
   struct stat statbuf;
 
+  dia = gtk_object_get_user_data(GTK_OBJECT(fs));
+  g_assert (dia);
+
   if (response == GTK_RESPONSE_ACCEPT) {
-    dia = gtk_object_get_user_data(GTK_OBJECT(fs));
+    gint index;
+
     diagram_update_extents(dia);
 
-    filename = gtk_file_chooser_get_filename(fs);
+    filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fs));
 
     if (stat(filename, &statbuf) == 0) {
       GtkWidget *dialog = NULL;
@@ -503,33 +540,39 @@ file_export_response_callback(GtkWidget *w, gint response, GtkFileChooser *fs)
       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
       if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_YES) {
-	file_dialog_hide(exportdlg);
+	/* if not overwrite allow to select another filename */
 	gtk_widget_destroy(dialog);
 	return;
       }
       gtk_widget_destroy(dialog);
     }
 
-    ef = gtk_object_get_user_data(GTK_OBJECT(GTK_OPTION_MENU(export_omenu)
-					     ->menu_item));
+    index = gtk_combo_box_get_active (GTK_COMBO_BOX(user_data));
+    if (index >= 0)
+      persistence_set_integer ("export-filter", index);
+    ef = efilter_by_index (index - 1, filename);
     if (!ef)
       ef = filter_guess_export_filter(filename);
     if (ef) {
-      g_object_ref(dia->data); 
+      g_object_ref(dia->data);
       ef->export_func(dia->data, filename, dia->filename, ef->user_data);
+      g_object_unref(dia->data);
     } else
       message_error(_("Could not determine which export filter\n"
 		      "to use to save '%s'"), filename);
   }
-  file_dialog_hide(exportdlg);
+  g_object_unref (dia); /* drop our diagram reference */
+  gtk_widget_destroy(exportdlg);
 }
 
+/**
+ * React to <Display>/File/Export
+ */
 void
 file_export_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   Diagram *dia;
-  GtkWidget *export_menu, *export_item;
   gchar *filename = NULL;
 
   ddisp = ddisplay_active();
@@ -537,10 +580,11 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   dia = ddisp->diagram;
 
   if (!exportdlg) {
+    persistence_register_integer ("export-filter", 0);
     exportdlg = gtk_file_chooser_dialog_new_with_backend(_("Export Diagram"),
 					    GTK_WINDOW(ddisp->shell),
 					    GTK_FILE_CHOOSER_ACTION_SAVE,
-					    "default", /* default, not gnome-vfs */
+					    "gtk+", /* default, not gnome-vfs */
 					    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					    GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 					    NULL);
@@ -555,43 +599,54 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
       g_free (fnabs);
       g_free(filename);
     }
-    g_signal_connect(GTK_OBJECT(exportdlg), "delete_event",
-		     G_CALLBACK(file_dialog_hide), NULL);
     g_signal_connect(GTK_OBJECT(exportdlg), "destroy",
 		     G_CALLBACK(gtk_widget_destroyed), &exportdlg);
-    g_signal_connect(GTK_FILE_CHOOSER(exportdlg),
-		     "response", G_CALLBACK(file_export_response_callback),
-		     exportdlg);
-    gtk_quit_add_destroy(1, GTK_OBJECT(exportdlg));
   }
-  if (!export_options) {
-    GtkWidget *hbox, *label, *omenu;
+  if (!gtk_file_chooser_get_extra_widget(GTK_FILE_CHOOSER(exportdlg))) {
+    GtkWidget *hbox, *label, *omenu, *options;
+    GtkFileFilter* filter;
 
-    export_options = gtk_frame_new(_("Export Options"));
-    gtk_frame_set_shadow_type(GTK_FRAME(export_options), GTK_SHADOW_ETCHED_IN);
+    options = gtk_frame_new(_("Export Options"));
+    gtk_frame_set_shadow_type(GTK_FRAME(options), GTK_SHADOW_ETCHED_IN);
 
     hbox = gtk_hbox_new(FALSE, 1);
     gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
-    gtk_container_add(GTK_CONTAINER(export_options), hbox);
+    gtk_container_add(GTK_CONTAINER(options), hbox);
     gtk_widget_show(hbox);
 
     label = gtk_label_new (_("Determine file type:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
 
-    export_omenu = omenu = gtk_option_menu_new();
+    omenu = create_export_menu();
     gtk_box_pack_start(GTK_BOX(hbox), omenu, TRUE, TRUE, 0);
     gtk_widget_show(omenu);
 
-    gtk_option_menu_set_menu(GTK_OPTION_MENU(omenu), create_export_menu());
+    gtk_widget_show(options);
+    gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(exportdlg), options);
+    /* set up file filters */
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name (filter, _("All Files"));
+    gtk_file_filter_add_pattern (filter, "*");
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (exportdlg), filter);
+    /* match the other selections extension */
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name (filter, _("Supported Formats"));
+    gtk_file_filter_add_custom (filter, GTK_FILE_FILTER_FILENAME,
+                                matching_extensions_filter, filter_guess_export_filter, NULL);
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (exportdlg), filter);
 
-    gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(exportdlg),
-				      export_options);
+    /* candidate fpr user prefs */
+    gtk_combo_box_set_active (GTK_COMBO_BOX (omenu), persistence_get_integer ("export-filter"));
+
+    g_signal_connect(GTK_FILE_CHOOSER(exportdlg),
+		     "response", G_CALLBACK(file_export_response_callback), omenu);
   }
  
-  gtk_object_set_user_data(GTK_OBJECT(exportdlg), dia);
+  if (gtk_object_get_user_data(GTK_OBJECT(exportdlg)))
+    g_object_unref (gtk_object_get_user_data(GTK_OBJECT(exportdlg)));
   g_object_ref(dia); 
-  diagram_add_related_dialog(dia, exportdlg);
+  gtk_object_set_user_data(GTK_OBJECT(exportdlg), dia);
   gtk_widget_set_sensitive(exportdlg, TRUE);
   if (GTK_WIDGET_VISIBLE(exportdlg))
     return;
@@ -604,10 +659,5 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
     g_free(fnabs);
     g_free(filename);
   }
-  export_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(export_omenu));
-  export_item = gtk_menu_get_active(GTK_MENU(export_menu));
-  if (export_item)
-    export_set_extension(GTK_OBJECT(export_item));
-  gtk_widget_show(export_options);
   gtk_widget_show(exportdlg);
 }

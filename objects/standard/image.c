@@ -174,8 +174,9 @@ image_set_props(Image *image, GPtrArray *props)
   /* handle changing the image. */
   if (strcmp(image->file, old_file) != 0) {
     Element *elem = &image->element;
-    DiaImage img = dia_image_load(image->file);
+    DiaImage img = NULL;
 
+    img = dia_image_load(image->file);
     if (img)
       image->image = img;
     else
@@ -652,7 +653,7 @@ image_load(ObjectNode obj_node, int version, const char *filename)
       if (image->image == NULL) {
 	/* Not found as abs path, try in same dir as diagram. */
 	char *temp_string;
-	const char *image_file_name;
+	const char *image_file_name = image->file;
 	const char *psep;
 
 	psep = strrchr(image->file, G_DIR_SEPARATOR);

@@ -5,13 +5,27 @@
 #include "filter.h"
 #include "plug-ins.h"
 
+static gboolean
+_plugin_can_unload (PluginInfo *info)
+{
+  return TRUE;
+}
+
+static void
+_plugin_unload (PluginInfo *info)
+{
+  filter_unregister_export(&pstricks_export_filter);
+}
+
 DIA_PLUGIN_CHECK_INIT
 
 PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "Pstricks",
-			    _("TeX Pstricks export filter"), NULL, NULL))
+			    _("TeX Pstricks export filter"),
+                            _plugin_can_unload,
+                            _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;
 
   filter_register_export(&pstricks_export_filter);

@@ -77,6 +77,8 @@ struct _DiaCallbackFilter {
 /* register an export filter.  The DiaExportFilter should be static, and
  * none of its fields should be freed */
 void filter_register_export(DiaExportFilter *efilter);
+/* except - maybe - after unregistering it */
+void filter_unregister_export(DiaExportFilter *efilter);
 
 /* returns a sorted list of the export filters. */
 GList *filter_get_export_filters(void);
@@ -90,6 +92,7 @@ DiaExportFilter *filter_guess_export_filter(const gchar *filename);
 DiaExportFilter *filter_get_by_name(const gchar *name);
 
 void filter_register_import(DiaImportFilter *ifilter);
+void filter_unregister_import(DiaImportFilter *ifilter);
 GList *filter_get_import_filters(void);
 gchar *filter_get_import_filter_label(DiaImportFilter *ifilter);
 DiaImportFilter *filter_guess_import_filter(const gchar *filename);

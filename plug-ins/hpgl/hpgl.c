@@ -776,6 +776,17 @@ static DiaExportFilter my_export_filter = {
 
 
 /* --- dia plug-in interface --- */
+static gboolean
+_plugin_can_unload (PluginInfo *info)
+{
+    return TRUE;
+}
+
+static void
+_plugin_unload (PluginInfo *info)
+{
+    filter_unregister_export(&my_export_filter);
+}
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -784,7 +795,8 @@ dia_plugin_init(PluginInfo *info)
 {
     if (!dia_plugin_info_init(info, "HPGL",
                               _("HP Graphics Language export filter"),
-			NULL, NULL))
+			      _plugin_can_unload,
+                              _plugin_unload))
 	return DIA_PLUGIN_INIT_ERROR;
 
     filter_register_export(&my_export_filter);

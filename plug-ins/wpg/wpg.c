@@ -1323,6 +1323,20 @@ DiaImportFilter my_import_filter = {
 #endif /* WPG_WITH_IMPORT */
 
 /* --- dia plug-in interface --- */
+static gboolean
+_plugin_can_unload (PluginInfo *info)
+{
+  return TRUE;
+}
+
+static void
+_plugin_unload (PluginInfo *info)
+{
+  filter_unregister_export(&my_export_filter);
+#if WPG_WITH_IMPORT
+  filter_unregister_import(&my_import_filter);
+#endif
+}
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -1331,7 +1345,8 @@ dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "WPG",
                             _("WordPerfect Graphics export filter"),
-                            NULL, NULL))
+                            _plugin_can_unload,
+                            _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;
 
   filter_register_export(&my_export_filter);

@@ -4,7 +4,7 @@
  * pixbuf.c -- GdkPixbuf Exporter writing to various pixbuf supported
  *             bitmap formats.
  *
- * Copyright (C) 2002, Hans Breuer, <Hans@Breuer.Org>
+ * Copyright (C) 2002, 2004 Hans Breuer, <Hans@Breuer.Org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,12 +46,7 @@ export_data(DiagramData *data, const gchar *filename,
   int width, height;
   GdkPixbuf* pixbuf = NULL;
   GError* error = NULL;
-  const char* format = strrchr(filename, '.');
-
-  if (format)
-    format++;
-  if (0 == g_strcasecmp (format, "jpg"))
-    format = "jpeg"; /* format name does not match common extension */
+  const char* format = (const char*)user_data;
 
   rect.left = data->extents.left;
   rect.top = data->extents.top;
@@ -105,25 +100,19 @@ static gboolean
 import_data (const gchar *filename, DiagramData *data, void* user_data)
 {
   DiaObjectType *otype = object_get_type("Standard - Image");
-  GdkPixbuf *pixbuf;
-  GError *error = NULL;
+  gint width, height;
 
   if (!otype) /* this would be really broken */
     return FALSE;
 
-  /* there appears to be no way to ask gdk-pixbuf if it can handle a
-   * file other than really loading it. So let's load it twice ...
-   */
-  pixbuf = gdk_pixbuf_new_from_file (filename, &error);
-  if (pixbuf)
+  g_assert (user_data);
+
+  if (gdk_pixbuf_get_file_info (filename, &width, &height))
     {
       DiaObject *obj;
       Handle *h1, *h2;
       Point point;
       point.x = point.y = 0.0;
-
-      /* we don't need this one ... */
-      g_object_unref (pixbuf);
 
       obj = otype->ops->create(&point, otype->default_user_data, &h1, &h2);
       if (obj)
@@ -131,13 +120,17 @@ import_data (const gchar *filename, DiagramData *data, void* user_data)
           PropDescription prop_descs [] = {
             { "image_file", PROP_TYPE_FILE },
             { "elem_width", PROP_TYPE_REAL },
+            { "elem_height", PROP_TYPE_REAL },
             PROP_DESC_END};
           GPtrArray *plist = prop_list_from_descs (prop_descs, pdtpp_true);
           StringProperty *strprop = g_ptr_array_index(plist, 0);
-          RealProperty *realprop  = g_ptr_array_index(plist, 1);
+          RealProperty *realprop_w  = g_ptr_array_index(plist, 1);
+          RealProperty *realprop_h  = g_ptr_array_index(plist, 2);
 
           strprop->string_data = g_strdup (filename);
-          realprop->real_data = data->extents.right - data->extents.left;
+          realprop_w->real_data = width / 20.0;
+          realprop_h->real_data = height / 20.0;
+          g_print ("Setting object props\n");
           obj->ops->set_props(obj, plist);
           prop_list_free (plist);
 
@@ -145,33 +138,48 @@ import_data (const gchar *filename, DiagramData *data, void* user_data)
           return TRUE;
         }
     }
-  else if (error) /* otherwise a pixbuf misbehaviour */
+  else
     {
-      message_warning ("Failed to load:\n%s", error->message);
-      g_error_free (error);
+      message_warning ("Pixbuf[%s] can't load:\n%s", (gchar*)user_data, filename);
     }
 
   return FALSE;
 }
 
-static const gchar *extensions[] = { "png", "jpg", "jpeg", NULL };
-static DiaExportFilter export_filter = {
-    N_("GdkPixbuf - not antialiased"),
-    extensions,
-    export_data,
-    NULL,
-    "gdkpixbuf"
-};
-
-static const gchar *extensions_import[] = {
-	"bmp", "gif", "jpg", "png", "pnm", "ras", "tif", NULL };
-DiaImportFilter import_filter = {
-	N_("GdkPixbuf bitmap"),
-	extensions_import,
-	import_data
-};
+static GList *_import_filters = NULL;
+static GList *_export_filters = NULL;
 
 /* --- dia plug-in interface --- */
+static gboolean
+_plugin_can_unload (PluginInfo *info)
+{
+  return TRUE;
+}
+
+static void
+_plugin_unload (PluginInfo *info)
+{
+  GList *p;
+
+  for (p = _import_filters; p != NULL; p = g_list_next(p)) {
+    DiaImportFilter *ifilter = (DiaImportFilter *)p->data;
+    filter_unregister_import (ifilter);
+    g_free ((gchar*)ifilter->description);
+    g_strfreev ((gchar**)ifilter->extensions);
+    g_free ((gpointer)ifilter->user_data);
+    g_free ((gchar*)ifilter->unique_name);
+  }
+  g_list_free (_import_filters);
+  for (p = _export_filters; p != NULL; p = g_list_next(p)) {
+    DiaExportFilter *efilter = p->data;
+    filter_unregister_export (efilter);
+    g_free ((gchar*)efilter->description);
+    g_strfreev ((gchar**)efilter->extensions);
+    g_free ((gpointer)efilter->user_data);
+    g_free ((gchar*)efilter->unique_name);
+  }
+  g_list_free (_export_filters);
+}
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -187,16 +195,75 @@ dia_plugin_init(PluginInfo *info)
   if (gdk_display_get_default ()) {
     if (!dia_plugin_info_init(info, "Pixbuf",
 			      _("gdk-pixbuf based bitmap export/import"),
-			      NULL, NULL))
+			      _plugin_can_unload,
+                              _plugin_unload))
       return DIA_PLUGIN_INIT_ERROR;
-    
-    /* if we get this far we still may be running non-interactive. To avoid complains
-          * from color_convert() we are initializing ourselves ;)
-          */
-    color_init ();
-    
-    filter_register_export(&export_filter);
-    filter_register_import(&import_filter);
+    else {
+      GSList* formats = gdk_pixbuf_get_formats ();
+      GSList* sl = formats;
+
+      /* if we get this far we still may be running non-interactive. To avoid complains
+       * from color_convert() we are initializing ourselves ;)
+       */
+     color_init ();
+
+     /*
+      * Instead of hard-coding capabilities, ask GdkPixbuf what's installed
+      */
+     for (sl = formats; sl != NULL; sl = g_slist_next (sl)) {
+        GdkPixbufFormat* format = (GdkPixbufFormat*)sl->data;
+
+        if (gdk_pixbuf_format_is_writable (format)) {
+          DiaExportFilter* efilter = g_new0 (DiaExportFilter, 1);
+          gchar* name;
+
+          name = gdk_pixbuf_format_get_name (format);
+          /* the pixbuf desriptions are too generic for Dia's usage, make our own */
+          efilter->description = g_strdup_printf ("Pixbuf[%s]", name);
+          /* NOT: gdk_pixbuf_format_get_description (format); */
+          efilter->extensions = (const gchar**)gdk_pixbuf_format_get_extensions (format);
+          efilter->export_func = export_data;
+          efilter->user_data = g_strdup (name);
+          efilter->unique_name = g_strdup_printf ("pixbuf-%s", (gchar*)efilter->user_data);
+          g_free (name);
+          _export_filters = g_list_append (_export_filters, efilter);
+          filter_register_export(efilter);
+        }
+        /* there is no write only filter */
+        {
+          DiaImportFilter* ifilter = g_new0 (DiaImportFilter, 1);
+          gchar* name;
+
+          name = gdk_pixbuf_format_get_name (format);
+          /* filter out the less useful ones to keep the total list reasonable short 
+           * (If anyone complains make it configurable via persistence and this default ;-)
+           */
+          if (   strcmp (name, "ani") == 0
+              || strcmp (name, "ico") == 0
+              || strcmp (name, "pcx") == 0
+              || strcmp (name, "pnm") == 0
+              || strcmp (name, "ras") == 0
+              || strcmp (name, "tiff") == 0
+              || strcmp (name, "wbmp") == 0
+              || strcmp (name, "xbm") == 0)
+            {
+              g_free (name);
+              continue;
+            }
+          /* the pixbuf desriptions are too generic for Dia's usage, make our own */
+          ifilter->description = g_strdup_printf ("Pixbuf[%s]", name);
+          ifilter->extensions = (const gchar**)gdk_pixbuf_format_get_extensions (format);
+          ifilter->import_func = import_data;
+          ifilter->user_data = gdk_pixbuf_format_get_name (format);
+          /* they are in differnt namespaces aren't they? */
+          ifilter->unique_name = g_strdup_printf ("pixbuf-%s", name);
+          g_free (name);
+          _import_filters = g_list_append (_import_filters, ifilter);
+          filter_register_import(ifilter);
+        }
+      }
+      g_slist_free (formats);
+    }
   }
 
   return DIA_PLUGIN_INIT_OK;

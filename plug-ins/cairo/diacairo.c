@@ -1074,16 +1074,27 @@ static DiaExportFilter cb_export_filter = {
 static gboolean
 _plugin_can_unload (PluginInfo *info)
 {
-    /* XXX: to make this work something like filter_unregister() would 
-     * be required, but is it worth the trouble ?
-     */
-    return FALSE;
+  return TRUE;
 }
 
-static gboolean
+static void
 _plugin_unload (PluginInfo *info)
 {
-    return TRUE;
+#ifdef CAIRO_HAS_PS_SURFACE
+  filter_unregister_export(&ps_export_filter);
+#endif
+#ifdef CAIRO_HAS_PDF_SURFACE
+  filter_unregister_export(&pdf_export_filter);
+#endif
+#ifdef CAIRO_HAS_PNG_SURFACE
+  filter_unregister_export(&png_export_filter);
+  filter_unregister_export(&pnga_export_filter);
+#endif
+#ifdef CAIRO_HAS_WIN32_SURFACE
+  filter_unregister_export(&emf_export_filter);
+  filter_unregister_export(&wmf_export_filter);
+  filter_unregister_export(&cb_export_filter);
+#endif
 }
 
 /* --- dia plug-in interface --- */

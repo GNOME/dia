@@ -49,6 +49,12 @@ filter_register_export(DiaExportFilter *efilter)
 					export_filter_compare);
 }
 
+void
+filter_unregister_export(DiaExportFilter *efilter)
+{
+  export_filters = g_list_remove(export_filters, efilter);
+}
+
 /* returns a sorted list of the export filters. */
 GList *
 filter_get_export_filters(void)
@@ -141,6 +147,12 @@ filter_register_import(DiaImportFilter *ifilter)
   }
   import_filters = g_list_insert_sorted(import_filters, ifilter,
 					import_filter_compare);
+}
+
+void
+filter_unregister_import(DiaImportFilter *ifilter)
+{
+  import_filters = g_list_remove(import_filters, ifilter);
 }
 
 /* returns a sorted list of the export filters. */

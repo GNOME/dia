@@ -31,13 +31,26 @@ extern DiaImportFilter xfig_import_filter;
 extern DiaExportFilter xfig_export_filter;
 
 DIA_PLUGIN_CHECK_INIT
+static gboolean
+_plugin_can_unload (PluginInfo *info)
+{
+    return TRUE;
+}
+
+static void
+_plugin_unload (PluginInfo *info)
+{
+    filter_unregister_export(&xfig_export_filter);
+}
+
 
 PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "FIG",
 			    _("Fig Format import and export filter"),
-			    NULL, NULL)
+			    _plugin_can_unload,
+                            _plugin_unload)
       )
     return DIA_PLUGIN_INIT_ERROR;
 
