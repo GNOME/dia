@@ -1,5 +1,12 @@
 2002-02-05  Akira TAGOH  <tagoh@redhat.com>
 
+	* lib/message.c (gtk_message_internal): doesn't need to convert to
+	UTF-8.
+
+	* app/render_libart.c (draw_string): fixed transaction for UTF-8
+	support.
+	(get_text_width): ditto.
+
 	* app/Makefile.am (EXTRA_DIST):
 	s/paginate_gdiprint.c/paginate_gdiprint.cpp/
 

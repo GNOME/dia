@@ -44,12 +44,6 @@ gtk_message_internal(char *title, const char *fmt,
   GtkWidget *button;
   GtkWidget *bbox;
 #endif
-#ifdef UNICODE_WORK_IN_PROGRESS
-  gchar *loc_buf;
-  gchar *real_buf;
-  gchar *loc_title;
-#endif
-
   gint len;
 
   len = format_string_length_upper_bound (fmt, args);
@@ -64,14 +58,6 @@ gtk_message_internal(char *title, const char *fmt,
   }
   
   vsprintf (buf, fmt, *args2);
-
-#ifdef UNICODE_WORK_IN_PROGRESS
-  loc_buf = charconv_utf8_to_local8(buf);
-  loc_title = charconv_utf8_to_local8(title);
-  real_buf = buf;
-  title = loc_title;
-  buf = loc_buf;
-#endif
 
 #ifdef GNOME
   dialog_window = gnome_dialog_new(title, GNOME_STOCK_BUTTON_OK, NULL);
@@ -107,12 +93,6 @@ gtk_message_internal(char *title, const char *fmt,
   gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
 			    GTK_SIGNAL_FUNC(gtk_widget_destroy),
 			    GTK_OBJECT(dialog_window));
-#endif
-
-#ifdef UNICODE_WORK_IN_PROGRESS
-  buf = real_buf;
-  g_free(loc_buf);
-  g_free(loc_title);
 #endif
 
   gtk_widget_show (dialog_window);

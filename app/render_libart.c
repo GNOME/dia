@@ -93,7 +93,7 @@ static void fill_bezier(RendererLibart *renderer,
 			int numpoints,
 			Color *color);
 static void draw_string(RendererLibart *renderer,
-			const char *text,
+			const utfchar *text,
 			Point *pos, Alignment alignment,
 			Color *color);
 static void draw_image(RendererLibart *renderer,
@@ -102,7 +102,7 @@ static void draw_image(RendererLibart *renderer,
 		       DiaImage image);
 
 static real get_text_width(RendererLibart *renderer,
-			   const char *text, int length);
+			   const utfchar *text, int length);
 
 static void clip_region_clear(RendererLibart *renderer);
 static void clip_region_add_rect(RendererLibart *renderer,
@@ -1180,10 +1180,10 @@ libart_freetype_copy_glyph(FT_GlyphSlot glyph, int xpos, int ypos,
 #endif
 
 static void
-draw_string(RendererLibart *renderer,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *color)
+draw_string (RendererLibart *renderer,
+	     const utfchar *text,
+	     Point *pos, Alignment alignment,
+	     Color *color)
 {
   DDisplay *ddisp = renderer->ddisp;
   int x, y, i, dx;
@@ -1232,9 +1232,32 @@ draw_string(RendererLibart *renderer,
   freetype_render_string(fts, xpos, ypos, libart_freetype_copy_glyph, &data);
 
 #else
+  GdkWChar *wcstr;
+  gchar *str, *mbstr;
+  int length, wclength;
+
   ddisplay_transform_coords(ddisp, pos->x, pos->y,
 			    &x, &y);
 
+# ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  str = charconv_utf8_to_local8 (text);
+  length = strlen (str);
+  wcstr = g_new0 (GdkWChar, length + 1);
+  mbstr = g_strdup (str);
+  wclength = mbstowcs (wcstr, mbstr, length);
+  g_free (mbstr);
+
+  if (wclength > 0) {
+	  length = wclength;
+  } else {
+	  for (i = 0; i < length; i++) {
+		  wcstr[i] = (unsigned char) str[i];
+	  }
+  }
+  iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, length);
+
+  g_free (wcstr);
+# else
 #if defined (GTK_TALKS_UTF8_WE_DONT)
   {
     utfchar *utfbuf = charconv_local8_to_utf8(text);
@@ -1244,6 +1267,7 @@ draw_string(RendererLibart *renderer,
 #else
   iwidth = gdk_string_width(renderer->gdk_font, text);
 #endif
+#endif /* GTK_DOESNT_TALK_UTF8_WE_DO */
   switch (alignment) {
   case ALIGN_LEFT:
     break;
@@ -1354,9 +1378,13 @@ draw_image(RendererLibart *renderer,
 
 static real
 get_text_width(RendererLibart *renderer,
-	       const char *text, int length)
+	       const utfchar *text, int length)
 {
   int iwidth;
+  GdkWChar *wcstr;
+  gchar *mbstr, *str;
+  int len, wclength, i;
+  utfchar *utfbuf, *utf, *p;
   
 #ifdef HAVE_FREETYPE
   iwidth = freetype_load_string(text, renderer->freetype_font, length)->width;
@@ -1368,7 +1396,40 @@ get_text_width(RendererLibart *renderer,
     g_free(utfbuf);
   }
 #else
-  iwidth = gdk_text_width(renderer->gdk_font, text, length);
+# ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  p = utfbuf = g_strdup (text);
+  for (i = 0; i < length; i++)
+	  p = uni_next (p);
+
+  utf = g_new (utfchar, p - utfbuf + 1);
+  strncpy (utf, text, p - utfbuf);
+  utf[p - utfbuf] = 0;
+  str = charconv_utf8_to_local8 (utf);
+  len = strlen (str);
+
+  g_free (utfbuf);
+  g_free (utf);
+# else
+  str = g_strdup (text);
+  len = length;
+# endif
+  wcstr = g_new0 (GdkWChar, len + 1);
+  mbstr = g_strdup (str);
+  wclength = mbstowcs (wcstr, mbstr, len);
+  g_free (mbstr);
+
+  if (wclength > 0) {
+	  len = wclength;
+  } else {
+	  for (i = 0; i < len; i++) {
+		  wcstr[i] = (unsigned char) str[i];
+	  }
+  }
+  g_free (str);
+
+  iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, len);
+
+  g_free (wcstr);
 #endif
 #endif
 
