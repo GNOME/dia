@@ -1,3 +1,9 @@
+2004-07-13  Steffen Macke <sdteffen@web.de>
+
+	* samples/Istar.dia:
+	* samples/KAOS.dia:
+	* samples/Jackson.dia: re-added to the CVS as binary files
+
 2004-07-11  Lars Clausen  <lars@raeder.dk>
 
 	* lib/dialibartrenderer.c: 
