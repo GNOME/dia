@@ -2,20 +2,20 @@
 # Copyright (C) 1999 Free Software Foundation, Inc.
 # Vincent Renardias <vincent@ldsol.com>, 1999.
 # Fabrice Bellet <Fabrice.Bellet@imag.fr>, 1999.
+# Joaquim Fellmann <joaquim@hrnet.fr>, 2000.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.41\n"
-"POT-Creation-Date: 1999-12-24 22:20+0800\n"
+"POT-Creation-Date: 2000-01-24 00:34+0100\n"
 "PO-Revision-Date: 1999-04-26 19:58+0200\n"
-"Last-Translator: Vincent Renardias <vincent@ldsol.com>\n"
+"Last-Translator: Joaquim Fellmann <joaquim@hrnet.fr>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: app/app_procs.c:130
-#, fuzzy
 msgid "Export loaded file and exit"
 msgstr "Exporter le fichier en postscript et sortir"
 
@@ -25,7 +25,7 @@ msgstr "SORTIE"
 
 #: app/app_procs.c:133
 msgid "Show this help message"
-msgstr ""
+msgstr "Afficher ce message d'aide"
 
 #: app/app_procs.c:152
 msgid "Can't connect to session manager!\n"
@@ -41,6 +41,9 @@ msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
+"Erreur sur l'option %s: %s.\n"
+"Tapez '%s --help' pour voir une liste complète des options en ligne de"
+"commande.\n"
 
 #: app/app_procs.c:209 app/app_procs.c:211
 msgid ""
@@ -75,7 +78,8 @@ msgstr "Annuler"
 
 #: app/app_procs.c:362
 msgid "Could not create per-user Dia config directory"
-msgstr ""
+msgstr "Impossible de créer le répertoire de configuration personnel de"
+"Dia"
 
 #: app/app_procs.c:419
 #, c-format
@@ -257,9 +261,8 @@ msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objets/Alignement Horizontal/Equidistance"
 
 #: app/diagram.c:165 app/menus.c:247
-#, fuzzy
 msgid "/Objects/Align Horizontal/Adjacent"
-msgstr "/Objets/Alignement Horizontal/Centrer"
+msgstr "/Objets/Alignement Horizontal/Adjacent"
 
 #: app/diagram.c:167 app/menus.c:249
 msgid "/Objects/Align Vertical/Top"
@@ -278,9 +281,8 @@ msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objets/Alignement Vertical/Equidistance"
 
 #: app/diagram.c:175 app/menus.c:253
-#, fuzzy
 msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/Objets/Alignement Vertical/Centrer"
+msgstr "/Objets/Alignement Vertical/Adjacent"
 
 #: app/disp_callbacks.c:69 app/properties.c:133
 msgid ""
@@ -383,9 +385,8 @@ msgid "Create Polyline"
 msgstr "Créer Polyligne"
 
 #: app/interface.c:99
-#, fuzzy
 msgid "Create Bezierline"
-msgstr "Créer une durée de vie"
+msgstr "Créer une ligne de Bézier"
 
 #: app/interface.c:103
 msgid "Create Image"
@@ -462,22 +463,20 @@ msgstr ""
 "L'objet attaché n'a pas été trouvé dans le document."
 
 #: app/load_save.c:135
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
 "Erreur au chargement du diagramme %s.\n"
-"Type de fichier inconnu."
+"Le point de connexion n'existe pas."
 
 #: app/load_save.c:138
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
 "Erreur au chargement du diagramme %s.\n"
-"Type de fichier inconnu."
+"La prise en compte de la connexion n'existe pas."
 
 #: app/load_save.c:183
 #, c-format
@@ -507,7 +506,7 @@ msgstr ""
 "Il ne s'agit pas d'un fichier créé par Dia."
 
 #: app/load_save.c:461 app/render_eps.c:161 app/render_svg.c:144
-#: plug-ins/cgm/cgm.c:810
+#: plug-ins/cgm/cgm.c:815
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Impossible d'ouvrir '%s' en écriture.\n"
@@ -526,17 +525,16 @@ msgid "Create new diagram"
 msgstr "Créer nouveau diagramme"
 
 #: app/menus.c:52
-#, fuzzy
 msgid "_Export..."
-msgstr "   Exporte"
+msgstr "_Exporter..."
 
 #: app/menus.c:56
 msgid "Page Set_up..."
-msgstr ""
+msgstr "Config_uration de la Page..."
 
 #: app/menus.c:58
 msgid "_Print Diagram..."
-msgstr "Im_primer diagramme..."
+msgstr "Im_primer le Diagramme..."
 
 #: app/menus.c:73
 msgid "_Delete"
@@ -610,7 +608,7 @@ msgstr "Equidistance"
 
 #: app/menus.c:124 app/menus.c:133
 msgid "Adjacent"
-msgstr ""
+msgstr "Adjacent"
 
 #: app/menus.c:129
 msgid "Top"
@@ -702,24 +700,20 @@ msgid "/File/Save _As..."
 msgstr "/Fichier/Enregistre_r sous..."
 
 #: app/menus.c:196
-#, fuzzy
 msgid "/File/_Export..."
-msgstr "/Fichier/_Exporter en EPS"
+msgstr "/Fichier/_Exporter..."
 
 #: app/menus.c:198
-#, fuzzy
 msgid "/File/Page Set_up..."
-msgstr "/Fichier/Enregistre_r sous..."
+msgstr "/Fichier/Configuration de la Page..."
 
 #: app/menus.c:199
-#, fuzzy
 msgid "/File/_Print Diagram..."
-msgstr "Im_primer diagramme..."
+msgstr "/Fichier/Im_primer le Diagramme"
 
 #: app/menus.c:200
-#, fuzzy
 msgid "/File/sep2"
-msgstr "/Fichier/sep1"
+msgstr "/Fichier/sep2"
 
 #: app/menus.c:201
 msgid "/File/_Close"
@@ -912,9 +906,8 @@ msgid "This object has no properties."
 msgstr "Cet objet n'a pas de propriétés."
 
 #: app/render_eps.c:1101
-#, fuzzy
 msgid "Encapsulated Postscript"
-msgstr "Exporter en Postscript"
+msgstr "Postscript Encapsulé"
 
 #: app/defaults.c:43
 msgid "Object defaults"
@@ -938,19 +931,19 @@ msgstr "Réinitialiser après la création:"
 
 #: app/preferences.c:81
 msgid "Compress saved files:"
-msgstr "Compresser les fichiers enregistrés:"
+msgstr "Compresser les fichiers enregistrés :"
 
 #: app/preferences.c:82
 msgid "Number of undo levels:"
-msgstr "Nombre de niveaux d'annulation:"
+msgstr "Nombre de niveaux d'annulation :"
 
 #: app/preferences.c:84
 msgid "Grid:"
-msgstr "Grille:"
+msgstr "Grille :"
 
 #: app/preferences.c:85 app/preferences.c:98
 msgid "Visible:"
-msgstr "Visible:"
+msgstr "Visible :"
 
 #: app/preferences.c:86
 msgid "Snap to:"
@@ -958,11 +951,11 @@ msgstr ""
 
 #: app/preferences.c:87
 msgid "X Size:"
-msgstr "Taille X:"
+msgstr "Taille X :"
 
 #: app/preferences.c:88
 msgid "Y Size:"
-msgstr "Taille Y:"
+msgstr "Taille Y :"
 
 #: app/preferences.c:89
 msgid "Colour"
@@ -974,35 +967,35 @@ msgstr "Lignes pleines"
 
 #: app/preferences.c:92
 msgid "New window:"
-msgstr "Nouvelle fenêtre:"
+msgstr "Nouvelle fenêtre :"
 
 #: app/preferences.c:93
 msgid "Width:"
-msgstr "Largeur:"
+msgstr "Largeur :"
 
 #: app/preferences.c:94
 msgid "Height:"
-msgstr "Hauteur:"
+msgstr "Hauteur :"
 
 #: app/preferences.c:95
 msgid "Magnify:"
-msgstr "Grossissement:"
+msgstr "Grossissement :"
 
 #: app/preferences.c:97
 msgid "Connection Points:"
-msgstr "Points de Connexion:"
+msgstr "Points de Connexion :"
 
 #: app/preferences.c:535
 msgid "Preferences"
 msgstr "Préférences"
 
-#: app/render_svg.c:834
+#: app/render_svg.c:783
 msgid "Scalable Vector Graphics"
 msgstr ""
 
 #: app/lineprops_area.c:496
 msgid "Arrow Properties"
-msgstr "Propriétés des fléches"
+msgstr "Propriétés des flèches"
 
 #: app/lineprops_area.c:553 app/lineprops_area.c:737
 msgid "Details..."
@@ -1138,7 +1131,7 @@ msgstr "Nom:"
 
 #: objects/UML/association.c:979
 msgid "Direction:"
-msgstr "Direction:"
+msgstr "Direction :"
 
 #: objects/UML/association.c:1027 objects/UML/association.c:1035
 msgid "Side A"
@@ -1150,11 +1143,11 @@ msgstr "Coté B"
 
 #: objects/UML/association.c:1043
 msgid "Role:"
-msgstr "Rôle:"
+msgstr "Rôle :"
 
 #: objects/UML/association.c:1055
 msgid "Multiplicity:"
-msgstr "Multiplicité:"
+msgstr "Multiplicité :"
 
 #. Show arrow:
 #: objects/UML/association.c:1066
@@ -1178,13 +1171,13 @@ msgstr "Classe"
 
 #: objects/UML/class_dialog.c:177
 msgid "Class name:"
-msgstr "Nom de la classe:"
+msgstr "Nom de la classe :"
 
 #: objects/UML/class_dialog.c:188 objects/UML/dependency.c:622
 #: objects/UML/generalization.c:592 objects/UML/large_package.c:572
 #: objects/UML/object.c:765 objects/UML/realizes.c:590
 msgid "Stereotype:"
-msgstr "Stéréotype:"
+msgstr "Stéréotype :"
 
 #: objects/UML/class_dialog.c:199
 msgid "Abstract"
@@ -1238,15 +1231,15 @@ msgstr "Données des attributs"
 #: objects/UML/class_dialog.c:717 objects/UML/class_dialog.c:1593
 #: objects/UML/class_dialog.c:1755 objects/UML/class_dialog.c:2211
 msgid "Type:"
-msgstr "Type:"
+msgstr "Type :"
 
 #: objects/UML/class_dialog.c:729
 msgid "Value:"
-msgstr "Valeur:"
+msgstr "Valeur :"
 
 #: objects/UML/class_dialog.c:741 objects/UML/class_dialog.c:1605
 msgid "Visibility:"
-msgstr "Visibilité:"
+msgstr "Visibilité :"
 
 #: objects/UML/class_dialog.c:750 objects/UML/class_dialog.c:1614
 msgid "Public"
@@ -1291,7 +1284,7 @@ msgstr "Données du paramètre"
 
 #: objects/UML/class_dialog.c:1767
 msgid "Def. value:"
-msgstr "Val. Def.:"
+msgstr "Val. Def. :"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2128
@@ -1308,19 +1301,19 @@ msgstr "Données du paramètre formel"
 
 #: objects/UML/constraint.c:509
 msgid "Constraint:"
-msgstr "Contrainte:"
+msgstr "Contrainte :"
 
 #: objects/UML/dependency.c:634
 msgid "Show arrow:"
-msgstr "Montrer la flèche:"
+msgstr "Montrer la flèche :"
 
 #: objects/UML/implements.c:559
 msgid "Interface:"
-msgstr "Interface:"
+msgstr "Interface :"
 
 #: objects/UML/usecase.c:542
 msgid "Text outside:"
-msgstr "Texte en dehors:"
+msgstr "Texte en dehors :"
 
 #: objects/UML/usecase.c:547
 msgid "Collaboration"
@@ -1328,11 +1321,11 @@ msgstr "Collaboration"
 
 #: objects/UML/object.c:753
 msgid "Explicit state:"
-msgstr "Etat explicite:"
+msgstr "Etat explicite :"
 
 #: objects/UML/object.c:775
 msgid "Attributes:"
-msgstr "Attributs:"
+msgstr "Attributs :"
 
 #: objects/UML/object.c:785
 msgid "Show attributes"
@@ -1356,11 +1349,11 @@ msgstr "Montrer les marques de destruction:"
 
 #: objects/UML/message.c:614
 msgid "Message:"
-msgstr "Message:"
+msgstr "Message :"
 
 #: objects/UML/message.c:628
 msgid "Message type:"
-msgstr "Type de message:"
+msgstr "Type de message :"
 
 #.
 #: objects/UML/message.c:633
@@ -1442,7 +1435,7 @@ msgstr "Multivalué"
 #: objects/standard/box.c:207 objects/standard/ellipse.c:204
 #: objects/standard/image.c:262
 msgid "Border width:"
-msgstr "Largeur du bord:"
+msgstr "Largeur du bord :"
 
 #: objects/ER/attribute.c:247 objects/ER/entity.c:213
 #: objects/ER/relationship.c:305 objects/custom/custom_object.c:286
@@ -1451,7 +1444,7 @@ msgstr "Largeur du bord:"
 #: objects/standard/box.c:222 objects/standard/ellipse.c:219
 #: objects/standard/image.c:277
 msgid "Foreground color:"
-msgstr "Couleur du trait:"
+msgstr "Couleur du trait :"
 
 #: objects/ER/attribute.c:255 objects/ER/entity.c:221
 #: objects/ER/relationship.c:313 objects/custom/custom_object.c:297
@@ -1459,7 +1452,7 @@ msgstr "Couleur du trait:"
 #: objects/flowchart/ellipse.c:267 objects/flowchart/parallelogram.c:275
 #: objects/standard/box.c:233 objects/standard/ellipse.c:230
 msgid "Background color:"
-msgstr "Couleur du fond:"
+msgstr "Couleur du fond :"
 
 #: objects/ER/attribute.c:507
 msgid "Attribute"
@@ -1471,7 +1464,7 @@ msgstr "Faible"
 
 #: objects/ER/participation.c:416
 msgid "Total:"
-msgstr "Total:"
+msgstr "Total :"
 
 #: objects/ER/relationship.c:266
 msgid "Left Cardinality:"
@@ -1494,25 +1487,23 @@ msgid "Relationship"
 msgstr "Relation"
 
 #: objects/network/bus.c:569
-#, fuzzy
 msgid "Add Handle"
-msgstr "Ajouter un Coin"
+msgstr "Ajouter une Poignée"
 
 #: objects/network/bus.c:570
-#, fuzzy
 msgid "Delete Handle"
-msgstr "Effacer Calque"
+msgstr "Effacer la poignée"
 
 #: objects/standard/arc.c:205 objects/standard/line.c:202
 #: objects/standard/polyline.c:207 objects/standard/zigzagline.c:207
 msgid "Line width:"
-msgstr "Largeur de ligne:"
+msgstr "Largeur de ligne :"
 
 #: objects/standard/arc.c:219 objects/standard/line.c:216
 #: objects/standard/polyline.c:221 objects/standard/textobj.c:234
 #: objects/standard/zigzagline.c:221
 msgid "Color:"
-msgstr "Couleur:"
+msgstr "Couleur :"
 
 #: objects/custom/custom_object.c:316 objects/flowchart/box.c:291
 #: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
@@ -1522,17 +1513,17 @@ msgstr "Couleur:"
 #: objects/standard/line.c:227 objects/standard/polyline.c:232
 #: objects/standard/zigzagline.c:232
 msgid "Line style:"
-msgstr "Style de ligne:"
+msgstr "Style de ligne :"
 
 #: objects/standard/arc.c:241 objects/standard/line.c:238
 #: objects/standard/polyline.c:243 objects/standard/zigzagline.c:246
 msgid "Start arrow:"
-msgstr "Début de la flèche:"
+msgstr "Début de la flèche :"
 
 #: objects/standard/arc.c:255 objects/standard/line.c:252
 #: objects/standard/polyline.c:257 objects/standard/zigzagline.c:260
 msgid "End arrow:"
-msgstr "Fin de la flèche:"
+msgstr "Fin de la flèche :"
 
 #: objects/custom/custom_object.c:308 objects/custom/custom_object.c:472
 #: objects/flowchart/box.c:283 objects/flowchart/box.c:441
@@ -1547,12 +1538,12 @@ msgstr "Tracer le fond"
 #: objects/flowchart/box.c:302 objects/flowchart/box.c:449
 #: objects/standard/box.c:263 objects/standard/box.c:340
 msgid "Corner rounding:"
-msgstr "Arrondir les coins:"
+msgstr "Arrondir les coins :"
 
 #: objects/custom/custom_object.c:347 objects/custom/custom_object.c:495
 #: objects/standard/textobj.c:198 objects/standard/textobj.c:292
 msgid "Alignment:"
-msgstr "Alignement:"
+msgstr "Alignement :"
 
 #: objects/custom/custom_object.c:358 objects/custom/custom_object.c:506
 #: objects/flowchart/box.c:331 objects/flowchart/box.c:477
@@ -1561,15 +1552,15 @@ msgstr "Alignement:"
 #: objects/flowchart/parallelogram.c:334 objects/flowchart/parallelogram.c:481
 #: objects/standard/textobj.c:209 objects/standard/textobj.c:303
 msgid "Font:"
-msgstr "Police:"
+msgstr "Police :"
 
 #: objects/standard/textobj.c:220 objects/standard/textobj.c:314
 msgid "Fontsize:"
-msgstr "Taille de police:"
+msgstr "Taille de police :"
 
 #: objects/standard/image.c:235 objects/standard/image.c:356
 msgid "Image file:"
-msgstr "Fichier image:"
+msgstr "Fichier image :"
 
 #: objects/standard/image.c:246
 msgid "Keep aspect ratio"
@@ -1581,11 +1572,11 @@ msgstr "Montrer la bordure"
 
 #: objects/standard/image.c:367
 msgid "Keep aspect ratio:"
-msgstr "Conserver les proportions:"
+msgstr "Conserver les proportions :"
 
 #: objects/standard/image.c:375
 msgid "Show border:"
-msgstr "Montrer la bordure:"
+msgstr "Montrer la bordure :"
 
 #. Found file in same dir as diagram.
 #: objects/standard/image.c:939 objects/standard/image.c:950
@@ -1613,11 +1604,11 @@ msgstr "Effacer un Coin"
 
 #: objects/FS/flow-ortho.c:559 objects/FS/flow.c:622 objects/FS/flow.c:737
 msgid "Flow:"
-msgstr "Flux:"
+msgstr "Flux :"
 
 #: objects/FS/flow-ortho.c:574 objects/FS/flow.c:637 objects/FS/flow.c:753
 msgid "Flow type:"
-msgstr "Type de flux:"
+msgstr "Type de flux :"
 
 #.
 #: objects/FS/flow-ortho.c:579 objects/FS/flow-ortho.c:632
@@ -1640,15 +1631,15 @@ msgstr "Signal"
 
 #: objects/FS/flow-ortho.c:671
 msgid "Orthflow:"
-msgstr "Flux orthogonal:"
+msgstr "Flux orthogonal :"
 
 #: objects/FS/flow-ortho.c:687
 msgid "Orthflow type:"
-msgstr "Type de flux orthogonal:"
+msgstr "Type de flux orthogonal :"
 
 #: objects/FS/function.c:498
 msgid "Function:"
-msgstr "Fonction:"
+msgstr "Fonction :"
 
 #: objects/FS/function.c:508
 #, fuzzy
@@ -1825,13 +1816,13 @@ msgstr "Remplissage du texte :"
 #: objects/flowchart/ellipse.c:322 objects/flowchart/ellipse.c:451
 #: objects/flowchart/parallelogram.c:345 objects/flowchart/parallelogram.c:492
 msgid "Font size:"
-msgstr "Taille de police:"
+msgstr "Taille de police :"
 
 #: objects/custom/custom_object.c:383 objects/flowchart/box.c:356
 #: objects/flowchart/diamond.c:336 objects/flowchart/ellipse.c:336
 #: objects/flowchart/parallelogram.c:359
 msgid "Font color:"
-msgstr "Couleur de la police:"
+msgstr "Couleur de la police :"
 
 #: objects/flowchart/parallelogram.c:305 objects/flowchart/parallelogram.c:453
 msgid "Shear angle:"
@@ -1849,13 +1840,13 @@ msgstr "Retourner horizontalement"
 msgid "Flip Vertical"
 msgstr "Retourner verticalement"
 
-#: plug-ins/cgm/cgm.c:765
+#: plug-ins/cgm/cgm.c:770
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
 
-#: plug-ins/cgm/cgm.c:919
+#: plug-ins/cgm/cgm.c:924
 msgid "Computer Graphics Metafile"
 msgstr ""
 
