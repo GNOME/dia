@@ -65,9 +65,12 @@ dia_SOURCES = \
 
 dia_LDADD = ../lib/libdia.a @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@
 
-INCLUDES = \
+CPPFLAGS = \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DLIBDIR=\"$(libdir)\" \
+	-DDATADIR=\"$(pkgdatadir)\"
+
+INCLUDES = \
 	-I../intl \
 	-I$(srcdir)/../lib \
 	@DEBUG_FLAGS@ \
@@ -75,9 +78,7 @@ INCLUDES = \
 	@GTK_CFLAGS@ \
         @GNOME_CFLAGS@
 
-LDFLAGS = -export-dynamic
-
-
+LDFLAGS = --export-dynamic
 
 run_dia.sh: Makefile.am
 	 echo "#!$(SHELL) " > run_dia.sh
