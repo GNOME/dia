@@ -196,6 +196,7 @@ OBJECTS = \
 	class_dialog.obj \
 	classicon.obj \
 	component.obj \
+	component_feature.obj \
 	constraint.obj \
 	dependency.obj \
 	fork.obj \
