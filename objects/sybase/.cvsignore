@@ -2,4 +2,11 @@
 .libs
 Makefile
 Makefile.in
+client.lo
+dataserver.lo
 libsybase_objects.la
+ltm.lo
+repserver.lo
+rsm.lo
+stableq.lo
+sybase.lo
