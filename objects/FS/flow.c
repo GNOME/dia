@@ -34,6 +34,8 @@
 #include "arrows.h"
 #include "diamenu.h"
 #include "text.h"
+#include "connection.h"
+#include "properties.h"
 
 #include "pixmaps/flow.xpm"
 
@@ -110,6 +112,11 @@ static void flow_save(Flow *flow, ObjectNode obj_node,
 		      const char *filename);
 static Object *flow_load(ObjectNode obj_node, int version,
 			 const char *filename);
+static PropDescription *flow_describe_props(Flow *mes);
+static void
+flow_get_props(Flow * flow, Property *props, guint nprops);
+static void
+flow_set_props(Flow * flow, Property *props, guint nprops);
 static DiaMenu *flow_get_object_menu(Flow *flow, Point *clickedpoint) ;
 
 
@@ -138,10 +145,62 @@ static ObjectOps flow_ops = {
   (CopyFunc)            flow_copy,
   (MoveFunc)            flow_move,
   (MoveHandleFunc)      flow_move_handle,
-  (GetPropertiesFunc)   flow_get_properties,
-  (ApplyPropertiesFunc) flow_apply_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      flow_get_object_menu,
+  (DescribePropsFunc)   flow_describe_props,
+  (GetPropsFunc)        flow_get_props,
+  (SetPropsFunc)        flow_set_props,
 };
+
+static PropEnumData prop_flow_type_data[] = {
+  { N_("Energy"),FLOW_ENERGY },
+  { N_("Material"),FLOW_MATERIAL },
+  { N_("Signal"),FLOW_SIGNAL },
+  { NULL, 0 } 
+};
+
+static PropDescription flow_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+    N_("Type:"), NULL, prop_flow_type_data },
+  PROP_DESC_END
+};
+
+static PropDescription *
+flow_describe_props(Flow *mes)
+{
+  if (flow_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(flow_props);
+  return flow_props;
+
+}
+
+static PropOffset flow_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "type", PROP_TYPE_ENUM, offsetof(Flow, type) },
+  { NULL, 0, 0 }
+};
+
+static void
+flow_get_props(Flow * flow, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets(&flow->connection.object, 
+                                    flow_offsets, props, nprops))
+    return;
+}
+
+static void
+flow_set_props(Flow *flow, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets(&flow->connection.object, 
+                                     flow_offsets, props, nprops)) {
+  }
+  flow_update_data(flow);
+}
+
 
 static real
 flow_distance_from(Flow *flow, Point *point)

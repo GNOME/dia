@@ -40,6 +40,8 @@
 #include "diamenu.h"
 #include "text.h"
 #include "orth_conn.h"
+#include "element.h"
+#include "properties.h"
 
 #include "pixmaps/orthflow.xpm"
 
@@ -101,7 +103,6 @@ Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f };
 
 static Font *orthflow_font = NULL;
 
-static OrthflowDialog *properties_dialog;
 static OrthflowDialog *defaults_dialog;
 
 /* Remember the most recently applied orthflow type and use it to
@@ -124,10 +125,13 @@ static real orthflow_distance_from(Orthflow *orthflow, Point *point);
 static void orthflow_update_data(Orthflow *orthflow);
 static void orthflow_destroy(Orthflow *orthflow);
 static Object *orthflow_copy(Orthflow *orthflow);
-static GtkWidget *orthflow_get_properties(Orthflow *orthflow);
-static ObjectChange *orthflow_apply_properties(Orthflow *orthflow);
 static GtkWidget *orthflow_get_defaults(void);
 static void orthflow_apply_defaults(void);
+static PropDescription *orthflow_describe_props(Orthflow *mes);
+static void
+orthflow_get_props(Orthflow * orthflow, Property *props, guint nprops);
+static void
+orthflow_set_props(Orthflow * orthflow, Property *props, guint nprops);
 static void orthflow_save(Orthflow *orthflow, ObjectNode obj_node,
 			  const char *filename);
 static Object *orthflow_load(ObjectNode obj_node, int version,
@@ -161,10 +165,63 @@ static ObjectOps orthflow_ops = {
   (CopyFunc)            orthflow_copy,
   (MoveFunc)            orthflow_move,
   (MoveHandleFunc)      orthflow_move_handle,
-  (GetPropertiesFunc)   orthflow_get_properties,
-  (ApplyPropertiesFunc) orthflow_apply_properties,
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
   (ObjectMenuFunc)      orthflow_get_object_menu,
+  (DescribePropsFunc)   orthflow_describe_props,
+  (GetPropsFunc)        orthflow_get_props,
+  (SetPropsFunc)        orthflow_set_props,
 };
+
+static PropEnumData prop_orthflow_type_data[] = {
+  { N_("Energy"),ORTHFLOW_ENERGY },
+  { N_("Material"),ORTHFLOW_MATERIAL },
+  { N_("Signal"),ORTHFLOW_SIGNAL },
+  { NULL, 0 } 
+};
+
+static PropDescription orthflow_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+    N_("Type:"), NULL, prop_orthflow_type_data },
+  PROP_DESC_END
+};
+
+static PropDescription *
+orthflow_describe_props(Orthflow *mes)
+{
+  if (orthflow_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(orthflow_props);
+  return orthflow_props;
+
+}
+
+static PropOffset orthflow_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "type", PROP_TYPE_ENUM, offsetof(Orthflow, type) },
+  { NULL, 0, 0 }
+};
+
+static void
+orthflow_get_props(Orthflow * orthflow, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets(&orthflow->orth.object, 
+                                    orthflow_offsets, props, nprops))
+    return;
+}
+
+static void
+orthflow_set_props(Orthflow *orthflow, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets(&orthflow->orth.object, 
+                                     orthflow_offsets, props, nprops)) {
+  }
+  orthflow_update_data(orthflow);
+}
+
+
 
 static void
 orthflow_change_apply_revert(ObjectChange* objchg, Object* obj)
@@ -533,6 +590,41 @@ orthflow_load(ObjectNode obj_node, int version, const char *filename)
 }
 
 
+
+static void
+fill_in_defaults_dialog()
+{
+  OrthflowDialog *prop_dialog;
+  GtkToggleButton *button=NULL;
+
+  prop_dialog = defaults_dialog;
+
+  if ( orthflow_default_label ) {
+    gtk_text_set_point( GTK_TEXT(prop_dialog->text), 0 ) ;
+    gtk_text_forward_delete( GTK_TEXT(prop_dialog->text), 
+			     gtk_text_get_length(GTK_TEXT(prop_dialog->text))) ;
+    gtk_text_insert( GTK_TEXT(prop_dialog->text),
+		     NULL, NULL, NULL,
+		     text_get_string_copy(orthflow_default_label),
+		     -1) ;
+  }
+
+  switch (orthflow_most_recent_type) {
+  case ORTHFLOW_ENERGY:
+    button = GTK_TOGGLE_BUTTON(prop_dialog->m_energy);
+    break;
+  case ORTHFLOW_MATERIAL:
+    button = GTK_TOGGLE_BUTTON(prop_dialog->m_material);
+    break;
+  case ORTHFLOW_SIGNAL:
+    button = GTK_TOGGLE_BUTTON(prop_dialog->m_signal);
+    break;
+  }
+  if (button)
+    gtk_toggle_button_set_active(button, TRUE);
+}
+
+#if 0
 static ObjectChange *
 orthflow_apply_properties(Orthflow *orthflow)
 {
@@ -590,39 +682,6 @@ fill_in_dialog(Orthflow *orthflow)
     gtk_toggle_button_set_active(button, TRUE);
 }
 
-
-static void
-fill_in_defaults_dialog()
-{
-  OrthflowDialog *prop_dialog;
-  GtkToggleButton *button=NULL;
-
-  prop_dialog = defaults_dialog;
-
-  if ( orthflow_default_label ) {
-    gtk_text_set_point( GTK_TEXT(prop_dialog->text), 0 ) ;
-    gtk_text_forward_delete( GTK_TEXT(prop_dialog->text), 
-			     gtk_text_get_length(GTK_TEXT(prop_dialog->text))) ;
-    gtk_text_insert( GTK_TEXT(prop_dialog->text),
-		     NULL, NULL, NULL,
-		     text_get_string_copy(orthflow_default_label),
-		     -1) ;
-  }
-
-  switch (orthflow_most_recent_type) {
-  case ORTHFLOW_ENERGY:
-    button = GTK_TOGGLE_BUTTON(prop_dialog->m_energy);
-    break;
-  case ORTHFLOW_MATERIAL:
-    button = GTK_TOGGLE_BUTTON(prop_dialog->m_material);
-    break;
-  case ORTHFLOW_SIGNAL:
-    button = GTK_TOGGLE_BUTTON(prop_dialog->m_signal);
-    break;
-  }
-  if (button)
-    gtk_toggle_button_set_active(button, TRUE);
-}
 
 
 static GtkWidget *
@@ -694,6 +753,7 @@ orthflow_get_properties(Orthflow *orthflow)
 
   return properties_dialog->dialog;
 }
+#endif
 
 static void
 orthflow_update_defaults( Orthflow* orthflow, char update_text )

@@ -33,6 +33,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "text.h"
+#include "properties.h"
 
 #include "pixmaps/function.xpm"
 
@@ -105,6 +106,11 @@ static void function_update_data(Function *pkg);
 static GtkWidget *function_get_properties(Function *dep);
 static ObjectChange *function_apply_properties(Function *dep);
 static DiaMenu *function_get_object_menu(Function *func, Point *clickedpoint) ;
+static PropDescription *function_describe_props(Function *mes);
+static void
+function_get_props(Function * function, Property *props, guint nprops);
+static void
+function_set_props(Function * function, Property *props, guint nprops);
 
 static ObjectTypeOps function_type_ops =
 {
@@ -130,10 +136,57 @@ static ObjectOps function_ops = {
   (CopyFunc)            function_copy,
   (MoveFunc)            function_move,
   (MoveHandleFunc)      function_move_handle,
-  (GetPropertiesFunc)   function_get_properties,
-  (ApplyPropertiesFunc) function_apply_properties,
-  (ObjectMenuFunc)      function_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      function_get_object_menu,
+  (DescribePropsFunc)   function_describe_props,
+  (GetPropsFunc)        function_get_props,
+  (SetPropsFunc)        function_set_props
 };
+
+static PropDescription function_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "wish function", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Wish function"), NULL, NULL },
+  { "user function", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("User function"), NULL, NULL },
+  PROP_DESC_END
+};
+
+static PropDescription *
+function_describe_props(Function *mes)
+{
+  if (function_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(function_props);
+  return function_props;
+
+}
+
+static PropOffset function_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "wish function", PROP_TYPE_BOOL, offsetof(Function, is_wish) },
+  { "user function", PROP_TYPE_BOOL, offsetof(Function, is_user) },
+  { NULL, 0, 0}
+};
+
+static void
+function_get_props(Function * function, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets(&function->element.object, 
+                                    function_offsets, props, nprops))
+    return;
+}
+
+static void
+function_set_props(Function *function, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets(&function->element.object, 
+                                     function_offsets, props, nprops)) {
+  }
+  function_update_data(function);
+}
 
 static void
 function_change_apply_revert( ObjectChange* objchg, Object* obj)
