@@ -920,9 +920,8 @@ msgid "View Defaults"
 msgstr "Типовий вигляд"
 
 #: app/preferences.c:84
-#, fuzzy
 msgid "Grid Lines"
-msgstr "Параметри с╕тки"
+msgstr "Л╕н╕╖ с╕тки"
 
 #: app/preferences.c:98
 msgid "Reset tools after create:"
@@ -977,18 +976,16 @@ msgid "Y Size:"
 msgstr "Розм╕р Y:"
 
 #: app/preferences.c:115 app/preferences.c:120
-#, fuzzy
 msgid "Colour:"
-msgstr "Кол╕р"
+msgstr "Кол╕р:"
 
 #: app/preferences.c:116 app/preferences.c:121
-#, fuzzy
 msgid "Solid lines:"
-msgstr "Суц╕льн╕ л╕н╕╖"
+msgstr "Суц╕льн╕ л╕н╕╖:"
 
 #: app/preferences.c:118
 msgid "Page breaks:"
-msgstr ""
+msgstr "Розд╕лювач╕ стор╕нок:"
 
 #: app/preferences.c:556 app/preferences.c:565
 msgid "Preferences"
@@ -1095,7 +1092,7 @@ msgstr "П╕вколо"
 
 #: lib/widgets.c:696
 msgid "Slashed Cross"
-msgstr ""
+msgstr "Косий хрест"
 
 #: lib/widgets.c:703
 msgid "Filled Ellipse"
@@ -1342,7 +1339,7 @@ msgstr "Сп╕впраця"
 
 #: objects/UML/object.c:755
 msgid "Explicit state:"
-msgstr ""
+msgstr "Виключний стан:"
 
 #: objects/UML/object.c:777
 msgid "Attributes:"
@@ -1552,14 +1549,12 @@ msgid "Fontsize:"
 msgstr "Розм╕р шрифту:"
 
 #: objects/standard/image.c:165
-#, fuzzy
 msgid "Image file"
-msgstr "Файл зображення:"
+msgstr "Файл зображення"
 
 #: objects/standard/image.c:167
-#, fuzzy
 msgid "Draw border"
-msgstr "Показати рамку"
+msgstr "Намалювати рамку"
 
 #: objects/standard/image.c:169
 msgid "Keep aspect ratio"
@@ -1833,12 +1828,10 @@ msgid "Shear angle:"
 msgstr "Кут нахилу:"
 
 #: objects/custom/custom_object.c:173 objects/custom/custom_object.c:191
-#, fuzzy
 msgid "Flip horizontal"
 msgstr "В╕дзеркалити горизонтально"
 
 #: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
-#, fuzzy
 msgid "Flip vertical"
 msgstr "В╕дзеркалити вертикально"
 
@@ -1861,58 +1854,3 @@ msgstr ""
 #: plug-ins/cgm/cgm.c:1251
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
-
-#~ msgid "Line width:"
-#~ msgstr "Ширина л╕н╕╖:"
-
-#~ msgid "Color:"
-#~ msgstr "Кол╕р:"
-
-#~ msgid "Start arrow:"
-#~ msgstr "Стр╕лка на початку:"
-
-#~ msgid "End arrow:"
-#~ msgstr "Стр╕лка на к╕нц╕:"
-
-#~ msgid "Border width"
-#~ msgstr "Ширина рамки"
-
-#~ msgid "Border colour"
-#~ msgstr "Кол╕р рамки"
-
-#~ msgid "Inner colour"
-#~ msgstr "Внутр╕шн╕й кол╕р"
-
-#~ msgid "Line style"
-#~ msgstr "Стиль л╕н╕╖"
-
-#~ msgid "Font"
-#~ msgstr "Шрифт"
-
-#~ msgid "Font size"
-#~ msgstr "Розм╕р шрифту"
-
-#~ msgid "Font colour"
-#~ msgstr "Кол╕р шрифту"
-
-#~ msgid "Text"
-#~ msgstr "Текст"
-
-#~ msgid "A custom with text inside."
-#~ msgstr "Дов╕льний об'╓кт з написом всередин╕"
-
-#~ msgid "Open diagram"
-#~ msgstr "В╕дкрити д╕аграму"
-
-#~ msgid "File already exists"
-#~ msgstr "Файл вже ╕сну╓"
-
-#~ msgid ""
-#~ "The file '%s' already exists.\n"
-#~ "Do you want to overwrite it?"
-#~ msgstr ""
-#~ "Файл \"%s\" вже ╕сну╓.\n"
-#~ "Ви хочете перезаписати його?"
-
-#~ msgid "Save diagram"
-#~ msgstr "Зберегти д╕аграму"
