@@ -54,6 +54,8 @@ struct TextObjectChange {
   gchar *str;
 };
 
+#define CURSOR_HEIGHT_RATIO 20
+
 static ObjectChange *text_create_change(Text *text, enum change_type type,
 					gunichar ch, int pos, int row);
 
@@ -300,7 +302,6 @@ text_set_alignment(Text *text, Alignment align)
 void
 text_calc_boundingbox(Text *text, Rectangle *box)
 {
-
   calc_width(text);
   calc_ascent_descent(text);
 
@@ -326,16 +327,18 @@ text_calc_boundingbox(Text *text, Rectangle *box)
 
   if (text->focus.has_focus) {
     if (text->cursor_pos == 0) {
-      box->left -= 0.05; /* Half the cursor width */
+      /* Half the cursor width */
+      box->left -= text->height/(CURSOR_HEIGHT_RATIO*2);
     } else {
-      box->right += 0.05; /* Half the cursor width. Assume that
-			     if it isn't at position zero, it might be 
-			     at the last position possible. */
+      /* Half the cursor width. Assume that
+	 if it isn't at position zero, it might be 
+	 at the last position possible. */
+      box->right += text->height/(CURSOR_HEIGHT_RATIO*2);
     }
    
     /* Account for the size of the cursor top and bottom */
-    box->top -= 0.05;
-    box->bottom += 0.1;
+    box->top -= text->height/(CURSOR_HEIGHT_RATIO*2);
+    box->bottom += text->height/CURSOR_HEIGHT_RATIO;
   }
 }
 
@@ -459,12 +462,12 @@ text_draw(Text *text, DiaRenderer *renderer)
     }
 
     p1.x = curs_x;
-    p1.y = curs_y;
+    p1.y = curs_y + text->descent/2;
     p2.x = curs_x;
-    p2.y = curs_y + text->height;
+    p2.y = curs_y + text->height + text->descent/2;
     
     DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
-    DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.1);
+    DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, text->height/CURSOR_HEIGHT_RATIO);
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &p1, &p2, &color_black);
   }
 }

@@ -1,5 +1,8 @@
 2002-11-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/text.c (text_calc_boundingbox, text_draw): Better cursor
+	positioning. 
+
 	* app/diapsrenderer.c: Freetype rendering is back in force.
 
 	* app/disp_callbacks.c: Added missing updates for pre-text-change.
