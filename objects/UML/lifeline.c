@@ -45,10 +45,12 @@ struct _LifelineState {
   int draw_cross;
 };
 
+#define CONNECTIONS 6 /* must be even */
+    
 struct _Lifeline {
   Connection connection;  
 
-  ConnectionPoint connections[6];
+  ConnectionPoint connections[CONNECTIONS];
 
   Handle boxbot_handle;
   Handle boxtop_handle;
@@ -341,7 +343,7 @@ lifeline_create(Point *startpoint,
   obj->type = &lifeline_type;
   obj->ops = &lifeline_ops;
 
-  connection_init(conn, 4, 6);
+  connection_init(conn, 4, CONNECTIONS);
 
   lifeline->rtop = LIFELINE_HEIGHT/3;
   lifeline->rbot = lifeline->rtop+0.7;
@@ -364,7 +366,7 @@ lifeline_create(Point *startpoint,
   obj->handles[1]->connect_type = HANDLE_NONCONNECTABLE;
 
   /* Connection points */
-  for (i=0;i<6;i++) {
+  for (i=0;i<CONNECTIONS;i++) {
     obj->connections[i] = &lifeline->connections[i];
     lifeline->connections[i].object = obj;
     lifeline->connections[i].connected = NULL;
@@ -401,7 +403,7 @@ lifeline_copy(Lifeline *lifeline)
 
   connection_copy(conn, newconn);
 
-  for (i = 0; i < 6; i++) {
+  for (i = 0; i < CONNECTIONS; i++) {
     newobj->connections[i] = &newlifeline->connections[i];
     newlifeline->connections[i].object = newobj;
     newlifeline->connections[i].connected = NULL;
@@ -488,21 +490,17 @@ lifeline_update_data(Lifeline *lifeline)
       p1.x -= LIFELINE_WIDTH/2.0;
       p2.x += LIFELINE_WIDTH/2.0; 
       /* Update connections: */      
-      lifeline->connections[0].pos = p1;
-      lifeline->connections[1].pos.x = p2.x;
-      lifeline->connections[1].pos.y = p1.y;
-      lifeline->connections[2].pos.x = p2.x;
-      lifeline->connections[2].pos.y = (p1.y + p2.y)/2.0;
-      lifeline->connections[3].pos.x = p2.x;
-      lifeline->connections[3].pos.y = p2.y;
-      lifeline->connections[4].pos.x = p1.x;
-      lifeline->connections[4].pos.y = (p1.y + p2.y)/2.0;
-      lifeline->connections[5].pos.x = p1.x;
-      lifeline->connections[5].pos.y = p2.y;
+      r = (p2.y - p1.y)/(float)(CONNECTIONS/2-1); 
+      for (i = 0; i < CONNECTIONS/2; ++i) {
+        lifeline->connections[i*2].pos.x = p1.x;
+        lifeline->connections[i*2+1].pos.x = p2.x;
+        lifeline->connections[i*2+1].pos.y =
+          lifeline->connections[i*2].pos.y = p1.y + i*r;
+      }
   } else {     
     /* without focus of control, the points are over the line */
-    r = (p2.y - p1.y)/5.0; 
-    for (i = 0; i < 6; i++) {
+    r = (p2.y - p1.y)/(float)(CONNECTIONS-1); 
+    for (i = 0; i < CONNECTIONS; i++) {
       lifeline->connections[i].pos.x = p1.x;
       lifeline->connections[i].pos.y = p1.y + i*r;
     }
@@ -545,7 +543,7 @@ lifeline_load(ObjectNode obj_node, int version, const char *filename)
 
   connection_load(conn, obj_node);
   
-  connection_init(conn, 4, 6);
+  connection_init(conn, 4, CONNECTIONS);
 
   attr = object_find_attribute(obj_node, "rtop");
   if (attr != NULL)
@@ -572,7 +570,7 @@ lifeline_load(ObjectNode obj_node, int version, const char *filename)
     lifeline->draw_cross = 0;
 
   /* Connection points */
-  for (i=0;i<6;i++) {
+  for (i=0;i<CONNECTIONS;i++) {
     obj->connections[i] = &lifeline->connections[i];
     lifeline->connections[i].object = obj;
     lifeline->connections[i].connected = NULL;

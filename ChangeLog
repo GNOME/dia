@@ -2,6 +2,12 @@
 
 	* plug-ins/xfig/xfig-import.c: corrected a typo (fixes #55910)
 
+	* objects/UML/lifeline.c: patch from Marc <mrw@siemens.ch> 
+	(fixes #55863) : some clean-ups in the handling of connection
+	points. Now the total number of connection points is just a
+	#define (the proper solution is to retrofit the GRAFCET Vergent's
+	dynamic behaviour wrt connection points).
+	
 2001-06-07  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/app_procs.c (app_init): added a call to unicode_init() (only
