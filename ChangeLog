@@ -1,3 +1,7 @@
+2001-07-13  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Added "nn" to ALL_LINGUAS.
+	
 2001-07-09  Alex Larsson  <alexl@redhat.com>
 
 	* app/disp_callbacks.c:
