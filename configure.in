@@ -409,6 +409,7 @@ shapes/Circuit/Makefile
 shapes/Cisco/Makefile
 shapes/Civil/Makefile
 shapes/Contact/Makefile
+shapes/Cybernetics/Makefile
 shapes/Electric/Makefile
 shapes/flowchart/Makefile
 shapes/jigsaw/Makefile

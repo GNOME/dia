@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="iso-8859-1"?> <!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+	<_name>Cybernetics</_name>
+	<_description>Elements of cybernetic circuits</_description>
+	<contents>
+
+		<object name="Cybernetics - l-sens">
+			<_description>create a sensor - left</_description>
+		</object>
+		<object name="Cybernetics - r-sens">
+			<_description>create a sensor - right</_description>
+		</object>
+		<object name="Cybernetics - b-sens">
+			<_description>create a sensor - bottom</_description>
+		</object>
+		<object name="Cybernetics - t-sens">
+			<_description>create a sensor - top</_description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - l-minus">
+			<_description>create a sum, subtracting left input</_description>
+		</object>
+		<object name="Cybernetics - r-minus">
+			<_description>create a sum, subtracting right input</_description>
+		</object>
+		<object name="Cybernetics - b-minus">
+			<_description>create a sum, subtracting bottom input</_description>
+		</object>
+		<object name="Cybernetics - t-minus">
+			<_description>create a sum, subtracting top input</_description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - l-integrator">
+			<_description>create an integrator - input left</_description>
+		</object>
+		<object name="Cybernetics - r-integrator">
+			<_description>create an integrator - input right</_description>
+		</object>
+		<object name="Cybernetics - b-integrator">
+			<_description>create an integrator - input bottom</_description>
+		</object>
+		<object name="Cybernetics - t-integrator">
+			<_description>create an integrator - input top</_description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - sum">
+			<_description>create a sum</_description>
+		</object>
+		<object name="Cybernetics - product">
+			<_description>create a product</_description>
+		</object>
+
+		<object name="Cybernetics - hpf">
+			<_description>create a high pass filter</_description>
+		</object>
+		<object name="Cybernetics - lpf">
+			<_description>create a low pass filter</_description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - sine">
+			<_description>create a sine characteristic or input</_description>
+		</object>
+		<object name="Cybernetics - sigmoid">
+			<_description>create a sigmoid characteristic</_description>
+		</object>
+		<object name="Cybernetics - saturation">
+			<_description>create a saturation characteristic</_description>
+		</object>
+		<object name="Cybernetics - relay">
+			<_description>create a relay characteristic (sigma)</_description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - half-wave-rectifier">
+			<_description>create a half wave rectifier or ramp input</_description>
+		</object>
+		<object name="Cybernetics - full-wave-rectifier">
+			<_description>create a full wave rectifier (absolute value)</_description>
+		</object>
+
+		<object name="Cybernetics - positive-shift">
+			<_description>create a constant positive shift on the y-axis</_description>
+		</object>
+		<object name="Cybernetics - negative-shift">
+			<_description>create a constant negative shift on the y-axis</_description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - factor-greater1">
+			<_description>create a constant factor greater 1</_description>
+		</object>
+		<object name="Cybernetics - factor-0to1">
+			<_description>create a constant factor between 0 and 1</_description>
+		</object>
+		<object name="Cybernetics - factor-0to-1">
+			<_description>create a constant factor between 0 and -1</_description>
+		</object>
+		<object name="Cybernetics - factor-smaller-1">
+			<_description>create a constant factor below -1</_description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - empty-func">
+			<_description>create a template for custom characteristics</_description>
+		</object>
+		<object name="Cybernetics - delta-t">
+			<_description>create a time delay</_description>
+		</object>
+
+	</contents>
+</sheet>
+

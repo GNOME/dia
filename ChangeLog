@@ -1,3 +1,12 @@
+2004-03-01  Lars Clausen  <larsrc@linux.local>
+
+	* shapes/Cybernetics/*:
+	* sheets/Cybernetics.sheet.in:
+	* sheets/Makefile.am:
+	* shapes/Makefile.am: 
+	* configure.in: Patch from charly.meyer@t-online.de (Thorsten
+	Roggendorf): Cybernetic shapes (#95553).
+
 2004-03-01  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
 
 	* app/Makefile.am: Fixed $(EXEEXT) warning from automake.

@@ -7,7 +7,7 @@ sheet_in_files = \
   civil.sheet.in jigsaw.sheet.in MSE.sheet.in SDL.sheet.in Logic.sheet.in \
   EML.sheet.in Misc.sheet.in Assorted.sheet.in ciscocomputer.sheet.in \
   ciscohub.sheet.in ciscomisc.sheet.in cisconetwork.sheet.in \
-  ciscorouter.sheet.in
+  ciscorouter.sheet.in Cybernetics.sheet.in
 
 SHEETS = $(sheet_in_files:.sheet.in=.sheet)
 
