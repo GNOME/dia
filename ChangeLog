@@ -4,6 +4,7 @@
 	* objects/chronograms/chronoline.c: removed lazyprops (phew !)
 	* objects/chronograms/chronoref.c: ditto 
 
+	* lib/Makefile.am:
 	* lib/lazyprops.[ch] (DELETED): good riddance.
 
 	* lib/properties.[ch]: new property types:

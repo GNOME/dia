@@ -64,8 +64,6 @@ libdia_a_SOURCES =  \
 		connpoint_line.h \
 		properties.c \
 		properties.h \
-		lazyprops.c \
-		lazyprops.h \
 		dia_dirs.c \
 		dia_dirs.h \
 		plug-ins.c \
