@@ -119,7 +119,7 @@ prop_desc_lists_intersection(GList *plists)
       ret = tmp->data;
 
       /* go through array in reverse so that removals don't stuff things up */
-      for (i = arr->len - 1; i >= 0; i++) {
+      for (i = arr->len - 1; i >= 0; i--) {
 	gint j;
 
 	for (j = 0; ret[j].name != NULL; j++)

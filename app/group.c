@@ -25,6 +25,7 @@
 #include "render.h"
 #include "group.h"
 #include "object_ops.h"
+#include "lib/properties.h"
 
 typedef struct _Group Group;
 
@@ -35,6 +36,8 @@ struct _Group {
   Handle resize_handles[8];
 
   GList *objects;
+
+  PropDescription *pdesc;
 };
 
 static real group_distance_from(Group *group, Point *point);
@@ -46,6 +49,9 @@ static void group_update_data(Group *group);
 static void group_update_handles(Group *group);
 static void group_destroy(Group *group);
 static Object *group_copy(Group *group);
+static const PropDescription *group_describe_props(Group *group);
+static void group_get_props(Group *group, Property *props, guint nprops);
+static void group_set_props(Group *group, Property *props, guint nprops);
 
 static ObjectOps group_ops = {
   (DestroyFunc)         group_destroy,
@@ -55,9 +61,12 @@ static ObjectOps group_ops = {
   (CopyFunc)            group_copy,
   (MoveFunc)            group_move,
   (MoveHandleFunc)      group_move_handle,
-  (GetPropertiesFunc)   object_return_null,
-  (ApplyPropertiesFunc) object_return_void,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   group_describe_props,
+  (GetPropsFunc)        group_get_props,
+  (SetPropsFunc)        group_set_props
 };
 
 ObjectType group_type = {
@@ -177,6 +186,8 @@ group_destroy_shallow(Object *group)
 
   g_list_free(((Group *)group)->objects);
 
+  g_free(((Group *)group)->pdesc);
+
   g_free(group);
 }
 
@@ -191,6 +202,8 @@ group_destroy(Group *group)
      been unconnected and freed. */
   obj->num_connections = 0;
   
+  g_free(((Group *)group)->pdesc);
+
   object_destroy(&group->object);
 }
 
@@ -229,6 +242,9 @@ group_copy(Group *group)
     
     list = g_list_next(list);
   }
+
+  /* NULL out the property description field */
+  newgroup->pdesc = NULL;
 
   return (Object *)newgroup;
 }
@@ -287,6 +303,8 @@ group_create(GList *objects)
 
   group->objects = objects;
 
+  group->pdesc = NULL;
+
   /* Make new connections as references to object connections: */
   num_conn = 0;
   list = objects;
@@ -333,3 +351,62 @@ group_objects(Object *group)
   return g->objects;
 }
 
+static const PropDescription *
+group_describe_props(Group *group)
+{
+  if (group->pdesc == NULL) {
+    GList *descs, *tmp;
+
+    /* create list of property descriptions */
+    descs = NULL;
+    for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
+      const PropDescription *desc = NULL;
+      Object *obj = tmp->data;
+
+      if (obj->ops->describe_props)
+	desc = obj->ops->describe_props(obj);
+      if (desc)
+	descs = g_list_append(descs, (gpointer)desc);
+    }
+    group->pdesc = prop_desc_lists_intersection(descs);
+    g_list_free(descs);
+  }
+  return group->pdesc;
+}
+
+static void
+group_get_props(Group *group, Property *props, guint nprops)
+{
+  GList *tmp;
+
+  for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
+    Object *obj = tmp->data;
+
+    if (obj->ops->get_props) {
+      guint i;
+
+      obj->ops->get_props(obj, props, nprops);
+
+      /* Check to see if all props have been read.
+       * Alternate method is to just itterate over all objects. */
+      for (i = 0; i < nprops; i++)
+	if (props[i].type == PROP_TYPE_INVALID)
+	  break;
+      if (i == nprops)
+	break;
+    }
+  }
+}
+
+static void
+group_set_props(Group *group, Property *props, guint nprops)
+{
+  GList *tmp;
+
+  for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
+    Object *obj = tmp->data;
+
+    if (obj->ops->set_props)
+      obj->ops->set_props(obj, props, nprops);
+  }
+}

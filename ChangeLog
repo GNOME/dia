@@ -1,5 +1,18 @@
 2000-02-07  James Henstridge  <james@daa.com.au>
 
+	* app/group.c (group_describe_props): new function.  Return the
+	intersection of the properties of the contained objects that
+	implement the describe_props interface.
+	(group_get_props): implement by iterating through contained objects
+	and calling their get_props method until all properties have been
+	set.  Maybe this should go through all objects all the time??
+	(group_set_props): implement by calling set_props method on all
+	contained objects.
+	(group_ops): use standard props dialog creation routines.
+
+	* lib/properties.c (prop_desc_lists_intersection): fix implementation
+	of intersection -- I was using i++ instead of i-- in a for loop :(
+
 	* objects/custom/custom.c (custom_register_objects): fix usage
 	of dia_get_data_directory again.
 
