@@ -1,5 +1,13 @@
 1999-10-21  Alexander Larsson  <alla@lysator.liu.se>
 
+	* objects/flowchart/box.c:
+	* objects/flowchart/ellipse.c:
+	* objects/flowchart/diamond.c:
+	* objects/flowchart/parallelogram.c:
+	Load and save padding too. Fixes strange load crashes.
+
+1999-10-21  Alexander Larsson  <alla@lysator.liu.se>
+
 	* app/app_procs.c (name_is_lib):
 	.dll, .sl and .so.0.0.0 are also libraries.
 

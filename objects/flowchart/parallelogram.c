@@ -978,6 +978,8 @@ pgram_save(Pgram *pgram, ObjectNode obj_node, const char *filename)
   data_add_real(new_attribute(obj_node, "shear_angle"),
 		pgram->shear_angle);
 
+  data_add_real(new_attribute(obj_node, "padding"), pgram->padding);
+  
   data_add_text(new_attribute(obj_node, "text"), pgram->text);
 }
 
@@ -1035,6 +1037,11 @@ pgram_load(ObjectNode obj_node, int version, const char *filename)
     pgram->shear_angle =  data_real( attribute_first_data(attr) );
   pgram->shear_grad = tan(M_PI/2.0 - M_PI/180.0 * pgram->shear_angle);
 
+  pgram->padding = default_properties.padding;
+  attr = object_find_attribute(obj_node, "padding");
+  if (attr != NULL)
+    pgram->padding =  data_real( attribute_first_data(attr) );
+  
   pgram->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)

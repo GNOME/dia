@@ -806,7 +806,7 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   default:
     break;
   }
-  
+
   p = elem->corner;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - box->text->height * box->text->numlines / 2 +
@@ -1011,6 +1011,8 @@ box_save(Box *box, ObjectNode obj_node, const char *filename)
     data_add_real(new_attribute(obj_node, "corner_radius"),
 		  box->corner_radius);
 
+  data_add_real(new_attribute(obj_node, "padding"), box->padding);
+  
   data_add_text(new_attribute(obj_node, "text"), box->text);
 }
 
@@ -1031,7 +1033,7 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   obj->ops = &box_ops;
 
   element_load(elem, obj_node);
-  
+
   box->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
@@ -1067,6 +1069,11 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     box->corner_radius =  data_real( attribute_first_data(attr) );
 
+  box->padding = default_properties.padding;
+  attr = object_find_attribute(obj_node, "padding");
+  if (attr != NULL)
+    box->padding =  data_real( attribute_first_data(attr) );
+  
   box->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)

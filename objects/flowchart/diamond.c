@@ -891,6 +891,8 @@ diamond_save(Diamond *diamond, ObjectNode obj_node, const char *filename)
     data_add_real(new_attribute(obj_node, "dashlength"),
                   diamond->dashlength);
 
+  data_add_real(new_attribute(obj_node, "padding"), diamond->padding);
+  
   data_add_text(new_attribute(obj_node, "text"), diamond->text);
 }
 
@@ -942,6 +944,11 @@ diamond_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     diamond->dashlength = data_real(attribute_first_data(attr));
 
+  diamond->padding = default_properties.padding;
+  attr = object_find_attribute(obj_node, "padding");
+  if (attr != NULL)
+    diamond->padding =  data_real( attribute_first_data(attr) );
+  
   diamond->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)

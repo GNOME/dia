@@ -871,6 +871,8 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename)
     data_add_real(new_attribute(obj_node, "dashlength"),
                   ellipse->dashlength);
 
+  data_add_real(new_attribute(obj_node, "padding"), ellipse->padding);
+
   data_add_text(new_attribute(obj_node, "text"), ellipse->text);
 }
 
@@ -922,6 +924,11 @@ ellipse_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     ellipse->dashlength = data_real(attribute_first_data(attr));
 
+  ellipse->padding = default_properties.padding;
+  attr = object_find_attribute(obj_node, "padding");
+  if (attr != NULL)
+    ellipse->padding =  data_real( attribute_first_data(attr) );
+  
   ellipse->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
