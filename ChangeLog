@@ -1,3 +1,11 @@
+2002-06-23  Hans Breuer  <hans@breuer.org>
+
+	* lib/font.c : made it compile and small indent fixes.
+	Is there a code-has-no-effect-so-needs-not-be-valid
+	with GCC?	
+
+	* lib/widgets.c : use g_strcasecmp
+
 2002-06-22  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/font.c: 

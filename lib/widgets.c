@@ -82,11 +82,12 @@ dia_font_selector_font_selected(GtkWidget *button, gpointer data)
 
 
 static int
-dia_font_selector_compare_families(const void *o1, const void *o2) {
+dia_font_selector_compare_families(const void *o1, const void *o2) 
+{
   PangoFontFamily *f1 = *(PangoFontFamily**)o1;
   PangoFontFamily *f2 = *(PangoFontFamily**)o2;
   
-  return strcasecmp(pango_font_family_get_name(f1), 
+  return g_strcasecmp(pango_font_family_get_name(f1), 
 		    pango_font_family_get_name(f2));
 }
 

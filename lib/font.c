@@ -231,7 +231,8 @@ dia_font_style_to_legacy_name(Style style) {
 }
 
 G_CONST_RETURN char*
-dia_font_get_legacy_name(const DiaFont* font) {
+dia_font_get_legacy_name(const DiaFont* font) 
+{
     if (font->legacy_name) return font->legacy_name;
     
     ((DiaFont*)font)->legacy_name =
@@ -242,12 +243,17 @@ dia_font_get_legacy_name(const DiaFont* font) {
 }
 
 /* Conversion between our style and pango style/weight */
-int dia_font_pango_style_weight_to_dia(int style, int weight) {
-	 style + (3*(weight-200)/100)) + 1;
+int 
+dia_font_pango_style_weight_to_dia(int style, int weight)
+{
   return style + (3*(weight-200)/100) + 1;
 }
 
-void dia_font_dia_style_to_pango(int style, PangoStyle *pango_style, PangoWeight *pango_weight) {
+void 
+dia_font_dia_style_to_pango(int          style, 
+                            PangoStyle  *pango_style, 
+                            PangoWeight *pango_weight) 
+{
   if (style == 0 || style > STYLE_HEAVY_ITALIC) {
     *pango_style = PANGO_STYLE_NORMAL;
     *pango_weight = PANGO_WEIGHT_NORMAL;
