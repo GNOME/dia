@@ -3292,7 +3292,7 @@ msgstr "Onderbreken"
 #. Translators: Menu item Verb/Control Magnitude/Change/Change
 #: objects/FS/function.c:963 objects/FS/function.c:965
 msgid "Change"
-msgstr "Veranderen"
+msgstr "Wijzigen"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
 #: objects/FS/function.c:967
