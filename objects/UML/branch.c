@@ -30,6 +30,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "text.h"
+#include "properties.h"
 
 #include "uml.h"
 
@@ -65,6 +66,10 @@ static void branch_save(Branch *branch, ObjectNode obj_node,
 static Object *branch_load(ObjectNode obj_node, int version,
 			   const char *filename);
 
+static PropDescription *branch_describe_props(Branch *branch);
+static void branch_get_props(Branch *branch, Property *props, guint nprops);
+static void branch_set_props(Branch *branch, Property *props, guint nprops);
+
 static void branch_update_data(Branch *branch);
 
 static ObjectTypeOps branch_type_ops =
@@ -94,8 +99,48 @@ static ObjectOps branch_ops =
   (MoveHandleFunc)      branch_move_handle,
   (GetPropertiesFunc)   object_return_null,
   (ApplyPropertiesFunc) object_return_void,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   branch_describe_props,
+  (GetPropsFunc)        branch_get_props,
+  (SetPropsFunc)        branch_set_props
 };
+
+static PropDescription branch_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  
+  PROP_DESC_END
+};
+
+static PropDescription *
+branch_describe_props(Branch *branch)
+{
+  if (branch_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(branch_props);
+  return branch_props;
+}
+
+static PropOffset branch_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { NULL, 0, 0 },
+};
+
+static void
+branch_get_props(Branch * branch, Property *props, guint nprops)
+{
+  if (object_get_props_from_offsets((Object *)branch, branch_offsets, props, nprops))
+    return;
+  /* none yet */
+}
+
+static void
+branch_set_props(Branch *branch, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)branch, branch_offsets,
+		     props, nprops)) {
+    /* none yet */
+  }
+  branch_update_data(branch);
+}
 
 static real
 branch_distance_from(Branch *branch, Point *point)

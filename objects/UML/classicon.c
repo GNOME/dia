@@ -28,6 +28,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "text.h"
+#include "properties.h"
 
 #include "uml.h"
 
@@ -96,6 +97,9 @@ static void classicon_save(Classicon *cicon, ObjectNode obj_node,
 			   const char *filename);
 static Object *classicon_load(ObjectNode obj_node, int version,
 			      const char *filename);
+static PropDescription *classicon_describe_props(Classicon *classicon);
+static void classicon_get_props(Classicon *classicon, Property *props, guint nprops);
+static void classicon_set_props(Classicon *classicon, Property *props, guint nprops);
 static void classicon_update_data(Classicon *cicon);
 static GtkWidget *classicon_get_properties(Classicon *cicon);
 static ObjectChange *classicon_apply_properties(Classicon *cicon);
@@ -130,8 +134,106 @@ static ObjectOps classicon_ops = {
   (MoveHandleFunc)      classicon_move_handle,
   (GetPropertiesFunc)   classicon_get_properties,
   (ApplyPropertiesFunc) classicon_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   classicon_describe_props,
+  (GetPropsFunc)        classicon_get_props,
+  (SetPropsFunc)        classicon_set_props
 };
+
+static PropDescription classicon_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "stereotype", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  N_("Stereotype"), NULL, NULL },
+  { "is_object", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  N_("Is object"), NULL, NULL },
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
+  
+  PROP_DESC_END
+};
+
+static PropDescription *
+classicon_describe_props(Classicon *classicon)
+{
+  if (classicon_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(classicon_props);
+  return classicon_props;
+}
+
+static PropOffset classicon_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "stereotype", PROP_TYPE_INT, offsetof(Classicon, stereotype) },
+  { "is_object", PROP_TYPE_INT, offsetof(Classicon, is_object) },
+  { NULL, 0, 0 },
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
+};
+
+static void
+classicon_get_props(Classicon * classicon, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)classicon, classicon_offsets, props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < 4; i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = classicon->text->font;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = classicon->text->height;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = classicon->text->color;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(classicon->text);
+    }
+  }
+}
+
+static void
+classicon_set_props(Classicon *classicon, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)classicon, classicon_offsets,
+		     props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < 4; i++)
+	quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
+	text_set_font(classicon->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
+	text_set_height(classicon->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
+	text_set_color(classicon->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
+	text_set_string(classicon->text, PROP_VALUE_STRING(props[i]));
+      }
+    }
+  }
+  classicon_update_data(classicon);
+}
 
 static real
 classicon_distance_from(Classicon *cicon, Point *point)

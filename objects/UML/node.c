@@ -30,6 +30,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "text.h"
+#include "properties.h"
 
 #include "uml.h"
 
@@ -69,6 +70,10 @@ static void node_save(Node *node, ObjectNode obj_node,
 static Object *node_load(ObjectNode obj_node, int version,
 				 const char *filename);
 
+static PropDescription *node_describe_props(Node *node);
+static void node_get_props(Node *node, Property *props, guint nprops);
+static void node_set_props(Node *node, Property *props, guint nprops);
+
 static void node_update_data(Node *node);
 
 static ObjectTypeOps node_type_ops =
@@ -98,8 +103,52 @@ static ObjectOps node_ops =
   (MoveHandleFunc)      node_move_handle,
   (GetPropertiesFunc)   object_return_null,
   (ApplyPropertiesFunc) object_return_void,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   node_describe_props,
+  (GetPropsFunc)        node_get_props,
+  (SetPropsFunc)        node_set_props
 };
+
+static PropDescription node_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Node name"), NULL, NULL },
+  
+  PROP_DESC_END
+};
+
+static PropDescription *
+node_describe_props(Node *node)
+{
+  if (node_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(node_props);
+  return node_props;
+}
+
+static PropOffset node_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "name", PROP_TYPE_STRING, offsetof(Node, name) },
+  { NULL, 0, 0 },
+};
+
+static void
+node_get_props(Node * node, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)node, node_offsets, props, nprops))
+    return;
+}
+
+static void
+node_set_props(Node *node, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)node, node_offsets,
+		     props, nprops)) {
+  }
+  node_update_data(node);
+}
+
 
 static real
 node_distance_from(Node *node, Point *point)

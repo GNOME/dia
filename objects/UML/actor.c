@@ -27,6 +27,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "text.h"
+#include "properties.h"
 
 #include "pixmaps/actor.xpm"
 
@@ -66,6 +67,10 @@ static void actor_save(Actor *actor, ObjectNode obj_node,
 static Object *actor_load(ObjectNode obj_node, int version,
 			  const char *filename);
 
+static PropDescription *actor_describe_props(Actor *actor);
+static void actor_get_props(Actor *actor, Property *props, guint nprops);
+static void actor_set_props(Actor *actor, Property *props, guint nprops);
+
 static void actor_update_data(Actor *actor);
 
 static ObjectTypeOps actor_type_ops =
@@ -94,8 +99,101 @@ static ObjectOps actor_ops = {
   (MoveHandleFunc)      actor_move_handle,
   (GetPropertiesFunc)   object_return_null,
   (ApplyPropertiesFunc) object_return_void,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   actor_describe_props,
+  (GetPropsFunc)        actor_get_props,
+  (SetPropsFunc)        actor_set_props,
 };
+
+static PropDescription actor_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
+  
+  PROP_DESC_END
+};
+
+static PropDescription *
+actor_describe_props(Actor *actor)
+{
+  if (actor_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(actor_props);
+  return actor_props;
+}
+
+static PropOffset actor_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+
+  { NULL, 0, 0 },
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
+};
+
+static void
+actor_get_props(Actor * actor, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)actor, actor_offsets, props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < 4; i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = actor->text->font;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = actor->text->height;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = actor->text->color;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(actor->text);
+    }
+  }
+}
+
+static void
+actor_set_props(Actor *actor, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)actor, actor_offsets,
+		     props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < 4; i++)
+	quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
+	text_set_font(actor->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
+	text_set_height(actor->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
+	text_set_color(actor->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
+	text_set_string(actor->text, PROP_VALUE_STRING(props[i]));
+      }
+    }
+  }
+  actor_update_data(actor);
+}
 
 static real
 actor_distance_from(Actor *actor, Point *point)

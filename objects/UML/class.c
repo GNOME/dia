@@ -24,6 +24,7 @@
 #include "intl.h"
 #include "render.h"
 #include "attributes.h"
+#include "properties.h"
 
 #include "class.h"
 
@@ -51,6 +52,10 @@ static void umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 static Object *umlclass_load(ObjectNode obj_node, int version,
 			     const char *filename);
 
+static PropDescription *umlclass_describe_props(UMLClass *umlclass);
+static void umlclass_get_props(UMLClass *umlclass, Property *props, guint nprops);
+static void umlclass_set_props(UMLClass *umlclass, Property *props, guint nprops);
+
 static ObjectTypeOps umlclass_type_ops =
 {
   (CreateFunc) umlclass_create,
@@ -77,8 +82,82 @@ static ObjectOps umlclass_ops = {
   (MoveHandleFunc)      umlclass_move_handle,
   (GetPropertiesFunc)   umlclass_get_properties,
   (ApplyPropertiesFunc) umlclass_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   umlclass_describe_props,
+  (GetPropsFunc)        umlclass_get_props,
+  (SetPropsFunc)        umlclass_set_props
 };
+
+static PropDescription umlclass_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  N_("Name"), NULL, NULL },
+  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  N_("Stereotype"), NULL, NULL },
+  { "abstract", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  N_("Abstract"), NULL, NULL },
+  { "suppress_attributes", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  N_("Suppress Attributes"), NULL, NULL },
+  { "suppress_operations", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  N_("Suppress Operations"), NULL, NULL },
+  { "visible_attributes", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  N_("Visible Attributes"), NULL, NULL },
+  { "visible_operations", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  N_("Visible Operations"), NULL, NULL },
+  
+  /* Attributes: XXX */
+  /* Operators: XXX */
+
+  { "template", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  N_("Template"), NULL, NULL },
+
+  /* formal_params XXX */
+
+  PROP_DESC_END
+};
+
+static PropDescription *
+umlclass_describe_props(UMLClass *umlclass)
+{
+  if (umlclass_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(umlclass_props);
+  return umlclass_props;
+}
+
+static PropOffset umlclass_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, color_foreground) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(UMLClass, color_background) },
+  { "name", PROP_TYPE_STRING, offsetof(UMLClass, name) },
+  { "stereotype", PROP_TYPE_STRING, offsetof(UMLClass, stereotype) },
+  { "abstract", PROP_TYPE_INT, offsetof(UMLClass , abstract) },
+  { "suppress_attributes", PROP_TYPE_INT, offsetof(UMLClass , suppress_attributes) },
+  { "visible_attributes", PROP_TYPE_INT, offsetof(UMLClass , visible_attributes) },
+  { "suppress_operations", PROP_TYPE_INT, offsetof(UMLClass , suppress_operations) },
+  { "visible_operations", PROP_TYPE_INT, offsetof(UMLClass , visible_operations) },
+
+  { NULL, 0, 0 },
+};
+
+static void
+umlclass_get_props(UMLClass * umlclass, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)umlclass, umlclass_offsets, props, nprops))
+    return;
+}
+
+static void
+umlclass_set_props(UMLClass *umlclass, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)umlclass, umlclass_offsets,
+		     props, nprops)) {
+  }
+  umlclass_update_data(umlclass);
+}
 
 static real
 umlclass_distance_from(UMLClass *umlclass, Point *point)
@@ -630,7 +709,7 @@ umlclass_create(Point *startpoint,
   
   umlclass->color_foreground = color_black;
   umlclass->color_background = color_white;
-  
+
   umlclass_calculate_data(umlclass);
   
   for (i=0;i<8;i++) {

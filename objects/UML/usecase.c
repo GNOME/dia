@@ -27,6 +27,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "text.h"
+#include "properties.h"
 
 #include "pixmaps/case.xpm"
 
@@ -90,7 +91,9 @@ static Object *usecase_load(ObjectNode obj_node, int version,
 static void usecase_update_data(Usecase *usecase);
 static ObjectChange *usecase_apply_properties(Usecase *usecase);
 static GtkWidget *usecase_get_properties(Usecase *dep);
-
+static PropDescription *usecase_describe_props(Usecase *usecase);
+static void usecase_get_props(Usecase *usecase, Property *props, guint nprops);
+static void usecase_set_props(Usecase *usecase, Property *props, guint nprops);
 
 static ObjectTypeOps usecase_type_ops =
 {
@@ -118,8 +121,106 @@ static ObjectOps usecase_ops = {
   (MoveHandleFunc)      usecase_move_handle,
   (GetPropertiesFunc)   usecase_get_properties,
   (ApplyPropertiesFunc) usecase_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   usecase_describe_props,
+  (GetPropsFunc)        usecase_get_props,
+  (SetPropsFunc)        usecase_set_props
 };
+
+static PropDescription usecase_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "text_outside", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  N_("Text outside"), NULL, NULL },
+  { "collaboration", PROP_TYPE_INT, PROP_FLAG_VISIBLE,
+  N_("Collaboration"), NULL, NULL },
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
+  
+  PROP_DESC_END
+};
+
+static PropDescription *
+usecase_describe_props(Usecase *usecase)
+{
+  if (usecase_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(usecase_props);
+  return usecase_props;
+}
+
+static PropOffset usecase_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "text_outside", PROP_TYPE_INT, offsetof(Usecase, text_outside) },
+  { "collaboration", PROP_TYPE_INT, offsetof(Usecase, collaboration) },
+  { NULL, 0, 0 },
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
+};
+
+static void
+usecase_get_props(Usecase * usecase, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)usecase, usecase_offsets, props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < 4; i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = usecase->text->font;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = usecase->text->height;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = usecase->text->color;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(usecase->text);
+    }
+  }
+}
+
+static void
+usecase_set_props(Usecase *usecase, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)usecase, usecase_offsets,
+		     props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < 4; i++)
+	quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
+	text_set_font(usecase->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
+	text_set_height(usecase->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
+	text_set_color(usecase->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
+	text_set_string(usecase->text, PROP_VALUE_STRING(props[i]));
+      }
+    }
+  }
+  usecase_update_data(usecase);
+}
 
 static real
 usecase_distance_from(Usecase *usecase, Point *point)

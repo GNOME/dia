@@ -1,5 +1,22 @@
 2001-01-06  Hans Breuer <Hans@Breuer.Org>
 
+	* objects/uml/actor.c
+	* objects/uml/branch.c
+	* objects/uml/class.c
+	* objects/uml/classicon.c
+	* objects/uml/component.c
+	* objects/uml/node.c
+	* objects/uml/note.c
+	* objects/uml/object.c
+	* objects/uml/small_package.c
+	* objects/uml/state.c
+	* objects/uml/usecase.c : started to implement the generic property
+	interface for the uml objects. Would appreciate some help on how
+	to implement properties which are list of properties themselves,
+	e.g. member functions and their parameters of UMLClass.
+
+2001-01-06  Hans Breuer <Hans@Breuer.Org>
+
 	* plug-ins/python/diamodule.c : finally ported to win32.
 	Added new objects and implemented register_export function.
 

@@ -28,6 +28,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "text.h"
+#include "properties.h"
 
 #include "uml.h"
 
@@ -103,6 +104,9 @@ static void objet_save(Objet *ob, ObjectNode obj_node,
 		       const char *filename);
 static Object *objet_load(ObjectNode obj_node, int version,
 			  const char *filename);
+static PropDescription *objet_describe_props(Objet *objet);
+static void objet_get_props(Objet *objet, Property *props, guint nprops);
+static void objet_set_props(Objet *objet, Property *props, guint nprops);
 static void objet_update_data(Objet *ob);
 static GtkWidget *objet_get_properties(Objet *ob);
 static ObjectChange *objet_apply_properties(Objet *ob);
@@ -147,8 +151,67 @@ static ObjectOps objet_ops = {
   (MoveHandleFunc)      objet_move_handle,
   (GetPropertiesFunc)   objet_get_properties,
   (ApplyPropertiesFunc) objet_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   objet_describe_props,
+  (GetPropsFunc)        objet_get_props,
+  (SetPropsFunc)        objet_set_props,
 };
+
+
+static PropDescription objet_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Stereotype"), NULL, NULL },
+  PROP_STD_TEXT,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Class name"), NULL, NULL },
+
+  /*
+   * XXX Lists: "attributes" "operations" "templates"
+   */
+
+  { NULL, 0, 0, NULL, NULL, NULL, 0}
+};
+
+static PropDescription *
+objet_describe_props(Objet *ob)
+{
+  if (objet_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(objet_props);
+  return objet_props;
+}
+
+static PropOffset objet_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "name", PROP_TYPE_STRING, offsetof(Objet, exstate) },
+  { "stereotype", PROP_TYPE_STRING, offsetof(Objet, stereotype) },
+  { NULL, 0, 0 },
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "name" },
+  { "stereotype" } 
+};
+
+static void
+objet_get_props(Objet * objet, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)objet, objet_offsets, props, nprops))
+    return;
+  /* XXX ? */
+}
+
+static void
+objet_set_props(Objet *objet, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)objet, objet_offsets,
+		     props, nprops)) {
+    /* XXX ? */
+  }
+  objet_update_data(objet);
+}
 
 static real
 objet_distance_from(Objet *ob, Point *point)

@@ -27,6 +27,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "text.h"
+#include "properties.h"
 
 #include "pixmaps/smallpackage.xpm"
 
@@ -66,6 +67,10 @@ static void smallpackage_save(SmallPackage *pkg, ObjectNode obj_node,
 static Object *smallpackage_load(ObjectNode obj_node, int version,
 				 const char *filename);
 
+static PropDescription *smallpackage_describe_props(SmallPackage *smallpackage);
+static void smallpackage_get_props(SmallPackage *smallpackage, Property *props, guint nprops);
+static void smallpackage_set_props(SmallPackage *smallpackage, Property *props, guint nprops);
+
 static void smallpackage_update_data(SmallPackage *pkg);
 
 static ObjectTypeOps smallpackage_type_ops =
@@ -94,8 +99,106 @@ static ObjectOps smallpackage_ops = {
   (MoveHandleFunc)      smallpackage_move_handle,
   (GetPropertiesFunc)   object_return_null,
   (ApplyPropertiesFunc) object_return_void,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   smallpackage_describe_props,
+  (GetPropsFunc)        smallpackage_get_props,
+  (SetPropsFunc)        smallpackage_set_props,
 };
+
+static PropDescription smallpackage_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  N_("Name"), NULL, NULL },
+  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  N_("Stereotype"), NULL, NULL },
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
+  
+  PROP_DESC_END
+};
+
+static PropDescription *
+smallpackage_describe_props(SmallPackage *smallpackage)
+{
+  if (smallpackage_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(smallpackage_props);
+  return smallpackage_props;
+}
+
+static PropOffset smallpackage_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "name", PROP_TYPE_STRING, offsetof(SmallPackage, name) },
+  { "stereotype", PROP_TYPE_STRING, offsetof(SmallPackage, stereotype) },
+  { NULL, 0, 0 },
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
+};
+
+static void
+smallpackage_get_props(SmallPackage * smallpackage, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)smallpackage, smallpackage_offsets, props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < 4; i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = smallpackage->text->font;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = smallpackage->text->height;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = smallpackage->text->color;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(smallpackage->text);
+    }
+  }
+}
+
+static void
+smallpackage_set_props(SmallPackage *smallpackage, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)smallpackage, smallpackage_offsets,
+		     props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < 4; i++)
+	quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
+	text_set_font(smallpackage->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
+	text_set_height(smallpackage->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
+	text_set_color(smallpackage->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
+	text_set_string(smallpackage->text, PROP_VALUE_STRING(props[i]));
+      }
+    }
+  }
+  smallpackage_update_data(smallpackage);
+}
 
 static real
 smallpackage_distance_from(SmallPackage *pkg, Point *point)

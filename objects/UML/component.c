@@ -27,6 +27,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "text.h"
+#include "properties.h"
 
 #include "pixmaps/component.xpm"
 
@@ -66,6 +67,10 @@ static void component_save(Component *cmp, ObjectNode obj_node,
 static Object *component_load(ObjectNode obj_node, int version,
 				 const char *filename);
 
+static PropDescription *component_describe_props(Component *component);
+static void component_get_props(Component *component, Property *props, guint nprops);
+static void component_set_props(Component *component, Property *props, guint nprops);
+
 static void component_update_data(Component *cmp);
 
 static ObjectTypeOps component_type_ops =
@@ -94,8 +99,106 @@ static ObjectOps component_ops = {
   (MoveHandleFunc)      component_move_handle,
   (GetPropertiesFunc)   object_return_null,
   (ApplyPropertiesFunc) object_return_void,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   component_describe_props,
+  (GetPropsFunc)        component_get_props,
+  (SetPropsFunc)        component_set_props
 };
+
+static PropDescription component_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  N_("Name"), NULL, NULL },
+  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  N_("Stereotype"), NULL, NULL },
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
+  
+  PROP_DESC_END
+};
+
+static PropDescription *
+component_describe_props(Component *component)
+{
+  if (component_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(component_props);
+  return component_props;
+}
+
+static PropOffset component_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "name", PROP_TYPE_STRING, offsetof(Component, name) },
+  { "stereotype", PROP_TYPE_STRING, offsetof(Component , stereotype) },
+  { NULL, 0, 0 },
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
+};
+
+static void
+component_get_props(Component * component, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)component, component_offsets, props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < 4; i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = component->text->font;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = component->text->height;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = component->text->color;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(component->text);
+    }
+  }
+}
+
+static void
+component_set_props(Component *component, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)component, component_offsets,
+		     props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < 4; i++)
+	quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
+	text_set_font(component->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
+	text_set_height(component->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
+	text_set_color(component->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
+	text_set_string(component->text, PROP_VALUE_STRING(props[i]));
+      }
+    }
+  }
+  component_update_data(component);
+}
 
 static real
 component_distance_from(Component *cmp, Point *point)

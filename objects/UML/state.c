@@ -27,6 +27,7 @@
 #include "render.h"
 #include "attributes.h"
 #include "text.h"
+#include "properties.h"
 
 #include "pixmaps/state.xpm"
 
@@ -94,6 +95,9 @@ static void state_save(State *state, ObjectNode obj_node,
 			 const char *filename);
 static Object *state_load(ObjectNode obj_node, int version,
 			    const char *filename);
+static PropDescription *state_describe_props(State *state);
+static void state_get_props(State *state, Property *props, guint nprops);
+static void state_set_props(State *state, Property *props, guint nprops);
 static void state_update_data(State *state);
 static ObjectChange *state_apply_properties(State *state);
 static GtkWidget *state_get_properties(State *state);
@@ -131,8 +135,103 @@ static ObjectOps state_ops = {
   (MoveHandleFunc)      state_move_handle,
   (GetPropertiesFunc)   state_get_properties,
   (ApplyPropertiesFunc) state_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   state_describe_props,
+  (GetPropsFunc)        state_get_props,
+  (SetPropsFunc)        state_set_props
 };
+
+static PropDescription state_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  { "state_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+  N_("State Type"), NULL, NULL },
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
+  
+  PROP_DESC_END
+};
+
+static PropDescription *
+state_describe_props(State *state)
+{
+  if (state_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(state_props);
+  return state_props;
+}
+
+static PropOffset state_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "state_type", PROP_TYPE_ENUM, offsetof(State, state_type) },
+  { NULL, 0, 0 },
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
+};
+
+static void
+state_get_props(State * state, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)state, state_offsets, props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < 4; i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = state->text->font;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = state->text->height;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = state->text->color;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(state->text);
+    }
+  }
+}
+
+static void
+state_set_props(State *state, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)state, state_offsets,
+		     props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < 4; i++)
+	quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
+	text_set_font(state->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
+	text_set_height(state->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
+	text_set_color(state->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
+	text_set_string(state->text, PROP_VALUE_STRING(props[i]));
+      }
+    }
+  }
+  state_update_data(state);
+}
 
 static real
 state_distance_from(State *state, Point *point)
