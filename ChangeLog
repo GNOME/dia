@@ -1,3 +1,7 @@
+2004-06-08  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+
+	* plug-ins/cairo/.cvsignore: CVS-ignore generated makefiles.
+
 2004-06-07  Lars Clausen  <lars@raeder.dk>
 
 	* app/layer_dialog.c (layer_dialog_set_diagram): 
