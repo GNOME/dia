@@ -139,6 +139,8 @@ dia_core_files = \
 	    autosave.c \
 	    autosave.h \
 	    authors.h \
+	    dynamic_refresh.h \
+	    dynamic_refresh.c \
 	    $(print_files)
 
 dia_SOURCES = \

@@ -39,6 +39,7 @@
 #include "message.h"
 #include "color.h"
 #include "properties.h"
+#include "dynamic_obj.h"
 
 #include "pixmaps/analog_clock.xpm"
 
@@ -434,13 +435,19 @@ analog_clock_create(Point *startpoint,
   
   *handle1 = NULL;
   *handle2 = obj->handles[7];  
+
+      /* We are an animated object -- special case ! */
+  dynobj_list_add_object(&analog_clock->element.object,1000);
+
   return &analog_clock->element.object;
 }
 
 static void 
 analog_clock_destroy(Analog_Clock *analog_clock)
 {
-  element_destroy(&analog_clock->element);
+      /* We are an animated object -- special case ! */
+    dynobj_list_remove_object(&analog_clock->element.object);
+    element_destroy(&analog_clock->element);
 }
 
 static Object *

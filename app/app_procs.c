@@ -77,6 +77,7 @@
 #include "recent_files.h"
 #include "authors.h"
 #include "autosave.h"
+#include "dynamic_refresh.h"
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;
@@ -432,7 +433,7 @@ app_init (int argc, char **argv)
 
   /* In current setup, we can't find the autosaved files. */
   /*autosave_restore_documents();*/
-
+  
   if (argv) {
 #ifdef HAVE_POPT
       while (poptPeekArg(poptCtx)) {
@@ -502,6 +503,8 @@ app_init (int argc, char **argv)
 #endif
   }
   if (made_conversions) exit(0);
+
+  dynobj_refresh_init();
 }
 
 static void
@@ -524,7 +527,7 @@ app_exit(void)
   static gboolean app_exit_once = FALSE;
 
   g_return_if_fail (!app_exit_once);
-  
+
   if (diagram_modified_exists()) {
     GtkWidget *dialog;
     GtkWidget *button;
@@ -555,7 +558,9 @@ app_exit(void)
     if (gtk_dialog_run(GTK_DIALOG(dialog)) != GTK_RESPONSE_OK)
       return;
   }
-  
+
+  dynobj_refresh_finish();
+    
   dia_object_defaults_save (NULL);
 
   /* Free loads of stuff (toolbox) */

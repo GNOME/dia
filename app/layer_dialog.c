@@ -306,7 +306,7 @@ layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
   dia = layer_dialog->diagram;
 
   if (dia != NULL) {
-    layer = new_layer(g_strdup(_("New layer")));
+    layer = new_layer(g_strdup(_("New layer")),dia->data);
 
     assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
     selected = GTK_LIST(layer_dialog->layer_list)->selection->data;

@@ -38,6 +38,7 @@
 
 #include "load_save.h"
 #include "group.h"
+#include "diagramdata.h"
 #include "message.h"
 #include "preferences.h"
 #include "diapagelayout.h"
@@ -65,7 +66,8 @@ GHFuncUnknownObjects(gpointer key,
 }
 
 static GList *
-read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
+read_objects(xmlNodePtr objects, Layer *layer,
+             GHashTable *objects_hash,const char *filename)
 {
   GList *list;
   ObjectType *type;
@@ -113,6 +115,7 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
       else
       {
         obj = type->ops->load(obj_node, version, filename);
+        layer_add_object(layer,obj);
         list = g_list_append(list, obj);
       
         g_hash_table_insert(objects_hash, g_strdup((char *)id), obj);
@@ -120,7 +123,10 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
       if (typestr) xmlFree(typestr);
       if (id) xmlFree (id);
     } else if (strcmp(obj_node->name, "group")==0) {
-      obj = group_create(read_objects(obj_node, objects_hash, filename));
+      obj = group_create(read_objects(obj_node, layer,
+                                      objects_hash, filename));
+      layer_add_object(layer,obj);
+      
       list = g_list_append(list, obj);
     } else {
       /* silently ignore other nodes */
@@ -432,7 +438,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
 
     visible = (char *)xmlGetProp(layer_node, "visible");
 
-    layer = new_layer(g_strdup(name));
+    layer = new_layer(g_strdup(name), data);
     if (name) xmlFree(name);
 
     layer->visible = FALSE;
@@ -442,7 +448,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
 
     /* Read in all objects: */
     
-    list = read_objects(layer_node, objects_hash, filename);
+    list = read_objects(layer_node, layer, objects_hash, filename);
     layer->objects = list;
     read_connections( list, layer_node, objects_hash);
 
@@ -582,7 +588,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 
 /* Filename seems to be junk, but is passed on to objects */
 static xmlDocPtr
-diagram_data_write_doc(DiagramData *data, char *filename)
+diagram_data_write_doc(DiagramData *data, const char *filename)
 {
   xmlDocPtr doc;
   xmlNodePtr tree;

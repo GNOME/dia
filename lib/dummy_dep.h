@@ -32,6 +32,7 @@
 #include "intl.h"
 #include "connpoint_line.h"
 #include "properties.h"
+#include "dynamic_obj.h"
 
 /* This is a file with dummy dependencies so that all
    object files will be linked into the app.
@@ -58,4 +59,5 @@ void *dummy_dep[] G_GNUC_UNUSED = {
   connpointline_create, /* connpoint_line.o */
   neworthconn_update_data, /* neworth_conn.o */
   object_create_props_dialog, /* properties.o */
+  dynobj_list_get_dynobj_rate, /* dynamic_obj.o */
 };

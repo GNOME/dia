@@ -39,6 +39,7 @@
 #include "recent_files.h"
 #include "diagram_tree_window.h"
 #include "autosave.h"
+#include "dynamic_refresh.h"
 
 GList *open_diagrams = NULL;
 
@@ -479,6 +480,7 @@ diagram_flush(Diagram *dia)
     
     l = g_slist_next(l);
   }
+  dynobj_refresh_kick();
 }
 
 Object *

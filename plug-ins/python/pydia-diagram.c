@@ -103,7 +103,7 @@ PyDiaDiagram_AddLayer(PyDiaDiagram *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args, "s|i:DiaDiagram.add_layer", &name, &pos))
 	return NULL;
-    layer = new_layer(g_strdup(name));
+    layer = new_layer(g_strdup(name),self->dia->data);
     if (pos != -1)
 	data_add_layer_at(self->dia->data, layer, pos);
     else

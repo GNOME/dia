@@ -57,7 +57,8 @@ new_diagram_data (NewDiagramData *prefs)
 	data->guides.nvguides = 0;
 	data->guides.vguides = NULL;
 
-	first_layer = new_layer(g_strdup(_("Background")));
+	first_layer = new_layer(g_strdup(_("Background")),data);
+  
 	data->layers = g_ptr_array_new ();
 	g_ptr_array_add (data->layers, first_layer);
 	data->active_layer = first_layer;
@@ -88,14 +89,15 @@ diagram_data_destroy(DiagramData *data)
 }
 
 Layer *
-new_layer(gchar *name)
+new_layer(gchar *name, DiagramData *parent)
 {
   Layer *layer;
 
   layer = g_new(Layer, 1);
 
   layer->name = name;
-  
+
+  layer->parent_diagram = parent;
   layer->visible = TRUE;
 
   layer->objects = NULL;

@@ -112,7 +112,7 @@ Layer *layer_find_by_name(char *layername, DiagramData *dia)
 
    if( matching_layer == NULL )
      {
-	matching_layer = new_layer(g_strdup( layername ));
+	matching_layer = new_layer(g_strdup( layername ), dia);
 	data_add_layer(dia, matching_layer);
      }
 

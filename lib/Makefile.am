@@ -104,6 +104,8 @@ libdia_la_SOURCES =  \
 		ps-utf8.h \
 		boundingbox.c \
 		boundingbox.h \
+		dynamic_obj.c \
+		dynamic_obj.h \
 		create.h
 
 #		charconv.c \

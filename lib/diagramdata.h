@@ -91,7 +91,7 @@ DIAVAR int render_bounding_boxes;
 DiagramData *new_diagram_data(NewDiagramData *prefs);
 void diagram_data_destroy(DiagramData *data);
 
-Layer *new_layer (char *name);
+Layer *new_layer (char *name, DiagramData *parent);
 void layer_destroy(Layer *layer);
 
 void data_raise_layer(DiagramData *data, Layer *layer);

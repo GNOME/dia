@@ -1,5 +1,24 @@
-2002-09-25  Cyrille Chépélov  <cyrille@chepelov.org>
+2002-09-26  Cyrille Chépélov  <cyrille@chepelov.org>
 
+	* app/layer_dialog.c: 
+	* app/load_save.c: 
+	* plug-ins/dxf/dxf-import.c: 
+	* plug-ins/python/pydia-diagram.c: 
+	* lib/diagramdata.c:
+	* lib/diagramdata.h:
+	Improved the consistency of the obj->parent_layer backlinks (esp.
+	during reloads)
+
+	* lib/Makefile.am:
+	* lib/dummy_dep.h:
+	* lib/dynamic_obj.[ch] (NEW):
+	* app/Makefile.am:
+	* app/app_procs.c: 
+	* app/dynamic_refresh.[ch] (NEW):
+	* objects/Misc/analog_clock.c: 
+	Added support for dynamic refresh (animated objects).
+		
+2002-09-25  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	Patch from Owen Taylor <otaylor@redhat.com>:	
 	* doc/en/Makefile.am:
