@@ -950,7 +950,7 @@ association_load(ObjectNode obj_node, int version, const char *filename)
 
   assoc->properties_dialog = NULL;
   
-  association_update_data(assoc);
+  association_set_state(assoc, association_get_state(assoc));
 
   return &assoc->orth.object;
 }

@@ -1,3 +1,9 @@
+2004-06-22  Lars Clausen  <lars@raeder.dk>
+
+	* objects/UML/association.c (association_load): Patch from Kiran
+	Kumar Immidi <kimmidi@novell.com>: Update positions properly for
+	text placement. #118313.
+
 2004-06-17  Lars Clausen  <lars@raeder.dk>
 
 	* objects/KAOS/Makefile.am: Add pixmaps/goal.xpm to EXTRA_DIST
