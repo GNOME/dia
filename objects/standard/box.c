@@ -39,6 +39,12 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
+typedef enum {
+  FREE_ASPECT,
+  FIXED_ASPECT,
+  SQUARE_ASPECT
+} AspectType;
+
 typedef struct _Box Box;
 
 struct _Box {
@@ -53,11 +59,13 @@ struct _Box {
   LineStyle line_style;
   real dashlength;
   real corner_radius;
+  AspectType aspect;
 };
 
 static struct _BoxProperties {
   gboolean show_background;
   real corner_radius;
+  AspectType aspect;
 } default_properties = { TRUE, 0.0 };
 
 static real box_distance_from(Box *box, Point *point);
@@ -83,6 +91,8 @@ static void box_set_props(Box *box, GPtrArray *props);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
 static Object *box_load(ObjectNode obj_node, int version, const char *filename);
+static DiaMenu *box_get_object_menu(Box *box, Point *clickedpoint);
+
 static ObjectTypeOps box_type_ops =
 {
   (CreateFunc) box_create,
@@ -113,7 +123,7 @@ static ObjectOps box_ops = {
   (MoveHandleFunc)      box_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
   (ApplyPropertiesFunc) object_apply_props_from_dialog,
-  (ObjectMenuFunc)      NULL,
+  (ObjectMenuFunc)      box_get_object_menu,
   (DescribePropsFunc)   box_describe_props,
   (GetPropsFunc)        box_get_props,
   (SetPropsFunc)        box_set_props,
@@ -121,6 +131,12 @@ static ObjectOps box_ops = {
 
 static PropNumData corner_radius_data = { 0.0, 10.0, 0.1 };
 
+static PropEnumData prop_aspect_data[] = {
+  { N_("Free"), FREE_ASPECT },
+  { N_("Fixed"), FIXED_ASPECT },
+  { N_("Square"), SQUARE_ASPECT },
+  { NULL, 0 }
+};
 static PropDescription box_props[] = {
   ELEMENT_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
@@ -130,6 +146,8 @@ static PropDescription box_props[] = {
   PROP_STD_LINE_STYLE,
   { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Corner radius"), NULL, &corner_radius_data },
+  { "aspect", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+    N_("Aspect ratio"), NULL, prop_aspect_data },
   PROP_DESC_END
 };
 
@@ -147,6 +165,7 @@ static PropOffset box_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Box, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Box, inner_color) },
   { "show_background", PROP_TYPE_BOOL, offsetof(Box, show_background) },
+  { "aspect", PROP_TYPE_ENUM, offsetof(Box, aspect) },
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Box, line_style), offsetof(Box, dashlength) },
   { "corner_radius", PROP_TYPE_REAL, offsetof(Box, corner_radius) },
@@ -216,7 +235,48 @@ box_move_handle(Box *box, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  element_move_handle(&box->element, handle->id, to, cp, reason, modifiers);
+  if (box->aspect != FREE_ASPECT){
+    float width, height;
+    float new_width, new_height;
+    float to_width, aspect_width;
+    Point corner = box->element.corner;
+
+    width = box->element.width;
+    height = box->element.height;
+    switch (handle->id) {
+    case HANDLE_RESIZE_E:
+    case HANDLE_RESIZE_W:
+      new_width = fabs(to->x - corner.x);
+      new_height = new_width / width * height;
+      break;
+    case HANDLE_RESIZE_N:
+    case HANDLE_RESIZE_S:
+      new_height = fabsf(to->y - corner.y);
+      new_width = new_height / height * width;
+      break;
+    case HANDLE_RESIZE_NW:
+    case HANDLE_RESIZE_NE:
+    case HANDLE_RESIZE_SW:
+    case HANDLE_RESIZE_SE:
+      to_width = fabsf(to->x - corner.x);
+      aspect_width = fabsf(to->y - corner.y) / height * width;
+      new_width = to_width < aspect_width ? to_width : aspect_width;
+      new_height = new_width / width * height;
+      break;
+    default: 
+      new_width = width;
+      new_height = height;
+      break;
+    }
+	
+    Point nw_to, se_to;
+    se_to.x = corner.x + new_width;
+    se_to.y = corner.y + new_height;
+        
+    element_move_handle(&box->element, HANDLE_RESIZE_SE, &se_to, cp, reason, modifiers);
+  } else {
+    element_move_handle(&box->element, handle->id, to, cp, reason, modifiers);
+  }
 
   box_update_data(box);
 
@@ -295,6 +355,11 @@ box_update_data(Box *box)
   Object *obj = &elem->object;
   real radius;
   
+  if (box->aspect == SQUARE_ASPECT){
+    float size = elem->height < elem->width ? elem->height : elem->width;
+    elem->height = elem->width = size;
+  }
+
   radius = box->corner_radius;
   radius = MIN(radius, elem->width/2);
   radius = MIN(radius, elem->height/2);
@@ -378,6 +443,7 @@ box_create(Point *startpoint,
   /* For non-default objects, this is overridden by the default */
   box->show_background = default_properties.show_background;
   box->corner_radius = default_properties.corner_radius;
+  box->aspect = default_properties.aspect;
 
   element_init(elem, 8, 8);
 
@@ -423,6 +489,7 @@ box_copy(Box *box)
   newbox->line_style = box->line_style;
   newbox->dashlength = box->dashlength;
   newbox->corner_radius = box->corner_radius;
+  newbox->aspect = box->aspect;
   
   for (i=0;i<8;i++) {
     newobj->connections[i] = &newbox->connections[i];
@@ -466,6 +533,10 @@ box_save(Box *box, ObjectNode obj_node, const char *filename)
   if (box->corner_radius > 0.0)
     data_add_real(new_attribute(obj_node, "corner_radius"),
 		  box->corner_radius);
+
+  if (box->aspect)
+    data_add_enum(new_attribute(obj_node, "aspect"),
+		  box->aspect);
 }
 
 static Object *
@@ -521,6 +592,11 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     box->corner_radius =  data_real( attribute_first_data(attr) );
 
+  box->aspect = FREE_ASPECT;
+  attr = object_find_attribute(obj_node, "aspect");
+  if (attr != NULL)
+    box->aspect = data_enum(attribute_first_data(attr));
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {
@@ -532,4 +608,103 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   box_update_data(box);
 
   return &box->element.object;
+}
+
+
+struct AspectChange {
+  ObjectChange obj_change;
+  AspectType old_type, new_type;
+  /* The points before this got applied.  Afterwards, all points can be
+   * calculated.
+   */
+  Point topleft;
+  real width, height;
+};
+
+static void
+aspect_change_free(struct AspectChange *change)
+{
+}
+
+static void
+aspect_change_apply(struct AspectChange *change, Object *obj)
+{
+  Box *box = (Box*)obj;
+
+  box->aspect = change->new_type;
+  box_update_data(box);
+}
+
+static void
+aspect_change_revert(struct AspectChange *change, Object *obj)
+{
+  Box *box = (Box*)obj;
+
+  box->aspect = change->old_type;
+  box->element.corner = change->topleft;
+  box->element.width = change->width;
+  box->element.height = change->height;
+  box_update_data(box);
+}
+
+static ObjectChange *
+aspect_create_change(Box *box, AspectType aspect)
+{
+  struct AspectChange *change;
+
+  change = g_new(struct AspectChange, 1);
+
+  change->obj_change.apply = (ObjectChangeApplyFunc) aspect_change_apply;
+  change->obj_change.revert = (ObjectChangeRevertFunc) aspect_change_revert;
+  change->obj_change.free = (ObjectChangeFreeFunc) aspect_change_free;
+
+  change->old_type = box->aspect;
+  change->new_type = aspect;
+  change->topleft = box->element.corner;
+  change->width = box->element.width;
+  change->height = box->element.height;
+
+  return (ObjectChange *)change;
+}
+
+
+static ObjectChange *
+box_set_aspect_callback (Object* obj, Point* clicked, gpointer data)
+{
+  ObjectChange *change;
+
+  change = aspect_create_change((Box*)obj, (AspectType)data);
+  change->apply(change, obj);
+
+  return change;
+}
+
+static DiaMenuItem box_menu_items[] = {
+  { N_("Free"), box_set_aspect_callback, (void*)FREE_ASPECT, 
+    DIAMENU_ACTIVE|DIAMENU_TOGGLE },
+  { N_("Fixed"), box_set_aspect_callback, (void*)FIXED_ASPECT, 
+    DIAMENU_ACTIVE|DIAMENU_TOGGLE },
+  { N_("Square"), box_set_aspect_callback, (void*)SQUARE_ASPECT, 
+    DIAMENU_ACTIVE|DIAMENU_TOGGLE},
+};
+
+static DiaMenu box_menu = {
+  "Box",
+  sizeof(box_menu_items)/sizeof(DiaMenuItem),
+  box_menu_items,
+  NULL
+};
+
+static DiaMenu *
+box_get_object_menu(Box *box, Point *clickedpoint)
+{
+  /* Set entries sensitive/selected etc here */
+  box_menu_items[0].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE;
+  box_menu_items[1].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE;
+  box_menu_items[2].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE;
+
+  box_menu_items[box->aspect].active = 
+    DIAMENU_ACTIVE|DIAMENU_TOGGLE|DIAMENU_TOGGLE_ON;
+  
+  return &box_menu;
 }

@@ -1,5 +1,7 @@
 2004-03-15  Lars Clausen  <lars@raeder.dk>
 
+	* objects/standard/box.c: Aspect fixing like ellipses.
+
 	* app/Makefile.am (dia_core_files): Include dia-app-icons.h
 
 	* lib/pixmaps/Makefile.am (imagedir): Better Makefile.am for
