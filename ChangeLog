@@ -1,3 +1,12 @@
+2003-01-15  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/dia_image.h: 
+	* lib/dia_image.c (dia_image_rgba_data): New function to get RGBA
+	data as one chunk.  Documentation for the RGB data getting funcs.
+
+	* lib/dialibartrenderer.c (draw_image): Correct rowstride handling
+	(bug #103565)
+
 2003-01-13  Steffen Macke <sdteffen@web.de>
 
 	* lib/dia_image.c: dia_image_rgb_data() is working for

@@ -36,8 +36,20 @@ void dia_image_draw(DiaImage image, GdkWindow *window,
 int dia_image_width(DiaImage image);
 int dia_image_rowstride(DiaImage image);
 int dia_image_height(DiaImage image);
+/** Returns a copy of the RGB data in this image with any alpha stripped 
+ * The returned buffer must be freed after use.
+ * The buffer is laid out as dia_image_width*dia_image_rowstride*3 bytes.
+ */
 guint8 *dia_image_rgb_data(DiaImage image);
+/** Returns a copy of the alpha data in this image, or NULL if none
+ * The returned buffer must be freed after use.
+ * The buffer is laid out as dia_image_width*dia_image_height bytes.
+ */
 guint8 *dia_image_mask_data(DiaImage image);
+/** Returns the RGBA data in this image, or NULL if there's no alpha.
+ * Note that this is the raw data, not a copy.
+ */
+guint8 *dia_image_rgba_data(DiaImage image);
 char *dia_image_filename(DiaImage image);
 
 #endif /* DIA_IMAGE_H */

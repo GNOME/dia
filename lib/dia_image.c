@@ -176,9 +176,12 @@ dia_image_rgb_data(DiaImage image)
     int i;
     guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
     
+    g_memmove(rgb_pixels, pixels, size);
+    /*
     for(i = 0; i < height; i++) {	
       g_memmove(&rgb_pixels[i*width*3], &pixels[i*rowstride], width*3);
     }
+    */
     return rgb_pixels;
   }
 }
@@ -206,6 +209,34 @@ dia_image_mask_data(DiaImage image)
     mask[i] = pixels[i*4+3];
 
   return mask;
+}
+
+guint8 *
+dia_image_rgba_data(DiaImage image)
+{
+  int size;
+  guint8 *rgb_pixels;
+  int width = dia_image_width(image);
+  int height = dia_image_height(image);
+  int rowstride = dia_image_rowstride(image);
+
+  if (gdk_pixbuf_get_has_alpha(image->image)) {
+    guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
+    
+    size = gdk_pixbuf_get_rowstride(image->image)*
+      gdk_pixbuf_get_height(image->image);
+    rgb_pixels = g_malloc(size);
+
+    g_memmove(rgb_pixels, pixels, size);
+    /*
+    for(i = 0; i < height; i++) {	
+      g_memmove(&rgb_pixels[i*width*4], &pixels[i*rowstride], width*4);
+    }
+    */
+    return rgb_pixels;
+  } else {
+    return NULL;
+  }
 }
 
 char *
