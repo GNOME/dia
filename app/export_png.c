@@ -161,6 +161,11 @@ export_png_ok(GtkButton *button, gpointer userdata)
   sig_bit.blue = 8;
   png_set_sBIT(png, info, &sig_bit);
 
+  png_set_pHYs(png, info,
+	       imagewidth/width*DPCM*100, 
+	       imageheight/height*DPCM*100,
+	       PNG_RESOLUTION_METER);
+
   png_write_info(png, info);
   png_set_shift(png, &sig_bit);
   png_set_packing(png);

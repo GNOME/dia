@@ -21,6 +21,10 @@
 
 2003-01-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/export_png.c (export_png_ok): Added info on resolution.
+	Should (next release) improve export dialog to allow setting
+	resolution instead of pixels.
+
 	* app/lineprops_area.c (dia_arrow_chooser_new): Use menudesc list
 	to generate arrowheads as well as tooltips.
 
