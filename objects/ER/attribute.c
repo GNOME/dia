@@ -45,6 +45,8 @@
 #define TEXT_BORDER_WIDTH_X 1.0
 #define TEXT_BORDER_WIDTH_Y 0.5
 
+#define NUM_CONNECTIONS 9
+
 typedef struct _Attribute Attribute;
 
 struct _AttributeState {
@@ -71,7 +73,7 @@ struct _Attribute {
   gchar *name;
   real name_width;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   gboolean key;
   gboolean weakkey;
@@ -207,8 +209,14 @@ attribute_set_props(Attribute *attribute, GPtrArray *props)
 static real
 attribute_distance_from(Attribute *attribute, Point *point)
 {
-  DiaObject *obj = &attribute->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  Element *elem = &attribute->element;
+  Point center;
+
+  center.x = elem->corner.x+elem->width/2;
+  center.y = elem->corner.y+elem->height/2;
+
+  return distance_ellipse_point(&center, elem->width, elem->height,
+				attribute->border_width, point);
 }
 
 static void
@@ -368,6 +376,10 @@ attribute_update_data(Attribute *attribute)
 		    center.x + half_x,
 		    center.y + half_y,
 		    DIR_SOUTHEAST);
+  connpoint_update(&attribute->connections[8],
+		    center.x,
+		    center.y,
+		    DIR_ALL);
 
   extra->border_trans = attribute->border_width/2.0;
   element_update_boundingbox(elem);
@@ -404,13 +416,14 @@ attribute_create(Point *startpoint,
   attribute->border_color = attributes_get_foreground();
   attribute->inner_color = attributes_get_background();
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &attribute->connections[i];
     attribute->connections[i].object = obj;
     attribute->connections[i].connected = NULL;
   }
+  attribute->connections[8].flags = CP_FLAGS_MAIN;
 
   attribute->key = FALSE;
   attribute->weakkey = FALSE;
@@ -462,12 +475,13 @@ attribute_copy(Attribute *attribute)
   newattribute->border_color = attribute->border_color;
   newattribute->inner_color = attribute->inner_color;
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     newobj->connections[i] = &newattribute->connections[i];
     newattribute->connections[i].object = newobj;
     newattribute->connections[i].connected = NULL;
     newattribute->connections[i].pos = attribute->connections[i].pos;
     newattribute->connections[i].last_pos = attribute->connections[i].last_pos;
+    newattribute->connections[i].flags = attribute->connections[i].flags;
   }
   
   newattribute->font = dia_font_ref(attribute->font);
@@ -580,13 +594,14 @@ static DiaObject *attribute_load(ObjectNode obj_node, int version,
   if (attr != NULL)
     attribute->font_height = data_real( attribute_first_data(attr) );
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &attribute->connections[i];
     attribute->connections[i].object = obj;
     attribute->connections[i].connected = NULL;
   }
+  attribute->connections[8].flags = CP_FLAGS_MAIN;
 
   if (attribute->font == NULL) {
 	  attribute->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,

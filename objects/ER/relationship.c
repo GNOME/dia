@@ -45,6 +45,8 @@
 #define FONT_HEIGHT 0.8
 #define CARDINALITY_DISTANCE 0.3
 
+#define NUM_CONNECTIONS 9
+
 typedef struct _Relationship Relationship;
 
 struct _Relationship {
@@ -62,7 +64,7 @@ struct _Relationship {
   gboolean identifying;
   gboolean rotate;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   real border_width;
   Color border_color;
@@ -345,7 +347,7 @@ relationship_update_data(Relationship *relationship)
     1  / \  3
       *	  *  
      /	   \ 
-  0 *	    * 4
+  0 *	* 8 * 4
      \	   /   	     
       *	  *    	     
     7  \ /  5
@@ -393,6 +395,11 @@ relationship_update_data(Relationship *relationship)
 		   elem->corner.y + 3.0 * elem->height / 4.0,
 		   DIR_SOUTHWEST);
 
+  connpoint_update(&relationship->connections[8],
+		   elem->corner.x + elem->width / 2.0,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_ALL);
+
   extra->border_trans = relationship->border_width / 2.0;
   element_update_boundingbox(elem);
   
@@ -436,13 +443,14 @@ relationship_create(Point *startpoint,
   relationship->border_color = attributes_get_foreground();
   relationship->inner_color = attributes_get_background();
   
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &relationship->connections[i];
     relationship->connections[i].object = obj;
     relationship->connections[i].connected = NULL;
   }
+  relationship->connections[8].flags = CP_FLAGS_MAIN;
 
   relationship->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,FONT_HEIGHT);
   relationship->font_height = FONT_HEIGHT;
@@ -493,7 +501,7 @@ relationship_copy(Relationship *relationship)
   newrelationship->border_color = relationship->border_color;
   newrelationship->inner_color = relationship->inner_color;
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     newobj->connections[i] = &newrelationship->connections[i];
     newrelationship->connections[i].object = newobj;
     newrelationship->connections[i].connected = NULL;
@@ -612,13 +620,14 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     relationship->font_height = data_real(attribute_first_data(attr));
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &relationship->connections[i];
     relationship->connections[i].object = obj;
     relationship->connections[i].connected = NULL;
   }
+  relationship->connections[8].flags = CP_FLAGS_MAIN;
 
   if (relationship->font == NULL) {
     relationship->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,

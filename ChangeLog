@@ -1,5 +1,11 @@
 2005-03-17  Lars Clausen  <lars@raeder.dk>
 
+	* object/standard/box.c:
+	* objects/ER/entity.c: 
+	* objects/ER/relationship.c: 
+	* objects/ER/attribute.c: Main points added.   Distance_from fixed
+	in attribute, broken in relationship.
+
 	* objects/standard/line.c:
 	* lib/geometry.[ch]: 
 	* objects/standard/bezier.c: Patch from Grégoire Dooms

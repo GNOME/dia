@@ -47,10 +47,12 @@
 
 typedef struct _Entity Entity;
 
+#define NUM_CONNECTIONS 9
+
 struct _Entity {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   real border_width;
   Color border_color;
@@ -356,6 +358,10 @@ entity_update_data(Entity *entity)
 		   elem->corner.x + elem->width,
 		   elem->corner.y + elem->height,
 		   DIR_SOUTHEAST);
+  connpoint_update(&entity->connections[8],
+		   elem->corner.x + elem->width / 2.0,
+		   elem->corner.y + elem->height / 2.0,
+		   DIR_ALL);
 
   extra->border_trans = entity->border_width/2.0;
   element_update_boundingbox(elem);
@@ -392,13 +398,14 @@ entity_create(Point *startpoint,
   entity->border_color = attributes_get_foreground();
   entity->inner_color = attributes_get_background();
   
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &entity->connections[i];
     entity->connections[i].object = obj;
     entity->connections[i].connected = NULL;
   }
+  entity->connections[8].flags = CP_FLAGS_MAIN;
 
   entity->weak = GPOINTER_TO_INT(user_data);
   entity->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,FONT_HEIGHT);
@@ -447,12 +454,13 @@ entity_copy(Entity *entity)
   newentity->border_color = entity->border_color;
   newentity->inner_color = entity->inner_color;
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     newobj->connections[i] = &newentity->connections[i];
     newentity->connections[i].object = newobj;
     newentity->connections[i].connected = NULL;
     newentity->connections[i].pos = entity->connections[i].pos;
     newentity->connections[i].last_pos = entity->connections[i].last_pos;
+    newentity->connections[i].flags = entity->connections[i].flags;
   }
 
   newentity->font = dia_font_ref(entity->font);
@@ -548,13 +556,14 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     entity->font_height = data_real(attribute_first_data(attr));
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &entity->connections[i];
     entity->connections[i].object = obj;
     entity->connections[i].connected = NULL;
   }
+  entity->connections[8].flags = CP_FLAGS_MAIN;
 
   if (entity->font == NULL) {
     entity->font = dia_font_new_from_style(DIA_FONT_MONOSPACE,1.0);

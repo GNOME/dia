@@ -379,8 +379,6 @@ ellipse_update_data(Ellipse *ellipse)
   ellipse->connections[7].directions = DIR_SOUTH|DIR_EAST;
   ellipse->connections[8].directions = DIR_ALL;
 
-  ellipse->connections[8].flags = CP_FLAGS_MAIN;
-
   extra->border_trans = ellipse->border_width / 2.0;
   element_update_boundingbox(elem);
 
@@ -436,6 +434,7 @@ ellipse_create(Point *startpoint,
     ellipse->connections[i].object = obj;
     ellipse->connections[i].connected = NULL;
   }
+  ellipse->connections[8].flags = CP_FLAGS_MAIN;
   ellipse_update_data(ellipse);
 
   *handle1 = NULL;
@@ -590,6 +589,8 @@ static DiaObject *ellipse_load(ObjectNode obj_node, int version, const char *fil
     ellipse->connections[i].object = obj;
     ellipse->connections[i].connected = NULL;
   }
+  ellipse->connections[8].flags = CP_FLAGS_MAIN;
+
   ellipse_update_data(ellipse);
 
   return &ellipse->element.object;

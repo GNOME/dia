@@ -39,6 +39,8 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
+#define NUM_CONNECTIONS 9
+
 typedef enum {
   FREE_ASPECT,
   FIXED_ASPECT,
@@ -50,7 +52,7 @@ typedef struct _Box Box;
 struct _Box {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   real border_width;
   Color border_color;
@@ -382,6 +384,8 @@ box_update_data(Box *box)
   box->connections[6].pos.y = elem->corner.y + elem->height;
   box->connections[7].pos.x = elem->corner.x + elem->width - radius;
   box->connections[7].pos.y = elem->corner.y + elem->height - radius;
+  box->connections[8].pos.x = elem->corner.x + elem->width / 2.0;
+  box->connections[8].pos.y = elem->corner.y + elem->height / 2.0;
 
   box->connections[0].directions = DIR_NORTH|DIR_WEST;
   box->connections[1].directions = DIR_NORTH;
@@ -391,6 +395,7 @@ box_update_data(Box *box)
   box->connections[5].directions = DIR_SOUTH|DIR_WEST;
   box->connections[6].directions = DIR_SOUTH;
   box->connections[7].directions = DIR_SOUTH|DIR_EAST;
+  box->connections[8].directions = DIR_ALL;
 
   extra->border_trans = box->border_width / 2.0;
   element_update_boundingbox(elem);
@@ -431,7 +436,6 @@ box_create(Point *startpoint,
 
   obj->ops = &box_ops;
 
-
   elem->corner = *startpoint;
   elem->width = DEFAULT_WIDTH;
   elem->height = DEFAULT_HEIGHT;
@@ -445,13 +449,14 @@ box_create(Point *startpoint,
   box->corner_radius = default_properties.corner_radius;
   box->aspect = default_properties.aspect;
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &box->connections[i];
     box->connections[i].object = obj;
     box->connections[i].connected = NULL;
   }
+  box->connections[8].flags = CP_FLAGS_MAIN;
 
   box_update_data(box);
 
@@ -491,12 +496,13 @@ box_copy(Box *box)
   newbox->corner_radius = box->corner_radius;
   newbox->aspect = box->aspect;
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     newobj->connections[i] = &newbox->connections[i];
     newbox->connections[i].object = newobj;
     newbox->connections[i].connected = NULL;
     newbox->connections[i].pos = box->connections[i].pos;
     newbox->connections[i].last_pos = box->connections[i].last_pos;
+    newbox->connections[i].flags = box->connections[i].flags;
   }
 
   return &newbox->element.object;
@@ -597,13 +603,14 @@ box_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL)
     box->aspect = data_enum(attribute_first_data(attr));
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &box->connections[i];
     box->connections[i].object = obj;
     box->connections[i].connected = NULL;
   }
+  box->connections[8].flags = CP_FLAGS_MAIN;
 
   box_update_data(box);
 
