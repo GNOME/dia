@@ -1,3 +1,28 @@
+2002-09-25  Cyrille Chépélov  <cyrille@chepelov.org>
+
+
+	Patch from Owen Taylor <otaylor@redhat.com>:	
+	* doc/en/Makefile.am:
+	* doc/en/dia-manual.sgml:
+	* doc/en/usage-objects.sgml:
+	* doc/en/usage-quickstart.sgml:
+	* doc/pl/Makefile.am:
+	* doc/pl/dia-manual.sgml:
+	* doc/pl/usage-objects.sgml:
+	* doc/pl/usage-quickstart.sgml:
+
+	- Change the DTD declration from an outdated GNOME one to a
+	standard DTD.
+	
+	- Remove close tags for <graphics> which aren't allowed for
+	docbook SGML
+	
+	- A hacky fix for a problem where some versions of db2html don't
+	create *.css files. (If *.css doesn't match anything, then you get
+	the global explicitely.)
+
+	(Closes: #92061)
+	
 2002-09-24  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	* objects/custom/custom_object.c: 

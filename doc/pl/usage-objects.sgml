@@ -56,7 +56,6 @@
        <screenshot>
          <screeninfo>Zielone kropki umo¿liwiaj± zmianê rozmiaru obrazu.</screeninfo>
          <graphic format="png" fileref="graphics/greendots" srccredit="Kevin Breit">
-         </graphic>
        </screenshot>
      </figure>
      Przestrzeñ wewn±trz ramek jest przestrzeni± obiektu. Klikniêcie i
@@ -130,7 +129,6 @@
       <screenshot>
         <screeninfo>Poni¿ej zosta³y opisane wszystkie trzy akapity.</screeninfo>
         <graphic format="png" fileref="graphics/line_props" srccredit="Kevin Breit">
-        </graphic>
       </screenshot>
     </figure>
     <para>

@@ -57,11 +57,11 @@ install-data-hook: stamp-doc
 if HAVE_DB2HTML
 	$(mkinstalldirs) $(DESTDIR)$(helpdir)
 	for file in $(srcdir)/dia-manual/*.html $(srcdir)/dia-manual/*.css; do\
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/`basename $$file`; \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/`basename $$file`||true;\
 	done
 	$(mkinstalldirs) $(DESTDIR)$(helpdir)/stylesheet-images
 	for file in $(srcdir)/dia-manual/stylesheet-images/*.gif; do \
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/stylesheet-images/`basename $$file`; \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/stylesheet-images/`basename $$file` || true; \
 	done
 	$(mkinstalldirs) $(DESTDIR)$(helpdir)/graphics
 	cd $(srcdir) && for file in $(GRAPHICS); do \
