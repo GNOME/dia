@@ -8,7 +8,6 @@ app/defaults.c
 app/dia-props.c
 app/dia_embedd.c
 app/diacanvas.c
-app/diaconv.c
 app/diagram_tree.c
 app/diagram_tree_menu.c
 app/diagram_tree_window.c

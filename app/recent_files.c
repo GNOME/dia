@@ -100,12 +100,6 @@ recent_file_menuitem_create(GtkWidget *menu, gchar *filename,
     GtkAccelGroup *accel_group;
     
     basename = g_path_get_basename(filename);
-    /* g_strdelimit does not copy.*/
-    g_strdelimit(basename, "_", '\\');
-    escaped  = g_strescape(basename, NULL);
-    g_free(basename);
-    basename = escaped;
-    g_strdelimit(basename, "\\", '_');
     
     label = g_strdup_printf("%d. %s", pos+1, basename);
     item = gtk_menu_item_new_with_label(label);
@@ -169,9 +163,11 @@ void
 recent_file_history_add(const char *fname)
 {
     gchar *absname = dia_get_absolute_filename(fname);
+	gchar *filename = g_filename_to_utf8(absname, -1, NULL, NULL, NULL);
     recent_file_history_clear_menu();
-    persistent_list_add("recent-files", absname);
+    persistent_list_add("recent-files", filename);
     g_free(absname);
+    g_free(filename);
     
     recent_file_history_make_menu();
 }
@@ -197,10 +193,12 @@ void
 recent_file_history_remove (const char *fname) 
 {
     gchar *absname = dia_get_absolute_filename(fname);
+	gchar *filename = g_filename_to_utf8(absname, -1, NULL, NULL, NULL);
     recent_file_history_clear_menu();
 
-    persistent_list_remove("recent-files", absname);
+    persistent_list_remove("recent-files", filename);
     g_free(absname);
+    g_free(filename);
 
     recent_file_history_make_menu();
 }
@@ -210,7 +208,7 @@ open_recent_file_callback(GtkWidget *widget, gpointer data)
 {
 	DiaImportFilter *ifilter = NULL;
 	Diagram *diagram = NULL;
-	gchar *filename = (gchar *)data;
+	gchar *filename = g_filename_from_utf8((gchar *)data, -1, NULL, NULL, NULL);
 
 	ifilter = filter_guess_import_filter(filename);
 	
@@ -221,4 +219,5 @@ open_recent_file_callback(GtkWidget *widget, gpointer data)
 	    new_display(diagram);
 	} else
 	    recent_file_history_remove (filename);
+	g_free(filename);
 }

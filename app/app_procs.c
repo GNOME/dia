@@ -588,7 +588,10 @@ app_init (int argc, char **argv)
   made_conversions = handle_all_diagrams(files, export_file_name,
 					 export_file_format, size);
   if (dia_is_interactive && files == NULL) {
-    Diagram *diagram = new_diagram (_("Diagram1.dia"));
+    gchar *filename = g_filename_from_utf8(_("Diagram1.dia"), -1, NULL, NULL, NULL);
+    Diagram *diagram = new_diagram (filename);
+    g_free(filename);
+	
 	      
     if (diagram != NULL) {
       diagram_update_extents(diagram);

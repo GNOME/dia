@@ -175,6 +175,7 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
   if (!opendlg) {
     DDisplay *ddisp;
     Diagram *dia = NULL;
+    gchar *filename = NULL;
     
     ddisp = ddisplay_active();
     if (ddisp) {
@@ -183,9 +184,12 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
     opendlg = gtk_file_selection_new(_("Open Diagram"));
     gtk_window_set_role(GTK_WINDOW(opendlg), "open_diagram");
     gtk_window_set_position(GTK_WINDOW(opendlg), GTK_WIN_POS_MOUSE);
-    gtk_file_selection_set_filename(GTK_FILE_SELECTION(opendlg),
-				    dia && dia->filename ? dia->filename
-				    : "." G_DIR_SEPARATOR_S);
+    if (dia && dia->filename)
+      filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
+    if (filename == NULL)
+      filename = g_strdup("." G_DIR_SEPARATOR_S);
+    gtk_file_selection_set_filename(GTK_FILE_SELECTION(opendlg), filename);
+    g_free(filename);
     g_signal_connect_swapped(
 		GTK_OBJECT(GTK_FILE_SELECTION(opendlg)->cancel_button),
 	    "clicked", G_CALLBACK(file_dialog_hide),
@@ -249,9 +253,8 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
     GtkWidget *dialog = NULL;
     char buffer[300];
     char *utf8filename = NULL;
-
     if (!g_utf8_validate(filename, -1, NULL)) {
-      utf8filename = g_locale_to_utf8(filename, -1, NULL, NULL, NULL);
+      utf8filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
       if (utf8filename == NULL) {
 	message_warning(_("Some characters in the filename are neither UTF-8 nor your local encoding.\nSome things will break."));
       }
@@ -293,6 +296,7 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
 {
   DDisplay *ddisp;
   Diagram *dia;
+  gchar *filename = NULL;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
@@ -338,9 +342,12 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     if (GTK_WIDGET_VISIBLE(savedlg))
       return;
   }
-  gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg),
-				  dia->filename ? dia->filename
-				  : "." G_DIR_SEPARATOR_S);
+  if (dia && dia->filename)
+    filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
+  if (filename == NULL)
+    filename = g_strdup("." G_DIR_SEPARATOR_S);
+  gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg), filename);
+  g_free(filename);
   gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
   diagram_add_related_dialog(dia, savedlg);
   g_object_ref(dia); 
@@ -475,6 +482,7 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   DDisplay *ddisp;
   Diagram *dia;
   GtkWidget *export_menu, *export_item;
+  gchar *filename = NULL;
 
   ddisp = ddisplay_active();
   if (!ddisp) return;
@@ -484,9 +492,12 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
     exportdlg = gtk_file_selection_new(_("Export Diagram"));
     gtk_window_set_role(GTK_WINDOW(exportdlg), "export_diagram");
     gtk_window_set_position(GTK_WINDOW(exportdlg), GTK_WIN_POS_MOUSE);
-    gtk_file_selection_set_filename(GTK_FILE_SELECTION(exportdlg),
-				    dia->filename ? dia->filename
-				    : "." G_DIR_SEPARATOR_S);
+    if (dia && dia->filename)
+      filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
+    if (filename == NULL)
+      filename = g_strdup("." G_DIR_SEPARATOR_S);
+    gtk_file_selection_set_filename(GTK_FILE_SELECTION(exportdlg), filename);
+	g_free(filename);
     g_signal_connect_swapped(
 		GTK_OBJECT(GTK_FILE_SELECTION(exportdlg)->cancel_button),
 	    "clicked", G_CALLBACK(file_dialog_hide),
@@ -531,9 +542,12 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   gtk_widget_set_sensitive(exportdlg, TRUE);
   if (GTK_WIDGET_VISIBLE(exportdlg))
     return;
-  gtk_file_selection_set_filename(GTK_FILE_SELECTION(exportdlg),
-				  dia->filename ? dia->filename
-				  : "." G_DIR_SEPARATOR_S);
+  if (dia && dia->filename)
+    filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
+  if (filename == NULL)
+    filename = g_strdup("." G_DIR_SEPARATOR_S);
+  gtk_file_selection_set_filename(GTK_FILE_SELECTION(exportdlg), filename);
+  g_free(filename);
   export_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(export_omenu));
   export_item = gtk_menu_get_active(GTK_MENU(export_menu));
   if (export_item)

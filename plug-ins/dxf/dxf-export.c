@@ -511,7 +511,7 @@ export_dxf(DiagramData *data, const gchar *filename,
     renderer->file = file;
     
     /* write layer description */
-    fprintf(file,"O\nSECTION\n2\nTABLES\n");
+    fprintf(file,"0\nSECTION\n2\nTABLES\n");
     for (i=0; i<data->layers->len; i++) {
       layer = (Layer *) g_ptr_array_index(data->layers, i);
       fprintf(file,"0\nLAYER\n2\n%s\n",layer->name);

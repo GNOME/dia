@@ -748,7 +748,7 @@ draw_polygon (DiaRenderer *renderer,
   DiaRendererClass *klass = DIA_RENDERER_GET_CLASS (renderer);
   int i;
 
-  g_return_if_fail (1 > num_points);
+  g_return_if_fail (num_points > 1);
 
   for (i = 0; i < num_points - 1; i++)
     klass->draw_line (renderer, &points[i+0], &points[i+1], color);

@@ -1,3 +1,7 @@
+2004-07-25  Lars Clausen  <lars@raeder.dk>
+
+	* POTFILES.in: Removed app/diaconv.c as it is no longer needed.
+
 2004-07-23  Tommi Vainikainen  <thv@iki.fi>
 
 	* fi.po: Updated Finnish translation.

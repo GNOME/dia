@@ -141,7 +141,8 @@ diagram_init(Diagram *dia, const char *filename)
 
   if (dia->filename != NULL)
     g_free(dia->filename);
-  dia->filename = g_strdup(filename);
+  /* All Diagram functions assumes filename in filesystem encoding */
+  dia->filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
   
   dia->unsaved = TRUE;
   dia->mollified = FALSE;
@@ -1274,7 +1275,7 @@ diagram_set_filename(Diagram *dia, char *filename)
   char *title;
   
   g_free(dia->filename);
-  dia->filename = g_strdup(filename);
+  dia->filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
 
   title = diagram_get_name(dia);
 

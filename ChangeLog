@@ -1,3 +1,40 @@
+2004-07-25  Lars Clausen  <lars@raeder.dk>
+
+	* lib/diarenderer.c (draw_polygon): 
+	* plug-ins/dxf/dxf-export.c (export_dxf): Two fixes by Takeshi
+	Hamasaki <hma@syd.odn.ne.jp>: Correct header to be a 0 (zero)
+	rather than O (letter), and assert num_points > 1 rather than the
+	other way around.
+
+	* app/recent_files.c: 
+	* app/filedlg.c: 
+	* app/diagram.c: 
+	* app/app_procs.c: Patch from Vitaly Lipatov <lav@altlinux.ru>:
+	Make filenames conform to filesystem encoding.
+
+	* RDP/.cvsignore: Added standard ignore.
+	
+	* shapes/network/Makefile.am (SHAPES): Use PNG instead of XPM for
+	last entry patch-panel, too.
+
+	* app/*.png:
+	* shapes/Circuit/*.png:
+	* shapes/Civil/*.png:
+	* shapes/Contact/*.png:
+	* shapes/Electric/*.png:
+	* shapes/MSE/*.png:
+	* shapes/Pneumatic/*.png:
+	* shapes/SDL/*.png:
+	* shapes/flowchart/*.png:
+	* shapes/jigsaw/*.png:
+	* shapes/network/*.png:
+	* shapes/sybase/*.png:
+	* samples/dia*.png:
+	* dia_gnome_icon_large.png:
+	* doc/pl/graphics/*.png: Set -kb for PNGs.
+	
+	* sheets/{ER,GRAFCET,Istar,Jackson,KAOS}: Added .png files.
+
 2004-07-22  Lars Clausen  <lars@raeder.dk>
 
 	* NEWS: 
