@@ -1,5 +1,13 @@
 1999-09-28  Alexander Larsson  <alla@lysator.liu.se>
 
+	* lib/poly_conn.c (polyconn_destroy):
+	Fix bug. Access of freed memory.
+	Rememeber, you can't free the handles of an object
+	before calling object_destroy(), as it unconnects the handles
+	therefore referencing them.
+
+1999-09-28  Alexander Larsson  <alla@lysator.liu.se>
+
 	* app/undo.c:
 	undo_clear() didn't set stack->depth to zero.
 	This made other undo functions crash after this had been called

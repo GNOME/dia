@@ -223,7 +223,8 @@ typedef DiaMenu *(*ObjectMenuFunc) (Object* obj, Point *position);
  *************************************/
 
 extern void object_init(Object *obj, int num_handles, int num_connections);
-extern void object_destroy(Object *obj);
+extern void object_destroy(Object *obj); /* Unconnects handles, so don't
+					    free handles before calling. */
 extern void object_copy(Object *from, Object *to);
 
 extern void object_save(Object *obj, ObjectNode obj_node);

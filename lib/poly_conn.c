@@ -391,12 +391,20 @@ void
 polyconn_destroy(PolyConn *poly)
 {
   int i;
+  Handle **temp_handles;
 
+  /* Need to store these temporary since object.handles is
+     freed by object_destroy() */
+  temp_handles = g_new(Handle *, poly->numpoints);
   for (i=0;i<poly->numpoints;i++)
-    g_free(poly->object.handles[i]);
+    temp_handles[i] = poly->object.handles[i];
 
   object_destroy(&poly->object);
 
+  for (i=0;i<poly->numpoints;i++)
+    g_free(temp_handles[i]);
+  g_free(temp_handles);
+  
   g_free(poly->points);
 }
 
