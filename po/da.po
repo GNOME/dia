@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
 "POT-Creation-Date: 2000-08-06 10:12+0800\n"
-"PO-Revision-Date: 2000-08-18 02:27+0200\n"
+"PO-Revision-Date: 2000-09-07 02:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -691,7 +691,7 @@ msgid "_Zoom"
 msgstr "_Zoom"
 
 #: app/menus.c:112
-msgid "Diagram Propeties..."
+msgid "Diagram Properties..."
 msgstr "Diagram egenskaber..."
 
 #: app/menus.c:114
@@ -2619,114 +2619,3 @@ msgstr "Skalérbar vektorgrafik"
 #: plug-ins/svg/svg.c:36
 msgid "Scalable Vector Graphics export filter"
 msgstr "Eksportfilter for skalerbar vektorgrafik"
-
-#~ msgid "File/New diagram"
-#~ msgstr "Filer/nyt diagram"
-
-#~ msgid "File/Open..."
-#~ msgstr "Filer/Åbn..."
-
-#~ msgid "File/Save As..."
-#~ msgstr "/Filer/Gem som..."
-
-#~ msgid "File/Close"
-#~ msgstr "/Filer/Luk"
-
-#~ msgid "File/Exit"
-#~ msgstr "/Filer/Afslut"
-
-#~ msgid "View/New View"
-#~ msgstr "/Vis/Ny visning"
-
-#~ msgid "/Edit/Copy"
-#~ msgstr "/Redigér/Kopiér"
-
-#~ msgid "/Edit/Cut"
-#~ msgstr "/Redigér/Klip ud"
-
-#~ msgid "/Edit/Paste"
-#~ msgstr "/Redigér/Indsæt"
-
-#~ msgid "/Edit/Delete"
-#~ msgstr "/Redigér/Slet"
-
-#~ msgid "/Edit/Paste Text"
-#~ msgstr "/Redigér/Indsæt tekst"
-
-#~ msgid "/Objects/Send to Back"
-#~ msgstr "/Objekter/Send bagud"
-
-#~ msgid "/Objects/Bring to Front"
-#~ msgstr "/Objekter/Hent frem"
-
-#~ msgid "/Objects/Group"
-#~ msgstr "/Objekter/Gruppér"
-
-#~ msgid "/Objects/Ungroup"
-#~ msgstr "/Objekter/Afgruppér"
-
-#~ msgid "/View/Show Rulers"
-#~ msgstr "/Vis/Vis _linealer"
-
-#~ msgid "/View/Visible Grid"
-#~ msgstr "/Vis/_Synligt gitter"
-
-#~ msgid "/View/Snap To Grid"
-#~ msgstr "/Vis/_Lås til gitter"
-
-#~ msgid "/View/Show Connection Points"
-#~ msgstr "/Vis/Vis forbindelsespunkter"
-
-#~ msgid "/View/AntiAliased"
-#~ msgstr "/Vis/Antialiaseret"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/Filer/sep1"
-
-#~ msgid "/tearoff"
-#~ msgstr "/rivvæk"
-
-#~ msgid "/File/tearoff"
-#~ msgstr "/Filer/rivvæk"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/Filer/sep2"
-
-#~ msgid "/Edit/tearoff"
-#~ msgstr "/Redigér/rivvæk"
-
-#~ msgid "/View/tearoff"
-#~ msgstr "/Vis/rivvæk"
-
-#~ msgid "/View/Zoom/tearoff"
-#~ msgstr "/Vis/Zoom/rivvæk"
-
-#~ msgid "/View/sep1"
-#~ msgstr "/Vis/sep1"
-
-#~ msgid "/Select/tearoff"
-#~ msgstr "/Vælg/rivvæk"
-
-#~ msgid "/Select/sep1"
-#~ msgstr "/Vælg/sep1"
-
-#~ msgid "/Objects/tearoff1"
-#~ msgstr "/Objekter/rivvæk1"
-
-#~ msgid "/Objects/sep1"
-#~ msgstr "/Objekter/sep1"
-
-#~ msgid "/Objects/Align Horizontal/tearoff"
-#~ msgstr "/Objekter/Justér vandret/rivvæk"
-
-#~ msgid "/Objects/Align Vertical/tearoff"
-#~ msgstr "/Objekter/Justér lodret/rivvæk"
-
-#~ msgid "/Tools/tearoff"
-#~ msgstr "/Værktøj/rivvæk"
-
-#~ msgid "/Dialogs/tearoff"
-#~ msgstr "/Dialoger/rivvæk"
-
-#~ msgid "/Tools/"
-#~ msgstr "/Værktøj/"
