@@ -108,8 +108,6 @@ save_state (GnomeClient        *client,
 }
 #endif
 
-static int current_version = 0;
-
 void
 debug_break(void)
 {
@@ -128,7 +126,7 @@ app_init (int argc, char **argv)
   char *export_file_name = NULL;
 #ifdef HAVE_POPT
   int rc;
-  poptContext poptCtx;
+  poptContext poptCtx = NULL;
   struct poptOption options[] =
   {
     {"export", 'e', POPT_ARG_STRING, &export_file_name, 0,
@@ -140,7 +138,7 @@ app_init (int argc, char **argv)
     {(char *) NULL, '\0', 0, NULL, 0}
   };
 #endif
-  int i;
+  int i = 0;
 
   gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
@@ -165,7 +163,7 @@ app_init (int argc, char **argv)
     }
 #else
 #ifdef HAVE_POPT
-    poptCtx = poptGetContext(PACKAGE, argc, argv, options, 0);
+    poptCtx = poptGetContext(PACKAGE, argc, (const char **)argv, options, 0);
     poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
     if((rc = poptGetNextOpt(poptCtx)) < -1) {
       fprintf(stderr, 
@@ -226,7 +224,7 @@ app_init (int argc, char **argv)
   if (argv) {
 #ifdef HAVE_POPT
     while (poptPeekArg(poptCtx)) {
-      in_file_name = poptGetArg(poptCtx);
+      in_file_name = (char *)poptGetArg(poptCtx);
       diagram = diagram_load (in_file_name);
       if (export_file_name) {
 	DiaExportFilter *ef;

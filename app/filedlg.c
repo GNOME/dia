@@ -430,7 +430,7 @@ file_export_callback(GtkWidget *widget, gpointer user_data)
 				    : "." G_DIR_SEPARATOR_S);
   }
   if (!export_options) {
-    GtkWidget *hbox, *label, *omenu, *menu;
+    GtkWidget *hbox, *label, *omenu;
 
     export_options = gtk_frame_new(_("Export Options"));
     gtk_frame_set_shadow_type(GTK_FRAME(export_options), GTK_SHADOW_ETCHED_IN);

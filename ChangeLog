@@ -1,5 +1,25 @@
 2000-05-09  James Henstridge  <james@daa.com.au>
 
+	* AUTHORS: added Henk and Jacek to authors file.
+
+	Daniel Egger's code cleanups.
+
+	* app/select.c (select_invert_callback): remove unused variable.
+
+	* app/plugin-manager.c (get_plugin_manager): fix typo.
+
+	* app/load_save.c (read_connections, write_objects): 
+	(write_connections): made some functions static.
+
+	* app/interface.c (toolbox_delete, toolbox_destroy): made some
+	functions static.
+
+	* app/filedlg.c (file_export_callback): remove unused variable.
+
+	* app/app_procs.c: various warning fixes.
+
+	Integrating Jacek Pliszka's pstricks export filter.
+
 	* plug-ins/pstricks/pstricks.c: code to initialise the plugin.
 
 	* plug-ins/pstricks/render_pstricks.[ch]: Jacek Pliszka's pstricks

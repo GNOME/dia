@@ -228,7 +228,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   GList *list;
   Point *orig_pos;
   Point *dest_pos;
-  real y_pos;
+  real y_pos = 0;
   Object *obj;
   Point pos;
   real top, bottom, freespc;
@@ -344,7 +344,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   GList *list;
   Point *orig_pos;
   Point *dest_pos;
-  real x_pos;
+  real x_pos = 0;
   Object *obj;
   Point pos;
   real left, right, freespc = 0;

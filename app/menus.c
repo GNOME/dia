@@ -135,29 +135,44 @@ static GnomeUIInfo selectmenu[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Transitive"), NULL, select_transitive_callback, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Same Type"), NULL, select_same_type_callback, 0),
   GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_TOGGLEITEM(N_("Replace"), NULL, select_style_callback, 0),
-  GNOMEUIINFO_TOGGLEITEM(N_("Union"), NULL, select_style_callback, 1),
-  GNOMEUIINFO_TOGGLEITEM(N_("Intersect"), NULL, select_style_callback, 2),
-  GNOMEUIINFO_TOGGLEITEM(N_("Remove"), NULL, select_style_callback, 3),
-  GNOMEUIINFO_TOGGLEITEM(N_("Invert"), NULL, select_style_callback, 4),
+  GNOMEUIINFO_TOGGLEITEM(N_("Replace"), NULL, select_style_callback, 
+			 GINT_TO_POINTER(0)),
+  GNOMEUIINFO_TOGGLEITEM(N_("Union"), NULL, select_style_callback,
+			 GINT_TO_POINTER(1)),
+  GNOMEUIINFO_TOGGLEITEM(N_("Intersect"), NULL, select_style_callback,
+			 GINT_TO_POINTER(2)),
+  GNOMEUIINFO_TOGGLEITEM(N_("Remove"), NULL, select_style_callback, 
+			 GINT_TO_POINTER(3)),
+  GNOMEUIINFO_TOGGLEITEM(N_("Invert"), NULL, select_style_callback, 
+			 GINT_TO_POINTER(4)),
   GNOMEUIINFO_END
 };
 
 static GnomeUIInfo objects_align_h[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Left"), NULL, objects_align_h_callback, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_h_callback, 1),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Right"), NULL, objects_align_h_callback, 2),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_h_callback, 4),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback, 5),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Left"), NULL, objects_align_h_callback,
+			     GINT_TO_POINTER(0)),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_h_callback,
+			     GINT_TO_POINTER(1)),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Right"), NULL, objects_align_h_callback,
+			     GINT_TO_POINTER(2)),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_h_callback,
+			     GINT_TO_POINTER(4)),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback,
+			     GINT_TO_POINTER(5)),
   GNOMEUIINFO_END
 };
 
 static GnomeUIInfo objects_align_v[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Top"), NULL, objects_align_v_callback, 0),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_v_callback, 1),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_v_callback, 2),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_v_callback, 4),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback, 5),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Top"), NULL, objects_align_v_callback,
+			     GINT_TO_POINTER(0)),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_v_callback,
+			     GINT_TO_POINTER(1)),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_v_callback,
+			     GINT_TO_POINTER(2)),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_v_callback,
+			     GINT_TO_POINTER(4)),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback,
+			     GINT_TO_POINTER(5)),
   GNOMEUIINFO_END
 };
 

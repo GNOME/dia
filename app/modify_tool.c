@@ -276,7 +276,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
 {
   Point to;
   Point now, delta, full_delta;
-  gboolean auto_scroll, vertical;
+  gboolean auto_scroll, vertical = FALSE;
   ConnectionPoint *connectionpoint;
 
   if (tool->state==STATE_NONE)

@@ -133,7 +133,7 @@ get_plugin_manager(void)
 #else
   pm.window = gtk_dialog_new();
   gtk_window_set_title(GTK_WINDOW(pm.window), _("Plug-ins"));
-  gtk_container_set_border_width(GTK_WINDOW(pm.window), 2);
+  gtk_container_set_border_width(GTK_CONTAINER(pm.window), 2);
   gtk_window_set_policy(GTK_WINDOW(pm.window), FALSE, TRUE, FALSE);
   vbox = GTK_DIALOG(pm.window)->vbox;
 

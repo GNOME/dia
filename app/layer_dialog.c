@@ -544,7 +544,7 @@ layer_dialog_set_diagram(Diagram *dia)
   DiagramData *data;
   GtkWidget *layer_widget;
   Layer *layer;
-  Layer *active_layer;
+  Layer *active_layer = NULL;
   int sel_pos;
   int i,j;
 

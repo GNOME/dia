@@ -733,14 +733,14 @@ create_lineprops_area(GtkWidget *parent)
   gtk_widget_show(chooser);
 }
 
-void
+static void
 toolbox_delete (GtkWidget *widget, gpointer data)
 {
   if (!app_is_embedded())
     app_exit();
 }
 
-void
+static void
 toolbox_destroy (GtkWidget *widget, gpointer data)
 {
   app_exit();

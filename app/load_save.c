@@ -97,7 +97,7 @@ read_objects(xmlNodePtr objects, GHashTable *objects_hash, char *filename)
   return list;
 }
 
-void
+static void
 read_connections(GList *objects, xmlNodePtr layer_node,
 		 GHashTable *objects_hash)
 {
@@ -356,7 +356,7 @@ diagram_load(char *filename)
   return dia;
 }
 
-void
+static void
 write_objects(GList *objects, xmlNodePtr objects_node,
 	      GHashTable *objects_hash, int *obj_nr, const char *filename)
 {
@@ -396,7 +396,7 @@ write_objects(GList *objects, xmlNodePtr objects_node,
   }
 }
 
-int
+static int
 write_connections(GList *objects, xmlNodePtr layer_node,
 		  GHashTable *objects_hash)
 {

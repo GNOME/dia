@@ -27,7 +27,8 @@
 enum SelectionStyle selection_style = SELECT_REPLACE;
 
 void
-select_all_callback(GtkWidget *widget, gpointer data) {
+select_all_callback(GtkWidget *widget, gpointer data)
+{
   Diagram *dia;
   GList *objects;
 
@@ -50,7 +51,8 @@ select_all_callback(GtkWidget *widget, gpointer data) {
 }
 
 void
-select_none_callback(GtkWidget *widget, gpointer data) {
+select_none_callback(GtkWidget *widget, gpointer data)
+{
   Diagram * dia = ddisplay_active()->diagram;
 
   diagram_remove_all_selected(dia, TRUE);
@@ -61,9 +63,10 @@ select_none_callback(GtkWidget *widget, gpointer data) {
 }
 
 void
-select_invert_callback(GtkWidget *widget, gpointer data) {
+select_invert_callback(GtkWidget *widget, gpointer data)
+{
   Diagram *dia;
-  GList *objects, *tmp;
+  GList *tmp;
 
   dia = ddisplay_active()->diagram;
 
@@ -85,7 +88,8 @@ select_invert_callback(GtkWidget *widget, gpointer data) {
 }
 
 void
-select_connected_callback(GtkWidget *widget, gpointer data) {
+select_connected_callback(GtkWidget *widget, gpointer data)
+{
   Diagram *dia = ddisplay_active()->diagram;
   GList *objects, *tmp;
 
@@ -130,7 +134,8 @@ select_connected_callback(GtkWidget *widget, gpointer data) {
 }
 
 static void
-select_transitively(Diagram *dia, Object *obj) {
+select_transitively(Diagram *dia, Object *obj)
+{
   int i;
   /* Do breadth-first to avoid overly large stack */
   GList *newly_selected = NULL;
@@ -167,7 +172,8 @@ select_transitively(Diagram *dia, Object *obj) {
 }
 
 void
-select_transitive_callback(GtkWidget *widget, gpointer data) {
+select_transitive_callback(GtkWidget *widget, gpointer data)
+{
   Diagram *dia = ddisplay_active()->diagram;
   GList *objects, *tmp;
 
@@ -183,7 +189,8 @@ select_transitive_callback(GtkWidget *widget, gpointer data) {
 }
 
 void
-select_same_type_callback(GtkWidget *widget, gpointer data) {
+select_same_type_callback(GtkWidget *widget, gpointer data)
+{
   /* For now, do a brute force version:  Check vs. all earlier selected.
      Later, we should really sort the selecteds first to avoid n^2 */
   Diagram *dia;
@@ -216,7 +223,8 @@ select_same_type_callback(GtkWidget *widget, gpointer data) {
 }
 
 void
-select_style_callback(GtkWidget *widget, gpointer data) {
+select_style_callback(GtkWidget *widget, gpointer data)
+{
   static GtkCheckMenuItem *replace_item;
   static GtkCheckMenuItem *union_item;
   static GtkCheckMenuItem *intersect_item;
