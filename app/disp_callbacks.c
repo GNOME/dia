@@ -336,9 +336,12 @@ static void handle_key_event(DDisplay *ddisp, Focus *focus, guint keysym,
 	  
   object_add_updates(obj, ddisp->diagram);
 
-  if (modified && (obj_change != NULL)) {
-    undo_object_change(ddisp->diagram, obj, obj_change);
-    undo_set_transactionpoint(ddisp->diagram->undo);
+  if (modified) {
+    diagram_modified(ddisp->diagram);
+    if (obj_change != NULL) {
+      undo_object_change(ddisp->diagram, obj, obj_change);
+      undo_set_transactionpoint(ddisp->diagram->undo);
+    }
   }
 
   diagram_flush(ddisp->diagram);

@@ -512,11 +512,13 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   case STATE_MOVE_OBJECT:
     /* Return to normal state */
     gdk_pointer_ungrab (event->time);
-    tool->orig_pos = NULL;
-    tool->state = STATE_NONE;
 
     ddisplay_untransform_coords(ddisp, event->x, event->y, &to.x, &to.y);
-    if (!modify_move_already(tool, ddisp, &to)) return;
+    if (!modify_move_already(tool, ddisp, &to)) {
+      tool->orig_pos = NULL;
+      tool->state = STATE_NONE;
+      return;
+    }
 
     diagram_update_connections_selection(ddisp->diagram);
 
@@ -541,6 +543,8 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 
     undo_set_transactionpoint(ddisp->diagram->undo);
 
+    tool->orig_pos = NULL;
+    tool->state = STATE_NONE;
     break;
   case STATE_MOVE_HANDLE:
     gdk_pointer_ungrab (event->time);

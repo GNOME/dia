@@ -1,5 +1,16 @@
+2003-02-24  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/disp_callbacks.c: Set modifed when text is changed.
+
+	* app/modify_tool.c (modify_button_release): Allow undo for moving
+	objects.
+
 2003-02-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* dia.spec: 
+	* doc/en/dia-manual.sgml: 
+	* NEWS: 
+	* configure.in: New prerelease with important bugfix.
 	* shapes/network/digitizing_board.png:
 	* shapes/network/plotter.png: Re-adding with -kb.
 	
