@@ -708,9 +708,20 @@ draw_string(MyRenderer *renderer,
     len = strlen(text);
 
     hOld = W32::SelectObject(renderer->hFileDC, renderer->hFont);
+#if 1
+    {
+        gint wclen = 0;
+        gunichar2* swc = g_utf8_to_utf16 (text, -1, NULL, &wclen, NULL);
+        W32::TextOutW (renderer->hFileDC,
+                       SCX(pos->x), SCY(pos->y),
+                       swc, wclen);
+        g_free (swc);
+    }
+#else
     W32::TextOut(renderer->hFileDC,
                  SCX(pos->x), SCY(pos->y),
                  text, len);
+#endif
     W32::SelectObject(renderer->hFileDC, hOld);
 }
 

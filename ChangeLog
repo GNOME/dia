@@ -1,3 +1,15 @@
+2001-03-24  Hans Breuer  <hans@breuer.org>
+
+	* app/diagram.c : g_strdup (dia->filename) because it will be
+	g_free ()d
+
+	* app/display.c : set ddisp->renderer to NULL after destruction.
+	This may solve or help to identify erroneous access to it after
+	destruction.
+ 
+	* plug-ins/wmf/wmf.cpp : convert string from utf8 to wchar to
+	get 'umlauts' working
+
 2001-03-22  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* object/chronogram/chronoline_event.c: stupid bug ; rises and falls

@@ -791,7 +791,7 @@ diagram_set_filename(Diagram *dia, char *filename)
   char *title;
   
   g_free(dia->filename);
-  dia->filename = strdup(filename);
+  dia->filename = g_strdup(filename);
 
 
   title = strrchr(filename, G_DIR_SEPARATOR);

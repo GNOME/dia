@@ -996,7 +996,8 @@ ddisplay_really_destroy(DDisplay *ddisp)
     destroy_libart_renderer((RendererLibart *)ddisp->renderer);
   else
     destroy_gdk_renderer((RendererGdk *)ddisp->renderer);
-    
+
+  ddisp->renderer = NULL;
   
   g_hash_table_remove(display_ht, ddisp->shell);
   g_hash_table_remove(display_ht, ddisp->canvas);
