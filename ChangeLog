@@ -1,3 +1,13 @@
+2005-01-07  Tim Olsen  <tolsen@alum.mit.edu>
+
+	* objects/UML/activity.c : add fill- and line-colour properties
+	[applied by Hans Breuer, fixes bug #163260]
+
+2004-01-28  Hans Breuer  <hans@breuer.org>
+
+	* doc/en/*.xml doc/en/dia.dbk app/authors.h : documentation
+	update provided by Alan Horkan (fixes bug #159592)
+
 2004-01-28  Hans Breuer  <hans@breuer.org>
 
 	[Extented version for UML to C++ conversion by Dave Klotzbach, bug #155255]
