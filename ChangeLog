@@ -1,5 +1,16 @@
 1998-09-30  Alexander Larsson  <alla@lysator.liu.se>
 
+	* objects/network/bus.c:
+	* objects/network/network.c:
+	* objects/network/Makefile.am:
+	New file bus.c. Added new object: Ethernet bus.
+
+	* objects/standard/box.c:
+	Added call to gtk_spin_button_set_numeric for linewidth spinner
+	in property dialog.
+
+1998-09-30  Alexander Larsson  <alla@lysator.liu.se>
+
 	* app/connectionpoint_ops.c:
 	* app/create_object.c:
 	* app/group.c:

@@ -25,10 +25,12 @@ Color computer_color = { 0.7, 0.7, 0.7 };
 extern ObjectType computer_type;
 extern ObjectType monitor_type;
 extern ObjectType disc_type;
+extern ObjectType bus_type;
 
 extern SheetObject computer_sheetobj;
 extern SheetObject monitor_sheetobj;
 extern SheetObject disc_sheetobj;
+extern SheetObject bus_sheetobj;
 
 void register_objects(void) {
   Sheet *sheet;
@@ -36,12 +38,14 @@ void register_objects(void) {
   object_register_type(&computer_type);
   object_register_type(&monitor_type);
   object_register_type(&disc_type);
+  object_register_type(&bus_type);
 
   sheet = new_sheet("Network",
 		    "Objects to design network diagrams with");
   sheet_append_sheet_obj(sheet, &computer_sheetobj);
   sheet_append_sheet_obj(sheet, &monitor_sheetobj);
   sheet_append_sheet_obj(sheet, &disc_sheetobj);
+  sheet_append_sheet_obj(sheet, &bus_sheetobj);
 
   register_sheet(sheet);
 }

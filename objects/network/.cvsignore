@@ -6,5 +6,6 @@ Makefile.in
 computer.lo
 monitor.lo
 network.lo
+bus.lo
 disc.lo
 libnetwork_objects.la

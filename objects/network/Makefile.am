@@ -8,6 +8,7 @@ libnetwork_objects_la_SOURCES = \
 			      computer.c \
 			      disc.c \
 			      monitor.c \
+			      bus.c \
 			      network.c
 
 libnetwork_objects_la_LDFLAGS = -export-dynamic -version-info 0:0:0
