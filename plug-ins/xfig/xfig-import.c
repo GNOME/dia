@@ -498,6 +498,7 @@ fig_line_style_to_dia(int line_style)
 static void
 fig_simple_properties(Object *obj,
 		      int line_style,
+		      float dash_length,
 		      int thickness,
 		      int pen_color,
 		      int fill_color,
@@ -521,7 +522,7 @@ fig_simple_properties(Object *obj,
             (LinestyleProperty *)make_new_prop("line_style", 
                                                PROP_TYPE_LINESTYLE,
                                                PROP_FLAG_DONT_SAVE);
-        lsprop->dash = 1.0;
+        lsprop->dash = dash_length/FIG_ALT_UNIT;
         lsprop->style = fig_line_style_to_dia(line_style);
 
         g_ptr_array_add(props,lsprop);
@@ -606,8 +607,6 @@ fig_read_arrow(FILE *file) {
     }
     arrow->width = width/FIG_UNIT;
     arrow->length = height/FIG_UNIT;
-
-    printf("Arrow type %d size %f, %f\n", arrow->type, arrow->width, arrow->length);
 
     return arrow;
 }
@@ -711,7 +710,7 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
 				     (2*radius_y)/FIG_UNIT,
 				     dia);
     if (newobj == NULL) return NULL;
-    fig_simple_properties(newobj, line_style, thickness,
+    fig_simple_properties(newobj, line_style, style_val, thickness,
 			  pen_color, fill_color, area_fill);
 
     /* Pen style field (not used) */
@@ -848,7 +847,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 	goto exit;
     }
 
-    fig_simple_properties(newobj, line_style, thickness,
+    fig_simple_properties(newobj, line_style, style_val, thickness,
 			  pen_color, fill_color, area_fill);
     /* Pen style field (not used) */
     /* Style_val (size of dots and dashes) in 1/80 inch*/
@@ -1075,7 +1074,7 @@ fig_read_spline(FILE *file, DiagramData *dia) {
 	goto exit;
     }
 
-    fig_simple_properties(newobj, line_style, thickness,
+    fig_simple_properties(newobj, line_style, style_val, thickness,
 			  pen_color, fill_color, area_fill);
     /* Pen style field (not used) */
     /* Style_val (size of dots and dashes) in 1/80 inch*/
@@ -1164,7 +1163,7 @@ fig_read_arc(FILE *file, DiagramData *dia) {
 	goto exit;
     }
 
-    fig_simple_properties(newobj, line_style, thickness,
+    fig_simple_properties(newobj, line_style, style_val, thickness,
 			  pen_color, fill_color, area_fill);
 
     /* Pen style field (not used) */
