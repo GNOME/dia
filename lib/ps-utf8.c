@@ -185,9 +185,10 @@ static void psu_show_flush_buffer(const PSUnicoder *psu,
 }
 
 
-static void prepare_psu_show_string(PSUnicoder *psu,
-                                    const gchar *utf8_string,
-                                    FlushFunc flushfunc)
+static void 
+encoded_psu_show_string(PSUnicoder *psu,
+                        const gchar *utf8_string,
+                        FlushFunc flushfunc)
 {
   unicode_char_t unichar;
   gchar c;
@@ -200,7 +201,7 @@ static void prepare_psu_show_string(PSUnicoder *psu,
   while (p && (*p)) {
     p = unicode_get_utf8(p,&unichar);
     if (!p) {
-      g_warning("malformed utf8 string in prepare_psu_show_string.");      
+      g_warning("malformed utf8 string in encoded_psu_show_string.");      
       return; /* malformed string. */
     }
     len++;
@@ -269,6 +270,69 @@ static void prepare_psu_show_string(PSUnicoder *psu,
     psu_show_flush_buffer(psu,buf,&bufu,flushfunc,first);
 }
 
+static void 
+symbol_psu_show_string(PSUnicoder *psu,
+                        const gchar *utf8_string,
+                        FlushFunc flushfunc)
+{
+  /* Special case with Symbol fonts: */
+  unicode_char_t unichar;
+  gchar c;
+  gchar buf[BUFSIZE];
+  int bufu = 0;
+  gboolean first = TRUE;
+  size_t len = 0;
+  const gchar *p = utf8_string;
+  PSFontDescriptor *fd;
+  const gchar *font_name = "Symbol";
+
+  /* Locate and use the Symbol font (bare): */
+
+  fd = g_hash_table_lookup(psu->defined_fonts,font_name);
+  if (fd) {
+    font_name = fd->name;
+  } else {
+    fd = font_descriptor_new(psu->face,
+                             NULL,
+                             font_name);
+    font_name = fd->name;
+    g_hash_table_insert(psu->defined_fonts,(gpointer)font_name,fd);
+  }
+  use_font(psu,fd);
+
+  /* We have the Symbol font loaded. */
+
+  while (p && (*p)) {
+    p = unicode_get_utf8(p,&unichar);
+    if (!p) {
+      g_warning("malformed utf8 string in symbol_show_string.");      
+      return; /* malformed string. */
+    }
+    len++;
+
+    if (unichar < 256) c = unichar;
+    else c = '?';
+
+    switch (c) {
+    case ')':
+    case '(':
+    case '\\':
+      buf[bufu++] = '\\';
+      buf[bufu++] = c;
+      break;
+    default:
+      buf[bufu++] = c;
+    }
+
+    if (bufu >= BUFSIZE - 3) {
+      psu_show_flush_buffer(psu,buf,&bufu,flushfunc,first);
+      first = FALSE;
+    }
+  }
+
+  if ((bufu)||(!len)) /* even if !len, to avoid crashing the PS stack. */
+    psu_show_flush_buffer(psu,buf,&bufu,flushfunc,first);
+}
 
 static void 
 flush_show_string(const PSUnicoder *psu,
@@ -282,8 +346,13 @@ extern void
 psu_show_string(PSUnicoder *psu,
                 const gchar *utf8_string)
 {
-  prepare_psu_show_string(psu,utf8_string,&flush_show_string);
+  if (0==strcmp(psu->face,"Symbol")) {
+    symbol_psu_show_string(psu,utf8_string,&flush_show_string);
+  } else { 
+    encoded_psu_show_string(psu,utf8_string,&flush_show_string);
+  }
 }
+
 
 static void 
 flush_get_string_width(const PSUnicoder *psu,
@@ -297,7 +366,11 @@ extern void
 psu_get_string_width(PSUnicoder *psu,
                      const gchar *utf8_string)
 {
-  prepare_psu_show_string(psu,utf8_string,&flush_get_string_width);
+  if (0==strcmp(psu->face,"Symbol")) {
+    symbol_psu_show_string(psu,utf8_string,&flush_get_string_width);
+  } else { 
+    encoded_psu_show_string(psu,utf8_string,&flush_get_string_width);
+  }
 }
 
 
@@ -395,19 +468,27 @@ font_descriptor_destroy(PSFontDescriptor *fd)
 static void 
 use_font(PSUnicoder *psu, PSFontDescriptor *fd)
 {
-  gboolean undef,define,select;
+  if (psu->current_font == fd) return; /* Already done. */
+
+  if (!fd->encoding) { /* bare font. No encoding. */
+    psu->callbacks->select_ps_font(psu->usrdata,fd->name,psu->size);
+  } else {
+    gboolean undef,define,select;
   
-  define = (fd->encoding->serial_num != fd->encoding_serial_num);
-  undef = (define && (fd->encoding_serial_num <= 0));
-  select = ((psu->current_font != fd) || (psu->current_size != psu->size));
+    define = (fd->encoding->serial_num != fd->encoding_serial_num);
+    undef = (define && (fd->encoding_serial_num <= 0));
+    select = ((psu->current_font != fd) || (psu->current_size != psu->size));
 
-  if (undef) psu->callbacks->destroy_ps_font(psu->usrdata,fd->name);
-  if (define) psu->callbacks->build_ps_font(psu->usrdata,fd->name,
-                                            fd->face, fd->encoding->name);
-  fd->encoding_serial_num = fd->encoding->serial_num;
-  if (select) psu->callbacks->select_ps_font(psu->usrdata,fd->name,psu->size);
+    if (undef) psu->callbacks->destroy_ps_font(psu->usrdata,fd->name);
+    if (define) psu->callbacks->build_ps_font(psu->usrdata,fd->name,
+                                              fd->face, fd->encoding->name);
+    fd->encoding_serial_num = fd->encoding->serial_num;
+    if (select) psu->callbacks->select_ps_font(psu->usrdata,
+                                               fd->name,
+                                               psu->size);
+  }
+
   psu->current_size = psu->size;
-
   psu->current_font = fd;
   psu->current_encoding = fd->encoding;
 }
