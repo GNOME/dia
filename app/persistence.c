@@ -215,6 +215,28 @@ persistence_register_window(GtkWindow *window)
 		     GTK_SIGNAL_FUNC(persistence_update_window), NULL);
 }
 
+/** Call this function at start-up to have a window creation function
+ * called if the window should be opened at startup.
+ * If no persistence information is available for the given role,
+ * nothing happens.
+ * @arg role The role of the window, as will be set by gtk_window_set_role()
+ * @arg createfunc A 0-argument function that creates the window.  This
+ * function will be called if the persistence information indicates that the
+ * window should be open.  The function should create and show the window.
+ */
+void
+persistence_register_window_create(gchar *role, NullaryFunc *func)
+{
+  PersistentWindow *wininfo;
+
+  if (role == NULL) return;
+  if (persistent_windows == NULL) return;
+  wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, role);
+  if (wininfo != NULL) {
+    (*func)();
+  }
+}
+
 /* Save the position of a window  */
 static void
 persistence_save_window(gpointer key, gpointer value, gpointer data)

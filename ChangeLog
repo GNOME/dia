@@ -1,5 +1,12 @@
 2003-04-08  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/persistence.h:
+	* app/persistence.c (persistence_register_window_create): 
+	* app/app_procs.c (app_init): 
+	Register window function that doesn't create the window unless it
+	should be open.  Other windows should move to this, so startup
+	speed can be reduced.
+	
 	* app/persistence.h: Removed call prototype for update_window, now
 	done internally.
 	* app/persistence.c (persistence_register_window): A number of
@@ -15,10 +22,7 @@
 	Removed prefs items storing size and openness. 
 
 	* app/sheets_dialog.c (create_sheets_main_dialog): Added
-	persistence registering.  Doesn't remember openness, only size, as
-	it's not automatically created at startup.  It shouldn't, either,
-	as it's rather big.  Instead, we should register the creation
-	function somehow.  Later.
+	persistence registering.  
 
 	* app/Makefile.am (dia_core_files): Added persistence files.
 

@@ -32,9 +32,12 @@ typedef struct {
   GtkWindow *window;
 } PersistentWindow;
 
+typedef void (NullaryFunc)();
+
 void persistence_load();
 void persistence_restore_window(GtkWindow *window);
 void persistence_save();
 void persistence_register_window(GtkWindow *window);
+void persistence_register_window_create(gchar *role, NullaryFunc *func);
 
 #endif

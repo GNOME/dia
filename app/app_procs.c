@@ -79,6 +79,8 @@
 #include "autosave.h"
 #include "dynamic_refresh.h"
 #include "dia_image.h"
+#include "persistence.h"
+#include "sheets.h"
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;
@@ -325,9 +327,9 @@ app_init (int argc, char **argv)
   if (version) {
 #if (defined __TIME__) && (defined __DATE__)
     /* TRANSLATOR: 2nd and 3rd %s are time and date respectively. */
-    printf(_("Dia version %s, compiled %s %s\n"), VERSION, __TIME__, __DATE__);
+    printf(g_locale_from_utf8(_("Dia version %s, compiled %s %s\n"), -1, NULL, NULL, NULL), VERSION, __TIME__, __DATE__);
 #else
-    printf(_("Dia version %s\n"), VERSION);
+    printf(g_locale_from_utf8(_("Dia version %s\n"), -1, NULL, NULL, NULL), VERSION);
 #endif
     exit(0);
   }
@@ -439,6 +441,9 @@ app_init (int argc, char **argv)
   gtk_timeout_add(5*60*1000, autosave_check_autosave, NULL);
 
   create_tree_window();
+
+  persistence_register_window_create("sheets_main_dialog",
+				     (NullaryFunc*)&sheets_dialog_create);
 
   /* In current setup, we can't find the autosaved files. */
   /*autosave_restore_documents();*/
