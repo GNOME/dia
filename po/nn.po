@@ -2,11 +2,10 @@
 # Copyright (C) 2000 Gaute Hvoslef Kvalnes.
 # Gaute Hvoslef Kvalnes <ai98ghk@stud.hib.no>, 2000
 # Kjartan Maraas  <kmaraas@gnome.org>, 2001.
-
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.88.1\n"
-"POT-Creation-Date: 2001-07-13 12:45+0200\n"
+"POT-Creation-Date: 2001-07-23 01:52+0200\n"
 "PO-Revision-Date: 2001-06-25 18:55+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian (Nynorsk)\n"
@@ -96,69 +95,57 @@ msgstr ""
 msgid "Objects and filters internal to dia"
 msgstr ""
 
-#: app/color_area.c:264 lib/widgets.c:515
+#: app/color_area.c:264 lib/widgets.c:518
 msgid "Select color"
 msgstr "Vel farge"
 
-#: app/commands.c:105
-#, fuzzy, c-format
-msgid ""
-"No such file found\n"
-"%s\n"
-msgstr "Inga slik fil \"%s\"!"
-
-#: app/commands.c:125
-#, fuzzy
-msgid "Import from XFig"
-msgstr "&Importer frå Ical"
-
-#: app/commands.c:181
+#: app/commands.c:128
 #, fuzzy, c-format
 msgid "Untitled-%d"
 msgstr "Utan tittel"
 
-#: app/commands.c:242
+#: app/commands.c:189
 #, fuzzy
 msgid "No existing object to paste.\n"
 msgstr "Ingenting å lima inn."
 
-#: app/commands.c:501 app/commands.c:524
+#: app/commands.c:448 app/commands.c:471
 #, fuzzy
 msgid "Could not find help directory"
 msgstr "Fann ikkje katalogen."
 
-#: app/commands.c:571
+#: app/commands.c:518
 #, fuzzy
 msgid "About Dia"
 msgstr "Om &KDE"
 
-#: app/commands.c:614
+#: app/commands.c:561
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr ""
 
-#: app/commands.c:619
+#: app/commands.c:566
 msgid "Maintainer: James Henstridge"
 msgstr ""
 
-#: app/commands.c:623
+#: app/commands.c:570
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 
-#: app/commands.c:628
+#: app/commands.c:575
 #, fuzzy
 msgid "Contributors:"
 msgstr "&Medverkande"
 
 #. setup buttons
-#: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:592 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
 #: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "OK"
 
-#: app/commands.c:731
+#: app/commands.c:678
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -171,12 +158,12 @@ msgid "Object defaults"
 msgstr "Rediger standard"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:620 app/properties.c:101
+#: app/preferences.c:691 app/properties.c:101
 msgid "Apply"
 msgstr "Bruk"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:629
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:700
 #: app/properties.c:111
 msgid "Close"
 msgstr "Lukk"
@@ -332,13 +319,13 @@ msgstr ""
 "Bokmerka er endra.\n"
 "Lagra endringane?"
 
-#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
 #: lib/properties.c:351
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:353 lib/properties.c:370
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/preferences.c:585 lib/properties.c:353 lib/properties.c:370
 msgid "No"
 msgstr "Nei"
 
@@ -834,7 +821,7 @@ msgstr "Omvendt"
 msgid "All"
 msgstr "Alle"
 
-#: app/menus.c:153 lib/widgets.c:656 objects/UML/association.c:1001
+#: app/menus.c:153 lib/widgets.c:659 objects/UML/association.c:1001
 msgid "None"
 msgstr "Ingen"
 
@@ -853,17 +840,17 @@ msgid "Same Type"
 msgstr "&Speltype"
 
 #: app/menus.c:164 lib/properties.c:1779 lib/properties.h:370
-#: lib/widgets.c:199
+#: lib/widgets.c:202
 msgid "Left"
 msgstr "Venstre"
 
 #: app/menus.c:165 app/menus.c:174 lib/properties.c:1780 lib/properties.h:371
-#: lib/widgets.c:205
+#: lib/widgets.c:208
 msgid "Center"
 msgstr "Sentrert"
 
 #: app/menus.c:166 lib/properties.c:1781 lib/properties.h:372
-#: lib/widgets.c:211
+#: lib/widgets.c:214
 msgid "Right"
 msgstr "Høgre"
 
@@ -1515,115 +1502,130 @@ msgstr "Last inn"
 msgid "Unload"
 msgstr "Last opp"
 
-#: app/preferences.c:89
+#: app/preferences.c:115
 #, fuzzy
 msgid "User Interface"
 msgstr "Miljø"
 
-#: app/preferences.c:90
+#: app/preferences.c:116
+#, fuzzy
+msgid "Diagram Defaults"
+msgstr "Dra-meny"
+
+#: app/preferences.c:117
 #, fuzzy
 msgid "View Defaults"
 msgstr "Bruk stan&dard"
 
-#: app/preferences.c:91
+#: app/preferences.c:118
 #, fuzzy
 msgid "Grid Lines"
 msgstr "Rutenett"
 
-#: app/preferences.c:105
+#: app/preferences.c:132
 msgid "Reset tools after create:"
 msgstr ""
 
-#: app/preferences.c:106
+#: app/preferences.c:133
 #, fuzzy
 msgid "Compress saved files:"
 msgstr "Komprimert fil"
 
-#: app/preferences.c:107
+#: app/preferences.c:134
 #, fuzzy
 msgid "Number of undo levels:"
 msgstr "Tal på bier:"
 
-#: app/preferences.c:108
+#: app/preferences.c:135
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
 msgstr ""
 
-#: app/preferences.c:109
+#: app/preferences.c:138
+#, fuzzy
+msgid "New diagram:"
+msgstr "Nytt diagram"
+
+#: app/preferences.c:139
+#, fuzzy
+msgid "Paper type:"
+msgstr "Melding"
+
+#: app/preferences.c:142
 #, fuzzy
 msgid "New window:"
 msgstr "Nytt vindauge"
 
-#: app/preferences.c:110
+#: app/preferences.c:143
 msgid "Width:"
 msgstr "Breidd:"
 
-#: app/preferences.c:111
+#: app/preferences.c:144
 msgid "Height:"
 msgstr "Høgd:"
 
-#: app/preferences.c:112
+#: app/preferences.c:145
 #, fuzzy
 msgid "Magnify:"
 msgstr "Magenta:"
 
-#: app/preferences.c:113
+#: app/preferences.c:146
 #, fuzzy
 msgid "Use menu bar:"
 msgstr "Brukarhandbok"
 
-#: app/preferences.c:115
+#: app/preferences.c:148
 #, fuzzy
 msgid "Connection Points:"
 msgstr "Sambandsval"
 
-#: app/preferences.c:116 app/preferences.c:119 app/preferences.c:127
+#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:160
 #, fuzzy
 msgid "Visible:"
 msgstr "Synleg"
 
-#: app/preferences.c:118
+#: app/preferences.c:151
 #, fuzzy
 msgid "Grid:"
 msgstr "Ingen rutenett"
 
-#: app/preferences.c:120
+#: app/preferences.c:153
 #, fuzzy
 msgid "Snap to:"
 msgstr "Fargedåm:"
 
-#: app/preferences.c:121
+#: app/preferences.c:154
 #, fuzzy
 msgid "X Size:"
 msgstr "Storleik:"
 
-#: app/preferences.c:122
+#: app/preferences.c:155
 #, fuzzy
 msgid "Y Size:"
 msgstr "Storleik:"
 
-#: app/preferences.c:123 app/preferences.c:128
+#: app/preferences.c:156 app/preferences.c:161
 #, fuzzy
 msgid "Colour:"
 msgstr "Farge:"
 
-#: app/preferences.c:124 app/preferences.c:129
+#: app/preferences.c:157 app/preferences.c:162
 #, fuzzy
 msgid "Solid lines:"
 msgstr "Heil linje"
 
-#: app/preferences.c:126
+#: app/preferences.c:159
 #, fuzzy
 msgid "Page breaks:"
 msgstr "&Sidemerke"
 
-#: app/preferences.c:243
+#: app/preferences.c:282
 #, fuzzy, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunne ikkje opna fil for skriving"
 
-#: app/preferences.c:579 app/preferences.c:588
+#: app/preferences.c:650 app/preferences.c:659
 msgid "Preferences"
 msgstr "Oppsett"
 
@@ -1777,7 +1779,7 @@ msgstr ""
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr ""
 
-#: lib/font.c:394
+#: lib/font.c:412
 #, fuzzy, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1785,7 +1787,18 @@ msgid ""
 msgstr ""
 "Finn ikkje skrifttype %1 pÃ¥ %2 ppt. Brukar i staden storleik %3 ppt.\n"
 
-#: lib/font.c:449
+#: lib/font.c:517
+#, c-format
+msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
+msgstr ""
+
+#: lib/font.c:526
+#, fuzzy
+msgid "Warning: No X fonts found.  The world is ending."
+msgstr ""
+"Finn ikkje skrifttype %1 pÃ¥ %2 ppt. Brukar i staden storleik %3 ppt.\n"
+
+#: lib/font.c:612 lib/font.c:637
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr ""
@@ -1808,136 +1821,136 @@ msgstr "Åtvaring"
 msgid "Error"
 msgstr "Feil"
 
-#: lib/widgets.c:319 objects/FS/function.c:807
+#: lib/widgets.c:322 objects/FS/function.c:807
 msgid "Solid"
 msgstr "Einsfarga"
 
-#: lib/widgets.c:325
+#: lib/widgets.c:328
 msgid "Dashed"
 msgstr "Strekar"
 
-#: lib/widgets.c:331
+#: lib/widgets.c:334
 #, fuzzy
 msgid "Dash-Dot"
 msgstr "Strek-prikk"
 
-#: lib/widgets.c:337
+#: lib/widgets.c:340
 #, fuzzy
 msgid "Dash-Dot-Dot"
 msgstr "Strek-prikk-prikk"
 
-#: lib/widgets.c:343
+#: lib/widgets.c:346
 msgid "Dotted"
 msgstr "Prikkar"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:361
+#: lib/widgets.c:364
 #, fuzzy
 msgid "Dash length: "
 msgstr "Straumlengd"
 
-#: lib/widgets.c:657
+#: lib/widgets.c:660
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:661
 msgid "Hollow Triangle"
 msgstr ""
 
-#: lib/widgets.c:659
+#: lib/widgets.c:662
 #, fuzzy
 msgid "Filled Triangle"
 msgstr "Fylt rektangel"
 
-#: lib/widgets.c:660
+#: lib/widgets.c:663
 #, fuzzy
 msgid "Unfilled Triangle"
 msgstr "Fylt rektangel"
 
-#: lib/widgets.c:661
+#: lib/widgets.c:664
 #, fuzzy
 msgid "Filled Diamond"
 msgstr "Diamant"
 
-#: lib/widgets.c:662
+#: lib/widgets.c:665
 #, fuzzy
 msgid "Half Head"
 msgstr "Halv storleik"
 
-#: lib/widgets.c:663
+#: lib/widgets.c:666
 msgid "Slashed Cross"
 msgstr ""
 
-#: lib/widgets.c:664
+#: lib/widgets.c:667
 #, fuzzy
 msgid "Filled Ellipse"
 msgstr "Fylt ellipse"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:668
 #, fuzzy
 msgid "Hollow Ellipse"
 msgstr "Dolor Ipse"
 
-#: lib/widgets.c:666
+#: lib/widgets.c:669
 #, fuzzy
 msgid "Filled Dot"
 msgstr "Fast skrifttype"
 
-#: lib/widgets.c:667
+#: lib/widgets.c:670
 #, fuzzy
 msgid "Dimension Origin"
 msgstr "Dimensjon"
 
-#: lib/widgets.c:668
+#: lib/widgets.c:671
 msgid "Blanked Dot"
 msgstr ""
 
-#: lib/widgets.c:669
+#: lib/widgets.c:672
 #, fuzzy
 msgid "Double Hollow triangle"
 msgstr "Dobbel linje"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:673
 #, fuzzy
 msgid "Double Filled triangle"
 msgstr "Fylt rektangel"
 
-#: lib/widgets.c:671
+#: lib/widgets.c:674
 #, fuzzy
 msgid "Filled Box"
 msgstr "Fila "
 
-#: lib/widgets.c:672
+#: lib/widgets.c:675
 #, fuzzy
 msgid "Blanked Box"
 msgstr "KBlackBox"
 
-#: lib/widgets.c:673
+#: lib/widgets.c:676
 #, fuzzy
 msgid "Slashed"
 msgstr "SkrÃ¥strek"
 
-#: lib/widgets.c:674
+#: lib/widgets.c:677
 #, fuzzy
 msgid "Integral Symbol"
 msgstr "Set inn del"
 
-#: lib/widgets.c:710
+#: lib/widgets.c:713
 #, fuzzy
 msgid "Length: "
 msgstr "Lengd:"
 
-#: lib/widgets.c:723
+#: lib/widgets.c:726
 #, fuzzy
 msgid "Width: "
 msgstr "Breidd:"
 
-#: lib/widgets.c:849 objects/standard/image.c:538
+#: lib/widgets.c:852 objects/standard/image.c:538
 #, fuzzy
 msgid "Select image file"
 msgstr "Vel ei biletefil"
 
-#: lib/widgets.c:879
+#: lib/widgets.c:882
 msgid "Browse"
 msgstr "Bla gjennom"
 
@@ -4003,12 +4016,12 @@ msgstr "Manglar eksportfilter"
 msgid "TeX PSTricks macros"
 msgstr ""
 
-#: plug-ins/shape/shape-export.c:924
+#: plug-ins/shape/shape-export.c:925
 #, fuzzy
 msgid "Can't export png without libart!"
 msgstr "Kan ikkje eksportera til fil"
 
-#: plug-ins/shape/shape-export.c:947
+#: plug-ins/shape/shape-export.c:952
 #, fuzzy
 msgid "dia shape file"
 msgstr "Lagra fila"
@@ -4226,3 +4239,12 @@ msgstr ""
 msgid "XFig File Format"
 msgstr "Filformat"
 
+#, fuzzy
+#~ msgid ""
+#~ "No such file found\n"
+#~ "%s\n"
+#~ msgstr "Inga slik fil \"%s\"!"
+
+#, fuzzy
+#~ msgid "Import from XFig"
+#~ msgstr "&Importer frå Ical"

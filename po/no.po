@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.89\n"
-"POT-Creation-Date: 2001-06-12 23:16+0200\n"
-"PO-Revision-Date: 2001-06-12 23:45+0200\n"
+"POT-Creation-Date: 2001-07-23 01:50+0200\n"
+"PO-Revision-Date: 2001-07-23 01:52+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -97,67 +97,54 @@ msgstr ""
 msgid "Objects and filters internal to dia"
 msgstr "Interne bjekter og filtre for dia"
 
-#: app/color_area.c:264 lib/widgets.c:515
+#: app/color_area.c:264 lib/widgets.c:518
 msgid "Select color"
 msgstr "Velg farge"
 
-#: app/commands.c:105
-#, c-format
-msgid ""
-"No such file found\n"
-"%s\n"
-msgstr ""
-"Ingen slik fil funnet\n"
-"%s\n"
-
-#: app/commands.c:125
-msgid "Import from XFig"
-msgstr "Importer fra XFig"
-
-#: app/commands.c:181
+#: app/commands.c:128
 #, c-format
 msgid "Untitled-%d"
 msgstr "Uten navn-%d"
 
-#: app/commands.c:242
+#: app/commands.c:189
 msgid "No existing object to paste.\n"
 msgstr "Ingen eksisterende objekter kan limes inn.\n"
 
-#: app/commands.c:501 app/commands.c:524
+#: app/commands.c:448 app/commands.c:471
 msgid "Could not find help directory"
 msgstr "Kunne ikke finne hjelp-katalog"
 
-#: app/commands.c:571
+#: app/commands.c:518
 msgid "About Dia"
 msgstr "Om dia"
 
-#: app/commands.c:614
+#: app/commands.c:561
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
-#: app/commands.c:619
+#: app/commands.c:566
 msgid "Maintainer: James Henstridge"
 msgstr "Maintainer: James Henstridge"
 
-#: app/commands.c:623
+#: app/commands.c:570
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Vennligst se på http://www.lysator.liu.se/~alla/dia for mer informasjon"
 
-#: app/commands.c:628
+#: app/commands.c:575
 msgid "Contributors:"
 msgstr "Hjelpere:"
 
 #. setup buttons
-#: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:592 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
-#: app/properties.c:92 lib/message.c:87
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
+#: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "OK"
 
-#: app/commands.c:731
+#: app/commands.c:678
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -172,12 +159,12 @@ msgid "Object defaults"
 msgstr "Standardverdier for objekt"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:620 app/properties.c:101
+#: app/preferences.c:691 app/properties.c:101
 msgid "Apply"
 msgstr "Bruk"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:629
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:700
 #: app/properties.c:111
 msgid "Close"
 msgstr "Lukk"
@@ -315,13 +302,13 @@ msgstr ""
 "Dette diagrammet er ikke lagret.\n"
 "Lagre endringer nå?"
 
-#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:336
+#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
+#: lib/properties.c:351
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:338 lib/properties.c:359
+#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/preferences.c:585 lib/properties.c:353 lib/properties.c:370
 msgid "No"
 msgstr "Nei"
 
@@ -425,8 +412,8 @@ msgstr "Rull"
 msgid "Create Text"
 msgstr "Lag tekst"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1543
-#: lib/properties.h:394
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:1794
+#: lib/properties.h:406
 msgid "Text"
 msgstr "Tekst"
 
@@ -578,8 +565,8 @@ msgstr "Detaljer..."
 msgid "Line Style Properties"
 msgstr "Egenskaper for linjestil"
 
-#: app/linewidth_area.c:216 lib/properties.h:370
-#: objects/chronogram/chronoline.c:188 objects/chronogram/chronoref.c:153
+#: app/linewidth_area.c:216 lib/properties.h:382
+#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Linjebredde"
 
@@ -771,7 +758,7 @@ msgstr "Inverter"
 msgid "All"
 msgstr "Alt"
 
-#: app/menus.c:153 lib/widgets.c:656 objects/UML/association.c:1001
+#: app/menus.c:153 lib/widgets.c:659 objects/UML/association.c:1001
 msgid "None"
 msgstr "Ingen"
 
@@ -787,18 +774,18 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Samme type"
 
-#: app/menus.c:164 lib/properties.c:1528 lib/properties.h:358
-#: lib/widgets.c:199
+#: app/menus.c:164 lib/properties.c:1779 lib/properties.h:370
+#: lib/widgets.c:202
 msgid "Left"
 msgstr "Venstre"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1529 lib/properties.h:359
-#: lib/widgets.c:205
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:1780 lib/properties.h:371
+#: lib/widgets.c:208
 msgid "Center"
 msgstr "Senter"
 
-#: app/menus.c:166 lib/properties.c:1530 lib/properties.h:360
-#: lib/widgets.c:211
+#: app/menus.c:166 lib/properties.c:1781 lib/properties.h:372
+#: lib/widgets.c:214
 msgid "Right"
 msgstr "Høyre"
 
@@ -1359,31 +1346,35 @@ msgstr "Last"
 msgid "Unload"
 msgstr "Last ut"
 
-#: app/preferences.c:89
+#: app/preferences.c:115
 msgid "User Interface"
 msgstr "Grensesnitt"
 
-#: app/preferences.c:90
+#: app/preferences.c:116
+msgid "Diagram Defaults"
+msgstr "Standardverdier for diagram"
+
+#: app/preferences.c:117
 msgid "View Defaults"
 msgstr "Vis standardverdier"
 
-#: app/preferences.c:91
+#: app/preferences.c:118
 msgid "Grid Lines"
 msgstr "Linjer i rutenett"
 
-#: app/preferences.c:105
+#: app/preferences.c:132
 msgid "Reset tools after create:"
 msgstr "Nullstill verktøy etter opprett:"
 
-#: app/preferences.c:106
+#: app/preferences.c:133
 msgid "Compress saved files:"
 msgstr "Komprimer lagrede filer:"
 
-#: app/preferences.c:107
+#: app/preferences.c:134
 msgid "Number of undo levels:"
 msgstr "Antall angrenivåer:"
 
-#: app/preferences.c:108
+#: app/preferences.c:135
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1391,68 +1382,76 @@ msgstr ""
 "Revers draoperasjon velger\n"
 "overlappende objekter:"
 
-#: app/preferences.c:109
+#: app/preferences.c:138
+msgid "New diagram:"
+msgstr "Nytt diagram:"
+
+#: app/preferences.c:139
+msgid "Paper type:"
+msgstr "Papirtype:"
+
+#: app/preferences.c:142
 msgid "New window:"
 msgstr "Nytt vindu:"
 
-#: app/preferences.c:110
+#: app/preferences.c:143
 msgid "Width:"
 msgstr "Bredde:"
 
-#: app/preferences.c:111
+#: app/preferences.c:144
 msgid "Height:"
 msgstr "Høyde:"
 
-#: app/preferences.c:112
+#: app/preferences.c:145
 msgid "Magnify:"
 msgstr "Forstørr:"
 
-#: app/preferences.c:113
+#: app/preferences.c:146
 msgid "Use menu bar:"
 msgstr "Bruk menylinje:"
 
-#: app/preferences.c:115
+#: app/preferences.c:148
 msgid "Connection Points:"
 msgstr "Forbindelsespunkter:"
 
-#: app/preferences.c:116 app/preferences.c:119 app/preferences.c:127
+#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:160
 msgid "Visible:"
 msgstr "Synlig:"
 
-#: app/preferences.c:118
+#: app/preferences.c:151
 msgid "Grid:"
 msgstr "Rutenett:"
 
-#: app/preferences.c:120
+#: app/preferences.c:153
 msgid "Snap to:"
 msgstr "Fest til:"
 
-#: app/preferences.c:121
+#: app/preferences.c:154
 msgid "X Size:"
 msgstr "X-størrelse:"
 
-#: app/preferences.c:122
+#: app/preferences.c:155
 msgid "Y Size:"
 msgstr "Y-størrelse:"
 
-#: app/preferences.c:123 app/preferences.c:128
+#: app/preferences.c:156 app/preferences.c:161
 msgid "Colour:"
 msgstr "Farge:"
 
-#: app/preferences.c:124 app/preferences.c:129
+#: app/preferences.c:157 app/preferences.c:162
 msgid "Solid lines:"
 msgstr "Helfylte linjer:"
 
-#: app/preferences.c:126
+#: app/preferences.c:159
 msgid "Page breaks:"
 msgstr "Sideskift:"
 
-#: app/preferences.c:243
+#: app/preferences.c:282
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Kunne ikke åpne `%s' for skriving"
 
-#: app/preferences.c:579 app/preferences.c:588
+#: app/preferences.c:650 app/preferences.c:659
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -1499,19 +1498,19 @@ msgstr "Laster..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
-#: lib/properties.c:1537 lib/properties.h:373
+#: lib/properties.c:1788 lib/properties.h:385
 msgid "Line colour"
 msgstr "Linjefarge"
 
-#: lib/properties.c:1538 lib/properties.h:376
+#: lib/properties.c:1789 lib/properties.h:388
 msgid "Line style"
 msgstr "Linjestil"
 
-#: lib/properties.c:1539 lib/properties.h:380
+#: lib/properties.c:1790 lib/properties.h:392
 msgid "Fill colour"
 msgstr "Fyllfarge"
 
-#: lib/properties.c:1540 lib/properties.h:383
+#: lib/properties.c:1791 lib/properties.h:395
 #: objects/custom/custom_object.c:364 objects/flowchart/box.c:317
 #: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
 #: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
@@ -1520,32 +1519,32 @@ msgstr "Fyllfarge"
 msgid "Draw background"
 msgstr "Tegn bakgrunn"
 
-#: lib/properties.c:1541 lib/properties.h:387
+#: lib/properties.c:1792 lib/properties.h:399
 msgid "Start arrow"
 msgstr "Start-pil"
 
-#: lib/properties.c:1542 lib/properties.h:390
+#: lib/properties.c:1793 lib/properties.h:402
 msgid "End arrow"
 msgstr "Slutt-pil"
 
-#: lib/properties.c:1544 lib/properties.h:397
+#: lib/properties.c:1795 lib/properties.h:409
 msgid "Text alignment"
 msgstr "Tekstjustering"
 
-#: lib/properties.c:1545 lib/properties.h:400 objects/GRAFCET/condition.c:131
+#: lib/properties.c:1796 lib/properties.h:412 objects/GRAFCET/condition.c:131
 #: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
-#: objects/chronogram/chronoline.c:190 objects/chronogram/chronoref.c:157
+#: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Skrifttype"
 
-#: lib/properties.c:1546 lib/properties.h:403 objects/GRAFCET/condition.c:133
+#: lib/properties.c:1797 lib/properties.h:415 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/chronogram/chronoline.c:192 objects/chronogram/chronoref.c:159
+#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Størrelse på skrifttype"
 
-#: lib/properties.c:1547 lib/properties.h:406 objects/GRAFCET/step.c:167
-#: objects/chronogram/chronoline.c:194 objects/chronogram/chronoref.c:161
+#: lib/properties.c:1798 lib/properties.h:418 objects/GRAFCET/step.c:167
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Tekstfarge"
 
@@ -1587,7 +1586,7 @@ msgstr "Kunne ikke åpne `%s'"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Intern feil: Setter hjørnetype av endepunktet for bezieren"
 
-#: lib/font.c:394
+#: lib/font.c:412
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1596,137 +1595,146 @@ msgstr ""
 "Advarsel, ingen X skrifttype for %s funnet, \n"
 "bruker %s i stedet.\n"
 
-#: lib/font.c:449
+#: lib/font.c:517
+#, c-format
+msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
+msgstr "Advarsel: FreeType valgt, men biblioteket ville ikke lastes: %d\n"
+
+#: lib/font.c:526
+msgid "Warning: No X fonts found.  The world is ending."
+msgstr "Advarsel: Ingen X-skrifttyper funnet. Verden går under."
+
+#: lib/font.c:612 lib/font.c:637
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Skrifttype %s ikke funnet, bruker Courier i stedet.\n"
 
-#: lib/properties.c:455 lib/properties.c:493
+#: lib/properties.c:437 lib/properties.c:466
 msgid "No edit widget"
 msgstr "Ingen redigeringswidget"
 
-#: lib/message.c:120
+#: lib/message.c:140
 msgid "Notice"
 msgstr "Melding"
 
-#: lib/message.c:131
+#: lib/message.c:151
 msgid "Warning"
 msgstr "Advarsel"
 
-#: lib/message.c:143
+#: lib/message.c:163
 msgid "Error"
 msgstr "Feil"
 
-#: lib/widgets.c:319 objects/FS/function.c:807
+#: lib/widgets.c:322 objects/FS/function.c:807
 msgid "Solid"
 msgstr "Helfylt"
 
-#: lib/widgets.c:325
+#: lib/widgets.c:328
 msgid "Dashed"
 msgstr "Streket"
 
-#: lib/widgets.c:331
+#: lib/widgets.c:334
 msgid "Dash-Dot"
 msgstr "Strek-prikk"
 
-#: lib/widgets.c:337
+#: lib/widgets.c:340
 msgid "Dash-Dot-Dot"
 msgstr "Strek-prikk-prikk"
 
-#: lib/widgets.c:343
+#: lib/widgets.c:346
 msgid "Dotted"
 msgstr "Prikket"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:361
+#: lib/widgets.c:364
 msgid "Dash length: "
 msgstr "Lengde på strek: "
 
-#: lib/widgets.c:657
+#: lib/widgets.c:660
 msgid "Lines"
 msgstr "Linjer"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:661
 msgid "Hollow Triangle"
 msgstr "Hult triangel"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:662
 msgid "Filled Triangle"
 msgstr "Fylt triangel"
 
-#: lib/widgets.c:660
+#: lib/widgets.c:663
 msgid "Unfilled Triangle"
 msgstr "Triangel uten fyll"
 
-#: lib/widgets.c:661
+#: lib/widgets.c:664
 msgid "Filled Diamond"
 msgstr "Fylt diamant"
 
-#: lib/widgets.c:662
+#: lib/widgets.c:665
 msgid "Half Head"
 msgstr "Halvhodet"
 
-#: lib/widgets.c:663
+#: lib/widgets.c:666
 msgid "Slashed Cross"
 msgstr "Streket kryss"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:667
 msgid "Filled Ellipse"
 msgstr "Fylt elipse"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:668
 msgid "Hollow Ellipse"
 msgstr "Hul elipse"
 
-#: lib/widgets.c:666
+#: lib/widgets.c:669
 msgid "Filled Dot"
 msgstr "Fylt punkt"
 
-#: lib/widgets.c:667
+#: lib/widgets.c:670
 msgid "Dimension Origin"
 msgstr "Opprinnelse for dimensjon"
 
-#: lib/widgets.c:668
+#: lib/widgets.c:671
 msgid "Blanked Dot"
 msgstr "Blankt punkt"
 
-#: lib/widgets.c:669
+#: lib/widgets.c:672
 msgid "Double Hollow triangle"
 msgstr "Dobbelt hult triangel"
 
-#: lib/widgets.c:670
+#: lib/widgets.c:673
 msgid "Double Filled triangle"
 msgstr "Dobbelt fylt triangel"
 
-#: lib/widgets.c:671
+#: lib/widgets.c:674
 msgid "Filled Box"
 msgstr "Fylt boks"
 
-#: lib/widgets.c:672
+#: lib/widgets.c:675
 msgid "Blanked Box"
 msgstr "Blank boks"
 
-#: lib/widgets.c:673
+#: lib/widgets.c:676
 msgid "Slashed"
 msgstr "Streket"
 
-#: lib/widgets.c:674
+#: lib/widgets.c:677
 msgid "Integral Symbol"
 msgstr "Itegraltegn"
 
-#: lib/widgets.c:710
+#: lib/widgets.c:713
 msgid "Length: "
 msgstr "Lengde: "
 
-#: lib/widgets.c:723
+#: lib/widgets.c:726
 msgid "Width: "
 msgstr "Bredde: "
 
-#: lib/widgets.c:849 objects/standard/image.c:538
+#: lib/widgets.c:852 objects/standard/image.c:538
 msgid "Select image file"
 msgstr "Velg bildefil"
 
-#: lib/widgets.c:879
+#: lib/widgets.c:882
 msgid "Browse"
 msgstr "Bla gjennom"
 
@@ -2837,7 +2845,9 @@ msgstr "Automatisk gråing av vertikale strømmer:"
 msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
-msgstr "For å forbedre lesbarheten kan flyt som begynner og slutter vertikalt rendres grått"
+msgstr ""
+"For å forbedre lesbarheten kan flyt som begynner og slutter vertikalt "
+"rendres grått"
 
 #: objects/SADT/arrow.c:555
 msgid "SADT Arrow"
@@ -3208,23 +3218,23 @@ msgstr "Samarbeid"
 msgid "Chronogram diagram objects"
 msgstr "Kronogram diagramobjekter"
 
-#: objects/chronogram/chronoline.c:151
+#: objects/chronogram/chronoline.c:148
 msgid "Data"
 msgstr "Data"
 
-#: objects/chronogram/chronoline.c:153
+#: objects/chronogram/chronoline.c:150
 msgid "Data name"
 msgstr "Datanavn"
 
-#: objects/chronogram/chronoline.c:155
+#: objects/chronogram/chronoline.c:152
 msgid "Events"
 msgstr "Hendelser"
 
-#: objects/chronogram/chronoline.c:158
+#: objects/chronogram/chronoline.c:155
 msgid "Event specification"
 msgstr "Hendelsesspesifikasjon"
 
-#: objects/chronogram/chronoline.c:159
+#: objects/chronogram/chronoline.c:156
 msgid ""
 "@ time    set the pointer at an absolute time.\n"
 "( duration  sets the signal up, then wait 'duration'.\n"
@@ -3235,58 +3245,63 @@ msgstr ""
 "@ tid    sett pekeren til en absolutt tid.\n"
 "( varighet  setter signalet opp, og venter så 'varighet'.\n"
 ") varighet  setter signalet ned, og venter så 'varighet'.\n"
-"u varighet  setter signalet til \"ukjent\" tilstand, og venter så 'varighet'.\n"
+"u varighet  setter signalet til \"ukjent\" tilstand, og venter så "
+"'varighet'.\n"
 "eksempel : @ 1.0 (2.0)1.0(2.0)\n"
 
-#: objects/chronogram/chronoline.c:167
+#: objects/chronogram/chronoline.c:162
 msgid "Parameters"
 msgstr "Parametere"
 
-#: objects/chronogram/chronoline.c:169 objects/chronogram/chronoref.c:142
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
 msgid "Start time"
 msgstr "Starttid"
 
-#: objects/chronogram/chronoline.c:171 objects/chronogram/chronoref.c:144
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
 msgid "End time"
 msgstr "Slutt-tid"
 
-#: objects/chronogram/chronoline.c:173
+#: objects/chronogram/chronoline.c:168
 msgid "Rise time"
 msgstr "Hevingstid"
 
-#: objects/chronogram/chronoline.c:175
+#: objects/chronogram/chronoline.c:170
 msgid "Fall time"
 msgstr "Falltid"
 
-#: objects/chronogram/chronoline.c:176
+#: objects/chronogram/chronoline.c:171
 msgid "Multi-bit data"
 msgstr "Multi-bit data"
 
-#: objects/chronogram/chronoline.c:180
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
 msgid "Aspect"
 msgstr "Aspekt"
 
-#: objects/chronogram/chronoline.c:182
+#: objects/chronogram/chronoline.c:175
 msgid "Data color"
 msgstr "Datafarge"
 
-#: objects/chronogram/chronoline.c:184
+#: objects/chronogram/chronoline.c:177
 msgid "Data line width"
 msgstr "Data linjebredde"
 
-#: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:151
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
 msgid "Line color"
 msgstr "Linjefarge"
 
-#: objects/chronogram/chronoref.c:146
+#: objects/chronogram/chronoref.c:144
+msgid "Time data"
+msgstr "Tidsdata"
+
+#: objects/chronogram/chronoref.c:150
 msgid "Major time step"
 msgstr "Stort tidssteg"
 
-#: objects/chronogram/chronoref.c:148
+#: objects/chronogram/chronoref.c:152
 msgid "Minor time step"
 msgstr "Mindre tidssteg"
 
-#: objects/chronogram/chronoref.c:155
+#: objects/chronogram/chronoref.c:162
 msgid "Minor step line width"
 msgstr "Mindre steg i linjebredde"
 
@@ -3497,11 +3512,11 @@ msgstr "TeX PSTricks eksportfilter"
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makroer"
 
-#: plug-ins/shape/shape-export.c:924
+#: plug-ins/shape/shape-export.c:925
 msgid "Can't export png without libart!"
 msgstr "Kan ikke eksportere png uten libart!"
 
-#: plug-ins/shape/shape-export.c:947
+#: plug-ins/shape/shape-export.c:952
 msgid "dia shape file"
 msgstr "dia form-fil"
 
@@ -3690,6 +3705,16 @@ msgstr "Dette er en fil i FIG-versjon %d.%d, forstår den ikke\n"
 #: plug-ins/xfig/xfig-import.c:1116
 msgid "XFig File Format"
 msgstr "XFig filformat"
+
+#~ msgid ""
+#~ "No such file found\n"
+#~ "%s\n"
+#~ msgstr ""
+#~ "Ingen slik fil funnet\n"
+#~ "%s\n"
+
+#~ msgid "Import from XFig"
+#~ msgstr "Importer fra XFig"
 
 #~ msgid "Text color:"
 #~ msgstr "Tekstfarge:"
