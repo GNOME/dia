@@ -1,3 +1,15 @@
+2004-12-31  Hans Breuer  <hans@breuer.org>
+
+	* lib/dia_dirs.c(dia_get_canonical_path) : complete
+	rewrite to handle something like /mnt/some/where/../else
+	too. Workaround for bug #162637.
+	* app/filedlg.c : call gtk_file_chooser_set_current_name()
+	to workaround gtk_file_chooser_set_filename() not setting
+	it if the file does not exist
+
+	* sheets/Jackson.sheet.in app/menus.c : fixed typos
+	(Frank Arnold, bug #161676)
+
 2004-12-31  Steffen Macke <sdteffen@gmail.com>
 
 	* doc/pl/*.xml: Added XML prolog

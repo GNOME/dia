@@ -146,7 +146,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/View/Zoom/35.4%"),        NULL,         view_zoom_set_callback,   354},
   {N_("/View/Zoom/25%"),          NULL,         view_zoom_set_callback,   250},
   {N_("/View/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/View/_Fullscr_een"),      "F11",        view_fullscreen_callback,   0, "<ToggleItem>"},
+  {N_("/View/Fullscr_een"),      "F11",        view_fullscreen_callback,   0, "<ToggleItem>"},
 #ifdef HAVE_LIBART  
   {N_("/View/_AntiAliased"),      NULL,         view_aa_callback,           0, "<ToggleItem>"},
 #endif

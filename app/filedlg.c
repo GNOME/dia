@@ -396,8 +396,13 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
   if (filename != NULL) {
     char* fnabs = dia_get_absolute_filename (filename);
-    if (fnabs)
+    if (fnabs) {
+      gchar *base = g_path_get_basename(fnabs);
       gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(savedlg), fnabs);
+      /* FileChooser api insist on exiting files for set_filename  */
+      gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(savedlg), base);
+      g_free(base);
+    }
     g_free(fnabs);
     g_free(filename);
   }
@@ -595,8 +600,13 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
       filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
     if (filename != NULL) {
       gchar *fnabs = dia_get_absolute_filename (filename);
-      if (fnabs)
+      if (fnabs) {
+        gchar *base = g_path_get_basename(fnabs);
         gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), fnabs);
+        /* FileChooser api insist on exiting files for set_filename  */
+        gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(exportdlg), base);
+        g_free(base);
+      }
       g_free (fnabs);
       g_free(filename);
     }
@@ -637,7 +647,6 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
                                 matching_extensions_filter, filter_guess_export_filter, NULL);
     gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (exportdlg), filter);
 
-    /* candidate fpr user prefs */
     gtk_combo_box_set_active (GTK_COMBO_BOX (omenu), persistence_get_integer ("export-filter"));
 
     g_signal_connect(GTK_FILE_CHOOSER(exportdlg),
@@ -660,5 +669,6 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
     g_free(fnabs);
     g_free(filename);
   }
+
   gtk_widget_show(exportdlg);
 }

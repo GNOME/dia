@@ -131,48 +131,56 @@ dia_config_ensure_dir(const gchar *filename)
  * This is not a cheap function.
  * Returns a newly allocated string, or NULL if too many ..'s were found */
 static gchar *
-dia_get_canonical_path (gchar *path) {
-  if (g_str_has_suffix(path, G_DIR_SEPARATOR_S "..")) {
-    gchar *prev = g_path_get_dirname(path);
-    path = prev;
-    prev = dia_get_canonical_path(path);
-    g_free(path);
-    if (prev == NULL) return NULL;
-    path = prev;
-    /* Snip! */
-    prev = g_path_get_dirname(prev);
-    if (!strcmp(path, prev)) {
-      /* .. ran over / */
-      return NULL;
+dia_get_canonical_path (gchar *path) 
+{
+  gchar  *ret = NULL;
+  gchar **list = g_strsplit (path, G_DIR_SEPARATOR_S, -1);
+  int i = 0, n = 0;
+
+  while (list[i] != NULL) {
+    if (0 == strcmp (list[i], ".")) {
+      /* simple, just remove it */
+      g_free (list[i]);
+      list[i] = g_strdup ("");
     }
-    g_free(path);
-    return prev;
-  } else if (g_str_has_suffix(path, G_DIR_SEPARATOR_S ".")) {
-    gchar *prev = g_path_get_dirname(path);
-    path = prev;
-    prev = dia_get_canonical_path(path);
-    g_free(path);
-    return prev;
-  } else {
-    gchar *end = g_path_get_basename(path);
-    gchar *prev = g_path_get_dirname(path);
-    gchar *tmp;
-    if (strcmp(path, prev)) { /* Something got removed */
-      tmp = prev;
-      prev = dia_get_canonical_path(tmp);
-      if (prev == NULL) return NULL;
-      g_free(tmp);
-      tmp = prev;
-      prev = g_build_filename(tmp, end, NULL);
-      g_free(tmp);
-      g_free(end);
-      return prev;
-    } else {
-      g_free(end);
-      g_free(prev);
-      return g_strdup(path);
+    else if  (0 == strcmp (list[i], "..")) {
+      /* need to 'remove' the previous non empty part too */
+      n = i;
+      g_free (list[i]);
+      list[i] = g_strdup ("");
+      while (n >= 0) {
+        if (0 != strlen(list[n])) {
+          /* remove it */
+          g_free (list[n]);
+          list[n] = g_strdup ("");
+          break;
+        }
+        n--;
+      }
+      /* we haven't found an entry to remove for '..' */
+      if (n < 0)
+        break;
     }
+    i++;
   }
+  if (n >= 0) {
+    /* cant use g_strjoinv () cause it would stumble about empty elements */
+    GString *str = g_string_new (NULL);
+
+    i = 0;
+    while (list[i] != NULL) {
+      if (strlen(list[i]) > 0) {
+        g_string_append (str, G_DIR_SEPARATOR_S);
+        g_string_append (str, list[i]);
+      }
+      i++;
+    }
+    ret = g_string_free (str, FALSE);
+  }
+
+  g_strfreev(list);
+
+  return ret;
 }
 
 /** Return an absolute filename from an absolute or relative filename.
@@ -185,7 +193,7 @@ dia_get_absolute_filename (const gchar *filename)
   gchar *fullname;
   gchar *canonical;
   if (filename == NULL) return NULL;
-  if (g_path_is_absolute(filename)) return g_strdup(filename);
+  if (g_path_is_absolute(filename)) return dia_get_canonical_path(filename);
   current_dir = g_get_current_dir();
   fullname = g_build_filename(current_dir, filename, NULL);
   g_free(current_dir);
