@@ -70,7 +70,7 @@ struct menudesc {
  * Note:  Currently, many places have this number hardcoded.
  * find . -name \*.[ch] | xargs grep \\.8
  */
-#define DEFAULT_ARROW_SIZE 0.8
+#define DEFAULT_ARROW_SIZE 0.5
 
 /* These are used to fill menus.  See dia_arrow_fill_menu in widgets.c */
 DIAVAR struct menudesc arrow_types[];

@@ -503,11 +503,11 @@ real dia_font_descent(const char* string, DiaFont* font, real height)
 }
 
 typedef struct {
-  const gchar *string;
+  gchar *string;
   DiaFont *font;
   real height;
   PangoLayout *layout;
-  int lastused;
+  int usecount;
 } LayoutCacheItem;
 
 static GHashTable *layoutcache;
@@ -533,6 +533,67 @@ layout_cache_hash(gconstpointer el)
     (int)(item->font);
 }
 
+static long layout_cache_last_use;
+
+static gboolean
+layout_cache_cleanup_entry(gpointer key, gpointer value, gpointer data)
+{
+  LayoutCacheItem *item = (LayoutCacheItem*)value;
+  /** Remove unused items */
+  if (item->usecount == 0) return TRUE;
+  item->usecount = 0;
+  return FALSE;
+}
+
+/** The actual hash cleanup, called when idle. */
+static gboolean
+layout_cache_cleanup_idle(gpointer data)
+{
+  GHashTable *table = (GHashTable*)(data);
+
+  g_hash_table_foreach_remove(table, layout_cache_cleanup_entry, NULL);
+
+  return FALSE;
+}
+
+/** Every ten minutes, clean up those strings that haven't seen use since
+ * last cleanup.
+ */
+static gboolean
+layout_cache_cleanup(gpointer data)
+{
+  /* Only cleanup if there has been font activity since last cleanup */
+  if (time(0) - layout_cache_last_use < 60*10) {
+    /* Don't go directly to cleanup, wait till there's a pause. */
+    g_idle_add(layout_cache_cleanup_idle, data);
+  }
+  /* Keep doing this */
+  return TRUE;
+}
+
+static void
+layout_cache_free_key(gpointer data)
+{
+    LayoutCacheItem *item = (LayoutCacheItem*)data;
+
+    if (item->string != NULL) {
+      g_free(item->string);
+      item->string = NULL;
+    }
+
+    if (item->font != NULL) {
+      g_object_unref(item->font);
+      item->font = NULL;
+    }
+
+    if (item->layout != NULL) {
+      g_object_unref(item->layout);
+      item->layout = NULL;
+    }
+    g_free(item);
+}
+
+
 PangoLayout*
 dia_font_build_layout(const char* string, DiaFont* font, real height)
 {
@@ -544,8 +605,14 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
 
     LayoutCacheItem *cached;
 
+    layout_cache_last_use = time(0);
     if (layoutcache == NULL) {
-      layoutcache = g_hash_table_new(layout_cache_hash, layout_cache_equals);
+      /** Note that key and value are the same -- it's a HashSet */
+      layoutcache = g_hash_table_new_full(layout_cache_hash,
+					  layout_cache_equals,
+					  layout_cache_free_key,
+					  NULL);
+      g_timeout_add(10*60*1000, layout_cache_cleanup, (gpointer)layoutcache);
     } else {
       LayoutCacheItem item;
       item.string = string;
@@ -554,7 +621,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
       cached = g_hash_table_lookup(layoutcache, &item);
       if (cached != NULL) {
 	g_object_ref(cached->layout);
-	cached->lastused = time(0);
+	cached->usecount ++;
 	return cached->layout;
       }
     }
@@ -591,7 +658,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
   
     cached->layout = layout;
     g_object_ref(layout);
-    cached->lastused = time(0);
+    cached->usecount = 1;
     g_hash_table_insert(layoutcache, cached, cached);
 
     return layout;
