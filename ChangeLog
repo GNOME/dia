@@ -45,7 +45,7 @@
 	* lib/Makefile.am:
 	* lib/dummy_dep.h:
 	* lib/connpoint_line.c:
-	* lib/lazyprops.[ch] (DELETED): good riddance (closes #_bugzilla_is_down_)
+	* lib/lazyprops.[ch] (DELETED): good riddance (closes #55895)
 	* lib/properties.[ch]: new property types:
 	    - PROP_TYPE_STATIC: static text to be displayed in the dialog.
 	    - PROP_TYPE_MULTISTRING: same as string, but renders as a
