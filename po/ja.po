@@ -2,7 +2,6 @@
 # Copyright (C) 1999,2000 Free Software Foundation, Inc.
 # Yukihiro Nakai <nakai@FreeBSD.org>, 1999,2000.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: dia cvs\n"

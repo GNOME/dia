@@ -2,7 +2,6 @@
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Spiros Papadimitriou <spapadim+@cs.cmu.edu>, 2000.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.84\n"
