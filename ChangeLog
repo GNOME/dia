@@ -1,3 +1,7 @@
+2000-05-12  Andreas Hyden  <a.hyden@cyberpoint.se>
+
+	* dia.desktop: Added Swedish translation.
+
 2000-05-09  James Henstridge  <james@daa.com.au>
 
 	* lib/dia_xml.c: you can't free a const pointer, so remove const
