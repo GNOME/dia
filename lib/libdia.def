@@ -292,6 +292,7 @@ EXPORTS
 
  ellipse_bbox
 
+ filter_get_by_name
  filter_get_callbacks
  filter_get_export_filter_label
  filter_get_export_filters
