@@ -1,3 +1,19 @@
+2004-07-10  Lars Clausen  <lars@raeder.dk>
+
+	* shapes/RDP/place.shape: 
+	* shapes/RDP/transition.shape: 
+	* shapes/RDP/Makefile.am: Added .png entries to SHAPES and changed
+	shapes to use those.
+
+2004-07-07  Lars Clausen <lars@raeder.dk>
+
+	* config.h.win32: 
+	* doc/{en,pl}/dia-manual.xml: 
+	* dia.spec: 
+	* configure.in: 
+	* NEWS: First prerelease of version 0.94.  Now with release
+	versions in a branch and main devel in the trunk.
+
 2004-07-05  Hans Breuer  <hans@breuer.org>
 
 	* */*.[hc] */*/*.c : a bunch of changes to make Dia compile with

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <!DOCTYPE Book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "../../dtd/docbookx.dtd"[
-<!ENTITY VERSION "0.94-devel">
+<!ENTITY VERSION "0.94-pre1">
 <!ENTITY INTRODUCTION SYSTEM "intro.sgml">
 <!ENTITY QUICKSTART SYSTEM "usage-quickstart.sgml">
 <!ENTITY CANVAS SYSTEM "usage-canvas.sgml">

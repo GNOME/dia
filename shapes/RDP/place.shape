@@ -3,7 +3,7 @@
 xmlns:svg="http://www.w3.org/2000/svg">
   <name>RDP - place</name>
 
-  <icon>place.xpm</icon>
+  <icon>place.png</icon>
 
   <connections>
     <point x="1.5" y="0" />

@@ -1,3 +1,50 @@
+dia-0.94: 04-Jul-2004
+
+First prerelease of version 0.94.  News in this version:
+
+* Highlighting of objects when connecting to them makes it easier to
+  connect.
+
+* New shape sets include:
+  - RDP (Petri Networks shapes)
+  - KAOS (Goal-Directed Requirements Acquisition)
+  - I* (Intentional STrategic Actor Relationships modelling)
+  - Jackson (Jackson Diagrams)
+  - ChemEng (chemical engineering)
+
+* Hexagonal grid, for all you chemists out there.
+
+* Allow selection between layers, selectable in layers dialog.
+
+* Disparate persistence systems replaced by one combined system using XML,
+  leaves unknown preferences alone.
+
+* New renderer plug-in for Cairo rendering API.
+
+* New renderer plug-in for WMF outside of Windows.
+
+* New arrow head: Backslash.
+
+* Rounded corners on zigzaglines and polylines.
+
+* Automaticall open new diagram if now chosen at start.
+
+* Diagram modified status now based on undo information.
+
+* Wrapping operations arguments in UML objects.
+
+* Better positioning of association texts.
+
+* More persistence of toolbox selections and dialog entries.
+
+* Better handling of dialogs when parent dialogs close.
+
+* Changed from SGML to XML for docs, still DocBook.
+
+* Fix shape background color compatibility problem.
+
+* Many smaller bug fixes, leaks closed and stuff.
+
 dia-0.93: 29-Apr-2004
 
 Ready for release.
