@@ -4,6 +4,7 @@
 	* objects/GRAFCET/step.c: ditto.
 	* objects/GRAFCET/vector.c: ditto.
 	* objects/SADT/annotation.c: ditto.
+	* objects/SADT/arrow.c: ditto.
 	
 	* lib/properties.[ch]: two more non-visible types
 	(PROP_TYPE_ENUMARRAY and PROP_TYPE_INTARRAY).
@@ -11,7 +12,7 @@
 	* lib/neworthconn.[ch]:
 	* lib/orthconn.[ch]: added support for manipulation through
 	standard properties.
-	
+
 	* charconv.[ch]: more functions from unicode.h.
 	get_local_charset() wasn't working properly, fixed now.
 	A subtle crashbug in charconv_utf8_to_local8() nailed (thanks to 

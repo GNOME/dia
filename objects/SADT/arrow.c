@@ -63,48 +63,12 @@ typedef enum { SADT_ARROW_NORMAL,
 	       SADT_ARROW_DOTTED,
 	       SADT_ARROW_DISABLED } Sadtarrow_style;
 
-typedef struct _SadtarrowPropertiesDialog SadtarrowPropertiesDialog;
-typedef struct _SadtarrowDefaultsDialog SadtarrowDefaultsDialog;
-typedef struct _SadtarrowState SadtarrowState;
-
-struct _SadtarrowState {
-  ObjectState obj_state;
-  
-  Sadtarrow_style style;
-  gboolean autogray;
-};
-
 typedef struct _Sadtarrow {
   NewOrthConn orth;
 
   Sadtarrow_style style;
   gboolean autogray;
 } Sadtarrow;
-
-struct _SadtarrowPropertiesDialog {
-  AttributeDialog dialog;
-  Sadtarrow *parent;
-
-  EnumAttribute style;
-  BoolAttribute autogray;
-};
-
-typedef struct _SadtarrowDefaults {
-  Sadtarrow_style style;
-  gboolean autogray;
-} SadtarrowDefaults;
-
-struct _SadtarrowDefaultsDialog {
-  AttributeDialog dialog;
-  SadtarrowDefaults *parent;
-
-  EnumAttribute style;
-  BoolAttribute autogray;
-};
-
-static SadtarrowPropertiesDialog *sadtarrow_properties_dialog;
-static SadtarrowDefaultsDialog *sadtarrow_defaults_dialog;
-static SadtarrowDefaults sadtarrow_defaults;
 
 static void sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
@@ -119,30 +83,25 @@ static Object *sadtarrow_create(Point *startpoint,
 static real sadtarrow_distance_from(Sadtarrow *sadtarrow, Point *point);
 static void sadtarrow_update_data(Sadtarrow *sadtarrow);
 static void sadtarrow_destroy(Sadtarrow *sadtarrow);
-static Object *sadtarrow_copy(Sadtarrow *sadtarrow);
-static PROPDLG_TYPE sadtarrow_get_properties(Sadtarrow *sadtarrow);
-static ObjectChange *sadtarrow_apply_properties(Sadtarrow *sadtarrow);
 static DiaMenu *sadtarrow_get_object_menu(Sadtarrow *sadtarrow,
 					   Point *clickedpoint);
 
-static SadtarrowState *sadtarrow_get_state(Sadtarrow *sadtarrow);
-static void sadtarrow_set_state(Sadtarrow *sadtarrow, SadtarrowState *state);
-
-static void sadtarrow_save(Sadtarrow *sadtarrow, ObjectNode obj_node,
-			    const char *filename);
 static Object *sadtarrow_load(ObjectNode obj_node, int version,
 			       const char *filename);
+static PropDescription *sadtarrow_describe_props(Sadtarrow *sadtarrow);
+static void sadtarrow_get_props(Sadtarrow *sadtarrow, 
+                                 Property *props, guint nprops);
+static void sadtarrow_set_props(Sadtarrow *sadtarrow, 
+                                 Property *props, guint nprops);
 
-static PROPDLG_TYPE sadtarrow_get_defaults(void);
-static void sadtarrow_apply_defaults(void);
 
 static ObjectTypeOps sadtarrow_type_ops =
 {
   (CreateFunc)sadtarrow_create,   /* create */
-  (LoadFunc)  sadtarrow_load,     /* load */
-  (SaveFunc)  sadtarrow_save,      /* save */
-  (GetDefaultsFunc)   sadtarrow_get_defaults, 
-  (ApplyDefaultsFunc) sadtarrow_apply_defaults
+  (LoadFunc)  sadtarrow_load/*using properties*/,     /* load */
+  (SaveFunc)  object_save_using_properties, /* save */
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType sadtarrow_type =
@@ -160,91 +119,73 @@ static ObjectOps sadtarrow_ops = {
   (DrawFunc)            sadtarrow_draw,
   (DistanceFunc)        sadtarrow_distance_from,
   (SelectFunc)          sadtarrow_select,
-  (CopyFunc)            sadtarrow_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            sadtarrow_move,
   (MoveHandleFunc)      sadtarrow_move_handle,
-  (GetPropertiesFunc)   sadtarrow_get_properties,
-  (ApplyPropertiesFunc) sadtarrow_apply_properties,
-  (ObjectMenuFunc)      sadtarrow_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      sadtarrow_get_object_menu,
+  (DescribePropsFunc)   sadtarrow_describe_props,
+  (GetPropsFunc)        sadtarrow_get_props,
+  (SetPropsFunc)        sadtarrow_set_props
 };
 
-static ObjectChange *
-sadtarrow_apply_properties(Sadtarrow *sadtarrow)
+PropEnumData flow_style[] = {
+  { N_("Normal"),SADT_ARROW_NORMAL },
+  { N_("Import resource (not shown upstairs)"),SADT_ARROW_IMPORTED },
+  { N_("Imply resource (not shown downstairs)"),SADT_ARROW_IMPLIED },
+  { N_("Dotted arrow"),SADT_ARROW_DOTTED },
+  { N_("disable arrow heads"),SADT_ARROW_DISABLED },
+  { NULL }};
+
+static PropDescription sadtarrow_props[] = {
+  NEWORTHCONN_COMMON_PROPERTIES,
+  { "arrow_style", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+    N_("Flow style:"), NULL, flow_style },
+  { "autogray",PROP_TYPE_BOOL,PROP_FLAG_VISIBLE,
+    N_("Automatically gray vertical flows:"),
+    N_("To improve the ease of reading, flows which begin and end vertically "
+       "can be rendered gray")},
+  PROP_DESC_END
+};
+
+static PropDescription *
+sadtarrow_describe_props(Sadtarrow *sadtarrow) 
 {
-  ObjectState *old_state;
-  SadtarrowPropertiesDialog *dlg = sadtarrow_properties_dialog;
+  if (sadtarrow_props[0].quark == 0) {
+    prop_desc_list_calculate_quarks(sadtarrow_props);
+  }
+  return sadtarrow_props;
+}    
 
-  PROPDLG_SANITY_CHECK(dlg,sadtarrow);
-  
-  old_state = (ObjectState *)sadtarrow_get_state(sadtarrow);
 
-  PROPDLG_APPLY_ENUM(dlg,style);
-  PROPDLG_APPLY_BOOL(dlg,autogray);
 
-  sadtarrow_update_data(sadtarrow);
-  return new_object_state_change(&sadtarrow->orth.object, old_state, 
-				 (GetStateFunc)sadtarrow_get_state,
-				 (SetStateFunc)sadtarrow_set_state);
-}
+  sadtarrow->style = load_enum(obj_node,"arrow_style",SADT_ARROW_NORMAL);
+  sadtarrow->autogray = load_boolean(obj_node,"autogray",TRUE);
 
-PropDlgEnumEntry flow_style[] = {
-  { N_("Normal"),SADT_ARROW_NORMAL,NULL },
-  { N_("Import resource (not shown upstairs)"),SADT_ARROW_IMPORTED,NULL },
-  { N_("Imply resource (not shown downstairs)"),SADT_ARROW_IMPLIED, NULL },
-  { N_("Dotted arrow"),SADT_ARROW_DOTTED, NULL },
-  { N_("disable arrow heads"),SADT_ARROW_DISABLED, NULL },
-  { NULL}};
 
-static PROPDLG_TYPE
-sadtarrow_get_properties(Sadtarrow *sadtarrow)
-{
-  SadtarrowPropertiesDialog *dlg = sadtarrow_properties_dialog;
-  
-  PROPDLG_CREATE(dlg,sadtarrow);
-  PROPDLG_SHOW_ENUM(dlg,style,_("Flow style:"),flow_style);
-  PROPDLG_SHOW_BOOL(dlg,autogray,_("Automatically gray vertical flows:"));
-  PROPDLG_READY(dlg);
+static PropOffset sadtarrow_offsets[] = {
+  NEWORTHCONN_COMMON_PROPERTIES_OFFSETS,
+  { "arrow_style", PROP_TYPE_ENUM, offsetof(Sadtarrow,style)},
+  { "autogray",PROP_TYPE_BOOL, offsetof(Sadtarrow,autogray)},
+  { NULL, 0, 0 }
+};
 
-  sadtarrow_properties_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
+static void
+sadtarrow_get_props(Sadtarrow *sadtarrow, Property *props, guint nprops)
+{  
+  object_get_props_from_offsets(&sadtarrow->orth.object,
+                                sadtarrow_offsets,props,nprops);
 }
 
 static void
-init_default_values(void) {
-  static int defaults_initialized = 0;
-
-  if (!defaults_initialized) {
-    sadtarrow_defaults.style = SADT_ARROW_NORMAL;
-    sadtarrow_defaults.autogray = TRUE;
-    defaults_initialized = 1;
-  }
-}
-
-static void 
-sadtarrow_apply_defaults(void)
+sadtarrow_set_props(Sadtarrow *sadtarrow, Property *props, guint nprops)
 {
-  SadtarrowDefaultsDialog *dlg = sadtarrow_defaults_dialog;
-
-  PROPDLG_APPLY_ENUM(dlg,style);
-  PROPDLG_APPLY_BOOL(dlg,autogray);
+  object_set_props_from_offsets(&sadtarrow->orth.object,
+                                sadtarrow_offsets,props,nprops);
+  sadtarrow_update_data(sadtarrow);
 }
 
-
-static PROPDLG_TYPE
-sadtarrow_get_defaults()
-{
-  SadtarrowDefaultsDialog *dlg = sadtarrow_defaults_dialog;
-
-  init_default_values();
-  PROPDLG_CREATE(dlg, &sadtarrow_defaults);
-  PROPDLG_SHOW_ENUM(dlg,style,_("Flow style:"),flow_style);
-  PROPDLG_SHOW_BOOL(dlg,autogray,_("Automatically gray vertical flows:"));
-  PROPDLG_READY(dlg);
-  sadtarrow_defaults_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
-}
 
 static real
 sadtarrow_distance_from(Sadtarrow *sadtarrow, Point *point)
@@ -400,7 +341,7 @@ sadtarrow_draw(Sadtarrow *sadtarrow, Renderer *renderer)
 	     alpha = tau;
 	   }
 	   
-	   renderer->ops->draw_arc(renderer,&C,rr*2,rr*2,alpha,beta,
+	   renderer->ops->draw_sadtarrow(renderer,&C,rr*2,rr*2,alpha,beta,
 				   &col);
 	 }
        }
@@ -529,7 +470,6 @@ sadtarrow_create(Point *startpoint,
   NewOrthConn *orth;
   Object *obj;
 
-  init_default_values();
   sadtarrow = g_malloc0(sizeof(Sadtarrow));
   orth = &sadtarrow->orth;
   obj = &orth->object;
@@ -541,8 +481,8 @@ sadtarrow_create(Point *startpoint,
 
   sadtarrow_update_data(sadtarrow);
 
-  sadtarrow->style = sadtarrow_defaults.style;
-  sadtarrow->autogray = sadtarrow_defaults.autogray;
+  sadtarrow->style = SADT_ARROW_NORMAL; /* sadtarrow_defaults.style; */
+  sadtarrow->autogray = TRUE; /* sadtarrow_defaults.autogray; */
 
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
@@ -553,51 +493,6 @@ static void
 sadtarrow_destroy(Sadtarrow *sadtarrow)
 {
   neworthconn_destroy(&sadtarrow->orth);
-}
-
-static Object *
-sadtarrow_copy(Sadtarrow *sadtarrow)
-{
-  Sadtarrow *newsadtarrow;
-  NewOrthConn *orth, *neworth;
-  Object *newobj;
-  
-  orth = &sadtarrow->orth;
- 
-  newsadtarrow = g_malloc0(sizeof(Sadtarrow));
-  neworth = &newsadtarrow->orth;
-  newobj = &neworth->object;
-
-  neworthconn_copy(orth, neworth);
-
-  newsadtarrow->style = sadtarrow->style;
-  newsadtarrow->autogray = sadtarrow->autogray;
-
-  return &newsadtarrow->orth.object;
-}
-
-static SadtarrowState *
-sadtarrow_get_state(Sadtarrow *sadtarrow)
-{
-  SadtarrowState *state = g_new0(SadtarrowState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->style = sadtarrow->style;
-  state->autogray = sadtarrow->autogray;
-
-  return state;
-}
-
-static void
-sadtarrow_set_state(Sadtarrow *sadtarrow, SadtarrowState *state)
-{
-  sadtarrow->style = state->style;
-  sadtarrow->autogray = state->autogray;
-
-  g_free(state);
-  
-  sadtarrow_update_data(sadtarrow);
 }
 
 static void
@@ -680,41 +575,11 @@ sadtarrow_get_object_menu(Sadtarrow *sadtarrow, Point *clickedpoint)
   return &object_menu;
 }
 
-
-static void
-sadtarrow_save(Sadtarrow *sadtarrow, ObjectNode obj_node,
-		const char *filename)
-{
-  neworthconn_save(&sadtarrow->orth, obj_node);
-
-  save_enum(obj_node,"arrow_style",sadtarrow->style);
-  save_boolean(obj_node,"autogray",sadtarrow->autogray);
-}
-
 static Object *
 sadtarrow_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Sadtarrow *sadtarrow;
-  NewOrthConn *orth;
-  Object *obj;
-
-  init_default_values();
-  sadtarrow = g_malloc0(sizeof(Sadtarrow));
-
-  orth = &sadtarrow->orth;
-  obj = &orth->object;
-
-  obj->type = &sadtarrow_type;
-  obj->ops = &sadtarrow_ops;
-
-  neworthconn_load(orth, obj_node);
-
-  sadtarrow->style = load_enum(obj_node,"arrow_style",SADT_ARROW_NORMAL);
-  sadtarrow->autogray = load_boolean(obj_node,"autogray",TRUE);
-
-  sadtarrow_update_data(sadtarrow);
-
-  return &sadtarrow->orth.object;
+  return object_load_using_properties(&sadtarrow_type,
+                                      obj_node,version,filename);
 }
 
 
