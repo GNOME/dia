@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 1999-12-28 00:50+0100\n"
-"PO-Revision-Date: 1999-12-28 00:54+01:00\n"
+"POT-Creation-Date: 2000-01-28 20:47-0500\n"
+"PO-Revision-Date: 2000-01-28 20:49-05:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -70,8 +70,8 @@ msgstr ""
 msgid "Quit"
 msgstr "Avslutt"
 
-#: app/app_procs.c:310 app/layer_dialog.c:980 app/lineprops_area.c:516
-#: app/lineprops_area.c:714
+#: app/app_procs.c:310 app/layer_dialog.c:980 app/lineprops_area.c:549
+#: app/lineprops_area.c:747
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -140,37 +140,7 @@ msgstr ""
 msgid "Select color"
 msgstr "Velg farge"
 
-#: app/commands.c:137
-msgid "Open diagram"
-msgstr "Åpne diagram"
-
-#: app/commands.c:198
-msgid "File already exists"
-msgstr "Filen eksisterer allerede"
-
-#: app/commands.c:201
-#, c-format
-msgid ""
-"The file '%s' already exists.\n"
-"Do you want to overwrite it?"
-msgstr ""
-"Filen '%s' eksisterer allerede.\n"
-"Vil du overskrive den?"
-
-#: app/commands.c:213 app/display.c:743 app/preferences.c:460
-msgid "Yes"
-msgstr "Ja"
-
-#: app/commands.c:226 app/display.c:754 app/preferences.c:460
-#: app/preferences.c:471
-msgid "No"
-msgstr "Nei"
-
-#: app/commands.c:269
-msgid "Save diagram"
-msgstr "Lagre diagram"
-
-#: app/commands.c:304
+#: app/commands.c:77
 #, c-format
 msgid ""
 "No such file found\n"
@@ -179,35 +149,35 @@ msgstr ""
 "Ingen slik fil funnet\n"
 "%s\n"
 
-#: app/commands.c:324
+#: app/commands.c:97
 msgid "Import from XFig"
 msgstr "Importer fra XFig"
 
-#: app/commands.c:380
+#: app/commands.c:153
 #, c-format
 msgid "Untitled-%d"
 msgstr "Uten navn-%d"
 
-#: app/commands.c:441
+#: app/commands.c:214
 msgid "No existing object to paste.\n"
 msgstr "Ingen eksisterende objekter kan limes inn.\n"
 
-#: app/commands.c:535
+#: app/commands.c:308
 msgid "About Dia"
 msgstr "Om dia"
 
-#: app/commands.c:572
+#: app/commands.c:345
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s av Alexander Larsson"
 
-#: app/commands.c:576
+#: app/commands.c:349
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Vennligst se på http://www.lysator.liu.se/~alla/dia for mer informasjon"
 
-#: app/commands.c:585 app/layer_dialog.c:970 app/lineprops_area.c:507
-#: app/lineprops_area.c:704 app/preferences.c:544 app/properties.c:54
+#: app/commands.c:358 app/layer_dialog.c:970 app/lineprops_area.c:540
+#: app/lineprops_area.c:737 app/preferences.c:544 app/properties.c:54
 #: lib/message.c:72
 msgid "OK"
 msgstr "OK"
@@ -316,6 +286,14 @@ msgstr ""
 "Dette diagrammet har ikke blitt lagret.\n"
 "Er du sikker på at du vil lukke dette vinduet?"
 
+#: app/display.c:743 app/preferences.c:460
+msgid "Yes"
+msgstr "Ja"
+
+#: app/display.c:754 app/preferences.c:460 app/preferences.c:471
+msgid "No"
+msgstr "Nei"
+
 #: app/display.c:787
 msgid "/View/Show Rulers"
 msgstr "/Vis/Vis linjaler"
@@ -332,15 +310,15 @@ msgstr "/Vis/Fest til rutenett"
 msgid "/View/Show Connection Points"
 msgstr "/Vis/Vis forbindelsespunkter"
 
-#: app/grid.c:148
+#: app/grid.c:190
 msgid "Grid options"
 msgstr "Alternativer for rutenett"
 
-#: app/grid.c:157
+#: app/grid.c:199
 msgid "Grid x size:"
 msgstr "Rutenett x-størrelse"
 
-#: app/grid.c:175
+#: app/grid.c:217
 msgid "Grid y size:"
 msgstr "Rutenett y-størrelse:"
 
@@ -449,11 +427,11 @@ msgstr "Rediger lagets attributter"
 msgid "Layer name:"
 msgstr "Navn på lag:"
 
-#: app/load_save.c:81
+#: app/load_save.c:82
 msgid "Error reading diagram file\n"
 msgstr "Feil under lesing av diagramfilen\n"
 
-#: app/load_save.c:132
+#: app/load_save.c:133
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -461,7 +439,7 @@ msgstr ""
 "Feil under lesing av diagram.\n"
 "Lenket objekt ikke funnet i dokumentet."
 
-#: app/load_save.c:135
+#: app/load_save.c:136
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -469,7 +447,7 @@ msgstr ""
 "Feil under lasting av diagram.\n"
 "Punkt for forbindelse eksisterer ikke."
 
-#: app/load_save.c:138
+#: app/load_save.c:139
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -477,16 +455,16 @@ msgstr ""
 "Feil under lasting av diagram.\n"
 "Håndtak for forbindelse eksisterer ikke."
 
-#: app/load_save.c:183
+#: app/load_save.c:184
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunne ikke åpne: '%s' for lesing.\n"
 
-#: app/load_save.c:189
+#: app/load_save.c:190
 msgid "You must specify a file, not a directory.\n"
 msgstr "Du må spesifiserer en fil ikke en katalog.\n"
 
-#: app/load_save.c:198 app/load_save.c:203
+#: app/load_save.c:199 app/load_save.c:204
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -495,7 +473,7 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ukjent filtype."
 
-#: app/load_save.c:210
+#: app/load_save.c:211
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -504,13 +482,18 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ikke en dia fil."
 
-#: app/load_save.c:461 app/render_eps.c:161 app/render_svg.c:144
-#: plug-ins/cgm/cgm.c:810
+#: app/load_save.c:500 app/render_eps.c:161 app/render_svg.c:144
+#: plug-ins/cgm/cgm.c:815
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åpne: '%s' for skriving.\n"
 
-#: app/load_save.c:554
+#: app/load_save.c:598
+#, c-format
+msgid "Failed to save file '%s'.\n"
+msgstr "Klarte ikke å lagre file '%s'.\n"
+
+#: app/load_save.c:618
 msgid "Native Dia Diagram"
 msgstr "Dia diagram"
 
@@ -987,23 +970,23 @@ msgstr "Forbindelsespunkter:"
 msgid "Preferences"
 msgstr "Innstillinger"
 
-#: app/render_svg.c:834
+#: app/render_svg.c:783
 msgid "Scalable Vector Graphics"
 msgstr "Skalerbar vektorgrafikk"
 
-#: app/lineprops_area.c:496
+#: app/lineprops_area.c:529
 msgid "Arrow Properties"
 msgstr "Egenskaper for pil"
 
-#: app/lineprops_area.c:553 app/lineprops_area.c:737
+#: app/lineprops_area.c:586 app/lineprops_area.c:770
 msgid "Details..."
 msgstr "Detaljer..."
 
-#: app/lineprops_area.c:693
+#: app/lineprops_area.c:726
 msgid "Line Style Properties"
 msgstr "Egenskaper for linjestil"
 
-#: lib/diagramdata.c:47
+#: lib/diagramdata.c:50
 msgid "Background"
 msgstr "Bakgrunn"
 
@@ -1086,19 +1069,31 @@ msgstr "Fylt diamant"
 msgid "Half Head"
 msgstr "Halvhodet"
 
-#: lib/widgets.c:706
+#: lib/widgets.c:696
+msgid "Slashed Cross"
+msgstr ""
+
+#: lib/widgets.c:703
+msgid "Filled Ellipse"
+msgstr "Fylt elipse"
+
+#: lib/widgets.c:709
+msgid "Hollow Ellipse"
+msgstr "Hul elipse"
+
+#: lib/widgets.c:725
 msgid "Length: "
 msgstr "Lengde: "
 
-#: lib/widgets.c:719
+#: lib/widgets.c:738
 msgid "Width: "
 msgstr "Bredde: "
 
-#: lib/widgets.c:835
+#: lib/widgets.c:854
 msgid "Select image file"
 msgstr "Velg bildefil"
 
-#: lib/widgets.c:865
+#: lib/widgets.c:884
 msgid "Browse"
 msgstr "Bla gjennom"
 
@@ -1492,12 +1487,12 @@ msgstr "Legg til håndtak"
 msgid "Delete Handle"
 msgstr "Slett håndtak"
 
-#: objects/standard/arc.c:205 objects/standard/line.c:202
+#: objects/standard/arc.c:205 objects/standard/line.c:204
 #: objects/standard/polyline.c:207 objects/standard/zigzagline.c:207
 msgid "Line width:"
 msgstr "Linjebredde:"
 
-#: objects/standard/arc.c:219 objects/standard/line.c:216
+#: objects/standard/arc.c:219 objects/standard/line.c:218
 #: objects/standard/polyline.c:221 objects/standard/textobj.c:234
 #: objects/standard/zigzagline.c:221
 msgid "Color:"
@@ -1508,17 +1503,17 @@ msgstr "Farge:"
 #: objects/flowchart/parallelogram.c:294 objects/standard/arc.c:230
 #: objects/standard/box.c:252 objects/standard/ellipse.c:249
 #: objects/standard/image.c:288 objects/standard/image.c:383
-#: objects/standard/line.c:227 objects/standard/polyline.c:232
+#: objects/standard/line.c:229 objects/standard/polyline.c:232
 #: objects/standard/zigzagline.c:232
 msgid "Line style:"
 msgstr "Linjestil:"
 
-#: objects/standard/arc.c:241 objects/standard/line.c:238
+#: objects/standard/arc.c:241 objects/standard/line.c:240
 #: objects/standard/polyline.c:243 objects/standard/zigzagline.c:246
 msgid "Start arrow:"
 msgstr "Startpil:"
 
-#: objects/standard/arc.c:255 objects/standard/line.c:252
+#: objects/standard/arc.c:255 objects/standard/line.c:254
 #: objects/standard/polyline.c:257 objects/standard/zigzagline.c:260
 msgid "End arrow:"
 msgstr "Sluttpil:"
@@ -1537,6 +1532,18 @@ msgstr "Tegn bakgrunn"
 #: objects/standard/box.c:263 objects/standard/box.c:340
 msgid "Corner rounding:"
 msgstr "Avrunding av hjørner:"
+
+#: objects/standard/line.c:400
+msgid "Add connection point"
+msgstr "Legg til forbindelsespunkt"
+
+#: objects/standard/line.c:401
+msgid "Delete connection point"
+msgstr "Slett forbindelsespunkt"
+
+#: objects/standard/line.c:406
+msgid "Line"
+msgstr "Linje"
 
 #: objects/custom/custom_object.c:347 objects/custom/custom_object.c:495
 #: objects/standard/textobj.c:198 objects/standard/textobj.c:292
@@ -1837,7 +1844,7 @@ msgstr "Vend horisontalt"
 msgid "Flip Vertical"
 msgstr "Vend vertikalt"
 
-#: plug-ins/cgm/cgm.c:765
+#: plug-ins/cgm/cgm.c:770
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -1845,6 +1852,22 @@ msgstr ""
 "Bildets radlengde større enn maksimum cellematrise.\n"
 "Bilde ikke eksportert til CGM."
 
-#: plug-ins/cgm/cgm.c:919
+#: plug-ins/cgm/cgm.c:924
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Metafile"
+
+#~ msgid "Open diagram"
+#~ msgstr "Åpne diagram"
+
+#~ msgid "File already exists"
+#~ msgstr "Filen eksisterer allerede"
+
+#~ msgid ""
+#~ "The file '%s' already exists.\n"
+#~ "Do you want to overwrite it?"
+#~ msgstr ""
+#~ "Filen '%s' eksisterer allerede.\n"
+#~ "Vil du overskrive den?"
+
+#~ msgid "Save diagram"
+#~ msgstr "Lagre diagram"
