@@ -169,6 +169,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
     tool->obj = NULL;
   }
   
+  highlight_reset_all(ddisp->diagram);
   diagram_update_extents(ddisp->diagram);
   diagram_modified(ddisp->diagram);
 
@@ -199,10 +200,12 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
       ((connectionpoint =
 	object_find_connectpoint_display(ddisp, &to, tool->obj)) != NULL)) {
     to = connectionpoint->pos;
+    highlight_object(connectionpoint->object, NULL, ddisp->diagram);
     ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
   } else {
     /* No connectionopoint near, then snap to grid (if enabled) */
     snap_to_grid(ddisp, &to.x, &to.y);
+    highlight_reset_all(ddisp->diagram);
     ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
   }
 

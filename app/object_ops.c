@@ -35,7 +35,11 @@ object_add_updates(Object *obj, Diagram *dia)
   int i;
 
   /* Bounding box */
-  diagram_add_update(dia, &obj->bounding_box);
+  if (obj->highlight_color != NULL) {
+    diagram_add_update_with_border(dia, &obj->bounding_box, 5);
+  } else {
+    diagram_add_update(dia, &obj->bounding_box);
+  }
 
   /* Handles */
   for (i=0;i<obj->num_handles;i++) {

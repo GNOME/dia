@@ -5,9 +5,6 @@ This document, at this point, is a proposal only. It attempts to
 document how we intend to make the upcoming releases, in order to make
 as sure as possible no stupid bugs creep in just before the release.
 
-Talk to James K. Lowden before releasing next time about how to set up a
-release branch.
-
 Contents
 --------
 
@@ -85,6 +82,34 @@ How to make a tarball
      "install-module dia-0.90.tar.gz", which will create bz2
      tarballs, diffs to the previous version, and signal the ftp mirrors
      (currently just ftp.gnome.org and planetmirror.com) to synchronise. 
+
+Development during release
+--------------------------
+While a prerelease is out, all new development (i.e. non-bugfixing)
+must happen in a separate branch called 'DIA_$DEVVERSION_DEV', where
+$DEVVERSION is the (expected) next number after the currently
+prereleasing version.  Make the branch with
+
+cvs tag -b DIA_$DEVVERSION_DEV
+
+and to use it in an existing checkout, do
+
+cvs update -r DIA_$DEVVERSION_DEV
+
+The below is untested:
+
+Every time a new prerelease (or brown-bag release) is sent out, the
+changes in that must be applied to the development branch with
+
+cvs update -r DIA_$VERSION_PRE{N-1} -r DIA_$VERSION_PRE{N}
+
+Resolve any conflicts and commit in the branch.  If the development
+branch comes too much out of sync to perform this operation, any still
+pertinent bug fixes must be applied by hand.
+
+It remains to be seen whether the prerelease time is the best time for
+heavy development, due to less 'user pressure', or the worst time, due
+to the need to apply patches from the main trunk.
 
 Issues to solve
 ---------------

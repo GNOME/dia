@@ -589,6 +589,28 @@ diagram_add_update(Diagram *dia, Rectangle *update)
   }
 }
 
+/** Add an update of the given rectangle, but with an additional
+ * border around it.  The pixels are added after the rectangle has
+ * been converted to pixel coords.
+ * Currently used for leaving room for highlighting.
+ * */
+void
+diagram_add_update_with_border(Diagram *dia, Rectangle *update,
+			       int pixel_border)
+{
+  GSList *l;
+  DDisplay *ddisp;
+  
+  l = dia->displays;
+  while (l!=NULL) {
+    ddisp = (DDisplay *) l->data;
+
+    ddisplay_add_update_with_border(ddisp, update, pixel_border);
+    
+    l = g_slist_next(l);
+  }
+}
+
 void
 diagram_add_update_pixels(Diagram *dia, Point *point,
 			  int pixel_width, int pixel_height)

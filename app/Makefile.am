@@ -149,6 +149,8 @@ dia_core_files = \
 	    persistence.c \
 	    navigation.h \
 	    navigation.c \
+	    highlight.c \
+	    highlight.h \
 	    $(print_files)
 
 dia_SOURCES = \

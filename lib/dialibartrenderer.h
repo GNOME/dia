@@ -45,6 +45,7 @@ struct _DiaLibartRenderer
   ArtVpathDash dash;
   double dash_length;
   double dot_length;
+  Color *highlight_color;
 #endif
 };
 

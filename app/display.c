@@ -344,6 +344,23 @@ ddisplay_add_update_all(DDisplay *ddisp)
   ddisplay_add_update(ddisp, &ddisp->visible);
 }
 
+/** Marks a rectangle for update, with a pixel border around it.
+ */
+void
+ddisplay_add_update_with_border(DDisplay *ddisp, Rectangle *rect,
+				int pixel_border)
+{
+  Rectangle r;
+  real size = ddisplay_untransform_length(ddisp, pixel_border+1);
+
+  r.left = rect->left-size;
+  r.top = rect->top-size;
+  r.right = rect->right+size;
+  r.bottom = rect->bottom+size;
+
+  ddisplay_add_update(ddisp, &r);
+}
+
 void
 ddisplay_add_update(DDisplay *ddisp, Rectangle *rect)
 {

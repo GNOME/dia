@@ -106,6 +106,7 @@ static void draw_polyline (DiaRenderer *renderer,
 static void draw_polygon (DiaRenderer *renderer,
                           Point *points, int num_points,
                           Color *color);
+static void draw_object (DiaRenderer *renderer, Object *object);
 
 static real get_text_width (DiaRenderer *renderer,
                             const gchar *text, int length);
@@ -218,6 +219,7 @@ dia_gdk_renderer_class_init (DiaGdkRendererClass *klass)
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_polygon   = draw_polygon;
+  renderer_class->draw_object    = draw_object;
 
   /* Interactive functions */
   renderer_class->get_text_width = get_text_width;
@@ -823,6 +825,41 @@ draw_polygon (DiaRenderer *renderer,
   if (   (points[0].x != points[num_points-1].x) 
       || (points[0].y != points[num_points-1].y))
     klass->draw_line (renderer, &points[num_points-1], &points[0], color);
+}
+
+static void
+draw_object (DiaRenderer *renderer, Object *object)
+{
+  DiaGdkRenderer *gdk_renderer = DIA_GDK_RENDERER (renderer);
+
+  if (object->highlight_color != NULL) {
+    DiaRendererClass *klass = DIA_RENDERER_GET_CLASS (renderer);
+    /* Slightly ok highlighter */
+    Point ul, lr;
+    real border = dia_untransform_length(gdk_renderer->transform, 2);
+    GdkGCValues values;
+
+    gdk_gc_get_values(gdk_renderer->gc, 
+		      &values);
+    gdk_gc_set_line_attributes(gdk_renderer->gc,
+			       4,
+			       gdk_renderer->line_style,
+			       gdk_renderer->cap_style,
+			       gdk_renderer->join_style);
+    ul.x = object->bounding_box.left-border;
+    ul.y = object->bounding_box.top-border;
+    lr.x = object->bounding_box.right+border;
+    lr.y = object->bounding_box.bottom+border;
+
+    klass->draw_rect(renderer, &ul, &lr,
+		     object->highlight_color);
+    gdk_gc_set_line_attributes(gdk_renderer->gc,
+			       values.line_width,
+			       gdk_renderer->line_style,
+			       gdk_renderer->cap_style,
+			       gdk_renderer->join_style);
+  }
+  object->ops->draw(object, renderer);
 }
 
 static int

@@ -377,6 +377,10 @@ struct _Object {
   Object *parent;
   GList *children;
   gboolean can_parent;
+
+  Color *highlight_color; /* The color that this object is currently
+			     highlighted with, or NULL if it is not 
+			     highlighted. */
 };
 
 struct _ObjectTypeOps {

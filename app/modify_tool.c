@@ -29,6 +29,7 @@
 #include "select.h"
 #include "preferences.h"
 #include "cursor.h"
+#include "highlight.h"
 
 static Object *click_select_object(DDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
@@ -435,10 +436,12 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if ( (tool->handle->connect_type != HANDLE_NONCONNECTABLE) &&
 	 (connectionpoint != NULL) ) {
       to = connectionpoint->pos;
+      highlight_object(connectionpoint->object, NULL, ddisp->diagram);
       ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
     } else {
       /* No connectionopoint near, then snap to grid (if enabled) */
       snap_to_grid(ddisp, &to.x, &to.y);
+      highlight_reset_all(ddisp->diagram);
       ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
     }
 
@@ -592,6 +595,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
       diagram_update_connections_selection(ddisp->diagram);
     }
     
+    highlight_reset_all(ddisp->diagram);
     diagram_flush(ddisp->diagram);
     
     diagram_modified(ddisp->diagram);

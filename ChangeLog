@@ -1,3 +1,20 @@
+2004-03-22  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+
+	* lib/dialibartrenderer.c: 
+	* lib/diagdkrenderer.c: 
+	* app/Makefile.am: 
+	* lib/object.h: 
+	* app/modify_tool.c: 
+	* app/create_object.c: 
+	* app/highlight.[ch]: 
+	Added primitive object highlighting.  So far just highlights the
+	bounding box, i.e. it is invisible on boxes and huge on connectors.
+
+2004-03-22  Lars Clausen  <lars@raeder.dk>
+
+	* RELEASE-PROCESS: Added info on how to do a branch for
+	development during release process.
+
 2004-03-20  Lars Clausen  <lars@raeder.dk>
 
 	* RELEASE-PROCESS: Mention PATCH keyword in release process.
