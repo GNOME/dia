@@ -61,6 +61,13 @@ AC_SUBST(GNOME_CFLAGS)
 AC_SUBST(GNOME_LIBS)
 
 dnl
+dnl Popt
+dnl
+
+AC_CHECK_LIB(popt, poptPeekArg)
+AC_CHECK_HEADERS(popt.h)
+
+dnl
 dnl Debugging
 dnl
 

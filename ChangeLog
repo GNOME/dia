@@ -1,3 +1,9 @@
+1999-06-09  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* configure.in
+	* app/app_procs.c
+	Popt-code is activated if popt is available.
+
 1999-06-08  Alexander Larsson  <alla@lysator.liu.se>
 
         This is a patch from David Thompson <dcthomp@mail.utexas.edu>

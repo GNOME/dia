@@ -15,6 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -28,8 +29,17 @@
 #include <gtk/gtk.h>
 
 #include "config.h"
+
+#if defined (HAVE_LIBPOPT) && defined (HAVE_POPT_H)
+#define HAVE_POPT
+#endif
+
 #ifdef GNOME
 #include <gnome.h>
+#else
+#ifdef HAVE_POPT
+#include <popt.h>
+#endif
 #endif
 #include "intl.h"
 #include "app_procs.h"
@@ -105,11 +115,12 @@ app_init (int argc, char **argv)
   Diagram *diagram = NULL;
   DDisplay *ddisp = NULL;
   int i;
-
-# ifdef GNOME
+#ifdef GNOME
   GnomeClient *client;
+#endif
   char *in_file_name = NULL;
   char *export_file_name = NULL;
+#ifdef HAVE_POPT
   poptContext poptCtx;
   struct poptOption options[] =
   {
@@ -118,7 +129,7 @@ app_init (int argc, char **argv)
      N_("OUTPUT")},
     {(char *) NULL, '\0', 0, NULL, 0}
   };
-# endif /* GNOME */
+#endif
 
   gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
@@ -126,7 +137,7 @@ app_init (int argc, char **argv)
   bindtextdomain(PACKAGE, LOCALEDIR);
   textdomain(PACKAGE);
 
-# ifdef GNOME
+#ifdef GNOME
   gnome_init_with_popt_table(PACKAGE, VERSION, argc, argv, options,
 			     0, &poptCtx);
 
@@ -141,13 +152,14 @@ app_init (int argc, char **argv)
 		       GTK_SIGNAL_FUNC (session_die), NULL);
   }
 
-# else /* GNOME */
+#else
+#ifdef HAVE_POPT
+  poptCtx = poptGetContext(PACKAGE, argc, argv, options, 0);
+#endif
   gtk_init (&argc, &argv);
   dia_image_init();
-# endif /* GNOME */
+#endif
 
-  /* Here could be popt stuff for options */
-    
   gtk_rc_parse ("diagtkrc"); 
 
   /*  enable_core_dumps(); */
@@ -175,45 +187,30 @@ app_init (int argc, char **argv)
 
   prefs_load();
 
-  active_tool = create_modify_tool();
-
-  create_toolbox();
-
   create_layer_dialog();
 
-# ifdef GNOME
-  while (poptPeekArg(poptCtx))
-    {
-      in_file_name = poptGetArg(poptCtx);
-      diagram = diagram_load (in_file_name);
-      if (diagram != NULL) {
-	diagram_update_extents(diagram);
-	ddisp = new_display(diagram);
+#ifdef HAVE_POPT
+  while (poptPeekArg(poptCtx)) {
+    in_file_name = poptGetArg(poptCtx);
+    diagram = diagram_load (in_file_name);
+    if (export_file_name) {
+      if (!diagram) {
+	fprintf (stderr, _("Need valid input file\n"));
+	exit (1);
       }
-    }
-
-  if (export_file_name)
-    {
-      if (! diagram)
-	{
-	  fprintf (stderr, _("Need valid input file\n"));
-	  exit (1);
-	}
       diagram_export_to_eps (diagram, export_file_name);
       exit (0);
     }
-# else /* GNOME */
-  /* In case argc > 1 load diagram files */
-  i = 1;
-  while (i < argc) {
-    diagram = diagram_load(argv[i]);
     if (diagram != NULL) {
       diagram_update_extents(diagram);
       ddisp = new_display(diagram);
     }
-    i++;
   }
-# endif /* GNOME */
+#endif
+
+  active_tool = create_modify_tool();
+
+  create_toolbox();
 }
 
 static void
@@ -224,8 +221,7 @@ set_true_callback(GtkWidget *w, int *data)
 
 void
 app_exit(void)
-{
-  
+{  
   if (diagram_modified_exists()) {
     GtkWidget *dialog;
     GtkWidget *label;
