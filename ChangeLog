@@ -1,3 +1,16 @@
+1999-10-14  James Henstridge  <james@daa.com.au>
+
+	* objects/flowchart/flowchart.c: add new shapes to flowchart sheet.
+
+	* object/flowchart/pixmaps/...: corresponding pixmaps for new shapes.
+	
+	* objects/flowchart/offpageconn.shape: 
+	* objects/flowchart/manualop.shape: 
+	* objects/flowchart/preparation.shape: 
+	* objects/flowchart/manualinput.shape: 
+	* objects/flowchart/predefdproc.shape: 
+	* objects/flowchart/terminal.shape: new shapes in the flowchart sheet.
+
 1999-10-13  James Henstridge  <james@daa.com.au>
 
 	* app/diapagelayout.[ch]: added accessors to paper information.  The
