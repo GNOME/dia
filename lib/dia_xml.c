@@ -658,37 +658,13 @@ data_font(DataNode data)
 }
 
 /* ***** Saving XML **** */
-/** A pretty-printing version of xmlNewChild.
- * This allows text tools to manipulate the Dia files.  It is merely
- * a wrapper that inserts some newlines in (hopefully) non-dangerous places.
- * The only dangerous place should be the body of a string node, and
- * those have non-null contents, so no newline is added.
- */
-xmlNodePtr
-diaXmlNewChild(xmlNodePtr parent,
-	       xmlNsPtr ns,
-	       const xmlChar *name,
-	       const xmlChar *contents)
-{
-  xmlChar *newcontents;
-  xmlNodePtr ptr;
-  xmlNodePtr newline;
-
-  if (contents == NULL) newcontents = "\n";
-  else newcontents = contents;
-
-  ptr = xmlNewChild(parent, ns, name, newcontents);
-  newline = xmlNewText("\n");
-  xmlAddChild(parent, newline);
-  return ptr;
-}
 
 AttributeNode
 new_attribute(ObjectNode obj_node,
 	      const char *attrname)
 {
   AttributeNode attr;
-  attr = diaXmlNewChild(obj_node, NULL, "attribute", NULL);
+  attr = xmlNewChild(obj_node, NULL, "attribute", NULL);
   xmlSetProp(attr, "name", attrname);
 
   return attr;
@@ -699,7 +675,7 @@ composite_add_attribute(DataNode composite_node,
 			const char *attrname)
 {
   AttributeNode attr;
-  attr = diaXmlNewChild(composite_node, NULL, "attribute", NULL);
+  attr = xmlNewChild(composite_node, NULL, "attribute", NULL);
   xmlSetProp(attr, "name", attrname);
 
   return attr;
@@ -713,7 +689,7 @@ data_add_int(AttributeNode attr, int data)
 
   g_snprintf(buffer, 20, "%d", data);
   
-  data_node = diaXmlNewChild(attr, NULL, "int", NULL);
+  data_node = xmlNewChild(attr, NULL, "int", NULL);
   xmlSetProp(data_node, "val", buffer);
 }
 
@@ -725,7 +701,7 @@ data_add_enum(AttributeNode attr, int data)
 
   g_snprintf(buffer, 20, "%d", data);
   
-  data_node = diaXmlNewChild(attr, NULL, "enum", NULL);
+  data_node = xmlNewChild(attr, NULL, "enum", NULL);
   xmlSetProp(data_node, "val", buffer);
 }
 
@@ -740,7 +716,7 @@ data_add_real(AttributeNode attr, real data)
   g_snprintf(buffer, 40, "%g", data);
   setlocale(LC_NUMERIC, old_locale);
   
-  data_node = diaXmlNewChild(attr, NULL, "real", NULL);
+  data_node = xmlNewChild(attr, NULL, "real", NULL);
   xmlSetProp(data_node, "val", buffer);
 }
 
@@ -749,7 +725,7 @@ data_add_boolean(AttributeNode attr, int data)
 {
   DataNode data_node;
 
-  data_node = diaXmlNewChild(attr, NULL, "boolean", NULL);
+  data_node = xmlNewChild(attr, NULL, "boolean", NULL);
   if (data)
     xmlSetProp(data_node, "val", "true");
   else
@@ -784,7 +760,7 @@ data_add_color(AttributeNode attr, const Color *col)
   convert_to_hex(col->blue, &buffer[5]);
   buffer[7] = 0;
 
-  data_node = diaXmlNewChild(attr, NULL, "color", NULL);
+  data_node = xmlNewChild(attr, NULL, "color", NULL);
   xmlSetProp(data_node, "val", buffer);
 }
 
@@ -799,7 +775,7 @@ data_add_point(AttributeNode attr, const Point *point)
   g_snprintf(buffer, 80, "%g,%g", point->x, point->y);
   setlocale(LC_NUMERIC, old_locale);
   
-  data_node = diaXmlNewChild(attr, NULL, "point", NULL);
+  data_node = xmlNewChild(attr, NULL, "point", NULL);
   xmlSetProp(data_node, "val", buffer);
 }
 
@@ -816,7 +792,7 @@ data_add_rectangle(AttributeNode attr, const Rectangle *rect)
 	     rect->right, rect->bottom);
   setlocale(LC_NUMERIC, old_locale);
   
-  data_node = diaXmlNewChild(attr, NULL, "rectangle", NULL);
+  data_node = xmlNewChild(attr, NULL, "rectangle", NULL);
   xmlSetProp(data_node, "val", buffer);
 
 }
@@ -829,7 +805,7 @@ data_add_string(AttributeNode attr, const char *str)
     xmlChar *sharped_str;
 
     if (str==NULL) {
-        data_node = diaXmlNewChild(attr, NULL, "string", "##");
+        data_node = xmlNewChild(attr, NULL, "string", "##");
         return;
     } 
 
@@ -839,7 +815,7 @@ data_add_string(AttributeNode attr, const char *str)
 
     xmlFree(escaped_str);
     
-    data_node = diaXmlNewChild(attr, NULL, "string", sharped_str);
+    data_node = xmlNewChild(attr, NULL, "string", sharped_str);
   
     g_free(sharped_str);
 }
@@ -851,7 +827,7 @@ data_add_font(AttributeNode attr, const DiaFont *font)
   DiaFontStyle style;
   char buffer[20+1]; /* Enought for 64bit int + zero */
 
-  data_node = diaXmlNewChild(attr, NULL, "font", NULL);
+  data_node = xmlNewChild(attr, NULL, "font", NULL);
   style = dia_font_get_style (font);
   xmlSetProp(data_node, "family", dia_font_get_family(font));
   g_snprintf(buffer, 20, "%d", dia_font_get_style(font));
@@ -867,7 +843,7 @@ data_add_composite(AttributeNode attr, const char *type)
   /* type can be NULL */
   DataNode data_node;
  
-  data_node = diaXmlNewChild(attr, NULL, "composite", NULL);
+  data_node = xmlNewChild(attr, NULL, "composite", NULL);
   if (type != NULL) 
     xmlSetProp(data_node, "type", type);
 
@@ -887,6 +863,7 @@ warn_about_broken_libxml1(void)
 #define BUFSIZE 2048
 #define OVERRUN_SAFETY 16
 
+/* diarc option */
 int pretty_formated_xml = FALSE;
 
 int xmlDiaSaveFile(const char *filename,

@@ -64,8 +64,6 @@ void data_rectangle(DataNode data, Rectangle *rect);
 char *data_string(DataNode data);
 DiaFont *data_font(DataNode data);
 
-xmlNodePtr diaXmlNewChild(xmlNodePtr parent, xmlNsPtr ns, 
-			  const xmlChar *name, const xmlChar *contents);
 AttributeNode new_attribute(ObjectNode obj_node, const char *attrname);
 AttributeNode composite_add_attribute(DataNode composite_node,
 				      const char *attrname);

@@ -41,7 +41,7 @@ static PangoContext* pango_context = NULL;
  * Our font size is defined in cm, now we need points
  * A point is 1/72 inch. Why is this size 20.0 and not 28.35 ?
  */
-static real global_size_one = 20.0;
+static real global_size_one = 28.35;
 
 static int
 compare(const void *p1, const void *p2) {

@@ -489,11 +489,11 @@ write_objects(GList *objects, xmlNodePtr objects_node,
     Object *obj = (Object *) list->data;
 
     if IS_GROUP(obj) {
-      group_node = diaXmlNewChild(objects_node, NULL, "group", NULL);
+      group_node = xmlNewChild(objects_node, NULL, "group", NULL);
       write_objects(group_objects(obj), group_node,
 		    objects_hash, obj_nr, filename);
     } else {
-      obj_node = diaXmlNewChild(objects_node, NULL, "object", NULL);
+      obj_node = xmlNewChild(objects_node, NULL, "object", NULL);
     
       xmlSetProp(obj_node, "type", obj->type->name);
       
@@ -562,9 +562,9 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 	  }
 	  
 	  if (connections == NULL)
-	    connections = diaXmlNewChild(obj_node, NULL, "connections", NULL);
+	    connections = xmlNewChild(obj_node, NULL, "connections", NULL);
 	  
-	  connection = diaXmlNewChild(connections, NULL, "connection", NULL);
+	  connection = xmlNewChild(connections, NULL, "connection", NULL);
 	  /* from what handle on this object*/
 	  g_snprintf(buffer, 30, "%d", i);
 	  xmlSetProp(connection, "handle", buffer);
@@ -611,7 +611,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
 			"dia");
   xmlSetNs(doc->xmlRootNode, name_space);
 
-  tree = diaXmlNewChild(doc->xmlRootNode, name_space, "diagramdata", NULL);
+  tree = xmlNewChild(doc->xmlRootNode, name_space, "diagramdata", NULL);
   
   attr = new_attribute((ObjectNode)tree, "background");
   data_add_color(attr, &data->bg_color);
@@ -666,7 +666,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
   obj_nr = 0;
 
   for (i = 0; i < data->layers->len; i++) {
-    layer_node = diaXmlNewChild(doc->xmlRootNode, name_space, "layer", NULL);
+    layer_node = xmlNewChild(doc->xmlRootNode, name_space, "layer", NULL);
     layer = (Layer *) g_ptr_array_index(data->layers, i);
     xmlSetProp(layer_node, "name", layer->name);
 

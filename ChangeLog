@@ -1,3 +1,13 @@
+2002-12-07  Lars Clausen <lrclause@cs.uiuc.edu>
+
+	* lib/font.c: Changed global_size_one to more correct 28.35.
+	Looks better, too.
+
+	* app/load_save.c:
+	* lib/dia_xml.h: 
+	* lib/dia_xml.c: Removed pretty print hack, the libxml thing works
+	after all.
+
 2002-12-07  Hans Breuer  <hans@breuer.org>
 
 	* lib/widgets.c : g_file_get_contents() silently assumes
