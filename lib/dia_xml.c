@@ -182,7 +182,7 @@ data_real(DataNode data)
 
   val = xmlGetProp(data, "val");
   old_locale = setlocale(LC_NUMERIC, "C");
-  res = g_strtod(val, NULL);
+  res = strtod(val, NULL);
   setlocale(LC_NUMERIC, old_locale);
   if (val) free(val);
   
@@ -266,7 +266,7 @@ data_point(DataNode data, Point *point)
   
   val = xmlGetProp(data, "val");
   old_locale = setlocale(LC_NUMERIC, "C");
-  point->x = g_strtod(val, &str);
+  point->x = strtod(val, &str);
   setlocale(LC_NUMERIC, old_locale);
   while ((*str != ',') && (*str!=0))
     str++;
@@ -278,7 +278,7 @@ data_point(DataNode data, Point *point)
   }
     
   old_locale = setlocale(LC_NUMERIC, "C");
-  point->y = g_strtod(str+1, NULL);
+  point->y = strtod(str+1, NULL);
   setlocale(LC_NUMERIC, old_locale);
   free(val);
 }
@@ -298,7 +298,7 @@ data_rectangle(DataNode data, Rectangle *rect)
   val = xmlGetProp(data, "val");
   
   old_locale = setlocale(LC_NUMERIC, "C");
-  rect->left = g_strtod(val, &str);
+  rect->left = strtod(val, &str);
   setlocale(LC_NUMERIC, old_locale);
   
   while ((*str != ',') && (*str!=0))
@@ -311,7 +311,7 @@ data_rectangle(DataNode data, Rectangle *rect)
   }
     
   old_locale = setlocale(LC_NUMERIC, "C");
-  rect->top = g_strtod(str+1, &str);
+  rect->top = strtod(str+1, &str);
   setlocale(LC_NUMERIC, old_locale);
 
   while ((*str != ';') && (*str!=0))
@@ -324,7 +324,7 @@ data_rectangle(DataNode data, Rectangle *rect)
   }
 
   old_locale = setlocale(LC_NUMERIC, "C");
-  rect->right = g_strtod(str+1, &str);
+  rect->right = strtod(str+1, &str);
   setlocale(LC_NUMERIC, old_locale);
 
   while ((*str != ',') && (*str!=0))
@@ -337,7 +337,7 @@ data_rectangle(DataNode data, Rectangle *rect)
   }
 
   old_locale = setlocale(LC_NUMERIC, "C");
-  rect->bottom = g_strtod(str+1, NULL);
+  rect->bottom = strtod(str+1, NULL);
   setlocale(LC_NUMERIC, old_locale);
   
   free(val);

@@ -1,5 +1,12 @@
 2000-10-04  James Henstridge  <james@daa.com.au>
 
+	* objects/custom/shape_info.c: use strtod instead of g_strtod.
+	(parse_path): actually call setlocale around strtod calls.
+
+	* lib/dia_xml.c: use strtod rather than g_strtod.  We wrap each
+	call in setlocale(LC_NUMERIC, "C"), so there is no reason to call
+	the g_strtod wrapper.
+
 	* shapes/SDL/: add SDL shapes from Rubens Ramos
 	<rubens_ramos@yahoo.com>
 

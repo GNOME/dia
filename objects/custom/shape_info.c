@@ -78,6 +78,7 @@ static void
 parse_style(xmlNodePtr node, GraphicStyle *s)
 {
   char *str, *ptr;
+  char *old_locale;
 
   ptr = str = xmlGetProp(node, "style");
   if (!str)
@@ -89,7 +90,9 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
 
     if (!strncmp("stroke-width:", ptr, 13)) {
       ptr += 13;
-      s->line_width = g_strtod(ptr, &ptr);
+      old_locale = setlocale(LC_NUMERIC, "C");
+      s->line_width = strtod(ptr, &ptr);
+      setlocale(LC_NUMERIC, old_locale);
     } else if (!strncmp("stroke:", ptr, 7)) {
       ptr += 7;
       while (ptr[0] != '\0' && isspace(ptr[0])) ptr++;
@@ -174,8 +177,11 @@ parse_style(xmlNodePtr node, GraphicStyle *s)
 
       if (!strncmp(ptr, "default", 7))
 	s->dashlength = 1.0;
-      else
-	s->dashlength = g_strtod(ptr, &ptr);
+      else {
+	old_locale = setlocale(LC_NUMERIC, "C");
+	s->dashlength = strtod(ptr, &ptr);
+	setlocale(LC_NUMERIC, old_locale);
+      }
     }
 
     /* skip up to the next attribute */
@@ -201,6 +207,7 @@ parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s)
   static GArray *points = NULL;
   BezPoint bez;
   gchar *path = (gchar *)path_str;
+  char *old_locale;
 
   if (!points)
     points = g_array_new(FALSE, FALSE, sizeof(BezPoint));
@@ -322,9 +329,11 @@ parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s)
     switch (last_type) {
     case PATH_MOVE:
       bez.type = BEZ_MOVE_TO;
-      bez.p1.x = g_strtod(path, &path);
+      old_locale = setlocale(LC_NUMERIC, "C");
+      bez.p1.x = strtod(path, &path);
       path_chomp(path);
-      bez.p1.y = g_strtod(path, &path);
+      bez.p1.y = strtod(path, &path);
+      setlocale(LC_NUMERIC, old_locale);
       path_chomp(path);
       if (last_relative) {
 	bez.p1.x += last_point.x;
@@ -350,9 +359,11 @@ parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s)
       break;
     case PATH_LINE:
       bez.type = BEZ_LINE_TO;
-      bez.p1.x = g_strtod(path, &path);
+      old_locale = setlocale(LC_NUMERIC, "C");
+      bez.p1.x = strtod(path, &path);
       path_chomp(path);
-      bez.p1.y = g_strtod(path, &path);
+      bez.p1.y = strtod(path, &path);
+      setlocale(LC_NUMERIC, old_locale);
       path_chomp(path);
       if (last_relative) {
 	bez.p1.x += last_point.x;
@@ -365,7 +376,9 @@ parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s)
       break;
     case PATH_HLINE:
       bez.type = BEZ_LINE_TO;
-      bez.p1.x = g_strtod(path, &path);
+      old_locale = setlocale(LC_NUMERIC, "C");
+      bez.p1.x = strtod(path, &path);
+      setlocale(LC_NUMERIC, old_locale);
       path_chomp(path);
       bez.p1.y = last_point.y;
       if (last_relative)
@@ -378,7 +391,9 @@ parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s)
     case PATH_VLINE:
       bez.type = BEZ_LINE_TO;
       bez.p1.x = last_point.x;
-      bez.p1.y = g_strtod(path, &path);
+      old_locale = setlocale(LC_NUMERIC, "C");
+      bez.p1.y = strtod(path, &path);
+      setlocale(LC_NUMERIC, old_locale);
       path_chomp(path);
       if (last_relative)
 	bez.p1.y += last_point.y;
@@ -389,17 +404,19 @@ parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s)
       break;
     case PATH_CURVE:
       bez.type = BEZ_CURVE_TO;
-      bez.p1.x = g_strtod(path, &path);
+      old_locale = setlocale(LC_NUMERIC, "C");
+      bez.p1.x = strtod(path, &path);
       path_chomp(path);
-      bez.p1.y = g_strtod(path, &path);
+      bez.p1.y = strtod(path, &path);
       path_chomp(path);
-      bez.p2.x = g_strtod(path, &path);
+      bez.p2.x = strtod(path, &path);
       path_chomp(path);
-      bez.p2.y = g_strtod(path, &path);
+      bez.p2.y = strtod(path, &path);
       path_chomp(path);
-      bez.p3.x = g_strtod(path, &path);
+      bez.p3.x = strtod(path, &path);
       path_chomp(path);
-      bez.p3.y = g_strtod(path, &path);
+      bez.p3.y = strtod(path, &path);
+      setlocale(LC_NUMERIC, old_locale);
       path_chomp(path);
       if (last_relative) {
 	bez.p1.x += last_point.x;
@@ -418,13 +435,15 @@ parse_path(ShapeInfo *info, const char *path_str, GraphicStyle *s)
       bez.type = BEZ_CURVE_TO;
       bez.p1.x = 2 * last_point.x - last_control.x;
       bez.p1.y = 2 * last_point.y - last_control.y;
-      bez.p2.x = g_strtod(path, &path);
+      old_locale = setlocale(LC_NUMERIC, "C");
+      bez.p2.x = strtod(path, &path);
       path_chomp(path);
-      bez.p2.y = g_strtod(path, &path);
+      bez.p2.y = strtod(path, &path);
       path_chomp(path);
-      bez.p3.x = g_strtod(path, &path);
+      bez.p3.x = strtod(path, &path);
       path_chomp(path);
-      bez.p3.y = g_strtod(path, &path);
+      bez.p3.y = strtod(path, &path);
+      setlocale(LC_NUMERIC, old_locale);
       path_chomp(path);
       if (last_relative) {
 	bez.p2.x += last_point.x;
@@ -499,28 +518,28 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       str = xmlGetProp(node, "x1");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	line->p1.x = g_strtod(str, NULL);
+	line->p1.x = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "y1");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	line->p1.y = g_strtod(str, NULL);
+	line->p1.y = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "x2");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	line->p2.x = g_strtod(str, NULL);
+	line->p2.x = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "y2");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	line->p2.y = g_strtod(str, NULL);
+	line->p2.y = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
@@ -538,7 +557,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	  tmp++;
 	if (tmp[0] == '\0') break;
 	old_locale = setlocale(LC_NUMERIC, "C");
-	val = g_strtod(tmp, &tmp);
+	val = strtod(tmp, &tmp);
 	setlocale(LC_NUMERIC, old_locale);
 	g_array_append_val(arr, val);
       }
@@ -570,7 +589,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	  tmp++;
 	if (tmp[0] == '\0') break;
 	old_locale = setlocale(LC_NUMERIC, "C");
-	val = g_strtod(tmp, &tmp);
+	val = strtod(tmp, &tmp);
 	setlocale(LC_NUMERIC, old_locale);
 	g_array_append_val(arr, val);
       }
@@ -596,28 +615,28 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       str = xmlGetProp(node, "x");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	rect->corner1.x = g_strtod(str, NULL);
+	rect->corner1.x = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "y");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	rect->corner1.y = g_strtod(str, NULL);
+	rect->corner1.y = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "width");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	rect->corner2.x = rect->corner1.x + g_strtod(str, NULL);
+	rect->corner2.x = rect->corner1.x + strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "height");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	rect->corner2.y = rect->corner1.y + g_strtod(str, NULL);
+	rect->corner2.y = rect->corner1.y + strtod(str, NULL);
 	  setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
@@ -629,21 +648,21 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       str = xmlGetProp(node, "cx");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->center.x = g_strtod(str, NULL);
+	ellipse->center.x = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "cy");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->center.y = g_strtod(str, NULL);
+	ellipse->center.y = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "r");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->width = ellipse->height = 2 * g_strtod(str, NULL);
+	ellipse->width = ellipse->height = 2 * strtod(str, NULL);
 	  setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
@@ -655,28 +674,28 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       str = xmlGetProp(node, "cx");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->center.x = g_strtod(str, NULL);
+	ellipse->center.x = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "cy");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->center.y = g_strtod(str, NULL);
+	ellipse->center.y = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "rx");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->width = 2 * g_strtod(str, NULL);
+	ellipse->width = 2 * strtod(str, NULL);
 	  setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "ry");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->height = 2 * g_strtod(str, NULL);
+	ellipse->height = 2 * strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
@@ -851,14 +870,14 @@ load_shape_info(const gchar *filename)
 	  str = xmlGetProp(pt_node, "x");
 	  if (str) {
 	    old_locale = setlocale(LC_NUMERIC, "C");
-	    pt.x = g_strtod(str, NULL);
+	    pt.x = strtod(str, NULL);
 	    setlocale(LC_NUMERIC, old_locale);
 	    free(str);
 	  }
 	  str = xmlGetProp(pt_node, "y");
 	  if (str) {
 	    old_locale = setlocale(LC_NUMERIC, "C");
-	    pt.y = g_strtod(str, NULL);
+	    pt.y = strtod(str, NULL);
 	    setlocale(LC_NUMERIC, old_locale);
 	    free(str);
 	  }
@@ -874,28 +893,28 @@ load_shape_info(const gchar *filename)
       str = xmlGetProp(node, "x1");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	info->text_bounds.left = g_strtod(str, NULL);
+	info->text_bounds.left = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "y1");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	info->text_bounds.top = g_strtod(str, NULL);
+	info->text_bounds.top = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "x2");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	info->text_bounds.right = g_strtod(str, NULL);
+	info->text_bounds.right = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
       str = xmlGetProp(node, "y2");
       if (str) {
 	old_locale = setlocale(LC_NUMERIC, "C");
-	info->text_bounds.bottom = g_strtod(str, NULL);
+	info->text_bounds.bottom = strtod(str, NULL);
 	setlocale(LC_NUMERIC, old_locale);
 	free(str);
       }
@@ -916,14 +935,14 @@ load_shape_info(const gchar *filename)
 	  str = xmlGetProp(node, "min");
 	  if (str) {
 	    old_locale = setlocale(LC_NUMERIC, "C");
-	    info->aspect_min = g_strtod(str, NULL);
+	    info->aspect_min = strtod(str, NULL);
 	    setlocale(LC_NUMERIC, old_locale);
 	    free(str);
 	  }
 	  str = xmlGetProp(node, "max");
 	  if (str) {
 	    old_locale = setlocale(LC_NUMERIC, "C");
-	    info->aspect_max = g_strtod(str, NULL);
+	    info->aspect_max = strtod(str, NULL);
 	    setlocale(LC_NUMERIC, old_locale);
 	    free(str);
 	  }
