@@ -14,8 +14,10 @@ general:
 * Update to automake 1.4 and libtool 1.3 when they're released. It has
   much better support for dlopen:ed modules.
 * Add paper size + paper orientation. Draw the paper on screen. Flip ps output if
-  landscape orientation.
+  landscape orientation. Export real size to postscript file.
 * Export to WMF.
+* Accelerators for buttons in the toolbar.
+* Fix the transitive selection
 
 functions:
 * undo, see event model later in this file.

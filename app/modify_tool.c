@@ -64,6 +64,8 @@ free_modify_tool(Tool *tool)
   g_free(tool);
 }
 
+/*
+  This function is buggy. Fix it later!
 static void
 transitive_select(DDisplay *ddisp, Point *clickedpoint, Object *obj)
 {
@@ -83,6 +85,7 @@ transitive_select(DDisplay *ddisp, Point *clickedpoint, Object *obj)
     }
   }
 }
+*/
 
 static Object *
 click_select_object(DDisplay *ddisp, Point *clickedpoint,
@@ -119,9 +122,12 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
       obj->ops->select(obj, clickedpoint,
 		       (Renderer *)ddisp->renderer);
 
+      /*
+	This stuff is buggy, fix it later.
       if (event->state & GDK_CONTROL_MASK) {
 	transitive_select(ddisp, clickedpoint, obj);
       }
+      */
 
       object_add_updates_list(diagram->data->selected, diagram);
       diagram_flush(diagram);

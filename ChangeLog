@@ -1,3 +1,10 @@
+1999-01-27  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/modify_tool.c:
+	Commented out buggy transitive select function. It wasn't really
+	meant to go into cvs.
+	
+
 1999-01-25  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* autogen.sh:
