@@ -19,6 +19,7 @@
 #define COLOR_H
 
 #include <gdk/gdk.h>
+#include "diavar.h"
 
 typedef struct _Color Color;
 
@@ -31,16 +32,6 @@ struct _Color {
 void color_init(void);
 void color_convert(Color *color, GdkColor *gdkcolor);
 gboolean color_equals(Color *color1, Color *color2);
-
-#ifdef G_OS_WIN32
-#  ifdef LIBDIA_COMPILATION
-#    define DIAVAR __declspec(dllexport)
-#  else  /* !LIBDIA_COMPILATION */
-#    define DIAVAR extern __declspec(dllimport)
-#  endif /* !LIBDIA_COMPILATION */
-#else  /* !G_OS_WIN32 */
-#  define DIAVAR extern
-#endif
 
 DIAVAR Color color_black, color_white;
 DIAVAR GdkColor color_gdk_black, color_gdk_white;

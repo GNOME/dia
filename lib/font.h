@@ -20,6 +20,7 @@
 
 #include <gdk/gdk.h>
 #include "geometry.h"
+#include "diavar.h"
 
 typedef enum {
   ALIGN_LEFT,
@@ -53,7 +54,7 @@ struct _SuckFont {
 	SuckChar chars[256];
 };
 
-extern GList *font_names; /* GList with 'char *' data.*/
+DIAVAR GList *font_names; /* GList with 'char *' data.*/
 
 void font_init(void);
 Font *font_getfont(const char *name);
