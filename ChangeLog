@@ -1,3 +1,8 @@
+2002-06-12  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* objects/FS/flow-ortho.c (orthflow_get_object_menu): Menu
+	sensitivity for deleting segments.
+
 2002-06-12  Cyrille Chépélov  <cyrille@chepelov.org>
 
 	* app/color_area.c: (color_area_events):

@@ -827,7 +827,7 @@ static DiaMenu orthflow_menu = {
 static DiaMenu *
 orthflow_get_object_menu(Orthflow *orthflow, Point *clickedpoint)
 {
-  /* Set entries sensitive/selected etc here */
+  orthflow_menu_items[4].active = orthflow->orth.numpoints > 3;
   return &orthflow_menu;
 }
 
