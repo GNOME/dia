@@ -1,3 +1,10 @@
+2002-03-07  Akira TAGOH  <tagoh@redhat.com>
+
+	* objects/UML/class.c (fill_in_fontdata): don't replace if it already
+	has a vaule.
+	(umlclass_save): save the font and the font size properties.
+	(umlclass_load): load the font and the font size properties.
+
 2002-03-05  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* lib/string_prerenderer.[ch] (REMOVED):

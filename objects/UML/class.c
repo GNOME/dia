@@ -667,22 +667,30 @@ umlclass_calculate_data(UMLClass *umlclass)
 static void
 fill_in_fontdata(UMLClass *umlclass)
 {
-  umlclass->font_height = 0.8;
-  umlclass->abstract_font_height = 0.8;
-  umlclass->classname_font_height = 1.0;
-  umlclass->abstract_classname_font_height = 1.0;
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. if "Courier" works for you, it would be better.  */
-  umlclass->normal_font = font_getfont(_("Courier"));
-  /* choose default font name for abstract for your locale. see also font_data
-     structure in lib/font.c. */
-  umlclass->abstract_font = font_getfont(_("Courier-Oblique"));
-  /* choose default font name for class name font for your locale. see also font_data
-     structure in lib/font.c. */
-  umlclass->classname_font = font_getfont(_("Helvetica-Bold"));
-  /* choose default font name for abstract class name for your locale. see also font_data
-     structure in lib/font.c. */
-  umlclass->abstract_classname_font = font_getfont(_("Helvetica-BoldOblique"));
+        if (umlclass->normal_font == NULL) {
+                umlclass->font_height = 0.8;
+                /* choose default font name for your locale. see also font_data structure
+                   in lib/font.c. if "Courier" works for you, it would be better.  */
+                umlclass->normal_font = font_getfont(_("Courier"));
+        }
+        if (umlclass->abstract_font == NULL) {
+                umlclass->abstract_font_height = 0.8;
+                /* choose default font name for abstract for your locale. see also font_data
+                   structure in lib/font.c. */
+                umlclass->abstract_font = font_getfont(_("Courier-Oblique"));
+        }
+        if (umlclass->classname_font == NULL) {
+                umlclass->classname_font_height = 1.0;
+                /* choose default font name for class name font for your locale. see also font_data
+                   structure in lib/font.c. */
+                umlclass->classname_font = font_getfont(_("Helvetica-Bold"));
+        }
+        if (umlclass->abstract_classname_font == NULL) {
+                umlclass->abstract_classname_font_height = 1.0;
+                /* choose default font name for abstract class name for your locale. see also font_data
+                   structure in lib/font.c. */
+                umlclass->abstract_classname_font = font_getfont(_("Helvetica-BoldOblique"));
+        }
 }
 
 static Object *
@@ -1011,6 +1019,22 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 		   &umlclass->color_foreground);		   
   data_add_color(new_attribute(obj_node, "background_color"), 
 		   &umlclass->color_background);		   
+  data_add_font (new_attribute (obj_node, "normal_font"),
+                 umlclass->normal_font);
+  data_add_font (new_attribute (obj_node, "abstract_font"),
+                 umlclass->abstract_font);
+  data_add_font (new_attribute (obj_node, "classname_font"),
+                 umlclass->classname_font);
+  data_add_font (new_attribute (obj_node, "abstract_classname_font"),
+                 umlclass->abstract_classname_font);
+  data_add_real (new_attribute (obj_node, "font_height"),
+                 umlclass->font_height);
+  data_add_real (new_attribute (obj_node, "abstract_font_height"),
+                 umlclass->abstract_font_height);
+  data_add_real (new_attribute (obj_node, "classname_font_height"),
+                 umlclass->classname_font_height);
+  data_add_real (new_attribute (obj_node, "abstract_classname_font_height"),
+                 umlclass->abstract_classname_font_height);
 
   /* Attribute info: */
   attr_node = new_attribute(obj_node, "attributes");
@@ -1112,7 +1136,47 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
   attr_node = object_find_attribute(obj_node, "background_color");
   if(attr_node != NULL)
     data_color(attribute_first_data(attr_node), &umlclass->color_background); 
-    
+
+  umlclass->normal_font = NULL;
+  attr_node = object_find_attribute (obj_node, "normal_font");
+  if (attr_node != NULL)
+          umlclass->normal_font = data_font (attribute_first_data (attr_node));
+
+  umlclass->abstract_font = NULL;
+  attr_node = object_find_attribute (obj_node, "abstract_font");
+  if (attr_node != NULL)
+          umlclass->abstract_font = data_font (attribute_first_data (attr_node));
+
+  umlclass->classname_font = NULL;
+  attr_node = object_find_attribute (obj_node, "classname_font");
+  if (attr_node != NULL)
+          umlclass->classname_font = data_font (attribute_first_data (attr_node));
+
+  umlclass->abstract_classname_font = NULL;
+  attr_node = object_find_attribute (obj_node, "abstract_classname_font");
+  if (attr_node != NULL)
+          umlclass->abstract_classname_font = data_font (attribute_first_data (attr_node));
+
+  umlclass->font_height = 0.0;
+  attr_node = object_find_attribute (obj_node, "font_height");
+  if (attr_node != NULL)
+          umlclass->font_height = data_real (attribute_first_data (attr_node));
+
+  umlclass->abstract_font_height = 0.0;
+  attr_node = object_find_attribute (obj_node, "abstract_font_height");
+  if (attr_node != NULL)
+          umlclass->abstract_font_height = data_real (attribute_first_data (attr_node));
+
+  umlclass->classname_font_height = 0.0;
+  attr_node = object_find_attribute (obj_node, "classname_font_height");
+  if (attr_node != NULL)
+          umlclass->classname_font_height = data_real (attribute_first_data (attr_node));
+
+  umlclass->abstract_classname_font_height = 0.0;
+  attr_node = object_find_attribute (obj_node, "abstract_classname_font_height");
+  if (attr_node != NULL)
+          umlclass->abstract_classname_font_height = data_real (attribute_first_data (attr_node));
+
   /* Attribute info: */
   attr_node = object_find_attribute(obj_node, "attributes");
   num_attr = num = attribute_num_data(attr_node);

@@ -33,6 +33,8 @@ struct _UMLClass {
 
   ConnectionPoint connections[8];
 
+  /* Class info: */
+
   real font_height;
   real abstract_font_height;
   real classname_font_height;
@@ -43,7 +45,6 @@ struct _UMLClass {
   DiaFont *classname_font;
   DiaFont *abstract_classname_font;
   
-  /* Class info: */
   utfchar *name;
   utfchar *stereotype; /* NULL if no stereotype */
   int abstract;
