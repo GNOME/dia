@@ -1,3 +1,9 @@
+2001-03-07  Carlos Perelló Marín <carlos@gnome-db.org>
+
+	* es.po: Updated Spanish translation by Juan Manuel García Molina
+	  <juanmagm@mail.com>
+	* es_ES.po: Removed because it's the same locale as es.po
+
 2001-03-06  Carlos Perelló Marín <carlos@gnome-db.org>
 
 	* es.po: Updated Spanish translation by Juan Manuel García Molina

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-03-06 23:40+0100\n"
-"PO-Revision-Date: 2001-03-06 21:54GMT\n"
+"POT-Creation-Date: 2001-03-07 22:28+0100\n"
+"PO-Revision-Date: 2001-03-07 20:53GMT\n"
 "Last-Translator: Juan Manuel García Molina <juanmagm@mail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "Mostrar este mensaje de ayuda"
 
 #: app/app_procs.c:168
 msgid "Can't connect to session manager!\n"
-msgstr "¡No se puede conectar con el gestor de sesiónes!\n"
+msgstr "¡No se puede conectar con el gestor de sesiones!\n"
 
 #: app/app_procs.c:179
 msgid "[OPTION...] [FILE...]"
@@ -129,7 +129,7 @@ msgstr ""
 
 #: app/commands.c:559
 msgid "Contributors:"
-msgstr "Contribuciónes:"
+msgstr "Contribuciones:"
 
 #. setup buttons
 #: app/commands.c:576 app/dia-props.c:86 app/layer_dialog.c:979
@@ -1400,7 +1400,7 @@ msgstr "Líneas sólidas:"
 
 #: app/preferences.c:123
 msgid "Page breaks:"
-msgstr "Divisiónes de páginas:"
+msgstr "Divisiones de páginas:"
 
 #: app/preferences.c:237
 #, c-format
@@ -1419,7 +1419,7 @@ msgstr "Propiedades de Objeto"
 msgid "This object has no properties."
 msgstr "Este objeto no tiene propiedades."
 
-#: app/render_eps.c:1525
+#: app/render_eps.c:1600
 msgid "Encapsulated Postscript"
 msgstr "Postscript Encapsulado"
 
@@ -1524,7 +1524,7 @@ msgstr "Color de línea"
 
 #: lib/properties.h:377
 msgid "Line style"
-msgstr "Estilo de línea"
+msgstr "Estilo de la línea"
 
 #: lib/properties.h:378
 msgid "Fill colour"
@@ -2330,7 +2330,7 @@ msgstr "Es objeto"
 
 #: objects/UML/constraint.c:131
 msgid "Constraint:"
-msgstr "Restricciónes:"
+msgstr "Restricciones:"
 
 #: objects/UML/dependency.c:145
 msgid "Show arrow:"
