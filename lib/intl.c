@@ -60,9 +60,11 @@ unalias_lang (char *lang)
 
   if(!alias_table) {
     read_aliases ("/usr/share/locale/locale.alias");
+    read_aliases ("/usr/local/share/locale/locale.alias");
     read_aliases ("/usr/lib/X11/locale/locale.alias");
+    read_aliases ("/usr/openwin/lib/locale/locale.alias");
   }
-  while((p=g_hash_table_lookup(alias_table,lang)))
+  while((p=g_hash_table_lookup(alias_table,lang)) && strcmp(p, lang))
     lang = p;
   return lang;
 }
