@@ -31,6 +31,7 @@ all: 	build \
 	build\win32\dia\pstricks.dll \
 	build\win32\dia\shape.dll \
 	build\win32\dia\svg.dll \
+	build\win32\dia\wmf.dll \
 	build\win32\dia\wpg.dll \
 	build\win32\dia\xfig.dll \
 	build\win32\lib \

@@ -16,7 +16,8 @@ PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 
 PKG_LINK = $(GTK2_LIBS)  $(PANGOWIN32_LIBS) $(GLIB_LIBS) \
 	$(LIBXML2_LIBS) $(ZLIB_LIBS) \
-	$(LIBART_LIBS) $(GDK_PIXBUF_LIBS)
+	$(LIBART_LIBS) $(GDK_PIXBUF_LIBS) \
+	$(INTL_LIBS)
 
 OBJECTS = \
 	arrows.obj \

@@ -1,3 +1,13 @@
+2003-02-01  Steffen Macke <sdteffen@web.de>
+
+	* app/lineprops_area.c: latest changes do not work on
+	windows, using old code without tooltips
+	* makefile.msc: fixed copying of wmf.dll
+	* plug-ins/makefile.msc: 
+	* app/makefile.msc:
+	* lib/makefile.msc: now linking libintl
+	* config.h.win32: enabling native language support
+
 2003-01-31  Daniel Yacob  <locales@geez.org>
 
 	* configure.in: Added am (Amharic) to ALL_LINGUAS.

@@ -17,7 +17,7 @@ PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
 PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(PANGOWIN32_LIBS) \
 	$(LIBXML2_LIBS) $(PNG_LIBS) \
 	$(PRJ_TOP)\lib\libdia.lib $(LIBART_LIBS) \
-	$(GDK_PIXBUF_LIBS)
+	$(GDK_PIXBUF_LIBS) $(INTL_LIBS)
 
 OBJECTS = \
 	autosave.obj \

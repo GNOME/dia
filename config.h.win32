@@ -10,6 +10,10 @@
 #define HAVE_GDK_PIXBUF
 #define HAVE_DIRENT_H
 
+#define ENABLE_NLS
+#define GETTEXT_PACKAGE "dia"
+#define LOCALEDIR "../lib/locale"
+
 #define VERSION "0.91-pre1"
 
 /*
