@@ -1,5 +1,6 @@
 #!/bin/sh
-# Run this to generate all the initial makefiles, etc.
+# Run this to generate all the stuff before configure (which only
+# maintainers should generate).
 
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
@@ -54,11 +55,6 @@ test $TEST_TYPE $FILE || {
 	exit 1
 }
 
-if test -z "$*"; then
-	echo "I am going to run ./configure with no arguments - if you wish "
-	echo "to pass any to it, please specify them on the $0 command line."
-fi
-
 case $CC in
 *lcc | *lcc\ *) am_opt=--include-deps;;
 esac
@@ -79,7 +75,5 @@ autoconf
 
 cd $ORIGDIR
 
-$srcdir/configure --enable-maintainer-mode --enable-db2html "$@"
-
-echo
-echo "Now type 'make' to compile $PROJECT."
+echo You may want to run $srcdir/configure --enable-maintainer-mode --enable-db2html "$@"
+echo to build $PROJECT
