@@ -45,6 +45,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   Object *obj;
   Object *parent_obj;
   real click_distance;
+  GList *avoid = NULL;
 
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
@@ -56,13 +57,34 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 
   click_distance = ddisplay_untransform_length(ddisp, 3.0);
 
-  parent_obj = diagram_find_clicked_object(ddisp->diagram, &clickedpoint,
-				    click_distance);
-
-
   obj = dia_object_default_create (tool->objtype, &clickedpoint,
                                    tool->user_data,
                                    &handle1, &handle2);
+
+  diagram_add_object(ddisp->diagram, obj);
+
+  /* Make sure to not parent to itself (!) */
+  avoid = g_list_prepend(avoid, obj);
+  /* Try a connect */
+  if (handle1 != NULL &&
+      handle1->connect_type != HANDLE_NONCONNECTABLE) {
+    ConnectionPoint *connectionpoint;
+    connectionpoint =
+      object_find_connectpoint_display(ddisp, &origpoint, obj);
+    if (connectionpoint != NULL) {
+      (obj->ops->move)(obj, &origpoint);
+      /* Make sure to not parent to the object connected to */
+      avoid = g_list_prepend(avoid, connectionpoint->object);
+    }
+  }
+  
+
+  parent_obj = diagram_find_clicked_object_except(ddisp->diagram, 
+						  &clickedpoint,
+						  click_distance,
+						  avoid);
+
+  g_list_free(avoid);
 
   if (parent_obj && parent_obj->can_parent) /* starting point is within another object */
   {
@@ -74,19 +96,6 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
     */
   }
 
-  diagram_add_object(ddisp->diagram, obj);
-
-  /* Try a connect */
-  if (handle1 != NULL &&
-      handle1->connect_type != HANDLE_NONCONNECTABLE) {
-    ConnectionPoint *connectionpoint;
-    connectionpoint =
-      object_find_connectpoint_display(ddisp, &origpoint, obj);
-    if (connectionpoint != NULL) {
-      (obj->ops->move)(obj, &origpoint);
-    }
-  }
-  
   if (!(event->state & GDK_SHIFT_MASK)) {
     /* Not Multi-select => remove current selection */
     diagram_remove_all_selected(ddisp->diagram, TRUE);

@@ -87,6 +87,10 @@ void diagram_flush(Diagram *dia);
 Object *diagram_find_clicked_object(Diagram *dia,
 				    Point *pos,
 				    real maxdist);
+Object *diagram_find_clicked_object_except(Diagram *dia,
+					   Point *pos,
+					   real maxdist,
+					   GList *avoid);
 real diagram_find_closest_handle(Diagram *dia, Handle **handle,
 				 Object **obj, Point *pos);
 real diagram_find_closest_connectionpoint(Diagram *dia,

@@ -138,6 +138,8 @@ void layer_remove_objects(Layer *layer, GList *obj_list);
 GList *layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle*rect);
 GList *layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect);
 Object *layer_find_closest_object(Layer *layer, Point *pos, real maxdist);
+Object *layer_find_closest_object_except(Layer *layer, Point *pos,
+					 real maxdist, GList *avoid);
 real layer_find_closest_connectionpoint(Layer *layer,
 					ConnectionPoint **closest,
 					Point *pos,

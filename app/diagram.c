@@ -521,7 +521,16 @@ Object *
 diagram_find_clicked_object(Diagram *dia, Point *pos,
 			    real maxdist)
 {
-  return layer_find_closest_object(dia->data->active_layer, pos, maxdist);
+  return layer_find_closest_object_except(dia->data->active_layer, 
+					  pos, maxdist, NULL);
+}
+
+Object *
+diagram_find_clicked_object_except(Diagram *dia, Point *pos,
+				   real maxdist, GList *avoid)
+{
+  return layer_find_closest_object_except(dia->data->active_layer, pos,
+					  maxdist, avoid);
 }
 
 /*

@@ -1,5 +1,13 @@
 2003-08-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/create_object.c (create_object_button_press): 
+	* app/diagram.[ch] (diagram_find_clicked_object_except): 
+	* lib/diagramdata.[ch] (layer_find_closest_object_except): 
+	Avoid parenting to objects you're connecting to (otherwise you
+	couldn't make a connection out of a parenting object).  To do
+	this, added functions to find the nearest object except a given
+	list of objects.
+	
 	* app/render_libart.c: Rearrange libart include to avoid multiple
 	include program (and put libart includes inside #ifdef!)
 

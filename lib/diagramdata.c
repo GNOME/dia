@@ -559,32 +559,50 @@ layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
   return selected_list;
 }
 
+/** Find the object closest to the given point in the layer,
+ * no further away than maxdist, and not included in avoid.
+ * Stops it if finds an object that includes the point.
+ */
 Object *
-layer_find_closest_object(Layer *layer, Point *pos, real maxdist)
+layer_find_closest_object_except(Layer *layer, Point *pos,
+				 real maxdist, GList *avoid)
 {
   GList *l;
   Object *closest;
   Object *obj;
   real dist;
-  
+  GList *avoid_tmp;
+
   closest = NULL;
   
-  l = layer->objects;
-  while(l!=NULL) {
+  for (l = layer->objects; l!=NULL; l = g_list_next(l)) {
     obj = (Object *) l->data;
 
     /* Check bounding box here too. Might give speedup. */
     dist = obj->ops->distance_from(obj, pos);
 
     if (dist<=maxdist) {
+      for (avoid_tmp = avoid; avoid_tmp != NULL; avoid_tmp = avoid_tmp->next) {
+	if (avoid_tmp->data == obj) {
+	  goto NEXTOBJECT;
+	}
+      }
       closest = obj;
+      maxdist = dist;
+      if (dist < 0.000000001) return closest;
     }
-    
-    l = g_list_next(l);
+  NEXTOBJECT:
   }
 
   return closest;
 }
+
+Object *
+layer_find_closest_object(Layer *layer, Point *pos, real maxdist)
+{
+  return layer_find_closest_object_except(layer, pos, maxdist, NULL);
+}
+
 
 real layer_find_closest_connectionpoint(Layer *layer,
 					ConnectionPoint **closest,
