@@ -1,3 +1,9 @@
+2002-04-18  Steffen Macke <sdteffen@web.de>
+
+	* sheets/network.sheet.in:
+	* shapes/network/telephone.shape:
+	* shapes/network/Makefile.am: added telephone shape
+	
 2002-04-16  Steffen Macke <sdteffen@web.de>
 
 	* sheets/EML.sheet.in: commented out unavailable shapes

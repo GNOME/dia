@@ -93,5 +93,8 @@
     <object name="Network - A Mobile Phone">
       <_description>A Mobile Phone</_description>
     </object>
+    <object name="Network - A Telephone">
+      <_description>A Telephone</_description>
+    </object>
   </contents>
 </sheet>

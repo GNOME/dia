@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+<name>Network - A Telephone</name>
+<icon>telephone.png</icon>
+  <connections>
+   <point x="19" y="6" />
+   <point x="19" y="13" />
+  </connections>
+<aspectratio type="fixed"/>
+<svg:svg>
+<svg:path style="fill: background" d="M 15 6 C 16,6 22,6 23,6 C 24,6 25.1,7 25,9 C 24,9 24,9 23,9 C 23.05,7.1 20,8 19,8 C 18,8 15,7.05 15,9 C 14,9 14,9 13,9 C 12.8,7 14,6 15,6z"/>
+<svg:path style="stroke-width: 0.1; stroke: #000000" d="M 15 6 C 16,6 22,6 23,6 C 24,6 25.1,7 25,9 C 24,9 24,9 23,9 C 23.05,7.1 20,8 19,8 C 18,8 15,7.05 15,9 C 14,9 14,9 13,9 C 12.8,7 14,6 15,6"/>
+<svg:path style="fill: background" d="M 19 7 C 23,7 23,13 22,13 C 21,13 17,13 16,13 C 15,13 15,7 19,7z"/>
+<svg:path style="stroke-width: 0.1; stroke: #000000" d="M 19 7 C 23,7 23,13 22,13 C 21,13 17,13 16,13 C 15,13 15,7 19,7"/>
+<svg:ellipse style="fill: #ffffff" cx="19" cy="10" rx="2" ry="2"/>
+<svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="19" cy="10" rx="2" ry="2"/>
+<svg:ellipse style="fill: #ffffff" cx="17.8" cy="10.875" rx="0.25" ry="0.275"/>
+<svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="17.8" cy="10.875" rx="0.25" ry="0.275"/>
+<svg:ellipse style="fill: #ffffff" cx="17.395" cy="9.925" rx="0.25" ry="0.275"/>
+<svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="17.395" cy="9.925" rx="0.25" ry="0.275"/>
+<svg:ellipse style="fill: #ffffff" cx="17.695" cy="9.025" rx="0.25" ry="0.275"/>
+<svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="17.695" cy="9.025" rx="0.25" ry="0.275"/>
+<svg:ellipse style="fill: #ffffff" cx="18.595" cy="8.575" rx="0.25" ry="0.275"/>
+<svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="18.595" cy="8.575" rx="0.25" ry="0.275"/>
+<svg:ellipse style="fill: #ffffff" cx="19.495" cy="8.625" rx="0.25" ry="0.275"/>
+<svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="19.495" cy="8.625" rx="0.25" ry="0.275"/>
+<svg:ellipse style="fill: #ffffff" cx="20.195" cy="9.225" rx="0.25" ry="0.275"/>
+<svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="20.195" cy="9.225" rx="0.25" ry="0.275"/>
+<svg:ellipse style="fill: #ffffff" cx="20.495" cy="9.925" rx="0.25" ry="0.275"/>
+<svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="20.495" cy="9.925" rx="0.25" ry="0.275"/>
+<svg:ellipse style="fill: #ffffff" cx="20.245" cy="10.775" rx="0.25" ry="0.275"/>
+<svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="20.245" cy="10.775" rx="0.25" ry="0.275"/>
+<svg:ellipse style="fill: #ffffff" cx="19.545" cy="11.325" rx="0.25" ry="0.275"/>
+<svg:ellipse style="stroke-width: 0.1; stroke: #000000" cx="19.545" cy="11.325" rx="0.25" ry="0.275"/>
+</svg:svg>
+</shape>
+
+
+
+
+
