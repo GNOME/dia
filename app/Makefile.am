@@ -242,9 +242,9 @@ run_dia.sh: Makefile.am
 	echo "    echo \"please run \$$0 once without a debugger.\"" >> run_dia.sh
 	echo "    exit 1" >> run_dia.sh
 	echo "  fi" >> run_dia.sh
-	echo "   \$$DEBUGGER `pwd`/.libs/lt-dia \$$*" >> run_dia.sh
+	echo "   \$$DEBUGGER \"`pwd`/.libs/lt-dia\" \"\$$*\"" >> run_dia.sh
 	echo "else" >> run_dia.sh
-	echo "   `pwd`/dia \$$*" >> run_dia.sh
+	echo "   \"`pwd`/dia\" \"\$$*\"" >> run_dia.sh
 	echo "fi" >> run_dia.sh
 	chmod a+x run_dia.sh
 

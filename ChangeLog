@@ -1,3 +1,8 @@
+2004-01-02  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/Makefile.am: Quote arguments correctly for run_dia.sh (bug
+	#130099). 
+
 2004-01-01  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* INSTALL: Updated list of requirements (bug #129653)
