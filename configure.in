@@ -117,6 +117,7 @@ AM_CONDITIONAL(HAVE_BONOBO,false)
 
 dnl XSLT
 
+# Check if XSLT is available at all
 XSLT_DIR=""
 PKG_CHECK_MODULES(XSLT, libxslt, have_xslt=true, have_xslt=false)
 AM_CONDITIONAL(HAVE_XSLT, $have_xslt)
@@ -124,6 +125,14 @@ if test "$have_xslt" = "true"; then
   XSLT_DIR="xslt"
 fi
 AC_SUBST(XSLT_DIR)
+
+# Figure out a prefix for where to find libxslt at runtime.
+AC_ARG_WITH(xslt-prefix, 
+            [  --with-xslt-prefix=DIR     Specify where to find the optional XSLT libraries
+                             (default=/usr/lib)], 
+	    libxslt_prefix=$withval,
+	    libxslt_prefix=/usr/lib)
+AC_DEFINE_UNQUOTED(LIBXSLT_PREFIX,"$libxslt_prefix", [Place to look for XSLT libs])
 
 dnl
 dnl Popt

@@ -291,7 +291,7 @@ dia_plugin_init(PluginInfo *info)
 	path = g_module_build_path("\Windows", "xslt");
 #else
 	/* FIXME: We should have a --with-xslt-prefix and use this */
-	path = g_module_build_path("/usr/lib", "xslt");
+	path = g_module_build_path(LIBXSLT_PREFIX, "xslt");
 #endif	
 	xslt_module = g_module_open(path, 0);
 	if(xslt_module == NULL) {

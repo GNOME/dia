@@ -1,3 +1,9 @@
+2003-04-09  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/xslt/xslt.c (dia_plugin_init): 
+	* configure.in: Added --with-xslt-prefix to allow other XSLT
+	placements than /usr/lib.
+
 2003-04-09  Steffen Macke <sdteffen@web.de>
 
 	* lib/makefile.mingw: updated to include latest files, including 
