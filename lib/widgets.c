@@ -30,9 +30,6 @@
 #include <gtk/gtksignal.h>
 #include <pango/pango.h>
 
-static void
-dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff);
-
 struct menudesc {
   char *name;
   int enum_value;
@@ -59,6 +56,10 @@ static void fill_menu(GtkMenu *menu, GSList **group,
 
 /************* DiaFontSelector: ***************/
 
+static void
+dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff,
+			     Style style);
+
 static GHashTable *font_nr_hashtable = NULL;
 
 static void
@@ -77,7 +78,7 @@ dia_font_selector_font_selected(GtkWidget *button, gpointer data)
   GtkWidget *active = gtk_menu_get_active(fs->font_menu);
   PangoFontFamily *pff = 
     (PangoFontFamily *)gtk_object_get_user_data(GTK_OBJECT(active));
-  dia_font_selector_set_styles(fs, pff);
+  dia_font_selector_set_styles(fs, pff, -1);
 }
 
 
@@ -125,7 +126,7 @@ dia_font_selector_init (DiaFontSelector *fs)
         /* We COULD (SHOULD?) open sub-menus listing each face in each family
          */           
   }
-  
+
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->font_omenu), menu);
   gtk_widget_show(menu);
   gtk_widget_show(omenu);
@@ -177,12 +178,15 @@ dia_font_selector_get_type        (void)
 
     pango_context_list_families (gdk_pango_context_get(),
 			               &families, &n_families);
+    qsort(families, n_families, sizeof(*families), dia_font_selector_compare_families);
 
     for (i = 0; i < n_families; ++i) {
+      char *lower_name;
       fontname = (char *) pango_font_family_get_name(families[i]);
+      lower_name = g_ascii_strdown(fontname, -1);
       
       g_hash_table_insert(font_nr_hashtable,
-			  fontname,
+			  lower_name,
 			  GINT_TO_POINTER(i+1));
     }
   }
@@ -225,13 +229,15 @@ static char *style_labels[] = {
 };
 
 void
-dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff)
+dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff,
+			     Style style)
 {
   int i=0, select = 0;
   PangoFontFace **faces;
   int nfaces;
   GtkWidget *menu = gtk_menu_new();
   long stylebits = 0;
+  int menu_item_nr = 0;
 
   pango_font_family_list_faces(pff, &faces, &nfaces);
 
@@ -249,11 +255,8 @@ dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff)
     if (!(stylebits & (1 << i))) continue;
     menuitem = gtk_menu_item_new_with_label (style_labels[i]);
     gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
-
-    /* Pass font as well and get select 
-    if (!strcmp(style_font->style, font->style))
-      select = i;
-    */
+    if (style == i) select = menu_item_nr;
+    menu_item_nr++;
     gtk_menu_append (GTK_MENU (menu), menuitem);
     gtk_widget_show (menuitem);
   }
@@ -262,8 +265,11 @@ dia_font_selector_set_styles(DiaFontSelector *fs, PangoFontFamily *pff)
   gtk_option_menu_remove_menu(fs->style_omenu);
   gtk_option_menu_set_menu(fs->style_omenu, menu);
   fs->style_menu = GTK_MENU(menu);
-  gtk_option_menu_set_history(GTK_OPTION_MENU(fs->style_omenu), select);
-  gtk_menu_set_active(fs->style_menu, select);
+  if (style != -1) {
+    gtk_option_menu_set_history(GTK_OPTION_MENU(fs->style_omenu), select);
+    gtk_menu_set_active(fs->style_menu, select);
+  }
+  gtk_widget_set_sensitive(GTK_WIDGET(fs->style_omenu), menu_item_nr > 1);
 }
 
 void
@@ -276,15 +282,16 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
   lower_name = g_ascii_strdown(dia_font_get_family(font), -1);
   font_nr_ptr = g_hash_table_lookup(font_nr_hashtable,
                                     lower_name);
-  g_free(lower_name);
-
   if (font_nr_ptr==NULL) {
-    message_error(_("Trying to set invalid font %s!\n"),
-                  dia_font_get_family(font));
+    message_error(_("Trying to set invalid font %s (%s)!\n"),
+                  dia_font_get_family(font), lower_name);
+    g_free(lower_name);
+
     font_nr = 0;
   } else {
     PangoFontFamily *pff;
     GtkWidget *menuitem;
+    g_free(lower_name);
 
     /* Notice subtracting 1, to be able to discern from NULL return value */
     font_nr = GPOINTER_TO_INT(font_nr_ptr)-1;
@@ -293,7 +300,7 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
     menuitem = gtk_menu_get_active(fs->font_menu);
     pff = (PangoFontFamily*)gtk_object_get_user_data(GTK_OBJECT(menuitem));
 
-    dia_font_selector_set_styles(fs, pff);
+    dia_font_selector_set_styles(fs, pff, dia_font_get_style(font));
   }
 }
 

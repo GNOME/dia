@@ -33,9 +33,13 @@
 
 2002-06-23  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* lib/widgets.c (dia_font_selector_set_styles): Improvements to
+	font selector (stability, insensitivity).
+
 	* lib/font.c (dia_font_scaled_build_layout): Removed unworkable
 	stretching scheme for tweaking, and made scaling scheme faster
 	(but less precise).
+	(dia_font_dia_style_to_pango): Oops, % != /.
 
 2002-06-23  Cyrille Chepelov  <cyrille@chepelov.org>
 

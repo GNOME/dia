@@ -304,7 +304,7 @@ dia_font_dia_style_to_pango(int          style,
     return;
   }
   *pango_style = (style-1)%3;
-  *pango_weight = (style-1)%3*100+200;
+  *pango_weight = (style-1)/3*100+200;
 }
 
 
