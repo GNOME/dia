@@ -39,6 +39,16 @@
 #include "display.h"
 
 
+#ifdef RTLD_LAZY        /* Solaris 2. */
+# define DLOPEN_MODE   RTLD_LAZY
+#else
+# ifdef RTLD_NOW
+#  define DLOPEN_MODE   RTLD_NOW
+# else
+#  define DLOPEN_MODE   1  /* Thats what it says in the man page. */
+# endif
+#endif
+
 static void register_all_objects(void);
 static void register_all_sheets(void);
 static int name_is_lib(char *name);
@@ -82,8 +92,10 @@ app_init (int    argc,
   register_all_sheets();
 
   if (object_get_type("Standard - Box") == NULL) {
-    message_error("Couldn't find standard objects when looking for object-libs, exiting...\n");
-    printf("Couldn't find standard objects when looking for object-libs, exiting...\n");
+    message_error("Couldn't find standard objects when looking for "
+		  "object-libs, exiting...\n");
+    fprintf(stderr, "Couldn't find standard objects when looking for "
+	    "object-libs, exiting...\n");
     exit(1);
   }
     
@@ -185,7 +197,7 @@ register_objects_in(char *directory)
   char file_name[256];
   struct dirent *dirp;
   DIR *dp;
-  char *error;
+  const char *error;
   void *libhandle;
   void (*register_func)(void);
   
@@ -197,7 +209,8 @@ register_objects_in(char *directory)
   }
 
   if (!S_ISDIR(statbuf.st_mode)) {
-    message_warning("Couldn't find any libraries to load. %s is not a directory.\n", directory);
+    message_warning("Couldn't find any libraries to load.\n"
+		    "%s is not a directory.\n", directory);
     return;
   }
 
@@ -214,7 +227,7 @@ register_objects_in(char *directory)
       strncat(file_name, dirp->d_name, 256);
       /*   printf("loading library: \"%s\"\n", file_name); */
       
-      libhandle = dlopen(file_name, RTLD_NOW);
+      libhandle = dlopen(file_name, DLOPEN_MODE);
       if (libhandle==NULL) {
 	message_warning("Error loading library: \"%s\":\n %s\n", file_name, dlerror());
 	continue;
@@ -280,7 +293,7 @@ register_all_sheets(void)
   GList *list;
   void (*register_func)(void);
   void *libhandle;
-  char *error;
+  const char *error;
 
   list = modules_list;
   while (list != NULL) {

@@ -1,3 +1,16 @@
+1998-10-02  Alexander Larsson  <alla@lysator.liu.se>
+
+	* Makefile.am:
+	removed -ldl from linking. This is added if needed by configure.
+
+	* app/app_procs.c:
+	Open dlls with RTLD_LAZY if it is defined.
+	Some cleanups: char *error -> const char *error
+	Added fprintf()'s to where we exited because of errors.
+
+	* lib/files.c:
+	Include <sys/types.h>
+
 1998-10-01  Alexander Larsson  <alla@lysator.liu.se>
 
 	* acconfig.h:
