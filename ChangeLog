@@ -1,3 +1,25 @@
+2005-03-15  Lars Clausen  <lars@raeder.dk>
+
+	* lib/widgets.[ch]: Constification.
+
+	* app/interface.c: Work on using gdk-pixbuf-csource'd data, not
+	working yet.
+
+	* objects/standard/ellipse.c: Use CP_FLAG_MAIN for central CP.
+
+	* lib/connectionpoint.h: Flags for connection points.
+
+	* app/create_object.c (create_object_motion): 
+	* app/modify_tool.c (modify_motion): Minor refactoring.
+
+	* app/object_ops.c (object_find_connectpoint_display): Extend with
+	finding connpoints that cover entire objects.
+
+	* app/layer_dialog.c (dia_layer_widget_init): Get rid of warnings.
+
+	* objects/custom/custom_object.c (custom_setup_properties): Avoid
+	uninitialized use.
+
 2005-03-13  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/svg/svg-import.c : handle the <circle/> tag as well

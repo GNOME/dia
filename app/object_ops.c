@@ -72,6 +72,7 @@ object_find_connectpoint_display(DDisplay *ddisp, Point *pos, DiaObject *notthis
 {
   real distance;
   ConnectionPoint *connectionpoint;
+  GList *avoid = NULL;
   
   distance =
     diagram_find_closest_connectionpoint(ddisp->diagram, &connectionpoint, 
@@ -80,6 +81,20 @@ object_find_connectpoint_display(DDisplay *ddisp, Point *pos, DiaObject *notthis
   distance = ddisplay_transform_length(ddisp, distance);
   if (distance < OBJECT_CONNECT_DISTANCE) {
     return connectionpoint;
+  }
+  /* Try to find an all-object CP. */
+  avoid = g_list_prepend(avoid, notthis);
+  DiaObject *obj_here = 
+    diagram_find_clicked_object_except(ddisp->diagram,
+				       pos, 0.00001, avoid);
+  if (obj_here != NULL) {
+    int i;
+    for (i = 0; i < obj_here->num_connections; i++) {
+      if (obj_here->connections[i]->flags & CP_FLAG_ANYPLACE) {
+	g_list_free(avoid);
+	return obj_here->connections[i];
+      }
+    }
   }
 
   return NULL;

@@ -379,6 +379,8 @@ ellipse_update_data(Ellipse *ellipse)
   ellipse->connections[7].directions = DIR_SOUTH|DIR_EAST;
   ellipse->connections[8].directions = DIR_ALL;
 
+  ellipse->connections[8].flags = CP_FLAGS_MAIN;
+
   extra->border_trans = ellipse->border_width / 2.0;
   element_update_boundingbox(elem);
 
@@ -481,6 +483,7 @@ ellipse_copy(Ellipse *ellipse)
     newellipse->connections[i].connected = NULL;
     newellipse->connections[i].pos = ellipse->connections[i].pos;
     newellipse->connections[i].last_pos = ellipse->connections[i].last_pos;
+    newellipse->connections[i].flags = ellipse->connections[i].flags;
   }
 
   return &newellipse->element.object;

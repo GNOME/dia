@@ -43,10 +43,11 @@ ICON_PNG_PAIRS= \
 	dia_visible_icon pixmaps/visible.png \
 	dia_visible_empty_icon pixmaps/visible-empty.png \
         dia_diagram_icon ../dia-diagram.png \
-	dia_app_icon ../dia_gnome_icon.png
+	dia_app_icon ../dia_gnome_icon.png \
+	dia_arrow_tool_icon pixmaps/visible.png 
 
 dia-app-icons.h:
-	gdk-pixbuf-csource --build-list $(ICON_PNG_PAIRS) > dia-app-icons.h
+	gdk-pixbuf-csource --raw --build-list $(ICON_PNG_PAIRS) > dia-app-icons.h
 
 BUILT_SOURCES = dia-app-icons.h
 

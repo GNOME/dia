@@ -50,7 +50,7 @@ static const GtkTargetEntry create_object_targets[] = {
 
 ToolButton tool_data[] =
 {
-  { (char **) arrow_xpm,
+  { (char **) scroll_xpm,
     N_("Modify object(s)"),
     N_("Modify"),
     { MODIFY_TOOL, NULL, NULL}
@@ -701,12 +701,12 @@ create_tools(GtkWidget *parent)
 						       &style->bg[GTK_STATE_NORMAL], pixmap_data);
 	pixmapwidget = gtk_pixmap_new(pixmap, mask);
     } else {
-      if ((*tool_data[i].icon_data)[0] == 'G' &&
-	  (*tool_data[i].icon_data)[1] == 'd' &&
-	  (*tool_data[i].icon_data)[2] == 'k' &&
-	  (*tool_data[i].icon_data)[3] == 'P') {
+      printf("Icon data '%s' for %s\n", tool_data[i].icon_data, tool_data[i].tool_desc);
+      if (strncmp(tool_data[i].icon_data, "GdkP", 4) == 0) {
 	GdkPixbuf *p;
-	p = gdk_pixbuf_new_from_inline(-1, *tool_data[i].icon_data, FALSE, NULL);
+	printf("Creating icon for %s\n", tool_data[i].tool_desc);
+	p = gdk_pixbuf_new_from_inline(-1, tool_data[i].icon_data, FALSE, NULL);
+	printf("Got pixbuf %p\n", p);
 	pixmapwidget = gtk_image_new_from_pixbuf(p);
       } else {
 	pixmap_data = tool_data[i].icon_data;

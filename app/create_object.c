@@ -188,7 +188,7 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
   gchar *postext;
   GtkStatusbar *statusbar;
   guint context_id;
-  
+
   if (!tool->moving)
     return;
   
@@ -198,20 +198,25 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
   parent_handle_move_out_check(tool->obj, &to);
 
   /* Move to ConnectionPoint if near: */
-  if ((tool->handle != NULL &&
-       tool->handle->connect_type != HANDLE_NONCONNECTABLE) &&
-      ((connectionpoint =
-	object_find_connectpoint_display(ddisp, &to, tool->obj)) != NULL)) {
-    to = connectionpoint->pos;
-    highlight_object(connectionpoint->object, NULL, ddisp->diagram);
-    ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
-  } else {
+  if (tool->handle != NULL &&
+      tool->handle->connect_type != HANDLE_NONCONNECTABLE) {
+    connectionpoint =
+      object_find_connectpoint_display(ddisp, &to, tool->obj);
+    
+    if (connectionpoint != NULL) {
+      to = connectionpoint->pos;
+      highlight_object(connectionpoint->object, NULL, ddisp->diagram);
+      ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
+    }
+  }
+  
+  if (connectionpoint == NULL) {
     /* No connectionopoint near, then snap to grid (if enabled) */
     snap_to_grid(ddisp, &to.x, &to.y);
     highlight_reset_all(ddisp->diagram);
     ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
   }
-
+      
   object_add_updates(tool->obj, ddisp->diagram);
   tool->obj->ops->move_handle(tool->obj, tool->handle, &to, connectionpoint,
 			      HANDLE_MOVE_CREATE, 0);

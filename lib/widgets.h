@@ -274,13 +274,15 @@ GtkWidget *dia_get_image_from_file(gchar *filename);
 /** Create a toggle button with two different images, one for when on and
  * one for when off.  Images are taken from standard image directory.
  */
-GtkWidget *dia_toggle_button_new_with_images(gchar *on_file, gchar *off_file);
+GtkWidget *dia_toggle_button_new_with_images(const gchar *on_file,
+					     const gchar *off_file);
 
 /** Create a toggle button with two icons (created with gdk-pixbuf-csource,
  * for instance).  The icons represent on and off.
  */
 GtkWidget *
-dia_toggle_button_new_with_icons(guint8 *on_icon, guint8 *off_icon);
+dia_toggle_button_new_with_icons(const guint8 *on_icon,
+				 const guint8 *off_icon);
 
 /* Other common defaults */
 

@@ -43,6 +43,17 @@
 #define DIR_NONE      0
 #define DIR_ALL       DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST
 
+#define CP_FLAG_ANYPLACE	1 /* Set if this connpoint is the one that
+				     is connected to when a connection is
+				     dropped on an object. */
+#define CP_FLAG_AUTOGAP		2 /* Set if this connpoint is internal
+				     and so should force a gap on the lines. */
+
+/* Most non-connection objects want exactly on CP with this, in the middle. */
+#define CP_FLAGS_MAIN		3 /* Use this for the central CP that
+				     takes connections from all over the
+				     object and has autogap. */
+
 struct _ConnectionPoint {
   Point pos;         /* position of this connection point */
   Point last_pos;    /* Used by update_connections_xxx only. */
@@ -50,6 +61,7 @@ struct _ConnectionPoint {
   GList *connected;  /* list of 'DiaObject *' connected to this point*/
   gchar directions;  /* Directions that this connection point is open to */
   gchar *name;       /* Name of this connpoint, NULL means uses number only.*/
+  guint8 flags;      /* Flags set for this connpoint.  See CP_FLAGS_* above. */
 };
 
 /* Returns the available directions on a slope.

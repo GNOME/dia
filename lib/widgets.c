@@ -2056,7 +2056,8 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
 
 /** Create a toggle button with two images switching (on and off) */
 GtkWidget *
-dia_toggle_button_new_with_images(gchar *on_image, gchar *off_image)
+dia_toggle_button_new_with_images(const gchar *on_image, 
+				  const gchar *off_image)
 {
   return dia_toggle_button_new(dia_get_image_from_file(on_image),
 			       dia_get_image_from_file(off_image));
@@ -2066,7 +2067,8 @@ dia_toggle_button_new_with_images(gchar *on_image, gchar *off_image)
  * for instance).  The icons represent on and off.
  */
 GtkWidget *
-dia_toggle_button_new_with_icons(guint8 *on_icon, guint8 *off_icon)
+dia_toggle_button_new_with_icons(const guint8 *on_icon,
+				 const guint8 *off_icon)
 {
   GdkPixbuf *p1, *p2;
 

@@ -767,7 +767,6 @@ dia_layer_widget_init(DiaLayerWidget *lw)
   GtkWidget *visible;
   GtkWidget *connectable;
   GtkWidget *label;
-  GtkWidget *alignment;
 
   hbox = gtk_hbox_new(FALSE, 0);
 
@@ -782,11 +781,11 @@ dia_layer_widget_init(DiaLayerWidget *lw)
     dia_toggle_button_new_with_icons(dia_visible_icon, dia_visible_empty_icon);
 
   g_signal_connect(G_OBJECT(visible), "button-release-event",
-		   dia_layer_widget_button_event, lw);
+		   G_CALLBACK(dia_layer_widget_button_event), lw);
   g_signal_connect(G_OBJECT(visible), "button-press-event",
-		   dia_layer_widget_button_event, lw);
+		   G_CALLBACK(dia_layer_widget_button_event), lw);
   g_signal_connect(G_OBJECT(visible), "toggled",
-		   dia_layer_widget_visible_toggled, lw);
+		   G_CALLBACK(dia_layer_widget_visible_toggled), lw);
   gtk_box_pack_start (GTK_BOX (hbox), visible, FALSE, TRUE, 2);
   gtk_widget_show(visible);
 
@@ -797,11 +796,11 @@ dia_layer_widget_init(DiaLayerWidget *lw)
 				     dia_connectable_empty_icon);
 
   g_signal_connect(G_OBJECT(connectable), "button-release-event",
-		   dia_layer_widget_button_event, lw);
+		   G_CALLBACK(dia_layer_widget_button_event), lw);
   g_signal_connect(G_OBJECT(connectable), "button-press-event",
-		   dia_layer_widget_button_event, lw);
+		   G_CALLBACK(dia_layer_widget_button_event), lw);
   g_signal_connect(G_OBJECT(connectable), "toggled",
-		   dia_layer_widget_connectable_toggled, lw);
+		   G_CALLBACK(dia_layer_widget_connectable_toggled), lw);
 
   gtk_box_pack_start (GTK_BOX (hbox), connectable, FALSE, TRUE, 2);
   gtk_widget_show(connectable);

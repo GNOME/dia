@@ -236,7 +236,7 @@ void custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
 {
 	xmlChar *str;
 	xmlNodePtr cur;
-	int n_props, offs;
+	int n_props, offs = 0;
 	int i;
 
 	/* count ext_attributes node items */
