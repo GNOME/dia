@@ -85,6 +85,7 @@ create_object_menu(DiaMenu *dia_menu)
   menu = gtk_menu_new();
 
   menu_item = gtk_menu_item_new_with_label(gettext(dia_menu->title));
+  gtk_widget_set_sensitive(menu_item, FALSE);
   gtk_menu_append(GTK_MENU(menu), menu_item);
   gtk_widget_show(menu_item);
 
@@ -170,7 +171,7 @@ popup_object_menu(GdkEventButton *bevent, DDisplay *ddisp)
   
   object_menu_clicked_point = clickedpoint;
   popup_shell = ddisp->shell;
-  gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 0, 0);
+  gtk_menu_popup(menu, NULL, NULL, NULL, NULL, bevent->button, bevent->time);
 }
 
 gint
@@ -278,7 +279,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
 #         ifdef GNOME
 	  gnome_popup_menu_do_popup(ddisp->popup, NULL, NULL, bevent, NULL);
 #         else
-	  gtk_menu_popup(GTK_MENU(ddisp->popup), NULL, NULL, NULL, NULL, 0, 0);
+	  gtk_menu_popup(GTK_MENU(ddisp->popup), NULL, NULL, NULL, NULL,
+			 bevent->button, bevent->time);
 #         endif  
  	  break;
 

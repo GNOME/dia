@@ -1,5 +1,15 @@
 2000-02-29  James Henstridge  <james@daa.com.au>
 
+	* app/preferences.c (prefs_save): check to see if the file could
+	be opened before writing the prefs.
+
+	* app/disp_callbacks.c (popup_object_menu): pass the button event
+	to gtk_menu_popup.  This allows you to click and release to open
+	the object menu.
+	(ddisplay_canvas_events): same here.
+	(create_object_menu): set the object type menu item in the object
+	menu to be insensitive.
+
 	* app/render_svg.c (draw_string): call xmlEncodeEntitiesReentrant,
 	as we are now requiring a new version of libxml.
 
