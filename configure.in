@@ -1,4 +1,5 @@
-dnl Process this -*- m4 -*- file with autoconf to produce a configure script.
+dnl Process this -*- autoconf -*- file with autoconf to produce a 
+dnl configure script.
 AC_INIT(app/diagram.c)
 
 dnl AC_PREREQ(2.50)
@@ -31,6 +32,7 @@ AC_ISC_POSIX
 
 dnl stuff for xml-i18n-tools
 AC_PROG_INTLTOOL(0.12) 
+dnl we will update this to 0.21 soon.
 
 dnl Checks for libraries.
 dnl AM_PATH_GLIB(1.2.9) dnl (for g_critical)
@@ -213,7 +215,7 @@ if test "$png_ok" = yes; then
   fi
 fi
 AC_SUBST(PNG_LIBS)
-
+LIBS="${LIBS} ${PNG_LIBS}"
 
 dnl
 dnl Debugging
@@ -354,16 +356,24 @@ fi
 
 dnl Solaris provides isinf() in -lsunmath and defines finite() in math.h
 have_isinf=no
+AC_CHECK_HEADERS(math.h,
+        AC_CHECK_LIB(m,isinf,
+                have_isinf=yes))
 
-  AC_CHECK_HEADERS(ieeefp.h sunmath.h)
-  AC_CHECK_LIB(sunmath,isinf,have_isinf=yes)
-dnl well, not quite. Solaris' guys seem to like moving stuff around.
-  AC_CHECK_LIB(m,isinf,have_isinf=yes)
-  AC_CHECK_LIB(m,finite)
-  AC_CHECK_LIB(sunmath,finite)
+AC_CHECK_HEADER(sunmath.h,
+        AC_CHECK_LIB(sunmath,isinf,
+                have_isinf=yes)) 
 
-if test "$have_isinf" = "yes"; then
-    AC_DEFINE([HAVE_ISINF], 1, [Define if the isinf() function is available])
+if test "$have_isinf" = "no"; then
+        AC_CHECK_HEADERS(ieeefp.h,
+                AC_CHECK_FUNC(finite, ,
+                        AC_MSG_ERROR(Can't find a definition of neither 
+                                     finite nor isinf)),
+                AC_MSG_ERROR(Can't find a definition of neither finite 
+                             nor isinf))
+else
+        AC_DEFINE([HAVE_ISINF], 1, 
+                  [Define if the isinf() function is available])
 fi
 
 dnl Alpha needs -mieee or we get a segfault
