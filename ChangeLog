@@ -1,3 +1,20 @@
+2000-08-15  Daniel Egger  <egger@suse.de>
+
+	* app/commands.c:
+	* app/commands.h:
+	* app/diagram.c:
+	* app/display.c:
+	* app/menus.c:
+	* app/select.c: First big patch to get the menus
+	working again in the international version. Copied
+	some code written by Sven and me from GIMP and
+	thus implemented automatic tearoffmenu creation and
+	proper translation. I also removed that pseudo
+	radiomenu hack and cleaned up several translation
+	hacks which have never really worked. All in all
+	this is part I of the big menu patch. Enjoy and tell
+	me if you detect any problems.
+
 2000-08-14  Daniel Egger  <egger@suse.de>
 
 	* sheets/UML.sheet: Changed one German translation as

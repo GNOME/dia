@@ -820,25 +820,17 @@ display_update_menu_state(DDisplay *ddisp)
 #ifdef HAVE_LIBART
   static GtkWidget *antialiased;
 #endif
-  static GString *path;
-  char *display = "<Display>";
 
   if (initialized==0) {
-    path = g_string_new (display);
-    g_string_append (path,_("/View/Show Rulers"));
-    rulers       = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/View/Visible Grid"));
-    visible_grid = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/View/Snap To Grid"));
-    snap_to_grid = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/View/Show Connection Points"));
-    show_cx_pts  = menus_get_item_from_path(path->str);
+    rulers       = menus_get_item_from_path("<Display>/View/Show Rulers");
+    visible_grid = menus_get_item_from_path("<Display>/View/Visible Grid");
+    snap_to_grid = menus_get_item_from_path("<Display>/View/Snap To Grid");
+    show_cx_pts  = 
+      menus_get_item_from_path("<Display>/View/Show Connection Points");
 #ifdef HAVE_LIBART
-    g_string_append(g_string_assign(path, display),_("/View/AntiAliased"));
-    antialiased = menus_get_item_from_path(path->str);
+    antialiased = menus_get_item_from_path("<Display>/View/AntiAliased");
 #endif
 
-    g_string_free (path,FALSE);
     initialized = 1;
   }
   
@@ -846,18 +838,18 @@ display_update_menu_state(DDisplay *ddisp)
 
   diagram_update_menu_sensitivity(dia);
 
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(rulers),
+  gtk_check_menu_item_set_active((GtkToggleButton *) rulers,
 				 GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0); 
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(visible_grid),
+  gtk_check_menu_item_set_active((GtkToggleButton *) visible_grid,
 				 ddisp->grid.visible);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(snap_to_grid),
+  gtk_check_menu_item_set_active((GtkToggleButton *) snap_to_grid,
 				 ddisp->grid.snap);
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(show_cx_pts),
+  gtk_check_menu_item_set_active((GtkToggleButton *) show_cx_pts,
 				 ddisp->show_cx_pts); 
 #ifdef HAVE_LIBART
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(antialiased),
+  gtk_check_menu_item_set_active((GtkToggleButton *) antialiased,
 				 ddisp->aa_renderer);
-#endif
+#endif 
 }
 
 /* This is called when ddisp->shell is destroyed... */

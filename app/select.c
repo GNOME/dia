@@ -225,50 +225,45 @@ select_same_type_callback(GtkWidget *widget, gpointer data)
 void
 select_style_callback(GtkWidget *widget, gpointer data)
 {
-  static GtkCheckMenuItem *replace_item;
-  static GtkCheckMenuItem *union_item;
-  static GtkCheckMenuItem *intersect_item;
-  static GtkCheckMenuItem *remove_item;
-  static GtkCheckMenuItem *invert_item;
-  static GString *path;
-  static int initialized = 0;
-  char *display = "<Display>";
-
-  selection_style = (int)data;
+  static GtkWidget *item;
   
-  if (initialized == 0) {
-#   ifdef GNOME
-    if (ddisplay_active () == NULL) return;
-#   endif
+#ifdef GNOME
+  if (ddisplay_active () == NULL) return;
+#endif
 
-    /* Now do the radio button thing */
-    path = g_string_new ("<Display>");
-    g_string_append (path,_("/Select/Replace"));
-    replace_item = (GtkCheckMenuItem *)menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Select/Union"));
-    union_item = (GtkCheckMenuItem *)menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Select/Intersect"));
-    intersect_item = (GtkCheckMenuItem *)menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Select/Remove"));
-    remove_item = (GtkCheckMenuItem *)menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Select/Invert"));
-    invert_item = (GtkCheckMenuItem *)menus_get_item_from_path(path->str);
-    g_string_free(path, FALSE);
-    initialized = 1;
-  }
-
-  /* Ok, this should really be done with a radiomenu, but I don't have
-     any docs on that */
-
-  if ((selection_style == SELECT_REPLACE)^(replace_item->active))
-    gtk_check_menu_item_toggled(replace_item);
-  if ((selection_style == SELECT_UNION)^(union_item->active))
-    gtk_check_menu_item_toggled(union_item);
-  if ((selection_style == SELECT_INTERSECTION)^(intersect_item->active))
-    gtk_check_menu_item_toggled(intersect_item);
-  if ((selection_style == SELECT_REMOVE)^(remove_item->active))
-    gtk_check_menu_item_toggled(remove_item);
-  if ((selection_style == SELECT_INVERT)^(invert_item->active))
-    gtk_check_menu_item_toggled(invert_item);
+  item = menus_get_item_from_path("<Display>/Select/Replace");
+  if (item==widget)
+    {
+      selection_style = SELECT_REPLACE;
+      return;
+    }  
+  
+  item = menus_get_item_from_path("<Display>/Select/Union");
+  if (item==widget)
+    {
+      selection_style = SELECT_UNION;
+      return;
+    }  
+  
+  item = menus_get_item_from_path( "<Display>/Select/Intersect");
+  if (item==widget)
+    {
+      selection_style = SELECT_INTERSECTION;
+      return;
+    }  
+  
+  item = menus_get_item_from_path("<Display>/Select/Remove");
+  if (item==widget)
+    {
+      selection_style = SELECT_REMOVE;
+      return;
+    }  
+  
+  item = menus_get_item_from_path("<Display>/Select/Invert");
+  if (item==widget)
+    {
+      selection_style = SELECT_INVERT;
+      return;
+    }  
 }
 

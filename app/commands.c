@@ -620,16 +620,9 @@ view_zoom_set_callback(GtkWidget *widget, gpointer data)
   ddisplay_zoom(ddisp, &middle, scale / ddisp->zoom_factor);  
 }
 
-#ifdef GNOME
 void
 view_show_cx_pts_callback(GtkWidget *widget,
 			  gpointer callback_data)
-#else /* GNOME */
-void
-view_show_cx_pts_callback(gpointer callback_data,
-                          guint callback_action,
-                          GtkWidget *widget)
-#endif /* GNOME */
 {
   DDisplay *ddisp;
   int old_val;
@@ -637,7 +630,7 @@ view_show_cx_pts_callback(gpointer callback_data,
   ddisp = ddisplay_active();
 
   old_val = ddisp->show_cx_pts;
-  ddisp->show_cx_pts = GTK_CHECK_MENU_ITEM (widget)->active;
+  ddisp->show_cx_pts = GTK_CHECK_MENU_ITEM(widget)->active;
   
   if (old_val != ddisp->show_cx_pts) {
     ddisplay_add_update_all(ddisp);
@@ -645,25 +638,18 @@ view_show_cx_pts_callback(gpointer callback_data,
   }
 }
 
-#ifdef GNOME
 void
 view_aa_callback(GtkWidget *widget,
 		 gpointer callback_data)
-#else /* GNOME */
-void
-view_aa_callback(gpointer callback_data,
-		 guint callback_action,
-		 GtkWidget *widget)
-#endif /* GNOME */
 {
   DDisplay *ddisp;
   int aa;
   static gboolean shown_warning = FALSE;
 
   ddisp = ddisplay_active();
+ 
+  aa =  GTK_CHECK_MENU_ITEM(widget)->active;
   
-  aa = GTK_CHECK_MENU_ITEM (widget)->active;
-
   if (aa && !shown_warning)
     message_warning(_("The anti aliased renderer is buggy, and may cause\n"
 		      "crashes.  We know there are bugs in it, so don't\n"
@@ -677,16 +663,9 @@ view_aa_callback(gpointer callback_data,
   }
 }
 
-#ifdef GNOME
 void
 view_visible_grid_callback(GtkWidget *widget,
 			   gpointer callback_data)
-#else /* GNOME */
-void
-view_visible_grid_callback(gpointer callback_data,
-			   guint callback_action,
-			   GtkWidget *widget)
-#endif /* GNOME */
 {
   DDisplay *ddisp;
   int old_val;
@@ -694,7 +673,7 @@ view_visible_grid_callback(gpointer callback_data,
   ddisp = ddisplay_active();
   
   old_val = ddisp->grid.visible;
-  ddisp->grid.visible = GTK_CHECK_MENU_ITEM (widget)->active;
+  ddisp->grid.visible = GTK_CHECK_MENU_ITEM(widget)->active; 
 
   if (old_val != ddisp->grid.visible) {
     ddisplay_add_update_all(ddisp);
@@ -702,16 +681,9 @@ view_visible_grid_callback(gpointer callback_data,
   }
 }
 
-#ifdef GNOME
 void
 view_snap_to_grid_callback(GtkWidget *widget,
 			   gpointer callback_data)
-#else /* GNOME */
-void
-view_snap_to_grid_callback(gpointer callback_data,
-			   guint callback_action,
-			   GtkWidget *widget)
-#endif /* GNOME */
 {
   DDisplay *ddisp;
   int old_val;
@@ -719,17 +691,11 @@ view_snap_to_grid_callback(gpointer callback_data,
   ddisp = ddisplay_active();
   
   old_val = ddisp->grid.snap;
-  ddisp->grid.snap = GTK_CHECK_MENU_ITEM (widget)->active;
+  ddisp->grid.snap =  GTK_CHECK_MENU_ITEM(widget)->active;
 }
 
-#ifdef GNOME
 void view_toggle_rulers_callback(GtkWidget *widget,
 				 gpointer callback_data)
-#else /* GNOME */
-void view_toggle_rulers_callback(gpointer callback_data,
-				 guint callback_action,
-				 GtkWidget *widget)
-#endif /* GNOME */
 {
   DDisplay *ddisp;
   
@@ -742,7 +708,7 @@ void view_toggle_rulers_callback(gpointer callback_data,
    *  is kludgy and a hack and may break if gtk is changed
    *  internally.
    */
-  if (!GTK_CHECK_MENU_ITEM (widget)->active) {
+  if (!GTK_CHECK_MENU_ITEM(widget)->active) {
     if (GTK_WIDGET_VISIBLE (ddisp->origin)) {
       gtk_widget_unmap (ddisp->origin);
       gtk_widget_unmap (ddisp->hrule);

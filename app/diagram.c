@@ -169,63 +169,50 @@ void diagram_update_menu_sensitivity(Diagram *dia)
   static GtkWidget *align_v_e;
   static GtkWidget *align_v_a;
   static GString *path;
-  char *display = "<Display>";
   
   if (initialized==0) {
 #   ifdef GNOME
     if (ddisplay_active () == NULL) return;
 #   endif
-    path = g_string_new ("<Display>");
-    g_string_append (path,_("/Edit/Copy"));
-    copy = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Edit/Cut"));
-    cut = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Edit/Paste"));
-    paste = menus_get_item_from_path(path->str);
+    copy = menus_get_item_from_path("<Display>/Edit/Copy");
+    cut = menus_get_item_from_path("<Display>/Edit/Cut");
+    paste = menus_get_item_from_path("<Display>/Edit/Paste");
 #   ifndef GNOME
-    g_string_append (g_string_assign(path, display),_("/Edit/Delete"));
-    delete = menus_get_item_from_path(path->str);
+    delete = menus_get_item_from_path("<Display>/Edit/Delete");
 #   endif
 
-    g_string_append (g_string_assign(path, display),_("/Edit/Copy Text"));
-    copy_text = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Edit/Cut Text"));
-    cut_text = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Edit/Paste Text"));
-    paste_text = menus_get_item_from_path(path->str);
+    copy_text = menus_get_item_from_path("<Display>/Edit/Copy Text");
+    cut_text = menus_get_item_from_path("<Display>/Edit/Cut Text");
+    paste_text = menus_get_item_from_path("<Display>/Edit/Paste Text");
 
-    g_string_append (g_string_assign(path, display),_("/Objects/Send to Back"));
-    send_to_back = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Objects/Bring to Front"));
-    bring_to_front = menus_get_item_from_path(path->str);
-  
-    g_string_append (g_string_assign(path, display),_("/Objects/Group"));
-    group = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Objects/Ungroup"));
-    ungroup = menus_get_item_from_path(path->str);
-
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Left"));
-    align_h_l = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Center"));
-    align_h_c = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Right"));
-    align_h_r = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Equal Distance"));
-    align_h_e = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Horizontal/Adjacent"));
-    align_h_a = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Top"));
-    align_v_t = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Center"));
-    align_v_c = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Bottom"));
-    align_v_b = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Equal Distance"));
-    align_v_e = menus_get_item_from_path(path->str);
-    g_string_append (g_string_assign(path, display),_("/Objects/Align Vertical/Adjacent"));
-    align_v_a = menus_get_item_from_path(path->str);
-
-    g_string_free (path,FALSE);
+    send_to_back = menus_get_item_from_path("<Display>/Objects/Send to Back");
+    bring_to_front =
+      menus_get_item_from_path("<Display>/Objects/Bring to Front");
+    group = menus_get_item_from_path("<Display>/Objects/Group");
+    ungroup = menus_get_item_from_path("<Display>/Objects/Ungroup");
+    align_h_l =
+      menus_get_item_from_path("<Display>/Objects/Align Horizontal/Left");
+    align_h_c =
+      menus_get_item_from_path("<Display>/Objects/Align Horizontal/Center");
+    align_h_r =
+      menus_get_item_from_path("<Display>/Objects/Align Horizontal/Right");
+    align_h_e =
+      menus_get_item_from_path(
+	  "<Display>/Objects/Align Horizontal/Equal Distance");
+    align_h_a =
+      menus_get_item_from_path("<Display>/Objects/Align Horizontal/Adjacent");
+    align_v_t =
+      menus_get_item_from_path("<Display>/Objects/Align Vertical/Top");
+    align_v_c =
+      menus_get_item_from_path("<Display>/Objects/Align Vertical/Center");
+    align_v_b =
+      menus_get_item_from_path("<Display>/Objects/Align Vertical/Bottom");
+    align_v_e =
+      menus_get_item_from_path(
+	  "<Display>/Objects/Align Vertical/Equal Distance");
+    align_v_a =
+      menus_get_item_from_path("<Display>/Objects/Align Vertical/Adjacent");
+    
     initialized = 1;
   }
   
@@ -237,7 +224,7 @@ void diagram_update_menu_sensitivity(Diagram *dia)
 #endif
 
   gtk_widget_set_sensitive(copy_text, active_focus() != NULL);
-  gtk_widget_set_sensitive(cut_text, 0); /* Not implemented */
+  gtk_widget_set_sensitive(cut_text, 0); 
   gtk_widget_set_sensitive(paste_text, active_focus() != NULL);
 
   gtk_widget_set_sensitive(send_to_back, dia->data->selected_count > 0);

@@ -49,7 +49,6 @@ void view_zoom_in_callback(GtkWidget *widget, gpointer data);
 void view_zoom_out_callback(GtkWidget *widget, gpointer data);
 void view_zoom_set_callback(GtkWidget *widget, gpointer data);
 
-#ifdef GNOME
 void view_aa_callback(GtkWidget *widget,
 		      gpointer  callback_data);
 void view_visible_grid_callback (GtkWidget *widget,
@@ -60,23 +59,7 @@ void view_toggle_rulers_callback(GtkWidget *widget,
 				 gpointer  callback_data);
 void view_show_cx_pts_callback  (GtkWidget *widget,
 				 gpointer  callback_data);
-#else  /* GNOME */
-void view_aa_callback(gpointer  callback_data,
-		      guint callback_action,
-		      GtkWidget *widget);
-void view_visible_grid_callback(gpointer  callback_data,
-				guint callback_action,
-				GtkWidget *widget);
-void view_snap_to_grid_callback(gpointer  callback_data,
-				guint callback_action,
-				GtkWidget *widget);
-void view_toggle_rulers_callback(gpointer  callback_data,
-				 guint callback_action,
-				 GtkWidget *widget);
-void view_show_cx_pts_callback  (gpointer callback_data,
-				 guint callback_action,
-				 GtkWidget *widget);
-#endif /* GNOME */
+
 void view_new_view_callback(GtkWidget *widget, gpointer data);
 void view_show_all_callback(GtkWidget *widget, gpointer data);
 void view_diagram_properties_callback(GtkWidget *widget, gpointer data);
