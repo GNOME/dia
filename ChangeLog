@@ -1,3 +1,17 @@
+2003-11-30  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/text.c (text_draw): Use new renderer function to draw the
+	text.
+
+	* lib/diarenderer.h: 
+	* lib/diarenderer.c: New renderer function "draw_text" with
+	default implementation.  This function should eventually be the
+	main interface, as it will be able to handle width and caching of
+	rendering internally.  All users of draw_string should convert to
+	use Text objects and call either renderer->draw_text or text_draw,
+	the latter if the text can be edited in-place (as should be the
+	goal, eventually).
+
 2003-11-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* shapes/Circuit/hresistor.shape: First example of extra

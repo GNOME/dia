@@ -121,9 +121,6 @@ struct _DiaRendererClass
                       Point *point,
                       real width, real height,
                       DiaImage image);
-  /* new function, for smart renderers */
-  void (*draw_text) (DiaRenderer *renderer,
-                     Text *text);
 
   /* 
    * Functions which SHOULD be implemented by specific renderer, but
@@ -152,6 +149,9 @@ struct _DiaRendererClass
   void (*draw_polygon) (DiaRenderer *renderer,
                         Point *points, int num_points,
                         Color *color);
+  /* Print a Text.  It holds its own information. */
+  void (*draw_text) (DiaRenderer *renderer,
+                     Text *text);
   /* Draw a rectangle, given its upper-left and lower-right corners */
   void (*draw_rect) (DiaRenderer *renderer,
                      Point *ul_corner, Point *lr_corner,

@@ -418,21 +418,7 @@ text_distance_from(Text *text, Point *point)
 void
 text_draw(Text *text, DiaRenderer *renderer)
 {
-  Point pos;
-  int i;
-  
-  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
-  
-  pos = text->position;
-  
-  for (i=0;i<text->numlines;i++) {
-    DIA_RENDERER_GET_CLASS(renderer)->draw_string(renderer,
-			       text->line[i],
-			       &pos, text->alignment,
-			       &text->color);
-    pos.y += text->height;
-  }
-
+  DIA_RENDERER_GET_CLASS(renderer)->draw_text(renderer, text);
 
   if ((renderer->is_interactive) && (text->focus.has_focus)) {
     real curs_x, curs_y;

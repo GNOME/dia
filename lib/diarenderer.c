@@ -23,6 +23,7 @@
 
 #include "diarenderer.h"
 #include "object.h"
+#include "text.h"
 
 struct _BezierApprox {
   Point *points;
@@ -229,7 +230,6 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->fill_ellipse = fill_ellipse;
   renderer_class->draw_string  = draw_string;
   renderer_class->draw_image   = draw_image;
-  renderer_class->draw_text    = draw_text;
 
   /* medium level functions */
   renderer_class->draw_bezier  = draw_bezier;
@@ -237,6 +237,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
   renderer_class->draw_polygon   = draw_polygon;
+  renderer_class->draw_text    = draw_text;
 
   /* highest level functions */
   renderer_class->draw_rounded_rect = draw_rounded_rect;
@@ -380,6 +381,25 @@ draw_string (DiaRenderer *renderer,
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
+/** Default implementation of draw_text */
+static void draw_text(DiaRenderer *renderer,
+		      Text *text) {
+  Point pos;
+  int i;
+  
+  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
+  
+  pos = text->position;
+  
+  for (i=0;i<text->numlines;i++) {
+    DIA_RENDERER_GET_CLASS(renderer)->draw_string(renderer,
+						  text->line[i],
+						  &pos, text->alignment,
+						  &text->color);
+    pos.y += text->height;
+  }
+}
+
 static void 
 draw_image (DiaRenderer *renderer,
             Point *point, real width, real height,
@@ -389,13 +409,6 @@ draw_image (DiaRenderer *renderer,
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
-static void
-draw_text (DiaRenderer *renderer,
-           Text* text)
-{
-  g_warning ("%s::draw_text not implemented!", 
-             G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-}
 
 /*
  * medium level functions, implemented by the above
