@@ -3,7 +3,7 @@
 	* objects/UML/state.c: there was a (gratuitous?) change of on-XML
 	format for the UML State object. Now there's a hack to reload
 	older files, and get them converted on the fly. 
-	Justyna "Nell" Biała reported this. Thanks!
+	Justyna Biała <nell@poczta.gazeta.pl> reported this. Thanks!
 
 	* lib/properties.h:
 	* lib/propobject.c:
@@ -18,6 +18,11 @@
 	attributes. Then in foo_load(), after having called
 	object_load_using_properties(), you must inspect the old-style
 	fields and act accordingly. Don't ever change the on-disk formats...
+
+	* objects/UML/object.c:
+	* objects/UML/small_package.c: added a check against empty
+	stereotypes still consuming space. Reported by Dolores Alia de
+	Saravia <loli@unsa.edu.ar>. Thanks!	
 	
 2002-05-26  Cyrille Chepelov  <cyrille@chepelov.org>
 
