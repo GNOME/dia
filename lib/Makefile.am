@@ -1,14 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-if HAVE_UNICODE
-unicode_files = \
-       ps-utf8.c \
-       ps-utf8.h
-else
-unicode_files =
-endif
-
-
 noinst_LIBRARIES =     libdia.a
 libdia_a_SOURCES =  \
 		diavar.h \
@@ -88,7 +79,8 @@ libdia_a_SOURCES =  \
 		paper.h \
 		charconv.c \
 		charconv.h \
-		$(unicode_files)
+		ps-utf8.c \
+		ps-utf8.h
 
 CPPFLAGS = \
 	-DLIBDIR=\"$(libdir)\" \

@@ -20,6 +20,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <config.h>
+#ifdef HAVE_UNICODE
+
 #ifndef PS_UTF8_H
 #include <unicode.h>
 #include <glib.h>
@@ -130,4 +133,7 @@ extern const char *unicode_to_ps_name(unicode_char_t val);
  
 
 #define PS_UTF8_H
-#endif
+#endif /* !PS_UTF8_H */
+
+#endif /* HAVE_UNICODE */
+
