@@ -3,8 +3,10 @@
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Electric</name>
   <name xml:lang="de">Stromkreis</name>
+  <name xml:lang="hu">Elektromos áramkörök</name>
   <description xml:lang="fr">Composants de circuits électriques</description>
   <description xml:lang="de">Komponenten für Stromkreise</description>
+  <description xml:lang="hu">Elektomos áramköri elemek</description>
   <description>Components for electric circuits</description>
   <contents>
     <object name="Electric - contact_o">

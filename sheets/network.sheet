@@ -70,14 +70,14 @@
       <description xml:lang="no">RJ45 veggplugg</description>
       <description xml:lang="fr">Une prise murale RJ45</description>
       <description xml:lang="de">Eine RJ45 Steckdose</description>
-      <description xml:lang="hu">RJ45 fali csatlakozó</description>
+      <description xml:lang="hu">RJ45 falicsatlakozó</description>
       <description>A RJ45 Wall-Plug</description>
     </object>
     <object name="Network - scEAD Wall-Plug">
       <description xml:lang="no">En veggplugg for scEAD kablingsystemet</description>
       <description xml:lang="fr">Une prise murale pour le système de câblage scEAD</description>
       <description xml:lang="de">Eine Steckdose für das scEAD Verkabelungssystem</description>
-      <description xml:lang="de">Fali csatlakozó scEAD kábelezéshez</description>
+      <description xml:lang="hu">Falicsatlakozó scEAD kábelezéshez</description>
       <description>A Wall-Plug for the scEAD Cabling System</description>
     </object>
     <object name="Network - Modem">
