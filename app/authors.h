@@ -1,6 +1,23 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
+ * 
+ * W   W   A   RRR  N   N I N   N  GGG
+ * W   W  A A  R  R NN  N I NN  N G
+ * W   W AAAAA RRR  N N N I N N N G  GG
+ * W W W A   A R R  N  NN I N  NN G   G
+ *  W W  A   A R  R N   N I N   N  GGG
+ *
+ *
+ * THIS FILE IS ENCODED IN UTF-8. 
+ *
+ * IF YOUR EDITOR DOES NOT SUPPORT FULLY UTF-8 INCLUDING CHARACTERS IT DOES
+ * NOT KNOW HOW TO DISPLAY, GET THE HELL OUT OF THIS FILE ** NOW **. 
+ *
+ * (well, if you plan to generate a patch or make a CVS commit)
+ *
+ *
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -65,7 +82,7 @@ static const gchar *authors[] =	{
     "Alexey Novodvorsky <aen@logic.ru>",
     "Patric Sung <phsung@ualberta.ca>",
     "Robert Young <robert@young.dsto.defence.gov.au>",
-    "Akira TAGOH <tagoh@redhat.com>",
+    "田郷 明 (Akira TAGOH) <tagoh@redhat.com>",
     "Richard Rowell <rwrowell@bellsouth.net>",
     "Frank Gevaerts <frank.gevaerts@fks.be>",
     "M. C. Nelson <mcn@kobayashimaru.org>",
