@@ -34,9 +34,8 @@ AC_PROG_INTLTOOL
 
 
 dnl Checks for libraries.
-dnl AM_PATH_GLIB(1.2.9) dnl (for g_critical)
-AM_PATH_GLIB_2_0(1.3.12)
-AM_PATH_GTK_2_0(1.3.12)
+AM_PATH_GLIB_2_0(2.0.0)
+AM_PATH_GTK_2_0(2.0.0)
 
 AM_CONDITIONAL(HAVE_GNOME,       false)
 AM_CONDITIONAL(HAVE_GNOME_PRINT, false)
@@ -107,7 +106,7 @@ dnl
 
 png_ok=no
 AC_CHECK_LIB(png, png_read_info,
-  AC_CHECK_HEADER(png.h, png_ok=yes, png_ok=no),png_ok=no, -lz -lm)
+  [AC_CHECK_HEADER(png.h, png_ok=yes, png_ok=no)],png_ok=no, -lz -lm)
 if test "$png_ok" = yes; then
   AC_MSG_CHECKING([for png_structp in png.h])
   AC_TRY_COMPILE([#include <png.h>],
@@ -244,21 +243,21 @@ AC_CHECK_FUNCS(select strcspn strdup strtol snprintf)
 dnl Set some variables we'll need for the UTF-8 transition.
 gtk_advancement=initial
 
-if $gtk_advancement = initial ; then
+if test $gtk_advancement = initial ; then
    AC_DEFINE(GTK_DOESNT_SPEAK_UTF8_NEITHER_DO_WE,,
           We haven't begun the transition yet)
-elif $gtk_advancement=dia_talks_utf8 ; then
+elif test $gtk_advancement = dia_talks_utf8 ; then
    AC_DEFINE(UNICODE_WORK_IN_PROGRESS,,Cyrille's work towards UTF-8)
    AC_DEFINE(GTK_DOESNT_TALK_UTF8_WE_DO,,...)
    AC_DEFINE(GTK_CHARSET_MISMATCH,,     
              Mismatch between the charset dia uses and the charset GTK uses)
-elif $gtk_advancement = dia_under_win32 ; then
+elif test $gtk_advancement = dia_under_win32 ; then
    dnl please check this with Hans. I believe this is true -- CC
    AC_DEFINE(GTK_TALKS_UTF8,,...)
    AC_DEFINE(GTK_TALKS_UTF8_WE_DONT,,...)
    AC_DEFINE(GTK_CHARSET_MISMATCH,,     
              Mismatch between the charset dia uses and the charset GTK uses)
-elif $gtk_advancement = gtk2 ; then
+elif test $gtk_advancement = gtk2 ; then
    AC_DEFINE(GTK_TALKS_UTF8,,...)
    AC_DEFINE(UNICODE_WORK_IN_PROGRESS,,Cyrille's work towards UTF-8)
    dnl the latter shouldn't appear anymore by then (manually compiled)
