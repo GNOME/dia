@@ -1,3 +1,21 @@
+2002-11-24  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/font.c: Debugging functionality in separate functions.
+
+	* lib/widgets.c: Using fontsel with context.
+
+	* lib/diagtkfontsel.[ch]: Context-aware copy of the GTK fontsel.
+
+	* objects/custom/custom_object.c: Orientation handling for shapes,
+	patch thanks to Martin Hans <opfinder@gmx.net>.
+
+	* objects/standard/zigzagline.c (zigzagline_move_handle): Starting
+	work on even better orientation handling.
+
+	* app/menus.c (menus_get_item_from_path): Fixed sily warnings from
+	casting NULL pointers.  Should be unnecessary in an upcoming GTK
+	release. 
+
 2002-11-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/font.h:

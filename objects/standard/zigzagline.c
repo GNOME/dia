@@ -171,6 +171,24 @@ zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
   orthconn_update_data(&zigzagline->orth);
 }
 
+/** Returns TRUE if this connection point allows horizontal connection
+ * from our direction.
+ */
+static gboolean
+zigzagline_horizontal_endpoint_allowed(ConnectionPoint *p1) {
+  if (p1 == NULL) return TRUE;
+  return p1->directions & (DIR_EAST|DIR_WEST);
+}
+
+/** Returns TRUE if this connection point allows vertical connection
+ * from our direction.
+ */
+static gboolean
+zigzagline_vertical_endpoint_allowed(ConnectionPoint *p1) {
+  if (p1 == NULL) return TRUE;
+  return p1->directions & (DIR_NORTH|DIR_SOUTH);
+}
+
 /** Returns TRUE if this zigzagline would be better off horizontal */
 static gboolean
 zigzagline_check_orientation(ConnectionPoint *p1, ConnectionPoint *p2,
@@ -237,19 +255,66 @@ zigzagline_check_orientation(ConnectionPoint *p1, ConnectionPoint *p2,
   return TRUE;
 }
 
+/** Returns TRUE if this endpoint must change direction to look good. 
+ * @param zigzagline The line itself.
+ * @param cp The connectionpoint being connected to, or NULL.
+ * @param handlenum The number of the handle considered (0 or npoints-2)
+ * @param p1 The point defining the other end of this line segment.
+ */
+static gboolean zigzagline_endpoint_must_change(Zigzagline *zigzagline,
+						ConnectionPoint *cp,
+						int handlenum,
+						Point *p1) 
+{
+  OrthConn *orth = (OrthConn*)zigzagline;
+  int dir;
+  if (cp == NULL) return FALSE;
+  if (orth->orientation[handlenum] == HORIZONTAL) {
+    if (p1->x < cp->pos.x &&
+	(cp->directions & DIR_WEST) == 0) return TRUE;
+    if (p1->x >= cp->pos.x &&
+	(cp->directions & DIR_EAST) == 0) return TRUE;
+    return FALSE;
+  }
+  if (orth->orientation[handlenum] == VERTICAL) {
+    if (p1->y < cp->pos.y &&
+	(cp->directions & DIR_NORTH) == 0) return TRUE;
+    if (p1->y >= cp->pos.y &&
+	(cp->directions & DIR_SOUTH) == 0) return TRUE;
+    return FALSE;
+  }
+  return FALSE;
+}
+
 static void
 zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  OrthConn *orth = (OrthConn*)zigzagline;
+  int handle_nr;
+  gboolean change_start = FALSE, change_end = FALSE;
+
   assert(zigzagline!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  orthconn_move_handle(&zigzagline->orth, handle, to, reason);
+  orthconn_move_handle(orth, handle, to, reason);
+#if 0
+  handle_nr = get_handle_nr(orth, handle);
+  if (handle_nr == 0 || handle_nr == orth->numpoints-2) {
+    /* An ending handle, must adjust orientation */
+    layer_find_closest_connectionpoint(dia_object_get_parent_layer((Object*)zigzagline), &cp1, &orth->points[handle_nr], (Object *)zigzagline);
+    change_start = zigzagline_endpoint_must_change(zigzagline, cp1, 0);
+    change_end = zigzagline_endpoint_must_change(zigzagline, cp1, orth->numpoints-2);
+
+    /* To add:  When creating, favor three-segment lines */
+    
+  }
+#endif
+#if 1
   if (reason == HANDLE_MOVE_CREATE) {
     /* This only works for the creation stage, as we assume # of points */
     gboolean horizontal;
-    OrthConn *orth = &zigzagline->orth;
     ConnectionPoint *cp2 = NULL;
 
     /* The second connectionpoint is not updated yet, so we find it here */
@@ -282,6 +347,7 @@ zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
       orth->orientation[2] = VERTICAL;
     }
   }
+#endif
   zigzagline_update_data(zigzagline);
 }
 

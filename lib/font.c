@@ -43,6 +43,29 @@ compare(const void *p1, const void *p2) {
 			    pango_font_family_get_name(*(PangoFontFamily **)p2));
 }
 
+/* For debugging: Sort families */
+static int
+cmp_families (const void *a, const void *b)
+{
+  const char *a_name = pango_font_family_get_name (*(PangoFontFamily **)a);
+  const char *b_name = pango_font_family_get_name (*(PangoFontFamily **)b);
+  
+  return g_utf8_collate (a_name, b_name);
+}
+/* For debugging: List all font families */
+static void list_families()
+{
+  PangoFontFamily **families;
+  int nfamilies;
+  int i;
+
+  pango_context_list_families(pango_context, &families, &nfamilies);
+  qsort (families, nfamilies, sizeof (PangoFontFamily *), cmp_families);
+  for (i = 0; i < nfamilies; i++) {
+    puts(pango_font_family_get_name(families[i]));
+  }
+}
+
 void
 dia_font_init(PangoContext* pcontext)
 {

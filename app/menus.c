@@ -1127,6 +1127,7 @@ menus_add_path (const gchar *path)
 GtkMenuItem *
 menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
 {
+  GtkWidget *wid = NULL;
   GtkMenuItem *widget = NULL;
 
 # ifdef GNOME
@@ -1149,18 +1150,21 @@ menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
 # else
 
   if (display_item_factory) {
-    widget = 
-      GTK_MENU_ITEM(gtk_item_factory_get_item(display_item_factory, path));
+    wid =
+      gtk_item_factory_get_item(display_item_factory, path);
+    if (wid != NULL) widget = GTK_MENU_ITEM(wid);
   }
   
   if ((widget == NULL) && (item_factory)) {
-      widget = 
-	GTK_MENU_ITEM(gtk_item_factory_get_item(item_factory, path));
+      wid = 
+	gtk_item_factory_get_item(item_factory, path);
+    if (wid != NULL) widget = GTK_MENU_ITEM(wid);
   }
   
   if (widget == NULL) {
-    widget = 
-      GTK_MENU_ITEM(gtk_item_factory_get_item(toolbox_item_factory, path));
+    wid = 
+      gtk_item_factory_get_item(toolbox_item_factory, path);
+    if (wid != NULL) widget = GTK_MENU_ITEM(wid);
   }
 # endif
 

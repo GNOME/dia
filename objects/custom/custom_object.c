@@ -854,8 +854,22 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     g_free(txs);
   }
 
-  for (i = 0; i < info->nconnections; i++)
+  for (i = 0; i < info->nconnections; i++){
     transform_coord(custom, &info->connections[i],&custom->connections[i].pos);
+
+    /* Set the directions for the connection points as hints to the
+       zig-zag line. A hint is only set if the connection point is on
+       the boundary of the shape. */
+    custom->connections[i].directions = 0;
+    if(custom->info->connections[i].x == custom->info->shape_bounds.left)
+      custom->connections[i].directions |= DIR_WEST;
+    if(custom->info->connections[i].x == custom->info->shape_bounds.right)
+      custom->connections[i].directions |= DIR_EAST;
+    if(custom->info->connections[i].y == custom->info->shape_bounds.top)
+      custom->connections[i].directions |= DIR_NORTH;
+    if(custom->info->connections[i].y == custom->info->shape_bounds.bottom)
+      custom->connections[i].directions |= DIR_SOUTH;
+  }
 
 
   elem->extra_spacing.border_trans = 0; /*custom->border_width/2; */
@@ -1173,6 +1187,7 @@ custom_copy(Custom *custom)
     newcustom->connections[i].object = newobj;
     newcustom->connections[i].connected = NULL;
     newcustom->connections[i].pos = custom->connections[i].pos;
+    newcustom->connections[i].directions = custom->connections[i].directions;
     newcustom->connections[i].last_pos = custom->connections[i].last_pos;
   }
 

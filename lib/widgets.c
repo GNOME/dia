@@ -32,6 +32,8 @@
 #include <stdio.h>
 #include <time.h>
 
+#include "diagtkfontsel.h"
+
 struct menudesc {
   char *name;
   int enum_value;
@@ -304,7 +306,7 @@ dia_font_selector_get_family_from_name(GtkWidget *widget, gchar *fontname)
 static void
 dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data)
 {
-  GtkFontSelectionDialog *fs = (GtkFontSelectionDialog*)widget;
+  DiaGtkFontSelectionDialog *fs = (DiaGtkFontSelectionDialog*)widget;
   DiaFontSelector *dfs = (DiaFontSelector*)data;
   gchar *fontname;
   PangoFontDescription *pfd;
@@ -312,7 +314,7 @@ dia_font_selector_dialog_callback(GtkWidget *widget, int id, gpointer data)
 
   switch (id) {
   case GTK_RESPONSE_OK:
-    fontname = gtk_font_selection_dialog_get_font_name(fs);
+    fontname = dia_gtk_font_selection_dialog_get_font_name(fs);
     pfd = pango_font_description_from_string(fontname);
     fontname = pango_font_description_get_family(pfd);
     
@@ -343,10 +345,13 @@ dia_font_selector_menu_callback(GtkWidget *button, gpointer data)
   fontname = (gchar *)gtk_object_get_user_data(GTK_OBJECT(active));
   if (fontname == NULL) {
     /* We hit the Other fonts... entry */
-    GtkWidget *fs = gtk_font_selection_dialog_new(_("Select font"));
-    gtk_signal_connect(GTK_OBJECT(fs), "response", 
+    GtkWidget *fsd = dia_gtk_font_selection_dialog_new(_("Select font"));
+    dia_gtk_font_selection_dialog_set_context
+      (DIA_GTK_FONT_SELECTION_DIALOG(fsd),
+      dia_font_get_context());
+    gtk_signal_connect(GTK_OBJECT(fsd), "response", 
 		       dia_font_selector_dialog_callback, data);
-    gtk_widget_show(fs);
+    gtk_widget_show(fsd);
   } else {
     FontSelectorEntry *fse;
     fse = (FontSelectorEntry*)g_hash_table_lookup(font_hash_table, fontname);
