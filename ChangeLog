@@ -1,3 +1,7 @@
+1999-12-18  Yuri Syrota  <rasta@renome.rovno.ua>
+
+	* configure.in: Added "uk" to ALL_LINGUAS.
+
 1999-12-24  James Henstridge  <james@daa.com.au>
 
 	* po/ru.po: updated russian translation from Valek Filippov.

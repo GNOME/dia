@@ -1,0 +1,1850 @@
+# Ukrainian translation of dia.
+# Copyright (C) 1999 Free Software Foundation, Inc.
+# Yuri Syrota <rasta@renome.rovno.ua>, 1999.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Dia 0.82\n"
+"POT-Creation-Date: 1999-12-24 22:20+0800\n"
+"PO-Revision-Date: 1999-12-28 09:11+0200\n"
+"Last-Translator: Yuri Syrota <rasta@renome.rovno.ua>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=koi8-u\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: app/app_procs.c:130
+msgid "Export loaded file and exit"
+msgstr "Экспортувати завантажений файл та вийти"
+
+#: app/app_procs.c:131
+msgid "OUTPUT"
+msgstr "ВИВ╤Д"
+
+#: app/app_procs.c:133
+msgid "Show this help message"
+msgstr "Показати цю дов╕дку"
+
+#: app/app_procs.c:152
+msgid "Can't connect to session manager!\n"
+msgstr "Не вдалось встановити з'╓днання з менеджером сеансу!\n"
+
+#: app/app_procs.c:163
+msgid "[OPTION...] [FILE...]"
+msgstr "[ПАРАМЕТРИ...] [ФАЙЛ...]"
+
+#: app/app_procs.c:166
+#, c-format
+msgid ""
+"Error on option %s: %s.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Помилка в параметр╕ %s: %s.\n"
+"Запуст╕ть \"%s --help\", щоб продивиться повний список наявних "
+"параметр╕в командного рядка.\n"
+
+#: app/app_procs.c:209 app/app_procs.c:211
+msgid ""
+"Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgstr ""
+"Не вдалось знайти стандартн╕ об'╓кти при пошуку object-libs, завершення "
+"роботи...\n"
+
+#: app/app_procs.c:227
+msgid "Need valid input file\n"
+msgstr "Потр╕бний в╕рний файл вводу\n"
+
+#: app/app_procs.c:287
+msgid "Quit, are you sure?"
+msgstr "Ви впевнен╕, що хочете вийти?"
+
+#: app/app_procs.c:289
+msgid ""
+"Modified diagrams exists.\n"
+"Are you sure you want to quit?"
+msgstr ""
+"╢ зм╕нен╕ д╕аграми.\n"
+"Ви впевнен╕, що хочете вийти?"
+
+#: app/app_procs.c:298
+msgid "Quit"
+msgstr "Вих╕д"
+
+#: app/app_procs.c:310 app/layer_dialog.c:980 app/lineprops_area.c:516
+#: app/lineprops_area.c:714
+msgid "Cancel"
+msgstr "В╕дм╕на"
+
+#: app/app_procs.c:362
+msgid "Could not create per-user Dia config directory"
+msgstr "Неможливо створити користувацький каталог конф╕гурац╕╖ Dia"
+
+#: app/app_procs.c:419
+#, c-format
+msgid ""
+"Couldn't find any libraries to load.\n"
+"%s is not a directory.\n"
+msgstr ""
+"Не вдалось знайти жодних б╕бл╕отек для завантаження.\n"
+"%s не ╓ каталогом.\n"
+
+#: app/app_procs.c:426
+#, c-format
+msgid "Couldn't open \"%s\".\n"
+msgstr "Неможливо в╕дкрити \"%s\".\n"
+
+#: app/app_procs.c:439 app/app_procs.c:440 app/app_procs.c:467
+#: app/app_procs.c:468
+#, c-format
+msgid ""
+"Error loading library: \"%s\":\n"
+" %s\n"
+msgstr ""
+"Помилка завантаження б╕бл╕отеки: \"%s\":\n"
+" %s\n"
+
+#: app/app_procs.c:445 app/app_procs.c:446
+#, c-format
+msgid "The file \"%s\" is not a Dia object library.\n"
+msgstr "Файл \"%s\" не ╓ б╕бл╕отекою об'╓кт╕в Dia.\n"
+
+#: app/app_procs.c:452 app/app_procs.c:453
+#, c-format
+msgid ""
+"The object library \"%s\" is from an older version of Dia and cannot be "
+"used.\n"
+"Please upgrade it."
+msgstr ""
+"Б╕бл╕отека об'╓кт╕в \"%s\" ╕з старо╖ верс╕╖ Dia ╕ не може бути використана.\n"
+"Будь ласка, онов╕ть ╖╖."
+
+#: app/app_procs.c:459 app/app_procs.c:460
+#, c-format
+msgid ""
+"The object library \"%s\" is from an later version of Dia.\n"
+"You need to upgrade Dia to use it."
+msgstr ""
+"Б╕бл╕отека об'╓кт╕в \"%s\" ╕з нов╕шою верс╕╖ Dia.\n"
+"Вам ннобх╕дно оновити Dia, щоб використовувати ╖╖."
+
+#: app/app_procs.c:534
+#, c-format
+msgid ""
+"Unable to find register_sheets in library:\n"
+"%s"
+msgstr ""
+"Не вдалось знайти register_sheets в б╕бл╕отец╕:\n"
+"%s"
+
+#: app/color_area.c:260 lib/widgets.c:492
+msgid "Select color"
+msgstr "Виб╕р кольору"
+
+#: app/commands.c:137
+msgid "Open diagram"
+msgstr "В╕дкрити д╕аграму"
+
+#: app/commands.c:198
+msgid "File already exists"
+msgstr "Файл вже ╕сну╓"
+
+#: app/commands.c:201
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to overwrite it?"
+msgstr ""
+"Файл \"%s\" вже ╕сну╓.\n"
+"Ви хочете перезаписати його?"
+
+#: app/commands.c:213 app/display.c:743 app/preferences.c:460
+msgid "Yes"
+msgstr "Так"
+
+#: app/commands.c:226 app/display.c:754 app/preferences.c:460
+#: app/preferences.c:471
+msgid "No"
+msgstr "Н╕"
+
+#: app/commands.c:269
+msgid "Save diagram"
+msgstr "Зберегти д╕аграму"
+
+#: app/commands.c:304
+#, c-format
+msgid ""
+"No such file found\n"
+"%s\n"
+msgstr ""
+"Такого файлу не знайдено\n"
+"%s\n"
+
+#: app/commands.c:324
+msgid "Import from XFig"
+msgstr "╤мпорт з XFig"
+
+#: app/commands.c:380
+#, c-format
+msgid "Untitled-%d"
+msgstr "Неназвана-%d"
+
+#: app/commands.c:441
+msgid "No existing object to paste.\n"
+msgstr "Не ╕сну╓ об'╓кту для вставляння.\n"
+
+#: app/commands.c:535
+msgid "About Dia"
+msgstr "Про Dia"
+
+#: app/commands.c:572
+#, c-format
+msgid "Dia v %s by Alexander Larsson"
+msgstr "Dia верс╕╖ %s. Автор: Alexander Larsson"
+
+#: app/commands.c:576
+msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
+msgstr ""
+"ПБудь ласка, звертайтесь за додатковою ╕нформац╕╓ю за адресою "
+"http://www.lysator.liu.se/~alla/dia"
+
+#: app/commands.c:585 app/layer_dialog.c:970 app/lineprops_area.c:507
+#: app/lineprops_area.c:704 app/preferences.c:544 app/properties.c:54
+#: lib/message.c:72
+msgid "OK"
+msgstr "Гаразд"
+
+#: app/diagram.c:136
+msgid "/Edit/Copy"
+msgstr "/Редагування/Скоп╕ювати"
+
+#: app/diagram.c:138
+msgid "/Edit/Cut"
+msgstr "/Редагування/Вир╕зати"
+
+#: app/diagram.c:140
+msgid "/Edit/Paste"
+msgstr "/Редагування/Вставити"
+
+#: app/diagram.c:143
+msgid "/Edit/Delete"
+msgstr "/Редагування/Видалити"
+
+#: app/diagram.c:147
+msgid "/Objects/Send to Back"
+msgstr "/Об'╓кти/Перем╕стити вниз"
+
+#: app/diagram.c:149
+msgid "/Objects/Bring to Front"
+msgstr "/Об'╓кти/Перем╕стити наверх"
+
+#: app/diagram.c:152
+msgid "/Objects/Group"
+msgstr "/Об'╓кти/Згрупувати"
+
+#: app/diagram.c:154
+msgid "/Objects/Ungroup"
+msgstr "/Об'╓кти/Розгрупувати"
+
+#: app/diagram.c:157 app/menus.c:243
+msgid "/Objects/Align Horizontal/Left"
+msgstr "/Об'╓кти/Вир╕внювання горизонтальне/Л╕воруч"
+
+#: app/diagram.c:159 app/menus.c:244
+msgid "/Objects/Align Horizontal/Center"
+msgstr "/Об'╓кти/Вир╕внювання горизонтальне/В центр"
+
+#: app/diagram.c:161 app/menus.c:245
+msgid "/Objects/Align Horizontal/Right"
+msgstr "/Об'╓кти/Вир╕внювання горизонтальне/Л╕воруч"
+
+#: app/diagram.c:163 app/menus.c:246
+msgid "/Objects/Align Horizontal/Equal Distance"
+msgstr "/Об'╓кти/Вир╕внювання горизонтальне/Р╕вн╕ в╕дстан╕"
+
+#: app/diagram.c:165 app/menus.c:247
+msgid "/Objects/Align Horizontal/Adjacent"
+msgstr "/Об'╓кти/Вир╕внювання горизонтальне/Сум╕жне"
+
+#: app/diagram.c:167 app/menus.c:249
+msgid "/Objects/Align Vertical/Top"
+msgstr "/Об'╓кти/Вир╕внювання вертикальне/Догори"
+
+#: app/diagram.c:169 app/menus.c:250
+msgid "/Objects/Align Vertical/Center"
+msgstr "/Об'╓кти/Вир╕внювання вертикальне/В центр"
+
+#: app/diagram.c:171 app/menus.c:251
+msgid "/Objects/Align Vertical/Bottom"
+msgstr "/Об'╓кти/Вир╕внювання вертикальне/Донизу"
+
+#: app/diagram.c:173 app/menus.c:252
+msgid "/Objects/Align Vertical/Equal Distance"
+msgstr "/Об'╓кти/Вир╕внювання вертикальне/Р╕вн╕ в╕дстан╕"
+
+#: app/diagram.c:175 app/menus.c:253
+msgid "/Objects/Align Vertical/Adjacent"
+msgstr "/Об'╓кти/Вир╕внювання вертикальне/Сум╕жне"
+
+#: app/disp_callbacks.c:69 app/properties.c:133
+msgid ""
+"This object doesn't support Undo/Redo.\n"
+"Undo information erased."
+msgstr ""
+"Цей об'╓кт не п╕дтриму╓ В╕дкат/Повтор\n"
+"╤нформац╕я про в╕дкат знищена."
+
+#: app/disp_callbacks.c:163
+msgid "No object menu"
+msgstr "Нема╓ меню об╓'кту"
+
+#: app/display.c:59 app/display.c:60
+msgid "Zoom"
+msgstr "Масштаб"
+
+#: app/display.c:79
+msgid "Diagram modified!"
+msgstr "Д╕аграму зм╕нено!"
+
+#: app/display.c:731
+msgid "Really close?"
+msgstr "Дейсно закрити?"
+
+#: app/display.c:734
+msgid ""
+"This diagram has not been saved.\n"
+"Are you sure you want to close this window?"
+msgstr ""
+"Цю д╕аграму не було збережено.\n"
+"Ви впевнен╕, що хочете закрити це в╕кно?"
+
+#: app/display.c:787
+msgid "/View/Show Rulers"
+msgstr "/Вигляд/Показувати л╕н╕йки"
+
+#: app/display.c:789
+msgid "/View/Visible Grid"
+msgstr "/Вигляд/Показувати с╕тку"
+
+#: app/display.c:791
+msgid "/View/Snap To Grid"
+msgstr "/Вигляд/При╓днувати до с╕тки"
+
+#: app/display.c:793
+msgid "/View/Show Connection Points"
+msgstr "/Вигляд/Показувати точки з'╓днання"
+
+#: app/grid.c:148
+msgid "Grid options"
+msgstr "Параметри с╕тки"
+
+#: app/grid.c:157
+msgid "Grid x size:"
+msgstr "Розм╕р с╕тки по X:"
+
+#: app/grid.c:175
+msgid "Grid y size:"
+msgstr "Розм╕р с╕тки по Y:"
+
+#: app/interface.c:59
+msgid "Modify object(s)"
+msgstr "Зм╕нити об'╓кт(и)"
+
+#: app/interface.c:63
+msgid "Magnify"
+msgstr "Зб╕льшити"
+
+#: app/interface.c:67
+msgid "Scroll around the diagram"
+msgstr "Прокрутити в╕кно д╕аграми"
+
+#: app/interface.c:71
+msgid "Create Text"
+msgstr "Створити блок тексту"
+
+#: app/interface.c:75
+msgid "Create Box"
+msgstr "Створити прямокутник"
+
+#: app/interface.c:79
+msgid "Create Ellipse"
+msgstr "Створити ел╕пс"
+
+#: app/interface.c:83
+msgid "Create Line"
+msgstr "Створити л╕н╕ю"
+
+#: app/interface.c:87
+msgid "Create Arc"
+msgstr "Створити дугу"
+
+#: app/interface.c:91
+msgid "Create Zigzagline"
+msgstr "Створити згин"
+
+#: app/interface.c:95
+msgid "Create Polyline"
+msgstr "Створити ломану"
+
+#: app/interface.c:99
+msgid "Create Bezierline"
+msgstr "Створити криву Без'╓"
+
+#: app/interface.c:103
+msgid "Create Image"
+msgstr "Створити зображення"
+
+#: app/interface.c:562
+msgid ""
+"Foreground & background colors.  The small black and white squares reset "
+"colors.  The small arrows swap colors.  Double click to change colors."
+msgstr ""
+"Кольори переднього плану ╕ тла. Маленьк╕ б╕лий та чорний квадратики скидають "
+"кольори. Маленька стр╕лка м╕ня╓ ╖х м╕сцями. Подв╕йне клацання дозволя╓ вибрати "
+"кол╕р."
+
+#: app/interface.c:646
+msgid "Diagram Editor"
+msgstr "Редактор д╕аграм"
+
+#: app/layer_dialog.c:66
+msgid "New Layer"
+msgstr "Новий шар"
+
+#: app/layer_dialog.c:67
+msgid "Raise Layer"
+msgstr "П╕дняти шар"
+
+#: app/layer_dialog.c:68
+msgid "Lower Layer"
+msgstr "Опустити шар"
+
+#: app/layer_dialog.c:69
+msgid "Delete Layer"
+msgstr "Видалити шар"
+
+#: app/layer_dialog.c:203
+msgid "Layers"
+msgstr "Шари"
+
+#: app/layer_dialog.c:216
+msgid "Diagrams:"
+msgstr "Д╕аграми:"
+
+#: app/defaults.c:52 app/layer_dialog.c:261 app/preferences.c:564
+#: app/properties.c:73
+msgid "Close"
+msgstr "Закрить"
+
+#: app/layer_dialog.c:306
+msgid "New layer"
+msgstr "Новий шар"
+
+#: app/layer_dialog.c:509
+msgid "none"
+msgstr "нема╓"
+
+#: app/layer_dialog.c:945
+msgid "Edit Layer Attributes"
+msgstr "Редагування атрибут╕в шару"
+
+#: app/layer_dialog.c:961
+msgid "Layer name:"
+msgstr "Назва шару:"
+
+#: app/load_save.c:81
+msgid "Error reading diagram file\n"
+msgstr "Помилка зчитування файлу д╕аграми\n"
+
+#: app/load_save.c:132
+msgid ""
+"Error loading diagram.\n"
+"Linked object not found in document."
+msgstr ""
+"Помилка завантаження д╕аграми.\n"
+"Зв'язаний об'╓кт не знайдено у документ╕."
+
+#: app/load_save.c:135
+msgid ""
+"Error loading diagram.\n"
+"connection point does not exist."
+msgstr ""
+"Помилка завантаження д╕аграми %s.\n"
+"точок з'╓днання не ╕сну╓."
+
+#: app/load_save.c:138
+msgid ""
+"Error loading diagram.\n"
+"connection handle does not exist."
+msgstr ""
+"Помилка завантаження д╕аграми.\n"
+"обробника з'╓днання не ╕сну╓."
+
+#: app/load_save.c:183
+#, c-format
+msgid "Couldn't open: '%s' for reading.\n"
+msgstr "Не вдилось в╕дкрити: \"%s\" для зчитування.\n"
+
+#: app/load_save.c:189
+msgid "You must specify a file, not a directory.\n"
+msgstr "Вам необх╕дно вказати файл, а не каталог.\n"
+
+#: app/load_save.c:198 app/load_save.c:203
+#, c-format
+msgid ""
+"Error loading diagram %s.\n"
+"Unknown file type."
+msgstr ""
+"Помилка завантаження д╕аграми %s.\n"
+"Нев╕домий тип файлу."
+
+#: app/load_save.c:210
+#, c-format
+msgid ""
+"Error loading diagram %s.\n"
+"Not a Dia file."
+msgstr ""
+"Помилка завантаження д╕аграми %s.\n"
+"Це файл не Dia."
+
+#: app/load_save.c:461 app/render_eps.c:161 app/render_svg.c:144
+#: plug-ins/cgm/cgm.c:810
+#, c-format
+msgid "Couldn't open: '%s' for writing.\n"
+msgstr "Не вдилось в╕дкрити: \"%s\" для записування.\n"
+
+#: app/load_save.c:554
+msgid "Native Dia Diagram"
+msgstr "Р╕дна д╕аграма Dia"
+
+#: app/menus.c:35 app/menus.c:45
+msgid "_New diagram"
+msgstr "Нова д╕аграма"
+
+#: app/menus.c:35 app/menus.c:45
+msgid "Create new diagram"
+msgstr "Створити нову д╕аграму"
+
+#: app/menus.c:52
+msgid "_Export..."
+msgstr "Експортувати..."
+
+#: app/menus.c:56
+msgid "Page Set_up..."
+msgstr "Наладнання стор╕нки..."
+
+#: app/menus.c:58
+msgid "_Print Diagram..."
+msgstr "Надрукувати д╕аграму..."
+
+#: app/menus.c:73
+msgid "_Delete"
+msgstr "Видалити"
+
+#: app/menus.c:101
+msgid "Zoom _In"
+msgstr "Зб╕льшити"
+
+#: app/menus.c:101
+#, c-format
+msgid "Zoom in 50%"
+msgstr "Зб╕льшити на 50%"
+
+#: app/menus.c:102
+msgid "Zoom _Out"
+msgstr "Зменшити"
+
+#: app/menus.c:102
+#, c-format
+msgid "Zoom out 50%"
+msgstr "Зменшити на 50%"
+
+#: app/menus.c:103
+msgid "_Zoom"
+msgstr "Масштаб"
+
+#: app/menus.c:104
+msgid "Edit Grid..."
+msgstr "Зм╕на с╕тки..."
+
+#: app/menus.c:105
+msgid "_Visible Grid"
+msgstr "Показувати с╕тку"
+
+#: app/menus.c:107
+msgid "_Snap To Grid"
+msgstr "При╓днувати до с╕тки"
+
+#: app/menus.c:109
+msgid "Show _Rulers"
+msgstr "Показувати л╕н╕йки"
+
+#: app/menus.c:111
+msgid "Show _Connection Points"
+msgstr "Показувати тояки з'╓днання"
+
+#: app/menus.c:114
+msgid "New _View"
+msgstr "Нове в╕кно"
+
+#: app/menus.c:115
+msgid "Show _All"
+msgstr "Показати все"
+
+#: app/menus.c:120 lib/widgets.c:176 objects/UML/association.c:1003
+msgid "Left"
+msgstr "Л╕воруч"
+
+#: app/menus.c:121 app/menus.c:130 lib/widgets.c:182
+msgid "Center"
+msgstr "В центр"
+
+#: app/menus.c:122 lib/widgets.c:188 objects/UML/association.c:996
+msgid "Right"
+msgstr "Праворуч"
+
+#: app/menus.c:123 app/menus.c:132
+msgid "Equal Distance"
+msgstr "Р╕вни в╕дстан╕"
+
+#: app/menus.c:124 app/menus.c:133
+msgid "Adjacent"
+msgstr "Сум╕жно"
+
+#: app/menus.c:129
+msgid "Top"
+msgstr "Вверх"
+
+#: app/menus.c:131
+msgid "Bottom"
+msgstr "Вниз"
+
+#: app/menus.c:138
+msgid "Send to _Back"
+msgstr "Перем╕стити вниз"
+
+#: app/menus.c:139
+msgid "Bring to _Front"
+msgstr "Перем╕стити наверх"
+
+#: app/menus.c:141
+msgid "_Group"
+msgstr "Згрупувати"
+
+#: app/menus.c:142
+msgid "_Ungroup"
+msgstr "Розгрупувати"
+
+#: app/menus.c:144
+msgid "Align _Horizontal"
+msgstr "Вир╕внювання горизонтальне"
+
+#: app/menus.c:145
+msgid "Align _Vertical"
+msgstr "Вир╕внювання вертикальне"
+
+#: app/menus.c:150
+msgid "_Properties"
+msgstr "Властивост╕"
+
+#: app/menus.c:151
+msgid "_Layers"
+msgstr "Шари"
+
+#: app/menus.c:170
+msgid "Objects"
+msgstr "Об'╓кти"
+
+#: app/menus.c:171
+msgid "Dialogs"
+msgstr "Д╕алог╕"
+
+#: app/menus.c:178 app/menus.c:190
+msgid "/_File"
+msgstr "/Файл"
+
+#. {"/File/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
+#: app/menus.c:179 app/menus.c:192
+msgid "/File/_New"
+msgstr "/Файл/Новий"
+
+#: app/menus.c:180 app/menus.c:193
+msgid "/File/_Open"
+msgstr "/Файл/В╕дкрити"
+
+#: app/menus.c:181
+msgid "/File/_Preferences..."
+msgstr "/Файл/Установки..."
+
+#: app/menus.c:182 app/menus.c:197
+msgid "/File/sep1"
+msgstr "/Файл/sep1"
+
+#: app/menus.c:183 app/menus.c:202
+msgid "/File/_Quit"
+msgstr "/Файл/Вийти"
+
+#: app/menus.c:184
+msgid "/_Help"
+msgstr "/Дов╕дка"
+
+#: app/menus.c:185
+msgid "/Help/_About"
+msgstr "/Дов╕дка/Про"
+
+#: app/menus.c:194
+msgid "/File/_Save"
+msgstr "/Файл/Зберегти"
+
+#: app/menus.c:195
+msgid "/File/Save _As..."
+msgstr "/Файл/Зберегти як..."
+
+#: app/menus.c:196
+msgid "/File/_Export..."
+msgstr "/Файл/Експортувати..."
+
+#: app/menus.c:198
+msgid "/File/Page Set_up..."
+msgstr "/Файл/Наладнання стор╕нки..."
+
+#: app/menus.c:199
+msgid "/File/_Print Diagram..."
+msgstr "/Файл/Надрукувати д╕аграму..."
+
+#: app/menus.c:200
+msgid "/File/sep2"
+msgstr "/Файл/sep2"
+
+#: app/menus.c:201
+msgid "/File/_Close"
+msgstr "/Файл/Закрити"
+
+#: app/menus.c:203
+msgid "/_Edit"
+msgstr "/Редагування"
+
+#. {"/Edit/tearoff1 ",         NULL,         tearoff,                    0, "<Tearoff>" },
+#: app/menus.c:205
+msgid "/Edit/_Copy"
+msgstr "/Редагування/Скоп╕ювати"
+
+#: app/menus.c:206
+msgid "/Edit/C_ut"
+msgstr "/Редагування/Вир╕зати"
+
+#: app/menus.c:207
+msgid "/Edit/_Paste"
+msgstr "/Редагування/Вставити"
+
+#: app/menus.c:208
+msgid "/Edit/_Delete"
+msgstr "/Редагування/Видалити"
+
+#: app/menus.c:209
+msgid "/Edit/_Undo"
+msgstr "/Редагування/В╕дкат"
+
+#: app/menus.c:210
+msgid "/Edit/_Redo"
+msgstr "/Редагування/Повернути"
+
+#: app/menus.c:211
+msgid "/_View"
+msgstr "/Вигляд"
+
+#. {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
+#: app/menus.c:213
+msgid "/View/Zoom _In"
+msgstr "/Вигляд/Зб╕льшити"
+
+#: app/menus.c:214
+msgid "/View/Zoom _Out"
+msgstr "/Вигляд/Зменшити"
+
+#: app/menus.c:215
+msgid "/View/_Zoom"
+msgstr "/Вигляд/Масштаб"
+
+#: app/menus.c:216
+#, c-format
+msgid "/View/Zoom/400%"
+msgstr "/Вигляд/Масштаб/400%"
+
+#: app/menus.c:217
+#, c-format
+msgid "/View/Zoom/283%"
+msgstr "/Вигляд/Масштаб/283%"
+
+#: app/menus.c:218
+#, c-format
+msgid "/View/Zoom/200%"
+msgstr "/Вигляд/Масштаб/200%"
+
+#: app/menus.c:219
+#, c-format
+msgid "/View/Zoom/141%"
+msgstr "/Вигляд/Масштаб/141%"
+
+#: app/menus.c:220
+#, c-format
+msgid "/View/Zoom/100%"
+msgstr "/Вигляд/Масштаб/100%"
+
+#: app/menus.c:221
+#, c-format
+msgid "/View/Zoom/85%"
+msgstr "/Вигляд/Масштаб/85%"
+
+#: app/menus.c:222
+#, c-format
+msgid "/View/Zoom/70.7%"
+msgstr "/Вигляд/Масштаб/70.7%"
+
+#: app/menus.c:223
+#, c-format
+msgid "/View/Zoom/50%"
+msgstr "/Вигляд/Масштаб/50%"
+
+#: app/menus.c:224
+#, c-format
+msgid "/View/Zoom/35.4%"
+msgstr "/Вигляд/Масштаб/35.4%"
+
+#: app/menus.c:225
+#, c-format
+msgid "/View/Zoom/25%"
+msgstr "/Вигляд/Масштаб/25%"
+
+#: app/menus.c:226
+msgid "/View/Edit Grid..."
+msgstr "/Вигляд/Зм╕на с╕тки..."
+
+#: app/menus.c:227
+msgid "/View/_Visible Grid"
+msgstr "/Вигляд/Показувати с╕тку"
+
+#: app/menus.c:228
+msgid "/View/_Snap To Grid"
+msgstr "/Вигляд/При╓днувати до с╕тки"
+
+#: app/menus.c:229
+msgid "/View/Show _Rulers"
+msgstr "/Вигляд/Показувати л╕н╕йки"
+
+#: app/menus.c:230
+msgid "/View/Show _Connection Points"
+msgstr "/Вигляд/Показувати точки з'╓днання"
+
+#: app/menus.c:231
+msgid "/View/sep1"
+msgstr "/Вигляд/sep1"
+
+#: app/menus.c:232
+msgid "/View/New _View"
+msgstr "/Вигляд/Нове в╕кно"
+
+#: app/menus.c:233
+msgid "/View/Show _All"
+msgstr "/Вигляд/Показати все"
+
+#: app/menus.c:234
+msgid "/_Objects"
+msgstr "/Об'╓кти"
+
+#. {"/Objects/tearoff1 ",      NULL,         tearoff,                    0, "<Tearoff>" },
+#: app/menus.c:236
+msgid "/Objects/Send to _Back"
+msgstr "/Об'╓кти/Перем╕стити вниз"
+
+#: app/menus.c:237
+msgid "/Objects/Bring to _Front"
+msgstr "/Об'╓кти/Перем╕стити наверх"
+
+#: app/menus.c:238 app/menus.c:241
+msgid "/Objects/sep1"
+msgstr "/Об'╓кти/sep1"
+
+#: app/menus.c:239
+msgid "/Objects/_Group"
+msgstr "/Об'╓кти/Згрупувати"
+
+#: app/menus.c:240
+msgid "/Objects/_Ungroup"
+msgstr "/Об'╓кти/Розгрупувати"
+
+#: app/menus.c:242
+msgid "/Objects/Align _Horizontal"
+msgstr "/Об'╓кти/Вир╕внювання горизонтальне"
+
+#: app/menus.c:248
+msgid "/Objects/Align _Vertical"
+msgstr "/Об'╓кти/Вир╕внювання вертикальне"
+
+#. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
+#: app/menus.c:256
+msgid "/_Dialogs"
+msgstr "/Д╕алоги"
+
+#: app/menus.c:257
+msgid "/Dialogs/_Properties"
+msgstr "/Д╕алоги/Властивост╕"
+
+#: app/menus.c:258
+msgid "/Dialogs/_Layers"
+msgstr "/Д╕алоги/Шари"
+
+#: app/properties.c:45
+msgid "Object properties"
+msgstr "Властивост╕ об'╓кта"
+
+#: app/defaults.c:61 app/preferences.c:554 app/properties.c:63
+msgid "Apply"
+msgstr "Застосувати"
+
+#: app/properties.c:85
+msgid "This object has no properties."
+msgstr "В цього об'╓кта нема╓ властивостей."
+
+#: app/render_eps.c:1101
+msgid "Encapsulated Postscript"
+msgstr "Вбудований Postscript"
+
+#: app/defaults.c:43
+msgid "Object defaults"
+msgstr "Типов╕ властивост╕ об'╓кту"
+
+#: app/defaults.c:73
+msgid "This object has no defaults."
+msgstr "Цей об'╓кт не ма╓ типових властивостей."
+
+#: app/preferences.c:72
+msgid "User Interface"
+msgstr "╤нтерфейс користувача"
+
+#: app/preferences.c:73
+msgid "View Defaults"
+msgstr "Типовий вигляд"
+
+#: app/preferences.c:80
+msgid "Reset tools after create:"
+msgstr "Скидати ╕нстумент п╕сля використання:"
+
+#: app/preferences.c:81
+msgid "Compress saved files:"
+msgstr "Стискувати файли, що збер╕гаються:"
+
+#: app/preferences.c:82
+msgid "Number of undo levels:"
+msgstr "К╕льк╕сть р╕вн╕в в╕дкату:"
+
+#: app/preferences.c:84
+msgid "Grid:"
+msgstr "С╕тка:"
+
+#: app/preferences.c:85 app/preferences.c:98
+msgid "Visible:"
+msgstr "Видим╕сть:"
+
+#: app/preferences.c:86
+msgid "Snap to:"
+msgstr "При╓днувати до:"
+
+#: app/preferences.c:87
+msgid "X Size:"
+msgstr "Розм╕р X:"
+
+#: app/preferences.c:88
+msgid "Y Size:"
+msgstr "Розм╕р Y:"
+
+#: app/preferences.c:89
+msgid "Colour"
+msgstr "Кол╕р"
+
+#: app/preferences.c:90
+msgid "Solid lines"
+msgstr "Суц╕льн╕ л╕н╕╖"
+
+#: app/preferences.c:92
+msgid "New window:"
+msgstr "Нове в╕кно:"
+
+#: app/preferences.c:93
+msgid "Width:"
+msgstr "Ширина:"
+
+#: app/preferences.c:94
+msgid "Height:"
+msgstr "Висота:"
+
+#: app/preferences.c:95
+msgid "Magnify:"
+msgstr "Зб╕льшення:"
+
+#: app/preferences.c:97
+msgid "Connection Points:"
+msgstr "Точки з'╓днання:"
+
+#: app/preferences.c:535
+msgid "Preferences"
+msgstr "Установки"
+
+#: app/render_svg.c:834
+msgid "Scalable Vector Graphics"
+msgstr ""
+
+#: app/lineprops_area.c:496
+msgid "Arrow Properties"
+msgstr "Властивост╕ стр╕лки"
+
+#: app/lineprops_area.c:553 app/lineprops_area.c:737
+msgid "Details..."
+msgstr "Детал╕..."
+
+#: app/lineprops_area.c:693
+msgid "Line Style Properties"
+msgstr "Властивост╕ стилю л╕н╕╖"
+
+#: lib/diagramdata.c:47
+msgid "Background"
+msgstr "Тло"
+
+#: lib/font.c:344
+#, c-format
+msgid ""
+"Warning no X Font for %s found, \n"
+"using %s instead.\n"
+msgstr ""
+"Увага, не було знайдено шрифт для %s,\n"
+"зам╕сть нього використову╓ться %s.\n"
+
+#: lib/font.c:398
+#, c-format
+msgid "Font %s not found, using Courier instead.\n"
+msgstr "Шрифт %s не знайдено, буде використано шрифт Courier.\n"
+
+#: lib/message.c:104
+msgid "Notice"
+msgstr "Нотатка"
+
+#: lib/message.c:115
+msgid "Warning"
+msgstr "Увага"
+
+#: lib/message.c:127
+msgid "Error"
+msgstr "Помилка"
+
+#: lib/widgets.c:296
+msgid "Solid"
+msgstr "Суц╕льна"
+
+#: lib/widgets.c:302
+msgid "Dashed"
+msgstr "Штрихова"
+
+#: lib/widgets.c:308
+msgid "Dash-Dot"
+msgstr "Штрих-крапка"
+
+#: lib/widgets.c:314
+msgid "Dash-Dot-Dot"
+msgstr "Штрих-крапка-крапка"
+
+#: lib/widgets.c:320
+msgid "Dotted"
+msgstr "Пунктирна"
+
+#. fs->sizebox = GTK_HBOX(box);
+#: lib/widgets.c:338
+msgid "Dash length: "
+msgstr "Довжина штриху: "
+
+#: lib/widgets.c:654 objects/UML/association.c:989
+msgid "None"
+msgstr "Н╕який"
+
+#: lib/widgets.c:660
+msgid "Lines"
+msgstr "Л╕н╕╖"
+
+#: lib/widgets.c:666
+msgid "Hollow Triangle"
+msgstr "Порожн╕й трикутник"
+
+#: lib/widgets.c:672
+msgid "Filled Triangle"
+msgstr "Заповнений трикутник"
+
+#: lib/widgets.c:678
+msgid "Hollow Diamond"
+msgstr "Порожн╕й ромб"
+
+#: lib/widgets.c:684
+msgid "Filled Diamond"
+msgstr "Заповнений ромб"
+
+#: lib/widgets.c:690
+msgid "Half Head"
+msgstr "П╕вколо"
+
+#: lib/widgets.c:706
+msgid "Length: "
+msgstr "Довжина: "
+
+#: lib/widgets.c:719
+msgid "Width: "
+msgstr "Ширина: "
+
+#: lib/widgets.c:835
+msgid "Select image file"
+msgstr "Вибрати файл зображення"
+
+#: lib/widgets.c:865
+msgid "Browse"
+msgstr "Переглянути"
+
+#: objects/UML/actor.c:282
+msgid "Actor"
+msgstr ""
+
+#: objects/ER/participation.c:449 objects/UML/association.c:608
+#: objects/UML/dependency.c:288 objects/UML/generalization.c:280
+#: objects/UML/realizes.c:283 objects/standard/zigzagline.c:599
+msgid "Add segment"
+msgstr "Додати сегмент"
+
+#: objects/ER/participation.c:450 objects/UML/association.c:609
+#: objects/UML/dependency.c:289 objects/UML/generalization.c:281
+#: objects/UML/realizes.c:284 objects/standard/zigzagline.c:600
+msgid "Delete segment"
+msgstr "Видалити сегмент"
+
+#: objects/ER/attribute.c:204 objects/ER/entity.c:188
+#: objects/ER/relationship.c:258 objects/UML/association.c:967
+#: objects/UML/class_dialog.c:705 objects/UML/class_dialog.c:1581
+#: objects/UML/class_dialog.c:1743 objects/UML/class_dialog.c:2199
+#: objects/UML/dependency.c:610 objects/UML/generalization.c:580
+#: objects/UML/large_package.c:560 objects/UML/realizes.c:578
+msgid "Name:"
+msgstr "Назва:"
+
+#: objects/UML/association.c:979
+msgid "Direction:"
+msgstr "Напрямок:"
+
+#: objects/UML/association.c:1027 objects/UML/association.c:1035
+msgid "Side A"
+msgstr "Сторона A"
+
+#: objects/UML/association.c:1029 objects/UML/association.c:1037
+msgid "Side B"
+msgstr "Сторона B"
+
+#: objects/UML/association.c:1043
+msgid "Role:"
+msgstr "Роль:"
+
+#: objects/UML/association.c:1055
+msgid "Multiplicity:"
+msgstr ""
+
+#. Show arrow:
+#: objects/UML/association.c:1066
+msgid "Show arrow"
+msgstr "Показати стр╕лку"
+
+#. Aggregate
+#: objects/UML/association.c:1072
+msgid "Aggregate"
+msgstr ""
+
+#. Composition
+#: objects/UML/association.c:1080
+msgid "Composition"
+msgstr "Композиц╕я"
+
+#. Class page:
+#: objects/UML/class.c:608 objects/UML/class_dialog.c:171
+msgid "Class"
+msgstr "Клас"
+
+#: objects/UML/class_dialog.c:177
+msgid "Class name:"
+msgstr "Назва класу:"
+
+#: objects/UML/class_dialog.c:188 objects/UML/dependency.c:622
+#: objects/UML/generalization.c:592 objects/UML/large_package.c:572
+#: objects/UML/object.c:765 objects/UML/realizes.c:590
+msgid "Stereotype:"
+msgstr "Стереотип:"
+
+#: objects/UML/class_dialog.c:199
+msgid "Abstract"
+msgstr "Абстракц╕я"
+
+#: objects/UML/class_dialog.c:207
+msgid "Attributes visible"
+msgstr "Видим╕ атрибути"
+
+#: objects/UML/class_dialog.c:211
+msgid "Suppress Attributes"
+msgstr ""
+
+#: objects/UML/class_dialog.c:219
+msgid "Operations visible"
+msgstr "Видим╕ д╕╖"
+
+#: objects/UML/class_dialog.c:223
+msgid "Suppress operations"
+msgstr ""
+
+#. Attributes page:
+#: objects/UML/class_dialog.c:640
+msgid "Attributes"
+msgstr "Атрибути"
+
+#: objects/UML/class_dialog.c:668 objects/UML/class_dialog.c:1541
+#: objects/UML/class_dialog.c:1701 objects/UML/class_dialog.c:2162
+msgid "New"
+msgstr "Новий"
+
+#: objects/UML/class_dialog.c:674 objects/UML/class_dialog.c:1547
+#: objects/UML/class_dialog.c:1708 objects/UML/class_dialog.c:2168
+msgid "Delete"
+msgstr "Видалити"
+
+#: objects/UML/class_dialog.c:680 objects/UML/class_dialog.c:1553
+#: objects/UML/class_dialog.c:1715 objects/UML/class_dialog.c:2174
+msgid "Move up"
+msgstr "Перенести вверх"
+
+#: objects/UML/class_dialog.c:686 objects/UML/class_dialog.c:1559
+#: objects/UML/class_dialog.c:1722 objects/UML/class_dialog.c:2180
+msgid "Move down"
+msgstr "Перенести вниз"
+
+#: objects/UML/class_dialog.c:697
+msgid "Attribute data"
+msgstr "Дан╕ атрибуту"
+
+#: objects/UML/class_dialog.c:717 objects/UML/class_dialog.c:1593
+#: objects/UML/class_dialog.c:1755 objects/UML/class_dialog.c:2211
+msgid "Type:"
+msgstr "Тип:"
+
+#: objects/UML/class_dialog.c:729
+msgid "Value:"
+msgstr "Значення:"
+
+#: objects/UML/class_dialog.c:741 objects/UML/class_dialog.c:1605
+msgid "Visibility:"
+msgstr "Видим╕сть:"
+
+#: objects/UML/class_dialog.c:750 objects/UML/class_dialog.c:1614
+msgid "Public"
+msgstr "Сусп╕льний"
+
+#: objects/UML/class_dialog.c:758 objects/UML/class_dialog.c:1622
+msgid "Private"
+msgstr "Приватний"
+
+#: objects/UML/class_dialog.c:766 objects/UML/class_dialog.c:1630
+msgid "Protected"
+msgstr "Захищений"
+
+#: objects/UML/class_dialog.c:774 objects/UML/class_dialog.c:1638
+msgid "Implementation"
+msgstr "Реал╕зац╕я"
+
+#: objects/UML/class_dialog.c:790 objects/UML/class_dialog.c:1654
+msgid "Class scope"
+msgstr ""
+
+#. Operations page:
+#: objects/UML/class_dialog.c:1513
+msgid "Operations"
+msgstr "Операц╕╖"
+
+#: objects/UML/class_dialog.c:1571
+msgid "Operation data"
+msgstr "Дан╕ операц╕╖"
+
+#: objects/UML/class_dialog.c:1660
+msgid "abstract"
+msgstr "абстрактний"
+
+#: objects/UML/class_dialog.c:1672
+msgid "Parameters:"
+msgstr "Параметри:"
+
+#: objects/UML/class_dialog.c:1734
+msgid "Parameter data"
+msgstr "Дан╕ параметру"
+
+#: objects/UML/class_dialog.c:1767
+msgid "Def. value:"
+msgstr "Типове значення:"
+
+#. Templates page:
+#: objects/UML/class_dialog.c:2128
+msgid "Templates"
+msgstr "Шаблони"
+
+#: objects/UML/class_dialog.c:2134
+msgid "Template class"
+msgstr "Клас-шаблон"
+
+#: objects/UML/class_dialog.c:2191
+msgid "Formal parameter data"
+msgstr "Дан╕ формального параметру"
+
+#: objects/UML/constraint.c:509
+msgid "Constraint:"
+msgstr "Обмеження:"
+
+#: objects/UML/dependency.c:634
+msgid "Show arrow:"
+msgstr "Показати стр╕лку:"
+
+#: objects/UML/implements.c:559
+msgid "Interface:"
+msgstr "╤нтерфейс:"
+
+#: objects/UML/usecase.c:542
+msgid "Text outside:"
+msgstr ""
+
+#: objects/UML/usecase.c:547
+msgid "Collaboration"
+msgstr ""
+
+#: objects/UML/object.c:753
+msgid "Explicit state:"
+msgstr ""
+
+#: objects/UML/object.c:775
+msgid "Attributes:"
+msgstr "Атрибути:"
+
+#: objects/UML/object.c:785
+msgid "Show attributes"
+msgstr "Показати атрибути"
+
+#: objects/UML/object.c:789
+msgid "Active object"
+msgstr "Активний об'╓кт"
+
+#: objects/UML/object.c:794
+msgid "multiple instance"
+msgstr ""
+
+#: objects/UML/lifeline.c:603
+msgid "Show focus of control:"
+msgstr ""
+
+#: objects/UML/lifeline.c:608
+msgid "Show destruction mark:"
+msgstr ""
+
+#: objects/UML/message.c:614
+msgid "Message:"
+msgstr "Пов╕домлення:"
+
+#: objects/UML/message.c:628
+msgid "Message type:"
+msgstr "Тип пов╕домлення:"
+
+#.
+#: objects/UML/message.c:633
+msgid "Call"
+msgstr "Виклик"
+
+#: objects/UML/message.c:638
+msgid "Return"
+msgstr "Повернення"
+
+#: objects/UML/message.c:643
+msgid "Asynchronous"
+msgstr "Асинхронний"
+
+#: objects/UML/message.c:648
+msgid "Create"
+msgstr "Створити"
+
+#: objects/UML/message.c:653
+msgid "Destroy"
+msgstr "Знищити"
+
+#: objects/UML/message.c:658
+msgid "Simple"
+msgstr "Простий"
+
+#: objects/UML/message.c:663
+msgid "Recursive"
+msgstr "Рекурсивний"
+
+#: objects/UML/state.c:501
+msgid "Normal"
+msgstr "Нормальний"
+
+#: objects/UML/state.c:506
+msgid "Begin"
+msgstr "Початок"
+
+#: objects/UML/state.c:511
+msgid "End"
+msgstr "К╕нець"
+
+#: objects/UML/classicon.c:606
+msgid "Control"
+msgstr "Керування"
+
+#: objects/UML/classicon.c:612
+msgid "Boundary"
+msgstr "Межа"
+
+#: objects/ER/entity.c:448 objects/UML/classicon.c:617
+msgid "Entity"
+msgstr ""
+
+#: objects/UML/classicon.c:625
+msgid "Is an object"
+msgstr "Це об'╓кт"
+
+#: objects/ER/attribute.c:212
+msgid "Key"
+msgstr "Ключ"
+
+#: objects/ER/attribute.c:218
+msgid "Weak key"
+msgstr "Слабкий ключ"
+
+#: objects/ER/attribute.c:224
+msgid "Derived"
+msgstr ""
+
+#: objects/ER/attribute.c:230
+msgid "Multivalue"
+msgstr ""
+
+#: objects/ER/attribute.c:236 objects/ER/entity.c:202
+#: objects/ER/relationship.c:294 objects/custom/custom_object.c:271
+#: objects/flowchart/box.c:246 objects/flowchart/diamond.c:241
+#: objects/flowchart/ellipse.c:241 objects/flowchart/parallelogram.c:249
+#: objects/standard/box.c:207 objects/standard/ellipse.c:204
+#: objects/standard/image.c:262
+msgid "Border width:"
+msgstr "Ширина рамки:"
+
+#: objects/ER/attribute.c:247 objects/ER/entity.c:213
+#: objects/ER/relationship.c:305 objects/custom/custom_object.c:286
+#: objects/flowchart/box.c:261 objects/flowchart/diamond.c:256
+#: objects/flowchart/ellipse.c:256 objects/flowchart/parallelogram.c:264
+#: objects/standard/box.c:222 objects/standard/ellipse.c:219
+#: objects/standard/image.c:277
+msgid "Foreground color:"
+msgstr "Кол╕р переднього плану:"
+
+#: objects/ER/attribute.c:255 objects/ER/entity.c:221
+#: objects/ER/relationship.c:313 objects/custom/custom_object.c:297
+#: objects/flowchart/box.c:272 objects/flowchart/diamond.c:267
+#: objects/flowchart/ellipse.c:267 objects/flowchart/parallelogram.c:275
+#: objects/standard/box.c:233 objects/standard/ellipse.c:230
+msgid "Background color:"
+msgstr "Кол╕р тла:"
+
+#: objects/ER/attribute.c:507
+msgid "Attribute"
+msgstr "Атрибут"
+
+#: objects/ER/entity.c:196
+msgid "Weak"
+msgstr ""
+
+#: objects/ER/participation.c:416
+msgid "Total:"
+msgstr "Загалом:"
+
+#: objects/ER/relationship.c:266
+msgid "Left Cardinality:"
+msgstr ""
+
+#: objects/ER/relationship.c:274
+msgid "Right Cardinality:"
+msgstr ""
+
+#: objects/ER/relationship.c:282
+msgid "Rotate"
+msgstr ""
+
+#: objects/ER/relationship.c:288
+msgid "Identifying"
+msgstr ""
+
+#: objects/ER/relationship.c:568
+msgid "Relationship"
+msgstr "В╕дношення"
+
+#: objects/network/bus.c:569
+msgid "Add Handle"
+msgstr ""
+
+#: objects/network/bus.c:570
+msgid "Delete Handle"
+msgstr ""
+
+#: objects/standard/arc.c:205 objects/standard/line.c:202
+#: objects/standard/polyline.c:207 objects/standard/zigzagline.c:207
+msgid "Line width:"
+msgstr "Ширина л╕н╕╖:"
+
+#: objects/standard/arc.c:219 objects/standard/line.c:216
+#: objects/standard/polyline.c:221 objects/standard/textobj.c:234
+#: objects/standard/zigzagline.c:221
+msgid "Color:"
+msgstr "Кол╕р:"
+
+#: objects/custom/custom_object.c:316 objects/flowchart/box.c:291
+#: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
+#: objects/flowchart/parallelogram.c:294 objects/standard/arc.c:230
+#: objects/standard/box.c:252 objects/standard/ellipse.c:249
+#: objects/standard/image.c:288 objects/standard/image.c:383
+#: objects/standard/line.c:227 objects/standard/polyline.c:232
+#: objects/standard/zigzagline.c:232
+msgid "Line style:"
+msgstr "Стиль л╕н╕╖:"
+
+#: objects/standard/arc.c:241 objects/standard/line.c:238
+#: objects/standard/polyline.c:243 objects/standard/zigzagline.c:246
+msgid "Start arrow:"
+msgstr "Стр╕лка на початку:"
+
+#: objects/standard/arc.c:255 objects/standard/line.c:252
+#: objects/standard/polyline.c:257 objects/standard/zigzagline.c:260
+msgid "End arrow:"
+msgstr "Стр╕лка на к╕нц╕:"
+
+#: objects/custom/custom_object.c:308 objects/custom/custom_object.c:472
+#: objects/flowchart/box.c:283 objects/flowchart/box.c:441
+#: objects/flowchart/diamond.c:278 objects/flowchart/diamond.c:418
+#: objects/flowchart/ellipse.c:278 objects/flowchart/ellipse.c:418
+#: objects/flowchart/parallelogram.c:286 objects/flowchart/parallelogram.c:445
+#: objects/standard/box.c:244 objects/standard/box.c:332
+#: objects/standard/ellipse.c:241 objects/standard/ellipse.c:313
+msgid "Draw background"
+msgstr "Намалювати тло"
+
+#: objects/flowchart/box.c:302 objects/flowchart/box.c:449
+#: objects/standard/box.c:263 objects/standard/box.c:340
+msgid "Corner rounding:"
+msgstr "Заокруглен╕ кути:"
+
+#: objects/custom/custom_object.c:347 objects/custom/custom_object.c:495
+#: objects/standard/textobj.c:198 objects/standard/textobj.c:292
+msgid "Alignment:"
+msgstr "Вир╕внювання:"
+
+#: objects/custom/custom_object.c:358 objects/custom/custom_object.c:506
+#: objects/flowchart/box.c:331 objects/flowchart/box.c:477
+#: objects/flowchart/diamond.c:311 objects/flowchart/diamond.c:440
+#: objects/flowchart/ellipse.c:311 objects/flowchart/ellipse.c:440
+#: objects/flowchart/parallelogram.c:334 objects/flowchart/parallelogram.c:481
+#: objects/standard/textobj.c:209 objects/standard/textobj.c:303
+msgid "Font:"
+msgstr "Шрифт:"
+
+#: objects/standard/textobj.c:220 objects/standard/textobj.c:314
+msgid "Fontsize:"
+msgstr "Розм╕р шрифту:"
+
+#: objects/standard/image.c:235 objects/standard/image.c:356
+msgid "Image file:"
+msgstr "Файл зображення:"
+
+#: objects/standard/image.c:246
+msgid "Keep aspect ratio"
+msgstr "Збер╕гати пропорц╕╖"
+
+#: objects/standard/image.c:254
+msgid "Show border"
+msgstr "Показати рамку"
+
+#: objects/standard/image.c:367
+msgid "Keep aspect ratio:"
+msgstr "Збер╕гати пропорц╕╖:"
+
+#: objects/standard/image.c:375
+msgid "Show border:"
+msgstr "Показати рамку:"
+
+#. Found file in same dir as diagram.
+#: objects/standard/image.c:939 objects/standard/image.c:950
+#, c-format
+msgid ""
+"The image file '%s' was not found in that directory.\n"
+"Using the file '%s' instead\n"
+msgstr ""
+"Файл зображення \"%s\" не знайдено в цьому каталоз╕.\n"
+"Зам╕сть нього використову╓ться файл \"%s\"\n"
+
+#. Didn't find file in current dir.
+#: objects/standard/image.c:956 objects/standard/image.c:982
+#, c-format
+msgid "The image file '%s' was not found.\n"
+msgstr "Файл зображення \"%s\" не знайдено.\n"
+
+#: objects/standard/polyline.c:742
+msgid "Add Corner"
+msgstr "Додати кут"
+
+#: objects/standard/polyline.c:743
+msgid "Delete Corner"
+msgstr "Видалити кут"
+
+#: objects/FS/flow-ortho.c:559 objects/FS/flow.c:622 objects/FS/flow.c:737
+msgid "Flow:"
+msgstr "Пот╕к:"
+
+#: objects/FS/flow-ortho.c:574 objects/FS/flow.c:637 objects/FS/flow.c:753
+msgid "Flow type:"
+msgstr "Тип потоку:"
+
+#.
+#: objects/FS/flow-ortho.c:579 objects/FS/flow-ortho.c:632
+#: objects/FS/flow-ortho.c:692 objects/FS/flow.c:642 objects/FS/flow.c:697
+#: objects/FS/flow.c:758
+msgid "Energy"
+msgstr "Енерг╕я"
+
+#: objects/FS/flow-ortho.c:586 objects/FS/flow-ortho.c:633
+#: objects/FS/flow-ortho.c:699 objects/FS/flow.c:649 objects/FS/flow.c:698
+#: objects/FS/flow.c:765
+msgid "Material"
+msgstr "Матер╕ал"
+
+#: objects/FS/flow-ortho.c:592 objects/FS/flow-ortho.c:634
+#: objects/FS/flow-ortho.c:705 objects/FS/flow.c:655 objects/FS/flow.c:699
+#: objects/FS/flow.c:771 objects/FS/function.c:586
+msgid "Signal"
+msgstr "Сигнал"
+
+#: objects/FS/flow-ortho.c:671
+msgid "Orthflow:"
+msgstr ""
+
+#: objects/FS/flow-ortho.c:687
+msgid "Orthflow type:"
+msgstr ""
+
+#: objects/FS/function.c:498
+msgid "Function:"
+msgstr "Функц╕я:"
+
+#: objects/FS/function.c:508
+msgid "Wish function"
+msgstr ""
+
+#: objects/FS/function.c:513
+msgid "User function"
+msgstr ""
+
+#: objects/FS/function.c:552
+msgid "Channel"
+msgstr "Канал"
+
+#: objects/FS/function.c:553
+msgid "   Import"
+msgstr "   ╤мпорт"
+
+#: objects/FS/function.c:554
+msgid "   Export"
+msgstr "   Експорт"
+
+#: objects/FS/function.c:555
+msgid "   Transfer"
+msgstr ""
+
+#: objects/FS/function.c:556
+msgid "      Transport"
+msgstr "      Транспорт"
+
+#: objects/FS/function.c:557
+msgid "      Transmit"
+msgstr ""
+
+#: objects/FS/function.c:558
+msgid "   Guide"
+msgstr ""
+
+#: objects/FS/function.c:559
+msgid "      Translate"
+msgstr ""
+
+#: objects/FS/function.c:560
+msgid "      Rotate"
+msgstr ""
+
+#: objects/FS/function.c:561
+msgid "      Allow DOF"
+msgstr ""
+
+#: objects/FS/function.c:562
+msgid "Support"
+msgstr "Поддержка"
+
+#: objects/FS/function.c:563
+msgid "   Stop"
+msgstr "   Стоп"
+
+#: objects/FS/function.c:564
+msgid "   Stabilize"
+msgstr ""
+
+#: objects/FS/function.c:565
+msgid "   Secure"
+msgstr ""
+
+#: objects/FS/function.c:566
+msgid "   Position"
+msgstr "   Позиц╕я"
+
+#: objects/FS/function.c:567
+msgid "Connect"
+msgstr ""
+
+#: objects/FS/function.c:568
+msgid "   Couple"
+msgstr ""
+
+#: objects/FS/function.c:569
+msgid "   Mix"
+msgstr ""
+
+#: objects/FS/function.c:570
+msgid "Branch"
+msgstr "Г╕лка"
+
+#: objects/FS/function.c:571
+msgid "   Separate"
+msgstr "   Розд╕лити"
+
+#: objects/FS/function.c:572
+msgid "      Remove"
+msgstr "      Видалити"
+
+#: objects/FS/function.c:573
+msgid "   Refine"
+msgstr ""
+
+#: objects/FS/function.c:574
+msgid "   Distribute"
+msgstr ""
+
+#: objects/FS/function.c:575
+msgid "   Dissipate"
+msgstr ""
+
+#: objects/FS/function.c:576
+msgid "Provision"
+msgstr ""
+
+#: objects/FS/function.c:577
+msgid "   Store"
+msgstr ""
+
+#: objects/FS/function.c:578
+msgid "   Supply"
+msgstr ""
+
+#: objects/FS/function.c:579
+msgid "   Extract"
+msgstr ""
+
+#: objects/FS/function.c:580
+msgid "Control Magnitude"
+msgstr ""
+
+#: objects/FS/function.c:581
+msgid "   Actuate"
+msgstr ""
+
+#: objects/FS/function.c:582
+msgid "   Regulate"
+msgstr ""
+
+#: objects/FS/function.c:583
+msgid "   Change"
+msgstr ""
+
+#: objects/FS/function.c:584
+msgid "   Form"
+msgstr ""
+
+#: objects/FS/function.c:585
+msgid "Convert"
+msgstr "Перетворити"
+
+#: objects/FS/function.c:587
+msgid "   Sense"
+msgstr ""
+
+#: objects/FS/function.c:588
+msgid "   Indicate"
+msgstr ""
+
+#: objects/FS/function.c:589
+msgid "   Display"
+msgstr ""
+
+#: objects/FS/function.c:590
+msgid "   Measure"
+msgstr ""
+
+#: objects/custom/custom_object.c:333 objects/custom/custom_object.c:481
+#: objects/flowchart/box.c:317 objects/flowchart/box.c:463
+#: objects/flowchart/diamond.c:297 objects/flowchart/diamond.c:426
+#: objects/flowchart/ellipse.c:297 objects/flowchart/ellipse.c:426
+#: objects/flowchart/parallelogram.c:320 objects/flowchart/parallelogram.c:467
+msgid "Text padding:"
+msgstr ""
+
+#: objects/custom/custom_object.c:369 objects/custom/custom_object.c:517
+#: objects/flowchart/box.c:342 objects/flowchart/box.c:488
+#: objects/flowchart/diamond.c:322 objects/flowchart/diamond.c:451
+#: objects/flowchart/ellipse.c:322 objects/flowchart/ellipse.c:451
+#: objects/flowchart/parallelogram.c:345 objects/flowchart/parallelogram.c:492
+msgid "Font size:"
+msgstr "Розм╕р шрифту:"
+
+#: objects/custom/custom_object.c:383 objects/flowchart/box.c:356
+#: objects/flowchart/diamond.c:336 objects/flowchart/ellipse.c:336
+#: objects/flowchart/parallelogram.c:359
+msgid "Font color:"
+msgstr "Кол╕р шрифту:"
+
+#: objects/flowchart/parallelogram.c:305 objects/flowchart/parallelogram.c:453
+msgid "Shear angle:"
+msgstr ""
+
+#: objects/custom/custom_object.c:190
+msgid "A custom with text inside."
+msgstr ""
+
+#: objects/custom/custom_object.c:1386
+msgid "Flip Horizontal"
+msgstr ""
+
+#: objects/custom/custom_object.c:1387
+msgid "Flip Vertical"
+msgstr ""
+
+#: plug-ins/cgm/cgm.c:765
+msgid ""
+"Image row length larger than maximum cell array.\n"
+"Image not exported to CGM."
+msgstr ""
+
+#: plug-ins/cgm/cgm.c:919
+msgid "Computer Graphics Metafile"
+msgstr ""
