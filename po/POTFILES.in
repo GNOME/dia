@@ -32,6 +32,7 @@ app/recent_files.c
 app/render_eps.c
 app/select.c
 app/splash.c
+app/sheets_dialog.c
 dia.desktop.in
 dia.keys.in
 lib/arrows.c
