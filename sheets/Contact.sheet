@@ -1,0 +1,57 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Ladder/Contact</name>
+  <description xml:lang="fr">Composants de schémas à contacts et diagrammes 
+    LADDER</description>
+  <description>Components for LADDER and contact circuits.</description>
+  <contents>
+    <shape name="Contact - if">
+      <description xml:lang="fr">Un contact normalement ouvert "si"</description>
+      <description>A "if" (normally open) contact
+      </description>
+    </shape>
+    <shape name="Contact - ifnot">
+      <description xml:lang="fr">Un contact normalement fermé "si non"</description>
+      <description>A "if not" (normally closed) contact
+      </description>
+    </shape>
+    <shape name="Contact - relay">
+      <description xml:lang="fr">Un relais</description>
+      <description>A relay</description>
+    </shape>
+    <shape name="Contact - lamp">
+      <description xml:lang="fr">Une lampe ou un voyant</description>
+      <description>A lamp or indicator light</description>
+    </shape>
+
+    <shape name="LADDER - if">
+      <description xml:lang="fr">Un contact ladder normalement ouvert "si"
+      </description>
+      <description>A "if" (normally open) ladder contact
+      </description>
+    </shape>
+    <shape name="LADDER - ifnot">
+      <description xml:lang="fr">Un contact ladder normalement fermé "si non"
+      </description>
+      <description>A "if not" (normally closed) ladder contact
+      </description>
+    </shape>
+    <shape name="LADDER - out">
+      <description xml:lang="fr">Une variable de sortie simple</description>
+      <description>A simple output variable</description>
+    </shape>
+    <shape name="LADDER - outnot">
+      <description xml:lang="fr">Une variable de sortie négative</description>
+      <description>A negative output variable</description>
+    </shape>
+    <shape name="LADDER - outs">
+      <description xml:lang="fr">Une variable de sortie "set"</description>
+      <description>A "set" output variable</description>
+    </shape>
+    <shape name="LADDER - outr">
+      <description xml:lang="fr">Une variable de sortie "reset"</description>
+      <description>A "reset" output variable</description>
+    </shape>
+  </contents>
+</sheet>

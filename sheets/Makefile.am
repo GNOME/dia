@@ -9,7 +9,8 @@ SHEETS = \
 	FS.sheet \
 	network.sheet \
 	Flowchart.sheet \
-	Circuit.sheet
+	Circuit.sheet \
+	Contact.sheet
 
 EXTRA_DIST = $(SHEETS)
 

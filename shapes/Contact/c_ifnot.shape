@@ -1,0 +1,25 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+  <name>Contact - ifnot</name>
+  <description>if not</description>
+  <icon>c_ifnot.xpm</icon>
+  <connections>
+    <point x="-2" y="0"/>
+    <point x="2" y="0" />
+    <point x="0" y="-.5" />
+  </connections>
+  <textbox x1="-4" y1="-2.4" x2="4" y2="-.7"/>
+  <aspectratio type="fixed"/>
+  <svg:svg width="4" height="4">
+    <svg:rect x1="-2" y1="-3" x2="2" y2="1" 
+	      svg:style="stroke:none"/>
+    <svg:polyline points="-2,0 -.75,0 -.75,-.875" />
+    <svg:polyline points="-1,-1 1,0 2,0 "/>
+    <svg:line x1="-.5" y1="-2.2" x2=".5" y2="-2.2" 
+	      svg:style="stroke-width:.05"/>
+  </svg:svg>
+</shape>
+
+

@@ -153,6 +153,7 @@ objects/custom/Makefile
 shapes/Makefile
 shapes/Circuit/Makefile
 shapes/flowchart/Makefile
+shapes/Contact/Makefile
 app/Makefile
 samples/Makefile
 sheets/Makefile

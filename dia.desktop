@@ -2,9 +2,11 @@
 Name=Dia
 Name[ja]=Dia
 Name[pl]=Dia
+Name[fr]=Dia
 Comment=A Diagram Editor
 Comment[ja]=¥À¥¤¥ä¥°¥é¥à¥¨¥Ç¥£¥¿
 Comment[pl]=Edytor diagramów w Gtk+ 
+Comment[fr]=Un éditeur de diagrammes
 Exec=dia
 Icon=dia_gnome_icon.png
 Terminal=0

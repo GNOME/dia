@@ -1,3 +1,17 @@
+2000-01-24  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* AUTHORS: fixed my address (ISP thought it was a great idea to change
+	the domain name)
+	
+	* configure.in:
+	* shapes/Contact:
+	* shapes/Contact/*:
+	* sheets/Contact.sheet:
+	* sheets/Makefile.am:
+	Added support for Contact and LADDER charts.
+
+	* dia.desktop: Added a French translation.
+	
 2000-01-23  James Henstridge  <james@daa.com.au>
 
 	* app/commands.c (help_about_callback): don't die if can't load
