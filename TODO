@@ -3,15 +3,13 @@ TODO:
 general:
 * change cursors more, ie. when the mouse is grabbed for resizing/moving stuff.
 * Run purify on Dia. I don't have purify, anyone who has it is welcome to try!
-* command line options (load files)
 * Tab order in properties dialogs. (How do you specify this in gtk?)
 * If you hold down shift while moving the handle of an 'Element',
   scale while keeping same proportions.
 * Must be able to change background color.
-* Maybe be able to set a default linestyle, much like the current linewidth
-  widget.
-* save more stuff in the diagram file. grid, bg etc.
-* is there a better way to calculate font-properties. Rendering 100 pixel high fonts
+* Maybe be able to set a default linestyle, much like the current
+  linewidth widget.
+* Is there a better way to calculate font-properties? Rendering 100 pixel high fonts
   is very slow.
 * Update to automake 1.4 and libtool 1.3 when they're released. It has
   much better support for dlopen:ed modules.
@@ -38,8 +36,9 @@ UML:
 
 Big stuff:
  * some kind of 'plug-in api' so that libraries like uml can add new
-   functions to the menus (like: load UMX). This is the reason that
-   DiagramData was broken out of Diagram and moved to lib/diagramdata.h.
+   functions to the menus (like: load UMX or export SQL ). This is the reason
+   that DiagramData was broken out of Diagram and moved to lib/diagramdata.h.
+
  * Add a clean event model so that all modifications of the diagram and objects
    goes by a well known path. This makes it possible to have a history of
    modifications which means UNDO is easy!
@@ -48,6 +47,8 @@ Big stuff:
 
 BUGS:
 =====
+* Keyboard shortcuts doesn't work in all windows, only the first.
+
 * doesn't use latin-1 or some other well-known 8-bit encoding in eps_renderer
 
 * If you move an object outside the visible screen, scroll there move the object back

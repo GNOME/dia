@@ -18,6 +18,7 @@
 #include <assert.h>
 #include <gtk/gtk.h>
 #include <math.h>
+#include <string.h>
 
 #include "object.h"
 #include "element.h"
@@ -31,8 +32,11 @@
 
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 1.0
-#define DEFAULT_BORDER 0.15
-#define FONTHEIGHT 0.8
+#define FONT_HEIGHT 0.8
+#define MULTIVALUE_BORDER_WIDTH_X 0.4
+#define MULTIVALUE_BORDER_WIDTH_Y 0.2
+#define TEXT_BORDER_WIDTH_X 1.0
+#define TEXT_BORDER_WIDTH_Y 0.5
 
 typedef struct _Attribute Attribute;
 typedef struct _AttributePropertiesDialog AttributePropertiesDialog;
@@ -42,6 +46,7 @@ struct _Attribute {
 
   Font *font;
   gchar *name;
+  real name_width;
 
   ConnectionPoint connections[8];
 
@@ -146,7 +151,10 @@ attribute_apply_properties(Attribute *attribute)
   attribute->weakkey = prop_dialog->weakkey->active;
   attribute->derived = prop_dialog->derived->active;
   attribute->multivalue = prop_dialog->multivalue->active;
-  
+
+  attribute->name_width =
+    font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
+
   attribute_update_data(attribute);
 }
 
@@ -287,6 +295,7 @@ attribute_draw(Attribute *attribute, Renderer *renderer)
 {
   Point center;
   Point start, end;
+  Point p;
   Element *elem;
   real width;
   
@@ -299,50 +308,50 @@ attribute_draw(Attribute *attribute, Renderer *renderer)
   center.y = elem->corner.y + elem->height/2;
   
   renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-
-  renderer->ops->fill_ellipse(renderer, 
-			      &center,
+  renderer->ops->fill_ellipse(renderer, &center,
 			      elem->width, elem->height,
 			      &attribute->inner_color);
 
   renderer->ops->set_linewidth(renderer, attribute->border_width);
-  if(attribute->derived) {
+  if (attribute->derived) {
     renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
     renderer->ops->set_dashlength(renderer, 0.3);
-  } else
+  } else {
     renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+  }
 
-  renderer->ops->draw_ellipse(renderer, 
-			      &center,
+  renderer->ops->draw_ellipse(renderer, &center,
 			      elem->width, elem->height,
 			      &attribute->border_color);
 
   if(attribute->multivalue) {
-    renderer->ops->draw_ellipse(renderer, 
-				&center,
-				elem->width * 0.90, elem->height * 0.90,
+    renderer->ops->draw_ellipse(renderer, &center,
+				elem->width - 2*MULTIVALUE_BORDER_WIDTH_X,
+				elem->height - 2*MULTIVALUE_BORDER_WIDTH_Y,
 				&attribute->border_color);
   }
 
-  renderer->ops->set_font(renderer, 
-			  attribute->font, FONTHEIGHT);
-  renderer->ops->draw_string(renderer, 
-			     attribute->name, 
-			     &center, ALIGN_CENTER, 
+  p.x = elem->corner.x + elem->width / 2.0;
+  p.y = elem->corner.y + (elem->height - FONT_HEIGHT)/2.0 +
+         font_ascent(attribute->font, FONT_HEIGHT);
+
+  renderer->ops->set_font(renderer,  attribute->font, FONT_HEIGHT);
+  renderer->ops->draw_string(renderer, attribute->name, 
+			     &p, ALIGN_CENTER, 
 			     &color_black);
 
-  if(attribute->key || attribute->weakkey) {
-    if(attribute->weakkey) {
+  if (attribute->key || attribute->weakkey) {
+    if (attribute->weakkey) {
       renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
       renderer->ops->set_dashlength(renderer, 0.3);
-    } 
-    else
+    } else {
       renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
-    width = font_string_width(attribute->name, attribute->font, FONTHEIGHT);
+    }
+    width = font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
     start.x = center.x - width / 2;
-    start.y = center.y + 0.3;
+    start.y = center.y + 0.4;
     end.x = center.x + width / 2;
-    end.y = center.y + 0.3;
+    end.y = center.y + 0.4;
     renderer->ops->draw_line(renderer, &start, &end, &color_black);
   }
 }
@@ -354,6 +363,9 @@ attribute_update_data(Attribute *attribute)
   Object *obj = (Object *) attribute;
   Point center;
   real half_x, half_y;
+
+  elem->width = attribute->name_width + 2*TEXT_BORDER_WIDTH_X;
+  elem->height = FONT_HEIGHT + 2*TEXT_BORDER_WIDTH_Y;
 
   center.x = elem->corner.x + elem->width / 2.0;
   center.y = elem->corner.y + elem->height / 2.0;
@@ -408,25 +420,17 @@ attribute_create(Point *startpoint,
   obj = (Object *) attribute;
   
   obj->type = &attribute_type;
-
   obj->ops = &attribute_ops;
 
   elem->corner = *startpoint;
   elem->width = DEFAULT_WIDTH;
   elem->height = DEFAULT_WIDTH;
 
+  attribute->properties_dialog = NULL;
+
   attribute->border_width =  attributes_get_default_linewidth();
   attribute->border_color = attributes_get_foreground();
   attribute->inner_color = attributes_get_background();
-
-  attribute->properties_dialog = NULL;
-
-  attribute->key = FALSE;
-  attribute->weakkey = FALSE;
-  attribute->derived = FALSE;
-  attribute->multivalue = FALSE;
-  attribute->font = font_getfont("Courier");
-  attribute->name = g_strdup("Attribute");
 
   element_init(elem, 8, 8);
 
@@ -435,7 +439,22 @@ attribute_create(Point *startpoint,
     attribute->connections[i].object = obj;
     attribute->connections[i].connected = NULL;
   }
+
+  attribute->key = FALSE;
+  attribute->weakkey = FALSE;
+  attribute->derived = FALSE;
+  attribute->multivalue = FALSE;
+  attribute->font = font_getfont("Courier");
+  attribute->name = g_strdup("Attribute");
+
+  attribute->name_width =
+    font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
+
   attribute_update_data(attribute);
+
+  for (i=0;i<8;i++) {
+    obj->handles[i]->type = HANDLE_NON_MOVABLE;
+  }
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];
@@ -481,6 +500,15 @@ attribute_copy(Attribute *attribute)
     newattribute->connections[i].last_pos = attribute->connections[i].last_pos;
   }
 
+  newattribute->font = attribute->font;
+  newattribute->name = strdup(attribute->name);
+  newattribute->name_width = attribute->name_width;
+
+  newattribute->key = attribute->key;
+  newattribute->weakkey = attribute->weakkey;
+  newattribute->derived = attribute->derived;
+  newattribute->multivalue = attribute->multivalue;
+
   newattribute->properties_dialog = NULL;
 
   return (Object *)newattribute;
@@ -498,6 +526,16 @@ attribute_save(Attribute *attribute, ObjectNode obj_node)
 		 &attribute->border_color);
   data_add_color(new_attribute(obj_node, "inner_color"),
 		 &attribute->inner_color);
+  data_add_string(new_attribute(obj_node, "name"),
+		  attribute->name);
+  data_add_boolean(new_attribute(obj_node, "key"),
+		   attribute->key);
+  data_add_boolean(new_attribute(obj_node, "weak_key"),
+		   attribute->weakkey);
+  data_add_boolean(new_attribute(obj_node, "derived"),
+		   attribute->derived);
+  data_add_boolean(new_attribute(obj_node, "multivalued"),
+		   attribute->multivalue);
 }
 
 static Object *attribute_load(ObjectNode obj_node, int version)
@@ -534,6 +572,27 @@ static Object *attribute_load(ObjectNode obj_node, int version)
   if (attr != NULL)
     data_color(attribute_first_data(attr), &attribute->inner_color);
   
+  attribute->name = NULL;
+  attr = object_find_attribute(obj_node, "name");
+  if (attr != NULL)
+    attribute->name = data_string(attribute_first_data(attr));
+
+  attr = object_find_attribute(obj_node, "key");
+  if (attr != NULL)
+    attribute->key = data_boolean(attribute_first_data(attr));
+
+  attr = object_find_attribute(obj_node, "weak_key");
+  if (attr != NULL)
+    attribute->weakkey = data_boolean(attribute_first_data(attr));
+  
+  attr = object_find_attribute(obj_node, "derived");
+  if (attr != NULL)
+    attribute->derived = data_boolean(attribute_first_data(attr));
+
+  attr = object_find_attribute(obj_node, "multivalued");
+  if (attr != NULL)
+    attribute->multivalue = data_boolean(attribute_first_data(attr));
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {
@@ -541,7 +600,16 @@ static Object *attribute_load(ObjectNode obj_node, int version)
     attribute->connections[i].object = obj;
     attribute->connections[i].connected = NULL;
   }
+
+  attribute->font = font_getfont("Courier");
+
+  attribute->name_width = font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
+
   attribute_update_data(attribute);
+
+  for (i=0;i<8;i++) {
+    obj->handles[i]->type = HANDLE_NON_MOVABLE;
+  }
 
   return (Object *)attribute;
 }

@@ -32,9 +32,11 @@
 
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 1.0
-#define DEFAULT_BORDER 0.25
-#define FONTHEIGHT 0.8
-#define CARDINALITY_DISTANCE 0.4
+#define IDENTIFYING_BORDER_WIDTH 0.4
+#define TEXT_BORDER_WIDTH_X 1.0
+#define DIAMOND_RATIO 0.6
+#define FONT_HEIGHT 0.8
+#define CARDINALITY_DISTANCE 0.3
 
 typedef struct _Relationship Relationship;
 typedef struct _RelationshipPropertiesDialog RelationshipPropertiesDialog;
@@ -46,6 +48,9 @@ struct _Relationship {
   gchar *name;
   gchar *left_cardinality;
   gchar *right_cardinality;
+  real name_width;
+  real left_card_width;
+  real right_card_width;
 
   gboolean identifying;
   gboolean rotate;
@@ -151,6 +156,13 @@ relationship_apply_properties(Relationship *relationship)
   g_free(relationship->right_cardinality);
   relationship->right_cardinality = 
     g_strdup(gtk_entry_get_text(prop_dialog->right_cardinality));
+
+  relationship->name_width =
+    font_string_width(relationship->name, relationship->font, FONT_HEIGHT);
+  relationship->left_card_width =
+    font_string_width(relationship->left_cardinality, relationship->font, FONT_HEIGHT);
+  relationship->right_card_width =
+    font_string_width(relationship->right_cardinality, relationship->font, FONT_HEIGHT);
 
   relationship_update_data(relationship);
 }
@@ -305,6 +317,7 @@ relationship_draw(Relationship *relationship, Renderer *renderer)
   Point p;
   Element *elem;
   coord diff;
+  Alignment left_align;
 
   assert(relationship != NULL);
   assert(renderer != NULL);
@@ -322,50 +335,45 @@ relationship_draw(Relationship *relationship, Renderer *renderer)
 
   renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
 
-  renderer->ops->fill_polygon(renderer, 
-			      corners,
-			      4, 
+  renderer->ops->fill_polygon(renderer, corners, 4, 
 			      &relationship->inner_color);
 
   renderer->ops->set_linewidth(renderer, relationship->border_width);
   renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer->ops->draw_polygon(renderer, 
-			      corners,
-			      4, 
+  renderer->ops->draw_polygon(renderer, corners, 4, 
 			      &relationship->border_color);
+  
+  if (relationship->rotate) {
+    lc.x = corners[1].x + 0.2;
+    lc.y = corners[1].y - 0.3;
+    rc.x = corners[3].x + 0.2;
+    rc.y = corners[3].y + 0.3 + FONT_HEIGHT;
+    left_align = ALIGN_LEFT;
+  } else {
+    lc.x = corners[0].x - CARDINALITY_DISTANCE;
+    lc.y = corners[0].y - 0.3;
+    rc.x = corners[2].x + CARDINALITY_DISTANCE;
+    rc.y = corners[2].y - 0.3;
+    left_align = ALIGN_RIGHT;
+  }
 
-  if(relationship->identifying) {
-    diff = MIN(elem->width / 2.0 * 0.20, elem->height / 2.0 * 0.20);
+  if (relationship->identifying) {
+    diff = IDENTIFYING_BORDER_WIDTH;
     corners[0].x += diff; 
-    corners[1].y += diff;
+    corners[1].y += diff*DIAMOND_RATIO;
     corners[2].x -= diff;
-    corners[3].y -= diff;
+    corners[3].y -= diff*DIAMOND_RATIO;
 
-    renderer->ops->draw_polygon(renderer, 
-				corners,
-				4,
+    renderer->ops->draw_polygon(renderer, corners, 4,
 				&relationship->border_color);
   }
 
-  if(relationship->rotate) {
-    lc.x = corners[1].x;
-    lc.y = corners[1].y - 0.3;
-    rc.x = corners[3].x;
-    rc.y = corners[3].y + 0.3 + FONTHEIGHT;
-  }
-  else {
-    lc.x = corners[0].x - CARDINALITY_DISTANCE - 
-      font_string_width(relationship->left_cardinality,
-			relationship->font, FONTHEIGHT);
-    lc.y = corners[0].y;
-    rc.x = corners[2].x + CARDINALITY_DISTANCE;
-    rc.y = corners[2].y;
-  }
+  renderer->ops->set_font(renderer, relationship->font, FONT_HEIGHT);
   renderer->ops->draw_string(renderer,
 			     relationship->left_cardinality,
-			     &lc, ALIGN_LEFT,
+			     &lc, left_align,
 			     &color_black);
   renderer->ops->draw_string(renderer,
 			     relationship->right_cardinality,
@@ -373,14 +381,13 @@ relationship_draw(Relationship *relationship, Renderer *renderer)
 			     &color_black);
 
   p.x = elem->corner.x + elem->width / 2.0;
-  p.y = elem->corner.y + elem->height / 2.0 + FONTHEIGHT / 2.0;
-  renderer->ops->set_font(renderer, 
-			  relationship->font, FONTHEIGHT);
+  p.y = elem->corner.y + (elem->height - FONT_HEIGHT)/2.0 +
+         font_ascent(relationship->font, FONT_HEIGHT);
+  
   renderer->ops->draw_string(renderer, 
 			     relationship->name, 
 			     &p, ALIGN_CENTER, 
 			     &color_black);
-
 }
 
 static void
@@ -388,7 +395,10 @@ relationship_update_data(Relationship *relationship)
 {
   Element *elem = &relationship->element;
   Object *obj = (Object *) relationship;
-  
+
+  elem->width = relationship->name_width + 2*TEXT_BORDER_WIDTH_X;
+  elem->height = elem->width * DIAMOND_RATIO;
+
   /* Update connections: */
   relationship->connections[0].pos.x = elem->corner.x;
   relationship->connections[0].pos.y = elem->corner.y + elem->height / 2.0;
@@ -400,26 +410,23 @@ relationship_update_data(Relationship *relationship)
   relationship->connections[3].pos.y = elem->corner.y + elem->height;
 
   element_update_boundingbox(elem);
+  
   /* fix boundingrelationship for line_width: */
   if(relationship->rotate) {
     obj->bounding_box.top -= relationship->border_width / 2
-      + FONTHEIGHT + CARDINALITY_DISTANCE;
+      + FONT_HEIGHT + CARDINALITY_DISTANCE;
     obj->bounding_box.left -= relationship->border_width / 2;
     obj->bounding_box.bottom += relationship->border_width / 2
-      + FONTHEIGHT + CARDINALITY_DISTANCE;
+      + FONT_HEIGHT + CARDINALITY_DISTANCE;
     obj->bounding_box.right += relationship->border_width / 2;
   }
   else {
     obj->bounding_box.top -= relationship->border_width / 2;
     obj->bounding_box.left -= relationship->border_width / 2
-      + CARDINALITY_DISTANCE
-      + font_string_width(relationship->left_cardinality,
-			  relationship->font, FONTHEIGHT);
+      + CARDINALITY_DISTANCE + relationship->left_card_width;
     obj->bounding_box.bottom += relationship->border_width / 2;
     obj->bounding_box.right += relationship->border_width / 2
-      + CARDINALITY_DISTANCE
-      + font_string_width(relationship->right_cardinality,
-			  relationship->font, FONTHEIGHT);
+      + CARDINALITY_DISTANCE + relationship->right_card_width;
   }
   obj->position = elem->corner;
   
@@ -442,7 +449,6 @@ relationship_create(Point *startpoint,
   obj = (Object *) relationship;
   
   obj->type = &relationship_type;
-
   obj->ops = &relationship_ops;
 
   elem->corner = *startpoint;
@@ -470,7 +476,18 @@ relationship_create(Point *startpoint,
   relationship->identifying = FALSE;
   relationship->rotate = FALSE;
 
+  relationship->name_width =
+    font_string_width(relationship->name, relationship->font, FONT_HEIGHT);
+  relationship->left_card_width =
+    font_string_width(relationship->left_cardinality, relationship->font, FONT_HEIGHT);
+  relationship->right_card_width =
+    font_string_width(relationship->right_cardinality, relationship->font, FONT_HEIGHT);
+
   relationship_update_data(relationship);
+
+  for (i=0;i<8;i++) {
+    obj->handles[i]->type = HANDLE_NON_MOVABLE;
+  }
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];  
@@ -518,9 +535,19 @@ relationship_copy(Relationship *relationship)
     newrelationship->connections[i].last_pos = relationship->connections[i].last_pos;
   }
 
-  newrelationship->name = strdup(relationship->name);
   newrelationship->font = relationship->font;
+  newrelationship->name = strdup(relationship->name);
+  newrelationship->left_cardinality =
+    strdup(relationship->left_cardinality);
+  newrelationship->right_cardinality =
+    strdup(relationship->right_cardinality);
+  newrelationship->name_width = relationship->name_width;
+  newrelationship->left_card_width = relationship->left_card_width;
+  newrelationship->right_card_width = relationship->right_card_width;
 
+  newrelationship->identifying = relationship->identifying;
+  newrelationship->rotate = relationship->rotate;
+  
   newrelationship->properties_dialog = NULL;
 
   return (Object *)newrelationship;
@@ -537,6 +564,16 @@ relationship_save(Relationship *relationship, ObjectNode obj_node)
 		 &relationship->border_color);
   data_add_color(new_attribute(obj_node, "inner_color"),
 		 &relationship->inner_color);
+  data_add_string(new_attribute(obj_node, "name"),
+		  relationship->name);
+  data_add_string(new_attribute(obj_node, "left_card"),
+		  relationship->left_cardinality);
+  data_add_string(new_attribute(obj_node, "right_card"),
+		  relationship->right_cardinality);
+  data_add_boolean(new_attribute(obj_node, "identifying"),
+		   relationship->identifying);
+  data_add_boolean(new_attribute(obj_node, "rotated"),
+		   relationship->rotate);
 }
 
 static Object *
@@ -574,6 +611,29 @@ relationship_load(ObjectNode obj_node, int version)
   if (attr != NULL)
     data_color(attribute_first_data(attr), &relationship->inner_color);
 
+  relationship->name = NULL;
+  attr = object_find_attribute(obj_node, "name");
+  if (attr != NULL)
+    relationship->name = data_string(attribute_first_data(attr));
+
+  relationship->left_cardinality = NULL;
+  attr = object_find_attribute(obj_node, "left_card");
+  if (attr != NULL)
+    relationship->left_cardinality = data_string(attribute_first_data(attr));
+
+  relationship->right_cardinality = NULL;
+  attr = object_find_attribute(obj_node, "right_card");
+  if (attr != NULL)
+    relationship->right_cardinality = data_string(attribute_first_data(attr));
+
+  attr = object_find_attribute(obj_node, "identifying");
+  if (attr != NULL)
+    relationship->identifying = data_boolean(attribute_first_data(attr));
+
+  attr = object_find_attribute(obj_node, "rotated");
+  if (attr != NULL)
+    relationship->rotate = data_boolean(attribute_first_data(attr));
+  
   element_init(elem, 8, 4);
 
   for (i=0;i<4;i++) {
@@ -582,7 +642,20 @@ relationship_load(ObjectNode obj_node, int version)
     relationship->connections[i].connected = NULL;
   }
 
+  relationship->font = font_getfont("Courier");
+
+  relationship->name_width =
+    font_string_width(relationship->name, relationship->font, FONT_HEIGHT);
+  relationship->left_card_width =
+    font_string_width(relationship->left_cardinality, relationship->font, FONT_HEIGHT);
+  relationship->right_card_width =
+    font_string_width(relationship->right_cardinality, relationship->font, FONT_HEIGHT);
+
   relationship_update_data(relationship);
+
+  for (i=0;i<8;i++) {
+    obj->handles[i]->type = HANDLE_NON_MOVABLE;
+  }
 
   return (Object *)relationship;
 }

@@ -1,3 +1,19 @@
+1999-01-15  Alexander Larsson  <alla@lysator.liu.se>
+
+	* TODO:
+	Update TODO.
+
+	* app/app_procs.c:
+	Fixed loading of diagrams specified as arguments.
+
+	* objects/ER/attribute.c:
+	* objects/ER/entity.c:
+	* objects/ER/er.c:
+	* objects/ER/participation.c:
+	* objects/ER/relationship.c:
+	Updated the ER objects.
+	
+
 1999-01-14  Alexander Larsson  <alla@lysator.liu.se>
 
 	* configure.in:

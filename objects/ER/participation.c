@@ -29,8 +29,6 @@
 
 #include "pixmaps/participation.xpm"
 
-#define WIDTH 0.4
-
 typedef struct _Participation Participation;
 typedef struct _ParticipationPropertiesDialog ParticipationPropertiesDialog;
 
@@ -43,7 +41,7 @@ struct _Participation {
 };
 
 struct _ParticipationPropertiesDialog {
-  GtkWidget *dialog;
+  GtkWidget *vbox;
   
   GtkToggleButton *total;
 };
@@ -51,6 +49,7 @@ struct _ParticipationPropertiesDialog {
 #define PARTICIPATION_WIDTH 0.1
 #define PARTICIPATION_DASHLEN 0.4
 #define PARTICIPATION_FONTHEIGHT 0.8
+#define TOTAL_SEPARATION 0.25
 
 static real participation_distance_from(Participation *dep, Point *point);
 static void participation_select(Participation *dep, Point *clicked_point,
@@ -148,44 +147,80 @@ participation_draw(Participation *participation, Renderer *renderer)
 {
   OrthConn *orth = &participation->orth;
   Point *points;
-  Point *tpoints;
+  Point *left_points;
+  Point *right_points;
   int i, n;
   Point pos;
+  real last_left, last_right;
   
   points = &orth->points[0];
   n = orth->numpoints;
+
+  last_left = 0.0;
+  last_right = 0.0;
   
   renderer->ops->set_linewidth(renderer, PARTICIPATION_WIDTH);
   renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
   renderer->ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer->ops->set_linecaps(renderer, LINECAPS_BUTT);
 
-  if(participation->total) {
-    tpoints = g_new(Point, n * 2);
+  if (participation->total) {
+    left_points = g_new(Point, n);
+    right_points = g_new(Point, n);
     for(i = 0; i < n - 1; i++) {
-      if(orth->orientation[i] == VERTICAL) {
-	tpoints[i].x = points[i].x - WIDTH / 2.0;
-	tpoints[i].y = points[i].y;
-	tpoints[i + n].x = points[i].x + WIDTH / 2.0;
-	tpoints[i + n].y = points[i].y;
-      }
-      else {
-	tpoints[i].x = points[i].x;
-	tpoints[i].y = points[i].y - WIDTH / 2.0;
-	tpoints[i + n].x = points[i].x;
-	tpoints[i + n].y = points[i].y + WIDTH / 2.0;
+      if(orth->orientation[i] == HORIZONTAL) { /* HORIZONTAL */
+	if (points[i].x < points[i+1].x) { /* RIGHT */
+	  left_points[i].x = points[i].x + last_left;
+	  left_points[i].y = points[i].y - TOTAL_SEPARATION / 2.0;
+	  last_left = - TOTAL_SEPARATION/2.0;
+	  right_points[i].x = points[i].x + last_right;
+	  right_points[i].y = points[i].y + TOTAL_SEPARATION / 2.0;
+	  last_right = TOTAL_SEPARATION/2.0;
+	} else { /* LEFT */
+	  left_points[i].x = points[i].x + last_left;
+	  left_points[i].y = points[i].y + TOTAL_SEPARATION / 2.0;
+	  last_left = TOTAL_SEPARATION/2.0;
+	  right_points[i].x = points[i].x + last_right;
+	  right_points[i].y = points[i].y - TOTAL_SEPARATION / 2.0;
+	  last_right = - TOTAL_SEPARATION/2.0;
+	}
+      } else { /* VERTICAL */
+	if (points[i].y < points[i+1].y) { /* DOWN */
+	  left_points[i].x = points[i].x + TOTAL_SEPARATION / 2.0;
+	  left_points[i].y = points[i].y + last_left;
+	  last_left = TOTAL_SEPARATION/2.0;
+	  right_points[i].x = points[i].x - TOTAL_SEPARATION / 2.0;
+	  right_points[i].y = points[i].y + last_right;
+	  last_right = - TOTAL_SEPARATION/2.0;
+	} else { /* UP */
+	  left_points[i].x = points[i].x - TOTAL_SEPARATION / 2.0;
+	  left_points[i].y = points[i].y + last_left;
+	  last_left = - TOTAL_SEPARATION/2.0;
+	  right_points[i].x = points[i].x + TOTAL_SEPARATION / 2.0;
+	  right_points[i].y = points[i].y + last_right;
+	  last_right = TOTAL_SEPARATION/2.0;
+	}
       }
     }
-    tpoints[n - 1].x = points[n - 1].x;
-    tpoints[n - 1].y = points[n - 1].y;
-    tpoints[2 * n - 1].x = points[2 * n - 1].x;
-    tpoints[2 * n - 1].y = points[2 * n - 1].y;
-    renderer->ops->draw_polyline(renderer, tpoints, n, &color_black);
-    renderer->ops->draw_polyline(renderer, &tpoints[n], n, &color_black);
-    g_free(tpoints);
-  }
-  else 
+    if(orth->orientation[i-1] == HORIZONTAL) { /* HORIZONTAL */
+	left_points[i].x = points[i].x;
+	left_points[i].y = points[i].y + last_left;
+	right_points[i].x = points[i].x;
+	right_points[i].y = points[i].y + last_right;
+    } else { /* VERTICAL */
+      left_points[i].x = points[i].x + last_left;
+      left_points[i].y = points[i].y;
+      right_points[i].x = points[i].x + last_right;
+      right_points[i].y = points[i].y;
+    }
+    
+    renderer->ops->draw_polyline(renderer, left_points, n, &color_black);
+    renderer->ops->draw_polyline(renderer, right_points, n, &color_black);
+    g_free(left_points);
+    g_free(right_points);
+  }  else {
     renderer->ops->draw_polyline(renderer, points, n, &color_black);
+  }
 }
 
 static void
@@ -193,15 +228,23 @@ participation_update_data(Participation *participation)
 {
   OrthConn *orth = &participation->orth;
   Object *obj = (Object *) participation;
+  real extra_width;
   
   orthconn_update_data(orth);
   
   orthconn_update_boundingbox(orth);
+
+  if (participation->total) {
+    extra_width = TOTAL_SEPARATION/2.0;
+  } else {
+    extra_width = 0.0;
+  }
+  
   /* fix boundingparticipation for linewidth */
-  obj->bounding_box.top -= PARTICIPATION_WIDTH/2.0;
-  obj->bounding_box.left -= PARTICIPATION_WIDTH/2.0;
-  obj->bounding_box.bottom += PARTICIPATION_WIDTH/2.0;
-  obj->bounding_box.right += PARTICIPATION_WIDTH/2.0;
+  obj->bounding_box.top -= PARTICIPATION_WIDTH/2.0 + extra_width;
+  obj->bounding_box.left -= PARTICIPATION_WIDTH/2.0 + extra_width;
+  obj->bounding_box.bottom += PARTICIPATION_WIDTH/2.0 + extra_width;
+  obj->bounding_box.right += PARTICIPATION_WIDTH/2.0 + extra_width;
   
   obj->position = orth->points[0];
 }
@@ -242,7 +285,7 @@ static void
 participation_destroy(Participation *participation)
 {
   if (participation->properties_dialog != NULL) {
-    gtk_widget_destroy(participation->properties_dialog->dialog);
+    gtk_widget_destroy(participation->properties_dialog->vbox);
     g_free(participation->properties_dialog);
   }
 
@@ -331,7 +374,7 @@ static GtkWidget *
 participation_get_properties(Participation *participation)
 {
   ParticipationPropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
+  GtkWidget *vbox;
   GtkWidget *checkbox;
   GtkWidget *entry;
   GtkWidget *hbox;
@@ -341,20 +384,22 @@ participation_get_properties(Participation *participation)
     prop_dialog = g_new(ParticipationPropertiesDialog, 1);
     participation->properties_dialog = prop_dialog;
 
-    dialog = gtk_vbox_new(FALSE, 0);
-    prop_dialog->dialog = dialog;
+    vbox = gtk_vbox_new(FALSE, 0);
+    prop_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
     checkbox = gtk_check_button_new_with_label("Total:");
     prop_dialog->total = GTK_TOGGLE_BUTTON(checkbox);
     gtk_box_pack_start (GTK_BOX (hbox),	checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
+
+    gtk_widget_show_all (vbox);
   }
-  gtk_widget_show_all (dialog);
+  prop_dialog = participation->properties_dialog;
 
   gtk_toggle_button_set_state(prop_dialog->total, participation->total);
 
-  return dialog;
+  return prop_dialog->vbox;
 }
 
 

@@ -66,11 +66,11 @@ enable_core_dumps(void)
 }
 
 void
-app_init (int    argc,
-           char **argv)
+app_init (int argc, char **argv)
 {
   Diagram *diagram;
   DDisplay *ddisp;
+  int i;
         
   gtk_set_locale ();
   setlocale(LC_NUMERIC, "C");
@@ -111,13 +111,15 @@ app_init (int    argc,
   create_layer_dialog();
     
   /* In case argc > 1 load diagram files */
-  while (argc > 1) {
-      diagram = diagram_load(argv[argc]);
-      if (diagram != NULL) {
-	  diagram_update_extents(diagram);
-	  ddisp = new_display(diagram);
-	  diagram_add_ddisplay(diagram, ddisp);
-      }
+  i = 1;
+  while (i < argc) {
+    diagram = diagram_load(argv[i]);
+    if (diagram != NULL) {
+      diagram_update_extents(diagram);
+      ddisp = new_display(diagram);
+      diagram_add_ddisplay(diagram, ddisp);
+    }
+    i++;
   }
 }
 

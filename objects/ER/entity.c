@@ -29,10 +29,13 @@
 #include "sheet.h"
 
 #include "pixmaps/entity.xpm"
+#include "pixmaps/weakentity.xpm"
 
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 1.0
-#define DEFAULT_BORDER 0.25
+#define TEXT_BORDER_WIDTH_X 0.7
+#define TEXT_BORDER_WIDTH_Y 0.5
+#define WEAK_BORDER_WIDTH 0.25
 #define FONT_HEIGHT 0.8
 
 typedef struct _Entity Entity;
@@ -49,7 +52,8 @@ struct _Entity {
   
   Font *font;
   char *name;
-
+  real name_width;
+  
   int weak;
   
   EntityPropertiesDialog *properties_dialog;
@@ -74,9 +78,9 @@ static void entity_move(Entity *entity, Point *to);
 static void entity_draw(Entity *entity, Renderer *renderer);
 static void entity_update_data(Entity *entity);
 static Object *entity_create(Point *startpoint,
-			  void *user_data,
-			  Handle **handle1,
-			  Handle **handle2);
+			     void *user_data,
+			     Handle **handle1,
+			     Handle **handle2);
 static void entity_destroy(Entity *entity);
 static Object *entity_copy(Entity *entity);
 static GtkWidget *entity_get_properties(Entity *entity);
@@ -107,7 +111,16 @@ SheetObject entity_sheetobj =
   "Entity",      /* description */
   (char **) entity_xpm, /* pixmap */
 
-  NULL                /* user_data */
+  FALSE                /* user_data */
+};
+
+SheetObject weakentity_sheetobj =
+{
+  "ER - Entity",  /* type */
+  "Weak Entity",      /* description */
+  (char **) weakentity_xpm, /* pixmap */
+
+  TRUE                /* user_data */
 };
 
 ObjectType *_entity_type = (ObjectType *) &entity_type;
@@ -139,6 +152,9 @@ entity_apply_properties(Entity *entity)
   entity->name = strdup(gtk_entry_get_text(prop_dialog->name));
   entity->weak = prop_dialog->weak->active;
 
+  entity->name_width =
+    font_string_width(entity->name, entity->font, FONT_HEIGHT);
+  
   entity_update_data(entity);
 }
 
@@ -294,7 +310,7 @@ entity_draw(Entity *entity, Renderer *renderer)
 			   &entity->border_color);
 
   if(entity->weak) {
-    diff = MIN(elem->width / 2.0 * 0.20, elem->height / 2.0 * 0.20);
+    diff = WEAK_BORDER_WIDTH/*MIN(elem->width / 2.0 * 0.20, elem->height / 2.0 * 0.20)*/;
     ul_corner.x += diff; 
     ul_corner.y += diff;
     lr_corner.x -= diff;
@@ -305,7 +321,7 @@ entity_draw(Entity *entity, Renderer *renderer)
   }
 
   p.x = elem->corner.x + elem->width / 2.0;
-  p.y = elem->corner.y + elem->height / 2.0 + FONT_HEIGHT / 2.0;
+  p.y = elem->corner.y + (elem->height - FONT_HEIGHT)/2.0 + font_ascent(entity->font, FONT_HEIGHT);
   renderer->ops->set_font(renderer, 
 			  entity->font, FONT_HEIGHT);
   renderer->ops->draw_string(renderer, 
@@ -320,6 +336,9 @@ entity_update_data(Entity *entity)
   Element *elem = &entity->element;
   Object *obj = (Object *) entity;
   
+  elem->width = entity->name_width + 2*TEXT_BORDER_WIDTH_X;
+  elem->height = FONT_HEIGHT + 2*TEXT_BORDER_WIDTH_Y;
+
   /* Update connections: */
   entity->connections[0].pos = elem->corner;
   entity->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
@@ -351,9 +370,9 @@ entity_update_data(Entity *entity)
 
 static Object *
 entity_create(Point *startpoint,
-	   void *user_data,
-	   Handle **handle1,
-	   Handle **handle2)
+	      void *user_data,
+	      Handle **handle1,
+	      Handle **handle2)
 {
   Entity *entity;
   Element *elem;
@@ -386,11 +405,18 @@ entity_create(Point *startpoint,
     entity->connections[i].connected = NULL;
   }
 
-  entity->weak = 0;
+  entity->weak = GPOINTER_TO_INT(user_data);
   entity->font = font_getfont("Courier");
   entity->name = g_strdup("Entity");
 
+  entity->name_width =
+    font_string_width(entity->name, entity->font, FONT_HEIGHT);
+  
   entity_update_data(entity);
+
+  for (i=0;i<8;i++) {
+    obj->handles[i]->type = HANDLE_NON_MOVABLE;
+  }
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];  
@@ -436,6 +462,10 @@ entity_copy(Entity *entity)
     newentity->connections[i].last_pos = entity->connections[i].last_pos;
   }
 
+  newentity->font = entity->font;
+  newentity->name = strdup(entity->name);
+  newentity->name_width = entity->name_width;
+
   newentity->weak = entity->weak;
 
   newentity->properties_dialog = NULL;
@@ -454,6 +484,10 @@ entity_save(Entity *entity, ObjectNode obj_node)
 		 &entity->border_color);
   data_add_color(new_attribute(obj_node, "inner_color"),
 		 &entity->inner_color);
+  data_add_string(new_attribute(obj_node, "name"),
+		  entity->name);
+  data_add_boolean(new_attribute(obj_node, "weak"),
+		   entity->weak);
 }
 
 static Object *
@@ -491,6 +525,15 @@ entity_load(ObjectNode obj_node, int version)
   if (attr != NULL)
     data_color(attribute_first_data(attr), &entity->inner_color);
   
+  entity->name = NULL;
+  attr = object_find_attribute(obj_node, "name");
+  if (attr != NULL)
+    entity->name = data_string(attribute_first_data(attr));
+
+  attr = object_find_attribute(obj_node, "weak");
+  if (attr != NULL)
+    entity->weak = data_boolean(attribute_first_data(attr));
+
   element_init(elem, 8, 8);
 
   for (i=0;i<8;i++) {
@@ -499,7 +542,16 @@ entity_load(ObjectNode obj_node, int version)
     entity->connections[i].connected = NULL;
   }
 
+  entity->font = font_getfont("Courier");
+
+  entity->name_width =
+    font_string_width(entity->name, entity->font, FONT_HEIGHT);
+
   entity_update_data(entity);
+
+  for (i=0;i<8;i++) {
+    obj->handles[i]->type = HANDLE_NON_MOVABLE;
+  }
 
   return (Object *)entity;
 }
