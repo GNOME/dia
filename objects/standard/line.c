@@ -307,7 +307,6 @@ line_create(Point *startpoint,
   attributes_get_default_line_style(&line->line_style, &line->dashlength);
   line->start_arrow = attributes_get_default_start_arrow();
   line->end_arrow = attributes_get_default_end_arrow();
-  printf("Start arrow type %d, end %d\n", line->start_arrow.type,line->end_arrow.type);
   line_update_data(line);
 
   *handle1 = obj->handles[0];
