@@ -814,6 +814,7 @@ void diagram_group_selected(Diagram *dia)
   diagram_select(dia, group);
 
   undo_group_objects(dia, group_list, group, orig_list);
+  diagram_tree_remove_objects(diagram_tree(), group_list);
   
   diagram_modified(dia);
   diagram_flush(dia);
@@ -858,6 +859,8 @@ void diagram_ungroup_selected(Diagram *dia)
 				     group, g_list_copy(group_list));
 
       undo_ungroup_objects(dia, group_list, group, group_index);
+      diagram_tree_add_objects(diagram_tree(), dia, group_list);
+      diagram_tree_remove_object(diagram_tree(), group);
       properties_hide_if_shown(dia, group);
 
       any_groups = 1;
