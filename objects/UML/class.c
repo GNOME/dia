@@ -330,7 +330,8 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
       list = umlclass->operations;
       while (list != NULL) {
 	UMLOperation *op = (UMLOperation *)list->data;
-	if (op->abstract) 
+	/* Must add a new font for virtual yet not abstract methods. Bold Italic for abstract? */
+	if (op->inheritance_type != UML_LEAF)
 	  font = umlclass->abstract_font;
 	else
 	  font = umlclass->normal_font;
@@ -599,7 +600,7 @@ umlclass_calculate_data(UMLClass *umlclass)
       op = (UMLOperation *) list->data;
       umlclass->operations_strings[i] = uml_get_operation_string(op);
       
-      if (op->abstract)
+      if (op->inheritance_type != UML_LEAF)
 	width = font_string_width(umlclass->operations_strings[i], umlclass->abstract_font, font_height);
       else
 	width = font_string_width(umlclass->operations_strings[i], umlclass->normal_font, font_height);

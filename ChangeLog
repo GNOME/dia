@@ -1,3 +1,17 @@
+2002-02-03  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	Patch from Matthieu Sozeau <mattam@netcourrier.com>:
+
+	* objects/UML/uml.h:    
+	* objects/UML/uml.c: added UMLInheritanceType and isQuery
+	(constant) UML Operation attributes. UMLInheritanceType is either
+	UML_ABSTRACT or UML_POLYMORPHIC  or UML_LEAF.
+ 
+        * objects/UML/class.h:
+	* objects/UML/class.c:  
+	* objetcs/UML/class_dialog.c: added code to handle new
+	UMLOperation attributes via a GtkMenu and a checkbox.
+
 2002-02-03  Akira TAGOH  <tagoh@redhat.com>
 
 	* app/disp_callbacks.c (ddisplay_realize): fixed XIM issue.

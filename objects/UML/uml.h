@@ -35,6 +35,12 @@ typedef enum _UMLVisibility {
   UML_IMPLEMENTATION /* ?What's this? */
 } UMLVisibility;
 
+typedef enum _UMLInheritanceType {
+  UML_ABSTRACT, /* Pure virtual method: an object of this class cannot be instanciated */
+  UML_POLYMORPHIC, /* Virtual method : could be reimplemented in derivated classes */
+  UML_LEAF /* Final method: can't be redefined in subclasses */
+} UMLInheritanceType;
+
 typedef enum _UMLParameterKind {
   UML_UNDEF_KIND,
   UML_IN,
@@ -58,7 +64,8 @@ struct _UMLOperation {
   utfchar *name;
   utfchar *type; /* Return type, NULL => No return type */
   UMLVisibility visibility;
-  int abstract;
+  UMLInheritanceType inheritance_type;
+  int query; /* Do not modify the object */
   int class_scope;
   GList *parameters; /* List of UMLParameter */
 

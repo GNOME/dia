@@ -1234,7 +1234,9 @@ operations_set_sensitive(UMLClassDialog *prop_dialog, gint val)
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_visible_button), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_visible), val);
   gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_class_scope), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_abstract), val);
+  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_inheritance_type), val);
+  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_inheritance_type_button), val);
+  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_query), val);
 
   gtk_widget_set_sensitive(prop_dialog->param_new_button, val);
   gtk_widget_set_sensitive(prop_dialog->param_delete_button, val);
@@ -1273,7 +1275,9 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
   gtk_option_menu_set_history(prop_dialog->op_visible_button,
 			      (gint)op->visibility);
   gtk_toggle_button_set_active(prop_dialog->op_class_scope, op->class_scope);
-  gtk_toggle_button_set_active(prop_dialog->op_abstract, op->abstract);
+  gtk_toggle_button_set_active(prop_dialog->op_query, op->query);
+  gtk_option_menu_set_history(prop_dialog->op_inheritance_type_button,
+			      (gint)op->inheritance_type);
 
   gtk_list_clear_items(prop_dialog->parameters_list, 0, -1);
   prop_dialog->current_param = NULL;
@@ -1306,7 +1310,7 @@ operations_clear_values(UMLClassDialog *prop_dialog)
   gtk_entry_set_text(prop_dialog->op_name, "");
   gtk_entry_set_text(prop_dialog->op_type, "");
   gtk_toggle_button_set_active(prop_dialog->op_class_scope, FALSE);
-  gtk_toggle_button_set_active(prop_dialog->op_abstract, FALSE);
+  gtk_toggle_button_set_active(prop_dialog->op_query, FALSE);
 
   gtk_list_clear_items(prop_dialog->parameters_list, 0, -1);
   prop_dialog->current_param = NULL;
@@ -1343,7 +1347,11 @@ operations_get_values(UMLClassDialog *prop_dialog, UMLOperation *op)
     GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(gtk_menu_get_active(prop_dialog->op_visible))));
     
   op->class_scope = prop_dialog->op_class_scope->active;
-  op->abstract = prop_dialog->op_abstract->active;
+  op->inheritance_type = (UMLInheritanceType)
+    GPOINTER_TO_INT(gtk_object_get_user_data(GTK_OBJECT(gtk_menu_get_active(prop_dialog->op_inheritance_type))));
+
+  op->query = prop_dialog->op_query->active;
+
 }
 
 static void
@@ -1857,12 +1865,56 @@ operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
 
   hbox2 = gtk_hbox_new(FALSE, 5);
-  checkbox = gtk_check_button_new_with_label(_("abstract"));
-  prop_dialog->op_abstract = GTK_TOGGLE_BUTTON(checkbox);
-  gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
+  label = gtk_label_new(_("Inheritance type:"));
+
+  omenu = gtk_option_menu_new ();
+  menu = gtk_menu_new ();
+  prop_dialog->op_inheritance_type = GTK_MENU(menu);
+  prop_dialog->op_inheritance_type_button = GTK_OPTION_MENU(omenu);
+  submenu = NULL;
+  group = NULL;
+    
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Abstract"));
+  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_object_set_user_data(GTK_OBJECT(menuitem),
+			   GINT_TO_POINTER(UML_ABSTRACT) );
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Polymorphic (virtual)"));
+  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_object_set_user_data(GTK_OBJECT(menuitem),
+			   GINT_TO_POINTER(UML_POLYMORPHIC) );
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+  menuitem = gtk_radio_menu_item_new_with_label (group, _("Leaf (final)"));
+  gtk_signal_connect (GTK_OBJECT (menuitem), "activate",
+		      GTK_SIGNAL_FUNC (operations_update), umlclass);
+  gtk_object_set_user_data(GTK_OBJECT(menuitem),
+			   GINT_TO_POINTER(UML_LEAF) );
+  group = gtk_radio_menu_item_group (GTK_RADIO_MENU_ITEM (menuitem));
+  gtk_menu_append (GTK_MENU (menu), menuitem);
+  gtk_widget_show (menuitem);
+
+  gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+
+  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), omenu, FALSE, TRUE, 0);
+
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
 
-  
+  hbox2 = gtk_hbox_new(FALSE, 5);
+
+  checkbox = gtk_check_button_new_with_label(_("Query"));
+  prop_dialog->op_query = GTK_TOGGLE_BUTTON(checkbox);
+
+  gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
+ 
+
   gtk_box_pack_start (GTK_BOX (hbox), vbox2, FALSE, TRUE, 0);
 
   vbox2 = gtk_vbox_new(FALSE, 5);

@@ -157,7 +157,10 @@ uml_get_operation_string (UMLOperation *operation)
   if (operation->type != NULL) {
     len += 2 + strlen (operation->type);
   }
-  
+  if(operation->query != 0) {
+    len += 6;
+  }
+
   /* generate string: */
   str = g_malloc (sizeof (utfchar) * (len + 1));
 
@@ -192,6 +195,10 @@ uml_get_operation_string (UMLOperation *operation)
   if (operation->type != NULL) {
     strcat (str, ": ");
     strcat (str, operation->type);
+  }
+ 
+  if (operation->query != 0) {
+    strcat(str, " const");
   }
 
   assert (strlen (str) == len);
@@ -293,8 +300,10 @@ uml_operation_copy(UMLOperation *op)
     newop->type = NULL;
   }
   newop->visibility = op->visibility;
-  newop->abstract = op->abstract;
   newop->class_scope = op->class_scope;
+  newop->inheritance_type = op->inheritance_type;
+  newop->query = op->query;
+
 
   newop->left_connection = op->left_connection;
   newop->right_connection = op->right_connection;
@@ -413,8 +422,10 @@ uml_operation_new(void)
   op->name = g_strdup("");
   op->type = NULL;
   op->visibility = UML_PUBLIC;
-  op->abstract = FALSE;
   op->class_scope = FALSE;
+  op->inheritance_type = UML_POLYMORPHIC;
+  op->query = FALSE;
+
   op->parameters = NULL;
 
   op->left_connection = NULL;
@@ -486,8 +497,13 @@ uml_operation_write(AttributeNode attr_node, UMLOperation *op)
 		  op->type);
   data_add_enum(composite_add_attribute(composite, "visibility"),
 		op->visibility);
+  /* Backward compatibility */
   data_add_boolean(composite_add_attribute(composite, "abstract"),
-		   op->abstract);
+		   op->inheritance_type == UML_ABSTRACT);
+  data_add_enum(composite_add_attribute(composite, "inheritance_type"),
+		op->inheritance_type);
+  data_add_boolean(composite_add_attribute(composite, "query"),
+		   op->query);
   data_add_boolean(composite_add_attribute(composite, "class_scope"),
 		   op->class_scope);
   
@@ -595,10 +611,20 @@ uml_operation_read(DataNode composite)
   if (attr_node != NULL)
     op->visibility =  data_enum( attribute_first_data(attr_node) );
   
-  op->abstract = FALSE;
+  op->inheritance_type = UML_POLYMORPHIC;
+  /* Backward compatibility */
   attr_node = composite_find_attribute(composite, "abstract");
   if (attr_node != NULL)
-    op->abstract =  data_boolean( attribute_first_data(attr_node) );
+    if(data_boolean( attribute_first_data(attr_node) ))
+      op->inheritance_type = UML_ABSTRACT;
+  
+  attr_node = composite_find_attribute(composite, "inheritance_type");
+  if (attr_node != NULL)
+    op->inheritance_type = data_enum( attribute_first_data(attr_node) );
+  
+  attr_node = composite_find_attribute(composite, "query");
+  if (attr_node != NULL)
+    op->query =  data_boolean( attribute_first_data(attr_node) );
   
   op->class_scope = FALSE;
   attr_node = composite_find_attribute(composite, "class_scope");

@@ -117,7 +117,10 @@ struct _UMLClassDialog {
   GtkMenu *op_visible;
   GtkOptionMenu *op_visible_button;
   GtkToggleButton *op_class_scope;
-  GtkToggleButton *op_abstract;
+  GtkMenu *op_inheritance_type;
+  GtkOptionMenu *op_inheritance_type_button;
+  GtkToggleButton *op_query;  
+
   
   GtkList *parameters_list;
   GtkListItem *current_param;
