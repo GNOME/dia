@@ -1,3 +1,10 @@
+2003-02-02  Steffen Macke <sdteffen@web.de>
+
+	* doc/en/usage-loadsave.sgml:
+	* doc/en/usage-objects.sgml: patch from
+	James K. Lowden <jklowden@schemamania.org> to fix
+	some docbook errors
+	
 2003-02-01  Hans Breuer  <hans@breuer.org>
 
 	* app/preferences.c app/pagesetup.c :
