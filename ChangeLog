@@ -1,3 +1,20 @@
+1999-08-04  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* menus.c
+	Added Undo and Redo to GNOME menus.
+	
+	* objects/ER/attribute.c:
+	* objects/ER/entity.c:
+	* objects/ER/participation.c:
+	* objects/ER/relationship.c:
+	Added get/set_state functions.
+
+	* objects/ER/participation.c:
+	Added add/delete segment.
+
+	* po/sv.po
+	Updated Swedish translation.
+
 1999-07-25  Alexander Larsson  <alla@lysator.liu.se>
 
         * app/preferences.[hc]:
