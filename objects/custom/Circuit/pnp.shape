@@ -2,10 +2,10 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
-  <name>Circuit - NPN Transistor</name>
+  <name>Circuit - PNP Transistor</name>
   <description xml:lang="en@layman">Small black plastic thing</description>
-  <description>An npn bipolar transistor</description>
-  <icon>npn.xpm</icon>
+  <description>An pnp bipolar transistor</description>
+  <icon>pnp.xpm</icon>
   <connections>
     <point x="0" y="0"/>
     <point x="6" y="-4"/>
@@ -20,7 +20,7 @@
     <svg:line x1="3" y1="-2" x2="6" y2="-4" />
     <svg:line x1="3" y1="2" x2="6" y2="4" />
 
-    <svg:polyline points="5,4 6,4 5.6154,3.0769" />
+    <svg:polyline points="4,2 3,2 3.3846,2.9231" />
   </svg:svg>
 </shape>
 

@@ -399,6 +399,10 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
       pixmap = gdk_pixmap_create_from_xpm_d(parent->window, &mask, 
 					    &style->bg[GTK_STATE_NORMAL], 
 					    sheet_obj->pixmap);
+    } else if (sheet_obj->pixmap_file != NULL) {
+      pixmap = gdk_pixmap_create_from_xpm(parent->window, &mask,
+					  &style->bg[GTK_STATE_NORMAL],
+					  sheet_obj->pixmap_file);
     } else {
       ObjectType *type;
       type = object_get_type(sheet_obj->object_type);

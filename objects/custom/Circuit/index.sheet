@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<sheet xmlns="http://www.daa.com.au/~james/dia-sheet-ns">
+  <name>Circuit</name>
+  <description>Circuit Components</description>
+  <shapes>
+    <shape>hresistor.shape</shape>
+    <shape>vresistor.shape</shape>
+    <shape>hcapacitor.shape</shape>
+    <shape>vcapacitor.shape</shape>
+    <shape>npn.shape</shape>
+    <shape>pnp.shape</shape>
+  </shapes>
+</sheet>

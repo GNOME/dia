@@ -22,60 +22,11 @@
 #include <dirent.h>
 #include <glib.h>
 
-#include "intl.h"
-#include "object.h"
-#include "sheet.h"
-
+#include "load_sheet.h"
 #include "shape_info.h"
-
-void custom_object_new (ShapeInfo *info,
-			ObjectType **otype,
-			SheetObject **sheetobj);
 
 int get_version(void) {
   return 0;
-}
-
-/* create a shape sheet from a directory of XML shape descriptions */
-static Sheet *
-create_custom_sheet(const gchar *directory, const gchar *name)
-{
-  DIR *dp;
-  struct dirent *dirp;
-  Sheet *sheet = NULL;
-
-  dp = opendir(directory);
-  if (dp == NULL) {
-    return;
-  }
-  while ( (dirp = readdir(dp)) ) {
-    int len = strlen(dirp->d_name);
-    if ((len > 4 && !strcmp(".xml", &dirp->d_name[len-4])) ||
-	(len > 6 && !strcmp(".shape", &dirp->d_name[len-6]))) {
-      gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
-				    dirp->d_name, NULL);
-      ShapeInfo *info = shape_info_load(filename);
-      ObjectType  *obj_type;
-      SheetObject *sheet_obj;
-
-      g_free(filename);
-      if (!info)
-	continue;
-
-      shape_info_print(info); /* debugging ... */
-      custom_object_new(info, &obj_type, &sheet_obj); /* create new type */
-
-      object_register_type(obj_type);
-
-      /* register the sheet object */
-      if (!sheet)
-	sheet = new_sheet(g_strdup(_(name)),
-			  NULL);
-      sheet_append_sheet_obj(sheet, sheet_obj);
-    }
-  }
-  closedir(dp);
-  return sheet;
 }
 
 GList *sheets = NULL;
@@ -108,7 +59,7 @@ load_sheets_from_dir(const gchar *directory) {
       g_free(filename);
       continue;
     }
-    sheet = create_custom_sheet(filename, dirp->d_name);
+    sheet = load_custom_sheet(filename, dirp->d_name);
     g_free(filename);
     if (sheet)
       sheets = g_list_append(sheets, sheet);

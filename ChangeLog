@@ -1,3 +1,39 @@
+1999-08-31  James Henstridge  <james@daa.com.au>
+
+	* objects/custom/Circuit/pnp.*: added pnp transistor shape.
+	
+	* objects/custom/Circuit/Makefile.am (SHAPES): added index.sheet and
+	xpm images for different shapes to Makefile.
+
+	* objects/custom/custom_object.c (custom_object_new): set the icon
+	for the sheet button if there is one.  Otherwise fall back on the
+	default custom object icon.
+
+	* objects/custom/shape_info.c (load_shape_info): read the sheet
+	icon name from the shape file.
+
+	* app/interface.c (create_sheet_page): if sheet_obj->pixmap == NULL,
+	check the pixmap_file field for the name of a pixmap file to load
+	for the tool.
+
+	* lib/sheet.h (SheetObj): added pixmap_file field to structure.  It is
+	at the end of the structure, and it isn't used if the pixmap field
+	is non NULL, so it should not break binary compatibility.
+
+	* objects/custom/load_sheet.[ch]: moved sheet loading code here.  Also
+	added support for the use of an index.sheet file so you can specify
+	the ordering of the shapes in the sheet, and also internationalise
+	the sheet name and actually be able to give a description.  The old
+	readdir based sheet loading code acts as a fallback if an index.sheet
+	file can not be found.
+
+	* objects/custom/custom_util.[ch]: new file containing useful routines
+	needed by the custom object code.  Currently only contains a simple
+	routine for resolving relative paths.
+
+	* objects/custom/custom_object.c (custom_draw): fixed problem with
+	drawing rectangles if the shape has been flipped.
+
 1999-08-30  James Henstridge  <james@daa.com.au>
 
 	* objects/custom/custom_object.c (custom_get_object_menu): allow

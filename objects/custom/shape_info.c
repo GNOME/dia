@@ -4,6 +4,7 @@
 #include <float.h>
 #include <ctype.h>
 #include "shape_info.h"
+#include "custom_util.h"
 #include "intl.h"
 
 static ShapeInfo *load_shape_info(const gchar *filename);
@@ -375,6 +376,11 @@ load_shape_info(const gchar *filename)
 	info->description = g_strdup(tmp);
 	free(tmp);
       }
+    } else if (node->ns == shape_ns && !strcmp(node->name, "icon")) {
+      tmp = xmlNodeGetContent(node);
+      g_free(info->icon);
+      info->icon = get_relative_filename(filename, tmp);
+      free(tmp);
     } else if (node->ns == shape_ns && !strcmp(node->name, "connections")) {
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(Point));
       xmlNodePtr pt_node;
@@ -480,6 +486,13 @@ shape_info_print(ShapeInfo *info)
     g_print("Text bounds : (%g, %g) - (%g, %g)\n",
 	    info->text_bounds.left, info->text_bounds.top,
 	    info->text_bounds.right, info->text_bounds.bottom);
+  g_print("Aspect ratio: ");
+  switch (info->aspect_type) {
+  case SHAPE_ASPECT_FREE: g_print("free\n"); break;
+  case SHAPE_ASPECT_FIXED: g_print("fixed\n"); break;
+  case SHAPE_ASPECT_RANGE:
+    g_print("range %g - %g\n", info->aspect_min, info->aspect_max); break;
+  }
   g_print("Display list:\n");
   for (tmp = info->display_list; tmp; tmp = tmp->next) {
     GraphicElement *el = tmp->data;

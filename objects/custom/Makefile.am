@@ -7,6 +7,10 @@ libcustom_objects_la_SOURCES = \
 			shape_info.c \
 			shape_info.h \
 			custom_object.c \
+			custom_util.c \
+			custom_util.h \
+			load_sheet.c \
+			load_sheet.h \
 			custom.c
 
 libcustom_objects_la_LDFLAGS = -export-dynamic -module -avoid-version

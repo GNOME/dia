@@ -31,6 +31,8 @@ struct _SheetObject {
   char **pixmap; /* in xpm format */
 
   void *user_data;
+
+  char *pixmap_file; /* fallback if pixmap is NULL */
 };
 
 struct _Sheet {

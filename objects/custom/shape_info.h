@@ -75,6 +75,8 @@ typedef struct _ShapeInfo ShapeInfo;
 struct _ShapeInfo {
   gchar *name;
   gchar *description;
+  gchar *icon;
+
   int nconnections;
   Point *connections;
   Rectangle shape_bounds;

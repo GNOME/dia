@@ -657,6 +657,7 @@ custom_draw(Custom *custom, Renderer *renderer)
 {
   static GArray *arr = NULL;
   Point p1, p2;
+  real coord;
   int i;
   GList *tmp;
   Element *elem;
@@ -723,6 +724,16 @@ custom_draw(Custom *custom, Renderer *renderer)
     case GE_RECT:
       transform_coord(custom, &el->rect.corner1, &p1);
       transform_coord(custom, &el->rect.corner2, &p2);
+      if (p1.x > p2.x) {
+	coord = p1.x;
+	p1.x = p2.x;
+	p2.x = coord;
+      }
+      if (p1.y > p2.y) {
+	coord = p1.y;
+	p1.y = p2.y;
+	p2.y = coord;
+      }
       if (custom->show_background)
 	renderer->ops->fill_rect(renderer, &p1, &p2,
 				 el->any.swap_fill ?
@@ -846,10 +857,16 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     }
     break;
   case SHAPE_ASPECT_RANGE:
-    if (custom->xscale / custom->yscale < info->aspect_min)
+    if (custom->xscale / custom->yscale < info->aspect_min) {
       custom->xscale = custom->yscale * info->aspect_min;
-    if (custom->xscale / custom->yscale > info->aspect_max)
+      elem->width = custom->xscale * (info->shape_bounds.right -
+				      info->shape_bounds.left);
+    }
+    if (custom->xscale / custom->yscale > info->aspect_max) {
       custom->yscale = custom->xscale / info->aspect_max;
+      elem->height = custom->yscale * (info->shape_bounds.bottom -
+				       info->shape_bounds.top);
+    }
     break;
   }
   /* resize shape if text does not fit inside text_bounds */
@@ -1298,6 +1315,11 @@ custom_object_new(ShapeInfo *info, ObjectType **otype, SheetObject **sheetobj)
   sheet->object_type = info->name;
   sheet->description = info->description;
   sheet->user_data = info;
+
+  if (info->icon) {
+    sheet->pixmap = NULL;
+    sheet->pixmap_file = info->icon;
+  }
 
   info->object_type = obj;
 
