@@ -1,16 +1,17 @@
 # dia fr.po
-# Copyright (C) 1999,2000 Free Software Foundation, Inc.
-# Vincent Renardias <vincent@ldsol.com>, 1999, 2000.
+#
+# Copyright (C) 1999-2001 Free Software Foundation, Inc.
+# Vincent Renardias <vincent@ldsol.com>, 1999-2000.
 # Fabrice Bellet <Fabrice.Bellet@imag.fr>, 1999.
 # Joaquim Fellmann <joaquim@hrnet.fr>, 2000.
-# Christophe Merlet <redfox@eikonex.org>, 2000.
+# Christophe Merlet <redfox@eikonex.org>, 2000-2001.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2000-12-13 18:59+0100\n"
-"PO-Revision-Date: 2000-12-13 18:56+0100\n"
+"POT-Creation-Date: 2001-01-04 18:24+0100\n"
+"PO-Revision-Date: 2001-01-04 18:29+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@eikonex.org>\n"
 "Language-Team: Gnome French Team <gnomefr@gnomefr.traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -1276,8 +1277,8 @@ msgstr "non"
 
 #: app/plugin-manager.c:181 objects/ER/attribute.c:206 objects/ER/entity.c:190
 #: objects/ER/relationship.c:260 objects/UML/association.c:969
-#: objects/UML/class_dialog.c:705 objects/UML/class_dialog.c:1581
-#: objects/UML/class_dialog.c:1743 objects/UML/class_dialog.c:2199
+#: objects/UML/class_dialog.c:731 objects/UML/class_dialog.c:1607
+#: objects/UML/class_dialog.c:1769 objects/UML/class_dialog.c:2225
 #: objects/UML/dependency.c:612 objects/UML/generalization.c:582
 #: objects/UML/large_package.c:562 objects/UML/realizes.c:580
 msgid "Name:"
@@ -1408,7 +1409,7 @@ msgstr "Propriétés de l'objet"
 msgid "This object has no properties."
 msgstr "Cet objet n'a pas de propriétés."
 
-#: app/render_eps.c:1140
+#: app/render_eps.c:1141
 msgid "Encapsulated Postscript"
 msgstr "Postscript encapsulé"
 
@@ -1422,7 +1423,7 @@ msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
 msgstr ""
-"Avertissement: Pas de police X trouvée pour %s, \n"
+"Avertissement : Pas de police X trouvée pour %s, \n"
 "utilisation de %s à la place.\n"
 
 #: lib/font.c:440
@@ -2077,137 +2078,145 @@ msgid "Composition"
 msgstr "Composition"
 
 #. Class page:
-#: objects/UML/class.c:608 objects/UML/class_dialog.c:171
+#: objects/UML/class.c:608 objects/UML/class_dialog.c:177
 msgid "Class"
 msgstr "Classe"
 
-#: objects/UML/class_dialog.c:177
+#: objects/UML/class_dialog.c:183
 msgid "Class name:"
 msgstr "Nom de la classe :"
 
-#: objects/UML/class_dialog.c:188 objects/UML/dependency.c:624
+#: objects/UML/class_dialog.c:194 objects/UML/dependency.c:624
 #: objects/UML/generalization.c:594 objects/UML/large_package.c:574
 #: objects/UML/object.c:767 objects/UML/realizes.c:592
 msgid "Stereotype:"
 msgstr "Stéréotype :"
 
-#: objects/UML/class_dialog.c:199
+#: objects/UML/class_dialog.c:205
 msgid "Abstract"
 msgstr "Résumé"
 
-#: objects/UML/class_dialog.c:207
+#: objects/UML/class_dialog.c:213
 msgid "Attributes visible"
 msgstr "Attributs visibles"
 
-#: objects/UML/class_dialog.c:211
+#: objects/UML/class_dialog.c:217
 msgid "Suppress Attributes"
 msgstr "Supprimer les attributs"
 
-#: objects/UML/class_dialog.c:219
+#: objects/UML/class_dialog.c:225
 msgid "Operations visible"
 msgstr "Opérations visibles"
 
-#: objects/UML/class_dialog.c:223
+#: objects/UML/class_dialog.c:229
 msgid "Suppress operations"
 msgstr "Supprimer les opérations"
 
+#: objects/UML/class_dialog.c:237
+msgid "Foreground Color"
+msgstr "Couleur du premier plan"
+
+#: objects/UML/class_dialog.c:247
+msgid "Background Color"
+msgstr "Couleur de l'arrière-plan"
+
 #. Attributes page:
-#: objects/UML/class_dialog.c:640
+#: objects/UML/class_dialog.c:666
 msgid "Attributes"
 msgstr "Attributs"
 
-#: objects/UML/class_dialog.c:668 objects/UML/class_dialog.c:1541
-#: objects/UML/class_dialog.c:1701 objects/UML/class_dialog.c:2162
+#: objects/UML/class_dialog.c:694 objects/UML/class_dialog.c:1567
+#: objects/UML/class_dialog.c:1727 objects/UML/class_dialog.c:2188
 msgid "New"
 msgstr "Nouveau"
 
-#: objects/UML/class_dialog.c:674 objects/UML/class_dialog.c:1547
-#: objects/UML/class_dialog.c:1708 objects/UML/class_dialog.c:2168
+#: objects/UML/class_dialog.c:700 objects/UML/class_dialog.c:1573
+#: objects/UML/class_dialog.c:1734 objects/UML/class_dialog.c:2194
 msgid "Delete"
 msgstr "Supprimer"
 
-#: objects/UML/class_dialog.c:680 objects/UML/class_dialog.c:1553
-#: objects/UML/class_dialog.c:1715 objects/UML/class_dialog.c:2174
+#: objects/UML/class_dialog.c:706 objects/UML/class_dialog.c:1579
+#: objects/UML/class_dialog.c:1741 objects/UML/class_dialog.c:2200
 msgid "Move up"
 msgstr "Déplacer vers le haut"
 
-#: objects/UML/class_dialog.c:686 objects/UML/class_dialog.c:1559
-#: objects/UML/class_dialog.c:1722 objects/UML/class_dialog.c:2180
+#: objects/UML/class_dialog.c:712 objects/UML/class_dialog.c:1585
+#: objects/UML/class_dialog.c:1748 objects/UML/class_dialog.c:2206
 msgid "Move down"
 msgstr "Déplacer vers le bas"
 
-#: objects/UML/class_dialog.c:697
+#: objects/UML/class_dialog.c:723
 msgid "Attribute data"
 msgstr "Données des attributs"
 
-#: objects/UML/class_dialog.c:717 objects/UML/class_dialog.c:1593
-#: objects/UML/class_dialog.c:1755 objects/UML/class_dialog.c:2211
+#: objects/UML/class_dialog.c:743 objects/UML/class_dialog.c:1619
+#: objects/UML/class_dialog.c:1781 objects/UML/class_dialog.c:2237
 msgid "Type:"
 msgstr "Type :"
 
-#: objects/UML/class_dialog.c:729
+#: objects/UML/class_dialog.c:755
 msgid "Value:"
 msgstr "Valeur :"
 
-#: objects/UML/class_dialog.c:741 objects/UML/class_dialog.c:1605
+#: objects/UML/class_dialog.c:767 objects/UML/class_dialog.c:1631
 msgid "Visibility:"
 msgstr "Visibilité :"
 
-#: objects/UML/class_dialog.c:750 objects/UML/class_dialog.c:1614
+#: objects/UML/class_dialog.c:776 objects/UML/class_dialog.c:1640
 msgid "Public"
 msgstr "Publique"
 
-#: objects/UML/class_dialog.c:758 objects/UML/class_dialog.c:1622
+#: objects/UML/class_dialog.c:784 objects/UML/class_dialog.c:1648
 msgid "Private"
 msgstr "Privé"
 
-#: objects/UML/class_dialog.c:766 objects/UML/class_dialog.c:1630
+#: objects/UML/class_dialog.c:792 objects/UML/class_dialog.c:1656
 msgid "Protected"
 msgstr "Protégé"
 
-#: objects/UML/class_dialog.c:774 objects/UML/class_dialog.c:1638
+#: objects/UML/class_dialog.c:800 objects/UML/class_dialog.c:1664
 msgid "Implementation"
 msgstr "Implémentation"
 
-#: objects/UML/class_dialog.c:790 objects/UML/class_dialog.c:1654
+#: objects/UML/class_dialog.c:816 objects/UML/class_dialog.c:1680
 msgid "Class scope"
 msgstr "Visibilité de la classe"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1513
+#: objects/UML/class_dialog.c:1539
 msgid "Operations"
 msgstr "Opérations"
 
-#: objects/UML/class_dialog.c:1571
+#: objects/UML/class_dialog.c:1597
 msgid "Operation data"
 msgstr "Donnée de l'opération"
 
-#: objects/UML/class_dialog.c:1660
+#: objects/UML/class_dialog.c:1686
 msgid "abstract"
 msgstr "résumé"
 
-#: objects/UML/class_dialog.c:1672
+#: objects/UML/class_dialog.c:1698
 msgid "Parameters:"
 msgstr "Paramètres :"
 
-#: objects/UML/class_dialog.c:1734
+#: objects/UML/class_dialog.c:1760
 msgid "Parameter data"
 msgstr "Donnée du paramètre"
 
-#: objects/UML/class_dialog.c:1767
+#: objects/UML/class_dialog.c:1793
 msgid "Def. value:"
 msgstr "Val. Def. :"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2128
+#: objects/UML/class_dialog.c:2154
 msgid "Templates"
 msgstr "Modèles"
 
-#: objects/UML/class_dialog.c:2134
+#: objects/UML/class_dialog.c:2160
 msgid "Template class"
 msgstr "Classe modèle"
 
-#: objects/UML/class_dialog.c:2191
+#: objects/UML/class_dialog.c:2217
 msgid "Formal parameter data"
 msgstr "Données du paramètre formel"
 
