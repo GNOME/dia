@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.88.1\n"
-"POT-Creation-Date: 2001-08-16 14:23+0200\n"
+"POT-Creation-Date: 2001-08-16 22:22+0200\n"
 "PO-Revision-Date: 2000-08-06 13:23+0200\n"
 "Last-Translator: Burak Ilgicioglu <ilgici@turk.net>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -1842,7 +1842,7 @@ msgstr "Türetilen:"
 msgid "Multivalue:"
 msgstr "Çoklu deðerli:"
 
-#: objects/ER/attribute.c:389
+#: objects/ER/attribute.c:389 sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Özellik"
 
@@ -1851,7 +1851,7 @@ msgstr "Özellik"
 msgid "Weak:"
 msgstr "Zayýf:"
 
-#: objects/ER/entity.c:340 objects/UML/classicon.c:124
+#: objects/ER/entity.c:340 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Varlýk"
 
@@ -1897,7 +1897,7 @@ msgstr "Döndür:"
 msgid "Identifying:"
 msgstr "Tanýmlayýcý"
 
-#: objects/ER/relationship.c:418
+#: objects/ER/relationship.c:418 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Ýliþki"
 
@@ -2108,6 +2108,7 @@ msgid "Support"
 msgstr "Destekle"
 
 #: objects/FS/function.c:653 objects/FS/function.c:654
+#: sheets/SDL.sheet.in.h:19
 #, fuzzy
 msgid "Stop"
 msgstr "Durdur"
@@ -2414,7 +2415,7 @@ msgstr "Yeniden doldur"
 msgid "Expose"
 msgstr "Meydana Çýkar"
 
-#: objects/FS/function.c:741
+#: objects/FS/function.c:741 sheets/Flowchart.sheet.in.h:9
 #, fuzzy
 msgid "Extract"
 msgstr "Aç"
@@ -2619,7 +2620,7 @@ msgstr "Göster"
 msgid "Mark"
 msgstr "Ýþaretle"
 
-#: objects/FS/function.c:800
+#: objects/FS/function.c:800 sheets/Flowchart.sheet.in.h:7
 #, fuzzy
 msgid "Display"
 msgstr "Görünüm"
@@ -2851,7 +2852,7 @@ msgstr "Kulanýcý / Aygýt Fn"
 msgid "Wish Fn"
 msgstr "Istenilen fonksiyon"
 
-#: objects/GRAFCET/action.c:134
+#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
 msgid "Macro call"
 msgstr "Makro çaðrýsý"
 
@@ -3916,6 +3917,1309 @@ msgstr "Bu %d.%d FIG versiyonu, analamayabilirim\n"
 #: plug-ins/xfig/xfig-import.c:1205
 msgid "XFig File Format"
 msgstr "XFig dosya tipi"
+
+#: sheets/chronogram.sheet.in.h:1
+#, fuzzy
+msgid "A data line"
+msgstr "Veri çizgisi eni:"
+
+#: sheets/chronogram.sheet.in.h:2
+msgid "A time scale"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:3
+msgid "Chronogram"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:4
+msgid "Objects to design chronogram charts"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:1
+#, fuzzy
+msgid "A Horizontal Jumper"
+msgstr "Yatay hizala"
+
+#: sheets/Circuit.sheet.in.h:2
+#, fuzzy
+msgid "A Horizontally aligned inductor"
+msgstr "Yatay hizala"
+
+#: sheets/Circuit.sheet.in.h:3
+msgid "A Horizontally aligned inductor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:4
+#, fuzzy
+msgid "A Horizontally aligned resistor"
+msgstr "Yatay ters çevir"
+
+#: sheets/Circuit.sheet.in.h:5
+msgid "A Horizontally aligned resistor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:6
+#, fuzzy
+msgid "A PMOS transistor"
+msgstr "Çeviri"
+
+#: sheets/Circuit.sheet.in.h:7
+msgid "A Speaker"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:8
+msgid "A Vertically aligned inductor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:9
+msgid "A Vertically aligned inductor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:10
+msgid "A Vertically aligned resistor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:11
+msgid "A Vertically aligned resistor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:12
+#, fuzzy
+msgid "A ground point"
+msgstr "Bitiþ noktasý"
+
+#: sheets/Circuit.sheet.in.h:13
+msgid "A horizontally aligned LED"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:14
+msgid "A horizontally aligned capacitor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:15
+msgid "A horizontally aligned diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:16
+#, fuzzy
+msgid "A horizontally aligned fuse"
+msgstr "Yatay hizala"
+
+#: sheets/Circuit.sheet.in.h:17
+msgid "A horizontally aligned powersource"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:18
+msgid "A horizontally aligned zener diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:19
+msgid "A lamp"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:20
+msgid "A npn bipolar transistor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:21
+msgid "A pnp bipolar transistor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:22
+msgid "A vertically aligned LED"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:23
+msgid "A vertically aligned capacitor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:24
+msgid "A vertically aligned diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:25
+msgid "A vertically aligned fuse"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:26
+msgid "A vertically aligned powersource"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:27
+msgid "A vertically aligned zener diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:28
+#, fuzzy
+msgid "An NMOS transistor"
+msgstr "Çeviri"
+
+#: sheets/Circuit.sheet.in.h:29
+#, fuzzy
+msgid "An operational amplifier"
+msgstr "Yatay hizala"
+
+#: sheets/Circuit.sheet.in.h:30
+#, fuzzy
+msgid "Circuit"
+msgstr "Yön"
+
+#: sheets/Circuit.sheet.in.h:31
+msgid "Components for circuit diagrams"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:1
+msgid "A Backflow Preventer"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:2
+#, fuzzy
+msgid "A Basin"
+msgstr "Çeviri"
+
+#: sheets/civil.sheet.in.h:3
+#, fuzzy
+msgid "A Container"
+msgstr "Ýçer"
+
+#: sheets/civil.sheet.in.h:4
+#, fuzzy
+msgid "A Frequency Converter"
+msgstr "Dönüþtür"
+
+#: sheets/civil.sheet.in.h:5
+msgid "A Gas Bottle"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:6
+#, fuzzy
+msgid "A Motor"
+msgstr "Eylemci"
+
+#: sheets/civil.sheet.in.h:7
+msgid "A Preliminary Clarification Tank"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:8
+#, fuzzy
+msgid "A Rotor"
+msgstr "Eylemci"
+
+#: sheets/civil.sheet.in.h:9
+msgid "A final-settling Basin"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:10
+#, fuzzy
+msgid "A horizontal limiting line"
+msgstr "Yatay hizala"
+
+#: sheets/civil.sheet.in.h:11
+msgid "A horizontally aligned Arrow"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:12
+msgid "A vertical limiting line"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:13
+msgid "A vertically aligned Arrow"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:14
+msgid "An Aerator with bubbles"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:15
+#, fuzzy
+msgid "Bivalent Vertical Rest"
+msgstr "Dikey ters çevir"
+
+#: sheets/civil.sheet.in.h:16
+msgid "Civil"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:17
+msgid "Civil Engineering Components"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:18
+#, fuzzy
+msgid "Horizontal Rest"
+msgstr "Yatay ters çevir"
+
+#: sheets/civil.sheet.in.h:19
+msgid "Horizontally aligned Valve"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:20
+#, fuzzy
+msgid "Horizontally aligned compressor"
+msgstr "Yatay hizala"
+
+#: sheets/civil.sheet.in.h:21
+#, fuzzy
+msgid "Horizontally aligned pump"
+msgstr "Yatay hizala"
+
+#: sheets/civil.sheet.in.h:22
+#, fuzzy
+msgid "Reference Line"
+msgstr "Çizgi yarat"
+
+#: sheets/civil.sheet.in.h:23
+#, fuzzy
+msgid "Soil"
+msgstr "Katý"
+
+#: sheets/civil.sheet.in.h:24
+#, fuzzy
+msgid "Vertical Rest"
+msgstr "Dikey ters çevir"
+
+#: sheets/civil.sheet.in.h:25
+msgid "Vertically aligned Propeller"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:26
+msgid "Vertically aligned Valve"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:27
+msgid "Vertically aligned compressor"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:28
+msgid "Vertically aligned pump"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:29
+msgid "Water Level"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:1
+msgid "A 'if not' (normally closed) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:2
+msgid "A 'if' (normally open) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:3
+#, fuzzy
+msgid "A 'jump' output variable"
+msgstr "Yeniliðin yazý tipi boyutu"
+
+#: sheets/Contact.sheet.in.h:4
+#, fuzzy
+msgid "A 'reset' output variable"
+msgstr "Yeniliðin yazý tipi boyutu"
+
+#: sheets/Contact.sheet.in.h:5
+#, fuzzy
+msgid "A 'set' output variable"
+msgstr "Yeniliðin yazý tipi boyutu"
+
+#: sheets/Contact.sheet.in.h:6
+#, fuzzy
+msgid "A negative output variable"
+msgstr "Yeniliðin yazý tipi boyutu"
+
+#: sheets/Contact.sheet.in.h:7
+#, fuzzy
+msgid "A power-saved 'reset' output variable"
+msgstr "Yeniliðin yazý tipi boyutu"
+
+#: sheets/Contact.sheet.in.h:8
+#, fuzzy
+msgid "A power-saved 'set' output variable"
+msgstr "Yeniliðin yazý tipi boyutu"
+
+#: sheets/Contact.sheet.in.h:9
+#, fuzzy
+msgid "A power-saved negative output variable"
+msgstr "Yeniliðin yazý tipi boyutu"
+
+#: sheets/Contact.sheet.in.h:10
+#, fuzzy
+msgid "A power-saved simple output variable"
+msgstr "Yeniliðin yazý tipi boyutu"
+
+#: sheets/Contact.sheet.in.h:11
+#, fuzzy
+msgid "A receptivity output variable"
+msgstr "Yeniliðin yazý tipi boyutu"
+
+#: sheets/Contact.sheet.in.h:12
+#, fuzzy
+msgid "A simple output variable"
+msgstr "Yeniliðin yazý tipi boyutu"
+
+#: sheets/Contact.sheet.in.h:13
+msgid "Components for LADDER circuits"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:14
+#, fuzzy
+msgid "Ladder"
+msgstr "Katmanlar"
+
+#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
+#, fuzzy
+msgid "A connection point"
+msgstr "Baðlantý noktasý ekle"
+
+#: sheets/Electric.sheet.in.h:2
+msgid "A lamp or indicator light"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:3
+msgid "A normally closed contact"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:4
+msgid "A normally closed position switch"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:5
+msgid "A normally open contact"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:6
+msgid "A normally open position switch"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:7
+#, fuzzy
+msgid "A relay"
+msgstr "Görünüm"
+
+#: sheets/Electric.sheet.in.h:8
+msgid "Components for electric circuits"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:9
+#, fuzzy
+msgid "Electric"
+msgstr "Elektrikli"
+
+#: sheets/Electric.sheet.in.h:10
+msgid "The command organ of a relay"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:1
+#, fuzzy
+msgid "Create a process"
+msgstr "Yay yarat"
+
+#: sheets/EML.sheet.in.h:2
+msgid "EML"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:3
+#, fuzzy
+msgid "Editor for EML Static Structure Diagrams."
+msgstr "Iþlev yapýsý diyagram nesneleri"
+
+#: sheets/EML.sheet.in.h:4
+msgid "Instantiation. One process create others"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:5
+msgid "Interaction between processes."
+msgstr ""
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:3
+#, fuzzy
+msgid "Editor for Entity Relations Diagrams"
+msgstr "Varlýk/Ýliþki diyagram nesneleri"
+
+#: sheets/ER.sheet.in.h:5
+#, fuzzy
+msgid "Participation"
+msgstr "Radyasyon"
+
+#: sheets/ER.sheet.in.h:7
+#, fuzzy
+msgid "Weak Entity"
+msgstr "Varlýk"
+
+#: sheets/Flowchart.sheet.in.h:1
+msgid "A box with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:2
+msgid "A diamond with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:3
+msgid "A ellipse with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:4
+msgid "A parallelogram with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:5
+#, fuzzy
+msgid "Collate"
+msgstr "Hesapla"
+
+#: sheets/Flowchart.sheet.in.h:6
+#, fuzzy
+msgid "Delay"
+msgstr "Görünüm"
+
+#: sheets/Flowchart.sheet.in.h:8
+#, fuzzy
+msgid "Document"
+msgstr "Baðla"
+
+#: sheets/Flowchart.sheet.in.h:10
+#, fuzzy
+msgid "Flowchart"
+msgstr "Akýþ diyagram nesneleri"
+
+#: sheets/Flowchart.sheet.in.h:11
+#, fuzzy
+msgid "Internal Storage"
+msgstr "Ýntegral iþareti"
+
+#: sheets/Flowchart.sheet.in.h:12
+#, fuzzy
+msgid "Magnetic Disk"
+msgstr "Manyetik Enerji"
+
+#: sheets/Flowchart.sheet.in.h:13
+#, fuzzy
+msgid "Magnetic Drum"
+msgstr "Manyetik Enerji"
+
+#: sheets/Flowchart.sheet.in.h:14
+#, fuzzy
+msgid "Magnetic Tape"
+msgstr "Manyetik Enerji"
+
+#: sheets/Flowchart.sheet.in.h:15
+#, fuzzy
+msgid "Manual Input"
+msgstr "Iþlemler"
+
+#: sheets/Flowchart.sheet.in.h:16
+#, fuzzy
+msgid "Manual Operation"
+msgstr "Iþlemler"
+
+#: sheets/Flowchart.sheet.in.h:17
+#, fuzzy
+msgid "Merge"
+msgstr "Ölç"
+
+#: sheets/Flowchart.sheet.in.h:18
+msgid "Objects to draw flowcharts"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:19
+#, fuzzy
+msgid "Off Page Connector"
+msgstr "Baðla"
+
+#: sheets/Flowchart.sheet.in.h:20
+#, fuzzy
+msgid "Offline Storage"
+msgstr "Ýntegral iþareti"
+
+#: sheets/Flowchart.sheet.in.h:21
+msgid "Or"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:22
+#, fuzzy
+msgid "Predefined Process"
+msgstr "Tercihler"
+
+#: sheets/Flowchart.sheet.in.h:23
+#, fuzzy
+msgid "Preparation"
+msgstr "Iþlemler"
+
+#: sheets/Flowchart.sheet.in.h:24
+msgid "Punched Card"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:25
+msgid "Punched Tape"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:26
+#, fuzzy
+msgid "Sort"
+msgstr "Destekle"
+
+#: sheets/Flowchart.sheet.in.h:27
+#, fuzzy
+msgid "Summing Junction"
+msgstr "Istenilen iþlev"
+
+#: sheets/Flowchart.sheet.in.h:28
+#, fuzzy
+msgid "Terminal"
+msgstr "Termik"
+
+#: sheets/Flowchart.sheet.in.h:29
+#, fuzzy
+msgid "Transaction File"
+msgstr "Çeviri"
+
+#: sheets/Flowchart.sheet.in.h:30
+#, fuzzy
+msgid "Transmittal Tape"
+msgstr "Gönder"
+
+#: sheets/FS.sheet.in.h:1
+#, fuzzy
+msgid "Create a flow"
+msgstr "Kutu yarat"
+
+#: sheets/FS.sheet.in.h:2
+#, fuzzy
+msgid "Create a function"
+msgstr "Kullanýcý iþlevi"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Create an orthogonal polyline flow"
+msgstr ""
+
+#: sheets/FS.sheet.in.h:4
+#, fuzzy
+msgid "Editor for Function Structure Diagrams."
+msgstr "Iþlev yapýsý diyagram nesneleri"
+
+#: sheets/FS.sheet.in.h:5
+msgid "FS"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:1
+#, fuzzy
+msgid "A AND vergent"
+msgstr "GRAFCET VEYA/VE kenarý"
+
+#: sheets/GRAFCET.sheet.in.h:2
+#, fuzzy
+msgid "A OR vergent"
+msgstr "GRAFCET VEYA/VE kenarý"
+
+#: sheets/GRAFCET.sheet.in.h:3
+#, fuzzy
+msgid "A condition (of an action)"
+msgstr "Koþulun yazýtipi"
+
+#: sheets/GRAFCET.sheet.in.h:4
+#, fuzzy
+msgid "A macro call step"
+msgstr "Makro çaðrý adýmý"
+
+#: sheets/GRAFCET.sheet.in.h:5
+#, fuzzy
+msgid "A macro entry step"
+msgstr "Makro baþlangýç adýmý"
+
+#: sheets/GRAFCET.sheet.in.h:6
+#, fuzzy
+msgid "A macro exit step"
+msgstr "Makro bitiþ adýmý"
+
+#: sheets/GRAFCET.sheet.in.h:7
+#, fuzzy
+msgid "A macro sub-program call step"
+msgstr "Altiþlem çaðrý adýmý"
+
+#: sheets/GRAFCET.sheet.in.h:8
+#, fuzzy
+msgid "A regular step"
+msgstr "Kurallý adým"
+
+#: sheets/GRAFCET.sheet.in.h:9
+#, fuzzy
+msgid "A transition"
+msgstr "Çeviri"
+
+#: sheets/GRAFCET.sheet.in.h:10
+#, fuzzy
+msgid "An action to associate to a step"
+msgstr "Bu eylem bir macro-step'e çaðrýdýr"
+
+#: sheets/GRAFCET.sheet.in.h:11
+msgid "An arc (upward)"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:12
+#, fuzzy
+msgid "An initial step"
+msgstr "Ilk adým"
+
+#: sheets/GRAFCET.sheet.in.h:13
+msgid "GRAFCET"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:14
+msgid "Objects to design GRAFCET charts"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:1
+#, fuzzy
+msgid "A Nand gate"
+msgstr "Içer"
+
+#: sheets/Logic.sheet.in.h:2
+#, fuzzy
+msgid "A Nor gate"
+msgstr "Içer"
+
+#: sheets/Logic.sheet.in.h:3
+#, fuzzy
+msgid "A Not"
+msgstr "Içer"
+
+#: sheets/Logic.sheet.in.h:4
+#, fuzzy
+msgid "A Xor gate"
+msgstr "Içer"
+
+#: sheets/Logic.sheet.in.h:5
+#, fuzzy
+msgid "A crossconnector"
+msgstr "Baðlantýyý kes"
+
+#: sheets/Logic.sheet.in.h:6
+#, fuzzy
+msgid "A simple Buffer"
+msgstr "Yazýcýyý seç"
+
+#: sheets/Logic.sheet.in.h:7
+#, fuzzy
+msgid "An And gate"
+msgstr "Içer"
+
+#: sheets/Logic.sheet.in.h:8
+#, fuzzy
+msgid "An Inverter"
+msgstr "Dönüþtür"
+
+#: sheets/Logic.sheet.in.h:9
+#, fuzzy
+msgid "An Or gate"
+msgstr "Içer"
+
+#: sheets/Logic.sheet.in.h:10
+#, fuzzy
+msgid "Boolean Logic"
+msgstr "Biyolojik"
+
+#: sheets/Logic.sheet.in.h:11
+#, fuzzy
+msgid "Logic"
+msgstr "Kilitle"
+
+#: sheets/MSE.sheet.in.h:1
+#, fuzzy
+msgid "Demultiplexer"
+msgstr "Çarp"
+
+#: sheets/MSE.sheet.in.h:2
+msgid "Large Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:3
+msgid "MSE"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:4
+#, fuzzy
+msgid "Multiplexer"
+msgstr "Çarp"
+
+#: sheets/MSE.sheet.in.h:5
+#, fuzzy
+msgid "Node Center"
+msgstr "Orta"
+
+#: sheets/MSE.sheet.in.h:6
+msgid "Small Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:7
+msgid "Tactical Satellite Communications Terminal"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:8
+msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr ""
+
+#: sheets/network.sheet.in.h:1
+msgid "A 3 1/2 inch diskette"
+msgstr ""
+
+#: sheets/network.sheet.in.h:2
+msgid "A Bigtower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:3
+#, fuzzy
+msgid "A Computer"
+msgstr "Köþe ekle"
+
+#: sheets/network.sheet.in.h:4
+msgid "A Desktop PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:5
+msgid "A Firewall router"
+msgstr ""
+
+#: sheets/network.sheet.in.h:6
+msgid "A Miditower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:7
+msgid "A Minitower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:8
+msgid "A Mobile Phone"
+msgstr ""
+
+#: sheets/network.sheet.in.h:9
+msgid "A RJ45 Wall-Plug"
+msgstr ""
+
+#: sheets/network.sheet.in.h:10
+msgid "A UNIX Workstation"
+msgstr ""
+
+#: sheets/network.sheet.in.h:11
+#, fuzzy
+msgid "A WAN Connection"
+msgstr "Isýyayým"
+
+#: sheets/network.sheet.in.h:12
+#, fuzzy
+msgid "A WAN Link"
+msgstr "Isýyayým"
+
+#: sheets/network.sheet.in.h:13
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr ""
+
+#: sheets/network.sheet.in.h:14
+msgid "A Workstation Monitor"
+msgstr ""
+
+#: sheets/network.sheet.in.h:15
+msgid "A ZIP Disk"
+msgstr ""
+
+#: sheets/network.sheet.in.h:16
+msgid "A modular switching system"
+msgstr ""
+
+#: sheets/network.sheet.in.h:17
+#, fuzzy
+msgid "A monitor"
+msgstr "Eylemci"
+
+#: sheets/network.sheet.in.h:18
+#, fuzzy
+msgid "A simple Modem"
+msgstr "Yazýcýyý seç"
+
+#: sheets/network.sheet.in.h:19
+#, fuzzy
+msgid "A simple printer"
+msgstr "Yazýcýyý seç"
+
+#: sheets/network.sheet.in.h:20
+msgid "A speaker with integrated amplifier"
+msgstr ""
+
+#: sheets/network.sheet.in.h:21
+msgid "A speaker without amplifier"
+msgstr ""
+
+#: sheets/network.sheet.in.h:22
+msgid "A stackable hub or switch"
+msgstr ""
+
+#: sheets/network.sheet.in.h:23
+#, fuzzy
+msgid "ATM Switch Symbol"
+msgstr "Deðiþtir"
+
+#: sheets/network.sheet.in.h:24
+msgid "An Ethernet bus"
+msgstr ""
+
+#: sheets/network.sheet.in.h:25
+msgid "An antenna for wireless transmission"
+msgstr ""
+
+#: sheets/network.sheet.in.h:26
+msgid "An external DAT drive"
+msgstr ""
+
+#: sheets/network.sheet.in.h:27
+#, fuzzy
+msgid "Network"
+msgstr "Yeni"
+
+#: sheets/network.sheet.in.h:28
+#, fuzzy
+msgid "Network Cloud"
+msgstr "Yeni"
+
+#: sheets/network.sheet.in.h:29
+msgid "Objects to design network diagrams with"
+msgstr ""
+
+#: sheets/network.sheet.in.h:30
+#, fuzzy
+msgid "Router Symbol"
+msgstr "Ýntegral iþareti"
+
+#: sheets/network.sheet.in.h:31
+#, fuzzy
+msgid "Storage"
+msgstr "Dükkan"
+
+#: sheets/network.sheet.in.h:32
+#, fuzzy
+msgid "Switch Symbol"
+msgstr "Deðiþtir"
+
+#: sheets/Pneumatic.sheet.in.h:1
+msgid "A 2/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:2
+msgid "A 3/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:3
+msgid "A 3/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:4
+msgid "A 4/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:5
+msgid "A 5/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:6
+msgid "A 5/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:8
+msgid "A double-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:9
+msgid "A generic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:10
+msgid "A hydraulic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:11
+msgid "A normally-in simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:12
+msgid "A normally-out simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "A pneumatic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "An air exhaust orifice"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:15
+msgid "Components for pneumatic and hydraulic circuits"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:16
+msgid "Electric command (double coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:17
+msgid "Electric command (single coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:18
+msgid "Indirect command by hydraulic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:19
+msgid "Indirect command by pneumatic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Mechanical command by spring"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Mechanical command by tappet"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Muscular command"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:23
+#, fuzzy
+msgid "Pneumatic/Hydraulic"
+msgstr "Hidrolik"
+
+#: sheets/Pneumatic.sheet.in.h:24
+msgid "Push-button command"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:1
+#, fuzzy
+msgid "A activity/data flow arrow"
+msgstr "Eylem/Veri tanýmlýyýcýsý"
+
+#: sheets/SADT.sheet.in.h:2
+msgid "A flow label"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:3
+#, fuzzy
+msgid "An activity/data box"
+msgstr "Eylem/Veri tanýmlýyýcýsý"
+
+#: sheets/SADT.sheet.in.h:4
+msgid "Objects to design SADT diagrams"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:5
+msgid "SADT/IDEF0"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:1
+msgid "Action being executed"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:2
+#, fuzzy
+msgid "Block Type Reference"
+msgstr "Tercihler"
+
+#: sheets/SDL.sheet.in.h:3
+#, fuzzy
+msgid "Comment"
+msgstr "Orta"
+
+#: sheets/SDL.sheet.in.h:4
+#, fuzzy
+msgid "Decision"
+msgstr "Açýklama:"
+
+#: sheets/SDL.sheet.in.h:5
+#, fuzzy
+msgid "Function Header"
+msgstr "Makro çaðrýsý"
+
+#: sheets/SDL.sheet.in.h:6
+#, fuzzy
+msgid "Function call"
+msgstr "Makro çaðrýsý"
+
+#: sheets/SDL.sheet.in.h:7
+msgid "Generic Text Note"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:8
+#, fuzzy
+msgid "In/Out Connector"
+msgstr "Baðla"
+
+#: sheets/SDL.sheet.in.h:10
+msgid "Procedure Return"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:11
+#, fuzzy
+msgid "Process Type Reference"
+msgstr "Tercihler"
+
+#: sheets/SDL.sheet.in.h:12
+#, fuzzy
+msgid "Receive message"
+msgstr "Al"
+
+#: sheets/SDL.sheet.in.h:13
+msgid "SDL"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:14
+#, fuzzy
+msgid "Save State"
+msgstr "Baþla"
+
+#: sheets/SDL.sheet.in.h:15
+#, fuzzy
+msgid "Send message"
+msgstr "Ileti:"
+
+#: sheets/SDL.sheet.in.h:16
+#, fuzzy
+msgid "Service Type Reference"
+msgstr "Tercihler"
+
+#: sheets/SDL.sheet.in.h:17
+msgid "Specification and Description Language."
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:18
+#, fuzzy
+msgid "State"
+msgstr "Baþla"
+
+#: sheets/sybase.sheet.in.h:1
+msgid "A Sybase Client Application"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:2
+msgid "A Sybase Dataserver"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:3
+msgid "A Sybase Replication Server"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Log Transfer Manager or Rep Agent"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:5
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Replication Server Manager"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Stable Storage Device"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:8
+#, fuzzy
+msgid "Sybase"
+msgstr "Tireli"
+
+#: sheets/UML.sheet.in.h:1
+msgid "Aggregation, one class is part of another"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:2
+msgid "Association, two classes are associated"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:3
+msgid "Constraint, place a constraint on something"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:4
+#, fuzzy
+msgid "Create a (large) package"
+msgstr "Resim yarat"
+
+#: sheets/UML.sheet.in.h:5
+#, fuzzy
+msgid "Create a (small) package"
+msgstr "Resim yarat"
+
+#: sheets/UML.sheet.in.h:6
+#, fuzzy
+msgid "Create a branch"
+msgstr "Yay yarat"
+
+#: sheets/UML.sheet.in.h:7
+#, fuzzy
+msgid "Create a class"
+msgstr "Þablon sýnýfý"
+
+#: sheets/UML.sheet.in.h:8
+#, fuzzy
+msgid "Create a class stereotype icon"
+msgstr "Þablon sýnýfý"
+
+#: sheets/UML.sheet.in.h:9
+#, fuzzy
+msgid "Create a component"
+msgstr "Poligon yarat"
+
+#: sheets/UML.sheet.in.h:10
+#, fuzzy
+msgid "Create a dependency"
+msgstr "Bezyer çizgisini yarata"
+
+#: sheets/UML.sheet.in.h:11
+#, fuzzy
+msgid "Create a lifeline"
+msgstr "Bezyer çizgisini yarata"
+
+#: sheets/UML.sheet.in.h:12
+#, fuzzy
+msgid "Create a message"
+msgstr "Resim yarat"
+
+#: sheets/UML.sheet.in.h:13
+#, fuzzy
+msgid "Create a node"
+msgstr "Çizgi yarat"
+
+#: sheets/UML.sheet.in.h:14
+#, fuzzy
+msgid "Create a note"
+msgstr "Çizgi yarat"
+
+#: sheets/UML.sheet.in.h:15
+#, fuzzy
+msgid "Create a state machine"
+msgstr "Çizgi yarat"
+
+#: sheets/UML.sheet.in.h:16
+#, fuzzy
+msgid "Create a template class"
+msgstr "Þablon sýnýfý"
+
+#: sheets/UML.sheet.in.h:17
+#, fuzzy
+msgid "Create a use case"
+msgstr "Resim yarat"
+
+#: sheets/UML.sheet.in.h:18
+#, fuzzy
+msgid "Create an actor"
+msgstr "Yeni bir diyagram yarat"
+
+#: sheets/UML.sheet.in.h:19
+#, fuzzy
+msgid "Create an object"
+msgstr "Çizgi yarat"
+
+#: sheets/UML.sheet.in.h:20
+#, fuzzy
+msgid "Editor for UML Static Structure Diagrams"
+msgstr "Iþlev yapýsý diyagram nesneleri"
+
+#: sheets/UML.sheet.in.h:21
+msgid "Generalization, class inheritance"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:22
+msgid "Implements, class implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:23
+msgid "Realizes, implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:24
+msgid "UML"
+msgstr ""
+
+#: dia.desktop.in.h:1
+msgid "A Diagram Editor"
+msgstr "Çizge editörü"
+
+#: dia.desktop.in.h:2
+msgid "Dia"
+msgstr "Dia"
 
 #~ msgid "No edit widget"
 #~ msgstr "Deðiþtirilebilir bir widget deðildir"

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <_name>Electric</_name>
+  <_description>Components for electric circuits</_description>
+  <contents>
+    <object name="Electric - contact_o">
+      <_description>A normally open contact</_description>
+    </object>
+    <object name="Electric - contact_f">
+      <_description>A normally closed contact</_description>
+    </object>
+    <object name="Electric - intpos_o">
+      <_description>A normally open position switch</_description>
+    </object>
+    <object name="Electric - intpos_f">
+      <_description>A normally closed position switch</_description>
+    </object>
+    <br/>
+    <object name="Electric - command">
+      <_description>The command organ of a relay</_description>
+    </object>
+    <object name="Electric - relay">
+      <_description>A relay</_description>
+    </object>
+    <object name="Electric - lamp">
+      <_description>A lamp or indicator light</_description>
+    </object>
+    <br/>
+    <object name="Electric - connpoint">
+      <_description>A connection point</_description>
+    </object>
+    <!-- TODO: various detectors (proximity, light, heat), motors, starters,
+    ... Maybe also a nice type of line with automatic (printed) connection
+	points -->
+  </contents>
+</sheet>

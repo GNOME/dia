@@ -1,0 +1,7 @@
+[Desktop Entry]
+_Name=Dia
+_Comment=A Diagram Editor
+Exec=dia
+Icon=dia_gnome_icon.png
+Terminal=0
+Type=Application

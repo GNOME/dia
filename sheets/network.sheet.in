@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <_name>Network</_name>
+  <_description>Objects to design network diagrams with</_description>
+  <contents>
+    <object name="Network - General Computer (Tower)">
+      <_description>A Computer</_description>
+    </object>
+    <object name="Network - General Monitor (With Stand)">
+      <_description>A monitor</_description>
+    </object>
+    <object name="Network - Storage">
+      <_description>Storage</_description>
+    </object>
+    <object name="Network - Bus">
+      <_description>An Ethernet bus</_description>
+    </object>
+    <object name="Network - General Printer">
+      <_description>A simple printer</_description>
+    </object>
+    <object name="Network - WAN Connection">
+      <_description>A WAN Connection</_description>
+    </object>
+    <object name="Network - WAN Link">
+      <_description>A WAN Link</_description>
+    </object>
+    <object name="Network - Hub">
+      <_description>A stackable hub or switch</_description>
+    </object>
+    <object name="Network - Modular Switch">
+      <_description>A modular switching system</_description>
+    </object>
+    <object name="Network - RJ45 Wall-Plug">
+      <_description>A RJ45 Wall-Plug</_description>
+    </object>
+    <object name="Network - scEAD Wall-Plug">
+      <_description>A Wall-Plug for the scEAD Cabling System</_description>
+    </object>
+    <object name="Network - Modem">
+      <_description>A simple Modem</_description>
+    </object>
+    <object name="Network - Antenna">
+      <_description>An antenna for wireless transmission</_description>
+    </object>
+    <object name="Network - Cloud">
+      <_description>Network Cloud</_description>
+    </object>
+    <object name="Network - Router Symbol">
+      <_description>Router Symbol</_description>
+    </object>
+    <object name="Network - Switch Symbol">
+      <_description>Switch Symbol</_description>
+    </object>
+    <object name="Network - Switch ATM Symbol">
+      <_description>ATM Switch Symbol</_description>
+    </object>
+    <object name="Network - Firewall">
+      <_description>A Firewall router</_description>
+    </object>
+    <object name="Network - A Workstation Monitor">
+      <_description>A Workstation Monitor</_description>
+    </object>
+    <object name="Network - A Workstation">
+      <_description>A UNIX Workstation</_description>
+    </object>
+    <object name="Network - A Desktop PC">
+      <_description>A Desktop PC</_description>
+    </object>
+    <object name="Network - A Bigtower PC">
+      <_description>A Bigtower PC</_description>
+    </object>
+    <object name="Network - A Miditower PC">
+      <_description>A Miditower PC</_description>
+    </object>
+    <object name="Network - A Minitower PC">
+      <_description>A Minitower PC</_description>
+    </object>
+    <object name="Network - An amplifier speaker">
+      <_description>A speaker with integrated amplifier</_description>
+    </object>
+    <object name="Network - A speaker">
+     <_description>A speaker without amplifier</_description>
+    </object>
+    <object name="Network - A Diskette">
+      <_description>A 3 1/2 inch diskette</_description>
+    </object>
+    <object name="Network - A ZIP Disk">
+      <_description>A ZIP Disk</_description>
+    </object>
+    <object name="Network - An external DAT drive">
+      <_description>An external DAT drive</_description>
+    </object>
+    <object name="Network - A Mobile Phone">
+      <_description>A Mobile Phone</_description>
+    </object>
+  </contents>
+</sheet>

@@ -64,16 +64,20 @@ echo "Running gettextize...  Ignore non-fatal messages."
 # telling its life in po/ChangeLog.
 gettextize --copy
 
+echo "Running xml-i18n-toolize"
+xml-i18n-toolize --copy --force --automake
+[ -f xml-i18n-update.in.kg ] && cp xml-i18n-update.in.kg xml-i18n-update.in
+[ -f xml-i18n-merge.in.kg ] && cp xml-i18n-merge.in.kg xml-i18n-merge.in
+
 echo "Running libtoolize"
 libtoolize --copy --force
 
 aclocal $ACLOCAL_FLAGS
 
-# optionally feature autoheader
-(autoheader --version)  < /dev/null > /dev/null 2>&1 && autoheader
+autoheader$ACFLAVOUR
 
 automake -a $am_opt
-autoconf
+autoconf$ACFLAVOUR
 
 cd $ORIGDIR
 

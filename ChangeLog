@@ -1,7 +1,46 @@
 2001-08-16  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* sheets/civil.sheet: removed duplicate "Danish" entries.
+
+	* autogen.sh:
+	* configure.in: 
+	* .cvsignore:
+	* sheets/Makefile.am: 
+	* po/POTFILES.in:
+	* Makefile.am: applied the xml-i18n-tools README's instructions.
+
+	* po/(da de fr hu nl nn no sl).po: merged the translations from
+	the sheet files into the .po files. I hope I haven't mixed
+	languages...
+	* sheets/*.sheet (REMOVED):
+	* sheets/*.sheet.in (NEW): moved the sheet files sans
+	translations into .sheet.in files. 
 	
+	* sheets/xml-i18n-unicodify: (NEW) included from xml-i18n-tools,
+	because we don't yet want to force all translators to work using
+	UTF-8 editors. We'll want to do that sometime (sooner rather than
+	later).	Okay, I sing a slightly different tune in po/ChangeLog...
+
+	* dia.desktop (REMOVED):
+	* dia.desktop.in (NEW): used also the x18t infrastructure for
+	this too.
+
+	* xml-i18n-update.in.kg (NEW): This one will stay in CVS until an
+	"official" version of x18t with support for .sheet files is available.
+	* xml-i18n-merge.in.kg (NEW): This one will stay in CVS until an
+	"official" version of x18t which doesn't corrupt UTF-8 data in XML
+	is available.
+	
+	** yes, we are now using xml-i18n-tools to manage the sheet
+	translations. For the Win32 build, Nemo stores snapshots of
+	translated strings next to the CVS snapshots. **
+
+	* sheets/checktrans.py: suddenly, some sheets have lots of
+	translations (objects which existed before sheets, mostly).
+	Adapted the formatting.
+
+	* po/README (REMOVED): this is obsolete ! It was ignored, anyway.
+
 	* app/display.[ch]: (ddisplay_autoscroll), (ddisplay_scroll):
 	* app/modify_tool.[ch]: (modify_motion): A (modified) patch from
 	<robert.young@dsto.defence.gov.au>, to fix #59090.

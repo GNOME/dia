@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <_name>FS</_name>
+  <_description>Editor for Function Structure Diagrams.</_description>
+  <contents>
+    <object name="FS - Flow">
+      <_description>Create a flow</_description>
+    </object>
+    <object name="FS - Orthflow">
+      <_description>Create an orthogonal polyline flow</_description>
+    </object>
+    <object name="FS - Function">
+      <_description>Create a function</_description>
+    </object>
+  </contents>
+</sheet>

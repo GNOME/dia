@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86(cvs)\n"
-"POT-Creation-Date: 2001-08-16 14:23+0200\n"
+"POT-Creation-Date: 2001-08-16 22:22+0200\n"
 "PO-Revision-Date: 2001-04-22 15:08+0200\n"
 "Last-Translator: Christian Meyer <chrisime@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -1812,7 +1812,7 @@ msgstr "Abgeleitet:"
 msgid "Multivalue:"
 msgstr "Mehrwertig:"
 
-#: objects/ER/attribute.c:389
+#: objects/ER/attribute.c:389 sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Attribut"
 
@@ -1820,7 +1820,7 @@ msgstr "Attribut"
 msgid "Weak:"
 msgstr "Schwach:"
 
-#: objects/ER/entity.c:340 objects/UML/classicon.c:124
+#: objects/ER/entity.c:340 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Entität"
 
@@ -1864,7 +1864,7 @@ msgstr "Rotieren:"
 msgid "Identifying:"
 msgstr "Identifizierung:"
 
-#: objects/ER/relationship.c:418
+#: objects/ER/relationship.c:418 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Beziehung (Relation)"
 
@@ -2053,6 +2053,7 @@ msgid "Support"
 msgstr "Unterstützung"
 
 #: objects/FS/function.c:653 objects/FS/function.c:654
+#: sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr "Stoppen"
 
@@ -2323,7 +2324,7 @@ msgstr ""
 msgid "Expose"
 msgstr ""
 
-#: objects/FS/function.c:741
+#: objects/FS/function.c:741 sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "Extrahieren"
 
@@ -2504,7 +2505,7 @@ msgstr ""
 msgid "Mark"
 msgstr "Markieren"
 
-#: objects/FS/function.c:800
+#: objects/FS/function.c:800 sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Anzeigen"
 
@@ -2713,7 +2714,7 @@ msgstr ""
 msgid "Wish Fn"
 msgstr "Wunschfkt."
 
-#: objects/GRAFCET/action.c:134
+#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
 msgid "Macro call"
 msgstr "Makroaufruf"
 
@@ -3761,6 +3762,1216 @@ msgstr ""
 #: plug-ins/xfig/xfig-import.c:1205
 msgid "XFig File Format"
 msgstr "XFig Dateiformat"
+
+#: sheets/chronogram.sheet.in.h:1
+msgid "A data line"
+msgstr "Eine Datenlinie"
+
+#: sheets/chronogram.sheet.in.h:2
+msgid "A time scale"
+msgstr "Eine Zeitscala"
+
+#: sheets/chronogram.sheet.in.h:3
+msgid "Chronogram"
+msgstr "Chronogramm"
+
+#: sheets/chronogram.sheet.in.h:4
+msgid "Objects to design chronogram charts"
+msgstr "Objekte für Zeitdiagrammentwurf"
+
+#: sheets/Circuit.sheet.in.h:1
+msgid "A Horizontal Jumper"
+msgstr "Ein horizontal ausgerichteter Jumper"
+
+#: sheets/Circuit.sheet.in.h:2
+msgid "A Horizontally aligned inductor"
+msgstr "Ein horizontal angeordnete Spule"
+
+#: sheets/Circuit.sheet.in.h:3
+msgid "A Horizontally aligned inductor (European)"
+msgstr "Ein horizontal angeordnete Spule (europäisch)"
+
+#: sheets/Circuit.sheet.in.h:4
+msgid "A Horizontally aligned resistor"
+msgstr "Ein horizontal angeordneter Widerstand"
+
+#: sheets/Circuit.sheet.in.h:5
+msgid "A Horizontally aligned resistor (European)"
+msgstr "Ein horizontal angeordneter Widerstand (europäisch)"
+
+#: sheets/Circuit.sheet.in.h:6
+msgid "A PMOS transistor"
+msgstr "Ein PMOS Transistor"
+
+#: sheets/Circuit.sheet.in.h:7
+msgid "A Speaker"
+msgstr "Ein Lautsprecher"
+
+#: sheets/Circuit.sheet.in.h:8
+msgid "A Vertically aligned inductor"
+msgstr "Ein vertikal angeordnete Spule"
+
+#: sheets/Circuit.sheet.in.h:9
+msgid "A Vertically aligned inductor (European)"
+msgstr "Ein vertikal angeordnete Spule (europäisch)"
+
+#: sheets/Circuit.sheet.in.h:10
+msgid "A Vertically aligned resistor"
+msgstr "Ein vertikal angeordneter Widerstand"
+
+#: sheets/Circuit.sheet.in.h:11
+msgid "A Vertically aligned resistor (European)"
+msgstr "Ein vertikal angeordneter Widerstand (europäisch)"
+
+#: sheets/Circuit.sheet.in.h:12
+msgid "A ground point"
+msgstr "Ein Massepunkt"
+
+#: sheets/Circuit.sheet.in.h:13
+msgid "A horizontally aligned LED"
+msgstr "Eine horizontal ausgerichtete LED"
+
+#: sheets/Circuit.sheet.in.h:14
+msgid "A horizontally aligned capacitor"
+msgstr "Ein horizontal angeordneter Kondensator"
+
+#: sheets/Circuit.sheet.in.h:15
+msgid "A horizontally aligned diode"
+msgstr "Eine horizontal ausgerichtete Diode"
+
+#: sheets/Circuit.sheet.in.h:16
+msgid "A horizontally aligned fuse"
+msgstr "Eine horizontal ausgerichtete Sicherung"
+
+#: sheets/Circuit.sheet.in.h:17
+msgid "A horizontally aligned powersource"
+msgstr "Eine horizontal ausgerichtete Stromquelle"
+
+#: sheets/Circuit.sheet.in.h:18
+msgid "A horizontally aligned zener diode"
+msgstr "Eine horizontal ausgerichtete Zener-Diode"
+
+#: sheets/Circuit.sheet.in.h:19
+msgid "A lamp"
+msgstr "Eine Lampe"
+
+#: sheets/Circuit.sheet.in.h:20
+msgid "A npn bipolar transistor"
+msgstr "Ein bipolarer NPN Transistor"
+
+#: sheets/Circuit.sheet.in.h:21
+msgid "A pnp bipolar transistor"
+msgstr "Ein bipolarer PNP Transistor"
+
+#: sheets/Circuit.sheet.in.h:22
+msgid "A vertically aligned LED"
+msgstr "Eine vertikal ausgerichtete LED"
+
+#: sheets/Circuit.sheet.in.h:23
+msgid "A vertically aligned capacitor"
+msgstr "Ein vertikal angeordneter Kondensator"
+
+#: sheets/Circuit.sheet.in.h:24
+msgid "A vertically aligned diode"
+msgstr "Eine vertikal ausgerichtete Diode"
+
+#: sheets/Circuit.sheet.in.h:25
+msgid "A vertically aligned fuse"
+msgstr "Eine vertikal ausgerichtete Sicherung"
+
+#: sheets/Circuit.sheet.in.h:26
+msgid "A vertically aligned powersource"
+msgstr "Eine vertikal ausgerichtete Stromquelle"
+
+#: sheets/Circuit.sheet.in.h:27
+msgid "A vertically aligned zener diode"
+msgstr "Eine vertikal ausgerichtete Zener-Diode"
+
+#: sheets/Circuit.sheet.in.h:28
+msgid "An NMOS transistor"
+msgstr "Ein NMOS Transistor"
+
+#: sheets/Circuit.sheet.in.h:29
+msgid "An operational amplifier"
+msgstr "Ein Operationsverstärker"
+
+#: sheets/Circuit.sheet.in.h:30
+msgid "Circuit"
+msgstr "Schaltkreis"
+
+#: sheets/Circuit.sheet.in.h:31
+msgid "Components for circuit diagrams"
+msgstr "Komponenten für Schaltkreise"
+
+#: sheets/civil.sheet.in.h:1
+msgid "A Backflow Preventer"
+msgstr "Eine Rückschlagklappe"
+
+#: sheets/civil.sheet.in.h:2
+msgid "A Basin"
+msgstr "Ein Becken"
+
+#: sheets/civil.sheet.in.h:3
+msgid "A Container"
+msgstr "Ein Behälter"
+
+#: sheets/civil.sheet.in.h:4
+msgid "A Frequency Converter"
+msgstr "Ein Frequenzumwandler"
+
+#: sheets/civil.sheet.in.h:5
+msgid "A Gas Bottle"
+msgstr "Eine Gasflasche"
+
+#: sheets/civil.sheet.in.h:6
+msgid "A Motor"
+msgstr "Ein Motor"
+
+#: sheets/civil.sheet.in.h:7
+msgid "A Preliminary Clarification Tank"
+msgstr "Ein Vorklärbecken"
+
+#: sheets/civil.sheet.in.h:8
+msgid "A Rotor"
+msgstr "Ein Rotor"
+
+#: sheets/civil.sheet.in.h:9
+msgid "A final-settling Basin"
+msgstr "Eine Nachklärbecken"
+
+#: sheets/civil.sheet.in.h:10
+msgid "A horizontal limiting line"
+msgstr "Eine horizontale Begenzungslinie"
+
+#: sheets/civil.sheet.in.h:11
+msgid "A horizontally aligned Arrow"
+msgstr "Ein horizontal ausgerichteter Pfeil"
+
+#: sheets/civil.sheet.in.h:12
+msgid "A vertical limiting line"
+msgstr "Eine vertikale Begrenzungslinie"
+
+#: sheets/civil.sheet.in.h:13
+msgid "A vertically aligned Arrow"
+msgstr "Ein vertikal ausgerichteter Pfeil"
+
+#: sheets/civil.sheet.in.h:14
+msgid "An Aerator with bubbles"
+msgstr "Ein Tellerbelüfter mit Blasen"
+
+#: sheets/civil.sheet.in.h:15
+msgid "Bivalent Vertical Rest"
+msgstr "Zweiwertiges vertikales Auflager"
+
+#: sheets/civil.sheet.in.h:16
+msgid "Civil"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:17
+msgid "Civil Engineering Components"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:18
+msgid "Horizontal Rest"
+msgstr "Horizontales Auflager"
+
+#: sheets/civil.sheet.in.h:19
+msgid "Horizontally aligned Valve"
+msgstr "Ein horizontal ausgerichteter Schieber"
+
+#: sheets/civil.sheet.in.h:20
+msgid "Horizontally aligned compressor"
+msgstr "Ein horizontal ausgerichteter Verdichter"
+
+#: sheets/civil.sheet.in.h:21
+msgid "Horizontally aligned pump"
+msgstr "Eine horizontal ausgerichtete Pumpe"
+
+#: sheets/civil.sheet.in.h:22
+msgid "Reference Line"
+msgstr "Bezugslinie"
+
+#: sheets/civil.sheet.in.h:23
+msgid "Soil"
+msgstr "Boden"
+
+#: sheets/civil.sheet.in.h:24
+msgid "Vertical Rest"
+msgstr "Vertikales Auflager"
+
+#: sheets/civil.sheet.in.h:25
+msgid "Vertically aligned Propeller"
+msgstr "Ein vertikal ausgerichtetes Rührwerk"
+
+#: sheets/civil.sheet.in.h:26
+msgid "Vertically aligned Valve"
+msgstr "Ein vertikal ausgerichteter Schieber"
+
+#: sheets/civil.sheet.in.h:27
+msgid "Vertically aligned compressor"
+msgstr "Ein vertikal ausgerichteter Verdichter"
+
+#: sheets/civil.sheet.in.h:28
+msgid "Vertically aligned pump"
+msgstr "Vertikal ausgerichtete Pumpe"
+
+#: sheets/civil.sheet.in.h:29
+msgid "Water Level"
+msgstr "Wasserspiegel"
+
+#: sheets/Contact.sheet.in.h:1
+#, fuzzy
+msgid "A 'if not' (normally closed) ladder contact"
+msgstr "Ein normalerweise geschlossener Kontakt"
+
+#: sheets/Contact.sheet.in.h:2
+#, fuzzy
+msgid "A 'if' (normally open) ladder contact"
+msgstr "Ein normalerweise offener Kontakt"
+
+#: sheets/Contact.sheet.in.h:3
+#, fuzzy
+msgid "A 'jump' output variable"
+msgstr "Ein einfacher Drucker"
+
+#: sheets/Contact.sheet.in.h:4
+#, fuzzy
+msgid "A 'reset' output variable"
+msgstr "Ein einfacher Drucker"
+
+#: sheets/Contact.sheet.in.h:5
+#, fuzzy
+msgid "A 'set' output variable"
+msgstr "Ein einfacher Drucker"
+
+#: sheets/Contact.sheet.in.h:6
+#, fuzzy
+msgid "A negative output variable"
+msgstr "Ein einfacher Drucker"
+
+#: sheets/Contact.sheet.in.h:7
+#, fuzzy
+msgid "A power-saved 'reset' output variable"
+msgstr "Ein einfacher Drucker"
+
+#: sheets/Contact.sheet.in.h:8
+#, fuzzy
+msgid "A power-saved 'set' output variable"
+msgstr "Ein einfacher Drucker"
+
+#: sheets/Contact.sheet.in.h:9
+#, fuzzy
+msgid "A power-saved negative output variable"
+msgstr "Ein einfacher Drucker"
+
+#: sheets/Contact.sheet.in.h:10
+#, fuzzy
+msgid "A power-saved simple output variable"
+msgstr "Ein einfacher Drucker"
+
+#: sheets/Contact.sheet.in.h:11
+#, fuzzy
+msgid "A receptivity output variable"
+msgstr "Ein einfacher Drucker"
+
+#: sheets/Contact.sheet.in.h:12
+#, fuzzy
+msgid "A simple output variable"
+msgstr "Ein einfacher Drucker"
+
+#: sheets/Contact.sheet.in.h:13
+#, fuzzy
+msgid "Components for LADDER circuits"
+msgstr "Komponenten für Stromkreise"
+
+#: sheets/Contact.sheet.in.h:14
+#, fuzzy
+msgid "Ladder"
+msgstr "Ebenen"
+
+#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
+msgid "A connection point"
+msgstr "Ein Verbindungspunkt"
+
+#: sheets/Electric.sheet.in.h:2
+msgid "A lamp or indicator light"
+msgstr "Eine Lampe oder Indikatorleuchte"
+
+#: sheets/Electric.sheet.in.h:3
+msgid "A normally closed contact"
+msgstr "Ein normalerweise geschlossener Kontakt"
+
+#: sheets/Electric.sheet.in.h:4
+msgid "A normally closed position switch"
+msgstr "Ein normalerweise geschlossener Schalter"
+
+#: sheets/Electric.sheet.in.h:5
+msgid "A normally open contact"
+msgstr "Ein normalerweise offener Kontakt"
+
+#: sheets/Electric.sheet.in.h:6
+msgid "A normally open position switch"
+msgstr "Ein normalerweise offener Schalter"
+
+#: sheets/Electric.sheet.in.h:7
+msgid "A relay"
+msgstr "Ein Relais"
+
+#: sheets/Electric.sheet.in.h:8
+msgid "Components for electric circuits"
+msgstr "Komponenten für Stromkreise"
+
+#: sheets/Electric.sheet.in.h:9
+msgid "Electric"
+msgstr "Stromkreis"
+
+#: sheets/Electric.sheet.in.h:10
+msgid "The command organ of a relay"
+msgstr "Der schaltende Teil eines Relais"
+
+#: sheets/EML.sheet.in.h:1
+#, fuzzy
+msgid "Create a process"
+msgstr "Erzeuge eine Klasse"
+
+#: sheets/EML.sheet.in.h:2
+msgid "EML"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:3
+#, fuzzy
+msgid "Editor for EML Static Structure Diagrams."
+msgstr "Editor für UML Strukturdiagramme"
+
+#: sheets/EML.sheet.in.h:4
+msgid "Instantiation. One process create others"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:5
+msgid "Interaction between processes."
+msgstr ""
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:3
+msgid "Editor for Entity Relations Diagrams"
+msgstr "Editor für Zwischenbeziehungs-Diagramme"
+
+#: sheets/ER.sheet.in.h:5
+msgid "Participation"
+msgstr "Beteiligung"
+
+#: sheets/ER.sheet.in.h:7
+msgid "Weak Entity"
+msgstr "Schwache Persönlichkeit"
+
+#: sheets/Flowchart.sheet.in.h:1
+msgid "A box with text inside"
+msgstr "Ein Kasten mit Textinhalt"
+
+#: sheets/Flowchart.sheet.in.h:2
+msgid "A diamond with text inside"
+msgstr "Ein Diamant mit Textinhalt"
+
+#: sheets/Flowchart.sheet.in.h:3
+msgid "A ellipse with text inside"
+msgstr "Eine Ellipse mit Textinhalt"
+
+#: sheets/Flowchart.sheet.in.h:4
+msgid "A parallelogram with text inside"
+msgstr "Ein Parallelogram mit Textinhalt"
+
+#: sheets/Flowchart.sheet.in.h:5
+msgid "Collate"
+msgstr "Vergleich"
+
+#: sheets/Flowchart.sheet.in.h:6
+msgid "Delay"
+msgstr "Verzögerung"
+
+#: sheets/Flowchart.sheet.in.h:8
+msgid "Document"
+msgstr "Dokument"
+
+#: sheets/Flowchart.sheet.in.h:10
+msgid "Flowchart"
+msgstr "Flußdiagramm"
+
+#: sheets/Flowchart.sheet.in.h:11
+msgid "Internal Storage"
+msgstr "Interner Speicher"
+
+#: sheets/Flowchart.sheet.in.h:12
+msgid "Magnetic Disk"
+msgstr "Magnetdisk"
+
+#: sheets/Flowchart.sheet.in.h:13
+msgid "Magnetic Drum"
+msgstr "Magnettrommel"
+
+#: sheets/Flowchart.sheet.in.h:14
+msgid "Magnetic Tape"
+msgstr "Magnetband"
+
+#: sheets/Flowchart.sheet.in.h:15
+msgid "Manual Input"
+msgstr "Manuelle Eingabe"
+
+#: sheets/Flowchart.sheet.in.h:16
+msgid "Manual Operation"
+msgstr "Manuelle Wirkung"
+
+#: sheets/Flowchart.sheet.in.h:17
+msgid "Merge"
+msgstr "Vereinigung"
+
+#: sheets/Flowchart.sheet.in.h:18
+msgid "Objects to draw flowcharts"
+msgstr "Objekte um Flußdiagramme zu zeichnen"
+
+#: sheets/Flowchart.sheet.in.h:19
+msgid "Off Page Connector"
+msgstr "Seitenendeverbindung"
+
+#: sheets/Flowchart.sheet.in.h:20
+msgid "Offline Storage"
+msgstr "Offline Speicher"
+
+#: sheets/Flowchart.sheet.in.h:21
+msgid "Or"
+msgstr "Oder"
+
+#: sheets/Flowchart.sheet.in.h:22
+msgid "Predefined Process"
+msgstr "Vordefinierter Prozess"
+
+#: sheets/Flowchart.sheet.in.h:23
+msgid "Preparation"
+msgstr "Vorbereitung"
+
+#: sheets/Flowchart.sheet.in.h:24
+msgid "Punched Card"
+msgstr "Abgeschnittene Karte"
+
+#: sheets/Flowchart.sheet.in.h:25
+msgid "Punched Tape"
+msgstr "Abgeschnittenes Band"
+
+#: sheets/Flowchart.sheet.in.h:26
+msgid "Sort"
+msgstr "Sortierung"
+
+#: sheets/Flowchart.sheet.in.h:27
+msgid "Summing Junction"
+msgstr "Vereinigungsverbindung"
+
+#: sheets/Flowchart.sheet.in.h:28
+msgid "Terminal"
+msgstr "Terminal"
+
+#: sheets/Flowchart.sheet.in.h:29
+msgid "Transaction File"
+msgstr "Transaktionsdatei"
+
+#: sheets/Flowchart.sheet.in.h:30
+msgid "Transmittal Tape"
+msgstr "Sendeband"
+
+#: sheets/FS.sheet.in.h:1
+msgid "Create a flow"
+msgstr "Erzeuge Fluß"
+
+#: sheets/FS.sheet.in.h:2
+msgid "Create a function"
+msgstr "Erzeuge Funktion"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Create an orthogonal polyline flow"
+msgstr "Erzeuge einen orthogonalen, mehrlinigen Fluß"
+
+#: sheets/FS.sheet.in.h:4
+msgid "Editor for Function Structure Diagrams."
+msgstr "Editor für Funktionsstrukturdiagramme."
+
+#: sheets/FS.sheet.in.h:5
+msgid "FS"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:1
+msgid "A AND vergent"
+msgstr "Eine UND Verzewigung"
+
+#: sheets/GRAFCET.sheet.in.h:2
+msgid "A OR vergent"
+msgstr "Eine ODER Verzewigung"
+
+#: sheets/GRAFCET.sheet.in.h:3
+msgid "A condition (of an action)"
+msgstr "Eine Aktionskonditionierung"
+
+#: sheets/GRAFCET.sheet.in.h:4
+msgid "A macro call step"
+msgstr "Ein Makro Aufrufschritt"
+
+#: sheets/GRAFCET.sheet.in.h:5
+msgid "A macro entry step"
+msgstr "Ein Makro Eintrittsschritt"
+
+#: sheets/GRAFCET.sheet.in.h:6
+msgid "A macro exit step"
+msgstr "Ein Makro Ausgangsschritt"
+
+#: sheets/GRAFCET.sheet.in.h:7
+msgid "A macro sub-program call step"
+msgstr "Ein Makro Unterprogrammaufrufschritt"
+
+#: sheets/GRAFCET.sheet.in.h:8
+msgid "A regular step"
+msgstr "Ein normaler Schritt"
+
+#: sheets/GRAFCET.sheet.in.h:9
+msgid "A transition"
+msgstr "Eine Transition"
+
+#: sheets/GRAFCET.sheet.in.h:10
+msgid "An action to associate to a step"
+msgstr "Eine mit einem Schritt verbundene Aktion"
+
+#: sheets/GRAFCET.sheet.in.h:11
+msgid "An arc (upward)"
+msgstr "Ein Bogen"
+
+#: sheets/GRAFCET.sheet.in.h:12
+msgid "An initial step"
+msgstr "Ein erster Schritt"
+
+#: sheets/GRAFCET.sheet.in.h:13
+msgid "GRAFCET"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:14
+msgid "Objects to design GRAFCET charts"
+msgstr "Objekte für GRAFCET Design"
+
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr "Puzzle"
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr "Verschiedene Puzzleteile"
+
+#: sheets/Logic.sheet.in.h:1
+#, fuzzy
+msgid "A Nand gate"
+msgstr "Aggregat"
+
+#: sheets/Logic.sheet.in.h:2
+#, fuzzy
+msgid "A Nor gate"
+msgstr "Aggregat"
+
+#: sheets/Logic.sheet.in.h:3
+#, fuzzy
+msgid "A Not"
+msgstr "Ein Motor"
+
+#: sheets/Logic.sheet.in.h:4
+#, fuzzy
+msgid "A Xor gate"
+msgstr "Aggregat"
+
+#: sheets/Logic.sheet.in.h:5
+#, fuzzy
+msgid "A crossconnector"
+msgstr "Trennen"
+
+#: sheets/Logic.sheet.in.h:6
+#, fuzzy
+msgid "A simple Buffer"
+msgstr "Ein einfacher Drucker"
+
+#: sheets/Logic.sheet.in.h:7
+#, fuzzy
+msgid "An And gate"
+msgstr "Aggregat"
+
+#: sheets/Logic.sheet.in.h:8
+#, fuzzy
+msgid "An Inverter"
+msgstr "Invertieren"
+
+#: sheets/Logic.sheet.in.h:9
+#, fuzzy
+msgid "An Or gate"
+msgstr "Aggregat"
+
+#: sheets/Logic.sheet.in.h:10
+#, fuzzy
+msgid "Boolean Logic"
+msgstr "Biologisch"
+
+#: sheets/Logic.sheet.in.h:11
+msgid "Logic"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:1
+#, fuzzy
+msgid "Demultiplexer"
+msgstr "Vervielfachen"
+
+#: sheets/MSE.sheet.in.h:2
+msgid "Large Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:3
+msgid "MSE"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:4
+#, fuzzy
+msgid "Multiplexer"
+msgstr "Vervielfachen"
+
+#: sheets/MSE.sheet.in.h:5
+#, fuzzy
+msgid "Node Center"
+msgstr "Mitte"
+
+#: sheets/MSE.sheet.in.h:6
+msgid "Small Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:7
+msgid "Tactical Satellite Communications Terminal"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:8
+msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr ""
+
+#: sheets/network.sheet.in.h:1
+msgid "A 3 1/2 inch diskette"
+msgstr "Eine 3 1/2 Zoll Diskette"
+
+#: sheets/network.sheet.in.h:2
+msgid "A Bigtower PC"
+msgstr "Ein Bigtower PC"
+
+#: sheets/network.sheet.in.h:3
+msgid "A Computer"
+msgstr "Ein Computer"
+
+#: sheets/network.sheet.in.h:4
+msgid "A Desktop PC"
+msgstr "Ein Desktop PC"
+
+#: sheets/network.sheet.in.h:5
+msgid "A Firewall router"
+msgstr ""
+
+#: sheets/network.sheet.in.h:6
+msgid "A Miditower PC"
+msgstr "Ein Miditower PC"
+
+#: sheets/network.sheet.in.h:7
+msgid "A Minitower PC"
+msgstr "Ein Minitower PC"
+
+#: sheets/network.sheet.in.h:8
+msgid "A Mobile Phone"
+msgstr "Ein einfaches Handy"
+
+#: sheets/network.sheet.in.h:9
+msgid "A RJ45 Wall-Plug"
+msgstr "Eine RJ45 Steckdose"
+
+#: sheets/network.sheet.in.h:10
+msgid "A UNIX Workstation"
+msgstr "Eine UNIX Workstation"
+
+#: sheets/network.sheet.in.h:11
+msgid "A WAN Connection"
+msgstr "Ein WAN Anschluß"
+
+#: sheets/network.sheet.in.h:12
+msgid "A WAN Link"
+msgstr "Eine WAN Verbindung"
+
+#: sheets/network.sheet.in.h:13
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr "Eine Steckdose für das scEAD Verkabelungssystem"
+
+#: sheets/network.sheet.in.h:14
+msgid "A Workstation Monitor"
+msgstr "Ein Workstation Monitor"
+
+#: sheets/network.sheet.in.h:15
+msgid "A ZIP Disk"
+msgstr "Ein ZIP-Medium"
+
+#: sheets/network.sheet.in.h:16
+msgid "A modular switching system"
+msgstr "Ein modulares Switchsystem"
+
+#: sheets/network.sheet.in.h:17
+msgid "A monitor"
+msgstr "Ein Monitor"
+
+#: sheets/network.sheet.in.h:18
+msgid "A simple Modem"
+msgstr "Ein einfaches Modem"
+
+#: sheets/network.sheet.in.h:19
+msgid "A simple printer"
+msgstr "Ein einfacher Drucker"
+
+#: sheets/network.sheet.in.h:20
+msgid "A speaker with integrated amplifier"
+msgstr "Ein Multimedia Lautsprecher mit Verstärker"
+
+#: sheets/network.sheet.in.h:21
+msgid "A speaker without amplifier"
+msgstr "Ein Multimedia Lautsprecher"
+
+#: sheets/network.sheet.in.h:22
+msgid "A stackable hub or switch"
+msgstr "Ein stapelbarer Hub oder Switch"
+
+#: sheets/network.sheet.in.h:23
+msgid "ATM Switch Symbol"
+msgstr "ATM Switch Symbol"
+
+#: sheets/network.sheet.in.h:24
+msgid "An Ethernet bus"
+msgstr "Ein Ethernetbus"
+
+#: sheets/network.sheet.in.h:25
+msgid "An antenna for wireless transmission"
+msgstr "Eine Antenne für Drahtlosübertragung"
+
+#: sheets/network.sheet.in.h:26
+msgid "An external DAT drive"
+msgstr "Ein externer DAT-Streamer"
+
+#: sheets/network.sheet.in.h:27
+msgid "Network"
+msgstr "Netzwerke"
+
+#: sheets/network.sheet.in.h:28
+msgid "Network Cloud"
+msgstr "Netzwerkwolke"
+
+#: sheets/network.sheet.in.h:29
+msgid "Objects to design network diagrams with"
+msgstr "Objekte für Netzwerkdiagrammentwurf"
+
+#: sheets/network.sheet.in.h:30
+msgid "Router Symbol"
+msgstr "Router Symbol"
+
+#: sheets/network.sheet.in.h:31
+msgid "Storage"
+msgstr "Speicher"
+
+#: sheets/network.sheet.in.h:32
+msgid "Switch Symbol"
+msgstr "Switch Symbol"
+
+#: sheets/Pneumatic.sheet.in.h:1
+msgid "A 2/2 distributor"
+msgstr "Ein 2/2 Verteiler"
+
+#: sheets/Pneumatic.sheet.in.h:2
+msgid "A 3/2 distributor"
+msgstr "Ein 3/2 Verteiler"
+
+#: sheets/Pneumatic.sheet.in.h:3
+msgid "A 3/3 distributor"
+msgstr "Ein 3/3 Verteiler"
+
+#: sheets/Pneumatic.sheet.in.h:4
+msgid "A 4/2 distributor"
+msgstr "Ein 4/2 Verteiler"
+
+#: sheets/Pneumatic.sheet.in.h:5
+msgid "A 5/2 distributor"
+msgstr "Ein 5/2 Verteiler"
+
+#: sheets/Pneumatic.sheet.in.h:6
+msgid "A 5/3 distributor"
+msgstr "Ein 5/3 Verteiler"
+
+#: sheets/Pneumatic.sheet.in.h:8
+msgid "A double-effect jack"
+msgstr "Eine Doppeleffektbuchse"
+
+#: sheets/Pneumatic.sheet.in.h:9
+msgid "A generic pressure source"
+msgstr "Eine generische Druckquelle"
+
+#: sheets/Pneumatic.sheet.in.h:10
+msgid "A hydraulic pressure source"
+msgstr "Eine hydraulische Druckquelle"
+
+#: sheets/Pneumatic.sheet.in.h:11
+msgid "A normally-in simple-effect jack"
+msgstr "Eine normale hereinlassen Einwegbuchse"
+
+#: sheets/Pneumatic.sheet.in.h:12
+msgid "A normally-out simple-effect jack"
+msgstr "Eine normale auslassende Einwegbuchse"
+
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "A pneumatic pressure source"
+msgstr "Eine pneumatische Druckquelle"
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "An air exhaust orifice"
+msgstr "Ein Druckablaßventil"
+
+#: sheets/Pneumatic.sheet.in.h:15
+msgid "Components for pneumatic and hydraulic circuits"
+msgstr "Komponenten für pneumatische und hydraulische Kreise"
+
+#: sheets/Pneumatic.sheet.in.h:16
+msgid "Electric command (double coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:17
+msgid "Electric command (single coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:18
+msgid "Indirect command by hydraulic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:19
+msgid "Indirect command by pneumatic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Mechanical command by spring"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Mechanical command by tappet"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Muscular command"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:23
+msgid "Pneumatic/Hydraulic"
+msgstr "Pneumatik/Hydraulik"
+
+#: sheets/Pneumatic.sheet.in.h:24
+msgid "Push-button command"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:1
+msgid "A activity/data flow arrow"
+msgstr "Ein Aktivitäts-/Datenfluß"
+
+#: sheets/SADT.sheet.in.h:2
+msgid "A flow label"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:3
+msgid "An activity/data box"
+msgstr "Eine Aktivitäts-/Datenbox"
+
+#: sheets/SADT.sheet.in.h:4
+msgid "Objects to design SADT diagrams"
+msgstr "Objekte für SADT Diagrammentwurf"
+
+#: sheets/SADT.sheet.in.h:5
+msgid "SADT/IDEF0"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:1
+msgid "Action being executed"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:2
+#, fuzzy
+msgid "Block Type Reference"
+msgstr "Vorlieben"
+
+#: sheets/SDL.sheet.in.h:3
+#, fuzzy
+msgid "Comment"
+msgstr "Dokument"
+
+#: sheets/SDL.sheet.in.h:4
+#, fuzzy
+msgid "Decision"
+msgstr "Beschreibung:"
+
+#: sheets/SDL.sheet.in.h:5
+#, fuzzy
+msgid "Function Header"
+msgstr "Makroaufruf"
+
+#: sheets/SDL.sheet.in.h:6
+#, fuzzy
+msgid "Function call"
+msgstr "Makroaufruf"
+
+#: sheets/SDL.sheet.in.h:7
+msgid "Generic Text Note"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:8
+#, fuzzy
+msgid "In/Out Connector"
+msgstr "Seitenendeverbindung"
+
+#: sheets/SDL.sheet.in.h:10
+msgid "Procedure Return"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:11
+#, fuzzy
+msgid "Process Type Reference"
+msgstr "Vorlieben"
+
+#: sheets/SDL.sheet.in.h:12
+#, fuzzy
+msgid "Receive message"
+msgstr "Erzeuge eine Nachricht"
+
+#: sheets/SDL.sheet.in.h:13
+msgid "SDL"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:14
+#, fuzzy
+msgid "Save State"
+msgstr "Start"
+
+#: sheets/SDL.sheet.in.h:15
+#, fuzzy
+msgid "Send message"
+msgstr "Erzeuge eine Nachricht"
+
+#: sheets/SDL.sheet.in.h:16
+#, fuzzy
+msgid "Service Type Reference"
+msgstr "Vorlieben"
+
+#: sheets/SDL.sheet.in.h:17
+msgid "Specification and Description Language."
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:18
+#, fuzzy
+msgid "State"
+msgstr "Start"
+
+#: sheets/sybase.sheet.in.h:1
+msgid "A Sybase Client Application"
+msgstr "Eine Sybase Anwendung"
+
+#: sheets/sybase.sheet.in.h:2
+msgid "A Sybase Dataserver"
+msgstr "Ein Sybase Datenserver"
+
+#: sheets/sybase.sheet.in.h:3
+msgid "A Sybase Replication Server"
+msgstr "Ein Sybase Replikationsserver"
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Log Transfer Manager or Rep Agent"
+msgstr "Logtransfermanager or Replikationsagent"
+
+#: sheets/sybase.sheet.in.h:5
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr "Objekte für Sybase-Replikationsdiagrammdesign"
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Replication Server Manager"
+msgstr "Replikationsservermanager"
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Stable Storage Device"
+msgstr "Stabiles Speichersystem"
+
+#: sheets/sybase.sheet.in.h:8
+#, fuzzy
+msgid "Sybase"
+msgstr "Gestrichelt"
+
+#: sheets/UML.sheet.in.h:1
+msgid "Aggregation, one class is part of another"
+msgstr "Aggregation, eine Klasse ist Teil einer Anderen"
+
+#: sheets/UML.sheet.in.h:2
+msgid "Association, two classes are associated"
+msgstr "Assoziation, zwei Klassen sind verbunden"
+
+#: sheets/UML.sheet.in.h:3
+msgid "Constraint, place a constraint on something"
+msgstr "Einschränkung, schränkt etwas ein"
+
+#: sheets/UML.sheet.in.h:4
+msgid "Create a (large) package"
+msgstr "Erzeuge ein großes Paket"
+
+#: sheets/UML.sheet.in.h:5
+msgid "Create a (small) package"
+msgstr "Erzeugt ein kleines Paket"
+
+#: sheets/UML.sheet.in.h:6
+msgid "Create a branch"
+msgstr "Erzeuge einen Zweig"
+
+#: sheets/UML.sheet.in.h:7
+msgid "Create a class"
+msgstr "Erzeuge eine Klasse"
+
+#: sheets/UML.sheet.in.h:8
+msgid "Create a class stereotype icon"
+msgstr "Erzeuge ein Stereotypeklassensymbol"
+
+#: sheets/UML.sheet.in.h:9
+msgid "Create a component"
+msgstr "Erzeuge eine Komponente"
+
+#: sheets/UML.sheet.in.h:10
+msgid "Create a dependency"
+msgstr "Erzeuge eine Abhängigkeit"
+
+#: sheets/UML.sheet.in.h:11
+msgid "Create a lifeline"
+msgstr "Erzeuge eine Lebenslinie"
+
+#: sheets/UML.sheet.in.h:12
+msgid "Create a message"
+msgstr "Erzeuge eine Nachricht"
+
+#: sheets/UML.sheet.in.h:13
+msgid "Create a node"
+msgstr "Erzeuge einen Knoten"
+
+#: sheets/UML.sheet.in.h:14
+msgid "Create a note"
+msgstr "Erzeuge eine Bemerkung"
+
+#: sheets/UML.sheet.in.h:15
+msgid "Create a state machine"
+msgstr "Erzeuge eine Zustandsmaschine"
+
+#: sheets/UML.sheet.in.h:16
+msgid "Create a template class"
+msgstr "Erzeuge eine Template-Klasse"
+
+#: sheets/UML.sheet.in.h:17
+msgid "Create a use case"
+msgstr "Erzeuge einen Anwendungsfall"
+
+#: sheets/UML.sheet.in.h:18
+msgid "Create an actor"
+msgstr "Erzeuge einen Benutzer"
+
+#: sheets/UML.sheet.in.h:19
+msgid "Create an object"
+msgstr "Erzeuge eine Objekt"
+
+#: sheets/UML.sheet.in.h:20
+msgid "Editor for UML Static Structure Diagrams"
+msgstr "Editor für UML Strukturdiagramme"
+
+#: sheets/UML.sheet.in.h:21
+msgid "Generalization, class inheritance"
+msgstr "Verallgemeinerung, Klassenvererbung"
+
+#: sheets/UML.sheet.in.h:22
+msgid "Implements, class implements a specific interface"
+msgstr "Implementiert, Klasse implementiert eine Schnittstelle"
+
+#: sheets/UML.sheet.in.h:23
+msgid "Realizes, implements a specific interface"
+msgstr "Realisiert, implementiert eine Schnittstelle"
+
+#: sheets/UML.sheet.in.h:24
+msgid "UML"
+msgstr ""
+
+#: dia.desktop.in.h:1
+msgid "A Diagram Editor"
+msgstr "Ein Diagrammeditor"
+
+#: dia.desktop.in.h:2
+msgid "Dia"
+msgstr "Dia"
 
 #~ msgid ""
 #~ "No such file found\n"

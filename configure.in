@@ -12,6 +12,7 @@ AM_CONFIG_HEADER(config.h)
 dnl do this check now, to keep autogen quiet.
 AC_PROG_CC 
 
+
 dnl Initialize maintainer mode
 AM_MAINTAINER_MODE
 
@@ -28,6 +29,9 @@ AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_ISC_POSIX
+
+dnl stuff for xml-i18n-tools
+AC_PROG_XML_I18N_TOOLS
 
 dnl Checks for libraries.
 dnl AM_PATH_GLIB(1.2.9) dnl (for g_critical)
@@ -251,7 +255,7 @@ dnl
 dnl i18n
 dnl
 
-ALL_LINGUAS="az ca da de el en_GB es fi fr ga hu it ja ko nl nn no pl pt pt_BR ru sl sv tr uk zh_CN.GB2312 zh_TW.Big5"
+ALL_LINGUAS="az ca da de el en_GB es fi fr ga hu it ja ko lt nl nn no pl pt pt_BR ru sl sv tr uk zh_CN.GB2312 zh_TW.Big5"
 
 AM_GNU_GETTEXT
 

@@ -10,14 +10,16 @@ man_MANS = dia.1
 pixmapdir = $(gnomedatadir)/pixmaps
 pixmap_DATA = dia_gnome_icon.png dia-diagram.png
 
-CLEANFILES = core-translation-report
-
 Applicationsdir = $(gnomedatadir)/gnome/apps/Applications
-Applications_DATA = dia.desktop 
+applications_in_files = dia.desktop.in
+Applications_DATA = $(applications_in_files:.desktop.in=.desktop)
+@XML_I18N_MERGE_DESKTOP_RULE@
 
 dia.keys: $(srcdir)/dia.keys.in Makefile
 	sed -e 's^\@icondir\@^$(pixmapdir)^g' $(srcdir)/dia.keys.in > dia.keys.tmp \
 	&& mv dia.keys.tmp dia.keys
+
+CLEANFILES = core-translation-report dia.keys dia.desktop
 
 distclean-local:
 	rm -f dia.keys
@@ -37,8 +39,9 @@ core-translation-report: po/dia.pot po-checktrans.py po-checktrans
 all-local: core-translation-report po/Makefile
 
 EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
-	dia.desktop dia.spec KNOWN_BUGS $(pkgdata_DATA) $(man_MANS) \
+	dia.desktop.in dia.spec KNOWN_BUGS $(pkgdata_DATA) $(man_MANS) \
 	dia-diagram.png dia.mime dia.keys.in \
-	core-translation-report po-checktrans.py po-checktrans
+	core-translation-report po-checktrans.py po-checktrans \
+	xml-i18n-extract.in xml-i18n-merge.in xml-i18n-update.in
 
 

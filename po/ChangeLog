@@ -2,6 +2,19 @@
 
 	* fr.po: Updated French translation.
 
+	* ALL PO FILES: the information which was previously stored in the
+	sheets/ directory, which most translators actively ignored, is now 
+	folded back into the PO system. The process wasn't very smooth
+	because the xml-i18n-tools aren't really mature, so there might be 
+	some corruption (*especially for languages which don't use a
+	latinish script*). Also, there will be a lot more strings to
+	translate now (about 300 more). The ones who paid attention to the
+	[now removed] po/README file can relax...
+
+	I PLAN TO MAKE ALL PO FILES USE THE UTF-8 ENCODING SHORTLY. 
+	IF THAT UPSETS YOU, PLEASE SPEAK UP *NOW* TO THE LIST
+	dia-list@gnome.org. Thanks.
+	
 2001-08-13  Abel Cheung  <maddog@linux.org.hk>
 
 	* zh_TW.Big5.po: Updated traditional Chinese translation. This

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.84\n"
-"POT-Creation-Date: 2001-08-16 14:23+0200\n"
+"POT-Creation-Date: 2001-08-16 22:22+0200\n"
 "PO-Revision-Date: 2000-03-14 19:13-0500\n"
 "Last-Translator: Spiros Papadimitriou <spapadim+@cs.cmu.edu>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -1909,7 +1909,7 @@ msgstr "Ποριζόμενο"
 msgid "Multivalue:"
 msgstr "Πολλαπλών τιμών"
 
-#: objects/ER/attribute.c:389
+#: objects/ER/attribute.c:389 sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Ιδιότητα"
 
@@ -1922,7 +1922,7 @@ msgstr "Ασθενής"
 # #       term for "class", but actually the notions are very much alike,
 # #       so it is okay (and as far as I remember from my databases class, this
 # #       is the usual term).
-#: objects/ER/entity.c:340 objects/UML/classicon.c:124
+#: objects/ER/entity.c:340 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Οντότητα"
 
@@ -1969,7 +1969,7 @@ msgstr "Περιστροφή"
 msgid "Identifying:"
 msgstr "Ταυτοποίηση"
 
-#: objects/ER/relationship.c:418
+#: objects/ER/relationship.c:418 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Σχέση"
 
@@ -2181,6 +2181,7 @@ msgid "Support"
 msgstr "Υποστήριξη"
 
 #: objects/FS/function.c:653 objects/FS/function.c:654
+#: sheets/SDL.sheet.in.h:19
 #, fuzzy
 msgid "Stop"
 msgstr "   Τέλος"
@@ -2488,7 +2489,7 @@ msgstr "Πρότυπα"
 msgid "Expose"
 msgstr "Νέα Έλλειψη"
 
-#: objects/FS/function.c:741
+#: objects/FS/function.c:741 sheets/Flowchart.sheet.in.h:9
 #, fuzzy
 msgid "Extract"
 msgstr "   Εξαγωγή"
@@ -2692,7 +2693,7 @@ msgstr "    Ένδειξη"
 msgid "Mark"
 msgstr ""
 
-#: objects/FS/function.c:800
+#: objects/FS/function.c:800 sheets/Flowchart.sheet.in.h:7
 #, fuzzy
 msgid "Display"
 msgstr "Απεικόνιση"
@@ -2924,7 +2925,7 @@ msgstr ""
 msgid "Wish Fn"
 msgstr "Συνάρτηση ευχής"
 
-#: objects/GRAFCET/action.c:134
+#: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
 msgid "Macro call"
 msgstr ""
 
@@ -4012,6 +4013,1294 @@ msgstr ""
 msgid "XFig File Format"
 msgstr ""
 
+#: sheets/chronogram.sheet.in.h:1
+#, fuzzy
+msgid "A data line"
+msgstr "Πλάτος πλαισίου:"
+
+#: sheets/chronogram.sheet.in.h:2
+msgid "A time scale"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:3
+msgid "Chronogram"
+msgstr ""
+
+#: sheets/chronogram.sheet.in.h:4
+msgid "Objects to design chronogram charts"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:1
+#, fuzzy
+msgid "A Horizontal Jumper"
+msgstr "Ορι_ζόντια Στοίχιση"
+
+#: sheets/Circuit.sheet.in.h:2
+#, fuzzy
+msgid "A Horizontally aligned inductor"
+msgstr "Ορι_ζόντια Στοίχιση"
+
+#: sheets/Circuit.sheet.in.h:3
+msgid "A Horizontally aligned inductor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:4
+#, fuzzy
+msgid "A Horizontally aligned resistor"
+msgstr "Οριζόντια Αντιστροφή"
+
+#: sheets/Circuit.sheet.in.h:5
+msgid "A Horizontally aligned resistor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:6
+#, fuzzy
+msgid "A PMOS transistor"
+msgstr "Λειτουργίες"
+
+#: sheets/Circuit.sheet.in.h:7
+msgid "A Speaker"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:8
+msgid "A Vertically aligned inductor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:9
+msgid "A Vertically aligned inductor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:10
+msgid "A Vertically aligned resistor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:11
+msgid "A Vertically aligned resistor (European)"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:12
+#, fuzzy
+msgid "A ground point"
+msgstr "Εμφάνιση εστίας ελέγχου:"
+
+#: sheets/Circuit.sheet.in.h:13
+msgid "A horizontally aligned LED"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:14
+msgid "A horizontally aligned capacitor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:15
+msgid "A horizontally aligned diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:16
+#, fuzzy
+msgid "A horizontally aligned fuse"
+msgstr "Ορι_ζόντια Στοίχιση"
+
+#: sheets/Circuit.sheet.in.h:17
+msgid "A horizontally aligned powersource"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:18
+msgid "A horizontally aligned zener diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:19
+msgid "A lamp"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:20
+msgid "A npn bipolar transistor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:21
+msgid "A pnp bipolar transistor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:22
+msgid "A vertically aligned LED"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:23
+msgid "A vertically aligned capacitor"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:24
+msgid "A vertically aligned diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:25
+msgid "A vertically aligned fuse"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:26
+msgid "A vertically aligned powersource"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:27
+msgid "A vertically aligned zener diode"
+msgstr ""
+
+#: sheets/Circuit.sheet.in.h:28
+#, fuzzy
+msgid "An NMOS transistor"
+msgstr "Λειτουργίες"
+
+#: sheets/Circuit.sheet.in.h:29
+#, fuzzy
+msgid "An operational amplifier"
+msgstr "Ορι_ζόντια Στοίχιση"
+
+#: sheets/Circuit.sheet.in.h:30
+#, fuzzy
+msgid "Circuit"
+msgstr "Κατεύθυνση:"
+
+#: sheets/Circuit.sheet.in.h:31
+msgid "Components for circuit diagrams"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:1
+msgid "A Backflow Preventer"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:2
+#, fuzzy
+msgid "A Basin"
+msgstr "Λειτουργίες"
+
+#: sheets/civil.sheet.in.h:3
+#, fuzzy
+msgid "A Container"
+msgstr "Περιορισμός:"
+
+#: sheets/civil.sheet.in.h:4
+#, fuzzy
+msgid "A Frequency Converter"
+msgstr "Μετατροπή"
+
+#: sheets/civil.sheet.in.h:5
+msgid "A Gas Bottle"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:6
+#, fuzzy
+msgid "A Motor"
+msgstr "Πράκτης"
+
+#: sheets/civil.sheet.in.h:7
+msgid "A Preliminary Clarification Tank"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:8
+#, fuzzy
+msgid "A Rotor"
+msgstr "Πράκτης"
+
+#: sheets/civil.sheet.in.h:9
+msgid "A final-settling Basin"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:10
+#, fuzzy
+msgid "A horizontal limiting line"
+msgstr "Ορι_ζόντια Στοίχιση"
+
+#: sheets/civil.sheet.in.h:11
+msgid "A horizontally aligned Arrow"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:12
+msgid "A vertical limiting line"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:13
+msgid "A vertically aligned Arrow"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:14
+msgid "An Aerator with bubbles"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:15
+#, fuzzy
+msgid "Bivalent Vertical Rest"
+msgstr "Κατακόρυφη Αντιστροφή"
+
+#: sheets/civil.sheet.in.h:16
+msgid "Civil"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:17
+msgid "Civil Engineering Components"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:18
+#, fuzzy
+msgid "Horizontal Rest"
+msgstr "Οριζόντια Αντιστροφή"
+
+#: sheets/civil.sheet.in.h:19
+msgid "Horizontally aligned Valve"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:20
+#, fuzzy
+msgid "Horizontally aligned compressor"
+msgstr "Ορι_ζόντια Στοίχιση"
+
+#: sheets/civil.sheet.in.h:21
+#, fuzzy
+msgid "Horizontally aligned pump"
+msgstr "Ορι_ζόντια Στοίχιση"
+
+#: sheets/civil.sheet.in.h:22
+#, fuzzy
+msgid "Reference Line"
+msgstr "Νέα Γραμμή"
+
+#: sheets/civil.sheet.in.h:23
+#, fuzzy
+msgid "Soil"
+msgstr "Συμπαγές"
+
+#: sheets/civil.sheet.in.h:24
+#, fuzzy
+msgid "Vertical Rest"
+msgstr "Κατακόρυφη Αντιστροφή"
+
+#: sheets/civil.sheet.in.h:25
+msgid "Vertically aligned Propeller"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:26
+msgid "Vertically aligned Valve"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:27
+msgid "Vertically aligned compressor"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:28
+msgid "Vertically aligned pump"
+msgstr ""
+
+#: sheets/civil.sheet.in.h:29
+msgid "Water Level"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:1
+msgid "A 'if not' (normally closed) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:2
+msgid "A 'if' (normally open) ladder contact"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:3
+msgid "A 'jump' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:4
+msgid "A 'reset' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:5
+msgid "A 'set' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:6
+msgid "A negative output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:7
+msgid "A power-saved 'reset' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:8
+msgid "A power-saved 'set' output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:9
+msgid "A power-saved negative output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:10
+msgid "A power-saved simple output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:11
+msgid "A receptivity output variable"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:12
+#, fuzzy
+msgid "A simple output variable"
+msgstr "Διαγραφή Γωνίας"
+
+#: sheets/Contact.sheet.in.h:13
+msgid "Components for LADDER circuits"
+msgstr ""
+
+#: sheets/Contact.sheet.in.h:14
+#, fuzzy
+msgid "Ladder"
+msgstr "Στρώματα"
+
+#: sheets/Electric.sheet.in.h:1 sheets/Pneumatic.sheet.in.h:7
+#, fuzzy
+msgid "A connection point"
+msgstr "Νέο σημείο σύνδεσης"
+
+#: sheets/Electric.sheet.in.h:2
+msgid "A lamp or indicator light"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:3
+msgid "A normally closed contact"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:4
+msgid "A normally closed position switch"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:5
+msgid "A normally open contact"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:6
+msgid "A normally open position switch"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:7
+#, fuzzy
+msgid "A relay"
+msgstr "Απεικόνιση"
+
+#: sheets/Electric.sheet.in.h:8
+msgid "Components for electric circuits"
+msgstr ""
+
+#: sheets/Electric.sheet.in.h:9
+#, fuzzy
+msgid "Electric"
+msgstr "Κατακόρυφη αντιστροφή"
+
+#: sheets/Electric.sheet.in.h:10
+msgid "The command organ of a relay"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:1
+#, fuzzy
+msgid "Create a process"
+msgstr "Νέο Τόξο"
+
+#: sheets/EML.sheet.in.h:2
+msgid "EML"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:3
+msgid "Editor for EML Static Structure Diagrams."
+msgstr ""
+
+#: sheets/EML.sheet.in.h:4
+msgid "Instantiation. One process create others"
+msgstr ""
+
+#: sheets/EML.sheet.in.h:5
+msgid "Interaction between processes."
+msgstr ""
+
+#: sheets/ER.sheet.in.h:2
+msgid "ER"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:3
+msgid "Editor for Entity Relations Diagrams"
+msgstr ""
+
+#: sheets/ER.sheet.in.h:5
+#, fuzzy
+msgid "Participation"
+msgstr "Σύνθεση"
+
+# # NOTE: may seem like xlation for "entity" conflicts with usual
+# #       term for "class", but actually the notions are very much alike,
+# #       so it is okay (and as far as I remember from my databases class, this
+# #       is the usual term).
+#: sheets/ER.sheet.in.h:7
+#, fuzzy
+msgid "Weak Entity"
+msgstr "Οντότητα"
+
+#: sheets/Flowchart.sheet.in.h:1
+msgid "A box with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:2
+msgid "A diamond with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:3
+msgid "A ellipse with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:4
+msgid "A parallelogram with text inside"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:5
+#, fuzzy
+msgid "Collate"
+msgstr "Κλήση"
+
+#: sheets/Flowchart.sheet.in.h:6
+#, fuzzy
+msgid "Delay"
+msgstr "Απεικόνιση"
+
+#: sheets/Flowchart.sheet.in.h:8
+#, fuzzy
+msgid "Document"
+msgstr "Γραμματοσειρά:"
+
+#: sheets/Flowchart.sheet.in.h:10
+#, fuzzy
+msgid "Flowchart"
+msgstr "Ενεργό αντικείμενο"
+
+#: sheets/Flowchart.sheet.in.h:11
+#, fuzzy
+msgid "Internal Storage"
+msgstr "Διεπιφάνεια:"
+
+#: sheets/Flowchart.sheet.in.h:12
+msgid "Magnetic Disk"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:13
+msgid "Magnetic Drum"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:14
+msgid "Magnetic Tape"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:15
+#, fuzzy
+msgid "Manual Input"
+msgstr "Λειτουργίες"
+
+#: sheets/Flowchart.sheet.in.h:16
+#, fuzzy
+msgid "Manual Operation"
+msgstr "Λειτουργίες"
+
+#: sheets/Flowchart.sheet.in.h:17
+#, fuzzy
+msgid "Merge"
+msgstr "     Μέτρο"
+
+#: sheets/Flowchart.sheet.in.h:18
+msgid "Objects to draw flowcharts"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:19
+#, fuzzy
+msgid "Off Page Connector"
+msgstr "Σύνδεση"
+
+#: sheets/Flowchart.sheet.in.h:20
+#, fuzzy
+msgid "Offline Storage"
+msgstr "Διεπιφάνεια:"
+
+#: sheets/Flowchart.sheet.in.h:21
+msgid "Or"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:22
+#, fuzzy
+msgid "Predefined Process"
+msgstr "Προτιμήσεις"
+
+#: sheets/Flowchart.sheet.in.h:23
+#, fuzzy
+msgid "Preparation"
+msgstr "Λειτουργίες"
+
+#: sheets/Flowchart.sheet.in.h:24
+msgid "Punched Card"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:25
+msgid "Punched Tape"
+msgstr ""
+
+#: sheets/Flowchart.sheet.in.h:26
+#, fuzzy
+msgid "Sort"
+msgstr "Υποστήριξη"
+
+# # FIX whatis "wish function" ??  verbatim (and probably wrong?) translation...
+#: sheets/Flowchart.sheet.in.h:27
+#, fuzzy
+msgid "Summing Junction"
+msgstr "Συνάρτηση ευχής"
+
+#: sheets/Flowchart.sheet.in.h:28
+#, fuzzy
+msgid "Terminal"
+msgstr "Κανονικό"
+
+#: sheets/Flowchart.sheet.in.h:29
+#, fuzzy
+msgid "Transaction File"
+msgstr "Λειτουργίες"
+
+#: sheets/Flowchart.sheet.in.h:30
+#, fuzzy
+msgid "Transmittal Tape"
+msgstr "      Μετάδοση"
+
+#: sheets/FS.sheet.in.h:1
+#, fuzzy
+msgid "Create a flow"
+msgstr "Νέο Πλαίσιο"
+
+#: sheets/FS.sheet.in.h:2
+#, fuzzy
+msgid "Create a function"
+msgstr "Συνάρτηση χρήστη"
+
+#: sheets/FS.sheet.in.h:3
+msgid "Create an orthogonal polyline flow"
+msgstr ""
+
+#: sheets/FS.sheet.in.h:4
+msgid "Editor for Function Structure Diagrams."
+msgstr ""
+
+#: sheets/FS.sheet.in.h:5
+msgid "FS"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:1
+#, fuzzy
+msgid "A AND vergent"
+msgstr "Νέο τμήμα"
+
+#: sheets/GRAFCET.sheet.in.h:2
+#, fuzzy
+msgid "A OR vergent"
+msgstr "Νέο τμήμα"
+
+#: sheets/GRAFCET.sheet.in.h:3
+#, fuzzy
+msgid "A condition (of an action)"
+msgstr "Διαγραφή σημείου σύνδεσης"
+
+#: sheets/GRAFCET.sheet.in.h:4
+msgid "A macro call step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:5
+#, fuzzy
+msgid "A macro entry step"
+msgstr "    Ρύθμιση"
+
+#: sheets/GRAFCET.sheet.in.h:6
+msgid "A macro exit step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:7
+msgid "A macro sub-program call step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:8
+#, fuzzy
+msgid "A regular step"
+msgstr "    Ρύθμιση"
+
+#: sheets/GRAFCET.sheet.in.h:9
+#, fuzzy
+msgid "A transition"
+msgstr "Λειτουργίες"
+
+#: sheets/GRAFCET.sheet.in.h:10
+msgid "An action to associate to a step"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:11
+msgid "An arc (upward)"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:12
+#, fuzzy
+msgid "An initial step"
+msgstr "    Ένδειξη"
+
+#: sheets/GRAFCET.sheet.in.h:13
+msgid "GRAFCET"
+msgstr ""
+
+#: sheets/GRAFCET.sheet.in.h:14
+msgid "Objects to design GRAFCET charts"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:1
+msgid "Jigsaw"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:2
+msgid "Jigsaw - part_iiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:3
+msgid "Jigsaw - part_iiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:4
+msgid "Jigsaw - part_iioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:5
+msgid "Jigsaw - part_iioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:6
+msgid "Jigsaw - part_ioii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:7
+msgid "Jigsaw - part_ioio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:8
+msgid "Jigsaw - part_iooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:9
+msgid "Jigsaw - part_iooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:10
+msgid "Jigsaw - part_oiii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:11
+msgid "Jigsaw - part_oiio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:12
+msgid "Jigsaw - part_oioi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:13
+msgid "Jigsaw - part_oioo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:14
+msgid "Jigsaw - part_ooii"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:15
+msgid "Jigsaw - part_ooio"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:16
+msgid "Jigsaw - part_oooi"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:17
+msgid "Jigsaw - part_oooo"
+msgstr ""
+
+#: sheets/jigsaw.sheet.in.h:18
+msgid "Pieces of a jigsaw"
+msgstr ""
+
+# # FIX? aggregate
+#: sheets/Logic.sheet.in.h:1
+#, fuzzy
+msgid "A Nand gate"
+msgstr "Ομάδα"
+
+# # FIX? aggregate
+#: sheets/Logic.sheet.in.h:2
+#, fuzzy
+msgid "A Nor gate"
+msgstr "Ομάδα"
+
+# # FIX? aggregate
+#: sheets/Logic.sheet.in.h:3
+#, fuzzy
+msgid "A Not"
+msgstr "Ομάδα"
+
+# # FIX? aggregate
+#: sheets/Logic.sheet.in.h:4
+#, fuzzy
+msgid "A Xor gate"
+msgstr "Ομάδα"
+
+#: sheets/Logic.sheet.in.h:5
+#, fuzzy
+msgid "A crossconnector"
+msgstr "Σύνδεση"
+
+#: sheets/Logic.sheet.in.h:6
+#, fuzzy
+msgid "A simple Buffer"
+msgstr "Διαγραφή Γωνίας"
+
+# # FIX? aggregate
+#: sheets/Logic.sheet.in.h:7
+#, fuzzy
+msgid "An And gate"
+msgstr "Ομάδα"
+
+#: sheets/Logic.sheet.in.h:8
+#, fuzzy
+msgid "An Inverter"
+msgstr "Μετατροπή"
+
+# # FIX? aggregate
+#: sheets/Logic.sheet.in.h:9
+#, fuzzy
+msgid "An Or gate"
+msgstr "Ομάδα"
+
+#: sheets/Logic.sheet.in.h:10
+msgid "Boolean Logic"
+msgstr ""
+
+#: sheets/Logic.sheet.in.h:11
+msgid "Logic"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:1
+#, fuzzy
+msgid "Demultiplexer"
+msgstr "Πολλαπλότητα:"
+
+#: sheets/MSE.sheet.in.h:2
+msgid "Large Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:3
+msgid "MSE"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:4
+#, fuzzy
+msgid "Multiplexer"
+msgstr "Πολλαπλότητα:"
+
+#: sheets/MSE.sheet.in.h:5
+#, fuzzy
+msgid "Node Center"
+msgstr "Κέντρο"
+
+#: sheets/MSE.sheet.in.h:6
+msgid "Small Extension Node"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:7
+msgid "Tactical Satellite Communications Terminal"
+msgstr ""
+
+#: sheets/MSE.sheet.in.h:8
+msgid "U.S. Army Mobile Subscriber Equipment Components"
+msgstr ""
+
+#: sheets/network.sheet.in.h:1
+msgid "A 3 1/2 inch diskette"
+msgstr ""
+
+#: sheets/network.sheet.in.h:2
+msgid "A Bigtower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:3
+#, fuzzy
+msgid "A Computer"
+msgstr "Νέα Γωνία"
+
+#: sheets/network.sheet.in.h:4
+msgid "A Desktop PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:5
+msgid "A Firewall router"
+msgstr ""
+
+#: sheets/network.sheet.in.h:6
+msgid "A Miditower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:7
+msgid "A Minitower PC"
+msgstr ""
+
+#: sheets/network.sheet.in.h:8
+msgid "A Mobile Phone"
+msgstr ""
+
+#: sheets/network.sheet.in.h:9
+msgid "A RJ45 Wall-Plug"
+msgstr ""
+
+#: sheets/network.sheet.in.h:10
+msgid "A UNIX Workstation"
+msgstr ""
+
+#: sheets/network.sheet.in.h:11
+#, fuzzy
+msgid "A WAN Connection"
+msgstr "Σύνδεση"
+
+#: sheets/network.sheet.in.h:12
+#, fuzzy
+msgid "A WAN Link"
+msgstr "Σύνδεση"
+
+#: sheets/network.sheet.in.h:13
+msgid "A Wall-Plug for the scEAD Cabling System"
+msgstr ""
+
+#: sheets/network.sheet.in.h:14
+msgid "A Workstation Monitor"
+msgstr ""
+
+#: sheets/network.sheet.in.h:15
+msgid "A ZIP Disk"
+msgstr ""
+
+#: sheets/network.sheet.in.h:16
+msgid "A modular switching system"
+msgstr ""
+
+#: sheets/network.sheet.in.h:17
+#, fuzzy
+msgid "A monitor"
+msgstr "Πράκτης"
+
+#: sheets/network.sheet.in.h:18
+#, fuzzy
+msgid "A simple Modem"
+msgstr "Διαγραφή Γωνίας"
+
+#: sheets/network.sheet.in.h:19
+#, fuzzy
+msgid "A simple printer"
+msgstr "Διαγραφή Γωνίας"
+
+#: sheets/network.sheet.in.h:20
+msgid "A speaker with integrated amplifier"
+msgstr ""
+
+#: sheets/network.sheet.in.h:21
+msgid "A speaker without amplifier"
+msgstr ""
+
+#: sheets/network.sheet.in.h:22
+msgid "A stackable hub or switch"
+msgstr ""
+
+#: sheets/network.sheet.in.h:23
+msgid "ATM Switch Symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:24
+msgid "An Ethernet bus"
+msgstr ""
+
+#: sheets/network.sheet.in.h:25
+msgid "An antenna for wireless transmission"
+msgstr ""
+
+#: sheets/network.sheet.in.h:26
+msgid "An external DAT drive"
+msgstr ""
+
+#: sheets/network.sheet.in.h:27
+#, fuzzy
+msgid "Network"
+msgstr "Νέο"
+
+#: sheets/network.sheet.in.h:28
+#, fuzzy
+msgid "Network Cloud"
+msgstr "Νέο"
+
+#: sheets/network.sheet.in.h:29
+msgid "Objects to design network diagrams with"
+msgstr ""
+
+#: sheets/network.sheet.in.h:30
+msgid "Router Symbol"
+msgstr ""
+
+#: sheets/network.sheet.in.h:31
+#, fuzzy
+msgid "Storage"
+msgstr "Αποθήκευση"
+
+#: sheets/network.sheet.in.h:32
+msgid "Switch Symbol"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:1
+msgid "A 2/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:2
+msgid "A 3/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:3
+msgid "A 3/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:4
+msgid "A 4/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:5
+msgid "A 5/2 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:6
+msgid "A 5/3 distributor"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:8
+msgid "A double-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:9
+msgid "A generic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:10
+msgid "A hydraulic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:11
+msgid "A normally-in simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:12
+msgid "A normally-out simple-effect jack"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:13
+msgid "A pneumatic pressure source"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:14
+msgid "An air exhaust orifice"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:15
+msgid "Components for pneumatic and hydraulic circuits"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:16
+msgid "Electric command (double coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:17
+msgid "Electric command (single coil)"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:18
+msgid "Indirect command by hydraulic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:19
+msgid "Indirect command by pneumatic driver"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:20
+msgid "Mechanical command by spring"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:21
+msgid "Mechanical command by tappet"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:22
+msgid "Muscular command"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:23
+msgid "Pneumatic/Hydraulic"
+msgstr ""
+
+#: sheets/Pneumatic.sheet.in.h:24
+msgid "Push-button command"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:1
+msgid "A activity/data flow arrow"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:2
+msgid "A flow label"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:3
+msgid "An activity/data box"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:4
+msgid "Objects to design SADT diagrams"
+msgstr ""
+
+#: sheets/SADT.sheet.in.h:5
+msgid "SADT/IDEF0"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:1
+msgid "Action being executed"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:2
+#, fuzzy
+msgid "Block Type Reference"
+msgstr "Προτιμήσεις"
+
+#: sheets/SDL.sheet.in.h:3
+#, fuzzy
+msgid "Comment"
+msgstr "Κέντρο"
+
+#: sheets/SDL.sheet.in.h:4
+#, fuzzy
+msgid "Decision"
+msgstr "Κατεύθυνση:"
+
+#: sheets/SDL.sheet.in.h:5
+#, fuzzy
+msgid "Function Header"
+msgstr "Συνάρτηση:"
+
+#: sheets/SDL.sheet.in.h:6
+#, fuzzy
+msgid "Function call"
+msgstr "Συνάρτηση:"
+
+#: sheets/SDL.sheet.in.h:7
+msgid "Generic Text Note"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:8
+#, fuzzy
+msgid "In/Out Connector"
+msgstr "Σύνδεση"
+
+#: sheets/SDL.sheet.in.h:10
+msgid "Procedure Return"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:11
+#, fuzzy
+msgid "Process Type Reference"
+msgstr "Προτιμήσεις"
+
+#: sheets/SDL.sheet.in.h:12
+#, fuzzy
+msgid "Receive message"
+msgstr "Αναδρομικό"
+
+#: sheets/SDL.sheet.in.h:13
+msgid "SDL"
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:14
+#, fuzzy
+msgid "Save State"
+msgstr "Τελείες"
+
+#: sheets/SDL.sheet.in.h:15
+#, fuzzy
+msgid "Send message"
+msgstr "Μήνυμα:"
+
+#: sheets/SDL.sheet.in.h:16
+#, fuzzy
+msgid "Service Type Reference"
+msgstr "Προτιμήσεις"
+
+#: sheets/SDL.sheet.in.h:17
+msgid "Specification and Description Language."
+msgstr ""
+
+#: sheets/SDL.sheet.in.h:18
+#, fuzzy
+msgid "State"
+msgstr "Τελείες"
+
+#: sheets/sybase.sheet.in.h:1
+msgid "A Sybase Client Application"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:2
+msgid "A Sybase Dataserver"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:3
+msgid "A Sybase Replication Server"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:4
+msgid "Log Transfer Manager or Rep Agent"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:5
+msgid "Objects to design Sybase replication domain diagrams with"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:6
+msgid "Replication Server Manager"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:7
+msgid "Stable Storage Device"
+msgstr ""
+
+#: sheets/sybase.sheet.in.h:8
+#, fuzzy
+msgid "Sybase"
+msgstr "Παύλες"
+
+#: sheets/UML.sheet.in.h:1
+msgid "Aggregation, one class is part of another"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:2
+msgid "Association, two classes are associated"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:3
+msgid "Constraint, place a constraint on something"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:4
+#, fuzzy
+msgid "Create a (large) package"
+msgstr "Νέα Εικόνα"
+
+#: sheets/UML.sheet.in.h:5
+#, fuzzy
+msgid "Create a (small) package"
+msgstr "Νέα Εικόνα"
+
+#: sheets/UML.sheet.in.h:6
+#, fuzzy
+msgid "Create a branch"
+msgstr "Νέο Τόξο"
+
+#: sheets/UML.sheet.in.h:7
+#, fuzzy
+msgid "Create a class"
+msgstr "Οντότητα προτύπου"
+
+#: sheets/UML.sheet.in.h:8
+#, fuzzy
+msgid "Create a class stereotype icon"
+msgstr "Οντότητα προτύπου"
+
+#: sheets/UML.sheet.in.h:9
+#, fuzzy
+msgid "Create a component"
+msgstr "Νέα Πολυγωνική Γραμμή"
+
+#: sheets/UML.sheet.in.h:10
+#, fuzzy
+msgid "Create a dependency"
+msgstr "Νέα Καμπύλη Bezier"
+
+#: sheets/UML.sheet.in.h:11
+#, fuzzy
+msgid "Create a lifeline"
+msgstr "Νέα Καμπύλη Bezier"
+
+#: sheets/UML.sheet.in.h:12
+#, fuzzy
+msgid "Create a message"
+msgstr "Νέα Εικόνα"
+
+#: sheets/UML.sheet.in.h:13
+#, fuzzy
+msgid "Create a node"
+msgstr "Νέα Γραμμή"
+
+#: sheets/UML.sheet.in.h:14
+#, fuzzy
+msgid "Create a note"
+msgstr "Νέα Γραμμή"
+
+#: sheets/UML.sheet.in.h:15
+#, fuzzy
+msgid "Create a state machine"
+msgstr "Νέα Γραμμή"
+
+#: sheets/UML.sheet.in.h:16
+#, fuzzy
+msgid "Create a template class"
+msgstr "Οντότητα προτύπου"
+
+#: sheets/UML.sheet.in.h:17
+#, fuzzy
+msgid "Create a use case"
+msgstr "Νέα Εικόνα"
+
+#: sheets/UML.sheet.in.h:18
+#, fuzzy
+msgid "Create an actor"
+msgstr "Δημιουργία νέου διαγράμματος"
+
+#: sheets/UML.sheet.in.h:19
+#, fuzzy
+msgid "Create an object"
+msgstr "Νέα Γραμμή"
+
+#: sheets/UML.sheet.in.h:20
+msgid "Editor for UML Static Structure Diagrams"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:21
+msgid "Generalization, class inheritance"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:22
+msgid "Implements, class implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:23
+msgid "Realizes, implements a specific interface"
+msgstr ""
+
+#: sheets/UML.sheet.in.h:24
+msgid "UML"
+msgstr ""
+
+#: dia.desktop.in.h:1
+#, fuzzy
+msgid "A Diagram Editor"
+msgstr "Διορθωτής Διαγραμμάτων"
+
+#: dia.desktop.in.h:2
+#, fuzzy
+msgid "Dia"
+msgstr "Διάλογοι"
+
 #~ msgid ""
 #~ "No such file found\n"
 #~ "%s\n"
@@ -4052,9 +5341,6 @@ msgstr ""
 
 #~ msgid "Hollow Diamond"
 #~ msgstr "Κενός Ρόμβος"
-
-#~ msgid "Function:"
-#~ msgstr "Συνάρτηση:"
 
 #~ msgid "      Rotate"
 #~ msgstr "  Περιστροφή"
@@ -4208,9 +5494,6 @@ msgstr ""
 
 #~ msgid "/View/Edit Grid..."
 #~ msgstr "/Εμφάνιση/Ρυθμίσεις Πλέγματος"
-
-#~ msgid "Dialogs"
-#~ msgstr "Διάλογοι"
 
 #~ msgid ""
 #~ "Couldn't find any libraries to load.\n"

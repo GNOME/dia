@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <_name>UML</_name>
+  <_description>Editor for UML Static Structure Diagrams</_description>
+  <contents>
+    <object name="UML - Class" intdata="0">
+      <_description>Create a class</_description>
+    </object>
+    <object name="UML - Class" intdata="1">
+      <_description>Create a template class</_description>
+      <icon>UML/umlclass_template.xpm</icon>
+    </object>
+    <object name="UML - Note">
+      <_description>Create a note</_description>
+    </object>
+    <object name="UML - Dependency">
+      <_description>Create a dependency</_description>
+    </object>
+    <object name="UML - Realizes">
+      <_description>Realizes, implements a specific interface</_description>
+    </object>
+    <object name="UML - Generalization">
+      <_description>Generalization, class inheritance</_description>
+    </object>
+    <object name="UML - Association" intdata="0">
+      <_description>Association, two classes are associated</_description>
+    </object>
+    <object name="UML - Association" intdata="1">
+      <_description>Aggregation, one class is part of another</_description>
+      <icon>UML/aggregation.xpm</icon>
+    </object>
+    <object name="UML - Implements">
+      <_description>Implements, class implements a specific interface</_description>
+    </object>
+    <object name="UML - Constraint">
+      <_description>Constraint, place a constraint on something</_description>
+    </object>
+    <object name="UML - SmallPackage">
+      <_description>Create a (small) package</_description>
+    </object>
+    <object name="UML - LargePackage">
+      <_description>Create a (large) package</_description>
+    </object>
+    <object name="UML - Actor">
+      <_description>Create an actor</_description>
+    </object>
+    <object name="UML - Usecase">
+      <_description>Create a use case</_description>
+    </object>
+    <object name="UML - Lifeline">
+      <_description>Create a lifeline</_description>
+    </object>
+    <object name="UML - Object">
+      <_description>Create an object</_description>
+    </object>
+    <object name="UML - Message">
+      <_description>Create a message</_description>
+    </object>
+    <object name="UML - Component">
+      <_description>Create a component</_description>
+    </object>
+    <object name="UML - Node">
+      <_description>Create a node</_description>
+    </object>
+    <object name="UML - Classicon">
+      <_description>Create a class stereotype icon</_description>
+    </object>
+    <object name="UML - State">
+      <_description>Create a state machine</_description>
+    </object>
+    <object name="UML - Branch">
+      <_description>Create a branch</_description>
+    </object>
+  </contents>
+</sheet>

@@ -133,8 +133,8 @@ p.setDocumentHandler(ch)
     
 fnames =sys.argv[1:]
 
-def make_langresult(langdict):
-    langres = map(lambda s: string.ljust(s,7),
+def make_langresult(langdict,colsize):
+    langres = map(lambda s,colsize=colsize: string.ljust(s,colsize),
                   map(lambda (cc,count),total=langdict['']: 
                       ("%s:%d%%" % (cc,100*count/total)),
                       filter(lambda (cc,count): cc, langdict.items())))
@@ -154,10 +154,19 @@ for name in fnames:
         p.parse(name)
         OK=1
 
-        langres = make_langresult(ch.langs)
-        
+        maxlanglen = len(reduce(maxlen,ch.langs.keys(),""))
+        langres = make_langresult(ch.langs,maxlanglen+5)
+        columns = (79 - (4 + namelen)) / (maxlanglen+5)        
+        #print "maxlanglen = ",maxlanglen,"columns=",columns
+
+        langres1,langrest = langres[:columns],langres[columns:]
         sys.stdout.write(("I: %%%ds %%s\n" % namelen) %
-                         (name,string.join(langres)))
+                         (name,string.join(langres1)))
+        while langrest:
+            langresn,langrest = langrest[:columns],langrest[columns:]
+            sys.stdout.write("I: %s %s\n" % (' ' * namelen,
+                                             string.join(langresn)))
+            
         for (k,v) in ch.langs.items():
             if globlangs.has_key(k):
                 globlangs[k] = globlangs[k] + v
@@ -169,8 +178,15 @@ for name in fnames:
     except saxlib.SAXException,e:
         sys.stderr.write("E: %s\n" % str(e))
 
-langres = make_langresult(globlangs)        
+maxlanglen = len(reduce(maxlen,globlangs.keys(),""))
+langres = make_langresult(globlangs,maxlanglen+5)        
+columns = (79 - 12) / (maxlanglen+5)        
 
-sys.stdout.write("\nI: OVERALL: %s\n" % string.join(langres))
+langres1,langrest = langres[:columns],langres[columns:]
+sys.stdout.write("\nI: OVERALL: %s\n" % string.join(langres1))
+while langrest:
+    langresn,langrest = langrest[:columns],langrest[columns:]
+    sys.stdout.write("I: %s %s\n" % (' ' * 8,
+                                     string.join(langresn)))
 
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <_name>Logic</_name>
+  <_description>Boolean Logic</_description>
+  <contents>
+    <object name="Logic - Or">
+      <_description>An Or gate</_description>
+    </object>
+    <object name="Logic - And">
+      <_description>An And gate</_description>
+    </object>
+    <object name="Logic - Xor">
+      <_description>A Xor gate</_description>
+    </object>
+    <object name="Logic - Buffer">
+      <_description>A simple Buffer</_description>
+    </object>
+    <object name="Logic - Inverter">
+      <_description>An Inverter</_description>
+    </object>
+    <object name="Logic - Nand">
+      <_description>A Nand gate</_description>
+    </object>
+    <object name="Logic - Nor">
+      <_description>A Nor gate</_description>
+    </object>
+    <object name="Logic - Not">
+      <_description>A Not</_description>
+    </object>
+    <object name="Logic - Connector">
+      <_description>A crossconnector</_description>
+    </object>
+  </contents>
+</sheet>
