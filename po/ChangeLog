@@ -1,3 +1,8 @@
+2001-01-24  Szabolcs Ban  <shooby@gnome.hu>
+
+        * hu.po: Tons of fixes by Andras and Emese (spelling,
+          terminology, headers)
+
 2001-01-18  Richard Hult  <rhult@codefactory.se>
 
 	* sv.po: Fixe "strunta i" -> "undertryck".

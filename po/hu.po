@@ -3,59 +3,59 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia ?\n"
-"POT-Creation-Date: 2000-10-06 18:34+0200\n"
-"PO-Revision-Date: 2000-10-06 19:03+0200\n"
+"POT-Creation-Date: 2000-10-31 16:07+0100\n"
+"PO-Revision-Date: 2001-01-24 15:15+0100\n"
 "Last-Translator: Emese Kovacs <emese@gnome.hu>\n"
-"Language-Team: Hungarian <hu@li.org>\n"
+"Language-Team: Hungarian <hu@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-2\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: app/app_procs.c:134
+#: app/app_procs.c:145
 msgid "Export loaded file and exit"
 msgstr "Betöltött fájl exportálása és kilépés"
 
-#: app/app_procs.c:135
+#: app/app_procs.c:146
 msgid "OUTPUT"
 msgstr "KIMENET"
 
-#: app/app_procs.c:137
+#: app/app_procs.c:148
 msgid "Show this help message"
 msgstr "Megjeleníti ezt a segítõ szöveget"
 
-#: app/app_procs.c:157
+#: app/app_procs.c:167
 msgid "Can't connect to session manager!\n"
-msgstr "A session management nem elérhetõ!\n"
+msgstr "A munkafolyamat-kezelõ nem elérhetõ!\n"
 
-#: app/app_procs.c:168
+#: app/app_procs.c:178
 msgid "[OPTION...] [FILE...]"
-msgstr "[OPCIÓ...] [FÁJL...]"
+msgstr "[KAPCSOLÓ...] [FÁJL...]"
 
-#: app/app_procs.c:171
+#: app/app_procs.c:181
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Hiba a %s opciónál: %s\n"
-"Az elérhetõ parancssori opciók megtekintéséhez futtasd a '%s --help'-et.\n"
+"Hiba a %s kapcsolónál: %s\n"
+"Az elérhetõ parancssori kapcsolók megtekintéséhez futtasd a '%s --help'-et.\n"
 
-#: app/app_procs.c:218 app/app_procs.c:220
+#: app/app_procs.c:229 app/app_procs.c:231
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Objektum könyvtár keresése... Nem találom az általános objektumokat, "
 "kilépek...\n"
 
-#: app/app_procs.c:237
+#: app/app_procs.c:248
 msgid "Need valid input file\n"
 msgstr "Érvényes bemeneti fájl kell\n"
 
-#: app/app_procs.c:296 app/app_procs.c:302
+#: app/app_procs.c:310 app/app_procs.c:316
 msgid "Quit, are you sure?"
 msgstr "Kilépsz, tényleg?"
 
-#: app/app_procs.c:309
+#: app/app_procs.c:323
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -63,21 +63,21 @@ msgstr ""
 "Módosított diagramm van a rajztáblán.\n"
 "Tényleg ki akarsz lépni?"
 
-#: app/app_procs.c:319 app/app_procs.c:324
+#: app/app_procs.c:333 app/app_procs.c:338
 msgid "Quit"
 msgstr "Kilépés"
 
-#: app/app_procs.c:336 app/layer_dialog.c:986 app/lineprops_area.c:549
-#: app/lineprops_area.c:747 app/linewidth_area.c:239
+#: app/app_procs.c:350 app/layer_dialog.c:986 app/lineprops_area.c:549
+#: app/lineprops_area.c:747 app/linewidth_area.c:241
 #: app/paginate_psprint.c:242
 msgid "Cancel"
 msgstr "Mégse"
 
-#: app/app_procs.c:404
+#: app/app_procs.c:422 app/app_procs.c:428
 msgid "Could not create per-user Dia config directory"
 msgstr "Nem tudtam a felhasználónak Dia konfigurációs könyvtárat létrehozni"
 
-#: app/app_procs.c:424
+#: app/app_procs.c:448
 msgid "Objects and filters internal to dia"
 msgstr "A dia saját objektumai és szûrõi"
 
@@ -85,7 +85,7 @@ msgstr "A dia saját objektumai és szûrõi"
 msgid "Select color"
 msgstr "Válassz ki egy színt"
 
-#: app/commands.c:92
+#: app/commands.c:86
 #, c-format
 msgid ""
 "No such file found\n"
@@ -94,49 +94,49 @@ msgstr ""
 "Nincs ilyen fájl\n"
 "%s\n"
 
-#: app/commands.c:112
+#: app/commands.c:106
 msgid "Import from XFig"
 msgstr "Importálás Xfig-bõl"
 
-#: app/commands.c:168
+#: app/commands.c:162
 #, c-format
 msgid "Untitled-%d"
 msgstr "Névtelen-%d"
 
-#: app/commands.c:229
+#: app/commands.c:223
 msgid "No existing object to paste.\n"
 msgstr "Nincs beillesztendõ objektum.\n"
 
-#: app/commands.c:464
+#: app/commands.c:458
 msgid "About Dia"
 msgstr "Dia névjegye"
 
-#: app/commands.c:522
+#: app/commands.c:501
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s. Szerzõ: Alexander Larsson"
 
-#: app/commands.c:527
+#: app/commands.c:506
 msgid "Maintainer: James Henstridge"
 msgstr "Karbantartó: James Henstridge"
 
-#: app/commands.c:531
+#: app/commands.c:510
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Látogass el a http://www.lysator.liu.se/~alla/dia lapra"
 
-#: app/commands.c:536
+#: app/commands.c:515
 msgid "Contributors:"
 msgstr "Köszönet illeti még:"
 
 #. setup buttons
-#: app/commands.c:553 app/dia-props.c:84 app/layer_dialog.c:976
-#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:230
-#: app/pagesetup.c:72 app/paginate_psprint.c:234 app/preferences.c:598
-#: app/properties.c:82 lib/message.c:85
+#: app/commands.c:532 app/dia-props.c:86 app/layer_dialog.c:976
+#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:232
+#: app/pagesetup.c:72 app/paginate_psprint.c:234 app/preferences.c:602
+#: app/properties.c:82 lib/message.c:87
 msgid "OK"
 msgstr "OK"
 
-#: app/commands.c:654
+#: app/commands.c:635
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -150,13 +150,13 @@ msgstr ""
 msgid "Object defaults"
 msgstr "Objektum alapértékek"
 
-#: app/defaults.c:73 app/dia-props.c:93 app/pagesetup.c:77
-#: app/preferences.c:607 app/properties.c:91
+#: app/defaults.c:73 app/dia-props.c:95 app/pagesetup.c:77
+#: app/preferences.c:611 app/properties.c:91
 msgid "Apply"
 msgstr "Alkalmaz"
 
-#: app/defaults.c:83 app/dia-props.c:103 app/layer_dialog.c:261
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:616
+#: app/defaults.c:83 app/dia-props.c:105 app/layer_dialog.c:261
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:620
 #: app/properties.c:101
 msgid "Close"
 msgstr "Bezárás"
@@ -169,37 +169,37 @@ msgstr "Nincs alapértéke az objektumnak."
 msgid "Could not initialize Bonobo!"
 msgstr "Nem tudom a Bonobo-t elindítani!"
 
-#: app/dia-props.c:58 app/dia-props.c:65
+#: app/dia-props.c:60 app/dia-props.c:67
 msgid "Diagram Properties"
 msgstr "Ábra tulajdonságai"
 
-#: app/dia-props.c:128
+#: app/dia-props.c:130
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:132
+#: app/dia-props.c:134
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:137
+#: app/dia-props.c:139
 #, fuzzy
 msgid "Spacing"
 msgstr "Méretezés"
 
-#: app/dia-props.c:157
+#: app/dia-props.c:159
 #, fuzzy
 msgid "Visible spacing"
 msgstr "_Látható rács"
 
-#: app/dia-props.c:177
+#: app/dia-props.c:179
 msgid "Grid"
 msgstr "Rács"
 
-#: app/dia-props.c:187
+#: app/dia-props.c:189
 msgid "Background Colour"
 msgstr "Háttér Szín"
 
-#: app/dia-props.c:198 lib/diagramdata.c:53
+#: app/dia-props.c:200 lib/diagramdata.c:53
 msgid "Background"
 msgstr "Háttér"
 
@@ -260,7 +260,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Oldalbeállítás"
 
-#: app/disp_callbacks.c:69 app/properties.c:164
+#: app/disp_callbacks.c:70 app/properties.c:164
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -268,23 +268,19 @@ msgstr ""
 "Ez az objektum nem támogatja a Visszavonás/Újra funkciókat.\n"
 "Visszavonásra vonatkozó információk törölve."
 
-#: app/disp_callbacks.c:166
+#: app/disp_callbacks.c:167
 msgid "No object menu"
 msgstr "Nincs objektum-menü"
 
-#: app/display.c:68 app/display.c:69
-msgid "Zoom"
-msgstr "Közelítés"
-
-#: app/display.c:88
+#: app/display.c:143
 msgid "Diagram modified!"
 msgstr "Az ábra módosítva lett!"
 
-#: app/display.c:753 app/display.c:759
+#: app/display.c:809 app/display.c:815
 msgid "Really close?"
 msgstr "Tényleg bezárod?"
 
-#: app/display.c:764
+#: app/display.c:820
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -292,20 +288,21 @@ msgstr ""
 "Módosított ábra van a rajztáblán.\n"
 "Tényleg be akarod zárni?"
 
-#: app/display.c:782 app/filedlg.c:242 app/filedlg.c:431 app/preferences.c:492
+#: app/display.c:838 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:494
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Igen"
 
-#: app/display.c:792 app/filedlg.c:255 app/filedlg.c:444 app/preferences.c:492
-#: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
+#: app/display.c:848 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:494
+#: app/preferences.c:505 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Nem"
 
-#: app/export_png.c:78 app/load_save.c:549 app/render_eps.c:162
+#: app/export_png.c:78 app/load_save.c:583 app/render_eps.c:165
 #: plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:512
-#: plug-ins/hpgl/hpgl.c:555 plug-ins/pstricks/render_pstricks.c:185
-#: plug-ins/svg/render_svg.c:177 plug-ins/wpg/wpg.c:926
+#: plug-ins/hpgl/hpgl.c:555 plug-ins/pstricks/render_pstricks.c:188
+#: plug-ins/shape/shape-export.c:195 plug-ins/svg/render_svg.c:181
+#: plug-ins/wpg/wpg.c:926
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Nem tudom megnyitni: '%s' nem írható.\n"
@@ -326,27 +323,27 @@ msgstr "A PNG írásakor hiba lépett fel"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:95 app/filedlg.c:369
+#: app/filedlg.c:99 app/filedlg.c:373
 msgid "By extension"
 msgstr "Kiterjesztés szerint"
 
-#: app/filedlg.c:154
+#: app/filedlg.c:158
 msgid "Open Diagram"
 msgstr "Ábra megnyitása"
 
-#: app/filedlg.c:180
+#: app/filedlg.c:184
 msgid "Open Options"
-msgstr "Megnyitás opciói"
+msgstr "Megnyitás beállításai"
 
-#: app/filedlg.c:188 app/filedlg.c:528
+#: app/filedlg.c:192 app/filedlg.c:532
 msgid "Determine file type:"
 msgstr "Fájltípus meghatározása:"
 
-#: app/filedlg.c:228 app/filedlg.c:416
+#: app/filedlg.c:232 app/filedlg.c:420
 msgid "File already exists"
 msgstr "A fájl már létezik"
 
-#: app/filedlg.c:232 app/filedlg.c:419
+#: app/filedlg.c:236 app/filedlg.c:423
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -355,11 +352,11 @@ msgstr ""
 "A %s nevû fájl már létezik.\n"
 "Fölül szeretnéd írni?"
 
-#: app/filedlg.c:296
+#: app/filedlg.c:300
 msgid "Save Diagram"
 msgstr "Ábra mentése"
 
-#: app/filedlg.c:476
+#: app/filedlg.c:480
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -368,127 +365,131 @@ msgstr ""
 "Nem tudtam megállapítani, hogy melyik export szûrõt használjam\n"
 "'%s' mentéséhez"
 
-#: app/filedlg.c:493
+#: app/filedlg.c:497
 msgid "Export Diagram"
 msgstr "Ábra exportálása"
 
-#: app/filedlg.c:520
+#: app/filedlg.c:524
 msgid "Export Options"
-msgstr "Exportálás opciói"
+msgstr "Exportálás beállításai"
 
-#: app/interface.c:35
+#: app/interface.c:37
 msgid "Modify object(s)"
 msgstr "Objektum(ok) módosítása"
 
-#: app/interface.c:36 app/menus.c:193
+#: app/interface.c:38 app/menus.c:193
 msgid "Modify"
 msgstr "Módosítás"
 
-#: app/interface.c:40 app/interface.c:41 app/menus.c:194
+#: app/interface.c:42 app/interface.c:43 app/menus.c:194
 msgid "Magnify"
 msgstr "Nagyítás"
 
-#: app/interface.c:45
+#: app/interface.c:47
 msgid "Scroll around the diagram"
 msgstr "Körbegörget a diagrammon"
 
-#: app/interface.c:46 app/menus.c:195
+#: app/interface.c:48 app/menus.c:195
 msgid "Scroll"
 msgstr "Görgetés"
 
-#: app/interface.c:50
+#: app/interface.c:52
 msgid "Create Text"
 msgstr "Szöveg készítése"
 
-#: app/interface.c:51 app/menus.c:196
+#: app/interface.c:53 app/menus.c:196
 msgid "Text"
 msgstr "Szöveg"
 
-#: app/interface.c:55
+#: app/interface.c:57
 msgid "Create Box"
 msgstr "Doboz készítése"
 
-#: app/interface.c:56 app/menus.c:197
+#: app/interface.c:58 app/menus.c:197
 msgid "Box"
 msgstr "Doboz"
 
-#: app/interface.c:60
+#: app/interface.c:62
 msgid "Create Ellipse"
 msgstr "Ellipszis készítése"
 
-#: app/interface.c:61 app/menus.c:198
+#: app/interface.c:63 app/menus.c:198
 msgid "Ellipse"
 msgstr "Ellipszis"
 
-#: app/interface.c:65
+#: app/interface.c:67
 msgid "Create Polygon"
 msgstr "Sokszög készítése"
 
-#: app/interface.c:66 app/menus.c:199
+#: app/interface.c:68 app/menus.c:199
 msgid "Polygon"
 msgstr "Sokszög"
 
-#: app/interface.c:70
+#: app/interface.c:72
 msgid "Create Beziergon"
 msgstr "Bezier-síkidom készítése"
 
-#: app/interface.c:71 app/menus.c:200
+#: app/interface.c:73 app/menus.c:200
 msgid "Beziergon"
 msgstr "Bezier-síkidom"
 
-#: app/interface.c:75
+#: app/interface.c:77
 msgid "Create Line"
 msgstr "Vonal készítése"
 
-#: app/interface.c:76 app/menus.c:201 objects/standard/line.c:183
+#: app/interface.c:78 app/menus.c:201 objects/standard/line.c:183
 msgid "Line"
 msgstr "Vonal"
 
-#: app/interface.c:80
+#: app/interface.c:82
 msgid "Create Arc"
 msgstr "Körív készítése"
 
-#: app/interface.c:81 app/menus.c:202
+#: app/interface.c:83 app/menus.c:202
 msgid "Arc"
 msgstr "Körív"
 
-#: app/interface.c:85
+#: app/interface.c:87
 msgid "Create Zigzagline"
 msgstr "Cikkcakkvonal készítése"
 
-#: app/interface.c:86 app/menus.c:203
+#: app/interface.c:88 app/menus.c:203
 msgid "Zigzagline"
 msgstr "Cikkcakkvonal"
 
-#: app/interface.c:90
+#: app/interface.c:92
 msgid "Create Polyline"
 msgstr "Töröttvonal készítése"
 
-#: app/interface.c:91 app/menus.c:204
+#: app/interface.c:93 app/menus.c:204
 msgid "Polyline"
 msgstr "Töröttvonal"
 
-#: app/interface.c:95
+#: app/interface.c:97
 msgid "Create Bezierline"
 msgstr "Bezier-görbe készítése"
 
-#: app/interface.c:96 app/menus.c:205
+#: app/interface.c:98 app/menus.c:205
 msgid "Bezierline"
 msgstr "Bezier-görbe"
 
-#: app/interface.c:100
+#: app/interface.c:102
 msgid "Create Image"
 msgstr "Kép készítése"
 
-#: app/interface.c:101 app/menus.c:206
+#: app/interface.c:103 app/menus.c:206
 msgid "Image"
 msgstr "Kép"
 
-#: app/interface.c:312
+#: app/interface.c:348
+msgid "Zoom"
+msgstr "Közelítés"
+
+#: app/interface.c:387
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata in tool_select_update"
 
-#: app/interface.c:718
+#: app/interface.c:797
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -496,7 +497,7 @@ msgstr ""
 "Elõ- és háttérszínek. A kis fekete és fehér négyzetek alapbeállítást "
 "nyújtanak. A kis nyilak felcserélik a színeket. Dupla klikkel szerkesztheted."
 
-#: app/interface.c:799
+#: app/interface.c:943
 msgid "Diagram Editor"
 msgstr "Ábraszerkesztõ"
 
@@ -552,21 +553,21 @@ msgstr "Részletek..."
 msgid "Line Style Properties"
 msgstr "Vonalstílus tulajdonságai"
 
-#: app/linewidth_area.c:209
+#: app/linewidth_area.c:211
 msgid "Line width"
 msgstr "Vonal szélessége"
 
-#: app/linewidth_area.c:217 objects/chronogram/chronoline.c:331
+#: app/linewidth_area.c:219 objects/chronogram/chronoline.c:331
 #: objects/chronogram/chronoline.c:422 objects/chronogram/chronoref.c:251
 #: objects/chronogram/chronoref.c:316
 msgid "Line width:"
 msgstr "Vonal szélessége"
 
-#: app/load_save.c:95
+#: app/load_save.c:119
 msgid "Error reading diagram file\n"
 msgstr "Ábrafájl beolvasási hiba\n"
 
-#: app/load_save.c:146
+#: app/load_save.c:180
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -574,7 +575,7 @@ msgstr ""
 "Nem tudom betölteni a diagrammot.\n"
 "A csatolt objektum nem található a dokumentumban."
 
-#: app/load_save.c:149
+#: app/load_save.c:183
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -582,7 +583,7 @@ msgstr ""
 "Nem tudom betölteni a diagrammot.\n"
 "A csatlakozási pont nem létezik."
 
-#: app/load_save.c:152
+#: app/load_save.c:186
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -590,16 +591,16 @@ msgstr ""
 "Nem tudom betölteni az ábrát.\n"
 "A csatlakozási \"handle\" nem létezik."
 
-#: app/load_save.c:196 plug-ins/dxf/dxf-import.c:489 plug-ins/wpg/wpg.c:1020
+#: app/load_save.c:230 plug-ins/dxf/dxf-import.c:490 plug-ins/wpg/wpg.c:1020
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nem tudom megnyitni: '%s' nem olvasható.\n"
 
-#: app/load_save.c:202
+#: app/load_save.c:236
 msgid "You must specify a file, not a directory.\n"
 msgstr "Fájlt kell megadnod, nem könyvtárat.\n"
 
-#: app/load_save.c:211 app/load_save.c:216
+#: app/load_save.c:245 app/load_save.c:250
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -608,7 +609,7 @@ msgstr ""
 "Nem tudom betölteni a %s ábrát.\n"
 "Ismeretlen fájltípus."
 
-#: app/load_save.c:223
+#: app/load_save.c:257
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -617,12 +618,12 @@ msgstr ""
 "Nem tudom betölteni a következõ ábrát: %s.\n"
 "Nem Dia fájl."
 
-#: app/load_save.c:667
+#: app/load_save.c:701
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "'%s' fájl mentése sikertelen\n"
 
-#: app/load_save.c:687 app/load_save.c:692
+#: app/load_save.c:721 app/load_save.c:726
 msgid "Native Dia Diagram"
 msgstr "Eredeti Dia ábra"
 
@@ -636,11 +637,11 @@ msgstr "Új ábra készítése"
 
 #: app/menus.c:43 app/plugin-manager.c:129 app/plugin-manager.c:135
 msgid "Plug-ins"
-msgstr "Plugin-ok"
+msgstr "Bõvítmények"
 
 #: app/menus.c:57
 msgid "_Export..."
-msgstr "_Exportál"
+msgstr "_Exportálás..."
 
 #: app/menus.c:61
 msgid "Page Set_up..."
@@ -857,7 +858,7 @@ msgstr "/Fájl/_Tulajdonságok..."
 
 #: app/menus.c:252
 msgid "/File/P_lugins"
-msgstr "/Fájl/_Plugin-ok"
+msgstr "/Fájl/_Bõvítmények"
 
 #: app/menus.c:253 app/menus.c:267 app/menus.c:270
 msgid "/File/---"
@@ -1237,13 +1238,18 @@ msgstr "/Párbeszédek/_Rétegek"
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata in tool_menu_select"
 
-#: app/menus.c:806
+#: app/menus.c:810
 msgid "Diagram Menu"
 msgstr "Ábramenü"
 
 #: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
 msgstr "Ábra nyomtatása"
+
+#: app/paginate_gnomeprint.c:175
+#, fuzzy
+msgid "An error occured while creating the print context"
+msgstr "A PNG írásakor hiba lépett fel"
 
 #: app/paginate_psprint.c:194
 msgid "Select Printer"
@@ -1298,94 +1304,94 @@ msgstr "Betölt"
 msgid "Unload"
 msgstr "Eltávolít"
 
-#: app/preferences.c:85
+#: app/preferences.c:87
 msgid "User Interface"
 msgstr "Felhasználói interfész"
 
-#: app/preferences.c:86
+#: app/preferences.c:88
 msgid "View Defaults"
 msgstr "Alapbeállítások"
 
-#: app/preferences.c:87
+#: app/preferences.c:89
 msgid "Grid Lines"
 msgstr "Rácsvonalak"
 
-#: app/preferences.c:101
+#: app/preferences.c:103
 msgid "Reset tools after create:"
 msgstr "Létrehozás után eszközök beállítása:"
 
-#: app/preferences.c:102
+#: app/preferences.c:104
 msgid "Compress saved files:"
 msgstr "Elmentett fájlok tömörítése:"
 
-#: app/preferences.c:103
+#: app/preferences.c:105
 msgid "Number of undo levels:"
 msgstr "Visszavonások száma:"
 
-#: app/preferences.c:104
+#: app/preferences.c:106
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
 msgstr ""
 
-#: app/preferences.c:105
+#: app/preferences.c:107
 msgid "New window:"
 msgstr "Új ablak:"
 
-#: app/preferences.c:106
+#: app/preferences.c:108
 msgid "Width:"
 msgstr "Szélesség:"
 
-#: app/preferences.c:107
+#: app/preferences.c:109
 msgid "Height:"
 msgstr "Magasság:"
 
-#: app/preferences.c:108
+#: app/preferences.c:110
 msgid "Magnify:"
 msgstr "Nagyítás:"
 
-#: app/preferences.c:110
+#: app/preferences.c:112
 msgid "Connection Points:"
 msgstr "Csatlakozási pontok:"
 
-#: app/preferences.c:111 app/preferences.c:114 app/preferences.c:122
+#: app/preferences.c:113 app/preferences.c:116 app/preferences.c:124
 msgid "Visible:"
 msgstr "Látható:"
 
-#: app/preferences.c:113
+#: app/preferences.c:115
 msgid "Grid:"
 msgstr "Rács:"
 
-#: app/preferences.c:115
+#: app/preferences.c:117
 msgid "Snap to:"
 msgstr "Rácsra ugrik:"
 
-#: app/preferences.c:116
+#: app/preferences.c:118
 msgid "X Size:"
 msgstr "X méret:"
 
-#: app/preferences.c:117
+#: app/preferences.c:119
 msgid "Y Size:"
 msgstr "Y méret:"
 
-#: app/preferences.c:118 app/preferences.c:123
+#: app/preferences.c:120 app/preferences.c:125
 msgid "Colour:"
 msgstr "Szín:"
 
-#: app/preferences.c:119 app/preferences.c:124
+#: app/preferences.c:121 app/preferences.c:126
 msgid "Solid lines:"
 msgstr "Teli vonalak:"
 
-#: app/preferences.c:121
+#: app/preferences.c:123
 msgid "Page breaks:"
 msgstr "Laptörés:"
 
-#: app/preferences.c:235
+#: app/preferences.c:237
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Nem tudom megnyitni: '%s' nem írható"
 
-#: app/preferences.c:566 app/preferences.c:575
+#: app/preferences.c:570 app/preferences.c:579
 msgid "Preferences"
 msgstr "Tulajdonságok"
 
@@ -1397,7 +1403,7 @@ msgstr "Objektum tulajdonságok"
 msgid "This object has no properties."
 msgstr "Nincsenek tulajdonságai az objektumnak."
 
-#: app/render_eps.c:1137
+#: app/render_eps.c:1140
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postscript"
 
@@ -1417,50 +1423,50 @@ msgstr ""
 #: lib/font.c:440
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
-msgstr "%s font nincs, Courier-t használok helyette.\n"
+msgstr "%s betûkészlet nincs, Couriert használok helyette.\n"
 
-#: lib/message.c:118
+#: lib/message.c:120
 msgid "Notice"
 msgstr "Megjegyzés"
 
-#: lib/message.c:129
+#: lib/message.c:131
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: lib/message.c:141
+#: lib/message.c:143
 msgid "Error"
 msgstr "Hiba"
 
-#: lib/plug-ins.c:205
+#: lib/plug-ins.c:211
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Nem tudtam megállapítani a megfelelõ útvonalat `%s'-hez"
 
-#: lib/plug-ins.c:210
+#: lib/plug-ins.c:216
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
 "%s"
 msgstr ""
-"%s plugin betöltése sikertlen\n"
+"%s bõvítmény betöltése sikertlen\n"
 "%s"
 
-#: lib/plug-ins.c:221
+#: lib/plug-ins.c:227
 #, c-format
 msgid "Could not find plugin init function in `%s'"
-msgstr "A plugin inicializáló függvénye nem található `%s'-ben"
+msgstr "A bõvítmény inicializáló függvénye nem található `%s'-ben"
 
-#: lib/plug-ins.c:248
+#: lib/plug-ins.c:254
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr "%s plugint nem tudtam eltávolítani"
+msgstr "%s bõvítményt nem tudtam eltávolítani"
 
-#: lib/plug-ins.c:301
+#: lib/plug-ins.c:307
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "`%s' nem könyvtár"
 
-#: lib/plug-ins.c:307
+#: lib/plug-ins.c:313
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Nem tudom megnyitni a következõt: '%s' "
@@ -1538,7 +1544,7 @@ msgstr "Hossz: "
 msgid "Width: "
 msgstr "Szélesség: "
 
-#: lib/widgets.c:854 objects/standard/image.c:532
+#: lib/widgets.c:854 objects/standard/image.c:540
 msgid "Select image file"
 msgstr "Válassz ki egy képfájlt"
 
@@ -2247,11 +2253,11 @@ msgstr "Nyíl mutatása:"
 msgid "Interface:"
 msgstr "Interfész:"
 
-#: objects/UML/lifeline.c:605
+#: objects/UML/lifeline.c:607
 msgid "Show focus of control:"
 msgstr "Mutasd a vezérlés fókuszát:"
 
-#: objects/UML/lifeline.c:610
+#: objects/UML/lifeline.c:612
 msgid "Show destruction mark:"
 msgstr "Mutasd a megsemmisítési kijelölést:"
 
@@ -2420,11 +2426,11 @@ msgstr ""
 msgid "Minor step line width:"
 msgstr "Vonal szélessége"
 
-#: objects/custom/custom.c:117
+#: objects/custom/custom.c:123
 msgid "Custom"
 msgstr ""
 
-#: objects/custom/custom.c:117
+#: objects/custom/custom.c:123
 msgid "Custom XML shapes loader"
 msgstr ""
 
@@ -2529,34 +2535,34 @@ msgstr ""
 msgid "Curve distance"
 msgstr "többszörös elõfordulás"
 
-#: objects/standard/image.c:165
+#: objects/standard/image.c:168
 #, fuzzy
 msgid "Image file"
 msgstr "Képfájl:"
 
-#: objects/standard/image.c:167
+#: objects/standard/image.c:170
 #, fuzzy
 msgid "Draw border"
 msgstr "Keret mutatása:"
 
-#: objects/standard/image.c:169
+#: objects/standard/image.c:172
 msgid "Keep aspect ratio"
 msgstr "Felbontási arányok megtartása"
 
-#: objects/standard/image.c:263
+#: objects/standard/image.c:271
 msgid "Image file:"
 msgstr "Képfájl:"
 
-#: objects/standard/image.c:274
+#: objects/standard/image.c:282
 msgid "Keep aspect ratio:"
 msgstr "Felbontási arány megtartása:"
 
-#: objects/standard/image.c:282
+#: objects/standard/image.c:290
 msgid "Show border:"
 msgstr "Keret mutatása:"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:848 objects/standard/image.c:859
+#: objects/standard/image.c:856 objects/standard/image.c:867
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -2566,7 +2572,7 @@ msgstr ""
 "'%s'-t használtam helyette\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:865 objects/standard/image.c:891
+#: objects/standard/image.c:873 objects/standard/image.c:899
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "A '%s' nevû fájlt nem találtam meg.\n"
@@ -2613,7 +2619,7 @@ msgstr ""
 msgid "Computer Graphics Metafile export filter"
 msgstr ""
 
-#: plug-ins/dxf/dxf-export.c:557 plug-ins/dxf/dxf-import.c:543
+#: plug-ins/dxf/dxf-export.c:557 plug-ins/dxf/dxf-import.c:544
 msgid "Drawing Interchange File"
 msgstr ""
 
@@ -2629,8 +2635,25 @@ msgstr ""
 msgid "TeX Pstricks export filter"
 msgstr ""
 
-#: plug-ins/pstricks/render_pstricks.c:755
+#: plug-ins/pstricks/render_pstricks.c:760
 msgid "TeX PSTricks macros"
+msgstr ""
+
+#: plug-ins/shape/shape-export.c:935
+msgid "dia shape file"
+msgstr ""
+
+#: plug-ins/shape/shape.c:36
+msgid "dia shape export filter"
+msgstr ""
+
+#: plug-ins/svg/render_svg.c:825
+#, fuzzy
+msgid "Scalable Vector Graphics"
+msgstr "Portable Network Graphics"
+
+#: plug-ins/svg/svg.c:36
+msgid "Scalable Vector Graphics export filter"
 msgstr ""
 
 #: plug-ins/wpg/wpg.c:1032
@@ -2640,15 +2663,6 @@ msgstr ""
 
 #: plug-ins/wpg/wpg.c:1181
 msgid "WordPerfect Graphics export filter"
-msgstr ""
-
-#: plug-ins/svg/render_svg.c:821
-#, fuzzy
-msgid "Scalable Vector Graphics"
-msgstr "Portable Network Graphics"
-
-#: plug-ins/svg/svg.c:36
-msgid "Scalable Vector Graphics export filter"
 msgstr ""
 
 #~ msgid "/Dialogs/tearoff"
