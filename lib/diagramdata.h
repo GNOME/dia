@@ -35,6 +35,7 @@ struct _NewDiagramData {
   gboolean fitto;
   gint fitwidth, fitheight;
   Color bg_color, pagebreak_color, grid_color;
+  int compress_save;
 };
 
 struct _DiagramData {
@@ -44,6 +45,8 @@ struct _DiagramData {
   Color pagebreak_color;
 
   PaperInfo paper;       /* info about the page info for the diagram */
+  gboolean is_compressed; /* TRUE if by default it should be save compressed.
+			     The user can override this in Save As... */
 
   struct  {
     /* grid line intervals */

@@ -116,7 +116,7 @@ struct DiaPrefsTab prefs_tabs[] =
 DiaPrefData prefs_data[] =
 {
   { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create), &default_true, 0, N_("Reset tools after create") },
-  { "compress_save", PREF_BOOLEAN, PREF_OFFSET(compress_save), &default_true, 0, N_("Compress saved files") },
+  { "compress_save", PREF_BOOLEAN, PREF_OFFSET(new_diagram.compress_save), &default_true, 0, N_("Compress saved files") },
   { "undo_depth", PREF_UINT, PREF_OFFSET(undo_depth), &default_undo_depth, 0, N_("Number of undo levels:") },
   { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), &default_true, 0, N_("Reverse dragging selects\nintersecting objects") },
   { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), &default_recent_documents, 0, N_("Recent documents list size:") },
@@ -162,8 +162,11 @@ DiaPrefData prefs_data[] =
   { "render_bounding_boxes", PREF_BOOLEAN,PREF_OFFSET(render_bounding_boxes),
     &default_false,0,"render bounding boxes",NULL, TRUE},
 
+  /* There's really no reason to not pertty format it, and allowing non-pretty
+     can lead to problems with long lines, CVS etc. 
   { "pretty_formated_xml", PREF_BOOLEAN,PREF_OFFSET(pretty_formated_xml),
     &default_true,0,"pretty formated xml",NULL, TRUE},
+  */
 
   { "prefer_psprint", PREF_BOOLEAN,PREF_OFFSET(prefer_psprint),
     &default_false,0,"prefer psprint", NULL, TRUE},
@@ -495,7 +498,6 @@ prefs_load(void)
  
   close(fd);
   render_bounding_boxes = prefs.render_bounding_boxes;
-  pretty_formated_xml = prefs.pretty_formated_xml;
 }
 
 static void

@@ -69,6 +69,17 @@ set_true_callback(GtkWidget *w, int *data)
 }
 
 static void
+toggle_compress_callback(GtkWidget *w, gpointer data)
+{
+  // Changes prefs exactly when the user toggles the setting, i.e.
+  // the setting really remembers what the user chose last time, but
+  // lets diagrams of the opposite kind stay that way unless the user
+  // intervenes.
+  prefs.new_diagram.compress_save =
+    gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton));
+}
+
+static void
 open_set_extension(GtkObject *item)
 {
   DiaImportFilter *ifilter = gtk_object_get_user_data(item);
@@ -257,9 +268,7 @@ file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
     }
   }
 
-  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton)) !=
-      prefs.compress_save)
-    prefs.compress_save = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton));
+  dia->data->is_compressed = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(compressbutton));
 
   diagram_update_extents(dia);
 
@@ -291,8 +300,10 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     compressbutton = gtk_check_button_new_with_label(_("Compress diagram files"));
     gtk_box_pack_start_defaults(GTK_BOX(GTK_FILE_SELECTION(savedlg)->main_vbox),
 				compressbutton);
-    if (prefs.compress_save)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(compressbutton), TRUE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(compressbutton),
+				 dia->data->is_compressed);
+    g_signal_connect(G_OBJECT(compressbutton), "toggled",
+		     toggle_compress_callback, NULL);
     gtk_widget_show(compressbutton);
     gtk_tooltips_set_tip(tool_tips, compressbutton,
 			 _("Compression reduces file size to less than 1/10th size and speeds up loading and saving.  Some text programs cannot manipulate compressed files."), NULL);
@@ -310,8 +321,10 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_quit_add_destroy(1, GTK_OBJECT(savedlg));
   } else {
     gtk_widget_set_sensitive(savedlg, TRUE);
+    g_signal_handlers_block_by_func(G_OBJECT(compressbutton), toggle_compress_callback, NULL);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(compressbutton),
-				 prefs.compress_save);
+				 dia->data->is_compressed);
+    g_signal_handlers_unblock_by_func(G_OBJECT(compressbutton), toggle_compress_callback, NULL);
     if (GTK_WIDGET_VISIBLE(savedlg))
       return;
     gtk_file_selection_set_filename(GTK_FILE_SELECTION(savedlg),

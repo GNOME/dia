@@ -47,7 +47,6 @@ struct DiaPreferences {
 
   int show_cx_pts;
   int reset_tools_after_create;
-  int compress_save;
   int undo_depth;
   int reverse_rubberbanding_intersects;
   guint recent_documents_list_size;
@@ -58,7 +57,6 @@ struct DiaPreferences {
   } pagebreak;
 
   int render_bounding_boxes;
-  int pretty_formated_xml;
   int prefer_psprint;
     
   int toolbox_on_top;

@@ -67,6 +67,8 @@ new_diagram_data (NewDiagramData *prefs)
 	data->selected_count = 0;
 	data->selected = NULL;
   
+	data->is_compressed = prefs->compress_save; // Overridden by doc
+
 	return data;
 }
 

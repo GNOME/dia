@@ -270,7 +270,8 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   AttributeNode attr;
   Layer *layer;
   xmlNsPtr namespace;
-  
+  gchar firstchar;
+
   if (g_file_test (filename, G_FILE_TEST_IS_DIR)) {
     message_error(_("You must specify a file, not a directory.\n"));
     return FALSE;
@@ -283,6 +284,14 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     return FALSE;
   }
 
+  if (read(fd, &firstchar, 1)) {
+    data->is_compressed = (firstchar != '<');
+  } else {
+    /* Couldn't read a single char?  Set to default. */
+    data->is_compressed = prefs.new_diagram.compress_save;
+  }
+  
+  /* Note that this closing and opening means we can't read from a pipe */
   close(fd);
 
   doc = xmlDiaParseFile(filename);
@@ -489,7 +498,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   }
 
   data->active_layer = (Layer *) g_ptr_array_index(data->layers, 0);
-  
+
   xmlFreeDoc(doc);
   
   g_hash_table_foreach(objects_hash, hash_free_string, NULL);
@@ -736,7 +745,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename)
   }
   g_hash_table_destroy(objects_hash);
 
-  if (prefs.compress_save)
+  if (data->is_compressed)
     xmlSetDocCompressMode(doc, 9);
   else
     xmlSetDocCompressMode(doc, 0);

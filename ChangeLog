@@ -1,3 +1,15 @@
+2003-08-23  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/filedlg.c (file_save_as_callback): 
+	* app/preferences.h: 
+	* app/preferences.c (prefs_data): 
+	* lib/diagramdata.h: 
+	* lib/diagramdata.c (new_diagram_data): 
+	* app/load_save.c (diagram_data_load): 
+	Let the document remember whether it was compressed.  The user can
+	still override this in the Save As... dialog, and that will still
+	be remembered as the default for new diagrams.
+
 2003-08-23  Steffen Macke <sdteffen@web.de>
 
 	* plug-ins/xslt/Makefile.am: added dia-uml2componentlist.xsl
