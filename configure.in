@@ -61,15 +61,29 @@ if test "$have_pangoft2" = "true"; then
   have_freetype=false
   AC_CHECK_LIB(freetype,FT_Init_FreeType,have_freetype=true)
   if test "$have_freetype" = "true"; then
-    FREETYPE_LIBS=-lfreetype
-    AC_SUBST(FREETYPE_LIBS)
-    GTK_MODULES="$GTK_MODULES pangoft2"
-    AC_DEFINE(HAVE_FREETYPE,1,[Define if you have the FreeType2 library])
+    dnl Need 2.0.9, as a bug was fixed for us there.
+    dnl However, freetype-config doesn't give a meaningful version, so we must
+    dnl do it like this.
+    AC_MSG_CHECKING([for version of FreeType])
+    FREETYPE_INCLUDE=`freetype-config --cflags | cut -c3-`
+    FREETYPE_MAJOR=`grep '^#define FREETYPE_MAJOR' $FREETYPE_INCLUDE/freetype/freetype.h | cut -d' ' -f3`
+    FREETYPE_MINOR=`grep '^#define FREETYPE_MINOR' $FREETYPE_INCLUDE/freetype/freetype.h | cut -d' ' -f3`
+    FREETYPE_PATCH=`grep '^#define FREETYPE_PATCH' $FREETYPE_INCLUDE/freetype/freetype.h | cut -d' ' -f3`
+    FREETYPE_VERSION=`echo | awk "BEGIN { printf \"%d\", ($FREETYPE_MAJOR * 1000 + $FREETYPE_MINOR) * 1000 + $FREETYPE_PATCH;}"`
+    AC_MSG_RESULT([$FREETYPE_MAJOR.$FREETYPE_MINOR.$FREETYPE_PATCH])
+    if test "$FREETYPE_VERSION" -ge 2000009; then
+        FREETYPE_LIBS=-lfreetype
+	AC_SUBST(FREETYPE_LIBS)
+	GTK_MODULES="$GTK_MODULES pangoft2"
+	AC_DEFINE(HAVE_FREETYPE,1,[Define if you have the FreeType2 library])
+    else
+	AC_MSG_ERROR([Need FreeType library version 2.0.9 or higher, found $FREETYPE_MAJOR.$FREETYPE_MINOR.$FREETYPE_PATCH])
+    fi
   else
-   AC_MSG_ERROR("Can't find FreeType library")
+   AC_MSG_ERROR(Can't find FreeType library)
   fi
 else
-   AC_MSG_ERROR("Can't find PangoFT2 library")
+   AC_MSG_ERROR(Can't find PangoFT2 library)
 fi
 
 dnl Try for libart

@@ -1,4 +1,9 @@
-2002-12-06  Lars Clausen <lrclause@cs.uiuc.edu>
+2002-12-06  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* configure.in: Check for freetype version.
+
+	* lib/text.c (text_insert_char): Fixed small buffer overflow for
+	length = 0.
 
 	* app/diapsft2renderer.h: 
 	* app/diapsft2renderer.c: 
