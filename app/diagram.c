@@ -199,8 +199,7 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
     
   gtk_widget_set_sensitive(items->group, dia->data->selected_count > 1);
   gtk_widget_set_sensitive(items->ungroup,
-			   (dia->data->selected_count == 1) &&
-			   IS_GROUP((Object *)dia->data->selected->data));
+			   (dia->data->selected_count > 0));
   
   gtk_widget_set_sensitive(items->align_h_l, dia->data->selected_count > 1);
   gtk_widget_set_sensitive(items->align_h_c, dia->data->selected_count > 1);
@@ -647,41 +646,50 @@ void diagram_ungroup_selected(Diagram *dia)
   Object *group;
   GList *group_list;
   GList *list;
+  GList *selected;
   int group_index;
+  int any_groups = 0;
   
-  if (dia->data->selected_count != 1) {
-    message_error("Trying to ungroup with more or less that one selected object.");
+  if (dia->data->selected_count < 1) {
+    message_error("Trying to ungroup with no selected objects.");
     return;
   }
   
-  group = (Object *)dia->data->selected->data;
+  selected = dia->data->selected;
+  while (selected != NULL) {
+    group = (Object *)selected->data;
 
-  if (IS_GROUP(group)) {
-    diagram_unselect_object(dia, group);
+    if (IS_GROUP(group)) {
+      diagram_unselect_object(dia, group);
 
-    group_index = layer_object_index(dia->data->active_layer, group);
+      group_index = layer_object_index(dia->data->active_layer, group);
     
-    group_list = group_objects(group);
-    list = group_list;
-    while (list != NULL) {
-      Object *obj = (Object *)list->data;
-      object_add_updates(obj, dia);
-      diagram_select(dia, obj);
+      group_list = group_objects(group);
+      list = group_list;
+      while (list != NULL) {
+	Object *obj = (Object *)list->data;
+	object_add_updates(obj, dia);
+	diagram_select(dia, obj);
 
-      list = g_list_next(list);
+	list = g_list_next(list);
+      }
+
+      layer_replace_object_with_list(dia->data->active_layer,
+				     group, g_list_copy(group_list));
+
+      undo_ungroup_objects(dia, group_list, group, group_index);
+      properties_hide_if_shown(dia, group);
+
+      any_groups = 1;
     }
-
-    layer_replace_object_with_list(dia->data->active_layer,
-				   group, g_list_copy(group_list));
-
-    undo_ungroup_objects(dia, group_list, group, group_index);
-    properties_hide_if_shown(dia, group);
-
-    diagram_modified(dia);
+    selected = g_list_next(selected);
   }
   
-  diagram_flush(dia);
-  undo_set_transactionpoint(dia->undo);
+  if (any_groups) {
+    diagram_modified(dia);
+    diagram_flush(dia);
+    undo_set_transactionpoint(dia->undo);
+  }
 }
 
 GList *
