@@ -117,6 +117,7 @@ dia_core_files = \
 	    cursor.c \
 	    cursor.h \
 	    splash.c \
+	    dia-app-icons.h \
 	    recent_files.h \
 	    recent_files.c \
 	    diagram_tree.h \

@@ -59,12 +59,34 @@ struct menudesc arrow_types[] =
    {N_("Integral Symbol"),ARROW_INTEGRAL_SYMBOL},
    {N_("Crow Foot"),ARROW_CROW_FOOT},
    {N_("Cross"),ARROW_CROSS},
+   {N_("1-or-many"),ARROW_ONE_OR_MANY},
+   {N_("0-or-many"),ARROW_NONE_OR_MANY},
+   {N_("1-or-0"),ARROW_ONE_OR_NONE},
+   {N_("1 exactly"),ARROW_ONE_EXACTLY},
    {N_("Filled Concave"),ARROW_FILLED_CONCAVE},
    {N_("Blanked Concave"),ARROW_BLANKED_CONCAVE},
    {N_("Round"), ARROW_ROUNDED},
    {N_("Open Round"), ARROW_OPEN_ROUNDED},
    {NULL,0}};
 
+///////////// prototypes //////////////
+static void 
+draw_empty_ellipse(DiaRenderer *renderer, Point *to, Point *from,
+		  real length, real width, real linewidth,
+		   Color *fg_color);
+static void 
+calculate_double_arrow(Point *second_to, Point *second_from, 
+                       Point *to, Point *from, real length);
+
+static void 
+draw_crow_foot(DiaRenderer *renderer, Point *to, Point *from,
+	       real length, real width, real linewidth,
+	       Color *fg_color,Color *bg_color);
+static void
+calculate_diamond(Point *poly/*[4]*/, Point *to, Point *from,
+		  real length, real width);
+
+////////////////////////////////
 
 static void
 calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,
@@ -100,6 +122,10 @@ calculate_arrow(Point *poly/*[3]*/, Point *to, Point *from,
   point_add(&poly[2], &orth_delta);
 }
 
+/* The function calculate_arrow_poin adjusts the placement of the line and the
+arrow, so that the arrow doesn't overshoot the connectionpoint and the line
+doesn't stick out the other end of the arrow.  move_arrow must be set to the new
+end point of the arrowhead, and move_line to the new endpoint of the line. */
 void
 calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
 		      Point *move_arrow, Point *move_line,
@@ -161,6 +187,10 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
     point_normalize(move_arrow);
     point_scale(move_arrow, add_len);
     break;
+  case ARROW_ONE_EXACTLY:
+  case ARROW_ONE_OR_NONE:
+  case ARROW_ONE_OR_MANY:
+  case ARROW_NONE_OR_MANY:
   default:
     move_arrow->x = 0.0;
     move_arrow->y = 0.0;
@@ -249,6 +279,10 @@ calculate_arrow_point(const Arrow *arrow, const Point *to, const Point *from,
     point_normalize(move_line);
     point_scale(move_line, arrow->length + arrow->width);
     return;
+  case ARROW_ONE_EXACTLY:
+  case ARROW_ONE_OR_NONE:
+  case ARROW_ONE_OR_MANY:
+  case ARROW_NONE_OR_MANY:
   default: 
     move_arrow->x = 0.0;
     move_arrow->y = 0.0;
@@ -289,6 +323,120 @@ calculate_crow(Point *poly/*[3]*/, Point *to, Point *from,
   point_sub(&poly[1], &orth_delta);
   poly[2] = *to;
   point_add(&poly[2], &orth_delta);
+}
+
+// ER arrow for 0..N according to Modern database management,
+// McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+static void 
+draw_none_or_many(DiaRenderer *renderer, Point *to, Point *from,
+		  real length, real width, real linewidth,
+		  Color *fg_color,Color *bg_color)
+{
+  Point second_from, second_to;
+  
+  draw_crow_foot(renderer, to, from, length, width, 
+		 linewidth, fg_color, bg_color);
+
+  calculate_double_arrow(&second_to, &second_from, to, from, length);
+  // use the middle of the arrow 
+
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
+ 
+  draw_empty_ellipse(renderer, &second_to, &second_from, length/2,
+		     width, linewidth, fg_color);
+}
+
+// ER arrow for exactly-one relations according to Modern database management,
+// McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+static void 
+draw_one_exaclty(DiaRenderer *renderer, Point *to, Point *from,
+		  real length, real width, real linewidth,
+		  Color *fg_color,Color *bg_color)
+{
+  Point vl,vt;
+  Point bs,be;
+
+  // the first line
+  point_copy(&vl,from); point_sub(&vl,to);
+  if (point_len(&vl) > 0)
+    point_normalize(&vl);
+  else {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  if (!finite(vl.x)) {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  point_get_perp(&vt,&vl);
+  point_copy_add_scaled(&bs,to,&vl,length/2);
+  point_copy_add_scaled(&be,&bs,&vt,-width/2.0);
+  point_add_scaled(&bs,&vt,width/2.0);
+
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&bs,&be,fg_color);
+
+  point_copy_add_scaled(&bs,to,&vl,length);
+
+  point_copy_add_scaled(&be,&bs,&vt,-width/2.0);
+  point_add_scaled(&bs,&vt,width/2.0);
+
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&bs,&be,fg_color);
+}
+
+// ER arrow for 1..N according to Modern database management,
+// McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+static void 
+draw_one_or_many(DiaRenderer *renderer, Point *to, Point *from,
+		 real length, real width, real linewidth,
+		 Color *fg_color,Color *bg_color)
+{
+
+  Point poly[6];
+
+  draw_crow_foot(renderer, to, from, length, width, 
+		 linewidth, fg_color, bg_color);
+
+  calculate_arrow(poly, to, from, length, width);
+ 
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
+ 
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[0],&poly[2], fg_color);
+}
+
+// ER arrow for 0,1 according to Modern database management,
+// McFadden/Hoffer/Prescott, Addison-Wessley, 1999
+static void 
+draw_one_or_none(DiaRenderer *renderer, Point *to, Point *from,
+		  real length, real width, real linewidth,
+		  Color *fg_color,Color *bg_color)
+{
+  Point vl,vt;
+  Point bs,be;
+  Point second_from, second_to;
+  
+  // the  line
+  point_copy(&vl,from); point_sub(&vl,to);
+  if (point_len(&vl) > 0)
+    point_normalize(&vl);
+  else {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  if (!finite(vl.x)) {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  point_get_perp(&vt,&vl);
+  point_copy_add_scaled(&bs,to,&vl,length/2);
+  point_copy_add_scaled(&be,&bs,&vt,-width/2.0);
+  point_add_scaled(&bs,&vt,width/2.0);
+
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer,&bs,&be,fg_color);
+  // the ellipse
+  calculate_double_arrow(&second_to, &second_from, to, from, length);
+  draw_empty_ellipse(renderer, &second_to, &second_from, length/2, width, linewidth, fg_color); 
 }
 
 static void 
@@ -381,6 +529,60 @@ draw_fill_ellipse(DiaRenderer *renderer, Point *to, Point *from,
   } else {
     DIA_RENDERER_GET_CLASS(renderer)->fill_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
   }
+}
+
+static void 
+draw_empty_ellipse(DiaRenderer *renderer, Point *to, Point *from,
+		  real length, real width, real linewidth,
+		  Color *fg_color)
+{
+  BezPoint bp[5];
+  Point vl,vt;
+  Point disp;
+  
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
+
+  point_copy(&vl,from);
+  point_sub(&vl,to);
+  if (point_len(&vl) > 0)
+    point_normalize(&vl);
+  else {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+  if (!finite(vl.x)) {
+    vl.x = 1.0; vl.y = 0.0;
+  }
+
+  point_get_perp(&vt,&vl);
+ 
+  point_copy(&disp, &vl);
+  disp.x *= length/2;
+  disp.y *= length/2;
+  
+  /* This pile of crap is quite well handled by gcc. */ 
+  bp[0].type = BEZ_MOVE_TO;
+  point_copy(&bp[0].p1,to);
+  point_add(&bp[0].p1,&disp);
+  bp[1].type = bp[2].type = bp[3].type = bp[4].type = BEZ_CURVE_TO;
+  point_copy(&bp[4].p3,&bp[0].p1);
+
+  point_copy_add_scaled(&bp[2].p3,&bp[0].p1,&vl,length);
+  point_copy_add_scaled(&bp[2].p2,&bp[2].p3,&vt,-width / 4.0);
+  point_copy_add_scaled(&bp[3].p1,&bp[2].p3,&vt,width / 4.0);
+  point_copy_add_scaled(&bp[1].p1,&bp[0].p1,&vt,-width / 4.0);
+  point_copy_add_scaled(&bp[4].p2,&bp[0].p1,&vt,width / 4.0);
+  point_copy_add_scaled(&bp[1].p3,&bp[0].p1,&vl,length / 2.0); /* temp */
+  point_copy_add_scaled(&bp[3].p3,&bp[1].p3,&vt,width / 2.0);
+  point_add_scaled(&bp[1].p3,&vt,-width / 2.0);
+  point_copy_add_scaled(&bp[1].p2,&bp[1].p3,&vl,-length / 4.0);
+  point_copy_add_scaled(&bp[4].p1,&bp[3].p3,&vl,-length / 4.0);
+  point_copy_add_scaled(&bp[2].p1,&bp[1].p3,&vl,length / 4.0);
+  point_copy_add_scaled(&bp[3].p2,&bp[3].p3,&vl,length / 4.0);
+  
+  DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
 }
 
 static void 
@@ -1159,6 +1361,18 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
     break;
   case ARROW_SLASH_ARROW:
     draw_slashed(renderer,to,from,length,width,linewidth,fg_color,bg_color);
+    break;
+  case ARROW_ONE_OR_MANY:
+    draw_one_or_many(renderer,to,from,length,width,linewidth,fg_color,bg_color);
+    break;
+  case ARROW_NONE_OR_MANY:
+    draw_none_or_many(renderer,to,from,length,width,linewidth,fg_color,bg_color);
+    break;
+  case ARROW_ONE_EXACTLY:
+    draw_one_exaclty(renderer,to,from,length,width,linewidth,fg_color,bg_color);
+    break;
+  case ARROW_ONE_OR_NONE:
+    draw_one_or_none(renderer,to,from,length,width,linewidth,fg_color,bg_color);
     break;
   case ARROW_CROW_FOOT:
     draw_crow_foot(renderer,to,from,length,width,linewidth,fg_color,bg_color);

@@ -43,6 +43,7 @@
 #define TEXT_BORDER_WIDTH_Y 0.5
 #define WEAK_BORDER_WIDTH 0.25
 #define FONT_HEIGHT 0.8
+#define DIAMOND_RATIO 0.6
 
 typedef struct _Entity Entity;
 
@@ -54,6 +55,8 @@ struct _Entity {
   real border_width;
   Color border_color;
   Color inner_color;
+  
+  gboolean associative;
   
   DiaFont *font;
   real font_height;
@@ -130,6 +133,8 @@ static PropDescription entity_props[] = {
     N_("Name:"), NULL, NULL },
   { "weak", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Weak:"), NULL, NULL },
+  { "associative", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Associative:"), NULL, NULL },
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_FILL_COLOUR,
@@ -150,6 +155,7 @@ static PropOffset entity_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
   { "name", PROP_TYPE_STRING, offsetof(Entity, name) },
   { "weak", PROP_TYPE_BOOL, offsetof(Entity, weak) },
+  { "associative", PROP_TYPE_BOOL, offsetof(Entity, associative) },
   { "line_width", PROP_TYPE_REAL, offsetof(Entity, border_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Entity, border_color) },
   { "fill_colour", PROP_TYPE_COLOUR, offsetof(Entity, inner_color) },
@@ -265,6 +271,28 @@ entity_draw(Entity *entity, DiaRenderer *renderer)
 			     &ul_corner, &lr_corner,
 			     &entity->border_color);
   }
+  if(entity->associative){
+    Point corners[4];
+    corners[0].x = elem->corner.x;
+    corners[0].y = elem->corner.y + elem->height / 2;
+    corners[1].x = elem->corner.x + elem->width / 2;
+    corners[1].y = elem->corner.y;
+    corners[2].x = elem->corner.x + elem->width;
+    corners[2].y = elem->corner.y + elem->height / 2;
+    corners[3].x = elem->corner.x + elem->width / 2;
+    corners[3].y = elem->corner.y + elem->height;
+    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+
+    renderer_ops->fill_polygon(renderer, corners, 4, 
+			       &entity->inner_color);
+
+    renderer_ops->set_linewidth(renderer, entity->border_width);
+    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID);
+    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+
+    renderer_ops->draw_polygon(renderer, corners, 4, 
+			       &entity->border_color);
+  }
 
   p.x = elem->corner.x + elem->width / 2.0;
   p.y = elem->corner.y + (elem->height - entity->font_height)/2.0 +
@@ -286,8 +314,14 @@ entity_update_data(Entity *entity)
   entity->name_width =
     dia_font_string_width(entity->name, entity->font, entity->font_height);
 
+  if(entity->associative){
+    elem->width = entity->name_width + 2*TEXT_BORDER_WIDTH_X;
+    elem->height = elem->width * DIAMOND_RATIO;
+  }
+  else {
   elem->width = entity->name_width + 2*TEXT_BORDER_WIDTH_X;
   elem->height = entity->font_height + 2*TEXT_BORDER_WIDTH_Y;
+  }
 
   /* Update connections: */
   connpoint_update(&entity->connections[0],
@@ -446,6 +480,8 @@ entity_save(Entity *entity, ObjectNode obj_node, const char *filename)
 		  entity->name);
   data_add_boolean(new_attribute(obj_node, "weak"),
 		   entity->weak);
+  data_add_boolean(new_attribute(obj_node, "associative"),
+		   entity->associative);
   data_add_font (new_attribute (obj_node, "font"),
 		 entity->font);
   data_add_real(new_attribute(obj_node, "font_height"),
@@ -493,6 +529,10 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "weak");
   if (attr != NULL)
     entity->weak = data_boolean(attribute_first_data(attr));
+
+  attr = object_find_attribute(obj_node, "associative");
+  if (attr != NULL)
+    entity->associative = data_boolean(attribute_first_data(attr));
 
   if (entity->font != NULL) {
     /* This shouldn't happen, but doesn't hurt */

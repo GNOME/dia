@@ -1,3 +1,12 @@
+2004-03-18  Lars Clausen  <lars@raeder.dk>
+
+	* Makefile.am: Try better uninstall thing for scrollkeeper.
+
+	* objects/ER/entity.c: 
+	* lib/arrows.[ch]: Patch from Georg Lothar Thimm
+	<MGEORG@ntu.edu.sg>: Adds new ER arrows 1 or many, 0 or many, 0 or
+	1, 1 exactly, as well as associative ER entities.
+
 2004-03-17  Lars Clausen  <lars@raeder.dk>
 
 	* Makefile.am: Make distcheck not complain about scrollkeeper
