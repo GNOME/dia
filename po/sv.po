@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2003-10-11 21:53+0200\n"
-"PO-Revision-Date: 2003-10-11 21:57+0200\n"
+"POT-Creation-Date: 2003-10-24 02:20+0200\n"
+"PO-Revision-Date: 2003-10-24 02:20+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -46,48 +46,63 @@ msgid "Can't find output format %s\n"
 msgstr "Kan inte hitta utdataformatet %s\n"
 
 #. &export_file_name
-#: app/app_procs.c:302
+#: app/app_procs.c:320
 msgid "Export loaded file and exit"
 msgstr "Exportera inläst fil och avsluta"
 
-#: app/app_procs.c:302 app/diaconv.c:94
+#: app/app_procs.c:320 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "UTDATA"
 
 #. &export_file_format
-#: app/app_procs.c:304
-msgid "Export to file format and exit"
-msgstr "Exportera till filformat och avsluta"
+#: app/app_procs.c:322
+msgid ""
+"Export to file format and exit.  Supported formats are: cgm, dia, dxf, eps, "
+msgstr ""
+"Exportera till filformat och avsluta. Format som stöds är: cgm, dia, dxf, "
+"eps, "
 
-#: app/app_procs.c:304 app/diaconv.c:92
-msgid "eps,png,wmf,cgm,dxf,fig"
-msgstr "eps,png,wmf,cgm,dxf,fig"
+#: app/app_procs.c:324
+msgid "fig, mp, plt, hpgl, "
+msgstr "fig, mp, plt, hpgl, "
 
-#: app/app_procs.c:306
+#: app/app_procs.c:325
+msgid "shape, svg, tex, "
+msgstr "shape, svg, tex, "
+
+#: app/app_procs.c:326
+msgid "wpg"
+msgstr "wpg"
+
+#: app/app_procs.c:326
+msgid "FORMAT"
+msgstr "FORMAT"
+
+#: app/app_procs.c:329
 msgid "Don't show the splash screen"
 msgstr "Visa inte startbilden"
 
-#: app/app_procs.c:308
+#: app/app_procs.c:331
 msgid "Display credits list and exit"
 msgstr "Visa tacklista och avsluta"
 
-#: app/app_procs.c:310
+#: app/app_procs.c:333
 msgid "Display version and exit"
 msgstr "Visa versionsnummer och avsluta"
 
-#: app/app_procs.c:312 app/diaconv.c:95
+#: app/app_procs.c:335 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Visa detta hjälpmeddelande"
 
-#: app/app_procs.c:344
+#: app/app_procs.c:367
 msgid "Can't connect to session manager!\n"
 msgstr "Kan inte få kontakt med sessionshanteraren!\n"
 
-#: app/app_procs.c:359 app/diaconv.c:119
+#: app/app_procs.c:382 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAGGA...] [FIL...]"
 
-#: app/app_procs.c:363 app/diaconv.c:126
+#: app/app_procs.c:386 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -98,24 +113,24 @@ msgstr ""
 "kommandoradsalternativ.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:382
+#: app/app_procs.c:405
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia version %s, kompilerad %s %s\n"
 
-#: app/app_procs.c:384
+#: app/app_procs.c:407
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia version %s\n"
 
-#: app/app_procs.c:464 app/app_procs.c:466 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:487 app/app_procs.c:489 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Kunde inte hitta standardobjekt vid sökning efter objektbibliotek, "
 "avslutar...\n"
 
-#: app/app_procs.c:558
+#: app/app_procs.c:581
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -124,7 +139,7 @@ msgstr ""
 "och beskriv hur du fick detta meddelande att visas.\n"
 
 #. no standard buttons
-#: app/app_procs.c:570
+#: app/app_procs.c:593
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -134,21 +149,21 @@ msgstr ""
 "Är du säker på att du vill avsluta\n"
 "Dia utan att spara dem?"
 
-#: app/app_procs.c:574
+#: app/app_procs.c:597
 msgid "Quit Dia"
 msgstr "Avsluta Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:629
+#: app/app_procs.c:652
 msgid "Thank you for using Dia.\n"
 msgstr "Tack för att du använder Dia.\n"
 
-#: app/app_procs.c:643 app/app_procs.c:650
+#: app/app_procs.c:666 app/app_procs.c:673
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunde inte skapa katalog med personliga Dia-inställningar."
 
-#: app/app_procs.c:652
+#: app/app_procs.c:675
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -156,7 +171,7 @@ msgstr ""
 "Kunde inte skapa en personlig Dia-konfigurationskatalog. Kontrollera att "
 "miljövariabeln HOME pekar till en existerande katalog."
 
-#: app/app_procs.c:674 app/diaconv.c:249
+#: app/app_procs.c:697 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Interna objekt och filter i dia"
 
@@ -325,6 +340,10 @@ msgstr "Kunde inte initiera Bonobo!"
 #: app/diaconv.c:92
 msgid "Export format to use"
 msgstr "Exportformat att använda"
+
+#: app/diaconv.c:92
+msgid "eps,png,wmf,cgm,dxf,fig"
+msgstr "eps,png,wmf,cgm,dxf,fig"
 
 #. &export_file_name
 #: app/diaconv.c:94
@@ -573,7 +592,7 @@ msgstr "Förkasta ändringar"
 #: app/export_png.c:116 app/load_save.c:806 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
-#: plug-ins/pstricks/render_pstricks.c:797 plug-ins/shape/shape-export.c:135
+#: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
 #: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
 #, c-format
@@ -4619,11 +4638,11 @@ msgstr "export/import av gdk-pixbuf-baserade bitmappsbilder"
 msgid "TeX Pstricks export filter"
 msgstr "Exportfilter för TeX Pstricks"
 
-#: plug-ins/pstricks/render_pstricks.c:650
+#: plug-ins/pstricks/render_pstricks.c:653
 msgid "Not valid UTF8"
 msgstr "Inte giltig UTF8"
 
-#: plug-ins/pstricks/render_pstricks.c:868
+#: plug-ins/pstricks/render_pstricks.c:871
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks-makron"
 
@@ -7176,6 +7195,9 @@ msgstr "Sybase-dataserver"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase-replikationsserver"
+
+#~ msgid "Export to file format and exit"
+#~ msgstr "Exportera till filformat och avsluta"
 
 #~ msgid "%s error: can specify only one of -f or -o."
 #~ msgstr "%s-fel: endast en av -f eller -o kan anges."
