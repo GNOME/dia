@@ -40,19 +40,9 @@ typedef struct {
 
 typedef GSList CLEventList; /* of CLEvent */
 
+void destroy_cle(gpointer data, gpointer user_data);
 extern void destroy_clevent_list(CLEventList *clel);
 extern void reparse_clevent(const gchar *events, CLEventList **lst,
 			    int *chksum, real rise, real fall, real time_end);
 
-#endif __CHRONOLINE_EVENT_H
-
-
-
-
-
-
-
-
-
-
-
+#endif /* __CHRONOLINE_EVENT_H */

@@ -77,7 +77,7 @@ ConnPointLine *connpointline_copy(Object *newobj,ConnPointLine *cpl,
 int connpointline_adjust_count(ConnPointLine *cpl,
 			       int newcount, Point *where);
 
-#endif __CONNPOINT_LINE_H
+#endif /* __CONNPOINT_LINE_H */
 
 
 

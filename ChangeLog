@@ -1,4 +1,26 @@
-2001-03-05  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-03-06  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* app/grid.h: Place comment around text after #endif.
+	* lib/bezier_conn.c: #include <string.h>.
+	* lib/beziershape.c: #include <string.h>.
+	* lib/connpoint_line.h: Comment after #endif.
+	* lib/dia_dirs.c: #include <string.h>.
+	* lib/element.c: Same.
+	* lib/lazyprops.c: #include <config.h> and "intl.h".
+	* lib/lazyprops.h: Comment out text after #endif.
+	* lib/neworth_conn.c: #include <string.h>
+	* lib/orth_conn.c: Same here.
+	* lib/poly_conn.c: Here too.
+	* lib/polyshape.c: And here.
+	* lib/properties.c: Remove #include "intl.h" from here and add
+	an array of static strings to work around bug in gettext that
+	makes it miss strings in a #define body.
+	* objects/GRAFCET/action_text_draw.h: Comment out text after #endif.
+	* objects/GRAFCET/boolequation.h: Same here.
+	* objects/chronogram/chronoline_event.h: Add prototype for
+	destroy_cle().
+	
+2001-03-05  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>
 
 	* objects/FS/function.c: 
 	* objects/FS/flow.c: 
@@ -10,7 +32,7 @@
 	* lib/lazyprops.c (__propdlg_build_enum): translate the radio
 	button labels when creating them.
 
-2001-02-28  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-02-28  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>
 
 	* objects/UML/actor.c
 	* objects/UML/realizes.c 
@@ -81,7 +103,7 @@
 
 	* plug-ins/python/python.c : use HAVE_DIRENT_H
 
-2001-02-23  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-02-23  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>
 
 	* lib/connection.c (connection_update_boundingbox): 
 	Made the BB shrink on right and lower sides, too.
@@ -94,7 +116,7 @@
 	work.
 	* sheets/*.sheet: Updated Norwegian translations.
 	
-2001-02-22  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-02-22  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>
 
 	* objects/UML/small_package.c: 
 	* objects/UML/class.c: 
@@ -129,7 +151,7 @@
 	* objects/GRAFCET/condition.c: removed the arrowhead, which IEC848
 	doesn't speak about.
 	
-2001-02-21  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-02-21  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>
 
 	* sheets/Logic.sheet: New sheet for Logic symbols.
 

@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <math.h>
+#include <string.h> /* memcpy() */
 
 #include "orth_conn.h"
 #include "message.h"

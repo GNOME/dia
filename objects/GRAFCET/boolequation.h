@@ -65,4 +65,4 @@ extern void boolequation_set_pos(Boolequation *rcep, Point *pos);
 extern void boolequation_draw(Boolequation *rcep, Renderer *renderer);
 extern void boolequation_calc_boundingbox(Boolequation *rcep, Rectangle *box);
  
-#endif __BOOLEQUATION_H
+#endif /* __BOOLEQUATION_H */

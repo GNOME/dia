@@ -27,8 +27,6 @@
 #include <stddef.h>
 #endif
 
-#include "intl.h"
-
 #include "geometry.h"
 #include "render.h"
 #include "arrows.h"
@@ -371,4 +369,20 @@ extern PropEnumData prop_std_text_align_data[];
   { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
     N_("Text colour"), NULL, NULL }
 
+#endif
+
+#ifdef FOR_TRANSLATORS_ONLY
+static char *list [] = {
+	N_("Line colour"),
+	N_("Line style"),
+	N_("Fill colour"),
+	N_("Draw background"),
+	N_("Start arrow"),
+	N_("End arrow"),
+	N_("Text"),
+	N_("Text alignment"),
+	N_("Font"),
+	N_("Font size"),
+	N_("Text colour")
+};
 #endif

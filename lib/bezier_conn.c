@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <math.h>
+#include <string.h> /* memcpy() */
 
 #include "bezier_conn.h"
 #include "intl.h"

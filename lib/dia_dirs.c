@@ -15,6 +15,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+#include <string.h> /* strlen() */
+
 #include "dia_dirs.h"
 #ifdef G_OS_WIN32
 #include <windows.h>

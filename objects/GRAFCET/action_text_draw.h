@@ -32,4 +32,4 @@ extern void action_text_draw(Text *text, Renderer *renderer);
 extern void action_text_calc_boundingbox(Text *text, Rectangle *box);
 extern real action_text_spacewidth(Text *text);
  
-#endif __ACTION_TEXT_DRAW_H
+#endif /* __ACTION_TEXT_DRAW_H */

@@ -20,7 +20,11 @@
  */
 
 #define __LAZYPROPS_C
+#ifndef HAVE_CONFIG_H
+#include <config.h>
+#endif
 #include "lazyprops.h"
+#include "intl.h"
 
 void 
 __propdlg_build_enum(GtkWidget *dialog, 

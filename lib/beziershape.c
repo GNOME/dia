@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <math.h>
+#include <string.h> /* memcpy() */
 
 #include "beziershape.h"
 #include "message.h"

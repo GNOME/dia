@@ -96,7 +96,7 @@ MAKE_SAVE_FOO(text,Text *)
     else \
        if (defaultvalue) *value = *defaultvalue; \
   }
-#endif __LAZYPROPS_C
+#endif /* __LAZYPROPS_C */
 
 MAKE_LOAD_FOO(int,int)
 MAKE_LOAD_FOO(enum,int)
@@ -650,7 +650,7 @@ void __propdlg_build_separator(GtkWidget *dialog);
   text_get_attributes((object)->field, &(state)->field##_attrib);
 #define OBJECT_FREE_TEXTATTR(state,field);
 
-#endif __LAZYPROPS_H
+#endif /* __LAZYPROPS_H */
 
 
 

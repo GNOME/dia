@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <math.h>
+#include <string.h> /* memcpy() */
 
 #include "poly_conn.h"
 #include "message.h"

@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <math.h>
+#include <string.h> /* memcpy() */
 
 #include "element.h"
 #include "message.h"
