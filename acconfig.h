@@ -28,6 +28,8 @@
 /* Define to enable GNOME-specific code. */
 #undef GNOME
 
+#undef GNOME_PRINT
+
 /* Define if your locale.h file contains LC_MESSAGES.  */
 #undef HAVE_LC_MESSAGES
 

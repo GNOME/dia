@@ -53,6 +53,13 @@ static GnomeUIInfo filemenu[] = {
   { GNOME_APP_UI_ITEM, N_("Export To S_VG"), NULL,
     file_export_to_svg_callback, NULL, NULL },
 
+#ifdef GNOME_PRINT
+  { GNOME_APP_UI_ITEM, N_("_Print Diagram..."), NULL,
+    file_gnome_print_callback, NULL, NULL,
+    GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PRINT},
+#endif
+
+
   GNOMEUIINFO_SEPARATOR,
   GNOMEUIINFO_MENU_CLOSE_ITEM(file_close_callback, NULL),
   GNOMEUIINFO_MENU_EXIT_ITEM(file_quit_callback, NULL),
@@ -63,6 +70,10 @@ static GnomeUIInfo editmenu[] = {
   GNOMEUIINFO_MENU_COPY_ITEM(edit_copy_callback, NULL),
   GNOMEUIINFO_MENU_CUT_ITEM(edit_cut_callback, NULL),
   GNOMEUIINFO_MENU_PASTE_ITEM(edit_paste_callback, NULL),
+  { GNOME_APP_UI_ITEM, N_("_Delete"), NULL,
+    edit_delete_callback, NULL, NULL,
+    GNOME_APP_PIXMAP_STOCK, "Menu_Clear",
+    GDK_D, GDK_CONTROL_MASK },
   GNOMEUIINFO_MENU_UNDO_ITEM(edit_undo_callback, NULL),
   GNOMEUIINFO_MENU_REDO_ITEM(edit_redo_callback, NULL),
   GNOMEUIINFO_END

@@ -28,6 +28,10 @@
 #ifdef GNOME
 #include <gnome.h>
 #endif
+#ifdef GNOME_PRINT
+#include "paginate_gnomeprint.h"
+#include <libgnomeprint/gnome-printer-dialog.h>
+#endif
 #include "intl.h"
 #include "commands.h"
 #include "app_procs.h"
@@ -567,6 +571,25 @@ file_export_to_svg_callback(GtkWidget *widget, gpointer data)
   gtk_widget_grab_focus(window);
   gtk_grab_add(window);
 }
+
+#ifdef GNOME_PRINT
+void
+file_gnome_print_callback(GtkWidget *widget, gpointer data)
+{
+  GnomePrinter *printer;
+  GnomePrintContext *ctx;
+  Diagram *dia;
+
+  /* get the printer name */
+  printer = gnome_printer_dialog_new_modal();
+  if (!printer)
+    return;
+  ctx = gnome_print_context_new_with_paper_size(printer, "A4");
+
+  dia = ddisplay_active()->diagram;
+  paginate_gnomeprint(dia, ctx, "A4");
+}
+#endif
 
 void
 file_close_callback(GtkWidget *widget, gpointer data)

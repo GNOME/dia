@@ -2,6 +2,14 @@
 
 SUBDIRS = pixmaps
 
+if HAVE_GNOME_PRINT
+gnomeprint_files = \
+	render_gnomeprint.c \
+	render_gnomeprint.h \
+	paginate_gnomeprint.c \
+	paginate_gnomeprint.h
+endif
+
 noinst_PROGRAMS = run_dia.sh
 run_dia_sh_SOURCES = 
 bin_PROGRAMS = dia
@@ -66,7 +74,8 @@ dia_SOURCES = \
 	    undo.h \
 	    tool.c \
 	    tool.h \
-	    pixmaps.h 
+	    pixmaps.h \
+	    $(gnomeprint_files)
 
 dia_LDADD = ../lib/libdia.a @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@
 

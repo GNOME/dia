@@ -1,3 +1,27 @@
+1999-09-08  James Henstridge  <james@daa.com.au>
+
+	* commands.[ch]: added callbacks for the print menu item.  Currently
+	it only does A4 output.  I will make it configurable soon.
+	
+	* app/menus.c: add a print diagram menu item if gnome-print support
+	is enabled.
+	
+	* app/paginate_gnomeprint.c, app/paginate_gnomeprint.h: this is a
+	bit higher level than the gnome-print renderer.  It splits the
+	diagram into page size chunks and then renders them.  For each
+	page, it only renders the objects whose bounding box intersects
+	the page, and it sets the clip mask so that the diagram does not
+	overlap the margins.
+	
+	* app/render_gnomeprint.c, app/render_gnomeprint.h: added a renderer
+	that uses gnome-print as its back end.
+	
+	* configure.in: added a check for gnome-print.  It is disabled by
+	default because the code is not really working correctly yet.
+
+	* app/menus.c: the delete object menu item was missing from the
+	GnomeUIInfo style menus.
+
 1999-09-07  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* configure.in

@@ -49,14 +49,24 @@ AC_ARG_ENABLE(gnome,
 [  --enable-gnome          enable gnome code],
     GNOME=$enableval,
     GNOME=no)
+AC_ARG_ENABLE(gnome-print,
+[  --enable-gnome-print    enable gnome-print support],,enable_gnome_print=no)
 AC_MSG_RESULT($GNOME)
 GNOME_CFLAGS=""
 GNOME_LIBS=""
 if test "$GNOME" = "yes"; then
   AC_DEFINE(GNOME)
-  GNOME_CFLAGS=`gnome-config gnomeui --cflags`
-  GNOME_LIBS=`gnome-config gnomeui --libs`
+  if test "$enable_gnome_print" = "yes"; then
+    AC_DEFINE(GNOME_PRINT)
+    GNOME_CFLAGS=`gnome-config gnomeui print --cflags`
+    GNOME_LIBS=`gnome-config gnomeui print --libs`
+  else
+    GNOME_CFLAGS=`gnome-config gnomeui --cflags`
+    GNOME_LIBS=`gnome-config gnomeui --libs`
+  fi
 fi
+AM_CONDITIONAL(HAVE_GNOME_PRINT,
+	test "$GNOME" = "yes" && test "$enable_gnome_print" = "yes")
 AC_SUBST(GNOME_CFLAGS)
 AC_SUBST(GNOME_LIBS)
 
