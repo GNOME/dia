@@ -101,15 +101,6 @@ struct _FontPrivate {
   real ascent_ratio, descent_ratio;
 };
 
-#ifdef HAVE_FREETYPE
-typedef struct _DiaFontFamily DiaFontFamily;
-
-struct _DiaFontFamily {
-  FreetypeFamily *freetype_family;
-  GList *diafonts;
-};
-#endif
-
 typedef struct _FontData {
   char *fontname;
   char *fontname_ps;
@@ -560,7 +551,7 @@ freetype_add_font(char *dirname, char *filename) {
     new_face->face = face;
     new_face->from_file = strdup(fullname);
     new_font->faces = g_list_append(new_font->faces, new_face);
-    
+
     if (facenum == 0) first_face = face;
     facenum++;
   } while (facenum < first_face->num_faces);
@@ -644,6 +635,7 @@ dia_add_freetype_font(char *key, gpointer value, gpointer user_data) {
     font->fontface_freetype = face;
     font->public.name = face->family_name;
     font->public.style = face->style_name;
+    font->public.family = diafonts;
 
     if (face->ascender > 0 || face->descender > 0) {
       font->ascent_ratio = face->ascender/(face->ascender+face->descender);
@@ -901,6 +893,10 @@ font_init(void)
 
     font->fontname_x11 = NULL;
     font->fontname_x11_vec = font_data[i].fontname_x11;
+
+#ifdef HAVE_FREETYPE
+    font->public.family = fonts;
+#endif
     
     for (j=0;j<FONTCACHE_SIZE;j++) {
       font->cache[j] = NULL;

@@ -33,35 +33,6 @@ typedef enum {
   ALIGN_RIGHT
 } Alignment;
 
-typedef struct _DiaFont DiaFont;
-
-struct _DiaFont {
-  char *name;
-#ifdef HAVE_FREETYPE
-  char *style;
-#endif
-};
-
-typedef struct _SuckFont SuckFont;
-typedef struct _SuckChar SuckChar;
-
-struct _SuckChar {
-	int     left_sb;
-	int     right_sb;
-	int     width;
-	int     ascent;
-	int     descent;
-	int     bitmap_offset; /* in pixels */
-};
-
-struct _SuckFont {
-	guchar *bitmap;
-	gint    bitmap_width;
-	gint    bitmap_height;
-	gint    ascent;
-	SuckChar chars[256];
-};
-
 #ifdef HAVE_FREETYPE
 typedef struct _FreetypeFamily FreetypeFamily;
 typedef struct _FreetypeFace FreetypeFace;
@@ -88,9 +59,47 @@ struct _FreetypeString {
   real width;
   /* Something that stores a rendering */
 };
-/* A cache of current strings with rendering and width. */
-GHashTable *freetype_strings;
 #endif
+
+typedef struct _DiaFont DiaFont;
+
+#ifdef HAVE_FREETYPE
+typedef struct _DiaFontFamily DiaFontFamily;
+
+struct _DiaFontFamily {
+  FreetypeFamily *freetype_family;
+  GList *diafonts;
+};
+#endif
+
+struct _DiaFont {
+  char *name;
+#ifdef HAVE_FREETYPE
+  DiaFontFamily *family;
+  char *style;
+#endif
+};
+
+typedef struct _SuckFont SuckFont;
+typedef struct _SuckChar SuckChar;
+
+struct _SuckChar {
+	int     left_sb;
+	int     right_sb;
+	int     width;
+	int     ascent;
+	int     descent;
+	int     bitmap_offset; /* in pixels */
+};
+
+struct _SuckFont {
+	guchar *bitmap;
+	gint    bitmap_width;
+	gint    bitmap_height;
+	gint    ascent;
+	SuckChar chars[256];
+};
+
 
 DIAVAR GList *font_names; /* GList with 'char *' data.*/
 

@@ -85,7 +85,6 @@ dia_font_selector_init (DiaFontSelector *fs)
   // Go through hash table and build menu
   GtkWidget *menu;
   GtkWidget *omenu;
-  GtkWidget *hbox;
   
   omenu = gtk_option_menu_new();
   fs->font_omenu = GTK_OPTION_MENU(omenu);
@@ -207,6 +206,19 @@ dia_font_selector_new ()
 }
 
 void
+dia_font_selector_set_styles(DiaFontSelector *fs, DiaFont *font)
+{
+  int i=0;
+  GList *style_list = font->family->diafonts;
+
+  while (style_list != NULL) {
+    DiaFont *font = (DiaFont *)style_list->data;
+    printf("Possible style: %s\n", font->style);
+    style_list = g_list_next(style_list);
+  }
+}
+
+void
 dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 {
   void *font_nr_ptr;
@@ -225,6 +237,8 @@ dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 #ifdef HAVE_FREETYPE
   gtk_option_menu_set_history(GTK_OPTION_MENU(fs->font_omenu), font_nr);
   gtk_menu_set_active(fs->font_menu, font_nr);
+
+  dia_font_set_styles(fs, font);
 #else
   gtk_option_menu_set_history(GTK_OPTION_MENU(fs), font_nr);
   gtk_menu_set_active(fs->font_menu, font_nr);
