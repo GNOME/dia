@@ -120,22 +120,17 @@ dia_font_selector_sort_string(const void *s1, const void *s2) {
   return strcasecmp(*(char **)s1, *(char **)s2);
 }
 
-static guchar **
-dia_font_selector_get_fonts_sorted() {
-  struct select_pair pair;
-  int num_fonts;
-
-  num_fonts = g_hash_table_size(freetype_fonts);
-  pair.array = (guchar **)g_malloc(sizeof(guchar*)*num_fonts);
-  pair.counter = 0;
-  g_hash_table_foreach(freetype_fonts, dia_font_selector_collect_names,
-		       (gpointer)&pair);
-  
-  qsort(pair.array, num_fonts, sizeof(guchar *), dia_font_selector_sort_string);
-  return pair.array;
-}
 
 #endif
+
+static int
+dia_font_selector_compare_families(const void *o1, const void *o2) {
+  PangoFontFamily *f1 = *(PangoFontFamily**)o1;
+  PangoFontFamily *f2 = *(PangoFontFamily**)o2;
+  
+  return strcasecmp(pango_font_family_get_name(f1), 
+		    pango_font_family_get_name(f2));
+}
 
 static void
 dia_font_selector_init (DiaFontSelector *fs)
@@ -202,6 +197,7 @@ dia_font_selector_init (DiaFontSelector *fs)
 
   pango_context_list_families (gtk_widget_get_pango_context (GTK_WIDGET (menu)),
 			             &families, &n_families);
+  qsort(families, n_families, sizeof(*families), dia_font_selector_compare_families);
   for (i = 0; i < n_families; ++i) {
     familyname = pango_font_family_get_name(families[i]);
     menuitem = gtk_radio_menu_item_new_with_label (group, familyname);
