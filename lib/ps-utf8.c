@@ -1787,19 +1787,24 @@ new_uni_to_adobe_hash(void)
 }
 
 extern const char *
-unicode_to_ps_name(unichar val)
+unicode_to_ps_name (unichar val)
 {
-  char *ps;
+	static GHashTable *std2ps = NULL;
+	char *ps;
 
-  if (!val) return "xi"; /* of course, you shouldn't see this everywhere */
+	if (!val) return "xi"; /* of course, you shouldn't see this everywhere */
 
-  if (!uni2ps) new_uni_to_adobe_hash();
-  ps = g_hash_table_lookup(uni2ps, GINT_TO_POINTER(val));
-  if (!ps) {
-    ps = g_strdup_printf("uni%.4X",val);
-    g_hash_table_insert(uni2ps,GINT_TO_POINTER(val),ps);
-  }
-  return ps;
+	if (!uni2ps) new_uni_to_adobe_hash ();
+	ps = g_hash_table_lookup (uni2ps, GINT_TO_POINTER (val));
+	if (!ps) {
+		if (!std2ps) std2ps = g_hash_table_new (NULL, NULL);
+		ps = g_hash_table_lookup (std2ps, GINT_TO_POINTER (val));
+		if (!ps) {
+			ps = g_strdup_printf ("uni%.4X", val);
+			g_hash_table_insert (uni2ps, GINT_TO_POINTER (val), ps);
+		}
+	}
+	return ps;
 }
 
 #endif /* HAVE_UNICODE */

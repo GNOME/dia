@@ -1,5 +1,8 @@
 2002-02-20  Akira TAGOH  <tagoh@redhat.com>
 
+	* lib/ps-utf8.c (unicode_to_ps_name): if this function calls with same
+	charcode, it was registered the duplicate item to HashTable. fix.
+
 	* app/render_gnomeprint.c (get_width_string): add new function.
 	(draw_string): fix non-multibyte specific code.
 
