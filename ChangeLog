@@ -1,3 +1,16 @@
+2000-11-25  James Henstridge  <james@daa.com.au>
+
+	* app/menus.c (menus_init): don't use gnome_popup_menu_new().  It
+	does weird shit to the user_data pointer for a menu item.  Object
+	alignment should work again now.
+
+	* app/splash.c (get_logo_pixmap): don't unref the bitmap if it is
+	NULL, and mark this function static.
+	(app_splash_init): use gtk_widget_show_now() instead of the
+	gtk_main_iteration loop.
+	(app_splash_init): connecting gtk_widget_destroy to the destroy
+	signal of a widget seems pretty useless.
+
 2000-11-23  Kevin Breit <battery841@users.sourceforge.net>
 
 	* doc/en/dia-manual.sgml:

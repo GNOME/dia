@@ -825,8 +825,6 @@ objects_align_h_callback(GtkWidget *widget, gpointer data)
   Diagram *dia;
   GList *objects;
 
-  printf("Horiz callback, data = %d\n", data);
-
   align = GPOINTER_TO_INT(data);
 
   dia = ddisplay_active()->diagram;

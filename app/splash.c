@@ -9,7 +9,7 @@
 
 extern GdkPixbuf *logo;
 
-GtkWidget*
+static GtkWidget*
 get_logo_pixmap (void)
 {
   GtkWidget* gpixmap = NULL;
@@ -29,7 +29,7 @@ get_logo_pixmap (void)
     gdk_pixbuf_render_pixmap_and_mask(logo, &pixmap, &bitmap, 128);
     gpixmap = gtk_pixmap_new(pixmap, bitmap);
     gdk_pixmap_unref(pixmap);
-    gdk_bitmap_unref(bitmap);
+    if (bitmap) gdk_bitmap_unref(bitmap);
   }
   return gpixmap;
 }
@@ -50,9 +50,6 @@ app_splash_init (const gchar* fname)
   gtk_window_set_title (GTK_WINDOW (splash), _("Loading ..."));
   gtk_window_set_policy (GTK_WINDOW (splash), FALSE, FALSE, FALSE);
   gtk_window_set_position (GTK_WINDOW (splash), GTK_WIN_POS_CENTER);
-  gtk_signal_connect (GTK_OBJECT (splash), "destroy",
-		      GTK_SIGNAL_FUNC (gtk_widget_destroy), 
-		      GTK_OBJECT (splash));
 
   vbox = gtk_vbox_new (FALSE, 2);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
@@ -73,9 +70,7 @@ app_splash_init (const gchar* fname)
 
   gtk_widget_show_all (splash);
 
-  /* draw it all ... */
-  while (gtk_events_pending ())
-    gtk_main_iteration ();
+  gtk_widget_show_now (splash);
 }
 
 void

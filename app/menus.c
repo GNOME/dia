@@ -88,7 +88,7 @@ static GnomeUIInfo editmenu[] = {
 };
 
 #define GNOMEUIINFO_ITEM_NONE_DATA(label, tooltip, callback, user_data) \
-        { GNOME_APP_UI_ITEM, label, tooltip, callback, GINT_TO_POINTER(user_data), \
+        { GNOME_APP_UI_ITEM, label, tooltip, (gpointer)callback, GINT_TO_POINTER(user_data), \
           NULL, GNOME_APP_PIXMAP_NONE, NULL, 0, (GdkModifierType) 0, NULL }
 
 static GnomeUIInfo zoommenu[] = {
@@ -150,30 +150,20 @@ static GnomeUIInfo selectmenu[] = {
 };
 
 static GnomeUIInfo objects_align_h[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Left"), NULL, objects_align_h_callback,
-			     GINT_TO_POINTER(0)),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_h_callback,
-			     GINT_TO_POINTER(1)),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Right"), NULL, objects_align_h_callback,
-			     GINT_TO_POINTER(2)),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_h_callback,
-			     GINT_TO_POINTER(4)),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback,
-			     GINT_TO_POINTER(5)),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Left"), NULL, objects_align_h_callback, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_h_callback, 1),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Right"), NULL, objects_align_h_callback, 2),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_h_callback, 4),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback,5),
   GNOMEUIINFO_END
 };
 
 static GnomeUIInfo objects_align_v[] = {
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Top"), NULL, objects_align_v_callback,
-			     GINT_TO_POINTER(0)),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_v_callback,
-			     GINT_TO_POINTER(1)),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_v_callback,
-			     GINT_TO_POINTER(2)),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_v_callback,
-			     GINT_TO_POINTER(4)),
-  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback,
-			     GINT_TO_POINTER(5)),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Top"), NULL, objects_align_v_callback, 0),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Center"), NULL, objects_align_v_callback, 1),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Bottom"), NULL, objects_align_v_callback, 2),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Equal Distance"), NULL, objects_align_v_callback, 4),
+  GNOMEUIINFO_ITEM_NONE_DATA(N_("Adjacent"), NULL, objects_align_h_callback,5),
   GNOMEUIINFO_END
 };
 
@@ -751,8 +741,14 @@ menus_init(void)
 		      toolbox_accels, TRUE, 0);
 
   /* the display menu */
-  display_menus = gnome_popup_menu_new(display_menu);
-  display_accels = gnome_popup_menu_get_accel_group(GTK_MENU(display_menus));
+  display_menus = gtk_menu_new();
+  display_accels = gtk_accel_group_new();
+  gtk_menu_set_accel_group(GTK_MENU(display_menus), display_accels);
+  menuitem = gtk_tearoff_menu_item_new();
+  gtk_menu_prepend(GTK_MENU(display_menus), menuitem);
+  gnome_app_fill_menu(GTK_MENU_SHELL(display_menus), display_menu,
+		      display_accels, FALSE, 0);
+  /* and the tearoff ... */
   menuitem = gtk_tearoff_menu_item_new();
   gtk_menu_prepend(GTK_MENU(display_menus), menuitem);
   gtk_widget_show(menuitem);
