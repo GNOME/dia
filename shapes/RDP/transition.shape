@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>RDP - transition</name>
   <description>transition</description>
-  <icon>transition.xpm</icon>
+  <icon>transition.png</icon>
   <connections>
     <point x="0" y="0" />
   </connections>

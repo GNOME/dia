@@ -1,3 +1,8 @@
+2004-07-10  Steffen Macke <sdteffen@web.de>
+
+	* shapes/RDP/place.shape:
+	* shapes/RDP/transition.shape: use *.png instead of *.xpm
+
 2004-07-08  Steffen Macke <sdteffen@web.de>
 
 	* plug-ins/wmf/wmf.cpp (UsePen): linewidth is now working for PS_SOLID  
