@@ -909,19 +909,6 @@ fill_bezier(RendererGdk *renderer,
 		   bezier.gdk_points, bezier.currpoint);
 }
 
-struct gdk_freetype_user_data {
-  GdkPixmap *pixmap;
-  GdkGC *gc;
-};
-
-static gint get_layout_first_baseline(PangoLayout* layout) {
-    PangoLayoutIter* iter = pango_layout_get_iter(layout);
-    gint result = pango_layout_iter_get_baseline(iter) / PANGO_SCALE;
-    pango_layout_iter_free(iter);
-    return result;
-}
-
-
 static void
 draw_string (RendererGdk *renderer,
 	    const char *text,
