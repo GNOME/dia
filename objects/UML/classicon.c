@@ -255,9 +255,10 @@ classicon_update_data(Classicon *cicon)
   Element *elem = &cicon->element;
   Object *obj = (Object *) cicon;
   Font *font;
-  Point p1;
+  Point p1, p2;
   real h, wt, w = 0;
-
+  int is_boundary = (cicon->stereotype==CLASSICON_BOUNDARY);
+	
   font = cicon->text->font;
   h = CLASSICON_AIR + CLASSICON_MARGIN + CLASSICON_ARROW + 2*CLASSICON_RADIOUS;
 
@@ -282,20 +283,30 @@ classicon_update_data(Classicon *cicon)
     
   elem->width = w;
   elem->height = h;
+	
+  p1.x = elem->corner.x + elem->width / 2.0;
+  p1.y = elem->corner.y + CLASSICON_RADIOUS + CLASSICON_ARROW;
+  w = CLASSICON_RADIOUS + CLASSICON_ARROW;
+  h = (CLASSICON_RADIOUS + CLASSICON_ARROW) * M_SQRT1_2;
 
+  if (is_boundary)
+    p1.x += CLASSICON_RADIOUS/2.0;
+	
   /* Update connections: */
-  cicon->connections[0].pos = elem->corner;
-  cicon->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  cicon->connections[1].pos.y = elem->corner.y;
-  cicon->connections[2].pos.x = elem->corner.x + elem->width;
-  cicon->connections[2].pos.y = elem->corner.y;
-  cicon->connections[3].pos.x = elem->corner.x;
-  cicon->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  cicon->connections[4].pos.x = elem->corner.x + elem->width;
-  cicon->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
+  cicon->connections[0].pos.x = (is_boundary) ? p1.x-2*w: p1.x - h;
+  cicon->connections[0].pos.y = (is_boundary) ? elem->corner.y: p1.y - h;
+  cicon->connections[1].pos.x = p1.x;
+  cicon->connections[1].pos.y = p1.y - w;
+  cicon->connections[2].pos.x = p1.x + h;
+  cicon->connections[2].pos.y = p1.y - h; 
+	
+  cicon->connections[3].pos.x = (is_boundary) ? p1.x-2*w: p1.x - w;
+  cicon->connections[3].pos.y = p1.y;
+  cicon->connections[4].pos.x = p1.x + w;
+  cicon->connections[4].pos.y = p1.y;
   cicon->connections[5].pos.x = elem->corner.x;
   cicon->connections[5].pos.y = elem->corner.y + elem->height;
-  cicon->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
+  cicon->connections[6].pos.x = p1.x;
   cicon->connections[6].pos.y = elem->corner.y + elem->height;
   cicon->connections[7].pos.x = elem->corner.x + elem->width;
   cicon->connections[7].pos.y = elem->corner.y + elem->height;
@@ -413,7 +424,7 @@ classicon_save(Classicon *cicon, ObjectNode obj_node, const char *filename)
   data_add_text(new_attribute(obj_node, "text"),
 		cicon->text);
 
-  data_add_boolean(new_attribute(obj_node, "stereotype"),
+  data_add_int(new_attribute(obj_node, "stereotype"),
 		   cicon->stereotype);
 }
 
@@ -443,7 +454,7 @@ classicon_load(ObjectNode obj_node, int version, const char *filename)
   cicon->stereotype = 0;
   attr = object_find_attribute(obj_node, "stereotype");
   if (attr != NULL)
-      cicon->stereotype = data_boolean(attribute_first_data(attr));
+      cicon->stereotype = data_int(attribute_first_data(attr));
 
   element_init(elem, 8, 8);
 

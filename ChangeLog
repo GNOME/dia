@@ -1,3 +1,9 @@
+1999-04-15  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
+ 
+        * objects/UML/classicon.c: 
+        Fixed connection positions, saved type as int (it has 3 states),
+        and other small fixes.
+	
 1999-04-14  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/preferences.c:
