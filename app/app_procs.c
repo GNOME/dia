@@ -63,8 +63,8 @@
 #include "object.h"
 #include "color.h"
 #include "tool.h"
-#include "modify_tool.h"
 #include "interface.h"
+#include "modify_tool.h"
 #include "group.h"
 #include "message.h"
 #include "display.h"
@@ -76,6 +76,7 @@
 #include "sheet.h"
 #include "plug-ins.h"
 #include "recent_files.h"
+#include "sheets.h"
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;
@@ -337,6 +338,8 @@ app_init (int argc, char **argv)
   prefs_load();
 
   create_layer_dialog();
+
+  sheets_dialog_create();
 
   /* further initialization *before* reading files */  
   active_tool = create_modify_tool();

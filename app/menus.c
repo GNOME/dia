@@ -40,6 +40,7 @@
 #include "dia_dirs.h"
 #include "diagram_tree_window.h"
 #include "object_ops.h"
+#include "sheets.h"
 
 static void plugin_callback (GtkWidget *widget, gpointer data);
 
@@ -50,9 +51,13 @@ static GnomeUIInfo toolbox_filemenu[] = {
 			    file_new_callback, NULL),
   GNOMEUIINFO_MENU_OPEN_ITEM(file_open_callback, NULL),
   GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_MENU_PREFERENCES_ITEM(file_preferences_callback, NULL),
   GNOMEUIINFO_TOGGLEITEM(N_("_Diagram tree"), N_("Show diagram tree"),
 			 diagtree_show_callback, NULL),
+  GNOMEUIINFO_ITEM_NONE(N_("_Sheets and Objects..."),
+                        N_("Modify sheets and their objects"),
+                        sheets_dialog_show_callback),
+  GNOMEUIINFO_SEPARATOR,
+  GNOMEUIINFO_MENU_PREFERENCES_ITEM(file_preferences_callback, NULL),
   GNOMEUIINFO_ITEM_NONE(N_("P_lugins"), NULL, file_plugins_callback),
   GNOMEUIINFO_SEPARATOR,
     /* recent file list is dynamically inserted here */
@@ -261,6 +266,9 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/File/_Diagram tree"),  NULL,         diagtree_show_callback,    0,
    "<ToggleItem>" },
+  {N_("/File/Sheets and Objects..."),
+                               NULL,         sheets_dialog_show_callback, 0 },
+  {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/File/_Preferences..."),NULL,         file_preferences_callback, 0 },
   {N_("/File/P_lugins"),       NULL,         file_plugins_callback,     0 },
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },

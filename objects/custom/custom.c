@@ -42,7 +42,12 @@
 void custom_object_new (ShapeInfo *info,
                         ObjectType **otype);
 
-static gboolean
+gboolean custom_object_load(gchar *filename, ObjectType **otype);
+
+/* Cannot be static, because we may use this fn later when loading
+   a new shape via the sheets dialog */
+   
+gboolean
 custom_object_load(gchar *filename, ObjectType **otype)
 {
   ShapeInfo *info;

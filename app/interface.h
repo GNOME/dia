@@ -52,6 +52,7 @@ void tool_select_callback(GtkWidget *widget, gpointer data);
 void create_tree_window(void);
 
 GtkWidget *popup_shell;
+void create_sheets(GtkWidget *parent);
 GtkWidget *modify_tool_button;
 
 typedef struct _ToolButton ToolButton;
@@ -76,6 +77,10 @@ struct _ToolButton
 
 extern const int num_tools;
 extern ToolButton tool_data[];
+extern gchar *interface_current_sheet_name;
+
 void tool_select_update (GtkWidget *w, gpointer   data);
+
+void fill_sheet_menu(void);
 
 #endif /* INTERFACE_H */

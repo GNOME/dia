@@ -277,6 +277,9 @@ void object_remove_connections_to(ConnectionPoint *conpoint);
 void object_unconnect_all(Object *connected_obj);
 void object_registry_init(void);
 void object_register_type(ObjectType *type);
+GSList *object_types_detect_nosheet(void);
+gchar *object_type_get_sheet_name(ObjectType *type);
+gchar *object_type_strip_sheet_from_name(ObjectType *type);
 ObjectType *object_get_type(char *name);
 int object_return_false(Object *obj); /* Just returns FALSE */
 void *object_return_null(Object *obj); /* Just returns NULL */

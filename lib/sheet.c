@@ -16,9 +16,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <stdlib.h>
+#ifdef HAVE_STRING_H
+#include <string.h>
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 #ifdef HAVE_UNISTD_H
@@ -45,7 +50,8 @@
 static GSList *sheets = NULL;
 
 Sheet *
-new_sheet(char *name, utfchar *description)
+new_sheet(char *name, utfchar *description, char *filename, SheetScope scope,
+          Sheet *shadowing)
 {
   Sheet *sheet;
 
@@ -59,6 +65,9 @@ new_sheet(char *name, utfchar *description)
   sheet->description = charconv_utf8_to_local8(description);
 #endif
 
+  sheet->filename = filename;
+  sheet->scope = scope;
+  sheet->shadowing = shadowing;
   sheet->objects = NULL;
   return sheet;
 }
@@ -107,8 +116,21 @@ get_sheets_list(void)
 
 /* Sheet file management */
 
-static void load_sheets_from_dir(const gchar *directory);
-static void load_register_sheet(const gchar *directory,const gchar *filename);
+static void load_sheets_from_dir(const gchar *directory, SheetScope scope);
+static void load_register_sheet(const gchar *directory,const gchar *filename,
+                                SheetScope scope);
+
+static gint
+dia_sheet_sort_callback(gconstpointer a, gconstpointer b)
+{
+  return strcmp(((Sheet *)(a))->name, ((Sheet *)(b))->name);
+}
+
+void
+dia_sort_sheets(void)
+{
+  sheets = g_slist_sort(sheets, dia_sheet_sort_callback);
+}
 
 void load_all_sheets(void) {
   char *sheet_path;
@@ -116,7 +138,7 @@ void load_all_sheets(void) {
 
   home_dir = dia_config_filename("sheets");
   if (home_dir) {
-    load_sheets_from_dir(home_dir);
+    load_sheets_from_dir(home_dir, SHEET_SCOPE_USER);
     g_free(home_dir);
   }
 
@@ -126,17 +148,21 @@ void load_all_sheets(void) {
     int i;
 
     for (i=0; dirs[i] != NULL; i++) 
-      load_sheets_from_dir(dirs[i]);
+      load_sheets_from_dir(dirs[i], SHEET_SCOPE_SYSTEM);
     g_strfreev(dirs);
   } else {
     char *thedir = dia_get_data_directory("sheets");
-    load_sheets_from_dir(thedir);
+    load_sheets_from_dir(thedir, SHEET_SCOPE_SYSTEM);
     g_free(thedir);
   }
+
+  /* Sorting their sheets alphabetically makes user merging easier */
+
+  dia_sort_sheets();
 }
 
 static void 
-load_sheets_from_dir(const gchar *directory)
+load_sheets_from_dir(const gchar *directory, SheetScope scope)
 {
   DIR *dp;
   struct dirent *dirp;
@@ -171,7 +197,7 @@ load_sheets_from_dir(const gchar *directory)
       continue;
     }
 
-    load_register_sheet(directory,filename);
+    load_register_sheet(directory, filename, scope);
     g_free(filename);
 				
   }
@@ -180,7 +206,8 @@ load_sheets_from_dir(const gchar *directory)
 }
 
 static void 
-load_register_sheet(const gchar *dirname, const gchar *filename)
+load_register_sheet(const gchar *dirname, const gchar *filename,
+                    SheetScope scope)
 {
   xmlDocPtr doc;
   xmlNsPtr ns;
@@ -192,6 +219,9 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
   Sheet *sheet = NULL;
   GSList *sheetp;
   gboolean set_line_break = FALSE;
+  gboolean name_is_gmalloced = FALSE;
+  Sheet *shadowing = NULL;
+  Sheet *shadowing_sheet = NULL;
 
   /* the XML fun begins here. */
 
@@ -258,28 +288,68 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
       contents = node;
     }
   }
-  
-  if (!contents) {
-    g_warning("no contents in sheet %s.", filename);
+
+  if (!name || !contents) {
+    g_warning("No <name> and/or <contents> in sheet %s--skipping", filename);
     xmlFreeDoc(doc);
     if (name) xmlFree(name);
     if (description) xmlFree(description);
     return;
   }
 
+  /* Notify the user when we load a sheet that appears to be an updated
+     version of a sheet loaded previously (i.e. from ~/.dia/sheets). */
+
   sheetp = get_sheets_list();
-  while (sheetp) {
-    if (sheetp->data && !strcmp(((Sheet *)(sheetp->data))->name,name)) {
-      sheet = sheetp->data;
-      break;
+  while (sheetp)
+  {
+    if (sheetp->data && !strcmp(((Sheet *)(sheetp->data))->name, name)) 
+    {
+      struct stat first_file, this_file;
+      int stat_ret;
+      
+      stat_ret = stat(((Sheet *)(sheetp->data))->filename, &first_file);
+      g_assert(!stat_ret);
+
+      stat_ret = stat(filename, &this_file);
+      g_assert(!stat_ret);
+
+      if (this_file.st_mtime > first_file.st_mtime)
+      {
+        gchar *tmp = g_strdup_printf("%s [Copy of system]", name);
+        message_notice("The system sheet '%s' appears to be more recent"
+                       " than your custom\n"
+                       "version and has been loaded as '%s' for this session."
+                       "\n\n"
+                       "Move new objects (if any) from '%s' into your custom"
+                       " sheet\n"
+                       "or remove '%s', using the 'Sheets and Objects' dialog.",
+                       name, tmp, tmp, tmp);
+        xmlFree(name);
+        name = tmp;
+        name_is_gmalloced = TRUE;
+        shadowing = sheetp->data;  /* This copy-of-system sheet shadows
+                                      a user sheet */
+      }
+      else
+      {
+        /* The already-created user sheet shadows this sheet (which will be
+           invisible), but we don't know this sheet's address yet */
+        shadowing_sheet = sheetp->data;
+      }
     }
-    sheetp = sheetp->next;
+    sheetp = g_slist_next(sheetp);
   }
-  
-  if (!sheet) 
-    sheet = new_sheet(name,description);
-   
-  xmlFree(name);
+
+  sheet = new_sheet(name, description, g_strdup(filename), scope, shadowing);
+
+  if (shadowing_sheet)
+    shadowing_sheet->shadowing = sheet;                   /* Hilarious :-) */
+
+  if (name_is_gmalloced == TRUE)
+    g_free(name);
+  else
+    xmlFree(name);
   xmlFree(description);
 
   for (node = contents->xmlChildrenNode ; node != NULL; node = node->next) {
@@ -292,6 +362,9 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 
     gint intdata = 0;
     gchar *chardata = NULL;
+
+    gboolean has_intdata = FALSE;
+    gboolean has_icon_on_sheet = FALSE;
 
     if (xmlIsBlankNode(node)) continue;
 
@@ -316,6 +389,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
       intdata = (gint)strtol(tmp,&p,0);
       if (*p != 0) intdata = 0;
       xmlFree(tmp);
+      has_intdata = TRUE;
     }
     chardata = xmlGetProp(node,"chardata");
     /* TODO.... */
@@ -347,6 +421,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
       } else if (subnode->ns == ns && !strcmp(subnode->name,"icon")) {
 	tmp = xmlNodeGetContent(subnode);
 	iconname = g_strconcat(dirname,G_DIR_SEPARATOR_S,tmp,NULL);
+	has_icon_on_sheet = TRUE;
 	if (tmp) xmlFree(tmp);
       }
     }
@@ -364,11 +439,15 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
 
     sheet_obj->pixmap = NULL;
     sheet_obj->user_data = (void *)intdata; /* XXX modify user_data type ? */
+    sheet_obj->user_data_type = has_intdata ? USER_DATA_IS_INTDATA /* sure,   */
+                                            : USER_DATA_IS_OTHER;  /* why not */
     sheet_obj->pixmap_file = iconname; 
+    sheet_obj->has_icon_on_sheet = has_icon_on_sheet;
     sheet_obj->line_break = set_line_break;
     set_line_break = FALSE;
 
     if ((otype = object_get_type(tmp)) == NULL) {
+      g_warning("object_get_type(%s) returned NULL", tmp);
       if (sheet_obj->description) g_free(sheet_obj->description);
       g_free(sheet_obj->pixmap_file);
       g_free(sheet_obj->object_type);
@@ -376,14 +455,20 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
       if (tmp) xmlFree(tmp);
       continue; 
     }	  
-
+    
     /* set defaults */
     if (sheet_obj->pixmap_file == NULL) {
+      g_assert(otype->pixmap || otype->pixmap_file);
       sheet_obj->pixmap = otype->pixmap;
       sheet_obj->pixmap_file = otype->pixmap_file;
+      sheet_obj->has_icon_on_sheet = has_icon_on_sheet;
     }
-    if (sheet_obj->user_data == NULL)
+    if (sheet_obj->user_data == NULL
+        && sheet_obj->user_data_type != USER_DATA_IS_INTDATA)
       sheet_obj->user_data = otype->default_user_data;
+    else
+      sheet_obj->user_data_type = USER_DATA_IS_INTDATA;
+
     if (tmp) xmlFree(tmp);
       
     /* we don't need to fix up the icon and descriptions for simple objects,
@@ -391,7 +476,9 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
        already automatically handled. */
     sheet_append_sheet_obj(sheet,sheet_obj);
   }
-  
-  if (sheet) register_sheet(sheet);
+
+  if (!shadowing_sheet)
+    register_sheet(sheet); 
+
   xmlFreeDoc(doc);
 }

@@ -142,6 +142,12 @@ dia_core_files = \
 	    diagram_tree_menu.c \
 	    diagram_tree_menu_callbacks.h \
 	    diagram_tree_menu_callbacks.c \
+	    sheets.c \
+	    sheets.h \
+	    sheets_dialog.c \
+	    sheets_dialog.h \
+	    sheets_dialog_callbacks.c \
+	    sheets_dialog_callbacks.h \
 	    $(print_files)
 
 dia_SOURCES = \

@@ -152,7 +152,10 @@ static ObjectTypeOps custom_type_ops =
   (ApplyDefaultsFunc) custom_apply_defaults
 };
 
-static ObjectType custom_type =
+/* This looks like it could be static, but it can't because we key
+   on it to determine if an ObjectType is a custom/SVG shape */
+
+ObjectType custom_type =
 {
   "Custom - Generic",  /* name */
   0,                 /* version */

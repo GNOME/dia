@@ -38,6 +38,22 @@ typedef PluginInitResult (*PluginInitFunc) (PluginInfo *info);
 typedef gboolean (*PluginCanUnloadFunc) (PluginInfo *info);
 typedef void (*PluginUnloadFunc) (PluginInfo *info);
 
+struct _PluginInfo {
+  GModule *module;
+  gchar *filename;      /* plugin filename */
+  gchar *real_filename; /* not a .la file */
+
+  gboolean is_loaded;
+  gboolean inhibit_load;
+
+  gchar *name;
+  gchar *description;
+
+  PluginInitFunc init_func;
+  PluginCanUnloadFunc can_unload_func;
+  PluginUnloadFunc unload_func;
+};
+
 /* functions for use by plugins ... */
 
 gboolean dia_plugin_info_init(PluginInfo *info, gchar *name,

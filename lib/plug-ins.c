@@ -61,22 +61,6 @@
 #  define USING_LIBTOOL 1
 #endif
 
-struct _PluginInfo {
-  GModule *module;
-  gchar *filename;      /* plugin filename */
-  gchar *real_filename; /* not a .la file */
-
-  gboolean is_loaded;
-  gboolean inhibit_load;
-
-  gchar *name;
-  utfchar *description;
-
-  PluginInitFunc init_func;
-  PluginCanUnloadFunc can_unload_func;
-  PluginUnloadFunc unload_func;
-};
-
 static GList *plugins = NULL;
 
 static void     ensure_pluginrc(void);

@@ -743,6 +743,8 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
 }
 #endif
 
+gchar *interface_current_sheet_name;
+
 static void
 fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
 {
@@ -754,6 +756,9 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
   gtk_container_foreach(GTK_CONTAINER(sheet_wbox),
 			(GtkCallback)gtk_widget_destroy, NULL);
   tool_group = gtk_radio_button_group(GTK_RADIO_BUTTON(tool_widgets[0]));
+
+  /* Remember sheet 'name' for 'Sheets and Objects' dialog */
+  interface_current_sheet_name = sheet->name;
 
   /* set the aspect ratio on the wbox */
   rows = (g_slist_length(sheet->objects) - 1) / COLUMNS + 1;
@@ -835,7 +840,7 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
   }
 }
 
-static void
+void
 fill_sheet_menu(void)
 {
   GSList *tmp;
