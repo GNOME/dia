@@ -1,13 +1,13 @@
 # dia ja.po
 # Copyright (C) 1999-2001 Free Software Foundation, Inc.
 # Yukihiro Nakai <nakai@FreeBSD.org>, 1999,2000.
-# Akira TAGOH <tagoh@gnome.gr.jp>, 2001.
+# Akira TAGOH <tagoh@gnome.gr.jp>, 2001,2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia CVS-20020208\n"
-"POT-Creation-Date: 2002-05-25 18:23+0200\n"
-"PO-Revision-Date: 2002-02-09 01:17+0900\n"
+"Project-Id-Version: dia CVS-20020526\n"
+"POT-Creation-Date: 2002-05-26 15:05+0900\n"
+"PO-Revision-Date: 2002-05-26 16:09+0900\n"
 "Last-Translator: Akira TAGOH <tagoh@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -352,7 +352,7 @@ msgstr "ダイアグラムツリー"
 
 #: app/dialogs.c:51
 msgid "Ok"
-msgstr ""
+msgstr "OK"
 
 #. paper size
 #: app/diapagelayout.c:112
@@ -513,9 +513,8 @@ msgstr "PNGの出力中にエラーが起きました"
 
 #. Create a dialog
 #: app/export_png.c:252
-#, fuzzy
 msgid "PNG Export Options"
-msgstr "エクスポートオプション"
+msgstr "PNGエクスポートオプション"
 
 #. Translators: Menu item Verb/Channel/Export
 #: app/export_png.c:253 objects/FS/function.c:658 objects/FS/function.c:660
@@ -523,14 +522,12 @@ msgid "Export"
 msgstr "エクスポート"
 
 #: app/export_png.c:258
-#, fuzzy
 msgid "Image width:"
-msgstr "イメージファイル:"
+msgstr "イメージの幅:"
 
 #: app/export_png.c:261
-#, fuzzy
 msgid "Image height:"
-msgstr "イメージファイル:"
+msgstr "イメージの高さ:"
 
 #: app/export_png.c:306
 msgid "Portable Network Graphics"
@@ -572,15 +569,14 @@ msgstr "ダイアグラムの保存"
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
 #: app/filedlg.c:315
-#, fuzzy
 msgid "Compress diagram files"
-msgstr "保存するファイルを圧縮する:"
+msgstr "ダイアグラムファイルを圧縮"
 
 #: app/filedlg.c:322
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
-msgstr ""
+msgstr "圧縮は1/10サイズ未満にファイルサイズを減らし，読み込みと保存を速くします．いくつかのテキストプログラムは圧縮されたファイルを動かすことができません．"
 
 #: app/filedlg.c:499
 #, c-format
@@ -847,14 +843,15 @@ msgstr ""
 "Diaファイルではありません。"
 
 #: app/load_save.c:476
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading diagram:\n"
 "%s.\n"
 "A valid Dia file defines at least one layer."
 msgstr ""
-"ダイアグラム %s の読み込みでエラーが起こりました。\n"
-"Diaファイルではありません。"
+"ダイアグラム読み込み中にエラー:\n"
+"%s\n"
+"有効なDiaファイルは少なくとも1つのレイヤーを定義します"
 
 #: app/load_save.c:767
 #, c-format
@@ -882,13 +879,12 @@ msgid "Show diagram tree"
 msgstr "ダイアグラムツリーを表示します"
 
 #: app/menus.c:56
-#, fuzzy
 msgid "_Sheets and Objects..."
-msgstr "標準オブジェクト"
+msgstr "シートとオブジェクト(_S)..."
 
 #: app/menus.c:57
 msgid "Modify sheets and their objects"
-msgstr ""
+msgstr "シートとそれらのオブジェクトを修正します"
 
 #: app/menus.c:61
 msgid "P_lugins"
@@ -1119,7 +1115,7 @@ msgstr "/ファイル(_F)/ダイアグラムツリー(_D)"
 
 #: app/menus.c:269
 msgid "/File/Sheets and Objects..."
-msgstr ""
+msgstr "/ファイル(_F)/シートとオブジェクト..."
 
 #: app/menus.c:272
 msgid "/File/_Preferences..."
@@ -1631,6 +1627,8 @@ msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
 msgstr ""
+"ドラッグで交差した\n"
+"オブジェクトを戻す:"
 
 #: app/preferences.c:143
 msgid "Recent documents list size:"
@@ -1715,11 +1713,11 @@ msgstr "デフォルトの高さ:"
 
 #: app/preferences.c:189
 msgid "Remember last size:"
-msgstr ""
+msgstr "最後のサイズを記憶する:"
 
 #: app/preferences.c:191
 msgid "Save hidden object types:"
-msgstr ""
+msgstr "隠れたオブジェクトタイプを保存:"
 
 #: app/preferences.c:314
 #, c-format
@@ -1770,12 +1768,12 @@ msgstr "Encapsulated Postscript"
 
 #: app/render_libart.c:433
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
-msgstr ""
+msgstr "gdk_renderer: 指定したフィルモードはサポートしていません!\n"
 
 #: app/render_libart.c:448
 #, c-format
 msgid "Can't find font '%s' in height %d\n"
-msgstr ""
+msgstr "フォント '%s' (高さ %d)を見つけることができません\n"
 
 #: app/sheets.c:163 app/sheets_dialog_callbacks.c:317
 #, c-format
@@ -1783,6 +1781,8 @@ msgid ""
 "%s\n"
 "System sheet"
 msgstr ""
+"%s\n"
+"システムシート"
 
 #: app/sheets.c:165 app/sheets_dialog_callbacks.c:319
 #, c-format
@@ -1790,49 +1790,49 @@ msgid ""
 "%s\n"
 "User sheet"
 msgstr ""
+"%s\n"
+"ユーザシート"
 
 #: app/sheets.c:282
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
 msgstr ""
+"モジュールから'custom_type'シンボルを得ることができません\n"
+"シェイプ編集を無効にします"
 
 #: app/sheets.c:380
 #, c-format
 msgid "Widget not found: %s"
-msgstr ""
+msgstr "ウィジェットが見つかりません: %s"
 
 #: app/sheets.c:456
-#, fuzzy
 msgid "SVG Shape"
-msgstr "イメージファイルの選択"
+msgstr "SVGシェイプ"
 
 #: app/sheets.c:458
-#, fuzzy
 msgid "Programmed Object"
-msgstr "クロノグラフダイアグラムオブジェクト"
+msgstr "プログラムされたオブジェクト"
 
 #: app/sheets_dialog.c:85
-#, fuzzy
 msgid "Sheets and Objects"
-msgstr "標準オブジェクト"
+msgstr "シートとオブジェクト"
 
 #: app/sheets_dialog.c:110 app/sheets_dialog_callbacks.c:185
 msgid "<- Copy"
-msgstr ""
+msgstr "<- コピー"
 
 #: app/sheets_dialog.c:120 app/sheets_dialog_callbacks.c:187
 msgid "<- Copy All"
-msgstr ""
+msgstr "<- すべてをコピー"
 
 #: app/sheets_dialog.c:127 app/sheets_dialog_callbacks.c:189
-#, fuzzy
 msgid "<- Move"
-msgstr "移動"
+msgstr "<- 移動"
 
 #: app/sheets_dialog.c:137 app/sheets_dialog_callbacks.c:191
 msgid "<- Move All"
-msgstr ""
+msgstr "<- すべてを移動"
 
 #: app/sheets_dialog.c:205 app/sheets_dialog.c:409
 #: objects/UML/class_dialog.c:847 objects/UML/class_dialog.c:1859
@@ -1841,86 +1841,73 @@ msgid "New"
 msgstr "新規"
 
 #: app/sheets_dialog.c:207
-#, fuzzy
 msgid "_New"
-msgstr "新規"
+msgstr "新規(_N)"
 
 #: app/sheets_dialog.c:227
 msgid "Up"
-msgstr ""
+msgstr "上"
 
 #: app/sheets_dialog.c:229
 msgid "_Up"
-msgstr ""
+msgstr "上(_U)"
 
 #: app/sheets_dialog.c:249
-#, fuzzy
 msgid "Down"
-msgstr "下移動"
+msgstr "下"
 
 #: app/sheets_dialog.c:251
 msgid "_Down"
-msgstr ""
+msgstr "下(_D)"
 
 #: app/sheets_dialog.c:269
-#, fuzzy
 msgid "Edit"
-msgstr "/編集(_E)"
+msgstr "編集"
 
 #: app/sheets_dialog.c:271
-#, fuzzy
 msgid "_Edit"
-msgstr "/編集(_E)"
+msgstr "編集(_E)"
 
 #: app/sheets_dialog.c:290
-#, fuzzy
 msgid "_Remove"
-msgstr "削除"
+msgstr "削除(_R)"
 
 #: app/sheets_dialog.c:315
-#, fuzzy
 msgid "Revert"
-msgstr "反転"
+msgstr "戻す"
 
 #: app/sheets_dialog.c:416 app/sheets_dialog.c:860
-#, fuzzy
 msgid "Type"
-msgstr "型:"
+msgstr "タイプ"
 
 #: app/sheets_dialog.c:431
-#, fuzzy
 msgid "Browse..."
-msgstr "一覧"
+msgstr "一覧..."
 
 #: app/sheets_dialog.c:440
 msgid "SVG Shape:"
-msgstr ""
+msgstr "SVGシェイプ:"
 
 #: app/sheets_dialog.c:467 app/sheets_dialog.c:530
-#, fuzzy
 msgid "description:"
 msgstr "説明:"
 
 #: app/sheets_dialog.c:479
-#, fuzzy
 msgid "Sheet name:"
-msgstr "ステップ名"
+msgstr "シート名:"
 
 #: app/sheets_dialog.c:500 app/sheets_dialog_callbacks.c:297
 #: app/sheets_dialog_callbacks.c:1083
-#, fuzzy
 msgid "Line Break"
-msgstr "線の色"
+msgstr "線を切る"
 
 #: app/sheets_dialog.c:630
-#, fuzzy
 msgid "Edit Attributes"
-msgstr "レイヤの属性を編集する"
+msgstr "属性の編集"
 
 #: app/sheets_dialog.c:644
-#, fuzzy
 msgid "Object"
-msgstr "オブジェクト(_O)"
+msgstr "オブジェクト"
 
 #: app/sheets_dialog.c:679 objects/FS/flow-ortho.c:187 objects/FS/flow.c:164
 #: objects/UML/class_dialog.c:896 objects/UML/class_dialog.c:1911
@@ -1929,95 +1916,88 @@ msgid "Type:"
 msgstr "型:"
 
 #: app/sheets_dialog.c:717
-#, fuzzy
 msgid "Sheet"
-msgstr "選択(_S)"
+msgstr "シート"
 
 #: app/sheets_dialog.c:875
-#, fuzzy
 msgid "Object:"
-msgstr "オブジェクト(_O)"
+msgstr "オブジェクト:"
 
 #: app/sheets_dialog.c:902
-#, fuzzy
 msgid "Sheet:"
-msgstr "選択(_S)"
+msgstr "シート:"
 
 #: app/sheets_dialog.c:994
-#, fuzzy
 msgid "Select SVG Shape File"
-msgstr "イメージファイルの選択"
+msgstr "SVGシェイプファイルを選択"
 
 #: app/sheets_dialog_callbacks.c:172
-#, fuzzy
 msgid "Copy ->"
-msgstr "テキストのコピー"
+msgstr "コピー ->"
 
 #: app/sheets_dialog_callbacks.c:174
 msgid "Copy All ->"
-msgstr ""
+msgstr "すべてをコピー ->"
 
 #: app/sheets_dialog_callbacks.c:176
-#, fuzzy
 msgid "Move ->"
-msgstr "移動"
+msgstr "移動 ->"
 
 #: app/sheets_dialog_callbacks.c:178
 msgid "Move All ->"
-msgstr ""
+msgstr "すべてを移動 ->"
 
 #: app/sheets_dialog_callbacks.c:800
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr ""
+msgstr "ファイル名は '%s'で終わらなければなりません: '%s'"
 
 #: app/sheets_dialog_callbacks.c:808
-#, fuzzy, c-format
+#, c-format
 msgid "Error examining %s: %s"
-msgstr "単位を読み込み中にエラーが発生しました: %s\n"
+msgstr "%sを調査中にエラー: %s"
 
 #: app/sheets_dialog_callbacks.c:830
-#, fuzzy, c-format
+#, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr "`%s' の正確なパスを推測出来ませんでした"
+msgstr "シェイプファイルを解釈できませんでした: '%s'"
 
 #: app/sheets_dialog_callbacks.c:896
 msgid "Sheet must have a Name"
-msgstr ""
+msgstr "シートは名前を持たなければなりません"
 
 #: app/sheets_dialog_callbacks.c:1584 app/sheets_dialog_callbacks.c:1590
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open '%s': %s"
-msgstr "`%s' を開くことが出来ませんでした"
+msgstr "'%s'を開くことができませんでした: %s"
 
 #: app/sheets_dialog_callbacks.c:1641
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "開けないので書き込めません: '%s'\n"
+msgstr "開けないので書き込めません: '%s'"
 
 #: app/sheets_dialog_callbacks.c:1650
 msgid "a user"
-msgstr ""
+msgstr "ユーザ"
 
 #: app/sheets_dialog_callbacks.c:1663
-#, fuzzy, c-format
+#, c-format
 msgid "File: %s"
-msgstr "ファイル"
+msgstr "ファイル: %s"
 
 #: app/sheets_dialog_callbacks.c:1666
-#, fuzzy, c-format
+#, c-format
 msgid "Date: %s"
-msgstr "Dia v %s"
+msgstr "日付: %s"
 
 #: app/sheets_dialog_callbacks.c:1670
 #, c-format
 msgid "For: %s"
-msgstr ""
+msgstr "作成者: %s"
 
 #: app/sheets_dialog_callbacks.c:1687
-#, fuzzy
 msgid "add shapes here"
-msgstr "dia shape ファイル"
+msgstr "ここにシェイプを追加"
 
 #: app/splash.c:58
 msgid "Loading ..."
@@ -2066,29 +2046,29 @@ msgstr ""
 
 #: lib/dia_xml.c:476
 msgid "Taking point value of non-point node."
-msgstr ""
+msgstr "座標のないノードの座標値を取得しようとしています"
 
 #: lib/dia_xml.c:488
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
-msgstr ""
+msgstr "不正なX座標値 \"%s\" %fです; これを捨てます"
 
 #: lib/dia_xml.c:496
 msgid "Error parsing point."
-msgstr "ポイントの解析中にエラーが発生しました"
+msgstr "座標の解析中にエラーが発生しました"
 
 #. don't bother with useless warnings (see above)
 #: lib/dia_xml.c:504
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr ""
+msgstr "不正なY座標値 \"%s\" %fです; これを捨てます"
 
 #: lib/dia_xml.c:862
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
 "problems. Please report to dia-list@gnome.org if you see this message."
-msgstr ""
+msgstr "ローカル文字集合がUTF-8です．libxml1の問題が原因でdiaの以前のバージョンで生成されたファイルのサポートで問題に出くわすかもしれません．もしこのメッセージを見た場合は，dia-list@gnome.orgへ報告してください．"
 
 #: lib/font.c:517
 #, c-format
@@ -2110,7 +2090,7 @@ msgstr "警告: Xのフォントが見つかりません"
 
 #: lib/font.c:667
 msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
-msgstr ""
+msgstr "警告: 読み込んだフォントがありません．Xフォントパスにフォントファイルはありますか?"
 
 #: lib/font.c:959
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
@@ -2325,14 +2305,12 @@ msgid "Integral Symbol"
 msgstr ""
 
 #: lib/widgets.c:858
-#, fuzzy
 msgid "Crow Foot"
-msgstr "足"
+msgstr ""
 
 #: lib/widgets.c:859
-#, fuzzy
 msgid "Cross"
-msgstr "処理"
+msgstr ""
 
 #: lib/widgets.c:896
 msgid "Length: "
@@ -2452,7 +2430,7 @@ msgstr "カスタム"
 
 #: objects/custom/custom.c:135
 msgid "Custom XML shapes loader"
-msgstr ""
+msgstr "カスタムXMLシェイプローダ"
 
 #: objects/custom/custom_object.c:197 objects/custom/custom_object.c:216
 msgid "Flip horizontal"
@@ -2529,7 +2507,7 @@ msgstr "エンティティ"
 
 #: objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
-msgstr ""
+msgstr "エンティティ/関連ダイアグラムオブジェクト"
 
 #: objects/ER/participation.c:113
 msgid "Total:"
@@ -2601,27 +2579,24 @@ msgstr "シアーの角度:"
 #.
 #: objects/FS/flow-ortho.c:178 objects/FS/flow-ortho.c:746
 #: objects/FS/flow-ortho.c:812 objects/FS/flow-ortho.c:877
-#: objects/FS/flow-poly.c:670 objects/FS/flow-poly.c:725
-#: objects/FS/flow-poly.c:789 objects/FS/flow.c:155 objects/FS/flow.c:658
-#: objects/FS/flow.c:722 objects/FS/function.c:1058
+#: objects/FS/flow.c:155 objects/FS/flow.c:658 objects/FS/flow.c:722
+#: objects/FS/function.c:1058
 msgid "Energy"
-msgstr "エナジー"
+msgstr ""
 
 #. Translators: Menu item Noun/Material
 #: objects/FS/flow-ortho.c:179 objects/FS/flow-ortho.c:753
 #: objects/FS/flow-ortho.c:813 objects/FS/flow-ortho.c:884
-#: objects/FS/flow-poly.c:677 objects/FS/flow-poly.c:726
-#: objects/FS/flow-poly.c:796 objects/FS/flow.c:156 objects/FS/flow.c:659
-#: objects/FS/flow.c:729 objects/FS/function.c:1034
+#: objects/FS/flow.c:156 objects/FS/flow.c:659 objects/FS/flow.c:729
+#: objects/FS/function.c:1034
 msgid "Material"
 msgstr "材料"
 
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow-ortho.c:180 objects/FS/flow-ortho.c:759
 #: objects/FS/flow-ortho.c:814 objects/FS/flow-ortho.c:890
-#: objects/FS/flow-poly.c:683 objects/FS/flow-poly.c:727
-#: objects/FS/flow-poly.c:802 objects/FS/flow.c:157 objects/FS/flow.c:660
-#: objects/FS/flow.c:735 objects/FS/function.c:996 objects/FS/function.c:998
+#: objects/FS/flow.c:157 objects/FS/flow.c:660 objects/FS/flow.c:735
+#: objects/FS/function.c:996 objects/FS/function.c:998
 #: objects/FS/function.c:1134 objects/FS/function.c:1136
 msgid "Signal"
 msgstr "シグナル"
@@ -2629,19 +2604,16 @@ msgstr "シグナル"
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
 #: objects/FS/flow-ortho.c:437 objects/FS/flow-ortho.c:567
-#: objects/FS/flow-ortho.c:926 objects/FS/flow-poly.c:366
-#: objects/FS/flow-poly.c:495 objects/FS/flow-poly.c:838 objects/FS/flow.c:430
-#: objects/FS/flow.c:559 objects/FS/flow.c:771
+#: objects/FS/flow-ortho.c:926 objects/FS/flow.c:430 objects/FS/flow.c:559
+#: objects/FS/flow.c:771
 msgid "Helvetica-Oblique"
 msgstr "GothicBBB-Medium"
 
-#: objects/FS/flow-ortho.c:726 objects/FS/flow-poly.c:650
-#: objects/FS/flow-poly.c:768 objects/FS/flow.c:701
+#: objects/FS/flow-ortho.c:726 objects/FS/flow.c:701
 msgid "Flow:"
 msgstr "フロー:"
 
-#: objects/FS/flow-ortho.c:741 objects/FS/flow-poly.c:665
-#: objects/FS/flow-poly.c:784 objects/FS/flow.c:717
+#: objects/FS/flow-ortho.c:741 objects/FS/flow.c:717
 msgid "Flow type:"
 msgstr "フローの型:"
 
@@ -3204,7 +3176,7 @@ msgstr "無効"
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
 #: objects/FS/function.c:932
 msgid "Limit"
-msgstr ""
+msgstr "制限"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
 #: objects/FS/function.c:934
@@ -3279,12 +3251,12 @@ msgstr ""
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
 #: objects/FS/function.c:968
 msgid "Shape"
-msgstr ""
+msgstr "シェイプ"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
 #: objects/FS/function.c:970
 msgid "Compress"
-msgstr ""
+msgstr "圧縮"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
 #: objects/FS/function.c:972
@@ -3379,7 +3351,7 @@ msgstr "指示"
 #. Translators: Menu item Verb/Signal/Indicate/Mark
 #: objects/FS/function.c:1020
 msgid "Mark"
-msgstr ""
+msgstr "マーク"
 
 #. Translators: Menu item Verb/Signal/Display
 #: objects/FS/function.c:1022 sheets/Flowchart.sheet.in.h:7
@@ -3465,7 +3437,7 @@ msgstr ""
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
 #: objects/FS/function.c:1064
 msgid "Translation"
-msgstr ""
+msgstr "変形"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
 #: objects/FS/function.c:1066
@@ -3495,7 +3467,7 @@ msgstr "振動"
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
 #: objects/FS/function.c:1076
 msgid "Rotational Energy"
-msgstr ""
+msgstr "回転エネルギー"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
 #: objects/FS/function.c:1078
@@ -3505,12 +3477,12 @@ msgstr ""
 #. Translators: Menu item Noun/Energy/Electricity
 #: objects/FS/function.c:1080
 msgid "Electrical"
-msgstr ""
+msgstr "電気"
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
 #: objects/FS/function.c:1082
 msgid "Electricity"
-msgstr "電気"
+msgstr "静電気"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
 #: objects/FS/function.c:1084
@@ -3550,7 +3522,7 @@ msgstr "熱"
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
 #: objects/FS/function.c:1098
 msgid "Conduction"
-msgstr ""
+msgstr "伝導"
 
 #. Translators: Menu item Noun/Energy/Thermal/Convection
 #: objects/FS/function.c:1100
@@ -3600,22 +3572,22 @@ msgstr "ガンマ線"
 #. Translators: Menu item Noun/Energy/Acoustic Energy
 #: objects/FS/function.c:1120
 msgid "Acoustic Energy"
-msgstr ""
+msgstr "音響エネルギー"
 
 #. Translators: Menu item Noun/Energy/Optical Energy
 #: objects/FS/function.c:1122
 msgid "Optical Energy"
-msgstr ""
+msgstr "光学エネルギー"
 
 #. Translators: Menu item Noun/Energy/Solar Energy
 #: objects/FS/function.c:1124
 msgid "Solar Energy"
-msgstr ""
+msgstr "太陽エネルギー"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
 #: objects/FS/function.c:1126
 msgid "Magnetic Energy"
-msgstr ""
+msgstr "磁力"
 
 #. Translators: Menu item Noun/Energy/Human/Human Motion
 #: objects/FS/function.c:1130
@@ -4078,22 +4050,19 @@ msgstr "操作表示の抑制"
 #. head line
 #: objects/UML/class_dialog.c:303
 msgid "Kind"
-msgstr ""
+msgstr "種類"
 
 #: objects/UML/class_dialog.c:308
-#, fuzzy
 msgid "Size"
-msgstr "Xサイズ:"
+msgstr "サイズ"
 
 #: objects/UML/class_dialog.c:322
-#, fuzzy
 msgid "Class Name"
-msgstr "クラス名:"
+msgstr "クラス名"
 
 #: objects/UML/class_dialog.c:327
-#, fuzzy
 msgid "Abstract Class"
-msgstr "要約"
+msgstr "抽象的なクラス"
 
 #. should probably be refactored too.
 #: objects/UML/class_dialog.c:337
@@ -4421,7 +4390,7 @@ msgstr "Fig 形式のインポートとエクスポートのフィルタ"
 
 #: plug-ins/xfig/xfig-export.c:365
 msgid "No more user-definable colors - using black"
-msgstr ""
+msgstr "これ以上ユーザが定義できる色はありません - 黒を使います"
 
 #: plug-ins/xfig/xfig-export.c:792
 msgid "XFig format"
@@ -4441,16 +4410,15 @@ msgstr ""
 
 #: plug-ins/xfig/xfig-import.c:80
 msgid "Negative corner radius, negating"
-msgstr ""
+msgstr "マイナス角の半径を打ち消します"
 
 #: plug-ins/xfig/xfig-import.c:81
 msgid "Spline import is not implemented yet"
-msgstr ""
+msgstr "スプラインインポートはまだ実装されていません"
 
 #: plug-ins/xfig/xfig-import.c:82
-#, fuzzy
 msgid "Can't find standard object"
-msgstr "標準オブジェクト"
+msgstr "標準オブジェクトを見つけることができません"
 
 #: plug-ins/xfig/xfig-import.c:424
 #, c-format
@@ -4523,7 +4491,7 @@ msgstr "不明なオブジェクトタイプ %d です\n"
 #: plug-ins/xfig/xfig-import.c:1035
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
-msgstr ""
+msgstr "'%s'は`%s'あるいは`%s'のひとつではありません\n"
 
 #: plug-ins/xfig/xfig-import.c:1045
 #, c-format
@@ -4572,7 +4540,7 @@ msgstr "FIG ファイルを読み込み中にエラーが発生しました: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1134 plug-ins/xfig/xfig-import.c:1189
 msgid "Premature end of FIG file\n"
-msgstr ""
+msgstr "FIGファイルの終了には早すぎます\n"
 
 #: plug-ins/xfig/xfig-import.c:1143
 #, c-format
@@ -4607,7 +4575,7 @@ msgstr "クロノグラフ"
 
 #: sheets/chronogram.sheet.in.h:4
 msgid "Objects to design chronogram charts"
-msgstr ""
+msgstr "クロノグラフ表を設計するためのオブジェクト"
 
 #: sheets/Circuit.sheet.in.h:1
 msgid "A Horizontal Jumper"
@@ -4630,9 +4598,8 @@ msgid "A Horizontally aligned resistor (European)"
 msgstr ""
 
 #: sheets/Circuit.sheet.in.h:6
-#, fuzzy
 msgid "A Microphone"
-msgstr "携帯電話"
+msgstr "マイクロフォン"
 
 #: sheets/Circuit.sheet.in.h:7
 msgid "A PMOS transistor"
@@ -4664,23 +4631,23 @@ msgstr "アース端子"
 
 #: sheets/Circuit.sheet.in.h:14
 msgid "A horizontally aligned LED"
-msgstr ""
+msgstr "水平用のLED"
 
 #: sheets/Circuit.sheet.in.h:15
 msgid "A horizontally aligned capacitor"
-msgstr ""
+msgstr "水平用のコンデンサ"
 
 #: sheets/Circuit.sheet.in.h:16
 msgid "A horizontally aligned diode"
-msgstr ""
+msgstr "水平用のダイオード"
 
 #: sheets/Circuit.sheet.in.h:17
 msgid "A horizontally aligned fuse"
-msgstr ""
+msgstr "水平用のヒューズ"
 
 #: sheets/Circuit.sheet.in.h:18
 msgid "A horizontally aligned powersource"
-msgstr ""
+msgstr "水平用の電源"
 
 #: sheets/Circuit.sheet.in.h:19
 msgid "A horizontally aligned zener diode"
@@ -4692,31 +4659,31 @@ msgstr "ランプ"
 
 #: sheets/Circuit.sheet.in.h:21
 msgid "A npn bipolar transistor"
-msgstr ""
+msgstr "NPN接合バイポーラトランジスタ"
 
 #: sheets/Circuit.sheet.in.h:22
 msgid "A pnp bipolar transistor"
-msgstr ""
+msgstr "PNP接合バイポーラトランジスタ"
 
 #: sheets/Circuit.sheet.in.h:23
 msgid "A vertically aligned LED"
-msgstr ""
+msgstr "垂直用のLED"
 
 #: sheets/Circuit.sheet.in.h:24
 msgid "A vertically aligned capacitor"
-msgstr ""
+msgstr "垂直用のコンデンサ"
 
 #: sheets/Circuit.sheet.in.h:25
 msgid "A vertically aligned diode"
-msgstr ""
+msgstr "垂直用のダイオード"
 
 #: sheets/Circuit.sheet.in.h:26
 msgid "A vertically aligned fuse"
-msgstr ""
+msgstr "垂直用のヒューズ"
 
 #: sheets/Circuit.sheet.in.h:27
 msgid "A vertically aligned powersource"
-msgstr ""
+msgstr "垂直用の電源"
 
 #: sheets/Circuit.sheet.in.h:28
 msgid "A vertically aligned zener diode"
@@ -4944,7 +4911,7 @@ msgstr ""
 
 #: sheets/Electric.sheet.in.h:9
 msgid "Electric"
-msgstr ""
+msgstr "電気"
 
 #: sheets/Electric.sheet.in.h:10
 msgid "The command organ of a relay"
@@ -5004,11 +4971,11 @@ msgstr ""
 
 #: sheets/Flowchart.sheet.in.h:5
 msgid "Collate"
-msgstr ""
+msgstr "照合"
 
 #: sheets/Flowchart.sheet.in.h:6
 msgid "Delay"
-msgstr ""
+msgstr "遅延"
 
 #: sheets/Flowchart.sheet.in.h:8
 msgid "Document"
@@ -5048,7 +5015,7 @@ msgstr "融合"
 
 #: sheets/Flowchart.sheet.in.h:18
 msgid "Objects to draw flowcharts"
-msgstr ""
+msgstr "フローチャートを描画するためのオブジェクト"
 
 #: sheets/Flowchart.sheet.in.h:19
 msgid "Off Page Connector"
@@ -5072,11 +5039,11 @@ msgstr "準備"
 
 #: sheets/Flowchart.sheet.in.h:24
 msgid "Punched Card"
-msgstr ""
+msgstr "パンチカード"
 
 #: sheets/Flowchart.sheet.in.h:25
 msgid "Punched Tape"
-msgstr ""
+msgstr "パンチテープ"
 
 #: sheets/Flowchart.sheet.in.h:26
 msgid "Sort"
@@ -5291,21 +5258,20 @@ msgid "Logic"
 msgstr "論理"
 
 #: sheets/Misc.sheet.in.h:1
-#, fuzzy
 msgid "A File"
 msgstr "ファイル"
 
 #: sheets/Misc.sheet.in.h:2
 msgid "A Folder"
-msgstr ""
+msgstr "フォルダ"
 
 #: sheets/Misc.sheet.in.h:3
 msgid "Misc"
-msgstr ""
+msgstr "その他"
 
 #: sheets/Misc.sheet.in.h:4
 msgid "Miscellaneous Shapes"
-msgstr ""
+msgstr "その他のシェイプ"
 
 #: sheets/MSE.sheet.in.h:1
 msgid "Demultiplexer"
@@ -5376,9 +5342,8 @@ msgid "A RJ45 Wall-Plug"
 msgstr ""
 
 #: sheets/network.sheet.in.h:10
-#, fuzzy
 msgid "A Telephone"
-msgstr "携帯電話"
+msgstr "電話"
 
 #: sheets/network.sheet.in.h:11
 msgid "A UNIX Workstation"
@@ -5722,7 +5687,7 @@ msgstr "コンポーネントの作成"
 
 #: sheets/UML.sheet.in.h:10
 msgid "Create a dependency"
-msgstr ""
+msgstr "依存関係の作成"
 
 #: sheets/UML.sheet.in.h:11
 msgid "Create a lifeline"
@@ -5779,114 +5744,3 @@ msgstr ""
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
 msgstr "UML"
-
-#~ msgid "<<"
-#~ msgstr "<<"
-
-#~ msgid ">>"
-#~ msgstr ">>"
-
-#, fuzzy
-#~ msgid "WMF export filter"
-#~ msgstr "dia shape エクスポートフィルタ"
-
-#~ msgid "Error reading diagram file\n"
-#~ msgstr "ダイアグラムファイルの読み込み中にエラーが発生しました\n"
-
-#~ msgid "Event Modelling Language diagram"
-#~ msgstr "イベントモデル言語(EML)ダイアグラム"
-
-#~ msgid "Number of processes:"
-#~ msgstr "処理の数:"
-
-#~ msgid "multiple"
-#~ msgstr "複数"
-
-#~ msgid "Single"
-#~ msgstr "単独"
-
-#~ msgid "Multiple"
-#~ msgstr "複数"
-
-#, fuzzy
-#~ msgid "Instantiation"
-#~ msgstr "放熱"
-
-#~ msgid "Unidirectional"
-#~ msgstr "一方向"
-
-#~ msgid "Bidirectional"
-#~ msgstr "双方向"
-
-#, fuzzy
-#~ msgid "Interaction name:"
-#~ msgstr "インターフェース:"
-
-#~ msgid "bidirectional"
-#~ msgstr "双方向"
-
-#~ msgid "relation"
-#~ msgstr "関連"
-
-#~ msgid "Interface functions"
-#~ msgstr "インターフェース関数"
-
-#~ msgid "Function"
-#~ msgstr "関数"
-
-#~ msgid "Function module:"
-#~ msgstr "関数モジュール:"
-
-#~ msgid "Function name:"
-#~ msgstr "関数名:"
-
-#~ msgid "Interfaces"
-#~ msgstr "インターフェース"
-
-#~ msgid "Interface"
-#~ msgstr "インターフェース"
-
-#~ msgid "Interface name:"
-#~ msgstr "インターフェース名"
-
-#~ msgid "Interface messages"
-#~ msgstr "インターフェースメッセージ"
-
-#~ msgid "Message"
-#~ msgstr "メッセージ"
-
-#~ msgid "Message parameters"
-#~ msgstr "メッセージパラメータ"
-
-#~ msgid "Message parameter"
-#~ msgstr "メッセージパラメータ"
-
-#~ msgid "Functions"
-#~ msgstr "関数"
-
-#~ msgid "Messages"
-#~ msgstr "メッセージ"
-
-#~ msgid "Process name:"
-#~ msgstr "プロセス名:"
-
-#~ msgid "Process reference name:"
-#~ msgstr "プロセスの参照名:"
-
-#~ msgid "Process lifetime:"
-#~ msgstr "プロセスのライフタイム:"
-
-#~ msgid "Module name:"
-#~ msgstr "モジュール名:"
-
-#~ msgid "Function parameters"
-#~ msgstr "関数パラメータ"
-
-#~ msgid "Parameter"
-#~ msgstr "パラメータ"
-
-#~ msgid "Relation members"
-#~ msgstr "関連メンバー"
-
-#~ msgid "Relation member"
-#~ msgstr "関連メンバー"
