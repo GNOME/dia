@@ -1,5 +1,11 @@
 2002-07-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* app/preferences.c: 
+	* lib/paper.c: 
+	* app/diapagelayout.c: 
+	New prefs selector kind PREF_CHOICE chooses between a list of
+	strings.  Used for picking default paper.
+	
 	* app/preferences.c (prefs_data): 
 	* lib/paper.c (get_paper_info): Added prefs setting for
 	is_portrait.

@@ -44,9 +44,7 @@
 #include "preferences.h"
 #include "dia_dirs.h"
 #include "diagramdata.h"
-#ifdef PREF_CHOICE
 #include "paper.h"
-#endif
 
 #ifdef G_OS_WIN32
 #include <io.h> /* open, close */
@@ -62,13 +60,11 @@ enum DiaPrefType {
   PREF_REAL,
   PREF_UREAL,
   PREF_COLOUR,
-#ifdef PREF_CHOICE
   PREF_CHOICE,
-#endif
   PREF_STRING
 };
 
-struct DiaPrefsData {
+typedef struct _DiaPrefData {
   char *name;
   enum DiaPrefType type;
   int offset;
@@ -77,10 +73,8 @@ struct DiaPrefsData {
   char *label_text;
   GtkWidget *widget;
   gboolean hidden;
-#ifdef PREF_CHOICE
-  char *(*choice_list_function)();
-#endif
-};
+  GList *(*choice_list_function)();
+} DiaPrefData;
 
 static int default_true = 1;
 static int default_false = 0;
@@ -96,23 +90,7 @@ static guint default_dtree_width = 220;
 static guint default_dtree_height = 100;
 static guint default_dtree_dia_sort = DIA_TREE_SORT_INSERT;
 static guint default_dtree_obj_sort = DIA_TREE_SORT_INSERT;
-
-#ifdef PREF_CHOICE
-static PaperInfo default_paper =
-{ "A4", 2.82, 2.82, 2.82, 2.82, TRUE, 100.0, FALSE, 1, 1 };
-/*
-  static gboolean default_is_portrait = FALSE;
-  static gboolean default_fitto = FALSE;
-  static gfloat default_scaling = 100.0;
-  static gint default_fitwidth = 1;
-  static gint default_fitheight = 1;
-  static gfloat default_tmargin = 2.82;
-  static gfloat default_bmargin = 2.82;
-  static gfloat default_lmargin = 2.82;
-  static gfloat default_rmargin = 2.82;
-  static gchar *default_papertype = "A4";
-*/
-#endif
+static gchar *default_paper_name = NULL;
 
 struct DiaPrefsTab {
   char *title;
@@ -138,7 +116,7 @@ struct DiaPrefsTab prefs_tabs[] =
 #define PREF_OFFSET(field)        ((int) ((char*) &((struct DiaPreferences *) 0)->field))
 #endif /* !offsetof */
 
-struct DiaPrefsData prefs_data[] =
+DiaPrefData prefs_data[] =
 {
   { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create), &default_true, 0, N_("Reset tools after create:") },
   { "compress_save", PREF_BOOLEAN, PREF_OFFSET(compress_save), &default_true, 0, N_("Compress saved files:") },
@@ -148,10 +126,8 @@ struct DiaPrefsData prefs_data[] =
   { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), &default_false, 0, N_("Use menu bar:") },
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
-  { "is_portrais", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait:") },
-#ifdef PREF_CHOICE
-  { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_paper.name), &default_paper.name, 1, N_("Paper type:"), NULL, FALSE, get_paper_name_list },
-#endif
+  { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait:") },
+  { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype), &default_paper_name, 1, N_("Paper type:"), NULL, FALSE, get_paper_name_list },
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("New window:") },
   { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, 1, N_("Width:") },
@@ -202,7 +178,7 @@ struct DiaPrefsData prefs_data[] =
     &DIA_TREE_DEFAULT_HIDDEN, 4, "hidden type list", NULL, TRUE},
 };
 
-#define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(struct DiaPrefsData))
+#define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(DiaPrefData))
 
 static const GScannerConfig     dia_prefs_scanner_config =
 {
@@ -250,8 +226,8 @@ typedef enum {
 } DiaPrefsTokenType;
 
 static void prefs_create_dialog(void);
-static void prefs_set_value_in_widget(GtkWidget * widget, enum DiaPrefType type,  char *ptr);
-static void prefs_get_value_from_widget(GtkWidget * widget, enum DiaPrefType type, char *ptr);
+static void prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,  char *ptr);
+static void prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data, char *ptr);
 static void prefs_update_dialog_from_prefs(void);
 static void prefs_update_prefs_from_dialog(void);
 static gint prefs_apply(GtkWidget *widget, gpointer data);
@@ -274,6 +250,12 @@ prefs_set_defaults(void)
   int i;
   char *ptr;
 
+  /* Since we can't call this in static initialization, we have to
+   * do it here.
+   */
+  if (default_paper_name == NULL)
+    default_paper_name = get_paper_name(get_default_paper());
+
   for (i=0;i<NUM_PREFS_DATA;i++) {
     ptr = (char *)&prefs + prefs_data[i].offset;
 
@@ -290,9 +272,7 @@ prefs_set_defaults(void)
     case PREF_COLOUR:
       *(Color *)ptr = *(Color *)prefs_data[i].default_value;
       break;
-#ifdef PREF_CHOICE
     case PREF_CHOICE:
-#endif
     case PREF_STRING:
       *(gchar **)ptr = *(gchar **)prefs_data[i].default_value;
       break;
@@ -350,9 +330,7 @@ prefs_save(void)
       fprintf(file, "%f %f %f\n", (double) ((Color *)ptr)->red,
 	      (double) ((Color *)ptr)->green, (double) ((Color *)ptr)->blue);
       break;
-#ifdef PREF_CHOICE
     case PREF_CHOICE:
-#endif
     case PREF_STRING:
       fprintf(file, "\"%s\"\n", *(gchar **)ptr);
       break;
@@ -428,9 +406,7 @@ prefs_parse_line(GScanner *scanner)
     ((Color *)ptr)->blue = scanner->value.v_float;
 
     break;
-#ifdef PREF_CHOICE
   case PREF_CHOICE:
-#endif
   case PREF_STRING:
     if (token != G_TOKEN_STRING)
       return G_TOKEN_STRING;
@@ -531,10 +507,10 @@ prefs_apply(GtkWidget *widget, gpointer data)
 }
 
 static void
-prefs_set_value_in_widget(GtkWidget * widget, enum DiaPrefType type,
+prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
 			  char *ptr)
 {
-  switch(type) {
+  switch(data->type) {
   case PREF_BOOLEAN:
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), *((int *)ptr));
     break;
@@ -551,11 +527,19 @@ prefs_set_value_in_widget(GtkWidget * widget, enum DiaPrefType type,
   case PREF_COLOUR:
     dia_color_selector_set_color(DIACOLORSELECTOR(widget), (Color *)ptr);
     break;
-#ifdef PREF_CHOICE
-  case PREF_CHOICE:
-    gtk_
+  case PREF_CHOICE: {
+    GList *names = (data->choice_list_function)();
+    int index;
+    for (index = 0; names != NULL; names = g_list_next(names), index++) {
+      if (!strcmp(*((gchar**)ptr), (gchar *)names->data))
+	break;
+    }
+    if (names == NULL) return;
+    gtk_option_menu_set_history(GTK_OPTION_MENU(widget), index);
+    gtk_menu_set_active(GTK_MENU(gtk_option_menu_get_menu(GTK_OPTION_MENU(widget))), index);
+    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(gtk_option_menu_get_menu(GTK_OPTION_MENU(widget))))), TRUE);
     break;
-#endif
+  }
   case PREF_STRING:
     gtk_entry_set_text(GTK_ENTRY(widget), (gchar *)(*((gchar **)ptr)));
     break;
@@ -565,10 +549,10 @@ prefs_set_value_in_widget(GtkWidget * widget, enum DiaPrefType type,
 }
 
 static void
-prefs_get_value_from_widget(GtkWidget * widget, enum DiaPrefType type,
+prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
 			    char *ptr)
 {
-  switch(type) {
+  switch(data->type) {
   case PREF_BOOLEAN:
     *((int *)ptr) = GTK_TOGGLE_BUTTON(widget)->active;    
     break;
@@ -585,10 +569,12 @@ prefs_get_value_from_widget(GtkWidget * widget, enum DiaPrefType type,
   case PREF_COLOUR:
     dia_color_selector_get_color(DIACOLORSELECTOR(widget), (Color *)ptr);
     break;
-#ifdef PREF_CHOICE
-  case PREF_CHOICE:
+  case PREF_CHOICE: {
+    int index = gtk_option_menu_get_history(GTK_OPTION_MENU(widget));
+    GList *names = (data->choice_list_function)();
+    *((gchar **)ptr) = g_strdup((gchar *)g_list_nth_data(names, index));
     break;
-#endif
+  }
   case PREF_STRING:
     *((gchar **)ptr) = (gchar *)
       gtk_entry_get_text(GTK_ENTRY(widget));
@@ -606,12 +592,12 @@ prefs_boolean_toggle(GtkWidget *widget, gpointer data)
 }
 
 static GtkWidget *
-prefs_get_property_widget(enum DiaPrefType type)
+prefs_get_property_widget(DiaPrefData *data)
 {
   GtkWidget *widget = NULL;
   GtkAdjustment *adj;
   
-  switch(type) {
+  switch(data->type) {
   case PREF_BOOLEAN:
     widget = gtk_toggle_button_new_with_label (_("No"));
     gtk_signal_connect (GTK_OBJECT (widget), "toggled",
@@ -654,6 +640,24 @@ prefs_get_property_widget(enum DiaPrefType type)
     break;
   case PREF_STRING:
     widget = gtk_entry_new();
+    break;
+  case PREF_CHOICE: {
+    GtkWidget *menu;
+    GList *names;
+    GSList *group = NULL;
+    widget = gtk_option_menu_new();
+    menu = gtk_menu_new();
+    for (names = (data->choice_list_function)(); names != NULL;
+	 names = g_list_next(names)) {
+      GtkWidget *menuitem =
+	gtk_radio_menu_item_new_with_label(group, (gchar *)names->data);
+      gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+      group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
+    }
+    gtk_option_menu_set_menu(GTK_OPTION_MENU(widget), menu);
+    gtk_widget_show_all(menu);
+    break;
+  }
   case PREF_NONE:
     widget = NULL;
     break;
@@ -795,12 +799,12 @@ prefs_create_dialog(void)
 		      row, row + 1,
 		      GTK_FILL, GTK_FILL, 1, 1);
 
-    widget = prefs_get_property_widget(prefs_data[i].type);
+    widget = prefs_get_property_widget(&prefs_data[i]);
     prefs_data[i].widget = widget;
     if (widget != NULL) {
       gtk_table_attach (table, widget, 1, 2,
 			row, row + 1,
-			GTK_EXPAND | GTK_FILL, GTK_FILL, 1, 1);
+			GTK_FILL, GTK_FILL, 1, 1);
     }
     
   }
@@ -820,7 +824,7 @@ prefs_update_prefs_from_dialog(void)
     widget = prefs_data[i].widget;
     ptr = (char *)&prefs + prefs_data[i].offset;
     
-    prefs_get_value_from_widget(widget, prefs_data[i].type,  ptr);
+    prefs_get_value_from_widget(widget, &prefs_data[i],  ptr);
   }
 }
 
@@ -836,11 +840,6 @@ prefs_update_dialog_from_prefs(void)
     widget = prefs_data[i].widget;
     ptr = (char *)&prefs + prefs_data[i].offset;
     
-    prefs_set_value_in_widget(widget, prefs_data[i].type,  ptr);
+    prefs_set_value_in_widget(widget, &prefs_data[i],  ptr);
   }
 }
-
-
-
-
-

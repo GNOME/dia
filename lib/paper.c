@@ -61,6 +61,8 @@ int
 find_paper(const gchar *name)
 {
   int i;
+
+  if (name == NULL) return -1;
   for (i = 0; paper_metrics[i].paper != NULL; i++) {
     if (!g_strncasecmp(paper_metrics[i].paper, name, 
 		       strlen(paper_metrics[i].paper)))
@@ -104,7 +106,9 @@ void
 get_paper_info(PaperInfo *paper, int i)
 {
   if (i == -1)
-    i = get_default_paper();
+    i = find_paper(prefs.new_diagram.papertype);
+  if (i == -1)
+    i = find_paper(get_default_paper());
 
   paper->name = g_strdup(paper_metrics[i].paper);
   paper->tmargin = paper_metrics[i].tmargin;

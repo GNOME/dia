@@ -33,6 +33,7 @@
 #include "pixmaps/portrait.xpm"
 #include "pixmaps/landscape.xpm"
 
+#include "preferences.h"
 #include "paper.h"
 
 enum {
@@ -365,7 +366,7 @@ dia_page_layout_set_paper(DiaPageLayout *self, const gchar *paper)
 
   i = find_paper(paper);
   if (i == -1)
-    i = get_default_paper();
+    i = find_paper(prefs.new_diagram.papertype);
   gtk_option_menu_set_history(GTK_OPTION_MENU(self->paper_size), i);
   gtk_menu_item_activate(
 	GTK_MENU_ITEM(GTK_OPTION_MENU(self->paper_size)->menu_item));
@@ -503,7 +504,7 @@ dia_page_layout_get_paper_size(const gchar *paper,
 
   i = find_paper(paper);
   if (i == -1)
-    i = get_default_paper();
+    i = find_paper(prefs.new_diagram.papertype);
   if (width)
     *width = get_paper_pswidth(i);
   if (height)
@@ -519,7 +520,7 @@ dia_page_layout_get_default_margins(const gchar *paper,
 
   i = find_paper(paper);
   if (i == -1)
-    i = get_default_paper();
+    i = find_paper(prefs.new_diagram.papertype);
   if (tmargin)
     *tmargin = get_paper_tmargin(i);
   if (bmargin)
