@@ -266,11 +266,13 @@ DIA_CHECK_CFLAG(-Wmissing-declarations)
 
 dnl Relieve register pressure on i386. Other architectures may become unable
 dnl to debug, and usually have more registers anyway.
-case "$host" in 
-  i?86-pc-*)
-    DIA_CHECK_CFLAG(-fomit-frame-pointer)
-    ;;
-esac
+dnl case "$host" in 
+dnl  i?86-pc-*)
+dnl    DIA_CHECK_CFLAG(-fomit-frame-pointer)
+dnl    ;;
+dnl esac
+dnl (it looks like gdb is very confused by this now even on x86. We might be
+dnl getting poor stack traces with bug-buddy because of this)
 
 DIA_CHECK_CFLAG(-finline-functions)
 DIA_CHECK_CFLAG(-fstrict-aliasing)

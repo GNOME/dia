@@ -158,12 +158,6 @@ sadtarrow_describe_props(Sadtarrow *sadtarrow)
   return sadtarrow_props;
 }    
 
-
-
-  sadtarrow->style = load_enum(obj_node,"arrow_style",SADT_ARROW_NORMAL);
-  sadtarrow->autogray = load_boolean(obj_node,"autogray",TRUE);
-
-
 static PropOffset sadtarrow_offsets[] = {
   NEWORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { "arrow_style", PROP_TYPE_ENUM, offsetof(Sadtarrow,style)},
@@ -341,7 +335,7 @@ sadtarrow_draw(Sadtarrow *sadtarrow, Renderer *renderer)
 	     alpha = tau;
 	   }
 	   
-	   renderer->ops->draw_sadtarrow(renderer,&C,rr*2,rr*2,alpha,beta,
+	   renderer->ops->draw_arc(renderer,&C,rr*2,rr*2,alpha,beta,
 				   &col);
 	 }
        }
@@ -513,11 +507,12 @@ sadtarrow_update_data(Sadtarrow *sadtarrow)
   
   switch(sadtarrow->style) {
   case SADT_ARROW_IMPORTED:
-    extra->start_trans = MAX(ARROW_LINE_WIDTH/2.0,ARROW_PARENS_WOFFSET);
+    extra->start_trans = MAX(ARROW_LINE_WIDTH/2.0,
+                             ARROW_PARENS_WOFFSET + ARROW_PARENS_LENGTH/3);
     break;
   case SADT_ARROW_IMPLIED:
     extra->end_trans = MAX(ARROW_LINE_WIDTH/2.0,
-                             MAX(ARROW_PARENS_WOFFSET,
+                             MAX(ARROW_PARENS_WOFFSET + ARROW_PARENS_LENGTH/3,
                                  ARROW_HEAD_WIDTH/2.0));
     break;
   case SADT_ARROW_DOTTED:

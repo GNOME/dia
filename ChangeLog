@@ -4,7 +4,7 @@
 	* objects/GRAFCET/step.c: ditto.
 	* objects/GRAFCET/vector.c: ditto.
 	* objects/SADT/annotation.c: ditto.
-	* objects/SADT/arrow.c: ditto.
+	* objects/SADT/arrow.c: ditto (plus bounding box fixes).
 	
 	* lib/properties.[ch]: two more non-visible types
 	(PROP_TYPE_ENUMARRAY and PROP_TYPE_INTARRAY).
@@ -12,6 +12,10 @@
 	* lib/neworthconn.[ch]:
 	* lib/orthconn.[ch]: added support for manipulation through
 	standard properties.
+
+	* configure.in: removed -fomit-frame-pointer, this seems to
+	confuse recent gcc/gdb's, maybe we'll get better stack dumps in 
+	bugzilla.
 
 	* charconv.[ch]: more functions from unicode.h.
 	get_local_charset() wasn't working properly, fixed now.

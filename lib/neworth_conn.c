@@ -309,6 +309,7 @@ neworthconn_update_data(NewOrthConn *orth)
   obj->position = orth->points[0];
 
   adjust_handle_count_to(orth,orth->numpoints-1);
+  connpointline_adjust_count(orth->midpoints,orth->numpoints-1,NULL);
 
   /* Make sure start-handle is first and end-handle is second. */
   place_handle_by_swapping(orth, 0, orth->handles[0]);
