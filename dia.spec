@@ -55,6 +55,8 @@ rm -fr $RPM_BUILD_ROOT
 %{prefix}/bin/dia
 %{prefix}/lib/dia
 %{prefix}/share/dia
-%{prefix}/share/pixmaps/dia_gnome_icon.png
+%{prefix}/share/pixmaps/*
 %{prefix}/share/gnome/apps/Applications/dia.desktop
+%{prefix}/share/mime-info/*
+
 

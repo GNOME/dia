@@ -1,0 +1,5 @@
+
+application/x-dia-diagram:
+	open=dia %f
+	view=dia %f
+	icon-filename=@icondir@/dia-diagram.png

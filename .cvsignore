@@ -21,3 +21,6 @@ missing
 install-sh
 ABOUT-NLS
 intl
+dia.keys
+dia.keys.tmp
+

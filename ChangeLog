@@ -1,3 +1,16 @@
+1999-12-09  James Henstridge  <james@daa.com.au>
+
+	* dia.spec: include the new files in RPMs.
+
+	* Makefile.am: install these new files.
+
+	* dia.keys.in: file describing actions and icon for dia diagrams for
+	use in the gnome file manager.
+	
+	* dia.mime: a file defining the application/x-dia-diagram mime type.
+	
+	* dia-diagram.png: an icon for dia diagrams.
+
 1999-12-08  James Henstridge  <james@daa.com.au>
 
 	* plug-ins/python/pydia-diagram.c: added heaps of new methods.

@@ -1,0 +1,4 @@
+# mime types for dia ...
+
+application/x-dia-diagram
+	ext: dia DIA
