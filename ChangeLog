@@ -1,3 +1,9 @@
+2002-05-11  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
+
+	* app/interface.c (create_toolbox): Disallow shrinking beyond
+	requested size.  Fixes bug #59439, and confirms to GTK guidelines
+	(see gtk_window_set_policy).
+
 2002-05-10  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
 
 	* lib/beziershape.c (remove_handles): Fixing removal of last

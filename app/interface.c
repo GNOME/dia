@@ -573,8 +573,8 @@ create_tools(GtkWidget *parent)
   GdkPixmap *pixmap;
   GdkBitmap *mask;
   GtkStyle *style;
-
   char **pixmap_data;
+
   int i;
 
   for (i = 0; i < NUM_TOOLS; i++) {
@@ -1117,7 +1117,7 @@ create_toolbox ()
 #endif
   gtk_window_set_wmclass (GTK_WINDOW (window), "toolbox_window",
 			  "Dia");
-  gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, FALSE);
+  gtk_window_set_policy(GTK_WINDOW(window), FALSE, TRUE, FALSE);
   gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
 
   gtk_signal_connect (GTK_OBJECT (window), "delete_event",
