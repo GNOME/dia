@@ -102,7 +102,7 @@ static real flow_distance_from(Flow *flow, Point *point);
 static void flow_update_data(Flow *flow);
 static void flow_destroy(Flow *flow);
 static Object *flow_copy(Flow *flow);
-static GtkWidget *flow_get_properties(Flow *flow);
+static GtkWidget *flow_get_properties(Flow *flow, gboolean is_default);
 static ObjectChange *flow_apply_properties(Flow *flow);
 static GtkWidget *flow_get_defaults();
 static void flow_apply_defaults();
@@ -626,7 +626,7 @@ fill_in_defaults_dialog()
 
 
 static GtkWidget *
-flow_get_properties(Flow *flow)
+flow_get_properties(Flow *flow, gboolean is_default)
 {
   FlowDialog *prop_dialog;
   GtkWidget *dialog;

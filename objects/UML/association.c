@@ -136,7 +136,7 @@ static Object *association_create(Point *startpoint,
 				  Handle **handle2);
 static void association_destroy(Association *assoc);
 static Object *association_copy(Association *assoc);
-static GtkWidget *association_get_properties(Association *assoc);
+static GtkWidget *association_get_properties(Association *assoc, gboolean is_default);
 static ObjectChange *association_apply_properties(Association *assoc);
 static DiaMenu *association_get_object_menu(Association *assoc,
 					    Point *clickedpoint);
@@ -1015,7 +1015,7 @@ mutex_aggregate_callback(GtkWidget *widget,
 }
 
 static GtkWidget *
-association_get_properties(Association *assoc)
+association_get_properties(Association *assoc, gboolean is_default)
 {
   AssociationPropertiesDialog *prop_dialog;
   GtkWidget *dialog;

@@ -172,7 +172,7 @@ struct _UMLClassDialog {
   GtkEntry *templ_type;
 };
 
-extern GtkWidget *umlclass_get_properties(UMLClass *umlclass);
+extern GtkWidget *umlclass_get_properties(UMLClass *umlclass, gboolean is_default);
 extern ObjectChange *umlclass_apply_properties(UMLClass *umlclass);
 extern void umlclass_calculate_data(UMLClass *umlclass);
 extern void umlclass_update_data(UMLClass *umlclass);

@@ -66,7 +66,7 @@ static void wanlink_move(WanLink *wanlink, Point *to);
 static void wanlink_move_handle(WanLink *wanlink, Handle *handle,
 			      Point *to, HandleMoveReason reason, 
 			      ModifierKeys modifiers);
-static GtkWidget *wanlink_get_properties(WanLink *wanlink);
+static GtkWidget *wanlink_get_properties(WanLink *wanlink, gboolean is_default);
 
 
 static void wanlink_save(WanLink *wanlink, ObjectNode obj_node,
@@ -113,7 +113,7 @@ ObjectType wanlink_type =
 #define FLASH_BOTTOM (FLASH_HEIGHT)
 
 static GtkWidget *
-wanlink_get_properties(WanLink *wanlink)
+wanlink_get_properties(WanLink *wanlink, gboolean is_default)
 {
   return NULL;
 }

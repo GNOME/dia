@@ -140,7 +140,7 @@ properties_show(Diagram *dia, Object *obj)
   GtkWidget *properties = NULL;
 
   if (obj != NULL) 
-    properties = obj->ops->get_properties(obj);
+    properties = obj->ops->get_properties(obj, FALSE);
 
   if (dialog == NULL)
     create_dialog();

@@ -93,7 +93,7 @@ static Object *bus_copy(Bus *bus);
 static void bus_save(Bus *bus, ObjectNode obj_node, const char *filename);
 static Object *bus_load(ObjectNode obj_node, int version,
 			const char *filename);
-static GtkWidget *bus_get_properties(Bus *bus);
+static GtkWidget *bus_get_properties(Bus *bus, gboolean is_default);
 static DiaMenu *bus_get_object_menu(Bus *bus, Point *clickedpoint);
 
 static ObjectChange *
@@ -139,7 +139,7 @@ static ObjectOps bus_ops = {
 };
 
 static GtkWidget *
-bus_get_properties(Bus *bus)
+bus_get_properties(Bus *bus, gboolean is_default)
 {
   return NULL;
 }

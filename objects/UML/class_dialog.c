@@ -2676,7 +2676,7 @@ create_dialog_pages(GtkNotebook *notebook, UMLClass *umlclass)
 }
 
 GtkWidget *
-umlclass_get_properties(UMLClass *umlclass)
+umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
 {
   UMLClassDialog *prop_dialog;
   GtkWidget *vbox;

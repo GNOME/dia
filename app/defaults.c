@@ -106,7 +106,7 @@ defaults_show(ObjectType *objtype)
       defaults = objtype->ops->get_defaults();
     else {
       def_object = dia_object_default_get (objtype);
-      defaults = object_create_props_dialog (def_object);
+      defaults = object_create_props_dialog (def_object, TRUE);
     }
     title = g_strconcat(_("Defaults: "), objtype->name, NULL);
   } else {

@@ -236,6 +236,7 @@ struct _PropDescription {
 #define PROP_FLAG_DONT_MERGE 0x0004 /* in case group properties are edited */
 #define PROP_FLAG_NO_DEFAULTS 0x0008 /* don't edit this in defaults dlg. */
 #define PROP_FLAG_LOAD_ONLY 0x0010 /* for loading old formats */
+#define PROP_FLAG_STANDARD 0x0020 /* One of the default toolbox props */
 
 #define PROP_DESC_END { NULL, 0, 0, NULL, NULL, NULL, 0 }
 
@@ -417,8 +418,10 @@ gboolean object_set_props_from_offsets(Object *obj, PropOffset *offsets,
 ObjectChange *object_apply_props(Object *obj, GPtrArray *props);
 
 /* standard properties dialogs that can be used for objects that
- * implement describe_props, get_props and set_props */
-WIDGET *object_create_props_dialog     (Object *obj);
+ * implement describe_props, get_props and set_props.
+ * If is_default is set, this is a default dialog, not an object dialog.
+ */
+WIDGET *object_create_props_dialog     (Object *obj, gboolean is_default);
 ObjectChange *object_apply_props_from_dialog (Object *obj, WIDGET *dialog);
 
 /* create a property from the object's property descriptors. To be freed with
@@ -474,27 +477,27 @@ extern PropEnumData prop_std_text_align_data[];
 #endif
 
 #define PROP_STD_LINE_WIDTH \
-  { "line_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, \
+  { "line_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("Line width"), NULL, &prop_std_line_width_data }
 #define PROP_STD_LINE_COLOUR \
-  { "line_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE, \
+  { "line_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("Line colour"), NULL, NULL }
 #define PROP_STD_LINE_STYLE \
-  { "line_style", PROP_TYPE_LINESTYLE, PROP_FLAG_VISIBLE, \
+  { "line_style", PROP_TYPE_LINESTYLE, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("Line style"), NULL, NULL }
 
 #define PROP_STD_FILL_COLOUR \
-  { "fill_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE, \
+  { "fill_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("Fill colour"), NULL, NULL }
 #define PROP_STD_SHOW_BACKGROUND \
   { "show_background", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE, \
     N_("Draw background"), NULL, NULL }
 
 #define PROP_STD_START_ARROW \
-  { "start_arrow", PROP_TYPE_ARROW, PROP_FLAG_VISIBLE, \
+  { "start_arrow", PROP_TYPE_ARROW, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("Start arrow"), NULL, NULL }
 #define PROP_STD_END_ARROW \
-  { "end_arrow", PROP_TYPE_ARROW, PROP_FLAG_VISIBLE, \
+  { "end_arrow", PROP_TYPE_ARROW, PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD, \
     N_("End arrow"), NULL, NULL }
 
 #define PROP_STD_TEXT \
@@ -513,7 +516,7 @@ extern PropEnumData prop_std_text_align_data[];
   { "text_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
     N_("Font size"), NULL, &prop_std_text_height_data }
 #define PROP_STD_TEXT_COLOUR \
-  { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \
+  { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_STANDARD, \
     N_("Text colour"), NULL, NULL }
 
 /* Convenience macros */

@@ -1,5 +1,20 @@
 2002-07-26  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+	* lib/connectionpoint.h: 
+	Hints for zigzaglines.
 
+	* app/properties.c (properties_show): 
+	* app/defaults.c (defaults_show): 
+	* lib/properties.h: 
+	* lib/propobject.c (object_create_props_dialog): 
+	* lib/object.h: 
+	* objects/FS/flow-poly.c: 
+	* objects/network/wanlink.c: 
+	* objects/network/bus.c: 
+	* objects/UML/class.h: 
+	* objects/UML/class_dialog.c: 
+	* objects/UML/association.c: 
+	Start of removing toolbox props from props dialogs.
+	
 	* lib/widgets.c: 
 	* lib/arrows.h: 
 	* app/lineprops_area.c (dia_arrow_chooser_new): 
