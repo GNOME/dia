@@ -1,3 +1,8 @@
+2004-02-19  Lars Clausen  <lc@pc770>
+
+	* objects/standard/arc.c (arc_update_handles): Check to avoid
+	crash when start and end points are the same.
+
 2004-02-18  Hubert Figuiere  <hfiguiere@teaser.fr>
 
 	* app/disp_callbacks.c (popup_object_menu): append a menu item to 

@@ -234,12 +234,14 @@ arc_update_handles(Arc *arc)
   dy = conn->endpoints[1].y - conn->endpoints[0].y;
   
   dist = sqrt(dx*dx + dy*dy);
-  middle_pos->x =
-    (conn->endpoints[0].x + conn->endpoints[1].x) / 2.0 -
-    arc->curve_distance*dy/dist;
-  middle_pos->y =
-    (conn->endpoints[0].y + conn->endpoints[1].y) / 2.0 +
-    arc->curve_distance*dx/dist;
+  if (dist > 0.000001) {
+    middle_pos->x =
+      (conn->endpoints[0].x + conn->endpoints[1].x) / 2.0 -
+      arc->curve_distance*dy/dist;
+    middle_pos->y =
+      (conn->endpoints[0].y + conn->endpoints[1].y) / 2.0 +
+      arc->curve_distance*dx/dist;
+  }
 }
 
 
@@ -333,61 +335,6 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
 				      &arc->end_arrow);
   width = 2*arc->radius;
   
-#if 0  
-  renderer_ops->set_linewidth(renderer, 0);
-  renderer_ops->draw_arc(renderer,
-			  &arc->center,
-			  width, width,
-			  arc->angle1, arc->angle2,
-			  &arc->arc_color);
-  if (arc->start_arrow.type != ARROW_NONE ||
-      arc->end_arrow.type != ARROW_NONE) {
-    Point reversepoint, centervec;
-    Point controlpoint0, controlpoint1;
-    real len, len2;
-
-    centervec = endpoints[0];
-    point_sub(&centervec, &endpoints[1]);
-    point_scale(&centervec, 0.5);
-    len = centervec.x*centervec.x+centervec.y*centervec.y;
-    point_add(&centervec, &endpoints[1]);
-    /* Centervec should now be the midpoint between [0] and [1] */
-    reversepoint = centervec;
-    point_sub(&centervec, &arc->center);
-    len2 = centervec.x*centervec.x+centervec.y*centervec.y;
-    if (len2 != 0) {
-      point_scale(&centervec, 1/len2);
-    }
-    point_scale(&centervec, len);
-    point_add(&reversepoint, &centervec);
-    controlpoint0 = controlpoint1 = reversepoint;
-    len = arc->angle2-arc->angle1;
-    if (len > 180 || (len < 0.0 && len > -180)) {
-      centervec = endpoints[0];
-      point_sub(&centervec, &reversepoint);
-      point_add(&controlpoint0, &centervec);
-      point_add(&controlpoint0, &centervec);
-      centervec = endpoints[1];
-      point_sub(&centervec, &reversepoint);
-      point_add(&controlpoint1, &centervec);
-      point_add(&controlpoint1, &centervec);
-    }
-    if (arc->start_arrow.type != ARROW_NONE) {
-      arrow_draw(renderer, arc->start_arrow.type,
-		 &endpoints[0],&controlpoint0,
-		 arc->start_arrow.length, arc->start_arrow.width,
-		 arc->line_width,
-		 &arc->arc_color, &color_white);
-    }
-    if (arc->end_arrow.type != ARROW_NONE) {
-      arrow_draw(renderer, arc->end_arrow.type,
-		 &endpoints[1], &controlpoint1,
-		 arc->end_arrow.length, arc->end_arrow.width,
-		 arc->line_width,
-		 &arc->arc_color, &color_white);
-    }
-  }
-#endif
 }
 
 static Object *
