@@ -40,7 +40,6 @@ objects/ER/er.c
 objects/ER/participation.c
 objects/ER/relationship.c
 objects/FS/flow-ortho.c
-objects/FS/flow-poly.c
 objects/FS/flow.c
 objects/FS/fs.c
 objects/FS/function.c
