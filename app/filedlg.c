@@ -31,7 +31,7 @@
 #include "layer_dialog.h"
 #include "load_save.h"
 
-static GtkWidget *opendlg = NULL;
+static GtkWidget *opendlg = NULL, *open_options = NULL, *open_omenu = NULL;
 static GtkWidget *savedlg = NULL;
 static GtkWidget *exportdlg = NULL, *export_options = NULL, *export_omenu=NULL;
 
@@ -61,14 +61,86 @@ set_true_callback(GtkWidget *w, int *data)
 }
 
 static void
+open_set_extension(GtkObject *item)
+{
+  DiaImportFilter *ifilter = gtk_object_get_user_data(item);
+  GString *s;
+  gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_FILE_SELECTION(opendlg)
+                                             ->selection_entry));
+  gchar *last_dot = strrchr(text, '.');
+
+  if (!ifilter || last_dot == text || text[0] == '\0' ||
+      ifilter->extensions[0] == NULL)
+    return;
+
+  s = g_string_new(text);
+  if (last_dot)
+    g_string_truncate(s, last_dot-text);
+  g_string_append(s, ".");
+  g_string_append(s, ifilter->extensions[0]);
+  gtk_entry_set_text(GTK_ENTRY(GTK_FILE_SELECTION(opendlg)->selection_entry),
+                     s->str);
+  g_string_free (s, TRUE);
+}
+
+static GtkWidget *
+create_open_menu(void)
+{
+  GtkWidget *menu;
+  GtkWidget *item;
+  GList *tmp;
+
+  menu = gtk_menu_new();
+  item = gtk_menu_item_new_with_label(_("By extension"));
+  gtk_container_add(GTK_CONTAINER(menu), item);
+  gtk_widget_show(item);
+  item = gtk_menu_item_new();
+  gtk_container_add(GTK_CONTAINER(menu), item);
+  gtk_widget_show(item);
+  
+  
+  for (tmp = filter_get_import_filters(); tmp != NULL; tmp = tmp->next) {
+    DiaImportFilter *ifilter = tmp->data;
+
+    if (!ifilter)
+      continue;
+    item = gtk_menu_item_new_with_label(
+		filter_get_import_filter_label(ifilter));
+    gtk_object_set_user_data(GTK_OBJECT(item), ifilter);
+    gtk_signal_connect(GTK_OBJECT(item), "activate",
+                       GTK_SIGNAL_FUNC(open_set_extension), NULL);
+    gtk_container_add(GTK_CONTAINER(menu), item);
+    gtk_widget_show(item);
+  }
+  return menu;
+}
+
+static void
 file_open_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 {
   char *filename;
-  Diagram *diagram;
+  Diagram *diagram = NULL;
+  DiaImportFilter *ifilter;
   DDisplay *ddisp;
 
   filename = gtk_file_selection_get_filename(GTK_FILE_SELECTION(fs));
-  diagram = diagram_load(filename);
+
+  ifilter = gtk_object_get_user_data(GTK_OBJECT(GTK_OPTION_MENU(open_omenu)
+						->menu_item));
+  if (!ifilter)
+    ifilter = filter_guess_import_filter(filename);
+  if (ifilter) {
+    diagram = new_diagram(filename);
+    if (ifilter->import(filename, diagram->data)) {
+      diagram->unsaved = FALSE;
+      diagram_set_modified(diagram, FALSE);
+    } else {
+      diagram_destroy(diagram);
+      diagram = NULL;
+    }
+  } else
+    message_error(_("Could not determine which import filter\n"
+		    "to use to open '%s'"), filename);
 
   if (diagram != NULL) {
     diagram_update_extents(diagram);
@@ -76,7 +148,6 @@ file_open_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 
     ddisp = new_display(diagram);
   }
-  /* Error handling is in diagram_load() */
 
   gtk_widget_hide(opendlg);
 }
@@ -115,6 +186,32 @@ file_open_callback(GtkWidget *widget, gpointer user_data)
     gtk_file_selection_set_filename(GTK_FILE_SELECTION(opendlg),
 				    "." G_DIR_SEPARATOR_S);
   }
+  if (!open_options) {
+    GtkWidget *hbox, *label, *omenu;
+
+    open_options = gtk_frame_new(_("Open Options"));
+    gtk_frame_set_shadow_type(GTK_FRAME(open_options), GTK_SHADOW_ETCHED_IN);
+
+    hbox = gtk_hbox_new(FALSE, 1);
+    gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+    gtk_container_add(GTK_CONTAINER(open_options), hbox);
+    gtk_widget_show(hbox);
+
+    label = gtk_label_new (_("Determine file type:"));
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+
+    open_omenu = omenu = gtk_option_menu_new();
+    gtk_box_pack_start(GTK_BOX(hbox), omenu, TRUE, TRUE, 0);
+    gtk_widget_show(omenu);
+
+    gtk_option_menu_set_menu(GTK_OPTION_MENU(omenu), create_open_menu());
+
+    gtk_box_pack_end(GTK_BOX (GTK_FILE_SELECTION(opendlg)->main_vbox),
+                      open_options, FALSE, FALSE, 5);
+  }
+
+  gtk_widget_show(open_options);
   gtk_widget_show(opendlg);
 }
 

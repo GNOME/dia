@@ -49,7 +49,7 @@
 #endif
 
 static GList *
-read_objects(xmlNodePtr objects, GHashTable *objects_hash, char *filename)
+read_objects(xmlNodePtr objects, GHashTable *objects_hash,const char *filename)
 {
   GList *list;
   ObjectType *type;
@@ -172,14 +172,13 @@ hash_free_string(gpointer       key,
   free(key);
 }
 
-Diagram *
-diagram_load(char *filename)
+static gboolean
+diagram_data_load(const char *filename, DiagramData *data)
 {
   GHashTable *objects_hash;
   int fd;
   struct stat stat_buf;
   GList *list;
-  Diagram *dia;
   xmlDocPtr doc;
   xmlNodePtr diagramdata;
   xmlNodePtr paperinfo;
@@ -192,13 +191,13 @@ diagram_load(char *filename)
 
   if (fd==-1) {
     message_error(_("Couldn't open: '%s' for reading.\n"), filename);
-    return NULL;
+    return FALSE;
   }
 
   fstat(fd, &stat_buf);
   if (S_ISDIR(stat_buf.st_mode)) {
     message_error(_("You must specify a file, not a directory.\n"));
-    return NULL;
+    return FALSE;
   }
   
   close(fd);
@@ -206,39 +205,34 @@ diagram_load(char *filename)
   doc = xmlParseFile(filename);
 
   if (doc == NULL){
-    message_error(_("Error loading diagram %s.\nUnknown file type."), filename);
-    return NULL;
+    message_error(_("Error loading diagram %s.\nUnknown file type."),filename);
+    return FALSE;
   }
   
   if (doc->root == NULL) {
-    message_error(_("Error loading diagram %s.\nUnknown file type."), filename);
+    message_error(_("Error loading diagram %s.\nUnknown file type."),filename);
     xmlFreeDoc (doc);
-    return NULL;
+    return FALSE;
   }
 
   namespace = xmlSearchNs(doc, doc->root, "dia");
   if (strcmp (doc->root->name, "diagram") || (namespace == NULL)){
     message_error(_("Error loading diagram %s.\nNot a Dia file."), filename);
     xmlFreeDoc (doc);
-    return NULL;
+    return FALSE;
   }
   
-  /* Create the diagram: */
-  dia = new_diagram(filename);
-
   /* Destroy the default layer: */
-  g_ptr_array_remove(dia->data->layers, dia->data->active_layer);
-  layer_destroy(dia->data->active_layer);
+  g_ptr_array_remove(data->layers, data->active_layer);
+  layer_destroy(data->active_layer);
   
-  dia->unsaved = FALSE;
-
   diagramdata = doc->root->childs;
 
   /* Read in diagram data: */
-  dia->data->bg_color = color_white;
+  data->bg_color = color_white;
   attr = composite_find_attribute(diagramdata, "background");
   if (attr != NULL)
-    data_color(attribute_first_data(attr), &dia->data->bg_color);
+    data_color(attribute_first_data(attr), &data->bg_color);
 
   /* load paper information from diagramdata section */
   attr = composite_find_attribute(diagramdata, "paper");
@@ -247,70 +241,70 @@ diagram_load(char *filename)
 
     attr = composite_find_attribute(paperinfo, "name");
     if (attr != NULL) {
-      g_free(dia->data->paper.name);
-      dia->data->paper.name = data_string(attribute_first_data(attr));
+      g_free(data->paper.name);
+      data->paper.name = data_string(attribute_first_data(attr));
     }
     /* set default margins for paper size ... */
-    dia_page_layout_get_default_margins(dia->data->paper.name,
-					&dia->data->paper.tmargin,
-					&dia->data->paper.bmargin,
-					&dia->data->paper.lmargin,
-					&dia->data->paper.rmargin);
+    dia_page_layout_get_default_margins(data->paper.name,
+					&data->paper.tmargin,
+					&data->paper.bmargin,
+					&data->paper.lmargin,
+					&data->paper.rmargin);
     
     attr = composite_find_attribute(paperinfo, "tmargin");
     if (attr != NULL)
-      dia->data->paper.tmargin = data_real(attribute_first_data(attr));
+      data->paper.tmargin = data_real(attribute_first_data(attr));
     attr = composite_find_attribute(paperinfo, "bmargin");
     if (attr != NULL)
-      dia->data->paper.bmargin = data_real(attribute_first_data(attr));
+      data->paper.bmargin = data_real(attribute_first_data(attr));
     attr = composite_find_attribute(paperinfo, "lmargin");
     if (attr != NULL)
-      dia->data->paper.lmargin = data_real(attribute_first_data(attr));
+      data->paper.lmargin = data_real(attribute_first_data(attr));
     attr = composite_find_attribute(paperinfo, "rmargin");
     if (attr != NULL)
-      dia->data->paper.rmargin = data_real(attribute_first_data(attr));
+      data->paper.rmargin = data_real(attribute_first_data(attr));
 
     attr = composite_find_attribute(paperinfo, "is_portrait");
-    dia->data->paper.is_portrait = TRUE;
+    data->paper.is_portrait = TRUE;
     if (attr != NULL)
-      dia->data->paper.is_portrait = data_boolean(attribute_first_data(attr));
+      data->paper.is_portrait = data_boolean(attribute_first_data(attr));
 
     attr = composite_find_attribute(paperinfo, "scaling");
-    dia->data->paper.scaling = 1.0;
+    data->paper.scaling = 1.0;
     if (attr != NULL)
-      dia->data->paper.scaling = data_real(attribute_first_data(attr));
+      data->paper.scaling = data_real(attribute_first_data(attr));
 
     attr = composite_find_attribute(paperinfo, "fitto");
-    dia->data->paper.fitto = FALSE;
+    data->paper.fitto = FALSE;
     if (attr != NULL)
-      dia->data->paper.fitto = data_boolean(attribute_first_data(attr));
+      data->paper.fitto = data_boolean(attribute_first_data(attr));
 
     attr = composite_find_attribute(paperinfo, "fitwidth");
-    dia->data->paper.fitwidth = 1;
+    data->paper.fitwidth = 1;
     if (attr != NULL)
-      dia->data->paper.fitwidth = data_int(attribute_first_data(attr));
+      data->paper.fitwidth = data_int(attribute_first_data(attr));
 
     attr = composite_find_attribute(paperinfo, "fitheight");
-    dia->data->paper.fitheight = 1;
+    data->paper.fitheight = 1;
     if (attr != NULL)
-      dia->data->paper.fitheight = data_int(attribute_first_data(attr));
+      data->paper.fitheight = data_int(attribute_first_data(attr));
 
     /* calculate effective width/height */
-    dia_page_layout_get_paper_size(dia->data->paper.name,
-				   &dia->data->paper.width,
-				   &dia->data->paper.height);
-    if (!dia->data->paper.is_portrait) {
-      gfloat tmp = dia->data->paper.width;
+    dia_page_layout_get_paper_size(data->paper.name,
+				   &data->paper.width,
+				   &data->paper.height);
+    if (!data->paper.is_portrait) {
+      gfloat tmp = data->paper.width;
 
-      dia->data->paper.width = dia->data->paper.height;
-      dia->data->paper.height = tmp;
+      data->paper.width = data->paper.height;
+      data->paper.height = tmp;
     }
-    dia->data->paper.width -= dia->data->paper.lmargin;
-    dia->data->paper.width -= dia->data->paper.rmargin;
-    dia->data->paper.height -= dia->data->paper.tmargin;
-    dia->data->paper.height -= dia->data->paper.bmargin;
-    dia->data->paper.width /= dia->data->paper.scaling;
-    dia->data->paper.height /= dia->data->paper.scaling;
+    data->paper.width -= data->paper.lmargin;
+    data->paper.width -= data->paper.rmargin;
+    data->paper.height -= data->paper.tmargin;
+    data->paper.height -= data->paper.bmargin;
+    data->paper.width /= data->paper.scaling;
+    data->paper.height /= data->paper.scaling;
   }
 
   /* Read in all layers: */
@@ -337,12 +331,12 @@ diagram_load(char *filename)
     layer->objects = list;
     read_connections( list, layer_node, objects_hash);
 
-    data_add_layer(dia->data, layer);
+    data_add_layer(data, layer);
 
     layer_node = layer_node->next;
   }
 
-  dia->data->active_layer = (Layer *) g_ptr_array_index(dia->data->layers, 0);
+  data->active_layer = (Layer *) g_ptr_array_index(data->layers, 0);
   
   xmlFreeDoc(doc);
   
@@ -350,9 +344,22 @@ diagram_load(char *filename)
   
   g_hash_table_destroy(objects_hash);
   
-  dia->unsaved = FALSE;
-  diagram_set_modified (dia, FALSE);
+  return TRUE;
+}
 
+Diagram *
+diagram_load(const char *filename)
+{
+  Diagram *dia;
+
+  dia = new_diagram(filename);
+  if (diagram_data_load(filename, dia->data)) {
+    dia->unsaved = FALSE;
+    diagram_set_modified(dia, FALSE);
+  } else {
+    diagram_destroy(dia);
+    dia = NULL;
+  }
   return dia;
 }
 
@@ -615,7 +622,7 @@ diagram_save(Diagram *dia, const char *filename)
   return TRUE;
 }
 
-/* --- export filter interface --- */
+/* --- filter interfaces --- */
 static void
 export_native(DiagramData *data, const gchar *filename,
 	      const gchar *diafilename)
@@ -628,4 +635,9 @@ DiaExportFilter dia_export_filter = {
   N_("Native Dia Diagram"),
   extensions,
   export_native
+};
+DiaImportFilter dia_import_filter = {
+  N_("Native Dia Diagram"),
+  extensions,
+  diagram_data_load
 };

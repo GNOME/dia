@@ -24,6 +24,7 @@
 #include <string.h>
 
 static GList *export_filters = NULL;
+static GList *import_filters = NULL;
 
 static gint
 export_filter_compare(gconstpointer a, gconstpointer b)
@@ -92,3 +93,72 @@ filter_guess_export_filter(const gchar *filename)
   }
   return NULL;
 }
+
+static gint
+import_filter_compare(gconstpointer a, gconstpointer b)
+{
+  const DiaImportFilter *fa = a, *fb = b;
+
+  return g_strcasecmp(_(fa->description), _(fb->description));
+}
+
+void
+filter_register_import(DiaImportFilter *ifilter)
+{
+  import_filters = g_list_insert_sorted(import_filters, ifilter,
+					import_filter_compare);
+}
+
+/* returns a sorted list of the export filters. */
+GList *
+filter_get_import_filters(void)
+{
+  return import_filters;
+}
+
+/* creates a nice label for the export filter (must be g_free'd) */
+gchar *
+filter_get_import_filter_label(DiaImportFilter *ifilter)
+{
+  GString *str = g_string_new(_(ifilter->description));
+  gint ext = 0;
+  gchar *ret;
+
+  for (ext = 0; ifilter->extensions[ext] != NULL; ext++) {
+    if (ext == 0)
+      g_string_append(str, " (*.");
+    else
+      g_string_append(str, ", *.");
+    g_string_append(str, ifilter->extensions[ext]);
+  }
+  if (ext > 0)
+    g_string_append(str, ")");
+  ret = str->str;
+  g_string_free(str, FALSE);
+  return ret;
+}
+
+/* guess the filter for a given filename. */
+DiaImportFilter *
+filter_guess_import_filter(const gchar *filename)
+{
+  GList *tmp;
+  gchar *ext;
+
+  ext = strrchr(filename, '.');
+  if (ext)
+    ext++;
+  else
+    ext = "";
+
+  for (tmp = import_filters; tmp != NULL; tmp = tmp->next) {
+    DiaImportFilter *efilter = tmp->data;
+    gint i;
+
+    for (i = 0; efilter->extensions[i] != NULL; i++)
+      if (!g_strcasecmp(efilter->extensions[i], ext))
+	return efilter;
+  }
+  return NULL;
+}
+

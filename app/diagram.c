@@ -36,14 +36,13 @@
 GList *open_diagrams = NULL;
 
 Diagram *
-new_diagram(char *filename)  /* Note: filename is copied */
+new_diagram(const char *filename)  /* Note: filename is copied */
 {
   Diagram *dia = g_new(Diagram, 1);
   
   dia->data = new_diagram_data();
 
-  dia->filename = g_malloc(strlen(filename)+1);
-  strcpy(dia->filename, filename);
+  dia->filename = g_strdup(filename);
   
   dia->unsaved = TRUE;
   dia->modified = FALSE;

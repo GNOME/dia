@@ -433,13 +433,29 @@ help_about_callback(GtkWidget *widget, gpointer data)
 {
   GtkWidget *dialog;
   GtkWidget *vbox;
+  GtkWidget *table;
   GtkWidget *bbox;
   GtkWidget *frame;
   GtkWidget *label;
   GtkWidget *button;
   char str[100];
-
+  gint i;
+  
   GtkWidget *gpixmap;
+
+  static const gchar *contributors[] = {
+    "Jerome Abela",
+    "Emmanuel Briot",
+    "Cyrille Chepelov",
+    "Lars R. Clausen",
+    "Fredrik Hallenberg",
+    "Francis J. Lacoste",
+    "Steffen Macke",
+    "Jacek Pliszka",
+    "Henk Jan Priester",
+    "Alejandro Aguilar Sierra",
+  };
+  const gint ncontributors = sizeof(contributors) / sizeof(contributors[0]);
 
   dialog = gtk_dialog_new ();
   gtk_window_set_wmclass (GTK_WINDOW (dialog), "about_dialog", "Dia");
@@ -495,17 +511,35 @@ help_about_callback(GtkWidget *widget, gpointer data)
   gtk_container_set_border_width (GTK_CONTAINER (frame), 1);
   gtk_box_pack_start(GTK_BOX(vbox), frame, FALSE, TRUE, 1);
 
-  vbox = gtk_vbox_new (FALSE, 1);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox), 1);
-  gtk_container_add (GTK_CONTAINER (frame), vbox);
+  table = gtk_table_new(3, 2, FALSE);
+  gtk_container_set_border_width (GTK_CONTAINER (table), 1);
+  gtk_container_add (GTK_CONTAINER (frame), table);
 
   g_snprintf(str, sizeof(str), _("Dia v %s by Alexander Larsson"), VERSION);
   label = gtk_label_new (str);
-  gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, TRUE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 0,2, 0,1,
+		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
+  
+  label = gtk_label_new(_("Maintainer: James Henstridge"));
+  gtk_table_attach(GTK_TABLE(table), label, 0,2, 1,2,
+		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
 
   label = gtk_label_new (_("Please visit http://www.lysator.liu.se/~alla/dia "
 			   "for more info"));
-  gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, TRUE, 2);
+  gtk_table_attach(GTK_TABLE(table), label, 0,2, 2,3,
+		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
+
+  label = gtk_label_new (_("Contributors:"));
+  gtk_table_attach(GTK_TABLE(table), label, 0,2, 3,4,
+		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0,2);
+
+  for (i = 0; i < ncontributors; i++) {
+    label = gtk_label_new(contributors[i]);
+    gtk_table_attach(GTK_TABLE(table), label, i%2,i%2+1, i/2+4,i/2+5,
+		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0,0);
+  }
+  gtk_table_set_col_spacings(GTK_TABLE(table), 1);
+  gtk_table_set_row_spacings(GTK_TABLE(table), 1);
 
   bbox = gtk_hbutton_box_new();
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), bbox, TRUE, TRUE, 5);

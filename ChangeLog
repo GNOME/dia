@@ -1,3 +1,27 @@
+2000-05-17  James Henstridge  <james@daa.com.au>
+
+	* app/app_procs.c (internal_plugin_init): register the native import
+	filter.
+
+	* app/load_save.c (diagram_data_load, diagram_load): split this
+	function into two -- one that does all the work on the DiagramData
+	structure, and the other that provides compatibility with the old
+	function.
+	(dia_import_filter): use diagram_data_load to define an import
+	filter.
+
+	* app/diagram.h (new_diagram): added const to prototype.
+
+	* app/filedlg.c (file_open_callback): change to use new import filter
+	code.
+
+	* lib/filter.c: added import filter management functions.
+
+	* lib/filter.h: added prototypes for import filter interface.
+
+	* app/commands.c (help_about_callback): updated about dialog to
+	contain a few more names.
+
 2000-05-16  James Henstridge  <james@daa.com.au>
 
 	* configure.in (Configuration): added a status message to the end of

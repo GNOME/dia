@@ -36,6 +36,18 @@ struct _DiaExportFilter {
   DiaExportFunc export;
 };
 
+typedef struct _DiaImportFilter DiaImportFilter;
+/* returns FALSE on error loading diagram */
+typedef gboolean (* DiaImportFunc) (const gchar *filename, DiagramData *dia);
+
+struct _DiaImportFilter {
+  const gchar *description;
+  /* NULL terminated array of extensions for this file format.  The first
+   * one is the prefered extension for files of this type. */
+  const gchar **extensions;
+  DiaImportFunc import;
+};
+
 /* register an export filter.  The DiaExportFilter should be static, and
  * none of its fields should be freed */
 void filter_register_export(DiaExportFilter *efilter);
@@ -48,5 +60,10 @@ gchar *filter_get_export_filter_label(DiaExportFilter *efilter);
 
 /* guess the filter for a given filename. */
 DiaExportFilter *filter_guess_export_filter(const gchar *filename);
+
+void filter_register_import(DiaImportFilter *ifilter);
+GList *filter_get_import_filters(void);
+gchar *filter_get_import_filter_label(DiaImportFilter *ifilter);
+DiaImportFilter *filter_guess_import_filter(const gchar *filename);
 
 #endif

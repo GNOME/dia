@@ -22,8 +22,9 @@
 #include "filter.h"
 
 extern int diagram_save(Diagram *dia, const char *filename);
-extern Diagram *diagram_load(char *filename);
+extern Diagram *diagram_load(const char *filename);
 
 extern DiaExportFilter dia_export_filter;
+extern DiaImportFilter dia_import_filter;
 
 #endif /* LOAD_SAVE_H */

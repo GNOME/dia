@@ -426,6 +426,9 @@ internal_plugin_init(PluginInfo *info)
   /* register the group object type */
   object_register_type(&group_type);
 
+  /* register import filters */
+  filter_register_import(&dia_import_filter);
+
   /* register export filters */
   filter_register_export(&dia_export_filter);
   filter_register_export(&eps_export_filter);
