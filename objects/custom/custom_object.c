@@ -512,191 +512,191 @@ get_colour(Custom *custom, Color *colour, gint32 c)
 static void
 custom_draw(Custom *custom, Renderer *renderer)
 {
-  static GArray *arr = NULL, *barr = NULL;
-  Point p1, p2;
-  real coord;
-  int i;
-  GList *tmp;
-  Element *elem;
-  real cur_line = 1.0, cur_dash = 1.0;
-  LineCaps cur_caps = LINECAPS_BUTT;
-  LineJoin cur_join = LINEJOIN_MITER;
-  LineStyle cur_style = custom->line_style;
+    static GArray *arr = NULL, *barr = NULL;
+    Point p1, p2;
+    real coord;
+    int i;
+    GList *tmp;
+    Element *elem;
+    real cur_line = 1.0, cur_dash = 1.0;
+    LineCaps cur_caps = LINECAPS_BUTT;
+    LineJoin cur_join = LINEJOIN_MITER;
+    LineStyle cur_style = custom->line_style;
   
-  assert(custom != NULL);
-  assert(renderer != NULL);
+    assert(custom != NULL);
+    assert(renderer != NULL);
 
-  if (!arr)
-    arr = g_array_new(FALSE, FALSE, sizeof(Point));
-  if (!barr)
-    barr = g_array_new(FALSE, FALSE, sizeof(BezPoint));
+    if (!arr)
+        arr = g_array_new(FALSE, FALSE, sizeof(Point));
+    if (!barr)
+        barr = g_array_new(FALSE, FALSE, sizeof(BezPoint));
 
-  elem = &custom->element;
+    elem = &custom->element;
 
-  renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer->ops->set_linewidth(renderer, custom->border_width);
-  renderer->ops->set_linestyle(renderer, cur_style);
-  renderer->ops->set_dashlength(renderer, custom->dashlength);
-  renderer->ops->set_linecaps(renderer, cur_caps);
-  renderer->ops->set_linejoin(renderer, cur_join);
+    renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+    renderer->ops->set_linewidth(renderer, custom->border_width);
+    renderer->ops->set_linestyle(renderer, cur_style);
+    renderer->ops->set_dashlength(renderer, custom->dashlength);
+    renderer->ops->set_linecaps(renderer, cur_caps);
+    renderer->ops->set_linejoin(renderer, cur_join);
 
-  for (tmp = custom->info->display_list; tmp; tmp = tmp->next) {
-    GraphicElement *el = tmp->data;
-    Color fg, bg;
+    for (tmp = custom->info->display_list; tmp; tmp = tmp->next) {
+        GraphicElement *el = tmp->data;
+        Color fg, bg;
 
-    if (el->any.s.line_width != cur_line) {
-      cur_line = el->any.s.line_width;
-      renderer->ops->set_linewidth(renderer,
-				   custom->border_width*cur_line);
-    }
-    if ((el->any.s.linecap == LINECAPS_DEFAULT && cur_caps != LINECAPS_BUTT) ||
-	el->any.s.linecap != cur_caps) {
-      cur_caps = (el->any.s.linecap!=LINECAPS_DEFAULT) ?
-	el->any.s.linecap : LINECAPS_BUTT;
-      renderer->ops->set_linecaps(renderer, cur_caps);
-    }
-    if ((el->any.s.linejoin==LINEJOIN_DEFAULT && cur_join!=LINEJOIN_MITER) ||
-	el->any.s.linejoin != cur_join) {
-      cur_join = (el->any.s.linejoin!=LINEJOIN_DEFAULT) ?
-	el->any.s.linejoin : LINEJOIN_MITER;
-      renderer->ops->set_linejoin(renderer, cur_join);
-    }
-    if ((el->any.s.linestyle == LINESTYLE_DEFAULT &&
-	 cur_style != custom->line_style) ||
-	el->any.s.linestyle != cur_style) {
-      cur_style = (el->any.s.linestyle!=LINESTYLE_DEFAULT) ?
-	el->any.s.linestyle : custom->line_style;
-      renderer->ops->set_linestyle(renderer, cur_style);
-    }
-    if (el->any.s.dashlength != cur_dash) {
-      cur_dash = el->any.s.dashlength;
-      renderer->ops->set_dashlength(renderer,
-				    custom->dashlength*cur_dash);
-    }
+        if (el->any.s.line_width != cur_line) {
+            cur_line = el->any.s.line_width;
+            renderer->ops->set_linewidth(renderer,
+                                         custom->border_width*cur_line);
+        }
+        if ((el->any.s.linecap == LINECAPS_DEFAULT && cur_caps != LINECAPS_BUTT) ||
+            el->any.s.linecap != cur_caps) {
+            cur_caps = (el->any.s.linecap!=LINECAPS_DEFAULT) ?
+                el->any.s.linecap : LINECAPS_BUTT;
+            renderer->ops->set_linecaps(renderer, cur_caps);
+        }
+        if ((el->any.s.linejoin==LINEJOIN_DEFAULT && cur_join!=LINEJOIN_MITER) ||
+            el->any.s.linejoin != cur_join) {
+            cur_join = (el->any.s.linejoin!=LINEJOIN_DEFAULT) ?
+                el->any.s.linejoin : LINEJOIN_MITER;
+            renderer->ops->set_linejoin(renderer, cur_join);
+        }
+        if ((el->any.s.linestyle == LINESTYLE_DEFAULT &&
+             cur_style != custom->line_style) ||
+            el->any.s.linestyle != cur_style) {
+            cur_style = (el->any.s.linestyle!=LINESTYLE_DEFAULT) ?
+                el->any.s.linestyle : custom->line_style;
+            renderer->ops->set_linestyle(renderer, cur_style);
+        }
+        if (el->any.s.dashlength != cur_dash) {
+            cur_dash = el->any.s.dashlength;
+            renderer->ops->set_dashlength(renderer,
+                                          custom->dashlength*cur_dash);
+        }
       
-    cur_line = el->any.s.line_width;
-    get_colour(custom, &fg, el->any.s.stroke);
-    get_colour(custom, &bg, el->any.s.fill);
-    switch (el->type) {
-    case GE_LINE:
-      transform_coord(custom, &el->line.p1, &p1);
-      transform_coord(custom, &el->line.p2, &p2);
-      if (el->any.s.stroke != COLOUR_NONE)
-	renderer->ops->draw_line(renderer, &p1, &p2, &fg);
-      break;
-    case GE_POLYLINE:
-      g_array_set_size(arr, el->polyline.npoints);
-      for (i = 0; i < el->polyline.npoints; i++)
-	transform_coord(custom, &el->polyline.points[i],
-			&g_array_index(arr, Point, i));
-      if (el->any.s.stroke != COLOUR_NONE)
-	renderer->ops->draw_polyline(renderer,
-				     (Point *)arr->data, el->polyline.npoints,
-				     &fg);
-      break;
-    case GE_POLYGON:
-      g_array_set_size(arr, el->polygon.npoints);
-      for (i = 0; i < el->polygon.npoints; i++)
-	transform_coord(custom, &el->polygon.points[i],
-			&g_array_index(arr, Point, i));
-      if (custom->show_background && el->any.s.fill != COLOUR_NONE) 
-	renderer->ops->fill_polygon(renderer,
-				    (Point *)arr->data, el->polygon.npoints,
-				    &bg);
-      if (el->any.s.stroke != COLOUR_NONE)
-	renderer->ops->draw_polygon(renderer,
-				    (Point *)arr->data, el->polygon.npoints,
-				    &fg);
-      break;
-    case GE_RECT:
-      transform_coord(custom, &el->rect.corner1, &p1);
-      transform_coord(custom, &el->rect.corner2, &p2);
-      if (p1.x > p2.x) {
-	coord = p1.x;
-	p1.x = p2.x;
-	p2.x = coord;
-      }
-      if (p1.y > p2.y) {
-	coord = p1.y;
-	p1.y = p2.y;
-	p2.y = coord;
-      }
-      if (custom->show_background && el->any.s.fill != COLOUR_NONE)
-	renderer->ops->fill_rect(renderer, &p1, &p2, &bg);
-      if (el->any.s.stroke != COLOUR_NONE)
-	renderer->ops->draw_rect(renderer, &p1, &p2, &fg);
-      break;
-    case GE_TEXT:
-      custom_reposition_text(custom, &el->text);
-      text_draw(el->text.object, renderer);
-      text_set_position(el->text.object, &el->text.anchor);
-      break;
-    case GE_ELLIPSE:
-      transform_coord(custom, &el->ellipse.center, &p1);
-      if (custom->show_background && el->any.s.fill != COLOUR_NONE)
-	renderer->ops->fill_ellipse(renderer, &p1,
-				    el->ellipse.width * fabs(custom->xscale),
-				    el->ellipse.height * fabs(custom->yscale),
-				    &bg);
-      if (el->any.s.stroke != COLOUR_NONE)
-	renderer->ops->draw_ellipse(renderer, &p1,
-				    el->ellipse.width * fabs(custom->xscale),
-				    el->ellipse.height * fabs(custom->yscale),
-				    &fg);
-      break;
-    case GE_PATH:
-      g_array_set_size(barr, el->path.npoints);
-      for (i = 0; i < el->path.npoints; i++)
-	switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
-	case BEZ_CURVE_TO:
-	  transform_coord(custom, &el->path.points[i].p3,
-			  &g_array_index(barr, BezPoint, i).p3);
-	  transform_coord(custom, &el->path.points[i].p2,
-			  &g_array_index(barr, BezPoint, i).p2);
-	case BEZ_MOVE_TO:
-	case BEZ_LINE_TO:
-	  transform_coord(custom, &el->path.points[i].p1,
-			  &g_array_index(barr, BezPoint, i).p1);
-	}
-      if (el->any.s.stroke != COLOUR_NONE)
-	renderer->ops->draw_bezier(renderer, (BezPoint *)barr->data,
-				   el->path.npoints, &fg);
-      break;
-    case GE_SHAPE:
-      g_array_set_size(barr, el->path.npoints);
-      for (i = 0; i < el->path.npoints; i++)
-	switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
-	case BEZ_CURVE_TO:
-	  transform_coord(custom, &el->path.points[i].p3,
-			  &g_array_index(barr, BezPoint, i).p3);
-	  transform_coord(custom, &el->path.points[i].p2,
-			  &g_array_index(barr, BezPoint, i).p2);
-	case BEZ_MOVE_TO:
-	case BEZ_LINE_TO:
-	  transform_coord(custom, &el->path.points[i].p1,
-			  &g_array_index(barr, BezPoint, i).p1);
-	}
-      if (custom->show_background && el->any.s.fill != COLOUR_NONE)
-	renderer->ops->fill_bezier(renderer, (BezPoint *)barr->data,
-				   el->path.npoints, &bg);
-      if (el->any.s.stroke != COLOUR_NONE)
-	renderer->ops->draw_bezier(renderer, (BezPoint *)barr->data,
-				   el->path.npoints, &fg);
-      break;
+        cur_line = el->any.s.line_width;
+        get_colour(custom, &fg, el->any.s.stroke);
+        get_colour(custom, &bg, el->any.s.fill);
+        switch (el->type) {
+            case GE_LINE:
+                transform_coord(custom, &el->line.p1, &p1);
+                transform_coord(custom, &el->line.p2, &p2);
+                if (el->any.s.stroke != COLOUR_NONE)
+                    renderer->ops->draw_line(renderer, &p1, &p2, &fg);
+                break;
+            case GE_POLYLINE:
+                g_array_set_size(arr, el->polyline.npoints);
+                for (i = 0; i < el->polyline.npoints; i++)
+                    transform_coord(custom, &el->polyline.points[i],
+                                    &g_array_index(arr, Point, i));
+                if (el->any.s.stroke != COLOUR_NONE)
+                    renderer->ops->draw_polyline(renderer,
+                                                 (Point *)arr->data, el->polyline.npoints,
+                                                 &fg);
+                break;
+            case GE_POLYGON:
+                g_array_set_size(arr, el->polygon.npoints);
+                for (i = 0; i < el->polygon.npoints; i++)
+                    transform_coord(custom, &el->polygon.points[i],
+                                    &g_array_index(arr, Point, i));
+                if (custom->show_background && el->any.s.fill != COLOUR_NONE) 
+                    renderer->ops->fill_polygon(renderer,
+                                                (Point *)arr->data, el->polygon.npoints,
+                                                &bg);
+                if (el->any.s.stroke != COLOUR_NONE)
+                    renderer->ops->draw_polygon(renderer,
+                                                (Point *)arr->data, el->polygon.npoints,
+                                                &fg);
+                break;
+            case GE_RECT:
+                transform_coord(custom, &el->rect.corner1, &p1);
+                transform_coord(custom, &el->rect.corner2, &p2);
+                if (p1.x > p2.x) {
+                    coord = p1.x;
+                    p1.x = p2.x;
+                    p2.x = coord;
+                }
+                if (p1.y > p2.y) {
+                    coord = p1.y;
+                    p1.y = p2.y;
+                    p2.y = coord;
+                }
+                if (custom->show_background && el->any.s.fill != COLOUR_NONE)
+                    renderer->ops->fill_rect(renderer, &p1, &p2, &bg);
+                if (el->any.s.stroke != COLOUR_NONE)
+                    renderer->ops->draw_rect(renderer, &p1, &p2, &fg);
+                break;
+            case GE_TEXT:
+                custom_reposition_text(custom, &el->text);
+                text_draw(el->text.object, renderer);
+                text_set_position(el->text.object, &el->text.anchor);
+                break;
+            case GE_ELLIPSE:
+                transform_coord(custom, &el->ellipse.center, &p1);
+                if (custom->show_background && el->any.s.fill != COLOUR_NONE)
+                    renderer->ops->fill_ellipse(renderer, &p1,
+                                                el->ellipse.width * fabs(custom->xscale),
+                                                el->ellipse.height * fabs(custom->yscale),
+                                                &bg);
+                if (el->any.s.stroke != COLOUR_NONE)
+                    renderer->ops->draw_ellipse(renderer, &p1,
+                                                el->ellipse.width * fabs(custom->xscale),
+                                                el->ellipse.height * fabs(custom->yscale),
+                                                &fg);
+                break;
+            case GE_PATH:
+                g_array_set_size(barr, el->path.npoints);
+                for (i = 0; i < el->path.npoints; i++)
+                    switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
+                        case BEZ_CURVE_TO:
+                            transform_coord(custom, &el->path.points[i].p3,
+                                            &g_array_index(barr, BezPoint, i).p3);
+                            transform_coord(custom, &el->path.points[i].p2,
+                                            &g_array_index(barr, BezPoint, i).p2);
+                        case BEZ_MOVE_TO:
+                        case BEZ_LINE_TO:
+                            transform_coord(custom, &el->path.points[i].p1,
+                                            &g_array_index(barr, BezPoint, i).p1);
+                    }
+                if (el->any.s.stroke != COLOUR_NONE)
+                    renderer->ops->draw_bezier(renderer, (BezPoint *)barr->data,
+                                               el->path.npoints, &fg);
+                break;
+            case GE_SHAPE:
+                g_array_set_size(barr, el->path.npoints);
+                for (i = 0; i < el->path.npoints; i++)
+                    switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
+                        case BEZ_CURVE_TO:
+                            transform_coord(custom, &el->path.points[i].p3,
+                                            &g_array_index(barr, BezPoint, i).p3);
+                            transform_coord(custom, &el->path.points[i].p2,
+                                            &g_array_index(barr, BezPoint, i).p2);
+                        case BEZ_MOVE_TO:
+                        case BEZ_LINE_TO:
+                            transform_coord(custom, &el->path.points[i].p1,
+                                            &g_array_index(barr, BezPoint, i).p1);
+                    }
+                if (custom->show_background && el->any.s.fill != COLOUR_NONE)
+                    renderer->ops->fill_bezier(renderer, (BezPoint *)barr->data,
+                                               el->path.npoints, &bg);
+                if (el->any.s.stroke != COLOUR_NONE)
+                    renderer->ops->draw_bezier(renderer, (BezPoint *)barr->data,
+                                               el->path.npoints, &fg);
+                break;
+        }
     }
-  }
 
-  if (custom->info->has_text) {
-    /*Rectangle tb;
+    if (custom->info->has_text) {
+            /*Rectangle tb;
     
-      if (renderer->is_interactive) {
-      transform_rect(custom, &custom->info->text_bounds, &tb);
-      p1.x = tb.left;  p1.y = tb.top;
-      p2.x = tb.right; p2.y = tb.bottom;
-      renderer->ops->draw_rect(renderer, &p1, &p2, &custom->border_color);
-      }*/
-    text_draw(custom->text, renderer);
-  }
+            if (renderer->is_interactive) {
+            transform_rect(custom, &custom->info->text_bounds, &tb);
+            p1.x = tb.left;  p1.y = tb.top;
+            p2.x = tb.right; p2.y = tb.bottom;
+            renderer->ops->draw_rect(renderer, &p1, &p2, &custom->border_color);
+            }*/
+        text_draw(custom->text, renderer);
+    }
 }
 
 
@@ -1057,7 +1057,6 @@ custom_create(Point *startpoint,
   int i;
   DiaFont *font = NULL;
   real font_height;
-  GList *tmp;
 
   g_return_val_if_fail(info!=NULL,NULL);
 
@@ -1094,24 +1093,11 @@ custom_create(Point *startpoint,
     p.x += elem->width / 2.0;
     p.y += elem->height / 2.0 + font_height / 2;
     custom->text = new_text("", font, font_height, &p, &custom->border_color,
-			    default_properties.alignment);
+                            default_properties.alignment);
     text_get_attributes(custom->text,&custom->attrs);
     dia_font_unref(font);
   }
-  for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
-       GraphicElement *el = tmp->data;
-       if (el->type == GE_TEXT) {
-            /* set default values for text style */
-            if (!el->text.s.font_height) el->text.s.font_height = FONT_HEIGHT_DEFAULT;
-            if (!el->text.s.font)
-                el->text.s.font = dia_font_new_from_style(DIA_FONT_SANS,1.0);
-            if (el->text.s.alignment == -1) el->text.s.alignment = TEXT_ALIGNMENT_DEFAULT;
-            el->text.object = new_text(el->text.string, el->text.s.font, el->text.s.font_height,
-	        &el->text.anchor, &color_black, el->text.s.alignment);
-	        text_calc_boundingbox(el->text.object, &el->text.text_bounds);
-       }
-  }
-
+  shape_info_realise(custom->info);
   element_init(elem, 8, info->nconnections);
 
   custom->connections = g_new0(ConnectionPoint, info->nconnections);
@@ -1316,7 +1302,8 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
       dia_font_unref(font);
     }
   }
-
+  shape_info_realise(custom->info);
+  
   element_init(elem, 8, custom->info->nconnections);
 
   custom->connections = g_new0(ConnectionPoint, custom->info->nconnections);

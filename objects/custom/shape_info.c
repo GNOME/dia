@@ -73,6 +73,42 @@ ShapeInfo *shape_info_getbyname(const gchar *name)
   return NULL;
 }
 
+/**
+ * shape_info_realise :
+ * @info : the shape to realise
+ * 
+ * Puts the ShapeInfo into a form suitable for actual use (lazy loading)
+ *
+ */
+
+void shape_info_realise(ShapeInfo* info)
+{
+  GList* tmp;
+  
+  for (tmp = info->display_list; tmp != NULL; tmp = tmp->next) {
+    GraphicElement *el = tmp->data;
+    if (el->type == GE_TEXT) {
+          /* set default values for text style */
+      if (!el->text.s.font_height)
+        el->text.s.font_height = FONT_HEIGHT_DEFAULT;
+      if (!el->text.s.font)
+        el->text.s.font = dia_font_new_from_style(DIA_FONT_SANS,1.0);
+      if (el->text.s.alignment == -1)
+        el->text.s.alignment = TEXT_ALIGNMENT_DEFAULT;
+      if (!el->text.object) {
+        el->text.object = new_text(el->text.string,
+                                   el->text.s.font,
+                                   el->text.s.font_height,
+                                   &el->text.anchor,
+                                   &color_black,
+                                   el->text.s.alignment);
+      }
+      text_calc_boundingbox(el->text.object, &el->text.text_bounds);
+    }
+  }  
+}
+
+
 void
 parse_style(xmlNodePtr node, GraphicStyle *s)
 {
@@ -607,7 +643,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
   xmlChar *str;
   char *old_locale;
 
-  /* walk SVG node ... */
+      /* walk SVG node ... */
   for (node = node->xmlChildrenNode; node != NULL; node = node->next) {
     GraphicElement *el = NULL;
     GraphicStyle s;
@@ -624,31 +660,31 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       line->type = GE_LINE;
       str = xmlGetProp(node, "x1");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	line->p1.x = strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        line->p1.x = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
       str = xmlGetProp(node, "y1");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	line->p1.y = strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        line->p1.y = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
       str = xmlGetProp(node, "x2");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	line->p2.x = strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        line->p2.x = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
       str = xmlGetProp(node, "y2");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	line->p2.y = strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        line->p2.y = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
     } else if (!strcmp(node->name, "polyline")) {
       GraphicElementPoly *poly;
@@ -659,27 +695,27 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 
       tmp = str = xmlGetProp(node, "points");
       while (tmp[0] != '\0') {
-	/* skip junk */
-	while (tmp[0] != '\0' && !isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
-	  tmp++;
-	if (tmp[0] == '\0') break;
-	old_locale = setlocale(LC_NUMERIC, "C");
-	val = strtod(tmp, &tmp);
-	setlocale(LC_NUMERIC, old_locale);
-	g_array_append_val(arr, val);
+            /* skip junk */
+        while (tmp[0] != '\0' && !isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
+          tmp++;
+        if (tmp[0] == '\0') break;
+        old_locale = setlocale(LC_NUMERIC, "C");
+        val = strtod(tmp, &tmp);
+        setlocale(LC_NUMERIC, old_locale);
+        g_array_append_val(arr, val);
       }
       xmlFree(str);
       val = 0;
       if (arr->len % 2 == 1) 
-	g_array_append_val(arr, val);
+        g_array_append_val(arr, val);
       poly = g_malloc0(sizeof(GraphicElementPoly) + arr->len/2*sizeof(Point));
       el = (GraphicElement *)poly;
       poly->type = GE_POLYLINE;
       poly->npoints = arr->len / 2;
       rarr = (real *)arr->data;
       for (i = 0; i < poly->npoints; i++) {
-	poly->points[i].x = rarr[2*i];
-	poly->points[i].y = rarr[2*i+1];
+        poly->points[i].x = rarr[2*i];
+        poly->points[i].y = rarr[2*i+1];
       }
       g_array_free(arr, TRUE);
     } else if (!strcmp(node->name, "polygon")) {
@@ -691,27 +727,27 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 
       tmp = str = xmlGetProp(node, "points");
       while (tmp[0] != '\0') {
-	/* skip junk */
-	while (tmp[0] != '\0' && !isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
-	  tmp++;
-	if (tmp[0] == '\0') break;
-	old_locale = setlocale(LC_NUMERIC, "C");
-	val = strtod(tmp, &tmp);
-	setlocale(LC_NUMERIC, old_locale);
-	g_array_append_val(arr, val);
+            /* skip junk */
+        while (tmp[0] != '\0' && !isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
+          tmp++;
+        if (tmp[0] == '\0') break;
+        old_locale = setlocale(LC_NUMERIC, "C");
+        val = strtod(tmp, &tmp);
+        setlocale(LC_NUMERIC, old_locale);
+        g_array_append_val(arr, val);
       }
       xmlFree(str);
       val = 0;
       if (arr->len % 2 == 1) 
-	g_array_append_val(arr, val);
+        g_array_append_val(arr, val);
       poly = g_malloc0(sizeof(GraphicElementPoly) + arr->len/2*sizeof(Point));
       el = (GraphicElement *)poly;
       poly->type = GE_POLYGON;
       poly->npoints = arr->len / 2;
       rarr = (real *)arr->data;
       for (i = 0; i < poly->npoints; i++) {
-	poly->points[i].x = rarr[2*i];
-	poly->points[i].y = rarr[2*i+1];
+        poly->points[i].x = rarr[2*i];
+        poly->points[i].y = rarr[2*i+1];
       }
       g_array_free(arr, TRUE);
     } else if (!strcmp(node->name, "rect")) {
@@ -721,31 +757,31 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       rect->type = GE_RECT;
       str = xmlGetProp(node, "x");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	rect->corner1.x = strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        rect->corner1.x = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       } else rect->corner1.x = 0;
       str = xmlGetProp(node, "y");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	rect->corner1.y = strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        rect->corner1.y = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       } else rect->corner1.y = 0;
       str = xmlGetProp(node, "width");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	rect->corner2.x = rect->corner1.x + strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        rect->corner2.x = rect->corner1.x + strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
       str = xmlGetProp(node, "height");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	rect->corner2.y = rect->corner1.y + strtod(str, NULL);
-	  setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        rect->corner2.y = rect->corner1.y + strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
     } else if (!strcmp(node->name, "text")) {
 
@@ -755,23 +791,23 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       text->object = NULL;
       str = xmlGetProp(node, "x");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	text->anchor.x = strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        text->anchor.x = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       } else text->anchor.x = 0;
       str = xmlGetProp(node, "y");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	text->anchor.y = strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        text->anchor.y = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       } else text->anchor.y = 0;
 
       str = xmlNodeGetContent(node);
       if (str) {
-	    text->string = g_strdup(str);
-	    xmlFree(str);
+        text->string = g_strdup(str);
+        xmlFree(str);
       } else text->string = "";
     } else if (!strcmp(node->name, "circle")) {
       GraphicElementEllipse *ellipse = g_new0(GraphicElementEllipse, 1);
@@ -780,24 +816,24 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       ellipse->type = GE_ELLIPSE;
       str = xmlGetProp(node, "cx");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->center.x = strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        ellipse->center.x = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
       str = xmlGetProp(node, "cy");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->center.y = strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        ellipse->center.y = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
       str = xmlGetProp(node, "r");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->width = ellipse->height = 2 * strtod(str, NULL);
-	  setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        ellipse->width = ellipse->height = 2 * strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
     } else if (!strcmp(node->name, "ellipse")) {
       GraphicElementEllipse *ellipse = g_new0(GraphicElementEllipse, 1);
@@ -806,40 +842,40 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       ellipse->type = GE_ELLIPSE;
       str = xmlGetProp(node, "cx");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->center.x = strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        ellipse->center.x = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
       str = xmlGetProp(node, "cy");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->center.y = strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        ellipse->center.y = strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
       str = xmlGetProp(node, "rx");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->width = 2 * strtod(str, NULL);
-	  setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        ellipse->width = 2 * strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
       str = xmlGetProp(node, "ry");
       if (str) {
-	old_locale = setlocale(LC_NUMERIC, "C");
-	ellipse->height = 2 * strtod(str, NULL);
-	setlocale(LC_NUMERIC, old_locale);
-	xmlFree(str);
+        old_locale = setlocale(LC_NUMERIC, "C");
+        ellipse->height = 2 * strtod(str, NULL);
+        setlocale(LC_NUMERIC, old_locale);
+        xmlFree(str);
       }
     } else if (!strcmp(node->name, "path")) {
       str = xmlGetProp(node, "d");
       if (str) {
-	parse_path(info, str, &s);
-	xmlFree(str);
+        parse_path(info, str, &s);
+        xmlFree(str);
       }
     } else if (!strcmp(node->name, "g")) {
-      /* add elements from the group element */
+          /* add elements from the group element */
       parse_svg_node(info, node, svg_ns, &s);
     }
     if (el) {

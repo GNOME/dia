@@ -1,3 +1,11 @@
+2002-09-24  Cyrille Chépélov  <cyrille@chepelov.org>
+
+	* objects/custom/custom_object.c: 
+	* objects/custom/shape_info.[ch]: GE_TEXT display lists elements 
+	were never properly prepared for use when reloading a shape with
+	<svg:text> elements. Thanks to Scott Frazer <frazer@nc.rr.com> for
+	reporting the problem and coming up with a fix! (Closes: #93974)
+	
 2002-09-23  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* plug-ins/xlst/Makefile.am: found a way to silence automake while
