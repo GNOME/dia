@@ -592,6 +592,7 @@ layer_find_closest_object_except(Layer *layer, Point *pos,
       if (dist < 0.000000001) return closest;
     }
   NEXTOBJECT:
+  ;
   }
 
   return closest;
