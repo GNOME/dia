@@ -395,11 +395,31 @@ void ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
          (the default IM on X should perform the local->UTF8 conversion)
       */
       
-  handle_key_event(ddisp, active_focus(), 0, str, g_utf8_strlen(str,-1));
+  Focus *focus = active_focus();
+
+  ddisplay_im_context_preedit_reset(ddisp, focus);
+  
+  if (focus != NULL)
+    handle_key_event(ddisp, focus, 0, str, g_utf8_strlen(str,-1));
 }
 
 void ddisplay_im_context_preedit_changed(GtkIMContext *context,
                                          DDisplay *ddisp) {
+  gint cursor_pos;
+  Focus *focus = active_focus();
+
+  ddisplay_im_context_preedit_reset(ddisp, focus);
+  
+  gtk_im_context_get_preedit_string(context, &ddisp->preedit_string,
+                                    &ddisp->preedit_attrs, &cursor_pos);
+  if (ddisp->preedit_string != NULL) {
+    if (focus != NULL) {
+      handle_key_event(ddisp, focus, 0, ddisp->preedit_string,
+                       g_utf8_strlen(ddisp->preedit_string,-1));
+    } else {
+      ddisplay_im_context_preedit_reset(ddisp, focus);
+    }
+  }
 /*  char *str;
   PangoAttrList *attrs;
   gint cursor_pos;

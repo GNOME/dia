@@ -156,4 +156,6 @@ INCLUDES = -I$(top_srcdir)/intl $(DEBUG_FLAGS) $(GDK_PIXBUF_CFLAGS) \
 
 EXTRA_DIST = \
 	pixmaps/broken.xpm \
+	pixmaps/broken-chain.xpm \
+	pixmaps/unbroken-chain.xpm \
 	libdia.def makefile.msc

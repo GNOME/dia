@@ -871,11 +871,10 @@ text_key_event(Focus *focus, guint keyval, const gchar *str, int strlen,
         break;
       default:
         if (str || (strlen>0)) {
-
           return_val = TRUE;
           utf = str;
-          for (utf = str ; utf && *utf && (utf-str <= strlen) ; 
-	       utf = g_utf8_next_char (utf)) {
+          for (utf = str; utf && *utf && strlen > 0 ;
+	       utf = g_utf8_next_char (utf), strlen--) {
             c = g_utf8_get_char (utf);
             
             *change = text_create_change (text, TYPE_INSERT_CHAR, c,

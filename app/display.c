@@ -23,6 +23,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
+#include <gdk/gdkkeysyms.h>
 
 #ifdef GNOME
 #include <gnome.h>
@@ -33,6 +34,7 @@
 #include "display.h"
 #include "group.h"
 #include "interface.h"
+#include "focus.h"
 #include "color.h"
 #include "handle_ops.h"
 #include "connectionpoint_ops.h"
@@ -173,9 +175,11 @@ new_display(Diagram *dia)
   ddisp->im_context = gtk_im_multicontext_new();
   g_signal_connect (G_OBJECT (ddisp->im_context), "commit",
                     G_CALLBACK (ddisplay_im_context_commit), ddisp);
+  ddisp->preedit_string = NULL;
   g_signal_connect (G_OBJECT (ddisp->im_context), "preedit_changed",
                     G_CALLBACK (ddisplay_im_context_preedit_changed),
                     ddisp);
+  ddisp->preedit_attrs = NULL;
   
   create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
 		       filename, prefs.new_view.use_menu_bar, !embedded);
@@ -938,6 +942,8 @@ ddisp_destroy(DDisplay *ddisp)
   g_object_unref (G_OBJECT (ddisp->im_context));
   ddisp->im_context = NULL;
 
+  ddisplay_im_context_preedit_reset(ddisp, active_focus());
+
   gtk_widget_destroy (ddisp->shell);
 }
 
@@ -1189,5 +1195,27 @@ display_set_active(DDisplay *ddisp)
                                      GTK_WINDOW(ddisp->shell));
       }
     }
+  }
+}
+
+void
+ddisplay_im_context_preedit_reset(DDisplay *ddisp, Focus *focus)
+{
+  if (ddisp->preedit_string != NULL) {
+    if (focus != NULL) {
+      int i;
+      ObjectChange *change;
+      
+      for (i = 0; i < g_utf8_strlen(ddisp->preedit_string, -1); i++) {
+        (focus->key_event)(focus, GDK_BackSpace, NULL, 0, &change);
+      }
+    }
+    
+    g_free(ddisp->preedit_string);
+    ddisp->preedit_string = NULL;
+  }
+  if (ddisp->preedit_attrs != NULL) {
+    pango_attr_list_unref(ddisp->preedit_attrs);
+    ddisp->preedit_attrs = NULL;
   }
 }

@@ -1,4 +1,20 @@
-2004-03-01  Lars Clausen  <larsrc@linux.local>
+2004-03-02  Lars Clausen  <lars@raeder.dk>
+
+	* lib/libdia.def: 
+	* lib/pixmaps/[un]broken-chain.xpm: Icons stolen from GIMP for the
+	size selector.
+
+	* lib/Makefile.am: 
+	* lib/widgets.c (dia_size_selector_init): Work
+	on getting proper icon onto the size selector.  Need simple image
+	load mechanism in utils.
+
+	* lib/text.c: 
+	* app/display.[ch]:
+	* app/disp_callbacks.c: Patch from kou@cozmixng.org: Show preedit
+	strings, handle utf8 strlen properly.  Bug #135930.
+
+2004-03-01  Lars Clausen  <lars@raeder.dk>
 
 	* shapes/Cybernetics/*:
 	* sheets/Cybernetics.sheet.in:
@@ -7,7 +23,7 @@
 	* configure.in: Patch from charly.meyer@t-online.de (Thorsten
 	Roggendorf): Cybernetic shapes (#95553).
 
-2004-03-01  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+2004-03-01  Lars Clausen  <lars@raeder.dk>
 
 	* app/Makefile.am: Fixed $(EXEEXT) warning from automake.
 
@@ -47,7 +63,7 @@
 	of text labels. This involve moving away arrow_chooser to lib from
 	app.
 
-2004-02-29  Lars Clausen  <lrclause@cs.uiuc.edu>
+2004-02-29  Lars Clausen  <lars@raeder.dk>
 
 	* objects/UML/class.[ch]: Puny kludge to avoid GtkList objects
 	being updated half-way through destruction.  To be removed when

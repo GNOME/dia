@@ -27,6 +27,9 @@
 #include "diaarrowchooser.h"
 #include "dialinechooser.h"
 
+#include "pixmaps/broken-chain.xpm"
+#include "pixmaps/unbroken-chain.xpm"
+
 #include <stdlib.h>
 #include <glib.h>
 #include <gdk/gdk.h>
@@ -127,6 +130,7 @@ static void
 dia_size_selector_init (DiaSizeSelector *ss)
 {
   /* Here's where we set up the real thing */
+  GdkPixmap *pixmap;
   GtkAdjustment *adj;
   adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0, 10,
 					  0.1, 1.0, 1.0));
@@ -145,7 +149,17 @@ dia_size_selector_init (DiaSizeSelector *ss)
   gtk_widget_show(GTK_WIDGET(ss->height));
 
   /* Replace label with images */
-  ss->aspect_locked = GTK_TOGGLE_BUTTON(gtk_toggle_button_new_with_label("Link"));
+  ss->aspect_locked = GTK_TOGGLE_BUTTON(gtk_toggle_button_new_with_label("X"));
+  
+  /*
+  pixmap = gdk_pixmap_create_from_data(drawable, unlinked_xpm, 9, 24, 24, gdk_color_black, gdk_color_white);
+  bitmap = gdk_pitmap_create_from_data(drawable, unlinked_xpm, 9, 24);
+  image = gtk_image_new_from_pixmap(pixmap, bitmap);
+  g_object_unref(pixmap);
+  g_object_unref(bitmap);
+  gtk_container_add(GTK_CONTAINER(ss->aspect_locked), image);
+  */
+
   gtk_box_pack_start(GTK_BOX(ss), GTK_WIDGET(ss->aspect_locked), FALSE, TRUE, 0); 
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ss->aspect_locked), TRUE);
   gtk_widget_show(GTK_WIDGET(ss->aspect_locked));

@@ -92,6 +92,10 @@ struct _DDisplay {
   guint update_id;                /* idle handler ID for redraws       */
 
   GtkIMContext *im_context;
+
+  /* Preedit String */
+  gchar *preedit_string;
+  PangoAttrList *preedit_attrs;
 };
 
 extern GdkCursor *default_cursor;
@@ -154,5 +158,7 @@ void ddisplay_update_statusbar(DDisplay *ddisp);
 void ddisplay_do_update_menu_sensitivity (DDisplay *ddisp);
 
 void display_set_active(DDisplay *ddisp);
+
+void ddisplay_im_context_preedit_reset(DDisplay *ddisp, Focus *focus);
 
 #endif /* DDISPLAY_H */
