@@ -1,5 +1,27 @@
 2002-06-23  Hans Breuer  <hans@breuer.org>
 
+	* lib/plug-ins.c
+	(dia_plugin_get_name) : don't crash plugin_manager
+	on name being NULL 
+	(dia_plugin_load) : reuse the description field to
+	store the error string if loading fails.
+
+	* lib/font.[hc] : starting to beautify the new
+	font api: proper namespacing, adding convenience
+	functions like dia_font_new_from_style(), ...
+
+	* objects/uml/*.c : use the new convenience functions.
+
+	[Next thing I plan to do is changing the other font
+	 functions to take DiaStyle and make Style and 
+	 BASIC_*_FONT vanish. As well as giving some love to
+	 dia_font_new_from_legacy_name().
+	 If anyone want's to help on converting the other
+	 objects to the new api during that, I would highly 
+	 appreciate it.]
+
+2002-06-23  Hans Breuer  <hans@breuer.org>
+
 	* lib/font.c : made it compile and small indent fixes.
 	Is there a code-has-no-effect-so-needs-not-be-valid
 	with GCC?	

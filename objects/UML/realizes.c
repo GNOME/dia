@@ -364,8 +364,8 @@ realizes_create(Point *startpoint,
   PolyBBExtras *extra;
 
   if (realize_font == NULL) {
-	  realize_font = dia_font_new (BASIC_MONOSPACE_FONT,
-                                 STYLE_NORMAL,REALIZES_FONTHEIGHT);
+    realize_font = 
+      dia_font_new_from_style (DIA_FONT_MONOSPACE, REALIZES_FONTHEIGHT);
   }
   
   realize = g_malloc0(sizeof(Realizes));

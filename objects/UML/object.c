@@ -442,7 +442,7 @@ objet_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  font = dia_font_new (BASIC_SANS_FONT,STYLE_NORMAL,OBJET_FONTHEIGHT);
+  font = dia_font_new_from_style(DIA_FONT_SANS, OBJET_FONTHEIGHT);
   
   ob->show_attributes = FALSE;
   ob->is_active = FALSE;

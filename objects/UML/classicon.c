@@ -410,7 +410,7 @@ classicon_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  font = dia_font_new (BASIC_SANS_FONT,STYLE_NORMAL,0.8);
+  font = dia_font_new_from_style (DIA_FONT_SANS, 0.8);
   
   cicon->stereotype = 0;
   cicon->is_object = 0;

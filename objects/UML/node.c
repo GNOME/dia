@@ -324,7 +324,7 @@ static Object *node_create(Point *startpoint, void *user_data, Handle **handle1,
 
   elem->corner = *startpoint;
 
-  font = dia_font_new (BASIC_SANS_FONT,STYLE_NORMAL,0.8);
+  font = dia_font_new_from_style (DIA_FONT_SANS, 0.8);
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;

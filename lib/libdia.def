@@ -169,6 +169,7 @@ EXPORTS
  dia_font_init
  dia_font_new
  dia_font_new_from_legacy_name
+ dia_font_new_from_style
  dia_font_ref
  dia_font_scaled_build_layout
  dia_font_scaled_string_width

@@ -346,8 +346,8 @@ message_create(Point *startpoint,
   Object *obj;
 
   if (message_font == NULL) {
-	  message_font = dia_font_new (BASIC_SANS_FONT, STYLE_NORMAL,
-                                 MESSAGE_FONTHEIGHT);
+    message_font = 
+      dia_font_new_from_style (DIA_FONT_SANS, MESSAGE_FONTHEIGHT);
   }
   
   message = g_malloc0(sizeof(Message));

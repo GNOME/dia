@@ -71,6 +71,43 @@ typedef enum {
   STYLE_HEAVY_ITALIC,
 } Style;
 
+/* storing different style info like 
+ * (DIA_FONT_SANS | DIA_FONT_ITALIC | DIA_FONT_BOLD)
+ */
+typedef guint DiaFontStyle;
+
+typedef enum
+{
+  DIA_FONT_FAMILY_ANY = 0,
+  DIA_FONT_SANS       = 1,
+  DIA_FONT_SERIF      = 2,
+  DIA_FONT_MONOSPACE  = 3
+} DiaFontFamily;
+
+typedef enum
+{
+  DIA_FONT_NORMAL  = (0<<2),
+  DIA_FONT_OBLIQUE = (1<<2),
+  DIA_FONT_ITALIC  = (2<<2)
+} DiaFontObliquity; /* Don't call this Style, better names ? */
+
+typedef enum
+{
+  DIA_FONT_ULTRALIGHT    = (1<<4),
+  DIA_FONT_LIGHT         = (2<<4),
+  DIA_FONT_WEIGHT_NORMAL = (0<<4), /* intentionaly ==0 */
+  DIA_FONT_MEDIUM        = (3<<4),
+  DIA_FONT_DEMIBOLD      = (4<<4),
+  DIA_FONT_BOLD          = (5<<4),
+  DIA_FONT_ULTRABOLD     = (6<<4),
+  DIA_FONT_HEAVY         = (7<<4)
+} DiaFontWeight;
+
+/* macros to get a specific style info */
+#define DIA_FONT_STYLE_GET_FAMILY(st)    ((st) & (0x3))
+#define DIA_FONT_STYLE_GET_OBLIQUITY(st) ((st) & (0x3<<2))
+#define DIA_FONT_STYLE_GET_WEIGHT(st)    ((st) & (0x7<<4))
+
 typedef struct _DiaFont DiaFont;
 typedef struct _DiaFontClass DiaFontClass;
 
@@ -88,6 +125,7 @@ GType dia_font_get_type(void) G_GNUC_CONST;
 struct _DiaFontClass {
     GObjectClass parent_class;
 };
+
 struct _DiaFont {
     GObject parent_instance;
 
@@ -101,9 +139,13 @@ void dia_font_init(PangoContext* pcontext);
                              
                              
     /* Get a font matching family,style,height. MUST be freed with
-       dia_font_free(). */
+       dia_font_unref(). */
 DiaFont* dia_font_new(const char *family, Style style,
                      real height);
+
+    /* Get a font matching style. This is the preferred method to
+     * create default fonts within objects. */
+DiaFont* dia_font_new_from_style(DiaFontStyle style, real height);
 
     /* Get a font from a legacy font name */ 
 DiaFont* dia_font_new_from_legacy_name(const char *name);

@@ -343,7 +343,7 @@ component_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  font = dia_font_new (BASIC_SANS_FONT,STYLE_NORMAL,0.8);
+  font = dia_font_new_from_style (DIA_FONT_SANS, 0.8);
   p = *startpoint;
   p.x += COMPONENT_CWIDTH + COMPONENT_MARGIN_X;
   p.y += 2*COMPONENT_CHEIGHT;

@@ -121,6 +121,74 @@ dia_font_new(const char *family, Style style, real height)
 }
 
 DiaFont*
+dia_font_new_from_style(DiaFontStyle style, real height)
+{
+  DiaFont* retval;
+  /* in the future we could establish Dia's own default font
+   * matching to be as (font-)system independent as possible.
+   * For now fall back to Pangos configuration --hb
+   */
+  PangoFontDescription* pfd = pango_font_description_new();
+  switch (DIA_FONT_STYLE_GET_FAMILY(style)) {
+  case DIA_FONT_SANS :
+    pango_font_description_set_family(pfd, "sans");
+    break;
+  case DIA_FONT_SERIF :
+    pango_font_description_set_family(pfd, "serif");
+    break;
+  case DIA_FONT_MONOSPACE :
+    pango_font_description_set_family(pfd, "monospace");
+    break;
+  default :
+    /* FIXME: does Pango allow font_descs without a name */
+    ;
+  }
+  switch (DIA_FONT_STYLE_GET_WEIGHT(style)) {
+  case DIA_FONT_ULTRALIGHT :
+    pango_font_description_set_weight(pfd, PANGO_WEIGHT_ULTRALIGHT);
+    break;
+  case DIA_FONT_LIGHT :
+    pango_font_description_set_weight(pfd, PANGO_WEIGHT_LIGHT);
+    break;
+  case DIA_FONT_MEDIUM : /* Pango doesn't have this */
+  case DIA_FONT_WEIGHT_NORMAL :
+    pango_font_description_set_weight(pfd, PANGO_WEIGHT_NORMAL);
+    break;
+  case DIA_FONT_DEMIBOLD : /* Pango doesn't have this */
+  case DIA_FONT_BOLD :
+    pango_font_description_set_weight(pfd, PANGO_WEIGHT_BOLD);
+    break;
+  case DIA_FONT_ULTRABOLD :
+    pango_font_description_set_weight(pfd, PANGO_WEIGHT_ULTRABOLD);
+    break;
+  case DIA_FONT_HEAVY :
+    pango_font_description_set_weight(pfd, PANGO_WEIGHT_HEAVY);
+    break;
+  default :
+    g_assert_not_reached();
+  }
+  switch (DIA_FONT_STYLE_GET_OBLIQUITY(style)) {
+  case DIA_FONT_NORMAL :
+    pango_font_description_set_style(pfd,PANGO_STYLE_NORMAL);
+    break;
+  case DIA_FONT_OBLIQUE :
+    pango_font_description_set_style(pfd,PANGO_STYLE_OBLIQUE);
+    break;
+  case DIA_FONT_ITALIC :
+    pango_font_description_set_style(pfd,PANGO_STYLE_ITALIC);
+    break;
+  default :
+    g_assert_not_reached();
+  }
+  pango_font_description_set_size(pfd, dcm_to_pdu(height) );
+
+  retval = DIA_FONT(g_type_create_instance(dia_font_get_type()));
+  retval->pfd = pfd;
+  dia_font_ref(retval);
+  return retval;
+}
+
+DiaFont*
 dia_font_new_from_static(const char *family, Style style, real height)
 {
     PangoFontDescription* pfd = pango_font_description_new();
@@ -190,6 +258,10 @@ dia_font_get_psfontname(const DiaFont *font)
     return dia_font_get_legacy_name(font);
 }
 
+/**
+ * Given a legacy name as stored until Dia-0.90 construct
+ * a new DiaFont which is as similar as possible
+ */
 DiaFont*
 dia_font_new_from_legacy_name(const char* name)
 {
@@ -216,7 +288,8 @@ dia_font_new_from_legacy_name(const char* name)
 }
 
 static G_CONST_RETURN char*
-dia_font_style_to_legacy_name(Style style) {
+dia_font_style_to_legacy_name(Style style) 
+{
     switch(style) {
         case STYLE_BOLD_ITALIC:
             return "-BoldOblique";
@@ -452,6 +525,7 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
 
     altered_font = dia_font_copy(font);
 
+#if 1 //FIXME: This produce _lots_ of Pango warnings ?? --hb
         /* Second try. Using the "condense horizontally" strategy. */
     
     for (stretch = pango_font_description_get_stretch(altered_font->pfd);
@@ -470,6 +544,7 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
     pango_font_description_set_stretch(
         altered_font->pfd,
         pango_font_description_get_stretch(font->pfd));
+#endif
     
         /* Third try. Using the "reduce overall size" strategy. */
     for (altered_scaling = scaling;

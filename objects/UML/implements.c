@@ -279,8 +279,8 @@ implements_create(Point *startpoint,
   Point defaultlen = { 1.0, 1.0 };
 
   if (implements_font == NULL) {
-	  implements_font = dia_font_new (BASIC_MONOSPACE_FONT,
-                                    STYLE_NORMAL,IMPLEMENTS_FONTHEIGHT);
+    implements_font = 
+      dia_font_new_from_style(DIA_FONT_MONOSPACE, IMPLEMENTS_FONTHEIGHT);
   }
   
   implements = g_malloc0(sizeof(Implements));

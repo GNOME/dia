@@ -117,7 +117,7 @@ dia_plugin_get_filename(PluginInfo *info)
 const gchar *
 dia_plugin_get_name(PluginInfo *info)
 {
-  return info->name;
+  return info->name ? info->name : _("???");
 }
 
 const gchar *
@@ -232,6 +232,7 @@ dia_plugin_load(PluginInfo *info)
   if (!info->module) {
     message_error(_("Could not load plugin `%s'\n%s"), info->filename,
 		  g_module_error());
+    info->description = g_strdup(g_module_error());
     return;
   }
 
@@ -243,6 +244,7 @@ dia_plugin_load(PluginInfo *info)
 
     message_error(_("Could not find plugin init function in `%s'"),
 		  info->filename);
+    info->description = g_strdup(_("Missing symbol 'dia_plugin_init'"));
     return;
   }
 
@@ -250,6 +252,7 @@ dia_plugin_load(PluginInfo *info)
     /* plugin displayed an error message */
     g_module_close(info->module);
     info->module = NULL;
+    info->description = g_strdup(_("dia_pluin_init() call failed"));
     return;
   }
 

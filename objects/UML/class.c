@@ -700,23 +700,22 @@ fill_in_fontdata(UMLClass *umlclass)
 {
    if (umlclass->normal_font == NULL) {
      umlclass->font_height = 0.8;
-     umlclass->normal_font = dia_font_new(BASIC_MONOSPACE_FONT,
-                                          STYLE_NORMAL,0.8);
+     umlclass->normal_font = dia_font_new_from_style(DIA_FONT_MONOSPACE, 0.8);
    }
    if (umlclass->abstract_font == NULL) {
      umlclass->abstract_font_height = 0.8;
-     umlclass->abstract_font = dia_font_new(BASIC_MONOSPACE_FONT,
-                                            STYLE_ITALIC,0.8);
+     umlclass->abstract_font = 
+       dia_font_new_from_style(DIA_FONT_MONOSPACE | DIA_FONT_ITALIC, 0.8);
    }
    if (umlclass->classname_font == NULL) {
      umlclass->classname_font_height = 1.0;
-     umlclass->classname_font = dia_font_new(BASIC_SANS_FONT,
-                                             STYLE_BOLD,1.0);
+     umlclass->classname_font = 
+       dia_font_new_from_style(DIA_FONT_SANS | DIA_FONT_BOLD, 1.0);
    }
    if (umlclass->abstract_classname_font == NULL) {
      umlclass->abstract_classname_font_height = 1.0;
-     umlclass->abstract_classname_font = dia_font_new(BASIC_SANS_FONT,
-                                                      STYLE_BOLD_ITALIC,1.0);
+     umlclass->abstract_classname_font = 
+       dia_font_new_from_style(DIA_FONT_SANS | DIA_FONT_BOLD | DIA_FONT_ITALIC, 1.0);
    }
 }
 
@@ -804,6 +803,8 @@ umlclass_destroy(UMLClass *umlclass)
   dia_font_unref(umlclass->abstract_font);
   dia_font_unref(umlclass->classname_font);
   dia_font_unref(umlclass->abstract_classname_font);
+
+  element_destroy(&umlclass->element);  
   
   g_free(umlclass->name);
   if (umlclass->stereotype != NULL)
@@ -867,7 +868,6 @@ umlclass_destroy(UMLClass *umlclass)
     g_list_free(umlclass->properties_dialog->deleted_connections);
     g_free(umlclass->properties_dialog);
   }
-  element_destroy(&umlclass->element);  
 }
 
 static Object *

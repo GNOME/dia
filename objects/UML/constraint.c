@@ -264,8 +264,8 @@ constraint_create(Point *startpoint,
   Point defaultlen = { 1.0, 1.0 };
 
   if (constraint_font == NULL) {
-	  constraint_font = dia_font_new(BASIC_MONOSPACE_FONT,STYLE_NORMAL,
-                                   CONSTRAINT_FONTHEIGHT);
+    constraint_font = 
+      dia_font_new_from_style (DIA_FONT_MONOSPACE, CONSTRAINT_FONTHEIGHT);
   }
   
   constraint = g_malloc0(sizeof(Constraint));
