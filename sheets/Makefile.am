@@ -8,7 +8,7 @@ sheet_in_files = \
   EML.sheet.in Misc.sheet.in Assorted.sheet.in ciscocomputer.sheet.in \
   ciscohub.sheet.in ciscomisc.sheet.in cisconetwork.sheet.in \
   ciscorouter.sheet.in Cybernetics.sheet.in IsometricMap.sheet.in \
-  Istar.sheet.in Jackson.sheet.in KAOS.sheet.in
+  Istar.sheet.in Jackson.sheet.in KAOS.sheet.in ChemEng.sheet.in
 
 SHEETS = $(sheet_in_files:.sheet.in=.sheet)
 

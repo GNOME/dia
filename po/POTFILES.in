@@ -172,6 +172,7 @@ plug-ins/xfig/xfig.c
 plug-ins/xslt/xslt.c
 plug-ins/xslt/xsltdialog.c
 sheets/Assorted.sheet.in
+sheets/ChemEng.sheet.in
 sheets/Circuit.sheet.in
 sheets/Contact.sheet.in
 sheets/Cybernetics.sheet.in

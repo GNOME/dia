@@ -434,6 +434,7 @@ objects/standard/Makefile
 objects/UML/Makefile
 shapes/Makefile
 shapes/Assorted/Makefile
+shapes/ChemEng/Makefile
 shapes/Circuit/Makefile
 shapes/Cisco/Makefile
 shapes/Civil/Makefile

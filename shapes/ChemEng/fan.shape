@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>chemeng - fan</name>
+  <icon>fan.png</icon>
+  <connections>
+    <point x="3" y="1"/>
+  </connections>
+  <svg:svg>
+    <svg:path style="fill:default" d="M 6 1 C 6,-1 0,3 0,1 C 0,-1 6,3 6,1z"/>
+  </svg:svg>
+</shape>

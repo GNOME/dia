@@ -26,6 +26,7 @@
 #include "uml.h"
 
 #define UMLCLASS_CONNECTIONPOINTS 8
+#define UMLCLASS_WRAP_AFTER_CHAR 40
 
 typedef struct _UMLClass UMLClass;
 typedef struct _UMLClassDialog UMLClassDialog;
@@ -61,6 +62,9 @@ struct _UMLClass {
   int visible_operations;
   int visible_comments;
 
+  int wrap_operations; /* wrap operations with many parameters */
+  int wrap_after_char;
+
   Color line_color;
   Color fill_color;
   Color text_color;
@@ -85,6 +89,8 @@ struct _UMLClass {
   
   real operationsbox_height;
   GList *operations_strings;
+  GList **operations_wrappos;
+  int max_wrapped_line_width;
 
   real templates_height;
   real templates_width;
@@ -114,6 +120,7 @@ struct _UMLClassDialog {
   GtkToggleButton *op_vis;
   GtkToggleButton *op_supp;
   GtkToggleButton *comments_vis;
+  GtkToggleButton *op_wrap;
   DiaFontSelector *normal_font;
   DiaFontSelector *abstract_font;
   DiaFontSelector *polymorphic_font;
@@ -126,9 +133,11 @@ struct _UMLClassDialog {
   GtkSpinButton *classname_font_height;
   GtkSpinButton *abstract_classname_font_height;
   GtkSpinButton *comment_font_height;
+  GtkSpinButton *wrap_after_char;  
   DiaColorSelector *text_color;
   DiaColorSelector *line_color;
   DiaColorSelector *fill_color;
+  GtkLabel *max_length_label;
 
   GList *disconnected_connections;
   GList *added_connections; 

@@ -5,6 +5,20 @@
 
 2004-07-01  Lars Clausen  <lars@raeder.dk>
 
+	* plug-ins/cairo/diacairo.c: Add init of last field of filter
+	struct to remove crash.
+
+	* sheets/Makefile.am (sheet_in_files): 
+	* shapes/Makefile.am: 
+	* sheets/ChemEng.sheet.in: 
+	* shapes/ChemEng/Makefile.am: 
+	* configure.in: 
+	New sheet from "Federico Zenith" <zenith@chemeng.ntnu.no>:
+	Chemical engineering shapes.
+	
+	* app/Makefile.am (run_dia.sh$(EXEEXT)): Changed $* to $@ to allow
+	multiple arguments when using devel script.
+
 	* app/display.c (new_display): 
 	* app/dia-props.c: 
 	* lib/diagramdata.c (new_diagram_data): 

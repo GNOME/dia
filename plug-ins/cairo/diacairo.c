@@ -962,7 +962,8 @@ static DiaExportFilter ps_export_filter = {
     N_("Cairo PostScript"),
     ps_extensions,
     export_data,
-    (void*)OUTPUT_PS
+    (void*)OUTPUT_PS,
+    NULL
 };
 
 static const gchar *png_extensions[] = { "png", NULL };
@@ -970,7 +971,8 @@ static DiaExportFilter png_export_filter = {
     N_("Cairo PNG"),
     png_extensions,
     export_data,
-    (void*)OUTPUT_PNG
+    (void*)OUTPUT_PNG,
+    NULL
 };
 
 static gboolean

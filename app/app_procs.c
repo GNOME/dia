@@ -504,15 +504,17 @@ app_init (int argc, char **argv)
 
   stdprops_init();
 
-  if (dia_is_interactive)
+  if (dia_is_interactive) {
     dia_image_init();
 
-  gdk_rgb_init();
+    gdk_rgb_init();
 
-  gtk_rc_parse("diagtkrc"); 
+    gtk_rc_parse("diagtkrc"); 
 
-  if (dia_is_interactive && !nosplash)
-    app_splash_init("");
+    if (!nosplash) {
+      app_splash_init("");
+    }
+  }
 
   create_user_dirs();
 
@@ -521,14 +523,6 @@ app_init (int argc, char **argv)
     color_init();
     default_cursor = gdk_cursor_new(GDK_LEFT_PTR);
     ddisplay_set_all_cursor(default_cursor);
-  }
-
-  {
-    GdkScreen *screen = gdk_screen_get_default();
-    printf("Screen pixels %d screen size %d DPI %f\n",
-	   gdk_screen_get_width(screen),
-	   gdk_screen_get_width_mm(screen),
-	   gdk_screen_get_width(screen)/(gdk_screen_get_width_mm(screen)/25.4));
   }
 
   object_registry_init();
@@ -807,7 +801,7 @@ process_opts(int argc, char **argv,
 
       for (i=1; i<argc; i++) {
           char *in_file_name = argv[i]; /* unless it's an option... */
-          
+
           if (0==strcmp(argv[i],"-t")) {
               if (i < (argc-1)) {
                   i++;

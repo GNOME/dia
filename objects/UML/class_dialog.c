@@ -149,6 +149,8 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   umlclass->abstract = prop_dialog->abstract_class->active;
   umlclass->visible_attributes = prop_dialog->attr_vis->active;
   umlclass->visible_operations = prop_dialog->op_vis->active;
+  umlclass->wrap_operations = prop_dialog->op_wrap->active;
+  umlclass->wrap_after_char = gtk_spin_button_get_value_as_int(prop_dialog->wrap_after_char);
   umlclass->visible_comments = prop_dialog->comments_vis->active;
   umlclass->suppress_attributes = prop_dialog->attr_supp->active;
   umlclass->suppress_operations = prop_dialog->op_supp->active;
@@ -193,6 +195,8 @@ class_fill_in_dialog(UMLClass *umlclass)
   gtk_toggle_button_set_active(prop_dialog->abstract_class, umlclass->abstract);
   gtk_toggle_button_set_active(prop_dialog->attr_vis, umlclass->visible_attributes);
   gtk_toggle_button_set_active(prop_dialog->op_vis, umlclass->visible_operations);
+  gtk_toggle_button_set_active(prop_dialog->op_wrap, umlclass->wrap_operations);
+  gtk_spin_button_set_value (prop_dialog->wrap_after_char, umlclass->wrap_after_char);
   gtk_toggle_button_set_active(prop_dialog->comments_vis, umlclass->visible_comments);
   gtk_toggle_button_set_active(prop_dialog->attr_supp, umlclass->suppress_attributes);
   gtk_toggle_button_set_active(prop_dialog->op_supp, umlclass->suppress_operations);
@@ -245,6 +249,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *page_label;
   GtkWidget *label;
   GtkWidget *hbox;
+  GtkWidget *hbox2;
   GtkWidget *vbox;
   GtkWidget *entry;
   GtkWidget *checkbox;
@@ -252,6 +257,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *fill_color;
   GtkWidget *line_color;
   GtkWidget *table;
+  GtkObject *adj;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -308,6 +314,21 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   checkbox = gtk_check_button_new_with_label(_("Suppress operations"));
   prop_dialog->op_supp = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
+
+  hbox  = gtk_hbox_new(TRUE, 5);
+  hbox2 = gtk_hbox_new(FALSE, 5);
+  checkbox = gtk_check_button_new_with_label(_("Wrap Operations"));
+  prop_dialog->op_wrap = GTK_TOGGLE_BUTTON( checkbox );
+  gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
+  adj = gtk_adjustment_new( umlclass->wrap_after_char, 0.0, 200.0, 1.0, 5.0, 1.0);
+  prop_dialog->wrap_after_char = GTK_SPIN_BUTTON(gtk_spin_button_new( GTK_ADJUSTMENT( adj), 0.1, 0));
+  gtk_spin_button_set_numeric( GTK_SPIN_BUTTON( prop_dialog->wrap_after_char), TRUE);
+  gtk_spin_button_set_snap_to_ticks( GTK_SPIN_BUTTON( prop_dialog->wrap_after_char), TRUE);
+  prop_dialog->max_length_label = GTK_LABEL( gtk_label_new( "Wrap after this length: "));
+  gtk_box_pack_start (GTK_BOX (hbox2), GTK_WIDGET( prop_dialog->max_length_label), FALSE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), GTK_WIDGET( prop_dialog->wrap_after_char), TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET( hbox2), TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
   hbox = gtk_hbox_new(FALSE, 5);
