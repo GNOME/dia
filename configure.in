@@ -69,7 +69,8 @@ if test "$have_pangoft2" = "true"; then
     AC_MSG_CHECKING([if FreeType version is 2.0.9 or higher])
     old_CPPFLAGS="$CPPFLAGS"
     CPPFLAGS="$CPPFLAGS `freetype-config --cflags`"
-    AC_TRY_CPP([#include <freetype/freetype.h>
+    AC_TRY_CPP([#include <ft2build.h>
+#include FT_FREETYPE_H
 #if (FREETYPE_MAJOR*1000+FREETYPE_MINOR)*1000+FREETYPE_PATCH < 2000009
 #error Freetype version too low.
 #endif

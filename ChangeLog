@@ -1,5 +1,7 @@
 2003-12-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* configure.in: Better FT2 version test, from bug #129225.
+
 	* dia.spec (BuildRequires): Changed to match makefile (bug #129131)
 
 	* plug-ins/xslt/dia-uml2python.xsl: Added Python sheet from Holger
