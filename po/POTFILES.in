@@ -97,7 +97,6 @@ objects/standard/polyline.c
 objects/standard/standard.c
 objects/standard/textobj.c
 objects/standard/zigzagline.c
-objects/sybase/sybase.c
 objects/UML/actor.c
 objects/UML/association.c
 objects/UML/class.c

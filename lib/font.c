@@ -62,6 +62,7 @@
 #include "gdk/gdkx.h"
 #include <sys/types.h>
 #include <dirent.h>
+#include <glib.h>
 #endif
 
 #include "utils.h"
@@ -475,6 +476,15 @@ char *last_resort_fonts[] = {
 };
 #define NUM_LAST_RESORT_FONTS (sizeof(last_resort_fonts)/sizeof(char *))
 
+char *xfs_configs[]={
+  "/etc/X11/fs/config",		/* RedHat */
+  "/etc/X11/xfs/config",	/* Debian */
+};
+#define NUM_XFS_CONFIGS (sizeof(xfs_configs)/sizeof(char *))
+
+/* Maximum number of fonts per line in xfs configuration file */
+#define MAX_NUM_FONTS_PER_LINE	(20)
+
 static void
 init_x11_font(FontPrivate *font)
 {
@@ -556,6 +566,13 @@ freetype_try_attachments(FT_Face face, char *filename) {
   }
 }
 
+static gint
+freetype_compare_face(FreetypeFace *a, FreetypeFace *b)
+  /* Compares two face names */
+{
+    return(g_strcasecmp(a->face->style_name, b->face->style_name));
+}
+
 void 
 freetype_add_font(char *dirname, char *filename) {
   FT_Face face = NULL, first_face = NULL;
@@ -599,8 +616,16 @@ freetype_add_font(char *dirname, char *filename) {
     
     new_face = (FreetypeFace*)g_malloc(sizeof(FreetypeFace));
     new_face->face = face;
-    new_face->from_file = strdup(fullname);
-    new_font->faces = g_list_append(new_font->faces, new_face);
+    new_face->from_file = g_strdup(fullname);
+    if (g_list_find_custom(new_font->faces, new_face, (GCompareFunc)freetype_compare_face) == NULL)
+    {
+      new_font->faces = g_list_append(new_font->faces, new_face);
+    }
+    else
+    {
+      g_free(new_face->from_file);
+      g_free(new_face);
+    }
 
 #ifdef HAVE_UNICODE
     FT_Select_Charmap(face, ft_encoding_unicode);
@@ -637,12 +662,142 @@ freetype_scan_directory(char *dirname) {
   closedir(fontdir);
 }
 
+static GSList *
+freetype_scan_fontserver(char *config)
+  /* Scans xfs configuration file passed in config for font paths
+   * Returns a GPtrArray of strings which are possible font paths
+   * Array should be freed once no longer required
+   * The file config does not have to exist. */
+{
+  char line[FILENAME_MAX];	/* FILENAME_MAX is defined in stdio.h in gcc - others?? */
+  FILE *file;
+  GSList *fontlist;
+  int catsection=FALSE;	/* When TRUE we're processing the catalogue section */
+  gchar **strlist;
+  gchar *listelem;
+  int i;
+  char *s;
+
+  file=fopen(config,"r");
+  if (file == NULL)
+  {
+    return(NULL);
+  }
+
+  fontlist = NULL;
+  
+  while (!feof(file))
+  {
+    gchar *newpath;
+
+    if (fgets(line, sizeof(line), file) == NULL)	/* get line from file */
+      break;
+
+    g_strstrip(line);	/* Remove leading and trailing white space */
+
+    if (strlen(line) < 2) /* Empty line */
+      continue;
+    
+    if (*line == '#')	/* Comment line */
+      continue;
+  
+
+    s=strstr(line,"catalogue");
+    if (s != NULL) 	/* Found Catalogue section */
+    {
+      catsection=TRUE;
+      s=strstr(line,"catalogue");
+      s=strchr(s,'=');	/* Location of = after catalogue */
+      if (s == NULL)
+      {
+	/* No = after catalogue - weird */
+	continue;		/* Not the "Best" solution */
+      }
+      s=strchr(s,'/');	/* Locate start of path if there's one */
+      if (s == NULL)
+	continue;		/* First path on next line */
+
+      memmove(line, s, strlen(s));	/* move path to beginning of line */
+    }
+
+    if (!catsection)
+      continue;
+
+    /* If we get to here and catsection == TRUE then line contains a path */
+    /* At this point we split the string into substrings at commas
+     * and each is a path. If we get to the end of a line and there is
+     * no comma, then we must have finished the catalogue */
+
+    if (line[strlen(line)-1] != ',')	/* path seperator */
+      catsection = FALSE;
+
+    strlist = g_strsplit(line,",",MAX_NUM_FONTS_PER_LINE);/* Splits string at commas */
+
+    for (i=0; strlist[i] != NULL; i++)
+    {
+      listelem = strlist[i];
+      g_strstrip(listelem);	/* Remove all white space */
+
+      if (listelem[strlen(listelem)-1] == ',')
+	listelem[strlen(listelem)-1] = '\0';
+
+      s=strchr(listelem,':');	/* Some paths have :unscaled, remove it */
+      if (s != NULL)
+	*s='\0';
+            
+      if (*listelem == '/')	/* Skip all but paths */
+      {
+
+      /* If the listelem now starts with a / we can try it as a path 
+       * Add it to the font list. 
+       * Note that both the array and strings need to be freed later */
+
+	newpath = g_strdup(listelem);
+	fontlist = g_slist_append(fontlist, (gpointer) newpath);
+	LC_DEBUG(fprintf(stderr, "XFS Font path added: %s\n",newpath));
+
+      }
+    }
+
+    g_strfreev(strlist);	/* Free string list */
+  }
+
+  fclose(file);
+
+  return(fontlist);
+}
+
+
+static GSList *
+slist_unique_append_string(GSList *list, gchar *str)
+  /* Appends str to the list if the list doesn't contain a 
+   * string the same as str */
+{
+  if (str != NULL)
+  {
+    if (list == NULL)
+    {
+      list=g_slist_append(list, str);
+    }
+    else
+    {
+      if (g_slist_find_custom(list,str,(GCompareFunc)strcmp) == NULL)
+	list=g_slist_append(list, str);
+    }
+  }
+  return(list);
+}
+
+
 void
 font_init_freetype()
 {
   char **fontlist;
   int fontcount;
-  int i;
+  int i,config;
+  int xfontserver;
+  GSList *pathlist, *listelem;
+
   FT_Error error = FT_Init_FreeType( &ft_library );
   if ( error )
   {
@@ -659,9 +814,45 @@ font_init_freetype()
     return;
   }
 
+  xfontserver = FALSE;
+  pathlist = FALSE;
+
   for (i = 0; i < fontcount; i++) {
-    freetype_scan_directory(fontlist[i]);
+    if (fontlist[i][0] != '/')		/* this isn't a perfect check */
+      xfontserver = TRUE;
+    pathlist = slist_unique_append_string(pathlist, g_strdup(fontlist[i]));
   }
+
+  if (xfontserver)
+  {
+    for (config=0; config< NUM_XFS_CONFIGS; config++)
+    {
+      GSList *newlist;
+      
+      newlist = freetype_scan_fontserver(xfs_configs[config]);
+
+      listelem = newlist;
+
+      while (listelem != NULL)
+      {
+	pathlist = slist_unique_append_string(pathlist, g_strdup(listelem->data));
+	g_free(listelem->data);
+	listelem=g_slist_next(listelem);
+      }
+      g_slist_free(newlist);
+    }
+  }
+
+  listelem=pathlist;
+  while (listelem != NULL)
+  {
+      freetype_scan_directory((char *)listelem->data);
+      g_free(listelem->data);
+      listelem=g_slist_next(listelem);
+  }
+
+  g_slist_free(pathlist);
+
 
   if (g_hash_table_size(freetype_fonts) == 0) {
     message_warning(_("Warning: No fonts loaded.  Are there any font files in the X font path?"));

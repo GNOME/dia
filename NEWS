@@ -1,3 +1,13 @@
+dia-0.90.RC3:  30-May-2002
+
+* in FreeType mode, dia now looks for the xfs configuration files too
+  to retrieve the font path.
+* Polish version of the manual added
+* a load-time compatibility issue with files produced by 0.88.1 was
+  found and fixed for some UML objects.
+* we now better use the intltool facilities
+* various build problems on Solaris fixed and/or documented.
+
 dia-0.90.RC2:  24-May-2002
 
 * increased tolerance to broken XML files

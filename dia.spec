@@ -1,5 +1,5 @@
 %define name dia
-%define ver 0.90.RC2
+%define ver 0.90.RC3
 
 Summary: A gtk+ based diagram creation program.
 Name: %name

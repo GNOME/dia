@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86(cvs)\n"
-"POT-Creation-Date: 2002-05-28 19:35+0200\n"
-"PO-Revision-Date: 2002-05-28 19:23+0200\n"
+"POT-Creation-Date: 2002-05-30 07:34+0200\n"
+"PO-Revision-Date: 2002-05-29 15:17+0200\n"
 "Last-Translator: Jörgen Scheibengruber <mfcn@gmx.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1813,7 +1813,7 @@ msgid ""
 "%s\n"
 "User sheet"
 msgstr ""
-"%\n"
+"%s\n"
 "Benutzerobjektbogen"
 
 #: app/sheets.c:282
@@ -2095,7 +2095,7 @@ msgstr ""
 "wurden, gibt, werden Sie auf Fehler stoßen. Bitte wenden Sie sich an dia-"
 "list@gnome.org, wenn Sie diese Meldung erhalten."
 
-#: lib/font.c:517
+#: lib/font.c:527
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -2104,35 +2104,35 @@ msgstr ""
 "Warnung: Keine X-Schrift für %s gefunden,\n"
 "stattdessen wird %s verwendet.\n"
 
-#: lib/font.c:649
+#: lib/font.c:804
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr ""
 "Warunung: FreeType wurde ausgewählt, aber die Bibliothek konnte %d nicht "
 "laden\n"
 
-#: lib/font.c:658
+#: lib/font.c:813
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Warnung: Es wurden keine X-Schriftarten gefunden. Die Welt geht unter."
 
-#: lib/font.c:667
+#: lib/font.c:858
 msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
 msgstr ""
 "Warnung: Es wurden keine Schriftarten geladen. Gibt es Schriftarten im X-"
 "Schriftenpfad?"
 
-#: lib/font.c:959
+#: lib/font.c:1150
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr ""
 "Fehler: Die Schrift konnte nicht gefunden werden. Das sollte nicht "
 "passieren.\n"
 
-#: lib/font.c:961 lib/font.c:995
+#: lib/font.c:1152 lib/font.c:1186
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Schrift %s wurde nicht gefunden. Stattdessen wird Courier verwendet.\n"
 
-#: lib/font.c:971
+#: lib/font.c:1162
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "Die Schrift %s hat keinen Stil %s, es wird %s verwendet\n"
@@ -2538,11 +2538,11 @@ msgstr "Schwach:"
 #: objects/ER/entity.c:349 objects/ER/entity.c:351 objects/UML/classicon.c:124
 #: sheets/ER.sheet.in.h:4
 msgid "Entity"
-msgstr "Einheit"
+msgstr "Entität"
 
 #: objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
-msgstr "Einheit/Beziehungsdiagram Objekte"
+msgstr "Entität/Beziehungsdiagramm Objekte"
 
 #: objects/ER/participation.c:113
 msgid "Total:"
@@ -5026,7 +5026,7 @@ msgstr "ER"
 
 #: sheets/ER.sheet.in.h:3
 msgid "Editor for Entity Relations Diagrams"
-msgstr "Editor für Einheit/Beziehungsdiagram"
+msgstr "Editor für Entität/Beziehungsdiagramme"
 
 #: sheets/ER.sheet.in.h:5
 msgid "Participation"
@@ -5034,7 +5034,7 @@ msgstr "Beteiligung"
 
 #: sheets/ER.sheet.in.h:7
 msgid "Weak Entity"
-msgstr "Schwache Einheit"
+msgstr "Schwache Entität"
 
 #: sheets/Flowchart.sheet.in.h:1
 msgid "A box with text inside"

@@ -1,3 +1,18 @@
+2002-05-30  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* lib/font.c: patch from <robert.young@dsto.defence.gov.au>; add a
+	way to read the font path from the XFS configuration files in
+	order to enable FreeType (fixes #83098).
+
+	* POTFILES.(in,skip): now skips objects/sybase/sybase.c, which is not
+	shipped nowadays.
+		
+	* dia.spec:
+	* configure.in:
+	* NEWS:
+	* config.h.win32:
+	bumped up version number to 0.90.RC3
+
 2002-05-29  Zbigniew Chyla  <cyba@gnome.pl>
 
 	* configure.in, doc/Makefile.am, doc/pl/Makefile.am,

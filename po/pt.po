@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 1.0\n"
-"POT-Creation-Date: 2002-05-26 11:03+0200\n"
+"POT-Creation-Date: 2002-05-30 07:34+0200\n"
 "PO-Revision-Date: 2002-05-26 02:48+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
@@ -625,11 +625,11 @@ msgstr "Criar Texto"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:60 app/menus.c:211 lib/properties.c:77 lib/properties.h:501
-#: lib/properties.h:504 objects/UML/actor.c:115 objects/UML/classicon.c:137
+#: app/interface.c:60 app/menus.c:211 lib/properties.c:77 lib/properties.h:503
+#: lib/properties.h:506 objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
 #: objects/UML/object.c:142 objects/UML/small_package.c:120
-#: objects/UML/state.c:137 objects/UML/usecase.c:130
+#: objects/UML/state.c:143 objects/UML/usecase.c:130
 msgid "Text"
 msgstr "Texto"
 
@@ -781,7 +781,7 @@ msgstr "Detalhes..."
 msgid "Line Style Properties"
 msgstr "Propriedades da Linha"
 
-#: app/linewidth_area.c:216 lib/properties.h:477
+#: app/linewidth_area.c:216 lib/properties.h:479
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Largura da linha"
@@ -1014,16 +1014,16 @@ msgstr "Transitivo"
 msgid "Same Type"
 msgstr "Mesmo Tipo"
 
-#: app/menus.c:178 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:381
+#: app/menus.c:178 lib/properties.c:62 lib/properties.h:467 lib/widgets.c:381
 msgid "Left"
 msgstr "Esquerda"
 
-#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/properties.h:466
+#: app/menus.c:179 app/menus.c:188 lib/properties.c:63 lib/properties.h:468
 #: lib/widgets.c:387
 msgid "Center"
 msgstr "Centrar"
 
-#: app/menus.c:180 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:393
+#: app/menus.c:180 lib/properties.c:64 lib/properties.h:469 lib/widgets.c:393
 msgid "Right"
 msgstr "Direita"
 
@@ -2074,7 +2074,7 @@ msgstr ""
 "deparar-se com problemas. Envie um relatório para dia-list@gnome.org caso "
 "veja esta mensagem."
 
-#: lib/font.c:517
+#: lib/font.c:527
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -2083,32 +2083,32 @@ msgstr ""
 "Aviso: nenhuma Fonte X encontrada para %s, \n"
 "a utilizar %s como substituta.\n"
 
-#: lib/font.c:649
+#: lib/font.c:804
 #, c-format
 msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
 msgstr ""
 "Aviso: Seleccionado FreeType, mas biblioteca não pode ser carregada: %d\n"
 
-#: lib/font.c:658
+#: lib/font.c:813
 msgid "Warning: No X fonts found.  The world is ending."
 msgstr "Aviso: Nenhuma fonte X encontrada. O mundo está a acabar."
 
-#: lib/font.c:667
+#: lib/font.c:858
 msgid "Warning: No fonts loaded.  Are there any font files in the X font path?"
 msgstr ""
 "Aviso: Nenhumas fontes carregadas. Existem ficheiros de fontes no caminho de "
 "fontes X?"
 
-#: lib/font.c:959
+#: lib/font.c:1150
 msgid "Error, couldn't locate font. Shouldn't happen.\n"
 msgstr "Erro, incapaz de localizar fonte. Não deveria acontecer.\n"
 
-#: lib/font.c:961 lib/font.c:995
+#: lib/font.c:1152 lib/font.c:1186
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Fonte %s não encontrada, a utilizar Courier em substituição.\n"
 
-#: lib/font.c:971
+#: lib/font.c:1162
 #, c-format
 msgid "Font %s has no style %s, using %s\n"
 msgstr "Fonte %s não tem o estilo %s, a utilizar %s\n"
@@ -2159,19 +2159,19 @@ msgstr "`%s' não é um directório"
 msgid "Could not open `%s'"
 msgstr "Incapaz de abrir `%s'"
 
-#: lib/properties.c:71 lib/properties.h:480
+#: lib/properties.c:71 lib/properties.h:482
 msgid "Line colour"
 msgstr "Cor linha"
 
-#: lib/properties.c:72 lib/properties.h:483
+#: lib/properties.c:72 lib/properties.h:485
 msgid "Line style"
 msgstr "Estilo de linha"
 
-#: lib/properties.c:73 lib/properties.h:487
+#: lib/properties.c:73 lib/properties.h:489
 msgid "Fill colour"
 msgstr "Cor enchimento"
 
-#: lib/properties.c:74 lib/properties.h:490 objects/custom/custom_object.c:320
+#: lib/properties.c:74 lib/properties.h:492 objects/custom/custom_object.c:320
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
 #: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
 #: objects/standard/beziergon.c:221 objects/standard/box.c:232
@@ -2179,32 +2179,32 @@ msgstr "Cor enchimento"
 msgid "Draw background"
 msgstr "Desenhar fundo"
 
-#: lib/properties.c:75 lib/properties.h:494
+#: lib/properties.c:75 lib/properties.h:496
 msgid "Start arrow"
 msgstr "Início da seta"
 
-#: lib/properties.c:76 lib/properties.h:497
+#: lib/properties.c:76 lib/properties.h:499
 msgid "End arrow"
 msgstr "Fim da seta"
 
-#: lib/properties.c:78 lib/properties.h:507
+#: lib/properties.c:78 lib/properties.h:509
 msgid "Text alignment"
 msgstr "Alinhamento do texto"
 
-#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:133
+#: lib/properties.c:79 lib/properties.h:512 objects/GRAFCET/condition.c:133
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/UML/class_dialog.c:306 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Fonte"
 
-#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:135
+#: lib/properties.c:80 lib/properties.h:515 objects/GRAFCET/condition.c:135
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Tamanho fonte"
 
-#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:169
+#: lib/properties.c:81 lib/properties.h:518 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Cor texto"
@@ -2411,7 +2411,7 @@ msgstr "Cor linha"
 #: objects/FS/function.c:417 objects/SADT/annotation.c:357
 #: objects/UML/actor.c:332 objects/UML/classicon.c:415
 #: objects/UML/component.c:348 objects/UML/message.c:369
-#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:340
+#: objects/UML/node.c:328 objects/UML/object.c:447 objects/UML/state.c:352
 #: objects/UML/usecase.c:387 objects/chronogram/chronoline.c:611
 #: objects/chronogram/chronoref.c:434
 msgid "Helvetica"
