@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-26 22:59+0100\n"
-"PO-Revision-Date: 2003-10-26 23:00+0100\n"
+"POT-Creation-Date: 2003-11-03 22:49+0100\n"
+"PO-Revision-Date: 2003-11-03 23:15+0100\n"
 "Last-Translator: Dejan Matijević <dmax@neobee.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -539,7 +539,7 @@ msgstr ""
 msgid "No object menu"
 msgstr "Nema menija objekta"
 
-#: app/disp_callbacks.c:865
+#: app/disp_callbacks.c:856
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -572,7 +572,7 @@ msgstr "Zatvori dijagram"
 msgid "Discard Changes"
 msgstr "Odbaci promene"
 
-#: app/export_png.c:116 app/load_save.c:806 app/render_eps.c:103
+#: app/export_png.c:116 app/load_save.c:867 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
@@ -899,7 +899,7 @@ msgstr "Širina linije"
 msgid "Line width:"
 msgstr "Širina linije:"
 
-#: app/load_save.c:220
+#: app/load_save.c:245
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -907,7 +907,7 @@ msgstr ""
 "Greška pri učitavanju dijagrama.\n"
 "Vezani objekat nije nađen u dokumentu."
 
-#: app/load_save.c:223
+#: app/load_save.c:248
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -915,7 +915,7 @@ msgstr ""
 "Greška pri učitavanju dijagrama.\n"
 "Tačka veze ne postoji."
 
-#: app/load_save.c:226
+#: app/load_save.c:251
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -923,17 +923,22 @@ msgstr ""
 "Greška pri učitavanju dijagrama.\n"
 "Ručka veze ne postoji."
 
-#: app/load_save.c:276
+#: app/load_save.c:273
+#, c-format
+msgid "Can't find parent %s of %s object\n"
+msgstr "Ne mogu da nađem sadržaoca %s objekta %s\n"
+
+#: app/load_save.c:318
 msgid "You must specify a file, not a directory.\n"
 msgstr "Treba da odredite datoteku, a ne direktorijum.\n"
 
-#: app/load_save.c:283 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: app/load_save.c:325 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
 #: plug-ins/xfig/xfig-import.c:1517 plug-ins/xslt/xslt.c:78
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Nemože da otvori '%s' za čitanje.\n"
+msgstr "Ne mogu da otvorim „%s“ za čitanje.\n"
 
-#: app/load_save.c:300 app/load_save.c:305
+#: app/load_save.c:342 app/load_save.c:347
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -942,7 +947,7 @@ msgstr ""
 "Grešlka učitavajući dijagram %s.\n"
 "Nepoznati tip datoteke."
 
-#: app/load_save.c:312
+#: app/load_save.c:354
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -951,7 +956,7 @@ msgstr ""
 "Greška učitavajući dijagram %s.\n"
 "Nije Dia datoteka."
 
-#: app/load_save.c:509
+#: app/load_save.c:551
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -962,12 +967,12 @@ msgstr ""
 "%s.\n"
 "Ispravana Dia datoteka određuje najmanje jedan nivo."
 
-#: app/load_save.c:839
+#: app/load_save.c:900
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Nemože da snimi datoteku '%s'.\n"
 
-#: app/load_save.c:909 app/load_save.c:914
+#: app/load_save.c:970 app/load_save.c:975
 msgid "Native Dia Diagram"
 msgstr "Izvorni Dia Diajgram"
 
