@@ -305,6 +305,10 @@ static void
 dia_layer_deselect_callback(GtkWidget *widget, gpointer data)
 {
   DiaLayerWidget *lw = DIA_LAYER_WIDGET(widget);
+
+  /** If layer dialog or diagram is missing, we are so dead. */
+  if (layer_dialog == NULL || layer_dialog->diagram == NULL) return;
+
   /** Set to on if the user has requested so. */
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lw->connectable), 
 			       lw->connect_on);
@@ -580,8 +584,8 @@ layer_dialog_set_diagram(Diagram *dia)
   if (layer_dialog == NULL || layer_dialog->dialog == NULL) 
     create_layer_dialog(); /* May have been destroyed */
 
-  gtk_list_clear_items(GTK_LIST(layer_dialog->layer_list), 0, -1);
   layer_dialog->diagram = dia;
+  gtk_list_clear_items(GTK_LIST(layer_dialog->layer_list), 0, -1);
   if (dia != NULL) {
     i = g_list_index(dia_open_diagrams(), dia);
     if (i >= 0)

@@ -1,5 +1,15 @@
 2004-06-07  Lars Clausen  <lars@raeder.dk>
 
+	* app/layer_dialog.c (layer_dialog_set_diagram): 
+	* app/display.c: Layer widget crash more properly dealt with in
+	layer dialog code.
+	
+	* app/display.c (ddisplay_flush): Fixed crash when closing:  Layer
+	widget deselect was called during destroy, but called
+	ddisplay_flush, leading to a new display timeout after renderer
+	was dead.
+
+	* lib/widgets.c (dia_toggle_button_destroy): 
 	* app/recent_files.c (recent_file_menuitem_create): 
 	* lib/persistence.c (persistence_save_list): 
 	* app/commands.c (edit_delete_callback): 
