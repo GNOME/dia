@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.94-pre6\n"
-"Report-Msgid-Bugs-To: <http://bugzilla.gnome.org/enter_bug.cgi?product=l10n&component=Canadian+English+%5Ben_CA%5D>\n"
-"POT-Creation-Date: 2004-08-09 22:34-0400\n"
-"PO-Revision-Date: 2004-08-09 22:44-0400\n"
-"Last-Translator: Alexander Winston <alexander.winston@comcast.net>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-09-11 15:04-0400\n"
+"PO-Revision-Date: 2004-09-11 22:44-0400\n"
+"Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: app/app_procs.c:219
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
-msgstr "%s error: don't know how to export into %s\n"
+msgstr "%s error: do not know how to export into %s\n"
 
 #: app/app_procs.c:228
 #, c-format
@@ -40,7 +40,7 @@ msgstr "%s --> %s\n"
 #: app/app_procs.c:307
 #, c-format
 msgid "Can't find output format %s\n"
-msgstr "Can't find output format %s\n"
+msgstr "Cannot find output format %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
 #: app/app_procs.c:401
@@ -72,7 +72,7 @@ msgstr "WxH"
 
 #: app/app_procs.c:417
 msgid "Don't show the splash screen"
-msgstr "Don't show the splash screen"
+msgstr "Do not show the splash screen"
 
 #: app/app_procs.c:419
 msgid "Send error messages to stderr instead of showing dialogs."
@@ -92,7 +92,7 @@ msgstr "Show this help message"
 
 #: app/app_procs.c:465
 msgid "Can't connect to session manager!\n"
-msgstr "Can't connect to session manager!\n"
+msgstr "Cannot connect to session manager!\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
 #: app/app_procs.c:492
@@ -109,7 +109,7 @@ msgstr "Dia version %s\n"
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
-"Couldn't find standard objects when looking for object-libs, exiting...\n"
+"Could not find standard objects when looking for object-libs, exiting...\n"
 
 #: app/app_procs.c:591
 msgid "Diagram1.dia"
@@ -120,10 +120,9 @@ msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 msgstr ""
-"This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
+"This should not happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
 
-#. no standard buttons
 #: app/app_procs.c:645
 msgid ""
 "Modified diagrams exist.\n"
@@ -542,19 +541,19 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Page Setup"
 
-#: app/disp_callbacks.c:81 app/properties.c:152
+#: app/disp_callbacks.c:83 app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 msgstr ""
-"This object doesn't support Undo/Redo.\n"
+"This object does not support Undo/Redo.\n"
 "Undo information erased."
 
-#: app/disp_callbacks.c:116
+#: app/disp_callbacks.c:118
 msgid "Properties..."
 msgstr "Properties..."
 
-#: app/disp_callbacks.c:919
+#: app/disp_callbacks.c:926
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -589,14 +588,14 @@ msgstr "Discard Changes"
 
 #: app/export_png.c:134 app/load_save.c:904 app/render_eps.c:103
 #: plug-ins/cairo/diacairo.c:913 plug-ins/cgm/cgm.c:1157
-#: plug-ins/dxf/dxf-export.c:505 plug-ins/hpgl/hpgl.c:732
+#: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:732
 #: plug-ins/metapost/render_metapost.c:964
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:152 plug-ins/wpg/wpg.c:1066
 #: plug-ins/xfig/xfig-export.c:1100 plug-ins/xslt/xslt.c:94
 #, c-format
 msgid "Can't open output file %s: %s\n"
-msgstr "Can't open output file %s: %s\n"
+msgstr "Cannot open output file %s: %s\n"
 
 #: app/export_png.c:142
 msgid "Could not create PNG write structure"
@@ -928,7 +927,7 @@ msgstr ""
 #: app/load_save.c:305
 #, c-format
 msgid "Can't find parent %s of %s object\n"
-msgstr "Can't find parent %s of %s object\n"
+msgstr "Cannot find parent %s of %s object\n"
 
 #: app/load_save.c:350
 msgid "You must specify a file, not a directory.\n"
@@ -938,7 +937,7 @@ msgstr "You must specify a file, not a directory.\n"
 #: plug-ins/xfig/xfig-import.c:1560 plug-ins/xslt/xslt.c:87
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Couldn't open: '%s' for reading.\n"
+msgstr "Could not open: '%s' for reading.\n"
 
 #: app/load_save.c:374 app/load_save.c:379
 #, c-format
@@ -1436,12 +1435,12 @@ msgid ""
 "Can't find menu entry '%s'!\n"
 "This is probably a i18n problem (try LANG=C)."
 msgstr ""
-"Can't find menu entry '%s'!\n"
+"Cannot find menu entry '%s'!\n"
 "This is probably a i18n problem (try LANG=C)."
 
-#: app/modify_tool.c:328
+#: app/modify_tool.c:327
 msgid "Couldn't get GTK settings"
-msgstr "Couldn't get GTK settings"
+msgstr "Could not get GTK settings"
 
 #: app/paginate_psprint.c:242
 msgid "Select Printer"
@@ -1711,7 +1710,7 @@ msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
 msgstr ""
-"Can't get symbol 'custom_type' from any module.\n"
+"Cannot get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
 
 #: app/sheets.c:373
@@ -1908,12 +1907,12 @@ msgstr "Sheet must have a Name"
 #: app/sheets_dialog_callbacks.c:1594 app/sheets_dialog_callbacks.c:1600
 #, c-format
 msgid "Couldn't open '%s': %s"
-msgstr "Couldn't open '%s': %s"
+msgstr "Could not open '%s': %s"
 
 #: app/sheets_dialog_callbacks.c:1651
 #, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "Couldn't open: '%s' for writing"
+msgstr "Could not open: '%s' for writing"
 
 #: app/sheets_dialog_callbacks.c:1660
 msgid "a user"
@@ -2188,7 +2187,7 @@ msgstr "Multiple export filters with unique name %s"
 #: lib/font.c:89
 #, c-format
 msgid "Can't load font %s.\n"
-msgstr "Can't load font %s.\n"
+msgstr "Cannot load font %s.\n"
 
 #: lib/message.c:78 lib/message.c:238
 msgid "Error"
@@ -2269,15 +2268,15 @@ msgstr ""
 "Could not open `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:791
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:792
 msgid "Left"
 msgstr "Left"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:797
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:798
 msgid "Center"
 msgstr "Centre"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:803
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:804
 msgid "Right"
 msgstr "Right"
 
@@ -2341,59 +2340,59 @@ msgstr "Fill colour"
 msgid "Text colour"
 msgstr "Text colour"
 
-#: lib/widgets.c:395
+#: lib/widgets.c:396
 msgid "Other fonts..."
 msgstr "Other fonts..."
 
-#: lib/widgets.c:522
+#: lib/widgets.c:523
 #, c-format
 msgid "Couldn't find font family for %s\n"
-msgstr "Couldn't find font family for %s\n"
+msgstr "Could not find font family for %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:587
+#: lib/widgets.c:588
 msgid "Select font"
 msgstr "Select font"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:939 objects/FS/function.c:1063
+#: lib/widgets.c:940 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Solid"
 
-#: lib/widgets.c:945
+#: lib/widgets.c:946
 msgid "Dashed"
 msgstr "Dashed"
 
-#: lib/widgets.c:951
+#: lib/widgets.c:952
 msgid "Dash-Dot"
 msgstr "Dash-Dot"
 
-#: lib/widgets.c:957
+#: lib/widgets.c:958
 msgid "Dash-Dot-Dot"
 msgstr "Dash-Dot-Dot"
 
-#: lib/widgets.c:963
+#: lib/widgets.c:964
 msgid "Dotted"
 msgstr "Dotted"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:982
+#: lib/widgets.c:983
 msgid "Dash length: "
 msgstr "Dash length: "
 
-#: lib/widgets.c:1137
+#: lib/widgets.c:1138
 msgid "Select color"
 msgstr "Select colour"
 
-#: lib/widgets.c:1355
+#: lib/widgets.c:1356
 msgid "Size: "
 msgstr "Size: "
 
-#: lib/widgets.c:1504
+#: lib/widgets.c:1505
 msgid "Select image file"
 msgstr "Select image file"
 
-#: lib/widgets.c:1540
+#: lib/widgets.c:1541
 msgid "Browse"
 msgstr "Browse"
 
@@ -4656,8 +4655,6 @@ msgstr "Draw border"
 msgid "Keep aspect ratio"
 msgstr "Keep aspect ratio"
 
-#. Found file in same dir as diagram.
-#. Found file in current dir.
 #: objects/standard/image.c:669 objects/standard/image.c:680
 #, c-format
 msgid ""
@@ -4725,7 +4722,7 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile export filter"
 
-#: plug-ins/dxf/dxf-export.c:547 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:551 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -4805,7 +4802,7 @@ msgstr "TeX PSTricks macros"
 #: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1137
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr "Couldn't open: '%s' for writing.\n"
+msgstr "Could not open: '%s' for writing.\n"
 
 #: plug-ins/python/python.c:92
 msgid "Python scripting support"
@@ -4813,7 +4810,7 @@ msgstr "Python scripting support"
 
 #: plug-ins/shape/shape-export.c:470
 msgid "Can't export png without libart!"
-msgstr "Can't export png without libart!"
+msgstr "Cannot export PNG without libart!"
 
 #: plug-ins/shape/shape-export.c:497
 msgid "Dia Shape File"
@@ -4834,7 +4831,7 @@ msgstr "Scalable Vector Graphics"
 #: plug-ins/xfig/xfig-import.c:326 plug-ins/xfig/xfig-import.c:362
 #: plug-ins/xfig/xfig-import.c:403
 msgid "Can't find standard object"
-msgstr "Can't find standard object"
+msgstr "Cannot find standard object"
 
 #: plug-ins/svg/svg-import.c:229
 msgid "Unexpected SVG path element"
@@ -4921,17 +4918,17 @@ msgstr "Unknown arrow type %d\n"
 #: plug-ins/xfig/xfig-import.c:731
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
-msgstr "Couldn't read ellipse info: %s\n"
+msgstr "Could not read ellipse info: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:799
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
-msgstr "Couldn't read polyline info: %s\n"
+msgstr "Could not read polyline info: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:814
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
-msgstr "Couldn't read flipped bit: %s\n"
+msgstr "Could not read flipped bit: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:832
 msgid "Negative corner radius, negating"
@@ -4945,7 +4942,7 @@ msgstr "Unknown polyline subtype: %d\n"
 #: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1058
 #, c-format
 msgid "Couldn't read spline info: %s\n"
-msgstr "Couldn't read spline info: %s\n"
+msgstr "Could not read spline info: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
@@ -4961,17 +4958,17 @@ msgstr "Unknown spline subtype: %d\n"
 #: plug-ins/xfig/xfig-import.c:1166
 #, c-format
 msgid "Couldn't read arc info: %s\n"
-msgstr "Couldn't read arc info: %s\n"
+msgstr "Could not read arc info: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1256
 #, c-format
 msgid "Couldn't read text info: %s\n"
-msgstr "Couldn't read text info: %s\n"
+msgstr "Could not read text info: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1319
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
-msgstr "Couldn't identify FIG object: %s\n"
+msgstr "Could not identify FIG object: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1327
 msgid "Compound end outside compound\n"
@@ -4980,12 +4977,12 @@ msgstr "Compound end outside compound\n"
 #: plug-ins/xfig/xfig-import.c:1346
 #, c-format
 msgid "Couldn't read color: %s\n"
-msgstr "Couldn't read colour: %s\n"
+msgstr "Could not read colour: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1391
 #, c-format
 msgid "Couldn't read group extend: %s\n"
-msgstr "Couldn't read group extend: %s\n"
+msgstr "Could not read group extend: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1402
 #, c-format
@@ -5055,7 +5052,7 @@ msgstr "Error reading resolution: %s\n"
 #: plug-ins/xfig/xfig-import.c:1566
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
-msgstr "Doesn't look like a Fig file: %s\n"
+msgstr "Does not look like a FIG file: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1572
 #, c-format
