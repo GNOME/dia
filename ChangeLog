@@ -1,3 +1,9 @@
+2003-07-06  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/app_procs.c (app_init): 
+	* app/Makefile.am (INCLUDES): Gnome standardization patch from
+	Alex. 
+
 2003-07-03  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/flowchart/parallelogram.c (pgram_update_data):

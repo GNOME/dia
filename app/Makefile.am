@@ -6,6 +6,10 @@ INCLUDES = \
 	-I$(top_srcdir)/lib \
 	$(DEBUG_FLAGS) \
 	$(GTK_CFLAGS) \
+        -DPREFIX=\""$(prefix)"\" \
+        -DSYSCONFDIR=\""$(sysconfdir)"\" \
+        -DDATADIR=\""$(datadir)"\" \
+        -DLIBDIR=\""$(libdir)"\" \
 	-DLOCALEDIR=\"$(localedir)\"
 
 print_files = \

@@ -278,6 +278,7 @@ app_init (int argc, char **argv)
     GnomeProgram *program =
       gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
 			  argc, argv, GNOME_PARAM_POPT_TABLE, options,
+			  GNOME_PROGRAM_STANDARD_PROPERTIES,
 			  GNOME_PARAM_NONE);
     g_object_get(program, "popt-context", &poptCtx, NULL);
     client = gnome_master_client();
