@@ -1,3 +1,7 @@
+2002-10-07  Steffen Macke <sdteffen@web.de>
+
+	* lib/Makefile.am: removed a '\' causing problems
+
 2002-10-07  Hans Breuer  <hans@breuer.org>
 
 	[Libart Renderer resurrected; almost it's compiling but
