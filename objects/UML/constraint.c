@@ -263,8 +263,11 @@ constraint_create(Point *startpoint,
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  if (constraint_font == NULL)
-    constraint_font = font_getfont("Courier");
+  if (constraint_font == NULL) {
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  constraint_font = font_getfont(_("Courier"));
+  }
   
   constraint = g_malloc0(sizeof(Constraint));
 

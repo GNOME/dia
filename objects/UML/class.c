@@ -658,10 +658,18 @@ fill_in_fontdata(UMLClass *umlclass)
 {
   umlclass->font_height = 0.8;
   umlclass->classname_font_height = 1.0;
-  umlclass->normal_font = font_getfont("Courier");
-  umlclass->abstract_font = font_getfont("Courier-Oblique");
-  umlclass->classname_font = font_getfont("Helvetica-Bold");
-  umlclass->abstract_classname_font = font_getfont("Helvetica-BoldOblique");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. if "Courier" works for you, it would be better.  */
+  umlclass->normal_font = font_getfont(_("Courier"));
+  /* choose default font name for abstract for your locale. see also font_data
+     structure in lib/font.c. */
+  umlclass->abstract_font = font_getfont(_("Courier-Oblique"));
+  /* choose default font name for class name font for your locale. see also font_data
+     structure in lib/font.c. */
+  umlclass->classname_font = font_getfont(_("Helvetica-Bold"));
+  /* choose default font name for abstract class name for your locale. see also font_data
+     structure in lib/font.c. */
+  umlclass->abstract_classname_font = font_getfont(_("Helvetica-BoldOblique"));
 }
 
 static Object *

@@ -120,6 +120,7 @@ objects/UML/realizes.c
 objects/UML/small_package.c
 objects/UML/state.c
 objects/UML/uml.c
+objects/UML/uml.h
 objects/UML/usecase.c
 objects/chronogram/chronogram.c
 objects/chronogram/chronoline.c

@@ -359,7 +359,9 @@ generalization_create(Point *startpoint,
   PolyBBExtras *extra;
 
   if (genlz_font == NULL) {
-    genlz_font = font_getfont("Courier");
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  genlz_font = font_getfont(_("Courier"));
   }
   
   genlz = g_new0(Generalization, 1);

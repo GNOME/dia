@@ -29,6 +29,7 @@
 #include "text.h"
 #include "message.h"
 #include "charconv.h"
+#include "intl.h"
 
 static int text_key_event(Focus *focus, guint keysym,
 			  utfchar *str, int strlen,
@@ -962,7 +963,9 @@ data_text (AttributeNode text_attr)
 	if (attr != NULL)
 		string = data_string (attribute_first_data(attr));
 
-	font = font_getfont ("Courier");
+	/* choose default font name for your locale. see also font_data structure
+	   in lib/font.c. if "Courier" works for you, it would be better.  */
+	font = font_getfont (_("Courier"));
 	attr = composite_find_attribute (text_attr, "font");
 	if (attr != NULL)
 		font = data_font(attribute_first_data (attr));

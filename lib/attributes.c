@@ -18,6 +18,7 @@
 #include <config.h>
 
 #include "attributes.h"
+#include "intl.h"
 
 static Color attributes_foreground = { 0.0f, 0.0f, 0.0f };
 static Color attributes_background = { 1.0f, 1.0f, 1.0f };
@@ -123,13 +124,17 @@ attributes_set_default_line_style(LineStyle style, real dash_length)
 void
 attributes_get_default_font(DiaFont **font, real *font_height)
 {
-  if (!attributes_font)
-    attributes_font = font_getfont("Courier");
-  if (font)
-    *font = attributes_font;
-  if (font_height)
-    *font_height = attributes_font_height;
+	if (!attributes_font) {
+		/* choose default font name for your locale. see also font_data structure
+		   in lib/font.c. if "Courier" works for you, it would be better.  */
+		attributes_font = font_getfont(_("Courier"));
+	}
+	if (font)
+		*font = attributes_font;
+	if (font_height)
+		*font_height = attributes_font_height;
 }
+
 void
 attributes_set_default_font(DiaFont *font, real font_height)
 {

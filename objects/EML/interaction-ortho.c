@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 #include "interaction.h"
+#include "intl.h"
 #include "pixmaps/interaction-ortho.xpm"
 
 typedef struct _InteractionOrtho InteractionOrtho;
@@ -319,7 +320,9 @@ interaction_ortho_create(Point *startpoint,
   Point p;
 
   if (inter_font == NULL) {
-    inter_font = font_getfont("Courier");
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  inter_font = font_getfont(_("Courier"));
   }
   
   inter = g_malloc0(sizeof(InteractionOrtho));
@@ -449,7 +452,9 @@ interaction_ortho_load(ObjectNode obj_node, int version,
   Object *obj;
 
   if (inter_font == NULL) {
-    inter_font = font_getfont("Courier");
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  inter_font = font_getfont(_("Courier"));
   }
 
   inter = g_new0(InteractionOrtho, 1);

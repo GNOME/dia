@@ -336,7 +336,9 @@ entity_create(Point *startpoint,
   }
 
   entity->weak = GPOINTER_TO_INT(user_data);
-  entity->font = font_getfont("Courier");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. if "Courier" works for you, it would be better.  */
+  entity->font = font_getfont(_("Courier"));
   entity->name = g_strdup(_("Entity"));
 
   entity->name_width =
@@ -464,7 +466,9 @@ entity_load(ObjectNode obj_node, int version, const char *filename)
     entity->connections[i].connected = NULL;
   }
 
-  entity->font = font_getfont("Courier");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. if "Courier" works for you, it would be better.  */
+  entity->font = font_getfont(_("Courier"));
 
   entity->name_width =
     font_string_width(entity->name, entity->font, FONT_HEIGHT);

@@ -506,11 +506,15 @@ fill_in_fontdata(EMLProcess *emlprocess)
   emlprocess->proclife_font_height = 0.8;
   emlprocess->interface_font_height = 0.8;
 
-  emlprocess->name_font       = g_strdup("Courier");
-  emlprocess->startupfun_font = g_strdup("Helvetica");
-  emlprocess->startupparams_font   = g_strdup("Helvetica");
-  emlprocess->proclife_font   = g_strdup("Helvetica");
-  emlprocess->interface_font  = g_strdup("Helvetica");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. if "Courier" works for you, it would be better.  */
+  emlprocess->name_font       = g_strdup(_("Courier"));
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. */
+  emlprocess->startupfun_font = g_strdup(_("Helvetica"));
+  emlprocess->startupparams_font   = g_strdup(_("Helvetica"));
+  emlprocess->proclife_font   = g_strdup(_("Helvetica"));
+  emlprocess->interface_font  = g_strdup(_("Helvetica"));
 
 }
  

@@ -17,6 +17,7 @@
  */
 
 #include "interaction.h"
+#include "intl.h"
 
 #include "pixmaps/interaction.xpm"
 
@@ -277,8 +278,11 @@ interaction_create(Point *startpoint,
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  if (interaction_font == NULL)
-    interaction_font = font_getfont("Courier");
+  if (interaction_font == NULL) {
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  interaction_font = font_getfont(_("Courier"));
+  }
   
   interaction = g_malloc0(sizeof(Interaction));
 
@@ -486,8 +490,11 @@ interaction_load(ObjectNode obj_node, int version, const char *filename)
   Connection *conn;
   Object *obj;
 
-  if (interaction_font == NULL)
-    interaction_font = font_getfont("Courier");
+  if (interaction_font == NULL) {
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  interaction_font = font_getfont(_("Courier"));
+  }
 
   interaction = g_malloc0(sizeof(Interaction));
 

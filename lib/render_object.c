@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include "render_object.h"
+#include "intl.h"
 
 static real rendobj_distance_from(RenderObject *rend_obj, Point *point);
 static void rendobj_select(RenderObject *rend_obj, Point *clicked_point,
@@ -140,11 +141,14 @@ Object *render_object_load(ObjectNode obj_node,
 
   if (desc->use_text) {
     attr = object_find_attribute(obj_node, "text");
-    if (attr != NULL)
-      rend_obj->text = data_text( attribute_first_data(attr) );
-    else
-      rend_obj->text = new_text("", font_getfont("Courier"), 1.0,
-			       &startpoint, &color_black, ALIGN_CENTER);
+    if (attr != NULL) {
+	    rend_obj->text = data_text( attribute_first_data(attr) );
+    } else {
+	    /* choose default font name for your locale. see also font_data structure
+	       in lib/font.c. if "Courier" works for you, it would be better.  */
+	    rend_obj->text = new_text("", font_getfont(_("Courier")), 1.0,
+				      &startpoint, &color_black, ALIGN_CENTER);
+    }
   }
 
   element_init(elem, 8, desc->num_connection_points);

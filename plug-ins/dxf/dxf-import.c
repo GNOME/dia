@@ -463,7 +463,8 @@ static PropDescription dxf_text_prop_descs[] = {
     { "text_font", PROP_TYPE_FONT },
     PROP_DESC_END};
 
-void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
+void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+{
     int codedxf;
     char *old_locale;
     
@@ -539,7 +540,9 @@ void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
     cprop = g_ptr_array_index(props,3);
     cprop->color_data = text_colour;
     fprop = g_ptr_array_index(props,4);
-    fprop->font_data = font_getfont("Courier");
+    /* choose default font name for your locale. see also font_data structure
+       in lib/font.c. if "Courier" works for you, it would be better.  */
+    fprop->font_data = font_getfont (_("Courier"));
     
     text_obj->ops->set_props(text_obj, props);
     prop_list_free(props);

@@ -1,3 +1,101 @@
+2002-01-29  Akira TAGOH  <tagoh@redhat.com>
+
+	* objects/UML/class.c (umlclass_calculate_data): fixed malloc size.
+	it was my careless mistake...
+
+	* lib/attributes.c (attributes_set_default_font): temporarily gettextize
+	a font name, because there are strings which isn't shown by "Courier".
+	We need to consider a way to feel free to choose a font at runtime.
+
+	* lib/render_object.c (render_object_load): ditto.
+
+	* lib/text.c (data_text): ditto.
+
+	* objects/EML/instantiation.c (instantiation_create): ditto.
+
+	* objects/EML/interaction-ortho.c (interaction_ortho_create):
+	(interaction_ortho_load): ditto.
+
+	* objects/EML/interaction.c (interaction_create):
+	(interaction_load): ditto.
+
+	* objects/EML/process.c (fill_in_fontdata): ditto.
+
+	* objects/ER/attribute.c (attribute_create): 
+	(attribute_load): ditto.
+
+	* objects/ER/entity.c (entity_create): 
+	(entity_load): ditto.
+
+	* objects/ER/relationship.c (relationship_create): 
+	(relationship_load): ditto.
+
+	* objects/UML/association.c (association_create): 
+	(association_load): ditto.
+
+	* objects/UML/class.c (fill_in_fontdata): ditto.
+
+	* objects/UML/constraint.c (constraint_create): ditto.
+
+	* objects/UML/dependency.c (dependency_create): ditto.
+
+	* objects/UML/generalization.c (generalization_create): ditto.
+
+	* objects/UML/implements.c (implements_create): ditto.
+
+	* objects/UML/large_package.c (largepackage_create): ditto.
+
+	* objects/UML/note.c (note_create): ditto.
+
+	* objects/UML/realizes.c (realizes_create): ditto.
+
+	* objects/UML/small_package.c (smallpackage_create): ditto.
+
+	* objects/custom/shape_info.h (FONT_DEFAULT): ditto.
+
+	* objects/custom/custom_object.c (custom_create): ditto.
+
+	* objects/network/antenna.c (render_to_store): ditto.
+
+	* objects/network/computer.c (render_to_store): ditto.
+
+	* objects/network/disc.c (render_to_store): ditto.
+
+	* objects/network/flash.c (render_to_store): ditto.
+
+	* objects/network/hub.c (render_to_store): ditto.
+
+	* objects/network/modem.c (render_to_store): ditto.
+
+	* objects/network/modularswitch.c (render_to_store): ditto.
+
+	* objects/network/monitor.c (render_to_store): ditto.
+
+	* objects/network/printer.c (render_to_store): ditto.
+
+	* objects/network/rj45plug.c (render_to_store): ditto.
+
+	* objects/network/scead-plug.c (render_to_store): ditto.
+
+	* objects/standard/textobj.c (textobj_load): ditto.
+
+	* objects/sybase/client.c (render_to_store): ditto.
+
+	* objects/sybase/dataserver.c (render_to_store): ditto.
+
+	* objects/sybase/ltm.c (render_to_store): ditto.
+
+	* objects/sybase/repserver.c (render_to_store): ditto.
+
+	* objects/sybase/rsm.c (render_to_store): ditto.
+
+	* objects/sybase/stableq.c (render_to_store): ditto.
+
+	* plug-ins/dxf/dxf-import.c (read_entity_text_dxf): ditto.
+
+	* objects/UML/uml.h (UML_STEREOTYPE_START):
+	(UML_STEREOTYPE_END): changes default strings.
+
 2002-01-28  Akira TAGOH  <tagoh@redhat.com>
 
 	* objects/UML/stereotype.c (string_to_bracketted): fixed transaction

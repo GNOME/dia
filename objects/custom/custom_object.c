@@ -1218,7 +1218,7 @@ custom_create(Point *startpoint,
        if (el->type == GE_TEXT) {
             /* set default values for text style */
             if (!el->text.s.font_height) el->text.s.font_height = FONT_HEIGHT_DEFAULT;
-            if (!el->text.s.font) el->text.s.font = font_getfont(FONT_DEFAULT);
+            if (!el->text.s.font) el->text.s.font = font_getfont(_(FONT_DEFAULT));
             if (el->text.s.alignment == -1) el->text.s.alignment = TEXT_ALIGNMENT_DEFAULT;
             el->text.object = new_text(el->text.string, el->text.s.font, el->text.s.font_height,
 	        &el->text.anchor, &color_black, el->text.s.alignment);

@@ -380,11 +380,14 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   object_load(obj, obj_node);
 
   attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-    textobj->text = data_text( attribute_first_data(attr) );
-  else
-    textobj->text = new_text("", font_getfont("Courier"), 1.0,
-			     &startpoint, &color_black, ALIGN_CENTER);
+  if (attr != NULL) {
+	  textobj->text = data_text( attribute_first_data(attr) );
+  } else {
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  textobj->text = new_text("", font_getfont (_("Courier")), 1.0,
+				   &startpoint, &color_black, ALIGN_CENTER);
+  }
 
   object_init(obj, 1, 0);
 

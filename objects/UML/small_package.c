@@ -336,7 +336,9 @@ smallpackage_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  font = font_getfont("Courier");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. if "Courier" works for you, it would be better.  */
+  font = font_getfont (_("Courier"));
   p = *startpoint;
   p.x += SMALLPACKAGE_MARGIN_X;
   p.y += SMALLPACKAGE_MARGIN_Y + font_ascent(font, 0.8);

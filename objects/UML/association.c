@@ -551,7 +551,9 @@ association_create(Point *startpoint,
   int user_d;
 
   if (assoc_font == NULL) {
-    assoc_font = font_getfont("Courier");
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  assoc_font = font_getfont(_("Courier"));
   }
   
   assoc = g_malloc0(sizeof(Association));
@@ -734,7 +736,9 @@ association_load(ObjectNode obj_node, int version, const char *filename)
   int i;
   
   if (assoc_font == NULL) {
-    assoc_font = font_getfont("Courier");
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  assoc_font = font_getfont(_("Courier"));
   }
 
   assoc = g_new0(Association, 1);

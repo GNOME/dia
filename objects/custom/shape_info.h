@@ -28,6 +28,7 @@
 #include "dia_xml.h"
 #include "object.h"
 #include "text.h"
+#include "intl.h"
 
 typedef enum {
   GE_LINE,
@@ -61,7 +62,9 @@ typedef struct _GraphicElementText GraphicElementText;
 #define LINEJOIN_DEFAULT 20
 #define LINESTYLE_DEFAULT 20
 
-#define FONT_DEFAULT "Courier"
+/* choose default font name for your locale. see also font_data structure
+   in lib/font.c. if "Courier" works for you, it would be better.  */
+#define FONT_DEFAULT N_("Courier")
 #define FONT_HEIGHT_DEFAULT 1
 #define TEXT_ALIGNMENT_DEFAULT ALIGN_CENTER
 #define FONT_NAME_LENGTH_MAX 40

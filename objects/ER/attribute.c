@@ -385,7 +385,9 @@ attribute_create(Point *startpoint,
   attribute->weakkey = FALSE;
   attribute->derived = FALSE;
   attribute->multivalue = FALSE;
-  attribute->font = font_getfont("Courier");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. if "Courier" works for you, it would be better.  */
+  attribute->font = font_getfont(_("Courier"));
   attribute->name = g_strdup(_("Attribute"));
 
   attribute->name_width =
@@ -536,7 +538,9 @@ static Object *attribute_load(ObjectNode obj_node, int version,
     attribute->connections[i].connected = NULL;
   }
 
-  attribute->font = font_getfont("Courier");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. if "Courier" works for you, it would be better.  */
+  attribute->font = font_getfont(_("Courier"));
 
   attribute->name_width = font_string_width(attribute->name, attribute->font, FONT_HEIGHT);
 

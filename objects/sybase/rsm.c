@@ -97,7 +97,9 @@ static void render_to_store(void)
   Point *points;
   Point poly[8];
 
-  rsm_desc.initial_font = font_getfont("Courier");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. if "Courier" works for you, it would be better.  */
+  rsm_desc.initial_font = font_getfont (_("Courier"));
   
   store = new_render_store();
 

@@ -414,7 +414,9 @@ relationship_create(Point *startpoint,
     relationship->connections[i].connected = NULL;
   }
 
-  relationship->font = font_getfont("Courier");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. if "Courier" works for you, it would be better.  */
+  relationship->font = font_getfont(_("Courier"));
   relationship->name = g_strdup(_("Relationship"));
   relationship->left_cardinality = g_strdup("");
   relationship->right_cardinality = g_strdup("");
@@ -580,7 +582,9 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
     relationship->connections[i].connected = NULL;
   }
 
-  relationship->font = font_getfont("Courier");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. if "Courier" works for you, it would be better.  */
+  relationship->font = font_getfont(_("Courier"));
 
   relationship->name_width =
     font_string_width(relationship->name, relationship->font, FONT_HEIGHT);

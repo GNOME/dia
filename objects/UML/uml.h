@@ -79,13 +79,10 @@ struct _UMLFormalParameter {
 };
 
 /* Characters used to start/end stereotypes: */
-#ifdef GTK_TALKS_UTF8
-#define UML_STEREOTYPE_START _("\xc2\xab")
-#define UML_STEREOTYPE_END _("\xc2\xbb")
-#else
-#define UML_STEREOTYPE_START _("\xab")
-#define UML_STEREOTYPE_END _("\xbb")
-#endif
+/* start stereotype symbol(like \xab) for local locale */
+#define UML_STEREOTYPE_START _("<<")
+/* end stereotype symbol(like \xbb) for local locale */
+#define UML_STEREOTYPE_END _(">>")
 
 extern utfchar *uml_get_attribute_string (UMLAttribute *attribute);
 extern utfchar *uml_get_operation_string(UMLOperation *operation);

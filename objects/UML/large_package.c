@@ -328,7 +328,9 @@ largepackage_create(Point *startpoint,
   elem->width = 4.0;
   elem->height = 4.0;
   
-  pkg->font = font_getfont("Courier");
+  /* choose default font name for your locale. see also font_data structure
+     in lib/font.c. if "Courier" works for you, it would be better.  */
+  pkg->font = font_getfont (_("Courier"));
 
   pkg->stereotype = NULL;
   pkg->st_stereotype = NULL;

@@ -469,7 +469,9 @@ instantiation_create(Point *startpoint,
   Point p;
 
   if (inst_font == NULL) {
-    inst_font = font_getfont("Courier");
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  inst_font = font_getfont(_("Courier"));
   }
   
   inst = g_malloc0(sizeof(Instantiation));

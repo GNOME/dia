@@ -278,8 +278,11 @@ implements_create(Point *startpoint,
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  if (implements_font == NULL)
-    implements_font = font_getfont("Courier");
+  if (implements_font == NULL) {
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  implements_font = font_getfont (_("Courier"));
+  }
   
   implements = g_malloc0(sizeof(Implements));
 

@@ -366,7 +366,9 @@ dependency_create(Point *startpoint,
   Object *obj;
 
   if (dep_font == NULL) {
-    dep_font = font_getfont("Courier");
+	  /* choose default font name for your locale. see also font_data structure
+	     in lib/font.c. if "Courier" works for you, it would be better.  */
+	  dep_font = font_getfont (_("Courier"));
   }
   
   dep = g_new0(Dependency, 1);
