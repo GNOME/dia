@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-03-17 21:03+0100\n"
-"PO-Revision-Date: 2001-03-16 18:27+100\n"
+"POT-Creation-Date: 2001-04-01 03:57+0200\n"
+"PO-Revision-Date: 2001-04-01 02:57+100\n"
 "Last-Translator: Christian Meyer <chrisime@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -83,25 +83,34 @@ msgstr ""
 msgid "Quit"
 msgstr "Beenden"
 
-#: app/app_procs.c:358 app/display.c:909 app/layer_dialog.c:989
-#: app/lineprops_area.c:553 app/lineprops_area.c:751 app/linewidth_area.c:246
-#: app/paginate_psprint.c:258
+#: app/app_procs.c:358 app/display.c:918 app/layer_dialog.c:989
+#: app/lineprops_area.c:731 app/lineprops_area.c:929 app/linewidth_area.c:246
+#: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: app/app_procs.c:432 app/app_procs.c:438
+#: app/app_procs.c:432 app/app_procs.c:439
 msgid "Could not create per-user Dia config directory"
 msgstr "Das Benutzer-Konfigurationsverzeichnis konnte nicht erstellt werden"
 
-#: app/app_procs.c:458
+#: app/app_procs.c:441
+msgid ""
+"Could not create per-user Dia config directory. Please make sure that the "
+"environment variable HOME points to an existing directory."
+msgstr ""
+"Es konnte kein Verzeichnis für den aktuellen Benutzer angelegt werden. Bitte "
+"stellen Sie sicher, dass die HOME-Variable auf ein existierendes Verzeichnis "
+"zeigt."
+
+#: app/app_procs.c:463
 msgid "Objects and filters internal to dia"
 msgstr "Interne Dia Objekte und Filter"
 
-#: app/color_area.c:264 lib/widgets.c:492
+#: app/color_area.c:264 lib/widgets.c:515
 msgid "Select color"
 msgstr "Farbe wählen"
 
-#: app/commands.c:89
+#: app/commands.c:105
 #, c-format
 msgid ""
 "No such file found\n"
@@ -110,53 +119,53 @@ msgstr ""
 "Keine Datei gefunden\n"
 "%s\n"
 
-#: app/commands.c:109
+#: app/commands.c:125
 msgid "Import from XFig"
 msgstr "Aus XFig importieren"
 
-#: app/commands.c:165
+#: app/commands.c:181
 #, c-format
 msgid "Untitled-%d"
 msgstr "Namenlos-%d"
 
-#: app/commands.c:226
+#: app/commands.c:242
 msgid "No existing object to paste.\n"
 msgstr "Kein existierendes Objekt zum Einfügen.\n"
 
-#: app/commands.c:483 app/commands.c:506
+#: app/commands.c:499 app/commands.c:522
 msgid "Could not find help directory"
 msgstr "Hilfeverzeichnis konnte nicht gefunden werden"
 
-#: app/commands.c:550
+#: app/commands.c:569
 msgid "About Dia"
 msgstr "Über Dia"
 
-#: app/commands.c:593
+#: app/commands.c:612
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s von Alexander Larsson"
 
-#: app/commands.c:598
+#: app/commands.c:617
 msgid "Maintainer: James Henstridge"
 msgstr "Maintainer: James Henstridge"
 
-#: app/commands.c:602
+#: app/commands.c:621
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr "Weitere Informationen unter http://www.lysator.liu.se/~alla/dia"
 
-#: app/commands.c:607
+#: app/commands.c:626
 msgid "Contributors:"
 msgstr "Beitragende:"
 
 #. setup buttons
-#: app/commands.c:624 app/dia-props.c:86 app/layer_dialog.c:979
-#: app/lineprops_area.c:544 app/lineprops_area.c:741 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:250 app/preferences.c:604
+#: app/commands.c:643 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/lineprops_area.c:722 app/lineprops_area.c:919 app/linewidth_area.c:237
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:604
 #: app/properties.c:82 lib/message.c:87
 msgid "OK"
 msgstr "OK"
 
-#: app/commands.c:710
+#: app/commands.c:729
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -298,15 +307,15 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagramm wurde verändert!"
 
-#: app/display.c:859
+#: app/display.c:868
 msgid "Close Diagram?"
 msgstr "Diagramm schließen?"
 
-#: app/display.c:865
+#: app/display.c:874
 msgid "Really close?"
 msgstr "Wirklich schließen?"
 
-#: app/display.c:870
+#: app/display.c:879
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -314,13 +323,13 @@ msgstr ""
 "Dieses Diagramm wurde nicht gespeichert.\n"
 "Änderungen jetzt speichern?"
 
-#: app/display.c:888 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:496
-#: lib/properties.c:283
+#: app/display.c:897 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:496
+#: lib/properties.c:286
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:898 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:496
-#: app/preferences.c:507 lib/properties.c:285 lib/properties.c:306
+#: app/display.c:907 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:496
+#: app/preferences.c:507 lib/properties.c:288 lib/properties.c:309
 msgid "No"
 msgstr "Nein"
 
@@ -423,7 +432,7 @@ msgstr "Rollen"
 msgid "Create Text"
 msgstr "Text erstellen"
 
-#: app/interface.c:58 app/menus.c:195 lib/properties.h:382
+#: app/interface.c:58 app/menus.c:195 lib/properties.h:383
 msgid "Text"
 msgstr "Text"
 
@@ -564,15 +573,15 @@ msgstr "Attribute der Ebene ändern"
 msgid "Layer name:"
 msgstr "Name der Ebene:"
 
-#: app/lineprops_area.c:533
+#: app/lineprops_area.c:711
 msgid "Arrow Properties"
 msgstr "Pfeil-Eigenschaften"
 
-#: app/lineprops_area.c:590 app/lineprops_area.c:774
+#: app/lineprops_area.c:768 app/lineprops_area.c:952
 msgid "Details..."
 msgstr "Details..."
 
-#: app/lineprops_area.c:730
+#: app/lineprops_area.c:908
 msgid "Line Style Properties"
 msgstr "Eigenschaften der Linie"
 
@@ -769,7 +778,7 @@ msgstr "Invertieren"
 msgid "All"
 msgstr "Alles"
 
-#: app/menus.c:151 lib/widgets.c:654 objects/UML/association.c:1001
+#: app/menus.c:151 lib/widgets.c:656 objects/UML/association.c:1001
 msgid "None"
 msgstr "Keine"
 
@@ -785,18 +794,18 @@ msgstr "Transitiv"
 msgid "Same Type"
 msgstr "Gleicher Typ"
 
-#: app/menus.c:162 lib/properties.c:1180 lib/properties.h:322
-#: lib/widgets.c:176
+#: app/menus.c:162 lib/properties.c:1184 lib/properties.h:323
+#: lib/widgets.c:199
 msgid "Left"
 msgstr "Links"
 
-#: app/menus.c:163 app/menus.c:172 lib/properties.c:1181 lib/properties.h:323
-#: lib/widgets.c:182
+#: app/menus.c:163 app/menus.c:172 lib/properties.c:1185 lib/properties.h:324
+#: lib/widgets.c:205
 msgid "Center"
 msgstr "Mitte"
 
-#: app/menus.c:164 lib/properties.c:1182 lib/properties.h:324
-#: lib/widgets.c:188
+#: app/menus.c:164 lib/properties.c:1186 lib/properties.h:325
+#: lib/widgets.c:211
 msgid "Right"
 msgstr "Rechts"
 
@@ -1290,29 +1299,29 @@ msgstr "Diagramm drucken"
 msgid "An error occured while creating the print context"
 msgstr "Beim Vorbereiten des Druckers, trat ein Fehler auf"
 
-#: app/paginate_psprint.c:210
+#: app/paginate_psprint.c:216
 msgid "Select Printer"
 msgstr "Drucker auswählen"
 
-#: app/paginate_psprint.c:222
+#: app/paginate_psprint.c:228
 msgid "Printer"
 msgstr "Drucker"
 
-#: app/paginate_psprint.c:235
+#: app/paginate_psprint.c:241
 msgid "File"
 msgstr "Datei"
 
-#: app/paginate_psprint.c:314
+#: app/paginate_psprint.c:330
 #, c-format
 msgid "Could not run command '%s'"
 msgstr "'%s' konnte nicht ausgeführt werden"
 
-#: app/paginate_psprint.c:317
+#: app/paginate_psprint.c:333
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "'%s' konnte nicht zum Schreiben geöffnet werden"
 
-#: app/paginate_psprint.c:337
+#: app/paginate_psprint.c:357
 msgid "Error occured while printing"
 msgstr "Während des Druckens trat ein Fehler auf"
 
@@ -1324,12 +1333,12 @@ msgstr "Ja"
 msgid "no"
 msgstr "Nein"
 
-#: app/plugin-manager.c:181 objects/ER/attribute.c:149 objects/ER/entity.c:129
+#: app/plugin-manager.c:181 objects/ER/attribute.c:149 objects/ER/entity.c:128
 #: objects/ER/relationship.c:135 objects/UML/association.c:979
-#: objects/UML/class_dialog.c:735 objects/UML/class_dialog.c:1611
-#: objects/UML/class_dialog.c:1773 objects/UML/class_dialog.c:2229
-#: objects/UML/dependency.c:141 objects/UML/generalization.c:133
-#: objects/UML/large_package.c:611 objects/UML/realizes.c:136
+#: objects/UML/class_dialog.c:734 objects/UML/class_dialog.c:1610
+#: objects/UML/class_dialog.c:1772 objects/UML/class_dialog.c:2228
+#: objects/UML/dependency.c:127 objects/UML/generalization.c:123
+#: objects/UML/large_package.c:609 objects/UML/realizes.c:124
 msgid "Name:"
 msgstr "Name:"
 
@@ -1485,7 +1494,7 @@ msgstr "Ladevorgang..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
-#: lib/bezier_conn.c:526
+#: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Interner Fehler: Setzen der Eckentyp der Endpunkte der Bezierkurve"
 
@@ -1550,23 +1559,23 @@ msgstr "\"%s\" ist kein Verzeichnis"
 msgid "Could not open `%s'"
 msgstr "'%s' konnte nicht geöffnet werden"
 
-#: lib/properties.c:375 lib/properties.c:407
+#: lib/properties.c:379 lib/properties.c:411
 msgid "No edit widget"
 msgstr "Keine Editiermöglichkeit"
 
-#: lib/properties.h:376
+#: lib/properties.h:377
 msgid "Line colour"
 msgstr "Zeilenfarbe"
 
-#: lib/properties.h:377
+#: lib/properties.h:378
 msgid "Line style"
 msgstr "Linienstil"
 
-#: lib/properties.h:378
+#: lib/properties.h:379
 msgid "Fill colour"
 msgstr "Füllfarbe"
 
-#: lib/properties.h:379 objects/custom/custom_object.c:356
+#: lib/properties.h:380 objects/custom/custom_object.c:356
 #: objects/flowchart/box.c:317 objects/flowchart/diamond.c:310
 #: objects/flowchart/ellipse.c:310 objects/flowchart/parallelogram.c:321
 #: objects/standard/beziergon.c:222 objects/standard/box.c:232
@@ -1574,104 +1583,140 @@ msgstr "Füllfarbe"
 msgid "Draw background"
 msgstr "Hintergrund zeichnen"
 
-#: lib/properties.h:380
+#: lib/properties.h:381
 msgid "Start arrow"
 msgstr "Startpfeil"
 
-#: lib/properties.h:381
+#: lib/properties.h:382
 msgid "End arrow"
 msgstr "Endpfeil"
 
-#: lib/properties.h:383
+#: lib/properties.h:384
 msgid "Text alignment"
 msgstr "Textanordnung"
 
-#: lib/properties.h:384
+#: lib/properties.h:385
 msgid "Font"
 msgstr "Schrift"
 
-#: lib/properties.h:385
+#: lib/properties.h:386
 msgid "Font size"
 msgstr "Schriftgröße"
 
-#: lib/properties.h:386
+#: lib/properties.h:387
 msgid "Text colour"
 msgstr "Schriftfarbe"
 
-#: lib/widgets.c:296
+#: lib/widgets.c:319
 msgid "Solid"
 msgstr "Durchgezogen"
 
-#: lib/widgets.c:302
+#: lib/widgets.c:325
 msgid "Dashed"
 msgstr "Gestrichelt"
 
-#: lib/widgets.c:308
+#: lib/widgets.c:331
 msgid "Dash-Dot"
 msgstr "Strich-Punkt"
 
-#: lib/widgets.c:314
+#: lib/widgets.c:337
 msgid "Dash-Dot-Dot"
 msgstr "Strich-Punkt-Punkt"
 
-#: lib/widgets.c:320
+#: lib/widgets.c:343
 msgid "Dotted"
 msgstr "Gepunktet"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:338
+#: lib/widgets.c:361
 msgid "Dash length: "
 msgstr "Strichlänge: "
 
-#: lib/widgets.c:660
+#: lib/widgets.c:657
 msgid "Lines"
 msgstr "Linien"
 
-#: lib/widgets.c:666
+#: lib/widgets.c:658
 msgid "Hollow Triangle"
-msgstr "Ungefülltes Dreieck"
+msgstr "Unausgefülltes Dreieck"
 
-#: lib/widgets.c:672
+#: lib/widgets.c:659
 msgid "Filled Triangle"
 msgstr "Gefülltes Dreieck"
 
-#: lib/widgets.c:678
-msgid "Hollow Diamond"
-msgstr "Ungefüllter Diamant"
+#: lib/widgets.c:660
+msgid "Unfilled Triangle"
+msgstr "Unausgefülltes Dreieck"
 
-#: lib/widgets.c:684
+#: lib/widgets.c:661
 msgid "Filled Diamond"
 msgstr "Gefüllter Diamant"
 
-#: lib/widgets.c:690
+#: lib/widgets.c:662
 msgid "Half Head"
 msgstr "Halber Pfeil"
 
-#: lib/widgets.c:696
+#: lib/widgets.c:663
 msgid "Slashed Cross"
 msgstr "Kreuz"
 
-#: lib/widgets.c:703
+#: lib/widgets.c:664
 msgid "Filled Ellipse"
 msgstr "Gefüllte Ellipse"
 
-#: lib/widgets.c:709
+#: lib/widgets.c:665
 msgid "Hollow Ellipse"
-msgstr "Ungefüllte Ellipse"
+msgstr "Unausgefüllte Ellipse"
 
-#: lib/widgets.c:725
+#: lib/widgets.c:666
+msgid "Filled Dot"
+msgstr "Gefüllter Punkt"
+
+#: lib/widgets.c:667
+msgid "Dimension Origin"
+msgstr "Dimensionsursprung"
+
+#: lib/widgets.c:668
+msgid "Blanked Dot"
+msgstr "Unasugefüllter Punkt"
+
+#: lib/widgets.c:669
+msgid "Double Hollow triangle"
+msgstr "Doppelt unausgefülltes Dreieck"
+
+#: lib/widgets.c:670
+msgid "Double Filled triangle"
+msgstr "Doppelt Gefülltes Dreieck"
+
+#: lib/widgets.c:671
+msgid "Filled Box"
+msgstr "Gefüllter Kasten"
+
+#: lib/widgets.c:672
+msgid "Blanked Box"
+msgstr "Unausgefüllter Kasten"
+
+#: lib/widgets.c:673
+msgid "Slashed"
+msgstr "Gestrichelt"
+
+#: lib/widgets.c:674
+msgid "Integral Symbol"
+msgstr "Integralsymbol"
+
+#: lib/widgets.c:710
 msgid "Length: "
 msgstr "Länge: "
 
-#: lib/widgets.c:738
+#: lib/widgets.c:723
 msgid "Width: "
 msgstr "Breite: "
 
-#: lib/widgets.c:854 objects/standard/image.c:538
+#: lib/widgets.c:849 objects/standard/image.c:538
 msgid "Select image file"
 msgstr "Bilddatei auswählen"
 
-#: lib/widgets.c:884
+#: lib/widgets.c:879
 msgid "Browse"
 msgstr "Auswählen"
 
@@ -1695,11 +1740,11 @@ msgstr "Mehrwertig:"
 msgid "Attribute"
 msgstr "Attribut"
 
-#: objects/ER/entity.c:131
+#: objects/ER/entity.c:130
 msgid "Weak:"
 msgstr "Schwach:"
 
-#: objects/ER/entity.c:343 objects/UML/classicon.c:135
+#: objects/ER/entity.c:342 objects/UML/classicon.c:135
 msgid "Entity"
 msgstr "Entität"
 
@@ -1712,17 +1757,17 @@ msgid "Total:"
 msgstr "Insgesamt:"
 
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:798
-#: objects/GRAFCET/vector.c:403 objects/SADT/arrow.c:660
-#: objects/UML/association.c:618 objects/UML/dependency.c:386
-#: objects/UML/generalization.c:374 objects/UML/realizes.c:378
+#: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
+#: objects/UML/association.c:618 objects/UML/dependency.c:376
+#: objects/UML/generalization.c:369 objects/UML/realizes.c:372
 #: objects/standard/zigzagline.c:337
 msgid "Add segment"
 msgstr "Segment hinzufügen"
 
 #: objects/ER/participation.c:394 objects/FS/flow-ortho.c:799
-#: objects/GRAFCET/vector.c:404 objects/SADT/arrow.c:661
-#: objects/UML/association.c:619 objects/UML/dependency.c:387
-#: objects/UML/generalization.c:375 objects/UML/realizes.c:379
+#: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
+#: objects/UML/association.c:619 objects/UML/dependency.c:377
+#: objects/UML/generalization.c:370 objects/UML/realizes.c:373
 #: objects/standard/zigzagline.c:338
 msgid "Delete segment"
 msgstr "Segment löschen"
@@ -1770,8 +1815,8 @@ msgid "Signal"
 msgstr "Signal"
 
 #: objects/FS/flow-ortho.c:186 objects/FS/flow.c:166
-#: objects/UML/class_dialog.c:747 objects/UML/class_dialog.c:1623
-#: objects/UML/class_dialog.c:1785 objects/UML/class_dialog.c:2241
+#: objects/UML/class_dialog.c:746 objects/UML/class_dialog.c:1622
+#: objects/UML/class_dialog.c:1784 objects/UML/class_dialog.c:2240
 msgid "Type:"
 msgstr "Typ:"
 
@@ -2003,7 +2048,7 @@ msgstr "Makroaufruf"
 msgid "Condition:"
 msgstr "Bedingung:"
 
-#: objects/GRAFCET/grafcet.c:44
+#: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET Diagramm-Objekte"
 
@@ -2051,7 +2096,7 @@ msgstr "Farbe:"
 msgid "Receptivity:"
 msgstr "Aufnahmefähigkeit:"
 
-#: objects/GRAFCET/vector.c:176 objects/GRAFCET/vector.c:210
+#: objects/GRAFCET/vector.c:185 objects/GRAFCET/vector.c:219
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Pfeilköpfe auf aufwärtige Bögen zeichnen:"
 
@@ -2199,11 +2244,11 @@ msgstr "Name"
 msgid "Stereotype"
 msgstr "Stereotyp"
 
-#: objects/UML/class.c:104 objects/UML/class_dialog.c:209
+#: objects/UML/class.c:104 objects/UML/class_dialog.c:208
 msgid "Abstract"
 msgstr "Abstrakt"
 
-#: objects/UML/class.c:106 objects/UML/class_dialog.c:221
+#: objects/UML/class.c:106 objects/UML/class_dialog.c:220
 msgid "Suppress Attributes"
 msgstr "Attribute unterdrücken"
 
@@ -2224,132 +2269,132 @@ msgid "Template"
 msgstr "Vorlage"
 
 #. Class page:
-#: objects/UML/class.c:686 objects/UML/class_dialog.c:181
+#: objects/UML/class.c:686 objects/UML/class_dialog.c:180
 msgid "Class"
 msgstr "Klasse"
 
-#: objects/UML/class_dialog.c:187
+#: objects/UML/class_dialog.c:186
 msgid "Class name:"
 msgstr "Klassenname:"
 
-#: objects/UML/class_dialog.c:198 objects/UML/dependency.c:143
-#: objects/UML/generalization.c:135 objects/UML/large_package.c:623
-#: objects/UML/object.c:828 objects/UML/realizes.c:138
+#: objects/UML/class_dialog.c:197 objects/UML/dependency.c:129
+#: objects/UML/generalization.c:125 objects/UML/large_package.c:621
+#: objects/UML/object.c:828 objects/UML/realizes.c:126
 msgid "Stereotype:"
 msgstr "Stereotyp:"
 
-#: objects/UML/class_dialog.c:217
+#: objects/UML/class_dialog.c:216
 msgid "Attributes visible"
 msgstr "Attribute sichtbar"
 
-#: objects/UML/class_dialog.c:229
+#: objects/UML/class_dialog.c:228
 msgid "Operations visible"
 msgstr "Operationen sichtbar"
 
-#: objects/UML/class_dialog.c:233
+#: objects/UML/class_dialog.c:232
 msgid "Suppress operations"
 msgstr "Operationen unterdrücken"
 
-#: objects/UML/class_dialog.c:241
+#: objects/UML/class_dialog.c:240
 msgid "Foreground Color"
 msgstr "Vordergrundfarbe"
 
-#: objects/UML/class_dialog.c:251
+#: objects/UML/class_dialog.c:250
 msgid "Background Color"
 msgstr "Hintergrundfarbe"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:670
+#: objects/UML/class_dialog.c:669
 msgid "Attributes"
 msgstr "Attribute"
 
-#: objects/UML/class_dialog.c:698 objects/UML/class_dialog.c:1571
-#: objects/UML/class_dialog.c:1731 objects/UML/class_dialog.c:2192
+#: objects/UML/class_dialog.c:697 objects/UML/class_dialog.c:1570
+#: objects/UML/class_dialog.c:1730 objects/UML/class_dialog.c:2191
 msgid "New"
 msgstr "Neu"
 
-#: objects/UML/class_dialog.c:704 objects/UML/class_dialog.c:1577
-#: objects/UML/class_dialog.c:1738 objects/UML/class_dialog.c:2198
+#: objects/UML/class_dialog.c:703 objects/UML/class_dialog.c:1576
+#: objects/UML/class_dialog.c:1737 objects/UML/class_dialog.c:2197
 msgid "Delete"
 msgstr "Löschen"
 
-#: objects/UML/class_dialog.c:710 objects/UML/class_dialog.c:1583
-#: objects/UML/class_dialog.c:1745 objects/UML/class_dialog.c:2204
+#: objects/UML/class_dialog.c:709 objects/UML/class_dialog.c:1582
+#: objects/UML/class_dialog.c:1744 objects/UML/class_dialog.c:2203
 msgid "Move up"
 msgstr "Raufschieben"
 
-#: objects/UML/class_dialog.c:716 objects/UML/class_dialog.c:1589
-#: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:2210
+#: objects/UML/class_dialog.c:715 objects/UML/class_dialog.c:1588
+#: objects/UML/class_dialog.c:1751 objects/UML/class_dialog.c:2209
 msgid "Move down"
 msgstr "Runterschieben"
 
-#: objects/UML/class_dialog.c:727
+#: objects/UML/class_dialog.c:726
 msgid "Attribute data"
 msgstr "Attributdaten"
 
-#: objects/UML/class_dialog.c:759
+#: objects/UML/class_dialog.c:758
 msgid "Value:"
 msgstr "Wert:"
 
-#: objects/UML/class_dialog.c:771 objects/UML/class_dialog.c:1635
+#: objects/UML/class_dialog.c:770 objects/UML/class_dialog.c:1634
 msgid "Visibility:"
 msgstr "Sichtbarkeit:"
 
-#: objects/UML/class_dialog.c:780 objects/UML/class_dialog.c:1644
+#: objects/UML/class_dialog.c:779 objects/UML/class_dialog.c:1643
 msgid "Public"
 msgstr "Öffentlich"
 
-#: objects/UML/class_dialog.c:788 objects/UML/class_dialog.c:1652
+#: objects/UML/class_dialog.c:787 objects/UML/class_dialog.c:1651
 msgid "Private"
 msgstr "Privat"
 
-#: objects/UML/class_dialog.c:796 objects/UML/class_dialog.c:1660
+#: objects/UML/class_dialog.c:795 objects/UML/class_dialog.c:1659
 msgid "Protected"
 msgstr "Geschützt"
 
-#: objects/UML/class_dialog.c:804 objects/UML/class_dialog.c:1668
+#: objects/UML/class_dialog.c:803 objects/UML/class_dialog.c:1667
 msgid "Implementation"
 msgstr "Implementierung"
 
-#: objects/UML/class_dialog.c:820 objects/UML/class_dialog.c:1684
+#: objects/UML/class_dialog.c:819 objects/UML/class_dialog.c:1683
 msgid "Class scope"
 msgstr "Klassen-Gültigkeitsbereich"
 
 #. Operations page:
-#: objects/UML/class_dialog.c:1543
+#: objects/UML/class_dialog.c:1542
 msgid "Operations"
 msgstr "Methoden"
 
-#: objects/UML/class_dialog.c:1601
+#: objects/UML/class_dialog.c:1600
 msgid "Operation data"
 msgstr "Daten der Methoden"
 
-#: objects/UML/class_dialog.c:1690
+#: objects/UML/class_dialog.c:1689
 msgid "abstract"
 msgstr "abstrakt"
 
-#: objects/UML/class_dialog.c:1702
+#: objects/UML/class_dialog.c:1701
 msgid "Parameters:"
 msgstr "Parameter:"
 
-#: objects/UML/class_dialog.c:1764
+#: objects/UML/class_dialog.c:1763
 msgid "Parameter data"
 msgstr "Parameterdaten"
 
-#: objects/UML/class_dialog.c:1797
+#: objects/UML/class_dialog.c:1796
 msgid "Def. value:"
 msgstr "Vorgabewert:"
 
 #. Templates page:
-#: objects/UML/class_dialog.c:2158
+#: objects/UML/class_dialog.c:2157
 msgid "Templates"
 msgstr "Vorlagen"
 
-#: objects/UML/class_dialog.c:2164
+#: objects/UML/class_dialog.c:2163
 msgid "Template class"
 msgstr "Vorlage-Klasse"
 
-#: objects/UML/class_dialog.c:2221
+#: objects/UML/class_dialog.c:2220
 msgid "Formal parameter data"
 msgstr "Formelle Parameterdaten"
 
@@ -2369,11 +2414,11 @@ msgstr "Ist Objekt"
 msgid "Constraint:"
 msgstr "Beschränkung:"
 
-#: objects/UML/dependency.c:145
+#: objects/UML/dependency.c:131
 msgid "Show arrow:"
 msgstr "Pfeil anzeigen:"
 
-#: objects/UML/implements.c:133
+#: objects/UML/implements.c:123
 msgid "Interface:"
 msgstr "Schnittstelle:"
 
@@ -2577,11 +2622,11 @@ msgstr "Vertikal spiegeln"
 msgid "Alignment:"
 msgstr "Anordnung:"
 
-#: objects/custom/custom_object.c:1343
+#: objects/custom/custom_object.c:1338
 msgid "Flip Horizontal"
 msgstr "Horizontal spiegeln"
 
-#: objects/custom/custom_object.c:1344
+#: objects/custom/custom_object.c:1339
 msgid "Flip Vertical"
 msgstr "Vertikal spiegeln"
 
@@ -2618,7 +2663,7 @@ msgstr "Anfasser hinzufügen"
 msgid "Delete Handle"
 msgstr "Anfasser löschen"
 
-#: objects/network/network.c:51
+#: objects/network/network.c:52
 msgid "Network diagram objects"
 msgstr "Netzwerkdiagramm-Objekte"
 
@@ -2927,3 +2972,6 @@ msgstr ""
 #: plug-ins/xfig/xfig-import.c:1456
 msgid "XFig File Format"
 msgstr "XFig Dateiformat"
+
+#~ msgid "Hollow Diamond"
+#~ msgstr "Ungefüllter Diamant"
