@@ -87,8 +87,6 @@ diagram_finalize(GObject *object)
   g_object_unref(dia->data);
   dia->data = NULL;
   
-  g_free(dia->filename);
-
   open_diagrams = g_list_remove(open_diagrams, dia);
   layer_dialog_update_diagram_list();
 
@@ -97,6 +95,8 @@ diagram_finalize(GObject *object)
   diagram_tree_remove(diagram_tree(), dia);
 
   diagram_cleanup_autosave(dia);
+
+  g_free(dia->filename);
 }
 
 static void

@@ -1,3 +1,12 @@
+2004-11-27  Hans Breuer  <hans@breuer.org>
+
+	* app/load_save.c(dia_cleanup_autosave) 
+	  app/diagram.c : don't use dia->filename if already 
+	freed and dont use printf at all.
+
+	* app/paginate_psprint.c : not only set the renderer::paper
+	but also renderer::is_portrait. Should fix bug #142524
+
 2004-11-26  Hans Breuer  <hans@breuer.org>
 
 	* dia.desktop.in : added Bug Buddy headers (as seen

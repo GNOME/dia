@@ -73,6 +73,7 @@ print_page(DiagramData *data, DiaRenderer *diarend, Rectangle *bounds)
   gfloat scale = data->paper.scaling;
 
   rend->paper = data->paper.name;
+  rend->is_portrait = data->paper.is_portrait;
 
   /* count the number of objects in this region */
   data_render(data, diarend, bounds,
