@@ -4,6 +4,7 @@
 #include <float.h>
 #include <ctype.h>
 #include "shape_info.h"
+#include "intl.h"
 
 static ShapeInfo *load_shape_info(const gchar *filename);
 
@@ -318,13 +319,14 @@ load_shape_info(const gchar *filename)
   xmlNodePtr node;
   ShapeInfo *info;
   char *tmp;
+  int descr_score = -1;
   
   if (!doc) {
     g_warning("parse error for %s", filename);
     return NULL;
   }
   if (!(shape_ns = xmlSearchNsByHref(doc, doc->root,
-		"http://i.need.to.think.of.a.namespace.name"))) {
+		"http://www.daa.com.au/~james/dia-shape-ns"))) {
     xmlFreeDoc(doc);
     g_warning("could not find shape namespace");
     return NULL;
@@ -356,10 +358,23 @@ load_shape_info(const gchar *filename)
       info->name = g_strdup(tmp);
       free(tmp);
     } else if (node->ns == shape_ns && !strcmp(node->name, "description")) {
-      tmp = xmlNodeGetContent(node);
-      g_free(info->description);
-      info->description = g_strdup(tmp);
-      free(tmp);
+      gint score;
+
+      /* compare the xml:lang property on this element to see if we get a
+       * better language match.  LibXML seems to throw away attribute
+       * namespaces, so we use "lang" instead of "xml:lang" */
+      tmp = xmlGetProp(node, "xml:lang");
+      if (!tmp) tmp = xmlGetProp(node, "lang");
+      score = intl_score_locale(tmp);
+      if (tmp) free(tmp);
+
+      if (descr_score < 0 || score < descr_score) {
+	descr_score = score;
+	tmp = xmlNodeGetContent(node);
+	g_free(info->description);
+	info->description = g_strdup(tmp);
+	free(tmp);
+      }
     } else if (node->ns == shape_ns && !strcmp(node->name, "connections")) {
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(Point));
       xmlNodePtr pt_node;

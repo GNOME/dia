@@ -3,6 +3,7 @@
 
 #include "config.h"
 
+#include <glib.h>
 #ifdef GNOME
 #  include <gnome.h>
 #else
@@ -22,5 +23,9 @@
 #    define bindtextdomain(Package, Directory)
 #  endif
 #endif
+
+GList *intl_get_language_list (void);
+int    intl_score_locale      (const gchar *locale);
+
 
 #endif

@@ -53,6 +53,7 @@ libdia_a_SOURCES =  \
 		widgets.h \
 		dia_image.c \
 		dia_image.h \
+		intl.c \
 		intl.h \
 		dummy_dep.h
 

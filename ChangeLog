@@ -1,5 +1,18 @@
 1999-08-29  James Henstridge  <james@daa.com.au>
 
+	* objects/custom/test.xml, objects/custom/Circuit/*.shape: fixed
+	up shape namespace tag.
+
+	* objects/custom/shape_info.c (load_shape_info): check xml:lang
+	attribute on <description> elements to support i18n for custom
+	shape descriptions.
+	Also changed the shape namespace for custom shapes to something
+	a little more sensible.
+
+	* lib/dummy_dep.h (dummy_dep): added extra dummy dependency.
+
+	* lib/intl.c: new file containing some functions for i18n stuff.
+
 	* app/layer_dialog.c (create_button_box): fixed a warning.
 
 	* objects/custom/custom_object.c: use current line style.  Save dash
