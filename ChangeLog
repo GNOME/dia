@@ -1,3 +1,11 @@
+2004-11-26  Hans Breuer  <hans@breuer.org>
+
+	* app/filedlg.c : don't use relative filenames for
+	gtk_file_chooser_set_filename(), GtkFileChooserDialog is very
+	pedantic about it.
+	(export_set_extension) : if we don't have a filename don't
+	use it in strrchr() to avoid crashing
+	
 2004-11-23  Hans Breuer  <hans@breuer.org>
 
 	* app/app_procs.c : fixed build for the GNOME case

@@ -220,7 +220,10 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
     if (dia && dia->filename)
       filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
     if (filename != NULL) {
-      gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(opendlg), filename);
+      char* fnabs = dia_get_absolute_filename (filename);
+      if (fnabs)
+        gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(opendlg), fnabs);
+      g_free(fnabs);
       g_free(filename);
     }
     g_signal_connect(GTK_OBJECT(opendlg), "response",
@@ -234,8 +237,6 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_widget_set_sensitive(opendlg, TRUE);
     if (GTK_WIDGET_VISIBLE(opendlg))
       return;
-    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(opendlg),
-				  "." G_DIR_SEPARATOR_S);
   }
   if (!open_options) {
     GtkWidget *hbox, *label, *omenu;
@@ -377,7 +378,10 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
   if (dia && dia->filename)
     filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
   if (filename != NULL) {
-    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(savedlg), filename);
+    char* fnabs = dia_get_absolute_filename (filename);
+    if (fnabs)
+      gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(savedlg), fnabs);
+    g_free(fnabs);
     g_free(filename);
   }
   gtk_object_set_user_data(GTK_OBJECT(savedlg), dia);
@@ -408,7 +412,7 @@ export_set_extension(GtkObject *item)
   DiaExportFilter *efilter = gtk_object_get_user_data(item);
   GString *s;
   const gchar *text = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(exportdlg));
-  const gchar *last_dot = strrchr(text, '.');
+  const gchar *last_dot = text ? strrchr(text, '.') : NULL;
 
   if (!efilter || last_dot == text || text[0] == '\0' ||
       efilter->extensions[0] == NULL)
@@ -533,7 +537,10 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
     if (dia && dia->filename)
       filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
     if (filename != NULL) {
-      gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), filename);
+      gchar *fnabs = dia_get_absolute_filename (filename);
+      if (fnabs)
+        gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), fnabs);
+      g_free (fnabs);
       g_free(filename);
     }
     g_signal_connect(GTK_OBJECT(exportdlg), "delete_event",
@@ -579,7 +586,10 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   if (dia && dia->filename)
     filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
   if (filename != NULL) {
-    gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), filename);
+    char* fnabs = dia_get_absolute_filename (filename);
+    if (fnabs)
+      gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), fnabs);
+    g_free(fnabs);
     g_free(filename);
   }
   export_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(export_omenu));
