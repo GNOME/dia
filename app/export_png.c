@@ -139,8 +139,15 @@ export_png_ok(GtkButton *button, gpointer userdata)
     message_error(_("Error occurred while writing PNG"));
     goto error;
   }
-  /* the compiler said band may be clobbered by setjmp, so we set it again
+  /* the compiler said these may be clobbered by setjmp, so we set it again
    * here. */
+  if (app_is_interactive()) {
+    imagewidth = gtk_spin_button_get_value_as_int(export_png_width_entry);
+    imageheight = gtk_spin_button_get_value_as_int(export_png_height_entry);
+  } else {
+    imagewidth = width;
+    imageheight = height;
+  }
   band = MIN(imageheight, BAND_HEIGHT);
 
   png_init_io(png, fp);

@@ -1,3 +1,8 @@
+2002-10-17  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/export_png.c (export_png_ok): Saving more variables from the
+	evil setjmp.
+
 2002-10-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/dialibartrenderer.c (begin_render):
