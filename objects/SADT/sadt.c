@@ -23,25 +23,25 @@
 #include "config.h"
 #include "intl.h"
 #include "sadt.h"
+#include "plug-ins.h"
 
 extern ObjectType sadtarrow_type;
 extern ObjectType sadtbox_type;
 extern ObjectType sadtannotation_type;
 
-int get_version(void)
-{
-  return 0;
-}
+DIA_PLUGIN_CHECK_INIT
 
-void register_objects(void)
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
 {
+  if (!dia_plugin_info_init(info, "SADT", _("SADT diagram objects"),
+			    NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
+
   object_register_type(&sadtarrow_type);
   object_register_type(&sadtbox_type);
   object_register_type(&sadtannotation_type);
-}
 
-void register_sheets(void)
-{
-  /* Intentionally left empty */
+  return DIA_PLUGIN_INIT_OK;
 }
 

@@ -23,22 +23,28 @@
 #include "intl.h"
 #include "object.h"
 #include "sheet.h"
+#include "plug-ins.h"
+#include "intl.h"
 
 extern ObjectType entity_type;
 extern ObjectType relationship_type;
 extern ObjectType attribute_type;
 extern ObjectType participation_type;
 
-int get_version(void) {
-  return 0;
-}
+DIA_PLUGIN_CHECK_INIT
 
-void register_objects(void) {
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
+{
+  if (!dia_plugin_info_init(info, "ER",
+			    _("Entity/Relationship diagram objects"),
+			    NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
+
   object_register_type(&entity_type);
   object_register_type(&relationship_type);
   object_register_type(&attribute_type);
   object_register_type(&participation_type);
-}
 
-void register_sheets(void) {
+  return DIA_PLUGIN_INIT_OK;
 }

@@ -20,6 +20,7 @@
 #include "config.h"
 #include "intl.h"
 #include "sybase.h"
+#include "plug-ins.h"
 
 Color computer_color = { 0.7, 0.7, 0.7 };
 
@@ -30,22 +31,23 @@ extern ObjectType stableq_type;
 extern ObjectType client_type;
 extern ObjectType rsm_type;
 
-int get_version(void)
-{
-  return 0;
-}
+DIA_PLUGIN_CHECK_INIT
 
-void register_objects(void)
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
 {
+  if (!dia_plugin_info_init(info, "Sybase",
+			    _("Sybase replication domain diagram objects"),
+			    NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
+
   object_register_type(&dataserver_type);
   object_register_type(&repserver_type);
   object_register_type(&ltm_type);
   object_register_type(&stableq_type);
   object_register_type(&client_type);
   object_register_type(&rsm_type);
-}
 
-void register_sheets(void)
-{
+  return DIA_PLUGIN_INIT_OK;
 }
 

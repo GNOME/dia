@@ -61,15 +61,14 @@
 #include "render_eps.h"
 #include "render_svg.h"
 #include "sheet.h"
+#include "plug-ins.h"
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;
 #endif
 
-static void register_all_objects(void);
-static void register_all_sheets(void);
-static int name_is_lib(char *name);
 static void create_user_dirs(void);
+static PluginInitResult internal_plugin_init(PluginInfo *info);
 
 #ifdef GNOME
 
@@ -205,17 +204,10 @@ app_init (int argc, char **argv)
 
   object_registry_init();
 
-  register_all_objects();
-  load_all_sheets();     /* new mechanism */
-  register_all_sheets(); /* old mechanism (to be disabled) */
+  dia_register_plugins();
+  dia_register_builtin_plugin(internal_plugin_init);
 
-  /* register export filters */
-  filter_register_export(&dia_export_filter);
-  filter_register_export(&eps_export_filter);
-  filter_register_export(&svg_export_filter);
-#if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
-  filter_register_export(&png_export_filter);
-#endif
+  load_all_sheets();     /* new mechanism */
 
   debug_break();
 
@@ -363,7 +355,7 @@ app_exit(void)
   }
   
   /* Save menu accelerators */
-  filename = dia_config_filename("menus/toolbox");
+  filename = dia_config_filename("menus" G_DIR_SEPARATOR_S "toolbox");
 
   if (filename!=NULL) {
     GtkPatternSpec pattern;
@@ -402,189 +394,46 @@ static void create_user_dirs(void)
 {
   gchar *dir, *subdir;
 
-  dir = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S, ".dia", NULL);
+  dir = g_strconcat(g_get_home_dir(), G_DIR_SEPARATOR_S ".dia", NULL);
   if (mkdir(dir, 0755) && errno != EEXIST)
     g_error(_("Could not create per-user Dia config directory"));
 
   /* it is no big deal if these directories can't be created */
-  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S, "objects", NULL);
+  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "objects", NULL);
   mkdir(subdir, 0755);
   g_free(subdir);
-  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S, "shapes", NULL);
+  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "shapes", NULL);
   mkdir(subdir, 0755);
   g_free(subdir);
-  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S, "sheets", NULL);
+  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "sheets", NULL);
   mkdir(subdir, 0755);
   g_free(subdir);
-  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S, "menus", NULL);
+  subdir = g_strconcat(dir, G_DIR_SEPARATOR_S "menus", NULL);
   mkdir(subdir, 0755);
   g_free(subdir);
 
   g_free(dir);
 }
 
-static int
-name_is_lib(char *name)
+static PluginInitResult
+internal_plugin_init(PluginInfo *info)
 {
-  int len;
-  len = strlen(name);
-  if (len < 3)
-    return FALSE;
-  if ( (len>3) && (strcmp(".so", &name[len-3])==0) )
-    return 1;
-  if ( (len>9) && (strcmp(".so.0.0.0", &name[len-9])==0) )
-    return 1;
-  if ( (len>3) && (strcmp(".sl", &name[len-3])==0) )
-    return 1;
-  if ( (len>4) && (strcmp(".dll", &name[len-4])==0) )
-    return 1;
-  
-  return 0;
-}
+  if (!dia_plugin_info_init(info, "Internal",
+			    _("Objects and filters internal to dia"),
+			    NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
 
-static GList *modules_list = NULL;
-
-static void
-register_objects_in(char *directory)
-{
-  struct stat statbuf;
-  char file_name[256];
-  struct dirent *dirp;
-  DIR *dp;
-  const gchar *error;
-  GModule *libhandle;
-  void (*register_func)(void);
-  int (*version_func)(void);
-  
-  if (stat(directory, &statbuf)<0) {
-    /*
-      message_notice("Couldn't find any libraries in %s.\n", directory);
-    */
-    return;
-  }
-
-  if (!S_ISDIR(statbuf.st_mode)) {
-    message_warning(_("Couldn't find any libraries to load.\n"
-		    "%s is not a directory.\n"), directory);
-    return;
-  }
-
-  dp = opendir(directory);
-  if ( dp == NULL ) {
-    message_warning(_("Couldn't open \"%s\".\n"), directory);
-    return;
-  }
-  
-  while ( (dirp = readdir(dp)) ) {
-    if ( name_is_lib(dirp->d_name) ) {
-      strncpy(file_name, directory, 256);
-      strncat(file_name, "/", 256);
-      strncat(file_name, dirp->d_name, 256);
-
-      libhandle = g_module_open(file_name, G_MODULE_BIND_LAZY);
-      if (libhandle==NULL) {
-	error = g_module_error();
-	message_warning(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
-	printf(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
-	continue;
-      }
-
-      if (!g_module_symbol(libhandle, "get_version", (gpointer)&version_func)) {
-	message_warning(_("The file \"%s\" is not a Dia object library.\n"), file_name);
-	printf(_("The file \"%s\" is not a Dia object library.\n"), file_name);
-	g_module_close(libhandle);
-	continue;
-      }
-
-      if ( (*version_func)() < current_version ) {
-	message_warning(_("The object library \"%s\" is from an older version of Dia and cannot be used.\nPlease upgrade it."), file_name);
-	printf(_("The object library \"%s\" is from an older version of Dia and cannot be used.\nPlease upgrade it."), file_name);
-	g_module_close(libhandle);
-	continue;
-      }
-      
-      if ( (*version_func)() > current_version ) {
-	message_warning(_("The object library \"%s\" is from an later version of Dia.\nYou need to upgrade Dia to use it."), file_name);
-	printf(_("The object library \"%s\" is from an later version of Dia.\nYou need to upgrade Dia to use it."), file_name);
-	g_module_close(libhandle);
-	continue;
-      }
-
-      if (!g_module_symbol(libhandle, "register_objects", (gpointer)&register_func)) {
-	error = g_module_error();
-	message_warning(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
-	printf(_("Error loading library: \"%s\":\n %s\n"), file_name, error);
-	g_module_close(libhandle);
-	continue;
-      }
-      
-      (*register_func)();
-
-      g_module_make_resident(libhandle);
-      modules_list = g_list_append(modules_list, libhandle);
-    } 
-  }
-
-  closedir(dp);
-}
-
-static void
-register_all_objects(void)
-{
-  char *library_path;
-  char *path;
-  char *lib_dir;
-  
+  /* register the group object type */
   object_register_type(&group_type);
 
-  library_path = getenv("DIA_LIB_PATH");
-  if (library_path != NULL)
-    library_path = strdup(library_path);
+  /* register export filters */
+  filter_register_export(&dia_export_filter);
+  filter_register_export(&eps_export_filter);
+  filter_register_export(&svg_export_filter);
+#if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
+  filter_register_export(&png_export_filter);
+#endif
 
-  lib_dir = dia_config_filename("objects");
-
-  if (lib_dir != NULL) {
-    register_objects_in(lib_dir);
-    g_free(lib_dir);
-  }
-
-  if (library_path != NULL) {
-    path = strtok(library_path, ":");
-    while ( path != NULL ) {
-      register_objects_in(path);
-      path = strtok(NULL, ":");
-    }
-    g_free(library_path);
-  } else {
-    char *thedir = dia_get_lib_directory("dia");
-    register_objects_in(thedir);
-    g_free(thedir);
-  }
-
-}
-
-static void
-register_all_sheets(void)
-{
-  GList *list;
-  void (*register_func)(void);
-  GModule *libhandle;
-  const gchar *error;
-
-  /* XXX This will disappear, yek yek yek... */
-  for (list = modules_list; list != NULL; list = g_list_next(list)) {
-    libhandle = (GModule *) list->data;
-
-    if (!g_module_symbol(libhandle, "register_sheets",
-			 (gpointer)&register_func)) {
-      error = g_module_error();
-      message_warning(_("Unable to find register_sheets in library:\n%s"),
-		      error);
-      continue;
-    }
-
-    (*register_func)();
-  } 
-
+  return DIA_PLUGIN_INIT_OK;
 }
 

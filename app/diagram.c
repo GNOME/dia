@@ -31,6 +31,7 @@
 #include "cut_n_paste.h"
 #include "layer_dialog.h"
 #include "app_procs.h"
+#include "dia_dirs.h"
 
 GList *open_diagrams = NULL;
 
@@ -69,7 +70,7 @@ diagram_destroy(Diagram *dia)
   g_free(dia->filename);
 
   /* Save menu accelerators */
-  home_path = dia_config_filename("menus/display");
+  home_path = dia_config_filename("menus" G_DIR_SEPARATOR_S "display");
 
   if (home_path != NULL) {
     GtkPatternSpec pattern;

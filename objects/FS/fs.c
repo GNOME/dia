@@ -23,20 +23,26 @@
 #include "intl.h"
 #include "object.h"
 #include "sheet.h"
+#include "plug-ins.h"
+#include "intl.h"
 
 extern ObjectType function_type;
 extern ObjectType flow_type;
 extern ObjectType orthflow_type;
 
-void register_objects(void) {
+DIA_PLUGIN_CHECK_INIT
+
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
+{
+  if (!dia_plugin_info_init(info, "FS",
+			    _("Function structure diagram objects"),
+			    NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
+
   object_register_type(&function_type);
-  object_register_type(&flow_type);  
-  object_register_type(&orthflow_type);  
-}
+  object_register_type(&flow_type);
+  object_register_type(&orthflow_type);
 
-int get_version(void) {
-  return 0;
-}
-
-void register_sheets(void) {
+  return DIA_PLUGIN_INIT_OK;
 }

@@ -27,10 +27,8 @@
 #define DIA_INT_SHAPEDIR DIA_SHEETDIR G_DIR_SEPARATOR_S "int"
 #endif
 
-gchar*
-dia_get_data_directory (const gchar* subdir);
-
-gchar*
-dia_get_lib_directory (const gchar* subdir);
+gchar *dia_get_data_directory (const gchar* subdir);
+gchar *dia_get_lib_directory  (const gchar* subdir);
+gchar *dia_config_filename    (const gchar *file);
 
 #endif /* DIA_DIRS_H */

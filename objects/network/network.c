@@ -21,6 +21,7 @@
 #include "config.h"
 #include "intl.h"
 #include "network.h"
+#include "plug-ins.h"
 
 Color computer_color = { 0.7, 0.7, 0.7 };
 
@@ -38,13 +39,15 @@ extern ObjectType sceadplug_type;
 extern ObjectType modem_type;
 extern ObjectType antenna_type;
 
-int get_version(void)
-{
-  return 0;
-}
+DIA_PLUGIN_CHECK_INIT
 
-void register_objects(void)
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
 {
+  if (!dia_plugin_info_init(info, "Network", _("Network diagram objects"),
+			    NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
+
   object_register_type(&computer_type);
   object_register_type(&monitor_type);
   object_register_type(&disc_type);
@@ -58,8 +61,6 @@ void register_objects(void)
   object_register_type(&sceadplug_type);
   object_register_type(&modem_type);
   object_register_type(&antenna_type);
-}
 
-void register_sheets(void)
-{
+  return DIA_PLUGIN_INIT_OK;
 }

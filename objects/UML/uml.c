@@ -22,8 +22,8 @@
 #include "config.h"
 #include "intl.h"
 #include "object.h"
-
 #include "uml.h"
+#include "plug-ins.h"
 
 extern ObjectType umlclass_type;
 extern ObjectType note_type;
@@ -47,7 +47,16 @@ extern ObjectType state_type;
 extern ObjectType node_type;
 extern ObjectType branch_type;
 
-void register_objects(void) {
+DIA_PLUGIN_CHECK_INIT
+
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
+{
+  if (!dia_plugin_info_init(info, "UML",
+			    _("Unified Modelling Language diagram objects"),
+			    NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
+
   object_register_type(&umlclass_type);
   object_register_type(&note_type);
   object_register_type(&dependency_type);
@@ -69,13 +78,8 @@ void register_objects(void) {
   object_register_type(&state_type);    
   object_register_type(&node_type);    
   object_register_type(&branch_type);    
-}
 
-int get_version(void) {
-  return 0;
-}
-
-void register_sheets(void) {
+  return DIA_PLUGIN_INIT_OK;
 }
 
 char visible_char[] = { '+', '-', '#', ' ' };

@@ -29,6 +29,8 @@
 #include "sheet.h"
 #include "shape_info.h"
 #include "dia_dirs.h"
+#include "intl.h"
+#include "plug-ins.h"
 
 void custom_object_new (ShapeInfo *info,
                         ObjectType **otype);
@@ -104,22 +106,21 @@ static void load_shapes_from_tree(const gchar *directory)
 }
 
 
-int get_version(void)
-{
-  return 0;
-}
+DIA_PLUGIN_CHECK_INIT
 
-void
-register_objects(void)
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
 {
   char *shape_path;
   char *home_dir;
 
+  if (!dia_plugin_info_init(info, _("Custom"), _("Custom XML shapes loader"),
+			    NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
+
   home_dir = g_get_home_dir();
   if (home_dir) {
-    home_dir = g_strconcat(home_dir, G_DIR_SEPARATOR_S, ".dia",
-			   G_DIR_SEPARATOR_S, "shapes", NULL);
-    
+    home_dir = dia_config_filename("shapes");
     load_shapes_from_tree(home_dir);
     g_free(home_dir);
   }
@@ -137,8 +138,6 @@ register_objects(void)
     load_shapes_from_tree(thedir);
     g_free(thedir);
   }
-}
 
-void register_sheets(void)
-{
+  return DIA_PLUGIN_INIT_OK;
 }

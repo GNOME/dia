@@ -23,23 +23,22 @@
 #include "config.h"
 #include "intl.h"
 #include "chronogram.h"
+#include "plug-ins.h"
 
 extern ObjectType chronoref_type;
 extern ObjectType chronoline_type;
 
+DIA_PLUGIN_CHECK_INIT
 
-int get_version(void)
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
 {
-  return 0;
-}
+  if (!dia_plugin_info_init(info, "Chronogram",_("Chronogram diagram objects"),
+			    NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
 
-void register_objects(void)
-{
   object_register_type(&chronoref_type);  
   object_register_type(&chronoline_type);
-}
 
-void register_sheets(void)
-{
-  /* Intentionally left empty */
+  return DIA_PLUGIN_INIT_OK;
 }

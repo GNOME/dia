@@ -151,7 +151,7 @@ INCLUDES = \
 LDFLAGS = -export-dynamic
 
 EXTRA_DIST = \
-	$(bonobo_files) \
+	dia_embedd.c \
 	dia.gnorba \
 	render_gnomeprint.c \
 	render_gnomeprint.h \

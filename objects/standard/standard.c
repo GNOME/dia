@@ -17,6 +17,8 @@
  */
 #include "object.h"
 #include "sheet.h"
+#include "intl.h"
+#include "plug-ins.h"
 
 extern ObjectType *_arc_type;
 extern ObjectType *_box_type;
@@ -28,11 +30,16 @@ extern ObjectType *_bezierline_type;
 extern ObjectType *_textobj_type;
 extern ObjectType *_image_type;
 extern ObjectType *_polygon_type;
-int get_version(void) {
-  return 0;
-}
 
-void register_objects(void) {
+DIA_PLUGIN_CHECK_INIT
+
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
+{
+  if (!dia_plugin_info_init(info, "Standard", _("Standard objects"),
+			    NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
+
   object_register_type(_arc_type);
   object_register_type(_box_type);
   object_register_type(_ellipse_type);
@@ -43,7 +50,6 @@ void register_objects(void) {
   object_register_type(_textobj_type);
   object_register_type(_image_type);
   object_register_type(_polygon_type);
-}
 
-void register_sheets(void) {
+  return DIA_PLUGIN_INIT_OK;
 }

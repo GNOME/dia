@@ -38,6 +38,7 @@
 #include "widgets.h"
 #include "diagram.h"
 #include "preferences.h"
+#include "dia_dirs.h"
 
 struct DiaPreferences prefs;
 
@@ -213,25 +214,6 @@ prefs_set_defaults(void)
       break;
     }
   }
-}
-
-/* Return a string containing the full path for the ~/.dia file ending
-   in `subfile'.  Caller must free the string. */
-gchar *
-dia_config_filename(gchar *subfile) {
-  gchar *filename;
-  char *homedir;
-
-  homedir = getenv("HOME");
-  if (!homedir) {
-    message_error(_("Can't find the home directory name\n"));
-    return NULL;
-  }
-  filename = g_malloc(strlen(homedir)+strlen("/.dia/")+strlen(subfile)+1);
-  strcpy(filename, homedir);
-  strcat(filename, "/.dia/");
-  strcat(filename, subfile);
-  return filename;
 }
 
 void

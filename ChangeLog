@@ -1,3 +1,50 @@
+2000-04-09  James Henstridge  <james@daa.com.au>
+
+	* plug-ins/cgm/cgm.c (dia_plugin_init): convert plugin over to new
+	plugin interface.
+
+	* objects/sybase/sybase.c (dia_plugin_init): 
+	* objects/network/network.c (dia_plugin_init): 
+	* objects/flowchart/flowchart.c (dia_plugin_init): 
+	* objects/custom/custom.c (dia_plugin_init): 
+	* objects/chronogram/chronogram.c (dia_plugin_init): 
+	* objects/UML/uml.c (dia_plugin_init): 
+	* objects/SADT/sadt.c (dia_plugin_init): 
+	* objects/GRAFCET/grafcet.c (dia_plugin_init): 
+	* objects/FS/fs.c (dia_plugin_init): 
+	* objects/ER/er.c (dia_plugin_init): updated plugin load code for
+	object libraries.
+
+	* objects/standard/standard.c (dia_plugin_init): change over to new
+	plugin interface.
+
+	* lib/plug-ins.h (DIA_PLUGIN_CHECK_INIT): added a macro to define
+	the version checker for plugins.
+
+	* app/app_procs.c: remove plugin loading code from here, and use
+	code from plug-ins.[ch].  Also move registration of internal
+	objects/filters to a `builtin' plugin.
+
+	* lib/Makefile.am (libdia_a_SOURCES): added plug-ins.[ch] to library.
+
+	* configure.in: use AC_PROG_LIBTOOL rather than AM_PROG_LIBTOOL.
+
+	* app/Makefile.am (EXTRA_DIST): you can't include a conditionally
+	defined variable in EXTRA_DIST.
+
+	* app/preferences.h: removed dia_config_filename from header.
+
+	* app/preferences.c: removed dia_config_filename function.
+
+	* lib/dia_dirs.c (dia_config_filename): moved function over to this
+	file.  Also changed implementation slightly so that it should work
+	on the win32 port correctly (and use NT home directories).
+
+	* lib/dia_dirs.h (dia_config_filename): move dia_config_filename where
+	it should have been.
+
+	* lib/plug-ins.[ch]: new plugin loading code.
+
 2000-04-08  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
 
 	* objects/standard/polygon.c: Fixed startup crash bug (do'h!).

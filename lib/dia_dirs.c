@@ -67,3 +67,16 @@ dia_get_lib_directory (const gchar* subdir)
 #endif
 }
 
+gchar *
+dia_config_filename(const gchar *subfile)
+{
+  gchar *homedir;
+
+  homedir = g_get_home_dir();
+  if (!homedir) {
+    homedir = g_get_tmp_dir(); /* put config stuff in /tmp -- not ideal, but
+				* we should not reach this state */
+  }
+  return g_strconcat(homedir, G_DIR_SEPARATOR_S ".dia" G_DIR_SEPARATOR_S,
+		     subfile, NULL);
+}

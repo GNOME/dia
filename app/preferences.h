@@ -56,10 +56,6 @@ extern void prefs_set_defaults(void);
 extern void prefs_save(void);
 extern void prefs_load(void);
 
-/* Return a string containing the full path for the ~/.dia file ending
-   in `subfile'.  Caller must free the string. */
-extern gchar *dia_config_filename(gchar *subfile);
-
 #endif /* DIA_IMAGE_H */
 
 

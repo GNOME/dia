@@ -23,6 +23,7 @@
 #include "config.h"
 #include "intl.h"
 #include "grafcet.h"
+#include "plug-ins.h"
 
 extern ObjectType step_type;
 extern ObjectType action_type;
@@ -31,23 +32,22 @@ extern ObjectType vergent_type;
 extern ObjectType vector_type;
 extern ObjectType condition_type;
 
-int get_version(void)
-{
-  return 0;
-}
+DIA_PLUGIN_CHECK_INIT
 
-void register_objects(void)
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
 {
+  if (!dia_plugin_info_init(info, "GRAFCET", _("GRAFCET diagram objects"),
+			    NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
+
   object_register_type(&step_type);
   object_register_type(&action_type);
   object_register_type(&transition_type);
   object_register_type(&vergent_type); 
   object_register_type(&vector_type);
   object_register_type(&condition_type);
-}
 
-void register_sheets(void)
-{
-  /* Intentionally left empty */
+  return DIA_PLUGIN_INIT_OK;
 }
 

@@ -32,6 +32,7 @@
 #include "geometry.h"
 #include "render.h"
 #include "filter.h"
+#include "plug-ins.h"
 
 static const gchar *dia_version_string = "Dia-" VERSION;
 #define IS_ODD(n) (n & 0x01)
@@ -1256,19 +1257,17 @@ static DiaExportFilter cgm_export_filter = {
 
 /* --- dia plug-in interface --- */
 
-int
-get_version(void)
-{
-    return 0;
-}
+DIA_PLUGIN_CHECK_INIT
 
-void
-register_objects(void)
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
 {
+    if (!dia_plugin_info_init(info, "CGM",
+			      _("Computer Graphics Metafile export filter"),
+			      NULL, NULL))
+	return DIA_PLUGIN_INIT_ERROR;
+
     filter_register_export(&cgm_export_filter);
-}
 
-void
-register_sheets(void)
-{
+    return DIA_PLUGIN_INIT_OK;
 }

@@ -17,24 +17,26 @@
  */
 #include "intl.h"
 #include "object.h"
+#include "plug-ins.h"
 
 extern ObjectType fc_box_type;
 extern ObjectType pgram_type;
 extern ObjectType diamond_type;
 extern ObjectType fc_ellipse_type;
 
-int get_version(void) {
-  return 0;
-}
+DIA_PLUGIN_CHECK_INIT
 
-void register_objects(void)
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
 {
+  if (!dia_plugin_info_init(info, "Flowchart", _("Flowchart objects"),
+			    NULL, NULL))
+    return DIA_PLUGIN_INIT_ERROR;
+
   object_register_type(&fc_box_type);
   object_register_type(&pgram_type);
   object_register_type(&diamond_type);
   object_register_type(&fc_ellipse_type);
-}
 
-void register_sheets(void)
-{
+  return DIA_PLUGIN_INIT_OK;
 }

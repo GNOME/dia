@@ -69,6 +69,8 @@ libdia_a_SOURCES =  \
 		lazyprops.h \
 		dia_dirs.c \
 		dia_dirs.h \
+		plug-ins.c \
+		plug-ins.h \
 		dummy_dep.h
 
 CPPFLAGS = \

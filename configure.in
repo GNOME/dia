@@ -10,8 +10,8 @@ dnl Initialize maintainer mode
 AM_MAINTAINER_MODE
 
 dnl Initialize libtool
-AM_DISABLE_STATIC
-AM_PROG_LIBTOOL
+AC_DISABLE_STATIC
+AC_PROG_LIBTOOL
 
 dnl Build time sanity check
 AM_SANITY_CHECK
