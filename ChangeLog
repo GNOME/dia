@@ -1,3 +1,10 @@
+2002-05-20  Hans Breuer  <hans@breuer.org>
+
+	* app/create_object.c (create_object_button_press) :
+	added a call to ddisp_do_update_menu_sensitivity()
+	to make Ctrl^D etc work after objec creation. 
+	Fixes #80983.
+
 2002-05-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/ER/entity.c: 

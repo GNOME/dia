@@ -84,6 +84,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   }
 
   object_add_updates(obj, ddisp->diagram);
+  ddisplay_do_update_menu_sensitivity(ddisp);
   diagram_flush(ddisp->diagram);
   
   if (handle2 != NULL) {
@@ -98,6 +99,7 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
     diagram_update_extents(ddisp->diagram);
     tool->moving = FALSE;
   }
+
 }
 
 static void
