@@ -1,3 +1,8 @@
+2001-09-07  James Henstridge  <james@daa.com.au>
+
+	* configure.in (found_libxml): refactor the check for libxml a
+	little so that it handles finding both libxml1 and 2 better.
+
 2001-09-03  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/app_procs.c: removed a spurious } which caused a compilation
