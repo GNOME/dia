@@ -1,3 +1,7 @@
+2002-01-24  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
+
+	* configure.in: Added "sk" to ALL_LINGUAS.
+
 2002-01-22  Akira TAGOH  <tagoh@redhat.com>
 
 	* lib/text.c (text_set_string, new_text, text_copy,
