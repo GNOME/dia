@@ -190,7 +190,7 @@ EXTRA_DIST = \
 	paginate_gnomeprint.h \
 	paginate_psprint.c \
 	paginate_psprint.h \
-	paginate_gdiprint.c \
+	paginate_gdiprint.cpp \
 	paginate_gdiprint.h \
 	win32print.c \
 	win32print.h \
