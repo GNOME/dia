@@ -1,3 +1,9 @@
+2002-04-29  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
+
+	* lib/font.c: Support for loading extra kerning files, plus got
+	rid of rounding errors.  Bounding box mostly perfect for freetype
+	fonts.
+
 2002-04-29  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/font.c (font_string_width): YA font calculation scheme, with

@@ -542,6 +542,20 @@ freetype_file_is_fontfile(char *filename) {
   return FALSE;
 }
 
+void
+freetype_try_attachments(FT_Face face, char *filename) {
+  int len = strlen(filename);
+  if (!strcmp(filename+len-4, ".pfa") ||
+      !strcmp(filename+len-4, ".pfb")) {
+    // Type1 font, may have .afm file containing kerning
+    char *afmname = (char *)g_new(char *, len+1);
+    
+    strncpy(afmname, filename, len-4);
+    strcpy(afmname+len-4, ".afm");
+    FT_Attach_File(face, afmname);
+  }
+}
+
 void 
 freetype_add_font(char *dirname, char *filename) {
   FT_Face face = NULL, first_face = NULL;
@@ -564,7 +578,7 @@ freetype_add_font(char *dirname, char *filename) {
       g_free(fullname);
       return;
     }
-
+    
     new_font = (FreetypeFamily*)g_hash_table_lookup(freetype_fonts, face->family_name);
     if (new_font == NULL) {
       new_font = (FreetypeFamily*)g_malloc(sizeof(FreetypeFamily));
@@ -572,6 +586,8 @@ freetype_add_font(char *dirname, char *filename) {
       new_font->faces = NULL;
       g_hash_table_insert(freetype_fonts, new_font->family, new_font);
     }
+    
+    freetype_try_attachments(face, fullname);
     
     new_face = (FreetypeFace*)g_malloc(sizeof(FreetypeFace));
     new_face->face = face;
@@ -759,6 +775,7 @@ freetype_load_string(const char *string, FT_Face face, int len)
     
     // load glyph image into the slot.
     error = FT_Load_Char( face, c, FT_LOAD_NO_HINTING );
+    //    error = FT_Load_Char( face, c, FT_LOAD_DEFAULT );
     if (error) {
       LC_DEBUG (fprintf(stderr, "Couldn't load glyph #%d: %d\n", i, error));
       continue;
@@ -774,12 +791,12 @@ freetype_load_string(const char *string, FT_Face face, int len)
       if (error) {
 	LC_DEBUG (fprintf(stderr, "FT_Get_Kerning error %d\n", error));
       } else {
-	width += delta.x >> 6;
+	width += (real)delta.x / 64;
       }
     }
                               
     // increment pen position
-    width += face->glyph->advance.x >> 6;
+    width += (real)face->glyph->advance.x / 64;
 
     // record current glyph index
     previous_index = glyph_index;
@@ -808,7 +825,7 @@ freetype_render_string(FreetypeString *fts, int x, int y,
   int i, len;
   int glyph_index, previous_index = 0;
   int use_kerning = TRUE;
-  int pen_x = x, pen_y = y;
+  int pen_x = x<<6, pen_y = y<<6;
   FT_Face face = fts->face;
   int error;
   utfchar *p;
@@ -832,8 +849,9 @@ freetype_render_string(FreetypeString *fts, int x, int y,
       pos[ num_glyphs ].y = pen_y;
     */                      
     
-    // load glyph image into the slot. DO NOT RENDER IT !!
-    error = FT_Load_Char( face, c, FT_LOAD_NO_HINTING | FT_LOAD_RENDER );
+    // load glyph image into the slot.
+    error = FT_Load_Char( face, c, FT_LOAD_RENDER | FT_LOAD_NO_HINTING );
+    //    error = FT_Load_Char( face, c, FT_LOAD_RENDER );
     if (error) continue;  // ignore errors, jump to next glyph
 
     // retrieve kerning distance and move pen position
@@ -846,19 +864,19 @@ freetype_render_string(FreetypeString *fts, int x, int y,
       if (error) {
 	LC_DEBUG (fprintf(stderr, "FT_Get_Kerning error %d\n", error));
       } else {
-	pen_x += delta.x >> 6;
+	pen_x += delta.x;
       }
     }
                             
     // now, draw to our target surface
     (*func)(face->glyph, 
-	    pen_x+face->glyph->bitmap_left,
-	    pen_y-face->glyph->bitmap_top,
+	    (pen_x>>6)+face->glyph->bitmap_left,
+	    (pen_y>>6)-face->glyph->bitmap_top,
 	    userdata);
     
     // increment pen position 
-    pen_x += face->glyph->advance.x >> 6;
-    pen_y += face->glyph->advance.y >> 6;   // unuseful for now..
+    pen_x += face->glyph->advance.x;
+    pen_y += face->glyph->advance.y;   // unuseful for now..
 
 
     // record current glyph index for kerning
@@ -1197,7 +1215,7 @@ font_get_psfontname(DiaFont *font)
 
 /* Returns the width in cm */
 /* Note:  This function cannot be perfect without knowing the
-   renderers scaling.  This is because Gdk fonts don't scale linearly,
+   renderers scaling.  This is because fonts don't scale linearly,
    but in jumps.  The height isn't enough to tell the scaling.
    This means, unfortunately, that setting any box width based on text
    width is almost guaranteed to give imperfect results.  We're trying
@@ -1214,12 +1232,12 @@ font_string_width(const char *string, DiaFont *font, real height)
 
   /* This is currently broken */
   LC_DEBUG (fprintf(stderr, "font_string_width: %s %s %f\n", font->name, font->style, height));
-  face = font_get_freetypefont(font, height*72/2.54);
+  face = font_get_freetypefont(font, 72/2.54);
   ft_string = freetype_load_string(string, face, strlen(string));
-  //  height_ratio = (face->height>>6)/height;
   height_ratio = 72/2.54;
+  //  height_ratio = 72/2.54;
   LC_DEBUG(fprintf(stderr, "result width is %f, height %f, face height %d, ratio %f, return %fcm\n", ft_string->width, height, (face->height>>6), height_ratio, ft_string->width/height_ratio));
-  return ft_string->width/height_ratio;
+  return height*ft_string->width/height_ratio;
 #else
   GdkFont *gdk_font;
   GdkWChar *wcstr;
@@ -1240,7 +1258,7 @@ font_string_width(const char *string, DiaFont *font, real height)
   length = strlen (str);
   wcstr = g_new0 (GdkWChar, length);
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  wclength = mbstowcs (wcstr, mbstr, length);
+  wclength = mbstowcs (wcstr, str, length);
 #else
   wclength = gdk_mbstowcs (wcstr, str, length);
 #endif
@@ -1257,7 +1275,7 @@ font_string_width(const char *string, DiaFont *font, real height)
      it divides width by height to get a wide-to-high ratio, then
      multiplies by the scaled height.
    */
-  gdk_font = font_get_gdkfont(font, height*72/2.54);
+  gdk_font = font_get_gdkfont(font, 100);
   gdk_text_extents_wc(gdk_font, 
                       wcstr, 
                       length,
@@ -1269,7 +1287,7 @@ font_string_width(const char *string, DiaFont *font, real height)
   c_wide = g_rbear - g_lbear;
   if (c_wide == 0) return (real)0.0;
   /* Have to put in a fudge factor to account for the non-linearity */
-  scaled_width = 1.1*((double)c_wide) / ((double)height*72/2.54) * height;
+  scaled_width = 1.1*((double)c_wide) / ((double)100) * height;
   printf("String '%s': Width %d, height %d, font height %f, scaled %f\n",
 	 str, c_wide, (gdk_font->ascent+gdk_font->descent), height, scaled_width);
 
