@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
 "POT-Creation-Date: 2000-05-18 11:20+0800\n"
-"PO-Revision-Date: 2000-05-19 11:27+0200\n"
+"PO-Revision-Date: 2000-05-27 11:27+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgstr "Afslut"
 
 #: app/app_procs.c:331 app/layer_dialog.c:980 app/lineprops_area.c:549
 #: app/lineprops_area.c:747 app/linewidth_area.c:239
-#: app/paginate_psprint.c:241
+#: app/paginate_psprint.c:242
 msgid "Cancel"
 msgstr "Annullér"
 
@@ -134,7 +134,7 @@ msgstr "Bidragsydere:"
 #. setup buttons
 #: app/commands.c:549 app/layer_dialog.c:970 app/lineprops_area.c:540
 #: app/lineprops_area.c:737 app/linewidth_area.c:230 app/pagesetup.c:72
-#: app/paginate_psprint.c:233 app/preferences.c:601 app/properties.c:82
+#: app/paginate_psprint.c:234 app/preferences.c:601 app/properties.c:82
 #: lib/message.c:85
 msgid "OK"
 msgstr "Ok"
@@ -161,87 +161,87 @@ msgstr "Dette objekt har ingen standardindstillinger."
 msgid "Could not initialize Bonobo!"
 msgstr "Kunne ikke initialisere Bonobo!"
 
-#: app/diagram.c:155
+#: app/diagram.c:176
 msgid "/Edit/Copy"
 msgstr "/Redigér/Kopiér"
 
-#: app/diagram.c:157
+#: app/diagram.c:178
 msgid "/Edit/Cut"
 msgstr "/Redigér/Klip ud"
 
-#: app/diagram.c:159
+#: app/diagram.c:180
 msgid "/Edit/Paste"
 msgstr "/Redigér/Indsæt"
 
-#: app/diagram.c:162
+#: app/diagram.c:183
 msgid "/Edit/Delete"
 msgstr "/Redigér/Slet"
 
-#: app/diagram.c:166 app/menus.c:277
+#: app/diagram.c:187 app/menus.c:277
 msgid "/Edit/Copy Text"
 msgstr "/Redigér/Kopiér tekst"
 
-#: app/diagram.c:168 app/menus.c:278
+#: app/diagram.c:189 app/menus.c:278
 msgid "/Edit/Cut Text"
 msgstr "/Redigér/Klip tekst ud"
 
-#: app/diagram.c:170
+#: app/diagram.c:191
 msgid "/Edit/Paste Text"
 msgstr "/Redigér/Indsæt tekst"
 
-#: app/diagram.c:173
+#: app/diagram.c:194
 msgid "/Objects/Send to Back"
 msgstr "/Objekter/Send bagud"
 
-#: app/diagram.c:175
+#: app/diagram.c:196
 msgid "/Objects/Bring to Front"
 msgstr "/Objekter/Hent frem"
 
-#: app/diagram.c:178
+#: app/diagram.c:199
 msgid "/Objects/Group"
 msgstr "/Objekter/Gruppér"
 
-#: app/diagram.c:180
+#: app/diagram.c:201
 msgid "/Objects/Ungroup"
 msgstr "/Objekter/Afgruppér"
 
-#: app/diagram.c:183 app/menus.c:327
+#: app/diagram.c:204 app/menus.c:327
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Objekter/Justér vandret/Venstre"
 
-#: app/diagram.c:185 app/menus.c:328
+#: app/diagram.c:206 app/menus.c:328
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objekter/Justér vandret/Midt"
 
-#: app/diagram.c:187 app/menus.c:329
+#: app/diagram.c:208 app/menus.c:329
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objekter/Justér vandret/Højre"
 
-#: app/diagram.c:189 app/menus.c:330
+#: app/diagram.c:210 app/menus.c:330
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objekter/Justér vandret/Samme afstand"
 
-#: app/diagram.c:191 app/menus.c:331
+#: app/diagram.c:212 app/menus.c:331
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Objekter/Justér vandret/Ved siden"
 
-#: app/diagram.c:193 app/menus.c:333
+#: app/diagram.c:214 app/menus.c:333
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Objekter/Justér lodret/Øverst"
 
-#: app/diagram.c:195 app/menus.c:334
+#: app/diagram.c:216 app/menus.c:334
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Objekter/Justér lodret/Midt"
 
-#: app/diagram.c:197 app/menus.c:335
+#: app/diagram.c:218 app/menus.c:335
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objekter/Justér lodret/Bund"
 
-#: app/diagram.c:199 app/menus.c:336
+#: app/diagram.c:220 app/menus.c:336
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objekter/Justér lodret/Samme afstand"
 
-#: app/diagram.c:201 app/menus.c:337
+#: app/diagram.c:222 app/menus.c:337
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Objekter/Justér lodret/Ved siden"
 
@@ -324,11 +324,11 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagrammet er ændret!"
 
-#: app/display.c:789 app/display.c:795
+#: app/display.c:792 app/display.c:798
 msgid "Really close?"
 msgstr "Virkelig lukke?"
 
-#: app/display.c:800
+#: app/display.c:803
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -336,37 +336,37 @@ msgstr ""
 "Dette diagram er ikke gemt.\n"
 "Er du sikker på at du vil lukke vinduet?"
 
-#: app/display.c:818 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:495
+#: app/display.c:821 app/filedlg.c:241 app/filedlg.c:430 app/preferences.c:495
 #: lib/properties.c:267
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:828 app/filedlg.c:267 app/filedlg.c:456 app/preferences.c:495
+#: app/display.c:831 app/filedlg.c:254 app/filedlg.c:443 app/preferences.c:495
 #: app/preferences.c:506 lib/properties.c:269 lib/properties.c:290
 msgid "No"
 msgstr "Nej"
 
-#: app/display.c:864
+#: app/display.c:867
 msgid "/View/Show Rulers"
 msgstr "/Vis/Vis _linealer"
 
-#: app/display.c:866
+#: app/display.c:869
 msgid "/View/Visible Grid"
 msgstr "/Vis/_Synligt gitter"
 
-#: app/display.c:868
+#: app/display.c:871
 msgid "/View/Snap To Grid"
 msgstr "/Vis/_Lås til gitter"
 
-#: app/display.c:870
+#: app/display.c:873
 msgid "/View/Show Connection Points"
 msgstr "/Vis/Vis forbindelsespunkter"
 
-#: app/display.c:873
+#: app/display.c:876
 msgid "/View/AntiAliased"
 msgstr "/Vis/Antialiaseret"
 
-#: app/export_png.c:78 app/load_save.c:517 app/render_eps.c:162
+#: app/export_png.c:78 app/load_save.c:501 app/render_eps.c:162
 #: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
 #: plug-ins/pstricks/render_pstricks.c:185
 #, c-format
@@ -389,36 +389,27 @@ msgstr "Fejl opstod ved skrivning af PNG"
 msgid "Portable Network Graphics"
 msgstr "Flytbar vektorgrafik"
 
-#: app/filedlg.c:94 app/filedlg.c:381
+#: app/filedlg.c:94 app/filedlg.c:368
 msgid "By extension"
 msgstr "Ved udvidelse"
 
-#: app/filedlg.c:142
-#, c-format
-msgid ""
-"Could not determine which import filter\n"
-"to use to open '%s'"
-msgstr ""
-"kunne ikke bestemme hvilket import-filter\n"
-"der skulle bruges ved åbning af '%s'"
-
-#: app/filedlg.c:166
+#: app/filedlg.c:153
 msgid "Open Diagram"
 msgstr "Åbn Diagram"
 
-#: app/filedlg.c:192
+#: app/filedlg.c:179
 msgid "Open Options"
 msgstr "Muligheder for Åbn"
 
-#: app/filedlg.c:200 app/filedlg.c:540
+#: app/filedlg.c:187 app/filedlg.c:527
 msgid "Determine file type:"
 msgstr "Bestem filtype:"
 
-#: app/filedlg.c:240 app/filedlg.c:428
+#: app/filedlg.c:227 app/filedlg.c:415
 msgid "File already exists"
 msgstr "Fil eksisterer allerede"
 
-#: app/filedlg.c:244 app/filedlg.c:431
+#: app/filedlg.c:231 app/filedlg.c:418
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -427,11 +418,11 @@ msgstr ""
 "Filen '%s' eksisterer allerede\n"
 "Ønsker du at overskrive den"
 
-#: app/filedlg.c:308
+#: app/filedlg.c:295
 msgid "Save Diagram"
 msgstr "Gem diagram"
 
-#: app/filedlg.c:488
+#: app/filedlg.c:475
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -440,11 +431,11 @@ msgstr ""
 "kunne ikke bestemme hvilket eksport-filter\n"
 "der skulle bruges ved gemning af '%s'"
 
-#: app/filedlg.c:505
+#: app/filedlg.c:492
 msgid "Export Diagram"
 msgstr "Eksporter diagram"
 
-#: app/filedlg.c:532
+#: app/filedlg.c:519
 msgid "Export Options"
 msgstr "Indstillinger for eksport"
 
@@ -516,7 +507,7 @@ msgstr "Polygon"
 msgid "Create Line"
 msgstr "Lav linie"
 
-#: app/interface.c:71 app/menus.c:199 objects/standard/line.c:177
+#: app/interface.c:71 app/menus.c:199 objects/standard/line.c:183
 msgid "Line"
 msgstr "Linie"
 
@@ -560,11 +551,11 @@ msgstr "Lav billede"
 msgid "Image"
 msgstr "Billedfil"
 
-#: app/interface.c:301
+#: app/interface.c:313
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL værktøjdata i tool_select_update"
 
-#: app/interface.c:657
+#: app/interface.c:669
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -573,7 +564,7 @@ msgstr ""
 "farverne.  Pilene bytter om på farverne.  Dobbelt-klik for at vælge andre "
 "farver."
 
-#: app/interface.c:762
+#: app/interface.c:774
 msgid "Diagram Editor"
 msgstr "Diagramredigering"
 
@@ -694,12 +685,12 @@ msgstr ""
 "Fejl under indlæsning af diagrammet %s.\n"
 "Ikke en Dia fil."
 
-#: app/load_save.c:615
+#: app/load_save.c:599
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Kunne ikke gemme fil '%s'.\n"
 
-#: app/load_save.c:635 app/load_save.c:640
+#: app/load_save.c:619 app/load_save.c:624
 msgid "Native Dia Diagram"
 msgstr "Dia diagramformat"
 
@@ -1272,15 +1263,15 @@ msgstr "/Værktøj/"
 msgid "Print Diagram"
 msgstr "Udskriv diagram"
 
-#: app/paginate_gnomeprint.c:167 app/paginate_psprint.c:205
+#: app/paginate_gnomeprint.c:167 app/paginate_psprint.c:206
 msgid "Printer"
 msgstr "Printer"
 
-#: app/paginate_psprint.c:193
+#: app/paginate_psprint.c:194
 msgid "Select Printer"
 msgstr "Vælg printer"
 
-#: app/paginate_psprint.c:218
+#: app/paginate_psprint.c:219
 msgid "File"
 msgstr "Fil"
 
@@ -1443,7 +1434,7 @@ msgstr "Intern fejl: Sætter hjørnetype for slutpunkt af Bezier"
 msgid "Background"
 msgstr "Baggrund"
 
-#: lib/font.c:355
+#: lib/font.c:386
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1452,7 +1443,7 @@ msgstr ""
 "Advarsel:  Fandt ingen X skrifttype for %s, \n"
 "bruger %s i stedet.\n"
 
-#: lib/font.c:409
+#: lib/font.c:440
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr "Fandt ikke skrifttype %s, bruger Courier i stedet.\n"
@@ -1988,7 +1979,7 @@ msgid "Vergent type:"
 msgstr "Randtype:"
 
 #: objects/GRAFCET/vergent.c:458 objects/SADT/box.c:538
-#: objects/standard/line.c:171
+#: objects/standard/line.c:177
 msgid "Add connection point"
 msgstr "Tilføj forbindelsespunkt"
 
@@ -2053,7 +2044,7 @@ msgstr "Tekstspaltefyld:"
 msgid "Activity/Data identifier"
 msgstr "Aktivitets/data identificerer"
 
-#: objects/SADT/box.c:539 objects/standard/line.c:172
+#: objects/SADT/box.c:539 objects/standard/line.c:178
 msgid "Delete connection point"
 msgstr "Slet forbindelsespunkt"
 
@@ -2577,6 +2568,14 @@ msgstr ""
 msgid "The image file '%s' was not found.\n"
 msgstr "Kunne ikke finde billedfilen '%s'.\n"
 
+#: objects/standard/line.c:118
+msgid "Start point"
+msgstr "Startpunkt"
+
+#: objects/standard/line.c:120
+msgid "End point"
+msgstr "Slutpunkt"
+
 #: objects/standard/polygon.c:597 objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "Tilføj hjørne"
@@ -2617,9 +2616,9 @@ msgstr "Computer Grafik Metafil eksportfilter"
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
-#: plug-ins/dxf/dxf.c:15
-msgid "Drawing Interchange File export filter"
-msgstr "Drawing Interchange File eksportfilter"
+#: plug-ins/dxf/dxf.c:37
+msgid "Drawing Interchange File import and export filters"
+msgstr "Drawing Interchange File import- og eksportfiltre"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
