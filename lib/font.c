@@ -467,6 +467,8 @@ GHashTable *fonts_hash = NULL;
 
 char *last_resort_fonts[] = {
   "-adobe-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+  "-urw-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
+  "-*-courier-medium-r-normal-*-%d-*-*-*-*-*-*-*",
 #ifndef G_OS_WIN32
   "system" /* Must be last. This is guaranteed to exist on a MS-Windows 
               system. */
@@ -531,6 +533,14 @@ init_x11_font(FontPrivate *font)
     }
   }
 
+  if (gdk_font == NULL) {
+      message_warning(_("Unable to load any GDK font for %s font; even "
+                        "last resorts alternatives failed.\n"
+                        "This is fatal, sorry."),
+                      x11_font);
+      g_assert_not_reached();
+  }
+  
   height = (real)gdk_font->ascent + gdk_font->descent;
   font->ascent_ratio = gdk_font->ascent/height;
   font->descent_ratio = gdk_font->descent/height;

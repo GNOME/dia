@@ -1,3 +1,10 @@
+2002-06-02  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* lib/font.c: made a symptomatic fix to a segfault reported by 
+	Jan Keirse <jan.keirse@pandora.be> on a SuSE 7.3 system. This
+	won't prevent dia from terminating, but should give more
+	user-friendly information about why did it terminate.
+
 2002-06-01  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* dia.spec:
