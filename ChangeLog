@@ -3,6 +3,8 @@
 	* lib/font.c: Support for loading extra kerning files, plus got
 	rid of rounding errors.  Bounding box mostly perfect for freetype
 	fonts.
+	(font_string_width): Fudge factor to get around nonlinearity of
+	font scaling.
 
 2002-04-29  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 

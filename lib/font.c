@@ -1288,8 +1288,6 @@ font_string_width(const char *string, DiaFont *font, real height)
   if (c_wide == 0) return (real)0.0;
   /* Have to put in a fudge factor to account for the non-linearity */
   scaled_width = 1.1*((double)c_wide) / ((double)100) * height;
-  printf("String '%s': Width %d, height %d, font height %f, scaled %f\n",
-	 str, c_wide, (gdk_font->ascent+gdk_font->descent), height, scaled_width);
 
   g_free (wcstr);
   g_free (str);
