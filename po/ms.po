@@ -1,12 +1,12 @@
 # Duit PPRT siapa yang kebas????      
 # Copyright (C) 2001 Free Software Foundation, Inc.
-# Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 200R31.
+# Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ms-longgok\n"
-"POT-Creation-Date: 2003-05-18 01:12+0800\n"
-"PO-Revision-Date: 2003-05-18 00:43+0800\n"
+"Project-Id-Version: dia\n"
+"POT-Creation-Date: 2003-07-20 23:54+0800\n"
+"PO-Revision-Date: 2003-07-20 23:50+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -68,15 +68,15 @@ msgstr "Papar versi dan keluar"
 msgid "Show this help message"
 msgstr "papar maklumat bantuan ini"
 
-#: app/app_procs.c:285
+#: app/app_procs.c:286
 msgid "Can't connect to session manager!\n"
 msgstr "Tak dapat  menyambung ke pengurus sessi!\n"
 
-#: app/app_procs.c:300 app/diaconv.c:119
+#: app/app_procs.c:301 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPSYEN...] [FAIL...]"
 
-#: app/app_procs.c:304 app/diaconv.c:126
+#: app/app_procs.c:305 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -86,29 +86,35 @@ msgstr ""
 "Laksanakan '%s --help' untuk melihat senarai penuh opsyen arahan baris yang "
 "ada.\n"
 
-#: app/app_procs.c:317
+#: app/app_procs.c:318
 #, c-format
 msgid "%s error: can specify only one of -f or -o."
 msgstr "Ralat %s : boleh hanya nyatakan hanya satu -f atau -o."
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:330
+#: app/app_procs.c:331
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr " Dia versi %s dikompil %s, %s\n"
 
-#: app/app_procs.c:332
+#: app/app_procs.c:333
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia versi %s\n"
 
-#: app/app_procs.c:418 app/app_procs.c:420 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:419 app/app_procs.c:421 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Tak menjumpai objek piawai bila mencari object-libs, keluar...\n"
 
+#: app/app_procs.c:549
+msgid ""
+"This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
+"describing how you can cause this message to appear.\n"
+msgstr ""
+
 #. no standard buttons
-#: app/app_procs.c:557
+#: app/app_procs.c:561
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -118,21 +124,27 @@ msgstr ""
 " Adakah anda pasti untuk keluar Dia\n"
 "tanpa menyimpannya?"
 
-#: app/app_procs.c:561
+#: app/app_procs.c:565
 msgid "Quit Dia"
 msgstr "Keluar Dia"
 
-#: app/app_procs.c:625 app/app_procs.c:632
+#. This printf seems to prevent a race condition with unrefs.
+#. Yuck.  -Lars
+#: app/app_procs.c:620
+msgid "Thank you for using Dia.\n"
+msgstr ""
+
+#: app/app_procs.c:634 app/app_procs.c:641
 msgid "Could not create per-user Dia config directory"
 msgstr "Tak dapat mencipta direktori konfigurasi per-pengguna Dia"
 
-#: app/app_procs.c:634
+#: app/app_procs.c:643
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: app/app_procs.c:656 app/diaconv.c:249
+#: app/app_procs.c:665 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr ""
 
@@ -159,15 +171,15 @@ msgstr "Pilih warna latarbelakang"
 msgid "Diagram%d.dia"
 msgstr "Diagram%d.dia"
 
-#: app/commands.c:198
+#: app/commands.c:200
 msgid "No existing object to paste.\n"
 msgstr ""
 
-#: app/commands.c:468 app/commands.c:496
+#: app/commands.c:470 app/commands.c:498
 msgid "Could not find help directory"
 msgstr "tak menjumpai direktori bantuan"
 
-#: app/commands.c:475
+#: app/commands.c:477
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -181,44 +193,43 @@ msgstr ""
 #. * which will give them credit in the About box.
 #. * E.g. "Fulano de Tal <fulano@detal.com>"
 #.
-#: app/commands.c:534
+#: app/commands.c:536
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "Hasbullah Bin Pit <sebol@ikhlas.com>, Merlimau. 2002"
 
-#: app/commands.c:548 dia.desktop.in.h:1
+#: app/commands.c:550 dia.desktop.in.h:1
 msgid "Dia"
 msgstr "Dia"
 
-#: app/commands.c:550
+#: app/commands.c:552
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
 msgstr "Hakcipta (C) 1998-2002 The Free Software Foundation dan penulisnya"
 
-#: app/commands.c:551
+#: app/commands.c:553
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
 msgstr ""
 
-#: app/commands.c:590
+#: app/commands.c:592
 msgid "About Dia"
 msgstr "Perihal Dia"
 
-#: app/commands.c:633
+#: app/commands.c:635
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s oleh Alexander Larsson"
 
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
-#: app/commands.c:639
+#: app/commands.c:641
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
 msgstr "Penyenggara: Lars Clausen and Cyrille Chepelov"
 
-# libgnomeui/gnome_segv.c:117
-#: app/commands.c:643
+#: app/commands.c:645
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr "Sila lawat http://www.lysator.liu.se/~alla/dia untuk lebih maklumat"
 
-#: app/commands.c:648
+#: app/commands.c:650
 msgid "Contributors:"
 msgstr "Penyumbang:"
 
@@ -264,12 +275,12 @@ msgid "%s error: can specify only one of -t or -o."
 msgstr "Ralat %s : boleh hanya nyatakan hanya satu -t atau -o."
 
 #: app/diaconv.c:163
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s error: must specify only one of -t or -o.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
-"Ralat pada opsyen %s: %s.\n"
+"Ralat %s: mesti nyatakan salah satu -t atau -o.\n"
 "Laksanakan '%s --help' untuk melihat senarai penuh opsyen arahan baris yang "
 "ada.\n"
 
@@ -306,7 +317,7 @@ msgstr "/Isih objek/mengikut _jenis"
 
 #: app/diagram_tree_menu.c:50
 msgid "/Sort objects/as _inserted"
-msgstr ""
+msgstr "/Isih objek/seperti disel_itkan"
 
 #: app/diagram_tree_menu.c:53
 msgid "/Sort objects/All by name"
@@ -326,7 +337,7 @@ msgstr "/Isih objek/_Default"
 
 #: app/diagram_tree_menu.c:60
 msgid "/Sort objects/Default/by _name"
-msgstr ""
+msgstr "/Isih objek/Default/mengikut _nama"
 
 #: app/diagram_tree_menu.c:62
 msgid "/Sort objects/Default/by _type"
@@ -341,23 +352,20 @@ msgid "/Sort _diagrams"
 msgstr "/Isih _diagram"
 
 #: app/diagram_tree_menu.c:67
-#, fuzzy
 msgid "/Sort _diagrams/by _name"
-msgstr "Isih imej mengikut nama"
+msgstr "/Isih _diagram/mengikut _nama"
 
 #: app/diagram_tree_menu.c:69
 msgid "/Sort _diagrams/as _inserted"
-msgstr ""
+msgstr "/Isih _diagram/seperti disel_itkan"
 
 #: app/diagram_tree_menu.c:71
-#, fuzzy
 msgid "/Sort diagrams/_Default"
-msgstr "Tetapkan sebagai _Default"
+msgstr "/Isih diagram/_Default"
 
 #: app/diagram_tree_menu.c:72
-#, fuzzy
 msgid "/Sort diagrams/Default/by _name"
-msgstr "Isih imej mengikut nama"
+msgstr "/Isih diagram/Default/mengikut _nama"
 
 #: app/diagram_tree_menu.c:74
 msgid "/Sort diagrams/Default/as _inserted"
@@ -367,8 +375,6 @@ msgstr ""
 msgid "/_Locate"
 msgstr "/_Cari"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-app-helper.c:215
 #: app/diagram_tree_menu.c:83
 msgid "/_Properties"
 msgstr "/_Ciri-ciri"
@@ -386,8 +392,7 @@ msgid "Ok"
 msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/linewidth_area.c:258
-#: app/paginate_psprint.c:276
+#: app/lineprops_area.c:679 app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Batal"
 
@@ -414,17 +419,10 @@ msgstr "Atas:"
 msgid "Bottom:"
 msgstr "Bawah:"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:200
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:200
 #: app/diapagelayout.c:225
 msgid "Left:"
 msgstr "Kiri:"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:268
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
 # ui/galeon.glade.h:268
 #: app/diapagelayout.c:238
 msgid "Right:"
@@ -444,9 +442,8 @@ msgid "Fit to:"
 msgstr "Muatkan ke:"
 
 #: app/diapagelayout.c:287
-#, fuzzy
 msgid "by"
-msgstr "badan"
+msgstr "oleh"
 
 #: app/diapagelayout.c:682
 #, c-format
@@ -465,8 +462,6 @@ msgstr "Ciri-ciri Diagram"
 msgid "x"
 msgstr "x"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-app-util.c:310
 #: app/dia-props.c:100
 msgid "y"
 msgstr "y"
@@ -483,13 +478,19 @@ msgstr "Jarakruang kelihatan"
 msgid "Grid"
 msgstr "Grid"
 
-#: app/dia-props.c:155
+#: app/dia-props.c:156
 msgid "Background Colour"
 msgstr "Warna Latar Belakang"
 
-#: app/dia-props.c:166 lib/diagramdata.c:58
+#: app/dia-props.c:167 lib/diagramdata.c:58
 msgid "Background"
 msgstr "LatarBelakang"
+
+#. Can we be sure that the filename is the 'proper title'?
+#: app/dia-props.c:185
+#, c-format
+msgid "Diagram Properties: %s"
+msgstr "Ciri-ciri Diagram: %s"
 
 #: app/disp_callbacks.c:77 app/properties.c:141
 msgid ""
@@ -501,15 +502,21 @@ msgstr ""
 msgid "No object menu"
 msgstr "Tiada menu objek"
 
+#: app/disp_callbacks.c:830
+msgid ""
+"The object you dropped cannot fit into its parent. \n"
+"Either expand the parent object, or drop the object elsewhere."
+msgstr ""
+
 #: app/display.c:93
 msgid "Diagram modified!"
 msgstr "Diagram diubahsuai!"
 
-#: app/display.c:960
+#: app/display.c:992
 msgid "<unnamed>"
 msgstr "<TiadaNama>"
 
-#: app/display.c:962
+#: app/display.c:994
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -518,11 +525,11 @@ msgstr ""
 "Dokumen '%s' tidak akan \n"
 "disimpan. Simpan sekarang?"
 
-#: app/display.c:973
+#: app/display.c:1005
 msgid "Close Diagram"
 msgstr "Tutup Diagram"
 
-#: app/display.c:978
+#: app/display.c:1010
 msgid "Discard Changes"
 msgstr "Abaikan Perubahan"
 
@@ -530,9 +537,9 @@ msgstr "Abaikan Perubahan"
 # Copyright (C) 2002 Free Software Foundation, Inc.
 # Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002
 #
-#: app/export_png.c:116 app/load_save.c:747 app/render_eps.c:83
+#: app/export_png.c:116 app/load_save.c:779 app/render_eps.c:83
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
-#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:734
+#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
 #: plug-ins/pstricks/render_pstricks.c:757 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
 #: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:87
@@ -577,7 +584,6 @@ msgid "Portable Network Graphics"
 msgstr "Grafik Vektor"
 
 #: app/filedlg.c:102 app/filedlg.c:370
-#, fuzzy
 msgid "By extension"
 msgstr "Mengikut penghujungan"
 
@@ -636,20 +642,18 @@ msgid ""
 msgstr "ETak dapat menentukan jenis format semasa"
 
 #: app/filedlg.c:455
-#, fuzzy
 msgid "Export Diagram"
-msgstr "Diagram"
+msgstr "Eksport Diagram"
 
 #: app/filedlg.c:477
-#, fuzzy
 msgid "Export Options"
-msgstr "Lebih Opsyen"
+msgstr "Opsyen Eksport"
 
 #: app/interface.c:43
 msgid "Modify object(s)"
 msgstr "Objek diubahsuai"
 
-#: app/interface.c:44 app/menus.c:216
+#: app/interface.c:44 app/menus.c:221
 msgid "Modify"
 msgstr "Ubahsuai"
 
@@ -658,27 +662,25 @@ msgstr "Ubahsuai"
 # Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002
 #
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:48 app/interface.c:49 app/menus.c:217
+#: app/interface.c:48 app/interface.c:49 app/menus.c:222
 #: objects/FS/function.c:951
-#, fuzzy
 msgid "Magnify"
-msgstr "Pembesar"
+msgstr "Besarkan"
 
 #: app/interface.c:53
 msgid "Scroll around the diagram"
 msgstr "Skrol sekeliling diagram"
 
-#: app/interface.c:54 app/menus.c:218
+#: app/interface.c:54 app/menus.c:223
 msgid "Scroll"
 msgstr "Skrol"
 
-# libgnomeui/gnome-stock.c:844
 #. PROP_STD_TEXT_ALIGNMENT,
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:58 app/interface.c:59 app/menus.c:219 lib/properties.c:77
-#: lib/properties.h:498 lib/properties.h:501 objects/UML/activity.c:123
+#: app/interface.c:58 app/interface.c:59 app/menus.c:224 lib/properties.c:77
+#: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:123
 #: objects/UML/actor.c:114 objects/UML/classicon.c:137
 #: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/note.c:113
 #: objects/UML/object.c:141 objects/UML/small_package.c:120
@@ -686,103 +688,99 @@ msgstr "Skrol"
 msgid "Text"
 msgstr "Teks"
 
-#: app/interface.c:63 app/interface.c:64 app/menus.c:220
+#: app/interface.c:63 app/interface.c:64 app/menus.c:225
 msgid "Box"
 msgstr "Kotak"
 
-#: app/interface.c:68 app/interface.c:69 app/menus.c:221
-#, fuzzy
+#: app/interface.c:68 app/interface.c:69 app/menus.c:226
 msgid "Ellipse"
-msgstr "Eklips"
+msgstr "Elips"
 
-#: app/interface.c:73 app/interface.c:74 app/menus.c:222
+#: app/interface.c:73 app/interface.c:74 app/menus.c:227
 msgid "Polygon"
 msgstr "Poligon"
 
-#: app/interface.c:78 app/interface.c:79 app/menus.c:223
+#: app/interface.c:78 app/interface.c:79 app/menus.c:228
 #, fuzzy
 msgid "Beziergon"
 msgstr "sifar"
 
-#: app/interface.c:83 app/interface.c:84 app/menus.c:225
+#: app/interface.c:83 app/interface.c:84 app/menus.c:230
 #: objects/standard/line.c:246
 msgid "Line"
 msgstr "Talian"
 
-#: app/interface.c:88 app/interface.c:89 app/menus.c:226
+#: app/interface.c:88 app/interface.c:89 app/menus.c:231
 msgid "Arc"
 msgstr "Arca"
 
-#: app/interface.c:93 app/interface.c:94 app/menus.c:227
+#: app/interface.c:93 app/interface.c:94 app/menus.c:232
 msgid "Zigzagline"
 msgstr "Garisan Zigzag"
 
-#: app/interface.c:98 app/interface.c:99 app/menus.c:228
+#: app/interface.c:98 app/interface.c:99 app/menus.c:233
 #, fuzzy
 msgid "Polyline"
 msgstr "dalam-talian"
 
-#: app/interface.c:103 app/interface.c:104 app/menus.c:229
+#: app/interface.c:103 app/interface.c:104 app/menus.c:234
 #, fuzzy
 msgid "Bezierline"
 msgstr "Barispaip:"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:176
-#: app/interface.c:108 app/interface.c:109 app/menus.c:231
+#: app/interface.c:108 app/interface.c:109 app/menus.c:236
 msgid "Image"
 msgstr "Imej"
 
-#: app/interface.c:370
-#, fuzzy
+#: app/interface.c:371
 msgid "Diagram menu."
-msgstr "Menu Diagram"
+msgstr "Menu diagram"
 
-#: app/interface.c:479
+#: app/interface.c:480
 msgid "Zoom"
 msgstr "Zum"
 
-#: app/interface.c:493
+#: app/interface.c:494
 #, fuzzy
 msgid "Toggles snap-to-grid for this window."
 msgstr "Ikon untuk tetingkap ini"
 
-#: app/interface.c:537
+#: app/interface.c:538
 msgid "NULL tooldata in tool_select_update"
 msgstr ""
 
-#: app/interface.c:999
+#: app/interface.c:1014
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
 "colors."
 msgstr ""
 
-#: app/interface.c:1014
+#: app/interface.c:1029
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
 msgstr ""
 
-#: app/interface.c:1046
+#: app/interface.c:1061
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
 msgstr ""
 
-#: app/interface.c:1051
+#: app/interface.c:1066
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
 msgstr ""
 
-#: app/interface.c:1056
+#: app/interface.c:1071
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
 msgstr ""
 
-#: app/interface.c:1152
+#: app/interface.c:1179
 msgid "Diagram Editor"
 msgstr "Editor Diagram"
 
@@ -799,12 +797,10 @@ msgid "Lower Layer"
 msgstr "Turunkan Lapisan"
 
 #: app/layer_dialog.c:73
-#, fuzzy
 msgid "Delete Layer"
-msgstr "Padam Pengguna"
+msgstr "Padam Lapisan"
 
 #: app/layer_dialog.c:214
-#, fuzzy
 msgid "Layers"
 msgstr "Lapisan"
 
@@ -812,10 +808,6 @@ msgstr "Lapisan"
 msgid "Diagrams:"
 msgstr "Diagram:"
 
-# #-#-#-#-#  kejap.po (longokan)  #-#-#-#-#
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# #-#-#-#-#  ms-besar.po (besar)  #-#-#-#-#
-# libgnomeui/gnome-stock.c:840 libgnomeui/stock_demo.c:144
 #: app/layer_dialog.c:273
 msgid "Close"
 msgstr "Tutup"
@@ -837,7 +829,7 @@ msgid "Layer name:"
 msgstr "Nama lapisan:"
 
 #: app/layer_dialog.c:999 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:249 app/paginate_psprint.c:268
+#: app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
@@ -853,44 +845,44 @@ msgstr "Terperinci..."
 msgid "Line Style Properties"
 msgstr "Ciri-ciri gaya Garisan"
 
-#: app/linewidth_area.c:230 lib/properties.h:474
+#: app/linewidth_area.c:239 lib/properties.h:475
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Lebar Garisan"
 
-#: app/linewidth_area.c:236
+#: app/linewidth_area.c:251
 msgid "Line width:"
 msgstr "Lebar Garisan:"
 
-#: app/load_save.c:201
+#: app/load_save.c:220
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
 
-#: app/load_save.c:204
+#: app/load_save.c:223
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
 
-#: app/load_save.c:207
+#: app/load_save.c:226
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
 
-#: app/load_save.c:256
+#: app/load_save.c:275
 msgid "You must specify a file, not a directory.\n"
 msgstr "Anda mesti nyatakan satu fail, bukannya direktori:\n"
 
-#: app/load_save.c:263 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
+#: app/load_save.c:282 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1169
 #: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:80
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Tak dapat membuka fail '%s' untuk dibaca:\n"
 
-#: app/load_save.c:272 app/load_save.c:277
+#: app/load_save.c:291 app/load_save.c:296
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -899,7 +891,7 @@ msgstr ""
 "Ralat memuatkan diagram %s.\n"
 "Jenis fail tak diketahui."
 
-#: app/load_save.c:284
+#: app/load_save.c:303
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -908,7 +900,7 @@ msgstr ""
 "Ralat memuatkan diagram %s.\n"
 "Bukan fail Dia"
 
-#: app/load_save.c:470
+#: app/load_save.c:489
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -916,66 +908,54 @@ msgid ""
 "A valid Dia file defines at least one layer."
 msgstr ""
 
-#: app/load_save.c:780
+#: app/load_save.c:812
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Gagal menyimpan fail'%s'.\n"
 
-#: app/load_save.c:850 app/load_save.c:855
-#, fuzzy
+#: app/load_save.c:882 app/load_save.c:887
 msgid "Native Dia Diagram"
-msgstr "Diagram Dia"
+msgstr "Diagram Dia Tabii"
 
-# libgnomeui/gnome-app-helper.c:261
 #: app/menus.c:50 app/menus.c:70
-#, fuzzy
 msgid "_New diagram"
-msgstr "Permainan _Baru"
+msgstr "Diagram ba_ru"
 
 #: app/menus.c:50 app/menus.c:70
-#, fuzzy
 msgid "Create new diagram"
-msgstr "Cipta diagram"
+msgstr "Cipta diagram baru"
 
 #: app/menus.c:54
-#, fuzzy
 msgid "_Diagram tree"
-msgstr "Diagram"
+msgstr "Pepohon _diagram"
 
 #: app/menus.c:54
-#, fuzzy
 msgid "Show diagram tree"
-msgstr "Papar tarikh"
+msgstr "Papar pepohon diagram"
 
 #: app/menus.c:56
-#, fuzzy
 msgid "_Sheets and Objects..."
-msgstr "Objek _Berbentuk"
+msgstr "_Helaian dan Objek..."
 
 #: app/menus.c:57
 msgid "Modify sheets and their objects"
 msgstr ""
 
 #: app/menus.c:61
-#, fuzzy
 msgid "P_lugins..."
-msgstr "_Plug-in"
+msgstr "P_lug-in..."
 
 #: app/menus.c:77
-#, fuzzy
 msgid "_Export..."
-msgstr "_Import..."
+msgstr "_Eksport..."
 
 #: app/menus.c:81
 msgid "Page Set_up..."
 msgstr "T_etapan Halaman..."
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-app-helper.c:144
 #: app/menus.c:83
-#, fuzzy
 msgid "_Print Diagram..."
-msgstr "_Cetak..."
+msgstr "_Cetak Diagram..."
 
 #: app/menus.c:98
 msgid "_Delete"
@@ -990,47 +970,41 @@ msgid "Cut Text"
 msgstr "Potong Teks"
 
 #: app/menus.c:106
-#, fuzzy
 msgid "Paste _Text"
-msgstr "Tepek Teks"
+msgstr "Tepek _Teks"
 
 #: app/menus.c:130
 msgid "Zoom _In"
 msgstr "Zoom _Masuk"
 
 #: app/menus.c:130
-#, fuzzy
 msgid "Zoom in 50%"
-msgstr "Zoom masuk"
+msgstr "Zoom masuk 50%"
 
 #: app/menus.c:131
 msgid "Zoom _Out"
 msgstr "Zoom _Keluar"
 
 #: app/menus.c:131
-#, fuzzy
 msgid "Zoom out 50%"
-msgstr "Zoom keluar"
+msgstr "Zoom keluar 50%"
 
 #: app/menus.c:132
 msgid "_Zoom"
 msgstr "_Zoom"
 
 #: app/menus.c:134
-#, fuzzy
 msgid "Diagram Properties..."
-msgstr "Ciri-ciri..."
+msgstr "Ciri-ciri Diagram..."
 
 #: app/menus.c:136
-#, fuzzy
 msgid "_AntiAliased"
-msgstr "Diantialiaskan"
+msgstr "_Antialias"
 
 #. TODO: Show Menu Bar  F9.  Hub's cool code.
 #: app/menus.c:140
-#, fuzzy
 msgid "Show _Grid"
-msgstr "Tunjuk grid"
+msgstr "Papar _Grid"
 
 #: app/menus.c:142
 msgid "_Snap To Grid"
@@ -1042,23 +1016,20 @@ msgid "Show _Rulers"
 msgstr "Papar _Menu"
 
 #: app/menus.c:146
-#, fuzzy
 msgid "Show _Connection Points"
-msgstr "Papar Ciri-ciri Sambungan"
+msgstr "Papar Titik _Sambungan"
 
 #: app/menus.c:149
-#, fuzzy
 msgid "New _View"
-msgstr "Paparan &Baru"
+msgstr "_Paparan Baru"
 
 #: app/menus.c:150
 msgid "Show _All"
 msgstr "Papar Semu_a"
 
 #: app/menus.c:151
-#, fuzzy
 msgid "Redraw"
-msgstr "Ulangbaca"
+msgstr "Ulanglukis"
 
 #: app/menus.c:156
 msgid "Replace"
@@ -1072,10 +1043,6 @@ msgstr "Kesatuan"
 msgid "Intersect"
 msgstr "Bersilang"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-dentry-edit.c:422 libgnomeui/gnome-stock.c:828
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-dentry-edit.c:422 libgnomeui/gnome-stock.c:828
 #. Translators: Menu item Verb/Channel/Export/Remove
 #: app/menus.c:162 app/sheets_dialog.c:784 objects/FS/function.c:671
 #: objects/FS/function.c:823 objects/FS/function.c:825
@@ -1104,44 +1071,25 @@ msgid "Transitive"
 msgstr "Sensitif"
 
 #: app/menus.c:175
-#, fuzzy
 msgid "Same Type"
-msgstr "Jenis Permainan:"
+msgstr "Jenis Sama"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:200
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:200
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:200
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:200
-#: app/menus.c:182 lib/properties.c:62 lib/properties.h:462 lib/widgets.c:531
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:531
 msgid "Left"
 msgstr "Kiri"
 
-#: app/menus.c:183 lib/properties.c:63 lib/properties.h:463 lib/widgets.c:537
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:464 lib/widgets.c:537
 msgid "Center"
 msgstr "Tengah"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
 # ui/galeon.glade.h:268
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:268
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:268
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:268
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:268
-#: app/menus.c:184 lib/properties.c:64 lib/properties.h:464 lib/widgets.c:543
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:465 lib/widgets.c:543
 msgid "Right"
 msgstr "Kanan"
 
 #: app/menus.c:186 app/menus.c:196
-#, fuzzy
 msgid "Equal Distance"
-msgstr "Sama dengan"
+msgstr "Jarak Sama"
 
 #: app/menus.c:187 app/menus.c:197
 #, fuzzy
@@ -1161,24 +1109,20 @@ msgid "Bottom"
 msgstr "Bawah"
 
 #: app/menus.c:202
-#, fuzzy
 msgid "Send to _Back"
-msgstr "Hantar ke Sampah"
+msgstr "Hantar ke _Belakang"
 
 #: app/menus.c:203
-#, fuzzy
 msgid "Bring to _Front"
-msgstr "Cuba menyambung..."
+msgstr "Bawa ke _Depan"
 
 #: app/menus.c:204
-#, fuzzy
 msgid "Send Backwards"
-msgstr "Langkah Mengundur"
+msgstr "Hantar ke Belakang"
 
 #: app/menus.c:205
-#, fuzzy
 msgid "Bring Forwards"
-msgstr "Langkah Maju"
+msgstr "Bawa Ke Depan"
 
 #: app/menus.c:207
 msgid "_Group"
@@ -1189,578 +1133,514 @@ msgid "_Ungroup"
 msgstr "_Nyahkumpul"
 
 #: app/menus.c:210
-#, fuzzy
-msgid "Align _Horizontal"
-msgstr "Flip Mengufuk"
+msgid "_Parent"
+msgstr "_Ibubapa"
 
 #: app/menus.c:211
-#, fuzzy
+msgid "_Unparent Children"
+msgstr ""
+
+#: app/menus.c:213
+msgid "Align _Horizontal"
+msgstr "Jajar Meng_ufuk"
+
+#: app/menus.c:214
 msgid "Align _Vertical"
-msgstr "Flip Menegak"
+msgstr "Jajar Me_negak"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-app-helper.c:215
-#: app/menus.c:236
-msgid "_Properties"
-msgstr "_Ciri-ciri"
+#: app/menus.c:216
+msgid "_Properties..."
+msgstr "_Ciri-ciri..."
 
-#: app/menus.c:237
-#, fuzzy
+#: app/menus.c:241
 msgid "_Layers"
-msgstr "Lapisan"
+msgstr "_Lapisan"
 
-#: app/menus.c:263
+#: app/menus.c:267
 msgid "_Select"
 msgstr "_Pilih"
 
-#: app/menus.c:264
-#, fuzzy
+#: app/menus.c:268
 msgid "_Objects"
-msgstr "_Objek..."
+msgstr "_Objek"
 
-#: app/menus.c:265
+#: app/menus.c:269
 msgid "_Tools"
 msgstr "_Radas"
 
-#: app/menus.c:266
-#, fuzzy
+#: app/menus.c:270
 msgid "_Dialogs"
-msgstr "Dialog"
+msgstr "_Dialog"
 
-#: app/menus.c:267
+#: app/menus.c:271
 msgid "_Input Methods"
 msgstr "Kaedah _Input"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:134
-#: app/menus.c:278 app/menus.c:313
+#: app/menus.c:272
+msgid "_Help"
+msgstr "_Bantuan"
+
+#: app/menus.c:283 app/menus.c:318
 msgid "/_File"
 msgstr "/_Fail"
 
-#: app/menus.c:280 app/menus.c:315
-#, fuzzy
+#: app/menus.c:285 app/menus.c:320
 msgid "/File/_New"
-msgstr "/Fail/Tetingkap _Baru"
+msgstr "/Fail/Ba_ru"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-app-helper.c:122
-#: app/menus.c:282 app/menus.c:317
-#, fuzzy
+#: app/menus.c:287 app/menus.c:322
 msgid "/File/_Open..."
-msgstr "_Buka..."
+msgstr "/Fail/_Buka..."
 
 #. recent file list is dynamically inserted here
-#: app/menus.c:284 app/menus.c:289 app/menus.c:293 app/menus.c:295
-#: app/menus.c:324 app/menus.c:328
-#, fuzzy
+#: app/menus.c:289 app/menus.c:294 app/menus.c:298 app/menus.c:300
+#: app/menus.c:329 app/menus.c:333
 msgid "/File/---"
-msgstr "Fail/"
+msgstr "/Fail/---"
 
-#: app/menus.c:285
-#, fuzzy
+#: app/menus.c:290
 msgid "/File/_Diagram tree"
-msgstr "/Fail/_Nyahenkripsi"
+msgstr "/Fail/Pepohon _diagram"
 
-#: app/menus.c:287
+#: app/menus.c:292
 msgid "/File/Sheets and Objects..."
 msgstr ""
 
-#: app/menus.c:290
-#, fuzzy
+#: app/menus.c:295
 msgid "/File/_Preferences..."
-msgstr "Ke_utamaan..."
+msgstr "/Fail/Ke_utamaan..."
 
-#: app/menus.c:292
-#, fuzzy
+#: app/menus.c:297
 msgid "/File/P_lugins..."
-msgstr "_Plug-in"
+msgstr "/Fail/P_lugin..."
 
-#: app/menus.c:296 app/menus.c:332
+#: app/menus.c:301 app/menus.c:337
 msgid "/File/_Quit"
 msgstr "/Fail/_Keluar"
 
-#: app/menus.c:298
+#: app/menus.c:303 app/menus.c:466
 msgid "/_Help"
 msgstr "/_Bantuan"
 
-#: app/menus.c:300
-#, fuzzy
+#: app/menus.c:305 app/menus.c:468
 msgid "/Help/_Manual"
-msgstr "_Manual"
+msgstr "/Bantuan/_Manual"
 
-#: app/menus.c:302
-#, fuzzy
+#: app/menus.c:307 app/menus.c:470
 msgid "/Help/---"
-msgstr "/_Bantuan"
+msgstr "/_Bantuan/---"
 
-#: app/menus.c:303
+#: app/menus.c:308 app/menus.c:471
 msgid "/Help/_About..."
 msgstr "/Bantuan/_Perihal..."
 
-#: app/menus.c:319
-#, fuzzy
+#: app/menus.c:324
 msgid "/File/_Save"
-msgstr "/Fail/_T.tangan"
-
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-app-helper.c:132
-#: app/menus.c:321
-#, fuzzy
-msgid "/File/Save _As..."
-msgstr "Simpan Seb_agai..."
-
-#: app/menus.c:323
-#, fuzzy
-msgid "/File/_Export..."
-msgstr "/Fail/Ciri-ciri..."
-
-#: app/menus.c:325
-#, fuzzy
-msgid "/File/Page Set_up..."
-msgstr "T_etapan Halaman..."
+msgstr "/Fail/_Simpan"
 
 #: app/menus.c:326
-#, fuzzy
-msgid "/File/_Print Diagram..."
-msgstr "_Fail/_Pralihat Cetakan..."
+msgid "/File/Save _As..."
+msgstr "/Fail/Simpan Seb_agai..."
 
-#: app/menus.c:329
-#, fuzzy
-msgid "/File/_Close"
-msgstr "/Fail/Tutup"
+#: app/menus.c:328
+msgid "/File/_Export..."
+msgstr "/Fail/_Eksport..."
+
+#: app/menus.c:330
+msgid "/File/Page Set_up..."
+msgstr "/Fail/T_etapan Halaman..."
+
+#: app/menus.c:331
+msgid "/File/_Print Diagram..."
+msgstr "/Fail/_Cetak Diagram..."
 
 #: app/menus.c:334
+msgid "/File/_Close"
+msgstr "/Fail/_Tutup"
+
+#: app/menus.c:339
 msgid "/_Edit"
 msgstr "/_Edit"
 
-#: app/menus.c:336
-#, fuzzy
-msgid "/Edit/_Undo"
-msgstr "/Edit/Cari _lagi"
-
-#: app/menus.c:338
-#, fuzzy
-msgid "/Edit/_Redo"
-msgstr "/Edit/tearoff2"
-
-#: app/menus.c:340 app/menus.c:349
-#, fuzzy
-msgid "/Edit/---"
-msgstr "_Edit/"
-
 #: app/menus.c:341
-#, fuzzy
-msgid "/Edit/_Copy"
-msgstr "/Edit/_Salin nama kekunci"
+msgid "/Edit/_Undo"
+msgstr "/Edit/_Nyahcara"
 
 #: app/menus.c:343
-#, fuzzy
+msgid "/Edit/_Redo"
+msgstr "/Edit/_Ulangcara"
+
+#: app/menus.c:345 app/menus.c:354
+msgid "/Edit/---"
+msgstr "/Edit/---"
+
+#: app/menus.c:346
+msgid "/Edit/_Copy"
+msgstr "/Edit/_Salin"
+
+#: app/menus.c:348
 msgid "/Edit/C_ut"
-msgstr "_Edit"
-
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-app-helper.c:179 libgnomeui/gnome-popup-help.c:62
-#: app/menus.c:345
-#, fuzzy
-msgid "/Edit/_Paste"
-msgstr "_Tepek"
-
-#: app/menus.c:347
-#, fuzzy
-msgid "/Edit/_Delete"
-msgstr "/Fail/Pa_dam"
+msgstr "/Edit/_Potong"
 
 #: app/menus.c:350
-#, fuzzy
-msgid "/Edit/Copy Text"
-msgstr "Salin Teks"
-
-#: app/menus.c:351
-#, fuzzy
-msgid "/Edit/Cut Text"
-msgstr "Potong Teks"
+msgid "/Edit/_Paste"
+msgstr "/Edit/_Tepek"
 
 #: app/menus.c:352
-#, fuzzy
-msgid "/Edit/Paste _Text"
-msgstr "Tepek Teks"
+msgid "/Edit/_Delete"
+msgstr "/Edit/Pa_dam"
 
-#: app/menus.c:353
+#: app/menus.c:355
+msgid "/Edit/Copy Text"
+msgstr "/Edit/Salin Teks"
+
+#: app/menus.c:356
+msgid "/Edit/Cut Text"
+msgstr "/Edit/Potong Teks"
+
+#: app/menus.c:357
+msgid "/Edit/Paste _Text"
+msgstr "/Edit/Tepek Teks"
+
+#: app/menus.c:358
 msgid "/_View"
 msgstr "/_Lihat"
 
-#: app/menus.c:355
+#: app/menus.c:360
 msgid "/View/Zoom _In"
 msgstr "/Pergi/Zoom _Masuk"
 
-#: app/menus.c:357
+#: app/menus.c:362
 msgid "/View/Zoom _Out"
 msgstr "/Lihat/Zoom _Keluar"
 
-#: app/menus.c:359
-#, fuzzy
-msgid "/View/_Zoom"
-msgstr "/Pergi/Zoom _Masuk"
-
-#: app/menus.c:361
-#, fuzzy
-msgid "/View/Zoom/400%"
-msgstr "/Pergi/Zoom _Masuk"
-
-#: app/menus.c:362
-#, fuzzy
-msgid "/View/Zoom/283%"
-msgstr "/Pergi/Zoom _Masuk"
-
-#: app/menus.c:363
-#, fuzzy
-msgid "/View/Zoom/200%"
-msgstr "/Pergi/Zoom _Masuk"
-
 #: app/menus.c:364
-#, fuzzy
-msgid "/View/Zoom/141%"
-msgstr "/Lihat/Zoom _1:1"
+msgid "/View/_Zoom"
+msgstr "/Lihat/_Zum"
 
-#: app/menus.c:365
-#, fuzzy
-msgid "/View/Zoom/100%"
-msgstr "/Lihat/Zoom _1:1"
+#: app/menus.c:366
+msgid "/View/Zoom/400%"
+msgstr "/Lihat/Zum/400%"
 
 #: app/menus.c:367
-#, fuzzy
-msgid "/View/Zoom/85%"
-msgstr "/Pergi/Zoom _Masuk"
+msgid "/View/Zoom/283%"
+msgstr "/Lihat/Zum/283%"
 
 #: app/menus.c:368
-#, fuzzy
-msgid "/View/Zoom/70.7%"
-msgstr "/Pergi/Zoom _Masuk"
+msgid "/View/Zoom/200%"
+msgstr "/Lihat/Zum/200%"
 
 #: app/menus.c:369
-#, fuzzy
-msgid "/View/Zoom/50%"
-msgstr "/Pergi/Zoom _Masuk"
+msgid "/View/Zoom/141%"
+msgstr "/Lihat/Zum/141%"
 
 #: app/menus.c:370
-#, fuzzy
-msgid "/View/Zoom/35.4%"
-msgstr "/Pergi/Zoom _Masuk"
+msgid "/View/Zoom/100%"
+msgstr "/Lihat/Zum/100%"
 
-#: app/menus.c:371
-#, fuzzy
-msgid "/View/Zoom/25%"
-msgstr "/Pergi/Zoom _Masuk"
-
-#: app/menus.c:372 app/menus.c:381
-#, fuzzy
-msgid "/View/---"
-msgstr "/_Lihat"
+#: app/menus.c:372
+msgid "/View/Zoom/85%"
+msgstr "/Lihat/Zum/85%"
 
 #: app/menus.c:373
-#, fuzzy
-msgid "/View/Diagram Properties..."
-msgstr "/Fail/Ciri-ciri..."
+msgid "/View/Zoom/70.7%"
+msgstr "/Lihat/Zum/70.7%"
+
+#: app/menus.c:374
+msgid "/View/Zoom/50%"
+msgstr "/Lihat/Zum/50%"
 
 #: app/menus.c:375
-#, fuzzy
-msgid "/View/_AntiAliased"
-msgstr "Diantialiaskan"
+msgid "/View/Zoom/35.4%"
+msgstr "/Lihat/Zum/35.4%"
 
-#: app/menus.c:377
-#, fuzzy
-msgid "/View/Show _Grid"
-msgstr "Tunjuk grid"
+#: app/menus.c:376
+msgid "/View/Zoom/25%"
+msgstr "/Lihat/Zum/25%"
+
+#: app/menus.c:377 app/menus.c:386
+msgid "/View/---"
+msgstr "/Lihat/---"
 
 #: app/menus.c:378
+msgid "/View/Diagram Properties..."
+msgstr "/Lihat/Ciri-ciri Diagram..."
+
+#: app/menus.c:380
+msgid "/View/_AntiAliased"
+msgstr "/Lihat/_Antialias"
+
+#: app/menus.c:382
+msgid "/View/Show _Grid"
+msgstr "/Lihat/Papar _Grid"
+
+#: app/menus.c:383
 msgid "/View/_Snap To Grid"
 msgstr ""
 
-#: app/menus.c:379
+#: app/menus.c:384
 #, fuzzy
 msgid "/View/Show _Rulers"
 msgstr "/Lihat/Zoom _Keluar"
 
-#: app/menus.c:380
-#, fuzzy
+#: app/menus.c:385
 msgid "/View/Show _Connection Points"
-msgstr "Papar Ciri-ciri Sambungan"
+msgstr "/Lihat/Papar Titik _Sambungan"
 
-#: app/menus.c:382
-#, fuzzy
+#: app/menus.c:387
 msgid "/View/New _View"
-msgstr "Paparan &Baru"
+msgstr "/Lihat/_Paparan Baru"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:384
-#, fuzzy
-msgid "/View/Show _All"
-msgstr "Papar Semu_a"
-
-#: app/menus.c:385
-#, fuzzy
-msgid "/View/Re_draw"
-msgstr "Pelihat"
-
-#: app/menus.c:386
-#, fuzzy
-msgid "/_Select"
-msgstr "_Pilih"
-
-#: app/menus.c:388
-#, fuzzy
-msgid "/Select/All"
-msgstr "Pilih Semua"
-
 #: app/menus.c:389
-#, fuzzy
-msgid "/Select/None"
-msgstr "Pilihan"
+msgid "/View/Show _All"
+msgstr "/Lihat/Papar Semu_a"
 
-#: app/menus.c:390 app/menus.c:403
-#, fuzzy
-msgid "/Select/Invert"
-msgstr "Pilih jurupacu"
+#: app/menus.c:390
+msgid "/View/Re_draw"
+msgstr "/Lihat/Ulang_lukis"
 
 #: app/menus.c:391
-#, fuzzy
-msgid "/Select/Connected"
-msgstr "Tersambung"
+msgid "/_Select"
+msgstr "/_Pilih"
 
-#: app/menus.c:392
+#: app/menus.c:393
+msgid "/Select/All"
+msgstr "/Pilih/Semua"
+
+#: app/menus.c:394
+msgid "/Select/None"
+msgstr "/Pilih/Tiada"
+
+#: app/menus.c:395 app/menus.c:408
+msgid "/Select/Invert"
+msgstr "/Pilih/Songsang"
+
+#: app/menus.c:396
+msgid "/Select/Connected"
+msgstr "/Pilih/Tersambung"
+
+#: app/menus.c:397
 #, fuzzy
 msgid "/Select/Transitive"
 msgstr "Sensitif"
 
-#: app/menus.c:393
-#, fuzzy
+#: app/menus.c:398
 msgid "/Select/Same Type"
-msgstr "Pilih jenis"
-
-#: app/menus.c:394
-#, fuzzy
-msgid "/Select/---"
-msgstr "Pilih"
-
-#: app/menus.c:395
-#, fuzzy
-msgid "/Select/Replace"
-msgstr "Pilih Resepi"
-
-#: app/menus.c:397
-#, fuzzy
-msgid "/Select/Union"
-msgstr "Pilihan"
+msgstr "/Pilih/Sama Jenis"
 
 #: app/menus.c:399
-#, fuzzy
+msgid "/Select/---"
+msgstr "/Pilih/---"
+
+#: app/menus.c:400
+msgid "/Select/Replace"
+msgstr "/Pilih/Ganti"
+
+#: app/menus.c:402
+msgid "/Select/Union"
+msgstr "/Pilih/Kesatuan"
+
+#: app/menus.c:404
 msgid "/Select/Intersect"
-msgstr "Bersilang"
+msgstr "/Pilih/Persilangan"
 
-#: app/menus.c:401
-#, fuzzy
+#: app/menus.c:406
 msgid "/Select/Remove"
-msgstr "Pilih tema:"
+msgstr "/Pilih/Buang"
 
-#: app/menus.c:405
-#, fuzzy
+#: app/menus.c:410
 msgid "/_Objects"
-msgstr "_Objek..."
+msgstr "/_Objek"
 
-#: app/menus.c:407
+#: app/menus.c:412
 msgid "/Objects/Send to _Back"
 msgstr ""
 
-#: app/menus.c:408
+#: app/menus.c:413
 msgid "/Objects/Bring to _Front"
 msgstr ""
 
-#: app/menus.c:409
-#, fuzzy
+#: app/menus.c:414
 msgid "/Objects/Send Backwards"
-msgstr "Langkah Mengundur"
+msgstr "/Objek/Hantar Ke belakang"
 
-#: app/menus.c:410
+#: app/menus.c:415
 msgid "/Objects/Bring Forwards"
 msgstr ""
 
-#: app/menus.c:411 app/menus.c:415
+#: app/menus.c:416 app/menus.c:420 app/menus.c:423 app/menus.c:440
 msgid "/Objects/---"
 msgstr "/Objek/---"
 
-#: app/menus.c:412
+#: app/menus.c:417
 msgid "/Objects/_Group"
 msgstr "/Objek/_Kumpulan"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:414
-#, fuzzy
+#: app/menus.c:419
 msgid "/Objects/_Ungroup"
-msgstr "_Nyahkumpul"
+msgstr "/Objek/_Nyahkumpul"
 
-#: app/menus.c:416
+#: app/menus.c:421
+msgid "/Objects/_Parent"
+msgstr "/Objek/_Ibubapa"
+
+#: app/menus.c:422
+msgid "/Objects/_Unparent Children"
+msgstr ""
+
+#: app/menus.c:424
 #, fuzzy
 msgid "/Objects/Align _Horizontal"
 msgstr "Flip Mengufuk"
 
-#: app/menus.c:418
+#: app/menus.c:426
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Objek/Jajaran Mengufuk/Kiri"
 
-#: app/menus.c:419
+#: app/menus.c:427
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objek/Jajaran Mengufuk/Tengah"
 
-#: app/menus.c:420
+#: app/menus.c:428
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objek/Jajaran Mengufuk/Kanan"
 
-#: app/menus.c:421
+#: app/menus.c:429
 msgid "/Objects/Align Horizontal/---"
 msgstr "/Objek/Jajaran Mengufuk/---"
 
-#: app/menus.c:422
+#: app/menus.c:430
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objek/Jajaran Mengufuk/Sama Jarak"
 
-#: app/menus.c:423
+#: app/menus.c:431
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr ""
 
-#: app/menus.c:424
+#: app/menus.c:432
 msgid "/Objects/Align _Vertical"
 msgstr "/Objek/Jajaran Me_negak"
 
-#: app/menus.c:426
+#: app/menus.c:434
 msgid "/Objects/Align Vertical/Top"
 msgstr "/Objek/Jajaran Menegak/Atas"
 
-#: app/menus.c:427
+#: app/menus.c:435
 msgid "/Objects/Align Vertical/Middle"
 msgstr "/Objek/Jajaran Menegak/Tengah"
 
-#: app/menus.c:428
+#: app/menus.c:436
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objek/Jajaran Menegak/Bawah"
 
-#: app/menus.c:429
+#: app/menus.c:437
 msgid "/Objects/Align Vertical/---"
 msgstr "/Objek/Jajaran Menegak/---"
 
-#: app/menus.c:430
+#: app/menus.c:438
 msgid "/Objects/Align Vertical/Equal Distance"
 msgstr "/Objek/Jajaran Menegak/Sama Jarak"
 
-#: app/menus.c:431
+#: app/menus.c:439
 msgid "/Objects/Align Vertical/Adjacent"
 msgstr ""
 
-#: app/menus.c:433
+#: app/menus.c:441
 #, fuzzy
+msgid "/Objects/_Properties..."
+msgstr "Edit Ciri-ciri"
+
+#: app/menus.c:442
 msgid "/_Tools"
-msgstr "_Radas"
+msgstr "/_Radas"
 
-#: app/menus.c:435
-#, fuzzy
+#: app/menus.c:444
 msgid "/Tools/Modify"
-msgstr "/Radas/pengoyak"
+msgstr "/Radas/Ubahsuai"
 
-#: app/menus.c:436
+#: app/menus.c:445
 #, fuzzy
 msgid "/Tools/Magnify"
 msgstr "/Radas/pengoyak"
 
-#: app/menus.c:437
-#, fuzzy
+#: app/menus.c:446
 msgid "/Tools/Scroll"
-msgstr "/Radas/pengoyak"
+msgstr "/Radas/Skrol"
 
-#: app/menus.c:438
-#, fuzzy
+#: app/menus.c:447
 msgid "/Tools/Text"
-msgstr "/_Radas"
+msgstr "/Radas/Teks"
 
-#: app/menus.c:439
-#, fuzzy
+#: app/menus.c:448
 msgid "/Tools/Box"
-msgstr "/_Radas"
+msgstr "/Radas/Kotak"
 
-#: app/menus.c:440
+#: app/menus.c:449
 #, fuzzy
 msgid "/Tools/Ellipse"
 msgstr "Tooltip"
 
-#: app/menus.c:441
+#: app/menus.c:450
 #, fuzzy
 msgid "/Tools/Polygon"
 msgstr "Poligon"
 
-#: app/menus.c:442
+#: app/menus.c:451
 #, fuzzy
 msgid "/Tools/Beziergon"
 msgstr "/Radas/pengoyak"
 
-#: app/menus.c:443 app/menus.c:449
-#, fuzzy
+#: app/menus.c:452 app/menus.c:458
 msgid "/Tools/---"
-msgstr "/_Radas"
+msgstr "/Radas/---"
 
-#: app/menus.c:444
-#, fuzzy
+#: app/menus.c:453
 msgid "/Tools/Line"
-msgstr "/_Radas"
+msgstr "/Radas/Garisan"
 
-#: app/menus.c:445
-#, fuzzy
+#: app/menus.c:454
 msgid "/Tools/Arc"
-msgstr "/_Radas"
+msgstr "/Radas/Arca"
 
-#: app/menus.c:446
+#: app/menus.c:455
 msgid "/Tools/Zigzagline"
 msgstr "/Radas/Garisan-zigzag"
 
-#: app/menus.c:447
+#: app/menus.c:456
 msgid "/Tools/Polyline"
 msgstr ""
 
-#: app/menus.c:448
+#: app/menus.c:457
 msgid "/Tools/Bezierline"
 msgstr ""
 
-#: app/menus.c:450
-#, fuzzy
+#: app/menus.c:459
 msgid "/Tools/Image"
-msgstr "/_Radas"
+msgstr "/Radas/Imej"
 
-#: app/menus.c:451
-#, fuzzy
+#: app/menus.c:460
 msgid "/_Dialogs"
-msgstr "Dialog"
+msgstr "/_Dialog"
 
-#: app/menus.c:453
-#, fuzzy
-msgid "/Dialogs/_Properties..."
-msgstr "/Fail/Ciri-ciri..."
-
-#: app/menus.c:454
+#: app/menus.c:462
 msgid "/Dialogs/_Layers..."
 msgstr "/Dialog/_Lapisan..."
 
-#: app/menus.c:456
-#, fuzzy
+#: app/menus.c:464
 msgid "/_Input Methods"
-msgstr "Kaedah _Input"
+msgstr "/Kaedah _Input"
 
-#: app/menus.c:629
+#: app/menus.c:643
 msgid "NULL tooldata in tool_menu_select"
 msgstr ""
 
-#: app/menus.c:796
-#, fuzzy
+#: app/menus.c:810
 msgid "Diagram Menu"
-msgstr "Diagram"
+msgstr "Menu Diagram"
 
-#: app/menus.c:1172
+#: app/menus.c:1186
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
@@ -1768,9 +1648,8 @@ msgid ""
 msgstr ""
 
 #: app/modify_tool.c:315
-#, fuzzy
 msgid "Couldn't get GTK settings"
-msgstr "Tidak dapat data"
+msgstr "Tidak perolehi tetapan GTK"
 
 #: app/paginate_psprint.c:228
 msgid "Select Printer"
@@ -1785,9 +1664,9 @@ msgid "File"
 msgstr "Fail"
 
 #: app/paginate_psprint.c:342
-#, fuzzy, c-format
+#, c-format
 msgid "Could not run command '%s'"
-msgstr "Tak dapat melaksanakan arahan \"%s\""
+msgstr "Tak dapat melaksanakan arahan '%s'"
 
 #: app/paginate_psprint.c:345
 #, fuzzy, c-format
@@ -1803,14 +1682,12 @@ msgstr ""
 "%s,"
 
 #: app/plugin-manager.c:200
-#, fuzzy
 msgid "Plug-ins"
 msgstr "Plug-in"
 
 #: app/plugin-manager.c:256
-#, fuzzy
 msgid "Loaded"
-msgstr "Pemuat"
+msgstr "Dimuatkan"
 
 #: app/plugin-manager.c:263 objects/UML/class.c:105
 #: objects/UML/large_package.c:120
@@ -1822,101 +1699,90 @@ msgid "Description"
 msgstr "Huraian"
 
 #: app/plugin-manager.c:278
-#, fuzzy
 msgid "Load at Startup"
-msgstr "_Papar Petua pada Permulaan"
+msgstr "Dimuatkan pada Permulaan"
 
 #: app/plugin-manager.c:285
 msgid "File Name"
 msgstr "Nama Fail"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
 # kerana tak muat
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# kerana tak muat
-#: app/preferences.c:98
+#: app/preferences.c:99
 msgid "User Interface"
 msgstr "Antaramuka Pengguna"
 
-#: app/preferences.c:99
-#, fuzzy
-msgid "Diagram Defaults"
-msgstr "Paparan Default"
-
 #: app/preferences.c:100
+msgid "Diagram Defaults"
+msgstr "Default Diagram"
+
+#: app/preferences.c:101
 msgid "View Defaults"
 msgstr "Paparan Default"
 
-#: app/preferences.c:101
-#, fuzzy
-msgid "Grid Lines"
-msgstr "_Garisan grid"
-
 #: app/preferences.c:102
-#, fuzzy
-msgid "Diagram Tree"
-msgstr "Diagram"
+msgid "Grid Lines"
+msgstr "Garisan Grid"
 
-#: app/preferences.c:116
+#: app/preferences.c:103
+msgid "Diagram Tree"
+msgstr "Pepohon Diagram"
+
+#: app/preferences.c:117
 msgid "Reset tools after create:"
 msgstr "Ulangtetap radas seöeüas mencipta:"
 
-#: app/preferences.c:117
-#, fuzzy
-msgid "Compress saved files:"
-msgstr "Saiz fail tidak dimampat:"
-
 #: app/preferences.c:118
-#, fuzzy
-msgid "Number of undo levels:"
-msgstr "Jumlah _maksima aras nyahcara:"
+msgid "Compress saved files:"
+msgstr "Mampatkan fail disimpan:"
 
 #: app/preferences.c:119
+msgid "Number of undo levels:"
+msgstr "Bilangan aras nyahcara:"
+
+#: app/preferences.c:120
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
 msgstr ""
 
-#: app/preferences.c:120
+#: app/preferences.c:121
 #, fuzzy
 msgid "Recent documents list size:"
 msgstr "Tukarnama item dokumen"
 
-#: app/preferences.c:121
+#: app/preferences.c:122
 #, fuzzy
 msgid "Use menu bar:"
 msgstr "Sembunyi bar menu"
 
-#: app/preferences.c:123
+#: app/preferences.c:124
 msgid "Keep tool box on top of diagram windows:"
 msgstr ""
 
-#: app/preferences.c:125
+#: app/preferences.c:126
 #, fuzzy
 msgid "New diagram:"
 msgstr "Permainan Baru"
 
-#: app/preferences.c:126
-#, fuzzy
+#: app/preferences.c:127
 msgid "Portrait:"
-msgstr "Potret"
+msgstr "Potret:"
 
-#: app/preferences.c:128
+#: app/preferences.c:129
 #, fuzzy
 msgid "Paper type:"
 msgstr "Tepek jenis"
 
-#: app/preferences.c:131
-#, fuzzy
-msgid "New window:"
-msgstr "Tetingkap Baru"
-
 #: app/preferences.c:132
+msgid "New window:"
+msgstr "Tetingkap baru:"
+
+#: app/preferences.c:133
 msgid "Width:"
 msgstr "Lebar:"
 
 # ui/galeon.glade.h:268
-#: app/preferences.c:133
+#: app/preferences.c:134
 msgid "Height:"
 msgstr "Tinggi:"
 
@@ -1924,76 +1790,83 @@ msgstr "Tinggi:"
 # Jika takut risiko, Jangan bicara tentang Perjuangan
 # Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002
 #
-#: app/preferences.c:134
+#: app/preferences.c:135
 #, fuzzy
 msgid "Magnify:"
 msgstr "Pembesar"
 
-#: app/preferences.c:136
+#: app/preferences.c:137
 #, fuzzy
 msgid "Connection Points:"
 msgstr "Sambungan hilang"
 
 #. { NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") },
-#: app/preferences.c:137 app/preferences.c:140 app/preferences.c:145
+#: app/preferences.c:138 app/preferences.c:141 app/preferences.c:146
 #, fuzzy
 msgid "Visible:"
 msgstr "Tampak"
 
-#: app/preferences.c:139
+#: app/preferences.c:140
 #, fuzzy
 msgid "Page breaks:"
 msgstr "_Pengepala halaman:"
 
-#: app/preferences.c:141 app/preferences.c:149
-#, fuzzy
+#: app/preferences.c:142 app/preferences.c:151
 msgid "Colour:"
 msgstr "Warna:"
 
-#: app/preferences.c:142 app/preferences.c:150
+#: app/preferences.c:143
 #, fuzzy
 msgid "Solid lines:"
 msgstr "Garisan tegar"
 
-#: app/preferences.c:146
+#: app/preferences.c:147
 #, fuzzy
 msgid "Snap to:"
 msgstr "Kirim ke_pada:"
 
-#: app/preferences.c:147
+#: app/preferences.c:148
+msgid "Dynamic grid resizing"
+msgstr ""
+
+#: app/preferences.c:149
 #, fuzzy
 msgid "X Size:"
 msgstr "Saiz:"
 
-#: app/preferences.c:148
+#: app/preferences.c:150
 #, fuzzy
 msgid "Y Size:"
 msgstr "Saiz:"
 
-#: app/preferences.c:161
+#: app/preferences.c:152
+msgid "Lines per major line"
+msgstr ""
+
+#: app/preferences.c:167
 #, fuzzy
 msgid "Diagram tree window:"
 msgstr "imej muat pada tetingkap"
 
-#: app/preferences.c:163
+#: app/preferences.c:169
 msgid "Save hidden object types:"
 msgstr "Simpan jenis objek tersembunyi:"
 
-#: app/preferences.c:290
+#: app/preferences.c:296
 #, fuzzy, c-format
 msgid "Could not open `%s' for writing"
 msgstr "Tidak dapat membuka %s untuk menulis: %s"
 
-#: app/preferences.c:565 lib/prop_inttypes.c:151
+#: app/preferences.c:572 lib/prop_inttypes.c:151
 msgid "Yes"
 msgstr "Ya"
 
-#: app/preferences.c:565 app/preferences.c:576 lib/prop_inttypes.c:153
+#: app/preferences.c:572 app/preferences.c:583 lib/prop_inttypes.c:153
 #: lib/prop_inttypes.c:179
 msgid "No"
 msgstr "Tidak"
 
-#: app/preferences.c:676
+#: app/preferences.c:683
 msgid "Preferences"
 msgstr "Keutamaan"
 
@@ -2008,25 +1881,22 @@ msgid "This object has no properties."
 msgstr "Papar Ciri-ciri Sambungan"
 
 #: app/properties.c:191
-#, fuzzy
 msgid "Properties: "
-msgstr "Ciri-ciri"
+msgstr "Ciri-ciri:"
 
 #: app/properties.c:195
-#, fuzzy
 msgid "Object properties:"
-msgstr "Edit Ciri-ciri"
+msgstr "Ciri-ciri objek:"
 
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
 #: app/recent_files.c:137
 msgid "<Toolbox>/File/Plugins..."
-msgstr ""
+msgstr "<Toolbox>/Fail/Plugin..."
 
 #: app/recent_files.c:259
-#, fuzzy
 msgid "<Toolbox>/File/Quit"
-msgstr "/Fail/Keluar"
+msgstr "<Toolbox>/Fail/Keluar"
 
 #: app/recent_files.c:295
 #, fuzzy
@@ -2042,18 +1912,22 @@ msgid "gdk_renderer: Unsupported fill mode specified!\n"
 msgstr "gdk_renderer: Mod isian tak disokong dinyatakan!\n"
 
 #: app/sheets.c:154
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "System sheet"
-msgstr "stylesheet"
+msgstr ""
+"%s\n"
+"Helaian sistem"
 
 #: app/sheets.c:156
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "User sheet"
-msgstr "stylesheet"
+msgstr ""
+"%s\n"
+"Helaian pengguna"
 
 #: app/sheets.c:271
 msgid ""
@@ -2082,14 +1956,12 @@ msgid "Sheets and Objects"
 msgstr "Objek _Berbentuk"
 
 #: app/sheets_dialog.c:109 app/sheets_dialog_callbacks.c:177
-#, fuzzy
 msgid "<- Copy"
-msgstr "Salin"
+msgstr "<- Salin"
 
 #: app/sheets_dialog.c:119 app/sheets_dialog_callbacks.c:179
-#, fuzzy
 msgid "<- Copy All"
-msgstr "_Salin Sel"
+msgstr "<- Salin Semua"
 
 #: app/sheets_dialog.c:126 app/sheets_dialog_callbacks.c:181
 #, fuzzy
@@ -2128,18 +2000,16 @@ msgid "Browse..."
 msgstr "Lungsur..."
 
 #: app/sheets_dialog.c:386
-#, fuzzy
 msgid "SVG Shape:"
-msgstr "Kongsi:"
+msgstr "Bentuk SVG:"
 
 #: app/sheets_dialog.c:413 app/sheets_dialog.c:476
 msgid "description:"
 msgstr "keterangan:"
 
 #: app/sheets_dialog.c:425
-#, fuzzy
 msgid "Sheet name:"
-msgstr "Nama _Tema: "
+msgstr "Nama helaian:"
 
 #: app/sheets_dialog.c:446 app/sheets_dialog_callbacks.c:289
 #: app/sheets_dialog_callbacks.c:1085
@@ -2148,21 +2018,17 @@ msgid "Line Break"
 msgstr "Wrap baris"
 
 #: app/sheets_dialog.c:568
-#, fuzzy
 msgid "Edit Attributes"
-msgstr "Atribut"
+msgstr "Edit Atribut"
 
 #: app/sheets_dialog.c:583 sheets/UML.sheet.in.h:21
-#, fuzzy
 msgid "Object"
-msgstr "Tajuk"
+msgstr "Objek"
 
 #: app/sheets_dialog.c:599 app/sheets_dialog.c:692
 msgid "Description:"
 msgstr "Huraian:"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-dentry-edit.c:213
 #: app/sheets_dialog.c:618 objects/FS/flow.c:144 objects/FS/flow-ortho.c:166
 #: objects/UML/class_dialog.c:877 objects/UML/class_dialog.c:1804
 #: objects/UML/class_dialog.c:2034 objects/UML/class_dialog.c:2548
@@ -2183,14 +2049,12 @@ msgid "Name:"
 msgstr "Nama:"
 
 #: app/sheets_dialog.c:809
-#, fuzzy
 msgid "Object:"
-msgstr "Tajuk:"
+msgstr "Objek:"
 
 #: app/sheets_dialog.c:836
-#, fuzzy
 msgid "Sheet:"
-msgstr "Helaian"
+msgstr "Helaian:"
 
 #: app/sheets_dialog.c:920
 #, fuzzy
@@ -2477,8 +2341,6 @@ msgstr "Gagal memuatkan font lebartetap."
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# test-gnome/testgnome.c:807
 #: lib/diagtkfontsel.c:209
 msgid "Font name"
 msgstr "Nama font"
@@ -2487,8 +2349,6 @@ msgstr "Nama font"
 msgid "The X string that represents this font."
 msgstr "Rentetan X yang mewakili font ini."
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-icon-entry.c:280 libgnomeui/gnome-pixmap-entry.c:278
 #: lib/diagtkfontsel.c:216
 msgid "Preview text"
 msgstr "Prebiu teks"
@@ -2518,16 +2378,10 @@ msgstr "_Pralihat:"
 msgid "Font Selection"
 msgstr "Pemilihan Font"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-messagebox.c:129 libgnomeui/gnome-messagebox.c:262
 #: lib/message.c:78 lib/message.c:238
 msgid "Error"
 msgstr "Ralat"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-messagebox.c:120 libgnomeui/gnome-messagebox.c:253
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-messagebox.c:120 libgnomeui/gnome-messagebox.c:253
 #: lib/message.c:80 lib/message.c:226
 msgid "Warning"
 msgstr "Amaran"
@@ -2600,65 +2454,58 @@ msgid ""
 "`%s'"
 msgstr "Gagal membuka : %s"
 
-# libgnomeui/gnome-color-picker.c:313
-#: lib/properties.c:71 lib/properties.h:477
+#: lib/properties.c:71 lib/properties.h:478
 #, fuzzy
 msgid "Line colour"
 msgstr "Warna pautan"
 
-#: lib/properties.c:72 lib/properties.h:480
+#: lib/properties.c:72 lib/properties.h:481
 #, fuzzy
 msgid "Line style"
 msgstr "Gayahidup"
 
-#: lib/properties.c:73 lib/properties.h:484
+#: lib/properties.c:73 lib/properties.h:485
 #, fuzzy
 msgid "Fill colour"
 msgstr "Pilih satu warna"
 
-#: lib/properties.c:74 lib/properties.h:487
+#: lib/properties.c:74 lib/properties.h:488
 #, fuzzy
 msgid "Draw background"
 msgstr "Suramkan latar belakang"
 
-#: lib/properties.c:75 lib/properties.h:491
+#: lib/properties.c:75 lib/properties.h:492
 #, fuzzy
 msgid "Start arrow"
 msgstr "Mulakan Galeon"
 
-#: lib/properties.c:76 lib/properties.h:494
+#: lib/properties.c:76 lib/properties.h:495
 #, fuzzy
 msgid "End arrow"
 msgstr "Panah"
 
-#: lib/properties.c:78 lib/properties.h:504
+#: lib/properties.c:78 lib/properties.h:505
 #, fuzzy
 msgid "Text alignment"
 msgstr "Jajaran x Teks"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-font-picker.c:710 libgnomeui/gnome-stock.c:848
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
 # src/prefs.c:618
 # ui/galeon.glade.h:140
-#: lib/properties.c:79 lib/properties.h:507
+#: lib/properties.c:79 lib/properties.h:508
 #: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
 #: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:164
 #: objects/GRAFCET/transition.c:141 objects/UML/class_dialog.c:327
 msgid "Font"
 msgstr "Font"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# src/prefs.c:618
-# ui/galeon.glade.h:140
-#: lib/properties.c:80 lib/properties.h:510
+#: lib/properties.c:80 lib/properties.h:511
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
 #: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:166
 #: objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Saiz font"
 
-#: lib/properties.c:81 lib/properties.h:513
+#: lib/properties.c:81 lib/properties.h:514
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
 #: objects/GRAFCET/step.c:168
 #, fuzzy
@@ -2728,13 +2575,6 @@ msgstr "Lebar:"
 msgid "Select image file"
 msgstr "Pilih fail"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-file-entry.c:282 libgnomeui/gnome-spell.c:619
-# libgnomeui/gnome-spell.c:636 libgnomeui/gnome-spell.c:653
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# #-#-#-#-#  ms-besar.po (besar)  #-#-#-#-#
-# libgnomeui/gnome-file-entry.c:282 libgnomeui/gnome-spell.c:619
-# libgnomeui/gnome-spell.c:636 libgnomeui/gnome-spell.c:653
 #: lib/widgets.c:1221
 msgid "Browse"
 msgstr "Lungsur"
@@ -2783,7 +2623,6 @@ msgstr "Parameter"
 msgid "Start time"
 msgstr "Masa_Mula"
 
-# libgnomeui/gnome-app-helper.c:297
 #: objects/chronogram/chronoline.c:165 objects/chronogram/chronoref.c:147
 #, fuzzy
 msgid "End time"
@@ -2818,7 +2657,6 @@ msgstr "Warna teks"
 msgid "Data line width"
 msgstr "Lebar bolehubah"
 
-# libgnomeui/gnome-color-picker.c:313
 #: objects/chronogram/chronoline.c:178 objects/chronogram/chronoref.c:157
 #, fuzzy
 msgid "Line color"
@@ -2964,8 +2802,6 @@ msgstr "Hubungan"
 msgid "Corner radius"
 msgstr "Klonkan Pemacu"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-init.c:452
 #: objects/flowchart/box.c:149 objects/flowchart/diamond.c:147
 #: objects/flowchart/ellipse.c:146 objects/flowchart/parallelogram.c:151
 #: objects/SADT/box.c:136
@@ -2997,8 +2833,6 @@ msgstr "Kemasukan"
 msgid "Material"
 msgstr "Pengurusan"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# tutup rasanya tak sesuai kerana dianggap 'close'
 #. Translators: Menu item Verb/Signal
 #: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/flow-ortho.c:159
 #: objects/FS/flow-ortho.c:632 objects/FS/function.c:999
@@ -3093,14 +2927,6 @@ msgstr "Pemindahan"
 msgid "Transport"
 msgstr "Telus"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:200
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:200
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:200
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:200
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
 #: objects/FS/function.c:681
 #, fuzzy
@@ -3560,8 +3386,6 @@ msgstr "Pulih"
 msgid "Supply"
 msgstr "Terap"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# ui/galeon.glade.h:134
 #. Translators: Menu item Verb/Provision/Supply/Fill
 #: objects/FS/function.c:899
 #, fuzzy
@@ -4345,8 +4169,6 @@ msgstr "Padam Panel"
 msgid "Network diagram objects"
 msgstr "Peranti rangkaian"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/winhints_demo.c:106
 #. property rows
 #: objects/SADT/arrow.c:133 objects/UML/class_dialog.c:333
 msgid "Normal"
@@ -4504,12 +4326,12 @@ msgstr "Kekunci Robot Standard"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
-#: objects/UML/activity.c:302
+#: objects/UML/activity.c:311
 #, fuzzy
 msgid "Helvetica"
 msgstr "_Helvetica"
 
-#: objects/UML/actor.c:335 objects/UML/actor.c:337 sheets/UML.sheet.in.h:2
+#: objects/UML/actor.c:343 objects/UML/actor.c:345 sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Pelakon"
 
@@ -4569,50 +4391,46 @@ msgstr "Saingan"
 msgid "Stereotype"
 msgstr "Stereo"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# help-browser/toc-man.c:19
-# help-browser/toc2-man.c:21
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# help-browser/toc-man.c:19
-# help-browser/toc2-man.c:21
 #: objects/UML/class.c:109 objects/UML/class_dialog.c:358
 #: sheets/SDL.sheet.in.h:3
+#, fuzzy
 msgid "Comment"
-msgstr "Komen"
+msgstr "Komponen"
 
 #: objects/UML/class.c:111 objects/UML/class_dialog.c:290
 #: objects/UML/class_dialog.c:343 objects/UML/class_dialog.c:1893
+#, fuzzy
 msgid "Abstract"
 msgstr "Abstrak"
 
 #: objects/UML/class.c:113 objects/UML/class_dialog.c:299
 #, fuzzy
 msgid "Suppress Attributes"
-msgstr "Atribut"
+msgstr "Edit Atribut"
 
 #: objects/UML/class.c:115
 #, fuzzy
 msgid "Suppress Operations"
-msgstr "Operasi meneka"
+msgstr "Operasi Senyap"
 
 #: objects/UML/class.c:117
 #, fuzzy
 msgid "Visible Attributes"
-msgstr "Atribut"
+msgstr "Edit Atribut"
 
 #: objects/UML/class.c:119
 #, fuzzy
 msgid "Visible Operations"
-msgstr "_Operasi"
+msgstr "Jarakruang kelihatan"
 
 #: objects/UML/class.c:121
-#, fuzzy
 msgid "Visible Comments"
-msgstr "Kolum Tampak"
+msgstr ""
 
 #. Attributes page:
 #: objects/UML/class.c:124 objects/UML/class_dialog.c:800
 #: objects/UML/object.c:147
+#, fuzzy
 msgid "Attributes"
 msgstr "Atribut"
 
@@ -4620,27 +4438,29 @@ msgstr "Atribut"
 #: objects/UML/class.c:126 objects/UML/class_dialog.c:1724
 #, fuzzy
 msgid "Operations"
-msgstr "_Operasi"
+msgstr "Operasi"
 
 #: objects/UML/class.c:129
+#, fuzzy
 msgid "Template"
 msgstr "Templat"
 
 #. Class page:
-#: objects/UML/class.c:177 objects/UML/class.c:918
+#: objects/UML/class.c:177 objects/UML/class.c:930
 #: objects/UML/class_dialog.c:255 sheets/UML.sheet.in.h:6
+#, fuzzy
 msgid "Class"
-msgstr "Kelas"
+msgstr "Nama Keluarga"
 
 #: objects/UML/class.c:183
 #, fuzzy
 msgid "Show comments"
-msgstr "komen"
+msgstr "Papar Threads"
 
 #: objects/UML/class_dialog.c:261
 #, fuzzy
 msgid "Class name:"
-msgstr "Kelas :"
+msgstr "Nama Keluarga"
 
 #: objects/UML/class_dialog.c:272 objects/UML/class_dialog.c:1816
 #: objects/UML/dependency.c:129 objects/UML/generalization.c:125
@@ -4649,16 +4469,11 @@ msgstr "Kelas :"
 msgid "Stereotype:"
 msgstr "Stereo"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# help-browser/toc-man.c:19
-# help-browser/toc2-man.c:21
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# help-browser/toc-man.c:19
-# help-browser/toc2-man.c:21
 #: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:901
 #: objects/UML/class_dialog.c:1934 objects/UML/class_dialog.c:2058
+#, fuzzy
 msgid "Comment:"
-msgstr "Komen:"
+msgstr "Komponen"
 
 #: objects/UML/class_dialog.c:296
 #, fuzzy
@@ -4673,23 +4488,17 @@ msgstr "Operasi gagal."
 #: objects/UML/class_dialog.c:308
 #, fuzzy
 msgid "Suppress operations"
-msgstr "Operasi meneka"
+msgstr "Operasi Senyap"
 
-# libgnomeui/gnome-dentry-edit.c:389
 #: objects/UML/class_dialog.c:314
-#, fuzzy
 msgid "Comments visible"
-msgstr "Rentetan komen"
+msgstr ""
 
 #. head line
 #: objects/UML/class_dialog.c:324
-#, fuzzy
 msgid "Kind"
-msgstr "Cari"
+msgstr ""
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# Saiz bra
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
 # Saiz bra
 #: objects/UML/class_dialog.c:329
 msgid "Size"
@@ -4895,7 +4704,6 @@ msgstr ""
 msgid "Call"
 msgstr "semua"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
 # Jahaman?
 #: objects/UML/message.c:131
 msgid "Create"
@@ -4954,7 +4762,7 @@ msgstr "Pelbagai Padanan..."
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:385
+#: objects/UML/state.c:394
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
@@ -4970,8 +4778,6 @@ msgstr "Akhir"
 msgid "Unified Modelling Language diagram objects"
 msgstr ""
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-init.c:452
 #: objects/UML/usecase.c:124
 #, fuzzy
 msgid "Text outside"
@@ -5035,7 +4841,7 @@ msgstr ""
 msgid "TeX Metapost export filter"
 msgstr ""
 
-#: plug-ins/metapost/render_metapost.c:794
+#: plug-ins/metapost/render_metapost.c:867
 msgid "TeX Metapost macros"
 msgstr ""
 
@@ -5088,7 +4894,6 @@ msgstr ""
 msgid "dia shape file"
 msgstr "Fail cache"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
 # rujuk buku statistik
 #: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:642
 #, fuzzy
@@ -5495,8 +5300,6 @@ msgstr "Panah blok pentagon"
 msgid "Pentagon. Five sided shape"
 msgstr ""
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-file-entry.c:152
 #: sheets/Assorted.sheet.in.h:25
 #, fuzzy
 msgid "Perfect circle"
@@ -6301,10 +6104,6 @@ msgstr ""
 msgid "Pieces of a jigsaw"
 msgstr ""
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-scores.c:105
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-scores.c:105
 #: sheets/Logic.sheet.in.h:1
 #, fuzzy
 msgid "AND gate"
@@ -6678,9 +6477,6 @@ msgstr ""
 msgid "Pneumatic/Hydraulic"
 msgstr ""
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# help-browser/toc-man.c:19
-# help-browser/toc2-man.c:21
 #: sheets/Pneumatic.sheet.in.h:24
 #, fuzzy
 msgid "Push-button command"
@@ -6878,8 +6674,6 @@ msgstr "Pakej Asas"
 msgid "Lifeline"
 msgstr "Barispaip:"
 
-# #-#-#-#-#  longgok.edited (longokan)  #-#-#-#-#
-# libgnomeui/gnome-messagebox.c:147 libgnomeui/gnome-messagebox.c:280
 #: sheets/UML.sheet.in.h:18
 msgid "Message"
 msgstr "Mesej"
@@ -6905,6 +6699,5 @@ msgid "UML"
 msgstr "UML"
 
 #: sheets/UML.sheet.in.h:27
-#, fuzzy
 msgid "Use case"
-msgstr "Nama pengguna"
+msgstr "Guna huruf kecil/besar"
