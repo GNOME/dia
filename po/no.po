@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-01-08 14:18+0100\n"
-"PO-Revision-Date: 2001-01-08 14:25+01:00\n"
+"POT-Creation-Date: 2001-02-14 15:25+0100\n"
+"PO-Revision-Date: 2001-02-14 15:25+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgstr ""
 msgid "Quit"
 msgstr "Avslutt"
 
-#: app/app_procs.c:355 app/display.c:892 app/layer_dialog.c:986
+#: app/app_procs.c:355 app/display.c:905 app/layer_dialog.c:986
 #: app/lineprops_area.c:549 app/lineprops_area.c:747 app/linewidth_area.c:241
 #: app/paginate_psprint.c:243
 msgid "Cancel"
@@ -169,7 +169,7 @@ msgstr "Lukk"
 msgid "This object has no defaults."
 msgstr "Dette objektet har ingen standardverdier."
 
-#: app/dia_embedd.c:236
+#: app/dia_embedd.c:352
 msgid "Could not initialize Bonobo!"
 msgstr "Kunne ikke initialisere Bonobo!"
 
@@ -282,15 +282,15 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagrammet er endret!"
 
-#: app/display.c:842
+#: app/display.c:855
 msgid "Close Diagram?"
 msgstr "Lukk diagram?"
 
-#: app/display.c:848
+#: app/display.c:861
 msgid "Really close?"
 msgstr "Virkelig lukke?"
 
-#: app/display.c:853
+#: app/display.c:866
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -298,12 +298,12 @@ msgstr ""
 "Dette diagrammet er ikke lagret.\n"
 "Lagre endringer nå?"
 
-#: app/display.c:871 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:494
+#: app/display.c:884 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:494
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:881 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:494
+#: app/display.c:894 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:494
 #: app/preferences.c:505 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Nei"
@@ -1422,6 +1422,33 @@ msgstr "Dette objektet har ingen egenskaper."
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postskript"
 
+#. remove recent files if list get's too long
+#: app/recent_files.c:69
+msgid "/File/Plugins"
+msgstr "/Fil/Tillegg"
+
+#: app/recent_files.c:75 app/recent_files.c:77 app/recent_files.c:102
+#: app/recent_files.c:104
+msgid "/File/Open Recent/"
+msgstr "/Fil/Åpne siste/"
+
+#: app/recent_files.c:153
+msgid "Can't open history file for writing."
+msgstr "Kunne ikke åpne historikkfil for skriving."
+
+#: app/splash.c:50
+msgid "Loading ..."
+msgstr "Laster..."
+
+#: app/splash.c:67
+#, c-format
+msgid ""
+"Dia v %s\n"
+" by Alexander Larsson"
+msgstr ""
+"Dia v %s\n"
+" av Alexander Larsson"
+
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Intern feil: Setter hjørnetype av endepunktet for bezieren"
@@ -1622,7 +1649,7 @@ msgstr "Total:"
 #: objects/GRAFCET/vector.c:400 objects/SADT/arrow.c:646
 #: objects/UML/association.c:608 objects/UML/dependency.c:288
 #: objects/UML/generalization.c:280 objects/UML/realizes.c:283
-#: objects/standard/zigzagline.c:343
+#: objects/standard/zigzagline.c:344
 msgid "Add segment"
 msgstr "Legg til segment"
 
@@ -1630,7 +1657,7 @@ msgstr "Legg til segment"
 #: objects/GRAFCET/vector.c:401 objects/SADT/arrow.c:647
 #: objects/UML/association.c:609 objects/UML/dependency.c:289
 #: objects/UML/generalization.c:281 objects/UML/realizes.c:284
-#: objects/standard/zigzagline.c:344
+#: objects/standard/zigzagline.c:345
 msgid "Delete segment"
 msgstr "Slett segment"
 
@@ -2086,11 +2113,14 @@ msgstr "Aggreger"
 msgid "Composition"
 msgstr "Komposisjon"
 
-#: objects/UML/class.c:96
+#: objects/UML/class.c:96 objects/UML/component.c:111
+#: objects/UML/small_package.c:111
 msgid "Name"
 msgstr "Navn"
 
-#: objects/UML/class.c:98 objects/UML/classicon.c:146 objects/UML/object.c:164
+#: objects/UML/class.c:98 objects/UML/classicon.c:146
+#: objects/UML/component.c:113 objects/UML/object.c:164
+#: objects/UML/small_package.c:113
 msgid "Stereotype"
 msgstr "Stereotype"
 
@@ -2349,6 +2379,10 @@ msgstr "Aktiver objekt"
 #: objects/UML/object.c:859
 msgid "multiple instance"
 msgstr "flere hendelser"
+
+#: objects/UML/node.c:115
+msgid "Node name"
+msgstr "Nodenavn"
 
 #: objects/UML/state.c:147
 msgid "State Type"
