@@ -1,3 +1,7 @@
+2003-08-27  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/preferences.c (prefs_save): Remove debugging g_print.
+
 2003-08-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/flowchart/parallelogram.c (pgram_update_data):

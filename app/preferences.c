@@ -328,7 +328,6 @@ prefs_save(void)
       break;
     case PREF_INT:
     case PREF_UINT:
-      g_print("%s = %d\n", prefs_data[i].name, *(int *)ptr);
       fprintf(file, "%d\n", *(int *)ptr);
       break;
     case PREF_REAL:
