@@ -1,12 +1,10 @@
 REQUIREMENTS:
 =============
 
-Dia needs Gtk+ at least version 1.1.13 installed.
+Dia needs Gtk+ at least version 1.2.0 installed.
 It can be found at:
 
-ftp://ftp.gtk.org/pub/gtk/v1.1/glib-1.1.13.tar.gz
-and
-ftp://ftp.gtk.org/pub/gtk/v1.1/gtk+-1.1.13.tar.gz
+ftp://ftp.gtk.org/pub/gtk/v1.2/
 
 Binaries availible at:
 ftp://ftp.gtk.org/pub/gtk/binary/devel/RPMS/

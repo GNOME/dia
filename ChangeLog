@@ -1,3 +1,9 @@
+1999-05-19  Alexander Larsson  <alla@lysator.liu.se>
+
+	* INSTALL: 
+	* configure.in:
+	Require Gtk+ 1.2.0
+
 1999-05-18  Alexander Larsson  <alla@lysator.liu.se>
 
 	Patches from Dan Cohn <dan@internap.com>
