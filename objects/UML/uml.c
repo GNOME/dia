@@ -48,8 +48,11 @@ extern ObjectType message_type;
 extern ObjectType component_type;
 extern ObjectType classicon_type;
 extern ObjectType state_type;
+extern ObjectType activity_type;
 extern ObjectType node_type;
 extern ObjectType branch_type;
+extern ObjectType fork_type;
+extern ObjectType state_term_type;
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -79,10 +82,13 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(&message_type);  
   object_register_type(&component_type);
   object_register_type(&classicon_type);
-  object_register_type(&state_type);    
+  object_register_type(&state_type);
+  object_register_type(&state_term_type);
+  object_register_type(&activity_type);
   object_register_type(&node_type);    
   object_register_type(&branch_type);    
-
+  object_register_type(&fork_type);
+   
   return DIA_PLUGIN_INIT_OK;
 }
 

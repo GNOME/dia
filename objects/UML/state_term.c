@@ -1,6 +1,9 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
+ * State terminal type for UML diagrams
+ * Copyright (C) 2002 Alejandro Sierra <asierra@servidor.unam.mx>
+ * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -32,27 +35,19 @@
 #include "text.h"
 #include "properties.h"
 
-#include "pixmaps/state.xpm"
+#include "pixmaps/state_term.xpm"
 
 typedef struct _State State;
-typedef struct _StateState StateState;
+//typedef struct _StateState StateState;
 
 
-enum {
-  STATE_NORMAL,
-  STATE_BEGIN,
-  STATE_END
-};
 
 struct _State {
   Element element;
 
   ConnectionPoint connections[8];
 
-  Text *text;
-  int state_type;
-
-  TextAttributes attrs;
+  int is_final;
 };
 
 
@@ -83,6 +78,8 @@ static void state_get_props(State *state, GPtrArray *props);
 static void state_set_props(State *state, GPtrArray *props);
 static void state_update_data(State *state);
 
+void
+draw_rounded_rectangle(Renderer *renderer, Point p1, Point p2, real radio);
 
 static ObjectTypeOps state_type_ops =
 {
@@ -93,11 +90,11 @@ static ObjectTypeOps state_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType state_type =
+ObjectType state_term_type =
 {
-  "UML - State",   /* name */
+  "UML - State Term",   /* name */
   0,                      /* version */
-  (char **) state_xpm,  /* pixmap */
+  (char **) state_term_xpm,  /* pixmap */
   
   &state_type_ops       /* ops */
 };
@@ -118,28 +115,10 @@ static ObjectOps state_ops = {
   (SetPropsFunc)        state_set_props
 };
 
-static PropEnumData prop_state_type_data[] = {
-  { N_("Normal"), STATE_NORMAL },
-  { N_("Begin"), STATE_BEGIN },
-  { N_("End"), STATE_END },
-  { NULL, 0 }
-};
-
 static PropDescription state_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "state_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
-  N_("State Type"), NULL, prop_state_type_data },
-      /* see below for the next field.
-
-      Warning: break this and you'll get angry UML users after you. */
-  { "type", PROP_TYPE_INT, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY,
-    "hack", NULL, NULL },
-  
-  PROP_STD_TEXT_FONT,
-  PROP_STD_TEXT_HEIGHT,
-  PROP_STD_TEXT_COLOUR,
-  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
-  
+  { "is_final", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+  N_("Is final"), NULL, NULL },
   PROP_DESC_END
 };
 
@@ -151,16 +130,7 @@ state_describe_props(State *state)
 
 static PropOffset state_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  {"text",PROP_TYPE_TEXT,offsetof(State,text)},
-  {"text_font",PROP_TYPE_FONT,offsetof(State,attrs.font)},
-  {"text_height",PROP_TYPE_REAL,offsetof(State,attrs.height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(State,attrs.color)},
-  { "state_type", PROP_TYPE_ENUM, offsetof(State, state_type) },
-  
-      /* HACK: this is to recover files from 0.88.1 and older.
-      if sizeof(enum) != sizeof(int), we're toast.             -- CC
-      */
-  { "type", PROP_TYPE_INT, offsetof(State, state_type) },
+  { "is_final", PROP_TYPE_BOOL, offsetof(State, is_final) },
   
   { NULL, 0, 0 },
 };
@@ -168,7 +138,6 @@ static PropOffset state_offsets[] = {
 static void
 state_get_props(State * state, GPtrArray *props)
 {
-  text_get_attributes(state->text,&state->attrs);
   object_get_props_from_offsets(&state->element.object,
                                 state_offsets,props);
 }
@@ -178,7 +147,6 @@ state_set_props(State *state, GPtrArray *props)
 {
   object_set_props_from_offsets(&state->element.object,
                                 state_offsets,props);
-  apply_textattr_properties(props,state->text,"text",&state->attrs);
   state_update_data(state);
 }
 
@@ -193,8 +161,6 @@ static void
 state_select(State *state, Point *clicked_point,
 	       Renderer *interactive_renderer)
 {
-  text_set_cursor(state->text, clicked_point, interactive_renderer);
-  text_grab_focus(state->text, &state->element.object);
   element_update_handles(&state->element);
 }
 
@@ -221,7 +187,7 @@ state_draw(State *state, Renderer *renderer)
 {
   Element *elem;
   real x, y, w, h, r;
-  Point p1, p2;
+  Point p1;
 
   assert(state != NULL);
   assert(renderer != NULL);
@@ -237,35 +203,25 @@ state_draw(State *state, Renderer *renderer)
   renderer->ops->set_linewidth(renderer, STATE_LINEWIDTH);
   renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  if (state->state_type!=STATE_NORMAL) {
-      p1.x = x + w/2;
-      p1.y = y + h/2;
-      if (state->state_type==STATE_END) {
-	  r = STATE_ENDRATIO;
-	  renderer->ops->fill_ellipse(renderer, 
-				      &p1,
-				      r, r,
-				      &color_white);
-	  
-	  renderer->ops->draw_ellipse(renderer, 
-				      &p1,
-				      r, r,
-				      &color_black);
-      }  
-      r = STATE_RATIO;
+   p1.x = x + w/2;
+   p1.y = y + h/2;
+   if (state->is_final==1) {
+      r = STATE_ENDRATIO;
       renderer->ops->fill_ellipse(renderer, 
 				  &p1,
 				  r, r,
+				  &color_white);
+      
+      renderer->ops->draw_ellipse(renderer, 
+				  &p1,
+				  r, r,
 				  &color_black);
-  } else {
-      p1.x = x;
-      p1.y = y;
-      p2.x = x + w;
-      p2.y = y + h;
-      renderer->ops->fill_rounded_rect(renderer, &p1, &p2, &color_white, 0.5);
-      renderer->ops->draw_rounded_rect(renderer, &p1, &p2, &color_black, 0.5);
-      text_draw(state->text, renderer);
-  }
+   }  
+   r = STATE_RATIO;
+   renderer->ops->fill_ellipse(renderer, 
+			       &p1,
+			       r, r,
+			       &color_black);
 }
 
 
@@ -276,21 +232,9 @@ state_update_data(State *state)
 
   Element *elem = &state->element;
   Object *obj = &elem->object;
-  Point p;
   
-  text_calc_boundingbox(state->text, NULL);
-  if (state->state_type==STATE_NORMAL) { 
-      w = state->text->max_width + 2*STATE_MARGIN_X;
-      h = state->text->height*state->text->numlines +2*STATE_MARGIN_Y;
-      if (w < STATE_WIDTH)
-	  w = STATE_WIDTH;
-      p.x = elem->corner.x + w/2.0;
-      p.y = elem->corner.y + STATE_MARGIN_Y + state->text->ascent;
-      text_set_position(state->text, &p);
-  } else {
-      w = h = (state->state_type==STATE_END) ? STATE_ENDRATIO: STATE_RATIO;
-  }
-
+  w = h = (state->is_final) ? STATE_ENDRATIO: STATE_RATIO;
+   
   elem->width = w;
   elem->height = h;
 
@@ -335,23 +279,17 @@ state_create(Point *startpoint,
   elem = &state->element;
   obj = &elem->object;
   
-  obj->type = &state_type;
+  obj->type = &state_term_type;
   obj->ops = &state_ops;
   elem->corner = *startpoint;
   elem->width = STATE_WIDTH;
   elem->height = STATE_HEIGHT;
 
-  font = dia_font_new_from_style(DIA_FONT_SANS, 0.8);
   p = *startpoint;
   p.x += STATE_WIDTH/2.0;
   p.y += STATE_HEIGHT/2.0;
   
-  state->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
-  text_get_attributes(state->text,&state->attrs);
-
-  dia_font_unref(font);
-  
-  state->state_type = STATE_NORMAL;
+  state->is_final = 0;
   element_init(elem, 8, 8);
   
   for (i=0;i<8;i++) {
@@ -374,16 +312,13 @@ state_create(Point *startpoint,
 static void
 state_destroy(State *state)
 {
-  text_destroy(state->text);
-
   element_destroy(&state->element);
 }
 
 static Object *
 state_load(ObjectNode obj_node, int version, const char *filename)
 {
-  return object_load_using_properties(&state_type,
+  return object_load_using_properties(&state_term_type,
                                       obj_node,version,filename);
 }
-
 

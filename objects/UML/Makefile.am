@@ -24,8 +24,11 @@ libuml_objects_la_SOURCES = \
 			component.c \
 			classicon.c \
 			state.c \
+			activity.c \
+			state_term.c \
 			node.c \
 			branch.c \
+			fork.c \
 			stereotype.c \
 			stereotype.h
 
@@ -53,4 +56,8 @@ EXTRA_DIST = \
 	pixmaps/state.xpm \
 	pixmaps/umlclass.xpm \
 	pixmaps/node.xpm \
-	pixmaps/branch.xpm
+	pixmaps/branch.xpm \
+	pixmaps/fork.xpm \
+	pixmaps/activity.xpm \
+	pixmaps/state_term.xpm
+

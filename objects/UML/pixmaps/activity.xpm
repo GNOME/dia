@@ -1,5 +1,5 @@
 /* XPM */
-static char * state_xpm[] = {
+static char * activity_xpm[] = {
 /* width height num_colors chars_per_pixel */
 "22 22 3 1",
 /* colors */
@@ -13,15 +13,15 @@ static char * state_xpm[] = {
 "                      ",
 "                      ",
 "     ............     ",
-"    .XXXXXXXXXXXX.    ",
+"   ..XXXXXXXXXXXX..   ",
 "   .XXXXXXXXXXXXXX.   ",
+"  .XXXXXXXXXXXXXXXX.  ",
+"  .XXXXXXXXXXXXXXXX.  ",
+"  .XXXXXXXXXXXXXXXX.  ",
+"  .XXXXXXXXXXXXXXXX.  ",
+"  .XXXXXXXXXXXXXXXX.  ",
 "   .XXXXXXXXXXXXXX.   ",
-"   .XXXXXXXXXXXXXX.   ",
-"   .XXXXXXXXXXXXXX.   ",
-"   .XXXXXXXXXXXXXX.   ",
-"   .XXXXXXXXXXXXXX.   ",
-"   .XXXXXXXXXXXXXX.   ",
-"    .XXXXXXXXXXXX.    ",
+"   ..XXXXXXXXXXXX..   ",
 "     ............     ",
 "                      ",
 "                      ",

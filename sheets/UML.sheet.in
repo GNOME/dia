@@ -65,11 +65,20 @@
     <object name="UML - Classicon">
       <_description>Create a class stereotype icon</_description>
     </object>
+    <object name="UML - State Term">
+      <_description>Create a initial/end state</_description>
+    </object>
     <object name="UML - State">
-      <_description>Create a state machine</_description>
+      <_description>Create a state</_description>
+    </object>
+    <object name="UML - Activity">
+       <_description>Create an activity</_description>
     </object>
     <object name="UML - Branch">
       <_description>Create a branch</_description>
+    </object>
+    <object name="UML - Fork">
+      <_description>Create a fork/union</_description>
     </object>
   </contents>
 </sheet>
