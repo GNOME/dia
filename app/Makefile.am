@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = pixmaps
-
 if HAVE_GNOME_PRINT
 print_files = \
 	render_gnomeprint.c \
@@ -41,6 +39,7 @@ dia_SOURCES = \
 	    linewidth_area.c \
 	    linewidth_area.h \
 	    lineprops_area.c \
+	    lineprops_area.h \
 	    grid.c \
 	    grid.h \
 	    group.c \
@@ -97,6 +96,18 @@ INCLUDES = \
         @GNOME_CFLAGS@
 
 LDFLAGS = --export-dynamic
+
+EXTRA_DIST = \
+	pixmaps/arrow.xpm \
+	pixmaps/default.xpm \
+	pixmaps/delete.xpm \
+	pixmaps/eye.xbm \
+	pixmaps/lower.xpm \
+	pixmaps/magnify.xpm \
+	pixmaps/new.xpm \
+	pixmaps/raise.xpm \
+	pixmaps/scroll.xpm \
+	pixmaps/swap.xpm
 
 run_dia.sh: Makefile.am
 	 echo "#!$(SHELL) " > run_dia.sh

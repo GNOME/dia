@@ -24,6 +24,7 @@
 
 #include <glib.h>
 
-gchar *get_relative_filename(const gchar *current, const gchar *relative);
+gchar *custom_get_relative_filename(const gchar *current,
+				    const gchar *relative);
 
 #endif

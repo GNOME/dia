@@ -139,7 +139,7 @@ load_from_index(const gchar *directory)
     if (node->ns != ns || strcmp(node->name, "shape"))
       continue;
     tmp = xmlNodeGetContent(node);
-    filename = get_relative_filename(index, tmp);
+    filename = custom_get_relative_filename(index, tmp);
     free(tmp);
 
     info = shape_info_load(filename);
@@ -214,7 +214,7 @@ load_with_readdir(const gchar *directory, const gchar *name)
 }
 
 Sheet *
-load_custom_sheet(const gchar *directory, const gchar *name)
+custom_sheet_load(const gchar *directory, const gchar *name)
 {
   Sheet *sheet = load_from_index(directory);
 

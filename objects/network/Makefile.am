@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = pixmaps
-
 pkglib_LTLIBRARIES = 	libnetwork_objects.la
 libnetwork_objects_la_SOURCES = \
 			      network.h \
@@ -22,3 +20,17 @@ libnetwork_objects_la_SOURCES = \
 libnetwork_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 INCLUDES = -I$(srcdir)/../../lib @GTK_CFLAGS@ @GNOME_CFLAGS@
+
+EXTRA_DIST = \
+	pixmaps/antenna.xpm \
+	pixmaps/bus.xpm \
+	pixmaps/computer.xpm \
+	pixmaps/disc.xpm \
+	pixmaps/flash.xpm \
+	pixmaps/hub.xpm \
+	pixmaps/modem.xpm \
+	pixmaps/modularswitch.xpm \
+	pixmaps/monitor.xpm \
+	pixmaps/printer.xpm \
+	pixmaps/rj45plug.xpm \
+	pixmaps/sceadplug.xpm

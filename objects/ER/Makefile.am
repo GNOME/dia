@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = pixmaps
-
 pkglib_LTLIBRARIES = 	liber_objects.la
 liber_objects_la_SOURCES = \
 			entity.c \
@@ -14,3 +12,10 @@ liber_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 liber_objects_la_LIBADD = @GTK_LIBS@
 
 INCLUDES = -I$(srcdir)/../../lib @GTK_CFLAGS@ @GNOME_CFLAGS@
+
+EXTRA_DIST = \
+	pixmaps/attribute.xpm \
+	pixmaps/entity.xpm \
+	pixmaps/participation.xpm \
+	pixmaps/relationship.xpm \
+	pixmaps/weakentity.xpm

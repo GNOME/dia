@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = pixmaps
-
 noinst_LIBRARIES =     libdia.a
 libdia_a_SOURCES =  \
 		diamenu.h \
@@ -58,3 +56,6 @@ libdia_a_SOURCES =  \
 		dummy_dep.h
 
 INCLUDES = @XML_CFLAGS@ @GNOME_CFLAGS@ @GTK_CFLAGS@
+
+EXTRA_DIST = \
+	pixmaps/broken.xpm

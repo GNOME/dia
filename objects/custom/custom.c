@@ -28,14 +28,17 @@
 #include "load_sheet.h"
 #include "shape_info.h"
 
-int get_version(void) {
+int
+get_version(void)
+{
   return 0;
 }
 
-GList *sheets = NULL;
+static GList *sheets = NULL;
 
 static void
-load_sheets_from_dir(const gchar *directory) {
+load_sheets_from_dir(const gchar *directory)
+{
   DIR *dp;
   struct dirent *dirp;
   struct stat statbuf;
@@ -62,7 +65,7 @@ load_sheets_from_dir(const gchar *directory) {
       g_free(filename);
       continue;
     }
-    sheet = load_custom_sheet(filename, dirp->d_name);
+    sheet = custom_sheet_load(filename, dirp->d_name);
     g_free(filename);
     if (sheet)
       sheets = g_list_append(sheets, sheet);
@@ -70,7 +73,9 @@ load_sheets_from_dir(const gchar *directory) {
   closedir(dp);
 }
 
-void register_objects(void) {
+void
+register_objects(void)
+{
   char *shape_path;
   char *home_dir;
 
@@ -95,9 +100,27 @@ void register_objects(void) {
   }
 }
 
-void register_sheets(void) {
+void
+register_sheets(void)
+{
   GList *tmp;
 
   for (tmp = sheets; tmp; tmp = tmp->next)
     register_sheet((Sheet *)tmp->data);
+}
+
+void custom_object_new (ShapeInfo *info,
+                        ObjectType **otype,
+                        SheetObject **sheetobj);
+
+gboolean
+custom_object_load(gchar *filename, ObjectType **otype,
+		   SheetObject **sheetobj)
+{
+  ShapeInfo *info = shape_info_load(filename);
+
+  if (!info)
+    return FALSE;
+  custom_object_new(info, otype, sheetobj);
+  return TRUE;
 }

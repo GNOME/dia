@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = pixmaps
-
 pkglib_LTLIBRARIES = 	libuml_objects.la
 libuml_objects_la_SOURCES = \
 			uml.h \
@@ -31,3 +29,25 @@ libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 libuml_objects_la_LIBADD = @GTK_LIBS@
 
 INCLUDES = -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@
+
+EXTRA_DIST = \
+	pixmaps/actor.xpm \
+	pixmaps/aggregation.xpm \
+	pixmaps/association.xpm \
+	pixmaps/case.xpm \
+	pixmaps/classicon.xpm \
+	pixmaps/component.xpm \
+	pixmaps/constraint.xpm \
+	pixmaps/dependency.xpm \
+	pixmaps/generalization.xpm \
+	pixmaps/implements.xpm \
+	pixmaps/largepackage.xpm \
+	pixmaps/lifeline.xpm \
+	pixmaps/message.xpm \
+	pixmaps/note.xpm \
+	pixmaps/object.xpm \
+	pixmaps/realizes.xpm \
+	pixmaps/smallpackage.xpm \
+	pixmaps/state.xpm \
+	pixmaps/umlclass.xpm \
+	pixmaps/umlclass_template.xpm

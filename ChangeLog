@@ -1,5 +1,25 @@
 1999-10-10  James Henstridge  <james@daa.com.au>
 
+	* objects/custom/custom.c (custom_object_load): new function that
+	provides a nice entry point to the custom shape code for when it
+	gets used by other libraries.
+
+	* configure.in: removed 11 makefiles from AC_OUTPUT list.  This
+	speeds builds up a bit.
+
+	* */Makefile.am (EXTRA_DIST): include pixmaps in distribution.
+	(SUBDIRS): do not descend into pixmaps subdirs.
+
+	* */pixmaps/Makefile.am: removed -- incorporate into parent makefiles.
+	This speeds up build process.
+
+	* objects/custom/custom.c (sheets): made variable static.
+
+	* objects/custom/custom_util.[ch] (custom_get_relative_filename):
+	renamed function.
+
+	* objects/custom/load_sheet.[ch] (custom_sheet_load): renamed function.
+
 	* objects/custom/custom.c: look in ~/.dia/shapes instead of
 	~/.dia_shapes as the per-user shapes directory.
 

@@ -779,7 +779,7 @@ load_shape_info(const gchar *filename)
     } else if (node->ns == shape_ns && !strcmp(node->name, "icon")) {
       tmp = xmlNodeGetContent(node);
       g_free(info->icon);
-      info->icon = get_relative_filename(filename, tmp);
+      info->icon = custom_get_relative_filename(filename, tmp);
       free(tmp);
     } else if (node->ns == shape_ns && !strcmp(node->name, "connections")) {
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(Point));

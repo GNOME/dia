@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = pixmaps
-
 pkglib_LTLIBRARIES = 	libsybase_objects.la
 libsybase_objects_la_SOURCES = \
 			      sybase.h \
@@ -16,3 +14,11 @@ libsybase_objects_la_SOURCES = \
 libsybase_objects_la_LDFLAGS = -export-dynamic -module -avoid-version
 
 INCLUDES = -I$(srcdir)/../../lib @CFLAGS@ @GTK_CFLAGS@ @GNOME_CFLAGS@
+
+EXTRA_DIST = \
+	pixmaps/client.xpm \
+	pixmaps/dataserver.xpm \
+	pixmaps/ltm.xpm \
+	pixmaps/repserver.xpm \
+	pixmaps/rsm.xpm \
+	pixmaps/stableq.xpm

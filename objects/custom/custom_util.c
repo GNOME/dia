@@ -22,7 +22,7 @@
 #include "custom_util.h"
 
 gchar *
-get_relative_filename(const gchar *current, const gchar *relative)
+custom_get_relative_filename(const gchar *current, const gchar *relative)
 {
   gchar *dirname, *tmp;
 
