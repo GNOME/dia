@@ -643,7 +643,7 @@ fill_bezier(DiaRenderer *self,
 static gchar *
 tex_escape_string(gchar *src)
 {
-    GString *dest = g_string_new(g_utf8_strlen(src, -1));
+    GString *dest = g_string_sized_new(g_utf8_strlen(src, -1));
     gchar *next;
 
     if (!g_utf8_validate(src, -1, NULL)) {

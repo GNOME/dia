@@ -1,5 +1,7 @@
 2003-09-06  Steffen Macke <sdteffen@web.de>
 
+	* plug-ins/pstricks/render_pstricks.c(tex_escape_string): using
+	g_string_sized_new() instead of g_string_new() to make it compile
 	* app/Makefile.am: including dia.ico and dia.rc in the tarball
 	* plug-ins/wmf/wmf.cpp (set_linestyle): In WMF maximum linewidth is 1 
 	for non-solid linestyles - otherwise custom linestyles have to be used.
