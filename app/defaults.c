@@ -126,7 +126,7 @@ defaults_show(ObjectType *objtype)
     gtk_container_remove(GTK_CONTAINER(dialog_vbox), object_part);
     object_part = NULL;
   }
-  g_signal_connect (G_OBJECT (defaults), "destroy",
+  g_signal_connect (G_OBJECT (dialog), "destroy",
 		      G_CALLBACK(defaults_dialog_destroyed), NULL);
   /* don't destroy dialog when window manager close button pressed */
   g_signal_connect(G_OBJECT(dialog), "delete_event",

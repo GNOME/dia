@@ -1,3 +1,8 @@
+2003-01-26  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/defaults.c (defaults_show): Fixed defaults closing bug.
+	Thanks to Hans for pointing it out.
+
 2003-01-25  Hans Breuer  <hans@breuer.org>
 
 	* app/commands.c : don't warn about crashing libart renderer
