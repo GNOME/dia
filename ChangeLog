@@ -1,3 +1,22 @@
+2000-03-24  Cyrille Chepelov <chepelov@calixo.net>
+
+	* shapes/Electric/*:
+	* sheets/Electric.sheet:
+	Add some Electric circuit shapes.
+
+	* shapes/Pneumatic/*:
+	* sheets/Pneumatic.sheet:
+	Add some Pneumatic & Hydraulic circuit shapes
+	(both sheets are still incomplete, though feature enough 
+	things for basic circuits).
+
+	* shapes/Contact/l_*.(xpm|shape):
+	* sheets/Contact.sheet
+	* shapes/Contact/Makefile.am
+	made the older electric circuit shapes in Contact obsolete (disabled
+	them in the sheet, made that sheet Ladder only). Fixed the makefile
+	for forgotten items.
+	
 2000-03-24  Alexander Larsson  <alla@lysator.liu.se>
 
         * app/Makefile.am:

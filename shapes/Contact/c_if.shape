@@ -2,7 +2,7 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
-  <name>Contact - if</name>
+  <name>Contact - if</name> <!-- XXX - OBSOLETE -->
   <description>if</description>
   <icon>c_if.xpm</icon>
   <connections>

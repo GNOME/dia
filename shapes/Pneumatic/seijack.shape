@@ -1,0 +1,30 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+  <name>Pneum - SEIJack</name>
+  <description>seijack</description>
+  <icon>seijack.xpm</icon>
+  <connections>
+    <point x="2.8" y="0" />
+    <point x="0" y=".6"/>
+  </connections>
+  <textbox x1="0" y1="1.1" x2="3" y2="1.9"/>
+  <aspectratio type="fixed"/>
+  <svg:svg width="3" height="1">
+    <svg:line x1="0" y1="0" x2="3" y2="1" svg:style="stroke: none"/>
+    <svg:line x1="2.8" y1="0" x2="2.8" y2=".2"
+	      svg:style="stroke-width: 1.0"/>
+    <svg:line x1="0" y1=".6" x2="2.4" y2=".6"
+	      svg:style="stroke-width: 0.5"/>
+    <svg:line x1="2.4" y1=".2" x2="2.4" y2="1"
+	      svg:style="stroke-width: 4.0"/>
+    <svg:rect x1=".4" y1=".2" x2="3" y2="1" 
+	      svg:style="stroke-width: 1.0"/>
+    <svg:polyline points=".6,.4 .6,.8 1,.4 1,.8 1.4,.4 
+		  1.4,.8 1.8,.4 1.8,.8 2.2,.4 2.2,.8"
+	svg:style="stroke-width: .5"/>
+  </svg:svg>
+</shape>
+
+

@@ -1,4 +1,4 @@
 
-SUBDIRS = Circuit flowchart Contact network
+SUBDIRS = Circuit flowchart Contact network Pneumatic Electric
 
 

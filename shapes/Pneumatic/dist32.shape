@@ -1,0 +1,39 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+  <name>Pneum - dist32</name>
+  <description>dist32</description>
+  <icon>dist32.xpm</icon>
+  <connections>
+    <point x=".25" y="0"/>
+    <point x=".25" y="1"/>
+    <point x=".75" y="1"/>
+    <point x="1.25" y="0"/>
+    <point x="1.25" y="1"/>
+    <point x="1.75" y="1"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg width="2" height="1">
+    <svg:rect x1="0" y1="0" x2="1" y2="1"
+	      svg:style="fill:background; stroke-width: 1"/>
+    <svg:rect x1="1" y1="0" x2="2" y2="1"
+	      svg:style="fill:background; stroke-width: 1"/>
+    <svg:line x1=".25" y1="1" x2=".25" y2=".2" svg:style="stroke-width: 1"/>
+    <svg:polygon points=".15,.2 .35,.2 .25,0" 
+		 svg:style="stroke:none; fill:foreground"/>
+    <svg:line x1=".75" y1=".8" x2=".75" y2="1"
+	      svg:style="stroke-width: 1"/>
+    <svg:line x1=".65" y1=".8" x2=".85" y2=".8"
+	      svg:style="stroke-width: 1"/>
+    <svg:line x1="1.25" y1=".8" x2="1.25" y2="1"
+	      svg:style="stroke-width: 1"/>
+    <svg:line x1="1.15" y1=".8" x2="1.35" y2=".8"
+	      svg:style="stroke-width: 1"/>
+    <svg:line x1="1.25" y1="0" x2="1.75" y2="1" svg:style="stroke-width:1"/>
+    <svg:polygon points="1.8,.8 1.8,1 1.6,.9" 
+		 svg:style="stroke:none; fill:foreground"/>
+  </svg:svg>
+</shape>
+
+

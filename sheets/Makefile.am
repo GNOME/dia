@@ -13,7 +13,9 @@ SHEETS = \
 	Contact.sheet \
 	GRAFCET.sheet \
 	chronogram.sheet \
-	SADT.sheet
+	SADT.sheet \
+	Pneumatic.sheet \
+	Electric.sheet
 
 EXTRA_DIST = $(SHEETS)
 

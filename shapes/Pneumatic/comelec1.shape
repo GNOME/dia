@@ -1,0 +1,26 @@
+<?xml version="1.0"?> <!-- -*- xml -*- -->
+
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
+       xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
+  <name>Pneum - comelec1</name>
+  <description>comelec1</description>
+  <icon>comelec1.xpm</icon>
+  <connections>
+    <point x=".5" y=".3"/>
+    <point x=".5" y=".7"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg width="1" height="1">
+    <svg:line x1="0" y1="0" x2="1" y2="1" svg:style="stroke:none"/>
+    <svg:rect x1="0" y1=".3" x2="1" y2=".7"
+	      svg:style="stroke-width:1; fill:background"/>
+    <svg:line x1=".4" y1=".3" x2=".6" y2=".7" svg:style="stroke-width:1"/>
+  </svg:svg>
+</shape>
+
+
+
+
+
+
+

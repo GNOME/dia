@@ -2,7 +2,7 @@
 
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
        xmlns:svg="http://www.w3.org/Graphics/SVG/svg-19990730.dtd">
-  <name>Contact - relay</name>
+  <name>Contact - relay</name> <!-- XXX OBSOLETE -->
   <description>relay</description>
   <icon>c_relay.xpm</icon>
   <connections>

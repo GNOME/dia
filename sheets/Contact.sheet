@@ -1,30 +1,10 @@
 <?xml version="1.0"?> <!-- -*- xml -*- -->
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
-  <name>Ladder/Contact</name>
-  <description xml:lang="fr">Composants de schémas à contacts et diagrammes 
-    LADDER</description>
-  <description>Components for LADDER and contact circuits.</description>
+  <name>Ladder</name>
+  <description xml:lang="fr">Composants de diagrammes LADDER</description>
+  <description>Components for LADDER circuits.</description>
   <contents>
-    <object name="Contact - if">
-      <description xml:lang="fr">Un contact normalement ouvert "si"</description>
-      <description>A "if" (normally open) contact
-      </description>
-    </object>
-    <object name="Contact - ifnot">
-      <description xml:lang="fr">Un contact normalement fermé "si non"</description>
-      <description>A "if not" (normally closed) contact
-      </description>
-    </object>
-    <object name="Contact - relay">
-      <description xml:lang="fr">Un relais</description>
-      <description>A relay</description>
-    </object>
-    <object name="Contact - lamp">
-      <description xml:lang="fr">Une lampe ou un voyant</description>
-      <description>A lamp or indicator light</description>
-    </object>
-
     <object name="LADDER - if">
       <description xml:lang="fr">Un contact ladder normalement ouvert "si"
       </description>
