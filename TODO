@@ -1,28 +1,24 @@
-THIS LIST IS PROBABLY OUT-OF-DATE, AND SHOULD BE REVIEWED OR
-REMOVED. NEW FEATURES DESIRED SHOULD BE RAISED AS AN
-ENHANCEMENT BUG IN THE GNOME BUG TRACKING SYSTEM INSTEAD.
-
 TODO:
 =====
-* Find all places which handle (currently 8-bit) character strings,
-  and tag them for (near) future UTF8isation.
-
 * eliminate lib/lazyprops.[ch] (convert all objects which use it to
   Standard Properties beforehand).
 
 * clean up all objects from their baggage; bring them as much as
   possible to par with modern, Standard Properties-using objects (this
   should result in much less code and much more consistency).
+  -- Still missing four UML objects entirely, and possibly some parts of
+     other objects. 
 
 * When creating an object and moving the mouse to resize it. Warp the
   pointer to the handle that is being moved.
   
-* Change cursors more often, ie. when the mouse is grabbed for
-  resizing/moving stuff.
-  
 * Run purify on Dia. I don't have purify, anyone who has it is welcome
   to try!
   
+* Make [E]PS export handle transparency.  PS level 3 has transparency, need
+  to have the export dialog ask (and check if there's an image that needs
+  it). 
+
 * Tab order in properties dialogs. (How do you specify this in gtk?)
 
 * If you hold down shift while moving the handle of an 'Element',

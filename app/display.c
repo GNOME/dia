@@ -444,7 +444,6 @@ ddisplay_update_handler(DDisplay *ddisp)
       
       l = g_slist_next(l);
     }
-    
     /* Free update_areas list: */
     ddisplay_free_update_areas(ddisp);
 

@@ -304,21 +304,23 @@ umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
                                &umlclass->color_foreground);
   }
 
+  if (umlclass->name != NULL) {
   /* name: */
-  if (umlclass->abstract) {
-    font = umlclass->abstract_classname_font;
-    font_height = umlclass->abstract_classname_font_height;
-  } else {
-    font = umlclass->classname_font;
-    font_height = umlclass->classname_font_height;
-  }
-  p.y += font_height;
+    if (umlclass->abstract) {
+      font = umlclass->abstract_classname_font;
+      font_height = umlclass->abstract_classname_font_height;
+    } else {
+      font = umlclass->classname_font;
+      font_height = umlclass->classname_font_height;
+    }
+    p.y += font_height;
 
-  renderer_ops->set_font(renderer, font, font_height);
-  renderer_ops->draw_string(renderer,
-                             umlclass->name,
-                             &p, ALIGN_CENTER, 
-                             &umlclass->color_foreground);
+    renderer_ops->set_font(renderer, font, font_height);
+    renderer_ops->draw_string(renderer,
+                              umlclass->name,
+                              &p, ALIGN_CENTER, 
+                              &umlclass->color_foreground);
+  }
 
   /* comment */
   if (umlclass->visible_comments && umlclass->comment != NULL && umlclass->comment[0] != '\0')
@@ -1576,10 +1578,3 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
 
   return &umlclass->element.object;
 }
-
-
-
-
-
-
-
