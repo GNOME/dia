@@ -1,7 +1,6 @@
 import sys, dia
 
 # sys.path.insert(0, 'd:/graph/dia/dia')
-sys.argv = [ 'dia-python' ]
 
 def dia_debug_cb (data, flags) :
 	"gets passed in the active diagram, flags are unused at the moment"

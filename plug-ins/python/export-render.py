@@ -1,7 +1,6 @@
 import sys, dia
 
 # sys.path.insert(0, 'd:/graph/dia/dia')
-sys.argv = [ 'dia-python' ]
 
 class DumpRenderer :
 	def __init__ (self) :

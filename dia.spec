@@ -1,5 +1,5 @@
 %define name dia
-%define ver 0.86
+%define ver 0.87
 %define prefix /usr
 
 Summary: A gtk+ based diagram creation program.

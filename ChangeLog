@@ -1,3 +1,46 @@
+2001-05-09  James Henstridge  <james@daa.com.au>
+
+	* doc/en/Makefile.am (install-data-hook): fix up where graphics
+	are installed.
+
+	* configure.in: up version number to 0.87
+
+	* plug-ins/python/*.py: no longer necessary to explicitly set
+	sys.argv, as python.c does it for us now (like it should).
+
+	* plug-ins/python/gtkcons.py: fix up so it plays nicely as a dia
+	python plugin.
+
+	* plug-ins/python/python-startup.py: startup script that imports
+	all modules in $(datadir)/dia/python and ~/.dia/python.
+
+	* plug-ins/python/python.c (dia_plugin_init): change so that it
+	only runs the $(datadir)/dia/python-startup.py script.  Make sure
+	that sys.argv and __main__.__file__ are set when calling the
+	startup script.
+
+	* plug-ins/python/Makefile.am: update makefile.  Make it install
+	gtkcons.py plugin.  I haven't set any other plugins to install, as
+	they look like they are mainly for debugging purposes.
+
+	* configure.in: add tests to detect if python is available, so we
+	can build the python plugin.  Only run if --with-python passed to
+	configure.
+
+2001-05-08  James Henstridge  <james@daa.com.au>
+
+	* acinclude.m4: add macros for detecting python.
+
+	* app/menus.c (dia_gnome_menu_get_widget): handle paths that point
+	at GNOME_APP_UI_SUBTREE entries.
+	(menus_add_path): function to add a menu item to the menubars.
+	Uses a hash table to keep track of extra menu items it adds.  Also
+	notifies the item factory about the entries so that accels can be
+	saved for them.
+	(menus_add_path): implement gtk only version.
+	(menus_init): use menus_add_path() to add the menu.
+	(plugin_callback): simplify.
+
 2001-05-08  Steffen Macke <sdteffen@yahoo.com>
 
 	* app/menu.c: removed #ifndef GNOME; GNOME build was broken
@@ -13,6 +56,7 @@
 	(except splits, which are less powerful in Fig).  Some refactoring
 	along the way.
 
+>>>>>>> 1.585
 2001-05-02  Hans Breuer  <hans@breuer.org>
 
 	* plug-ins/python/debug_objects.py : added another

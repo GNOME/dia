@@ -1,14 +1,19 @@
 INCLUDES = \
 	-I$(top_srcdir)/intl \
-	 -I$(top_srcdir)/lib \
-	 -I$(GTK_CFLAGS) \
+	-I$(top_srcdir)/lib \
+	-I$(GTK_CFLAGS) \
 	$(GNOME_CFLAGS) \
 	$(LIBART_CFLAGS) \
-	-I/usr/include/python1.5
+	$(PYTHON_INCLUDES)
 
-pkglib_LTLIBRARIES = libpython_plugin.la
+if WITH_PYTHON
+libpython_plugin = libpython_plugin.la
+endif
+
+pkglib_LTLIBRARIES = $(libpython_plugin)
 
 libpython_plugin_la_LDFLAGS = -export-dynamic -module -avoid-version
+libpython_plugin_la_LIBADD = $(PYTHON_LIBS)
 libpython_plugin_la_SOURCES = \
 	pydia-color.c \
 	pydia-color.h \
@@ -42,5 +47,21 @@ libpython_plugin_la_SOURCES = \
 	pydia-render.c \
 	diamodule.c \
 	python.c
- 
-libpython_plugin_la_LIBADD = -L/usr/lib/python1.5/config -lpython1.5 -lieee -ldl -lpthread -lm
+
+if WITH_PYTHON
+
+pkgdata_DATA = python-startup.py
+
+pyplugindir = $(pkgdatadir)/python
+pyplugin_DATA = \
+	gtkcons.py
+## are the other python plugins good for more than just testing purposes?
+
+endif
+
+EXTRA_DATA = \
+	python-startup.py \
+	debug_objects.py \
+	export-object.py \
+	export-render.py \
+	gtkcons.py

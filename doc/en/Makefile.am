@@ -56,8 +56,9 @@ install-data-hook: stamp-doc
 	for file in $(srcdir)/dia-manual/stylesheet-images/*.gif; do \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/stylesheet-images/`basename $$file`; \
 	done
+	$(mkinstalldirs) $(DESTDIR)$(helpdir)/graphics
 	cd $(srcdir) && for file in $(GRAPHICS); do \
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir); \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(helpdir)/graphics; \
 	done
 
 uninstall-local:

@@ -49,13 +49,15 @@ on_error_report (void)
         return FALSE; 
 }
 
-gboolean
+static gboolean
 dia_py_plugin_can_unload (PluginInfo *info)
 {
-    return TRUE;
+    /* until we can properly clean up the python plugin, it is not safe to
+     * unload it from a dia */
+    return FALSE; /* TRUE */
 }
 
-void
+static void
 dia_py_plugin_unload (PluginInfo *info)
 {
     /* should call filter_unregister_export () */
@@ -65,47 +67,55 @@ dia_py_plugin_unload (PluginInfo *info)
 PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
-    DIR *dp;
-    struct dirent *dirp;
-    gchar* path;
+    gchar *python_argv[] = { "dia-python", NULL };
+    gchar *startup_file;
+    FILE *fp;
+    PyObject *__main__, *__file__;
 
     if (!dia_plugin_info_init(info, "Python",
 			      _("Python scripting support"),
 			      dia_py_plugin_can_unload, 
-                        dia_py_plugin_unload))
-      return DIA_PLUGIN_INIT_ERROR;
+			      dia_py_plugin_unload))
+	return DIA_PLUGIN_INIT_ERROR;
 
     Py_SetProgramName("dia");
     Py_Initialize();
+
+    PySys_SetArgv(1, python_argv);
+
     if (on_error_report())
-	  return DIA_PLUGIN_INIT_ERROR;
+	return DIA_PLUGIN_INIT_ERROR;
 
     initdia();
     if (on_error_report())
-	  return DIA_PLUGIN_INIT_ERROR;
+	return DIA_PLUGIN_INIT_ERROR;
 
 #ifdef G_OS_WIN32
     PySys_SetObject("stderr", PyDiaError_New (NULL, TRUE));
 #endif
-    path = dia_get_lib_directory("dia");
-    dp = opendir (path);
 
-    while ((dirp = readdir(dp)) != NULL) {
-        gchar *ext = strrchr(dirp->d_name, '.');
-        if (ext && 0 == g_strcasecmp(ext, ".py")) {
-            gchar *filename = g_strconcat(path, G_DIR_SEPARATOR_S,
-    						dirp->d_name, NULL);
-            FILE *fp = fopen(filename, "r");
-            if (fp)
-                PyRun_SimpleFile(fp, filename);
-            g_free(filename);
-
-            if (on_error_report())
-                continue;
-        }
+    startup_file = dia_get_data_directory("python-startup.py");
+    if (!startup_file) {
+	g_warning("could not find python-startup.py");
+	return DIA_PLUGIN_INIT_ERROR;
     }
-    closedir(dp);
-    g_free (path);
+
+    /* set __file__ in __main__ so that python-startup.py knows where it is */
+    __main__ = PyImport_AddModule("__main__");
+    __file__ = PyString_FromString(startup_file);
+    PyObject_SetAttrString(__main__, "__file__", __file__);
+    Py_DECREF(__file__);
+
+    fp = fopen(startup_file, "r");
+    if (!fp) {
+	g_free(startup_file);
+	return DIA_PLUGIN_INIT_ERROR;
+    }
+    PyRun_SimpleFile(fp, startup_file);
+    g_free(startup_file);
+
+    if (on_error_report())
+	return DIA_PLUGIN_INIT_ERROR;
 
     return DIA_PLUGIN_INIT_OK;
 }

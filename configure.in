@@ -1,7 +1,7 @@
 dnl Process this -*- m4 -*- file with autoconf to produce a configure script.
 AC_INIT(app/diagram.c)
 
-AM_INIT_AUTOMAKE(dia, 0.86)
+AM_INIT_AUTOMAKE(dia, 0.87)
 
 dnl Specify a header configuration file
 AM_CONFIG_HEADER(config.h)
@@ -276,6 +276,23 @@ dnl Do we have the db2html script to build the documentation?
 AC_PATH_PROG(DB2HTML, db2html, no)
 AM_CONDITIONAL(HAVE_DB2HTML, test "x$DB2HTML" != xno)
 
+dnl Handling for Python
+AC_ARG_WITH(python,
+[  --with-python           compile python plug-in],,with_python=no)
+
+#hello
+if test "x$with_python" != xno; then
+  AM_PATH_PYTHON_JH(1.5.2)
+  AM_CHECK_PYMOD(gtk,,,[AC_MSG_ERROR(could not find pygtk module)])
+  AM_CHECK_PYTHON_HEADERS
+  AM_CHECK_PYTHON_LIB
+
+  if test -z "$PYTHON_INCLUDES" || test -z "$PYTHON_LIBS"; then
+    AC_MSG_ERROR([could not find files required to build python plugin])
+  fi
+fi
+AM_CONDITIONAL(WITH_PYTHON, test "x$with_python" != "xno")
+
 AC_OUTPUT(
 Makefile
 lib/Makefile
@@ -321,6 +338,7 @@ plug-ins/wpg/Makefile
 plug-ins/svg/Makefile
 plug-ins/shape/Makefile
 plug-ins/xfig/Makefile
+plug-ins/python/Makefile
 doc/Makefile
 doc/en/Makefile
 )
@@ -337,5 +355,7 @@ Configuration:
 	Gnome support:				${GNOME}
 	Build bonobo component (not supported):	${bonobo_msg}
         Gnome-print support (not recommended):  ${enable_gnome_print}
+
+	Python support:				${with_python}
 
 Now type make to build dia."

@@ -196,7 +196,6 @@ class Console(GtkVBox):
 		self.line.grab_focus()
 
 	def quit(self, *args):
-		self.hide()
 		self.destroy()
 		if self.quit_cb: self.quit_cb()
 
@@ -226,7 +225,7 @@ class Console(GtkVBox):
 		return FALSE  # don't requeue this handler
 
 	def ctrld(self):
-		#self.quit()
+		self.quit()
 		pass
 
 	def historyUp(self):
@@ -307,7 +306,9 @@ def gtk_console(ns, title='Python', copyright='', menu=None):
 	win.set_default_size(475, 300)
 	#win.connect("destroy", mainquit)
 	win.set_title(title)
-	cons = Console(namespace=ns, copyright=copyright, quit_cb=mainquit)
+	def quit(win=win):
+		win.destroy()
+	cons = Console(namespace=ns, copyright=copyright, quit_cb=quit)
 	if menu:
 		box = GtkVBox()
 		win.add(box)
@@ -321,7 +322,12 @@ def gtk_console(ns, title='Python', copyright='', menu=None):
 	win.show()
 	cons.init()
 
-if __name__ == '__main__':
+# set up as a dia plugin
+import dia
+def open_console(data, flags):
 	gtk_console({'__builtins__': __builtins__, '__name__': '__main__',
-		'__doc__': None})
+		     '__doc__': None, 'dia': dia}, 'Python Dia Console')
 
+dia.register_callback("Python Console",
+		      "<Display>/Dialogs/Python Console",
+		      open_console)

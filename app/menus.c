@@ -38,7 +38,7 @@
 #include "select.h"
 #include "dia_dirs.h"
 
-static void plugin_callback_cb ( gpointer data, guint action, GtkWidget *widget);
+static void plugin_callback (GtkWidget *widget, gpointer data);
 
 #ifdef GNOME
 static GnomeUIInfo toolbox_filemenu[] = {
@@ -400,8 +400,13 @@ static GtkAccelGroup *toolbox_accels = NULL;
 static GtkWidget *display_menus = NULL;
 static GtkAccelGroup *display_accels = NULL;
 
+#ifdef GNOME
+static GHashTable *toolbox_extras = NULL;
+static GHashTable *display_extras = NULL;
+#else
 static GtkItemFactory *toolbox_item_factory = NULL;
 static GtkItemFactory *display_item_factory = NULL;
+#endif
 
 #ifndef GNOME
 #ifdef ENABLE_NLS
@@ -609,7 +614,7 @@ menus_init(void)
   GString *path;
   gchar *accelfilename;
   gint i, len;
-  GList *filter_callbacks;
+  GList *cblist;
 
   if (!initialise)
     return;
@@ -635,6 +640,10 @@ menus_init(void)
   menuitem = gtk_tearoff_menu_item_new();
   gtk_menu_prepend(GTK_MENU(display_menus), menuitem);
   gtk_widget_show(menuitem);
+
+  /* initialise the extras arrays ... */
+  toolbox_extras = g_hash_table_new(g_str_hash, g_str_equal);
+  display_extras = g_hash_table_new(g_str_hash, g_str_equal);
 #else
   /* the toolbox menu */
   toolbox_accels = gtk_accel_group_new();
@@ -695,41 +704,18 @@ menus_init(void)
   gtk_quit_add(1, save_accels, NULL);
 
   /* initialize callbacks from plug-ins */
-  filter_callbacks = filter_get_callbacks();
-  if (filter_callbacks) {
-    GtkItemFactoryEntry new_entry;
-    GList *cblist;
-    gint   cbcount = 0;
+  for (cblist = filter_get_callbacks(); cblist; cblist = cblist->next) {
+    DiaCallbackFilter *cbf = cblist->data;
+    GtkWidget *newitem;
 
-    new_entry.callback = plugin_callback_cb;
-    new_entry.item_type = "<Item>";
-    new_entry.accelerator = NULL;
-
-    for (cblist = filter_callbacks; cblist != NULL; cblist = cblist->next) {
-      char *new_menupath;
-      DiaCallbackFilter *cbf = cblist->data;
-
-      /* It would be faster to directly connect the cbf to the menu entry
-       * but using action_data with a counter should improve error handling.  
-       */
-      cbcount++; /* increase always, because it's the index into the list */
-      new_menupath = strstr (cbf->menupath, "<Display>");
-      if (new_menupath) {
-        new_entry.path = new_menupath + strlen("<Display>");
-        new_entry.callback_action = cbcount;
-	    gtk_item_factory_create_item(display_item_factory, &new_entry, NULL,1);
-        continue;
-      }
-      new_menupath = strstr (cbf->menupath, "<Toolbox>");
-      if (new_menupath) {
-        new_entry.path = new_menupath + strlen("<Toolbox>");
-        new_entry.callback_action = cbcount;
-	    gtk_item_factory_create_item(toolbox_item_factory, &new_entry, NULL,1);
-        continue;
-      }
-      g_warning ("Don't know where to add \"%s\" menu entry.", cbf->menupath);
-    } /* for filter_callbacks */
-  } /* if filter_callbacks */
+    newitem = menus_add_path(cbf->menupath);
+    if (!newitem) {
+      g_warning("Don't know where to add \"%s\" menu entry.", cbf->menupath);
+      continue;
+    }
+    gtk_signal_connect(GTK_OBJECT(newitem), "activate",
+		       GTK_SIGNAL_FUNC(plugin_callback), cbf);
+  } /* for filter_callbacks */
 }
 
 void
@@ -843,6 +829,9 @@ dia_gnome_menu_get_widget (GnomeUIInfo *uiinfo, const gchar *path)
       }
       /* does the stripped label match? then recurse. */
       if (label_matches && j == path_len && i == label_len) {
+	/* if we are at the end of the path, then return this menuitem */
+	if (path[j] == '\0' || (path[j] == '/' && path[j+1] == '\0'))
+	  return uiinfo->widget;
 	ret = dia_gnome_menu_get_widget((GnomeUIInfo *)uiinfo->moreinfo,
 					path + path_len + 1);
 	if (ret)
@@ -856,15 +845,143 @@ dia_gnome_menu_get_widget (GnomeUIInfo *uiinfo, const gchar *path)
   /* if we fall through, return NULL */
   return NULL;
 }
+
+/* returns parent GtkMenu */
+static GtkMenuShell *
+find_parent(GtkMenuShell *top, GnomeUIInfo *uiinfo, GHashTable *extras,
+	    const gchar *mpath)
+{
+  const gchar *slash;
+  gchar *parent_path;
+  GtkWidget *parent_item, *parent_submenu, *tearoff, *grandparent_submenu;
+
+  slash = strrchr(mpath, '/');
+  if (!slash)
+    return top;
+  parent_path = g_strndup(mpath, slash - mpath);
+
+  /* check the extras hash table and GnomeUIInfo struct */
+  parent_item = g_hash_table_lookup(extras, parent_path);
+  if (!parent_item)
+    parent_item = dia_gnome_menu_get_widget(uiinfo, parent_path);
+  if (parent_item) {
+    g_free(parent_path);
+    if (GTK_MENU_ITEM(parent_item)->submenu) {
+      return GTK_MENU_SHELL(GTK_MENU_ITEM(parent_item)->submenu);
+    } else {
+      GtkWidget *menu = gtk_menu_new();
+
+      /* setup submenu, and add a tearoff at the top */
+      gtk_menu_item_set_submenu(GTK_MENU_ITEM(parent_item), menu);
+      tearoff = gtk_tearoff_menu_item_new();
+      gtk_container_add(GTK_CONTAINER(menu), tearoff);
+      gtk_widget_show(tearoff);
+      return GTK_MENU_SHELL(menu);
+    }
+  }
+
+  /* not there ... need to create it. */
+  grandparent_submenu = GTK_WIDGET(find_parent(top, uiinfo, extras,
+					       parent_path));
+  slash = strrchr(parent_path, '/');
+  if (slash)
+    slash++;
+  else
+    slash = parent_path;
+  parent_item = gtk_menu_item_new_with_label(slash);
+  gtk_container_add(GTK_CONTAINER(grandparent_submenu), parent_item);
+  gtk_widget_show(parent_item);
+  g_hash_table_insert(extras, parent_path, parent_item); /* add to extras */
+
+  parent_submenu = gtk_menu_new();
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(parent_item), parent_submenu);
+  tearoff = gtk_tearoff_menu_item_new();
+  gtk_container_add(GTK_CONTAINER(parent_submenu), tearoff);
+  gtk_widget_show(tearoff);
+
+  return GTK_MENU_SHELL(parent_submenu);
+}
+
+GtkWidget *
+menus_add_path (const gchar *path)
+{
+  GnomeUIInfo *uiinfo;
+  GHashTable *extras;
+  GtkMenuShell *top;
+  GtkAccelGroup *accel_group;
+  const gchar *mpath = path, *label;
+  GtkMenuShell *parent;
+  GtkWidget *item;
+
+  if (strncmp(path, "<Display>/", strlen("<Display>/")) == 0) {
+    mpath = path + strlen("<Display>/");
+    uiinfo = display_menu;
+    extras = display_extras;
+    top = GTK_MENU_SHELL(display_menus);
+    accel_group = display_accels;
+  } else if (strncmp(path, "<Toolbox>/", strlen("<Toolbox>/")) == 0) {
+    mpath = path + strlen("<Toolbox>/");
+    uiinfo = toolbox_menu;
+    extras = toolbox_extras;
+    top = GTK_MENU_SHELL(toolbox_menubar);
+    accel_group = toolbox_accels;
+  } else {
+    g_warning("bad menu path `%s'", path);
+    return NULL;
+  }
+    
+  parent = find_parent(top, uiinfo, extras, mpath);
+  label = strrchr(mpath, '/');
+  if (label)
+    label++;
+  else
+    label = mpath;
+  item = gtk_menu_item_new_with_label(label);
+  gtk_container_add(GTK_CONTAINER(parent), item);
+  gtk_widget_show(item);
+  /* add to item factory, so that accel is saved/loaded */
+  gtk_item_factory_add_foreign(item, path, accel_group, 0, 0);
+  
+  return item;
+}
+
+#endif
+
+#ifndef GNOME
+GtkWidget *
+menus_add_path (const gchar *path)
+{
+  GtkItemFactory *item_factory;
+  GtkItemFactoryEntry new_entry = { 0 };
+
+  new_entry.item_type = "<Item>";
+  new_entry.accelerator = NULL;
+  new_entry.callback = NULL;
+  new_entry.callback_action = 0;
+
+  if (strncmp(path, "<Display>/", strlen("<Display>/")) == 0) {
+    item_factory = display_item_factory;
+    new_entry.path = (gchar *) (path + strlen("<Display>"));
+  } else if (strncmp(path, "<Toolbox>/", strlen("<Toolbox>/")) == 0) {
+    item_factory = toolbox_item_factory;
+    new_entry.path = (gchar *) (path + strlen("<Toolbox>"));
+  } else {
+    g_warning("bad menu path `%s'", path);
+    return NULL;
+  }
+
+  gtk_item_factory_create_item(item_factory, &new_entry, NULL, 1);
+  return gtk_item_factory_get_widget(item_factory, path);
+}
 #endif
 
 GtkWidget *
-menus_get_item_from_path (char *path)
+menus_get_item_from_path (const gchar *path)
 {
   GtkWidget *widget = NULL;
 
 # ifdef GNOME
-  char *menu_name;
+  const gchar *menu_name;
   DDisplay *ddisp;
 
   /* drop the "<Display>/" or "<Toolbox>/" at the start */
@@ -900,23 +1017,9 @@ menus_get_item_from_path (char *path)
 }
 
 static void
-plugin_callback_cb ( gpointer data, guint action, GtkWidget *widget)
+plugin_callback (GtkWidget *widget, gpointer data)
 {
-  GList *cbfilters = filter_get_callbacks();
-  DiaCallbackFilter *cbf;
-
-  /* find the corresponding CallbackFilter */
-  if (!cbfilters) {
-    g_warning ("Huh? Callback callback called without any callbacks registered.");
-    return;
-  }
-
-  cbfilters = g_list_nth (cbfilters, action - 1);
-  cbf = cbfilters ? (DiaCallbackFilter *)cbfilters->data : NULL; 
-  if (!cbf) {
-    g_warning ("Can't find callback No. %d.", action);
-    return;
-  }
+  DiaCallbackFilter *cbf = data;
 
   /* and finally invoke it */
   if (cbf->callback) {
@@ -924,7 +1027,5 @@ plugin_callback_cb ( gpointer data, guint action, GtkWidget *widget)
     DiagramData* diadata = ddisp ? ddisp->diagram->data : NULL;
     cbf->callback (diadata, 0, cbf->user_data);
   }
-  else
-    g_warning ("Can't find callback function for No. %d.", action);
 }
 

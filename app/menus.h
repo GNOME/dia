@@ -31,7 +31,8 @@ extern const struct zoom_pair zooms[10];
 void menus_get_toolbox_menubar (GtkWidget **menubar, GtkAccelGroup **accel);
 void menus_get_image_menu      (GtkWidget **menu,    GtkAccelGroup **accel);
 
-GtkWidget *menus_get_item_from_path(char *path);
+GtkWidget *menus_add_path           (const gchar *path);
+GtkWidget *menus_get_item_from_path (const gchar *path);
 
 #endif /* MENUS_H */
 
