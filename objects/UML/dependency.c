@@ -49,8 +49,8 @@ struct _Dependency {
   
   int draw_arrow;
   char *name;
-  char *stereotype; /* including << and >> */
-
+  char *stereotype; /* excluding << and >> */
+  char *st_stereotype; /* including << and >> */
 };
 
 
@@ -74,12 +74,9 @@ static Object *dependency_create(Point *startpoint,
 				 Handle **handle1,
 				 Handle **handle2);
 static void dependency_destroy(Dependency *dep);
-static Object *dependency_copy(Dependency *dep);
 static DiaMenu *dependency_get_object_menu(Dependency *dep,
 					   Point *clickedpoint);
 
-static void dependency_save(Dependency *dep, ObjectNode obj_node,
-			    const char *filename);
 static Object *dependency_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *dependency_describe_props(Dependency *dependency);
@@ -91,8 +88,10 @@ static void dependency_update_data(Dependency *dep);
 static ObjectTypeOps dependency_type_ops =
 {
   (CreateFunc) dependency_create,
-  (LoadFunc)   dependency_load,
-  (SaveFunc)   dependency_save
+  (LoadFunc)   dependency_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType dependency_type =
@@ -109,7 +108,7 @@ static ObjectOps dependency_ops = {
   (DrawFunc)            dependency_draw,
   (DistanceFunc)        dependency_distance_from,
   (SelectFunc)          dependency_select,
-  (CopyFunc)            dependency_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            dependency_move,
   (MoveHandleFunc)      dependency_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -121,12 +120,12 @@ static ObjectOps dependency_ops = {
 };
 
 static PropDescription dependency_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  ORTHCONN_COMMON_PROPERTIES,
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Name:"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Stereotype:"), NULL, NULL },
-  { "show_arrow", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+  { "draw_arrow", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Show arrow:"), NULL, NULL },
   PROP_DESC_END
 };
@@ -134,74 +133,31 @@ static PropDescription dependency_props[] = {
 static PropDescription *
 dependency_describe_props(Dependency *dependency)
 {
-  if (dependency_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(dependency_props);
   return dependency_props;
 }
 
 static PropOffset dependency_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { "name", PROP_TYPE_STRING, offsetof(Dependency, name) },
-  /*{ "stereotype", PROP_TYPE_STRING, offsetof(Dependency, stereotype) },*/
-  { "show_arrow", PROP_TYPE_BOOL, offsetof(Dependency, draw_arrow) },
+  { "stereotype", PROP_TYPE_STRING, offsetof(Dependency, stereotype) },
+  { "draw_arrow", PROP_TYPE_BOOL, offsetof(Dependency, draw_arrow) },
   { NULL, 0, 0 }
-};
-
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "stereotype" }
 };
 
 static void
 dependency_get_props(Dependency * dependency, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&dependency->orth.object, 
-                                    dependency_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      if (dependency->stereotype && dependency->stereotype[0] != '\0')
-	PROP_VALUE_STRING(props[i]) =
-	  stereotype_to_string(dependency->stereotype);
-      else
-	PROP_VALUE_STRING(props[i]) = NULL;
-    }
-  }
-
+  object_get_props_from_offsets(&dependency->orth.object,
+                                dependency_offsets,props,nprops);
 }
 
 static void
 dependency_set_props(Dependency *dependency, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&dependency->orth.object, 
-                                     dependency_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-	quarks[i].q = g_quark_from_static_string(quarks[i].name);
-    
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_STRING) {
-	g_free(dependency->stereotype);
-	dependency->stereotype = NULL;
-	if (PROP_VALUE_STRING(props[i]) &&
-	    PROP_VALUE_STRING(props[i])[0] != '\0')
-	  dependency->stereotype =
-	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
+  object_set_props_from_offsets(&dependency->orth.object, 
+                                dependency_offsets, props, nprops);
+  g_free(dependency->st_stereotype);
+  dependency->st_stereotype = NULL;
   dependency_update_data(dependency);
 }
 
@@ -266,9 +222,9 @@ dependency_draw(Dependency *dep, Renderer *renderer)
   renderer->ops->set_font(renderer, dep_font, DEPENDENCY_FONTHEIGHT);
   pos = dep->text_pos;
   
-  if (dep->stereotype != NULL && dep->stereotype[0] != '\0') {
+  if (dep->st_stereotype != NULL && dep->st_stereotype[0] != '\0') {
     renderer->ops->draw_string(renderer,
-			       dep->stereotype,
+			       dep->st_stereotype,
 			       &pos, dep->text_align,
 			       &color_black);
 
@@ -295,6 +251,11 @@ dependency_update_data(Dependency *dep)
   Rectangle rect;
   
   orthconn_update_data(orth);
+
+  dep->stereotype = remove_stereotype_from_string(dep->stereotype);
+  if (!dep->st_stereotype) {
+    dep->st_stereotype =  string_to_stereotype(dep->stereotype);
+  }
 
   dep->text_width = 0.0;
   if (dep->name)
@@ -421,6 +382,7 @@ dependency_create(Point *startpoint,
   dep->draw_arrow = TRUE;
   dep->name = NULL;
   dep->stereotype = NULL;
+  dep->st_stereotype = NULL;
   dep->text_width = 0;
 
   dependency_update_data(dep);
@@ -436,85 +398,15 @@ dependency_destroy(Dependency *dep)
 {
   g_free(dep->name);
   g_free(dep->stereotype);
-  
+  g_free(dep->st_stereotype);
+
   orthconn_destroy(&dep->orth);
-}
-
-static Object *
-dependency_copy(Dependency *dep)
-{
-  Dependency *newdep;
-  OrthConn *orth, *neworth;
-  Object *newobj;
-  
-  orth = &dep->orth;
-  
-  newdep = g_new0(Dependency, 1);
-  neworth = &newdep->orth;
-  newobj = (Object *)newdep;
-
-  orthconn_copy(orth, neworth);
-
-  newdep->name = dep->name ? g_strdup(dep->name) : NULL;
-  newdep->stereotype = dep->stereotype ? g_strdup(dep->stereotype) : NULL;
-  newdep->draw_arrow = dep->draw_arrow;
-  newdep->text_width = dep->text_width;
-  
-  dependency_update_data(newdep);
-  
-  return &newdep->orth.object;
-}
-
-static void
-dependency_save(Dependency *dep, ObjectNode obj_node, const char *filename)
-{
-  orthconn_save(&dep->orth, obj_node);
-
-  data_add_boolean(new_attribute(obj_node, "draw_arrow"),
-		   dep->draw_arrow);
-  data_add_string(new_attribute(obj_node, "name"),
-		  dep->name);
-  data_add_string(new_attribute(obj_node, "stereotype"),
-		  dep->stereotype);
 }
 
 static Object *
 dependency_load(ObjectNode obj_node, int version, const char *filename)
 {
-  AttributeNode attr;
-  Dependency *dep;
-  OrthConn *orth;
-  Object *obj;
-
-  if (dep_font == NULL) {
-    dep_font = font_getfont("Courier");
-  }
-
-  dep = g_new0(Dependency, 1);
-
-  orth = &dep->orth;
-  obj = (Object *)dep;
-
-  obj->type = &dependency_type;
-  obj->ops = &dependency_ops;
-
-  orthconn_load(orth, obj_node);
-
-  attr = object_find_attribute(obj_node, "draw_arrow");
-  if (attr != NULL)
-    dep->draw_arrow = data_boolean(attribute_first_data(attr));
-
-  dep->name = NULL;
-  attr = object_find_attribute(obj_node, "name");
-  if (attr != NULL)
-    dep->name = data_string(attribute_first_data(attr));
-  
-  dep->stereotype = NULL;
-  attr = object_find_attribute(obj_node, "stereotype");
-  if (attr != NULL)
-    dep->stereotype = data_string(attribute_first_data(attr));
-
-  dependency_update_data(dep);
-
-  return &dep->orth.object;
+  return object_load_using_properties(&dependency_type,
+                                      obj_node,version,filename);
 }
+

@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
@@ -74,14 +73,11 @@ static Object *implements_create(Point *startpoint,
 static real implements_distance_from(Implements *implements, Point *point);
 static void implements_update_data(Implements *implements);
 static void implements_destroy(Implements *implements);
-static Object *implements_copy(Implements *implements);
 
 static PropDescription *implements_describe_props(Implements *implements);
 static void implements_get_props(Implements * implements, Property *props, guint nprops);
 static void implements_set_props(Implements * implements, Property *props, guint nprops);
 
-static void implements_save(Implements *implements, ObjectNode obj_node,
-			    const char *filename);
 static Object *implements_load(ObjectNode obj_node, int version,
 			       const char *filename);
 
@@ -89,8 +85,10 @@ static Object *implements_load(ObjectNode obj_node, int version,
 static ObjectTypeOps implements_type_ops =
 {
   (CreateFunc) implements_create,
-  (LoadFunc)   implements_load,
-  (SaveFunc)   implements_save
+  (LoadFunc)   implements_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType implements_type =
@@ -106,7 +104,7 @@ static ObjectOps implements_ops = {
   (DrawFunc)            implements_draw,
   (DistanceFunc)        implements_distance_from,
   (SelectFunc)          implements_select,
-  (CopyFunc)            implements_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            implements_move,
   (MoveHandleFunc)      implements_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -118,9 +116,11 @@ static ObjectOps implements_ops = {
 };
 
 static PropDescription implements_props[] = {
-  OBJECT_COMMON_PROPERTIES,
-  { "interface", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+  CONNECTION_COMMON_PROPERTIES,
+  { "text", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Interface:"), NULL, NULL },
+  { "text_pos", PROP_TYPE_POINT, 0, NULL, NULL, NULL },
+  { "diameter", PROP_TYPE_REAL, 0, NULL, NULL, NULL },
   PROP_DESC_END
 };
 
@@ -133,25 +133,25 @@ implements_describe_props(Implements *implements)
 }
 
 static PropOffset implements_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
-  { "interface", PROP_TYPE_STRING, offsetof(Implements, text) },
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
+  { "text", PROP_TYPE_STRING, offsetof(Implements, text) },
+  { "text_pos", PROP_TYPE_POINT, offsetof(Implements, text_pos) },
+  { "diameter", PROP_TYPE_REAL, offsetof(Implements, circle_diameter) },
   { NULL, 0, 0 }
 };
 
 static void
 implements_get_props(Implements * implements, Property *props, guint nprops)
 {
-  if (object_get_props_from_offsets(&implements->connection.object, 
-                                    implements_offsets, props, nprops))
-    return;
+  object_get_props_from_offsets(&implements->connection.object, 
+                                implements_offsets, props, nprops);
 }
 
 static void
 implements_set_props(Implements *implements, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&implements->connection.object, 
-                                     implements_offsets, props, nprops)) {
-  }
+  object_set_props_from_offsets(&implements->connection.object, 
+                                implements_offsets, props, nprops);
   implements_update_data(implements);
 }
 
@@ -328,36 +328,6 @@ implements_destroy(Implements *implements)
   g_free(implements->text);
 }
 
-static Object *
-implements_copy(Implements *implements)
-{
-  Implements *newimplements;
-  Connection *conn, *newconn;
-  Object *newobj;
-  
-  conn = &implements->connection;
-  
-  newimplements = g_malloc0(sizeof(Implements));
-  newconn = &newimplements->connection;
-  newobj = &newconn->object;
-
-  connection_copy(conn, newconn);
-
-  newimplements->text_handle = implements->text_handle;
-  newobj->handles[2] = &newimplements->text_handle;
-  newimplements->circle_handle = implements->circle_handle;
-  newobj->handles[3] = &newimplements->circle_handle;
-
-  newimplements->circle_diameter = implements->circle_diameter;
-  newimplements->circle_center = implements->circle_center;
-
-  newimplements->text = strdup(implements->text);
-  newimplements->text_pos = implements->text_pos;
-  newimplements->text_width = implements->text_width;
-
-  return &newimplements->connection.object;
-}
-
 static void
 implements_update_data(Implements *implements)
 {
@@ -413,72 +383,9 @@ implements_update_data(Implements *implements)
   rectangle_union(&obj->bounding_box, &rect);
 }
 
-
-static void
-implements_save(Implements *implements, ObjectNode obj_node,
-		const char *filename)
-{
-  connection_save(&implements->connection, obj_node);
-
-  data_add_real(new_attribute(obj_node, "diameter"),
-		implements->circle_diameter);
-  data_add_string(new_attribute(obj_node, "text"),
-		  implements->text);
-  data_add_point(new_attribute(obj_node, "text_pos"),
-		 &implements->text_pos);
-}
-
 static Object *
 implements_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Implements *implements;
-  AttributeNode attr;
-  Connection *conn;
-  Object *obj;
-
-  if (implements_font == NULL)
-    implements_font = font_getfont("Courier");
-
-  implements = g_malloc0(sizeof(Implements));
-
-  conn = &implements->connection;
-  obj = &conn->object;
-
-  obj->type = &implements_type;
-  obj->ops = &implements_ops;
-
-  connection_load(conn, obj_node);
-  
-  connection_init(conn, 4, 0);
-
-  implements->circle_diameter = 1.0;
-  attr = object_find_attribute(obj_node, "diameter");
-  if (attr != NULL)
-    implements->circle_diameter = data_real(attribute_first_data(attr));
-
-  implements->text = NULL;
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-    implements->text = data_string(attribute_first_data(attr));
-
-  attr = object_find_attribute(obj_node, "text_pos");
-  if (attr != NULL)
-    data_point(attribute_first_data(attr), &implements->text_pos);
-
-  implements->text_handle.id = HANDLE_MOVE_TEXT;
-  implements->text_handle.type = HANDLE_MINOR_CONTROL;
-  implements->text_handle.connect_type = HANDLE_NONCONNECTABLE;
-  implements->text_handle.connected_to = NULL;
-  obj->handles[2] = &implements->text_handle;
-  
-  implements->circle_handle.id = HANDLE_CIRCLE_SIZE;
-  implements->circle_handle.type = HANDLE_MINOR_CONTROL;
-  implements->circle_handle.connect_type = HANDLE_NONCONNECTABLE;
-  implements->circle_handle.connected_to = NULL;
-  obj->handles[3] = &implements->circle_handle;
-
-  implements_update_data(implements);
-  
-  return &implements->connection.object;
+  return object_load_using_properties(&implements_type,
+                                      obj_node,version,filename);
 }
-

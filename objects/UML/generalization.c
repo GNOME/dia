@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
@@ -48,8 +47,8 @@ struct _Generalization {
   real text_width;
   
   char *name;
-  char *stereotype; /* including << and >> */
-
+  char *stereotype; /* excluding << and >> */
+  char *st_stereotype; /* including << and >> */
 };
 
 #define GENERALIZATION_WIDTH 0.1
@@ -70,7 +69,6 @@ static Object *generalization_create(Point *startpoint,
 				 Handle **handle1,
 				 Handle **handle2);
 static void generalization_destroy(Generalization *genlz);
-static Object *generalization_copy(Generalization *genlz);
 static DiaMenu *generalization_get_object_menu(Generalization *genlz,
 						Point *clickedpoint);
 
@@ -78,8 +76,6 @@ static PropDescription *generalization_describe_props(Generalization *generaliza
 static void generalization_get_props(Generalization * generalization, Property *props, guint nprops);
 static void generalization_set_props(Generalization * generalization, Property *props, guint nprops);
 
-static void generalization_save(Generalization *genlz, ObjectNode obj_node,
-				const char *filename);
 static Object *generalization_load(ObjectNode obj_node, int version,
 				   const char *filename);
 
@@ -88,8 +84,10 @@ static void generalization_update_data(Generalization *genlz);
 static ObjectTypeOps generalization_type_ops =
 {
   (CreateFunc) generalization_create,
-  (LoadFunc)   generalization_load,
-  (SaveFunc)   generalization_save
+  (LoadFunc)   generalization_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType generalization_type =
@@ -106,7 +104,7 @@ static ObjectOps generalization_ops = {
   (DrawFunc)            generalization_draw,
   (DistanceFunc)        generalization_distance_from,
   (SelectFunc)          generalization_select,
-  (CopyFunc)            generalization_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            generalization_move,
   (MoveHandleFunc)      generalization_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -118,7 +116,7 @@ static ObjectOps generalization_ops = {
 };
 
 static PropDescription generalization_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  ORTHCONN_COMMON_PROPERTIES,
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Name:"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
@@ -129,75 +127,30 @@ static PropDescription generalization_props[] = {
 static PropDescription *
 generalization_describe_props(Generalization *generalization)
 {
-  if (generalization_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(generalization_props);
   return generalization_props;
 }
 
 static PropOffset generalization_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { "name", PROP_TYPE_STRING, offsetof(Generalization, name) },
-  /*{ "stereotype", PROP_TYPE_STRING, offsetof(Generalization, stereotype) },*/
+  { "stereotype", PROP_TYPE_STRING, offsetof(Generalization, stereotype) },
   { NULL, 0, 0 }
-};
-
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "stereotype" }
 };
 
 static void
 generalization_get_props(Generalization * generalization, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&generalization->orth.object, 
-                                    generalization_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      if (generalization->stereotype != NULL &&
-	  generalization->stereotype[0] != '\0')
-	PROP_VALUE_STRING(props[i]) =
-	  stereotype_to_string(generalization->stereotype);
-      else
-	PROP_VALUE_STRING(props[i]) = NULL;
-    }
-  }
-
+  object_get_props_from_offsets(&generalization->orth.object,
+                                generalization_offsets,props,nprops);
 }
 
 static void
 generalization_set_props(Generalization *generalization, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&generalization->orth.object, 
-                                     generalization_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-	quarks[i].q = g_quark_from_static_string(quarks[i].name);
-    
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_STRING) {
-	g_free(generalization->stereotype);
-	if (PROP_VALUE_STRING(props[i]) != NULL &&
-	    PROP_VALUE_STRING(props[i])[0] != '\0')
-	  generalization->stereotype =
-	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
-	else 
-	  generalization->stereotype = NULL;
-      }
-    }
-  }
+  object_set_props_from_offsets(&generalization->orth.object, 
+                                generalization_offsets, props, nprops);
+  g_free(generalization->st_stereotype);
+  generalization->st_stereotype = NULL;
   generalization_update_data(generalization);
 }
 
@@ -261,9 +214,9 @@ generalization_draw(Generalization *genlz, Renderer *renderer)
   renderer->ops->set_font(renderer, genlz_font, GENERALIZATION_FONTHEIGHT);
   pos = genlz->text_pos;
   
-  if (genlz->stereotype != NULL && genlz->stereotype[0] != '\0') {
+  if (genlz->st_stereotype != NULL && genlz->st_stereotype[0] != '\0') {
     renderer->ops->draw_string(renderer,
-			       genlz->stereotype,
+			       genlz->st_stereotype,
 			       &pos, genlz->text_align,
 			       &color_black);
 
@@ -291,6 +244,11 @@ generalization_update_data(Generalization *genlz)
   
   orthconn_update_data(orth);
   
+  genlz->stereotype = remove_stereotype_from_string(genlz->stereotype);
+  if (!genlz->st_stereotype) {
+    genlz->st_stereotype =  string_to_stereotype(genlz->stereotype);
+  }
+
   genlz->text_width = 0.0;
 
   if (genlz->name)
@@ -417,6 +375,7 @@ generalization_create(Point *startpoint,
 
   genlz->name = NULL;
   genlz->stereotype = NULL;
+  genlz->st_stereotype = NULL;
 
   generalization_update_data(genlz);
   
@@ -431,82 +390,15 @@ generalization_destroy(Generalization *genlz)
 {
   g_free(genlz->name);
   g_free(genlz->stereotype);
+  g_free(genlz->st_stereotype);
 
   orthconn_destroy(&genlz->orth);
-}
-
-static Object *
-generalization_copy(Generalization *genlz)
-{
-  Generalization *newgenlz;
-  OrthConn *orth, *neworth;
-  Object *newobj;
-  
-  orth = &genlz->orth;
-  
-  newgenlz = g_malloc0(sizeof(Generalization));
-  neworth = &newgenlz->orth;
-  newobj = (Object *)newgenlz;
-
-  orthconn_copy(orth, neworth);
-
-  newgenlz->name = genlz->name ? strdup(genlz->name) : NULL;
-  newgenlz->stereotype = genlz->stereotype ? strdup(genlz->stereotype) : NULL;
-  newgenlz->text_width = genlz->text_width;
-  
-  generalization_update_data(newgenlz);
-  
-  return (Object *)newgenlz;
-}
-
-static void
-generalization_save(Generalization *genlz, ObjectNode obj_node,
-		    const char *filename)
-{
-  orthconn_save(&genlz->orth, obj_node);
-
-  data_add_string(new_attribute(obj_node, "name"),
-		  genlz->name);
-  data_add_string(new_attribute(obj_node, "stereotype"),
-		  genlz->stereotype);
 }
 
 static Object *
 generalization_load(ObjectNode obj_node, int version,
 		    const char *filename)
 {
-  Generalization *genlz;
-  AttributeNode attr;
-  OrthConn *orth;
-  Object *obj;
-  PolyBBExtras *extra;
-
-  if (genlz_font == NULL) {
-    genlz_font = font_getfont("Courier");
-  }
-
-  genlz = g_new0(Generalization, 1);
-
-  orth = &genlz->orth;
-  obj = (Object *)genlz;
-  extra = &orth->extra_spacing;
-
-  obj->type = &generalization_type;
-  obj->ops = &generalization_ops;
-
-  orthconn_load(orth, obj_node);
-
-  genlz->name = NULL;
-  attr = object_find_attribute(obj_node, "name");
-  if (attr != NULL)
-    genlz->name = data_string(attribute_first_data(attr));
-
-  genlz->stereotype = NULL;
-  attr = object_find_attribute(obj_node, "stereotype");
-  if (attr != NULL)
-    genlz->stereotype = data_string(attribute_first_data(attr));
-
-  generalization_update_data(genlz);
-
-  return &genlz->orth.object;
+  return object_load_using_properties(&generalization_type,
+                                      obj_node,version,filename);
 }
