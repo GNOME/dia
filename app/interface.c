@@ -230,7 +230,7 @@ create_display_shell(DDisplay *ddisp,
 		      0);
 
   gtk_table_attach (GTK_TABLE (table), status_hbox, 0, 3, 3, 4,
-                    GTK_FILL, GTK_EXPAND, 0, 0);
+                    GTK_FILL, GTK_FILL, 0, 0);
 
   /*  the accelerator table/group for the popup */
   gtk_window_add_accel_group (GTK_WINDOW(ddisp->shell), ddisp->accel_group);

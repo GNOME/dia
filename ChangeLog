@@ -1,4 +1,9 @@
-1999-02-15  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+1999-02-15  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/interface.c (create_display_shell):
+	Fixed status bar size.
+	
+1999-02-15  Alexander Larsson  <alla@lysator.liu.se>
 
 	* lib/dia_image.[ch]:
 	Added extern declaration for dia_image_release.
