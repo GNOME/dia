@@ -1,5 +1,17 @@
 2004-05-05  Lars Clausen  <lars@raeder.dk>
 
+	* objects/network/Makefile.am: 
+	* objects/network/pixmaps/radiocell.xpm: 
+	* objects/network/pixmaps/basestation.xpm: 
+	* objects/network/network.c: 
+	* objects/network/basestation.c: 
+	* objects/network/radiocell.c: 
+	Patch from W. Borgert <debacle@debian.org>: Radio cell and base
+	station objects.
+
+	* lib/arrows.[ch]: Patch from Anthony <anthonym@overture.com>:
+	Backslash arrow head. 
+
 	* app/pagesetup.c (pagesetup_respond): Do not free ps twice.
 	Notify takes care.  Should maybe use that more.
 

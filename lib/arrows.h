@@ -61,6 +61,7 @@ typedef enum {
   ARROW_NONE_OR_MANY,           /* ER-model: 0 or many*/
   ARROW_ONE_OR_NONE,            /* ER-model: 1 or 0 */
   ARROW_ONE_EXACTLY,            /* ER-model: exactly one*/
+  ARROW_BACKSLASH,                  /* -\----  */
 } ArrowType;
 
 struct menudesc {

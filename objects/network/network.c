@@ -31,6 +31,8 @@ Color computer_color = { 0.7, 0.7, 0.7 };
 
 extern DiaObjectType bus_type;
 extern DiaObjectType bus_type_std;
+extern DiaObjectType radiocell_type;
+extern DiaObjectType basestation_type;
 extern DiaObjectType wanlink_type;
 
 DIA_PLUGIN_CHECK_INIT
@@ -44,6 +46,8 @@ dia_plugin_init(PluginInfo *info)
 
   object_register_type(&bus_type_std);
   object_register_type(&bus_type);
+  object_register_type(&radiocell_type);
+  object_register_type(&basestation_type);
   object_register_type(&wanlink_type);
 
   return DIA_PLUGIN_INIT_OK;

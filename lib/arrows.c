@@ -69,6 +69,7 @@ struct menudesc arrow_types[] =
    {N_("Blanked Concave"),ARROW_BLANKED_CONCAVE},
    {N_("Round"), ARROW_ROUNDED},
    {N_("Open Round"), ARROW_OPEN_ROUNDED},
+   {N_("Backslash"),ARROW_BACKSLASH},
    {NULL,0}};
 
 ///////////// prototypes //////////////
@@ -765,6 +766,8 @@ draw_integral(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer,bp,sizeof(bp)/sizeof(bp[0]),fg_color);
 }
 
+
+
 static void
 draw_slashed(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
@@ -1043,6 +1046,51 @@ draw_slashed_cross(DiaRenderer *renderer, Point *to, Point *from,
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[0],&poly[1], color);
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[2],&poly[3], color);                   
   DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &poly[4],&poly[5], color);
+}
+
+static void
+draw_backslash(DiaRenderer *renderer, Point *to, Point *from,
+               real length, real width, real linewidth, Color *color)
+{
+  Point point1;
+  Point point2;
+  Point delta;
+  Point orth_delta;
+  real len;
+
+  delta = *to;
+  point_sub(&delta, from);
+  len = sqrt(point_dot(&delta, &delta));
+  if (len <= 0.0001) {
+    delta.x=1.0;
+    delta.y=0.0;
+  } else {
+    delta.x/=len;
+    delta.y/=len;
+  }
+
+  orth_delta.x = delta.y;
+  orth_delta.y = -delta.x;
+
+  point_scale(&delta, length/2.0);
+  point_scale(&orth_delta, width/2.0);
+
+  point1 = *to;
+  point_sub(&point1, &delta);
+  point_sub(&point1, &delta);
+  point_sub(&point1, &delta);
+  point_add(&point1, &orth_delta);
+
+  point2 = *to;
+  point_sub(&point2, &delta);
+  point_sub(&point2, &orth_delta);
+
+  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, linewidth);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
+  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
+
+  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &point1,&point2, color);
 }
 
 static void
@@ -1398,6 +1446,9 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
   case ARROW_FILLED_DOT_N_TRIANGLE:
     draw_filled_dot_n_triangle(renderer, to, from, length, width, linewidth,
 			       fg_color, bg_color);
+    break;
+  case ARROW_BACKSLASH:
+    draw_backslash(renderer,to,from,length,width,linewidth,fg_color);
     break;
   } 
 }
