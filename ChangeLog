@@ -1,5 +1,21 @@
 2001-04-05  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* sheets/network.sheet: 
+	* sheets/Logic.sheet:
+	* sheets/Flowchart.sheet:
+	* sheets/Electric.sheet:
+	* sheets/Circuit.sheet:
+	* sheets/ER.sheet:
+	* sheets/Pneumatic.sheet:
+	* sheets/SDL.sheet:
+	* sheets/UML.sheet:
+	* sheets/GRAFCET.sheet:
+	* sheets/MSE.sheet:
+	* sheets/chronogram.sheet:
+	* sheets/civil.sheet:
+	* sheets/network.sheet:
+	Danish translations.
+	
 	* objects/standard/image.c (get_directory): Changed get_directory
 	to use g_dirname to find the directory part.
 

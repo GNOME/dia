@@ -4,6 +4,7 @@
   <name xml:lang="fr">Génie Civil</name>
 
   <description>Civil Engineering Components</description>
+  <description xml:lang="da">Symboler for civilingenører</description>
   <description xml:lang="de">Symbole aus dem
   Bauingenieurwesen</description>
   <description xml:lang="fr">Symboles utilisés en Génie Civil</description>
@@ -31,24 +32,28 @@
 
     <object name="Civil - Reference Line">
       <description>Reference Line</description>
+      <description xml:lang="da">Referencelinie</description>
       <description xml:lang="de">Bezugslinie</description>
       <description xml:lang="fr">Ligne de référence</description>
     </object>
 
     <object name="Civil - Water Level">
       <description>Water Level</description>
+      <description xml:lang="da">Vandspejl</description>
       <description xml:lang="de">Wasserspiegel</description>
       <description xml:lang="fr">Niveau d'eau</description>
     </object>
 
     <object name="Civil - Soil">
       <description>Soil</description>
+      <description xml:lang="da">Jord</description>
       <description xml:lang="de">Boden</description>
       <description xml:lang="fr">Sol</description>
     </object>
 
     <object name="Civil - Right Arrow">
       <description>A horizontally aligned Arrow</description>
+      <description xml:lang="da">En vandret placeret pil</description>
       <description xml:lang="de">Ein horizontal ausgerichteter
       Pfeil</description>
       <description xml:lang="fr">Une flèche horizontale</description>
@@ -56,6 +61,7 @@
 
     <object name="Civil - Up Arrow">
       <description>A vertically aligned Arrow</description>
+      <description xml:lang="da">En lodret placeret pil</description>
       <description xml:lang="de">Ein vertikal ausgerichteter
       Pfeil</description>
       <description xml:lang="fr">Une flèche verticale</description>
@@ -63,12 +69,14 @@
 
     <object name="Civil - Horizontal Limiting Line">
       <description>A horizontal limiting line</description>
+      <description xml:lang="da">En vandret begrænsningslinie</description>
       <description xml:lang="de">Eine horizontale Begenzungslinie</description>
       <description xml:lang="fr">Une ligne de séparation horizontale</description>
     </object>
 
     <object name="Civil - Vertical Limiting Line">
       <description>A vertical limiting line</description>
+      <description xml:lang="da">En lodret begrænsningslinie</description>
       <description xml:lang="de">Eine vertikale Begrenzungslinie</description>
       <description xml:lang="fr">Une ligne de séparation verticale</description>
     </object>
@@ -77,6 +85,7 @@
       <description>Horizontally aligned pump</description>
       <description xml:lang="de">Eine horizontal ausgerichtete
       Pumpe</description>
+      <description xml:lang="da">En vandret placeret pumpe</description>
       <description xml:lang="fr">Une pompe orientée horizontalement</description>
     </object>
 
@@ -84,6 +93,7 @@
       <description>Vertically aligned pump</description>
       <description xml:lang="de">Vertikal ausgerichtete
       Pumpe</description>
+      <description xml:lang="da">En lodret placeret pumpe</description>
       <description xml:lang="fr">Une pompe orientée verticalement</description>
     </object>
 
@@ -91,6 +101,7 @@
       <description>Horizontally aligned compressor</description>
       <description xml:lang="de">Ein horizontal ausgerichteter
       Verdichter</description>
+      <description xml:lang="da">En vandret placeret kompressor</description>
       <description xml:lang="fr">Un compresseur orienté horizontalement</description>
     </object>
 
@@ -98,6 +109,7 @@
       <description>Vertically aligned compressor</description>
       <description xml:lang="de">Ein vertikal ausgerichteter
       Verdichter</description>
+      <description xml:lang="da">En lodret placeret kompressor</description>
       <description xml:lang="fr">Un compresseur orienté verticalement</description>
     </object>
 
@@ -106,6 +118,7 @@
 
       <description xml:lang="de">Ein vertikal ausgerichteter
       Schieber</description>
+      <description xml:lang="da">En lodret placeret ventil</description>
       <description xml:lang="fr">Une vanne orientée verticalement</description>
     </object>
 
@@ -113,6 +126,7 @@
       <description>Horizontally aligned Valve</description>
       <description xml:lang="de">Ein horizontal ausgerichteter
       Schieber</description>
+      <description xml:lang="da">En vandret placeret ventil</description>
       <description xml:lang="fr">Une vanne orientée horizontalement</description>
     </object>
 
@@ -125,12 +139,14 @@
 
     <object name="Civil - Motor">
       <description>A Motor</description>
+      <description xml:lang="da">En motor</description>
       <description xml:lang="de">Ein Motor</description>
       <description xml:lang="fr">Un moteur</description>
     </object>
 
     <object name="Civil - Gas Bottle">
       <description>A Gas Bottle</description>
+      <description xml:lang="da">En gasflaske</description>
       <description xml:lang="de">Eine Gasflasche</description>
       <description xml:lang="fr">Une bombonne de gaz</description>
     </object>
@@ -145,6 +161,7 @@
       <description>Vertically aligned Propeller</description>
       <description xml:lang="de">Ein vertikal ausgerichtetes
       Rührwerk</description>
+      <description xml:lang="da">En lodret placeret propel</description>
       <description xml:lang="fr">Une hélice orientée verticalement</description>
     </object>
 
@@ -157,6 +174,7 @@
 
     <object name="Civil - Rotor">
       <description>A Rotor</description>
+      <description xml:lang="da">En rotor</description>
       <description xml:lang="de">Ein Rotor</description>
       <description xml:lang="fr">Un rotor</description>
     </object>
@@ -175,13 +193,14 @@
 
     <object name="Civil - Basin">
       <description>A Basin</description>
+      <description xml:lang="da">Et bassin</description>
       <description xml:lang="de">Ein Becken</description>
       <description xml:lang="fr">Un bassin</description>
     </object>
 
     <object name="Civil - Container">
       <description>A Container</description>
-
+      <description xml:lang="da">En beholder</description>
       <description xml:lang="de">Ein Behälter</description>
       <description xml:lang="fr">Une cuve</description>
     </object>

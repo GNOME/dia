@@ -3,6 +3,7 @@
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>MSE</name>  
   <description>U.S. Army Mobile Subscriber Equipment Components</description>
+  <description xml:lang="da">U.S. Army Mobile Subscriber Equipment komponenter</description>
   <description xml:lang="fr">Symboles d'équipements de communications
   mobiles de l'U.S. Army</description>
   <contents>
@@ -21,6 +22,7 @@
     <object name="Tactical Satellite Communications Terminal">
       <description>Tactical Satellite Communications Terminal</description>
       <description xml:lang="fr">Satellite de communications tactiques</description>
+      <description xml:lang="da">Taktisk satellitkommunikationsterminal</description>
     </object>
     <object name="Multiplexer">
       <description>Multiplexer</description>

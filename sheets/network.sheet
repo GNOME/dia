@@ -2,10 +2,12 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Network</name>
+  <name xml:lang="de">Netværk</name>
   <name xml:lang="de">Netzwerke</name>
   <name xml:lang="hu">Hálózatok</name>
   <name xml:lang="fr">Réseau</name>
   <name xml:lang="nl">Netwerk</name>
+  <description xml:lang="no">Objekter til design af netværksdiagrammer</description>
   <description xml:lang="no">Objekter til utforming av nettverksdiagrammer</description>
   <description xml:lang="fr">Objets pour dessiner des diagrammes réseau</description>
   <description xml:lang="de">Objekte für Netzwerkdiagrammentwurf</description>
@@ -14,6 +16,7 @@
   <description>Objects to design network diagrams with</description>
   <contents>
     <object name="Network - General Computer (Tower)">
+      <description xml:lang="da">En compuker med tårnkabinet</description>
       <description xml:lang="no">En datamaskin med tårnkasse</description>
       <description xml:lang="fr">Un ordinateur en boîtier tour</description>
       <description xml:lang="de">Ein Computer</description>
@@ -22,6 +25,7 @@
       <description>A Computer</description>
     </object>
     <object name="Network - General Monitor (With Stand)">
+      <description xml:lang="da">En skærm</description>
       <description xml:lang="no">En skjerm</description>
       <description xml:lang="fr">Un moniteur</description>
       <description xml:lang="de">Ein Monitor</description>
@@ -30,6 +34,7 @@
       <description>A monitor</description>
     </object>
     <object name="Network - Storage">
+      <description xml:lang="da">Lager</description>
       <description xml:lang="no">Lagring</description>
       <description xml:lang="fr">Stockage</description>
       <description xml:lang="de">Speicher</description>
@@ -38,6 +43,7 @@
       <description>Storage</description>
     </object>
     <object name="Network - Bus">
+      <description xml:lang="da">Ethernet bus</description>
       <description xml:lang="no">Ethernet buss</description>
       <description xml:lang="fr">Un bus Ethernet</description>
       <description xml:lang="de">Ein Ethernetbus</description>
@@ -46,6 +52,7 @@
       <description>An Ethernet bus</description>
     </object>
     <object name="Network - General Printer">
+      <description xml:lang="da">En enkel printer</description>
       <description xml:lang="no">En enkel skriver</description>
       <description xml:lang="fr">Une imprimante simple</description>
       <description xml:lang="de">Ein einfacher Drucker</description>
@@ -54,6 +61,7 @@
       <description>A simple printer</description>
     </object>
     <object name="Network - WAN Connection">
+      <description xml:lang="da">En WAN-forbindelse</description>
       <description xml:lang="no">En WAN-forbindelse</description>
       <description xml:lang="fr">Une connexion WAN</description>
       <description xml:lang="de">Ein WAN Anschluß</description>
@@ -65,9 +73,10 @@
       <description xml:lang="fr">Une laison WAN.</description>
       <description xml:lang="de">Eine WAN Verbindung</description>
       <description xml:lang="nl">Een WAN verbinding</description>
-      <description>A WAN Link.</description>
+      <description>A WAN Link</description>
     </object>
     <object name="Network - Hub">
+      <description xml:lang="da">En hub eller switch som kan stables</description>
       <description xml:lang="no">En hub eller switch som kan stables</description>
       <description xml:lang="fr">Un hub ou commutateur empilable</description>
       <description xml:lang="de">Ein stapelbarer Hub oder Switch</description>
@@ -76,6 +85,7 @@
       <description>A stackable hub or switch</description>
     </object>
     <object name="Network - Modular Switch">
+      <description xml:lang="da">Et modulært switch-system</description>
       <description xml:lang="no">Et modulært switchesystem</description>
       <description xml:lang="fr">Un système de commutation modulaire</description>
       <description xml:lang="de">Ein modulares Switchsystem</description>
@@ -84,6 +94,7 @@
       <description>A modular switching system</description>
     </object>
     <object name="Network - RJ45 Wall-Plug">
+      <description xml:lang="da">RJ45 vægstik</description>
       <description xml:lang="no">RJ45 veggplugg</description>
       <description xml:lang="fr">Une prise murale RJ45</description>
       <description xml:lang="de">Eine RJ45 Steckdose</description>
@@ -92,6 +103,7 @@
       <description>A RJ45 Wall-Plug</description>
     </object>
     <object name="Network - scEAD Wall-Plug">
+      <description xml:lang="da">En vægstik til scEAD kablingsystemet</description>
       <description xml:lang="no">En veggplugg for scEAD kablingsystemet</description>
       <description xml:lang="fr">Une prise murale pour le système de câblage scEAD</description>
       <description xml:lang="de">Eine Steckdose für das scEAD Verkabelungssystem</description>
@@ -100,6 +112,7 @@
       <description>A Wall-Plug for the scEAD Cabling System</description>
     </object>
     <object name="Network - Modem">
+      <description xml:lang="da">Et enkelt modem</description>
       <description xml:lang="no">Et enkelt modem</description>
       <description xml:lang="fr">Un modem simple</description>
       <description xml:lang="de">Ein einfaches Modem</description>
@@ -108,6 +121,7 @@
       <description>A simple Modem</description>
     </object>
     <object name="Network - Antenna">
+      <description xml:lang="da">En antenne til trådløs overføring</description>
       <description xml:lang="no">En antenne for trådløs overføring</description>
       <description xml:lang="fr">Une antenne pour transmissions sans fil</description>
       <description xml:lang="de">Eine Antenne für Drahtlosübertragung</description>
@@ -116,6 +130,7 @@
       <description>An antenna for wireless transmission</description>
     </object>
     <object name="Network - Cloud">
+      <description xml:lang="da">Netværkssky</description>
       <description xml:lang="no">Nettverkssky</description>
       <description xml:lang="fr">Nuage de réseau</description>
       <description xml:lang="de">Netzwerkwolke</description>
@@ -148,6 +163,7 @@
       <description>ATM Switch Symbol</description>
     </object>
     <object name="Network - A Workstation Monitor">
+      <description xml:lang="da">Skærm til arbejdsstation</description>
       <description xml:lang="de">Ein Workstation Monitor</description>
       <description xml:lang="hu">Munkaállomás monitora</description>
       <description xml:lang="no">Skjerm til arbeidsstasjon</description>
@@ -196,6 +212,7 @@
       <description>A Minitower PC</description>
     </object>
     <object name="Network - An amplifier speaker">
+      <description xml:lang="da">En højtaler med forstærker</description>
       <description xml:lang="no">En høyttaler med forsterker</description>
       <description xml:lang="de">Ein Multimedia Lautsprecher mit Verstärker</description>
       <description xml:lang="hu">Multimédia hangszóró erõsítõvel</description>
@@ -204,6 +221,7 @@
       <description>A speaker with integrated amplifier</description>
     </object>
     <object name="Network - A speaker">
+      <description xml:lang="da">En højtaler</description>
       <description xml:lang="no">En høyttaler</description>
       <description xml:lang="de">Ein Multimedia Lautsprecher</description>
       <description xml:lang="hu">Multimédia hangszóró erõsítõ nélkül</description>
@@ -212,6 +230,7 @@
      <description>A speaker without amplifier</description>
     </object>
     <object name="Network - A Diskette">
+      <description xml:lang="da">En 3½-tomme diskette</description>
       <description xml:lang="no">En 3½-toms diskett</description>
       <description xml:lang="de">Eine 3 1/2 Zoll Diskette</description>
       <description xml:lang="hu">3 1/2-es hajlékonylemez</description>
@@ -220,6 +239,7 @@
       <description>A 3 1/2 inch diskette</description>
     </object>
     <object name="Network - A ZIP Disk">
+      <description xml:lang="da">En ZIP-disk</description>
       <description xml:lang="no">En ZIP-disk</description>
       <description xml:lang="de">Ein ZIP-Medium</description>
       <description xml:lang="hu">ZIP lemez</description>
@@ -228,6 +248,7 @@
       <description>A ZIP Disk</description>
     </object>
     <object name="Network - An external DAT drive">
+      <description xml:lang="da">En ekstern DAT-station</description>
       <description xml:lang="no">En ekstern DAT-stasjon</description>
       <description xml:lang="de">Ein externer DAT-Streamer</description>
       <description xml:lang="hu">Külsõ DAT meghajtó</description>
@@ -236,6 +257,7 @@
       <description>An external DAT drive</description>
     </object>
     <object name="Network - A Mobile Phone">
+      <description xml:lang="da">En mobiltelefon</description>
       <description xml:lang="no">En mobiltelefon</description>
       <description xml:lang="de">Ein einfaches Handy</description>
       <description xml:lang="hu">Egyszerû rádiótelefon</description>

@@ -2,6 +2,7 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>ER</name>
+  <description xml:lang="da">Objekter til enheds-relations-diagrammer</description>
   <description xml:lang="no">Editor for enhetsrelasjonsdiagrammer</description>
   <description xml:lang="fr">Editeur de diagrammes Entités-Relations</description>
   <description xml:lang="de">Editor für Zwischenbeziehungs-Diagramme</description>
@@ -9,6 +10,7 @@
   <description>Editor for Entity Relations Diagrams</description>
   <contents>
     <object name="ER - Entity" intdata="0">
+      <description xml:lang="da">Enhed</description>
       <description xml:lang="no">Enhet</description>
       <description xml:lang="fr">Entité</description>
       <description xml:lang="de">Persönlichkeit</description>
@@ -16,6 +18,7 @@
       <description>Entity</description>
     </object>
     <object name="ER - Entity" intdata="1">
+      <description xml:lang="da">Svag enhed</description>
       <description xml:lang="no">Svak enhet</description>
       <description xml:lang="fr">Entité faible</description>
       <description xml:lang="de">Schwache Persönlichkeit</description>
@@ -24,6 +27,7 @@
       <icon>ER/weakentity.xpm</icon>
     </object>
     <object name="ER - Relationship">
+      <description xml:lang="da">Relation</description>
       <description xml:lang="no">Relasjon</description>
       <description xml:lang="fr">Relation</description>
       <description xml:lang="de">Beziehung</description>
@@ -31,6 +35,7 @@
       <description>Relationship</description>
     </object>
     <object name="ER - Attribute">
+      <description xml:lang="da">Egenskab</description>
       <description xml:lang="no">Attributt</description>
       <description xml:lang="fr">Attribut</description>
       <description xml:lang="de">Eigenschaft</description>
@@ -38,6 +43,7 @@
       <description>Attribute</description>
     </object>
     <object name="ER - Participation">
+      <description xml:lang="da">Deltagelse</description>
       <description xml:lang="no">Deltakelse</description>
       <description xml:lang="fr">Participation</description>
       <description xml:lang="de">Beteiligung</description>

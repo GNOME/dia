@@ -4,77 +4,95 @@
   <name xml:lang="de">Puzzle</name>
   <name>Jigsaw</name>
   <name xml:lang="fr">Puzzle</name>
+  <name xml:lang="da">Puslespil</name>
 
   <description xml:lang="de">Verschiedene Puzzleteile</description>
   <description xml:lang="fr">Pièces de puzzle</description>
+  <description xml:lang="da">Puslespilsbrikker</description>
   <description>Pieces of a jigsaw</description>
   <contents>
     <object name="Jigsaw - part_oioi">
       <description>Jigsaw - part_oioi</description>
       <description xml:lang="fr">Puzzle - pièce_oioi</description>
+      <description xml:lang="da">Puslespil - brik_oioi</description>
     </object>
     <object name="Jigsaw - part_ioio">
       <description>Jigsaw - part_ioio</description>
       <description xml:lang="fr">Puzzle - pièce_ioio</description>
+      <description xml:lang="da">Puslespil - brik_ioio</description>
     </object>
     <object name="Jigsaw - part_iiii">
       <description>Jigsaw - part_iiii</description>
       <description xml:lang="fr">Puzzle - pièce_iiii</description>
+      <description xml:lang="da">Puslespil - brik_iiii</description>
     </object>
     <object name="Jigsaw - part_oooo">
       <description>Jigsaw - part_oooo</description>
       <description xml:lang="fr">Puzzle - pièce_oooo</description>
+      <description xml:lang="da">Puslespil - brik_oooo</description>
     </object>
     <br/>
     <object name="Jigsaw - part_oooi">
       <description>Jigsaw - part_oooi</description>
       <description xml:lang="fr">Puzzle - pièce_oooi</description>
+      <description xml:lang="da">Puslespil - brik_oooi</description>
     </object>
     <object name="Jigsaw - part_iooo">
       <description>Jigsaw - part_iooo</description>
       <description xml:lang="fr">Puzzle - pièce_iooo</description>
+      <description xml:lang="da">Puslespil - brik_iooo</description>
     </object>
     <object name="Jigsaw - part_oioo">
       <description>Jigsaw - part_oioo</description>
       <description xml:lang="fr">Puzzle - pièce_oioo</description>
+      <description xml:lang="da">Puslespil - brik_oioo</description>
     </object>
     <object name="Jigsaw - part_ooio">
       <description>Jigsaw - part_ooio</description>
       <description xml:lang="fr">Puzzle - pièce_ooio</description>
+      <description xml:lang="da">Puslespil - brik_ooio</description>
     </object>
     <br/>
     <object name="Jigsaw - part_iioo">
       <description>Jigsaw - part_iioo</description>
       <description xml:lang="fr">Puzzle - pièce_iioo</description>
+      <description xml:lang="da">Puslespil - brik_iioo</description>
     </object>
     <object name="Jigsaw - part_oiio">
       <description>Jigsaw - part_oiio</description>
       <description xml:lang="fr">Puzzle - pièce_oiio</description>
+      <description xml:lang="da">Puslespil - brik_oiio</description>
     </object>
     <object name="Jigsaw - part_ooii">
       <description>Jigsaw - part_ooii</description>
       <description xml:lang="fr">Puzzle - pièce_ooii</description>
+      <description xml:lang="da">Puslespil - brik_ooii</description>
     </object>
     <object name="Jigsaw - part_iooi">
       <description>Jigsaw - part_iooi</description>
       <description xml:lang="fr">Puzzle - pièce_iooi</description>
+      <description xml:lang="da">Puslespil - brik_iooi</description>
     </object>
     <br/>
     <object name="Jigsaw - part_oiii">
       <description>Jigsaw - part_oiii</description>
       <description xml:lang="fr">Puzzle - pièce_oiii</description>
+      <description xml:lang="da">Puslespil - brik_oiii</description>
     </object>
     <object name="Jigsaw - part_ioii">
       <description>Jigsaw - part_ioii</description>
       <description xml:lang="fr">Puzzle - pièce_ioii</description>
+      <description xml:lang="da">Puslespil - brik_ioii</description>
     </object>
     <object name="Jigsaw - part_iioi">
       <description>Jigsaw - part_iioi</description>
       <description xml:lang="fr">Puzzle - pièce_iioi</description>
+      <description xml:lang="da">Puslespil - brik_iioi</description>
     </object>
     <object name="Jigsaw - part_iiio">
       <description>Jigsaw - part_iiio</description>
       <description xml:lang="fr">Puzzle - pièce_iiio</description>
+      <description xml:lang="da">Puslespil - brik_iiio</description>
     </object>
   </contents>
 </sheet>

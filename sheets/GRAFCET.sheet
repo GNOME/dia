@@ -2,17 +2,20 @@
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>GRAFCET</name>
+  <description xml:lang="da">Objekter til at designe GRAFCET diagrammer</description>
   <description xml:lang="fr">Objets pour l'écriture de Grafcets</description>
   <description xml:lang="de">Objekte für GRAFCET Design</description>
   <description>Objects to design GRAFCET charts</description>
   <contents>
     <object name="GRAFCET - Step" intdata="0">
       <description xml:lang="fr">Une étape normale</description>
+      <description xml:lang="da">Et normalt trin</description>
       <description xml:lang="de">Ein normaler Schritt</description>
       <description>A regular step</description>
     </object>
     <object name="GRAFCET - Step" intdata="1">
       <description xml:lang="fr">Une étape initiale</description>
+      <description xml:lang="da">Et første trin</description>
       <description xml:lang="de">Ein erster Schritt</description>
       <description>An initial step</description>
       <icon>GRAFCET/etapei.xpm</icon>

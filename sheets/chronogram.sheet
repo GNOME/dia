@@ -4,7 +4,8 @@
   <name>Chronogram</name>
   <name xml:lang="fr">Chronogrammes</name>
   <name xml:lang="de">Chronogramm</name>
-  <description xml:lang="no">Objekter utforming av kronogrammer</description>
+  <description xml:lang="da">Objekter til design af kronogrammer</description>
+  <description xml:lang="no">Objekter for utforming av kronogrammer</description>
   <description xml:lang="fr">Objets pour l'écriture de chronogrammes</description>
   <description xml:lang="de">Objekte für Zeitdiagrammentwurf</description>
   <description xml:lang="sl">Predmeti za oblikovanje kronogramov</description>
@@ -12,6 +13,7 @@
   <description>Objects to design chronogram charts</description>
   <contents>
     <object name="chronogram - reference">
+      <description xml:lang="da">En tidsskala</description>
       <description xml:lang="no">En tidsskala</description>
       <description xml:lang="fr">Une échelle de temps</description>
       <description xml:lang="de">Eine Zeitscala</description>
@@ -20,6 +22,7 @@
       <description>A time scale</description>
     </object>
     <object name="chronogram - line">
+      <description xml:lang="da">En datolinje</description>
       <description xml:lang="no">En datolinje</description>
       <description xml:lang="fr">Une ligne de données</description>
       <description xml:lang="de">Eine Datenlinie</description>
