@@ -1,3 +1,23 @@
+2001-06-12  Hans Breuer  <hans@breuer.org>
+
+	* lib/libdia.def : removed lazyprop exports
+	* lib/makefile.msc : removed lazyprop.obj
+
+	* objects/custom/custom_objects.c : use HAVE_UNISTD_H
+	and avoid crashes by always creating a custom->text,
+	when (custom->info->has_text) 
+
+	* objects/makefile.msc : removed sybase from build
+
+	* objects/GRAFCET/boolequation.c (<save|load>_boolequation) :
+	ObjectNode is a pointer already, which is what we want
+	instead of a pointer pointer.
+
+	* plug-ins/wmf/wmf.cpp : fixed problem with arc scaling
+	and implemented working export for images
+
+	* shapes/network/zip-disk.shape : added connection points 
+
 2001-06-12  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* objects/SADT/box.c: removed lazyprops for standard props.

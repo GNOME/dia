@@ -3,6 +3,16 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Network - A ZIP Disk</name>
   <icon>zip-disk.xpm</icon>
+  <connections>
+   <point x="0.875" y="0.375"/>
+   <point x="4.875" y="0"/>
+   <point x="8.875" y="0.375"/>
+   <point x="9.75" y="5"/>
+   <point x="9.75" y="9.625"/>
+   <point x="4.875" y="9.875"/>
+   <point x="0" y="9.625"/>
+   <point x="0" y="5"/>
+  </connections>
   <aspectratio type="fixed"/>
   <svg:svg width="10cm" height="10cm" viewBox="-1 -1 10 10">
     <svg:polygon style="fill: #666666" points="0,0.75 1.75,0 8,0 9.75,0.75 9.75,9.625 8,9.625 8,9.875 1.75,9.875 1.75,9.625 0,9.625 "/>

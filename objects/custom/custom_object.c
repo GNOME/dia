@@ -28,7 +28,9 @@
 #include <math.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 
 #include "intl.h"
 #include "shape_info.h"
@@ -1458,6 +1460,20 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
     attr = object_find_attribute(obj_node, "text");
     if (attr != NULL)
       custom->text = data_text(attribute_first_data(attr));
+    else {
+      /* initialize as empty text or handle all the NULL pointer 
+         access elsewhere */
+      Font *font;
+      real font_height;
+      Point pt;
+
+      attributes_get_default_font(&font, &font_height);
+      pt = elem->corner;
+      pt.x += elem->width / 2.0;
+      pt.y += elem->height / 2.0 + font_height / 2;
+      custom->text = new_text("", font, font_height, &pt, &custom->border_color,
+                              default_properties.alignment);
+    }
   }
 
   element_init(elem, 8, custom->info->nconnections);

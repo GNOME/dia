@@ -1,15 +1,4 @@
 EXPORTS
- __propdlg_build_bool
- __propdlg_build_color
- __propdlg_build_enum
- __propdlg_build_font
- __propdlg_build_multistring
- __propdlg_build_real
- __propdlg_build_separator
- __propdlg_build_static
- __propdlg_build_string
- __propdlg_get_enum
- __propdlg_set_enum
  active_focus
  arrow_draw
  arrow_draw
@@ -243,14 +232,6 @@ EXPORTS
  layer_update_extents
  load_all_sheets
  load_all_sheets
- load_boolean
- load_color
- load_enum
- load_font
- load_point
- load_real
- load_string
- load_text
  message_error
  message_warning
  new_attribute

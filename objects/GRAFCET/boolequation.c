@@ -583,14 +583,14 @@ boolequation_destroy(Boolequation *booleq)
   g_free(booleq);
 }
 
-extern void save_boolequation(ObjectNode *obj_node, const gchar *attrname,
+void save_boolequation(ObjectNode obj_node, const gchar *attrname,
 			     Boolequation *booleq)
 {
   data_add_string(new_attribute(obj_node,attrname),(utfchar *)booleq->value);
 }
 
 Boolequation *
-load_boolequation(ObjectNode *obj_node,
+load_boolequation(ObjectNode obj_node,
 		 const gchar *attrname,
 		 const utfchar *defaultvalue,
 		 Font *font,

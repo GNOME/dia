@@ -47,7 +47,6 @@ OBJECTS = \
 	dia_dirs.obj \
 	neworth_conn.obj \
 	connpoint_line.obj \
-	lazyprops.obj \
 	filter.obj \
 	properties.obj \
 	plug-ins.obj \

@@ -1,7 +1,10 @@
 !IFNDEF PACKAGE
 
-PLUGINS = chronogram custom eml er flowchart fs grafcet labels \
-		network sadt standard sybase uml 
+PLUGINS = chronogram custom eml er flowchart fs grafcet \
+		network sadt standard uml 
+
+# now shapes only: sybase 
+# specware 
 
 # The main target
 all : sub-all
@@ -157,6 +160,17 @@ OBJECTS = \
 	polygon.obj
 !ENDIF
 
+!IFDEF OBJ_specware
+OBJECTS = \
+        specware.obj \
+        arch_component.obj \
+        arch_connector.obj \
+        arch_state.obj \
+        mapping.obj
+# this plug-in imports diagram_load_and_disply () from dia.exe 
+PKG_LINK = $(PKG_LINK) ..\..\app\dia.lib
+!ENDIF
+
 !IFDEF OBJ_sybase
 OBJECTS = \
 	dataserver.obj \
@@ -222,6 +236,7 @@ $(PACKAGE).lib : $(OBJECTS)
 
 $(PACKAGE).dll : $(OBJECTS) $(PKG_DEF)
 	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE).dll $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PKG_DEF)
+
 $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
 

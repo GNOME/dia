@@ -498,7 +498,7 @@ draw_arc(MyRenderer *renderer,
 
     /* calculate start and end points of arc */
     ptStart.x = SCX(center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1));
-    ptStart.y = SCX(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1));
+    ptStart.y = SCY(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1));
     ptEnd.x = SCX(center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle2));
     ptEnd.y = SCY(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle2));
 
@@ -530,7 +530,7 @@ fill_arc(MyRenderer *renderer,
 
     /* calculate start and end points of arc */
     ptStart.x = SCX(center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1));
-    ptStart.y = SCX(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1));
+    ptStart.y = SCY(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1));
     ptEnd.x = SCX(center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle2));
     ptEnd.y = SCY(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle2));
 
@@ -725,11 +725,18 @@ draw_string(MyRenderer *renderer,
 
         scp = g_convert (text, strlen (text),
                          codepage, "UTF-8",
-                         NULL, NULL, NULL); 
-        W32::TextOut(renderer->hFileDC,
-                     SCX(pos->x), SCY(pos->y),
-                     scp, strlen(scp));
-        g_free (scp);
+                         NULL, NULL, NULL);
+        if (scp)
+        {
+            W32::TextOut(renderer->hFileDC,
+                         SCX(pos->x), SCY(pos->y),
+                         scp, strlen(scp));
+            g_free (scp);
+        }
+        else // converson failed, write unconverted
+            W32::TextOut(renderer->hFileDC,
+                         SCX(pos->x), SCY(pos->y),
+                         text, strlen (text));
 # endif
     }
 
@@ -745,13 +752,16 @@ draw_image(MyRenderer *renderer,
     W32::HBITMAP hBmp;
     int iWidth, iHeight;
     unsigned char* pData = NULL;
+    unsigned char* pImg  = NULL;
 
     DIAG_NOTE(renderer, "draw_image %fx%f @%f,%f\n", 
               width, height, point->x, point->y);
 
     iWidth  = dia_image_width(image);
     iHeight = dia_image_height(image);
+    pImg = dia_image_rgb_data(image);
 
+#if 0 /* only working with 24 bit screen resolution */
     if ((dia_image_width(image)*3) % 4)
     {
         /* transform data to be DWORD aligned */
@@ -761,7 +771,7 @@ draw_image(MyRenderer *renderer,
 
         pOut = pData = g_new(unsigned char, ((((iWidth*3-1)/4)+1)*4)*iHeight);
 
-        pIn = dia_image_rgb_data(image);
+        pIn = pImg;
         for (y = 0; y < iHeight; y++)
         {
             for (x = 0; x < iWidth; x++)
@@ -779,22 +789,52 @@ draw_image(MyRenderer *renderer,
     {
         hBmp = W32::CreateBitmap ( 
                         dia_image_width(image), dia_image_height(image),
-                        1, 24, dia_image_rgb_data(image));
+                        1, 24, pImg);
     }
+    W32::HDC hMemDC = W32::CreateCompatibleDC (renderer->hFileDC);
+#else
+    W32::HDC hMemDC = W32::CreateCompatibleDC (renderer->hFileDC);
+    W32::BITMAPINFO bmi;
+    memset (&bmi, 0, sizeof (W32::BITMAPINFO));
+    bmi.bmiHeader.biSize = sizeof (W32::BITMAPINFOHEADER);
+    bmi.bmiHeader.biWidth = iWidth;
+    bmi.bmiHeader.biHeight = -iHeight; // invert it
+    bmi.bmiHeader.biPlanes = 1;
+    bmi.bmiHeader.biBitCount = 24;
+    bmi.bmiHeader.biCompression = BI_RGB;
+    bmi.bmiHeader.biSizeImage = 0;
+    bmi.bmiHeader.biXPelsPerMeter = 0;
+    bmi.bmiHeader.biYPelsPerMeter = 0;
+    bmi.bmiHeader.biClrUsed = 0;
+    bmi.bmiHeader.biClrImportant = 0;
 
-    W32::SelectObject(renderer->hFileDC, hBmp);
+    hBmp = W32::CreateDIBSection (hMemDC, &bmi, DIB_RGB_COLORS,
+                                  (void**)&pData, NULL, 0);
+    /* copy data, always line by line */
+    for (int y = 0; y < iHeight; y ++) 
+    {
+        memcpy (pData, pImg + (y*3*iWidth), (3*iWidth));
+        pData += (((3*iWidth-1)/4)+1)*4;
+    }
+    pData = NULL; // don't free it below
+#endif
+    W32::HBITMAP hOldBmp = W32::SelectObject(hMemDC, hBmp);
     //Hack to get SRCCOPY out of namespace W32
 #   ifndef DWORD
 #     define DWORD unsigned long
 #   endif
     W32::BitBlt(renderer->hFileDC, // destination
                 SCX(point->x), SCY(point->y), SC(width), SC(height),
-                renderer->hFileDC, // source
+                hMemDC, // source
                 0, 0, SRCCOPY);
 
-    W32::DeleteObject(hBmp);
+    W32::SelectObject (hMemDC, hOldBmp);
+    W32::DeleteDC (hMemDC);
+    W32::DeleteObject (hBmp);
     if (pData)
-        g_free(pData);
+        g_free (pData);
+    if (pImg)
+        g_free (pImg);
 }
 
 static void
