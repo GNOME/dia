@@ -6,17 +6,23 @@
 #include <stdio.h>
 #include <glib.h>
 
-int
-get_version(void)
-{
-    return 0;
-}
+#include "intl.h"
+#include "plug-ins.h"
 
-void
-register_objects(void)
+DIA_PLUGIN_CHECK_INIT
+
+void initdia(void);
+
+PluginInitResult
+dia_plugin_init(PluginInfo *info)
 {
     gchar *filename;
     FILE *fp;
+
+    if (!dia_plugin_info_init(info, "Python",
+			      _("Python scripting support"),
+			      NULL, NULL))
+      return DIA_PLUGIN_INIT_ERROR;
 
     Py_SetProgramName("dia");
     Py_Initialize();
@@ -24,7 +30,7 @@ register_objects(void)
     initdia();
     if (PyErr_Occurred()) {
 	PyErr_Print();
-	return;
+	return DIA_PLUGIN_INIT_ERROR;
     }
 
     filename = g_strdup("/home/james/gnomecvs/dia/plug-ins/python/test.py");
@@ -33,11 +39,6 @@ register_objects(void)
 	PyRun_SimpleFile(fp, filename);
     g_free(filename);
 
-    return;
-}
-
-void
-register_sheets(void)
-{
+    return DIA_PLUGIN_INIT_OK;
 }
 

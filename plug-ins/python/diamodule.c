@@ -53,7 +53,7 @@ PyDia_Load(PyObject *self, PyObject *args)
 
     if (!PyArg_ParseTuple(args, "s:dia.load", &filename))
 	return NULL;
-    dia = diagram_load(filename);
+    dia = diagram_load(filename, NULL);
     if (dia)
 	return PyDiaDiagram_New(dia);
     PyErr_SetString(PyExc_IOError, "could not load diagram");
@@ -111,7 +111,11 @@ static PyMethodDef dia_methods[] = {
     { NULL, NULL }
 };
 
-void initdia(void) {
+void initdia(void);
+
+DL_EXPORT(void)
+initdia(void)
+{
     PyObject *m, *d;
 
     m = Py_InitModule("dia", dia_methods);
