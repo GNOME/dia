@@ -332,7 +332,7 @@ diagram_load(char *filename)
 
 void
 write_objects(GList *objects, xmlNodePtr objects_node,
-	      GHashTable *objects_hash, int *obj_nr, char *filename)
+	      GHashTable *objects_hash, int *obj_nr, const char *filename)
 {
   char buffer[31];
   ObjectNode obj_node;
@@ -438,8 +438,8 @@ write_connections(GList *objects, xmlNodePtr layer_node,
   return TRUE;
 }
 
-int
-diagram_save(Diagram *dia, char *filename)
+static int
+diagram_data_save(DiagramData *data, const char *filename)
 {
   FILE *file;
   xmlDocPtr doc;
@@ -473,32 +473,32 @@ diagram_save(Diagram *dia, char *filename)
   tree = xmlNewChild(doc->root, NULL, "diagramdata", NULL);
   
   attr = new_attribute((ObjectNode)tree, "background");
-  data_add_color(attr, &dia->data->bg_color);
+  data_add_color(attr, &data->bg_color);
 
   attr = new_attribute((ObjectNode)tree, "paper");
   pageinfo = data_add_composite(attr, "paper");
   data_add_string(composite_add_attribute(pageinfo, "name"),
-		  dia->data->paper.name);
+		  data->paper.name);
   data_add_real(composite_add_attribute(pageinfo, "tmargin"),
-		dia->data->paper.tmargin);
+		data->paper.tmargin);
   data_add_real(composite_add_attribute(pageinfo, "bmargin"),
-		dia->data->paper.bmargin);
+		data->paper.bmargin);
   data_add_real(composite_add_attribute(pageinfo, "lmargin"),
-		dia->data->paper.lmargin);
+		data->paper.lmargin);
   data_add_real(composite_add_attribute(pageinfo, "rmargin"),
-		dia->data->paper.rmargin);
+		data->paper.rmargin);
   data_add_boolean(composite_add_attribute(pageinfo, "is_portrait"),
-		   dia->data->paper.is_portrait);
+		   data->paper.is_portrait);
   data_add_real(composite_add_attribute(pageinfo, "scaling"),
-		dia->data->paper.scaling);
+		data->paper.scaling);
 
   objects_hash = g_hash_table_new(g_direct_hash, g_direct_equal);
 
   obj_nr = 0;
 
-  for (i=0;i<dia->data->layers->len;i++) {
+  for (i = 0; i < data->layers->len; i++) {
     layer_node = xmlNewChild(doc->root, NULL, "layer", NULL);
-    layer = (Layer *) g_ptr_array_index(dia->data->layers, i);
+    layer = (Layer *) g_ptr_array_index(data->layers, i);
     xmlSetProp(layer_node, "name", layer->name);
     if (layer->visible)
       xmlSetProp(layer_node, "visible", "true");
@@ -524,10 +524,34 @@ diagram_save(Diagram *dia, char *filename)
   if (ret < 0)
     return FALSE;
 
+  return TRUE;
+}
+
+int
+diagram_save(Diagram *dia, const char *filename)
+{
+  gboolean res = diagram_data_save(dia->data, filename);
+
+  if (!res)
+    return res;
+
   dia->unsaved = FALSE;
   diagram_set_modified (dia, FALSE);
 
   return TRUE;
 }
 
+/* --- export filter interface --- */
+static void
+export_native(DiagramData *data, const gchar *filename,
+	      const gchar *diafilename)
+{
+  diagram_data_save(data, filename);
+}
 
+static const gchar *extensions[] = { "dia", NULL };
+DiaExportFilter dia_export_filter = {
+  N_("Native Dia Diagram"),
+  extensions,
+  export_native
+};
