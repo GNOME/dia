@@ -1,5 +1,14 @@
 2001-01-23  Kevin Breit <battery841@mediaone.net>
 
+	* doc/en/graphics/: added directory
+
+	* doc/en/graphics/greendots.png: added file
+
+	* doc/en/*sgml: made minor and some major changes to prepare for 1.4
+        release.
+
+2001-01-23  Kevin Breit <battery841@mediaone.net>
+
 	* doc/en/*sgml: made some grammar changes and fixed a few markup bugs.
 			thanks to John Fleck!
 

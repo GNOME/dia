@@ -68,6 +68,10 @@
   <sect1 id="zooming">
   <title>Zooming</title>
    <para>
+    Zooming allows the user to get up closer to their diagram.  This helps to
+    let the user make precision drawings.
+   </para>
+   <para>
     The canvas can be zoomed up to 400%.  Zoom can be done by clicking on the
     magnifying glass on the toolbox and clicking on the canvas.  To zoom out,
     hold the shift button and click again on the canvas.

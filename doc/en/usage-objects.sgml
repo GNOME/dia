@@ -1,17 +1,15 @@
 <chapter label="3" id="objects-chapter">
 <title>Objects</title>
- <sect1 id="objects">
- <title>Objects</title>
-  <sect2 id="objects-introduction">
+  <sect1 id="objects-introduction">
   <title>Objects Introduction</title>
    <para>
     Objects are what makes up a diagram.  Objects are shapes which are either
     pre-defined or user-defined.
    </para>
-  </sect2>
-  <sect2 id="using-objects">
+  </sect1>
+  <sect1 id="using-objects">
   <title>Using Objects</title>
-   <sect3 id="adding-objects">
+   <sect2 id="adding-objects">
    <title>Adding Objects</title>
     <para>
      Adding objects to the <application>Dia</application> canvas can be
@@ -42,28 +40,36 @@
        </listitem>
       </itemizedlist>
     </para>
-   </sect3>
-   <sect3 id="moving-objects">
+   </sect2>
+   <sect2 id="moving-objects">
    <title>Moving Objects</title>
     <para>
      When an object is inserted into the canvas, the desired object will appear
      with small green boxes defining the borders.  <!-- Insert Graphic -->
+     <figure>
+       <title>Adjuster Dots</title>
+       <screenshot>
+         <screeninfo>The green dots allow resizing the image.</screeninfo>
+         <graphic format="png" fileref="greendots" srccredit="Kevin Breit">
+         </graphic>
+       </screenshot>
+     </figure> 
      The area inside the boxes is the object area.  Click and hold on the
      object area.  Then move the mouse around, inside the canvas, to move
      the object to another place on the canvas.
     </para>
-   </sect3>
-   <sect3 id="resizing-objects">
+   </sect2>
+   <sect2 id="resizing-objects">
    <title>Resizing Objects</title>
     <para>
-     In the previous paragraph, is explained the concept of the green boxes.
+     The previous paragraph, explains the concept of the green boxes.
      These are used to manipulate the size of the object.  To change the size,
      click and hold on a green button.  Drag to the respective size, then let
      go.
     </para>
     <para>
-     The corner green buttons will change both height and width.  The four in
-     the middle will edit the respective property. 
+     The corner green buttons will change both height and width at the same time.  The two on the top and bottom edges, in the center will edit height while
+     the two on the left and right edges, in the center will edit width. 
     </para>
     <tip>
      <para>
@@ -72,14 +78,14 @@
       shapes.
      </para>
     </tip>
-   </sect3>
-   <sect3 id="deleting-objects">
+   </sect2>
+   <sect2 id="deleting-objects">
    <title>Deleting Objects</title>
     <para>
      To delete an object, click on the object to select it. The green boxes
      will appear.  Hit Ctrl+D and the object will disappear.
     </para>
-   </sect3>
+   </sect2>
    <!--
    <sect3 id="aligning-objects">
    <title>Aligning Objects</title>
@@ -94,7 +100,6 @@
     </para>
    </sect3>
    -->
-  </sect2>
   <sect2 id="line-properties">
   <title>Line Properties</title>
    <para>
@@ -102,7 +107,8 @@
     object is symbolized by the following icon:
     <!-- Add graphic later -->
    </para>
-   <sect3 id="line-styles">
+   </sect2>
+   <sect2 id="line-styles">
    <title>Line Styles</title>
     <para>
      Lines can be easily edited to easily create items such as arrows.  At the
@@ -125,7 +131,7 @@
       </listitem>
       <listitem>
        <para>
-        Dash-Dot                                                                        
+        Dash-Dot 
        </para>
       </listitem>
       <listitem>
@@ -140,23 +146,23 @@
       </listitem>
      </itemizedlist>
     </para>
-   </sect3>
-   <sect3 id="line-thickness">
+   </sect2>
+   <sect2 id="line-thickness">
    <title>Line Thickness</title>
     <para>
      The thickness of lines can be edited by clicking on the five thicknesses
      to the right of the color selector.
     </para>
-   </sect3>
-   <sect3 id="arrows">
+   </sect2>
+   <sect2 id="arrows">
    <title>Arrows</title>
     <para>
      The line tool can be used to create arrows.  By clicking on the two side
      buttons on the bottom of the toolbox, a menu pulls out showing the possible
      beginning and end designs for the arrows.
     </para>
-   </sect3>
-   <sect3 id="line-colors">
+   </sect2>
+   <sect2 id="line-colors">
    <title>Line Colors</title>
     <para>
      The line color can be edited by double-clicking on the line once it has
@@ -164,9 +170,9 @@
      labeled as "Line Colour" with a bar demonstrating the selected color.  By
      clicking on the bar, you can change the color of the line.
     </para>
-   </sect3>
-  </sect2>
-  <sect2 id="object-properties">
+   </sect2>
+  </sect1>
+  <sect1 id="object-properties">
   <title>Object Properties</title>
    <para>
     Each object has its own properties assigned to it.  They can be accessed
@@ -186,9 +192,9 @@
     </itemizedlist>
     among others.
    </para>
-  </sect2>
-  <sect2 id="colors">
-  <title>Colors</title>                                                                 
+  </sect1>
+  <sect1 id="colors">
+  <title>Colors</title> 
    <para>
     All the objects can be colored in different ways, according to a user
     defined setting.
@@ -218,6 +224,5 @@
     </para>
    </tip>
   </para>
-  </sect2>
  </sect1>
 </chapter>

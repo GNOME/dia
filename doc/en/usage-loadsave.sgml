@@ -13,7 +13,7 @@
    from the <interface>Main Popup Menu</interface>. The result is a
    standard save dialog. Your canvas is saved in
    <application>Dia</application> XML format. No file extension is
-   autometically added, so it is a good idea to explicitly add
+   automatically added, so it is a good idea to explicitly add
   '.dia' to the name you enter.
   </para>
   <para>

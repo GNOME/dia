@@ -3,12 +3,16 @@
   <sect1 id="selecting-introduction">
   <title>Selection Introduction</title>
    <para>
-       Selecting objects is probably the most frequently task which is used
-       to be done when using <application>Dia</application>. From the moment
+       Selecting objects is probably the most frequently task 
+       when using <application>Dia</application>. From the moment
        you create a new object to the moment you think the diagram looks the
        way it should be, you will always have to select objects to set them
        up properly.
        <!-- I must confess that this intro really sucks -->
+   </para>
+   <para>
+       When you select objects, you bring focus to an object to edit.  An object
+       which is not selected, cannot be edited.
    </para>
    <para>
        Selecting objects can be done in many different ways, and there are
@@ -19,15 +23,6 @@
        group them in a logical way to manipulate them more easily, to connect
        them each others, or to simply remove them from the diagram.
    </para>
-   <note>
-     <para>
-        Only objects present in the current layer can be selected. If an object
-        doesn't want to be select it's probably because it is situated in another
-        layer. To know how to change the current layer or how to manipulate many
-        layers, please refer to the Managing Layers section.
-        <!-- need to make a link link to it -->
-     </para>
-    </note>
   </sect1>
  
   <!-- +How to Select Objects  -->
@@ -154,11 +149,20 @@
            </para>
            <tip>
              <para>
-                An other way to do this is to select <menuchoice><guimenuitem>All</guimenuitem>
+                Another way to do this is to select <menuchoice><guimenuitem>All</guimenuitem>
                 </menuchoice> the items as described above, and then press the Shift key 
                 and deselect the objects you don't need.
              </para>
            </tip>
+   <note>
+     <para>
+        Only objects present in the current layer can be selected. If an object
+        doesn't want to be select it's probably because it is situated in another
+        layer. To know how to change the current layer or how to manipulate many
+        layers, please refer to the Managing Layers section.
+        <!-- need to make a link link to it -->
+     </para>
+    </note>
          </listitem>
       </varlistentry>
     </variablelist>
@@ -212,13 +216,13 @@
     <sect2 id="selection-transitive">
     <title>Selecting  Transitive Objects</title>
      <para>
-      Technic shown above is pretty fine when you only want select a small number of
+      Technic shown above is fine when you only want select a small number of
       connected objects at the time.
      </para>
      <para>
        Sometimes you will have to select a whole bunch of objects which are connected
-       all together. This way of selecting objects step by step won't be really
-       efficient if it happens to often.
+       all together. This way of selecting objects step by step isn't
+       efficient.
      </para>
      <para>
        This is the reason why <application>Dia</application> offers you to do all these
@@ -241,7 +245,7 @@
     </sect2>
     <sect2 id="selection-same-type">
     <title>Selecting Same Type of Objects</title>                                            <para>
-        <application>Dia</application> implements as well some trick to select objects
+        <application>Dia</application> implements some trick to select objects
         issued from the same type.
      </para>
      <para>
