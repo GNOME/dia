@@ -1,361 +1,1557 @@
-# Swedish translation of Dia
-# Copyright (C) 1999
+# Swedish translation of Dia.
 # Fredrik Hallenberg <hallon@lysator.liu.se>, 1999.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-01-24 20:24+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: dia 0.30\n"
+"POT-Creation-Date: 1999-03-27 10:46+0100\n"
+"PO-Revision-Date: 1999-03-27 10:10+0100\n"
 "Last-Translator: Fredrik Hallenberg <hallon@lysator.liu.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=iso8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:191 app/app_procs.c:193
-msgid ""
-"Couldn't find standard objects when looking for object-libs, exiting...\n"
-msgstr "Kunde inte hitta standard objekt, avslutar...\n"
+#: app/app_procs.c:117
+msgid "Export loaded file to postscript and exit"
+msgstr "Exportera fil till Postscript och avsluta"
 
-#: app/app_procs.c:238
-msgid "Quit, are you sure?"
+#: app/app_procs.c:118
+msgid "OUTPUT"
 msgstr ""
 
-#: app/app_procs.c:240
+#: app/app_procs.c:135
+msgid "Can't connect to session manager!\n"
+msgstr "Kan inte få kontakt med sessionshanteraren!\n"
+
+#: app/app_procs.c:171 app/app_procs.c:173
+msgid ""
+"Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgstr "Kunde inte hitta standard objekt bland objektbiblioteken, avslutar...\n"
+
+#: app/app_procs.c:202
+msgid "need valid input file for --export-file-to-ps\n"
+msgstr "behöver en korrekt diagramfil för --export-file-to-ps\n"
+
+#: app/app_procs.c:244
+msgid "Quit, are you sure?"
+msgstr "Är du säker på att du vill avsluta?"
+
+#: app/app_procs.c:246
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
 msgstr ""
+"Det finns diagram som inte är sparade.\\n\n"
+"Är du säker på att du vill avsluta?"
 
-#: app/app_procs.c:249 app/commands.c:152 app/commands.c:264
+#: app/app_procs.c:255 app/commands.c:200 app/commands.c:318 app/display.c:712
+#: app/preferences.c:404
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
-#: app/app_procs.c:262 app/commands.c:165 app/commands.c:277
+#: app/app_procs.c:268 app/commands.c:213 app/commands.c:331 app/display.c:723
+#: app/preferences.c:404 app/preferences.c:415
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
-#: app/app_procs.c:322
+#: app/app_procs.c:328
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
 "%s is not a directory.\n"
 msgstr ""
+"Kunde inte några objektbibliotek.\n"
+"%s är inte en filkatalog.\n"
 
-#: app/app_procs.c:329
+#: app/app_procs.c:335
 #, c-format
 msgid "Couldn't open \"%s\".\n"
-msgstr ""
+msgstr "Kunde inte öppna \"%s\".\n"
 
-#: app/app_procs.c:342 app/app_procs.c:373
+#: app/app_procs.c:348 app/app_procs.c:349 app/app_procs.c:384
+#: app/app_procs.c:385
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
 " %s\n"
 msgstr ""
+"Fel vid laddning av bibliotek: \"%s\":\n"
+" %s\n"
 
-#: app/app_procs.c:440
+#: app/app_procs.c:359 app/app_procs.c:360
+#, c-format
+msgid "The file \"%s\" is not a Dia object library.\n"
+msgstr "Filen \"%s\" är inte ett Dia objektbibliotek.\n"
+
+#: app/app_procs.c:365 app/app_procs.c:366
+#, c-format
+msgid ""
+"The object library \"%s\" is from an older version of Dia and cannot be "
+"used.\n"
+"Please upgrade it."
+msgstr ""
+"Objektbiblioteket \"%s\" är från en gammal version av Dia och kan inte "
+"användas.\n"
+"Var vänlig och uppgradera."
+
+#: app/app_procs.c:371 app/app_procs.c:372
+#, c-format
+msgid ""
+"The object library \"%s\" is from an later version of Dia.\n"
+"You need to upgrade Dia to use it."
+msgstr ""
+"Objektbiblioteket \"%s\" är från en senare version av Dia.\n"
+"Du måste uppgradera Dia för att kunna använda det."
+
+#: app/app_procs.c:453
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
 "%s"
 msgstr ""
+"Kan inte hitta register_sheets i bibliotek:\n"
+"%s"
 
-#: app/menus.c:32 app/menus.c:87
-msgid "/_File"
-msgstr "/Arkiv"
+#: app/color_area.c:260 lib/widgets.c:433
+msgid "Select color"
+msgstr "Välj färg"
 
-#. {"/File/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
-#: app/menus.c:33 app/menus.c:89
-msgid "/File/_New"
-msgstr "/Arkiv/Ny"
-
-#: app/menus.c:34 app/menus.c:90
-msgid "/File/_Open"
-msgstr "/Arkiv/Öppna"
-
-#: app/menus.c:35 app/menus.c:94
-msgid "/File/sep1"
-msgstr "/Arkiv/sep1"
-
-#: app/menus.c:36 app/menus.c:96
-msgid "/File/_Quit"
-msgstr "/Arkiv/Avsluta"
-
-#: app/menus.c:37
-msgid "/_Help"
-msgstr "Hjälp"
-
-#: app/menus.c:38
-msgid "/Help/_About"
-msgstr "/Hjälp/Om"
-
-#: app/menus.c:45 app/menus.c:58
-msgid "About"
-msgstr "Om"
-
-#: app/menus.c:45 app/menus.c:58
-msgid "Info about this program"
-msgstr "Information om detta program"
-
-#: app/menus.c:69
-msgid "File"
-msgstr "Arkiv"
-
-#: app/menus.c:70
-msgid "Help"
-msgstr "Hjälp"
-
-#: app/menus.c:91
-msgid "/File/_Save"
-msgstr ""
-
-#: app/menus.c:92
-msgid "/File/Save _As..."
-msgstr ""
-
-#: app/menus.c:93
-msgid "/File/_Export To EPS"
-msgstr ""
-
-#: app/menus.c:95
-msgid "/File/_Close"
-msgstr ""
-
-#: app/menus.c:97
-msgid "/_Edit"
-msgstr ""
-
-#: app/menus.c:99
-msgid "/Edit/_Copy"
-msgstr ""
-
-#: app/menus.c:100
-msgid "/Edit/C_ut"
-msgstr ""
-
-#: app/menus.c:101
-msgid "/Edit/_Paste"
-msgstr ""
-
-#: app/menus.c:102
-msgid "/Edit/_Delete"
-msgstr ""
-
-#: app/menus.c:103
-msgid "/_View"
-msgstr ""
-
-#: app/menus.c:105
-msgid "/View/Zoom _In"
-msgstr ""
-
-#: app/menus.c:106
-msgid "/View/Zoom _Out"
-msgstr ""
-
-#: app/menus.c:107
-msgid "/View/_Zoom"
-msgstr ""
-
-#: app/menus.c:108
-msgid "/View/Zoom/400%"
-msgstr ""
-
-#: app/menus.c:109
-msgid "/View/Zoom/283%"
-msgstr ""
-
-#: app/menus.c:110
-msgid "/View/Zoom/200%"
-msgstr ""
-
-#: app/menus.c:111
-msgid "/View/Zoom/141%"
-msgstr ""
-
-#: app/menus.c:112
-msgid "/View/Zoom/100%"
-msgstr ""
-
-#: app/menus.c:113
-msgid "/View/Zoom/85%"
-msgstr ""
-
-#: app/menus.c:114
-msgid "/View/Zoom/70.7%"
-msgstr ""
-
-#: app/menus.c:115
-msgid "/View/Zoom/50%"
-msgstr ""
-
-#: app/menus.c:116
-msgid "/View/Zoom/35.4%"
-msgstr ""
-
-#: app/menus.c:117
-msgid "/View/Zoom/25%"
-msgstr ""
-
-#: app/menus.c:118
-msgid "/View/Edit Grid..."
-msgstr ""
-
-#: app/menus.c:119
-msgid "/View/_Visible Grid"
-msgstr ""
-
-#: app/menus.c:120
-msgid "/View/_Snap To Grid"
-msgstr ""
-
-#: app/menus.c:121
-msgid "/View/Toggle _Rulers"
-msgstr ""
-
-#: app/menus.c:122
-msgid "/View/sep1"
-msgstr ""
-
-#: app/menus.c:123
-msgid "/View/New _View"
-msgstr ""
-
-#: app/menus.c:124
-msgid "/View/Show _All"
-msgstr ""
-
-#: app/menus.c:125
-msgid "/_Objects"
-msgstr ""
-
-#: app/menus.c:127
-msgid "/Objects/Place _Under"
-msgstr ""
-
-#: app/menus.c:128
-msgid "/Objects/Place _Over"
-msgstr ""
-
-#: app/menus.c:129 app/menus.c:132
-msgid "/Objects/sep1"
-msgstr ""
-
-#: app/menus.c:130
-msgid "/Objects/_Group"
-msgstr ""
-
-#: app/menus.c:131
-msgid "/Objects/_Ungroup"
-msgstr ""
-
-#: app/menus.c:133
-msgid "/Objects/Align _Horizontal"
-msgstr ""
-
-#: app/menus.c:134
-msgid "/Objects/Align Horizontal/Top"
-msgstr ""
-
-#: app/menus.c:135
-msgid "/Objects/Align Horizontal/Center"
-msgstr ""
-
-#: app/menus.c:136
-msgid "/Objects/Align Horizontal/Bottom"
-msgstr ""
-
-#: app/menus.c:137
-msgid "/Objects/Align _Vertical"
-msgstr ""
-
-#: app/menus.c:138
-msgid "/Objects/Align Vertical/Left"
-msgstr ""
-
-#: app/menus.c:139
-msgid "/Objects/Align Vertical/Center"
-msgstr ""
-
-#: app/menus.c:140
-msgid "/Objects/Align Vertical/Right"
-msgstr ""
-
-#: app/menus.c:143
-msgid "/_Dialogs"
-msgstr ""
-
-#: app/menus.c:144
-msgid "/Dialogs/_Properties"
-msgstr ""
-
-#: app/menus.c:145
-msgid "/Dialogs/_Layers"
-msgstr ""
-
-#: app/menus.c:206
-#, c-format
-msgid "Unable to set sensitivity for menu which doesn't exist: %s"
-msgstr ""
-
-#: app/menus.c:223
-#, c-format
-msgid "Unable to set state for menu which doesn't exist: %s"
-msgstr ""
-
-#: app/commands.c:79
+#: app/commands.c:124
 msgid "Open diagram"
-msgstr ""
+msgstr "Öppna diagram"
 
-#: app/commands.c:137 app/commands.c:249
+#: app/commands.c:185 app/commands.c:303
 msgid "File already exists"
-msgstr ""
+msgstr "Filen finns redan"
 
-#: app/commands.c:140 app/commands.c:252
+#: app/commands.c:188 app/commands.c:306
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
+"Filen '%s' existerar redan.\n"
+"Vill du skriva över den?"
 
-#: app/commands.c:206
+#: app/commands.c:256
 msgid "Save diagram"
-msgstr ""
+msgstr "Spara diagram"
 
-#: app/commands.c:317
+#: app/commands.c:372
 msgid "Export to postscript"
-msgstr ""
+msgstr "Exportera till PostScript"
 
-#: app/commands.c:351
+#: app/commands.c:410
 #, c-format
 msgid "Untitled-%d"
-msgstr ""
+msgstr "Namnlös-%d"
 
-#: app/commands.c:401
+#: app/commands.c:467
 msgid "No existing object to paste.\n"
-msgstr ""
+msgstr "Finns inget objekt att klistra in.\n"
 
-#: app/commands.c:471
+#: app/commands.c:526
 msgid "Copyright (C) 1999"
 msgstr ""
 
-#: app/commands.c:473
-msgid ""
-"Comment line 1\n"
-"Line 2"
-msgstr ""
-
-#: app/commands.c:479
-msgid "About Dia"
-msgstr ""
-
-#: app/commands.c:498
+#: app/commands.c:528 app/commands.c:555
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
+msgstr "Besök http://www.lysator.liu.se/~alla/dia för mer information"
+
+#: app/commands.c:535
+msgid "About Dia"
+msgstr "Om Dia"
+
+#: app/commands.c:551
+#, c-format
+msgid "Dia v %s by Alexander Larsson"
+msgstr "Dia v %s av Alexander Larsson"
+
+#: app/commands.c:559 app/layer_dialog.c:946 lib/message.c:62
+msgid "OK"
 msgstr ""
 
-#: app/commands.c:502
-msgid "Ok"
+#: app/diagram.c:125
+msgid "<Display>/Edit/Copy"
+msgstr "<Display>/Redigera/Kopiera"
+
+#: app/diagram.c:126
+msgid "<Display>/Edit/Cut"
+msgstr "<Display>/Redigera/Klipp ut"
+
+#: app/diagram.c:127
+msgid "<Display>/Edit/Paste"
+msgstr "<Display>/Redigera/Klistra in"
+
+#: app/diagram.c:129
+msgid "<Display>/Edit/Delete"
+msgstr "<Display>/Redigera/Ta bort"
+
+#: app/diagram.c:132
+msgid "<Display>/Objects/Send to Back"
+msgstr "<Display>/Objekt/Lägg underst"
+
+#: app/diagram.c:133
+msgid "<Display>/Objects/Bring to Front"
+msgstr "<Display>/Objekt/Lägg överst"
+
+#: app/diagram.c:135
+msgid "<Display>/Objects/Group"
+msgstr "<Display>/Objekt/Gruppera"
+
+#: app/diagram.c:136
+msgid "<Display>/Objects/Ungroup"
+msgstr "<Display>/Objet/Avgruppera"
+
+#: app/diagram.c:138
+msgid "<Display>/Objects/Align Horizontal/Left"
 msgstr ""
+
+#: app/diagram.c:139
+msgid "<Display>/Objects/Align Horizontal/Center"
+msgstr ""
+
+#: app/diagram.c:140
+msgid "<Display>/Objects/Align Horizontal/Right"
+msgstr ""
+
+#: app/diagram.c:141
+msgid "<Display>/Objects/Align Horizontal/Equal Distance"
+msgstr ""
+
+#: app/diagram.c:142
+msgid "<Display>/Objects/Align Vertical/Top"
+msgstr ""
+
+#: app/diagram.c:143
+msgid "<Display>/Objects/Align Vertical/Center"
+msgstr ""
+
+#: app/diagram.c:144
+msgid "<Display>/Objects/Align Vertical/Bottom"
+msgstr ""
+
+#: app/diagram.c:145
+msgid "<Display>/Objects/Align Vertical/Equal Distance"
+msgstr ""
+
+#: app/diagram.c:476
+msgid "Trying to ungroup with more or less that one selected object."
+msgstr ""
+
+#: app/disp_callbacks.c:105
+#, c-format
+msgid "Selected list is %s while selected_count is %d\n"
+msgstr ""
+
+#: app/disp_callbacks.c:106
+msgid "long"
+msgstr ""
+
+#: app/disp_callbacks.c:106
+msgid "empty"
+msgstr ""
+
+#: app/disp_callbacks.c:140
+msgid "No object menu"
+msgstr ""
+
+#: app/display.c:59 app/display.c:60
+msgid "Zoom"
+msgstr ""
+
+#: app/display.c:79
+msgid "Diagram modified!"
+msgstr ""
+
+#: app/display.c:700
+msgid "Really close?"
+msgstr ""
+
+#: app/display.c:703
+msgid ""
+"This diagram has not been saved.\n"
+"Are you sure you want to close this window?"
+msgstr ""
+
+#: app/display.c:752
+msgid "<Display>/View/Toggle Rulers"
+msgstr "<Display>/Visa/Aktivera linjaler"
+
+#: app/display.c:753
+msgid "<Display>/View/Visible Grid"
+msgstr "<Display>/Visa/Synligt rutnät"
+
+#: app/display.c:754
+msgid "<Display>/View/Snap To Grid"
+msgstr "<Display>/Visa/Följ rutnät"
+
+#: app/grid.c:141
+msgid "Grid options"
+msgstr ""
+
+#: app/grid.c:150
+msgid "Grid x size:"
+msgstr ""
+
+#: app/grid.c:168
+msgid "Grid y size:"
+msgstr ""
+
+#: app/interface.c:57
+msgid "Modify object(s)"
+msgstr ""
+
+#: app/interface.c:61
+msgid "Magnify"
+msgstr ""
+
+#: app/interface.c:65
+msgid "Scroll around the diagram"
+msgstr ""
+
+#: app/interface.c:69
+msgid "Create Text"
+msgstr ""
+
+#: app/interface.c:73
+msgid "Create Box"
+msgstr ""
+
+#: app/interface.c:77
+msgid "Create Ellipse"
+msgstr ""
+
+#: app/interface.c:81
+msgid "Create Line"
+msgstr ""
+
+#: app/interface.c:85
+msgid "Create Arc"
+msgstr ""
+
+#: app/interface.c:89
+msgid "Create Zigzagline"
+msgstr ""
+
+#: app/interface.c:93
+msgid "Create Polyline"
+msgstr ""
+
+#: app/interface.c:97
+msgid "Create Image"
+msgstr ""
+
+#: app/interface.c:542
+msgid ""
+"Foreground & background colors.  The small black and white squares reset "
+"colors.  The small arrows swap colors.  Double click to change colors."
+msgstr ""
+
+#: app/interface.c:588
+msgid "Diagram Editor"
+msgstr ""
+
+#: app/layer_dialog.c:57
+msgid "New Layer"
+msgstr "Nytt lager"
+
+#: app/layer_dialog.c:58
+msgid "Raise Layer"
+msgstr "Höj lager"
+
+#: app/layer_dialog.c:59
+msgid "Lower Layer"
+msgstr "Sänk lager"
+
+#: app/layer_dialog.c:60
+msgid "Delete Layer"
+msgstr "Ta bort lager"
+
+#: app/layer_dialog.c:194
+msgid "Layers"
+msgstr "Lager"
+
+#: app/layer_dialog.c:207
+msgid "Diagrams:"
+msgstr "Diagram:"
+
+#: app/defaults.c:52 app/layer_dialog.c:252 app/preferences.c:485
+#: app/properties.c:51
+msgid "Close"
+msgstr "Stäng"
+
+#: app/layer_dialog.c:297
+msgid "New layer"
+msgstr "Nytt lager"
+
+#: app/layer_dialog.c:485
+msgid "none"
+msgstr "inget"
+
+#: app/layer_dialog.c:921
+msgid "Edit Layer Attributes"
+msgstr "Ändra lager attribut"
+
+#: app/layer_dialog.c:937
+msgid "Layer name:"
+msgstr "Lager namn:"
+
+#: app/layer_dialog.c:956
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: app/load_save.c:76
+msgid "Error reading diagram file\n"
+msgstr "Fel vid läsning av diagramfil\n"
+
+#: app/load_save.c:123
+msgid ""
+"Error loading diagram.\n"
+"Linked object not found in document."
+msgstr ""
+
+#: app/load_save.c:159
+#, c-format
+msgid "Couldn't open: '%s' for reading.\n"
+msgstr ""
+
+#: app/load_save.c:165
+msgid "You must specify a file, not a directory.\n"
+msgstr ""
+
+#: app/load_save.c:174 app/load_save.c:179
+#, c-format
+msgid ""
+"Error loading diagram %s.\n"
+"Unknown file type."
+msgstr ""
+
+#: app/load_save.c:186
+#, c-format
+msgid ""
+"Error loading diagram %s.\n"
+"Not a Dia file."
+msgstr ""
+
+#: app/load_save.c:328
+msgid ""
+"Internal error saving diagram\n"
+" con_point_nr >= other_obj->num_connections\n"
+msgstr ""
+
+#: app/load_save.c:377 app/render_eps.c:139
+#, c-format
+msgid "Couldn't open: '%s' for writing.\n"
+msgstr ""
+
+#: app/menus.c:34 app/menus.c:44
+msgid "_New diagram"
+msgstr "_Nytt diagram"
+
+#: app/menus.c:34 app/menus.c:44
+msgid "Create new diagram"
+msgstr "Skapa ett nytt diagram"
+
+#: app/menus.c:51
+msgid "_Export To EPS"
+msgstr "_Exportera till EPS"
+
+#: app/menus.c:86
+msgid "Zoom _In"
+msgstr "Zomma _in"
+
+#: app/menus.c:86
+#, c-format
+msgid "Zoom in 50%"
+msgstr "Zomma in 50%"
+
+#: app/menus.c:87
+msgid "Zoom _Out"
+msgstr "Zooma _ut"
+
+#: app/menus.c:87
+#, c-format
+msgid "Zoom out 50%"
+msgstr "Zooma ut 50%"
+
+#: app/menus.c:88
+msgid "_Zoom"
+msgstr "_Zooma"
+
+#: app/menus.c:89
+msgid "Edit Grid..."
+msgstr "Ändra rutnät..."
+
+#: app/menus.c:90
+msgid "_Visible Grid"
+msgstr "_Synligt rutnät"
+
+#: app/menus.c:92
+msgid "_Snap To Grid"
+msgstr "_Följ rutnät"
+
+#: app/menus.c:94
+msgid "Toggle _Rulers"
+msgstr "Aktivera _linjaler"
+
+#: app/menus.c:97
+msgid "New _View"
+msgstr "Ny _vy"
+
+#: app/menus.c:98
+msgid "Show _All"
+msgstr "Visa _allt"
+
+#: app/menus.c:103 lib/widgets.c:176 objects/UML/association.c:883
+msgid "Left"
+msgstr "Vänster"
+
+#: app/menus.c:104 app/menus.c:112 lib/widgets.c:182
+msgid "Center"
+msgstr "Center"
+
+#: app/menus.c:105 lib/widgets.c:188 objects/UML/association.c:876
+msgid "Right"
+msgstr "Höger"
+
+#: app/menus.c:106 app/menus.c:114
+msgid "Equal Distance"
+msgstr "Lika avstånd"
+
+#: app/menus.c:111
+msgid "Top"
+msgstr "Över"
+
+#: app/menus.c:113
+msgid "Bottom"
+msgstr "Under"
+
+#: app/menus.c:119
+msgid "Send to _Back"
+msgstr "Lägg underst"
+
+#: app/menus.c:120
+msgid "Bring to _Front"
+msgstr "Lägg överst"
+
+#: app/menus.c:122
+msgid "_Group"
+msgstr "_Gruppera"
+
+#: app/menus.c:123
+msgid "_Ungroup"
+msgstr "_Avgruppera"
+
+#: app/menus.c:125
+msgid "Align _Horizontal"
+msgstr ""
+
+#: app/menus.c:126
+msgid "Align _Vertical"
+msgstr ""
+
+#: app/menus.c:131
+msgid "_Properties"
+msgstr ""
+
+#: app/menus.c:132
+msgid "_Layers"
+msgstr "_Lager"
+
+#: app/menus.c:144
+msgid "File"
+msgstr "Arkiv"
+
+#: app/menus.c:145
+msgid "Help"
+msgstr "Hjälp"
+
+#: app/menus.c:153
+msgid "Objects"
+msgstr "Objekt"
+
+#: app/menus.c:154
+msgid "Dialogs"
+msgstr "Dialoger"
+
+#: app/menus.c:161 app/menus.c:173
+msgid "/_File"
+msgstr "/_Arkiv"
+
+#. {"/File/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
+#: app/menus.c:162 app/menus.c:175
+msgid "/File/_New"
+msgstr "/Arkiv/_Ny"
+
+#: app/menus.c:163 app/menus.c:176
+msgid "/File/_Open"
+msgstr "/Arkiv/_Öppna"
+
+#: app/menus.c:164
+msgid "/File/_Preferences..."
+msgstr "/Arkiv/Inställningar..."
+
+#: app/menus.c:165 app/menus.c:180
+msgid "/File/sep1"
+msgstr "/Arkiv/sep1"
+
+#: app/menus.c:166 app/menus.c:182
+msgid "/File/_Quit"
+msgstr "/Arkiv/_Avsluta"
+
+#: app/menus.c:167
+msgid "/_Help"
+msgstr "/_Hjälp"
+
+#: app/menus.c:168
+msgid "/Help/_About"
+msgstr "/Hjälp/_Om"
+
+#: app/menus.c:177
+msgid "/File/_Save"
+msgstr "/Arkiv/_Spara"
+
+#: app/menus.c:178
+msgid "/File/Save _As..."
+msgstr "/Arkiv/Spara som..."
+
+#: app/menus.c:179
+msgid "/File/_Export To EPS"
+msgstr "/Arkiv/_Exportera till EPS"
+
+#: app/menus.c:181
+msgid "/File/_Close"
+msgstr "/Arkiv/Stäng"
+
+#: app/menus.c:183
+msgid "/_Edit"
+msgstr "/_Redigera"
+
+#. {"/Edit/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
+#: app/menus.c:185
+msgid "/Edit/_Copy"
+msgstr "/Redigera/_Kopiera"
+
+#: app/menus.c:186
+msgid "/Edit/C_ut"
+msgstr "/Redigera/K_opiera"
+
+#: app/menus.c:187
+msgid "/Edit/_Paste"
+msgstr "/Redigera/Kl_istra in"
+
+#: app/menus.c:188
+msgid "/Edit/_Delete"
+msgstr "/Redigera/Radera"
+
+#: app/menus.c:189
+msgid "/_View"
+msgstr "/_Visa"
+
+#. {"/View/tearoff1 ",         NULL,         tearoff,                     0, "<Tearoff>" },
+#: app/menus.c:191
+msgid "/View/Zoom _In"
+msgstr "/Visa/Zooma _In"
+
+#: app/menus.c:192
+msgid "/View/Zoom _Out"
+msgstr "/Visa/Zooma _Ut"
+
+#: app/menus.c:193
+msgid "/View/_Zoom"
+msgstr "/Visa/_Zooma"
+
+#: app/menus.c:194
+#, c-format
+msgid "/View/Zoom/400%"
+msgstr "/Visa/Zooma/400%"
+
+#: app/menus.c:195
+#, c-format
+msgid "/View/Zoom/283%"
+msgstr "/Visa/Zooma/283%"
+
+#: app/menus.c:196
+#, c-format
+msgid "/View/Zoom/200%"
+msgstr "/Visa/Zooma/141%"
+
+#: app/menus.c:197
+#, c-format
+msgid "/View/Zoom/141%"
+msgstr ""
+
+#: app/menus.c:198
+#, c-format
+msgid "/View/Zoom/100%"
+msgstr ""
+
+#: app/menus.c:199
+#, c-format
+msgid "/View/Zoom/85%"
+msgstr ""
+
+#: app/menus.c:200
+#, c-format
+msgid "/View/Zoom/70.7%"
+msgstr ""
+
+#: app/menus.c:201
+#, c-format
+msgid "/View/Zoom/50%"
+msgstr ""
+
+#: app/menus.c:202
+#, c-format
+msgid "/View/Zoom/35.4%"
+msgstr ""
+
+#: app/menus.c:203
+#, c-format
+msgid "/View/Zoom/25%"
+msgstr ""
+
+#: app/menus.c:204
+msgid "/View/Edit Grid..."
+msgstr "/Visa/Ändra rutnät..."
+
+#: app/menus.c:205
+msgid "/View/_Visible Grid"
+msgstr "/Visa/_Synligt rutnät"
+
+#: app/menus.c:206
+msgid "/View/_Snap To Grid"
+msgstr "/Visa/Följ rutnät"
+
+#: app/menus.c:207
+msgid "/View/Toggle _Rulers"
+msgstr "/Visa/Aktivera rutnät"
+
+#: app/menus.c:208
+msgid "/View/sep1"
+msgstr "/Visa/sep1"
+
+#: app/menus.c:209
+msgid "/View/New _View"
+msgstr "/Visa/Ny _vy"
+
+#: app/menus.c:210
+msgid "/View/Show _All"
+msgstr "/Visa/Visa _allt"
+
+#: app/menus.c:211
+msgid "/_Objects"
+msgstr "/_Objekt"
+
+#. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
+#: app/menus.c:213
+msgid "/Objects/Send to _Back"
+msgstr "/Objekt/Lägg underst"
+
+#: app/menus.c:214
+msgid "/Objects/Bring to _Front"
+msgstr "/Objekt/Lägg överst"
+
+#: app/menus.c:215 app/menus.c:218
+msgid "/Objects/sep1"
+msgstr "/Objekt/sep"
+
+#: app/menus.c:216
+msgid "/Objects/_Group"
+msgstr "/Objekt/Gruppera"
+
+#: app/menus.c:217
+msgid "/Objects/_Ungroup"
+msgstr "/Objekt/Avgruppera"
+
+#: app/menus.c:219
+msgid "/Objects/Align _Horizontal"
+msgstr ""
+
+#: app/menus.c:220
+msgid "/Objects/Align Horizontal/Left"
+msgstr ""
+
+#: app/menus.c:221
+msgid "/Objects/Align Horizontal/Center"
+msgstr ""
+
+#: app/menus.c:222
+msgid "/Objects/Align Horizontal/Right"
+msgstr ""
+
+#: app/menus.c:223
+msgid "/Objects/Align Horizontal/Equal Distance"
+msgstr ""
+
+#: app/menus.c:224
+msgid "/Objects/Align _Vertical"
+msgstr ""
+
+#: app/menus.c:225
+msgid "/Objects/Align Vertical/Top"
+msgstr ""
+
+#: app/menus.c:226
+msgid "/Objects/Align Vertical/Center"
+msgstr ""
+
+#: app/menus.c:227
+msgid "/Objects/Align Vertical/Bottom"
+msgstr ""
+
+#: app/menus.c:228
+msgid "/Objects/Align Vertical/Equal Distance"
+msgstr ""
+
+#. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
+#: app/menus.c:231
+msgid "/_Dialogs"
+msgstr "/_Dialoger"
+
+#: app/menus.c:232
+msgid "/Dialogs/_Properties"
+msgstr "/Dialoger/_Egenskaper"
+
+#: app/menus.c:233
+msgid "/Dialogs/_Layers"
+msgstr "/Dialoger/_Lager"
+
+#: app/properties.c:42
+msgid "Object properties"
+msgstr "Objektegenskaper"
+
+#: app/defaults.c:61 app/preferences.c:494 app/properties.c:60
+msgid "Apply"
+msgstr "Verkställ"
+
+#: app/properties.c:73
+msgid "This object has no properties."
+msgstr "Detta objekt har inga egenskaper."
+
+#: app/defaults.c:43
+msgid "Object defaults"
+msgstr "Standardvärden för objektet"
+
+#: app/defaults.c:73
+msgid "This object has no defaults."
+msgstr "Detta objekt har inga standardvärden"
+
+#: app/preferences.c:68
+msgid "User Interface"
+msgstr "Användargränssnitt"
+
+#: app/preferences.c:69
+msgid "View Defaults"
+msgstr "Visa standardvärden"
+
+#: app/preferences.c:76
+msgid "Reset tools after create:"
+msgstr "Nollställ verktyg efter att nytt objekt skapats"
+
+#: app/preferences.c:78
+msgid "Grid:"
+msgstr "Rutnät:"
+
+#: app/preferences.c:79
+msgid "Visible:"
+msgstr "Synligt:"
+
+#: app/preferences.c:80
+msgid "X Size:"
+msgstr "X storlek:"
+
+#: app/preferences.c:81
+msgid "Y Size:"
+msgstr "Y storlek:"
+
+#: app/preferences.c:83
+msgid "New window:"
+msgstr "Nytt fönster:"
+
+#: app/preferences.c:84
+msgid "Width:"
+msgstr "Bredd:"
+
+#: app/preferences.c:85
+msgid "Height:"
+msgstr "Höjd:"
+
+#: app/preferences.c:86
+msgid "Magnify:"
+msgstr "Förstora:"
+
+#: app/preferences.c:476
+msgid "Preferences"
+msgstr "Inställningar"
+
+#: lib/diagramdata.c:39
+msgid "Background"
+msgstr "Bakgrund"
+
+#: lib/font.c:330
+#, c-format
+msgid "Warning no X Font for %s found, using fixed.\n"
+msgstr "Varning: Inget X-typsnitt för %s hittat, använder Fixed \n"
+
+#: lib/font.c:381
+#, c-format
+msgid "Font %s not found, using Courier instead.\n"
+msgstr "Hittar inte typsnittet %s, använder Courier istället.\n"
+
+#: lib/message.c:95
+msgid "Notice"
+msgstr "Observera"
+
+#: lib/message.c:106 lib/message.c:118
+msgid "Warning"
+msgstr "Varning"
+
+#: lib/widgets.c:269
+msgid "Solid"
+msgstr "Solid"
+
+#: lib/widgets.c:275
+msgid "Dashed"
+msgstr "Streckad"
+
+#: lib/widgets.c:281
+msgid "Dash-Dot"
+msgstr "Streck-prick"
+
+#: lib/widgets.c:287
+msgid "Dash-Dot-Dot"
+msgstr "Streck-prick-prick"
+
+#: lib/widgets.c:293
+msgid "Dotted"
+msgstr "Punkterad"
+
+#: lib/widgets.c:595 objects/UML/association.c:869
+msgid "None"
+msgstr "Ingen"
+
+#: lib/widgets.c:601
+msgid "Lines"
+msgstr "Linjer"
+
+#: lib/widgets.c:607
+msgid "Hollow Triangle"
+msgstr "Ihålig triangel"
+
+#: lib/widgets.c:613
+msgid "Filled Triangle"
+msgstr "Fylld triangel"
+
+#: lib/widgets.c:619
+msgid "Hollow Diamond"
+msgstr "Ihålig diamant"
+
+#: lib/widgets.c:625
+msgid "Filled Diamond"
+msgstr "Fylld diamant"
+
+#: lib/widgets.c:631
+msgid "Half Head"
+msgstr "Halvt huvud"
+
+#: lib/widgets.c:647
+msgid "Length: "
+msgstr "Längd: "
+
+#: lib/widgets.c:660
+msgid "Width: "
+msgstr "Bredd: "
+
+#: lib/widgets.c:776
+msgid "Select image file"
+msgstr "Välj bildfil"
+
+#: lib/widgets.c:806
+msgid "Browse"
+msgstr "Bläddra"
+
+#. type
+#: objects/UML/actor.c:91
+msgid "Create an actor"
+msgstr ""
+
+#: objects/UML/actor.c:293
+msgid "Actor"
+msgstr ""
+
+#. type
+#: objects/UML/association.c:142
+msgid "Association, two classes are associated."
+msgstr ""
+
+#. type
+#: objects/UML/association.c:152
+msgid "Aggregation, one class is part of another."
+msgstr ""
+
+#: objects/ER/attribute.c:188 objects/ER/entity.c:188
+#: objects/ER/relationship.c:197 objects/UML/association.c:847
+#: objects/UML/class_dialog.c:615 objects/UML/class_dialog.c:1482
+#: objects/UML/class_dialog.c:1644 objects/UML/class_dialog.c:2100
+#: objects/UML/dependency.c:512 objects/UML/generalization.c:489
+#: objects/UML/large_package.c:520 objects/UML/realizes.c:485
+msgid "Name:"
+msgstr "Namn:"
+
+#: objects/UML/association.c:859
+msgid "Direction:"
+msgstr ""
+
+#: objects/UML/association.c:907 objects/UML/association.c:915
+msgid "Side A"
+msgstr ""
+
+#: objects/UML/association.c:909 objects/UML/association.c:917
+msgid "Side B"
+msgstr ""
+
+#: objects/UML/association.c:923
+msgid "Role:"
+msgstr ""
+
+#: objects/UML/association.c:935
+msgid "Multiplicity:"
+msgstr ""
+
+#. Show arrow:
+#: objects/UML/association.c:946
+msgid "Show arrow"
+msgstr "Visa pil"
+
+#. Aggregate
+#: objects/UML/association.c:952
+msgid "Aggregate"
+msgstr ""
+
+#. Composition
+#: objects/UML/association.c:960
+msgid "Composition"
+msgstr ""
+
+#. type
+#: objects/UML/class.c:75
+msgid "Create a class"
+msgstr ""
+
+#. type
+#: objects/UML/class.c:84
+msgid "Create a template class"
+msgstr ""
+
+#. Class page:
+#: objects/UML/class.c:628 objects/UML/class_dialog.c:90
+msgid "Class"
+msgstr ""
+
+#: objects/UML/class_dialog.c:96
+msgid "Class name:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:107 objects/UML/dependency.c:524
+#: objects/UML/generalization.c:501 objects/UML/large_package.c:532
+#: objects/UML/object.c:689 objects/UML/realizes.c:497
+msgid "Stereotype:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:118
+msgid "Abstract"
+msgstr ""
+
+#: objects/UML/class_dialog.c:126
+msgid "Attributes visible"
+msgstr ""
+
+#: objects/UML/class_dialog.c:130
+msgid "Suppress Attributes"
+msgstr ""
+
+#: objects/UML/class_dialog.c:138
+msgid "Operations visible"
+msgstr ""
+
+#: objects/UML/class_dialog.c:142
+msgid "Operations Attributes"
+msgstr ""
+
+#. Attributes page:
+#: objects/UML/class_dialog.c:550
+msgid "Attributes"
+msgstr ""
+
+#: objects/UML/class_dialog.c:578 objects/UML/class_dialog.c:1442
+#: objects/UML/class_dialog.c:1602 objects/UML/class_dialog.c:2063
+msgid "New"
+msgstr "Ny"
+
+#: objects/UML/class_dialog.c:584 objects/UML/class_dialog.c:1448
+#: objects/UML/class_dialog.c:1609 objects/UML/class_dialog.c:2069
+msgid "Delete"
+msgstr "Ta bort"
+
+#: objects/UML/class_dialog.c:590 objects/UML/class_dialog.c:1454
+#: objects/UML/class_dialog.c:1616 objects/UML/class_dialog.c:2075
+msgid "Move up"
+msgstr "Flytta upp"
+
+#: objects/UML/class_dialog.c:596 objects/UML/class_dialog.c:1460
+#: objects/UML/class_dialog.c:1623 objects/UML/class_dialog.c:2081
+msgid "Move down"
+msgstr "Flytta ner"
+
+#: objects/UML/class_dialog.c:607
+msgid "Attribute data"
+msgstr ""
+
+#: objects/UML/class_dialog.c:627 objects/UML/class_dialog.c:1494
+#: objects/UML/class_dialog.c:1656 objects/UML/class_dialog.c:2112
+msgid "Type:"
+msgstr "Typ:"
+
+#: objects/UML/class_dialog.c:639
+msgid "Value:"
+msgstr "Värde:"
+
+#: objects/UML/class_dialog.c:651 objects/UML/class_dialog.c:1506
+msgid "Visibility:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:660 objects/UML/class_dialog.c:1515
+msgid "Public"
+msgstr ""
+
+#: objects/UML/class_dialog.c:668 objects/UML/class_dialog.c:1523
+msgid "Private"
+msgstr ""
+
+#: objects/UML/class_dialog.c:676 objects/UML/class_dialog.c:1531
+msgid "Protected"
+msgstr ""
+
+#: objects/UML/class_dialog.c:684 objects/UML/class_dialog.c:1539
+msgid "Implementation"
+msgstr ""
+
+#: objects/UML/class_dialog.c:700 objects/UML/class_dialog.c:1555
+msgid "Class scope"
+msgstr ""
+
+#. Operations page:
+#: objects/UML/class_dialog.c:1414
+msgid "Operations"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1472
+msgid "Operation data"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1561
+msgid "abstract"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1573
+msgid "Parameters:"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1635
+msgid "Parameter data"
+msgstr ""
+
+#: objects/UML/class_dialog.c:1668
+msgid "Def. value:"
+msgstr ""
+
+#. Templates page:
+#: objects/UML/class_dialog.c:2029
+msgid "Templates"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2035
+msgid "Template class"
+msgstr ""
+
+#: objects/UML/class_dialog.c:2092
+msgid "Formal parameter data"
+msgstr ""
+
+#. type
+#: objects/UML/constraint.c:106
+msgid "Constraint, place a constraint on something."
+msgstr ""
+
+#: objects/UML/constraint.c:467
+msgid "Constraint:"
+msgstr ""
+
+#. type
+#: objects/UML/dependency.c:111
+msgid "Create a dependency"
+msgstr ""
+
+#: objects/UML/dependency.c:536
+msgid "Show arrow:"
+msgstr ""
+
+#. type
+#: objects/UML/generalization.c:107
+msgid "Generalization, class inheritance."
+msgstr ""
+
+#. type
+#: objects/UML/implements.c:108
+msgid "Implements, class implements a specific interface."
+msgstr ""
+
+#: objects/UML/implements.c:522
+msgid "Interface:"
+msgstr ""
+
+#. type
+#: objects/UML/large_package.c:107
+msgid "Create a (large) package"
+msgstr ""
+
+#. type
+#: objects/UML/note.c:89
+msgid "Create a note"
+msgstr ""
+
+#. type
+#: objects/UML/realizes.c:107
+msgid "Realizes, implements a specific interface."
+msgstr ""
+
+#. type
+#: objects/UML/small_package.c:91
+msgid "Create a (small) package"
+msgstr ""
+
+#: objects/UML/uml.c:92
+msgid "UML"
+msgstr ""
+
+#: objects/UML/uml.c:93
+msgid "Editor for UML Static Structure Diagrams."
+msgstr ""
+
+#. type
+#: objects/UML/usecase.c:89
+msgid "Create a use case"
+msgstr ""
+
+#. type
+#: objects/UML/object.c:118
+msgid "Create an object"
+msgstr ""
+
+#: objects/UML/object.c:677
+msgid "Explicit state:"
+msgstr ""
+
+#: objects/UML/object.c:699
+msgid "Attributes:"
+msgstr ""
+
+#: objects/UML/object.c:709
+msgid "Show attributes"
+msgstr ""
+
+#: objects/UML/object.c:713
+msgid "Active object"
+msgstr ""
+
+#: objects/UML/object.c:718
+msgid "multiple instance"
+msgstr ""
+
+#. type
+#: objects/UML/lifeline.c:112
+msgid "Create a lifeline"
+msgstr ""
+
+#: objects/UML/lifeline.c:566
+msgid "Show focus of control:"
+msgstr ""
+
+#: objects/UML/lifeline.c:571
+msgid "Show destruction mark:"
+msgstr ""
+
+#. type
+#: objects/UML/message.c:128
+msgid "Create a message"
+msgstr ""
+
+#: objects/UML/message.c:568
+msgid "Message:"
+msgstr ""
+
+#: objects/UML/message.c:582
+msgid "Message type:"
+msgstr ""
+
+#.
+#: objects/UML/message.c:587
+msgid "Call"
+msgstr ""
+
+#: objects/UML/message.c:592
+msgid "Return"
+msgstr ""
+
+#: objects/UML/message.c:597
+msgid "Asynchronous"
+msgstr ""
+
+#: objects/UML/message.c:602
+msgid "Create"
+msgstr ""
+
+#: objects/UML/message.c:607
+msgid "Destroy"
+msgstr ""
+
+#: objects/UML/message.c:612
+msgid "Simple"
+msgstr ""
+
+#: objects/UML/message.c:617
+msgid "Recursive"
+msgstr ""
+
+#. type
+#: objects/UML/component.c:91
+msgid "Create a component"
+msgstr ""
+
+#. type
+#: objects/ER/attribute.c:121 objects/ER/attribute.c:453
+msgid "Attribute"
+msgstr ""
+
+#: objects/ER/attribute.c:196
+msgid "Key"
+msgstr ""
+
+#: objects/ER/attribute.c:202
+msgid "Weak key"
+msgstr ""
+
+#: objects/ER/attribute.c:208
+msgid "Derived"
+msgstr ""
+
+#: objects/ER/attribute.c:214
+msgid "Multivalue"
+msgstr ""
+
+#: objects/ER/attribute.c:220 objects/ER/entity.c:202
+#: objects/ER/relationship.c:233 objects/standard/box.c:183
+#: objects/standard/ellipse.c:174 objects/standard/image.c:239
+msgid "Border width:"
+msgstr "Rambredd:"
+
+#: objects/ER/attribute.c:231 objects/ER/entity.c:213
+#: objects/ER/relationship.c:244 objects/standard/box.c:198
+#: objects/standard/ellipse.c:189 objects/standard/image.c:254
+msgid "Foreground color:"
+msgstr "Förgrundsfärg:"
+
+#: objects/ER/attribute.c:239 objects/ER/entity.c:221
+#: objects/ER/relationship.c:252 objects/standard/box.c:209
+#: objects/standard/ellipse.c:200
+msgid "Background color:"
+msgstr "Bakgrundsfärg:"
+
+#. type
+#: objects/ER/entity.c:115 objects/ER/entity.c:415
+msgid "Entity"
+msgstr ""
+
+#. type
+#: objects/ER/entity.c:124
+msgid "Weak Entity"
+msgstr ""
+
+#: objects/ER/entity.c:196
+msgid "Weak"
+msgstr ""
+
+#: objects/ER/er.c:52
+msgid "ER"
+msgstr ""
+
+#: objects/ER/er.c:53
+msgid "Editor for Entity Relations Diagrams."
+msgstr ""
+
+#. type
+#: objects/ER/participation.c:97
+msgid "Create a participation"
+msgstr ""
+
+#: objects/ER/participation.c:393
+msgid "Total:"
+msgstr ""
+
+#. type
+#: objects/ER/relationship.c:123 objects/ER/relationship.c:507
+msgid "Relationship"
+msgstr ""
+
+#: objects/ER/relationship.c:205
+msgid "Left Cardinality:"
+msgstr ""
+
+#: objects/ER/relationship.c:213
+msgid "Right Cardinality:"
+msgstr ""
+
+#: objects/ER/relationship.c:221
+msgid "Rotate"
+msgstr ""
+
+#: objects/ER/relationship.c:227
+msgid "Identifying"
+msgstr ""
+
+#. type
+#: objects/network/bus.c:97
+msgid "Ethernet bus."
+msgstr "Ethernet buss."
+
+#: objects/network/bus.c:190
+msgid "Number of handles:"
+msgstr "Antal handtag:"
+
+#. type
+#: objects/network/computer.c:55
+msgid "A Computer with a tower case."
+msgstr "En dator med en tornlåda."
+
+#. type
+#: objects/network/disc.c:55
+msgid "The symbol for storage. Disc or database."
+msgstr "Symbol för en lagringsenhet. Disk eller databas."
+
+#. type
+#: objects/network/monitor.c:56
+msgid "A monitor, with a stand"
+msgstr "En monitor med stativ"
+
+#: objects/network/network.c:54
+msgid "Network"
+msgstr "Nätverk"
+
+#: objects/network/network.c:55
+msgid "Objects to design network diagrams with"
+msgstr "Objekt för att rita nätverksdiagram"
+
+#. type
+#: objects/network/printer.c:56
+msgid "A simple Printer"
+msgstr "En enkel skrivare"
+
+#: objects/standard/arc.c:182 objects/standard/line.c:177
+#: objects/standard/polyline.c:184 objects/standard/zigzagline.c:183
+msgid "Line width:"
+msgstr "Linjebredd:"
+
+#: objects/standard/arc.c:196 objects/standard/line.c:191
+#: objects/standard/polyline.c:198 objects/standard/textobj.c:220
+#: objects/standard/zigzagline.c:197
+msgid "Color:"
+msgstr "Färg:"
+
+#: objects/standard/arc.c:207 objects/standard/arc.c:304
+#: objects/standard/box.c:228 objects/standard/box.c:318
+#: objects/standard/ellipse.c:211 objects/standard/ellipse.c:260
+#: objects/standard/image.c:265 objects/standard/image.c:360
+#: objects/standard/line.c:202 objects/standard/line.c:297
+#: objects/standard/polyline.c:209 objects/standard/polyline.c:307
+#: objects/standard/zigzagline.c:208 objects/standard/zigzagline.c:305
+msgid "Line style:"
+msgstr "Linjetyp:"
+
+#: objects/standard/arc.c:218 objects/standard/arc.c:315
+#: objects/standard/line.c:213 objects/standard/line.c:308
+#: objects/standard/polyline.c:220 objects/standard/polyline.c:318
+#: objects/standard/zigzagline.c:222 objects/standard/zigzagline.c:316
+msgid "Start arrow:"
+msgstr "Startpil"
+
+#: objects/standard/arc.c:232 objects/standard/arc.c:329
+#: objects/standard/line.c:227 objects/standard/line.c:322
+#: objects/standard/polyline.c:234 objects/standard/polyline.c:332
+#: objects/standard/zigzagline.c:236 objects/standard/zigzagline.c:330
+msgid "End arrow:"
+msgstr "Slutpil"
+
+#: objects/standard/box.c:220 objects/standard/box.c:310
+msgid "Draw background"
+msgstr "Rita bakgrund"
+
+#: objects/standard/box.c:239 objects/standard/box.c:329
+msgid "Corner rounding:"
+msgstr "Rundade hörn:"
+
+#: objects/standard/textobj.c:184 objects/standard/textobj.c:278
+msgid "Alignment:"
+msgstr ""
+
+#: objects/standard/textobj.c:195 objects/standard/textobj.c:289
+msgid "Font:"
+msgstr "Typsnitt"
+
+#: objects/standard/textobj.c:206 objects/standard/textobj.c:300
+msgid "Fontsize:"
+msgstr "Typsnittsstorlek"
+
+#: objects/standard/image.c:212 objects/standard/image.c:333
+msgid "Image file:"
+msgstr "Bildfil:"
+
+#: objects/standard/image.c:223
+msgid "Keep aspect ratio"
+msgstr "Behåll proportioner"
+
+#: objects/standard/image.c:231
+msgid "Show border"
+msgstr "Visa ram"
+
+#: objects/standard/image.c:344
+msgid "Keep aspect ratio:"
+msgstr "Behåll proportioner:"
+
+#: objects/standard/image.c:352
+msgid "Show border:"
+msgstr "Visa ram:"
+
+#. Found file in same dir as diagram.
+#: objects/standard/image.c:833 objects/standard/image.c:843
+#, c-format
+msgid ""
+"The image file '%s' was not found in that directory.\n"
+"Using the file '%s' instead\n"
+msgstr ""
+
+#: objects/standard/image.c:848 objects/standard/image.c:877
+#, c-format
+msgid "The image file '%s' was not found.\n"
+msgstr ""
+
+#: objects/standard/polyline.c:665
+msgid "Add Corner"
+msgstr "Lägg till nod"
+
+#: objects/standard/polyline.c:666
+msgid "Delete Corner"
+msgstr "Ta bort nod"
