@@ -32,6 +32,7 @@
 #include "text.h"
 #include "widgets.h"
 #include "message.h"
+#include "properties.h"
 
 #include "pixmaps/ellipse.xpm"
 
@@ -47,23 +48,7 @@ typedef enum {
 } AnchorShape;
 
 typedef struct _Ellipse Ellipse;
-typedef struct _EllipsePropertiesDialog EllipsePropertiesDialog;
 typedef struct _EllipseDefaultsDialog EllipseDefaultsDialog;
-typedef struct _EllipseState EllipseState;
-
-struct _EllipseState {
-  ObjectState obj_state;
-  
-  real border_width;
-  Color border_color;
-  Color inner_color;
-  gboolean show_background;
-  LineStyle line_style;
-  real dashlength;
-
-  real padding;
-  TextAttributes text_attrib;
-};
 
 struct _Ellipse {
   Element element;
@@ -87,27 +72,8 @@ typedef struct _EllipseProperties {
   real border_width;
 
   real padding;
-  Font *font;
-  real font_size;
   Color *font_color;
 } EllipseProperties;
-
-struct _EllipsePropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkSpinButton *border_width;
-  DiaColorSelector *fg_color;
-  DiaColorSelector *bg_color;
-  GtkToggleButton *show_background;
-  DiaLineStyleSelector *line_style;
-
-  GtkSpinButton *padding;
-  DiaFontSelector *font;
-  GtkSpinButton *font_size;
-  DiaColorSelector *font_color;
-
-  Ellipse *ellipse;
-};
 
 struct _EllipseDefaultsDialog {
   GtkWidget *vbox;
@@ -120,7 +86,6 @@ struct _EllipseDefaultsDialog {
 };
 
 
-static EllipsePropertiesDialog *ellipse_properties_dialog;
 static EllipseDefaultsDialog *ellipse_defaults_dialog;
 static EllipseProperties default_properties;
 
@@ -139,16 +104,15 @@ static Object *ellipse_create(Point *startpoint,
 			  Handle **handle2);
 static void ellipse_destroy(Ellipse *ellipse);
 static Object *ellipse_copy(Ellipse *ellipse);
-static GtkWidget *ellipse_get_properties(Ellipse *ellipse);
-static ObjectChange *ellipse_apply_properties(Ellipse *ellipse);
 
-static EllipseState *ellipse_get_state(Ellipse *ellipse);
-static void ellipse_set_state(Ellipse *ellipse, EllipseState *state);
+static PropDescription *ellipse_describe_props(Ellipse *ellipse);
+static void ellipse_get_props(Ellipse *ellipse, Property *props, guint nprops);
+static void ellipse_set_props(Ellipse *ellipse, Property *props, guint nprops);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
 static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *ellipse_get_defaults();
-static void ellipse_apply_defaults();
+static GtkWidget *ellipse_get_defaults(void);
+static void ellipse_apply_defaults(void);
 
 static ObjectTypeOps ellipse_type_ops =
 {
@@ -176,210 +140,129 @@ static ObjectOps ellipse_ops = {
   (CopyFunc)            ellipse_copy,
   (MoveFunc)            ellipse_move,
   (MoveHandleFunc)      ellipse_move_handle,
-  (GetPropertiesFunc)   ellipse_get_properties,
-  (ApplyPropertiesFunc) ellipse_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   ellipse_describe_props,
+  (GetPropsFunc)        ellipse_get_props,
+  (SetPropsFunc)        ellipse_set_props,
 };
 
-static ObjectChange *
-ellipse_apply_properties(Ellipse *ellipse)
+static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };
+
+static PropDescription ellipse_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_SHOW_BACKGROUND,
+  PROP_STD_LINE_STYLE,
+  { "padding", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Text padding"), NULL, &text_padding_data },
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
+  
+  { NULL, 0, 0, NULL, NULL, NULL, 0}
+};
+
+static PropDescription *
+ellipse_describe_props(Ellipse *ellipse)
 {
-  ObjectState *old_state;
-  Font *font;
-  Color col;
+  if (ellipse_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(ellipse_props);
+  return ellipse_props;
+}
 
-  if (ellipse != ellipse_properties_dialog->ellipse) {
-    message_warning("Ellipse dialog problem:  %p != %p\n", ellipse,
-		    ellipse_properties_dialog->ellipse);
-    ellipse = ellipse_properties_dialog->ellipse;
+static PropOffset ellipse_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Ellipse, border_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Ellipse, border_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Ellipse, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Ellipse, show_background) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Ellipse, line_style), offsetof(Ellipse, dashlength) },
+  { "padding", PROP_TYPE_REAL, offsetof(Ellipse, padding) },
+  { NULL, 0, 0 },
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
+};
+
+static void
+ellipse_get_props(Ellipse *ellipse, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)ellipse, ellipse_offsets,
+                                    props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < 4; i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = ellipse->text->font;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = ellipse->text->height;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = ellipse->text->color;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(ellipse->text);
+    }
   }
+}
 
-  old_state = (ObjectState *)ellipse_get_state(ellipse);
-  
-  ellipse->border_width = gtk_spin_button_get_value_as_float(ellipse_properties_dialog->border_width);
-  dia_color_selector_get_color(ellipse_properties_dialog->fg_color, &ellipse->border_color);
-  dia_color_selector_get_color(ellipse_properties_dialog->bg_color, &ellipse->inner_color);
-  ellipse->show_background = gtk_toggle_button_get_active(ellipse_properties_dialog->show_background);
-  dia_line_style_selector_get_linestyle(ellipse_properties_dialog->line_style, &ellipse->line_style, &ellipse->dashlength);
+static void
+ellipse_set_props(Ellipse *ellipse, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)ellipse, ellipse_offsets,
+                                     props, nprops)) {
+    guint i;
 
-  ellipse->padding = gtk_spin_button_get_value_as_float(ellipse_properties_dialog->padding);
-  font = dia_font_selector_get_font(ellipse_properties_dialog->font);
-  text_set_font(ellipse->text, font);
-  text_set_height(ellipse->text, gtk_spin_button_get_value_as_float(
-					ellipse_properties_dialog->font_size));
-  dia_color_selector_get_color(ellipse_properties_dialog->font_color, &col);
-  text_set_color(ellipse->text, &col);
-  
+    if (quarks[0].q == 0)
+      for (i = 0; i < 4; i++)
+        quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
+        text_set_font(ellipse->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
+        text_set_height(ellipse->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
+        text_set_color(ellipse->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
+        text_set_string(ellipse->text, PROP_VALUE_STRING(props[i]));
+      }
+    }
+  }
   ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return new_object_state_change((Object *)ellipse, old_state, 
-				 (GetStateFunc)ellipse_get_state,
-				 (SetStateFunc)ellipse_set_state);
 }
 
-static GtkWidget *
-ellipse_get_properties(Ellipse *ellipse)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *checkellipse;
-  GtkWidget *linestyle;
-  GtkWidget *border_width;
-  GtkWidget *padding;
-  GtkWidget *font;
-  GtkWidget *font_size;
-  GtkAdjustment *adj;
-
-  if (ellipse_properties_dialog == NULL) {
-    ellipse_properties_dialog = g_new(EllipsePropertiesDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    ellipse_properties_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Border width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
-    border_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    ellipse_properties_dialog->border_width = GTK_SPIN_BUTTON(border_width);
-    gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
-    gtk_widget_show (border_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Foreground color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    ellipse_properties_dialog->fg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Background color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    ellipse_properties_dialog->bg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkellipse = gtk_check_button_new_with_label(_("Draw background"));
-    ellipse_properties_dialog->show_background = GTK_TOGGLE_BUTTON( checkellipse );
-    gtk_widget_show(checkellipse);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkellipse, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    ellipse_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Text padding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);
-    padding = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(padding), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(padding), TRUE);
-    ellipse_properties_dialog->padding = GTK_SPIN_BUTTON(padding);
-    gtk_box_pack_start(GTK_BOX (hbox), padding, TRUE, TRUE, 0);
-    gtk_widget_show (padding);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    font = dia_font_selector_new();
-    ellipse_properties_dialog->font = DIAFONTSELECTOR(font);
-    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
-    gtk_widget_show (font);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font size:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 0.0, 0.0);
-    font_size = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);
-    ellipse_properties_dialog->font_size = GTK_SPIN_BUTTON(font_size);
-    gtk_box_pack_start(GTK_BOX (hbox), font_size, TRUE, TRUE, 0);
-    gtk_widget_show (font_size);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    ellipse_properties_dialog->font_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  ellipse_properties_dialog->ellipse = ellipse;
-    
-  gtk_spin_button_set_value(ellipse_properties_dialog->border_width,
-			    ellipse->border_width);
-  dia_color_selector_set_color(ellipse_properties_dialog->fg_color,
-			       &ellipse->border_color);
-  dia_color_selector_set_color(ellipse_properties_dialog->bg_color,
-			       &ellipse->inner_color);
-  gtk_toggle_button_set_active(ellipse_properties_dialog->show_background, 
-			       ellipse->show_background);
-  dia_line_style_selector_set_linestyle(ellipse_properties_dialog->line_style,
-					ellipse->line_style,
-					ellipse->dashlength);
-
-  gtk_spin_button_set_value(ellipse_properties_dialog->padding,
-			    ellipse->padding);
-  dia_font_selector_set_font(ellipse_properties_dialog->font, ellipse->text->font);
-  gtk_spin_button_set_value(ellipse_properties_dialog->font_size,
-			    ellipse->text->height);
-  dia_color_selector_set_color(ellipse_properties_dialog->font_color,
-			       &ellipse->text->color);
-  
-  return ellipse_properties_dialog->vbox;
-}
 static void
 ellipse_apply_defaults()
 {
   default_properties.show_background = gtk_toggle_button_get_active(ellipse_defaults_dialog->show_background);
 
   default_properties.padding = gtk_spin_button_get_value_as_float(ellipse_defaults_dialog->padding);
-  default_properties.font = dia_font_selector_get_font(ellipse_defaults_dialog->font);
-  default_properties.font_size = gtk_spin_button_get_value_as_float(ellipse_defaults_dialog->font_size);
+  attributes_set_default_font(
+      dia_font_selector_get_font(ellipse_defaults_dialog->font),
+      gtk_spin_button_get_value_as_float(ellipse_defaults_dialog->font_size));
 }
 
 static void
@@ -389,8 +272,6 @@ init_default_values() {
   if (!defaults_initialized) {
     default_properties.show_background = 1;
     default_properties.padding = 0.5 * M_SQRT1_2;
-    default_properties.font = font_getfont("Courier");
-    default_properties.font_size = 0.8;
     defaults_initialized = 1;
   }
 }
@@ -403,9 +284,11 @@ ellipse_get_defaults()
   GtkWidget *label;
   GtkWidget *checkellipse;
   GtkWidget *padding;
-  GtkWidget *font;
+  GtkWidget *fontsel;
   GtkWidget *font_size;
   GtkAdjustment *adj;
+  Font *font;
+  real font_height;
 
   if (ellipse_defaults_dialog == NULL) {
   
@@ -442,10 +325,10 @@ ellipse_get_defaults()
     label = gtk_label_new(_("Font:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    font = dia_font_selector_new();
-    ellipse_defaults_dialog->font = DIAFONTSELECTOR(font);
-    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
-    gtk_widget_show (font);
+    fontsel = dia_font_selector_new();
+    ellipse_defaults_dialog->font = DIAFONTSELECTOR(fontsel);
+    gtk_box_pack_start (GTK_BOX (hbox), fontsel, TRUE, TRUE, 0);
+    gtk_widget_show (fontsel);
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
@@ -472,10 +355,9 @@ ellipse_get_defaults()
 
   gtk_spin_button_set_value(ellipse_defaults_dialog->padding,
 			    default_properties.padding);
-  dia_font_selector_set_font(ellipse_defaults_dialog->font,
-			     default_properties.font);
-  gtk_spin_button_set_value(ellipse_defaults_dialog->font_size,
-			    default_properties.font_size);
+  attributes_get_default_font(&font, &font_height);
+  dia_font_selector_set_font(ellipse_defaults_dialog->font, font);
+  gtk_spin_button_set_value(ellipse_defaults_dialog->font_size, font_height);
 
   return ellipse_defaults_dialog->vbox;
 }
@@ -609,42 +491,6 @@ ellipse_draw(Ellipse *ellipse, Renderer *renderer)
   text_draw(ellipse->text, renderer);
 }
 
-static EllipseState *
-ellipse_get_state(Ellipse *ellipse)
-{
-  EllipseState *state = g_new(EllipseState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->border_width = ellipse->border_width;
-  state->border_color = ellipse->border_color;
-  state->inner_color = ellipse->inner_color;
-  state->show_background = ellipse->show_background;
-  state->line_style = ellipse->line_style;
-  state->dashlength = ellipse->dashlength;
-  state->padding = ellipse->padding;
-  text_get_attributes(ellipse->text, &state->text_attrib);
-
-  return state;
-}
-
-static void
-ellipse_set_state(Ellipse *ellipse, EllipseState *state)
-{
-  ellipse->border_width = state->border_width;
-  ellipse->border_color = state->border_color;
-  ellipse->inner_color = state->inner_color;
-  ellipse->show_background = state->show_background;
-  ellipse->line_style = state->line_style;
-  ellipse->dashlength = state->dashlength;
-  ellipse->padding = state->padding;
-  text_set_attributes(ellipse->text, &state->text_attrib);
-
-  g_free(state);
-  
-  ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-}
-
 
 static void
 ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
@@ -746,6 +592,8 @@ ellipse_create(Point *startpoint,
   Object *obj;
   Point p;
   int i;
+  Font *font;
+  real font_height;
 
   init_default_values();
 
@@ -768,13 +616,13 @@ ellipse_create(Point *startpoint,
   attributes_get_default_line_style(&ellipse->line_style,&ellipse->dashlength);
 
   ellipse->padding = default_properties.padding;
-  
+
+  attributes_get_default_font(&font, &font_height);
   p = *startpoint;
   p.x += elem->width / 2.0;
-  p.y += elem->height / 2.0 + default_properties.font_size / 2;
-  ellipse->text = new_text("", default_properties.font,
-		       default_properties.font_size, &p, &ellipse->border_color,
-		       ALIGN_CENTER);
+  p.y += elem->height / 2.0 + font_height / 2;
+  ellipse->text = new_text("", font, font_height, &p, &ellipse->border_color,
+			   ALIGN_CENTER);
 
   element_init(elem, 8, 16);
 

@@ -73,8 +73,6 @@ typedef struct _BoxProperties {
   real corner_radius;
 
   real padding;
-  Font *font;
-  real font_size;
   Color *font_color;
 } BoxProperties;
 
@@ -114,8 +112,8 @@ static void box_set_props(Box *box, Property *props, guint nprops);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
 static Object *box_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *box_get_defaults();
-static void box_apply_defaults();
+static GtkWidget *box_get_defaults(void);
+static void box_apply_defaults(void);
 
 static ObjectTypeOps box_type_ops =
 {
@@ -267,8 +265,9 @@ box_apply_defaults()
   default_properties.show_background = gtk_toggle_button_get_active(box_defaults_dialog->show_background);
 
   default_properties.padding = gtk_spin_button_get_value_as_float(box_defaults_dialog->padding);
-  default_properties.font = dia_font_selector_get_font(box_defaults_dialog->font);
-  default_properties.font_size = gtk_spin_button_get_value_as_float(box_defaults_dialog->font_size);
+  attributes_set_default_font(
+	dia_font_selector_get_font(box_defaults_dialog->font),
+	gtk_spin_button_get_value_as_float(box_defaults_dialog->font_size));
 }
 
 static void
@@ -278,8 +277,6 @@ init_default_values() {
   if (!defaults_initialized) {
     default_properties.show_background = 1;
     default_properties.padding = 0.5;
-    default_properties.font = font_getfont("Courier");
-    default_properties.font_size = 0.8;
     defaults_initialized = 1;
   }
 }
@@ -293,9 +290,11 @@ box_get_defaults()
   GtkWidget *checkbox;
   GtkWidget *corner_radius;
   GtkWidget *padding;
-  GtkWidget *font;
+  GtkWidget *fontsel;
   GtkWidget *font_size;
   GtkAdjustment *adj;
+  Font *font;
+  real font_height;
 
   if (box_defaults_dialog == NULL) {
   
@@ -346,10 +345,10 @@ box_get_defaults()
     label = gtk_label_new(_("Font:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    font = dia_font_selector_new();
-    box_defaults_dialog->font = DIAFONTSELECTOR(font);
-    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
-    gtk_widget_show (font);
+    fontsel = dia_font_selector_new();
+    box_defaults_dialog->font = DIAFONTSELECTOR(fontsel);
+    gtk_box_pack_start (GTK_BOX (hbox), fontsel, TRUE, TRUE, 0);
+    gtk_widget_show (fontsel);
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
@@ -378,10 +377,9 @@ box_get_defaults()
 
   gtk_spin_button_set_value(box_defaults_dialog->padding,
 			    default_properties.padding);
-  dia_font_selector_set_font(box_defaults_dialog->font,
-			     default_properties.font);
-  gtk_spin_button_set_value(box_defaults_dialog->font_size,
-			    default_properties.font_size);
+  attributes_get_default_font(&font, &font_height);
+  dia_font_selector_set_font(box_defaults_dialog->font, font);
+  gtk_spin_button_set_value(box_defaults_dialog->font_size, font_height);
 
   return box_defaults_dialog->vbox;
 }
@@ -708,6 +706,8 @@ box_create(Point *startpoint,
   Object *obj;
   Point p;
   int i;
+  Font *font;
+  real font_height;
 
   init_default_values();
 
@@ -731,12 +731,12 @@ box_create(Point *startpoint,
   box->corner_radius = default_properties.corner_radius;
 
   box->padding = default_properties.padding;
-  
+
+  attributes_get_default_font(&font, &font_height);
   p = *startpoint;
   p.x += elem->width / 2.0;
-  p.y += elem->height / 2.0 + default_properties.font_size / 2;
-  box->text = new_text("", default_properties.font,
-		       default_properties.font_size, &p, &box->border_color,
+  p.y += elem->height / 2.0 + font_height / 2;
+  box->text = new_text("", font, font_height, &p, &box->border_color,
 		       ALIGN_CENTER);
 
   element_init(elem, 8, 16);

@@ -1,3 +1,27 @@
+2000-06-25  James Henstridge  <james@daa.com.au>
+
+	* objects/flowchart/parallelogram.c (pgram_create): use default font
+	and add properties interface support.
+
+	* objects/flowchart/ellipse.c (ellipse_create): use default font and
+	add properties interface support.
+
+	* objects/flowchart/diamond.c (diamond_create): use default font and
+	add properties interface code.
+
+	* objects/flowchart/box.c (box_create): use default font.
+
+	* objects/custom/custom_object.c (custom_create): use default font
+	here too.
+
+	* objects/standard/textobj.c (textobj_create): update to use default
+	font.
+
+	* lib/attributes.c: add implementations.
+
+	* lib/attributes.h (attributes_[gs]et_default_font): add function
+	prototypes for setting/getting a default font.
+
 2000-06-24  James Henstridge  <james@daa.com.au>
 
 	* app/paginate_gnomeprint.h: updated prototype.

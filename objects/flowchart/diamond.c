@@ -32,6 +32,7 @@
 #include "text.h"
 #include "widgets.h"
 #include "message.h"
+#include "properties.h"
 
 #include "pixmaps/diamond.xpm"
 
@@ -47,23 +48,7 @@ typedef enum {
 } AnchorShape;
 
 typedef struct _Diamond Diamond;
-typedef struct _DiamondPropertiesDialog DiamondPropertiesDialog;
 typedef struct _DiamondDefaultsDialog DiamondDefaultsDialog;
-typedef struct _DiamondState DiamondState;
-
-struct _DiamondState {
-  ObjectState obj_state;
-  
-  real border_width;
-  Color border_color;
-  Color inner_color;
-  gboolean show_background;
-  LineStyle line_style;
-  real dashlength;
-
-  real padding;
-  TextAttributes text_attrib;
-};
 
 struct _Diamond {
   Element element;
@@ -87,27 +72,8 @@ typedef struct _DiamondProperties {
   real border_width;
 
   real padding;
-  Font *font;
-  real font_size;
   Color *font_color;
 } DiamondProperties;
-
-struct _DiamondPropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkSpinButton *border_width;
-  DiaColorSelector *fg_color;
-  DiaColorSelector *bg_color;
-  GtkToggleButton *show_background;
-  DiaLineStyleSelector *line_style;
-
-  GtkSpinButton *padding;
-  DiaFontSelector *font;
-  GtkSpinButton *font_size;
-  DiaColorSelector *font_color;
-
-  Diamond *diamond;
-};
 
 struct _DiamondDefaultsDialog {
   GtkWidget *vbox;
@@ -120,7 +86,6 @@ struct _DiamondDefaultsDialog {
 };
 
 
-static DiamondPropertiesDialog *diamond_properties_dialog;
 static DiamondDefaultsDialog *diamond_defaults_dialog;
 static DiamondProperties default_properties;
 
@@ -139,16 +104,15 @@ static Object *diamond_create(Point *startpoint,
 			  Handle **handle2);
 static void diamond_destroy(Diamond *diamond);
 static Object *diamond_copy(Diamond *diamond);
-static GtkWidget *diamond_get_properties(Diamond *diamond);
-static ObjectChange *diamond_apply_properties(Diamond *diamond);
 
-static DiamondState *diamond_get_state(Diamond *diamond);
-static void diamond_set_state(Diamond *diamond, DiamondState *state);
+static PropDescription *diamond_describe_props(Diamond *diamond);
+static void diamond_get_props(Diamond *diamond, Property *props, guint nprops);
+static void diamond_set_props(Diamond *diamond, Property *props, guint nprops);
 
 static void diamond_save(Diamond *diamond, ObjectNode obj_node, const char *filename);
 static Object *diamond_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *diamond_get_defaults();
-static void diamond_apply_defaults();
+static GtkWidget *diamond_get_defaults(void);
+static void diamond_apply_defaults(void);
 
 static ObjectTypeOps diamond_type_ops =
 {
@@ -176,210 +140,129 @@ static ObjectOps diamond_ops = {
   (CopyFunc)            diamond_copy,
   (MoveFunc)            diamond_move,
   (MoveHandleFunc)      diamond_move_handle,
-  (GetPropertiesFunc)   diamond_get_properties,
-  (ApplyPropertiesFunc) diamond_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   diamond_describe_props,
+  (GetPropsFunc)        diamond_get_props,
+  (SetPropsFunc)        diamond_set_props,
 };
 
-static ObjectChange *
-diamond_apply_properties(Diamond *diamond)
+static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };
+
+static PropDescription diamond_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_SHOW_BACKGROUND,
+  PROP_STD_LINE_STYLE,
+  { "padding", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Text padding"), NULL, &text_padding_data },
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
+  
+  { NULL, 0, 0, NULL, NULL, NULL, 0}
+};
+
+static PropDescription *
+diamond_describe_props(Diamond *diamond)
 {
-  ObjectState *old_state;
-  Font *font;
-  Color col;
+  if (diamond_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(diamond_props);
+  return diamond_props;
+}
 
-  if (diamond != diamond_properties_dialog->diamond) {
-    message_warning("Diamond dialog problem:  %p != %p\n", diamond,
-		    diamond_properties_dialog->diamond);
-    diamond = diamond_properties_dialog->diamond;
+static PropOffset diamond_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Diamond, border_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Diamond, border_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Diamond, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Diamond, show_background) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Diamond, line_style), offsetof(Diamond, dashlength) },
+  { "padding", PROP_TYPE_REAL, offsetof(Diamond, padding) },
+  { NULL, 0, 0 },
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
+};
+
+static void
+diamond_get_props(Diamond *diamond, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)diamond, diamond_offsets,
+				    props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < 4; i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = diamond->text->font;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = diamond->text->height;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = diamond->text->color;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(diamond->text);
+    }
   }
+}
 
-  old_state = (ObjectState *)diamond_get_state(diamond);
-  
-  diamond->border_width = gtk_spin_button_get_value_as_float(diamond_properties_dialog->border_width);
-  dia_color_selector_get_color(diamond_properties_dialog->fg_color, &diamond->border_color);
-  dia_color_selector_get_color(diamond_properties_dialog->bg_color, &diamond->inner_color);
-  diamond->show_background = gtk_toggle_button_get_active(diamond_properties_dialog->show_background);
-  dia_line_style_selector_get_linestyle(diamond_properties_dialog->line_style, &diamond->line_style, &diamond->dashlength);
+static void
+diamond_set_props(Diamond *diamond, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)diamond, diamond_offsets,
+                                     props, nprops)) {
+    guint i;
 
-  diamond->padding = gtk_spin_button_get_value_as_float(diamond_properties_dialog->padding);
-  font = dia_font_selector_get_font(diamond_properties_dialog->font);
-  text_set_font(diamond->text, font);
-  text_set_height(diamond->text, gtk_spin_button_get_value_as_float(
-					diamond_properties_dialog->font_size));
-  dia_color_selector_get_color(diamond_properties_dialog->font_color, &col);
-  text_set_color(diamond->text, &col);
-  
+    if (quarks[0].q == 0)
+      for (i = 0; i < 4; i++)
+        quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
+        text_set_font(diamond->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
+        text_set_height(diamond->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
+        text_set_color(diamond->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
+        text_set_string(diamond->text, PROP_VALUE_STRING(props[i]));
+      }
+    }
+  }
   diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return new_object_state_change((Object *)diamond, old_state, 
-				 (GetStateFunc)diamond_get_state,
-				 (SetStateFunc)diamond_set_state);
 }
 
-static GtkWidget *
-diamond_get_properties(Diamond *diamond)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *checkdiamond;
-  GtkWidget *linestyle;
-  GtkWidget *border_width;
-  GtkWidget *padding;
-  GtkWidget *font;
-  GtkWidget *font_size;
-  GtkAdjustment *adj;
-
-  if (diamond_properties_dialog == NULL) {
-    diamond_properties_dialog = g_new(DiamondPropertiesDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    diamond_properties_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Border width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
-    border_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    diamond_properties_dialog->border_width = GTK_SPIN_BUTTON(border_width);
-    gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
-    gtk_widget_show (border_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Foreground color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    diamond_properties_dialog->fg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Background color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    diamond_properties_dialog->bg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkdiamond = gtk_check_button_new_with_label(_("Draw background"));
-    diamond_properties_dialog->show_background = GTK_TOGGLE_BUTTON( checkdiamond );
-    gtk_widget_show(checkdiamond);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkdiamond, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    diamond_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Text padding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);
-    padding = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(padding), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(padding), TRUE);
-    diamond_properties_dialog->padding = GTK_SPIN_BUTTON(padding);
-    gtk_box_pack_start(GTK_BOX (hbox), padding, TRUE, TRUE, 0);
-    gtk_widget_show (padding);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    font = dia_font_selector_new();
-    diamond_properties_dialog->font = DIAFONTSELECTOR(font);
-    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
-    gtk_widget_show (font);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font size:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 0.0, 0.0);
-    font_size = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);
-    diamond_properties_dialog->font_size = GTK_SPIN_BUTTON(font_size);
-    gtk_box_pack_start(GTK_BOX (hbox), font_size, TRUE, TRUE, 0);
-    gtk_widget_show (font_size);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    diamond_properties_dialog->font_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  diamond_properties_dialog->diamond = diamond;
-    
-  gtk_spin_button_set_value(diamond_properties_dialog->border_width,
-			    diamond->border_width);
-  dia_color_selector_set_color(diamond_properties_dialog->fg_color,
-			       &diamond->border_color);
-  dia_color_selector_set_color(diamond_properties_dialog->bg_color,
-			       &diamond->inner_color);
-  gtk_toggle_button_set_active(diamond_properties_dialog->show_background, 
-			       diamond->show_background);
-  dia_line_style_selector_set_linestyle(diamond_properties_dialog->line_style,
-					diamond->line_style,
-					diamond->dashlength);
-
-  gtk_spin_button_set_value(diamond_properties_dialog->padding,
-			    diamond->padding);
-  dia_font_selector_set_font(diamond_properties_dialog->font, diamond->text->font);
-  gtk_spin_button_set_value(diamond_properties_dialog->font_size,
-			    diamond->text->height);
-  dia_color_selector_set_color(diamond_properties_dialog->font_color,
-			       &diamond->text->color);
-  
-  return diamond_properties_dialog->vbox;
-}
 static void
 diamond_apply_defaults()
 {
   default_properties.show_background = gtk_toggle_button_get_active(diamond_defaults_dialog->show_background);
 
   default_properties.padding = gtk_spin_button_get_value_as_float(diamond_defaults_dialog->padding);
-  default_properties.font = dia_font_selector_get_font(diamond_defaults_dialog->font);
-  default_properties.font_size = gtk_spin_button_get_value_as_float(diamond_defaults_dialog->font_size);
+  attributes_set_default_font(
+      dia_font_selector_get_font(diamond_defaults_dialog->font),
+      gtk_spin_button_get_value_as_float(diamond_defaults_dialog->font_size));
 }
 
 static void
@@ -389,8 +272,6 @@ init_default_values() {
   if (!defaults_initialized) {
     default_properties.show_background = 1;
     default_properties.padding = 0.5 * M_SQRT1_2;
-    default_properties.font = font_getfont("Courier");
-    default_properties.font_size = 0.8;
     defaults_initialized = 1;
   }
 }
@@ -403,9 +284,11 @@ diamond_get_defaults()
   GtkWidget *label;
   GtkWidget *checkdiamond;
   GtkWidget *padding;
-  GtkWidget *font;
+  GtkWidget *fontsel;
   GtkWidget *font_size;
   GtkAdjustment *adj;
+  Font *font;
+  real font_height;
 
   if (diamond_defaults_dialog == NULL) {
   
@@ -442,10 +325,10 @@ diamond_get_defaults()
     label = gtk_label_new(_("Font:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    font = dia_font_selector_new();
-    diamond_defaults_dialog->font = DIAFONTSELECTOR(font);
-    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
-    gtk_widget_show (font);
+    fontsel = dia_font_selector_new();
+    diamond_defaults_dialog->font = DIAFONTSELECTOR(fontsel);
+    gtk_box_pack_start (GTK_BOX (hbox), fontsel, TRUE, TRUE, 0);
+    gtk_widget_show (fontsel);
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
@@ -472,10 +355,9 @@ diamond_get_defaults()
 
   gtk_spin_button_set_value(diamond_defaults_dialog->padding,
 			    default_properties.padding);
-  dia_font_selector_set_font(diamond_defaults_dialog->font,
-			     default_properties.font);
-  gtk_spin_button_set_value(diamond_defaults_dialog->font_size,
-			    default_properties.font_size);
+  attributes_get_default_font(&font, &font_height);
+  dia_font_selector_set_font(diamond_defaults_dialog->font, font);
+  gtk_spin_button_set_value(diamond_defaults_dialog->font_size, font_height);
 
   return diamond_defaults_dialog->vbox;
 }
@@ -616,42 +498,6 @@ diamond_draw(Diamond *diamond, Renderer *renderer)
   text_draw(diamond->text, renderer);
 }
 
-static DiamondState *
-diamond_get_state(Diamond *diamond)
-{
-  DiamondState *state = g_new(DiamondState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->border_width = diamond->border_width;
-  state->border_color = diamond->border_color;
-  state->inner_color = diamond->inner_color;
-  state->show_background = diamond->show_background;
-  state->line_style = diamond->line_style;
-  state->dashlength = diamond->dashlength;
-  state->padding = diamond->padding;
-  text_get_attributes(diamond->text, &state->text_attrib);
-
-  return state;
-}
-
-static void
-diamond_set_state(Diamond *diamond, DiamondState *state)
-{
-  diamond->border_width = state->border_width;
-  diamond->border_color = state->border_color;
-  diamond->inner_color = state->inner_color;
-  diamond->show_background = state->show_background;
-  diamond->line_style = state->line_style;
-  diamond->dashlength = state->dashlength;
-  diamond->padding = state->padding;
-  text_set_attributes(diamond->text, &state->text_attrib);
-
-  g_free(state);
-  
-  diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-}
-
 
 static void
 diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
@@ -766,6 +612,8 @@ diamond_create(Point *startpoint,
   Object *obj;
   Point p;
   int i;
+  Font *font;
+  real font_height;
 
   init_default_values();
 
@@ -788,13 +636,13 @@ diamond_create(Point *startpoint,
   attributes_get_default_line_style(&diamond->line_style,&diamond->dashlength);
 
   diamond->padding = default_properties.padding;
-  
+
+  attributes_get_default_font(&font, &font_height);
   p = *startpoint;
   p.x += elem->width / 2.0;
-  p.y += elem->height / 2.0 + default_properties.font_size / 2;
-  diamond->text = new_text("", default_properties.font,
-		       default_properties.font_size, &p, &diamond->border_color,
-		       ALIGN_CENTER);
+  p.y += elem->height / 2.0 + font_height / 2;
+  diamond->text = new_text("", font, font_height, &p, &diamond->border_color,
+			   ALIGN_CENTER);
 
   element_init(elem, 8, 16);
 

@@ -304,8 +304,9 @@ custom_apply_defaults(void)
 
   default_properties.padding = gtk_spin_button_get_value_as_float(custom_defaults_dialog->padding);
   default_properties.alignment = dia_alignment_selector_get_alignment(custom_defaults_dialog->alignment);
-  default_properties.font = dia_font_selector_get_font(custom_defaults_dialog->font);
-  default_properties.font_size = gtk_spin_button_get_value_as_float(custom_defaults_dialog->font_size);
+  attributes_set_default_font(
+      dia_font_selector_get_font(custom_defaults_dialog->font),
+      gtk_spin_button_get_value_as_float(custom_defaults_dialog->font_size));
 }
 
 static void
@@ -316,8 +317,6 @@ init_default_values(void) {
     default_properties.show_background = 1;
     default_properties.padding = 0.5 * M_SQRT1_2;
     default_properties.alignment = ALIGN_CENTER;
-    default_properties.font = font_getfont("Courier");
-    default_properties.font_size = 0.8;
     defaults_initialized = 1;
   }
 }
@@ -331,9 +330,11 @@ custom_get_defaults(void)
   GtkWidget *checkcustom;
   GtkWidget *padding;
   GtkWidget *alignment;
-  GtkWidget *font;
+  GtkWidget *fontsel;
   GtkWidget *font_size;
   GtkAdjustment *adj;
+  Font *font;
+  real font_height;
 
   if (custom_defaults_dialog == NULL) {
   
@@ -382,10 +383,10 @@ custom_get_defaults(void)
     label = gtk_label_new(_("Font:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    font = dia_font_selector_new();
-    custom_defaults_dialog->font = DIAFONTSELECTOR(font);
-    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
-    gtk_widget_show (font);
+    fontsel = dia_font_selector_new();
+    custom_defaults_dialog->font = DIAFONTSELECTOR(fontsel);
+    gtk_box_pack_start (GTK_BOX (hbox), fontsel, TRUE, TRUE, 0);
+    gtk_widget_show (fontsel);
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
@@ -414,10 +415,9 @@ custom_get_defaults(void)
 			    default_properties.padding);
   dia_alignment_selector_set_alignment(custom_defaults_dialog->alignment,
 				       default_properties.alignment);
-  dia_font_selector_set_font(custom_defaults_dialog->font,
-			     default_properties.font);
-  gtk_spin_button_set_value(custom_defaults_dialog->font_size,
-			    default_properties.font_size);
+  attributes_get_default_font(&font, &font_height);
+  dia_font_selector_set_font(custom_defaults_dialog->font, font);
+  gtk_spin_button_set_value(custom_defaults_dialog->font_size, font_height);
 
   return custom_defaults_dialog->vbox;
 }
@@ -1030,6 +1030,8 @@ custom_create(Point *startpoint,
   ShapeInfo *info = (ShapeInfo *)user_data;
   Point p;
   int i;
+  Font *font;
+  real font_height;
 
   g_return_val_if_fail(info!=NULL,NULL);
 
@@ -1061,12 +1063,11 @@ custom_create(Point *startpoint,
   custom->flip_v = FALSE;
   
   if (info->has_text) {
+    attributes_get_default_font(&font, &font_height);
     p = *startpoint;
     p.x += elem->width / 2.0;
-    p.y += elem->height / 2.0 + default_properties.font_size / 2;
-    custom->text = new_text("", default_properties.font,
-			    default_properties.font_size, &p,
-			    &custom->border_color,
+    p.y += elem->height / 2.0 + font_height / 2;
+    custom->text = new_text("", font, font_height, &p, &custom->border_color,
 			    default_properties.alignment);
   }
   element_init(elem, 8, info->nconnections);

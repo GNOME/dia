@@ -32,6 +32,7 @@
 #include "text.h"
 #include "widgets.h"
 #include "message.h"
+#include "properties.h"
 
 #include "pixmaps/pgram.xpm"
 
@@ -47,24 +48,7 @@ typedef enum {
 #define DEFAULT_BORDER 0.25
 
 typedef struct _Pgram Pgram;
-typedef struct _PgramPropertiesDialog PgramPropertiesDialog;
 typedef struct _PgramDefaultsDialog PgramDefaultsDialog;
-typedef struct _PgramState PgramState;
-
-struct _PgramState {
-  ObjectState obj_state;
-  
-  real border_width;
-  Color border_color;
-  Color inner_color;
-  gboolean show_background;
-  LineStyle line_style;
-  real dashlength;
-  real shear_angle;
-
-  real padding;
-  TextAttributes text_attrib;
-};
 
 struct _Pgram {
   Element element;
@@ -90,28 +74,8 @@ typedef struct _PgramProperties {
   real shear_angle;
 
   real padding;
-  Font *font;
-  real font_size;
   Color *font_color;
 } PgramProperties;
-
-struct _PgramPropertiesDialog {
-  GtkWidget *vbox;
-
-  GtkSpinButton *border_width;
-  DiaColorSelector *fg_color;
-  DiaColorSelector *bg_color;
-  GtkToggleButton *show_background;
-  DiaLineStyleSelector *line_style;
-  GtkSpinButton *shear_angle;
-
-  GtkSpinButton *padding;
-  DiaFontSelector *font;
-  GtkSpinButton *font_size;
-  DiaColorSelector *font_color;
-
-  Pgram *pgram;
-};
 
 struct _PgramDefaultsDialog {
   GtkWidget *vbox;
@@ -125,7 +89,6 @@ struct _PgramDefaultsDialog {
 };
 
 
-static PgramPropertiesDialog *pgram_properties_dialog;
 static PgramDefaultsDialog *pgram_defaults_dialog;
 static PgramProperties default_properties;
 
@@ -144,16 +107,15 @@ static Object *pgram_create(Point *startpoint,
 			  Handle **handle2);
 static void pgram_destroy(Pgram *pgram);
 static Object *pgram_copy(Pgram *pgram);
-static GtkWidget *pgram_get_properties(Pgram *pgram);
-static ObjectChange *pgram_apply_properties(Pgram *pgram);
 
-static PgramState *pgram_get_state(Pgram *pgram);
-static void pgram_set_state(Pgram *pgram, PgramState *state);
+static PropDescription *pgram_describe_props(Pgram *pgram);
+static void pgram_get_props(Pgram *pgram, Property *props, guint nprops);
+static void pgram_set_props(Pgram *pgram, Property *props, guint nprops);
 
 static void pgram_save(Pgram *pgram, ObjectNode obj_node, const char *filename);
 static Object *pgram_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *pgram_get_defaults();
-static void pgram_apply_defaults();
+static GtkWidget *pgram_get_defaults(void);
+static void pgram_apply_defaults(void);
 
 static ObjectTypeOps pgram_type_ops =
 {
@@ -181,221 +143,125 @@ static ObjectOps pgram_ops = {
   (CopyFunc)            pgram_copy,
   (MoveFunc)            pgram_move,
   (MoveHandleFunc)      pgram_move_handle,
-  (GetPropertiesFunc)   pgram_get_properties,
-  (ApplyPropertiesFunc) pgram_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   pgram_describe_props,
+  (GetPropsFunc)        pgram_get_props,
+  (SetPropsFunc)        pgram_set_props,
 };
 
-static ObjectChange *
-pgram_apply_properties(Pgram *pgram)
-{
-  ObjectState *old_state;
-  Font *font;
-  Color col;
+static PropNumData text_padding_data = { 0.0, 10.0, 0.1 };
+static PropNumData shear_angle_data = { 45.0, 135.0, 1.0 };
 
-  if (pgram != pgram_properties_dialog->pgram) {
-    message_warning("Pgram dialog problem:  %p != %p\n", pgram,
-		    pgram_properties_dialog->pgram);
-    pgram = pgram_properties_dialog->pgram;
-  }
-
-  old_state = (ObjectState *)pgram_get_state(pgram);
+static PropDescription pgram_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
+  PROP_STD_LINE_WIDTH,
+  PROP_STD_LINE_COLOUR,
+  PROP_STD_FILL_COLOUR,
+  PROP_STD_SHOW_BACKGROUND,
+  PROP_STD_LINE_STYLE,
+  { "shear_angle", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Shear angle"), NULL, &shear_angle_data },
+  { "padding", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+    N_("Text padding"), NULL, &text_padding_data },
+  PROP_STD_TEXT_FONT,
+  PROP_STD_TEXT_HEIGHT,
+  PROP_STD_TEXT_COLOUR,
+  PROP_STD_TEXT,
   
-  pgram->border_width = gtk_spin_button_get_value_as_float(pgram_properties_dialog->border_width);
-  dia_color_selector_get_color(pgram_properties_dialog->fg_color, &pgram->border_color);
-  dia_color_selector_get_color(pgram_properties_dialog->bg_color, &pgram->inner_color);
-  pgram->show_background = gtk_toggle_button_get_active(pgram_properties_dialog->show_background);
-  dia_line_style_selector_get_linestyle(pgram_properties_dialog->line_style, &pgram->line_style, &pgram->dashlength);
-  pgram->shear_angle = gtk_spin_button_get_value_as_float(pgram_properties_dialog->shear_angle);
+  { NULL, 0, 0, NULL, NULL, NULL, 0}
+};
+
+static PropDescription *
+pgram_describe_props(Pgram *pgram)
+{
+  if (pgram_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(pgram_props);
+  return pgram_props;
+}
+
+static PropOffset pgram_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "line_width", PROP_TYPE_REAL, offsetof(Pgram, border_width) },
+  { "line_colour", PROP_TYPE_COLOUR, offsetof(Pgram, border_color) },
+  { "fill_colour", PROP_TYPE_COLOUR, offsetof(Pgram, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Pgram, show_background) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Pgram, line_style), offsetof(Pgram, dashlength) },
+  { "shear_angle", PROP_TYPE_REAL, offsetof(Pgram, shear_angle) },
+  { "padding", PROP_TYPE_REAL, offsetof(Pgram, padding) },
+  { NULL, 0, 0 },
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
+};
+
+static void
+pgram_get_props(Pgram *pgram, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets((Object *)pgram, pgram_offsets,
+                                    props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < 4; i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_FONT;
+      PROP_VALUE_FONT(props[i]) = pgram->text->font;
+    } else if (pquark == quarks[1].q) {
+      props[i].type = PROP_TYPE_REAL;
+      PROP_VALUE_REAL(props[i]) = pgram->text->height;
+    } else if (pquark == quarks[2].q) {
+      props[i].type = PROP_TYPE_COLOUR;
+      PROP_VALUE_COLOUR(props[i]) = pgram->text->color;
+    } else if (pquark == quarks[3].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      PROP_VALUE_STRING(props[i]) = text_get_string_copy(pgram->text);
+    }
+  }
+}
+
+static void
+pgram_set_props(Pgram *pgram, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets((Object *)pgram, pgram_offsets,
+                                     props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < 4; i++)
+        quarks[i].q = g_quark_from_static_string(quarks[i].name);
+
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
+        text_set_font(pgram->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
+        text_set_height(pgram->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
+        text_set_color(pgram->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
+        text_set_string(pgram->text, PROP_VALUE_STRING(props[i]));
+      }
+    }
+  }
   pgram->shear_grad = tan(M_PI/2.0 - M_PI/180.0 * pgram->shear_angle);
-
-  pgram->padding = gtk_spin_button_get_value_as_float(pgram_properties_dialog->padding);
-  font = dia_font_selector_get_font(pgram_properties_dialog->font);
-  text_set_font(pgram->text, font);
-  text_set_height(pgram->text, gtk_spin_button_get_value_as_float(
-					pgram_properties_dialog->font_size));
-  dia_color_selector_get_color(pgram_properties_dialog->font_color, &col);
-  text_set_color(pgram->text, &col);
-  
   pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return new_object_state_change((Object *)pgram, old_state, 
-				 (GetStateFunc)pgram_get_state,
-				 (SetStateFunc)pgram_set_state);
 }
 
-static GtkWidget *
-pgram_get_properties(Pgram *pgram)
-{
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *color;
-  GtkWidget *checkpgram;
-  GtkWidget *linestyle;
-  GtkWidget *border_width;
-  GtkWidget *shear_angle;
-  GtkWidget *padding;
-  GtkWidget *font;
-  GtkWidget *font_size;
-  GtkAdjustment *adj;
-
-  if (pgram_properties_dialog == NULL) {
-    pgram_properties_dialog = g_new(PgramPropertiesDialog, 1);
-
-    vbox = gtk_vbox_new(FALSE, 5);
-    gtk_object_ref(GTK_OBJECT(vbox));
-    gtk_object_sink(GTK_OBJECT(vbox));
-    pgram_properties_dialog->vbox = vbox;
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Border width:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
-    border_width = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(border_width), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(border_width), TRUE);
-    pgram_properties_dialog->border_width = GTK_SPIN_BUTTON(border_width);
-    gtk_box_pack_start(GTK_BOX (hbox), border_width, TRUE, TRUE, 0);
-    gtk_widget_show (border_width);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Foreground color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    pgram_properties_dialog->fg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Background color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    pgram_properties_dialog->bg_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkpgram = gtk_check_button_new_with_label(_("Draw background"));
-    pgram_properties_dialog->show_background = GTK_TOGGLE_BUTTON( checkpgram );
-    gtk_widget_show(checkpgram);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox), checkpgram, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Line style:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    linestyle = dia_line_style_selector_new();
-    pgram_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
-    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
-    gtk_widget_show (linestyle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Shear angle:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(60.0, 45.0, 135.0, 1.0,0.0,0.0);
-    shear_angle = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(shear_angle), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(shear_angle), TRUE);
-    pgram_properties_dialog->shear_angle = GTK_SPIN_BUTTON(shear_angle);
-    gtk_box_pack_start(GTK_BOX (hbox), shear_angle, TRUE, TRUE, 0);
-    gtk_widget_show (shear_angle);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-    gtk_widget_show (vbox);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Text padding:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.0, 10.0, 0.1, 0.0, 0.0);
-    padding = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(padding), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(padding), TRUE);
-    pgram_properties_dialog->padding = GTK_SPIN_BUTTON(padding);
-    gtk_box_pack_start(GTK_BOX (hbox), padding, TRUE, TRUE, 0);
-    gtk_widget_show (padding);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    font = dia_font_selector_new();
-    pgram_properties_dialog->font = DIAFONTSELECTOR(font);
-    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
-    gtk_widget_show (font);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font size:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.1, 10.0, 0.1, 0.0, 0.0);
-    font_size = gtk_spin_button_new(adj, 1.0, 2);
-    gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(font_size), TRUE);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(font_size), TRUE);
-    pgram_properties_dialog->font_size = GTK_SPIN_BUTTON(font_size);
-    gtk_box_pack_start(GTK_BOX (hbox), font_size, TRUE, TRUE, 0);
-    gtk_widget_show (font_size);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    label = gtk_label_new(_("Font color:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    gtk_widget_show (label);
-    color = dia_color_selector_new();
-    pgram_properties_dialog->font_color = DIACOLORSELECTOR(color);
-    gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
-    gtk_widget_show (color);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-
-    gtk_widget_show (vbox);
-  }
-
-  pgram_properties_dialog->pgram = pgram;
-    
-  gtk_spin_button_set_value(pgram_properties_dialog->border_width,
-			    pgram->border_width);
-  dia_color_selector_set_color(pgram_properties_dialog->fg_color,
-			       &pgram->border_color);
-  dia_color_selector_set_color(pgram_properties_dialog->bg_color,
-			       &pgram->inner_color);
-  gtk_toggle_button_set_active(pgram_properties_dialog->show_background, 
-			       pgram->show_background);
-  dia_line_style_selector_set_linestyle(pgram_properties_dialog->line_style,
-					pgram->line_style, pgram->dashlength);
-  gtk_spin_button_set_value(pgram_properties_dialog->shear_angle,
-			    pgram->shear_angle);
-
-  gtk_spin_button_set_value(pgram_properties_dialog->padding,
-			    pgram->padding);
-  dia_font_selector_set_font(pgram_properties_dialog->font, pgram->text->font);
-  gtk_spin_button_set_value(pgram_properties_dialog->font_size,
-			    pgram->text->height);
-  dia_color_selector_set_color(pgram_properties_dialog->font_color,
-			       &pgram->text->color);
-  
-  return pgram_properties_dialog->vbox;
-}
 static void
 pgram_apply_defaults()
 {
@@ -403,8 +269,9 @@ pgram_apply_defaults()
   default_properties.show_background = gtk_toggle_button_get_active(pgram_defaults_dialog->show_background);
 
   default_properties.padding = gtk_spin_button_get_value_as_float(pgram_defaults_dialog->padding);
-  default_properties.font = dia_font_selector_get_font(pgram_defaults_dialog->font);
-  default_properties.font_size = gtk_spin_button_get_value_as_float(pgram_defaults_dialog->font_size);
+  attributes_set_default_font(
+	dia_font_selector_get_font(pgram_defaults_dialog->font),
+	gtk_spin_button_get_value_as_float(pgram_defaults_dialog->font_size));
 }
 
 static void
@@ -415,8 +282,6 @@ init_default_values() {
     default_properties.show_background = 1;
     default_properties.shear_angle = 70.0;
     default_properties.padding = 0.5;
-    default_properties.font = font_getfont("Courier");
-    default_properties.font_size = 0.8;
     defaults_initialized = 1;
   }
 }
@@ -430,9 +295,11 @@ pgram_get_defaults()
   GtkWidget *checkpgram;
   GtkWidget *shear_angle;
   GtkWidget *padding;
-  GtkWidget *font;
+  GtkWidget *fontsel;
   GtkWidget *font_size;
   GtkAdjustment *adj;
+  Font *font;
+  real font_height;
 
   if (pgram_defaults_dialog == NULL) {
   
@@ -483,10 +350,10 @@ pgram_get_defaults()
     label = gtk_label_new(_("Font:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
-    font = dia_font_selector_new();
-    pgram_defaults_dialog->font = DIAFONTSELECTOR(font);
-    gtk_box_pack_start (GTK_BOX (hbox), font, TRUE, TRUE, 0);
-    gtk_widget_show (font);
+    fontsel = dia_font_selector_new();
+    pgram_defaults_dialog->font = DIAFONTSELECTOR(fontsel);
+    gtk_box_pack_start (GTK_BOX (hbox), fontsel, TRUE, TRUE, 0);
+    gtk_widget_show (fontsel);
     gtk_widget_show(hbox);
     gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
@@ -515,10 +382,9 @@ pgram_get_defaults()
 
   gtk_spin_button_set_value(pgram_defaults_dialog->padding,
 			    default_properties.padding);
-  dia_font_selector_set_font(pgram_defaults_dialog->font,
-			     default_properties.font);
-  gtk_spin_button_set_value(pgram_defaults_dialog->font_size,
-			    default_properties.font_size);
+  attributes_get_default_font(&font, &font_height);
+  dia_font_selector_set_font(pgram_defaults_dialog->font, font);
+  gtk_spin_button_set_value(pgram_defaults_dialog->font_size, font_height);
 
   return pgram_defaults_dialog->vbox;
 }
@@ -664,45 +530,6 @@ pgram_draw(Pgram *pgram, Renderer *renderer)
   text_draw(pgram->text, renderer);
 }
 
-static PgramState *
-pgram_get_state(Pgram *pgram)
-{
-  PgramState *state = g_new(PgramState, 1);
-
-  state->obj_state.free = NULL;
-  
-  state->border_width = pgram->border_width;
-  state->border_color = pgram->border_color;
-  state->inner_color = pgram->inner_color;
-  state->show_background = pgram->show_background;
-  state->line_style = pgram->line_style;
-  state->dashlength = pgram->dashlength;
-  state->shear_angle = pgram->shear_angle;
-  state->padding = pgram->padding;
-  text_get_attributes(pgram->text, &state->text_attrib);
-
-  return state;
-}
-
-static void
-pgram_set_state(Pgram *pgram, PgramState *state)
-{
-  pgram->border_width = state->border_width;
-  pgram->border_color = state->border_color;
-  pgram->inner_color = state->inner_color;
-  pgram->show_background = state->show_background;
-  pgram->line_style = state->line_style;
-  pgram->dashlength = state->dashlength;
-  pgram->shear_angle = state->shear_angle;
-  pgram->shear_grad = tan(M_PI/2.0 - M_PI/180.0 * pgram->shear_angle);
-  pgram->padding = state->padding;
-  text_set_attributes(pgram->text, &state->text_attrib);
-
-  g_free(state);
-  
-  pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-}
-
 
 static void
 pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
@@ -846,6 +673,8 @@ pgram_create(Point *startpoint,
   Object *obj;
   Point p;
   int i;
+  Font *font;
+  real font_height;
 
   init_default_values();
 
@@ -870,13 +699,13 @@ pgram_create(Point *startpoint,
   pgram->shear_grad = tan(M_PI/2.0 - M_PI/180.0 * pgram->shear_angle);
 
   pgram->padding = default_properties.padding;
-  
+
+  attributes_get_default_font(&font, &font_height);
   p = *startpoint;
   p.x += elem->width / 2.0;
-  p.y += elem->height / 2.0 + default_properties.font_size / 2;
-  pgram->text = new_text("", default_properties.font,
-		       default_properties.font_size, &p, &pgram->border_color,
-		       ALIGN_CENTER);
+  p.y += elem->height / 2.0 + font_height / 2;
+  pgram->text = new_text("", font, font_height, &p, &pgram->border_color,
+			 ALIGN_CENTER);
 
   element_init(elem, 8, 16);
 
