@@ -153,22 +153,22 @@ view_factory (BonoboEmbeddable *embeddable,
 
   view_show_hide (view_data, FALSE);
   
-  gtk_signal_connect (GTK_OBJECT (view_data->display->shell), "destroy",
-                      GTK_SIGNAL_FUNC (dia_view_display_destroy),
+  g_signal_connect (GTK_OBJECT (view_data->display->shell), "destroy",
+		    G_CALLBACK (dia_view_display_destroy),
                       view_data);
 
   view = bonobo_view_new (view_data->display->shell);
   view_data->view = view;
   gtk_object_set_data (GTK_OBJECT (view), "view_data", view_data);
   
-  gtk_signal_connect(GTK_OBJECT (view), "activate",
-		     GTK_SIGNAL_FUNC (dia_view_activate), view_data);
+  g_signal_connect(GTK_OBJECT (view), "activate",
+		   G_CALLBACK (dia_view_activate), view_data);
 
-  gtk_signal_connect(GTK_OBJECT (view), "system_exception",
-		     GTK_SIGNAL_FUNC (dia_view_system_exception), view_data);
+  g_signal_connect(GTK_OBJECT (view), "system_exception",
+		   G_CALLBACK (dia_view_system_exception), view_data);
 
-  gtk_signal_connect (GTK_OBJECT (view), "destroy",
-		      GTK_SIGNAL_FUNC (dia_view_destroy), view_data);
+  g_signal_connect (GTK_OBJECT (view), "destroy",
+		    G_CALLBACK (dia_view_destroy), view_data);
 
 
 #if 0
@@ -302,12 +302,12 @@ embeddable_factory (BonoboGenericFactory *this,
 	
   embedded_dia->embeddable = embeddable;
 
-  gtk_signal_connect(GTK_OBJECT(embeddable), "system_exception",
-		     GTK_SIGNAL_FUNC (dia_embeddable_system_exception),
+  g_signal_connect(GTK_OBJECT(embeddable), "system_exception",
+		   G_CALLBACK (dia_embeddable_system_exception),
 		     embedded_dia);
   
-  gtk_signal_connect(GTK_OBJECT(embeddable), "destroy",
-		     GTK_SIGNAL_FUNC (dia_embeddable_destroy),
+  g_signal_connect(GTK_OBJECT(embeddable), "destroy",
+		   G_CALLBACK (dia_embeddable_destroy),
 		     embedded_dia);
 
   /* Register the Bonobo::PersistFile interface. */
@@ -397,9 +397,9 @@ main (int argc, char **argv)
 #endif
 
 
-  gtk_signal_connect (GTK_OBJECT (bonobo_context_running_get ()),
+  g_signal_connect (GTK_OBJECT (bonobo_context_running_get ()),
 		      "last_unref",
-		      GTK_SIGNAL_FUNC (last_unref_cb),
+		    G_CALLBACK (last_unref_cb),
 		      NULL);
   /*
    * Start processing.

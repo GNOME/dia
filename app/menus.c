@@ -688,8 +688,8 @@ dia_menu_signal_connect_func (GnomeUIInfo *uiinfo, gchar *signal_name,
     /* otherwise it is non sens and generate extraneous warnings */
     /* see bug 55047 <http://bugzilla.gnome.org/show_bug.cgi?id=55047> */
     if (uiinfo->moreinfo != NULL) {
-        gtk_signal_connect (GTK_OBJECT(uiinfo->widget), signal_name,
-                            GTK_SIGNAL_FUNC(dia_menu_signal_proxy), uiinfo);
+        g_signal_connect (GTK_OBJECT(uiinfo->widget), signal_name,
+			  G_CALLBACK(dia_menu_signal_proxy), uiinfo);
     }
 }
 
@@ -719,8 +719,8 @@ menus_set_tools_callback (const char * menu_name, GtkItemFactory *item_factory)
 	g_string_append(path, tool_data[i].menuitem_name);
 	menuitem = menus_get_item_from_path(path->str, item_factory);
 	if (menuitem != NULL)
-	    gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
-			       GTK_SIGNAL_FUNC(tool_menu_select),
+	    g_signal_connect(GTK_OBJECT(menuitem), "activate",
+			     G_CALLBACK(tool_menu_select),
 			       &tool_data[i].callback_data);
         else
             g_warning ("couldn't find tool menu item %s", path->str);
@@ -820,8 +820,8 @@ menus_init(void)
       g_warning("Don't know where to add \"%s\" menu entry.", cbf->menupath);
       continue;
     }
-    gtk_signal_connect(GTK_OBJECT(newitem), "activate",
-		       GTK_SIGNAL_FUNC(plugin_callback), cbf);
+    g_signal_connect(GTK_OBJECT(newitem), "activate",
+		     G_CALLBACK(plugin_callback), cbf);
   } /* for filter_callbacks */
 
   /* load accelerators and prepare to later save them */

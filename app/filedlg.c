@@ -126,7 +126,7 @@ create_open_menu(void)
     item = gtk_menu_item_new_with_label(
 		filter_get_import_filter_label(ifilter));
     gtk_object_set_user_data(GTK_OBJECT(item), ifilter);
-    gtk_signal_connect(GTK_OBJECT(item), "activate",
+    g_signal_connect(GTK_OBJECT(item), "activate",
                        GTK_SIGNAL_FUNC(open_set_extension), NULL);
     gtk_container_add(GTK_CONTAINER(menu), item);
     gtk_widget_show(item);
@@ -175,16 +175,16 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_file_selection_set_filename(GTK_FILE_SELECTION(opendlg),
 				    dia && dia->filename ? dia->filename
 				    : "." G_DIR_SEPARATOR_S);
-    gtk_signal_connect_object(
+    g_signal_connect_swapped(
 		GTK_OBJECT(GTK_FILE_SELECTION(opendlg)->cancel_button),
-		"clicked", GTK_SIGNAL_FUNC(file_dialog_hide),
+	    "clicked", G_CALLBACK(file_dialog_hide),
 		GTK_OBJECT(opendlg));
-    gtk_signal_connect(GTK_OBJECT(opendlg), "delete_event",
-		       GTK_SIGNAL_FUNC(file_dialog_hide), NULL);
-    gtk_signal_connect(GTK_OBJECT(opendlg), "destroy",
-		       GTK_SIGNAL_FUNC(gtk_widget_destroyed), &opendlg);
-    gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(opendlg)->ok_button),
-		       "clicked", GTK_SIGNAL_FUNC(file_open_ok_callback),
+    g_signal_connect(GTK_OBJECT(opendlg), "delete_event",
+		     G_CALLBACK(file_dialog_hide), NULL);
+    g_signal_connect(GTK_OBJECT(opendlg), "destroy",
+		       G_CALLBACK(gtk_widget_destroyed), &opendlg);
+    g_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(opendlg)->ok_button),
+		       "clicked", G_CALLBACK(file_open_ok_callback),
 		       opendlg);
     gtk_quit_add_destroy(1, GTK_OBJECT(opendlg));
   } else {
@@ -304,16 +304,16 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_widget_show(compressbutton);
     gtk_tooltips_set_tip(tool_tips, compressbutton,
 			 _("Compression reduces file size to less than 1/10th size and speeds up loading and saving.  Some text programs cannot manipulate compressed files."), NULL);
-    gtk_signal_connect_object(
+    g_signal_connect_swapped(
 		GTK_OBJECT(GTK_FILE_SELECTION(savedlg)->cancel_button),
-		"clicked", GTK_SIGNAL_FUNC(file_dialog_hide),
+		"clicked", G_CALLBACK(file_dialog_hide),
 		GTK_OBJECT(savedlg));
-    gtk_signal_connect(GTK_OBJECT(savedlg), "delete_event",
-		       GTK_SIGNAL_FUNC(file_dialog_hide), NULL);
-    gtk_signal_connect(GTK_OBJECT(savedlg), "destroy",
-		       GTK_SIGNAL_FUNC(gtk_widget_destroyed), &savedlg);
-    gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(savedlg)->ok_button),
-		       "clicked", GTK_SIGNAL_FUNC(file_save_as_ok_callback),
+    g_signal_connect(GTK_OBJECT(savedlg), "delete_event",
+		     G_CALLBACK(file_dialog_hide), NULL);
+    g_signal_connect(GTK_OBJECT(savedlg), "destroy",
+		     G_CALLBACK(gtk_widget_destroyed), &savedlg);
+    g_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(savedlg)->ok_button),
+		     "clicked", G_CALLBACK(file_save_as_ok_callback),
 		       savedlg);
     gtk_quit_add_destroy(1, GTK_OBJECT(savedlg));
   } else {
@@ -392,8 +392,8 @@ create_export_menu(void)
       continue;
     item = gtk_menu_item_new_with_label(filter_get_export_filter_label(ef));
     gtk_object_set_user_data(GTK_OBJECT(item), ef);
-    gtk_signal_connect(GTK_OBJECT(item), "activate",
-		       GTK_SIGNAL_FUNC(export_set_extension), NULL);
+    g_signal_connect(GTK_OBJECT(item), "activate",
+		     G_CALLBACK(export_set_extension), NULL);
     gtk_container_add(GTK_CONTAINER(menu), item);
     gtk_widget_show(item);
   }
@@ -468,16 +468,16 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
     gtk_file_selection_set_filename(GTK_FILE_SELECTION(exportdlg),
 				    dia->filename ? dia->filename
 				    : "." G_DIR_SEPARATOR_S);
-    gtk_signal_connect_object(
+    g_signal_connect_swapped(
 		GTK_OBJECT(GTK_FILE_SELECTION(exportdlg)->cancel_button),
-		"clicked", GTK_SIGNAL_FUNC(file_dialog_hide),
+	    "clicked", G_CALLBACK(file_dialog_hide),
 		GTK_OBJECT(exportdlg));
-    gtk_signal_connect(GTK_OBJECT(exportdlg), "delete_event",
-		       GTK_SIGNAL_FUNC(file_dialog_hide), NULL);
-    gtk_signal_connect(GTK_OBJECT(exportdlg), "destroy",
-		       GTK_SIGNAL_FUNC(gtk_widget_destroyed), &exportdlg);
-    gtk_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(exportdlg)->ok_button),
-		       "clicked", GTK_SIGNAL_FUNC(file_export_ok_callback),
+    g_signal_connect(GTK_OBJECT(exportdlg), "delete_event",
+		     G_CALLBACK(file_dialog_hide), NULL);
+    g_signal_connect(GTK_OBJECT(exportdlg), "destroy",
+		     G_CALLBACK(gtk_widget_destroyed), &exportdlg);
+    g_signal_connect(GTK_OBJECT(GTK_FILE_SELECTION(exportdlg)->ok_button),
+		     "clicked", G_CALLBACK(file_export_ok_callback),
 		       exportdlg);
     gtk_quit_add_destroy(1, GTK_OBJECT(exportdlg));
   }

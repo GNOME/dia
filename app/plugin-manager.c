@@ -211,10 +211,10 @@ get_plugin_manager(void)
 		   G_CALLBACK(pm_respond), NULL);
   g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_widget_hide), NULL);
-  gtk_signal_connect(GTK_OBJECT(dialog), "delete_event",
-		     GTK_SIGNAL_FUNC(gtk_true), NULL);
-  gtk_signal_connect(GTK_OBJECT(dialog), "destroy",
-		     GTK_SIGNAL_FUNC(gtk_widget_destroyed), &dialog);
+  g_signal_connect(GTK_OBJECT(dialog), "delete_event",
+		   G_CALLBACK(gtk_true), NULL);
+  g_signal_connect(GTK_OBJECT(dialog), "destroy",
+		   G_CALLBACK(gtk_widget_destroyed), &dialog);
 
   scrolled_window = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_ETCHED_IN);
@@ -251,7 +251,7 @@ get_plugin_manager(void)
   /* setup renderers and view */
   renderer = gtk_cell_renderer_toggle_new ();
   g_signal_connect(G_OBJECT (renderer), "toggled",
-		   GTK_SIGNAL_FUNC (toggle_loaded_callback), tree_view);
+		   G_CALLBACK (toggle_loaded_callback), tree_view);
   col = gtk_tree_view_column_new_with_attributes(
 		   _("Loaded"), renderer,
 		   "active", LOADED_COLUMN, NULL);
@@ -273,7 +273,7 @@ get_plugin_manager(void)
 
   renderer = gtk_cell_renderer_toggle_new ();
   g_signal_connect(G_OBJECT (renderer), "toggled",
-		   GTK_SIGNAL_FUNC (toggle_autoload_callback), tree_view);
+		   G_CALLBACK (toggle_autoload_callback), tree_view);
   col = gtk_tree_view_column_new_with_attributes(
 	      _("Load at Startup"), renderer,
 	      "active", AUTOLOAD_COLUMN, NULL);

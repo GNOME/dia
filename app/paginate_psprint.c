@@ -219,10 +219,10 @@ diagram_print_ps(Diagram *dia)
 
   /* create the dialog */
   dialog = gtk_dialog_new();
-  gtk_signal_connect(GTK_OBJECT(dialog), "delete_event",
-		     GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
-  gtk_signal_connect(GTK_OBJECT(dialog), "delete_event",
-		     GTK_SIGNAL_FUNC(gtk_true), NULL);
+  g_signal_connect(GTK_OBJECT(dialog), "delete_event",
+		   G_CALLBACK(gtk_main_quit), NULL);
+  g_signal_connect(GTK_OBJECT(dialog), "delete_event",
+		   G_CALLBACK(gtk_true), NULL);
   vbox = GTK_DIALOG(dialog)->vbox;
 
   frame = gtk_frame_new(_("Select Printer"));
@@ -246,8 +246,8 @@ diagram_print_ps(Diagram *dia)
   gtk_table_attach(GTK_TABLE(table), cmd, 1,2, 0,1,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(cmd);
-  gtk_signal_connect(GTK_OBJECT(iscmd), "toggled",
-		     GTK_SIGNAL_FUNC(change_entry_state), cmd);
+  g_signal_connect(GTK_OBJECT(iscmd), "toggled",
+		   G_CALLBACK(change_entry_state), cmd);
 
   isofile = gtk_radio_button_new_with_label(GTK_RADIO_BUTTON(iscmd)->group,
 					    _("File"));
@@ -260,22 +260,22 @@ diagram_print_ps(Diagram *dia)
   gtk_table_attach(GTK_TABLE(table), ofile, 1,2, 1,2,
 		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
   gtk_widget_show(ofile);
-  gtk_signal_connect(GTK_OBJECT(isofile), "toggled",
-		     GTK_SIGNAL_FUNC(change_entry_state), ofile);
+  g_signal_connect(GTK_OBJECT(isofile), "toggled",
+		   G_CALLBACK(change_entry_state), ofile);
 
   box = GTK_DIALOG(dialog)->action_area;
 
   button = gtk_button_new_with_label(_("OK"));
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", 
-		     GTK_SIGNAL_FUNC(ok_pressed), &cont);
+  g_signal_connect(GTK_OBJECT(button), "clicked", 
+		   G_CALLBACK(ok_pressed), &cont);
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   gtk_box_pack_start(GTK_BOX(box), button, TRUE, TRUE, 0);
   gtk_widget_grab_default(button);
   gtk_widget_show(button);
 
   button = gtk_button_new_with_label(_("Cancel"));
-  gtk_signal_connect(GTK_OBJECT(button), "clicked", 
-		     GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
+  g_signal_connect(GTK_OBJECT(button), "clicked", 
+		   G_CALLBACK(gtk_main_quit), NULL);
   GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
   gtk_box_pack_start(GTK_BOX(box), button, TRUE, TRUE, 0);
   gtk_widget_show(button);

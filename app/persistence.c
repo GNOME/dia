@@ -214,11 +214,11 @@ persistence_register_window(GtkWindow *window)
     g_object_ref(window);
   }
 
-  gtk_signal_connect(GTK_OBJECT(window), "configure-event",
-		     GTK_SIGNAL_FUNC(persistence_update_window), NULL);
+  g_signal_connect(GTK_OBJECT(window), "configure-event",
+		   G_CALLBACK(persistence_update_window), NULL);
 
-  gtk_signal_connect(GTK_OBJECT(window), "unmap-event",
-		     GTK_SIGNAL_FUNC(persistence_update_window), NULL);
+  g_signal_connect(GTK_OBJECT(window), "unmap-event",
+		   G_CALLBACK(persistence_update_window), NULL);
 }
 
 /** Call this function at start-up to have a window creation function

@@ -120,8 +120,8 @@ create_button_box(GtkWidget *parent)
 
     button = gtk_button_new ();
     gtk_container_add (GTK_CONTAINER (button), pixmapwid);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			       (GtkSignalFunc) buttons[i].callback,
+    g_signal_connect_swapped (GTK_OBJECT (button), "clicked",
+			     G_CALLBACK(buttons[i].callback),
 			       GTK_OBJECT (parent));
           
     if (tool_tips != NULL)
@@ -215,10 +215,10 @@ create_layer_dialog(void)
   gtk_window_set_role (GTK_WINDOW (dialog), "layer_window");
   gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
-  gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-                      GTK_SIGNAL_FUNC(layer_dialog_delete), NULL);
-  gtk_signal_connect (GTK_OBJECT (dialog), "destroy",
-                      GTK_SIGNAL_FUNC(gtk_widget_destroyed), 
+  g_signal_connect (GTK_OBJECT (dialog), "delete_event",
+                      G_CALLBACK(layer_dialog_delete), NULL);
+  g_signal_connect (GTK_OBJECT (dialog), "destroy",
+                      G_CALLBACK(gtk_widget_destroyed), 
 		      &(layer_dialog->dialog));
 
   vbox = GTK_DIALOG(dialog)->vbox;
@@ -258,7 +258,7 @@ create_layer_dialog(void)
   gtk_widget_show (scrolled_win);
   gtk_widget_show (list);
 
-  gtk_signal_connect (GTK_OBJECT (list), "event",
+  g_signal_connect (GTK_OBJECT (list), "event",
 		      (GtkSignalFunc) layer_list_events,
 		      NULL);
 
@@ -273,8 +273,8 @@ create_layer_dialog(void)
   button = gtk_button_new_with_label (_("Close"));
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
-  gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
-			    GTK_SIGNAL_FUNC(gtk_widget_hide),
+  g_signal_connect_swapped(GTK_OBJECT (button), "clicked",
+			   G_CALLBACK(gtk_widget_hide),
 			    GTK_OBJECT(dialog));
 
   gtk_widget_show (button);
@@ -510,7 +510,7 @@ layer_dialog_update_diagram_list(void)
 
     menu_item = gtk_menu_item_new_with_label(filename);
 
-    gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
+    g_signal_connect (GTK_OBJECT (menu_item), "activate",
 			(GtkSignalFunc) layer_dialog_select_diagram_callback,
 			(gpointer) dia);
 
@@ -523,7 +523,7 @@ layer_dialog_update_diagram_list(void)
 
   if (dia_open_diagrams()==NULL) {
     menu_item = gtk_menu_item_new_with_label (_("none"));
-    gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
+    g_signal_connect (GTK_OBJECT (menu_item), "activate",
 			(GtkSignalFunc) layer_dialog_select_diagram_callback,
 			(gpointer) NULL);
     gtk_menu_append( GTK_MENU(new_menu), menu_item);
@@ -826,7 +826,7 @@ dia_layer_widget_init(DiaLayerWidget *lw)
   lw->visible = visible = gtk_drawing_area_new ();
   gtk_drawing_area_size (GTK_DRAWING_AREA (visible), eye_width, eye_height);
   gtk_widget_set_events (visible, BUTTON_EVENT_MASK);
-  gtk_signal_connect (GTK_OBJECT (visible), "event",
+  g_signal_connect (GTK_OBJECT (visible), "event",
                       (GtkSignalFunc) dia_layer_widget_button_events,
                       lw);
   gtk_object_set_user_data (GTK_OBJECT (visible), lw);
@@ -844,10 +844,10 @@ dia_layer_widget_init(DiaLayerWidget *lw)
 
   gtk_container_add(GTK_CONTAINER(lw), hbox);
 
-  gtk_signal_connect (GTK_OBJECT (lw), "select",
+  g_signal_connect (GTK_OBJECT (lw), "select",
 		      (GtkSignalFunc) dia_layer_select_callback,
 		      (gpointer) NULL);
-  gtk_signal_connect (GTK_OBJECT (lw), "deselect",
+  g_signal_connect (GTK_OBJECT (lw), "deselect",
 		      (GtkSignalFunc) dia_layer_deselect_callback, 
 		      (gpointer) NULL);
 }
@@ -972,11 +972,11 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
   gtk_window_set_position (GTK_WINDOW (dialog->dialog), GTK_WIN_POS_MOUSE);
 
   /*  handle the wm close signal */
-  gtk_signal_connect (GTK_OBJECT (dialog->dialog), "delete_event",
-		      GTK_SIGNAL_FUNC (edit_layer_delete_callback),
+  g_signal_connect (GTK_OBJECT (dialog->dialog), "delete_event",
+		      G_CALLBACK (edit_layer_delete_callback),
 		      dialog);
-  gtk_signal_connect (GTK_OBJECT (dialog->dialog), "destroy",
-		      GTK_SIGNAL_FUNC (gtk_widget_destroy),
+  g_signal_connect (GTK_OBJECT (dialog->dialog), "destroy",
+		      G_CALLBACK (gtk_widget_destroy),
 		      &dialog->dialog);
   
   /*  the main vbox  */
@@ -1000,8 +1000,8 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(edit_layer_ok_callback),
+  g_signal_connect (GTK_OBJECT (button), "clicked",
+		      G_CALLBACK(edit_layer_ok_callback),
 		      dialog);
   gtk_widget_grab_default (button);
   gtk_widget_show (button);
@@ -1010,8 +1010,8 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
 		      button, TRUE, TRUE, 0);
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(edit_layer_cancel_callback),
+  g_signal_connect (GTK_OBJECT (button), "clicked",
+		      G_CALLBACK(edit_layer_cancel_callback),
 			    dialog);
   gtk_widget_show (button);
 

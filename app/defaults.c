@@ -131,8 +131,8 @@ defaults_show(ObjectType *objtype)
   /* don't destroy dialog when window manager close button pressed */
   g_signal_connect(G_OBJECT(dialog), "delete_event",
 		   G_CALLBACK(gtk_widget_hide), NULL);
-  gtk_signal_connect(GTK_OBJECT(dialog), "delete_event",
-		     GTK_SIGNAL_FUNC(gtk_true), NULL);
+  g_signal_connect(GTK_OBJECT(dialog), "delete_event",
+		   G_CALLBACK(gtk_true), NULL);
 
   gtk_box_pack_start(GTK_BOX(dialog_vbox), defaults, TRUE, TRUE, 0);
   gtk_widget_show (defaults);

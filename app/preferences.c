@@ -238,7 +238,7 @@ static void prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,  ch
 static void prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data, char *ptr);
 static void prefs_update_dialog_from_prefs(void);
 static void prefs_update_prefs_from_dialog(void);
-static gint prefs_apply(GtkWidget *widget, gpointer data);
+/* static gint prefs_apply(GtkWidget *widget, gpointer data); */
 
 
 static GtkWidget *prefs_dialog = NULL;
@@ -595,8 +595,8 @@ prefs_get_property_widget(DiaPrefData *data)
   switch(data->type) {
   case PREF_BOOLEAN:
     widget = gtk_toggle_button_new_with_label (_("No"));
-    gtk_signal_connect (GTK_OBJECT (widget), "toggled",
-			GTK_SIGNAL_FUNC (prefs_boolean_toggle), NULL);
+    g_signal_connect (GTK_OBJECT (widget), "toggled",
+		      G_CALLBACK (prefs_boolean_toggle), NULL);
     break;
   case PREF_INT:
     adj = GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
@@ -713,10 +713,10 @@ prefs_create_dialog(void)
   g_signal_connect(G_OBJECT (prefs_dialog), "response",
                    G_CALLBACK (prefs_respond), NULL);
 
-  gtk_signal_connect (GTK_OBJECT (prefs_dialog), "delete_event",
-		      GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
-  gtk_signal_connect (GTK_OBJECT (prefs_dialog), "destroy",
-		      GTK_SIGNAL_FUNC(gtk_widget_destroyed), &prefs_dialog);
+  g_signal_connect (GTK_OBJECT (prefs_dialog), "delete_event",
+		    G_CALLBACK(gtk_widget_hide), NULL);
+  g_signal_connect (GTK_OBJECT (prefs_dialog), "destroy",
+		    G_CALLBACK(gtk_widget_destroyed), &prefs_dialog);
 
   notebook = gtk_notebook_new ();
   gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);

@@ -111,8 +111,8 @@ create_page_setup_dlg(Diagram *dia)
   gtk_box_pack_start(GTK_BOX(vbox), ps->paper, TRUE, TRUE, 0);
   gtk_widget_show(ps->paper);
 
-  gtk_signal_connect(GTK_OBJECT(ps->paper), "changed",
-		     GTK_SIGNAL_FUNC(pagesetup_changed), ps);
+  g_signal_connect(GTK_OBJECT(ps->paper), "changed",
+		   G_CALLBACK(pagesetup_changed), ps);
 
   gtk_widget_show(ps->window);
 }

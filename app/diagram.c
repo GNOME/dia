@@ -844,7 +844,7 @@ void diagram_ungroup_selected(Diagram *dia)
 {
   Object *group;
   GList *group_list;
-  GList *list;
+/*   GList *list; */
   GList *selected;
   int group_index;
   int any_groups = 0;

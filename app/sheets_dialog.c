@@ -278,44 +278,44 @@ create_sheets_main_dialog (void)
   gtk_widget_show (button_close);
   gtk_box_pack_start (GTK_BOX (hbox1), button_close, FALSE, TRUE, 0);
 
-  gtk_signal_connect (GTK_OBJECT (sheets_main_dialog), "delete_event",
-                      GTK_SIGNAL_FUNC (on_sheets_main_dialog_delete_event),
+  g_signal_connect (GTK_OBJECT (sheets_main_dialog), "delete_event",
+                      G_CALLBACK (on_sheets_main_dialog_delete_event),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_copy), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_dialog_button_copy_clicked),
+  g_signal_connect (GTK_OBJECT (button_copy), "clicked",
+                      G_CALLBACK (on_sheets_dialog_button_copy_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_copy_all), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_dialog_button_copy_all_clicked),
+  g_signal_connect (GTK_OBJECT (button_copy_all), "clicked",
+                      G_CALLBACK (on_sheets_dialog_button_copy_all_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_move), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_dialog_button_move_clicked),
+  g_signal_connect (GTK_OBJECT (button_move), "clicked",
+                      G_CALLBACK (on_sheets_dialog_button_move_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_move_all), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_dialog_button_move_all_clicked),
+  g_signal_connect (GTK_OBJECT (button_move_all), "clicked",
+                      G_CALLBACK (on_sheets_dialog_button_move_all_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_new), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_dialog_button_new_clicked),
+  g_signal_connect (GTK_OBJECT (button_new), "clicked",
+                      G_CALLBACK (on_sheets_dialog_button_new_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_move_up), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_dialog_button_move_up_clicked),
+  g_signal_connect (GTK_OBJECT (button_move_up), "clicked",
+                      G_CALLBACK (on_sheets_dialog_button_move_up_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_move_down), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_dialog_button_move_down_clicked),
+  g_signal_connect (GTK_OBJECT (button_move_down), "clicked",
+                      G_CALLBACK (on_sheets_dialog_button_move_down_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_edit), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_dialog_button_edit_clicked),
+  g_signal_connect (GTK_OBJECT (button_edit), "clicked",
+                      G_CALLBACK (on_sheets_dialog_button_edit_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_remove), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_dialog_button_remove_clicked),
+  g_signal_connect (GTK_OBJECT (button_remove), "clicked",
+                      G_CALLBACK (on_sheets_dialog_button_remove_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_apply), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_dialog_button_apply_clicked),
+  g_signal_connect (GTK_OBJECT (button_apply), "clicked",
+                      G_CALLBACK (on_sheets_dialog_button_apply_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_revert), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_dialog_button_revert_clicked),
+  g_signal_connect (GTK_OBJECT (button_revert), "clicked",
+                      G_CALLBACK (on_sheets_dialog_button_revert_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_close), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_dialog_button_close_clicked),
+  g_signal_connect (GTK_OBJECT (button_close), "clicked",
+                      G_CALLBACK (on_sheets_dialog_button_close_clicked),
                       NULL);
 
   gtk_window_add_accel_group (GTK_WINDOW (sheets_main_dialog), accel_group);
@@ -514,23 +514,23 @@ create_sheets_new_dialog (void)
   gtk_container_add (GTK_CONTAINER (hbuttonbox1), button_cancel);
   GTK_WIDGET_SET_FLAGS (button_cancel, GTK_CAN_DEFAULT);
 
-  gtk_signal_connect (GTK_OBJECT (button_browse), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_new_dialog_button_browse_clicked),
+  g_signal_connect (GTK_OBJECT (button_browse), "clicked",
+                      G_CALLBACK (on_sheets_new_dialog_button_browse_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (radiobutton_svg_shape), "toggled",
-                      GTK_SIGNAL_FUNC (on_sheets_new_dialog_radiobutton_svg_shape_toggled),
+  g_signal_connect (GTK_OBJECT (radiobutton_svg_shape), "toggled",
+                      G_CALLBACK (on_sheets_new_dialog_radiobutton_svg_shape_toggled),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (radiobutton_sheet), "toggled",
-                      GTK_SIGNAL_FUNC (on_sheets_new_dialog_radiobutton_sheet_toggled),
+  g_signal_connect (GTK_OBJECT (radiobutton_sheet), "toggled",
+                      G_CALLBACK (on_sheets_new_dialog_radiobutton_sheet_toggled),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (radiobutton_line_break), "toggled",
-                      GTK_SIGNAL_FUNC (on_sheets_new_dialog_radiobutton_line_break_toggled),
+  g_signal_connect (GTK_OBJECT (radiobutton_line_break), "toggled",
+                      G_CALLBACK (on_sheets_new_dialog_radiobutton_line_break_toggled),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_ok), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_new_dialog_button_ok_clicked),
+  g_signal_connect (GTK_OBJECT (button_ok), "clicked",
+                      G_CALLBACK (on_sheets_new_dialog_button_ok_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_cancel), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_new_dialog_button_cancel_clicked),
+  g_signal_connect (GTK_OBJECT (button_cancel), "clicked",
+                      G_CALLBACK (on_sheets_new_dialog_button_cancel_clicked),
                       NULL);
 
   gtk_widget_grab_default (button_ok);
@@ -739,20 +739,20 @@ create_sheets_edit_dialog (void)
   gtk_container_add (GTK_CONTAINER (hbuttonbox2), button_cancel);
   GTK_WIDGET_SET_FLAGS (button_cancel, GTK_CAN_DEFAULT);
 
-  gtk_signal_connect (GTK_OBJECT (entry_object_description), "changed",
-                      GTK_SIGNAL_FUNC (on_sheets_edit_dialog_entry_object_description_changed),
+  g_signal_connect (GTK_OBJECT (entry_object_description), "changed",
+                      G_CALLBACK (on_sheets_edit_dialog_entry_object_description_changed),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (entry_sheet_description), "changed",
-                      GTK_SIGNAL_FUNC (on_sheets_edit_dialog_entry_sheet_description_changed),
+  g_signal_connect (GTK_OBJECT (entry_sheet_description), "changed",
+                      G_CALLBACK (on_sheets_edit_dialog_entry_sheet_description_changed),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (entry_sheet_name), "changed",
-                      GTK_SIGNAL_FUNC (on_sheets_edit_dialog_entry_sheet_name_changed),
+  g_signal_connect (GTK_OBJECT (entry_sheet_name), "changed",
+                      G_CALLBACK (on_sheets_edit_dialog_entry_sheet_name_changed),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_ok), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_edit_dialog_button_ok_clicked),
+  g_signal_connect (GTK_OBJECT (button_ok), "clicked",
+                      G_CALLBACK (on_sheets_edit_dialog_button_ok_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_cancel), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_edit_dialog_button_cancel_clicked),
+  g_signal_connect (GTK_OBJECT (button_cancel), "clicked",
+                      G_CALLBACK (on_sheets_edit_dialog_button_cancel_clicked),
                       NULL);
 
   gtk_widget_grab_default (button_ok);
@@ -893,17 +893,17 @@ create_sheets_remove_dialog (void)
   gtk_container_add (GTK_CONTAINER (hbuttonbox3), button_cancel);
   GTK_WIDGET_SET_FLAGS (button_cancel, GTK_CAN_DEFAULT);
 
-  gtk_signal_connect (GTK_OBJECT (radiobutton_object), "toggled",
-                      GTK_SIGNAL_FUNC (on_sheets_remove_dialog_radiobutton_object_toggled),
+  g_signal_connect (GTK_OBJECT (radiobutton_object), "toggled",
+                      G_CALLBACK (on_sheets_remove_dialog_radiobutton_object_toggled),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (radiobutton_sheet), "toggled",
-                      GTK_SIGNAL_FUNC (on_sheets_remove_dialog_radiobutton_sheet_toggled),
+  g_signal_connect (GTK_OBJECT (radiobutton_sheet), "toggled",
+                      G_CALLBACK (on_sheets_remove_dialog_radiobutton_sheet_toggled),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_ok), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_remove_dialog_button_ok_clicked),
+  g_signal_connect (GTK_OBJECT (button_ok), "clicked",
+                      G_CALLBACK (on_sheets_remove_dialog_button_ok_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (button_cancel), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_remove_dialog_button_cancel_clicked),
+  g_signal_connect (GTK_OBJECT (button_cancel), "clicked",
+                      G_CALLBACK (on_sheets_remove_dialog_button_cancel_clicked),
                       NULL);
 
   gtk_widget_grab_default (button_ok);
@@ -931,11 +931,11 @@ create_sheets_shapeselection_dialog (void)
   gtk_widget_show (cancel_button1);
   GTK_WIDGET_SET_FLAGS (cancel_button1, GTK_CAN_DEFAULT);
 
-  gtk_signal_connect (GTK_OBJECT (ok_button), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_shapeselection_dialog_button_ok_clicked),
+  g_signal_connect (GTK_OBJECT (ok_button), "clicked",
+                      G_CALLBACK (on_sheets_shapeselection_dialog_button_ok_clicked),
                       NULL);
-  gtk_signal_connect (GTK_OBJECT (cancel_button1), "clicked",
-                      GTK_SIGNAL_FUNC (on_sheets_shapeselection_dialog_button_cancel_clicked),
+  g_signal_connect (GTK_OBJECT (cancel_button1), "clicked",
+                      G_CALLBACK (on_sheets_shapeselection_dialog_button_cancel_clicked),
                       NULL);
 
   return sheets_shapeselection_dialog;

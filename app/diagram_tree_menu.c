@@ -229,9 +229,9 @@ diagram_tree_menus_add_hidden_type(DiagramTreeMenus *menus,
     GtkWidget *item = gtk_menu_item_new_with_label(type);
     data->items[k] = item;
     gtk_menu_shell_append(shell, item);
-    gtk_signal_connect(GTK_OBJECT(item),
+    g_signal_connect(GTK_OBJECT(item),
 		       "activate",
-		       GTK_SIGNAL_FUNC(on_show_object_type),
+		     G_CALLBACK(on_show_object_type),
 		       (gpointer)data);
     gtk_widget_show(item);
   }

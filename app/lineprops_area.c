@@ -427,10 +427,10 @@ dia_arrow_chooser_dialog_new(GtkWidget *widget, gpointer userdata)
     GtkWidget *wid;
     chooser->dialog = wid = gtk_dialog_new();
     gtk_window_set_title(GTK_WINDOW(wid), _("Arrow Properties"));
-    gtk_signal_connect(GTK_OBJECT(wid), "delete_event",
-		       GTK_SIGNAL_FUNC(close_and_hide), NULL);
-    gtk_signal_connect(GTK_OBJECT(wid), "destroy",
-		       GTK_SIGNAL_FUNC(gtk_widget_destroyed),
+    g_signal_connect(GTK_OBJECT(wid), "delete_event",
+		       G_CALLBACK(close_and_hide), NULL);
+    g_signal_connect(GTK_OBJECT(wid), "destroy",
+		       G_CALLBACK(gtk_widget_destroyed),
 		       &chooser->dialog);
 
     wid = dia_arrow_selector_new();
@@ -445,16 +445,16 @@ dia_arrow_chooser_dialog_new(GtkWidget *widget, gpointer userdata)
     GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
     gtk_container_add(GTK_CONTAINER(GTK_DIALOG(chooser->dialog)->action_area),wid);
     gtk_widget_grab_default(wid);
-    gtk_signal_connect_object(GTK_OBJECT(wid), "clicked",
-			      GTK_SIGNAL_FUNC(dia_arrow_chooser_dialog_ok),
+    g_signal_connect_swapped(GTK_OBJECT(wid), "clicked",
+			      G_CALLBACK(dia_arrow_chooser_dialog_ok),
 			      GTK_OBJECT(chooser));
     gtk_widget_show(wid);
 
     wid = gtk_button_new_with_label(_("Cancel"));
     GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
     gtk_container_add(GTK_CONTAINER(GTK_DIALOG(chooser->dialog)->action_area),wid);
-    gtk_signal_connect_object(GTK_OBJECT(wid), "clicked",
-			      GTK_SIGNAL_FUNC(dia_arrow_chooser_dialog_cancel),
+    g_signal_connect_swapped(GTK_OBJECT(wid), "clicked",
+			      G_CALLBACK(dia_arrow_chooser_dialog_cancel),
 			      GTK_OBJECT(chooser));
     gtk_widget_show(wid);
   }
@@ -496,15 +496,15 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
 
     gtk_container_add(GTK_CONTAINER(mi), ar);
     gtk_widget_show(ar);
-    gtk_signal_connect(GTK_OBJECT(mi), "activate",
-		       GTK_SIGNAL_FUNC(dia_arrow_chooser_change_arrow_type),
+    g_signal_connect(GTK_OBJECT(mi), "activate",
+		       G_CALLBACK(dia_arrow_chooser_change_arrow_type),
 		       chooser);
     gtk_container_add(GTK_CONTAINER(menu), mi);
     gtk_widget_show(mi);
   }
   mi = gtk_menu_item_new_with_label(_("Details..."));
-  gtk_signal_connect(GTK_OBJECT(mi), "activate",
-		     GTK_SIGNAL_FUNC(dia_arrow_chooser_dialog_show),
+  g_signal_connect(GTK_OBJECT(mi), "activate",
+		     G_CALLBACK(dia_arrow_chooser_dialog_show),
 		     GTK_OBJECT(chooser));
   gtk_container_add(GTK_CONTAINER(menu), mi);
   gtk_widget_show(mi);
@@ -656,8 +656,8 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
 
   lchooser->dialog = wid = gtk_dialog_new();
   gtk_window_set_title(GTK_WINDOW(wid), _("Line Style Properties"));
-  gtk_signal_connect(GTK_OBJECT(wid), "delete_event",
-		     GTK_SIGNAL_FUNC(close_and_hide), NULL);
+  g_signal_connect(GTK_OBJECT(wid), "delete_event",
+		     G_CALLBACK(close_and_hide), NULL);
 
   wid = dia_line_style_selector_new();
   gtk_container_set_border_width(GTK_CONTAINER(wid), 5);
@@ -671,8 +671,8 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   gtk_container_add(GTK_CONTAINER(GTK_DIALOG(lchooser->dialog)->action_area),
 		    wid);
   gtk_widget_grab_default(wid);
-  gtk_signal_connect_object(GTK_OBJECT(wid), "clicked",
-			    GTK_SIGNAL_FUNC(dia_line_chooser_dialog_ok),
+  g_signal_connect_swapped(GTK_OBJECT(wid), "clicked",
+			    G_CALLBACK(dia_line_chooser_dialog_ok),
 			    GTK_OBJECT(lchooser));
   gtk_widget_show(wid);
 
@@ -680,8 +680,8 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   GTK_WIDGET_SET_FLAGS(wid, GTK_CAN_DEFAULT);
   gtk_container_add(GTK_CONTAINER(GTK_DIALOG(lchooser->dialog)->action_area),
 		    wid);
-  gtk_signal_connect_object(GTK_OBJECT(wid), "clicked",
-			    GTK_SIGNAL_FUNC(dia_line_chooser_dialog_cancel),
+  g_signal_connect_swapped(GTK_OBJECT(wid), "clicked",
+			    G_CALLBACK(dia_line_chooser_dialog_cancel),
 			    GTK_OBJECT(lchooser));
 
   menu = gtk_menu_new();
@@ -693,15 +693,15 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
     ln = dia_line_preview_new(i);
     gtk_container_add(GTK_CONTAINER(mi), ln);
     gtk_widget_show(ln);
-    gtk_signal_connect(GTK_OBJECT(mi), "activate",
-		       GTK_SIGNAL_FUNC(dia_line_chooser_change_line_style),
+    g_signal_connect(GTK_OBJECT(mi), "activate",
+		       G_CALLBACK(dia_line_chooser_change_line_style),
 		       lchooser);
     gtk_container_add(GTK_CONTAINER(menu), mi);
     gtk_widget_show(mi);
   }
   mi = gtk_menu_item_new_with_label(_("Details..."));
-  gtk_signal_connect_object(GTK_OBJECT(mi), "activate",
-			    GTK_SIGNAL_FUNC(gtk_widget_show),
+  g_signal_connect_swapped(GTK_OBJECT(mi), "activate",
+			    G_CALLBACK(gtk_widget_show),
 			    GTK_OBJECT(lchooser->dialog));
   gtk_container_add(GTK_CONTAINER(menu), mi);
   gtk_widget_show(mi);

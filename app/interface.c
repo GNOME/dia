@@ -18,6 +18,8 @@
 
 #include <config.h>
 
+#include <gtk/gtk.h>
+
 #include <stdio.h>
 #include <string.h>
 
@@ -31,7 +33,7 @@
 #include "dia_dirs.h"
 #include "diagram_tree_window.h"
 #include "intl.h"
-#include <gdk-pixbuf/gdk-pixbuf.h>
+/* #include <gdk-pixbuf/gdk-pixbuf.h> */
 
 static const GtkTargetEntry create_object_targets[] = {
   { "application/x-dia-object", 0, 0 },
@@ -182,8 +184,8 @@ static void
 zoom_add_zoom_amount(GtkWidget *menu, gchar *text, DDisplay *ddisp) {
   GtkWidget *menuitem = gtk_menu_item_new_with_label(text);
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-  gtk_signal_connect(GTK_OBJECT(menuitem), 
-		     "activate", (GtkSignalFunc)zoom_activate_callback,
+  g_signal_connect(GTK_OBJECT(menuitem), 
+		     "activate", G_CALLBACK(zoom_activate_callback),
 		     ddisp);
   g_object_set_data(G_OBJECT(menuitem), "zoomamount", text);
 }
@@ -212,8 +214,8 @@ create_zoom_widget(DDisplay *ddisp) {
 
   combo = gtk_hbox_new(FALSE, 0);
   entry = gtk_entry_new();
-  gtk_signal_connect (GTK_OBJECT (entry), "activate",
-		      (GtkSignalFunc) zoom_activate_callback,
+  g_signal_connect (GTK_OBJECT (entry), "activate",
+		    G_CALLBACK(zoom_activate_callback),
 		      ddisp);
   gtk_box_pack_start_defaults(GTK_BOX(combo), entry);
   gtk_object_set_user_data(GTK_OBJECT(combo), entry);
@@ -242,8 +244,8 @@ create_zoom_widget(DDisplay *ddisp) {
 
   gtk_widget_show_all(menu);
 
-  gtk_signal_connect (GTK_OBJECT (button), "button_press_event",
-		      (GtkSignalFunc) zoom_popup_menu,
+  g_signal_connect (GTK_OBJECT (button), "button_press_event",
+		    G_CALLBACK(zoom_popup_menu),
 		      menu);
 
   return combo;
@@ -319,27 +321,27 @@ create_display_shell(DDisplay *ddisp,
 			 GDK_FOCUS_CHANGE_MASK);
                       /* GDK_ALL_EVENTS_MASK */
 
-  gtk_signal_connect (GTK_OBJECT (ddisp->shell), "delete_event",
-                      GTK_SIGNAL_FUNC (ddisplay_delete),
+  g_signal_connect (GTK_OBJECT (ddisp->shell), "delete_event",
+		    G_CALLBACK (ddisplay_delete),
                       ddisp);
-  gtk_signal_connect (GTK_OBJECT (ddisp->shell), "destroy",
-                      GTK_SIGNAL_FUNC (ddisplay_destroy),
+  g_signal_connect (GTK_OBJECT (ddisp->shell), "destroy",
+		    G_CALLBACK (ddisplay_destroy),
                       ddisp);
-  gtk_signal_connect (GTK_OBJECT (ddisp->shell), "focus_out_event",
-		      GTK_SIGNAL_FUNC (ddisplay_focus_out_event),
+  g_signal_connect (GTK_OBJECT (ddisp->shell), "focus_out_event",
+		    G_CALLBACK (ddisplay_focus_out_event),
 		      ddisp);
-  gtk_signal_connect (GTK_OBJECT (ddisp->shell), "focus_in_event",
-		      GTK_SIGNAL_FUNC (ddisplay_focus_in_event),
+  g_signal_connect (GTK_OBJECT (ddisp->shell), "focus_in_event",
+		    G_CALLBACK (ddisplay_focus_in_event),
 		      ddisp);
-  gtk_signal_connect (GTK_OBJECT (ddisp->shell), "realize",
-                      GTK_SIGNAL_FUNC (ddisplay_realize),
+  g_signal_connect (GTK_OBJECT (ddisp->shell), "realize",
+		    G_CALLBACK (ddisplay_realize),
                       ddisp);
-  gtk_signal_connect (GTK_OBJECT (ddisp->shell), "unrealize",
-                      GTK_SIGNAL_FUNC (ddisplay_unrealize),
+  g_signal_connect (GTK_OBJECT (ddisp->shell), "unrealize",
+		    G_CALLBACK (ddisplay_unrealize),
 		      ddisp);
 /*FIXME?:
-  gtk_signal_connect (GTK_OBJECT (ddisp->shell), "size_allocate",
-		      GTK_SIGNAL_FUNC (ddisplay_size_allocate),
+  g_signal_connect (GTK_OBJECT (ddisp->shell), "size_allocate",
+		    G_CALLBACK (ddisplay_size_allocate),
 		      ddisp);
 */
 
@@ -370,8 +372,8 @@ create_display_shell(DDisplay *ddisp,
       gtk_container_add(GTK_CONTAINER(ddisp->origin), widget);
       gtk_tooltips_set_tip(tool_tips, widget, _("Diagram menu."), NULL);
       gtk_widget_show(widget);
-      gtk_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
-		     GTK_SIGNAL_FUNC(origin_button_press), ddisp);
+      g_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
+		     G_CALLBACK(origin_button_press), ddisp);
   }
   else {
       ddisp->origin = gtk_frame_new (NULL);
@@ -380,13 +382,13 @@ create_display_shell(DDisplay *ddisp,
   
 
   ddisp->hrule = gtk_hruler_new ();
-  gtk_signal_connect_object (GTK_OBJECT (ddisp->shell), "motion_notify_event",
-                             (GtkSignalFunc) GTK_WIDGET_GET_CLASS (ddisp->hrule)->motion_notify_event,
+  g_signal_connect_swapped (GTK_OBJECT (ddisp->shell), "motion_notify_event",
+                             G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->hrule)->motion_notify_event),
                              GTK_OBJECT (ddisp->hrule));
 
   ddisp->vrule = gtk_vruler_new ();
-  gtk_signal_connect_object (GTK_OBJECT (ddisp->shell), "motion_notify_event",
-                             (GtkSignalFunc) GTK_WIDGET_GET_CLASS (ddisp->vrule)->motion_notify_event,
+  g_signal_connect_swapped (GTK_OBJECT (ddisp->shell), "motion_notify_event",
+			    G_CALLBACK(GTK_WIDGET_GET_CLASS (ddisp->vrule)->motion_notify_event),
                              GTK_OBJECT (ddisp->vrule));
 
   ddisp->hsb = gtk_hscrollbar_new (ddisp->hsbdata);
@@ -396,11 +398,11 @@ create_display_shell(DDisplay *ddisp,
 
 
   /*  set up the scrollbar observers  */
-  gtk_signal_connect (GTK_OBJECT (ddisp->hsbdata), "value_changed",
-		      (GtkSignalFunc) ddisplay_hsb_update,
+  g_signal_connect (GTK_OBJECT (ddisp->hsbdata), "value_changed",
+		    G_CALLBACK(ddisplay_hsb_update),
 		      ddisp);
-  gtk_signal_connect (GTK_OBJECT (ddisp->vsbdata), "value_changed",
-		      (GtkSignalFunc) ddisplay_vsb_update,
+  g_signal_connect (GTK_OBJECT (ddisp->vsbdata), "value_changed",
+		    G_CALLBACK(ddisplay_vsb_update),
 		      ddisp);
 
   ddisp->canvas = gtk_drawing_area_new ();
@@ -409,16 +411,16 @@ create_display_shell(DDisplay *ddisp,
   gtk_drawing_area_size (GTK_DRAWING_AREA (ddisp->canvas), width, height);
   gtk_widget_set_events (ddisp->canvas, CANVAS_EVENT_MASK);
   GTK_WIDGET_SET_FLAGS (ddisp->canvas, GTK_CAN_FOCUS);
-  gtk_signal_connect (GTK_OBJECT (ddisp->canvas), "event",
-		      (GtkSignalFunc) ddisplay_canvas_events,
+  g_signal_connect (GTK_OBJECT (ddisp->canvas), "event",
+		    G_CALLBACK(ddisplay_canvas_events),
 		      ddisp);
 
   gtk_drag_dest_set(ddisp->canvas, GTK_DEST_DEFAULT_ALL,
 		    create_object_targets, 1, GDK_ACTION_COPY);
-  gtk_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_drop",
-		      GTK_SIGNAL_FUNC(display_drop_callback), NULL);
-  gtk_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_data_received",
-		      GTK_SIGNAL_FUNC(display_data_received_callback), ddisp);
+  g_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_drop",
+		    G_CALLBACK(display_drop_callback), NULL);
+  g_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_data_received",
+		    G_CALLBACK(display_data_received_callback), ddisp);
 
   gtk_object_set_user_data (GTK_OBJECT (ddisp->canvas), (gpointer) ddisp);
   /*  pack all the widgets  */
@@ -470,8 +472,8 @@ create_display_shell(DDisplay *ddisp,
   status_hbox = gtk_hbox_new (FALSE, 2);
 
   /*
-    gtk_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
-    GTK_SIGNAL_FUNC(origin_button_press), ddisp);
+    g_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
+    G_CALLBACK(origin_button_press), ddisp);
   */
 
   /* Zoom status pseudo-optionmenu */
@@ -586,8 +588,8 @@ tool_setup_drag_source(GtkWidget *button, ToolButtonData *tooldata,
   gtk_drag_source_set(button, GDK_BUTTON1_MASK,
 		      create_object_targets, 1,
 		      GDK_ACTION_DEFAULT|GDK_ACTION_COPY);
-  gtk_signal_connect(GTK_OBJECT(button), "drag_data_get",
-		     GTK_SIGNAL_FUNC(tool_drag_data_get), tooldata);
+  g_signal_connect(GTK_OBJECT(button), "drag_data_get",
+		   G_CALLBACK(tool_drag_data_get), tooldata);
   if (pixmap)
     gtk_drag_source_set_icon(button, gtk_widget_get_colormap(button),
 			     pixmap, mask);
@@ -624,6 +626,7 @@ create_tools(GtkWidget *parent)
   for (i = 0; i < NUM_TOOLS; i++) {
     tool_widgets[i] = button = gtk_radio_button_new (tool_group);
     gtk_container_set_border_width (GTK_CONTAINER (button), 0);
+    gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_HALF);
     tool_group = gtk_radio_button_group (GTK_RADIO_BUTTON (button));
     gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button), FALSE);
 
@@ -658,12 +661,12 @@ create_tools(GtkWidget *parent)
     
     gtk_container_add (GTK_CONTAINER (button), pixmapwidget);
     
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC (tool_select_update),
+    g_signal_connect (GTK_OBJECT (button), "clicked",
+		      G_CALLBACK (tool_select_update),
 			&tool_data[i].callback_data);
     
-    gtk_signal_connect (GTK_OBJECT (button), "button_press_event",
-			GTK_SIGNAL_FUNC (tool_button_press),
+    g_signal_connect (GTK_OBJECT (button), "button_press_event",
+		      G_CALLBACK (tool_button_press),
 			&tool_data[i].callback_data);
 
     if (tool_data[i].callback_data.type == CREATE_OBJECT_TOOL)
@@ -764,12 +767,12 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
     data->extra_data = sheet_obj->object_type;
     data->user_data = sheet_obj->user_data;
     
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC (tool_select_update),
+    g_signal_connect (GTK_OBJECT (button), "clicked",
+		      G_CALLBACK (tool_select_update),
 			data);
     
-    gtk_signal_connect (GTK_OBJECT (button), "button_press_event",
-			GTK_SIGNAL_FUNC (tool_button_press),
+    g_signal_connect (GTK_OBJECT (button), "button_press_event",
+		      G_CALLBACK (tool_button_press),
 			data);
 
     gtk_tooltips_set_tip (tool_tips, button,
@@ -869,10 +872,10 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
 			     data, (GdkDestroyNotify)g_free);
     if (first_button == NULL) first_button = button;
     
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC (tool_select_update), data);
-    gtk_signal_connect (GTK_OBJECT (button), "button_press_event",
-			GTK_SIGNAL_FUNC (tool_button_press), data);
+    g_signal_connect (GTK_OBJECT (button), "clicked",
+		      G_CALLBACK (tool_select_update), data);
+    g_signal_connect (GTK_OBJECT (button), "button_press_event",
+		      G_CALLBACK (tool_button_press), data);
 
     tool_setup_drag_source(button, data, pixmap, mask);
 
@@ -907,8 +910,8 @@ fill_sheet_menu(void)
       continue;
 
     menuitem = gtk_menu_item_new_with_label(gettext(sheet->name));
-    gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
-		       GTK_SIGNAL_FUNC(fill_sheet_wbox), sheet);
+    g_signal_connect(GTK_OBJECT(menuitem), "activate",
+		     G_CALLBACK(fill_sheet_wbox), sheet);
     gtk_container_add(GTK_CONTAINER(sheet_menu), menuitem);
   
     /* off by one with gtk_option_menu_<get/set>_history should start
@@ -1191,12 +1194,12 @@ create_toolbox ()
   gtk_window_set_role (GTK_WINDOW (window), "toolbox_window");
   gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
 
-  gtk_signal_connect (GTK_OBJECT (window), "delete_event",
-		      GTK_SIGNAL_FUNC (toolbox_delete),
+  g_signal_connect (GTK_OBJECT (window), "delete_event",
+		    G_CALLBACK (toolbox_delete),
 		      window);
 
-  gtk_signal_connect (GTK_OBJECT (window), "destroy",
-		      GTK_SIGNAL_FUNC (toolbox_destroy),
+  g_signal_connect (GTK_OBJECT (window), "destroy",
+		    G_CALLBACK (toolbox_destroy),
 		      window);
 
   main_vbox = gtk_vbox_new (FALSE, 1);
@@ -1236,8 +1239,8 @@ create_toolbox ()
 		     GTK_DEST_DEFAULT_ALL,
 		     toolbox_target_table, toolbox_n_targets,
 		     GDK_ACTION_COPY);
-  gtk_signal_connect (GTK_OBJECT (wrapbox), "drag_data_received",
-                      GTK_SIGNAL_FUNC (dia_dnd_file_drag_data_received),
+  g_signal_connect (GTK_OBJECT (wrapbox), "drag_data_received",
+		    G_CALLBACK (dia_dnd_file_drag_data_received),
                       wrapbox);
 
   /* menus -- initialised afterwards, because initing the display menus

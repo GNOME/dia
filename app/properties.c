@@ -48,8 +48,8 @@ static gboolean properties_key_event(GtkWidget *widget,
 
 static void create_dialog()
 {
-  GtkWidget *actionbox;
-  GList *buttons;
+/*   GtkWidget *actionbox; */
+/*   GList *buttons; */
 
   dialog = gtk_dialog_new_with_buttons(
              _("Object properties"),

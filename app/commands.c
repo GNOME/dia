@@ -603,8 +603,8 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
   gtk_window_set_title (GTK_WINDOW (dialog), _("About Dia"));
   gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-  gtk_signal_connect (GTK_OBJECT (dialog), "destroy",
-          GTK_SIGNAL_FUNC (gtk_widget_destroy), 
+  g_signal_connect (GTK_OBJECT (dialog), "destroy",
+		    G_CALLBACK (gtk_widget_destroy), 
           GTK_OBJECT (dialog));
 
   vbox = gtk_vbox_new (FALSE, 1);
@@ -684,8 +684,8 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
 
   button = gtk_button_new_from_stock(GTK_STOCK_OK);
   gtk_container_add(GTK_CONTAINER(bbox), button);
-  gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
-          GTK_SIGNAL_FUNC(gtk_widget_destroy),
+  g_signal_connect_swapped(GTK_OBJECT (button), "clicked",
+			   G_CALLBACK(gtk_widget_destroy),
           GTK_OBJECT(dialog));
 
   gtk_widget_show_all (dialog);

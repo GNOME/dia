@@ -164,8 +164,8 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
 
     gtk_object_set_data(GTK_OBJECT(menu_item), "wrapbox", wrapbox);
 
-    gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
-                       GTK_SIGNAL_FUNC(on_sheets_dialog_optionmenu_activate),
+    g_signal_connect(GTK_OBJECT(menu_item), "activate",
+		     G_CALLBACK(on_sheets_dialog_optionmenu_activate),
                        (gpointer)sheet_mod);
   }
  
@@ -221,11 +221,11 @@ sheets_dialog_create(void)
   {
     sheets_dialog = create_sheets_main_dialog();
     /* Make sure to null our pointer when destroyed */
-    gtk_signal_connect (GTK_OBJECT (sheets_dialog), "destroy",
-			GTK_SIGNAL_FUNC (gtk_widget_destroyed),
+    g_signal_connect (GTK_OBJECT (sheets_dialog), "destroy",
+		      G_CALLBACK (gtk_widget_destroyed),
 			&sheets_dialog);
-    gtk_signal_connect (GTK_OBJECT (sheets_dialog), "destroy",
-			GTK_SIGNAL_FUNC (gtk_widget_destroyed),
+    g_signal_connect (GTK_OBJECT (sheets_dialog), "destroy",
+		      G_CALLBACK (gtk_widget_destroyed),
 			&sheets_dialog_tooltips);
 
     sheet_left = NULL;

@@ -97,8 +97,8 @@ recent_file_menuitem_create(GtkWidget *menu,
 	gtk_menu_insert(GTK_MENU(menu), item,
 	                pos + recent_files_menuitem_offset);
 
-	gtk_signal_connect(GTK_OBJECT(item), "activate",
-	                   GTK_SIGNAL_FUNC(open_recent_file_callback),filedata);
+	g_signal_connect(GTK_OBJECT(item), "activate",
+			 G_CALLBACK(open_recent_file_callback),filedata);
 
 	gtk_tooltips_set_tip(GTK_TOOLTIPS(tooltips), item,
 	                     filedata->filename, NULL);

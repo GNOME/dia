@@ -275,12 +275,12 @@ export_png(DiagramData *data, const gchar *filename,
 			    0.0, 10000.0, 0);
 
     /* Make sure that the aspect ratio stays the same */
-    gtk_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(export_png_width_entry)), 
+    g_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(export_png_width_entry)), 
 		       "value_changed",
-		       (GtkSignalFunc)export_png_ratio, (gpointer)export_png_height_entry);
-    gtk_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(export_png_height_entry)), 
+		     G_CALLBACK(export_png_ratio), (gpointer)export_png_height_entry);
+    g_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(export_png_height_entry)), 
 		       "value_changed",
-		       (GtkSignalFunc)export_png_ratio, (gpointer)export_png_width_entry);
+		       G_CALLBACK(export_png_ratio), (gpointer)export_png_width_entry);
 
   }
 
@@ -302,10 +302,10 @@ export_png(DiagramData *data, const gchar *filename,
     /*  gtk_spin_button_set_value(export_png_height_entry, (float)height);*/
     
     /* Set OK and Cancel buttons to call the relevant callbacks with cbdata */
-    gtk_signal_connect(GTK_OBJECT(export_png_okay_button), "clicked",
-		       (GtkSignalFunc)export_png_ok, (gpointer)cbdata);
-    gtk_signal_connect(GTK_OBJECT(export_png_cancel_button), "clicked",
-		       (GtkSignalFunc)export_png_cancel, (gpointer)cbdata);
+    g_signal_connect(GTK_OBJECT(export_png_okay_button), "clicked",
+		     G_CALLBACK(export_png_ok), (gpointer)cbdata);
+    g_signal_connect(GTK_OBJECT(export_png_cancel_button), "clicked",
+		     G_CALLBACK(export_png_cancel), (gpointer)cbdata);
     
     /* Show the whole thing */
     gtk_widget_show_all(export_png_dialog);

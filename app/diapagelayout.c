@@ -133,8 +133,8 @@ dia_page_layout_init(DiaPageLayout *self)
        i++, paper_names = g_list_next(paper_names)) {
     menuitem = gtk_menu_item_new_with_label(paper_names->data);
     gtk_object_set_user_data(GTK_OBJECT(menuitem), GINT_TO_POINTER(i));
-    gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
-		       GTK_SIGNAL_FUNC(paper_size_change), self);
+    g_signal_connect(GTK_OBJECT(menuitem), "activate",
+		     G_CALLBACK(paper_size_change), self);
     gtk_container_add(GTK_CONTAINER(menu), menuitem);
     gtk_widget_show(menuitem);
   }
@@ -304,33 +304,33 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(self->darea);
 
   /* connect the signal handlers */
-  gtk_signal_connect_object(GTK_OBJECT(self->orient_portrait), "toggled",
-			    GTK_SIGNAL_FUNC(orient_changed), GTK_OBJECT(self));
+  g_signal_connect_swapped(GTK_OBJECT(self->orient_portrait), "toggled",
+			  G_CALLBACK(orient_changed), GTK_OBJECT(self));
 
-  gtk_signal_connect_object(GTK_OBJECT(self->tmargin), "changed",
-			    GTK_SIGNAL_FUNC(margin_changed), GTK_OBJECT(self));
-  gtk_signal_connect_object(GTK_OBJECT(self->bmargin), "changed",
-			    GTK_SIGNAL_FUNC(margin_changed), GTK_OBJECT(self));
-  gtk_signal_connect_object(GTK_OBJECT(self->lmargin), "changed",
-			    GTK_SIGNAL_FUNC(margin_changed), GTK_OBJECT(self));
-  gtk_signal_connect_object(GTK_OBJECT(self->rmargin), "changed",
-			    GTK_SIGNAL_FUNC(margin_changed), GTK_OBJECT(self));
+  g_signal_connect_swapped(GTK_OBJECT(self->tmargin), "changed",
+			   G_CALLBACK(margin_changed), GTK_OBJECT(self));
+  g_signal_connect_swapped(GTK_OBJECT(self->bmargin), "changed",
+			   G_CALLBACK(margin_changed), GTK_OBJECT(self));
+  g_signal_connect_swapped(GTK_OBJECT(self->lmargin), "changed",
+			   G_CALLBACK(margin_changed), GTK_OBJECT(self));
+  g_signal_connect_swapped(GTK_OBJECT(self->rmargin), "changed",
+			   G_CALLBACK(margin_changed), GTK_OBJECT(self));
 
-  gtk_signal_connect_object(GTK_OBJECT(self->fitto), "toggled",
-			    GTK_SIGNAL_FUNC(scalemode_changed),
+  g_signal_connect_swapped(GTK_OBJECT(self->fitto), "toggled",
+			   G_CALLBACK(scalemode_changed),
 			    GTK_OBJECT(self));
-  gtk_signal_connect_object(GTK_OBJECT(self->scaling), "changed",
-			    GTK_SIGNAL_FUNC(scale_changed), GTK_OBJECT(self));
-  gtk_signal_connect_object(GTK_OBJECT(self->fitw), "changed",
-			    GTK_SIGNAL_FUNC(scale_changed), GTK_OBJECT(self));
-  gtk_signal_connect_object(GTK_OBJECT(self->fith), "changed",
-			    GTK_SIGNAL_FUNC(scale_changed), GTK_OBJECT(self));
+  g_signal_connect_swapped(GTK_OBJECT(self->scaling), "changed",
+			   G_CALLBACK(scale_changed), GTK_OBJECT(self));
+  g_signal_connect_swapped(GTK_OBJECT(self->fitw), "changed",
+			   G_CALLBACK(scale_changed), GTK_OBJECT(self));
+  g_signal_connect_swapped(GTK_OBJECT(self->fith), "changed",
+			   G_CALLBACK(scale_changed), GTK_OBJECT(self));
 
-  gtk_signal_connect_object(GTK_OBJECT(self->darea), "size_allocate",
-			    GTK_SIGNAL_FUNC(darea_size_allocate),
+  g_signal_connect_swapped(GTK_OBJECT(self->darea), "size_allocate",
+			   G_CALLBACK(darea_size_allocate),
 			    GTK_OBJECT(self));
-  gtk_signal_connect_object(GTK_OBJECT(self->darea), "expose_event",
-			    GTK_SIGNAL_FUNC(darea_expose_event),
+  g_signal_connect_swapped(GTK_OBJECT(self->darea), "expose_event",
+			   G_CALLBACK(darea_expose_event),
 			    GTK_OBJECT(self));
 
   gdk_color_white(gtk_widget_get_colormap(GTK_WIDGET(self)), &self->white);
@@ -784,18 +784,18 @@ main(int argc, char **argv)
 
   win = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(win), _("Page Setup"));
-  gtk_signal_connect(GTK_OBJECT(win), "destroy",
-		     GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
+  g_signal_connect(GTK_OBJECT(win), "destroy",
+		   G_CALLBACK(gtk_main_quit), NULL);
 
   pl = dia_page_layout_new();
   gtk_container_set_border_width(GTK_CONTAINER(pl), 5);
   gtk_container_add(GTK_CONTAINER(win), pl);
   gtk_widget_show(pl);
 
-  gtk_signal_connect(GTK_OBJECT(pl), "changed",
-		     GTK_SIGNAL_FUNC(changed_signal), NULL);
-  gtk_signal_connect(GTK_OBJECT(pl), "fittopage",
-		     GTK_SIGNAL_FUNC(fittopage_signal), NULL);
+  g_signal_connect(GTK_OBJECT(pl), "changed",
+		   G_CALLBACK(changed_signal), NULL);
+  g_signal_connect(GTK_OBJECT(pl), "fittopage",
+		   G_CALLBACK(fittopage_signal), NULL);
 
   gtk_widget_show(win);
   gtk_main();

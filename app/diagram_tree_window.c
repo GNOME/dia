@@ -77,11 +77,11 @@ diagram_tree_window_new(DiagramTreeConfig *config)
   gtk_window_set_role(GTK_WINDOW(window), "diagram_tree");
 
   /* simply hide the window when it is closed */
-  gtk_signal_connect(GTK_OBJECT(window), "destroy",
-		     GTK_SIGNAL_FUNC(diagram_tree_window_destroyed), NULL);
+  g_signal_connect(GTK_OBJECT(window), "destroy",
+		   G_CALLBACK(diagram_tree_window_destroyed), NULL);
 
-  gtk_signal_connect(GTK_OBJECT(window), "delete_event",
-		     GTK_SIGNAL_FUNC(diagram_tree_window_hide), NULL);
+  g_signal_connect(GTK_OBJECT(window), "delete_event",
+		   G_CALLBACK(diagram_tree_window_hide), NULL);
 
   /* the diagtree */
   if (!diagtree_)
@@ -113,7 +113,7 @@ diagram_tree_window_new(DiagramTreeConfig *config)
   gtk_widget_show(tree);
   gtk_widget_show(scroll);
 
-  persistence_register_window(window);
+  persistence_register_window(GTK_WINDOW(window));
 
   return window;
 }

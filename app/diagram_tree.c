@@ -315,9 +315,9 @@ diagram_tree_new(GList *diagrams, GtkWindow *window,
   result->last = NULL;
   result->dia_cmp = result->obj_cmp = NULL;
   result->hidden = NULL;
-  gtk_signal_connect(GTK_OBJECT(result->tree),
+  g_signal_connect(GTK_OBJECT(result->tree),
 		     "button_press_event",
-		     GTK_SIGNAL_FUNC(button_press_callback),
+		   G_CALLBACK(button_press_callback),
 		     (gpointer)result);
   while (diagrams) {
     diagram_tree_add(result, (Diagram *)diagrams->data);

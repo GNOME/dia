@@ -30,10 +30,6 @@
 #include <unistd.h>
 #endif
 
-#ifdef GNOME
-#undef GTK_DISABLE_DEPRECATED /* gtk_signal_connect[_object] */
-#endif
-
 #include <gtk/gtk.h>
 #include <gmodule.h>
 
@@ -375,10 +371,10 @@ app_init (int argc, char **argv)
       g_warning(_("Can't connect to session manager!\n"));
     }
     else {
-      gtk_signal_connect(GTK_OBJECT (client), "save_yourself",
-			 GTK_SIGNAL_FUNC (save_state), NULL);
-      gtk_signal_connect(GTK_OBJECT (client), "die",
-			 GTK_SIGNAL_FUNC (session_die), NULL);
+      g_signal_connect(GTK_OBJECT (client), "save_yourself",
+		       G_CALLBACK (save_state), NULL);
+      g_signal_connect(GTK_OBJECT (client), "die",
+		       G_CALLBACK (session_die), NULL);
     }
 
     /* This smaller icon is 48x48, standard Gnome size */

@@ -1,5 +1,36 @@
 2003-11-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/app_procs.c
+	* app/color_area.c
+	* app/commands.c
+	* app/defaults.c
+	* app/dia_embedd.c
+	* app/diagram.c
+	* app/diagram_tree.c
+	* app/diagram_tree_menu.c
+	* app/diagram_tree_window.c
+	* app/diapagelayout.c
+	* app/diaunitspinner.c
+	* app/export_png.c
+	* app/filedlg.c
+	* app/interface.c
+	* app/layer_dialog.c
+	* app/lineprops_area.c
+	* app/linewidth_area.c
+	* app/menus.c
+	* app/pagesetup.c
+	* app/paginate_psprint.c
+	* app/persistence.c
+	* app/plugin-manager.c
+	* app/preferences.c
+	* app/properties.c
+	* app/recent_files.c
+	* app/sheets.c
+	* app/sheets_dialog.c
+	* app/sheets_dialog_callbacks.c
+	* app/tool.c: Patch from Sebastien Tricaud <toady@gscore.org>:
+	GTK-2 compatibility update, mostly gtk_foo -> g_foo.
+
 	* TODO: Updated, note on EPS transparency.
 
 2003-11-07  Lars Clausen  <lrclause@cs.uiuc.edu>

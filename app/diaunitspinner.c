@@ -123,8 +123,8 @@ dia_unit_spinner_init(DiaUnitSpinner *self)
   if (self->parent.adjustment) {
     gtk_signal_disconnect_by_data(GTK_OBJECT(self->parent.adjustment),
 				  (gpointer) self);
-    gtk_signal_connect(GTK_OBJECT(self->parent.adjustment), "value_changed",
-		       GTK_SIGNAL_FUNC(dia_unit_spinner_value_changed),
+    g_signal_connect(GTK_OBJECT(self->parent.adjustment), "value_changed",
+		      G_CALLBACK(dia_unit_spinner_value_changed),
 		       (gpointer) self);
   }
 
@@ -141,8 +141,8 @@ dia_unit_spinner_new(GtkAdjustment *adjustment, guint digits, DiaUnit adj_unit)
   if (adjustment) {
     gtk_signal_disconnect_by_data(GTK_OBJECT(adjustment),
 				  (gpointer) self);
-    gtk_signal_connect(GTK_OBJECT(adjustment), "value_changed",
-		       GTK_SIGNAL_FUNC(dia_unit_spinner_value_changed),
+    g_signal_connect(GTK_OBJECT(adjustment), "value_changed",
+		     G_CALLBACK(dia_unit_spinner_value_changed),
 		       (gpointer) self);
   }
 
