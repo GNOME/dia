@@ -11,6 +11,7 @@ dia-0.89:  XX-XXX-2001
   choose the charset you normally use. This is normal and there is no
   other sane possible way.
 
+* Metapost renderer
 * Updated Python interface.
 * Faster Postscript files when using an Unicode-enabled build.
 * An optional menu bar can be added to each display window, in

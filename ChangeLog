@@ -1,3 +1,11 @@
+2001-10-02  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* plug-ins/metapost/metapost.c: 
+	* plug-ins/metapost/Makefile.am:
+	* plug-ins/metapost/render_metapost.c:
+	* plug-ins/metapost/render_metapost.h:
+	Metapost renderer from Chris Sperandio
+
 2001-09-14  Hans Breuer  <hans@breuer.org>
 
 	* app/render_gdk.c : reflect the fact, that GTK already talks
