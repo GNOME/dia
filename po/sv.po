@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2001-04-09 15:48+0200\n"
-"PO-Revision-Date: 2001-04-09 16:44+0200\n"
+"POT-Creation-Date: 2001-04-09 22:27+0200\n"
+"PO-Revision-Date: 2001-04-09 22:34+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -95,7 +95,7 @@ msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
-"Kunde inte skapa en personlig Dia-konfigurationskatalog. Försäkra dig om att "
+"Kunde inte skapa en personlig Dia-konfigurationskatalog. Kontrollera att "
 "miljövariabeln HOME pekar till en existerande katalog."
 
 #: app/app_procs.c:463
@@ -2890,7 +2890,7 @@ msgstr "Kunde inte identifiera FIG-objekt: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:731
 msgid "Compound end outside compound\n"
-msgstr "Sammansättning slutar yttre sammansättning\n"
+msgstr "Sammansättningen slutar utanför sammansättningen\n"
 
 #: plug-ins/xfig/xfig-import.c:754
 #, c-format
