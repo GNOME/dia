@@ -15,4 +15,6 @@ realizes.lo
 class_dialog.lo
 uml.lo
 note.lo
+usecase.lo
+actor.lo
 libuml_objects.la

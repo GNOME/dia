@@ -1,6 +1,15 @@
 1998-11-30  Alexander Larsson  <alla@lysator.liu.se>
 
 	* objects/UML/actor.c:
+	Changed the extents and alignment of the element
+	and the text.
+
+	* objects/UML/.cvsignore:
+	Added usecase.lo and actor.lo.
+
+1998-11-30  Alexander Larsson  <alla@lysator.liu.se>
+
+	* objects/UML/actor.c:
 	* objects/UML/usecase.c:
 	* objects/UML/pixmaps/actor.xpm:
 	* objects/UML/pixmaps/case.xpm:

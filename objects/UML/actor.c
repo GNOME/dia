@@ -40,9 +40,9 @@ struct _Actor {
 };
 
 #define ACTOR_WIDTH 2.2
-#define ACTOR_HEIGHT 5.24
-#define ACTOR_HEAD 0.12
-#define ACTOR_BODY 0.75
+#define ACTOR_HEIGHT 4.6
+#define ACTOR_HEAD 0.6
+#define ACTOR_BODY 4.0
 #define ACTOR_LINEWIDTH 0.1
 #define ACTOR_MARGIN_X 0.3
 #define ACTOR_MARGIN_Y 0.3
@@ -134,14 +134,12 @@ actor_move_handle(Actor *actor, Handle *handle,
 static void
 actor_move(Actor *actor, Point *to)
 {
-  Point p;
+  Element *elem = &actor->element;
   
-  actor->element.corner = *to;
+  elem->corner = *to;
+  elem->corner.x -= elem->width/2.0;
+  elem->corner.y -= ACTOR_BODY;
 
-  p = *to;
-  p.x += ACTOR_MARGIN_X;
-  p.y +=  ACTOR_HEIGHT - actor->text->descent;
-  text_set_position(actor->text, &p);
   actor_update_data(actor);
 }
 
@@ -167,14 +165,14 @@ actor_draw(Actor *actor, Renderer *renderer)
   renderer->ops->set_linewidth(renderer, ACTOR_LINEWIDTH);
   renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
-  r = ACTOR_HEAD*h;
+  r = ACTOR_HEAD;
   r1 = 2*r;
   ch.x = x + w*0.5;
   ch.y = y + r + ACTOR_MARGIN_Y;
   cb.x = ch.x;
   cb.y = ch.y + r1 + r;
   
-  // head
+  /* head */
   renderer->ops->fill_ellipse(renderer, 
 			     &ch,
 			     r, r,
@@ -184,7 +182,7 @@ actor_draw(Actor *actor, Renderer *renderer)
 			     r, r,
 			     &color_black);  
   
-  // Arms
+  /* Arms */
   p1.x = ch.x - r1;
   p2.x = ch.x + r1;
   p1.y = p2.y = ch.y + r;
@@ -194,13 +192,13 @@ actor_draw(Actor *actor, Renderer *renderer)
 
   p1.x = ch.x;
   p1.y = ch.y + r*0.5;
-  // body & legs
+  /* body & legs  */
   renderer->ops->draw_line(renderer, 
 			   &p1, &cb,
 			   &color_black);
 
   p2.x = ch.x - r1;
-  p2.y = y + h*ACTOR_BODY;
+  p2.y = y + ACTOR_BODY;
   renderer->ops->draw_line(renderer, 
 			   &cb, &p2,
 			   &color_black);
@@ -219,13 +217,15 @@ actor_update_data(Actor *actor)
   real w;
   Element *elem = &actor->element;
   Object *obj = (Object *) actor;
+  Rectangle text_box;
+  Point p;
   
-  w = actor->text->max_width + ACTOR_MARGIN_X;
-  elem->width = (w < ACTOR_WIDTH) ? ACTOR_WIDTH: w;
+  elem->width = ACTOR_WIDTH + ACTOR_MARGIN_X;
   elem->height = ACTOR_HEIGHT;
 
   /* Update connections: */
-  actor->connections[0].pos = elem->corner;
+  actor->connections[0].pos.x = elem->corner.x;
+  actor->connections[0].pos.y = elem->corner.y;
   actor->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
   actor->connections[1].pos.y = elem->corner.y;
   actor->connections[2].pos.x = elem->corner.x + elem->width;
@@ -243,7 +243,18 @@ actor_update_data(Actor *actor)
   
   element_update_boundingbox(elem);
 
+  p = elem->corner;
+  p.x += elem->width/2;
+  p.y +=  ACTOR_HEIGHT + actor->text->height;
+  text_set_position(actor->text, &p);
+
+  /* Add bounding box for text: */
+  text_calc_boundingbox(actor->text, &text_box);
+  rectangle_union(&obj->bounding_box, &text_box);
+
   obj->position = elem->corner;
+  obj->position.x += elem->width/2.0;
+  obj->position.y += ACTOR_BODY;
 
   element_update_handles(elem);
 }
@@ -276,7 +287,7 @@ actor_create(Point *startpoint,
   p.x += ACTOR_MARGIN_X;
   p.y += ACTOR_HEIGHT - font_descent(font, 0.8);
   
-  actor->text = new_text("Actor", font, 0.8, &p, &color_black, ALIGN_LEFT);
+  actor->text = new_text("Actor", font, 0.8, &p, &color_black, ALIGN_CENTER);
   
   element_init(elem, 8, 8);
   
