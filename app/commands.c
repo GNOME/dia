@@ -537,6 +537,7 @@ help_about_callback(gpointer data, guint action, GtkWidget *widget)
     "Frank Gevaerts <frank.gevaerts@fks.be>",
     "M. C. Nelson <mcn@kobayashimaru.org>",
     "Matthieu Sozeau <mattam@netcourrier.com>",
+    "Xing Wang <quixon@gnuchina.org>",
     "Andrew Ferrier <andrew@new-destiny.co.uk>",
     NULL
   };
