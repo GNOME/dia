@@ -44,7 +44,7 @@ void element_update_boundingbox(Element *elem);
 void element_init(Element *elem, int num_handles, int num_connections);
 void element_destroy(Element *elem);
 void element_copy(Element *from, Element *to);
-void element_move_handle(Element *elem, HandleId id,
+ObjectChange* element_move_handle(Element *elem, HandleId id,
 			 Point *to, HandleMoveReason reason);
 void element_move_handle_aspect(Element *elem, HandleId id,
 				Point *to, real aspect_ratio);

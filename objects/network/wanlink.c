@@ -56,9 +56,9 @@ static real wanlink_distance_from(WanLink *wanlink, Point *point);
 static void wanlink_select(WanLink *wanlink, Point *clicked_point,
 			 DiaRenderer *interactive_renderer);
 static Object *wanlink_copy(WanLink *wanlink);
-static void wanlink_move(WanLink *wanlink, Point *to);
-static void wanlink_move_handle(WanLink *wanlink, Handle *handle,
-			      Point *to, HandleMoveReason reason, 
+static ObjectChange* wanlink_move(WanLink *wanlink, Point *to);
+static ObjectChange* wanlink_move_handle(WanLink *wanlink, Handle *handle,
+					 Point *to, HandleMoveReason reason, 
 			      ModifierKeys modifiers);
 
 static PropDescription *wanlink_describe_props(WanLink *wanlink);
@@ -252,7 +252,7 @@ wanlink_copy(WanLink *wanlink)
   return (Object *)newwanlink;
 }
 
-static void
+static ObjectChange*
 wanlink_move(WanLink *wanlink, Point *to)
 {
   Point delta;
@@ -268,15 +268,19 @@ wanlink_move(WanLink *wanlink, Point *to)
   }
 
   wanlink_update_data(wanlink);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 wanlink_move_handle(WanLink *wanlink, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
   connection_move_handle(&wanlink->connection, handle->id, to, reason);
   
   wanlink_update_data(wanlink);
+
+  return NULL;
 }
 
 static void

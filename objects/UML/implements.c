@@ -60,9 +60,9 @@ struct _Implements {
 
 static DiaFont *implements_font = NULL;
 
-static void implements_move_handle(Implements *implements, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void implements_move(Implements *implements, Point *to);
+static ObjectChange* implements_move_handle(Implements *implements, Handle *handle,
+					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* implements_move(Implements *implements, Point *to);
 static void implements_select(Implements *implements, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void implements_draw(Implements *implements, DiaRenderer *renderer);
@@ -179,7 +179,7 @@ implements_select(Implements *implements, Point *clicked_point,
   connection_update_handles(&implements->connection);
 }
 
-static void
+static ObjectChange*
 implements_move_handle(Implements *implements, Handle *handle,
 		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -208,9 +208,11 @@ implements_move_handle(Implements *implements, Handle *handle,
   }
 
   implements_update_data(implements);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 implements_move(Implements *implements, Point *to)
 {
   Point start_to_end;
@@ -229,6 +231,8 @@ implements_move(Implements *implements, Point *to)
   point_add(&implements->text_pos, &delta);
   
   implements_update_data(implements);
+
+  return NULL;
 }
 
 static void

@@ -69,9 +69,9 @@ typedef struct _Sadtarrow {
   gboolean autogray;
 } Sadtarrow;
 
-static void sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void sadtarrow_move(Sadtarrow *sadtarrow, Point *to);
+static ObjectChange* sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
+					   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* sadtarrow_move(Sadtarrow *sadtarrow, Point *to);
 static void sadtarrow_select(Sadtarrow *sadtarrow, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer);
@@ -194,24 +194,31 @@ sadtarrow_select(Sadtarrow *sadtarrow, Point *clicked_point,
   neworthconn_update_data(&sadtarrow->orth);
 }
 
-static void
+static ObjectChange*
 sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  ObjectChange *change;
   assert(sadtarrow!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  neworthconn_move_handle(&sadtarrow->orth, handle, to, reason);
+  change = neworthconn_move_handle(&sadtarrow->orth, handle, to, reason);
   sadtarrow_update_data(sadtarrow);
+
+  return change;
 }
 
 
-static void
+static ObjectChange*
 sadtarrow_move(Sadtarrow *sadtarrow, Point *to)
 {
-  neworthconn_move(&sadtarrow->orth, to);
+  ObjectChange *change;
+
+  change = neworthconn_move(&sadtarrow->orth, to);
   sadtarrow_update_data(sadtarrow);
+
+  return change;
 }
 
 static void draw_arrowhead(DiaRenderer *renderer,

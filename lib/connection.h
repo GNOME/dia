@@ -41,8 +41,8 @@ void connection_destroy(Connection *conn);
 void connection_copy(Connection *from, Connection *to);
 void connection_save(Connection *conn, ObjectNode obj_node);
 void connection_load(Connection *conn, ObjectNode obj_node);
-void connection_move_handle(Connection *conn, HandleId id,
-			    Point *to, HandleMoveReason reason);
+ObjectChange* connection_move_handle(Connection *conn, HandleId id,
+				     Point *to, HandleMoveReason reason);
 
 /* base property stuff... */
 #define CONNECTION_COMMON_PROPERTIES \

@@ -66,9 +66,9 @@ typedef struct _Condition {
   Rectangle labelbb;
 } Condition;
 
-static void condition_move_handle(Condition *condition, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void condition_move(Condition *condition, Point *to);
+static ObjectChange* condition_move_handle(Condition *condition, Handle *handle,
+					   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* condition_move(Condition *condition, Point *to);
 static void condition_select(Condition *condition, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void condition_draw(Condition *condition, DiaRenderer *renderer);
@@ -195,7 +195,7 @@ condition_select(Condition *condition, Point *clicked_point,
   condition_update_data(condition);
 }
 
-static void
+static ObjectChange*
 condition_move_handle(Condition *condition, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -242,10 +242,12 @@ condition_move_handle(Condition *condition, Handle *handle,
     g_assert_not_reached();
   }
   condition_update_data(condition);
+
+  return NULL;
 }
 
 
-static void
+static ObjectChange*
 condition_move(Condition *condition, Point *to)
 {
   Point start_to_end;
@@ -258,6 +260,8 @@ condition_move(Condition *condition, Point *to)
   point_add(&endpoints[1], &start_to_end);
 
   condition_update_data(condition);
+
+  return NULL;
 }
 
 static void

@@ -22,6 +22,7 @@
 #include <assert.h>
 #include <math.h>
 #include <string.h> /* memcpy() */
+#include <glib.h>
 
 #include "orth_conn.h"
 #include "message.h"
@@ -94,6 +95,14 @@ struct EndSegmentChange {
 			  remove segment */
 };
 
+static ObjectChange*
+autoroute_create_change(OrthConn *orth, gboolean on);
+
+struct AutorouteChange {
+  ObjectChange obj_change;
+  gboolean on;
+  Point *points;
+};
 
 static void set_midpoint(Point *point, OrthConn *orth, int segment)
 {
@@ -152,13 +161,14 @@ static int get_segment_nr(OrthConn *orth, Point *point, real max_dist)
 }
 
 
-void
+ObjectChange *
 orthconn_move_handle(OrthConn *orth, Handle *handle,
 		     Point *to, HandleMoveReason reason)
 {
   int n;
   int handle_nr;
   Object *obj = (Object *)orth;
+  ObjectChange *change = NULL;
 
   switch(handle->id) {
   case HANDLE_MOVE_STARTPOINT:
@@ -195,7 +205,8 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
   case HANDLE_MIDPOINT:
     n = orth->numpoints - 1;
     handle_nr = get_handle_nr(orth, handle);
-    orth->autorouting = FALSE;
+    if (orth->autorouting)
+      change = orthconn_set_autorouting(orth, FALSE);
     switch (orth->orientation[handle_nr]) {
     case HORIZONTAL:
       orth->points[handle_nr].y = to->y;
@@ -211,9 +222,11 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
     message_error("Internal error in orthconn_move_handle.\n");
     break;
   }
+
+  return change;
 }
 
-void
+ObjectChange *
 orthconn_move(OrthConn *orth, Point *to)
 {
   Point p;
@@ -226,6 +239,7 @@ orthconn_move(OrthConn *orth, Point *to)
   for (i=1;i<orth->numpoints;i++) {
     point_add(&orth->points[i], &p);
   }
+  return NULL;
 }
 
 real
@@ -737,12 +751,11 @@ static ObjectChange *
 orthconn_set_autorouting(OrthConn *conn, gboolean on)
 {
   Object *obj = (Object *)conn;
-  conn->autorouting = on;
-  if (conn->autorouting)
-    autoroute_layout_orthconn(conn, obj->handles[0]->connected_to,
-			      obj->handles[1]->connected_to);
-  /* Make a change */
-  return NULL;
+  ObjectChange *change;
+
+  change = autoroute_create_change(conn, on);
+  change->apply(change, obj);
+  return change;
 }
 
 static void
@@ -1041,6 +1054,62 @@ midsegment_create_change(OrthConn *orth, enum change_type type,
   change->points[1] = *point2;
   change->handles[0] = handle1;
   change->handles[1] = handle2;
+
+  return (ObjectChange *)change;
+}
+
+static void
+autoroute_change_free(struct AutorouteChange *change)
+{
+  g_free(change->points);
+}
+
+static void
+autoroute_change_apply(struct AutorouteChange *change, Object *obj)
+{
+  OrthConn *orth = (OrthConn*)obj;
+
+  if (change->on) {
+    orth->autorouting = TRUE;
+    autoroute_layout_orthconn(orth, obj->handles[0]->connected_to,
+			      obj->handles[1]->connected_to);
+  } else {
+    orth->autorouting = FALSE;
+    orthconn_set_points(orth, orth->numpoints, change->points);
+  }
+}
+
+static void
+autoroute_change_revert(struct AutorouteChange *change, Object *obj)
+{
+  OrthConn *orth = (OrthConn*)obj;
+
+  if (change->on) {
+    orth->autorouting = FALSE;
+    orthconn_set_points(orth, orth->numpoints, change->points);
+  } else {
+    orth->autorouting = TRUE;
+    autoroute_layout_orthconn(orth, obj->handles[0]->connected_to,
+			      obj->handles[1]->connected_to);
+  }
+}
+
+static ObjectChange *
+autoroute_create_change(OrthConn *orth, gboolean on)
+{
+  struct AutorouteChange *change;
+  int i;
+
+  change = g_new(struct AutorouteChange, 1);
+
+  change->obj_change.apply = (ObjectChangeApplyFunc) autoroute_change_apply;
+  change->obj_change.revert = (ObjectChangeRevertFunc) autoroute_change_revert;
+  change->obj_change.free = (ObjectChangeFreeFunc) autoroute_change_free;
+
+  change->on = on;
+  change->points = g_new(Point, orth->numpoints);
+  for (i = 0; i < orth->numpoints; i++)
+    change->points[i] = orth->points[i];
 
   return (ObjectChange *)change;
 }

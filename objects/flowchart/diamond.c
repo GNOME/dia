@@ -81,10 +81,10 @@ static DiamondProperties default_properties;
 static real diamond_distance_from(Diamond *diamond, Point *point);
 static void diamond_select(Diamond *diamond, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void diamond_move_handle(Diamond *diamond, Handle *handle,
-			    Point *to, HandleMoveReason reason, 
+static ObjectChange* diamond_move_handle(Diamond *diamond, Handle *handle,
+					 Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
-static void diamond_move(Diamond *diamond, Point *to);
+static ObjectChange* diamond_move(Diamond *diamond, Point *to);
 static void diamond_draw(Diamond *diamond, DiaRenderer *renderer);
 static void diamond_update_data(Diamond *diamond, AnchorShape h,AnchorShape v);
 static Object *diamond_create(Point *startpoint,
@@ -261,7 +261,7 @@ diamond_select(Diamond *diamond, Point *clicked_point,
   element_update_handles(&diamond->element);
 }
 
-static void
+static ObjectChange*
 diamond_move_handle(Diamond *diamond, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -294,14 +294,18 @@ diamond_move_handle(Diamond *diamond, Handle *handle,
     break;
   }
   diamond_update_data(diamond, horiz, vert);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 diamond_move(Diamond *diamond, Point *to)
 {
   diamond->element.corner = *to;
   
   diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
+  return NULL;
 }
 
 static void

@@ -40,8 +40,8 @@ struct _Group {
 
 static real group_distance_from(Group *group, Point *point);
 static void group_select(Group *group);
-static void group_move_handle(Group *group, Handle *handle, Point *to);
-static void group_move(Group *group, Point *to);
+static ObjectChange* group_move_handle(Group *group, Handle *handle, Point *to);
+static ObjectChange* group_move(Group *group, Point *to);
 static void group_draw(Group *group, DiaRenderer *renderer);
 static void group_update_data(Group *group);
 static void group_update_handles(Group *group);
@@ -138,12 +138,14 @@ group_update_handles(Group *group)
   group->resize_handles[7].pos.y = bb->bottom;
 }
 
-static void
+static ObjectChange*
 group_move_handle(Group *group, Handle *handle, Point *to)
 {
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 group_move(Group *group, Point *to)
 {
   Point delta,pos;
@@ -155,6 +157,8 @@ group_move(Group *group, Point *to)
   object_list_move_delta(group->objects, &delta);
   
   group_update_data(group);
+
+  return NULL;
 }
 
 static void

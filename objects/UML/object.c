@@ -71,9 +71,9 @@ struct _Objet {
 static real objet_distance_from(Objet *ob, Point *point);
 static void objet_select(Objet *ob, Point *clicked_point,
 			 DiaRenderer *interactive_renderer);
-static void objet_move_handle(Objet *ob, Handle *handle,
-			      Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void objet_move(Objet *ob, Point *to);
+static ObjectChange* objet_move_handle(Objet *ob, Handle *handle,
+				       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* objet_move(Objet *ob, Point *to);
 static void objet_draw(Objet *ob, DiaRenderer *renderer);
 static Object *objet_create(Point *startpoint,
 			    void *user_data,
@@ -215,7 +215,7 @@ objet_select(Objet *ob, Point *clicked_point,
   element_update_handles(&ob->element);
 }
 
-static void
+static ObjectChange*
 objet_move_handle(Objet *ob, Handle *handle,
 			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -224,13 +224,17 @@ objet_move_handle(Objet *ob, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < 8);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 objet_move(Objet *ob, Point *to)
 {
   ob->element.corner = *to;
   objet_update_data(ob);
+
+  return NULL;
 }
 
 static void

@@ -75,10 +75,10 @@ typedef struct _Box {
 static real sadtbox_distance_from(Box *box, Point *point);
 static void sadtbox_select(Box *box, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void sadtbox_move_handle(Box *box, Handle *handle,
-			    Point *to, HandleMoveReason reason, 
+static ObjectChange* sadtbox_move_handle(Box *box, Handle *handle,
+					 Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
-static void sadtbox_move(Box *box, Point *to);
+static ObjectChange* sadtbox_move(Box *box, Point *to);
 static void sadtbox_draw(Box *box, DiaRenderer *renderer);
 static void sadtbox_update_data(Box *box, AnchorShape horix, AnchorShape vert);
 static Object *sadtbox_create(Point *startpoint,
@@ -213,7 +213,7 @@ sadtbox_select(Box *box, Point *clicked_point,
   element_update_handles(&box->element);
 }
 
-static void
+static ObjectChange*
 sadtbox_move_handle(Box *box, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -246,14 +246,18 @@ sadtbox_move_handle(Box *box, Handle *handle,
     break;
   }
   sadtbox_update_data(box, horiz, vert);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 sadtbox_move(Box *box, Point *to)
 {
   box->element.corner = *to;
   
   sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
+  return NULL;
 }
 
 static void

@@ -70,11 +70,11 @@ static real analog_clock_distance_from(Analog_Clock *analog_clock,
 static void analog_clock_select(Analog_Clock *analog_clock,
                                 Point *clicked_point,
                                 DiaRenderer *interactive_renderer);
-static void analog_clock_move_handle(Analog_Clock *analog_clock,
-                                     Handle *handle,
+static ObjectChange* analog_clock_move_handle(Analog_Clock *analog_clock,
+					      Handle *handle,
                                      Point *to, HandleMoveReason reason, 
                                      ModifierKeys modifiers);
-static void analog_clock_move(Analog_Clock *analog_clock, Point *to);
+static ObjectChange* analog_clock_move(Analog_Clock *analog_clock, Point *to);
 static void analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer);
 static void analog_clock_update_data(Analog_Clock *analog_clock);
 static Object *analog_clock_create(Point *startpoint,
@@ -204,7 +204,7 @@ analog_clock_select(Analog_Clock *analog_clock, Point *clicked_point,
   element_update_handles(&analog_clock->element);
 }
 
-static void
+static ObjectChange*
 analog_clock_move_handle(Analog_Clock *analog_clock, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -214,13 +214,17 @@ analog_clock_move_handle(Analog_Clock *analog_clock, Handle *handle,
 
   element_move_handle(&analog_clock->element, handle->id, to, reason);
   analog_clock_update_data(analog_clock);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 analog_clock_move(Analog_Clock *analog_clock, Point *to)
 {
   analog_clock->element.corner = *to;
   analog_clock_update_data(analog_clock);
+
+  return NULL;
 }
 
 static void make_angle(const Point *centre, real degrees, real radius,

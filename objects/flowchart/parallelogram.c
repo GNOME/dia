@@ -82,10 +82,10 @@ static PgramProperties default_properties;
 static real pgram_distance_from(Pgram *pgram, Point *point);
 static void pgram_select(Pgram *pgram, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void pgram_move_handle(Pgram *pgram, Handle *handle,
-			    Point *to, HandleMoveReason reason, 
+static ObjectChange* pgram_move_handle(Pgram *pgram, Handle *handle,
+				       Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
-static void pgram_move(Pgram *pgram, Point *to);
+static ObjectChange* pgram_move(Pgram *pgram, Point *to);
 static void pgram_draw(Pgram *pgram, DiaRenderer *renderer);
 static void pgram_update_data(Pgram *pgram, AnchorShape h, AnchorShape v);
 static Object *pgram_create(Point *startpoint,
@@ -264,7 +264,7 @@ pgram_select(Pgram *pgram, Point *clicked_point,
   element_update_handles(&pgram->element);
 }
 
-static void
+static ObjectChange*
 pgram_move_handle(Pgram *pgram, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -297,14 +297,18 @@ pgram_move_handle(Pgram *pgram, Handle *handle,
     break;
   }
   pgram_update_data(pgram, horiz, vert);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 pgram_move(Pgram *pgram, Point *to)
 {
   pgram->element.corner = *to;
   
   pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
+  return NULL;
 }
 
 static void

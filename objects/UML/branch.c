@@ -53,9 +53,9 @@ static const double BRANCH_HEIGHT = 2.0;
 
 static real branch_distance_from(Branch *branch, Point *point);
 static void branch_select(Branch *branch, Point *clicked_point, DiaRenderer *interactive_renderer);
-static void branch_move_handle(Branch *branch, Handle *handle,
-			       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void branch_move(Branch *branch, Point *to);
+static ObjectChange* branch_move_handle(Branch *branch, Handle *handle,
+					Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* branch_move(Branch *branch, Point *to);
 static void branch_draw(Branch *branch, DiaRenderer *renderer);
 static Object *branch_create(Point *startpoint,
 			     void *user_data,
@@ -154,7 +154,7 @@ branch_select(Branch *branch, Point *clicked_point, DiaRenderer *interactive_ren
   element_update_handles(&branch->element);
 }
 
-static void
+static ObjectChange*
 branch_move_handle(Branch *branch, Handle *handle,
 			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -166,13 +166,17 @@ branch_move_handle(Branch *branch, Handle *handle,
   
   element_move_handle(&branch->element, handle->id, to, reason);
   branch_update_data(branch);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 branch_move(Branch *branch, Point *to)
 {
   branch->element.corner = *to;
   branch_update_data(branch);
+
+  return NULL;
 }
 
 static void branch_draw(Branch *branch, DiaRenderer *renderer)

@@ -93,9 +93,9 @@ Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f };
 
 static DiaFont *orthflow_font = NULL;
 
-static void orthflow_move_handle(Orthflow *orthflow, Handle *handle,
-				 Point *to, HandleMoveReason reason);
-static void orthflow_move(Orthflow *orthflow, Point *to);
+static ObjectChange* orthflow_move_handle(Orthflow *orthflow, Handle *handle,
+					  Point *to, HandleMoveReason reason);
+static ObjectChange* orthflow_move(Orthflow *orthflow, Point *to);
 static void orthflow_select(Orthflow *orthflow, Point *clicked_point,
 			    DiaRenderer *interactive_renderer);
 static void orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer);
@@ -287,10 +287,11 @@ orthflow_select(Orthflow *orthflow, Point *clicked_point,
   orthconn_update_data(&orthflow->orth);
 }
 
-static void
+static ObjectChange*
 orthflow_move_handle(Orthflow *orthflow, Handle *handle,
 		     Point *to, HandleMoveReason reason)
 {
+  ObjectChange *change = NULL;
   assert(orthflow!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -303,7 +304,7 @@ orthflow_move_handle(Orthflow *orthflow, Handle *handle,
     along = orthflow->textpos ;
     point_sub( &along, &(orthconn_get_middle_handle(&orthflow->orth)->pos) ) ;
 
-    orthconn_move_handle( &orthflow->orth, handle, to, reason );
+    change = orthconn_move_handle( &orthflow->orth, handle, to, reason );
     orthconn_update_data( &orthflow->orth ) ;
 
     orthflow->textpos = orthconn_get_middle_handle(&orthflow->orth)->pos ;
@@ -311,11 +312,15 @@ orthflow_move_handle(Orthflow *orthflow, Handle *handle,
   }
 
   orthflow_update_data(orthflow);
+
+  return change;
 }
 
-static void
+static ObjectChange*
 orthflow_move(Orthflow *orthflow, Point *to)
 {
+  ObjectChange *change;
+
   Point *points = &orthflow->orth.points[0]; 
   Point delta;
 
@@ -323,9 +328,11 @@ orthflow_move(Orthflow *orthflow, Point *to)
   point_sub(&delta, &points[0]);
   point_add(&orthflow->textpos, &delta);
 
-  orthconn_move( &orthflow->orth, to ) ;
+  change = orthconn_move( &orthflow->orth, to ) ;
 
   orthflow_update_data(orthflow);
+
+  return change;
 }
 
 static void

@@ -63,9 +63,9 @@ static struct _PolygonProperties {
   gboolean show_background;
 } default_properties = { TRUE };
 
-static void polygon_move_handle(Polygon *polygon, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void polygon_move(Polygon *polygon, Point *to);
+static ObjectChange* polygon_move_handle(Polygon *polygon, Handle *handle,
+					 Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* polygon_move(Polygon *polygon, Point *to);
 static void polygon_select(Polygon *polygon, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void polygon_draw(Polygon *polygon, DiaRenderer *renderer);
@@ -192,7 +192,7 @@ polygon_select(Polygon *polygon, Point *clicked_point,
   polyshape_update_data(&polygon->poly);
 }
 
-static void
+static ObjectChange*
 polygon_move_handle(Polygon *polygon, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -202,14 +202,18 @@ polygon_move_handle(Polygon *polygon, Handle *handle,
 
   polyshape_move_handle(&polygon->poly, handle, to, reason);
   polygon_update_data(polygon);
+
+  return NULL;
 }
 
 
-static void
+static ObjectChange*
 polygon_move(Polygon *polygon, Point *to)
 {
   polyshape_move(&polygon->poly, to);
   polygon_update_data(polygon);
+
+  return NULL;
 }
 
 static void

@@ -71,7 +71,7 @@ static int get_handle_nr(PolyShape *poly, Handle *handle)
   return -1;
 }
 
-void
+ObjectChange*
 polyshape_move_handle(PolyShape *poly, Handle *handle,
 		     Point *to, HandleMoveReason reason)
 {
@@ -79,9 +79,11 @@ polyshape_move_handle(PolyShape *poly, Handle *handle,
   
   handle_nr = get_handle_nr(poly, handle);
   poly->points[handle_nr] = *to;
+  
+  return NULL;
 }
 
-void
+ObjectChange*
 polyshape_move(PolyShape *poly, Point *to)
 {
   Point p;
@@ -94,6 +96,8 @@ polyshape_move(PolyShape *poly, Point *to)
   for (i=1;i<poly->numpoints;i++) {
     point_add(&poly->points[i], &p);
   }
+
+  return NULL;
 }
 
 int

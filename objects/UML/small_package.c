@@ -58,9 +58,9 @@ struct _SmallPackage {
 static real smallpackage_distance_from(SmallPackage *pkg, Point *point);
 static void smallpackage_select(SmallPackage *pkg, Point *clicked_point,
 				DiaRenderer *interactive_renderer);
-static void smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
-				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void smallpackage_move(SmallPackage *pkg, Point *to);
+static ObjectChange* smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
+					      Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* smallpackage_move(SmallPackage *pkg, Point *to);
 static void smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer);
 static Object *smallpackage_create(Point *startpoint,
 				   void *user_data,
@@ -178,7 +178,7 @@ smallpackage_select(SmallPackage *pkg, Point *clicked_point,
   element_update_handles(&pkg->element);
 }
 
-static void
+static ObjectChange*
 smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
 			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -187,9 +187,11 @@ smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < 8);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 smallpackage_move(SmallPackage *pkg, Point *to)
 {
   Point p;
@@ -202,6 +204,8 @@ smallpackage_move(SmallPackage *pkg, Point *to)
   text_set_position(pkg->text, &p);
   
   smallpackage_update_data(pkg);
+
+  return NULL;
 }
 
 static void

@@ -41,9 +41,9 @@ struct _Interaction {
 
 static DiaFont *interaction_font = NULL;
 
-static void interaction_move_handle(Interaction *interaction, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void interaction_move(Interaction *interaction, Point *to);
+static ObjectChange* interaction_move_handle(Interaction *interaction, Handle *handle,
+					     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* interaction_move(Interaction *interaction, Point *to);
 static void interaction_select(Interaction *interaction, Point *clicked_point,
 			      Renderer *interactive_renderer);
 static void interaction_draw(Interaction *interaction, Renderer *renderer);
@@ -117,7 +117,7 @@ interaction_select(Interaction *interaction, Point *clicked_point,
   connection_update_handles(&interaction->connection);
 }
 
-static void
+static ObjectChange*
 interaction_move_handle(Interaction *interaction, Handle *handle,
 		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -142,9 +142,11 @@ interaction_move_handle(Interaction *interaction, Handle *handle,
   }
 
   interaction_update_data(interaction);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 interaction_move(Interaction *interaction, Point *to)
 {
   Point start_to_end;
@@ -163,6 +165,8 @@ interaction_move(Interaction *interaction, Point *to)
   point_add(&interaction->text_pos, &delta);
   
   interaction_update_data(interaction);
+
+  return NULL;
 }
 
 static

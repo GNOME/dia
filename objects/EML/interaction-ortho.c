@@ -39,9 +39,9 @@ static DiaFont *inter_font = NULL;
 static real interaction_ortho_distance_from(InteractionOrtho*inter, Point *point);
 static void interaction_ortho_select(InteractionOrtho*inter, Point *clicked_point,
 			      Renderer *interactive_renderer);
-static void interaction_ortho_move_handle(InteractionOrtho*inter, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void interaction_ortho_move(InteractionOrtho*inter, Point *to);
+static ObjectChange* interaction_ortho_move_handle(InteractionOrtho*inter, Handle *handle,
+						   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* interaction_ortho_move(InteractionOrtho*inter, Point *to);
 static void interaction_ortho_draw(InteractionOrtho*inter, Renderer *renderer);
 static Object *interaction_ortho_create(Point *startpoint,
 				 void *user_data,
@@ -118,10 +118,11 @@ interaction_ortho_select(InteractionOrtho*inter, Point *clicked_point,
   orthconn_update_data(&inter->orth);
 }
 
-static void
+static ObjectChange*
 interaction_ortho_move_handle(InteractionOrtho*inter, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  ObjectChange *change = NULL;
   assert(inter!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -135,7 +136,7 @@ interaction_ortho_move_handle(InteractionOrtho*inter, Handle *handle,
     along = inter->text->position ;
     point_sub( &along, &(orthconn_get_middle_handle(&inter->orth)->pos) ) ;
 
-    orthconn_move_handle( &inter->orth, handle, to, reason );
+    change = orthconn_move_handle( &inter->orth, handle, to, reason );
     orthconn_update_data( &inter->orth ) ;
 
     inter->text->position = orthconn_get_middle_handle(&inter->orth)->pos ;
@@ -144,11 +145,15 @@ interaction_ortho_move_handle(InteractionOrtho*inter, Handle *handle,
 
   interaction_ortho_update_data(inter);
   
+
+  return change;
 }
 
-static void
+static ObjectChange*
 interaction_ortho_move(InteractionOrtho*inter, Point *to)
 {
+  ObjectChange *change;
+
   Point *points = &inter->orth.points[0]; 
   Point delta;
 
@@ -156,12 +161,14 @@ interaction_ortho_move(InteractionOrtho*inter, Point *to)
   point_sub(&delta, &points[0]);
   point_add(&inter->text->position, &delta);
 
-  orthconn_move( &inter->orth, to ) ;
+  change = orthconn_move( &inter->orth, to ) ;
 
   interaction_ortho_update_data(inter);
 
   orthconn_move(&inter->orth, to);
   interaction_ortho_update_data(inter);
+
+  return change;
 }
 
 static void

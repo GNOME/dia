@@ -53,9 +53,9 @@ struct _Participation {
 static real participation_distance_from(Participation *dep, Point *point);
 static void participation_select(Participation *dep, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
-static void participation_move_handle(Participation *dep, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void participation_move(Participation *dep, Point *to);
+static ObjectChange* participation_move_handle(Participation *dep, Handle *handle,
+					       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* participation_move(Participation *dep, Point *to);
 static void participation_draw(Participation *dep, DiaRenderer *renderer);
 static Object *participation_create(Point *startpoint,
 				 void *user_data,
@@ -160,23 +160,30 @@ participation_select(Participation *participation, Point *clicked_point,
   orthconn_update_data(&participation->orth);
 }
 
-static void
+static ObjectChange*
 participation_move_handle(Participation *participation, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  ObjectChange *change;
   assert(participation!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
   
-  orthconn_move_handle(&participation->orth, handle, to, reason);
+  change = orthconn_move_handle(&participation->orth, handle, to, reason);
   participation_update_data(participation);
+
+  return change;
 }
 
-static void
+static ObjectChange*
 participation_move(Participation *participation, Point *to)
 {
-  orthconn_move(&participation->orth, to);
+  ObjectChange *change;
+
+  change = orthconn_move(&participation->orth, to);
   participation_update_data(participation);
+
+  return change;
 }
 
 static void

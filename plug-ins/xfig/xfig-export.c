@@ -837,8 +837,6 @@ draw_arc_with_arrows(DiaRenderer *self,
   point_add(&p1, &t1);
   point_add(&p2, &t2);
   /* Now p1 and p2 are the midpoints of the tangents */
-  point_normalize(&t1);
-  point_normalize(&t2);
   point_get_perp(&l1, &t1);
   point_get_perp(&l2, &t2);
   /* Now p1->t1 and p2->t2 give vectors crossing at the center.

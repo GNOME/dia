@@ -65,9 +65,9 @@ static DiaFont *inst_font = NULL;
 static real instantiation_distance_from(Instantiation *inst, Point *point);
 static void instantiation_select(Instantiation *inst, Point *clicked_point,
 			      Renderer *interactive_renderer);
-static void instantiation_move_handle(Instantiation *inst, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void instantiation_move(Instantiation *inst, Point *to);
+static ObjectChange* instantiation_move_handle(Instantiation *inst, Handle *handle,
+					       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* instantiation_move(Instantiation *inst, Point *to);
 static void instantiation_draw(Instantiation *inst, Renderer *renderer);
 static Object *instantiation_create(Point *startpoint,
 				 void *user_data,
@@ -190,11 +190,12 @@ instantiation_select(Instantiation *inst, Point *clicked_point,
   orthconn_update_data(&inst->orth);
 }
 
-static void
+static ObjectChange*
 instantiation_move_handle(Instantiation *inst, Handle *handle,
                           Point *to, HandleMoveReason reason, 
                           ModifierKeys modifiers)
 {
+  ObjectChange *change = NULL;
   g_assert(inst!=NULL);
   g_assert(handle!=NULL);
   g_assert(to!=NULL);
@@ -208,7 +209,7 @@ instantiation_move_handle(Instantiation *inst, Handle *handle,
     along = inst->reson->position ;
     point_sub( &along, &(orthconn_get_middle_handle(&inst->orth)->pos) ) ;
 
-    orthconn_move_handle( &inst->orth, handle, to, reason );
+    change = orthconn_move_handle( &inst->orth, handle, to, reason );
     orthconn_update_data( &inst->orth ) ;
 
     inst->reson->position = orthconn_get_middle_handle(&inst->orth)->pos ;
@@ -217,11 +218,15 @@ instantiation_move_handle(Instantiation *inst, Handle *handle,
 
   instantiation_update_data(inst);
   
+
+  return change;
 }
 
-static void
+static ObjectChange*
 instantiation_move(Instantiation *inst, Point *to)
 {
+  ObjectChange *change;
+
   Point *points = &inst->orth.points[0]; 
   Point delta;
 
@@ -229,12 +234,16 @@ instantiation_move(Instantiation *inst, Point *to)
   point_sub(&delta, &points[0]);
   point_add(&inst->reson->position, &delta);
 
-  orthconn_move( &inst->orth, to ) ;
+  change = orthconn_move( &inst->orth, to ) ;
 
   instantiation_update_data(inst);
-
+  /*
+    Why is this being done twice?
   orthconn_move(&inst->orth, to);
   instantiation_update_data(inst);
+  */
+
+  return change;
 }
 
 static void

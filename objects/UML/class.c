@@ -42,9 +42,9 @@
 static real umlclass_distance_from(UMLClass *umlclass, Point *point);
 static void umlclass_select(UMLClass *umlclass, Point *clicked_point,
 			    DiaRenderer *interactive_renderer);
-static void umlclass_move_handle(UMLClass *umlclass, Handle *handle,
+static ObjectChange* umlclass_move_handle(UMLClass *umlclass, Handle *handle,
 				 Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void umlclass_move(UMLClass *umlclass, Point *to);
+static ObjectChange* umlclass_move(UMLClass *umlclass, Point *to);
 static void umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer);
 static Object *umlclass_create(Point *startpoint,
 			       void *user_data,
@@ -219,7 +219,7 @@ umlclass_select(UMLClass *umlclass, Point *clicked_point,
   element_update_handles(&umlclass->element);
 }
 
-static void
+static ObjectChange*
 umlclass_move_handle(UMLClass *umlclass, Handle *handle,
 		     Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -228,13 +228,17 @@ umlclass_move_handle(UMLClass *umlclass, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < UMLCLASS_CONNECTIONPOINTS);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 umlclass_move(UMLClass *umlclass, Point *to)
 {
   umlclass->element.corner = *to;
   umlclass_update_data(umlclass);
+
+  return NULL;
 }
 
 static void

@@ -54,9 +54,9 @@ static struct _TextobjProperties {
 static real textobj_distance_from(Textobj *textobj, Point *point);
 static void textobj_select(Textobj *textobj, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
-static void textobj_move_handle(Textobj *textobj, Handle *handle,
-				Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void textobj_move(Textobj *textobj, Point *to);
+static ObjectChange* textobj_move_handle(Textobj *textobj, Handle *handle,
+					 Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* textobj_move(Textobj *textobj, Point *to);
 static void textobj_draw(Textobj *textobj, DiaRenderer *renderer);
 static void textobj_update_data(Textobj *textobj);
 static Object *textobj_create(Point *startpoint,
@@ -167,7 +167,7 @@ textobj_select(Textobj *textobj, Point *clicked_point,
   text_grab_focus(textobj->text, &textobj->object);
 }
 
-static void
+static ObjectChange*
 textobj_move_handle(Textobj *textobj, Handle *handle,
 		    Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -180,14 +180,18 @@ textobj_move_handle(Textobj *textobj, Handle *handle,
   }
   
   textobj_update_data(textobj);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 textobj_move(Textobj *textobj, Point *to)
 {
   text_set_position(textobj->text, to);
   
   textobj_update_data(textobj);
+
+  return NULL;
 }
 
 static void

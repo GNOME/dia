@@ -72,9 +72,9 @@ struct _Flow {
 
 static DiaFont *flow_font = NULL;
 
-static void flow_move_handle(Flow *flow, Handle *handle,
-			     Point *to, HandleMoveReason reason);
-static void flow_move(Flow *flow, Point *to);
+static ObjectChange* flow_move_handle(Flow *flow, Handle *handle,
+				      Point *to, HandleMoveReason reason);
+static ObjectChange* flow_move(Flow *flow, Point *to);
 static void flow_select(Flow *flow, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
 static void flow_draw(Flow *flow, DiaRenderer *renderer);
@@ -216,7 +216,7 @@ flow_select(Flow *flow, Point *clicked_point,
   connection_update_handles(&flow->connection);
 }
 
-static void
+static ObjectChange*
 flow_move_handle(Flow *flow, Handle *handle,
 		 Point *to, HandleMoveReason reason)
 {
@@ -277,9 +277,11 @@ flow_move_handle(Flow *flow, Handle *handle,
   }
 
   flow_update_data(flow);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 flow_move(Flow *flow, Point *to)
 {
   Point start_to_end;
@@ -298,6 +300,8 @@ flow_move(Flow *flow, Point *to)
   point_add(&flow->textpos, &delta);
 
   flow_update_data(flow);
+
+  return NULL;
 }
 
 static void

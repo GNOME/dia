@@ -57,9 +57,9 @@ ObjectChange *beziershape_add_segment(BezierShape *bezier, int segment,
 ObjectChange *beziershape_remove_segment(BezierShape *bezier, int point);
 ObjectChange *beziershape_set_corner_type(BezierShape *bez, Handle *handle,
 					  BezCornerType corner_type);
-void beziershape_move_handle(BezierShape *bezier, Handle *id,
+ObjectChange *beziershape_move_handle(BezierShape *bezier, Handle *id,
 			     Point *to, HandleMoveReason reason);
-void beziershape_move(BezierShape *bezier, Point *to);
+ObjectChange *beziershape_move(BezierShape *bezier, Point *to);
 real beziershape_distance_from(BezierShape *bezier, Point *point,
 			       real line_width);
 Handle *beziershape_closest_handle(BezierShape *bezier, Point *point);

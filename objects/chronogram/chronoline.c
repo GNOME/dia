@@ -85,10 +85,10 @@ typedef struct _Chronoline {
 static real chronoline_distance_from(Chronoline *chronoline, Point *point);
 static void chronoline_select(Chronoline *chronoline, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void chronoline_move_handle(Chronoline *chronoline, Handle *handle,
-			    Point *to, HandleMoveReason reason, 
+static ObjectChange* chronoline_move_handle(Chronoline *chronoline, Handle *handle,
+					    Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
-static void chronoline_move(Chronoline *chronoline, Point *to);
+static ObjectChange* chronoline_move(Chronoline *chronoline, Point *to);
 static void chronoline_draw(Chronoline *chronoline, DiaRenderer *renderer);
 static void chronoline_update_data(Chronoline *chronoline);
 static Object *chronoline_create(Point *startpoint,
@@ -256,7 +256,7 @@ chronoline_select(Chronoline *chronoline, Point *clicked_point,
   element_update_handles(&chronoline->element);
 }
 
-static void
+static ObjectChange*
 chronoline_move_handle(Chronoline *chronoline, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -266,13 +266,17 @@ chronoline_move_handle(Chronoline *chronoline, Handle *handle,
 
   element_move_handle(&chronoline->element, handle->id, to, reason);
   chronoline_update_data(chronoline);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 chronoline_move(Chronoline *chronoline, Point *to)
 {
   chronoline->element.corner = *to;
   chronoline_update_data(chronoline);
+
+  return NULL;
 }
 
 static void 

@@ -55,9 +55,9 @@ struct _Bezierline {
 };
 
 
-static void bezierline_move_handle(Bezierline *bezierline, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void bezierline_move(Bezierline *bezierline, Point *to);
+static ObjectChange* bezierline_move_handle(Bezierline *bezierline, Handle *handle,
+					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* bezierline_move(Bezierline *bezierline, Point *to);
 static void bezierline_select(Bezierline *bezierline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer);
@@ -186,7 +186,7 @@ bezierline_select(Bezierline *bezierline, Point *clicked_point,
   bezierconn_update_data(&bezierline->bez);
 }
 
-static void
+static ObjectChange*
 bezierline_move_handle(Bezierline *bezierline, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -214,14 +214,18 @@ bezierline_move_handle(Bezierline *bezierline, Handle *handle,
   }
 
   bezierline_update_data(bezierline);
+
+  return NULL;
 }
 
 
-static void
+static ObjectChange*
 bezierline_move(Bezierline *bezierline, Point *to)
 {
   bezierconn_move(&bezierline->bez, to);
   bezierline_update_data(bezierline);
+
+  return NULL;
 }
 
 static void

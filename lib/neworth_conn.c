@@ -155,7 +155,7 @@ static int get_segment_nr(NewOrthConn *orth, Point *point, real max_dist)
 }
 
 
-void
+ObjectChange*
 neworthconn_move_handle(NewOrthConn *orth, Handle *handle,
 		     Point *to, HandleMoveReason reason)
 {
@@ -205,9 +205,11 @@ neworthconn_move_handle(NewOrthConn *orth, Handle *handle,
     message_error("Internal error in neworthconn_move_handle.\n");
     break;
   }
+
+  return NULL;
 }
 
-void
+ObjectChange*
 neworthconn_move(NewOrthConn *orth, Point *to)
 {
   Point p;
@@ -220,6 +222,8 @@ neworthconn_move(NewOrthConn *orth, Point *to)
   for (i=1;i<orth->numpoints;i++) {
     point_add(&orth->points[i], &p);
   }
+
+  return NULL;
 }
 
 real

@@ -81,7 +81,7 @@ static int get_handle_nr(PolyConn *poly, Handle *handle)
   return -1;
 }
 
-void
+ObjectChange *
 polyconn_move_handle(PolyConn *poly, Handle *handle,
 		     Point *to, HandleMoveReason reason)
 {
@@ -102,9 +102,11 @@ polyconn_move_handle(PolyConn *poly, Handle *handle,
     message_error("Internal error in polyconn_move_handle.\n");
     break;
   }
+
+  return NULL;
 }
 
-void
+ObjectChange*
 polyconn_move(PolyConn *poly, Point *to)
 {
   Point p;
@@ -117,6 +119,8 @@ polyconn_move(PolyConn *poly, Point *to)
   for (i=1;i<poly->numpoints;i++) {
     point_add(&poly->points[i], &p);
   }
+
+  return NULL;
 }
 
 int

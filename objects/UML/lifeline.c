@@ -73,10 +73,10 @@ struct _Lifeline {
 #define HANDLE_BOXTOP (HANDLE_CUSTOM1)
 #define HANDLE_BOXBOT (HANDLE_CUSTOM2)
 
-static void lifeline_move_handle(Lifeline *lifeline, Handle *handle,
-                                 Point *to, HandleMoveReason reason, 
+static ObjectChange* lifeline_move_handle(Lifeline *lifeline, Handle *handle,
+					  Point *to, HandleMoveReason reason, 
                                  ModifierKeys modifiers);
-static void lifeline_move(Lifeline *lifeline, Point *to);
+static ObjectChange* lifeline_move(Lifeline *lifeline, Point *to);
 static void lifeline_select(Lifeline *lifeline, Point *clicked_point,
                             DiaRenderer *interactive_renderer);
 static void lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer);
@@ -201,7 +201,7 @@ lifeline_select(Lifeline *lifeline, Point *clicked_point,
   connection_update_handles(&lifeline->connection);
 }
 
-static void
+static ObjectChange*
 lifeline_move_handle(Lifeline *lifeline, Handle *handle,
 		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -249,9 +249,11 @@ lifeline_move_handle(Lifeline *lifeline, Handle *handle,
   }
 
   lifeline_update_data(lifeline);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 lifeline_move(Lifeline *lifeline, Point *to)
 {
   Point start_to_end;
@@ -268,6 +270,8 @@ lifeline_move(Lifeline *lifeline, Point *to)
   point_add(&endpoints[1], &start_to_end);
   
   lifeline_update_data(lifeline);
+
+  return NULL;
 }
 
 static void

@@ -128,9 +128,9 @@ static DiaFont *assoc_font = NULL;
 static real association_distance_from(Association *assoc, Point *point);
 static void association_select(Association *assoc, Point *clicked_point,
 			       DiaRenderer *interactive_renderer);
-static void association_move_handle(Association *assoc, Handle *handle,
-				    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void association_move(Association *assoc, Point *to);
+static ObjectChange* association_move_handle(Association *assoc, Handle *handle,
+					     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* association_move(Association *assoc, Point *to);
 static void association_draw(Association *assoc, DiaRenderer *renderer);
 static Object *association_create(Point *startpoint,
 				  void *user_data,
@@ -243,23 +243,30 @@ association_select(Association *assoc, Point *clicked_point,
   orthconn_update_data(&assoc->orth);
 }
 
-static void
+static ObjectChange*
 association_move_handle(Association *assoc, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  ObjectChange *change;
   assert(assoc!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
   
-  orthconn_move_handle(&assoc->orth, handle, to, reason);
+  change = orthconn_move_handle(&assoc->orth, handle, to, reason);
   association_update_data(assoc);
+
+  return change;
 }
 
-static void
+static ObjectChange*
 association_move(Association *assoc, Point *to)
 {
-  orthconn_move(&assoc->orth, to);
+  ObjectChange *change;
+
+  change = orthconn_move(&assoc->orth, to);
   association_update_data(assoc);
+
+  return change;
 }
 
 static void

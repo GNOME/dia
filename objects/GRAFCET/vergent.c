@@ -56,10 +56,10 @@ typedef struct _Vergent {
   VergentType type;
 } Vergent;
 
-static void vergent_move_handle(Vergent *vergent, Handle *handle,
-                                Point *to, HandleMoveReason reason, 
+static ObjectChange* vergent_move_handle(Vergent *vergent, Handle *handle,
+					 Point *to, HandleMoveReason reason, 
                                 ModifierKeys modifiers);
-static void vergent_move(Vergent *vergent, Point *to);
+static ObjectChange* vergent_move(Vergent *vergent, Point *to);
 static void vergent_select(Vergent *vergent, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void vergent_draw(Vergent *vergent, DiaRenderer *renderer);
@@ -196,7 +196,7 @@ vergent_select(Vergent *vergent, Point *clicked_point,
   vergent_update_data(vergent);
 }
 
-static void
+static ObjectChange*
 vergent_move_handle(Vergent *vergent, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -214,10 +214,12 @@ vergent_move_handle(Vergent *vergent, Handle *handle,
   }
   connection_move_handle(&vergent->connection, handle->id, to, reason);
   vergent_update_data(vergent);
+
+  return NULL;
 }
 
 
-static void
+static ObjectChange*
 vergent_move(Vergent *vergent, Point *to)
 {
   Point start_to_end;
@@ -230,6 +232,8 @@ vergent_move(Vergent *vergent, Point *to)
   point_add(&endpoints[1], &start_to_end);
 
   vergent_update_data(vergent);
+
+  return NULL;
 }
 
 

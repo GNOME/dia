@@ -151,8 +151,11 @@ typedef Object* (*CopyFunc) (Object* obj);
   It's exact definition depends on the object. It's the point on the
   object that 'snaps' to the grid if that is enabled. (generally it
   is the upper left corner)
+  Returns an ObjectChange* with additional undo information, or
+  (in most cases) NULL.  Undo for moving the object itself is handled
+  elsewhere.
 */
-typedef void (*MoveFunc) (Object* obj, Point * pos);
+typedef ObjectChange* (*MoveFunc) (Object* obj, Point * pos);
 
 
 /*
@@ -168,13 +171,15 @@ typedef void (*MoveFunc) (Object* obj, Point * pos);
 	    MODIFIER_ALT is either alt key
 	    MODIFIER_CONTROL is either control key
 	    Each has MODIFIER_LEFT_* and MODIFIER_RIGHT_* variants
-	    
+  Returns an ObjectChange* with additional undo information, or
+  (in most cases) NULL.  Undo for moving the handle itself is handled
+  elsewhere.
 */
-typedef void (*MoveHandleFunc) (Object*          obj,
-				Handle*          handle,
-				Point*           pos,
-				HandleMoveReason reason,
-				ModifierKeys     modifiers);
+typedef ObjectChange* (*MoveHandleFunc) (Object*          obj,
+					 Handle*          handle,
+					 Point*           pos,
+					 HandleMoveReason reason,
+					 ModifierKeys     modifiers);
 
 /*
   Function called when the user has double clicked on an Object.
@@ -261,8 +266,8 @@ void object_save(Object *obj, ObjectNode obj_node);
 void object_load(Object *obj, ObjectNode obj_node);
 
 GList *object_copy_list(GList *list);
-void object_list_move_delta_r(GList *objects, Point *delta, gboolean affected);
-void object_list_move_delta(GList *objects, Point *delta);
+ObjectChange* object_list_move_delta_r(GList *objects, Point *delta, gboolean affected);
+ObjectChange* object_list_move_delta(GList *objects, Point *delta);
 void destroy_object_list(GList *list);
 void object_add_handle(Object *obj, Handle *handle);
 void object_add_handle_at(Object *obj, Handle *handle, int pos);

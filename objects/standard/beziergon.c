@@ -59,9 +59,9 @@ static struct _BeziergonProperties {
   gboolean show_background;
 } default_properties = { TRUE };
 
-static void beziergon_move_handle(Beziergon *beziergon, Handle *handle,
-		Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void beziergon_move(Beziergon *beziergon, Point *to);
+static ObjectChange* beziergon_move_handle(Beziergon *beziergon, Handle *handle,
+					   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* beziergon_move(Beziergon *beziergon, Point *to);
 static void beziergon_select(Beziergon *beziergon, Point *clicked_point,
 			     DiaRenderer *interactive_renderer);
 static void beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer);
@@ -206,7 +206,7 @@ beziergon_select(Beziergon *beziergon, Point *clicked_point,
   beziershape_update_data(&beziergon->bezier);
 }
 
-static void
+static ObjectChange*
 beziergon_move_handle(Beziergon *beziergon, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -216,14 +216,18 @@ beziergon_move_handle(Beziergon *beziergon, Handle *handle,
 
   beziershape_move_handle(&beziergon->bezier, handle, to, reason);
   beziergon_update_data(beziergon);
+
+  return NULL;
 }
 
 
-static void
+static ObjectChange*
 beziergon_move(Beziergon *beziergon, Point *to)
 {
   beziershape_move(&beziergon->bezier, to);
   beziergon_update_data(beziergon);
+
+  return NULL;
 }
 
 static void

@@ -81,10 +81,10 @@ static BoxProperties default_properties;
 static real box_distance_from(Box *box, Point *point);
 static void box_select(Box *box, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void box_move_handle(Box *box, Handle *handle,
-			    Point *to, HandleMoveReason reason, 
+static ObjectChange* box_move_handle(Box *box, Handle *handle,
+				     Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
-static void box_move(Box *box, Point *to);
+static ObjectChange* box_move(Box *box, Point *to);
 static void box_draw(Box *box, DiaRenderer *renderer);
 static void box_update_data(Box *box, AnchorShape horix, AnchorShape vert);
 static Object *box_create(Point *startpoint,
@@ -252,7 +252,7 @@ box_select(Box *box, Point *clicked_point,
   }
 }
 
-static void
+static ObjectChange*
 box_move_handle(Box *box, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -285,14 +285,18 @@ box_move_handle(Box *box, Handle *handle,
     break;
   }
   box_update_data(box, horiz, vert);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 box_move(Box *box, Point *to)
 {
   box->element.corner = *to;
   
   box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
+  return NULL;
 }
 
 static void

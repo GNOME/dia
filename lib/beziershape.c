@@ -107,7 +107,7 @@ static int get_handle_nr(BezierShape *bezier, Handle *handle)
 #define get_comp_nr(hnum) ((int)(hnum)/3+1)
 #define get_major_nr(hnum) (((int)(hnum)+2)/3)
 
-void
+ObjectChange *
 beziershape_move_handle(BezierShape *bezier, Handle *handle,
 			Point *to, HandleMoveReason reason)
 {
@@ -209,9 +209,10 @@ beziershape_move_handle(BezierShape *bezier, Handle *handle,
     message_error("Internal error in beziershape_move_handle.");
     break;
   }
+  return NULL;
 }
 
-void
+ObjectChange*
 beziershape_move(BezierShape *bezier, Point *to)
 {
   Point p;
@@ -226,6 +227,8 @@ beziershape_move(BezierShape *bezier, Point *to)
     point_add(&bezier->points[i].p2, &p);
     point_add(&bezier->points[i].p3, &p);
   }
+
+  return NULL;
 }
 
 int

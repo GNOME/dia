@@ -60,9 +60,9 @@ struct _Constraint {
 
 static DiaFont *constraint_font = NULL;
 
-static void constraint_move_handle(Constraint *constraint, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void constraint_move(Constraint *constraint, Point *to);
+static ObjectChange* constraint_move_handle(Constraint *constraint, Handle *handle,
+					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* constraint_move(Constraint *constraint, Point *to);
 static void constraint_select(Constraint *constraint, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void constraint_draw(Constraint *constraint, DiaRenderer *renderer);
@@ -175,7 +175,7 @@ constraint_select(Constraint *constraint, Point *clicked_point,
   connection_update_handles(&constraint->connection);
 }
 
-static void
+static ObjectChange*
 constraint_move_handle(Constraint *constraint, Handle *handle,
 		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -200,9 +200,11 @@ constraint_move_handle(Constraint *constraint, Handle *handle,
   }
 
   constraint_update_data(constraint);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 constraint_move(Constraint *constraint, Point *to)
 {
   Point start_to_end;
@@ -221,6 +223,8 @@ constraint_move(Constraint *constraint, Point *to)
   point_add(&constraint->text_pos, &delta);
   
   constraint_update_data(constraint);
+
+  return NULL;
 }
 
 static void

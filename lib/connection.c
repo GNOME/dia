@@ -24,7 +24,7 @@
 #include "connection.h"
 #include "message.h"
 
-void
+ObjectChange*
 connection_move_handle(Connection *conn, HandleId id,
 		       Point *to, HandleMoveReason reason)
 {

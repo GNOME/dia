@@ -65,9 +65,9 @@ static DiaFont *dep_font = NULL;
 static real dependency_distance_from(Dependency *dep, Point *point);
 static void dependency_select(Dependency *dep, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
-static void dependency_move_handle(Dependency *dep, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void dependency_move(Dependency *dep, Point *to);
+static ObjectChange* dependency_move_handle(Dependency *dep, Handle *handle,
+					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* dependency_move(Dependency *dep, Point *to);
 static void dependency_draw(Dependency *dep, DiaRenderer *renderer);
 static Object *dependency_create(Point *startpoint,
 				 void *user_data,
@@ -180,23 +180,30 @@ dependency_select(Dependency *dep, Point *clicked_point,
   orthconn_update_data(&dep->orth);
 }
 
-static void
+static ObjectChange*
 dependency_move_handle(Dependency *dep, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  ObjectChange *change;
   assert(dep!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
   
-  orthconn_move_handle(&dep->orth, handle, to, reason);
+  change = orthconn_move_handle(&dep->orth, handle, to, reason);
   dependency_update_data(dep);
+
+  return change;
 }
 
-static void
+static ObjectChange*
 dependency_move(Dependency *dep, Point *to)
 {
-  orthconn_move(&dep->orth, to);
+  ObjectChange *change;
+
+  change = orthconn_move(&dep->orth, to);
   dependency_update_data(dep);
+
+  return change;
 }
 
 static void

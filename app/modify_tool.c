@@ -346,6 +346,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
   Point now, delta, full_delta;
   gboolean auto_scroll, vertical = FALSE;
   ConnectionPoint *connectionpoint;
+  ObjectChange *objchange;
 
   if (tool->state==STATE_NONE)
     return; /* Fast path... */
@@ -402,7 +403,10 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     }
 
     object_add_updates_list(ddisp->diagram->data->selected, ddisp->diagram);
-    object_list_move_delta(ddisp->diagram->data->selected, &delta);
+    objchange = object_list_move_delta(ddisp->diagram->data->selected, &delta);
+    if (objchange != NULL) {
+      undo_object_change(ddisp->diagram, tool->object, objchange);
+    }
     object_add_updates_list(ddisp->diagram->data->selected, ddisp->diagram);
   
     diagram_update_connections_selection(ddisp->diagram);
@@ -463,8 +467,11 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     }
 
     object_add_updates(tool->object, ddisp->diagram);
-    tool->object->ops->move_handle(tool->object, tool->handle, &to,
-				   HANDLE_MOVE_USER,0);
+    objchange = tool->object->ops->move_handle(tool->object, tool->handle, &to,
+					       HANDLE_MOVE_USER,0);
+    if (objchange != NULL) {
+      undo_object_change(ddisp->diagram, tool->object, objchange);
+    }
     object_add_updates(tool->object, ddisp->diagram);
   
     diagram_update_connections_selection(ddisp->diagram);
@@ -514,6 +521,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
   GList *list;
   int i;
   Object *obj;
+  ObjectChange *objchange;
   
   tool->break_connections = FALSE;
   ddisplay_set_all_cursor(default_cursor);
@@ -568,9 +576,13 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     
     /* Final move: */
     object_add_updates(tool->object, ddisp->diagram);
-    tool->object->ops->move_handle(tool->object, tool->handle,
-				   &tool->last_to,
-				   HANDLE_MOVE_USER_FINAL,0);
+    objchange = tool->object->ops->move_handle(tool->object, tool->handle,
+					       &tool->last_to,
+					       HANDLE_MOVE_USER_FINAL,0);
+    if (objchange != NULL) {
+      undo_object_change(ddisp->diagram, tool->object, objchange);
+    }
+
     object_add_updates(tool->object, ddisp->diagram);
 
     /* Connect if possible: */

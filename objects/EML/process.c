@@ -36,9 +36,9 @@
 static real emlprocess_distance_from(EMLProcess *emlprocess, Point *point);
 static void emlprocess_select(EMLProcess *emlprocess, Point *clicked_point,
 			    Renderer *interactive_renderer);
-static void emlprocess_move_handle(EMLProcess *emlprocess, Handle *handle,
-				 Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void emlprocess_move(EMLProcess *emlprocess, Point *to);
+static ObjectChange* emlprocess_move_handle(EMLProcess *emlprocess, Handle *handle,
+					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* emlprocess_move(EMLProcess *emlprocess, Point *to);
 static void emlprocess_draw(EMLProcess *emlprocess, Renderer *renderer);
 static Object *emlprocess_create(Point *startpoint,
 			       void *user_data,
@@ -96,7 +96,7 @@ emlprocess_select(EMLProcess *emlprocess, Point *clicked_point,
   element_update_handles(&emlprocess->element);
 }
 
-static void
+static ObjectChange*
 emlprocess_move_handle(EMLProcess *emlprocess, Handle *handle,
 		     Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -105,14 +105,18 @@ emlprocess_move_handle(EMLProcess *emlprocess, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < 8);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 emlprocess_move(EMLProcess *emlprocess, Point *to)
 {
   emlprocess->element.corner = *to;
   emlprocess_calculate_connections(emlprocess);
   emlprocess_update_data(emlprocess);
+
+  return NULL;
 }
 
 static void

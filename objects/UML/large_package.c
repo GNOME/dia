@@ -60,9 +60,9 @@ struct _LargePackage {
 static real largepackage_distance_from(LargePackage *pkg, Point *point);
 static void largepackage_select(LargePackage *pkg, Point *clicked_point,
 				DiaRenderer *interactive_renderer);
-static void largepackage_move_handle(LargePackage *pkg, Handle *handle,
-				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void largepackage_move(LargePackage *pkg, Point *to);
+static ObjectChange* largepackage_move_handle(LargePackage *pkg, Handle *handle,
+					      Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* largepackage_move(LargePackage *pkg, Point *to);
 static void largepackage_draw(LargePackage *pkg, DiaRenderer *renderer);
 static Object *largepackage_create(Point *startpoint,
 				   void *user_data,
@@ -169,7 +169,7 @@ largepackage_select(LargePackage *pkg, Point *clicked_point,
   element_update_handles(&pkg->element);
 }
 
-static void
+static ObjectChange*
 largepackage_move_handle(LargePackage *pkg, Handle *handle,
 			 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -181,14 +181,18 @@ largepackage_move_handle(LargePackage *pkg, Handle *handle,
   
   element_move_handle(&pkg->element, handle->id, to, reason);
   largepackage_update_data(pkg);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 largepackage_move(LargePackage *pkg, Point *to)
 {
   pkg->element.corner = *to;
 
   largepackage_update_data(pkg);
+
+  return NULL;
 }
 
 static void

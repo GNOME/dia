@@ -51,9 +51,9 @@ typedef struct _Zigzagline {
 } Zigzagline;
 
 
-static void zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void zigzagline_move(Zigzagline *zigzagline, Point *to);
+static ObjectChange* zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
+					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* zigzagline_move(Zigzagline *zigzagline, Point *to);
 static void zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer);
@@ -172,25 +172,30 @@ zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
   orthconn_update_data(&zigzagline->orth);
 }
 
-static void
+static ObjectChange*
 zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  ObjectChange *change;
   assert(zigzagline!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  orthconn_move_handle((OrthConn*)zigzagline, handle, to, reason);
+  change = orthconn_move_handle((OrthConn*)zigzagline, handle, to, reason);
 
   zigzagline_update_data(zigzagline);
+
+  return change;
 }
 
 
-static void
+static ObjectChange*
 zigzagline_move(Zigzagline *zigzagline, Point *to)
 {
   orthconn_move(&zigzagline->orth, to);
   zigzagline_update_data(zigzagline);
+
+  return NULL;
 }
 
 static void

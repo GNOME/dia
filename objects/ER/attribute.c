@@ -86,10 +86,10 @@ struct _Attribute {
 static real attribute_distance_from(Attribute *attribute, Point *point);
 static void attribute_select(Attribute *attribute, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
-static void attribute_move_handle(Attribute *attribute, Handle *handle,
-				  Point *to, HandleMoveReason reason, 
+static ObjectChange* attribute_move_handle(Attribute *attribute, Handle *handle,
+					   Point *to, HandleMoveReason reason, 
 				  ModifierKeys modifiers);
-static void attribute_move(Attribute *attribute, Point *to);
+static ObjectChange* attribute_move(Attribute *attribute, Point *to);
 static void attribute_draw(Attribute *attribute, DiaRenderer *renderer);
 static void attribute_update_data(Attribute *attribute);
 static Object *attribute_create(Point *startpoint,
@@ -217,7 +217,7 @@ attribute_select(Attribute *attribute, Point *clicked_point,
   element_update_handles(&attribute->element);
 }
 
-static void
+static ObjectChange*
 attribute_move_handle(Attribute *attribute, Handle *handle,
 		      Point *to, HandleMoveReason reason, 
 		      ModifierKeys modifiers)
@@ -229,13 +229,17 @@ attribute_move_handle(Attribute *attribute, Handle *handle,
   assert(handle->id < 8);
   element_move_handle(&attribute->element, handle->id, to, reason);
   attribute_update_data(attribute);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 attribute_move(Attribute *attribute, Point *to)
 {
   attribute->element.corner = *to;
   attribute_update_data(attribute);
+
+  return NULL;
 }
 
 static void

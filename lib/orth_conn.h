@@ -66,9 +66,9 @@ void orthconn_set_points(OrthConn *orth, int num_points, Point *points);
 void orthconn_copy(OrthConn *from, OrthConn *to);
 void orthconn_save(OrthConn *orth, ObjectNode obj_node);
 void orthconn_load(OrthConn *orth, ObjectNode obj_node);  /* NOTE: Does object_init() */
-void orthconn_move_handle(OrthConn *orth, Handle *id,
+ObjectChange* orthconn_move_handle(OrthConn *orth, Handle *id,
 			  Point *to, HandleMoveReason reason);
-void orthconn_move(OrthConn *orth, Point *to);
+ObjectChange* orthconn_move(OrthConn *orth, Point *to);
 real orthconn_distance_from(OrthConn *orth, Point *point,
 			    real line_width);
 Handle* orthconn_get_middle_handle(OrthConn *orth);

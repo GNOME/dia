@@ -64,10 +64,10 @@ struct _LineProperties {
 
 static LineProperties default_properties;
 
-static void line_move_handle(Line *line, Handle *handle,
-			     Point *to, HandleMoveReason reason, 
+static ObjectChange* line_move_handle(Line *line, Handle *handle,
+				      Point *to, HandleMoveReason reason, 
 			     ModifierKeys modifiers);
-static void line_move(Line *line, Point *to);
+static ObjectChange* line_move(Line *line, Point *to);
 static void line_select(Line *line, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
 static void line_draw(Line *line, DiaRenderer *renderer);
@@ -391,7 +391,7 @@ line_select(Line *line, Point *clicked_point,
   connection_update_handles(&line->connection);
 }
 
-static void
+static ObjectChange*
 line_move_handle(Line *line, Handle *handle,
 		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -402,9 +402,11 @@ line_move_handle(Line *line, Handle *handle,
   connection_move_handle(&line->connection, handle->id, to, reason);
 
   line_update_data(line);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 line_move(Line *line, Point *to)
 {
   Point start_to_end;
@@ -417,6 +419,8 @@ line_move(Line *line, Point *to)
   point_add(&endpoints[1], &start_to_end);
 
   line_update_data(line);
+
+  return NULL;
 }
 
 static void

@@ -107,10 +107,10 @@ static CustomProperties default_properties;
 static real custom_distance_from(Custom *custom, Point *point);
 static void custom_select(Custom *custom, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void custom_move_handle(Custom *custom, Handle *handle,
-			    Point *to, HandleMoveReason reason, 
+static ObjectChange* custom_move_handle(Custom *custom, Handle *handle,
+					Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
-static void custom_move(Custom *custom, Point *to);
+static ObjectChange* custom_move(Custom *custom, Point *to);
 static void custom_draw(Custom *custom, DiaRenderer *renderer);
 static void custom_update_data(Custom *custom, AnchorShape h, AnchorShape v);
 static void custom_reposition_text(Custom *custom, GraphicElementText *text);
@@ -449,7 +449,7 @@ custom_select(Custom *custom, Point *clicked_point,
   element_update_handles(&custom->element);
 }
 
-static void
+static ObjectChange*
 custom_move_handle(Custom *custom, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -482,14 +482,18 @@ custom_move_handle(Custom *custom, Handle *handle,
     break;
   }
   custom_update_data(custom, horiz, vert);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 custom_move(Custom *custom, Point *to)
 {
   custom->element.corner = *to;
   
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
+  return NULL;
 }
 
 static void

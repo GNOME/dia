@@ -60,9 +60,9 @@ static DiaFont *genlz_font = NULL;
 static real generalization_distance_from(Generalization *genlz, Point *point);
 static void generalization_select(Generalization *genlz, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
-static void generalization_move_handle(Generalization *genlz, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void generalization_move(Generalization *genlz, Point *to);
+static ObjectChange* generalization_move_handle(Generalization *genlz, Handle *handle,
+						Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* generalization_move(Generalization *genlz, Point *to);
 static void generalization_draw(Generalization *genlz, DiaRenderer *renderer);
 static Object *generalization_create(Point *startpoint,
 				 void *user_data,
@@ -173,23 +173,30 @@ generalization_select(Generalization *genlz, Point *clicked_point,
   orthconn_update_data(&genlz->orth);
 }
 
-static void
+static ObjectChange*
 generalization_move_handle(Generalization *genlz, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  ObjectChange *change;
   assert(genlz!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
   
-  orthconn_move_handle(&genlz->orth, handle, to, reason);
+  change = orthconn_move_handle(&genlz->orth, handle, to, reason);
   generalization_update_data(genlz);
+
+  return change;
 }
 
-static void
+static ObjectChange*
 generalization_move(Generalization *genlz, Point *to)
 {
-  orthconn_move(&genlz->orth, to);
+  ObjectChange *change;
+
+  change = orthconn_move(&genlz->orth, to);
   generalization_update_data(genlz);
+
+  return change;
 }
 
 static void

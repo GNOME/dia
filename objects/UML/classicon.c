@@ -67,9 +67,9 @@ enum CLassIconStereotype {
 static real classicon_distance_from(Classicon *cicon, Point *point);
 static void classicon_select(Classicon *cicon, Point *clicked_point,
 			     DiaRenderer *interactive_renderer);
-static void classicon_move_handle(Classicon *cicon, Handle *handle,
-				  Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void classicon_move(Classicon *cicon, Point *to);
+static ObjectChange* classicon_move_handle(Classicon *cicon, Handle *handle,
+					   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* classicon_move(Classicon *cicon, Point *to);
 static void classicon_draw(Classicon *cicon, DiaRenderer *renderer);
 static Object *classicon_create(Point *startpoint,
 				void *user_data,
@@ -192,7 +192,7 @@ classicon_select(Classicon *cicon, Point *clicked_point,
   element_update_handles(&cicon->element);
 }
 
-static void
+static ObjectChange*
 classicon_move_handle(Classicon *cicon, Handle *handle,
 		      Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -201,9 +201,11 @@ classicon_move_handle(Classicon *cicon, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < 8);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 classicon_move(Classicon *cicon, Point *to)
 {
   Element *elem = &cicon->element;
@@ -216,6 +218,8 @@ classicon_move(Classicon *cicon, Point *to)
     elem->corner.x -= CLASSICON_RADIOUS/2.0;
 
   classicon_update_data(cicon);
+
+  return NULL;
 }
 
 static void

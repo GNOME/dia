@@ -49,9 +49,9 @@ void polyconn_save(PolyConn *poly, ObjectNode obj_node);
 void polyconn_load(PolyConn *poly, ObjectNode obj_node);  /* NOTE: Does object_init() */
 ObjectChange *polyconn_add_point(PolyConn *poly, int segment, Point *point);
 ObjectChange *polyconn_remove_point(PolyConn *poly, int point);
-void polyconn_move_handle(PolyConn *poly, Handle *id,
+ObjectChange *polyconn_move_handle(PolyConn *poly, Handle *id,
 			  Point *to, HandleMoveReason reason);
-void polyconn_move(PolyConn *poly, Point *to);
+ObjectChange *polyconn_move(PolyConn *poly, Point *to);
 real polyconn_distance_from(PolyConn *poly, Point *point,
 			    real line_width);
 Handle *polyconn_closest_handle(PolyConn *poly, Point *point);

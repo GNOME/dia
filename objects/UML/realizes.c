@@ -61,9 +61,9 @@ static DiaFont *realize_font = NULL;
 static real realizes_distance_from(Realizes *realize, Point *point);
 static void realizes_select(Realizes *realize, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
-static void realizes_move_handle(Realizes *realize, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void realizes_move(Realizes *realize, Point *to);
+static ObjectChange* realizes_move_handle(Realizes *realize, Handle *handle,
+					  Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* realizes_move(Realizes *realize, Point *to);
 static void realizes_draw(Realizes *realize, DiaRenderer *renderer);
 static Object *realizes_create(Point *startpoint,
 				 void *user_data,
@@ -175,23 +175,28 @@ realizes_select(Realizes *realize, Point *clicked_point,
   orthconn_update_data(&realize->orth);
 }
 
-static void
+static ObjectChange*
 realizes_move_handle(Realizes *realize, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
+  ObjectChange *change;
   assert(realize!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
   
-  orthconn_move_handle(&realize->orth, handle, to, reason);
+  change = orthconn_move_handle(&realize->orth, handle, to, reason);
   realizes_update_data(realize);
+
+  return change;
 }
 
-static void
+static ObjectChange*
 realizes_move(Realizes *realize, Point *to)
 {
   orthconn_move(&realize->orth, to);
   realizes_update_data(realize);
+
+  return NULL;
 }
 
 static void

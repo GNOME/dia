@@ -86,9 +86,9 @@ typedef struct _Step {
 static real step_distance_from(Step *step, Point *point);
 static void step_select(Step *step, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
-static void step_move_handle(Step *step, Handle *handle,
-			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void step_move(Step *step, Point *to);
+static ObjectChange* step_move_handle(Step *step, Handle *handle,
+				      Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* step_move(Step *step, Point *to);
 static void step_draw(Step *step, DiaRenderer *renderer);
 static void step_update_data(Step *step);
 static Object *step_create(Point *startpoint,
@@ -278,7 +278,7 @@ step_select(Step *step, Point *clicked_point,
   element_update_handles(&step->element);
 }
 
-static void
+static ObjectChange*
 step_move_handle(Step *step, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -300,9 +300,11 @@ step_move_handle(Step *step, Handle *handle,
   }
 
   step_update_data(step);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 step_move(Step *step, Point *to)
 {
   Point delta = *to;
@@ -312,6 +314,8 @@ step_move(Step *step, Point *to)
   point_add(&step->south.pos,&delta);
   
   step_update_data(step);
+
+  return NULL;
 }
 
 

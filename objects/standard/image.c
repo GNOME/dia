@@ -68,9 +68,9 @@ static struct _ImageProperties {
 static real image_distance_from(Image *image, Point *point);
 static void image_select(Image *image, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void image_move_handle(Image *image, Handle *handle,
-			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void image_move(Image *image, Point *to);
+static ObjectChange* image_move_handle(Image *image, Handle *handle,
+				       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* image_move(Image *image, Point *to);
 static void image_draw(Image *image, DiaRenderer *renderer);
 static void image_update_data(Image *image);
 static Object *image_create(Point *startpoint,
@@ -207,7 +207,7 @@ image_select(Image *image, Point *clicked_point,
   element_update_handles(&image->element);
 }
 
-static void
+static ObjectChange*
 image_move_handle(Image *image, Handle *handle,
 		  Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -300,14 +300,18 @@ image_move_handle(Image *image, Handle *handle,
     element_move_handle(elem, handle->id, to, reason);
   }
   image_update_data(image);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 image_move(Image *image, Point *to)
 {
   image->element.corner = *to;
   
   image_update_data(image);
+
+  return NULL;
 }
 
 static void

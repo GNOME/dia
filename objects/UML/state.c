@@ -68,9 +68,9 @@ struct _State {
 static real state_distance_from(State *state, Point *point);
 static void state_select(State *state, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
-static void state_move_handle(State *state, Handle *handle,
-			     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void state_move(State *state, Point *to);
+static ObjectChange* state_move_handle(State *state, Handle *handle,
+				       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* state_move(State *state, Point *to);
 static void state_draw(State *state, DiaRenderer *renderer);
 static Object *state_create(Point *startpoint,
 			   void *user_data,
@@ -192,7 +192,7 @@ state_select(State *state, Point *clicked_point,
   element_update_handles(&state->element);
 }
 
-static void
+static ObjectChange*
 state_move_handle(State *state, Handle *handle,
 		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -201,13 +201,17 @@ state_move_handle(State *state, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < 8);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 state_move(State *state, Point *to)
 {
   state->element.corner = *to;
   state_update_data(state);
+
+  return NULL;
 }
 
 static void

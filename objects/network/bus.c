@@ -66,9 +66,9 @@ struct PointChange {
   ConnectionPoint *connected_to; /* NULL if not connected */
 };
 
-static void bus_move_handle(Bus *bus, Handle *handle,
-			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void bus_move(Bus *bus, Point *to);
+static ObjectChange* bus_move_handle(Bus *bus, Handle *handle,
+				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* bus_move(Bus *bus, Point *to);
 static void bus_select(Bus *bus, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static void bus_draw(Bus *bus, DiaRenderer *renderer);
@@ -195,7 +195,7 @@ bus_select(Bus *bus, Point *clicked_point,
   connection_update_handles(&bus->connection);
 }
 
-static void
+static ObjectChange*
 bus_move_handle(Bus *bus, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -268,9 +268,11 @@ bus_move_handle(Bus *bus, Handle *handle,
   }
 
   bus_update_data(bus);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 bus_move(Bus *bus, Point *to)
 {
   Point delta;
@@ -293,6 +295,8 @@ bus_move(Bus *bus, Point *to)
   }
 
   bus_update_data(bus);
+
+  return NULL;
 }
 
 static void

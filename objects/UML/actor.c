@@ -54,9 +54,9 @@ struct _Actor {
 static real actor_distance_from(Actor *actor, Point *point);
 static void actor_select(Actor *actor, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
-static void actor_move_handle(Actor *actor, Handle *handle,
-			     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void actor_move(Actor *actor, Point *to);
+static ObjectChange* actor_move_handle(Actor *actor, Handle *handle,
+				       Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* actor_move(Actor *actor, Point *to);
 static void actor_draw(Actor *actor, DiaRenderer *renderer);
 static Object *actor_create(Point *startpoint,
 			   void *user_data,
@@ -166,7 +166,7 @@ actor_select(Actor *actor, Point *clicked_point,
   element_update_handles(&actor->element);
 }
 
-static void
+static ObjectChange*
 actor_move_handle(Actor *actor, Handle *handle,
 		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -175,9 +175,11 @@ actor_move_handle(Actor *actor, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < 8);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 actor_move(Actor *actor, Point *to)
 {
   Element *elem = &actor->element;
@@ -187,6 +189,8 @@ actor_move(Actor *actor, Point *to)
   elem->corner.y -= elem->height / 2.0;
 
   actor_update_data(actor);
+
+  return NULL;
 }
 
 static void

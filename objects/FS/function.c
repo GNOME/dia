@@ -78,9 +78,9 @@ struct _FunctionChange {
 static real function_distance_from(Function *pkg, Point *point);
 static void function_select(Function *pkg, Point *clicked_point,
 			    DiaRenderer *interactive_renderer);
-static void function_move_handle(Function *pkg, Handle *handle,
-				 Point *to, HandleMoveReason reason);
-static void function_move(Function *pkg, Point *to);
+static ObjectChange* function_move_handle(Function *pkg, Handle *handle,
+					  Point *to, HandleMoveReason reason);
+static ObjectChange* function_move(Function *pkg, Point *to);
 static void function_draw(Function *pkg, DiaRenderer *renderer);
 static Object *function_create(Point *startpoint,
 			       void *user_data,
@@ -254,7 +254,7 @@ function_select(Function *pkg, Point *clicked_point,
   element_update_handles(&pkg->element);
 }
 
-static void
+static ObjectChange*
 function_move_handle(Function *pkg, Handle *handle,
 		     Point *to, HandleMoveReason reason)
 {
@@ -263,13 +263,17 @@ function_move_handle(Function *pkg, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < 8);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 function_move(Function *pkg, Point *to)
 {
   pkg->element.corner = *to;
   function_update_data(pkg);
+
+  return NULL;
 }
 
 static void

@@ -60,9 +60,9 @@ struct _Arc {
 
 };
 
-static void arc_move_handle(Arc *arc, Handle *handle,
-			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void arc_move(Arc *arc, Point *to);
+static ObjectChange* arc_move_handle(Arc *arc, Handle *handle,
+				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* arc_move(Arc *arc, Point *to);
 static void arc_select(Arc *arc, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static void arc_draw(Arc *arc, DiaRenderer *renderer);
@@ -242,7 +242,7 @@ arc_update_handles(Arc *arc)
 }
 
 
-static void
+static ObjectChange*
 arc_move_handle(Arc *arc, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -272,9 +272,11 @@ arc_move_handle(Arc *arc, Handle *handle,
   }
 
   arc_update_data(arc);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 arc_move(Arc *arc, Point *to)
 {
   Point start_to_end;
@@ -287,6 +289,8 @@ arc_move(Arc *arc, Point *to)
   point_add(&endpoints[1], &start_to_end);
 
   arc_update_data(arc);
+
+  return NULL;
 }
 
 static void

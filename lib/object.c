@@ -178,12 +178,13 @@ object_copy_list(GList *list_orig)
   return list_copy;
 }
 
-extern void
+extern ObjectChange*
 object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
 {
   GList *list;
   Object *obj;
   Point pos;
+  ObjectChange *objchange = NULL;
 
   if (delta->x == 0 && delta->y == 0)
        return;
@@ -206,21 +207,24 @@ object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
       g_free(p_ext);
       g_free(c_ext);
     }
-    obj->ops->move(obj, &pos);
+    objchange = obj->ops->move(obj, &pos);
 
     if (obj->can_parent && obj->children)
-      object_list_move_delta_r(obj->children, delta, FALSE);
+      objchange = object_list_move_delta_r(obj->children, delta, FALSE);
 
     list = g_list_next(list);
   }
+  return objchange;
 }
 
-extern void
+extern ObjectChange*
 object_list_move_delta(GList *objects, Point *delta)
 {
   GList *list;
   Object *obj;
   GList *process;
+  ObjectChange *objchange = NULL;
+
   objects = parent_list_affected_hierarchy(objects);
   list = objects;
   /* The recursive function object_list_move_delta cannot process the toplevel
@@ -231,11 +235,12 @@ object_list_move_delta(GList *objects, Point *delta)
 
     process = NULL;
     process = g_list_append(process, obj);
-    object_list_move_delta_r(process, delta, (obj->parent != NULL) );
+    objchange = object_list_move_delta_r(process, delta, (obj->parent != NULL) );
     g_list_free(process);
 
     list = g_list_next(list);
   }
+  return objchange;
 }
 
 void

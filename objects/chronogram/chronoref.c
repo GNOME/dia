@@ -76,10 +76,10 @@ typedef struct _Chronoref {
 static real chronoref_distance_from(Chronoref *chronoref, Point *point);
 static void chronoref_select(Chronoref *chronoref, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void chronoref_move_handle(Chronoref *chronoref, Handle *handle,
-			    Point *to, HandleMoveReason reason, 
+static ObjectChange* chronoref_move_handle(Chronoref *chronoref, Handle *handle,
+					   Point *to, HandleMoveReason reason, 
 			    ModifierKeys modifiers);
-static void chronoref_move(Chronoref *chronoref, Point *to);
+static ObjectChange* chronoref_move(Chronoref *chronoref, Point *to);
 static void chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer);
 static void chronoref_update_data(Chronoref *chronoref);
 static Object *chronoref_create(Point *startpoint,
@@ -235,7 +235,7 @@ chronoref_select(Chronoref *chronoref, Point *clicked_point,
   element_update_handles(&chronoref->element);
 }
 
-static void
+static ObjectChange*
 chronoref_move_handle(Chronoref *chronoref, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -245,13 +245,17 @@ chronoref_move_handle(Chronoref *chronoref, Handle *handle,
 
   element_move_handle(&chronoref->element, handle->id, to, reason);
   chronoref_update_data(chronoref);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 chronoref_move(Chronoref *chronoref, Point *to)
 {
   chronoref->element.corner = *to;
   chronoref_update_data(chronoref);
+
+  return NULL;
 }
 
 static void

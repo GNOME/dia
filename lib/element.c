@@ -80,7 +80,7 @@ element_update_handles(Element *elem)
   elem->resize_handles[7].pos.y = corner->y + elem->height;
 }
 
-void
+ObjectChange*
 element_move_handle(Element *elem, HandleId id,
 		    Point *to, HandleMoveReason reason)
 {
@@ -151,6 +151,7 @@ element_move_handle(Element *elem, HandleId id,
   default:
     message_error("Error, called element_move_handle() with wrong handle-id\n");
   }
+  return NULL;
 }
 
 void

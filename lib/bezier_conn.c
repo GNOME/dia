@@ -102,7 +102,7 @@ static int get_handle_nr(BezierConn *bez, Handle *handle)
 #define get_comp_nr(hnum) (((int)(hnum)+2)/3)
 #define get_major_nr(hnum) (((int)(hnum)+1)/3)
 
-void
+ObjectChange*
 bezierconn_move_handle(BezierConn *bez, Handle *handle,
 		     Point *to, HandleMoveReason reason)
 {
@@ -197,9 +197,10 @@ bezierconn_move_handle(BezierConn *bez, Handle *handle,
     message_error("Internal error in bezierconn_move_handle.\n");
     break;
   }
+  return NULL;
 }
 
-void
+ObjectChange*
 bezierconn_move(BezierConn *bez, Point *to)
 {
   Point p;
@@ -214,6 +215,7 @@ bezierconn_move(BezierConn *bez, Point *to)
     point_add(&bez->points[i].p2, &p);
     point_add(&bez->points[i].p3, &p);
   }
+  return NULL;
 }
 
 int

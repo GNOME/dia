@@ -59,9 +59,9 @@ ObjectChange *bezierconn_remove_segment(BezierConn *bez, int point);
 ObjectChange *bezierconn_set_corner_type(BezierConn *bez,
 					 Handle *handle,
 					 BezCornerType style);
-void bezierconn_move_handle(BezierConn *bez, Handle *id,
+ObjectChange *bezierconn_move_handle(BezierConn *bez, Handle *id,
 			    Point *to, HandleMoveReason reason);
-void bezierconn_move(BezierConn *bez, Point *to);
+ObjectChange *bezierconn_move(BezierConn *bez, Point *to);
 real bezierconn_distance_from(BezierConn *bez, Point *point,
 			      real line_width);
 Handle *bezierconn_closest_handle(BezierConn *bez, Point *point);

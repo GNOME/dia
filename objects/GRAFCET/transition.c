@@ -76,9 +76,9 @@ typedef struct _Transition {
   Point A,B,C,D,Z;
 } Transition;
 
-static void transition_move_handle(Transition *transition, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void transition_move(Transition *transition, Point *to);
+static ObjectChange* transition_move_handle(Transition *transition, Handle *handle,
+					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* transition_move(Transition *transition, Point *to);
 static void transition_select(Transition *transition, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void transition_draw(Transition *transition, DiaRenderer *renderer);
@@ -286,7 +286,7 @@ transition_select(Transition *transition, Point *clicked_point,
   transition_update_data(transition);
 }
 
-static void
+static ObjectChange*
 transition_move_handle(Transition *transition, Handle *handle,
 		       Point *to, HandleMoveReason reason, 
 		       ModifierKeys modifiers)
@@ -311,10 +311,12 @@ transition_move_handle(Transition *transition, Handle *handle,
   }
 
   transition_update_data(transition);
+
+  return NULL;
 }
 
 
-static void
+static ObjectChange*
 transition_move(Transition *transition, Point *to)
 {
   Point delta = *to;
@@ -326,6 +328,8 @@ transition_move(Transition *transition, Point *to)
 
   element_update_handles(elem);
   transition_update_data(transition);
+
+  return NULL;
 }
 
 

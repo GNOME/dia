@@ -59,9 +59,9 @@ typedef struct _Annotation {
 
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
-static void annotation_move_handle(Annotation *annotation, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void annotation_move(Annotation *annotation, Point *to);
+static ObjectChange* annotation_move_handle(Annotation *annotation, Handle *handle,
+					    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* annotation_move(Annotation *annotation, Point *to);
 static void annotation_select(Annotation *annotation, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void annotation_draw(Annotation *annotation, DiaRenderer *renderer);
@@ -210,7 +210,7 @@ annotation_select(Annotation *annotation, Point *clicked_point,
   connection_update_handles(&annotation->connection);
 }
 
-static void
+static ObjectChange*
 annotation_move_handle(Annotation *annotation, Handle *handle,
 		 Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -243,9 +243,11 @@ annotation_move_handle(Annotation *annotation, Handle *handle,
     }
   }
   annotation_update_data(annotation);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 annotation_move(Annotation *annotation, Point *to)
 {
   Point start_to_end;
@@ -264,6 +266,8 @@ annotation_move(Annotation *annotation, Point *to)
   point_add(&annotation->text->position, &delta);
   
   annotation_update_data(annotation);
+
+  return NULL;
 }
 
 static void

@@ -1,3 +1,104 @@
+2003-07-31  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/bezier_conn.c:
+	* lib/bezier_conn.h:
+	* lib/beziershape.c:
+	* lib/beziershape.h:
+	* lib/connection.c:
+	* lib/connection.h:
+	* lib/element.c:
+	* lib/element.h:
+	* lib/group.c:
+	* lib/neworth_conn.c:
+	* lib/neworth_conn.h:
+	* lib/object.h:
+	* lib/orth_conn.h:
+	* lib/poly_conn.c:
+	* lib/poly_conn.h:
+	* lib/polyshape.c:
+	* lib/polyshape.h:
+	* objects/EML/instantiation.c:
+	* objects/EML/interaction-ortho.c:
+	* objects/EML/interaction.c:
+	* objects/EML/process.c:
+	* objects/ER/attribute.c:
+	* objects/ER/entity.c:
+	* objects/ER/participation.c:
+	* objects/ER/relationship.c:
+	* objects/FS/flow-ortho.c:
+	* objects/FS/flow-poly.c:
+	* objects/FS/flow.c:
+	* objects/FS/function.c:
+	* objects/GRAFCET/action.c:
+	* objects/GRAFCET/condition.c:
+	* objects/GRAFCET/step.c:
+	* objects/GRAFCET/transition.c:
+	* objects/GRAFCET/vector.c:
+	* objects/GRAFCET/vergent.c:
+	* objects/Misc/analog_clock.c:
+	* objects/SADT/annotation.c:
+	* objects/SADT/arrow.c:
+	* objects/SADT/box.c:
+	* objects/UML/activity.c:
+	* objects/UML/actor.c:
+	* objects/UML/association.c:
+	* objects/UML/branch.c:
+	* objects/UML/class.c:
+	* objects/UML/classicon.c:
+	* objects/UML/component.c:
+	* objects/UML/constraint.c:
+	* objects/UML/dependency.c:
+	* objects/UML/fork.c:
+	* objects/UML/generalization.c:
+	* objects/UML/implements.c:
+	* objects/UML/large_package.c:
+	* objects/UML/lifeline.c:
+	* objects/UML/message.c:
+	* objects/UML/node.c:
+	* objects/UML/note.c:
+	* objects/UML/object.c:
+	* objects/UML/realizes.c:
+	* objects/UML/small_package.c:
+	* objects/UML/state.c:
+	* objects/UML/state_term.c:
+	* objects/UML/usecase.c:
+	* objects/chronogram/chronoline.c:
+	* objects/chronogram/chronoref.c:
+	* objects/custom/custom_object.c:
+	* objects/flowchart/box.c:
+	* objects/flowchart/diamond.c:
+	* objects/flowchart/ellipse.c:
+	* objects/flowchart/parallelogram.c:
+	* objects/network/bus.c:
+	* objects/network/wanlink.c:
+	* objects/standard/arc.c:
+	* objects/standard/bezier.c:
+	* objects/standard/beziergon.c:
+	* objects/standard/box.c:
+	* objects/standard/ellipse.c:
+	* objects/standard/image.c:
+	* objects/standard/line.c:
+	* objects/standard/polygon.c:
+	* objects/standard/polyline.c:
+	* objects/standard/textobj.c:
+	* objects/standard/zigzagline.c:
+	Binary compatibility update:  Added return value for foo_move() and
+	foo_move_handle().  Orthconn derivatives also returns change from
+	orthconn_move_handle().
+	
+	* lib/orth_conn.c: Undo support for autorouting.  Neworthconn
+	doesn't support it yet.
+
+	* lib/object.c (object_list_move_delta_r, object_list_move_delta):
+	Add returning ObjectChange from object moves.  Needs to handle
+	multiple object moves.
+
+	* app/modify_tool.c (modify_motion, modify_release): Add
+	ObjectChange from move & move_handle to undo stack.
+
+	* objects/EML/instantiation.c (instantiation_move): Removing
+	duplicate move & update.
+
 2003-07-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/xfig/xfig-export.c: Added support for arrow head

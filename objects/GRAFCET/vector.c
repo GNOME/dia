@@ -54,9 +54,9 @@ typedef struct _Arc {
   gboolean uparrow;
 } Arc;
 
-static void arc_move_handle(Arc *arc, Handle *handle,
-				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void arc_move(Arc *arc, Point *to);
+static ObjectChange* arc_move_handle(Arc *arc, Handle *handle,
+				     Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* arc_move(Arc *arc, Point *to);
 static void arc_select(Arc *arc, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void arc_draw(Arc *arc, DiaRenderer *renderer);
@@ -172,20 +172,27 @@ arc_select(Arc *arc, Point *clicked_point,
   orthconn_update_data(&arc->orth);
 }
 
-static void
+static ObjectChange*
 arc_move_handle(Arc *arc, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
-  orthconn_move_handle(&arc->orth, handle, to, reason);
+  ObjectChange *change;
+  change = orthconn_move_handle(&arc->orth, handle, to, reason);
   arc_update_data(arc);
+
+  return change;
 }
 
 
-static void
+static ObjectChange*
 arc_move(Arc *arc, Point *to)
 {
-  orthconn_move(&arc->orth, to);
+  ObjectChange *change;
+
+  change = orthconn_move(&arc->orth, to);
   arc_update_data(arc);
+
+  return change;
 }
 
 static void

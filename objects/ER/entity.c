@@ -67,9 +67,9 @@ struct _Entity {
 static real entity_distance_from(Entity *entity, Point *point);
 static void entity_select(Entity *entity, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static void entity_move_handle(Entity *entity, Handle *handle,
-			    Point *to, HandleMoveReason reason, ModifierKeys modifiers);
-static void entity_move(Entity *entity, Point *to);
+static ObjectChange* entity_move_handle(Entity *entity, Handle *handle,
+					Point *to, HandleMoveReason reason, ModifierKeys modifiers);
+static ObjectChange* entity_move(Entity *entity, Point *to);
 static void entity_draw(Entity *entity, DiaRenderer *renderer);
 static void entity_update_data(Entity *entity);
 static Object *entity_create(Point *startpoint,
@@ -192,7 +192,7 @@ entity_select(Entity *entity, Point *clicked_point,
   element_update_handles(&entity->element);
 }
 
-static void
+static ObjectChange*
 entity_move_handle(Entity *entity, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
@@ -203,14 +203,18 @@ entity_move_handle(Entity *entity, Handle *handle,
   element_move_handle(&entity->element, handle->id, to, reason);
 
   entity_update_data(entity);
+
+  return NULL;
 }
 
-static void
+static ObjectChange*
 entity_move(Entity *entity, Point *to)
 {
   entity->element.corner = *to;
   
   entity_update_data(entity);
+
+  return NULL;
 }
 
 static void
