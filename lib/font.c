@@ -792,17 +792,23 @@ freetype_copy_glyph_bitmap(GdkPixmap *pixmap, GdkGC *gc,
   FT_Bitmap *bitmap = &glyph->bitmap;
   guchar *buffer = bitmap->buffer;
   int rowstride = bitmap->pitch;
+  int width = bitmap->width;
+  int height = bitmap->rows;
 
-  LC_DEBUG (fprintf(stderr, "freetype_copy_glyph_bitmap: pen_x %d, wxh = %dx%d, rowstride = %d, pixelmode = %d\n", pen_x, bitmap->width, bitmap->rows, rowstride, bitmap->pixel_mode));
+  LC_DEBUG (fprintf(stderr, "freetype_copy_glyph_bitmap: pen_x %d, wxh = %dx%d, rowstride = %d, pixelmode = %d, num_grays=%d\n", pen_x, width, height, rowstride, bitmap->pixel_mode, bitmap->num_grays));
   
   if (rowstride < 0) { // Cartesian bitmap
     buffer = buffer+rowstride*(bitmap->rows-1);
   }
 
-  gdk_draw_gray_image(pixmap, gc, pen_x, pen_y,
-		      bitmap->width, bitmap->rows,
-		      GDK_RGB_DITHER_NONE,
-		      buffer, rowstride);
+  if (bitmap->pixel_mode == ft_pixel_mode_mono) {
+    
+  } else {
+    gdk_draw_gray_image(pixmap, gc, pen_x, pen_y,
+			bitmap->width, bitmap->rows,
+			GDK_RGB_DITHER_NONE,
+			buffer, rowstride);
+  }
 }
 
 void
@@ -813,7 +819,7 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
   int i, len;
   int previous_index = 0;
   int use_kerning = FALSE;
-  int pen_x = 0, pen_y = 0;
+  int pen_x = x, pen_y = y;
   FT_Face face = fts->face;
 
   LC_DEBUG (fprintf(stderr, "freetype_render_string\n"));
@@ -851,7 +857,7 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
     */                      
     
     // load glyph image into the slot. DO NOT RENDER IT !!
-    error = FT_Load_Glyph( face, glyph_index, FT_LOAD_DEFAULT );
+    error = FT_Load_Glyph( face, glyph_index, FT_LOAD_NO_BITMAP );
     if (error) continue;  // ignore errors, jump to next glyph
 
     LC_DEBUG (fprintf(stderr, "Glyph loaded\n"));
@@ -861,9 +867,9 @@ freetype_render_string(GdkPixmap *pixmap, FreetypeString *fts,
 
     LC_DEBUG (fprintf(stderr, "Copy bitmap\n"));
     // now, draw to our target surface
-    freetype_copy_glyph_bitmap( pixmap, gc, &face->glyph,
+    freetype_copy_glyph_bitmap( pixmap, gc, face->glyph,
 				pen_x + face->glyph->bitmap_left,
-				pen_y - face->glyph->bitmap_top );
+				pen_y - face->glyph->bitmap_top + (face->size->metrics.descender >> 6) );
                          
     // increment pen position 
     pen_x += face->glyph->advance.x >> 6;
@@ -1080,7 +1086,7 @@ real
 font_string_width(const char *string, DiaFont *font, real height)
 {
 #ifdef HAVE_FREETYPE
-  FT_Face *face;
+  FT_Face face;
   FreetypeString *ft_string;
 
   /* This is currently broken */
