@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
-"POT-Creation-Date: 2002-09-23 22:41+0200\n"
-"PO-Revision-Date: 2002-05-16 21:31-0400\n"
+"POT-Creation-Date: 2002-10-16 05:47+0200\n"
+"PO-Revision-Date: 2002-10-17 12:07+0700\n"
 "Last-Translator: pclouds <pclouds@gmx.net>\n"
 "Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -58,11 +58,11 @@ msgstr "Không hiển thị splash screen"
 
 #: app/app_procs.c:246
 msgid "Display credits list and exit"
-msgstr ""
+msgstr "Hiện credit rồi thoát"
 
 #: app/app_procs.c:248
 msgid "Display version and exit"
-msgstr ""
+msgstr "Hiện phiên bản rồi thoát"
 
 #: app/app_procs.c:250 app/diaconv.c:95
 msgid "Show this help message"
@@ -93,12 +93,12 @@ msgstr "Lỗi %s: chỉ có thể xác định hoặc là -f hoặc là -o."
 #: app/app_procs.c:324
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
-msgstr ""
+msgstr "Dia phiên bản %s, biên dịch %s %s\n"
 
 #: app/app_procs.c:326
-#, fuzzy, c-format
+#, c-format
 msgid "Dia version %s\n"
-msgstr "Dia v %s"
+msgstr "Dia phiên bản %s\n"
 
 #: app/app_procs.c:409 app/app_procs.c:411 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
@@ -106,26 +106,25 @@ msgid ""
 msgstr "Không thể tìm thấy các đối tượng chuẩn khi tìm object-libs, thoát...\n"
 
 #. no standard buttons
-#: app/app_procs.c:536
-#, fuzzy
+#: app/app_procs.c:538
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
 "without saving them?"
 msgstr ""
-"Biểu đồ đã bị thay đổi.\n"
-"Bạn có chắc chắn muốn thoát chứ?"
+"Sơ đồ đã bị thay đổi.\n"
+"Bạn có chắc chắn muốn thoát mà\n"
+"không lưu các thay đổi chứ?"
 
-#: app/app_procs.c:540
-#, fuzzy
+#: app/app_procs.c:542
 msgid "Quit Dia"
-msgstr "Nói về Dia"
+msgstr "Thoát Dia"
 
-#: app/app_procs.c:600 app/app_procs.c:607
+#: app/app_procs.c:604 app/app_procs.c:611
 msgid "Could not create per-user Dia config directory"
 msgstr "Không thể tạo thư mục cấu hình Dia cho từng người dùng"
 
-#: app/app_procs.c:609
+#: app/app_procs.c:613
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -133,20 +132,21 @@ msgstr ""
 "Không thể tạo thư mục cấu hình Dia cho từng người dùng. Vui lòng kiểm tra "
 "biến môi trường HOME có chỉ đến một thư mục hợp lệ hay không."
 
-#: app/app_procs.c:631 app/diaconv.c:249
-#, fuzzy
+#: app/app_procs.c:635 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Đối tượng và bộ lọc nội tại của dia"
 
 #: app/autosave.c:93
 msgid "Recovering autosaved diagrams"
-msgstr ""
+msgstr "Phục hồi sơ đồ tự động lưu"
 
 #: app/autosave.c:101
 msgid ""
 "Autosaved files exist.\n"
 "Please select those you wish to recover."
 msgstr ""
+"Phát hiện tập tin tự động lưu.\n"
+"Vui lòng chọn những tập tin bạn muốn phục hồi."
 
 #: app/color_area.c:301 lib/widgets.c:836
 msgid "Select color"
@@ -166,11 +166,13 @@ msgid "Could not find help directory"
 msgstr "Không thể tìm thấy thư mục trợ giúp"
 
 #: app/commands.c:474
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not open help directory:\n"
 "%s"
-msgstr "Không thể tìm thấy thư mục trợ giúp"
+msgstr ""
+"Không thể mở thư mục trợ giúp:\n"
+"%s"
 
 #.
 #. * Translators should localize the following string
@@ -179,7 +181,7 @@ msgstr "Không thể tìm thấy thư mục trợ giúp"
 #.
 #: app/commands.c:535
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
-msgstr ""
+msgstr "Nguyễn Thái Ngọc Duy <pclouds@users.sourceforge.net>"
 
 #: app/commands.c:549 dia.desktop.in.h:1
 msgid "Dia"
@@ -187,20 +189,19 @@ msgstr "Dia"
 
 #: app/commands.c:551
 msgid "Copyright (C) 1998-2002 The Free Software Foundation and the authors"
-msgstr ""
+msgstr "Bản quyền (C) 1998-2002 The Free Software Foundation và các tác giả"
 
 #: app/commands.c:552
-#, fuzzy
 msgid ""
 "Dia is a program for drawing structured diagrams.\n"
 "Please visit http://www.lysator.liu.se/~alla/dia for more information."
 msgstr ""
-"Xin hãy ghé thăm http://www.lysator.liu.se/~alla/dia để có thêm thông tin "
-"chi tiết"
+"Dia là chương trình vẽ sơ đồ có cấu trúc.\n"
+"Xin hãy ghé thăm http://www.lysator.liu.se/~alla/dia để có thêm thông tin chi tiết."
 
 #: app/commands.c:591
 msgid "About Dia"
-msgstr "Nói về Dia"
+msgstr "Giới thiệu Dia"
 
 #: app/commands.c:634
 #, c-format
@@ -210,10 +211,9 @@ msgstr "Dia v %s bởi Alexander Larsson"
 #. Exact spelling is Ch&eacute;p&eacute;lov (using *ML entities)
 #: app/commands.c:640
 msgid "Maintainers: Lars Clausen and Cyrille Chepelov"
-msgstr ""
+msgstr "Người quản lý: Lars Clausen và Cyrille Chepelov"
 
 #: app/commands.c:644
-#, fuzzy
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more information"
 msgstr ""
 "Xin hãy ghé thăm http://www.lysator.liu.se/~alla/dia để có thêm thông tin "
@@ -229,6 +229,9 @@ msgid ""
 "crashes.  We know there are bugs in it, so don't\n"
 "bother submitting another report if it crashes"
 msgstr ""
+"Cơ chế làm mượt có lỗi và có thể làm hỏng chương trình.\n"
+"Chung tôi biết được vài lỗi, vì thế vui lòng đừng gửi\n"
+"các báo cáo lỗi về vấn đề này"
 
 #: app/defaults.c:43 app/defaults.c:140
 msgid "Object defaults"
@@ -239,9 +242,8 @@ msgid "This object has no defaults."
 msgstr "Đối tượng này không có tham số mặc định."
 
 #: app/defaults.c:111
-#, fuzzy
 msgid "Defaults: "
-msgstr "Bề rộng mặc định:"
+msgstr "Mặc định: "
 
 #. &export_file_format
 #: app/diaconv.c:92
@@ -301,71 +303,71 @@ msgstr "Không thể khởi động Bonobo!"
 
 #: app/diagram_tree_menu.c:45
 msgid "/_Sort objects"
-msgstr "/_Sắp xếp đối tượng"
+msgstr "/_Sắp đối tượng"
 
 #: app/diagram_tree_menu.c:46
 msgid "/Sort objects/by _name"
-msgstr "/Sắp xếp đối tượng/bằng _tên"
+msgstr "/Sắp đối tượng/theo _tên"
 
 #: app/diagram_tree_menu.c:48
 msgid "/Sort objects/by _type"
-msgstr "/Sắp xếp đối tượng/bằng _loại"
+msgstr "/Sắp đối tượng/theo _loại"
 
 #: app/diagram_tree_menu.c:50
 msgid "/Sort objects/as _inserted"
-msgstr ""
+msgstr "/Sắp đối tượng/như _khi chèn"
 
 #: app/diagram_tree_menu.c:53
 msgid "/Sort objects/All by name"
-msgstr "/Sắp xếp đối tượng/tất cả bằng tên"
+msgstr "/Sắp đối tượng/tất cả bằng tên"
 
 #: app/diagram_tree_menu.c:55
 msgid "/Sort objects/All by type"
-msgstr "/Sắp xếp đối tượng/tất cả bằng loại"
+msgstr "/Sắp đối tượng/tất cả bằng loại"
 
 #: app/diagram_tree_menu.c:57
 msgid "/Sort objects/All as inserted"
-msgstr ""
+msgstr "/Sắp đối tượng/Tất cả như khi chèn"
 
 #: app/diagram_tree_menu.c:59
 msgid "/Sort objects/_Default"
-msgstr "/Sắp xếp đối tượng/_Mặc định"
+msgstr "/Sắp đối tượng/_Mặc định"
 
 #: app/diagram_tree_menu.c:60
 msgid "/Sort objects/Default/by _name"
-msgstr "/Sắp xếp đối tượng/Mặc định/bằng _tên"
+msgstr "/Sắp đối tượng/Mặc định/theo _tên"
 
 #: app/diagram_tree_menu.c:62
 msgid "/Sort objects/Default/by _type"
-msgstr "/Sắp xếp đối tượng/Mặc định/bằng _loại"
+msgstr "/Sắp đối tượng/Mặc định/theo _loại"
 
 #: app/diagram_tree_menu.c:64
 msgid "/Sort objects/Default/as _inserted"
-msgstr ""
+msgstr "/Sắp đối tượng/Mặc định/như _khi chèn"
 
 #: app/diagram_tree_menu.c:66
 msgid "/Sort _diagrams"
-msgstr "/Sắp xếp _biểu đồ"
+msgstr "/Sắp _sơ đồ"
 
 #: app/diagram_tree_menu.c:67
 msgid "/Sort _diagrams/by _name"
-msgstr "/Sắp xếp biểu đồ/bằng _tên"
+msgstr "/Sắp sơ đồ/bằng _tên"
 
 #: app/diagram_tree_menu.c:69
 msgid "/Sort _diagrams/as _inserted"
-msgstr ""
+msgstr "/Sắp sơ đồ/như _khi chèn"
 
 #: app/diagram_tree_menu.c:71
 msgid "/Sort diagrams/_Default"
-msgstr "/Sắp xếp biểu đồ/_Mặc định"
+msgstr "/Sắp sơ đồ/_Mặc định"
 
 #: app/diagram_tree_menu.c:72
 msgid "/Sort diagrams/Default/by _name"
-msgstr "/Sắp xếp biểu đồ/Mặc định/bằng _tên"
+msgstr "/Sắp sơ đồ/Mặc định/theo _tên"
 
 #: app/diagram_tree_menu.c:74
 msgid "/Sort diagrams/Default/as _inserted"
-msgstr ""
+msgstr "/Sắp sơ đồ/Mặc định/như _khi chèn"
 
 #: app/diagram_tree_menu.c:82 app/diagram_tree_menu.c:93
 msgid "/_Locate"
@@ -381,14 +383,14 @@ msgstr "/Ẩ_n loại này"
 
 #: app/diagram_tree_window.c:77
 msgid "Diagram tree"
-msgstr "Cây biểu đồ"
+msgstr "Cây sơ đồ"
 
 #: app/dialogs.c:51
 msgid "Ok"
 msgstr "Đồng ý"
 
-#: app/dialogs.c:52 app/layer_dialog.c:989 app/lineprops_area.c:436
-#: app/lineprops_area.c:636 app/linewidth_area.c:246
+#: app/dialogs.c:52 app/layer_dialog.c:989 app/lineprops_area.c:438
+#: app/lineprops_area.c:638 app/linewidth_area.c:246
 #: app/paginate_psprint.c:274
 msgid "Cancel"
 msgstr "Bỏ"
@@ -452,7 +454,7 @@ msgstr "Thiết lập trang"
 
 #: app/dia-props.c:54
 msgid "Diagram Properties"
-msgstr "Thuộc tính biểu đồ"
+msgstr "Thuộc tính sơ đồ"
 
 #: app/dia-props.c:87
 msgid "x"
@@ -468,7 +470,7 @@ msgstr "Khoảng trống"
 
 #: app/dia-props.c:116
 msgid "Visible spacing"
-msgstr ""
+msgstr "Khoảng trống khả kiến"
 
 #: app/dia-props.c:136
 msgid "Grid"
@@ -478,7 +480,7 @@ msgstr "Lưới"
 msgid "Background Colour"
 msgstr "Màu nền"
 
-#: app/dia-props.c:157 lib/diagramdata.c:60
+#: app/dia-props.c:157 lib/diagramdata.c:58
 msgid "Background"
 msgstr "Nền"
 
@@ -494,74 +496,73 @@ msgstr ""
 msgid "No object menu"
 msgstr "Không có thư mục đối tượng"
 
-#: app/display.c:88
+#: app/display.c:90
 msgid "Diagram modified!"
-msgstr "Biểu đồ đạ thay đổi!"
+msgstr "Sơ đồ đạ thay đổi!"
+
+#: app/display.c:858
+msgid "<unnamed>"
+msgstr "<không tên>"
 
 #: app/display.c:860
-msgid "<unnamed>"
-msgstr ""
-
-#: app/display.c:862
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The diagram '%s'\n"
 "has not been saved. Save changes now?"
 msgstr ""
-"Biểu đồ này chưa được lưu.\n"
-"Lưu ngay bây giờ chứ?"
+"Sơ đồ '%s'\n"
+"chưa được lưu. Lưu ngay chứ?"
 
-#: app/display.c:873
-#, fuzzy
+#: app/display.c:871
 msgid "Close Diagram"
-msgstr "Đóng biểu đồ chứ?"
+msgstr "Đóng sơ đồ"
 
-#: app/display.c:878
+#: app/display.c:876
 msgid "Discard Changes"
-msgstr ""
+msgstr "Hủy các thay đổi"
 
-#: app/export_png.c:115 app/load_save.c:740 app/render_eps.c:532
-#: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:521
-#: plug-ins/hpgl/hpgl.c:559 plug-ins/metapost/render_metapost.c:205
-#: plug-ins/pstricks/render_pstricks.c:196 plug-ins/python/pydia-render.c:671
-#: plug-ins/shape/shape-export.c:200 plug-ins/svg/render_svg.c:200
-#: plug-ins/wmf/wmf.cpp:892 plug-ins/wpg/wpg.c:935
-#: plug-ins/xfig/xfig-export.c:753 plug-ins/xslt/xslt.c:90
+#: app/export_png.c:114 app/load_save.c:746 app/render_eps.c:535
+#: plug-ins/cgm/cgm.c:1156 plug-ins/dxf/dxf-export.c:480
+#: plug-ins/hpgl/hpgl.c:731 plug-ins/metapost/render_metapost.c:733
+#: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
+#: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
+#: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:90
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Không thể mở: '%s' để ghi.\n"
 
-#: app/export_png.c:123
+#: app/export_png.c:122
 msgid "Could not create PNG write structure"
 msgstr "Không thể tạo cấu trúc PNG để ghi"
 
-#: app/export_png.c:132
+#: app/export_png.c:131
 msgid "Could not create PNG header info structure"
 msgstr "Không thể tạo cấu trúc PNG header info"
 
-#: app/export_png.c:140
+#: app/export_png.c:139
 msgid "Error occurred while writing PNG"
 msgstr "Lỗ khi đang tạo PNG"
 
 #. Create a dialog
-#: app/export_png.c:252
+#: app/export_png.c:251
 msgid "PNG Export Options"
 msgstr "Tùy chọn xuất PNG"
 
 #. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:253 objects/FS/function.c:661 objects/FS/function.c:663
+#: app/export_png.c:252 objects/FS/function.c:662 objects/FS/function.c:664
 msgid "Export"
 msgstr "Xuất"
 
-#: app/export_png.c:258
+#: app/export_png.c:257
 msgid "Image width:"
 msgstr "Bề rộng ảnh:"
 
-#: app/export_png.c:261
+#: app/export_png.c:260
 msgid "Image height:"
 msgstr "Bề cao ảnh:"
 
-#: app/export_png.c:306
+#: app/export_png.c:305
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
@@ -571,7 +572,7 @@ msgstr "Bằng phần mở rộng"
 
 #: app/filedlg.c:161
 msgid "Open Diagram"
-msgstr "Mở biểu đồ"
+msgstr "Mở sơ đồ"
 
 #: app/filedlg.c:187
 msgid "Open Options"
@@ -606,20 +607,19 @@ msgstr "Không"
 
 #: app/filedlg.c:307
 msgid "Save Diagram"
-msgstr "Lưu biểu đồ"
+msgstr "Lưu sơ đồ"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
 #: app/filedlg.c:315
-#, fuzzy
 msgid "Compress diagram files"
-msgstr "Tập tin được lưu nén:"
+msgstr "Nén tập tin sơ đồ"
 
 #: app/filedlg.c:322
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
-msgstr ""
+msgstr "Việc nén giúp giảm kích thước tập tin xuống thấp hơn 1/10 kích thước và tăng tốc nạp/lưu. Vài chương trình không thể xử lý những tập tin nén."
 
 #: app/filedlg.c:499
 #, c-format
@@ -630,7 +630,7 @@ msgstr "Không thể xác định bộ lọc xuất cần dùng để lưu '%s'"
 
 #: app/filedlg.c:517
 msgid "Export Diagram"
-msgstr "Xuất biểu đồ"
+msgstr "Xuất sơ đồ"
 
 #: app/filedlg.c:537
 msgid "Export Options"
@@ -640,21 +640,21 @@ msgstr "Tùy chọn xuất"
 msgid "Modify object(s)"
 msgstr "Sửa đối tượng"
 
-#: app/interface.c:44 app/menus.c:211
+#: app/interface.c:44 app/menus.c:216
 msgid "Modify"
 msgstr "Sửa"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:48 app/interface.c:49 app/menus.c:212
-#: objects/FS/function.c:951
+#: app/interface.c:48 app/interface.c:49 app/menus.c:217
+#: objects/FS/function.c:952
 msgid "Magnify"
-msgstr ""
+msgstr "Kính lúp"
 
 #: app/interface.c:53
 msgid "Scroll around the diagram"
-msgstr "Cuộn chung quanh biểu đồ"
+msgstr "Cuộn chung quanh sơ đồ"
 
-#: app/interface.c:54 app/menus.c:213
+#: app/interface.c:54 app/menus.c:218
 msgid "Scroll"
 msgstr "Cuộn"
 
@@ -666,8 +666,8 @@ msgstr "Vẽ Text"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:59 app/menus.c:214 lib/properties.c:77 lib/properties.h:508
-#: lib/properties.h:511 objects/UML/activity.c:123 objects/UML/actor.c:114
+#: app/interface.c:59 app/menus.c:219 lib/properties.c:77 lib/properties.h:495
+#: lib/properties.h:498 objects/UML/activity.c:123 objects/UML/actor.c:114
 #: objects/UML/classicon.c:137 objects/UML/component.c:120
 #: objects/UML/node.c:119 objects/UML/note.c:113 objects/UML/object.c:141
 #: objects/UML/small_package.c:120 objects/UML/state.c:133
@@ -679,7 +679,7 @@ msgstr "Text"
 msgid "Create Box"
 msgstr "Vẽ hộp"
 
-#: app/interface.c:64 app/menus.c:215
+#: app/interface.c:64 app/menus.c:220
 msgid "Box"
 msgstr "Hộp"
 
@@ -687,7 +687,7 @@ msgstr "Hộp"
 msgid "Create Ellipse"
 msgstr "Vẽ êlíp"
 
-#: app/interface.c:69 app/menus.c:216
+#: app/interface.c:69 app/menus.c:221
 msgid "Ellipse"
 msgstr "Êlíp"
 
@@ -695,7 +695,7 @@ msgstr "Êlíp"
 msgid "Create Polygon"
 msgstr "Vẽ đa giác"
 
-#: app/interface.c:74 app/menus.c:217
+#: app/interface.c:74 app/menus.c:222
 msgid "Polygon"
 msgstr "Đa giác"
 
@@ -703,7 +703,7 @@ msgstr "Đa giác"
 msgid "Create Beziergon"
 msgstr "Vẽ Bezier"
 
-#: app/interface.c:79 app/menus.c:218
+#: app/interface.c:79 app/menus.c:223
 msgid "Beziergon"
 msgstr "Bezier"
 
@@ -711,7 +711,7 @@ msgstr "Bezier"
 msgid "Create Line"
 msgstr "Vẽ đường thẳng"
 
-#: app/interface.c:84 app/menus.c:219 objects/standard/line.c:187
+#: app/interface.c:84 app/menus.c:225 objects/standard/line.c:187
 msgid "Line"
 msgstr "Đường thẳng"
 
@@ -719,7 +719,7 @@ msgstr "Đường thẳng"
 msgid "Create Arc"
 msgstr "Vẽ cung"
 
-#: app/interface.c:89 app/menus.c:220
+#: app/interface.c:89 app/menus.c:226
 msgid "Arc"
 msgstr "Cung"
 
@@ -727,7 +727,7 @@ msgstr "Cung"
 msgid "Create Zigzagline"
 msgstr "Vẽ đường zíc zắc"
 
-#: app/interface.c:94 app/menus.c:221
+#: app/interface.c:94 app/menus.c:227
 msgid "Zigzagline"
 msgstr "Đường zíc zắc"
 
@@ -735,7 +735,7 @@ msgstr "Đường zíc zắc"
 msgid "Create Polyline"
 msgstr "Vẽ đa đoạn thẳng"
 
-#: app/interface.c:99 app/menus.c:222
+#: app/interface.c:99 app/menus.c:228
 msgid "Polyline"
 msgstr "Đa đoạn thẳng"
 
@@ -743,7 +743,7 @@ msgstr "Đa đoạn thẳng"
 msgid "Create Bezierline"
 msgstr "Vẽ đường Bezier"
 
-#: app/interface.c:104 app/menus.c:223
+#: app/interface.c:104 app/menus.c:229
 msgid "Bezierline"
 msgstr "Đường Bezier"
 
@@ -751,7 +751,7 @@ msgstr "Đường Bezier"
 msgid "Create Image"
 msgstr "Tạo ảnh"
 
-#: app/interface.c:109 app/menus.c:224
+#: app/interface.c:109 app/menus.c:231
 msgid "Image"
 msgstr "Ảnh"
 
@@ -763,7 +763,7 @@ msgstr "Phóng to/thu nhỏ"
 msgid "NULL tooldata in tool_select_update"
 msgstr "NULL tooldata trong tool_select_update"
 
-#: app/interface.c:967
+#: app/interface.c:973
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -771,9 +771,9 @@ msgstr ""
 "Màu cận cảnh và màu nền. Ô vuông đen trắng nhỏ phục hồi màu. Mũi tên nhỏ "
 "hoán đổi màu. Nhấp đúp để thay đổi màu."
 
-#: app/interface.c:1116
+#: app/interface.c:1122
 msgid "Diagram Editor"
-msgstr "Bộ biên soạn biểu đồ"
+msgstr "Bộ biên soạn sơ đồ"
 
 #: app/layer_dialog.c:69
 msgid "New Layer"
@@ -797,7 +797,7 @@ msgstr "Lớp"
 
 #: app/layer_dialog.c:219
 msgid "Diagrams:"
-msgstr "Biểu đồ:"
+msgstr "Sơ đồ:"
 
 #: app/layer_dialog.c:264 app/pagesetup.c:83 app/preferences.c:739
 msgid "Close"
@@ -820,25 +820,25 @@ msgid "Layer name:"
 msgstr "Tên lớp:"
 
 #. setup buttons
-#: app/layer_dialog.c:979 app/lineprops_area.c:427 app/lineprops_area.c:626
+#: app/layer_dialog.c:979 app/lineprops_area.c:429 app/lineprops_area.c:628
 #: app/linewidth_area.c:237 app/pagesetup.c:72 app/paginate_psprint.c:266
 #: app/preferences.c:721
 msgid "OK"
 msgstr "Đồng ý"
 
-#: app/lineprops_area.c:416
+#: app/lineprops_area.c:418
 msgid "Arrow Properties"
 msgstr "Thuộc tính mũi tên"
 
-#: app/lineprops_area.c:473 app/lineprops_area.c:659
+#: app/lineprops_area.c:475 app/lineprops_area.c:661
 msgid "Details..."
 msgstr "Chi tiết..."
 
-#: app/lineprops_area.c:615
+#: app/lineprops_area.c:617
 msgid "Line Style Properties"
 msgstr "Thuộc tính kiểu đường thẳng"
 
-#: app/linewidth_area.c:216 lib/properties.h:484
+#: app/linewidth_area.c:216 lib/properties.h:471
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Bề rộng đường thẳng"
@@ -847,101 +847,101 @@ msgstr "Bề rộng đường thẳng"
 msgid "Line width:"
 msgstr "Bề rộng đường thẳng:"
 
-#: app/load_save.c:194
+#: app/load_save.c:200
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
-"Lỗi khi đọc biểu đồ.\n"
+"Lỗi khi đọc sơ đồ.\n"
 "Không tìm thấy đối tượng liên kết trong tài liệu."
 
-#: app/load_save.c:197
+#: app/load_save.c:203
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
-"Lỗi khi đọc biểu đồ.\n"
+"Lỗi khi đọc sơ đồ.\n"
 "Điểm kết nối không tồn tại."
 
-#: app/load_save.c:200
+#: app/load_save.c:206
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
-"Lỗi khi nạp biểu đồ.\n"
+"Lỗi khi nạp sơ đồ.\n"
 "Đầu kết nối không tồn tại."
 
-#: app/load_save.c:249
+#: app/load_save.c:255
 msgid "You must specify a file, not a directory.\n"
 msgstr "Bạn phải xác định một tập tin, không phải một thư mục.\n"
 
-#: app/load_save.c:256 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1044
-#: plug-ins/xfig/xfig-import.c:1345 plug-ins/xslt/xslt.c:81
+#: app/load_save.c:262 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1168
+#: plug-ins/xfig/xfig-import.c:1347 plug-ins/xslt/xslt.c:81
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Không thể mở: '%s' để đọc.\n"
 
-#: app/load_save.c:265 app/load_save.c:270
+#: app/load_save.c:271 app/load_save.c:276
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Unknown file type."
 msgstr ""
-"Lỗi khi nạp biểu đồ %s.\n"
+"Lỗi khi nạp sơ đồ %s.\n"
 "Loại tập tin lạ."
 
-#: app/load_save.c:277
+#: app/load_save.c:283
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
-"Lỗi khi nạp biểu đồ %s.\n"
+"Lỗi khi nạp sơ đồ %s.\n"
 "Không phải là tập tin Dia"
 
-#: app/load_save.c:463
-#, fuzzy, c-format
+#: app/load_save.c:469
+#, c-format
 msgid ""
 "Error loading diagram:\n"
 "%s.\n"
 "A valid Dia file defines at least one layer."
 msgstr ""
-"Lỗi khi nạp biểu đồ %s.\n"
-"Không phải là tập tin Dia"
+"Lỗi nạp sơ đồ:\n"
+"%s.\n"
+"Tập tin Dia hợp lệ phải có ít nhất một lớp."
 
-#: app/load_save.c:773
+#: app/load_save.c:779
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "Lỗi khi lưu tập tin '%s'.\n"
 
-#: app/load_save.c:843 app/load_save.c:848
+#: app/load_save.c:849 app/load_save.c:854
 msgid "Native Dia Diagram"
-msgstr "Biểu đồ Dia gốc"
+msgstr "Sơ đồ Dia gốc"
 
 #: app/menus.c:50 app/menus.c:70
 msgid "_New diagram"
-msgstr "Biểu đồ _mới"
+msgstr "Sơ đồ _mới"
 
 #: app/menus.c:50 app/menus.c:70
 msgid "Create new diagram"
-msgstr "Tạo biểu đồ mới"
+msgstr "Tạo sơ đồ mới"
 
 #: app/menus.c:54
 msgid "_Diagram tree"
-msgstr "_Cây biểu đồ"
+msgstr "_Cây sơ đồ"
 
 #: app/menus.c:54
 msgid "Show diagram tree"
-msgstr "Hiện cây biểu đồ"
+msgstr "Hiện cây sơ đồ"
 
 #: app/menus.c:56
-#, fuzzy
 msgid "_Sheets and Objects..."
-msgstr "Đối tượng chuẩn"
+msgstr "_Trang và đối tượng..."
 
 #: app/menus.c:57
 msgid "Modify sheets and their objects"
-msgstr ""
+msgstr "Sửa trang và đối tượng"
 
 #: app/menus.c:61
 msgid "P_lugins"
@@ -957,7 +957,7 @@ msgstr "_Thiết lập trang..."
 
 #: app/menus.c:83
 msgid "_Print Diagram..."
-msgstr "_In biểu đồ..."
+msgstr "_In sơ đồ..."
 
 #: app/menus.c:98
 msgid "_Delete"
@@ -975,630 +975,645 @@ msgstr "Cắt text"
 msgid "Paste _Text"
 msgstr "Dán _text"
 
-#: app/menus.c:129
+#: app/menus.c:130
 msgid "Zoom _In"
 msgstr "Phóng _to"
 
-#: app/menus.c:129
+#: app/menus.c:130
 msgid "Zoom in 50%"
 msgstr "Phóng to 50%"
 
-#: app/menus.c:130
+#: app/menus.c:131
 msgid "Zoom _Out"
 msgstr "Thu _nhỏ"
 
-#: app/menus.c:130
+#: app/menus.c:131
 msgid "Zoom out 50%"
 msgstr "Thu nhỏ 50%"
 
-#: app/menus.c:131
+#: app/menus.c:132
 msgid "_Zoom"
 msgstr "_Phóng to/thu nhỏ"
 
-#: app/menus.c:132
-msgid "Diagram Properties..."
-msgstr "Thuộc tính biểu đồ..."
-
 #: app/menus.c:134
+msgid "Diagram Properties..."
+msgstr "Thuộc tính sơ đồ..."
+
+#: app/menus.c:136
 msgid "_AntiAliased"
 msgstr "_Làm mượt"
 
-#: app/menus.c:137
-msgid "_Visible Grid"
-msgstr "Hiện _Lưới"
+#. TODO: Show Menu Bar  F9.  Hub's cool code.
+#: app/menus.c:140
+msgid "Show _Grid"
+msgstr "Hiện _lưới:"
 
-#: app/menus.c:139
+#: app/menus.c:142
 msgid "_Snap To Grid"
 msgstr "_Dính lưới"
 
-#: app/menus.c:141
+#: app/menus.c:144
 msgid "Show _Rulers"
 msgstr "Hiện _thước đo"
 
-#: app/menus.c:143
+#: app/menus.c:146
 msgid "Show _Connection Points"
 msgstr "Hiện điể_m kết nối"
 
-#: app/menus.c:146
+#: app/menus.c:149
 msgid "New _View"
 msgstr "_Khung nhìn mới"
 
-#: app/menus.c:147
+#: app/menus.c:150
 msgid "Show _All"
 msgstr "Hiện tất _cả"
 
-#: app/menus.c:148
+#: app/menus.c:151
 msgid "Redraw"
-msgstr ""
+msgstr "Vẽ lại"
 
-#: app/menus.c:153
+#: app/menus.c:156
 msgid "Replace"
 msgstr "Thay thế"
 
-#: app/menus.c:155
+#: app/menus.c:158
 msgid "Union"
 msgstr "Hợp"
 
-#: app/menus.c:157
+#: app/menus.c:160
 msgid "Intersect"
 msgstr "Giao"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
-#: app/menus.c:159 app/sheets_dialog.c:779 objects/FS/function.c:671
-#: objects/FS/function.c:823 objects/FS/function.c:825
+#: app/menus.c:162 app/sheets_dialog.c:779 objects/FS/function.c:672
+#: objects/FS/function.c:824 objects/FS/function.c:826
 msgid "Remove"
 msgstr "Loại bỏ"
 
-#: app/menus.c:161 app/menus.c:169
+#: app/menus.c:164 app/menus.c:172
 msgid "Invert"
 msgstr "Đảo"
 
-#: app/menus.c:167
+#: app/menus.c:170
 msgid "All"
 msgstr "Tất cả"
 
-#: app/menus.c:168 lib/widgets.c:978 objects/UML/association.c:1070
+#: app/menus.c:171 lib/widgets.c:978 objects/UML/association.c:1071
 msgid "None"
 msgstr "Không"
 
-#: app/menus.c:170
+#: app/menus.c:173
 msgid "Connected"
 msgstr "Đã nối"
 
-#: app/menus.c:171
+#: app/menus.c:174
 msgid "Transitive"
-msgstr ""
+msgstr "Chuyển tiếp"
 
-#: app/menus.c:172
+#: app/menus.c:175
 msgid "Same Type"
 msgstr "Cùng loại"
 
-#: app/menus.c:179 lib/properties.c:62 lib/properties.h:472 lib/widgets.c:520
+#: app/menus.c:182 lib/properties.c:62 lib/properties.h:459 lib/widgets.c:520
 msgid "Left"
 msgstr "Trái"
 
-#: app/menus.c:180 app/menus.c:189 lib/properties.c:63 lib/properties.h:473
-#: lib/widgets.c:526
+#: app/menus.c:183 lib/properties.c:63 lib/properties.h:460 lib/widgets.c:526
 msgid "Center"
 msgstr "Giữa"
 
-#: app/menus.c:181 lib/properties.c:64 lib/properties.h:474 lib/widgets.c:532
+#: app/menus.c:184 lib/properties.c:64 lib/properties.h:461 lib/widgets.c:532
 msgid "Right"
 msgstr "Phải"
 
-#: app/menus.c:182 app/menus.c:191
+#: app/menus.c:186 app/menus.c:196
 msgid "Equal Distance"
 msgstr "Khoảng cách bằng nhau"
 
-#: app/menus.c:183 app/menus.c:192
+#: app/menus.c:187 app/menus.c:197
 msgid "Adjacent"
 msgstr "Kề nhau"
 
-#: app/menus.c:188
+#: app/menus.c:192
 msgid "Top"
 msgstr "Đỉnh"
 
-#: app/menus.c:190
+#: app/menus.c:193
+msgid "Middle"
+msgstr "Giữa"
+
+#: app/menus.c:194
 msgid "Bottom"
 msgstr "Đáy"
 
-#: app/menus.c:197
+#: app/menus.c:202
 msgid "Send to _Back"
 msgstr "Hạ xuống đá_y"
 
-#: app/menus.c:198
+#: app/menus.c:203
 msgid "Bring to _Front"
 msgstr "Đẩy lên đỉ_nh"
 
-#: app/menus.c:199
-#, fuzzy
+#: app/menus.c:204
 msgid "Send Backwards"
-msgstr "Hạ xuống đá_y"
+msgstr "Hạ xuống"
 
-#: app/menus.c:200
+#: app/menus.c:205
 msgid "Bring Forwards"
-msgstr ""
+msgstr "Đẩy lên"
 
-#: app/menus.c:202
+#: app/menus.c:207
 msgid "_Group"
 msgstr "_Nhóm"
 
-#: app/menus.c:203
+#: app/menus.c:208
 msgid "_Ungroup"
 msgstr "_Tách nhóm"
 
-#: app/menus.c:205
+#: app/menus.c:210
 msgid "Align _Horizontal"
 msgstr "Canh ngang"
 
-#: app/menus.c:206
+#: app/menus.c:211
 msgid "Align _Vertical"
 msgstr "Canh dọc"
 
-#: app/menus.c:229
+#: app/menus.c:236
 msgid "_Properties"
 msgstr "_Thuộc tính"
 
-#: app/menus.c:230
+#: app/menus.c:237
 msgid "_Layers"
 msgstr "_Lớp"
 
-#: app/menus.c:256
+#: app/menus.c:263
 msgid "_Select"
 msgstr "_Chọn"
 
-#: app/menus.c:257
+#: app/menus.c:264
 msgid "_Objects"
 msgstr "Đối tượn_g"
 
-#: app/menus.c:258
+#: app/menus.c:265
 msgid "_Tools"
 msgstr "_Công cụ"
 
-#: app/menus.c:259
+#: app/menus.c:266
 msgid "_Dialogs"
 msgstr "_Hộp thoại"
 
-#: app/menus.c:260
+#: app/menus.c:267
 msgid "_Input Methods"
-msgstr ""
+msgstr "_Cách nhập"
 
-#: app/menus.c:271 app/menus.c:306
+#: app/menus.c:278 app/menus.c:313
 msgid "/_File"
 msgstr "/_Tập tin"
 
-#: app/menus.c:273 app/menus.c:308
+#: app/menus.c:280 app/menus.c:315
 msgid "/File/_New"
 msgstr "/Tập tin/Mớ_i"
 
-#: app/menus.c:275 app/menus.c:310
+#: app/menus.c:282 app/menus.c:317
 msgid "/File/_Open"
 msgstr "/Tập tin/_Mở"
 
 #. recent file list is dynamically inserted here
-#: app/menus.c:277 app/menus.c:282 app/menus.c:286 app/menus.c:288
-#: app/menus.c:317 app/menus.c:321
+#: app/menus.c:284 app/menus.c:289 app/menus.c:293 app/menus.c:295
+#: app/menus.c:324 app/menus.c:328
 msgid "/File/---"
 msgstr "/Tập tin/---"
 
-#: app/menus.c:278
+#: app/menus.c:285
 msgid "/File/_Diagram tree"
-msgstr "/Tập tin/Cây _biểu đồ"
+msgstr "/Tập tin/Cây _sơ đồ"
 
-#: app/menus.c:280
+#: app/menus.c:287
 msgid "/File/Sheets and Objects..."
-msgstr ""
+msgstr "/Tập tin/Trang và đối tượng..."
 
-#: app/menus.c:283
+#: app/menus.c:290
 msgid "/File/_Preferences..."
 msgstr "/Tập tin/_Thông số..."
 
-#: app/menus.c:285
+#: app/menus.c:292
 msgid "/File/P_lugins"
 msgstr "/Tập tin/P_lugin"
 
-#: app/menus.c:289 app/menus.c:325
+#: app/menus.c:296 app/menus.c:332
 msgid "/File/_Quit"
 msgstr "/Tập tin/T_hoát"
 
-#: app/menus.c:291
+#: app/menus.c:298
 msgid "/_Help"
 msgstr "/Trợ _giúp"
 
-#: app/menus.c:293
+#: app/menus.c:300
 msgid "/Help/_Manual"
 msgstr "/Trợ giúp/Hướng dẫn _sử dụng"
 
-#: app/menus.c:295
+#: app/menus.c:302
 msgid "/Help/---"
 msgstr "/Trợ giúp/---"
 
-#: app/menus.c:296
+#: app/menus.c:303
 msgid "/Help/_About"
-msgstr ""
+msgstr "/Trợ giúp/_Giới thiệu"
 
-#: app/menus.c:312
+#: app/menus.c:319
 msgid "/File/_Save"
 msgstr "/Tập tin/_Lưu"
 
-#: app/menus.c:314
+#: app/menus.c:321
 msgid "/File/Save _As..."
 msgstr "/Tập tin/Lư_u là..."
 
-#: app/menus.c:316
+#: app/menus.c:323
 msgid "/File/_Export..."
 msgstr "/Tập tin/_Xuất..."
 
-#: app/menus.c:318
+#: app/menus.c:325
 msgid "/File/Page Set_up..."
 msgstr "/Tập tin/_Thiết lập trang..."
 
-#: app/menus.c:319
+#: app/menus.c:326
 msgid "/File/_Print Diagram..."
-msgstr "/Tập tin/_In biểu đồ..."
+msgstr "/Tập tin/_In sơ đồ..."
 
-#: app/menus.c:322
+#: app/menus.c:329
 msgid "/File/_Close"
 msgstr "/Tập tin/Đón_g"
 
-#: app/menus.c:327
+#: app/menus.c:334
 msgid "/_Edit"
 msgstr "/_Hiệu chỉnh"
 
-#: app/menus.c:329
-msgid "/Edit/_Copy"
-msgstr "/Hiệu chỉnh/_Sao chép"
-
-#: app/menus.c:331
-msgid "/Edit/C_ut"
-msgstr "/Hiệu chỉnh/_Cắt"
-
-#: app/menus.c:333
-msgid "/Edit/_Paste"
-msgstr "/Hiệu chỉnh/_Dán"
-
-#: app/menus.c:335
-msgid "/Edit/_Delete"
-msgstr "/Hiệu chỉnh/_Xoá"
-
-#: app/menus.c:337
+#: app/menus.c:336
 msgid "/Edit/_Undo"
 msgstr "/Hiệu chỉnh/_Hoàn lại"
 
-#: app/menus.c:339
+#: app/menus.c:338
 msgid "/Edit/_Redo"
 msgstr "/Hiệu chỉnh/_Làm lại"
 
+#: app/menus.c:340 app/menus.c:349
+msgid "/Edit/---"
+msgstr "/Hiệu chỉnh/---"
+
 #: app/menus.c:341
+msgid "/Edit/_Copy"
+msgstr "/Hiệu chỉnh/_Sao chép"
+
+#: app/menus.c:343
+msgid "/Edit/C_ut"
+msgstr "/Hiệu chỉnh/_Cắt"
+
+#: app/menus.c:345
+msgid "/Edit/_Paste"
+msgstr "/Hiệu chỉnh/_Dán"
+
+#: app/menus.c:347
+msgid "/Edit/_Delete"
+msgstr "/Hiệu chỉnh/_Xoá"
+
+#: app/menus.c:350
 msgid "/Edit/Copy Text"
 msgstr "/Hiệu chỉnh/Sao chép text"
 
-#: app/menus.c:342
+#: app/menus.c:351
 msgid "/Edit/Cut Text"
 msgstr "/Hiệu chỉnh/Cắt text"
 
-#: app/menus.c:343
+#: app/menus.c:352
 msgid "/Edit/Paste _Text"
 msgstr "/Hiệu chỉnh/Dán _text"
 
-#: app/menus.c:344
+#: app/menus.c:353
 msgid "/_View"
 msgstr "/_Xem"
 
-#: app/menus.c:346
+#: app/menus.c:355
 msgid "/View/Zoom _In"
 msgstr "/Xem/Phóng _to"
 
-#: app/menus.c:348
+#: app/menus.c:357
 msgid "/View/Zoom _Out"
 msgstr "/Xem/Thu _nhỏ"
 
-#: app/menus.c:350
+#: app/menus.c:359
 msgid "/View/_Zoom"
 msgstr "/Xem/_Phóng to,thu nhỏ"
 
-#: app/menus.c:352
+#: app/menus.c:361
 msgid "/View/Zoom/400%"
 msgstr "/Xem/Phóng to,thu nhỏ/400%"
 
-#: app/menus.c:353
+#: app/menus.c:362
 msgid "/View/Zoom/283%"
 msgstr "/Xem/Phóng to,thu nhỏ/283%"
 
-#: app/menus.c:354
+#: app/menus.c:363
 msgid "/View/Zoom/200%"
 msgstr "/Xem/Phóng to,thu nhỏ/200%"
 
-#: app/menus.c:355
+#: app/menus.c:364
 msgid "/View/Zoom/141%"
 msgstr "/Xem/Phóng to,thu nhỏ/141%"
 
-#: app/menus.c:356
+#: app/menus.c:365
 msgid "/View/Zoom/100%"
 msgstr "/Xem/Phóng to,thu nhỏ/100%"
 
-#: app/menus.c:358
+#: app/menus.c:367
 msgid "/View/Zoom/85%"
 msgstr "/Xem/Phóng to,thu nhỏ/85%"
 
-#: app/menus.c:359
+#: app/menus.c:368
 msgid "/View/Zoom/70.7%"
 msgstr "/Xem/Phóng to,thu nhỏ/70.7%"
 
-#: app/menus.c:360
+#: app/menus.c:369
 msgid "/View/Zoom/50%"
 msgstr "/Xem/Phóng to,thu nhỏ/50%"
 
-#: app/menus.c:361
+#: app/menus.c:370
 msgid "/View/Zoom/35.4%"
 msgstr "/Xem/Phóng to,thu nhỏ/35.4%"
 
-#: app/menus.c:362
+#: app/menus.c:371
 msgid "/View/Zoom/25%"
 msgstr "/Xem/Phóng to,thu nhỏ/25%"
 
-#: app/menus.c:363
-msgid "/View/Diagram Properties..."
-msgstr "/Xem/Thuộc tính biểu đồ..."
-
-#: app/menus.c:365
-#, fuzzy
-msgid "/View/_AntiAliased"
-msgstr "_Làm mượt"
-
-#: app/menus.c:367
-msgid "/View/_Visible Grid"
-msgstr "/Xem/Hiện _lưới"
-
-#: app/menus.c:368
-msgid "/View/_Snap To Grid"
-msgstr "/Xem/_Dính lưới"
-
-#: app/menus.c:369
-msgid "/View/Show _Rulers"
-msgstr "/Xem/Hiện thước đ_o"
-
-#: app/menus.c:370
-msgid "/View/Show _Connection Points"
-msgstr "/Xem/Hiện điể_m kết nối"
-
-#: app/menus.c:371
+#: app/menus.c:372 app/menus.c:381
 msgid "/View/---"
 msgstr "/Xem/---"
 
-#: app/menus.c:372
+#: app/menus.c:373
+msgid "/View/Diagram Properties..."
+msgstr "/Xem/Thuộc tính sơ đồ..."
+
+#: app/menus.c:375
+msgid "/View/_AntiAliased"
+msgstr "/Xem/_Làm mượt"
+
+#: app/menus.c:377
+msgid "/View/Show _Grid"
+msgstr "/Xem/Hiện _lưới"
+
+#: app/menus.c:378
+msgid "/View/_Snap To Grid"
+msgstr "/Xem/_Dính lưới"
+
+#: app/menus.c:379
+msgid "/View/Show _Rulers"
+msgstr "/Xem/Hiện thước đ_o"
+
+#: app/menus.c:380
+msgid "/View/Show _Connection Points"
+msgstr "/Xem/Hiện điể_m kết nối"
+
+#: app/menus.c:382
 msgid "/View/New _View"
 msgstr "/Xem/Khung nhình _mới"
 
-#: app/menus.c:373
+#. Show All, Best Fit.  Same as the Gimp, Ctrl+E
+#: app/menus.c:384
 msgid "/View/Show _All"
 msgstr "/Xem/Hiện tất _cả"
 
-#: app/menus.c:374
-#, fuzzy
+#: app/menus.c:385
 msgid "/View/Re_draw"
-msgstr "/Xem/Khung nhình _mới"
+msgstr "/Xem/_Vẽ lại"
 
-#: app/menus.c:375
+#: app/menus.c:386
 msgid "/_Select"
 msgstr "/_Chọn"
 
-#: app/menus.c:377
+#: app/menus.c:388
 msgid "/Select/All"
 msgstr "/Chọn/Tất cả"
 
-#: app/menus.c:378
+#: app/menus.c:389
 msgid "/Select/None"
 msgstr "/Chọn/Không gì cả"
 
-#: app/menus.c:379 app/menus.c:392
+#: app/menus.c:390 app/menus.c:403
 msgid "/Select/Invert"
 msgstr "/Chọn/Đảo"
 
-#: app/menus.c:380
+#: app/menus.c:391
 msgid "/Select/Connected"
 msgstr "/Chọn/Đã kết nối"
 
-#: app/menus.c:381
+#: app/menus.c:392
 msgid "/Select/Transitive"
-msgstr ""
+msgstr "/Chọn/Chuyển tiếp"
 
-#: app/menus.c:382
+#: app/menus.c:393
 msgid "/Select/Same Type"
 msgstr "/Chọn/Cùng loại"
 
-#: app/menus.c:383
+#: app/menus.c:394
 msgid "/Select/---"
 msgstr "/Chọn/---"
 
-#: app/menus.c:384
+#: app/menus.c:395
 msgid "/Select/Replace"
 msgstr "/Chọn/Thay thế"
 
-#: app/menus.c:386
+#: app/menus.c:397
 msgid "/Select/Union"
 msgstr "/Chọn/Hợp"
 
-#: app/menus.c:388
+#: app/menus.c:399
 msgid "/Select/Intersect"
 msgstr "/Chọn/Giao"
 
-#: app/menus.c:390
+#: app/menus.c:401
 msgid "/Select/Remove"
 msgstr "/Chọn/Loại bỏ"
 
-#: app/menus.c:394
+#: app/menus.c:405
 msgid "/_Objects"
 msgstr "/Đối tượn_g"
 
-#: app/menus.c:396
+#: app/menus.c:407
 msgid "/Objects/Send to _Back"
 msgstr "/Đối tượng/_Xuống đáy"
 
-#: app/menus.c:397
+#: app/menus.c:408
 msgid "/Objects/Bring to _Front"
 msgstr "/Đối tượng/_Lên đỉnh"
 
-#: app/menus.c:398
-#, fuzzy
+#: app/menus.c:409
 msgid "/Objects/Send Backwards"
-msgstr "/Đối tượng/_Xuống đáy"
+msgstr "/Đối tượng/Hạ xuống"
 
-#: app/menus.c:399
-#, fuzzy
+#: app/menus.c:410
 msgid "/Objects/Bring Forwards"
-msgstr "/Đối tượng/_Lên đỉnh"
+msgstr "/Đối tượng/Đẩy lên"
 
-#: app/menus.c:400 app/menus.c:403
+#: app/menus.c:411 app/menus.c:415 app/menus.c:421 app/menus.c:429
 msgid "/Objects/---"
 msgstr "/Đối tượng/---"
 
-#: app/menus.c:401
+#: app/menus.c:412
 msgid "/Objects/_Group"
 msgstr "/Đối tượng/_Nhóm"
 
-#: app/menus.c:402
+#. deliberately not using Ctrl+U for Ungroup
+#: app/menus.c:414
 msgid "/Objects/_Ungroup"
 msgstr "/Đối tượng/_Tách nhóm"
 
-#: app/menus.c:404
+#: app/menus.c:416
 msgid "/Objects/Align _Horizontal"
 msgstr "/Đối tượng/Canh hành _ngang"
 
-#: app/menus.c:406
+#: app/menus.c:418
 msgid "/Objects/Align Horizontal/Left"
 msgstr "/Đối tượng/Canh hàng ngang/Trái"
 
-#: app/menus.c:407
+#: app/menus.c:419
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Đối tượng/Canh hàng ngang/Giữa"
 
-#: app/menus.c:408
+#: app/menus.c:420
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Đối tượng/Canh hàng ngang/Phải"
 
-#: app/menus.c:409
+#: app/menus.c:422
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Đối tượng/Canh hàng ngang/Cách đều"
 
-#: app/menus.c:410
+#: app/menus.c:423
 msgid "/Objects/Align Horizontal/Adjacent"
 msgstr "/Đối tượng/Canh hàng ngang/Kề nhau"
 
-#: app/menus.c:411
+#: app/menus.c:424
 msgid "/Objects/Align _Vertical"
-msgstr "/Đối tượng/Canh hành _dọc"
+msgstr "/Đối tượng/Canh hàng _dọc"
 
-#: app/menus.c:413
+#: app/menus.c:426
 msgid "/Objects/Align Vertical/Top"
-msgstr "/Đối tượng/Canh hành dọc/Đỉnh"
+msgstr "/Đối tượng/Canh hàng dọc/Đỉnh"
 
-#: app/menus.c:414
-msgid "/Objects/Align Vertical/Center"
-msgstr "/Đối tượng/Canh hành dọc/Giữa"
+#: app/menus.c:427
+msgid "/Objects/Align Vertical/Middle"
+msgstr "/Đối tượng/Canh hàng dọc/Giữa"
 
-#: app/menus.c:415
+#: app/menus.c:428
 msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Đối tượng/Canh hành dọc/Đáy"
+msgstr "/Đối tượng/Canh hàng dọc/Đáy"
 
-#: app/menus.c:416
+#: app/menus.c:430
 msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Đối tượng/Canh hành dọc/Cách đều"
+msgstr "/Đối tượng/Canh hàng dọc/Cách đều"
 
-#: app/menus.c:417
+#: app/menus.c:431
 msgid "/Objects/Align Vertical/Adjacent"
-msgstr "/Đối tượng/Canh hành dọc/Kề nhau"
+msgstr "/Đối tượng/Canh hàng dọc/Kề nhau"
 
-#: app/menus.c:419
+#: app/menus.c:433
 msgid "/_Tools"
 msgstr "/_Công cụ"
 
-#: app/menus.c:421
+#: app/menus.c:435
 msgid "/Tools/Modify"
 msgstr "/Công cụ/Sửa chữa"
 
-#: app/menus.c:422
+#: app/menus.c:436
 msgid "/Tools/Magnify"
-msgstr ""
+msgstr "/Công cụ/Magnify"
 
-#: app/menus.c:423
+#: app/menus.c:437
 msgid "/Tools/Scroll"
 msgstr "/Công cụ/Cuộn"
 
-#: app/menus.c:424
+#: app/menus.c:438
 msgid "/Tools/Text"
 msgstr "/Công cụ/Text"
 
-#: app/menus.c:425
+#: app/menus.c:439
 msgid "/Tools/Box"
 msgstr "/Công cụ/Hộp"
 
-#: app/menus.c:426
+#: app/menus.c:440
 msgid "/Tools/Ellipse"
 msgstr "/Công cụ/Êlíp"
 
-#: app/menus.c:427
+#: app/menus.c:441
 msgid "/Tools/Polygon"
 msgstr "/Công cụ/Đa giác"
 
-#: app/menus.c:428
+#: app/menus.c:442
 msgid "/Tools/Beziergon"
 msgstr "/Công cụ/Beziergon"
 
-#: app/menus.c:429
+#: app/menus.c:443 app/menus.c:449
+msgid "/Tools/---"
+msgstr "/Công cụ/---"
+
+#: app/menus.c:444
 msgid "/Tools/Line"
 msgstr "/Công cụ/Đường thẳng"
 
-#: app/menus.c:430
+#: app/menus.c:445
 msgid "/Tools/Arc"
 msgstr "/Công cụ/Cung"
 
-#: app/menus.c:431
+#: app/menus.c:446
 msgid "/Tools/Zigzagline"
 msgstr "/Công cụ/Đường zíc zắc"
 
-#: app/menus.c:432
+#: app/menus.c:447
 msgid "/Tools/Polyline"
 msgstr "/Công cụ/Đa đoạn thẳng"
 
-#: app/menus.c:433
+#: app/menus.c:448
 msgid "/Tools/Bezierline"
 msgstr "/Công cụ/Đường Bezier"
 
-#: app/menus.c:434
+#: app/menus.c:450
 msgid "/Tools/Image"
 msgstr "/Công cụ/Ảnh"
 
-#: app/menus.c:436
+#: app/menus.c:451
 msgid "/_Dialogs"
 msgstr "/_Hộp thoại"
 
-#: app/menus.c:438
+#: app/menus.c:453
 msgid "/Dialogs/_Properties"
 msgstr "/Hộp thoại/_Thuộc tính"
 
-#: app/menus.c:439
+#: app/menus.c:454
 msgid "/Dialogs/_Layers"
 msgstr "/Hộp thoại/_Lớp"
 
-#: app/menus.c:441
+#: app/menus.c:456
 msgid "/_Input Methods"
-msgstr ""
+msgstr "/_Cách nhập"
 
-#: app/menus.c:614
+#: app/menus.c:629
 msgid "NULL tooldata in tool_menu_select"
 msgstr "NULL tooldata trong tool_menu_select"
 
-#: app/menus.c:781
+#: app/menus.c:796
 msgid "Diagram Menu"
-msgstr "Menu Biểu đồ"
+msgstr "Menu Sơ đồ"
 
-#: app/menus.c:1152
+#: app/menus.c:1167
 #, c-format
 msgid ""
 "Can't find menu entry '%s'!\n"
 "This is probably a i18n problem (try LANG=C)."
 msgstr ""
+"Không thể tìm thấy menu entry '%s'!\n"
+"Đây có lẽ là lỗi 18n (hãy thử LANG=C)."
+
+#: app/modify_tool.c:315
+msgid "Couldn't get GTK settings"
+msgstr "Không thể lấy thiết lập GTK"
 
 #: app/pagesetup.c:77 app/preferences.c:730
 msgid "Apply"
@@ -1635,9 +1650,8 @@ msgid "Plug-ins"
 msgstr "Plug-in"
 
 #: app/plugin-manager.c:254
-#, fuzzy
 msgid "Loaded"
-msgstr "Đã nạp:"
+msgstr "Đã nạp"
 
 #: app/plugin-manager.c:261 objects/UML/class.c:105
 #: objects/UML/large_package.c:120
@@ -1645,19 +1659,16 @@ msgid "Name"
 msgstr "Tên"
 
 #: app/plugin-manager.c:267
-#, fuzzy
 msgid "Description"
-msgstr "Mô tả:"
+msgstr "Mô tả"
 
 #: app/plugin-manager.c:276
-#, fuzzy
 msgid "Load at Startup"
-msgstr "Tự động nạp lúc khởi động"
+msgstr "Nạp lúc khởi động"
 
 #: app/plugin-manager.c:283
-#, fuzzy
 msgid "File Name"
-msgstr "Tên tập tin:"
+msgstr "Tên tập tin"
 
 #: app/preferences.c:103
 msgid "User Interface"
@@ -1665,11 +1676,11 @@ msgstr "Giao diện người dùng"
 
 #: app/preferences.c:104
 msgid "Diagram Defaults"
-msgstr ""
+msgstr "Thông số sơ đồ mặc định"
 
 #: app/preferences.c:105
 msgid "View Defaults"
-msgstr ""
+msgstr "Thông số xem mặc định"
 
 #: app/preferences.c:106
 msgid "Grid Lines"
@@ -1677,7 +1688,7 @@ msgstr "Đường lưới"
 
 #: app/preferences.c:107
 msgid "Diagram Tree"
-msgstr "Cây biểu đồ"
+msgstr "Cây sơ đồ"
 
 #: app/preferences.c:121
 msgid "Reset tools after create:"
@@ -1696,10 +1707,12 @@ msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
 msgstr ""
+"Kéo theo chiều ngược để chọn\n"
+"các đối tượng giao nhau:"
 
 #: app/preferences.c:125
 msgid "Recent documents list size:"
-msgstr ""
+msgstr "Kích thước danh sách tài liệu gần đây:"
 
 #: app/preferences.c:126
 msgid "Use menu bar:"
@@ -1707,12 +1720,11 @@ msgstr "Dùng thanh menu:"
 
 #: app/preferences.c:128
 msgid "New diagram:"
-msgstr "Biểu đồ mới:"
+msgstr "Sơ đồ mới:"
 
 #: app/preferences.c:129
-#, fuzzy
 msgid "Portrait:"
-msgstr "Ràng buộc:"
+msgstr ""
 
 #: app/preferences.c:131
 msgid "Paper type:"
@@ -1732,7 +1744,7 @@ msgstr "Bề cao:"
 
 #: app/preferences.c:137
 msgid "Magnify:"
-msgstr ""
+msgstr "Kính lúp:"
 
 #: app/preferences.c:139
 msgid "Connection Points:"
@@ -1769,7 +1781,7 @@ msgstr "Cỡ Y:"
 
 #: app/preferences.c:164
 msgid "Diagram tree window:"
-msgstr "Cửa sổ cây biểu đồ:"
+msgstr "Cửa sổ cây sơ đồ:"
 
 #: app/preferences.c:166
 msgid "Show at startup:"
@@ -1830,13 +1842,9 @@ msgstr "<Hộp công cụ>/Tập tin/Thoát (quit)"
 msgid "Can't open history file for writing."
 msgstr "Không thể mổ tập tin lược sử để ghi."
 
-#: app/render_eps.c:1714
+#: app/render_eps.c:972
 msgid "Encapsulated Postscript"
-msgstr ""
-
-#: app/render_libart.c:440
-msgid "gdk_renderer: Unsupported fill mode specified!\n"
-msgstr ""
+msgstr "Encapsulated Postscript (EPS)"
 
 #: app/sheets.c:154
 #, c-format
@@ -1844,6 +1852,8 @@ msgid ""
 "%s\n"
 "System sheet"
 msgstr ""
+"%s\n"
+"Trang hệ thống"
 
 #: app/sheets.c:156
 #, c-format
@@ -1851,62 +1861,61 @@ msgid ""
 "%s\n"
 "User sheet"
 msgstr ""
+"%s\n"
+"Trang người dùng"
 
 #: app/sheets.c:261
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
 msgstr ""
+"Không thể lấy biểu tượng 'custom_type' từ môđun.\n"
+"Tắt tính năng sửa hình."
 
 #: app/sheets.c:363
 #, c-format
 msgid "Widget not found: %s"
-msgstr ""
+msgstr "Không thấy widget: %s"
 
 #: app/sheets.c:439
 msgid "SVG Shape"
-msgstr ""
+msgstr "Hình SVG"
 
 #: app/sheets.c:441
 msgid "Programmed Object"
 msgstr ""
 
 #: app/sheets_dialog.c:81
-#, fuzzy
 msgid "Sheets and Objects"
-msgstr "Đối tượng chuẩn"
+msgstr "Trang và đối tượng"
 
 #: app/sheets_dialog.c:106 app/sheets_dialog_callbacks.c:186
 msgid "<- Copy"
-msgstr ""
+msgstr "<- Chép"
 
 #: app/sheets_dialog.c:116 app/sheets_dialog_callbacks.c:188
 msgid "<- Copy All"
-msgstr ""
+msgstr "<- Chép tất cả"
 
 #: app/sheets_dialog.c:123 app/sheets_dialog_callbacks.c:190
-#, fuzzy
 msgid "<- Move"
-msgstr "Di chuyển"
+msgstr "<- Di chuyển"
 
 #: app/sheets_dialog.c:133 app/sheets_dialog_callbacks.c:192
 msgid "<- Move All"
-msgstr ""
+msgstr "<- Di chuyển tất cả"
 
 #: app/sheets_dialog.c:230
-#, fuzzy
 msgid "Edit"
-msgstr "/_Hiệu chỉnh"
+msgstr "Hiệu chỉnh"
 
 #: app/sheets_dialog.c:232
-#, fuzzy
 msgid "_Edit"
-msgstr "/_Hiệu chỉnh"
+msgstr "_Hiệu chỉnh"
 
 #: app/sheets_dialog.c:263
-#, fuzzy
 msgid "Revert"
-msgstr "Đảo"
+msgstr "Hoàn nguyên"
 
 #: app/sheets_dialog.c:352 objects/UML/class_dialog.c:828
 #: objects/UML/class_dialog.c:1752 objects/UML/class_dialog.c:1980
@@ -1915,44 +1924,37 @@ msgid "New"
 msgstr "Mới"
 
 #: app/sheets_dialog.c:359 app/sheets_dialog.c:787
-#, fuzzy
 msgid "Type"
-msgstr "Loại:"
+msgstr "Loại"
 
 #: app/sheets_dialog.c:374
-#, fuzzy
 msgid "Browse..."
-msgstr "Duyệt"
+msgstr "Duyệt..."
 
 #: app/sheets_dialog.c:383
 msgid "SVG Shape:"
-msgstr ""
+msgstr "Hình SVG:"
 
 #: app/sheets_dialog.c:410 app/sheets_dialog.c:473
-#, fuzzy
 msgid "description:"
-msgstr "Mô tả:"
+msgstr "mô tả:"
 
 #: app/sheets_dialog.c:422
-#, fuzzy
 msgid "Sheet name:"
-msgstr "Tên bước"
+msgstr "Tên trang:"
 
 #: app/sheets_dialog.c:443 app/sheets_dialog_callbacks.c:298
 #: app/sheets_dialog_callbacks.c:1093
-#, fuzzy
 msgid "Line Break"
-msgstr "Màu hàng"
+msgstr "Ngắt hàng"
 
 #: app/sheets_dialog.c:565
-#, fuzzy
 msgid "Edit Attributes"
-msgstr "Sửa thuộc tính lớp"
+msgstr "Sửa thuộc tính"
 
 #: app/sheets_dialog.c:579
-#, fuzzy
 msgid "Object"
-msgstr "Đối tượn_g"
+msgstr "Đối tượng"
 
 #: app/sheets_dialog.c:595 app/sheets_dialog.c:688
 msgid "Description:"
@@ -1965,12 +1967,11 @@ msgid "Type:"
 msgstr "Loại:"
 
 #: app/sheets_dialog.c:652
-#, fuzzy
 msgid "Sheet"
-msgstr "_Chọn"
+msgstr "Trang"
 
 #: app/sheets_dialog.c:668 objects/ER/attribute.c:150 objects/ER/entity.c:128
-#: objects/ER/relationship.c:137 objects/UML/association.c:1048
+#: objects/ER/relationship.c:137 objects/UML/association.c:1049
 #: objects/UML/class_dialog.c:865 objects/UML/class_dialog.c:1792
 #: objects/UML/class_dialog.c:2022 objects/UML/class_dialog.c:2536
 #: objects/UML/dependency.c:125 objects/UML/generalization.c:121
@@ -1979,37 +1980,32 @@ msgid "Name:"
 msgstr "Tên:"
 
 #: app/sheets_dialog.c:802
-#, fuzzy
 msgid "Object:"
-msgstr "Đối tượn_g"
+msgstr "Đối tượng:"
 
 #: app/sheets_dialog.c:829
-#, fuzzy
 msgid "Sheet:"
-msgstr "_Chọn"
+msgstr "Trang:"
 
 #: app/sheets_dialog.c:913
-#, fuzzy
 msgid "Select SVG Shape File"
-msgstr "Chọn tập tin ảnh"
+msgstr "Chọn tập tin ảnh SVG"
 
 #: app/sheets_dialog_callbacks.c:173
-#, fuzzy
 msgid "Copy ->"
-msgstr "Sao chép text"
+msgstr "Chép ->"
 
 #: app/sheets_dialog_callbacks.c:175
 msgid "Copy All ->"
-msgstr ""
+msgstr "Chép tất cả ->"
 
 #: app/sheets_dialog_callbacks.c:177
-#, fuzzy
 msgid "Move ->"
-msgstr "Di chuyển"
+msgstr "Di chuyển ->"
 
 #: app/sheets_dialog_callbacks.c:179
 msgid "Move All ->"
-msgstr ""
+msgstr "Di chuyển tất cả ->"
 
 #: app/sheets_dialog_callbacks.c:312
 #, c-format
@@ -2017,72 +2013,78 @@ msgid ""
 "%s\n"
 "Shape"
 msgstr ""
+"%s\n"
+"Hình"
 
 #: app/sheets_dialog_callbacks.c:315
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "Object"
-msgstr "Đối tượn_g"
+msgstr ""
+"%s\n"
+"Đối tượng"
 
 #: app/sheets_dialog_callbacks.c:318
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
-"Unasigned type"
-msgstr "Loại thông điệp:"
+"Unassigned type"
+msgstr ""
+"%s\n"
+"Loại chưa gán"
 
 #: app/sheets_dialog_callbacks.c:808
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr ""
+msgstr "Tên tập tin phải kết thúc bằng '%s': '%s'"
 
 #: app/sheets_dialog_callbacks.c:816
 #, c-format
 msgid "Error examining %s: %s"
-msgstr ""
+msgstr "Lỗi kiểm tra %s: %s"
 
 #: app/sheets_dialog_callbacks.c:836
 #, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr ""
+msgstr "Không thể đọc tập tin hình: '%s'"
 
 #: app/sheets_dialog_callbacks.c:905
 msgid "Sheet must have a Name"
-msgstr ""
+msgstr "Trang phải có tên"
 
 #: app/sheets_dialog_callbacks.c:1594 app/sheets_dialog_callbacks.c:1600
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open '%s': %s"
-msgstr "Không thể mở `%s'"
+msgstr "Không thể mở '%s': %s"
 
 #: app/sheets_dialog_callbacks.c:1651
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "Không thể mở: '%s' để ghi.\n"
+msgstr "Không thể mở: '%s' để ghi"
 
 #: app/sheets_dialog_callbacks.c:1660
 msgid "a user"
-msgstr ""
+msgstr "người dùng"
 
 #: app/sheets_dialog_callbacks.c:1673
-#, fuzzy, c-format
+#, c-format
 msgid "File: %s"
-msgstr "Tập tin"
+msgstr "Tập tin: %s"
 
 #: app/sheets_dialog_callbacks.c:1676
-#, fuzzy, c-format
+#, c-format
 msgid "Date: %s"
-msgstr "Dia v %s"
+msgstr "Ngày: %s"
 
 #: app/sheets_dialog_callbacks.c:1680
 #, c-format
 msgid "For: %s"
-msgstr ""
+msgstr "Để: %s"
 
 #: app/sheets_dialog_callbacks.c:1697
 msgid "add shapes here"
-msgstr ""
+msgstr "thêm hình ở đây"
 
 #: app/splash.c:58
 msgid "Loading ..."
@@ -2094,13 +2096,16 @@ msgid "Dia v %s"
 msgstr "Dia v %s"
 
 #: dia.desktop.in.h:2
-#, fuzzy
 msgid "Diagram editor"
-msgstr "Bộ biên soạn biểu đồ"
+msgstr "Bộ biên soạn sơ đồ"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Lỗi nội tại: Loại thiết lập góc của điểm kết thúc của bezier"
+
+#: lib/dialibartrenderer.c:263
+msgid "gdk_renderer: Unsupported fill mode specified!\n"
+msgstr "gdk_renderer: dùng kiểu tô không được hỗ trợ!\n"
 
 #: lib/dia_xml.c:147
 #, c-format
@@ -2118,7 +2123,7 @@ msgstr ""
 #: lib/dia_xml.c:478
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
-msgstr ""
+msgstr "Giá trị X sai \"%s\" %f; đang hủy nó."
 
 #: lib/dia_xml.c:486
 msgid "Error parsing point."
@@ -2128,9 +2133,9 @@ msgstr "Lỗi khi phân tích điểm."
 #: lib/dia_xml.c:494
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr ""
+msgstr "Giá trị Y sai \"%s\" %f; đang hủy nó."
 
-#: lib/dia_xml.c:850
+#: lib/dia_xml.c:854
 msgid ""
 "Your local character set is UTF-8. Because of issues with libxml1 and the "
 "support of files generated by previous versions of dia, you will encounter  "
@@ -2140,19 +2145,18 @@ msgstr ""
 "tin được tạo bởi phiên bản trước của Dia nên bạn sẽ gặp vấn đề. Vui lòng gửi "
 "báo cáo tới dia-list@gnome.org nếu bạn thấy thông báo này."
 
-#: lib/message.c:87
+#: lib/message.c:86
 msgid "There is one similar message."
-msgstr ""
+msgstr "Có một thông điệp tương tự."
 
-#: lib/message.c:92
-#, fuzzy
+#: lib/message.c:91
 msgid "Show repeated messages"
-msgstr "Tạo thông điệp"
+msgstr "Hiện thông điệp lặp"
 
-#: lib/message.c:105
-#, fuzzy, c-format
+#: lib/message.c:104
+#, c-format
 msgid "There are %d similar messages."
-msgstr "Tạo thông điệp"
+msgstr "Có %d thông điệp tương tự nhau."
 
 #: lib/message.c:115 lib/message.c:194
 msgid "Error"
@@ -2167,100 +2171,100 @@ msgid "Notice"
 msgstr "Chú ý"
 
 #: lib/object_defaults.c:124
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error loading defaults '%s'.\n"
 "Not a Dia diagram file."
 msgstr ""
-"Lỗi khi nạp biểu đồ %s.\n"
-"Không phải là tập tin Dia"
 
 #: lib/plug-ins.c:120
 msgid "???"
-msgstr ""
+msgstr "???"
 
 #: lib/plug-ins.c:228
 #, c-format
 msgid "Could not deduce correct path for `%s'"
-msgstr ""
+msgstr "Không thể xác định đường dẫn hợp lệ cho `%s'"
 
-#: lib/plug-ins.c:233
+#: lib/plug-ins.c:234
 #, c-format
 msgid ""
-"Could not load plugin `%s'\n"
+"Could not load plugin '%s'\n"
 "%s"
 msgstr ""
-"Không thể nạp plugin `%s'\n"
+"Không thể nạp plugin '%s'\n"
 "%s"
 
-#: lib/plug-ins.c:245
+#: lib/plug-ins.c:247
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Không thể tìm thấy hàm plugin init  trong `%s'"
 
-#: lib/plug-ins.c:247
+#: lib/plug-ins.c:249
 msgid "Missing symbol 'dia_plugin_init'"
-msgstr ""
+msgstr "Thiếu ký hiệu 'dia_plugin_init'"
 
-#: lib/plug-ins.c:255
+#: lib/plug-ins.c:257
 msgid "dia_pluin_init() call failed"
-msgstr ""
+msgstr "Lỗi gọi dia_plugin_init()"
 
-#: lib/plug-ins.c:274
+#: lib/plug-ins.c:276
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "%s Plugin không thể được nạp"
 
-#: lib/plug-ins.c:357
-#, fuzzy, c-format
+#: lib/plug-ins.c:364
+#, c-format
 msgid ""
 "Could not open `%s'\n"
 "`%s'"
-msgstr "Không thể mở `%s'"
+msgstr ""
+"Không thể mở `%s'\n"
+"`%s'"
 
-#: lib/properties.c:71 lib/properties.h:487
+#: lib/properties.c:71 lib/properties.h:474
 msgid "Line colour"
 msgstr "Màu đường thẳng"
 
-#: lib/properties.c:72 lib/properties.h:490
+#: lib/properties.c:72 lib/properties.h:477
 msgid "Line style"
 msgstr "Kiểu đường"
 
-#: lib/properties.c:73 lib/properties.h:494
+#: lib/properties.c:73 lib/properties.h:481
 msgid "Fill colour"
 msgstr "Màu tô"
 
-#: lib/properties.c:74 lib/properties.h:497
+#: lib/properties.c:74 lib/properties.h:484
 msgid "Draw background"
 msgstr "Nền vẽ"
 
-#: lib/properties.c:75 lib/properties.h:501
+#: lib/properties.c:75 lib/properties.h:488
 msgid "Start arrow"
 msgstr "Mũi tên đầu"
 
-#: lib/properties.c:76 lib/properties.h:504
+#: lib/properties.c:76 lib/properties.h:491
 msgid "End arrow"
 msgstr "Mũi tên cuối"
 
-#: lib/properties.c:78 lib/properties.h:514
+#: lib/properties.c:78 lib/properties.h:501
 msgid "Text alignment"
 msgstr "Canh hàng text"
 
-#: lib/properties.c:79 lib/properties.h:517
+#: lib/properties.c:79 lib/properties.h:504
 #: objects/chronogram/chronoline.c:182 objects/chronogram/chronoref.c:163
 #: objects/GRAFCET/condition.c:131 objects/GRAFCET/step.c:162
 #: objects/GRAFCET/transition.c:142 objects/UML/class_dialog.c:327
 msgid "Font"
 msgstr "Font"
 
-#: lib/properties.c:80 lib/properties.h:520
+#: lib/properties.c:80 lib/properties.h:507
 #: objects/chronogram/chronoline.c:184 objects/chronogram/chronoref.c:165
 #: objects/GRAFCET/condition.c:133 objects/GRAFCET/step.c:164
 #: objects/GRAFCET/transition.c:144
 msgid "Font size"
 msgstr "Cỡ font"
 
-#: lib/properties.c:81 lib/properties.h:523
+#: lib/properties.c:81 lib/properties.h:510
 #: objects/chronogram/chronoline.c:186 objects/chronogram/chronoref.c:167
 #: objects/GRAFCET/step.c:166
 msgid "Text colour"
@@ -2268,21 +2272,20 @@ msgstr "Màu text"
 
 #: lib/widgets.c:211
 msgid "Other fonts..."
-msgstr ""
+msgstr "Font khác..."
 
 #: lib/widgets.c:299
 #, c-format
 msgid "Couldn't find font family for %s\n"
-msgstr ""
+msgstr "Không thể tìm họ font cho %s\n"
 
 #. We hit the Other fonts... entry
 #: lib/widgets.c:346
-#, fuzzy
 msgid "Select font"
-msgstr "Chọn máy in"
+msgstr "Chọn font"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:641 objects/FS/function.c:1039
+#: lib/widgets.c:641 objects/FS/function.c:1040
 msgid "Solid"
 msgstr "Đặc"
 
@@ -2333,7 +2336,7 @@ msgstr "Nửa đầu"
 
 #: lib/widgets.c:985
 msgid "Slashed Cross"
-msgstr ""
+msgstr "Gạch chéo"
 
 #: lib/widgets.c:986
 msgid "Filled Ellipse"
@@ -2388,14 +2391,12 @@ msgid "Cross"
 msgstr "Chéo"
 
 #: lib/widgets.c:999
-#, fuzzy
 msgid "Filled Concave"
-msgstr "Hộp đặc"
+msgstr "Lòng chảo đặc"
 
 #: lib/widgets.c:1000
-#, fuzzy
 msgid "Blanked Concave"
-msgstr "Hộp nháy"
+msgstr "Lòng chảo rỗng"
 
 #: lib/widgets.c:1037
 msgid "Length: "
@@ -2415,7 +2416,7 @@ msgstr "Duyệt"
 
 #: objects/chronogram/chronogram.c:40
 msgid "Chronogram diagram objects"
-msgstr ""
+msgstr "Đối tượng biều đồ lịch sử"
 
 #: objects/chronogram/chronoline.c:147
 msgid "Data"
@@ -2456,11 +2457,11 @@ msgstr "Thời điểm cuối"
 
 #: objects/chronogram/chronoline.c:167
 msgid "Rise time"
-msgstr ""
+msgstr "Tăng thời gian"
 
 #: objects/chronogram/chronoline.c:169
 msgid "Fall time"
-msgstr ""
+msgstr "Giảm thời gian"
 
 #: objects/chronogram/chronoline.c:170
 msgid "Multi-bit data"
@@ -2514,15 +2515,15 @@ msgstr "Lật ngang"
 msgid "Flip vertical"
 msgstr "Lật dọc"
 
-#: objects/custom/custom_object.c:1403
+#: objects/custom/custom_object.c:1391
 msgid "Flip Horizontal"
 msgstr "Lật ngang"
 
-#: objects/custom/custom_object.c:1404
+#: objects/custom/custom_object.c:1392
 msgid "Flip Vertical"
 msgstr "Lật dọc"
 
-#: objects/custom/custom_object.c:1441
+#: objects/custom/custom_object.c:1429
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Không thể mở tập tin biểu tượng %s cho đối tượng loại '%s'."
@@ -2543,7 +2544,7 @@ msgstr "Dẫn xuất từ:"
 msgid "Multivalue:"
 msgstr "Đa giá trị:"
 
-#: objects/ER/attribute.c:398 sheets/ER.sheet.in.h:1
+#: objects/ER/attribute.c:399 sheets/ER.sheet.in.h:1
 msgid "Attribute"
 msgstr "Thuộc tính"
 
@@ -2551,41 +2552,41 @@ msgstr "Thuộc tính"
 msgid "Weak:"
 msgstr "Yếu:"
 
-#: objects/ER/entity.c:347 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
+#: objects/ER/entity.c:348 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
 msgstr "Thực thể"
 
 #: objects/ER/er.c:44
 msgid "Entity/Relationship diagram objects"
-msgstr "Đối tượng biểu đồ thực thệ/mối quan hệ"
+msgstr "Đối tượng sơ đồ thực thệ/mối quan hệ"
 
 #: objects/ER/participation.c:114
 msgid "Total:"
 msgstr "Tổng cộng:"
 
-#: objects/ER/participation.c:394 objects/FS/flow-ortho.c:632
-#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:549
-#: objects/standard/zigzagline.c:428 objects/UML/association.c:685
-#: objects/UML/dependency.c:350 objects/UML/generalization.c:346
-#: objects/UML/realizes.c:339
-msgid "Add segment"
-msgstr "Thêm đoạn"
-
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:550
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
 #: objects/standard/zigzagline.c:429 objects/UML/association.c:686
 #: objects/UML/dependency.c:351 objects/UML/generalization.c:347
 #: objects/UML/realizes.c:340
+msgid "Add segment"
+msgstr "Thêm đoạn"
+
+#: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
+#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
+#: objects/standard/zigzagline.c:430 objects/UML/association.c:687
+#: objects/UML/dependency.c:352 objects/UML/generalization.c:348
+#: objects/UML/realizes.c:341
 msgid "Delete segment"
 msgstr "Xóa đoạn"
 
 #: objects/ER/relationship.c:139
 msgid "Left Cardinality:"
-msgstr ""
+msgstr "Hướng trái:"
 
 #: objects/ER/relationship.c:141
 msgid "Right Cardinality:"
-msgstr ""
+msgstr "Hướng phải:"
 
 #: objects/ER/relationship.c:143
 msgid "Rotate:"
@@ -2595,7 +2596,7 @@ msgstr "Quay:"
 msgid "Identifying:"
 msgstr "Định danh:"
 
-#: objects/ER/relationship.c:426 sheets/ER.sheet.in.h:6
+#: objects/ER/relationship.c:427 sheets/ER.sheet.in.h:6
 msgid "Relationship"
 msgstr "Quan hệ"
 
@@ -2618,28 +2619,28 @@ msgid "Shear angle"
 msgstr ""
 
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow.c:135 objects/FS/flow.c:567 objects/FS/flow-ortho.c:157
-#: objects/FS/flow-ortho.c:629 objects/FS/function.c:1061
+#: objects/FS/flow.c:135 objects/FS/flow.c:568 objects/FS/flow-ortho.c:157
+#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1062
 msgid "Energy"
 msgstr "Năng lượng"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow.c:136 objects/FS/flow.c:568 objects/FS/flow-ortho.c:158
-#: objects/FS/flow-ortho.c:630 objects/FS/function.c:1037
+#: objects/FS/flow.c:136 objects/FS/flow.c:569 objects/FS/flow-ortho.c:158
+#: objects/FS/flow-ortho.c:631 objects/FS/function.c:1038
 msgid "Material"
 msgstr "Nguyên liệu"
 
 #. Translators: Menu item Verb/Signal
-#: objects/FS/flow.c:137 objects/FS/flow.c:569 objects/FS/flow-ortho.c:159
-#: objects/FS/flow-ortho.c:631 objects/FS/function.c:999
-#: objects/FS/function.c:1001 objects/FS/function.c:1137
-#: objects/FS/function.c:1139
+#: objects/FS/flow.c:137 objects/FS/flow.c:570 objects/FS/flow-ortho.c:159
+#: objects/FS/flow-ortho.c:632 objects/FS/function.c:1000
+#: objects/FS/function.c:1002 objects/FS/function.c:1138
+#: objects/FS/function.c:1140
 msgid "Signal"
 msgstr "Tín hiệu"
 
 #: objects/FS/fs.c:43
 msgid "Function structure diagram objects"
-msgstr "Đối tượng biểu đồ cấu trúc hàm"
+msgstr "Đối tượng sơ đồ cấu trúc hàm"
 
 #: objects/FS/function.c:139
 msgid "Wish function"
@@ -2650,977 +2651,977 @@ msgid "User function"
 msgstr "Hàm người dùng"
 
 #. Translators: Menu item Verb
-#: objects/FS/function.c:641
+#: objects/FS/function.c:642
 msgid "Verb"
 msgstr "Động từ"
 
 #. Translators: Menu item Verb/Channel
-#: objects/FS/function.c:643 objects/FS/function.c:645
-#: objects/FS/function.c:685
+#: objects/FS/function.c:644 objects/FS/function.c:646
+#: objects/FS/function.c:686
 msgid "Channel"
 msgstr "Kênh"
 
 #. Translators: Menu item Verb/Channel/Import
-#: objects/FS/function.c:647 objects/FS/function.c:649
+#: objects/FS/function.c:648 objects/FS/function.c:650
 msgid "Import"
 msgstr "Nhập"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: objects/FS/function.c:651
+#: objects/FS/function.c:652
 msgid "Input"
 msgstr "Đầu vào"
 
 #. Translators: Menu item Verb/Channel/Import/Receive
-#: objects/FS/function.c:653
+#: objects/FS/function.c:654
 msgid "Receive"
 msgstr "Nhận"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
-#: objects/FS/function.c:655 objects/FS/function.c:927
+#: objects/FS/function.c:656 objects/FS/function.c:928
 msgid "Allow"
 msgstr "Cho phép"
 
 #. Translators: Menu item Verb/Channel/Import/Form Entrance
-#: objects/FS/function.c:657
+#: objects/FS/function.c:658
 msgid "Form Entrance"
 msgstr ""
 
 #. Translators: Menu item Verb/Channel/Import/Capture
-#: objects/FS/function.c:659 objects/FS/function.c:893
+#: objects/FS/function.c:660 objects/FS/function.c:894
 msgid "Capture"
 msgstr "Bắt lấy"
 
 #. Translators: Menu item Verb/Channel/Export/Discharge
-#: objects/FS/function.c:665
+#: objects/FS/function.c:666
 msgid "Discharge"
 msgstr ""
 
 #. Translators: Menu item Verb/Channel/Export/Eject
-#: objects/FS/function.c:667
+#: objects/FS/function.c:668
 msgid "Eject"
 msgstr "Đẩy ra"
 
 #. Translators: Menu item Verb/Channel/Export/Dispose
-#: objects/FS/function.c:669
+#: objects/FS/function.c:670
 msgid "Dispose"
 msgstr ""
 
 #. Translators: Menu item Verb/Channel/Transfer
-#: objects/FS/function.c:673 objects/FS/function.c:675
-#: objects/FS/function.c:693
+#: objects/FS/function.c:674 objects/FS/function.c:676
+#: objects/FS/function.c:694
 msgid "Transfer"
 msgstr "Chuyển"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
-#: objects/FS/function.c:677 objects/FS/function.c:679
+#: objects/FS/function.c:678 objects/FS/function.c:680
 msgid "Transport"
 msgstr "Vận chuyển"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Lift
-#: objects/FS/function.c:681
+#: objects/FS/function.c:682
 msgid "Lift"
-msgstr ""
+msgstr "Thang máy"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport/Move
-#: objects/FS/function.c:683
+#: objects/FS/function.c:684
 msgid "Move"
 msgstr "Di chuyển"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
-#: objects/FS/function.c:687 objects/FS/function.c:689
+#: objects/FS/function.c:688 objects/FS/function.c:690
 msgid "Transmit"
 msgstr "Gửi"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Conduct
-#: objects/FS/function.c:691
+#: objects/FS/function.c:692
 msgid "Conduct"
-msgstr ""
+msgstr "Dẫn"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit/Convey
-#: objects/FS/function.c:695
+#: objects/FS/function.c:696
 msgid "Convey"
-msgstr ""
+msgstr "Vận chuyển"
 
 #. Translators: Menu item Verb/Channel/Guide
-#: objects/FS/function.c:697 objects/FS/function.c:699
-#: objects/FS/function.c:701
+#: objects/FS/function.c:698 objects/FS/function.c:700
+#: objects/FS/function.c:702
 msgid "Guide"
 msgstr "Hướng dẫn"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Direct
-#: objects/FS/function.c:703
+#: objects/FS/function.c:704
 msgid "Direct"
-msgstr ""
+msgstr "Chuyển hướng"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Straighten
-#: objects/FS/function.c:705
+#: objects/FS/function.c:706
 msgid "Straighten"
 msgstr "Làm thẳng"
 
 #. Translators: Menu item Verb/Channel/Guide/Guide/Steer
-#: objects/FS/function.c:707
+#: objects/FS/function.c:708
 msgid "Steer"
 msgstr "Điều khiển"
 
 #. Translators: Menu item Verb/Channel/Guide/Translate
-#: objects/FS/function.c:709
+#: objects/FS/function.c:710
 msgid "Translate"
 msgstr "Dịch"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
-#: objects/FS/function.c:711 objects/FS/function.c:713
+#: objects/FS/function.c:712 objects/FS/function.c:714
 msgid "Rotate"
 msgstr "Quay"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Turn
-#: objects/FS/function.c:715
+#: objects/FS/function.c:716
 msgid "Turn"
 msgstr "Quay"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Spin
-#: objects/FS/function.c:717
+#: objects/FS/function.c:718
 msgid "Spin"
 msgstr "Quay vòng"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
-#: objects/FS/function.c:719 objects/FS/function.c:721
+#: objects/FS/function.c:720 objects/FS/function.c:722
 msgid "Allow DOF"
 msgstr "Cho phép DOF"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Constrain
-#: objects/FS/function.c:723
+#: objects/FS/function.c:724
 msgid "Constrain"
 msgstr "Ràng buộc"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF/Unlock
-#: objects/FS/function.c:725
+#: objects/FS/function.c:726
 msgid "Unlock"
 msgstr "Bỏ khóa"
 
 #. Translators: Menu item Verb/Support
-#: objects/FS/function.c:727 objects/FS/function.c:729
+#: objects/FS/function.c:728 objects/FS/function.c:730
 msgid "Support"
 msgstr "Hỗ trợ"
 
 #. Translators: Menu item Verb/Support/Stop
-#: objects/FS/function.c:731 objects/FS/function.c:733
+#: objects/FS/function.c:732 objects/FS/function.c:734
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
 msgstr "Dừng"
 
 #. Translators: Menu item Verb/Support/Stop/Insulate
-#: objects/FS/function.c:735
+#: objects/FS/function.c:736
 msgid "Insulate"
-msgstr ""
+msgstr "Cô lập"
 
 #. Translators: Menu item Verb/Support/Stop/Protect
-#: objects/FS/function.c:737
+#: objects/FS/function.c:738
 msgid "Protect"
-msgstr ""
+msgstr "Bảo vệ"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
-#: objects/FS/function.c:739 objects/FS/function.c:929
+#: objects/FS/function.c:740 objects/FS/function.c:930
 msgid "Prevent"
-msgstr ""
+msgstr "Chống"
 
 #. Translators: Menu item Verb/Support/Stop/Shield
-#: objects/FS/function.c:741
+#: objects/FS/function.c:742
 msgid "Shield"
-msgstr ""
+msgstr "Giáp"
 
 #. Translators: Menu item Verb/Support/Stop/Inhibit
-#: objects/FS/function.c:743
+#: objects/FS/function.c:744
 msgid "Inhibit"
 msgstr "Chống"
 
 #. Translators: Menu item Verb/Support/Stabilize
-#: objects/FS/function.c:745 objects/FS/function.c:747
+#: objects/FS/function.c:746 objects/FS/function.c:748
 msgid "Stabilize"
-msgstr ""
+msgstr "Ổn định"
 
 #. Translators: Menu item Verb/Support/Stabilize/Steady
-#: objects/FS/function.c:749
+#: objects/FS/function.c:750
 msgid "Steady"
 msgstr ""
 
 #. Translators: Menu item Verb/Support/Secure
-#: objects/FS/function.c:751 objects/FS/function.c:753
+#: objects/FS/function.c:752 objects/FS/function.c:754
 msgid "Secure"
 msgstr "An toàn"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
-#: objects/FS/function.c:755 objects/FS/function.c:787
+#: objects/FS/function.c:756 objects/FS/function.c:788
 msgid "Attach"
 msgstr "Gắn vào"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
-#: objects/FS/function.c:757
+#: objects/FS/function.c:758
 msgid "Mount"
 msgstr "Gắn kết"
 
 #. Translators: Menu item Verb/Support/Secure/Lock
-#: objects/FS/function.c:759
+#: objects/FS/function.c:760
 msgid "Lock"
 msgstr "Khoá"
 
 #. Translators: Menu item Verb/Support/Secure/Fasten
-#: objects/FS/function.c:761
+#: objects/FS/function.c:762
 msgid "Fasten"
 msgstr "Cột"
 
 #. Translators: Menu item Verb/Support/Secure/Hold
-#: objects/FS/function.c:763
+#: objects/FS/function.c:764
 msgid "Hold"
 msgstr "Giữ"
 
 #. Translators: Menu item Verb/Support/Position
-#: objects/FS/function.c:765 objects/FS/function.c:767
+#: objects/FS/function.c:766 objects/FS/function.c:768
 msgid "Position"
 msgstr "Vị trí"
 
 #. Translators: Menu item Verb/Support/Position/Orient
-#: objects/FS/function.c:769
+#: objects/FS/function.c:770
 msgid "Orient"
 msgstr "Hướng"
 
 #. Translators: Menu item Verb/Support/Position/Align
-#: objects/FS/function.c:771
+#: objects/FS/function.c:772
 msgid "Align"
-msgstr ""
+msgstr "Canh hàng"
 
 #. Translators: Menu item Verb/Support/Position/Locate
-#: objects/FS/function.c:773 objects/FS/function.c:1015
+#: objects/FS/function.c:774 objects/FS/function.c:1016
 msgid "Locate"
 msgstr "Định vị"
 
 #. Translators: Menu item Verb/Connect
-#: objects/FS/function.c:775 objects/FS/function.c:777
+#: objects/FS/function.c:776 objects/FS/function.c:778
 msgid "Connect"
 msgstr "Kết nối"
 
 #. Translators: Menu item Verb/Connect/Couple
-#: objects/FS/function.c:779 objects/FS/function.c:781
+#: objects/FS/function.c:780 objects/FS/function.c:782
 msgid "Couple"
 msgstr "Cặp"
 
 #. Translators: Menu item Verb/Connect/Couple/Join
-#: objects/FS/function.c:783
+#: objects/FS/function.c:784
 msgid "Join"
 msgstr "Tham gia"
 
 #. Translators: Menu item Verb/Connect/Couple/Assemble
-#: objects/FS/function.c:785
+#: objects/FS/function.c:786
 msgid "Assemble"
 msgstr "Tập hợp"
 
 #. Translators: Menu item Verb/Connect/Mix
-#: objects/FS/function.c:789 objects/FS/function.c:791
+#: objects/FS/function.c:790 objects/FS/function.c:792
 msgid "Mix"
 msgstr "Trộn"
 
 #. Translators: Menu item Verb/Connect/Mix/Combine
-#: objects/FS/function.c:793
+#: objects/FS/function.c:794
 msgid "Combine"
 msgstr "Kết hợp"
 
 #. Translators: Menu item Verb/Connect/Mix/Blend
-#: objects/FS/function.c:795
+#: objects/FS/function.c:796
 msgid "Blend"
 msgstr "Hoàn trộn"
 
 #. Translators: Menu item Verb/Connect/Mix/Add
-#: objects/FS/function.c:797
+#: objects/FS/function.c:798
 msgid "Add"
 msgstr "Thêm"
 
 #. Translators: Menu item Verb/Connect/Mix/Pack
-#: objects/FS/function.c:799
+#: objects/FS/function.c:800
 msgid "Pack"
 msgstr "Nén"
 
 #. Translators: Menu item Verb/Connect/Mix/Coalesce
-#: objects/FS/function.c:801
+#: objects/FS/function.c:802
 msgid "Coalesce"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch
-#: objects/FS/function.c:803 objects/FS/function.c:805
+#: objects/FS/function.c:804 objects/FS/function.c:806
 msgid "Branch"
 msgstr "Nhánh"
 
 #. Translators: Menu item Verb/Branch/Separate
-#: objects/FS/function.c:807 objects/FS/function.c:809
-#: objects/FS/function.c:811
+#: objects/FS/function.c:808 objects/FS/function.c:810
+#: objects/FS/function.c:812
 msgid "Separate"
 msgstr "Ngăn cách"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Switch
-#: objects/FS/function.c:813
+#: objects/FS/function.c:814
 msgid "Switch"
-msgstr ""
+msgstr "Công tắt"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Divide
-#: objects/FS/function.c:815
+#: objects/FS/function.c:816
 msgid "Divide"
 msgstr "Chia"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Release
-#: objects/FS/function.c:817
+#: objects/FS/function.c:818
 msgid "Release"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Detach
-#: objects/FS/function.c:819
+#: objects/FS/function.c:820
 msgid "Detach"
-msgstr ""
+msgstr "Tách rời"
 
 #. Translators: Menu item Verb/Branch/Separate/Separate/Disconnect
-#: objects/FS/function.c:821
+#: objects/FS/function.c:822
 msgid "Disconnect"
 msgstr "Ngắt kết nối"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Cut
-#: objects/FS/function.c:827
+#: objects/FS/function.c:828
 msgid "Cut"
 msgstr "Cắt"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Polish
-#: objects/FS/function.c:829
+#: objects/FS/function.c:830
 msgid "Polish"
-msgstr ""
+msgstr "Ba Lan"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Sand
-#: objects/FS/function.c:831
+#: objects/FS/function.c:832
 msgid "Sand"
 msgstr "Cát"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Drill
-#: objects/FS/function.c:833
+#: objects/FS/function.c:834
 msgid "Drill"
 msgstr "Khoan"
 
 #. Translators: Menu item Verb/Branch/Separate/Remove/Lathe
-#: objects/FS/function.c:835
+#: objects/FS/function.c:836
 msgid "Lathe"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch/Refine
-#: objects/FS/function.c:837 objects/FS/function.c:839
+#: objects/FS/function.c:838 objects/FS/function.c:840
 msgid "Refine"
 msgstr "Lọc"
 
 #. Translators: Menu item Verb/Branch/Refine/Purify
-#: objects/FS/function.c:841
+#: objects/FS/function.c:842
 msgid "Purify"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch/Refine/Strain
-#: objects/FS/function.c:843
+#: objects/FS/function.c:844
 msgid "Strain"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch/Refine/Filter
-#: objects/FS/function.c:845
+#: objects/FS/function.c:846
 msgid "Filter"
 msgstr "Lọc"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
-#: objects/FS/function.c:847
+#: objects/FS/function.c:848
 msgid "Percolate"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch/Refine/Clear
-#: objects/FS/function.c:849
+#: objects/FS/function.c:850
 msgid "Clear"
 msgstr "Xoá"
 
 #. Translators: Menu item Verb/Branch/Distribute
-#: objects/FS/function.c:851 objects/FS/function.c:853
+#: objects/FS/function.c:852 objects/FS/function.c:854
 msgid "Distribute"
 msgstr "Phân phối"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diverge
-#: objects/FS/function.c:855
+#: objects/FS/function.c:856
 msgid "Diverge"
-msgstr ""
+msgstr "Rẽ nhánh"
 
 #. Translators: Menu item Verb/Branch/Distribute/Scatter
-#: objects/FS/function.c:857
+#: objects/FS/function.c:858
 msgid "Scatter"
-msgstr ""
+msgstr "Rải"
 
 #. Translators: Menu item Verb/Branch/Distribute/Disperse
-#: objects/FS/function.c:859
+#: objects/FS/function.c:860
 msgid "Disperse"
-msgstr ""
+msgstr "Phân tán"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
-#: objects/FS/function.c:861 objects/FS/function.c:875
+#: objects/FS/function.c:862 objects/FS/function.c:876
 msgid "Diffuse"
-msgstr ""
+msgstr "Khuếch tán"
 
 #. Translators: Menu item Verb/Branch/Distribute/Empty
-#: objects/FS/function.c:863
+#: objects/FS/function.c:864
 msgid "Empty"
 msgstr "Rỗng"
 
 #. Translators: Menu item Verb/Branch/Dissipate
-#: objects/FS/function.c:865 objects/FS/function.c:867
+#: objects/FS/function.c:866 objects/FS/function.c:868
 msgid "Dissipate"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch/Dissipate/Absorb
-#: objects/FS/function.c:869
+#: objects/FS/function.c:870
 msgid "Absorb"
 msgstr "Hút"
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dampen
-#: objects/FS/function.c:871
+#: objects/FS/function.c:872
 msgid "Dampen"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch/Dissipate/Dispel
-#: objects/FS/function.c:873
+#: objects/FS/function.c:874
 msgid "Dispel"
 msgstr ""
 
 #. Translators: Menu item Verb/Branch/Dissipate/Resist
-#: objects/FS/function.c:877
+#: objects/FS/function.c:878
 msgid "Resist"
 msgstr "Cản"
 
 #. Translators: Menu item Verb/Provision
-#: objects/FS/function.c:879 objects/FS/function.c:881
+#: objects/FS/function.c:880 objects/FS/function.c:882
 msgid "Provision"
 msgstr "Dự phòng"
 
 #. Translators: Menu item Verb/Provision/Store
-#: objects/FS/function.c:883 objects/FS/function.c:885
+#: objects/FS/function.c:884 objects/FS/function.c:886
 msgid "Store"
 msgstr "Cửa hàng"
 
 #. Translators: Menu item Verb/Provision/Store/Contain
-#: objects/FS/function.c:887
+#: objects/FS/function.c:888
 msgid "Contain"
 msgstr "Chứa"
 
 #. Translators: Menu item Verb/Provision/Store/Collect
-#: objects/FS/function.c:889
+#: objects/FS/function.c:890
 msgid "Collect"
 msgstr "Tập hợp"
 
 #. Translators: Menu item Verb/Provision/Store/Reserve
-#: objects/FS/function.c:891
+#: objects/FS/function.c:892
 msgid "Reserve"
 msgstr "Đảo"
 
 #. Translators: Menu item Verb/Provision/Supply
-#: objects/FS/function.c:895 objects/FS/function.c:897
+#: objects/FS/function.c:896 objects/FS/function.c:898
 msgid "Supply"
 msgstr "Cung cấp"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: objects/FS/function.c:899
+#: objects/FS/function.c:900
 msgid "Fill"
 msgstr "Tô đầy"
 
 #. Translators: Menu item Verb/Provision/Supply/Provide
-#: objects/FS/function.c:901
+#: objects/FS/function.c:902
 msgid "Provide"
 msgstr "Cung cấp"
 
 #. Translators: Menu item Verb/Provision/Supply/Replenish
-#: objects/FS/function.c:903
+#: objects/FS/function.c:904
 msgid "Replenish"
 msgstr ""
 
 #. Translators: Menu item Verb/Provision/Supply/Expose
-#: objects/FS/function.c:905
+#: objects/FS/function.c:906
 msgid "Expose"
 msgstr ""
 
 #. Translators: Menu item Verb/Provision/Extract
-#: objects/FS/function.c:907 sheets/Flowchart.sheet.in.h:9
+#: objects/FS/function.c:908 sheets/Flowchart.sheet.in.h:9
 msgid "Extract"
 msgstr "Trích"
 
 #. Translators: Menu item Verb/Control Magnitude
-#: objects/FS/function.c:909 objects/FS/function.c:911
+#: objects/FS/function.c:910 objects/FS/function.c:912
 msgid "Control Magnitude"
 msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
-#: objects/FS/function.c:913 objects/FS/function.c:915
+#: objects/FS/function.c:914 objects/FS/function.c:916
 msgid "Actuate"
 msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Start
-#: objects/FS/function.c:917
+#: objects/FS/function.c:918
 msgid "Start"
 msgstr "Bắt đầu"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate/Initiate
-#: objects/FS/function.c:919
+#: objects/FS/function.c:920
 msgid "Initiate"
 msgstr "Khởi động"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
-#: objects/FS/function.c:921 objects/FS/function.c:923
+#: objects/FS/function.c:922 objects/FS/function.c:924
 msgid "Regulate"
 msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
-#: objects/FS/function.c:925 objects/FS/function.c:1143
+#: objects/FS/function.c:926 objects/FS/function.c:1144
 #: objects/UML/classicon.c:122
 msgid "Control"
 msgstr "Điều khiển"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Enable
-#: objects/FS/function.c:931
+#: objects/FS/function.c:932
 msgid "Enable"
 msgstr "Bật"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Disable
-#: objects/FS/function.c:933
+#: objects/FS/function.c:934
 msgid "Disable"
 msgstr "Tắt"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Limit
-#: objects/FS/function.c:935
+#: objects/FS/function.c:936
 msgid "Limit"
 msgstr "Giới hạn"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Interrupt
-#: objects/FS/function.c:937
+#: objects/FS/function.c:938
 msgid "Interrupt"
 msgstr "Ngắt"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
-#: objects/FS/function.c:939 objects/FS/function.c:941
+#: objects/FS/function.c:940 objects/FS/function.c:942
 msgid "Change"
 msgstr "Thay đổi"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Increase
-#: objects/FS/function.c:943
+#: objects/FS/function.c:944
 msgid "Increase"
 msgstr "Tăng"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Decrease
-#: objects/FS/function.c:945
+#: objects/FS/function.c:946
 msgid "Decrease"
 msgstr "Giảm"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Amplify
-#: objects/FS/function.c:947
+#: objects/FS/function.c:948
 msgid "Amplify"
 msgstr "Khuếch đại"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Reduce
-#: objects/FS/function.c:949
+#: objects/FS/function.c:950
 msgid "Reduce"
 msgstr "Giảm thiểu"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Normalize
-#: objects/FS/function.c:953
+#: objects/FS/function.c:954
 msgid "Normalize"
 msgstr "Chuẩn hóa"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Multiply
-#: objects/FS/function.c:955
+#: objects/FS/function.c:956
 msgid "Multiply"
 msgstr "Nhân"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
-#: objects/FS/function.c:957
+#: objects/FS/function.c:958
 msgid "Scale"
-msgstr ""
+msgstr "Co dãn"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Rectify
-#: objects/FS/function.c:959
+#: objects/FS/function.c:960
 msgid "Rectify"
 msgstr ""
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Adjust
-#: objects/FS/function.c:961
+#: objects/FS/function.c:962
 msgid "Adjust"
 msgstr "Điều chỉnh"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
-#: objects/FS/function.c:963 objects/FS/function.c:965
+#: objects/FS/function.c:964 objects/FS/function.c:966
 msgid "Form"
-msgstr ""
+msgstr "Mẫu"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compact
-#: objects/FS/function.c:967
+#: objects/FS/function.c:968
 msgid "Compact"
 msgstr "Nén"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Crush
-#: objects/FS/function.c:969
+#: objects/FS/function.c:970
 msgid "Crush"
 msgstr "Vắt"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Shape
-#: objects/FS/function.c:971
+#: objects/FS/function.c:972
 msgid "Shape"
-msgstr ""
+msgstr "Hình"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Compress
-#: objects/FS/function.c:973
+#: objects/FS/function.c:974
 msgid "Compress"
 msgstr "Nén"
 
 #. Translators: Menu item Verb/Control Magnitude/Form/Pierce
-#: objects/FS/function.c:975
+#: objects/FS/function.c:976
 msgid "Pierce"
 msgstr "Đâm"
 
 #. Translators: Menu item Verb/Convert
-#: objects/FS/function.c:977 objects/FS/function.c:979
+#: objects/FS/function.c:978 objects/FS/function.c:980
 msgid "Convert"
 msgstr "Chuyển đổi"
 
 #. Translators: Menu item Verb/Convert/Transform
-#: objects/FS/function.c:981
+#: objects/FS/function.c:982
 msgid "Transform"
 msgstr "Biến đổi"
 
 #. Translators: Menu item Verb/Convert/Liquefy
-#: objects/FS/function.c:983
+#: objects/FS/function.c:984
 msgid "Liquefy"
 msgstr "Hoá lỏng"
 
 #. Translators: Menu item Verb/Convert/Solidify
-#: objects/FS/function.c:985
+#: objects/FS/function.c:986
 msgid "Solidify"
 msgstr "Đặc hóa"
 
 #. Translators: Menu item Verb/Convert/Evaporate
-#: objects/FS/function.c:987
+#: objects/FS/function.c:988
 msgid "Evaporate"
 msgstr "Bay hơi"
 
 #. Translators: Menu item Verb/Convert/Sublimate
-#: objects/FS/function.c:989
+#: objects/FS/function.c:990
 msgid "Sublimate"
 msgstr "Thăng hoa"
 
 #. Translators: Menu item Verb/Convert/Condense
-#: objects/FS/function.c:991
+#: objects/FS/function.c:992
 msgid "Condense"
 msgstr "Cô đặc"
 
 #. Translators: Menu item Verb/Convert/Integrate
-#: objects/FS/function.c:993
+#: objects/FS/function.c:994
 msgid "Integrate"
 msgstr "Tích hợp"
 
 #. Translators: Menu item Verb/Convert/Differentiate
-#: objects/FS/function.c:995
+#: objects/FS/function.c:996
 msgid "Differentiate"
 msgstr "Vi phân"
 
 #. Translators: Menu item Verb/Convert/Process
-#: objects/FS/function.c:997
+#: objects/FS/function.c:998
 msgid "Process"
 msgstr "Tiến trình"
 
 #. Translators: Menu item Verb/Signal/Sense
-#: objects/FS/function.c:1003 objects/FS/function.c:1005
+#: objects/FS/function.c:1004 objects/FS/function.c:1006
 msgid "Sense"
 msgstr "Cảm giác"
 
 #. Translators: Menu item Verb/Signal/Sense/Perceive
-#: objects/FS/function.c:1007
+#: objects/FS/function.c:1008
 msgid "Perceive"
 msgstr "Hấp thụ"
 
 #. Translators: Menu item Verb/Signal/Sense/Recognize
-#: objects/FS/function.c:1009
+#: objects/FS/function.c:1010
 msgid "Recognize"
 msgstr "Công nhận"
 
 #. Translators: Menu item Verb/Signal/Sense/Discern
-#: objects/FS/function.c:1011
+#: objects/FS/function.c:1012
 msgid "Discern"
 msgstr ""
 
 #. Translators: Menu item Verb/Signal/Sense/Check
-#: objects/FS/function.c:1013
+#: objects/FS/function.c:1014
 msgid "Check"
 msgstr "Kiểm tra"
 
 #. Translators: Menu item Verb/Signal/Sense/Verify
-#: objects/FS/function.c:1017
+#: objects/FS/function.c:1018
 msgid "Verify"
 msgstr "Kiểm tra"
 
 #. Translators: Menu item Verb/Signal/Indicate
-#: objects/FS/function.c:1019 objects/FS/function.c:1021
+#: objects/FS/function.c:1020 objects/FS/function.c:1022
 msgid "Indicate"
 msgstr "Chỉ thị"
 
 #. Translators: Menu item Verb/Signal/Indicate/Mark
-#: objects/FS/function.c:1023
+#: objects/FS/function.c:1024
 msgid "Mark"
 msgstr "Đánh dấu"
 
 #. Translators: Menu item Verb/Signal/Display
-#: objects/FS/function.c:1025 sheets/Flowchart.sheet.in.h:7
+#: objects/FS/function.c:1026 sheets/Flowchart.sheet.in.h:7
 msgid "Display"
 msgstr "Hiển thị"
 
 #. Translators: Menu item Verb/Signal/Measure
-#: objects/FS/function.c:1027 objects/FS/function.c:1029
+#: objects/FS/function.c:1028 objects/FS/function.c:1030
 msgid "Measure"
 msgstr "Đo"
 
 #. Translators: Menu item Verb/Signal/Measure/Calculate
-#: objects/FS/function.c:1031
+#: objects/FS/function.c:1032
 msgid "Calculate"
 msgstr "Tính toán"
 
 #. Translators: Menu item Verb/Signal/Represent
-#: objects/FS/function.c:1033
+#: objects/FS/function.c:1034
 msgid "Represent"
-msgstr ""
+msgstr "Thể hiện"
 
 #. Translators: Menu item Noun
-#: objects/FS/function.c:1035
+#: objects/FS/function.c:1036
 msgid "Noun"
 msgstr "Danh từ"
 
 #. Translators: Menu item Noun/Material/Liquid
-#: objects/FS/function.c:1041
+#: objects/FS/function.c:1042
 msgid "Liquid"
 msgstr "Chất lỏng"
 
 #. Translators: Menu item Noun/Material/Gas
-#: objects/FS/function.c:1043
+#: objects/FS/function.c:1044
 msgid "Gas"
 msgstr "Gas"
 
 #. Translators: Menu item Noun/Material/Human
-#: objects/FS/function.c:1045 objects/FS/function.c:1047
-#: objects/FS/function.c:1131
+#: objects/FS/function.c:1046 objects/FS/function.c:1048
+#: objects/FS/function.c:1132
 msgid "Human"
 msgstr "Người"
 
 #. Translators: Menu item Noun/Material/Human/Hand
-#: objects/FS/function.c:1049
+#: objects/FS/function.c:1050
 msgid "Hand"
 msgstr "Tay"
 
 #. Translators: Menu item Noun/Material/Human/Foot
-#: objects/FS/function.c:1051
+#: objects/FS/function.c:1052
 msgid "Foot"
 msgstr "Chân"
 
 #. Translators: Menu item Noun/Material/Human/Head
-#: objects/FS/function.c:1053
+#: objects/FS/function.c:1054
 msgid "Head"
 msgstr "Đầu"
 
 #. Translators: Menu item Noun/Material/Human/Finger
-#: objects/FS/function.c:1055
+#: objects/FS/function.c:1056
 msgid "Finger"
 msgstr "Ngón trỏ"
 
 #. Translators: Menu item Noun/Material/Human/Toe
-#: objects/FS/function.c:1057
+#: objects/FS/function.c:1058
 msgid "Toe"
 msgstr "Ngón cái"
 
 #. Translators: Menu item Noun/Material/Biological
-#: objects/FS/function.c:1059
+#: objects/FS/function.c:1060
 msgid "Biological"
 msgstr "Sinh học"
 
 #. Translators: Menu item Noun/Energy/Mechanical
-#: objects/FS/function.c:1063
+#: objects/FS/function.c:1064
 msgid "Mechanical"
 msgstr "Cơ khí"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
-#: objects/FS/function.c:1065
+#: objects/FS/function.c:1066
 msgid "Mech. Energy"
 msgstr "Cơ năng"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translation
-#: objects/FS/function.c:1067
+#: objects/FS/function.c:1068
 msgid "Translation"
 msgstr "Tịnh tiến"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Force
-#: objects/FS/function.c:1069
+#: objects/FS/function.c:1070
 msgid "Force"
 msgstr "Lực"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
-#: objects/FS/function.c:1071
+#: objects/FS/function.c:1072
 msgid "Rotation"
 msgstr "Quay"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Torque
-#: objects/FS/function.c:1073
+#: objects/FS/function.c:1074
 msgid "Torque"
 msgstr ""
 
 #. Translators: Menu item Noun/Energy/Mechanical/Random Motion
-#: objects/FS/function.c:1075
+#: objects/FS/function.c:1076
 msgid "Random Motion"
 msgstr "Chuyển động hỗn loạn"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Vibration
-#: objects/FS/function.c:1077
+#: objects/FS/function.c:1078
 msgid "Vibration"
 msgstr "Rung động"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotational Energy
-#: objects/FS/function.c:1079
+#: objects/FS/function.c:1080
 msgid "Rotational Energy"
 msgstr "Năng lượng quay"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Translational Energy
-#: objects/FS/function.c:1081
+#: objects/FS/function.c:1082
 msgid "Translational Energy"
 msgstr "Năng lượng tịnh tiến"
 
 #. Translators: Menu item Noun/Energy/Electricity
-#: objects/FS/function.c:1083
+#: objects/FS/function.c:1084
 msgid "Electrical"
 msgstr "Điện"
 
 #. Translators: Menu item Noun/Energy/Electricity/Electricity
-#: objects/FS/function.c:1085
+#: objects/FS/function.c:1086
 msgid "Electricity"
 msgstr "Điện"
 
 #. Translators: Menu item Noun/Energy/Electricity/Voltage
-#: objects/FS/function.c:1087
+#: objects/FS/function.c:1088
 msgid "Voltage"
 msgstr "Vôn"
 
 #. Translators: Menu item Noun/Energy/Electricity/Current
-#: objects/FS/function.c:1089
+#: objects/FS/function.c:1090
 msgid "Current"
 msgstr "Dòng điện"
 
 #. Translators: Menu item Noun/Energy/Hydraulic
-#: objects/FS/function.c:1091
+#: objects/FS/function.c:1092
 msgid "Hydraulic"
 msgstr "Nước"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Pressure
-#: objects/FS/function.c:1093
+#: objects/FS/function.c:1094
 msgid "Pressure"
 msgstr "Áp suất"
 
 #. Translators: Menu item Noun/Energy/Hydraulic/Volumetric Flow
-#: objects/FS/function.c:1095
+#: objects/FS/function.c:1096
 msgid "Volumetric Flow"
 msgstr ""
 
 #. Translators: Menu item Noun/Energy/Thermal
-#: objects/FS/function.c:1097
+#: objects/FS/function.c:1098
 msgid "Thermal"
 msgstr "Nhiệt"
 
 #. Translators: Menu item Noun/Energy/Thermal/Heat
-#: objects/FS/function.c:1099
+#: objects/FS/function.c:1100
 msgid "Heat"
 msgstr "Sức nóng"
 
 #. Translators: Menu item Noun/Energy/Thermal/Conduction
-#: objects/FS/function.c:1101
+#: objects/FS/function.c:1102
 msgid "Conduction"
 msgstr "Dẫn điện"
 
 #. Translators: Menu item Noun/Energy/Thermal/Convection
-#: objects/FS/function.c:1103
+#: objects/FS/function.c:1104
 msgid "Convection"
 msgstr "Đối lưu"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
-#: objects/FS/function.c:1105 objects/FS/function.c:1113
+#: objects/FS/function.c:1106 objects/FS/function.c:1114
 msgid "Radiation"
 msgstr "Phát xạ"
 
 #. Translators: Menu item Noun/Energy/Pneumatic
-#: objects/FS/function.c:1107
+#: objects/FS/function.c:1108
 msgid "Pneumatic"
 msgstr "Khí"
 
 #. Translators: Menu item Noun/Energy/Chemical
-#: objects/FS/function.c:1109
+#: objects/FS/function.c:1110
 msgid "Chemical"
 msgstr "Hoá học"
 
 #. Translators: Menu item Noun/Energy/Radioactive
-#: objects/FS/function.c:1111
+#: objects/FS/function.c:1112
 msgid "Radioactive"
 msgstr ""
 
 #. Translators: Menu item Noun/Energy/Radioactive/Microwaves
-#: objects/FS/function.c:1115
+#: objects/FS/function.c:1116
 msgid "Microwaves"
 msgstr "Sóng siêu âm"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Radio waves
-#: objects/FS/function.c:1117
+#: objects/FS/function.c:1118
 msgid "Radio waves"
 msgstr "Sóng radio"
 
 #. Translators: Menu item Noun/Energy/Radioactive/X-Rays
-#: objects/FS/function.c:1119
+#: objects/FS/function.c:1120
 msgid "X-Rays"
 msgstr "Tia X"
 
 #. Translators: Menu item Noun/Energy/Radioactive/Gamma Rays
-#: objects/FS/function.c:1121
+#: objects/FS/function.c:1122
 msgid "Gamma Rays"
 msgstr "Tia Gamma"
 
 #. Translators: Menu item Noun/Energy/Acoustic Energy
-#: objects/FS/function.c:1123
+#: objects/FS/function.c:1124
 msgid "Acoustic Energy"
 msgstr "Năng lượng âm thanh"
 
 #. Translators: Menu item Noun/Energy/Optical Energy
-#: objects/FS/function.c:1125
+#: objects/FS/function.c:1126
 msgid "Optical Energy"
 msgstr "Quang năng"
 
 #. Translators: Menu item Noun/Energy/Solar Energy
-#: objects/FS/function.c:1127
+#: objects/FS/function.c:1128
 msgid "Solar Energy"
 msgstr "Năng lượng mặt trời"
 
 #. Translators: Menu item Noun/Energy/Magnetic Energy
-#: objects/FS/function.c:1129
+#: objects/FS/function.c:1130
 msgid "Magnetic Energy"
 msgstr "Từ năng"
 
 #. Translators: Menu item Noun/Energy/Human/Human Motion
-#: objects/FS/function.c:1133
+#: objects/FS/function.c:1134
 msgid "Human Motion"
 msgstr "Chuyển động người"
 
 #. Translators: Menu item Noun/Energy/Human/Human Force
-#: objects/FS/function.c:1135
+#: objects/FS/function.c:1136
 msgid "Human Force"
 msgstr "Lực người"
 
 #. Translators: Menu item Noun/Signal/Status
-#: objects/FS/function.c:1141
+#: objects/FS/function.c:1142
 msgid "Status"
 msgstr "Trạng thái"
 
-#: objects/FS/function.c:1145
+#: objects/FS/function.c:1146
 msgid "User/Device Fn"
 msgstr ""
 
-#: objects/FS/function.c:1146
+#: objects/FS/function.c:1147
 msgid "Wish Fn"
 msgstr ""
 
@@ -3658,7 +3659,7 @@ msgstr "Màu của điều kiện"
 
 #: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
-msgstr "Đối tượng biểu đồ GRAFCET"
+msgstr "Đối tượng sơ đồ GRAFCET"
 
 #: objects/GRAFCET/step.c:145
 msgid "Regular step"
@@ -3752,30 +3753,54 @@ msgstr "VÀ"
 msgid "Vergent type:"
 msgstr ""
 
-#: objects/GRAFCET/vergent.c:389 objects/SADT/box.c:438
+#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:439
 #: objects/standard/line.c:181
 msgid "Add connection point"
 msgstr "Thêm điểm nối"
 
-#: objects/GRAFCET/vergent.c:390
+#: objects/GRAFCET/vergent.c:391
 msgid "Delete  connection point"
 msgstr "Xoá điểm nối"
 
-#: objects/GRAFCET/vergent.c:394
+#: objects/GRAFCET/vergent.c:395
 msgid "GRAFCET OR/AND vergent"
 msgstr ""
 
-#: objects/network/bus.c:591
-msgid "Add Handle"
-msgstr ""
+#: objects/Misc/analog_clock.c:136
+msgid "Arrow colour"
+msgstr "Màu mũi tên"
+
+#: objects/Misc/analog_clock.c:138
+msgid "Arrow line width"
+msgstr "Bề rông đường mũi tên"
+
+#: objects/Misc/analog_clock.c:140
+msgid "Seconds arrow colour"
+msgstr "Màu mũi tên thứ hai"
+
+#: objects/Misc/analog_clock.c:142
+msgid "Seconds arrow line width"
+msgstr "Bề rông đường mũi tên thứ hai"
+
+#: objects/Misc/analog_clock.c:144
+msgid "Show hours"
+msgstr "Hiện giờ"
+
+#: objects/Misc/libmisc.c:38
+msgid "Miscellaneous objects"
+msgstr "Đối tượng linh tinh"
 
 #: objects/network/bus.c:592
+msgid "Add Handle"
+msgstr "Thêm handle"
+
+#: objects/network/bus.c:593
 msgid "Delete Handle"
-msgstr ""
+msgstr "Xóa handle"
 
 #: objects/network/network.c:41
 msgid "Network diagram objects"
-msgstr "Đối tượng biểu đồ Mạng"
+msgstr "Đối tượng sơ đồ Mạng"
 
 #. property rows
 #: objects/SADT/arrow.c:133 objects/UML/class_dialog.c:333
@@ -3812,7 +3837,7 @@ msgid ""
 "rendered gray"
 msgstr ""
 
-#: objects/SADT/arrow.c:554
+#: objects/SADT/arrow.c:557
 msgid "SADT Arrow"
 msgstr "Mũi tên SADT"
 
@@ -3824,39 +3849,39 @@ msgstr "Định danh hoạt động/dữ liệu"
 msgid "The identifier which appears in the lower right corner of the Box"
 msgstr "Định danh xuất hiện bên gói trái-dưới của hộp"
 
-#: objects/SADT/box.c:439 objects/standard/line.c:182
+#: objects/SADT/box.c:440 objects/standard/line.c:182
 msgid "Delete connection point"
 msgstr "Xoá điểm nối"
 
-#: objects/SADT/box.c:444
+#: objects/SADT/box.c:445
 msgid "SADT box"
 msgstr "Hộp SADT"
 
 #: objects/SADT/sadt.c:41
 msgid "SADT diagram objects"
-msgstr "Đối tượng biểu đồ SADT"
+msgstr "Đối tượng sơ đồ SADT"
 
 #: objects/standard/arc.c:130
 msgid "Curve distance"
 msgstr "Khoảng cách cong"
 
-#: objects/standard/bezier.c:533 objects/standard/beziergon.c:490
+#: objects/standard/bezier.c:534 objects/standard/beziergon.c:492
 msgid "Add Segment"
 msgstr "Thêm đoạn"
 
-#: objects/standard/bezier.c:534 objects/standard/beziergon.c:491
+#: objects/standard/bezier.c:535 objects/standard/beziergon.c:493
 msgid "Delete Segment"
 msgstr "Xoá đoạn"
 
-#: objects/standard/bezier.c:536 objects/standard/beziergon.c:493
+#: objects/standard/bezier.c:537 objects/standard/beziergon.c:495
 msgid "Symmetric control"
 msgstr "Điều khiển đối xứng"
 
-#: objects/standard/bezier.c:538 objects/standard/beziergon.c:495
+#: objects/standard/bezier.c:539 objects/standard/beziergon.c:497
 msgid "Smooth control"
 msgstr "Điều khiển mượt"
 
-#: objects/standard/bezier.c:540 objects/standard/beziergon.c:497
+#: objects/standard/bezier.c:541 objects/standard/beziergon.c:499
 msgid "Cusp control"
 msgstr "Điều khiển nhọn"
 
@@ -3873,7 +3898,7 @@ msgid "Keep aspect ratio"
 msgstr "Giữ tỷ lệ"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:662 objects/standard/image.c:673
+#: objects/standard/image.c:663 objects/standard/image.c:674
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -3883,7 +3908,7 @@ msgstr ""
 "dùng tập tin '%s' thay thế\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:679 objects/standard/image.c:705
+#: objects/standard/image.c:680 objects/standard/image.c:706
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Không tìm thấy tập tin ảnh '%s'.\n"
@@ -3896,11 +3921,11 @@ msgstr "Điểm đầu"
 msgid "End point"
 msgstr "Điểm kết"
 
-#: objects/standard/polygon.c:451 objects/standard/polyline.c:487
+#: objects/standard/polygon.c:452 objects/standard/polyline.c:488
 msgid "Add Corner"
 msgstr "Thêm góc"
 
-#: objects/standard/polygon.c:452 objects/standard/polyline.c:488
+#: objects/standard/polygon.c:453 objects/standard/polyline.c:489
 msgid "Delete Corner"
 msgstr "Xoá góc"
 
@@ -3910,54 +3935,54 @@ msgstr "Đối tượng chuẩn"
 
 #. choose default font name for your locale. see also font_data structure
 #. in lib/font.c.
-#: objects/UML/activity.c:298
+#: objects/UML/activity.c:299
 msgid "Helvetica"
 msgstr "Helvetica"
 
-#: objects/UML/actor.c:331 objects/UML/actor.c:333
+#: objects/UML/actor.c:332 objects/UML/actor.c:334
 msgid "Actor"
-msgstr ""
+msgstr "Diễn viên"
 
-#: objects/UML/association.c:1060 objects/UML/class_dialog.c:2070
+#: objects/UML/association.c:1061 objects/UML/class_dialog.c:2070
 msgid "Direction:"
 msgstr "Hướng"
 
-#: objects/UML/association.c:1077
+#: objects/UML/association.c:1078
 msgid "From A to B"
 msgstr "Từ A sang B"
 
-#: objects/UML/association.c:1084
+#: objects/UML/association.c:1085
 msgid "From B to A"
 msgstr "Từ B sang A"
 
-#: objects/UML/association.c:1108 objects/UML/association.c:1116
+#: objects/UML/association.c:1109 objects/UML/association.c:1117
 msgid "Side A"
 msgstr "Mặt A"
 
-#: objects/UML/association.c:1110 objects/UML/association.c:1118
+#: objects/UML/association.c:1111 objects/UML/association.c:1119
 msgid "Side B"
 msgstr "Mặt B"
 
-#: objects/UML/association.c:1124
+#: objects/UML/association.c:1125
 msgid "Role:"
 msgstr "Vai trò:"
 
-#: objects/UML/association.c:1136
+#: objects/UML/association.c:1137
 msgid "Multiplicity:"
 msgstr "Vô số:"
 
 #. Show arrow:
-#: objects/UML/association.c:1147
+#: objects/UML/association.c:1148
 msgid "Show arrow"
 msgstr "Hiện mũi tên"
 
 #. Aggregate
-#: objects/UML/association.c:1153
+#: objects/UML/association.c:1154
 msgid "Aggregate"
 msgstr ""
 
 #. Composition
-#: objects/UML/association.c:1161
+#: objects/UML/association.c:1162
 msgid "Composition"
 msgstr ""
 
@@ -3994,24 +4019,22 @@ msgid "Visible Operations"
 msgstr "Thao tác khả kiến"
 
 #: objects/UML/class.c:121
-#, fuzzy
 msgid "Visible Comments"
-msgstr "Thao tác khả kiến"
+msgstr "Ghi chú visible"
 
 #: objects/UML/class.c:127
 msgid "Template"
 msgstr "Mẫu"
 
 #. Class page:
-#: objects/UML/class.c:172 objects/UML/class.c:918
+#: objects/UML/class.c:172 objects/UML/class.c:919
 #: objects/UML/class_dialog.c:255
 msgid "Class"
 msgstr "Lớp"
 
 #: objects/UML/class.c:178
-#, fuzzy
 msgid "Show comments"
-msgstr "Ghi chú"
+msgstr "Hiện ghi chú"
 
 #: objects/UML/class_dialog.c:261
 msgid "Class name:"
@@ -4025,7 +4048,6 @@ msgstr ""
 
 #: objects/UML/class_dialog.c:281 objects/UML/class_dialog.c:901
 #: objects/UML/class_dialog.c:1934 objects/UML/class_dialog.c:2058
-#, fuzzy
 msgid "Comment:"
 msgstr "Ghi chú"
 
@@ -4042,34 +4064,29 @@ msgid "Suppress operations"
 msgstr "Bỏ quả thao tác"
 
 #: objects/UML/class_dialog.c:314
-#, fuzzy
 msgid "Comments visible"
-msgstr "Thao tác khả kiến"
+msgstr ""
 
 #. head line
 #: objects/UML/class_dialog.c:324
 msgid "Kind"
-msgstr ""
+msgstr "Loại"
 
 #: objects/UML/class_dialog.c:329
-#, fuzzy
 msgid "Size"
-msgstr "Cỡ X:"
+msgstr "Kích thước"
 
 #: objects/UML/class_dialog.c:338
-#, fuzzy
 msgid "Polymorphic"
-msgstr "Đa hình (ảo)"
+msgstr "Đa hình"
 
 #: objects/UML/class_dialog.c:348
-#, fuzzy
 msgid "Class Name"
-msgstr "Tên lớp:"
+msgstr "Tên lớp"
 
 #: objects/UML/class_dialog.c:353
-#, fuzzy
 msgid "Abstract Class"
-msgstr "Font tên lớp ảo"
+msgstr "Lớp ảo"
 
 #. should probably be refactored too.
 #: objects/UML/class_dialog.c:370
@@ -4220,21 +4237,21 @@ msgstr "Giao diện:"
 
 #: objects/UML/lifeline.c:137
 msgid "Draw focus of control:"
-msgstr ""
+msgstr "Vẽ focus của điều khiển:"
 
 #: objects/UML/lifeline.c:139
 msgid "Draw destruction mark:"
-msgstr ""
+msgstr "Vẽ dấu hủy:"
 
-#: objects/UML/lifeline.c:402
+#: objects/UML/lifeline.c:403
 msgid "Add connection points"
 msgstr "Thêm điểm nối"
 
-#: objects/UML/lifeline.c:403
+#: objects/UML/lifeline.c:404
 msgid "Remove connection points"
 msgstr "Loại bỏ điểm nối"
 
-#: objects/UML/lifeline.c:407
+#: objects/UML/lifeline.c:408
 msgid "UML Lifeline"
 msgstr ""
 
@@ -4276,7 +4293,7 @@ msgstr "Loại thông điệp:"
 
 #: objects/UML/object.c:145
 msgid "Explicit state"
-msgstr ""
+msgstr "Trạng thái tường minh"
 
 #: objects/UML/object.c:150
 msgid "Active object"
@@ -4292,21 +4309,23 @@ msgstr "Đa thể hiện"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:381
+#: objects/UML/state.c:382
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "That option will go away in future versions.\n"
 "Please use the Initial/Final State object instead\n"
 msgstr ""
+"Sơ đồ này dùng Đối tượng Trạng thái cho các trạng thái đầu/cuối.\n"
+"Tùy chọn này sẽ biến mất trong các phiên bản sau.\n"
+"Vui lòng dùng Đối tượng Trạng thái Đầu/Cuối.\n"
 
 #: objects/UML/state_term.c:121
-#, fuzzy
 msgid "Is final"
-msgstr "Lá (kết thúc)"
+msgstr "Trạng thái cuối"
 
 #: objects/UML/uml.c:63
 msgid "Unified Modelling Language diagram objects"
-msgstr "Đối tượng biểu đồ UML"
+msgstr "Đối tượng sơ đồ UML"
 
 #: objects/UML/usecase.c:124
 msgid "Text outside"
@@ -4316,381 +4335,382 @@ msgstr "Text bên ngoài"
 msgid "Collaboration"
 msgstr "Cộng tác"
 
-#: plug-ins/cgm/cgm.c:1106
+#: plug-ins/cgm/cgm.c:1108
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
+"Bề rộng ảnh lớn hơn maximum cell array.\n"
+"Ảnh không được xuất ra CGM."
 
-#: plug-ins/cgm/cgm.c:1285
+#: plug-ins/cgm/cgm.c:1364
 msgid "Computer Graphics Metafile"
-msgstr ""
+msgstr "Computer Graphics Metafile (CMF)"
 
-#: plug-ins/cgm/cgm.c:1299
+#: plug-ins/cgm/cgm.c:1378
 msgid "Computer Graphics Metafile export filter"
-msgstr ""
+msgstr "Bộ lọc xuất Computer Graphics Metafile (CMF)"
 
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
-msgstr ""
+msgstr "Bộ lọc nhập xuất Drawing Interchange File (DXF)"
 
-#: plug-ins/dxf/dxf-export.c:569 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:522 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
-msgstr ""
+msgstr "Drawing Interchange File (DXF)"
 
 #: plug-ins/dxf/dxf-import.c:481 plug-ins/dxf/dxf-import.c:498
 msgid "Bad vertex bulge\n"
 msgstr ""
 
 #: plug-ins/dxf/dxf-import.c:1051
-#, fuzzy, c-format
+#, c-format
 msgid "Scale: %f\n"
-msgstr "Tỷ lệ:"
+msgstr "Tỷ lệ: %f\n"
 
 #: plug-ins/dxf/dxf-import.c:1313
 msgid "read_dxf_codes failed\n"
-msgstr ""
+msgstr "read_dxf_codes thất bại\n"
 
 #: plug-ins/dxf/dxf-import.c:1345
 #, c-format
 msgid "Unknown dxf code %d\n"
-msgstr ""
+msgstr "Mã dxf lạ %d\n"
 
-#: plug-ins/hpgl/hpgl.c:619
+#: plug-ins/hpgl/hpgl.c:771
+msgid "HP Graphics Language"
+msgstr "Ngôn ngữ đồ họa HP (HPGL)"
+
+#: plug-ins/hpgl/hpgl.c:785
 msgid "HP Graphics Language export filter"
-msgstr ""
+msgstr "Bộ lọc xuất HP Graphics Language (HPGL)"
 
 #: plug-ins/metapost/metapost.c:34
 msgid "TeX Metapost export filter"
-msgstr ""
+msgstr "Bộ lọc TeX Metapost"
 
-#: plug-ins/metapost/render_metapost.c:733
+#: plug-ins/metapost/render_metapost.c:793
 msgid "TeX Metapost macros"
-msgstr ""
+msgstr "Macro TeX Metapost"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
-msgstr ""
+msgstr "Bộ lọc xuất TeX Pstricks"
 
-#: plug-ins/pstricks/render_pstricks.c:773
+#: plug-ins/pstricks/render_pstricks.c:827
 msgid "TeX PSTricks macros"
-msgstr ""
+msgstr "Macro TeX PSTrichks"
 
-#: plug-ins/python/python.c:73
+#: plug-ins/python/python.c:92
 msgid "Python scripting support"
-msgstr ""
+msgstr "Hỗ trợ script Python"
 
 #: plug-ins/shape/shape.c:36
 msgid "dia shape export filter"
-msgstr ""
+msgstr "bộ lọc xuất hình dia"
 
-#: plug-ins/shape/shape-export.c:949
+#: plug-ins/shape/shape-export.c:470
 msgid "Can't export png without libart!"
-msgstr ""
+msgstr "Không thể xuất ra dạng PNG mà không có libart!"
 
-#: plug-ins/shape/shape-export.c:976
+#: plug-ins/shape/shape-export.c:497
 msgid "dia shape file"
-msgstr ""
+msgstr "tập tin hình DIA"
 
-#: plug-ins/svg/render_svg.c:959 plug-ins/svg/svg-import.c:633
+#: plug-ins/svg/render_svg.c:294 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "Scalable Vector Graphics (SVG)"
 
-#: plug-ins/svg/svg.c:39
+#: plug-ins/svg/svg.c:37
 msgid "Scalable Vector Graphics import and export filters"
-msgstr ""
+msgstr "Bộ lọc nhập xuất ảnh Scalable Vector Graphics (SVG)"
 
-#: plug-ins/svg/svg-import.c:200 plug-ins/svg/svg-import.c:214
-#: plug-ins/xfig/xfig-import.c:98 plug-ins/xfig/xfig-import.c:149
-#: plug-ins/xfig/xfig-import.c:178 plug-ins/xfig/xfig-import.c:206
-#: plug-ins/xfig/xfig-import.c:232 plug-ins/xfig/xfig-import.c:257
-#: plug-ins/xfig/xfig-import.c:283 plug-ins/xfig/xfig-import.c:314
-#: plug-ins/xfig/xfig-import.c:350
-#, fuzzy
+#: plug-ins/svg/svg-import.c:204 plug-ins/svg/svg-import.c:218
+#: plug-ins/xfig/xfig-import.c:97 plug-ins/xfig/xfig-import.c:148
+#: plug-ins/xfig/xfig-import.c:177 plug-ins/xfig/xfig-import.c:205
+#: plug-ins/xfig/xfig-import.c:231 plug-ins/xfig/xfig-import.c:256
+#: plug-ins/xfig/xfig-import.c:282 plug-ins/xfig/xfig-import.c:313
+#: plug-ins/xfig/xfig-import.c:349
 msgid "Can't find standard object"
-msgstr "Đối tượng chuẩn"
+msgstr "Không thể tìm thấy đối tượng chuẩn"
 
-#: plug-ins/svg/svg-import.c:226
+#: plug-ins/svg/svg-import.c:230
 msgid "Unexpected SVG path element"
-msgstr ""
+msgstr "Phần tử đường dẫn SVG không mong đợi"
 
-#: plug-ins/svg/svg-import.c:281
+#: plug-ins/svg/svg-import.c:288
 msgid "Courier"
 msgstr "Courier"
 
-#: plug-ins/svg/svg-import.c:582
-#, fuzzy
+#: plug-ins/svg/svg-import.c:591
 msgid "Could not find SVG namespace."
-msgstr "Không thể tìm thấy thư mục trợ giúp"
+msgstr "Không thể tìm thấy SVG namespace."
 
-#: plug-ins/svg/svg-import.c:588
+#: plug-ins/svg/svg-import.c:597
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
-msgstr ""
+msgstr "Phần tử gốc là '%s' -- trong khi lẽ ra phải là 'svg'."
 
-#: plug-ins/wmf/wmf.cpp:957
+#: plug-ins/wmf/wmf.cpp:1089
 msgid "Windows Meta File"
 msgstr ""
 
-#: plug-ins/wmf/wmf.cpp:971
+#: plug-ins/wmf/wmf.cpp:1103
 msgid "WMF export filter"
-msgstr ""
+msgstr "Bộ lọc xuất WMF"
 
-#: plug-ins/wpg/wpg.c:1056
+#: plug-ins/wpg/wpg.c:1180
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "Tập tin: loại/phiên bản %s không được hỗ trợ.\n"
 
-#: plug-ins/wpg/wpg.c:1205
+#: plug-ins/wpg/wpg.c:1310 plug-ins/wpg/wpg.c:1317
+msgid "WPG"
+msgstr "WPG"
+
+#: plug-ins/wpg/wpg.c:1331
 msgid "WordPerfect Graphics export filter"
-msgstr ""
+msgstr "Bộ lọc xuất WordPerfect Graphics"
 
 #: plug-ins/xfig/xfig.c:39
 msgid "Fig Format import and export filter"
-msgstr ""
+msgstr "Bộ lọc nhập xuất FIG"
 
-#: plug-ins/xfig/xfig-export.c:372
+#: plug-ins/xfig/xfig-export.c:399
 msgid "No more user-definable colors - using black"
-msgstr ""
+msgstr "Không còn màu tự định nghĩa - dùng màu đen"
 
-#: plug-ins/xfig/xfig-export.c:806
+#: plug-ins/xfig/xfig-export.c:918
 msgid "XFig format"
-msgstr ""
+msgstr "Dạng thức XFig"
 
-#: plug-ins/xfig/xfig-import.c:416
+#: plug-ins/xfig/xfig-import.c:418
 msgid "Patterns are not supported by Dia"
-msgstr ""
+msgstr "Mẫu chưa được hỗ trợ"
 
-#: plug-ins/xfig/xfig-import.c:444
+#: plug-ins/xfig/xfig-import.c:446
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr ""
+msgstr "Đường ba chấm chưa được hỗ trợ, hãy dùng đường hai chấm"
 
-#: plug-ins/xfig/xfig-import.c:448
+#: plug-ins/xfig/xfig-import.c:450
 #, c-format
 msgid "Line style %d should not appear\n"
-msgstr ""
+msgstr "Loại đường %d không nên xuất hiện\n"
 
-#: plug-ins/xfig/xfig-import.c:516
+#: plug-ins/xfig/xfig-import.c:518
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
-msgstr ""
+msgstr "Lỗi đọc điểm thứ %d trên %d: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:535
+#: plug-ins/xfig/xfig-import.c:537
 msgid "Error while reading arrowhead\n"
-msgstr ""
+msgstr "Lỗi đọc đầu mũi tên\n"
 
-#: plug-ins/xfig/xfig-import.c:626
+#: plug-ins/xfig/xfig-import.c:628
 #, c-format
 msgid "Couldn't read ellipse info: %s\n"
-msgstr ""
+msgstr "Không thể đọc thông tin êlíp: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:694
+#: plug-ins/xfig/xfig-import.c:696
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
-msgstr ""
+msgstr "Không thể đọc thông tin đa giác: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:709
+#: plug-ins/xfig/xfig-import.c:711
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
-msgstr ""
+msgstr "Không thể đọc flipped bit: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:727
+#: plug-ins/xfig/xfig-import.c:729
 msgid "Negative corner radius, negating"
-msgstr ""
+msgstr "Bán kính góc âm. Đảo dấu lại."
 
-#: plug-ins/xfig/xfig-import.c:768 plug-ins/xfig/xfig-import.c:1005
+#: plug-ins/xfig/xfig-import.c:770 plug-ins/xfig/xfig-import.c:1007
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
-msgstr ""
+msgstr "Loại đa giác con lạ: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:863 plug-ins/xfig/xfig-import.c:895
-#, fuzzy, c-format
+#: plug-ins/xfig/xfig-import.c:865 plug-ins/xfig/xfig-import.c:897
+#, c-format
 msgid "Couldn't read spline info: %s\n"
-msgstr ""
-"Không thể nạp plugin `%s'\n"
-"%s"
+msgstr "Không thể đọc thông tin spline: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:882 plug-ins/xfig/xfig-import.c:900
+#: plug-ins/xfig/xfig-import.c:884 plug-ins/xfig/xfig-import.c:902
 msgid "Cannot convert approximated spline yet."
-msgstr ""
+msgstr "Chưa thể chuyển đổi spline xấp xỉ."
 
-#: plug-ins/xfig/xfig-import.c:921
+#: plug-ins/xfig/xfig-import.c:923
 #, c-format
 msgid "Unknown spline subtype: %d\n"
-msgstr ""
+msgstr "Kiểu phụ spline lạ: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:982
+#: plug-ins/xfig/xfig-import.c:984
 #, c-format
 msgid "Couldn't read arc info: %s\n"
-msgstr ""
+msgstr "Không thể đọc thông tin arc: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1066
+#: plug-ins/xfig/xfig-import.c:1068
 #, c-format
 msgid "Couldn't read text info: %s\n"
-msgstr ""
+msgstr "Không thể đọc thông tin chữ: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1107
+#: plug-ins/xfig/xfig-import.c:1109
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
-msgstr ""
+msgstr "Không thể định vị đối tượng FIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1114
+#: plug-ins/xfig/xfig-import.c:1116
 msgid "Compound end outside compound\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1133
+#: plug-ins/xfig/xfig-import.c:1135
 #, c-format
 msgid "Couldn't read color: %s\n"
-msgstr ""
+msgstr "Không thể đọc màu: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1178
+#: plug-ins/xfig/xfig-import.c:1180
 #, c-format
 msgid "Couldn't read group extend: %s\n"
-msgstr ""
+msgstr "Không thể đọc phạm vi nhóm: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1189
+#: plug-ins/xfig/xfig-import.c:1191
 #, c-format
 msgid "Unknown object type %d\n"
-msgstr ""
+msgstr "Loại đối tượng lạ %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1212
+#: plug-ins/xfig/xfig-import.c:1214
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
-msgstr ""
+msgstr "`%s' không phải là `%s' cũng như `%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:1222
+#: plug-ins/xfig/xfig-import.c:1224
 #, c-format
 msgid "Error reading paper size: %s\n"
-msgstr ""
+msgstr "Lỗi đọc kích thước giấy: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1232
+#: plug-ins/xfig/xfig-import.c:1234
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
-msgstr ""
+msgstr "Cỡ giấy lạ `%s', hãy dùng mặc định\n"
 
-#: plug-ins/xfig/xfig-import.c:1244
+#: plug-ins/xfig/xfig-import.c:1246
 #, c-format
 msgid "Error reading paper orientation: %s\n"
-msgstr ""
+msgstr "Lỗi đọc hướng giấy: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1254
+#: plug-ins/xfig/xfig-import.c:1256
 #, c-format
 msgid "Error reading justification: %s\n"
-msgstr ""
+msgstr "Lỗi đọc justification: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1264
+#: plug-ins/xfig/xfig-import.c:1266
 #, c-format
 msgid "Error reading units: %s\n"
-msgstr ""
+msgstr "Lỗi đọc đơn vị: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1278
+#: plug-ins/xfig/xfig-import.c:1280
 #, c-format
 msgid "Error reading magnification: %s\n"
-msgstr ""
+msgstr "Lỗi đọc magnification: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1289
+#: plug-ins/xfig/xfig-import.c:1291
 #, c-format
 msgid "Error reading multipage indicator: %s\n"
-msgstr ""
+msgstr "Lỗi đọc multipage indicator: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1300
+#: plug-ins/xfig/xfig-import.c:1302
 #, c-format
 msgid "Error reading transparent color: %s\n"
-msgstr ""
-
-#: plug-ins/xfig/xfig-import.c:1309 plug-ins/xfig/xfig-import.c:1364
-#, c-format
-msgid "Error reading FIG file: %s\n"
-msgstr ""
+msgstr "Lỗi đọc màu trong suốt %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1311 plug-ins/xfig/xfig-import.c:1366
-msgid "Premature end of FIG file\n"
-msgstr ""
+#, c-format
+msgid "Error reading FIG file: %s\n"
+msgstr "Lỗi đọc tập ti nFIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1320
+#: plug-ins/xfig/xfig-import.c:1313 plug-ins/xfig/xfig-import.c:1368
+msgid "Premature end of FIG file\n"
+msgstr "Tập tin FIG kết thúc không bình thường\n"
+
+#: plug-ins/xfig/xfig-import.c:1322
 #, c-format
 msgid "Error reading resolution: %s\n"
-msgstr ""
+msgstr "Lỗi đọc độ phân giải: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1351
+#: plug-ins/xfig/xfig-import.c:1353
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
-msgstr ""
+msgstr "Trong không giống tập tin FIG: %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1357
+#: plug-ins/xfig/xfig-import.c:1359
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
-msgstr ""
+msgstr "Đây là tập tin FIG phiên bản %d.%d, nhưng không thể hiểu nó\n"
 
-#: plug-ins/xfig/xfig-import.c:1398
+#: plug-ins/xfig/xfig-import.c:1400
 msgid "XFig File Format"
-msgstr ""
+msgstr "Dạng thức XFig"
 
 #: plug-ins/xslt/xslt.c:73
 msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-msgstr ""
+msgstr "Chưa đặt DIA_PLUGIN_PATH. Không thể dùng stylesheet.\n"
 
 #: plug-ins/xslt/xslt.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "Error while parsing %s\n"
-msgstr "Xảy ra lỗi khi đang in"
+msgstr "Lỗi phân tích %s\n"
 
 #: plug-ins/xslt/xslt.c:108 plug-ins/xslt/xslt.c:114
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
-msgstr ""
+msgstr "Lỗi phân tích stylesheet %s\n"
 
 #: plug-ins/xslt/xslt.c:126
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
-msgstr ""
+msgstr "Lỗi phân tích stylesheet: %s\n"
 
 #: plug-ins/xslt/xslt.c:134
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
-msgstr ""
+msgstr "Lỗi áp dụng stylesheet: %s\n"
 
 #: plug-ins/xslt/xslt.c:182
-#, fuzzy
 msgid "XSL Transformation filter"
-msgstr "Tập tin giao dịch"
+msgstr "Bộ lọc XSLT"
 
 #: plug-ins/xslt/xslt.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "Could not load XSLT library (%s) : %s"
-msgstr ""
-"Không thể nạp plugin `%s'\n"
-"%s"
+msgstr "Không thể nạp thư viện XSLT (%s) : %s"
 
 #: plug-ins/xslt/xslt.c:211
 msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
-msgstr ""
+msgstr "Không thể nạp plugin XSLT: chưa đặt DIA_PLUGIN_PATH."
 
 #: plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
-msgstr ""
+msgstr "Xuất thông qua XSLT"
 
 #: plug-ins/xslt/xsltdialog.c:114
-#, fuzzy
 msgid "From:"
-msgstr "Dòng chảy:"
+msgstr "Từ:"
 
 #: plug-ins/xslt/xsltdialog.c:149
-#, fuzzy
 msgid "To:"
-msgstr "Đỉnh:"
+msgstr "Tới:"
 
 #: sheets/Assorted.sheet.in.h:1
 msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
-msgstr ""
+msgstr "Bộ sưu tập phân loại các đa giác, beziergon và các hình linh tinh khác"
 
 #: sheets/Assorted.sheet.in.h:2
 msgid "Assorted"
-msgstr ""
+msgstr "Phân loại"
 
 #: sheets/Assorted.sheet.in.h:3
 msgid "Chevron"
@@ -4698,78 +4718,71 @@ msgstr ""
 
 #: sheets/Assorted.sheet.in.h:4
 msgid "Curved Eight Point Star"
-msgstr ""
+msgstr "Sao tám cánh cong"
 
 #: sheets/Assorted.sheet.in.h:5
 msgid "Curved Four Point Star"
-msgstr ""
+msgstr "Sao bốn cánh cong"
 
 #: sheets/Assorted.sheet.in.h:6
-#, fuzzy
 msgid "Diamond"
-msgstr "Kim cương đặc"
+msgstr "Kim cương"
 
 #: sheets/Assorted.sheet.in.h:7
-#, fuzzy
 msgid "Down Arrow"
-msgstr "Hiện mũi tên"
+msgstr "Mũi tên xuống"
 
 #: sheets/Assorted.sheet.in.h:8
 msgid "Eight Point Star"
-msgstr ""
+msgstr "Sao tám cánh"
 
 #: sheets/Assorted.sheet.in.h:9
 msgid "Four Point Star"
-msgstr ""
+msgstr "Sao bốn cánh"
 
 #: sheets/Assorted.sheet.in.h:10
-#, fuzzy
 msgid "Heart"
-msgstr "Sức nóng"
+msgstr "Trái tim"
 
 #: sheets/Assorted.sheet.in.h:11
 msgid "Heptagon. Seven Sided Shape"
-msgstr ""
+msgstr "Hình heptagon bảy mặt"
 
 #: sheets/Assorted.sheet.in.h:12
 msgid "Hexagon. Six Sided Shape"
-msgstr ""
+msgstr "Hình Hexagon sáu mặt"
 
 #: sheets/Assorted.sheet.in.h:13
-#, fuzzy
 msgid "Horizontal Parallelogram"
-msgstr "Jumper ngang"
+msgstr "Hình bình hành ngang"
 
 #: sheets/Assorted.sheet.in.h:14
-#, fuzzy
 msgid "Isoceles Triangle"
-msgstr "Tam giá rỗng"
+msgstr "Tam giá cân"
 
 #: sheets/Assorted.sheet.in.h:15
-#, fuzzy
 msgid "Left Arrow"
-msgstr "Mũi tên SADT"
+msgstr "Mũi tên trái"
 
 #: sheets/Assorted.sheet.in.h:16
 msgid "Left-Right Arrow"
-msgstr ""
+msgstr "Mũi tên Trái-Phải"
 
 #: sheets/Assorted.sheet.in.h:17
 msgid "Left-Right-Up Arrow"
-msgstr ""
+msgstr "Mũi tên Trái-Phải-Lên"
 
 #: sheets/Assorted.sheet.in.h:18
 msgid "Left-Up Arrow"
-msgstr ""
+msgstr "Mũi tên Trái-Lên"
 
 #: sheets/Assorted.sheet.in.h:19
 msgid "Maltese Cross"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:20
-#, fuzzy
 msgid "Notched Left Arrow"
-msgstr "Mũi tên chấm"
+msgstr ""
 
 #: sheets/Assorted.sheet.in.h:21
 msgid "Notched Right Arrow"
@@ -4777,90 +4790,83 @@ msgstr ""
 
 #: sheets/Assorted.sheet.in.h:22
 msgid "Octogon. Eight Sided Shape"
-msgstr ""
+msgstr "Hình Octogon tám cạnh"
 
 #: sheets/Assorted.sheet.in.h:23
 msgid "Pentagon Block Arrow"
-msgstr ""
+msgstr "Mũi tên khối pentagon"
 
 #: sheets/Assorted.sheet.in.h:24
 msgid "Pentagon. Five Sided Shape"
-msgstr ""
+msgstr "Hình Pentagon năm cạnh"
 
 #: sheets/Assorted.sheet.in.h:25
 msgid "Perfect Circle"
-msgstr ""
+msgstr "Vòng tròn"
 
 #: sheets/Assorted.sheet.in.h:26
 msgid "Perfect Square, Height equals Width"
-msgstr ""
+msgstr "Hình vuông"
 
 #: sheets/Assorted.sheet.in.h:27
-#, fuzzy
 msgid "Quad Arrow"
-msgstr "Mũi tên cuối"
+msgstr "Mũi tên bốn cạnh"
 
 #: sheets/Assorted.sheet.in.h:28
 msgid "Quarter Circle"
-msgstr ""
+msgstr "Một góc tư vòng tròn"
 
 #: sheets/Assorted.sheet.in.h:29
 msgid "Quarter Moon"
 msgstr ""
 
 #: sheets/Assorted.sheet.in.h:30
-#, fuzzy
 msgid "Right Angle Triangle"
-msgstr "Tam giác đặc"
+msgstr ""
 
 #: sheets/Assorted.sheet.in.h:31
-#, fuzzy
 msgid "Right Arrow"
-msgstr "Phải"
+msgstr "Mũi tên phải"
 
 #: sheets/Assorted.sheet.in.h:32
-#, fuzzy
 msgid "Seven Point Star"
-msgstr "Chọn máy in"
+msgstr "Sao bảy cánh"
 
 #: sheets/Assorted.sheet.in.h:33
 msgid "Sharp Eight Point Star"
-msgstr ""
+msgstr "Sao tám cánh sắc"
 
 #: sheets/Assorted.sheet.in.h:34
 msgid "Six Point Star"
-msgstr ""
+msgstr "Sao sáu cánh"
 
 #: sheets/Assorted.sheet.in.h:35
 msgid "Sun"
-msgstr ""
+msgstr "Mặt trời"
 
 #: sheets/Assorted.sheet.in.h:36
-#, fuzzy
 msgid "Swiss Cross"
-msgstr "Chéo"
+msgstr ""
 
 #: sheets/Assorted.sheet.in.h:37
 msgid "Trapezoid"
-msgstr ""
+msgstr "Hình thang"
 
 #: sheets/Assorted.sheet.in.h:38
-#, fuzzy
 msgid "Up Arrow"
-msgstr "Mũi tên SADT"
+msgstr "Mũi tên lên"
 
 #: sheets/Assorted.sheet.in.h:39
-#, fuzzy
 msgid "Up-Down Arrow"
-msgstr "Mũi tên SADT"
+msgstr "Mũi tên Lên-Xuống"
 
 #: sheets/Assorted.sheet.in.h:40
 msgid "Up-Down-Left Arrow"
-msgstr ""
+msgstr "Mũi tên Lên-Xuống-Trái"
 
 #: sheets/Assorted.sheet.in.h:41
 msgid "Vertical Parallelogram"
-msgstr ""
+msgstr "Hình bình hành dọc"
 
 #: sheets/chronogram.sheet.in.h:1
 msgid "A data line"
@@ -4872,7 +4878,7 @@ msgstr ""
 
 #: sheets/chronogram.sheet.in.h:3
 msgid "Chronogram"
-msgstr ""
+msgstr "Lịch sử"
 
 #: sheets/chronogram.sheet.in.h:4
 msgid "Objects to design chronogram charts"
@@ -5004,11 +5010,11 @@ msgstr "Mạch"
 
 #: sheets/Circuit.sheet.in.h:32
 msgid "Components for circuit diagrams"
-msgstr "Thành phần cho Biểu đồ mạch"
+msgstr "Thành phần cho Sơ đồ mạch"
 
 #: sheets/civil.sheet.in.h:1
 msgid "A Backflow Preventer"
-msgstr ""
+msgstr "Bộ chống dòng ngược"
 
 #: sheets/civil.sheet.in.h:2
 msgid "A Basin"
@@ -5072,7 +5078,7 @@ msgstr "Dân sự"
 
 #: sheets/civil.sheet.in.h:17
 msgid "Civil Engineering Components"
-msgstr ""
+msgstr "Thành phần kỹ thuật dân dụng"
 
 #: sheets/civil.sheet.in.h:18
 msgid "Horizontal Rest"
@@ -5188,7 +5194,7 @@ msgstr "Đèn hoặc bộ chỉ thị"
 
 #: sheets/Electric.sheet.in.h:3
 msgid "A normally closed contact"
-msgstr ""
+msgstr "Công tắt thường đóng"
 
 #: sheets/Electric.sheet.in.h:4
 msgid "A normally closed position switch"
@@ -5196,7 +5202,7 @@ msgstr "Công tắc đóng"
 
 #: sheets/Electric.sheet.in.h:5
 msgid "A normally open contact"
-msgstr ""
+msgstr "Công tắt thường mở"
 
 #: sheets/Electric.sheet.in.h:6
 msgid "A normally open position switch"
@@ -5216,7 +5222,7 @@ msgstr "Điện"
 
 #: sheets/Electric.sheet.in.h:10
 msgid "The command organ of a relay"
-msgstr ""
+msgstr "Phần lệnh của rờ le"
 
 #: sheets/EML.sheet.in.h:1
 msgid "Create a process"
@@ -5228,7 +5234,7 @@ msgstr "EML"
 
 #: sheets/EML.sheet.in.h:3
 msgid "Editor for EML Static Structure Diagrams."
-msgstr "Bộ soạn thảo cho Biểu đồ cấu trúc tĩnh EML"
+msgstr "Bộ soạn thảo cho Sơ đồ cấu trúc tĩnh EML"
 
 #: sheets/EML.sheet.in.h:4
 msgid "Instantiation. One process create others"
@@ -5244,7 +5250,7 @@ msgstr "ER"
 
 #: sheets/ER.sheet.in.h:3
 msgid "Editor for Entity Relations Diagrams"
-msgstr "Bộ soạn thảo cho Biểu đồ quan hệ thực thể"
+msgstr "Bộ soạn thảo cho Sơ đồ quan hệ thực thể"
 
 #: sheets/ER.sheet.in.h:5
 msgid "Participation"
@@ -5268,11 +5274,11 @@ msgstr "Êlíp với text bên trong"
 
 #: sheets/Flowchart.sheet.in.h:4
 msgid "A parallelogram with text inside"
-msgstr ""
+msgstr "Hình bình hành có chữ bên trong"
 
 #: sheets/Flowchart.sheet.in.h:5
 msgid "Collate"
-msgstr ""
+msgstr "Đối chiếu"
 
 #: sheets/Flowchart.sheet.in.h:6
 msgid "Delay"
@@ -5380,7 +5386,7 @@ msgstr ""
 
 #: sheets/FS.sheet.in.h:4
 msgid "Editor for Function Structure Diagrams."
-msgstr "Trình soạn thảo cho Biểu đồ cấu trúc hàm."
+msgstr "Trình soạn thảo cho Sơ đồ cấu trúc hàm."
 
 #: sheets/FS.sheet.in.h:5
 msgid "FS"
@@ -5420,11 +5426,11 @@ msgstr ""
 
 #: sheets/GRAFCET.sheet.in.h:9
 msgid "A transition"
-msgstr ""
+msgstr "Chuyển tiếp"
 
 #: sheets/GRAFCET.sheet.in.h:10
 msgid "An action to associate to a step"
-msgstr ""
+msgstr "Hành động liên kết với bước"
 
 #: sheets/GRAFCET.sheet.in.h:11
 msgid "An arc (upward)"
@@ -5440,7 +5446,7 @@ msgstr "GRAFCET"
 
 #: sheets/GRAFCET.sheet.in.h:14
 msgid "Objects to design GRAFCET charts"
-msgstr ""
+msgstr "Đối tượng để thiết kế sơ đồ GRAFCET"
 
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
@@ -5559,21 +5565,24 @@ msgid "Logic"
 msgstr "Logic"
 
 #: sheets/Misc.sheet.in.h:1
-#, fuzzy
 msgid "A File"
 msgstr "Tập tin"
 
 #: sheets/Misc.sheet.in.h:2
 msgid "A Folder"
-msgstr ""
+msgstr "Thư mục"
 
 #: sheets/Misc.sheet.in.h:3
-msgid "Misc"
-msgstr ""
+msgid "A traditional clock"
+msgstr "Đồng hồ truyền thống"
 
 #: sheets/Misc.sheet.in.h:4
+msgid "Misc"
+msgstr "Linh tinh"
+
+#: sheets/Misc.sheet.in.h:5
 msgid "Miscellaneous Shapes"
-msgstr ""
+msgstr "Hình linh tinh"
 
 #: sheets/MSE.sheet.in.h:1
 msgid "Demultiplexer"
@@ -5601,7 +5610,7 @@ msgstr ""
 
 #: sheets/MSE.sheet.in.h:7
 msgid "Tactical Satellite Communications Terminal"
-msgstr ""
+msgstr "Trạm đầu cuối liên lạc vệ tinh chiến thuật"
 
 #: sheets/MSE.sheet.in.h:8
 msgid "U.S. Army Mobile Subscriber Equipment Components"
@@ -5632,9 +5641,8 @@ msgid "A Firewall router"
 msgstr "Bức tường lửa"
 
 #: sheets/network.sheet.in.h:7
-#, fuzzy
 msgid "A Laptop PC"
-msgstr "Máy PC để bàn"
+msgstr "Máy Laptop PC"
 
 #: sheets/network.sheet.in.h:8
 msgid "A Miditower PC"
@@ -5649,18 +5657,16 @@ msgid "A Mobile Phone"
 msgstr "Điện thoại di động"
 
 #: sheets/network.sheet.in.h:11
-#, fuzzy
 msgid "A Plotter"
-msgstr "Máy tính"
+msgstr "Máy vẽ"
 
 #: sheets/network.sheet.in.h:12
 msgid "A RJ45 Wall-Plug"
 msgstr "Đầu cắm RJ45"
 
 #: sheets/network.sheet.in.h:13
-#, fuzzy
 msgid "A Telephone"
-msgstr "Điện thoại di động"
+msgstr "Điện thoại"
 
 #: sheets/network.sheet.in.h:14
 msgid "A UNIX Workstation"
@@ -5680,7 +5686,7 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:18
 msgid "A Workstation Monitor"
-msgstr ""
+msgstr "Màn hình workstation"
 
 #: sheets/network.sheet.in.h:19
 msgid "A ZIP Disk"
@@ -5712,7 +5718,7 @@ msgstr "Loa không có khuếch đại"
 
 #: sheets/network.sheet.in.h:26
 msgid "A stackable hub or switch"
-msgstr ""
+msgstr "Hub hoặc Switch chồng"
 
 #: sheets/network.sheet.in.h:27
 msgid "ATM Switch Symbol"
@@ -5740,7 +5746,7 @@ msgstr "Đám mây mạng"
 
 #: sheets/network.sheet.in.h:33
 msgid "Objects to design network diagrams with"
-msgstr "Đối tượng để thiết kế biểu đồ mạng với"
+msgstr "Đối tượng để thiết kế sơ đồ mạng với"
 
 #: sheets/network.sheet.in.h:34
 msgid "Router Symbol"
@@ -5756,27 +5762,27 @@ msgstr "Ký hiệu Switch"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A 2/2 distributor"
-msgstr ""
+msgstr "Đầu phân phối 2/2"
 
 #: sheets/Pneumatic.sheet.in.h:2
 msgid "A 3/2 distributor"
-msgstr ""
+msgstr "Đầu phân phối 3/2"
 
 #: sheets/Pneumatic.sheet.in.h:3
 msgid "A 3/3 distributor"
-msgstr ""
+msgstr "Đầu phân phối 3/3"
 
 #: sheets/Pneumatic.sheet.in.h:4
 msgid "A 4/2 distributor"
-msgstr ""
+msgstr "Đầu phân phối 4/2"
 
 #: sheets/Pneumatic.sheet.in.h:5
 msgid "A 5/2 distributor"
-msgstr ""
+msgstr "Đầu phân phối 5/2"
 
 #: sheets/Pneumatic.sheet.in.h:6
 msgid "A 5/3 distributor"
-msgstr ""
+msgstr "Đầu phân phối 5/3"
 
 #: sheets/Pneumatic.sheet.in.h:8
 msgid "A double-effect jack"
@@ -5812,11 +5818,11 @@ msgstr "Thành phần cho mạch lỏng và khí"
 
 #: sheets/Pneumatic.sheet.in.h:16
 msgid "Electric command (double coil)"
-msgstr ""
+msgstr "Điều khiển điện (lõi kép)"
 
 #: sheets/Pneumatic.sheet.in.h:17
 msgid "Electric command (single coil)"
-msgstr ""
+msgstr "Điều khiển điện (lõi đơn)"
 
 #: sheets/Pneumatic.sheet.in.h:18
 msgid "Indirect command by hydraulic driver"
@@ -5828,7 +5834,7 @@ msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:20
 msgid "Mechanical command by spring"
-msgstr ""
+msgstr "Điều khiển cơ khí bằng lò xo"
 
 #: sheets/Pneumatic.sheet.in.h:21
 msgid "Mechanical command by tappet"
@@ -5836,7 +5842,7 @@ msgstr ""
 
 #: sheets/Pneumatic.sheet.in.h:22
 msgid "Muscular command"
-msgstr ""
+msgstr "Điều khiển cơ"
 
 #: sheets/Pneumatic.sheet.in.h:23
 msgid "Pneumatic/Hydraulic"
@@ -5844,7 +5850,7 @@ msgstr "Khí/Lỏng"
 
 #: sheets/Pneumatic.sheet.in.h:24
 msgid "Push-button command"
-msgstr ""
+msgstr "Điều khiển nút nhấn"
 
 #: sheets/SADT.sheet.in.h:1
 msgid "A activity/data flow arrow"
@@ -5860,7 +5866,7 @@ msgstr "Hộp hoạt động/dữ liệu"
 
 #: sheets/SADT.sheet.in.h:4
 msgid "Objects to design SADT diagrams"
-msgstr "Đối tượng để thiết kế Biểu đồ SADT"
+msgstr "Đối tượng để thiết kế Sơ đồ SADT"
 
 #: sheets/SADT.sheet.in.h:5
 msgid "SADT/IDEF0"
@@ -6000,17 +6006,15 @@ msgstr "Tạo thành phần"
 
 #: sheets/UML.sheet.in.h:10
 msgid "Create a dependency"
-msgstr ""
+msgstr "Tạo mối liên hệ"
 
 #: sheets/UML.sheet.in.h:11
-#, fuzzy
 msgid "Create a fork/union"
-msgstr "Tạo một hàm"
+msgstr "Tạo/Hợp nhánh"
 
 #: sheets/UML.sheet.in.h:12
-#, fuzzy
 msgid "Create a initial/end state"
-msgstr "Tạo máy trạng thái"
+msgstr "Tạo trạng thái đầu/cuối"
 
 #: sheets/UML.sheet.in.h:13
 msgid "Create a lifeline"
@@ -6029,9 +6033,8 @@ msgid "Create a note"
 msgstr "Tạo ghi chú"
 
 #: sheets/UML.sheet.in.h:17
-#, fuzzy
 msgid "Create a state"
-msgstr "Tạo ghi chú"
+msgstr "Tạo trạng thái"
 
 #: sheets/UML.sheet.in.h:18
 msgid "Create a template class"
@@ -6042,13 +6045,12 @@ msgid "Create a use case"
 msgstr ""
 
 #: sheets/UML.sheet.in.h:20
-#, fuzzy
 msgid "Create an activity"
-msgstr "Tạo đối tượng"
+msgstr "Tạo hoạt động"
 
 #: sheets/UML.sheet.in.h:21
 msgid "Create an actor"
-msgstr ""
+msgstr "Tạo actor"
 
 #: sheets/UML.sheet.in.h:22
 msgid "Create an object"
@@ -6056,7 +6058,7 @@ msgstr "Tạo đối tượng"
 
 #: sheets/UML.sheet.in.h:23
 msgid "Editor for UML Static Structure Diagrams"
-msgstr "Bộ soạn thảo cho Biểu đồ cấu trúc tĩnh UML"
+msgstr "Bộ soạn thảo cho Sơ đồ cấu trúc tĩnh UML"
 
 #: sheets/UML.sheet.in.h:24
 msgid "Generalization, class inheritance"
@@ -6074,56 +6076,32 @@ msgstr ""
 msgid "UML"
 msgstr "UML"
 
-#~ msgid "Text padding:"
-#~ msgstr "Đệm text:"
+#~ msgid "Quit, are you sure?"
+#~ msgstr "Bạn có chắc chắn muốn thoát chứ?"
 
-#~ msgid "Alignment:"
-#~ msgstr "Canh hàng:"
-
-#~ msgid "Font:"
-#~ msgstr "Font:"
-
-#~ msgid "Font size:"
-#~ msgstr "Cỡ font:"
-
-#~ msgid "Corner rounding:"
-#~ msgstr "Góc tròn:"
-
-#~ msgid "Flow:"
-#~ msgstr "Dòng chảy:"
-
-#~ msgid "Flow type:"
-#~ msgstr "Loại dòng chảy:"
-
-#~ msgid "Begin"
-#~ msgstr "Bắt đầu"
-
-#~ msgid "End"
-#~ msgstr "Kết thúc"
-
-#~ msgid "State Type"
-#~ msgstr "Loại trạng thái"
-
-#~ msgid "A Diagram Editor"
-#~ msgstr "Bộ biên soạn biểu đồ"
-
-#~ msgid "Image file:"
-#~ msgstr "Tập tin ảnh:"
-
-#~ msgid "Keep aspect ratio:"
-#~ msgstr "Giữ tỷ lệ:"
-
-#~ msgid "Show border:"
-#~ msgstr "Hiện biên:"
+#~ msgid "Quit"
+#~ msgstr "Thoát"
 
 #~ msgid "Maintainer: James Henstridge"
 #~ msgstr "Người bảo trì: James Henstridge"
 
-#~ msgid "Fontsize:"
-#~ msgstr "Cỡ font:"
+#~ msgid "Really close?"
+#~ msgstr "Thật sự muốn đóng chứ?"
+
+#~ msgid "Error reading diagram file\n"
+#~ msgstr "Lỗi khi đọc tập tin sơ đồ\n"
+
+#~ msgid "_Visible Grid"
+#~ msgstr "Hiện _Lưới"
+
+#~ msgid "/View/_Visible Grid"
+#~ msgstr "/Xem/Hiện _lưới"
+
+#~ msgid "/Objects/Align Vertical/Center"
+#~ msgstr "/Đối tượng/Canh hành dọc/Giữa"
 
 #~ msgid "Print Diagram"
-#~ msgstr "In biểu đồ"
+#~ msgstr "In sơ đồ"
 
 #~ msgid "An error occured while creating the print context"
 #~ msgstr "Xảy ra lỗi khi tạo môi trường in"
@@ -6137,8 +6115,14 @@ msgstr "UML"
 #~ msgid "Load"
 #~ msgstr "Nạp"
 
+#~ msgid "Unload"
+#~ msgstr "Hủy nạp"
+
 #~ msgid "<Toolbox>/File/Exit"
 #~ msgstr "<Hộp công cụ>/Tập tin/Thoát (exit)"
+
+#~ msgid "A Diagram Editor"
+#~ msgstr "Bộ biên soạn sơ đồ"
 
 #~ msgid ""
 #~ "Warning no X Font for %s found, \n"
@@ -6153,12 +6137,6 @@ msgstr "UML"
 #~ msgid "Warning: No X fonts found.  The world is ending."
 #~ msgstr "Cảnh báo: Không thấy X Font. Thế giới sẽ chấm dứt !?"
 
-#~ msgid ""
-#~ "Warning: No fonts loaded.  Are there any font files in the X font path?"
-#~ msgstr ""
-#~ "Cảnh báo: Không có font nào được nạp. Có tập tin font nào trong thư mục "
-#~ "font của X Window không?"
-
 #~ msgid "Error, couldn't locate font. Shouldn't happen.\n"
 #~ msgstr "Lỗi, không thể định vị font. Sẽ không xảy ra lần nữa.\n"
 
@@ -6168,41 +6146,8 @@ msgstr "UML"
 #~ msgid "Font %s has no style %s, using %s\n"
 #~ msgstr "Font %s không có kiểu %s, dùng %s\n"
 
-#~ msgid "Helvetica-Bold"
-#~ msgstr "Helvetica-Bold"
-
-#~ msgid "Courier-Oblique"
-#~ msgstr "Courier-Oblique"
-
-#~ msgid "Helvetica-BoldOblique"
-#~ msgstr "Helvetica-BoldOblique"
-
-#~ msgid "Quit, are you sure?"
-#~ msgstr "Bạn có chắc chắn muốn thoát chứ?"
-
-#~ msgid "Quit"
-#~ msgstr "Thoát"
-
-#~ msgid "Really close?"
-#~ msgstr "Thật sự muốn đóng chứ?"
-
-#, fuzzy
-#~ msgid "_New"
-#~ msgstr "Mới"
-
-#, fuzzy
-#~ msgid "Down"
-#~ msgstr "Chuyển xuống"
-
-#, fuzzy
-#~ msgid "_Remove"
-#~ msgstr "Loại bỏ"
-
 #~ msgid "`%s' is not a directory"
 #~ msgstr "`%s' không phải là thư mục"
-
-#~ msgid "Error reading diagram file\n"
-#~ msgstr "Lỗi khi đọc tập tin biểu đồ\n"
 
 #~ msgid "Number of processes:"
 #~ msgstr "Số tiến trình:"
@@ -6227,6 +6172,9 @@ msgstr "UML"
 
 #~ msgid "bidirectional"
 #~ msgstr "hai hướng"
+
+#~ msgid "Move Down"
+#~ msgstr "Chuyển xuống"
 
 #~ msgid "relation"
 #~ msgstr "quan hệ"
@@ -6293,6 +6241,75 @@ msgstr "UML"
 
 #~ msgid "Relation member"
 #~ msgstr "Thành phần quan hệ"
+
+#~ msgid "Flow:"
+#~ msgstr "Dòng chảy:"
+
+#~ msgid "Flow type:"
+#~ msgstr "Loại dòng chảy:"
+
+#~ msgid "Orthflow:"
+#~ msgstr "Luồng ghép thẳng:"
+
+#~ msgid "Orthflow type:"
+#~ msgstr "Loại luồng ghép thẳng:"
+
+#~ msgid "abstract"
+#~ msgstr "ảo"
+
+#~ msgid "Begin"
+#~ msgstr "Bắt đầu"
+
+#~ msgid "End"
+#~ msgstr "Kết thúc"
+
+#~ msgid "State Type"
+#~ msgstr "Loại trạng thái"
+
+#~ msgid "Text padding:"
+#~ msgstr "Đệm text:"
+
+#~ msgid "Alignment:"
+#~ msgstr "Canh hàng:"
+
+#~ msgid "Font:"
+#~ msgstr "Font:"
+
+#~ msgid "Font size:"
+#~ msgstr "Cỡ font:"
+
+#~ msgid "Corner rounding:"
+#~ msgstr "Góc tròn:"
+
+#~ msgid "Image file:"
+#~ msgstr "Tập tin ảnh:"
+
+#~ msgid "Keep aspect ratio:"
+#~ msgstr "Giữ tỷ lệ:"
+
+#~ msgid "Fontsize:"
+#~ msgstr "Cỡ font:"
+
+#~ msgid "Polygon import is not implemented yet"
+#~ msgstr "Tính năng nhập đa giác chưa được hỗ trợ"
+
+#~ msgid "Spline import is not implemented yet"
+#~ msgstr "Nhập Spline chưa được hỗ trợ"
+
+#~ msgid ""
+#~ "Warning: No fonts loaded.  Are there any font files in the X font path?"
+#~ msgstr ""
+#~ "Cảnh báo: Không có font nào được nạp. Có tập tin font nào trong thư mục "
+#~ "font của X Window không?"
+
+#~ msgid "Helvetica-Bold"
+#~ msgstr "Helvetica-Bold"
+
+#~ msgid "Courier-Oblique"
+#~ msgstr "Courier-Oblique"
+
+#~ msgid "Helvetica-BoldOblique"
+#~ msgstr "Helvetica-BoldOblique"
 
 #~ msgid "Normal Font"
 #~ msgstr "Font bình thường"
