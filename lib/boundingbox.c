@@ -230,6 +230,8 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
   rect->left = rect->right = pts[0].p1.x;
   rect->top = rect->bottom = pts[0].p1.y;
 
+  /* First, we build derived BBExtras structures, so we have something to feed 
+     the primitives. */ 
   if (!closed) {
     start_lextra.start_long = extra->start_long;
     start_lextra.start_trans = MAX(extra->start_trans,extra->middle_trans);
@@ -289,7 +291,8 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
         valid, respectively).
 
        Some values *will* be recomputed a few times across iterations (but stored in 
-       different boxes). Either gprof says it's a real problem, or gcc finally gets a clue.
+       different boxes). Either gprof says it's a real problem, or gcc finally gets 
+       a clue.
     */
 
     if (pts[i].type == BEZ_MOVE_TO) {
@@ -333,6 +336,9 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
     end = (pts[next].type == BEZ_MOVE_TO);
     point_copy(&vn,&pts[next].p1); /* whichever type pts[next] is. */
 
+    /* Now, we know about a few vertices around the one we're dealing with.
+       Depending on the shape of the (previous,current) segment, and whether 
+       it's a middle or end segment, we'll be doing different stuff. */ 
     if (closed) {
       if (pts[i].type == BEZ_LINE_TO) {
         line_bbox(&vsc,&vx,&full_lextra,&rt);
@@ -382,32 +388,38 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
       } 
     }   
     rectangle_union(rect,&rt);
-    
+
+    /* The following code enlarges a little the bounding box (if necessary) to 
+       account with the "pointy corners" X (and PS) add when LINEJOIN_MITER mode is 
+       in force. */
+
     if ((!start) && (!end)) { /* We have a non-extremity vertex. */
       Point vpx,vxn;
-      real co;
-      point_copy_add_scaled(&vpx,&vx,&vp,-1);
-      point_copy_add_scaled(&vxn,&vn,&vx,-1);
+      real co,alpha;
 
-      co = point_dot(&vpx,&vxn);
-      if (fabs(co) <= 0.9816) { /* 0.9816 = cos(11deg) */
-        /* we have a join. */
-        real alpha = fabs(acos(co)); /* alpha is necessarily >> 0 */
+      point_copy_add_scaled(&vpx,&vx,&vp,-1);
+      point_normalize(&vpx);
+      point_copy_add_scaled(&vxn,&vn,&vx,-1);
+      point_normalize(&vxn);
+
+      co = point_dot(&vpx,&vxn);      
+      alpha = acos(-co); 
+      if ((co > -0.9816) && (finite(alpha))) { /* 0.9816 = cos(11deg) */
+        /* we have a pointy join. */
         real overshoot = extra->middle_trans / sin(alpha/2.0);
         Point vovs,pto;
+
         point_copy_add_scaled(&vovs,&vpx,&vxn,-1);
         point_normalize(&vovs);
-        point_scale(&vovs,overshoot);
-        point_copy_add_scaled(&pto,&vx,&vovs,1);
+        point_copy_add_scaled(&pto,&vx,&vovs,overshoot);
         
         rectangle_add_point(rect,&pto);
       } else {
-        /* we don't have a join. */
-        Point vpxs,vpxt,vxns,vxnt,tmp;
-        point_get_normed(&vpxs,&vpx); 
-        point_get_perp(&vpxt,&vpxs);
-        point_get_normed(&vxns,&vxn); 
-        point_get_perp(&vxnt,&vxns);
+        /* we don't have a pointy join. */
+        Point vpxt,vxnt,tmp;
+
+        point_get_perp(&vpxt,&vpx);
+        point_get_perp(&vxnt,&vxn);
         
         point_copy_add_scaled(&tmp,&vx,&vpxt,1);
         rectangle_add_point(rect,&tmp);

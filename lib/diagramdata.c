@@ -399,7 +399,7 @@ layer_render(Layer *layer, Renderer *renderer, Rectangle *update,
     obj = (Object *) list->data;
 
     if (update==NULL || rectangle_intersects(update, &obj->bounding_box)) {
-      if (render_bounding_boxes) {
+      if ((render_bounding_boxes) && (renderer->is_interactive)) {
 	Point p1, p2;
 	Color col;
 	p1.x = obj->bounding_box.left;

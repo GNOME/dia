@@ -1,5 +1,15 @@
 2001-05-27  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* lib/diagramdata.c: draw bounding boxes only if the relevant
+	variable is set (as before), but also only if the rendere is
+	interactive (ie, don't bother rendering bounding boxes on Postscript...)
+
+	* lib/boundingbox.c: fixed the "pointy corners" code for polylines
+	and assymmetric control beziers.
+
+	* Makefile.am: incantations to get po/dia.pot build, as suggested
+	by Hubert in #55075.
+	
 	* lib/ps-utf8.c: Strings in Symbol fonts were incorrectly rendered.
 	Added a special case for Symbol strings, so that they're not
 	re-encoded using the LN encoding (we use the bare Adobe encoding

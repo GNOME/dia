@@ -12,9 +12,6 @@ pixmap_DATA = dia_gnome_icon.png dia-diagram.png
 
 CLEANFILES = core-translation-report
 
-core-translation-report: po/dia.pot po-checktrans.py po-checktrans
-	-(cd $(srcdir) && ./po-checktrans po/dia.pot po/*.po)
-
 Applicationsdir = $(gnomedatadir)/gnome/apps/Applications
 Applications_DATA = dia.desktop 
 
@@ -28,8 +25,14 @@ distclean-local:
 mimedir = $(gnomedatadir)/mime-info
 mime_DATA = dia.mime dia.keys
 
+po/dia.pot: 
+	(cd po ; ./update.sh )
+
 po/Makefile: po/Makefile.in
 	(cd po ; make -f Makefile.in Makefile ; make) # gettext hack
+
+core-translation-report: po/dia.pot po-checktrans.py po-checktrans
+	-(cd $(srcdir) && ./po-checktrans po/dia.pot po/*.po)
 
 all-local: core-translation-report po/Makefile
 
