@@ -136,7 +136,7 @@ gtk_message_internal(const char* title, const char *fmt,
     /* Store relevant info to allow repeats to be collapsed */
     msginfo = g_new0(DiaMessageInfo, 1);
     msginfo->dialog = dialog;
-    g_hash_table_insert(message_hash_table, fmt, msginfo);
+    g_hash_table_insert(message_hash_table, (char *)fmt, msginfo);
   }
 }
 

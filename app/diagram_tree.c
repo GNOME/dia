@@ -326,19 +326,19 @@ diagram_tree_delete(DiagramTree *tree)
 void
 diagram_tree_add(DiagramTree *tree, Diagram *diagram)
 {
-  if (tree) {
-    if (diagram
-	&& !gtk_ctree_find_by_row_data(tree->tree, NULL, (gpointer)diagram))
-      {
-	char *text[] = {g_basename(diagram->filename)};
-	GtkCTreeNode *node =
-	  gtk_ctree_insert_node(tree->tree, NULL, NULL, text, 1,
-				NULL, NULL, NULL, NULL, FALSE, FALSE);
-	gtk_ctree_node_set_row_data(tree->tree, node, (gpointer)diagram);
-	create_diagram_children(tree, node, diagram);
-	sort_diagrams(tree);
-      }
-  }
+    if (tree) {
+        if (diagram
+            && !gtk_ctree_find_by_row_data(tree->tree, NULL, (gpointer)diagram))
+        {
+            char *text[] = {(char *)g_basename(diagram->filename)};
+            GtkCTreeNode *node =
+                gtk_ctree_insert_node(tree->tree, NULL, NULL, text, 1,
+                                      NULL, NULL, NULL, NULL, FALSE, FALSE);
+            gtk_ctree_node_set_row_data(tree->tree, node, (gpointer)diagram);
+            create_diagram_children(tree, node, diagram);
+            sort_diagrams(tree);
+        }
+    }
 }
 
 void

@@ -734,7 +734,7 @@ static void draw_image(Rendererfig *renderer,
 static void draw_object(Rendererfig *renderer,
 			Object *object) {
   fprintf(renderer->file, "6 0 0 0 0\n");
-  object->ops->draw(object, renderer);
+  object->ops->draw(object, &renderer->renderer);
   fprintf(renderer->file, "-6\n");
 }
 

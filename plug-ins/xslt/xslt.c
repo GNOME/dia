@@ -66,7 +66,7 @@ void xslt_ok() {
 	char *params[] = { "directory", NULL, NULL };
 	xsltStylesheetPtr style, codestyle;
 	xmlDocPtr doc, res;
-	gchar *pluginpath;
+	const gchar *pluginpath;
 
 	pluginpath = g_getenv("DIA_PLUGIN_PATH");
 	if (pluginpath == NULL) {

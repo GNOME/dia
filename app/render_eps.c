@@ -285,10 +285,11 @@ init_eps_renderer() {
 static void print_define_font(gpointer key, gpointer value,
 			      gpointer data)
 {
-  DiaFont *font = (DiaFont *)value;
+/*  DiaFont *font = (DiaFont *)value;
   gchar *fontname = (gchar *)key;
   FILE *file = (FILE *)data;
- 
+*/
+    
 }
 
 /* This hashtable keeps track of the fonts used in the diagram.

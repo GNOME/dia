@@ -47,9 +47,9 @@
 gboolean autosave_check_autosave(gpointer data);
 
 static void autosave_make_restore_dialog(GList *files);
-void autosave_restore_documents();
+static void autosave_restore_documents(void);
 
-void
+static void
 autosave_save_diagram(gpointer data)
 {
   Diagram *dia = (Diagram *)data;
@@ -113,7 +113,7 @@ autosave_make_restore_dialog(GList *files)
 /** If autosave files exist, ask the user if they should be restored
  */
 void
-autosave_restore_documents()
+autosave_restore_documents(void)
 {
   gchar *savedir = dia_config_filename("autosave" G_DIR_SEPARATOR_S);
   GDir *dir = g_dir_open(savedir, 0, NULL);

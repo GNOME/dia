@@ -188,26 +188,26 @@ set_fill_color(RendererMETAPOST *renderer,Color *color)
 
 RendererMETAPOST *
 new_metapost_renderer(DiagramData *data, const char *filename,
-		      const char *diafilename)
+                      const char *diafilename)
 {
     RendererMETAPOST *renderer;
     FILE *file;
     time_t time_now;
     double scale;
     Rectangle *extent;
-    char *name;
+    const char *name;
 
     Color initial_color;
  
     file = fopen(filename, "wb");
 
     if (file==NULL) {
-	message_error(_("Couldn't open: '%s' for writing.\n"), filename);
-	return NULL;
+        message_error(_("Couldn't open: '%s' for writing.\n"), filename);
+        return NULL;
     }
 
     if (MetapostRenderOps == NULL)
-	init_metapost_renderops();
+        init_metapost_renderops();
 
     renderer = g_new(RendererMETAPOST, 1);
     renderer->renderer.ops = MetapostRenderOps;

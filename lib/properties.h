@@ -439,7 +439,8 @@ void          object_save_props(Object *obj, ObjectNode obj_node);
 
 /* standard way to copy the properties of an object into another (of the
    same type) */
-void          object_copy_props(Object *dest, Object *src, gboolean is_default);
+void          object_copy_props(Object *dest, const Object *src,
+                                gboolean is_default);
 
 /* Return a reference to objects property with 'name' or NULL */
 Property     *object_get_prop_by_name (Object *obj, const char* name);

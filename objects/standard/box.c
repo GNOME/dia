@@ -232,7 +232,6 @@ box_draw(Box *box, Renderer *renderer)
 {
   Point lr_corner;
   Element *elem;
-  real radius;
   
   assert(box != NULL);
   assert(renderer != NULL);

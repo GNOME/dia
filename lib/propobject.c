@@ -183,7 +183,7 @@ object_complies_with_stdprop(const Object *obj)
 }
 
 void 
-object_copy_props(Object *dest, Object *src, gboolean is_default)
+object_copy_props(Object *dest, const Object *src, gboolean is_default)
 {
   GPtrArray *props;
 
@@ -198,7 +198,9 @@ object_copy_props(Object *dest, Object *src, gboolean is_default)
                                (is_default?pdtpp_do_save_no_standard:
 				pdtpp_do_save));
 
-  src->ops->get_props(src, props);
+  src->ops->get_props((Object *)src, props); /* FIXME: really should make
+                                                get_props' first argument
+                                                a (const Object *) */
   dest->ops->set_props(dest, props);
 
   prop_list_free(props);  

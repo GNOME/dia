@@ -87,7 +87,7 @@ dia_font_class_init(DiaFontClass* klass)
 static void 
 dia_font_init_instance(DiaFont* font)
 {
-  GObject *gobject = G_OBJECT(font); 
+        /*GObject *gobject = G_OBJECT(font);  */
 }
 
 DiaFont*
@@ -547,7 +547,6 @@ dia_font_scaled_build_layout(const char* string, DiaFont* font,
     real scaling;
     real nozoom_width;
     real target_zoomed_width;
-    PangoStretch stretch;
     PangoLayout* layout;
     real altered_scaling;
     real real_width;

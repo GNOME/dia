@@ -73,9 +73,9 @@ open_set_extension(GtkObject *item)
 {
   DiaImportFilter *ifilter = gtk_object_get_user_data(item);
   GString *s;
-  gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_FILE_SELECTION(opendlg)
-                                             ->selection_entry));
-  gchar *last_dot = strrchr(text, '.');
+  const gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_FILE_SELECTION(opendlg)
+                                                   ->selection_entry));
+  const gchar *last_dot = strrchr(text, '.');
 
   if (!ifilter || last_dot == text || text[0] == '\0' ||
       ifilter->extensions[0] == NULL)
@@ -126,7 +126,7 @@ create_open_menu(void)
 static void
 file_open_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 {
-  char *filename;
+  const char *filename;
   Diagram *diagram = NULL;
   DiaImportFilter *ifilter;
   DDisplay *ddisp;
@@ -213,7 +213,7 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
 static void
 file_save_as_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 {
-  char *filename;
+  const char *filename;
   Diagram *dia;
   struct stat stat_struct;
 
@@ -364,9 +364,9 @@ export_set_extension(GtkObject *item)
 {
   DiaExportFilter *ef = gtk_object_get_user_data(item);
   GString *s;
-  gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_FILE_SELECTION(exportdlg)
-					     ->selection_entry));
-  gchar *last_dot = strrchr(text, '.');
+  const gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_FILE_SELECTION(exportdlg)
+                                                   ->selection_entry));
+  const gchar *last_dot = strrchr(text, '.');
 
   if (!ef || last_dot == text || text[0] == '\0' || ef->extensions[0] == NULL)
     return;
@@ -415,7 +415,7 @@ create_export_menu(void)
 static void
 file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
 {
-  char *filename;
+  const char *filename;
   Diagram *dia;
   DiaExportFilter *ef;
   struct stat statbuf;
@@ -566,7 +566,7 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   export_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(export_omenu));
   export_item = gtk_menu_get_active(GTK_MENU(export_menu));
   if (export_item)
-    export_set_extension(export_item);
+    export_set_extension(GTK_OBJECT(export_item));
   gtk_widget_show(export_options);
   gtk_widget_show(exportdlg);
 }

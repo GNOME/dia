@@ -357,6 +357,6 @@ struct _Renderer {
 
 /* Use this function to initialize all empty ops slots */
 void inherit_renderer(Renderer *child_ops);
-RenderOps *create_renderops_table();
+RenderOps *create_renderops_table(void);
 
 #endif /* RENDER_H */

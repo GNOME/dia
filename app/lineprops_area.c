@@ -150,8 +150,8 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
       to.x = width-linewidth;
     }
     renderer = (Renderer *)new_pixmap_renderer(win, width, height);
-    renderer_pixmap_set_pixmap(renderer, win, x, y, 
-			       width, height);
+    renderer_pixmap_set_pixmap((RendererPixmap*)renderer, win, x, y, 
+                               width, height);
     renderer->ops->begin_render(renderer);
     renderer->ops->set_linewidth(renderer, linewidth);
     renderer->ops->draw_line(renderer, &to, &from, &color_black);

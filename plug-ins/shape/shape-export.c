@@ -931,7 +931,6 @@ export_shape(DiagramData *data, const gchar *filename,
     int i;
     gchar *point;
     gchar *png_filename = NULL;
-    gchar *sheet_filename = NULL;
     DiaExportFilter *exportfilter;
     char *old_locale;
     gfloat old_scaling;

@@ -232,7 +232,6 @@ edit_paste_callback(gpointer data, guint action, GtkWidget *widget)
 static void
 insert_text(DDisplay *ddisp, Focus *focus, const gchar *text)
 {
-  int i, strlen;
   ObjectChange *change = NULL;
   int modified = FALSE, any_modified = FALSE;
   Object *obj = focus->obj;

@@ -655,7 +655,7 @@ dia_menu_signal_connect_func (GnomeUIInfo *uiinfo, gchar *signal_name,
 }
 
 static GnomeUIBuilderData dia_menu_uibdata = {
-  dia_menu_signal_connect_func, /* connect_func */
+  (GtkSignalFunc)dia_menu_signal_connect_func, /* connect_func */
   NULL,                         /* data */
   FALSE,                        /* is_interp */
   (GtkCallbackMarshal) 0,       /* relay_func */

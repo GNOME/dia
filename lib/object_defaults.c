@@ -86,7 +86,7 @@ _obj_destroy (gpointer val)
  * Create all the default objects.
  */
 gboolean
-dia_object_defaults_load (gchar *filename, gboolean create_lazy)
+dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
 {
   xmlDocPtr doc;
   xmlNsPtr name_space;
@@ -204,7 +204,7 @@ dia_object_defaults_load (gchar *filename, gboolean create_lazy)
  * Remember as defaults from a diagram object
  */
 void
-dia_object_default_make (Object *obj_from)
+dia_object_default_make (const Object *obj_from)
 {
   Object *obj_to;
 
@@ -222,8 +222,8 @@ dia_object_default_make (Object *obj_from)
  *
  * Allows to edit one defaults object properties
  */
-const Object *
-dia_object_default_get (ObjectType *type)
+Object *
+dia_object_default_get (const ObjectType *type)
 {
   Object *obj;
 
@@ -259,13 +259,14 @@ dia_object_default_get (ObjectType *type)
  * Create an object respecting defaults if available
  */
 Object *
-dia_object_default_create (ObjectType *type,
-			   Point *startpoint,
-			   void *user_data,
-			   Handle **handle1,
-			   Handle **handle2)
+dia_object_default_create (const ObjectType *type,
+                           Point *startpoint,
+                           void *user_data,
+                           Handle **handle1,
+                           Handle **handle2)
 {
-  Object *def_obj, *obj;
+  const Object *def_obj;
+  Object *obj;
 
   g_return_val_if_fail (type != NULL, NULL);
 
@@ -314,7 +315,6 @@ _obj_store (gpointer key,
   Object *obj = (Object *)value;
   MyRootInfo *ri = (MyRootInfo *)user_data;
   ObjectNode obj_node;
-  xmlNodePtr layer_node;
   gchar *layer_name;
   gchar buffer[31];
   gchar *p;
@@ -366,10 +366,8 @@ _obj_store (gpointer key,
  * separate invisible layers.
  */
 gboolean
-dia_object_defaults_save (gchar *filename)
+dia_object_defaults_save (const gchar *filename)
 {
-  Object *obj;
-  ObjectNode obj_node;
   MyRootInfo ni;
   xmlDocPtr doc;
   gboolean ret;

@@ -264,10 +264,10 @@ export_png(DiagramData *data, const gchar *filename,
     /* Make sure that the aspect ratio stays the same */
     gtk_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(export_png_width_entry)), 
 		       "value_changed",
-		       export_png_ratio, (gpointer)export_png_height_entry);
+		       (GtkSignalFunc)export_png_ratio, (gpointer)export_png_height_entry);
     gtk_signal_connect(GTK_OBJECT(gtk_spin_button_get_adjustment(export_png_height_entry)), 
 		       "value_changed",
-		       export_png_ratio, (gpointer)export_png_width_entry);
+		       (GtkSignalFunc)export_png_ratio, (gpointer)export_png_width_entry);
 
   }
 
@@ -290,9 +290,9 @@ export_png(DiagramData *data, const gchar *filename,
     
     /* Set OK and Cancel buttons to call the relevant callbacks with cbdata */
     gtk_signal_connect(GTK_OBJECT(export_png_okay_button), "clicked",
-		       export_png_ok, (gpointer)cbdata);
+		       (GtkSignalFunc)export_png_ok, (gpointer)cbdata);
     gtk_signal_connect(GTK_OBJECT(export_png_cancel_button), "clicked",
-		       export_png_cancel, (gpointer)cbdata);
+		       (GtkSignalFunc)export_png_cancel, (gpointer)cbdata);
     
     /* Show the whole thing */
     gtk_widget_show_all(export_png_dialog);

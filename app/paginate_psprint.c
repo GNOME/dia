@@ -312,7 +312,8 @@ diagram_print_ps(Diagram *dia)
 #endif
     is_pipe = TRUE;
   } else {
-    gchar *filename = gtk_entry_get_text(GTK_ENTRY(ofile));
+    const static void autosave_save_diagram(gpointer data);
+    const gchar *filename = gtk_entry_get_text(GTK_ENTRY(ofile));
     if (!g_path_is_absolute(filename)) {
       char *diagram_dir;
       char *full_filename;

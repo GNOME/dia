@@ -364,6 +364,10 @@ orthflow_draw(Orthflow *orthflow, Renderer *renderer)
     linewidth = ORTHFLOW_WIDTH;
     renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
     render_color = &orthflow_color_energy ;
+    break ;
+  default:
+    linewidth = 0.001;
+    break;
   }
 
   renderer->ops->set_linewidth(renderer, linewidth);

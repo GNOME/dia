@@ -179,13 +179,6 @@ static RenderOps AbstractRenderOps = {
   draw_object,
 };
 
-RenderOps *
-create_renderops_table() {
-  RenderOps *table = g_new(RenderOps, 1);
-  *table = AbstractRenderOps;
-  return table;
-}
-
 static void begin_render(Renderer *renderer){}
 static void end_render(Renderer *renderer){}
 static void set_linewidth(Renderer *renderer, real linewidth){}
@@ -198,6 +191,14 @@ static void set_font(Renderer *renderer, DiaFont *font, real height){}
 static void draw_line(Renderer *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_color){}
+
+
+RenderOps * create_renderops_table(void) {
+  RenderOps *table = g_new(RenderOps, 1);
+  *table = AbstractRenderOps;
+  return table;
+}
+
 /* Interim draw_polyline.  Doesn't draw nice corners. */
 static void draw_polyline(Renderer *renderer, 
 			  Point *points, int num_points, 

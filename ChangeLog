@@ -1,3 +1,41 @@
+2002-09-23  Cyrille Chepelov  <cyrille@chepelov.org>
+
+	* plug-ins/xlst/Makefile.am: found a way to silence automake while
+	not forcing everyone to build using libxslt.
+
+	* lib/font.c: 
+	* lib/message.c:
+	* lib/object_defaults.c:
+	* lib/intl.[ch]:
+	* lib/render.c:
+	* lib/properties.[ch]:
+	* lib/propobject.c:
+	* objects/standard/box.c: 
+	* objects/UML/state_term.c:
+	* objects/FS/box.c:
+	* objects/FS/flow-ortho.c:
+	* app/app_procs.c:
+	* app/autosave.c:	
+	* app/commands.c:
+	* app/diagram_tree.c:
+	* app/display.c:
+	* app/disp_callbacks.c:
+	* app/export_png.c:
+	* app/filedlg.c:
+	* app/lineprops_area.c:
+	* app/menus.c:	
+	* app/preferences.c:
+	* app/render_eps.c:	
+	* app/sheets.c:
+	* app/sheets_dialog_callbacks.c:
+	* plug-ins/xslt/xslt.c:
+	* plug-ins/metapost/render_metapost.c:
+	* plug-ins/xfig/xfig-export.c:
+	* plug-ins/shape/shape-export.c:
+	
+	Killed most gcc-3.2 warnings (const-correctness and derived warnings, 
+	unused variables, mostly)
+	
 2002-09-19  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/UML/uml.c (uml_get_operation_string): Patch from Mauf

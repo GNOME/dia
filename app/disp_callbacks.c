@@ -135,7 +135,7 @@ create_object_menu(DiaMenu *dia_menu)
     if ( dia_menu->items[i].callback ) {
           /* only connect signal handler if there is actually a callback */
       gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
-                         object_menu_proxy, &dia_menu->items[i]);
+                         (GtkSignalFunc)object_menu_proxy, &dia_menu->items[i]);
     } else { 
       if ( item->callback_data ) { 
             /* This menu item is a submenu if it has no callback, but does

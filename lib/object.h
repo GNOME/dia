@@ -409,16 +409,16 @@ struct _ObjectType {
   { "obj_bb", PROP_TYPE_RECT, offsetof(Object, bounding_box) }
 
 
-gboolean       dia_object_defaults_load (gchar *filename,
-					 gboolean create_lazy);
-void           dia_object_default_make (Object *obj_from);
-const Object  *dia_object_default_get  (ObjectType *type);
-Object        *dia_object_default_create (ObjectType *type,
-					  Point *startpoint,
-					  void *user_data,
-					  Handle **handle1,
-					  Handle **handle2);
-gboolean       dia_object_defaults_save (gchar *filename);
+gboolean       dia_object_defaults_load (const gchar *filename,
+                                         gboolean create_lazy);
+void           dia_object_default_make (const Object *obj_from);
+Object  *dia_object_default_get  (const ObjectType *type);
+Object  *dia_object_default_create (const ObjectType *type,
+                                    Point *startpoint,
+                                    void *user_data,
+                                    Handle **handle1,
+                                    Handle **handle2);
+gboolean       dia_object_defaults_save (const gchar *filename);
 Layer         *dia_object_get_parent_layer(Object *obj);
 
 #endif /* OBJECT_H */

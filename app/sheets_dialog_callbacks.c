@@ -967,11 +967,12 @@ on_sheets_shapeselection_dialog_button_ok_clicked
                                         (GtkButton       *button,
                                         gpointer         user_data)
 {
-  gchar *filename;
+  const gchar *filename;
   GtkWidget *entry;
 
-  filename = gtk_file_selection_get_filename(
-                              GTK_FILE_SELECTION(sheets_shapeselection_dialog));
+  filename =
+      gtk_file_selection_get_filename(
+          GTK_FILE_SELECTION(sheets_shapeselection_dialog));
 
   entry = lookup_widget(sheets_new_dialog, "combo_entry_from_file");
   /* Since this is a filename entry from the dialog, no utf is needed */
@@ -1622,7 +1623,7 @@ write_user_sheet(Sheet *sheet)
   xmlNodePtr icon_node;
   gchar buf[512];
   time_t time_now;
-  char *username;
+  const char *username;
   gchar *dir_user_sheets;
   gchar *filename;
   SheetObject *sheetobject;

@@ -90,7 +90,7 @@ static guint default_dtree_width = 220;
 static guint default_dtree_height = 100;
 static guint default_dtree_dia_sort = DIA_TREE_SORT_INSERT;
 static guint default_dtree_obj_sort = DIA_TREE_SORT_INSERT;
-static gchar *default_paper_name = NULL;
+static const gchar *default_paper_name = NULL;
 
 struct DiaPrefsTab {
   char *title;
@@ -127,7 +127,9 @@ DiaPrefData prefs_data[] =
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
   { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait:") },
-  { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype), &default_paper_name, 1, N_("Paper type:"), NULL, FALSE, get_paper_name_list },
+  { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype),
+    &default_paper_name, 1, N_("Paper type:"), NULL, FALSE,
+    get_paper_name_list },
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("New window:") },
   { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, 1, N_("Width:") },

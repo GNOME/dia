@@ -98,8 +98,6 @@ static void box_set_props(Box *box, GPtrArray *props);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
 static Object *box_load(ObjectNode obj_node, int version, const char *filename);
-static GtkWidget *box_get_defaults(void);
-static void box_apply_defaults(void);
 
 static ObjectTypeOps box_type_ops =
 {

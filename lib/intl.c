@@ -270,7 +270,7 @@ get_language_list(const gchar *category_name)
 
 #endif
 
-GList *
+const GList *
 intl_get_language_list(void)
 {
   static const GList *list = NULL;
@@ -290,15 +290,15 @@ intl_get_language_list(void)
 int
 intl_score_locale(const gchar *locale)
 {
-  GList *list = intl_get_language_list();
-  GList *tmp;
+  const GList *list = intl_get_language_list();
+  const GList *tmp;
   int i;
 
   /* NULL is same as C locale */
   if (!locale)
-    return g_list_length(list) - 1;
+    return g_list_length((GList*)list) - 1;
   for (tmp = list, i = 0; tmp; tmp = tmp->next, i++)
-    if (!strcmp((char *)tmp->data, locale))
+    if (!strcmp((const char *)tmp->data, locale))
       break;
   if (!tmp) /* not found */
     i = G_MAXINT;
