@@ -1,8 +1,22 @@
 News in version 0.80:
 * Undo capabilities
 * Printing support
-* Possibilities to create new objects in XML.
-* 
+* Possibilities to create new objects in XML
+* Export to SVG capability
+* Objects can have menus
+* New objects:
+  uml state object.
+  Some new Network objects
+  flowchart sheet.
+  Sybase sheet.
+  Electric circuit sheet.
+* Uses g_module for dll loading (Dia should work on most unixes now).
+* Somewhat better EPS files created
+* More preferences
+* Ctrl-drag handles restricts movement to horizontal/vertical.
+* New logos.
+* Heaps of new stuff i forgot
+* Lots of bugfixes and cleanups.
 
 News in version 0.41:
 * Some internalization bugfixes.
