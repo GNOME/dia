@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
-"POT-Creation-Date: 2003-02-25 19:34+0100\n"
-"PO-Revision-Date: 2003-02-22 22:49+0100\n"
+"POT-Creation-Date: 2003-04-07 19:41+0200\n"
+"PO-Revision-Date: 2003-04-07 23:29+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgid ""
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
 #. no standard buttons
-#: app/app_procs.c:546
+#: app/app_procs.c:550
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -120,15 +120,15 @@ msgstr ""
 "Jste si jisti, že chcete ukončit program Dia\n"
 "bez uložení těchto změn?"
 
-#: app/app_procs.c:550
+#: app/app_procs.c:554
 msgid "Quit Dia"
 msgstr "Ukončit Dia"
 
-#: app/app_procs.c:612 app/app_procs.c:619
+#: app/app_procs.c:616 app/app_procs.c:623
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: app/app_procs.c:621
+#: app/app_procs.c:625
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -136,7 +136,7 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: app/app_procs.c:643 app/diaconv.c:249
+#: app/app_procs.c:647 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
@@ -385,7 +385,7 @@ msgid "Ok"
 msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1006 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/linewidth_area.c:252
+#: app/lineprops_area.c:679 app/linewidth_area.c:257
 #: app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Zrušit"
@@ -491,15 +491,15 @@ msgstr ""
 msgid "No object menu"
 msgstr "Žádné menu k objektu"
 
-#: app/display.c:90
+#: app/display.c:93
 msgid "Diagram modified!"
 msgstr "Diagram byl změněn!"
 
-#: app/display.c:890
+#: app/display.c:960
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
-#: app/display.c:892
+#: app/display.c:962
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -508,16 +508,16 @@ msgstr ""
 "Diagram '%s'\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: app/display.c:903
+#: app/display.c:973
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: app/display.c:908
+#: app/display.c:978
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
 #: app/export_png.c:114 app/load_save.c:746 plug-ins/cgm/cgm.c:1156
-#: plug-ins/dxf/dxf-export.c:480 plug-ins/hpgl/hpgl.c:731
+#: plug-ins/dxf/dxf-export.c:504 plug-ins/hpgl/hpgl.c:731
 #: plug-ins/metapost/render_metapost.c:733
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
@@ -754,23 +754,54 @@ msgstr "Vytvořit obrázek"
 msgid "Image"
 msgstr "Obrázek"
 
-#: app/interface.c:470
+#: app/interface.c:370
+msgid "Diagram menu."
+msgstr "Menu diagramu."
+
+#: app/interface.c:479
 msgid "Zoom"
 msgstr "Zvětšit"
 
-#: app/interface.c:514
+#: app/interface.c:493
+msgid "Toggles snap-to-grid for this window."
+msgstr "Přepne lnutí k mřížce pro toto okno."
+
+#: app/interface.c:537
 msgid "NULL tooldata in tool_select_update"
 msgstr "Data s hodnotou NULL v tool_select_update"
 
-#: app/interface.c:975
+#: app/interface.c:999
 msgid ""
-"Foreground & background colors.  The small black and white squares reset "
-"colors.  The small arrows swap colors.  Double click to change colors."
-msgstr ""
-"Barvy popředí a pozadí. Černý a bílý čtvereček vynuluje barvy. Šipečky "
-"prohazují barvy. Dvojité kliknutí změní barvu."
+"Foreground & background colors for new objects.  The small black and white "
+"squares reset colors.  The small arrows swap colors.  Double click to change "
+"colors."
+msgstr "Barvy popředí a pozadí pro nové objekty. Malý černý a bílý čtvereček vynuluje barvy. Šipečky prohazují barvy. Dvojité kliknutí změní barvu."
 
-#: app/interface.c:1124
+#: app/interface.c:1014
+msgid ""
+"Line widths.  Click on a line to set the default line width for new "
+"objects.  Double-click to set the line width more precisely."
+msgstr "Šířky čar. Kliknutím na čáru nastavíte implicitní šířku čáry pro nové objekty. Dvojitým kliknutím nastavíte šířku čáry přesněji."
+
+#: app/interface.c:1046
+msgid ""
+"Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
+"arrow parameters with Details..."
+msgstr "Styl šipky na začátku nových čar. Kliknutím zvolte šipku nebo nastavte parametry šipky tlačítkem Podrobnosti..."
+
+#: app/interface.c:1051
+msgid ""
+"Line style for new lines.  Click to pick a line style, or set line style "
+"parameters with Details..."
+msgstr "Styl čáry pro nové čáry. Kliknutím zvolte styl čáry nebo nastavte styl čáry tlačítkem Podrobnosti..."
+
+#: app/interface.c:1056
+msgid ""
+"Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
+"parameters with Details..."
+msgstr "Styl šipky na konci nových čar. Kliknutím zvolte šipku nebo nastavte parametry šipky tlačítkem Podrobnosti..."
+
+#: app/interface.c:1152
 msgid "Diagram Editor"
 msgstr "Editor diagramu"
 
@@ -819,7 +850,7 @@ msgid "Layer name:"
 msgstr "Název vrstvy:"
 
 #: app/layer_dialog.c:996 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:243 app/paginate_psprint.c:268
+#: app/linewidth_area.c:248 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
@@ -835,12 +866,12 @@ msgstr "Podrobnosti..."
 msgid "Line Style Properties"
 msgstr "Vlastnosti stylu čáry"
 
-#: app/linewidth_area.c:224 lib/properties.h:473
+#: app/linewidth_area.c:229 lib/properties.h:473
 #: objects/chronogram/chronoline.c:180 objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Šířka čáry"
 
-#: app/linewidth_area.c:230
+#: app/linewidth_area.c:235
 msgid "Line width:"
 msgstr "Šířka čáry:"
 
@@ -2208,6 +2239,10 @@ msgstr "Plná konkáva"
 #: lib/arrows.c:61
 msgid "Blanked Concave"
 msgstr "Prázdná konkáva"
+
+#: lib/arrows.c:62
+msgid "Round"
+msgstr "Kulatý"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
@@ -4445,7 +4480,7 @@ msgstr "Exportní filtr formátu Computer Graphics Metafile"
 msgid "Drawing Interchange File import and export filters"
 msgstr "Exportní a importní filtry formátu Drawing Interchange File"
 
-#: plug-ins/dxf/dxf-export.c:522 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:546 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -6191,19 +6226,3 @@ msgstr "Realizuje, implementuje specifické rozhraní"
 #: sheets/UML.sheet.in.h:27
 msgid "UML"
 msgstr "UML"
-
-msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-msgstr "Není nastavena proměnná DIA_PLUGIN_PATH. Styly nejsou k dispozici.\n"
-
-msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
-msgstr ""
-"Nelze načíst zásuvný modul XSLT; není nastavena proměnná DIA_PLUGIN_PATH."
-
-msgid ""
-"The anti aliased renderer is buggy, and may cause\n"
-"crashes.  We know there are bugs in it, so don't\n"
-"bother submitting another report if it crashes"
-msgstr ""
-"Antialiasované vykreslování obsahuje chyby, a může\n"
-"způsobit havárie. O těchto chybách víme, takže se\n"
-"prosíme neobtěžujte hlásit, pokud k havárii dojde."
