@@ -6,16 +6,15 @@ msgstr ""
 "Project-Id-Version: dia 0.80\n"
 "POT-Creation-Date: 1999-12-24 22:20+0800\n"
 "PO-Revision-Date: 1999-04-04 10:12+02:00\n"
-"Last-Translator: Fredrik Hallenberg <hallon@lysator.liu.se>\n"
+"Last-Translator: Andreas Hyden <andreas.hyden@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: app/app_procs.c:130
-#, fuzzy
 msgid "Export loaded file and exit"
-msgstr "Exportera fil till Postscript och avsluta"
+msgstr "Exportera laddad fil och avsluta"
 
 #: app/app_procs.c:131
 msgid "OUTPUT"
@@ -23,7 +22,7 @@ msgstr "UTFIL"
 
 #: app/app_procs.c:133
 msgid "Show this help message"
-msgstr ""
+msgstr "Visa detta hjälpmeddelande"
 
 #: app/app_procs.c:152
 msgid "Can't connect to session manager!\n"
@@ -31,7 +30,7 @@ msgstr "Kan inte få kontakt med sessionshanteraren!\n"
 
 #: app/app_procs.c:163
 msgid "[OPTION...] [FILE...]"
-msgstr ""
+msgstr "[OPTION...] [FILE...]"
 
 #: app/app_procs.c:166
 #, c-format
@@ -39,6 +38,8 @@ msgid ""
 "Error on option %s: %s.\n"
 "Run '%s --help' to see a full list of available command line options.\n"
 msgstr ""
+"Fel vid alternativ %s: %s.\n"
+"Kör '%s --help' för att se en full lista av tillgängliga kommandoradsalternativ.\n"
 
 #: app/app_procs.c:209 app/app_procs.c:211
 msgid ""
@@ -64,7 +65,7 @@ msgstr ""
 
 #: app/app_procs.c:298
 msgid "Quit"
-msgstr ""
+msgstr "Avsluta"
 
 #: app/app_procs.c:310 app/layer_dialog.c:980 app/lineprops_area.c:516
 #: app/lineprops_area.c:714
@@ -381,9 +382,8 @@ msgid "Create Polyline"
 msgstr "Skapa linje med flera noder"
 
 #: app/interface.c:99
-#, fuzzy
 msgid "Create Bezierline"
-msgstr "Skapa linje"
+msgstr ""
 
 #: app/interface.c:103
 msgid "Create Image"
@@ -459,22 +459,18 @@ msgstr ""
 "Refererat objekt finns inte i dokumentet."
 
 #: app/load_save.c:135
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
 msgstr ""
-"Fel vid laddning av diagrammet %s.\n"
-"Okänd filtyp."
+"Fel vid laddning av diagram\n"
+"anslutningspunkten finns inte."
 
 #: app/load_save.c:138
-#, fuzzy
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
 msgstr ""
-"Fel vid laddning av diagrammet %s.\n"
-"Okänd filtyp."
 
 #: app/load_save.c:183
 #, c-format
@@ -510,9 +506,8 @@ msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunde inte öppna: '%s' för skrivning.\n"
 
 #: app/load_save.c:554
-#, fuzzy
 msgid "Native Dia Diagram"
-msgstr "Spara diagram"
+msgstr ""
 
 #: app/menus.c:35 app/menus.c:45
 msgid "_New diagram"
@@ -524,7 +519,7 @@ msgstr "Skapa ett nytt diagram"
 
 #: app/menus.c:52
 msgid "_Export..."
-msgstr ""
+msgstr "_Exportera..."
 
 #: app/menus.c:56
 msgid "Page Set_up..."
@@ -698,23 +693,20 @@ msgid "/File/Save _As..."
 msgstr "/Arkiv/S_para som..."
 
 #: app/menus.c:196
-#, fuzzy
 msgid "/File/_Export..."
-msgstr "/Arkiv/_Exportera till EPS"
+msgstr "/Arkiv/_Exportera..."
 
 #: app/menus.c:198
-#, fuzzy
 msgid "/File/Page Set_up..."
-msgstr "/Arkiv/S_para som..."
+msgstr ""
 
 #: app/menus.c:199
 msgid "/File/_Print Diagram..."
 msgstr "/Arkiv/Skriv ut diagram..."
 
 #: app/menus.c:200
-#, fuzzy
 msgid "/File/sep2"
-msgstr "/Arkiv/sep1"
+msgstr "/Arkiv/sep2"
 
 #: app/menus.c:201
 msgid "/File/_Close"
@@ -907,9 +899,8 @@ msgid "This object has no properties."
 msgstr "Detta objekt har inga egenskaper."
 
 #: app/render_eps.c:1101
-#, fuzzy
 msgid "Encapsulated Postscript"
-msgstr "Exportera till PostScript"
+msgstr ""
 
 #: app/defaults.c:43
 msgid "Object defaults"
@@ -933,7 +924,7 @@ msgstr "Nollställ verktyg när objekt har skapats:"
 
 #: app/preferences.c:81
 msgid "Compress saved files:"
-msgstr ""
+msgstr "Komprimera sparade filer:"
 
 #: app/preferences.c:82
 msgid "Number of undo levels:"
@@ -993,7 +984,7 @@ msgstr "Inställningar"
 
 #: app/render_svg.c:834
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "Skalbar vektorgrafik"
 
 #: app/lineprops_area.c:496
 msgid "Arrow Properties"
@@ -1035,7 +1026,7 @@ msgstr "Varning"
 
 #: lib/message.c:127
 msgid "Error"
-msgstr ""
+msgstr "Fel"
 
 #: lib/widgets.c:296
 msgid "Solid"
@@ -1133,15 +1124,15 @@ msgstr "Namn:"
 
 #: objects/UML/association.c:979
 msgid "Direction:"
-msgstr ""
+msgstr "Riktning:"
 
 #: objects/UML/association.c:1027 objects/UML/association.c:1035
 msgid "Side A"
-msgstr ""
+msgstr "Sida A"
 
 #: objects/UML/association.c:1029 objects/UML/association.c:1037
 msgid "Side B"
-msgstr ""
+msgstr "Sida B"
 
 #: objects/UML/association.c:1043
 msgid "Role:"
@@ -1169,11 +1160,11 @@ msgstr ""
 #. Class page:
 #: objects/UML/class.c:608 objects/UML/class_dialog.c:171
 msgid "Class"
-msgstr ""
+msgstr "Klass"
 
 #: objects/UML/class_dialog.c:177
 msgid "Class name:"
-msgstr ""
+msgstr "Klassnamn:"
 
 #: objects/UML/class_dialog.c:188 objects/UML/dependency.c:622
 #: objects/UML/generalization.c:592 objects/UML/large_package.c:572
@@ -1187,7 +1178,7 @@ msgstr ""
 
 #: objects/UML/class_dialog.c:207
 msgid "Attributes visible"
-msgstr ""
+msgstr "Attribut syndliga"
 
 #: objects/UML/class_dialog.c:211
 msgid "Suppress Attributes"
@@ -1195,7 +1186,7 @@ msgstr ""
 
 #: objects/UML/class_dialog.c:219
 msgid "Operations visible"
-msgstr ""
+msgstr "Operationer synliga"
 
 #: objects/UML/class_dialog.c:223
 msgid "Suppress operations"
@@ -1204,7 +1195,7 @@ msgstr ""
 #. Attributes page:
 #: objects/UML/class_dialog.c:640
 msgid "Attributes"
-msgstr ""
+msgstr "Attribut"
 
 #: objects/UML/class_dialog.c:668 objects/UML/class_dialog.c:1541
 #: objects/UML/class_dialog.c:1701 objects/UML/class_dialog.c:2162
@@ -1241,7 +1232,7 @@ msgstr "Värde:"
 
 #: objects/UML/class_dialog.c:741 objects/UML/class_dialog.c:1605
 msgid "Visibility:"
-msgstr ""
+msgstr "Synlighet:"
 
 #: objects/UML/class_dialog.c:750 objects/UML/class_dialog.c:1614
 msgid "Public"
@@ -1253,11 +1244,11 @@ msgstr ""
 
 #: objects/UML/class_dialog.c:766 objects/UML/class_dialog.c:1630
 msgid "Protected"
-msgstr ""
+msgstr "Skyddad"
 
 #: objects/UML/class_dialog.c:774 objects/UML/class_dialog.c:1638
 msgid "Implementation"
-msgstr ""
+msgstr "Implementation"
 
 #: objects/UML/class_dialog.c:790 objects/UML/class_dialog.c:1654
 msgid "Class scope"
@@ -1266,7 +1257,7 @@ msgstr ""
 #. Operations page:
 #: objects/UML/class_dialog.c:1513
 msgid "Operations"
-msgstr ""
+msgstr "Operationer"
 
 #: objects/UML/class_dialog.c:1571
 msgid "Operation data"
@@ -1278,24 +1269,24 @@ msgstr ""
 
 #: objects/UML/class_dialog.c:1672
 msgid "Parameters:"
-msgstr ""
+msgstr "Parametrar"
 
 #: objects/UML/class_dialog.c:1734
 msgid "Parameter data"
-msgstr ""
+msgstr "Parameter data"
 
 #: objects/UML/class_dialog.c:1767
 msgid "Def. value:"
-msgstr ""
+msgstr "Std. värde:"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2128
 msgid "Templates"
-msgstr ""
+msgstr "Mallar"
 
 #: objects/UML/class_dialog.c:2134
 msgid "Template class"
-msgstr ""
+msgstr "Mallklass"
 
 #: objects/UML/class_dialog.c:2191
 msgid "Formal parameter data"
@@ -1307,11 +1298,11 @@ msgstr ""
 
 #: objects/UML/dependency.c:634
 msgid "Show arrow:"
-msgstr ""
+msgstr "Visa pil:"
 
 #: objects/UML/implements.c:559
 msgid "Interface:"
-msgstr ""
+msgstr "Gränssnitt:"
 
 #: objects/UML/usecase.c:542
 msgid "Text outside:"
@@ -1327,15 +1318,15 @@ msgstr ""
 
 #: objects/UML/object.c:775
 msgid "Attributes:"
-msgstr ""
+msgstr "Attribut:"
 
 #: objects/UML/object.c:785
 msgid "Show attributes"
-msgstr ""
+msgstr "Visa attribut:"
 
 #: objects/UML/object.c:789
 msgid "Active object"
-msgstr ""
+msgstr "Aktivt objekt"
 
 #: objects/UML/object.c:794
 msgid "multiple instance"
@@ -1351,11 +1342,11 @@ msgstr ""
 
 #: objects/UML/message.c:614
 msgid "Message:"
-msgstr ""
+msgstr "Meddelande:"
 
 #: objects/UML/message.c:628
 msgid "Message type:"
-msgstr ""
+msgstr "Mellandetyp:"
 
 #.
 #: objects/UML/message.c:633
@@ -1364,7 +1355,7 @@ msgstr ""
 
 #: objects/UML/message.c:638
 msgid "Return"
-msgstr ""
+msgstr "Retunera"
 
 #: objects/UML/message.c:643
 msgid "Asynchronous"
@@ -1372,31 +1363,31 @@ msgstr ""
 
 #: objects/UML/message.c:648
 msgid "Create"
-msgstr ""
+msgstr "Skapa"
 
 #: objects/UML/message.c:653
 msgid "Destroy"
-msgstr ""
+msgstr "Förstör"
 
 #: objects/UML/message.c:658
 msgid "Simple"
-msgstr ""
+msgstr "Enkel"
 
 #: objects/UML/message.c:663
 msgid "Recursive"
-msgstr ""
+msgstr "Rekursivt"
 
 #: objects/UML/state.c:501
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: objects/UML/state.c:506
 msgid "Begin"
-msgstr ""
+msgstr "Börja"
 
 #: objects/UML/state.c:511
 msgid "End"
-msgstr ""
+msgstr "Sluta"
 
 #: objects/UML/classicon.c:606
 msgid "Control"
@@ -1412,7 +1403,7 @@ msgstr ""
 
 #: objects/UML/classicon.c:625
 msgid "Is an object"
-msgstr ""
+msgstr "Är ett objekt"
 
 #: objects/ER/attribute.c:212
 msgid "Key"
@@ -1458,15 +1449,15 @@ msgstr "Bakgrundsfärg:"
 
 #: objects/ER/attribute.c:507
 msgid "Attribute"
-msgstr ""
+msgstr "Attribut"
 
 #: objects/ER/entity.c:196
 msgid "Weak"
-msgstr ""
+msgstr "Svag"
 
 #: objects/ER/participation.c:416
 msgid "Total:"
-msgstr ""
+msgstr "Total:"
 
 #: objects/ER/relationship.c:266
 msgid "Left Cardinality:"
@@ -1478,25 +1469,23 @@ msgstr ""
 
 #: objects/ER/relationship.c:282
 msgid "Rotate"
-msgstr ""
+msgstr "Rotera"
 
 #: objects/ER/relationship.c:288
 msgid "Identifying"
-msgstr ""
+msgstr "Identifierar"
 
 #: objects/ER/relationship.c:568
 msgid "Relationship"
-msgstr ""
+msgstr "Förhållande"
 
 #: objects/network/bus.c:569
-#, fuzzy
 msgid "Add Handle"
-msgstr "Lägg till nod"
+msgstr ""
 
 #: objects/network/bus.c:570
-#, fuzzy
 msgid "Delete Handle"
-msgstr "Ta bort lager"
+msgstr ""
 
 #: objects/standard/arc.c:205 objects/standard/line.c:202
 #: objects/standard/polyline.c:207 objects/standard/zigzagline.c:207
@@ -1619,19 +1608,19 @@ msgstr ""
 #: objects/FS/flow-ortho.c:692 objects/FS/flow.c:642 objects/FS/flow.c:697
 #: objects/FS/flow.c:758
 msgid "Energy"
-msgstr ""
+msgstr "Energi"
 
 #: objects/FS/flow-ortho.c:586 objects/FS/flow-ortho.c:633
 #: objects/FS/flow-ortho.c:699 objects/FS/flow.c:649 objects/FS/flow.c:698
 #: objects/FS/flow.c:765
 msgid "Material"
-msgstr ""
+msgstr "Material"
 
 #: objects/FS/flow-ortho.c:592 objects/FS/flow-ortho.c:634
 #: objects/FS/flow-ortho.c:705 objects/FS/flow.c:655 objects/FS/flow.c:699
 #: objects/FS/flow.c:771 objects/FS/function.c:586
 msgid "Signal"
-msgstr ""
+msgstr "Signal"
 
 #: objects/FS/flow-ortho.c:671
 msgid "Orthflow:"
@@ -1643,55 +1632,55 @@ msgstr ""
 
 #: objects/FS/function.c:498
 msgid "Function:"
-msgstr ""
+msgstr "Funktion:"
 
 #: objects/FS/function.c:508
 msgid "Wish function"
-msgstr ""
+msgstr "Önskefunktion"
 
 #: objects/FS/function.c:513
 msgid "User function"
-msgstr ""
+msgstr "Användarfunktion"
 
 #: objects/FS/function.c:552
 msgid "Channel"
-msgstr ""
+msgstr "Kanal"
 
 #: objects/FS/function.c:553
 msgid "   Import"
-msgstr ""
+msgstr "   Importera"
 
 #: objects/FS/function.c:554
 msgid "   Export"
-msgstr ""
+msgstr "   Exportera"
 
 #: objects/FS/function.c:555
 msgid "   Transfer"
-msgstr ""
+msgstr "   Sänd"
 
 #: objects/FS/function.c:556
 msgid "      Transport"
-msgstr ""
+msgstr "      Transportera"
 
 #: objects/FS/function.c:557
 msgid "      Transmit"
-msgstr ""
+msgstr "      Överför"
 
 #: objects/FS/function.c:558
 msgid "   Guide"
-msgstr ""
+msgstr "   Guide"
 
 #: objects/FS/function.c:559
 msgid "      Translate"
-msgstr ""
+msgstr "      Översätt"
 
 #: objects/FS/function.c:560
 msgid "      Rotate"
-msgstr ""
+msgstr "      Rotera"
 
 #: objects/FS/function.c:561
 msgid "      Allow DOF"
-msgstr ""
+msgstr "      Tillåt DOF"
 
 #: objects/FS/function.c:562
 msgid "Support"
@@ -1699,23 +1688,23 @@ msgstr ""
 
 #: objects/FS/function.c:563
 msgid "   Stop"
-msgstr ""
+msgstr "   Stopp"
 
 #: objects/FS/function.c:564
 msgid "   Stabilize"
-msgstr ""
+msgstr "   Stabilisera"
 
 #: objects/FS/function.c:565
 msgid "   Secure"
-msgstr ""
+msgstr "   Säker"
 
 #: objects/FS/function.c:566
 msgid "   Position"
-msgstr ""
+msgstr "   Position"
 
 #: objects/FS/function.c:567
 msgid "Connect"
-msgstr ""
+msgstr "Anslut"
 
 #: objects/FS/function.c:568
 msgid "   Couple"
@@ -1723,7 +1712,7 @@ msgstr ""
 
 #: objects/FS/function.c:569
 msgid "   Mix"
-msgstr ""
+msgstr "   Mix"
 
 #: objects/FS/function.c:570
 msgid "Branch"
@@ -1731,11 +1720,11 @@ msgstr ""
 
 #: objects/FS/function.c:571
 msgid "   Separate"
-msgstr ""
+msgstr "   Seperat"
 
 #: objects/FS/function.c:572
 msgid "      Remove"
-msgstr ""
+msgstr "      Ta bort"
 
 #: objects/FS/function.c:573
 msgid "   Refine"
@@ -1755,7 +1744,7 @@ msgstr ""
 
 #: objects/FS/function.c:577
 msgid "   Store"
-msgstr ""
+msgstr "   Lagra"
 
 #: objects/FS/function.c:578
 msgid "   Supply"
@@ -1779,15 +1768,15 @@ msgstr ""
 
 #: objects/FS/function.c:583
 msgid "   Change"
-msgstr ""
+msgstr "   Ändra"
 
 #: objects/FS/function.c:584
 msgid "   Form"
-msgstr ""
+msgstr "   Form"
 
 #: objects/FS/function.c:585
 msgid "Convert"
-msgstr ""
+msgstr "Konvertera"
 
 #: objects/FS/function.c:587
 msgid "   Sense"
@@ -1795,15 +1784,15 @@ msgstr ""
 
 #: objects/FS/function.c:588
 msgid "   Indicate"
-msgstr ""
+msgstr "   Indikera"
 
 #: objects/FS/function.c:589
 msgid "   Display"
-msgstr ""
+msgstr "   Visa"
 
 #: objects/FS/function.c:590
 msgid "   Measure"
-msgstr ""
+msgstr "   Mät"
 
 #: objects/custom/custom_object.c:333 objects/custom/custom_object.c:481
 #: objects/flowchart/box.c:317 objects/flowchart/box.c:463
@@ -1851,7 +1840,7 @@ msgstr ""
 
 #: plug-ins/cgm/cgm.c:919
 msgid "Computer Graphics Metafile"
-msgstr ""
+msgstr "Datagrafik metafil"
 
 #~ msgid "Export to SVG"
 #~ msgstr "Exportera till SVG"
@@ -1886,11 +1875,9 @@ msgstr ""
 #~ msgid "A simple Printer"
 #~ msgstr "En enkel skrivare"
 
-#, fuzzy
 #~ msgid "Print Diagram"
 #~ msgstr "Skriv ut Diagram..."
 
-#, fuzzy
 #~ msgid "Printer"
 #~ msgstr "Mittpunkt"
 
