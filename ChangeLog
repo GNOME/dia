@@ -1,3 +1,9 @@
+2005-02-01  root  <lars@raeder.dk>
+
+	* app/sheets.c (sheet_object_mod_get_type_string): We don't really
+	need to translate the empty string.  Especially not after
+	g_assert_not_reached(). 
+
 2005-01-07  Tim Olsen  <tolsen@alum.mit.edu>
 
 	* objects/UML/activity.c : add fill- and line-colour properties

@@ -450,7 +450,7 @@ sheet_object_mod_get_type_string(SheetObjectMod *som)
     return _("Programmed DiaObject");
   default:
     g_assert_not_reached();
-    return _("");
+    return "";
   }
 }
 
