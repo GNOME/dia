@@ -1,6 +1,11 @@
+2005-04-02  Hans Breuer  <hans@breuer.org>
+
+	* lib/dia_image.c(dia_image_filename) : return the path 
+	again. (bug #172416, Radek Krahl)
+	
 2005-04-01  Steve Murphy  <murf@e-tools.com>
 
-        * configure.in: Added "rw" to ALL_LINGUAS.
+	* configure.in: Added "rw" to ALL_LINGUAS.
 
 2005-03-31  Lars Clausen  <lars@raeder.dk>
 
