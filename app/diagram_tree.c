@@ -199,7 +199,7 @@ get_object_name(Object *object)
   gchar *result = NULL;
   g_assert(object);
   prop = object_prop_by_name(object, "name");
-  if (prop) {
+  if (prop && ((StringProperty *)prop)->string_data) {
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
 	  result = charconv_utf8_to_local8 (((StringProperty *)prop)->string_data);
 #else
@@ -207,7 +207,7 @@ get_object_name(Object *object)
 #endif
   } else {
     prop = object_prop_by_name(object, "text");
-    if (prop) {
+    if (prop && ((TextProperty *)prop)->text_data) {
 #ifdef GTK_DOESNT_TALK_UTF8_WE_DO
 	    result = charconv_utf8_to_local8 (((TextProperty *)prop)->text_data);
 #else

@@ -1,3 +1,8 @@
+2002-05-14  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/diagram_tree.c (get_object_name): Check that name property
+	doesn't have null string.
+
 2002-05-13  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* autogen.sh (DIE): Added conditional --force to gettextize.
