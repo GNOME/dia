@@ -32,13 +32,22 @@
 /** Calculate the width (in cm) of the gap between grid lines in dynamic
  * grid mode.
  */
-static real
+static void
 calculate_dynamic_grid(DDisplay *ddisp, real *width_x, real *width_y)
 {
   real zoom = ddisplay_untransform_length(ddisp, 1.0);
+  real ret, tmp;
   /* Twiddle zoom to make change-over appropriate */
   zoom *= 5;
-  return pow(10, ceil(log10(zoom)));
+  ret = pow(10, ceil(log10(zoom)));
+  /* dont' make it too small or huge (this is in pixels) */
+  tmp = ddisplay_transform_length(ddisp, ret);
+  if (tmp < 10.0)
+    ret *= 2.0;
+  else if (tmp > 35.0)
+    ret /= 2.0;
+  *width_x = ret;
+  *width_y = ret;
 }
 
 static void
@@ -213,17 +222,14 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
 {
   Grid *grid = &ddisp->grid;
   DiaRenderer *renderer = ddisp->renderer;
-  int major_lines;
 
   if (grid->visible) {
-    int width = dia_renderer_get_width_pixels(ddisp->renderer);
-    int height = dia_renderer_get_height_pixels(ddisp->renderer);
     /* distance between visible grid lines */
     real width_x = ddisp->diagram->data->grid.width_x;
     real width_y = ddisp->diagram->data->grid.width_y;
     real width_w = ddisp->diagram->data->grid.width_w;
     if (ddisp->diagram->data->grid.dynamic) {
-      width_x = width_y = calculate_dynamic_grid(ddisp, &width_x, &width_y);
+      calculate_dynamic_grid(ddisp, &width_x, &width_y);
     } else {
       width_x = ddisp->diagram->data->grid.width_x *
 	ddisp->diagram->data->grid.visible_x;

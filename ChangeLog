@@ -1,5 +1,11 @@
 2004-12-05  Hans Breuer  <hans@breuer.org>
 
+	* app/grid.c : respect dynamic grid during snap-to, fixes 
+	bug #135124, Dmitriy Morozov. Added some additional magic
+	to make the grid size more useable.
+
+2004-12-05  Hans Breuer  <hans@breuer.org>
+
 	* app/app_procs.c : make it compile for the HAVE_POPT and
 	G_LIB_CHECK_VERSION(2,5,5) case, minor formating
 	
