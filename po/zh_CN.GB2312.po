@@ -15,23 +15,23 @@ msgstr ""
 
 #: app/app_procs.c:134
 msgid "Export loaded file and exit"
-msgstr ""
+msgstr "导出载入的文件然后退出"
 
 #: app/app_procs.c:135
 msgid "OUTPUT"
-msgstr ""
+msgstr "输出"
 
 #: app/app_procs.c:137
 msgid "Show this help message"
-msgstr ""
+msgstr "显示此帮助信息"
 
 #: app/app_procs.c:157
 msgid "Can't connect to session manager!\n"
-msgstr ""
+msgstr "无法连接会话管理器!\n"
 
 #: app/app_procs.c:168
 msgid "[OPTION...] [FILE...]"
-msgstr ""
+msgstr "[OPTION...] [FILE...]"
 
 #: app/app_procs.c:171
 #, c-format
