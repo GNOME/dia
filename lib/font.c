@@ -1115,7 +1115,17 @@ font_get_suckfont (GdkFont *font, utfchar *text)
 
 	height = font->ascent + font->descent;
 	x = 0;
-	gdk_text_extents_wc (font, wcstr, length, &lbearing, &rbearing, &ch_width, &ascent, &descent);
+  if ((wcstr != NULL) && (length != 0) && (*wcstr != 0)) {
+      gdk_text_extents_wc (font, wcstr, length,
+                           &lbearing, &rbearing, &ch_width,
+                           &ascent, &descent);
+  } else {
+      lbearing = 0;
+      rbearing = 0;
+      ch_width = 0;
+      ascent = 0;
+      descent = 0;
+  }
 	suckfont->chars[0].left_sb = lbearing;
 	suckfont->chars[0].right_sb = ch_width - rbearing;
 	suckfont->chars[0].width = rbearing - lbearing;

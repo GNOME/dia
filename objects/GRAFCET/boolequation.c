@@ -154,7 +154,7 @@ static Block *textblock_create(const utfchar **str)
 }
 
 /* Operator block */
-#ifndef UNICODE_WORK_IN_PROGRESS
+#if !defined(UNICODE_WORK_IN_PROGRESS) || !defined(GTK_TALKS_UTF8)
 static const gchar xor_symbol[] = { 197, 0 };
 static const gchar and_symbol[] = { 215,0 };
 static const gchar rise_symbol[] = { 173,0 };
@@ -173,11 +173,35 @@ static const utfchar gt_symbol[] = { 62,0 };
 static const utfchar *opstring(OperatorType optype)
 {
   switch (optype) {
+
+#if defined(UNICODE_WORK_IN_PROGRESS) && (!defined(GTK_TALKS_UTF8))
+  case OP_AND: {
+      static const utfchar* utf_and = NULL;
+      if (!utf_and) utf_and = charconv_local8_to_utf8(and_symbol);
+      return utf_and;
+  }
+  case OP_XOR: {
+      static const utfchar* utf_xor = NULL;
+      if (!utf_xor) utf_xor = charconv_local8_to_utf8(xor_symbol);
+      return utf_xor;
+  }
+  case OP_RISE: {
+      static const utfchar* utf_rise = NULL;
+      if (!utf_rise) utf_rise = charconv_local8_to_utf8(rise_symbol);
+      return utf_rise;
+  }
+  case OP_FALL: {
+      static const utfchar* utf_fall = NULL;
+      if (!utf_fall) utf_fall = charconv_local8_to_utf8(fall_symbol);
+      return utf_fall;
+  }
+#else // sane case
   case OP_AND: return and_symbol;
-  case OP_OR: return or_symbol;
   case OP_XOR: return xor_symbol;
   case OP_RISE: return rise_symbol;
   case OP_FALL: return fall_symbol;
+#endif
+  case OP_OR: return or_symbol;
   case OP_EQUAL: return equal_symbol;
   case OP_LT: return lt_symbol;
   case OP_GT: return gt_symbol;
@@ -192,16 +216,17 @@ static void
 opblock_get_boundingbox(Block *block, Point *relpos,
 			Boolequation *booleq, Rectangle *rect)
 {
-  g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
+    const utfchar* ops;
+    g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
   
   
   block->pos = *relpos;
   block->bl.x = block->pos.x;
   block->bl.y = block->pos.y + font_descent(symbol,booleq->fontheight);
   block->ur.y = block->bl.y - booleq->fontheight;
-  block->ur.x = block->bl.x + font_string_width(opstring(block->d.operator),
-						symbol,
-						booleq->fontheight);
+  ops = opstring(block->d.operator);
+  block->ur.x = block->bl.x + font_string_width(ops, symbol,
+                                                booleq->fontheight);
   rect->left = block->bl.x;
   rect->top = block->ur.y;
   rect->bottom = block->bl.y;
@@ -212,7 +237,7 @@ static void
 opblock_draw(Block *block, Boolequation *booleq,Renderer *renderer)
 {
   g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
-#ifndef UNICODE_WORK_IN_PROGRESS 
+#if !defined(UNICODE_WORK_IN_PROGRESS) || !defined(GTK_TALKS_UTF8) 
   renderer->ops->set_font(renderer,symbol,booleq->fontheight);
 #endif
   renderer->ops->draw_string(renderer,opstring(block->d.operator),&block->pos,
@@ -651,7 +676,8 @@ void boolequation_calc_boundingbox(Boolequation *booleq, Rectangle *box)
   box->top = box->bottom = booleq->pos.y;
 
   if (booleq->rootblock) {
-    booleq->rootblock->ops->get_boundingbox(booleq->rootblock,&booleq->pos,booleq,box);
+    booleq->rootblock->ops->get_boundingbox(booleq->rootblock,
+                                            &booleq->pos,booleq,box);
   }  
 
   booleq->width = box->right - box->left;

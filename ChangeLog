@@ -1,3 +1,22 @@
+2002-05-15  Cyrille Chépélov  <cyrille@chepelov.org>
+
+	* lib/charconv.c: (charconv_local8_to_utf8),
+	(charconv_utf8_to_local8): tweaked the warnings to get more 
+	informations
+	* lib/font.c: (font_get_suckfont): handled a potential case of
+	uninitialised data being used (just paranoid)
+	
+	* objects/GRAFCET/boolequation.c: (opstring),
+	(opblock_get_boundingbox), (opblock_draw),
+	(boolequation_calc_boundingbox): some extra hoops needed now dia
+	talks UTF8 (but gtk doesn't). More #hell. Beeek. Basically, the
+	symbols can't yet be used with their proper Unicode cells, since
+	gtk will demand them in the Symbol font, expressed in the local
+	8-bit encoding.
+	
+	* samples/grafcet.dia: re-saved, now with a fixed bounding box (by
+	the fix just above).
+
 2002-05-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/diagram_tree.c (get_object_name): Check that name property
