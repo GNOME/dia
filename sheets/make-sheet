@@ -1,0 +1,36 @@
+#!/usr/bin/perl -w
+
+use strict;
+use English;
+
+my $dir = $ARGV[0];
+if (!$dir) {
+    $dir = $ENV{"PWD"};
+}
+
+$dir =~ /([^\/]*)\/?$/;
+my $name = $1;
+
+print "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?> <!-- -*- xml -*- -->\n";
+print "\n";
+
+print "<sheet xmlns=\"http://www.lysator.liu.se/~alla/dia/dia-sheet-ns\">\n";
+
+print "  <name>$name</name>\n";
+print "  <description>DESCRIBE $name</description>\n";
+
+print "  <contents>\n";
+
+opendir(DIR, $dir) || die "can't opendir $dir: $!";
+my @shapes = grep { /\.shape$/ && -f "$dir/$_" } readdir(DIR);
+closedir DIR;
+
+foreach my $shape (@shapes) {
+    $shape =~ s/(.*)\.shape$/$1/;
+    print "    <object name=\"$name - $shape\">\n";
+    print "      <description>DESCRIBE $shape</description>\n";
+    print "    </object>\n";
+}
+
+print "  </contents>\n";
+print "</sheet>\n";
