@@ -21,6 +21,8 @@ libxslt_filter_la_SOURCES = $(plugin_sources)
 
 libxslt_filter_la_LDFLAGS = -export-dynamic -module -avoid-version
 
+libxslt_filter_la_LIBADD = $(XSLT_LIBS)
+
 # escapes / in \/ for sed
 stylesheets.xml: stylesheets.xml.in
 	escaped=`echo ${xsltdir} | sed -e 's/\//\\\\\//g'`; \

@@ -286,21 +286,6 @@ dia_plugin_init(PluginInfo *info)
 			return DIA_PLUGIN_INIT_ERROR;
 	}
 	
-#ifdef G_OS_WIN32
-	/* FIXME: We can't assume \Windows is the right path, can we ? */
-	path = g_module_build_path("\Windows", "xslt");
-#else
-	/* FIXME: We should have a --with-xslt-prefix and use this */
-	path = g_module_build_path(LIBXSLT_PREFIX, "xslt");
-#endif	
-	xslt_module = g_module_open(path, 0);
-	if(xslt_module == NULL) {
-		message_error(_("Could not load XSLT library (%s) : %s"), path, g_module_error());
-		return DIA_PLUGIN_INIT_ERROR;
-	}
-
-	g_free(path);
-
 	path = dia_get_data_directory("plugins" G_DIR_SEPARATOR_S
 				      "xslt" G_DIR_SEPARATOR_S
 				      "stylesheets.xml");
