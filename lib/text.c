@@ -289,6 +289,10 @@ text_set_alignment(Text *text, Alignment align)
 void
 text_calc_boundingbox(Text *text, Rectangle *box)
 {
+
+  calc_width(text);
+  calc_ascent_descent(text);
+
   box->left = text->position.x;
   switch (text->alignment) {
   case ALIGN_LEFT:

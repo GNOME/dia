@@ -3,6 +3,18 @@
 	* app/app_procs.c: removed a spurious } which caused a compilation
 	error in the (!HAVE_GNOME && HAVE_POPT_H) case
 
+	* lib/charconv.c: (get_local_charset): some versions of iconv(1)
+	don't know what ANSI X3.4-1968 is. I didn't know until this day,
+	but it's just plain old ASCII. Added a check to shield the poor
+	XML library.
+
+	Patches from <robert.young@dsto.defence.gov.au>:
+
+	* lib/text.c: (text_calc_boundingbox) Bounding box now calculates the
+	width and height of text before calculating bounds. Fixes #59928
+
+	* app/preferences.c: Moved grid related items into Grid Tab.
+	
 2001-09-02  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/interface.c: (create_zoom_widget): connected one more signal

@@ -75,15 +75,31 @@ int get_local_charset(char **charset)
 #else
   *charset = NULL;
 #endif
-  this_charset = *charset;
   if (local_is_utf8) {
-    return local_is_utf8;
+      this_charset = *charset;
+      return local_is_utf8;
   }
-  if (*charset && 0==strcmp(*charset,"US-ASCII")) {
-    *charset = nl_langinfo(CODESET);
-    this_charset = *charset;
-    local_is_utf8 = (0==strcmp(*charset,"UTF-8"));
+  if (*charset) {
+      
+      if ((0==strcmp(*charset,"US-ASCII")) ||
+          (0==strcmp(*charset,"ANSI_X3.4-1968"))) {
+              /* unicode_get_charset() is broken. Usually, when it says
+                 US-ASCII, it's something else. */
+          *charset = nl_langinfo(CODESET);
+
+          if ((!charset) ||
+              (0==strcmp(*charset,"US-ASCII")) ||
+              (0==strcmp(*charset,"ANSI_X3.4-1968"))) {
+                  /* we got basic stupid ASCII here. We use its sane
+                     superset instead. Especially since libxml2 doesn't like
+                     the pedantic name of ASCII. */
+              *charset = "UTF-8";
+          }
+      }
   }
+  
+  this_charset = *charset;
+  local_is_utf8 = (0==strcmp(*charset,"UTF-8"));
   return local_is_utf8;
 }
 

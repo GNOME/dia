@@ -148,18 +148,18 @@ struct DiaPrefsData prefs_data[] =
   { NULL, PREF_NONE, 0, NULL, 1, N_("Connection Points:") },
   { "show_cx_pts", PREF_BOOLEAN, PREF_OFFSET(show_cx_pts), &default_true, 1, N_("Visible:") },
 
-  { NULL, PREF_NONE, 0, NULL, 2, N_("Grid:") },
-  { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 2, N_("Visible:") },
-  { "grid_snap", PREF_BOOLEAN, PREF_OFFSET(grid.snap), &default_false, 2, N_("Snap to:") },
-  { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, 2, N_("X Size:") },
-  { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 2, N_("Y Size:") },
-  { "grid_colour", PREF_COLOUR, PREF_OFFSET(grid.colour), &default_colour, 2, N_("Colour:") },
-  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 2, N_("Solid lines:") },  
-  
   { NULL, PREF_NONE, 0, NULL, 2, N_("Page breaks:") },
   { "pagebreak_visible", PREF_BOOLEAN, PREF_OFFSET(pagebreak.visible), &default_true, 2, N_("Visible:") },
   { "pagebreak_colour", PREF_COLOUR, PREF_OFFSET(pagebreak.colour), &pbreak_colour, 2, N_("Colour:") },
   { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, 2, N_("Solid lines:") },
+  
+  /*{ NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") }, */
+  { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, 3, N_("Visible:") },
+  { "grid_snap", PREF_BOOLEAN, PREF_OFFSET(grid.snap), &default_false, 3, N_("Snap to:") },
+  { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, 3, N_("X Size:") },
+  { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, 3, N_("Y Size:") },
+  { "grid_colour", PREF_COLOUR, PREF_OFFSET(grid.colour), &default_colour, 3, N_("Colour:") },
+  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 3, N_("Solid lines:") },  
 
   { "render_bounding_boxes", PREF_BOOLEAN,PREF_OFFSET(render_bounding_boxes),
     &default_false,0,"render bounding boxes:",NULL, TRUE},
