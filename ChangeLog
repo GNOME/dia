@@ -1,17 +1,17 @@
 2004-07-17  Lars Clausen  <lars@raeder.dk>
 
+	* doc/diagram.dtd: Add closing > to dia:diagram to make it parsable!
+
 	* objects/standard/image.c (image_load): Use path of diagram
 	rather than running directory as base for image file place.
+
+	* app/disp_callbacks.c (ddisplay_canvas_events): Patch from
+	Ambrose Li <a.c.li@ieee.org>:  Better IM context handling.
 
 2004-07-17 Sagar Rastogi <rastogi@students.iiit.net>
 
 	* app/disp_callbacks.c: Fixed #144962 (also in KNOWN_BUGS),
 	Disabled keyboard accels when dragging an object.	
-
-2004-07-17  Lars Clausen  <lars@raeder.dk>
-
-	* app/disp_callbacks.c (ddisplay_canvas_events): Patch from
-	Ambrose Li <a.c.li@ieee.org>:  Better IM context handling.
 
 2004-07-16  Steffen Macke <sdteffen@web.de>
 
