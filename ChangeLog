@@ -1,5 +1,8 @@
 2003-08-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/UML/component.c (component_create): Set to allow
+	parenting. 
+
 	* app/create_object.c (create_object_button_press): 
 	* app/diagram.[ch] (diagram_find_clicked_object_except): 
 	* lib/diagramdata.[ch] (layer_find_closest_object_except): 

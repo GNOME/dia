@@ -358,6 +358,8 @@ component_create(Point *startpoint,
 
   obj->ops = &component_ops;
 
+  obj->can_parent = TRUE;
+
   elem->corner = *startpoint;
 
   font = dia_font_new_from_style (DIA_FONT_SANS, 0.8);
