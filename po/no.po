@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 2000-04-27 00:12+0200\n"
-"PO-Revision-Date: 2000-04-27 00:11+02:00\n"
+"POT-Creation-Date: 2000-04-28 15:26+0200\n"
+"PO-Revision-Date: 2000-04-28 15:38+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -152,7 +152,7 @@ msgstr "Dette objektet har ingen standardverdier."
 
 #: app/dia_embedd.c:276
 msgid "Could not initialize Bonobo!"
-msgstr ""
+msgstr "Kunne ikke initialisere Bonobo!"
 
 #: app/diagram.c:156
 msgid "/Edit/Copy"
@@ -242,7 +242,7 @@ msgstr "/Objekter/Juster vertikalt/Ved siden av"
 #: app/diapagelayout.c:133 app/paginate_gnomeprint.c:197
 #: app/paginate_gnomeprint.c:202
 msgid "Paper Size"
-msgstr ""
+msgstr "Papirstørrelse"
 
 #. orientation
 #: app/diapagelayout.c:163
@@ -291,7 +291,7 @@ msgstr "etter"
 #: app/diapagelayout.c:704
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
-msgstr ""
+msgstr "%0.3gcm x %0.3gcm"
 
 #: app/diapagelayout.c:806 app/pagesetup.c:60 app/pagesetup.c:68
 msgid "Page Setup"
@@ -367,21 +367,19 @@ msgstr "Kunne ikke åpne: '%s' for skriving.\n"
 
 #: app/export_png.c:86
 msgid "Could not create PNG write structure"
-msgstr ""
+msgstr "Kunne ikke opprette PNG-struktur for skriving"
 
 #: app/export_png.c:95
-#, fuzzy
 msgid "Could not create PNG header info structure"
-msgstr "Kunne ikke opprette per-bruker konfigurasjonskatalog for Dia"
+msgstr "Kunne ikke opprette infostruktur for PNG-header"
 
 #: app/export_png.c:103
 msgid "Error occurred while writing PNG"
-msgstr ""
+msgstr "Feil under skriving av PNG"
 
 #: app/export_png.c:156
-#, fuzzy
 msgid "Portable Network Graphics"
-msgstr "Skalerbar vektorgrafikk"
+msgstr "Portable Network Graphics"
 
 #: app/filedlg.c:95
 msgid "Open Diagram"
@@ -397,6 +395,8 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to overwrite it?"
 msgstr ""
+"Filen '%s' eksisterer allerede.\n"
+"Vil du overskrive den?"
 
 #: app/filedlg.c:211
 msgid "Save Diagram"
@@ -412,6 +412,8 @@ msgid ""
 "Could not determine which export filter\n"
 "to use to save '%s'"
 msgstr ""
+"Kunne ikke bestemme hvilket eksportfilter\n"
+"som skulle brukes til å lagre '%s'"
 
 #: app/filedlg.c:408
 msgid "Export Diagram"
@@ -1325,11 +1327,12 @@ msgid "Number of undo levels:"
 msgstr "Antall angrenivåer:"
 
 #: app/preferences.c:103
-#, fuzzy
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
-msgstr "Rubberband fra høyre til venstre velger kryssende objekter"
+msgstr ""
+"Revers draoperasjon velger\n"
+"overlappende objekter:"
 
 #: app/preferences.c:104
 msgid "New window:"
@@ -1408,9 +1411,9 @@ msgstr "Encapsulated Postskript"
 msgid "Scalable Vector Graphics"
 msgstr "Skalerbar vektorgrafikk"
 
-#: lib/bezier_conn.c:519
+#: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr ""
+msgstr "Intern feil: Setter hjørnetype av endepunktet for bezieren"
 
 #: lib/diagramdata.c:50
 msgid "Background"
@@ -1445,29 +1448,31 @@ msgstr "Feil"
 #: lib/plug-ins.c:192
 #, c-format
 msgid "Could not deduce correct path for `%s'"
-msgstr ""
+msgstr "Kunne ikke finne korrekt sti for `%s'"
 
 #: lib/plug-ins.c:197
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not load plugin `%s'\n"
 "%s"
-msgstr "Kunne ikke åpne `%s' for skriving"
+msgstr ""
+"Kunne ikke laste tillegg `%s'\n"
+"%s"
 
 #: lib/plug-ins.c:208
 #, c-format
 msgid "Could not find plugin init function in `%s'"
-msgstr ""
+msgstr "Kunne ikke finne initialiseringsfunksjon for tillegg i `%s'"
 
 #: lib/plug-ins.c:235
 #, c-format
 msgid "%s Plugin could not be unloaded"
-msgstr ""
+msgstr "%s tillegg kunne ikke lastes ut"
 
 #: lib/plug-ins.c:288
 #, c-format
 msgid "`%s' is not a directory"
-msgstr ""
+msgstr "`%s' er ikke en katalog"
 
 #: lib/plug-ins.c:294
 #, c-format
@@ -1900,9 +1905,8 @@ msgid "Condition:"
 msgstr "Betingelse:"
 
 #: objects/GRAFCET/grafcet.c:40
-#, fuzzy
 msgid "GRAFCET diagram objects"
-msgstr "Objekter for nettverksdiagram"
+msgstr "GRAFCET diagramobjekter"
 
 #: objects/GRAFCET/step.c:251
 msgid "Regular step"
@@ -1910,23 +1914,23 @@ msgstr "Vanlig steg"
 
 #: objects/GRAFCET/step.c:252
 msgid "Initial step"
-msgstr ""
+msgstr "Første steg"
 
 #: objects/GRAFCET/step.c:253
 msgid "Macro entry step"
-msgstr ""
+msgstr "Makroens innledende steg"
 
 #: objects/GRAFCET/step.c:254
 msgid "Macro exit step"
-msgstr ""
+msgstr "Makroens avsluttende steg"
 
 #: objects/GRAFCET/step.c:255
 msgid "Macro call step"
-msgstr ""
+msgstr "Makroens kall-steg"
 
 #: objects/GRAFCET/step.c:256
 msgid "Subprogram call step"
-msgstr ""
+msgstr "Underprograms kall-steg"
 
 #: objects/GRAFCET/step.c:265
 msgid "Step name"
@@ -1961,9 +1965,8 @@ msgid "AND"
 msgstr "OG"
 
 #: objects/GRAFCET/vergent.c:179 objects/GRAFCET/vergent.c:212
-#, fuzzy
 msgid "Vergent type:"
-msgstr "Meldingstype:"
+msgstr "Vergenttype:"
 
 #: objects/GRAFCET/vergent.c:458 objects/SADT/box.c:538
 #: objects/standard/line.c:171
@@ -1976,7 +1979,7 @@ msgstr "Slett forbindelsespunkt"
 
 #: objects/GRAFCET/vergent.c:463
 msgid "GRAFCET OR/AND vergent"
-msgstr ""
+msgstr "GRAFCET OG/ELLER vergent"
 
 #: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
 #: objects/SADT/box.c:207 objects/SADT/box.c:249
@@ -1993,11 +1996,11 @@ msgstr "Normal"
 
 #: objects/SADT/arrow.c:188
 msgid "Import resource (not shown upstairs)"
-msgstr ""
+msgstr "Importkilde (ikke vist ovenpå)"
 
 #: objects/SADT/arrow.c:189
 msgid "Imply resource (not shown downstairs)"
-msgstr ""
+msgstr "Implisitt kilde (ikke vist nedenunder)"
 
 #: objects/SADT/arrow.c:190
 msgid "Dotted arrow"
@@ -2005,7 +2008,7 @@ msgstr "Prikket pil"
 
 #: objects/SADT/arrow.c:191
 msgid "disable arrow heads"
-msgstr ""
+msgstr "slå av pilhoder"
 
 #: objects/SADT/arrow.c:200 objects/SADT/arrow.c:237
 msgid "Flow style:"
@@ -2013,7 +2016,7 @@ msgstr "Flyttype:"
 
 #: objects/SADT/arrow.c:201 objects/SADT/arrow.c:238
 msgid "Automatically gray vertical flows:"
-msgstr ""
+msgstr "Automatisk gråing av vertikale strømmer:"
 
 #: objects/SADT/arrow.c:651
 msgid "SADT Arrow"
@@ -2029,7 +2032,7 @@ msgstr "Tekstfyll:"
 
 #: objects/SADT/box.c:208
 msgid "Activity/Data identifier"
-msgstr ""
+msgstr "Identifikator for aktivitet/data"
 
 #: objects/SADT/box.c:539 objects/standard/line.c:172
 msgid "Delete connection point"
@@ -2037,12 +2040,11 @@ msgstr "Slett forbindelsespunkt"
 
 #: objects/SADT/box.c:544
 msgid "SADT box"
-msgstr ""
+msgstr "SADT-boks"
 
 #: objects/SADT/sadt.c:37
-#, fuzzy
 msgid "SADT diagram objects"
-msgstr "Objekter for nettverksdiagram"
+msgstr "SADT diagramobjekter"
 
 #: objects/UML/actor.c:282
 msgid "Actor"
@@ -2336,9 +2338,8 @@ msgid "Collaboration"
 msgstr "Samarbeid"
 
 #: objects/chronogram/chronogram.c:36
-#, fuzzy
 msgid "Chronogram diagram objects"
-msgstr "Objekter for nettverksdiagram"
+msgstr "Kronogram diagramobjekter"
 
 #: objects/chronogram/chronoline.c:301 objects/chronogram/chronoline.c:404
 msgid "Aspect"
@@ -2369,6 +2370,12 @@ msgid ""
 "u duration  sets the signal to \"unknown\" state, then wait 'duration'.\n"
 "example : @ 1.0 (2.0)1.0(2.0)\n"
 msgstr ""
+"Hendelsesspesifikasjon:\n"
+"@ tid    sett pekeren til en absolutt tid.\n"
+"( varighet  setter signalet opp, og venter så 'varighet'.\n"
+") varighet  setter signalet ned, og venter så 'varighet'.\n"
+"u varighet  setter signalet til \"ukjent\" tilstand, og venter så 'varighet'.\n"
+"eksempel : @ 1.0 (2.0)1.0(2.0)\n"
 
 #: objects/chronogram/chronoline.c:316 objects/chronogram/chronoline.c:407
 #: objects/chronogram/chronoref.c:244 objects/chronogram/chronoref.c:309
@@ -2382,17 +2389,15 @@ msgstr "Slutt-tid:"
 
 #: objects/chronogram/chronoline.c:320 objects/chronogram/chronoline.c:411
 msgid "Rise time:"
-msgstr ""
+msgstr "Hevingstid:"
 
 #: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
-#, fuzzy
 msgid "Fall time:"
-msgstr "Flyttype:"
+msgstr "Falltid:"
 
 #: objects/chronogram/chronoline.c:324 objects/chronogram/chronoline.c:415
-#, fuzzy
 msgid "Multi-bit data"
-msgstr "Attributtdata"
+msgstr "Multi-bit data"
 
 #: objects/chronogram/chronoline.c:326 objects/chronogram/chronoline.c:418
 msgid "Data color:"
@@ -2400,7 +2405,7 @@ msgstr "Datafarge:"
 
 #: objects/chronogram/chronoline.c:328 objects/chronogram/chronoline.c:419
 msgid "Data line width:"
-msgstr ""
+msgstr "Data linjebredde:"
 
 #: objects/chronogram/chronoline.c:329 objects/chronogram/chronoline.c:421
 #: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
@@ -2409,23 +2414,23 @@ msgstr "Linjefarge:"
 
 #: objects/chronogram/chronoref.c:247 objects/chronogram/chronoref.c:312
 msgid "Major time step:"
-msgstr ""
+msgstr "Stort tidssteg:"
 
 #: objects/chronogram/chronoref.c:248 objects/chronogram/chronoref.c:313
 msgid "Minor time step:"
-msgstr ""
+msgstr "Mindre tidssteg:"
 
 #: objects/chronogram/chronoref.c:252 objects/chronogram/chronoref.c:317
 msgid "Minor step line width:"
-msgstr ""
+msgstr "Mindre steg i linjebredde:"
 
 #: objects/custom/custom.c:117
 msgid "Custom"
-msgstr ""
+msgstr "Egendefinert"
 
 #: objects/custom/custom.c:117
 msgid "Custom XML shapes loader"
-msgstr ""
+msgstr "Egendefinert laster for XML-former"
 
 #: objects/custom/custom_object.c:175 objects/custom/custom_object.c:193
 msgid "Flip horizontal"
@@ -2503,17 +2508,15 @@ msgstr "Slett segment"
 
 #: objects/standard/bezier.c:529
 msgid "Symmetric control"
-msgstr ""
+msgstr "Symmetrisk kontroll"
 
 #: objects/standard/bezier.c:531
-#, fuzzy
 msgid "Smooth control"
-msgstr "Vis kontrollfokus:"
+msgstr "Jevn kontroll"
 
 #: objects/standard/bezier.c:533
-#, fuzzy
 msgid "Cusp control"
-msgstr "Kontroll"
+msgstr "Cusp kontroll"
 
 #: objects/standard/image.c:165
 msgid "Image file"
