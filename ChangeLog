@@ -1,3 +1,8 @@
+2002-07-17  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/sheets_dialog_callbacks.c: Fix from Dolores Alia de Saravia
+	<loli@unsa.edu.ar> that makes user/system distinction better.
+
 2002-07-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_libart.c: Got the context right, removed crashes.

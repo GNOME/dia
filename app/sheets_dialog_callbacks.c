@@ -307,12 +307,17 @@ sheets_dialog_object_set_tooltip(SheetObjectMod *som, GtkWidget *button)
 {
   gchar *tip;
 
-  if (som->type == SHEET_SCOPE_SYSTEM)
-    tip = g_strdup_printf(_("%s\nSystem sheet"), 
-                          som->sheet_object.description);
-  else
-    tip = g_strdup_printf(_("%s\nUser sheet"), 
-                          som->sheet_object.description);
+   switch (som->type){
+   case OBJECT_TYPE_SVG:
+    tip = g_strdup_printf(_("%s\nShape"), som->sheet_object.description);
+    break;
+   case OBJECT_TYPE_PROGRAMMED:    
+    tip = g_strdup_printf(_("%s\nObject"), som->sheet_object.description);
+    break;
+   default:    
+    tip = g_strdup_printf(_("%s\nUnasigned type"), som->sheet_object.description);
+    break;
+  }
 
   gtk_tooltips_set_tip(sheets_dialog_tooltips, button, tip, NULL);
   g_free(tip);
@@ -985,11 +990,11 @@ on_sheets_dialog_button_edit_clicked   (GtkButton       *button,
   GList *button_list;
   GtkWidget *active_button;
   SheetObjectMod *som;
-  gchar *descrip;
-  gchar *type;
+  gchar *descrip = "";
+  gchar *type = "";
   GtkWidget *entry;
   SheetMod *sm;
-  gchar *name;
+  gchar *name = "";
 
   sheets_edit_dialog = create_sheets_edit_dialog();
 
