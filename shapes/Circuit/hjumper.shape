@@ -4,7 +4,7 @@
        xmlns:svg="http://www.w3.org/2000/svg">
   <name>Circuit - Horizontal Jumper</name>
   <description>A Horizontal Jumper</description>
-  <icon>pmos_de.xpm</icon>
+  <icon>hjumper.png</icon>
   <connections>
     <point x="0" y="0"/>
     <point x="6" y="0"/>

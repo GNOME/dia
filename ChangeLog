@@ -1,3 +1,9 @@
+2003-02-28  Steffen Macke <sdteffen@web.de>
+
+	* shapes/Circuit/hjumper.png:
+	* shapes/Circuit/hjumper.shape: added missing icon for horizontal
+	jumper shape
+	
 2003-02-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* doc/en/dia-manual.sgml: 
