@@ -1,3 +1,15 @@
+2002-06-21  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* app/render_gdk.h: 
+	* app/render_gdk.c: 
+	* app/render_pixmap.c: 
+	* app/render_pixmap.h: 
+	* app/render_libart.h: 
+	* app/render_libart.c: 
+	* lib/font.h: 
+	* lib/font.c: Removed freetype stuff (still around in
+	lib/widgets.c 'cause we might want the font selector widget).
+
 2002-06-20  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* shapes/network/laptop.(xml|shape):

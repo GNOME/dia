@@ -371,11 +371,7 @@ set_font(RendererPixmap *renderer, DiaFont *font, real height)
 {
   renderer->font_height = (int)height;
 
-#ifdef HAVE_FREETYPE
-  renderer->freetype_font = font_get_freetypefont(font, renderer->font_height);
-#else
   renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
-#endif
 }
 
 static void
@@ -843,33 +839,6 @@ struct pixmap_freetype_user_data {
   GdkGC *gc;
 };
 
-#ifdef HAVE_FREETYPE
-void
-pixmap_freetype_copy_glyph(FT_GlyphSlot glyph, int pen_x, int pen_y,
-			   gpointer userdata)
-{
-  struct pixmap_freetype_user_data *data = 
-    (struct pixmap_freetype_user_data *)userdata;
-  FT_Bitmap *bitmap = &glyph->bitmap;
-  guchar *buffer = bitmap->buffer;
-  int rowstride = bitmap->pitch;
-
-  /* Seems FT and GDK disagree on what color '0' is, so we have to */
-  /* swap the foreground and background colors. */
-  if (rowstride < 0) { /* Cartesian bitmap */
-    buffer = buffer+rowstride*(bitmap->rows-1);
-  }
-
-  if (bitmap->pixel_mode == ft_pixel_mode_mono) {
-    
-  } else {
-    gdk_draw_gray_image(data->pixmap, data->gc, pen_x, pen_y,
-			bitmap->width, bitmap->rows,
-			GDK_RGB_DITHER_NONE,
-			buffer, rowstride);
-  }
-}
-#endif
 
 static void
 draw_string (RendererPixmap *renderer,
@@ -877,41 +846,6 @@ draw_string (RendererPixmap *renderer,
 	     Point *pos, Alignment alignment,
 	     Color *color)
 {
-#ifdef HAVE_FREETYPE
-  GdkGC *gc = renderer->render_gc;
-  int x,y;
-  int iwidth;
-  FreetypeString *fts;
-  struct pixmap_freetype_user_data userdata;
-  GdkColor gdkcolor;
-
-  gdk_gc_set_function(renderer->render_gc, GDK_COPY_INVERT);
-
-  x = (int)pos->x+renderer->xoffset;
-  y = (int)pos->y+renderer->yoffset;
-  fts = freetype_load_string(text, renderer->freetype_font, strlen(text));
-  iwidth = fts->width;
-
-  switch (alignment) {
-  case ALIGN_LEFT:
-    break;
-  case ALIGN_CENTER:
-    x -= iwidth/2;
-    break;
-  case ALIGN_RIGHT:
-    x -= iwidth;
-    break;
-  }
-  
-  color_convert(color, &gdkcolor);
-  gdk_gc_set_foreground(gc, &gdkcolor);
-
-  userdata.pixmap = renderer->pixmap;
-  userdata.gc = gc;
-
-  freetype_render_string(fts, x, y, pixmap_freetype_copy_glyph, &userdata);
-  gdk_gc_set_function(renderer->render_gc, GDK_COPY);
-#else
   GdkGC *gc = renderer->render_gc;
   GdkColor gdkcolor;
   int x,y;
@@ -943,7 +877,6 @@ draw_string (RendererPixmap *renderer,
   gdk_draw_string(renderer->pixmap,
 		  renderer->gdk_font, gc,
 		  x,y, text);
-#endif
 }
 
 static void

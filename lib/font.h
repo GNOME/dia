@@ -21,12 +21,6 @@
 #include <gdk/gdk.h>
 #include "geometry.h"
 #include "diavar.h"
-#ifdef HAVE_FREETYPE
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_GLYPH_H
-#include FT_TRUETYPE_TABLES_H
-#endif
 
 typedef enum {
   ALIGN_LEFT,
@@ -34,52 +28,11 @@ typedef enum {
   ALIGN_RIGHT
 } Alignment;
 
-#ifdef HAVE_FREETYPE
-typedef struct _FreetypeFamily FreetypeFamily;
-typedef struct _FreetypeFace FreetypeFace;
-typedef struct _FreetypeString FreetypeString;
-
-struct _FreetypeFace {
-  FT_Face face;
-  FreetypeFamily *family;
-  char *from_file;
-};
-
-struct _FreetypeFamily {
-  gchar *family;
-  GList *faces;
-};
-GHashTable *freetype_fonts;
-
-struct _FreetypeString {
-  FT_Face face;
-  real height;
-  gint num_glyphs;
-  FT_Glyph *glyphs;
-  gchar *text;
-  /* The width of this string in pixels */
-  real width;
-  /* Something that stores a rendering */
-};
-#endif
 
 typedef struct _DiaFont DiaFont;
 
-#ifdef HAVE_FREETYPE
-typedef struct _DiaFontFamily DiaFontFamily;
-
-struct _DiaFontFamily {
-  FreetypeFamily *freetype_family;
-  GList *diafonts;
-};
-#endif
-
 struct _DiaFont {
   char *name;
-#ifdef HAVE_FREETYPE
-  DiaFontFamily *family;
-  char *style;
-#endif
 };
 
 typedef struct _SuckFont SuckFont;
@@ -105,11 +58,6 @@ struct _SuckFont {
 
 DIAVAR GList *font_names; /* GList with 'char *' data.*/
 
-#ifdef HAVE_FREETYPE
-typedef void (*BitmapCopyFunc)(FT_GlyphSlot glyph, int x, int y,
-			       gpointer userdata);
-#endif
-
 void font_init(void);
 void font_init_freetype(void);
 DiaFont *font_getfont(const char *name);
@@ -117,20 +65,6 @@ GdkFont *font_get_gdkfont(DiaFont *font, int height);
 SuckFont *font_get_suckfont (GdkFont *font, gchar *text);
 void suck_font_free (SuckFont *suckfont);
 char *font_get_psfontname(DiaFont *font);
-#ifdef HAVE_FREETYPE
-FreetypeString *freetype_load_string(const char *string, FT_Face face, int len);
-void freetype_free_string(FreetypeString *fts);
-FT_Face font_get_freetypefont(DiaFont *font, real height);
-gboolean freetype_file_is_fontfile(char *filename);
-void freetype_add_font(char *dirname, char *filename);
-void freetype_scan_directory(char *dirname);
-void font_init_freetype();
-char *font_get_freetypefontname(DiaFont *font);
-DiaFont *font_getfont_with_style(const char *name, const char *style);
-void freetype_render_string(FreetypeString *fts, int x, int y, 
-			    BitmapCopyFunc func, gpointer userdata);
-FT_Face font_get_freetype_face(DiaFont *font);
-#endif
 /* Get the width of the string with the given font in cm */
 real font_string_width(const char *string, DiaFont *font, real height);
 /* Get the max ascent of the font in cm (a positive number) */

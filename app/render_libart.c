@@ -203,12 +203,8 @@ new_libart_renderer(DDisplay *ddisp, int interactive)
   renderer->dash_length = 10;
   renderer->dot_length = 1;
 
-#ifdef HAVE_FREETYPE
-  renderer->freetype_font = NULL;
-#else
   renderer->gdk_font = NULL;
   renderer->suck_font = NULL;
-#endif
 
   return renderer;
 }
@@ -440,14 +436,10 @@ set_font(RendererLibart *renderer, DiaFont *font, real height)
   renderer->font_height =
     ddisplay_transform_length(renderer->ddisp, height);
 
-#ifdef HAVE_FREETYPE
-  renderer->freetype_font = font_get_freetypefont(font, renderer->font_height);
-#else
   renderer->gdk_font = font_get_gdkfont(font, renderer->font_height);
   if (renderer->gdk_font == NULL)
     message_error(_("Can't find font '%s' in height %d\n"),
 		  font->name, renderer->font_height);
-#endif
 }
 
 static void
@@ -1144,54 +1136,6 @@ fill_bezier(RendererLibart *renderer,
   art_svp_free( svp );
 }
 
-#ifdef HAVE_FREETYPE
-struct libart_freetype_user_data {
-  RendererLibart *renderer;
-  guint32 rgba;
-};
-
-static void
-libart_freetype_copy_glyph(FT_GlyphSlot glyph, int xpos, int ypos, 
-			   gpointer userdata) {
-  struct libart_freetype_user_data *data =
-    (struct libart_freetype_user_data *)userdata;
-  double affine[6];
-  FT_Bitmap *bitmap = &glyph->bitmap;
-  guchar *buffer = bitmap->buffer;
-  int rowstride = bitmap->pitch;
-  int width = bitmap->width;
-  int height = bitmap->rows;
-  /* For now, we're wasteful of memory and allocate a new RGBA buffer */
-  /* every time. */
-  guint32 *rgba_buffer = (guint32 *)g_malloc(sizeof(guint32)*width*height);
-  int x, y;
-
-  if (rowstride < 0) { /* Cartesian bitmap */
-    buffer = buffer+rowstride*(bitmap->rows-1);
-  }
-
-  for (x = 0; x < width; x++) {
-    for (y = 0; y < height; y++) {
-      rgba_buffer[x+y*width] = 
-	data->rgba|
-	(buffer[x+y*rowstride]<<24);
-    }
-  }  
-
-  art_affine_translate(affine, xpos, ypos);
-  art_rgb_rgba_affine(data->renderer->rgb_buffer,
-		      0, 0,
-		      data->renderer->renderer.pixel_width,
-		      data->renderer->renderer.pixel_height,
-		      data->renderer->renderer.pixel_width*3,
-		      rgba_buffer,
-		      width, height,
-		      width*4,
-		      affine,
-		      ART_FILTER_NEAREST, NULL);
-  g_free(rgba_buffer);
-}
-#endif
 
 static void
 draw_string (RendererLibart *renderer,
@@ -1208,36 +1152,6 @@ draw_string (RendererLibart *renderer,
   double xpos, ypos;
   guint32 rgba;
 
-#ifdef HAVE_FREETYPE
-  FreetypeString *fts;
-  struct libart_freetype_user_data data;
-
-  ddisplay_transform_coords(ddisp, pos->x, pos->y,
-			    &x, &y);
-
-  fts = freetype_load_string(text, renderer->freetype_font, strlen(text));
-  iwidth = fts->width;
-
-  switch (alignment) {
-  case ALIGN_LEFT:
-    break;
-  case ALIGN_CENTER:
-    x -= iwidth/2;
-    break;
-  case ALIGN_RIGHT:
-    x -= iwidth;
-    break;
-  }
-
-  xpos = (double) x + 1; 
-  ypos = (double) y;
-  
-  data.rgba = color_to_abgr(color);
-  data.renderer = renderer;
-  
-  freetype_render_string(fts, xpos, ypos, libart_freetype_copy_glyph, &data);
-
-#else
   GdkWChar *wcstr;
   gchar *str, *mbstr;
   int length, wclength;
@@ -1309,7 +1223,6 @@ draw_string (RendererLibart *renderer,
   }
 
   suck_font_free (suckfont);
-#endif
 }
 
 static void
@@ -1383,9 +1296,6 @@ get_text_width(RendererLibart *renderer,
 {
   int iwidth;
   
-#ifdef HAVE_FREETYPE
-  iwidth = freetype_load_string(text, renderer->freetype_font, length)->width;
-#else
 # ifndef GDK_WINDOWING_WIN32
   /* GTKBUG? all talking utf-8 ??? */
   GdkWChar *wcstr;
@@ -1413,7 +1323,6 @@ get_text_width(RendererLibart *renderer,
 # else
   iwidth = gdk_text_width(renderer->gdk_font, text, length);
 # endif
-#endif
 
   return ddisplay_untransform_length(renderer->ddisp, (real) iwidth);
 }

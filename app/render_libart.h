@@ -52,12 +52,8 @@ struct _RendererLibart {
   double dash_length;
   double dot_length;
 
-#ifdef HAVE_FREETYPE
-  FT_Face freetype_font;
-#else
   GdkFont *gdk_font;
   SuckFont *suck_font;
-#endif
   int font_height;
 #endif  
 };
