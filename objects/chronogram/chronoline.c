@@ -222,6 +222,7 @@ static void chronoline_save(Chronoline *chronoline, ObjectNode obj_node, const c
 static Object *chronoline_load(ObjectNode obj_node, int version, const char *filename);
 static PROPDLG_TYPE chronoline_get_defaults(void);
 static void chronoline_apply_defaults(void);
+static void chronoline_free_state(ObjectState *objstate);
 
 /*static DiaMenu *chronoline_get_object_menu(Chronoline *chronoline, Point *clickedpoint); */
 
@@ -657,7 +658,7 @@ chronoline_draw(Chronoline *chronoline, Renderer *renderer)
 			     &chronoline->color);
 }
 
-void
+static void
 chronoline_free_state(ObjectState *objstate)
 {
   ChronolineState *state G_GNUC_UNUSED= (ChronolineState *)objstate;

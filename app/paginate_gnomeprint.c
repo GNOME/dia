@@ -27,6 +27,7 @@
 #include "diagramdata.h"
 #include "libgnome/libgnome.h"
 #include "paginate_gnomeprint.h"
+#include "message.h"
 
 #include <gnome.h>
 #include <libgnomeprint/gnome-printer-dialog.h>
@@ -44,7 +45,10 @@ print_page(DiagramData *data, RendererGPrint *rend, Rectangle *bounds,
 {
   guint nobjs = 0;
   gdouble tmargin = data->paper.tmargin, bmargin = data->paper.bmargin;
-  gdouble lmargin = data->paper.lmargin, rmargin = data->paper.rmargin;
+  gdouble lmargin = data->paper.lmargin;
+#ifdef THIS_IS_PROBABLY_DEAD_CODE
+  gdouble rmargin = data->paper.rmargin;
+#endif
   gdouble scale = data->paper.scaling;
   char buf[256];
 

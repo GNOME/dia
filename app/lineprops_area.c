@@ -30,11 +30,16 @@
 
 /* --------------- DiaArrowPreview -------------------------------- */
 
-#define DIA_ARROW_PREVIEW(obj) (GTK_CHECK_CAST((obj),dia_arrow_preview_get_type(), DiaArrowPreview))
-#define DIA_ARROW_PREVIEW_CLASS(obj) (GTK_CHECK_CLASS_CAST((obj), dia_arrow_preview_get_type(), DiaArrowPreviewClass))
-
 typedef struct _DiaArrowPreview DiaArrowPreview;
 typedef struct _DiaArrowPreviewClass DiaArrowPreviewClass;
+
+static GtkType dia_arrow_preview_get_type (void);
+static GtkWidget *dia_arrow_preview_new (ArrowType atype, gboolean left);
+static void dia_arrow_preview_set(DiaArrowPreview *arrow, 
+                                  ArrowType atype, gboolean left);
+
+#define DIA_ARROW_PREVIEW(obj) (GTK_CHECK_CAST((obj),dia_arrow_preview_get_type(), DiaArrowPreview))
+#define DIA_ARROW_PREVIEW_CLASS(obj) (GTK_CHECK_CLASS_CAST((obj), dia_arrow_preview_get_type(), DiaArrowPreviewClass))
 
 struct _DiaArrowPreview
 {
@@ -52,7 +57,7 @@ static void dia_arrow_preview_init       (DiaArrowPreview       *arrow);
 static gint dia_arrow_preview_expose     (GtkWidget      *widget,
 					  GdkEventExpose *event);
 
-GtkType
+static GtkType
 dia_arrow_preview_get_type (void)
 {
   static GtkType arrow_type = 0;
@@ -94,7 +99,7 @@ dia_arrow_preview_init (DiaArrowPreview *arrow)
   arrow->left = TRUE;
 }
 
-GtkWidget *
+static GtkWidget *
 dia_arrow_preview_new (ArrowType atype, gboolean left)
 {
   DiaArrowPreview *arrow = gtk_type_new (dia_arrow_preview_get_type());
@@ -104,7 +109,7 @@ dia_arrow_preview_new (ArrowType atype, gboolean left)
   return GTK_WIDGET(arrow);
 }
 
-void
+static void
 dia_arrow_preview_set(DiaArrowPreview *arrow, ArrowType atype, gboolean left)
 {
   if (arrow->atype != atype || arrow->left != left) {
@@ -465,12 +470,15 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 
 
 /* --------------- DiaLinePreview -------------------------------- */
+typedef struct _DiaLinePreview DiaLinePreview;
+typedef struct _DiaLinePreviewClass DiaLinePreviewClass;
+
+static GtkType dia_line_preview_get_type (void);
+static void dia_line_preview_set(DiaLinePreview *line, LineStyle lstyle);
+static GtkWidget *dia_line_preview_new (LineStyle lstyle);
 
 #define DIA_LINE_PREVIEW(obj) (GTK_CHECK_CAST((obj),dia_line_preview_get_type(), DiaLinePreview))
 #define DIA_LINE_PREVIEW_CLASS(obj) (GTK_CHECK_CLASS_CAST((obj), dia_line_preview_get_type(), DiaLinePreviewClass))
-
-typedef struct _DiaLinePreview DiaLinePreview;
-typedef struct _DiaLinePreviewClass DiaLinePreviewClass;
 
 struct _DiaLinePreview
 {
@@ -487,7 +495,7 @@ static void dia_line_preview_init       (DiaLinePreview       *arrow);
 static gint dia_line_preview_expose     (GtkWidget      *widget,
 					 GdkEventExpose *event);
 
-GtkType
+static GtkType
 dia_line_preview_get_type (void)
 {
   static GtkType line_type = 0;
@@ -529,7 +537,7 @@ dia_line_preview_init (DiaLinePreview *line)
   line->lstyle = LINESTYLE_SOLID;
 }
 
-GtkWidget *
+static GtkWidget *
 dia_line_preview_new (LineStyle lstyle)
 {
   DiaLinePreview *line = gtk_type_new (dia_line_preview_get_type());
@@ -538,7 +546,7 @@ dia_line_preview_new (LineStyle lstyle)
   return GTK_WIDGET(line);
 }
 
-void
+static void
 dia_line_preview_set(DiaLinePreview *line, LineStyle lstyle)
 {
   if (line->lstyle != lstyle) {
@@ -621,7 +629,9 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 }
 
 /* ------- Code for DiaArrowChooser ----------------------- */
-gint close_and_hide(GtkWidget *wid, GdkEventAny *event) {
+static GtkType dia_arrow_chooser_get_type (void);
+
+static gint close_and_hide(GtkWidget *wid, GdkEventAny *event) {
   gtk_widget_hide(wid);
   return TRUE;
 }
@@ -662,7 +672,7 @@ static void dia_arrow_chooser_dialog_cancel (DiaArrowChooser *arrow);
 static void dia_arrow_chooser_change_arrow_type (GtkMenuItem *mi,
 						 DiaArrowChooser *arrow);
 
-GtkType
+static GtkType
 dia_arrow_chooser_get_type (void)
 {
   static GtkType arrow_type = 0;
@@ -826,6 +836,8 @@ dia_arrow_chooser_change_arrow_type(GtkMenuItem *mi, DiaArrowChooser *arrow)
 
 
 /* ------- Code for DiaLineChooser ---------------------- */
+static GtkType dia_line_chooser_get_type (void);
+
 #define DIA_LINE_CHOOSER(obj) (GTK_CHECK_CAST((obj),dia_line_chooser_get_type(), DiaLineChooser))
 #define DIA_LINE_CHOOSER_CLASS(obj) (GTK_CHECK_CLASS_CAST((obj), dia_line_chooser_get_type(), DiaLineChooserClass))
 
@@ -859,7 +871,7 @@ static void dia_line_chooser_dialog_cancel (DiaLineChooser *lchooser);
 static void dia_line_chooser_change_line_style (GtkMenuItem *mi,
 						DiaLineChooser *lchooser);
 
-GtkType
+static GtkType
 dia_line_chooser_get_type (void)
 {
   static GtkType arrow_type = 0;

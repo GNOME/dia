@@ -72,8 +72,6 @@ struct _UsecasePropertiesDialog {
 #define USECASE_LINEWIDTH 0.1
 #define USECASE_MARGIN_Y 0.3
 
-static UsecasePropertiesDialog *properties_dialog;
-
 static real usecase_distance_from(Usecase *usecase, Point *point);
 static void usecase_select(Usecase *usecase, Point *clicked_point,
 			   Renderer *interactive_renderer);
@@ -94,7 +92,6 @@ static Object *usecase_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static void usecase_update_data(Usecase *usecase);
 static ObjectChange *usecase_apply_properties(Usecase *usecase, GtkWidget *widget);
-static GtkWidget *usecase_get_properties(Usecase *dep);
 static PropDescription *usecase_describe_props(Usecase *usecase);
 static void usecase_get_props(Usecase *usecase, Property *props, guint nprops);
 static void usecase_set_props(Usecase *usecase, Property *props, guint nprops);

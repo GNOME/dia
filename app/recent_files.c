@@ -39,7 +39,9 @@
 #include "message.h"
 
 static GList *recent_files = NULL;
+#ifndef GNOME
 static guint recent_files_length = 5;
+#endif
 
 /* file and import filter name */
 typedef struct _RecentFileData

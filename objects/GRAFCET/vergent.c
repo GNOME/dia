@@ -114,8 +114,6 @@ static void vergent_save(Vergent *vergent, ObjectNode obj_node,
 static Object *vergent_load(ObjectNode obj_node, int version,
 			       const char *filename);
 
-/*static PROPDLG_TYPE vergent_get_defaults();
-  static void vergent_apply_defaults(); */
 static DiaMenu *vergent_get_object_menu(Vergent *vergent,
 					Point *clickedpoint);
 
@@ -124,8 +122,8 @@ static ObjectTypeOps vergent_type_ops =
   (CreateFunc)vergent_create,   /* create */
   (LoadFunc)  vergent_load,     /* load */
   (SaveFunc)  vergent_save,      /* save */
-  (GetDefaultsFunc)   NULL, /* vergent_get_defaults,  */
-  (ApplyDefaultsFunc) NULL  /* vergent_apply_defaults */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL  
 };
 
 ObjectType vergent_type =
@@ -206,21 +204,6 @@ init_default_values() {
     defaults_initialized = 1;
   }
 }
-
-static PROPDLG_TYPE
-vergent_get_defaults()
-{
-  VergentDefaultsDialog *dlg = vergent_defaults_dialog;
-  init_default_values();
-  PROPDLG_CREATE(dlg, &defaults);
-  PROPDLG_SHOW_ENUM(dlg,type,_("Vergent type:"),vergent_type_enum);
-  PROPDLG_READY(dlg);
-
-  vergent_defaults_dialog = dlg;
-
-  PROPDLG_RETURN(dlg);
-}
-
 
 static real
 vergent_distance_from(Vergent *vergent, Point *point)

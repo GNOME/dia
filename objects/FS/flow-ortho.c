@@ -205,19 +205,15 @@ static PropOffset orthflow_offsets[] = {
 static void
 orthflow_get_props(Orthflow * orthflow, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&orthflow->orth.object, 
-                                    orthflow_offsets, props, nprops))
-    return;
+  object_get_props_from_offsets(&orthflow->orth.object, 
+                                orthflow_offsets, props, nprops);
 }
 
 static void
 orthflow_set_props(Orthflow *orthflow, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&orthflow->orth.object, 
-                                     orthflow_offsets, props, nprops)) {
-  }
+  object_set_props_from_offsets(&orthflow->orth.object, 
+                                orthflow_offsets, props, nprops);
   orthflow_update_data(orthflow);
 }
 

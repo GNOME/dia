@@ -104,7 +104,7 @@ static char *fig_fonts[] =
     "ZapfChancery-MediumItalic",
     "ZapfDingbats"
 };
-gboolean import_fig(gchar *filename, DiagramData *dia, void* user_data);
+gboolean import_fig(const gchar *filename, DiagramData *dia, void* user_data);
 
 
 static int
@@ -638,7 +638,6 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 
 static Object *
 fig_read_text(FILE *file, DiagramData *dia) {
-    Point *points;
     Property props[5];
     int num_props = 0;
     Object *newobj = NULL;
@@ -931,9 +930,8 @@ fig_read_meta_data(FILE *file, DiagramData *dia) {
 
 /* imports the given fig-file, returns TRUE if successful */
 gboolean 
-import_fig(gchar *filename, DiagramData *dia, void* user_data) {
+import_fig(const gchar *filename, DiagramData *dia, void* user_data) {
   FILE *figfile;
-  char buf[BUFLEN];
   int figmajor, figminor;	
   int i;
 

@@ -381,6 +381,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
   Focus *focus = active_focus();
   DDisplay *ddisp;
   Object *obj;
+  Text *text;
   Property textprop;
   Change *change;
 
@@ -389,6 +390,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
   ddisp = ddisplay_active();
 
   obj = focus->obj;
+  text = (Text *)obj; 
 
   if (obj->ops->get_props == NULL) 
     return;
@@ -416,7 +418,7 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
 			   GDK_SELECTION_PRIMARY,
 			   GDK_TARGET_STRING, 0);
 
-  if (text_delete_all(obj, &change)) {
+  if (text_delete_all(text, (ObjectChange **)&change)) { 
     (change->apply)(change, ddisp->diagram);
     
     diagram_update_menu_sensitivity(ddisp->diagram);

@@ -72,7 +72,7 @@ find_paper(const gchar *name)
 }
 
 int
-get_default_paper()
+get_default_paper(void)
 {
   FILE *papersize;
   gchar paper[100];
@@ -124,7 +124,7 @@ get_paper_info(PaperInfo *paper, int i)
 }
 
 GList *
-get_paper_name_list()
+get_paper_name_list(void)
 {
   int i;
   static GList *name_list = NULL;

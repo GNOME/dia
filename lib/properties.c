@@ -493,8 +493,8 @@ void
 prop_load(Property *prop, ObjectNode obj_node)
 {
   CustomProp *cp;
-  AttributeNode attr;
-  DataNode data;
+  AttributeNode attr = NULL;
+  DataNode data = NULL;
   gchar *str;
   guint i;
 
@@ -514,6 +514,11 @@ prop_load(Property *prop, ObjectNode obj_node)
     }
   }
 
+  if ((!attr) || (!data)) {
+    g_warning("No attribute %s or no data in this attribute",prop->name);
+    return;
+  }
+  
   switch (prop->type) {
   case PROP_TYPE_INVALID:
     g_warning("Can't load invalid");
@@ -628,7 +633,7 @@ void
 prop_save(Property *prop, ObjectNode obj_node)
 {
   CustomProp *cp;
-  AttributeNode attr;
+  AttributeNode attr = NULL;
   gchar buf[32], *str;
   guint i;
 
@@ -636,6 +641,11 @@ prop_save(Property *prop, ObjectNode obj_node)
 
   if (!PROP_IS_OTHER(prop->type))
     attr = new_attribute(obj_node, prop->name);
+
+  if (!attr) {
+    g_warning("Can't save in a null attribute for property %s",prop->name);
+    return;
+  }
 
   switch (prop->type) {
   case PROP_TYPE_INVALID:

@@ -128,7 +128,8 @@ help_add_color(RenderStore *store, Color *color)
 
 static void
 add_point_point_color(RenderStore *store, Command command,
-		      Point *start, Point *end, Color *color)
+		      Point *start, Point *end, 
+                      Color *color)
 {
   Data data;
 
@@ -197,7 +198,8 @@ add_points_numpoints_color(RenderStore *store, Command command,
 
 static void
 add_bezpoints_numpoints_color(RenderStore *store, Command command,
-			      BezPoint *points, int num_points, Color *color)
+			      BezPoint *points, int num_points, 
+                              Color *color)
 {
   Data data;
   BezPoint *points_copy;
@@ -475,6 +477,7 @@ rs_add_draw_image(Renderer *store,
 		  real width, real height,
 		  DiaImage *image)
 {
+  g_warning("rs_add_draw_image hasn't been implemented !");
 }
 
 /* Rendering: */
@@ -488,11 +491,13 @@ scale_point(RenderStore *store, Point *point)
   point->y += store->corner.y;
 }
 
+typedef void (*RenderPointPointColorFunc) (Renderer *renderer, 
+                                           Point *p1, 
+                                           Point *p2,
+                                           Color *color);
 static int
 render_point_point_color(Renderer *renderer,
-			 void (*render_function)(Renderer *renderer, 
-						 Point *p1, Point *p2,
-						 Color *color),
+			 RenderPointPointColorFunc render_function,
 			 RenderStore *store,
 			 int pos)
 {
@@ -515,9 +520,11 @@ render_point_point_color(Renderer *renderer,
   return pos;
 }
 
+typedef void (*RenderRealFunc)(Renderer *renderer, real real_val);
+
 static int
 render_real(Renderer *renderer,
-	    void (*render_function)(Renderer *renderer, real real_val),
+            RenderRealFunc render_function,
 	    RenderStore *store, int pos)
 {
   real real_val;
@@ -528,10 +535,12 @@ render_real(Renderer *renderer,
   return pos;
 }
 
+typedef void (*RenderIntFunc)(Renderer *renderer, int int_val);
+
 static int
 render_int(Renderer *renderer,
-	    void (*render_function)(Renderer *renderer, int int_val),
-	    RenderStore *store, int pos)
+           RenderIntFunc render_function,
+           RenderStore *store, int pos)
 {
   int int_val;
   
@@ -541,10 +550,13 @@ render_int(Renderer *renderer,
   return pos;
 }
 
+typedef void (*RenderFontRealFunc)(Renderer *renderer,
+                                   Font *font,
+                                   real real_val);
+
 static int
 render_font_real(Renderer *renderer,
-		 void (*render_function)(Renderer *renderer,
-					 Font *font, real real_val),
+                 RenderFontRealFunc render_function,
 		 RenderStore *store, int pos)
 {
   Font *font;
@@ -557,12 +569,15 @@ render_font_real(Renderer *renderer,
   return pos;
 }
 
+
+typedef void (*RenderPointsNumpointsColor)(Renderer *renderer,
+                                           Point *point,
+                                           int num_points,
+                                           Color *color);
+  
 static int
 render_points_numpoints_color(Renderer *renderer,
-			      void (*render_function)(Renderer *renderer,
-						      Point *point,
-						      int num_points,
-						      Color *color),
+                              RenderPointsNumpointsColor render_function,
 			      RenderStore *store, int pos)
 {
   static Point *points = NULL;
@@ -597,12 +612,14 @@ render_points_numpoints_color(Renderer *renderer,
   return pos;
 }
 
+typedef void (*RenderBezpointsNumpointsColorFunc)(Renderer *renderer,
+                                                 BezPoint *point,
+                                                 int num_points,
+                                                 Color *color);
+
 static int
 render_bezpoints_numpoints_color(Renderer *renderer,
-				 void (*render_function)(Renderer *renderer,
-							 BezPoint *point,
-							 int num_points,
-							 Color *color),
+                                 RenderBezpointsNumpointsColorFunc render_function,
 				 RenderStore *store, int pos)
 {
   static BezPoint *points = NULL;
@@ -639,13 +656,16 @@ render_bezpoints_numpoints_color(Renderer *renderer,
   return pos;
 }
 
+typedef void (*RenderPointSreal2Real2ColorFunc)(Renderer *renderer,
+                                                Point *point,
+                                                real r1_scaled, real r2_scaled,
+                                                real r3, real r4,
+                                                Color *color);
+               
+
 static int 
 render_point_sreal2_real2_color(Renderer *renderer,
-	     void (*render_function)(Renderer *renderer,
-				     Point *point,
-				     real r1_scaled, real r2_scaled,
-				     real r3, real r4,
-				     Color *color),
+                                RenderPointSreal2Real2ColorFunc render_function,
 				RenderStore *store, int pos)
 {
   Point p;
@@ -673,13 +693,16 @@ render_point_sreal2_real2_color(Renderer *renderer,
   return pos;
 }
 
+
+typedef void (*RenderPointSreal2ColorFunc)(Renderer *renderer,
+                                           Point *point,
+                                           real r1_scaled, real r2_scaled,
+                                           Color *color);
+
 static int 
 render_point_sreal2_color(Renderer *renderer,
-	     void (*render_function)(Renderer *renderer,
-				     Point *point,
-				     real r1_scaled, real r2_scaled,
-				     Color *color),
-				RenderStore *store, int pos)
+                          RenderPointSreal2ColorFunc render_function,
+                          RenderStore *store, int pos)
 {
   Point p;
   Color color;
@@ -703,13 +726,15 @@ render_point_sreal2_color(Renderer *renderer,
   return pos;
 }
 
+typedef void (*RenderPtrPointIntColorFunc)(Renderer *renderer,
+                                       void *ptr,
+                                       Point *point,
+                                       int int_val,
+                                       Color *color);
+
 static int 
 render_ptr_point_int_color(Renderer *renderer,
-	     void (*render_function)(Renderer *renderer,
-				     void *ptr,
-				     Point *point,
-				     int int_val,
-				     Color *color),
+                           RenderPtrPointIntColorFunc render_function,
 			   RenderStore *store, int pos)
 {
   void *ptr;
@@ -754,19 +779,19 @@ void render_store_render(RenderStore *store,
       i = render_real(renderer, renderer->ops->set_linewidth, store, i);
       break;
     case CMD_SET_LINECAPS:
-      i = render_int(renderer, renderer->ops->set_linecaps, store, i);
+      i = render_int(renderer, (RenderIntFunc)renderer->ops->set_linecaps, store, i);
       break;
     case CMD_SET_LINEJOIN:
-      i = render_int(renderer, renderer->ops->set_linejoin, store, i);
+      i = render_int(renderer, (RenderIntFunc)renderer->ops->set_linejoin, store, i);
       break;
     case CMD_SET_LINESTYLE:
-      i = render_int(renderer, renderer->ops->set_linestyle, store, i);
+      i = render_int(renderer, (RenderIntFunc)renderer->ops->set_linestyle, store, i);
       break;
     case CMD_SET_DASHLENGTH:
-      i = render_real(renderer, renderer->ops->set_dashlength, store, i);
+      i = render_real(renderer, (RenderRealFunc)renderer->ops->set_dashlength, store, i);
       break;
     case CMD_SET_FILLSTYLE:
-      i = render_int(renderer, renderer->ops->set_fillstyle, store, i);
+      i = render_int(renderer, (RenderIntFunc)renderer->ops->set_fillstyle, store, i);
       break;
     case CMD_SET_FONT:
       i = render_font_real(renderer, renderer->ops->set_font, store, i);
@@ -827,7 +852,7 @@ void render_store_render(RenderStore *store,
       break;
     case CMD_DRAW_STRING:
       i = render_ptr_point_int_color(renderer,
-				     renderer->ops->draw_string,
+				     (RenderPtrPointIntColorFunc)renderer->ops->draw_string,
 				     store, i);
       break;
     case CMD_DRAW_IMAGE:

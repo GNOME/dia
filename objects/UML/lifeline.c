@@ -37,7 +37,6 @@
 
 typedef struct _Lifeline Lifeline;
 typedef struct _LifelineState LifelineState;
-typedef struct _LifelineDialog LifelineDialog;
 
 struct _LifelineState {
   ObjectState obj_state;
@@ -60,13 +59,6 @@ struct _Lifeline {
   int draw_cross;
 };
 
-struct _LifelineDialog {
-  GtkWidget *dialog;
-  
-  GtkToggleButton *draw_focus;
-  GtkToggleButton *draw_cross;
-};
-
 #define LIFELINE_LINEWIDTH 0.05
 #define LIFELINE_BOXWIDTH 0.1
 #define LIFELINE_WIDTH 0.7
@@ -79,8 +71,6 @@ struct _LifelineDialog {
 #define HANDLE_BOXTOP (HANDLE_CUSTOM1)
 #define HANDLE_BOXBOT (HANDLE_CUSTOM2)
 
-
-static LifelineDialog* properties_dialog;
 static void lifeline_move_handle(Lifeline *lifeline, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void lifeline_move(Lifeline *lifeline, Point *to);
@@ -100,7 +90,6 @@ static void lifeline_save(Lifeline *lifeline, ObjectNode obj_node,
 static Object *lifeline_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static ObjectChange *lifeline_apply_properties(Lifeline *lif, GtkWidget *widget);
-static GtkWidget *lifeline_get_properties(Lifeline *lif);
 static PropDescription *lifeline_describe_props(Lifeline *lifeline);
 
 static LifelineState *lifeline_get_state(Lifeline *lif);
@@ -171,19 +160,15 @@ static PropOffset lifeline_offsets[] = {
 static void
 lifeline_get_props(Lifeline * lifeline, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&lifeline->connection.object, 
-                                    lifeline_offsets, props, nprops))
-    return;
+  object_get_props_from_offsets(&lifeline->connection.object, 
+                                lifeline_offsets, props, nprops);
 }
 
 static void
 lifeline_set_props(Lifeline *lifeline, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&lifeline->connection.object, 
-                                     lifeline_offsets, props, nprops)) {
-  }
+  object_set_props_from_offsets(&lifeline->connection.object, 
+                                lifeline_offsets, props, nprops);
   lifeline_update_data(lifeline);
 }
 

@@ -99,7 +99,6 @@ struct _MyRenderer {
 
 #if (G_BYTE_ORDER == G_LITTLE_ENDIAN)
 /* shortcut if testing of indirection isn't needed anymore */
-#pragma message("LITTLE_ENDIAN: disabling fwrite_le")
 #define fwrite_le(a,b,c,d) fwrite(a,b,c,d)
 #else
 static size_t
@@ -822,7 +821,7 @@ draw_image(MyRenderer *renderer,
 {
   WPGBitmap2 bmp;
   guint8 * pDiaImg = NULL, * pOut = NULL, * pIn = NULL, * p = NULL;
-  guint8 b_1, b, cnt;
+  guint8 b_1 = 0, b = 0, cnt;
   int x, y;
 
   bmp.Angle  = 0;
@@ -923,7 +922,6 @@ export_data(DiagramData *data, const gchar *filename,
   MyRenderer *renderer;
   FILE *file;
   Rectangle *extent;
-  gint len;
   real width, height;
 
   file = fopen(filename, "wb"); /* "wb" for binary! */

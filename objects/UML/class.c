@@ -148,19 +148,15 @@ static PropOffset umlclass_offsets[] = {
 static void
 umlclass_get_props(UMLClass * umlclass, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&umlclass->element.object, 
-                                    umlclass_offsets, props, nprops))
-    return;
+  object_get_props_from_offsets(&umlclass->element.object, 
+                                umlclass_offsets, props, nprops);
 }
 
 static void
 umlclass_set_props(UMLClass *umlclass, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&umlclass->element.object, umlclass_offsets,
-		     props, nprops)) {
-  }
+  object_set_props_from_offsets(&umlclass->element.object, umlclass_offsets,
+                                props, nprops);
   umlclass_update_data(umlclass);
 }
 

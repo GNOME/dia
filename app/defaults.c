@@ -42,7 +42,9 @@ static gint defaults_close(GtkWidget *canvas, gpointer data);
 
 static void create_dialog()
 {
+#ifndef GNOME
   GtkWidget *button;
+#endif
 
 #ifdef GNOME
   dialog = gnome_dialog_new(_("Object defaults"),

@@ -35,13 +35,16 @@
 #include "render.h"
 #include "filter.h"
 
+#ifdef THIS_IS_PROBABLY_DEAD_CODE
 static const gchar *dia_version_string = "Dia-" VERSION;
+#endif
+
 #define IS_ODD(n) (n & 0x01)
 
 static void
 init_fonts(void)
 {
-
+    
 }
 
 /* --- dxf line attributes --- */

@@ -1125,7 +1125,9 @@ export_cgm(DiagramData *data, const gchar *filename,
 {
     RendererCGM *renderer;
     FILE *file;
+#if THIS_IS_PROBABLY_DEAD_CODE
     gchar buf[512];
+#endif
     Rectangle *extent;
     gint len;
 

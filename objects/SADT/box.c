@@ -421,9 +421,8 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  width = box->text->max_width + box->padding*2 + SADTBOX_LINE_WIDTH;
-  height = box->text->height * box->text->numlines + box->padding*2 +
-    SADTBOX_LINE_WIDTH;
+  width = box->text->max_width + box->padding*2;
+  height = box->text->height * box->text->numlines + box->padding*2;
 
   if (width > elem->width) elem->width = width;
   if (height > elem->height) elem->height = height;
@@ -452,6 +451,7 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
     font_ascent(box->text->font, box->text->height);
   text_set_position(box->text, &p);
 
+  extra->border_trans = SADTBOX_LINE_WIDTH / 2.0;
   element_update_boundingbox(elem);
   
   obj->position = elem->corner;

@@ -36,10 +36,10 @@ struct _PaperInfo {
 };
 
 int find_paper(const gchar* name);
-int get_default_paper();
+int get_default_paper(void);
 void get_paper_info(PaperInfo *paper, int i);
 
-GList *get_paper_name_list();
+GList *get_paper_name_list(void);
 const gchar *get_paper_name(int i);
 gdouble get_paper_psheight(int i);
 gdouble get_paper_pswidth(int i);

@@ -162,19 +162,15 @@ static PropOffset largepackage_offsets[] = {
 static void
 largepackage_get_props(LargePackage * largepackage, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&largepackage->element.object, 
-                                    largepackage_offsets, props, nprops))
-    return;
+  object_get_props_from_offsets(&largepackage->element.object, 
+                                largepackage_offsets, props, nprops);
 }
 
 static void
 largepackage_set_props(LargePackage *largepackage, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&largepackage->element.object, 
-                                     largepackage_offsets, props, nprops)) {
-  }
+  object_set_props_from_offsets(&largepackage->element.object, 
+                                largepackage_offsets, props, nprops);
   largepackage_update_data(largepackage);
 }
 

@@ -114,9 +114,9 @@ static Object *annotation_copy(Annotation *annotation);
 static PROPDLG_TYPE annotation_get_properties(Annotation *annotation);
 static ObjectChange *annotation_apply_properties(Annotation *annotation);
 
-static void annotation_init_defaults();
-static PROPDLG_TYPE annotation_get_defaults();
-static void annotation_apply_defaults();
+static void annotation_init_defaults(void);
+static PROPDLG_TYPE annotation_get_defaults(void);
+static void annotation_apply_defaults(void);
 
 static AnnotationState *annotation_get_state(Annotation *annotation);
 static void annotation_set_state(Annotation *annotation,
@@ -486,7 +486,7 @@ annotation_init_defaults(void) {
 }
 
 static PROPDLG_TYPE
-annotation_get_defaults()
+annotation_get_defaults(void)
 {
   AnnotationDefaultsDialog *dlg = annotation_defaults_dialog;
 
@@ -501,7 +501,7 @@ annotation_get_defaults()
   PROPDLG_RETURN(dlg);
 }
 
-static void annotation_apply_defaults()
+static void annotation_apply_defaults(void)
 {
   AnnotationDefaultsDialog *dlg = annotation_defaults_dialog;
 

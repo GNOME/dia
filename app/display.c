@@ -44,8 +44,10 @@
 #include "layer_dialog.h"
 #include "load_save.h"
 
+#ifdef THIS_IS_PROBABLY_DEAD_CODE
 #include "pixmaps/snap-to-grid.xpm"
 #include "pixmaps/snap-to-grid-mask.xpm"
+#endif 
 
 static GHashTable *display_ht = NULL;
 static GdkCursor *current_cursor = NULL;
@@ -62,11 +64,15 @@ typedef struct _IRectangle {
 
 static guint display_hash(DDisplay *ddisp);
 
-static GtkPixmap *snapping, *not_snapping;
+static GtkPixmap *snapping;
+#ifdef THIS_IS_PROBABLY_DEAD_CODE
+static GtkPixmap *not_snapping;
+#endif
 
 GtkPixmap *
 snap_status_load_images(GdkWindow *window)
 {
+#ifdef THIS_IS_PROBABLY_DEAD_CODE
   GdkPixmap *dpix;
   GdkBitmap *mask = NULL;
   /*
@@ -89,19 +95,21 @@ snap_status_load_images(GdkWindow *window)
   gdk_pixmap_unref(dpix);
   gdk_pixmap_unref(mask);
   */
-
+#endif
   return snapping;
 }
 
 static void
 update_snap_status(DDisplay *ddisp)
 {
+#ifdef THIS_IS_PROBABLY_DEAD_CODE
   GtkButton *zoomimage = GTK_BUTTON(ddisp->snap_status);
   return;  
   if (ddisp->grid.snap) {
     
   } else {
   }
+#endif
 }
 
 static void

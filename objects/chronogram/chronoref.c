@@ -171,10 +171,10 @@ static void chronoref_set_state(Chronoref *chronoref, ChronorefState *state);
 
 static void chronoref_save(Chronoref *chronoref, ObjectNode obj_node, const char *filename);
 static Object *chronoref_load(ObjectNode obj_node, int version, const char *filename);
-static PROPDLG_TYPE chronoref_get_defaults();
-static void chronoref_apply_defaults();
+static PROPDLG_TYPE chronoref_get_defaults(void);
+static void chronoref_apply_defaults(void);
+static void chronoref_free_state(ObjectState *objstate);
 
-/*static DiaMenu *chronoref_get_object_menu(Chronoref *chronoref, Point *clickedpoint); */
 
 static ObjectTypeOps chronoref_type_ops =
 {
@@ -266,7 +266,7 @@ chronoref_get_properties(Chronoref *chronoref)
   PROPDLG_RETURN(dlg);
 }
 static void
-chronoref_apply_defaults()
+chronoref_apply_defaults(void)
 {
   ChronorefDefaultsDialog *dlg = chronoref_defaults_dialog;
   PROPDLG_APPLY_REAL(dlg,start_time);
@@ -305,7 +305,7 @@ chronoref_init_defaults() {
 }
 
 static GtkWidget *
-chronoref_get_defaults()
+chronoref_get_defaults(void)
 {
   ChronorefDefaultsDialog *dlg = chronoref_defaults_dialog;
 
@@ -424,7 +424,7 @@ chronoref_draw(Chronoref *chronoref, Renderer *renderer)
   renderer->ops->draw_line(renderer,&p1,&p2,&chronoref->color);
 }
 
-void
+static void
 chronoref_free_state(ObjectState *objstate)
 {
   ChronorefState *state G_GNUC_UNUSED= (ChronorefState *)objstate;

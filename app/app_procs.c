@@ -119,6 +119,7 @@ save_state (GnomeClient        *client,
 }
 #endif
 
+void debug_break(void); /* shut gcc up */
 void
 debug_break(void)
 {

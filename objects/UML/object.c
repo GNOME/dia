@@ -192,10 +192,12 @@ static PropOffset objet_offsets[] = {
   { NULL, 0, 0 },
 };
 
+#ifdef THIS_IS_PROBABLY_DEAD_CODE
 static struct { const gchar *name; GQuark q; } quarks[] = {
   { "name" },
   { "stereotype" } 
 };
+#endif
 
 static void
 objet_get_props(Objet * objet, Property *props, guint nprops)

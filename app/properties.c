@@ -46,7 +46,9 @@ static gint properties_apply(GtkWidget *canvas, gpointer data);
 
 static void create_dialog()
 {
+#ifndef GNOME
   GtkWidget *button;
+#endif
 
 #ifdef GNOME
   dialog = gnome_dialog_new(_("Object properties"),

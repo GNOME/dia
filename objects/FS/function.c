@@ -38,7 +38,6 @@
 #include "pixmaps/function.xpm"
 
 typedef struct _Function Function;
-typedef struct _FunctionPropertiesDialog FunctionPropertiesDialog;
 typedef struct _FunctionChange FunctionChange;
 
 struct _Function {
@@ -50,15 +49,6 @@ struct _Function {
 
   int is_wish;
   int is_user;  
-};
-
-struct _FunctionPropertiesDialog {
-  GtkWidget *dialog;
-
-  GtkEntry *name;
-  GtkWidget *text;
-  GtkToggleButton *wish;
-  GtkToggleButton *user;
 };
 
 enum FuncChangeType {
@@ -83,8 +73,6 @@ struct _FunctionChange {
 #define FUNCTION_MARGIN_M 0.4
 #define FUNCTION_FONTHEIGHT 0.8
 
-static FunctionPropertiesDialog* properties_dialog = NULL;
-
 static real function_distance_from(Function *pkg, Point *point);
 static void function_select(Function *pkg, Point *clicked_point,
 			    Renderer *interactive_renderer);
@@ -103,8 +91,6 @@ static void function_save(Function *pkg, ObjectNode obj_node,
 static Object *function_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static void function_update_data(Function *pkg);
-static GtkWidget *function_get_properties(Function *dep);
-static ObjectChange *function_apply_properties(Function *dep);
 static DiaMenu *function_get_object_menu(Function *func, Point *clickedpoint) ;
 static PropDescription *function_describe_props(Function *mes);
 static void
@@ -172,19 +158,15 @@ static PropOffset function_offsets[] = {
 static void
 function_get_props(Function * function, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&function->element.object, 
-                                    function_offsets, props, nprops))
-    return;
+  object_get_props_from_offsets(&function->element.object, 
+                                function_offsets, props, nprops);
 }
 
 static void
 function_set_props(Function *function, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&function->element.object, 
-                                     function_offsets, props, nprops)) {
-  }
+  object_set_props_from_offsets(&function->element.object, 
+                                function_offsets, props, nprops);
   function_update_data(function);
 }
 
@@ -551,110 +533,6 @@ function_load(ObjectNode obj_node, int version, const char *filename)
   }
 
   return &pkg->element.object;
-}
-
-
-static ObjectChange *
-function_apply_properties(Function *dep)
-{
-  FunctionPropertiesDialog *prop_dialog;
-  ObjectChange* change = function_create_change( dep, ALL ) ;
-
-  prop_dialog = properties_dialog;
-
-  /* Read from dialog and put in object: */
-  text_set_string(dep->text,
-                  gtk_editable_get_chars( GTK_EDITABLE(prop_dialog->text),
-					  0, -1));
-
-  dep->is_wish = prop_dialog->wish->active;
-  if ( dep->is_user != prop_dialog->user->active ) {
-    dep->is_user = prop_dialog->user->active;
-    if ( prop_dialog->user->active ) {
-      dep->element.corner.x -= FUNCTION_MARGIN_M ;
-      dep->element.corner.y -= FUNCTION_MARGIN_M ;
-    } else {
-      dep->element.corner.x += FUNCTION_MARGIN_M ;
-      dep->element.corner.y += FUNCTION_MARGIN_M ;
-    }
-  }
-  
-  function_update_data(dep);
-
-  return change;
-}
-
-static void
-fill_in_dialog(Function *dep)
-{
-  FunctionPropertiesDialog *prop_dialog;
-  
-  prop_dialog = properties_dialog;
-
-  gtk_text_set_point( GTK_TEXT(prop_dialog->text), 0 ) ;
-  gtk_text_forward_delete( GTK_TEXT(prop_dialog->text), 
-			   gtk_text_get_length(GTK_TEXT(prop_dialog->text))) ;
-  gtk_text_insert( GTK_TEXT(prop_dialog->text),
-                   NULL, NULL, NULL,
-                   text_get_string_copy(dep->text),
-                   -1);
-
-  gtk_toggle_button_set_active(prop_dialog->wish, dep->is_wish);
-  gtk_toggle_button_set_active(prop_dialog->user, dep->is_user);
-    
-}
-
-static GtkWidget *
-function_get_properties(Function *dep)
-{
-  FunctionPropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *checkbox;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-
-  if (properties_dialog == NULL) {
-
-    prop_dialog = g_new(FunctionPropertiesDialog, 1);
-    properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Function:"));
-    gtk_box_pack_start (GTK_BOX (dialog), label, FALSE, TRUE, 0);
-    entry = gtk_text_new(NULL, NULL);
-    prop_dialog->text = entry;
-    gtk_text_set_editable(GTK_TEXT(entry), TRUE);
-    gtk_box_pack_start (GTK_BOX (dialog), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Wish function"));
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, FALSE, TRUE, 0);
-    prop_dialog->wish = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-      
-    checkbox = gtk_check_button_new_with_label(_("User function"));
-    gtk_box_pack_start (GTK_BOX (hbox), checkbox, FALSE, TRUE, 0);
-    prop_dialog->user = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-      
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-
-  }
-  
-  fill_in_dialog(dep);
-  gtk_widget_show (properties_dialog->dialog);
-
-  return properties_dialog->dialog;
 }
 
 static ObjectChange *

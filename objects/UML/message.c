@@ -95,8 +95,6 @@ struct _MessageDialog {
 
 static Font *message_font = NULL;
 
-static MessageDialog *properties_dialog;
-
 static void message_move_handle(Message *message, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
 static void message_move(Message *message, Point *to);
@@ -196,19 +194,15 @@ static PropOffset message_offsets[] = {
 static void
 message_get_props(Message * message, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&message->connection.object, 
-                                    message_offsets, props, nprops))
-    return;
+  object_get_props_from_offsets(&message->connection.object, 
+                                message_offsets, props, nprops);
 }
 
 static void
 message_set_props(Message *message, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&message->connection.object, 
-                                     message_offsets, props, nprops)) {
-  }
+  object_set_props_from_offsets(&message->connection.object, 
+                                message_offsets, props, nprops);
   message_update_data(message);
 }
 

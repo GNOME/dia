@@ -51,7 +51,7 @@ typedef struct _DxfData
     char value[DXF_LINE_LENGTH];
 } DxfData;
 
-gboolean import_dxf(gchar *filename, DiagramData *dia, void* user_data);
+gboolean import_dxf(const gchar *filename, DiagramData *dia, void* user_data);
 gboolean read_dxf_codes(FILE *filedxf, DxfData *data);
 void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 void read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
@@ -567,7 +567,7 @@ void read_section_entities_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
 }
 
 /* imports the given dxf-file, returns TRUE if successful */
-gboolean import_dxf(gchar *filename, DiagramData *dia, void* user_data){
+gboolean import_dxf(const gchar *filename, DiagramData *dia, void* user_data){
     FILE *filedxf;
     DxfData *data;
     int codedxf;

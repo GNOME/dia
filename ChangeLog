@@ -1,3 +1,50 @@
+2001-04-09  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/paper.[ch]: get rid of "no previous prototype fo `foo'" by
+	doing a s/T foo()/T foo(void)/ for all possible values of T and foo.
+
+	* objects/UML/class.c: 
+	* objects/UML/usecase.c:
+	* objects/UML/large_package.c:
+	* objects/UML/message.c:
+	* objects/UML/object.c:
+	* objects/UML/lifeline.c:
+	* objects/FS/flow.c:
+	* objects/FS/flow-ortho.c:
+	* objects/FS/function.c:
+	* objects/custom/custom_object.c:
+	* objects/GRAFCET/vergent.c:
+	* objects/chronogram/chronoref.c:
+	* objects/SADT/box.c:
+	* objects/SADT/annotation.c:
+	* plug-ins/dxf/dxf-import.c:
+	* plug-ins/xfig/xfig-import.c:
+	* plug-ins/wpg/wpg.c:
+	* app/command.c:
+	* app/app_procs.c:
+	* app/display.c: /* certainly more WIP than dead code there */
+	Unused variables, unused static function definitions, forgotten or
+	incomplete prototypes added or fixed, lack of const or unwanted const,
+	etc. (mostly clean-ups of leftovers of the pre-properties era).
+	Non-obvious cases bracketed by #define THIS_IS_PROBABLY_DEAD_CODE,
+	please check these.
+
+	* app/lineprops_area.c: More of the same. Missing prototypes
+	added, and functions unused outside made static.
+
+	* app/recent_files.c:
+	* app/properties.c:
+	* app/defaults.c: some variables are used only when doing a GNOME
+	build.
+	
+	* app/magnify.c: missing #include <stdlib.h>.
+
+	* app/paginate_gnomeprint.c: Unused variable; missing "message.h".
+
+	These are a lot of clean-ups (by the way, this compiles and runs
+	cleanly with "gcc-3.0 -O2 -Wall --std=gnu99" too !); please grep
+	for DEAD_CODE, and if it's yours, judge it.
+	
 2001-04-07  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* plug-ins/dxf-import.c: some progress with the arcs; still some

@@ -48,6 +48,8 @@
 
 #define CORRECT_DISTANCE
 
+void custom_object_new(ShapeInfo *info, ObjectType **otype);
+
 /* used when resizing to decide which side of the shape to expand/shrink */
 typedef enum {
   ANCHOR_MIDDLE,
