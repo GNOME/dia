@@ -1,3 +1,23 @@
+2000-06-30  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* configure.in: added chinese. 
+	Use AM_PROG_LIBTOOL instead of AC_PROG_LIBTOOL.
+
+	* app/app_procs.c:
+	  app/load_save.c:
+	  app/render_svg.c:
+	  lib/dia_xml.c:
+	  lib/plug-ins.c:
+	  lib/sheet.c:
+	  objects/custom/shape_info.c: 
+          shapes/Circuit/npn.shape:
+	  shapes/Circuit/pnp.shape:
+	  sheets/*.sheet: dia now works with libxml2.
+ 	Libxml2 is a bit more picky when parsing xml and reported errors on all 
+	sheet files because they use non ascii characters (added 
+	encoding="iso-8859-1"). Also "xml:lang=en@layman" is not proper xml so 
+	I commented out these.
+
 2000-06-30  Christopher R. Gabriel  <cgabriel@linux.it>
 
 	* configure.in (ALL_LINGUAS): added Italian

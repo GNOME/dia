@@ -44,6 +44,8 @@
 #endif
 #endif
 
+#include <parser.h>
+
 #include "intl.h"
 #include "app_procs.h"
 #include "object.h"
@@ -181,6 +183,10 @@ app_init (int argc, char **argv)
     gtk_init (&argc, &argv);
 #endif
   }
+   
+#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
+  xmlKeepBlanksDefault(0);
+#endif
 
   dia_image_init();
 

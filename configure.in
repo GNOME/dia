@@ -11,7 +11,7 @@ AM_MAINTAINER_MODE
 
 dnl Initialize libtool
 AC_DISABLE_STATIC
-AC_PROG_LIBTOOL
+AM_PROG_LIBTOOL
 
 dnl Build time sanity check
 AM_SANITY_CHECK
@@ -159,7 +159,8 @@ dnl
 dnl i18n
 dnl
 
-ALL_LINGUAS="ca da de el en_GB fi fr ga hu it ja ko no pl pt ru sl sv uk"
+ALL_LINGUAS="ca da de el en_GB fi fr ga hu it ja ko no pl pt ru sl sv uk zh_TW.Big5"
+
 AM_GNU_GETTEXT
 localedir='${prefix}/${DATADIRNAME}/locale'
 AC_SUBST(localedir)

@@ -1,4 +1,4 @@
-<?xml version="1.0"?> <!-- -*- xml -*- -->
+<?xml version="1.0" encoding="iso-8859-1"?> <!-- -*- xml -*- -->
 
 <sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
   <name>Circuit</name>
@@ -68,14 +68,18 @@
     <br/>
      <object name="Circuit - NPN Transistor">
       <description xml:lang="no">En bipolar NPN-transistor</description>
+      <!--
       <description xml:lang="en@layman">Small black plastic thing</description>
+      -->
       <description xml:lang="fr">Un transistor NPN bipolaire</description>
       <description xml:lang="de">Ein bipolarer NPN Transistor</description>
       <description>A npn bipolar transistor</description>
     </object>
     <object name="Circuit - PNP Transistor">
       <description xml:lang="no">En bipolar PNP-transistor</description>
+      <!--
       <description xml:lang="en@layman">Small black plastic thing</description>
+      -->
       <description xml:lang="de">Ein bipolarer PNP Transistor</description>
       <description xml:lang="fr">Un transistor PNP bipolaire</description>
       <description>A pnp bipolar transistor</description>

@@ -21,7 +21,10 @@
 #include <string.h>
 #include <locale.h>
 
-#include <tree.h>
+#include <parser.h>
+#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
+#define childs children
+#endif
 
 #include "utils.h"
 #include "dia_xml.h"

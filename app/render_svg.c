@@ -26,6 +26,10 @@
 #include <locale.h>
 
 #include <entities.h>
+#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
+#define root children
+#define childs children
+#endif
 
 #include "config.h"
 #include "intl.h"

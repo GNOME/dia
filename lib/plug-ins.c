@@ -30,6 +30,10 @@
 
 #include <parser.h>
 #include <tree.h>
+#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
+#define root children
+#define childs children
+#endif
 
 #include "plug-ins.h"
 #include "intl.h"

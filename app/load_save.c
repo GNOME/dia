@@ -27,9 +27,12 @@
 #include "config.h"
 #include "intl.h"
 
-/* gnome-xml: */
 #include <tree.h>
 #include <parser.h>
+#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
+#define root children
+#define childs children
+#endif
 
 #include "load_save.h"
 #include "dia_xml.h"

@@ -28,6 +28,11 @@
 #include "custom_util.h"
 #include "intl.h"
 
+#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
+#define root children
+#define childs children
+#endif
+
 static ShapeInfo *load_shape_info(const gchar *filename);
 
 static GHashTable *name_to_info = NULL;

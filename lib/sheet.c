@@ -33,6 +33,11 @@
 #include "object.h"
 #include "dia_dirs.h"
 
+#if defined(LIBXML_VERSION) && LIBXML_VERSION >= 20000
+#define root children
+#define childs children
+#endif
+
 static GSList *sheets = NULL;
 
 Sheet *
