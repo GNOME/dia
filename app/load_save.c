@@ -95,7 +95,7 @@ read_objects(xmlNodePtr objects, Layer *layer,
              GHashTable *objects_hash,const char *filename, DiaObject *parent)
 {
   GList *list;
-  ObjectType *type;
+  DiaObjectType *type;
   DiaObject *obj;
   ObjectNode obj_node;
   char *typestr;
@@ -209,7 +209,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
   list = objects;
   obj_node = layer_node->xmlChildrenNode;
   while ((list != NULL) && (obj_node != NULL)) {
-    DiaObject *obj = (Object *) list->data;
+    DiaObject *obj = (DiaObject *) list->data;
 
     while (obj_node && xmlIsBlankNode(obj_node)) obj_node = obj_node->next;
     if (!obj_node) break;
@@ -585,7 +585,7 @@ write_objects(GList *objects, xmlNodePtr objects_node,
 
   list = objects;
   while (list != NULL) {
-    DiaObject *obj = (Object *) list->data;
+    DiaObject *obj = (DiaObject *) list->data;
 
     if (g_hash_table_lookup(objects_hash, obj))
     {
@@ -648,7 +648,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
   list = objects;
   obj_node = layer_node->xmlChildrenNode;
   while ((list != NULL) && (obj_node != NULL)) {
-    DiaObject *obj = (Object *) list->data;
+    DiaObject *obj = (DiaObject *) list->data;
 
     while (obj_node && xmlIsBlankNode(obj_node)) obj_node = obj_node->next;
     if (!obj_node) break;

@@ -39,7 +39,7 @@ void dynobj_list_add_object(DiaObject* obj, guint timeout) {
 
 static gint dor_found(gconstpointer data, gconstpointer user_data) {
     const DynobjRec* dor = (const DynobjRec*)data;
-    const DiaObject* obj = (const Object*)user_data;
+    const DiaObject* obj = (const DiaObject*)user_data;
     
     if ((!dor) || (!obj)) return 1;
     if (dor->obj != obj) return 1;

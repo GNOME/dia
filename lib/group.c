@@ -67,7 +67,7 @@ static ObjectOps group_ops = {
   (SetPropsFunc)        group_set_props
 };
 
-ObjectType group_type = {
+DiaObjectType group_type = {
   "Group",
   0,
   NULL
@@ -290,7 +290,7 @@ group_update_data(Group *group)
 /* Make sure there are no connections from objects to objects
  * outside of the created group.
  */
-Object *
+DiaObject *
 group_create(GList *objects)
 {
   Group *group;

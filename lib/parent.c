@@ -35,7 +35,7 @@ gboolean parent_list_expand(GList *obj_list)
   GList *list = obj_list;
   while (list)
   {
-    DiaObject *obj = (Object *) list->data;
+    DiaObject *obj = (DiaObject *) list->data;
 
     if (obj->can_parent && obj->children)
     {
@@ -115,7 +115,7 @@ GList *parent_list_affected(GList *obj_list)
   list = all_list;
   while (list)
   {
-    DiaObject *obj = (Object *) list->data;
+    DiaObject *obj = (DiaObject *) list->data;
     if (!g_hash_table_lookup(object_hash, obj))
     {
       new_list = g_list_append(new_list, obj);

@@ -96,7 +96,7 @@ static ObjectTypeOps implements_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType implements_type =
+DiaObjectType implements_type =
 {
   "UML - Implements",   /* name */
   0,                   /* version */

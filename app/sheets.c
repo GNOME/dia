@@ -55,7 +55,7 @@ SheetObjectMod *
 sheets_append_sheet_object_mod(SheetObject *so, SheetMod *sm)
 {
   SheetObjectMod *sheet_object_mod;
-  ObjectType *ot;
+  DiaObjectType *ot;
 
   sheet_object_mod = g_new(SheetObjectMod, 1);
   sheet_object_mod->sheet_object = *so;
@@ -63,7 +63,7 @@ sheets_append_sheet_object_mod(SheetObject *so, SheetMod *sm)
 
   ot = object_get_type(so->object_type);
   g_assert(ot);
-  if (ot->ops == ((ObjectType *)(custom_type_symbol))->ops)
+  if (ot->ops == ((DiaObjectType *)(custom_type_symbol))->ops)
     sheet_object_mod->type = OBJECT_TYPE_SVG;
   else
     sheet_object_mod->type = OBJECT_TYPE_PROGRAMMED;

@@ -25,17 +25,17 @@
 #include "intl.h"
 #include "plug-ins.h"
 
-extern ObjectType *_arc_type;
-extern ObjectType *_box_type;
-extern ObjectType *_ellipse_type;
-extern ObjectType *_line_type;
-extern ObjectType *_zigzagline_type;
-extern ObjectType *_polyline_type;
-extern ObjectType *_bezierline_type;
-extern ObjectType *_textobj_type;
-extern ObjectType *_image_type;
-extern ObjectType *_polygon_type;
-extern ObjectType *_beziergon_type;
+extern DiaObjectType *_arc_type;
+extern DiaObjectType *_box_type;
+extern DiaObjectType *_ellipse_type;
+extern DiaObjectType *_line_type;
+extern DiaObjectType *_zigzagline_type;
+extern DiaObjectType *_polyline_type;
+extern DiaObjectType *_bezierline_type;
+extern DiaObjectType *_textobj_type;
+extern DiaObjectType *_image_type;
+extern DiaObjectType *_polygon_type;
+extern DiaObjectType *_beziergon_type;
 
 DIA_PLUGIN_CHECK_INIT
 

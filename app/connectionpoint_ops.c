@@ -69,7 +69,7 @@ diagram_update_connections_selection(Diagram *dia)
   GList *list = dia->data->selected;
 
   while (list!=NULL) {
-    DiaObject * selected_obj = (Object *) list->data;
+    DiaObject * selected_obj = (DiaObject *) list->data;
     
     diagram_update_connections_object(dia, selected_obj, TRUE);
     
@@ -124,7 +124,7 @@ diagram_update_connections_object(Diagram *dia, DiaObject *obj,
   if (obj->children) {
     GList *child;
     for (child = obj->children; child != NULL; child = child->next) {
-      DiaObject *child_obj = (Object *)child->data;
+      DiaObject *child_obj = (DiaObject *)child->data;
       diagram_update_connections_object(dia, child_obj, update_nonmoved);
     }    
   }

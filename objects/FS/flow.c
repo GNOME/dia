@@ -109,7 +109,7 @@ static ObjectTypeOps flow_type_ops =
   (ApplyDefaultsFunc)	NULL,
 } ;
 
-ObjectType flow_type =
+DiaObjectType flow_type =
 {
   "FS - Flow",         /* name */
   0,                   /* version */

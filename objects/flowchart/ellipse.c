@@ -109,7 +109,7 @@ static ObjectTypeOps ellipse_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType fc_ellipse_type =
+DiaObjectType fc_ellipse_type =
 {
   "Flowchart - Ellipse",  /* name */
   0,                 /* version */

@@ -86,7 +86,7 @@ static ObjectTypeOps activity_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType activity_type =
+DiaObjectType activity_type =
 {
   "UML - Activity",   /* name */
   0,                      /* version */

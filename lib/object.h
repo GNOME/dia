@@ -35,8 +35,6 @@
 #include "diagramdata.h"
 #include "parent.h"
 
-G_BEGIN_DECLS
-
 /** This enumeration gives a bitset of modifier keys currently held down.
  */
 typedef enum {
@@ -84,7 +82,7 @@ typedef DiaObject* (*CreateFunc) (Point *startpoint,
 
   The memory for the object has to be allocated (see CreateFunc)
   
-  The version number is the version number of the ObjectType that was saved.
+  The version number is the version number of the DiaObjectType that was saved.
   This must be used to maintain backwards compatible if you change some
   in the save format. All objects must be capable of reading all earlier
   version.
@@ -147,7 +145,7 @@ typedef void (*SelectFunc) (DiaObject*   obj,
   This must be an depth-copy (pointers must be duplicated and so on)
   as the initial object can be deleted any time
 */
-typedef DiaObject* (*CopyFunc) (Object* obj);
+typedef DiaObject* (*CopyFunc) (DiaObject* obj);
 
 /*
   Function called to move the entire object.
@@ -268,10 +266,10 @@ typedef DiaMenu *(*ObjectMenuFunc) (DiaObject* obj, Point *position);
  **  The functions provided in object.c
  *************************************/
 
-void dia_object_new(int num_handles, int num_connections);
+void object_init(DiaObject *obj, int num_handles, int num_connections);
 void object_destroy(DiaObject *obj); /* Unconnects handles, so don't
 					    free handles before calling. */
-void object_copy(DiaObject *from, Object *to);
+void object_copy(DiaObject *from, DiaObject *to);
 
 void object_save(DiaObject *obj, ObjectNode obj_node);
 void object_load(DiaObject *obj, ObjectNode obj_node);
@@ -301,9 +299,9 @@ void object_unconnect(DiaObject *connected_obj, Handle *handle);
 void object_remove_connections_to(ConnectionPoint *conpoint);
 void object_unconnect_all(DiaObject *connected_obj);
 void object_registry_init(void);
-void object_register_type(ObjectType *type);
+void object_register_type(DiaObjectType *type);
 void object_registry_foreach(GHFunc func, gpointer  user_data);
-ObjectType *object_get_type(char *name);
+DiaObjectType *object_get_type(char *name);
 
 int object_return_false(DiaObject *obj); /* Just returns FALSE */
 void *object_return_null(DiaObject *obj); /* Just returns NULL */
@@ -312,12 +310,12 @@ void object_return_void(DiaObject *obj); /* Just an empty function */
 /* These functions can be used as a default implementation for an object which
    can be completely described, loaded and saved through standard properties.
 */
-Object *object_load_using_properties(const ObjectType *type,
+DiaObject *object_load_using_properties(const DiaObjectType *type,
                                      ObjectNode obj_node, int version,
                                      const char *filename);
 void object_save_using_properties(DiaObject *obj, ObjectNode obj_node, 
                                   int version, const char *filename);
-Object *object_copy_using_properties(DiaObject *obj);
+DiaObject *object_copy_using_properties(DiaObject *obj);
 
 /*****************************************
  **  The structures used to define an object
@@ -333,15 +331,6 @@ typedef struct _Affine {
   real scale;
   real translation;
 } Affine;
-
-
-#define DIA_TYPE_OBJECT           (dia_object_get_type ())
-#define DIA_OBJECT(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_OBJECT, DiaObject))
-#define DIA_OBJECT_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_OBJECT, DiaObjectClass))
-#define DIA_IS_OBJECT(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_OBJECT))
-#define DIA_OBJECT_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_OBJECT, DiaObjectClass))
-
-GType dia_object_get_type (void) G_GNUC_CONST;
 
 
 /*
@@ -386,8 +375,7 @@ struct _ObjectOps {
 */
 
 struct _Object {
-  GObject           parent_instance;
-  ObjectType       *type;
+  DiaObjectType    *type;
   Point             position;
   Rectangle         bounding_box;
   Affine            affine;
@@ -432,8 +420,7 @@ struct _ObjectTypeOps {
    Structure so that the ObjectFactory can create objects
    of unknown type. (Read in from a shared lib.)
  */
-struct _DiaObjectClass {
-  GObjectClass parent_class;
+struct _DiaObjectType {
 
   char *name;
   int version;
@@ -464,8 +451,8 @@ struct _DiaObjectClass {
 gboolean       dia_object_defaults_load (const gchar *filename,
                                          gboolean create_lazy);
 void           dia_object_default_make (const DiaObject *obj_from);
-Object  *dia_object_default_get  (const ObjectType *type);
-Object  *dia_object_default_create (const ObjectType *type,
+DiaObject  *dia_object_default_get  (const DiaObjectType *type);
+DiaObject  *dia_object_default_create (const DiaObjectType *type,
                                     Point *startpoint,
                                     void *user_data,
                                     Handle **handle1,

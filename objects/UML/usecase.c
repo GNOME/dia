@@ -97,7 +97,7 @@ static ObjectTypeOps usecase_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType usecase_type =
+DiaObjectType usecase_type =
 {
   "UML - Usecase",   /* name */
   0,                      /* version */

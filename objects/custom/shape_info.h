@@ -149,7 +149,7 @@ struct _ShapeInfo {
 
   GList *display_list;
 
-  ObjectType *object_type; /* back link so we can find the correct type */
+  DiaObjectType *object_type; /* back link so we can find the correct type */
   
   /*MC 11/03 added */
   int n_ext_attr;

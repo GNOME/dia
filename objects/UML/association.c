@@ -166,7 +166,7 @@ static ObjectTypeOps association_type_ops =
   (SaveFunc)   association_save
 };
 
-ObjectType association_type =
+DiaObjectType association_type =
 {
   "UML - Association",   /* name */
   0,                      /* version */

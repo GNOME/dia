@@ -93,7 +93,7 @@ static ObjectTypeOps arc_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType arc_type =
+DiaObjectType arc_type =
 {
   "Standard - Arc",  /* name */
   0,                 /* version */
@@ -102,7 +102,7 @@ ObjectType arc_type =
   &arc_type_ops      /* ops */
 };
 
-ObjectType *_arc_type = (ObjectType *) &arc_type;
+DiaObjectType *_arc_type = (DiaObjectType *) &arc_type;
 
 static ObjectOps arc_ops = {
   (DestroyFunc)         arc_destroy,

@@ -97,7 +97,7 @@ static ObjectTypeOps condition_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType condition_type =
+DiaObjectType condition_type =
 {
   "GRAFCET - Condition",   /* name */
   0,                         /* version */

@@ -89,7 +89,7 @@ static ObjectTypeOps node_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType node_type =
+DiaObjectType node_type =
 {
   "UML - Node",   /* name */
   0,                      /* version */

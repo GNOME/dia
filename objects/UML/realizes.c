@@ -95,7 +95,7 @@ static ObjectTypeOps realizes_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType realizes_type =
+DiaObjectType realizes_type =
 {
   "UML - Realizes",   /* name */
   0,                      /* version */

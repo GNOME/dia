@@ -85,7 +85,7 @@ static ObjectTypeOps actor_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType actor_type =
+DiaObjectType actor_type =
 {
   "UML - Actor",   /* name */
   0,                      /* version */

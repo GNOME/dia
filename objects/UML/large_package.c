@@ -92,7 +92,7 @@ static ObjectTypeOps largepackage_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType largepackage_type =
+DiaObjectType largepackage_type =
 {
   "UML - LargePackage",   /* name */
   0,                      /* version */

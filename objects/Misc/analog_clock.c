@@ -100,7 +100,7 @@ static ObjectTypeOps analog_clock_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType analog_clock_type =
+DiaObjectType analog_clock_type =
 {
   "Misc - Analog Clock",  /* name */
   0,                 /* version */

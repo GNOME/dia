@@ -433,7 +433,7 @@ void          object_save_props(DiaObject *obj, ObjectNode obj_node);
 
 /* standard way to copy the properties of an object into another (of the
    same type) */
-void          object_copy_props(DiaObject *dest, const Object *src,
+void          object_copy_props(DiaObject *dest, const DiaObject *src,
                                 gboolean is_default);
 
 /* Return a reference to objects property with 'name' or NULL */

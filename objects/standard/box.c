@@ -102,7 +102,7 @@ static ObjectTypeOps box_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType box_type =
+DiaObjectType box_type =
 {
   "Standard - Box",  /* name */
   0,                 /* version */
@@ -111,7 +111,7 @@ ObjectType box_type =
   &box_type_ops      /* ops */
 };
 
-ObjectType *_box_type = (ObjectType *) &box_type;
+DiaObjectType *_box_type = (DiaObjectType *) &box_type;
 
 static ObjectOps box_ops = {
   (DestroyFunc)         box_destroy,

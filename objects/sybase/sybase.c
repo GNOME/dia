@@ -28,12 +28,12 @@
 
 Color computer_color = { 0.7, 0.7, 0.7 };
 
-extern ObjectType dataserver_type;
-extern ObjectType repserver_type;
-extern ObjectType ltm_type;
-extern ObjectType stableq_type;
-extern ObjectType client_type;
-extern ObjectType rsm_type;
+extern DiaObjectType dataserver_type;
+extern DiaObjectType repserver_type;
+extern DiaObjectType ltm_type;
+extern DiaObjectType stableq_type;
+extern DiaObjectType client_type;
+extern DiaObjectType rsm_type;
 
 DIA_PLUGIN_CHECK_INIT
 

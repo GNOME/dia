@@ -137,8 +137,8 @@ object_list_corner(GList *list)
 
 static int
 object_list_sort_vertical(const void *o1, const void *o2) {
-    DiaObject *obj1 = *(Object **)o1;
-    DiaObject *obj2 = *(Object **)o2;
+    DiaObject *obj1 = *(DiaObject **)o1;
+    DiaObject *obj2 = *(DiaObject **)o2;
 
     return (obj1->bounding_box.bottom+obj1->bounding_box.top)/2 -
 	(obj2->bounding_box.bottom+obj2->bounding_box.top)/2;
@@ -191,7 +191,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
    * to sort them out by position.
    */
   if (align == DIA_ALIGN_EQUAL || align == DIA_ALIGN_ADJACENT) {
-      DiaObject **object_array = (Object **)g_malloc(sizeof(Object*)*nobjs);
+      DiaObject **object_array = (DiaObject **)g_malloc(sizeof(Object*)*nobjs);
       int i = 0;
 
       list = objects;
@@ -285,8 +285,8 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
 
 static int
 object_list_sort_horizontal(const void *o1, const void *o2) {
-  DiaObject *obj1 = *(Object **)o1;
-  DiaObject *obj2 = *(Object **)o2;
+  DiaObject *obj1 = *(DiaObject **)o1;
+  DiaObject *obj2 = *(DiaObject **)o2;
 
   return (obj1->bounding_box.right+obj1->bounding_box.left)/2 -
     (obj2->bounding_box.right+obj2->bounding_box.left)/2;
@@ -339,7 +339,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
    * to sort them out by position.
    */
   if (align == DIA_ALIGN_EQUAL || align == DIA_ALIGN_ADJACENT) {
-    DiaObject **object_array = (Object **)g_malloc(sizeof(Object*)*nobjs);
+    DiaObject **object_array = (DiaObject **)g_malloc(sizeof(Object*)*nobjs);
     int i = 0;
 
     list = objects;

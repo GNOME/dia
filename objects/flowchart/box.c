@@ -109,7 +109,7 @@ static ObjectTypeOps box_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType fc_box_type =
+DiaObjectType fc_box_type =
 {
   "Flowchart - Box",  /* name */
   0,                 /* version */

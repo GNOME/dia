@@ -102,7 +102,7 @@ static ObjectTypeOps objet_type_ops =
 };
 
 /* Non-nice typo, needed for backwards compatibility. */
-ObjectType objet_type =
+DiaObjectType objet_type =
 {
   "UML - Objet",   /* name */
   0,                      /* version */
@@ -111,7 +111,7 @@ ObjectType objet_type =
   &objet_type_ops       /* ops */
 };
 
-ObjectType umlobject_type =
+DiaObjectType umlobject_type =
 {
   "UML - DiaObject",   /* name */
   0,                      /* version */

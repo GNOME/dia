@@ -82,7 +82,7 @@ static ObjectTypeOps fork_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType fork_type =
+DiaObjectType fork_type =
 {
   "UML - Fork",   /* name */
   0,                      /* version */

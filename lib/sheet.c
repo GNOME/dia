@@ -62,7 +62,7 @@ new_sheet(char *name, gchar *description, char *filename, SheetScope scope,
 void
 sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *obj)
 {
-  ObjectType *type;
+  DiaObjectType *type;
 
   type = object_get_type(obj->object_type);
   if (type == NULL) {
@@ -77,7 +77,7 @@ sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *obj)
 void
 sheet_append_sheet_obj(Sheet *sheet, SheetObject *obj)
 {
-  ObjectType *type;
+  DiaObjectType *type;
 
   type = object_get_type(obj->object_type);
   if (type == NULL) {
@@ -331,7 +331,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
 
   for (node = contents->xmlChildrenNode ; node != NULL; node = node->next) {
     SheetObject *sheet_obj;
-    ObjectType *otype;
+    DiaObjectType *otype;
     gchar *iconname = NULL;
 
     int subdesc_score = -1;

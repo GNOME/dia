@@ -89,7 +89,7 @@ static ObjectTypeOps smallpackage_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType smallpackage_type =
+DiaObjectType smallpackage_type =
 {
   "UML - SmallPackage",   /* name */
   0,                      /* version */

@@ -131,7 +131,7 @@ static ObjectTypeOps orthflow_type_ops =
   
 } ;
 
-ObjectType orthflow_type =
+DiaObjectType orthflow_type =
 {
   "FS - Orthflow",		/* name */
   0,				/* version */

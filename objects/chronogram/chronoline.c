@@ -114,7 +114,7 @@ static ObjectTypeOps chronoline_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType chronoline_type =
+DiaObjectType chronoline_type =
 {
   "chronogram - line",  /* name */
   0,                 /* version */

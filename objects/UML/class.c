@@ -73,7 +73,7 @@ static ObjectTypeOps umlclass_type_ops =
   (SaveFunc)   umlclass_save
 };
 
-ObjectType umlclass_type =
+DiaObjectType umlclass_type =
 {
   "UML - Class",   /* name */
   0,                      /* version */

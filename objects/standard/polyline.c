@@ -86,7 +86,7 @@ static ObjectTypeOps polyline_type_ops =
   (ApplyDefaultsFunc) NULL /*polyline_apply_defaults*/
 };
 
-static ObjectType polyline_type =
+static DiaObjectType polyline_type =
 {
   "Standard - PolyLine",   /* name */
   0,                         /* version */
@@ -97,7 +97,7 @@ static ObjectType polyline_type =
   0 /* default_user_data */
 };
 
-ObjectType *_polyline_type = (ObjectType *) &polyline_type;
+DiaObjectType *_polyline_type = (DiaObjectType *) &polyline_type;
 
 
 static ObjectOps polyline_ops = {

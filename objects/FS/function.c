@@ -109,7 +109,7 @@ static ObjectTypeOps function_type_ops =
   (SaveFunc)   function_save
 };
 
-ObjectType function_type =
+DiaObjectType function_type =
 {
   "FS - Function",   /* name */
   0,                      /* version */

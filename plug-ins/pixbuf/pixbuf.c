@@ -104,7 +104,7 @@ export_data(DiagramData *data, const gchar *filename,
 static gboolean
 import_data (const gchar *filename, DiagramData *data, void* user_data)
 {
-  ObjectType *otype = object_get_type("Standard - Image");
+  DiaObjectType *otype = object_get_type("Standard - Image");
   GdkPixbuf *pixbuf;
   GError *error = NULL;
 

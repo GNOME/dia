@@ -88,7 +88,7 @@ static ObjectTypeOps arc_type_ops =
   (ApplyDefaultsFunc) NULL,
 };
 
-ObjectType old_arc_type =
+DiaObjectType old_arc_type =
 {
   "GRAFCET - Vector",   /* name */
   0,                         /* version */
@@ -97,7 +97,7 @@ ObjectType old_arc_type =
   &arc_type_ops       /* ops */
 };
 
-ObjectType grafcet_arc_type =
+DiaObjectType grafcet_arc_type =
 {
   "GRAFCET - Arc",   /* name */
   0,                         /* version */

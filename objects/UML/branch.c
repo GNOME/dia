@@ -83,7 +83,7 @@ static ObjectTypeOps branch_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType branch_type =
+DiaObjectType branch_type =
 {
   "UML - Branch",   /* name */
   0,                      /* version */

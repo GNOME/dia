@@ -107,7 +107,7 @@ static ObjectTypeOps chronoref_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType chronoref_type =
+DiaObjectType chronoref_type =
 {
   "chronogram - reference",  /* name */
   0,                 /* version */

@@ -99,7 +99,7 @@ static ObjectTypeOps instantiation_type_ops =
   (ApplyDefaultsFunc) NULL,
 };
 
-ObjectType instantiation_type =
+DiaObjectType instantiation_type =
 {
   "EML - Instantiation",   /* name */
   0,                      /* version */

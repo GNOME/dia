@@ -46,7 +46,7 @@ _obj_create (gpointer key,
              gpointer user_data)
 {
   gchar *name = (gchar *)key;
-  ObjectType *type = (ObjectType *)value;
+  DiaObjectType *type = (DiaObjectType *)value;
   GHashTable *ht = (GHashTable *) user_data;
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
@@ -71,7 +71,7 @@ _obj_create (gpointer key,
 static void
 _obj_destroy (gpointer val)
 {
-  DiaObject *obj = (Object *)val;
+  DiaObject *obj = (DiaObject *)val;
 
   obj->ops->destroy (obj);
 }
@@ -150,7 +150,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy)
 				       typestr, filename);
 			  else
 			    {
-			      ObjectType *type = object_get_type (typestr);
+			      DiaObjectType *type = object_get_type (typestr);
 			      if (type)
 			        obj = type->ops->load (
 					obj_node,
@@ -221,8 +221,8 @@ dia_object_default_make (const DiaObject *obj_from)
  *
  * Allows to edit one defaults object properties
  */
-Object *
-dia_object_default_get (const ObjectType *type)
+DiaObject *
+dia_object_default_get (const DiaObjectType *type)
 {
   DiaObject *obj;
 
@@ -258,8 +258,8 @@ dia_object_default_get (const ObjectType *type)
  *
  * Create an object respecting defaults if available
  */
-Object *
-dia_object_default_create (const ObjectType *type,
+DiaObject *
+dia_object_default_create (const DiaObjectType *type,
                            Point *startpoint,
                            void *user_data,
                            Handle **handle1,
@@ -312,7 +312,7 @@ _obj_store (gpointer key,
             gpointer user_data)
 {
   gchar *name = (gchar *)key;
-  DiaObject *obj = (Object *)value;
+  DiaObject *obj = (DiaObject *)value;
   MyRootInfo *ri = (MyRootInfo *)user_data;
   ObjectNode obj_node;
   gchar *layer_name;

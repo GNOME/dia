@@ -183,7 +183,7 @@ object_complies_with_stdprop(const DiaObject *obj)
 }
 
 void 
-object_copy_props(DiaObject *dest, const Object *src, gboolean is_default)
+object_copy_props(DiaObject *dest, const DiaObject *src, gboolean is_default)
 {
   GPtrArray *props;
 

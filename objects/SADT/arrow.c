@@ -104,7 +104,7 @@ static ObjectTypeOps sadtarrow_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType sadtarrow_type =
+DiaObjectType sadtarrow_type =
 {
   "SADT - arrow",   /* name */
   0,                         /* version */

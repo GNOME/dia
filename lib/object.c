@@ -32,57 +32,6 @@ static void object_init(DiaObject *obj, int num_handles, int num_connections);
 
 static gpointer parent_class = NULL;
 
-GType
-dia_Object_get_type (void)
-{
-  static GType object_type = 0;
-
-  if (!object_type)
-    {
-      static const GTypeInfo object_info =
-      {
-        sizeof (DiaObjectClass),
-        (GBaseInitFunc) NULL,
-        (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) dia_object_class_init,
-        NULL,           /* class_finalize */
-        NULL,           /* class_data */
-        sizeof (DiaObject),
-        0,              /* n_preallocs */
-	NULL            /* init */
-      };
-
-      object_type = g_type_register_static (G_TYPE_OBJECT,
-                                            "DiaObject",
-                                            &object_info, 0);
-    }
-  
-  return object_type;
-}
-
-static void
-dia_object_finalize(GObject *object) {
-}
-
-static void
-dia_object_class_init (DiaObjectClass *klass)
-{
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
-  DiaObjectClass *object_class = DIA_OBJECT_CLASS (klass);
-
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = dia_object_finalize;
-}
-
-DiaObject *
-dia_object_new(int num_handles, int num_connections) {
-  DiaObject *obj = g_object_new(DIA_TYPE_OBJECT, NULL);
-  object_init(obj, num_handles, num_connections);
-  return obj;
-}
-
-
 void
 object_init(DiaObject *obj,
 	    int num_handles,
@@ -121,7 +70,7 @@ object_destroy(DiaObject *obj)
    children/parents
 */
 void
-object_copy(DiaObject *from, Object *to)
+object_copy(DiaObject *from, DiaObject *to)
 {
   to->type = from->type;
   to->position = from->position;
@@ -195,7 +144,7 @@ object_copy_list(GList *list_orig)
       GList *child_list = obj_copy->children;
       while(child_list)
       {
-        DiaObject *child_obj = (Object *) child_list->data;
+        DiaObject *child_obj = (DiaObject *) child_list->data;
         child_list->data = g_hash_table_lookup(hash_table, child_obj);
 	child_list = g_list_next(child_list);
       }
@@ -572,7 +521,7 @@ object_registry_init(void)
 }
 
 void
-object_register_type(ObjectType *type)
+object_register_type(DiaObjectType *type)
 {
   if (g_hash_table_lookup(object_type_table, type->name) != NULL) {
     message_warning("Several object-types were named %s.\n"
@@ -590,10 +539,10 @@ object_registry_foreach (GHFunc func, gpointer user_data)
   g_hash_table_foreach (object_type_table, func, user_data);
 }
 
-ObjectType *
+DiaObjectType *
 object_get_type(char *name)
 {
-  return (ObjectType *) g_hash_table_lookup(object_type_table, name);
+  return (DiaObjectType *) g_hash_table_lookup(object_type_table, name);
 }
 
 
@@ -615,8 +564,8 @@ object_return_void(DiaObject *obj)
   return;
 }
 
-Object *
-object_load_using_properties(const ObjectType *type,
+DiaObject *
+object_load_using_properties(const DiaObjectType *type,
                              ObjectNode obj_node, int version,
                              const char *filename)
 {
@@ -636,7 +585,7 @@ object_save_using_properties(DiaObject *obj, ObjectNode obj_node,
   object_save_props(obj,obj_node);
 }
 
-Object *object_copy_using_properties(DiaObject *obj)
+DiaObject *object_copy_using_properties(DiaObject *obj)
 {
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;

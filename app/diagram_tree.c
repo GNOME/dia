@@ -65,7 +65,7 @@ select_node(DiagramTree *tree, GtkCTreeNode *node, gboolean raise)
   Diagram *d = NULL;
   GtkCTreeNode *dnode = (is_object_node(node)) ?
     GTK_CTREE_ROW(node)->parent : node;
-  DiaObject *o = (Object *)gtk_ctree_node_get_row_data(tree->tree, node);
+  DiaObject *o = (DiaObject *)gtk_ctree_node_get_row_data(tree->tree, node);
 
  
   d = (Diagram *)gtk_ctree_node_get_row_data(tree->tree, dnode);
@@ -97,7 +97,7 @@ static void
 update_last_node(DiagramTree *tree) 
 {
   if (is_object_node(tree->last)) {
-    DiaObject *o = (Object *)gtk_ctree_node_get_row_data(tree->tree, tree->last);
+    DiaObject *o = (DiaObject *)gtk_ctree_node_get_row_data(tree->tree, tree->last);
     if (o) update_object(tree, tree->last, o);
   }
 }
@@ -553,8 +553,8 @@ static gint
 cmp_type_(GtkCList *tree, GtkCListRow *lhm, GtkCListRow *rhm)
 {
   int k;
-  DiaObject *o1 = (Object *)lhm->data;
-  DiaObject *o2 = (Object *)rhm->data;
+  DiaObject *o1 = (DiaObject *)lhm->data;
+  DiaObject *o2 = (DiaObject *)rhm->data;
   k = strcmp(o1->type->name, o2->type->name);
   if (k > 0) return 1;
   if (k < 0) return -1;

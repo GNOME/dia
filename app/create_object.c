@@ -224,7 +224,7 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
 
 
 Tool *
-create_create_object_tool(ObjectType *objtype, void *user_data,
+create_create_object_tool(DiaObjectType *objtype, void *user_data,
 			  int invert_persistence)
 {
   CreateObjectTool *tool;

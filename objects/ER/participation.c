@@ -84,7 +84,7 @@ static ObjectTypeOps participation_type_ops =
   (SaveFunc)   participation_save
 };
 
-ObjectType participation_type =
+DiaObjectType participation_type =
 {
   "ER - Participation",   /* name */
   0,                      /* version */

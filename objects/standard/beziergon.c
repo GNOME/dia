@@ -95,7 +95,7 @@ static ObjectTypeOps beziergon_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-static ObjectType beziergon_type =
+static DiaObjectType beziergon_type =
 {
   "Standard - Beziergon",   /* name */
   0,                         /* version */
@@ -106,7 +106,7 @@ static ObjectType beziergon_type =
   0                         /* default_user_data */
 };
 
-ObjectType *_beziergon_type = (ObjectType *) &beziergon_type;
+DiaObjectType *_beziergon_type = (DiaObjectType *) &beziergon_type;
 
 
 static ObjectOps beziergon_ops = {

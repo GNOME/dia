@@ -76,7 +76,7 @@ static ObjectTypeOps interaction_type_ops =
   (SaveFunc)   interaction_save
 };
 
-ObjectType interaction_type =
+DiaObjectType interaction_type =
 {
   "EML - Interaction",        /* name */
   0,                         /* version */
@@ -409,7 +409,7 @@ static void
 interaction_update_data(Interaction *interaction)
 {
   Connection *conn = &interaction->connection;
-  DiaObject *obj = (Object *) interaction;
+  DiaObject *obj = (DiaObject *) interaction;
   Rectangle rect;
   
   obj->position = conn->endpoints[0];

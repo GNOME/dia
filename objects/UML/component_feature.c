@@ -114,7 +114,7 @@ static ObjectTypeOps compfeat_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType compfeat_type =
+DiaObjectType compfeat_type =
 {
   "UML - Component Feature",	/* name */
   0,				/* version */

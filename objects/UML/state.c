@@ -98,7 +98,7 @@ static ObjectTypeOps state_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType state_type =
+DiaObjectType state_type =
 {
   "UML - State",   /* name */
   0,                      /* version */

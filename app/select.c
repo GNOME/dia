@@ -40,7 +40,7 @@ select_all_callback(gpointer data, guint action, GtkWidget *widget)
   objects = dia->data->active_layer->objects;
 
   while (objects != NULL) {
-    DiaObject *obj = (Object *)objects->data;
+    DiaObject *obj = (DiaObject *)objects->data;
     
     if (!diagram_is_selected(dia, obj))
       diagram_select(dia, obj);
@@ -78,7 +78,7 @@ select_invert_callback(gpointer data, guint action, GtkWidget *widget)
   tmp = dia->data->active_layer->objects;
 
   for (; tmp != NULL; tmp = g_list_next(tmp)) {
-    DiaObject *obj = (Object *)tmp->data;
+    DiaObject *obj = (DiaObject *)tmp->data;
     
     if (!diagram_is_selected(dia, obj))
       diagram_select(dia, obj);
@@ -102,7 +102,7 @@ select_connected_callback(gpointer data, guint action, GtkWidget *widget)
   objects = dia->data->selected;
 
   for (tmp = objects; tmp != NULL; tmp = g_list_next(tmp)) {
-    DiaObject *obj = (Object *)tmp->data;
+    DiaObject *obj = (DiaObject *)tmp->data;
     int i;
 
     for (i = 0; i < obj->num_handles; i++) {
@@ -117,7 +117,7 @@ select_connected_callback(gpointer data, guint action, GtkWidget *widget)
   }
 
   for (tmp = objects; tmp != NULL; tmp = tmp->next) {
-    DiaObject *obj = (Object *)tmp->data;
+    DiaObject *obj = (DiaObject *)tmp->data;
     int i;
 
     for (i = 0; i < obj->num_connections; i++) {
@@ -125,7 +125,7 @@ select_connected_callback(gpointer data, guint action, GtkWidget *widget)
       GList *conns = connection->connected;
 
       for (; conns != NULL; conns = g_list_next(conns)) {
-        DiaObject *obj2 = (Object *)conns->data;
+        DiaObject *obj2 = (DiaObject *)conns->data;
 
 	if (!diagram_is_selected(dia, obj2)) {
           diagram_select(dia, obj2);
@@ -162,7 +162,7 @@ select_transitively(Diagram *dia, DiaObject *obj)
     GList *conns = connection->connected;
 
     for (; conns != NULL; conns = g_list_next(conns)) {
-      DiaObject *obj2 = (Object *)conns->data;
+      DiaObject *obj2 = (DiaObject *)conns->data;
 
       if (!diagram_is_selected(dia, obj2)) {
 	diagram_select(dia, obj2);
@@ -211,11 +211,11 @@ select_same_type_callback(gpointer data, guint action, GtkWidget *widget)
   objects = dia->data->selected;
 
   for (; tmp != NULL; tmp = g_list_next(tmp)) {
-    DiaObject *obj = (Object *)tmp->data;
+    DiaObject *obj = (DiaObject *)tmp->data;
 
     if (!diagram_is_selected(dia, obj)) {
       for (tmp2 = objects; tmp2 != NULL; tmp2 = g_list_next(tmp2)) {
-        DiaObject *obj2 = (Object *)tmp2->data;
+        DiaObject *obj2 = (DiaObject *)tmp2->data;
        
         if (obj->type == obj2->type) {
           diagram_select(dia, obj);

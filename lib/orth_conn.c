@@ -168,7 +168,7 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
 {
   int n;
   int handle_nr;
-  DiaObject *obj = (Object *)orth;
+  DiaObject *obj = (DiaObject *)orth;
   ObjectChange *change = NULL;
 
   switch(handle->id) {
@@ -301,7 +301,7 @@ void
 orthconn_update_data(OrthConn *orth)
 {
   int i;
-  DiaObject *obj = (Object *)orth;
+  DiaObject *obj = (DiaObject *)orth;
   
   if (!orth->points) {
     g_warning("very sick OrthConn object...");
@@ -751,7 +751,7 @@ orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
 static ObjectChange *
 orthconn_set_autorouting(OrthConn *conn, gboolean on)
 {
-  DiaObject *obj = (Object *)conn;
+  DiaObject *obj = (DiaObject *)conn;
   ObjectChange *change;
 
   change = autoroute_create_change(conn, on);

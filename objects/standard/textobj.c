@@ -84,7 +84,7 @@ static ObjectTypeOps textobj_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType textobj_type =
+DiaObjectType textobj_type =
 {
   "Standard - Text",   /* name */
   0,                   /* version */
@@ -93,7 +93,7 @@ ObjectType textobj_type =
   &textobj_type_ops    /* ops */
 };
 
-ObjectType *_textobj_type = (ObjectType *) &textobj_type;
+DiaObjectType *_textobj_type = (DiaObjectType *) &textobj_type;
 
 static ObjectOps textobj_ops = {
   (DestroyFunc)         textobj_destroy,

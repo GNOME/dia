@@ -72,7 +72,7 @@ highlight_reset_layer(Layer *layer, Diagram *dia)
 
   for (objects = layer->objects; objects != NULL;
        objects = g_list_next(objects)) {
-    DiaObject *object = (Object*)objects->data;
+    DiaObject *object = (DiaObject*)objects->data;
     highlight_object_off(object, dia);
   }
 }

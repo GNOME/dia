@@ -95,7 +95,7 @@ static ObjectTypeOps classicon_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType classicon_type =
+DiaObjectType classicon_type =
 {
   "UML - Classicon",   /* name */
   0,                      /* version */

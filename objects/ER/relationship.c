@@ -105,7 +105,7 @@ static ObjectTypeOps relationship_type_ops =
   (SaveFunc)   relationship_save
 };
 
-ObjectType relationship_type =
+DiaObjectType relationship_type =
 {
   "ER - Relationship",  /* name */
   0,                 /* version */
@@ -114,7 +114,7 @@ ObjectType relationship_type =
   &relationship_type_ops      /* ops */
 };
 
-ObjectType *_relationship_type = (ObjectType *) &relationship_type;
+DiaObjectType *_relationship_type = (DiaObjectType *) &relationship_type;
 
 static ObjectOps relationship_ops = {
   (DestroyFunc)         relationship_destroy,

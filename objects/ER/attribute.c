@@ -118,7 +118,7 @@ static ObjectTypeOps attribute_type_ops =
   (SaveFunc)   attribute_save
 };
 
-ObjectType attribute_type =
+DiaObjectType attribute_type =
 {
   "ER - Attribute",   /* name */
   0,                      /* version */
@@ -127,7 +127,7 @@ ObjectType attribute_type =
   &attribute_type_ops       /* ops */
 };
 
-ObjectType *_attribute_type = (ObjectType *) &attribute_type;
+DiaObjectType *_attribute_type = (DiaObjectType *) &attribute_type;
 
 static ObjectOps attribute_ops = {
   (DestroyFunc)         attribute_destroy,

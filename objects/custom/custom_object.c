@@ -54,7 +54,7 @@
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.25
 
-void custom_object_new(ShapeInfo *info, ObjectType **otype);
+void custom_object_new(ShapeInfo *info, DiaObjectType **otype);
 
 /* used when resizing to decide which side of the shape to expand/shrink */
 typedef enum {
@@ -139,10 +139,10 @@ static ObjectTypeOps custom_type_ops =
 };
 
 /* This looks like it could be static, but it can't because we key
-   on it to determine if an ObjectType is a custom/SVG shape */
+   on it to determine if an DiaObjectType is a custom/SVG shape */
 
 G_MODULE_EXPORT 
-ObjectType custom_type =
+DiaObjectType custom_type =
 {
   "Custom - Generic",  /* name */
   0,                 /* version */
@@ -1442,9 +1442,9 @@ custom_get_object_menu(Custom *custom, Point *clickedpoint)
 }
 
 void
-custom_object_new(ShapeInfo *info, ObjectType **otype)
+custom_object_new(ShapeInfo *info, DiaObjectType **otype)
 {
-  ObjectType *obj = g_new0(ObjectType, 1);
+  DiaObjectType *obj = g_new0(DiaObjectType, 1);
 
   *obj = custom_type;
 

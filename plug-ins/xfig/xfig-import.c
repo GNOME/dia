@@ -99,7 +99,7 @@ skip_comments(FILE *file) {
 static DiaObject *
 create_standard_text(real xpos, real ypos,
 		     DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Text");
+    DiaObjectType *otype = object_get_type("Standard - Text");
     DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;
@@ -148,7 +148,7 @@ static GPtrArray *make_element_props(real xpos, real ypos,
 static DiaObject *
 create_standard_ellipse(real xpos, real ypos, real width, real height,
 			DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Ellipse");
+    DiaObjectType *otype = object_get_type("Standard - Ellipse");
     DiaObject *new_obj;
     Handle *h1, *h2;
     
@@ -178,7 +178,7 @@ create_standard_ellipse(real xpos, real ypos, real width, real height,
 static DiaObject *
 create_standard_box(real xpos, real ypos, real width, real height,
 		    DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Box");
+    DiaObjectType *otype = object_get_type("Standard - Box");
     DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;
@@ -214,7 +214,7 @@ create_standard_polyline(int num_points,
 			 Arrow *end_arrow,
 			 Arrow *start_arrow,
 			 DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - PolyLine");
+    DiaObjectType *otype = object_get_type("Standard - PolyLine");
     DiaObject *new_obj;
     Handle *h1, *h2;
     MultipointCreateData *pcd;
@@ -252,7 +252,7 @@ static DiaObject *
 create_standard_polygon(int num_points, 
 			Point *points,
 			DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Polygon");
+    DiaObjectType *otype = object_get_type("Standard - Polygon");
     DiaObject *new_obj;
     Handle *h1, *h2;
     MultipointCreateData *pcd;
@@ -279,7 +279,7 @@ create_standard_bezierline(int num_points,
 			   Arrow *end_arrow,
 			   Arrow *start_arrow,
 			   DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - BezierLine");
+    DiaObjectType *otype = object_get_type("Standard - BezierLine");
     DiaObject *new_obj;
     Handle *h1, *h2;
     BezierCreateData *bcd;
@@ -317,7 +317,7 @@ static DiaObject *
 create_standard_beziergon(int num_points, 
 			  BezPoint *points,
 			  DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Beziergon");
+    DiaObjectType *otype = object_get_type("Standard - Beziergon");
     DiaObject *new_obj;
     Handle *h1, *h2;
     BezierCreateData *bcd;
@@ -352,7 +352,7 @@ create_standard_arc(real x1, real y1, real x2, real y2,
 		    Arrow *end_arrow,
 		    Arrow *start_arrow,
 		    DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Arc");
+    DiaObjectType *otype = object_get_type("Standard - Arc");
     DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;
@@ -392,7 +392,7 @@ static PropDescription xfig_file_prop_descs[] = {
 static DiaObject *
 create_standard_image(real xpos, real ypos, real width, real height,
 		      char *file, DiagramData *dia) {
-    ObjectType *otype = object_get_type("Standard - Image");
+    DiaObjectType *otype = object_get_type("Standard - Image");
     DiaObject *new_obj;
     Handle *h1, *h2;
     Point point;

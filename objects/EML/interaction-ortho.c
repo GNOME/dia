@@ -72,7 +72,7 @@ static ObjectTypeOps interaction_ortho_type_ops =
   (SaveFunc)   interaction_ortho_save
 };
 
-ObjectType interaction_ortho_type =
+DiaObjectType interaction_ortho_type =
 {
   "EML - Interaction orthorthogonal",   /* name */
   0,                      /* version */
@@ -219,7 +219,7 @@ static void
 interaction_ortho_update_data(InteractionOrtho*inter)
 {
   OrthConn *orth = &inter->orth;
-  DiaObject *obj = (Object *) inter;
+  DiaObject *obj = (DiaObject *) inter;
   int num_segm, i;
   Point *points;
   Rectangle rect;

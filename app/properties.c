@@ -196,7 +196,7 @@ properties_show(Diagram *dia, DiaObject *obj)
   }
 
   if (obj != NULL) {
-    ObjectType *otype;
+    DiaObjectType *otype;
     gchar *buf;
 
     otype = obj->type;

@@ -94,7 +94,7 @@ static ObjectTypeOps generalization_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType generalization_type =
+DiaObjectType generalization_type =
 {
   "UML - Generalization",   /* name */
   0,                      /* version */

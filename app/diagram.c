@@ -265,7 +265,7 @@ diagram_selected_any_groups(Diagram *dia) {
 
   for (selected = dia->data->selected;
        selected != NULL; selected = selected->next) {
-    DiaObject *obj = (Object*)selected->data;
+    DiaObject *obj = (DiaObject*)selected->data;
     if (IS_GROUP(obj)) return TRUE;
   }
   return FALSE;
@@ -277,7 +277,7 @@ diagram_selected_any_parents(Diagram *dia) {
 
   for (selected = dia->data->selected;
        selected != NULL; selected = selected->next) {
-    DiaObject *obj = (Object*)selected->data;
+    DiaObject *obj = (DiaObject*)selected->data;
     if (obj->can_parent && obj->children != NULL) return TRUE;
   }
   return FALSE;
@@ -289,7 +289,7 @@ diagram_selected_any_children(Diagram *dia) {
 
   for (selected = dia->data->selected;
        selected != NULL; selected = selected->next) {
-    DiaObject *obj = (Object*)selected->data;
+    DiaObject *obj = (DiaObject*)selected->data;
     if (obj->parent != NULL) return TRUE;
   }
   return FALSE;
@@ -305,19 +305,19 @@ diagram_selected_can_parent(Diagram *dia) {
 
   for (selected = dia->data->selected;
        selected != NULL; selected = selected->next) {
-    DiaObject *obj = (Object*)selected->data;
+    DiaObject *obj = (DiaObject*)selected->data;
     if (obj->can_parent) {
       parents = g_list_prepend(parents, obj);
     }
   }
   for (selected = dia->data->selected;
        selected != NULL; selected = selected->next) {
-    DiaObject *obj = (Object*)selected->data;
+    DiaObject *obj = (DiaObject*)selected->data;
     if (obj->parent == NULL) {
       GList *parent_tmp;
       Rectangle obj_bb = obj->bounding_box;
       for (parent_tmp = parents; parent_tmp != NULL; parent_tmp = parent_tmp->next) {
-	DiaObject *p = (Object*)parent_tmp->data;
+	DiaObject *p = (DiaObject*)parent_tmp->data;
 	if (p == obj) continue;
 	if (obj_bb.left > p->bounding_box.left &&
 	    obj_bb.right < p->bounding_box.right &&
@@ -595,7 +595,7 @@ diagram_select_list(Diagram *dia, GList *list)
 {
 
   while (list != NULL) {
-    DiaObject *obj = (Object *)list->data;
+    DiaObject *obj = (DiaObject *)list->data;
 
     diagram_select(dia, obj);
 
@@ -715,7 +715,7 @@ diagram_flush(Diagram *dia)
   dynobj_refresh_kick();
 }
 
-Object *
+DiaObject *
 diagram_find_clicked_object(Diagram *dia, Point *pos,
 			    real maxdist)
 {
@@ -723,7 +723,7 @@ diagram_find_clicked_object(Diagram *dia, Point *pos,
 					  pos, maxdist, NULL);
 }
 
-Object *
+DiaObject *
 diagram_find_clicked_object_except(Diagram *dia, Point *pos,
 				   real maxdist, GList *avoid)
 {
@@ -1068,7 +1068,7 @@ void diagram_ungroup_selected(Diagram *dia)
       /* Now handled by undo apply */      
       /*list = group_list;
       while (list != NULL) {
-	DiaObject *obj = (Object *)list->data;
+	DiaObject *obj = (DiaObject *)list->data;
 	object_add_updates(obj, dia);
 	list = g_list_next(list);
       }

@@ -98,7 +98,7 @@ static ObjectTypeOps polygon_type_ops =
   (ApplyDefaultsFunc) NULL,
 };
 
-static ObjectType polygon_type =
+static DiaObjectType polygon_type =
 {
   "Standard - Polygon",   /* name */
   0,                         /* version */
@@ -109,7 +109,7 @@ static ObjectType polygon_type =
   0 /* default_user_data */
 };
 
-ObjectType *_polygon_type = (ObjectType *) &polygon_type;
+DiaObjectType *_polygon_type = (DiaObjectType *) &polygon_type;
 
 
 static ObjectOps polygon_ops = {

@@ -100,7 +100,7 @@ static ObjectTypeOps entity_type_ops =
   (SaveFunc)   entity_save
 };
 
-ObjectType entity_type =
+DiaObjectType entity_type =
 {
   "ER - Entity",  /* name */
   0,                 /* version */
@@ -109,7 +109,7 @@ ObjectType entity_type =
   &entity_type_ops      /* ops */
 };
 
-ObjectType *_entity_type = (ObjectType *) &entity_type;
+DiaObjectType *_entity_type = (DiaObjectType *) &entity_type;
 
 static ObjectOps entity_ops = {
   (DestroyFunc)         entity_destroy,

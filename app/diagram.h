@@ -103,10 +103,10 @@ void diagram_add_update_all_all_and_flush();
 void diagram_add_update_pixels(Diagram *dia, Point *point,
 			       int pixel_width, int pixel_height);
 void diagram_flush(Diagram *dia);
-Object *diagram_find_clicked_object(Diagram *dia,
+DiaObject *diagram_find_clicked_object(Diagram *dia,
 				    Point *pos,
 				    real maxdist);
-Object *diagram_find_clicked_object_except(Diagram *dia,
+DiaObject *diagram_find_clicked_object_except(Diagram *dia,
 					   Point *pos,
 					   real maxdist,
 					   GList *avoid);

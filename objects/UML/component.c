@@ -89,7 +89,7 @@ static ObjectTypeOps component_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType component_type =
+DiaObjectType component_type =
 {
   "UML - Component",   /* name */
   0,                      /* version */

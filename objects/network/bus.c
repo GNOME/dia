@@ -105,7 +105,7 @@ static ObjectTypeOps bus_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType bus_type =
+DiaObjectType bus_type =
 {
   "Network - Bus",   /* name */
   0,                  /* version */
@@ -113,7 +113,7 @@ ObjectType bus_type =
   &bus_type_ops       /* ops */
 };
 
-ObjectType bus_type_std = /* Old mistake, left for backwards compatibility */
+DiaObjectType bus_type_std = /* Old mistake, left for backwards compatibility */
 {
   "Standard - Bus",   /* name */
   0,                  /* version */

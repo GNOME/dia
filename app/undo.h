@@ -79,7 +79,7 @@ Change *undo_group_objects(Diagram *dia, GList *obj_list,
 			   DiaObject *group, GList *orig_list);
 Change *undo_ungroup_objects(Diagram *dia, GList *obj_list,
 			     DiaObject *group, int group_index);
-Change *undo_parenting(Diagram *dia, DiaObject *parentobj, Object *childobj,
+Change *undo_parenting(Diagram *dia, DiaObject *parentobj, DiaObject *childobj,
 		       gboolean parent);
 
 #endif /* UNDO_H */

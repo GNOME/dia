@@ -29,9 +29,9 @@
 #include "sadt.h"
 #include "plug-ins.h"
 
-extern ObjectType sadtarrow_type;
-extern ObjectType sadtbox_type;
-extern ObjectType sadtannotation_type;
+extern DiaObjectType sadtarrow_type;
+extern DiaObjectType sadtbox_type;
+extern DiaObjectType sadtannotation_type;
 
 DIA_PLUGIN_CHECK_INIT
 

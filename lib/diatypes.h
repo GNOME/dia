@@ -118,7 +118,7 @@ typedef struct _ObjectChange ObjectChange;
 /* In object.h: */
 typedef struct _Object DiaObject;
 typedef struct _ObjectOps ObjectOps;
-typedef struct _ObjectType ObjectType;
+typedef struct _ObjectType DiaObjectType;
 typedef struct _ObjectTypeOps ObjectTypeOps;
 
 /* In orth_conn.h: */

@@ -99,7 +99,7 @@ static ObjectTypeOps action_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType action_type =
+DiaObjectType action_type =
 {
   "GRAFCET - Action",   /* name */
   0,                         /* version */

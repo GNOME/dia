@@ -72,13 +72,13 @@ typedef struct _DxfData
 
 gboolean import_dxf(const gchar *filename, DiagramData *dia, void* user_data);
 gboolean read_dxf_codes(FILE *filedxf, DxfData *data);
-Object *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-Object *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-Object *read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-Object *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-Object *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-Object *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-Object *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+DiaObject *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+DiaObject *read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+DiaObject *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
+DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 void read_entity_measurement_dxf(FILE *filedxf, DxfData *data,
                                  DiagramData *dia);
 void read_entity_scale_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
@@ -144,14 +144,14 @@ static PropDescription dxf_prop_descs[] = {
 
 
 /* reads a line entity from the dxf file and creates a line object in dia*/
-Object *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
+DiaObject *read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     int codedxf;
     char *old_locale;
 
     /* line data */
     Point start, end;
     
-    ObjectType *otype = object_get_type("Standard - Line");  
+    DiaObjectType *otype = object_get_type("Standard - Line");  
     Handle *h1, *h2;
     
     DiaObject *line_obj;
@@ -237,7 +237,7 @@ static PropDescription dxf_solid_prop_descs[] = {
    PROP_DESC_END};
 
 /* reads a solid entity from the dxf file and creates a polygon object in dia*/
-Object *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+DiaObject *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
    int codedxf;
    char *old_locale;
@@ -245,7 +245,7 @@ Object *read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    /* polygon data */
    Point p[4];
    
-   ObjectType *otype = object_get_type("Standard - Polygon");  
+   DiaObjectType *otype = object_get_type("Standard - Polygon");  
    Handle *h1, *h2;
    
    DiaObject *polygon_obj;
@@ -390,7 +390,7 @@ static int is_equal( double a, double b )
 }
 
 /* reads a polyline entity from the dxf file and creates a polyline object in dia*/
-Object *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+DiaObject *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     int codedxf, i;
     char *old_locale;
@@ -398,7 +398,7 @@ Object *read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         /* polygon data */
     Point *p = NULL, start, end, center;
     
-    ObjectType *otype = object_get_type("Standard - PolyLine");
+    DiaObjectType *otype = object_get_type("Standard - PolyLine");
     Handle *h1, *h2;
     
     DiaObject *polyline_obj;
@@ -598,7 +598,7 @@ static PropDescription dxf_ellipse_prop_descs[] = {
     PROP_DESC_END};
 
 /* reads a circle entity from the dxf file and creates a circle object in dia*/
-Object *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+DiaObject *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     int codedxf;
     char *old_locale;
@@ -607,7 +607,7 @@ Object *read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Point center;
     real radius = 1.0;
     
-    ObjectType *otype = object_get_type("Standard - Ellipse");  
+    DiaObjectType *otype = object_get_type("Standard - Ellipse");  
     Handle *h1, *h2;
     
     DiaObject *ellipse_obj;
@@ -687,7 +687,7 @@ static PropDescription dxf_arc_prop_descs[] = {
     PROP_DESC_END};
 
 /* reads a circle entity from the dxf file and creates a circle object in dia*/
-Object *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+DiaObject *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     int codedxf;
     char *old_locale;
@@ -697,7 +697,7 @@ Object *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     real radius = 1.0, start_angle = 0.0, end_angle=360.0;
     real curve_distance;
 
-    ObjectType *otype = object_get_type("Standard - Arc");  
+    DiaObjectType *otype = object_get_type("Standard - Arc");  
     Handle *h1, *h2;
   
     DiaObject *arc_obj;
@@ -783,7 +783,7 @@ Object *read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 }
 
 /* reads an ellipse entity from the dxf file and creates an ellipse object in dia*/
-Object *read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
+DiaObject *read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     int codedxf;
     char *old_locale;
     
@@ -792,7 +792,7 @@ Object *read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     real width = 1.0;
     real ratio_width_height = 1.0;
     
-    ObjectType *otype = object_get_type("Standard - Ellipse");
+    DiaObjectType *otype = object_get_type("Standard - Ellipse");
     Handle *h1, *h2;
     
     DiaObject *ellipse_obj; 
@@ -868,7 +868,7 @@ static PropDescription dxf_text_prop_descs[] = {
     { "text", PROP_TYPE_TEXT },
     PROP_DESC_END};
 
-Object *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+DiaObject *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 {
    int codedxf, colour;
     char *old_locale;
@@ -880,7 +880,7 @@ Object *read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Alignment textalignment = ALIGN_LEFT;
    char *textvalue = NULL, *textp;
     
-    ObjectType *otype = object_get_type("Standard - Text");
+    DiaObjectType *otype = object_get_type("Standard - Text");
     Handle *h1, *h2;
     
     DiaObject *text_obj;

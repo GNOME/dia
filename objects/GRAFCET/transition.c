@@ -108,7 +108,7 @@ static ObjectTypeOps transition_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType transition_type =
+DiaObjectType transition_type =
 {
   "GRAFCET - Transition",   /* name */
   0,                         /* version */

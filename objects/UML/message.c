@@ -107,7 +107,7 @@ static ObjectTypeOps message_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType message_type =
+DiaObjectType message_type =
 {
   "UML - Message",        /* name */
   0,                         /* version */

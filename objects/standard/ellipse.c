@@ -100,7 +100,7 @@ static ObjectTypeOps ellipse_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType ellipse_type =
+DiaObjectType ellipse_type =
 {
   "Standard - Ellipse",   /* name */
   0,                      /* version */
@@ -109,7 +109,7 @@ ObjectType ellipse_type =
   &ellipse_type_ops       /* ops */
 };
 
-ObjectType *_ellipse_type = (ObjectType *) &ellipse_type;
+DiaObjectType *_ellipse_type = (DiaObjectType *) &ellipse_type;
 
 static ObjectOps ellipse_ops = {
   (DestroyFunc)         ellipse_destroy,

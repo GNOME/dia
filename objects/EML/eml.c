@@ -26,10 +26,10 @@
 #include "listfun.h"
 #include "plug-ins.h"
 
-extern ObjectType emlprocess_type;
-extern ObjectType instantiation_type;
-extern ObjectType interaction_type;
-extern ObjectType interaction_ortho_type;
+extern DiaObjectType emlprocess_type;
+extern DiaObjectType instantiation_type;
+extern DiaObjectType interaction_type;
+extern DiaObjectType interaction_ortho_type;
 
 DIA_PLUGIN_CHECK_INIT
 

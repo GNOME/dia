@@ -722,7 +722,7 @@ modify_edit_end(GtkWidget *widget, GdkEventFocus *event, gpointer data)
 {
   int foo = printf("Ending focus\n");
   GtkTextView *view = GTK_TEXT_VIEW(widget);
-  DiaObject *obj = (Object*)data;
+  DiaObject *obj = (DiaObject*)data;
   GQuark quark = g_quark_from_string(PROP_TYPE_TEXT);
   PropDescription *props = obj->ops->describe_props(obj);
   int i;

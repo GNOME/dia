@@ -29,9 +29,9 @@
 
 Color computer_color = { 0.7, 0.7, 0.7 };
 
-extern ObjectType bus_type;
-extern ObjectType bus_type_std;
-extern ObjectType wanlink_type;
+extern DiaObjectType bus_type;
+extern DiaObjectType bus_type_std;
+extern DiaObjectType wanlink_type;
 
 DIA_PLUGIN_CHECK_INIT
 

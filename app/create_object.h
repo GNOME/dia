@@ -27,7 +27,7 @@ typedef struct _CreateObjectTool CreateObjectTool;
 struct _CreateObjectTool {
   Tool tool;
 
-  ObjectType *objtype;
+  DiaObjectType *objtype;
   void *user_data;
   
   int moving;
@@ -38,7 +38,7 @@ struct _CreateObjectTool {
 };
 
 
-Tool *create_create_object_tool(ObjectType *objtype, void *user_date, int invert_persistence);
+Tool *create_create_object_tool(DiaObjectType *objtype, void *user_date, int invert_persistence);
 void free_create_object_tool(Tool *tool);
 
 #endif /* CREATE_OBJECT_H */

@@ -87,7 +87,7 @@ static ObjectTypeOps zigzagline_type_ops =
   (ApplyDefaultsFunc) NULL /*zigzagline_apply_defaults*/
 };
 
-static ObjectType zigzagline_type =
+static DiaObjectType zigzagline_type =
 {
   "Standard - ZigZagLine",   /* name */
   0,                         /* version */
@@ -96,7 +96,7 @@ static ObjectType zigzagline_type =
   &zigzagline_type_ops       /* ops */
 };
 
-ObjectType *_zigzagline_type = (ObjectType *) &zigzagline_type;
+DiaObjectType *_zigzagline_type = (DiaObjectType *) &zigzagline_type;
 
 
 static ObjectOps zigzagline_ops = {

@@ -91,7 +91,7 @@ static ObjectTypeOps vergent_type_ops =
   (ApplyDefaultsFunc) NULL  
 };
 
-ObjectType vergent_type =
+DiaObjectType vergent_type =
 {
   "GRAFCET - Vergent",   /* name */
   0,                         /* version */

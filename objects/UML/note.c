@@ -84,7 +84,7 @@ static ObjectTypeOps note_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType note_type =
+DiaObjectType note_type =
 {
   "UML - Note",   /* name */
   0,                      /* version */

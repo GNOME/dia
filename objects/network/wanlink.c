@@ -98,7 +98,7 @@ static ObjectOps wanlink_ops =
 
 };
 
-ObjectType wanlink_type =
+DiaObjectType wanlink_type =
 {
   "Network - WAN Link",   /* name */
   1,                     /* version */
@@ -258,7 +258,7 @@ wanlink_move(WanLink *wanlink, Point *to)
 {
   Point delta;
   Point *endpoints = &wanlink->connection.endpoints[0]; 
-  DiaObject *obj = (Object *) wanlink;
+  DiaObject *obj = (DiaObject *) wanlink;
   int i;
     
   delta = *to;
@@ -339,7 +339,7 @@ static void
 wanlink_update_data(WanLink *wanlink)
 {
   Connection *conn = &wanlink->connection;
-  DiaObject *obj = (Object *) wanlink;
+  DiaObject *obj = (DiaObject *) wanlink;
   Point v, vhat;
   Point *endpoints;
   real min_par, max_par;

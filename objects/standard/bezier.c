@@ -90,7 +90,7 @@ static ObjectTypeOps bezierline_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-static ObjectType bezierline_type =
+static DiaObjectType bezierline_type =
 {
   "Standard - BezierLine",   /* name */
   0,                         /* version */
@@ -101,7 +101,7 @@ static ObjectType bezierline_type =
   0                          /* default_user_data */
 };
 
-ObjectType *_bezierline_type = (ObjectType *) &bezierline_type;
+DiaObjectType *_bezierline_type = (DiaObjectType *) &bezierline_type;
 
 
 static ObjectOps bezierline_ops = {

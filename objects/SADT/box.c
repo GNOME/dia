@@ -104,7 +104,7 @@ static ObjectTypeOps sadtbox_type_ops =
   (ApplyDefaultsFunc) NULL,
 };
 
-ObjectType sadtbox_type =
+DiaObjectType sadtbox_type =
 {
   "SADT - box",  /* name */
   0,                 /* version */

@@ -95,7 +95,7 @@ static ObjectTypeOps constraint_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType constraint_type =
+DiaObjectType constraint_type =
 {
   "UML - Constraint",        /* name */
   0,                         /* version */

@@ -98,7 +98,7 @@ static ObjectTypeOps dependency_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType dependency_type =
+DiaObjectType dependency_type =
 {
   "UML - Dependency",   /* name */
   0,                      /* version */

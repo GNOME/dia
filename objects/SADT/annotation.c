@@ -90,7 +90,7 @@ static ObjectTypeOps annotation_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType sadtannotation_type =
+DiaObjectType sadtannotation_type =
 {
   "SADT - annotation",        /* name */
   0,                         /* version */

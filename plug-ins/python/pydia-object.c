@@ -235,7 +235,7 @@ PyTypeObject PyDiaObject_Type = {
 };
 
 PyObject *
-PyDiaObjectType_New(ObjectType *otype)
+PyDiaObjectType_New(DiaObjectType *otype)
 {
     PyDiaObjectType *self;
 

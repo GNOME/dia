@@ -59,7 +59,7 @@ static ObjectTypeOps emlprocess_type_ops =
   (SaveFunc)   emlprocess_save
 };
 
-ObjectType emlprocess_type =
+DiaObjectType emlprocess_type =
 {
   "EML - Process",           /* name */
   0,                         /* version */
@@ -200,7 +200,7 @@ void
 emlprocess_update_data(EMLProcess *emlprocess)
 {
   Element *elem = &emlprocess->element;
-  DiaObject *obj = (Object *)emlprocess;
+  DiaObject *obj = (DiaObject *)emlprocess;
 
   element_update_boundingbox(elem);
   /* fix boundingemlprocess for line_width: */
@@ -523,7 +523,7 @@ fill_in_fontdata(EMLProcess *emlprocess)
 }
  
 static
-Object *
+DiaObject *
 emlprocess_create(Point *startpoint,
 	       void *user_data,
   	       Handle **handle1,

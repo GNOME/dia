@@ -577,7 +577,7 @@ layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
  * no further away than maxdist, and not included in avoid.
  * Stops it if finds an object that includes the point.
  */
-Object *
+DiaObject *
 layer_find_closest_object_except(Layer *layer, Point *pos,
 				 real maxdist, GList *avoid)
 {
@@ -610,7 +610,7 @@ layer_find_closest_object_except(Layer *layer, Point *pos,
   return closest;
 }
 
-Object *
+DiaObject *
 layer_find_closest_object(Layer *layer, Point *pos, real maxdist)
 {
   return layer_find_closest_object_except(layer, pos, maxdist, NULL);

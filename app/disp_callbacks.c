@@ -55,7 +55,7 @@ object_menu_proxy(GtkWidget *widget, gpointer data)
   ObjectChange *obj_change;
 
   DDisplay *ddisp = ddisplay_active();
-  DiaObject *obj = (Object *)ddisp->diagram->data->selected->data;
+  DiaObject *obj = (DiaObject *)ddisp->diagram->data->selected->data;
 
   dia_menu_item = (DiaMenuItem *) data;
 
@@ -832,8 +832,8 @@ round_up (double x)
 
 
 /* returns NULL if object cannot be created */
-Object *
-ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
+DiaObject *
+ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
 		     gpointer user_data)
 {
   Point droppoint;

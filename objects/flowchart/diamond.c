@@ -110,7 +110,7 @@ static ObjectTypeOps diamond_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType diamond_type =
+DiaObjectType diamond_type =
 {
   "Flowchart - Diamond",  /* name */
   0,                 /* version */

@@ -117,7 +117,7 @@ static ObjectTypeOps step_type_ops =
   (ApplyDefaultsFunc) NULL,
 };
 
-ObjectType step_type =
+DiaObjectType step_type =
 {
   "GRAFCET - Step",  /* name */
   0,                 /* version */

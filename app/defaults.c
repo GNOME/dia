@@ -30,7 +30,7 @@
 static GtkWidget *dialog = NULL;
 static GtkWidget *dialog_vbox = NULL;
 static GtkWidget *object_part = NULL;
-static ObjectType *current_objtype = NULL;
+static DiaObjectType *current_objtype = NULL;
 static DiaObject *current_object = NULL;
 
 static GtkWidget *no_defaults_dialog = NULL;
@@ -95,7 +95,7 @@ defaults_respond(GtkWidget *widget, gint response_id, gpointer data)
 }
 
 void
-defaults_show(ObjectType *objtype)
+defaults_show(DiaObjectType *objtype)
 {
   GtkWidget *defaults;
   DiaObject *def_object = NULL;

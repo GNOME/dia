@@ -30,9 +30,9 @@
 #include "plug-ins.h"
 #include "intl.h"
 
-extern ObjectType function_type;
-extern ObjectType flow_type;
-extern ObjectType orthflow_type;
+extern DiaObjectType function_type;
+extern DiaObjectType flow_type;
+extern DiaObjectType orthflow_type;
 
 DIA_PLUGIN_CHECK_INIT
 

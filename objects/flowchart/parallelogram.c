@@ -111,7 +111,7 @@ static ObjectTypeOps pgram_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType pgram_type =
+DiaObjectType pgram_type =
 {
   "Flowchart - Parallelogram",  /* name */
   0,                 /* version */

@@ -100,7 +100,7 @@ static ObjectTypeOps line_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType line_type =
+DiaObjectType line_type =
 {
   "Standard - Line",   /* name */
   0,                   /* version */
@@ -108,7 +108,7 @@ ObjectType line_type =
   &line_type_ops       /* ops */
 };
 
-ObjectType *_line_type = (ObjectType *) &line_type;
+DiaObjectType *_line_type = (DiaObjectType *) &line_type;
 
 static ObjectOps line_ops = {
   (DestroyFunc)         line_destroy,

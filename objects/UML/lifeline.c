@@ -110,7 +110,7 @@ static ObjectTypeOps lifeline_type_ops =
   (SaveFunc)   object_save_using_properties
 };
 
-ObjectType lifeline_type =
+DiaObjectType lifeline_type =
 {
   "UML - Lifeline",   /* name */
   0,                   /* version */

@@ -686,7 +686,7 @@ create_tools(GtkWidget *parent)
     }
     
     if (tool_data[i].icon_data==NULL) {
-      ObjectType *type;
+      DiaObjectType *type;
       type =
 	object_get_type((char *)tool_data[i].callback_data.extra_data);
       if (type == NULL)
@@ -786,7 +786,7 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
 			gtk_widget_get_colormap(parent), &mask,
 			&style->bg[GTK_STATE_NORMAL], sheet_obj->pixmap_file);
     } else {
-      ObjectType *type;
+      DiaObjectType *type;
       type = object_get_type(sheet_obj->object_type);
       pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
 			gtk_widget_get_colormap(parent), &mask, 
@@ -886,7 +886,7 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
                     sheet_obj->pixmap_file,gerror?gerror->message:"[NULL]");
       }
     } else {
-      ObjectType *type;
+      DiaObjectType *type;
       type = object_get_type(sheet_obj->object_type);
       pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
 			gtk_widget_get_colormap(sheet_wbox), &mask, 

@@ -306,7 +306,7 @@ void
 neworthconn_update_data(NewOrthConn *orth)
 {
   int i;
-  DiaObject *obj = (Object *)orth;
+  DiaObject *obj = (DiaObject *)orth;
 
   if (!orth->points) {
     g_warning("This NewOrthConn object is very sick !");

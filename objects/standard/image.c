@@ -97,7 +97,7 @@ static ObjectTypeOps image_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-ObjectType image_type =
+DiaObjectType image_type =
 {
   "Standard - Image",  /* name */
   0,                 /* version */
@@ -106,7 +106,7 @@ ObjectType image_type =
   &image_type_ops      /* ops */
 };
 
-ObjectType *_image_type = (ObjectType *) &image_type;
+DiaObjectType *_image_type = (DiaObjectType *) &image_type;
 
 static ObjectOps image_ops = {
   (DestroyFunc)         image_destroy,
