@@ -6,6 +6,9 @@
 
 2004-06-30  Lars Clausen  <lars@raeder.dk>
 
+	* lib/font.c (dia_font_build_layout): Return to 0.93.1 font size
+	adjustment: If you can't fix it, at least don't change it.
+
 	* objects/SADT/arrow.c (sadtarrow_draw): Use new rounded arrow
 	code instead of individual code in here.
 

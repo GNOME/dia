@@ -636,9 +636,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     g_object_ref(font);
     cached->height = height;
 
-#ifdef G_OS_WIN32
     height *= 0.7;
-#else
     /* This could should account for DPI, but it doesn't do right.  Grrr...
     {
       GdkScreen *screen = gdk_screen_get_default();
@@ -649,7 +647,6 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
       height *= dpi/100;
     }
     */
-#endif
 
     dia_font_set_height(font,height);
     layout = pango_layout_new(dia_font_get_context());
