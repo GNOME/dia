@@ -233,6 +233,9 @@ data_unselect(DiagramData *data, Object *obj)
   data->selected_count--;
 }
 
+/** Clears the list of selected objects.
+ * Does *not* remove these objects from the object list.
+ */
 void
 data_remove_all_selected(DiagramData *data)
 {
@@ -357,6 +360,9 @@ data_get_sorted_selected(DiagramData *data)
   return sorted_list;
 }
 
+/** Remove the currently selected objects from the list of objects.
+ * The selected objects are returned in a newly created GList.
+ */
 GList *
 data_get_sorted_selected_remove(DiagramData *data)
 {

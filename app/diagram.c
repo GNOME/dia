@@ -1002,7 +1002,9 @@ diagram_get_sorted_selected(Diagram *dia)
   return data_get_sorted_selected(dia->data);
 }
 
-/* Removes selected from objects list, NOT selected list! */
+/** Remove the currently selected objects from the diagram's object list.
+ * Returns a newly created list of the selected objects, in order.
+ */
 GList *
 diagram_get_sorted_selected_remove(Diagram *dia)
 {

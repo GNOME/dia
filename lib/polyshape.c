@@ -330,7 +330,10 @@ polyshape_update_data(PolyShape *poly)
     Point prev;
     poly->object.handles[i]->pos = poly->points[i];
 
-    prev = next;
+    if (i == 0)
+      prev = poly->points[poly->numpoints-1];
+    else
+      prev = poly->points[i-1];
     if (i == poly->numpoints - 1)
       next = poly->points[0];
     else

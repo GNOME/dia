@@ -884,8 +884,11 @@ struct GroupObjectsChange {
 
   Layer *layer;
   Object *group;   /* owning reference if not applied */
-  GList *obj_list; /* This list is owned by the group. */
-  GList *orig_list; /* This list (not the object) is owned */
+  GList *obj_list; /* The list of objects in this group.  Owned by the
+		      group */
+  GList *orig_list; /* A copy of the original list of all objects,
+		       from before the group was created.  Owned by
+		       the group */
   int applied;
 };
 
@@ -916,6 +919,8 @@ group_objects_apply(struct GroupObjectsChange *change, Diagram *dia)
       remove_focus();
     }
     
+    object_add_updates(obj, dia);
+
     list = g_list_next(list);
   }
 
@@ -934,9 +939,7 @@ group_objects_revert(struct GroupObjectsChange *change, Diagram *dia)
   diagram_unselect_object(dia, change->group);
   object_add_updates(change->group, dia);
 
-  old_list = change->layer->objects;
   layer_set_object_list(change->layer, g_list_copy(change->orig_list));
-  g_list_free(old_list);
   
   object_add_updates_list(change->obj_list, dia);
 
@@ -954,6 +957,7 @@ group_objects_free(struct GroupObjectsChange *change)
     group_destroy_shallow(change->group);
     change->group = NULL;
     change->obj_list = NULL;
+    /** Leak here? */
   }
   g_list_free(change->orig_list);
 }
@@ -1039,6 +1043,8 @@ ungroup_objects_revert(struct UngroupObjectsChange *change, Diagram *dia)
       remove_focus();
     }
     
+    object_add_updates(obj, dia);
+
     list = g_list_next(list);
   }
 

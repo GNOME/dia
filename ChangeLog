@@ -1,5 +1,15 @@
 2004-02-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/undo.c (group_objects_revert): Don't double-free the objects
+	list.  (#129221) Call object_add_updates on grouped objects.
+	(ungroup_objects_revert): Call object_add_updates on grouped objects.
+
+	* lib/diagramdata.c: Internal
+	documentation. 
+
+	* lib/polyshape.c (polyshape_update_data): Correctly calculate
+	directions for polyshape corners (thanks, Valgrind!)
+
 	* lib/attributes.c: 
 	* lib/prop_attr.c (arrowprop_load): Use default arrow size.
 
