@@ -27,19 +27,16 @@
 
 #ifdef GNOME
 extern void gnome_toolbox_menus_create(GtkWidget* app);
-
-extern GtkWidget * gnome_display_menus_create();
+extern GtkWidget * gnome_display_menus_create(void);
 #endif
 
-extern void menus_get_toolbox_menubar (GtkWidget         **menubar,
-				       GtkAccelGroup **accel);
-extern void menus_get_image_menu (GtkWidget         **menu,
-				  GtkAccelGroup **accel);
+extern void menus_get_toolbox_menubar(GtkWidget **menubar,
+				      GtkAccelGroup **accel);
+extern void menus_get_image_menu(GtkWidget **menu,
+				 GtkAccelGroup **accel);
 
-extern void menus_set_sensitive       (char                 *path,
-				       int                   sensitive);
-
-extern void menus_set_state (char *path, int   state);
+extern void menus_set_sensitive(char *path, int sensitive);
+extern void menus_set_state(char *path, int state);
 
 #endif /* MENUS_H */
 

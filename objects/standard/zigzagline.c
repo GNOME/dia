@@ -132,7 +132,8 @@ static ObjectOps zigzagline_ops = {
   (MoveHandleFunc)      zigzagline_move_handle,
   (GetPropertiesFunc)   zigzagline_get_properties,
   (ApplyPropertiesFunc) zigzagline_apply_properties,
-  (IsEmptyFunc)         object_return_false
+  (IsEmptyFunc)         object_return_false,
+  (ObjectMenuFunc)      NULL
 };
 
 static void

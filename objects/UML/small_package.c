@@ -102,7 +102,8 @@ static ObjectOps smallpackage_ops = {
   (MoveHandleFunc)      smallpackage_move_handle,
   (GetPropertiesFunc)   object_return_null,
   (ApplyPropertiesFunc) object_return_void,
-  (IsEmptyFunc)         object_return_false
+  (IsEmptyFunc)         object_return_false,
+  (ObjectMenuFunc)      NULL
 };
 
 static real

@@ -164,7 +164,8 @@ static ObjectOps association_ops = {
   (MoveHandleFunc)      association_move_handle,
   (GetPropertiesFunc)   association_get_properties,
   (ApplyPropertiesFunc) association_apply_properties,
-  (IsEmptyFunc)         object_return_false
+  (IsEmptyFunc)         object_return_false,
+  (ObjectMenuFunc)      NULL
 };
 
 static real

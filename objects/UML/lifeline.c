@@ -123,7 +123,8 @@ static ObjectOps lifeline_ops = {
   (MoveHandleFunc)      lifeline_move_handle,
   (GetPropertiesFunc)   lifeline_get_properties,
   (ApplyPropertiesFunc) lifeline_apply_properties,
-  (IsEmptyFunc)         object_return_false
+  (IsEmptyFunc)         object_return_false,
+  (ObjectMenuFunc)      NULL
 };
 
 static real

@@ -33,8 +33,9 @@ grid_draw(DDisplay *ddisp)
   int height = ddisp->renderer->renderer.pixel_height;
 
   if ( (ddisplay_transform_length(ddisp, grid->width_x) <= 1.0) ||
-       (ddisplay_transform_length(ddisp, grid->width_y) <= 1.0) )
+       (ddisplay_transform_length(ddisp, grid->width_y) <= 1.0) ) {
     return;
+  }
   
   if (grid->visible) {
     real pos;

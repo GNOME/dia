@@ -108,7 +108,8 @@ static ObjectOps participation_ops = {
   (MoveHandleFunc)      participation_move_handle,
   (GetPropertiesFunc)   participation_get_properties,
   (ApplyPropertiesFunc) participation_apply_properties,
-  (IsEmptyFunc)         object_return_false
+  (IsEmptyFunc)         object_return_false,
+  (ObjectMenuFunc)      NULL
 };
 
 static real

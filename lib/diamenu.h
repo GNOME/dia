@@ -35,6 +35,7 @@ struct _DiaMenuItem {
 };
 
 struct _DiaMenu {
+  char *title;
   int num_items;
   DiaMenuItem *items;
   /* Private for app:  */

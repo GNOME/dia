@@ -31,6 +31,7 @@
 #include "object_ops.h"
 #include "menus.h"
 #include "message.h"
+#include "intl.h"
 
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;
@@ -60,16 +61,23 @@ create_object_menu(DiaMenu *dia_menu)
 
   menu = gtk_menu_new();
 
+  menu_item = gtk_menu_item_new_with_label(dia_menu->title);
+  gtk_menu_append(GTK_MENU(menu), menu_item);
+  gtk_widget_show(menu_item);
+
+  menu_item = gtk_menu_item_new();
+  gtk_menu_append(GTK_MENU(menu), menu_item);
+  gtk_widget_show(menu_item);
+
   for (i=0;i<dia_menu->num_items;i++) {
     menu_item = gtk_menu_item_new_with_label(dia_menu->items[i].text);
     gtk_menu_append(GTK_MENU(menu), menu_item);
     gtk_widget_show(menu_item);
     dia_menu->items[i].app_data = menu_item;
-
+    
     gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
 		       object_menu_proxy, &dia_menu->items[i]);
   }
-
   dia_menu->app_data = menu;
 }
 
@@ -81,7 +89,9 @@ popup_object_menu(GdkEventButton *bevent, DDisplay *ddisp)
   Point clickedpoint;
   GtkMenu *menu = NULL;
   DiaMenu *dia_menu = NULL;
+  GtkWidget *menu_item;
   GList *selected_list;
+  static GtkWidget *no_menu = NULL;
   int i;
   
   diagram = ddisp->diagram;
@@ -98,31 +108,42 @@ popup_object_menu(GdkEventButton *bevent, DDisplay *ddisp)
   }
   
   obj = (Object *)g_list_first(selected_list)->data;
-  if (obj->ops->get_object_menu == NULL)
-    return;
   
   ddisplay_untransform_coords(ddisp,
 			      (int)bevent->x, (int)bevent->y,
 			      &clickedpoint.x, &clickedpoint.y);
+
   /* Possibly react differently at a handle? */
-  
+
   /* Get its menu */
-  dia_menu = (obj->ops->get_object_menu)(obj, &clickedpoint);
-  
-  if (dia_menu == NULL)
-    return;
-
-  if (dia_menu->app_data == NULL)
-    create_object_menu(dia_menu);
-
-  /* Update active/nonactive menuitems */
-  for (i=0;i<dia_menu->num_items;i++) {
-    gtk_widget_set_sensitive((GtkWidget *)dia_menu->items[i].app_data,
-			     dia_menu->items[i].active);
+  if (obj->ops->get_object_menu == NULL) {
+    dia_menu = NULL;
+  } else {
+    dia_menu = (obj->ops->get_object_menu)(obj, &clickedpoint);
   }
-  
-  
-  menu = (GtkMenu *) dia_menu->app_data;
+
+  if (dia_menu != NULL) {
+    if (dia_menu->app_data == NULL)
+      create_object_menu(dia_menu);
+    
+    /* Update active/nonactive menuitems */
+    for (i=0;i<dia_menu->num_items;i++) {
+      gtk_widget_set_sensitive((GtkWidget *)dia_menu->items[i].app_data,
+			       dia_menu->items[i].active);
+    }
+
+    menu = GTK_MENU(dia_menu->app_data);
+  } else {
+    if (no_menu == NULL) {
+      no_menu = gtk_menu_new();
+
+      menu_item = gtk_menu_item_new_with_label(_("No object menu"));
+      gtk_menu_append(GTK_MENU(no_menu), menu_item);
+      gtk_widget_show(menu_item);
+      gtk_widget_set_sensitive(menu_item, FALSE);
+    }
+    menu = GTK_MENU(no_menu);
+  }
   
   object_menu_clicked_point = clickedpoint;
   popup_shell = ddisp->shell;

@@ -1,3 +1,26 @@
+1999-03-15  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/disp_callbacks.c:
+	Show (empty) object menus on object that has none.
+	Show title on object menus.
+
+	* app/display.c:
+	Set zoom factor correctly when opening new displays.
+	Better setting of scrollbars.
+
+	* app/grid.c:
+	* app/menus.h:
+	Some reformating cleanup.
+
+	* lib/diamenu.h:
+	Added title to object menus.
+
+	* objects/*/*.c:
+	Added object menu method (NULL-valued) to all objects.
+
+	* objects/standard/polyline.c:
+	Added title to object menu.
+
 1999-03-14  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/preferences.[ch]:

@@ -663,6 +663,7 @@ static DiaMenuItem polyline_menu_items[] = {
 };
 
 static DiaMenu polyline_menu = {
+  "Polyline",
   sizeof(polyline_menu_items)/sizeof(DiaMenuItem),
   polyline_menu_items,
   NULL

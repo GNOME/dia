@@ -117,7 +117,8 @@ static ObjectOps constraint_ops = {
   (MoveHandleFunc)      constraint_move_handle,
   (GetPropertiesFunc)   constraint_get_properties,
   (ApplyPropertiesFunc) constraint_apply_properties,
-  (IsEmptyFunc)         object_return_false
+  (IsEmptyFunc)         object_return_false,
+  (ObjectMenuFunc)      NULL
 };
 
 static real

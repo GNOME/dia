@@ -139,7 +139,8 @@ static ObjectOps arc_ops = {
   (MoveHandleFunc)      arc_move_handle,
   (GetPropertiesFunc)   arc_get_properties,
   (ApplyPropertiesFunc) arc_apply_properties,
-  (IsEmptyFunc)         object_return_false
+  (IsEmptyFunc)         object_return_false,
+  (ObjectMenuFunc)      NULL
 };
 
 static void

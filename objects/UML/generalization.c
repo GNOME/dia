@@ -119,7 +119,8 @@ static ObjectOps generalization_ops = {
   (MoveHandleFunc)      generalization_move_handle,
   (GetPropertiesFunc)   generalization_get_properties,
   (ApplyPropertiesFunc) generalization_apply_properties,
-  (IsEmptyFunc)         object_return_false
+  (IsEmptyFunc)         object_return_false,
+  (ObjectMenuFunc)      NULL
 };
 
 static real

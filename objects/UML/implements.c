@@ -119,7 +119,8 @@ static ObjectOps implements_ops = {
   (MoveHandleFunc)      implements_move_handle,
   (GetPropertiesFunc)   implements_get_properties,
   (ApplyPropertiesFunc) implements_apply_properties,
-  (IsEmptyFunc)         object_return_false
+  (IsEmptyFunc)         object_return_false,
+  (ObjectMenuFunc)      NULL
 };
 
 static real

@@ -128,7 +128,8 @@ static ObjectOps textobj_ops = {
   (MoveHandleFunc)      textobj_move_handle,
   (GetPropertiesFunc)   textobj_get_properties,
   (ApplyPropertiesFunc) textobj_apply_properties,
-  (IsEmptyFunc)         textobj_is_empty
+  (IsEmptyFunc)         textobj_is_empty,
+  (ObjectMenuFunc)      NULL
 };
 
 static void

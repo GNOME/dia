@@ -118,7 +118,8 @@ static ObjectOps largepackage_ops = {
   (MoveHandleFunc)      largepackage_move_handle,
   (GetPropertiesFunc)   largepackage_get_properties,
   (ApplyPropertiesFunc) largepackage_apply_properties,
-  (IsEmptyFunc)         object_return_false
+  (IsEmptyFunc)         object_return_false,
+  (ObjectMenuFunc)      NULL
 };
 
 static real

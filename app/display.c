@@ -97,10 +97,6 @@ new_display(Diagram *dia)
 
   ddisp->diagram = dia;
 
-  ddisp->origo.x = 0.0;
-  ddisp->origo.y = 0.0;
-  ddisp->zoom_factor = prefs.new_view.zoom/100.0*DDISPLAY_NORMAL_ZOOM;
-
   ddisp->grid.visible = prefs.grid.visible;
   ddisp->grid.snap = FALSE;
   ddisp->grid.width_x = prefs.grid.x;
@@ -123,11 +119,16 @@ new_display(Diagram *dia)
   } else {
     filename++;
   }
-  
+
+  ddisp->zoom_factor = prefs.new_view.zoom/100.0*DDISPLAY_NORMAL_ZOOM;
+
   create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
 		       filename);
 
+  ddisplay_set_origo(ddisp, 0.0, 0.0);
+
   ddisplay_update_statusbar (ddisp);
+  ddisplay_update_scrollbars(ddisp);
 
   if (!display_ht)
     display_ht = g_hash_table_new ((GHashFunc) display_hash, NULL);
@@ -393,8 +394,8 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
   
   hsbdata = ddisp->hsbdata;
   /* Horizontal: */
-  hsbdata->lower = MIN(extents->left - extra_border_x, visible->left);
-  hsbdata->upper = MAX(extents->right + extra_border_x, visible->right);
+  hsbdata->lower = MIN(extents->left, visible->left)  - extra_border_x;
+  hsbdata->upper = MAX(extents->right, visible->right)  + extra_border_x;
   hsbdata->page_size = visible->right - visible->left - 0.0001;
   /* remove some to fix strange behaviour in gtk_range_adjustment_changed */
   hsbdata->page_increment = (visible->right - visible->left) / 2.0;
@@ -405,8 +406,8 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
 
   /* Vertical: */
   vsbdata = ddisp->vsbdata;
-  vsbdata->lower = MIN(extents->top - extra_border_y, visible->top);
-  vsbdata->upper = MAX(extents->bottom + extra_border_x, visible->bottom);
+  vsbdata->lower = MIN(extents->top, visible->top)  - extra_border_y;
+  vsbdata->upper = MAX(extents->bottom, visible->bottom) + extra_border_y;
   vsbdata->page_size = visible->bottom - visible->top - 0.00001;
   /* remove some to fix strange behaviour in gtk_range_adjustment_changed */
   vsbdata->page_increment = (visible->bottom - visible->top) / 2.0;

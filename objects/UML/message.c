@@ -139,7 +139,8 @@ static ObjectOps message_ops = {
   (MoveHandleFunc)      message_move_handle,
   (GetPropertiesFunc)   message_get_properties,
   (ApplyPropertiesFunc) message_apply_properties,
-  (IsEmptyFunc)         object_return_false
+  (IsEmptyFunc)         object_return_false,
+  (ObjectMenuFunc)      NULL
 };
 
 static real
