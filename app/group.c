@@ -183,7 +183,13 @@ group_destroy_shallow(Object *group)
 static void 
 group_destroy(Group *group)
 {
+  Object *obj = (Object *)group;
+  
   destroy_object_list(group->objects);
+
+  /* ConnectionPoints in the inner objects have already
+     been unconnected and freed. */
+  obj->num_connections = 0;
   
   object_destroy(&group->object);
 }
