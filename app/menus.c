@@ -128,6 +128,20 @@ static GnomeUIInfo viewmenu[] = {
   GNOMEUIINFO_END
 };
 
+static GnomeUIInfo selecttype_radiolist[] = {
+  GNOMEUIINFO_RADIOITEM_DATA(N_("Replace"), NULL, select_style_callback, 
+			GUINT_TO_POINTER(SELECT_REPLACE), NULL),
+  GNOMEUIINFO_RADIOITEM_DATA(N_("Union"), NULL, select_style_callback,
+			GUINT_TO_POINTER(SELECT_UNION), NULL),
+  GNOMEUIINFO_RADIOITEM_DATA(N_("Intersect"), NULL, select_style_callback,
+			GUINT_TO_POINTER(SELECT_INTERSECTION), NULL),
+  GNOMEUIINFO_RADIOITEM_DATA(N_("Remove"), NULL, select_style_callback, 
+			GUINT_TO_POINTER(SELECT_REMOVE), NULL), 
+  GNOMEUIINFO_RADIOITEM_DATA(N_("Invert"), NULL, select_style_callback, 
+			GUINT_TO_POINTER(SELECT_INVERT), NULL),
+  GNOMEUIINFO_END
+};
+
 static GnomeUIInfo selectmenu[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("All"), NULL, select_all_callback, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("None"), NULL, select_none_callback, 0),
@@ -136,16 +150,7 @@ static GnomeUIInfo selectmenu[] = {
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Transitive"), NULL, select_transitive_callback, 0),
   GNOMEUIINFO_ITEM_NONE_DATA(N_("Same Type"), NULL, select_same_type_callback, 0),
   GNOMEUIINFO_SEPARATOR,
-  GNOMEUIINFO_RADIOITEM(N_("Replace"), NULL, select_style_callback, 
-			GPOINTER_FROM_UINT(SELECT_REPLACE)),
-  GNOMEUIINFO_RADIOITEM(N_("Union"), NULL, select_style_callback,
-			GPOINTER_FROM_UINT(SELECT_UNION)),
-  GNOMEUIINFO_RADIOITEM(N_("Intersect"), NULL, select_style_callback,
-			GPOINTER_FROM_UINT(SELECT_INTERSECTION)),
-  GNOMEUIINFO_RADIOITEM(N_("Remove"), NULL, select_style_callback, 
-			GPOINTER_FROM_UINT(SELECT_REMOVE)), 
-  GNOMEUIINFO_RADIOITEM(N_("Invert"), NULL, select_style_callback, 
-			GPOINTER_FROM_UINT(SELECT_INVERT)),
+  GNOMEUIINFO_RADIOLIST(selecttype_radiolist),
   GNOMEUIINFO_END
 };
 
