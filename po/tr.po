@@ -1,6 +1,7 @@
-# -------------------------------------------------------
+# Turkish translation of dia.
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Fatih Demir <kabalak@gmx.net>, 2000.
+# Burak Ilgicioglu <ilgici@turk.net>, 2000.
 #
 msgid ""
 msgstr ""
@@ -8,9 +9,9 @@ msgstr ""
 "POT-Creation-Date: 2001-09-02 22:50+0200\n"
 "PO-Revision-Date: 2000-08-06 13:23+0200\n"
 "Last-Translator: Burak Ilgicioglu <ilgici@turk.net>\n"
-"Language-Team: Turkish <tr@li.org>\n"
+"Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-9\n"
+"Content-Type: text/plain; charset=ISO-8859-9\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: app/app_procs.c:153
