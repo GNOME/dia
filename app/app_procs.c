@@ -700,11 +700,9 @@ process_opts(int argc, char **argv,
 	     GSList **files, char **export_file_name,
 	     char **export_file_format, char **size)
 {
-#ifndef GNOME
-  int rc = 0;
-#endif  
-
 #ifdef HAVE_POPT
+  int rc = 0;
+
   poptCtx = poptGetContext(PACKAGE, argc, (const char **)argv, options, 0);
   poptSetOtherOptionHelp(poptCtx, _("[OPTION...] [FILE...]"));
   while (rc >= 0) {

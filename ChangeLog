@@ -1,3 +1,7 @@
+2004-02-17  Hubert Figuiere  <hfiguiere@teaser.fr>
+
+	* app/app_procs.c: declare rc properly with the proper #ifdef
+
 2004-02-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/xfig/xfig-import.c: Correct ordering of imported FIG
