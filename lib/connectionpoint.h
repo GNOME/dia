@@ -51,11 +51,12 @@ struct _ConnectionPoint {
   gchar directions;  /* Directions that this connection point is open to */
 };
 
+/** Update the object-settable parts of a connectionpoints.
+ * p: A ConnectionPoint pointer (non-NULL).
+ * x: The x coordinate of the connectionpoint.
+ * y: The y coordinate of the connectionpoint.
+ * dirs: The directions that are open for connections on this point.
+ */
+void connpoint_update(ConnectionPoint *p, real x, real y, gint dirs);
+
 #endif /* CONNECTIONPOINT_H */
-
-
-
-
-
-
-
