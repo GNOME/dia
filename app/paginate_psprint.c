@@ -286,9 +286,20 @@ diagram_print_ps(Diagram *dia)
 		     last_print_options.command 
 		     ? last_print_options.command : win32_printer_default ());
 #else
-  gtk_entry_set_text(GTK_ENTRY(cmd), 
-		     last_print_options.command 
-		     ? last_print_options.command : "lpr");
+  if (last_print_options.command) {
+    gtk_entry_set_text(GTK_ENTRY(cmd), last_print_options.command);
+  } else {
+    gchar *printcmd;
+    gchar *printer = g_getenv("PRINTER");
+
+    if (printer) {
+      printcmd = g_strdup_printf("lpr -P%s", printer);
+    } else {
+      printcmd = g_strdup("lpr");
+    }
+    
+    gtk_entry_set_text(GTK_ENTRY(cmd), printcmd);
+  }
 #endif
   /* Ought to use filename+extension here */
   gtk_entry_set_text(GTK_ENTRY(ofile), 
