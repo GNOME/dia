@@ -1,3 +1,9 @@
+2000-11-23  Kevin Breit <battery841@users.sourceforge.net>
+
+	* doc/en/dia-manual.sgml:
+		Added sect1 for advanced object types.  Starting development
+                on that part.
+
 2000-11-18  Kevin Breit <battery841@mediaone.net>
 
 	* doc/en/dia-manual.sgml:

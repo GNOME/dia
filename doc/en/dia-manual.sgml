@@ -600,6 +600,136 @@ be translated ASAP.  Lets start talking to some people.
    </sect2>
   </sect1>
 
+ <sect1 id="special-objects">
+ <title>Special Objects</title>
+   <para>
+     The previous discussion explained what a basic object is.  The next section
+     goes a step further and teaches how to create objects, how to use pre-made
+     objects that are more detailed than just shapes, and much more!
+   </para>
+   <sect2 id="special-object-categories">
+   <title>Special Object Categories</title>
+     <para>
+       Special objects are broken into different categories.  This way, someone
+       creating a diagram of a circuit board can see only the objects which
+       apply to them.  <application>Dia</application> supports numerous
+       pre-defined categories.
+       <variablelist>
+         <varlistentry>
+           <term>Circuit</term>
+           <listitem>
+             <para>
+               A group for people interested in creating diagrams of electrical
+               circuits.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Ladder</term>
+           <listitem>
+             <para>
+               This one is beyond my knowledge
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>ER</term>
+           <listitem>
+             <para>
+               Not totally sure
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>FS</term>
+           <listitem>
+             <para>
+               Phew...toughy!
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Flowchart</term>
+           <listitem>
+             <para>
+               A group dedicated to providing the user shapes which are
+               commonly used in flow charts.  Flow charts can be routinely
+               found in computer programming, marketing, economics, and any
+               other semi-linear operation which requires planning.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>GRAFCET</term>
+           <listitem>
+             <para>
+               Does something with GRAFs probably
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>SADT</term>
+           <listitem>
+             <para>
+               Good question!
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>UML</term>
+           <listitem>
+             <para>
+               Refer above
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Chronogram</term>
+           <listitem>
+             <para>
+               Uses objects to be used in a chronographic design.  These are
+               common place in time lines.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Networm</term>
+           <listitem>
+             <para>
+               Used by network administrators to create a design of their
+               network.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Sybase</term>
+           <listitem>
+             <para>
+               Designs diagrams that display the flow of a Sybase computer
+               network.
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Electric</term>
+           <listitem>
+             <para>
+               Shows flow of electricity, I guess
+             </para>
+           </listitem>
+         </varlistentry>
+         <varlistentry>
+           <term>Pnumatic/Hydraulic</term>
+           <listitem>
+             <para>
+               Allows diagraming of a device that employes hydraulics.
+             </para>
+           </listitem>
+         </varlistentry>
+       </variablelist>
+     </para>
+   </sect2>
+ </sect1>  
  <sect1 id="loadsave">
  <title>Loading and Saving Diagrams</title>
   <para>
