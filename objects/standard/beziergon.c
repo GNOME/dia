@@ -611,10 +611,31 @@ beziergon_delete_segment_callback (Object *obj, Point *clicked, gpointer data)
   return change;
 }
 
+static ObjectChange *
+beziergon_set_corner_type_callback (Object *obj, Point *clicked, gpointer data)
+{
+  Handle *closest;
+  Beziergon *beziergon = (Beziergon *) obj;
+  ObjectChange *change;
+  
+  closest = beziershape_closest_major_handle(&beziergon->bezier, clicked);
+  change = beziershape_set_corner_type(&beziergon->bezier, closest, 
+				       GPOINTER_TO_INT(data));
+  
+  beziergon_update_data(beziergon);
+  return change;
+}
 
 static DiaMenuItem beziergon_menu_items[] = {
   { N_("Add Segment"), beziergon_add_segment_callback, NULL, 1 },
   { N_("Delete Segment"), beziergon_delete_segment_callback, NULL, 1 },
+  { NULL, NULL, NULL, 1 },
+  { N_("Symmetric control"), beziergon_set_corner_type_callback, 
+    GINT_TO_POINTER(BEZ_CORNER_SYMMETRIC), 1 },
+  { N_("Smooth control"), beziergon_set_corner_type_callback, 
+    GINT_TO_POINTER(BEZ_CORNER_SMOOTH), 1 },
+  { N_("Cusp control"), beziergon_set_corner_type_callback,
+    GINT_TO_POINTER(BEZ_CORNER_CUSP), 1 },
 };
 
 static DiaMenu beziergon_menu = {

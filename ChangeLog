@@ -1,5 +1,13 @@
 2000-05-28  James Henstridge  <james@daa.com.au>
 
+	* objects/standard/beziergon.c (beziergon_set_corner_type_callback):
+	add code to set corner types for beziergon.
+
+	* lib/beziershape.c (beziershape_set_corner_type): fix up corner type
+	setting code.
+	(beziershape_move_handle): use the previous corner type for right
+	controls.
+
 	* app/interface.c (tool_data): add beziergon to toolbox.
 
 	* objects/standard/standard.c (dia_plugin_init): initialise the new

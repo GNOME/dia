@@ -169,7 +169,7 @@ beziershape_move_handle(BezierShape *bezier, Handle *handle,
     break;
   case HANDLE_RIGHTCTRL:
     bezier->points[comp_nr].p1 = *to;
-    switch (bezier->corner_types[comp_nr]) {
+    switch (bezier->corner_types[prev_nr]) {
     case BEZ_CORNER_SYMMETRIC:
       pt = bezier->points[prev_nr].p3;
       point_sub(&pt, &bezier->points[comp_nr].p1);
@@ -550,7 +550,16 @@ beziershape_set_corner_type(BezierShape *bez, Handle *handle,
   else
     old_right = bez->points[comp_nr+1].p1;
 
+#if 0
+  g_message("Setting corner type on segment %d to %s", comp_nr,
+	    corner_type == BEZ_CORNER_SYMMETRIC ? "symmetric" :
+	    corner_type == BEZ_CORNER_SMOOTH ? "smooth" : "cusp");
+#endif
   bez->corner_types[comp_nr] = corner_type;
+  if (comp_nr == 0)
+    bez->corner_types[bez->numpoints-1] = corner_type;
+  else if (comp_nr == bez->numpoints - 1)
+    bez->corner_types[0] = corner_type;
 
   beziershape_straighten_corner(bez, comp_nr);
 
@@ -964,6 +973,10 @@ beziershape_corner_change_apply(struct CornerChange *change, Object *obj)
   beziershape_straighten_corner(bez, comp_nr);
 
   bez->corner_types[comp_nr] = change->new_type;
+  if (comp_nr == 0)
+    bez->corner_types[bez->numpoints-1] = change->new_type;
+  if (comp_nr == bez->numpoints - 1)
+    bez->corner_types[0] = change->new_type;
 
   change->applied = 1;
 }
@@ -981,6 +994,10 @@ beziershape_corner_change_revert(struct CornerChange *change, Object *obj)
   else
     bez->points[comp_nr+1].p1 = change->point_right;
   bez->corner_types[comp_nr] = change->old_type;  
+  if (comp_nr == 0)
+    bez->corner_types[bez->numpoints-1] = change->new_type;
+  if (comp_nr == bez->numpoints - 1)
+    bez->corner_types[0] = change->new_type;
 
   change->applied = 0;
 }
