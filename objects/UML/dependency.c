@@ -124,7 +124,6 @@ static ObjectOps dependency_ops = {
   (MoveHandleFunc)      dependency_move_handle,
   (GetPropertiesFunc)   dependency_get_properties,
   (ApplyPropertiesFunc) dependency_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

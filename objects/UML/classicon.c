@@ -129,7 +129,6 @@ static ObjectOps classicon_ops = {
   (MoveHandleFunc)      classicon_move_handle,
   (GetPropertiesFunc)   classicon_get_properties,
   (ApplyPropertiesFunc) classicon_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

@@ -102,7 +102,6 @@ static ObjectOps note_ops = {
   (MoveHandleFunc)      note_move_handle,
   (GetPropertiesFunc)   object_return_null,
   (ApplyPropertiesFunc) object_return_void,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

@@ -150,7 +150,6 @@ static ObjectOps polyline_ops = {
   (MoveHandleFunc)      polyline_move_handle,
   (GetPropertiesFunc)   polyline_get_properties,
   (ApplyPropertiesFunc) polyline_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      polyline_get_object_menu
 };
 

@@ -148,7 +148,6 @@ static ObjectOps ellipse_ops = {
   (MoveHandleFunc)      ellipse_move_handle,
   (GetPropertiesFunc)   ellipse_get_properties,
   (ApplyPropertiesFunc) ellipse_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

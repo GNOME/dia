@@ -120,7 +120,6 @@ static ObjectOps usecase_ops = {
   (MoveHandleFunc)      usecase_move_handle,
   (GetPropertiesFunc)   usecase_get_properties,
   (ApplyPropertiesFunc) usecase_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

@@ -109,7 +109,6 @@ static ObjectOps bus_ops = {
   (MoveHandleFunc)      bus_move_handle,
   (GetPropertiesFunc)   bus_get_properties,
   (ApplyPropertiesFunc) bus_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

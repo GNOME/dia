@@ -137,7 +137,6 @@ static ObjectOps attribute_ops = {
   (MoveHandleFunc)      attribute_move_handle,
   (GetPropertiesFunc)   attribute_get_properties,
   (ApplyPropertiesFunc) attribute_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

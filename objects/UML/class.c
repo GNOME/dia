@@ -97,7 +97,6 @@ static ObjectOps umlclass_ops = {
   (MoveHandleFunc)      umlclass_move_handle,
   (GetPropertiesFunc)   umlclass_get_properties,
   (ApplyPropertiesFunc) umlclass_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

@@ -121,7 +121,6 @@ static ObjectOps realizes_ops = {
   (MoveHandleFunc)      realizes_move_handle,
   (GetPropertiesFunc)   realizes_get_properties,
   (ApplyPropertiesFunc) realizes_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

@@ -155,7 +155,6 @@ static ObjectOps box_ops = {
   (MoveHandleFunc)      box_move_handle,
   (GetPropertiesFunc)   box_get_properties,
   (ApplyPropertiesFunc) box_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

@@ -141,7 +141,6 @@ static ObjectOps objet_ops = {
   (MoveHandleFunc)      objet_move_handle,
   (GetPropertiesFunc)   objet_get_properties,
   (ApplyPropertiesFunc) objet_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

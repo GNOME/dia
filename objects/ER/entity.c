@@ -139,7 +139,6 @@ static ObjectOps entity_ops = {
   (MoveHandleFunc)      entity_move_handle,
   (GetPropertiesFunc)   entity_get_properties,
   (ApplyPropertiesFunc) entity_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

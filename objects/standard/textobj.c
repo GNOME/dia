@@ -106,7 +106,6 @@ static void textobj_save(Textobj *textobj, ObjectNode obj_node,
 			 const char *filename);
 static Object *textobj_load(ObjectNode obj_node, int version,
 			    const char *filename);
-static int textobj_is_empty(Textobj *textobj);
 static GtkWidget *textobj_get_defaults();
 static void textobj_apply_defaults();
 
@@ -138,7 +137,6 @@ static ObjectOps textobj_ops = {
   (MoveHandleFunc)      textobj_move_handle,
   (GetPropertiesFunc)   textobj_get_properties,
   (ApplyPropertiesFunc) textobj_apply_properties,
-  (IsEmptyFunc)         textobj_is_empty,
   (ObjectMenuFunc)      NULL,
 };
 
@@ -414,12 +412,6 @@ textobj_update_data(Textobj *textobj)
   text_calc_boundingbox(textobj->text, &obj->bounding_box);
   
   textobj->text_handle.pos = textobj->text->position;
-}
-
-static int
-textobj_is_empty(Textobj *textobj)
-{
-  return text_is_empty(textobj->text);
 }
 
 static Object *

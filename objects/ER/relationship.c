@@ -137,7 +137,6 @@ static ObjectOps relationship_ops = {
   (MoveHandleFunc)      relationship_move_handle,
   (GetPropertiesFunc)   relationship_get_properties,
   (ApplyPropertiesFunc) relationship_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

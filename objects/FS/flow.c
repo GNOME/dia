@@ -145,7 +145,6 @@ static ObjectOps flow_ops = {
   (MoveHandleFunc)      flow_move_handle,
   (GetPropertiesFunc)   flow_get_properties,
   (ApplyPropertiesFunc) flow_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      flow_get_object_menu,
 };
 

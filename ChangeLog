@@ -1,6 +1,50 @@
 1999-07-25  Alexander Larsson  <alla@lysator.liu.se>
 
         * app/diagram.c:
+	* app/group.c:
+	* lib/object.h:
+	* lib/render_object.c:
+	* objects/ER/attribute.c:
+	* objects/ER/entity.c:
+	* objects/ER/participation.c:
+	* objects/ER/relationship.c:
+	* objects/FS/flow-ortho.c:
+	* objects/FS/flow-poly.c:
+	* objects/FS/flow.c:
+	* objects/FS/function.c:
+	* objects/UML/actor.c:
+	* objects/UML/association.c:
+	* objects/UML/class.c:
+	* objects/UML/classicon.c:
+	* objects/UML/component.c:
+	* objects/UML/constraint.c:
+	* objects/UML/dependency.c:
+	* objects/UML/generalization.c:
+	* objects/UML/implements.c:
+	* objects/UML/large_package.c:
+	* objects/UML/lifeline.c:
+	* objects/UML/message.c:
+	* objects/UML/note.c:
+	* objects/UML/object.c:
+	* objects/UML/realizes.c:
+	* objects/UML/small_package.c:
+	* objects/UML/state.c:
+	* objects/UML/usecase.c:
+	* objects/network/bus.c:
+	* objects/standard/arc.c:
+	* objects/standard/box.c:
+	* objects/standard/ellipse.c:
+	* objects/standard/image.c:
+	* objects/standard/line.c:
+	* objects/standard/polyline.c:
+	* objects/standard/textobj.c:
+	* objects/standard/zigzagline.c:
+	Removed all traces of is_empty(). It doesn't work in an
+	Undo/Redo world.
+
+1999-07-25  Alexander Larsson  <alla@lysator.liu.se>
+
+        * app/diagram.c:
 	* app/group.[ch]:
 	* app/undo.[ch]:
 	Undoable grouping and ungrouping.

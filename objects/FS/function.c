@@ -123,7 +123,6 @@ static ObjectOps function_ops = {
   (MoveHandleFunc)      function_move_handle,
   (GetPropertiesFunc)   function_get_properties,
   (ApplyPropertiesFunc) function_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      function_get_object_menu
 };
 

@@ -57,7 +57,7 @@ static ObjectOps group_ops = {
   (MoveHandleFunc)      group_move_handle,
   (GetPropertiesFunc)   object_return_null,
   (ApplyPropertiesFunc) object_return_void,
-  (IsEmptyFunc)         object_return_false
+  (ObjectMenuFunc)      NULL
 };
 
 ObjectType group_type = {

@@ -130,7 +130,6 @@ static ObjectOps state_ops = {
   (MoveHandleFunc)      state_move_handle,
   (GetPropertiesFunc)   state_get_properties,
   (ApplyPropertiesFunc) state_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

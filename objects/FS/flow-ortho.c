@@ -146,7 +146,6 @@ static ObjectOps orthflow_ops = {
   (MoveHandleFunc)      orthflow_move_handle,
   (GetPropertiesFunc)   orthflow_get_properties,
   (ApplyPropertiesFunc) orthflow_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      orthflow_get_object_menu,
 };
 

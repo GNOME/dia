@@ -148,7 +148,6 @@ static ObjectOps line_ops = {
   (MoveHandleFunc)      line_move_handle,
   (GetPropertiesFunc)   line_get_properties,
   (ApplyPropertiesFunc) line_apply_properties,
-  (IsEmptyFunc)         object_return_false,
   (ObjectMenuFunc)      NULL
 };
 

@@ -214,16 +214,6 @@ typedef GtkWidget *(*GetDefaultsFunc) ();
 typedef void *(*ApplyDefaultsFunc) ();
 
 /*
-  Return TRUE if object does not contain anything
-  (i.e. is empty on the screen)
-  Then it will be removed, because the user cannot select it to
-  remove it himself.
-
-  This is mainly used by TextObj.
-*/
-typedef int  (*IsEmptyFunc) (Object* obj);
-
-/*
   Return an object-specific menu with toggles etc. properly set.
 */
 typedef DiaMenu *(*ObjectMenuFunc) (Object* obj, Point *position);
@@ -278,7 +268,6 @@ struct _ObjectOps {
   MoveHandleFunc      move_handle;
   GetPropertiesFunc   get_properties;
   ApplyPropertiesFunc apply_properties;
-  IsEmptyFunc         is_empty;
   ObjectMenuFunc      get_object_menu;
   /*
     Unused places (for extension).
