@@ -108,7 +108,6 @@ static Object *message_create(Point *startpoint,
 static real message_distance_from(Message *message, Point *point);
 static void message_update_data(Message *message);
 static void message_destroy(Message *message);
-static Object *message_copy(Message *message);
 static ObjectChange *message_apply_properties(Message *message, GtkWidget *widget);
 
 static MessageState *message_get_state(Message *message);
@@ -144,7 +143,7 @@ static ObjectOps message_ops = {
   (DrawFunc)            message_draw,
   (DistanceFunc)        message_distance_from,
   (SelectFunc)          message_select,
-  (CopyFunc)            message_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            message_move,
   (MoveHandleFunc)      message_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,/*message_get_properties,*/
@@ -167,11 +166,13 @@ static PropEnumData prop_message_type_data[] = {
 };
 
 static PropDescription message_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  CONNECTION_COMMON_PROPERTIES,
   { "message", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-    N_("Message:"), NULL, NULL },
+    N_("Message:"), NULL, NULL },  
   { "message_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Message type:"), NULL, prop_message_type_data },
+  { "text_pos", PROP_TYPE_POINT, 0, 
+    "text_pos:", NULL,NULL },
   PROP_DESC_END
 };
 
@@ -185,9 +186,10 @@ message_describe_props(Message *mes)
 }
 
 static PropOffset message_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  CONNECTION_COMMON_PROPERTIES_OFFSETS,
   { "message", PROP_TYPE_STRING, offsetof(Message, text) },
   { "message_type", PROP_TYPE_ENUM, offsetof(Message, type) },
+  { "text_pos", PROP_TYPE_POINT, offsetof(Message,text_pos) }, 
   { NULL, 0, 0 }
 };
 
@@ -413,33 +415,6 @@ message_destroy(Message *message)
   connection_destroy(&message->connection);
 
   g_free(message->text);
-}
-
-static Object *
-message_copy(Message *message)
-{
-  Message *newmessage;
-  Connection *conn, *newconn;
-  Object *newobj;
-  
-  conn = &message->connection;
-  
-  newmessage = g_malloc0(sizeof(Message));
-  newconn = &newmessage->connection;
-  newobj = &newconn->object;
-
-  connection_copy(conn, newconn);
-
-  newmessage->text_handle = message->text_handle;
-  newobj->handles[2] = &newmessage->text_handle;
-
-  newmessage->text = strdup(message->text);
-  newmessage->text_pos = message->text_pos;
-  newmessage->text_width = message->text_width;
-
-  newmessage->type = message->type;
-
-  return &newmessage->connection.object;
 }
 
 static void
