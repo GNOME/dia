@@ -1,3 +1,8 @@
+2004-07-17  Lars Clausen  <lars@raeder.dk>
+
+	* de.po: 
+	* no.po: Patch from bug #147250.
+
 2004-07-15  Gareth Owen  <gowen72@yahoo.com>
 
 	* en_GB.po: Updated British English translation by
