@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
-"POT-Creation-Date: 2003-02-06 11:14+0100\n"
-"PO-Revision-Date: 2003-02-07 15:58+0100\n"
+"POT-Creation-Date: 2003-02-25 19:34+0100\n"
+"PO-Revision-Date: 2003-02-22 22:49+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -93,23 +93,24 @@ msgstr ""
 msgid "%s error: can specify only one of -f or -o."
 msgstr "Chyba %s: lze zadat pouze jednu z voleb -f nebo -o."
 
-#: app/app_procs.c:327
+#. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
+#: app/app_procs.c:328
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia verze %s, sestavená %s %s\n"
 
-#: app/app_procs.c:329
+#: app/app_procs.c:330
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia verze %s\n"
 
-#: app/app_procs.c:416 app/app_procs.c:418 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:417 app/app_procs.c:419 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs, končím...\n"
 
 #. no standard buttons
-#: app/app_procs.c:545
+#: app/app_procs.c:546
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -119,15 +120,15 @@ msgstr ""
 "Jste si jisti, že chcete ukončit program Dia\n"
 "bez uložení těchto změn?"
 
-#: app/app_procs.c:549
+#: app/app_procs.c:550
 msgid "Quit Dia"
 msgstr "Ukončit Dia"
 
-#: app/app_procs.c:611 app/app_procs.c:618
+#: app/app_procs.c:612 app/app_procs.c:619
 msgid "Could not create per-user Dia config directory"
 msgstr "Nelze vytvořit adresář s uživatelským nastavením Dia"
 
-#: app/app_procs.c:620
+#: app/app_procs.c:621
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -135,7 +136,7 @@ msgstr ""
 "Nelze vytvořit adresář s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující adresář."
 
-#: app/app_procs.c:642 app/diaconv.c:249
+#: app/app_procs.c:643 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
@@ -385,7 +386,7 @@ msgstr "Ok"
 
 #: app/dialogs.c:52 app/layer_dialog.c:1006 app/lineprops_area.c:453
 #: app/lineprops_area.c:679 app/linewidth_area.c:252
-#: app/paginate_psprint.c:274
+#: app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -494,11 +495,11 @@ msgstr "Žádné menu k objektu"
 msgid "Diagram modified!"
 msgstr "Diagram byl změněn!"
 
-#: app/display.c:866
+#: app/display.c:890
 msgid "<unnamed>"
 msgstr "<nepojmenovaný>"
 
-#: app/display.c:868
+#: app/display.c:892
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -507,11 +508,11 @@ msgstr ""
 "Diagram '%s'\n"
 "nebyl uložen. Chcete jej uložit nyní?"
 
-#: app/display.c:879
+#: app/display.c:903
 msgid "Close Diagram"
 msgstr "Zavřít diagram"
 
-#: app/display.c:884
+#: app/display.c:908
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
@@ -521,7 +522,7 @@ msgstr "Zahodit změny"
 #: plug-ins/pstricks/render_pstricks.c:756 plug-ins/python/pydia-render.c:711
 #: plug-ins/shape/shape-export.c:134 plug-ins/svg/render_svg.c:150
 #: plug-ins/wmf/wmf.cpp:1030 plug-ins/wpg/wpg.c:1064
-#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:90
+#: plug-ins/xfig/xfig-export.c:869 plug-ins/xslt/xslt.c:83
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Nelze otevřít '%s' pro zápis.\n"
@@ -818,7 +819,7 @@ msgid "Layer name:"
 msgstr "Název vrstvy:"
 
 #: app/layer_dialog.c:996 app/lineprops_area.c:444 app/lineprops_area.c:669
-#: app/linewidth_area.c:243 app/paginate_psprint.c:266
+#: app/linewidth_area.c:243 app/paginate_psprint.c:268
 msgid "OK"
 msgstr "OK"
 
@@ -872,7 +873,7 @@ msgid "You must specify a file, not a directory.\n"
 msgstr "Musíte zadat soubor, ne adresář.\n"
 
 #: app/load_save.c:262 plug-ins/dxf/dxf-import.c:1304 plug-ins/wpg/wpg.c:1168
-#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:81
+#: plug-ins/xfig/xfig-import.c:1414 plug-ins/xslt/xslt.c:76
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nelze otevřít '%s' pro čtení.\n"
@@ -1449,7 +1450,7 @@ msgstr "/Objekty/Poslat dozadu"
 msgid "/Objects/Bring Forwards"
 msgstr "/Objekty/Vynést dopředu"
 
-#: app/menus.c:411 app/menus.c:415 app/menus.c:421 app/menus.c:429
+#: app/menus.c:411 app/menus.c:415
 msgid "/Objects/---"
 msgstr "/Objekty/---"
 
@@ -1478,6 +1479,10 @@ msgstr "/Objekty/Zarovnat vodorovně/Doprostřed"
 msgid "/Objects/Align Horizontal/Right"
 msgstr "/Objekty/Zarovnat vodorovně/Vpravo"
 
+#: app/menus.c:421
+msgid "/Objects/Align Horizontal/---"
+msgstr "/Objekty/Zarovnat vodorovně/---"
+
 #: app/menus.c:422
 msgid "/Objects/Align Horizontal/Equal Distance"
 msgstr "/Objekty/Zarovnat vodorovně/Stejná vzdálenost"
@@ -1501,6 +1506,10 @@ msgstr "/Objekty/Zarovnat svisle/Doprostřed"
 #: app/menus.c:428
 msgid "/Objects/Align Vertical/Bottom"
 msgstr "/Objekty/Zarovnat svisle/Dolů"
+
+#: app/menus.c:429
+msgid "/Objects/Align Vertical/---"
+msgstr "/Objekty/Zarovnat svisle/---"
 
 #: app/menus.c:430
 msgid "/Objects/Align Vertical/Equal Distance"
@@ -1611,29 +1620,29 @@ msgstr ""
 msgid "Couldn't get GTK settings"
 msgstr "Nelze získat nastavení GTK"
 
-#: app/paginate_psprint.c:226
+#: app/paginate_psprint.c:228
 msgid "Select Printer"
 msgstr "Vybrat tiskárnu"
 
-#: app/paginate_psprint.c:238
+#: app/paginate_psprint.c:240
 msgid "Printer"
 msgstr "Tiskárna"
 
-#: app/paginate_psprint.c:251
+#: app/paginate_psprint.c:253
 msgid "File"
 msgstr "Soubor"
 
-#: app/paginate_psprint.c:340
+#: app/paginate_psprint.c:342
 #, c-format
 msgid "Could not run command '%s'"
 msgstr "Nelze spustit příkaz '%s'"
 
-#: app/paginate_psprint.c:343
+#: app/paginate_psprint.c:345
 #, c-format
 msgid "Could not open '%s' for writing"
 msgstr "Nelze otevřít soubor '%s' pro zápis"
 
-#: app/paginate_psprint.c:368
+#: app/paginate_psprint.c:370
 msgid "Error occured while printing"
 msgstr "Při tisku nastala chyba"
 
@@ -1825,11 +1834,11 @@ msgstr "Vlastnosti objektu"
 msgid "This object has no properties."
 msgstr "Tento objekt nemá žádné vlastnosti."
 
-#: app/properties.c:169
+#: app/properties.c:175
 msgid "Properties: "
 msgstr "Vlastnosti:"
 
-#: app/properties.c:173
+#: app/properties.c:179
 msgid "Object properties:"
 msgstr "Vlastnosti objektu:"
 
@@ -2357,16 +2366,16 @@ msgstr "Nelze nalézt inicializační funkci modulu v `%s'"
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "Chybějící symbol 'dia_plugin_init'"
 
-#: lib/plug-ins.c:257
+#: lib/plug-ins.c:257 lib/plug-ins.c:265
 msgid "dia_plugin_init() call failed"
 msgstr "volání dia_plugin_init() selhalo"
 
-#: lib/plug-ins.c:276
+#: lib/plug-ins.c:284
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "Zásuvný modul %s nebylo možné uvolnit"
 
-#: lib/plug-ins.c:364
+#: lib/plug-ins.c:372
 #, c-format
 msgid ""
 "Could not open `%s'\n"
@@ -2639,7 +2648,7 @@ msgid "Total:"
 msgstr "Celkem:"
 
 #: objects/ER/participation.c:395 objects/FS/flow-ortho.c:633
-#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:552
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:556
 #: objects/standard/zigzagline.c:495 objects/UML/association.c:691
 #: objects/UML/dependency.c:351 objects/UML/generalization.c:347
 #: objects/UML/realizes.c:340
@@ -2647,7 +2656,7 @@ msgid "Add segment"
 msgstr "Přidat segment"
 
 #: objects/ER/participation.c:396 objects/FS/flow-ortho.c:634
-#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:553
+#: objects/GRAFCET/vector.c:303 objects/SADT/arrow.c:557
 #: objects/standard/zigzagline.c:496 objects/UML/association.c:692
 #: objects/UML/dependency.c:352 objects/UML/generalization.c:348
 #: objects/UML/realizes.c:341
@@ -3913,7 +3922,7 @@ msgstr ""
 "Aby se zlepšila čitelnost, mohou být toky začínající a končící vertikálně "
 "kresleny šedě"
 
-#: objects/SADT/arrow.c:557
+#: objects/SADT/arrow.c:561
 msgid "SADT Arrow"
 msgstr "Šipka SADT"
 
@@ -4517,7 +4526,7 @@ msgstr "Nelze exportovat do formátu PNG bez knihovny libart!"
 msgid "dia shape file"
 msgstr "soubor s tvary Dia"
 
-#: plug-ins/svg/render_svg.c:294 plug-ins/svg/svg-import.c:642
+#: plug-ins/svg/render_svg.c:300 plug-ins/svg/svg-import.c:642
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -4756,43 +4765,44 @@ msgstr "Toto je soubor ve formátu FIG verze %d.%d, možná bude nesrozumitelný
 msgid "XFig File Format"
 msgstr "Formát souboru XFig"
 
-#: plug-ins/xslt/xslt.c:73
-msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
-msgstr "Není nastavena proměnná DIA_PLUGIN_PATH. Styly nejsou k dispozici.\n"
-
-#: plug-ins/xslt/xslt.c:98
+#: plug-ins/xslt/xslt.c:91
 #, c-format
 msgid "Error while parsing %s\n"
 msgstr "Chyba při zpracování %s\n"
 
-#: plug-ins/xslt/xslt.c:108 plug-ins/xslt/xslt.c:114
+#: plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "Chyba při zpracování stylu %s\n"
 
-#: plug-ins/xslt/xslt.c:126
+#: plug-ins/xslt/xslt.c:105
+#, c-format
+msgid "Error while applying stylesheet %s\n"
+msgstr "Chyba při aplikaci stylu %s\n"
+
+#: plug-ins/xslt/xslt.c:113
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Chyba při zpracování stylu: %s\n"
 
-#: plug-ins/xslt/xslt.c:134
+#: plug-ins/xslt/xslt.c:121
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Chyba při aplikaci stylu: %s\n"
 
-#: plug-ins/xslt/xslt.c:182
+#: plug-ins/xslt/xslt.c:283
 msgid "XSL Transformation filter"
 msgstr "Filtr pro Transformaci XSL"
 
-#: plug-ins/xslt/xslt.c:197
+#: plug-ins/xslt/xslt.c:298
 #, c-format
 msgid "Could not load XSLT library (%s) : %s"
 msgstr "Nelze načíst knihovnu XSLT (%s): %s"
 
-#: plug-ins/xslt/xslt.c:211
-msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
+#: plug-ins/xslt/xslt.c:326
+msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
-"Nelze načíst zásuvný modul XSLT; není nastavena proměnná DIA_PLUGIN_PATH."
+"Nenalezeny platné konfigurační soubory pro zásuvný modul XSLT, nenačítám jej."
 
 #: plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
@@ -6182,11 +6192,18 @@ msgstr "Realizuje, implementuje specifické rozhraní"
 msgid "UML"
 msgstr "UML"
 
-#~ msgid ""
-#~ "The anti aliased renderer is buggy, and may cause\n"
-#~ "crashes.  We know there are bugs in it, so don't\n"
-#~ "bother submitting another report if it crashes"
-#~ msgstr ""
-#~ "Antialiasované vykreslování obsahuje chyby, a může\n"
-#~ "způsobit havárie. O těchto chybách víme, takže se\n"
-#~ "prosíme neobtěžujte hlásit, pokud k havárii dojde."
+msgid "DIA_PLUGIN_PATH not set.  Stylesheets not available.\n"
+msgstr "Není nastavena proměnná DIA_PLUGIN_PATH. Styly nejsou k dispozici.\n"
+
+msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
+msgstr ""
+"Nelze načíst zásuvný modul XSLT; není nastavena proměnná DIA_PLUGIN_PATH."
+
+msgid ""
+"The anti aliased renderer is buggy, and may cause\n"
+"crashes.  We know there are bugs in it, so don't\n"
+"bother submitting another report if it crashes"
+msgstr ""
+"Antialiasované vykreslování obsahuje chyby, a může\n"
+"způsobit havárie. O těchto chybách víme, takže se\n"
+"prosíme neobtěžujte hlásit, pokud k havárii dojde."
