@@ -653,9 +653,6 @@ app_exit(void)
   /* save pluginrc */
   dia_pluginrc_write();
 
-  /* save recent file history */
-  recent_file_history_write();
-  
   gtk_main_quit();
   /* This printf seems to prevent a race condition with unrefs. */
   /* Yuck.  -Lars */

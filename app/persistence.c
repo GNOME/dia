@@ -229,6 +229,7 @@ persistence_save_list(gpointer key, gpointer value, gpointer data)
   /* Make a string out of the list */
   buf = g_string_new("");
   for (items = (GList*)value; items != NULL; items = g_list_next(items)) {
+    printf("Writing recent file %s\n", items->data);
     g_string_append(buf, (gchar *)items->data);
     if (g_list_next(items) != NULL) g_string_append(buf, "\n");
   }
@@ -497,6 +498,7 @@ persistence_register_list(const gchar *role)
 PersistentList *
 persistent_list_get(const gchar *role)
 {
+  PersistentList *list;
   if (role == NULL) return NULL;
   if (persistent_lists != NULL) {
     list = (PersistentList *)g_hash_table_lookup(persistent_lists, role);
@@ -505,12 +507,13 @@ persistent_list_get(const gchar *role)
     }
   }
   /* Not registered! */
-  return NULL
+  return NULL;
 }
 
 GList *
-persistent_list_get_glist(PersistentList *plist)
+persistent_list_get_glist(const gchar *role)
 {
+  PersistentList *plist = persistent_list_get(role);
   return plist->glist;
 }
 
@@ -526,27 +529,31 @@ persistent_list_cut_length(GList *list, gint length)
 }
 
 void
-persistent_list_add(PersistentList *plist, const gchar *item)
+persistent_list_add(const gchar *role, const gchar *item)
 {
+  PersistentList *plist = persistent_list_get(role);
   if (plist->sorted) {
     /* Sorting not implemented yet. */
   } else {
     GList *tmplist = g_list_remove(plist->glist, item);
-    tmplist = g_list_prepend(tmplist, item);
+    /* Might leak this */
+    tmplist = g_list_prepend(tmplist, g_strdup(item));
     tmplist = persistent_list_cut_length(tmplist, plist->max_members);
     plist->glist = tmplist;
   }
 }
 
 void
-persistent_list_set_max_length(PersistentList *plist, gint max)
+persistent_list_set_max_length(const gchar *role, gint max)
 {
+  PersistentList *plist = persistent_list_get(role);
   plist->max_members = max;
   plist->glist = persistent_list_cut_length(plist->glist, max);
 }
 
 void
-persistent_list_remove(PersistentList *plist, const gchar *item)
+persistent_list_remove(const gchar *role, const gchar *item)
 {
+  PersistentList *plist = persistent_list_get(role);
   plist->glist = g_list_remove(plist->glist, item);
 }

@@ -59,9 +59,9 @@ typedef struct _PersistentList {
 
 PersistentList *persistence_register_list(const gchar *role);
 PersistentList *persistent_list_get(const gchar *role);
-GList *persistent_list_get_glist(PersistentList *plist);
-void persistent_list_add(PersistentList *plist, const gchar *item);
-void persistent_list_set_max_length(PersistentList *plist, gint max);
-void persistent_list_remove(PersistentList *plist, const gchar *item);
+GList *persistent_list_get_glist(const gchar *role);
+void persistent_list_add(const gchar *role, const gchar *item);
+void persistent_list_set_max_length(const gchar *role, gint max);
+void persistent_list_remove(const gchar *role, const gchar *item);
 
 #endif

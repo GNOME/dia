@@ -24,9 +24,7 @@
 
 #include "../lib/filter.h"
 
-void	recent_file_history_add(const char *fname, DiaImportFilter *ifilter,
-				guint is_initial_load);
+void	recent_file_history_add(const char *fname);
 void 	recent_file_history_init(void);
-void	recent_file_history_write(void);
 
 #endif /* RECENT_FILES_H */

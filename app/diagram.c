@@ -96,7 +96,7 @@ diagram_load_into(Diagram         *diagram,
     diagram->unsaved = FALSE;
     diagram_set_modified(diagram, FALSE);
     if (app_is_interactive())
-      recent_file_history_add(filename, ifilter, 0);
+      recent_file_history_add(filename);
     diagram_tree_add(diagram_tree(), diagram);
     return TRUE;
   } else
@@ -1205,7 +1205,7 @@ diagram_set_filename(Diagram *dia, char *filename)
   g_free(title);
 
   layer_dialog_update_diagram_list();
-  recent_file_history_add((const char *)filename, NULL, 0);
+  recent_file_history_add((const char *)filename);
 
   diagram_tree_update_name(diagram_tree(), dia);
 }
