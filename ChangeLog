@@ -1,3 +1,9 @@
+2001-02-19  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* plug-ins/xfig/xfig-import.c: 
+	File added importing xfig files.  Still very rough, but good
+	enough to let others hack on it.
+
 2001-02-07  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* app/interface.c:
