@@ -778,6 +778,7 @@ void diagram_group_selected(Diagram *dia)
   Object *group;
   Object *obj;
   GList *orig_list;
+  Change *change;
 
   dia->data->selected = parent_list_affected(dia->data->selected);
 
@@ -792,29 +793,38 @@ void diagram_group_selected(Diagram *dia)
     obj = (Object *)list->data;
 
     /* Remove connections from obj to objects outside created group. */
+    /* strip_connections sets up its own undo info. */
+    /* The connections aren't reattached by ungroup. */
     strip_connections(obj, dia->data->selected, dia);
     
     /* Have to hide any open properties dialog
      * if it contains some object in cut_list */
+    /* Now handled by undo_apply
     properties_hide_if_shown(dia, obj);
+    */
 
     /* Remove focus if active */
+    /* Now handled by undo apply
     if ((active_focus()!=NULL) && (active_focus()->obj == obj)) {
       remove_focus();
     }
+    */
 
+    /* Now handled by the undo apply
     object_add_updates(obj, dia);
+    */
     list = g_list_next(list);
   }
 
+  /* Remove list of selected objects */
   data_remove_all_selected(dia->data);
   
   group = group_create(group_list);
-  diagram_add_object(dia, group);
-  diagram_select(dia, group);
+  change = undo_group_objects(dia, group_list, group, orig_list);
+  (change->apply)(change, dia);
 
-  undo_group_objects(dia, group_list, group, orig_list);
-  diagram_tree_remove_objects(diagram_tree(), group_list);
+  /* Select the created group */
+  diagram_select(dia, group);
   
   diagram_modified(dia);
   diagram_flush(dia);
@@ -841,27 +851,36 @@ void diagram_ungroup_selected(Diagram *dia)
     group = (Object *)selected->data;
 
     if (IS_GROUP(group)) {
+      Change *change;
+
+      /* Fix selection */
       diagram_unselect_object(dia, group);
 
-      group_index = layer_object_index(dia->data->active_layer, group);
-    
       group_list = group_objects(group);
-      list = group_list;
+      diagram_select_list(dia, group_list);
+      /* Now handled by undo apply */      
+      /*list = group_list;
       while (list != NULL) {
 	Object *obj = (Object *)list->data;
 	object_add_updates(obj, dia);
-	diagram_select(dia, obj);
-
 	list = g_list_next(list);
       }
+      */
 
+      /* Now handled by undo apply
       layer_replace_object_with_list(dia->data->active_layer,
 				     group, g_list_copy(group_list));
+      */
 
-      undo_ungroup_objects(dia, group_list, group, group_index);
+      group_index = layer_object_index(dia->data->active_layer, group);
+    
+      change = undo_ungroup_objects(dia, group_list, group, group_index);
+      (change->apply)(change, dia);
+      /* Now handled by undo apply 
       diagram_tree_add_objects(diagram_tree(), dia, group_list);
       diagram_tree_remove_object(diagram_tree(), group);
       properties_hide_if_shown(dia, group);
+      */
 
       any_groups = 1;
     }

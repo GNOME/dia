@@ -1,8 +1,9 @@
 2003-08-08  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/diagram.c (diagram_ungroup_selected) 
-	(diagram_group_selected): Correctly remove and add objects to
-	diagram tree when grouping/ungrouping.
+	(diagram_group_selected): Use the undo apply to make sure grouping
+	and ungrouping is done in consistent manners.  This removes a fair
+	amount of duplicated code from diagram.c.
 
 	* app/undo.c (ungroup_objects_revert, ungroup_objects_apply) 
 	(group_objects_revert, group_objects_apply): Working undo/redo for
