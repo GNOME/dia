@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 XSLT_XSL = dia-uml.xsl dia-uml2c++.xsl dia-uml2java.xsl dia-uml2idl.xsl stylesheets
-XSLT_SRC = xslt.c xslt.h xsltdialog.c xsltdialog.h
+XSLT_SRC = xslt.c xslt.h xsltdialog.c
 
 xsltdir = $(pkgdatadir)/plugins/xslt
 xslt_DATA = $(XSLT_XSL)
@@ -11,7 +11,7 @@ plugin_sources = $(XSLT_SRC)
 else
 plugin_sources = 
 endif
-plugin_extra_dist=$(XSLT_XSL) $(XSLT_SRC)
+plugin_extra_dist=$(XSLT_XSL) $(plugin_sources)
 
 EXTRA_DIST = $(plugin_extra_dist)
 

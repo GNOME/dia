@@ -14,6 +14,12 @@
 	agrees with dia on how a small sample should look like (a sample
 	0.90 would not even display anyways). Yay !)
 
+	Patch from Matthieu Sozeau <mattam@netcourrier.com>:
+
+	* plug-ins/xslt/Makefile.am: repaired the mess Cyrille put there.
+
+	(end of ChangeLog-less patch)
+	
 2002-06-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/textobj.c: Now uses stdprops for defaults.
