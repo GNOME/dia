@@ -1,3 +1,7 @@
+2004-06-22  Lars Clausen  <lars@raeder.dk>
+
+	* POTFILES.in: Added entries for new Istar, Jackson and KAOS files.
+
 2004-06-20  Gareth Owen  <gowen72@yahoo.com>
 
 	* en_GB.po: Updated British English translation
