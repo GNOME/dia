@@ -1,3 +1,10 @@
+2001-03-20  Steffen Macke <sdteffen@yahoo.com>
+
+	* shapes/Civil/civil_gas_bottle.xpm
+	* shapes/Civil/civil_gas_bottle.shape
+	* shapes/Civil/Makefile.am: Added gas bottle shape by Arne
+	Battermann
+	
 2001-03-20  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* objects/custom/shape_info.c (load_shape_info): 

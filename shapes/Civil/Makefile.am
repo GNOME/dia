@@ -22,6 +22,8 @@ SHAPES = \
 	civil_final-settling_basin.xpm \
 	civil_frequency_converter.shape \
 	civil_frequency_converter.xpm \
+        civil_gas_bottle.xpm \
+        civil_gas_bottle.shape \
 	civil_horizontal_limiting_line.shape \
 	civil_horizontal_limiting_line.xpm \
 	civil_horizontal_valve.shape \
