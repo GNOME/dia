@@ -97,6 +97,7 @@ objects/standard/polyline.c
 objects/standard/standard.c
 objects/standard/textobj.c
 objects/standard/zigzagline.c
+objects/UML/activity.c
 objects/UML/actor.c
 objects/UML/association.c
 objects/UML/class.c
@@ -116,6 +117,7 @@ objects/UML/object.c
 objects/UML/realizes.c
 objects/UML/small_package.c
 objects/UML/state.c
+objects/UML/state_term.c
 objects/UML/uml.c
 objects/UML/usecase.c
 plug-ins/cgm/cgm.c

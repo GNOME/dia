@@ -1,3 +1,7 @@
+2002-07-14  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* POTFILES.in: Added UML/activity.c and UML/state_term.c
+
 2002-07-01  Cyrille Chepelov  <cyrille@chepelov.org>
 
 	* fr.po: updated French translation.
