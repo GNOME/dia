@@ -1,3 +1,8 @@
+2002-11-27  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/standard/line.c (line_update_data): Line gap things
+	inserted.  Can do xeyes now:)
+
 2002-11-26  Christian Neumair  <chris@gnome-de.org>
 
 	* .cvsignore: Changed.
@@ -63,13 +68,13 @@
 	did not know how create the GTK widgets so the gap code currently
 	cannot be used without adding XML attributes by hand.
 
-2002-11-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-11-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/diagdkrenderer.c (draw_string): Removed timing bits.
 
 	* lib/Makefile.am (libdia_la_SOURCES): Added fontsel files to SOURCES.
 
-2002-11-24  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-11-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/font.c: Debugging functionality in separate functions.
 
@@ -1142,7 +1147,7 @@
 	* objects/standard/zigzagline.c (zigzagline_move): 
 	More work on zigzagline hints.
 
-2002-07-26  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-07-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 	* lib/connectionpoint.h: 
 	Hints for zigzaglines.
 
@@ -1170,7 +1175,7 @@
 	* app/cursor.c: 
 	More cursor change.
 
-2002-07-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-07-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/preferences.c: 
 	* lib/paper.c: 
@@ -1538,7 +1543,7 @@
 	* shapes/MSE/tacsat.xpm: updated MSE icons (transparency) by Alan
 	Horkan <horkana@tcd.ie>
 
-2002-06-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-06-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/widgets.c: Total rehash of font selector, with font dialog
 	option, expanding list (not LRU yet), and stuff.
@@ -1625,7 +1630,7 @@
 	it does something useful instead of crashing. Much
 	better - but not all ok :-)
 
-2002-06-23  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-06-23  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/message.c (gtk_message_internal): First stab at repeating
 	message dialog.
@@ -1670,7 +1675,7 @@
 	* objects/ER/*.c:
 	using dia_font_new_from_style()
 
-2002-06-23  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-06-23  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/widgets.c (dia_font_selector_set_styles): Improvements to
 	font selector (stability, insensitivity).
@@ -1849,7 +1854,7 @@
 
 	**** The rest of the tree should be updated as well ****
 	
-2002-06-21  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-06-21  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_gdk.h: 
 	* app/render_gdk.c: 
@@ -1872,7 +1877,7 @@
 	* lib/object_defaults.c : #include <libxml/tree.h> not
 	<tree.h> pointed out by Xing Wang
 
-2002-06-17  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-06-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/color.h (GDK_COLOR_TO_DIA, DIA_COLOR_TO_GDK): 
 	* lib/widgets.c: 
@@ -1938,7 +1943,7 @@
 	* app/create_object.c : through dia_object_default_create()
 	* app/disp_callbacks.c : same here
 
-2002-06-12  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-06-12  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/FS/flow-ortho.c (orthflow_get_object_menu): Menu
 	sensitivity for deleting segments.
@@ -1972,7 +1977,7 @@
 
 	* ChangeLog: Fixed bad UTF-8 mess.  Apologies.
 
-2002-06-11  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-06-11  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/interface.c: sscanf now returns EOF on empty string, so
 	handle no match for zoom factor better => correct zoom at start.
@@ -2480,7 +2485,7 @@
 	charconv_*gtk* functions (otherwise the Win32 or gtk2.0 linker
 	will yell)
 	
-2002-05-16  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-05-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/wpg/Makefile.am (INCLUDES): 
 	* plug-ins/shape/Makefile.am (INCLUDES): 
@@ -2535,7 +2540,7 @@
 	* app/diagram_tree.c (get_object_name): Check that name property
 	doesn't have null string.
 
-2002-05-13  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-05-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* autogen.sh (DIE): Added conditional --force to gettextize.
 
@@ -2648,7 +2653,7 @@
 	* lib/beziershape.c (remove_handles): Fixing removal of last
 	segment.  Undo of removal still hokey.
 
-2002-05-10  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-05-10  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/bezier_conn.c (remove_handles): Proper offset for fixing
 	handles. 
@@ -2660,7 +2665,7 @@
 	connectionpoints. 
 	(remove_handles): Proper offset.
 
-2002-05-08  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-05-08  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/GRAFCET/action.c (action_update_data): Init x value of
 	click point for call to connpointlist_adjust_count.
@@ -2678,7 +2683,7 @@
 	* app/sheets_dialog.c: Mass removal of //-style comments.  The
 	Irix compiler doesn't like them:(  I do...
 
-2002-05-06  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-05-06  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_libart.c (draw_string): Bail out when no GDK font is
 	found.
@@ -2697,7 +2702,7 @@
 
 	* app/Makefile.am: added $(UNICODE_CFLAGS)
 	
-2002-05-02  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-05-02  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/commands.c (help_manual_callback): Check return value of
 	opendir.
@@ -2707,7 +2712,7 @@
 	* plug-ins/xfig/xfig-import.c: Fixed misspelled Poly_L_ine, added
 	checks for errors.
 
-2002-04-30  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-04-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_gdk.c (draw_string): Extra free killed.  Thanks valgrind!
 
@@ -2727,7 +2732,7 @@
 	(font_string_width): Fudge factor to get around nonlinearity of
 	font scaling.
 
-2002-04-29  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-04-29  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/font.c (font_string_width): YA font calculation scheme, with
 	comments.
@@ -2800,7 +2805,7 @@
 	* objects/uml/stereotype.c (bracketted_to_string) : 
 	simplify while adding code for glib-2.0 build
 
-2002-04-27  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-04-27  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/diagram.h: Autosave field
 	* app/diagram.c (diagram_set_modified): Sets autosave field.
@@ -2874,7 +2879,7 @@
 	* plug-ins/python/pydia-object.c plug-ins/python/pydia-diagram.c : 
 	adapt to changed prototype
 
-2002-04-24  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-04-24  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/text.c (text_calc_boundingbox): Will now return early if box
 	passed is NULL.
@@ -2886,7 +2891,7 @@
 
 	* plug-ins/xfig/xfig-import.c: fixed text import
 	
-2002-04-22  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-04-22  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/export_png.c: Moved dialog functions to their own file.
 	* app/dialogs.[ch]: New files with standard functions for creating
@@ -2903,7 +2908,7 @@
 	* sheets/Makefile.am:
 	* configure.in: added new Misc sheet containing filesystem shapes
 	
-2002-04-18  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-04-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/lineprops_area.c: Arrow selector in toolbox changed to use
 	standard arrowdraw code.  Line is thinner to make some arrowheads
@@ -3018,18 +3023,18 @@
 
 	* plug-ins/python/makefile.msc : updated for Python 2.2
 
-2002-04-03  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-04-03  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/zigzagline.c (zigzagline_draw): Fixed
 	directionality problem for zero-length line segments.
 
-2002-03-28  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-03-28  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/diagram.c (diagram_ungroup_selected) 
 	(diagram_update_menu_sensitivity): Now allows ungrouping of
 	several groups at once.
 
-2002-03-15  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-03-15  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/render.c, all renderers: Binary incompatibility, change to
 	expandable renderops structure.
@@ -3053,12 +3058,12 @@
 	* plug-ins/svg/Makefile.am:
 	* plug-ins/shape/Makefile.am: added $(UNICODE_CFLAGS)
 	
-2002-03-13  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-03-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_eps.c: Support for dumping TrueType fonts (taken from
 	ttfps).
 
-2002-03-12  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-03-12  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/render.c: New abstract super class for renderers.
 
@@ -3091,12 +3096,12 @@
 	prerenderer, transitioned its functionality towards Lars'
 	two-phase rendering
 
-2002-03-05  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-03-05  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* configure.in: Using Freetypes own check for ver >= 1.0.5.  You
 	may need to rerun aclocal.
 
-2002-03-04  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-03-04  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/font.c: First attempt at Unicodeness for Freetype.
 
@@ -3105,7 +3110,7 @@
 	* lib/font.c (font_string_width): Fixed font_string_width for
 	freetype.  BB is now almost right.
 
-2002-03-01  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-03-01  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_eps.h: 
 	* app/paginate_psprint.c (paginate_psprint): 
@@ -3227,7 +3232,7 @@
 	* lib/text.c (text_draw): fixed XIM position, when menubar is shown for
 	diagram window.
 
-2002-02-11  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-02-11  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/group.c (group_copy): Made new object properly initialized
 	before copy.
@@ -3323,7 +3328,7 @@
         * objects/UML/class_dialog.c: added code to handle the UMLParameterKind
         property using a GtkMenu. Options are Undefined, In, Out, In & Out
 
-2002-02-04  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-02-04  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_libart.c: Slow but working libart freetype renderer,
 	with color!
@@ -3359,7 +3364,7 @@
 	* app/disp_callbacks.c (ddisplay_realize): fixed XIM issue.
 	several client doesn't work with previous codes.
 
-2002-02-01  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-02-01  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/font.c (freetype_render_string): Kerning.  Very few fonts
 	seem to use it.
@@ -3387,7 +3392,7 @@
 	(dia_font_selector_set_styles): when HAVE_FREETYPE is defined only,
 	it's needed for now. also this function needs prototype declaration.
 
-2002-01-31  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-01-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/widgets.c: Style now functional on font selector.  Some leak
 	possible, but doesn't show up under stress test.
@@ -3412,7 +3417,7 @@
 	* lib/widgets.h: New font selector separating font and style.
 	Style not functional yet.
 
-2002-01-30  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-01-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/text.c: 
 	* app/render_gdk.c (draw_string): More freetype support, now
@@ -3782,7 +3787,7 @@
 	* app/disp_callbacks.c (ddisplay_canvas_events): needs to convert
 	strings to the appropriate encoding.
 
-2002-01-22  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2002-01-22  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/object_ops.c (object_list_align_[hv]): Leak fix.
 
@@ -4136,7 +4141,7 @@
 	* objects/UML/component.c: remember to set font in UML component
 	object (fixes #62132)	
 
-2001-10-02  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-10-02  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/metapost/metapost.c: 
 	* plug-ins/metapost/Makefile.am:
@@ -4688,7 +4693,7 @@
 	* lib/font.c: conditionally disabled Lars' debugging messages.
 	Bracketed the definition of DiaFontFamily with #ifdef HAVE_FREETYPE.
 	
-2001-08-11  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-08-11  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/bezier_conn.h: 
 	* objects/standard/bezier.c (bezierline_create): 
@@ -4704,7 +4709,7 @@
 	polyshape_set_points.  Include file for non-interactive 
 	creation of standard objects, objects/standard/create.h
 
-2001-08-10  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-08-10  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_gdk.c: 
 	* app/render_gdk.h: 
@@ -4861,7 +4866,7 @@
 	
 	* lib/object.h: fixed mild typedef breakage introduced by the above.
 
-2001-07-17  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-07-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lots of files: Changed Font to DiaFont
 	* */Makefile.am: Added FREETYPE_LIBS
@@ -5613,7 +5618,7 @@
 	The name of a shape is now taken from the dir, to conform with
 	standard naming.
 
-2001-04-25  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-04-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/properties.c (properties_show): Added title containing
 	object type, plus (hopefully) fix of the ghost properties dialog.
@@ -5654,7 +5659,7 @@
 	This change allows to use recent Dia with either the official
 	version or the latest cvs "gtk-1-3-win32-production"-branch.
 
-2001-04-14  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-04-14  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* Patch from David S. Thompson <dcthomp@mail.utexas.edu>:
 	* app/disp_callbacks.c:
@@ -5782,7 +5787,7 @@
 	bounding box reported by Ben A. Hetland. Proper fix isn't .87
 	material, see bugzilla #52912.
 
-2001-04-05  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-04-05  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/image.c (get_directory): Now uses
 	G_SEPARATOR_CHAR_S instead of "/"
@@ -5878,7 +5883,7 @@
 	absence of python and python-xml packages, and made the error
 	message more helpful.
 	
-2001-04-01  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-04-01  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/render_object.c (new_render_object): Made initial handles
 	behave like on most other objects.
@@ -6003,7 +6008,7 @@
 
 	* objects/makefile.msc : added uml/stereotype.c to build
 
-2001-03-23  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-03-23  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* **/*.c: Added config.h to the remaining .c files, and changed
 	all to be <config.h>.
@@ -6024,7 +6029,7 @@
 	* shapes/Civil/Makefile.am: Added gas bottle shape by Arne
 	Battermann
 	
-2001-03-20  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-03-20  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/custom/shape_info.c (load_shape_info): 
 	* objects/custom/shape_info.h: 
@@ -6402,7 +6407,7 @@
 	* doc/en/usage-objects-special.sgml: Fixed a few of the special
         object descriptions.  More to come in the next few days.
 
-2001-02-20  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-02-20  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/render_eps.c: Fixed for internationalized floating point
 	output. 
@@ -6411,7 +6416,7 @@
 	Get/ApplyPropertiesFunc.  Also improved update to recalculate text
 	position. 
 
-2001-02-19  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-02-19  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* plug-ins/xfig/xfig-import.c: 
 	File added importing xfig files.  Still very rough, but good
@@ -6439,7 +6444,7 @@
 	majority of cases), page sizes were set to 10.0 * respective step
 	size.	
 
-2001-02-07  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-02-07  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/network/hub.c: 
 	Patch from Hubert Figuiere applied, adding connection points.
@@ -6455,7 +6460,7 @@
 	* app/display.h: add structure member to hold the redraw idle
 	handler id.
 
-2001-01-31  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2001-01-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/ellipse.c (ellipse_copy): 
 	* objects/standard/zigzagline.c (zigzagline_copy): 
@@ -7894,7 +7899,7 @@
 	Fix division by zero in point_normalize().
 	Patch by David Thompson <dcthomp@mail.utexas.edu>
 
-2000-04-27  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+2000-04-27  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/arrows.c:
 	* lib/bezier_conn.c:
