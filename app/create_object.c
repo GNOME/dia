@@ -66,8 +66,12 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 
   if (parent_obj && parent_obj->can_parent) /* starting point is within another object */
   {
+    Change *change = undo_parenting(ddisp->diagram, parent_obj, obj, TRUE);
+    (change->apply)(change, ddisp->diagram);
+    /*
     obj->parent = parent_obj;
     parent_obj->children = g_list_append(parent_obj->children, obj);
+    */
   }
 
   diagram_add_object(ddisp->diagram, obj);

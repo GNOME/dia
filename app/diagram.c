@@ -617,6 +617,7 @@ strip_connections(Object *obj, GList *not_strip_list, Diagram *dia)
   }
 }
 
+
 gint diagram_parent_sort_cb(object_extent ** a, object_extent **b)
 {
   if ((*a)->extent->left < (*b)->extent->left)
@@ -633,13 +634,15 @@ gint diagram_parent_sort_cb(object_extent ** a, object_extent **b)
 }
 
 
-/* needs faster algorithm */
+/* needs faster algorithm -- if we find that parenting is slow.
+ * If it works, don't optimize it until it's a hotspot. */
 void diagram_parent_selected(Diagram *dia)
 {
   GList *list = dia->data->selected;
   int length = g_list_length(list);
   int idx, idx2;
   object_extent *oe;
+  gboolean any_parented = FALSE;
   GPtrArray *rects = g_ptr_array_sized_new(length);
   while (list)
   {
@@ -667,13 +670,24 @@ void diagram_parent_selected(Diagram *dia)
       if (rect->extent->right <= rect2->extent->right
         && rect->extent->bottom <= rect2->extent->bottom)
       {
+	Change *change;
+	change = undo_parenting(dia, rect2->object, rect->object, TRUE);
+	(change->apply)(change, dia);
+	any_parented = TRUE;
+	/*
         rect->object->parent = rect2->object;
 	rect2->object->children = g_list_append(rect2->object->children, rect->object);
+	*/
 	break;
       }
     }
   }
   g_ptr_array_free(rects, TRUE);
+  if (any_parented) {
+    diagram_modified(dia);
+    diagram_flush(dia);
+    undo_set_transactionpoint(dia->undo);
+  }
 }
 
 /** Remove all selected objects from their parents (if any). */
@@ -681,6 +695,9 @@ void diagram_unparent_selected(Diagram *dia)
 {
   GList *list;
   Object *obj, *parent;
+  Change *change;
+  gboolean any_unparented = FALSE;
+
   for (list = dia->data->selected; list != NULL; list = g_list_next(list))
   {
     obj = (Object *) list->data;
@@ -689,8 +706,18 @@ void diagram_unparent_selected(Diagram *dia)
     if (!parent)
       continue;
 
+    change = undo_parenting(dia, parent, obj, FALSE);
+    (change->apply)(change, dia);
+    any_unparented = TRUE;
+    /*
     parent->children = g_list_remove(parent->children, obj);
     obj->parent = NULL;
+    */
+  }
+  if (any_unparented) {
+    diagram_modified(dia);
+    diagram_flush(dia);
+    undo_set_transactionpoint(dia->undo);
   }
 }
 
@@ -700,20 +727,47 @@ void diagram_unparent_children_selected(Diagram *dia)
   GList *list;
   GList *child_ptr;
   Object *obj, *child;
+  gboolean any_unparented = FALSE;
   for (list = dia->data->selected; list != NULL; list = g_list_next(list))
   {
     obj = (Object *) list->data;
     if (!obj->can_parent || !obj->children)
       continue;
 
+    any_unparented = TRUE;
+    /* Yes, this creates a whole bunch of Changes.  They're lightweight
+     * structures, though, and it's easier to assure correctness this
+     * way.  If needed, we can make a parent undo with a list of children.
+     */
+    while (obj->children != NULL) {
+      Change *change;
+      child = (Object *) obj->children->data;
+      change = undo_parenting(dia, obj, child, FALSE);
+      /* This will remove one item from the list, so the while terminates. */
+      (change->apply)(change, dia);
+    }
+    /*
     for (child_ptr = obj->children; child_ptr != NULL; 
 	 child_ptr = g_list_next(child_ptr))
     {
+      Change *change;
       child = (Object *) child_ptr->data;
-      child->parent = NULL;
+      change = undo_parenting(dia, obj, child, FALSE);
+      (change->apply)(change, dia);
     }
+    */
+    if (obj->children != NULL)
+      printf("Obj still has %d children\n",
+	     g_list_length(obj->children));
+    /*
     g_list_free(obj->children);
     obj->children = NULL;
+    */
+  }
+  if (any_unparented) {
+    diagram_modified(dia);
+    diagram_flush(dia);
+    undo_set_transactionpoint(dia->undo);
   }
 }
 

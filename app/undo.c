@@ -1070,3 +1070,81 @@ undo_ungroup_objects(Diagram *dia, GList *obj_list, Object *group,
   return (Change *)change;
 }
 
+/******* PARENTING */
+
+struct ParentChange {
+  Change change;
+  Object *parentobj, *childobj;
+  gboolean parent;
+};
+
+/** Performs the actual parenting of a child to a parent.
+ * Since no display changes arise from this, we need call no update. */
+static void
+parent_object(Diagram *dia, Object *parent, Object *child)
+{
+  child->parent = parent;
+  parent->children = g_list_prepend(parent->children, child);
+}
+
+/** Performs the actual removal of a child from a parent.
+ * Since no display changes arise from this, we need call no update. */
+static void
+unparent_object(Diagram *dia, Object *parent, Object *child)
+{
+  child->parent = NULL;
+  parent->children = g_list_remove(parent->children, child);
+}
+
+/** Applies the given ParentChange */
+static void
+parent_change_apply(Change *change, Diagram *dia)
+{
+  struct ParentChange *parentchange = (struct ParentChange*)change;
+  if (parentchange->parent) {
+    parent_object(dia, parentchange->parentobj, parentchange->childobj);
+  } else {
+    unparent_object(dia, parentchange->parentobj, parentchange->childobj);
+  }
+}
+
+/** Reverts the given ParentChange */
+static void
+parent_change_revert(Change *change, Diagram *dia)
+{
+  struct ParentChange *parentchange = (struct ParentChange*)change;
+  if (!parentchange->parent) {
+    parent_object(dia, parentchange->parentobj, parentchange->childobj);
+  } else {
+    unparent_object(dia, parentchange->parentobj, parentchange->childobj);
+  }
+}
+
+/** Frees items in the change -- none really */
+static void
+parent_change_free(Change *change)
+{
+}
+
+/** Create a new Change object for parenting/unparenting.
+ * `parent' is TRUE if applying this change makes childobj a
+ * child of parentobj.
+ */
+Change *
+undo_parenting(Diagram *dia, Object* parentobj, Object* childobj,
+	       gboolean parent)
+{
+  struct ParentChange *parentchange = g_new0(struct ParentChange, 1);
+  Change *change = (Change*)parentchange;
+  change->apply = parent_change_apply;
+  change->revert = parent_change_revert;
+  change->free = parent_change_free;
+
+  parentchange->parentobj = parentobj;
+  parentchange->childobj = childobj;
+  parentchange->parent = parent;
+
+  DEBUG_PRINTF(("UNDO: Push new obj_change at %d\n", depth(dia->undo)));
+  undo_push_change(dia->undo, change);
+  return change;
+}
