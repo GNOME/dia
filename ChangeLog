@@ -1,5 +1,12 @@
 2000-02-08  Alexander Larsson  <alla@lysator.liu.se>
 
+	* app/linewidth_area.c:
+	Added code to set arbitrary line width.
+	Patch by Lars Clausen <lrclause@cs.uiuc.edu>
+
+2000-02-08  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/linewidth_area.c: 
 	* lib/font.[ch]:
 	Add support for font-sucking.
 	Implementation borrowed from gnome-canvas.

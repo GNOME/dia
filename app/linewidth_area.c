@@ -17,6 +17,7 @@
  */
 #include "linewidth_area.h"
 #include "attributes.h"
+#include "intl.h"
 
 #define BASE_WIDTH 0.05
 #define PIXELS_BETWEEN_LINES 6
@@ -27,11 +28,15 @@
 #define AREA_WIDTH X_OFFSET(NUMLINES+1)
 #define AREA_HEIGHT 42
 
+static void linewidth_create_dialog();
 
 static int active_linewidth = 2;
 static GdkGC *linewidth_area_gc = NULL;
 static GdkPixmap *linewidth_area_pixmap = NULL;
 
+static GtkWidget *linewidth_area_widget = NULL;
+static GtkWidget *linewidth_dialog = NULL;
+static GtkWidget *linewidth_button = NULL;
 
 static int
 linewidth_area_target (int x, int y)
@@ -88,9 +93,11 @@ linewidth_area_draw (GtkWidget *linewidth_area)
     
   }
   
+  if (active_linewidth != 0) {
   gdk_draw_rectangle (linewidth_area_pixmap, linewidth_area_gc, 0,
 		      X_OFFSET(active_linewidth)-2, 0,
 		      active_linewidth+4, height-1);
+  }
 
   gdk_draw_pixmap (linewidth_area->window, linewidth_area_gc, linewidth_area_pixmap,
 		   0, 0, 0, 0, width, height);
@@ -126,9 +133,17 @@ linewidth_area_events (GtkWidget *widget,
 	if (target != 0) {
 	  active_linewidth = target;
 	  linewidth_area_draw(widget);
-	  attributes_set_default_linewidth(BASE_WIDTH*target);
+	  attributes_set_default_linewidth(BASE_WIDTH*(target-1));
 	}
       }
+      break;
+
+    case GDK_2BUTTON_PRESS:
+      if (linewidth_dialog == NULL)
+        linewidth_create_dialog();
+      gtk_spin_button_set_value(GTK_SPIN_BUTTON(linewidth_button), attributes_get_default_linewidth());
+
+      gtk_widget_show(linewidth_dialog);
       break;
 
     default:
@@ -154,7 +169,78 @@ linewidth_area_create (void)
 
   attributes_set_default_linewidth(BASE_WIDTH*active_linewidth);
 
+  linewidth_area_widget = linewidth_area;
   return linewidth_area;
 }
 
+static void
+linewidth_dialog_ok(GtkWidget *widget, gpointer data) {
+  float newvalue = gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(linewidth_button));
+  if (fabs(newvalue/BASE_WIDTH-rint(newvalue/BASE_WIDTH)) > 0.0005 ||
+      (newvalue/BASE_WIDTH > NUMLINES)) {
+    active_linewidth = 0;
+  } else {
+    active_linewidth = newvalue/BASE_WIDTH+1.0005;
+  }
+  linewidth_area_draw(GTK_WIDGET(linewidth_area_widget));
+  attributes_set_default_linewidth(newvalue);
+  gtk_widget_hide(linewidth_dialog);
+}
+
+static void
+linewidth_dialog_cancel(GtkWidget *widget, gpointer data) {
+  gtk_widget_hide(linewidth_dialog);
+}
+
+static void linewidth_create_dialog()
+{
+  GtkWidget *button;
+  GtkWidget *hbox;
+  GtkWidget *label;
+  GtkAdjustment *adj;
+
+  linewidth_dialog = gtk_dialog_new();
+  
+  gtk_window_set_title (GTK_WINDOW (linewidth_dialog), _("Line width"));
+  gtk_window_set_wmclass (GTK_WINDOW (linewidth_dialog),
+			  "linewidth_window", "Dia");
+  gtk_window_set_policy (GTK_WINDOW (linewidth_dialog),
+			 FALSE, TRUE, TRUE);
+  gtk_container_set_border_width (GTK_CONTAINER (linewidth_dialog), 2);
+
+  hbox = gtk_hbox_new(FALSE, 5);
+  label = gtk_label_new(_("Line width:"));
+  gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+  gtk_widget_show (label);
+  adj = (GtkAdjustment *) gtk_adjustment_new(0.1, 0.00, 10.0, 0.01, 0.0, 0.0);
+  linewidth_button = gtk_spin_button_new(adj, attributes_get_default_linewidth(), 2);
+  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(linewidth_button), TRUE);
+  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(linewidth_button), TRUE);
+  gtk_box_pack_start(GTK_BOX (hbox), linewidth_button, TRUE, TRUE, 0);
+  gtk_widget_show (linewidth_button);
+  gtk_widget_show(hbox);
+  gtk_box_pack_start (GTK_BOX(GTK_DIALOG (linewidth_dialog)->vbox), hbox, TRUE, TRUE, 0);
+  
+  gtk_widget_show (linewidth_button);
+  button = gtk_button_new_with_label (_("OK"));
+  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (linewidth_dialog)->action_area), 
+		      button, TRUE, TRUE, 0);
+  gtk_signal_connect (GTK_OBJECT (button), "clicked",
+		      GTK_SIGNAL_FUNC(linewidth_dialog_ok),
+		      NULL);
+  gtk_widget_show (button);
+
+  button = gtk_button_new_with_label (_("Cancel"));
+  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (linewidth_dialog)->action_area), 
+		      button, TRUE, TRUE, 0);
+  gtk_signal_connect (GTK_OBJECT (button), "clicked",
+		      GTK_SIGNAL_FUNC(linewidth_dialog_cancel),
+		      NULL);  
+  gtk_widget_show (button);
+
+  gtk_signal_connect (GTK_OBJECT (linewidth_dialog), "delete_event",
+		      GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
+}
 
