@@ -271,7 +271,7 @@ diagram_print_ps(Diagram *dia)
       char *diagram_dir;
       char *full_filename;
 
-      diagram_dir = dirname(dia->filename);
+      diagram_dir = g_dirname(dia->filename);
       full_filename = g_malloc(strlen(diagram_dir)+strlen(filename)+2);
       sprintf(full_filename, "%s/%s", diagram_dir, filename);
       file = fopen(full_filename, "w");
