@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"POT-Creation-Date: 2003-10-24 02:20+0200\n"
-"PO-Revision-Date: 2003-10-24 02:20+0200\n"
+"POT-Creation-Date: 2003-10-27 01:23+0100\n"
+"PO-Revision-Date: 2003-10-27 01:23+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -45,64 +45,51 @@ msgstr "%s --> %s\n"
 msgid "Can't find output format %s\n"
 msgstr "Kan inte hitta utdataformatet %s\n"
 
+#. Translators:  The argument is a list of options, not to be translated
+#: app/app_procs.c:323
+#, c-format
+msgid "Export to file format and exit.  Supported formats are: %s"
+msgstr "Exportera till filformat och avsluta. Format som stöds är: %s"
+
 #. &export_file_name
-#: app/app_procs.c:320
+#: app/app_procs.c:332
 msgid "Export loaded file and exit"
 msgstr "Exportera inläst fil och avsluta"
 
-#: app/app_procs.c:320 app/diaconv.c:94
+#: app/app_procs.c:332 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "UTDATA"
 
 #. &export_file_format
-#: app/app_procs.c:322
-msgid ""
-"Export to file format and exit.  Supported formats are: cgm, dia, dxf, eps, "
-msgstr ""
-"Exportera till filformat och avsluta. Format som stöds är: cgm, dia, dxf, "
-"eps, "
-
-#: app/app_procs.c:324
-msgid "fig, mp, plt, hpgl, "
-msgstr "fig, mp, plt, hpgl, "
-
-#: app/app_procs.c:325
-msgid "shape, svg, tex, "
-msgstr "shape, svg, tex, "
-
-#: app/app_procs.c:326
-msgid "wpg"
-msgstr "wpg"
-
-#: app/app_procs.c:326
+#: app/app_procs.c:334
 msgid "FORMAT"
 msgstr "FORMAT"
 
-#: app/app_procs.c:329
+#: app/app_procs.c:337
 msgid "Don't show the splash screen"
 msgstr "Visa inte startbilden"
 
-#: app/app_procs.c:331
+#: app/app_procs.c:339
 msgid "Display credits list and exit"
 msgstr "Visa tacklista och avsluta"
 
-#: app/app_procs.c:333
+#: app/app_procs.c:341
 msgid "Display version and exit"
 msgstr "Visa versionsnummer och avsluta"
 
-#: app/app_procs.c:335 app/diaconv.c:95
+#: app/app_procs.c:343 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Visa detta hjälpmeddelande"
 
-#: app/app_procs.c:367
+#: app/app_procs.c:375
 msgid "Can't connect to session manager!\n"
 msgstr "Kan inte få kontakt med sessionshanteraren!\n"
 
-#: app/app_procs.c:382 app/diaconv.c:119
+#: app/app_procs.c:390 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[FLAGGA...] [FIL...]"
 
-#: app/app_procs.c:386 app/diaconv.c:126
+#: app/app_procs.c:394 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -113,24 +100,24 @@ msgstr ""
 "kommandoradsalternativ.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:405
+#: app/app_procs.c:413
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia version %s, kompilerad %s %s\n"
 
-#: app/app_procs.c:407
+#: app/app_procs.c:415
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia version %s\n"
 
-#: app/app_procs.c:487 app/app_procs.c:489 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:495 app/app_procs.c:497 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Kunde inte hitta standardobjekt vid sökning efter objektbibliotek, "
 "avslutar...\n"
 
-#: app/app_procs.c:581
+#: app/app_procs.c:589
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -139,7 +126,7 @@ msgstr ""
 "och beskriv hur du fick detta meddelande att visas.\n"
 
 #. no standard buttons
-#: app/app_procs.c:593
+#: app/app_procs.c:601
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -149,21 +136,21 @@ msgstr ""
 "Är du säker på att du vill avsluta\n"
 "Dia utan att spara dem?"
 
-#: app/app_procs.c:597
+#: app/app_procs.c:605
 msgid "Quit Dia"
 msgstr "Avsluta Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:652
+#: app/app_procs.c:660
 msgid "Thank you for using Dia.\n"
 msgstr "Tack för att du använder Dia.\n"
 
-#: app/app_procs.c:666 app/app_procs.c:673
+#: app/app_procs.c:674 app/app_procs.c:681
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunde inte skapa katalog med personliga Dia-inställningar."
 
-#: app/app_procs.c:675
+#: app/app_procs.c:683
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -171,7 +158,7 @@ msgstr ""
 "Kunde inte skapa en personlig Dia-konfigurationskatalog. Kontrollera att "
 "miljövariabeln HOME pekar till en existerande katalog."
 
-#: app/app_procs.c:697 app/diaconv.c:249
+#: app/app_procs.c:705 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Interna objekt och filter i dia"
 
@@ -7195,6 +7182,15 @@ msgstr "Sybase-dataserver"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase-replikationsserver"
+
+#~ msgid "fig, mp, plt, hpgl, "
+#~ msgstr "fig, mp, plt, hpgl, "
+
+#~ msgid "shape, svg, tex, "
+#~ msgstr "shape, svg, tex, "
+
+#~ msgid "wpg"
+#~ msgstr "wpg"
 
 #~ msgid "Export to file format and exit"
 #~ msgstr "Exportera till filformat och avsluta"
