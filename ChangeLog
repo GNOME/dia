@@ -1,3 +1,8 @@
+2004-12-31  Steffen Macke <sdteffen@gmail.com>
+
+	* doc/pl/*.xml: Added XML prolog
+	* makefile.msc: Added libxslt, fixed libxml, libart
+
 2004-10-29  Alexander Shopov  <ash@contact.bg>
 
 	* configure.in (ALL_LINGUAS): Added "bg" (Bulgarian)
@@ -712,7 +717,7 @@
 2004-09-19  Hans Breuer  <hans@breuer.org>
 
         * plug-ins/xslt/*.xsl : s/apply-templates match/apply-templates select/
-        fixes bug #148278, carlosrp@idea.com.py (Carlos Raúl Perasso)
+        fixes bug #148278, carlosrp@idea.com.py (Carlos Raï¿½l Perasso)
 
 2004-09-19  Hans Breuer  <hans@breuer.org>
 

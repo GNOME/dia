@@ -3,10 +3,11 @@ all: 	build \
 	build\win32\bin \
 	build\win32\bin\dia.exe \
 	build\win32\bin\libdia.dll \
-	build\win32\bin\libart_lgpl.dll \
+	build\win32\bin\libart_lgpl_2-2.dll \
 	build\win32\bin\libfontconfig-1.dll \
 	build\win32\bin\libgtk-win32-2.0-0.dll \
-	build\win32\lib\libxml2.dll \
+	build\win32\bin\libxml2.dll \
+	build\win32\bin\libxslt.dll \
 	build\win32\dia \
 	build\win32\lib \
 	build\win32\lib\locale \
@@ -61,8 +62,8 @@ build\win32\lib\locale: build\win32\lib
 build\win32\bin\dia.exe: build\win32\bin app\dia.exe
 	copy app\dia.exe build\win32\bin\dia.exe
 	
-build\win32\bin\libart_lgpl.dll: build\win32\bin ..\bin\libart_lgpl.dll
-	copy ..\bin\libart_lgpl.dll build\win32\bin
+build\win32\bin\libart_lgpl.dll: build\win32\bin ..\bin\libart_lgpl_2-2.dll
+	copy ..\bin\libart_lgpl_2-2.dll build\win32\bin
 
 build\win32\bin\libfontconfig-1.dll: build\win32\bin ..\bin\libfontconfig-1.dll
 	copy ..\bin\libfontconfig-1.dll build\win32\bin
@@ -76,8 +77,11 @@ build\win32\bin\libgtk-win32-2.0-0.dll: ..\bin\libgtk-win32-2.0-0.dll
 build\win32\lib\zlib.dll: build\win32\bin\zlib.dll
 	copy ..\lib\zlib.dll build\win32\bin
 	
-build\win32\lib\libxml2.dll: build\win32\bin ..\lib\libxml2.dll
+build\win32\bin\libxml2.dll: build\win32\bin ..\lib\libxml2.dll
 	copy ..\lib\libxml2.dll build\win32\bin
+	
+build\win32\bin\libxslt.dll: build\win32\bin ..\lib\libxslt.dll
+	copy ..\lib\libxslt.dll build\win32\bin
 
 build\win32\bin\libcharset.dll: build\win32\bin ..\bin\libcharset.dll
 	copy ..\bin\libcharset.dll build\win32\bin
