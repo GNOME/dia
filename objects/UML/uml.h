@@ -82,6 +82,8 @@ struct _UMLFormalParameter {
 
 extern char *uml_get_attribute_string(UMLAttribute *attribute);
 extern char *uml_get_operation_string(UMLOperation *operation);
+extern char *uml_get_operation_method_string(UMLOperation *operation);
+extern char *uml_get_operation_type_string(UMLOperation *operation);
 extern char *uml_get_parameter_string(UMLParameter *param);
 extern char *uml_get_formalparameter_string(UMLFormalParameter *parameter);
 extern UMLAttribute *uml_attribute_copy(UMLAttribute *attr);

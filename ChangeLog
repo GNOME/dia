@@ -1,3 +1,18 @@
+1999-05-13  Alexander Larsson  <alla@lysator.liu.se>
+
+	Changes from Kim Peasley <kpeasley@ior.com> 
+		
+	* dia/objects/UML/class.c:
+	Break lines with long operations so classes won't be
+	so wide.
+
+	* dia/objects/UML/uml.[ch]:
+	Helperfunctions for the above.
+	
+	* dia/objects/UML/objects.c:
+	Fix bug that duplicated the text in the attributes
+	textwidget each time the object was selected.
+	
 1999-05-12  Alexander Larsson  <alla@lysator.liu.se>
 
 	Changes from Lars R. Clausen <lrclause@cs.uiuc.edu>
