@@ -8,13 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-09 20:17+0100\n"
-"PO-Revision-Date: 2004-08-09 20:18+0100\n"
+"POT-Creation-Date: 2004-09-26 17:01+0100\n"
+"PO-Revision-Date: 2004-09-26 17:01+0100\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: app/app_procs.c:219
 #, c-format
@@ -262,7 +262,7 @@ msgstr ""
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr "David Lodge <dave@cirt.net>"
 
-#: app/commands.c:620 dia.desktop.in.h:1
+#: app/commands.c:620
 msgid "Dia"
 msgstr "Dia"
 
@@ -540,7 +540,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Page Setup"
 
-#: app/disp_callbacks.c:81 app/properties.c:152
+#: app/disp_callbacks.c:83 app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -548,11 +548,11 @@ msgstr ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
 
-#: app/disp_callbacks.c:116
+#: app/disp_callbacks.c:118
 msgid "Properties..."
 msgstr "Properties..."
 
-#: app/disp_callbacks.c:919
+#: app/disp_callbacks.c:926
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -587,7 +587,7 @@ msgstr "Discard Changes"
 
 #: app/export_png.c:134 app/load_save.c:904 app/render_eps.c:103
 #: plug-ins/cairo/diacairo.c:913 plug-ins/cgm/cgm.c:1157
-#: plug-ins/dxf/dxf-export.c:505 plug-ins/hpgl/hpgl.c:732
+#: plug-ins/dxf/dxf-export.c:509 plug-ins/hpgl/hpgl.c:732
 #: plug-ins/metapost/render_metapost.c:964
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:152 plug-ins/wpg/wpg.c:1066
@@ -614,6 +614,7 @@ msgid "PNG Export Options"
 msgstr "PNG Export Options"
 
 #. Translators: Menu item Verb/Channel/Export
+#. Translators: Menu item Verb/Channel/Export/Export
 #: app/export_png.c:300 objects/FS/function.c:685 objects/FS/function.c:687
 msgid "Export"
 msgstr "Export"
@@ -1437,7 +1438,7 @@ msgstr ""
 "Can't find menu entry '%s'!\n"
 "This is probably a translation problem (try LANG=C)."
 
-#: app/modify_tool.c:328
+#: app/modify_tool.c:327
 msgid "Couldn't get GTK settings"
 msgstr "Couldn't get GTK settings"
 
@@ -1822,6 +1823,8 @@ msgid "Name:"
 msgstr "Name:"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove
+#. Translators: Menu item Verb/Branch/Separate/Remove/Remove
 #: app/sheets_dialog.c:784 objects/FS/function.c:695 objects/FS/function.c:847
 #: objects/FS/function.c:849
 msgid "Remove"
@@ -1943,9 +1946,13 @@ msgstr "Loading ..."
 msgid "Dia v %s"
 msgstr "Dia v %s"
 
+#: dia.desktop.in.h:1
+msgid "Dia Diagram Editor"
+msgstr "Dia Diagram Editor"
+
 #: dia.desktop.in.h:2
-msgid "Diagram editor"
-msgstr "Diagram editor"
+msgid "Edit your Diagrams"
+msgstr "Edit your Diagrams"
 
 #: lib/arrows.c:40 objects/UML/association.c:1149 objects/Jackson/domain.c:96
 msgid "None"
@@ -2265,15 +2272,15 @@ msgstr ""
 "Could not open `%s'\n"
 "`%s'"
 
-#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:791
+#: lib/properties.c:62 lib/properties.h:468 lib/widgets.c:792
 msgid "Left"
 msgstr "Left"
 
-#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:797
+#: lib/properties.c:63 lib/properties.h:469 lib/widgets.c:798
 msgid "Center"
 msgstr "Centre"
 
-#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:803
+#: lib/properties.c:64 lib/properties.h:470 lib/widgets.c:804
 msgid "Right"
 msgstr "Right"
 
@@ -2337,59 +2344,59 @@ msgstr "Fill colour"
 msgid "Text colour"
 msgstr "Text colour"
 
-#: lib/widgets.c:395
+#: lib/widgets.c:396
 msgid "Other fonts..."
 msgstr "Other fonts..."
 
-#: lib/widgets.c:522
+#: lib/widgets.c:523
 #, c-format
 msgid "Couldn't find font family for %s\n"
 msgstr "Couldn't find font family for %s\n"
 
 #. We hit the Other fonts... entry
-#: lib/widgets.c:587
+#: lib/widgets.c:588
 msgid "Select font"
 msgstr "Select font"
 
 #. Translators: Menu item Noun/Material/Solid
-#: lib/widgets.c:939 objects/FS/function.c:1063
+#: lib/widgets.c:940 objects/FS/function.c:1063
 msgid "Solid"
 msgstr "Solid"
 
-#: lib/widgets.c:945
+#: lib/widgets.c:946
 msgid "Dashed"
 msgstr "Dashed"
 
-#: lib/widgets.c:951
+#: lib/widgets.c:952
 msgid "Dash-Dot"
 msgstr "Dash-Dot"
 
-#: lib/widgets.c:957
+#: lib/widgets.c:958
 msgid "Dash-Dot-Dot"
 msgstr "Dash-Dot-Dot"
 
-#: lib/widgets.c:963
+#: lib/widgets.c:964
 msgid "Dotted"
 msgstr "Dotted"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:982
+#: lib/widgets.c:983
 msgid "Dash length: "
 msgstr "Dash length: "
 
-#: lib/widgets.c:1137
+#: lib/widgets.c:1138
 msgid "Select color"
 msgstr "Select colour"
 
-#: lib/widgets.c:1355
+#: lib/widgets.c:1356
 msgid "Size: "
 msgstr "Size: "
 
-#: lib/widgets.c:1504
+#: lib/widgets.c:1505
 msgid "Select image file"
 msgstr "Select image file"
 
-#: lib/widgets.c:1540
+#: lib/widgets.c:1541
 msgid "Browse"
 msgstr "Browse"
 
@@ -2482,6 +2489,9 @@ msgid "Material"
 msgstr "Material"
 
 #. Translators: Menu item Verb/Signal
+#. Translators: Menu item Verb/Signal/Signal
+#. Translators: Menu item Noun/Signal
+#. Translators: Menu item Noun/Signal/Signal
 #: objects/FS/flow-ortho.c:161 objects/FS/flow-ortho.c:643
 #: objects/FS/flow.c:139 objects/FS/flow.c:578 objects/FS/function.c:1023
 #: objects/FS/function.c:1025 objects/FS/function.c:1161
@@ -2507,12 +2517,15 @@ msgid "Verb"
 msgstr "Verb"
 
 #. Translators: Menu item Verb/Channel
+#. Translators: Menu item Verb/Channel/Channel
+#. Translators: Menu item Verb/Channel/Transfer/Transport/Channel
 #: objects/FS/function.c:667 objects/FS/function.c:669
 #: objects/FS/function.c:709
 msgid "Channel"
 msgstr "Channel"
 
 #. Translators: Menu item Verb/Channel/Import
+#. Translators: Menu item Verb/Channel/Import/Import
 #: objects/FS/function.c:671 objects/FS/function.c:673
 msgid "Import"
 msgstr "Import"
@@ -2528,6 +2541,7 @@ msgid "Receive"
 msgstr "Receive"
 
 #. Translators: Menu item Verb/Channel/Import/Allow
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Allow
 #: objects/FS/function.c:679 objects/FS/function.c:951
 msgid "Allow"
 msgstr "Allow"
@@ -2538,6 +2552,7 @@ msgid "Form Entrance"
 msgstr "Form Entrance"
 
 #. Translators: Menu item Verb/Channel/Import/Capture
+#. Translators: Menu item Verb/Provision/Store/Capture
 #: objects/FS/function.c:683 objects/FS/function.c:917
 msgid "Capture"
 msgstr "Capture"
@@ -2558,12 +2573,15 @@ msgid "Dispose"
 msgstr "Dispose"
 
 #. Translators: Menu item Verb/Channel/Transfer
+#. Translators: Menu item Verb/Channel/Transfer/Transfer
+#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transfer
 #: objects/FS/function.c:697 objects/FS/function.c:699
 #: objects/FS/function.c:717
 msgid "Transfer"
 msgstr "Transfer"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transport
+#. Translators: Menu item Verb/Channel/Transfer/Transport/Transport
 #: objects/FS/function.c:701 objects/FS/function.c:703
 msgid "Transport"
 msgstr "Transport"
@@ -2579,6 +2597,7 @@ msgid "Move"
 msgstr "Move"
 
 #. Translators: Menu item Verb/Channel/Transfer/Transmit
+#. Translators: Menu item Verb/Channel/Transfer/Transmit/Transmit
 #: objects/FS/function.c:711 objects/FS/function.c:713
 msgid "Transmit"
 msgstr "Transmit"
@@ -2594,6 +2613,8 @@ msgid "Convey"
 msgstr "Convey"
 
 #. Translators: Menu item Verb/Channel/Guide
+#. Translators: Menu item Verb/Channel/Guide/Guide
+#. Translators: Menu item Verb/Channel/Guide/Guide/Guide
 #: objects/FS/function.c:721 objects/FS/function.c:723
 #: objects/FS/function.c:725
 msgid "Guide"
@@ -2620,6 +2641,7 @@ msgid "Translate"
 msgstr "Translate"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
+#. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
 #: objects/FS/function.c:735 objects/FS/function.c:737
 msgid "Rotate"
 msgstr "Rotate"
@@ -2635,6 +2657,7 @@ msgid "Spin"
 msgstr "Spin"
 
 #. Translators: Menu item Verb/Channel/Guide/Allow DOF
+#. Translators: Menu item Verb/Channel/Guide/Allow DOF/Allow DOF
 #: objects/FS/function.c:743 objects/FS/function.c:745
 msgid "Allow DOF"
 msgstr "Allow DOF"
@@ -2650,11 +2673,13 @@ msgid "Unlock"
 msgstr "Unlock"
 
 #. Translators: Menu item Verb/Support
+#. Translators: Menu item Verb/Support/Support
 #: objects/FS/function.c:751 objects/FS/function.c:753
 msgid "Support"
 msgstr "Support"
 
 #. Translators: Menu item Verb/Support/Stop
+#. Translators: Menu item Verb/Support/Stop/Stop
 #: objects/FS/function.c:755 objects/FS/function.c:757
 #: sheets/SDL.sheet.in.h:19
 msgid "Stop"
@@ -2671,6 +2696,7 @@ msgid "Protect"
 msgstr "Protect"
 
 #. Translators: Menu item Verb/Support/Stop/Prevent
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Prevent
 #: objects/FS/function.c:763 objects/FS/function.c:953
 msgid "Prevent"
 msgstr "Prevent"
@@ -2686,6 +2712,7 @@ msgid "Inhibit"
 msgstr "Inhibit"
 
 #. Translators: Menu item Verb/Support/Stabilize
+#. Translators: Menu item Verb/Support/Stabilize/Stabilize
 #: objects/FS/function.c:769 objects/FS/function.c:771
 msgid "Stabilize"
 msgstr "Stabilise"
@@ -2696,11 +2723,13 @@ msgid "Steady"
 msgstr "Steady"
 
 #. Translators: Menu item Verb/Support/Secure
+#. Translators: Menu item Verb/Support/Secure/Secure
 #: objects/FS/function.c:775 objects/FS/function.c:777
 msgid "Secure"
 msgstr "Secure"
 
 #. Translators: Menu item Verb/Support/Secure/Attach
+#. Translators: Menu item Verb/Connect/Couple/Attach
 #: objects/FS/function.c:779 objects/FS/function.c:811
 msgid "Attach"
 msgstr "Attach"
@@ -2726,6 +2755,7 @@ msgid "Hold"
 msgstr "Hold"
 
 #. Translators: Menu item Verb/Support/Position
+#. Translators: Menu item Verb/Support/Position/Position
 #: objects/FS/function.c:789 objects/FS/function.c:791
 #: objects/Istar/actor.c:68
 msgid "Position"
@@ -2742,16 +2772,19 @@ msgid "Align"
 msgstr "Align"
 
 #. Translators: Menu item Verb/Support/Position/Locate
+#. Translators: Menu item Verb/Signal/Sense/Locate
 #: objects/FS/function.c:797 objects/FS/function.c:1039
 msgid "Locate"
 msgstr "Locate"
 
 #. Translators: Menu item Verb/Connect
+#. Translators: Menu item Verb/Connect/Connect
 #: objects/FS/function.c:799 objects/FS/function.c:801
 msgid "Connect"
 msgstr "Connect"
 
 #. Translators: Menu item Verb/Connect/Couple
+#. Translators: Menu item Verb/Connect/Couple/Couple
 #: objects/FS/function.c:803 objects/FS/function.c:805
 msgid "Couple"
 msgstr "Couple"
@@ -2767,6 +2800,7 @@ msgid "Assemble"
 msgstr "Assemble"
 
 #. Translators: Menu item Verb/Connect/Mix
+#. Translators: Menu item Verb/Connect/Mix/Mix
 #: objects/FS/function.c:813 objects/FS/function.c:815
 msgid "Mix"
 msgstr "Mix"
@@ -2797,11 +2831,14 @@ msgid "Coalesce"
 msgstr "Coalesce"
 
 #. Translators: Menu item Verb/Branch
+#. Translators: Menu item Verb/Branch/Branch
 #: objects/FS/function.c:827 objects/FS/function.c:829 sheets/UML.sheet.in.h:5
 msgid "Branch"
 msgstr "Branch"
 
 #. Translators: Menu item Verb/Branch/Separate
+#. Translators: Menu item Verb/Branch/Separate/Separate
+#. Translators: Menu item Verb/Branch/Separate/Separate/Separate
 #: objects/FS/function.c:831 objects/FS/function.c:833
 #: objects/FS/function.c:835
 msgid "Separate"
@@ -2858,6 +2895,7 @@ msgid "Lathe"
 msgstr "Lathe"
 
 #. Translators: Menu item Verb/Branch/Refine
+#. Translators: Menu item Verb/Branch/Refine/Refine
 #: objects/FS/function.c:861 objects/FS/function.c:863
 msgid "Refine"
 msgstr "Refine"
@@ -2888,6 +2926,7 @@ msgid "Clear"
 msgstr "Clear"
 
 #. Translators: Menu item Verb/Branch/Distribute
+#. Translators: Menu item Verb/Branch/Distribute/Distribute
 #: objects/FS/function.c:875 objects/FS/function.c:877
 msgid "Distribute"
 msgstr "Distribute"
@@ -2908,6 +2947,7 @@ msgid "Disperse"
 msgstr "Disperse"
 
 #. Translators: Menu item Verb/Branch/Distribute/Diffuse
+#. Translators: Menu item Verb/Branch/Dissipate/Diffuse
 #: objects/FS/function.c:885 objects/FS/function.c:899
 msgid "Diffuse"
 msgstr "Diffuse"
@@ -2918,6 +2958,7 @@ msgid "Empty"
 msgstr "Empty"
 
 #. Translators: Menu item Verb/Branch/Dissipate
+#. Translators: Menu item Verb/Branch/Dissipate/Dissipate
 #: objects/FS/function.c:889 objects/FS/function.c:891
 msgid "Dissipate"
 msgstr "Dissipate"
@@ -2943,11 +2984,13 @@ msgid "Resist"
 msgstr "Resist"
 
 #. Translators: Menu item Verb/Provision
+#. Translators: Menu item Verb/Provision/Provision
 #: objects/FS/function.c:903 objects/FS/function.c:905
 msgid "Provision"
 msgstr "Provision"
 
 #. Translators: Menu item Verb/Provision/Store
+#. Translators: Menu item Verb/Provision/Store/Store
 #: objects/FS/function.c:907 objects/FS/function.c:909
 msgid "Store"
 msgstr "Store"
@@ -2968,6 +3011,7 @@ msgid "Reserve"
 msgstr "Reserve"
 
 #. Translators: Menu item Verb/Provision/Supply
+#. Translators: Menu item Verb/Provision/Supply/Supply
 #: objects/FS/function.c:919 objects/FS/function.c:921
 msgid "Supply"
 msgstr "Supply"
@@ -2998,11 +3042,13 @@ msgid "Extract"
 msgstr "Extract"
 
 #. Translators: Menu item Verb/Control Magnitude
+#. Translators: Menu item Verb/Control Magnitude/Control Magnitude
 #: objects/FS/function.c:933 objects/FS/function.c:935
 msgid "Control Magnitude"
 msgstr "Control Magnitude"
 
 #. Translators: Menu item Verb/Control Magnitude/Actuate
+#. Translators: Menu item Verb/Control Magnitude/Actuate/Actuate
 #: objects/FS/function.c:937 objects/FS/function.c:939
 msgid "Actuate"
 msgstr "Actuate"
@@ -3018,11 +3064,13 @@ msgid "Initiate"
 msgstr "Initiate"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate
+#. Translators: Menu item Verb/Control Magnitude/Regulate/Regulate
 #: objects/FS/function.c:945 objects/FS/function.c:947
 msgid "Regulate"
 msgstr "Regulate"
 
 #. Translators: Menu item Verb/Control Magnitude/Regulate/Control
+#. Translators: Menu item Noun/Signal/Control
 #: objects/FS/function.c:949 objects/FS/function.c:1167
 #: objects/UML/classicon.c:124
 msgid "Control"
@@ -3049,6 +3097,7 @@ msgid "Interrupt"
 msgstr "Interrupt"
 
 #. Translators: Menu item Verb/Control Magnitude/Change
+#. Translators: Menu item Verb/Control Magnitude/Change/Change
 #: objects/FS/function.c:963 objects/FS/function.c:965
 msgid "Change"
 msgstr "Change"
@@ -3099,6 +3148,7 @@ msgid "Adjust"
 msgstr "Adjust"
 
 #. Translators: Menu item Verb/Control Magnitude/Form
+#. Translators: Menu item Verb/Control Magnitude/Form/Form
 #: objects/FS/function.c:987 objects/FS/function.c:989
 msgid "Form"
 msgstr "Form"
@@ -3129,6 +3179,7 @@ msgid "Pierce"
 msgstr "Pierce"
 
 #. Translators: Menu item Verb/Convert
+#. Translators: Menu item Verb/Convert/Convert
 #: objects/FS/function.c:1001 objects/FS/function.c:1003
 msgid "Convert"
 msgstr "Convert"
@@ -3179,6 +3230,7 @@ msgid "Process"
 msgstr "Process"
 
 #. Translators: Menu item Verb/Signal/Sense
+#. Translators: Menu item Verb/Signal/Sense/Sense
 #: objects/FS/function.c:1027 objects/FS/function.c:1029
 msgid "Sense"
 msgstr "Sense"
@@ -3209,6 +3261,7 @@ msgid "Verify"
 msgstr "Verify"
 
 #. Translators: Menu item Verb/Signal/Indicate
+#. Translators: Menu item Verb/Signal/Indicate/Indicate
 #: objects/FS/function.c:1043 objects/FS/function.c:1045
 msgid "Indicate"
 msgstr "Indicate"
@@ -3224,6 +3277,7 @@ msgid "Display"
 msgstr "Display"
 
 #. Translators: Menu item Verb/Signal/Measure
+#. Translators: Menu item Verb/Signal/Measure/Measure
 #: objects/FS/function.c:1051 objects/FS/function.c:1053
 msgid "Measure"
 msgstr "Measure"
@@ -3254,6 +3308,8 @@ msgid "Gas"
 msgstr "Gas"
 
 #. Translators: Menu item Noun/Material/Human
+#. Translators: Menu item Noun/Material/Human/Human
+#. Translators: Menu item Noun/Energy/Human
 #: objects/FS/function.c:1069 objects/FS/function.c:1071
 #: objects/FS/function.c:1155
 msgid "Human"
@@ -3395,6 +3451,7 @@ msgid "Convection"
 msgstr "Convection"
 
 #. Translators: Menu item Noun/Energy/Thermal/Radiation
+#. Translators: Menu item Noun/Energy/Radioactive/Radiation
 #: objects/FS/function.c:1129 objects/FS/function.c:1137
 msgid "Radiation"
 msgstr "Radiation"
@@ -4603,6 +4660,7 @@ msgid "Keep aspect ratio"
 msgstr "Keep aspect ratio"
 
 #. Found file in same dir as diagram.
+#. Found file in current dir.
 #: objects/standard/image.c:669 objects/standard/image.c:680
 #, c-format
 msgid ""
@@ -4670,7 +4728,7 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Metafile export filter"
 
-#: plug-ins/dxf/dxf-export.c:547 plug-ins/dxf/dxf-import.c:1379
+#: plug-ins/dxf/dxf-export.c:551 plug-ins/dxf/dxf-import.c:1379
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -4768,7 +4826,7 @@ msgstr "Dia Shape File"
 msgid "dia shape export filter"
 msgstr "dia shape export filter"
 
-#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:641
+#: plug-ins/svg/render_svg.c:301 plug-ins/svg/svg-import.c:643
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -4789,11 +4847,11 @@ msgstr "Unexpected SVG path element"
 msgid "Courier"
 msgstr "Courier"
 
-#: plug-ins/svg/svg-import.c:590
+#: plug-ins/svg/svg-import.c:592
 msgid "Could not find SVG namespace."
 msgstr "Could not find SVG namespace."
 
-#: plug-ins/svg/svg-import.c:596
+#: plug-ins/svg/svg-import.c:598
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "root element was '%s' -- expecting 'svg'."
@@ -7967,72 +8025,3 @@ msgstr "Sybase dataserver"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase replication server"
-
-#~ msgid "Export format to use"
-#~ msgstr "Export format to use"
-
-#~ msgid "eps,png,wmf,cgm,dxf,fig"
-#~ msgstr "eps,png,wmf,cgm,dxf,fig"
-
-#~ msgid "Export file name to use"
-#~ msgstr "Export file name to use"
-
-#~ msgid "Quiet operation"
-#~ msgstr "Quiet operation"
-
-#~ msgid ""
-#~ "Error: No arguments found.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "Error: No arguments found.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-
-#~ msgid "%s error: can specify only one of -t or -o."
-#~ msgstr "%s error: can specify only one of -t or -o."
-
-#~ msgid ""
-#~ "%s error: must specify only one of -t or -o.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-#~ msgstr ""
-#~ "%s error: must specify only one of -t or -o.\n"
-#~ "Run '%s --help' to see a full list of available command line options.\n"
-
-#~ msgid "%s error: no input file."
-#~ msgstr "%s error: no input file."
-
-#~ msgid "%s error: only one input file expected."
-#~ msgstr "%s error: only one input file expected."
-
-#~ msgid "%s error: popt library not available on this system"
-#~ msgstr "%s error: popt library not available on this system"
-
-#~ msgid "Line gaps"
-#~ msgstr "Line gaps"
-
-#~ msgid "Absolute start gap"
-#~ msgstr "Absolute start gap"
-
-#~ msgid "Absolute end gap"
-#~ msgstr "Absolute end gap"
-
-#~ msgid "Fractional start gap"
-#~ msgstr "Fractional start gap"
-
-#~ msgid "Fractional end gap"
-#~ msgstr "Fractional end gap"
-
-#~ msgid "Helvetica"
-#~ msgstr "Helvetica"
-
-#~ msgid "Could not open `%s' for writing"
-#~ msgstr "Could not open `%s' for writing"
-
-#~ msgid "Can't open history file for writing."
-#~ msgstr "Can't open history file for writing."
-
-#, fuzzy
-#~ msgid "Background Colour"
-#~ msgstr "Background colour:"
-
-#~ msgid "Font color:"
-#~ msgstr "Font colour:"
