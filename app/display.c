@@ -336,11 +336,15 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
   Rectangle *extents = &ddisp->diagram->data->extents;
   Rectangle *visible = &ddisp->visible;
   GtkAdjustment *hsbdata, *vsbdata;
+  real extra_border_x, extra_border_y;
 
+  extra_border_x = (visible->right - visible->left);
+  extra_border_y = (visible->bottom - visible->top);
+  
   hsbdata = ddisp->hsbdata;
   /* Horizontal: */
-  hsbdata->lower = MIN(extents->left, visible->left);
-  hsbdata->upper = MAX(extents->right, visible->right);
+  hsbdata->lower = MIN(extents->left - extra_border_x, visible->left);
+  hsbdata->upper = MAX(extents->right + extra_border_x, visible->right);
   hsbdata->page_size = visible->right - visible->left - 0.0001;
   /* remove some to fix strange behaviour in gtk_range_adjustment_changed */
   hsbdata->page_increment = (visible->right - visible->left) / 2.0;
@@ -351,8 +355,8 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
 
   /* Vertical: */
   vsbdata = ddisp->vsbdata;
-  vsbdata->lower = MIN(extents->top, visible->top);
-  vsbdata->upper = MAX(extents->bottom, visible->bottom);
+  vsbdata->lower = MIN(extents->top - extra_border_y, visible->top);
+  vsbdata->upper = MAX(extents->bottom + extra_border_x, visible->bottom);
   vsbdata->page_size = visible->bottom - visible->top - 0.00001;
   /* remove some to fix strange behaviour in gtk_range_adjustment_changed */
   vsbdata->page_increment = (visible->bottom - visible->top) / 2.0;
