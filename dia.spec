@@ -1,15 +1,17 @@
+%define name dia
+%define ver 0.81cvs
 %define prefix /usr
 
 Summary: A gtk+ based diagram creation program.
-Name: dia
-Version: 0.81
+Name: %name
+Version: %ver
 Release: 1
 Copyright: GPL
 Group: Applications/
-Source: http://www.lysator.liu.se/~alla/dia/%{name}-%{version}.tar.gz
+Source: http://www.lysator.liu.se/~alla/dia/%{name}-%{ver}.tar.gz
 URL: http://www.lysator.liu.se/~alla/dia/dia.html
 Packager: Francis J. Lacoste <francis@Contre.COM>
-BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildRoot: /var/tmp/%{name}-%{ver}-root
 
 %description
 Dia is a program designed to be much like the Windows
@@ -30,7 +32,7 @@ diagrams to a custom fileformat and export to postscript.
 - First RPM release.
 
 %prep
-%setup -q -n %{name}
+%setup -q
 
 %build
 if [ -x ./configure ]; then

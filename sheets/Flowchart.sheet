@@ -103,7 +103,7 @@
       <description>Extract</description>
     </shape>
     <shape name="Flowchart - Delay">
-      <description xml:lang="fr">Tidsavbrudd</description>
+      <description xml:lang="no">Tidsavbrudd</description>
       <description xml:lang="fr">Délai</description>
       <description>Delay</description>
     </shape>
@@ -114,6 +114,7 @@
       <description>Summing Junction</description>
     </shape>
     <shape name="Flowchart - Collate">
+      <description xml:lang="no">Samle inn</description>
       <description xml:lang="fr">Rassembler</description>
       <!-- XXX -->
       <description>Collate</description>
@@ -139,10 +140,12 @@
       <description>Punched Tape</description>
     </shape>
     <shape name="Flowchart - Transmittal Tape">
+      <description xml:lang="no">Sendebånd</description>
       <description xml:lang="fr">Bande de transmission</description>
       <description>Transmittal Tape</description>
     </shape>
     <shape name="Flowchart - Offline Storage">
+      <description xml:lang="no">Off-line lagring</description>
       <description xml:lang="fr">Stockage hors-ligne</description>
       <description>Offline Storage</description>
     </shape>
