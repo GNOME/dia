@@ -54,6 +54,8 @@
 /* Define as 1 if you have gettext and don't want to use GNU gettext.  */
 #undef HAVE_GETTEXT
 
+/* define if you have gdk_pixbuf */
+#undef HAVE_GDK_PIXBUF
 
 
 /* Leave that blank line there!!  Autoheader needs it.

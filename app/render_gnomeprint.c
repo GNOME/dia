@@ -686,12 +686,33 @@ draw_image(RendererGPrint *renderer,
   int                 x, y;
   real ratio;
   guint8 *rgb_data;
+  guint8 *mask_data;
 
   img_width = dia_image_width(image);
   img_height = dia_image_height(image);
 
   rgb_data = dia_image_rgb_data(image);
+  mask_data = dia_image_mask_data(image);
   
+#define ALPHA_TO_WHITE
+  if (mask_data) {
+    for (x = 0; x < img_width; x++) {
+      for (y = 0; y < img_height; y++) {
+	int index = x*img_height+y;
+	if (mask_data[index] < 128) {
+#ifdef ALPHA_TO_WHITE
+	  rgb_data[index] = 255-(mask_data[index]*(255-rgb_data[index])/255);
+	  rgb_data[index+1] = 255-(mask_data[index]*(255-rgb_data[index+1])/255);
+	  rgb_data[index+2] = 255-(mask_data[index]*(255-rgb_data[index+2])/255);
+#else
+	  rgb_data[index] = rgb_data[index+1] =
+	    rgb_data[index+2] = 255;
+#endif
+	}	
+      }
+    }
+  }
+
   ratio = height/width;
 
   gnome_print_gsave(renderer->ctx);
@@ -702,5 +723,7 @@ draw_image(RendererGPrint *renderer,
 			 img_width * 3);
   }
   gnome_print_grestore(renderer->ctx);
+  g_free(mask_data);
+  g_free(rgb_data);
 }
 

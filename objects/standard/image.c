@@ -487,6 +487,64 @@ image_update_data(Image *image)
   element_update_handles(elem);
 }
 
+#ifdef INITIAL_IMAGE
+/* It really should block the creation of the image object.  But then how
+   would you stretch it, you can't grab hold of it when the dialog closes.
+   Also, I'd like to get the path from the diagram.  Oh, and have the 
+   image actually change.
+*/
+static GtkFileSelection *dialog;
+  
+static void
+image_browse_ok(GtkWidget *widget, gpointer data) {
+  Image *image = (Image *)data;
+  Element *elem;
+
+  image->file = gtk_file_selection_get_filename(dialog);
+  image->image = dia_image_load(image->file);
+
+  if (image->image) {
+    elem = (Element *) image;
+
+    elem->width = (elem->width*(float)dia_image_width(image->image))/
+      (float)dia_image_height(image->image);
+  }
+
+  message_warning(image->file);
+
+  image_update_data(image);
+
+  gtk_widget_hide(GTK_WIDGET(dialog));
+}
+
+static void
+image_browse_initial(Image *image)
+{
+  if (dialog == NULL) {
+    dialog =
+      GTK_FILE_SELECTION(gtk_file_selection_new(_("Select image file")));
+
+    if (dialog->help_button != NULL)
+      gtk_widget_hide(dialog->help_button);
+    
+    gtk_signal_connect (GTK_OBJECT (dialog->ok_button), "clicked",
+			(GtkSignalFunc) image_browse_ok,
+			image);
+    
+    gtk_signal_connect_object(GTK_OBJECT (dialog->cancel_button), "clicked",
+			      (GtkSignalFunc) gtk_widget_hide,
+			      GTK_OBJECT(dialog));
+  }
+
+  /*
+  gtk_file_selection_set_filename(dialog,
+				  gtk_entry_get_text(fs->entry));
+  */
+  
+  gtk_widget_show(GTK_WIDGET(dialog));
+}
+#endif
+
 static Object *
 image_create(Point *startpoint,
 	     void *user_data,
@@ -536,6 +594,9 @@ image_create(Point *startpoint,
   } else {
     image->file = g_strdup("");
     image->image = NULL;
+#ifdef INITIAL_IMAGE
+    image_browse_initial(image);
+#endif
   }
 
   image->draw_border = default_properties.draw_border;

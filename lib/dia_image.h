@@ -38,6 +38,7 @@ extern void dia_image_draw(DiaImage image, GdkWindow *window,
 extern int dia_image_width(DiaImage image);
 extern int dia_image_height(DiaImage image);
 extern guint8 *dia_image_rgb_data(DiaImage image);
+extern guint8 *dia_image_mask_data(DiaImage image);
 extern char *dia_image_filename(DiaImage image);
 
 #endif /* DIA_IMAGE_H */

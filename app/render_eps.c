@@ -315,7 +315,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
           "   end\n"
 	  "} def\n\n"
 
-
+	  /*
 	  "/colortogray {\n"
 	  "/rgbdata exch store\n"
 	  "rgbdata length 3 idiv\n"
@@ -332,7 +332,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
 	  "} for\n"
 	  "grays 0 npixls getinterval\n"
 	  "} bind def\n"
-	  
+	  */
 	  "/mergeprocs {\n"
 	  "dup length\n"
 	  "3 -1 roll\n"
@@ -351,13 +351,13 @@ create_eps_renderer(DiagramData *data, const char *filename,
 	  "4 2 roll\n"
 	  "putinterval\n"
 	  "} bind def\n"
-	  
+	  /*	  
 	  "/colorimage {\n"
 	  "pop pop\n"
 	  "{colortogray} mergeprocs\n"
 	  "image\n"
 	  "} bind def\n\n"
-	  
+	  */
 	  "%f %f scale\n"
 	  "%f %f translate\n"
 	  "%%%%EndProlog\n\n\n",
@@ -541,7 +541,7 @@ new_psprint_renderer(Diagram *dia, FILE *file)
           "   end\n"
 	  "} def\n\n"
 
-
+	  /*
 	  "/colortogray {\n"
 	  "/rgbdata exch store\n"
 	  "rgbdata length 3 idiv\n"
@@ -558,7 +558,7 @@ new_psprint_renderer(Diagram *dia, FILE *file)
 	  "} for\n"
 	  "grays 0 npixls getinterval\n"
 	  "} bind def\n"
-	  
+	  */
 	  "/mergeprocs {\n"
 	  "dup length\n"
 	  "3 -1 roll\n"
@@ -577,13 +577,13 @@ new_psprint_renderer(Diagram *dia, FILE *file)
 	  "4 2 roll\n"
 	  "putinterval\n"
 	  "} bind def\n"
-	  
+	  /*
 	  "/colorimage {\n"
 	  "pop pop\n"
 	  "{colortogray} mergeprocs\n"
 	  "image\n"
 	  "} bind def\n\n"
-	  
+	  */
 	  "%%%%EndProlog\n\n\n");
   
   return renderer;
@@ -1026,33 +1026,61 @@ draw_image(RendererEPS *renderer,
   unsigned char      *ptr;
   real ratio;
   guint8 *rgb_data;
+  guint8 *mask_data;
 
   img_width = dia_image_width(image);
   img_height = dia_image_height(image);
 
   rgb_data = dia_image_rgb_data(image);
   
+  mask_data = dia_image_mask_data(image);
+
   ratio = height/width;
 
   fprintf(renderer->file, "gs\n");
-  if (1) { /* Color output */
+  if (1) { /* Color output - experimental */
     fprintf(renderer->file, "/pix %i string def\n", img_width * 3);
+    fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
+    fprintf(renderer->file, "%f %f tr\n", point->x, point->y);
+    fprintf(renderer->file, "%f %f sc\n", width, height);
+    fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
+
+    /*
     fprintf(renderer->file, "/grays %i string def\n", img_width);
     fprintf(renderer->file, "/npixls 0 def\n");
     fprintf(renderer->file, "/rgbindx 0 def\n");
-    fprintf(renderer->file, "%f %f tr\n", point->x, point->y);
-    fprintf(renderer->file, "%f %f sc\n", width, height);
-    fprintf(renderer->file, "%i %i 8\n", img_width, img_height);
-    fprintf(renderer->file, "[%i 0 0 %i 0 0]\n", img_width, img_height);
+    */
     fprintf(renderer->file, "{currentfile pix readhexstring pop}\n");
     fprintf(renderer->file, "false 3 colorimage\n");
     fprintf(renderer->file, "\n");
+    
+#define ALPHA_TO_WHITE
     ptr = rgb_data;
     for (y = 0; y < img_width; y++) {
       for (x = 0; x < img_height; x++) {
-	fprintf(renderer->file, "%02x", (int)(*ptr++));
-	fprintf(renderer->file, "%02x", (int)(*ptr++));
-	fprintf(renderer->file, "%02x", (int)(*ptr++));
+#ifdef ALPHA_TO_WHITE
+	if (mask_data) {
+	  fprintf(renderer->file, "%02x", 255-(mask_data[y*img_height+x]*(255-*ptr)/255));
+	  ptr++;
+	  fprintf(renderer->file, "%02x", 255-(mask_data[y*img_height+x]*(255-*ptr)/255));
+	  ptr++;
+	  fprintf(renderer->file, "%02x", 255-(mask_data[y*img_height+x]*(255-*ptr)/255));
+	  ptr++;
+	} else {
+	  fprintf(renderer->file, "%02x", (int)(*ptr++));
+	  fprintf(renderer->file, "%02x", (int)(*ptr++));
+	  fprintf(renderer->file, "%02x", (int)(*ptr++));
+	}
+#else
+	if (!mask_data || mask_data[y*img_height+x] > 127) {
+	  fprintf(renderer->file, "%02x", (int)(*ptr++));
+	  fprintf(renderer->file, "%02x", (int)(*ptr++));
+	  fprintf(renderer->file, "%02x", (int)(*ptr++));
+	} else {
+	  fprintf(renderer->file, "FFFFFF");
+	  ptr+=3;
+	}
+#endif
       }
       fprintf(renderer->file, "\n");
     }
@@ -1083,6 +1111,9 @@ draw_image(RendererEPS *renderer,
   /*  fprintf(renderer->file, "%f %f scale\n", 1.0, 1.0/ratio);*/
   fprintf(renderer->file, "gr\n");
   fprintf(renderer->file, "\n");
+  
+  g_free(rgb_data);
+  g_free(mask_data);
 }
 
 /* --- export filter interface --- */

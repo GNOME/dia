@@ -119,7 +119,7 @@ EFENCE =
 
 dia_LDADD = ../lib/libdia.a \
     $(EFENCE) \
-    @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@ @PNG_LIBS@
+    @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@ @PNG_LIBS@ @GDK_PIXBUF_LIBS@
 
 # Bonobo embeddable dia. Commented out, because it's a bit raw.
 # Especially the configure/make parts.
@@ -129,7 +129,7 @@ dia_LDADD = ../lib/libdia.a \
 #
 #dia_embedd_LDADD = ../lib/libdia.a \
 #    $(EFENCE) \
-#    @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@ @PNG_LIBS@ \
+#    @APP_LIBS@ @XML_LIBS@ @GTK_LIBS@ @INTLLIBS@ @GNOME_LIBS@ @GDK_IMLIB_LIBS@ @LIBART_LIBS@ @PNG_LIBS@ @GDK_PIXBUF_LIBS@ \
 #    -lbonobo -lORBit -lIIOP -lORBitutil -lgnomeui -lart_lgpl  -lgnome  -lesd  -lORBitCosNaming -lgnorba
 
 CPPFLAGS = \
@@ -145,6 +145,7 @@ INCLUDES = \
 	@GDK_IMLIB_CFLAGS@ \
         @GNOME_CFLAGS@ \
 	@LIBART_CFLAGS@ \
+	@GDK_PIXBUF_CFLAGS@ \
 	-I/usr/lib/gnome-libs/include
 
 LDFLAGS = -export-dynamic

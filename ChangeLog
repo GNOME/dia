@@ -1,3 +1,19 @@
+2000-04-04  Lars Clausen  <lrclause@shasta.cs.uiuc.edu>
+
+	* app/Makefile.am (dia_LDADD): 
+	* acconfig.h: 
+	* configure.in: 
+	Check for gdk_pixbuf (by default disabled, for now)
+
+	* app/render_eps.c (draw_image): 
+	* app/render_libart.c (draw_image): 
+	* app/render_gnomeprint.c (draw_image): 
+	Support for alpha mask in rendering.  Color postscript, too.
+
+	* lib/dia_image.c: 
+	* lib/dia_image.h: 
+	Support for gdk_pixbuf and proper masking for exports.
+
 2000-04-01  Kjartan Maraas  <kmaraas@online.no>
 
 	* sheets/*.sheets: Updated Norwegian translations.

@@ -1181,7 +1181,9 @@ draw_image(RendererLibart *renderer,
   double x,y;
   int src_width, src_height;
   guint8 *img_data;
+  guint8 *img_mask;
   double affine[6];
+  int i,j;
 
   /* Todo: Handle some kind of clipping! */
   
@@ -1191,6 +1193,7 @@ draw_image(RendererLibart *renderer,
 			    &x, &y);
 
   img_data = dia_image_rgb_data(image);
+  img_mask = dia_image_mask_data(image);
   src_width = dia_image_width(image);
   src_height = dia_image_height(image);
   
@@ -1201,6 +1204,23 @@ draw_image(RendererLibart *renderer,
   affine[4] = x;
   affine[5] = y;
 
+#define ALPHA_TO_WHITE
+  if (img_mask) {
+    for (i = 0; i < src_width; i++) {
+      for (j = 0; j < src_height; j++) {
+	int index = i*src_height+j;
+#ifdef ALPHA_TO_WHITE
+	  img_data[index*3] = 255-(img_mask[index]*(255-img_data[index*3])/255);
+	  img_data[index*3+1] = 255-(img_mask[index]*(255-img_data[index*3+1])/255);
+	  img_data[index*3+2] = 255-(img_mask[index]*(255-img_data[index*3+2])/255);
+#else
+	  img_data[index*3] = img_data[index*3+1] =
+	    img_data[index*3+2] = 255;
+#endif
+      }
+    }
+  }
+
   art_rgb_affine(renderer->rgb_buffer,
 		 0, 0,
 		 renderer->renderer.pixel_width,
@@ -1208,7 +1228,9 @@ draw_image(RendererLibart *renderer,
 		 renderer->renderer.pixel_width*3,
 		 img_data, src_width, src_height, src_width*3,
 		 affine, ART_FILTER_NEAREST, NULL);
-		 
+
+  g_free(img_data);
+  g_free(img_mask);
 		 
   /*  dia_image_draw(image,  renderer->pixmap, real_x, real_y,
       real_width, real_height);*/
