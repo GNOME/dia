@@ -343,7 +343,7 @@ entity_create(Point *startpoint,
   }
 
   entity->weak = GPOINTER_TO_INT(user_data);
-  entity->font = dia_font_new("Monospace",STYLE_NORMAL,FONT_HEIGHT);
+  entity->font = dia_font_new(BASIC_MONOSPACE_FONT,STYLE_NORMAL,FONT_HEIGHT);
   entity->font_height = FONT_HEIGHT;
   entity->name = g_strdup(_("Entity"));
 

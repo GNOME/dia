@@ -429,7 +429,7 @@ chronoref_create(Point *startpoint,
 
   element_init(elem, 8, 0);
 
-  chronoref->font = dia_font_new ("Sans",STYLE_NORMAL,1.0);
+  chronoref->font = dia_font_new (BASIC_SANS_FONT,STYLE_NORMAL,1.0);
   chronoref->font_size = 1.0;
   chronoref->font_color = color_black;
   chronoref->start_time = 0.0;

@@ -279,7 +279,7 @@ implements_create(Point *startpoint,
   Point defaultlen = { 1.0, 1.0 };
 
   if (implements_font == NULL) {
-	  implements_font = dia_font_new ("Monospace",
+	  implements_font = dia_font_new (BASIC_MONOSPACE_FONT,
                                     STYLE_NORMAL,IMPLEMENTS_FONTHEIGHT);
   }
   

@@ -375,7 +375,7 @@ generalization_create(Point *startpoint,
   PolyBBExtras *extra;
 
   if (genlz_font == NULL) {
-	  genlz_font = dia_font_new("Monospace",STYLE_NORMAL,
+	  genlz_font = dia_font_new(BASIC_MONOSPACE_FONT,STYLE_NORMAL,
                               GENERALIZATION_FONTHEIGHT);
   }
   

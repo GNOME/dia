@@ -43,7 +43,7 @@
 
 #include "pixmaps/etape.xpm"
 
-#define STEP_FONT "Sans"
+#define STEP_FONT BASIC_SANS_FONT
 #define STEP_FONT_STYLE STYLE_BOLD
 #define STEP_FONT_HEIGHT 1
 #define STEP_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH 

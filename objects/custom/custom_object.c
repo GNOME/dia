@@ -1235,7 +1235,8 @@ custom_create(Point *startpoint,
             /* set default values for text style */
             if (!el->text.s.font_height) el->text.s.font_height = FONT_HEIGHT_DEFAULT;
             if (!el->text.s.font)
-                el->text.s.font = dia_font_new("Sans",STYLE_NORMAL,1.0);
+                el->text.s.font = dia_font_new(BASIC_SANS_FONT,
+                                               STYLE_NORMAL,1.0);
             if (el->text.s.alignment == -1) el->text.s.alignment = TEXT_ALIGNMENT_DEFAULT;
             el->text.object = new_text(el->text.string, el->text.s.font, el->text.s.font_height,
 	        &el->text.anchor, &color_black, el->text.s.alignment);

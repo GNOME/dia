@@ -338,7 +338,7 @@ smallpackage_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  font = dia_font_new("Monospace",STYLE_NORMAL,0.8);
+  font = dia_font_new(BASIC_MONOSPACE_FONT,STYLE_NORMAL,0.8);
   p = *startpoint;
   p.x += SMALLPACKAGE_MARGIN_X;
   p.y += SMALLPACKAGE_MARGIN_Y+ dia_font_ascent("A",font, 0.8);

@@ -433,7 +433,7 @@ orthflow_create(Point *startpoint,
     Color* color = &orthflow_color_signal;
 
     if (orthflow_font == NULL) {
-	    orthflow_font = dia_font_new("Sans",STYLE_ITALIC,1.0);
+	    orthflow_font = dia_font_new(BASIC_SANS_FONT,STYLE_ITALIC,1.0);
     }
 
     switch (orthflow->type) {

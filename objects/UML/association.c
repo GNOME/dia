@@ -615,7 +615,7 @@ association_create(Point *startpoint,
   int user_d;
 
   if (assoc_font == NULL) {
-	  assoc_font = dia_font_new("Monospace",STYLE_NORMAL,
+	  assoc_font = dia_font_new(BASIC_MONOSPACE_FONT,STYLE_NORMAL,
                               ASSOCIATION_FONTHEIGHT);
   }
   

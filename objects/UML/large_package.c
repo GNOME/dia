@@ -330,7 +330,8 @@ largepackage_create(Point *startpoint,
   elem->width = 4.0;
   elem->height = 4.0;
   
-  pkg->font = dia_font_new("Monospace",STYLE_NORMAL,LARGEPACKAGE_FONTHEIGHT);
+  pkg->font = dia_font_new(BASIC_MONOSPACE_FONT,
+                           STYLE_NORMAL,LARGEPACKAGE_FONTHEIGHT);
   
   pkg->stereotype = NULL;
   pkg->st_stereotype = NULL;

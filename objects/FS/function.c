@@ -414,7 +414,7 @@ function_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  font = dia_font_new ("Sans",STYLE_NORMAL,FUNCTION_FONTHEIGHT);
+  font = dia_font_new (BASIC_SANS_FONT,STYLE_NORMAL,FUNCTION_FONTHEIGHT);
   
   pkg->is_wish = FALSE;
   pkg->is_user = FALSE;

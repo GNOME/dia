@@ -24,6 +24,12 @@
 #include "geometry.h"
 #include "diavar.h"
 
+/* Do NOT put these strings through the .po mechanism. If you need to add
+   non-Roman alternatives, please insert them in the list */
+#define BASIC_SANS_FONT "arial, helvetica, helv, sans"
+#define BASIC_SERIF_FONT "times new roman, times, serif"
+#define BASIC_MONOSPACE_FONT "courier new, courier, monospace, fixed"
+
 typedef enum {
   ALIGN_LEFT,
   ALIGN_CENTER,

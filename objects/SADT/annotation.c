@@ -346,7 +346,7 @@ annotation_create(Point *startpoint,
   
   connection_init(conn, 3, 0);
 
-  font = dia_font_new("Sans",STYLE_NORMAL,ANNOTATION_FONTHEIGHT);
+  font = dia_font_new(BASIC_SANS_FONT,STYLE_NORMAL,ANNOTATION_FONTHEIGHT);
   annotation->text = new_text("", font,
                               ANNOTATION_FONTHEIGHT,
                               &conn->endpoints[1],

@@ -607,7 +607,7 @@ chronoline_create(Point *startpoint,
   chronoline->name = g_strdup("");
   chronoline->events = g_strdup("");
 
-  chronoline->font = dia_font_new ("Sans",STYLE_NORMAL,1.0);
+  chronoline->font = dia_font_new (BASIC_SANS_FONT,STYLE_NORMAL,1.0);
   chronoline->font_size = 1.0;
   chronoline->font_color = color_black;
   chronoline->start_time = 0.0;

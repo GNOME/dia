@@ -382,7 +382,7 @@ usecase_create(Point *startpoint,
   elem->width = USECASE_WIDTH;
   elem->height = USECASE_HEIGHT;
 
-  font = dia_font_new("Sans",STYLE_NORMAL,0.8);
+  font = dia_font_new(BASIC_SANS_FONT,STYLE_NORMAL,0.8);
   p = *startpoint;
   p.x += USECASE_WIDTH/2.0;
   p.y += USECASE_HEIGHT/2.0;

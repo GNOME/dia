@@ -427,7 +427,7 @@ flow_create(Point *startpoint,
     Color* color = NULL;
 
     if (flow_font == NULL) {
-	    flow_font = dia_font_new ("Sans",STYLE_ITALIC,FLOW_FONTHEIGHT);
+	    flow_font = dia_font_new (BASIC_SANS_FONT,STYLE_ITALIC,FLOW_FONTHEIGHT);
     }
 
     switch (flow->type) {

@@ -964,6 +964,18 @@ draw_string (RendererGdk *renderer,
   y -= get_layout_first_baseline(layout);  
   gdk_draw_layout(renderer->pixmap,gc,x,y,layout);
   g_object_unref(G_OBJECT(layout));
+
+  {
+     static Color red = {1.0,0.0,0.0};
+     static Color blue = {0.0,0.0,1.0};
+      
+     draw_pixel_line(renderer,x-5,y+5,x+5,y-5,&red);
+     draw_pixel_line(renderer,x-5,y-5,x+5,y+5,&red);
+  
+     ddisplay_transform_coords(ddisp, pos->x, pos->y, &x, &y);
+     draw_pixel_line(renderer,x-5,y+5,x+5,y-5,&blue);
+     draw_pixel_line(renderer,x-5,y-5,x+5,y+5,&blue);
+  }
 }
 
 /* Get the width of the given text in cm */

@@ -4,6 +4,21 @@
 	actually request the attributes to apply to the whole range of the
 	said text... D'oh! 
 
+	* lib/font.c: extents computation was wrong.
+
+	* lib/font.c: dia_font_get_legacy_name(); g_strconcat works better
+	if a last NULL parameter is added...
+
+	* lib/font.c: extents computation was completely wrong. This looks
+	much better this time.
+
+	* objects/UML/class.c: fixed the various strings positions.
+
+	* lib/font.h, and **/*.[ch] (all callers of dia_font_new): used
+	macros to get the hardcoded base fonts.
+
+	* objects/ER/relationship.c: wasn't converted to DiaFont*
+	
 2002-06-22  Hans Breuer  <hans@breuer.org>
 
 	* lib/widget.c : dont use backend specific functions

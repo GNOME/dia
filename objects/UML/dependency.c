@@ -372,7 +372,8 @@ dependency_create(Point *startpoint,
   Object *obj;
 
   if (dep_font == NULL) {
-      dep_font = dia_font_new("Monospace",STYLE_NORMAL,DEPENDENCY_FONTHEIGHT);
+      dep_font = dia_font_new(BASIC_MONOSPACE_FONT,
+                              STYLE_NORMAL,DEPENDENCY_FONTHEIGHT);
   }
   
   dep = g_new0(Dependency, 1);

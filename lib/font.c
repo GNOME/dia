@@ -87,7 +87,7 @@ dia_font_class_init(DiaFontClass* klass)
 static void 
 dia_font_init_instance(DiaFont* font)
 {
-  GObject *gobject = G_OBJECT(font);
+  GObject *gobject = G_OBJECT(font); 
 }
 
 /* Fills everything *BUT* family. */
@@ -113,7 +113,7 @@ dia_font_fill_descriptor(PangoFontDescription* pfd, Style style, real height)
             pango_font_description_set_style(pfd,PANGO_STYLE_ITALIC);
             pango_font_description_set_weight(pfd,PANGO_WEIGHT_BOLD);
             break;
-        case STYLE_NORMAL: // fall-through
+        case STYLE_NORMAL: /* fall-through */
         default:
             pango_font_description_set_style(pfd,PANGO_STYLE_NORMAL);
             pango_font_description_set_weight(pfd,PANGO_WEIGHT_NORMAL);
@@ -262,7 +262,8 @@ dia_font_get_legacy_name(const DiaFont* font) {
     
     ((DiaFont*)font)->legacy_name =
         g_strconcat(dia_font_get_family(font),
-                    diastyle_to_string(dia_font_get_style(font)));
+                    diastyle_to_string(dia_font_get_style(font)),
+                    NULL);
     return font->legacy_name;
 }
 
@@ -306,7 +307,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     attr = pango_attr_font_desc_new(font->pfd);
     attr->start_index = 0;
     attr->end_index = length;
-    pango_attr_list_insert(list,attr); // eats attr
+    pango_attr_list_insert(list,attr); /* eats attr */
     
     pango_layout_set_attributes(layout,list);
     pango_attr_list_unref(list);
@@ -333,37 +334,71 @@ dia_font_scaled_string_width(const char* string, DiaFont *font, real height,
                             real zoom_factor)
 {
     int lw,lh;
+    real result;
     PangoLayout* layout = dia_font_scaled_build_layout(string, font,
                                                       height, zoom_factor);
     pango_layout_get_size(layout,&lw,&lh);
     g_object_unref(G_OBJECT(layout));
     
-    return pdu_to_dcm(lw);
+    result = pdu_to_dcm(lw);
+    return result;
 }
+
+static gboolean
+dia_font_vertical_extents(const char* string, DiaFont* font,
+                          real height, real zoom_factor,
+                          guint line_no,
+                          real* top, real* baseline, real* bottom)
+{
+    PangoRectangle ink_rect,logical_rect;
+    PangoLayout* layout;
+    PangoLayoutIter* iter;
+    guint i;
+
+    layout = dia_font_scaled_build_layout(string, font,
+                                          height, zoom_factor);
+    iter = pango_layout_get_iter(layout);
+    for (i = 0; i < line_no; ++i) {
+       if (!pango_layout_iter_next_line(iter)) {
+           pango_layout_iter_free(iter);
+           g_object_unref(G_OBJECT(layout));
+           return FALSE;
+       }
+    }
+    
+    pango_layout_iter_get_line_extents(iter,&ink_rect,&logical_rect);
+    *top = pdu_to_dcm(logical_rect.y);
+    *bottom = pdu_to_dcm(logical_rect.y + logical_rect.height);
+    *baseline = pdu_to_dcm(pango_layout_iter_get_baseline(iter));
+
+    pango_layout_iter_free(iter);
+    g_object_unref(G_OBJECT(layout));
+
+    return TRUE;
+}
+    
 
 real
 dia_font_scaled_ascent(const char* string, DiaFont* font, real height,
                       real zoom_factor)
 {
-    PangoRectangle ink_rect,logical_rect;
-    PangoLayout* layout = dia_font_scaled_build_layout(string, font,
-                                                      height, zoom_factor);
-    pango_layout_get_pixel_extents(layout,&ink_rect,&logical_rect);
-    g_object_unref(G_OBJECT(layout));
+    real top,bline,bottom;
 
-    return PANGO_ASCENT(logical_rect);
+    dia_font_vertical_extents(string,font,height,zoom_factor,
+                              0,&top,&bline,&bottom);
+
+    return bline-top;
 }
 
 real dia_font_scaled_descent(const char* string, DiaFont* font,
                             real height, real zoom_factor)
 {
-    PangoRectangle ink_rect,logical_rect;
-    PangoLayout* layout = dia_font_scaled_build_layout(string, font,
-                                                      height, zoom_factor);
-    pango_layout_get_pixel_extents(layout,&ink_rect,&logical_rect);
-    g_object_unref(G_OBJECT(layout));
+    real top,bline,bottom;
 
-    return PANGO_DESCENT(logical_rect);
+    dia_font_vertical_extents(string,font,height,zoom_factor,
+                              0,&top,&bline,&bottom);
+
+    return bottom-bline;
 }
 
 static PangoStretch

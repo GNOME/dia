@@ -387,7 +387,7 @@ textobj_load(ObjectNode obj_node, int version, const char *filename)
   if (attr != NULL) {
 	  textobj->text = data_text( attribute_first_data(attr) );
   } else {
-      DiaFont* font = dia_font_new("Monospace",STYLE_NORMAL,1.0);
+      DiaFont* font = dia_font_new(BASIC_MONOSPACE_FONT,STYLE_NORMAL,1.0);
       textobj->text = new_text("", font, 1.0,
                                &startpoint, &color_black, ALIGN_CENTER);
       dia_font_unref(font);

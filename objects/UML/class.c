@@ -255,6 +255,8 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
                                &umlclass->color_foreground);
   }
 
+  p.y += umlclass->font_height;
+  
   /* name: */
   if (umlclass->abstract) {
     font = umlclass->abstract_classname_font;
@@ -264,7 +266,6 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
     font_height = umlclass->classname_font_height;
   }
 
-  p.y += font_height;
 
   renderer->ops->set_font(renderer, font, font_height);
   renderer->ops->draw_string(renderer,
@@ -293,6 +294,8 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
       list = umlclass->attributes;
       while (list != NULL) {
          UMLAttribute *attr = (UMLAttribute *)list->data;
+         real ascent;
+         
          if (attr->abstract) {
            font = umlclass->abstract_font;
            font_height = umlclass->abstract_font_height;
@@ -300,9 +303,10 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
            font = umlclass->normal_font;
            font_height = umlclass->font_height;
          }
-         p.y += dia_font_ascent(umlclass->attributes_strings[i],
-                                font,font_height);
-    
+         ascent = dia_font_ascent(umlclass->attributes_strings[i],
+                                  font,font_height);     
+         p.y += ascent;
+         
          renderer->ops->set_font (renderer, font, font_height);
          renderer->ops->draw_string(renderer,
                                     umlclass->attributes_strings[i],
@@ -320,9 +324,8 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
            renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
          }    
 	
-         p.y += dia_font_ascent(umlclass->attributes_strings[i],
-                                font,font_height);
-	
+         p.y += font_height - ascent;
+
          list = g_list_next(list);
          i++;
       }
@@ -350,6 +353,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
       list = umlclass->operations;
       while (list != NULL) {
         UMLOperation *op = (UMLOperation *)list->data;
+        real ascent;
             /* Must add a new font for virtual yet not abstract methods.
                Bold Italic for abstract? */
         if (op->inheritance_type != UML_LEAF) {
@@ -360,7 +364,9 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
           font_height = umlclass->font_height;
         }
 
-        p.y += umlclass->font_height;
+        ascent = dia_font_ascent(umlclass->operations_strings[i],
+                                 font,font_height);     
+        p.y += ascent;
 
         renderer->ops->set_font(renderer, font, font_height);
         renderer->ops->draw_string(renderer,
@@ -380,7 +386,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
           renderer->ops->set_linewidth(renderer, UMLCLASS_BORDER);
         }
 
-        p.y += umlclass->font_height;
+        p.y += font_height - ascent;
         
         list = g_list_next(list);
         i++;
@@ -694,19 +700,22 @@ fill_in_fontdata(UMLClass *umlclass)
 {
    if (umlclass->normal_font == NULL) {
      umlclass->font_height = 0.8;
-     umlclass->normal_font = dia_font_new("Monospace",STYLE_NORMAL,0.8);
+     umlclass->normal_font = dia_font_new(BASIC_MONOSPACE_FONT,
+                                          STYLE_NORMAL,0.8);
    }
    if (umlclass->abstract_font == NULL) {
      umlclass->abstract_font_height = 0.8;
-     umlclass->abstract_font = dia_font_new("Monospace",STYLE_ITALIC,0.8);
+     umlclass->abstract_font = dia_font_new(BASIC_MONOSPACE_FONT,
+                                            STYLE_ITALIC,0.8);
    }
    if (umlclass->classname_font == NULL) {
      umlclass->classname_font_height = 1.0;
-     umlclass->classname_font = dia_font_new("Sans",STYLE_BOLD,1.0);
+     umlclass->classname_font = dia_font_new(BASIC_SANS_FONT,
+                                             STYLE_BOLD,1.0);
    }
    if (umlclass->abstract_classname_font == NULL) {
      umlclass->abstract_classname_font_height = 1.0;
-     umlclass->abstract_classname_font = dia_font_new("Sans",
+     umlclass->abstract_classname_font = dia_font_new(BASIC_SANS_FONT,
                                                       STYLE_BOLD_ITALIC,1.0);
    }
 }

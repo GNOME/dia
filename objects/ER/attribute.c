@@ -394,7 +394,8 @@ attribute_create(Point *startpoint,
   attribute->weakkey = FALSE;
   attribute->derived = FALSE;
   attribute->multivalue = FALSE;
-  attribute->font = dia_font_new("Monospace",STYLE_NORMAL,FONT_HEIGHT);
+  attribute->font = dia_font_new(BASIC_MONOSPACE_FONT,
+                                 STYLE_NORMAL,FONT_HEIGHT);
   attribute->font_height = FONT_HEIGHT;
   attribute->name = g_strdup(_("Attribute"));
 

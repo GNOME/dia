@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -304,7 +306,8 @@ relationship_draw(Relationship *relationship, Renderer *renderer)
 
   p.x = elem->corner.x + elem->width / 2.0;
   p.y = elem->corner.y + (elem->height - relationship->font_height)/2.0 +
-         font_ascent(relationship->font, relationship->font_height);
+         dia_font_ascent(relationship->name,
+                         relationship->font, relationship->font_height);
   
   renderer->ops->draw_string(renderer, 
 			     relationship->name, 
@@ -320,11 +323,11 @@ relationship_update_data(Relationship *relationship)
   ElementBBExtras *extra = &elem->extra_spacing;
 
   relationship->name_width =
-    font_string_width(relationship->name, relationship->font, relationship->font_height);
+    dia_font_string_width(relationship->name, relationship->font, relationship->font_height);
   relationship->left_card_width =
-    font_string_width(relationship->left_cardinality, relationship->font, relationship->font_height);
+    dia_font_string_width(relationship->left_cardinality, relationship->font, relationship->font_height);
   relationship->right_card_width =
-    font_string_width(relationship->right_cardinality, relationship->font, relationship->font_height);
+    dia_font_string_width(relationship->right_cardinality, relationship->font, relationship->font_height);
 
   elem->width = relationship->name_width + 2*TEXT_BORDER_WIDTH_X;
   elem->height = elem->width * DIAMOND_RATIO;
@@ -419,22 +422,14 @@ relationship_create(Point *startpoint,
     relationship->connections[i].connected = NULL;
   }
 
-  /* choose default font name for your locale. see also font_data structure
-     in lib/font.c. if "Courier" works for you, it would be better.  */
-  relationship->font = font_getfont(_("Courier"));
+  relationship->font = dia_font_new(BASIC_MONOSPACE_FONT,
+                                    STYLE_NORMAL,FONT_HEIGHT);
   relationship->font_height = FONT_HEIGHT;
   relationship->name = g_strdup(_("Relationship"));
   relationship->left_cardinality = g_strdup("");
   relationship->right_cardinality = g_strdup("");
   relationship->identifying = FALSE;
   relationship->rotate = FALSE;
-
-  relationship->name_width =
-    font_string_width(relationship->name, relationship->font, relationship->font_height);
-  relationship->left_card_width =
-    font_string_width(relationship->left_cardinality, relationship->font, relationship->font_height);
-  relationship->right_card_width =
-    font_string_width(relationship->right_cardinality, relationship->font, relationship->font_height);
 
   relationship_update_data(relationship);
 
@@ -450,6 +445,7 @@ relationship_create(Point *startpoint,
 static void
 relationship_destroy(Relationship *relationship)
 {
+  dia_font_unref(relationship->font);  
   element_destroy(&relationship->element);
   g_free(relationship->name);
   g_free(relationship->left_cardinality);
@@ -484,7 +480,7 @@ relationship_copy(Relationship *relationship)
     newrelationship->connections[i].last_pos = relationship->connections[i].last_pos;
   }
 
-  newrelationship->font = relationship->font;
+  newrelationship->font = dia_font_ref(relationship->font);
   newrelationship->font_height = relationship->font_height;
   newrelationship->name = strdup(relationship->name);
   newrelationship->left_cardinality =
@@ -604,17 +600,9 @@ relationship_load(ObjectNode obj_node, int version, const char *filename)
   }
 
   if (relationship->font == NULL) {
-	  /* choose default font name for your locale. see also font_data structure
-	     in lib/font.c. if "Courier" works for you, it would be better.  */
-	  relationship->font = font_getfont(_("Courier"));
+    relationship->font = dia_font_new(BASIC_MONOSPACE_FONT,
+                                      STYLE_NORMAL,FONT_HEIGHT);
   }
-
-  relationship->name_width =
-    font_string_width(relationship->name, relationship->font, relationship->font_height);
-  relationship->left_card_width =
-    font_string_width(relationship->left_cardinality, relationship->font, relationship->font_height);
-  relationship->right_card_width =
-    font_string_width(relationship->right_cardinality, relationship->font, relationship->font_height);
 
   relationship_update_data(relationship);
 
