@@ -1,3 +1,13 @@
+1999-05-24  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/modify_tool.c:
+	Include math.h to remove warning.
+
+	* app/commands.c (dialogs_properties_callback):
+	Bring up correct properties dialog when selected
+	from menu.
+	From Dan Cohn <dan@internap.com>
+
 1999-05-20  Alexander Larsson  <alla@lysator.liu.se>
 
 	Patch from Lars R. Clausen 
