@@ -1,7 +1,7 @@
 2003-04-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
-	* app/persistence.c (persistence_load): Stat persistence file
-	before trying to open it.
+	* app/persistence.c (persistence_load): Test existence of
+	persistence file before trying to open it.
 
 2003-04-25  Lars Clausen  <lrclause@cs.uiuc.edu>
 

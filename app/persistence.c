@@ -108,7 +108,7 @@ persistence_load()
   gchar *filename = dia_config_filename("persistence");
   struct stat statbuf;
 
-  if (stat(filename, &statbuf) == -1) return;
+  if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) return;
 
   doc = xmlDiaParseFile(filename);
   if (doc != NULL) {
