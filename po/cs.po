@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-02 03:07+0200\n"
-"PO-Revision-Date: 2004-05-27 13:54+0200\n"
+"PO-Revision-Date: 2004-06-02 11:26+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -270,9 +270,8 @@ msgid "Contributors:"
 msgstr "Přispěli:"
 
 #: app/defaults.c:43 app/defaults.c:146
-#, fuzzy
 msgid "Object defaults"
-msgstr "Implicitní pro DiaObject"
+msgstr "Implicitní pro objekt"
 
 #: app/defaults.c:61
 msgid "This object has no defaults."
@@ -1644,9 +1643,8 @@ msgid "Preferences"
 msgstr "Nastavení"
 
 #: app/properties.c:55
-#, fuzzy
 msgid "Object properties"
-msgstr "Vlastnosti DiaObject"
+msgstr "Vlastnosti objektu"
 
 #: app/properties.c:81
 msgid "This object has no properties."
@@ -1657,9 +1655,8 @@ msgid "Properties: "
 msgstr "Vlastnosti:"
 
 #: app/properties.c:207
-#, fuzzy
 msgid "Object properties:"
-msgstr "Vlastnosti DiaObject:"
+msgstr "Vlastnosti objektu:"
 
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
