@@ -156,7 +156,7 @@ dia_font_selector_write_persistence_file() {
   FILE *pfile;
 
   persistence_name = dia_config_filename("font_menu");
-  if ((pfile = fopen(persistence_name, "w")) != NULL) {
+  if ((pfile = fopen(persistence_name, "wb")) != NULL) {
     GList *entry;
     for (entry = menu_entry_list; entry != NULL; entry = entry->next) {
       fputs((gchar *)entry->data, pfile);

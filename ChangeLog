@@ -1,3 +1,9 @@
+2002-12-07  Hans Breuer  <hans@breuer.org>
+
+	* lib/widgets.c : g_file_get_contents() silently assumes
+	a binary file. Reflect when creating the font_menu file
+	to get rid of junk in font menus
+
 2002-12-06  Hans Breuer  <hans@breuer.org>
 
 	* app/diapsrenderer.[hc] app/diapsft2renderer.[hc] :
