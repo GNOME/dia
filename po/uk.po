@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.82\n"
-"POT-Creation-Date: 2000-06-24 10:30+0800\n"
+"POT-Creation-Date: 2000-06-29 14:15+0300\n"
 "PO-Revision-Date: 1999-12-28 09:11+0200\n"
 "Last-Translator: Yuri Syrota <rasta@renome.rovno.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -272,8 +272,7 @@ msgid "/Objects/Align Vertical/Adjacent"
 msgstr "/Об'╓кти/Вир╕внювання вертикальне/Сум╕жне"
 
 #. paper size
-#: app/diapagelayout.c:133 app/paginate_gnomeprint.c:197
-#: app/paginate_gnomeprint.c:202
+#: app/diapagelayout.c:133
 msgid "Paper Size"
 msgstr "Розм╕р аркушу"
 
@@ -304,8 +303,7 @@ msgid "Right:"
 msgstr "Праворуч:"
 
 #. Scaling
-#: app/diapagelayout.c:266 app/paginate_gnomeprint.c:178
-#: app/paginate_gnomeprint.c:183
+#: app/diapagelayout.c:266
 msgid "Scaling"
 msgstr "Масштабування"
 
@@ -394,7 +392,8 @@ msgstr "/Вигляд/Згладжування"
 
 #: app/export_png.c:78 app/load_save.c:501 app/render_eps.c:162
 #: app/render_svg.c:146 plug-ins/cgm/cgm.c:1128 plug-ins/dxf/dxf-export.c:515
-#: plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/hpgl/hpgl.c:567 plug-ins/pstricks/render_pstricks.c:185
+#: plug-ins/wpg/wpg.c:937
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Не вдилось в╕дкрити: \"%s\" для записування.\n"
@@ -692,7 +691,7 @@ msgstr ""
 "Помилка завантаження д╕аграми.\n"
 "обробника з'╓днання не ╕сну╓."
 
-#: app/load_save.c:193
+#: app/load_save.c:193 plug-ins/dxf/dxf-import.c:437 plug-ins/wpg/wpg.c:1031
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Не вдилось в╕дкрити: \"%s\" для зчитування.\n"
@@ -1347,17 +1346,17 @@ msgstr "/╤нструменти/"
 msgid "Diagram Menu"
 msgstr "Меню д╕аграми"
 
-#: app/paginate_gnomeprint.c:158
+#: app/paginate_gnomeprint.c:148
 msgid "Print Diagram"
 msgstr "Надрукувати д╕аграму"
-
-#: app/paginate_gnomeprint.c:167 app/paginate_psprint.c:206
-msgid "Printer"
-msgstr "Принтер"
 
 #: app/paginate_psprint.c:194
 msgid "Select Printer"
 msgstr "Вибрати принтер"
+
+#: app/paginate_psprint.c:206
+msgid "Printer"
+msgstr "Принтер"
 
 #: app/paginate_psprint.c:219
 msgid "File"
@@ -1548,12 +1547,12 @@ msgstr "Увага"
 msgid "Error"
 msgstr "Помилка"
 
-#: lib/plug-ins.c:192
+#: lib/plug-ins.c:201
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "Не вдалося визначити коректний шлях для \"%s\""
 
-#: lib/plug-ins.c:197
+#: lib/plug-ins.c:206
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1562,22 +1561,22 @@ msgstr ""
 "Не вдалося завантажити доповнення \"%s\"\n"
 "%s"
 
-#: lib/plug-ins.c:208
+#: lib/plug-ins.c:217
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "Не вдалося знайти функц╕╖ ╕н╕ц╕ал╕зац╕╖ доповнення \"%s\""
 
-#: lib/plug-ins.c:235
+#: lib/plug-ins.c:244
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "Доповнення %s не може бути вивантажене"
 
-#: lib/plug-ins.c:288
+#: lib/plug-ins.c:297
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "\"%s\" не ╓ каталогом"
 
-#: lib/plug-ins.c:294
+#: lib/plug-ins.c:303
 #, c-format
 msgid "Could not open `%s'"
 msgstr "Не вдалось в╕дкрити: \"%s\""
@@ -1680,20 +1679,17 @@ msgid "Multivalue"
 msgstr "Багатозначний"
 
 #: objects/ER/attribute.c:238 objects/ER/entity.c:204
-#: objects/ER/relationship.c:296 objects/flowchart/diamond.c:243
-#: objects/flowchart/ellipse.c:243 objects/flowchart/parallelogram.c:251
+#: objects/ER/relationship.c:296
 msgid "Border width:"
 msgstr "Ширина рамки:"
 
 #: objects/ER/attribute.c:249 objects/ER/entity.c:215
-#: objects/ER/relationship.c:307 objects/flowchart/diamond.c:258
-#: objects/flowchart/ellipse.c:258 objects/flowchart/parallelogram.c:266
+#: objects/ER/relationship.c:307
 msgid "Foreground color:"
 msgstr "Кол╕р переднього плану:"
 
 #: objects/ER/attribute.c:257 objects/ER/entity.c:223
-#: objects/ER/relationship.c:315 objects/flowchart/diamond.c:269
-#: objects/flowchart/ellipse.c:269 objects/flowchart/parallelogram.c:277
+#: objects/ER/relationship.c:315
 msgid "Background color:"
 msgstr "Кол╕р тла:"
 
@@ -1964,11 +1960,9 @@ msgstr "   Вим╕ряти"
 #: objects/SADT/box.c:205 objects/SADT/box.c:247
 #: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
 #: objects/chronogram/chronoref.c:254 objects/chronogram/chronoref.c:319
-#: objects/custom/custom_object.c:382 objects/flowchart/box.c:346
-#: objects/flowchart/diamond.c:313 objects/flowchart/diamond.c:442
-#: objects/flowchart/ellipse.c:313 objects/flowchart/ellipse.c:442
-#: objects/flowchart/parallelogram.c:336 objects/flowchart/parallelogram.c:483
-#: objects/standard/textobj.c:271
+#: objects/custom/custom_object.c:383 objects/flowchart/box.c:345
+#: objects/flowchart/diamond.c:325 objects/flowchart/ellipse.c:325
+#: objects/flowchart/parallelogram.c:350 objects/standard/textobj.c:263
 msgid "Font:"
 msgstr "Шрифт:"
 
@@ -1980,10 +1974,9 @@ msgstr "Шрифт:"
 #: objects/SADT/box.c:206 objects/SADT/box.c:248
 #: objects/chronogram/chronoline.c:333 objects/chronogram/chronoline.c:425
 #: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
-#: objects/custom/custom_object.c:393 objects/flowchart/box.c:357
-#: objects/flowchart/diamond.c:324 objects/flowchart/diamond.c:453
-#: objects/flowchart/ellipse.c:324 objects/flowchart/ellipse.c:453
-#: objects/flowchart/parallelogram.c:347 objects/flowchart/parallelogram.c:494
+#: objects/custom/custom_object.c:394 objects/flowchart/box.c:356
+#: objects/flowchart/diamond.c:336 objects/flowchart/ellipse.c:336
+#: objects/flowchart/parallelogram.c:361
 msgid "Font size:"
 msgstr "Розм╕р шрифту:"
 
@@ -2083,8 +2076,6 @@ msgstr ""
 #: objects/SADT/box.c:207 objects/SADT/box.c:249
 #: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:426
 #: objects/chronogram/chronoref.c:256 objects/chronogram/chronoref.c:321
-#: objects/flowchart/diamond.c:338 objects/flowchart/ellipse.c:338
-#: objects/flowchart/parallelogram.c:361
 msgid "Font color:"
 msgstr "Кол╕р шрифту:"
 
@@ -2121,10 +2112,9 @@ msgid "SADT Arrow"
 msgstr "SADT стр╕лка"
 
 #: objects/SADT/box.c:204 objects/SADT/box.c:246
-#: objects/custom/custom_object.c:357 objects/flowchart/box.c:332
-#: objects/flowchart/diamond.c:299 objects/flowchart/diamond.c:428
-#: objects/flowchart/ellipse.c:299 objects/flowchart/ellipse.c:428
-#: objects/flowchart/parallelogram.c:322 objects/flowchart/parallelogram.c:469
+#: objects/custom/custom_object.c:358 objects/flowchart/box.c:331
+#: objects/flowchart/diamond.c:311 objects/flowchart/ellipse.c:311
+#: objects/flowchart/parallelogram.c:336
 msgid "Text padding:"
 msgstr "В╕дступи тексту:"
 
@@ -2538,49 +2528,47 @@ msgstr "В╕дзеркалити горизонтально"
 msgid "Flip vertical"
 msgstr "В╕дзеркалити вертикально"
 
-#: objects/custom/custom_object.c:348 objects/flowchart/box.c:310
-#: objects/flowchart/diamond.c:280 objects/flowchart/diamond.c:420
-#: objects/flowchart/ellipse.c:280 objects/flowchart/ellipse.c:420
-#: objects/flowchart/parallelogram.c:288 objects/flowchart/parallelogram.c:447
-#: objects/standard/box.c:223 objects/standard/ellipse.c:214
-#: objects/standard/polygon.c:219
+#: objects/custom/custom_object.c:349 objects/flowchart/box.c:309
+#: objects/flowchart/diamond.c:303 objects/flowchart/ellipse.c:303
+#: objects/flowchart/parallelogram.c:314 objects/standard/box.c:223
+#: objects/standard/ellipse.c:214 objects/standard/polygon.c:219
 msgid "Draw background"
 msgstr "Намалювати тло"
 
-#: objects/custom/custom_object.c:371 objects/standard/textobj.c:260
+#: objects/custom/custom_object.c:372 objects/standard/textobj.c:252
 msgid "Alignment:"
 msgstr "Вир╕внювання:"
 
-#: objects/custom/custom_object.c:1337
+#: objects/custom/custom_object.c:1338
 msgid "Flip Horizontal"
 msgstr "В╕дзеркалити горизонтально"
 
-#: objects/custom/custom_object.c:1338
+#: objects/custom/custom_object.c:1339
 msgid "Flip Vertical"
 msgstr "В╕дзеркалити вертикально"
 
-#: objects/flowchart/box.c:165 objects/standard/box.c:149
+#: objects/flowchart/box.c:163 objects/standard/box.c:149
 msgid "Corner radius"
 msgstr "Рад╕ус кута"
 
-#: objects/flowchart/box.c:167
+#: objects/flowchart/box.c:165 objects/flowchart/diamond.c:161
+#: objects/flowchart/ellipse.c:161 objects/flowchart/parallelogram.c:167
 msgid "Text padding"
 msgstr "В╕дступи тексту"
 
-#: objects/flowchart/box.c:318 objects/standard/box.c:231
+#: objects/flowchart/box.c:317 objects/standard/box.c:231
 msgid "Corner rounding:"
 msgstr "Заокруглен╕ кути:"
-
-#: objects/flowchart/diamond.c:288 objects/flowchart/ellipse.c:288
-#: objects/flowchart/parallelogram.c:296
-msgid "Line style:"
-msgstr "Стиль л╕н╕╖:"
 
 #: objects/flowchart/flowchart.c:32
 msgid "Flowchart objects"
 msgstr "Об'╓кти д╕аграми поток╕в"
 
-#: objects/flowchart/parallelogram.c:307 objects/flowchart/parallelogram.c:455
+#: objects/flowchart/parallelogram.c:165
+msgid "Shear angle"
+msgstr "Кут зм╕щення"
+
+#: objects/flowchart/parallelogram.c:322
 msgid "Shear angle:"
 msgstr "Кут зм╕щення:"
 
@@ -2615,6 +2603,10 @@ msgstr "Гладка точка"
 #: objects/standard/bezier.c:533
 msgid "Cusp control"
 msgstr "Керуюча точка"
+
+#: objects/standard/arc.c:129
+msgid "Curve distance"
+msgstr ""
 
 #: objects/standard/image.c:165
 msgid "Image file"
@@ -2664,11 +2656,11 @@ msgstr "Початкова точка"
 msgid "End point"
 msgstr "К╕нцева точка"
 
-#: objects/standard/polygon.c:513 objects/standard/polyline.c:484
+#: objects/standard/polygon.c:514 objects/standard/polyline.c:484
 msgid "Add Corner"
 msgstr "Додати кут"
 
-#: objects/standard/polygon.c:514 objects/standard/polyline.c:485
+#: objects/standard/polygon.c:515 objects/standard/polyline.c:485
 msgid "Delete Corner"
 msgstr "Видалити кут"
 
@@ -2676,7 +2668,7 @@ msgstr "Видалити кут"
 msgid "Standard objects"
 msgstr "Стандартн╕ об'╓кти"
 
-#: objects/standard/textobj.c:282
+#: objects/standard/textobj.c:274
 msgid "Fontsize:"
 msgstr "Розм╕р шрифту:"
 
@@ -2700,13 +2692,17 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Ф╕льтр експорту в Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:561
+#: plug-ins/dxf/dxf-export.c:561 plug-ins/dxf/dxf-import.c:491
 msgid "Drawing Interchange File"
 msgstr "DIF (формат файлу обм╕ну зображеннями)"
 
 #: plug-ins/dxf/dxf.c:37
 msgid "Drawing Interchange File import and export filters"
 msgstr "Ф╕льтр експорту/╕мпорту DIF (Drawing Interchange File)"
+
+#: plug-ins/hpgl/hpgl.c:624
+msgid "HP Graphics Language export filter"
+msgstr "Ф╕льтр експорту в HP Graphics Language"
 
 #: plug-ins/pstricks/pstricks.c:14
 msgid "TeX Pstricks export filter"
@@ -2715,3 +2711,12 @@ msgstr "Ф╕льтр експорту фал╕в TeX PSTricks"
 #: plug-ins/pstricks/render_pstricks.c:749
 msgid "TeX PSTricks macros"
 msgstr "Макроси TeX PSTricks"
+
+#: plug-ins/wpg/wpg.c:1043
+#, c-format
+msgid "File: %s type/version unsupported.\n"
+msgstr "Файл: тип/верс╕я %s не п╕дтриму╓ться.\n"
+
+#: plug-ins/wpg/wpg.c:1192
+msgid "WordPerfect Graphics export filter"
+msgstr "Ф╕льтр експорту в WordPerfect Graphics"
