@@ -13,6 +13,10 @@
 	See: http://bugzilla.gnome.org/show_bug.cgi?id=162034
 	for more information.
 
+	* lib/dialinechooser.c : a little shrinking of the 
+	initial size (to work around line wrappjing the right 
+	arrow control)
+
 2005-03-11  Lars Clausen  <lars@raeder.dk>
 
 	* app/textedit.c: Concentrate start/end editing in single functions.
