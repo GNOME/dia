@@ -53,8 +53,6 @@ typedef struct _Arc {
   Point center;
   real angle1, angle2;
 
-  ArcPropertiesDialog *properties_dialog;
-
 } Arc;
 
 typedef struct _ArcProperties {
@@ -83,6 +81,7 @@ struct _ArcDefaultsDialog {
   DiaArrowTypeSelector *end_arrow;
 };
 
+static ArcPropertiesDialog *arc_properties_dialog;
 static ArcDefaultsDialog *arc_defaults_dialog;
 static ArcProperties default_properties;
 
@@ -146,15 +145,11 @@ static ObjectOps arc_ops = {
 static void
 arc_apply_properties(Arc *arc)
 {
-  ArcPropertiesDialog *prop_dialog;
-
-  prop_dialog = arc->properties_dialog;
-
-  arc->line_width = gtk_spin_button_get_value_as_float(prop_dialog->line_width);
-  dia_color_selector_get_color(prop_dialog->color, &arc->arc_color);
-  arc->line_style = dia_line_style_selector_get_linestyle(prop_dialog->line_style);
-  arc->start_arrow = dia_arrow_type_selector_get_arrow_type(prop_dialog->start_arrow);
-  arc->end_arrow = dia_arrow_type_selector_get_arrow_type(prop_dialog->end_arrow);
+  arc->line_width = gtk_spin_button_get_value_as_float(arc_properties_dialog->line_width);
+  dia_color_selector_get_color(arc_properties_dialog->color, &arc->arc_color);
+  arc->line_style = dia_line_style_selector_get_linestyle(arc_properties_dialog->line_style);
+  arc->start_arrow = dia_arrow_type_selector_get_arrow_type(arc_properties_dialog->start_arrow);
+  arc->end_arrow = dia_arrow_type_selector_get_arrow_type(arc_properties_dialog->end_arrow);
   
   
   arc_update_data(arc);
@@ -163,7 +158,6 @@ arc_apply_properties(Arc *arc)
 static GtkWidget *
 arc_get_properties(Arc *arc)
 {
-  ArcPropertiesDialog *prop_dialog;
   GtkWidget *vbox;
   GtkWidget *hbox;
   GtkWidget *label;
@@ -173,13 +167,12 @@ arc_get_properties(Arc *arc)
   GtkWidget *line_width;
   GtkAdjustment *adj;
 
-  if (arc->properties_dialog == NULL) {
+  if (arc_properties_dialog == NULL) {
   
-    prop_dialog = g_new(ArcPropertiesDialog, 1);
-    arc->properties_dialog = prop_dialog;
+    arc_properties_dialog = g_new(ArcPropertiesDialog, 1);
 
     vbox = gtk_vbox_new(FALSE, 5);
-    prop_dialog->vbox = vbox;
+    arc_properties_dialog->vbox = vbox;
 
     hbox = gtk_hbox_new(FALSE, 5);
     label = gtk_label_new("Line width:");
@@ -189,7 +182,7 @@ arc_get_properties(Arc *arc)
     line_width = gtk_spin_button_new(adj, 1.0, 2);
     gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(line_width), TRUE);
     gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(line_width), TRUE);
-    prop_dialog->line_width = GTK_SPIN_BUTTON(line_width);
+    arc_properties_dialog->line_width = GTK_SPIN_BUTTON(line_width);
     gtk_box_pack_start(GTK_BOX (hbox), line_width, TRUE, TRUE, 0);
     gtk_widget_show (line_width);
     gtk_widget_show(hbox);
@@ -200,7 +193,7 @@ arc_get_properties(Arc *arc)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     color = dia_color_selector_new();
-    prop_dialog->color = DIACOLORSELECTOR(color);
+    arc_properties_dialog->color = DIACOLORSELECTOR(color);
     gtk_box_pack_start (GTK_BOX (hbox), color, TRUE, TRUE, 0);
     gtk_widget_show (color);
     gtk_widget_show(hbox);
@@ -211,7 +204,7 @@ arc_get_properties(Arc *arc)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     linestyle = dia_line_style_selector_new();
-    prop_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    arc_properties_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
     gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
     gtk_widget_show (linestyle);
     gtk_widget_show(hbox);
@@ -222,7 +215,7 @@ arc_get_properties(Arc *arc)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     arrow = dia_arrow_type_selector_new();
-    prop_dialog->start_arrow = DIAARROWTYPESELECTOR(arrow);
+    arc_properties_dialog->start_arrow = DIAARROWTYPESELECTOR(arrow);
     gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
     gtk_widget_show (arrow);
     gtk_widget_show(hbox);
@@ -233,7 +226,7 @@ arc_get_properties(Arc *arc)
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_widget_show (label);
     arrow = dia_arrow_type_selector_new();
-    prop_dialog->end_arrow = DIAARROWTYPESELECTOR(arrow);
+    arc_properties_dialog->end_arrow = DIAARROWTYPESELECTOR(arrow);
     gtk_box_pack_start (GTK_BOX (hbox), arrow, TRUE, TRUE, 0);
     gtk_widget_show (arrow);
     gtk_widget_show(hbox);
@@ -243,18 +236,16 @@ arc_get_properties(Arc *arc)
     gtk_widget_show (vbox);
   }
 
-  prop_dialog = arc->properties_dialog;
-    
-  gtk_spin_button_set_value(prop_dialog->line_width, arc->line_width);
-  dia_color_selector_set_color(prop_dialog->color, &arc->arc_color);
-  dia_line_style_selector_set_linestyle(prop_dialog->line_style,
+  gtk_spin_button_set_value(arc_properties_dialog->line_width, arc->line_width);
+  dia_color_selector_set_color(arc_properties_dialog->color, &arc->arc_color);
+  dia_line_style_selector_set_linestyle(arc_properties_dialog->line_style,
 					arc->line_style);
-  dia_arrow_type_selector_set_arrow_type(prop_dialog->start_arrow,
+  dia_arrow_type_selector_set_arrow_type(arc_properties_dialog->start_arrow,
 			       arc->start_arrow);
-  dia_arrow_type_selector_set_arrow_type(prop_dialog->end_arrow,
+  dia_arrow_type_selector_set_arrow_type(arc_properties_dialog->end_arrow,
 			       arc->end_arrow);
   
-  return prop_dialog->vbox;
+  return arc_properties_dialog->vbox;
 }
 
 static void
@@ -460,18 +451,52 @@ arc_draw(Arc *arc, Renderer *renderer)
 
   endpoints = &arc->connection.endpoints[0];
 
-  /* FIXME:  Maybe these should consider angles? */
-  if (arc->start_arrow != ARROW_NONE) {
-    arrow_draw(renderer, arc->start_arrow,
-	       &endpoints[0], &endpoints[1],
-	       0.8, 0.8, arc->line_width,
-	       &arc->arc_color, &color_white);
-  }
-  if (arc->end_arrow != ARROW_NONE) {
-    arrow_draw(renderer, arc->end_arrow,
-	       &endpoints[1], &endpoints[0],
-	       0.8, 0.8, arc->line_width,
-	       &arc->arc_color, &color_white);
+  if (arc->start_arrow != ARROW_NONE ||
+      arc->end_arrow != ARROW_NONE) {
+    Point reversepoint, centervec;
+    Point controlpoint0, controlpoint1;
+    real len, len2;
+
+    centervec = endpoints[0];
+    point_sub(&centervec, &endpoints[1]);
+    point_scale(&centervec, 0.5);
+    len = centervec.x*centervec.x+centervec.y*centervec.y;
+    point_add(&centervec, &endpoints[1]);
+    /* Centervec should now be the midpoint between [0] and [1] */
+    renderer->ops->draw_line(renderer, &centervec, &arc->center, &color_black);
+    reversepoint = centervec;
+    point_sub(&centervec, &arc->center);
+    len2 = centervec.x*centervec.x+centervec.y*centervec.y;
+    if (len2 != 0) {
+      point_scale(&centervec, 1/len2);
+    }
+    point_scale(&centervec, len);
+    point_add(&reversepoint, &centervec);
+    controlpoint0 = controlpoint1 = reversepoint;
+    len = arc->angle2-arc->angle1;
+    if (len > 180 || (len < 0.0 && len > -180)) {
+      printf("Flipflop\n");
+      centervec = endpoints[0];
+      point_sub(&centervec, &reversepoint);
+      point_add(&controlpoint0, &centervec);
+      point_add(&controlpoint0, &centervec);
+      centervec = endpoints[1];
+      point_sub(&centervec, &reversepoint);
+      point_add(&controlpoint1, &centervec);
+      point_add(&controlpoint1, &centervec);
+    }
+    if (arc->start_arrow != ARROW_NONE) {
+      arrow_draw(renderer, arc->start_arrow,
+		 &endpoints[0],&controlpoint0,
+		 0.8, 0.8, arc->line_width,
+		 &arc->arc_color, &color_white);
+    }
+    if (arc->end_arrow != ARROW_NONE) {
+      arrow_draw(renderer, arc->end_arrow,
+		 &endpoints[1], &controlpoint1,
+		 0.8, 0.8, arc->line_width,
+		 &arc->arc_color, &color_white);
+    }
   }
 
   renderer->ops->set_linewidth(renderer, arc->line_width);
@@ -516,8 +541,6 @@ arc_create(Point *startpoint,
   arc->start_arrow = default_properties.start_arrow;
   arc->end_arrow = default_properties.end_arrow;
 
-  arc->properties_dialog = NULL;
-
   conn = &arc->connection;
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
@@ -546,10 +569,6 @@ arc_create(Point *startpoint,
 static void
 arc_destroy(Arc *arc)
 {
-  if (arc->properties_dialog != NULL) {
-    gtk_widget_destroy(arc->properties_dialog->vbox);
-    g_free(arc->properties_dialog);
-  }
   connection_destroy(&arc->connection);
 }
 
@@ -583,8 +602,6 @@ arc_copy(Arc *arc)
   
   newarc->middle_handle = arc->middle_handle;
 
-  newarc->properties_dialog = NULL;
-  
   return (Object *)newarc;
 }
 
@@ -731,8 +748,6 @@ arc_load(ObjectNode obj_node, int version)
   attr = object_find_attribute(obj_node, "end_arrow");
   if (attr != NULL)
     arc->end_arrow = data_enum(attribute_first_data(attr));
-
-  arc->properties_dialog = NULL;
 
   connection_init(conn, 3, 0);
 

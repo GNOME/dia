@@ -34,6 +34,7 @@
 
 typedef struct _Box Box;
 typedef struct _BoxPropertiesDialog BoxPropertiesDialog;
+typedef struct _BoxDefaultsDialog BoxDefaultsDialog;
 
 struct _Box {
   Element element;
@@ -48,6 +49,13 @@ struct _Box {
   BoxPropertiesDialog *properties_dialog;
 };
 
+typedef struct _BoxProperties {
+  Color *fg_color;
+  Color *bg_color;
+  real border_width;
+  LineStyle line_style;
+} BoxProperties;
+
 struct _BoxPropertiesDialog {
   GtkWidget *vbox;
 
@@ -56,6 +64,15 @@ struct _BoxPropertiesDialog {
   DiaColorSelector *bg_color;
   DiaLineStyleSelector *line_style;
 };
+
+struct _BoxDefaultsDialog {
+  GtkWidget *vbox;
+
+  DiaLineStyleSelector *line_style;
+};
+
+static BoxDefaultsDialog *box_defaults_dialog;
+static BoxProperties default_properties;
 
 static real box_distance_from(Box *box, Point *point);
 static void box_select(Box *box, Point *clicked_point,
@@ -76,12 +93,16 @@ static void box_apply_properties(Box *box);
 
 static void box_save(Box *box, ObjectNode obj_node );
 static Object *box_load(ObjectNode obj_node, int version);
+static GtkWidget *box_get_defaults();
+static void box_apply_defaults();
 
 static ObjectTypeOps box_type_ops =
 {
   (CreateFunc) box_create,
   (LoadFunc)   box_load,
-  (SaveFunc)   box_save
+  (SaveFunc)   box_save,
+  (GetDefaultsFunc)   box_get_defaults,
+  (ApplyDefaultsFunc) box_apply_defaults
 };
 
 ObjectType box_type =
@@ -203,6 +224,46 @@ box_get_properties(Box *box)
 					box->line_style);
   
   return prop_dialog->vbox;
+}
+static void
+box_apply_defaults()
+{
+  default_properties.line_style = dia_line_style_selector_get_linestyle(box_defaults_dialog->line_style);
+}
+
+static GtkWidget *
+box_get_defaults()
+{
+  GtkWidget *vbox;
+  GtkWidget *hbox;
+  GtkWidget *label;
+  GtkWidget *linestyle;
+
+  if (box_defaults_dialog == NULL) {
+  
+    box_defaults_dialog = g_new(BoxDefaultsDialog, 1);
+
+    vbox = gtk_vbox_new(FALSE, 5);
+    box_defaults_dialog->vbox = vbox;
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Line style:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    linestyle = dia_line_style_selector_new();
+    box_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
+    gtk_widget_show (linestyle);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    gtk_widget_show (vbox);
+  }
+
+  dia_line_style_selector_set_linestyle(box_defaults_dialog->line_style,
+					default_properties.line_style);
+
+  return box_defaults_dialog->vbox;
 }
 
 static real
@@ -341,7 +402,7 @@ box_create(Point *startpoint,
   box->border_width =  attributes_get_default_linewidth();
   box->border_color = attributes_get_foreground();
   box->inner_color = attributes_get_background();
-  box->line_style = LINESTYLE_SOLID;
+  box->line_style = default_properties.line_style;
   
   element_init(elem, 8, 8);
 

@@ -1,3 +1,21 @@
+1999-02-01  Alexander Larsson  <alla@lysator.liu.se>
+
+	Patch from Lars R. Clausen <lrclause@cs.uiuc.edu>
+	
+	* app/load_save.c:
+	* lib/dia_xml.c:
+	Update xml includes to gnome-xml/*.h.
+
+	* objects/standard/arc.c:
+	Only one property dialog per type.
+	Fix arrows directions.
+
+	* objects/standard/box.c:
+	* objects/standard/ellipse.c:
+	* objects/standard/textobj.c
+	Added default properties dialog.
+	
+
 1999-01-31  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
 
 	* objects/UML/Makefile.in: 

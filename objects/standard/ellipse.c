@@ -34,6 +34,7 @@
 
 typedef struct _Ellipse Ellipse;
 typedef struct _EllipsePropertiesDialog EllipsePropertiesDialog;
+typedef struct _EllipseDefaultsDialog EllipseDefaultsDialog;
 
 struct _Ellipse {
   Element element;
@@ -48,6 +49,14 @@ struct _Ellipse {
   EllipsePropertiesDialog *properties_dialog;
 };
 
+
+typedef struct _EllipseProperties {
+  Color *fg_color;
+  Color *bg_color;
+  real border_width;
+  LineStyle line_style;
+} EllipseProperties;
+
 struct _EllipsePropertiesDialog {
   GtkWidget *vbox;
 
@@ -56,6 +65,14 @@ struct _EllipsePropertiesDialog {
   DiaColorSelector *bg_color;
   DiaLineStyleSelector *line_style;
 };
+struct _EllipseDefaultsDialog {
+  GtkWidget *vbox;
+
+  DiaLineStyleSelector *line_style;
+};
+
+static EllipseDefaultsDialog *ellipse_defaults_dialog;
+static EllipseProperties default_properties;
 
 static real ellipse_distance_from(Ellipse *ellipse, Point *point);
 static void ellipse_select(Ellipse *ellipse, Point *clicked_point,
@@ -76,12 +93,16 @@ static void ellipse_apply_properties(Ellipse *ellipse);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node);
 static Object *ellipse_load(ObjectNode obj_node, int version);
+static GtkWidget *ellipse_get_defaults();
+static void ellipse_apply_defaults();
 
 static ObjectTypeOps ellipse_type_ops =
 {
   (CreateFunc) ellipse_create,
   (LoadFunc)   ellipse_load,
-  (SaveFunc)   ellipse_save
+  (SaveFunc)   ellipse_save,
+  (GetDefaultsFunc)   ellipse_get_defaults,
+  (ApplyDefaultsFunc) ellipse_apply_defaults
 };
 
 ObjectType ellipse_type =
@@ -205,6 +226,46 @@ ellipse_get_properties(Ellipse *ellipse)
   return prop_dialog->vbox;
 }
 
+static void
+ellipse_apply_defaults()
+{
+  default_properties.line_style = dia_line_style_selector_get_linestyle(ellipse_defaults_dialog->line_style);
+}
+
+static GtkWidget *
+ellipse_get_defaults()
+{
+  GtkWidget *vbox;
+  GtkWidget *hbox;
+  GtkWidget *label;
+  GtkWidget *linestyle;
+
+  if (ellipse_defaults_dialog == NULL) {
+  
+    ellipse_defaults_dialog = g_new(EllipseDefaultsDialog, 1);
+
+    vbox = gtk_vbox_new(FALSE, 5);
+    ellipse_defaults_dialog->vbox = vbox;
+
+    hbox = gtk_hbox_new(FALSE, 5);
+    label = gtk_label_new("Line style:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
+    gtk_widget_show (label);
+    linestyle = dia_line_style_selector_new();
+    ellipse_defaults_dialog->line_style = DIALINESTYLESELECTOR(linestyle);
+    gtk_box_pack_start (GTK_BOX (hbox), linestyle, TRUE, TRUE, 0);
+    gtk_widget_show (linestyle);
+    gtk_widget_show(hbox);
+    gtk_box_pack_start (GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
+
+    gtk_widget_show (vbox);
+  }
+
+  dia_line_style_selector_set_linestyle(ellipse_defaults_dialog->line_style,
+					default_properties.line_style);
+
+  return ellipse_defaults_dialog->vbox;
+}
 
 static real
 ellipse_distance_from(Ellipse *ellipse, Point *point)
@@ -341,7 +402,7 @@ ellipse_create(Point *startpoint,
   ellipse->border_width =  attributes_get_default_linewidth();
   ellipse->border_color = attributes_get_foreground();
   ellipse->inner_color = attributes_get_background();
-  ellipse->line_style = LINESTYLE_SOLID;
+  ellipse->line_style = default_properties.line_style;
 
   ellipse->properties_dialog = NULL;
   
