@@ -692,9 +692,11 @@ image_load(ObjectNode obj_node, int version, const char *filename)
       char *temp_string;
 
       temp_string = g_malloc(strlen(diafile_dir) +
-			     strlen(image->file) +1);
+	                     strlen(G_DIR_SEPARATOR_S) +
+			     strlen(image->file) + 1);
 
       strcpy(temp_string, diafile_dir);
+      strcat(temp_string, G_DIR_SEPARATOR_S);
       strcat(temp_string, image->file);
 
       image->image = dia_image_load(temp_string);

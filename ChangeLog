@@ -1,3 +1,8 @@
+2004-07-17  Lars Clausen  <lars@raeder.dk>
+
+	* objects/standard/image.c (image_load): Use path of diagram
+	rather than running directory as base for image file place.
+
 2004-07-17 Sagar Rastogi <rastogi@students.iiit.net>
 
 	* app/disp_callbacks.c: Fixed #144962 (also in KNOWN_BUGS),
