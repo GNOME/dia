@@ -1,3 +1,9 @@
+1999-11-29  Alexander Larsson  <alla@lysator.liu.se>
+
+	* configure.in:
+	* po/ru.po:
+	Added russian translation from Valek Filippov <frob@df.ru>
+
 1999-11-24  James Henstridge  <james@daa.com.au>
 
 	* sheets/UML/*: 
