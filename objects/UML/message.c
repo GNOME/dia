@@ -93,7 +93,7 @@ struct _MessageDialog {
 #define MESSAGE_CREATE_LABEL "«create»"
 #define MESSAGE_DESTROY_LABEL "«destroy»"
 
-static Font *message_font = NULL;
+static DiaFont *message_font = NULL;
 
 static void message_move_handle(Message *message, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);

@@ -79,7 +79,7 @@ struct _InstantiationPropertiesDialog {
 #define INSTANTIATION_FONTHEIGHT 0.8
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM2)
 
-static Font *inst_font = NULL;
+static DiaFont *inst_font = NULL;
 
 static real instantiation_distance_from(Instantiation *inst, Point *point);
 static void instantiation_select(Instantiation *inst, Point *clicked_point,

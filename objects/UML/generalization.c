@@ -56,7 +56,7 @@ struct _Generalization {
 #define GENERALIZATION_TRIANGLESIZE 0.8
 #define GENERALIZATION_FONTHEIGHT 0.8
 
-static Font *genlz_font = NULL;
+static DiaFont *genlz_font = NULL;
 
 static real generalization_distance_from(Generalization *genlz, Point *point);
 static void generalization_select(Generalization *genlz, Point *clicked_point,

@@ -344,7 +344,7 @@ component_update_data(Component *cmp)
 
   if (cmp->stereotype &&
       cmp->stereotype[0] != '\0') {
-    Font *font;
+    DiaFont *font;
     font = cmp->text->font;
     elem->height += cmp->text->height;
     elem->width = MAX(elem->width, font_string_width(cmp->stereotype,
@@ -386,7 +386,7 @@ component_create(Point *startpoint,
   Element *elem;
   Object *obj;
   Point p;
-  Font *font;
+  DiaFont *font;
   int i;
   
   cmp = g_malloc0(sizeof(Component));

@@ -101,7 +101,7 @@ Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f };
 #define ORTHFLOW_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM2)
 
-static Font *orthflow_font = NULL;
+static DiaFont *orthflow_font = NULL;
 
 static OrthflowDialog *defaults_dialog;
 

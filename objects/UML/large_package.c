@@ -57,7 +57,7 @@ struct _LargePackage {
   char *name;
   char *stereotype; /* Can be NULL, including << and >> */
 
-  Font *font;
+  DiaFont *font;
   
   real topwidth;
   real topheight;

@@ -25,7 +25,7 @@ struct _EMLBox {
   ConnectionPoint *left_connection;
   ConnectionPoint *right_connection;
   real font_height;
-  Font *font;
+  DiaFont *font;
   gint text_alignment;
   real border_width;
   real separator_width;

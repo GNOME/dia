@@ -363,7 +363,7 @@ actor_create(Point *startpoint,
   Element *elem;
   Object *obj;
   Point p;
-  Font *font;
+  DiaFont *font;
   int i;
   
   actor = g_malloc0(sizeof(Actor));

@@ -408,7 +408,7 @@ objet_update_data(Objet *ob)
 {
   Element *elem = &ob->element;
   Object *obj = &elem->object;
-  Font *font;
+  DiaFont *font;
   Point p1, p2;
   real h, w = 0;
   
@@ -497,7 +497,7 @@ objet_create(Point *startpoint,
   Element *elem;
   Object *obj;
   Point p;
-  Font *font;
+  DiaFont *font;
   int i;
   
   ob = g_malloc0(sizeof(Objet));

@@ -310,7 +310,7 @@ static void node_update_data(Node *node)
 {
   Element *elem = &node->element;
   Object *obj = &node->element.object;
-  Font *font;
+  DiaFont *font;
   Point p1;
   real h, w = 0;
 
@@ -359,7 +359,7 @@ static Object *node_create(Point *startpoint, void *user_data, Handle **handle1,
   Element *elem;
   Object *obj;
   Point p;
-  Font *font;
+  DiaFont *font;
   int i;
   
   node = g_malloc0(sizeof(Node));

@@ -53,6 +53,13 @@
 #include <stdlib.h>
 #include <string.h> /* strlen */
 
+#ifdef HAVE_FREETYPE
+#include "X11/Xlib.h"
+#include "gdk/gdkx.h"
+#include <sys/types.h>
+#include <dirent.h>
+#endif
+
 #include "intl.h"
 #include "utils.h"
 #include "font.h"
@@ -64,19 +71,25 @@
 #define NUM_X11_FONTS 2
 
 typedef struct _FontPrivate FontPrivate;
-typedef struct  _FontCacheItem FontCacheItem;
+typedef struct _FontCacheItem FontCacheItem;
 
 struct _FontCacheItem {
   int height;
   GdkFont *gdk_font;
   SuckFont *suck_font;
+#ifdef HAVE_FREETYPE
+  FreetypeFamily *freetype_font;
+#endif
 };
 
 struct _FontPrivate {
-  Font public;
+  DiaFont public;
   char *fontname_x11;
   char **fontname_x11_vec;
   char *fontname_ps;
+#ifdef HAVE_FREETYPE
+  FT_Face *fontcase_freetype;
+#endif
   FontCacheItem *cache[FONTCACHE_SIZE];
   real ascent_ratio, descent_ratio;
 };
@@ -86,6 +99,10 @@ typedef struct _FontData {
   char *fontname;
   char *fontname_ps;
   char *fontname_x11[NUM_X11_FONTS]; /* First choice */
+#ifdef HAVE_FREETYPE
+  char *fontname_freetype;
+  char *fontstyle_freetype;
+#endif
 } FontData;
 
 FontData font_data[] = {
@@ -363,6 +380,7 @@ init_x11_font(FontPrivate *font)
   char *x11_font;
   real height;
   
+  fprintf(stderr, "init_x11_font\n");
   for (i=0;i<NUM_X11_FONTS;i++) {
     x11_font = font->fontname_x11_vec[i];
     if (x11_font == NULL)
@@ -405,6 +423,144 @@ init_x11_font(FontPrivate *font)
   gdk_font_unref(gdk_font);
 }
 
+#ifdef HAVE_FREETYPE
+FT_Library  ft_library;
+
+gboolean
+freetype_file_is_fontfile(char *filename) {
+  int len = strlen(filename);
+  if (len < 4) return FALSE;
+  if (strcmp(&filename[len-4], ".ttf") == 0) return TRUE;
+  /*  if (strcmp(&filename[len-4], ".spd") == 0) return TRUE;*/
+  if (strcmp(&filename[len-4], ".pfb") == 0) return TRUE;
+  if (strcmp(&filename[len-4], ".pfa") == 0) return TRUE;
+  return FALSE;
+}
+
+void 
+freetype_add_font(char *dirname, char *filename) {
+  FT_Face face = NULL, first_face = NULL;
+  char *fullname;
+  FT_Error error;
+  int facenum;
+
+  fullname = g_malloc(strlen(dirname)+strlen(filename)+1+
+		      sizeof(G_DIR_SEPARATOR_S));
+  sprintf(fullname, "%s%s%s", dirname, G_DIR_SEPARATOR_S, filename);
+
+  facenum = 0;
+  do {
+    FreetypeFamily *new_font;
+    FreetypeFace *new_face;
+
+    error = FT_New_Face(ft_library, fullname, facenum, &face);
+    if (error) {
+      message_warning("Error reading face from %s:%d", filename, error);
+      g_free(fullname);
+      return;
+    }
+
+    new_font = (FreetypeFamily*)g_hash_table_lookup(freetype_fonts, face->family_name);
+    if (new_font == NULL) {
+      new_font = (FreetypeFamily*)g_malloc(sizeof(FreetypeFamily));
+      new_font->family = strdup(face->family_name);
+      new_font->faces = NULL;
+      g_hash_table_insert(freetype_fonts, new_font->family, new_font);
+    }
+    
+
+    new_face = (FreetypeFace*)g_malloc(sizeof(FreetypeFace));
+    new_face->face = face;
+    new_face->from_file = strdup(fullname);
+    new_font->faces = g_list_append(new_font->faces, new_face);
+    
+    if (facenum == 0) first_face = face;
+    facenum++;
+  } while (facenum < first_face->num_faces);
+  g_free(fullname);
+}
+
+void
+freetype_scan_directory(char *dirname) {
+  DIR *fontdir;
+  struct dirent *dirent;
+
+  fprintf(stderr, "freetype_scan_directory %s\n", dirname);
+  /* If doing this at other than startup, first remove all old files
+     from this dir */
+
+  /* Scan the dir */
+  fontdir = opendir(dirname);
+  if (fontdir == NULL) {
+    message_warning("Couldn't open font dir %s", dirname);
+    return;
+  }
+
+  while ((dirent = readdir(fontdir)) != NULL) {
+    if (freetype_file_is_fontfile(dirent->d_name)) {
+      freetype_add_font(dirname, dirent->d_name);
+    }
+  }
+
+  closedir(fontdir);
+}
+
+void
+font_init_freetype()
+{
+  char **fontlist;
+  int fontcount;
+  int i;
+  FT_Error error = FT_Init_FreeType( &ft_library );
+  if ( error )
+  {
+    message_warning(_("Warning: FreeType selected, but library wouldn't load: %d\n"), error);
+    return;
+  }
+
+  fprintf(stderr, "font_init_freetype\n");
+  freetype_fonts = g_hash_table_new(g_str_hash, g_str_equal);
+
+  fontlist = XGetFontPath(GDK_DISPLAY(), &fontcount);
+  if (fontlist == NULL || fontcount == 0) {
+    message_warning(_("Warning: No X fonts found.  The world is ending."));
+    return;
+  }
+
+  for (i = 0; i < fontcount; i++) {
+    freetype_scan_directory(fontlist[i]);
+  }
+}
+
+void
+dia_add_freetype_font(char *key, FreetypeFamily *ft_font, gpointer user_data) {
+  FontPrivate *font;
+  int j;
+
+  fprintf(stderr, "Adding font %s with %d faces\n", key, g_list_length(ft_font->faces));
+  font = g_new(FontPrivate, 1);
+  font->public.name = key;
+  font->fontname_freetype = key;
+  /*
+  if (font->ascender > 0 || font->descender > 0) {
+    font->ascent_ratio = font->ascender/(font->ascender+font->descender);
+    font->descent_ratio = font->descender/(font->ascender+font->descender);
+  }
+  */
+  /* XXX: This is bogys */
+  font->fontname_ps = key;
+
+  for (j=0;j<FONTCACHE_SIZE;j++) {
+    font->cache[j] = NULL;
+  }
+
+  fonts = g_list_append(fonts, font);
+  font_names = g_list_append(font_names, font->public.name);
+  g_hash_table_insert(fonts_hash, font->public.name, font);
+}
+
+#endif
+
 void
 font_init(void)
 {
@@ -414,6 +570,10 @@ font_init(void)
   fonts_hash = g_hash_table_new((GHashFunc)g_str_hash,
 			       (GCompareFunc)g_str_equal);
 
+#ifdef HAVE_FREETYPE
+  font_init_freetype();
+  g_hash_table_foreach(freetype_fonts, dia_add_freetype_font, NULL);
+#else
   for (i=0;i<NUM_FONTS;i++) {
     font = g_new(FontPrivate, 1);
     font->public.name = font_data[i].fontname;
@@ -430,14 +590,42 @@ font_init(void)
     font_names = g_list_append(font_names, font->public.name);
     g_hash_table_insert(fonts_hash, font->public.name, font);
   }
+#endif
 }
 
-
-Font *
-font_getfont(const char *name)
+#ifdef HAVE_FREETYPE
+DiaFont
+font_getfont_with_style(const char *name, const char*style)
 {
   FontPrivate *font;
 
+  fprintf(stderr, "font_getfont %s\n", name);
+  g_assert(name!=NULL);
+  font = (FontPrivate *)g_hash_table_lookup(fonts_hash, (char *)name);
+
+  if (font == NULL) {
+    font = g_hash_table_lookup(fonts_hash, "Courier");
+    if (font == NULL) {
+      
+      message_error("Error, couldn't locate font. Shouldn't happend.\n");
+    } else {
+      message_notice(_("Font %s not found, using Courier instead.\n"), name);
+    }
+  }
+ 
+  return (DiaFont *)font;
+}
+#endif
+
+DiaFont *
+font_getfont(const char *name)
+{
+#ifdef HAVE_FREETYPE
+  font_getfont_with_style(name, "Regular");
+#else
+  FontPrivate *font;
+
+  fprintf(stderr, "font_getfont %s\n", name);
   g_assert(name!=NULL);
   font = (FontPrivate *)g_hash_table_lookup(fonts_hash, (char *)name);
 
@@ -450,10 +638,12 @@ font_getfont(const char *name)
     }
   }
 
+
   if (font->fontname_x11 == NULL)
     init_x11_font(font);
-  
-  return (Font *)font;
+
+  return (DiaFont *)font;
+#endif  
 }
 
 static FontCacheItem *
@@ -461,6 +651,7 @@ font_get_cache(FontPrivate *font, int height)
 {
   int index;
 
+  fprintf(stderr, "font_get_cache\n");
   g_assert(font!=NULL);
 
   if (height<=0)
@@ -491,6 +682,7 @@ font_get_gdkfont_helper(FontPrivate *font, int height)
   char *buffer;
   GdkFont *gdk_font;
   
+  fprintf(stderr, "font_get_gdkfont_helper\n");
   bufsize = strlen(font->fontname_x11)+6;  /* Should be enought*/
   buffer = (char *)malloc(bufsize);
   g_snprintf(buffer, bufsize, font->fontname_x11, height);
@@ -502,11 +694,12 @@ font_get_gdkfont_helper(FontPrivate *font, int height)
 
 
 GdkFont *
-font_get_gdkfont(Font *font, int height)
+font_get_gdkfont(DiaFont *font, int height)
 {
   FontCacheItem *cache_item;
   FontPrivate *fontprivate;
 
+  fprintf(stderr, "font_get_gdkfont\n");
   g_assert(font!=NULL);
 
   fontprivate = (FontPrivate *)font;
@@ -524,11 +717,12 @@ font_get_gdkfont(Font *font, int height)
 }
 
 SuckFont *
-font_get_suckfont(Font *font, int height)
+font_get_suckfont(DiaFont *font, int height)
 {
   FontCacheItem *cache_item;
   FontPrivate *fontprivate;
 
+  fprintf(stderr, "font_get_suckfont\n");
   g_assert(font!=NULL);
 
   fontprivate = (FontPrivate *)font;
@@ -549,10 +743,11 @@ font_get_suckfont(Font *font, int height)
 }
 
 char *
-font_get_psfontname(Font *font)
+font_get_psfontname(DiaFont *font)
 {
   FontPrivate *fontprivate;
 
+  fprintf(stderr, "font_get_psfontname\n");
   g_assert(font!=NULL);
 
   fontprivate = (FontPrivate *)font;
@@ -560,14 +755,127 @@ font_get_psfontname(Font *font)
   return fontprivate->fontname_ps;
 }
 
+#ifdef HAVE_FREETYPE
+FreetypeFace *
+get_freetype_font(const char *fontname, const char *fontstyle)
+{
+  FreetypeFamily *ft_font;
+  GList *face;
+  FreetypeFace *ft_face;
+
+  ft_font = (FreetypeFamily*)g_hash_table_lookup(freetype_fonts, fontname);
+  if (fontstyle == NULL) fontstyle = "Regular";
+  for (face = ft_font->faces; face != NULL; face = g_list_next(face)) {
+    ft_face = (FreetypeFace*)face->data;
+    if (!strcmp(ft_face->face->style_name, fontstyle))
+      break;
+  }
+  if (face == NULL) {
+    if (strcmp(fontstyle, "Regular")) {
+      message_warning("%s does not come in %s style, trying Regular",
+		      fontname, fontstyle);
+      return get_freetype_font(fontname, "Regular");
+    }
+    message_warning("Can't find Regular style for %s",
+		    fontname);
+    return NULL;
+  }
+  return ft_face;
+}
+
+/* Create a glyphed string from scratch */
+FreetypeString *
+freetype_load_string(const char *string, FreetypeFace *ft_face, real height)
+{
+  int i;
+  int len = strlen(string);
+  real width = 0.0;
+  gboolean use_kerning = FALSE;
+  gint glyph_index, previous_index = 0, num_glyphs = 0;
+  gint error;
+  FreetypeString *fts;
+
+  fprintf(stderr, "freetype_load_string %s height %f\n", string, height);
+
+  fts = (FreetypeString*)g_malloc(sizeof(FreetypeString));
+  fts->height = height;
+  fts->num_glyphs = len;
+  fts->glyphs = (FT_Glyph*)g_malloc(sizeof(FT_Glyph*)*len);
+  fts->face = ft_face->face;
+  fts->width = 0.0;
+
+  error = FT_Set_Char_Size(ft_face->face,
+			   0,      
+			   (int)(height*72*64/2.54),
+			   0,
+			   0 );
+  if (error) {
+    message_warning("Can't set %s to size %f\n", ft_face->face->family_name, height);
+    return NULL;
+  }
+
+  for (i = 0; i < len; i++) {
+    // convert character code to glyph index
+    glyph_index = FT_Get_Char_Index( ft_face->face, string[i] );
+                              
+    // retrieve kerning distance and move pen position
+    if ( use_kerning && previous_index && glyph_index )
+    {
+      FT_Vector  delta;
+                                
+      FT_Get_Kerning( ft_face->face, previous_index, glyph_index,
+		      ft_kerning_default, &delta );
+                                                
+      width += delta.x >> 6;
+    }
+                            
+    // store current pen position
+    // Why?
+    /*
+      pos[ num_glyphs ].x = pen_x;
+      pos[ num_glyphs ].y = pen_y;
+    */                      
+    
+    // load glyph image into the slot. DO NOT RENDER IT !!
+    error = FT_Load_Glyph( ft_face->face, glyph_index, FT_LOAD_DEFAULT );
+    if (error) continue;  // ignore errors, jump to next glyph
+                              
+                              // extract glyph image and store it in our table
+    error = FT_Get_Glyph( ft_face->face->glyph, & fts->glyphs[num_glyphs] );
+    if (error) continue;  // ignore errors, jump to next glyph
+                              
+    // increment pen position
+    width += ft_face->face->glyph->advance.x >> 6;
+                              
+    // record current glyph index
+    previous_index = glyph_index;
+                              
+    // increment number of glyphs
+    num_glyphs++;
+  }
+  fts->width = width*2.54/72.0;
+  fprintf(stderr, "Width of %s is %f\n", string, width);
+  return fts;
+}
+#endif
+
 real
-font_string_width(const char *string, Font *font, real height)
+font_string_width(const char *string, DiaFont *font, real height)
 {
   int iwidth, iheight;
   double width_height;
   GdkFont *gdk_font;
+#ifdef HAVE_FREETYPE
+  FreetypeFace *ft_face;
+  FreetypeString *ft_string;
 
+  /* This is currently broken */
+  fprintf(stderr, "font_string_width: %s %s\n", font->name, font->style);
+  ft_face = get_freetype_font(font->name, font->style);
+  ft_string = freetype_load_string(string, ft_face, height);
 
+  return ft_string->width;
+#else
   /* Note: This is an ugly hack. It tries to overestimate the width with
      some magic stuff. No guarantees. */
   gdk_font = font_get_gdkfont(font, 100);
@@ -580,20 +888,25 @@ font_string_width(const char *string, Font *font, real height)
   width_height = ((real)iwidth)/((real)iheight);
   width_height *= 1.01;
   return width_height*height*(iheight/100.0) + 0.2;
+#endif
 }
 
 real
-font_ascent(Font *font, real height)
+font_ascent(DiaFont *font, real height)
 {
   FontPrivate *fontprivate;
+
+  fprintf(stderr, "font_ascent\n");
   fontprivate = (FontPrivate *)font;
   return height*fontprivate->ascent_ratio;
 }
 
 real
-font_descent(Font *font, real height)
+font_descent(DiaFont *font, real height)
 {
   FontPrivate *fontprivate;
+
+  fprintf(stderr, "font_descent\n");
   fontprivate = (FontPrivate *)font;
   return height*fontprivate->descent_ratio;
 }
@@ -616,6 +929,7 @@ suck_font (GdkFont *font)
 	int width, height;
 	int black_pixel, pixel;
 
+	fprintf(stderr, "suck_font \n");
 	if (!font)
 		return NULL;
 

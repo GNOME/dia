@@ -164,7 +164,7 @@ add_int(RenderStore *store, Command command, int int_val)
 
 static void
 add_font_real(RenderStore *store, Command command,
-	      Font *font, real real_val)
+	      DiaFont *font, real real_val)
 {
   Data data;
 
@@ -323,7 +323,7 @@ rs_add_set_fillstyle(RenderStore *store, FillStyle mode)
 }
 
 void
-rs_add_set_font(RenderStore *store, Font *font, real height)
+rs_add_set_font(RenderStore *store, DiaFont *font, real height)
 {
   add_font_real((RenderStore *)store, CMD_SET_FONT, font, height);
 }
@@ -551,7 +551,7 @@ render_int(Renderer *renderer,
 }
 
 typedef void (*RenderFontRealFunc)(Renderer *renderer,
-                                   Font *font,
+                                   DiaFont *font,
                                    real real_val);
 
 static int
@@ -559,10 +559,10 @@ render_font_real(Renderer *renderer,
                  RenderFontRealFunc render_function,
 		 RenderStore *store, int pos)
 {
-  Font *font;
+  DiaFont *font;
   real real_val;
   
-  font = (Font *) store->data[pos++].ptr_data;
+  font = (DiaFont *) store->data[pos++].ptr_data;
   real_val = store->data[pos++].real_data;
   
   (*render_function)(renderer, font, real_val);

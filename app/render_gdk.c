@@ -32,7 +32,7 @@ static void set_linejoin(RendererGdk *renderer, LineJoin mode);
 static void set_linestyle(RendererGdk *renderer, LineStyle mode);
 static void set_dashlength(RendererGdk *renderer, real length);
 static void set_fillstyle(RendererGdk *renderer, FillStyle mode);
-static void set_font(RendererGdk *renderer, Font *font, real height);
+static void set_font(RendererGdk *renderer, DiaFont *font, real height);
 static void draw_line(RendererGdk *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_color);
@@ -399,7 +399,7 @@ set_fillstyle(RendererGdk *renderer, FillStyle mode)
 }
 
 static void
-set_font(RendererGdk *renderer, Font *font, real height)
+set_font(RendererGdk *renderer, DiaFont *font, real height)
 {
   renderer->font_height =
     ddisplay_transform_length(renderer->ddisp, height);

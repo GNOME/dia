@@ -140,7 +140,7 @@ struct _Property {
     } linestyle_data;
     Arrow arrow_data;
     Color colour_data;
-    Font *font_data;
+    DiaFont *font_data;
     struct {
       Point endpoints[2];
     } endpoints_data;

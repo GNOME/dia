@@ -94,7 +94,7 @@ typedef struct _CustomProperties {
   real border_width;
 
   real padding;
-  Font *font;
+  DiaFont *font;
   real font_size;
   Alignment alignment;
   Color *font_color;
@@ -345,7 +345,7 @@ custom_get_defaults(void)
   GtkWidget *fontsel;
   GtkWidget *font_size;
   GtkAdjustment *adj;
-  Font *font;
+  DiaFont *font;
   real font_height;
 
   if (custom_defaults_dialog == NULL) {
@@ -1219,7 +1219,7 @@ custom_create(Point *startpoint,
   ShapeInfo *info = (ShapeInfo *)user_data;
   Point p;
   int i;
-  Font *font;
+  DiaFont *font;
   real font_height;
   GList *tmp;
 
@@ -1463,7 +1463,7 @@ custom_load(ObjectNode obj_node, int version, const char *filename)
     else {
       /* initialize as empty text or handle all the NULL pointer 
          access elsewhere */
-      Font *font;
+      DiaFont *font;
       real font_height;
       Point pt;
 

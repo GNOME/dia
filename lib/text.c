@@ -169,7 +169,7 @@ text_set_string(Text *text, const char *string)
 }
 
 Text *
-new_text(const char *string, Font *font, real height,
+new_text(const char *string, DiaFont *font, real height,
 	 Point *pos, Color *color, Alignment align)
 {
   Text *text;
@@ -259,7 +259,7 @@ text_set_height(Text *text, real height)
 }
 
 void
-text_set_font(Text *text, Font *font)
+text_set_font(Text *text, DiaFont *font)
 {
   text->font = font;
   
@@ -888,7 +888,7 @@ Text *
 data_text(AttributeNode text_attr)
 {
   char *string = "";
-  Font *font;
+  DiaFont *font;
   real height;
   Point pos = {0.0, 0.0};
   Color col;

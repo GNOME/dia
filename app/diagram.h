@@ -94,8 +94,6 @@ void diagram_ungroup_selected(Diagram *dia);
 
 void diagram_set_filename(Diagram *dia, char *filename);
 
-void diagram_import_from_xfig(Diagram *dia, char *filename);
-
 int diagram_modified_exists(void);
 
 void diagram_redraw_all(void);

@@ -27,7 +27,7 @@
 
 #define OVERLINE_RATIO .1
 
-static Font *symbol;
+static DiaFont *symbol;
 static void init_symbolfont() {
   if (!symbol) symbol = font_getfont("Symbol");
 }
@@ -558,7 +558,7 @@ boolequation_set_value(Boolequation *booleq, const utfchar *value)
 
 
 Boolequation *
-boolequation_create(const utfchar *value, Font *font, real fontheight,
+boolequation_create(const utfchar *value, DiaFont *font, real fontheight,
 		   Color *color)
 {
   Boolequation *booleq;
@@ -593,7 +593,7 @@ Boolequation *
 load_boolequation(ObjectNode obj_node,
 		 const gchar *attrname,
 		 const utfchar *defaultvalue,
-		 Font *font,
+		 DiaFont *font,
 		 real fontheight, Color *color)
 {
   const utfchar *value = NULL;

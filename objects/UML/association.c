@@ -114,7 +114,7 @@ struct _AssociationPropertiesDialog {
 #define ASSOCIATION_DIAMONDLEN 1.4
 #define ASSOCIATION_FONTHEIGHT 0.8
 
-static Font *assoc_font = NULL;
+static DiaFont *assoc_font = NULL;
 
 static real association_distance_from(Association *assoc, Point *point);
 static void association_select(Association *assoc, Point *clicked_point,

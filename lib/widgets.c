@@ -65,6 +65,8 @@ dia_font_selector_class_init (DiaFontSelectorClass *class)
 static void
 dia_font_selector_init (DiaFontSelector *fs)
 {
+#ifdef HAVE_FREETYPE
+#else
   GtkWidget *menu;
   GtkWidget *submenu;
   GtkWidget *menuitem;
@@ -90,6 +92,7 @@ dia_font_selector_init (DiaFontSelector *fs)
   }
   
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs), menu);
+#endif
 }
 
 
@@ -143,7 +146,7 @@ dia_font_selector_new ()
 }
 
 void
-dia_font_selector_set_font(DiaFontSelector *fs, Font *font)
+dia_font_selector_set_font(DiaFontSelector *fs, DiaFont *font)
 {
   void *font_nr_ptr;
   int font_nr;
@@ -162,7 +165,7 @@ dia_font_selector_set_font(DiaFontSelector *fs, Font *font)
   gtk_menu_set_active(fs->font_menu, font_nr);
 }
 
-Font *
+DiaFont *
 dia_font_selector_get_font(DiaFontSelector *fs)
 {
   GtkWidget *menuitem;

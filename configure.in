@@ -148,6 +148,37 @@ AM_CONDITIONAL(HAVE_UNICODE,$have_unicode)
 
 CPPFLAGS=$OLDCPPFLAGS
 
+dnl check for libfreetype
+AC_ARG_ENABLE(freetype, 
+[  --enable-freetype    enable (LIMITED, EXPERIMENTAL) freetype support],,
+        freetype=yes)
+FREETYPE_CFLAGS=
+FREETYPE_LIBS=
+have_freetype=false
+yn_have_freetype=no
+
+if test "$enable_freetype" = "yes"; then
+  AC_MSG_CHECKING(for libfreetype)
+  if freetype-config --libs > /dev/null 2>&1; then
+    vers=`freetype-config --version`
+    have_freetype=true     
+    yn_have_freetype=yes        
+    FREETYPE_CFLAGS=`freetype-config --cflags`
+    FREETYPE_LIBS=`freetype-config --libs`
+    AC_DEFINE(HAVE_FREETYPE,, Freetype support library available)
+    AC_MSG_RESULT([found, version $vers])
+  else
+    AC_MSG_RESULT([not found])
+  fi
+else
+  have_freetype=false
+fi
+AC_SUBST(FREETYPE_CFLAGS)
+AC_SUBST(FREETYPE_LIBS)
+AM_CONDITIONAL(HAVE_FREETYPE,$have_freetype)
+
+CPPFLAGS=$OLDCPPFLAGS
+
 dnl
 dnl Popt
 dnl
@@ -321,6 +352,7 @@ objects/custom/Makefile
 objects/GRAFCET/Makefile
 objects/chronogram/Makefile
 objects/SADT/Makefile
+objects/Specware/Makefile
 shapes/Makefile
 shapes/Circuit/Makefile
 shapes/flowchart/Makefile
@@ -369,6 +401,7 @@ Configuration:
 
 	Python support:				${with_python}
         (LIMITED) Unicode support:              ${yn_have_unicode}
+        (LIMITED) Freetype support:             ${yn_have_freetype}
 "
 if test "$yn_have_unicode" != "yes" ; then
   echo "WARNING: Unicode support disabled or support libraries missing.

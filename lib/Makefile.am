@@ -93,7 +93,7 @@ sheetdir = $(pkgdatadir)/sheets
 
 INCLUDES = -I$(top_srcdir)/intl $(GDK_PIXBUF_CFLAGS) \
   $(XML_CFLAGS) $(GNOME_CFLAGS) $(GTK_CFLAGS) -DDIA_SHEETDIR=\"$(sheetdir)\" \
-  $(UNICODE_CFLAGS)
+  $(FREETYPE_CFLAGS) $(UNICODE_CFLAGS)
 
 EXTRA_DIST = \
 	pixmaps/broken.xpm

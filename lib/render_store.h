@@ -35,7 +35,7 @@ void rs_add_set_linejoin(RenderStore *store, LineJoin mode);
 void rs_add_set_linestyle(RenderStore *store, LineStyle mode);
 void rs_add_set_dashlength(RenderStore *store, real length);
 void rs_add_set_fillstyle(RenderStore *store, FillStyle mode);
-void rs_add_set_font(RenderStore *store, Font *font, real height);
+void rs_add_set_font(RenderStore *store, DiaFont *font, real height);
 
 void rs_add_draw_line(RenderStore *store,
 		      Point *start, Point *end, Color *color);

@@ -62,7 +62,7 @@ void data_color(DataNode data, Color *col);
 void data_point(DataNode data, Point *point);
 void data_rectangle(DataNode data, Rectangle *rect);
 char *data_string(DataNode data);
-Font *data_font(DataNode data);
+DiaFont *data_font(DataNode data);
 
 AttributeNode new_attribute(ObjectNode obj_node, const char *attrname);
 AttributeNode composite_add_attribute(DataNode composite_node,
@@ -75,7 +75,7 @@ void data_add_color(AttributeNode attr, Color *col);
 void data_add_point(AttributeNode attr, Point *point);
 void data_add_rectangle(AttributeNode attr, Rectangle *rect);
 void data_add_string(AttributeNode attr, char *str);
-void data_add_font(AttributeNode attr, Font *font);
+void data_add_font(AttributeNode attr, DiaFont *font);
 DataNode data_add_composite(AttributeNode attr, char *type); /* can be NULL */
 
 #endif /* DIA_XML_H */

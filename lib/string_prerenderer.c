@@ -31,7 +31,7 @@ static void set_linejoin(StringPrerenderer *renderer, LineJoin mode);
 static void set_linestyle(StringPrerenderer *renderer, LineStyle mode);
 static void set_dashlength(StringPrerenderer *renderer, real length);
 static void set_fillstyle(StringPrerenderer *renderer, FillStyle mode);
-static void set_font(StringPrerenderer *renderer, Font *font, real height);
+static void set_font(StringPrerenderer *renderer, DiaFont *font, real height);
 static void draw_line(StringPrerenderer *renderer, 
                       Point *start, Point *end, 
                       Color *line_color);
@@ -165,7 +165,7 @@ static void set_linejoin(StringPrerenderer *renderer, LineJoin mode) {}
 static void set_linestyle(StringPrerenderer *renderer, LineStyle mode) {}
 static void set_dashlength(StringPrerenderer *renderer, real length) {}
 static void set_fillstyle(StringPrerenderer *renderer, FillStyle mode) {}
-static void set_font(StringPrerenderer *renderer, Font *font, real height) {}
+static void set_font(StringPrerenderer *renderer, DiaFont *font, real height) {}
 static void draw_line(StringPrerenderer *renderer, 
                       Point *start, Point *end, 
                       Color *line_color) {}

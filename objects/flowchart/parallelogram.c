@@ -302,7 +302,7 @@ pgram_get_defaults()
   GtkWidget *fontsel;
   GtkWidget *font_size;
   GtkAdjustment *adj;
-  Font *font;
+  DiaFont *font;
   real font_height;
 
   if (pgram_defaults_dialog == NULL) {
@@ -677,7 +677,7 @@ pgram_create(Point *startpoint,
   Object *obj;
   Point p;
   int i;
-  Font *font;
+  DiaFont *font;
   real font_height;
 
   init_default_values();

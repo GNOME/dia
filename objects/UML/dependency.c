@@ -61,7 +61,7 @@ struct _Dependency {
 #define DEPENDENCY_DASHLEN 0.4
 #define DEPENDENCY_FONTHEIGHT 0.8
 
-static Font *dep_font = NULL;
+static DiaFont *dep_font = NULL;
 
 static real dependency_distance_from(Dependency *dep, Point *point);
 static void dependency_select(Dependency *dep, Point *clicked_point,

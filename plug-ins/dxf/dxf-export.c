@@ -93,7 +93,7 @@ struct _Rendererdxf {
 
     FILE *file;
 
-    Font *font;
+    DiaFont *font;
 
     real y0, y1; 
 
@@ -121,7 +121,7 @@ static void set_linejoin(Rendererdxf *renderer, LineJoin mode);
 static void set_linestyle(Rendererdxf *renderer, LineStyle mode);
 static void set_dashlength(Rendererdxf *renderer, real length);
 static void set_fillstyle(Rendererdxf *renderer, FillStyle mode);
-static void set_font(Rendererdxf *renderer, Font *font, real height);
+static void set_font(Rendererdxf *renderer, DiaFont *font, real height);
 static void draw_line(Rendererdxf *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_colour);
@@ -300,7 +300,7 @@ set_fillstyle(Rendererdxf *renderer, FillStyle mode)
 }
 
 static void
-set_font(Rendererdxf *renderer, Font *font, real height)
+set_font(Rendererdxf *renderer, DiaFont *font, real height)
 {
 	renderer->tcurrent.font_height = height;
 }

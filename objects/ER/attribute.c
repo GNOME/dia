@@ -65,7 +65,7 @@ struct _AttributeState {
 struct _Attribute {
   Element element;
 
-  Font *font;
+  DiaFont *font;
   gchar *name;
   real name_width;
 

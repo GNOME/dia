@@ -57,7 +57,7 @@ struct _Realizes {
 #define REALIZES_DASHLEN 0.4
 #define REALIZES_FONTHEIGHT 0.8
 
-static Font *realize_font = NULL;
+static DiaFont *realize_font = NULL;
 
 static real realizes_distance_from(Realizes *realize, Point *point);
 static void realizes_select(Realizes *realize, Point *clicked_point,

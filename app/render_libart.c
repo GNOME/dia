@@ -47,7 +47,7 @@ static void set_linejoin(RendererLibart *renderer, LineJoin mode);
 static void set_linestyle(RendererLibart *renderer, LineStyle mode);
 static void set_dashlength(RendererLibart *renderer, real length);
 static void set_fillstyle(RendererLibart *renderer, FillStyle mode);
-static void set_font(RendererLibart *renderer, Font *font, real height);
+static void set_font(RendererLibart *renderer, DiaFont *font, real height);
 static void draw_line(RendererLibart *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_color);
@@ -407,7 +407,7 @@ set_fillstyle(RendererLibart *renderer, FillStyle mode)
 }
 
 static void
-set_font(RendererLibart *renderer, Font *font, real height)
+set_font(RendererLibart *renderer, DiaFont *font, real height)
 {
   renderer->font_height =
     ddisplay_transform_length(renderer->ddisp, height);

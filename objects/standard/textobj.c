@@ -243,7 +243,7 @@ textobj_get_defaults()
   GtkWidget *vbox;
   GtkWidget *label;
   GtkAdjustment *adj;
-  Font *font;
+  DiaFont *font;
   real font_height;
 
   if (textobj_defaults_dialog == NULL) {
@@ -369,7 +369,7 @@ textobj_create(Point *startpoint,
   Textobj *textobj;
   Object *obj;
   Color col;
-  Font *font;
+  DiaFont *font;
   real font_height;
   
   textobj = g_malloc0(sizeof(Textobj));

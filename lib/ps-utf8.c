@@ -425,7 +425,7 @@ use_encoding(PSUnicoder *psu, PSEncodingPage *ep)
   psu->current_encoding = ep;
 }
 
-/* Font descriptor functions */
+/* DiaFont descriptor functions */
 
 static gchar *
 make_font_descriptor_name(const gchar *face,

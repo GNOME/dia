@@ -59,7 +59,7 @@ struct _Implements {
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM2)
 
 
-static Font *implements_font = NULL;
+static DiaFont *implements_font = NULL;
 
 static void implements_move_handle(Implements *implements, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);

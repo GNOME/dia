@@ -37,6 +37,15 @@ struct DiaPreferences {
     real zoom;
     int use_menu_bar;
   } new_view;
+
+  struct {
+    gchar *papertype;
+    gfloat tmargin, bmargin, lmargin, rmargin;
+    gboolean is_portrait;
+    gfloat scaling;
+    gboolean fitto;
+    gint fitwidth, fitheight;
+  } new_diagram;
   
   int show_cx_pts;
   int reset_tools_after_create;

@@ -6,7 +6,7 @@
 
 typedef struct {
     PyObject_HEAD
-    Font font;
+    DiaFont font;
 } PyDiaFont;
 
 extern PyTypeObject PyDiaFont_Type;

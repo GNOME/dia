@@ -62,7 +62,7 @@ typedef struct _Chronoref {
   real time_step;
   real time_lstep;
   
-  Font *font;
+  DiaFont *font;
   real font_size;
   Color font_color;
 

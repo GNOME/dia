@@ -72,7 +72,7 @@ typedef struct _Step {
   int active;
   StepType type;
 
-  Font *font;
+  DiaFont *font;
   real font_size;
   Color font_color;
 

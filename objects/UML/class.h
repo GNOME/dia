@@ -35,10 +35,10 @@ struct _UMLClass {
 
   real font_height;
   real classname_font_height;
-  Font *normal_font;
-  Font *abstract_font;
-  Font *classname_font;
-  Font *abstract_classname_font;
+  DiaFont *normal_font;
+  DiaFont *abstract_font;
+  DiaFont *classname_font;
+  DiaFont *abstract_classname_font;
   
   /* Class info: */
   char *name;

@@ -67,7 +67,7 @@ typedef struct _Chronoline {
   real rise_time;
   real fall_time;
   gboolean multibit;
-  Font *font;
+  DiaFont *font;
   real font_size;
   Color font_color;
   

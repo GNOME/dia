@@ -58,7 +58,7 @@ typedef struct _Condition {
   Boolequation *cond;
 
   gchar *cond_value;
-  Font *cond_font;
+  DiaFont *cond_font;
   real cond_fontheight;
   Color cond_color;
 
@@ -316,7 +316,7 @@ condition_create(Point *startpoint,
   Object *obj;
   Point defaultlen  = {0.0,CONDITION_ARROW_SIZE}, pos;
 
-  Font *default_font; 
+  DiaFont *default_font; 
   real default_fontheight;
   Color fg_color;
 

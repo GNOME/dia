@@ -64,7 +64,7 @@ static void set_linejoin(RendererPSTRICKS *renderer, LineJoin mode);
 static void set_linestyle(RendererPSTRICKS *renderer, LineStyle mode);
 static void set_dashlength(RendererPSTRICKS *renderer, real length);
 static void set_fillstyle(RendererPSTRICKS *renderer, FillStyle mode);
-static void set_font(RendererPSTRICKS *renderer, Font *font, real height);
+static void set_font(RendererPSTRICKS *renderer, DiaFont *font, real height);
 static void draw_line(RendererPSTRICKS *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_color);
@@ -393,7 +393,7 @@ set_fillstyle(RendererPSTRICKS *renderer, FillStyle mode)
 }
 
 static void
-set_font(RendererPSTRICKS *renderer, Font *font, real height)
+set_font(RendererPSTRICKS *renderer, DiaFont *font, real height)
 {
 
     fprintf(renderer->file, "\\setfont{%s}{%f}\n", font_get_psfontname(font), (double)height);

@@ -333,7 +333,7 @@ note_create(Point *startpoint,
   Element *elem;
   Object *obj;
   Point p;
-  Font *font;
+  DiaFont *font;
   int i;
   
   note = g_malloc0(sizeof(Note));

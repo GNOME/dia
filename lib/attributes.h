@@ -42,7 +42,7 @@ void attributes_set_default_end_arrow(Arrow arrow);
 void attributes_get_default_line_style(LineStyle *style, real *dash_length);
 void attributes_set_default_line_style(LineStyle style, real dash_length);
 
-void attributes_get_default_font(Font **font, real *font_height);
-void attributes_set_default_font(Font *font, real font_height);
+void attributes_get_default_font(DiaFont **font, real *font_height);
+void attributes_set_default_font(DiaFont *font, real font_height);
 
 #endif /* ATTRIBUTES_H */

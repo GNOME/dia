@@ -65,7 +65,7 @@ struct _Constraint {
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
 
-static Font *constraint_font = NULL;
+static DiaFont *constraint_font = NULL;
 
 static void constraint_move_handle(Constraint *constraint, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);

@@ -30,7 +30,7 @@ static Arrow attributes_end_arrow = { ARROW_NONE, 0.8, 0.8 };
 static LineStyle attributes_linestyle = LINESTYLE_SOLID;
 static real attributes_dash_length = 1.0;
 
-static Font *attributes_font = NULL;
+static DiaFont *attributes_font = NULL;
 static real attributes_font_height = 0.8;
 
 Color 
@@ -121,7 +121,7 @@ attributes_set_default_line_style(LineStyle style, real dash_length)
 }
 
 void
-attributes_get_default_font(Font **font, real *font_height)
+attributes_get_default_font(DiaFont **font, real *font_height)
 {
   if (!attributes_font)
     attributes_font = font_getfont("Courier");
@@ -131,7 +131,7 @@ attributes_get_default_font(Font **font, real *font_height)
     *font_height = attributes_font_height;
 }
 void
-attributes_set_default_font(Font *font, real font_height)
+attributes_set_default_font(DiaFont *font, real font_height)
 {
   attributes_font = font;
   attributes_font_height = font_height;

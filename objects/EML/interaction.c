@@ -38,7 +38,7 @@ struct _Interaction {
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
 
-static Font *interaction_font = NULL;
+static DiaFont *interaction_font = NULL;
 
 static void interaction_move_handle(Interaction *interaction, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);

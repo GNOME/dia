@@ -379,7 +379,7 @@ classicon_update_data(Classicon *cicon)
 {
   Element *elem = &cicon->element;
   Object *obj = &elem->object;
-  Font *font;
+  DiaFont *font;
   Point p1;
   real h, wt, w = 0;
   int is_boundary = (cicon->stereotype==CLASSICON_BOUNDARY);
@@ -455,7 +455,7 @@ classicon_create(Point *startpoint,
   Element *elem;
   Object *obj;
   Point p;
-  Font *font;
+  DiaFont *font;
   int i;
   
   cicon = g_malloc0(sizeof(Classicon));

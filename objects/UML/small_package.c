@@ -323,7 +323,7 @@ smallpackage_update_data(SmallPackage *pkg)
   Element *elem = &pkg->element;
   Object *obj = &elem->object;
   Point p;
-  Font *font;
+  DiaFont *font;
 
   elem->width = pkg->text->max_width + 2*SMALLPACKAGE_MARGIN_X;
   elem->width = MAX(elem->width, SMALLPACKAGE_TOPWIDTH+1.0);
@@ -381,7 +381,7 @@ smallpackage_create(Point *startpoint,
   Element *elem;
   Object *obj;
   Point p;
-  Font *font;
+  DiaFont *font;
   int i;
   
   pkg = g_malloc0(sizeof(SmallPackage));

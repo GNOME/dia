@@ -75,7 +75,7 @@ static void set_linejoin(RendererSVG *renderer, LineJoin mode);
 static void set_linestyle(RendererSVG *renderer, LineStyle mode);
 static void set_dashlength(RendererSVG *renderer, real length);
 static void set_fillstyle(RendererSVG *renderer, FillStyle mode);
-static void set_font(RendererSVG *renderer, Font *font, real height);
+static void set_font(RendererSVG *renderer, DiaFont *font, real height);
 static void draw_line(RendererSVG *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_colour);
@@ -380,7 +380,7 @@ set_fillstyle(RendererSVG *renderer, FillStyle mode)
 }
 
 static void
-set_font(RendererSVG *renderer, Font *font, real height)
+set_font(RendererSVG *renderer, DiaFont *font, real height)
 {
   renderer->fontsize = height;
   /* XXXX todo */

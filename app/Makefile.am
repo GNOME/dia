@@ -10,6 +10,7 @@ INCLUDES = \
         $(GNOME_CFLAGS) \
 	$(LIBART_CFLAGS) \
 	$(GDK_PIXBUF_CFLAGS) \
+	$(FREETYPE_CFLAGS) \
 	-DLOCALEDIR=\"$(localedir)\"
 
 if HAVE_GNOME_PRINT
@@ -143,7 +144,8 @@ EFENCE =
 dia_LDADD = ../lib/libdia.a \
 	$(EFENCE) \
 	$(APP_LIBS) $(XML_LIBS) $(GTK_LIBS) $(INTLLIBS) $(GNOME_LIBS) \
-	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(UNICODE_LIBS)
+	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(FREETYPE_LIBS) \
+	$(UNICODE_LIBS)
 
 ## Bonobo embeddable dia. Commented out, because it's a bit raw.
 ## Especially the configure/make parts.
@@ -157,7 +159,7 @@ dia_embedd_LDADD = ../lib/libdia.a \
 	$(EFENCE) \
 	$(APP_LIBS) $(XML_LIBS) $(BONOBO_LIBS) \
 	$(LIBART_LIBS) $(PNG_LIBS) $(GDK_PIXBUF_LIBS) $(INTLLIBS) \
-	$(UNICODE_LIBS)
+	$(FREETYPE_LIBS) $(UNICODE_LIBS)
 
 LDFLAGS = -export-dynamic
 

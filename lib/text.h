@@ -34,7 +34,7 @@ struct _Text {
   int *alloclen; /* in bytes */
 
   /* Attributes: */
-  Font *font;
+  DiaFont *font;
   real height;
   Point position;
   Color color;
@@ -54,14 +54,14 @@ struct _Text {
 
 
 /* makes an internal copy of the string */
-Text *new_text(const char *string, Font *font, real height,
+Text *new_text(const char *string, DiaFont *font, real height,
 	       Point *pos, Color *color, Alignment align);
 void text_destroy(Text *text);
 Text *text_copy(Text *text);
 char *text_get_string_copy(Text *text);
 void text_set_string(Text *text, const char *string);
 void text_set_height(Text *text, real height);
-void text_set_font(Text *text, Font *font);
+void text_set_font(Text *text, DiaFont *font);
 void text_set_position(Text *text, Point *pos);
 void text_set_color(Text *text, Color *col);
 void text_set_alignment(Text *text, Alignment align);

@@ -82,7 +82,7 @@ static void set_linejoin(RendererShape *renderer, LineJoin mode);
 static void set_linestyle(RendererShape *renderer, LineStyle mode);
 static void set_dashlength(RendererShape *renderer, real length);
 static void set_fillstyle(RendererShape *renderer, FillStyle mode);
-static void set_font(RendererShape *renderer, Font *font, real height);
+static void set_font(RendererShape *renderer, DiaFont *font, real height);
 static void draw_line(RendererShape *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_colour);
@@ -390,7 +390,7 @@ set_fillstyle(RendererShape *renderer, FillStyle mode)
 }
 
 static void
-set_font(RendererShape *renderer, Font *font, real height)
+set_font(RendererShape *renderer, DiaFont *font, real height)
 {
   renderer->fontsize = height;
   /* XXXX todo */
@@ -906,6 +906,7 @@ export_shape(DiagramData *data, const gchar *filename,
     int i;
     gchar *point;
     gchar *png_filename = NULL;
+    gchar *sheet_filename = NULL;
     DiaExportFilter *exportfilter;
     char *old_locale;
     gfloat old_scaling;
@@ -938,6 +939,10 @@ export_shape(DiagramData *data, const gchar *filename,
       data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
       destroy_shape_renderer(renderer);
     }
+
+    /* Create a sheet entry if applicable (../../sheets exists) */
+    
+
     setlocale(LC_NUMERIC, old_locale);
     g_free(png_filename);
 }

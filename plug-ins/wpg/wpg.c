@@ -402,7 +402,7 @@ set_fillstyle(MyRenderer *renderer, FillStyle mode)
 }
 
 static void
-set_font(MyRenderer *renderer, Font *font, real height)
+set_font(MyRenderer *renderer, DiaFont *font, real height)
 {
   DIAG_NOTE(g_message("set_font %f %s", height, font->name));
   renderer->TextStyle.Height = SC(height);

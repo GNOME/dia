@@ -44,6 +44,9 @@
 #include "preferences.h"
 #include "dia_dirs.h"
 #include "diagramdata.h"
+#ifdef PREF_CHOICE
+#include "paper.h"
+#endif
 
 struct DiaPreferences prefs;
 
@@ -54,7 +57,11 @@ enum DiaPrefType {
   PREF_UINT,
   PREF_REAL,
   PREF_UREAL,
-  PREF_COLOUR
+  PREF_COLOUR,
+#ifdef PREF_CHOICE
+  PREF_CHOICE,
+  PREF_STRING
+#endif
 };
 
 struct DiaPrefsData {
@@ -66,6 +73,9 @@ struct DiaPrefsData {
   char *label_text;
   GtkWidget *widget;
   gboolean hidden;
+#ifdef PREF_CHOICE
+  char *(*choice_list_function)();
+#endif
 };
 
 static int default_true = 1;
@@ -77,6 +87,22 @@ static int default_int_h = 400;
 static int default_undo_depth = 15;
 static Color default_colour = { 0.85, .90, .90 }; /* Grid colour */
 static Color pbreak_colour = { 0.0, 0.0, 0.6 }; 
+#ifdef PREF_CHOICE
+static PaperInfo default_paper =
+{ "A4", 2.82, 2.82, 2.82, 2.82, TRUE, 100.0, FALSE, 1, 1 };
+/*
+  static gboolean default_is_portrait = FALSE;
+  static gboolean default_fitto = FALSE;
+  static gfloat default_scaling = 100.0;
+  static gint default_fitwidth = 1;
+  static gint default_fitheight = 1;
+  static gfloat default_tmargin = 2.82;
+  static gfloat default_bmargin = 2.82;
+  static gfloat default_lmargin = 2.82;
+  static gfloat default_rmargin = 2.82;
+  static gchar *default_papertype = "A4";
+*/
+#endif
 
 struct DiaPrefsTab {
   char *title;
@@ -87,6 +113,7 @@ struct DiaPrefsTab {
 struct DiaPrefsTab prefs_tabs[] =
 {
   {N_("User Interface"), NULL, 0},
+  {N_("Diagram Defaults"), NULL, 0},
   {N_("View Defaults"), NULL, 0},
   {N_("Grid Lines"), NULL, 0},
 };
@@ -106,6 +133,12 @@ struct DiaPrefsData prefs_data[] =
   { "compress_save", PREF_BOOLEAN, PREF_OFFSET(compress_save), &default_true, 0, N_("Compress saved files:") },
   { "undo_depth", PREF_UINT, PREF_OFFSET(undo_depth), &default_undo_depth, 0, N_("Number of undo levels:") },
   { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), &default_true, 0, N_("Reverse dragging selects\nintersecting objects:") },
+
+#ifdef PREF_CHOICE
+  { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
+  { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_paper.name), &default_paper.name, 1, N_("Paper type:"), NULL, FALSE, get_paper_name_list },
+#endif
+
   { NULL, PREF_NONE, 0, NULL, 1, N_("New window:") },
   { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, 1, N_("Width:") },
   { "new_view_height", PREF_UINT, PREF_OFFSET(new_view.height), &default_int_h, 1, N_("Height:") },
@@ -220,6 +253,12 @@ prefs_set_defaults(void)
     case PREF_COLOUR:
       *(Color *)ptr = *(Color *)prefs_data[i].default_value;
       break;
+#ifdef PREF_CHOICE
+    case PREF_CHOICE:
+    case PREF_STRING:
+      *(gchar *)ptr = *(gchar *)prefs_data[i].default_value;
+      break;
+#endif
     case PREF_NONE:
       break;
     }
@@ -273,6 +312,13 @@ prefs_save(void)
     case PREF_COLOUR:
       fprintf(file, "%f %f %f\n", (double) ((Color *)ptr)->red,
 	      (double) ((Color *)ptr)->green, (double) ((Color *)ptr)->blue);
+      break;
+#ifdef PREF_CHOICE
+    case PREF_CHOICE:
+    case PREF_STRING:
+      fprintf(file, "%s\n", *(gchar *)ptr);
+      break;
+#endif
     case PREF_NONE:
       break;
     }
@@ -345,6 +391,15 @@ prefs_parse_line(GScanner *scanner)
     ((Color *)ptr)->blue = scanner->value.v_float;
 
     break;
+#ifdef PREF_CHOICE
+  case PREF_CHOICE:
+  case PREF_STRING:
+    if (token != G_TOKEN_STRING)
+      return G_TOKEN_STRING;
+
+    *(char *)ptr = scanner->value.v_string;
+    break;
+#endif
   case PREF_NONE:
     break;
   }
@@ -464,6 +519,14 @@ prefs_set_value_in_widget(GtkWidget * widget, enum DiaPrefType type,
   case PREF_COLOUR:
     dia_color_selector_set_color(DIACOLORSELECTOR(widget), (Color *)ptr);
     break;
+#ifdef PREF_CHOICE
+  case PREF_CHOICE:
+    gtk_
+    break;
+  case PREF_STRING:
+    gtk_entry_set_text(GTK_ENTRY(widget), (gchar *)(*((gchar *)ptr)));
+    break;
+#endif
   case PREF_NONE:
     break;
   }
@@ -490,6 +553,14 @@ prefs_get_value_from_widget(GtkWidget * widget, enum DiaPrefType type,
   case PREF_COLOUR:
     dia_color_selector_get_color(DIACOLORSELECTOR(widget), (Color *)ptr);
     break;
+#ifdef PREF_CHOICE
+  case PREF_CHOICE:
+    break;
+  case PREF_STRING:
+    *((gchar *)ptr) = (gchar *)
+      gtk_entry_get_text(GTK_ENTRY(widget));
+    break;
+#endif
   case PREF_NONE:
     break;
   }

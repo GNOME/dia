@@ -89,59 +89,6 @@ void file_quit_callback(gpointer data, guint action, GtkWidget *widget)
   app_exit();
 }
 
-static void
-file_import_from_xfig_dialog_ok_callback (GtkWidget        *w,
-				     GtkFileSelection *fs)
-{
-  char *filename;
-  Diagram *dia;
-  struct stat stat_struct;
-
-  dia = gtk_object_get_user_data(GTK_OBJECT(fs));
-  
-  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs));
-
-  if (stat(filename, &stat_struct)!=0) {
-    message_error(_("No such file found\n%s\n"), filename);
-    gtk_grab_remove(GTK_WIDGET(fs));
-    gtk_widget_destroy(GTK_WIDGET(fs));
-    return;
-  }
-  
-  diagram_import_from_xfig(dia, filename);
-  
-  gtk_grab_remove(GTK_WIDGET(fs));
-  gtk_widget_destroy(GTK_WIDGET(fs));
-}
-
-void
-file_import_from_xfig_callback (gpointer data, guint action, GtkWidget *widget)
-{
-  DDisplay *ddisp;
-  GtkWidget *window = NULL;
-
-  ddisp = ddisplay_active();
-
-  window = gtk_file_selection_new (_("Import from XFig"));
-  gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_MOUSE);
-  
-  gtk_object_set_user_data(GTK_OBJECT(window), ddisp->diagram);
-  
-  gtk_signal_connect (GTK_OBJECT (GTK_FILE_SELECTION (window)->ok_button),
-		      "clicked", GTK_SIGNAL_FUNC(file_import_from_xfig_dialog_ok_callback),
-		      window);
-  
-  gtk_signal_connect_object (GTK_OBJECT (GTK_FILE_SELECTION (window)->cancel_button),
-			     "clicked", GTK_SIGNAL_FUNC(gtk_widget_destroy),
-			     GTK_OBJECT (window));
-  
-  gtk_widget_show (window);
-
-  /* Make dialog modal: */
-  gtk_widget_grab_focus(window);
-  gtk_grab_add(window);
-}
-
 void
 file_pagesetup_callback(gpointer data, guint action, GtkWidget *widget)
 {

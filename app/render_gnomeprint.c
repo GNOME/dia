@@ -39,7 +39,7 @@ static void set_linejoin(RendererGPrint *renderer, LineJoin mode);
 static void set_linestyle(RendererGPrint *renderer, LineStyle mode);
 static void set_dashlength(RendererGPrint *renderer, real length);
 static void set_fillstyle(RendererGPrint *renderer, FillStyle mode);
-static void set_font(RendererGPrint *renderer, Font *font, real height);
+static void set_font(RendererGPrint *renderer, DiaFont *font, real height);
 static void draw_line(RendererGPrint *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_color);
@@ -281,7 +281,7 @@ set_fillstyle(RendererGPrint *renderer, FillStyle mode)
 }
 
 static void
-set_font(RendererGPrint *renderer, Font *font, real height)
+set_font(RendererGPrint *renderer, DiaFont *font, real height)
 {
   GnomeFont *gfont;
 

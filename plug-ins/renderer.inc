@@ -21,7 +21,7 @@ static void set_linejoin(MyRenderer *renderer, LineJoin mode);
 static void set_linestyle(MyRenderer *renderer, LineStyle mode);
 static void set_dashlength(MyRenderer *renderer, real length);
 static void set_fillstyle(MyRenderer *renderer, FillStyle mode);
-static void set_font(MyRenderer *renderer, Font *font, real height);
+static void set_font(MyRenderer *renderer, DiaFont *font, real height);
 static void draw_line(MyRenderer *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_colour);

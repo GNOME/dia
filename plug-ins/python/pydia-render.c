@@ -254,7 +254,7 @@ set_fillstyle(MyRenderer *renderer, FillStyle mode)
 }
 
 static void
-set_font(MyRenderer *renderer, Font *font, real height)
+set_font(MyRenderer *renderer, DiaFont *font, real height)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 

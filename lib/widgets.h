@@ -42,9 +42,18 @@ typedef struct _DiaFontSelectorClass  DiaFontSelectorClass;
 
 struct _DiaFontSelector
 {
+#ifdef HAVE_FREETYPE
+  GtkHBox hbox;
+
+  GtkOptionMenu *font_omenu;
+  GtkOptionMenu *style_omenu;
+  GtkMenu *font_menu;
+  GtkMenu *style_menu;
+#else
   GtkOptionMenu omenu;
 
   GtkMenu *font_menu;
+#endif
 };
 
 struct _DiaFontSelectorClass
@@ -54,8 +63,8 @@ struct _DiaFontSelectorClass
 
 guint      dia_font_selector_get_type        (void);
 GtkWidget* dia_font_selector_new             (void);
-void       dia_font_selector_set_font        (DiaFontSelector *fs, Font *font);
-Font *     dia_font_selector_get_font        (DiaFontSelector *fs);
+void       dia_font_selector_set_font        (DiaFontSelector *fs, DiaFont *font);
+DiaFont *     dia_font_selector_get_font        (DiaFontSelector *fs);
 
 /* DiaAlignmentSelector: */
 #define DIAALIGNMENTSELECTOR(obj)          GTK_CHECK_CAST (obj, dia_alignment_selector_get_type (), DiaAlignmentSelector)

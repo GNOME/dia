@@ -37,7 +37,7 @@ struct _RenderObjectDescriptor {
   Point text_pos; /* position of text
 		     (note: TOP of text, not ascent down) */
   Alignment initial_alignment;
-  Font *initial_font;
+  DiaFont *initial_font;
   real initial_font_height;
   
   Point *connection_points;

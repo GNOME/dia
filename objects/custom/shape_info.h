@@ -76,7 +76,7 @@ struct _GraphicStyle {
   LineStyle linestyle;
   real dashlength;
 
-  Font *font;
+  DiaFont *font;
   real font_height;
   Alignment alignment;
 };

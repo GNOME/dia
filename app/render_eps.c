@@ -45,7 +45,7 @@ static void set_linejoin(RendererEPS *renderer, LineJoin mode);
 static void set_linestyle(RendererEPS *renderer, LineStyle mode);
 static void set_dashlength(RendererEPS *renderer, real length);
 static void set_fillstyle(RendererEPS *renderer, FillStyle mode);
-static void set_font(RendererEPS *renderer, Font *font, real height);
+static void set_font(RendererEPS *renderer, DiaFont *font, real height);
 static void draw_line(RendererEPS *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_color);
@@ -1107,7 +1107,7 @@ static void eps_get_string_width(gpointer usrdata, const gchar *string,
                   
 
 static void
-set_font(RendererEPS *renderer, Font *font, real height)
+set_font(RendererEPS *renderer, DiaFont *font, real height)
 {
   psu_set_font_face(renderer->psu,
                     font_get_psfontname(font), 
@@ -1211,7 +1211,7 @@ draw_string(RendererEPS *renderer,
 #else /* !HAVE_UNICODE*/
 
 static void
-set_font(RendererEPS *renderer, Font *font, real height)
+set_font(RendererEPS *renderer, DiaFont *font, real height)
 {
   fprintf(renderer->file, "/%s-latin1 ff %f scf sf\n",
 	  font_get_psfontname(font), (double)height);

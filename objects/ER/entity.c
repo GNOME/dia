@@ -54,7 +54,7 @@ struct _Entity {
   Color border_color;
   Color inner_color;
   
-  Font *font;
+  DiaFont *font;
   char *name;
   real name_width;
   

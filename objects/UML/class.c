@@ -198,7 +198,7 @@ umlclass_draw(UMLClass *umlclass, Renderer *renderer)
   Element *elem;
   real x,y;
   Point p, p1, p2, p3;
-  Font *font;
+  DiaFont *font;
   int i;
   GList *list;
   

@@ -1283,7 +1283,7 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
       break;
     case PROP_TYPE_FONT:
       PROP_VALUE_FONT(props[i]) =
-	struct_member(obj, offsets[j].offset, Font *);
+	struct_member(obj, offsets[j].offset, DiaFont *);
       break;
     case PROP_TYPE_TEXT:
       g_free(PROP_VALUE_TEXT(props[i]).string);
@@ -1427,7 +1427,7 @@ object_set_props_from_offsets(Object *obj, PropOffset *offsets,
 	PROP_VALUE_COLOUR(props[i]);
       break;
     case PROP_TYPE_FONT:
-      struct_member(obj, offsets[j].offset, Font *) =
+      struct_member(obj, offsets[j].offset, DiaFont *) =
 	PROP_VALUE_FONT(props[i]);
       break;
     case PROP_TYPE_FILE:

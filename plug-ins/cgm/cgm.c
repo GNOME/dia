@@ -207,7 +207,7 @@ struct _RendererCGM {
 
     FILE *file;
 
-    Font *font;
+    DiaFont *font;
 
     real y0, y1; 
 
@@ -229,7 +229,7 @@ static void set_linejoin(RendererCGM *renderer, LineJoin mode);
 static void set_linestyle(RendererCGM *renderer, LineStyle mode);
 static void set_dashlength(RendererCGM *renderer, real length);
 static void set_fillstyle(RendererCGM *renderer, FillStyle mode);
-static void set_font(RendererCGM *renderer, Font *font, real height);
+static void set_font(RendererCGM *renderer, DiaFont *font, real height);
 static void draw_line(RendererCGM *renderer, 
 		      Point *start, Point *end, 
 		      Color *line_colour);
@@ -717,7 +717,7 @@ set_fillstyle(RendererCGM *renderer, FillStyle mode)
 }
 
 static void
-set_font(RendererCGM *renderer, Font *font, real height)
+set_font(RendererCGM *renderer, DiaFont *font, real height)
 {
     renderer->font = font;
     renderer->tcurrent.font_num = FONT_NUM(font);

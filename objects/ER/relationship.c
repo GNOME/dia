@@ -49,7 +49,7 @@ typedef struct _Relationship Relationship;
 struct _Relationship {
   Element element;
 
-  Font *font;
+  DiaFont *font;
   gchar *name;
   gchar *left_cardinality;
   gchar *right_cardinality;

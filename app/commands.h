@@ -21,8 +21,6 @@
 #include <gtk/gtk.h>
 
 void file_quit_callback(gpointer data, guint action, GtkWidget *widget);
-void file_import_from_xfig_callback(gpointer data, guint action,
-				    GtkWidget *widget);
 void file_pagesetup_callback(gpointer data, guint action, GtkWidget *widget);
 void file_print_callback(gpointer data, guint action, GtkWidget *widget);
 void file_close_callback(gpointer data, guint action, GtkWidget *widget);

@@ -768,13 +768,6 @@ diagram_set_filename(Diagram *dia, char *filename)
   recent_file_history_add((const char *)filename, NULL);
 }
 
-
-void
-diagram_import_from_xfig(Diagram *dia, char *filename)
-{
-  printf("Fooled you!  Can't import %s yet!\n", filename);
-}
-
 int diagram_modified_exists(void)
 {
   GList *list;
@@ -792,5 +785,3 @@ int diagram_modified_exists(void)
   }
   return FALSE;
 }
-
-

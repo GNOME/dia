@@ -79,7 +79,7 @@ struct _FlowDialog {
 #define FLOW_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
-static Font *flow_font = NULL;
+static DiaFont *flow_font = NULL;
 
 static FlowDialog *defaults_dialog;
 

@@ -291,7 +291,7 @@ diamond_get_defaults()
   GtkWidget *fontsel;
   GtkWidget *font_size;
   GtkAdjustment *adj;
-  Font *font;
+  DiaFont *font;
   real font_height;
 
   if (diamond_defaults_dialog == NULL) {
@@ -616,7 +616,7 @@ diamond_create(Point *startpoint,
   Object *obj;
   Point p;
   int i;
-  Font *font;
+  DiaFont *font;
   real font_height;
 
   init_default_values();

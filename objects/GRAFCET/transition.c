@@ -61,7 +61,7 @@ typedef struct _Transition {
   Element element;
   
   Boolequation *receptivity;
-  Font *rcep_font;
+  DiaFont *rcep_font;
   real rcep_fontheight;
   Color rcep_color;
   char *rcep_value;
@@ -361,7 +361,7 @@ transition_create(Point *startpoint,
   Object *obj;
   int i;
   Element *elem;
-  Font *default_font; 
+  DiaFont *default_font; 
   real default_fontheight;
   Color fg_color;
 

@@ -434,11 +434,11 @@ data_string(DataNode data)
   return NULL;
 }
 
-Font *
+DiaFont *
 data_font(DataNode data)
 {
   char *name;
-  Font *font;
+  DiaFont *font;
   
   if (data_type(data)!=DATATYPE_FONT) {
     message_error("Taking font value of non-font node.");
@@ -676,7 +676,7 @@ data_add_string(AttributeNode attr, char *str)
 }
 
 void
-data_add_font(AttributeNode attr, Font *font)
+data_add_font(AttributeNode attr, DiaFont *font)
 {
   DataNode data_node;
  

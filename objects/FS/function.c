@@ -322,7 +322,7 @@ function_update_data(Function *pkg)
 {
   Element *elem = &pkg->element;
   Object *obj = &elem->object;
-  Font *font;
+  DiaFont *font;
   Point p1;
   real h, w = 0, font_height;
   
@@ -387,7 +387,7 @@ function_create(Point *startpoint,
   Element *elem;
   Object *obj;
   Point p;
-  Font *font;
+  DiaFont *font;
   int i;
   
   pkg = g_malloc0(sizeof(Function));

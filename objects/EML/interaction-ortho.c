@@ -33,7 +33,7 @@ struct _InteractionOrtho {
 
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM2)
 
-static Font *inter_font = NULL;
+static DiaFont *inter_font = NULL;
 
 static real interaction_ortho_distance_from(InteractionOrtho*inter, Point *point);
 static void interaction_ortho_select(InteractionOrtho*inter, Point *clicked_point,

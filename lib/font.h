@@ -21,6 +21,11 @@
 #include <gdk/gdk.h>
 #include "geometry.h"
 #include "diavar.h"
+#ifdef HAVE_FREETYPE
+#include <ft2build.h>
+#include FT_FREETYPE_H
+#include FT_GLYPH_H
+#endif
 
 typedef enum {
   ALIGN_LEFT,
@@ -28,10 +33,13 @@ typedef enum {
   ALIGN_RIGHT
 } Alignment;
 
-typedef struct _Font Font;
+typedef struct _DiaFont DiaFont;
 
-struct _Font {
+struct _DiaFont {
   char *name;
+#ifdef HAVE_FREETYPE
+  char *style;
+#endif
 };
 
 typedef struct _SuckFont SuckFont;
@@ -54,15 +62,53 @@ struct _SuckFont {
 	SuckChar chars[256];
 };
 
+#ifdef HAVE_FREETYPE
+typedef struct _FreetypeFamily FreetypeFamily;
+typedef struct _FreetypeFace FreetypeFace;
+typedef struct _FreetypeString FreetypeString;
+
+struct _FreetypeFace {
+  FT_Face face;
+  FreetypeFamily *family;
+  char *from_file;
+};
+
+struct _FreetypeFamily {
+  gchar *family;
+  GList *faces;
+};
+GHashTable *freetype_fonts;
+
+struct _FreetypeString {
+  FT_Face face;
+  real height;
+  gint num_glyphs;
+  FT_Glyph *glyphs;
+  real width;
+  /* Something that stores a rendering */
+};
+/* A cache of current strings with rendering and width. */
+GHashTable *freetype_strings;
+#endif
+
 DIAVAR GList *font_names; /* GList with 'char *' data.*/
 
 void font_init(void);
-Font *font_getfont(const char *name);
-GdkFont *font_get_gdkfont(Font *font, int height);
-SuckFont *font_get_suckfont(Font *font, int height);
-char *font_get_psfontname(Font *font);
-real font_string_width(const char *string, Font *font, real height);
-real font_ascent(Font *font, real height);
-real font_descent(Font *font, real height);
+void font_init_freetype(void);
+DiaFont *font_getfont(const char *name);
+GdkFont *font_get_gdkfont(DiaFont *font, int height);
+SuckFont *font_get_suckfont(DiaFont *font, int height);
+char *font_get_psfontname(DiaFont *font);
+#ifdef HAVE_FREETYPE
+gboolean freetype_file_is_fontfile(char *filename);
+void freetype_add_font(char *dirname, char *filename);
+void freetype_scan_directory(char *dirname);
+void font_init_freetype();
+FreetypeFamily *font_get_freetypefont(DiaFont *font, int height);
+char *font_get_freetypefontname(DiaFont *font);
+#endif
+real font_string_width(const char *string, DiaFont *font, real height);
+real font_ascent(DiaFont *font, real height);
+real font_descent(DiaFont *font, real height);
 
 #endif /* FONT_H */

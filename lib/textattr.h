@@ -25,7 +25,7 @@ typedef struct _TextAttributes TextAttributes;
 #include "color.h"
 
 struct _TextAttributes {
-  Font *font;
+  DiaFont *font;
   real height;
   Point position;
   Color color;

@@ -86,7 +86,7 @@ typedef void (*SetDashLengthFunc) (Renderer *renderer, real length);
 typedef void (*SetFillStyleFunc) (Renderer *renderer, FillStyle mode);
 
 /* Set the current font */
-typedef void (*SetFontFunc) (Renderer *renderer, Font *font, real height);
+typedef void (*SetFontFunc) (Renderer *renderer, DiaFont *font, real height);
 
 /* Draw a line from start to end, using color and the current line style */
 typedef void (*DrawLineFunc) (Renderer *renderer,
@@ -244,7 +244,7 @@ struct _RenderOps {
   SetDashLengthFunc set_dashlength;
   /* Fill attributes: */
   SetFillStyleFunc  set_fillstyle;
-  /* Font stuff: */
+  /* DiaFont stuff: */
   SetFontFunc       set_font;
   
   /* Lines: */
