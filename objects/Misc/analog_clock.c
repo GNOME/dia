@@ -48,6 +48,7 @@ typedef struct _Chronoline {
 
   ConnectionPoint hours[12];
   ConnectionPoint hour_tip, min_tip, sec_tip;
+  ConnectionPoint center_cp;
   
   Color border_color;
   real border_line_width;
@@ -305,6 +306,9 @@ analog_clock_update_data(Analog_Clock *analog_clock)
                &analog_clock->hours[i].pos);
     analog_clock->hours[i].directions = DIR_ALL;
   }
+  analog_clock->center_cp.pos.x = elem->corner.x + elem->width/2;
+  analog_clock->center_cp.pos.y = elem->corner.y + elem->height/2;
+
   analog_clock_update_arrow_tips(analog_clock);
 }  
 
@@ -397,7 +401,7 @@ analog_clock_create(Point *startpoint,
   elem->width = 4.0;
   elem->height = 4.0;
 
-  element_init(elem, 8, 15);
+  element_init(elem, 8, 16);
 
   analog_clock->border_color = attributes_get_foreground();
   analog_clock->border_line_width = attributes_get_default_linewidth();
@@ -428,6 +432,10 @@ analog_clock_create(Point *startpoint,
   obj->connections[14] = &analog_clock->sec_tip;
   analog_clock->sec_tip.object = obj;
   analog_clock->sec_tip.connected = NULL;
+  obj->connections[15] = &analog_clock->center_cp;
+  analog_clock->center_cp.object = obj;
+  analog_clock->center_cp.connected = NULL;
+  analog_clock->center_cp.flags = CP_FLAGS_MAIN;
   
   analog_clock->hours[0].directions = DIR_NORTH;
   analog_clock->hours[1].directions = DIR_NORTH|DIR_EAST;
@@ -441,6 +449,7 @@ analog_clock_create(Point *startpoint,
   analog_clock->hours[9].directions = DIR_WEST;
   analog_clock->hours[10].directions = DIR_WEST|DIR_NORTH;
   analog_clock->hours[11].directions = DIR_WEST|DIR_NORTH;
+  analog_clock->center_cp.directions = DIR_ALL;
 
   analog_clock_update_data(analog_clock);
   

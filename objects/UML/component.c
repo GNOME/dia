@@ -36,11 +36,13 @@
 
 #include "pixmaps/component.xpm"
 
+#define NUM_CONNECTIONS 11
+
 typedef struct _Component Component;
 struct _Component {
   Element element;
 
-  ConnectionPoint connections[10];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   char *stereotype;
   Text *text;
@@ -357,6 +359,10 @@ component_update_data(Component *cmp)
 		   elem->corner.x,
 		   elem->corner.y + elem->height / 2.0 + ch,
 		   DIR_WEST);
+  connpoint_update(&cmp->connections[10],
+		   elem->corner.x + (elem->width-cw2)/2,
+		   elem->corner.y + elem->height / 2.0 + ch,
+		   DIR_ALL);
 
   element_update_boundingbox(elem);
 
@@ -402,13 +408,14 @@ component_create(Point *startpoint,
 
   dia_font_unref(font);
   
-  element_init(elem, 8, 10);
+  element_init(elem, 8, NUM_CONNECTIONS);
   
-  for (i=0;i<10;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &cmp->connections[i];
     cmp->connections[i].object = obj;
     cmp->connections[i].connected = NULL;
   }
+  cmp->connections[10].flags = CP_FLAGS_MAIN;
   elem->extra_spacing.border_trans = COMPONENT_BORDERWIDTH/2.0;
   cmp->stereotype = NULL;
   cmp->st_stereotype = NULL;

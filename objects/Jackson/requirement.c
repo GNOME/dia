@@ -47,10 +47,12 @@ typedef struct _RequirementPropertiesDialog RequirementPropertiesDialog;
 typedef struct _Requirement Requirement;
 typedef struct _RequirementState RequirementState;
 
+#define NUM_CONNECTIONS 9
+
 struct _Requirement {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   Text *text;
   int text_outside;
@@ -348,6 +350,8 @@ req_update_data(Requirement *req)
       req->connections[7].pos.x = c.x + half.x;
       req->connections[7].pos.y = c.y + half.y;
   }
+  req->connections[8].pos.x = elem->corner.x + elem->width/2;
+  req->connections[8].pos.y = elem->corner.y + elem->height/2;
 
   h = req->text->height*req->text->numlines;
   p = req->element.corner;
@@ -402,13 +406,14 @@ req_create(Point *startpoint,
   text_get_attributes(req->text,&req->attrs);
   req->text_outside = 0;
   req->collaboration = 0;
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &req->connections[i];
     req->connections[i].object = obj;
     req->connections[i].connected = NULL;
   }
+  req->connections[8].flags = CP_FLAGS_MAIN;
   elem->extra_spacing.border_trans = 0.0;
   req_update_data(req);
 

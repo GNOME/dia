@@ -34,11 +34,13 @@
 
 #include "pixmaps/note.xpm"
 
+#define NUM_CONNECTIONS 9
+
 typedef struct _Note Note;
 struct _Note {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   Text *text;
   TextAttributes attrs;
@@ -293,6 +295,9 @@ note_update_data(Note *note)
   note->connections[7].pos.x = elem->corner.x + elem->width;
   note->connections[7].pos.y = elem->corner.y + elem->height;
   note->connections[7].directions = DIR_SOUTH|DIR_EAST;
+  note->connections[8].pos.x = elem->corner.x + elem->width/2;
+  note->connections[8].pos.y = elem->corner.y + elem->height/2;
+  note->connections[8].directions = DIR_ALL;
   
   element_update_boundingbox(elem);
 
@@ -336,13 +341,15 @@ note_create(Point *startpoint,
 
   text_get_attributes(note->text,&note->attrs);
   
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &note->connections[i];
     note->connections[i].object = obj;
     note->connections[i].connected = NULL;
   }
+  note->connections[NUM_CONNECTIONS-1].flags = CP_FLAGS_MAIN;
+
   elem->extra_spacing.border_trans = NOTE_BORDERWIDTH/2.0;
   note_update_data(note);
 

@@ -41,10 +41,12 @@
 
 typedef struct _Node Node;
 
+#define NUM_CONNECTIONS 9
+
 struct _Node
 {
   Element element;
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
   Text *name;
   TextAttributes attrs;
 
@@ -319,6 +321,9 @@ node_update_data(Node *node)
   node->connections[7].pos.x = elem->corner.x + elem->width;
   node->connections[7].pos.y = elem->corner.y + elem->height;
   node->connections[7].directions = DIR_SOUTH|DIR_EAST;
+  node->connections[8].pos.x = elem->corner.x + elem->width/2;
+  node->connections[8].pos.y = elem->corner.y + elem->height/2;
+  node->connections[8].directions = DIR_ALL;
   
   element_update_boundingbox(elem);
   /* fix boundingbox for depth: */
@@ -360,13 +365,14 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
   text_get_attributes(node->name,&node->attrs);
   dia_font_unref(font);
   
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &node->connections[i];
     node->connections[i].object = obj;
     node->connections[i].connected = NULL;
   }
+  node->connections[8].flags = CP_FLAGS_MAIN;
   elem->extra_spacing.border_trans = NODE_BORDERWIDTH/2.0;
   node_update_data(node);
 

@@ -39,10 +39,12 @@
 
 typedef struct _LargePackage LargePackage;
 
+#define NUM_CONNECTIONS 9
+
 struct _LargePackage {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   char *name;
   char *stereotype; /* Can be NULL, including << and >> */
@@ -318,6 +320,8 @@ largepackage_update_data(LargePackage *pkg)
   pkg->connections[6].pos.y = elem->corner.y + elem->height;
   pkg->connections[7].pos.x = elem->corner.x + elem->width;
   pkg->connections[7].pos.y = elem->corner.y + elem->height;
+  pkg->connections[8].pos.x = elem->corner.x + elem->width/2;
+  pkg->connections[8].pos.y = elem->corner.y + elem->height/2;
   
   pkg->connections[0].directions = DIR_NORTH|DIR_WEST;
   pkg->connections[1].directions = DIR_NORTH;
@@ -326,7 +330,7 @@ largepackage_update_data(LargePackage *pkg)
   pkg->connections[4].directions = DIR_EAST;
   pkg->connections[5].directions = DIR_SOUTH|DIR_WEST;
   pkg->connections[6].directions = DIR_SOUTH;
-  pkg->connections[7].directions = DIR_SOUTH|DIR_EAST;
+  pkg->connections[6].directions = DIR_ALL;
                                                                                           
   element_update_boundingbox(elem);
   /* fix boundingbox for top rectangle: */
@@ -360,7 +364,7 @@ largepackage_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
 
   elem->width = 4.0;
   elem->height = 4.0;
@@ -378,11 +382,12 @@ largepackage_create(Point *startpoint,
   pkg->topwidth = 2.0;
   pkg->topheight = LARGEPACKAGE_FONTHEIGHT*2 + 0.1*2;
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &pkg->connections[i];
     pkg->connections[i].object = obj;
     pkg->connections[i].connected = NULL;
   }
+  pkg->connections[8].flags = CP_FLAGS_MAIN;
   pkg->element.extra_spacing.border_trans = LARGEPACKAGE_BORDERWIDTH/2.0;
   largepackage_update_data(pkg);
 

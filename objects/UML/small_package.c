@@ -36,11 +36,13 @@
 
 #include "pixmaps/smallpackage.xpm"
 
+#define NUM_CONNECTIONS 9
+
 typedef struct _SmallPackage SmallPackage;
 struct _SmallPackage {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   char *stereotype;
   Text *text;
@@ -307,31 +309,8 @@ smallpackage_update_data(SmallPackage *pkg)
   pkg->text->position = p;
 
   /* Update connections: */
-  pkg->connections[0].pos = elem->corner;
-  pkg->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  pkg->connections[1].pos.y = elem->corner.y;
-  pkg->connections[2].pos.x = elem->corner.x + elem->width;
-  pkg->connections[2].pos.y = elem->corner.y;
-  pkg->connections[3].pos.x = elem->corner.x;
-  pkg->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  pkg->connections[4].pos.x = elem->corner.x + elem->width;
-  pkg->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  pkg->connections[5].pos.x = elem->corner.x;
-  pkg->connections[5].pos.y = elem->corner.y + elem->height;
-  pkg->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  pkg->connections[6].pos.y = elem->corner.y + elem->height;
-  pkg->connections[7].pos.x = elem->corner.x + elem->width;
-  pkg->connections[7].pos.y = elem->corner.y + elem->height;
-  
-  pkg->connections[0].directions = DIR_NORTH|DIR_WEST;
-  pkg->connections[1].directions = DIR_NORTH;
-  pkg->connections[2].directions = DIR_NORTH|DIR_EAST;
-  pkg->connections[3].directions = DIR_WEST;
-  pkg->connections[4].directions = DIR_EAST;
-  pkg->connections[5].directions = DIR_SOUTH|DIR_WEST;
-  pkg->connections[6].directions = DIR_SOUTH;
-  pkg->connections[7].directions = DIR_SOUTH|DIR_EAST;
-                                                                                          
+  element_update_connections_rectangle(elem, pkg->connections);
+
   element_update_boundingbox(elem);
   /* fix boundingbox for top rectangle: */
   obj->bounding_box.top -= SMALLPACKAGE_TOPHEIGHT;
@@ -373,13 +352,14 @@ smallpackage_create(Point *startpoint,
   dia_font_unref(font);
   text_get_attributes(pkg->text,&pkg->attrs);
   
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &pkg->connections[i];
     pkg->connections[i].object = obj;
     pkg->connections[i].connected = NULL;
   }
+  pkg->connections[8].flags = CP_FLAGS_MAIN;
   elem->extra_spacing.border_trans = SMALLPACKAGE_BORDERWIDTH/2.0;
 
   pkg->line_color = attributes_get_foreground();

@@ -38,10 +38,12 @@ typedef struct _UsecasePropertiesDialog UsecasePropertiesDialog;
 typedef struct _Usecase Usecase;
 typedef struct _UsecaseState UsecaseState;
 
+#define NUM_CONNECTIONS 9
+
 struct _Usecase {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   Text *text;
   int text_outside;
@@ -357,6 +359,8 @@ usecase_update_data(Usecase *usecase)
       usecase->connections[7].pos.x = c.x + half.x;
       usecase->connections[7].pos.y = c.y + half.y;
   }
+  usecase->connections[8].pos.x = c.x;
+  usecase->connections[8].pos.y = c.y;
 
   usecase->connections[0].directions = DIR_NORTH|DIR_WEST;
   usecase->connections[1].directions = DIR_NORTH;
@@ -366,6 +370,7 @@ usecase_update_data(Usecase *usecase)
   usecase->connections[5].directions = DIR_SOUTH|DIR_WEST;
   usecase->connections[6].directions = DIR_SOUTH;
   usecase->connections[7].directions = DIR_SOUTH|DIR_EAST;
+  usecase->connections[8].directions = DIR_ALL;
 
   h = usecase->text->height*usecase->text->numlines;
   p = usecase->element.corner;
@@ -421,13 +426,14 @@ usecase_create(Point *startpoint,
   text_get_attributes(usecase->text,&usecase->attrs);
   usecase->text_outside = 0;
   usecase->collaboration = 0;
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &usecase->connections[i];
     usecase->connections[i].object = obj;
     usecase->connections[i].connected = NULL;
   }
+  usecase->connections[8].flags = CP_FLAGS_MAIN;
   elem->extra_spacing.border_trans = 0.0;
   usecase_update_data(usecase);
 

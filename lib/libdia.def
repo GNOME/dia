@@ -340,6 +340,7 @@ EXPORTS
  element_save
  element_update_boundingbox
  element_update_handles
+ element_update_connections_rectangle
 
  ellipse_bbox
 

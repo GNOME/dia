@@ -1,5 +1,18 @@
 2005-03-17  Lars Clausen  <lars@raeder.dk>
 
+	* objects/UML/state_term.c: 
+	* objects/UML/large_package.c: 
+	* objects/UML/node.c: 
+	* objects/UML/object.c: 
+	* objects/UML/small_package.c: 
+	* objects/UML/state.c: 
+	* objects/UML/usecase.c: 
+	* objects/UML/note.c: 
+	* objects/UML/actor.c: 
+	* objects/UML/classicon.c: 
+	* objects/UML/component.c: 
+	* objects/Misc/analog_clock.c: 
+	* objects/Jackson/requirement.c: 
 	* objects/Istar/goal.c: 
 	* objects/Istar/actor.c: 
 	* objects/FS/function.c: 
@@ -7,7 +20,11 @@
 	* objects/ER/entity.c: 
 	* objects/ER/relationship.c: 
 	* objects/ER/attribute.c: Main points added.   Distance_from fixed
-	in attribute, broken in relationship, I* goal
+	in attribute, broken in relationship, I* goal, Jackson
+	requirement, analog_clock, all non-rectangular UML elements, 
+
+	* lib/libdia.def: 
+	* lib/element.[ch]: New method to help update connection points.
 
 	* app/menus.c: Change Help/Manual to Help/Contents to follow
 	standard.

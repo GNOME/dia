@@ -37,11 +37,13 @@
 
 #include "pixmaps/state_term.xpm"
 
+#define NUM_CONNECTIONS 9
+
 typedef struct _State State;
 struct _State {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   int is_final;
 };
@@ -245,31 +247,8 @@ state_update_data(State *state)
   elem->height = h;
 
  /* Update connections: */
-  state->connections[0].pos = elem->corner;
-  state->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  state->connections[1].pos.y = elem->corner.y;
-  state->connections[2].pos.x = elem->corner.x + elem->width;
-  state->connections[2].pos.y = elem->corner.y;
-  state->connections[3].pos.x = elem->corner.x;
-  state->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  state->connections[4].pos.x = elem->corner.x + elem->width;
-  state->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  state->connections[5].pos.x = elem->corner.x;
-  state->connections[5].pos.y = elem->corner.y + elem->height;
-  state->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  state->connections[6].pos.y = elem->corner.y + elem->height;
-  state->connections[7].pos.x = elem->corner.x + elem->width;
-  state->connections[7].pos.y = elem->corner.y + elem->height;
-  
-  state->connections[0].directions = DIR_NORTH|DIR_WEST;
-  state->connections[1].directions = DIR_NORTH;
-  state->connections[2].directions = DIR_NORTH|DIR_EAST;
-  state->connections[3].directions = DIR_WEST;
-  state->connections[4].directions = DIR_EAST;
-  state->connections[5].directions = DIR_SOUTH|DIR_WEST;
-  state->connections[6].directions = DIR_SOUTH;
-  state->connections[7].directions = DIR_SOUTH|DIR_EAST;
-                                                                                          
+  element_update_connections_rectangle(elem, state->connections);
+
   element_update_boundingbox(elem);
 
   obj->position = elem->corner;
@@ -304,13 +283,14 @@ state_create(Point *startpoint,
   p.y += STATE_HEIGHT/2.0;
   
   state->is_final = 0;
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &state->connections[i];
     state->connections[i].object = obj;
     state->connections[i].connected = NULL;
   }
+  state->connections[8].flags = CP_FLAGS_MAIN;
   elem->extra_spacing.border_trans = 0.0;
   state_update_data(state);
 

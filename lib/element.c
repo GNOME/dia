@@ -42,6 +42,46 @@ element_update_boundingbox(Element *elem) {
   rectangle_bbox(&bb,extra,&elem->object.bounding_box);
 }
 
+/** Update the 9 connections of this element to form a rectangle and
+ * point in the center.
+ * The connections go left-to-right, first top row, then middle row, then
+ * bottom row, then center.  Do not blindly use this in old objects where
+ * the order is different, as it will mess with the saved files.  If an
+ * object uses element_update_handles, it can use this.
+ */
+void
+element_update_connections_rectangle(Element *elem,
+				     ConnectionPoint* cps)
+{
+  cps[0].pos = elem->corner;
+  cps[1].pos.x = elem->corner.x + elem->width / 2.0;
+  cps[1].pos.y = elem->corner.y;
+  cps[2].pos.x = elem->corner.x + elem->width;
+  cps[2].pos.y = elem->corner.y;
+  cps[3].pos.x = elem->corner.x;
+  cps[3].pos.y = elem->corner.y + elem->height / 2.0;
+  cps[4].pos.x = elem->corner.x + elem->width;
+  cps[4].pos.y = elem->corner.y + elem->height / 2.0;
+  cps[5].pos.x = elem->corner.x;
+  cps[5].pos.y = elem->corner.y + elem->height;
+  cps[6].pos.x = elem->corner.x + elem->width / 2.0;
+  cps[6].pos.y = elem->corner.y + elem->height;
+  cps[7].pos.x = elem->corner.x + elem->width;
+  cps[7].pos.y = elem->corner.y + elem->height;
+  cps[8].pos.x = elem->corner.x + elem->width / 2.0;
+  cps[8].pos.y = elem->corner.y + elem->height / 2.0;
+  
+  cps[0].directions = DIR_NORTH|DIR_WEST;
+  cps[1].directions = DIR_NORTH;
+  cps[2].directions = DIR_NORTH|DIR_EAST;
+  cps[3].directions = DIR_WEST;
+  cps[4].directions = DIR_EAST;
+  cps[5].directions = DIR_SOUTH|DIR_WEST;
+  cps[6].directions = DIR_SOUTH;
+  cps[7].directions = DIR_SOUTH|DIR_EAST;
+  cps[7].directions = DIR_ALL;
+}
+
 void
 element_update_handles(Element *elem)
 {

@@ -40,10 +40,12 @@
 
 typedef struct _Objet Objet;
 
+#define NUM_CONNECTIONS 9
+
 struct _Objet {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
   
   char *stereotype;
   Text *text;
@@ -413,32 +415,9 @@ objet_update_data(Objet *ob)
   elem->height = h - elem->corner.y;
 
   /* Update connections: */
-  ob->connections[0].pos = elem->corner;
-  ob->connections[1].pos.x = elem->corner.x + elem->width / 2.0;
-  ob->connections[1].pos.y = elem->corner.y;
-  ob->connections[2].pos.x = elem->corner.x + elem->width;
-  ob->connections[2].pos.y = elem->corner.y;
-  ob->connections[3].pos.x = elem->corner.x;
-  ob->connections[3].pos.y = elem->corner.y + elem->height / 2.0;
-  ob->connections[4].pos.x = elem->corner.x + elem->width;
-  ob->connections[4].pos.y = elem->corner.y + elem->height / 2.0;
-  ob->connections[5].pos.x = elem->corner.x;
-  ob->connections[5].pos.y = elem->corner.y + elem->height;
-  ob->connections[6].pos.x = elem->corner.x + elem->width / 2.0;
-  ob->connections[6].pos.y = elem->corner.y + elem->height;
-  ob->connections[7].pos.x = elem->corner.x + elem->width;
-  ob->connections[7].pos.y = elem->corner.y + elem->height;
+  element_update_connections_rectangle(elem, ob->connections);
   
-  ob->connections[0].directions = DIR_NORTH|DIR_WEST;
-  ob->connections[1].directions = DIR_NORTH;
-  ob->connections[2].directions = DIR_NORTH|DIR_EAST;
-  ob->connections[3].directions = DIR_WEST;
-  ob->connections[4].directions = DIR_EAST;
-  ob->connections[5].directions = DIR_SOUTH|DIR_WEST;
-  ob->connections[6].directions = DIR_SOUTH;
-  ob->connections[7].directions = DIR_SOUTH|DIR_EAST;
-                                                                                                
-                                                                                                  element_update_boundingbox(elem);
+  element_update_boundingbox(elem);
   obj->position = elem->corner;
   element_update_handles(elem);
 }
@@ -489,13 +468,14 @@ objet_create(Point *startpoint,
 
   dia_font_unref(font);
   
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &ob->connections[i];
     ob->connections[i].object = obj;
     ob->connections[i].connected = NULL;
   }
+  ob->connections[8].flags = CP_FLAGS_MAIN;
   elem->extra_spacing.border_trans = OBJET_BORDERWIDTH/2.0;
   objet_update_data(ob);
 

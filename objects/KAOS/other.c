@@ -86,6 +86,8 @@ typedef struct _Other {
 
   TextAttributes attrs;
   int init;
+
+  ConnectionPoint center_cp;
 } Other;
 
 static real other_distance_from(Other *other, Point *point);
@@ -456,6 +458,9 @@ other_update_data(Other *other, AnchorShape horiz, AnchorShape vert)
   connpointline_putonaline(other->south,&sw,&se);
   connpointline_update(other->east);
   connpointline_putonaline(other->east,&se,&ne);
+
+  other->center_cp.pos.x = (nw.x + se.x) / 2;
+  other->center_cp.pos.y = (nw.y + se.y) / 2;
 }
 
 static ConnPointLine *
@@ -580,12 +585,17 @@ other_create(Point *startpoint,
                        ALIGN_CENTER);
   dia_font_unref(font);
 
-  element_init(elem, 8, 0);
+  element_init(elem, 8, 1);
 
   other->north = connpointline_create(obj,3);
   other->west = connpointline_create(obj,1);
   other->south = connpointline_create(obj,3);
   other->east = connpointline_create(obj,1);
+
+  obj->connections[0] = &other->center_cp;
+  other->center_cp.object = obj;
+  other->center_cp.connected = NULL;
+  other->center_cp.flags = CP_FLAGS_MAIN;
 
   other->element.extra_spacing.border_trans = OTHER_LINE_SIMPLE_WIDTH/2.0;
   other_update_data(other, ANCHOR_MIDDLE, ANCHOR_MIDDLE);

@@ -33,11 +33,13 @@
 
 #include "pixmaps/actor.xpm"
 
+#define NUM_CONNECTIONS 9
+
 typedef struct _Actor Actor;
 struct _Actor {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
 
   Text *text;
   TextAttributes attrs;
@@ -309,6 +311,9 @@ actor_update_data(Actor *actor)
   actor->connections[7].pos.x = elem->corner.x + elem->width;
   actor->connections[7].pos.y = elem->corner.y + elem->height;
   actor->connections[7].directions = DIR_SOUTH|DIR_EAST;
+  actor->connections[8].pos.x = elem->corner.x + elem->width/2;
+  actor->connections[8].pos.y = elem->corner.y + elem->height/2;
+  actor->connections[8].directions = DIR_ALL;
   
   element_update_boundingbox(elem);
 
@@ -364,13 +369,14 @@ actor_create(Point *startpoint,
   
   text_get_attributes(actor->text,&actor->attrs);
   
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &actor->connections[i];
     actor->connections[i].object = obj;
     actor->connections[i].connected = NULL;
   }
+  actor->connections[8].flags = CP_FLAGS_MAIN;
   elem->extra_spacing.border_trans = ACTOR_LINEWIDTH/2.0;
   actor_update_data(actor);
 

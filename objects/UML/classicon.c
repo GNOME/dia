@@ -39,10 +39,12 @@
 
 typedef struct _Classicon Classicon;
 
+#define NUM_CONNECTIONS 9
+
 struct _Classicon {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[NUM_CONNECTIONS];
   
   int stereotype;
   int is_object;
@@ -399,6 +401,9 @@ classicon_update_data(Classicon *cicon)
   cicon->connections[7].pos.x = elem->corner.x + elem->width;
   cicon->connections[7].pos.y = elem->corner.y + elem->height;
   cicon->connections[7].directions = DIR_SOUTH|DIR_EAST;
+  cicon->connections[8].pos.x = elem->corner.x + elem->width/2;
+  cicon->connections[8].pos.y = elem->corner.y + elem->height/2;
+  cicon->connections[8].directions = DIR_ALL;
   
   element_update_boundingbox(elem);
 
@@ -447,13 +452,14 @@ classicon_create(Point *startpoint,
 
   dia_font_unref(font);
   
-  element_init(elem, 8, 8);
+  element_init(elem, 8, NUM_CONNECTIONS);
   
-  for (i=0;i<8;i++) {
+  for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &cicon->connections[i];
     cicon->connections[i].object = obj;
     cicon->connections[i].connected = NULL;
   }
+  cicon->connections[8].flags = CP_FLAGS_MAIN;
   elem->extra_spacing.border_trans = 0.0;
   classicon_update_data(cicon);
 
