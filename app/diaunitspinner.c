@@ -25,7 +25,7 @@
 #include "diaunitspinner.h"
 #include "gdk/gdkkeysyms.h"
 
-#if 0
+#if 1
 typedef struct _DiaUnitDef DiaUnitDef;
 struct _DiaUnitDef {
   char* name;

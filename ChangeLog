@@ -1,3 +1,15 @@
+2004-09-10  Steffen Macke <sdteffen@web.de>
+
+	* lib/libdia.def: added color_new_rgb(), focus_previous(),focus_next(),
+	give_focus(),give_focus_to_object(),remove_focus(),reset_foci()
+	* app/create_object.c:
+	* app/diaunitspinner.c:
+	* app/disp_callbacks.c:
+	* app/makefile.msc:
+	* app/modify_tool.c:
+	* lib/prop_geomtypes.c:
+	* lib/prop_geomtypes.h: made compile with msvc
+
 2004-09-10  Lars Clausen  <lars@raeder.dk>
 
 	* lib/widgets.c: Insulate conversion from outside API by adding

@@ -30,6 +30,7 @@
 #include "preferences.h"
 #include "cursor.h"
 #include "highlight.h"
+#include "textedit.h"
 
 #include "diacanvas.h"
 #include "prop_text.h"

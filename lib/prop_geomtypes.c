@@ -35,6 +35,7 @@
 #include "propinternals.h"
 #include "geometry.h"
 #include "connpoint_line.h"
+#include "prop_geomtypes.h"
 
 /****************************/
 /* The REAL property type.  */
@@ -210,7 +211,8 @@ lengthprop_reset_widget(LengthProperty *prop, WIDGET *widget)
 static void 
 lengthprop_set_from_widget(LengthProperty *prop, WIDGET *widget) 
 {
-  prop->length_data = dia_unit_spinner_get_value(GTK_SPIN_BUTTON(widget));
+  prop->length_data = dia_unit_spinner_get_value((DiaUnitSpinner *)
+                                                 GTK_SPIN_BUTTON(widget));
 }
 
 static void 
