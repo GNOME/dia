@@ -1,3 +1,8 @@
+2001-01-08  Steffen Macke <sdteffen@yahoo.com>
+
+	*configure.in: GTK+-build was broken due to missing
+	have_bonobo=no
+	
 2001-01-06  Michael Meeks  <michael@helixcode.com>
 
 	* app/dia_embedd.c (main): add running context support.
