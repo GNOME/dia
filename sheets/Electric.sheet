@@ -14,7 +14,7 @@
     </object>
     <object name="Electric - contact_f">
       <description xml:lang="fr">Un contact normalement fermé</description>
-      <description xml:lang="de">Ein normalerweise geschlossener Kontakt<description>
+      <description xml:lang="de">Ein normalerweise geschlossener Kontakt</description>
       <description>A normally closed contact</description>
     </object>
     <object name="Electric - intpos_o">
