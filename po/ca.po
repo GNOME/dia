@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2001-06-08 06:57+0200\n"
+"POT-Creation-Date: 2001-08-16 14:23+0200\n"
 "PO-Revision-Date: 2001-01-26 19:44+0100\n"
 "Last-Translator: Softcatalà <tradgnome@softcatala.org>\n"
 "Language-Team: Catalan <info@softcatala.org>\n"
@@ -31,15 +31,15 @@ msgstr ""
 msgid "Show this help message"
 msgstr "Mostra aquest missatge d'ajuda"
 
-#: app/app_procs.c:182
+#: app/app_procs.c:185
 msgid "Can't connect to session manager!\n"
 msgstr "No s'ha pogut connectar al gestor de sessions!\n"
 
-#: app/app_procs.c:193
+#: app/app_procs.c:196
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPCIÓ...] [ARXIU..]"
 
-#: app/app_procs.c:196
+#: app/app_procs.c:199
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -49,22 +49,22 @@ msgstr ""
 "Executeu '%s --help' per visualitzar una llista completa de les opcions "
 "disponibles per a la línia d'ordres.\n"
 
-#: app/app_procs.c:245 app/app_procs.c:247
+#: app/app_procs.c:247 app/app_procs.c:249
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "No s'han pogut trobar objectes estàndard quan s'han cercat biblioteques "
 "d'objectes, sortint...\n"
 
-#: app/app_procs.c:272
+#: app/app_procs.c:274
 msgid "Need valid input file\n"
 msgstr "Cal un arxiu d'entrada vàlid\n"
 
-#: app/app_procs.c:338 app/app_procs.c:344
+#: app/app_procs.c:340 app/app_procs.c:346
 msgid "Quit, are you sure?"
 msgstr "Esteu segurs que voleu sortir?"
 
-#: app/app_procs.c:351
+#: app/app_procs.c:353
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -72,91 +72,78 @@ msgstr ""
 "Hi ha diagrames que s'han modificat.\n"
 "Esteu segurs que voleu sortir?"
 
-#: app/app_procs.c:361 app/app_procs.c:366
+#: app/app_procs.c:363 app/app_procs.c:368
 msgid "Quit"
 msgstr "Surt"
 
-#: app/app_procs.c:378 app/display.c:958 app/layer_dialog.c:989
+#: app/app_procs.c:380 app/display.c:965 app/layer_dialog.c:989
 #: app/lineprops_area.c:741 app/lineprops_area.c:941 app/linewidth_area.c:246
 #: app/paginate_psprint.c:264
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: app/app_procs.c:453 app/app_procs.c:460
+#: app/app_procs.c:455 app/app_procs.c:462
 msgid "Could not create per-user Dia config directory"
 msgstr "No s'ha pogut crear un directori de configuració del Dia"
 
-#: app/app_procs.c:462
+#: app/app_procs.c:464
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
 msgstr ""
 
-#: app/app_procs.c:484
+#: app/app_procs.c:486
 msgid "Objects and filters internal to dia"
 msgstr "Objectes i filtres interns del dia"
 
-#: app/color_area.c:264 lib/widgets.c:515
+#: app/color_area.c:264 lib/widgets.c:519
 msgid "Select color"
 msgstr "Seleccioneu el color"
 
-#: app/commands.c:105
-#, c-format
-msgid ""
-"No such file found\n"
-"%s\n"
-msgstr ""
-"Aquest fitxer no s'ha trobat\n"
-"%s\n"
-
-#: app/commands.c:125
-msgid "Import from XFig"
-msgstr "Importa des del XFig"
-
-#: app/commands.c:181
+#: app/commands.c:129
 #, c-format
 msgid "Untitled-%d"
 msgstr "Sense nom-%d"
 
-#: app/commands.c:242
+#: app/commands.c:190
 msgid "No existing object to paste.\n"
 msgstr "No existeix cap objecte per enganxar.\n"
 
-#: app/commands.c:501 app/commands.c:524
+#: app/commands.c:458 app/commands.c:481
 msgid "Could not find help directory"
 msgstr ""
 
-#: app/commands.c:571
+#: app/commands.c:528
 msgid "About Dia"
 msgstr "Quant al Dia"
 
-#: app/commands.c:614
+#: app/commands.c:571
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
 msgstr "Dia v %s ha estat creat per Alexander Larsson"
 
-#: app/commands.c:619
+#: app/commands.c:576
 msgid "Maintainer: James Henstridge"
 msgstr "Manteniment: James Henstridge"
 
-#: app/commands.c:623
+#: app/commands.c:580
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
 msgstr ""
 "Visiteu l'adreça http://www.lysator.liu.se/~alla/dia per a més informació"
 
-#: app/commands.c:628
+#: app/commands.c:585
 msgid "Contributors:"
 msgstr "Col·laboradors:"
 
 #. setup buttons
-#: app/commands.c:645 app/dia-props.c:86 app/layer_dialog.c:979
+#: app/commands.c:602 app/dia-props.c:86 app/layer_dialog.c:979
 #: app/lineprops_area.c:732 app/lineprops_area.c:931 app/linewidth_area.c:237
-#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:611
-#: app/properties.c:92 lib/message.c:87
+#: app/pagesetup.c:72 app/paginate_psprint.c:256 app/preferences.c:682
+#: app/properties.c:92 lib/message.c:101
 msgid "OK"
 msgstr "D'acord"
 
-#: app/commands.c:731
+#: app/commands.c:688
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -171,12 +158,12 @@ msgid "Object defaults"
 msgstr "Opcions per defecte de l'objecte"
 
 #: app/defaults.c:75 app/dia-props.c:95 app/pagesetup.c:77
-#: app/preferences.c:620 app/properties.c:101
+#: app/preferences.c:691 app/properties.c:101
 msgid "Apply"
 msgstr "Aplica"
 
 #: app/defaults.c:85 app/dia-props.c:105 app/layer_dialog.c:264
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:629
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:700
 #: app/properties.c:111
 msgid "Close"
 msgstr "Tanca"
@@ -286,7 +273,7 @@ msgstr ""
 "Aquest objecte no suporta Desfés/Refés.\n"
 "S'ha esborrat la informació per a Desfés"
 
-#: app/disp_callbacks.c:186
+#: app/disp_callbacks.c:195
 msgid "No object menu"
 msgstr "Sense menú d'objectes"
 
@@ -298,15 +285,15 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "S'ha modificat el diagrama!"
 
-#: app/display.c:908
+#: app/display.c:915
 msgid "Close Diagram?"
 msgstr "Voleu tancar el diagrama?"
 
-#: app/display.c:914
+#: app/display.c:921
 msgid "Really close?"
 msgstr "Esteu segur que el voleu tancar?"
 
-#: app/display.c:919
+#: app/display.c:926
 msgid ""
 "This diagram has not been saved.\n"
 "Save changes now?"
@@ -314,20 +301,19 @@ msgstr ""
 "Aquest diagrama no s'ha desat.\n"
 "Voleu desar-ne els canvis ara?"
 
-#: app/display.c:937 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:503
-#: lib/properties.c:288
+#: app/display.c:944 app/filedlg.c:246 app/filedlg.c:435 app/preferences.c:574
 msgid "Yes"
 msgstr "Sí"
 
-#: app/display.c:947 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:503
-#: app/preferences.c:514 lib/properties.c:290 lib/properties.c:311
+#: app/display.c:954 app/filedlg.c:259 app/filedlg.c:448 app/preferences.c:574
+#: app/preferences.c:585
 msgid "No"
 msgstr "No"
 
-#: app/export_png.c:79 app/load_save.c:584 app/render_eps.c:212
+#: app/export_png.c:79 app/load_save.c:615 app/render_eps.c:212
 #: plug-ins/cgm/cgm.c:1137 plug-ins/dxf/dxf-export.c:519
 #: plug-ins/hpgl/hpgl.c:559 plug-ins/pstricks/render_pstricks.c:188
-#: plug-ins/shape/shape-export.c:195 plug-ins/svg/render_svg.c:180
+#: plug-ins/shape/shape-export.c:191 plug-ins/svg/render_svg.c:176
 #: plug-ins/wpg/wpg.c:930
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
@@ -424,8 +410,15 @@ msgstr "Desplaçament"
 msgid "Create Text"
 msgstr "Crea text"
 
-#: app/interface.c:58 app/menus.c:197 lib/properties.c:1262
-#: lib/properties.h:366
+#. PROP_STD_TEXT_ALIGNMENT,
+#. PROP_STD_TEXT_FONT,
+#. PROP_STD_TEXT_HEIGHT,
+#. PROP_STD_TEXT_COLOUR,
+#: app/interface.c:58 app/menus.c:197 lib/properties.c:77 lib/properties.h:493
+#: lib/properties.h:496 objects/UML/actor.c:114 objects/UML/classicon.c:137
+#: objects/UML/component.c:120 objects/UML/node.c:119 objects/UML/object.c:142
+#: objects/UML/small_package.c:120 objects/UML/state.c:137
+#: objects/UML/usecase.c:130
 msgid "Text"
 msgstr "Text"
 
@@ -513,7 +506,7 @@ msgstr "Imatge"
 msgid "NULL tooldata in tool_select_update"
 msgstr "Dades d'eines NULL a tool_select_update"
 
-#: app/interface.c:935
+#: app/interface.c:937
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -522,7 +515,7 @@ msgstr ""
 "colors. Les sagetes petites intercanvien els colors. Feu un doble clic per "
 "canviar-los."
 
-#: app/interface.c:1081
+#: app/interface.c:1083
 msgid "Diagram Editor"
 msgstr "Editor de diagrames"
 
@@ -578,21 +571,20 @@ msgstr "Detalls..."
 msgid "Line Style Properties"
 msgstr "Propietats de l'estil de línia"
 
-#: app/linewidth_area.c:216 lib/properties.h:342
+#: app/linewidth_area.c:216 lib/properties.h:469
+#: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Amplada de la línia"
 
-#: app/linewidth_area.c:224 objects/chronogram/chronoline.c:337
-#: objects/chronogram/chronoline.c:428 objects/chronogram/chronoref.c:256
-#: objects/chronogram/chronoref.c:321
+#: app/linewidth_area.c:224
 msgid "Line width:"
 msgstr "Amplada de la línia:"
 
-#: app/load_save.c:120
+#: app/load_save.c:126
 msgid "Error reading diagram file\n"
 msgstr "S'ha produït un error mentre es llegia el fixer del diagrama\n"
 
-#: app/load_save.c:181
+#: app/load_save.c:194
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -600,7 +592,7 @@ msgstr ""
 "S'ha produït un error mentre es carregava el diagrama.\n"
 "L'objecte enllaçat no s'ha trobat al document"
 
-#: app/load_save.c:184
+#: app/load_save.c:197
 msgid ""
 "Error loading diagram.\n"
 "connection point does not exist."
@@ -608,7 +600,7 @@ msgstr ""
 "S'ha produït un error mentre es carregava el diagrama.\n"
 "El punt de connexió no existeix."
 
-#: app/load_save.c:187
+#: app/load_save.c:200
 msgid ""
 "Error loading diagram.\n"
 "connection handle does not exist."
@@ -616,17 +608,17 @@ msgstr ""
 "S'ha produït un error mentre es carregava el diagrama.\n"
 "La connexió associada no existeix"
 
-#: app/load_save.c:231 plug-ins/dxf/dxf-import.c:577 plug-ins/wpg/wpg.c:1036
-#: plug-ins/xfig/xfig-import.c:1063
+#: app/load_save.c:244 plug-ins/dxf/dxf-import.c:626 plug-ins/wpg/wpg.c:1036
+#: plug-ins/xfig/xfig-import.c:1152
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "No s'ha pogut obrir: '%s' per a la seva lectura.\n"
 
-#: app/load_save.c:237
+#: app/load_save.c:250
 msgid "You must specify a file, not a directory.\n"
 msgstr "Heu d'especificar un fitxer, no un directori.\n"
 
-#: app/load_save.c:246 app/load_save.c:251
+#: app/load_save.c:259 app/load_save.c:264
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -635,7 +627,7 @@ msgstr ""
 "S'ha produït un error mentre es carregava el diagrama %s.\n"
 "Es desconeix el tipus de fitxer"
 
-#: app/load_save.c:258
+#: app/load_save.c:271
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -644,12 +636,12 @@ msgstr ""
 "S'ha produït un error mentre es carregava el diagrama %s.\n"
 "El fitxer no és un fitxer Dia"
 
-#: app/load_save.c:703
+#: app/load_save.c:770
 #, c-format
 msgid "Failed to save file '%s'.\n"
 msgstr "No s'ha pogut desar el fitxer '%s'.\n"
 
-#: app/load_save.c:723 app/load_save.c:728
+#: app/load_save.c:790 app/load_save.c:795
 msgid "Native Dia Diagram"
 msgstr "Diagrama Dia original"
 
@@ -772,7 +764,7 @@ msgstr "Inverteix"
 msgid "All"
 msgstr "Tot"
 
-#: app/menus.c:153 lib/widgets.c:656 objects/UML/association.c:1001
+#: app/menus.c:153 lib/widgets.c:660 objects/UML/association.c:1001
 msgid "None"
 msgstr "Cap"
 
@@ -788,18 +780,16 @@ msgstr "Transitiu"
 msgid "Same Type"
 msgstr "Mateix tipus"
 
-#: app/menus.c:164 lib/properties.c:1247 lib/properties.h:330
-#: lib/widgets.c:199
+#: app/menus.c:164 lib/properties.c:62 lib/properties.h:457 lib/widgets.c:203
 msgid "Left"
 msgstr "Esquerra"
 
-#: app/menus.c:165 app/menus.c:174 lib/properties.c:1248 lib/properties.h:331
-#: lib/widgets.c:205
+#: app/menus.c:165 app/menus.c:174 lib/properties.c:63 lib/properties.h:458
+#: lib/widgets.c:209
 msgid "Center"
 msgstr "Centre"
 
-#: app/menus.c:166 lib/properties.c:1249 lib/properties.h:332
-#: lib/widgets.c:211
+#: app/menus.c:166 lib/properties.c:64 lib/properties.h:459 lib/widgets.c:215
 msgid "Right"
 msgstr "Dreta"
 
@@ -1330,12 +1320,12 @@ msgstr "sí"
 msgid "no"
 msgstr "no"
 
-#: app/plugin-manager.c:181 objects/ER/attribute.c:149 objects/ER/entity.c:128
+#: app/plugin-manager.c:181 objects/ER/attribute.c:149 objects/ER/entity.c:126
 #: objects/ER/relationship.c:135 objects/UML/association.c:979
 #: objects/UML/class_dialog.c:734 objects/UML/class_dialog.c:1610
 #: objects/UML/class_dialog.c:1772 objects/UML/class_dialog.c:2228
-#: objects/UML/dependency.c:127 objects/UML/generalization.c:123
-#: objects/UML/large_package.c:605 objects/UML/realizes.c:124
+#: objects/UML/dependency.c:125 objects/UML/generalization.c:121
+#: objects/UML/realizes.c:122
 msgid "Name:"
 msgstr "Nom:"
 
@@ -1363,31 +1353,36 @@ msgstr "Carrega"
 msgid "Unload"
 msgstr "Descarrega"
 
-#: app/preferences.c:89
+#: app/preferences.c:115
 msgid "User Interface"
 msgstr "Interfície de l'usuari"
 
-#: app/preferences.c:90
+#: app/preferences.c:116
+#, fuzzy
+msgid "Diagram Defaults"
+msgstr "Menú de diagrames"
+
+#: app/preferences.c:117
 msgid "View Defaults"
 msgstr "Veure les opcions per defecte"
 
-#: app/preferences.c:91
+#: app/preferences.c:118
 msgid "Grid Lines"
 msgstr "Línies de la quadrícula"
 
-#: app/preferences.c:105
+#: app/preferences.c:132
 msgid "Reset tools after create:"
 msgstr "Reinicia les eines després de crear:"
 
-#: app/preferences.c:106
+#: app/preferences.c:133
 msgid "Compress saved files:"
 msgstr "Compacta els fitxers desats:"
 
-#: app/preferences.c:107
+#: app/preferences.c:134
 msgid "Number of undo levels:"
 msgstr "Número de nivells de desfer:"
 
-#: app/preferences.c:108
+#: app/preferences.c:135
 msgid ""
 "Reverse dragging selects\n"
 "intersecting objects:"
@@ -1395,68 +1390,78 @@ msgstr ""
 "L'arrossegament invers selecciona\n"
 "la intersecció d'objectes:"
 
-#: app/preferences.c:109
+#: app/preferences.c:138
+#, fuzzy
+msgid "New diagram:"
+msgstr "_Nou diagrama"
+
+#: app/preferences.c:139
+#, fuzzy
+msgid "Paper type:"
+msgstr "Tipus de missatge:"
+
+#: app/preferences.c:142
 msgid "New window:"
 msgstr "Finestra nova:"
 
-#: app/preferences.c:110
+#: app/preferences.c:143
 msgid "Width:"
 msgstr "Amplada:"
 
-#: app/preferences.c:111
+#: app/preferences.c:144
 msgid "Height:"
 msgstr "Altura:"
 
-#: app/preferences.c:112
+#: app/preferences.c:145
 msgid "Magnify:"
 msgstr "Magnifica:"
 
-#: app/preferences.c:113
+#: app/preferences.c:146
 msgid "Use menu bar:"
 msgstr ""
 
-#: app/preferences.c:115
+#: app/preferences.c:148
 msgid "Connection Points:"
 msgstr "Punts de connexió:"
 
-#: app/preferences.c:116 app/preferences.c:119 app/preferences.c:127
+#: app/preferences.c:149 app/preferences.c:152 app/preferences.c:160
 msgid "Visible:"
 msgstr "Visible:"
 
-#: app/preferences.c:118
+#: app/preferences.c:151
 msgid "Grid:"
 msgstr "Quadrícula:"
 
-#: app/preferences.c:120
+#: app/preferences.c:153
 msgid "Snap to:"
 msgstr "Desplaça a:"
 
-#: app/preferences.c:121
+#: app/preferences.c:154
 msgid "X Size:"
 msgstr "Mida de l'eix X"
 
-#: app/preferences.c:122
+#: app/preferences.c:155
 msgid "Y Size:"
 msgstr "Mida de l'eix Y"
 
-#: app/preferences.c:123 app/preferences.c:128
+#: app/preferences.c:156 app/preferences.c:161
 msgid "Colour:"
 msgstr "Color:"
 
-#: app/preferences.c:124 app/preferences.c:129
+#: app/preferences.c:157 app/preferences.c:162
 msgid "Solid lines:"
 msgstr "Línies sòlides:"
 
-#: app/preferences.c:126
+#: app/preferences.c:159
 msgid "Page breaks:"
 msgstr "Salt de pàgina:"
 
-#: app/preferences.c:243
+#: app/preferences.c:282
 #, c-format
 msgid "Could not open `%s' for writing"
 msgstr "No s'ha pogut obrir '%s' per a la seva escriptura"
 
-#: app/preferences.c:579 app/preferences.c:588
+#: app/preferences.c:650 app/preferences.c:659
 msgid "Preferences"
 msgstr "Preferències"
 
@@ -1478,7 +1483,7 @@ msgstr "_Propietats"
 msgid "Object properties:"
 msgstr "Propietats de l'objecte"
 
-#: app/render_eps.c:1649
+#: app/render_eps.c:1651
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated Postcript"
 
@@ -1505,65 +1510,67 @@ msgstr "S'està carregant..."
 msgid "Dia v %s"
 msgstr ""
 
-#: lib/properties.c:1256 lib/properties.h:345
+#: lib/properties.c:71 lib/properties.h:472
 #, fuzzy
 msgid "Line colour"
 msgstr "Color de la línia:"
 
-#: lib/properties.c:1257 lib/properties.h:348
+#: lib/properties.c:72 lib/properties.h:475
 msgid "Line style"
 msgstr "Estil de la línia"
 
-#: lib/properties.c:1258 lib/properties.h:352
+#: lib/properties.c:73 lib/properties.h:479
 #, fuzzy
 msgid "Fill colour"
 msgstr "Color del tipus de lletra"
 
-#: lib/properties.c:1259 lib/properties.h:355
-#: objects/custom/custom_object.c:362 objects/flowchart/box.c:317
-#: objects/flowchart/diamond.c:310 objects/flowchart/ellipse.c:310
-#: objects/flowchart/parallelogram.c:321 objects/standard/beziergon.c:222
-#: objects/standard/box.c:232 objects/standard/ellipse.c:220
-#: objects/standard/polygon.c:226
+#: lib/properties.c:74 lib/properties.h:482 objects/custom/custom_object.c:311
+#: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
+#: objects/flowchart/ellipse.c:264 objects/flowchart/parallelogram.c:274
+#: objects/standard/beziergon.c:221 objects/standard/box.c:232
+#: objects/standard/ellipse.c:220 objects/standard/polygon.c:227
 msgid "Draw background"
 msgstr "Dibuixa el fons"
 
-#: lib/properties.c:1260 lib/properties.h:359
+#: lib/properties.c:75 lib/properties.h:486
 #, fuzzy
 msgid "Start arrow"
 msgstr "Línia de punts"
 
-#: lib/properties.c:1261 lib/properties.h:362
+#: lib/properties.c:76 lib/properties.h:489
 #, fuzzy
 msgid "End arrow"
 msgstr "Final de la sageta:"
 
-#: lib/properties.c:1263 lib/properties.h:369
+#: lib/properties.c:78 lib/properties.h:499
 #, fuzzy
 msgid "Text alignment"
 msgstr "Alineació:"
 
-#: lib/properties.c:1264 lib/properties.h:372 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/transition.c:140
+#: lib/properties.c:79 lib/properties.h:502 objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/step.c:163 objects/GRAFCET/transition.c:140
+#: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Tipus de lletra"
 
-#: lib/properties.c:1265 lib/properties.h:375 objects/GRAFCET/condition.c:133
-#: objects/GRAFCET/transition.c:142
+#: lib/properties.c:80 lib/properties.h:505 objects/GRAFCET/condition.c:133
+#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
+#: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Mida del tipus de lletra"
 
-#: lib/properties.c:1266 lib/properties.h:378
+#: lib/properties.c:81 lib/properties.h:508 objects/GRAFCET/step.c:167
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 #, fuzzy
 msgid "Text colour"
 msgstr "Color del text:"
 
-#: lib/plug-ins.c:211
+#: lib/plug-ins.c:214
 #, c-format
 msgid "Could not deduce correct path for `%s'"
 msgstr "No s'ha pogut esbrinar el camí correcte per a `%s'"
 
-#: lib/plug-ins.c:216
+#: lib/plug-ins.c:219
 #, c-format
 msgid ""
 "Could not load plugin `%s'\n"
@@ -1572,22 +1579,22 @@ msgstr ""
 "No s'ha pogut carregar l'extensió '%s'\n"
 "%s"
 
-#: lib/plug-ins.c:227
+#: lib/plug-ins.c:230
 #, c-format
 msgid "Could not find plugin init function in `%s'"
 msgstr "No s'ha pogut trobar la funció init de l'extensió a `%s'"
 
-#: lib/plug-ins.c:254
+#: lib/plug-ins.c:257
 #, c-format
 msgid "%s Plugin could not be unloaded"
 msgstr "No s'ha pogut descarregar l'extensió %s"
 
-#: lib/plug-ins.c:307
+#: lib/plug-ins.c:310
 #, c-format
 msgid "`%s' is not a directory"
 msgstr "`%s' no ñes un directori"
 
-#: lib/plug-ins.c:313
+#: lib/plug-ins.c:316
 #, c-format
 msgid "Could not open `%s'"
 msgstr "No s'ha pogut obrir '%s'"
@@ -1596,7 +1603,7 @@ msgstr "No s'ha pogut obrir '%s'"
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Error intern: establiment de tipus de racó del punt final de bezier"
 
-#: lib/font.c:389
+#: lib/font.c:427
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
@@ -1605,164 +1612,195 @@ msgstr ""
 "Advertència, no s'ha trobat cap X tipus de lletra per a %s, \n"
 "i s'usa %s alternativament.\n"
 
-#: lib/font.c:443
+#: lib/font.c:532
+#, c-format
+msgid "Warning: FreeType selected, but library wouldn't load: %d\n"
+msgstr ""
+
+#: lib/font.c:541
+#, fuzzy
+msgid "Warning: No X fonts found.  The world is ending."
+msgstr ""
+"Advertència, no s'ha trobat cap X tipus de lletra per a %s, \n"
+"i s'usa %s alternativament.\n"
+
+#: lib/font.c:848
+msgid "Error, couldn't locate font. Shouldn't happen.\n"
+msgstr ""
+
+#: lib/font.c:850 lib/font.c:851 lib/font.c:884
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
 msgstr ""
 "No s'ha trobat el tipus de lletra %s. S'utilitzarà la Courier per defecte.\n"
 
-#: lib/properties.c:382 lib/properties.c:414
-msgid "No edit widget"
-msgstr "Sense edició de símbols"
+#: lib/font.c:861
+#, c-format
+msgid "Font %s has no style %s, using %s\n"
+msgstr ""
 
-#: lib/message.c:120
+#: lib/message.c:149
 msgid "Notice"
 msgstr "Nota"
 
-#: lib/message.c:131
+#: lib/message.c:160
 msgid "Warning"
 msgstr "Advertència"
 
-#: lib/message.c:143
+#: lib/message.c:172
 msgid "Error"
 msgstr "Error"
 
-#: lib/widgets.c:319 objects/FS/function.c:807
+#: lib/widgets.c:323 objects/FS/function.c:807
 msgid "Solid"
 msgstr "Sòlida"
 
-#: lib/widgets.c:325
+#: lib/widgets.c:329
 msgid "Dashed"
 msgstr "Guionet"
 
-#: lib/widgets.c:331
+#: lib/widgets.c:335
 msgid "Dash-Dot"
 msgstr "Guionet-punt"
 
-#: lib/widgets.c:337
+#: lib/widgets.c:341
 msgid "Dash-Dot-Dot"
 msgstr "Guionet-punt-punt"
 
-#: lib/widgets.c:343
+#: lib/widgets.c:347
 msgid "Dotted"
 msgstr "Punts"
 
 #. fs->sizebox = GTK_HBOX(box);
-#: lib/widgets.c:361
+#: lib/widgets.c:365
 msgid "Dash length: "
 msgstr "Mida dels guionets: "
 
-#: lib/widgets.c:657
+#: lib/widgets.c:661
 msgid "Lines"
 msgstr "Línies"
 
-#: lib/widgets.c:658
+#: lib/widgets.c:662
 msgid "Hollow Triangle"
 msgstr "Triangle buit"
 
-#: lib/widgets.c:659
+#: lib/widgets.c:663
 msgid "Filled Triangle"
 msgstr "Triangle ple"
 
-#: lib/widgets.c:660
+#: lib/widgets.c:664
 #, fuzzy
 msgid "Unfilled Triangle"
 msgstr "Triangle ple"
 
-#: lib/widgets.c:661
+#: lib/widgets.c:665
 msgid "Filled Diamond"
 msgstr "Diamant ple"
 
-#: lib/widgets.c:662
+#: lib/widgets.c:666
 msgid "Half Head"
 msgstr "Mig cap"
 
-#: lib/widgets.c:663
+#: lib/widgets.c:667
 msgid "Slashed Cross"
 msgstr "Creu en x"
 
-#: lib/widgets.c:664
+#: lib/widgets.c:668
 msgid "Filled Ellipse"
 msgstr "El·lipse plena"
 
-#: lib/widgets.c:665
+#: lib/widgets.c:669
 msgid "Hollow Ellipse"
 msgstr "El·lipse buida"
 
-#: lib/widgets.c:666
+#: lib/widgets.c:670
 #, fuzzy
 msgid "Filled Dot"
 msgstr "Diamant ple"
 
-#: lib/widgets.c:667
+#: lib/widgets.c:671
 msgid "Dimension Origin"
 msgstr ""
 
-#: lib/widgets.c:668
-msgid "Blanked Dot"
-msgstr ""
-
-#: lib/widgets.c:669
-#, fuzzy
-msgid "Double Hollow triangle"
-msgstr "Triangle buit"
-
-#: lib/widgets.c:670
-#, fuzzy
-msgid "Double Filled triangle"
-msgstr "Triangle ple"
-
-#: lib/widgets.c:671
-#, fuzzy
-msgid "Filled Box"
-msgstr "Diamant ple"
-
 #: lib/widgets.c:672
-msgid "Blanked Box"
+msgid "Blanked Dot"
 msgstr ""
 
 #: lib/widgets.c:673
 #, fuzzy
+msgid "Double Hollow triangle"
+msgstr "Triangle buit"
+
+#: lib/widgets.c:674
+#, fuzzy
+msgid "Double Filled triangle"
+msgstr "Triangle ple"
+
+#: lib/widgets.c:675
+#, fuzzy
+msgid "Filled Box"
+msgstr "Diamant ple"
+
+#: lib/widgets.c:676
+msgid "Blanked Box"
+msgstr ""
+
+#: lib/widgets.c:677
+#, fuzzy
 msgid "Slashed"
 msgstr "Guionet"
 
-#: lib/widgets.c:674
+#: lib/widgets.c:678
 msgid "Integral Symbol"
 msgstr ""
 
-#: lib/widgets.c:710
+#: lib/widgets.c:714
 msgid "Length: "
 msgstr "Llargada: "
 
-#: lib/widgets.c:723
+#: lib/widgets.c:727
 msgid "Width: "
 msgstr "Amplada: "
 
-#: lib/widgets.c:849 objects/standard/image.c:538
+#: lib/widgets.c:853 objects/standard/image.c:536
 msgid "Select image file"
 msgstr "Selecciona el fitxer d'imatge"
 
-#: lib/widgets.c:879
+#: lib/widgets.c:883
 msgid "Browse"
 msgstr "Navega"
 
-#: lib/dia_xml.c:273
+#: lib/dia_xml.c:124
+#, c-format
+msgid ""
+"The file %s has no encoding specification;\n"
+"assuming it is encoded in %s"
+msgstr ""
+
+#: lib/dia_xml.c:449
 msgid "Taking point value of non-point node."
 msgstr ""
 
-#: lib/dia_xml.c:285
+#: lib/dia_xml.c:461
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr ""
 
-#: lib/dia_xml.c:293
+#: lib/dia_xml.c:469
 msgid "Error parsing point."
 msgstr ""
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:301
+#: lib/dia_xml.c:477
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
+msgstr ""
+
+#: lib/dia_xml.c:911
+msgid ""
+"Your local character set is UTF-8. Because of issues with libxml1 and the "
+"support of files generated by previous versions of dia, you will encounter  "
+"problems. Please report to dia-list@gnome.org if you see this message."
 msgstr ""
 
 #: objects/ER/attribute.c:151
@@ -1789,12 +1827,12 @@ msgstr "Multivalor"
 msgid "Attribute"
 msgstr "Atribut"
 
-#: objects/ER/entity.c:130
+#: objects/ER/entity.c:128
 #, fuzzy
 msgid "Weak:"
 msgstr "Feble"
 
-#: objects/ER/entity.c:342 objects/UML/classicon.c:135
+#: objects/ER/entity.c:340 objects/UML/classicon.c:124
 msgid "Entity"
 msgstr "Entitat"
 
@@ -1807,18 +1845,18 @@ msgid "Total:"
 msgstr "Total:"
 
 #: objects/ER/participation.c:393 objects/FS/flow-ortho.c:796
-#: objects/GRAFCET/vector.c:412 objects/SADT/arrow.c:660
-#: objects/UML/association.c:618 objects/UML/dependency.c:375
-#: objects/UML/generalization.c:369 objects/UML/realizes.c:372
-#: objects/standard/zigzagline.c:339
+#: objects/GRAFCET/vector.c:301 objects/SADT/arrow.c:550
+#: objects/UML/association.c:618 objects/UML/dependency.c:335
+#: objects/UML/generalization.c:327 objects/UML/realizes.c:330
+#: objects/standard/zigzagline.c:337
 msgid "Add segment"
 msgstr "Afegeix un segment"
 
 #: objects/ER/participation.c:394 objects/FS/flow-ortho.c:797
-#: objects/GRAFCET/vector.c:413 objects/SADT/arrow.c:661
-#: objects/UML/association.c:619 objects/UML/dependency.c:376
-#: objects/UML/generalization.c:370 objects/UML/realizes.c:373
-#: objects/standard/zigzagline.c:340
+#: objects/GRAFCET/vector.c:302 objects/SADT/arrow.c:551
+#: objects/UML/association.c:619 objects/UML/dependency.c:336
+#: objects/UML/generalization.c:328 objects/UML/realizes.c:331
+#: objects/standard/zigzagline.c:338
 msgid "Delete segment"
 msgstr "Esborra el segment"
 
@@ -2387,7 +2425,7 @@ msgid "Regulate"
 msgstr "   Regula"
 
 #: objects/FS/function.c:750 objects/FS/function.c:859
-#: objects/UML/classicon.c:133
+#: objects/UML/classicon.c:122
 msgid "Control"
 msgstr "Control"
 
@@ -2794,38 +2832,13 @@ msgstr ""
 msgid "Wish Fn"
 msgstr "Funció desitjada"
 
-#: objects/GRAFCET/action.c:197 objects/GRAFCET/action.c:238
-#: objects/GRAFCET/step.c:275 objects/GRAFCET/step.c:315
-#: objects/SADT/annotation.c:495 objects/SADT/annotation.c:537
-#: objects/SADT/box.c:210 objects/SADT/box.c:252
-#: objects/chronogram/chronoline.c:338 objects/chronogram/chronoline.c:430
-#: objects/chronogram/chronoref.c:259 objects/chronogram/chronoref.c:324
-#: objects/custom/custom_object.c:396 objects/flowchart/box.c:353
-#: objects/flowchart/diamond.c:332 objects/flowchart/ellipse.c:332
-#: objects/flowchart/parallelogram.c:357 objects/standard/textobj.c:270
-msgid "Font:"
-msgstr "Tipus de lletra:"
-
-#: objects/GRAFCET/action.c:198 objects/GRAFCET/action.c:239
-#: objects/GRAFCET/step.c:276 objects/GRAFCET/step.c:316
-#: objects/SADT/annotation.c:496 objects/SADT/annotation.c:538
-#: objects/SADT/box.c:211 objects/SADT/box.c:253
-#: objects/chronogram/chronoline.c:339 objects/chronogram/chronoline.c:431
-#: objects/chronogram/chronoref.c:260 objects/chronogram/chronoref.c:325
-#: objects/custom/custom_object.c:407 objects/flowchart/box.c:364
-#: objects/flowchart/diamond.c:343 objects/flowchart/ellipse.c:343
-#: objects/flowchart/parallelogram.c:368
-msgid "Font size:"
-msgstr "Mida del tipus de lletra"
-
-#: objects/GRAFCET/action.c:199 objects/GRAFCET/action.c:240
-#: objects/GRAFCET/step.c:277
-msgid "Text color:"
-msgstr "Color del text:"
-
-#: objects/GRAFCET/action.c:200
+#: objects/GRAFCET/action.c:134
 msgid "Macro call"
 msgstr "Crida a la macro"
+
+#: objects/GRAFCET/action.c:134
+msgid "This action is a call to a macro-step"
+msgstr ""
 
 #: objects/GRAFCET/condition.c:129
 #, fuzzy
@@ -2858,45 +2871,53 @@ msgstr ""
 msgid "GRAFCET diagram objects"
 msgstr "Objectes de diagrama GRAFCET"
 
-#: objects/GRAFCET/step.c:258
+#: objects/GRAFCET/step.c:146
 msgid "Regular step"
 msgstr "Pas normal"
 
-#: objects/GRAFCET/step.c:259
+#: objects/GRAFCET/step.c:147
 msgid "Initial step"
 msgstr "Pas inicial"
 
-#: objects/GRAFCET/step.c:260
+#: objects/GRAFCET/step.c:148
 msgid "Macro entry step"
 msgstr "Pas d'entrada de macro"
 
-#: objects/GRAFCET/step.c:261
+#: objects/GRAFCET/step.c:149
 msgid "Macro exit step"
 msgstr "Pas de sortida de macro"
 
-#: objects/GRAFCET/step.c:262
+#: objects/GRAFCET/step.c:150
 msgid "Macro call step"
 msgstr "Pas de crida de macro"
 
-#: objects/GRAFCET/step.c:263
+#: objects/GRAFCET/step.c:151
 msgid "Subprogram call step"
 msgstr "Pas de crida de subprograma"
 
-#: objects/GRAFCET/step.c:272
+#: objects/GRAFCET/step.c:157
 msgid "Step name"
 msgstr "Nom del pas"
 
-#: objects/GRAFCET/step.c:273
-msgid "Active"
-msgstr "Actiu"
+#: objects/GRAFCET/step.c:157
+msgid "The name of the step"
+msgstr ""
 
-#: objects/GRAFCET/step.c:274
+#: objects/GRAFCET/step.c:159
 msgid "Step type"
 msgstr "Tipus de pas"
 
-#: objects/GRAFCET/step.c:317
-msgid "Color:"
-msgstr "Color:"
+#: objects/GRAFCET/step.c:159
+msgid "The kind of step"
+msgstr ""
+
+#: objects/GRAFCET/step.c:161
+msgid "Active"
+msgstr "Actiu"
+
+#: objects/GRAFCET/step.c:161
+msgid "Shows a red dot to figure the step's activity"
+msgstr ""
 
 #: objects/GRAFCET/transition.c:138
 #, fuzzy
@@ -2929,90 +2950,92 @@ msgstr "Punt d'inici"
 msgid "South point"
 msgstr "Punt d'inici"
 
-#: objects/GRAFCET/vector.c:185 objects/GRAFCET/vector.c:219
+#: objects/GRAFCET/vector.c:128
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Dibuixa els caps de fletxa sobre arcs cap amunt"
 
-#: objects/GRAFCET/vergent.c:171
+#: objects/GRAFCET/vergent.c:122
 msgid "OR"
 msgstr "O"
 
-#: objects/GRAFCET/vergent.c:172
+#: objects/GRAFCET/vergent.c:123
 msgid "AND"
 msgstr "I"
 
-#: objects/GRAFCET/vergent.c:181
+#: objects/GRAFCET/vergent.c:134
 msgid "Vergent type:"
 msgstr "Tipus de vergent:"
 
-#: objects/GRAFCET/vergent.c:446 objects/SADT/box.c:539
+#: objects/GRAFCET/vergent.c:390 objects/SADT/box.c:438
 #: objects/standard/line.c:182
 msgid "Add connection point"
 msgstr "Afegeix un punt de connexió"
 
-#: objects/GRAFCET/vergent.c:447
+#: objects/GRAFCET/vergent.c:391
 msgid "Delete  connection point"
 msgstr "Suprimeix el punt de connexió"
 
-#: objects/GRAFCET/vergent.c:451
+#: objects/GRAFCET/vergent.c:395
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET O/I vergent"
 
-#: objects/SADT/annotation.c:497 objects/SADT/annotation.c:539
-#: objects/SADT/box.c:212 objects/SADT/box.c:254
-#: objects/chronogram/chronoline.c:340 objects/chronogram/chronoline.c:432
-#: objects/chronogram/chronoref.c:261 objects/chronogram/chronoref.c:326
-msgid "Font color:"
-msgstr "Color del tipus de lletra:"
-
-#: objects/SADT/arrow.c:191 objects/UML/state.c:134
+#: objects/SADT/arrow.c:134 objects/UML/state.c:124
 msgid "Normal"
 msgstr "Normal"
 
-#: objects/SADT/arrow.c:192
+#: objects/SADT/arrow.c:135
 msgid "Import resource (not shown upstairs)"
 msgstr "Recurs d'importació (no es mostra al pis superior)"
 
-#: objects/SADT/arrow.c:193
+#: objects/SADT/arrow.c:136
 msgid "Imply resource (not shown downstairs)"
 msgstr "Recurs d'implicació (no es mostra al pis inferior)"
 
-#: objects/SADT/arrow.c:194
+#: objects/SADT/arrow.c:137
 msgid "Dotted arrow"
 msgstr "Línia de punts"
 
-#: objects/SADT/arrow.c:195
+#: objects/SADT/arrow.c:138
 msgid "disable arrow heads"
 msgstr "Inhabilita els caps de fletxa"
 
-#: objects/SADT/arrow.c:204 objects/SADT/arrow.c:241
+#: objects/SADT/arrow.c:144
 msgid "Flow style:"
 msgstr "Estil de flux:"
 
-#: objects/SADT/arrow.c:205 objects/SADT/arrow.c:242
+#: objects/SADT/arrow.c:146
 msgid "Automatically gray vertical flows:"
 msgstr "Posa en gris automàticament els fluxs verticals:"
 
-#: objects/SADT/arrow.c:665
+#: objects/SADT/arrow.c:147
+msgid ""
+"To improve the ease of reading, flows which begin and end vertically can be "
+"rendered gray"
+msgstr ""
+
+#: objects/SADT/arrow.c:555
 msgid "SADT Arrow"
 msgstr "Fletxa SADT"
 
-#: objects/SADT/box.c:209 objects/SADT/box.c:251
-#: objects/custom/custom_object.c:371 objects/flowchart/box.c:339
-#: objects/flowchart/diamond.c:318 objects/flowchart/ellipse.c:318
-#: objects/flowchart/parallelogram.c:343
-msgid "Text padding:"
-msgstr "Farciment del text:"
+#: objects/SADT/box.c:137 objects/flowchart/box.c:169
+#: objects/flowchart/diamond.c:165 objects/flowchart/ellipse.c:165
+#: objects/flowchart/parallelogram.c:171
+msgid "Text padding"
+msgstr "Farciment de text"
 
-#: objects/SADT/box.c:213
+#: objects/SADT/box.c:144
 msgid "Activity/Data identifier"
 msgstr "Identificador d'activitat/de dades"
 
-#: objects/SADT/box.c:540 objects/standard/line.c:183
+#: objects/SADT/box.c:145
+msgid "The identifier which appears in the lower right corner of the Box"
+msgstr ""
+
+#: objects/SADT/box.c:439 objects/standard/line.c:183
 msgid "Delete connection point"
 msgstr "Esborra el punt de connexió"
 
-#: objects/SADT/box.c:545
+#: objects/SADT/box.c:444
 msgid "SADT box"
 msgstr "Quadre SADT"
 
@@ -3020,7 +3043,7 @@ msgstr "Quadre SADT"
 msgid "SADT diagram objects"
 msgstr "Objectes de diagrama SADT"
 
-#: objects/UML/actor.c:384
+#: objects/UML/actor.c:332
 msgid "Actor"
 msgstr "Actor"
 
@@ -3067,42 +3090,42 @@ msgstr "Agrega"
 msgid "Composition"
 msgstr "Composició"
 
-#: objects/UML/class.c:100
+#: objects/UML/class.c:105 objects/UML/large_package.c:120
 msgid "Name"
 msgstr "Nom"
 
-#: objects/UML/class.c:102 objects/UML/classicon.c:142
-#: objects/UML/component.c:116 objects/UML/object.c:173
-#: objects/UML/small_package.c:116
+#: objects/UML/class.c:107 objects/UML/classicon.c:131
+#: objects/UML/component.c:116 objects/UML/large_package.c:118
+#: objects/UML/object.c:144 objects/UML/small_package.c:116
 msgid "Stereotype"
 msgstr "Estereotip"
 
-#: objects/UML/class.c:104 objects/UML/class_dialog.c:208
+#: objects/UML/class.c:109 objects/UML/class_dialog.c:208
 msgid "Abstract"
 msgstr "Abstracte"
 
-#: objects/UML/class.c:106 objects/UML/class_dialog.c:220
+#: objects/UML/class.c:111 objects/UML/class_dialog.c:220
 msgid "Suppress Attributes"
 msgstr "Elimina els atributs"
 
-#: objects/UML/class.c:108
+#: objects/UML/class.c:113
 msgid "Suppress Operations"
 msgstr "Elimina les operacions"
 
-#: objects/UML/class.c:110
+#: objects/UML/class.c:115
 msgid "Visible Attributes"
 msgstr "Atributs visibles"
 
-#: objects/UML/class.c:112
+#: objects/UML/class.c:117
 msgid "Visible Operations"
 msgstr "Operacions visibles"
 
-#: objects/UML/class.c:118
+#: objects/UML/class.c:123
 msgid "Template"
 msgstr "Plantilla"
 
 #. Class page:
-#: objects/UML/class.c:682 objects/UML/class_dialog.c:180
+#: objects/UML/class.c:687 objects/UML/class_dialog.c:180
 msgid "Class"
 msgstr "Classe"
 
@@ -3110,9 +3133,8 @@ msgstr "Classe"
 msgid "Class name:"
 msgstr "Nom de la classe:"
 
-#: objects/UML/class_dialog.c:197 objects/UML/dependency.c:129
-#: objects/UML/generalization.c:125 objects/UML/large_package.c:617
-#: objects/UML/object.c:883 objects/UML/realizes.c:126
+#: objects/UML/class_dialog.c:197 objects/UML/dependency.c:127
+#: objects/UML/generalization.c:123 objects/UML/realizes.c:124
 msgid "Stereotype:"
 msgstr "Estereotip:"
 
@@ -3137,7 +3159,7 @@ msgid "Background Color"
 msgstr "Color del fons"
 
 #. Attributes page:
-#: objects/UML/class_dialog.c:669
+#: objects/UML/class_dialog.c:669 objects/UML/object.c:148
 msgid "Attributes"
 msgstr "Atributs"
 
@@ -3231,23 +3253,23 @@ msgstr "Classe de plantilles"
 msgid "Formal parameter data"
 msgstr "Dades dels paràmetres formals"
 
-#: objects/UML/classicon.c:134
+#: objects/UML/classicon.c:123
 msgid "Boundary"
 msgstr "Límits"
 
-#: objects/UML/classicon.c:144
+#: objects/UML/classicon.c:133
 msgid "Is object"
 msgstr "És un objecte"
 
-#: objects/UML/constraint.c:131
+#: objects/UML/constraint.c:120
 msgid "Constraint:"
 msgstr "Restricció:"
 
-#: objects/UML/dependency.c:131
+#: objects/UML/dependency.c:129
 msgid "Show arrow:"
 msgstr "Mostra sageta:"
 
-#: objects/UML/implements.c:123
+#: objects/UML/implements.c:121
 msgid "Interface:"
 msgstr "Interfície:"
 
@@ -3261,75 +3283,83 @@ msgstr "Mostra el focus de control"
 msgid "Draw destruction mark:"
 msgstr "Mostra la marca de destrucció:"
 
-#: objects/UML/message.c:158
+#: objects/UML/lifeline.c:403
+#, fuzzy
+msgid "Add connection points"
+msgstr "Afegeix un punt de connexió"
+
+#: objects/UML/lifeline.c:404
+#, fuzzy
+msgid "Remove connection points"
+msgstr "Esborra el punt de connexió"
+
+#: objects/UML/lifeline.c:408
+msgid "UML Lifeline"
+msgstr ""
+
+#: objects/UML/message.c:135
 msgid "Call"
 msgstr "Crida"
 
-#: objects/UML/message.c:159
+#: objects/UML/message.c:136
 msgid "Create"
 msgstr "Crea"
 
-#: objects/UML/message.c:160
+#: objects/UML/message.c:137
 msgid "Destroy"
 msgstr "Destrueix"
 
-#: objects/UML/message.c:161
+#: objects/UML/message.c:138
 msgid "Simple"
 msgstr "Simple"
 
-#: objects/UML/message.c:162
+#: objects/UML/message.c:139
 msgid "Return"
 msgstr "Retorn de carro"
 
-#: objects/UML/message.c:163
+#: objects/UML/message.c:140
 msgid "Send"
 msgstr ""
 
-#: objects/UML/message.c:164
+#: objects/UML/message.c:141
 msgid "Recursive"
 msgstr "Recursiu"
 
-#: objects/UML/message.c:171
+#: objects/UML/message.c:148
 msgid "Message:"
 msgstr "Missatge:"
 
-#: objects/UML/message.c:173
+#: objects/UML/message.c:150
 msgid "Message type:"
 msgstr "Tipus de missatge:"
 
-#: objects/UML/object.c:175
-msgid "Class name"
-msgstr "Nom de la classe"
-
-#: objects/UML/object.c:871
-msgid "Explicit state:"
+#: objects/UML/object.c:146
+#, fuzzy
+msgid "Explicit state"
 msgstr "Estat explícit:"
 
-#: objects/UML/object.c:893
-msgid "Attributes:"
-msgstr "Atributs:"
-
-#: objects/UML/object.c:903
-msgid "Show attributes"
-msgstr "Mostra els atributs"
-
-#: objects/UML/object.c:907
+#: objects/UML/object.c:151
 msgid "Active object"
 msgstr "Objecte actiu"
 
-#: objects/UML/object.c:912
-msgid "multiple instance"
+#: objects/UML/object.c:153
+msgid "Show attributes"
+msgstr "Mostra els atributs"
+
+#: objects/UML/object.c:155
+#, fuzzy
+msgid "Multiple instance"
 msgstr "Instància múltiple"
 
-#: objects/UML/state.c:135
+#: objects/UML/state.c:125
 msgid "Begin"
 msgstr "Comença"
 
-#: objects/UML/state.c:136
+#: objects/UML/state.c:126
 msgid "End"
 msgstr "Acaba"
 
-#: objects/UML/state.c:143
+#: objects/UML/state.c:133
 msgid "State Type"
 msgstr "Indica el tipus"
 
@@ -3337,11 +3367,11 @@ msgstr "Indica el tipus"
 msgid "Unified Modelling Language diagram objects"
 msgstr "Objectes de diagrama Unified Modelling Language"
 
-#: objects/UML/usecase.c:134
+#: objects/UML/usecase.c:124
 msgid "Text outside"
 msgstr "Text exterior"
 
-#: objects/UML/usecase.c:136
+#: objects/UML/usecase.c:126
 msgid "Collaboration"
 msgstr "Col·laboració"
 
@@ -3349,29 +3379,27 @@ msgstr "Col·laboració"
 msgid "Chronogram diagram objects"
 msgstr "Objectes de diagrama de cronograma"
 
-#: objects/chronogram/chronoline.c:307 objects/chronogram/chronoline.c:410
-msgid "Aspect"
-msgstr "Aspecte"
-
-#: objects/chronogram/chronoline.c:308 objects/chronogram/chronoline.c:411
-msgid "Parameters"
-msgstr "Paràmetres"
-
-#: objects/chronogram/chronoline.c:309
+#: objects/chronogram/chronoline.c:148
 msgid "Data"
 msgstr "Dades"
 
-#: objects/chronogram/chronoline.c:311
-msgid "Data name:"
+#: objects/chronogram/chronoline.c:150
+#, fuzzy
+msgid "Data name"
 msgstr "Nom de les dades:"
 
-#: objects/chronogram/chronoline.c:313
-msgid "Events:"
+#: objects/chronogram/chronoline.c:152
+#, fuzzy
+msgid "Events"
 msgstr "Esdeveniments:"
 
-#: objects/chronogram/chronoline.c:314
+#: objects/chronogram/chronoline.c:155
+msgid "Event specification"
+msgstr ""
+
+#: objects/chronogram/chronoline.c:156
+#, fuzzy
 msgid ""
-"Event specification:\n"
 "@ time    set the pointer at an absolute time.\n"
 "( duration  sets the signal up, then wait 'duration'.\n"
 ") duration  sets the signal down, then wait 'duration'.\n"
@@ -3386,51 +3414,71 @@ msgstr ""
 "'durada'.\n"
 "exemple : @ 1.0 (2.0)1.0(2.0)\n"
 
-#: objects/chronogram/chronoline.c:322 objects/chronogram/chronoline.c:413
-#: objects/chronogram/chronoref.c:249 objects/chronogram/chronoref.c:314
-msgid "Start time:"
+#: objects/chronogram/chronoline.c:162
+msgid "Parameters"
+msgstr "Paràmetres"
+
+#: objects/chronogram/chronoline.c:164 objects/chronogram/chronoref.c:146
+#, fuzzy
+msgid "Start time"
 msgstr "Hora d'inici:"
 
-#: objects/chronogram/chronoline.c:324 objects/chronogram/chronoline.c:415
-#: objects/chronogram/chronoref.c:250 objects/chronogram/chronoref.c:315
-msgid "End time:"
+#: objects/chronogram/chronoline.c:166 objects/chronogram/chronoref.c:148
+#, fuzzy
+msgid "End time"
 msgstr "Hora final:"
 
-#: objects/chronogram/chronoline.c:326 objects/chronogram/chronoline.c:417
-msgid "Rise time:"
+#: objects/chronogram/chronoline.c:168
+#, fuzzy
+msgid "Rise time"
 msgstr "Hora d'ascens:"
 
-#: objects/chronogram/chronoline.c:328 objects/chronogram/chronoline.c:419
-msgid "Fall time:"
+#: objects/chronogram/chronoline.c:170
+#, fuzzy
+msgid "Fall time"
 msgstr "Hora de descens:"
 
-#: objects/chronogram/chronoline.c:330 objects/chronogram/chronoline.c:421
+#: objects/chronogram/chronoline.c:171
 msgid "Multi-bit data"
 msgstr "Dades de multi-bit"
 
-#: objects/chronogram/chronoline.c:332 objects/chronogram/chronoline.c:424
-msgid "Data color:"
+#: objects/chronogram/chronoline.c:173 objects/chronogram/chronoref.c:156
+msgid "Aspect"
+msgstr "Aspecte"
+
+#: objects/chronogram/chronoline.c:175
+#, fuzzy
+msgid "Data color"
 msgstr "Color de les dades"
 
-#: objects/chronogram/chronoline.c:334 objects/chronogram/chronoline.c:425
-msgid "Data line width:"
+#: objects/chronogram/chronoline.c:177
+#, fuzzy
+msgid "Data line width"
 msgstr "Amplada de la línia de dades:"
 
-#: objects/chronogram/chronoline.c:335 objects/chronogram/chronoline.c:427
-#: objects/chronogram/chronoref.c:255 objects/chronogram/chronoref.c:320
-msgid "Line color:"
+#: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
+#, fuzzy
+msgid "Line color"
 msgstr "Color de la línia:"
 
-#: objects/chronogram/chronoref.c:252 objects/chronogram/chronoref.c:317
-msgid "Major time step:"
+#: objects/chronogram/chronoref.c:144
+#, fuzzy
+msgid "Time data"
+msgstr "Dades dels atributs"
+
+#: objects/chronogram/chronoref.c:150
+#, fuzzy
+msgid "Major time step"
 msgstr "Pas principal de temps:"
 
-#: objects/chronogram/chronoref.c:253 objects/chronogram/chronoref.c:318
-msgid "Minor time step:"
+#: objects/chronogram/chronoref.c:152
+#, fuzzy
+msgid "Minor time step"
 msgstr "Pas secundari de temps:"
 
-#: objects/chronogram/chronoref.c:257 objects/chronogram/chronoref.c:322
-msgid "Minor step line width:"
+#: objects/chronogram/chronoref.c:162
+#, fuzzy
+msgid "Minor step line width"
 msgstr "Amplada de línia de pas menor:"
 
 #: objects/custom/custom.c:124
@@ -3441,27 +3489,45 @@ msgstr "Personalitzat"
 msgid "Custom XML shapes loader"
 msgstr "Carregador personalitzat de formes XML"
 
-#: objects/custom/custom_object.c:185 objects/custom/custom_object.c:203
+#: objects/custom/custom_object.c:188 objects/custom/custom_object.c:207
 msgid "Flip horizontal"
 msgstr "Volteja horitzontalment"
 
-#: objects/custom/custom_object.c:187 objects/custom/custom_object.c:205
+#: objects/custom/custom_object.c:190 objects/custom/custom_object.c:209
 msgid "Flip vertical"
 msgstr "Volteja verticalment"
 
-#: objects/custom/custom_object.c:385 objects/standard/textobj.c:259
+#: objects/custom/custom_object.c:320 objects/flowchart/box.c:293
+#: objects/flowchart/diamond.c:272 objects/flowchart/ellipse.c:272
+#: objects/flowchart/parallelogram.c:296
+msgid "Text padding:"
+msgstr "Farciment del text:"
+
+#: objects/custom/custom_object.c:334 objects/standard/textobj.c:206
 msgid "Alignment:"
 msgstr "Alineació:"
 
-#: objects/custom/custom_object.c:1546
+#: objects/custom/custom_object.c:345 objects/flowchart/box.c:307
+#: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
+#: objects/flowchart/parallelogram.c:310 objects/standard/textobj.c:217
+msgid "Font:"
+msgstr "Tipus de lletra:"
+
+#: objects/custom/custom_object.c:356 objects/flowchart/box.c:318
+#: objects/flowchart/diamond.c:297 objects/flowchart/ellipse.c:297
+#: objects/flowchart/parallelogram.c:321
+msgid "Font size:"
+msgstr "Mida del tipus de lletra"
+
+#: objects/custom/custom_object.c:1516
 msgid "Flip Horizontal"
 msgstr "Inverteix horitzontalment"
 
-#: objects/custom/custom_object.c:1547
+#: objects/custom/custom_object.c:1517
 msgid "Flip Vertical"
 msgstr "Inverteix verticalment"
 
-#: objects/custom/custom_object.c:1580
+#: objects/custom/custom_object.c:1554
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr ""
@@ -3470,12 +3536,7 @@ msgstr ""
 msgid "Corner radius"
 msgstr "Radi de les cantonades"
 
-#: objects/flowchart/box.c:169 objects/flowchart/diamond.c:165
-#: objects/flowchart/ellipse.c:165 objects/flowchart/parallelogram.c:171
-msgid "Text padding"
-msgstr "Farciment de text"
-
-#: objects/flowchart/box.c:325 objects/standard/box.c:240
+#: objects/flowchart/box.c:279 objects/standard/box.c:240
 msgid "Corner rounding:"
 msgstr "Arrodoniment de les cantonades:"
 
@@ -3487,7 +3548,7 @@ msgstr "Objectes de diagrama de flux"
 msgid "Shear angle"
 msgstr "Retalla l'angle"
 
-#: objects/flowchart/parallelogram.c:329
+#: objects/flowchart/parallelogram.c:282
 msgid "Shear angle:"
 msgstr "Retalla l'angle"
 
@@ -3503,23 +3564,23 @@ msgstr "Esborra un punt d'anclatge"
 msgid "Network diagram objects"
 msgstr "Objectes de diagrama de xarxa"
 
-#: objects/standard/bezier.c:523 objects/standard/beziergon.c:544
+#: objects/standard/bezier.c:524 objects/standard/beziergon.c:543
 msgid "Add Segment"
 msgstr "Afegeix un segment"
 
-#: objects/standard/bezier.c:524 objects/standard/beziergon.c:545
+#: objects/standard/bezier.c:525 objects/standard/beziergon.c:544
 msgid "Delete Segment"
 msgstr "Suprimeix un segment"
 
-#: objects/standard/bezier.c:526 objects/standard/beziergon.c:547
+#: objects/standard/bezier.c:527 objects/standard/beziergon.c:546
 msgid "Symmetric control"
 msgstr "Control simètric"
 
-#: objects/standard/bezier.c:528 objects/standard/beziergon.c:549
+#: objects/standard/bezier.c:529 objects/standard/beziergon.c:548
 msgid "Smooth control"
 msgstr "Suavitza el control"
 
-#: objects/standard/bezier.c:530 objects/standard/beziergon.c:551
+#: objects/standard/bezier.c:531 objects/standard/beziergon.c:550
 msgid "Cusp control"
 msgstr "Control de cusp"
 
@@ -3539,20 +3600,20 @@ msgstr "Dibuixa el contorn"
 msgid "Keep aspect ratio"
 msgstr "Mantenir la ràtio de l'aspecte"
 
-#: objects/standard/image.c:273
+#: objects/standard/image.c:271
 msgid "Image file:"
 msgstr "Fitxer de la imatge:"
 
-#: objects/standard/image.c:284
+#: objects/standard/image.c:282
 msgid "Keep aspect ratio:"
 msgstr "Mantenir la ràtio de l'aspecte:"
 
-#: objects/standard/image.c:292
+#: objects/standard/image.c:290
 msgid "Show border:"
 msgstr "Mostra les vores:"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:851 objects/standard/image.c:862
+#: objects/standard/image.c:849 objects/standard/image.c:860
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
@@ -3562,7 +3623,7 @@ msgstr ""
 "S'utilitza alternativament el fitxer '%s'.\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:868 objects/standard/image.c:894
+#: objects/standard/image.c:866 objects/standard/image.c:892
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "El fitxer corresponent a la imatge '%s' no s'ha trobat.\n"
@@ -3575,11 +3636,11 @@ msgstr "Punt d'inici"
 msgid "End point"
 msgstr "Punt final"
 
-#: objects/standard/polygon.c:518 objects/standard/polyline.c:480
+#: objects/standard/polygon.c:526 objects/standard/polyline.c:498
 msgid "Add Corner"
 msgstr "Afegeix la cantonada"
 
-#: objects/standard/polygon.c:519 objects/standard/polyline.c:481
+#: objects/standard/polygon.c:527 objects/standard/polyline.c:499
 msgid "Delete Corner"
 msgstr "Esborra la cantonada"
 
@@ -3587,7 +3648,7 @@ msgstr "Esborra la cantonada"
 msgid "Standard objects"
 msgstr "Objectes estàndard"
 
-#: objects/standard/textobj.c:281
+#: objects/standard/textobj.c:228
 msgid "Fontsize:"
 msgstr "Mida del tipus de lletra:"
 
@@ -3607,7 +3668,7 @@ msgstr "Computer Graphics Metafile"
 msgid "Computer Graphics Metafile export filter"
 msgstr "Filtre d'exportació del Computer Graphics Metafile"
 
-#: plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:631
+#: plug-ins/dxf/dxf-export.c:564 plug-ins/dxf/dxf-import.c:680
 msgid "Drawing Interchange File"
 msgstr "Drawing Interchange File"
 
@@ -3627,11 +3688,11 @@ msgstr "Filtre d'exportació del TeX Pstricks"
 msgid "TeX PSTricks macros"
 msgstr "Macros de TeX PSTricks"
 
-#: plug-ins/shape/shape-export.c:924
+#: plug-ins/shape/shape-export.c:921
 msgid "Can't export png without libart!"
 msgstr "No es pot exportar el png sense libart!"
 
-#: plug-ins/shape/shape-export.c:947
+#: plug-ins/shape/shape-export.c:948
 msgid "dia shape file"
 msgstr "fitxer de formes del dia"
 
@@ -3639,7 +3700,7 @@ msgstr "fitxer de formes del dia"
 msgid "dia shape export filter"
 msgstr "Filtre d'exportació de formes del dia"
 
-#: plug-ins/svg/render_svg.c:825
+#: plug-ins/svg/render_svg.c:821
 msgid "Scalable Vector Graphics"
 msgstr "Gràfics vectorials escalables"
 
@@ -3661,179 +3722,207 @@ msgstr "Filtre d'exportació de WordPerfect Graphics"
 msgid "Fig Format import and export filter"
 msgstr "Filtre d'exportació de formes del dia"
 
-#: plug-ins/xfig/xfig-import.c:73
-msgid "Polygon import is not implemented yes"
-msgstr ""
-
-#: plug-ins/xfig/xfig-import.c:74
-msgid "Patterns are not supported by Dia"
-msgstr ""
-
 #: plug-ins/xfig/xfig-import.c:75
-msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
+msgid "Polygon import is not implemented yet"
 msgstr ""
 
 #: plug-ins/xfig/xfig-import.c:76
-msgid "Negative corner radius, negating"
+msgid "Patterns are not supported by Dia"
 msgstr ""
 
 #: plug-ins/xfig/xfig-import.c:77
+msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:79
+msgid "Negative corner radius, negating"
+msgstr ""
+
+#: plug-ins/xfig/xfig-import.c:80
 msgid "Spline import is not implemented yet"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:357
+#: plug-ins/xfig/xfig-import.c:406
 #, fuzzy, c-format
 msgid "Line style %d should not appear\n"
 msgstr "Propietats de l'estil de línia"
 
-#: plug-ins/xfig/xfig-import.c:395
+#: plug-ins/xfig/xfig-import.c:474
 #, c-format
 msgid "Error while reading %dth of %d points: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:414
+#: plug-ins/xfig/xfig-import.c:493
 #, fuzzy
 msgid "Error while reading arrowhead\n"
 msgstr "S'ha produït un error mentre es llegia el fixer del diagrama\n"
 
-#: plug-ins/xfig/xfig-import.c:505
+#: plug-ins/xfig/xfig-import.c:584
 #, fuzzy, c-format
 msgid "Couldn't read ellipse info: %s\n"
 msgstr ""
 "No s'ha pogut carregar l'extensió '%s'\n"
 "%s"
 
-#: plug-ins/xfig/xfig-import.c:574
+#: plug-ins/xfig/xfig-import.c:652
 #, fuzzy, c-format
 msgid "Couldn't read polyline info: %s\n"
 msgstr ""
 "No s'ha pogut carregar l'extensió '%s'\n"
 "%s"
 
-#: plug-ins/xfig/xfig-import.c:589
+#: plug-ins/xfig/xfig-import.c:667
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:645 plug-ins/xfig/xfig-import.c:729
+#: plug-ins/xfig/xfig-import.c:723 plug-ins/xfig/xfig-import.c:809
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:707
+#: plug-ins/xfig/xfig-import.c:787
 #, fuzzy, c-format
 msgid "Couldn't read arc info: %s\n"
 msgstr ""
 "No s'ha pogut carregar l'extensió '%s'\n"
 "%s"
 
-#: plug-ins/xfig/xfig-import.c:781
+#: plug-ins/xfig/xfig-import.c:876
 #, c-format
 msgid "Couldn't read text info: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:828
+#: plug-ins/xfig/xfig-import.c:917
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:835
+#: plug-ins/xfig/xfig-import.c:924
 msgid "Compound end outside compound\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:854
+#: plug-ins/xfig/xfig-import.c:943
 #, fuzzy, c-format
 msgid "Couldn't read color: %s\n"
 msgstr ""
 "No s'ha pogut carregar l'extensió '%s'\n"
 "%s"
 
-#: plug-ins/xfig/xfig-import.c:896
+#: plug-ins/xfig/xfig-import.c:985
 #, fuzzy, c-format
 msgid "Couldn't read group extend: %s\n"
 msgstr "No s'ha pogut obrir '%s'"
 
-#: plug-ins/xfig/xfig-import.c:907
+#: plug-ins/xfig/xfig-import.c:996
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:930
+#: plug-ins/xfig/xfig-import.c:1019
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:940
+#: plug-ins/xfig/xfig-import.c:1029
 #, fuzzy, c-format
 msgid "Error reading paper size: %s\n"
 msgstr "S'ha produït un error mentre es llegia el fixer del diagrama\n"
 
-#: plug-ins/xfig/xfig-import.c:950
+#: plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:962
+#: plug-ins/xfig/xfig-import.c:1051
 #, fuzzy, c-format
 msgid "Error reading paper orientation: %s\n"
 msgstr "S'ha produït un error mentre es llegia el fixer del diagrama\n"
 
-#: plug-ins/xfig/xfig-import.c:972
+#: plug-ins/xfig/xfig-import.c:1061
 #, fuzzy, c-format
 msgid "Error reading justification: %s\n"
 msgstr "S'ha produït un error mentre es llegia el fixer del diagrama\n"
 
-#: plug-ins/xfig/xfig-import.c:982
+#: plug-ins/xfig/xfig-import.c:1071
 #, fuzzy, c-format
 msgid "Error reading units: %s\n"
 msgstr "S'ha produït un error mentre es llegia el fixer del diagrama\n"
 
-#: plug-ins/xfig/xfig-import.c:996
+#: plug-ins/xfig/xfig-import.c:1085
 #, fuzzy, c-format
 msgid "Error reading magnification: %s\n"
 msgstr "S'ha produït un error mentre es llegia el fixer del diagrama\n"
 
-#: plug-ins/xfig/xfig-import.c:1007
+#: plug-ins/xfig/xfig-import.c:1096
 #, fuzzy, c-format
 msgid "Error reading multipage indicator: %s\n"
 msgstr "S'ha produït un error mentre es llegia el fixer del diagrama\n"
 
-#: plug-ins/xfig/xfig-import.c:1018
+#: plug-ins/xfig/xfig-import.c:1107
 #, fuzzy, c-format
 msgid "Error reading transparent color: %s\n"
 msgstr ""
 "S'ha produït un error mentre es carregava la biblioteca: \"%s\":\n"
 "  %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1027 plug-ins/xfig/xfig-import.c:1082
+#: plug-ins/xfig/xfig-import.c:1116 plug-ins/xfig/xfig-import.c:1171
 #, fuzzy, c-format
 msgid "Error reading FIG file: %s\n"
 msgstr "S'ha produït un error mentre es llegia el fixer del diagrama\n"
 
-#: plug-ins/xfig/xfig-import.c:1029 plug-ins/xfig/xfig-import.c:1084
+#: plug-ins/xfig/xfig-import.c:1118 plug-ins/xfig/xfig-import.c:1173
 msgid "Premature end of FIG file\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1038
+#: plug-ins/xfig/xfig-import.c:1127
 #, fuzzy, c-format
 msgid "Error reading resolution: %s\n"
 msgstr ""
 "S'ha produït un error mentre es carregava la biblioteca: \"%s\":\n"
 "  %s\n"
 
-#: plug-ins/xfig/xfig-import.c:1069
+#: plug-ins/xfig/xfig-import.c:1158
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1075
+#: plug-ins/xfig/xfig-import.c:1164
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1116
+#: plug-ins/xfig/xfig-import.c:1205
 msgid "XFig File Format"
 msgstr ""
+
+#~ msgid ""
+#~ "No such file found\n"
+#~ "%s\n"
+#~ msgstr ""
+#~ "Aquest fitxer no s'ha trobat\n"
+#~ "%s\n"
+
+#~ msgid "Import from XFig"
+#~ msgstr "Importa des del XFig"
+
+#~ msgid "No edit widget"
+#~ msgstr "Sense edició de símbols"
+
+#~ msgid "Text color:"
+#~ msgstr "Color del text:"
+
+#~ msgid "Color:"
+#~ msgstr "Color:"
+
+#~ msgid "Font color:"
+#~ msgstr "Color del tipus de lletra:"
+
+#~ msgid "Class name"
+#~ msgstr "Nom de la classe"
+
+#~ msgid "Attributes:"
+#~ msgstr "Atributs:"
 
 #~ msgid ""
 #~ "Dia v %s\n"
