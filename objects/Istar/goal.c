@@ -440,7 +440,6 @@ goal_update_data(Goal *goal, AnchorShape horiz, AnchorShape vert)
     case SOFTGOAL: update_softgoal_connectors(c,p,w,h); break;
     case GOAL:     update_goal_connectors(c,p,w,h); break;
   }
-
 }
 
 static void update_softgoal_connectors(ConnectionPoint *c, Point p, double w, double h) {
@@ -524,7 +523,7 @@ goal_create(Point *startpoint,
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + DEFAULT_FONT / 2;
 
-  font = dia_font_new_from_style( DIA_FONT_SANS|DIA_FONT_BOLD , DEFAULT_FONT);
+  font = dia_font_new_from_style( DIA_FONT_SANS , DEFAULT_FONT);
 
   goal->text = new_text("", font,
                        DEFAULT_FONT, &p,

@@ -46,9 +46,13 @@ static GtkWidget *compressbutton = NULL;
 static int
 file_dialog_hide (GtkWidget *filesel)
 {
+  gpointer user_data;
+
   gtk_widget_hide (filesel);
-  diagram_remove_related_dialog(gtk_object_get_user_data(GTK_OBJECT(filesel)), filesel);
-  g_object_unref(gtk_object_get_user_data(GTK_OBJECT(filesel))); 
+  if ((user_data = gtk_object_get_user_data(GTK_OBJECT(filesel))) != NULL) {
+    diagram_remove_related_dialog(user_data, filesel);
+  }
+  g_object_unref(G_OBJECT(user_data)); 
   gtk_object_set_user_data(GTK_OBJECT(filesel), NULL);
 
 #if 0

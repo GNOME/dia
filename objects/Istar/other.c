@@ -419,7 +419,8 @@ other_update_data(Other *other, AnchorShape horiz, AnchorShape vert)
 
   /* Update connections: */
   nw = elem->corner;
-  se = bottom_right;
+  se.x = nw.x + elem->width;
+  se.y = nw.y + elem->height;
   ne.x = se.x;
   ne.y = nw.y;
   sw.y = se.y;
@@ -549,7 +550,7 @@ other_create(Point *startpoint,
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + DEFAULT_FONT / 2;
 
-  font = dia_font_new_from_style( DIA_FONT_SANS|DIA_FONT_BOLD , DEFAULT_FONT);
+  font = dia_font_new_from_style( DIA_FONT_SANS, DEFAULT_FONT);
 
   other->text = new_text("", font,
                        DEFAULT_FONT, &p,

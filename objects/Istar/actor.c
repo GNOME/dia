@@ -359,7 +359,7 @@ actor_update_data(Actor *actor, AnchorShape horiz, AnchorShape vert)
 
   Point center, bottom_right,p,c;
   real width, height, dw, dh;
-  real radius;
+  real radius, mradius;
   int i;
 
   center = bottom_right = elem->corner;
@@ -372,10 +372,17 @@ actor_update_data(Actor *actor, AnchorShape horiz, AnchorShape vert)
   width = actor->text->max_width+0.5;
   height = actor->text->height * (actor->text->numlines + 3); // added 3 blank lines for top
 
-  // enforce circle here
-  radius=width;
-  if (radius<height) radius=height;
-  if (radius<ACTOR_RADIUS) radius=ACTOR_RADIUS;
+  // minimal radius
+  mradius=width;
+  if (mradius<height) mradius=height;
+  if (mradius<ACTOR_RADIUS) mradius=ACTOR_RADIUS;
+  
+  // radius
+  radius=elem->width;
+  if (radius<elem->height) radius=elem->height;
+  
+  // enforce (minimal or resized) radius
+  if (radius<mradius) radius=mradius;
   elem->width=elem->height=radius;
 
   // move shape if necessary ... (untouched)
@@ -448,7 +455,7 @@ static DiaObject
   elem->width = ACTOR_RADIUS;
   elem->height = ACTOR_RADIUS;
 
-  font = dia_font_new_from_style( DIA_FONT_SANS|DIA_FONT_BOLD , ACTOR_FONT);
+  font = dia_font_new_from_style( DIA_FONT_SANS, ACTOR_FONT);
 //  attributes_get_default_font(&font, &font_height);
   p = *startpoint;
   p.x += elem->width / 2.0;

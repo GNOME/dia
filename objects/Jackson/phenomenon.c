@@ -150,7 +150,7 @@ message_describe_props(Message *mes)
 static PropOffset message_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
   { "text", PROP_TYPE_STRING, offsetof(Message, text) },
-//  { "type", PROP_TYPE_ENUM, offsetof(Message, type) },
+  { "type", PROP_TYPE_ENUM, offsetof(Message, type) },
   { "text_pos", PROP_TYPE_POINT, offsetof(Message,text_pos) },
   { NULL, 0, 0 }
 };
@@ -166,7 +166,6 @@ static void
 message_set_props(Message *message, GPtrArray *props)
 {
   if (message->init==-1) { message->init++; return; }
-
   object_set_props_from_offsets(&message->connection.object,
                                 message_offsets, props);
   message_update_data(message);
@@ -247,7 +246,7 @@ static void
 message_draw(Message *message, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  Point *endpoints, p1, p2, px;
+  Point *endpoints, p1, p2;
   Arrow arrow;
   int n1 = 1, n2 = 0;
   gchar *mname = g_strdup(message->text);
@@ -317,13 +316,6 @@ message_create(Point *startpoint,
   obj = &conn->object;
   extra = &conn->extra_spacing;
 
-  // init type
-  switch (GPOINTER_TO_INT(user_data)) {
-    case 1: message->type=MSG_SHARED; break;
-    case 2: message->type=MSG_REQ; break;
-    default: message->type=MSG_SHARED; break;
-  }
-
   obj->type = &jackson_phenomenon_type;
   obj->ops = &message_ops;
 
@@ -348,6 +340,13 @@ message_create(Point *startpoint,
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
 
+  // init type
+  switch (GPOINTER_TO_INT(user_data)) {
+    case 1: message->type=MSG_SHARED; break;
+    case 2: message->type=MSG_REQ; break;
+    default: message->type=MSG_SHARED; break;
+  }
+    
   if (GPOINTER_TO_INT(user_data)!=0) message->init=-1; else message->init=0;
   return &message->connection.object;
 }

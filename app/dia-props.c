@@ -252,11 +252,17 @@ diagram_properties_retrieve(Diagram *dia)
   diagram_properties_update_sensitivity(GTK_TOGGLE_BUTTON(dynamic_check), dia);
 
 }
+
 void
 diagram_properties_show(Diagram *dia)
 {
-  if (!dialog)
-    create_diagram_properties_dialog(dia);
+  if (dialog) {
+    /* This makes the dialog a child of the newer diagram */
+    gtk_widget_destroy(dialog);
+    dialog = NULL;
+  }
+  
+  create_diagram_properties_dialog(dia);
  
   diagram_properties_retrieve(dia);
   

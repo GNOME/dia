@@ -1,5 +1,22 @@
 2004-06-22  Lars Clausen  <lars@raeder.dk>
 
+	* objects/KAOS/goal.c:
+	* objects/KAOS/other.c:
+	* objects/Istar/actor.c:
+	* objects/Istar/goal.c:
+	* objects/Istar/other.c:
+	* objects/Jackson/domain.c:
+	* objects/Jackson/phenomenon.c: Patch from "Christophe Ponsard"
+	<cp@cetic.be>: Fix resize issues.
+
+	* app/filedlg.c (file_dialog_hide): Patch from Kiran
+	Kumar Immidi <kimmidi@novell.com>: Check for null when removing
+	related dialog. #129520.
+
+	* app/dia-props.c (diagram_properties_show): Patch from Kiran
+	Kumar Immidi <kimmidi@novell.com>: Make sure properties dialog is
+	a child of its diagram. #129520.
+
 	* objects/UML/association.c (association_load): Patch from Kiran
 	Kumar Immidi <kimmidi@novell.com>: Update positions properly for
 	text placement. #118313.
