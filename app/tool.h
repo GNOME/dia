@@ -22,6 +22,7 @@
 
 typedef struct _Tool Tool;
 typedef struct _ToolInfo ToolInfo;
+typedef struct _ToolState ToolState;
 
 typedef enum _ToolType ToolType;
 
@@ -54,15 +55,25 @@ struct _ToolInfo {
   char *tooltip;
 };
 
-extern Tool *active_tool;
+struct _ToolState {
+  ToolType type;
+  gpointer extra_data;
+  gpointer user_data;
+  GtkWidget *button;
+  int invert_persistence;
+};
 
+extern Tool *active_tool, *transient_tool;
+
+void tool_get(ToolState *state);
+void tool_restore(const ToolState *state);
+void tool_free(Tool *tool);
 void tool_select(ToolType type, gpointer extra_data, gpointer user_date,
-                 GtkWidget *button);
+                 GtkWidget *button, int invert_persistence);
 void tool_select_former(void);
 void tool_reset(void);
 void tool_options_dialog_show(ToolType type, gpointer extra_data, 
-			      gpointer user_data,GtkWidget *button);
+			      gpointer user_data,GtkWidget *button,
+                              int invert_persistence);
 
 #endif /* TOOL_H */
-
-

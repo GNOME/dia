@@ -174,7 +174,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
 
   undo_set_transactionpoint(ddisp->diagram->undo);
   
-  if (prefs.reset_tools_after_create)
+  if (prefs.reset_tools_after_create != tool->invert_persistence)
       tool_reset();
   ddisplay_set_all_cursor(default_cursor);
 }
@@ -221,7 +221,8 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
 
 
 Tool *
-create_create_object_tool(ObjectType *objtype, void *user_data)
+create_create_object_tool(ObjectType *objtype, void *user_data,
+			  int invert_persistence)
 {
   CreateObjectTool *tool;
 
@@ -235,6 +236,7 @@ create_create_object_tool(ObjectType *objtype, void *user_data)
   tool->objtype = objtype;
   tool->user_data = user_data;
   tool->moving = FALSE;
+  tool->invert_persistence = invert_persistence;
   
   return (Tool *) tool;
 }

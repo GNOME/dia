@@ -53,7 +53,6 @@ create_scroll_tool(void)
   return (Tool *)tool;
 }
 
-
 void
 free_scroll_tool(Tool *tool)
 {

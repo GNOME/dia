@@ -540,8 +540,12 @@ tool_select_update (GtkWidget *w,
   }
 
   if (tooldata->type != -1) {
+    gint x, y;
+    GdkModifierType mask;
+    /*  get the modifiers  */
+    gdk_window_get_pointer (gtk_widget_get_parent_window(w), &x, &y, &mask);
     tool_select (tooldata->type, tooldata->extra_data, tooldata->user_data,
-                 w);
+                 w, mask&1);
   }
 }
 
@@ -555,7 +559,7 @@ tool_button_press (GtkWidget      *w,
   if ((event->type == GDK_2BUTTON_PRESS) &&
       (event->button == 1)) {
     tool_options_dialog_show (tooldata->type, tooldata->extra_data, 
-                              tooldata->user_data, w);
+                              tooldata->user_data, w, event->state&1);
     return TRUE;
   }
 
@@ -589,6 +593,7 @@ tool_setup_drag_source(GtkWidget *button, ToolButtonData *tooldata,
 			     pixmap, mask);
 }
 
+/*
 void 
 tool_select_callback(GtkWidget *widget, gpointer data) {
   ToolButtonData *tooldata = (ToolButtonData *)data;
@@ -603,6 +608,7 @@ tool_select_callback(GtkWidget *widget, gpointer data) {
                  tooldata->user_data,widget);    
   }
 }
+*/
 
 static void
 create_tools(GtkWidget *parent)
@@ -652,7 +658,7 @@ create_tools(GtkWidget *parent)
     
     gtk_container_add (GTK_CONTAINER (button), pixmapwidget);
     
-    gtk_signal_connect (GTK_OBJECT (button), "toggled",
+    gtk_signal_connect (GTK_OBJECT (button), "clicked",
 			GTK_SIGNAL_FUNC (tool_select_update),
 			&tool_data[i].callback_data);
     
@@ -758,7 +764,7 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
     data->extra_data = sheet_obj->object_type;
     data->user_data = sheet_obj->user_data;
     
-    gtk_signal_connect (GTK_OBJECT (button), "toggled",
+    gtk_signal_connect (GTK_OBJECT (button), "clicked",
 			GTK_SIGNAL_FUNC (tool_select_update),
 			data);
     
@@ -863,7 +869,7 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
 			     data, (GdkDestroyNotify)g_free);
     if (first_button == NULL) first_button = button;
     
-    gtk_signal_connect (GTK_OBJECT (button), "toggled",
+    gtk_signal_connect (GTK_OBJECT (button), "clicked",
 			GTK_SIGNAL_FUNC (tool_select_update), data);
     gtk_signal_connect (GTK_OBJECT (button), "button_press_event",
 			GTK_SIGNAL_FUNC (tool_button_press), data);
@@ -941,7 +947,7 @@ create_sheets(GtkWidget *parent)
   gtk_widget_show(separator);
 
   sheet_option_menu = gtk_option_menu_new();
-  gtk_widget_set_usize(sheet_option_menu, 20, -1);
+  gtk_widget_set_size_request(sheet_option_menu, 20, -1);
   sheet_menu = gtk_menu_new();
   gtk_option_menu_set_menu(GTK_OPTION_MENU(sheet_option_menu), sheet_menu);
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
@@ -1273,4 +1279,3 @@ interface_get_toolbox_shell(void)
 {
   return toolbox_shell;
 }
-

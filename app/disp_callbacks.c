@@ -427,10 +427,24 @@ ddisplay_canvas_events (GtkWidget *canvas,
         switch (sevent->direction)
         {
             case GDK_SCROLL_UP:
-              ddisplay_scroll_up(ddisp);
+              if (sevent->state & GDK_SHIFT_MASK)
+                  ddisplay_scroll_left(ddisp);
+              else if (sevent->state & GDK_CONTROL_MASK) {
+                  ddisplay_untransform_coords(ddisp, sevent->x, sevent->y, &middle.x, &middle.y);
+                  ddisplay_zoom(ddisp, &middle, 2);
+              }
+              else 
+                  ddisplay_scroll_up(ddisp);
               break;
             case GDK_SCROLL_DOWN:
-              ddisplay_scroll_down(ddisp);
+              if (sevent->state & GDK_SHIFT_MASK)
+                  ddisplay_scroll_right(ddisp);
+              else if (sevent->state & GDK_CONTROL_MASK) { 
+                    ddisplay_untransform_coords(ddisp, sevent->x, sevent->y, &middle.x, &middle.y);
+                    ddisplay_zoom(ddisp, &middle, 0.5);
+              }
+              else
+                  ddisplay_scroll_down(ddisp);
               break;
             case GDK_SCROLL_LEFT:
               ddisplay_scroll_left(ddisp);
@@ -478,6 +492,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
         switch (bevent->button)
         {
             case 1:
+              if (transient_tool)
+                break;
               if (*active_tool->double_click_func)
                 (*active_tool->double_click_func) (active_tool, bevent, ddisp);
               break;
@@ -506,6 +522,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
         switch (bevent->button)
         {
             case 1:
+              if (transient_tool)
+                break;
                   /* get the focus again, may be lost by zoom combo */
               gtk_widget_grab_focus(canvas);
               if (*active_tool->button_press_func)
@@ -516,9 +534,16 @@ ddisplay_canvas_events (GtkWidget *canvas,
               if (ddisp->menu_bar == NULL) {
                 popup_object_menu(ddisp, bevent);
               }
+	      else if (!transient_tool) {
+		gtk_widget_grab_focus(canvas);
+		transient_tool = create_scroll_tool();
+		(*transient_tool->button_press_func) (transient_tool, bevent, ddisp);
+	      }
               break;
 
             case 3:
+              if (transient_tool)
+                break;
               if (ddisp->menu_bar == NULL) {
                 if (bevent->state & GDK_CONTROL_MASK) {
                       /* for two button mouse users ... */
@@ -551,6 +576,13 @@ ddisplay_canvas_events (GtkWidget *canvas,
               break;
 
             case 2:
+	      if (transient_tool) {
+	        (*transient_tool->button_release_func) (transient_tool,
+  	                                             bevent, ddisp);
+								
+	        tool_free(transient_tool);
+	        transient_tool = NULL;
+	      }
               break;
 
             case 3:
@@ -574,7 +606,9 @@ ddisplay_canvas_events (GtkWidget *canvas,
           mevent->state = tmask;
           mevent->is_hint = FALSE;
         }
-        if (*active_tool->motion_func)
+        if (transient_tool && (*transient_tool->motion_func)) 
+          (*transient_tool->motion_func) (transient_tool, mevent, ddisp);
+        else if (*active_tool->motion_func)
           (*active_tool->motion_func) (active_tool, mevent, ddisp);
         break;
 

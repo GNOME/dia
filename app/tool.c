@@ -26,6 +26,7 @@
 #include "defaults.h"
 
 Tool *active_tool = NULL;
+Tool *transient_tool = NULL;
 static GtkWidget *active_button = NULL;
 static GtkWidget *former_button = NULL;
 
@@ -45,26 +46,61 @@ tool_reset(void)
 			  GTK_BUTTON(modify_tool_button), NULL);
 }
 
-void 
-tool_select(ToolType type, gpointer extra_data, 
-            gpointer user_data, GtkWidget *button)
+void
+tool_get(ToolState *state)
 {
-  former_button = active_button;
+  state->type = active_tool->type;
+  state->button = active_button;
+  if (state->type == CREATE_OBJECT_TOOL) {
+    state->user_data = ((CreateObjectTool *)active_tool)->user_data;
+    state->extra_data = ((CreateObjectTool *)active_tool)->objtype->name;
+    state->invert_persistence = ((CreateObjectTool *)active_tool)->invert_persistence;
+  }
+  else
+  {
+    state->user_data = NULL;
+    state->extra_data = NULL;
+    state->invert_persistence = 0;
+  }
+}
 
-  switch(active_tool->type) {
+void
+tool_restore(const ToolState *state)
+{
+  tool_select(state->type, state->extra_data, state->user_data, state->button,
+              state->invert_persistence);
+}
+
+void
+tool_free(Tool *tool)
+{
+  switch(tool->type) {
   case MODIFY_TOOL:
-    free_modify_tool(active_tool);
+    free_modify_tool(tool);
     break;
   case CREATE_OBJECT_TOOL:
-    free_create_object_tool(active_tool);
+    free_create_object_tool(tool);
     break;
   case MAGNIFY_TOOL:
-    free_magnify_tool(active_tool);
+    free_magnify_tool(tool);
     break;
   case SCROLL_TOOL:
-    free_scroll_tool(active_tool);
+    free_scroll_tool(tool);
     break;
+  default:
+    g_assert(0);    
   }
+}
+
+void 
+tool_select(ToolType type, gpointer extra_data, 
+            gpointer user_data, GtkWidget *button,
+            int invert_persistence)
+{
+  if (button)
+    former_button = active_button;
+
+  tool_free(active_tool);
   switch(type) {
   case MODIFY_TOOL:
     active_tool = create_modify_tool();
@@ -72,7 +108,7 @@ tool_select(ToolType type, gpointer extra_data,
   case CREATE_OBJECT_TOOL:
     active_tool =
       create_create_object_tool(object_get_type((char *)extra_data),
-				(void *) user_data);
+				(void *) user_data, invert_persistence);
     break;
   case MAGNIFY_TOOL:
     active_tool = create_magnify_tool();
@@ -80,18 +116,22 @@ tool_select(ToolType type, gpointer extra_data,
   case SCROLL_TOOL:
     active_tool = create_scroll_tool();
     break;
+  default:
+    g_assert(0);    
   }
-  active_button = button;
+  if (button)
+    active_button = button;
 }
 
 void
 tool_options_dialog_show(ToolType type, gpointer extra_data, 
-			 gpointer user_data, GtkWidget *button) 
+			 gpointer user_data, GtkWidget *button,
+                         int invert_persistence) 
 {
   ObjectType *objtype;
- 
+
   if (active_tool->type != type) 
-    tool_select(type,extra_data,user_data,button);
+    tool_select(type,extra_data,user_data,button,invert_persistence);
 
   switch(type) {
   case MODIFY_TOOL:

@@ -1,5 +1,16 @@
 2003-08-20  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* app/tool.h: 
+	* app/tool.c: 
+	* app/scroll_tool.c: 
+	* app/interface.c: 
+	* app/disp_callbacks.c: 
+	* app/create_object.h: 
+	* app/create_object.c: Patch from Krzysztof Foltman
+	<kfoltman@onet.pl>: Middle button can scroll transiently when
+	menu-bar-mode is on, and mouse wheels (hopefully) can scroll in
+	various ways.
+
 	* app/authors.h: 
 	* sheets/UML.sheet.in: 
 	* sheets/UML/receptacle.xpm: 
