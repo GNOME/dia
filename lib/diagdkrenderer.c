@@ -521,6 +521,8 @@ draw_string (DiaRenderer *object,
   Point start_pos;
   PangoLayout* layout;
   
+  long t1, t2;
+
   point_copy(&start_pos,pos);
 
   color_convert(color, &gdkcolor);
@@ -566,7 +568,7 @@ draw_string (DiaRenderer *object,
    /*   y -= get_layout_first_baseline(layout);  */
    pango_layout_get_pixel_size(layout, &width, &height);
    if (width > 0) {
-     rowstride = 32*((width+31)/31);
+      rowstride = 32*((width+31)/31);
      
      graybitmap = (guint8*)g_new0(guint8, height*rowstride);
      
@@ -581,6 +583,11 @@ draw_string (DiaRenderer *object,
      pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
 
      {
+#ifdef 1
+       int stride = gdk_pixbuf_get_rowstride(rgba);
+       guchar* pixels = gdk_pixbuf_get_pixels(rgba);
+
+#else
        GdkPixbuf *rgba = 
 	 gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, width, height);
        int stride = gdk_pixbuf_get_rowstride(rgba);
@@ -608,6 +615,7 @@ draw_string (DiaRenderer *object,
 					   GDK_RGB_DITHER_NONE,
 					   0, 0);
        g_object_unref(G_OBJECT(rgba));
+#endif
        g_free(graybitmap);
      }
    }
