@@ -161,7 +161,7 @@ typedef struct _GdiObject
   {
     GDI_Pen   Pen;
     GDI_Brush Brush;
-    GDI_DiaFont  Font;
+    GDI_Font  Font;
   };
 } * HBRUSH, * HPEN, * HFONT;
 

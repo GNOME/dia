@@ -114,7 +114,9 @@ static ObjectOps annotation_ops = {
   (SetPropsFunc)        annotation_set_props
 };
 
+#ifndef _MSC_VER
 #define TEMPORARY_EVENT_TEST
+#endif
 #ifdef TEMPORARY_EVENT_TEST
 static gboolean 
 handle_btn1(Annotation *annotation, Property *prop) {

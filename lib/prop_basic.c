@@ -198,7 +198,7 @@ void initialize_property(Property *prop, const PropDescription *pdesc,
   prop->name_quark = pdesc->quark;
   if (!prop->name_quark) {
     prop->name_quark = g_quark_from_string(prop->name);
-    g_error(__FUNCTION__ ": late quark construction for property %s",
+    g_error(G_GNUC_FUNCTION ": late quark construction for property %s",
             prop->name);
   }
   prop->type = pdesc->type;
@@ -420,59 +420,59 @@ UnimplementedProperty *
 unimplementedprop_new(const PropDescription *pdesc, 
                       PropDescToPropPredicate reason) 
 {
-  g_warning(__FUNCTION__ " for property %s",pdesc->name); 
+  g_warning(G_GNUC_FUNCTION " for property %s",pdesc->name); 
   return NULL;
 }
 
 void 
 unimplementedprop_free(UnimplementedProperty *prop) 
 {
-  g_warning(__FUNCTION__ " for property %s",prop->common.descr->name); 
+  g_warning(G_GNUC_FUNCTION " for property %s",prop->common.descr->name); 
 }
 
 UnimplementedProperty *
 unimplementedprop_copy(UnimplementedProperty *src) 
 {
-  g_warning(__FUNCTION__ " for property %s",src->common.descr->name); 
+  g_warning(G_GNUC_FUNCTION " for property %s",src->common.descr->name); 
   return NULL;
 }
 
 WIDGET *
 unimplementedprop_get_widget(UnimplementedProperty *prop, PropDialog *dialog)
 {  
-  g_warning(__FUNCTION__ " for property %s",prop->common.descr->name); 
+  g_warning(G_GNUC_FUNCTION " for property %s",prop->common.descr->name); 
   return NULL;
 }
 
 void 
 unimplementedprop_reset_widget(UnimplementedProperty *prop, WIDGET *widget) 
 {
-  g_warning(__FUNCTION__ " for property %s",prop->common.descr->name); 
+  g_warning(G_GNUC_FUNCTION " for property %s",prop->common.descr->name); 
 }
 
 void 
 unimplementedprop_set_from_widget(UnimplementedProperty *prop, WIDGET *widget) 
 {
-  g_warning(__FUNCTION__ " for property %s",prop->common.descr->name); 
+  g_warning(G_GNUC_FUNCTION " for property %s",prop->common.descr->name); 
 }
 
 void 
 unimplementedprop_load(UnimplementedProperty *prop, 
                        AttributeNode attr, DataNode data) 
 {
- g_warning(__FUNCTION__ " for property %s",prop->common.descr->name); 
+ g_warning(G_GNUC_FUNCTION " for property %s",prop->common.descr->name); 
 }
 
 void 
 unimplementedprop_save(UnimplementedProperty *prop, AttributeNode attr) 
 {
-  g_warning(__FUNCTION__ " for property %s",prop->common.descr->name); 
+  g_warning(G_GNUC_FUNCTION " for property %s",prop->common.descr->name); 
 }
 
 gboolean 
 unimplementedprop_can_merge(const PropDescription *pd1, const PropDescription *pd2)
 {
-  g_warning(__FUNCTION__ " for property %s/%s",pd1->name,pd2->name); 
+  g_warning(G_GNUC_FUNCTION " for property %s/%s",pd1->name,pd2->name); 
   return FALSE;
 }
 
@@ -480,14 +480,14 @@ void
 unimplementedprop_get_from_offset(const UnimplementedProperty *prop,
                                   void *base, guint offset, guint offset2) 
 {
-  g_warning(__FUNCTION__ " for property %s",prop->common.descr->name); 
+  g_warning(G_GNUC_FUNCTION " for property %s",prop->common.descr->name); 
 }
 
 void 
 unimplementedprop_set_from_offset(UnimplementedProperty *prop,
                                   void *base, guint offset, guint offset2)
 {
-  g_warning(__FUNCTION__ " for property %s",prop->common.descr->name); 
+  g_warning(G_GNUC_FUNCTION " for property %s",prop->common.descr->name); 
 }
 
 static const PropertyOps unimplementedprop_ops = {

@@ -3,7 +3,7 @@ PRJ_TOP = ..
 PACKAGE = libdia
 !INCLUDE $(TOP)\build\win32\make.msc
 
-GDKPIXBUF = $(TOP)/dia-dev/gdk-pixbuf
+GDKPIXBUF = $(TOP)\dia-dev\gdk-pixbuf
 
 !IFNDEF DEBUG
 XML_LIB = libxml.lib
@@ -11,10 +11,14 @@ XML_LIB = libxml.lib
 XML_LIB = libxmld.lib
 !ENDIF
 
-PKG_CFLAGS = -I.. -I$(GDKPIXBUF)\.. \
-	$(GLIB_CFLAGS) $(GTK_CFLAGS) \
+PKG_CFLAGS = -I.. \
+	$(GTK_CFLAGS) \
+	-I$(GDKPIXBUF)\.. \
 	-I$(LIBXML) \
+	-I$(LIBART)\.. \
 	-DLIBDIA_COMPILATION
+
+# in GTK_CFLAGS: $(GLIB_CFLAGS) 
 
 PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) \
 	$(LIBXML)\$(XML_LIB) $(GDKPIXBUF)\gdk-pixbuf.lib
@@ -48,13 +52,27 @@ OBJECTS = \
 	neworth_conn.obj \
 	connpoint_line.obj \
 	filter.obj \
+	prop_basic.obj \
+	prop_inttypes.obj \
+	prop_geomtypes.obj \
+	prop_attr.obj \
+	prop_text.obj \
+	prop_widgets.obj \
+	prop_sdarray.obj \
 	properties.obj \
+	propdesc.obj \
+	proplist.obj \
+	propoffsets.obj \
+	propobject.obj \
+	propdialogs.obj  \
+	propregistry.obj \
 	plug-ins.obj \
 	polyshape.obj \
 	beziershape.obj \
 	paper.obj \
 	string_prerenderer.obj \
-	boundingbox.obj
+	boundingbox.obj \
+	charconv.obj
 
 ## common stuff
 ## compiler and linker switches

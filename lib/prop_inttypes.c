@@ -27,6 +27,8 @@
 #include <config.h>
 #endif
 
+#include <stdlib.h> /* strtol */
+
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
 #include "properties.h"

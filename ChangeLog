@@ -1,3 +1,21 @@
+2001-08-15  Hans Breuer  <hans@breuer.org>
+
+	* lib/font.c : made LARS_TRACE_MESSAGES Standard C conform
+
+	* lib/libdia.def : 
+	* lib/makefile.msc : updated
+
+	* lib/prop_basic.c : __FUNCTION__ is a gcc extension. Please
+	use G_GNUC_FUNCTION instead.
+
+	* lib/prop_inttypes.c : include <stdlib.h> for strtol()
+
+	* objects/sadt/annotation.c : disable TEMPORARY_EVENT_TEST for
+	msvc instead of cleaning missing includes
+
+	* plug-ins/wmf/wmf.cpp :
+	* plug-ins/wmf/wmf_gdi.h : fixed for Font to DiaFont renaming
+
 2001-08-15  Cyrille Chepelov <chepelov@calixo.net>
 
 	* app/app_procs.c:

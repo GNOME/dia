@@ -294,7 +294,7 @@ set_fillstyle(MyRenderer *renderer, FillStyle mode)
 }
 
 static void
-set_font(MyRenderer *renderer, Font *font, real height)
+set_font(MyRenderer *renderer, DiaFont *font, real height)
 {
     W32::LPCTSTR sFace;
     W32::DWORD dwItalic = 0;
