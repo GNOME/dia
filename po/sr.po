@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-26 02:05+0100\n"
-"PO-Revision-Date: 2003-10-26 04:07+0100\n"
+"POT-Creation-Date: 2003-10-26 22:59+0100\n"
+"PO-Revision-Date: 2003-10-26 23:00+0100\n"
 "Last-Translator: Дејан Матијевић <dmax@neobee.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,69 +36,58 @@ msgstr "%s грашка: треба исправан улазни тип %s\n"
 #: app/app_procs.c:197
 #, c-format
 msgid "%s --> %s\n"
-msgstr "%s --> %s\n"
+msgstr "%s —> %s\n"
 
 #: app/app_procs.c:239
 #, c-format
 msgid "Can't find output format %s\n"
 msgstr "Не могу да нађем врсту излаза %s\n"
 
+#. Translators:  The argument is a list of options, not to be translated
+#: app/app_procs.c:323
+#, c-format
+msgid "Export to file format and exit.  Supported formats are: %s"
+msgstr "Извези у врсту датотеке и изађи. Подржане врсте су: %s"
+
 #. &export_file_name
-#: app/app_procs.c:320
+#: app/app_procs.c:332
 msgid "Export loaded file and exit"
 msgstr "Извези учитану датотеку и изађи"
 
-#: app/app_procs.c:320 app/diaconv.c:94
+#: app/app_procs.c:332 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "ИЗЛАЗ"
 
 #. &export_file_format
-#: app/app_procs.c:322
-msgid ""
-"Export to file format and exit.  Supported formats are: cgm, dia, dxf, eps, "
-msgstr "Извези у врсту датотеке и изађи. Подржане врсте су: cgm, dia, dxf, eps, "
-
-#: app/app_procs.c:324
-msgid "fig, mp, plt, hpgl, "
-msgstr "fig, mp, plt, hpgl, "
-
-#: app/app_procs.c:325
-msgid "shape, svg, tex, "
-msgstr "shape, svg, tex, "
-
-#: app/app_procs.c:326
-msgid "wpg"
-msgstr "wpg"
-
-#: app/app_procs.c:326
+#: app/app_procs.c:334
 msgid "FORMAT"
 msgstr "ВРСТА"
 
-#: app/app_procs.c:329
+#: app/app_procs.c:337
 msgid "Don't show the splash screen"
 msgstr "Не приказуј насловни екран"
 
-#: app/app_procs.c:331
+#: app/app_procs.c:339
 msgid "Display credits list and exit"
 msgstr "Прикажи заслуге и изађи"
 
-#: app/app_procs.c:333
+#: app/app_procs.c:341
 msgid "Display version and exit"
 msgstr "Покажи верзију и изађи"
 
-#: app/app_procs.c:335 app/diaconv.c:95
+#: app/app_procs.c:343 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Прикажи овај помоћни текст"
 
-#: app/app_procs.c:367
+#: app/app_procs.c:375
 msgid "Can't connect to session manager!\n"
 msgstr "Не може се повезати са управником сесије!\n"
 
-#: app/app_procs.c:382 app/diaconv.c:119
+#: app/app_procs.c:390 app/diaconv.c:119
 msgid "[OPTION...] [FILE...]"
 msgstr "[ОПЦИЈА...] [ДАТОТЕКА...]"
 
-#: app/app_procs.c:386 app/diaconv.c:126
+#: app/app_procs.c:394 app/diaconv.c:126
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -109,22 +98,22 @@ msgstr ""
 "линије.\n"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:405
+#: app/app_procs.c:413
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Диа верзија %s, преведена %s %s\n"
 
-#: app/app_procs.c:407
+#: app/app_procs.c:415
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Диа верзија %s\n"
 
-#: app/app_procs.c:487 app/app_procs.c:489 app/diaconv.c:199 app/diaconv.c:201
+#: app/app_procs.c:495 app/app_procs.c:497 app/diaconv.c:199 app/diaconv.c:201
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "Неможе да нађе стандардане објекте када тражи object-libs, излази...\n"
 
-#: app/app_procs.c:581
+#: app/app_procs.c:589
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -133,7 +122,7 @@ msgstr ""
 "описујући се грешка може изазвати.\n"
 
 #. no standard buttons
-#: app/app_procs.c:593
+#: app/app_procs.c:601
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -143,21 +132,21 @@ msgstr ""
 "Да ли сте сигурни да желите да завршите Диа\n"
 "без претходног снимања?"
 
-#: app/app_procs.c:597
+#: app/app_procs.c:605
 msgid "Quit Dia"
 msgstr "Прекини Диу"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:652
+#: app/app_procs.c:660
 msgid "Thank you for using Dia.\n"
 msgstr "Хвала вам што користите Диу.\n"
 
-#: app/app_procs.c:666 app/app_procs.c:673
+#: app/app_procs.c:674 app/app_procs.c:681
 msgid "Could not create per-user Dia config directory"
 msgstr "Не могу да направим директоријум са Диа подешавањима за корисника"
 
-#: app/app_procs.c:675
+#: app/app_procs.c:683
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -165,7 +154,7 @@ msgstr ""
 "Не могу да направим директоријум са Диа подешавањима за корисника. Проверите "
 "да ли променљива окружења HOME показује на постојећи директоријум."
 
-#: app/app_procs.c:697 app/diaconv.c:249
+#: app/app_procs.c:705 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Објекти и филтери интерни за диу"
 
@@ -4994,7 +4983,9 @@ msgstr "До:"
 msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
-msgstr "Разноврсни скуп полигона, безијерових полигона и других разних геометријских облика"
+msgstr ""
+"Разноврсни скуп полигона, безијерових полигона и других разних геометријских "
+"облика"
 
 #: sheets/Assorted.sheet.in.h:2
 msgid "Assorted"
@@ -7222,6 +7213,15 @@ msgstr "Sybase срвер података"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Sybase репликациони сервер"
+
+#~ msgid "fig, mp, plt, hpgl, "
+#~ msgstr "fig, mp, plt, hpgl, "
+
+#~ msgid "shape, svg, tex, "
+#~ msgstr "shape, svg, tex, "
+
+#~ msgid "wpg"
+#~ msgstr "wpg"
 
 #  &export_file_format
 #~ msgid "Export to file format and exit"
