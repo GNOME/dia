@@ -1,3 +1,8 @@
+2004-08-06  Lars Clausen  <lars@raeder.dk>
+
+	* app/filedlg.c (file_save_as_callback): Don't remove related
+	dialogs from the NULL diagram.
+
 2004-08-02  Lars Clausen  <lars@raeder.dk>
 
 	* config.h.win32: 
