@@ -11,8 +11,28 @@ all: 	build \
 	build\win32\bin\libiconv.dll \
 	build\win32\bin\libcharset.dll \
 	build\win32\dia \
+	build\win32\dia\bondgraph.dll \
+	build\win32\dia\chronogram.dll \
 	build\win32\dia\custom.dll \
+	build\win32\dia\er.dll \
+	build\win32\dia\flowchart.dll \
+	build\win32\dia\fs.dll \
+	build\win32\dia\grafcet.dll \
+	build\win32\dia\misc.dll \
+	build\win32\dia\network.dll \
+	build\win32\dia\sadt.dll \
 	build\win32\dia\standard.dll \
+	build\win32\dia\uml.dll \
+	build\win32\dia\cgm.dll \
+	build\win32\dia\dxf.dll \
+	build\win32\dia\hpgl.dll \
+	build\win32\dia\metapost.dll \
+	build\win32\dia\pixbuf.dll \
+	build\win32\dia\pstricks.dll \
+	build\win32\dia\shape.dll \
+	build\win32\dia\svg.dll \
+	build\win32\dia\wpg.dll \
+	build\win32\dia\xfig.dll \
 	build\win32\lib \
 	build\win32\lib\pango \
 	build\win32\lib\gtk-2.0 \
@@ -57,13 +77,76 @@ build\win32\bin\libiconv.dll: build\win32\bin ..\bin\libiconv.dll
 
 build\win32\bin\libcharset.dll: build\win32\bin ..\bin\libcharset.dll
 	copy ..\bin\libcharset.dll build\win32\bin
+
+build\win32\dia\bondgraph.dll: build\win32\dia objects\bondgraph\bondgraph.dll
+	copy objects\bondgraph\bondgraph.dll build\win32\dia	
+
+build\win32\dia\chronogram.dll: build\win32\dia objects\chronogram\chronogram.dll
+	copy objects\chronogram\chronogram.dll build\win32\dia
 	
 build\win32\dia\custom.dll: build\win32\dia objects\custom\custom.dll
 	copy objects\custom\custom.dll build\win32\dia
+
+build\win32\dia\er.dll: build\win32\dia objects\ER\er.dll
+	copy objects\ER\er.dll build\win32\dia
+
+build\win32\dia\flowchart.dll: build\win32\dia objects\flowchart\flowchart.dll
+	copy objects\flowchart\flowchart.dll build\win32\dia
+
+build\win32\dia\fs.dll: build\win32\dia objects\FS\fs.dll
+	copy objects\FS\fs.dll build\win32\dia
+
+build\win32\dia\grafcet.dll: build\win32\dia objects\GRAFCET\grafcet.dll
+	copy objects\GRAFCET\grafcet.dll build\win32\dia
+
+build\win32\dia\misc.dll: build\win32\dia objects\Misc\misc.dll
+	copy objects\Misc\misc.dll build\win32\dia
+
+build\win32\dia\network.dll: build\win32\dia objects\network\network.dll
+	copy objects\network\network.dll build\win32\dia
+
+build\win32\dia\sadt.dll: build\win32\dia objects\SADT\sadt.dll
+	copy objects\SADT\sadt.dll build\win32\dia	
 	
 build\win32\dia\standard.dll: build\win32\dia objects\standard\standard.dll
 	copy objects\standard\standard.dll build\win32\dia
-	
+
+build\win32\dia\uml.dll: build\win32\dia objects\UML\uml.dll
+	copy objects\UML\uml.dll build\win32\dia
+
+build\win32\dia\cgm.dll: build\win32\dia plug-ins\cgm\cgm.dll
+	copy plug-ins\cgm\cgm.dll build\win32\dia
+
+build\win32\dia\dxf.dll: build\win32\dia plug-ins\dxf\dxf.dll
+	copy plug-ins\dxf\dxf.dll build\win32\dia
+
+build\win32\dia\hpgl.dll: build\win32\dia plug-ins\hpgl\hpgl.dll
+	copy plug-ins\hpgl\hpgl.dll build\win32\dia
+
+build\win32\dia\metapost.dll: build\win32\dia plug-ins\metapost\metapost.dll
+	copy plug-ins\metapost\metapost.dll build\win32\dia
+
+build\win32\dia\pixbuf.dll: build\win32\dia plug-ins\pixbuf\pixbuf.dll
+	copy plug-ins\pixbuf\pixbuf.dll build\win32\dia
+
+build\win32\dia\pstricks.dll: build\win32\dia plug-ins\pstricks\pstricks.dll
+	copy plug-ins\pstricks\pstricks.dll build\win32\dia
+
+build\win32\dia\shape.dll: build\win32\dia plug-ins\shape\shape.dll
+	copy plug-ins\shape\shape.dll build\win32\dia
+
+build\win32\dia\svg.dll: build\win32\dia plug-ins\svg\svg.dll
+	copy plug-ins\svg\svg.dll build\win32\dia
+
+build\win32\dia\wmf.dll: build\win32\dia plug-ins\wmf\wmf.dll
+	copy plug-ins\wmf\wmf.dll build\win32\dia
+
+build\win32\dia\wpg.dll: build\win32\dia plug-ins\wpg\wpg.dll
+	copy plug-ins\wpg\wpg.dll build\win32\dia
+
+build\win32\dia\xfig.dll: build\win32\dia plug-ins\xfig\xfig.dll
+	copy plug-ins\xfig\xfig.dll build\win32\dia	
+		
 build\win32\lib: build\win32
 	md build\win32\lib
 
