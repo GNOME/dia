@@ -766,7 +766,7 @@ text_insert_char (Text *text, unichar c)
 	}
 	strncpy (str, ch, unilen);
 	text->cursor_pos += 1;
-	text->strlen[row] += unilen;
+	text->strlen[row] = uni_strlen (text->line[row], text->strlen[row] + unilen);
 
 	text->row_width[row] = font_string_width (text->line[row], text->font, text->height);
 	text->max_width = MAX (text->max_width, text->row_width[row]);

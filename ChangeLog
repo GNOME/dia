@@ -1,3 +1,19 @@
+2002-01-25  Akira TAGOH  <tagoh@redhat.com>
+
+	* lib/text.c (text_insert_char): fixed characters# calculation.
+	it's not string length.
+
+	* lib/plug-ins.c (dia_plugin_info_init): when GTK_DOESNT_TALK_UTF8_WE_DO
+	is defined, needs to convert a description to UTF-8.
+
+	* app/render_gdk.c (get_text_width): fixed transaction for
+	UTF-8 support. also should uses gdk_text_width_wc() instead
+	of gdk_text_width().
+
+	* app/render_gdk.c (draw_string): when GTK_DOESNT_TALK_UTF8_WE_DO
+	is defined, needs to convert to locale encoding for display.
+	Also use utfchar instead of char for argument.
+
 2002-01-24  Hans Breuer  <hans@breuer.org>
 
 	* app/commands.c(edit_paste_callback and more) : 

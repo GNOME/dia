@@ -70,7 +70,7 @@ struct _PluginInfo {
   gboolean inhibit_load;
 
   gchar *name;
-  gchar *description;
+  utfchar *description;
 
   PluginInitFunc init_func;
   PluginCanUnloadFunc can_unload_func;
@@ -85,18 +85,25 @@ static gboolean plugin_load_inhibited(const gchar *filename);
 static void     info_fill_from_pluginrc(PluginInfo *info);
 
 gboolean
-dia_plugin_info_init(PluginInfo *info, gchar *name, gchar *description,
+dia_plugin_info_init(PluginInfo *info, gchar *name, utfchar *description,
 		     PluginCanUnloadFunc can_unload_func, 
 		     PluginUnloadFunc unload_func)
 {
-  g_free(info->name);
-  info->name = g_strdup(name);
-  g_free(info->description);
-  info->description = g_strdup(description);
-  info->can_unload_func = can_unload_func;
-  info->unload_func = unload_func;
+	utfchar *utf;
 
-  return TRUE;
+	g_free(info->name);
+	info->name = g_strdup(name);
+	g_free(info->description);
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+	utf = charconv_local8_to_utf8 (description);
+	info->description = utf;
+#else
+	info->description = g_strdup(description);
+#endif
+	info->can_unload_func = can_unload_func;
+	info->unload_func = unload_func;
+
+	return TRUE;
 }
 
 gchar *

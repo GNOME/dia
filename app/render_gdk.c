@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <math.h>
+#include <stdlib.h>
 #include <gdk/gdk.h>
 
 #include "render_gdk.h"
@@ -78,7 +79,7 @@ static void fill_bezier(RendererGdk *renderer,
 			int numpoints,
 			Color *color);
 static void draw_string(RendererGdk *renderer,
-			const char *text,
+			const utfchar *text,
 			Point *pos, Alignment alignment,
 			Color *color);
 static void draw_image(RendererGdk *renderer,
@@ -897,10 +898,10 @@ fill_bezier(RendererGdk *renderer,
 }
 
 static void
-draw_string(RendererGdk *renderer,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *color)
+draw_string (RendererGdk *renderer,
+	     const utfchar *text,
+	     Point *pos, Alignment alignment,
+	     Color *color)
 {
 #ifdef HAVE_FREETYPE
   DDisplay *ddisp = renderer->ddisp;
@@ -934,19 +935,43 @@ draw_string(RendererGdk *renderer,
   GdkColor gdkcolor;
   int x,y;
   int iwidth;
+  GdkWChar *wcstr;
+  gchar *str, *mbstr;
+  int length, wclength;
+  int i;
   
   ddisplay_transform_coords(ddisp, pos->x, pos->y,
 			    &x, &y);
-  
-# if defined (GTK_TALKS_UTF8_WE_DONT)
+
+# ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  str = charconv_utf8_to_local8 (text);
+  length = strlen (str);
+  wcstr = g_new0 (GdkWChar, length + 1);
+  mbstr = g_strdup (str);
+  wclength = mbstowcs (wcstr, mbstr, length);
+  g_free (mbstr);
+
+  if (wclength > 0) {
+	  length = wclength;
+  } else {
+	  for (i = 0; i < length; i++) {
+		  wcstr[i] = (unsigned char) str[i];
+	  }
+  }
+  iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, length);
+
+  g_free (wcstr);
+# else
+#  if defined (GTK_TALKS_UTF8_WE_DONT)
   {
     utfchar *utfbuf = charconv_local8_to_utf8(text);
     iwidth = gdk_string_width(renderer->gdk_font, utfbuf);
     g_free(utfbuf);
   }
-# else
+#  else
   iwidth = gdk_string_width(renderer->gdk_font, text);
-# endif
+#  endif
+# endif /* GTK_DOESNT_TALK_UTF8_WE_DO */
 
   switch (alignment) {
   case ALIGN_LEFT:
@@ -961,8 +986,14 @@ draw_string(RendererGdk *renderer,
   
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
-      
-# if defined (GTK_TALKS_UTF8_WE_DONT)
+
+# ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  gdk_draw_string (renderer->pixmap,
+		   renderer->gdk_font, gc,
+		   x, y, str);
+  g_free (str);
+# else
+#  if defined (GTK_TALKS_UTF8_WE_DONT)
   {
     utfchar *utfbuf = charconv_local8_to_utf8(text);
     gdk_draw_string(renderer->pixmap,
@@ -970,11 +1001,12 @@ draw_string(RendererGdk *renderer,
 		    x,y, utfbuf);
     g_free(utfbuf);
   }
-# else
+#  else
   gdk_draw_string(renderer->pixmap,
 		  renderer->gdk_font, gc,
 		  x,y, text);
-# endif
+#  endif
+#endif /* GTK_DOESNT_TALK_UTF8_WE_DO */
 #endif
 }
 
@@ -997,20 +1029,58 @@ draw_image(RendererGdk *renderer,
 
 static real
 get_text_width(RendererGdk *renderer,
-	       const char *text, int length)
+	       const utfchar *text, int length)
 {
   int iwidth;
+  GdkWChar *wcstr;
+  gchar *mbstr, *str;
+  int len, wclength, i;
+  utfchar *utfbuf, *utf, *p;
+
 #ifdef HAVE_FREETYPE
   iwidth = freetype_load_string(text, renderer->freetype_font, length);
 #else
 # if defined (GTK_TALKS_UTF8_WE_DONT)
   {
-    utfchar *utfbuf = charconv_local8_to_utf8(text);
+    utfbuf = charconv_local8_to_utf8(text);
     iwidth = gdk_text_width(renderer->gdk_font, utfbuf, length);
     g_free(utfbuf);
   }
 # else
-  iwidth = gdk_text_width(renderer->gdk_font, text, length);
+#  ifdef UNICODE_WORK_IN_PROGRESS
+  p = utfbuf = g_strdup (text);
+  for (i = 0; i < length; i++)
+	  p = uni_next (p);
+
+  utf = g_new (utfchar, p - utfbuf + 1);
+  strncpy (utf, text, p - utfbuf);
+  utf[p - utfbuf] = 0;
+  str = charconv_utf8_to_local8 (utf);
+  len = strlen (str);
+
+  g_free (utfbuf);
+  g_free (utf);
+#  else
+  str = g_strdup (text);
+  len = length;
+#  endif
+  wcstr = g_new0 (GdkWChar, len + 1);
+  mbstr = g_strdup (str);
+  wclength = mbstowcs (wcstr, mbstr, len);
+  g_free (mbstr);
+
+  if (wclength > 0) {
+	  len = wclength;
+  } else {
+	  for (i = 0; i < len; i++) {
+		  wcstr[i] = (unsigned char) str[i];
+	  }
+  }
+  g_free (str);
+
+  iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, len);
+
+  g_free (wcstr);
 # endif
 #endif
 
