@@ -212,13 +212,17 @@ display_data_received_callback (GtkWidget *widget, GdkDragContext *context,
 				gint x, gint y, GtkSelectionData *data,
 				guint info, guint time, DDisplay *ddisp)
 {
-  if (data->format == 8 && data->length == sizeof(ToolButtonData *)) {
+  if (data->format == 8 && data->length == sizeof(ToolButtonData *) &&
+      gtk_drag_get_source_widget(context) != NULL) {
     ToolButtonData *tooldata = *(ToolButtonData **)data->data;
 
     g_message("Tool drop %s at (%d, %d)", (gchar *)tooldata->extra_data, x, y);
+    ddisplay_drop_object(ddisp, x, y,
+			 object_get_type((gchar *)tooldata->extra_data),
+			 tooldata->user_data);
     gtk_drag_finish (context, TRUE, FALSE, time);
-  }
-  gtk_drag_finish (context, FALSE, FALSE, time);
+  } else
+    gtk_drag_finish (context, FALSE, FALSE, time);
 }
 
 void
@@ -463,6 +467,8 @@ static void
 tool_setup_drag_source(GtkWidget *button, ToolButtonData *tooldata,
 		       GdkPixmap *pixmap, GdkBitmap *mask)
 {
+  g_return_if_fail(tooldata->type == CREATE_OBJECT_TOOL);
+
   gtk_drag_source_set(button, GDK_BUTTON1_MASK,
 		      create_object_targets, 1,
 		      GDK_ACTION_DEFAULT|GDK_ACTION_COPY);

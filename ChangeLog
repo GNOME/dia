@@ -1,5 +1,11 @@
 2000-11-25  James Henstridge  <james@daa.com.au>
 
+	* app/disp_callbacks.c (ddisplay_drop_object): add a function to
+	handle the tool drops on the canvas.
+
+	* app/interface.c (display_data_received_callback): do the check
+	to make sure that the drag is from a local toolbox here as well.
+
 	* app/interface.c (create_tools): unref the pixmap/mask after
 	creating the GtkPixmap.
 	(tool_setup_drag_source): function to set up a drag source for

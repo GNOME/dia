@@ -649,4 +649,37 @@ ddisplay_destroy (GtkWidget *widget, gpointer data)
   ddisplay_really_destroy(ddisp);
 }
 
+void
+ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
+		     gpointer user_data)
+{
+  Point droppoint;
+  Handle *handle1, *handle2;
+  Object *obj;
+  GList *list;
 
+  ddisplay_untransform_coords(ddisp, x, y, &droppoint.x, &droppoint.y);
+
+  snap_to_grid(ddisp, &droppoint.x, &droppoint.y);
+
+  obj = otype->ops->create(&droppoint, user_data, &handle1, &handle2);
+  diagram_add_object(ddisp->diagram, obj);
+  diagram_remove_all_selected(ddisp->diagram, TRUE); /* unselect all */
+  diagram_select(ddisp->diagram, obj);
+  obj->ops->selectf(obj, &droppoint, (Renderer *)ddisp->renderer);
+
+  /* Connect first handle if possible: */
+  if ((handle1 != NULL) &&
+      (handle1->connect_type != HANDLE_NONCONNECTABLE)) {
+    object_connect_display(ddisp, obj, handle1);
+  }
+  object_add_updates(obj, ddisp->diagram);
+  diagram_flush(ddisp->diagram);
+
+  list = g_list_prepend(NULL, obj);
+  undo_insert_objects(ddisp->diagram, list, 1);
+  diagram_update_extents(ddisp->diagram);
+  diagram_modified(ddisp->diagram);
+
+  undo_set_transactionpoint(ddisp->diagram->undo);
+}

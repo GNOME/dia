@@ -41,4 +41,8 @@ gint ddisplay_vsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);
 gint ddisplay_delete (GtkWidget *widget, GdkEvent  *event, gpointer data);
 void ddisplay_destroy (GtkWidget *widget, gpointer data);
 
+void ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, ObjectType *otype,
+			  gpointer user_data);
+
+
 #endif /* DISP_CALLBACKS_H */
