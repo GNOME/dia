@@ -44,7 +44,7 @@ make
 
 %install
 rm -fr $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install-strip 
+make prefix=$RPM_BUILD_ROOT%{prefix} install-strip
 
 %clean
 rm -fr $RPM_BUILD_ROOT
