@@ -1,3 +1,9 @@
+1999-01-22  Alexander Larsson  <alex@c125.ryd.student.liu.se>
+
+	* app/magnify.c (magnify_button_release):
+	Fixed a problem when zooming in on a very small box would
+	not release the grabbed pointer-focus.
+
 1999-01-21  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/load_save.c (diagram_load):

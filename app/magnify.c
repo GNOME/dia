@@ -15,6 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+#include <math.h>
+
 #include "magnify.h"
 
 static void
@@ -42,7 +44,8 @@ magnify_button_release(MagnifyTool *tool, GdkEventButton *event,
 {
   Rectangle *visible;
   Point p1, p2, tl;
-  int diff;
+  real diff;
+  int idiff;
   real factor;
 
   tool->box_active = FALSE;
@@ -55,12 +58,14 @@ magnify_button_release(MagnifyTool *tool, GdkEventButton *event,
   tl.x = MIN(p1.x, p2.x);
   tl.y = MIN(p1.y, p2.y);
 
-  diff = MAX(abs(p2.x - p1.x), abs(p2.y - p1.y));
+  diff = MAX(fabs(p2.x - p1.x), fabs(p2.y - p1.y));
+  idiff = MAX(abs(tool->x - event->x), abs(tool->y - event->y));
 
   if (tool->moved) {
-    if (diff < 0.01)
-      return;
-    if (!(event->state & GDK_CONTROL_MASK)) {
+    if (idiff <= 4) {
+      ddisplay_add_update_all(ddisp);
+      ddisplay_flush(ddisp);
+    } else if (!(event->state & GDK_CONTROL_MASK)) {
       ddisp->zoom_factor *= (visible->right - visible->left) / diff;
       ddisplay_set_origo(ddisp, tl.x, tl.y);
       ddisplay_update_scrollbars(ddisp);
