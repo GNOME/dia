@@ -1,7 +1,8 @@
 2001-04-04  Cyrille Chepelov  <chepelov@calixo.net>
-
-	* fr.po: Updated French translation.
-
+	
+	* fr.po: Updated French translation. Fixed some typos, and a
+	mistranslation spotted by Vincent  Cagnard <vincent.cagnard@telecorporate.com>
+		
 2001-04-01  Christian Meyer  <chrisime@gnome.org>
 
 	* de.po: Updated German translation.

@@ -516,10 +516,7 @@ msgstr "tooldata NULL dans tool_select_update"
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
-msgstr ""
-"Couleurs de trait et de fond. Les carrés noir et blans réinitialisent les "
-"couleurs. La flèche permutte ces couleurs. Un double clic permet de les "
-"changer."
+msgstr "Couleurs de trait et de fond. Les carrés noir et blancs réinitialisent les couleurs. La flèche permute ces couleurs. Un double clic permet de les changer."
 
 #: app/interface.c:1033
 msgid "Diagram Editor"
@@ -2361,7 +2358,7 @@ msgstr "Donnée de l'opération"
 
 #: objects/UML/class_dialog.c:1689
 msgid "abstract"
-msgstr "résumé"
+msgstr "abstraite"
 
 #: objects/UML/class_dialog.c:1701
 msgid "Parameters:"
