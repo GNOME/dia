@@ -58,7 +58,11 @@ struct _DiaFontSelector
 
 struct _DiaFontSelectorClass
 {
+#ifdef HAVE_FREETYPE
+  GtkWidgetClass parent_class;
+#else
   GtkOptionMenuClass parent_class;
+#endif
 };
 
 guint      dia_font_selector_get_type        (void);
