@@ -1,4 +1,12 @@
-2004-04-02  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
+2004-04-06  Lars Clausen  <lars@raeder.dk>
+
+	* lib/dialinechooser.[ch] (dia_line_chooser_set_line_style): 
+	* lib/attributes.c (attributes_set_default_line_style): 
+	* app/interface.c (create_lineprops_area): 
+	Make line style persistent as well.  Added function to directly
+	set the style and dashlength of a dialinechooser. 
+
+2004-04-02  Lars Clausen  <lars@raeder.dk>
 
 	* app/recent_files.c: Use absolute name for recent files list.
 

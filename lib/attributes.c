@@ -135,6 +135,8 @@ attributes_set_default_line_style(LineStyle style, real dash_length)
 {
   attributes_linestyle = style;
   attributes_dash_length = dash_length;
+  persistence_set_integer("line-style", style);
+  persistence_set_real("dash-length", dash_length);
 }
 
 void

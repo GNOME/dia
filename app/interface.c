@@ -1111,6 +1111,8 @@ create_lineprops_area(GtkWidget *parent)
 {
   GtkWidget *chooser;
   Arrow arrow;
+  real dash_length;
+  LineStyle style;
 
   chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL, tool_tips);
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE, TRUE);
@@ -1125,6 +1127,9 @@ create_lineprops_area(GtkWidget *parent)
   chooser = dia_line_chooser_new(change_line_style, NULL);
   gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, TRUE, TRUE, FALSE, TRUE);
   gtk_tooltips_set_tip(tool_tips, chooser, _("Line style for new lines.  Click to pick a line style, or set line style parameters with Details..."), NULL);
+  style = persistence_register_integer("line-style", LINESTYLE_SOLID);
+  dash_length = persistence_register_real("dash-length", DEFAULT_LINESTYLE_DASHLEN);
+  dia_line_chooser_set_line_style(chooser, style, dash_length);
   gtk_widget_show(chooser);
 
   chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL, tool_tips);
