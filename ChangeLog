@@ -1,3 +1,14 @@
+1999-04-13  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
+
+	* objects/UML/usecase.c: 
+	Added collaboration mode
+	Fixed connection points with text > ellipse bug and other 
+	small things
+
+	* objects/UML/state.c:
+ 	Fixed bug of bad position of text after being either end
+	or begin, moved and returned to text
+
 1999-04-12  Andreas Jaeger  <aj@arthur.rhein-neckar.de>
 
         * app/preferences.c: Add prototype declaration for prefs_apply.

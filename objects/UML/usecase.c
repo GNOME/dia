@@ -41,6 +41,7 @@ struct _Usecase {
 
   Text *text;
   int text_outside;
+  int collaboration;
 };
 
 
@@ -48,6 +49,7 @@ struct _UsecasePropertiesDialog {
   GtkWidget *dialog;
   
   GtkToggleButton *text_out;
+  GtkToggleButton *collaboration;
 };
 
 
@@ -199,7 +201,11 @@ usecase_draw(Usecase *usecase, Renderer *renderer)
 
   renderer->ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer->ops->set_linewidth(renderer, USECASE_LINEWIDTH);
-  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
+
+  if (usecase->collaboration)
+	  renderer->ops->set_linestyle(renderer, LINESTYLE_DASHED);
+  else 
+	  renderer->ops->set_linestyle(renderer, LINESTYLE_SOLID);
 
   renderer->ops->fill_ellipse(renderer, 
 			     &c,
@@ -240,17 +246,29 @@ usecase_update_data(Usecase *usecase)
 	  r.x = ratio*h + w;
 	  r.y = r.x / ratio;
       }
+      if (r.x < USECASE_WIDTH) 
+	      r.x = USECASE_WIDTH;
+      if (r.y < USECASE_HEIGHT)
+	      r.y = USECASE_HEIGHT;
   } else {
-      r.x = r.y = 0;
+      r.x = USECASE_WIDTH;
+      r.y = USECASE_HEIGHT;
   }
 
-  elem->width = (r.x > USECASE_WIDTH) ? r.x: USECASE_WIDTH;
-  elem->height = (r.y > USECASE_HEIGHT) ? r.y: USECASE_HEIGHT;
+  elem->width = r.x;
+  elem->height = r.y;
 
+  if (usecase->text_outside) { 
+	  elem->width = MAX(elem->width, w);
+	  elem->height += h + USECASE_MARGIN_Y;
+  }
+
+  r.x /= 2.0;
+  r.y /= 2.0;
   c.x = elem->corner.x + elem->width / 2.0;
-  c.y = elem->corner.y + elem->height / 2.0;
-  half.x = elem->width * M_SQRT1_2 / 2.0;
-  half.y = elem->height * M_SQRT1_2 / 2.0;
+  c.y = elem->corner.y + r.y;
+  half.x = r.x * M_SQRT1_2;
+  half.y = r.y * M_SQRT1_2;
 
   /* Update connections: */
   usecase->connections[0].pos.x = c.x - half.x;
@@ -259,14 +277,12 @@ usecase_update_data(Usecase *usecase)
   usecase->connections[1].pos.y = elem->corner.y;
   usecase->connections[2].pos.x = c.x + half.x;
   usecase->connections[2].pos.y = c.y - half.y;
-  usecase->connections[3].pos.x = elem->corner.x;
+  usecase->connections[3].pos.x = c.x - r.x;
   usecase->connections[3].pos.y = c.y;
-  usecase->connections[4].pos.x = elem->corner.x + elem->width;
+  usecase->connections[4].pos.x = c.x + r.x;
   usecase->connections[4].pos.y = c.y;
   
   if (usecase->text_outside) { 
-      elem->width = MAX(elem->width, w);
-      elem->height += h + USECASE_MARGIN_Y;
       usecase->connections[5].pos.x = elem->corner.x;
       usecase->connections[5].pos.y = elem->corner.y + elem->height;
       usecase->connections[6].pos.x = c.x;
@@ -319,6 +335,7 @@ usecase_create(Point *startpoint,
   
   usecase->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
   usecase->text_outside = 0;
+  usecase->collaboration = 0;
   element_init(elem, 8, 8);
   
   for (i=0;i<8;i++) {
@@ -362,6 +379,8 @@ usecase_copy(Usecase *usecase)
   element_copy(elem, newelem);
 
   newusecase->text = text_copy(usecase->text);
+  newusecase->text_outside = usecase->text_outside;
+  newusecase->collaboration = usecase->collaboration;
   
   for (i=0;i<8;i++) {
     newobj->connections[i] = &newusecase->connections[i];
@@ -372,7 +391,7 @@ usecase_copy(Usecase *usecase)
   }
 
   newusecase->text_outside = usecase->text_outside;
-
+  newusecase->collaboration = usecase->collaboration;
   usecase_update_data(newusecase);
   
   return (Object *)newusecase;
@@ -386,6 +405,12 @@ usecase_save(Usecase *usecase, ObjectNode obj_node, const char *filename)
 
   data_add_text(new_attribute(obj_node, "text"),
 		usecase->text);
+
+  data_add_boolean(new_attribute(obj_node, "textout"),
+		   usecase->text_outside);
+
+  data_add_boolean(new_attribute(obj_node, "collaboration"),
+		   usecase->collaboration);
 }
 
 static Object *
@@ -408,6 +433,19 @@ usecase_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
       usecase->text = data_text(attribute_first_data(attr));
+
+
+  attr = object_find_attribute(obj_node, "textout");
+  if (attr != NULL)
+    usecase->text_outside = data_boolean(attribute_first_data(attr));
+  else
+    usecase->text_outside = 0;
+
+  attr = object_find_attribute(obj_node, "collaboration");
+  if (attr != NULL)
+    usecase->collaboration = data_boolean(attribute_first_data(attr));
+  else
+    usecase->collaboration = 0;
   
   element_init(elem, 8, 8);
 
@@ -438,6 +476,7 @@ usecase_apply_properties(Usecase *usecase)
 
   prop_dialog = properties_dialog;
   usecase->text_outside = prop_dialog->text_out->active;
+  usecase->collaboration = prop_dialog->collaboration->active;
   usecase_update_data(usecase);
 
   h = usecase->text->height*usecase->text->numlines;
@@ -457,6 +496,9 @@ fill_in_dialog(Usecase *usecase)
   UsecasePropertiesDialog *prop_dialog;
   prop_dialog = properties_dialog;
   gtk_toggle_button_set_active(prop_dialog->text_out, usecase->text_outside);
+  gtk_toggle_button_set_active(prop_dialog->collaboration, usecase->collaboration);
+
+
 }
 
 static GtkWidget *
@@ -479,6 +521,10 @@ usecase_get_properties(Usecase *dep)
     gtk_widget_show(checkbox);
     gtk_box_pack_start (GTK_BOX (dialog), checkbox, TRUE, TRUE, 0);
 
+    checkbox = gtk_check_button_new_with_label(_("Collaboration"));
+    prop_dialog->collaboration = GTK_TOGGLE_BUTTON( checkbox );
+    gtk_widget_show(checkbox);
+    gtk_box_pack_start (GTK_BOX (dialog), checkbox, TRUE, TRUE, 0);
   }
   
   fill_in_dialog(dep);

@@ -165,15 +165,8 @@ static void
 state_move(State *state, Point *to)
 {
   real h;
-  Point p;
   
   state->element.corner = *to;
-  h = state->text->height*state->text->numlines;
-  
-  p = *to;
-  p.x += state->element.width/2.0;
-  p.y += (state->element.height - h)/2.0 + state->text->ascent;
-  text_set_position(state->text, &p);
   state_update_data(state);
 }
 
@@ -241,12 +234,16 @@ state_update_data(State *state)
 
   Element *elem = &state->element;
   Object *obj = (Object *) state;
+  Point p;
   
   if (state->state_type==STATE_NORMAL) { 
       w = state->text->max_width + 2*STATE_MARGIN_X;
       h = state->text->height*state->text->numlines +2*STATE_MARGIN_Y;
       if (w < STATE_WIDTH)
 	  w = STATE_WIDTH;
+      p.x = elem->corner.x + w/2.0;
+      p.y = elem->corner.y + STATE_MARGIN_Y + state->text->ascent;
+      text_set_position(state->text, &p);
   } else {
       w = h = (state->state_type==STATE_END) ? STATE_ENDRATIO: STATE_RATIO;
   }
