@@ -131,7 +131,7 @@ void ddisplay_set_title(DDisplay *ddisp, char *title);
 void ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor);
 void ddisplay_set_all_cursor(GdkCursor *cursor);
 
-void ddisplay_scroll(DDisplay *ddisp, Point *delta);
+gboolean ddisplay_scroll(DDisplay *ddisp, Point *delta);
 gboolean ddisplay_autoscroll(DDisplay *ddisp, int x, int y);
 void ddisplay_scroll_up(DDisplay *ddisp);
 void ddisplay_scroll_down(DDisplay *ddisp);

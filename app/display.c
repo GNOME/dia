@@ -689,54 +689,57 @@ ddisplay_autoscroll(DDisplay *ddisp, int x, int y)
 
   if ((scroll.x != 0) || (scroll.y != 0))
   {
+    gboolean scrolled;
+
     scroll.x = ddisplay_untransform_length(ddisp, scroll.x);
     scroll.y = ddisplay_untransform_length(ddisp, scroll.y);
 
-    ddisplay_scroll(ddisp, &scroll);
-    ddisplay_flush(ddisp);
+    scrolled = ddisplay_scroll(ddisp, &scroll);
 
-    return TRUE;
+    if (scrolled) {
+      ddisplay_flush(ddisp);        
+      return TRUE;
+    }
   }
-  else
-  {
-    return FALSE;
-  }
+  return FALSE;
 }
 
-void ddisplay_scroll(DDisplay *ddisp, Point *delta)
+gboolean 
+ddisplay_scroll(DDisplay *ddisp, Point *delta)
 {
-  Point new_origo;
-  Rectangle extents;
   Rectangle *visible = &ddisp->visible;
-  real width, height;
+  real width = visible->right - visible->left;
+  real height = visible->bottom - visible->top;
 
-  new_origo = ddisp->origo;
+  Rectangle extents = ddisp->diagram->data->extents;
+  real ex_width = extents.right - extents.left;
+  real ex_height = extents.bottom - extents.top;
+
+  Point new_origo = ddisp->origo;
   point_add(&new_origo, delta);
 
-  width = visible->right - visible->left;
-  height = visible->bottom - visible->top;
-  
-  extents = ddisp->diagram->data->extents;
   rectangle_union(&extents, visible);
-  
-  if (new_origo.x < extents.left)
-    new_origo.x = extents.left;
 
-  if (new_origo.x+width > extents.right)
-    new_origo.x = extents.right - width;
+  if (new_origo.x < extents.left - ex_width)
+    new_origo.x = extents.left - ex_width;
 
-  if (new_origo.y < extents.top)
-    new_origo.y = extents.top;
+  if (new_origo.x+width > extents.right + ex_width)
+    new_origo.x = extents.right - width + ex_width;
+
+  if (new_origo.y < extents.top - ex_height)
+    new_origo.y = extents.top - ex_height;
   
-  if (new_origo.y+height > extents.bottom)
-    new_origo.y = extents.bottom - height;
+  if (new_origo.y+height > extents.bottom + ex_height)
+    new_origo.y = extents.bottom - height + ex_height;
 
   if ( (new_origo.x != ddisp->origo.x) ||
        (new_origo.y != ddisp->origo.y) ) {
     ddisplay_set_origo(ddisp, new_origo.x, new_origo.y);
     ddisplay_update_scrollbars(ddisp);
     ddisplay_add_update_all(ddisp);
+    return TRUE;
   }
+  return FALSE;
 }
 
 void ddisplay_scroll_up(DDisplay *ddisp)

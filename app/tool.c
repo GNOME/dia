@@ -26,10 +26,31 @@
 #include "defaults.h"
 
 Tool *active_tool = NULL;
+static GtkWidget *active_button = NULL;
+static GtkWidget *former_button = NULL;
 
 void 
-tool_select(ToolType type, gpointer extra_data, gpointer user_data)
+tool_select_former(void) 
 {
+  if (former_button) {
+    gtk_signal_emit_by_name(GTK_OBJECT(former_button), "clicked",
+                            GTK_BUTTON(former_button), NULL);
+  }
+}
+
+void
+tool_reset(void)
+{
+  gtk_signal_emit_by_name(GTK_OBJECT(modify_tool_button), "clicked",
+			  GTK_BUTTON(modify_tool_button), NULL);
+}
+
+void 
+tool_select(ToolType type, gpointer extra_data, 
+            gpointer user_data, GtkWidget *button)
+{
+  former_button = active_button;
+
   switch(active_tool->type) {
   case MODIFY_TOOL:
     free_modify_tool(active_tool);
@@ -60,46 +81,18 @@ tool_select(ToolType type, gpointer extra_data, gpointer user_data)
     active_tool = create_scroll_tool();
     break;
   }
+  active_button = button;
 }
 
 void
 tool_options_dialog_show(ToolType type, gpointer extra_data, 
-			 gpointer user_data) 
+			 gpointer user_data, GtkWidget *button) 
 {
   ObjectType *objtype;
  
-  if (active_tool->type != type) {
-    switch(active_tool->type) {
-    case MODIFY_TOOL:
-      free_modify_tool(active_tool);
-      break;
-    case CREATE_OBJECT_TOOL:
-      free_create_object_tool(active_tool);
-      break;
-    case MAGNIFY_TOOL:
-      free_magnify_tool(active_tool);
-      break;
-    case SCROLL_TOOL:
-      free_scroll_tool(active_tool);
-      break;
-    }
-    switch(type) {
-    case MODIFY_TOOL:
-      active_tool = create_modify_tool();
-      break;
-    case CREATE_OBJECT_TOOL:
-      active_tool =
-	create_create_object_tool(object_get_type((char *)extra_data),
-				  (void *) user_data);
-      break;
-    case MAGNIFY_TOOL:
-      active_tool = create_magnify_tool();
-      break;
-    case SCROLL_TOOL:
-      active_tool = create_scroll_tool();
-      break;
-    }
-  }
+  if (active_tool->type != type) 
+    tool_select(type,extra_data,user_data,button);
+
   switch(type) {
   case MODIFY_TOOL:
       break;
@@ -113,11 +106,3 @@ tool_options_dialog_show(ToolType type, gpointer extra_data,
     break;
   }
 }
-
-void
-tool_reset(void)
-{
-  gtk_signal_emit_by_name(GTK_OBJECT(modify_tool_button), "clicked",
-			  GTK_BUTTON(modify_tool_button), NULL);
-}
-

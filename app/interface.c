@@ -491,7 +491,8 @@ tool_select_update (GtkWidget *w,
   }
 
   if (tooldata->type != -1) {
-    tool_select (tooldata->type, tooldata->extra_data, tooldata->user_data);
+    tool_select (tooldata->type, tooldata->extra_data, tooldata->user_data,
+                 w);
   }
 }
 
@@ -504,7 +505,8 @@ tool_button_press (GtkWidget      *w,
 
   if ((event->type == GDK_2BUTTON_PRESS) &&
       (event->button == 1)) {
-    tool_options_dialog_show (tooldata->type, tooldata->extra_data, tooldata->user_data);
+    tool_options_dialog_show (tooldata->type, tooldata->extra_data, 
+                              tooldata->user_data, w);
     return TRUE;
   }
 
@@ -548,8 +550,8 @@ tool_select_callback(GtkWidget *widget, gpointer data) {
   }
 
   if (tooldata->type != -1) {
-    tool_select (tooldata->type, tooldata->extra_data, tooldata->user_data);
-    
+    tool_select (tooldata->type, tooldata->extra_data, 
+                 tooldata->user_data,widget);    
   }
 }
 

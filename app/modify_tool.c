@@ -392,7 +392,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     break;
   case STATE_BOX_SELECT:
 
-    if (! auto_scroll)
+    if (!auto_scroll && !tool->auto_scrolled)
     {
       gdk_draw_rectangle (ddisp->canvas->window, tool->gc, FALSE,
 			  tool->x1, tool->y1,
@@ -422,6 +422,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
   }
 
   tool->last_to = to;
+  tool->auto_scrolled = auto_scroll;
 }
 
 

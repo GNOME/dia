@@ -47,6 +47,8 @@ struct _ModifyTool {
   Point start_box;
   Point end_box;
 
+  gboolean auto_scrolled; /* TRUE if the diagram auto scrolled last time 
+                             modify_motion was called */
   /* Undo info: */
   Point *orig_pos;
 };

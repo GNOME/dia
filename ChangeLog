@@ -1,5 +1,21 @@
 2001-08-16  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* app/display.[ch]: (ddisplay_autoscroll), (ddisplay_scroll):
+	* app/modify_tool.[ch]: (modify_motion): A (modified) patch from
+	<robert.young@dsto.defence.gov.au>, to fix #59090.
+
+	* app/display.c: (ddisplay_scroll): While at it, added some
+	margin, so that autoscrolling can happen within a margin outside
+	the diagram's extents.
+
+	* app/tool.[ch]: 
+	* app/interface.c:
+	* app/disp_callbacks.c: Robert "forced" me to go when I usually
+	don't, namely the app/ directory. So while I was there, I
+	scratched a long-time itch. If no object has focus, pressing the
+	space bar will select back the tool which was selected before the 
+	current one (I find this especially useful with "reset after create" !)
+	
 	* lib/proplist.c: (prop_list_from_single): Renamed
 	prop_list_singleton() to avoid confusion with the Singleton
 	pattern (which it definitely is not).
@@ -23,7 +39,9 @@
 
 	* objects/SADT/arrow.c:
 	* objects/SADT/annotation.c:
-	* sheets/SADT.sheet: minor renamings to better 
+	* sheets/SADT.sheet: minor renamings to better match FIPS 183's
+	IDEF0 terminology.
+	
 2001-08-15  Cyrille Chepelov  <chepelov@calixo.net>
 
 	* lib/properties.h:

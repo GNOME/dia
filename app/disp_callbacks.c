@@ -635,7 +635,11 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	    set_zoom_out(active_tool);
 	  break;
 	default:
-	  return_val = FALSE;
+          if (0 == strcmp(" ",kevent->string)) {
+            tool_select_former();
+          } else { 
+            return_val = FALSE;
+          }
 	}
       }
       break;

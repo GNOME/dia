@@ -56,10 +56,12 @@ struct _ToolInfo {
 
 extern Tool *active_tool;
 
-void tool_select(ToolType type, gpointer extra_data, gpointer user_date);
+void tool_select(ToolType type, gpointer extra_data, gpointer user_date,
+                 GtkWidget *button);
+void tool_select_former(void);
 void tool_reset(void);
 void tool_options_dialog_show(ToolType type, gpointer extra_data, 
-			      gpointer user_data);
+			      gpointer user_data,GtkWidget *button);
 
 #endif /* TOOL_H */
 
