@@ -124,6 +124,12 @@
       <description xml:lang="de">Ein Motor</description>
     </object>
 
+    <object name="Civil - Gas Bottle">
+      <description>A Gas Bottle</description>
+
+      <description xml:lang="de">Eine Gasflasche</description>
+    </object>
+
     <object name="Civil - Frequency Converter">
       <description>A Frequency Converter</description>
 
