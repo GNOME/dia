@@ -395,7 +395,11 @@ app_init (int argc, char **argv)
   color_init();
 
 #ifdef HAVE_FREETYPE
-  dia_font_init(pango_ft2_get_context(10,10));
+  /* This is suggested by new Pango (1.2.4+), but doesn't get us the
+   * right resolution:(
+  dia_font_init(pango_ft2_font_map_create_context(pango_ft2_font_map_new()));
+  */
+  dia_font_init(pango_ft2_get_context(75,75));
 #else
   dia_font_init(gdk_pango_context_get());
 #endif

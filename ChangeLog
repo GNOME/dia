@@ -1,3 +1,20 @@
+2003-09-10  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/dialibartrenderer.c (begin_render): 
+	* app/render_libart.c (begin_render): Use correct DPI for screen
+	(well, actually the default DPI of 75 for now).
+
+	* app/display.h: Informative notes on the DDISPLAY_*_ZOOM macros.
+
+	* lib/diagdkrenderer.c (draw_string): Some reformatting.
+
+	* app/app_procs.c (app_init): Note on what should be done for the
+	pango context now, only it doesn't work:(
+
+	* lib/font.c (dia_font_new): Make sure to load fonts that are
+	used, using a reasonable pango_context.  Also a comment on the
+	global_zoom_factor, 
+
 2003-09-09  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* doc/pl/graphics/*.png:

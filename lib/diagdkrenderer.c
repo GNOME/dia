@@ -538,35 +538,38 @@ draw_string (DiaRenderer *object,
    int rowstride;
    double font_height;
 
+
    switch (alignment) {
    case ALIGN_LEFT:
      break;
    case ALIGN_CENTER:
-     start_pos.x -= dia_font_scaled_string_width (
-						  text, object->font,
-						  object->font_height,
-						  dia_transform_length(renderer->transform, 1.0))/2;
+     start_pos.x -= 
+       dia_font_scaled_string_width(text, object->font,
+				    object->font_height,
+				    dia_transform_length(renderer->transform, 1.0))/2;
      break;
    case ALIGN_RIGHT:
-     start_pos.x -= dia_font_scaled_string_width(
-					  text, object->font,
-					  object->font_height,
-					  dia_transform_length(renderer->transform, 1.0));
+     start_pos.x -= 
+       dia_font_scaled_string_width(text, object->font,
+				    object->font_height,
+				    dia_transform_length(renderer->transform, 1.0));
      break;
    }
    
-   start_pos.y -= dia_font_scaled_ascent(text, object->font,
-					 object->font_height,
-					 dia_transform_length(renderer->transform, 1.0));
+   start_pos.y -= 
+     dia_font_scaled_ascent(text, object->font,
+			    object->font_height,
+			    dia_transform_length(renderer->transform, 1.0));
 
    dia_transform_coords(renderer->transform, 
 			start_pos.x, start_pos.y, &x, &y);
-
+   
    layout = dia_font_scaled_build_layout(text, object->font,
 					 object->font_height,
 					 dia_transform_length(renderer->transform, 1.0));
    /*   y -= get_layout_first_baseline(layout);  */
    pango_layout_get_pixel_size(layout, &width, &height);
+   
    if (width > 0) {
       rowstride = 32*((width+31)/31);
      

@@ -39,8 +39,8 @@
 static PangoContext* pango_context = NULL;
 
 /* This is the global factor that says what zoom factor is 100%.  It's
- * normally 20.0 (and likely to stay that way).  It has nothing to do with
- * units at all.
+ * normally 20.0 (and likely to stay that way).  It is defined by how many
+ * pixels one cm is represented as.
  */
 static real global_zoom_factor = 20.0;
 
@@ -175,6 +175,15 @@ dia_font_new(const char *family, DiaFontStyle style, real height)
   DiaFont* retval = dia_font_new_from_style(style, height);
 
   pango_font_description_set_family(retval->pfd,family);
+
+  /* The pango context stored doesn't seem to work too well.
+   */
+#ifdef HAVE_FREETYPE
+  pango_context_load_font(pango_ft2_get_context(75, 75), retval->pfd);
+#else
+  pango_context_load_font(gdk_pango_context_get(), retval->pfd);
+#endif
+
   return retval;
 }
 
@@ -513,7 +522,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
     pango_layout_set_indent(layout,0);
     pango_layout_set_justify(layout,FALSE);
     pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
-    
+  
     return layout;
 }
 

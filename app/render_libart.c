@@ -172,7 +172,7 @@ static void
 begin_render(RendererLibart *renderer, DiagramData *data)
 {
 #ifdef HAVE_FREETYPE
-  renderer->old_context = dia_font_init(pango_ft2_get_context(10, 10));
+  renderer->old_context = dia_font_init(pango_ft2_get_context(75, 75));
 #endif
 }
 

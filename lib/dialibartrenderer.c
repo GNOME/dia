@@ -105,10 +105,9 @@ begin_render(DiaRenderer *self)
   /* pango_ft2_get_context API docs :
    * ... Use of this function is discouraged, ...
    *
-   * I don't see that at http://developer.gnome.org/doc/API/2.0/pango
-   * -Lars
+   * I've tried using the proper font_map stuff, but it kills font size:(
    */
-  dia_font_push_context(pango_ft2_get_context(10, 10));
+  dia_font_push_context(pango_ft2_get_context(75, 75));
 # define FONT_SCALE (1.0)
 #elif defined G_OS_WIN32
   dia_font_push_context(pango_win32_get_context());
@@ -1057,7 +1056,7 @@ draw_string (DiaRenderer *self,
 
    rowstride = 32*((width+31)/31);
    
-   font = pango_context_load_font(pango_ft2_get_context(10, 10),
+   font = pango_context_load_font(pango_ft2_get_context(75, 75),
 				  self->font->pfd);
    face = pango_ft2_font_get_face(font);
 
