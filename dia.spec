@@ -1,17 +1,19 @@
 %define name dia
-%define ver 0.91-pre1
+%define ver 0.91
 
 Summary: A gtk+ based diagram creation program.
 Name: %name
 Version: %ver
-Release: 1
+Release: pre2
 Copyright: GPL
 Group: Applications/
 Source: ftp://ftp.gnome.org/pub/GNOME/stable/sources/dia/%{name}-%{ver}.tar.gz
 URL: http://www.lysator.liu.se/~alla/dia/dia.html
 BuildRoot: /var/tmp/%{name}-%{ver}-root
 
-Requires: libxml >= 1.8.5
+Requires: libxml >= 2.3.9 gtk2 pango >= 1.1.5 freetype >= 2.0.9
+BuildRequires: libxml-devel >= 2.3.9 gtk2-devel pango-devel >= 1.1.5 
+BuildRequires: freetype-devel >= 2.0.9 intltool > 0.21
 
 %description
 Dia is a GNU program designed to be much like the Windows
