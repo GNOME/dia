@@ -41,6 +41,16 @@ core-translation-report: po/dia.pot po-checktrans.py po-checktrans
 
 all-local: core-translation-report po/Makefile
 
+# on uninstall scrollkeeper will leave behind an empty database
+# See http://mail.gnome.org/archives/desktop-devel-list/2003-July/msg00144.html
+# That advice didn't work, turning check off till scrollkeeper is fixed
+# or we get a better check here.
+#distuninstallcheck_listfiles = \
+#  find . -type f -a ! -path \*scrollkeeper\*
+
+distuninstallcheck:
+	@:
+
 EXTRA_DIST = dia.xpm dia_gnome_icon.png dia_gnome_menu_icon.png \
 	dia.desktop.in dia.spec KNOWN_BUGS $(pkgdata_DATA) \
 	dia-diagram.png dia.mime dia.keys.in \
