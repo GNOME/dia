@@ -1,5 +1,20 @@
 2000-05-29  James Henstridge  <james@daa.com.au>
 
+	* app/layer_dialog.c (layer_dialog_set_diagram): set the selected
+	item in the option menu when changing selected diagram.
+
+	* app/dia_embedd.c (view_factory): fix up function to work with new
+	menus API.
+
+	* app/disp_callbacks.c (ddisplay_realize): remove call to
+	display_set_active from here.
+	(ddisplay_canvas_events): move call here.  This gets rid of all the
+	warnings, as the renderer has been fully set up correctly at this
+	point.
+
+	* app/menus.c (menus_init): add the tearoff item to the start of the
+	right click menu.
+
 	* app/app_procs.c (create_user_dirs): we don't need to create the
 	menus directory anymore.
 

@@ -444,6 +444,7 @@ static void
 menus_init(void)
 {
   GtkItemFactory *translated_entries;
+  GtkMenuItem *menuitem;
   GString *path;
   gchar *accelfilename;
   gint i, len;
@@ -462,7 +463,9 @@ menus_init(void)
   /* the display menu */
   display_menus = gnome_popup_menu_new(display_menu);
   display_accels = gnome_popup_menu_get_accel_group(GTK_MENU(display_menus));
-  
+  menuitem = gtk_tearoff_menu_item_new();
+  gtk_menu_prepend(GTK_MENU(display_menus), menuitem);
+  gtk_widget_show(menuitem);
 #else
   /* the toolbox menu */
   toolbox_accels = gtk_accel_group_new();
@@ -495,8 +498,6 @@ menus_init(void)
   g_string_append(path, _("/Tools/"));
   len = path->len;
   for (i = 0; i < num_tools; i++) {
-    GtkMenuItem *menuitem;
-
     g_string_append(path, tool_data[i].menuitem_name);
     menuitem = (GtkMenuItem *)menus_get_item_from_path(path->str);
     if (menuitem != NULL)

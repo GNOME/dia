@@ -134,11 +134,7 @@ view_factory (BonoboEmbeddable *embeddable,
   EmbeddedView *view_data;
   BonoboView  *view;
   GtkWidget *menuitem;
-#ifdef GNOME
-  GtkWidget *parent;
-  DDisplay *ddisp;
-  int pos;
-#endif
+  GString *path;
 
   
   /*
@@ -175,43 +171,32 @@ view_factory (BonoboEmbeddable *embeddable,
 		      GTK_SIGNAL_FUNC (dia_view_destroy), view_data);
 
 
-#ifdef GNOME
   /* Gross stuff: */
-  ddisp = view_data->display;
-  parent = gnome_app_find_menu_pos(ddisp->popup, "File/New diagram", &pos);
-  menuitem = (GtkWidget *) g_list_nth (GTK_MENU_SHELL (parent)->children, pos-1)->data;
+  path = g_string_new("<Display>/");
+  g_string_append(path, _("File/New diagram"));
+  menuitem = menus_get_item_from_path(path->str);
   gtk_widget_hide(menuitem);
-  parent = gnome_app_find_menu_pos(ddisp->popup, "File/Open...", &pos);
-  menuitem = (GtkWidget *) g_list_nth (GTK_MENU_SHELL (parent)->children, pos-1)->data;
+  g_string_truncate(path, 10);
+  g_string_append(path, _("File/Open..."));
+  menuitem = menus_get_item_from_path(path->str);
   gtk_widget_hide(menuitem);
-  parent = gnome_app_find_menu_pos(ddisp->popup, "File/Save As...", &pos);
-  menuitem = (GtkWidget *) g_list_nth (GTK_MENU_SHELL (parent)->children, pos-1)->data;
+  g_string_truncate(path, 10);
+  g_string_append(path, _("File/Save As..."));
+  menuitem = menus_get_item_from_path(path->str);
   gtk_widget_hide(menuitem);
-  parent = gnome_app_find_menu_pos(ddisp->popup, "File/Close", &pos);
-  menuitem = (GtkWidget *) g_list_nth (GTK_MENU_SHELL (parent)->children, pos-1)->data;
+  g_string_truncate(path, 10);
+  g_string_append(path, _("File/Close"));
+  menuitem = menus_get_item_from_path(path->str);
   gtk_widget_hide(menuitem);
-  parent = gnome_app_find_menu_pos(ddisp->popup, "File/Exit", &pos);
-  menuitem = (GtkWidget *) g_list_nth (GTK_MENU_SHELL (parent)->children, pos-1)->data;
+  g_string_truncate(path, 10);
+  g_string_append(path, _("File/Exit"));
+  menuitem = menus_get_item_from_path(path->str);
   gtk_widget_hide(menuitem);
-  parent = gnome_app_find_menu_pos(ddisp->popup, "View/New View", &pos);
-  menuitem = (GtkWidget *) g_list_nth (GTK_MENU_SHELL (parent)->children, pos-1)->data;
+  g_string_truncate(path, 10);
+  g_string_append(path, _("View/New View"));
+  menuitem = menus_get_item_from_path(path->str);
   gtk_widget_hide(menuitem);
-#else
-  menuitem = menus_get_item_from_path("<Display>/File/New");
-  gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Display>/File/Open");
-  gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Display>/File/Save As...");
-  gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Display>/File/sep2");
-  gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Display>/File/Close");
-  gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Display>/File/Quit");
-  gtk_widget_hide(menuitem);
-  menuitem = menus_get_item_from_path("<Display>/View/New View");
-  gtk_widget_hide(menuitem);
-#endif
+  g_string_free(path, TRUE);
   
   return view;
 }

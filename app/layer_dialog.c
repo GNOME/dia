@@ -554,6 +554,12 @@ layer_dialog_set_diagram(Diagram *dia)
   
   gtk_list_clear_items(GTK_LIST(layer_dialog->layer_list), 0, -1);
   layer_dialog->diagram = dia;
+  if (dia != NULL) {
+    i = g_list_index(open_diagrams, dia);
+    if (i >= 0)
+      gtk_option_menu_set_history(GTK_OPTION_MENU(layer_dialog->diagram_omenu),
+				  i);
+  }
 
   if (dia != NULL) {
     data = dia->data;

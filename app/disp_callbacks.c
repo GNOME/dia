@@ -231,8 +231,6 @@ ddisplay_realize(GtkWidget *widget, gpointer data)
 
   ddisp = (DDisplay *)data;
 
-  display_set_active(ddisp);
-
 #ifdef USE_XIM
   if (gdk_im_ready() && (ddisp->ic_attr = gdk_ic_attr_new()) != NULL) {
     gint width, height;
@@ -398,6 +396,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 			       ddisp->canvas->allocation.height);
 	ddisplay_update_scrollbars(ddisp);
       }
+      display_set_active(ddisp);
       break;
 
     case GDK_FOCUS_CHANGE:
