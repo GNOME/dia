@@ -1,3 +1,11 @@
+2000-07-19  Fatih Demir	<kabalak@gmx.net>
+	
+	* configure.in: Added tr to ALL_LINGUAS.
+		[ Yeah, we're now having a Turkish translation,
+		   too. ]
+	
+	* dia.desktop: Added the Turkish entries.
+
 2000-07-02  Fredrik Hallenberg  <hallon@lysator.liu.se>
 
 	* doc/diagram.dtd: changed string-element so it conforms to the
