@@ -40,7 +40,6 @@
 #define DEFAULT_BORDER 0.25
 
 typedef struct _Box Box;
-typedef struct _BoxProperties BoxProperties;
 
 struct _Box {
   Element element;
@@ -56,15 +55,10 @@ struct _Box {
   real corner_radius;
 };
 
-struct _BoxProperties {
-  Color *fg_color;
-  Color *bg_color;
+static struct _BoxProperties {
   gboolean show_background;
-  real border_width;
-  LineStyle line_style;
-  real dashlength;
   real corner_radius;
-};
+} default_properties = { TRUE, 0.0 };
 
 static real box_distance_from(Box *box, Point *point);
 static void box_select(Box *box, Point *clicked_point,
@@ -357,8 +351,6 @@ box_create(Point *startpoint,
   Object *obj;
   int i;
 
-  //  init_default_values();
-
   box = g_malloc0(sizeof(Box));
   elem = &box->element;
   obj = &elem->object;
@@ -375,6 +367,9 @@ box_create(Point *startpoint,
   box->border_color = attributes_get_foreground();
   box->inner_color = attributes_get_background();
   attributes_get_default_line_style(&box->line_style, &box->dashlength);
+  /* For non-default objects, this is overridden by the default */
+  box->show_background = default_properties.show_background;
+  box->corner_radius = default_properties.corner_radius;
 
   element_init(elem, 8, 8);
 

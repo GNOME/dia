@@ -48,8 +48,6 @@ Fix crashes:)
 
 #define DEFAULT_WIDTH 0.15
 
-typedef struct _PolygonProperties PolygonProperties;
-
 typedef struct _Polygon {
   PolyShape poly;
 
@@ -61,12 +59,9 @@ typedef struct _Polygon {
   real line_width;
 } Polygon;
 
-struct _PolygonProperties {
+static struct _PolygonProperties {
   gboolean show_background;
-};
-
-static PolygonProperties default_properties;
-
+} default_properties = { TRUE };
 
 static void polygon_move_handle(Polygon *polygon, Handle *handle,
 				   Point *to, HandleMoveReason reason, ModifierKeys modifiers);
@@ -174,7 +169,6 @@ polygon_set_props(Polygon *polygon, GPtrArray *props)
   polygon_update_data(polygon);
 }
 
-
 static real
 polygon_distance_from(Polygon *polygon, Point *point)
 {
@@ -250,7 +244,6 @@ polygon_create(Point *startpoint,
   Point defaultx = { 1.0, 0.0 };
   Point defaulty = { 0.0, 1.0 };
 
-  /*polygon_init_defaults();*/
   polygon = g_new0(Polygon, 1);
   poly = &polygon->poly;
   obj = &poly->object;
@@ -278,6 +271,7 @@ polygon_create(Point *startpoint,
   polygon->inner_color = attributes_get_background();
   attributes_get_default_line_style(&polygon->line_style,
 				    &polygon->dashlength);
+  polygon->show_background = default_properties.show_background;
 
   polygon_update_data(polygon);
 

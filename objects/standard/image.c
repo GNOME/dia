@@ -59,19 +59,11 @@ struct _Image {
   gboolean keep_aspect;
 };
 
-typedef struct _ImageProperties {
-  Color *fg_color;
-  real border_width;
-  LineStyle line_style;
-  real dashlength;
-
+static struct _ImageProperties {
   gchar *file;
-
   gboolean draw_border;
   gboolean keep_aspect;
-} ImageProperties;
-
-static ImageProperties default_properties;
+} default_properties = { "", FALSE, TRUE };
 
 static real image_distance_from(Image *image, Point *point);
 static void image_select(Image *image, Point *clicked_point,
@@ -193,19 +185,6 @@ image_set_props(Image *image, GPtrArray *props)
   g_free(old_file);
 
   image_update_data(image);
-}
-
-static void
-image_init_defaults(void) {
-  static int defaults_initialized = 0;
-
-  if (defaults_initialized) return;
-
-  /* Just for testers */
-  default_properties.file = "";
-  default_properties.draw_border = 0;
-  default_properties.keep_aspect = 1;
-  defaults_initialized = 1;
 }
 
 static real
@@ -424,8 +403,6 @@ image_create(Point *startpoint,
   elem->corner = *startpoint;
   elem->width = DEFAULT_WIDTH;
   elem->height = DEFAULT_WIDTH;
-
-  image_init_defaults();
     
   image->border_width =  attributes_get_default_linewidth();
   image->border_color = attributes_get_foreground();

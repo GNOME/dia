@@ -55,9 +55,9 @@ typedef struct _Beziergon {
   real line_width;
 } Beziergon;
 
-struct _BeziergonProperties {
+static struct _BeziergonProperties {
   gboolean show_background;
-};
+} default_properties = { TRUE };
 
 static void beziergon_move_handle(Beziergon *beziergon, Handle *handle,
 		Point *to, HandleMoveReason reason, ModifierKeys modifiers);
@@ -166,6 +166,17 @@ beziergon_set_props(Beziergon *beziergon, GPtrArray *props)
   beziergon_update_data(beziergon);
 }
 
+static void
+beziergon_init_defaults() {
+  static gboolean initialized = FALSE;
+
+  if (initialized) return;
+
+  default_properties.show_background = TRUE;
+
+  initialized = TRUE;
+}
+
 static real
 beziergon_distance_from(Beziergon *beziergon, Point *point)
 {
@@ -254,6 +265,8 @@ beziergon_create(Point *startpoint,
   Point defaultx = { 1.0, 0.0 };
   Point defaulty = { 0.0, 1.0 };
 
+  //  beziergon_init_defaults();
+
   beziergon = g_new0(Beziergon, 1);
   bezier = &beziergon->bezier;
   obj = &bezier->object;
@@ -290,6 +303,7 @@ beziergon_create(Point *startpoint,
   beziergon->inner_color = attributes_get_background();
   attributes_get_default_line_style(&beziergon->line_style,
 				    &beziergon->dashlength);
+  beziergon->show_background = default_properties.show_background;
 
   beziergon_update_data(beziergon);
 

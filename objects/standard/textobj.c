@@ -47,10 +47,9 @@ struct _Textobj {
   TextAttributes attrs;
 };
 
-typedef struct _TextobjProperties {
+static struct _TextobjProperties {
   Alignment alignment;
-  Color color;
-} TextobjProperties;
+} default_properties = { ALIGN_LEFT } ;
 
 static real textobj_distance_from(Textobj *textobj, Point *point);
 static void textobj_select(Textobj *textobj, Point *clicked_point,
@@ -234,7 +233,7 @@ textobj_create(Point *startpoint,
   col = attributes_get_foreground();
   attributes_get_default_font(&font, &font_height);
   textobj->text = new_text("", font, font_height,
-			   startpoint, &col, ALIGN_LEFT );
+			   startpoint, &col, default_properties.alignment );
   text_get_attributes(textobj->text,&textobj->attrs);
   dia_font_unref(font);
   

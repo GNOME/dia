@@ -54,15 +54,9 @@ struct _Ellipse {
   real dashlength;
 };
 
-
-typedef struct _EllipseProperties {
-  Color *fg_color;
-  Color *bg_color;
-  real border_width;
+static struct _EllipseProperties {
   gboolean show_background;
-  LineStyle line_style;
-  real dashlength;
-} EllipseProperties;
+} default_properties = { TRUE };
 
 static real ellipse_distance_from(Ellipse *ellipse, Point *point);
 static void ellipse_select(Ellipse *ellipse, Point *clicked_point,
@@ -313,6 +307,7 @@ ellipse_create(Point *startpoint,
   ellipse->inner_color = attributes_get_background();
   attributes_get_default_line_style(&ellipse->line_style,
 				    &ellipse->dashlength);
+  ellipse->show_background = default_properties.show_background;
 
   element_init(elem, 8, 8);
 

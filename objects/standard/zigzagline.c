@@ -196,8 +196,6 @@ zigzagline_check_orientation(ConnectionPoint *p1, ConnectionPoint *p2,
     dir2 = p2->directions;
   }
 
-  printf("connect: horiz %f vert %f dir1 %d dir2 %d\n", horiz_dist, vert_dist, dir1, dir2);
-
   if (fabs(horiz_dist) > fabs(vert_dist)) {
     if (horiz_dist > 0) { /* West-to-east */
       if ((dir1 & DIR_EAST) && (dir2 & DIR_WEST))

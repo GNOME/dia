@@ -1,6 +1,14 @@
 2002-07-31  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/standard/image.c: 
+	* objects/standard/textobj.c: 
+	* objects/standard/ellipse.c: 
+	* objects/standard/polygon.c: 
+	* objects/standard/beziergon.c:
+	* objects/standard/box.c: 
+	Making default default properties.
+	
+	* objects/standard/image.c: 
 	* objects/standard/arc.c: 
 	* objects/standard/box.c: 
 	* objects/standard/zigzagline.c: 
