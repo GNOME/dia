@@ -5,42 +5,60 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 1999-10-31 14:58+0100\n"
-"PO-Revision-Date: 1999-10-18 21:35+02:00\n"
+"POT-Creation-Date: 1999-11-26 11:32+0100\n"
+"PO-Revision-Date: 1999-11-26 11:32+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:127
+#: app/app_procs.c:128
 msgid "Export loaded file to postscript and exit"
 msgstr "Eksporter lest fil til postskript og avslutt"
 
-#: app/app_procs.c:128
+#: app/app_procs.c:129
 msgid "OUTPUT"
 msgstr "UTSKRIFT"
 
-#: app/app_procs.c:145
+#: app/app_procs.c:131
+msgid "Show this help message"
+msgstr "Vis denne hjelpeteksten"
+
+#: app/app_procs.c:150
 msgid "Can't connect to session manager!\n"
 msgstr "Kan ikke koble til sesjonsbehandleren!\n"
 
-#: app/app_procs.c:183 app/app_procs.c:185
+#: app/app_procs.c:161
+msgid "[OPTION...] [FILE...]"
+msgstr "[FLAGG...] [FIL...]"
+
+#: app/app_procs.c:164
+#, c-format
+msgid ""
+"Error on option %s: %s.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Feil ved flagg %s: %s.\n"
+"Kjør '%s --help' for å se en full liste over tilgjengelige "
+"kommandolinjeflagg.\n"
+
+#: app/app_procs.c:202 app/app_procs.c:204
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Kunne ikke finne standardobjekter under søk etter objektbibliotek, "
 "avslutter...\n"
 
-#: app/app_procs.c:200
+#: app/app_procs.c:219
 msgid "Need valid input file\n"
 msgstr "Trenger gyldig innfil\n"
 
-#: app/app_procs.c:241
+#: app/app_procs.c:276
 msgid "Quit, are you sure?"
 msgstr "Avslutt, er du sikker?"
 
-#: app/app_procs.c:243
+#: app/app_procs.c:278
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -48,20 +66,20 @@ msgstr ""
 "Endret diagram eksisterer.\n"
 "Er du sikker på at du vil avslutte?"
 
-#: app/app_procs.c:252
+#: app/app_procs.c:287
 msgid "Quit"
 msgstr "Avslutt"
 
-#: app/app_procs.c:264 app/layer_dialog.c:980 app/lineprops_area.c:516
+#: app/app_procs.c:299 app/layer_dialog.c:980 app/lineprops_area.c:516
 #: app/lineprops_area.c:714
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: app/app_procs.c:316
+#: app/app_procs.c:351
 msgid "Could not create per-user Dia config directory"
 msgstr "Kunne ikke opprette per-bruker konfigurasjonskatalog for Dia"
 
-#: app/app_procs.c:370
+#: app/app_procs.c:408
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
@@ -70,13 +88,13 @@ msgstr ""
 "Kunne ikke finne biblioteker for lasting.\n"
 "%s er ikke en katalog.\n"
 
-#: app/app_procs.c:377
+#: app/app_procs.c:415
 #, c-format
 msgid "Couldn't open \"%s\".\n"
 msgstr "Kunne ikke åpne \"%s\".\n"
 
-#: app/app_procs.c:390 app/app_procs.c:391 app/app_procs.c:418
-#: app/app_procs.c:419
+#: app/app_procs.c:428 app/app_procs.c:429 app/app_procs.c:456
+#: app/app_procs.c:457
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
@@ -85,12 +103,12 @@ msgstr ""
 "Feil under lasting av bibliotek: \"%s\":\n"
 " %s\n"
 
-#: app/app_procs.c:396 app/app_procs.c:397
+#: app/app_procs.c:434 app/app_procs.c:435
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
 msgstr "Filen \"%s\" er ikke et Dia objektbibliotek.\n"
 
-#: app/app_procs.c:403 app/app_procs.c:404
+#: app/app_procs.c:441 app/app_procs.c:442
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
@@ -100,7 +118,7 @@ msgstr ""
 "Objektbiblioteket \"%s\" er fra en eldre versjon av Dia og kan ikke brukes.\n"
 "Vennligst oppgrader det."
 
-#: app/app_procs.c:410 app/app_procs.c:411
+#: app/app_procs.c:448 app/app_procs.c:449
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
@@ -109,7 +127,7 @@ msgstr ""
 "Objektbiblioteket \"%s\" er fra en nyere versjon av Dia.\n"
 "Du må oppgradere Dia for å bruke det."
 
-#: app/app_procs.c:484
+#: app/app_procs.c:523
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
@@ -140,12 +158,12 @@ msgstr ""
 "Vil du overskrive den?"
 
 #: app/commands.c:212 app/commands.c:383 app/commands.c:501 app/display.c:743
-#: app/preferences.c:459
+#: app/preferences.c:460
 msgid "Yes"
 msgstr "Ja"
 
 #: app/commands.c:225 app/commands.c:396 app/commands.c:514 app/display.c:754
-#: app/preferences.c:459 app/preferences.c:470
+#: app/preferences.c:460 app/preferences.c:471
 msgid "No"
 msgstr "Nei"
 
@@ -198,7 +216,7 @@ msgstr ""
 "Vennligst se på http://www.lysator.liu.se/~alla/dia for mer informasjon"
 
 #: app/commands.c:829 app/layer_dialog.c:970 app/lineprops_area.c:507
-#: app/lineprops_area.c:704 app/preferences.c:543 app/properties.c:54
+#: app/lineprops_area.c:704 app/preferences.c:544 app/properties.c:54
 #: lib/message.c:72
 msgid "OK"
 msgstr "OK"
@@ -371,7 +389,7 @@ msgstr "Lag polilinje"
 msgid "Create Image"
 msgstr "Lag bilde"
 
-#: app/interface.c:556
+#: app/interface.c:555
 msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
@@ -379,7 +397,7 @@ msgstr ""
 "Forgrunns- og bakgrunnsfarger. De små sorte og hvite rutene tilbakesetter "
 "farger. De små pilene bytter farger. Dobbeltklikk for å endre farger."
 
-#: app/interface.c:640
+#: app/interface.c:639
 msgid "Diagram Editor"
 msgstr "Diagramredigering"
 
@@ -407,7 +425,7 @@ msgstr "Lag"
 msgid "Diagrams:"
 msgstr "Diagrammer:"
 
-#: app/defaults.c:52 app/layer_dialog.c:261 app/preferences.c:563
+#: app/defaults.c:52 app/layer_dialog.c:261 app/preferences.c:564
 #: app/properties.c:73
 msgid "Close"
 msgstr "Lukk"
@@ -428,11 +446,11 @@ msgstr "Rediger lagets attributter"
 msgid "Layer name:"
 msgstr "Navn på lag:"
 
-#: app/load_save.c:78
+#: app/load_save.c:81
 msgid "Error reading diagram file\n"
 msgstr "Feil under lesing av diagramfilen\n"
 
-#: app/load_save.c:125
+#: app/load_save.c:132
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -440,16 +458,16 @@ msgstr ""
 "Feil under lesing av diagram.\n"
 "Lenket objekt ikke funnet i dokumentet."
 
-#: app/load_save.c:162
+#: app/load_save.c:177
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Kunne ikke åpne: '%s' for lesing.\n"
 
-#: app/load_save.c:168
+#: app/load_save.c:183
 msgid "You must specify a file, not a directory.\n"
 msgstr "Du må spesifiserer en fil ikke en katalog.\n"
 
-#: app/load_save.c:177 app/load_save.c:182
+#: app/load_save.c:192 app/load_save.c:197
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -458,7 +476,7 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ukjent filtype."
 
-#: app/load_save.c:189
+#: app/load_save.c:204
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -467,7 +485,7 @@ msgstr ""
 "Feil under lasting av diagrammet %s.\n"
 "Ikke en dia fil."
 
-#: app/load_save.c:439 app/render_eps.c:152 app/render_svg.c:144
+#: app/load_save.c:455 app/render_eps.c:152 app/render_svg.c:144
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Kunne ikke åpne: '%s' for skriving.\n"
@@ -490,7 +508,7 @@ msgstr "Eksporter til S_VG"
 
 #: app/menus.c:57
 msgid "Page Set_up..."
-msgstr ""
+msgstr "Side_oppsett..."
 
 #: app/menus.c:59
 msgid "_Print Diagram..."
@@ -550,7 +568,7 @@ msgstr "Ny _visning"
 msgid "Show _All"
 msgstr "Vis _alt"
 
-#: app/menus.c:121 lib/widgets.c:176 objects/UML/association.c:1025
+#: app/menus.c:121 lib/widgets.c:176 objects/UML/association.c:1003
 msgid "Left"
 msgstr "Venstre"
 
@@ -558,7 +576,7 @@ msgstr "Venstre"
 msgid "Center"
 msgstr "Senter"
 
-#: app/menus.c:123 lib/widgets.c:188 objects/UML/association.c:1018
+#: app/menus.c:123 lib/widgets.c:188 objects/UML/association.c:996
 msgid "Right"
 msgstr "Høyre"
 
@@ -664,18 +682,16 @@ msgid "/File/Export To S_VG"
 msgstr "/Fil/Eksporter til S_VG"
 
 #: app/menus.c:198
-#, fuzzy
 msgid "/File/Page Set_up..."
-msgstr "/Fil/Lagre _som..."
+msgstr "/Fil/Side_oppsett..."
 
 #: app/menus.c:199
 msgid "/File/_Print Diagram..."
 msgstr "/Fil/_Skriv ut diagram..."
 
 #: app/menus.c:200
-#, fuzzy
 msgid "/File/sep2"
-msgstr "/Fil/sep1"
+msgstr "/Fil/sep2"
 
 #: app/menus.c:201
 msgid "/File/_Close"
@@ -867,7 +883,7 @@ msgstr "/Dialoger/_Lag"
 msgid "Object properties"
 msgstr "Egenskaper for objekt"
 
-#: app/defaults.c:61 app/preferences.c:553 app/properties.c:63
+#: app/defaults.c:61 app/preferences.c:554 app/properties.c:63
 msgid "Apply"
 msgstr "Bruk"
 
@@ -907,47 +923,51 @@ msgstr "Antall angrenivåer:"
 msgid "Grid:"
 msgstr "Rutenett:"
 
-#: app/preferences.c:85 app/preferences.c:97
+#: app/preferences.c:85 app/preferences.c:98
 msgid "Visible:"
 msgstr "Synlig:"
 
 #: app/preferences.c:86
+msgid "Snap to:"
+msgstr "Fest til:"
+
+#: app/preferences.c:87
 msgid "X Size:"
 msgstr "X-størrelse:"
 
-#: app/preferences.c:87
+#: app/preferences.c:88
 msgid "Y Size:"
 msgstr "Y-størrelse:"
 
-#: app/preferences.c:88
+#: app/preferences.c:89
 msgid "Colour"
 msgstr "Farge"
 
-#: app/preferences.c:89
+#: app/preferences.c:90
 msgid "Solid lines"
 msgstr "Helfylte linjer"
 
-#: app/preferences.c:91
+#: app/preferences.c:92
 msgid "New window:"
 msgstr "Nytt vindu:"
 
-#: app/preferences.c:92
+#: app/preferences.c:93
 msgid "Width:"
 msgstr "Bredde:"
 
-#: app/preferences.c:93
+#: app/preferences.c:94
 msgid "Height:"
 msgstr "Høyde:"
 
-#: app/preferences.c:94
+#: app/preferences.c:95
 msgid "Magnify:"
 msgstr "Forstørr:"
 
-#: app/preferences.c:96
+#: app/preferences.c:97
 msgid "Connection Points:"
 msgstr "Forbindelsespunkter:"
 
-#: app/preferences.c:534
+#: app/preferences.c:535
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -1018,7 +1038,7 @@ msgstr "Prikket"
 msgid "Dash length: "
 msgstr "Lengde på strek: "
 
-#: lib/widgets.c:654 objects/UML/association.c:1011
+#: lib/widgets.c:654 objects/UML/association.c:989
 msgid "None"
 msgstr "Ingen"
 
@@ -1062,93 +1082,68 @@ msgstr "Velg bildefil"
 msgid "Browse"
 msgstr "Bla gjennom"
 
-#. type
-#: objects/UML/actor.c:91
-msgid "Create an actor"
-msgstr "Lag en aktør"
-
-#: objects/UML/actor.c:292
+#: objects/UML/actor.c:282
 msgid "Actor"
 msgstr "Aktør"
 
-#. type
-#: objects/UML/association.c:165
-msgid "Association, two classes are associated."
-msgstr "Assosiasjon, to klasser assosieres."
-
-#. type
-#: objects/UML/association.c:175
-msgid "Aggregation, one class is part of another."
-msgstr "Aggregasjon, en klasse er del av en annen."
-
-#: objects/ER/participation.c:459 objects/UML/association.c:630
-#: objects/UML/dependency.c:298 objects/UML/generalization.c:291
-#: objects/UML/realizes.c:294 objects/standard/zigzagline.c:599
+#: objects/ER/participation.c:449 objects/UML/association.c:608
+#: objects/UML/dependency.c:288 objects/UML/generalization.c:280
+#: objects/UML/realizes.c:283 objects/standard/zigzagline.c:599
 msgid "Add segment"
 msgstr "Legg til segment"
 
-#: objects/ER/participation.c:460 objects/UML/association.c:631
-#: objects/UML/dependency.c:299 objects/UML/generalization.c:292
-#: objects/UML/realizes.c:295 objects/standard/zigzagline.c:600
+#: objects/ER/participation.c:450 objects/UML/association.c:609
+#: objects/UML/dependency.c:289 objects/UML/generalization.c:281
+#: objects/UML/realizes.c:284 objects/standard/zigzagline.c:600
 msgid "Delete segment"
 msgstr "Slett segment"
 
-#: objects/ER/attribute.c:214 objects/ER/entity.c:208
-#: objects/ER/relationship.c:267 objects/UML/association.c:989
+#: objects/ER/attribute.c:204 objects/ER/entity.c:188
+#: objects/ER/relationship.c:258 objects/UML/association.c:967
 #: objects/UML/class_dialog.c:705 objects/UML/class_dialog.c:1581
 #: objects/UML/class_dialog.c:1743 objects/UML/class_dialog.c:2199
-#: objects/UML/dependency.c:620 objects/UML/generalization.c:591
-#: objects/UML/large_package.c:570 objects/UML/realizes.c:589
+#: objects/UML/dependency.c:610 objects/UML/generalization.c:580
+#: objects/UML/large_package.c:560 objects/UML/realizes.c:578
 msgid "Name:"
 msgstr "Navn:"
 
-#: objects/UML/association.c:1001
+#: objects/UML/association.c:979
 msgid "Direction:"
 msgstr "Retning:"
 
-#: objects/UML/association.c:1049 objects/UML/association.c:1057
+#: objects/UML/association.c:1027 objects/UML/association.c:1035
 msgid "Side A"
 msgstr "Side A"
 
-#: objects/UML/association.c:1051 objects/UML/association.c:1059
+#: objects/UML/association.c:1029 objects/UML/association.c:1037
 msgid "Side B"
 msgstr "Side B"
 
-#: objects/UML/association.c:1065
+#: objects/UML/association.c:1043
 msgid "Role:"
 msgstr "Rolle:"
 
-#: objects/UML/association.c:1077
+#: objects/UML/association.c:1055
 msgid "Multiplicity:"
 msgstr "Multiplisietet:"
 
 #. Show arrow:
-#: objects/UML/association.c:1088
+#: objects/UML/association.c:1066
 msgid "Show arrow"
 msgstr "Vis pil"
 
 #. Aggregate
-#: objects/UML/association.c:1094
+#: objects/UML/association.c:1072
 msgid "Aggregate"
 msgstr "Aggreger"
 
 #. Composition
-#: objects/UML/association.c:1102
+#: objects/UML/association.c:1080
 msgid "Composition"
 msgstr "Komposisjon"
 
-#. type
-#: objects/UML/class.c:75
-msgid "Create a class"
-msgstr "Lag en klasse"
-
-#. type
-#: objects/UML/class.c:84
-msgid "Create a template class"
-msgstr "Lag en malklasse"
-
 #. Class page:
-#: objects/UML/class.c:628 objects/UML/class_dialog.c:171
+#: objects/UML/class.c:608 objects/UML/class_dialog.c:171
 msgid "Class"
 msgstr "Klasse"
 
@@ -1156,9 +1151,9 @@ msgstr "Klasse"
 msgid "Class name:"
 msgstr "Navn på klasse:"
 
-#: objects/UML/class_dialog.c:188 objects/UML/dependency.c:632
-#: objects/UML/generalization.c:603 objects/UML/large_package.c:582
-#: objects/UML/object.c:775 objects/UML/realizes.c:601
+#: objects/UML/class_dialog.c:188 objects/UML/dependency.c:622
+#: objects/UML/generalization.c:592 objects/UML/large_package.c:572
+#: objects/UML/object.c:765 objects/UML/realizes.c:590
 msgid "Stereotype:"
 msgstr "Stereotype:"
 
@@ -1282,372 +1277,200 @@ msgstr "Malklasse"
 msgid "Formal parameter data"
 msgstr "Formelle parameterdata"
 
-#. type
-#: objects/UML/constraint.c:117
-msgid "Constraint, place a constraint on something."
-msgstr "Begrensning, sett en begrensning på noe."
-
-#: objects/UML/constraint.c:519
+#: objects/UML/constraint.c:509
 msgid "Constraint:"
 msgstr "Begrensning:"
 
-#. type
-#: objects/UML/dependency.c:127
-msgid "Create a dependency"
-msgstr "Lag avhengighet"
-
-#: objects/UML/dependency.c:644
+#: objects/UML/dependency.c:634
 msgid "Show arrow:"
 msgstr "Vis pil:"
 
-#. type
-#: objects/UML/generalization.c:120
-msgid "Generalization, class inheritance."
-msgstr "Generalisering, klassearv."
-
-#. type
-#: objects/UML/implements.c:120
-msgid "Implements, class implements a specific interface."
-msgstr "Implementerer, klassen implementerer et spesielt grensesnitt."
-
-#: objects/UML/implements.c:569
+#: objects/UML/implements.c:559
 msgid "Interface:"
 msgstr "Grensesnitt:"
 
-#. type
-#: objects/UML/large_package.c:119
-msgid "Create a (large) package"
-msgstr "Lag en (stor) pakke"
-
-#. type
-#: objects/UML/note.c:89
-msgid "Create a note"
-msgstr "Lag et notat"
-
-#. type
-#: objects/UML/realizes.c:123
-msgid "Realizes, implements a specific interface."
-msgstr "Realiserer, implementerer et spesisfikt grensesnitt."
-
-#. type
-#: objects/UML/small_package.c:91
-msgid "Create a (small) package"
-msgstr "Lag en (liten) pakke"
-
-#: objects/UML/uml.c:99
-msgid "UML"
-msgstr "UML"
-
-#: objects/UML/uml.c:100
-msgid "Editor for UML Static Structure Diagrams."
-msgstr "Editor for UML Statiske Struktur Diagrammer."
-
-#. type
-#: objects/UML/usecase.c:115
-msgid "Create a use case"
-msgstr "Lag et brukerkasus"
-
-#: objects/UML/usecase.c:552
+#: objects/UML/usecase.c:542
 msgid "Text outside:"
 msgstr "Tekst utenfor:"
 
-#: objects/UML/usecase.c:557
+#: objects/UML/usecase.c:547
 msgid "Collaboration"
 msgstr "Samarbeid"
 
-#. type
-#: objects/UML/object.c:144
-msgid "Create an object"
-msgstr "Lag et objekt"
-
-#: objects/UML/object.c:763
+#: objects/UML/object.c:753
 msgid "Explicit state:"
 msgstr "Eksplisitt tilstand:"
 
-#: objects/UML/object.c:785
+#: objects/UML/object.c:775
 msgid "Attributes:"
 msgstr "Attributter:"
 
-#: objects/UML/object.c:795
+#: objects/UML/object.c:785
 msgid "Show attributes"
 msgstr "Vis attributter"
 
-#: objects/UML/object.c:799
+#: objects/UML/object.c:789
 msgid "Active object"
 msgstr "Aktiver objekt"
 
-#: objects/UML/object.c:804
+#: objects/UML/object.c:794
 msgid "multiple instance"
 msgstr "flere hendelser"
 
-#. type
-#: objects/UML/lifeline.c:124
-msgid "Create a lifeline"
-msgstr "Lag en livslinje"
-
-#: objects/UML/lifeline.c:613
+#: objects/UML/lifeline.c:603
 msgid "Show focus of control:"
 msgstr "Vis kontrollfokus:"
 
-#: objects/UML/lifeline.c:618
+#: objects/UML/lifeline.c:608
 msgid "Show destruction mark:"
 msgstr "Vis ødeleggelsesmerke:"
 
-#. type
-#: objects/UML/message.c:141
-msgid "Create a message"
-msgstr "Lag en melding"
-
-#: objects/UML/message.c:624
+#: objects/UML/message.c:614
 msgid "Message:"
 msgstr "Melding:"
 
-#: objects/UML/message.c:638
+#: objects/UML/message.c:628
 msgid "Message type:"
 msgstr "Meldingstype:"
 
 #.
-#: objects/UML/message.c:643
+#: objects/UML/message.c:633
 msgid "Call"
 msgstr "Kall"
 
-#: objects/UML/message.c:648
+#: objects/UML/message.c:638
 msgid "Return"
 msgstr "Retur"
 
-#: objects/UML/message.c:653
+#: objects/UML/message.c:643
 msgid "Asynchronous"
 msgstr "Asynkron"
 
-#: objects/UML/message.c:658
+#: objects/UML/message.c:648
 msgid "Create"
 msgstr "Lag"
 
-#: objects/UML/message.c:663
+#: objects/UML/message.c:653
 msgid "Destroy"
 msgstr "Ødelegg"
 
-#: objects/UML/message.c:668
+#: objects/UML/message.c:658
 msgid "Simple"
 msgstr "Enkel"
 
-#: objects/UML/message.c:673
+#: objects/UML/message.c:663
 msgid "Recursive"
 msgstr "Rekursiv"
 
-#. type
-#: objects/UML/state.c:128
-msgid "Create a state machine"
-msgstr "Lag en tilstandsmaskin"
-
-#: objects/UML/state.c:511
+#: objects/UML/state.c:501
 msgid "Normal"
 msgstr "Normal"
 
-#: objects/UML/state.c:516
+#: objects/UML/state.c:506
 msgid "Begin"
 msgstr "Begynn"
 
-#: objects/UML/state.c:521
+#: objects/UML/state.c:511
 msgid "End"
 msgstr "Slutt"
 
-#. type
-#: objects/UML/classicon.c:127
-msgid "Create a class stereotype icon"
-msgstr "Lag et ikon for en stereotype-klasse"
-
-#: objects/UML/classicon.c:616
+#: objects/UML/classicon.c:606
 msgid "Control"
 msgstr "Kontroll"
 
-#: objects/UML/classicon.c:622
+#: objects/UML/classicon.c:612
 msgid "Boundary"
 msgstr "Grense"
 
-#. type
-#: objects/ER/entity.c:129 objects/ER/entity.c:468 objects/UML/classicon.c:627
+#: objects/ER/entity.c:448 objects/UML/classicon.c:617
 msgid "Entity"
 msgstr "Enhet"
 
-#: objects/UML/classicon.c:635
+#: objects/UML/classicon.c:625
 msgid "Is an object"
 msgstr "Er et objekt"
 
-#. type
-#: objects/UML/component.c:91
-msgid "Create a component"
-msgstr "Lag en komponent"
-
-#. type
-#: objects/ER/attribute.c:141 objects/ER/attribute.c:517
-msgid "Attribute"
-msgstr "Attributt"
-
-#: objects/ER/attribute.c:222
+#: objects/ER/attribute.c:212
 msgid "Key"
 msgstr "Nøkkel"
 
-#: objects/ER/attribute.c:228
+#: objects/ER/attribute.c:218
 msgid "Weak key"
 msgstr "Svak nøkkel"
 
-#: objects/ER/attribute.c:234
+#: objects/ER/attribute.c:224
 msgid "Derived"
 msgstr "Utledet"
 
-#: objects/ER/attribute.c:240
+#: objects/ER/attribute.c:230
 msgid "Multivalue"
 msgstr "Multiverdi"
 
-#: objects/ER/attribute.c:246 objects/ER/entity.c:222
-#: objects/ER/relationship.c:303 objects/custom/custom_object.c:271
-#: objects/flowchart/box.c:255 objects/flowchart/diamond.c:250
-#: objects/flowchart/ellipse.c:250 objects/flowchart/parallelogram.c:258
+#: objects/ER/attribute.c:236 objects/ER/entity.c:202
+#: objects/ER/relationship.c:294 objects/custom/custom_object.c:271
+#: objects/flowchart/box.c:246 objects/flowchart/diamond.c:241
+#: objects/flowchart/ellipse.c:241 objects/flowchart/parallelogram.c:249
 #: objects/standard/box.c:207 objects/standard/ellipse.c:188
 #: objects/standard/image.c:262
 msgid "Border width:"
 msgstr "Grensebredde:"
 
-#: objects/ER/attribute.c:257 objects/ER/entity.c:233
-#: objects/ER/relationship.c:314 objects/custom/custom_object.c:286
-#: objects/flowchart/box.c:270 objects/flowchart/diamond.c:265
-#: objects/flowchart/ellipse.c:265 objects/flowchart/parallelogram.c:273
+#: objects/ER/attribute.c:247 objects/ER/entity.c:213
+#: objects/ER/relationship.c:305 objects/custom/custom_object.c:286
+#: objects/flowchart/box.c:261 objects/flowchart/diamond.c:256
+#: objects/flowchart/ellipse.c:256 objects/flowchart/parallelogram.c:264
 #: objects/standard/box.c:222 objects/standard/ellipse.c:203
 #: objects/standard/image.c:277
 msgid "Foreground color:"
 msgstr "Forgrunnsfarge:"
 
-#: objects/ER/attribute.c:265 objects/ER/entity.c:241
-#: objects/ER/relationship.c:322 objects/custom/custom_object.c:297
-#: objects/flowchart/box.c:281 objects/flowchart/diamond.c:276
-#: objects/flowchart/ellipse.c:276 objects/flowchart/parallelogram.c:284
+#: objects/ER/attribute.c:255 objects/ER/entity.c:221
+#: objects/ER/relationship.c:313 objects/custom/custom_object.c:297
+#: objects/flowchart/box.c:272 objects/flowchart/diamond.c:267
+#: objects/flowchart/ellipse.c:267 objects/flowchart/parallelogram.c:275
 #: objects/standard/box.c:233 objects/standard/ellipse.c:214
 msgid "Background color:"
 msgstr "Bakgrunnsfarge:"
 
-#. type
-#: objects/ER/entity.c:138
-msgid "Weak Entity"
-msgstr "Svak enhet"
+#: objects/ER/attribute.c:507
+msgid "Attribute"
+msgstr "Attributt"
 
-#: objects/ER/entity.c:216
+#: objects/ER/entity.c:196
 msgid "Weak"
 msgstr "Svak"
 
-#: objects/ER/er.c:52
-msgid "ER"
-msgstr "ER"
-
-#: objects/ER/er.c:53
-msgid "Editor for Entity Relations Diagrams."
-msgstr "Editor for Enhets Relasjons Diagrammer."
-
-#. type
-#: objects/ER/participation.c:107
-msgid "Create a participation"
-msgstr "Lag en deltakelse"
-
-#: objects/ER/participation.c:426
+#: objects/ER/participation.c:416
 msgid "Total:"
 msgstr "Total:"
 
-#. type
-#: objects/ER/relationship.c:144 objects/ER/relationship.c:577
-msgid "Relationship"
-msgstr "Forhold"
-
-#: objects/ER/relationship.c:275
+#: objects/ER/relationship.c:266
 msgid "Left Cardinality:"
 msgstr "Venstrekardinalitet:"
 
-#: objects/ER/relationship.c:283
+#: objects/ER/relationship.c:274
 msgid "Right Cardinality:"
 msgstr "Høyrekardinalitet:"
 
-#: objects/ER/relationship.c:291
+#: objects/ER/relationship.c:282
 msgid "Rotate"
 msgstr "Roter"
 
-#: objects/ER/relationship.c:297
+#: objects/ER/relationship.c:288
 msgid "Identifying"
 msgstr "Identifiserer"
 
-#. type
-#: objects/network/bus.c:128
-msgid "Ethernet bus."
-msgstr "Ethernet buss."
+#: objects/ER/relationship.c:568
+msgid "Relationship"
+msgstr "Forhold"
 
-#: objects/network/bus.c:578
+#: objects/network/bus.c:569
 msgid "Add Handle"
 msgstr "Legg til håndtak"
 
-#: objects/network/bus.c:579
+#: objects/network/bus.c:570
 msgid "Delete Handle"
 msgstr "Slett håndtak"
-
-#. type
-#: objects/network/computer.c:55
-msgid "A Computer with a tower case."
-msgstr "En datamaskin med tårnkasse."
-
-#. type
-#: objects/network/disc.c:55
-msgid "The symbol for storage. Disc or database."
-msgstr "Symbolet for lagring. Disk eller database."
-
-#. type
-#: objects/network/monitor.c:56
-msgid "A monitor, with a stand"
-msgstr "En monitor, med stativ"
-
-#: objects/network/network.c:77
-msgid "Network"
-msgstr "Nettverk"
-
-#: objects/network/network.c:78
-msgid "Objects to design network diagrams with"
-msgstr "Objekter til å utforming av nettverksdiagrammer"
-
-#. type
-#: objects/network/printer.c:56
-msgid "A simple Printer"
-msgstr "En enkel skriver"
-
-#. type
-#: objects/network/antenna.c:56
-msgid "A Antenna for wireless transmissions"
-msgstr "En antenne for trådløse overføringer"
-
-#. type
-#: objects/network/flash.c:56
-msgid "A WAN Connection"
-msgstr "En WAN-forbindelse"
-
-#. type
-#: objects/network/hub.c:58
-msgid "A stackable hub or switch"
-msgstr "En hub eller switch som kan stables"
-
-#. type
-#: objects/network/modem.c:56
-msgid "A simple Modem"
-msgstr "Et enkelt modem"
-
-#. type
-#: objects/network/modularswitch.c:59
-msgid "A modular switching system"
-msgstr "Et modulært switch-system"
-
-#. type
-#: objects/network/rj45plug.c:56
-msgid "A RJ45 Wall-Plug"
-msgstr "En RJ45 veggplugg"
-
-#. type
-#: objects/network/scead-plug.c:57
-msgid "A Wall-Plug for the scEAD Cabling System"
-msgstr "En veggplugg for scEAD kablingssystemet"
 
 #: objects/standard/arc.c:205 objects/standard/line.c:202
 #: objects/standard/polyline.c:207 objects/standard/zigzagline.c:207
@@ -1660,9 +1483,9 @@ msgstr "Linjebredde:"
 msgid "Color:"
 msgstr "Farge:"
 
-#: objects/custom/custom_object.c:316 objects/flowchart/box.c:300
-#: objects/flowchart/diamond.c:295 objects/flowchart/ellipse.c:295
-#: objects/flowchart/parallelogram.c:303 objects/standard/arc.c:230
+#: objects/custom/custom_object.c:316 objects/flowchart/box.c:291
+#: objects/flowchart/diamond.c:286 objects/flowchart/ellipse.c:286
+#: objects/flowchart/parallelogram.c:294 objects/standard/arc.c:230
 #: objects/standard/box.c:252 objects/standard/ellipse.c:225
 #: objects/standard/image.c:288 objects/standard/image.c:383
 #: objects/standard/line.c:227 objects/standard/polyline.c:232
@@ -1681,15 +1504,15 @@ msgid "End arrow:"
 msgstr "Sluttpil:"
 
 #: objects/custom/custom_object.c:308 objects/custom/custom_object.c:472
-#: objects/flowchart/box.c:292 objects/flowchart/box.c:450
-#: objects/flowchart/diamond.c:287 objects/flowchart/diamond.c:427
-#: objects/flowchart/ellipse.c:287 objects/flowchart/ellipse.c:427
-#: objects/flowchart/parallelogram.c:295 objects/flowchart/parallelogram.c:454
+#: objects/flowchart/box.c:283 objects/flowchart/box.c:441
+#: objects/flowchart/diamond.c:278 objects/flowchart/diamond.c:418
+#: objects/flowchart/ellipse.c:278 objects/flowchart/ellipse.c:418
+#: objects/flowchart/parallelogram.c:286 objects/flowchart/parallelogram.c:445
 #: objects/standard/box.c:244 objects/standard/box.c:332
 msgid "Draw background"
 msgstr "Tegn bakgrunn"
 
-#: objects/flowchart/box.c:311 objects/flowchart/box.c:458
+#: objects/flowchart/box.c:302 objects/flowchart/box.c:449
 #: objects/standard/box.c:263 objects/standard/box.c:340
 msgid "Corner rounding:"
 msgstr "Avrunding av hjørner:"
@@ -1700,10 +1523,10 @@ msgid "Alignment:"
 msgstr "Justering:"
 
 #: objects/custom/custom_object.c:358 objects/custom/custom_object.c:506
-#: objects/flowchart/box.c:340 objects/flowchart/box.c:486
-#: objects/flowchart/diamond.c:320 objects/flowchart/diamond.c:449
-#: objects/flowchart/ellipse.c:320 objects/flowchart/ellipse.c:449
-#: objects/flowchart/parallelogram.c:343 objects/flowchart/parallelogram.c:490
+#: objects/flowchart/box.c:331 objects/flowchart/box.c:477
+#: objects/flowchart/diamond.c:311 objects/flowchart/diamond.c:440
+#: objects/flowchart/ellipse.c:311 objects/flowchart/ellipse.c:440
+#: objects/flowchart/parallelogram.c:334 objects/flowchart/parallelogram.c:481
 #: objects/standard/textobj.c:209 objects/standard/textobj.c:303
 msgid "Font:"
 msgstr "Skrifttype:"
@@ -1756,315 +1579,228 @@ msgstr "Legg til hjørne"
 msgid "Delete Corner"
 msgstr "Slett hjørne"
 
-#. type
-#: objects/FS/flow-ortho.c:134
-msgid "Create an orthogonal polyline flow"
-msgstr "Opprett et ortogonalt polylinje-flytdiagram"
-
-#: objects/FS/flow-ortho.c:568 objects/FS/flow.c:631 objects/FS/flow.c:746
+#: objects/FS/flow-ortho.c:559 objects/FS/flow.c:622 objects/FS/flow.c:737
 msgid "Flow:"
 msgstr "Flyt:"
 
-#: objects/FS/flow-ortho.c:583 objects/FS/flow.c:646 objects/FS/flow.c:762
+#: objects/FS/flow-ortho.c:574 objects/FS/flow.c:637 objects/FS/flow.c:753
 msgid "Flow type:"
 msgstr "Flyttype:"
 
 #.
-#: objects/FS/flow-ortho.c:588 objects/FS/flow-ortho.c:641
-#: objects/FS/flow-ortho.c:701 objects/FS/flow.c:651 objects/FS/flow.c:706
-#: objects/FS/flow.c:767
+#: objects/FS/flow-ortho.c:579 objects/FS/flow-ortho.c:632
+#: objects/FS/flow-ortho.c:692 objects/FS/flow.c:642 objects/FS/flow.c:697
+#: objects/FS/flow.c:758
 msgid "Energy"
 msgstr "Energi"
 
-#: objects/FS/flow-ortho.c:595 objects/FS/flow-ortho.c:642
-#: objects/FS/flow-ortho.c:708 objects/FS/flow.c:658 objects/FS/flow.c:707
-#: objects/FS/flow.c:774
+#: objects/FS/flow-ortho.c:586 objects/FS/flow-ortho.c:633
+#: objects/FS/flow-ortho.c:699 objects/FS/flow.c:649 objects/FS/flow.c:698
+#: objects/FS/flow.c:765
 msgid "Material"
 msgstr "Materiale"
 
-#: objects/FS/flow-ortho.c:601 objects/FS/flow-ortho.c:643
-#: objects/FS/flow-ortho.c:714 objects/FS/flow.c:664 objects/FS/flow.c:708
-#: objects/FS/flow.c:780 objects/FS/function.c:596
+#: objects/FS/flow-ortho.c:592 objects/FS/flow-ortho.c:634
+#: objects/FS/flow-ortho.c:705 objects/FS/flow.c:655 objects/FS/flow.c:699
+#: objects/FS/flow.c:771 objects/FS/function.c:586
 msgid "Signal"
 msgstr "Signal"
 
-#: objects/FS/flow-ortho.c:680
+#: objects/FS/flow-ortho.c:671
 msgid "Orthflow:"
 msgstr "Ortflyt:"
 
-#: objects/FS/flow-ortho.c:696
+#: objects/FS/flow-ortho.c:687
 msgid "Orthflow type:"
 msgstr "Ortflyt type:"
 
-#. type
-#: objects/FS/flow.c:133
-msgid "Create a flow"
-msgstr "Lag et flytdiagram"
-
-#: objects/FS/fs.c:48
-msgid "FS"
-msgstr "FS"
-
-#: objects/FS/fs.c:49
-msgid "Editor for Function Structure Diagrams."
-msgstr "Editor for Funksjons-struktur diagrammer."
-
-#. type
-#: objects/FS/function.c:110
-msgid "Create a function"
-msgstr "Lag en funksjon"
-
-#: objects/FS/function.c:508
+#: objects/FS/function.c:498
 msgid "Function:"
 msgstr "Funksjon:"
 
-#: objects/FS/function.c:518
+#: objects/FS/function.c:508
 msgid "Wish function"
 msgstr "Wish-funksjon"
 
-#: objects/FS/function.c:523
+#: objects/FS/function.c:513
 msgid "User function"
 msgstr "Bruker funksjon"
 
-#: objects/FS/function.c:562
+#: objects/FS/function.c:552
 msgid "Channel"
 msgstr "Kanal"
 
-#: objects/FS/function.c:563
+#: objects/FS/function.c:553
 msgid "   Import"
 msgstr "   Import"
 
-#: objects/FS/function.c:564
+#: objects/FS/function.c:554
 msgid "   Export"
 msgstr "   Eksport"
 
-#: objects/FS/function.c:565
+#: objects/FS/function.c:555
 msgid "   Transfer"
 msgstr "   Overfør"
 
-#: objects/FS/function.c:566
+#: objects/FS/function.c:556
 msgid "      Transport"
 msgstr "      Transport"
 
-#: objects/FS/function.c:567
+#: objects/FS/function.c:557
 msgid "      Transmit"
 msgstr "      Send"
 
-#: objects/FS/function.c:568
+#: objects/FS/function.c:558
 msgid "   Guide"
 msgstr "   Guide"
 
-#: objects/FS/function.c:569
+#: objects/FS/function.c:559
 msgid "      Translate"
 msgstr "      Oversett"
 
-#: objects/FS/function.c:570
+#: objects/FS/function.c:560
 msgid "      Rotate"
 msgstr "      Roter"
 
-#: objects/FS/function.c:571
+#: objects/FS/function.c:561
 msgid "      Allow DOF"
 msgstr "      Tillat DOF"
 
-#: objects/FS/function.c:572
+#: objects/FS/function.c:562
 msgid "Support"
 msgstr "Støtte"
 
-#: objects/FS/function.c:573
+#: objects/FS/function.c:563
 msgid "   Stop"
 msgstr "   Stopp"
 
-#: objects/FS/function.c:574
+#: objects/FS/function.c:564
 msgid "   Stabilize"
 msgstr "   Stabiliser"
 
-#: objects/FS/function.c:575
+#: objects/FS/function.c:565
 msgid "   Secure"
 msgstr "   Sikre"
 
-#: objects/FS/function.c:576
+#: objects/FS/function.c:566
 msgid "   Position"
 msgstr "   Posisjon"
 
-#: objects/FS/function.c:577
+#: objects/FS/function.c:567
 msgid "Connect"
 msgstr "Koble til"
 
-#: objects/FS/function.c:578
+#: objects/FS/function.c:568
 msgid "   Couple"
 msgstr "   Koble sammen"
 
-#: objects/FS/function.c:579
+#: objects/FS/function.c:569
 msgid "   Mix"
 msgstr "   Bland"
 
-#: objects/FS/function.c:580
+#: objects/FS/function.c:570
 msgid "Branch"
 msgstr "Forgreining"
 
-#: objects/FS/function.c:581
+#: objects/FS/function.c:571
 msgid "   Separate"
 msgstr "   Separat"
 
-#: objects/FS/function.c:582
+#: objects/FS/function.c:572
 msgid "      Remove"
 msgstr "      Fjern"
 
-#: objects/FS/function.c:583
+#: objects/FS/function.c:573
 msgid "   Refine"
 msgstr "   Endre"
 
-#: objects/FS/function.c:584
+#: objects/FS/function.c:574
 msgid "   Distribute"
 msgstr "   Distribuer"
 
-#: objects/FS/function.c:585
+#: objects/FS/function.c:575
 msgid "   Dissipate"
 msgstr "   Tilintetgjør"
 
-#: objects/FS/function.c:586
+#: objects/FS/function.c:576
 msgid "Provision"
 msgstr "Provisjon"
 
-#: objects/FS/function.c:587
+#: objects/FS/function.c:577
 msgid "   Store"
 msgstr "   Lagre"
 
-#: objects/FS/function.c:588
+#: objects/FS/function.c:578
 msgid "   Supply"
 msgstr "   Forsyn"
 
-#: objects/FS/function.c:589
+#: objects/FS/function.c:579
 msgid "   Extract"
 msgstr "   Hent ut"
 
-#: objects/FS/function.c:590
+#: objects/FS/function.c:580
 msgid "Control Magnitude"
 msgstr "Kontroller størrelse"
 
-#: objects/FS/function.c:591
+#: objects/FS/function.c:581
 msgid "   Actuate"
 msgstr "   Aktuer"
 
-#: objects/FS/function.c:592
+#: objects/FS/function.c:582
 msgid "   Regulate"
 msgstr "   Reguler"
 
-#: objects/FS/function.c:593
+#: objects/FS/function.c:583
 msgid "   Change"
 msgstr "   Endre"
 
-#: objects/FS/function.c:594
+#: objects/FS/function.c:584
 msgid "   Form"
 msgstr "   Formgi"
 
-#: objects/FS/function.c:595
+#: objects/FS/function.c:585
 msgid "Convert"
 msgstr "Konverter"
 
-#: objects/FS/function.c:597
+#: objects/FS/function.c:587
 msgid "   Sense"
 msgstr "   Føl"
 
-#: objects/FS/function.c:598
+#: objects/FS/function.c:588
 msgid "   Indicate"
 msgstr "   Indiker"
 
-#: objects/FS/function.c:599
+#: objects/FS/function.c:589
 msgid "   Display"
 msgstr "   Vis"
 
-#: objects/FS/function.c:600
+#: objects/FS/function.c:590
 msgid "   Measure"
 msgstr "   Mål"
 
-#. type
-#: objects/sybase/client.c:55
-msgid "A Sybase Client Application."
-msgstr "En Sybase klientapplikasjon."
-
-#. type
-#: objects/sybase/dataserver.c:55
-msgid "A Sybase Dataserver."
-msgstr "En Sybase databasetjener."
-
-#. type
-#: objects/sybase/ltm.c:55
-msgid "Log Transfer Manager or Rep Agent."
-msgstr "Loggoverføringshåndterer eller Rep agent."
-
-#. type
-#: objects/sybase/repserver.c:55
-msgid "Sybase Replication Server."
-msgstr "Sybase replikeringstjener."
-
-#. type
-#: objects/sybase/rsm.c:55
-msgid "Replication Server Manager."
-msgstr "Håndterer for replikasjonstjener."
-
-#. type
-#: objects/sybase/stableq.c:55
-msgid "Stable Disk Device."
-msgstr "Stabil diskenhet."
-
-#: objects/sybase/sybase.c:57
-msgid "Sybase"
-msgstr "Sybase"
-
-#: objects/sybase/sybase.c:58
-msgid "Objects to design Sybase replication domain diagrams with"
-msgstr ""
-"Objekter til å utforming av domene-diagrammer for replikering i Sybase "
-"databaser"
-
-#: objects/flowchart/box.c:179
-msgid "A box with text inside."
-msgstr "En boks med tekst inni."
-
 #: objects/custom/custom_object.c:333 objects/custom/custom_object.c:481
-#: objects/flowchart/box.c:326 objects/flowchart/box.c:472
-#: objects/flowchart/diamond.c:306 objects/flowchart/diamond.c:435
-#: objects/flowchart/ellipse.c:306 objects/flowchart/ellipse.c:435
-#: objects/flowchart/parallelogram.c:329 objects/flowchart/parallelogram.c:476
+#: objects/flowchart/box.c:317 objects/flowchart/box.c:463
+#: objects/flowchart/diamond.c:297 objects/flowchart/diamond.c:426
+#: objects/flowchart/ellipse.c:297 objects/flowchart/ellipse.c:426
+#: objects/flowchart/parallelogram.c:320 objects/flowchart/parallelogram.c:467
 msgid "Text padding:"
 msgstr "Tekstfyll:"
 
 #: objects/custom/custom_object.c:369 objects/custom/custom_object.c:517
-#: objects/flowchart/box.c:351 objects/flowchart/box.c:497
-#: objects/flowchart/diamond.c:331 objects/flowchart/diamond.c:460
-#: objects/flowchart/ellipse.c:331 objects/flowchart/ellipse.c:460
-#: objects/flowchart/parallelogram.c:354 objects/flowchart/parallelogram.c:501
+#: objects/flowchart/box.c:342 objects/flowchart/box.c:488
+#: objects/flowchart/diamond.c:322 objects/flowchart/diamond.c:451
+#: objects/flowchart/ellipse.c:322 objects/flowchart/ellipse.c:451
+#: objects/flowchart/parallelogram.c:345 objects/flowchart/parallelogram.c:492
 msgid "Font size:"
 msgstr "Størrelse på skrifttype:"
 
-#: objects/custom/custom_object.c:383 objects/flowchart/box.c:365
-#: objects/flowchart/diamond.c:345 objects/flowchart/ellipse.c:345
-#: objects/flowchart/parallelogram.c:368
+#: objects/custom/custom_object.c:383 objects/flowchart/box.c:356
+#: objects/flowchart/diamond.c:336 objects/flowchart/ellipse.c:336
+#: objects/flowchart/parallelogram.c:359
 msgid "Font color:"
 msgstr "Skriftfarge:"
 
-#: objects/flowchart/diamond.c:175
-msgid "A diamond with text inside."
-msgstr "En diamant med tekst inni."
-
-#: objects/flowchart/ellipse.c:175
-msgid "A ellipse with text inside."
-msgstr "En ellipse med tekst inni."
-
-#: objects/flowchart/flowchart.c:264
-msgid "Flowchart"
-msgstr "Flytdiagram"
-
-#: objects/flowchart/flowchart.c:265
-msgid "Objects to draw flowcharts"
-msgstr "Objekter for å tegne flytdiagrammer"
-
-#: objects/flowchart/parallelogram.c:180
-msgid "A parallelogram with text inside."
-msgstr "Et parallellogram med tekst inni."
-
-#: objects/flowchart/parallelogram.c:314 objects/flowchart/parallelogram.c:462
+#: objects/flowchart/parallelogram.c:305 objects/flowchart/parallelogram.c:453
 msgid "Shear angle:"
 msgstr "Klippevinkel:"
 
@@ -2072,10 +1808,10 @@ msgstr "Klippevinkel:"
 msgid "A custom with text inside."
 msgstr "Egendefinert med tekst inni."
 
-#: objects/custom/custom_object.c:1384
+#: objects/custom/custom_object.c:1386
 msgid "Flip Horizontal"
 msgstr "Vend horisontalt"
 
-#: objects/custom/custom_object.c:1385
+#: objects/custom/custom_object.c:1387
 msgid "Flip Vertical"
 msgstr "Vend vertikalt"
