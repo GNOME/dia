@@ -699,10 +699,8 @@ bezier_add_lines(DDisplay *ddisp,
   point_sub(&v, &points[0]);
   y = v;
   v_len_sq = point_dot(&v,&v);
-  if (v_len_sq < 0.00001) { /* Broken bezier curve, draw a line */
-    bezier_add_point(ddisp, bezier, &points[3]);
-    return;
-  } 
+  if (v_len_sq < 0.000001)
+    v_len_sq = 0.000001;
   point_scale(&y, point_dot(&u,&v)/v_len_sq);
   x = u;
   point_sub(&x,&y);
@@ -714,10 +712,8 @@ bezier_add_lines(DDisplay *ddisp,
     point_sub(&v, &points[3]);
     y = v;
     v_len_sq = point_dot(&v,&v);
-    if (v_len_sq < 0.00001) { /* Broken bezier curve, draw a line */
-      bezier_add_point(ddisp, bezier, &points[3]);
-      return;
-    } 
+    if (v_len_sq < 0.000001)
+      v_len_sq = 0.000001;
     point_scale(&y, point_dot(&u,&v)/v_len_sq);
     x = u;
     point_sub(&x,&y);
@@ -763,6 +759,22 @@ bezier_add_lines(DDisplay *ddisp,
   bezier_add_lines(ddisp, s, bezier);
 }
 
+static void
+bezier_add_curve(DDisplay *ddisp,
+		 Point points[4],
+		 struct bezier_curve *bezier)
+{
+  /* Is the bezier curve malformed? */
+  if ( (distance_point_point(&points[0], &points[1]) < 0.00001) &&
+       (distance_point_point(&points[2], &points[3]) < 0.00001) &&
+       (distance_point_point(&points[0], &points[3]) < 0.00001)) {
+    bezier_add_point(ddisp, bezier, &points[3]);
+  }
+  
+  bezier_add_lines(ddisp, points, bezier);
+}
+
+
 static struct bezier_curve bezier = { NULL, 0, 0 };
 
 static void
@@ -803,7 +815,7 @@ draw_bezier(RendererGdk *renderer,
       curve[1] = points[i].p1;
       curve[2] = points[i].p2;
       curve[3] = points[i].p3;
-      bezier_add_lines(ddisp, curve, &bezier);
+      bezier_add_curve(ddisp, curve, &bezier);
       break;
     }
   
@@ -863,7 +875,7 @@ fill_bezier(RendererGdk *renderer,
       curve[1] = points[i].p1;
       curve[2] = points[i].p2;
       curve[3] = points[i].p3;
-      bezier_add_lines(ddisp, curve, &bezier);
+      bezier_add_curve(ddisp, curve, &bezier);
       break;
     }
   

@@ -21,9 +21,7 @@ TODO:
 * Is there a better way to calculate font-properties? Rendering 100 pixel high
   fonts is very slow.
   
-* Add paper size + paper orientation. Draw the paper on screen.
-  Flip ps output if landscape orientation. Export real size to
-  postscript file.
+* Draw the paper-size on the screen.
   
 * Add export to WMF capabilities for windows stuff.
 

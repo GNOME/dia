@@ -1,5 +1,10 @@
 1999-10-26  Alexander Larsson  <alla@lysator.liu.se>
 
+	* app/render_gdk.c:
+	Don't crash on zero-size (broken) bezier curves.
+	Different sort of fix. This should work on closed bezier curves
+	too.
+
 	* objects/standard/textobj.c:
 	Activate default properties dialog for Text objects.
 

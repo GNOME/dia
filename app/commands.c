@@ -120,6 +120,7 @@ file_open_dialog_ok_callback (GtkWidget        *w,
 
   if (diagram != NULL) {
     diagram_update_extents(diagram);
+    layer_dialog_set_diagram(diagram);
   
     ddisp = new_display(diagram);
   }
