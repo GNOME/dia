@@ -172,6 +172,94 @@ diagram_set_modified(Diagram *dia, int modified)
   dia->autosaved = FALSE;
 }
 
+/* ************ Functions that check for menu sensitivity ********* */
+
+/* Suggested optimization: The loops take a lot of the time.  Collapse them
+ * into one, have them set flags for the things that have been found true.
+ * Harder to maintain.
+ */
+static gboolean
+diagram_selected_any_groups(Diagram *dia) {
+  GList *selected;
+
+  for (selected = dia->data->selected;
+       selected != NULL; selected = selected->next) {
+    Object *obj = (Object*)selected->data;
+    if (IS_GROUP(obj)) return TRUE;
+  }
+  return FALSE;
+}
+
+static gboolean
+diagram_selected_any_parents(Diagram *dia) {
+  GList *selected;
+
+  for (selected = dia->data->selected;
+       selected != NULL; selected = selected->next) {
+    Object *obj = (Object*)selected->data;
+    if (obj->can_parent && obj->children != NULL) return TRUE;
+  }
+  return FALSE;
+}
+
+static gboolean
+diagram_selected_any_children(Diagram *dia) {
+  GList *selected;
+
+  for (selected = dia->data->selected;
+       selected != NULL; selected = selected->next) {
+    Object *obj = (Object*)selected->data;
+    if (obj->parent != NULL) return TRUE;
+  }
+  return FALSE;
+}
+
+/** This is slightly more complex -- must see if any non-parented objects
+ * are within a parenting object.
+ */
+static gboolean
+diagram_selected_can_parent(Diagram *dia) {
+  GList *selected;
+  GList *parents = NULL;
+
+  for (selected = dia->data->selected;
+       selected != NULL; selected = selected->next) {
+    Object *obj = (Object*)selected->data;
+    if (obj->can_parent) {
+      parents = g_list_prepend(parents, obj);
+    }
+  }
+  for (selected = dia->data->selected;
+       selected != NULL; selected = selected->next) {
+    Object *obj = (Object*)selected->data;
+    if (obj->parent == NULL) {
+      GList *parent_tmp;
+      Rectangle obj_bb = obj->bounding_box;
+      for (parent_tmp = parents; parent_tmp != NULL; parent_tmp = parent_tmp->next) {
+	Object *p = (Object*)parent_tmp->data;
+	if (p == obj) continue;
+	if (obj_bb.left > p->bounding_box.left &&
+	    obj_bb.right < p->bounding_box.right &&
+	    obj_bb.top > p->bounding_box.top &&
+	    obj_bb.bottom < p->bounding_box.bottom) {
+	  printf("Obj %f, %f x %f, %f inside %f, %f x %f, %f\n",
+		 obj_bb.left,
+		 obj_bb.top,
+		 obj_bb.right,
+		 obj_bb.bottom,
+		 p->bounding_box.left,
+		 p->bounding_box.top,
+		 p->bounding_box.right,
+		 p->bounding_box.bottom);
+	  g_list_free(parents);
+	  return TRUE;
+	}
+      }
+    }
+  }
+  g_list_free(parents);
+  return FALSE;
+}
 
 /*
   This is the real implementation of the sensitivity update.
@@ -202,17 +290,21 @@ diagram_update_menu_sensitivity (Diagram *dia, UpdatableMenuItems *items)
 			   dia->data->selected_count > 0);
   gtk_widget_set_sensitive(GTK_WIDGET(items->bring_to_front),
 			   dia->data->selected_count > 0);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->send_backwards),
+			   dia->data->selected_count > 0);
+  gtk_widget_set_sensitive(GTK_WIDGET(items->bring_forwards),
+			   dia->data->selected_count > 0);
     
   gtk_widget_set_sensitive(GTK_WIDGET(items->parent),
-			   (dia->data->selected_count > 1));
+			   diagram_selected_can_parent(dia));
   gtk_widget_set_sensitive(GTK_WIDGET(items->unparent),
-			   (dia->data->selected_count > 0));
+			   diagram_selected_any_children(dia));
   gtk_widget_set_sensitive(GTK_WIDGET(items->unparent_children),
-			   (dia->data->selected_count > 0));
+			   diagram_selected_any_parents(dia));
   gtk_widget_set_sensitive(GTK_WIDGET(items->group),
 			   dia->data->selected_count > 1);
   gtk_widget_set_sensitive(GTK_WIDGET(items->ungroup),
-			   (dia->data->selected_count > 0));
+			   diagram_selected_any_groups(dia));
   
   gtk_widget_set_sensitive(GTK_WIDGET(items->align_h_l),
 			   dia->data->selected_count > 1);

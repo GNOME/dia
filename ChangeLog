@@ -1,3 +1,12 @@
+2003-11-23  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/diagram.c (diagram_update_menu_sensitivity): More
+	intelligent checks for menu sensitivity.  Might be slow on huge
+	diagrams, but I think other things outweigh it by a lot.
+
+	* app/menus.[ch]: Make "Bring Forwards"
+	and "Send Backwards" updateable.
+
 2003-11-22  Steffen Macke <sdteffen@web.de>
 
 	* shapes/Assorted/arrow-turn-up.shape:

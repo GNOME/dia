@@ -39,6 +39,8 @@ struct _UpdatableMenuItems
 
   GtkMenuItem *send_to_back;
   GtkMenuItem *bring_to_front;
+  GtkMenuItem *send_backwards;
+  GtkMenuItem *bring_forwards;
 
   GtkMenuItem *group;
   GtkMenuItem *ungroup;

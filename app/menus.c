@@ -1228,6 +1228,10 @@ menus_initialize_updatable_items (UpdatableMenuItems *items,
     items->send_to_back = menus_get_item_from_path(path->str, factory);
     g_string_append (g_string_assign(path, display),"/Objects/Bring to Front");
     items->bring_to_front = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),"/Objects/Send Backwards");
+    items->send_backwards = menus_get_item_from_path(path->str, factory);
+    g_string_append (g_string_assign(path, display),"/Objects/Bring Forwards");
+    items->bring_forwards = menus_get_item_from_path(path->str, factory);
   
     g_string_append (g_string_assign(path, display),"/Objects/Group");
     items->group = menus_get_item_from_path(path->str, factory);
