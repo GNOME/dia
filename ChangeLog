@@ -1,5 +1,8 @@
 2003-01-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* configure.in: Downgraded ieeefp test to make it not produce
+	illegal shell code.
+
 	* lib/widgets.c (dia_arrow_selector_set_arrow): 
 	(dia_line_style_selector_set_linestyle): Select menu dot
 	correctly set.

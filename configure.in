@@ -284,14 +284,14 @@ AC_CHECK_HEADERS(math.h,
                 have_isinf=yes))
 
 if test "$have_isinf" = "no"; then
-        AC_CHECK_HEADERS(ieeefp.h,
-                AC_CHECK_FUNC(finite, 
-		        AC_DEFINE([HAVE_IEEEFP_H], 1,
-			          [Define if finite() is defined in ieeefp.h])
-                        AC_MSG_ERROR(Can't find a definition of neither 
-                                     finite nor isinf)),
-                AC_MSG_ERROR(Can't find a definition of neither finite 
-                             nor isinf))
+        AC_CHECK_HEADERS(ieeefp.h, AC_DEFINE([HAVE_IEEEFP_H], 1, [Define if we should include ieeefp.h]),
+dnl We should check if finite is in ieeefp.h (though it likely is),
+dnl but it keeps giving an unmatched if shell error:(
+dnl                AC_CHECK_FUNC(finite, 
+dnl		        AC_DEFINE([HAVE_IEEEFP_H], 1,
+dnl			          [Define if finite() is defined in ieeefp.h])
+dnl                        AC_MSG_ERROR(Can't find a definition of neither finite nor isinf)),
+                AC_MSG_ERROR(Can't find a definition of neither finite nor isinf))
 else
         AC_DEFINE([HAVE_ISINF], 1, 
                   [Define if the isinf() function is available])
