@@ -1,3 +1,21 @@
+2002-01-22  Akira TAGOH  <tagoh@redhat.com>
+
+	* lib/text.c (text_set_string, new_text, text_copy,
+	text_get_string_copy, text_join_lines): use utfchar instead of gchar
+	for strings.
+
+	* lib/text.c (set_string): use charconv_utf8_strchr() instead of
+	strchr().
+
+	* lib/charconv.c (charconv_utf8_strchr): add new function.
+
+	* lib/charconv.c (charconv_keyval_to_unicode): ditto.
+
+	* lib/charconv.c (charconv_utf8_from_gtk_event_key): ditto.
+
+	* app/disp_callbacks.c (ddisplay_canvas_events): needs to convert
+	strings to the appropriate encoding.
+
 2002-01-22  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/object_ops.c (object_list_align_[hv]): Leak fix.
@@ -6,6 +24,18 @@
 
 	* app/object_ops.c: Fixed ordering problem of align equi-distant &
 	adjacent. 
+
+2002-01-21  Akira TAGOH  <tagoh@redhat.com>
+
+	* lib/font.c (font_string_width): use gdk_text_width_wc() instead of
+	gdk_string_width().
+
+	* objects/GRAFCET/boolequation.c: fixed invalid comment.
+
+	* objects/UML/stereotype.c (string_to_bracketted): fixed build problem
+	when defined UNICODE_WORK_IN_PROGRESS.
+
+	* lib/dia_xml.c (data_add_string): fixed typo.
 
 2002-01-20  Akira TAGOH  <tagoh@redhat.com>
 

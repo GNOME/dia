@@ -823,7 +823,7 @@ data_add_string(AttributeNode attr, const char *str)
         g_free(utfstr);
     }
 #else
-    escaped_str = xmlEncodeEntitiesReentrant(attr->node,str);
+    escaped_str = xmlEncodeEntitiesReentrant(attr->doc,str);
 #endif
     
     len = 2+strlen(escaped_str);

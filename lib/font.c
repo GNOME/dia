@@ -1090,13 +1090,43 @@ font_string_width(const char *string, DiaFont *font, real height)
   return ft_string->width;
 #else
   GdkFont *gdk_font;
+  GdkWChar *wcstr;
   int iwidth, iheight;
   double width_height;
+  char *mbstr, *str;
+  int length;
+  int wclength, i;
+
+  g_return_val_if_fail (string != NULL, 0.0);
+
+  if (string[0] == 0) return 0.0;
+#ifdef UNICODE_WORK_IN_PROGRESS
+  str = charconv_utf8_to_local8 (string);
+#else
+  str = g_strdup (string);
+#endif
+  length = strlen (str);
+  wcstr = g_new0 (GdkWChar, length);
+  mbstr = g_strdup (str);
+  wclength = mbstowcs (wcstr, mbstr, length);
+  g_free (mbstr);
+
+  if (wclength > 0) {
+	  length = wclength;
+  } else {
+	  for (i = 0; i < length; i++) {
+		  wcstr[i] = (unsigned char) str[i];
+	  }
+  }
+
   /* Note: This is an ugly hack. It tries to overestimate the width with
      some magic stuff. No guarantees. */
   gdk_font = font_get_gdkfont(font, 100);
-  iwidth = gdk_string_width(gdk_font, string);
-  iheight = gdk_string_height(gdk_font, string);
+  iwidth = gdk_text_width_wc (gdk_font, wcstr, length);
+  iheight = gdk_string_height(gdk_font, str);
+
+  g_free (wcstr);
+  g_free (str);
 
   if ((iwidth==0) || (iheight==0))
     return 0.0;

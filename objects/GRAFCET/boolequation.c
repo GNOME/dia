@@ -154,10 +154,10 @@ static const gchar and_symbol[] = { 215,0 };
 static const gchar rise_symbol[] = { 173,0 };
 static const gchar fall_symbol[] = { 175,0 };
 #else
-static const utfchar xor_symbol[] = { 226, 138, 149, 0 }; # 0x2295
-static const utfchar and_symbol[] = { 226, 136, 153, 0 }; # 0x2219
-static const utfchar rise_symbol[] = { 226, 134, 145, 0 }; # 0x2191
-static const utfchar fall_symbol[] = { 226, 134, 147, 0 }; # 0x2193
+static const utfchar xor_symbol[] = { 226, 138, 149, 0 }; /* 0x2295 */
+static const utfchar and_symbol[] = { 226, 136, 153, 0 }; /* 0x2219 */
+static const utfchar rise_symbol[] = { 226, 134, 145, 0 }; /* 0x2191 */
+static const utfchar fall_symbol[] = { 226, 134, 147, 0 }; /* 0x2193 */
 #endif
 static const utfchar or_symbol[] = { 43, 0 };
 static const utfchar lt_symbol[] = { 60,0 };

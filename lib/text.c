@@ -47,14 +47,14 @@ struct TextObjectChange {
 
   Text *text;
   enum change_type type;
-  char ch;
+  unichar ch;
   int pos;
   int row;
-  char *str;
+  utfchar *str;
 };
 
 static ObjectChange *text_create_change(Text *text, enum change_type type,
-					char ch, int pos, int row);
+					unichar ch, int pos, int row);
 
 static void
 calc_width(Text *text)
@@ -102,64 +102,68 @@ free_string(Text *text)
 }
 
 static void
-set_string(Text *text, const char *string)
+set_string (Text *text, const utfchar *string)
 {
-  int numlines, i;
-  int len;
-  const char *s,*s2;
+	int numlines, i;
+	int len, alloclen;
+	const utfchar *s,*s2;
+
+	s = string;
   
-  s = string;
-  
-  numlines = 1;
-  if (s != NULL) 
-    while ( (s = strchr(s,'\n')) != NULL ) {
-	s++;
-	if ((*s) != 0) {
-	    numlines++;
+	numlines = 1;
+	if (s != NULL) 
+		while ((s = charconv_utf8_strchr (s, '\n')) != NULL) {
+			s++;
+			if ((*s) != 0) {
+				numlines++;
+			}
+		}
+
+	text->numlines = numlines;
+	text->line = g_malloc (sizeof (utfchar *) * numlines);
+	text->strlen = g_malloc (sizeof (int) * numlines);
+	text->alloclen = g_malloc (sizeof (int) * numlines);
+	text->row_width = g_malloc (sizeof (real) * numlines);
+
+	s = string;
+
+	if (string==NULL) {
+		text->line[0] = (utfchar *)g_malloc(1);
+		text->line[0][0] = 0;
+		text->strlen[0] = 0;
+		text->alloclen[0] = 1;
+		return;
 	}
-    }
-  text->numlines = numlines;
-  text->line = g_malloc(sizeof(char *)*numlines);
-  text->strlen = g_malloc(sizeof(int)*numlines);
-  text->alloclen = g_malloc(sizeof(int)*numlines);
-  text->row_width = g_malloc(sizeof(real)*numlines);
 
-  s = string;
+	for (i = 0; i < numlines; i++) {
+		s2 = charconv_utf8_strchr (s, '\n');
+		if (s2 == NULL) {
+			alloclen = strlen (s);
+			len = uni_strlen (s, alloclen);
+		} else {
+			gchar *str = g_strndup (s, s2 - s);
+			alloclen = s2 - s;
+			len = uni_strlen (str, alloclen);
+		}
+		text->line[i] = (utfchar *)g_malloc (alloclen + 1);
+		text->strlen[i] = len;
+		text->alloclen[i] = alloclen + 1;
+		strncpy (text->line[i], s, alloclen);
+		text->line[i][alloclen] = 0; /* end line with \0 */
+		s = s2 + 1;
+	}
 
-  if (string==NULL) {
-    text->line[0] = (char *)g_malloc(1);
-    text->line[0][0] = 0;
-    text->strlen[0] = 0;
-    text->alloclen[0] = 1;
-    return;
-  }
-
-  for (i=0;i<numlines;i++) {
-    s2 = strchr(s,'\n');
-    if (s2==NULL) {
-      len = strlen(s);
-    } else {
-      len = s2 - s;
-    }
-    text->line[i] = (char *)g_malloc(len+1);
-    text->strlen[i] = len;
-    text->alloclen[i] = len+1;
-    strncpy(text->line[i], s, len);
-    text->line[i][len] = 0; /* end line with \0 */
-    s = s2+1;
-  }
-
-  if (text->cursor_row >= text->numlines) {
-    text->cursor_row = text->numlines - 1;
-  }
+	if (text->cursor_row >= text->numlines) {
+		text->cursor_row = text->numlines - 1;
+	}
   
-  if (text->cursor_pos > text->strlen[text->cursor_row]) {
-    text->cursor_pos = text->strlen[text->cursor_row];
-  }
+	if (text->cursor_pos > text->strlen[text->cursor_row]) {
+		text->cursor_pos = text->strlen[text->cursor_row];
+	}
 }
 
 void
-text_set_string(Text *text, const char *string)
+text_set_string(Text *text, const utfchar *string)
 {
   if (text->line != NULL)
     free_string(text);
@@ -170,77 +174,77 @@ text_set_string(Text *text, const char *string)
 }
 
 Text *
-new_text(const char *string, DiaFont *font, real height,
-	 Point *pos, Color *color, Alignment align)
+new_text (const utfchar *string, DiaFont *font, real height,
+		  Point *pos, Color *color, Alignment align)
 {
-  Text *text;
+	Text *text;
 
-  text = g_new(Text, 1);
+	text = g_new (Text, 1);
 
-  text->font = font;
-  text->height = height;
+	text->font = font;
+	text->height = height;
 
-  text->position = *pos;
-  text->color = *color;
-  text->alignment = align;
+	text->position = *pos;
+	text->color = *color;
+	text->alignment = align;
 
-  text->cursor_pos = 0;
-  text->cursor_row = 0;
+	text->cursor_pos = 0;
+	text->cursor_row = 0;
   
-  text->focus.obj = NULL;
-  text->focus.has_focus = FALSE;
-  text->focus.user_data = (void *)text;
-  text->focus.key_event = text_key_event;
+	text->focus.obj = NULL;
+	text->focus.has_focus = FALSE;
+	text->focus.user_data = (void *)text;
+	text->focus.key_event = text_key_event;
   
-  set_string(text, string);
+	set_string(text, string);
 
-  calc_width(text);
-  calc_ascent_descent(text);
+	calc_width(text);
+	calc_ascent_descent(text);
 
-  return text;
+	return text;
 }
 
 Text *
-text_copy(Text *text)
+text_copy (Text *text)
 {
-  Text *copy;
-  int i;
+	Text *copy;
+	int i;
 
-  copy = g_new(Text, 1);
-  copy->numlines = text->numlines;
-  copy->line = g_malloc(sizeof(char *)*text->numlines);
-  copy->strlen = g_malloc(sizeof(int)*copy->numlines);
-  copy->alloclen = g_malloc(sizeof(int)*copy->numlines);
-  copy->row_width = g_malloc(sizeof(real)*copy->numlines);
+	copy = g_new(Text, 1);
+	copy->numlines = text->numlines;
+	copy->line = g_malloc (sizeof (utfchar *) * text->numlines);
+	copy->strlen = g_malloc (sizeof (int) * copy->numlines);
+	copy->alloclen = g_malloc (sizeof (int) * copy->numlines);
+	copy->row_width = g_malloc (sizeof (real) * copy->numlines);
   
-  for (i=0;i<text->numlines;i++) {
-    copy->line[i] = (char *)g_malloc(text->strlen[i]+1);
-    strcpy(copy->line[i], text->line[i]);
-    copy->strlen[i] = text->strlen[i];
-    copy->alloclen[i] = text->strlen[i]+1;
-  }
-  
-  copy->font = text->font;
-  copy->height = text->height;
-  copy->position = text->position;
-  copy->color = text->color;
-  copy->alignment = text->alignment;
+	for (i = 0; i < text->numlines; i++) {
+		copy->line[i] = (utfchar *)g_malloc (text->strlen[i] + 1);
+		strcpy(copy->line[i], text->line[i]);
+		copy->strlen[i] = text->strlen[i];
+		copy->alloclen[i] = text->alloclen[i];
+	}
 
-  copy->cursor_pos = 0;
-  copy->cursor_row = 0;
-  copy->focus.obj = NULL;
-  copy->focus.has_focus = FALSE;
-  copy->focus.user_data = (void *)copy;
-  copy->focus.key_event = text_key_event;
-  
-  copy->ascent = text->ascent;
-  copy->descent = text->descent;
-  copy->max_width = text->max_width;
-  for (i=0;i<text->numlines;i++) {
-    copy->row_width[i] = text->row_width[i];
-  }
-  
-  return copy;
+	copy->font = text->font;
+	copy->height = text->height;
+	copy->position = text->position;
+	copy->color = text->color;
+	copy->alignment = text->alignment;
+
+	copy->cursor_pos = 0;
+	copy->cursor_row = 0;
+	copy->focus.obj = NULL;
+	copy->focus.has_focus = FALSE;
+	copy->focus.user_data = (void *)copy;
+	copy->focus.key_event = text_key_event;
+
+	copy->ascent = text->ascent;
+	copy->descent = text->descent;
+	copy->max_width = text->max_width;
+	for (i = 0; i < text->numlines; i++) {
+		copy->row_width[i] = text->row_width[i];
+	}
+
+	return copy;
 }
 
 void
@@ -322,29 +326,28 @@ text_calc_boundingbox(Text *text, Rectangle *box)
 
 
 
-char *
-text_get_string_copy(Text *text)
+utfchar *
+text_get_string_copy (Text *text)
 {
-  int num,i;
-  char *str;
-  
-  num = 0;
-  for (i=0;i<text->numlines;i++) {
-    num += strlen(text->line[i])+1;
-  }
+	int num = 0, i;
+	utfchar *str;
 
-  str = g_malloc(num);
+	for (i = 0; i < text->numlines; i++) {
+		num += strlen (text->line[i]) + 1;
+	}
 
-  *str = 0;
+	str = g_malloc (num);
+
+	*str = 0;
   
-  for (i=0;i<text->numlines;i++) {
-    strcat(str, text->line[i]);
-    if (i != (text->numlines-1)) {
-      strcat(str, "\n");
-    }
-  }
-  
-  return str;
+	for (i = 0; i < text->numlines; i++) {
+		strcat(str, text->line[i]);
+		if (i != (text->numlines - 1)) {
+			strcat(str, "\n");
+		}
+	}
+
+	return str;
 }
 
 real
@@ -529,55 +532,56 @@ text_set_cursor(Text *text, Point *clicked_point,
 }
 
 static void
-text_join_lines(Text *text, int first_line)
+text_join_lines (Text *text, int first_line)
 {
-  int i;
-  int len1;
-  real width;
-  char *str1, *str2;
-  int numlines;
+	int i;
+	int len1, len2, alloclen1, alloclen2;
+	real width;
+	utfchar *str1, *str2;
+	int numlines;
 
-  str1 = text->line[first_line];
-  str2 = text->line[first_line+1];
+	str1 = text->line[first_line];
+	str2 = text->line[first_line + 1];
+	len1 = text->strlen[first_len];
+	len2 = text->strlen[first_len + 1];
+	alloclen1 = text->alloclen[first_len];
+	alloclen2 = text->alloclen[first_len + 1];
 
-  text->line[first_line] = NULL;
-  text->line[first_line+1] = NULL;
+	text->line[first_line] = NULL;
+	text->line[first_line + 1] = NULL;
 
-  for (i=first_line+1;i<text->numlines-1;i++) {
-    text->line[i] = text->line[i+1];
-    text->strlen[i] = text->strlen[i+1];
-    text->alloclen[i] = text->alloclen[i+1];
-    text->row_width[i] = text->row_width[i+1];
-  }
-  len1 = strlen(str1);
-  text->strlen[first_line] = len1 + strlen(str2);
-  text->alloclen[first_line] = text->strlen[first_line] + 1;
-  text->line[first_line] =
-    g_malloc(sizeof(char)*(text->alloclen[first_line]));
-  strcpy(text->line[first_line], str1);
-  strcat(text->line[first_line], str2);
-  g_free(str1);
-  g_free(str2);
-  
-  text->numlines -= 1;
-  numlines = text->numlines;
-  text->line = g_realloc(text->line, sizeof(char *)*numlines);
-  text->strlen = g_realloc(text->strlen, sizeof(int)*numlines);
-  text->alloclen = g_realloc(text->alloclen, sizeof(int)*numlines);
-  text->row_width = g_realloc(text->row_width, sizeof(real)*numlines);
+	for (i = first_line + 1; i < text->numlines - 1; i++) {
+		text->line[i] = text->line[i + 1];
+		text->strlen[i] = text->strlen[i + 1];
+		text->alloclen[i] = text->alloclen[i + 1];
+		text->row_width[i] = text->row_width[i + 1];
+	}
+	text->strlen[first_line] = len1 + len2;
+	text->alloclen[first_line] = alloclen1 + alloclen2;
+	text->line[first_line] = g_malloc (sizeof (utfchar) * (text->alloclen[first_line]));
+	strcpy (text->line[first_line], str1);
+	strcat (text->line[first_line], str2);
+	g_free (str1);
+	g_free (str2);
 
-  text->row_width[first_line] = 
-    font_string_width(text->line[first_line], text->font, text->height);
+	text->numlines -= 1;
+	numlines = text->numlines;
+	text->line = g_realloc (text->line, sizeof (utfchar *) * numlines);
+	text->strlen = g_realloc (text->strlen, sizeof (int) * numlines);
+	text->alloclen = g_realloc (text->alloclen, sizeof (int) * numlines);
+	text->row_width = g_realloc (text->row_width, sizeof (real) * numlines);
 
-  width = 0.0;
-  for (i=0;i<text->numlines;i++) {
-    width = MAX(width, text->row_width[i]);
-  }
-  text->max_width = width;
+	text->row_width[first_line] = 
+		font_string_width (text->line[first_line], text->font, text->height);
 
-  text->cursor_row = first_line;
-  text->cursor_pos = len1;
-  
+	width = 0.0;
+	for (i = 0; i < text->numlines; i++) {
+		width = MAX (width, text->row_width[i]);
+	}
+	text->max_width = width;
+
+	text->cursor_row = first_line;
+	text->cursor_pos = len1;
 }
 
 static void

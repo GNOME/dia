@@ -165,6 +165,8 @@ extern gchar *charconv_utf8_to_local8(const utfchar *utf);
 
 /* The string here is statically allocated and must NOT be g_free()'d.*/
 extern utfchar *charconv_unichar_to_utf8(guint uc);
+extern utfchar *charconv_utf8_from_gtk_event_key (guint keyval, gchar *string);
+extern utfchar *charconv_utf8_strchr (const utfchar *p, int len, unichar c);
 
 #define CHARCONV_H
 #endif  /* CHARCONV_H */

@@ -28,6 +28,7 @@ char *
 string_to_bracketted(char *str, 
                      const char *start_bracket, 
                      const char *end_bracket) {
+  char *tmpstr;
 #ifdef UNICODE_WORK_IN_PROGRESS
   char *bracketted;
 
@@ -35,7 +36,6 @@ string_to_bracketted(char *str,
 
   return bracketted;
 #else
-  char *tmpstr;
   char *bracketted,*tmp;
 
   tmpstr = charconv_local8_to_utf8((str?str:""));

@@ -39,6 +39,7 @@
 #include "message.h"
 #include "intl.h"
 #include "magnify.h"
+#include "charconv.h"
 
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;
@@ -388,7 +389,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
   int key_handled;
   int width, height;
   int new_size;
-  int modified;
+  int modified = FALSE;
   int x, y;
 
   return_val = FALSE;
@@ -565,6 +566,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	obj = focus->obj;
 	if (diagram_is_selected(ddisp->diagram, obj)) {
 	  ObjectChange *obj_change = NULL;
+	  utfchar *utf;
 	
 	  object_add_updates(obj, ddisp->diagram);
 #ifdef USE_XIM
@@ -572,9 +574,16 @@ ddisplay_canvas_events (GtkWidget *canvas,
 				    &x, &y);
 	  set_input_dialog(ddisp, x, y);
 #endif
-	  modified = (focus->key_event)(focus, kevent->keyval,
-					kevent->string, kevent->length,
-					&obj_change);
+#ifdef UNICODE_WORK_IN_PROGRESS
+	  utf = charconv_utf8_from_gtk_event_key (kevent->keyval, kevent->string);
+#else
+	  utf = g_strdup (kevent->string);
+#endif
+	  if (utf != NULL) {
+		  modified = (focus->key_event)(focus, kevent->keyval,
+										utf, uni_strlen (utf, strlen (utf)),
+										&obj_change);
+	  }
 	  { /* Make sure object updates its data and its connected: */
 	    Point p = obj->position;
 	    (obj->ops->move)(obj,&p);  
