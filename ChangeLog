@@ -1,3 +1,33 @@
+1999-01-25  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* autogen.sh:
+	* acconfig.h:
+	* configure.in:
+	* Makefile.am:
+	* app/Makefile.am:
+	* po/POTFILES.in:
+	* app/intl.h
+	i18n-support.
+
+	* po/sv.po:
+	Swedish translation. Not completed.
+	
+	* configure.in:
+	* acconfig.h:
+	Added possibility to enable GNOME specific code with configure.
+
+	* configure.in:
+	Added possibility to set debug level with configure.
+
+	* commands.[hc]:
+	Added about dialog.
+
+	* app_procs.c
+	* commands.c
+	* interface.c
+	* menus.c
+	Added some GNOME specific code. Not ready for use.
+
 1999-01-24  Alexander Larsson  <alla@lysator.liu.se>
 
 	* INSTALL:
