@@ -48,6 +48,7 @@
 struct png_callback_data {
   DiagramData *data;
   gchar *filename;
+  gchar *size;			/* for command line option --size */
 };
 
 /* Static data.  When the dialog is not reentrant, you could have all data
@@ -75,6 +76,7 @@ export_png_ok(GtkButton *button, gpointer userdata)
   guint32 width, height, band, row, i;
   real band_height;
   guint32 imagewidth, imageheight;
+  long req_width, req_height;
   real imagezoom;
 
   FILE *fp;
@@ -93,8 +95,24 @@ export_png_ok(GtkButton *button, gpointer userdata)
     imagewidth = gtk_spin_button_get_value_as_int(export_png_width_entry);
     imageheight = gtk_spin_button_get_value_as_int(export_png_height_entry);
   } else {
-    imagewidth = width;
-    imageheight = height;
+    if (cbdata && cbdata->size) {
+      float ratio = (float) width/(float) height;
+
+      parse_size(cbdata->size, &req_width, &req_height);
+      if (req_width && !req_height) {
+	imagewidth  = req_width;
+	imageheight = req_width / ratio;
+      } else if (req_height && !req_width) {
+	imagewidth  = req_height * ratio;
+	imageheight = req_height;
+      } else if (req_width && req_height) {
+	imagewidth  = req_width;
+	imageheight = req_height;
+      }
+    } else {
+      imagewidth  = width;
+      imageheight = height;
+    }
   }
 
   imagezoom = ((real)imageheight/height) * DPCM * data->paper.scaling;
@@ -147,8 +165,24 @@ export_png_ok(GtkButton *button, gpointer userdata)
     imagewidth = gtk_spin_button_get_value_as_int(export_png_width_entry);
     imageheight = gtk_spin_button_get_value_as_int(export_png_height_entry);
   } else {
-    imagewidth = width;
-    imageheight = height;
+    if (cbdata && cbdata->size) {
+      float ratio = (float) width/(float) height;
+
+      parse_size(cbdata->size, &req_width, &req_height);
+      if (req_width && !req_height) {
+	imagewidth  = req_width;
+	imageheight = req_width / ratio;
+      } else if (req_height && !req_width) {
+	imagewidth  = req_height * ratio;
+	imageheight = req_height;
+      } else if (req_width && req_height) {
+	imagewidth  = req_width;
+	imageheight = req_height;
+      }
+    } else {
+      imagewidth  = width;
+      imageheight = height;
+    }
   }
   band = MIN(imageheight, BAND_HEIGHT);
 
@@ -251,7 +285,7 @@ export_png(DiagramData *data, const gchar *filename,
      returns before the callback is called.  Must be freed by the
      final callbacks. */
   struct png_callback_data *cbdata = 
-    (struct png_callback_data *)g_malloc(sizeof(struct png_callback_data));
+    (struct png_callback_data *) g_new0(struct png_callback_data, 1);
   Rectangle *ext = &data->extents;
   guint32 width, height;
 
@@ -310,6 +344,7 @@ export_png(DiagramData *data, const gchar *filename,
     /* Show the whole thing */
     gtk_widget_show_all(export_png_dialog);
   } else {
+    cbdata->size = (gchar *) user_data;
     export_png_ok(NULL, cbdata);
   }
 }

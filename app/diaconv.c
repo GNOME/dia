@@ -213,7 +213,7 @@ main(int argc, char **argv)
       export_file_name = build_output_file_name(in_file_name,
                                                 export_file_format);
       g_message("export_file_name = %s",export_file_name);
-      do_convert(in_file_name,export_file_name);
+      do_convert(in_file_name, export_file_name, NULL);
       g_free(export_file_name);
       in_file_name = poptGetArg(poptCtx);
     }
@@ -226,7 +226,7 @@ main(int argc, char **argv)
               argv[0]);
       exit(1);
     }
-    do_convert(in_file_name,export_file_name);
+    do_convert(in_file_name, export_file_name, NULL);
   }
   exit(0);
 }

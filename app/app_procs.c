@@ -85,7 +85,8 @@ extern DiaExportFilter png_export_filter;
 static gboolean
 handle_initial_diagram(const char *input_file_name, 
 		       const char *export_file_name,
-		       const char *export_file_format);
+		       const char *export_file_format,
+		       const char *size);
 
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
@@ -150,10 +151,12 @@ const char *argv0 = NULL;
 
 /** Convert infname to outfname, using input filter inf and export filter
  * ef.  If either is null, try to guess them.
+ * size might be NULL.
  */
 gboolean
 do_convert(const char *infname, 
-	   const char *outfname, DiaExportFilter  *ef)
+	   const char *outfname, DiaExportFilter *ef,
+	   const char *size)
 {
   DiaImportFilter *inf;
   DiagramData *diagdata = NULL;
@@ -188,6 +191,9 @@ do_convert(const char *infname,
             argv0,infname);
             exit(1);
   }
+  /* is user_data supposed to work that way? */
+  if (size)
+    ef->user_data = (void *) size;
   ef->export(diagdata, outfname, infname, ef->user_data);
   /* if (!quiet) */ fprintf(stdout,
                       _("%s --> %s\n"),
@@ -213,11 +219,15 @@ app_is_interactive(void)
 
 /** Handle loading of diagrams given on command line, including conversions.
  * Returns TRUE if any automatic conversions were performed.
+ * Note to future hackers:  'size' is currently the only argument that can be
+ * sent to exporters.  If more arguments are desired, please don't just add
+ * even more arguments, but create a more general system.
  */
 static gboolean
 handle_initial_diagram(const char *in_file_name, 
 		       const char *out_file_name,
-		       const char *export_file_format) {
+		       const char *export_file_format,
+		       const char *size) {
   DDisplay *ddisp = NULL;
   Diagram *diagram = NULL;
   gboolean made_conversions = FALSE;
@@ -238,10 +248,12 @@ handle_initial_diagram(const char *in_file_name,
       export_file_name = build_output_file_name(in_file_name,
 						ef->extensions[0]);
     }
-    made_conversions |= do_convert(in_file_name, (out_file_name != NULL?out_file_name:export_file_name), ef);
+    made_conversions |= do_convert(in_file_name,
+      (out_file_name != NULL?out_file_name:export_file_name), ef, size);
     g_free(export_file_name);
   } else if (out_file_name) {
-    made_conversions |= do_convert(in_file_name, out_file_name, NULL);
+    made_conversions |= do_convert(in_file_name, out_file_name, NULL,
+				   size);
   } else {
     if (g_file_test(in_file_name, G_FILE_TEST_EXISTS)) {
       diagram = diagram_load (in_file_name, NULL);
@@ -307,6 +319,7 @@ app_init (int argc, char **argv)
 #endif
   char *export_file_name = NULL;
   char *export_file_format = NULL;
+  char *size = NULL;
   gboolean made_conversions = FALSE;
 
 #ifdef HAVE_POPT
@@ -329,6 +342,8 @@ app_init (int argc, char **argv)
     {"export-to-format",'t', POPT_ARG_STRING, NULL /* &export_file_format */,
      0, export_format_string, N_("FORMAT")
     },
+    {"size", 's', POPT_ARG_STRING, NULL, 0,
+     N_("Export graphics size"), N_("WxH")},
     {"nosplash", 'n', POPT_ARG_NONE, &nosplash, 0,
      N_("Don't show the splash screen"), NULL },
     {"credits", 'c', POPT_ARG_NONE, &credits, 0,
@@ -345,6 +360,7 @@ app_init (int argc, char **argv)
 #ifdef HAVE_POPT
   options[0].arg = &export_file_name;
   options[1].arg = &export_file_format;
+  options[2].arg = &size;
 #endif
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
@@ -525,10 +541,11 @@ app_init (int argc, char **argv)
 #ifdef HAVE_POPT
       while (poptPeekArg(poptCtx)) {
           char *in_file_name = (char *)poptGetArg(poptCtx);
-	  
+
 	  made_conversions |= handle_initial_diagram(in_file_name,
 						     export_file_name,
-						     export_file_format);
+						     export_file_format,
+						     size);
       }
       poptFreeContext(poptCtx);
 #else
@@ -549,11 +566,18 @@ app_init (int argc, char **argv)
                   export_file_name = argv[i];
                   continue;
               }
+          } else if (0 == strcmp(argv[i],"-s")) {
+              if (i < (argc-1)) {
+                  i++;
+                  size = argv[i];
+                  continue;
+              }
           }
           
 	  made_conversions |= handle_initial_diagram(in_file_name,
 						     export_file_name,
-						     export_file_format);
+						     export_file_format,
+						     size);
       }
 #endif
   }
@@ -725,3 +749,19 @@ internal_plugin_init(PluginInfo *info)
   return DIA_PLUGIN_INIT_OK;
 }
 
+/* parses a string of the form "[0-9]*x[0-9]*" and transforms it into
+   two long values width and height. */
+void
+parse_size(gchar *size, long *width, long *height)
+{
+  if (size) {
+    gchar** array = g_strsplit(size, "x", 3);
+    *width  = (array[0])? strtol(array[0], NULL, 10): 0;
+    *height = (array[1])? strtol(array[1], NULL, 10): 0;
+    g_strfreev(array);
+  }
+  else {
+    *width  = 0;
+    *height = 0;
+  }
+}

@@ -1,5 +1,12 @@
 2003-12-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* doc/en/dia.dbk: 
+	* app/export_png.c: 
+	* app/diaconv.c: 
+	* app/app_procs.[ch]: 
+	Patch from W. Borgert <debacle@debian.org>: Allow a -size argument
+	to specify size for PNG output.
+
 	* app/lineprops_area.c (dia_arrow_preview_expose): Make arrows
 	render a little smaller, so as to fit the big ones.
 

@@ -25,12 +25,17 @@ void app_exit(void);
 int app_is_embedded(void);
 
 gboolean do_convert(const char *infname,
-		    const char *outfname, DiaExportFilter *ef);
+		    const char *outfname, DiaExportFilter *ef,
+		    const char *size);
 char *build_output_file_name(const char *infname, const char *format);
 
 void app_splash_init(const gchar* name);
 void app_splash_done(void);
 
 gboolean app_is_interactive(void);
+
+/* parses a string of the form "[0-9]*x[0-9]*" and transforms it into
+   two long values width and height. */
+void parse_size(gchar *size, long *width, long *height);
 
 #endif /* APP_PROCS_H */

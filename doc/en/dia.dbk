@@ -6,7 +6,8 @@
   <refentryinfo>
     <copyright>
       <year>1999</year>
-      <holder>Fredrik Hallenberg</holder>
+      <year>2003</year>
+      <holder>Fredrik Hallenberg, W. Borgert</holder>
     </copyright>
     <date>1999-07-03</date>
     <authorgroup>
@@ -22,6 +23,12 @@
       </author>
     </authorgroup>
     <revhistory>
+      <revision>
+	<revnumber>2</revnumber>
+	<date>2003-11-26</date>
+	<authorinitials>WB</authorinitials>
+	<revremark>added --size option</revremark>
+      </revision>
       <revision>
 	<revnumber>2</revnumber>
 	<date>2003-10-16</date>
@@ -69,6 +76,10 @@
       <arg><option>-n</option></arg>
 
       <arg><option>--nosplash</option></arg>
+
+      <arg><option>-s <replaceable>WxH</replaceable></option></arg>
+
+      <arg><option>--size=<replaceable>WxH</replaceable></option></arg>
 
       <arg><option>-t <replaceable>FORMAT</replaceable></option></arg>
 
@@ -133,6 +144,23 @@
 	  <option>--nosplash</option></term>
 	<listitem>
 	  <para>Do not show the splash screen.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>-s <replaceable>WxH</replaceable></option>
+	  <option>--size=<replaceable>WxH</replaceable></option></term>
+	<listitem>
+	  <para>Export loaded file in decimal given width and/or
+	  height.  It is allowed to only select width or height.
+	  E.g. <option>--size=<replaceable>520x</replaceable></option>
+	  exports an image that is 520 pixels wide, while
+	  <option>--size=<replaceable>x900</replaceable></option>
+	  exports an image of 900 pixels height.</para>
+
+	  <note>
+	    <para>This option is currently only implemented for the
+	    PNG export filter.</para>
+	  </note>
 	</listitem>
       </varlistentry>
       <varlistentry>
