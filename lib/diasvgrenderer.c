@@ -55,7 +55,6 @@ begin_render(DiaRenderer *self)
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
 
   renderer->linewidth = 0;
-  renderer->fontsize = 1.0;
   renderer->linecap = "butt";
   renderer->linejoin = "miter";
   renderer->linestyle = NULL;
@@ -194,17 +193,6 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
   default:
     message_error("svg_renderer: Unsupported fill mode specified!\n");
   }
-}
-
-static void
-set_font(DiaRenderer *self, DiaFont *font, real height)
-{
-  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-
-  renderer->fontsize = height;
-  if (renderer->font) 
-    dia_font_unref(renderer->font);  
-  renderer->font = dia_font_ref(font);
 }
 
 /* the return value of this function should not be saved anywhere */
@@ -685,17 +673,17 @@ draw_string(DiaRenderer *self,
     break;
   }
   old_locale = setlocale(LC_NUMERIC, "C");
-  tmp = g_strdup_printf("%s; font-size: %g", style, renderer->fontsize);
+  tmp = g_strdup_printf("%s; font-size: %g", style, self->font_height);
   setlocale(LC_NUMERIC, old_locale);
   g_free (style);
   style = tmp;
 
-  if (renderer->font) {
+  if (self->font) {
      tmp = g_strdup_printf("%s; font-family: %s; font-style: %s; "
                            "font-weight: %s",style,
-                           dia_font_get_family(renderer->font),
-                           dia_font_get_slant_string(renderer->font),
-                           dia_font_get_weight_string(renderer->font));
+                           dia_font_get_family(self->font),
+                           dia_font_get_slant_string(self->font),
+                           dia_font_get_weight_string(self->font));
      g_free(style);
      style = tmp;
   }
@@ -755,9 +743,6 @@ static void
 dia_svg_renderer_finalize (GObject *object)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (object);
-
-  if (renderer->font) 
-    dia_font_unref(renderer->font);  
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }

@@ -797,7 +797,6 @@ static void parse_ext_attr (ShapeInfo *info, xmlNodePtr node, GList **list)
 			}
 			/* we got here, then go on */
 			el = g_new(ExtAttribute, 1);
-			printf("ExtAttr %s %s (%d)\n", ptype, pname, ptype);
 			el->name = pname;
 			el->type = ptype;
 			*list = g_list_append(*list, el);

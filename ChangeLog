@@ -1,3 +1,16 @@
+2003-11-29  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* shapes/Circuit/hresistor.shape: First example of extra
+	attributes. 
+
+2003-11-28  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* plug-ins/shape/shape-export.c: 
+	* lib/diasvgrenderer.h: 
+	* lib/diasvgrenderer.c: 
+	* plug-ins/svg/render_svg.c (new_svg_renderer): 
+	Actually store the font size, using DiaRenderer's font fields.
+
 2003-11-27  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* objects/custom/shape_info.[ch]: 

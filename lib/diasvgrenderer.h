@@ -33,9 +33,6 @@ struct _DiaSvgRenderer
   const char *linecap;
   const char *linejoin;
   char *linestyle; /* not const -- must free */
-
-  DiaFont* font;
-  real fontsize;
 };
 
 struct _DiaSvgRendererClass

@@ -145,7 +145,6 @@ new_shape_renderer(DiagramData *data, const char *filename)
   renderer->dash_length = 1.0;
   renderer->dot_length = 0.2;
   renderer->saved_line_style = LINESTYLE_SOLID;
-  renderer->font = NULL;
 
   /* set up the root node */
   renderer->doc = xmlNewDoc("1.0");
