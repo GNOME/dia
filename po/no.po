@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dia VERSION\n"
-"POT-Creation-Date: 1999-03-28 20:56+0200\n"
-"PO-Revision-Date: 1999-03-17 00:29+0100\n"
+"Project-Id-Version: dia 0.40\n"
+"POT-Creation-Date: 1999-03-29 00:37+0200\n"
+"PO-Revision-Date: 1999-03-29 00:38+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@fib.hl.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,17 +14,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: app/app_procs.c:117
-#, fuzzy
 msgid "Export loaded file to postscript and exit"
-msgstr "Eksporter til postskript"
+msgstr "Eksporter lest fil til postskript og avslutt"
 
 #: app/app_procs.c:118
 msgid "OUTPUT"
-msgstr ""
+msgstr "UTSKRIFT"
 
 #: app/app_procs.c:135
 msgid "Can't connect to session manager!\n"
-msgstr ""
+msgstr "Kan ikke koble til sesjonsbehandleren!\n"
 
 #: app/app_procs.c:171 app/app_procs.c:173
 msgid ""
@@ -35,7 +34,7 @@ msgstr ""
 
 #: app/app_procs.c:201
 msgid "need valid input file for --export-file-to-ps\n"
-msgstr ""
+msgstr "trenger gyldig innfil for --export-file-to-ps\n"
 
 #: app/app_procs.c:242
 msgid "Quit, are you sure?"
@@ -156,7 +155,7 @@ msgstr "Ingen eksisterende objekter kan limes inn.\n"
 
 #: app/commands.c:525
 msgid "Copyright (C) 1999"
-msgstr ""
+msgstr "Copyright (C) 1999"
 
 #: app/commands.c:527 app/commands.c:554
 msgid "Please visit http://www.lysator.liu.se/~alla/dia for more info"
@@ -170,96 +169,96 @@ msgstr "Om dia"
 #: app/commands.c:550
 #, c-format
 msgid "Dia v %s by Alexander Larsson"
-msgstr ""
+msgstr "Dia v %s av Alexander Larsson"
 
 #: app/commands.c:558 app/layer_dialog.c:946 lib/message.c:62
 msgid "OK"
 msgstr "OK"
 
-#: app/diagram.c:125
+#: app/diagram.c:126
 msgid "<Display>/Edit/Copy"
 msgstr "<Skjerm>/Rediger/Kopier"
 
-#: app/diagram.c:126
+#: app/diagram.c:127
 msgid "<Display>/Edit/Cut"
 msgstr "<Skjerm>/Rediger/Klipp ut"
 
-#: app/diagram.c:127
+#: app/diagram.c:128
 msgid "<Display>/Edit/Paste"
 msgstr "<Skjerm>/Rediger/Lim inn"
 
-#: app/diagram.c:129
+#: app/diagram.c:130
 msgid "<Display>/Edit/Delete"
 msgstr "<Skjerm>/Rediger/Slett"
 
-#: app/diagram.c:132
+#: app/diagram.c:133
 msgid "<Display>/Objects/Send to Back"
 msgstr "<Skjerm>/Objekter/Send til bakgrunnen"
 
-#: app/diagram.c:133
+#: app/diagram.c:134
 msgid "<Display>/Objects/Bring to Front"
 msgstr "<Skjerm>/Objekter/Hent fram"
 
-#: app/diagram.c:135
+#: app/diagram.c:136
 msgid "<Display>/Objects/Group"
 msgstr "<Skjerm>/Objekter/Grupper"
 
-#: app/diagram.c:136
+#: app/diagram.c:137
 msgid "<Display>/Objects/Ungroup"
 msgstr "<Skjerm>/Objekter/Avgrupper"
 
-#: app/diagram.c:138
+#: app/diagram.c:139
 msgid "<Display>/Objects/Align Horizontal/Left"
 msgstr "<Skjerm>/Objekter/Juster horisontal/Venstre"
 
-#: app/diagram.c:139
+#: app/diagram.c:140
 msgid "<Display>/Objects/Align Horizontal/Center"
 msgstr "<Skjerm>/Objekter/Juster horisontal/Senter"
 
-#: app/diagram.c:140
+#: app/diagram.c:141
 msgid "<Display>/Objects/Align Horizontal/Right"
 msgstr "<Skjerm>/Objekter/Juster horisontal/Høyre"
 
-#: app/diagram.c:141
+#: app/diagram.c:142
 msgid "<Display>/Objects/Align Horizontal/Equal Distance"
 msgstr "<Skjerm>/Objekter/Juster horisontal/Lik avstand"
 
-#: app/diagram.c:142
+#: app/diagram.c:143
 msgid "<Display>/Objects/Align Vertical/Top"
 msgstr "<Skjerm>/Objekter/Juster vertikal/Øverst"
 
-#: app/diagram.c:143
+#: app/diagram.c:144
 msgid "<Display>/Objects/Align Vertical/Center"
 msgstr "<Skjerm>/Objekter/Juster vertikal/Senter"
 
-#: app/diagram.c:144
+#: app/diagram.c:145
 msgid "<Display>/Objects/Align Vertical/Bottom"
 msgstr "<Skjerm>/Objekter/Juster vertikal/Nederst"
 
-#: app/diagram.c:145
+#: app/diagram.c:146
 msgid "<Display>/Objects/Align Vertical/Equal Distance"
 msgstr "<Skjerm>/Objekter/Juster vertikal/Lik avstand"
 
-#: app/diagram.c:474
+#: app/diagram.c:475
 msgid "Trying to ungroup with more or less that one selected object."
-msgstr ""
+msgstr "Prøver å avgruppere med mer eller mindre enn ett valgt objekt."
 
 #: app/disp_callbacks.c:105
 #, c-format
 msgid "Selected list is %s while selected_count is %d\n"
-msgstr ""
+msgstr "Valgt liste er %s mens selected_count er %d\n"
 
 #: app/disp_callbacks.c:106
 msgid "long"
-msgstr ""
+msgstr "lang"
 
 #: app/disp_callbacks.c:106
 msgid "empty"
-msgstr ""
+msgstr "tom"
 
 #: app/disp_callbacks.c:140
 msgid "No object menu"
-msgstr ""
+msgstr "Ingen objektmeny"
 
 #: app/display.c:59 app/display.c:60
 msgid "Zoom"
@@ -342,14 +341,12 @@ msgid "Create Zigzagline"
 msgstr "Lag sikksakk-linje"
 
 #: app/interface.c:93
-#, fuzzy
 msgid "Create Polyline"
-msgstr "Lag linje"
+msgstr "Lag polilinje"
 
 #: app/interface.c:97
-#, fuzzy
 msgid "Create Image"
-msgstr "Lag tekst"
+msgstr "Lag bilde"
 
 #: app/interface.c:544
 msgid ""
@@ -473,9 +470,8 @@ msgid "Create new diagram"
 msgstr "Lag nytt diagram"
 
 #: app/menus.c:51
-#, fuzzy
 msgid "_Export To EPS"
-msgstr "/Fil/_Eksporter til EPS"
+msgstr "_Eksporter til EPS"
 
 #: app/menus.c:86
 msgid "Zoom _In"
@@ -520,9 +516,8 @@ msgid "New _View"
 msgstr "Ny _visning"
 
 #: app/menus.c:98
-#, fuzzy
 msgid "Show _All"
-msgstr "Vis alt"
+msgstr "Vis _alt"
 
 #: app/menus.c:103 lib/widgets.c:176 objects/UML/association.c:883
 msgid "Left"
@@ -611,7 +606,7 @@ msgstr "/Fil/_Åpne"
 
 #: app/menus.c:162
 msgid "/File/_Preferences..."
-msgstr ""
+msgstr "/Fil/_Innstillinger..."
 
 #: app/menus.c:163 app/menus.c:178
 msgid "/File/sep1"
@@ -840,187 +835,181 @@ msgid "/Dialogs/_Layers"
 msgstr "/Dialoger/_Lag"
 
 #: app/properties.c:42
-#, fuzzy
 msgid "Object properties"
-msgstr "_Egenskaper"
+msgstr "Egenskaper for objekt"
 
 #: app/defaults.c:61 app/preferences.c:494 app/properties.c:60
 msgid "Apply"
-msgstr ""
+msgstr "Bruk"
 
 #: app/properties.c:73
 msgid "This object has no properties."
-msgstr ""
+msgstr "Dette objektet har ingen egenskaper."
 
 #: app/defaults.c:43
-#, fuzzy
 msgid "Object defaults"
-msgstr "Objekter"
+msgstr "Standardverdier for objekt" 
 
 #: app/defaults.c:73
 msgid "This object has no defaults."
-msgstr ""
+msgstr "Dette objektet har ingen standardverdier."
 
 #: app/preferences.c:68
 msgid "User Interface"
-msgstr ""
+msgstr "Grensesnitt"
 
 #: app/preferences.c:69
 msgid "View Defaults"
-msgstr ""
+msgstr "Vis standardverdier"
 
 #: app/preferences.c:76
 msgid "Reset tools after create:"
-msgstr ""
+msgstr "Nullstill verktøy etter opprett:"
 
 #: app/preferences.c:78
 msgid "Grid:"
-msgstr ""
+msgstr "Rutenett:"
 
 #: app/preferences.c:79
-#, fuzzy
 msgid "Visible:"
-msgstr "S_ynlig rutenett"
+msgstr "Synlig:"
 
 #: app/preferences.c:80
 msgid "X Size:"
-msgstr ""
+msgstr "X-størrelse:"
 
 #: app/preferences.c:81
 msgid "Y Size:"
-msgstr ""
+msgstr "Y-størrelse:"
 
 #: app/preferences.c:83
-#, fuzzy
 msgid "New window:"
-msgstr "Ny _visning"
+msgstr "Nytt vindu:"
 
 #: app/preferences.c:84
 msgid "Width:"
-msgstr ""
+msgstr "Bredde:"
 
 #: app/preferences.c:85
-#, fuzzy
 msgid "Height:"
-msgstr "Høyre"
+msgstr "Høyde:"
 
 #: app/preferences.c:86
-#, fuzzy
 msgid "Magnify:"
-msgstr "Forstørr"
+msgstr "Forstørr:"
 
 #: app/preferences.c:476
 msgid "Preferences"
-msgstr ""
+msgstr "Innstillinger"
 
 #: lib/diagramdata.c:39
 msgid "Background"
-msgstr ""
+msgstr "Bakgrunn"
 
-#: lib/font.c:343
+#: lib/font.c:344
 #, c-format
 msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
 msgstr ""
+"Advarsel, ingen X skrifttype for %s funnet, \n"
+"bruker %s i stedet.\n"
 
-#: lib/font.c:396
+#: lib/font.c:398
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
-msgstr ""
+msgstr "Skrifttype %s ikke funnet, bruker Courier i stedet.\n"
 
 #: lib/message.c:95
 msgid "Notice"
-msgstr ""
+msgstr "Melding"
 
 #: lib/message.c:106 lib/message.c:118
 msgid "Warning"
-msgstr ""
+msgstr "Advarsel"
 
 #: lib/widgets.c:269
 msgid "Solid"
-msgstr ""
+msgstr "Helfylt"
 
 #: lib/widgets.c:275
 msgid "Dashed"
-msgstr ""
+msgstr "Streket"
 
 #: lib/widgets.c:281
 msgid "Dash-Dot"
-msgstr ""
+msgstr "Strek-prikk"
 
 #: lib/widgets.c:287
 msgid "Dash-Dot-Dot"
-msgstr ""
+msgstr "Strek-prikk-prikk"
 
 #: lib/widgets.c:293
 msgid "Dotted"
-msgstr ""
+msgstr "Prikket"
 
 #: lib/widgets.c:595 objects/UML/association.c:869
-#, fuzzy
 msgid "None"
-msgstr "ingen"
+msgstr "Ingen"
 
 #: lib/widgets.c:601
 msgid "Lines"
-msgstr ""
+msgstr "Linjer"
 
 #: lib/widgets.c:607
 msgid "Hollow Triangle"
-msgstr ""
+msgstr "Hult triangel"
 
 #: lib/widgets.c:613
 msgid "Filled Triangle"
-msgstr ""
+msgstr "Fylt triangel"
 
 #: lib/widgets.c:619
 msgid "Hollow Diamond"
-msgstr ""
+msgstr "Hul diamant"
 
 #: lib/widgets.c:625
 msgid "Filled Diamond"
-msgstr ""
+msgstr "Fylt diamant"
 
 #: lib/widgets.c:631
 msgid "Half Head"
-msgstr ""
+msgstr "Halvhodet"
 
 #: lib/widgets.c:647
 msgid "Length: "
-msgstr ""
+msgstr "Lengde: "
 
 #: lib/widgets.c:660
 msgid "Width: "
-msgstr ""
+msgstr "Bredde: "
 
 #: lib/widgets.c:776
 msgid "Select image file"
-msgstr ""
+msgstr "Velg bildefil"
 
 #: lib/widgets.c:806
 msgid "Browse"
-msgstr ""
+msgstr "Bla gjennom"
 
 #. type
 #: objects/UML/actor.c:91
-#, fuzzy
 msgid "Create an actor"
-msgstr "Lag nytt diagram"
+msgstr "Lag en skuespiller"
 
 #: objects/UML/actor.c:293
 msgid "Actor"
-msgstr ""
+msgstr "Skuespiller"
 
 #. type
 #: objects/UML/association.c:142
 msgid "Association, two classes are associated."
-msgstr ""
+msgstr "Assossiasjon, to klasser assossieres."
 
 #. type
 #: objects/UML/association.c:152
 msgid "Aggregation, one class is part of another."
-msgstr ""
+msgstr "Aggregasjon, en klasse er del av en annen."
 
 #: objects/ER/attribute.c:188 objects/ER/entity.c:188
 #: objects/ER/relationship.c:197 objects/UML/association.c:847
@@ -1029,499 +1018,476 @@ msgstr ""
 #: objects/UML/dependency.c:512 objects/UML/generalization.c:489
 #: objects/UML/large_package.c:520 objects/UML/realizes.c:485
 msgid "Name:"
-msgstr ""
+msgstr "Navn:"
 
 #: objects/UML/association.c:859
 msgid "Direction:"
-msgstr ""
+msgstr "Retning:"
 
 #: objects/UML/association.c:907 objects/UML/association.c:915
 msgid "Side A"
-msgstr ""
+msgstr "Side A"
 
 #: objects/UML/association.c:909 objects/UML/association.c:917
 msgid "Side B"
-msgstr ""
+msgstr "Side B"
 
 #: objects/UML/association.c:923
 msgid "Role:"
-msgstr ""
+msgstr "Rolle:"
 
 #: objects/UML/association.c:935
 msgid "Multiplicity:"
-msgstr ""
+msgstr "Multiplisietet:"
 
 #. Show arrow:
 #: objects/UML/association.c:946
 msgid "Show arrow"
-msgstr ""
+msgstr "Vis pil"
 
 #. Aggregate
 #: objects/UML/association.c:952
 msgid "Aggregate"
-msgstr ""
+msgstr "Aggreger"
 
 #. Composition
 #: objects/UML/association.c:960
 msgid "Composition"
-msgstr ""
+msgstr "Komposisjon"
 
 #. type
 #: objects/UML/class.c:75
-#, fuzzy
 msgid "Create a class"
-msgstr "Lag bue"
+msgstr "Lag en klasse"
 
 #. type
 #: objects/UML/class.c:84
 msgid "Create a template class"
-msgstr ""
+msgstr "Lag en malklasse"
 
 #. Class page:
 #: objects/UML/class.c:628 objects/UML/class_dialog.c:90
-#, fuzzy
 msgid "Class"
-msgstr "Lukk"
+msgstr "Klasse"
 
 #: objects/UML/class_dialog.c:96
-#, fuzzy
 msgid "Class name:"
-msgstr "Navn på lag:"
+msgstr "Navn på klasse:"
 
 #: objects/UML/class_dialog.c:107 objects/UML/dependency.c:524
 #: objects/UML/generalization.c:501 objects/UML/large_package.c:532
 #: objects/UML/object.c:689 objects/UML/realizes.c:497
 msgid "Stereotype:"
-msgstr ""
+msgstr "Stereotype:"
 
 #: objects/UML/class_dialog.c:118
 msgid "Abstract"
-msgstr ""
+msgstr "Abstrakt"
 
 #: objects/UML/class_dialog.c:126
 msgid "Attributes visible"
-msgstr ""
+msgstr "Synlige attributter"
 
 #: objects/UML/class_dialog.c:130
-#, fuzzy
 msgid "Suppress Attributes"
-msgstr "Rediger lagets attributter"
+msgstr "Skjul attributter"
 
 #: objects/UML/class_dialog.c:138
 msgid "Operations visible"
-msgstr ""
+msgstr "Synlige operasjoner"
 
 #: objects/UML/class_dialog.c:142
-#, fuzzy
 msgid "Operations Attributes"
-msgstr "Rediger lagets attributter"
+msgstr "Attributter for operasjoner"
 
 #. Attributes page:
 #: objects/UML/class_dialog.c:550
-#, fuzzy
 msgid "Attributes"
-msgstr "Rediger lagets attributter"
+msgstr "Attributter"
 
 #: objects/UML/class_dialog.c:578 objects/UML/class_dialog.c:1442
 #: objects/UML/class_dialog.c:1602 objects/UML/class_dialog.c:2063
 msgid "New"
-msgstr ""
+msgstr "Ny"
 
 #: objects/UML/class_dialog.c:584 objects/UML/class_dialog.c:1448
 #: objects/UML/class_dialog.c:1609 objects/UML/class_dialog.c:2069
-#, fuzzy
 msgid "Delete"
-msgstr "Slett lag"
+msgstr "Slett"
 
 #: objects/UML/class_dialog.c:590 objects/UML/class_dialog.c:1454
 #: objects/UML/class_dialog.c:1616 objects/UML/class_dialog.c:2075
 msgid "Move up"
-msgstr ""
+msgstr "Flytt opp"
 
 #: objects/UML/class_dialog.c:596 objects/UML/class_dialog.c:1460
 #: objects/UML/class_dialog.c:1623 objects/UML/class_dialog.c:2081
 msgid "Move down"
-msgstr ""
+msgstr "Flytt ned"
 
 #: objects/UML/class_dialog.c:607
 msgid "Attribute data"
-msgstr ""
+msgstr "Attributtdata"
 
 #: objects/UML/class_dialog.c:627 objects/UML/class_dialog.c:1494
 #: objects/UML/class_dialog.c:1656 objects/UML/class_dialog.c:2112
 msgid "Type:"
-msgstr ""
+msgstr "Type:"
 
 #: objects/UML/class_dialog.c:639
 msgid "Value:"
-msgstr ""
+msgstr "Verdi:"
 
 #: objects/UML/class_dialog.c:651 objects/UML/class_dialog.c:1506
 msgid "Visibility:"
-msgstr ""
+msgstr "Synlighet:"
 
 #: objects/UML/class_dialog.c:660 objects/UML/class_dialog.c:1515
 msgid "Public"
-msgstr ""
+msgstr "Offentlig"
 
 #: objects/UML/class_dialog.c:668 objects/UML/class_dialog.c:1523
 msgid "Private"
-msgstr ""
+msgstr "Privat"
 
 #: objects/UML/class_dialog.c:676 objects/UML/class_dialog.c:1531
-#, fuzzy
 msgid "Protected"
-msgstr "_Egenskaper"
+msgstr "Beskyttet"
 
 #: objects/UML/class_dialog.c:684 objects/UML/class_dialog.c:1539
 msgid "Implementation"
-msgstr ""
+msgstr "Implementasjon"
 
 #: objects/UML/class_dialog.c:700 objects/UML/class_dialog.c:1555
 msgid "Class scope"
-msgstr ""
+msgstr "Virkeområde for klasse"
 
 #. Operations page:
 #: objects/UML/class_dialog.c:1414
 msgid "Operations"
-msgstr ""
+msgstr "Operasjoner"
 
 #: objects/UML/class_dialog.c:1472
-#, fuzzy
 msgid "Operation data"
-msgstr "Åpne diagram"
+msgstr "Operasjonsdata"
 
 #: objects/UML/class_dialog.c:1561
 msgid "abstract"
-msgstr ""
+msgstr "abstrakt"
 
 #: objects/UML/class_dialog.c:1573
-#, fuzzy
 msgid "Parameters:"
-msgstr "Diagrammer:"
+msgstr "Parametre:"
 
 #: objects/UML/class_dialog.c:1635
 msgid "Parameter data"
-msgstr ""
+msgstr "Parameterdata"
 
 #: objects/UML/class_dialog.c:1668
 msgid "Def. value:"
-msgstr ""
+msgstr "Std. verdi:"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2029
 msgid "Templates"
-msgstr ""
+msgstr "Maler"
 
 #: objects/UML/class_dialog.c:2035
 msgid "Template class"
-msgstr ""
+msgstr "Malklasse"
 
 #: objects/UML/class_dialog.c:2092
 msgid "Formal parameter data"
-msgstr ""
+msgstr "Formelle parameterdata"
 
 #. type
 #: objects/UML/constraint.c:106
 msgid "Constraint, place a constraint on something."
-msgstr ""
+msgstr "Begrensning, sett en begrensning på noe."
 
 #: objects/UML/constraint.c:467
 msgid "Constraint:"
-msgstr ""
+msgstr "Begrensning:"
 
 #. type
 #: objects/UML/dependency.c:111
-#, fuzzy
 msgid "Create a dependency"
-msgstr "Lag linje"
+msgstr "Lag avhengighet"
 
 #: objects/UML/dependency.c:536
 msgid "Show arrow:"
-msgstr ""
+msgstr "Vis pil:"
 
 #. type
 #: objects/UML/generalization.c:107
 msgid "Generalization, class inheritance."
-msgstr ""
+msgstr "Generalisering, klassearv."
 
 #. type
 #: objects/UML/implements.c:108
 msgid "Implements, class implements a specific interface."
-msgstr ""
+msgstr "Implementerer, klassen implementerer et spesielt grensesnitt."
 
 #: objects/UML/implements.c:522
 msgid "Interface:"
-msgstr ""
+msgstr "Grensesnitt:"
 
 #. type
 #: objects/UML/large_package.c:107
 msgid "Create a (large) package"
-msgstr ""
+msgstr "Lag en (stor) pakke"
 
 #. type
 #: objects/UML/note.c:89
-#, fuzzy
 msgid "Create a note"
-msgstr "Lag linje"
+msgstr "Lag et notat"
 
 #. type
 #: objects/UML/realizes.c:107
 msgid "Realizes, implements a specific interface."
-msgstr ""
+msgstr "Realiserer, implementerer et spesisfikt grensesnitt."
 
 #. type
 #: objects/UML/small_package.c:91
 msgid "Create a (small) package"
-msgstr ""
+msgstr "Lag en (liten) pakke"
 
-#: objects/UML/uml.c:92
+#: objects/UML/uml.c:94
 msgid "UML"
-msgstr ""
+msgstr "UML"
 
-#: objects/UML/uml.c:93
+#: objects/UML/uml.c:95
 msgid "Editor for UML Static Structure Diagrams."
-msgstr ""
+msgstr "Editor for UML Statiske Struktur Diagrammer."
 
 #. type
 #: objects/UML/usecase.c:89
 msgid "Create a use case"
-msgstr ""
+msgstr "Lag et brukerkasus"
 
 #. type
 #: objects/UML/object.c:118
-#, fuzzy
 msgid "Create an object"
-msgstr "Lag tekst"
+msgstr "Lag et objekt"
 
 #: objects/UML/object.c:677
 msgid "Explicit state:"
-msgstr ""
+msgstr "Eksplisitt tilstand:"
 
 #: objects/UML/object.c:699
-#, fuzzy
 msgid "Attributes:"
-msgstr "Rediger lagets attributter"
+msgstr "Attributter:"
 
 #: objects/UML/object.c:709
-#, fuzzy
 msgid "Show attributes"
-msgstr "Rediger lagets attributter"
+msgstr "Vis attributter"
 
 #: objects/UML/object.c:713
 msgid "Active object"
-msgstr ""
+msgstr "Aktiver objekt"
 
 #: objects/UML/object.c:718
-#, fuzzy
 msgid "multiple instance"
-msgstr "Lik avstand"
+msgstr "flere hendelser"
 
 #. type
 #: objects/UML/lifeline.c:112
-#, fuzzy
 msgid "Create a lifeline"
-msgstr "Lag linje"
+msgstr "Lag en livslinje"
 
 #: objects/UML/lifeline.c:575
 msgid "Show focus of control:"
-msgstr ""
+msgstr "Vis kontrollfokus:"
 
 #: objects/UML/lifeline.c:580
 msgid "Show destruction mark:"
-msgstr ""
+msgstr "Vis ødeleggelsesmerke:"
 
 #. type
 #: objects/UML/message.c:128
-#, fuzzy
 msgid "Create a message"
-msgstr "Lag sikksakk-linje"
+msgstr "Lag en melding"
 
 #: objects/UML/message.c:571
 msgid "Message:"
-msgstr ""
+msgstr "Melding:"
 
 #: objects/UML/message.c:585
 msgid "Message type:"
-msgstr ""
+msgstr "Meldingstype:"
 
 #.
 #: objects/UML/message.c:590
-#, fuzzy
 msgid "Call"
-msgstr "Avbryt"
+msgstr "Kall"
 
 #: objects/UML/message.c:595
 msgid "Return"
-msgstr ""
+msgstr "Retur"
 
 #: objects/UML/message.c:600
 msgid "Asynchronous"
-msgstr ""
+msgstr "Asynkron"
 
 #: objects/UML/message.c:605
-#, fuzzy
 msgid "Create"
-msgstr "Lag boks"
+msgstr "Lag"
 
 #: objects/UML/message.c:610
 msgid "Destroy"
-msgstr ""
+msgstr "Ødelegg"
 
 #: objects/UML/message.c:615
-#, fuzzy
 msgid "Simple"
-msgstr "Fil"
+msgstr "Enkel"
 
 #: objects/UML/message.c:620
 msgid "Recursive"
-msgstr ""
+msgstr "Rekursiv"
 
 #. type
 #: objects/UML/component.c:91
-#, fuzzy
 msgid "Create a component"
-msgstr "Lag tekst"
+msgstr "Lag en komponent"
 
 #. type
 #: objects/ER/attribute.c:121 objects/ER/attribute.c:453
-#, fuzzy
 msgid "Attribute"
-msgstr "Rediger lagets attributter"
+msgstr "Attributt"
 
 #: objects/ER/attribute.c:196
 msgid "Key"
-msgstr ""
+msgstr "Nøkkel"
 
 #: objects/ER/attribute.c:202
 msgid "Weak key"
-msgstr ""
+msgstr "Svak nøkkel"
 
 #: objects/ER/attribute.c:208
 msgid "Derived"
-msgstr ""
+msgstr "Utledet"
 
 #: objects/ER/attribute.c:214
 msgid "Multivalue"
-msgstr ""
+msgstr "Multiverdi"
 
 #: objects/ER/attribute.c:220 objects/ER/entity.c:202
 #: objects/ER/relationship.c:233 objects/standard/box.c:183
 #: objects/standard/ellipse.c:174 objects/standard/image.c:240
 msgid "Border width:"
-msgstr ""
+msgstr "Grensebredde:"
 
 #: objects/ER/attribute.c:231 objects/ER/entity.c:213
 #: objects/ER/relationship.c:244 objects/standard/box.c:198
 #: objects/standard/ellipse.c:189 objects/standard/image.c:255
 msgid "Foreground color:"
-msgstr ""
+msgstr "Forgrunnsfarge:"
 
 #: objects/ER/attribute.c:239 objects/ER/entity.c:221
 #: objects/ER/relationship.c:252 objects/standard/box.c:209
 #: objects/standard/ellipse.c:200
 msgid "Background color:"
-msgstr ""
+msgstr "Bakgrunnsfarge:"
 
 #. type
 #: objects/ER/entity.c:115 objects/ER/entity.c:415
 msgid "Entity"
-msgstr ""
+msgstr "Enhet"
 
 #. type
 #: objects/ER/entity.c:124
 msgid "Weak Entity"
-msgstr ""
+msgstr "Svak enhet"
 
 #: objects/ER/entity.c:196
 msgid "Weak"
-msgstr ""
+msgstr "Svak"
 
 #: objects/ER/er.c:52
 msgid "ER"
-msgstr ""
+msgstr "ER"
 
 #: objects/ER/er.c:53
 msgid "Editor for Entity Relations Diagrams."
-msgstr ""
+msgstr "Editor for Enhets Relasjons Diagrammer."
 
 #. type
 #: objects/ER/participation.c:97
 msgid "Create a participation"
-msgstr ""
+msgstr "Lag en deltakelse"
 
 #: objects/ER/participation.c:393
 msgid "Total:"
-msgstr ""
+msgstr "Total:"
 
 #. type
 #: objects/ER/relationship.c:123 objects/ER/relationship.c:507
 msgid "Relationship"
-msgstr ""
+msgstr "Forhold"
 
 #: objects/ER/relationship.c:205
 msgid "Left Cardinality:"
-msgstr ""
+msgstr "Venstrekardinalitet:"
 
 #: objects/ER/relationship.c:213
 msgid "Right Cardinality:"
-msgstr ""
+msgstr "Høyrekardinalitet:"
 
 #: objects/ER/relationship.c:221
 msgid "Rotate"
-msgstr ""
+msgstr "Roter"
 
 #: objects/ER/relationship.c:227
 msgid "Identifying"
-msgstr ""
+msgstr "Identifiserer"
 
 #. type
 #: objects/network/bus.c:97
 msgid "Ethernet bus."
-msgstr ""
+msgstr "Ethernet buss."
 
 #: objects/network/bus.c:190
 msgid "Number of handles:"
-msgstr ""
+msgstr "Antall håndtak:"
 
 #. type
 #: objects/network/computer.c:55
 msgid "A Computer with a tower case."
-msgstr ""
+msgstr "En datamaskin med tårnkasse."
 
 #. type
 #: objects/network/disc.c:55
 msgid "The symbol for storage. Disc or database."
-msgstr ""
+msgstr "Symbolet for lagring. Disk eller database."
 
 #. type
 #: objects/network/monitor.c:56
 msgid "A monitor, with a stand"
-msgstr ""
+msgstr "En monitor, med stativ"
 
 #: objects/network/network.c:54
 msgid "Network"
-msgstr ""
+msgstr "Nettverk"
 
 #: objects/network/network.c:55
 msgid "Objects to design network diagrams with"
-msgstr ""
+msgstr "Objekter til å utforme nettverksdiagrammer med"
 
 #. type
 #: objects/network/printer.c:56
 msgid "A simple Printer"
-msgstr ""
+msgstr "En enkel skriver"
 
 #: objects/standard/arc.c:182 objects/standard/line.c:177
 #: objects/standard/polyline.c:184 objects/standard/zigzagline.c:183
 msgid "Line width:"
-msgstr ""
+msgstr "Linjebredde:"
 
 #: objects/standard/arc.c:196 objects/standard/line.c:191
 #: objects/standard/polyline.c:198 objects/standard/textobj.c:220
 #: objects/standard/zigzagline.c:197
 msgid "Color:"
-msgstr ""
+msgstr "Farge:"
 
 #: objects/standard/arc.c:207 objects/standard/arc.c:304
 #: objects/standard/box.c:228 objects/standard/box.c:318
@@ -1531,90 +1497,83 @@ msgstr ""
 #: objects/standard/polyline.c:209 objects/standard/polyline.c:307
 #: objects/standard/zigzagline.c:208 objects/standard/zigzagline.c:305
 msgid "Line style:"
-msgstr ""
+msgstr "Linjestil:"
 
 #: objects/standard/arc.c:218 objects/standard/arc.c:315
 #: objects/standard/line.c:213 objects/standard/line.c:308
 #: objects/standard/polyline.c:220 objects/standard/polyline.c:318
 #: objects/standard/zigzagline.c:222 objects/standard/zigzagline.c:316
 msgid "Start arrow:"
-msgstr ""
+msgstr "Startpil:"
 
 #: objects/standard/arc.c:232 objects/standard/arc.c:329
 #: objects/standard/line.c:227 objects/standard/line.c:322
 #: objects/standard/polyline.c:234 objects/standard/polyline.c:332
 #: objects/standard/zigzagline.c:236 objects/standard/zigzagline.c:330
 msgid "End arrow:"
-msgstr ""
+msgstr "Sluttpil:"
 
 #: objects/standard/box.c:220 objects/standard/box.c:310
 msgid "Draw background"
-msgstr ""
+msgstr "Tegn bakgrunn"
 
 #: objects/standard/box.c:239 objects/standard/box.c:329
 msgid "Corner rounding:"
-msgstr ""
+msgstr "Avrunding av hjørner:"
 
 #: objects/standard/textobj.c:184 objects/standard/textobj.c:278
 msgid "Alignment:"
-msgstr ""
+msgstr "Justering:"
 
 #: objects/standard/textobj.c:195 objects/standard/textobj.c:289
 msgid "Font:"
-msgstr ""
+msgstr "Skrifttype:"
 
 #: objects/standard/textobj.c:206 objects/standard/textobj.c:300
 msgid "Fontsize:"
-msgstr ""
+msgstr "Størrelse på skrifttype:"
 
 #: objects/standard/image.c:213 objects/standard/image.c:334
 msgid "Image file:"
-msgstr ""
+msgstr "Bildefil:"
 
 #: objects/standard/image.c:224
 msgid "Keep aspect ratio"
-msgstr ""
+msgstr "Behold høyde/bredde forhold"
 
 #: objects/standard/image.c:232
 msgid "Show border"
-msgstr ""
+msgstr "Vis kant"
 
 #: objects/standard/image.c:345
 msgid "Keep aspect ratio:"
-msgstr ""
+msgstr "Behold høyde/bredde forhold:"
 
 #: objects/standard/image.c:353
 msgid "Show border:"
-msgstr ""
+msgstr "Vis kant:"
 
 #. Found file in same dir as diagram.
-#: objects/standard/image.c:859 objects/standard/image.c:870
+#: objects/standard/image.c:858 objects/standard/image.c:869
 #, c-format
 msgid ""
 "The image file '%s' was not found in that directory.\n"
 "Using the file '%s' instead\n"
 msgstr ""
+"Bildefilen '%s' ble ikke funnet i den katalogen.\n"
+"Bruker filen '%s' i stedet\n"
 
 #. Didn't find file in current dir.
-#: objects/standard/image.c:876 objects/standard/image.c:902
+#: objects/standard/image.c:875 objects/standard/image.c:901
 #, c-format
 msgid "The image file '%s' was not found.\n"
-msgstr ""
+msgstr "Bildefilen '%s' ble ikke funnet.\n"
 
 #: objects/standard/polyline.c:665
 msgid "Add Corner"
-msgstr ""
+msgstr "Legg til hjørne"
 
 #: objects/standard/polyline.c:666
-#, fuzzy
 msgid "Delete Corner"
-msgstr "Slett lag"
+msgstr "Slett hjørne"
 
-#~ msgid "Unable to set sensitivity for menu which doesn't exist: %s"
-#~ msgstr "Kan ikke sette følsomhet for meny som ikke eksisterer: %s"
-
-#~ msgid "Unable to set state for menu which doesn't exist: %s"
-#~ msgstr "Kan ikke sette tilstand for meny som ikke eksisterer: %s"
-
-#~ msgid "ERROR! Renderer was NULL!!\n"
-#~ msgstr "FEIL! Rendrer var NULL!!\n"
