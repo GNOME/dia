@@ -55,6 +55,7 @@ AC_MSG_RESULT($GNOME)
 GNOME_CFLAGS=""
 GNOME_LIBS=""
 BONOBO_LIBS=""
+bonobo_msg=no
 if test "$GNOME" = "yes"; then
   AC_DEFINE(GNOME)
   components="gnomeui"
@@ -64,36 +65,39 @@ if test "$GNOME" = "yes"; then
     components="$components print"
   fi
   if test "$enable_bonobo" = "yes"; then
-    hcomponents="$hcomponents bonobo"
-    BONOBO_LIBS=`gnome-config bonobo $components --libs`
 
-    AC_MSG_CHECKING(if bonobo uses oaf)
-    using_oaf="no"
-    if ( gnome-config --libs bonobo | grep oaf ) > /dev/null 2>&1 ; then
-      using_oaf="yes"
-      AC_DEFINE(USE_OAF)
-    fi
-    AC_MSG_RESULT($using_oaf)
-    AM_CONDITIONAL(USING_OAF, test x"$using_oaf" = xyes)
+    AC_MSG_CHECKING(for Bonobo >= 0.31)
 
-    AC_MSG_CHECKING(if bonobo uses bonobox)
-    using_bonobox="no"
-    if ( gnome-config --libs bonobox ) > /dev/null 2>&1 ; then
-      using_bonobox="yes"
-      AC_DEFINE(USE_BONOBOX)
-      BONOBO_LIBS=`gnome-config bonobo bonobox $components --libs`
+    if gnome-config --libs bonobox > /dev/null 2>&1; then
+      vers=`gnome-config --modversion bonobo | sed -e "s/bonobo-//" | \
+  	awk 'BEGIN { FS = "."; } { printf "%d", $1 * 1000 + $2;}'`
+      if test "$vers" -ge 31; then
+        bonobo_ok=true
+      else
+        bonobo_ok=false
+      fi
+    else
+      bonobo_ok=false
     fi
-    AC_MSG_RESULT($using_bonobox)
-    AM_CONDITIONAL(USING_BONOBOX, test x"$using_bonobox" = xyes)
+	
+    if $bonobo_ok; then
+      AC_MSG_RESULT([found ("$vers")])
+      have_bonobo=true
+      bonobo_msg=yes
+    else
+      AC_MSG_RESULT([not found])
+    fi
+
     hcomponents="$hcomponents bonobox"
+    BONOBO_LIBS=`gnome-config bonobox $components --libs`
   fi
   GNOME_CFLAGS=`gnome-config $hcomponents $components --cflags`
   GNOME_LIBS=`gnome-config $components --libs`
 fi
 AM_CONDITIONAL(HAVE_GNOME_PRINT,
 	test "$GNOME" = "yes" && test "$enable_gnome_print" = "yes")
-AM_CONDITIONAL(HAVE_BONOBO, 
-	test "$GNOME" = "yes" && test "$enable_bonobo" = "yes")
+AM_CONDITIONAL(HAVE_BONOBO, $have_bonobo)
+
 AC_SUBST(GNOME_CFLAGS)
 AC_SUBST(GNOME_LIBS)
 AC_SUBST(BONOBO_LIBS)
@@ -291,7 +295,7 @@ Configuration:
 	Libart (AA rendering, png export):	${have_libart}
 
 	Gnome support:				${GNOME}
-	Build bonobo component (not supported):	${enable_bonobo}
+	Build bonobo component (not supported):	${bonobo_msg}
         Gnome-print support (not recommended):  ${enable_gnome_print}
 
 Now type make to build dia."

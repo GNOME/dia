@@ -1,3 +1,27 @@
+2001-01-06  Michael Meeks  <michael@helixcode.com>
+
+	* app/dia_embedd.c (main): add running context support.
+	(dia_embeddable_destroy): remove old running object counting.
+	(embeddable_factory): ditto.
+	(view_factory): comment out menu path hiding.
+
+	* lib/sheet.c (load_register_sheet): use free to free
+	stuff from libxml not g_free.
+
+	* acconfig.h: kill cover for USE_BONOBOX and USE_OAF
+
+	* configure.in: remove USE_OAF checks, check for a precice
+	Bonobo version >= 0.31, revamp bits.
+
+	* app/dia_embedd.c (init_server_factory): upd.
+	(init_dia_factory): remove OAF conditionals, everything uses
+	oaf now.
+
+	* app/GNOME_Dia.oafinfo: rename OAFIIDs
+
+	* app/Makefile.am: remove ancient gnorba code.
+	rename dia.oafinfo to GNOME_Dia.oafinfo
+
 2001-01-07  Hans Breuer <Hans@Breuer.Org>
 
 	* config.h.win32

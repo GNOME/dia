@@ -240,7 +240,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
       tmp = xmlGetProp(node, "xml:lang");
       if (!tmp) tmp = xmlGetProp(node, "lang");
       score = intl_score_locale(tmp);
-      g_free(tmp);
+      if (tmp) free(tmp);
 
       if (descr_score < 0 || score < descr_score) {
         descr_score = score;
@@ -348,7 +348,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename)
     set_line_break = FALSE;
 
     if ((otype = object_get_type(tmp)) == NULL) {
-      g_free(sheet_obj->description);
+      if (sheet_obj->description) free (sheet_obj->description);
       g_free(sheet_obj->pixmap_file);
       g_free(sheet_obj->object_type);
       g_free(sheet_obj);

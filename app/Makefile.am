@@ -29,18 +29,14 @@ run_dia_sh_SOURCES =
 
 if HAVE_BONOBO
 dia_embedd = dia-embedd
-dia_gnorba = dia.gnorba
-dia_oafinfo = dia.oafinfo
+dia_oafinfo = GNOME_Dia.oafinfo
 else
 dia_embedd =
-dia_gnorba =
 dia_oafinfo =
 endif
 
 bin_PROGRAMS = dia $(dia_embedd)
 
-gnorbadir = $(sysconfdir)/CORBA/servers
-gnorba_DATA = $(dia_gnorba)
 oafinfodir = $(datadir)/oaf
 oafinfo_DATA = $(dia_oafinfo)
 
@@ -162,8 +158,7 @@ dia_embedd_LDADD = ../lib/libdia.a \
 LDFLAGS = -export-dynamic
 
 EXTRA_DIST = \
-	dia.gnorba \
-	dia.oafinfo \
+	GNOME_Dia.oafinfo \
 	render_gnomeprint.c \
 	render_gnomeprint.h \
 	paginate_gnomeprint.c \

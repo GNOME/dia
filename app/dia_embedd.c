@@ -22,17 +22,13 @@
 
 #include <gnome.h>
 #include <bonobo.h>
-#ifdef USE_OAF
-#  include <liboaf/liboaf.h>
-#else
-#  include <libgnorba/gnorba.h>
-#endif
-
+#include <liboaf/liboaf.h>
 
 #include "display.h"
 #include "menus.h"
 #include "disp_callbacks.h"
 #include "app_procs.h"
+#include "interface.h"
 
 typedef struct _EmbeddedDia EmbeddedDia;
 typedef struct _EmbeddedView EmbeddedView;
@@ -50,8 +46,6 @@ struct _EmbeddedView {
 };
 
 static BonoboGenericFactory *factory = NULL;
-static int running_objects = 0;
-
 
 static void
 dia_view_activate(BonoboView *view, gboolean activate,
@@ -111,14 +105,6 @@ dia_embeddable_destroy(BonoboEmbeddable *embeddable,
 
   diagram_destroy(embedded_dia->diagram);
   g_free(embedded_dia); 
-
-  running_objects--;
-  if (running_objects > 0)
-    return;
-  
-  /* When last object has gone unref the factory & quit. */
-  bonobo_object_unref(BONOBO_OBJECT(factory));
-  gtk_main_quit();
 }
 
 static void
@@ -142,7 +128,6 @@ view_factory (BonoboEmbeddable *embeddable,
 {
   EmbeddedView *view_data;
   BonoboView  *view;
-  GtkWidget *menuitem;
   
   /*
    * Create the private view data.
@@ -178,6 +163,7 @@ view_factory (BonoboEmbeddable *embeddable,
 		      GTK_SIGNAL_FUNC (dia_view_destroy), view_data);
 
 
+#if 0
   menuitem = menus_get_item_from_path("<Display>/File/New diagram");
   gtk_widget_hide(menuitem);
   menuitem = menus_get_item_from_path("<Display>/File/Open...");
@@ -190,6 +176,7 @@ view_factory (BonoboEmbeddable *embeddable,
   gtk_widget_hide(menuitem);
   menuitem = menus_get_item_from_path("<Display>/View/New View");
   gtk_widget_hide(menuitem);
+#endif
   
   return view;
 }
@@ -215,7 +202,6 @@ embeddable_factory (BonoboGenericFactory *this,
     return NULL;
   }
 	
-  running_objects++;
   embedded_dia->embeddable = embeddable;
 
   gtk_signal_connect(GTK_OBJECT(embeddable), "system_exception",
@@ -232,35 +218,19 @@ embeddable_factory (BonoboGenericFactory *this,
 static BonoboGenericFactory *
 init_dia_factory (void)
 {
-#ifdef USE_OAF
-  return bonobo_generic_factory_new ("OAFIID:dia-diagram-factory:31cb6c0f-e1f5-4c54-8824-8f49fd7e50e7",
+  return bonobo_generic_factory_new ("OAFIID:GNOME_Dia_DiagramFactory",
 				     embeddable_factory, NULL);
-#else
-  return bonobo_generic_factory_new ("embeddable-factory:dia-diagram",
-				     embeddable_factory, NULL);
-#endif
 }
 
 static void
 init_server_factory (int argc, char **argv)
 {
-  CORBA_Environment ev;
   CORBA_ORB orb;
   
-#ifdef USE_OAF  
-  gnome_init_with_popt_table("bonobo-dia-diagram", VERSION,
-			     argc, argv, oaf_popt_options, 0, NULL);
-  orb = oaf_init(argc, argv);
-#else
-  CORBA_exception_init (&ev);
+  gnome_init_with_popt_table ("dia-embedd", VERSION,
+			      argc, argv, oaf_popt_options, 0, NULL);
 
-  gnome_CORBA_init_with_popt_table ("bonobo-dia-diagram", VERSION,
-				    &argc, argv, NULL, 0, NULL, GNORBA_INIT_SERVER_FUNC, &ev);
-  
-  CORBA_exception_free (&ev);
-  
-  orb = gnome_CORBA_ORB ();
-#endif
+  orb = oaf_init (argc, argv);
 
   if (bonobo_init (orb, NULL, NULL) == FALSE)
     g_error (_("Could not initialize Bonobo!"));
@@ -270,6 +240,14 @@ int
 app_is_embedded(void)
 {
   return 1;
+}
+
+static void
+last_unref_cb (BonoboObject *bonobo_object,
+	       gpointer      dummy)
+{
+  bonobo_object_unref (BONOBO_OBJECT (factory));
+  gtk_main_quit ();
 }
 
 int
@@ -300,6 +278,11 @@ main (int argc, char **argv)
   gtk_widget_hide(menuitem);
 #endif
   
+
+  gtk_signal_connect (GTK_OBJECT (bonobo_context_running_get ()),
+		      "last_unref",
+		      GTK_SIGNAL_FUNC (last_unref_cb),
+		      NULL);
   /*
    * Start processing.
    */
