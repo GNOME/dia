@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-04 14:17+0200\n"
-"PO-Revision-Date: 2004-07-04 16:41+0200\n"
+"POT-Creation-Date: 2004-07-05 03:15+0200\n"
+"PO-Revision-Date: 2004-07-05 12:06+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -162,12 +162,11 @@ msgstr ""
 msgid "Objects and filters internal to dia"
 msgstr "Objekty a filtry interní pro program Dia"
 
-#. poptSetOtherOptionHelp(poptCtx, g_locale_from_utf8(_("[OPTION...] [FILE...]"), -1, NULL, NULL, NULL));
-#: app/app_procs.c:774 app/diaconv.c:121
+#: app/app_procs.c:772 app/diaconv.c:121
 msgid "[OPTION...] [FILE...]"
 msgstr "[VOLBA...] [SOUBOR...]"
 
-#: app/app_procs.c:777 app/diaconv.c:128
+#: app/app_procs.c:775 app/diaconv.c:128
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -177,32 +176,43 @@ msgstr ""
 "Spuštěním '%s --help' zobrazíte kompletní seznam voleb dostupných z "
 "příkazové řádky.\n"
 
-#: app/app_procs.c:862
+#: app/app_procs.c:860
 msgid ""
 "The original author of Dia was:\n"
 "\n"
-msgstr "Původní autor Dia byl:\n\n"
+msgstr ""
+"Původní autor Dia byl:\n"
+"\n"
 
-#: app/app_procs.c:867
+#: app/app_procs.c:865
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
 "\n"
-msgstr "\nSoučasní správci Dia jsou:\n\n"
+msgstr ""
+"\n"
+"Současní správci Dia jsou:\n"
+"\n"
 
-#: app/app_procs.c:872
+#: app/app_procs.c:870
 msgid ""
 "\n"
 "Other authors are:\n"
 "\n"
-msgstr "\nDalší autoři jsou:\n\n"
+msgstr ""
+"\n"
+"Další autoři jsou:\n"
+"\n"
 
-#: app/app_procs.c:877
+#: app/app_procs.c:875
 msgid ""
 "\n"
 "Dia is documented by:\n"
 "\n"
-msgstr "\nDokumentaci Dia napsali:\n\n"
+msgstr ""
+"\n"
+"Dokumentaci Dia napsali:\n"
+"\n"
 
 #: app/autosave.c:93
 msgid "Recovering autosaved diagrams"
@@ -311,57 +321,57 @@ msgstr "Implicitní: "
 msgid "Diagram Properties"
 msgstr "Vlastnosti diagramu"
 
-#: app/dia-props.c:124
+#: app/dia-props.c:123
 msgid "Dynamic grid"
 msgstr "Dynamická mřížka"
 
-#: app/dia-props.c:132
+#: app/dia-props.c:131
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:136
+#: app/dia-props.c:135
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:141
+#: app/dia-props.c:140
 msgid "Spacing"
 msgstr "Odstup"
 
-#: app/dia-props.c:161
+#: app/dia-props.c:160
 msgid "Visible spacing"
 msgstr "Viditelný odstup"
 
 #. Hexes!
-#: app/dia-props.c:182 app/preferences.c:162
+#: app/dia-props.c:181 app/preferences.c:162
 msgid "Hex grid"
 msgstr "Šesterečková mřížka"
 
-#: app/dia-props.c:190
+#: app/dia-props.c:189
 msgid "Hex grid size"
 msgstr "Velikost šesterečkové mřížky"
 
-#: app/dia-props.c:203
+#: app/dia-props.c:202
 msgid "Grid"
 msgstr "Mřížka"
 
-#: app/dia-props.c:214 lib/diagramdata.c:127
+#: app/dia-props.c:213 lib/diagramdata.c:127
 msgid "Background"
 msgstr "Pozadí"
 
-#: app/dia-props.c:225 app/preferences.c:105
+#: app/dia-props.c:224 app/preferences.c:105
 msgid "Grid Lines"
 msgstr "Linie mřížky"
 
-#: app/dia-props.c:236
+#: app/dia-props.c:235
 msgid "Page Breaks"
 msgstr "Zalomení stránky"
 
-#: app/dia-props.c:247
+#: app/dia-props.c:246
 msgid "Colors"
 msgstr "Barvy"
 
 #. Can we be sure that the filename is the 'proper title'?
-#: app/dia-props.c:266
+#: app/dia-props.c:265
 #, c-format
 msgid "Diagram Properties: %s"
 msgstr "Vlastnosti diagramu: %s"
@@ -594,7 +604,7 @@ msgstr "%0.3gcm × %0.3gcm"
 msgid "Page Setup"
 msgstr "Nastavení stránky"
 
-#: app/disp_callbacks.c:81 app/properties.c:153
+#: app/disp_callbacks.c:81 app/properties.c:152
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -640,7 +650,7 @@ msgid "Discard Changes"
 msgstr "Zahodit změny"
 
 #: app/export_png.c:134 app/load_save.c:893 app/render_eps.c:103
-#: plug-ins/cairo/diacairo.c:908 plug-ins/cgm/cgm.c:1157
+#: plug-ins/cairo/diacairo.c:911 plug-ins/cgm/cgm.c:1157
 #: plug-ins/dxf/dxf-export.c:505 plug-ins/hpgl/hpgl.c:732
 #: plug-ins/metapost/render_metapost.c:964
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
@@ -685,23 +695,23 @@ msgstr "Výška obrázku:"
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
-#: app/filedlg.c:121 app/filedlg.c:392
+#: app/filedlg.c:122 app/filedlg.c:393
 msgid "By extension"
 msgstr "Podle přípony"
 
-#: app/filedlg.c:182
+#: app/filedlg.c:183
 msgid "Open Diagram"
 msgstr "Otevřít diagram"
 
-#: app/filedlg.c:210
+#: app/filedlg.c:211
 msgid "Open Options"
 msgstr "Volby pro otevření"
 
-#: app/filedlg.c:218 app/filedlg.c:510
+#: app/filedlg.c:219 app/filedlg.c:511
 msgid "Determine file type:"
 msgstr "Zjistit typ souboru:"
 
-#: app/filedlg.c:255
+#: app/filedlg.c:256
 msgid ""
 "Some characters in the filename are neither UTF-8 nor your local encoding.\n"
 "Some things will break."
@@ -710,7 +720,7 @@ msgstr ""
 "kódování.\n"
 "Něco se pokazí."
 
-#: app/filedlg.c:261 app/filedlg.c:436
+#: app/filedlg.c:262 app/filedlg.c:437
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -719,21 +729,21 @@ msgstr ""
 "Soubor '%s' již existuje.\n"
 "Chcete jej přepsat?"
 
-#: app/filedlg.c:269 app/filedlg.c:443
+#: app/filedlg.c:270 app/filedlg.c:444
 msgid "File already exists"
 msgstr "Soubor již existuje"
 
-#: app/filedlg.c:301
+#: app/filedlg.c:302
 msgid "Save Diagram"
 msgstr "Uložit diagram"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:306
+#: app/filedlg.c:307
 msgid "Compress diagram files"
 msgstr "Komprimovat soubory s diagramy"
 
-#: app/filedlg.c:315
+#: app/filedlg.c:316
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -742,7 +752,7 @@ msgstr ""
 "urychluje načítání a ukládání. Některé programy pro zpracování textu však "
 "neumí s komprimovanými soubory pracovat."
 
-#: app/filedlg.c:462
+#: app/filedlg.c:463
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -751,11 +761,11 @@ msgstr ""
 "Nelze zjistit, který exportní filtr se má\n"
 "použít pro uložení '%s'"
 
-#: app/filedlg.c:480
+#: app/filedlg.c:481
 msgid "Export Diagram"
 msgstr "Exportovat diagram"
 
-#: app/filedlg.c:502
+#: app/filedlg.c:503
 msgid "Export Options"
 msgstr "Volby exportu"
 
@@ -944,12 +954,12 @@ msgstr "Název vrstvy:"
 msgid "OK"
 msgstr "OK"
 
-#: app/linewidth_area.c:248 lib/properties.h:480 lib/properties.h:483
+#: app/linewidth_area.c:246 lib/properties.h:480 lib/properties.h:483
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Šířka čáry"
 
-#: app/linewidth_area.c:260
+#: app/linewidth_area.c:258
 msgid "Line width:"
 msgstr "Šířka čáry:"
 
@@ -1518,12 +1528,12 @@ msgstr "Nemohu spustit příkaz '%s': %s"
 msgid "Could not open '%s' for writing: %s"
 msgstr "Nemohu otevřít '%s' pro zápis: %s"
 
-#: app/paginate_psprint.c:378
+#: app/paginate_psprint.c:376
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Chyba při tisku: příkaz '%s' vrátil %d\n"
 
-#: app/paginate_psprint.c:388
+#: app/paginate_psprint.c:387
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Chyba při tisku: příkaz '%s' způsobil sigpipe."
@@ -1532,24 +1542,24 @@ msgstr "Chyba při tisku: příkaz '%s' způsobil sigpipe."
 msgid "Plug-ins"
 msgstr "Zásuvné moduly"
 
-#: app/plugin-manager.c:256
+#: app/plugin-manager.c:255
 msgid "Loaded"
 msgstr "Načten"
 
-#: app/plugin-manager.c:263 objects/UML/class.c:107
+#: app/plugin-manager.c:262 objects/UML/class.c:112
 #: objects/UML/large_package.c:128
 msgid "Name"
 msgstr "Název"
 
-#: app/plugin-manager.c:269
+#: app/plugin-manager.c:268
 msgid "Description"
 msgstr "Popis"
 
-#: app/plugin-manager.c:278
+#: app/plugin-manager.c:277
 msgid "Load at Startup"
 msgstr "Načíst při startu"
 
-#: app/plugin-manager.c:285
+#: app/plugin-manager.c:284
 msgid "File Name"
 msgstr "Název souboru"
 
@@ -1703,15 +1713,15 @@ msgstr "Nastavení"
 msgid "Object properties"
 msgstr "Vlastnosti objektu"
 
-#: app/properties.c:81
+#: app/properties.c:80
 msgid "This object has no properties."
 msgstr "Tento objekt nemá žádné vlastnosti."
 
-#: app/properties.c:203
+#: app/properties.c:202
 msgid "Properties: "
 msgstr "Vlastnosti:"
 
-#: app/properties.c:207
+#: app/properties.c:206
 msgid "Object properties:"
 msgstr "Vlastnosti objektu:"
 
@@ -2366,10 +2376,11 @@ msgstr "Koncová šipka"
 msgid "Text alignment"
 msgstr "Zarovnání textu"
 
+#. all this just to make the defaults selectable ...
 #: lib/properties.c:79 lib/properties.h:525 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
-#: objects/UML/class_dialog.c:351 objects/chronogram/chronoline.c:183
-#: objects/chronogram/chronoref.c:164
+#: objects/UML/class.c:138 objects/UML/class_dialog.c:351
+#: objects/chronogram/chronoline.c:183 objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Písmo"
 
@@ -3754,7 +3765,8 @@ msgid "Miscellaneous objects"
 msgstr "Ostatní objekty"
 
 #. property rows
-#: objects/SADT/arrow.c:134 objects/UML/class_dialog.c:357
+#: objects/SADT/arrow.c:134 objects/UML/class.c:143
+#: objects/UML/class_dialog.c:357
 msgid "Normal"
 msgstr "Normální"
 
@@ -3822,12 +3834,6 @@ msgstr "Zařízení SADT"
 msgid "SADT diagram objects"
 msgstr "Objekty diagramu SADT"
 
-#. choose default font name for your locale. see also font_data structure
-#. in lib/font.c.
-#: objects/UML/activity.c:315
-msgid "Helvetica"
-msgstr "Helvetica"
-
 #: objects/UML/actor.c:359 objects/UML/actor.c:361 sheets/UML.sheet.in.h:2
 msgid "Actor"
 msgstr "Účinkující"
@@ -3875,67 +3881,86 @@ msgstr "Agregát"
 msgid "Composition"
 msgstr "Kompozice"
 
-#: objects/UML/class.c:109 objects/UML/classicon.c:135
+#: objects/UML/class.c:110 objects/UML/class.c:245 objects/UML/class.c:1157
+#: sheets/UML.sheet.in.h:6
+msgid "Class"
+msgstr "Třída"
+
+#: objects/UML/class.c:114 objects/UML/classicon.c:135
 #: objects/UML/component.c:122 objects/UML/large_package.c:126
 #: objects/UML/object.c:147 objects/UML/small_package.c:122
 msgid "Stereotype"
 msgstr "Stereotyp"
 
-#: objects/UML/class.c:111 objects/UML/class_dialog.c:382
-#: sheets/SDL.sheet.in.h:3
+#: objects/UML/class.c:116 objects/UML/class.c:153
+#: objects/UML/class_dialog.c:382 sheets/SDL.sheet.in.h:3
 msgid "Comment"
 msgstr "Komentář"
 
-#: objects/UML/class.c:113 objects/UML/class_dialog.c:296
-#: objects/UML/class_dialog.c:367 objects/UML/class_dialog.c:1933
+#: objects/UML/class.c:118 objects/UML/class.c:147
+#: objects/UML/class_dialog.c:296 objects/UML/class_dialog.c:367
+#: objects/UML/class_dialog.c:1933
 msgid "Abstract"
 msgstr "Abstraktní"
 
-#: objects/UML/class.c:115 objects/UML/class_dialog.c:305
-msgid "Suppress Attributes"
-msgstr "Potlačit atributy"
-
-#: objects/UML/class.c:117
-msgid "Suppress Operations"
-msgstr "Potlačit operace"
-
-#: objects/UML/class.c:119
-msgid "Visible Attributes"
-msgstr "Viditelné atributy"
-
-#: objects/UML/class.c:121
-msgid "Visible Operations"
-msgstr "Viditelné operace"
-
-#: objects/UML/class.c:123
-msgid "Visible Comments"
-msgstr "Viditelné komentáře"
-
-#: objects/UML/class.c:125 objects/UML/class_dialog.c:321
-msgid "Wrap Operations"
-msgstr "Operace zalamování"
-
-#: objects/UML/class.c:127
-msgid "Wrap after char"
-msgstr "Zalamovat po znaku"
-
-#: objects/UML/class.c:130 objects/UML/object.c:151
-msgid "Attributes"
-msgstr "Atributy"
-
-#: objects/UML/class.c:132
-msgid "Operations"
-msgstr "Operace"
-
-#: objects/UML/class.c:135
+#: objects/UML/class.c:120
 msgid "Template"
 msgstr "Šablona"
 
-#: objects/UML/class.c:185 objects/UML/class.c:1088 sheets/UML.sheet.in.h:6
-msgid "Class"
-msgstr "Třída"
+#: objects/UML/class.c:123 objects/UML/class_dialog.c:305
+msgid "Suppress Attributes"
+msgstr "Potlačit atributy"
 
-#: objects/UML/class.c:191
+#: objects/UML/class.c:125
+msgid "Suppress Operations"
+msgstr "Potlačit operace"
+
+#: objects/UML/class.c:127
+msgid "Visible Attributes"
+msgstr "Viditelné atributy"
+
+#: objects/UML/class.c:129
+msgid "Visible Operations"
+msgstr "Viditelné operace"
+
+#: objects/UML/class.c:131
+msgid "Visible Comments"
+msgstr "Viditelné komentáře"
+
+#: objects/UML/class.c:133 objects/UML/class_dialog.c:321
+msgid "Wrap Operations"
+msgstr "Operace zalamování"
+
+#: objects/UML/class.c:135
+msgid "Wrap after char"
+msgstr "Zalamovat po znaku"
+
+#: objects/UML/class.c:145 objects/UML/class_dialog.c:362
+msgid "Polymorphic"
+msgstr "Polymorfní"
+
+#: objects/UML/class.c:149
+msgid "Classname"
+msgstr "Název třídy"
+
+#: objects/UML/class.c:151
+msgid "Abstract Classname"
+msgstr "Název abstraktní třídy"
+
+#: objects/UML/class.c:157 objects/UML/class.c:159 objects/UML/class.c:161
+#: objects/UML/class.c:163 objects/UML/class.c:165 objects/UML/class.c:167
+msgid " "
+msgstr " "
+
+#: objects/UML/class.c:172 objects/UML/object.c:151
+msgid "Attributes"
+msgstr "Atributy"
+
+#: objects/UML/class.c:174
+msgid "Operations"
+msgstr "Operace"
+
+#: objects/UML/class.c:251
 msgid "Show comments"
 msgstr "Zobrazit komentář"
 
@@ -3971,6 +3996,10 @@ msgstr "Viditelné operace"
 msgid "Suppress operations"
 msgstr "Potlačit operace"
 
+#: objects/UML/class_dialog.c:328
+msgid "Wrap after this length: "
+msgstr "Zalamovat po této délce: "
+
 #: objects/UML/class_dialog.c:335
 msgid "Comments visible"
 msgstr "Viditelné komentáře"
@@ -3983,10 +4012,6 @@ msgstr "Druh"
 #: objects/UML/class_dialog.c:353
 msgid "Size"
 msgstr "Velikost"
-
-#: objects/UML/class_dialog.c:362
-msgid "Polymorphic"
-msgstr "Polymorfní"
 
 #: objects/UML/class_dialog.c:372
 msgid "Class Name"
@@ -4252,7 +4277,7 @@ msgstr ""
 "Tato volba bude odstraněna v budoucích verzích.\n"
 "Použijte prosím místo něj objekt Počátečního/Koncového stavu\n"
 
-#: objects/UML/state_term.c:122
+#: objects/UML/state_term.c:118
 msgid "Is final"
 msgstr "Je konečný"
 
@@ -4639,23 +4664,23 @@ msgstr "Přihlášení"
 msgid "Curve distance"
 msgstr "Vzdálenost křivky"
 
-#: objects/standard/bezier.c:545 objects/standard/beziergon.c:501
+#: objects/standard/bezier.c:545 objects/standard/beziergon.c:499
 msgid "Add Segment"
 msgstr "Přidat segment"
 
-#: objects/standard/bezier.c:546 objects/standard/beziergon.c:502
+#: objects/standard/bezier.c:546 objects/standard/beziergon.c:500
 msgid "Delete Segment"
 msgstr "Odstranit segment"
 
-#: objects/standard/bezier.c:548 objects/standard/beziergon.c:504
+#: objects/standard/bezier.c:548 objects/standard/beziergon.c:502
 msgid "Symmetric control"
 msgstr "Symetrické ovládání"
 
-#: objects/standard/bezier.c:550 objects/standard/beziergon.c:506
+#: objects/standard/bezier.c:550 objects/standard/beziergon.c:504
 msgid "Smooth control"
 msgstr "Hladké ovládání"
 
-#: objects/standard/bezier.c:552 objects/standard/beziergon.c:508
+#: objects/standard/bezier.c:552 objects/standard/beziergon.c:506
 msgid "Cusp control"
 msgstr "Hrotové ovládání"
 
@@ -4760,15 +4785,15 @@ msgstr "Odstranit roh"
 msgid "Standard objects"
 msgstr "Standardní objekty"
 
-#: plug-ins/cairo/diacairo.c:962
+#: plug-ins/cairo/diacairo.c:965
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: plug-ins/cairo/diacairo.c:971
+#: plug-ins/cairo/diacairo.c:974
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: plug-ins/cairo/diacairo.c:998
+#: plug-ins/cairo/diacairo.c:1001
 msgid "Cairo based Rendering"
 msgstr "Vykreslování založené na Cairo"
 
@@ -4849,7 +4874,7 @@ msgstr "GdkPixbuf - nevyhlazováno"
 msgid "GdkPixbuf bitmap"
 msgstr "Bitmapa GdkPixbuf"
 
-#: plug-ins/pixbuf/pixbuf.c:183
+#: plug-ins/pixbuf/pixbuf.c:189
 msgid "gdk-pixbuf based bitmap export/import"
 msgstr "export/import bitmapy založené na gdk-pixbuf"
 
@@ -4865,7 +4890,7 @@ msgstr "Není platné UTF8"
 msgid "TeX PSTricks macros"
 msgstr "Makra formátu TeX PSTricks"
 
-#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1058
+#: plug-ins/python/pydia-render.c:711 plug-ins/wmf/wmf.cpp:1137
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
 msgstr "Nelze otevřít '%s' pro zápis.\n"
@@ -4920,11 +4945,11 @@ msgstr "kořenový element byl '%s' -- očekávalo se 'svg'."
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Importní a exportní filtry do formátu Scalable Vector Graphics"
 
-#: plug-ins/wmf/wmf.cpp:1122
+#: plug-ins/wmf/wmf.cpp:1204
 msgid "Windows Meta File"
 msgstr "Windows Meta File"
 
-#: plug-ins/wmf/wmf.cpp:1138
+#: plug-ins/wmf/wmf.cpp:1220
 msgid "WMF export filter"
 msgstr "Exportní filtr formátu WMF"
 
@@ -5162,11 +5187,11 @@ msgstr "Chyba při zpracování stylu: %s\n"
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Chyba při aplikaci stylu: %s\n"
 
-#: plug-ins/xslt/xslt.c:312
+#: plug-ins/xslt/xslt.c:313
 msgid "XSL Transformation filter"
 msgstr "Filtr pro transformaci XSL"
 
-#: plug-ins/xslt/xslt.c:336
+#: plug-ins/xslt/xslt.c:337
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
 "Nenalezeny platné konfigurační soubory pro zásuvný modul XSLT, nenačítám jej."
@@ -7927,154 +7952,158 @@ msgid "Pieces of a jigsaw"
 msgstr "Kousky skládačky"
 
 #: sheets/network.sheet.in.h:1
+msgid "24 Port Patch Panel"
+msgstr "Patch panel s 24 porty"
+
+#: sheets/network.sheet.in.h:2
 msgid "3 1/2 inch diskette"
 msgstr "3,5\" disketa"
 
-#: sheets/network.sheet.in.h:2
+#: sheets/network.sheet.in.h:3
 msgid "ATM switch symbol"
 msgstr "Symbol ATM switche"
 
-#: sheets/network.sheet.in.h:3
+#: sheets/network.sheet.in.h:4
 msgid "Antenna for wireless transmission"
 msgstr "Anténa pro bezdrátový přenos"
 
-#: sheets/network.sheet.in.h:4
+#: sheets/network.sheet.in.h:5
 msgid "Bigtower PC"
 msgstr "Bigtower PC"
 
-#: sheets/network.sheet.in.h:5
+#: sheets/network.sheet.in.h:6
 msgid "Computer"
 msgstr "Počítač"
 
-#: sheets/network.sheet.in.h:6
+#: sheets/network.sheet.in.h:7
 msgid "Desktop PC"
 msgstr "Desktop PC"
 
-#: sheets/network.sheet.in.h:7
+#: sheets/network.sheet.in.h:8
 msgid "Digitizing board"
 msgstr "Digitalizační panel"
 
-#: sheets/network.sheet.in.h:8
+#: sheets/network.sheet.in.h:9
 msgid "Ethernet bus"
 msgstr "Sběrnice Ethernet"
 
-#: sheets/network.sheet.in.h:9
+#: sheets/network.sheet.in.h:10
 msgid "External DAT drive"
 msgstr "Externí zařízení DAT"
 
-#: sheets/network.sheet.in.h:10
+#: sheets/network.sheet.in.h:11
 msgid "Firewall router"
 msgstr "Firewall směrovač"
 
-#: sheets/network.sheet.in.h:11
+#: sheets/network.sheet.in.h:12
 msgid "Laptop PC"
 msgstr "Laptop PC"
 
-#: sheets/network.sheet.in.h:12
+#: sheets/network.sheet.in.h:13
 msgid "Miditower PC"
 msgstr "Miditower PC"
 
-#: sheets/network.sheet.in.h:13
+#: sheets/network.sheet.in.h:14
 msgid "Minitower PC"
 msgstr "Minitower PC"
 
-#: sheets/network.sheet.in.h:14
+#: sheets/network.sheet.in.h:15
 msgid "Mobile phone"
 msgstr "Mobilní telefon"
 
-#: sheets/network.sheet.in.h:15
+#: sheets/network.sheet.in.h:16
 msgid "Mobile telephony base station"
 msgstr "Základová stanice pro mobilní telefony"
 
-#: sheets/network.sheet.in.h:16
+#: sheets/network.sheet.in.h:17
 msgid "Mobile telephony cell"
 msgstr "Buňka pro mobilní telefony"
 
-#: sheets/network.sheet.in.h:17
+#: sheets/network.sheet.in.h:18
 msgid "Modular switching system"
 msgstr "Modulární přepínací systém"
 
-#: sheets/network.sheet.in.h:18
+#: sheets/network.sheet.in.h:19
 msgid "Monitor"
 msgstr "Monitor"
 
-#: sheets/network.sheet.in.h:19
+#: sheets/network.sheet.in.h:20
 msgid "Network"
 msgstr "Síť"
 
-#: sheets/network.sheet.in.h:20
+#: sheets/network.sheet.in.h:21
 msgid "Network cloud"
 msgstr "Oblak sítě"
 
-#: sheets/network.sheet.in.h:21
+#: sheets/network.sheet.in.h:22
 msgid "Objects to design network diagrams with"
 msgstr "Objekty pro návrh síťových diagramů"
 
-#: sheets/network.sheet.in.h:22
+#: sheets/network.sheet.in.h:23
 msgid "Plotter"
 msgstr "Plotter"
 
-#: sheets/network.sheet.in.h:23
+#: sheets/network.sheet.in.h:24
 msgid "RJ45 wall-plug"
 msgstr "Zástrčka RJ45"
 
-#: sheets/network.sheet.in.h:24
+#: sheets/network.sheet.in.h:25
 msgid "Router symbol"
 msgstr "Symbol směrovače"
 
-#: sheets/network.sheet.in.h:25
+#: sheets/network.sheet.in.h:26
 msgid "Simple modem"
 msgstr "Jednoduchý modem"
 
-#: sheets/network.sheet.in.h:26
+#: sheets/network.sheet.in.h:27
 msgid "Simple printer"
 msgstr "Jednoduchá tiskárna"
 
-#: sheets/network.sheet.in.h:27
+#: sheets/network.sheet.in.h:28
 msgid "Speaker with integrated amplifier"
 msgstr "Reproduktor se zabudovaným zesilovačem"
 
-#: sheets/network.sheet.in.h:28
+#: sheets/network.sheet.in.h:29
 msgid "Speaker without amplifier"
 msgstr "Reproduktor bez zesilovače"
 
-#: sheets/network.sheet.in.h:29
+#: sheets/network.sheet.in.h:30
 msgid "Stackable hub or switch"
 msgstr "Stohovatelný hub nebo switch"
 
-#: sheets/network.sheet.in.h:30
+#: sheets/network.sheet.in.h:31
 msgid "Storage"
 msgstr "Úložiště"
 
-#: sheets/network.sheet.in.h:31
+#: sheets/network.sheet.in.h:32
 msgid "Switch symbol"
 msgstr "Symbol switche"
 
-#: sheets/network.sheet.in.h:32
+#: sheets/network.sheet.in.h:33
 msgid "Telephone"
 msgstr "Telefon"
 
-#: sheets/network.sheet.in.h:33
+#: sheets/network.sheet.in.h:34
 msgid "UNIX workstation"
 msgstr "Pracovní stanice UNIX"
 
-#: sheets/network.sheet.in.h:34
+#: sheets/network.sheet.in.h:35
 msgid "WAN connection"
 msgstr "Připojení WAN"
 
-#: sheets/network.sheet.in.h:35
+#: sheets/network.sheet.in.h:36
 msgid "WAN link"
 msgstr "Linka WAN"
 
-#: sheets/network.sheet.in.h:36
+#: sheets/network.sheet.in.h:37
 msgid "Wall-plug for the scEAD cabling system"
 msgstr "Zástrčka pro kabelový systém scEAD"
 
-#: sheets/network.sheet.in.h:37
+#: sheets/network.sheet.in.h:38
 msgid "Workstation monitor"
 msgstr "Monitor pracovní stanice"
 
-#: sheets/network.sheet.in.h:38
+#: sheets/network.sheet.in.h:39
 msgid "ZIP disk"
 msgstr "Disk ZIP"
 
