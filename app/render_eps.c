@@ -240,7 +240,6 @@ static PSUnicoderCallbacks eps_unicoder_callbacks = {
   eps_show_string,
   eps_get_string_width,
 };
-
 #endif
 
 #ifdef HAVE_FREETYPE
@@ -257,7 +256,7 @@ dump_pfb_chunk(FILE *from, FILE *file) {
   static char *hexChar = "0123456789abcdef";
 
   if (chunktype == 3) { // Close chunk
-    fgetc(from); // Read up to EOF = (length << 8) + ch;
+    fgetc(from); // Read up to EOF
     return 0;
   }
   if (ch == -1) {
@@ -267,7 +266,7 @@ dump_pfb_chunk(FILE *from, FILE *file) {
 
   for (i = 0; i < 4; i++) {
     ch = fgetc(from);
-    if (ch == -1) {
+    if (ch == EOF) {
       printf("Read error: %s\n", strerror(errno));
       return 0;
     }
@@ -277,7 +276,7 @@ dump_pfb_chunk(FILE *from, FILE *file) {
   case 1: // ^A -- ASCII
     for (i = 0; i < length; i++) {
       ch = fgetc(from);
-      if (ch == -1) {
+      if (ch == EOF) {
 	printf("Read error: %s\n", strerror(errno));
 	return 0;
       }
@@ -289,16 +288,23 @@ dump_pfb_chunk(FILE *from, FILE *file) {
     charcount = 0;
     for (i = 0; i < length; i++) {
       ch = fgetc(from);
-      if (ch == -1) {
+      if (ch == EOF) {
 	printf("Read error: %s\n", strerror(errno));
 	return 0;
       }
-      fputc(hexChar[(ch>>4)&0xf], file); // Translate binary into hex
-      fputc(hexChar[ch&0xf], file);
-      if ((charcount++)%32 == 0) // Break lines after 64 chars
-	fputc('\n', file);
+      // Translate binary into hex
+      if (fputc(hexChar[(ch>>4)&0xf], file) == EOF ||
+	  fputc(hexChar[ch&0xf], file) == EOF) {
+	printf("Write error: %s\n", strerror(errno));
+	return 0;
+      }
+      if ((++charcount)%32 == 0) // Break lines after 64 chars
+	if (fputc('\n', file) == EOF) {
+	  printf("Write error: %s\n", strerror(errno));
+	  return 0;
+	}
     }
-    if (charcount%32 != 1) fputc('\f', file);
+    if (charcount%32 != 1) fputc('\n', file);
     fgetc(from); // Skip 080 char
     break;
   default:
@@ -410,7 +416,6 @@ void
 begin_prolog(RendererEPS *renderer)
 {
   font_table = g_hash_table_new(g_str_hash, g_str_equal);
-
   fprintf(renderer->file, "%%%%BeginProlog\n");
 
 #ifndef HAVE_UNICODE
@@ -1087,7 +1092,6 @@ fill_bezier(RendererEPS *renderer,
 
   fprintf(renderer->file, " f\n");
 }
-
 
 #ifdef HAVE_UNICODE
 
