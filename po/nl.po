@@ -5,35 +5,35 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.86\n"
-"POT-Creation-Date: 2000-10-12 18:21+0200\n"
-"PO-Revision-Date: 2000-10-12 18:23+0200\n"
+"POT-Creation-Date: 2000-10-13 18:51+0200\n"
+"PO-Revision-Date: 2000-10-13 18:47+0200\n"
 "Last-Translator: Almer S. Tigelaar <almer1@dds.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: app/app_procs.c:134
+#: app/app_procs.c:136
 msgid "Export loaded file and exit"
 msgstr "Exporteer gelaadde bestand en stop"
 
-#: app/app_procs.c:135
+#: app/app_procs.c:137
 msgid "OUTPUT"
 msgstr "UITVOER"
 
-#: app/app_procs.c:137
+#: app/app_procs.c:139
 msgid "Show this help message"
 msgstr "Laat dit help bericht zien"
 
-#: app/app_procs.c:157
+#: app/app_procs.c:158
 msgid "Can't connect to session manager!\n"
 msgstr "Kan niet verbinden met sessie manager!\n"
 
-#: app/app_procs.c:168
+#: app/app_procs.c:169
 msgid "[OPTION...] [FILE...]"
 msgstr "[OPTIE...] [BESTAND...]"
 
-#: app/app_procs.c:171
+#: app/app_procs.c:172
 #, c-format
 msgid ""
 "Error on option %s: %s.\n"
@@ -43,22 +43,22 @@ msgstr ""
 "Start '%s --help' om een volledige lijst van beschikbare commando regel "
 "opties te zien.\n"
 
-#: app/app_procs.c:218 app/app_procs.c:220
+#: app/app_procs.c:219 app/app_procs.c:221
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Kon standaard objecten tijdens zoeken naar object bibliotheken niet vinden, "
 "gestopt...\n"
 
-#: app/app_procs.c:237
+#: app/app_procs.c:238
 msgid "Need valid input file\n"
 msgstr "Geldig invoer bestand nodig\n"
 
-#: app/app_procs.c:296 app/app_procs.c:302
+#: app/app_procs.c:299 app/app_procs.c:305
 msgid "Quit, are you sure?"
 msgstr "Stoppen, weet je het zeker?"
 
-#: app/app_procs.c:309
+#: app/app_procs.c:312
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -66,21 +66,21 @@ msgstr ""
 "Het diagram is aangepast\n"
 "Weet je zeker dat je wilt stoppen?"
 
-#: app/app_procs.c:319 app/app_procs.c:324
+#: app/app_procs.c:322 app/app_procs.c:327
 msgid "Quit"
 msgstr "Stoppen"
 
-#: app/app_procs.c:336 app/layer_dialog.c:986 app/lineprops_area.c:549
-#: app/lineprops_area.c:747 app/linewidth_area.c:239
+#: app/app_procs.c:339 app/layer_dialog.c:986 app/lineprops_area.c:549
+#: app/lineprops_area.c:747 app/linewidth_area.c:241
 #: app/paginate_psprint.c:242
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: app/app_procs.c:404
+#: app/app_procs.c:407
 msgid "Could not create per-user Dia config directory"
 msgstr "Kon per-gebruiker Dia configuratie directory niet maken"
 
-#: app/app_procs.c:424
+#: app/app_procs.c:427
 msgid "Objects and filters internal to dia"
 msgstr "Dia's interne objecten en filters"
 
@@ -132,14 +132,14 @@ msgid "Contributors:"
 msgstr "Bijdragers:"
 
 #. setup buttons
-#: app/commands.c:530 app/dia-props.c:84 app/layer_dialog.c:976
-#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:230
-#: app/pagesetup.c:72 app/paginate_psprint.c:234 app/preferences.c:598
-#: app/properties.c:82 lib/message.c:85
+#: app/commands.c:530 app/dia-props.c:86 app/layer_dialog.c:976
+#: app/lineprops_area.c:540 app/lineprops_area.c:737 app/linewidth_area.c:232
+#: app/pagesetup.c:72 app/paginate_psprint.c:234 app/preferences.c:600
+#: app/properties.c:82 lib/message.c:87
 msgid "OK"
 msgstr "OK"
 
-#: app/commands.c:631
+#: app/commands.c:633
 msgid ""
 "The anti aliased renderer is buggy, and may cause\n"
 "crashes.  We know there are bugs in it, so don't\n"
@@ -153,13 +153,13 @@ msgstr ""
 msgid "Object defaults"
 msgstr "Object standaardwaarden"
 
-#: app/defaults.c:73 app/dia-props.c:93 app/pagesetup.c:77
-#: app/preferences.c:607 app/properties.c:91
+#: app/defaults.c:73 app/dia-props.c:95 app/pagesetup.c:77
+#: app/preferences.c:609 app/properties.c:91
 msgid "Apply"
 msgstr "Toepassen"
 
-#: app/defaults.c:83 app/dia-props.c:103 app/layer_dialog.c:261
-#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:616
+#: app/defaults.c:83 app/dia-props.c:105 app/layer_dialog.c:261
+#: app/pagesetup.c:83 app/plugin-manager.c:146 app/preferences.c:618
 #: app/properties.c:101
 msgid "Close"
 msgstr "Sluiten"
@@ -172,35 +172,35 @@ msgstr "Dit object heeft geen standaardwaarden."
 msgid "Could not initialize Bonobo!"
 msgstr "Kon Bonobo niet initialiseren"
 
-#: app/dia-props.c:58 app/dia-props.c:65
+#: app/dia-props.c:60 app/dia-props.c:67
 msgid "Diagram Properties"
 msgstr "Diagram Eigenschappen"
 
-#: app/dia-props.c:128
+#: app/dia-props.c:130
 msgid "x"
 msgstr "x"
 
-#: app/dia-props.c:132
+#: app/dia-props.c:134
 msgid "y"
 msgstr "y"
 
-#: app/dia-props.c:137
+#: app/dia-props.c:139
 msgid "Spacing"
 msgstr "Spatiëring"
 
-#: app/dia-props.c:157
+#: app/dia-props.c:159
 msgid "Visible spacing"
 msgstr "Zichtbare spatiëring"
 
-#: app/dia-props.c:177
+#: app/dia-props.c:179
 msgid "Grid"
 msgstr "Rooster"
 
-#: app/dia-props.c:187
+#: app/dia-props.c:189
 msgid "Background Colour"
 msgstr "Achtergrondkleur"
 
-#: app/dia-props.c:198 lib/diagramdata.c:53
+#: app/dia-props.c:200 lib/diagramdata.c:53
 msgid "Background"
 msgstr "Achtergrond"
 
@@ -261,7 +261,7 @@ msgstr "%0.3gcm x %0.3gcm"
 msgid "Page Setup"
 msgstr "Pagina Instellingen"
 
-#: app/disp_callbacks.c:69 app/properties.c:164
+#: app/disp_callbacks.c:70 app/properties.c:164
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -269,7 +269,7 @@ msgstr ""
 "Dit object ondersteund geen Ongedaan Maken/Herhalen.\n"
 "Ongedaan Maak informatie verwijdert."
 
-#: app/disp_callbacks.c:166
+#: app/disp_callbacks.c:167
 msgid "No object menu"
 msgstr "Geen object menu"
 
@@ -281,11 +281,11 @@ msgstr "Zoom"
 msgid "Diagram modified!"
 msgstr "Diagram gewijzigd!"
 
-#: app/display.c:753 app/display.c:759
+#: app/display.c:754 app/display.c:760
 msgid "Really close?"
 msgstr "Echt sluiten?"
 
-#: app/display.c:764
+#: app/display.c:765
 msgid ""
 "This diagram has not been saved.\n"
 "Are you sure you want to close this window?"
@@ -293,12 +293,12 @@ msgstr ""
 "Dit diagram is nog niet opgeslagen.\n"
 "Weet je zeker dat je dit venster wilt sluiten?"
 
-#: app/display.c:782 app/filedlg.c:242 app/filedlg.c:431 app/preferences.c:492
+#: app/display.c:783 app/filedlg.c:242 app/filedlg.c:431 app/preferences.c:492
 #: lib/properties.c:279
 msgid "Yes"
 msgstr "Ja"
 
-#: app/display.c:792 app/filedlg.c:255 app/filedlg.c:444 app/preferences.c:492
+#: app/display.c:793 app/filedlg.c:255 app/filedlg.c:444 app/preferences.c:492
 #: app/preferences.c:503 lib/properties.c:281 lib/properties.c:302
 msgid "No"
 msgstr "Nee"
@@ -554,11 +554,11 @@ msgstr "Details..."
 msgid "Line Style Properties"
 msgstr "Lijn Stijl Eigenschappen"
 
-#: app/linewidth_area.c:209
+#: app/linewidth_area.c:211
 msgid "Line width"
 msgstr "Lijn breedte"
 
-#: app/linewidth_area.c:217 objects/chronogram/chronoline.c:331
+#: app/linewidth_area.c:219 objects/chronogram/chronoline.c:331
 #: objects/chronogram/chronoline.c:422 objects/chronogram/chronoref.c:251
 #: objects/chronogram/chronoref.c:316
 msgid "Line width:"
@@ -675,7 +675,7 @@ msgstr "_Inzoomen"
 #: app/menus.c:109
 #, c-format
 msgid "Zoom in 50%"
-msgstr "Zoom 50% in"
+msgstr "Zoom in (50%)"
 
 #: app/menus.c:110
 msgid "Zoom _Out"
@@ -684,7 +684,7 @@ msgstr "_Uitzoomen"
 #: app/menus.c:110
 #, c-format
 msgid "Zoom out 50%"
-msgstr "Zoom 50% uit"
+msgstr "Zoom uit (50%)"
 
 #: app/menus.c:111
 msgid "_Zoom"
@@ -1389,7 +1389,7 @@ msgstr "Pagina scheiding:"
 msgid "Could not open `%s' for writing"
 msgstr "Kon `%s' niet openen voor schrijven"
 
-#: app/preferences.c:566 app/preferences.c:575
+#: app/preferences.c:568 app/preferences.c:577
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -1424,15 +1424,15 @@ msgid "Font %s not found, using Courier instead.\n"
 msgstr ""
 "Lettertype %s niet gevonden, in plaats daarvan word Courier nu gebruikt.\n"
 
-#: lib/message.c:118
+#: lib/message.c:120
 msgid "Notice"
 msgstr "Melding"
 
-#: lib/message.c:129
+#: lib/message.c:131
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: lib/message.c:141
+#: lib/message.c:143
 msgid "Error"
 msgstr "Fout"
 
