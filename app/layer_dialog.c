@@ -287,7 +287,6 @@ dia_layer_select_callback(GtkWidget *widget, gpointer data)
 {
   DiaLayerWidget *lw;
   lw = DIA_LAYER_WIDGET(widget);
-  printf("Selecting layer %s off = %d\n", lw->layer->name, lw->connect_off);
 
   diagram_remove_all_selected(lw->dia, TRUE);
   diagram_update_extents(lw->dia);
@@ -306,7 +305,6 @@ static void
 dia_layer_deselect_callback(GtkWidget *widget, gpointer data)
 {
   DiaLayerWidget *lw = DIA_LAYER_WIDGET(widget);
-  printf("Deselecting layer %s on = %d\n", lw->layer->name, lw->connect_on);
   /** Set to on if the user has requested so. */
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lw->connectable), 
 			       lw->connect_on);
