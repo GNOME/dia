@@ -772,6 +772,13 @@
 
 2002-10-06  Hans Breuer  <hans@breuer.org>
 
+	* plug-ins/pixbuf/pixbuf.c : (new file)
+	there is a new export plug-in called 'Pixbuf' which uses 
+	DiaGdkRenderer to export to gdk-pixbuf supported bitmap
+	formats (currently only PNG and JPEG).
+
+2002-10-06  Hans Breuer  <hans@breuer.org>
+
 	See also: 
 	http://mail.gnome.org/archives/dia-list/2002-October/msg00027.html
 
