@@ -1,3 +1,8 @@
+2001-01-10  Steffen Macke <sdteffen@yahoo.com>
+
+	* shapes/jigsaw/*.shape: replaced #000000 with foreground
+	and #ffffff with background
+	
 2001-01-08  Steffen Macke <sdteffen@yahoo.com>
 
 	*configure.in: GTK+-build was broken due to missing
