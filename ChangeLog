@@ -1,5 +1,7 @@
 2002-01-22  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* app/object_ops.c (object_list_align_[hv]): Leak fix.
+
 	* lib/Makefile.am (INCLUDES): Added debug flags.
 
 	* app/object_ops.c: Fixed ordering problem of align equi-distant &

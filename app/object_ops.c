@@ -244,6 +244,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   real top, bottom, freespc;
   int nobjs;
   int i;
+  gboolean sort_alloc = TRUE;
 
   if (objects==NULL)
     return;
@@ -315,6 +316,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
 	  list = g_list_append(list, object_array[i]);
       }
       objects = list;
+      sort_alloc = TRUE; /* Must remember to free the list */
       g_free(object_array);
   }
 
@@ -361,6 +363,8 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   }
   
   undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects));
+  if (sort_alloc)
+    g_list_free(objects);
 }
 
 
@@ -388,6 +392,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   real left, right, freespc = 0;
   int nobjs;
   int i;
+  gboolean sort_alloc = FALSE;
 
   if (objects==NULL)
     return;
@@ -435,6 +440,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
       list = g_list_append(list, object_array[i]);
     }
     objects = list;
+    sort_alloc = TRUE;
     g_free(object_array);
   }
 
@@ -505,4 +511,6 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   }
     
   undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects)); 
+  if (sort_alloc)
+    g_list_free(objects);
 }
