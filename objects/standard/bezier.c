@@ -546,6 +546,8 @@ bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint)
 {
   Handle *closest;
   gboolean closest_is_endpoint;
+  BezCornerType ctype = 42; /* nothing */
+  gint i;
 
   closest = bezierconn_closest_major_handle(&bezierline->bez, clickedpoint);
   if (closest->id == HANDLE_MOVE_STARTPOINT ||
@@ -554,11 +556,20 @@ bezierline_get_object_menu(Bezierline *bezierline, Point *clickedpoint)
   else
     closest_is_endpoint = FALSE;
 
+  for (i = 0; i < bezierline->bez.numpoints; i++)
+    if (bezierline->bez.object.handles[3*i] == closest) {
+      ctype = bezierline->bez.corner_types[i];
+      break;
+    }
+
   /* Set entries sensitive/selected etc here */
   bezierline_menu_items[0].active = 1;
   bezierline_menu_items[1].active = bezierline->bez.numpoints > 2;
-  bezierline_menu_items[3].active = !closest_is_endpoint;
-  bezierline_menu_items[4].active = !closest_is_endpoint;
-  bezierline_menu_items[5].active = !closest_is_endpoint;
+  bezierline_menu_items[3].active = !closest_is_endpoint &&
+    (ctype != BEZ_CORNER_SYMMETRIC);
+  bezierline_menu_items[4].active = !closest_is_endpoint &&
+    (ctype != BEZ_CORNER_SMOOTH);
+  bezierline_menu_items[5].active = !closest_is_endpoint &&
+    (ctype != BEZ_CORNER_CUSP);
   return &bezierline_menu;
 }

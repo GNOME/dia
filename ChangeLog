@@ -3,6 +3,8 @@
 	* objects/standard/bezier.c (bezierline_get_object_menu): add a
 	separator to the object menu between the add/remove segment items
 	and the corner type items.
+	(bezierline_get_object_menu): add code to disable the menu item for
+	the current corner type.  Really just a cosmetic change.
 
 	* app/disp_callbacks.c (create_object_menu): handle DiaMenuItems with
 	a NULL for the label or with no associated callback.
