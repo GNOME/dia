@@ -751,7 +751,7 @@ handle_all_diagrams(GSList *files, char *export_file_name,
 
   for (node = files; node; node = node->next) {
     made_conversions |=
-      handle_initial_diagram(files->data, export_file_name,
+      handle_initial_diagram(node->data, export_file_name,
 			     export_file_format, size);
   }
   return made_conversions;

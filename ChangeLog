@@ -1,5 +1,14 @@
 2003-12-30  Lars Clausen  <lc@pc770>
 
+	* lib/dia_dirs.[ch] (dia_get_absolute_filename): New function to
+	get absolute file name from relative.
+	* app/recent_files.c (recent_file_history_add): Use absolute
+	filenames for recent files menu.
+
+	* app/app_procs.c (handle_all_diagrams): Fix for 1/3 of 130098:
+	Actually load different diagrams if such are requested on command
+	line.  
+
 	* objects/UML/class_dialog.c (class_create_page): Fix from Luc
 	Pionchon <luc@handhelds.org>: Correctly align labels for colors.
 

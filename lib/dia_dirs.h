@@ -31,4 +31,5 @@ gchar *dia_get_data_directory (const gchar* subdir);
 gchar *dia_get_lib_directory  (const gchar* subdir);
 gchar *dia_config_filename    (const gchar* file);
 gboolean dia_config_ensure_dir  (const gchar* filename);
+gchar *dia_get_absolute_filename (const gchar *filename);
 #endif /* DIA_DIRS_H */

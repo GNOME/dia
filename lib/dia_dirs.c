@@ -122,3 +122,19 @@ dia_config_ensure_dir(const gchar *filename)
   g_free(dir);
   return exists;
 }
+
+/** Return an absolute filename from an absolute or relative filename.
+ * The value returned is newly allocated. 
+ */
+gchar *
+dia_get_absolute_filename (const gchar *filename)
+{
+  gchar *current_dir;
+  gchar *fullname;
+  if (filename == NULL) return NULL;
+  if (g_path_is_absolute(filename)) return g_strdup(filename);
+  current_dir = g_get_current_dir();
+  fullname = g_build_filename(current_dir, filename, NULL);
+  g_free(current_dir);
+  return fullname;
+}

@@ -154,19 +154,24 @@ recent_file_history_add(const char *fname, DiaImportFilter *ifilter,
 
 	if (is_initial_load)
 	{
-		filedata = recent_file_filedata_new(fname, ifilter);
+	        gchar *fullname = dia_get_absolute_filename(fname);
+		filedata = recent_file_filedata_new(fullname, ifilter);
 		recent_files = g_list_append(recent_files, filedata);
 
 		i = g_list_length(recent_files);
 
 		if (i <= recent_files_length)
 			recent_file_menuitem_create(file_menu, filedata, i);
+		g_free(fullname);
 	}
 	else
 	{	
+	        gchar *fullname = dia_get_absolute_filename(fname);
+
 		/* Since the recent filenames on the menu have positional
 		   text and accellerators, delete the existing recent file
 		   menu items; start fresh each time */
+
 
 		menu_items = GTK_MENU_SHELL(file_menu)->children;
 		item = g_list_first(menu_items);
@@ -200,7 +205,7 @@ recent_file_history_add(const char *fname, DiaImportFilter *ifilter,
 		   c) The filename is displayed on the menu--leave it in place.
 		*/
 
-		item = g_list_find_custom(recent_files, (gpointer)fname,
+		item = g_list_find_custom(recent_files, (gpointer)fullname,
 		                          recent_file_compare_fnames);
 		if (item)
 		{
@@ -216,7 +221,7 @@ recent_file_history_add(const char *fname, DiaImportFilter *ifilter,
 		}
 		else
 		{
-			filedata = recent_file_filedata_new(fname, ifilter);
+			filedata = recent_file_filedata_new(fullname, ifilter);
 			recent_files = g_list_prepend(recent_files, filedata);
 		}
 
@@ -230,6 +235,7 @@ recent_file_history_add(const char *fname, DiaImportFilter *ifilter,
 			recent_file_menuitem_create(file_menu, item->data, i);
 			item = g_list_next(item);
 		}
+		g_free(fullname);
 	}
 }
 
