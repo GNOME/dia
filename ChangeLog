@@ -1,3 +1,19 @@
+2000-02-13  James Henstridge  <james@daa.com.au>
+
+	* objects/flowchart/box.c: use offset code to simplify property
+	get/set routines.
+
+	* lib/element.h (ELEMENT_COMMON_PROPERTIES): standard element
+	properties.
+	(ELEMENT_COMMON_PROPERTIES_OFFSETS): offsets.
+
+	* lib/object.h (OBJECT_COMMON_PROPERTIES): list of standard object
+	properties.
+	(OBJECT_COMMON_PROPERTIES_OFFSETS): the offsets of the properties.
+
+	* lib/properties.[ch] (object_{get,set}_props_from_offsets): new
+	functions 
+
 2000-02-12  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/Makefile.am:

@@ -466,6 +466,173 @@ object_apply_props(Object *obj, Property *props, guint nprops)
 
 /* --------------------------------------- */
 
+#define struct_member(sp, off, tp) (*((tp *)(((char *)sp) + off)))
+
+gboolean
+object_get_props_from_offsets(Object *obj, PropOffset *offsets,
+			      Property *props, guint nprops)
+{
+  guint i, j;
+  guint handled = 0;
+
+  for (i = 0; offsets[i].name != NULL; i++)
+    if (offsets[i].name_quark == 0)
+      offsets[i].name_quark = g_quark_from_string(offsets[i].name);
+
+  for (i = 0; i < nprops; i++) {
+    GQuark prop_quark = g_quark_from_string(props[i].name);
+
+    for (j = 0; offsets[j].name != NULL; j++)
+      if (offsets[j].name_quark == prop_quark)
+	break;
+    if (offsets[j].name == NULL || props[i].type != offsets[j].type)
+      continue;
+    switch (offsets[j].type) {
+    case PROP_TYPE_CHAR:
+      PROP_VALUE_CHAR(props[i]) = struct_member(obj, offsets[j].offset, gchar);
+      break;
+    case PROP_TYPE_BOOL:
+      PROP_VALUE_BOOL(props[i]) =
+	struct_member(obj, offsets[j].offset, gboolean);
+      break;
+    case PROP_TYPE_INT:
+    case PROP_TYPE_ENUM:
+      PROP_VALUE_INT(props[i]) =
+	struct_member(obj, offsets[j].offset, gint);
+      break;
+    case PROP_TYPE_REAL:
+      PROP_VALUE_REAL(props[j]) =
+	struct_member(obj, offsets[j].offset, real);
+      break;
+    case PROP_TYPE_STRING:
+      g_free(PROP_VALUE_STRING(props[j]));
+      PROP_VALUE_STRING(props[j]) =
+	g_strdup(struct_member(obj, offsets[j].offset, gchar *));
+      break;
+    case PROP_TYPE_POINT:
+      PROP_VALUE_POINT(props[i]) =
+	struct_member(obj, offsets[j].offset, Point);
+      break;
+    case PROP_TYPE_POINTARRAY:
+      g_warning("PropType == pointarray not supported");
+      break;
+    case PROP_TYPE_RECT:
+      PROP_VALUE_RECT(props[i]) =
+	struct_member(obj, offsets[j].offset, Rectangle);
+      break;
+    case PROP_TYPE_LINESTYLE:
+      PROP_VALUE_LINESTYLE(props[i]).style =
+	struct_member(obj, offsets[j].offset, LineStyle);
+      PROP_VALUE_LINESTYLE(props[i]).dash =
+	struct_member(obj, offsets[j].offset2, real);
+      break;
+    case PROP_TYPE_ARROW:
+      PROP_VALUE_ARROW(props[i]) =
+	struct_member(obj, offsets[j].offset, Arrow);
+      break;
+    case PROP_TYPE_COLOUR:
+      PROP_VALUE_COLOUR(props[i]) =
+	struct_member(obj, offsets[j].offset, Color);
+      break;
+    case PROP_TYPE_FONT:
+      PROP_VALUE_FONT(props[i]) =
+	struct_member(obj, offsets[j].offset, Font *);
+      break;
+    default:
+      g_warning("Prop %s: type == %d not supported", props[i].name,
+		offsets[j].type);
+      break;
+    }
+    handled++;
+  }
+  return handled == nprops;
+}
+
+gboolean
+object_set_props_from_offsets(Object *obj, PropOffset *offsets,
+			      Property *props, guint nprops)
+{
+  guint i, j;
+  guint handled = 0;
+
+  for (i = 0; offsets[i].name != NULL; i++)
+    if (offsets[i].name_quark == 0)
+      offsets[i].name_quark = g_quark_from_string(offsets[i].name);
+
+  for (i = 0; i < nprops; i++) {
+    GQuark prop_quark = g_quark_from_string(props[i].name);
+
+    for (j = 0; offsets[j].name != NULL; j++)
+      if (offsets[j].name_quark == prop_quark)
+	break;
+    if (offsets[j].name == NULL)
+      continue;
+
+    props[i].type = offsets[j].type;
+    switch (offsets[j].type) {
+    case PROP_TYPE_CHAR:
+      struct_member(obj, offsets[j].offset, gchar) = PROP_VALUE_CHAR(props[i]);
+      break;
+    case PROP_TYPE_BOOL:
+      struct_member(obj, offsets[j].offset, gboolean) =
+	PROP_VALUE_BOOL(props[i]);
+      break;
+    case PROP_TYPE_INT:
+    case PROP_TYPE_ENUM:
+      struct_member(obj, offsets[j].offset, gint) =
+	PROP_VALUE_INT(props[i]);
+      break;
+    case PROP_TYPE_REAL:
+      struct_member(obj, offsets[j].offset, real) =
+	PROP_VALUE_REAL(props[j]);
+      break;
+    case PROP_TYPE_STRING:
+      g_free(struct_member(obj, offsets[j].offset, gchar *));
+      struct_member(obj, offsets[j].offset, gchar *) =
+	g_strdup(PROP_VALUE_STRING(props[j]));
+      break;
+    case PROP_TYPE_POINT:
+      struct_member(obj, offsets[j].offset, Point) =
+	PROP_VALUE_POINT(props[i]);
+      break;
+    case PROP_TYPE_POINTARRAY:
+      g_warning("PropType == pointarray not supported");
+      break;
+    case PROP_TYPE_RECT:
+      struct_member(obj, offsets[j].offset, Rectangle) =
+	PROP_VALUE_RECT(props[i]);
+      break;
+    case PROP_TYPE_LINESTYLE:
+      struct_member(obj, offsets[j].offset, LineStyle) =
+	PROP_VALUE_LINESTYLE(props[i]).style;
+      struct_member(obj, offsets[j].offset2, real) =
+	PROP_VALUE_LINESTYLE(props[i]).dash;
+      break;
+    case PROP_TYPE_ARROW:
+      struct_member(obj, offsets[j].offset, Arrow) =
+	PROP_VALUE_ARROW(props[i]);
+      break;
+    case PROP_TYPE_COLOUR:
+      struct_member(obj, offsets[j].offset, Color) =
+	PROP_VALUE_COLOUR(props[i]);
+      break;
+    case PROP_TYPE_FONT:
+      struct_member(obj, offsets[j].offset, Font *) =
+	PROP_VALUE_FONT(props[i]);
+      break;
+    default:
+      g_warning("Prop %s: type == %d not supported", props[i].name,
+		offsets[j].type);
+      break;
+    }
+    handled++;
+  }
+  return handled == nprops;
+}
+
+
+/* --------------------------------------- */
+
 static const gchar *prop_array_key   = "object-props:props";
 static const gchar *prop_num_key     = "object-props:nprops";
 static const gchar *prop_widgets_key = "object-props:widgets";

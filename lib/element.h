@@ -49,12 +49,21 @@ extern void element_move_handle_aspect(Element *elem, HandleId id,
 
 extern void element_save(Element *elem, ObjectNode obj_node);
 extern void element_load(Element *elem, ObjectNode obj_node);
+
+/* base property stuff ... */
+#define ELEMENT_COMMON_PROPERTIES \
+  OBJECT_COMMON_PROPERTIES, \
+  { "elem_corner", PROP_TYPE_POINT, 0, \
+    "Element corner", "The corner of the element"}, \
+  { "elem_width", PROP_TYPE_REAL, 0, \
+    "Element width", "The width of the element"}, \
+  { "elem_height", PROP_TYPE_REAL, 0, \
+    "Element height", "The height of the element"}
+
+#define ELEMENT_COMMON_PROPERTIES_OFFSETS \
+  OBJECT_COMMON_PROPERTIES_OFFSETS, \
+  { "elem_corner", PROP_TYPE_POINT, offsetof(Element, corner) }, \
+  { "elem_width", PROP_TYPE_REAL, offsetof(Element, width) }, \
+  { "elem_height", PROP_TYPE_REAL, offsetof(Element, height) }
+
 #endif /* ELEMENT_H */
-
-
-
-
-
-
-
-

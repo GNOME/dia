@@ -192,6 +192,7 @@ static ObjectOps box_ops = {
 
 
 static PropDescription box_props[] = {
+  ELEMENT_COMMON_PROPERTIES,
   { "border_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Border width"), NULL, NULL},
   { "border_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
@@ -204,15 +205,15 @@ static PropDescription box_props[] = {
     N_("Line style"), NULL, NULL},
   { "corner_radius", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Corner radius"), NULL, NULL},
-  { "text_padding", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+  { "padding", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Text padding"), NULL, NULL},
-  { "text_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE,
+  { "text_font", PROP_TYPE_FONT, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE,
     N_("Font"), NULL, NULL},
-  { "text_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
+  { "text_height", PROP_TYPE_REAL, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE,
     N_("Font size"), NULL, NULL},
-  { "text_color", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE,
+  { "text_colour", PROP_TYPE_COLOUR, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE,
     N_("Font colour"), NULL, NULL},
-  { "text", PROP_TYPE_STRING, 0,
+  { "text", PROP_TYPE_STRING, PROP_FLAG_DONT_SAVE,
     N_("Text"), NULL, NULL},
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
@@ -226,49 +227,50 @@ box_describe_props(Box *box)
   return box_props;
 }
 
+static PropOffset box_offsets[] = {
+  ELEMENT_COMMON_PROPERTIES_OFFSETS,
+  { "border_width", PROP_TYPE_REAL, offsetof(Box, border_width) },
+  { "border_color", PROP_TYPE_COLOUR, offsetof(Box, border_color) },
+  { "inner_color", PROP_TYPE_COLOUR, offsetof(Box, inner_color) },
+  { "show_background", PROP_TYPE_BOOL, offsetof(Box, show_background) },
+  { "line_style", PROP_TYPE_LINESTYLE,
+    offsetof(Box, line_style), offsetof(Box, dashlength) },
+  { "corner_radius", PROP_TYPE_REAL, offsetof(Box, corner_radius) },
+  { "padding", PROP_TYPE_REAL, offsetof(Box, padding) },
+  { NULL, 0, 0 },
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "text_font" },
+  { "text_height" },
+  { "text_colour" },
+  { "text" }
+};
+
 static void
 box_get_props(Box *box, Property *props, guint nprops)
 {
   guint i;
 
-  if (box_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(box_props);
-
+  if (object_get_props_from_offsets((Object *)box, box_offsets, props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < 4; i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
   for (i = 0; i < nprops; i++) {
-    GQuark q = g_quark_from_string(props[i].name);
+    GQuark pquark = g_quark_from_string(props[i].name);
 
-    if (q == box_props[0].quark) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = box->border_width;
-    } else if (q == box_props[1].quark) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = box->border_color;
-    } else if (q == box_props[2].quark) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = box->inner_color;
-    } else if (q == box_props[3].quark) {
-      props[i].type = PROP_TYPE_BOOL;
-      PROP_VALUE_BOOL(props[i]) = box->show_background;
-    } else if (q == box_props[4].quark) {
-      props[i].type = PROP_TYPE_LINESTYLE;
-      PROP_VALUE_LINESTYLE(props[i]).style = box->line_style;
-      PROP_VALUE_LINESTYLE(props[i]).dash  = box->dashlength;
-    } else if (q == box_props[5].quark) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = box->corner_radius;
-    } else if (q == box_props[6].quark) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = box->padding;
-    } else if (q == box_props[7].quark) {
+    if (pquark == quarks[0].q) {
       props[i].type = PROP_TYPE_FONT;
       PROP_VALUE_FONT(props[i]) = box->text->font;
-    } else if (q == box_props[8].quark) {
+    } else if (pquark == quarks[1].q) {
       props[i].type = PROP_TYPE_REAL;
       PROP_VALUE_REAL(props[i]) = box->text->height;
-    } else if (q == box_props[9].quark) {
+    } else if (pquark == quarks[2].q) {
       props[i].type = PROP_TYPE_COLOUR;
       PROP_VALUE_COLOUR(props[i]) = box->text->color;
-    } else if (q == box_props[10].quark) {
+    } else if (pquark == quarks[3].q) {
       props[i].type = PROP_TYPE_STRING;
       g_free(PROP_VALUE_STRING(props[i]));
       PROP_VALUE_STRING(props[i]) = text_get_string_copy(box->text);
@@ -279,37 +281,26 @@ box_get_props(Box *box, Property *props, guint nprops)
 static void
 box_set_props(Box *box, Property *props, guint nprops)
 {
-  guint i;
+  if (!object_set_props_from_offsets((Object *)box, box_offsets,
+				     props, nprops)) {
+    guint i;
 
-  if (box_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(box_props);
+    if (quarks[0].q == 0)
+      for (i = 0; i < 4; i++)
+	quarks[i].q = g_quark_from_static_string(quarks[i].name);
 
-  for (i = 0; i < nprops; i++) {
-    GQuark q = g_quark_from_string(props[i].name);
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
 
-    if (q == box_props[0].quark && props[i].type == PROP_TYPE_REAL) {
-      box->border_width = PROP_VALUE_REAL(props[i]);
-    } else if (q == box_props[1].quark && props[i].type == PROP_TYPE_COLOUR) {
-      box->border_color = PROP_VALUE_COLOUR(props[i]);
-    } else if (q == box_props[2].quark && props[i].type == PROP_TYPE_COLOUR) {
-      box->inner_color = PROP_VALUE_COLOUR(props[i]);
-    } else if (q == box_props[3].quark && props[i].type == PROP_TYPE_BOOL) {
-      box->show_background = PROP_VALUE_BOOL(props[i]);
-    } else if (q == box_props[4].quark && props[i].type==PROP_TYPE_LINESTYLE) {
-      box->line_style = PROP_VALUE_LINESTYLE(props[i]).style;
-      box->dashlength = PROP_VALUE_LINESTYLE(props[i]).dash;
-    } else if (q == box_props[5].quark && props[i].type == PROP_TYPE_REAL) {
-      box->corner_radius = PROP_VALUE_REAL(props[i]);
-    } else if (q == box_props[6].quark && props[i].type == PROP_TYPE_REAL) {
-      box->padding = PROP_VALUE_REAL(props[i]);
-    } else if (q == box_props[7].quark && props[i].type == PROP_TYPE_FONT) {
-      text_set_font(box->text, PROP_VALUE_FONT(props[i]));
-    } else if (q == box_props[8].quark && props[i].type == PROP_TYPE_REAL) {
-      text_set_height(box->text, PROP_VALUE_REAL(props[i]));
-    } else if (q == box_props[9].quark && props[i].type == PROP_TYPE_COLOUR) {
-      text_set_color(box->text, &PROP_VALUE_COLOUR(props[i]));
-    } else if (q == box_props[10].quark && props[i].type == PROP_TYPE_STRING) {
-      text_set_string(box->text, PROP_VALUE_STRING(props[i]));
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
+	text_set_font(box->text, PROP_VALUE_FONT(props[i]));
+      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
+	text_set_height(box->text, PROP_VALUE_REAL(props[i]));
+      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
+	text_set_color(box->text, &PROP_VALUE_COLOUR(props[i]));
+      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
+	text_set_string(box->text, PROP_VALUE_STRING(props[i]));
+      }
     }
   }
   box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);

@@ -73,7 +73,8 @@ struct _PropDescription {
   GQuark quark; /* quark for property name -- helps speed up lookups. */
 };
 
-#define PROP_FLAG_VISIBLE 0x0001
+#define PROP_FLAG_VISIBLE   0x0001
+#define PROP_FLAG_DONT_SAVE 0x0002
 
 struct _Property {
   const gchar *name;
@@ -204,6 +205,25 @@ prop_list_from_matching_descs(PropDescription *plist, guint flags,
   return ret;
 }
 #endif
+
+/* calculates the offset of a structure member within the structure */
+#ifndef offsetof
+#define offsetof(type, member) ( (int) & ((type*)0) -> member )
+#endif
+typedef struct _PropOffset PropOffset;
+struct _PropOffset {
+  const gchar *name;
+  PropType type;
+  int offset;
+  int offset2; /* maybe for point lists, etc */
+  GQuark name_quark;
+};
+
+/* not guaranteed to handle all property types */
+gboolean object_get_props_from_offsets(Object *obj, PropOffset *offsets,
+				       Property *props, guint nprops);
+gboolean object_set_props_from_offsets(Object *obj, PropOffset *offsets,
+				       Property *props, guint nprops);
 
 /* apply some properties and return a corresponding object change */
 ObjectChange *object_apply_props(Object *obj, Property *props, guint nprops);
