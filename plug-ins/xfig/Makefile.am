@@ -4,7 +4,10 @@ pkglib_LTLIBRARIES = libxfig_filter.la
 
 libxfig_filter_la_SOURCES = \
 	xfig.c \
-	xfig-import.c
+	xfig-import.c \
+	xfig-export.c \
+	xfig-common.c \
+	xfig.h
 
 libxfig_filter_la_LDFLAGS = -export-dynamic -module -avoid-version
 

@@ -49,61 +49,12 @@
 #include "properties.h"
 #include "../app/group.h"
 
-#define BUFLEN 512
-#define FIG_MAX_USER_COLORS 512
-/* 1200 PPI */
-#define FIG_UNIT 472.440944881889763779527559055118
-/* 1/80 inch */
-#define FIG_ALT_UNIT 31.496062992125984251968503937007
+#include "xfig.h"
 
-static Color fig_default_colors[32] =
-{ { 0x00, 0x00, 0x00}, {0x00, 0x00, 0xff}, {0x00, 0xff, 0x00}, {0x00, 0xff, 0xff}, 
-  { 0xff, 0x00, 0x00}, {0xff, 0x00, 0xff}, {0xff, 0xff, 0x00}, {0xff, 0xff, 0xff},
-  { 0x00, 0x00, 0x8f}, {0x00, 0x00, 0xb0}, {0x00, 0x00, 0xd1}, {0x87, 0xcf, 0xff},
-  { 0x00, 0x8f, 0x00}, {0x00, 0xb0, 0x00}, {0x00, 0xd1, 0x00}, {0x00, 0x8f, 0x8f},
-  { 0x00, 0xb0, 0xb0}, {0x00, 0xd1, 0xd1}, {0x8f, 0x00, 0x00}, {0xb0, 0x00, 0x00},
-  { 0xd1, 0x00, 0x00}, {0x8f, 0x00, 0x8f}, {0xb0, 0x00, 0xb0}, {0xd1, 0x00, 0xd1},
-  { 0x7f, 0x30, 0x00}, {0xa1, 0x3f, 0x00}, {0xbf, 0x61, 0x00}, {0xff, 0x7f, 0x7f},
-  { 0xff, 0xa1, 0xa1}, {0xff, 0xbf, 0xbf}, {0xff, 0xe1, 0xe1}, {0xff, 0xd7, 0x00}};
+#define BUFLEN 512
+
 static Color fig_colors[FIG_MAX_USER_COLORS];
-static char *fig_fonts[] =
-{
-    "Times-Roman",
-    "Times-Italic",
-    "Times-Bold",
-    "Times-BoldItalic",
-    "AvantGarde-Book",
-    "AvantGarde-BookOblique",
-    "AvantGarde-Demi",
-    "AvantGarde-DemiOblique",
-    "Bookman-Light",
-    "Bookman-LightItalic",
-    "Bookman-Demi",
-    "Bookman-DemiItalic",
-    "Courier",
-    "Courier-Oblique",
-    "Courier-Bold",
-    "Courier-BoldOblique",
-    "Helvetica",
-    "Helvetica-Oblique",
-    "Helvetica-Bold",
-    "Helvetica-BoldOblique",
-    "Helvetica-Narrow",
-    "Helvetica-Narrow-Oblique",
-    "Helvetica-Narrow-Bold",
-    "Helvetica-Narrow-BoldOblique",
-    "NewCenturySchoolbook-Roman",
-    "NewCenturySchoolbook-Italic",
-    "NewCenturySchoolbook-Bold",
-    "NewCenturySchoolbook-BoldItalic",
-    "Palatino-Roman",
-    "Palatino-Italic",
-    "Palatino-Bold",
-    "Palatino-BoldItalic",
-    "Symbol",
-    "ZapfChancery-MediumItalic",
-    "ZapfDingbats"
-};
+
 gboolean import_fig(const gchar *filename, DiagramData *dia, void* user_data);
 
 
@@ -224,6 +175,47 @@ create_standard_box(real xpos, real ypos, real width, real height,
 }
 
 static Object *
+create_standard_arc(real x1, real y1, real x2, real y2,
+		    real radius, DiagramData *dia) {
+    ObjectType *otype = object_get_type("Standard - Arc");
+    Object *new_obj;
+    Handle *h1, *h2;
+    Point point;
+    Property props[4];
+
+    point.x = x1;
+    point.y = y1;
+
+    new_obj = otype->ops->create(&point, otype->default_user_data,
+				 &h1, &h2);
+    layer_add_object(dia->active_layer, new_obj);
+
+    
+    /*
+    props[0].name = "elem_corner";
+    props[0].type = PROP_TYPE_POINT;
+    PROP_VALUE_POINT(props[0]).x = xpos;
+    PROP_VALUE_POINT(props[0]).y = ypos;
+    props[1].name = "elem_width";
+    props[1].type = PROP_TYPE_REAL;
+    PROP_VALUE_REAL(props[1]) = width;
+    props[2].name = "elem_height";
+    props[2].type = PROP_TYPE_REAL;
+    PROP_VALUE_REAL(props[2]) = height;
+    props[3].name = "image_file";
+    props[3].type = PROP_TYPE_FILE;
+    PROP_VALUE_FILE(props[3]) = file;
+    */
+    props[0].name = "curve_distance";
+    props[0].type = PROP_TYPE_REAL;
+    PROP_VALUE_REAL(props[0]) = radius;
+
+    new_obj->ops->set_props(new_obj, props, 1);
+
+    return new_obj;
+}
+
+static Object *
 create_standard_image(real xpos, real ypos, real width, real height,
 		      char *file, DiagramData *dia) {
     ObjectType *otype = object_get_type("Standard - Image");
@@ -255,6 +247,100 @@ create_standard_image(real xpos, real ypos, real width, real height,
     new_obj->ops->set_props(new_obj, props, 4);
 
     return new_obj;
+}
+
+static Color
+fig_color(int color_index) {
+    if (color_index == -1) return color_black; /* Default color */
+    if (color_index < 32) return fig_default_colors[color_index];
+    else return fig_colors[color_index-32];
+}
+
+static Color
+fig_area_fill_color(int area_fill, int color_index) {
+    Color col;
+    col = fig_color(color_index);
+    if (area_fill == -1) return col;
+    if (area_fill >= 0 && area_fill <= 20) {
+	if (color_index == -1 || color_index == 0) {
+	    col.red = 0xff*(20-area_fill)/20;
+	    col.green = 0xff*(20-area_fill)/20;
+	    col.blue = 0xff*(20-area_fill)/20;
+	} else {
+	    col.red = (col.red*area_fill)/20;
+	    col.green = (col.green*area_fill)/20;
+	    col.blue = (col.blue*area_fill)/20;
+	}
+    } else if (area_fill > 20 && area_fill <= 40) {
+	/* White and black area illegal here */
+	col.red += (0xff-col.red)*(area_fill-20)/20;
+	col.green += (0xff-col.green)*(area_fill-20)/20;
+	col.blue += (0xff-col.blue)*(area_fill-20)/20;
+    } else {
+	message_warning(_("Patterns are not implemented\n"));
+    }
+    
+    return col;
+}
+
+static void
+fig_simple_properties(Object *obj,
+		      int line_style,
+		      int thickness,
+		      int pen_color,
+		      int fill_color,
+		      int area_fill) {
+    Property props[5];
+    int num_props = 0;
+
+    num_props = 0;
+    if (line_style != -1) {
+	props[num_props].name = "line_style";
+	props[num_props].type = PROP_TYPE_ENUM;
+	switch (line_style) {
+	case 0:
+	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_SOLID;
+	    break;
+	case 1:
+	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASHED;
+	    break;
+	case 2:
+	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DOTTED;
+	    break;
+	case 3:
+	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASH_DOT;
+	    break;
+	case 4:
+	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASH_DOT_DOT;
+	    break;
+	case 5:
+	default:
+	    message_error(_("Line style %d not supported\n"), line_style);
+	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_SOLID;
+	}
+	num_props++;
+    }
+    props[num_props].name = "line_width";
+    props[num_props].type = PROP_TYPE_REAL;
+    PROP_VALUE_REAL(props[num_props]) = thickness/FIG_ALT_UNIT;
+    num_props++;
+    props[num_props].name = "line_colour";
+    props[num_props].type = PROP_TYPE_COLOUR;
+    PROP_VALUE_COLOUR(props[num_props]) = fig_color(pen_color);
+    num_props++;
+    if (area_fill == -1) {
+	props[num_props].name = "show_background";
+	props[num_props].type = PROP_TYPE_BOOL;
+	PROP_VALUE_BOOL(props[num_props]) = FALSE;
+	num_props++;
+    } else {
+	props[num_props].name = "fill_colour";
+	props[num_props].type = PROP_TYPE_COLOUR;
+	PROP_VALUE_COLOUR(props[num_props]) = fig_area_fill_color(area_fill, fill_color);
+	num_props++;
+    }
+
+    obj->ops->set_props(obj, props, num_props);
 }
 
 static int
@@ -332,40 +418,6 @@ fig_read_text_line(FILE *file) {
     return text_buf;
 }
 
-static Color
-fig_color(int color_index) {
-    if (color_index == -1) return color_black; /* Default color */
-    if (color_index < 32) return fig_default_colors[color_index];
-    else return fig_colors[color_index-32];
-}
-
-static Color
-fig_area_fill_color(int area_fill, int color_index) {
-    Color col;
-    col = fig_color(color_index);
-    if (area_fill == -1) return col;
-    if (area_fill >= 0 && area_fill <= 20) {
-	if (color_index == -1 || color_index == 0) {
-	    col.red = 0xff*(20-area_fill)/20;
-	    col.green = 0xff*(20-area_fill)/20;
-	    col.blue = 0xff*(20-area_fill)/20;
-	} else {
-	    col.red = (col.red*area_fill)/20;
-	    col.green = (col.green*area_fill)/20;
-	    col.blue = (col.blue*area_fill)/20;
-	}
-    } else if (area_fill > 20 && area_fill <= 40) {
-	/* White and black area illegal here */
-	col.red += (0xff-col.red)*(area_fill-20)/20;
-	col.green += (0xff-col.green)*(area_fill-20)/20;
-	col.blue += (0xff-col.blue)*(area_fill-20)/20;
-    } else {
-	message_warning(_("Patterns are not implemented\n"));
-    }
-    
-    return col;
-}
-
 static GList *depths[1000];
 
 static Object *
@@ -385,9 +437,7 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
     int radius_x, radius_y;
     int start_x, start_y;
     int end_x, end_y;
-    Property props[5];
     Object *newobj = NULL;
-    int num_props = 0;
 
     if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %lf %d %d %d %d %d %d %d %d\n",
 	       &sub_type,
@@ -417,59 +467,14 @@ fig_read_ellipse(FILE *file, DiagramData *dia) {
 				     (2*radius_y)/FIG_UNIT,
 				     dia);
 
-    num_props = 0;
-    if (line_style != -1) {
-	props[num_props].name = "line_style";
-	props[num_props].type = PROP_TYPE_ENUM;
-	switch (line_style) {
-	case 0:
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_SOLID;
-	    break;
-	case 1:
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASHED;
-	    break;
-	case 2:
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DOTTED;
-	    break;
-	case 3:
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASH_DOT;
-	    break;
-	case 4:
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASH_DOT_DOT;
-	    break;
-	case 5:
-	default:
-	    message_error(_("Line style %d not supported\n"), line_style);
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_SOLID;
-	}
-	num_props++;
-    }
-    props[num_props].name = "line_width";
-    props[num_props].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[num_props]) = thickness/FIG_ALT_UNIT;
-    num_props++;
-    props[num_props].name = "line_colour";
-    props[num_props].type = PROP_TYPE_COLOUR;
-    PROP_VALUE_COLOUR(props[num_props]) = fig_color(pen_color);
-    num_props++;
-    if (area_fill == -1) {
-	props[num_props].name = "show_background";
-	props[num_props].type = PROP_TYPE_BOOL;
-	PROP_VALUE_BOOL(props[num_props]) = FALSE;
-	num_props++;
-    } else {
-	props[num_props].name = "fill_colour";
-	props[num_props].type = PROP_TYPE_COLOUR;
-	PROP_VALUE_COLOUR(props[num_props]) = fig_area_fill_color(area_fill, fill_color);
-	num_props++;
-    }
+    fig_simple_properties(newobj, line_style, thickness,
+			  pen_color, fill_color, area_fill);
+
     /* Pen style field (not used) */
     /* Style_val (size of dots and dashes) in 1/80 inch */
     /* Direction (not used) */
     /* Angle -- can't rotate yet */
 
-    newobj->ops->set_props(newobj, props, num_props);
-    
     /* Depth field */
     depths[depth] = g_list_prepend(depths[depth], newobj);
 
@@ -495,8 +500,8 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
      int npoints;
      Point *points;
      Property props[5];
+     int num_props;
      Object *newobj = NULL;
-     int num_props = 0;
      int flipped = 0;
      char *image_file = NULL;
 
@@ -543,25 +548,34 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
        return NULL;
      }
      
+     num_props = 0;
      switch (sub_type) {
-     case 2: /* box */
-       newobj = create_standard_box(points[0].x, points[0].y,
-				    points[2].x-points[0].x,
-				    points[2].y-points[0].y, dia);
-       break;
-     case 4: /* arc-box */
-	 newobj = create_standard_box(points[0].x, points[0].y,
-				      points[2].x-points[0].x,
-				      points[2].y-points[0].y, dia);
+     case 4:
 	 if (radius < 0) {
 	     message_warning("Negative corner radius %lf\n", radius);
 	 } else {
 	     props[0].name = "corner_radius";
 	     props[0].type = PROP_TYPE_REAL;
 	     PROP_VALUE_REAL(props[0]) = radius/FIG_ALT_UNIT;
-	     newobj->ops->set_props(newobj, props, 1);
+	     num_props++;
 	 }
-       break;
+	 /* Notice fallthrough */
+     case 2: /* box */
+	 if (points[0].x > points[2].x) {
+	     real tmp = points[0].x;
+	     points[0].x = points[2].x;
+	     points[2].x = tmp;
+	 }
+	 if (points[0].y > points[2].y) {
+	     real tmp = points[0].y;
+	     points[0].y = points[2].y;
+	     points[2].y = tmp;
+	 }
+	 newobj = create_standard_box(points[0].x, points[0].y,
+				      points[2].x-points[0].x,
+				      points[2].y-points[0].y, dia);
+	 newobj->ops->set_props(newobj, props, num_props);
+	 break;
      case 5: /* imported-picture bounding-box) */
 	 newobj = create_standard_image(points[0].x, points[0].y,
 					points[2].x-points[0].x,
@@ -578,62 +592,101 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
        return NULL;
      }
      g_free(image_file);
-     num_props = 0;
-     if (line_style != -1) {
-	 props[num_props].name = "line_style";
-	 props[num_props].type = PROP_TYPE_ENUM;
-	 switch (line_style) {
-	 case 0:
-	     PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_SOLID;
-	     break;
-	 case 1:
-	     PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASHED;
-	     break;
-	 case 2:
-	     PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DOTTED;
-	     break;
-	 case 3:
-	     PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASH_DOT;
-	     break;
-	 case 4:
-	     PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASH_DOT_DOT;
-	     break;
-	 case 5:
-	 default:
-	     message_error(_("Line style %d not supported\n"), line_style);
-	     PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_SOLID;
-	 }
-	 num_props++;
-     }
-     props[num_props].name = "line_width";
-     props[num_props].type = PROP_TYPE_REAL;
-     PROP_VALUE_REAL(props[num_props]) = thickness/FIG_ALT_UNIT;
-     num_props++;
-     props[num_props].name = "line_colour";
-     props[num_props].type = PROP_TYPE_COLOUR;
-     PROP_VALUE_COLOUR(props[num_props]) = fig_color(pen_color);
-     num_props++;
-     if (area_fill == -1) {
-	 props[num_props].name = "show_background";
-	 props[num_props].type = PROP_TYPE_BOOL;
-	 PROP_VALUE_BOOL(props[num_props]) = FALSE;
-	 num_props++;
-     } else {
-	 props[num_props].name = "fill_colour";
-	 props[num_props].type = PROP_TYPE_COLOUR;
-	 PROP_VALUE_COLOUR(props[num_props]) = fig_area_fill_color(area_fill, fill_color);
-	 num_props++;
-     }
+
+     fig_simple_properties(newobj, line_style, thickness,
+			   pen_color, fill_color, area_fill);
      /* Pen style field (not used) */
      /* Style_val (size of dots and dashes) in 1/80 inch*/
      /* Join style */
      /* Cap style */
-     newobj->ops->set_props(newobj, props, num_props);
      
      /* Depth field */
      depths[depth] = g_list_prepend(depths[depth], newobj);
 
      return newobj;
+}
+
+static Object *
+fig_read_arc(FILE *file, DiagramData *dia) {
+    int sub_type;
+    int line_style;
+    int thickness;
+    int pen_color;
+    int fill_color;
+    int depth;
+    int pen_style;
+    int area_fill;
+    real style_val;
+    int join_style;
+    int cap_style;
+    int direction;
+    int forward_arrow;
+    int backward_arrow;
+    Object *newobj = NULL;
+    real center_x, center_y;
+    int x1, y1;
+    int x2, y2;
+    int x3, y3;
+    real ul_x, ul_y;
+    real dr_x, dr_y;
+    real radius;
+
+    if (fscanf(file, "%d %d %d %d %d %d %d %d %lf %d %d %d %d %lf %lf %d %d %d %d %d %d\n",
+	       &sub_type,
+	       &line_style,
+	       &thickness,
+	       &pen_color,
+	       &fill_color,
+	       &depth,
+	       &pen_style,
+	       &area_fill,
+	       &style_val,
+	       &cap_style,
+	       &direction,
+	       &forward_arrow,
+	       &backward_arrow,
+	       &center_x, &center_y,
+	       &x1, &y1,
+	       &x2, &y2,
+	       &x3, &y3) != 21) {
+	message_error(_("Couldn't read arc info: %s\n"), strerror(errno));
+	return NULL;
+    }
+
+    if (forward_arrow == 1) {
+	fig_read_arrow(file);
+    }
+
+    if (backward_arrow == 1) {
+	fig_read_arrow(file);
+    }
+
+    radius = sqrt((x1-center_x)*(x1-center_x)+(y1-center_y)*(y1-center_y))/FIG_UNIT;
+
+    switch (sub_type) {
+    case 0: /* We can't do pie-wedge properly yet */
+    case 1: 
+	newobj = create_standard_arc(x1/FIG_UNIT, y1/FIG_UNIT,
+				     x3/FIG_UNIT, y3/FIG_UNIT,
+				     radius, dia);
+	break;
+    default: 
+	message_error(_("Unknown polyline subtype: %d\n"), sub_type);
+	return NULL;
+    }
+
+    fig_simple_properties(newobj, line_style, thickness,
+			  pen_color, fill_color, area_fill);
+
+    /* Pen style field (not used) */
+    /* Style_val (size of dots and dashes) in 1/80 inch*/
+    /* Join style */
+    /* Cap style */
+     
+    /* Depth field */
+    depths[depth] = g_list_prepend(depths[depth], newobj);
+
+    return newobj;
 }
 
 static Object *
@@ -788,6 +841,8 @@ fig_read_object(FILE *file, DiagramData *dia) {
       break;
   }
   case 5: /* Arc. */
+      item = fig_read_arc(file, dia);
+      break;
   case 3: /* Spline which includes closed/open control/interpolated spline. */
     message_warning(_("Object type %d not implemented yet\n"), objecttype);
     return FALSE;

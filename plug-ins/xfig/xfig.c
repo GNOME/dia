@@ -28,6 +28,7 @@
 #include "plug-ins.h"
 
 extern DiaImportFilter xfig_import_filter;
+extern DiaExportFilter xfig_export_filter;
 
 DIA_PLUGIN_CHECK_INIT
 
@@ -35,11 +36,13 @@ PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "FIG",
-			    _("Fig Format import filter"),
-			    NULL, NULL))
+			    _("Fig Format import and export filter"),
+			    NULL, NULL)
+      )
     return DIA_PLUGIN_INIT_ERROR;
 
   filter_register_import(&xfig_import_filter);
+  filter_register_export(&xfig_export_filter);
 
   return DIA_PLUGIN_INIT_OK;
 }
