@@ -1,3 +1,9 @@
+2003-07-18  Hubert Figuiere  <hfiguiere@teaser.fr>
+
+	* plug-ins/pixbuf/.cvsignore
+	* shapes/Cisco/.cvsignore: 
+	added cvsignore
+
 2003-07-17  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/dia-props.c (diagram_properties_retrieve): Use
