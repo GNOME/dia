@@ -1,3 +1,8 @@
+2000-10-06  Szabolcs BAN  <shooby@gnome.hu>
+
+	* hu.po: Updated Hungarian translations. Major changes in
+	terminology.
+
 2000-09-25  Christophe Merlet  <christophe@merlet.net>
 
 	* POTFILES.in: Reverted my changes. Oups :(
