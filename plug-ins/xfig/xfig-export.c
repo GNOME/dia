@@ -284,7 +284,11 @@ figLineStyle(XfigRenderer *renderer)
 static int 
 figLineWidth(XfigRenderer *renderer) 
 {
-  return (int)((renderer->linewidth / 2.54) * 80.0);
+  int width = 0;
+  /* Minimal line width in fig diagrams. */
+  if (renderer->linewidth <= 0.3175) width = 1;
+  else width = (int)((renderer->linewidth / 2.54) * 80.0);
+  return width;
 }
 
 /* Must be called before outputting anything that uses this color,

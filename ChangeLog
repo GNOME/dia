@@ -1,5 +1,9 @@
 2004-02-16  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/xfig/xfig-export.c (figLineWidth): Check for minimum
+	width renderable in xfig.  Helps on bug #133637, but does not
+	quite fix it -- something about depth is wrong.
+
 	* plug-ins/xslt/xslt.[ch]: Patch #133913 from phenning@lanl.gov:
 	Extern definitions for Mac compilation.
 
