@@ -1,6 +1,6 @@
 !IFNDEF PACKAGE
 
-PLUGINS = chronogram custom er flowchart fs grafcet \
+PLUGINS = bondgraph chronogram custom er flowchart fs grafcet \
 	misc network sadt standard uml
 
 #outdated:	labels
@@ -45,6 +45,11 @@ PKG_LINK = $(GLIB_LIBS) $(INTL_LIBS) \
 #
 # Object definitions for the various plugins
 #
+
+!IFDEF OBJ_bondgraph
+OBJECTS = \
+	bondgraph.obj \
+!ENDIF
 
 !IFDEF OBJ_chronogram
 OBJECTS = \
