@@ -1,3 +1,7 @@
+2005-03-19  Hans Breuer  <hans@breuer.org>
+
+	* lib/autoroute.c : at least it should compile ;)
+	
 2005-03-19  Lars Clausen  <lars@raeder.dk>
 
 	* lib/autoroute.c: Orthconns now do autogap.

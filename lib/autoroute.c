@@ -94,11 +94,6 @@ autoroute_layout_orthconn(OrthConn *conn,
 					       &topos, startconn);
 	endpoint = autolayout_adjust_for_gap(&topos, enddir, conn,
 					     &frompos, endconn);
-	       startdir, enddir,
-	       frompos.x, frompos.y,
-	       topos.x, topos.y,
-	       startpoint.x, startpoint.y,
-	       endpoint.x, endpoint.y);
 	normal_enddir = autolayout_normalize_points(startdir, enddir,
 						    startpoint, endpoint,
 						    &otherpoint);
