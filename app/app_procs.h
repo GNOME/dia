@@ -28,9 +28,6 @@ void app_init(int argc, char **argv);
 gboolean app_exit(void);
 int app_is_embedded(void);
 
-gboolean do_convert(const char *infname,
-		    const char *outfname, DiaExportFilter *ef,
-		    const char *size);
 char *build_output_file_name(const char *infname, const char *format);
 
 void app_splash_init(const gchar* name);

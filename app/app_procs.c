@@ -95,7 +95,8 @@ static gboolean
 handle_initial_diagram(const char *input_file_name, 
 		       const char *export_file_name,
 		       const char *export_file_format,
-		       const char *size);
+		       const char *size,
+		       char *show_layers);
 
 static void create_user_dirs(void);
 static PluginInitResult internal_plugin_init(PluginInfo *info);
@@ -106,9 +107,10 @@ static void process_opts(int argc, char **argv,
 			 poptContext poptCtx, struct poptOption options[],
 #endif
 			 GSList **files, char **export_file_name,
-			 char **export_file_format, char **size);
+			 char **export_file_format, char **size,
+			 char **show_layers, gboolean *nosplash);
 static gboolean handle_all_diagrams(GSList *files, char *export_file_name,
-				    char *export_file_format, char *size);
+				    char *export_file_format, char *size, char *show_layers);
 static void print_credits(gboolean credits);
 
 static gboolean dia_is_interactive = TRUE;
@@ -202,10 +204,11 @@ const char *argv0 = NULL;
  * ef.  If either is null, try to guess them.
  * size might be NULL.
  */
-gboolean
+static gboolean
 do_convert(const char *infname, 
 	   const char *outfname, DiaExportFilter *ef,
-	   const char *size)
+	   const char *size,
+	   char *show_layers)
 {
   DiaImportFilter *inf;
   DiagramData *diagdata = NULL;
@@ -238,6 +241,31 @@ do_convert(const char *infname,
             argv0, infname);
     exit(1);
   }
+
+  /* Apply --show-layers=LAYER,LAYER,... switch. 13.3.2004 sampo@iki.fi */
+  
+  if (show_layers && *show_layers) {
+    GPtrArray *layers = diagdata->layers;
+    if (layers) {
+      int len,k = 0;
+      Layer *lay;
+      char *p;
+      for (k = 0; k < layers->len; k++) {
+	lay = (Layer *)g_ptr_array_index(layers, k);
+	lay->visible = 0;
+	if (lay->name) {
+	  len =  strlen(lay->name);
+	  if ((p = strstr(show_layers, lay->name))) {
+	    if (((p == show_layers) || (p[-1] == ','))    /* zap false positives */
+		&& ((p[len] == 0) || (p[len] == ','))){
+	      lay->visible = 1;
+	    }
+	  }
+	}
+      }
+    }
+  }
+
   /* Do our best in providing the size to the filter, but don't abuse user_data 
    * too much for it. It _must not_ be changed after initialization and there 
    * are quite some filter selecting their output format by it. --hb
@@ -285,7 +313,8 @@ static gboolean
 handle_initial_diagram(const char *in_file_name, 
 		       const char *out_file_name,
 		       const char *export_file_format,
-		       const char *size) {
+		       const char *size,
+		       char* show_layers) {
   DDisplay *ddisp = NULL;
   Diagram *diagram = NULL;
   gboolean made_conversions = FALSE;
@@ -314,7 +343,8 @@ handle_initial_diagram(const char *in_file_name,
 						ef->extensions[0]);
     }
     made_conversions |= do_convert(in_file_name,
-      (out_file_name != NULL?out_file_name:export_file_name), ef, size);
+      (out_file_name != NULL?out_file_name:export_file_name),
+				   ef, size, show_layers);
     g_free(export_file_name);
   } else if (out_file_name) {
     DiaExportFilter *ef = NULL;
@@ -324,7 +354,7 @@ handle_initial_diagram(const char *in_file_name,
       ef = filter_get_by_name ("png-libart");
     
     made_conversions |= do_convert(in_file_name, out_file_name, ef,
-				   size);
+				   size, show_layers);
   } else {
     if (g_file_test(in_file_name, G_FILE_TEST_EXISTS)) {
       diagram = diagram_load (in_file_name, NULL);
@@ -385,6 +415,7 @@ app_init (int argc, char **argv)
   static char *export_file_name = NULL;
   static char *export_file_format = NULL;
   static char *size = NULL;
+  static char *show_layers = NULL;
   gboolean made_conversions = FALSE;
   GSList *files = NULL;
 
@@ -436,6 +467,8 @@ app_init (int argc, char **argv)
     },
     {"size", 's', POPT_ARG_STRING, NULL, 0,
      N_("Export graphics size"), N_("WxH")},
+    {"show-layers", 'L', POPT_ARG_STRING, NULL, 0,  /* 13.3.2004 sampo@iki.fi */
+     N_("Show only specified layers (e.g. when exporting)"), N_("LAYER,LAYER,...")},
     {"nosplash", 'n', POPT_ARG_NONE, &nosplash, 0,
      N_("Don't show the splash screen"), NULL },
     {"log-to-stderr", 'l', POPT_ARG_NONE, &log_to_stderr, 0,
@@ -458,6 +491,7 @@ app_init (int argc, char **argv)
   options[0].arg = &export_file_name;
   options[1].arg = &export_file_format;
   options[2].arg = &size;
+  options[3].arg = &show_layers;
 #endif
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
@@ -473,7 +507,7 @@ app_init (int argc, char **argv)
                context, options, 
 #endif
                &files,
-	     &export_file_name, &export_file_format, &size);
+	     &export_file_name, &export_file_format, &size, &show_layers, &nosplash);
 
 #if defined ENABLE_NLS && defined HAVE_BIND_TEXTDOMAIN_CODESET
   bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");  
@@ -625,7 +659,7 @@ app_init (int argc, char **argv)
   }
 
   made_conversions = handle_all_diagrams(files, export_file_name,
-					 export_file_format, size);
+					 export_file_format, size, show_layers);
   if (dia_is_interactive && files == NULL) {
     gchar *filename = g_filename_from_utf8(_("Diagram1.dia"), -1, NULL, NULL, NULL);
     Diagram *diagram = new_diagram (filename);
@@ -822,7 +856,8 @@ process_opts(int argc, char **argv,
 	     poptContext poptCtx, struct poptOption options[],
 #endif
 	     GSList **files, char **export_file_name,
-	     char **export_file_format, char **size)
+	     char **export_file_format, char **size,
+	     char **show_layers, gboolean* nosplash)
 {
 #if defined HAVE_POPT && !GLIB_CHECK_VERSION(2,5,5)
   int rc = 0;
@@ -898,6 +933,15 @@ process_opts(int argc, char **argv,
                   *size = argv[i];
                   continue;
               }
+          } else if (0 == strcmp(argv[i],"-L")) {
+              if (i < (argc-1)) {
+                  i++;
+                  *show_layers = argv[i];
+                  continue;
+              }
+          } else if (0 == strcmp(argv[i],"-n")) {
+	      *nosplash = 1;
+	      continue;
           }
 	  *files = g_slist_append(*files, in_file_name);
       }
@@ -909,7 +953,7 @@ process_opts(int argc, char **argv,
 
 static gboolean
 handle_all_diagrams(GSList *files, char *export_file_name,
-		    char *export_file_format, char *size)
+		    char *export_file_format, char *size, char *show_layers)
 {
   GSList *node = NULL;
   gboolean made_conversions = FALSE;
@@ -917,7 +961,7 @@ handle_all_diagrams(GSList *files, char *export_file_name,
   for (node = files; node; node = node->next) {
     made_conversions |=
       handle_initial_diagram(node->data, export_file_name,
-			     export_file_format, size);
+			     export_file_format, size, show_layers);
   }
   return made_conversions;
 }

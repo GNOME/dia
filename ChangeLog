@@ -1,3 +1,14 @@
+2005-03-05  Sampo Kellomaki <sampo@iki.fi>
+
+	* app/app_procs.c: Implemented --show-layers=LAYER,LAYER,... option
+	This option permits command line control of which layers are visible.
+	Useful when automatically exporting multiple versions of the same
+	diagram, e.g. slides with overlays. Added-n switch parsing without POPT.+       * app/app_procs.h: moved prototype of do_convert() to app/app_procs.c
+	and made it static since its only used in that file.
+	* app/authors.h: added myself
+	* doc/en/dia.1: documented the switch
+	* doc/en/usage-layers.xml: ditto
+	
 2005-03-05  Alan Horkan <horkana@tcd.ie>
  
  	* app/interface.c Change Horizontal scroll policy to NEVER for sheets

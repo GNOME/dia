@@ -7,7 +7,7 @@
      In <application>Dia</application>, <emphasis>layers</emphasis> are managed through the <interface>Layers Dialog</interface> and all layers related operations can be achieved from this dialog.
    </para>
    <para>
-     As a general purpose, layers aim at being a shortcut for grouping related objects within a diagram. They allow you to isolate the different parts of a diagram, in the way which you can decide to show only certain parts of it and not some others will stay hidden even when exporting or printing the diagram.
+     As a general purpose, layers aim at being a shortcut for grouping related objects within a diagram. They allow you to isolate the different parts of a diagram, in the way which you can decide to show only certain parts of it and not some others will stay hidden even when exporting or printing the diagram. Use --show-layers command line switch to control which layers are visible when batch exporting.
    </para>
    <para>
      Inside a layer, any operation you would like to perform on objects are possible through the <interface>Main Popup Menu</interface>, then you can act on objects just the way you use to.
@@ -29,7 +29,19 @@
       You can create as many layers as you want, <application>Dia</application> will put a new layer on top of all the layers have been already created. <emphasis>Layers</emphasis> can be thought as a stack of transparent papers. Meaning you will be able to change their stack order, decide whether or not to show them, draw any number of objects onto them and so on.
      </para>
      <para>
-       All this can be manage through the <interface>Layers Dialog</interface>.
+       All this can be managed through the <interface>Layers Dialog</interface>.
+    </para>
+    <para>
+      You can use layers to create overlay slide show by drawing each incremental slide in a
+      layer and manipulating which layers are visible. If you want to automate
+      post processing such slide show, you can use --show-layers command line switch.
+      For example: 
+      <tt>dia --show-layers=Background,Slide3 --export-to-format=eps-builtin --export=foo.eps foo.dia</tt>
+      will export the Background and Slide3 layers, i.e. the eps output has only these
+      two layers and none others. You would then repeat the export for each
+      combination of layers you need to produce your slides. Using this switch
+      and a shell script or Makefile
+      you can automate the export process quite well.
     </para>
   </sect1>
   
