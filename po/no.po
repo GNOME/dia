@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia 0.80\n"
-"POT-Creation-Date: 2000-04-28 15:26+0200\n"
+"POT-Creation-Date: 2000-05-04 20:45+0200\n"
 "PO-Revision-Date: 2000-04-28 15:38+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -2374,7 +2374,8 @@ msgstr ""
 "@ tid    sett pekeren til en absolutt tid.\n"
 "( varighet  setter signalet opp, og venter så 'varighet'.\n"
 ") varighet  setter signalet ned, og venter så 'varighet'.\n"
-"u varighet  setter signalet til \"ukjent\" tilstand, og venter så 'varighet'.\n"
+"u varighet  setter signalet til \"ukjent\" tilstand, og venter så "
+"'varighet'.\n"
 "eksempel : @ 1.0 (2.0)1.0(2.0)\n"
 
 #: objects/chronogram/chronoline.c:316 objects/chronogram/chronoline.c:407
