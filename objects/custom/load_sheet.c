@@ -129,7 +129,9 @@ load_from_index(const gchar *directory)
     }
     g_free(filename);
 
+#ifdef DEBUG_CUSTOM
     shape_info_print(info); /* debugging ... */
+#endif
     custom_object_new(info, &obj_type, &sheet_obj);
 
     object_register_type(obj_type);
@@ -172,7 +174,9 @@ load_with_readdir(const gchar *directory, const gchar *name)
       if (!info)
         continue;
 
+#ifdef DEBUG_CUSTOM
       shape_info_print(info); /* debugging ... */
+#endif
       custom_object_new(info, &obj_type, &sheet_obj); /* create new type */
 
       object_register_type(obj_type);

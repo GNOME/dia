@@ -12,5 +12,11 @@
     <shape>vinductor.shape</shape>
     <shape>npn.shape</shape>
     <shape>pnp.shape</shape>
+    <shape>hdiode.shape</shape>
+    <shape>vdiode.shape</shape>
+    <shape>hzener.shape</shape>
+    <shape>vzener.shape</shape>
+    <shape>ground.shape</shape>
+    <shape>opamp.shape</shape>
   </shapes>
 </sheet>

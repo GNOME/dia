@@ -102,7 +102,9 @@ parse_path(ShapeInfo *info, const char *path_str, real line_width,
 
   path_chomp(path);
   while (path[0] != '\0') {
+#ifdef DEBUG_CUSTOM
     g_print("Path: %s\n", path);
+#endif
     /* check for a new command */
     switch (path[0]) {
     case 'M':
@@ -465,7 +467,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 	g_array_append_val(arr, val);
       poly = g_malloc0(sizeof(GraphicElementPoly) + arr->len/2*sizeof(Point));
       el = (GraphicElement *)poly;
-      poly->type = GE_POLYLINE;
+      poly->type = GE_POLYGON;
       poly->npoints = arr->len / 2;
       rarr = (real *)arr->data;
       for (i = 0; i < poly->npoints; i++) {
