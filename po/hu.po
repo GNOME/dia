@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia ?\n"
-"POT-Creation-Date: 1999-03-29 20:04+0200\n"
+"POT-Creation-Date: 1999-04-05 23:15+0200\n"
 "PO-Revision-Date: 1999-03-22 19:03+MET\n"
 "Last-Translator: Shooby Ban <bansz@szif.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -25,20 +25,20 @@ msgstr ""
 msgid "Can't connect to session manager!\n"
 msgstr ""
 
-#: app/app_procs.c:171 app/app_procs.c:173
+#: app/app_procs.c:169 app/app_procs.c:171
 msgid ""
 "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 
-#: app/app_procs.c:201
-msgid "need valid input file for --export-file-to-ps\n"
-msgstr ""
+#: app/app_procs.c:199
+msgid "Need valid input file\n"
+msgstr "Tényleges bemeneti fájl kell\n"
 
-#: app/app_procs.c:242
+#: app/app_procs.c:240
 msgid "Quit, are you sure?"
 msgstr "Kilépsz tényleg?"
 
-#: app/app_procs.c:244
+#: app/app_procs.c:242
 msgid ""
 "Modified diagrams exists.\n"
 "Are you sure you want to quit?"
@@ -46,62 +46,72 @@ msgstr ""
 "Módosított diagramm van a rajztáblán.\n"
 "Tényleg ki akarsz lépni?"
 
-#: app/app_procs.c:253 app/commands.c:200 app/commands.c:318 app/display.c:720
+#: app/app_procs.c:251 app/commands.c:200 app/commands.c:318 app/display.c:720
 #: app/preferences.c:404
 msgid "Yes"
 msgstr "Igen"
 
-#: app/app_procs.c:266 app/commands.c:213 app/commands.c:331 app/display.c:731
+#: app/app_procs.c:264 app/commands.c:213 app/commands.c:331 app/display.c:731
 #: app/preferences.c:404 app/preferences.c:415
 msgid "No"
 msgstr "Nem"
 
-#: app/app_procs.c:326
+#: app/app_procs.c:324
 #, c-format
 msgid ""
 "Couldn't find any libraries to load.\n"
 "%s is not a directory.\n"
 msgstr ""
+"Nem találtam egy libet sem.\n"
+"%s nem könyvtár.\n"
 
-#: app/app_procs.c:333
+#: app/app_procs.c:331
 #, c-format
 msgid "Couldn't open \"%s\".\n"
-msgstr ""
+msgstr "Nem tudom megnyitni \"%s\"-t.\n"
 
-#: app/app_procs.c:346 app/app_procs.c:347 app/app_procs.c:382
-#: app/app_procs.c:383
+#: app/app_procs.c:344 app/app_procs.c:345 app/app_procs.c:380
+#: app/app_procs.c:381
 #, c-format
 msgid ""
 "Error loading library: \"%s\":\n"
 " %s\n"
 msgstr ""
+"Nem tudom betölteni a libet: \"%s\":\n"
 
-#: app/app_procs.c:357 app/app_procs.c:358
+#: app/app_procs.c:355 app/app_procs.c:356
 #, c-format
 msgid "The file \"%s\" is not a Dia object library.\n"
-msgstr ""
+msgstr "A fájl \"%s\" nem Dia objektum lib.\n"
 
-#: app/app_procs.c:363 app/app_procs.c:364
+#: app/app_procs.c:361 app/app_procs.c:362
 #, c-format
 msgid ""
 "The object library \"%s\" is from an older version of Dia and cannot be "
 "used.\n"
 "Please upgrade it."
 msgstr ""
+"Az objektumkönyvtár \"%s\" egy régebbi verziójú Dia része, "
+"nem használható.\n"
+"Upgrade-lj egy újabbra."
 
-#: app/app_procs.c:369 app/app_procs.c:370
+#: app/app_procs.c:367 app/app_procs.c:368
 #, c-format
 msgid ""
 "The object library \"%s\" is from an later version of Dia.\n"
 "You need to upgrade Dia to use it."
 msgstr ""
+"Az objektumkönyvtár \"%s\" egy régebbi verziójú Dia része.\n"
+"Upgrade-lj egy újabbra."
 
-#: app/app_procs.c:451
+#: app/app_procs.c:449
 #, c-format
 msgid ""
 "Unable to find register_sheets in library:\n"
 "%s"
 msgstr ""
+"Nem találom a register_sheets-t a libben:\n"
+"%s"
 
 #: app/color_area.c:260 lib/widgets.c:433
 msgid "Select color"
@@ -226,26 +236,9 @@ msgstr "<Display>/Objektumok/Függõleges/Lent"
 msgid "<Display>/Objects/Align Vertical/Equal Distance"
 msgstr "<Display>/Objektumok/Függõleges/Egyenlõ távolság"
 
-#: app/diagram.c:475
-msgid "Trying to ungroup with more or less that one selected object."
-msgstr ""
-
-#: app/disp_callbacks.c:105
-#, c-format
-msgid "Selected list is %s while selected_count is %d\n"
-msgstr ""
-
-#: app/disp_callbacks.c:106
-msgid "long"
-msgstr ""
-
-#: app/disp_callbacks.c:106
-msgid "empty"
-msgstr ""
-
 #: app/disp_callbacks.c:140
 msgid "No object menu"
-msgstr ""
+msgstr "Nincs objektumok menü"
 
 #: app/display.c:59 app/display.c:60
 msgid "Zoom"
@@ -253,11 +246,11 @@ msgstr "Közelítés"
 
 #: app/display.c:79
 msgid "Diagram modified!"
-msgstr ""
+msgstr "A Diagramm módosítva lett!"
 
 #: app/display.c:708
 msgid "Really close?"
-msgstr ""
+msgstr "Tényleg bezárod?"
 
 #: app/display.c:711
 msgid ""
@@ -301,7 +294,7 @@ msgstr "Nagyítás"
 
 #: app/interface.c:65
 msgid "Scroll around the diagram"
-msgstr ""
+msgstr "Körbegörget a diagrammon"
 
 #: app/interface.c:69
 msgid "Create Text"
@@ -340,6 +333,8 @@ msgid ""
 "Foreground & background colors.  The small black and white squares reset "
 "colors.  The small arrows swap colors.  Double click to change colors."
 msgstr ""
+"Elõ- és háttérszínek. A kis fekete és fehér négyzetek alapbeállítást "
+"nyújtanak. A kis nyilak felcserélik a színeket. Dupla klikkel szerkesztheted."
 
 #: app/interface.c:590
 msgid "Diagram Editor"
@@ -351,15 +346,15 @@ msgstr "Új réteg"
 
 #: app/layer_dialog.c:58
 msgid "Raise Layer"
-msgstr ""
+msgstr "Réteget elõtérbe hoz"
 
 #: app/layer_dialog.c:59
 msgid "Lower Layer"
-msgstr ""
+msgstr "Réteget háttérbe tesz"
 
 #: app/layer_dialog.c:60
 msgid "Delete Layer"
-msgstr ""
+msgstr "Réteget töröl"
 
 #: app/layer_dialog.c:194
 msgid "Layers"
@@ -396,22 +391,24 @@ msgstr "Mégsem"
 
 #: app/load_save.c:76
 msgid "Error reading diagram file\n"
-msgstr ""
+msgstr "Diagrammfájl beolvasási hiba\n"
 
 #: app/load_save.c:123
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
 msgstr ""
+"Beolvasási hiba.\n"
+"A csatolt objektum nem található a dokumentumban."
 
 #: app/load_save.c:159
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr ""
+msgstr "Nem tudom megnyitni: '%s' nem olvasható.\n"
 
 #: app/load_save.c:165
 msgid "You must specify a file, not a directory.\n"
-msgstr ""
+msgstr "Meg kell adnod egy fájlt, nem csak egy könyvtárat.\n"
 
 #: app/load_save.c:174 app/load_save.c:179
 #, c-format
@@ -426,17 +423,13 @@ msgid ""
 "Error loading diagram %s.\n"
 "Not a Dia file."
 msgstr ""
-
-#: app/load_save.c:328
-msgid ""
-"Internal error saving diagram\n"
-" con_point_nr >= other_obj->num_connections\n"
-msgstr ""
+"Diagramm betöltési hiba %s-nél.\n"
+"Nem Dia fájl."
 
 #: app/load_save.c:377 app/render_eps.c:139
 #, c-format
 msgid "Couldn't open: '%s' for writing.\n"
-msgstr ""
+msgstr "Nem tudom megnyitni: '%s' nem írható.\n"
 
 #: app/menus.c:34 app/menus.c:44
 msgid "_New diagram"
@@ -551,14 +544,6 @@ msgstr "_Tulajdonságok"
 #: app/menus.c:132
 msgid "_Layers"
 msgstr "_Rétegek"
-
-#: app/menus.c:142
-msgid "File"
-msgstr "Fájl"
-
-#: app/menus.c:143
-msgid "Help"
-msgstr "Súgó"
 
 #: app/menus.c:151
 msgid "Objects"
@@ -740,12 +725,11 @@ msgstr "/_Objektumok"
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:211
 msgid "/Objects/Send to _Back"
-msgstr ""
+msgstr "/Objektumok/Háttérbe tesz"
 
 #: app/menus.c:212
-#, fuzzy
 msgid "/Objects/Bring to _Front"
-msgstr "/Objektumok/_Vizszintes"
+msgstr "/Objektumok/Elõtérbe hoz"
 
 #: app/menus.c:213 app/menus.c:216
 msgid "/Objects/sep1"
@@ -764,46 +748,40 @@ msgid "/Objects/Align _Horizontal"
 msgstr "/Objektumok/_Vizszintes"
 
 #: app/menus.c:218
-#, fuzzy
 msgid "/Objects/Align Horizontal/Left"
-msgstr "/Objektumok/Vizszintes/Középre"
+msgstr "/Objektumok/Vizszintes/Balra"
 
 #: app/menus.c:219
 msgid "/Objects/Align Horizontal/Center"
 msgstr "/Objektumok/Vizszintes/Középre"
 
 #: app/menus.c:220
-#, fuzzy
 msgid "/Objects/Align Horizontal/Right"
-msgstr "/Objektumok/_Vizszintes"
+msgstr "/Objektumok/Vizszintes/Jobbra"
 
 #: app/menus.c:221
-#, fuzzy
 msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Objektumok/Vizszintes/Középre"
+msgstr "/Objektumok/Vizszintes/Egyenlõ távolság"
 
 #: app/menus.c:222
 msgid "/Objects/Align _Vertical"
 msgstr "/Objektumok/_Függõleges"
 
 #: app/menus.c:223
-#, fuzzy
 msgid "/Objects/Align Vertical/Top"
-msgstr "/Objektumok/_Függõleges"
+msgstr "/Objektumok/Függõleges/Fel"
 
 #: app/menus.c:224
 msgid "/Objects/Align Vertical/Center"
 msgstr "/Objektumok/Függõleges/Középre"
 
 #: app/menus.c:225
-#, fuzzy
 msgid "/Objects/Align Vertical/Bottom"
-msgstr "/Objektumok/Függõleges/Balra"
+msgstr "/Objektumok/Függõleges/Le"
 
 #: app/menus.c:226
-#, fuzzy
 msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Objektumok/Függõleges/Jobbra"
+msgstr "/Objektumok/Függõleges/Egyenlõ távolság"
 
 #. {"/Objects/tearoff1 ",      NULL,         tearoff,                     0, "<Tearoff>" },
 #: app/menus.c:229
@@ -820,75 +798,75 @@ msgstr "/Dialógusok/_Rétegek"
 
 #: app/properties.c:42
 msgid "Object properties"
-msgstr ""
+msgstr "Objektum tulajdonságok"
 
 #: app/defaults.c:61 app/preferences.c:494 app/properties.c:60
 msgid "Apply"
-msgstr ""
+msgstr "Alkalmaz"
 
 #: app/properties.c:73
 msgid "This object has no properties."
-msgstr ""
+msgstr "Nincsenek tulajdonságai az objektumnak."
 
 #: app/defaults.c:43
 msgid "Object defaults"
-msgstr ""
+msgstr "Objektum alapértékek"
 
 #: app/defaults.c:73
 msgid "This object has no defaults."
-msgstr ""
+msgstr "Nincs alapértéke az objektumnak."
 
 #: app/preferences.c:68
 msgid "User Interface"
-msgstr ""
+msgstr "Felhasználói interfész"
 
 #: app/preferences.c:69
 msgid "View Defaults"
-msgstr ""
+msgstr "Alapbeállítások nézete"
 
 #: app/preferences.c:76
 msgid "Reset tools after create:"
-msgstr ""
+msgstr "Létrehozás után eszközök beállítása:"
 
 #: app/preferences.c:78
 msgid "Grid:"
-msgstr ""
+msgstr "Rács:"
 
 #: app/preferences.c:79
 msgid "Visible:"
-msgstr ""
+msgstr "Látható:"
 
 #: app/preferences.c:80
 msgid "X Size:"
-msgstr ""
+msgstr "X méret:"
 
 #: app/preferences.c:81
 msgid "Y Size:"
-msgstr ""
+msgstr "Y méret:"
 
 #: app/preferences.c:83
 msgid "New window:"
-msgstr ""
+msgstr "Új ablak:"
 
 #: app/preferences.c:84
 msgid "Width:"
-msgstr ""
+msgstr "Szélesség:"
 
 #: app/preferences.c:85
 msgid "Height:"
-msgstr ""
+msgstr "Magasság:"
 
 #: app/preferences.c:86
 msgid "Magnify:"
-msgstr ""
+msgstr "Nagyítás:"
 
 #: app/preferences.c:476
 msgid "Preferences"
-msgstr ""
+msgstr "Tulajdonságok"
 
 #: lib/diagramdata.c:39
 msgid "Background"
-msgstr ""
+msgstr "Háttér"
 
 #: lib/font.c:344
 #, c-format
@@ -896,103 +874,105 @@ msgid ""
 "Warning no X Font for %s found, \n"
 "using %s instead.\n"
 msgstr ""
+"Figyelem! %s-hez nincs X font, \n"
+"%s-t használok.\n"
+
 
 #: lib/font.c:398
 #, c-format
 msgid "Font %s not found, using Courier instead.\n"
-msgstr ""
+msgstr "s% font nincs, Courier-t használok helyette.\n"
 
 #: lib/message.c:95
 msgid "Notice"
-msgstr ""
+msgstr "Megjegyzés"
 
 #: lib/message.c:106 lib/message.c:118
 msgid "Warning"
-msgstr ""
+msgstr "Figyelmeztetés"
 
 #: lib/widgets.c:269
 msgid "Solid"
-msgstr ""
+msgstr "Szolíd"
 
 #: lib/widgets.c:275
 msgid "Dashed"
-msgstr ""
+msgstr "Szaggatott"
 
 #: lib/widgets.c:281
 msgid "Dash-Dot"
-msgstr ""
+msgstr "Vonal-Pont"
 
 #: lib/widgets.c:287
 msgid "Dash-Dot-Dot"
-msgstr ""
+msgstr "Vonal-Pont-Pont"
 
 #: lib/widgets.c:293
 msgid "Dotted"
-msgstr ""
+msgstr "Pontozott"
 
 #: lib/widgets.c:595 objects/UML/association.c:869
-#, fuzzy
 msgid "None"
-msgstr "Nem"
+msgstr "Nincs"
 
 #: lib/widgets.c:601
 msgid "Lines"
-msgstr ""
+msgstr "Vonalak"
 
 #: lib/widgets.c:607
 msgid "Hollow Triangle"
-msgstr ""
+msgstr "Lyukas háromszög"
 
 #: lib/widgets.c:613
 msgid "Filled Triangle"
-msgstr ""
+msgstr "Kitöltött háromszög"
 
 #: lib/widgets.c:619
 msgid "Hollow Diamond"
-msgstr ""
+msgstr "Lyukas gyémánt"
 
 #: lib/widgets.c:625
 msgid "Filled Diamond"
-msgstr ""
+msgstr "Kitöltött gyémánt"
 
 #: lib/widgets.c:631
 msgid "Half Head"
-msgstr ""
+msgstr "Fél fej"
 
 #: lib/widgets.c:647
 msgid "Length: "
-msgstr ""
+msgstr "Hossz: "
 
 #: lib/widgets.c:660
 msgid "Width: "
-msgstr ""
+msgstr "Szélesség: "
 
 #: lib/widgets.c:776
 msgid "Select image file"
-msgstr ""
+msgstr "Válassz ki egy képfájlt"
 
 #: lib/widgets.c:806
 msgid "Browse"
-msgstr ""
+msgstr "Keres"
 
 #. type
 #: objects/UML/actor.c:91
 msgid "Create an actor"
-msgstr ""
+msgstr "Szereplõ létrehozása"
 
 #: objects/UML/actor.c:293
 msgid "Actor"
-msgstr ""
+msgstr "Szereplõ"
 
 #. type
 #: objects/UML/association.c:142
 msgid "Association, two classes are associated."
-msgstr ""
+msgstr "Asszociáció, két osztály össze van kapcsolva."
 
 #. type
 #: objects/UML/association.c:152
 msgid "Aggregation, one class is part of another."
-msgstr ""
+msgstr "Aggregáció, egy osztály egy másik osztály része."
 
 #: objects/ER/attribute.c:188 objects/ER/entity.c:188
 #: objects/ER/relationship.c:197 objects/UML/association.c:847
@@ -1001,130 +981,129 @@ msgstr ""
 #: objects/UML/dependency.c:512 objects/UML/generalization.c:489
 #: objects/UML/large_package.c:520 objects/UML/realizes.c:485
 msgid "Name:"
-msgstr ""
+msgstr "Név:"
 
 #: objects/UML/association.c:859
 msgid "Direction:"
-msgstr ""
+msgstr "Irány:"
 
 #: objects/UML/association.c:907 objects/UML/association.c:915
 msgid "Side A"
-msgstr ""
+msgstr "A oldal"
 
 #: objects/UML/association.c:909 objects/UML/association.c:917
 msgid "Side B"
-msgstr ""
+msgstr "B oldal"
 
 #: objects/UML/association.c:923
 msgid "Role:"
-msgstr ""
+msgstr "Feladat:"
 
 #: objects/UML/association.c:935
 msgid "Multiplicity:"
-msgstr ""
+msgstr "Multiplicitás:"
 
 #. Show arrow:
 #: objects/UML/association.c:946
 msgid "Show arrow"
-msgstr ""
+msgstr "Nyíl mutatása"
 
 #. Aggregate
 #: objects/UML/association.c:952
 msgid "Aggregate"
-msgstr ""
+msgstr "Aggregál"
 
 #. Composition
 #: objects/UML/association.c:960
 msgid "Composition"
-msgstr ""
+msgstr "Kompozíció"
 
 #. type
 #: objects/UML/class.c:75
 msgid "Create a class"
-msgstr ""
+msgstr "Osztály létrehozása"
 
 #. type
 #: objects/UML/class.c:84
 msgid "Create a template class"
-msgstr ""
+msgstr "Sablon osztály létrehozása"
 
 #. Class page:
 #: objects/UML/class.c:628 objects/UML/class_dialog.c:90
 msgid "Class"
-msgstr ""
+msgstr "Osztály"
 
 #: objects/UML/class_dialog.c:96
 msgid "Class name:"
-msgstr ""
+msgstr "Osztály neve:"
 
 #: objects/UML/class_dialog.c:107 objects/UML/dependency.c:524
 #: objects/UML/generalization.c:501 objects/UML/large_package.c:532
 #: objects/UML/object.c:689 objects/UML/realizes.c:497
 msgid "Stereotype:"
-msgstr ""
+msgstr "Sztereotípia:"
 
 #: objects/UML/class_dialog.c:118
 msgid "Abstract"
-msgstr ""
+msgstr "Absztrakt"
 
 #: objects/UML/class_dialog.c:126
 msgid "Attributes visible"
-msgstr ""
+msgstr "Attribútumok láthatók"
 
 #: objects/UML/class_dialog.c:130
 msgid "Suppress Attributes"
-msgstr ""
+msgstr "Elnyomott attribútumok"
 
 #: objects/UML/class_dialog.c:138
 msgid "Operations visible"
-msgstr ""
+msgstr "Mûveletek láthatóak"
 
 #: objects/UML/class_dialog.c:142
 msgid "Operations Attributes"
-msgstr ""
+msgstr "Mûveletek attribútumai"
 
 #. Attributes page:
 #: objects/UML/class_dialog.c:550
 msgid "Attributes"
-msgstr ""
+msgstr "Attribútumok"
 
 #: objects/UML/class_dialog.c:578 objects/UML/class_dialog.c:1442
 #: objects/UML/class_dialog.c:1602 objects/UML/class_dialog.c:2063
 msgid "New"
-msgstr ""
+msgstr "Új"
 
 #: objects/UML/class_dialog.c:584 objects/UML/class_dialog.c:1448
 #: objects/UML/class_dialog.c:1609 objects/UML/class_dialog.c:2069
-#, fuzzy
 msgid "Delete"
-msgstr "/Szerkeszt/_Töröl"
+msgstr "Töröl"
 
 #: objects/UML/class_dialog.c:590 objects/UML/class_dialog.c:1454
 #: objects/UML/class_dialog.c:1616 objects/UML/class_dialog.c:2075
 msgid "Move up"
-msgstr ""
+msgstr "Felmozgat"
 
 #: objects/UML/class_dialog.c:596 objects/UML/class_dialog.c:1460
 #: objects/UML/class_dialog.c:1623 objects/UML/class_dialog.c:2081
 msgid "Move down"
-msgstr ""
+msgstr "Lemozgat"
 
 #: objects/UML/class_dialog.c:607
 msgid "Attribute data"
-msgstr ""
+msgstr "Attribútum érték"
 
 #: objects/UML/class_dialog.c:627 objects/UML/class_dialog.c:1494
 #: objects/UML/class_dialog.c:1656 objects/UML/class_dialog.c:2112
 msgid "Type:"
-msgstr ""
+msgstr "Típus:"
 
 #: objects/UML/class_dialog.c:639
 msgid "Value:"
-msgstr ""
+msgstr "Érték:"
 
 #: objects/UML/class_dialog.c:651 objects/UML/class_dialog.c:1506
 msgid "Visibility:"
-msgstr ""
+msgstr "Láthatóság:"
 
 #: objects/UML/class_dialog.c:660 objects/UML/class_dialog.c:1515
 msgid "Public"
@@ -1140,21 +1119,20 @@ msgstr ""
 
 #: objects/UML/class_dialog.c:684 objects/UML/class_dialog.c:1539
 msgid "Implementation"
-msgstr ""
+msgstr "Implementation"
 
 #: objects/UML/class_dialog.c:700 objects/UML/class_dialog.c:1555
 msgid "Class scope"
-msgstr ""
+msgstr "Osztálynézet"
 
 #. Operations page:
 #: objects/UML/class_dialog.c:1414
 msgid "Operations"
-msgstr ""
+msgstr "Mûveletek"
 
 #: objects/UML/class_dialog.c:1472
-#, fuzzy
 msgid "Operation data"
-msgstr "Diagramm megnyitása"
+msgstr "Mûveletek adatai"
 
 #: objects/UML/class_dialog.c:1561
 msgid "abstract"
@@ -1162,80 +1140,80 @@ msgstr ""
 
 #: objects/UML/class_dialog.c:1573
 msgid "Parameters:"
-msgstr ""
+msgstr "Paraméterek:"
 
 #: objects/UML/class_dialog.c:1635
 msgid "Parameter data"
-msgstr ""
+msgstr "Paraméterek adatai"
 
 #: objects/UML/class_dialog.c:1668
 msgid "Def. value:"
-msgstr ""
+msgstr "Def. értékek:"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2029
 msgid "Templates"
-msgstr ""
+msgstr "Sablonok"
 
 #: objects/UML/class_dialog.c:2035
 msgid "Template class"
-msgstr ""
+msgstr "Sablon osztály"
 
 #: objects/UML/class_dialog.c:2092
 msgid "Formal parameter data"
-msgstr ""
+msgstr "Formális paraméter-adat"
 
 #. type
 #: objects/UML/constraint.c:106
 msgid "Constraint, place a constraint on something."
-msgstr ""
+msgstr "Konstans, írj ide konstanst, vagy valamit."
 
 #: objects/UML/constraint.c:467
 msgid "Constraint:"
-msgstr ""
+msgstr "Konstans:"
 
 #. type
 #: objects/UML/dependency.c:111
 msgid "Create a dependency"
-msgstr ""
+msgstr "Függõség létrehozása"
 
 #: objects/UML/dependency.c:536
 msgid "Show arrow:"
-msgstr ""
+msgstr "Nyíl mutatása:"
 
 #. type
 #: objects/UML/generalization.c:107
 msgid "Generalization, class inheritance."
-msgstr ""
+msgstr "Generalizáció, osztályöröklõdés."
 
 #. type
 #: objects/UML/implements.c:108
 msgid "Implements, class implements a specific interface."
-msgstr ""
+msgstr "Implementáció, osztály kivitelez egy meghatározott interfészt."
 
 #: objects/UML/implements.c:522
 msgid "Interface:"
-msgstr ""
+msgstr "Interfész:"
 
 #. type
 #: objects/UML/large_package.c:107
 msgid "Create a (large) package"
-msgstr ""
+msgstr "Csomag (nagy) létrehozása"
 
 #. type
 #: objects/UML/note.c:89
 msgid "Create a note"
-msgstr ""
+msgstr "Feljegyzés készítése"
 
 #. type
 #: objects/UML/realizes.c:107
 msgid "Realizes, implements a specific interface."
-msgstr ""
+msgstr "Realizál, kivitelez egy meghatározott interfészt."
 
 #. type
 #: objects/UML/small_package.c:91
 msgid "Create a (small) package"
-msgstr ""
+msgstr "Csomag (kicsi) létrehozása"
 
 #: objects/UML/uml.c:94
 msgid "UML"
@@ -1243,151 +1221,150 @@ msgstr ""
 
 #: objects/UML/uml.c:95
 msgid "Editor for UML Static Structure Diagrams."
-msgstr ""
+msgstr "UML statikus struktúra diagramm-szerkesztõ."
 
 #. type
 #: objects/UML/usecase.c:89
 msgid "Create a use case"
-msgstr ""
+msgstr "Use Case készítése"
 
 #. type
 #: objects/UML/object.c:118
 msgid "Create an object"
-msgstr ""
+msgstr "Objektum készítése"
 
 #: objects/UML/object.c:677
 msgid "Explicit state:"
-msgstr ""
+msgstr "Meghetározott státusz:"
 
 #: objects/UML/object.c:699
 msgid "Attributes:"
-msgstr ""
+msgstr "Attribútumok:"
 
 #: objects/UML/object.c:709
 msgid "Show attributes"
-msgstr ""
+msgstr "Attribútumok mutatása"
 
 #: objects/UML/object.c:713
 msgid "Active object"
-msgstr ""
+msgstr "Aktív objektumok"
 
 #: objects/UML/object.c:718
 msgid "multiple instance"
-msgstr ""
+msgstr "többszörös elõfordulás"
 
 #. type
 #: objects/UML/lifeline.c:112
 msgid "Create a lifeline"
-msgstr ""
+msgstr "Életút készítése"
 
 #: objects/UML/lifeline.c:575
 msgid "Show focus of control:"
-msgstr ""
+msgstr "Mutasd a vezérlés fókuszát:"
 
 #: objects/UML/lifeline.c:580
 msgid "Show destruction mark:"
-msgstr ""
+msgstr "Mutasd a megsemmisítési kijelölést:"
 
 #. type
 #: objects/UML/message.c:128
 msgid "Create a message"
-msgstr ""
+msgstr "Üzenet készítése"
 
 #: objects/UML/message.c:571
 msgid "Message:"
-msgstr ""
+msgstr "Üzenet:"
 
 #: objects/UML/message.c:585
 msgid "Message type:"
-msgstr ""
+msgstr "Üzenet típusa:"
 
 #.
 #: objects/UML/message.c:590
 msgid "Call"
-msgstr ""
+msgstr "Hívás"
 
 #: objects/UML/message.c:595
 msgid "Return"
-msgstr ""
+msgstr "Visszatérés"
 
 #: objects/UML/message.c:600
 msgid "Asynchronous"
-msgstr ""
+msgstr "Aszinkron"
 
 #: objects/UML/message.c:605
 msgid "Create"
-msgstr ""
+msgstr "Létrehozás"
 
 #: objects/UML/message.c:610
 msgid "Destroy"
-msgstr ""
+msgstr "Megsemmisítés"
 
 #: objects/UML/message.c:615
-#, fuzzy
 msgid "Simple"
-msgstr "Fájl"
+msgstr "Egyszerû"
 
 #: objects/UML/message.c:620
 msgid "Recursive"
-msgstr ""
+msgstr "Rekurzív"
 
 #. type
 #: objects/UML/component.c:91
 msgid "Create a component"
-msgstr ""
+msgstr "Komponens készítése"
 
 #. type
 #: objects/ER/attribute.c:121 objects/ER/attribute.c:453
 msgid "Attribute"
-msgstr ""
+msgstr "Attribútum"
 
 #: objects/ER/attribute.c:196
 msgid "Key"
-msgstr ""
+msgstr "Kulcs"
 
 #: objects/ER/attribute.c:202
 msgid "Weak key"
-msgstr ""
+msgstr "Gyenge kulcs"
 
 #: objects/ER/attribute.c:208
 msgid "Derived"
-msgstr ""
+msgstr "Származtatott"
 
 #: objects/ER/attribute.c:214
 msgid "Multivalue"
-msgstr ""
+msgstr "Többértékû"
 
 #: objects/ER/attribute.c:220 objects/ER/entity.c:202
 #: objects/ER/relationship.c:233 objects/standard/box.c:183
 #: objects/standard/ellipse.c:174 objects/standard/image.c:240
 msgid "Border width:"
-msgstr ""
+msgstr "Keret szélesség:"
 
 #: objects/ER/attribute.c:231 objects/ER/entity.c:213
 #: objects/ER/relationship.c:244 objects/standard/box.c:198
 #: objects/standard/ellipse.c:189 objects/standard/image.c:255
 msgid "Foreground color:"
-msgstr ""
+msgstr "Elõtér szín:"
 
 #: objects/ER/attribute.c:239 objects/ER/entity.c:221
 #: objects/ER/relationship.c:252 objects/standard/box.c:209
 #: objects/standard/ellipse.c:200
 msgid "Background color:"
-msgstr ""
+msgstr "Háttér szín:"
 
 #. type
 #: objects/ER/entity.c:115 objects/ER/entity.c:415
 msgid "Entity"
-msgstr ""
+msgstr "Megjelenés"
 
 #. type
 #: objects/ER/entity.c:124
 msgid "Weak Entity"
-msgstr ""
+msgstr "Gyenge megjelenés"
 
 #: objects/ER/entity.c:196
 msgid "Weak"
-msgstr ""
+msgstr "Gyenge"
 
 #: objects/ER/er.c:52
 msgid "ER"
@@ -1395,85 +1372,85 @@ msgstr ""
 
 #: objects/ER/er.c:53
 msgid "Editor for Entity Relations Diagrams."
-msgstr ""
+msgstr "Megjelenés-reláció diagramm-szerkesztõ"
 
 #. type
 #: objects/ER/participation.c:97
 msgid "Create a participation"
-msgstr ""
+msgstr "Részvétel létrehozása"
 
 #: objects/ER/participation.c:393
 msgid "Total:"
-msgstr ""
+msgstr "Teljes:"
 
 #. type
 #: objects/ER/relationship.c:123 objects/ER/relationship.c:507
 msgid "Relationship"
-msgstr ""
+msgstr "Rokonság"
 
 #: objects/ER/relationship.c:205
 msgid "Left Cardinality:"
-msgstr ""
+msgstr "Bal tõ:"
 
 #: objects/ER/relationship.c:213
 msgid "Right Cardinality:"
-msgstr ""
+msgstr "Jobb tõ:"
 
 #: objects/ER/relationship.c:221
 msgid "Rotate"
-msgstr ""
+msgstr "Forgatás"
 
 #: objects/ER/relationship.c:227
 msgid "Identifying"
-msgstr ""
+msgstr "Meghatározás"
 
 #. type
 #: objects/network/bus.c:97
 msgid "Ethernet bus."
-msgstr ""
+msgstr "Ethernet sín"
 
 #: objects/network/bus.c:190
 msgid "Number of handles:"
-msgstr ""
+msgstr "Végpontok száma:"
 
 #. type
 #: objects/network/computer.c:55
 msgid "A Computer with a tower case."
-msgstr ""
+msgstr "Toronyházas számítógép"
 
 #. type
 #: objects/network/disc.c:55
 msgid "The symbol for storage. Disc or database."
-msgstr ""
+msgstr "Háttértár, lemez vagy adatbázis."
 
 #. type
 #: objects/network/monitor.c:56
 msgid "A monitor, with a stand"
-msgstr ""
+msgstr "Monitor, álvánnyal"
 
 #: objects/network/network.c:54
 msgid "Network"
-msgstr ""
+msgstr "Hálózat"
 
 #: objects/network/network.c:55
 msgid "Objects to design network diagrams with"
-msgstr ""
+msgstr "Hálózati objektumok"
 
 #. type
 #: objects/network/printer.c:56
 msgid "A simple Printer"
-msgstr ""
+msgstr "Egyszerû nyomtató"
 
 #: objects/standard/arc.c:182 objects/standard/line.c:177
 #: objects/standard/polyline.c:184 objects/standard/zigzagline.c:183
 msgid "Line width:"
-msgstr ""
+msgstr "Sorhossz:"
 
 #: objects/standard/arc.c:196 objects/standard/line.c:191
 #: objects/standard/polyline.c:198 objects/standard/textobj.c:220
 #: objects/standard/zigzagline.c:197
 msgid "Color:"
-msgstr ""
+msgstr "Szín:"
 
 #: objects/standard/arc.c:207 objects/standard/arc.c:304
 #: objects/standard/box.c:228 objects/standard/box.c:318
@@ -1483,61 +1460,61 @@ msgstr ""
 #: objects/standard/polyline.c:209 objects/standard/polyline.c:307
 #: objects/standard/zigzagline.c:208 objects/standard/zigzagline.c:305
 msgid "Line style:"
-msgstr ""
+msgstr "Vonalstílus:"
 
 #: objects/standard/arc.c:218 objects/standard/arc.c:315
 #: objects/standard/line.c:213 objects/standard/line.c:308
 #: objects/standard/polyline.c:220 objects/standard/polyline.c:318
 #: objects/standard/zigzagline.c:222 objects/standard/zigzagline.c:316
 msgid "Start arrow:"
-msgstr ""
+msgstr "Kezdõ nyíl:"
 
 #: objects/standard/arc.c:232 objects/standard/arc.c:329
 #: objects/standard/line.c:227 objects/standard/line.c:322
 #: objects/standard/polyline.c:234 objects/standard/polyline.c:332
 #: objects/standard/zigzagline.c:236 objects/standard/zigzagline.c:330
 msgid "End arrow:"
-msgstr ""
+msgstr "Végnyíl:"
 
 #: objects/standard/box.c:220 objects/standard/box.c:310
 msgid "Draw background"
-msgstr ""
+msgstr "Háttér rajzolása"
 
 #: objects/standard/box.c:239 objects/standard/box.c:329
 msgid "Corner rounding:"
-msgstr ""
+msgstr "Saroklekerekítés:"
 
 #: objects/standard/textobj.c:184 objects/standard/textobj.c:278
 msgid "Alignment:"
-msgstr ""
+msgstr "Elhelyezkedés:"
 
 #: objects/standard/textobj.c:195 objects/standard/textobj.c:289
 msgid "Font:"
-msgstr ""
+msgstr "Betûtípus:"
 
 #: objects/standard/textobj.c:206 objects/standard/textobj.c:300
 msgid "Fontsize:"
-msgstr ""
+msgstr "Betûméret:"
 
 #: objects/standard/image.c:213 objects/standard/image.c:334
 msgid "Image file:"
-msgstr ""
+msgstr "Képfájl:"
 
 #: objects/standard/image.c:224
 msgid "Keep aspect ratio"
-msgstr ""
+msgstr "Felbontási arányok megtartása"
 
 #: objects/standard/image.c:232
 msgid "Show border"
-msgstr ""
+msgstr "Keret mutatása"
 
 #: objects/standard/image.c:345
 msgid "Keep aspect ratio:"
-msgstr ""
+msgstr "Felbontási arány megtartása:"
 
 #: objects/standard/image.c:353
 msgid "Show border:"
-msgstr ""
+msgstr "Keret mutatása:"
 
 #. Found file in same dir as diagram.
 #: objects/standard/image.c:858 objects/standard/image.c:869
@@ -1546,42 +1523,19 @@ msgid ""
 "The image file '%s' was not found in that directory.\n"
 "Using the file '%s' instead\n"
 msgstr ""
+"A '%s' képfájlt nem találtam abban a könyvtárban.\n"
+"'%s'-t használtam helyette\n"
 
 #. Didn't find file in current dir.
 #: objects/standard/image.c:875 objects/standard/image.c:901
 #, c-format
 msgid "The image file '%s' was not found.\n"
-msgstr ""
+msgstr "A '%s' nevû fájlt nem találtam meg.\n"
 
 #: objects/standard/polyline.c:665
 msgid "Add Corner"
-msgstr ""
+msgstr "Sarok hozzáadása"
 
 #: objects/standard/polyline.c:666
 msgid "Delete Corner"
-msgstr ""
-
-#~ msgid "About"
-#~ msgstr "Névjegy"
-
-#~ msgid "Info about this program"
-#~ msgstr "Információk a programról"
-
-#~ msgid "/Objects/Place _Under"
-#~ msgstr "/Objektumok/_Alá helyez"
-
-#~ msgid "/Objects/Place _Over"
-#~ msgstr "/Objektumok/_Fölé helyez"
-
-#~ msgid "/Objects/Align Horizontal/Top"
-#~ msgstr "/Objektumok/Vizszintes/Fel"
-
-#~ msgid "/Objects/Align Horizontal/Bottom"
-#~ msgstr "/Objektumok/Vizszintes/Le"
-
-#~ msgid ""
-#~ "Comment line 1\n"
-#~ "Line 2"
-#~ msgstr ""
-#~ "Megjegyzés elsõ sor\n"
-#~ "Második sor"
+msgstr "Sarok törlése"
