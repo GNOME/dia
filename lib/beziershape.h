@@ -67,4 +67,14 @@ Handle *beziershape_closest_major_handle(BezierShape *bezier, Point *point);
 int beziershape_closest_segment(BezierShape *bezier, Point *point,
 				real line_width);
 void beziershape_draw_control_lines(BezierShape *bez, DiaRenderer *renderer);
+
+#define BEZSHAPE_COMMON_PROPERTIES \
+  OBJECT_COMMON_PROPERTIES, \
+  { "bez_points", PROP_TYPE_BEZPOINTARRAY, 0, "beziershape points", NULL} \
+
+#define BEZSHAPE_COMMON_PROPERTIES_OFFSETS \
+  OBJECT_COMMON_PROPERTIES_OFFSETS, \
+  { "bez_points", PROP_TYPE_BEZPOINTARRAY, \
+     offsetof(BezierShape,points), offsetof(BezierShape,numpoints)} \
+
 #endif /* BEZIER_SHAPE_H */

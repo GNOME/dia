@@ -82,6 +82,8 @@ beziershape_create_corner_change(BezierShape *bezier, Handle *handle,
 			BezCornerType old_corner_type,
 			BezCornerType new_corner_type);
 
+static void new_handles_and_connections(BezierShape *bezier, int num_points);
+
 static void setup_handle(Handle *handle, int handle_id)
 {
   handle->id = handle_id;
@@ -610,6 +612,33 @@ beziershape_update_data(BezierShape *bezier)
   int i;
   Point last;
   
+  Object *obj = &bezier->object;
+  
+  /* handle the case of whole points array update (via set_prop) */
+  if (3*(bezier->numpoints-1) != obj->num_handles ||
+      2*(bezier->numpoints-1) != obj->num_connections) {
+    object_unconnect_all(obj); /* too drastic ? */
+
+    /* delete the old ones */
+    for (i = 0; i < obj->num_handles; i++)
+      g_free(obj->handles[i]);
+    g_free(obj->handles);
+    for (i = 0; i < obj->num_connections; i++);
+      g_free(obj->connections[i]);
+    g_free(obj->connections);
+
+    obj->num_handles = 3*(bezier->numpoints-1);
+    obj->handles = g_new(Handle*, obj->num_handles);
+    obj->num_connections = 2*(bezier->numpoints-1);
+    obj->connections = g_new(ConnectionPoint *, obj->num_connections);
+
+    new_handles_and_connections(bezier, bezier->numpoints);
+
+    bezier->corner_types = g_realloc(bezier->corner_types, bezier->numpoints*sizeof(BezCornerType));
+    for (i = 0; i < bezier->numpoints; i++)
+      bezier->corner_types[i] = BEZ_CORNER_SYMMETRIC;
+  }
+
   /* Update handles: */
   bezier->points[0].p3 = bezier->points[0].p1;
   for (i = 1; i < bezier->numpoints; i++) {
@@ -694,25 +723,13 @@ beziershape_draw_control_lines(BezierShape *bez, DiaRenderer *renderer)
   }
 }
 
-void
-beziershape_init(BezierShape *bezier, int num_points)
+static void
+new_handles_and_connections(BezierShape *bezier, int num_points)
 {
   Object *obj;
   int i;
 
   obj = &bezier->object;
-
-  object_init(obj, 3*(num_points-1), 2*(num_points-1));
-  
-  bezier->numpoints = num_points;
-
-  bezier->points = g_new(BezPoint, num_points);
-  bezier->points[0].type = BEZ_MOVE_TO;
-  bezier->corner_types = g_new(BezCornerType, num_points);
-  for (i = 1; i < num_points; i++) {
-    bezier->points[i].type = BEZ_CURVE_TO;
-    bezier->corner_types[i] = BEZ_CORNER_SYMMETRIC;
-  }
 
   for (i = 0; i < num_points-1; i++) {
     obj->handles[3*i] = g_new(Handle, 1);
@@ -739,6 +756,29 @@ beziershape_init(BezierShape *bezier, int num_points)
     obj->connections[2*i]->object = obj;
     obj->connections[2*i+1]->object = obj;
   }
+}
+
+void
+beziershape_init(BezierShape *bezier, int num_points)
+{
+  Object *obj;
+  int i;
+
+  obj = &bezier->object;
+
+  object_init(obj, 3*(num_points-1), 2*(num_points-1));
+  
+  bezier->numpoints = num_points;
+
+  bezier->points = g_new(BezPoint, num_points);
+  bezier->points[0].type = BEZ_MOVE_TO;
+  bezier->corner_types = g_new(BezCornerType, num_points);
+  for (i = 1; i < num_points; i++) {
+    bezier->points[i].type = BEZ_CURVE_TO;
+    bezier->corner_types[i] = BEZ_CORNER_SYMMETRIC;
+  }
+
+  new_handles_and_connections(bezier, num_points);
 
   /* The points are not assigned at this point, so don't try to use
      them */

@@ -125,7 +125,7 @@ static ObjectOps beziergon_ops = {
 };
 
 static PropDescription beziergon_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  BEZSHAPE_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
@@ -143,7 +143,7 @@ beziergon_describe_props(Beziergon *beziergon)
 }
 
 static PropOffset beziergon_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  BEZSHAPE_COMMON_PROPERTIES_OFFSETS,
   { "line_width", PROP_TYPE_REAL, offsetof(Beziergon, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Beziergon, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,

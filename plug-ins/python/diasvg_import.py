@@ -55,7 +55,7 @@ def Color(s) :
 	if m :
 		return (int(m.group(1)) / 255.0, int(m.group(2)) / 255.0, int(m.group(2)) / 255.0)
 	# any more ugly color definitions not compatible with pango_color_parse() ?
-	return s
+	return string.strip(s)
 class Object :
 	def __init__(self) :
 		self.props = {"x" : 0, "y" : 0}
@@ -66,9 +66,9 @@ class Object :
 			sp2 = string.split(string.strip(s1), ":")
 			if len(sp2) == 2 :
 				try :
-					eval("self." + string.replace(sp2[0], "-", "_") + "(\"" + sp2[1] + "\")")
+					eval("self." + string.replace(sp2[0], "-", "_") + "(\"" + string.strip(sp2[1]) + "\")")
 				except AttributeError :
-					self.props[sp2[0]] = sp2[1]
+					self.props[sp2[0]] = string.strip(sp2[1])
 	def x(self, s) :
 		self.props["x"] = Scaled(s)
 	def y(self, s) :
@@ -100,13 +100,20 @@ class Object :
 		ot = dia.get_object_type (self.dt)
 		o, h1, h2 = ot.create(self.props["x"], self.props["y"])
 		# apply common props
+		if self.props.has_key("stroke-width") and o.properties.has_key("line_width") :
+			o.properties["line_width"] = self.props["stroke-width"]
 		if self.props.has_key("stroke") and o.properties.has_key("line_colour") :
 			if self.props["stroke"] != "none" :
 				try :
 					o.properties["line_colour"] = Color(self.props["stroke"])
 				except :
 					# rgb(192,27,38) handled by Color() but ...
-					o.properties["line_colour"] = self.props["stroke"]
+					# o.properties["line_colour"] = self.props["stroke"]
+					pass
+			else :
+				# Dia can't really display stroke none, some workaround :
+				o.properties["line_colour"] = Color(self.props["fill"])
+				o.properties["line_width"] = 0.0
 		if self.props.has_key("fill") and o.properties.has_key("fill_colour") :
 			if self.props["fill"] == "none" :
 				o.properties["show_background"] = 0
@@ -116,9 +123,8 @@ class Object :
 					o.properties["fill_colour"] =Color(self.props["fill"])
 				except :
 					# rgb(192,27,38) handled by Color() but ...
-					o.properties["fill_colour"] =self.props["fill"]
-		if self.props.has_key("stroke-width") and o.properties.has_key("line_width") :
-			o.properties["line_width"] = self.props["stroke-width"]
+					# o.properties["fill_colour"] =self.props["fill"]
+					pass
 		self.ApplyProps(o)
 		return o
 
@@ -167,6 +173,14 @@ class Svg(Object) :
 		return Object.__repr__(self) + "\nUserScale : " + str(dfUserScale)
 	def Create(self) :
 		return None
+class Style(Object) :
+	# the beginning of a css implementation, currently only hiding it ...
+	def __init__(self) :
+		Object.__init__(self)
+	def type(self, s) :
+		self.props["type"] = s
+	def Create(self) :
+		return None
 class Group(Object) :
 	def __init__(self) :
 		Object.__init__(self)
@@ -191,6 +205,15 @@ class Group(Object) :
 		print " " * indent, self
 		for o in self.childs :
 			o.Dump(indent + 1)
+	def CopyProps(self, dest) :
+		# to be used to inherit group props to childs _before_ they get their own
+		for p in self.props.keys() :
+			sf = "dest." + string.replace(p, "-", "_") + "(\"" + str(self.props[p]) + "\")"
+			try : # accessor first
+				eval(sf)
+			except :
+				dest.props[p] = self.props[p]
+
 # One of my test files is quite ugly (produced by Batik) : it dumps identical image data 
 # multiple times into the svg. This directory helps to reduce them to the necessary
 # memory comsumption
@@ -252,11 +275,70 @@ class Path(Object) :
 	def __init__(self) :
 		Object.__init__(self)
 		self.dt = "Standard - BezierLine" # or Beziergon ?
+		self.pts = []
 	def d(self, s) :
-		#FIXME: parse the strange path data
 		self.props["data"] = s
-	def Create(self) :
-		return None # not yet
+		#FIXME: parse more - e.g. AQT - of the strange path data
+		import re
+		rw = re.compile("[MmLlCcSsz]")   # what
+		rd = re.compile("[^MmLlCcSsz]+") # data
+		rv = re.compile("[\s,]+") # values
+		spd = rw.split(s)
+		spw = rd.split(s)
+		i = 1
+		# current point
+		xc = 0.0; yc = 0.0 # the current or second control point - ugly svg states ;(
+		for s1 in spw :
+			k = 0 # range further adjusted for last possibly empty -k-1
+			if s1 == "M" : # moveto
+				sp = rv.split(spd[i])
+				if sp[0] == "" : k = 1
+				xc = Scaled(sp[k]); yc = Scaled(sp[k+1])
+				self.pts.append((0, xc, yc))
+			elif s1 == "L" : #lineto
+				sp = rv.split(spd[i])
+				if sp[0] == "" : k = 1
+				for j in range(k, len(sp)-k-1, 2) :
+					xc = Scaled(sp[j]); yc = Scaled(sp[j+1])
+					self.pts.append((1, xc, yc))
+			elif s1 == "C" : # curveto
+				sp = rv.split(spd[i])
+				if sp[0] == "" : k = 1
+				for j in range(k, len(sp)-k-1, 6) :
+					self.pts.append((2, Scaled(sp[j]), Scaled(sp[j+1]), 
+									Scaled(sp[j+2]), Scaled(sp[j+3]),
+									Scaled(sp[j+4]), Scaled(sp[j+5])))
+					# reflexion second control to current point, really ?
+					xc =2 * Scaled(sp[j+4]) - Scaled(sp[j+2])
+					yc =2 * Scaled(sp[j+5]) - Scaled(sp[j+3])
+			elif s1 == "S" : # smooth curveto
+				sp = rv.split(spd[i])
+				if sp[0] == "" : k = 1
+				for j in range(k, len(sp)-k-1, 4) :
+					x = Scaled(sp[j+2])
+					y = Scaled(sp[j+3])
+					x1 = Scaled(sp[j])
+					y1 = Scaled(sp[j+1])
+					self.pts.append((2, xc, yc,  # FIXME: current point ?
+									x1, y1,
+									x, y))
+					xc = 2 * x - x1; yc = 2 * y - y1
+			elif s1 == "z" : # close
+				self.dt = "Standard - Beziergon"
+			elif s1 == "" : # too much whitespaces ;-)
+				pass
+			else :
+				print "Huh?", s1
+				break
+			i += 1
+	def ApplyProps(self,o) :
+		o.properties["bez_points"] = self.pts
+	def Dump(self, indent) :
+		print " " * indent, self
+		for t in self.pts :
+			print " " * indent, t
+	#def Create(self) :
+	#	return None # not yet
 class Rect(Object) :
 	def __init__(self) :
 		Object.__init__(self)
@@ -361,6 +443,20 @@ class Desc(Object) :
 		if self.props.has_key("text") :
 			dia.message(0, self.props["text"].encode("UTF-8"))
 		return None
+class Title(Object) :
+	#FIXME is this useful ?
+	def __init__(self) :
+		Object.__init__(self)
+		self.dt = "UML - LargePackage"
+	def Set(self, d) :
+		if self.props.has_key("text") :
+			self.props["text"] += d
+		else :
+			self.props["text"] = d
+	def Create(self) :
+		if self.props.has_key("text") :
+			pass
+		return None
 class Unknown(Object) :
 	def __init__(self, name) :
 		Object.__init__(self)
@@ -394,7 +490,12 @@ class Importer :
 					o = eval(s)
 				except :
 					o = Unknown(name)
+			if grp :
+				grp.CopyProps(o)
 			for a in attrs :
+				if a == "class" : # eeek : keyword !
+					o.props[a] = attrs[a]
+					continue
 				ma = string.replace(a, "-", "_")
 				# e.g. xlink:href -> xlink__href
 				ma = string.replace(ma, ":", "__")
@@ -438,7 +539,7 @@ class Importer :
 		# create an 'Errors' layer and dump our errors
 		if len(self.errors.keys()) > 0 :
 			layer = data.add_layer("Errors")
-			s = ""
+			s = "To hide the error messages delete or disable the 'Errors' layer\n"
 			for e in self.errors.keys() :
 				s = s + e + " -> " + str(self.errors[e]) + "\n"
 			o = Text()

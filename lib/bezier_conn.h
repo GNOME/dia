@@ -68,4 +68,14 @@ Handle *bezierconn_closest_handle(BezierConn *bez, Point *point);
 Handle *bezierconn_closest_major_handle(BezierConn *bez, Point *point);
 int bezierconn_closest_segment(BezierConn *bez, Point *point,
 			       real line_width);
+
+#define BEZCONN_COMMON_PROPERTIES \
+  OBJECT_COMMON_PROPERTIES, \
+  { "bez_points", PROP_TYPE_BEZPOINTARRAY, 0, "bezierconn points", NULL} \
+
+#define BEZCONN_COMMON_PROPERTIES_OFFSETS \
+  OBJECT_COMMON_PROPERTIES_OFFSETS, \
+  { "bez_points", PROP_TYPE_BEZPOINTARRAY, \
+     offsetof(BezierConn,points), offsetof(BezierConn,numpoints)} \
+
 #endif /* BEZIER_CONN_H */

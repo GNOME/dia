@@ -1,3 +1,21 @@
+2003-08-03  Hans Breuer  <hans@breuer.org>
+
+	* app/create_object.c : minor formating and g_new0 for
+	tool creation
+
+	* lib/bezier_conn.[hc] lib/beziershape.[hc]
+	  lib/prop_geomtypes.c (prop_geomtypes_register)
+	  objects/standard/bezier.c objects/standard/beziergon.c :
+	ability to set bezpoints via StdProp api
+
+	* plug-ins/python/pydia-property.c : convert list of tuples
+	to BEZPOINTARRAY
+
+	*  plug-ins/python/diasvg_import.py : use it to
+	implement part of path parsing. Also minor improvements
+	like inheritance of group attributes to members,
+	whitespace, title and style:text/css ignoring ;-)
+
 2003-08-02  Hans Breuer  <hans@breuer.org>
 
 	* lib/connections.c (connection_move_handle): return

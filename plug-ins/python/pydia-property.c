@@ -330,7 +330,7 @@ int PyDiaProperty_ApplyToObject (Object   *object,
             ret = 0;
           }
         else
-          g_warning("Failed to parse color string %s", str);
+          g_warning("Failed to parse color string '%s'", str);
       }
   } else if (PyFloat_Check (val)) {
     if (0 == strcmp(PROP_TYPE_REAL, prop->type))
@@ -428,6 +428,43 @@ int PyDiaProperty_ApplyToObject (Object   *object,
             pt.x = PyFloat_AsDouble(PyTuple_GetItem(o, 0));
             pt.y = PyFloat_AsDouble(PyTuple_GetItem(o, 1));
             g_array_index(ptp->pointarray_data,Point,i) = pt;
+          }
+        ret = 0;
+      }
+    else if (0 == strcmp(PROP_TYPE_BEZPOINTARRAY, prop->type))
+      {
+        BezPointarrayProperty *ptp = (BezPointarrayProperty *)prop;
+        BezPoint bpt;
+        g_array_set_size(ptp->bezpointarray_data,len);
+        for (i = 0; i < len; i++)
+          {
+            /* a tuple of at least (int,double,double) */
+            PyObject *o = PyList_GetItem(val, i);
+            int tp = PyInt_AsLong(PyTuple_GetItem(o, 0));
+
+            bpt.p1.x = PyFloat_AsDouble(PyTuple_GetItem(o, 1));
+            bpt.p1.y = PyFloat_AsDouble(PyTuple_GetItem(o, 2));
+            if (BEZ_CURVE_TO == tp)
+              {
+                 bpt.type = BEZ_CURVE_TO;
+                 bpt.p2.x = PyFloat_AsDouble(PyTuple_GetItem(o, 3));
+                 bpt.p2.y = PyFloat_AsDouble(PyTuple_GetItem(o, 4));
+                 bpt.p3.x = PyFloat_AsDouble(PyTuple_GetItem(o, 5));
+                 bpt.p3.y = PyFloat_AsDouble(PyTuple_GetItem(o, 6));
+              }
+            else
+              {
+                 if (0 == i && tp != BEZ_MOVE_TO)
+                   g_warning("First bezpoint must be BEZ_MOVE_TO");
+                 if (0 < i && tp != BEZ_LINE_TO)
+                   g_warning("Further bezpoint must be BEZ_LINE_TO or BEZ_CURVE_TO");
+
+                 bpt.type = (0 == i) ? BEZ_MOVE_TO : BEZ_LINE_TO;
+                 /* not strictly needed */
+                 bpt.p2 = bpt.p3 = bpt.p1;
+              }
+
+            g_array_index(ptp->bezpointarray_data,BezPoint,i) = bpt;
           }
         ret = 0;
       }

@@ -706,7 +706,7 @@ prop_geomtypes_register(void)
   prop_type_register(PROP_TYPE_REAL,&realprop_ops);
   prop_type_register(PROP_TYPE_POINT,&pointprop_ops);
   prop_type_register(PROP_TYPE_POINTARRAY,&pointarrayprop_ops);
-  prop_type_register(PROP_TYPE_BEZPOINT,&bezpointarrayprop_ops);
+  prop_type_register(PROP_TYPE_BEZPOINTARRAY,&bezpointarrayprop_ops);
   prop_type_register(PROP_TYPE_RECT,&rectprop_ops);
   prop_type_register(PROP_TYPE_ENDPOINTS,&endpointsprop_ops);
   prop_type_register(PROP_TYPE_CONNPOINT_LINE,&connpoint_lineprop_ops);

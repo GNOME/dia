@@ -120,7 +120,7 @@ static ObjectOps bezierline_ops = {
 };
 
 static PropDescription bezierline_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  BEZCONN_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
   PROP_STD_LINE_COLOUR,
   PROP_STD_LINE_STYLE,
@@ -138,7 +138,7 @@ bezierline_describe_props(Bezierline *bezierline)
 }
 
 static PropOffset bezierline_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  BEZCONN_COMMON_PROPERTIES_OFFSETS,
   { "line_width", PROP_TYPE_REAL, offsetof(Bezierline, line_width) },
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Bezierline, line_color) },
   { "line_style", PROP_TYPE_LINESTYLE,
