@@ -41,7 +41,7 @@ extern "C" {
 }
 #endif
 
-#ifdef HAVE_WINDOWS_H
+#if defined HAVE_WINDOWS_H || defined G_OS_WIN32
 namespace W32 {
 // at least Rectangle conflicts ...
 #include <windows.h>

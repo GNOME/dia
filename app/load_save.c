@@ -167,7 +167,9 @@ read_objects(xmlNodePtr objects, Layer *layer,
       }
       if (typestr) xmlFree(typestr);
       if (id) xmlFree (id);
-    } else if (strcmp(obj_node->name, "group")==0) {
+    } else if (   strcmp(obj_node->name, "group")==0
+               && obj_node->children) {
+      /* don't create empty groups */
       obj = group_create(read_objects(obj_node, layer,
                                       objects_hash, filename, NULL));
       layer_add_object(layer,obj);
@@ -595,7 +597,7 @@ write_objects(GList *objects, xmlNodePtr objects_node,
       continue;
     }
 
-    if IS_GROUP(obj) {
+    if (IS_GROUP(obj) && group_objects(obj) != NULL) {
       group_node = xmlNewChild(objects_node, NULL, "group", NULL);
       write_objects(group_objects(obj), group_node,
 		    objects_hash, obj_nr, filename);

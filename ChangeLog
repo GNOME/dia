@@ -1,3 +1,17 @@
+2004-05-28  Hans Breuer  <hans@breuer.org>
+
+	* app/load_save.c : ignore empty groups on load and don't
+	write empty groups while saving
+	* lib/group.h (group_update_data): there is no first object
+	in empty groups and they probably don't need an update at 
+	all. Maybe the shold just not exist ?
+
+	* plug-ins/cairo/diacairo.c : fixed arc drawing, right aligned
+	text positioning as well as drawing of images with alpha
+
+	* plug-ins/wmf/wmf.cpp : include windows.h if eiher
+	HAVE_WINDOWS_H or G_OS_WIN32 is defined
+
 2004-05-28  Lars Clausen  <lc@pc770.sb.statsbiblioteket.dk>
 
 	* app/pixmaps/Makefile.am (imagedir): 

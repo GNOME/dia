@@ -274,17 +274,15 @@ group_update_data(Group *group)
       
       list = g_list_next(list);
     }
-  }
 
-  obj = (DiaObject *) group->objects->data;
-  
-  /* Move group by the point of the first object, otherwise a group
-     with all objects on grid might be moved off grid. */
-  group->object.position = obj->position;
-  /* group->object.position.x = group->object.bounding_box.left;
-    group->object.position.y = group->object.bounding_box.top; */
-  
-  group_update_handles(group);
+    obj = (DiaObject *) group->objects->data;
+    
+    /* Move group by the point of the first object, otherwise a group
+       with all objects on grid might be moved off grid. */
+    group->object.position = obj->position;
+    
+    group_update_handles(group);
+  }
 }
 
 /* Make sure there are no connections from objects to objects

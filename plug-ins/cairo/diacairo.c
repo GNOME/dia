@@ -422,28 +422,26 @@ draw_arc(DiaRenderer *self,
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   Point start;
+  double a1, a2;
 
   DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
             width, height, angle1, angle2));
 
   cairo_set_rgb_color (renderer->cr, color->red, color->green, color->blue);
 
-  //FIXME : the result is wrong, but maybe in cairo?
+  /* Dia and Cairo don't agree on arc definitions, so it needs
+   * to be converted, i.e. mirrored at the x axis
+   */
   cairo_new_path (renderer->cr);
   start.x = center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1);
-  start.y = center->y + (height / 2.0) * sin((M_PI / 180.0) * angle1);
+  start.y = center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1);
   cairo_move_to (renderer->cr, start.x, start.y);
-#if 0 /* all bogus */
-  if (angle1 < angle2)
-    cairo_arc_negative (renderer->cr, center->x, center->y, 
-               width > height ? height / 2.0 : width / 2.0, //FIXME 2nd radius
-               (angle1 / 180) * G_PI, ((angle1 - angle2) / 180) * G_PI);
-  else
-#else
-    cairo_arc (renderer->cr, center->x, center->y, 
-               width > height ? height / 2.0 : width / 2.0, //FIXME 2nd radius
-               (angle1 / 180) * G_PI, (angle2 / 180) * G_PI);
-#endif
+  a1 = - (angle1 / 180.0) * G_PI;
+  a2 = - (angle2 / 180.0) * G_PI;
+  //FIXME: to handle width != height some cairo_scale/cairo_translate would be needed
+  cairo_arc_negative (renderer->cr, center->x, center->y, 
+                      width > height ? height / 2.0 : width / 2.0, //FIXME 2nd radius
+                      a1, a2);
   cairo_stroke (renderer->cr);
   DIAG_STATE(renderer->cr)
 }
@@ -457,6 +455,7 @@ fill_arc(DiaRenderer *self,
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   Point start;
+  double a1, a2;
 
   DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
             width, height, angle1, angle2));
@@ -466,13 +465,15 @@ fill_arc(DiaRenderer *self,
   cairo_new_path (renderer->cr);
   start.x = center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1);
   start.y = center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1);
-  cairo_move_to (renderer->cr, start.x, start.y);
-  cairo_arc (renderer->cr, center->x, center->y, 
-             width > height ? height / 2.0 : width / 2.0, //FIXME
-             (angle1 / 180) * G_PI, (angle2 / 180) * G_PI);
+  cairo_move_to (renderer->cr, center->x, center->y);
+  cairo_line_to (renderer->cr, start.x, start.y);
+  a1 = - (angle1 / 180.0) * G_PI;
+  a2 = - (angle2 / 180.0) * G_PI;
+  //FIXME: to handle width != height some cairo_scale/cairo_translate would be needed
+  cairo_arc_negative (renderer->cr, center->x, center->y, 
+                      width > height ? height / 2.0 : width / 2.0, //FIXME 2nd radius
+                      a1, a2);
   cairo_line_to (renderer->cr, center->x, center->y);
-  // FIXME : does it really close the path ??
-  // i.e. line_to from center to start of arc
   cairo_close_path (renderer->cr);
   cairo_fill (renderer->cr);
   DIAG_STATE(renderer->cr)
@@ -622,10 +623,10 @@ draw_string(DiaRenderer *self,
     x = pos->x;
     break;
   case ALIGN_CENTER:
-    x = pos->x - extents.width / 2;
+    x = pos->x - extents.width / 2 + +extents.x_bearing;
     break;
   case ALIGN_RIGHT:
-    x = pos->x - extents.width / 2;
+    x = pos->x - extents.width + extents.x_bearing;
     break;
   }
 
@@ -652,7 +653,7 @@ draw_image(DiaRenderer *self,
 
   if (dia_image_rgba_data (image))
     {
-      const guint32 *p1 = (const guint32*)dia_image_rgba_data (image);
+      const guint8 *p1 = dia_image_rgba_data (image);
       /* we need to make a copy to rearrange channels 
        * (also need to use malloc, cause Cairo insists to free() it)
        */
@@ -661,10 +662,19 @@ draw_image(DiaRenderer *self,
 
       for (i = 0; i < (h * rs) / 4; i++)
         {
-          p2[0] = p1[3];
-          p2[1] = p1[0];
-          p2[2] = p1[1];
-          p2[3] = p1[2];
+#if 0
+          /* premultiply alpha */
+          guint alpha = p1[3];
+          p2[0] = (guint8)((p1[2] * alpha) / 255);
+          p2[1] = (guint8)((p1[1] * alpha) / 255);
+          p2[2] = (guint8)((p1[0] * alpha) / 255);
+          p2[3] = (guint8)alpha;
+#else
+          p2[0] = p1[2]; //b
+          p2[1] = p1[1]; //g
+          p2[2] = p1[0]; //r
+          p2[3] = p1[3]; //a
+#endif
           p1+=4;
           p2+=4;
         }
@@ -694,7 +704,7 @@ draw_image(DiaRenderer *self,
               p2[x*4  ] = p1[x*3+2];
               p2[x*4+1] = p1[x*3+1];
               p2[x*4+2] = p1[x*3  ];
-              p2[x*4+3] = 0xFF; /* should not matter */
+              p2[x*4+3] = 0x80; /* should not matter */
             }
           p2 += (w*4);
           p1 += rs;
@@ -707,7 +717,10 @@ draw_image(DiaRenderer *self,
   cairo_save (renderer->cr);
   cairo_translate (renderer->cr, point->x, point->y);
   cairo_scale (renderer->cr, width/w, height/h);
+  cairo_move_to (renderer->cr, 0.0, 0.0);
+  /* maybe just the second set_filter is required */
   cairo_surface_set_filter (renderer->surface, CAIRO_FILTER_BEST);
+  cairo_surface_set_filter (surface, CAIRO_FILTER_BEST);
   cairo_show_surface (renderer->cr, surface, w, h);
   cairo_restore (renderer->cr);
   cairo_surface_destroy (surface);
@@ -960,6 +973,18 @@ static DiaExportFilter png_export_filter = {
     (void*)OUTPUT_PNG
 };
 
+static gboolean
+_plugin_can_unload (PluginInfo *info)
+{
+    return TRUE;
+}
+
+static gboolean
+_plugin_unload (PluginInfo *info)
+{
+    return TRUE;
+}
+
 /* --- dia plug-in interface --- */
 
 DIA_PLUGIN_CHECK_INIT
@@ -969,7 +994,8 @@ dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "Cairo",
                             _("Cairo based Rendering"),
-                            NULL, NULL))
+                            _plugin_can_unload,
+                            _plugin_unload))
     return DIA_PLUGIN_INIT_ERROR;
 
 #ifdef CAIRO_HAS_PS_SURFACE
