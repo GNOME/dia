@@ -12,6 +12,9 @@
 	* app/Makefile.am: made libdia a shared object (per Tor
 	Lillqvist's suggestion/request), to cope for platforms with a less
 	than par dynamic library loader.
+
+	* app/display.c: disabled the input method menu (I really don't
+	see where and how to put them. Blame Frozen Bubble )
 	
 2002-09-06  Lars Clausen  <lrclause@cs.uiuc.edu>
 

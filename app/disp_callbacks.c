@@ -98,7 +98,7 @@ create_object_menu(DiaMenu *dia_menu)
   GtkWidget *menu_item;
 
   menu = gtk_menu_new();
-  //FIXME?: gtk_menu_ensure_uline_accel_group (GTK_MENU (menu)) ;
+      //FIXME?: gtk_menu_ensure_uline_accel_group (GTK_MENU (menu)) ;
 
   if ( dia_menu->title ) {
     menu_item = gtk_menu_item_new_with_label(gettext(dia_menu->title));
@@ -116,40 +116,41 @@ create_object_menu(DiaMenu *dia_menu)
 
     if (item->active & DIAMENU_TOGGLE) {
       if (item->text)
-	menu_item = gtk_check_menu_item_new_with_label(gettext(item->text));
+        menu_item = gtk_check_menu_item_new_with_label(gettext(item->text));
       else
-	menu_item = gtk_check_menu_item_new();
+        menu_item = gtk_check_menu_item_new();
       gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_item),
-				     item->active & DIAMENU_TOGGLE_ON);
+                                     item->active & DIAMENU_TOGGLE_ON);
       gtk_check_menu_item_set_show_toggle(GTK_CHECK_MENU_ITEM(menu_item),
-					  TRUE);
+                                          TRUE);
     } else {
       if (item->text)
-	menu_item = gtk_menu_item_new_with_label(gettext(item->text));
+        menu_item = gtk_menu_item_new_with_label(gettext(item->text));
       else
-	menu_item = gtk_menu_item_new();
+        menu_item = gtk_menu_item_new();
     }
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     gtk_widget_show(menu_item);
     item->app_data = menu_item;
     if ( dia_menu->items[i].callback ) {
-    /* only connect signal handler if there is actually a callback */
+          /* only connect signal handler if there is actually a callback */
       gtk_signal_connect(GTK_OBJECT(menu_item), "activate",
-			 object_menu_proxy, &dia_menu->items[i]);
+                         object_menu_proxy, &dia_menu->items[i]);
     } else { 
       if ( item->callback_data ) { 
-        /* This menu item is a submenu if it has no callback, but does
-	 * Have callback_data. In this case the callback_data is a
-	 * DiaMenu pointer for the submenu. */
+            /* This menu item is a submenu if it has no callback, but does
+             * Have callback_data. In this case the callback_data is a
+             * DiaMenu pointer for the submenu. */
         if ( ((DiaMenu*)item->callback_data)->app_data == NULL ) {
-	  /* Create the popup menu items for the submenu. */
-          create_object_menu( (DiaMenu*)(item->callback_data) ) ;
+              /* Create the popup menu items for the submenu. */
+          create_object_menu((DiaMenu*)(item->callback_data) ) ;
           gtk_menu_item_set_submenu( GTK_MENU_ITEM (menu_item), 
-              GTK_WIDGET(((DiaMenu*)(item->callback_data))->app_data));
-	}
+                                     GTK_WIDGET(((DiaMenu*)(item->callback_data))->app_data));
+        }
       }
     }
   }
+
   dia_menu->app_data = menu;
   dia_menu->app_data_free = dia_menu_free;
 }
@@ -310,10 +311,7 @@ ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
 
   popup_shell = ddisp->shell;
   menus_get_image_menu(&menu, NULL);
-  
-  gtk_im_multicontext_append_menuitems(GTK_IM_CONTEXT(ddisp->im_context),
-                                       GTK_MENU_SHELL(menu));
-  
+
   gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
 		 event->button, event->time);
 }

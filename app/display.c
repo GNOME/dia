@@ -103,6 +103,8 @@ new_display(Diagram *dia)
   char *filename;
   int embedded = app_is_embedded();
   Rectangle visible;
+  GtkWidget* menu_item;
+  GtkWidget* im_menu;
   
   ddisp = g_new0(DDisplay,1);
 
@@ -187,6 +189,18 @@ new_display(Diagram *dia)
   g_hash_table_insert (display_ht, ddisp->shell, ddisp);
   g_hash_table_insert (display_ht, ddisp->canvas, ddisp);
 
+
+      /*
+  menu_item = gtk_check_menu_item_new_with_label(_("Input methods..."));
+  im_menu = gtk_menu_new();
+  gtk_im_multicontext_append_menuitems(GTK_IM_CONTEXT(ddisp->im_context),
+                                       GTK_MENU_SHELL(im_menu));
+  
+  gtk_menu_item_set_submenu( GTK_MENU_ITEM (menu_item), 
+                             GTK_WIDGET(im_menu));
+                             
+  gtk_menu_shell_append (GTK_MENU_SHELL (ddisp->menu_bar), menu_item);
+  */
 
   return ddisp;  /*  set the user data  */
 }
