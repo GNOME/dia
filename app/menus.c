@@ -301,7 +301,8 @@ menus_get_toolbox_menubar (GtkWidget **menubar,
   *accel_group = gtk_accel_group_new ();
   toolbox_item_factory =
     gtk_item_factory_new (GTK_TYPE_MENU_BAR, "<Toolbox>", *accel_group);
-  translated_entries = translate_entries(toolbox_menu_items, toolbox_nmenu_items); 
+  translated_entries = translate_entries(toolbox_menu_items, 
+					 toolbox_nmenu_items); 
   gtk_item_factory_create_items (toolbox_item_factory,
 				 toolbox_nmenu_items,
 				 translated_entries, NULL);
@@ -313,12 +314,18 @@ void
 menus_get_image_menu (GtkWidget **menu,
 		      GtkAccelGroup **accel_group)
 {
+  GtkItemFactoryEntry *translated_entries;
+
   if (display_item_factory == NULL) {
     display_accel_group = gtk_accel_group_new ();
-    display_item_factory =  gtk_item_factory_new (GTK_TYPE_MENU, "<Display>", display_accel_group);
+    display_item_factory =  gtk_item_factory_new (GTK_TYPE_MENU, "<Display>", 
+						  display_accel_group);
+    translated_entries = translate_entries(display_menu_items, 
+					   display_nmenu_items); 
     gtk_item_factory_create_items (display_item_factory,
 				   display_nmenu_items,
-				   display_menu_items, NULL);
+				   translated_entries, NULL);
+    free_translated_entries(translated_entries, display_nmenu_items);
   }
   
   *accel_group = display_accel_group;
