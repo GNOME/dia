@@ -145,9 +145,11 @@ struct DiaPrefsData prefs_data[] =
   { "undo_depth", PREF_UINT, PREF_OFFSET(undo_depth), &default_undo_depth, 0, N_("Number of undo levels:") },
   { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), &default_true, 0, N_("Reverse dragging selects\nintersecting objects:") },
   { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), &default_recent_documents, 0, N_("Recent documents list size:") },
+  { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), &default_false, 0, N_("Use menu bar:") },
 
-#ifdef PREF_CHOICE
   { NULL, PREF_NONE, 0, NULL, 1, N_("New diagram:") },
+  { "is_portrais", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, 1, N_("Portrait:") },
+#ifdef PREF_CHOICE
   { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_paper.name), &default_paper.name, 1, N_("Paper type:"), NULL, FALSE, get_paper_name_list },
 #endif
 
@@ -155,7 +157,6 @@ struct DiaPrefsData prefs_data[] =
   { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, 1, N_("Width:") },
   { "new_view_height", PREF_UINT, PREF_OFFSET(new_view.height), &default_int_h, 1, N_("Height:") },
   { "new_view_zoom", PREF_UREAL, PREF_OFFSET(new_view.zoom), &default_real_zoom, 1, N_("Magnify:") },
-  { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), &default_false, 0, N_("Use menu bar:") },
 
   { NULL, PREF_NONE, 0, NULL, 1, N_("Connection Points:") },
   { "show_cx_pts", PREF_BOOLEAN, PREF_OFFSET(show_cx_pts), &default_true, 1, N_("Visible:") },

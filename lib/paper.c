@@ -23,6 +23,7 @@
 #include <ctype.h>
 
 #include "paper.h"
+#include "../app/preferences.h"
 
 /* Paper definitions stolen from gnome-libs.
  * All measurements are in centimetres. */
@@ -110,7 +111,7 @@ get_paper_info(PaperInfo *paper, int i)
   paper->bmargin = paper_metrics[i].bmargin;
   paper->lmargin = paper_metrics[i].lmargin;
   paper->rmargin = paper_metrics[i].rmargin;
-  paper->is_portrait = TRUE;
+  paper->is_portrait = prefs.new_diagram.is_portrait;
   paper->scaling = 1.0;
   paper->fitto = FALSE;
   paper->fitwidth = 1;
@@ -121,6 +122,11 @@ get_paper_info(PaperInfo *paper, int i)
   paper->height = paper_metrics[i].psheight - 
     paper_metrics[i].tmargin - 
     paper_metrics[i].bmargin;
+  if (!paper->is_portrait) {
+    real tmp = paper->width;
+    paper->width = paper->height;
+    paper->height = tmp;
+  }
 }
 
 GList *
