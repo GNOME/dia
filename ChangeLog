@@ -1,5 +1,12 @@
 2003-07-30  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* plug-ins/xfig/xfig-export.c: Added support for arrow head
+	export.  Many arrow types not supported by XFig, replacing those
+	with standard arrows.  Not sure whether it'd be better to render
+	them as a group of lines instead.  You'd lose the arrow-ness for
+	further editing, but preserve the actual shape of it.  Also added
+	support for dash length.
+
 	* plug-ins/xfig/xfig-import.c: Added support for dash length settings.
 
 	* plug-ins/xfig/fig-format-3.2: Added copy of Fig format
