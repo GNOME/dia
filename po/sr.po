@@ -3,15 +3,15 @@
 #
 # This file is distributed under the same license as the dia package.
 #
-# Maintainer: Дејан Матијевић <dejan@ns.sympatico.ca>
+# Maintainer: Дејан Матијевић <dmax@neobee.net>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-13 23:42+0200\n"
-"PO-Revision-Date: 2003-10-13 23:45+0200\n"
-"Last-Translator: Дејан Матијевић <dejan@ns.sympatico.ca>\n"
+"POT-Creation-Date: 2003-10-15 19:14+0200\n"
+"PO-Revision-Date: 2003-10-15 19:19+0200\n"
+"Last-Translator: Дејан Матијевић <dmax@neobee.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +32,6 @@ msgstr "%s грешка: улазно и излазно име датотеке 
 msgid "%s error: need valid input file %s\n"
 msgstr "%s грашка: треба исправан улазни тип %s\n"
 
-#  if (!quiet)
 #. if (!quiet)
 #: app/app_procs.c:197
 #, c-format
@@ -57,7 +56,7 @@ msgstr "ИЗЛАЗ"
 #. &export_file_format
 #: app/app_procs.c:304
 msgid "Export to file format and exit"
-msgstr "Извези у формат датотеке и изађи"
+msgstr "Извези у нови формат и изађи"
 
 #: app/app_procs.c:304 app/diaconv.c:92
 msgid "eps,png,wmf,cgm,dxf,fig"
@@ -65,7 +64,7 @@ msgstr "eps,png,wmf,cgm,dxf,fig"
 
 #: app/app_procs.c:306
 msgid "Don't show the splash screen"
-msgstr "Не приказуј уводни екран"
+msgstr "Не приказуј насловни екран"
 
 #: app/app_procs.c:308
 msgid "Display credits list and exit"
@@ -101,7 +100,7 @@ msgstr ""
 #: app/app_procs.c:382
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
-msgstr "Диа верзија %s, компилована %s %s\n"
+msgstr "Диа верзија %s, преведена %s %s\n"
 
 #: app/app_procs.c:384
 #, c-format
@@ -208,7 +207,9 @@ msgstr ""
 #: app/commands.c:547
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
-"Дејан Матијевић <dejan@ns.sympatico.ca>\n"
+"Дејан Матијевић <dmax@neobee.net>\n"
+"Данило Шеган <danilo@prevod.org>\n"
+"Филип Милетић <f.miletic@ewi.tudelft.nl>\n"
 "\n"
 "Prevod.org — превод на српски језик."
 
@@ -344,7 +345,7 @@ msgstr ""
 #: app/diaconv.c:157
 #, c-format
 msgid "%s error: can specify only one of -t or -o."
-msgstr "%s грешка: може да одреди само једно од -t или -o."
+msgstr "%s грешка: може да наведе само једно од -t или -o."
 
 #: app/diaconv.c:163
 #, c-format
@@ -569,7 +570,7 @@ msgstr "Одбаци промене"
 #: app/export_png.c:116 app/load_save.c:806 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
-#: plug-ins/pstricks/render_pstricks.c:797 plug-ins/shape/shape-export.c:135
+#: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
 #: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
 #, c-format
@@ -616,11 +617,11 @@ msgstr "По екстензији"
 
 #: app/filedlg.c:172
 msgid "Open Diagram"
-msgstr "Отворени Дијаграм"
+msgstr "Отвори оијаграм"
 
 #: app/filedlg.c:200
 msgid "Open Options"
-msgstr "Отворене Опције"
+msgstr "Отвори опције"
 
 #: app/filedlg.c:208 app/filedlg.c:495
 msgid "Determine file type:"
@@ -1023,19 +1024,19 @@ msgstr "Убаци текст"
 
 #: app/menus.c:129
 msgid "Zoom _In"
-msgstr "У већај"
+msgstr "Увећај"
 
 #: app/menus.c:129
 msgid "Zoom in 50%"
-msgstr "У већај 50%"
+msgstr "Увећај 50%"
 
 #: app/menus.c:130
 msgid "Zoom _Out"
-msgstr "У мањи"
+msgstr "Умањи"
 
 #: app/menus.c:130
 msgid "Zoom out 50%"
-msgstr "У мањи 50%"
+msgstr "Умањи 50%"
 
 #: app/menus.c:131
 msgid "_Zoom"
@@ -1056,7 +1057,7 @@ msgstr "Прикажи Мрежу"
 
 #: app/menus.c:141
 msgid "_Snap To Grid"
-msgstr "Приони на мрежу"
+msgstr "Уравнај на мрежу"
 
 #: app/menus.c:143
 msgid "Show _Rulers"
@@ -1118,7 +1119,7 @@ msgstr "Прелазни"
 
 #: app/menus.c:174
 msgid "Same Type"
-msgstr "Исти Тип"
+msgstr "Исти тип"
 
 #: app/menus.c:181 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:531
 msgid "Left"
@@ -1134,7 +1135,7 @@ msgstr "Десно"
 
 #: app/menus.c:185 app/menus.c:195
 msgid "Equal Distance"
-msgstr "Једнака Удаљеност"
+msgstr "Једнака удаљеност"
 
 #: app/menus.c:186 app/menus.c:196
 msgid "Adjacent"
@@ -1253,7 +1254,7 @@ msgstr "/Датотека/Стабло дијаграма"
 
 #: app/menus.c:292
 msgid "/File/Sheets and Objects..."
-msgstr "/Датотека/Стране и Објекти..."
+msgstr "/Датотека/Стране и објекти..."
 
 #: app/menus.c:295
 msgid "/File/_Preferences..."
@@ -1301,7 +1302,7 @@ msgstr "/Датотека/Подешавање странице..."
 
 #: app/menus.c:331
 msgid "/File/_Print Diagram..."
-msgstr "/Датотека/Одштампај Дијаграм..."
+msgstr "/Датотека/Одштампај дијаграм..."
 
 #: app/menus.c:334
 msgid "/File/_Close"
@@ -1341,15 +1342,15 @@ msgstr "/Уреди/Обриши"
 
 #: app/menus.c:355
 msgid "/Edit/Copy Text"
-msgstr "/Уреди/Копирај Текст"
+msgstr "/Уреди/Копирај текст"
 
 #: app/menus.c:356
 msgid "/Edit/Cut Text"
-msgstr "/Уреди/Исеци Текст"
+msgstr "/Уреди/Исеци текст"
 
 #: app/menus.c:357
 msgid "/Edit/Paste _Text"
-msgstr "/Уреди/Убаци Текст"
+msgstr "/Уреди/Убаци текст"
 
 #: app/menus.c:358
 msgid "/_View"
@@ -1417,23 +1418,23 @@ msgstr "/Преглед/Поставке дијаграма..."
 
 #: app/menus.c:380
 msgid "/View/_AntiAliased"
-msgstr ""
+msgstr "/Преглед/Омекшано"
 
 #: app/menus.c:382
 msgid "/View/Show _Grid"
-msgstr "/Преглед/Покажи Мрежу"
+msgstr "/Преглед/Покажи мрежу"
 
 #: app/menus.c:383
 msgid "/View/_Snap To Grid"
-msgstr "/Преглед/Приони За Мрежу"
+msgstr "/Преглед/Уравнај на мрежу"
 
 #: app/menus.c:384
 msgid "/View/Show _Rulers"
-msgstr "/Преглед/Покажи Лењире"
+msgstr "/Преглед/Покажи лењире"
 
 #: app/menus.c:385
 msgid "/View/Show _Connection Points"
-msgstr "/Прикажи/Покажи Поене Везе"
+msgstr "/Прикажи/Покажи тачке везе"
 
 #: app/menus.c:387
 msgid "/View/New _View"
@@ -1442,7 +1443,7 @@ msgstr "/Преглед/Нови поглед"
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
 #: app/menus.c:389
 msgid "/View/Show _All"
-msgstr "/Изглед/Прикажи Све"
+msgstr "/Изглед/Прикажи све"
 
 #: app/menus.c:390
 msgid "/View/Re_draw"
@@ -1490,7 +1491,7 @@ msgstr "/Изабери/Уједини"
 
 #: app/menus.c:404
 msgid "/Select/Intersect"
-msgstr ""
+msgstr "/Изабери/Пресеци"
 
 #: app/menus.c:406
 msgid "/Select/Remove"
@@ -1543,7 +1544,7 @@ msgstr "/Објекти/Из_баци из садржаоца"
 
 #: app/menus.c:425
 msgid "/Objects/Align _Horizontal"
-msgstr "/Објекти/Водоравно Поравнање"
+msgstr "/Објекти/Водоравно поравнање"
 
 #: app/menus.c:427
 msgid "/Objects/Align Horizontal/Left"
@@ -1563,7 +1564,7 @@ msgstr "/Објекти/Водоравно Поравнање/---"
 
 #: app/menus.c:431
 msgid "/Objects/Align Horizontal/Equal Distance"
-msgstr "/Објекти/Подеси Водоравно/Једнака Удањеност"
+msgstr "/Објекти/Подеси Водоравно/Једнака удаљеност"
 
 #: app/menus.c:432
 msgid "/Objects/Align Horizontal/Adjacent"
@@ -1591,7 +1592,7 @@ msgstr "/Објекти/Усправно Поравнање/---"
 
 #: app/menus.c:439
 msgid "/Objects/Align Vertical/Equal Distance"
-msgstr "/Објекти/Подеси Усправно/Једнака Удањеност"
+msgstr "/Објекти/Подеси Усправно/Једнака удаљеност"
 
 #: app/menus.c:440
 msgid "/Objects/Align Vertical/Adjacent"
@@ -1611,7 +1612,7 @@ msgstr "/Алати/Измени"
 
 #: app/menus.c:446
 msgid "/Tools/Magnify"
-msgstr "/Алати/Увелићај"
+msgstr "/Алати/Увеличај"
 
 #: app/menus.c:447
 msgid "/Tools/Scroll"
@@ -1700,7 +1701,7 @@ msgstr "Не може да преузме GTK подешавања"
 
 #: app/paginate_psprint.c:228
 msgid "Select Printer"
-msgstr "Одреди  Штампач"
+msgstr "Одреди штампач"
 
 #: app/paginate_psprint.c:240 sheets/ciscocomputer.sheet.in.h:25
 msgid "Printer"
@@ -1713,7 +1714,7 @@ msgstr "Датотека"
 #: app/paginate_psprint.c:353
 #, c-format
 msgid "Could not run command '%s'"
-msgstr "Ниможе да обради наредбу '%s'"
+msgstr "Не може да обради наредбу '%s'"
 
 #: app/paginate_psprint.c:356
 #, c-format
@@ -1747,19 +1748,19 @@ msgstr "Учитај при покретању"
 
 #: app/plugin-manager.c:285
 msgid "File Name"
-msgstr "Назив Датотеке"
+msgstr "Назив датотеке"
 
 #: app/preferences.c:100
 msgid "User Interface"
-msgstr "Кориснички Интерфејс"
+msgstr "Кориснички интерфејс"
 
 #: app/preferences.c:101
 msgid "Diagram Defaults"
-msgstr "Подразумевано од Дијаграма"
+msgstr "Подразумевано од дијаграма"
 
 #: app/preferences.c:102
 msgid "View Defaults"
-msgstr "Преглед Подразумеваног"
+msgstr "Преглед подразумеваног"
 
 #: app/preferences.c:104
 msgid "Diagram Tree"
@@ -1928,11 +1929,11 @@ msgstr "Неможе да отвори датотеку историје за п
 
 #: app/render_eps.c:140
 msgid "Encapsulated Postscript (using Pango fonts)"
-msgstr "Угњеждени Постскрипт (EPS — користи Панго фонтове)"
+msgstr "Угнежђени Постскрипт (EPS — користи Панго фонтове)"
 
 #: app/render_eps.c:149
 msgid "Encapsulated Postscript (using PostScript Latin-1 fonts)"
-msgstr "Угњеждени Постскрипт (EPS — користи ИСО 8859-1 фонтове)"
+msgstr "Угнежђени Постскрипт (EPS — користи ИСО 8859-1 фонтове)"
 
 #: app/render_libart.c:318 lib/dialibartrenderer.c:268
 msgid "gdk_renderer: Unsupported fill mode specified!\n"
@@ -1975,11 +1976,11 @@ msgstr "SVG облик"
 
 #: app/sheets.c:450
 msgid "Programmed Object"
-msgstr "Програмирани Објекат"
+msgstr "Програмирани објекат"
 
 #: app/sheets_dialog.c:83
 msgid "Sheets and Objects"
-msgstr "Површине и Објекти"
+msgstr "Површине и објекти"
 
 #: app/sheets_dialog.c:109 app/sheets_dialog_callbacks.c:177
 msgid "<- Copy"
@@ -2025,7 +2026,7 @@ msgstr "Претражи..."
 
 #: app/sheets_dialog.c:386
 msgid "SVG Shape:"
-msgstr "SVG Облик:"
+msgstr "SVG облик:"
 
 #: app/sheets_dialog.c:413 app/sheets_dialog.c:476
 msgid "description:"
@@ -2081,7 +2082,7 @@ msgstr "Страна:"
 
 #: app/sheets_dialog.c:920
 msgid "Select SVG Shape File"
-msgstr "Изаберите SVG Облик Датотеке"
+msgstr "Изаберите SVG облик датотеке"
 
 #: app/sheets_dialog_callbacks.c:164
 msgid "Copy ->"
@@ -2386,7 +2387,7 @@ msgstr "Избор писма"
 #: lib/filter.c:120
 #, c-format
 msgid "Multiple export filters with unique name %s"
-msgstr ""
+msgstr "Више извозних филтера са јединственим именом %s"
 
 #: lib/font.c:87
 #, c-format
@@ -2882,7 +2883,7 @@ msgstr "Стабилно"
 #. Translators: Menu item Verb/Support/Stabilize/Steady
 #: objects/FS/function.c:773
 msgid "Steady"
-msgstr "Досадно"
+msgstr "Мирно"
 
 #  Translators: Menu item Verb/Support/Secure
 #. Translators: Menu item Verb/Support/Secure
@@ -2893,7 +2894,7 @@ msgstr "Обезбедити"
 #. Translators: Menu item Verb/Support/Secure/Attach
 #: objects/FS/function.c:779 objects/FS/function.c:811
 msgid "Attach"
-msgstr "Додајти"
+msgstr "Додати"
 
 #. Translators: Menu item Verb/Support/Secure/Mount
 #: objects/FS/function.c:781
@@ -2924,7 +2925,7 @@ msgstr "Позиција"
 #. Translators: Menu item Verb/Support/Position/Orient
 #: objects/FS/function.c:793
 msgid "Orient"
-msgstr "Орјентално"
+msgstr "Усмери"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: objects/FS/function.c:795
@@ -2949,7 +2950,7 @@ msgstr "Пар"
 #. Translators: Menu item Verb/Connect/Couple/Join
 #: objects/FS/function.c:807
 msgid "Join"
-msgstr "Придружити се"
+msgstr "Придружи"
 
 #  Translators: Menu item Verb/Connect/Couple/Assemble
 #. Translators: Menu item Verb/Connect/Couple/Assemble
@@ -3066,7 +3067,7 @@ msgstr "Натегни"
 #. Translators: Menu item Verb/Branch/Refine/Filter
 #: objects/FS/function.c:869
 msgid "Filter"
-msgstr "Филтерисати"
+msgstr "Филтрирај"
 
 #. Translators: Menu item Verb/Branch/Refine/Percolate
 #: objects/FS/function.c:871
@@ -3490,7 +3491,7 @@ msgstr "Биолошки"
 #. Translators: Menu item Noun/Energy/Mechanical
 #: objects/FS/function.c:1087
 msgid "Mechanical"
-msgstr "Механићки"
+msgstr "Механички"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Mech. Energy
 #: objects/FS/function.c:1089
@@ -3691,7 +3692,7 @@ msgstr "Позив макроа"
 
 #: objects/GRAFCET/action.c:135
 msgid "This action is a call to a macro-step"
-msgstr "Ова акција је позив до макро-корака"
+msgstr "Ова акција је позив макро-корака"
 
 #: objects/GRAFCET/condition.c:130
 msgid "Condition"
@@ -4646,11 +4647,11 @@ msgstr "Извоз/увоз битмапа заснован на gdk-pixbuf-у"
 msgid "TeX Pstricks export filter"
 msgstr "TeX Pstricks извозни филтер"
 
-#: plug-ins/pstricks/render_pstricks.c:650
+#: plug-ins/pstricks/render_pstricks.c:653
 msgid "Not valid UTF8"
 msgstr "Није исправан УТФ8"
 
-#: plug-ins/pstricks/render_pstricks.c:868
+#: plug-ins/pstricks/render_pstricks.c:871
 msgid "TeX PSTricks macros"
 msgstr "ТеХ PSTricks макрои"
 
@@ -4742,7 +4743,7 @@ msgstr ""
 
 #: plug-ins/xfig/xfig-export.c:463
 msgid "No more user-definable colors - using black"
-msgstr ""
+msgstr "Нема више боја постављених од стране корисника — користим црну"
 
 #: plug-ins/xfig/xfig-export.c:1136
 msgid "XFig format"
@@ -4754,12 +4755,12 @@ msgstr "Обрасци нису подржани од Дие"
 
 #: plug-ins/xfig/xfig-import.c:500
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr ""
+msgstr "Диа не подржава тротачкасте линије, користи двотачкасте"
 
 #: plug-ins/xfig/xfig-import.c:504
 #, c-format
 msgid "Line style %d should not appear\n"
-msgstr ""
+msgstr "Не треба да се појави стил линија %d\n"
 
 #: plug-ins/xfig/xfig-import.c:573
 #, c-format
@@ -4783,56 +4784,56 @@ msgstr "Не може да прочита информације елипсе: %
 #: plug-ins/xfig/xfig-import.c:780
 #, c-format
 msgid "Couldn't read polyline info: %s\n"
-msgstr ""
+msgstr "Не могу да учитам податке о полигонској линији: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:795
 #, c-format
 msgid "Couldn't read flipped bit: %s\n"
-msgstr ""
+msgstr "Не могу да прочитам изврнути бит: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:813
 msgid "Negative corner radius, negating"
-msgstr ""
+msgstr "Негативни полупречник код ћошка, негира"
 
 #: plug-ins/xfig/xfig-import.c:857 plug-ins/xfig/xfig-import.c:1173
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
-msgstr ""
+msgstr "Непознат подтип полигонске линије: %d\n"
 
 #: plug-ins/xfig/xfig-import.c:1007 plug-ins/xfig/xfig-import.c:1039
 #, c-format
 msgid "Couldn't read spline info: %s\n"
-msgstr ""
+msgstr "Не могу да прочитам податке о кривој: %s\n"
 
 #. Open approximated spline
 #. Closed approximated spline
 #: plug-ins/xfig/xfig-import.c:1026 plug-ins/xfig/xfig-import.c:1044
 msgid "Cannot convert approximated spline yet."
-msgstr ""
+msgstr "Још увек не могу да претворим приближну криву."
 
 #: plug-ins/xfig/xfig-import.c:1084
 #, c-format
 msgid "Unknown spline subtype: %d\n"
-msgstr ""
+msgstr "Непозната подврста криве: %d\n"
 
 #: plug-ins/xfig/xfig-import.c:1147
 #, c-format
 msgid "Couldn't read arc info: %s\n"
-msgstr ""
+msgstr "Не могу да прочитам податке о луку: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1237
 #, c-format
 msgid "Couldn't read text info: %s\n"
-msgstr ""
+msgstr "Не могу да прочитам текстуалне податке: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1278
 #, c-format
 msgid "Couldn't identify FIG object: %s\n"
-msgstr ""
+msgstr "Не могу да идентификујем FIG објекат: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1286
 msgid "Compound end outside compound\n"
-msgstr ""
+msgstr "Сложени и спољни сложени\n"
 
 #: plug-ins/xfig/xfig-import.c:1305
 #, c-format
@@ -4852,7 +4853,7 @@ msgstr "Непозната врста објекта %d\n"
 #: plug-ins/xfig/xfig-import.c:1384
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
-msgstr "`%s' није једна од `%s' или `%s'\n"
+msgstr "„%s“ није једна од „%s“ или „%s“\n"
 
 #: plug-ins/xfig/xfig-import.c:1394
 #, c-format
@@ -4862,22 +4863,22 @@ msgstr "Грешка при читању величине папира: %s\n"
 #: plug-ins/xfig/xfig-import.c:1404
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
-msgstr ""
+msgstr "Непозната величина папира „%s“, користи подразумевано\n"
 
 #: plug-ins/xfig/xfig-import.c:1416
 #, c-format
 msgid "Error reading paper orientation: %s\n"
-msgstr "Грешка при читању орјентацје папира: %s\n"
+msgstr "Грешка при читању оријентације папира: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1426
 #, c-format
 msgid "Error reading justification: %s\n"
-msgstr ""
+msgstr "Грешка при читању поравнања: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1436
 #, c-format
 msgid "Error reading units: %s\n"
-msgstr "Грешка при читању јединице: %s\n"
+msgstr "Грешка при читању јединица: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1450
 #, c-format
@@ -4892,7 +4893,7 @@ msgstr "Грешка при читању индикатора више-стра�
 #: plug-ins/xfig/xfig-import.c:1472
 #, c-format
 msgid "Error reading transparent color: %s\n"
-msgstr ""
+msgstr "Грешка при читању провидних боја: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1481 plug-ins/xfig/xfig-import.c:1536
 #: plug-ins/xfig/xfig-import.c:1554
@@ -4902,7 +4903,7 @@ msgstr "Грешка при читању FIG датотеке: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1483 plug-ins/xfig/xfig-import.c:1538
 msgid "Premature end of FIG file\n"
-msgstr ""
+msgstr "Превремен крај FIG датотеке\n"
 
 #: plug-ins/xfig/xfig-import.c:1492
 #, c-format
@@ -4912,12 +4913,12 @@ msgstr "Грешка при читању резолуције: %s\n"
 #: plug-ins/xfig/xfig-import.c:1523
 #, c-format
 msgid "Doesn't look like a Fig file: %s\n"
-msgstr ""
+msgstr "Не изгледа као FIG датотека: %s\n"
 
 #: plug-ins/xfig/xfig-import.c:1529
 #, c-format
 msgid "This is a FIG version %d.%d file, I may not understand it\n"
-msgstr ""
+msgstr "Ово је FIG датотека издања %d.%d, можда је нећу разумети\n"
 
 #: plug-ins/xfig/xfig-import.c:1577
 msgid "XFig File Format"
@@ -4925,44 +4926,45 @@ msgstr "XFig Формат Датотеке"
 
 #: plug-ins/xfig/xfig.c:39
 msgid "Fig Format import and export filter"
-msgstr ""
+msgstr "Филтер за увоз и извоз FIG датотека"
 
 #: plug-ins/xslt/xslt.c:93
 #, c-format
 msgid "Error while parsing %s\n"
-msgstr ""
+msgstr "Грешка при обради %s\n"
 
 #: plug-ins/xslt/xslt.c:101
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
-msgstr ""
+msgstr "Грешка при обради стилова %s\n"
 
 #: plug-ins/xslt/xslt.c:107
 #, c-format
 msgid "Error while applying stylesheet %s\n"
-msgstr ""
+msgstr "Грешка при примени стилова %s\n"
 
 #: plug-ins/xslt/xslt.c:115
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
-msgstr ""
+msgstr "Грешка при обради стилова: %s\n"
 
 #: plug-ins/xslt/xslt.c:123
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
-msgstr ""
+msgstr "Грешка при примени стилова: %s\n"
 
 #: plug-ins/xslt/xslt.c:303
 msgid "XSL Transformation filter"
-msgstr ""
+msgstr "Филтер за XSL трансформације"
 
 #: plug-ins/xslt/xslt.c:327
 msgid "No valid configuration files found for the XSLT plugin, not loading."
 msgstr ""
+"Нису нађени исправне датотеке са подешавањима за XSLT додатак; не учитавам."
 
 #: plug-ins/xslt/xsltdialog.c:99
 msgid "Export through XSLT"
-msgstr ""
+msgstr "Извези помоћу XSLT"
 
 #: plug-ins/xslt/xsltdialog.c:114
 msgid "From:"
@@ -4988,11 +4990,11 @@ msgstr ""
 
 #: sheets/Assorted.sheet.in.h:4
 msgid "Curved eight point star"
-msgstr ""
+msgstr "Крива осмокрака звезда"
 
 #: sheets/Assorted.sheet.in.h:5
 msgid "Curved four point star"
-msgstr ""
+msgstr "Крива четворокрака звезда"
 
 #: sheets/Assorted.sheet.in.h:6
 msgid "Diamond"
@@ -5004,11 +5006,11 @@ msgstr "Стрелица надоле"
 
 #: sheets/Assorted.sheet.in.h:8
 msgid "Eight point star"
-msgstr ""
+msgstr "Осмокрака звезда"
 
 #: sheets/Assorted.sheet.in.h:9
 msgid "Four point star"
-msgstr ""
+msgstr "Четворокрака звезда"
 
 #: sheets/Assorted.sheet.in.h:10
 msgid "Heart"
@@ -5016,19 +5018,20 @@ msgstr "Срце"
 
 #: sheets/Assorted.sheet.in.h:11
 msgid "Heptagon. Seven sided shape"
-msgstr ""
+msgstr "Хептагон. Седмоугаоник"
 
 #: sheets/Assorted.sheet.in.h:12
 msgid "Hexagon. Six sided shape"
-msgstr ""
+msgstr "Хексагон. Шестоугаоник"
 
 #: sheets/Assorted.sheet.in.h:13
 msgid "Horizontal parallelogram"
 msgstr "Водоравни паралелограм"
 
+# или је ово једнакостранични?
 #: sheets/Assorted.sheet.in.h:14
 msgid "Isoceles triangle"
-msgstr ""
+msgstr "Једнакокраки троугао"
 
 #: sheets/Assorted.sheet.in.h:15
 msgid "Left arrow"
@@ -5036,59 +5039,59 @@ msgstr "Стрелица улево"
 
 #: sheets/Assorted.sheet.in.h:16
 msgid "Left-right arrow"
-msgstr "Лева--десна стрелица"
+msgstr "Лева–десна стрелица"
 
 #: sheets/Assorted.sheet.in.h:17
 msgid "Left-right-up arrow"
-msgstr "Лева--десна--горе стрелица"
+msgstr "Лева–десна–горе стрелица"
 
 #: sheets/Assorted.sheet.in.h:18
 msgid "Left-up arrow"
-msgstr "Лево--горе стрелица"
+msgstr "Лево–горе стрелица"
 
 #: sheets/Assorted.sheet.in.h:19
 msgid "Maltese cross"
-msgstr ""
+msgstr "Малтски крст"
 
 #: sheets/Assorted.sheet.in.h:20
 msgid "Notched left arrow"
-msgstr ""
+msgstr "Засечена стрелица налево"
 
 #: sheets/Assorted.sheet.in.h:21
 msgid "Notched right arrow"
-msgstr ""
+msgstr "Засечена стрелица надесно"
 
 #: sheets/Assorted.sheet.in.h:22
 msgid "Octogon. Eight sided shape"
-msgstr ""
+msgstr "Осмоугао"
 
 #: sheets/Assorted.sheet.in.h:23
 msgid "Pentagon block arrow"
-msgstr ""
+msgstr "Испуњена петоугласта стрелица"
 
 #: sheets/Assorted.sheet.in.h:24
 msgid "Pentagon. Five sided shape"
-msgstr ""
+msgstr "Петоугао"
 
 #: sheets/Assorted.sheet.in.h:25
 msgid "Perfect circle"
-msgstr ""
+msgstr "Савршен круг"
 
 #: sheets/Assorted.sheet.in.h:26
 msgid "Perfect square, height equals width"
-msgstr ""
+msgstr "Савршен квадрат, висина једнака ширини"
 
 #: sheets/Assorted.sheet.in.h:27
 msgid "Quad arrow"
-msgstr ""
+msgstr "Четворострука стрелица"
 
 #: sheets/Assorted.sheet.in.h:28
 msgid "Quarter circle"
-msgstr ""
+msgstr "Четврт круга"
 
 #: sheets/Assorted.sheet.in.h:29
 msgid "Quarter moon"
-msgstr ""
+msgstr "Четврт месеца"
 
 #: sheets/Assorted.sheet.in.h:30
 msgid "Right angle triangle"
@@ -5100,23 +5103,23 @@ msgstr "Десна стрелица"
 
 #: sheets/Assorted.sheet.in.h:32
 msgid "Seven point star"
-msgstr ""
+msgstr "Седмокрака звезда"
 
 #: sheets/Assorted.sheet.in.h:33
 msgid "Sharp eight point star"
-msgstr ""
+msgstr "Оштра осмокрака звезда"
 
 #: sheets/Assorted.sheet.in.h:34
 msgid "Six point star"
-msgstr ""
+msgstr "Шестокрака звезда"
 
 #: sheets/Assorted.sheet.in.h:35
 msgid "Sun"
-msgstr ""
+msgstr "Сунце"
 
 #: sheets/Assorted.sheet.in.h:36
 msgid "Swiss cross"
-msgstr ""
+msgstr "Швајцарски крст"
 
 #: sheets/Assorted.sheet.in.h:37
 msgid "Trapezoid"
@@ -5128,11 +5131,11 @@ msgstr "Нагоре стрелица"
 
 #: sheets/Assorted.sheet.in.h:39
 msgid "Up-down arrow"
-msgstr "Горе--доле стрелица"
+msgstr "Горе–доле стрелица"
 
 #: sheets/Assorted.sheet.in.h:40
 msgid "Up-down-left arrow"
-msgstr ""
+msgstr "Горе–доле–лево стрелица"
 
 #: sheets/Assorted.sheet.in.h:41
 msgid "Vertical parallelogram"
@@ -5144,55 +5147,56 @@ msgstr "Коло"
 
 #: sheets/Circuit.sheet.in.h:2
 msgid "Components for circuit diagrams"
-msgstr ""
+msgstr "Делови дијаграма интегрисаних кôла"
 
 #: sheets/Circuit.sheet.in.h:3
 msgid "Ground point"
-msgstr ""
+msgstr "Уземљење"
 
 #: sheets/Circuit.sheet.in.h:4
 msgid "Horizontal jumper"
-msgstr ""
+msgstr "Водоравна спојница"
 
 #: sheets/Circuit.sheet.in.h:5
 msgid "Horizontally aligned LED"
-msgstr ""
+msgstr "Водоравно поравнат ЛЕД"
 
+# ово баш и није сигурно, нисам никад чуо :-)
 #: sheets/Circuit.sheet.in.h:6
 msgid "Horizontally aligned capacitor"
-msgstr ""
+msgstr "Водоравно поравнат капацитор"
 
 #: sheets/Circuit.sheet.in.h:7
 msgid "Horizontally aligned diode"
-msgstr ""
+msgstr "Водоравно поравната диода"
 
 #: sheets/Circuit.sheet.in.h:8
 msgid "Horizontally aligned fuse"
-msgstr ""
+msgstr "Водоравно поравнат осигурач"
 
 #: sheets/Circuit.sheet.in.h:9
 msgid "Horizontally aligned inductor"
-msgstr ""
+msgstr "Водоравно поравнат индуктор"
 
 #: sheets/Circuit.sheet.in.h:10
 msgid "Horizontally aligned inductor (European)"
-msgstr ""
+msgstr "Водоравно поравнат индуктор (европски)"
 
 #: sheets/Circuit.sheet.in.h:11
 msgid "Horizontally aligned powersource"
-msgstr ""
+msgstr "Водоравно поравнат извор струје"
 
 #: sheets/Circuit.sheet.in.h:12
 msgid "Horizontally aligned resistor"
-msgstr ""
+msgstr "Водоравно поравнат отпорник"
 
 #: sheets/Circuit.sheet.in.h:13
 msgid "Horizontally aligned resistor (European)"
-msgstr ""
+msgstr "Водоравно поравнат отпорник (европски)"
 
 #: sheets/Circuit.sheet.in.h:14
 msgid "Horizontally aligned zener diode"
-msgstr ""
+msgstr "Водоравно поравната зенер диода"
 
 #: sheets/Circuit.sheet.in.h:15
 msgid "Lamp"
@@ -5204,23 +5208,23 @@ msgstr "Микрофон"
 
 #: sheets/Circuit.sheet.in.h:17
 msgid "NMOS transistor"
-msgstr ""
+msgstr "NMOS транзистор"
 
 #: sheets/Circuit.sheet.in.h:18
 msgid "NPN bipolar transistor"
-msgstr ""
+msgstr "NPN биполарни транзистор"
 
 #: sheets/Circuit.sheet.in.h:19
 msgid "Operational amplifier"
-msgstr ""
+msgstr "Радни појачивач"
 
 #: sheets/Circuit.sheet.in.h:20
 msgid "PMOS transistor"
-msgstr ""
+msgstr "PMOS транзистор"
 
 #: sheets/Circuit.sheet.in.h:21
 msgid "PNP bipolar transistor"
-msgstr ""
+msgstr "PNP биполарни транзистор"
 
 #: sheets/Circuit.sheet.in.h:22 sheets/ciscomisc.sheet.in.h:39
 msgid "Speaker"
@@ -5228,63 +5232,64 @@ msgstr "Звучник"
 
 #: sheets/Circuit.sheet.in.h:23
 msgid "Vertically aligned LED"
-msgstr ""
+msgstr "Усправно поравната ЛЕД"
 
+# ово је несигурно
 #: sheets/Circuit.sheet.in.h:24
 msgid "Vertically aligned capacitor"
-msgstr ""
+msgstr "Усправно поравнат капацитор"
 
 #: sheets/Circuit.sheet.in.h:25
 msgid "Vertically aligned diode"
-msgstr ""
+msgstr "Усправно поравната диода"
 
 #: sheets/Circuit.sheet.in.h:26
 msgid "Vertically aligned fuse"
-msgstr ""
+msgstr "Усправно поравнат осигурач"
 
 #: sheets/Circuit.sheet.in.h:27
 msgid "Vertically aligned inductor"
-msgstr ""
+msgstr "Усправно поравнат индуктор"
 
 #: sheets/Circuit.sheet.in.h:28
 msgid "Vertically aligned inductor (European)"
-msgstr ""
+msgstr "Усправно поравнат индуктор (европски)"
 
 #: sheets/Circuit.sheet.in.h:29
 msgid "Vertically aligned powersource"
-msgstr ""
+msgstr "Усправно поравнат извор струје"
 
 #: sheets/Circuit.sheet.in.h:30
 msgid "Vertically aligned resistor"
-msgstr ""
+msgstr "Усправно поравнат отпорник"
 
 #: sheets/Circuit.sheet.in.h:31
 msgid "Vertically aligned resistor (European)"
-msgstr ""
+msgstr "Усправно поравнат отпорник (европски)"
 
 #: sheets/Circuit.sheet.in.h:32
 msgid "Vertically aligned zener diode"
-msgstr ""
+msgstr "Усправно поравната зенер диода"
 
 #: sheets/Contact.sheet.in.h:1
 msgid "'if not' (normally closed) ladder contact"
-msgstr ""
+msgstr "„ако није“ (обично затворен) прекидач"
 
 #: sheets/Contact.sheet.in.h:2
 msgid "'if' (normally open) ladder contact"
-msgstr ""
+msgstr "„ако је“ (обично отворен) прекидач"
 
 #: sheets/Contact.sheet.in.h:3
 msgid "'jump' output variable"
-msgstr "'подигни' излазну промењиву"
+msgstr "„подигни“ излазну промењиву"
 
 #: sheets/Contact.sheet.in.h:4
 msgid "'reset' output variable"
-msgstr "'поново подеси' излазну промењиву"
+msgstr "„поново подеси“ излазну промењиву"
 
 #: sheets/Contact.sheet.in.h:5
 msgid "'set' output variable"
-msgstr "'подеси' излазну промењиву"
+msgstr "„подеси“ излазну промењиву"
 
 #: sheets/Contact.sheet.in.h:6
 msgid "Components for LADDER circuits"
