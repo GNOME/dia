@@ -36,13 +36,13 @@
 void
 prop_desc_list_calculate_quarks(PropDescription *plist)
 {
-  gint i = 0;
-  while (plist[i].name != NULL) {
+  guint i;
+
+  for (i = 0; plist[i].name != NULL; i++) {
     if (plist[i].quark == 0)
       plist[i].quark = g_quark_from_static_string(plist[i].name);
     if (!plist[i].ops) 
       plist[i].ops = prop_type_get_ops(plist[i].type);
-    i++;
   }
 }
 

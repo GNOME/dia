@@ -659,7 +659,7 @@ bezierconn_init(BezierConn *bez, int num_points)
   bezierconn_update_data(bez);
 }
 
-void
+static void
 bezierconn_set_points(BezierConn *bez, int num_points, BezPoint *points)
 {
 }

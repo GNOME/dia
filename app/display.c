@@ -175,7 +175,8 @@ new_display(Diagram *dia)
   DDisplay *ddisp;
   char *filename;
   int embedded = app_is_embedded();
-
+  Rectangle visible;
+  
   ddisp = g_new0(DDisplay,1);
 
   ddisp->menu_bar = NULL;
@@ -219,19 +220,30 @@ new_display(Diagram *dia)
   ddisp->origo.x = 0.0;
   ddisp->origo.y = 0.0;
   ddisp->zoom_factor = prefs.new_view.zoom/100.0*DDISPLAY_NORMAL_ZOOM;
-  ddisp->visible.left = 0.0;
-  ddisp->visible.top = 0.0;
-  ddisp->visible.right = prefs.new_view.width/ddisp->zoom_factor;
-  ddisp->visible.bottom = prefs.new_view.height/ddisp->zoom_factor;
+  if ((ddisp->diagram) && (ddisp->diagram->data)) {
+    Rectangle *extents = &ddisp->diagram->data->extents;
+
+    visible.left = extents->left;
+    visible.top = extents->top;
+  } else {
+    visible.left = 0.0;
+    visible.top = 0.0;
+  }
+  visible.right = visible.left + prefs.new_view.width/ddisp->zoom_factor;
+  visible.bottom = visible.top + prefs.new_view.height/ddisp->zoom_factor;
+
+  ddisp->visible = visible;
 
   create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
 		       filename, prefs.new_view.use_menu_bar, !embedded);
-
   
-  /*  ddisplay_set_origo(ddisp, 0.0, 0.0); */
 
   ddisplay_update_statusbar (ddisp);
+
+  ddisplay_set_origo(ddisp, visible.left, visible.top);
+  ddisp->visible = visible; /* force the visible area extents */
   ddisplay_update_scrollbars(ddisp);
+  ddisplay_add_update_all(ddisp);
 
   if (!display_ht)
     display_ht = g_hash_table_new ((GHashFunc) display_hash, NULL);
@@ -241,6 +253,7 @@ new_display(Diagram *dia)
   
   g_hash_table_insert (display_ht, ddisp->shell, ddisp);
   g_hash_table_insert (display_ht, ddisp->canvas, ddisp);
+
 
   return ddisp;  /*  set the user data  */
 }
@@ -552,20 +565,11 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
   Rectangle *extents = &ddisp->diagram->data->extents;
   Rectangle *visible = &ddisp->visible;
   GtkAdjustment *hsbdata, *vsbdata;
-  real extra_border_x, extra_border_y;
-
-  extra_border_x = (visible->right - visible->left);
-  extra_border_y = (visible->bottom - visible->top);
-
-  /* FIXME: either remove the extra_border stuff (as Patrick Sung proposes),
-     or make ddisp_scroll aware of it ; but don't leave the current 
-     inconsistent behaviour. Maybe leave it up to the user ? */
-  extra_border_x = extra_border_y = 0;
 
   hsbdata = ddisp->hsbdata;
   /* Horizontal: */
-  hsbdata->lower = MIN(extents->left, visible->left)  - extra_border_x;
-  hsbdata->upper = MAX(extents->right, visible->right)  + extra_border_x;
+  hsbdata->lower = MIN(extents->left, visible->left);
+  hsbdata->upper = MAX(extents->right, visible->right);
   hsbdata->page_size = visible->right - visible->left - 0.0001;
   /* remove some to fix strange behaviour in gtk_range_adjustment_changed */
   hsbdata->page_increment = (visible->right - visible->left) / 2.0;
@@ -576,8 +580,8 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
 
   /* Vertical: */
   vsbdata = ddisp->vsbdata;
-  vsbdata->lower = MIN(extents->top, visible->top)  - extra_border_y;
-  vsbdata->upper = MAX(extents->bottom, visible->bottom) + extra_border_y;
+  vsbdata->lower = MIN(extents->top, visible->top);
+  vsbdata->upper = MAX(extents->bottom, visible->bottom);
   vsbdata->page_size = visible->bottom - visible->top - 0.00001;
   /* remove some to fix strange behaviour in gtk_range_adjustment_changed */
   vsbdata->page_increment = (visible->bottom - visible->top) / 2.0;

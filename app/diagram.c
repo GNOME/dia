@@ -547,26 +547,24 @@ diagram_update_extents(Diagram *dia)
   gfloat cur_scale = dia->data->paper.scaling;
   /* anropar update_scrollbars() */
 
-  if (layer_update_extents(dia->data->active_layer)) {
-    if (data_update_extents(dia->data)) {
-      /* Update scrollbars because extents were changed: */
-      GSList *l;
-      DDisplay *ddisp;
+  if (data_update_extents(dia->data)) {
+    /* Update scrollbars because extents were changed: */
+    GSList *l;
+    DDisplay *ddisp;
+    
+    l = dia->displays;
+    while(l!=NULL) {
+      ddisp = (DDisplay *) l->data;
       
-      l = dia->displays;
-      while(l!=NULL) {
-	ddisp = (DDisplay *) l->data;
-	
-	ddisplay_update_scrollbars(ddisp);
-	
-	l = g_slist_next(l);
-      }
-      if (cur_scale != dia->data->paper.scaling) {
-	diagram_add_update_all(dia);
-	diagram_flush(dia);
-      }
+      ddisplay_update_scrollbars(ddisp);
+      
+      l = g_slist_next(l);
     }
-  }
+    if (cur_scale != dia->data->paper.scaling) {
+      diagram_add_update_all(dia);
+      diagram_flush(dia);
+    }
+  }  
 }
 
 /* Remove connections from obj to objects outside created group. */

@@ -1,4 +1,4 @@
-/* Dia -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program -*- c -*-
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify

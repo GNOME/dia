@@ -317,7 +317,7 @@ colorprop_set_from_widget(ColorProperty *prop, WIDGET *widget)
 static void 
 colorprop_load(ColorProperty *prop, AttributeNode attr, DataNode data)
 {
-  data_color(attr,&prop->color_data);
+  data_color(data,&prop->color_data);
 }
 
 static void 
@@ -404,7 +404,7 @@ fontprop_set_from_widget(FontProperty *prop, WIDGET *widget)
 static void 
 fontprop_load(FontProperty *prop, AttributeNode attr, DataNode data)
 {
-  prop->font_data = data_font(attr);
+  prop->font_data = data_font(data);
 }
 
 static void 
@@ -424,7 +424,8 @@ static void
 fontprop_set_from_offset(FontProperty *prop,
                          void *base, guint offset, guint offset2)
 {
-  struct_member(base,offset,DiaFont *) = prop->font_data;
+  if (prop->font_data) 
+    struct_member(base,offset,DiaFont *) = prop->font_data;
 }
 
 static const PropertyOps fontprop_ops = {

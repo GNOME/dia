@@ -28,7 +28,7 @@
 #include "paper.h"
 #include "string_prerenderer.h"
 
-
+static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 
 DiagramData *
 new_diagram_data(void)
@@ -232,56 +232,93 @@ data_remove_all_selected(DiagramData *data)
   data->selected = NULL;
 }
 
-int
-data_update_extents(DiagramData *data)
+static gboolean
+data_has_visible_layers(DiagramData *data)
 {
-  Layer *layer;
-  Rectangle new_extents;
-  Rectangle *extents;
-  int changed;
-  int i;
-
-  extents = &data->extents;
-
+  guint i;
   for (i = 0; i < data->layers->len; i++) {
-    layer = (Layer *) g_ptr_array_index(data->layers, i);
-    if (layer->visible) {
+    Layer *layer = g_ptr_array_index(data->layers, i);
+    if (layer->visible) return TRUE;
+  }
+  return FALSE;
+}
+
+static void
+data_get_layers_extents_union(DiagramData *data) {
+  guint i;
+  gboolean first = TRUE;
+  Rectangle new_extents;
+
+  for ( i = 0 ; i<data->layers->len; i++) {
+    Layer *layer = g_ptr_array_index(data->layers, i);    
+    if (!layer->visible) continue;
+    
+    layer_update_extents(layer);
+
+    if (first) {
       new_extents = layer->extents;
-      break;
+      first = rectangle_equals(&new_extents,&invalid_extents);
+    } else {
+      if (!rectangle_equals(&layer->extents,&invalid_extents)) {
+        rectangle_union(&new_extents, &layer->extents);
+      }
     }
   }
-  if (i == data->layers->len) { /* No visible layers */
-    layer = (Layer *) g_ptr_array_index(data->layers, 0);
-    new_extents = layer->extents;
+
+  data->extents = new_extents;
+}
+
+static void
+data_adapt_scaling_to_extents(DiagramData *data)
+{
+  gdouble pwidth = data->paper.width * data->paper.scaling;
+  gdouble pheight = data->paper.height * data->paper.scaling;
+
+  gdouble xscale = data->paper.fitwidth * pwidth /
+    (data->extents.right - data->extents.left);
+  gdouble yscale = data->paper.fitheight * pheight /
+    (data->extents.bottom - data->extents.top);
+  
+  data->paper.scaling = MIN(xscale, yscale);
+  data->paper.width  = pwidth  / data->paper.scaling;
+  data->paper.height = pheight / data->paper.scaling;
+}
+
+static gboolean
+data_compute_extents(DiagramData *data) 
+{
+  Rectangle old_extents = data->extents;
+
+  if (!data_has_visible_layers(data)) {   
+    if (data->layers->len > 0) {
+      Layer *layer = g_ptr_array_index(data->layers, 0);    
+      layer_update_extents(layer);
+      
+      data->extents = layer->extents;
+    } else {
+      data->extents = invalid_extents;
+    }
+  } else {
+    data_get_layers_extents_union(data);
   }
-  for ( ; i<data->layers->len; i++) {
-    layer = (Layer *) g_ptr_array_index(data->layers, i);
-    if (layer->visible)
-      rectangle_union(&new_extents, &layer->extents);
+
+  if (rectangle_equals(&data->extents,&invalid_extents)) {
+      data->extents.left = 0.0;
+      data->extents.right = 10.0;
+      data->extents.top = 0.0;
+      data->extents.bottom = 10.0;
   }
+  return (!rectangle_equals(&data->extents,&old_extents));
+}
 
-  changed =  ( (new_extents.left != extents->left) ||
-	       (new_extents.right != extents->right) ||
-	       (new_extents.top != extents->top) ||
-	       (new_extents.bottom != extents->bottom) );
+gboolean
+data_update_extents(DiagramData *data)
+{
 
-  *extents = new_extents;
+  gboolean changed;
 
-  /* update scaling if extents changed and we are in fit to scaling mode */
-  if (changed && data->paper.fitto) {
-    gdouble xscale, yscale;
-    gdouble pwidth = data->paper.width * data->paper.scaling;
-    gdouble pheight = data->paper.height * data->paper.scaling;
-
-    xscale = data->paper.fitwidth * pwidth /
-      (new_extents.right - new_extents.left);
-    yscale = data->paper.fitheight * pheight /
-      (new_extents.bottom - new_extents.top);
-
-    data->paper.scaling = MIN(xscale, yscale);
-    data->paper.width  = pwidth  / data->paper.scaling;
-    data->paper.height = pheight / data->paper.scaling;
-  }
+  changed = data_compute_extents(data);
+  if (changed && data->paper.fitto) data_adapt_scaling_to_extents(data);
 
   return changed;
 }
@@ -580,11 +617,7 @@ int layer_update_extents(Layer *layer)
   GList *l;
   Object *obj;
   Rectangle new_extents;
-  Rectangle *extents;
-  int changed;
   
-  extents = &layer->extents;
-
   l = layer->objects;
   if (l!=NULL) {
     obj = (Object *) l->data;
@@ -597,20 +630,13 @@ int layer_update_extents(Layer *layer)
       l = g_list_next(l);
     }
   } else {
-    new_extents.left = 0.0; 
-    new_extents.right = 10.0; 
-    new_extents.top = 0.0; 
-    new_extents.bottom = 10.0; 
+    new_extents = invalid_extents;
   }
 
-  changed =  ( (new_extents.left != extents->left) ||
-	       (new_extents.right != extents->right) ||
-	       (new_extents.top != extents->top) ||
-	       (new_extents.bottom != extents->bottom) );
+  if (rectangle_equals(&new_extents,&layer->extents)) return FALSE;
 
-  *extents = new_extents;
-
-  return changed;
+  layer->extents = new_extents;
+  return TRUE;
 }
 
 void

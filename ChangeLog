@@ -1,5 +1,28 @@
 2001-08-13  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* lib/proplist.c (prop_list_from_descs): added a call to
+	prop_desc_list_calculate_quarks(). (find_prop_by_name_and_type):
+	too embarrassing to tell.
+	
+	* lib/propdesc.c (prop_desc_list_calculate_quarks): converted the
+	while loop to a for loop, for symmetry with
+	prop_offset_list_calculate_quarks().
+
+	* lib/geometry.h: new inline function, rectangle_equals.
+
+	* lib/diagramdata.[ch]: refactored a bit the diagram extents
+	computation logic, and changed it to always be the union of the
+	visible layers' extents. This should close #58882 (Debian
+	#107167), and fixes #55498.
+
+	* app/display.c: made the initial visible box more coherent with
+	the diagram being loaded's extents.
+
+	* app/prop_attr.c: don't set the font (from offset) if font_data
+	is NULL. Two brainos in colorprop_load() and fontprop_load().
+	
+2001-08-13  Cyrille Chepelov  <chepelov@calixo.net>
+
 	* lib/properties.[ch]: split in a lot of pieces: 
 
 	* lib/prop_*.[ch] (NEW): all property types are now first-class

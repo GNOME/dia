@@ -1,4 +1,4 @@
-/* Dia -- an diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program -*- c -*-
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -85,7 +85,7 @@ void data_delete_layer(DiagramData *data, Layer *layer);
 void data_select(DiagramData *data, Object *obj);
 void data_unselect(DiagramData *data, Object *obj);
 void data_remove_all_selected(DiagramData *data);
-int data_update_extents(DiagramData *data); /* returns true if changed. */
+gboolean data_update_extents(DiagramData *data); /* returns true if changed. */
 GList *data_get_sorted_selected(DiagramData *data);
 GList *data_get_sorted_selected_remove(DiagramData *data);
 

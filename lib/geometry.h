@@ -243,6 +243,19 @@ int point_in_rectangle(const Rectangle* r, const Point *p);
 int rectangle_in_rectangle(const Rectangle* outer, const Rectangle *inner);
 void rectangle_add_point(Rectangle *r, const Point *p);
 
+G_INLINE_FUNC gboolean rectangle_equals(const Rectangle *old_extents, 
+                                         const Rectangle *new_extents);
+#ifdef G_CAN_INLINE
+G_INLINE_FUNC gboolean 
+rectangle_equals(const Rectangle *r1, const Rectangle *r2)
+{
+  return ( (r2->left == r1->left) &&
+           (r2->right == r1->right) &&
+           (r2->top == r1->top) &&
+           (r2->bottom == r1->bottom) );  
+}
+#endif
+
 G_INLINE_FUNC void check_bb_x( Rectangle *bb, real val, real check );
 #ifdef G_CAN_INLINE
 G_INLINE_FUNC void 

@@ -53,6 +53,8 @@ prop_list_from_descs(const PropDescription *plist,
   GPtrArray *ret;
   guint count = 0, i;
 
+  prop_desc_list_calculate_quarks((PropDescription *)plist);
+
   for (i = 0; plist[i].name != NULL; i++)
     if (pred(&plist[i])) count++;
 
@@ -61,12 +63,12 @@ prop_list_from_descs(const PropDescription *plist,
 
   count = 0;
   for (i = 0; plist[i].name != NULL; i++) {
-    /*
+#if 0
       g_message("about to append property %s/%s to list"
               "predicate is %s %d %d",plist[i].type,plist[i].name,
               pred(&plist[i])?"TRUE":"FALSE",
               plist[i].flags,plist[i].flags & PROP_FLAG_DONT_SAVE);    
-    */
+#endif    
     if (pred(&plist[i])) {      
       Property *prop = plist[i].ops->new_prop(&plist[i],pred);                
       g_ptr_array_index(ret,count++) = prop;
@@ -173,7 +175,7 @@ find_prop_by_name_and_type(const GPtrArray *props, const gchar *name,
 {
   Property *ret = find_prop_by_name(props,name);
   if (!ret) return NULL;
-  if (ret->ops != prop_type_get_ops(type)) return NULL;
+  if (0 != strcmp(type,ret->type)) return NULL;
   return ret;
 } 
 
