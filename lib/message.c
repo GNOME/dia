@@ -108,6 +108,7 @@ gtk_message_internal(const char* title, const char *fmt,
     }
     textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(msginfo->repeat_view));
     gtk_text_buffer_insert_at_cursor(textbuffer, buf, -1);
+    gtk_widget_show (dialog);
   } else {
     /* quite dirty to not change Dia's message api */
     if (title) {
