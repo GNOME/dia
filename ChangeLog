@@ -27,6 +27,8 @@
 	* objects/UML/message.c:
 	* objects/UML/classicon.c:
 	* objects/UML/object.c:
+
+	* objects/UML/realizes.c:
 	slim-fast(tm) cure using more StdProps, and UTF-8 audit.
 	(most objects were already using StdProps to some extent ; this
 	systematises usage and removes some dead wood). 

@@ -21,7 +21,6 @@
 #endif
 
 #include <assert.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
@@ -47,8 +46,8 @@ struct _Realizes {
   real text_width;
   
   char *name;
-  char *stereotype; /* including << and >> */
-
+  char *stereotype; /* excluding << and >> */
+  char *st_stereotype; /* including << and >> */
 };
 
 
@@ -71,7 +70,6 @@ static Object *realizes_create(Point *startpoint,
 				 Handle **handle1,
 				 Handle **handle2);
 static void realizes_destroy(Realizes *realize);
-static Object *realizes_copy(Realizes *realize);
 static DiaMenu *realizes_get_object_menu(Realizes *realize,
 					 Point *clickedpoint);
 
@@ -79,8 +77,6 @@ static PropDescription *realizes_describe_props(Realizes *realizes);
 static void realizes_get_props(Realizes * realizes, Property *props, guint nprops);
 static void realizes_set_props(Realizes * realizes, Property *props, guint nprops);
 
-static void realizes_save(Realizes *realize, ObjectNode obj_node,
-			  const char *filename);
 static Object *realizes_load(ObjectNode obj_node, int version,
 			     const char *filename);
 
@@ -89,8 +85,10 @@ static void realizes_update_data(Realizes *realize);
 static ObjectTypeOps realizes_type_ops =
 {
   (CreateFunc) realizes_create,
-  (LoadFunc)   realizes_load,
-  (SaveFunc)   realizes_save
+  (LoadFunc)   realizes_load,/*using_properties*/     /* load */
+  (SaveFunc)   object_save_using_properties,      /* save */
+  (GetDefaultsFunc)   NULL, 
+  (ApplyDefaultsFunc) NULL
 };
 
 ObjectType realizes_type =
@@ -107,7 +105,7 @@ static ObjectOps realizes_ops = {
   (DrawFunc)            realizes_draw,
   (DistanceFunc)        realizes_distance_from,
   (SelectFunc)          realizes_select,
-  (CopyFunc)            realizes_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            realizes_move,
   (MoveHandleFunc)      realizes_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -119,86 +117,41 @@ static ObjectOps realizes_ops = {
 };
 
 static PropDescription realizes_props[] = {
-  OBJECT_COMMON_PROPERTIES,
+  ORTHCONN_COMMON_PROPERTIES,
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Name:"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-    N_("Stereotype:"), NULL, NULL },
+    N_("Stereotype:"), NULL, NULL },  
   PROP_DESC_END
 };
 
 static PropDescription *
 realizes_describe_props(Realizes *realizes)
 {
-  if (realizes_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(realizes_props);
   return realizes_props;
 }
 
 static PropOffset realizes_offsets[] = {
-  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  ORTHCONN_COMMON_PROPERTIES_OFFSETS,
   { "name", PROP_TYPE_STRING, offsetof(Realizes, name) },
-  /*{ "stereotype", PROP_TYPE_STRING, offsetof(Realizes, stereotype) },*/
+  { "stereotype", PROP_TYPE_STRING, offsetof(Realizes, stereotype) },
   { NULL, 0, 0 }
-};
-
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "stereotype" }
 };
 
 static void
 realizes_get_props(Realizes * realizes, Property *props, guint nprops)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&realizes->orth.object, 
-                                    realizes_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      if (realizes->stereotype != NULL &&
-	  realizes->stereotype[0] != '\0')
-	PROP_VALUE_STRING(props[i]) =
-	  stereotype_to_string(realizes->stereotype);
-      else
-	PROP_VALUE_STRING(props[i]) = NULL;
-    }
-  }
-
+  object_get_props_from_offsets(&realizes->orth.object,
+                                realizes_offsets,props,nprops);
 }
 
 static void
 realizes_set_props(Realizes *realizes, Property *props, guint nprops)
 {
-  if (!object_set_props_from_offsets(&realizes->orth.object, 
-                                     realizes_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-	quarks[i].q = g_quark_from_static_string(quarks[i].name);
-    
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_STRING) {
-	g_free(realizes->stereotype);
-	if (PROP_VALUE_STRING(props[i]) != NULL &&
-	    PROP_VALUE_STRING(props[i])[0] != '\0')
-	  realizes->stereotype =
-	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
-	else 
-	  realizes->stereotype = NULL;
-      }
-    }
-  }
+  object_set_props_from_offsets(&realizes->orth.object, 
+                                realizes_offsets, props, nprops);
+  g_free(realizes->st_stereotype);
+  realizes->st_stereotype = NULL;
   realizes_update_data(realizes);
 }
 
@@ -263,9 +216,9 @@ realizes_draw(Realizes *realize, Renderer *renderer)
   renderer->ops->set_font(renderer, realize_font, REALIZES_FONTHEIGHT);
   pos = realize->text_pos;
   
-  if (realize->stereotype != NULL && realize->stereotype[0] != '\0') {
+  if (realize->st_stereotype != NULL && realize->st_stereotype[0] != '\0') {
     renderer->ops->draw_string(renderer,
-			       realize->stereotype,
+			       realize->st_stereotype,
 			       &pos, realize->text_align,
 			       &color_black);
 
@@ -294,6 +247,11 @@ realizes_update_data(Realizes *realize)
   orthconn_update_data(orth);
   
   realize->text_width = 0.0;
+
+  realize->stereotype = remove_stereotype_from_string(realize->stereotype);
+  if (!realize->st_stereotype) {
+    realize->st_stereotype =  string_to_stereotype(realize->stereotype);
+  }
 
   if (realize->name)
     realize->text_width = font_string_width(realize->name, realize_font,
@@ -420,6 +378,7 @@ realizes_create(Point *startpoint,
   
   realize->name = NULL;
   realize->stereotype = NULL;
+  realize->st_stereotype = NULL;
   realize->text_width = 0;
 
   extra->start_trans = REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
@@ -440,80 +399,13 @@ realizes_destroy(Realizes *realize)
 {
   g_free(realize->name);
   g_free(realize->stereotype);
+  g_free(realize->st_stereotype);
   orthconn_destroy(&realize->orth);
-}
-
-static Object *
-realizes_copy(Realizes *realize)
-{
-  Realizes *newrealize;
-  OrthConn *orth, *neworth;
-  
-  orth = &realize->orth;
-  
-  newrealize = g_malloc0(sizeof(Realizes));
-  neworth = &newrealize->orth;
-
-  orthconn_copy(orth, neworth);
-
-  newrealize->name = realize->name ? strdup(realize->name) : NULL;
-  newrealize->stereotype = realize->stereotype ? strdup(realize->stereotype) : NULL;
-  newrealize->text_width = realize->text_width;
-  
-  realizes_update_data(newrealize);
-  
-  return &newrealize->orth.object;
-}
-
-static void
-realizes_save(Realizes *realize, ObjectNode obj_node, const char *filename)
-{
-  orthconn_save(&realize->orth, obj_node);
-
-  data_add_string(new_attribute(obj_node, "name"),
-		  realize->name);
-  data_add_string(new_attribute(obj_node, "stereotype"),
-		  realize->stereotype);
 }
 
 static Object *
 realizes_load(ObjectNode obj_node, int version, const char *filename)
 {
-  Realizes *realize;
-  AttributeNode attr;
-  OrthConn *orth;
-  Object *obj;
-  PolyBBExtras *extra;
-
-  if (realize_font == NULL) {
-    realize_font = font_getfont("Courier");
-  }
-
-  realize = g_new0(Realizes, 1);
-
-  orth = &realize->orth;
-  obj = &orth->object;
-  extra = &orth->extra_spacing;
-
-  obj->type = &realizes_type;
-  obj->ops = &realizes_ops;
-
-  orthconn_load(orth, obj_node);
-
-  realize->name = NULL;
-  attr = object_find_attribute(obj_node, "name");
-  if (attr != NULL)
-    realize->name = data_string(attribute_first_data(attr));
-  
-  realize->stereotype = NULL;
-  attr = object_find_attribute(obj_node, "stereotype");
-  if (attr != NULL)
-    realize->stereotype = data_string(attribute_first_data(attr));
-
-  realize->text_width = 0.0;
-
-  
-  realizes_update_data(realize);
-
-  return &realize->orth.object;
+  return object_load_using_properties(&realizes_type,
+                                      obj_node,version,filename);
 }
