@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - ICS</name>
-<icon>ics.xpm</icon>
+<icon>ics.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M932.78 -3579.16l-166.86 -87.59l0 -186.51l166.86 87.58l0 186.52z" style="fill: foreground; stroke-width: 0"/>

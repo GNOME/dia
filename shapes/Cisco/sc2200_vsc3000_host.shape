@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - SC2200/VSC3000 host</name>
-<icon>sc2200_vsc3000_host.xpm</icon>
+<icon>sc2200_vsc3000_host.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2876.16 -3609.54l158.203 0 l0 -245.117l-158.203 0l0 245.117z" style="fill: foreground; stroke-width: 0"/>

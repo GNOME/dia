@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Octel</name>
-<icon>octel.xpm</icon>
+<icon>octel.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M548.41 -2883.25c0 -38.4 -38.41 -67.19 -86.41 -67.19c-43.2 0 -81.6 28.79 -81.6 67.19c0 33.61 38.4 62.42 81.6 62.42c48 0 86.41 -28.81 86.41 -62.42z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - ITP</name>
-<icon>itp.xpm</icon>
+<icon>itp.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4978.42 -5433.49c-66.02 -10.86 -112.34 -36.28 -112.34 -65.91l0 104.77c0 29.43 45.68 54.71 111 65.69l1.35 -104.55z" style="fill: foreground; stroke-width: 0"/>

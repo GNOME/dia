@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Catalyst Access Gateway</name>
-<icon>catalyst_access_gateway.xpm</icon>
+<icon>catalyst_access_gateway.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3971.07 -3575.71l357.197 0 l0 -123.447l-357.197 0l0 123.447z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - AccessPoint</name>
-<icon>accesspoint.xpm</icon>
+<icon>accesspoint.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1545.57 -5390.53l76.94 -56.87l281.05 0l-55.94 56.87l-302.06 0z" style="fill: foreground; stroke-width: 0"/>

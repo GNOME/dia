@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Server with PC Router</name>
-<icon>server_with_pc_router.xpm</icon>
+<icon>server_with_pc_router.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3461.64 -3596.52l161.621 0 l0 -281.856l-161.621 0l0 281.856z" style="fill: foreground; stroke-width: 0"/>

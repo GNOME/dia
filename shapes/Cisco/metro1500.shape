@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Metro 1500</name>
-<icon>metro1500.xpm</icon>
+<icon>metro1500.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M5417.93 -2089.47l276.562 0 l0 -241.728l-276.562 0l0 241.728z" style="fill: foreground; stroke-width: 0"/>

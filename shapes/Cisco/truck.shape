@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Truck</name>
-<icon>truck.xpm</icon>
+<icon>truck.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M665.99 -4444.32l0 -159.63l-16.01 14.06l0 159.63l16.01 -14.06z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - CiscoWorks workstation</name>
-<icon>ciscoworks.xpm</icon>
+<icon>ciscoworks.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2813.44 -1969.05l228.574 0 l0 -43.252l-228.574 0l0 43.252z" style="fill: foreground; stroke-width: 0"/>

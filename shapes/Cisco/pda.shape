@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - PDA</name>
-<icon>pda.xpm</icon>
+<icon>pda.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2685.35 -2535.63l0 151.62" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: butt; stroke-linejoin: mitre"/>

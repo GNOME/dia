@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - BBSM</name>
-<icon>bbsm.xpm</icon>
+<icon>bbsm.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M703.818 -3617.71l357.198 0 l0 -77.0608l-357.198 0l0 77.0608z" style="fill: foreground; stroke-width: 0"/>

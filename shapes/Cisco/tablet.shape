@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Tablet</name>
-<icon>tablet.xpm</icon>
+<icon>tablet.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2537.23 -5599.18l10.31 13.36l-38.77 219.77l-12.75 -7.91l41.21 -225.23z" style="fill: foreground; stroke-width: 0"/>

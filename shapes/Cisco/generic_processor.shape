@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Generic processor</name>
-<icon>generic_processor.xpm</icon>
+<icon>generic_processor.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3052.88 -5526.69l-34.22 34.08l0 238.56l239.53 0l34.22 -34.08l0 -238.56l-239.53 0z" style="fill: foreground; stroke-width: 0"/>

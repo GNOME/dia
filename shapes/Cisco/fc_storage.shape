@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - FC Storage</name>
-<icon>fc_storage.xpm</icon>
+<icon>fc_storage.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M194.814 -5276.2l330.748 0 l0 -178.135l-330.748 0l0 178.135z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Network Management</name>
-<icon>network_management.xpm</icon>
+<icon>network_management.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4760.6 -6909.26l221.347 0 l0 -209.521l-221.347 0l0 209.521z" style="fill: foreground; stroke-width: 0"/>

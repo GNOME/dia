@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Bridge</name>
-<icon>bridge.xpm</icon>
+<icon>bridge.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M195.43 -3829.9l2.63 0" style="stroke: background; stroke-width: 0.8; stroke-miterlimit: 4"/>

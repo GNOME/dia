@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - IPTC</name>
-<icon>iptc.xpm</icon>
+<icon>iptc.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4583.41 -3735.43l144.29 -116.68l333.1 0l-119.41 116.68l-357.97 0z" style="fill: foreground; stroke-width: 0"/>

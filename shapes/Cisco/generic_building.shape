@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Generic Building</name>
-<icon>generic_building.xpm</icon>
+<icon>generic_building.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M850.601 -6027.14l84.8921 0 l0 -253.232l-84.8921 0l0 253.232z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Virtual switch controller (VSC 3000)</name>
-<icon>vsc3000.xpm</icon>
+<icon>vsc3000.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2895.76 -6870.26l181.133 0 l0 -400l-181.133 0l0 400z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Mini VAX</name>
-<icon>mini_vax.xpm</icon>
+<icon>mini_vax.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4416.94 -3724.72l203.194 0 l0 -177.637l-203.194 0l0 177.637z" style="fill: foreground; stroke-width: 0"/>

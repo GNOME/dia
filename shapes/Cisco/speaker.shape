@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Speaker</name>
-<icon>speaker.xpm</icon>
+<icon>speaker.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M5045.83 -7139.3c-20.92 3.67 -67.5 22.65 -67.5 46.97c0 23.76 49.39 45.38 69.14 50.25z" style="fill: foreground; stroke-width: 0"/>

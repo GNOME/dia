@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - MAS Gateway</name>
-<icon>mas_gateway.xpm</icon>
+<icon>mas_gateway.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4109.75 -2078.34l226.758 0 l0 -230.732l-226.758 0l0 230.732z" style="fill: foreground; stroke-width: 0"/>

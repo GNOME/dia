@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - System controller</name>
-<icon>system_controller.xpm</icon>
+<icon>system_controller.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M303.74 -1920.55l215.996 0 l0 -219.746l-215.996 0l0 219.746z" style="fill: foreground; stroke-width: 0"/>

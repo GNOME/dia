@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - General appliance</name>
-<icon>general_appliance.xpm</icon>
+<icon>general_appliance.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2054.69 -5243.13l51.13 -48.75l0 -225l-51.13 48.75l0 225z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - MGX 8240</name>
-<icon>mgx8240.xpm</icon>
+<icon>mgx8240.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M882.91 -863.98l101.97 -47.91l349.77 0l-75.86 47.91l-375.88 0z" style="fill: foreground; stroke-width: 0"/>

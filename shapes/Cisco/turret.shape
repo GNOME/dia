@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Turret</name>
-<icon>turret.xpm</icon>
+<icon>turret.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1738.52 -4449.41c0 3.58 -2.91 6.47 -6.48 6.47l-612.83 0c-3.57 0 -6.48 -2.89 -6.48 -6.47l34.04 -205.28c0 -3.57 2.89 -6.48 6.46 -6.48l602.05 0c3.57 0 6.48 2.9 6.48 6.48l-23.24 205.28z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - NetRanger</name>
-<icon>netranger.xpm</icon>
+<icon>netranger.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3588.62 -7078.95l61.25 -51.14l295 0l-48.75 51.14l-307.5 0z" style="fill: foreground; stroke-width: 0"/>

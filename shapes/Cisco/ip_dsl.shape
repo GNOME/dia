@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - IP DSL</name>
-<icon>ip_dsl.xpm</icon>
+<icon>ip_dsl.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2998.39 -3842.88l0 101.95l-91.67 84.16l0 -101.95l91.67 -84.16z" style="fill: foreground; stroke-width: 0"/>

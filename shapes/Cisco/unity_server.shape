@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Unity server</name>
-<icon>unity_server.xpm</icon>
+<icon>unity_server.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2812.06 -1901.05l183.877 0 l0 -277.636l-183.877 0l0 277.636z" style="fill: foreground; stroke-width: 0"/>

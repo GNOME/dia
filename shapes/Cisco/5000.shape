@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Workgroup 5000</name>
-<icon>5000.xpm</icon>
+<icon>5000.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4695.93 -6875.67l357.197 0 l0 -215.947l-357.197 0l0 215.947z" style="fill: foreground; stroke-width: 0"/>

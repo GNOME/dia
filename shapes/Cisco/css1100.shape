@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Content Service Switch 1100</name>
-<icon>css1100.xpm</icon>
+<icon>css1100.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1012.18 -976.172l357.216 0 l0 -215.947l-357.216 0l0 215.947z" style="fill: foreground; stroke-width: 0"/>

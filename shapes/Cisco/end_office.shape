@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - End Office</name>
-<icon>end_office.xpm</icon>
+<icon>end_office.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4727.21 -6985.86l215.996 0 l0 -219.746l-215.996 0l0 219.746z" style="fill: foreground; stroke-width: 0"/>

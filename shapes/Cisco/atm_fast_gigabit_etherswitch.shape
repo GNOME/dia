@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - ATM Fast Gigabit Etherswitch</name>
-<icon>atm_fast_gigabit_etherswitch.xpm</icon>
+<icon>atm_fast_gigabit_etherswitch.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M894.15 -4431.21l226.748 0 l0 -230.732l-226.748 0l0 230.732z" style="fill: foreground; stroke-width: 0"/>

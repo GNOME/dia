@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - MoH server (Music on Hold)</name>
-<icon>moh_server.xpm</icon>
+<icon>moh_server.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1114.28 -6889.52l153.877 0 l0 -245.137l-153.877 0l0 245.137z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - 3X74 (floor) cluster controller</name>
-<icon>3x74.xpm</icon>
+<icon>3x74.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2317.45 -6955.13l248.877 0 l0 -245.127l-248.877 0l0 245.127z" style="fill: foreground; stroke-width: 0"/>

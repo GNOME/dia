@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Optical Transport</name>
-<icon>optical_transport.xpm</icon>
+<icon>optical_transport.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2007.07 -6329.4c0 38.96 -81.2 70.53 -181.37 70.53c-100.17 0 -181.37 -31.57 -181.37 -70.53l0 224.98c0 38.96 81.2 70.53 181.37 70.53c100.17 0 181.37 -31.57 181.37 -70.53l0 -224.98z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - IAD router</name>
-<icon>iad_router.xpm</icon>
+<icon>iad_router.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M633.84 -4601.83c0 39.51 -82.34 71.53 -183.93 71.53c-101.58 0 -183.93 -32.02 -183.93 -71.53l0 104.78c0 39.5 82.34 71.53 183.93 71.53c101.58 0 183.93 -32.03 183.93 -71.53l0 -104.78z" style="fill: foreground; stroke-width: 0"/>

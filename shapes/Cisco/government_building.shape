@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Government Building</name>
-<icon>government_building.xpm</icon>
+<icon>government_building.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M363.486 -5553.61l223.203 0 l0 -34.0325l-223.203 0l0 34.0325z" style="fill: foreground; stroke-width: 0"/>

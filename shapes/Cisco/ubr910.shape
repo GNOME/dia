@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - uBR910</name>
-<icon>ubr910.xpm</icon>
+<icon>ubr910.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2069.49 -2019.71l144.29 -116.66l333.11 0l-119.41 116.66l-357.99 0z" style="fill: foreground; stroke-width: 0"/>

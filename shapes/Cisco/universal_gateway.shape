@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Universal Gateway</name>
-<icon>universal_gateway.xpm</icon>
+<icon>universal_gateway.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3617.84 -1927.2l-0.22 -219.65l-215.53 -0.16l-0.12 219.86l215.86 -0.06z" style="fill: foreground; stroke-width: 0"/>

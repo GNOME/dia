@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Wavelength router</name>
-<icon>wavelength_router.xpm</icon>
+<icon>wavelength_router.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3758.44 -7048.15l0 95l-87.25 69.78l-181.27 0l-90.65 -69.78l0 -95z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Dot-Dot</name>
-<icon>dot_dot.xpm</icon>
+<icon>dot_dot.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4325.8 -7019.79c-5.64 0 -10.18 -4.47 -10.18 -10.18c0 -5.64 4.47 -10.24 10.18 -10.24c5.63 0 10.24 4.61 10.24 10.24c0 5.64 -4.61 10.18 -10.24 10.18z" style="fill: foreground; stroke-width: 0"/>

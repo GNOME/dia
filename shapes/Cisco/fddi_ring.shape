@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - FDDI Ring</name>
-<icon>fddi_ring.xpm</icon>
+<icon>fddi_ring.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M569.65 -6190.17c114.27 0 206.91 -42.1 206.91 -94.04c0 -51.93 -92.64 -94.04 -206.91 -94.04c-114.27 0 -206.89 42.11 -206.89 94.04c0 51.94 92.63 94.04 206.89 94.04" style="stroke: foreground; stroke-width: 0.8; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - ADM</name>
-<icon>adm.xpm</icon>
+<icon>adm.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2154.53 -5268.56l333.164 0 l0 -194.51l-333.164 0l0 194.51z" style="fill: foreground; stroke-width: 0"/>

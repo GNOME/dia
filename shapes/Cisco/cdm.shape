@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - CDM Content Distribution Manager</name>
-<icon>cdm.xpm</icon>
+<icon>cdm.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M5298.87 -3537.55l332.197 0 l0 -180.82l-332.197 0l0 180.82z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Softphone</name>
-<icon>softphone.xpm</icon>
+<icon>softphone.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M5482.01 -6953.33l209.59 0 l0 -39.209l-209.59 0l0 39.209z" style="fill: foreground; stroke-width: 0"/>

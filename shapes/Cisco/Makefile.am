@@ -4,447 +4,447 @@
   ciscodir = $(shapedir)/Cisco
   SHAPES = \
   1000.shape\
-  1000.xpm\
+  1000.png\
   100baset_hub.shape\
-  100baset_hub.xpm\
+  100baset_hub.png\
   10700.shape\
-  10700.xpm\
+  10700.png\
   15200.shape\
-  15200.xpm\
+  15200.png\
   3174.shape\
-  3174.xpm\
+  3174.png\
   3x74.shape\
-  3x74.xpm\
+  3x74.png\
   5000.shape\
-  5000.xpm\
+  5000.png\
   5002.shape\
-  5002.xpm\
+  5002.png\
   5500.shape\
-  5500.xpm\
+  5500.png\
   6701.shape\
-  6701.xpm\
+  6701.png\
   6705.shape\
-  6705.xpm\
+  6705.png\
   6732.shape\
-  6732.xpm\
+  6732.png\
   7500ars.shape\
-  7500ars.xpm\
+  7500ars.png\
   7505.shape\
-  7505.xpm\
+  7505.png\
   7507.shape\
-  7507.xpm\
+  7507.png\
   accesspoint.shape\
-  accesspoint.xpm\
+  accesspoint.png\
   adm.shape\
-  adm.xpm\
+  adm.png\
   asic.shape\
-  asic.xpm\
+  asic.png\
   ata.shape\
-  ata.xpm\
+  ata.png\
   atm3800.shape\
-  atm3800.xpm\
+  atm3800.png\
   atm_fast_gigabit_etherswitch.shape\
-  atm_fast_gigabit_etherswitch.xpm\
+  atm_fast_gigabit_etherswitch.png\
   atm_router.shape\
-  atm_router.xpm\
+  atm_router.png\
   atm_switch.shape\
-  atm_switch.xpm\
+  atm_switch.png\
   atm_tag_sw_gigabit_router.shape\
-  atm_tag_sw_gigabit_router.xpm\
+  atm_tag_sw_gigabit_router.png\
   atm_tag_switch_router.shape\
-  atm_tag_switch_router.xpm\
+  atm_tag_switch_router.png\
   bbfw.shape\
-  bbfw.xpm\
+  bbfw.png\
   bbfw_media.shape\
-  bbfw_media.xpm\
+  bbfw_media.png\
   bbsm.shape\
-  bbsm.xpm\
+  bbsm.png\
   branch_office.shape\
-  branch_office.xpm\
+  branch_office.png\
   breakout_box.shape\
-  breakout_box.xpm\
+  breakout_box.png\
   bridge.shape\
-  bridge.xpm\
+  bridge.png\
   broadband_router.shape\
-  broadband_router.xpm\
+  broadband_router.png\
   bts10200.shape\
-  bts10200.xpm\
+  bts10200.png\
   ca.shape\
-  ca.xpm\
+  ca.png\
   cable_modem.shape\
-  cable_modem.xpm\
+  cable_modem.png\
   callmanager.shape\
-  callmanager.xpm\
+  callmanager.png\
   car.shape\
-  car.xpm\
+  car.png\
   catalyst_access_gateway.shape\
-  catalyst_access_gateway.xpm\
+  catalyst_access_gateway.png\
   cddi_fddi.shape\
-  cddi_fddi.xpm\
+  cddi_fddi.png\
   cdm.shape\
-  cdm.xpm\
+  cdm.png\
   cellular_phone.shape\
-  cellular_phone.xpm\
+  cellular_phone.png\
   centri.shape\
-  centri.xpm\
+  centri.png\
   cisco_hub.shape\
-  cisco_hub.xpm\
+  cisco_hub.png\
   ciscosecurity.shape\
-  ciscosecurity.xpm\
+  ciscosecurity.png\
   ciscoworks.shape\
-  ciscoworks.xpm\
+  ciscoworks.png\
   class45_switch.shape\
-  class45_switch.xpm\
+  class45_switch.png\
   cloud.shape\
-  cloud.xpm\
+  cloud.png\
   communications_server.shape\
-  communications_server.xpm\
+  communications_server.png\
   content_engine.shape\
-  content_engine.xpm\
+  content_engine.png\
   content_service_router.shape\
-  content_service_router.xpm\
+  content_service_router.png\
   content_switch.shape\
-  content_switch.xpm\
+  content_switch.png\
   content_switch_module.shape\
-  content_switch_module.xpm\
+  content_switch_module.png\
   css1100.shape\
-  css1100.xpm\
+  css1100.png\
   csu_dsu.shape\
-  csu_dsu.xpm\
+  csu_dsu.png\
   cte.shape\
-  cte.xpm\
+  cte.png\
   directory_server.shape\
-  directory_server.xpm\
+  directory_server.png\
   diskette.shape\
-  diskette.xpm\
+  diskette.png\
   distributed_director.shape\
-  distributed_director.xpm\
+  distributed_director.png\
   dot_dot.shape\
-  dot_dot.xpm\
+  dot_dot.png\
   dpt.shape\
-  dpt.xpm\
+  dpt.png\
   dslam.shape\
-  dslam.xpm\
+  dslam.png\
   dwdm_filter.shape\
-  dwdm_filter.xpm\
+  dwdm_filter.png\
   end_office.shape\
-  end_office.xpm\
+  end_office.png\
   fax.shape\
-  fax.xpm\
+  fax.png\
   fc_storage.shape\
-  fc_storage.xpm\
+  fc_storage.png\
   fddi_ring.shape\
-  fddi_ring.xpm\
+  fddi_ring.png\
   file_cabinet.shape\
-  file_cabinet.xpm\
+  file_cabinet.png\
   file_server.shape\
-  file_server.xpm\
+  file_server.png\
   firewall.shape\
-  firewall.xpm\
+  firewall.png\
   front_end_processor.shape\
-  front_end_processor.xpm\
+  front_end_processor.png\
   general_appliance.shape\
-  general_appliance.xpm\
+  general_appliance.png\
   generic_building.shape\
-  generic_building.xpm\
+  generic_building.png\
   generic_gateway.shape\
-  generic_gateway.xpm\
+  generic_gateway.png\
   generic_processor.shape\
-  generic_processor.xpm\
+  generic_processor.png\
   generic_softswitch.shape\
-  generic_softswitch.xpm\
+  generic_softswitch.png\
   gigabit_switch_router_atm_tag.shape\
-  gigabit_switch_router_atm_tag.xpm\
+  gigabit_switch_router_atm_tag.png\
   government_building.shape\
-  government_building.xpm\
+  government_building.png\
   h323.shape\
-  h323.xpm\
+  h323.png\
   handheld.shape\
-  handheld.xpm\
+  handheld.png\
   hootphone.shape\
-  hootphone.xpm\
+  hootphone.png\
   host.shape\
-  host.xpm\
+  host.png\
   hp_mini.shape\
-  hp_mini.xpm\
+  hp_mini.png\
   hub.shape\
-  hub.xpm\
+  hub.png\
   iad_router.shape\
-  iad_router.xpm\
+  iad_router.png\
   ibm_mainframe.shape\
-  ibm_mainframe.xpm\
+  ibm_mainframe.png\
   ibm_mini.shape\
-  ibm_mini.xpm\
+  ibm_mini.png\
   ibm_tower.shape\
-  ibm_tower.xpm\
+  ibm_tower.png\
   icm.shape\
-  icm.xpm\
+  icm.png\
   ics.shape\
-  ics.xpm\
+  ics.png\
   ios_firewall.shape\
-  ios_firewall.xpm\
+  ios_firewall.png\
   ip.shape\
-  ip.xpm\
+  ip.png\
   ip_dsl.shape\
-  ip_dsl.xpm\
+  ip_dsl.png\
   ip_phone.shape\
-  ip_phone.xpm\
+  ip_phone.png\
   ip_softphone.shape\
-  ip_softphone.xpm\
+  ip_softphone.png\
   ip_telephony_router.shape\
-  ip_telephony_router.xpm\
+  ip_telephony_router.png\
   iptc.shape\
-  iptc.xpm\
+  iptc.png\
   iptv_broadcast_server.shape\
-  iptv_broadcast_server.xpm\
+  iptv_broadcast_server.png\
   iptv_content_manager.shape\
-  iptv_content_manager.xpm\
+  iptv_content_manager.png\
   isdn_switch.shape\
-  isdn_switch.xpm\
+  isdn_switch.png\
   itp.shape\
-  itp.xpm\
+  itp.png\
   key.shape\
-  key.xpm\
+  key.png\
   lan_to_lan.shape\
-  lan_to_lan.xpm\
+  lan_to_lan.png\
   laptop.shape\
-  laptop.xpm\
+  laptop.png\
   layer3_switch.shape\
-  layer3_switch.xpm\
+  layer3_switch.png\
   localdirector.shape\
-  localdirector.xpm\
+  localdirector.png\
   lock.shape\
-  lock.xpm\
+  lock.png\
   longreach_cpe.shape\
-  longreach_cpe.xpm\
+  longreach_cpe.png\
   mac_woman.shape\
-  mac_woman.xpm\
+  mac_woman.png\
   macintosh.shape\
-  macintosh.xpm\
+  macintosh.png\
   man_woman.shape\
-  man_woman.xpm\
+  man_woman.png\
   mas_gateway.shape\
-  mas_gateway.xpm\
+  mas_gateway.png\
   mau.shape\
-  mau.xpm\
+  mau.png\
   mdu.shape\
-  mdu.xpm\
+  mdu.png\
   me1100.shape\
-  me1100.xpm\
+  me1100.png\
   metro1500.shape\
-  metro1500.xpm\
+  metro1500.png\
   mgx8220.shape\
-  mgx8220.xpm\
+  mgx8220.png\
   mgx8240.shape\
-  mgx8240.xpm\
+  mgx8240.png\
   mgx8260.shape\
-  mgx8260.xpm\
+  mgx8260.png\
   microphone.shape\
-  microphone.xpm\
+  microphone.png\
   microwebserver.shape\
-  microwebserver.xpm\
+  microwebserver.png\
   mini_vax.shape\
-  mini_vax.xpm\
+  mini_vax.png\
   modem.shape\
-  modem.xpm\
+  modem.png\
   moh_server.shape\
-  moh_server.xpm\
+  moh_server.png\
   multilayer_switch.shape\
-  multilayer_switch.xpm\
+  multilayer_switch.png\
   multiswitch_device.shape\
-  multiswitch_device.xpm\
+  multiswitch_device.png\
   mux.shape\
-  mux.xpm\
+  mux.png\
   netflow_router.shape\
-  netflow_router.xpm\
+  netflow_router.png\
   netranger.shape\
-  netranger.xpm\
+  netranger.png\
   netsonar.shape\
-  netsonar.xpm\
+  netsonar.png\
   network_management.shape\
-  network_management.xpm\
+  network_management.png\
   octel.shape\
-  octel.xpm\
+  octel.png\
   ons15500.shape\
-  ons15500.xpm\
+  ons15500.png\
   optical_amplifier.shape\
-  optical_amplifier.xpm\
+  optical_amplifier.png\
   optical_services_router.shape\
-  optical_services_router.xpm\
+  optical_services_router.png\
   optical_transport.shape\
-  optical_transport.xpm\
+  optical_transport.png\
   pad.shape\
-  pad.xpm\
+  pad.png\
   pad_x28.shape\
-  pad_x28.xpm\
+  pad_x28.png\
   pbx.shape\
-  pbx.xpm\
+  pbx.png\
   pbx_switch.shape\
-  pbx_switch.xpm\
+  pbx_switch.png\
   pc.shape\
-  pc.xpm\
+  pc.png\
   pc_adapter_card.shape\
-  pc_adapter_card.xpm\
+  pc_adapter_card.png\
   pc_man.shape\
-  pc_man.xpm\
+  pc_man.png\
   pc_router_card.shape\
-  pc_router_card.xpm\
+  pc_router_card.png\
   pc_video.shape\
-  pc_video.xpm\
+  pc_video.png\
   pda.shape\
-  pda.xpm\
+  pda.png\
   phone.shape\
-  phone.xpm\
+  phone.png\
   phone_fax.shape\
-  phone_fax.xpm\
+  phone_fax.png\
   pix_firewall.shape\
-  pix_firewall.xpm\
+  pix_firewall.png\
   printer.shape\
-  printer.xpm\
+  printer.png\
   programmable_switch.shape\
-  programmable_switch.xpm\
+  programmable_switch.png\
   protocol_translator.shape\
-  protocol_translator.xpm\
+  protocol_translator.png\
   pxf.shape\
-  pxf.xpm\
+  pxf.png\
   radio_tower.shape\
-  radio_tower.xpm\
+  radio_tower.png\
   ratemux.shape\
-  ratemux.xpm\
+  ratemux.png\
   relational_database.shape\
-  relational_database.xpm\
+  relational_database.png\
   repeater.shape\
-  repeater.xpm\
+  repeater.png\
   route_switch_processor.shape\
-  route_switch_processor.xpm\
+  route_switch_processor.png\
   router.shape\
-  router.xpm\
+  router.png\
   router_in_building.shape\
-  router_in_building.xpm\
+  router_in_building.png\
   router_with_firewall.shape\
-  router_with_firewall.xpm\
+  router_with_firewall.png\
   router_with_silicon_switch.shape\
-  router_with_silicon_switch.xpm\
+  router_with_silicon_switch.png\
   rps.shape\
-  rps.xpm\
+  rps.png\
   running_man.shape\
-  running_man.xpm\
+  running_man.png\
   satellite.shape\
-  satellite.xpm\
+  satellite.png\
   satellite_dish.shape\
-  satellite_dish.xpm\
+  satellite_dish.png\
   sc2200.shape\
-  sc2200.xpm\
+  sc2200.png\
   sc2200_vsc3000_host.shape\
-  sc2200_vsc3000_host.xpm\
+  sc2200_vsc3000_host.png\
   scanner.shape\
-  scanner.xpm\
+  scanner.png\
   server_with_pc_router.shape\
-  server_with_pc_router.xpm\
+  server_with_pc_router.png\
   sip_proxy_server.shape\
-  sip_proxy_server.xpm\
+  sip_proxy_server.png\
   sitting_woman.shape\
-  sitting_woman.xpm\
+  sitting_woman.png\
   small_business.shape\
-  small_business.xpm\
+  small_business.png\
   small_hub.shape\
-  small_hub.xpm\
+  small_hub.png\
   softphone.shape\
-  softphone.xpm\
+  softphone.png\
   software_based_server.shape\
-  software_based_server.xpm\
+  software_based_server.png\
   speaker.shape\
-  speaker.xpm\
+  speaker.png\
   standing_man.shape\
-  standing_man.xpm\
+  standing_man.png\
   stb.shape\
-  stb.xpm\
+  stb.png\
   storage_array.shape\
-  storage_array.xpm\
+  storage_array.png\
   storage_router.shape\
-  storage_router.xpm\
+  storage_router.png\
   stp.shape\
-  stp.xpm\
+  stp.png\
   sun_workstation.shape\
-  sun_workstation.xpm\
+  sun_workstation.png\
   supercomputer.shape\
-  supercomputer.xpm\
+  supercomputer.png\
   svx.shape\
-  svx.xpm\
+  svx.png\
   system_controller.shape\
-  system_controller.xpm\
+  system_controller.png\
   tablet.shape\
-  tablet.xpm\
+  tablet.png\
   tdm_router.shape\
-  tdm_router.xpm\
+  tdm_router.png\
   telecommuter.shape\
-  telecommuter.xpm\
+  telecommuter.png\
   telecommuter_house.shape\
-  telecommuter_house.xpm\
+  telecommuter_house.png\
   telecommuter_house_router.shape\
-  telecommuter_house_router.xpm\
+  telecommuter_house_router.png\
   terminal.shape\
-  terminal.xpm\
+  terminal.png\
   tokenring.shape\
-  tokenring.xpm\
+  tokenring.png\
   transpath.shape\
-  transpath.xpm\
+  transpath.png\
   truck.shape\
-  truck.xpm\
+  truck.png\
   turret.shape\
-  turret.xpm\
+  turret.png\
   tv.shape\
-  tv.xpm\
+  tv.png\
   ubr910.shape\
-  ubr910.xpm\
+  ubr910.png\
   unity_server.shape\
-  unity_server.xpm\
+  unity_server.png\
   universal_gateway.shape\
-  universal_gateway.xpm\
+  universal_gateway.png\
   university.shape\
-  university.xpm\
+  university.png\
   ups.shape\
-  ups.xpm\
+  ups.png\
   video_camera.shape\
-  video_camera.xpm\
+  video_camera.png\
   vip.shape\
-  vip.xpm\
+  vip.png\
   voice_atm_switch.shape\
-  voice_atm_switch.xpm\
+  voice_atm_switch.png\
   voice_commserver.shape\
-  voice_commserver.xpm\
+  voice_commserver.png\
   voice_router.shape\
-  voice_router.xpm\
+  voice_router.png\
   voice_switch.shape\
-  voice_switch.xpm\
+  voice_switch.png\
   voice_switch2.shape\
-  voice_switch2.xpm\
+  voice_switch2.png\
   vpn_concentrator.shape\
-  vpn_concentrator.xpm\
+  vpn_concentrator.png\
   vpn_gateway.shape\
-  vpn_gateway.xpm\
+  vpn_gateway.png\
   vsc3000.shape\
-  vsc3000.xpm\
+  vsc3000.png\
   wavelength_router.shape\
-  wavelength_router.xpm\
+  wavelength_router.png\
   web_browser.shape\
-  web_browser.xpm\
+  web_browser.png\
   web_cluster.shape\
-  web_cluster.xpm\
+  web_cluster.png\
   wireless.shape\
-  wireless.xpm\
+  wireless.png\
   wireless_bridge.shape\
-  wireless_bridge.xpm\
+  wireless_bridge.png\
   wireless_transport.shape\
-  wireless_transport.xpm\
+  wireless_transport.png\
   workgroup_director.shape\
-  workgroup_director.xpm\
+  workgroup_director.png\
   workgroup_switch.shape\
-  workgroup_switch.xpm\
+  workgroup_switch.png\
   workstation.shape\
-  workstation.xpm\
+  workstation.png\
   www_server.shape\
-  www_server.xpm
+  www_server.png
   
   
   EXTRA_DIST = $(SHAPES)

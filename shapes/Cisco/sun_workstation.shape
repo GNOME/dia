@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - SUN workstation</name>
-<icon>sun_workstation.xpm</icon>
+<icon>sun_workstation.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1590.99 -6087.13l228.711 0 l0 -42.7832l-228.711 0l0 42.7832z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Wireless Bridge</name>
-<icon>wireless_bridge.xpm</icon>
+<icon>wireless_bridge.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4169.56 -7134.07l-78.81 40.73c192.64 122.36 305.88 -7.8 305.88 -7.8c-114.51 68.98 -227.07 -32.93 -227.07 -32.93z" style="fill: foreground; stroke-width: 0"/>

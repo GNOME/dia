@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Telecommuter</name>
-<icon>telecommuter.xpm</icon>
+<icon>telecommuter.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4388.78 -5524l-69.2 -2.42l-33.86 36.08l20.95 17.04l18.15 -19.75l41.89 1.46l-45.76 59.55l16.36 15.13l-26.26 35.19l-43.04 -1.5l-31.35 14.04l21.72 45.01l26.17 0.92l-0.24 -9.91l-13.37 -0.46l0.69 -19.78l63.97 2.23l35.87 -43.58l86.85 80.48l44.24 -49.7l-10.7 -10.27l-18.76 20.3l-70.43 -67.09l29.86 -38.54l26.73 18.4l61.58 2.15l0.85 -24.42l-44.14 -1.54l-88.77 -58.99z" style="fill: foreground; stroke-width: 0"/>

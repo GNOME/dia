@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Front End Processor</name>
-<icon>front_end_processor.xpm</icon>
+<icon>front_end_processor.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1285.99 -5258.66l53.6331 0 l0 -204.736l-53.6331 0l0 204.736z" style="fill: foreground; stroke-width: 0"/>

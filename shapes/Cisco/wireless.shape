@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Wireless</name>
-<icon>wireless.xpm</icon>
+<icon>wireless.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4813.32 -4075.08l159.63 0l-14.06 16.02l-159.63 0l14.06 -16.02z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Fax</name>
-<icon>fax.xpm</icon>
+<icon>fax.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M5096.04 -6979.73l397.754 0 l0 -131.187l-397.754 0l0 131.187z" style="fill: foreground; stroke-width: 0"/>

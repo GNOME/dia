@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Running man</name>
-<icon>running_man.xpm</icon>
+<icon>running_man.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1791.75 -7311.2l-23.12 -8.13l-34.48 23.29l22.06 21.79l1.88 -3.22l4.32 4.03l5.11 0.26l2.15 -5.11l1.85 -0.07l0.58 -3.43l2.42 0.54l1.89 -4.31l6.19 2.16l1.61 -1.08l0.81 -13.18l4.85 -2.73l2.11 -9.14z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Handheld</name>
-<icon>handheld.xpm</icon>
+<icon>handheld.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1868.79 -5390.55l0 -159.63l-16.02 14.06l0 159.63l16.02 -14.06z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Optical Services Router</name>
-<icon>optical_services_router.xpm</icon>
+<icon>optical_services_router.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1366.1 -6281.52l0 168.44l-83.97 67.17l-174.48 0l-87.24 -67.17l0 -168.44z" style="fill: foreground; stroke-width: 0"/>

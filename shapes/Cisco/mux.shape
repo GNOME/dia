@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - MUX</name>
-<icon>mux.xpm</icon>
+<icon>mux.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M5408.18 -3714.67l47.4019 0 l0 -201.523l-47.4019 0l0 201.523z" style="fill: foreground; stroke-width: 0"/>

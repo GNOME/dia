@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - 6732</name>
-<icon>6732.xpm</icon>
+<icon>6732.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4053.07 -6938.4l366.7 0 l0 -269.903l-366.7 0l0 269.903z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Breakout box</name>
-<icon>breakout_box.xpm</icon>
+<icon>breakout_box.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1697.29 -6977.43l-38.25 37.3l0 -315.75l38.25 -37.29l0 315.74z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Cloud</name>
-<icon>cloud.xpm</icon>
+<icon>cloud.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3127.42 -7296.54c-144 -28.75 -220 45 -208 108.75l0.97 3.48c-112.22 19.1 -82.8 151.52 -28.97 151.52l5.3 -0.17c-13.55 62.22 117.58 125.56 190.7 93.92l4.7 -5.15c26.07 55.97 118.7 65.32 210.3 67.65c79.39 2.03 125.71 -4.25 159.76 -39.05l5.24 1.55c127.07 10.21 184.94 -77.55 157.16 -140.58l6.84 -1.92c43.32 -11.46 48.32 -111.46 -26 -126.25l1.43 -3.87c32.26 -65.05 -43.83 -126.4 -149.42 -114.88l-7.31 -3.82c-75.59 -68.44 -293.14 -57.29 -318.34 10.4l-4.35 -1.59z" style="fill: background; stroke: background; stroke-width: 0"/>

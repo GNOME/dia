@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Modem</name>
-<icon>modem.xpm</icon>
+<icon>modem.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4885.74 -3734.88l297.774 0 l0 -74.4426l-297.774 0l0 74.4426z" style="fill: foreground; stroke-width: 0"/>

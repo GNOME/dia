@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Generic gateway</name>
-<icon>generic_gateway.xpm</icon>
+<icon>generic_gateway.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2683.53 -5551.72c0 33.57 -69.99 60.8 -156.33 60.8c-86.35 0 -156.34 -27.23 -156.34 -60.8l0 228.78c0 33.59 69.99 60.8 156.34 60.8c86.34 0 156.33 -27.21 156.33 -60.8l0 -228.78z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Repeater</name>
-<icon>repeater.xpm</icon>
+<icon>repeater.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4774.36 -5249.58l268.076 0 l0 -166.797l-268.076 0l0 166.797z" style="fill: foreground; stroke-width: 0"/>

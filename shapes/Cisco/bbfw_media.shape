@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - BBFW media</name>
-<icon>bbfw_media.xpm</icon>
+<icon>bbfw_media.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M615.02 -7003.1c-9.6 -7.69 -15.94 -21.01 -15.94 -36.15c0 -15.94 7.01 -29.85 17.46 -37.3" style="stroke: foreground; stroke-width: 1; stroke-miterlimit: 1; stroke-linecap: round; stroke-linejoin: round"/>

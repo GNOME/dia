@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Printer</name>
-<icon>printer.xpm</icon>
+<icon>printer.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M287.788 -1136.22l277.481 0 l0 -126.25l-277.481 0l0 126.25z" style="fill: foreground; stroke-width: 0"/>

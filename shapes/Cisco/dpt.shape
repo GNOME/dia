@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - DPT</name>
-<icon>dpt.xpm</icon>
+<icon>dpt.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4250.64 -6990.8c111.98 0 202.76 -41.26 202.76 -92.16c0 -50.9 -90.78 -92.17 -202.76 -92.17c-111.98 0 -202.76 41.27 -202.76 92.17c0 50.9 90.78 92.16 202.76 92.16" style="stroke: #999999; stroke-width: 3; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>

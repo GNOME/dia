@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - SIP Proxy server</name>
-<icon>sip_proxy_server.xpm</icon>
+<icon>sip_proxy_server.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4120.07 -3598.91l161.055 0 l0 -281.016l-161.055 0l0 281.016z" style="fill: foreground; stroke-width: 0"/>

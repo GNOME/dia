@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - PAD</name>
-<icon>pad.xpm</icon>
+<icon>pad.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M811.978 -2105.5l359.628 0 l0 -189.004l-359.628 0l0 189.004z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Centri Firewall</name>
-<icon>centri.xpm</icon>
+<icon>centri.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M318.784 -2815.09l153.877 0 l0 -245.117l-153.877 0l0 245.117z" style="fill: foreground; stroke-width: 0"/>

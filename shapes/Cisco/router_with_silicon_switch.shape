@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Router with Silicon Switch</name>
-<icon>router_with_silicon_switch.xpm</icon>
+<icon>router_with_silicon_switch.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1285.46 -3739.74c0 36.61 -76.32 66.29 -170.46 66.29c-94.14 0 -170.46 -29.68 -170.46 -66.29l0 97.1c0 36.6 76.32 66.29 170.46 66.29c94.14 0 170.46 -29.69 170.46 -66.29l0 -97.1z" style="fill: foreground; stroke-width: 0"/>

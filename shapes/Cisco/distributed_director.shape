@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Distributed Director</name>
-<icon>distributed_director.xpm</icon>
+<icon>distributed_director.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3348.55 -6948.08l381.484 0 l0 -250.635l-381.484 0l0 250.635z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Diskette</name>
-<icon>diskette.xpm</icon>
+<icon>diskette.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4010.95 -7208.57l-6.02 3.55l-233.56 0l5.96 -3.69l233.63 0.14z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Standing Man</name>
-<icon>standing_man.xpm</icon>
+<icon>standing_man.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M359.58 -6182.18l24.17 0l-25.59 129.36l34.82 0l21.08 -94.53c0 0 10.89 73.93 15.87 93.82c5.55 0 25.48 0 36.96 0c-2.14 -8.53 -21.32 -117.98 -22.04 -129.36c2.85 0 18.49 1.43 23.46 0.71c0 -5.68 -4.26 -34.82 -4.26 -41.93c0 -7.11 -6.4 -39.09 -8.53 -46.2c-1.85 -6.16 -14.21 -15.63 -20.61 -17.76c-6.41 -2.14 -19.2 -1.43 -26.3 -1.43c-7.11 0 -15 1.8 -22.04 3.55c-5.68 1.43 -12.08 10.65 -14.21 16.35c-2.14 5.68 -4.97 23.46 -7.1 31.98c-2.15 8.53 -2.85 40.52 -4.28 45.49c-1.42 4.97 -1.42 9.95 -1.42 9.95z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - MDU</name>
-<icon>mdu.xpm</icon>
+<icon>mdu.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3594.87 -3807.99l0 -279.26l-67.17 67.31l0 290.94l67.17 -78.98z" style="fill: foreground; stroke-width: 0"/>

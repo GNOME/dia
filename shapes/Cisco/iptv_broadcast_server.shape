@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - IPTV broadcast server</name>
-<icon>iptv_broadcast_server.xpm</icon>
+<icon>iptv_broadcast_server.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M260.2 -2127.81l303.731 0 l0 -171.835l-303.731 0l0 171.835z" style="fill: foreground; stroke-width: 0"/>

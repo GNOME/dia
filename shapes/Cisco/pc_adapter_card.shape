@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - PC Adapter Card</name>
-<icon>pc_adapter_card.xpm</icon>
+<icon>pc_adapter_card.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2477.77 -6050.27l0 -108.75l-24.65 23.4l0 108.75l24.65 -23.4z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Firewall</name>
-<icon>firewall.xpm</icon>
+<icon>firewall.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M802.119 -5259.69l79.2581 0 l0 -264.843l-79.2581 0l0 264.843z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Class 4/5 switch</name>
-<icon>class45_switch.xpm</icon>
+<icon>class45_switch.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3691.59 -2271.94l70.42 -69.66l-0.89 0.49l-242.24 0l-79.41 69.67l252.12 0l0 -0.5z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Microphone</name>
-<icon>microphone.xpm</icon>
+<icon>microphone.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3899.8 -4068.93l81.78 146.35c11.44 20.49 4.12 46.38 -16.37 57.83c-20.49 11.45 -46.39 4.12 -57.83 -16.37l-80.35 -143.78z" style="fill: foreground; stroke-width: 0"/>

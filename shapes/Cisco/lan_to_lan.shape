@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - LAN to LAN</name>
-<icon>lan_to_lan.xpm</icon>
+<icon>lan_to_lan.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M302.57 -4696.29l90.66 -90.65z" style="fill: foreground; stroke-width: 0"/>

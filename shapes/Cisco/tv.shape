@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - TV</name>
-<icon>tv.xpm</icon>
+<icon>tv.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M587.98 -3793.37l-26.11 37.25l-226.76 0l37.43 -37.25l215.44 0z" style="fill: foreground; stroke-width: 0"/>

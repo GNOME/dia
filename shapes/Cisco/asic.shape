@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - ASIC Processor</name>
-<icon>asic.xpm</icon>
+<icon>asic.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2859.57 -5526.68l-34.23 34.08l0 238.56l239.6 0l34.23 -34.08l0 -238.56l-239.6 0z" style="fill: foreground; stroke-width: 0"/>

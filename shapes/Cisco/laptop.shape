@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Laptop</name>
-<icon>laptop.xpm</icon>
+<icon>laptop.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1172.72 -4811.1l10.41 13.48l-28.16 154.35l-12.87 -7.96l30.63 -159.86z" style="fill: foreground; stroke-width: 0"/>

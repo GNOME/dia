@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Telecommuter house/router</name>
-<icon>telecommuter_house_router.xpm</icon>
+<icon>telecommuter_house_router.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2974.39 -5716.77l45 -31.46l25 0l-2.5 23.96l-32.5 30l-35 -22.5z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - DWDM Filter</name>
-<icon>dwdm_filter.xpm</icon>
+<icon>dwdm_filter.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M5516.2 -7203.1l-51.87 -80.08l13.85 -13.94l53.59 80.08l-15.57 13.94z" style="fill: foreground; stroke-width: 0"/>

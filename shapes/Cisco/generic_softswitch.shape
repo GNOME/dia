@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Generic softswitch</name>
-<icon>generic_softswitch.xpm</icon>
+<icon>generic_softswitch.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3553.2 -5252.35l185.254 0 l0 -317.294l-185.254 0l0 317.294z" style="fill: foreground; stroke-width: 0"/>

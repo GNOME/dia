@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Cisco CA</name>
-<icon>ca.xpm</icon>
+<icon>ca.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1811.85 -2037.66l-28.8 38.4l-238.63 0l39.09 -39.08l228.34 0.68z" style="fill: foreground; stroke-width: 0"/>

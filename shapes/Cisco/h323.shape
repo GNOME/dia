@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
-<icon>h323.xpm</icon>
+<icon>h323.png</icon>
 <name>Cisco - H.323</name>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">

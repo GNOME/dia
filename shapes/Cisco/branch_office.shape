@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Branch office</name>
-<icon>branch_office.xpm</icon>
+<icon>branch_office.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1215.92 -7028.77l0 -279.28l-67.18 67.3l0 290.94l67.18 -78.96z" style="fill: foreground; stroke-width: 0"/>

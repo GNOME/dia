@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - VPN Gateway</name>
-<icon>vpn_gateway.xpm</icon>
+<icon>vpn_gateway.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2124.63 -6888.36l357.324 0 l0 -159.336l-357.324 0l0 159.336z" style="fill: foreground; stroke-width: 0"/>

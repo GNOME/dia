@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Video camera</name>
-<icon>video_camera.xpm</icon>
+<icon>video_camera.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2594.96 -4054.78l0 339.55" style="stroke: foreground; stroke-width: 1.5; stroke-miterlimit: 4; stroke-linecap: butt; stroke-linejoin: mitre"/>

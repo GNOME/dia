@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - ATM Tag Switch Router</name>
-<icon>atm_tag_switch_router.xpm</icon>
+<icon>atm_tag_switch_router.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M220.894 -4382.89l268.261 0 l0 -244.267l-268.261 0l0 244.267z" style="fill: foreground; stroke-width: 0"/>

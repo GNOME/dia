@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Content Engine (Cache Director)</name>
-<icon>content_engine.xpm</icon>
+<icon>content_engine.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4775.28 -1893.99l381.485 0 l0 -250.635l-381.485 0l0 250.635z" style="fill: foreground; stroke-width: 0"/>

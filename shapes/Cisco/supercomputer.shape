@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Supercomputer</name>
-<icon>supercomputer.xpm</icon>
+<icon>supercomputer.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M386.93 -5353.85c108.07 0 195.68 -25.09 195.68 -56.03c0 -30.95 -87.62 -56.04 -195.68 -56.04c-108.08 0 -195.68 25.09 -195.68 56.04c0 30.95 87.61 56.03 195.68 56.03z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Man/Woman</name>
-<icon>man_woman.xpm</icon>
+<icon>man_woman.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2333.75 -3799.44l-10.61 23.3c0 0 0 10 14 5l12 -5l13 -15l2.12 -0.91c0.28 -4.48 0.65 -9.02 1.62 -13.57c1.68 -7.93 -0.97 -16.43 1.52 -23.55c6.31 -18.03 12.48 -35.76 19.1 -53.69c5.17 -13.98 -2.35 -30.39 3.07 -44.2l-38.79 -12.48c-2.68 41.54 -3.22 82.68 -5.28 124.04c-3.73 5.7 -7.8 10.98 -11.89 16.21l0.15 -0.15z" style="fill: foreground; stroke-width: 0"/>

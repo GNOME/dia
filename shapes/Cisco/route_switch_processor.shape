@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Route Switch Processor</name>
-<icon>route_switch_processor.xpm</icon>
+<icon>route_switch_processor.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M5313.93 -5244.89l268.262 0 l0 -268.007l-268.262 0l0 268.007z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Sitting woman</name>
-<icon>sitting_woman.xpm</icon>
+<icon>sitting_woman.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3794.93 -7251.8l-67.27 -1.56l-3.65 3.12l19.3 58.4l71.44 -3.65l3.13 -3.64l-22.95 -52.67z" style="fill: foreground; stroke-width: 0"/>

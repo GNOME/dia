@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - ONS15500</name>
-<icon>ons15500.xpm</icon>
+<icon>ons15500.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M5705.46 -7222.8l-61.62 58.5l-306.56 0l74.4 -58.5l293.79 0z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Protocol Translator</name>
-<icon>protocol_translator.xpm</icon>
+<icon>protocol_translator.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2289.34 -5252.35l185.254 0 l0 -317.294l-185.254 0l0 317.294z" style="fill: foreground; stroke-width: 0"/>

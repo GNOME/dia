@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - PXF</name>
-<icon>pxf.xpm</icon>
+<icon>pxf.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M2883.93 -5266.77l268.262 0 l0 -244.257l-268.262 0l0 244.257z" style="fill: foreground; stroke-width: 0"/>

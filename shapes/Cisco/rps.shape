@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - RPS</name>
-<icon>rps.xpm</icon>
+<icon>rps.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M903.091 -3725.29l333.159 0 l0 -194.512l-333.159 0l0 194.512z" style="fill: foreground; stroke-width: 0"/>

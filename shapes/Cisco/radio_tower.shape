@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Radio Tower</name>
-<icon>radio_tower.xpm</icon>
+<icon>radio_tower.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1137.87 -1315.17l62.998 0 l0 -224.004l-62.998 0l0 224.004z" style="fill: background; stroke: background; stroke-width: 0"/>

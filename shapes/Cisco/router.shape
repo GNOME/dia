@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Router</name>
-<icon>router.xpm</icon>
+<icon>router.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1878.93 -3742.38c0 39.5 -82.34 71.52 -183.93 71.52c-101.58 0 -183.93 -32.02 -183.93 -71.52l0 104.77c0 39.5 82.34 71.52 183.93 71.52c101.58 0 183.93 -32.02 183.93 -71.52l0 -104.77z" style="fill: foreground; stroke-width: 0"/>

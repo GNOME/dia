@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Scanner</name>
-<icon>scanner.xpm</icon>
+<icon>scanner.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3327.8 -7115.18l205.83 0l29.24 -140.08l-195.79 0l-39.28 140.08z" style="fill: foreground; stroke-width: 0"/>

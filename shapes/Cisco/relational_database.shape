@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Relational Database</name>
-<icon>relational_database.xpm</icon>
+<icon>relational_database.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M4470.6 -5436.4c0 31.83 -69.67 57.63 -155.6 57.63c-85.94 0 -155.6 -25.81 -155.6 -57.63l0 132.8c0 31.83 69.67 57.63 155.6 57.63c85.94 0 155.6 -25.8 155.6 -57.63l0 -132.8z" style="fill: foreground; stroke-width: 0"/>

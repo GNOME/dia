@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Phone</name>
-<icon>phone.xpm</icon>
+<icon>phone.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M5420.31 -2093.57l209.863 0 l0 -49.2581l-209.863 0l0 49.2581z" style="fill: foreground; stroke-width: 0"/>

@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Satellite</name>
-<icon>satellite.xpm</icon>
+<icon>satellite.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3114.17 -7102.25l0 13.3l-134.24 49.2l-61.15 -10.54l-36.7 -7.13l-25.18 -5.23l-0.62 -16.88z" style="fill: foreground; stroke-width: 0"/>

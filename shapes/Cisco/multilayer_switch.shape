@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - Multilayer switch</name>
-<icon>multilayer_switch.xpm</icon>
+<icon>multilayer_switch.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M1660.4 -6881.66l226.797 0 l0 -230.738l-226.797 0l0 230.738z" style="fill: foreground; stroke-width: 0"/>

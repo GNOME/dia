@@ -2,7 +2,7 @@
 <shape xmlns="http://www.daa.com.au/~james/dia-shape-ns"
 xmlns:svg="http://www.w3.org/2000/svg">
 <name>Cisco - IBM mainframe</name>
-<icon>ibm_mainframe.xpm</icon>
+<icon>ibm_mainframe.png</icon>
 <aspectratio type="fixed"/>
 <svg:svg width="5cm" height="2.2cm">
 <svg:path d="M3453.03 -5613.08l-89.23 0l0.48 266.99l88.75 0l0 -266.99z" style="fill: foreground; stroke-width: 0"/>
