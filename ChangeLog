@@ -1,3 +1,8 @@
+2001-02-23  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/connection.c (connection_update_boundingbox): 
+	Made the BB shrink on right and lower sides, too.
+
 2001-02-23  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* */*.c: #incude <config.h> at the top.
