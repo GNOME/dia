@@ -148,7 +148,13 @@ properties_show(Diagram *dia, Object *obj)
   if (dialog == NULL)
     create_dialog();
 
-  if ((obj==NULL) || (properties == NULL)) { /* No properties or no object */
+  if (obj==NULL) {
+    /* Hide dialog when no object is selected */
+    gtk_widget_hide(dialog);
+    return;
+  }
+
+  if (properties == NULL) { /* No properties or no object */
     properties = no_properties_dialog;
     obj = NULL;
     dia = NULL;
