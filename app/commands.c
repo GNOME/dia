@@ -821,6 +821,39 @@ view_show_cx_pts_callback(gpointer data, guint action, GtkWidget *widget)
   }
 }
 
+void 
+view_unfullscreen(void)
+{
+  DDisplay *ddisp;
+  GtkMenuItem *item;
+
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
+
+  /* find the menuitem */
+  item = menus_get_item_from_path ("<Display>/View/Fullscreen", NULL);
+  if (item && GTK_CHECK_MENU_ITEM(item)->active) {
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(item), FALSE);
+  }
+}
+
+void
+view_fullscreen_callback(gpointer data, guint action, GtkWidget *widget)
+{
+  DDisplay *ddisp;
+  int fs;
+
+  ddisp = ddisplay_active();
+  if (!ddisp) return;
+
+  fs =  GTK_CHECK_MENU_ITEM(widget)->active;
+  
+  if (fs) /* it is already toggled */
+    gtk_window_fullscreen(GTK_WINDOW(ddisp->shell));
+  else
+    gtk_window_unfullscreen(GTK_WINDOW(ddisp->shell));
+}
+
 void
 view_aa_callback(gpointer data, guint action, GtkWidget *widget)
 {

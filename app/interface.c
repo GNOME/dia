@@ -441,7 +441,7 @@ create_display_shell(DDisplay *ddisp,
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "event",
 		    G_CALLBACK(ddisplay_canvas_events),
 		      ddisp);
-
+  
   gtk_drag_dest_set(ddisp->canvas, GTK_DEST_DEFAULT_ALL,
 		    create_object_targets, 1, GDK_ACTION_COPY);
   g_signal_connect (GTK_OBJECT (ddisp->canvas), "drag_drop",

@@ -1,5 +1,14 @@
 2004-11-06  Hans Breuer  <hans@breuer.org>
 
+        * app/commands.c app/commands.h : added view_fullscreen_callback()
+          view_unfullscreen()
+          app/menus.c : use it (/View/Fullscreen) thus fixing bug #94090
+        * app/disp_callbacks.c : use view_unfullscreen() for GDK_Escape
+        ALso modified to allow handling of unmodified keys again (aren't
+        there plenty of bug reports for this?
+
+2004-11-06  Hans Breuer  <hans@breuer.org>
+
         * objects/UML/class_dialog.c : fixed casts for usage
         of dia_color_selector_set_color()
         

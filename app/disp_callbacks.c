@@ -701,7 +701,13 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  }
 	}
 
+#if 0 /* modifier requirment added 2004-07-17, IMO reenabling unmodified keys here
+               * shouldn't break im_context handling. How to test?    --hb
+               */
         if (!key_handled && (state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))) {
+#else            
+        if (!key_handled) {
+#endif
               /* IM doesn't need receive keys, take care of it ourselves. */
           return_val = TRUE;
           
@@ -742,6 +748,9 @@ ddisplay_canvas_events (GtkWidget *canvas,
               case GDK_Shift_R:
                 if (active_tool->type == MAGNIFY_TOOL)
                   set_zoom_out(active_tool);
+                break;
+              case GDK_Escape:
+                view_unfullscreen();
                 break;
               default:
                 if (kevent->string && kevent->keyval == ' ') {

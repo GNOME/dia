@@ -71,7 +71,7 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
   {N_("/Help/_Manual"),        "F1",         help_manual_callback,      0,
       "<StockItem>", GTK_STOCK_HELP },
   {N_("/Help/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/Help/_About..."),      NULL,         help_about_callback,       0 },
+  {N_("/Help/_About..."),      NULL,         help_about_callback,       0 }
 };
 
 /* calculate the number of menu_item's */
@@ -146,6 +146,7 @@ static GtkItemFactoryEntry display_menu_items[] =
   {N_("/View/Zoom/35.4%"),        NULL,         view_zoom_set_callback,   354},
   {N_("/View/Zoom/25%"),          NULL,         view_zoom_set_callback,   250},
   {N_("/View/---"),            NULL,         NULL,       0, "<Separator>" },
+  {N_("/View/_Fullscr_een"),      "F11",        view_fullscreen_callback,   0, "<ToggleItem>"},
 #ifdef HAVE_LIBART  
   {N_("/View/_AntiAliased"),      NULL,         view_aa_callback,           0, "<ToggleItem>"},
 #endif
@@ -491,7 +492,7 @@ menus_init(void)
   display_menus = gtk_item_factory_get_widget(display_item_factory,
 					      "<Display>");
   gtk_menu_set_accel_path(GTK_MENU(display_menus), "<Display>/");
-
+  
   menus_set_tools_callback ("<Display>", NULL);
 
   gtk_menu_set_title(GTK_MENU(display_menus), _("Diagram Menu"));
