@@ -1,4 +1,13 @@
+2002-07-21  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/app_procs.c (app_init): --version command line option for
+	non-Gnome.
+
+	* configure.in: Slight improvement in GETTEXT_PACKAGE handling.
+
 2002-07-19  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/render_eps.c: Removed debugging info.
 
 	* lib/font.c (dia_font_scaled_ascent, dia_font_scaled_descent):
 	Kludge to make ascent and descent work for empty strings.  Won't

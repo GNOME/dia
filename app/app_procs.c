@@ -78,8 +78,6 @@
 #include "authors.h"
 #include "autosave.h"
 
-#define GETTEXT_PACKAGE "dia"
-
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;
 #endif
@@ -223,6 +221,7 @@ app_init (int argc, char **argv)
 {
   gboolean nosplash = FALSE;
   gboolean credits = FALSE;
+  gboolean version = FALSE;
 #ifdef GNOME
   GnomeClient *client;
 #endif
@@ -244,7 +243,9 @@ app_init (int argc, char **argv)
     {"nosplash", 'n', POPT_ARG_NONE, &nosplash, 0,
      N_("Don't show the splash screen"), NULL },
     {"credits", 'c', POPT_ARG_NONE, &credits, 0,
-     N_("Display credits list"), NULL },
+     N_("Display credits list and exit"), NULL },
+    {"version", 'v', POPT_ARG_NONE, &version, 0,
+     N_("Display version and exit"), NULL },
 #ifndef GNOME
     {"help", 'h', POPT_ARG_NONE, 0, 1, N_("Show this help message") },
 #endif
@@ -315,6 +316,15 @@ app_init (int argc, char **argv)
 #endif
     gtk_init (&argc, &argv);
 #endif
+  }
+
+  if (version) {
+#if (defined __TIME__) && (defined __DATE__)
+    printf(_("Dia version %s, compiled %s %s\n"), VERSION, __TIME__, __DATE__);
+#else
+    printf(_("Dia version %s\n"), VERSION);
+#endif
+    exit(0);
   }
 
   /* --credits option. Added by Andrew Ferrier.

@@ -92,7 +92,7 @@ AM_CONDITIONAL(HAVE_BONOBO,false)
 
 dnl XSLT
 
-XSLT_DIR=""
+export XSLT_DIR=""
 PKG_CHECK_MODULES(XSLT, libxslt, have_xslt=true, have_xslt=false)
 AM_CONDITIONAL(HAVE_XSLT, $have_xslt)
 if test "$have_xslt" = "true"; then
@@ -156,10 +156,9 @@ dnl
 dnl i18n
 dnl
 
-AC_DEFINE(GETTEXT_PACKAGE,dia,[Needed for glib gettext])
 GETTEXT_PACKAGE=dia
 AC_SUBST(GETTEXT_PACKAGE)
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE")
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE",[Needed for glib gettext])
 ALL_LINGUAS="az ca da de el en_GB es fi fr ga hu it ja ko nl nn no pl pt pt_BR ru sk sl sv tr uk vi zh_CN zh_TW"
 AM_GLIB_GNU_GETTEXT
 
