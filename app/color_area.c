@@ -290,11 +290,7 @@ color_area_edit (void)
 
 
     /* Make sure window is shown before setting its colors: */
-    gtk_widget_realize (window);
-    gtk_widget_show (window);
-    while ( gtk_events_pending() ) {
-      gtk_main_iteration();
-    }
+    gtk_widget_show_now (window);
       
     color[0] = col.red;
     color[1] = col.green;

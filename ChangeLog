@@ -1,3 +1,8 @@
+1999-08-18  James Henstridge  <james@daa.com.au>
+
+	* app/color_area.c (color_area_edit): small fix to prevent dia from
+	segfaulting when you try to change the default foreground/background.
+
 1999-08-17  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/diagram.[ch] (diagram_redraw_all):
