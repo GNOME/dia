@@ -1,3 +1,8 @@
+2000-04-10  Alexander Larsson  <alla@lysator.liu.se>
+
+	* lib/plug-ins.c (dia_register_plugins):
+	Don't free the value returned from g_getenv.
+
 2000-04-09  Anders Carlsson  <andersca@gnu.org>
 
 	* app/preferences.h: Add reverse_rubberbanding_intersects preference variable.
