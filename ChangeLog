@@ -1,5 +1,8 @@
 2003-12-13  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* lib/diagdkrenderer.c: Add implementation so text is still
+	rendered.  May be improved later.
+
 	* lib/dia_image.c: 
 	* app/main.c: 
 	* app/export_png.c: 

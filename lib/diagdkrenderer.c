@@ -35,6 +35,7 @@
 #include "message.h"
 #include "color.h"
 #include "font.h"
+#include "text.h"
 
 #ifdef HAVE_FREETYPE
 #include <pango/pango.h>
@@ -730,8 +731,20 @@ draw_string (DiaRenderer *object,
 
 /** Caching Pango renderer */
 static void
-draw_text(DiaRenderer *object, Text *text) {
+draw_text(DiaRenderer *renderer, Text *text) {
+  Point pos;
+  int i;
+
+  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
+  pos = text->position;
   
+  for (i=0;i<text->numlines;i++) {
+    DIA_RENDERER_GET_CLASS(renderer)->draw_string(renderer,
+						  text->line[i],
+						  &pos, text->alignment,
+						  &text->color);
+    pos.y += text->height;
+  }
 }
 
 
