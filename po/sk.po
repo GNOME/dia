@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "POT-Creation-Date: 2002-01-24 09:19+0100\n"
-"PO-Revision-Date: 2002-01-23 17:11+0100\n"
+"PO-Revision-Date: 2002-01-28 19:08GMT+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
@@ -86,8 +86,7 @@ msgid "%s error: can specify only one of -f or -o."
 msgstr "%s chyba: mô¾ete urèi» buï -f alebo -o."
 
 #: app/app_procs.c:320 app/app_procs.c:322
-msgid ""
-"Couldn't find standard objects when looking for object-libs, exiting...\n"
+msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr ""
 "Nie je mo¾né nájs» ¹tandardné objekty, keï hµadám objekty - kni¾nice, "
 "konèím...\n"
@@ -184,7 +183,7 @@ msgid ""
 "crashes.  We know there are bugs in it, so don't\n"
 "bother submitting another report if it crashes"
 msgstr ""
-"Anti aliased renderer je chybný a mô¾e spôsobi»\n"
+"Renderer vyhladzovania je chybný a mô¾e spôsobi»\n"
 "pády. Vieme, ¾e sú v òom chyby, a tak sa neunúvajte\n"
 "posiela» správy o páde programu"
 
@@ -696,9 +695,8 @@ msgid "Show diagram tree"
 msgstr "Zobrazi» strom diagramu"
 
 #: app/menus.c:56
-#, fuzzy
 msgid "P_lugins"
-msgstr "Zásuvné moduly"
+msgstr "Zásuvné modu_ly"
 
 #: app/menus.c:72
 msgid "_Export..."
@@ -756,7 +754,7 @@ msgstr "Vlastnosti diagramu..."
 
 #: app/menus.c:129
 msgid "_AntiAliased"
-msgstr "_AntiAliased"
+msgstr "_Vyhladené"
 
 #: app/menus.c:132
 msgid "_Visible Grid"
@@ -809,7 +807,7 @@ msgstr "V¹etko"
 
 #: app/menus.c:162 lib/widgets.c:660 objects/UML/association.c:1001
 msgid "None"
-msgstr "Niè"
+msgstr "®iadny"
 
 #: app/menus.c:164
 msgid "Connected"
@@ -1086,7 +1084,7 @@ msgstr "/Zobrazenie/Vlastnosti diagramu..."
 
 #: app/menus.c:327
 msgid "/View/_AntiAliased"
-msgstr "/Zobrazenie/_AntiAliased"
+msgstr "/Zobrazenie/_Vyhladené"
 
 #: app/menus.c:329
 msgid "/View/_Visible Grid"
@@ -1437,7 +1435,7 @@ msgstr ""
 
 #: app/preferences.c:143
 msgid "Recent documents list size:"
-msgstr ""
+msgstr "Aktuálna veµkos» zoznamu dokumentov:"
 
 #: app/preferences.c:146
 msgid "New diagram:"
@@ -1518,11 +1516,11 @@ msgstr "©tandardná vý¹ka:"
 
 #: app/preferences.c:189
 msgid "Remember last size:"
-msgstr ""
+msgstr "Zapamäta» si poslednú veµkos»:"
 
 #: app/preferences.c:191
 msgid "Save hidden object types:"
-msgstr ""
+msgstr "Ulo¾i» skryté typy objektov:"
 
 #: app/preferences.c:314
 #, c-format
@@ -1556,18 +1554,16 @@ msgstr "Zapúzdrený Postscript"
 #. Use the Plugins menu item to get a pointer to the File menu,
 #. but any item on the File menu will do
 #: app/recent_files.c:140
-#, fuzzy
 msgid "<Toolbox>/File/Plugins"
-msgstr "/Súbor/Zásuvné moduly"
+msgstr "<Toolbox>/Súbor/Zásuvné moduly"
 
 #: app/recent_files.c:265
 msgid "<Toolbox>/File/Exit"
-msgstr ""
+msgstr "<Toolbox>/Súbor/Koniec"
 
 #: app/recent_files.c:267
-#, fuzzy
 msgid "<Toolbox>/File/Quit"
-msgstr "/Súbor/_Koniec"
+msgstr "<Toolbox>/Súbor/Koniec"
 
 #: app/recent_files.c:304
 msgid "Can't open history file for writing."
@@ -1592,7 +1588,7 @@ msgstr "©týl èiary"
 
 #: lib/properties.c:73 lib/properties.h:487
 msgid "Fill colour"
-msgstr "Farba vyplnenia"
+msgstr "Farba výplne"
 
 #: lib/properties.c:74 lib/properties.h:490 objects/custom/custom_object.c:311
 #: objects/flowchart/box.c:271 objects/flowchart/diamond.c:264
@@ -1867,7 +1863,7 @@ msgstr ""
 
 #: objects/ER/attribute.c:151
 msgid "Key:"
-msgstr "Klávesa:"
+msgstr "Klúè:"
 
 #: objects/ER/attribute.c:153
 msgid "Weak key:"
@@ -1887,7 +1883,7 @@ msgstr "Atribút"
 
 #: objects/ER/entity.c:128
 msgid "Weak:"
-msgstr "Slabý:"
+msgstr "Slabá:"
 
 #: objects/ER/entity.c:340 objects/UML/classicon.c:124 sheets/ER.sheet.in.h:4
 msgid "Entity"
@@ -1919,11 +1915,11 @@ msgstr "Zmaza» segment"
 
 #: objects/ER/relationship.c:137
 msgid "Left Cardinality:"
-msgstr ""
+msgstr "¥avá kardinalita:"
 
 #: objects/ER/relationship.c:139
 msgid "Right Cardinality:"
-msgstr ""
+msgstr "Pravá kardinalita:"
 
 #: objects/ER/relationship.c:141
 msgid "Rotate:"
@@ -1976,11 +1972,11 @@ msgstr "Typ toku"
 
 #: objects/FS/flow-ortho.c:837
 msgid "Orthflow:"
-msgstr ""
+msgstr "Ortogonálny tok:"
 
 #: objects/FS/flow-ortho.c:853
 msgid "Orthflow type:"
-msgstr ""
+msgstr "Typ ortogonálneho toku:"
 
 #: objects/FS/fs.c:43
 msgid "Function structure diagram objects"
@@ -1988,7 +1984,7 @@ msgstr "Objekty ©truktúrovaného diagramu funkcií"
 
 #: objects/FS/function.c:136
 msgid "Wish function"
-msgstr ""
+msgstr "®elaná funkcia"
 
 #: objects/FS/function.c:138
 msgid "User function"
@@ -2033,7 +2029,7 @@ msgstr "Export"
 
 #: objects/FS/function.c:620
 msgid "Discharge"
-msgstr ""
+msgstr "Vyprázdnenie"
 
 #: objects/FS/function.c:621
 msgid "Eject"
@@ -2066,7 +2062,7 @@ msgstr "Prenos"
 
 #: objects/FS/function.c:633
 msgid "Conduct"
-msgstr ""
+msgstr "Pripoji»"
 
 #: objects/FS/function.c:635
 msgid "Convey"
@@ -2075,31 +2071,31 @@ msgstr "Preprava"
 #: objects/FS/function.c:636 objects/FS/function.c:637
 #: objects/FS/function.c:638
 msgid "Guide"
-msgstr ""
+msgstr "Vedenie"
 
 #: objects/FS/function.c:639
 msgid "Direct"
-msgstr ""
+msgstr "Smerovanie"
 
 #: objects/FS/function.c:640
 msgid "Straighten"
-msgstr ""
+msgstr "Priame"
 
 #: objects/FS/function.c:641
 msgid "Steer"
-msgstr ""
+msgstr "Riadenie"
 
 #: objects/FS/function.c:642
 msgid "Translate"
-msgstr "Prelo¾i»"
+msgstr "Preklad"
 
 #: objects/FS/function.c:643 objects/FS/function.c:644
 msgid "Rotate"
-msgstr "Otoèenie"
+msgstr "Toèenie"
 
 #: objects/FS/function.c:645
 msgid "Turn"
-msgstr ""
+msgstr "Otoèi»"
 
 #: objects/FS/function.c:646
 msgid "Spin"
@@ -2107,15 +2103,15 @@ msgstr ""
 
 #: objects/FS/function.c:647 objects/FS/function.c:648
 msgid "Allow DOF"
-msgstr ""
+msgstr "Povoli» DOF"
 
 #: objects/FS/function.c:649
 msgid "Constrain"
-msgstr ""
+msgstr "Ohranièenie"
 
 #: objects/FS/function.c:650
 msgid "Unlock"
-msgstr ""
+msgstr "Odblokova»"
 
 #: objects/FS/function.c:651 objects/FS/function.c:652
 msgid "Support"
@@ -2128,23 +2124,23 @@ msgstr "Zastavi»"
 
 #: objects/FS/function.c:655
 msgid "Insulate"
-msgstr ""
+msgstr "Izolova»"
 
 #: objects/FS/function.c:656
 msgid "Protect"
-msgstr ""
+msgstr "Chráni»"
 
 #: objects/FS/function.c:657 objects/FS/function.c:752
 msgid "Prevent"
-msgstr ""
+msgstr "Zamedzi»"
 
 #: objects/FS/function.c:658
 msgid "Shield"
-msgstr ""
+msgstr "Chráni»"
 
 #: objects/FS/function.c:659
 msgid "Inhibit"
-msgstr ""
+msgstr "Potlaèi»"
 
 #: objects/FS/function.c:660 objects/FS/function.c:661
 msgid "Stabilize"
@@ -2152,11 +2148,11 @@ msgstr "Stabilizova»"
 
 #: objects/FS/function.c:662
 msgid "Steady"
-msgstr ""
+msgstr "Spevni»"
 
 #: objects/FS/function.c:663 objects/FS/function.c:664
 msgid "Secure"
-msgstr ""
+msgstr "Zabepeèi»"
 
 #: objects/FS/function.c:665 objects/FS/function.c:681
 msgid "Attach"
@@ -2168,11 +2164,11 @@ msgstr "Pripoji»"
 
 #: objects/FS/function.c:667
 msgid "Lock"
-msgstr "Zablokuj"
+msgstr "Zablokova»"
 
 #: objects/FS/function.c:668
 msgid "Fasten"
-msgstr ""
+msgstr "Pripevni»"
 
 #: objects/FS/function.c:669
 msgid "Hold"
@@ -2293,7 +2289,7 @@ msgstr "Oèis»ovanie"
 
 #: objects/FS/function.c:709
 msgid "Strain"
-msgstr ""
+msgstr "Sfarbi»"
 
 #: objects/FS/function.c:710
 msgid "Filter"
@@ -2369,7 +2365,7 @@ msgstr "Zhroma¾ïova»"
 
 #: objects/FS/function.c:733
 msgid "Reserve"
-msgstr ""
+msgstr "Rezervova»"
 
 #: objects/FS/function.c:735 objects/FS/function.c:736
 msgid "Supply"
@@ -2401,7 +2397,7 @@ msgstr "Ovládanie magnitúdy"
 
 #: objects/FS/function.c:744 objects/FS/function.c:745
 msgid "Actuate"
-msgstr ""
+msgstr "Aktivizova»"
 
 #: objects/FS/function.c:746
 msgid "Start"
@@ -2779,15 +2775,15 @@ msgstr "Pou¾ívateµ/Zariadenie Fn"
 
 #: objects/FS/function.c:862
 msgid "Wish Fn"
-msgstr ""
+msgstr "®elaná funkcia"
 
 #: objects/GRAFCET/action.c:134 sheets/SDL.sheet.in.h:9
 msgid "Macro call"
-msgstr "Makro volanie"
+msgstr "Volanie makra"
 
 #: objects/GRAFCET/action.c:134
 msgid "This action is a call to a macro-step"
-msgstr ""
+msgstr "Tento proces volá krok makra"
 
 #: objects/GRAFCET/condition.c:129
 msgid "Condition"
@@ -2795,15 +2791,15 @@ msgstr "Podmienka"
 
 #: objects/GRAFCET/condition.c:129
 msgid "The boolean equation of the condition"
-msgstr ""
+msgstr "Logická rovnos» podmienky"
 
 #: objects/GRAFCET/condition.c:131
 msgid "The condition's font"
-msgstr "Písmo podmienok"
+msgstr "Písmo podmienky"
 
 #: objects/GRAFCET/condition.c:133
 msgid "The condition's font size"
-msgstr "Veµkos» písma podmienok"
+msgstr "Veµkos» písma podmienky"
 
 #: objects/GRAFCET/condition.c:136 objects/GRAFCET/transition.c:145
 msgid "Color"
@@ -2811,47 +2807,47 @@ msgstr "Farba"
 
 #: objects/GRAFCET/condition.c:136
 msgid "The condition's color"
-msgstr "Farba podmienok"
+msgstr "Farba podmienky"
 
 #: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
-msgstr ""
+msgstr "Objekty GRAFCET diagramu"
 
 #: objects/GRAFCET/step.c:146
 msgid "Regular step"
-msgstr "Stály krok"
+msgstr "Be¾ný krok"
 
 #: objects/GRAFCET/step.c:147
 msgid "Initial step"
-msgstr ""
+msgstr "Poèiatoèný krok"
 
 #: objects/GRAFCET/step.c:148
 msgid "Macro entry step"
-msgstr "Polo¾ka makro kroku"
+msgstr "Krok polo¾ka makra"
 
 #: objects/GRAFCET/step.c:149
 msgid "Macro exit step"
-msgstr "Ukonèenie makro kroku"
+msgstr "Krok ukonèenia makra"
 
 #: objects/GRAFCET/step.c:150
 msgid "Macro call step"
-msgstr "Volanie makro kroku"
+msgstr "Krok volania makra"
 
 #: objects/GRAFCET/step.c:151
 msgid "Subprogram call step"
-msgstr ""
+msgstr "Krok volania podprogramu"
 
 #: objects/GRAFCET/step.c:157
 msgid "Step name"
-msgstr ""
+msgstr "Názov kroku"
 
 #: objects/GRAFCET/step.c:157
 msgid "The name of the step"
-msgstr "Názov kroku"
+msgstr "Pomenovanie kroku"
 
 #: objects/GRAFCET/step.c:159
 msgid "Step type"
-msgstr ""
+msgstr "Typ kroku"
 
 #: objects/GRAFCET/step.c:159
 msgid "The kind of step"
@@ -2867,23 +2863,23 @@ msgstr "Zobrazi» èervenú bodku na obrázku pri krokovej aktivite"
 
 #: objects/GRAFCET/transition.c:138
 msgid "Receptivity"
-msgstr ""
+msgstr "Kapacita"
 
 #: objects/GRAFCET/transition.c:138
 msgid "The boolean equation of the receptivity"
-msgstr ""
+msgstr "Logická rovnos» kapacity"
 
 #: objects/GRAFCET/transition.c:140
 msgid "The receptivity's font"
-msgstr ""
+msgstr "Písmo kapacity"
 
 #: objects/GRAFCET/transition.c:142
 msgid "The receptivity's font size"
-msgstr ""
+msgstr "Veµkos» písma kapacity"
 
 #: objects/GRAFCET/transition.c:145
 msgid "The receptivity's color"
-msgstr ""
+msgstr "Farba kapacity"
 
 #: objects/GRAFCET/transition.c:146
 msgid "North point"
@@ -2895,7 +2891,7 @@ msgstr "Ju¾ný bod"
 
 #: objects/GRAFCET/vector.c:128
 msgid "Draw arrow heads on upward arcs:"
-msgstr ""
+msgstr "Vykresli» hlavièku ¹ípky na oblúku orientovanom nahor:"
 
 #: objects/GRAFCET/vergent.c:122
 msgid "OR"
@@ -2924,15 +2920,15 @@ msgstr ""
 
 #: objects/SADT/arrow.c:134 objects/UML/state.c:124
 msgid "Normal"
-msgstr "Obyèajná"
+msgstr "Normálne"
 
 #: objects/SADT/arrow.c:135
 msgid "Import resource (not shown upstairs)"
-msgstr ""
+msgstr "Import zásob (nezobrazova» hore)"
 
 #: objects/SADT/arrow.c:136
 msgid "Imply resource (not shown downstairs)"
-msgstr ""
+msgstr "Získa» zdroje"
 
 #: objects/SADT/arrow.c:137
 msgid "Dotted arrow"
@@ -3142,19 +3138,19 @@ msgstr "Viditeµnos»:"
 
 #: objects/UML/class_dialog.c:779 objects/UML/class_dialog.c:1643
 msgid "Public"
-msgstr "Verejná"
+msgstr "Public"
 
 #: objects/UML/class_dialog.c:787 objects/UML/class_dialog.c:1651
 msgid "Private"
-msgstr "Súkromná"
+msgstr "Private"
 
 #: objects/UML/class_dialog.c:795 objects/UML/class_dialog.c:1659
 msgid "Protected"
-msgstr "Chránený"
+msgstr "Protected"
 
 #: objects/UML/class_dialog.c:803 objects/UML/class_dialog.c:1667
 msgid "Implementation"
-msgstr "Implementácia"
+msgstr "Implementation"
 
 #: objects/UML/class_dialog.c:819 objects/UML/class_dialog.c:1683
 msgid "Class scope"
@@ -3183,7 +3179,7 @@ msgstr "Dáta parametra"
 
 #: objects/UML/class_dialog.c:1796
 msgid "Def. value:"
-msgstr ""
+msgstr "©tand. hodnota:"
 
 #. Templates page:
 #: objects/UML/class_dialog.c:2157
@@ -3581,6 +3577,8 @@ msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
 msgstr ""
+"Då¾ka riadku obrázka je väè¹ia ako maximálne pole bunky.\n"
+"Obrázok nebude exportovaný do CGM."
 
 #: plug-ins/cgm/cgm.c:1261
 msgid "Computer Graphics Metafile"
@@ -3830,19 +3828,19 @@ msgstr "Horizontálne zarovnaný induktor"
 
 #: sheets/Circuit.sheet.in.h:3
 msgid "A Horizontally aligned inductor (European)"
-msgstr "Horizontálne zarovnaný induktor (Európsky)"
+msgstr "Horizontálne orientovaný induktor (Európsky)"
 
 #: sheets/Circuit.sheet.in.h:4
 msgid "A Horizontally aligned resistor"
-msgstr "Horizontálne zarovnaný rezistor"
+msgstr "Horizontálne orientovaný rezistor"
 
 #: sheets/Circuit.sheet.in.h:5
 msgid "A Horizontally aligned resistor (European)"
-msgstr "Horizontálne zarovnaný rezistor (Európsky)"
+msgstr "Horizontálne orientovaný rezistor (Európsky)"
 
 #: sheets/Circuit.sheet.in.h:6
 msgid "A PMOS transistor"
-msgstr ""
+msgstr "PMOS tranzistor"
 
 #: sheets/Circuit.sheet.in.h:7
 msgid "A Speaker"
@@ -3850,19 +3848,19 @@ msgstr "Reproduktor"
 
 #: sheets/Circuit.sheet.in.h:8
 msgid "A Vertically aligned inductor"
-msgstr "Vertikálne zarovnaný induktor"
+msgstr "Vertikálne orientovaný induktor"
 
 #: sheets/Circuit.sheet.in.h:9
 msgid "A Vertically aligned inductor (European)"
-msgstr "Vertikálne zarovnaný induktor (Európsky)"
+msgstr "Vertikálne orientovaný induktor (Európsky)"
 
 #: sheets/Circuit.sheet.in.h:10
 msgid "A Vertically aligned resistor"
-msgstr "Vertikálne zarovnaný rezistor"
+msgstr "Vertikálne orientovaný rezistor"
 
 #: sheets/Circuit.sheet.in.h:11
 msgid "A Vertically aligned resistor (European)"
-msgstr "Vertikálne zarovnaný rezistor (Európsky)"
+msgstr "Vertikálne orientovaný rezistor (Európsky)"
 
 #: sheets/Circuit.sheet.in.h:12
 msgid "A ground point"
@@ -3870,31 +3868,31 @@ msgstr "Uzemnenie"
 
 #: sheets/Circuit.sheet.in.h:13
 msgid "A horizontally aligned LED"
-msgstr "Horizontálne zarovnaná LED"
+msgstr "Horizontálne orientovaná LED"
 
 #: sheets/Circuit.sheet.in.h:14
 msgid "A horizontally aligned capacitor"
-msgstr "Horizontálne zarovnaný kondenzátor"
+msgstr "Horizontálne orientovaný kondenzátor"
 
 #: sheets/Circuit.sheet.in.h:15
 msgid "A horizontally aligned diode"
-msgstr "Horizontálne zarovnaná dióda"
+msgstr "Horizontálne orientovaná dióda"
 
 #: sheets/Circuit.sheet.in.h:16
 msgid "A horizontally aligned fuse"
-msgstr "Horizontálne zarovnaná poistka"
+msgstr "Horizontálne orientovaná poistka"
 
 #: sheets/Circuit.sheet.in.h:17
 msgid "A horizontally aligned powersource"
-msgstr "Horizontálne zarovnaný zdroj elekt. energie"
+msgstr "Horizontálne orientovaný zdroj napätia"
 
 #: sheets/Circuit.sheet.in.h:18
 msgid "A horizontally aligned zener diode"
-msgstr "Horizontálne zarovnaná zenerova dióda"
+msgstr "Horizontálne orientovaná zenerova dióda"
 
 #: sheets/Circuit.sheet.in.h:19
 msgid "A lamp"
-msgstr "Lampa"
+msgstr "®iarovka"
 
 #: sheets/Circuit.sheet.in.h:20
 msgid "A npn bipolar transistor"
@@ -3906,27 +3904,27 @@ msgstr "pnp bipolárny tranzistor"
 
 #: sheets/Circuit.sheet.in.h:22
 msgid "A vertically aligned LED"
-msgstr "Vertikálne zarovnaná LED"
+msgstr "Vertikálne orientovaná LED"
 
 #: sheets/Circuit.sheet.in.h:23
 msgid "A vertically aligned capacitor"
-msgstr "Vertikálne zarovnaný kondenzátor"
+msgstr "Vertikálne orientovaný kondenzátor"
 
 #: sheets/Circuit.sheet.in.h:24
 msgid "A vertically aligned diode"
-msgstr "Vertikálne zarovnaná dióda"
+msgstr "Vertikálne orientovaná dióda"
 
 #: sheets/Circuit.sheet.in.h:25
 msgid "A vertically aligned fuse"
-msgstr "Vertikálne zarovnaná poistka"
+msgstr "Vertikálne orientovaná poistka"
 
 #: sheets/Circuit.sheet.in.h:26
 msgid "A vertically aligned powersource"
-msgstr "Vertikálne zarovnaný zdroj el. energie"
+msgstr "Vertikálne orientovaný zdroj napätia"
 
 #: sheets/Circuit.sheet.in.h:27
 msgid "A vertically aligned zener diode"
-msgstr "Vertikálne zarovnaná zenerova dióda"
+msgstr "Vertikálne orientovaná zenerova dióda"
 
 #: sheets/Circuit.sheet.in.h:28
 msgid "An NMOS transistor"
@@ -3942,7 +3940,7 @@ msgstr "Obvod"
 
 #: sheets/Circuit.sheet.in.h:31
 msgid "Components for circuit diagrams"
-msgstr "Komponenty pre diagramy elektrických obvodov"
+msgstr "Komponenty pre schémy elektrických obvodov"
 
 #: sheets/civil.sheet.in.h:1
 msgid "A Backflow Preventer"
@@ -3986,7 +3984,7 @@ msgstr "Horizontálne ohranièená èiara"
 
 #: sheets/civil.sheet.in.h:11
 msgid "A horizontally aligned Arrow"
-msgstr "Horizontálne zarovnaná ¹ípka"
+msgstr "Horizontálne orientovaná ¹ípka"
 
 #: sheets/civil.sheet.in.h:12
 msgid "A vertical limiting line"
@@ -3994,7 +3992,7 @@ msgstr "Vertikálne ohranièená èiara"
 
 #: sheets/civil.sheet.in.h:13
 msgid "A vertically aligned Arrow"
-msgstr "Vertikálne zarovnaná ¹írka"
+msgstr "Vertikálne orientovaná ¹írka"
 
 #: sheets/civil.sheet.in.h:14
 msgid "An Aerator with bubbles"
@@ -4022,11 +4020,11 @@ msgstr ""
 
 #: sheets/civil.sheet.in.h:20
 msgid "Horizontally aligned compressor"
-msgstr "Horizontálne zarovnaný kompresor"
+msgstr "Horizontálne orientovaný kompresor"
 
 #: sheets/civil.sheet.in.h:21
 msgid "Horizontally aligned pump"
-msgstr "Horizontálne zarovnaná pumpa"
+msgstr "Horizontálne orientovaná pumpa"
 
 #: sheets/civil.sheet.in.h:22
 msgid "Reference Line"
@@ -4050,11 +4048,11 @@ msgstr ""
 
 #: sheets/civil.sheet.in.h:27
 msgid "Vertically aligned compressor"
-msgstr "Vertikálne zarovnaný kompresor"
+msgstr "Vertikálne orientovaný kompresor"
 
 #: sheets/civil.sheet.in.h:28
 msgid "Vertically aligned pump"
-msgstr "Vertikálne zarovnaná pumpa"
+msgstr "Vertikálne orientovaná pumpa"
 
 #: sheets/civil.sheet.in.h:29
 msgid "Water Level"
@@ -4122,7 +4120,7 @@ msgstr "Bod spojenia"
 
 #: sheets/Electric.sheet.in.h:2
 msgid "A lamp or indicator light"
-msgstr "Lampa alebo indikátor svetla"
+msgstr "®iarovka alebo indikátor svetla"
 
 #: sheets/Electric.sheet.in.h:3
 msgid "A normally closed contact"
@@ -4162,11 +4160,11 @@ msgstr "Vytvori» proces"
 
 #: sheets/EML.sheet.in.h:2
 msgid "EML"
-msgstr ""
+msgstr "EML"
 
 #: sheets/EML.sheet.in.h:3
 msgid "Editor for EML Static Structure Diagrams."
-msgstr ""
+msgstr "Editor pre Statické ¹truktúrované diagramy EML."
 
 #: sheets/EML.sheet.in.h:4
 msgid "Instantiation. One process create others"
@@ -4366,7 +4364,7 @@ msgstr "Èinnos» spojená s krokom"
 
 #: sheets/GRAFCET.sheet.in.h:11
 msgid "An arc (upward)"
-msgstr ""
+msgstr "Oblúk (smerom hore)"
 
 #: sheets/GRAFCET.sheet.in.h:12
 msgid "An initial step"
@@ -4374,11 +4372,11 @@ msgstr "Poèiatoèný krok"
 
 #: sheets/GRAFCET.sheet.in.h:13
 msgid "GRAFCET"
-msgstr ""
+msgstr "GRAFCET"
 
 #: sheets/GRAFCET.sheet.in.h:14
 msgid "Objects to design GRAFCET charts"
-msgstr ""
+msgstr "Obejkty pre návrh GRAFCET grafov"
 
 #: sheets/jigsaw.sheet.in.h:1
 msgid "Jigsaw"
@@ -4654,7 +4652,7 @@ msgstr "Disky"
 
 #: sheets/network.sheet.in.h:32
 msgid "Switch Symbol"
-msgstr ""
+msgstr "Symbol prepínaèa"
 
 #: sheets/Pneumatic.sheet.in.h:1
 msgid "A 2/2 distributor"
@@ -4782,7 +4780,7 @@ msgstr "Komentár"
 
 #: sheets/SDL.sheet.in.h:4
 msgid "Decision"
-msgstr ""
+msgstr "Rozhodnutie"
 
 #: sheets/SDL.sheet.in.h:5
 msgid "Function Header"
@@ -4814,7 +4812,7 @@ msgstr "Prija» správu"
 
 #: sheets/SDL.sheet.in.h:13
 msgid "SDL"
-msgstr ""
+msgstr "SDL"
 
 #: sheets/SDL.sheet.in.h:14
 msgid "Save State"
@@ -4972,14 +4970,3 @@ msgstr "Editor diagramov"
 msgid "Dia"
 msgstr "Dia"
 
-#~ msgid "/File/Open _Recent"
-#~ msgstr "/Súbor/Otvori» _posledné"
-
-#~ msgid "/File/Open Recent/---"
-#~ msgstr "/Súbor/Otvori» posledné/---"
-
-#~ msgid "Grid:"
-#~ msgstr "Mrie¾ka:"
-
-#~ msgid "/File/Open Recent/"
-#~ msgstr "/Súbor/Otvori»posledné/"
