@@ -1,5 +1,11 @@
 2002-06-17  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
+	* lib/color.h (GDK_COLOR_TO_DIA, DIA_COLOR_TO_GDK): 
+	* lib/widgets.c: 
+	* app/color_area.c: Update to
+	gtk_color_selection_*_current_color() fixed bad crash issues, plus
+	updated color conversions.
+
 	* sheets/ER/weakentity.xpm: Accepted patch from
 	quixon@gnuchina.org to make icon match actual appearance.
 

@@ -674,16 +674,14 @@ dia_color_selector_draw_area(GtkWidget          *area,
 static void
 dia_color_selector_ok(GtkWidget *widget, DiaColorSelector *cs)
 {
-  gdouble gcol[3];
+  GdkColor gcol;
   Color col;
 
-  gtk_color_selection_get_color(
+  gtk_color_selection_get_current_color(
 	GTK_COLOR_SELECTION(
 	    GTK_COLOR_SELECTION_DIALOG(cs->col_sel)->colorsel),
-	gcol);
-  col.red = gcol[0];
-  col.green = gcol[1];
-  col.blue = gcol[2];
+	&gcol);
+  GDK_COLOR_TO_DIA(gcol, col);
 
   dia_color_selector_set_color(cs, &col);
   gtk_widget_hide(GTK_WIDGET(cs->col_sel));
@@ -695,7 +693,7 @@ dia_color_selector_pressed(GtkWidget *widget)
   GtkColorSelectionDialog *dialog;
   DiaColorSelector *cs = DIACOLORSELECTOR(widget);
   
-  gdouble col[3];
+  GdkColor col;
 
   if (cs->col_sel == NULL) {
     cs->col_sel = gtk_color_selection_dialog_new(_("Select color"));
@@ -716,14 +714,12 @@ dia_color_selector_pressed(GtkWidget *widget)
 			      GTK_OBJECT(dialog));
   }
 
-  col[0] = cs->col.red;
-  col[1] = cs->col.green;
-  col[2] = cs->col.blue;
+  DIA_COLOR_TO_GDK(cs->col, col);
 
-  gtk_color_selection_set_color(
+  gtk_color_selection_set_current_color(
 	GTK_COLOR_SELECTION(
 	    GTK_COLOR_SELECTION_DIALOG(cs->col_sel)->colorsel),
-	col);
+	&col);
   gtk_widget_show(cs->col_sel);
 }
 
@@ -802,16 +798,12 @@ dia_color_selector_set_color (DiaColorSelector *cs,
   }
 
   if (cs->col_sel != NULL) {
-    gdouble col[3];
+    DIA_COLOR_TO_GDK(cs->col, col);
 
-    col[0] = cs->col.red;
-    col[1] = cs->col.green;
-    col[2] = cs->col.blue;
-
-    gtk_color_selection_set_color(
+    gtk_color_selection_set_current_color(
 	GTK_COLOR_SELECTION(
 	    GTK_COLOR_SELECTION_DIALOG(cs->col_sel)->colorsel),
-	col);
+	&col);
   }
 }
 

@@ -22,9 +22,9 @@
 
 #include <stdio.h>
 
+#include "../lib/color.h"
 #include "intl.h"
 
-#undef GTK_DISABLE_DEPRECATED /* for gtk_color_sel api */
 #include "color_area.h"
 #include "attributes.h"
 
@@ -214,15 +214,13 @@ color_selection_ok (GtkWidget               *w,
                     GtkColorSelectionDialog *cs)
 {
   GtkColorSelection *colorsel;
-  gdouble color[3];
+  GdkColor color;
   Color col;
 
   colorsel=GTK_COLOR_SELECTION(cs->colorsel);
 
-  gtk_color_selection_get_color(colorsel,color);
-  col.red = color[0];
-  col.green= color[1];
-  col.blue = color[2];
+  gtk_color_selection_get_current_color(colorsel,&color);
+  GDK_COLOR_TO_DIA(color, col);
 
   if (edit_color == FOREGROUND) {
     attributes_set_foreground(&col);
@@ -231,7 +229,7 @@ color_selection_ok (GtkWidget               *w,
   }
   color_area_draw ();
 
-  gtk_color_selection_set_color(colorsel,color);
+  /*  gtk_color_selection_set_currentcolor(colorsel,&color);*/
 
   gtk_widget_hide(color_select);
   color_select_active = 0;
@@ -263,15 +261,13 @@ color_selection_changed (GtkWidget *w,
                          GtkColorSelectionDialog *cs)
 {
   GtkColorSelection *colorsel;
-  gdouble color[3];
+  GdkColor color;
   Color col;
 
   colorsel=GTK_COLOR_SELECTION(cs->colorsel);
 
-  gtk_color_selection_get_color(colorsel,color);
-  col.red = color[0];
-  col.green= color[1];
-  col.blue = color[2];
+  gtk_color_selection_get_current_color(colorsel,&color);
+  GDK_COLOR_TO_DIA(color, col);
 
   if (edit_color == FOREGROUND) {
     attributes_set_foreground(&col);
@@ -285,8 +281,8 @@ static void
 color_area_edit (void)
 {
   Color col;
-  gdouble color[3];
   GtkWidget *window;
+  GdkColor color;
 
   if (!color_select_active) {
     stored_foreground  = attributes_get_foreground();
@@ -339,33 +335,19 @@ color_area_edit (void)
 
 
     /* Make sure window is shown before setting its colors: */
-    gtk_widget_show_now (window);
+    gtk_widget_show_now (color_select);
       
-    color[0] = col.red;
-    color[1] = col.green;
-    color[2] = col.blue;
-
-    gtk_color_selection_set_color(
-         GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (window)->colorsel),
-   	 color);
-    gtk_color_selection_set_color(
-         GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (window)->colorsel),
-	 color);
   } else {
     if (! color_select_active) {
       gtk_widget_show (color_select);
     }
-    color[0] = col.red;
-    color[1] = col.green;
-    color[2] = col.blue;
-
-    gtk_color_selection_set_color(
-         GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (color_select)->colorsel),
-   	 color);
-    gtk_color_selection_set_color(
-         GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (color_select)->colorsel),
-	 color);
   }
+  DIA_COLOR_TO_GDK(col, color);
+
+  gtk_color_selection_set_current_color(
+	GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (color_select)->colorsel),
+	&color);
+
 }
 
 static gint

@@ -36,4 +36,14 @@ gboolean color_equals(Color *color1, Color *color2);
 DIAVAR Color color_black, color_white;
 DIAVAR GdkColor color_gdk_black, color_gdk_white;
 
+#define DIA_COLOR_TO_GDK(from, to) \
+(to).pixel = 0; \
+(to).red = (from).red*65535; \
+(to).green = (from).green*65535; \
+(to).blue = (from).blue*65535;
+#define GDK_COLOR_TO_DIA(from, to) \
+(to).red = (from).red/65535.0; \
+(to).green = (from).green/65535.0; \
+(to).blue = (from).blue/65535.0;
+
 #endif /* COLOR_H */
