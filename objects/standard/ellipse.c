@@ -44,7 +44,8 @@ typedef struct _Ellipse Ellipse;
 struct _Ellipse {
   Element element;
 
-  ConnectionPoint connections[8];
+  ConnectionPoint connections[9];
+  Handle center_handle;
   
   real border_width;
   Color border_color;
@@ -186,15 +187,35 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
 		    Point *to, ConnectionPoint *cp,
 		    HandleMoveReason reason, ModifierKeys modifiers)
 {
+  Element *elem = &ellipse->element;
+
   assert(ellipse!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  assert(handle->id < 8);
-  element_move_handle(&ellipse->element, handle->id, to, cp, reason, modifiers);
-  ellipse_update_data(ellipse);
+  assert(handle->id < 8 || handle->id == HANDLE_CUSTOM1);
+  if (handle->id == HANDLE_CUSTOM1) {
+    Point delta, corner_to;
+    delta.x = to->x - (elem->corner.x + elem->width/2);
+    delta.y = to->y - (elem->corner.y + elem->height/2);
+    corner_to.x = elem->corner.x + delta.x;
+    corner_to.y = elem->corner.y + delta.y;
+    return ellipse_move(ellipse, &corner_to);
+  } else {
+    Point center;
+    center.x = elem->corner.x + elem->width/2;
+    center.y = elem->corner.y + elem->height/2;
+    Point opposite_to;
+    opposite_to.x = center.x - (to->x-center.x);
+    opposite_to.y = center.y - (to->y-center.y);
 
-  return NULL;
+    element_move_handle(&ellipse->element, handle->id, to, cp, reason, modifiers);
+    element_move_handle(&ellipse->element, 7-handle->id, &opposite_to, cp, reason, modifiers);
+    
+    ellipse_update_data(ellipse);
+
+    return NULL;
+  }
 }
 
 static ObjectChange*
@@ -272,6 +293,8 @@ ellipse_update_data(Ellipse *ellipse)
   ellipse->connections[6].pos.y = elem->corner.y + elem->height;
   ellipse->connections[7].pos.x = center.x + half_x;
   ellipse->connections[7].pos.y = center.y + half_y;
+  ellipse->connections[8].pos.x = center.x;
+  ellipse->connections[8].pos.y = center.y;
 
   /* Update directions -- if the ellipse is very thin, these may not be good */
   ellipse->connections[0].directions = DIR_NORTH|DIR_WEST;
@@ -282,6 +305,7 @@ ellipse_update_data(Ellipse *ellipse)
   ellipse->connections[5].directions = DIR_SOUTH|DIR_WEST;
   ellipse->connections[6].directions = DIR_SOUTH;
   ellipse->connections[7].directions = DIR_SOUTH|DIR_EAST;
+  ellipse->connections[8].directions = DIR_ALL;
 
   extra->border_trans = ellipse->border_width / 2.0;
   element_update_boundingbox(elem);
@@ -289,7 +313,9 @@ ellipse_update_data(Ellipse *ellipse)
   obj->position = elem->corner;
 
   element_update_handles(elem);
-  
+
+  obj->handles[8]->pos.x = center.x;
+  obj->handles[8]->pos.y = center.y;
 }
 
 static Object *
@@ -322,9 +348,15 @@ ellipse_create(Point *startpoint,
 				    &ellipse->dashlength);
   ellipse->show_background = default_properties.show_background;
 
-  element_init(elem, 8, 8);
+  element_init(elem, 9, 9);
 
-  for (i=0;i<8;i++) {
+  obj->handles[8] = &ellipse->center_handle;
+  obj->handles[8]->id = HANDLE_CUSTOM1;
+  obj->handles[8]->type = HANDLE_MAJOR_CONTROL;
+  obj->handles[8]->connected_to = NULL;
+  obj->handles[8]->connect_type = HANDLE_NONCONNECTABLE;
+
+  for (i=0;i<9;i++) {
     obj->connections[i] = &ellipse->connections[i];
     ellipse->connections[i].object = obj;
     ellipse->connections[i].connected = NULL;
@@ -365,7 +397,7 @@ ellipse_copy(Ellipse *ellipse)
   newellipse->show_background = ellipse->show_background;
   newellipse->line_style = ellipse->line_style;
 
-  for (i=0;i<8;i++) {
+  for (i=0;i<9;i++) {
     newobj->connections[i] = &newellipse->connections[i];
     newellipse->connections[i].object = newobj;
     newellipse->connections[i].connected = NULL;
@@ -455,9 +487,15 @@ static Object *ellipse_load(ObjectNode obj_node, int version, const char *filena
   if (attr != NULL)
 	  ellipse->dashlength = data_real(attribute_first_data(attr));
 
-  element_init(elem, 8, 8);
+  element_init(elem, 9, 9);
 
-  for (i=0;i<8;i++) {
+  obj->handles[8] = &ellipse->center_handle;
+  obj->handles[8]->id = HANDLE_CUSTOM1;
+  obj->handles[8]->type = HANDLE_MAJOR_CONTROL;
+  obj->handles[8]->connected_to = NULL;
+  obj->handles[8]->connect_type = HANDLE_NONCONNECTABLE;
+
+  for (i=0;i<9;i++) {
     obj->connections[i] = &ellipse->connections[i];
     ellipse->connections[i].object = obj;
     ellipse->connections[i].connected = NULL;

@@ -1,5 +1,10 @@
 2004-03-05  Lars Clausen  <larsrc@linux.local>
 
+	* objects/standard/ellipse.c: Patch from Grégoire Dooms
+	<dooms@info.ucl.ac.be>: Add extra connection point in center of
+	ellipse.  Additionally added a handle in the center, and resize is
+	now around the center.
+
 	* configure.in: 
 	* sheets/Makefile.am (SUBDIRS): 
 	* sheets/IsometricMap.sheet.in: 
