@@ -70,15 +70,15 @@ list_families()
 }
 
 static void
-dia_font_check_for_font(char *fontname) {
+dia_font_check_for_font(int font) {
     DiaFont *check;
     PangoFont *loaded;
 
-    check = dia_font_new(fontname, DIA_FONT_NORMAL, 1.0);
+    check = dia_font_new_from_style(font, 1.0);
     loaded = pango_context_load_font(pango_context,
 				     check->pfd);
     if (loaded == NULL) {
-      message_error(_("Can't load font %s.\n"), fontname);
+      message_error(_("Can't load font %s.\n"), dia_font_get_family(check));
     }
 }
 
@@ -87,11 +87,12 @@ dia_font_init(PangoContext* pcontext)
 {
   pango_context = pcontext;
   /* We must have these three fonts! */
-  dia_font_check_for_font("sans");
-  dia_font_check_for_font("serif");
-  dia_font_check_for_font("monospace");
+  dia_font_check_for_font(DIA_FONT_SANS);
+  dia_font_check_for_font(DIA_FONT_SERIF);
+  dia_font_check_for_font(DIA_FONT_MONOSPACE);
 }
 
+/* We might not need these anymore, when using FT2/Win32 fonts only */
 static GList *pango_contexts;
 
 void

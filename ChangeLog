@@ -1,3 +1,28 @@
+2002-12-05  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/font.c: Now checking for the proper dia-style standard fonts.
+
+	* lib/Makefile.am: 
+	* app/Makefile.am: Moving group.[ch]
+
+	* plug-ins/dxf/dxf-import.c: 
+	* plug-ins/xfig/xfig-import.c: 
+	* plug-ins/xfig/xfig-export.c: Now can refer directly to group.h.
+
+	* app/object_ops.c: 
+	* app/object_ops.h: 
+	* lib/object.c (object_list_move_delta, object_copy_list): 
+	* lib/object.h: Moved some object-related functions from
+	object_ops to object to	assist moving group.c.
+
+	* lib/diatypes.h: Added Group typedef.
+
+	* lib/group.h: 
+	* lib/group.c: Moved from app to lib to a) resolve plug-ins
+	references, and b) make groups more "real" objects.
+
+	* lib/Makefile.am (libdia_la_SOURCES): Added diatyps.h
+
 2002-12-03  Lars Clausen <lrclause@cs.uiuc.edu>
 
 	* lib/font.c (dia_font_init): Added check that the three standard

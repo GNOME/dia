@@ -37,8 +37,6 @@ dia_core_files = \
 	    preferences.h \
 	    load_save.c \
 	    load_save.h \
-	    group.c \
-	    group.h \
 	    properties.c \
 	    properties.h \
 	    defaults.c \

@@ -22,13 +22,10 @@
 #include <math.h>
 
 #include "object.h"
-#include "object_ops.h"
 #include "connectionpoint.h"
 #include "group.h"
-#include "object_ops.h"
-#include "lib/properties.h"
-
-typedef struct _Group Group;
+#include "properties.h"
+#include "diarenderer.h"
 
 struct _Group {
  /* Object must be first because this is a 'subclass' of it. */

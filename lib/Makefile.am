@@ -28,6 +28,7 @@ stdprop_files = \
 pkglib_LTLIBRARIES =     libdia.la
 
 libdia_la_SOURCES =  \
+		diatypes.h \
 		diavar.h \
 		diamenu.h \
 		diagramdata.h \
@@ -45,6 +46,8 @@ libdia_la_SOURCES =  \
 		text.h \
 		font.c \
 		font.h \
+	        group.c \
+	        group.h \
 		utils.c \
 		utils.h \
 		arrows.c \

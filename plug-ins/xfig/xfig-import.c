@@ -47,7 +47,7 @@
 #include "object.h"
 #include "properties.h"
 #include "propinternals.h"
-#include "../app/group.h"
+#include "group.h"
 
 #include "create.h"
 #include "xfig.h"

@@ -42,9 +42,7 @@ void object_connect_display(DDisplay *ddisp, Object *obj,
 			    Handle *handle);
 /* Adds Undo info for connected objects. */
 
-GList *object_copy_list(GList *list);
 Point object_list_corner(GList *list);
-void object_list_move_delta(GList *objects, Point *delta);
 void object_list_align_h(GList *objects, Diagram *dia, int align);
 void object_list_align_v(GList *objects, Diagram *dia, int align);
 #endif /* OBJECT_OPS_H */

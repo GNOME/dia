@@ -102,76 +102,6 @@ object_connect_display(DDisplay *ddisp, Object *obj, Handle *handle)
   }
 }
 
-static guint
-pointer_hash(gpointer some_pointer)
-{
-  return (guint) some_pointer;
-}
-
-GList *
-object_copy_list(GList *list_orig)
-{
-  GList *list_copy;
-  GList *list;
-  Object *obj;
-  Object *obj_copy;
-  GHashTable *hash_table;
-  int i;
-
-  hash_table = g_hash_table_new((GHashFunc) pointer_hash, NULL);
-
-  list = list_orig;
-  list_copy = NULL;
-  while (list != NULL) {
-    obj = (Object *)list->data;
-    obj_copy = obj->ops->copy(obj);
-
-    g_hash_table_insert(hash_table, obj, obj_copy);
-    
-    list_copy = g_list_append(list_copy, obj_copy);
-    
-    list = g_list_next(list);
-  }
-
-  /* Rebuild the connections between the objects in the list: */
-  list = list_orig;
-  while (list != NULL) {
-    obj = (Object *)list->data;
-    obj_copy = g_hash_table_lookup(hash_table, obj);
-    
-    for (i=0;i<obj->num_handles;i++) {
-      ConnectionPoint *con_point;
-      con_point = obj->handles[i]->connected_to;
-      
-      if ( con_point != NULL ) {
-	Object *other_obj;
-	Object *other_obj_copy;
-	int con_point_nr;
-	
-	other_obj = con_point->object;
-	other_obj_copy = g_hash_table_lookup(hash_table, other_obj);
-
-	if (other_obj_copy == NULL)
-	  break; /* other object was not on list. */
-	
-	con_point_nr=0;
-	while (other_obj->connections[con_point_nr] != con_point) {
-	  con_point_nr++;
-	}
-
-	object_connect(obj_copy, obj_copy->handles[i],
-		       other_obj_copy->connections[con_point_nr]);
-      }
-    }
-    
-    list = g_list_next(list);
-  }
-  
-  g_hash_table_destroy(hash_table);
-  
-  return list_copy;
-}
-
 Point
 object_list_corner(GList *list)
 {
@@ -200,27 +130,6 @@ object_list_corner(GList *list)
 
   return p;
 }
-
-extern void
-object_list_move_delta(GList *objects, Point *delta)
-{
-  GList *list;
-  Object *obj;
-  Point pos;
-
-  list = objects;
-  while (list != NULL) {
-    obj = (Object *) list->data;
-    
-    pos = obj->position;
-    point_add(&pos, delta);
-
-    obj->ops->move(obj, &pos);
-
-    list = g_list_next(list);
-  }
-}
-
 
 static int
 object_list_sort_vertical(const void *o1, const void *o2) {

@@ -42,7 +42,7 @@
 #include "propinternals.h"
 #include "autocad_pal.h"
 
-#include "../app/group.h"
+#include "group.h"
 #include "create.h"
 #include "attributes.h"
 

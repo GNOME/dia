@@ -102,6 +102,9 @@ typedef struct _Rectangle Rectangle;
 typedef struct _IntRectangle IntRectangle;
 typedef struct _BezPoint BezPoint;
 
+/* In group.h: */
+typedef struct _Group Group;
+
 /* In handle.h: */
 typedef struct _Handle Handle;
 

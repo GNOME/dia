@@ -24,7 +24,7 @@
 #include "object.h"
 #include "properties.h"
 #include "dia_image.h"
-#include "../app/group.h"
+#include "group.h"
 
 #include "xfig.h"
 

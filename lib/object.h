@@ -259,6 +259,8 @@ void object_copy(Object *from, Object *to);
 void object_save(Object *obj, ObjectNode obj_node);
 void object_load(Object *obj, ObjectNode obj_node);
 
+GList *object_copy_list(GList *list);
+void object_list_move_delta(GList *objects, Point *delta);
 void destroy_object_list(GList *list);
 void object_add_handle(Object *obj, Handle *handle);
 void object_add_handle_at(Object *obj, Handle *handle, int pos);
