@@ -1,3 +1,9 @@
+2003-02-10  Steffen Macke <sdteffen@web.de>
+
+	* plug-ins/wmf/wmf.cpp: patch from Ken Tsukahara 
+	<ken.tsukahara@tmt-d.co.jp>, fixes windows printing and WMF export of
+	non-ANSI characters, closes #107980
+
 2003-03-04  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* configure.in: 

@@ -378,7 +378,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 	dwItalic,	// italic attribute flag
 	0,		// underline attribute flag
 	0,		// strikeout attribute flag
-	ANSI_CHARSET,	// character set identifier 
+	DEFAULT_CHARSET,	// character set identifier 
 	OUT_TT_PRECIS, 	// output precision 
 	CLIP_DEFAULT_PRECIS,	// clipping precision
 	PROOF_QUALITY,		// output quality 
