@@ -1,3 +1,94 @@
+2001-01-05  Hans Breuer <Hans@Breuer.Org>
+
+	Applied Steffen's recent file list patch :
+	* app/Makefile.am : added recent_files.[hc]
+	* app/diagram.c : add files to recent file list
+	* app/menus.c : add recent file menu
+	* app/app_procs.c : changed initialization order to
+	make recent file list work with command line processing.
+
+	The Filter export()/import() functions have got an additional 
+	parameter to allow multiple filters via one C callback (required
+	for Python bindings)
+
+	* app/commands.[hc] : corrected the signature for gtk menu callback
+	functions, which actually use the second or third parameter. This
+	is the absolute minimum change to make these functions/menu entries
+	work again. Using the other possible gtk menu callback signature
+	would have required one more function to change. (see mailing list
+	thread "Objects/Align/Equal Distance" for more information.
+
+	* app/disp_callbacks.c : applied Gustavo J.A.M. Carneiro's
+	zoom-combo focus patch
+
+	* app/display.c
+	* app/interface.c : wrapped the Zoom Combo code into 
+	#ifndef WITHOUT_ZOOM_COMBO because IHMO it isn't an useabilty
+	improvement but cluttering the user interface. Also it wasn't
+	compiling on Win32 anyway. The win32 version does define 
+	WITHOUT_ZOOM_COMBO to keep the old look. 
+	There are plans to use the statusbar to display size and placement
+	of selected objects, whereas the Zoom Combo would need to get out
+	of the way as well.
+
+	Added "Save Changes?" to diagram close dialog. Hopefuly the
+	Yes/No/Cancel option isn't too much windoze like. IHMO this is
+	an useability improvement.
+
+	* app/export_png.c
+	* app/filedlg.c
+	* app/load_save.c
+	* app/layer_dialog.c
+	* app/paginate_psprint.c
+	* app/render_eps.c
+	- reflect signature changing of filter->export function
+	- replaced '/' with G_DIR_SEPARARTOR where appropriate
+
+	* app/diaunitspinner.c
+	* app/render_libart.c
+	added misssing headers like <string.h>
+
+	* app/object_ops.c : fixed copy&paste bug in dialog string
+
+	* app/splash.c : gdk_widget_show_now () does not ensure actual
+	drawing of the splash screen, at least not on win32. Reuse the
+	previous implementation with gtk_main_iteration() again.
+
+	* */makefile.msc : make use of the build module (available in
+	gnome-cvs/build. Updated for other source changes
+
+	* lib/filter.h : added an user_data pointer to <ex/im>port()
+	function signature and Dia<Im/Ex>portFilter to allow different
+	filters to reuse the same callback function
+
+	* lib/font.c : #include <string.h>
+
+	* lib/orth_conn.c 
+	* lib/poly_conn.c 
+	* lib/poly_shape.c 
+	* lib/neworth_conn.c
+	* lib/text.c : don't mix allocator functions (g_)realloc, free, ...
+
+	* */*.def : export function definition files required by win32 build
+
+	* objects/custom/custom.c : #include <string.h>
+
+	* plug-ins/pstricks/render_pstricks.c
+	* plug-ins/shape/shape_export.c
+	* plug-ins/svg/render_svg.c
+	reflect changes to filter export function signature
+
+	* plug-ins/wmf/wmf.cpp : fixed indent and scaling. It now should
+	mostly work as expected
+	* plug-ins/wmf/wmf_gdi.[hc] : Updated comment. Still not used
+	to build the wmf plug-in because on the one hand the GDI emulation 
+	isn't finished and on the other hand it isn't required when building
+	for win32. Is there anybody out there, who wants to save WMF on non
+	windoze platforms ?
+
+	* plug-ins/wpg/wpg.cpp : fixed scaling to take axis dependent
+	offset into account.
+
 2001-01-02  Steffen Macke <sdteffen@yahoo.com>
 
 	* app/Makefile.am: added missing plug-ins to run_dia.sh

@@ -746,7 +746,8 @@ draw_image(RendererPSTRICKS *renderer,
 
 /* --- export filter interface --- */
 static void
-export_pstricks(DiagramData *data, const gchar *filename, const gchar *diafilename)
+export_pstricks(DiagramData *data, const gchar *filename, 
+                const gchar *diafilename, void* user_data)
 {
     RendererPSTRICKS *renderer;
 

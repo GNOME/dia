@@ -149,7 +149,7 @@ add_handle(PolyShape *poly, int pos, Point *point, Handle *handle,
   Object *obj;
   
   poly->numpoints++;
-  poly->points = realloc(poly->points, poly->numpoints*sizeof(Point));
+  poly->points = g_realloc(poly->points, poly->numpoints*sizeof(Point));
 
   for (i=poly->numpoints-1; i > pos; i--) {
     poly->points[i] = poly->points[i-1];
@@ -177,7 +177,7 @@ remove_handle(PolyShape *poly, int pos)
   for (i=pos; i < poly->numpoints; i++) {
     poly->points[i] = poly->points[i+1];
   }
-  poly->points = realloc(poly->points, poly->numpoints*sizeof(Point));
+  poly->points = g_realloc(poly->points, poly->numpoints*sizeof(Point));
 
   old_handle = obj->handles[pos];
   old_cp1 = obj->connections[2*pos];

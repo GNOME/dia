@@ -1,16 +1,25 @@
+TOP = ..\..
 PRJ_TOP = ..
 PACKAGE = dia
-!INCLUDE "..\..\gtk_cfg.inc"
+!INCLUDE $(TOP)\build\win32\make.msc
 
-PKG_CFLAGS = -I$(GLIB) -I$(GTK) -I$(GTK)\$(GDKSUB) -I$(GMODULE) \
-	-I$(LIBXML) -I$(PNG) -I$(ZLIB) -I$(GDKPIXBUF)\.. \
+LIBART = $(TOP)/libart_lgpl
+GDKPIXBUF = $(TOP)/dia-dev/gdk-pixbuf
+
+PKG_CFLAGS = -I.. $(GLIB_CFLAGS) $(GTK_CFLAGS) \
+	-I$(LIBXML) $(PNG_CFLAGS) -I$(GDKPIXBUF)\.. \
 	-I$(PRJ_TOP)\lib -I$(LIBART)\.. -DHAVE_LIBART -DHAVE_LIBPNG \
-	-DVERSION=\"0.86\"
+	-DVERSION=\"0.86\" -DWITHOUT_ZOOM_COMBO
 
-PKG_LINK = $(GTK)\gtk\gtk-$(GTK_VER).lib $(GTK)\$(GDKSUB)\gdk-$(GTK_VER).lib $(GLIB)\gmodule-$(GLIB_VER).lib $(GLIB)\glib-$(GLIB_VER).lib \
-	$(LIBXML)\libxml.lib $(GDKPIXBUF)\gdk-pixbuf.lib \
+!IFNDEF DEBUG
+XML_LIB = libxml.lib
+!ELSE
+XML_LIB = libxmld.lib
+!ENDIF
+
+PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(PNG_LIBS) \
+	$(LIBXML)\$(XML_LIB) $(GDKPIXBUF)\gdk-pixbuf.lib \
 	$(PRJ_TOP)\lib\libdia.lib $(LIBART)\libart.lib \
-	$(PNG)\libpng.lib $(ZLIB)\zlib.lib \
 	$(GDKPIXBUF)\gdk-pixbuf.lib
 
 OBJECTS = \
@@ -51,6 +60,7 @@ OBJECTS = \
 	plugin-manager.obj \
 	preferences.obj \
 	properties.obj \
+	recent_files.obj \
 	render_eps.obj \
 	render_gdk.obj \
 	render_libart.obj \
@@ -100,7 +110,7 @@ $(PACKAGE).dll : $(OBJECTS) $(PACKAGE).def
 	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE).dll $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
 
 $(PACKAGE).exe : $(OBJECTS) $(PACKAGE).def
-	$(CC) $(CFLAGS) -MD -Fe$(PACKAGE).exe $(PACKAGE).res $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
+	$(CC) $(CFLAGS) -Fe$(PACKAGE).exe $(PACKAGE).res $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
 
 $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h
@@ -108,7 +118,7 @@ $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 .c.obj :
 	$(CC) $(CFLAGS) -GD -c $(PKG_CFLAGS) $<
 
-clean:
+clean::
 	del config.h
 	del *.exe
 	del *.obj

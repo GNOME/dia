@@ -131,6 +131,8 @@ dia_core_files = \
 	    cursor.h \
 	    splash.c \
 	    splash.h \
+	    recent_files.h \
+	    recent_files.c \
 	    $(print_files)
 
 

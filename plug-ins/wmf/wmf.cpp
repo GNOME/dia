@@ -54,6 +54,19 @@ namespace W32 {
 /* --- the renderer --- */
 #define MY_RENDERER_NAME "WMF"
 
+typedef struct _PlaceableMetaHeader
+{
+  guint32 Key;           /* Magic number (always 9AC6CDD7h) */
+  guint16 Handle;        /* Metafile HANDLE number (always 0) */
+  gint16  Left;          /* Left coordinate in metafile units */
+  gint16  Top;           /* Top coordinate in metafile units */
+  gint16  Right;         /* Right coordinate in metafile units */
+  gint16  Bottom;        /* Bottom coordinate in metafile units */
+  guint16 Inch;          /* Number of metafile units per inch */
+  guint32 Reserved;      /* Reserved (always 0) */
+  guint16 Checksum;      /* Checksum value for previous 10 WORDs */
+} PLACEABLEMETAHEADER;
+
 typedef struct _MyRenderer MyRenderer;
 struct _MyRenderer {
     Renderer renderer;
@@ -67,6 +80,9 @@ struct _MyRenderer {
     W32::HPEN  hPen; /* ugliness by concept, see DonePen() */
 
     W32::HFONT hFont;
+    PLACEABLEMETAHEADER pmh;
+    double xoff, yoff;
+    double scale;
 };
 
 /* include function declares and render object "vtable" */
@@ -80,8 +96,9 @@ struct _MyRenderer {
 	((unsigned char)(0xff * c->green)) * 256 + \
 	((unsigned char)(0xff * c->blue)) * 65536;
 
-#define WMF_SCALE 100.0
-#define SC(a) ((a)*WMF_SCALE)
+#define SC(a) ((a)*renderer->scale)
+#define SCX(a) (((a)+renderer->xoff)*renderer->scale)
+#define SCY(a) (((a)+renderer->yoff)*renderer->scale)
 
 /*
  * helper functions
@@ -112,7 +129,7 @@ DonePen(MyRenderer* renderer, W32::HPEN hPen)
     }
 }
 
-#define DIAG_NOTE my_log
+#define DIAG_NOTE /* my_log */
 void
 my_log(MyRenderer* renderer, char* format, ...)
 {
@@ -141,7 +158,7 @@ begin_render(MyRenderer *renderer, DiagramData *data)
 
     /* make unfilled the default */
     W32::SelectObject(renderer->hFileDC, 
-	W32::GetStockObject (HOLLOW_BRUSH) );
+	                W32::GetStockObject (HOLLOW_BRUSH) );
 }
 
 static void
@@ -151,19 +168,24 @@ end_render(MyRenderer *renderer)
     W32::UINT nSize;
     W32::BYTE* pData = NULL;
     FILE* f;
+    W32::HDC hdc = W32::GetDC(NULL);
 
     DIAG_NOTE(renderer, "end_render\n");
     hEmf = W32::CloseEnhMetaFile(renderer->hFileDC);
 
 #ifndef SAVE_EMF
+    f = fopen(renderer->sFileName, "wb");
+
+    /* write the placeable header */
+    fwrite(&renderer->pmh, 1, 22 /* NOT: sizeof(PLACEABLEMETAHEADER) */, f);
+
     /* get size */
-    nSize = W32::GetWinMetaFileBits(hEmf, 0, NULL, MM_ANISOTROPIC, W32::GetDC(NULL));
+    nSize = W32::GetWinMetaFileBits(hEmf, 0, NULL, MM_ANISOTROPIC, hdc);
     pData = g_new(W32::BYTE, nSize);
     /* get data */
-    nSize = W32::GetWinMetaFileBits(hEmf, nSize, pData, MM_ANISOTROPIC, W32::GetDC(NULL));
+    nSize = W32::GetWinMetaFileBits(hEmf, nSize, pData, MM_ANISOTROPIC, hdc);
 
     /* write file */
-    f = fopen(renderer->sFileName, "wb");
     fwrite(pData,1,nSize,f);
     fclose(f);
     
@@ -175,6 +197,7 @@ end_render(MyRenderer *renderer)
 	W32::DeleteEnhMetaFile(hEmf);
     if (renderer->hFont)
 	W32::DeleteObject(renderer->hFont);
+    W32::DeleteDC(hdc);
 }
 
 static void
@@ -293,7 +316,7 @@ set_font(MyRenderer *renderer, Font *font, real height)
 	sFace = "Arial";
 
     dwItalic = !!(    strstr(font->name, "Italic") 
-		   || strstr(font->name, "Oblique")); //?
+                   || strstr(font->name, "Oblique")); //?
     if (strstr(font->name, "Bold"))
 	dwWeight = FW_BOLD;
     else if (strstr(font->name, "Demi"))
@@ -302,16 +325,16 @@ set_font(MyRenderer *renderer, Font *font, real height)
 	dwWeight = FW_LIGHT;
 
     renderer->hFont = (W32::HFONT)W32::CreateFont( 
-	-(height * WMF_SCALE),  // logical height of font 
-	0,			// logical average character width 
-	0,			// angle of escapement
-	0,			// base-line orientation angle 
-	dwWeight,		// font weight
-	dwItalic,		// italic attribute flag
-	0,			// underline attribute flag
-	0,			// strikeout attribute flag
-	ANSI_CHARSET,		// character set identifier 
-	OUT_TT_PRECIS, 		// output precision 
+	- SC (height),  // logical height of font 
+	0,		// logical average character width 
+	0,		// angle of escapement
+	0,		// base-line orientation angle 
+	dwWeight,	// font weight
+	dwItalic,	// italic attribute flag
+	0,		// underline attribute flag
+	0,		// strikeout attribute flag
+	ANSI_CHARSET,	// character set identifier 
+	OUT_TT_PRECIS, 	// output precision 
 	CLIP_DEFAULT_PRECIS,	// clipping precision
 	PROOF_QUALITY,		// output quality 
 	DEFAULT_PITCH,		// pitch and family
@@ -330,8 +353,8 @@ draw_line(MyRenderer *renderer,
 
     hPen = UsePen(renderer, line_colour);
 
-    W32::MoveToEx(renderer->hFileDC, SC(start->x), SC(start->y), NULL);
-    W32::LineTo(renderer->hFileDC, SC(end->x), SC(end->y));
+    W32::MoveToEx(renderer->hFileDC, SCX(start->x), SCY(start->y), NULL);
+    W32::LineTo(renderer->hFileDC, SCX(end->x), SCY(end->y));
 
     DonePen(renderer, hPen);
 }
@@ -353,8 +376,8 @@ draw_polyline(MyRenderer *renderer,
     pts = g_new (W32::POINT, num_points+1);
     for (i = 0; i < num_points; i++)
     {
-	pts[i].x = SC(points[i].x);
-	pts[i].y = SC(points[i].y);
+	pts[i].x = SCX(points[i].x);
+	pts[i].y = SCY(points[i].y);
     }
 
     hPen = UsePen(renderer, line_colour);
@@ -371,18 +394,18 @@ draw_polygon(MyRenderer *renderer,
 {
     W32::HGDIOBJ hPen;
     W32::POINT*  pts;
-    int	    i;
+    int          i;
 
     DIAG_NOTE(renderer, "draw_polygon n:%d %f,%f ...\n", 
               num_points, points->x, points->y);
 
     if (num_points < 2)
-	return;
+	  return;
     pts = g_new (W32::POINT, num_points+1);
     for (i = 0; i < num_points; i++)
     {
-	pts[i].x = SC(points[i].x);
-	pts[i].y = SC(points[i].y);
+	pts[i].x = SCX(points[i].x);
+	pts[i].y = SCY(points[i].y);
     }
 
     hPen = UsePen(renderer, line_colour);
@@ -399,20 +422,20 @@ fill_polygon(MyRenderer *renderer,
 	     Point *points, int num_points, 
 	     Color *colour)
 {
-    W32::HBRUSH  hBrush, hBrOld;
-    W32::COLORREF rgb = W32COLOR(colour);
+     W32::HBRUSH  hBrush, hBrOld;
+     W32::COLORREF rgb = W32COLOR(colour);
 
-    DIAG_NOTE(renderer, "fill_polygon n:%d %f,%f ...\n", 
-              num_points, points->x, points->y);
+     DIAG_NOTE(renderer, "fill_polygon n:%d %f,%f ...\n", 
+               num_points, points->x, points->y);
 
-    hBrush = W32::CreateSolidBrush(rgb);
-    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+     hBrush = W32::CreateSolidBrush(rgb);
+     hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
 
-    draw_polygon(renderer, points, num_points, colour);
+     draw_polygon(renderer, points, num_points, colour);
 
-    W32::SelectObject(renderer->hFileDC, 
-    W32::GetStockObject (HOLLOW_BRUSH) );
-    W32::DeleteObject(hBrush);
+     W32::SelectObject(renderer->hFileDC, 
+                       W32::GetStockObject(HOLLOW_BRUSH) );
+     W32::DeleteObject(hBrush);
 }
 
 static void
@@ -420,18 +443,18 @@ draw_rect(MyRenderer *renderer,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
-  W32::HGDIOBJ hPen;
+    W32::HGDIOBJ hPen;
 
-  DIAG_NOTE(renderer, "draw_rect %f,%f -> %f,%f\n", 
-            ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
+    DIAG_NOTE(renderer, "draw_rect %f,%f -> %f,%f\n", 
+              ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
 
-  hPen = UsePen(renderer, colour);
+    hPen = UsePen(renderer, colour);
 
-  W32::Rectangle(renderer->hFileDC,
-  SC(ul_corner->x), SC(ul_corner->y),
-  SC(lr_corner->x), SC(lr_corner->y));
+    W32::Rectangle(renderer->hFileDC,
+                   SCX(ul_corner->x), SCY(ul_corner->y),
+                   SCX(lr_corner->x), SCY(lr_corner->y));
 
-  DonePen(renderer, hPen);
+    DonePen(renderer, hPen);
 }
 
 static void
@@ -439,20 +462,20 @@ fill_rect(MyRenderer *renderer,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *colour)
 {
-  W32::HGDIOBJ hBrush, hBrOld;
-  W32::COLORREF rgb = W32COLOR(colour);
+    W32::HGDIOBJ hBrush, hBrOld;
+    W32::COLORREF rgb = W32COLOR(colour);
 
-  DIAG_NOTE(renderer, "fill_rect %f,%f -> %f,%f\n", 
-            ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
+    DIAG_NOTE(renderer, "fill_rect %f,%f -> %f,%f\n", 
+              ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
 
-  hBrush = W32::CreateSolidBrush(rgb);
-  hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+    hBrush = W32::CreateSolidBrush(rgb);
+    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
 
-  draw_rect(renderer, ul_corner, lr_corner, colour);
+    draw_rect(renderer, ul_corner, lr_corner, colour);
 
-  W32::SelectObject(renderer->hFileDC, 
-  W32::GetStockObject (HOLLOW_BRUSH) );
-  W32::DeleteObject(hBrush);
+    W32::SelectObject(renderer->hFileDC, 
+                    W32::GetStockObject (HOLLOW_BRUSH) );
+    W32::DeleteObject(hBrush);
 }
 
 static void
@@ -462,29 +485,29 @@ draw_arc(MyRenderer *renderer,
 	 real angle1, real angle2,
 	 Color *colour)
 {
-  W32::HGDIOBJ hPen;
-  W32::POINT ptStart, ptEnd;
+    W32::HGDIOBJ hPen;
+    W32::POINT ptStart, ptEnd;
 
-  DIAG_NOTE(renderer, "draw_arc %fx%f <%f,<%f @%f,%f\n", 
-            width, height, angle1, angle2, center->x, center->y);
+    DIAG_NOTE(renderer, "draw_arc %fx%f <%f,<%f @%f,%f\n", 
+              width, height, angle1, angle2, center->x, center->y);
 
-  hPen = UsePen(renderer, colour);
+    hPen = UsePen(renderer, colour);
 
-  /* calculate start and end points of arc */
-  ptStart.x = SC(center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1));
-  ptStart.y = SC(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1));
-  ptEnd.x = SC(center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle2));
-  ptEnd.y = SC(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle2));
+    /* calculate start and end points of arc */
+    ptStart.x = SCX(center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1));
+    ptStart.y = SCX(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle1));
+    ptEnd.x = SCX(center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle2));
+    ptEnd.y = SCY(center->y - (height / 2.0) * sin((M_PI / 180.0) * angle2));
 
-  W32::MoveToEx(renderer->hFileDC, ptStart.x, ptStart.y, NULL);
-  W32::Arc(renderer->hFileDC,
-  SC(center->x - width / 2), /* bbox corners */
-  SC(center->y - height / 2),
-  SC(center->x + width / 2), 
-  SC(center->y + height / 2),
-  ptStart.x, ptStart.y, ptEnd.x, ptEnd.y); 
+    W32::MoveToEx(renderer->hFileDC, ptStart.x, ptStart.y, NULL);
+    W32::Arc(renderer->hFileDC,
+             SCX(center->x - width / 2), /* bbox corners */
+             SCY(center->y - height / 2),
+             SCX(center->x + width / 2), 
+             SCY(center->y + height / 2),
+             ptStart.x, ptStart.y, ptEnd.x, ptEnd.y); 
 
-  DonePen(renderer, hPen);
+    DonePen(renderer, hPen);
 }
 
 static void
@@ -494,14 +517,16 @@ fill_arc(MyRenderer *renderer,
 	 real angle1, real angle2,
 	 Color *colour)
 {
-  W32::HGDIOBJ hPen;
+    W32::HGDIOBJ hPen;
 
-  DIAG_NOTE(renderer, "fill_arc %fx%f <%f,<%f @%f,%f\n", 
-            width, height, angle1, angle2, center->x, center->y);
+    DIAG_NOTE(renderer, "fill_arc %fx%f <%f,<%f @%f,%f\n", 
+              width, height, angle1, angle2, center->x, center->y);
 
-  hPen = UsePen(renderer, colour);
+    hPen = UsePen(renderer, colour);
 
-  DonePen(renderer, hPen);
+    /* FIXME: draw it, but Dia doesn't use this anyway ... */
+
+    DonePen(renderer, hPen);
 }
 
 static void
@@ -510,20 +535,20 @@ draw_ellipse(MyRenderer *renderer,
 	     real width, real height,
 	     Color *colour)
 {
-  W32::HGDIOBJ hPen;
+    W32::HGDIOBJ hPen;
 
-  DIAG_NOTE(renderer, "draw_ellipse %fx%f @ %f,%f\n", 
-            width, height, center->x, center->y);
+    DIAG_NOTE(renderer, "draw_ellipse %fx%f @ %f,%f\n", 
+              width, height, center->x, center->y);
 
-  hPen = UsePen(renderer, colour);
+    hPen = UsePen(renderer, colour);
 
-  W32::Ellipse(renderer->hFileDC,
-  SC(center->x - width / 2), /* bbox corners */
-  SC(center->y - height / 2),
-  SC(center->x + width / 2), 
-  SC(center->y + height / 2));
+    W32::Ellipse(renderer->hFileDC,
+                 SCX(center->x - width / 2), /* bbox corners */
+                 SCY(center->y - height / 2),
+                 SCX(center->x + width / 2), 
+                 SCY(center->y + height / 2));
 
-  DonePen(renderer, hPen);
+    DonePen(renderer, hPen);
 }
 
 static void
@@ -532,21 +557,21 @@ fill_ellipse(MyRenderer *renderer,
 	     real width, real height,
 	     Color *colour)
 {
-  W32::HGDIOBJ hPen;
-  W32::HGDIOBJ hBrush, hBrOld;
-  W32::COLORREF rgb = W32COLOR(colour);
+    W32::HGDIOBJ hPen;
+    W32::HGDIOBJ hBrush, hBrOld;
+    W32::COLORREF rgb = W32COLOR(colour);
 
-  DIAG_NOTE(renderer, "fill_ellipse %fx%f @ %f,%f\n", 
-            width, height, center->x, center->y);
+    DIAG_NOTE(renderer, "fill_ellipse %fx%f @ %f,%f\n", 
+              width, height, center->x, center->y);
 
-  hBrush = W32::CreateSolidBrush(rgb);
-  hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+    hBrush = W32::CreateSolidBrush(rgb);
+    hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
 
-  draw_ellipse(renderer, center, width, height, colour);
+    draw_ellipse(renderer, center, width, height, colour);
 
-  W32::SelectObject(renderer->hFileDC, 
-  W32::GetStockObject (HOLLOW_BRUSH) );
-  W32::DeleteObject(hBrush);
+    W32::SelectObject(renderer->hFileDC, 
+                      W32::GetStockObject (HOLLOW_BRUSH) );
+    W32::DeleteObject(hBrush);
 }
 
 static void
@@ -555,51 +580,51 @@ draw_bezier(MyRenderer *renderer,
 	    int numpoints,
 	    Color *colour)
 {
-  W32::HGDIOBJ hPen;
-  W32::POINT * pts;
-  int i;
+    W32::HGDIOBJ hPen;
+    W32::POINT * pts;
+    int i;
 
-  DIAG_NOTE(renderer, "draw_bezier n:%d %fx%f ...\n", 
-            numpoints, points->p1.x, points->p1.y);
+    DIAG_NOTE(renderer, "draw_bezier n:%d %fx%f ...\n", 
+              numpoints, points->p1.x, points->p1.y);
 
-  pts = g_new(W32::POINT, (numpoints-1) * 3 + 1);
+    pts = g_new(W32::POINT, (numpoints-1) * 3 + 1);
 
-  pts[0].x = SC(points[0].p1.x);
-  pts[0].y = SC(points[0].p1.y);
+    pts[0].x = SCX(points[0].p1.x);
+    pts[0].y = SCY(points[0].p1.y);
 
-  for (i = 1; i < numpoints; i++)
-  {
-    switch(points[i].type)
+    for (i = 1; i < numpoints; i++)
     {
-	case _BezPoint::BEZ_MOVE_TO:
-        g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-	  break;
-      case _BezPoint::BEZ_LINE_TO:
-        /* everyhing the same ?*/
-        pts[i*3-2].x = pts[i*3-1].x = 
-        pts[i*3  ].x = SC(points[i].p1.x);
-        pts[i*3-2].y = pts[i*3-1].y = 
-        pts[i*3  ].y = SC(points[i].p1.y);
+        switch(points[i].type)
+        {
+        case _BezPoint::BEZ_MOVE_TO:
+            g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+	      break;
+        case _BezPoint::BEZ_LINE_TO:
+            /* everyhing the same ?*/
+            pts[i*3-2].x = pts[i*3-1].x = 
+            pts[i*3  ].x = SCX(points[i].p1.x);
+            pts[i*3-2].y = pts[i*3-1].y = 
+            pts[i*3  ].y = SCY(points[i].p1.y);
         break;
-	case _BezPoint::BEZ_CURVE_TO:
-        /* control points */
-        pts[i*3-2].x = SC(points[i].p1.x);
-        pts[i*3-2].y = SC(points[i].p1.y);
-        pts[i*3-1].x = SC(points[i].p2.x);
-        pts[i*3-1].y = SC(points[i].p2.y);
-        /* end point */
-        pts[i*3  ].x = SC(points[i].p3.x);
-        pts[i*3  ].y = SC(points[i].p3.y);
+        case _BezPoint::BEZ_CURVE_TO:
+            /* control points */
+            pts[i*3-2].x = SCX(points[i].p1.x);
+            pts[i*3-2].y = SCY(points[i].p1.y);
+            pts[i*3-1].x = SCX(points[i].p2.x);
+            pts[i*3-1].y = SCY(points[i].p2.y);
+            /* end point */
+            pts[i*3  ].x = SCX(points[i].p3.x);
+            pts[i*3  ].y = SCY(points[i].p3.y);
 	  break;
-	default:
-	  break;
-	}
+        default:
+        break;
+        }
     }
 
     hPen = UsePen(renderer, colour);
 
     W32::PolyBezier(renderer->hFileDC,
-	pts, (numpoints-1)*3+1);
+	              pts, (numpoints-1)*3+1);
 
     DonePen(renderer, hPen);
 
@@ -626,28 +651,31 @@ draw_string(MyRenderer *renderer,
 {
     int len;
     W32::HGDIOBJ hOld;
+    W32::COLORREF rgb = W32COLOR(colour);
 
     DIAG_NOTE(renderer, "draw_string %f,%f %s\n", 
               pos->x, pos->y, text);
 
+    W32::SetTextColor(renderer->hFileDC, rgb);
+
     switch (alignment) {
     case ALIGN_LEFT:
-	W32::SetTextAlign(renderer->hFileDC, TA_LEFT+TA_BASELINE);
-	break;
+        W32::SetTextAlign(renderer->hFileDC, TA_LEFT+TA_BASELINE);
+    break;
     case ALIGN_CENTER:
-	W32::SetTextAlign(renderer->hFileDC, TA_CENTER+TA_BASELINE);
-	break;
+        W32::SetTextAlign(renderer->hFileDC, TA_CENTER+TA_BASELINE);
+        break;
     case ALIGN_RIGHT:
-	W32::SetTextAlign(renderer->hFileDC, TA_RIGHT+TA_BASELINE);
-	break;
+        W32::SetTextAlign(renderer->hFileDC, TA_RIGHT+TA_BASELINE);
+    break;
     }
     /* work out size of first chunk of text */
     len = strlen(text);
 
     hOld = W32::SelectObject(renderer->hFileDC, renderer->hFont);
     W32::TextOut(renderer->hFileDC,
-	SC(pos->x), SC(pos->y),
-	text, len);
+                 SCX(pos->x), SCY(pos->y),
+                 text, len);
     W32::SelectObject(renderer->hFileDC, hOld);
 }
 
@@ -669,32 +697,32 @@ draw_image(MyRenderer *renderer,
 
     if ((dia_image_width(image)*3) % 4)
     {
-	/* transform data to be DWORD aligned */
-	int x, y;
-	const unsigned char* pIn = NULL;
-	unsigned char* pOut = NULL;
+        /* transform data to be DWORD aligned */
+        int x, y;
+        const unsigned char* pIn = NULL;
+        unsigned char* pOut = NULL;
 
-	pOut = pData = g_new(unsigned char, ((((iWidth*3-1)/4)+1)*4)*iHeight);
+        pOut = pData = g_new(unsigned char, ((((iWidth*3-1)/4)+1)*4)*iHeight);
 
-	pIn = dia_image_rgb_data(image);
-	for (y = 0; y < iHeight; y++)
-	{
-	    for (x = 0; x < iWidth; x++)
-	    {
-		*pOut++ = *pIn++;
-		*pOut++ = *pIn++;
-		*pOut++ = *pIn++;
-	    }
-	    pOut += (4 - (iWidth*3)%4);
-	}
+        pIn = dia_image_rgb_data(image);
+        for (y = 0; y < iHeight; y++)
+        {
+            for (x = 0; x < iWidth; x++)
+            {
+                *pOut++ = *pIn++;
+                *pOut++ = *pIn++;
+                *pOut++ = *pIn++;
+            }
+            pOut += (4 - (iWidth*3)%4);
+        }
 
-	hBmp = W32::CreateBitmap ( iWidth, iHeight, 1, 24, pData);
+        hBmp = W32::CreateBitmap ( iWidth, iHeight, 1, 24, pData);
     }
     else
     {
-	hBmp = W32::CreateBitmap ( 
-	    dia_image_width(image), dia_image_height(image),
-	    1, 24, dia_image_rgb_data(image));
+        hBmp = W32::CreateBitmap ( 
+                        dia_image_width(image), dia_image_height(image),
+                        1, 24, dia_image_rgb_data(image));
     }
 
     W32::SelectObject(renderer->hFileDC, hBmp);
@@ -703,43 +731,53 @@ draw_image(MyRenderer *renderer,
 #     define DWORD unsigned long
 #   endif
     W32::BitBlt(renderer->hFileDC, // destination
-	SC(point->x), SC(point->y), SC(width), SC(height),
-	renderer->hFileDC, // source
-	0, 0, SRCCOPY);
+                SCX(point->x), SCY(point->y), SC(width), SC(height),
+                renderer->hFileDC, // source
+                0, 0, SRCCOPY);
 
     W32::DeleteObject(hBmp);
     if (pData)
-	g_free(pData);
+        g_free(pData);
 }
 
 static void
-export_data(DiagramData *data, const gchar *filename, const gchar *diafilename)
+export_data(DiagramData *data, const gchar *filename, 
+            const gchar *diafilename, void* user_data)
 {
     MyRenderer *renderer;
     W32::HDC  file;
     Rectangle *extent;
     gint len;
+    double scale;
 
     W32::RECT bbox;
 
-    bbox.top = SC(data->extents.top);
-    bbox.left = SC(data->extents.left);
-    bbox.right = SC(data->extents.right);
-    bbox.bottom = SC(data->extents.bottom);
+    /* Bounding Box in .01-millimeter units ??? */
+    bbox.top = 0;
+    bbox.left = 0;
+    if (  (data->extents.right - data->extents.left)
+        > (data->extents.bottom - data->extents.top)) {
+        scale = floor (32000.0 / (data->extents.right - data->extents.left));
+    }
+    else {
+        scale = floor (32000.0 / (data->extents.bottom - data->extents.top));
+    }
+    bbox.right = (data->extents.right - data->extents.left) * scale;
+    bbox.bottom = (data->extents.bottom - data->extents.top) * scale;
 
     file = (W32::HDC)W32::CreateEnhMetaFile( 
-	W32::GetDC(NULL), // handle to a reference device context
+                    W32::GetDC(NULL), // handle to a reference device context
 #ifdef SAVE_EMF
-	filename,   // pointer to a filename string
+                    filename, // pointer to a filename string
 #else
-      NULL, // in memory
+                    NULL, // in memory
 #endif
-	&bbox,	    // pointer to a bounding rectangle
-	"Dia\0Diagram\0"); // pointer to an optional description string 
+                    &bbox, // pointer to a bounding rectangle
+                    "Dia\0Diagram\0"); // pointer to an optional description string 
 
     if (file == NULL) {
-	message_error(_("Couldn't open: '%s' for writing.\n"), filename);
-	return;
+        message_error(_("Couldn't open: '%s' for writing.\n"), filename);
+        return;
     }
 
     renderer = g_new(MyRenderer, 1);
@@ -752,10 +790,45 @@ export_data(DiagramData *data, const gchar *filename, const gchar *diafilename)
 
     extent = &data->extents;
 
+    /* calculate offsets */
+    renderer->xoff = - data->extents.left;
+    renderer->yoff = - data->extents.top;
+    renderer->scale = scale / 25.4; /* don't know why this is required ... */
+
+    /* initialize placeable header */
+    /* bounding box in twips 1/1440 of an inch */
+    renderer->pmh.Key = 0x9AC6CDD7;
+    renderer->pmh.Handle = 0;
+    renderer->pmh.Left   = 0;
+    renderer->pmh.Top    = 0;
+    renderer->pmh.Right  = SC(data->extents.right - data->extents.left) * 25.4;
+    renderer->pmh.Bottom = SC(data->extents.bottom - data->extents.top) * 25.4;
+    renderer->pmh.Inch   = 1440 * 10;
+    renderer->pmh.Reserved = 0;
+
+    guint16 *ptr;
+    renderer->pmh.Checksum = 0;
+    for (ptr = (guint16 *)&renderer->pmh; ptr < (guint16 *)&(renderer->pmh.Checksum); ptr++)
+        renderer->pmh.Checksum ^= *ptr;
+
+    /* bounding box in device units */
+    bbox.left = 0;
+    bbox.top = 0;
+    bbox.right = SC(data->extents.right - data->extents.left) * 25.4;
+    bbox.bottom = SC(data->extents.bottom - data->extents.top) * 25.4;
+
+    /* initialize drawing */
+    W32::SetBkMode(renderer->hFileDC, TRANSPARENT);
+    W32::SetMapMode(renderer->hFileDC, MM_TEXT);
+    W32::IntersectClipRect(renderer->hFileDC, 
+                           bbox.left, bbox.top,
+                           bbox.right, bbox.bottom);
+
+    renderer->scale *= 0.95; /* just a little smaller ... */
+
     /* write extents */
     DIAG_NOTE(renderer, "export_data extents %f,%f -> %f,%f\n", 
               extent->left, extent->top, extent->right, extent->bottom);
-
 
     data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
 

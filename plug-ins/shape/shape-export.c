@@ -890,7 +890,8 @@ draw_image(RendererShape *renderer,
 }
 
 static void
-export_shape(DiagramData *data, const gchar *filename, const gchar *diafilename)
+export_shape(DiagramData *data, const gchar *filename, 
+             const gchar *diafilename, void* user_data)
 {
     RendererShape *renderer;
     int i;

@@ -19,6 +19,7 @@
 
 #include "config.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #include "diagram.h"
@@ -143,6 +144,7 @@ origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
   return FALSE;
 }
 
+#ifndef WITHOUT_ZOOM_COMBO
 static void
 zoom_activate_callback(GtkWidget *dummy, gpointer user_data) {
   DDisplay *ddisp = (DDisplay *)user_data;
@@ -193,6 +195,7 @@ create_zoom_widget(DDisplay *ddisp) {
 
   return combo;
 }
+#endif
 
 static gboolean
 display_drop_callback(GtkWidget *widget, GdkDragContext *context,
@@ -232,7 +235,9 @@ create_display_shell(DDisplay *ddisp,
 {
   GtkWidget *table, *widget;
   GtkWidget *status_hbox;
+#ifndef WITHOUT_ZOOM_COMBO
   GtkWidget *zoom_hbox, *zoom_label;
+#endif
   int s_width, s_height;
 
   s_width = gdk_screen_width ();
@@ -381,9 +386,12 @@ create_display_shell(DDisplay *ddisp,
     gtk_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
     GTK_SIGNAL_FUNC(origin_button_press), ddisp);
   */
-  /*
+#ifdef WITHOUT_ZOOM_COMBO
   ddisp->zoom_status = gtk_statusbar_new ();
-  */
+  ddisp->modified_status = gtk_statusbar_new ();
+  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->zoom_status,
+		      FALSE, FALSE, 0);
+#else
   ddisp->zoom_status = create_zoom_widget(ddisp);
   ddisp->modified_status = gtk_statusbar_new ();
 
@@ -395,12 +403,13 @@ create_display_shell(DDisplay *ddisp,
 		      FALSE, FALSE, 0);
 
   gtk_box_pack_start (GTK_BOX (status_hbox), zoom_hbox, FALSE, FALSE, 0);
-  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->modified_status,
-		      TRUE, TRUE, 0);
 
+#endif
   gtk_table_attach (GTK_TABLE (table), status_hbox, 0, 3, 3, 4,
                     GTK_FILL, GTK_FILL, 0, 0);
 
+  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->modified_status,
+		      TRUE, TRUE, 0);
 
   gtk_widget_show (ddisp->hsb);
   gtk_widget_show (ddisp->vsb);
@@ -409,8 +418,10 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_show (ddisp->vrule);
   gtk_widget_show (ddisp->canvas);
   gtk_widget_show (ddisp->zoom_status);
+#ifndef WITHOUT_ZOOM_COMBO
   gtk_widget_show (zoom_hbox);
   gtk_widget_show (zoom_label);
+#endif
   gtk_widget_show (ddisp->modified_status);
   gtk_widget_show (status_hbox);
   gtk_widget_show (table);

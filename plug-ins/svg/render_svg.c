@@ -807,7 +807,8 @@ draw_image(RendererSVG *renderer,
 }
 
 static void
-export_svg(DiagramData *data, const gchar *filename, const gchar *diafilename)
+export_svg(DiagramData *data, const gchar *filename, 
+           const gchar *diafilename, void* user_data)
 {
   RendererSVG *renderer;
   char *old_locale;

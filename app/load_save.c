@@ -210,7 +210,7 @@ hash_free_string(gpointer       key,
 }
 
 static gboolean
-diagram_data_load(const char *filename, DiagramData *data)
+diagram_data_load(const char *filename, DiagramData *data, void* user_data)
 {
   GHashTable *objects_hash;
   int fd;
@@ -559,12 +559,12 @@ diagram_data_save(DiagramData *data, const char *filename)
    
   /* build the temporary and backup file names */
   dirname = g_strdup(filename);
-  p = strrchr((char *)dirname,'/');
+  p = strrchr((char *)dirname,G_DIR_SEPARATOR);
   if (p) {
     *(p+1) = 0;
   } else {
     g_free(dirname);
-    dirname = g_strdup("./");
+    dirname = g_strdup("." G_DIR_SEPARATOR_S);
   }
   tmpname = g_strconcat(dirname,"__diaXXXXXX",NULL);
   bakname = g_strconcat(filename,"~",NULL);
@@ -712,7 +712,7 @@ diagram_save(Diagram *dia, const char *filename)
 /* --- filter interfaces --- */
 static void
 export_native(DiagramData *data, const gchar *filename,
-	      const gchar *diafilename)
+	      const gchar *diafilename, void* user_data)
 {
   diagram_data_save(data, filename);
 }

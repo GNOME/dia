@@ -569,7 +569,11 @@ view_zoom_out_callback(GtkWidget *widget, gpointer data)
 }
 
 void
+#ifdef GNOME
 view_zoom_set_callback(GtkWidget *widget, gpointer data)
+#else
+view_zoom_set_callback(GtkWidget *widget, gpointer data, guint action)
+#endif
 {
   DDisplay *ddisp;
 #ifndef GNOME
@@ -594,7 +598,7 @@ view_zoom_set_callback(GtkWidget *widget, gpointer data)
     scale = ((real) v)/100.0 * DDISPLAY_NORMAL_ZOOM;
   }
 # else
-  percent = (int) data;
+  percent = (int) action;
   scale = ((real) percent)/1000.0 * DDISPLAY_NORMAL_ZOOM;
 # endif
 
@@ -819,13 +823,21 @@ dialogs_layers_callback(GtkWidget *widget, gpointer data)
 
 
 void
+#ifdef GNOME
 objects_align_h_callback(GtkWidget *widget, gpointer data)
+#else
+objects_align_h_callback(GtkWidget *widget, gpointer data, guint action)
+#endif
 {
   int align;
   Diagram *dia;
   GList *objects;
 
+#ifdef GNOME
   align = GPOINTER_TO_INT(data);
+#else
+  align = action;
+#endif
 
   dia = ddisplay_active()->diagram;
   objects = dia->data->selected;
@@ -840,13 +852,21 @@ objects_align_h_callback(GtkWidget *widget, gpointer data)
 }
 
 void
+#ifdef GNOME
 objects_align_v_callback(GtkWidget *widget, gpointer data)
+#else
+objects_align_v_callback(GtkWidget *widget, gpointer data, guint action)
+#endif
 {
   int align;
   Diagram *dia;
   GList *objects;
 
+#ifdef GNOME
   align = GPOINTER_TO_INT(data);
+#else
+  align = action;
+#endif
   dia = ddisplay_active()->diagram;
   objects = dia->data->selected;
 

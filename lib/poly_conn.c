@@ -170,7 +170,7 @@ add_handle(PolyConn *poly, int pos, Point *point, Handle *handle)
   Object *obj;
   
   poly->numpoints++;
-  poly->points = realloc(poly->points, poly->numpoints*sizeof(Point));
+  poly->points = g_realloc(poly->points, poly->numpoints*sizeof(Point));
 
   for (i=poly->numpoints-1; i > pos; i--) {
     poly->points[i] = poly->points[i-1];
@@ -212,7 +212,7 @@ remove_handle(PolyConn *poly, int pos)
   for (i=pos; i < poly->numpoints; i++) {
     poly->points[i] = poly->points[i+1];
   }
-  poly->points = realloc(poly->points, poly->numpoints*sizeof(Point));
+  poly->points = g_realloc(poly->points, poly->numpoints*sizeof(Point));
 
   old_handle = obj->handles[pos];
   object_remove_handle(&poly->object, old_handle);

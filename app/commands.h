@@ -47,7 +47,12 @@ void get_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
 
 void view_zoom_in_callback(GtkWidget *widget, gpointer data);
 void view_zoom_out_callback(GtkWidget *widget, gpointer data);
+
+#ifdef GNOME
 void view_zoom_set_callback(GtkWidget *widget, gpointer data);
+#else
+void view_zoom_set_callback(GtkWidget *widget, gpointer data, guint action);
+#endif
 
 void view_aa_callback(GtkWidget *widget,
 		      gpointer  callback_data);
@@ -72,7 +77,12 @@ void objects_ungroup_callback(GtkWidget *widget, gpointer data);
 void dialogs_properties_callback(GtkWidget *widget, gpointer data);
 void dialogs_layers_callback(GtkWidget *widget, gpointer data);
 
+#ifdef GNOME
 void objects_align_h_callback(GtkWidget *widget, gpointer data);
 void objects_align_v_callback(GtkWidget *widget, gpointer data);
+#else
+void objects_align_h_callback(GtkWidget *widget, gpointer data, guint action);
+void objects_align_v_callback(GtkWidget *widget, gpointer data, guint action);
+#endif
 
 #endif /* COMMANDS_H */

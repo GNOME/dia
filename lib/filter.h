@@ -26,7 +26,7 @@
 
 typedef struct _DiaExportFilter DiaExportFilter;
 typedef void (* DiaExportFunc) (DiagramData *dia, const gchar *filename,
-				const gchar *diafilename);
+				const gchar *diafilename, void* user_data);
 
 struct _DiaExportFilter {
   const gchar *description;
@@ -34,11 +34,13 @@ struct _DiaExportFilter {
    * one is the prefered extension for files of this type. */
   const gchar **extensions;
   DiaExportFunc export;
+  void* user_data;
 };
 
 typedef struct _DiaImportFilter DiaImportFilter;
 /* returns FALSE on error loading diagram */
-typedef gboolean (* DiaImportFunc) (const gchar *filename, DiagramData *dia);
+typedef gboolean (* DiaImportFunc) (const gchar *filename, DiagramData *dia, 
+                                    void* user_data);
 
 struct _DiaImportFilter {
   const gchar *description;
@@ -46,6 +48,7 @@ struct _DiaImportFilter {
    * one is the prefered extension for files of this type. */
   const gchar **extensions;
   DiaImportFunc import;
+  void* user_data;
 };
 
 /* register an export filter.  The DiaExportFilter should be static, and

@@ -247,4 +247,4 @@ TextOut(HDC hdc, wmfint iX, wmfint iY, const char* s, wmfint iNumChars);
 
 } // namespace W32
 
-#endif _WMF_GDI_H_
+#endif // _WMF_GDI_H_

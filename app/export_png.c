@@ -42,7 +42,8 @@
 #define BAND_HEIGHT 50
 
 static void
-export_png(DiagramData *data, const gchar *filename, const gchar *diafilename)
+export_png(DiagramData *data, const gchar *filename, 
+           const gchar *diafilename, void* user_data)
 {
   Rectangle *ext = &data->extents;
   DDisplay *ddisp;

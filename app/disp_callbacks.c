@@ -438,6 +438,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
       switch (bevent->button)
 	{
 	case 1:
+	  /* get the focus again, may be lost by zoom combo */
+	  gtk_widget_grab_focus(canvas);
 	  if (*active_tool->button_press_func)
 	    (*active_tool->button_press_func) (active_tool, bevent, ddisp);
 	  break;

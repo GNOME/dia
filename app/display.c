@@ -38,6 +38,7 @@
 #include "preferences.h"
 #include "app_procs.h"
 #include "layer_dialog.h"
+#include "load_save.h"
 
 #include "pixmaps/snap-to-grid.xpm"
 #include "pixmaps/snap-to-grid-mask.xpm"
@@ -64,7 +65,7 @@ snap_status_load_images(GdkWindow *window)
 {
   GdkPixmap *dpix;
   GdkBitmap *mask = NULL;
-
+  /*
   dpix = gdk_pixmap_create_from_xpm_d(window, &mask, NULL, snap_to_grid_xpm);
   g_assert(dpix != NULL);
 
@@ -73,7 +74,7 @@ snap_status_load_images(GdkWindow *window)
 
   gdk_pixmap_unref(dpix);
   gdk_pixmap_unref(mask);
-  /*
+
   dpix = gdk_pixmap_create_from_data(window, data, width, height);
   mask = gdk_pixmap_create_from_data(window, mask, width, height);
   g_assert(dpix != NULL && mask != NULL);
@@ -102,6 +103,7 @@ update_snap_status(DDisplay *ddisp)
 static void
 update_zoom_status(DDisplay *ddisp)
 {
+#ifndef WITHOUT_ZOOM_COMBO
   GtkCombo *zoomcombo;
   gchar zoom_text[7];
 
@@ -110,7 +112,11 @@ update_zoom_status(DDisplay *ddisp)
 	   ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
   gtk_entry_set_text(GTK_ENTRY(zoomcombo->entry), zoom_text);
   
-  /*
+#else
+  /* HB: if the combo above ever get's the focus, the window
+   * hotkeys won't work anymore; plus IHMO it clutters the UI
+   * and isn't the useful anyway ...
+   */
   GtkStatusbar *statusbar;
   guint context_id;
   gchar *zoom_text;
@@ -125,7 +131,7 @@ update_zoom_status(DDisplay *ddisp)
   gtk_statusbar_push (statusbar, context_id, zoom_text);
 
   g_free (zoom_text);
-  */
+#endif
 }
 
 static void
@@ -175,7 +181,7 @@ new_display(Diagram *dia)
   ddisp->update_areas = NULL;
   ddisp->display_areas = NULL;
 
-  filename = strrchr(dia->filename, '/');
+  filename = strrchr(dia->filename, G_DIR_SEPARATOR);
   if (filename==NULL) {
     filename = dia->filename;
   } else {
@@ -782,7 +788,7 @@ ddisplay_active(void)
 }
 
 static void
-are_you_sure_close_dialog_no(GtkWidget *widget, GtkWidget *dialog)
+are_you_sure_close_dialog_cancel(GtkWidget *widget, GtkWidget *dialog)
 {
   gtk_widget_destroy(dialog);
 }
@@ -795,6 +801,21 @@ are_you_sure_close_dialog_yes(GtkWidget *widget,
 
   ddisp =  gtk_object_get_user_data(GTK_OBJECT(dialog));
   
+  /* save changes */
+  diagram_save(ddisp->diagram, ddisp->diagram->filename);
+  
+  gtk_widget_destroy(dialog);
+  gtk_widget_destroy (ddisp->shell);
+}
+
+static void
+are_you_sure_close_dialog_no(GtkWidget *widget,
+			      GtkWidget *dialog)
+{
+  DDisplay *ddisp;
+
+  ddisp =  gtk_object_get_user_data(GTK_OBJECT(dialog));
+
   gtk_widget_destroy(dialog);
   gtk_widget_destroy (ddisp->shell);
 }
@@ -818,7 +839,7 @@ ddisplay_close(DDisplay *ddisp)
   }
 
 #ifdef GNOME
-  dialog = gnome_dialog_new(_("Really close?"),
+  dialog = gnome_dialog_new(_("Close Diagram?"),
 			    GNOME_STOCK_BUTTON_YES,GNOME_STOCK_BUTTON_NO,NULL);
   gnome_dialog_set_default(GNOME_DIALOG(dialog), 0);
   vbox = GNOME_DIALOG(dialog)->vbox;
@@ -830,7 +851,7 @@ ddisplay_close(DDisplay *ddisp)
 #endif
   
   label = gtk_label_new (_("This diagram has not been saved.\n"
-			 "Are you sure you want to close this window?"));
+			 "Save changes now?"));
   
   gtk_misc_set_padding (GTK_MISC (label), 10, 10);
   gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
@@ -864,6 +885,17 @@ ddisplay_close(DDisplay *ddisp)
 
   gtk_signal_connect (GTK_OBJECT (button), "clicked",
 		      GTK_SIGNAL_FUNC(are_you_sure_close_dialog_no),
+		      dialog);
+
+  gtk_widget_show (button);
+
+  button = gtk_button_new_with_label (_("Cancel"));
+  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
+		      button, TRUE, TRUE, 0);
+
+  gtk_signal_connect (GTK_OBJECT (button), "clicked",
+		      GTK_SIGNAL_FUNC(are_you_sure_close_dialog_cancel),
 		      dialog);
 
   gtk_widget_show (button);

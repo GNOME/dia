@@ -281,7 +281,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
     y_pos = top;
     break;
   default:
-    message_warning("Wrong argument to object_list_align_h()\n");
+    message_warning("Wrong argument to object_list_align_v()\n");
   }
   
   dest_pos = g_new(Point, nobjs);
@@ -316,6 +316,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
       y_pos += obj->bounding_box.bottom - obj->bounding_box.top;
       break;
     }
+
     orig_pos[i] = obj->position;
     dest_pos[i] = pos;
     

@@ -17,6 +17,7 @@
  */
 
 #include <math.h>
+#include <string.h> /* strlen */
 #include <gdk/gdk.h>
 
 #include "render_libart.h"

@@ -21,6 +21,7 @@
 
 #include <stdio.h>
 #include <locale.h>
+#include <string.h> /* strlen */
 #include "intl.h"
 #include "message.h"
 #include "diagram.h"
@@ -271,13 +272,13 @@ diagram_print_ps(Diagram *dia)
     is_pipe = TRUE;
   } else {
     gchar *filename = gtk_entry_get_text(GTK_ENTRY(ofile));
-    if (filename[0] != '/') {
+    if (!g_path_is_absolute(filename)) {
       char *diagram_dir;
       char *full_filename;
 
       diagram_dir = g_dirname(dia->filename);
       full_filename = g_malloc(strlen(diagram_dir)+strlen(filename)+2);
-      sprintf(full_filename, "%s/%s", diagram_dir, filename);
+      sprintf(full_filename, "%s" G_DIR_SEPARATOR_S "%s", diagram_dir, filename);
       file = fopen(full_filename, "w");
       g_free(full_filename);
     } else {

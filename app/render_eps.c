@@ -1123,7 +1123,8 @@ draw_image(RendererEPS *renderer,
 
 /* --- export filter interface --- */
 static void
-export_eps(DiagramData *data, const gchar *filename, const gchar *diafilename)
+export_eps(DiagramData *data, const gchar *filename, 
+           const gchar *diafilename, void* user_data)
 {
   RendererEPS *renderer;
   char *old_locale;

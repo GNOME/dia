@@ -485,7 +485,7 @@ layer_dialog_update_diagram_list(void)
       current_nr = i;
     }
     
-    filename = strrchr(dia->filename, '/');
+    filename = strrchr(dia->filename, G_DIR_SEPARATOR);
     if (filename==NULL) {
       filename = dia->filename;
     } else {

@@ -70,7 +70,15 @@ app_splash_init (const gchar* fname)
 
   gtk_widget_show_all (splash);
 
+#ifndef G_OS_WIN32
   gtk_widget_show_now (splash);
+#else
+  /* Maybe a bug in Gtk+ for Windoze, but with the above the 
+   * splash screen remains undrawn ... 
+   */
+  while (gtk_events_pending ())
+    gtk_main_iteration ();
+#endif
 }
 
 void

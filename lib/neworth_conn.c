@@ -671,7 +671,7 @@ delete_point(NewOrthConn *orth, int pos)
     orth->points[i] = orth->points[i+1];
   }
   
-  orth->points = realloc(orth->points, orth->numpoints*sizeof(Point));
+  orth->points = g_realloc(orth->points, orth->numpoints*sizeof(Point));
 }
 
 /* Make sure numpoints have been decreased before calling this function.
@@ -690,9 +690,9 @@ remove_handle(NewOrthConn *orth, int segment)
     orth->orientation[i] = orth->orientation[i+1];
   }
 
-  orth->orientation = realloc(orth->orientation,
+  orth->orientation = g_realloc(orth->orientation,
 			      (orth->numpoints-1)*sizeof(Orientation));
-  orth->handles = realloc(orth->handles,
+  orth->handles = g_realloc(orth->handles,
 			  (orth->numpoints-1)*sizeof(Handle *));
   
   object_remove_handle(&orth->object, handle);
@@ -706,7 +706,7 @@ add_point(NewOrthConn *orth, int pos, Point *point)
   
   orth->numpoints++;
 
-  orth->points = realloc(orth->points, orth->numpoints*sizeof(Point));
+  orth->points = g_realloc(orth->points, orth->numpoints*sizeof(Point));
   for (i=orth->numpoints-1;i>pos;i--) {
     orth->points[i] = orth->points[i-1];
   }
@@ -722,9 +722,9 @@ insert_handle(NewOrthConn *orth, int segment,
 {
   int i;
   
-  orth->orientation = realloc(orth->orientation,
+  orth->orientation = g_realloc(orth->orientation,
 			      (orth->numpoints-1)*sizeof(Orientation));
-  orth->handles = realloc(orth->handles,
+  orth->handles = g_realloc(orth->handles,
 			  (orth->numpoints-1)*sizeof(Handle *));
   for (i=orth->numpoints-2;i>segment;i--) {
     orth->handles[i] = orth->handles[i-1];

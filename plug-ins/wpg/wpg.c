@@ -62,7 +62,9 @@
 /*
  * helper macros
  */
-#define SC(a) ((a) * renderer->Scale)
+#define SC(a)  ((a) * renderer->Scale)
+#define SCX(a) (((a) + renderer->XOffset) * renderer->Scale)
+#define SCY(a) (((a) + renderer->YOffset) * renderer->Scale)
 
 /* --- the renderer --- */
 #define MY_RENDERER_NAME "WPG"
@@ -73,7 +75,8 @@ struct _MyRenderer {
 
   FILE *file;
 
-  real Scale;
+  real Scale;   /* to WPU == 1/1200 inch */
+  real XOffset, YOffset; /* in dia units */
 
   real dash_length;
 
@@ -298,7 +301,7 @@ begin_render(MyRenderer *renderer, DiagramData *data)
 static void
 end_render(MyRenderer *renderer)
 {
-  DIAG_NOTE(g_message("end_render"));
+  DIAG_NOTE(g_message( "end_render"));
 
   WriteRecHead(renderer, WPG_END, 0); /* no data following */
   fclose(renderer->file);
@@ -433,10 +436,10 @@ draw_line(MyRenderer *renderer,
   WriteRecHead(renderer, WPG_LINE, 4 * sizeof(gint16));
 
   /* point data */
-  pData[0] = SC(start->x);
-  pData[1] = SC(-start->y);
-  pData[2] = SC(end->x);
-  pData[3] = SC(-end->y);
+  pData[0] = SCX(start->x);
+  pData[1] = SCY(-start->y);
+  pData[2] = SCX(end->x);
+  pData[3] = SCY(-end->y);
 
   fwrite_le(pData, sizeof(gint16), 4, renderer->file);
 }
@@ -466,8 +469,8 @@ draw_polyline(MyRenderer *renderer,
   /* point data */
   for (i = 0; i < num_points; i++)
   {
-    pData[2*i]   = SC(points[i].x);
-    pData[2*i+1] = SC(-points[i].y);
+    pData[2*i]   = SCX(points[i].x);
+    pData[2*i+1] = SCY(-points[i].y);
   }
 
   fwrite_le(pData, sizeof(gint16), num_points*2, renderer->file);
@@ -498,8 +501,8 @@ draw_polygon(MyRenderer *renderer,
   /* point data */
   for (i = 0; i < num_points; i++)
   {
-    pData[2*i]   = SC(points[i].x);
-    pData[2*i+1] = SC(-points[i].y);
+    pData[2*i]   = SCX(points[i].x);
+    pData[2*i+1] = SCY(-points[i].y);
   }
 
   fwrite_le(pData, sizeof(gint16), num_points*2, renderer->file);
@@ -533,8 +536,8 @@ draw_rect(MyRenderer *renderer,
   WriteRecHead(renderer, WPG_RECTANGLE, 4*sizeof(gint16));
 
   pData = g_new(gint16, 4);
-  pData[0] = SC(ul_corner->x); /* lower left corner ! */
-  pData[1] = SC(-lr_corner->y);
+  pData[0] = SCX(ul_corner->x); /* lower left corner ! */
+  pData[1] = SCY(-lr_corner->y);
   pData[2] = SC(lr_corner->x - ul_corner->x); /* width */
   pData[3] = SC(lr_corner->y - ul_corner->y); /* height */
 
@@ -568,8 +571,8 @@ draw_arc(MyRenderer *renderer,
   DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
             width, height, angle1, angle2));
 
-  ell.x = SC(center->x);
-  ell.y = SC(-center->y);
+  ell.x = SCX(center->x);
+  ell.y = SCY(-center->y);
   ell.RotAngle = 0;
   ell.rx = SC(width / 2.0);
   ell.ry = SC(height / 2.0);
@@ -597,8 +600,8 @@ fill_arc(MyRenderer *renderer,
   DIAG_NOTE(g_message("fill_arc %fx%f <%f,<%f", 
             width, height, angle1, angle2));
 
-  ell.x = SC(center->x);
-  ell.y = SC(-center->y);
+  ell.x = SCX(center->x);
+  ell.y = SCY(-center->y);
   ell.RotAngle = 0;
   ell.rx = SC(width / 2.0);
   ell.ry = SC(height / 2.0);
@@ -627,8 +630,8 @@ draw_ellipse(MyRenderer *renderer,
   DIAG_NOTE(g_message("draw_ellipse %fx%f center @ %f,%f", 
             width, height, center->x, center->y));
 
-  ell.x = SC(center->x);
-  ell.y = SC(-center->y);
+  ell.x = SCX(center->x);
+  ell.y = SCY(-center->y);
   ell.RotAngle = 0;
   ell.rx = SC(width / 2.0);
   ell.ry = SC(height / 2.0);
@@ -680,8 +683,8 @@ draw_bezier(MyRenderer *renderer,
   memset(pData, 0, sizeof(gint16)*2);
 #else
   /* try first point instead */
-  pData[0] = SC(points[0].p1.x);
-  pData[1] = SC(-points[0].p1.y);
+  pData[0] = SCX(points[0].p1.x);
+  pData[1] = SCY(-points[0].p1.y);
 #endif
   fwrite_le(pData, sizeof(gint16), 2, renderer->file);
 
@@ -699,37 +702,37 @@ draw_bezier(MyRenderer *renderer,
     case BEZ_MOVE_TO:
     case BEZ_LINE_TO:
       /* real point */
-      pData[4*i  ] = SC( points[i].p1.x);
-      pData[4*i+1] = SC(-points[i].p1.y);
+      pData[4*i  ] = SCX( points[i].p1.x);
+      pData[4*i+1] = SCY(-points[i].p1.y);
 
       /* control point (1st from next point) */
       if (i+1 < numpoints) {
-        pData[4*i+2] = SC( points[i+1].p1.x);
-        pData[4*i+3] = SC(-points[i+1].p1.y);
+        pData[4*i+2] = SCX( points[i+1].p1.x);
+        pData[4*i+3] = SCY(-points[i+1].p1.y);
       }
       else {
-        pData[4*i+2] = SC( points[i].p1.x);
-        pData[4*i+3] = SC(-points[i].p1.y);
+        pData[4*i+2] = SCX( points[i].p1.x);
+        pData[4*i+3] = SCY(-points[i].p1.y);
       }
       break;
     case BEZ_CURVE_TO:
       if (0 && (i+1 < numpoints)) {
         /* real point ?? */
-        pData[4*i  ] = SC( points[i].p3.x);
-        pData[4*i+1] = SC(-points[i].p3.y);
+        pData[4*i  ] = SCX( points[i].p3.x);
+        pData[4*i+1] = SCY(-points[i].p3.y);
         /* control point (1st from next point) */
-        pData[4*i+2] = SC( points[i+1].p1.x);
-        pData[4*i+3] = SC(-points[i+1].p1.y);
+        pData[4*i+2] = SCX( points[i+1].p1.x);
+        pData[4*i+3] = SCY(-points[i+1].p1.y);
       }
       else {
         /* need to swap these ?? */
         /* real point ?? */
-        pData[4*i  ] = SC( points[i].p2.x);
-        pData[4*i+1] = SC(-points[i].p2.y);
+        pData[4*i  ] = SCX( points[i].p2.x);
+        pData[4*i+1] = SCY(-points[i].p2.y);
 
         /* control point ?? */
-        pData[4*i+2] = SC( points[i].p3.x);
-        pData[4*i+3] = SC(-points[i].p3.y);
+        pData[4*i+2] = SCX( points[i].p3.x);
+        pData[4*i+3] = SCY(-points[i].p3.y);
       }
       break;
     }
@@ -764,7 +767,7 @@ draw_string(MyRenderer *renderer,
   DIAG_NOTE(g_message("draw_string(%d) %f,%f %s", 
             len, pos->x, pos->y, text));
 
-  if (len < 1) return;
+  if (len < 1) return; /* shouldn't this be handled by Dia's core ? */
 
   renderer->TextStyle.YAlign = 3; /* bottom ??? */
 
@@ -801,8 +804,8 @@ draw_string(MyRenderer *renderer,
   fwrite(&renderer->TextStyle.Color, 1, 1, renderer->file);
   fwrite_le(&renderer->TextStyle.Angle, sizeof(guint16), 1, renderer->file);
 #endif
-  pt.x = SC(pos->x);
-  pt.y = SC(-pos->y);
+  pt.x = SCX(pos->x);
+  pt.y = SCY(-pos->y);
 
   WriteRecHead(renderer, WPG_TEXT, 3*sizeof(gint16) + len);
   fwrite_le(&len, sizeof(gint16), 1, renderer->file);
@@ -819,14 +822,14 @@ draw_image(MyRenderer *renderer,
 {
   WPGBitmap2 bmp;
   guint8 * pDiaImg = NULL, * pOut = NULL, * pIn = NULL, * p = NULL;
-  guint8 b_1 = 0, b = 0, cnt;
+  guint8 b_1, b, cnt;
   int x, y;
 
   bmp.Angle  = 0;
-  bmp.Left   = SC(point->x);
-  bmp.Top    = SC(-point->y - height);
-  bmp.Right  = SC(point->x + width);
-  bmp.Bottom = SC(-point->y);
+  bmp.Left   = SCX(point->x);
+  bmp.Top    = SCY(-point->y - height);
+  bmp.Right  = SCX(point->x + width);
+  bmp.Bottom = SCY(-point->y);
 
   bmp.Width  = dia_image_width(image);
   bmp.Height = dia_image_height(image);
@@ -835,7 +838,7 @@ draw_image(MyRenderer *renderer,
   bmp.Xdpi = 72; /* ??? */
   bmp.Ydpi = 72;
 
-  DIAG_NOTE(g_message("draw_image %fx%f [%d,%d] @%f,%f", 
+  DIAG_NOTE(g_message( "draw_image %fx%f [%d,%d] @%f,%f", 
             width, height, bmp.Width, bmp.Height, point->x, point->y));
 
   pDiaImg = pIn = dia_image_rgb_data(image);
@@ -878,7 +881,8 @@ draw_image(MyRenderer *renderer,
     *p++ = b;
     pIn -= (3 * bmp.Width * 2); /* start of previous line */
   }
-  DIAG_NOTE(g_message("Width x Height: %d RLE: %d", bmp.Width * bmp.Height, p - pOut));
+  DIAG_NOTE(g_message( "Width x Height: %d RLE: %d", 
+	      bmp.Width * bmp.Height, p - pOut));
 
   if ((p - pOut) > 32767) {
     g_warning(MY_RENDERER_NAME ": Bitmap size exceeds blocksize. Ignored.");
@@ -893,7 +897,7 @@ draw_image(MyRenderer *renderer,
 #endif
     fwrite(pOut, sizeof(guint8), p - pOut, renderer->file);
   }
-#if 1
+#if 0
   /* RLE diagnose */
   {
     FILE* f;
@@ -913,11 +917,13 @@ draw_image(MyRenderer *renderer,
 }
 
 static void
-export_data(DiagramData *data, const gchar *filename, const gchar *diafilename)
+export_data(DiagramData *data, const gchar *filename, 
+            const gchar *diafilename, void* user_data)
 {
   MyRenderer *renderer;
   FILE *file;
   Rectangle *extent;
+  gint len;
   real width, height;
 
   file = fopen(filename, "wb"); /* "wb" for binary! */
@@ -942,12 +948,24 @@ export_data(DiagramData *data, const gchar *filename, const gchar *diafilename)
 
   width  = extent->right - extent->left;
   height = extent->bottom - extent->top;
+#if 0
+  /* extend to use full range */
   renderer->Scale = 0.001;
   if (width > height)
     while (renderer->Scale * width < 3276.7) renderer->Scale *= 10.0;
   else
     while (renderer->Scale * height < 3276.7) renderer->Scale *= 10.0;
-
+#else
+  /* scale from Dia's cm to WPU (1/1200 inch) */
+  renderer->Scale = 1200.0 / 2.54;
+  /* avoid int16 overflow */
+  if (width > height)
+    while (renderer->Scale * width > 32767) renderer->Scale /= 10.0;
+  else
+    while (renderer->Scale * height > 32767) renderer->Scale /= 10.0;
+  renderer->XOffset = - extent->left;
+  renderer->YOffset = - extent->top;
+#endif
   renderer->Box.Width  = width * renderer->Scale;
   renderer->Box.Height = height * renderer->Scale;
   renderer->Box.Flag   = 0;
@@ -1001,14 +1019,14 @@ import_object(MyRenderer* renderer, DiagramData *dia,
     pInt16 = (gint16*)pData;
     iNum = pInt16[2];
     pts = (WPGPoint*)(pData + 3*sizeof(gint16));
-    DIAG_NOTE(g_message("POLYCURVE Num pts %d Pre51 %d\n", iNum, iPre51));
+    DIAG_NOTE(g_message("POLYCURVE Num pts %d Pre51 %d", iNum, iPre51));
     break;
   } /* switch */
   DIAG_NOTE(g_message("Type %d Num pts %d Size %d", type, iNum, iSize));
 } 
 
 static gboolean
-import_data (const gchar *filename, DiagramData *dia)
+import_data (const gchar *filename, DiagramData *dia, void* user_data)
 {
   FILE* f;
   gboolean bRet;
@@ -1040,7 +1058,7 @@ import_data (const gchar *filename, DiagramData *dia)
 
     ren.pPal = g_new0(WPGColorRGB, 256);
 
-    DIAG_NOTE(g_message("Parsing: %s", filename));
+    DIAG_NOTE(g_message("Parsing: %s ", filename));
 
     do {
       if (1 == fread(&rh, sizeof(WPGHead8), 1, f)) {
@@ -1049,7 +1067,7 @@ import_data (const gchar *filename, DiagramData *dia)
         else {
           bRet = (1 == fread(&i16, sizeof(guint16), 1, f));
           if (0x8000 & i16) {
-            DIAG_NOTE(g_message("Large Object: hi:lo %04X", (int)i16));
+            DIAG_NOTE(g_print("Large Object: hi:lo %04X", (int)i16));
             iSize = i16 << 16;
             /* Reading large objects involves major uglyness. Instead of getting 
              * one size, as implied by "Encyclopedia of Graphics File Formats",
@@ -1058,7 +1076,7 @@ import_data (const gchar *filename, DiagramData *dia)
              */
             iSize = 0;
             bRet = (1 == fread(&i16, sizeof(guint16), 1, f));
-            DIAG_NOTE(g_message("Large Object: %d\n", (int)i16));
+            DIAG_NOTE(g_print("Large Object: %d\n", (int)i16));
             iSize += i16;
 #if 1
             /* Ignore this large objec part */
@@ -1072,7 +1090,7 @@ import_data (const gchar *filename, DiagramData *dia)
       } else
         iSize = 0;
 
-      //DIAG_NOTE(&ren, "Type %d Size %d\n", rh.Type, iSize);
+      //DIAG_NOTE(g_message("Type %d Size %d", rh.Type, iSize));
       if (iSize > 0) {
         switch (rh.Type) {
         case WPG_FILLATTR:

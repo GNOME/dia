@@ -34,6 +34,7 @@
 #include "app_procs.h"
 #include "dia_dirs.h"
 #include "load_save.h"
+#include "recent_files.h"
 
 GList *open_diagrams = NULL;
 
@@ -47,9 +48,10 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
   if (!ifilter)  /* default to native format */
     ifilter = &dia_import_filter;
   diagram = new_diagram(filename);
-  if (ifilter->import(filename, diagram->data)) {
+  if (ifilter->import(filename, diagram->data, ifilter->user_data)) {
     diagram->unsaved = FALSE;
     diagram_set_modified(diagram, FALSE);
+    recent_file_history_add(filename, ifilter);
   } else {
     diagram_destroy(diagram);
     diagram = NULL;
@@ -760,7 +762,7 @@ diagram_set_filename(Diagram *dia, char *filename)
   dia->filename = strdup(filename);
 
 
-  title = strrchr(filename, '/');
+  title = strrchr(filename, G_DIR_SEPARATOR);
   if (title==NULL) {
     title = filename;
   } else {
@@ -777,6 +779,7 @@ diagram_set_filename(Diagram *dia, char *filename)
   }
 
   layer_dialog_update_diagram_list();
+  recent_file_history_add((const char *)filename, NULL);
 }
 
 

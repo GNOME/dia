@@ -475,7 +475,7 @@ file_export_ok_callback(GtkWidget *w, GtkFileSelection *fs)
   if (!ef)
     ef = filter_guess_export_filter(filename);
   if (ef)
-      ef->export(dia->data, filename, dia->filename);
+      ef->export(dia->data, filename, dia->filename, ef->user_data);
   else
       message_error(_("Could not determine which export filter\n"
 		      "to use to save '%s'"), filename);

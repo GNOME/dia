@@ -20,6 +20,7 @@
  */
 
 #include <ctype.h>
+#include <string.h> /* strcmp */
 #include "diaunitspinner.h"
 #include "gdk/gdkkeysyms.h"
 

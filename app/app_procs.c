@@ -72,6 +72,7 @@
 #include "render_eps.h"
 #include "sheet.h"
 #include "plug-ins.h"
+#include "recent_files.h"
 
 #if defined(HAVE_LIBPNG) && defined(HAVE_LIBART)
 extern DiaExportFilter png_export_filter;
@@ -237,6 +238,14 @@ app_init (int argc, char **argv)
 
   create_layer_dialog();
 
+  /* further initialization *before* reading files */  
+  active_tool = create_modify_tool();
+
+  create_toolbox();
+
+  /*fill recent file menu */
+  recent_file_history_init();
+
   if (argv) {
 #ifdef HAVE_POPT
     while (poptPeekArg(poptCtx)) {
@@ -251,7 +260,7 @@ app_init (int argc, char **argv)
 	ef = filter_guess_export_filter(export_file_name);
 	if (!ef)
 	  ef = &eps_export_filter;
-	ef->export(diagram->data, export_file_name, in_file_name);
+	ef->export(diagram->data, export_file_name, in_file_name, ef->user_data);
 	exit (0);
       }
       if (diagram != NULL) {
@@ -278,10 +287,6 @@ app_init (int argc, char **argv)
     }
 #endif
   }
-  
-  active_tool = create_modify_tool();
-
-  create_toolbox();
 }
 
 static void
@@ -405,7 +410,9 @@ app_exit(void)
   /* save pluginrc */
   dia_pluginrc_write();
 
-
+  /* save recent file history */
+  recent_file_history_write();
+  
   gtk_main_quit();
 }
 
