@@ -342,6 +342,7 @@ diagram_print_ps(Diagram *dia)
     else
       message_warning(_("Could not open '%s' for writing"),
 		      gtk_entry_get_text(GTK_ENTRY(ofile)));
+    gtk_widget_destroy(dialog);
     return;
   }
 

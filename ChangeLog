@@ -1,3 +1,8 @@
+2003-01-10  Steffen Macke <sdteffen@web.de>
+
+	* app/paginate_psprint.c: Closing print dialog when file
+	could not be written. Fixes #84746
+	
 2003-01-04  Steffen Macke <sdteffen@web.de>
 
 	* doc/custom-shapes: incomplete description of <svg:text>
