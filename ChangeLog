@@ -1,3 +1,11 @@
+2002-04-24  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
+
+	* lib/text.c (text_calc_boundingbox): Will now return early if box
+	passed is NULL.
+
+	* objects/flowchart/box.c (box_update_data): Now updates text
+	width info from update_data.
+
 2002-04-23  Steffen Macke <sdteffen@web.de>
 
 	* plug-ins/xfig/xfig-import.c: fixed text import

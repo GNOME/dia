@@ -300,6 +300,8 @@ text_calc_boundingbox(Text *text, Rectangle *box)
   calc_width(text);
   calc_ascent_descent(text);
 
+  if (box == NULL) return; /* For those who just want the text info
+			      updated */
   box->left = text->position.x;
   switch (text->alignment) {
   case ALIGN_LEFT:

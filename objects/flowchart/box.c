@@ -564,12 +564,13 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
+  text_calc_boundingbox(box->text, NULL);
   width = box->text->max_width + box->padding*2 + box->border_width;
   height = box->text->height * box->text->numlines + box->padding*2 +
     box->border_width;
 
-  if (width > elem->width) elem->width = width;
-  if (height > elem->height) elem->height = height;
+  elem->width = width;
+  elem->height = height;
 
   /* move shape if necessary ... */
   switch (horiz) {
