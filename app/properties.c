@@ -22,10 +22,6 @@
 
 #include <gtk/gtk.h>
 
-#ifdef GNOME
-#include <gnome.h>
-#endif
-
 #include "intl.h"
 #include "properties.h"
 #include "object_ops.h"
@@ -42,95 +38,44 @@ static Diagram *current_dia = NULL;
 
 static GtkWidget *no_properties_dialog = NULL;
 
-static gint properties_okay(GtkWidget *canvas, gpointer data);
-static gint properties_apply(GtkWidget *canvas, gpointer data);
-
-static void
-properties_dialog_hide(GtkWidget *dialog) 
-{
-  current_obj = NULL;
-  gtk_widget_hide(dialog);
-}
+static gint properties_respond(GtkWidget *widget, 
+                               gint       response_id,
+                               gpointer   data);
 
 static void create_dialog()
 {
-#ifndef GNOME
-  GtkWidget *button;
-#endif
+  dialog = gtk_dialog_new_with_buttons(
+             _("Object properties"),
+             GTK_WINDOW (ddisplay_active()->shell), 
+             GTK_DIALOG_DESTROY_WITH_PARENT,
+             GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+             GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
+             GTK_STOCK_OK, GTK_RESPONSE_OK,
+             NULL);
 
-#ifdef GNOME
-  dialog = gnome_dialog_new(_("Object properties"),
-			    GNOME_STOCK_BUTTON_OK, GNOME_STOCK_BUTTON_APPLY,
-			    GNOME_STOCK_BUTTON_CLOSE, NULL);
-  gnome_dialog_set_default(GNOME_DIALOG(dialog), 1);
-
-  dialog_vbox = GNOME_DIALOG(dialog)->vbox;
-#else
-  dialog = gtk_dialog_new();
-  gtk_window_set_title(GTK_WINDOW (dialog), _("Object properties"));
-  gtk_container_set_border_width(GTK_CONTAINER (dialog), 2);
+  //GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+  gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
   dialog_vbox = GTK_DIALOG(dialog)->vbox;
-#endif  
 
   gtk_window_set_wmclass(GTK_WINDOW (dialog),
-			  "properties_window", "Dia");
-  gtk_window_set_policy(GTK_WINDOW (dialog),
-			FALSE, TRUE, TRUE);
+			 "properties_window", "Dia");
 
-#ifdef GNOME
-  gnome_dialog_button_connect_object(GNOME_DIALOG(dialog), 0,
-				     GTK_SIGNAL_FUNC(properties_okay),
-				     GTK_OBJECT(dialog));
-  gnome_dialog_button_connect_object(GNOME_DIALOG(dialog), 1,
-				     GTK_SIGNAL_FUNC(properties_apply),
-				     GTK_OBJECT(dialog));
-  gnome_dialog_button_connect_object(GNOME_DIALOG(dialog), 2,
-				     GTK_SIGNAL_FUNC(gtk_widget_hide),
-				     GTK_OBJECT(dialog));
-#else
-  button = gtk_button_new_with_label( _("OK") );
-  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), 
-		     button, TRUE, TRUE, 0);
-  gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
-			    GTK_SIGNAL_FUNC(properties_okay),
-			    GTK_OBJECT(dialog));
-  gtk_widget_show (button);
-
-  button = gtk_button_new_with_label(_("Apply"));
-  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-		     button, TRUE, TRUE, 0);
-  gtk_signal_connect(GTK_OBJECT (button), "clicked",
-		     GTK_SIGNAL_FUNC(properties_apply),
-		     NULL);
-  gtk_widget_grab_default(button);
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label( _("Close") );
-  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area), 
-		     button, TRUE, TRUE, 0);
-  gtk_signal_connect_object(GTK_OBJECT (button), "clicked",
-			    GTK_SIGNAL_FUNC(properties_dialog_hide),
-			    GTK_OBJECT(dialog));
-  gtk_widget_show (button);
-#endif
-
-  gtk_signal_connect(GTK_OBJECT (dialog), "delete_event",
-		     GTK_SIGNAL_FUNC(properties_dialog_hide), NULL);
+  g_signal_connect(G_OBJECT (dialog), "response",
+                   G_CALLBACK (properties_respond), NULL);
+  g_signal_connect(G_OBJECT (dialog), "delete_event",
+		   G_CALLBACK(gtk_widget_hide), NULL);
 
   no_properties_dialog = gtk_label_new(_("This object has no properties."));
   gtk_widget_show (no_properties_dialog);
-  gtk_object_ref(GTK_OBJECT(no_properties_dialog)); 
+  g_object_ref(G_OBJECT(no_properties_dialog)); 
   gtk_object_sink(GTK_OBJECT(no_properties_dialog));
 }
 
 static gint
-properties_dialog_destroyed(GtkWidget *dialog, gpointer data)
+properties_part_destroyed(GtkWidget *widget, gpointer data)
 {
-  if (dialog == object_part) {
+  if (widget == object_part) {
     object_part = NULL;
     current_obj = NULL;
     current_dia = NULL;
@@ -139,46 +84,52 @@ properties_dialog_destroyed(GtkWidget *dialog, gpointer data)
 }
 
 static gint
-properties_okay(GtkWidget *canvas, gpointer data)
+properties_dialog_destroyed(GtkWidget *widget, gpointer data)
 {
-  gint ret = properties_apply(canvas,data);
-  properties_dialog_hide(canvas);
-  return ret;
+  dialog = NULL;
+  return 0;
 }
 
 static gint
-properties_apply(GtkWidget *canvas, gpointer data)
+properties_respond(GtkWidget *widget, 
+                   gint       response_id,
+                   gpointer   data)
 {
   ObjectChange *obj_change = NULL;
 
-  if ( (current_obj == NULL) || (current_dia == NULL) )
-    return 0;
-  
-  object_add_updates(current_obj, current_dia);
-  obj_change = current_obj->ops->apply_properties(current_obj, object_part);
-  object_add_updates(current_obj, current_dia);
+  if (   response_id == GTK_RESPONSE_APPLY 
+      || response_id == GTK_RESPONSE_OK) {
+    if ((current_obj != NULL) && (current_dia != NULL)) {
+      object_add_updates(current_obj, current_dia);
+      obj_change = current_obj->ops->apply_properties(current_obj, object_part);
+      object_add_updates(current_obj, current_dia);
 
-  diagram_update_connections_object(current_dia, current_obj, TRUE);
-  
-  if (obj_change != NULL) {
-    undo_object_change(current_dia, current_obj, obj_change);
-  }
-  
-  diagram_modified(current_dia);
-
-  diagram_object_modified(current_dia, current_obj);
-
-  diagram_update_extents(current_dia);
+      diagram_update_connections_object(current_dia, current_obj, TRUE);
     
-  if (obj_change != NULL) {
-    undo_set_transactionpoint(current_dia->undo);
-  }  else {
-    message_warning(_("This object doesn't support Undo/Redo.\n"
-		      "Undo information erased."));
-    undo_clear(current_dia->undo);
+      if (obj_change != NULL) {
+	undo_object_change(current_dia, current_obj, obj_change);
+      }
+    
+      diagram_modified(current_dia);
+
+      diagram_object_modified(current_dia, current_obj);
+
+      diagram_update_extents(current_dia);
+      
+      if (obj_change != NULL) {
+	undo_set_transactionpoint(current_dia->undo);
+      }  else {
+	message_warning(_("This object doesn't support Undo/Redo.\n"
+  			"Undo information erased."));
+	undo_clear(current_dia->undo);
+      }
+
+      diagram_flush(current_dia);
+    }
   }
 
-  diagram_flush(current_dia);
+  if (response_id != GTK_RESPONSE_APPLY)
+    gtk_widget_hide(widget);
 
   return 0;
 }
@@ -219,11 +170,17 @@ properties_show(Diagram *dia, Object *obj)
     gtk_window_set_title(GTK_WINDOW(dialog), _("Object properties:"));
   }
 
-  gtk_signal_connect (GTK_OBJECT (properties), "destroy",
-		      GTK_SIGNAL_FUNC(properties_dialog_destroyed), NULL);
+  g_signal_connect (G_OBJECT (properties), "destroy",
+		  G_CALLBACK(properties_part_destroyed), NULL);
+  g_signal_connect (G_OBJECT (dialog), "destroy",
+		  G_CALLBACK(properties_dialog_destroyed), NULL);
+
   gtk_box_pack_start(GTK_BOX(dialog_vbox), properties, TRUE, TRUE, 0);
   gtk_widget_show (properties);
-  gtk_widget_show (dialog);
+
+  if (obj != current_obj)
+    gtk_window_resize (GTK_WINDOW(dialog), 1, 1); /* resize to minimum */
+  gtk_window_present (GTK_WINDOW (dialog));
   object_part = properties;
   current_obj = obj;
   current_dia = dia;

@@ -55,7 +55,6 @@ struct _DDisplay {
   UpdatableMenuItems updatable_menu_items;
     
 
-  GtkWidget *snap_status;
   GtkWidget *zoom_status;         
   GtkWidget *modified_status;
 
@@ -143,8 +142,6 @@ void ddisplay_scroll_right(DDisplay *ddisp);
 void display_update_menu_state(DDisplay *ddisp);
 void ddisplay_update_statusbar(DDisplay *ddisp);
 void ddisplay_do_update_menu_sensitivity (DDisplay *ddisp);
-/* Have to be called from interface.c */
-GtkPixmap *snap_status_load_images(GdkWindow *window);
 
 void display_set_active(DDisplay *ddisp);
 

@@ -18,11 +18,7 @@
 
 #include <config.h>
 
-#ifdef GNOME
-#  include <gnome.h>
-#else
-#  include <gtk/gtk.h>
-#endif
+#include <gtk/gtk.h>
 
 #include "defaults.h"
 #include "intl.h"
@@ -37,63 +33,30 @@ static ObjectType *current_objtype = NULL;
 
 static GtkWidget *no_defaults_dialog = NULL;
 
-static gint defaults_apply(GtkWidget *canvas, gpointer data);
-static gint defaults_close(GtkWidget *canvas, gpointer data);
+static gint defaults_respond(GtkWidget *widget, gint response_id, gpointer data);
 
 static void create_dialog()
 {
-#ifndef GNOME
-  GtkWidget *button;
-#endif
+  dialog = gtk_dialog_new_with_buttons(
+             _("Object defaults"),
+             NULL, 0,
+             GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+             GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
+             GTK_STOCK_OK, GTK_RESPONSE_OK,
+             NULL);
 
-#ifdef GNOME
-  dialog = gnome_dialog_new(_("Object defaults"),
-			    GNOME_STOCK_BUTTON_APPLY,
-			    GNOME_STOCK_BUTTON_CLOSE, NULL);
-  gnome_dialog_set_default(GNOME_DIALOG(dialog), 0);
-
-  dialog_vbox = GNOME_DIALOG(dialog)->vbox;
-#else
-  dialog = gtk_dialog_new();
-  gtk_window_set_title (GTK_WINDOW (dialog), _("Object defaults"));
-  gtk_container_set_border_width (GTK_CONTAINER (dialog), 2);
+  //GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+  gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
   dialog_vbox = GTK_DIALOG (dialog)->vbox;
-#endif
   
   gtk_window_set_wmclass (GTK_WINDOW (dialog),
 			  "defaults_window", "Dia");
-  gtk_window_set_policy (GTK_WINDOW (dialog),
-			 FALSE, TRUE, TRUE);
 
-#ifdef GNOME
-  gnome_dialog_button_connect(GNOME_DIALOG(dialog), 0,
-			      GTK_SIGNAL_FUNC(defaults_apply), NULL);
-  gnome_dialog_button_connect(GNOME_DIALOG(dialog), 1,
-			      GTK_SIGNAL_FUNC(defaults_close), NULL);
-#else
-  button = gtk_button_new_with_label (_("Apply"));
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-		      button, TRUE, TRUE, 0);
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(defaults_apply),
-		      NULL);
-  gtk_widget_grab_default (button);
-  gtk_widget_show (button);
-
-  button = gtk_button_new_with_label (_("Close"));
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-		      button, TRUE, TRUE, 0);
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(defaults_close),
-		      NULL);
-  gtk_widget_show (button);
-#endif
-
-  gtk_signal_connect (GTK_OBJECT (dialog), "delete_event",
-		      GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
+  g_signal_connect(G_OBJECT (dialog), "response",
+		   G_CALLBACK(defaults_respond), NULL);
+  g_signal_connect(G_OBJECT(dialog), "delete_event",
+		   G_CALLBACK(gtk_widget_hide), NULL);
 
   no_defaults_dialog = gtk_label_new(_("This object has no defaults."));
   gtk_widget_show (no_defaults_dialog);
@@ -103,9 +66,9 @@ static void create_dialog()
 }
 
 static gint
-defaults_dialog_destroyed(GtkWidget *dialog, gpointer data)
+defaults_dialog_destroyed(GtkWidget *widget, gpointer data)
 {
-  if (dialog == object_part) {
+  if (widget == object_part) {
     object_part = NULL;
     current_objtype = NULL;
   }
@@ -113,18 +76,16 @@ defaults_dialog_destroyed(GtkWidget *dialog, gpointer data)
 }
 
 static gint
-defaults_apply(GtkWidget *canvas, gpointer data)
+defaults_respond(GtkWidget *widget, gint response_id, gpointer data)
 {
-  if (current_objtype != NULL) {
-    current_objtype->ops->apply_defaults();
+  if (response_id == GTK_RESPONSE_OK ||
+      response_id == GTK_RESPONSE_APPLY) {
+    if (current_objtype != NULL) {
+      current_objtype->ops->apply_defaults();
+    }
   }
-  return 0;
-}
-
-static gint
-defaults_close(GtkWidget *canvas, gpointer data)
-{
-  gtk_widget_hide(dialog);
+  if (response_id != GTK_RESPONSE_APPLY)
+    gtk_widget_hide(widget);
   return 0;
 }
 
@@ -152,11 +113,15 @@ defaults_show(ObjectType *objtype)
     gtk_container_remove(GTK_CONTAINER(dialog_vbox), object_part);
     object_part = NULL;
   }
-  gtk_signal_connect (GTK_OBJECT (defaults), "destroy",
-		      GTK_SIGNAL_FUNC(defaults_dialog_destroyed), NULL);
+  g_signal_connect (G_OBJECT (defaults), "destroy",
+		      G_CALLBACK(defaults_dialog_destroyed), NULL);
   gtk_box_pack_start(GTK_BOX(dialog_vbox), defaults, TRUE, TRUE, 0);
   gtk_widget_show (defaults);
-  gtk_widget_show (dialog);
+  if (object_part != defaults) {
+    gtk_window_resize (GTK_WINDOW(dialog), 1, 1); /* shrink to default */
+    gdk_window_invalidate_rect (dialog->window, NULL, TRUE);
+  }
+  gtk_window_present (GTK_WINDOW(dialog));
   object_part = defaults;
   current_objtype = objtype;
 }

@@ -23,6 +23,8 @@
 GtkWidget *color_area_create (int        width,
 			      int        height,
 			      GdkPixmap *default_pmap,
-			      GdkPixmap *swap_pmap);
+			      GdkBitmap *default_msk,
+			      GdkPixmap *swap_pmap,
+			      GdkBitmap *swap_msk);
 
 #endif /* COLOR_AREA_H */

@@ -45,11 +45,6 @@
 #include "load_save.h"
 #include "dia-props.h"
 
-#ifdef THIS_IS_PROBABLY_DEAD_CODE
-#include "pixmaps/snap-to-grid.xpm"
-#include "pixmaps/snap-to-grid-mask.xpm"
-#endif 
-
 static GHashTable *display_ht = NULL;
 static GdkCursor *current_cursor = NULL;
 
@@ -64,54 +59,6 @@ typedef struct _IRectangle {
 } IRectangle;
 
 static guint display_hash(DDisplay *ddisp);
-
-static GtkPixmap *snapping;
-#ifdef THIS_IS_PROBABLY_DEAD_CODE
-static GtkPixmap *not_snapping;
-#endif
-
-GtkPixmap *
-snap_status_load_images(GdkWindow *window)
-{
-#ifdef THIS_IS_PROBABLY_DEAD_CODE
-  GdkPixmap *dpix;
-  GdkBitmap *mask = NULL;
-  /*
-  dpix = gdk_pixmap_create_from_xpm_d(window, &mask, NULL, snap_to_grid_xpm);
-  g_assert(dpix != NULL);
-
-  snapping = gtk_pixmap_new(dpix, mask);
-  g_assert(snapping != NULL);
-
-  gdk_pixmap_unref(dpix);
-  gdk_pixmap_unref(mask);
-
-  dpix = gdk_pixmap_create_from_data(window, data, width, height);
-  mask = gdk_pixmap_create_from_data(window, mask, width, height);
-  g_assert(dpix != NULL && mask != NULL);
-
-  snapping = gdk_image_new(dpix, mask);
-  g_assert(snapping != NULL);
-
-  gdk_pixmap_unref(dpix);
-  gdk_pixmap_unref(mask);
-  */
-#endif
-  return snapping;
-}
-
-static void
-update_snap_status(DDisplay *ddisp)
-{
-#ifdef THIS_IS_PROBABLY_DEAD_CODE
-  GtkButton *zoomimage = GTK_BUTTON(ddisp->snap_status);
-  return;  
-  if (ddisp->grid.snap) {
-    
-  } else {
-  }
-#endif
-}
 
 static void
 update_zoom_status(DDisplay *ddisp)
@@ -578,7 +525,7 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
   hsbdata->step_increment = (visible->right - visible->left) / 10.0;
   hsbdata->value = visible->left;
 
-  gtk_signal_emit_by_name (GTK_OBJECT (ddisp->hsbdata), "changed");
+  g_signal_emit_by_name (G_OBJECT (ddisp->hsbdata), "changed");
 
   /* Vertical: */
   vsbdata = ddisp->vsbdata;
@@ -590,7 +537,7 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
   vsbdata->step_increment = (visible->bottom - visible->top) / 10.0;
   vsbdata->value = visible->top;
 
-  gtk_signal_emit_by_name (GTK_OBJECT (ddisp->vsbdata), "changed");
+  g_signal_emit_by_name (G_OBJECT (ddisp->vsbdata), "changed");
 }
 
 void
@@ -859,52 +806,43 @@ ddisp_destroy(DDisplay *ddisp)
 }
 
 static void
-are_you_sure_close_dialog_cancel(GtkWidget *widget, GtkWidget *dialog)
+are_you_sure_close_dialog_respond(GtkWidget *widget, /* the dialog */
+                                  gint       response_id,
+                                  gpointer   user_data) /* the display */
 {
-  gtk_widget_destroy(dialog);
-}
+  DDisplay *ddisp = (DDisplay *)user_data;
 
-static void
-are_you_sure_close_dialog_yes(GtkWidget *widget,
-			      GtkWidget *dialog)
-{
-  DDisplay *ddisp;
-
-  ddisp =  gtk_object_get_user_data(GTK_OBJECT(dialog));
+  switch (response_id) {
+  case GTK_RESPONSE_YES :  
+    /* save changes */
+    diagram_save(ddisp->diagram, ddisp->diagram->filename);
   
-  /* save changes */
-  diagram_save(ddisp->diagram, ddisp->diagram->filename);
-  
-  if (ddisp->update_id) {
-    gtk_idle_remove(ddisp->update_id);
-    ddisp->update_id = 0;
+    if (ddisp->update_id) {
+      gtk_idle_remove(ddisp->update_id);
+      ddisp->update_id = 0;
+    }
+    /* fall through */
+  case GTK_RESPONSE_NO :
+    ddisp_destroy (ddisp);
+    /* fall through */
+  case GTK_RESPONSE_CANCEL :
+  case GTK_RESPONSE_NONE :
+  case GTK_RESPONSE_DELETE_EVENT : /* closing via window manager */
+    gtk_widget_destroy(widget);
+    break;
+  default :
+    g_assert_not_reached();
   }
-
-  gtk_widget_destroy(dialog);
-  ddisp_destroy (ddisp);
-}
-
-static void
-are_you_sure_close_dialog_no(GtkWidget *widget,
-			      GtkWidget *dialog)
-{
-  DDisplay *ddisp;
-
-  ddisp =  gtk_object_get_user_data(GTK_OBJECT(dialog));
-
-  gtk_widget_destroy(dialog);
-  ddisp_destroy(ddisp);
 }
 
 void
 ddisplay_close(DDisplay *ddisp)
 {
   Diagram *dia;
-  GtkWidget *dialog, *vbox;
-  GtkWidget *label;
-#ifndef GNOME
-  GtkWidget *button;
-#endif
+  GtkWidget *dialog, *button;
+  gchar *fname;
+  gchar *msg;
+
   dia = ddisp->diagram;
   
   if ( (dia->display_count > 1) ||
@@ -913,73 +851,40 @@ ddisplay_close(DDisplay *ddisp)
     return;
   }
 
-#ifdef GNOME
-  dialog = gnome_dialog_new(_("Close Diagram?"),
-			    GNOME_STOCK_BUTTON_YES,GNOME_STOCK_BUTTON_NO,NULL);
-  gnome_dialog_set_default(GNOME_DIALOG(dialog), 0);
-  vbox = GNOME_DIALOG(dialog)->vbox;
-#else
-  dialog = gtk_dialog_new();
-  gtk_window_set_title (GTK_WINDOW (dialog), _("Really close?"));
-  gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
-  vbox = GTK_DIALOG(dialog)->vbox;
-#endif
-  
-  label = gtk_label_new (_("This diagram has not been saved.\n"
-			 "Save changes now?"));
-  
-  gtk_misc_set_padding (GTK_MISC (label), 10, 10);
-  gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
-  
-  gtk_widget_show (label);
+  fname = dia->filename;
+  if (!fname)
+    fname = _("<unnamed>");
+  msg = g_strdup_printf (
+          _("The diagram '%s'\n"
+            "has not been saved. Save changes now?"),
+	  fname);
 
-  gtk_object_set_user_data(GTK_OBJECT(dialog), ddisp);
+  dialog = gtk_message_dialog_new(GTK_WINDOW (ddisp->shell), 
+                                  GTK_DIALOG_MODAL,
+                                  GTK_MESSAGE_QUESTION,
+                                  GTK_BUTTONS_NONE, /* no standard buttons */
+				  msg,
+                                  NULL);
+  g_free (msg);
+  gtk_window_set_title (GTK_WINDOW(dialog), _("Close Diagram"));
 
-#ifdef GNOME
-  gnome_dialog_button_connect(GNOME_DIALOG(dialog), 0,
-			      GTK_SIGNAL_FUNC(are_you_sure_close_dialog_yes),
-			      dialog);
-  gnome_dialog_button_connect(GNOME_DIALOG(dialog), 1,
-			      GTK_SIGNAL_FUNC(are_you_sure_close_dialog_no),
-			      dialog);
-#else
-  button = gtk_button_new_with_label (_("Yes"));
+  button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
+  gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_CANCEL);
+
+  button = gtk_button_new_with_label (_("Discard Changes"));
+  gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_NO);
+
+  /* button = gtk_button_new_with_label (_("Save and Close")); */
+  button = gtk_button_new_from_stock (GTK_STOCK_SAVE);
+  gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_YES);
   GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-		      button, TRUE, TRUE, 0);
-  gtk_widget_grab_default (button);
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(are_you_sure_close_dialog_yes),
-		      dialog);
-  gtk_widget_show (button);
-  
-  button = gtk_button_new_with_label (_("No"));
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
-		      button, TRUE, TRUE, 0);
+  gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_YES);
 
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(are_you_sure_close_dialog_no),
-		      dialog);
+  g_signal_connect (G_OBJECT (dialog), "response",
+		    G_CALLBACK(are_you_sure_close_dialog_respond),
+		    ddisp);
 
-  gtk_widget_show (button);
-
-  button = gtk_button_new_with_label (_("Cancel"));
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
-		      button, TRUE, TRUE, 0);
-
-  gtk_signal_connect (GTK_OBJECT (button), "clicked",
-		      GTK_SIGNAL_FUNC(are_you_sure_close_dialog_cancel),
-		      dialog);
-
-  gtk_widget_show (button);
-#endif
-
-  /* Make dialog modal: */
-  gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
-  
-  gtk_widget_show(dialog);
+  gtk_widget_show_all(dialog);
 }
 
 void
@@ -1141,7 +1046,6 @@ ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor)
 void 
 ddisplay_update_statusbar(DDisplay *ddisp)
 {
-  /*  update_snap_status (ddisp);*/
   update_zoom_status (ddisp);
   update_modified_status (ddisp);
 }

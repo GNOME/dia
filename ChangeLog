@@ -1,5 +1,31 @@
 2002-06-09  Hans Breuer  <hans@breuer.org>
 
+	* app/app_procs.c : convert 'Modified diagrams exits'
+	dialog to use GtkMessageDialog. That gives us:
+	- icons without Gnome dependency
+	- much less code, also cross platform
+	- improved useability ?
+
+	* app/color_area.c : the Color Selection Widget looked
+	quite wrong (alpha problems). Fix it by merging in required
+	changes stolen from The Gimp cvs
+	* app/color_area.h : to get the right appearance the maskes
+	needed to be taken into account
+	* app/interface.c : adapt to color_area_create changes.
+	Also remove some dead code and finally remove cvs autexpansion, 
+	I was bothered enough by irrelevant differences :-)
+
+	* app/defaults.c app/properties.c app/dia-props.c : use improved GtkDialog
+	api, i.e stocks and response to make the GnomeDialog usage
+	obsolete. Also fixed the issue with closing the 'parent'
+	before closing the dialog
+
+	* app/display.[ch] : removed some dead code and conversion
+	to new GtkDialog api. Also trying to conform to new HIG
+	standard http://developer.gnome.org/projects/gup/hig/
+
+2002-06-09  Hans Breuer  <hans@breuer.org>
+
 	* lib/makefile.msc : define GTK_DISABLE_DEPRECATED,
 	build ps-utf8.c
 

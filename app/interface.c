@@ -15,7 +15,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-/* $Header$ */
 
 #include <config.h>
 
@@ -431,13 +430,6 @@ create_display_shell(DDisplay *ddisp,
   /* the statusbars */
   status_hbox = gtk_hbox_new (FALSE, 2);
 
-  /*
-  ddisp->snap_status = snap_status_load_images(ddisp->shell);
-
-  widget = gtk_button_new ();
-  gtk_container_add(GTK_CONTAINER(widget), ddisp->snap_status);
-  gtk_widget_show(ddisp->snap_status);
-  */
   /*
     gtk_signal_connect(GTK_OBJECT(ddisp->origin), "button_press_event",
     GTK_SIGNAL_FUNC(origin_button_press), ddisp);
@@ -912,8 +904,9 @@ create_color_area (GtkWidget *parent)
   GtkWidget *col_area;
   GtkWidget *line_area;
   GdkPixmap *default_pixmap;
+  GdkBitmap *default_mask;
   GdkPixmap *swap_pixmap;
-  GdkBitmap *mask;
+  GdkBitmap *swap_mask;
   GtkStyle *style;
   GtkWidget *hbox;
 
@@ -922,11 +915,11 @@ create_color_area (GtkWidget *parent)
 
   default_pixmap =
     gdk_pixmap_colormap_create_from_xpm_d(NULL,
-		gtk_widget_get_colormap(parent), &mask, 
+		gtk_widget_get_colormap(parent), &default_mask, 
 		&style->bg[GTK_STATE_NORMAL], default_xpm);
   swap_pixmap =
     gdk_pixmap_colormap_create_from_xpm_d(NULL,
-		gtk_widget_get_colormap(parent), &mask, 
+		gtk_widget_get_colormap(parent), &swap_mask, 
 		&style->bg[GTK_STATE_NORMAL], swap_xpm);
 
   frame = gtk_frame_new (NULL);
@@ -942,7 +935,9 @@ create_color_area (GtkWidget *parent)
   alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
   gtk_container_set_border_width (GTK_CONTAINER (alignment), 3);
   
-  col_area = color_area_create (54, 42, default_pixmap, swap_pixmap);
+  col_area = color_area_create (54, 42, 
+                                default_pixmap, default_mask, 
+                                swap_pixmap, swap_mask);
   gtk_container_add (GTK_CONTAINER (alignment), col_area);
 
 

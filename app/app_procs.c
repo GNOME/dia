@@ -30,6 +30,10 @@
 #include <unistd.h>
 #endif
 
+#ifdef GNOME
+#undef GTK_DISABLE_DEPRECATED /* gtk_signal_connect[_object] */
+#endif
+
 #include <gtk/gtk.h>
 #include <gmodule.h>
 
@@ -457,75 +461,32 @@ app_exit(void)
   
   if (diagram_modified_exists()) {
     GtkWidget *dialog;
-    GtkWidget *vbox;
-    GtkWidget *label;
-#ifndef GNOME
     GtkWidget *button;
-#endif
-    int result = FALSE;
 
-#ifdef GNOME
-    dialog = gnome_dialog_new(_("Quit, are you sure?"), NULL);
-    vbox = GNOME_DIALOG(dialog)->vbox;
-    gnome_dialog_set_close(GNOME_DIALOG(dialog), TRUE);
-#else
-    dialog = gtk_dialog_new();
-    vbox = GTK_DIALOG(dialog)->vbox;
-    gtk_window_set_title (GTK_WINDOW (dialog), _("Quit, are you sure?"));
-    gtk_container_set_border_width (GTK_CONTAINER (dialog), 0);
-#endif
+    dialog = gtk_message_dialog_new(
+	       NULL, GTK_DIALOG_MODAL,
+               GTK_MESSAGE_QUESTION,
+               GTK_BUTTONS_NONE, /* no standard buttons */
+	       _("Modified diagrams exist.\n"
+		 "Are you sure you want to quit Dia\n"
+		 "without saving them?"),
+	       NULL);
+    gtk_window_set_title (GTK_WINDOW(dialog), _("Quit Dia"));
 
-    gtk_signal_connect (GTK_OBJECT (dialog), "destroy", 
-			GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
-    
-    label = gtk_label_new (_("Modified diagrams exists.\n"
-			   "Are you sure you want to quit?"));
-  
-    gtk_misc_set_padding (GTK_MISC (label), 10, 10);
-    gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
-  
-    gtk_widget_show (label);
-
-#ifdef GNOME
-    gnome_dialog_append_button_with_pixmap(GNOME_DIALOG(dialog),
-					   _("Quit"), GNOME_STOCK_PIXMAP_QUIT);
-    gnome_dialog_append_button(GNOME_DIALOG(dialog),GNOME_STOCK_BUTTON_CANCEL);
-
-    result = (gnome_dialog_run(GNOME_DIALOG(dialog)) == 0);
-#else
-    button = gtk_button_new_with_label (_("Quit"));
+    button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
+    gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_CANCEL);
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area), 
-			button, TRUE, TRUE, 0);
-    gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			GTK_SIGNAL_FUNC(set_true_callback),
-			&result);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			       GTK_SIGNAL_FUNC (gtk_widget_destroy),
-			       GTK_OBJECT (dialog));
-    gtk_widget_show (button);
-    
-    button = gtk_button_new_with_label (_("Cancel"));
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->action_area),
-			button, TRUE, TRUE, 0);
-    gtk_widget_grab_default (button);
-    gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
-			       GTK_SIGNAL_FUNC (gtk_widget_destroy),
-			       GTK_OBJECT (dialog));
-    
-    gtk_widget_show (button);
+    gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_CANCEL);
 
-    gtk_widget_show (dialog);
+    button = gtk_button_new_from_stock (GTK_STOCK_QUIT);
+    gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_OK);
 
-    /* Make dialog modal: */
-    gtk_widget_grab_focus(dialog);
-    gtk_grab_add(dialog);
+    g_signal_connect_after (G_OBJECT (dialog), "response",
+		            G_CALLBACK(gtk_widget_destroy),
+		            NULL);
+    gtk_widget_show_all (dialog);
 
-    gtk_main();
-#endif
-
-    if (result == FALSE)
+    if (gtk_dialog_run(GTK_DIALOG(dialog)) != GTK_RESPONSE_OK)
       return;
   }
   

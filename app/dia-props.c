@@ -25,11 +25,8 @@
 
 #include "dia-props.h"
 
-#ifdef GNOME
-#  include <gnome.h>
-#else
-#  include <gtk/gtk.h>
-#endif
+#include <gtk/gtk.h>
+
 #include "intl.h"
 #include "display.h"
 #include "widgets.h"
@@ -40,80 +37,40 @@ static GtkWidget *width_x_entry, *width_y_entry;
 static GtkWidget *visible_x_entry, *visible_y_entry;
 static GtkWidget *bg_colour;
 
-static void diagram_properties_okay(GtkWidget *dialog);
-static void diagram_properties_apply(GtkWidget *dialog);
-static void diagram_properties_hide(GtkWidget *dialog);
+static void diagram_properties_respond(GtkWidget *widget,
+                                       gint response_id,
+                                       gpointer user_data);
 
 static void
 create_diagram_properties_dialog(void)
 {
   GtkWidget *dialog_vbox;
-#ifndef GNOME
-  GtkWidget *button = NULL;
-#endif
   GtkWidget *notebook;
   GtkWidget *table;
   GtkWidget *label;
   GtkAdjustment *adj;
 
-#ifdef GNOME
-  dialog = gnome_dialog_new(_("Diagram Properties"),
-			    GNOME_STOCK_BUTTON_OK, GNOME_STOCK_BUTTON_APPLY,
-			    GNOME_STOCK_BUTTON_CLOSE, NULL);
-  gnome_dialog_set_default(GNOME_DIALOG(dialog), 1);
-  dialog_vbox = GNOME_DIALOG(dialog)->vbox;
-#else
-  dialog = gtk_dialog_new();
-  gtk_window_set_title(GTK_WINDOW(dialog), _("Diagram Properties"));
-  gtk_container_set_border_width(GTK_CONTAINER(dialog), 2);
+  dialog = gtk_dialog_new_with_buttons(
+             _("Diagram Properties"),
+             GTK_WINDOW(ddisplay_active()->shell),
+             GTK_DIALOG_DESTROY_WITH_PARENT,
+             GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
+             GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
+             GTK_STOCK_OK, GTK_RESPONSE_OK,
+             NULL);
+
+  //GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+  gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
+
   dialog_vbox = GTK_DIALOG(dialog)->vbox;
-#endif
 
   gtk_window_set_wmclass(GTK_WINDOW(dialog), "diagram_properties", "Dia");
-  gtk_window_set_policy(GTK_WINDOW(dialog), FALSE, TRUE, TRUE);
 
-#ifdef GNOME
-  gnome_dialog_button_connect_object(GNOME_DIALOG(dialog), 0,
-				     GTK_SIGNAL_FUNC(diagram_properties_okay),
-				     GTK_OBJECT(dialog));
-  gnome_dialog_button_connect_object(GNOME_DIALOG(dialog), 1,
-				     GTK_SIGNAL_FUNC(diagram_properties_apply),
-				     GTK_OBJECT(dialog));
-  gnome_dialog_button_connect_object(GNOME_DIALOG(dialog), 2,
-				     GTK_SIGNAL_FUNC(diagram_properties_hide),
-				     GTK_OBJECT(dialog));
-#else
-  button = gtk_button_new_with_label(_("OK"));
-  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area),
-		     button, TRUE, TRUE, 0);
-  gtk_signal_connect_object(GTK_OBJECT(button), "clicked",
-			    GTK_SIGNAL_FUNC(diagram_properties_okay),
-			    GTK_OBJECT(dialog));
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(_("Apply"));
-  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area),
-		     button, TRUE, TRUE, 0);
-  gtk_signal_connect_object(GTK_OBJECT(button), "clicked",
-			    GTK_SIGNAL_FUNC(diagram_properties_apply),
-			    GTK_OBJECT(dialog));
-  gtk_widget_grab_default(button);
-  gtk_widget_show(button);
-
-  button = gtk_button_new_with_label(_("Close"));
-  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->action_area),
-		     button, TRUE, TRUE, 0);
-  gtk_signal_connect_object(GTK_OBJECT(button), "clicked",
-			    GTK_SIGNAL_FUNC(diagram_properties_hide),
-			    GTK_OBJECT(dialog));
-  gtk_widget_show(button);
-#endif
-
-  gtk_signal_connect(GTK_OBJECT(dialog), "delete_event",
-		     GTK_SIGNAL_FUNC(gtk_widget_hide), NULL);
+  g_signal_connect(G_OBJECT(dialog), "response",
+		   G_CALLBACK(diagram_properties_respond),
+		   NULL);
+  g_signal_connect(G_OBJECT(dialog), "delete_event",
+		   G_CALLBACK(gtk_widget_hide), NULL);
 
   notebook = gtk_notebook_new();
   gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook), GTK_POS_TOP);
@@ -234,37 +191,31 @@ diagram_properties_show(Diagram *dia)
 }
 
 static void
-diagram_properties_apply(GtkWidget *dialog)
+diagram_properties_respond(GtkWidget *widget,
+                           gint       response_id,
+                           gpointer   user_data)
 {
   Diagram *active_diagram = ddisplay_active_diagram();
 
-  if (active_diagram) {
-    active_diagram->data->grid.width_x =
-      gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(width_x_entry));
-    active_diagram->data->grid.width_y =
-      gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(width_y_entry));
-    active_diagram->data->grid.visible_x =
-      gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(visible_x_entry));
-    active_diagram->data->grid.visible_y =
-      gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(visible_y_entry));
-    dia_color_selector_get_color(DIACOLORSELECTOR(bg_colour),
-				 &active_diagram->data->bg_color);
-    diagram_add_update_all(active_diagram);
-    diagram_flush(active_diagram);
+  if (response_id != GTK_RESPONSE_OK ||
+      response_id != GTK_RESPONSE_APPLY) {
+    if (active_diagram) {
+      active_diagram->data->grid.width_x =
+        gtk_spin_button_get_value(GTK_SPIN_BUTTON(width_x_entry));
+      active_diagram->data->grid.width_y =
+        gtk_spin_button_get_value(GTK_SPIN_BUTTON(width_y_entry));
+      active_diagram->data->grid.visible_x =
+        gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(visible_x_entry));
+      active_diagram->data->grid.visible_y =
+        gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(visible_y_entry));
+      dia_color_selector_get_color(DIACOLORSELECTOR(bg_colour),
+  				 &active_diagram->data->bg_color);
+      diagram_add_update_all(active_diagram);
+      diagram_flush(active_diagram);
+    }
   }
-}
-
-static void
-diagram_properties_okay(GtkWidget *dialog)
-{
-  diagram_properties_apply(dialog);
-  diagram_properties_hide(dialog);
-}
-
-static void
-diagram_properties_hide(GtkWidget *dialog)
-{
-  gtk_widget_hide(dialog);
+  if (response_id != GTK_RESPONSE_APPLY)
+    gtk_widget_hide(dialog);
 }
 
 /* diagram_properties_set_diagram
