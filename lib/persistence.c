@@ -450,7 +450,7 @@ persistence_save_color(gpointer key, gpointer value, gpointer data)
 }
 
 
-void
+static void
 persistence_save_type(xmlDocPtr doc, GHashTable *entries, GHFunc func)
 {
   if (entries != NULL && g_hash_table_size(entries) != 0) {
@@ -628,7 +628,7 @@ persistence_update_string_entry(GtkWidget *widget, GdkEvent *event,
 
   if (event->type == GDK_FOCUS_CHANGE) {
     gchar *string = (gchar *)g_hash_table_lookup(persistent_entrystrings, role);
-    gchar *entrystring = gtk_entry_get_text(GTK_ENTRY(widget));
+    const gchar *entrystring = gtk_entry_get_text(GTK_ENTRY(widget));
     if (string == NULL || strcmp(string, entrystring)) {
       g_hash_table_insert(persistent_entrystrings, role, g_strdup(entrystring));
       if (string != NULL) g_free(string);
