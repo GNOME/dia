@@ -35,6 +35,8 @@ typedef gunichar unichar;
 #define uni_strchr(p,c) g_utf8_strchr(p,-1,c)
 #define charconv_utf8_get_char(p) g_utf8_get_char(p)
 #define get_local_charset(pp) g_get_charset(pp)
+#define utf8_gtk_entry_set_text gtk_entry_set_text
+#define utf8_gtk_editable_get_text gtk_editable_get_text
 
 /* The following code is for the case we don't HAVE_UNICODE. We'll have to 
    define the same-looking macros around libunicode, but only when that's 
@@ -171,6 +173,9 @@ typedef gchar utfchar;
 #endif /* !HAVE_UNICODE */
 
 #if !GLIB_CHECK_VERSION(2,0,0)
+
+#include <gtk/gtk.h>
+
 /* The strings returned will have to be g_free()'d */
 extern utfchar *charconv_local8_to_utf8(const gchar *local);
 extern gchar *charconv_utf8_to_local8(const utfchar *utf);
@@ -179,6 +184,10 @@ extern utfchar *charconv_utf8_from_gtk_event_key (guint keyval, gchar *string);
 /* The string here is statically allocated and must NOT be g_free()'d.*/
 extern utfchar *charconv_unichar_to_utf8(guint uc);
 extern unichar charconv_utf8_get_char (const utfchar *p);
+
+extern void charconv_gtk_entry_set_text(GtkEntry *entry, utfchar *text);
+extern utfchar *charconv_gtk_editable_get_chars(GtkEditable *entry, 
+						int start, int end);
 #endif
 
 #define CHARCONV_H

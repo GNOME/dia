@@ -303,15 +303,22 @@ static void
 sheets_dialog_object_set_tooltip(SheetObjectMod *som, GtkWidget *button)
 {
   gchar *tip;
+  utfchar *descstr;
+
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+  descstr = charconv_utf8_to_local8(som->sheet_object.description);
+#else
+  descstr = g_strdup(som->sheet_object.description);
+#endif
 
   if (som->type == SHEET_SCOPE_SYSTEM)
-    tip = g_strdup_printf(_("%s\nSystem sheet"),
-			  som->sheet_object.description);
+    tip = g_strdup_printf(_("%s\nSystem sheet"), descstr);
   else
-    tip = g_strdup_printf(_("%s\nUser sheet"), som->sheet_object.description);
+    tip = g_strdup_printf(_("%s\nUser sheet"), descstr);
 
   gtk_tooltips_set_tip(sheets_dialog_tooltips, button, tip, NULL);
   g_free(tip);
+  g_free(descstr);
 }
 
 static GtkWidget *
@@ -774,14 +781,15 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     SheetObjectMod *som;
     SheetMod *sm;
     SheetObject *sheet_obj;
-    gchar *sheet_name;
-    gchar *sheet_descrip;
+    utfchar *sheet_name;
+    utfchar *sheet_descrip;
     Sheet *sheet;
     GtkWidget *optionmenu;
 
   case SHEETS_NEW_DIALOG_TYPE_SVG_SHAPE:
 
     entry = lookup_widget(sheets_new_dialog, "combo_entry_from_file");
+    /* Since this is a file name, no utf8 translation is needed */
     file_name = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
 
     p = file_name + strlen(file_name) - 6;
@@ -825,7 +833,10 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     entry = lookup_widget(sheets_new_dialog, "entry_svg_description");
     sheet_obj = g_new(SheetObject, 1);
     sheet_obj->object_type = g_strdup(ot->name);
-    sheet_obj->description = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+    {
+      sheet_obj->description =
+	charconv_gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+    }
     sheet_obj->pixmap = ot->pixmap;
     sheet_obj->user_data = ot->default_user_data;
     sheet_obj->user_data_type = USER_DATA_IS_OTHER;
@@ -874,7 +885,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
   case SHEETS_NEW_DIALOG_TYPE_SHEET:
 
     entry = lookup_widget(sheets_new_dialog, "entry_sheet_name");
-    sheet_name = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+    sheet_name = charconv_gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
 
     sheet_name = g_strchug(g_strchomp(sheet_name));
     if (!*sheet_name)
@@ -884,7 +895,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     }
 
     entry = lookup_widget(sheets_new_dialog, "entry_sheet_description");
-    sheet_descrip = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+    sheet_descrip = charconv_gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
 
     sheet = g_new(Sheet, 1);
     sheet->name = sheet_name;
@@ -951,6 +962,7 @@ on_sheets_shapeselection_dialog_button_ok_clicked
                               GTK_FILE_SELECTION(sheets_shapeselection_dialog));
 
   entry = lookup_widget(sheets_new_dialog, "combo_entry_from_file");
+  /* Since this is a filename entry from the dialog, no utf is needed */
   gtk_entry_set_text(GTK_ENTRY(entry), filename);
 
   gtk_widget_destroy(sheets_shapeselection_dialog);
@@ -966,8 +978,8 @@ on_sheets_dialog_button_edit_clicked   (GtkButton       *button,
   GList *button_list;
   GtkWidget *active_button;
   SheetObjectMod *som;
-  gchar *descrip;
-  gchar *type;
+  utfchar *descrip;
+  utfchar *type;
   GtkWidget *entry;
   SheetMod *sm;
   gchar *name;
@@ -984,13 +996,13 @@ on_sheets_dialog_button_edit_clicked   (GtkButton       *button,
   
   entry = lookup_widget(sheets_edit_dialog, "entry_object_description");
   if (som)
-    gtk_entry_set_text(GTK_ENTRY(entry), descrip);
+    charconv_gtk_entry_set_text(GTK_ENTRY(entry), descrip);
   else 
     gtk_widget_set_sensitive(entry, FALSE);
     
   entry = lookup_widget(sheets_edit_dialog, "entry_object_type");
   if (som)
-    gtk_entry_set_text(GTK_ENTRY(entry), type);
+    charconv_gtk_entry_set_text(GTK_ENTRY(entry), type);
   else
     gtk_widget_set_sensitive(entry, FALSE);
 
@@ -1002,14 +1014,14 @@ on_sheets_dialog_button_edit_clicked   (GtkButton       *button,
   }
 
   entry = lookup_widget(sheets_edit_dialog, "entry_sheet_name");
-  gtk_entry_set_text(GTK_ENTRY(entry), name);
+  charconv_gtk_entry_set_text(GTK_ENTRY(entry), name);
 #if CAN_EDIT_SHEET_NAME
   if (sm->sheet.scope == SHEET_SCOPE_SYSTEM)
 #endif
     gtk_widget_set_sensitive(entry, FALSE);
 
   entry = lookup_widget(sheets_edit_dialog, "entry_sheet_description");
-  gtk_entry_set_text(GTK_ENTRY(entry), descrip);
+  charconv_gtk_entry_set_text(GTK_ENTRY(entry), descrip);
 
   gtk_widget_show(sheets_edit_dialog);
 }
@@ -1067,7 +1079,7 @@ on_sheets_dialog_button_remove_clicked (GtkButton       *button,
     if (!som)
       gtk_entry_set_text(GTK_ENTRY(entry), _("Line Break"));
     else
-      gtk_entry_set_text(GTK_ENTRY(entry), som->sheet_object.description);
+      charconv_gtk_entry_set_text(GTK_ENTRY(entry), som->sheet_object.description);
 
     radio_button = lookup_widget(sheets_remove_dialog, "radiobutton_object");
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(radio_button), TRUE);
@@ -1091,7 +1103,7 @@ on_sheets_dialog_button_remove_clicked (GtkButton       *button,
     gtk_widget_set_sensitive(radio_button, FALSE);
     gtk_widget_set_sensitive(entry, FALSE);
   }
-  gtk_entry_set_text(GTK_ENTRY(entry), sm->sheet.name);
+  charconv_gtk_entry_set_text(GTK_ENTRY(entry), sm->sheet.name);
   
   gtk_widget_show(sheets_remove_dialog);
 }
@@ -1327,8 +1339,8 @@ on_sheets_edit_dialog_button_ok_clicked
     SheetObjectMod *som;
 
     som = gtk_object_get_data(GTK_OBJECT(active_button), "sheet_object_mod");
-    som->sheet_object.description = gtk_editable_get_chars(GTK_EDITABLE(entry),
-                                                           0, -1);
+    som->sheet_object.description = 
+      charconv_gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
     sheets_dialog_object_set_tooltip(som, active_button);
 
     som->mod = SHEET_OBJECT_MOD_CHANGED;
@@ -1346,7 +1358,8 @@ on_sheets_edit_dialog_button_ok_clicked
     SheetMod *sm;
 
     sm = gtk_object_get_data(GTK_OBJECT(active_button), "sheet_mod");
-    sm->sheet.description = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+    sm->sheet.description = 
+      charconv_gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
 
     if (sm->mod == SHEETMOD_MOD_NONE)
       sm->mod = SHEETMOD_MOD_CHANGED;
@@ -1364,7 +1377,7 @@ on_sheets_edit_dialog_button_ok_clicked
     GtkWidget *optionmenu;
 
     sm = gtk_object_get_data(GTK_OBJECT(active_button), "sheet_mod");
-    sm->sheet.name = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+    sm->sheet.name = charconv_gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
     if (sm->mod == SHEETMOD_MOD_NONE)
       sm->mod = SHEETMOD_MOD_CHANGED;
 

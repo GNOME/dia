@@ -145,18 +145,31 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
     if (sheet_mod->mod == SHEETMOD_MOD_DELETED)
       continue;
 
-    menu_item = gtk_menu_item_new_with_label(sheet_mod->sheet.name);
-    gtk_menu_append(GTK_MENU(optionmenu_menu), menu_item);
+    {
+      utfchar *menustr;
+      utfchar *descstr;
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+      menustr = charconv_utf8_to_local8(sheet_mod->sheet.name);
+      descstr = charconv_utf8_to_local8(sheet_mod->sheet.description);
+#else
+      menustr = g_strdup(sheet_mod->sheet.name);
+      descstr = g_strdup(sheet_mod->sheet.description);
+#endif
+      menu_item = gtk_menu_item_new_with_label(menustr);
 
-    if (sheet_mod->sheet.scope == SHEET_SCOPE_SYSTEM)
-      tip = g_strdup_printf(_("%s\nSystem sheet"),
-			    sheet_mod->sheet.description);
-    else
-      tip = g_strdup_printf(_("%s\nUser sheet"), sheet_mod->sheet.description);
-
-    gtk_tooltips_set_tip(GTK_TOOLTIPS(sheets_dialog_tooltips), menu_item, tip,
-                         NULL);
-    g_free(tip);
+      gtk_menu_append(GTK_MENU(optionmenu_menu), menu_item);
+      
+      if (sheet_mod->sheet.scope == SHEET_SCOPE_SYSTEM)
+	tip = g_strdup_printf(_("%s\nSystem sheet"), descstr);
+      else
+	tip = g_strdup_printf(_("%s\nUser sheet"), descstr);
+      
+      gtk_tooltips_set_tip(GTK_TOOLTIPS(sheets_dialog_tooltips), menu_item, tip,
+			   NULL);
+      g_free(tip);
+      g_free(menustr);
+      g_free(descstr);
+    }
 
     gtk_widget_show(menu_item);
 
@@ -176,10 +189,18 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
   {
     gint index;
     GList *list;
+    utfchar *utfname;
 
-    list = g_list_find_custom(menu_item_list, sheet_name,
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+    utfname = charconv_utf8_to_local8(sheet_name);
+#else
+    utfname = g_strdup(sheet_name);
+#endif
+
+    list = g_list_find_custom(menu_item_list, utfname,
                               menu_item_compare_labels);
     g_assert(list);
+    g_free(utfname);
 
     index = g_list_position(menu_item_list, list);
     gtk_option_menu_set_history(GTK_OPTION_MENU(option_menu), index);

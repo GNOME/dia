@@ -1280,3 +1280,25 @@ charconv_utf8_from_gtk_event_key (guint keyval, gchar *string)
 
 	return utf;
 }
+
+/* Two helper functions for manipulating gtk_entry */
+#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
+void
+charconv_gtk_entry_set_text(GtkEntry *entry, utfchar *text) {
+  utfchar *utftext;
+  utftext = charconv_utf8_to_local8(text);
+  gtk_entry_set_text(entry, utftext);
+  g_free(utftext);
+}
+
+utfchar *
+charconv_gtk_editable_get_chars(GtkEditable *entry, int start, int end) {
+  utfchar *utftext;
+  gchar *text;
+
+  text = gtk_editable_get_chars(entry, start, end);
+  utftext = charconv_local8_to_utf8(text);
+  g_free(text);
+  return utftext;
+}
+#endif
