@@ -1,3 +1,7 @@
+2003-08-23  Steffen Macke <sdteffen@web.de>
+
+	* plug-ins/xslt/Makefile.am: added dia-uml2componentlist.xsl
+
 2003-08-22  Steffen Macke <sdteffen@web.de>
 
 	* plug-ins/xslt/dia-uml.xsl:
