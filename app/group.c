@@ -178,17 +178,19 @@ group_draw(Group *group, Renderer *renderer)
 }
 
 void 
-group_destroy_shallow(Object *group)
+group_destroy_shallow(Object *obj)
 {
-  if (group->handles)
-    g_free(group->handles);
+  Group *group = (Group *)obj;
+  if (obj->handles)
+    g_free(obj->handles);
 
-  if (group->connections)
-    g_free(group->connections);
+  if (obj->connections)
+    g_free(obj->connections);
 
-  g_list_free(((Group *)group)->objects);
+  g_list_free(group->objects);
 
-  g_free(((Group *)group)->pdesc);
+  prop_desc_list_free_handler_chain(group->pdesc);
+  g_free(group->pdesc);
 
   g_free(group);
 }
@@ -196,7 +198,7 @@ group_destroy_shallow(Object *group)
 static void 
 group_destroy(Group *group)
 {
-  Object *obj = (Object *)group;
+  Object *obj = &group->object;
   
   destroy_object_list(group->objects);
 
@@ -204,9 +206,10 @@ group_destroy(Group *group)
      been unconnected and freed. */
   obj->num_connections = 0;
   
-  g_free(((Group *)group)->pdesc);
+  prop_desc_list_free_handler_chain(group->pdesc);
+  g_free(group->pdesc);
 
-  object_destroy(&group->object);
+  object_destroy(obj);
 }
 
 static Object *
@@ -356,23 +359,31 @@ group_objects(Object *group)
 static gboolean
 group_prop_event_deliver(Group *group, Property *prop)
 {
-  GSList *tmp;
+  GList *tmp;
   for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
     Object *obj = tmp->data;
 
     if (obj->ops->describe_props) {
-      PropDescription *pdesc,*plist;
+      const PropDescription *pdesc,*plist;
 
       /* I'm sorry. I haven't found a working less ugly solution :( */
       plist = obj->ops->describe_props(obj);
       pdesc = prop_desc_list_find_prop(plist,prop->name);
       if (pdesc && pdesc->event_handler) {
         /* deliver */
-        return pdesc->event_handler(obj,prop);
+        PropEventHandler hdl = prop_desc_find_real_handler(pdesc);
+        if (hdl) {
+          return hdl(obj,prop);
+        } else {
+          g_warning("dropped group event on prop %s, "
+                    "final handler was NULL",prop->name);
+          return FALSE;
+        }
       }
     }
   }
   g_warning("undelivered group property event for prop %s",prop->name); 
+  return FALSE;
 }
 
 static const PropDescription *
@@ -399,8 +410,8 @@ group_describe_props(Group *group)
       /* hijack event delivery */
       for (i=0; group->pdesc[i].name != NULL; i++) {
         if (group->pdesc[i].event_handler) 
-          group->pdesc[i].event_handler = 
-            (PropEventHandler)group_prop_event_deliver;
+          prop_desc_insert_handler(&group->pdesc[i],
+                                   (PropEventHandler)group_prop_event_deliver);
       }
     }
   }

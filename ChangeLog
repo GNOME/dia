@@ -1,5 +1,18 @@
 2001-07-26  Cyrille Chepelov  <chepelov@calixo.net>
 
+	* objects/SADT/box.c: 
+	* objects/GRAFCET/action.c: spelling in property descriptors (name
+	field...)
+	* objects/SADT/annotation.c: ditto, plus a temporary test of the
+	event delivery code (try to click on the "click me !" button !).
+
+	* app/group.c: 
+	* lib/properties.[ch]: improved (fixed) support for group event 
+	handlers. Fixed various things from yesterday's code to make it
+	not too obviously crash.
+
+2001-07-26  Cyrille Chepelov  <chepelov@calixo.net>
+
 	* app/group.c: added delivery of events to the first member of the
 	group which is able to process it.
 

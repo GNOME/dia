@@ -97,6 +97,63 @@ prop_type_register(const gchar *name, PropType_Copy cfunc,
   return ret;
 }
 
+/* finds the real handler in case there are several levels of indirection */
+PropEventHandler 
+prop_desc_find_real_handler(const PropDescription *pdesc)
+{
+  PropEventHandler ret = pdesc->event_handler;
+  const PropEventHandlerChain *chain = &pdesc->chain_handler;
+  if (!chain->handler) return ret;
+  while (chain) {
+    if (chain->handler) ret = chain->handler;
+    chain = chain->chain;
+  }
+  return ret;
+}
+
+/* free a handler indirection list */
+void 
+prop_desc_free_handler_chain(PropDescription *pdesc)
+{
+  if (pdesc) {
+    PropEventHandlerChain *chain = pdesc->chain_handler.chain;
+    while (chain) {
+      PropEventHandlerChain *next = chain->chain;
+      g_free(chain);
+      chain = next;
+    } 
+    pdesc->chain_handler.chain = NULL;
+    pdesc->chain_handler.handler = NULL;
+  }
+}
+
+/* free a handler indirection list in a list of descriptors */
+void 
+prop_desc_list_free_handler_chain(PropDescription *pdesc) 
+{
+  if (!pdesc) return;
+  while (pdesc->name) {
+    prop_desc_free_handler_chain(pdesc);
+    pdesc++;
+  }
+}
+
+/* insert an event handler */
+void 
+prop_desc_insert_handler(PropDescription *pdesc, 
+                         PropEventHandler handler)
+{
+  if ((pdesc->chain_handler.handler) || (pdesc->chain_handler.chain)) {
+    /* not the first level. Push things forward. */
+    PropEventHandlerChain *pushed = g_new0(PropEventHandlerChain,1);
+    *pushed = pdesc->chain_handler;
+    pdesc->chain_handler.chain = pushed;
+  }
+  pdesc->chain_handler.handler = pdesc->event_handler;
+  pdesc->event_handler = handler;
+}
+
+
 static const PropDescription null_prop_desc = { NULL };
 
 PropDescription *
@@ -153,16 +210,18 @@ prop_desc_lists_intersection(GList *plists)
       for (i = arr->len - 1; i >= 0; i--) {
 	gint j;
         PropDescription cand = g_array_index(arr,PropDescription,i);
+        gboolean remove = TRUE;
 	for (j = 0; ret[j].name != NULL; j++) {
 	  if (cand.quark == ret[j].quark) {
-            if ((!((ret[j].flags|cand.flags) & PROP_FLAG_DONT_MERGE)) &&
-                (ret[j].event_handler == cand.event_handler))                
-              break; /* otherwise, one of the props doesn't want to be merged,
-                        so we won't keep it. */                        
+            PropEventHandler 
+              rethdl = prop_desc_find_real_handler(&ret[j]),
+              candhdl = prop_desc_find_real_handler(&cand);
+            remove = FALSE;
+            remove |= (((ret[j].flags|cand.flags) & PROP_FLAG_DONT_MERGE)!=0);
+            remove |= (rethdl != candhdl);            
           }
         }
-	if (ret[j].name == NULL)
-	  g_array_remove_index(arr, i);
+	if (remove) g_array_remove_index(arr, i);
       }
     }
   }
@@ -363,6 +422,7 @@ property_signal_handler(GtkObject *obj,
     const PropDialogData *pdd = ped->dialog;
     Property *prop = &(pdd->props[ped->index]);
     Object *obj = pdd->obj_copy;
+    int j;
 #if 1
     g_message("signal from property '%s'",prop->name);
 #endif
@@ -375,6 +435,10 @@ property_signal_handler(GtkObject *obj,
     obj->ops->set_props(obj,pdd->props,pdd->nprops);
     prop->event_handler(obj,prop);
     obj->ops->get_props(obj,pdd->props,pdd->nprops);
+
+    for (j=0; j < pdd->nprops; j++) {
+      prop_reset_widget(&pdd->props[j],pdd->widgets[j]);
+    } 
   } else {
     g_assert_not_reached();
   }
@@ -1261,6 +1325,7 @@ object_get_props_from_offsets(Object *obj, PropOffset *offsets,
 	break;
     if (offsets[j].name == NULL || props[i].type != offsets[j].type)
       continue;
+
     switch (offsets[j].type) {
     case PROP_TYPE_CHAR:
       PROP_VALUE_CHAR(props[i]) = struct_member(obj,offsets[j].offset,unichar);

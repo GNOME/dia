@@ -168,7 +168,7 @@ static PropOffset box_offsets[] = {
   { "text_alignment",PROP_TYPE_ENUM,offsetof(Box,attrs.alignment)},
   { "text_font",PROP_TYPE_FONT,offsetof(Box,attrs.font)},
   { "text_height",PROP_TYPE_REAL,offsetof(Box,attrs.height)},
-  { "text_color",PROP_TYPE_COLOUR,offsetof(Box,attrs.color)},
+  { "text_colour",PROP_TYPE_COLOUR,offsetof(Box,attrs.color)},
   { "id", PROP_TYPE_STRING, offsetof(Box,id)},
   { "cpl_north",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,north)},
   { "cpl_west",PROP_TYPE_CONNPOINT_LINE, offsetof(Box,west)},

@@ -150,7 +150,7 @@ static PropOffset action_offsets[] = {
   {"text_alignment",PROP_TYPE_ENUM,offsetof(Action,attrs.alignment)},
   {"text_font",PROP_TYPE_FONT,offsetof(Action,attrs.font)},
   {"text_height",PROP_TYPE_REAL,offsetof(Action,attrs.height)},
-  {"text_color",PROP_TYPE_COLOUR,offsetof(Action,attrs.color)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Action,attrs.color)},
   {"macro_call",PROP_TYPE_BOOL,offsetof(Action,macro_call)},
   { NULL,0,0 }
 };

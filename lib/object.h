@@ -215,7 +215,7 @@ typedef struct _PropDescription PropDescription;
 typedef struct _Property Property;
 typedef struct _PropEventData PropEventData;
 typedef struct _PropDialogData PropDialogData;
-
+typedef struct _PropEventHandlerChain PropEventHandlerChain;
 #endif
 
 /*

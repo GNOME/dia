@@ -45,6 +45,7 @@ typedef struct _PropDescription PropDescription;
 typedef struct _Property Property;
 typedef struct _PropEventData PropEventData;
 typedef struct _PropDialogData PropDialogData;
+typedef struct _PropEventHandlerChain PropEventHandlerChain;
 #endif
 
 struct _PropDialogData {
@@ -62,6 +63,11 @@ struct _PropEventData {
 };
 
 typedef gboolean (*PropEventHandler) (Object *obj, Property *prop);
+
+struct _PropEventHandlerChain {
+  PropEventHandler handler;
+  PropEventHandlerChain *chain;
+};
 
 typedef enum {
   PROP_TYPE_INVALID = 0,
@@ -128,6 +134,9 @@ struct _PropDescription {
   PropEventHandler event_handler;
 
   GQuark quark; /* quark for property name -- helps speed up lookups. */
+
+  /* only used by dynamically constructed property descriptors (eg. groups) */ 
+  PropEventHandlerChain chain_handler;
 };
 
 #define PROP_FLAG_VISIBLE   0x0001
@@ -255,11 +264,11 @@ prop_desc_list_calculate_quarks(PropDescription *plist)
 #endif
 
 /* plist must have all quarks calculated in advance */
-G_INLINE_FUNC PropDescription *prop_desc_list_find_prop(PropDescription *plist,
-							const gchar *name);
+G_INLINE_FUNC const PropDescription *
+prop_desc_list_find_prop(const PropDescription *plist, const gchar *name);
 #ifdef G_CAN_INLINE
-G_INLINE_FUNC PropDescription *
-prop_desc_list_find_prop(PropDescription *plist, const gchar *name)
+G_INLINE_FUNC const PropDescription *
+prop_desc_list_find_prop(const PropDescription *plist, const gchar *name)
 {
   gint i = 0;
   GQuark name_quark = g_quark_from_string(name);
@@ -272,6 +281,16 @@ prop_desc_list_find_prop(PropDescription *plist, const gchar *name)
   return NULL;
 }
 #endif
+
+/* finds the real handler in case there are several levels of indirection */
+PropEventHandler prop_desc_find_real_handler(const PropDescription *pdesc);
+/* free a handler indirection list */
+void prop_desc_free_handler_chain(PropDescription *pdesc);
+/* free a handler indirection list in a list of descriptors */
+void prop_desc_list_free_handler_chain(PropDescription *pdesc);
+/* insert an event handler */
+void prop_desc_insert_handler(PropDescription *pdesc, 
+                              PropEventHandler handler);
 
 /* operations on lists of property description lists */
 PropDescription *prop_desc_lists_union(GList *plists);
