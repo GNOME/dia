@@ -1,3 +1,10 @@
+2003-01-02  Steffen Macke <sdteffen@web.de>
+	
+	* lib/dia_svg.c: including stdlib.h
+	* lib/makefile.msc: added gdk_pixbuf libs to linker
+	* app/makefile.msc: added gdk_pixbuf libs, made libart
+	libs compatible with gnuwin32 package
+	
 2003-01-01  Hans Breuer  <hans@breuer.org>
 
 	* lib/font.c : more comment about global_size_one

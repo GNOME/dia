@@ -26,6 +26,7 @@
 #include <ctype.h>
 #include <locale.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "dia_svg.h"
 
