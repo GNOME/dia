@@ -1163,7 +1163,8 @@ draw_string (RendererLibart *renderer,
   double affine[6];
   double xpos, ypos;
   guint32 rgba;
-  
+  int rowstride;
+
   point_copy(&start_pos,pos);
 
   switch (alignment) {
@@ -1197,20 +1198,30 @@ draw_string (RendererLibart *renderer,
   /* Freetype version */
  {
    FT_Bitmap ftbitmap;
-   int rowstride = 32*((width+31)/31);
+   guint8 *graybitmap;
+   rowstride = 32*((width+31)/31);
    
-   bitmap = (guint8*)g_new(guint8, height*rowstride);
+   graybitmap = (guint8*)g_new(guint8, height*rowstride);
 
    ftbitmap.rows = height;
    ftbitmap.width = width;
    ftbitmap.pitch = rowstride;
-   ftbitmap.buffer = bitmap;
+   ftbitmap.buffer = graybitmap;
    ftbitmap.num_grays = 256;
    ftbitmap.pixel_mode = ft_pixel_mode_grays;
    ftbitmap.palette_mode = 0;
    ftbitmap.palette = 0;
    printf("Rendering %s onto bitmap of size %dx%d\n", text, width, height);
    pango_ft2_render_layout(&ftbitmap, layout, 0, 0);
+
+   bitmap = (guint8*)g_new(guint8, 4*height*rowstride);
+   for (i = 0; i < height*rowstride; i++) {
+     bitmap[4*i] = graybitmap[i];
+     bitmap[4*i+1] = graybitmap[i];
+     bitmap[4*i+2] = graybitmap[i];
+     bitmap[4*i+3] = graybitmap[i];
+   }
+   g_free(graybitmap);
  }
 #else
  /* Gdk version -- but we shouldn't need Gdk, dammit! */
@@ -1222,20 +1233,20 @@ draw_string (RendererLibart *renderer,
 
   rgba = color_to_rgba(color);
 
-  art_affine_translate (affine, xpos, ypos);
+  art_affine_translate (affine, x, y);
   if (bitmap != NULL)
-    art_rgb_bitmap_affine (renderer->rgb_buffer,
-			   0, 0,
-			   renderer->renderer.pixel_width,
-			   renderer->renderer.pixel_height,
-			   renderer->renderer.pixel_width * 3,
-			   bitmap,
-			   width,
-			   height,
-			   width >> 8,
-			   rgba,
-			   affine,
-			   ART_FILTER_NEAREST, NULL);
+    art_rgb_rgba_affine (renderer->rgb_buffer,
+		    0, 0,
+		    renderer->renderer.pixel_width,
+		    renderer->renderer.pixel_height,
+		    renderer->renderer.pixel_width * 3,
+		    bitmap,
+		    width,
+		    height,
+		    rowstride>>3,
+		    //rgba,
+		    affine,
+		    ART_FILTER_NEAREST, NULL);
 
   g_free(bitmap);
 }
