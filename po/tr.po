@@ -785,7 +785,7 @@ msgstr "Yer deðiþtir"
 
 #: app/menus.c:140
 msgid "Union"
-msgstr "Birlik"
+msgstr "Birleþtir"
 
 #: app/menus.c:142
 msgid "Intersect"
@@ -1375,7 +1375,7 @@ msgstr "hayýr"
 #: objects/UML/dependency.c:125 objects/UML/generalization.c:121
 #: objects/UML/realizes.c:122
 msgid "Name:"
-msgstr "Isim:"
+msgstr "Ýsim:"
 
 #: app/plugin-manager.c:193
 msgid "File name:"
@@ -1439,14 +1439,12 @@ msgstr ""
 "nesnelerin kesimlerini belirtir :"
 
 #: app/preferences.c:138
-#, fuzzy
 msgid "New diagram:"
-msgstr "_Yeni diyagram"
+msgstr "Yeni diyagram"
 
 #: app/preferences.c:139
-#, fuzzy
 msgid "Paper type:"
-msgstr "Ileti tipi:"
+msgstr "Kaðýt türü:"
 
 #: app/preferences.c:142
 msgid "New window:"
@@ -1533,11 +1531,10 @@ msgstr "Nesne özellikleri"
 
 #: app/render_eps.c:1651
 msgid "Encapsulated Postscript"
-msgstr "Imlenmiþ Postscript (EPS)"
+msgstr "Encapsulated Postscript (EPS)"
 
 #. remove recent files if list get's too long
 #: app/recent_files.c:75
-#, fuzzy
 msgid "/File/Plugins"
 msgstr "/Dosya/_Eklentiler"
 
@@ -1655,7 +1652,7 @@ msgstr "`%s''yi açamadým"
 
 #: lib/bezier_conn.c:528
 msgid "Internal error: Setting corner type of endpoint of bezier"
-msgstr "Iç hata: Bezyer çizgisinin bitiþ noktasýnýn köþe tipini belirtirken"
+msgstr "Ýç hata: Bezyer çizgisinin bitiþ noktasýnýn köþe tipini belirtirken"
 
 #: lib/font.c:427
 #, c-format
@@ -1805,7 +1802,7 @@ msgstr "Tireli"
 
 #: lib/widgets.c:678
 msgid "Integral Symbol"
-msgstr "Ýntegral iþareti"
+msgstr "Ýntegral Ýþareti"
 
 #: lib/widgets.c:714
 msgid "Length: "
@@ -1922,7 +1919,6 @@ msgid "Right Cardinality:"
 msgstr "Sað sayallýk:"
 
 #: objects/ER/relationship.c:141
-#, fuzzy
 msgid "Rotate:"
 msgstr "Döndür:"
 
@@ -1982,15 +1978,15 @@ msgstr "Ters-akýþýn tipi:"
 
 #: objects/FS/fs.c:43
 msgid "Function structure diagram objects"
-msgstr "Iþlev yapýsý diyagram nesneleri"
+msgstr "Fonksiyon yapýsý diyagram nesneleri"
 
 #: objects/FS/function.c:136
 msgid "Wish function"
-msgstr "Istenilen iþlev"
+msgstr "Ýstek fonksiyonu"
 
 #: objects/FS/function.c:138
 msgid "User function"
-msgstr "Kullanýcý iþlevi"
+msgstr "Kullanýcý fonksiyonu"
 
 #: objects/FS/function.c:608
 msgid "Verb"
@@ -2002,21 +1998,18 @@ msgid "Channel"
 msgstr "Kanal"
 
 #: objects/FS/function.c:611 objects/FS/function.c:612
-#, fuzzy
 msgid "Import"
-msgstr "Dýþarýdan al"
+msgstr "Al"
 
 #: objects/FS/function.c:613
 msgid "Input"
 msgstr "Girdi"
 
 #: objects/FS/function.c:614
-#, fuzzy
 msgid "Receive"
 msgstr "Al"
 
 #: objects/FS/function.c:615 objects/FS/function.c:751
-#, fuzzy
 msgid "Allow"
 msgstr "Ýzin ver"
 
@@ -2025,21 +2018,18 @@ msgid "Form Entrance"
 msgstr "Form Giriþi"
 
 #: objects/FS/function.c:617 objects/FS/function.c:734
-#, fuzzy
 msgid "Capture"
 msgstr "Yakala"
 
 #: objects/FS/function.c:618 objects/FS/function.c:619
-#, fuzzy
 msgid "Export"
-msgstr "Dýþarý Gönder"
+msgstr "Aktar"
 
 #: objects/FS/function.c:620
 msgid "Discharge"
 msgstr "Boþalt"
 
 #: objects/FS/function.c:621
-#, fuzzy
 msgid "Eject"
 msgstr "Çýkar"
 
@@ -2049,9 +2039,8 @@ msgstr "Dispose"
 
 #: objects/FS/function.c:624 objects/FS/function.c:625
 #: objects/FS/function.c:634
-#, fuzzy
 msgid "Transfer"
-msgstr "Transfer"
+msgstr "Gönder"
 
 #: objects/FS/function.c:626 objects/FS/function.c:627
 #, fuzzy
@@ -2059,17 +2048,14 @@ msgid "Transport"
 msgstr "Taþý"
 
 #: objects/FS/function.c:628
-#, fuzzy
 msgid "Lift"
 msgstr "Kaldýr"
 
 #: objects/FS/function.c:629
-#, fuzzy
 msgid "Move"
-msgstr "Yürüt"
+msgstr "Taþý"
 
 #: objects/FS/function.c:631 objects/FS/function.c:632
-#, fuzzy
 msgid "Transmit"
 msgstr "Gönder"
 
@@ -2178,7 +2164,6 @@ msgid "Steady"
 msgstr "Saðlam"
 
 #: objects/FS/function.c:663 objects/FS/function.c:664
-#, fuzzy
 msgid "Secure"
 msgstr "Güvenli"
 
@@ -2187,7 +2172,6 @@ msgid "Attach"
 msgstr "Tuttur"
 
 #: objects/FS/function.c:666
-#, fuzzy
 msgid "Mount"
 msgstr "Baðla"
 
@@ -2200,27 +2184,22 @@ msgid "Fasten"
 msgstr "Ýliþtir"
 
 #: objects/FS/function.c:669
-#, fuzzy
 msgid "Hold"
 msgstr "Tut"
 
 #: objects/FS/function.c:670 objects/FS/function.c:671
-#, fuzzy
 msgid "Position"
-msgstr "Pozisyon"
+msgstr "Konum"
 
 #: objects/FS/function.c:672
-#, fuzzy
 msgid "Orient"
 msgstr "Yön"
 
 #: objects/FS/function.c:673
-#, fuzzy
 msgid "Align"
 msgstr "Hizala"
 
 #: objects/FS/function.c:674 objects/FS/function.c:795
-#, fuzzy
 msgid "Locate"
 msgstr "Yer belirle"
 
@@ -2229,20 +2208,18 @@ msgid "Connect"
 msgstr "Baðla"
 
 #: objects/FS/function.c:677 objects/FS/function.c:678
-#, fuzzy
 msgid "Couple"
 msgstr "Çift"
 
 #: objects/FS/function.c:679
 msgid "Join"
-msgstr "Katýl"
+msgstr "Birleþtir"
 
 #: objects/FS/function.c:680
 msgid "Assemble"
-msgstr "Bir araya topla"
+msgstr "Biraraya topla"
 
 #: objects/FS/function.c:682 objects/FS/function.c:683
-#, fuzzy
 msgid "Mix"
 msgstr "Karýþtýr"
 
@@ -2274,7 +2251,6 @@ msgstr "Dal"
 
 #: objects/FS/function.c:691 objects/FS/function.c:692
 #: objects/FS/function.c:693
-#, fuzzy
 msgid "Separate"
 msgstr "Ayýr"
 
@@ -2287,22 +2263,18 @@ msgid "Divide"
 msgstr "Böl"
 
 #: objects/FS/function.c:696
-#, fuzzy
 msgid "Release"
-msgstr "Serbest býrak"
+msgstr "Býrak"
 
 #: objects/FS/function.c:697
-#, fuzzy
 msgid "Detach"
 msgstr "Ayýr"
 
 #: objects/FS/function.c:698
-#, fuzzy
 msgid "Disconnect"
 msgstr "Baðlantýyý kes"
 
 #: objects/FS/function.c:701
-#, fuzzy
 msgid "Cut"
 msgstr "Kes"
 
@@ -4393,7 +4365,7 @@ msgstr ""
 
 #: sheets/ER.sheet.in.h:2
 msgid "ER"
-msgstr ""
+msgstr "ER"
 
 #: sheets/ER.sheet.in.h:3
 #, fuzzy
@@ -4710,19 +4682,16 @@ msgid "A Nand gate"
 msgstr "Içer"
 
 #: sheets/Logic.sheet.in.h:2
-#, fuzzy
 msgid "A Nor gate"
-msgstr "Içer"
+msgstr "Nor kapýsý"
 
 #: sheets/Logic.sheet.in.h:3
-#, fuzzy
 msgid "A Not"
-msgstr "Içer"
+msgstr "Deðil"
 
 #: sheets/Logic.sheet.in.h:4
-#, fuzzy
 msgid "A Xor gate"
-msgstr "Içer"
+msgstr "Xor kapýsý"
 
 #: sheets/Logic.sheet.in.h:5
 #, fuzzy
@@ -4770,7 +4739,7 @@ msgstr ""
 
 #: sheets/MSE.sheet.in.h:3
 msgid "MSE"
-msgstr ""
+msgstr "MSE"
 
 #: sheets/MSE.sheet.in.h:4
 #, fuzzy
@@ -4803,13 +4772,12 @@ msgid "A Bigtower PC"
 msgstr ""
 
 #: sheets/network.sheet.in.h:3
-#, fuzzy
 msgid "A Computer"
-msgstr "Köþe ekle"
+msgstr "Bilgisayar"
 
 #: sheets/network.sheet.in.h:4
 msgid "A Desktop PC"
-msgstr ""
+msgstr "Masaüstü PC"
 
 #: sheets/network.sheet.in.h:5
 msgid "A Firewall router"
@@ -4826,25 +4794,23 @@ msgstr "Eylemci"
 
 #: sheets/network.sheet.in.h:8
 msgid "A Mobile Phone"
-msgstr ""
+msgstr "Mobil Telefon"
 
 #: sheets/network.sheet.in.h:9
 msgid "A RJ45 Wall-Plug"
-msgstr ""
+msgstr "RJ 45"
 
 #: sheets/network.sheet.in.h:10
 msgid "A UNIX Workstation"
-msgstr ""
+msgstr "UNIX Çalýþma Ýstasyonu"
 
 #: sheets/network.sheet.in.h:11
-#, fuzzy
 msgid "A WAN Connection"
-msgstr "Isýyayým"
+msgstr "WAN Baðlantýsý"
 
 #: sheets/network.sheet.in.h:12
-#, fuzzy
 msgid "A WAN Link"
-msgstr "Isýyayým"
+msgstr "WAN Ýletiþimi"
 
 #: sheets/network.sheet.in.h:13
 msgid "A Wall-Plug for the scEAD Cabling System"
@@ -4852,20 +4818,19 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:14
 msgid "A Workstation Monitor"
-msgstr ""
+msgstr "Çalýþma Ýstasyonu Monitörü"
 
 #: sheets/network.sheet.in.h:15
 msgid "A ZIP Disk"
-msgstr ""
+msgstr "ZIP Diski"
 
 #: sheets/network.sheet.in.h:16
 msgid "A modular switching system"
 msgstr ""
 
 #: sheets/network.sheet.in.h:17
-#, fuzzy
 msgid "A monitor"
-msgstr "Eylemci"
+msgstr "Monitör"
 
 #: sheets/network.sheet.in.h:18
 #, fuzzy
@@ -4898,7 +4863,7 @@ msgstr "Deðiþtir"
 
 #: sheets/network.sheet.in.h:24
 msgid "An Ethernet bus"
-msgstr ""
+msgstr "Ethernet veriyolu"
 
 #: sheets/network.sheet.in.h:25
 msgid "An antenna for wireless transmission"
@@ -4906,12 +4871,11 @@ msgstr ""
 
 #: sheets/network.sheet.in.h:26
 msgid "An external DAT drive"
-msgstr ""
+msgstr "Harici DAT sürücüsü"
 
 #: sheets/network.sheet.in.h:27
-#, fuzzy
 msgid "Network"
-msgstr "Yeni"
+msgstr "Að"
 
 #: sheets/network.sheet.in.h:28
 #, fuzzy
@@ -5050,7 +5014,7 @@ msgstr ""
 
 #: sheets/SADT.sheet.in.h:5
 msgid "SADT/IDEF0"
-msgstr ""
+msgstr "SADT/IDEF0"
 
 #: sheets/SDL.sheet.in.h:1
 msgid "Action being executed"
@@ -5062,14 +5026,12 @@ msgid "Block Type Reference"
 msgstr "Tercihler"
 
 #: sheets/SDL.sheet.in.h:3
-#, fuzzy
 msgid "Comment"
-msgstr "Orta"
+msgstr "Açýklama"
 
 #: sheets/SDL.sheet.in.h:4
-#, fuzzy
 msgid "Decision"
-msgstr "Açýklama:"
+msgstr "Karar"
 
 #: sheets/SDL.sheet.in.h:5
 #, fuzzy
@@ -5100,13 +5062,12 @@ msgid "Process Type Reference"
 msgstr "Tercihler"
 
 #: sheets/SDL.sheet.in.h:12
-#, fuzzy
 msgid "Receive message"
-msgstr "Al"
+msgstr "Mesajý Al"
 
 #: sheets/SDL.sheet.in.h:13
 msgid "SDL"
-msgstr ""
+msgstr "SDL"
 
 #: sheets/SDL.sheet.in.h:14
 #, fuzzy
@@ -5161,9 +5122,8 @@ msgid "Stable Storage Device"
 msgstr ""
 
 #: sheets/sybase.sheet.in.h:8
-#, fuzzy
 msgid "Sybase"
-msgstr "Tireli"
+msgstr "Sybase"
 
 #: sheets/UML.sheet.in.h:1
 msgid "Aggregation, one class is part of another"
@@ -5178,24 +5138,20 @@ msgid "Constraint, place a constraint on something"
 msgstr ""
 
 #: sheets/UML.sheet.in.h:4
-#, fuzzy
 msgid "Create a (large) package"
-msgstr "Resim yarat"
+msgstr "(Büyük) bir paket yarat"
 
 #: sheets/UML.sheet.in.h:5
-#, fuzzy
 msgid "Create a (small) package"
-msgstr "Resim yarat"
+msgstr "(Küçük) bir paket yarat"
 
 #: sheets/UML.sheet.in.h:6
-#, fuzzy
 msgid "Create a branch"
-msgstr "Yay yarat"
+msgstr "Bir dal yarat"
 
 #: sheets/UML.sheet.in.h:7
-#, fuzzy
 msgid "Create a class"
-msgstr "Þablon sýnýfý"
+msgstr "Bir sýnýf yarat"
 
 #: sheets/UML.sheet.in.h:8
 #, fuzzy
@@ -5203,9 +5159,8 @@ msgid "Create a class stereotype icon"
 msgstr "Þablon sýnýfý"
 
 #: sheets/UML.sheet.in.h:9
-#, fuzzy
 msgid "Create a component"
-msgstr "Poligon yarat"
+msgstr "Bir bileþen yarat"
 
 #: sheets/UML.sheet.in.h:10
 #, fuzzy
@@ -5218,19 +5173,16 @@ msgid "Create a lifeline"
 msgstr "Bezyer çizgisini yarata"
 
 #: sheets/UML.sheet.in.h:12
-#, fuzzy
 msgid "Create a message"
-msgstr "Resim yarat"
+msgstr "Bir mesaj yarat"
 
 #: sheets/UML.sheet.in.h:13
-#, fuzzy
 msgid "Create a node"
-msgstr "Çizgi yarat"
+msgstr "Bir düðüm yarat"
 
 #: sheets/UML.sheet.in.h:14
-#, fuzzy
 msgid "Create a note"
-msgstr "Çizgi yarat"
+msgstr "Bir not yarat"
 
 #: sheets/UML.sheet.in.h:15
 #, fuzzy
@@ -5238,9 +5190,8 @@ msgid "Create a state machine"
 msgstr "Çizgi yarat"
 
 #: sheets/UML.sheet.in.h:16
-#, fuzzy
 msgid "Create a template class"
-msgstr "Þablon sýnýfý"
+msgstr "Bir þablon sýnýfý yarat"
 
 #: sheets/UML.sheet.in.h:17
 #, fuzzy
@@ -5253,9 +5204,8 @@ msgid "Create an actor"
 msgstr "Yeni bir diyagram yarat"
 
 #: sheets/UML.sheet.in.h:19
-#, fuzzy
 msgid "Create an object"
-msgstr "Çizgi yarat"
+msgstr "Bir nesne yarat"
 
 #: sheets/UML.sheet.in.h:20
 #, fuzzy
@@ -5276,32 +5226,12 @@ msgstr ""
 
 #: sheets/UML.sheet.in.h:24
 msgid "UML"
-msgstr ""
+msgstr "UML"
 
 #: dia.desktop.in.h:1
 msgid "A Diagram Editor"
-msgstr "Çizge editörü"
+msgstr "Diyagram Düzenleyici"
 
 #: dia.desktop.in.h:2
 msgid "Dia"
 msgstr "Dia"
-
-#~ msgid "No edit widget"
-#~ msgstr "Deðiþtirilebilir bir widget deðildir"
-
-#, fuzzy
-#~ msgid "Class name"
-#~ msgstr "Sýnýf adý:"
-
-#~ msgid "Attributes:"
-#~ msgstr "Özellikler:"
-
-#~ msgid ""
-#~ "No such file found\n"
-#~ "%s\n"
-#~ msgstr ""
-#~ "Böyle bir dosya bulunamadý\n"
-#~ "%s\n"
-
-#~ msgid "Import from XFig"
-#~ msgstr "XFig'den dosyayý al"
