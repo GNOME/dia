@@ -84,7 +84,7 @@ dia_get_lib_directory (const gchar* subdir)
 gchar *
 dia_config_filename(const gchar *subfile)
 {
-  gchar *homedir;
+  const gchar *homedir;
 
   homedir = g_get_home_dir();
   if (!homedir) {

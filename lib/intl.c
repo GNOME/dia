@@ -273,7 +273,7 @@ get_language_list(const gchar *category_name)
 GList *
 intl_get_language_list(void)
 {
-  static GList *list = NULL;
+  static const GList *list = NULL;
 
   if (!list) {
 #ifdef GNOME

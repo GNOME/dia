@@ -235,7 +235,6 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
 {
   GHashTable *objects_hash;
   int fd;
-  struct stat stat_buf;
   GList *list;
   xmlDocPtr doc;
   xmlNodePtr diagramdata;

@@ -458,7 +458,7 @@ prefs_load(void)
   fd = open(filename, O_RDONLY);
 
   if (fd < 0) {
-    char *homedir = g_get_home_dir();
+    const gchar *homedir = g_get_home_dir();
 
     g_free(filename);
     filename = g_strconcat(homedir, G_DIR_SEPARATOR_S ".diarc", NULL);

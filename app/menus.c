@@ -1099,8 +1099,8 @@ menus_get_item_from_path (char *path, GtkItemFactory *item_factory)
   GtkWidget *widget = NULL;
 
 # ifdef GNOME
+      /* DDisplay *ddisp; */
   const gchar *menu_name;
-  DDisplay *ddisp;
 
   /* drop the "<Display>/", "<DisplayMBar>/" or "<Toolbox>/" at the start */
   menu_name = path;

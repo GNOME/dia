@@ -68,4 +68,10 @@ void
 calculate_arrow_point(Point *to, Point *from, Point *move,
 		      real length, real width, real linewidth);
 
+/* Transforms 'start' to be at the back end of the arrow, and puts the
+ * tip of the arrow into 'arrowtip'.
+ */
+void arrow_transform_points(Arrow *arrow, Point *start, Point *to,
+                       int linewidth, Point *arrowtip);
+
 #endif /* ARROWS_H */

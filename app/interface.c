@@ -149,7 +149,8 @@ origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
 static void
 zoom_activate_callback(GtkWidget *dummy, gpointer user_data) {
   DDisplay *ddisp = (DDisplay *)user_data;
-  gchar *zoom_text = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(ddisp->zoom_status)->entry));
+  const gchar *zoom_text =
+      gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(ddisp->zoom_status)->entry));
   float zoom_amount, magnify;
 
   if (sscanf(zoom_text, "%f", &zoom_amount) == 1) {
@@ -748,7 +749,6 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
   int rows;
   GtkStyle *style;
   GSList *tmp;
-  gchar *str;
 
   gtk_container_foreach(GTK_CONTAINER(sheet_wbox),
 			(GtkCallback)gtk_widget_destroy, NULL);
@@ -832,7 +832,6 @@ void
 fill_sheet_menu(void)
 {
   GSList *tmp;
-  gchar *str;
 
   gtk_container_foreach(GTK_CONTAINER(sheet_menu),
 			(GtkCallback)gtk_widget_destroy, NULL);
@@ -857,7 +856,7 @@ fill_sheet_menu(void)
 	GTK_MENU_ITEM(GTK_OPTION_MENU(sheet_option_menu)->menu_item));
 }
 
-static void
+void
 create_sheets(GtkWidget *parent)
 {
   GtkWidget *separator;

@@ -76,7 +76,7 @@ get_default_paper(void)
 {
   FILE *papersize;
   gchar paper[100];
-  gchar *env;
+  const gchar *env;
   gint i;
 
   if((env = g_getenv("PAPERCONF")) != NULL) {

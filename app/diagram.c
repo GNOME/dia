@@ -120,8 +120,6 @@ new_diagram(const char *filename)  /* Note: filename is copied */
 void
 diagram_destroy(Diagram *dia)
 {
-  char *home_path;
-
   assert(dia->displays==NULL);
 
   diagram_data_destroy(dia->data);

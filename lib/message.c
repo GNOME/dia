@@ -85,7 +85,7 @@ set_message_func(MessageInternal func)
 }
 
 void
-message(char *title, const char *format, ...)
+message(const char *title, const char *format, ...)
 {
   va_list args, args2;
 

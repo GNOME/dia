@@ -285,7 +285,6 @@ this_is_a_plugin(const gchar *name)
 {
 #if USING_LIBTOOL
   gchar *soname,*basename;
-  struct stat statbuf;  
 #endif
   guint len = strlen(name);
   if (0 != strcmp(&name[len-PLUG_IN_EXT_LEN], PLUG_IN_EXT)) 
@@ -392,8 +391,8 @@ dia_register_plugins_in_dir(const gchar *directory)
 void
 dia_register_plugins(void)
 {
-  gchar *library_path;
-  gchar *lib_dir;
+  const gchar *library_path;
+  const gchar *lib_dir;
 
   library_path = g_getenv("DIA_LIB_PATH");
 
@@ -401,7 +400,7 @@ dia_register_plugins(void)
 
   if (lib_dir != NULL) {
     dia_register_plugins_in_dir(lib_dir);
-    g_free(lib_dir);
+    g_free((char *)lib_dir);
   }
 
   if (library_path != NULL) {
@@ -416,9 +415,9 @@ dia_register_plugins(void)
     library_path = dia_get_lib_directory("dia");
 
     dia_register_plugins_in_dir(library_path);
-    g_free(library_path);
+    g_free((char *)library_path);
   }
-  /* this isn't needed anymore */
+  /* FIXME: this isn't needed anymore */
   free_pluginrc();
 }
 

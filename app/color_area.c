@@ -373,10 +373,7 @@ color_area_events (GtkWidget *widget,
 		   GdkEvent  *event)
 {
   GdkEventButton *bevent;
-  GdkEventConfigure *cevent;
   int target;
-
-  
   
   switch (event->type)
     {

@@ -1119,10 +1119,9 @@ dia_file_selector_set_file(DiaFileSelector *fs, gchar *file)
   gtk_entry_set_text(GTK_ENTRY(fs->entry), file);
 }
 
-gchar *
+const gchar *
 dia_file_selector_get_file(DiaFileSelector *fs)
 {
-  /* UTF8 conversions here ? */
   return gtk_entry_get_text(GTK_ENTRY(fs->entry));
 }
 

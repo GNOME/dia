@@ -234,7 +234,7 @@ struct _DiaFileSelectorClass
 guint      dia_file_selector_get_type        (void);
 GtkWidget* dia_file_selector_new             (void);
 void       dia_file_selector_set_file        (DiaFileSelector *fs, char *file);
-char *     dia_file_selector_get_file        (DiaFileSelector *fs);
+const gchar *dia_file_selector_get_file        (DiaFileSelector *fs);
 
 /* Other common defaults */
 

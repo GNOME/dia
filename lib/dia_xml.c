@@ -177,7 +177,7 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc)
 
 xmlDocPtr
 xmlDiaParseFile(const char *filename) {
-  char *local_charset = NULL;
+  G_CONST_RETURN char *local_charset = NULL;
   
   if (   !g_get_charset(&local_charset)
       && local_charset) {
@@ -307,7 +307,7 @@ data_type(DataNode data)
 {
   const char *name;
 
-  name = data ? data->name : "";
+  name = data ? (const char *)data->name : (const char *)"";
   if (strcmp(name, "composite")==0) {
     return DATATYPE_COMPOSITE;
   } else if (strcmp(name, "int")==0) {

@@ -1,3 +1,28 @@
+2002-06-12  Cyrille Chépélov  <cyrille@chepelov.org>
+
+	* app/color_area.c: (color_area_events):
+	* app/diagram.c: (diagram_destroy):
+	* app/interface.c: (zoom_activate_callback), (fill_sheet_wbox),
+	(fill_sheet_menu):
+	* app/load_save.c: (diagram_data_load):
+	* app/menus.c: (menus_get_item_from_path):
+	* app/preferences.c: (prefs_load):
+	* app/render_gdk.c: (get_text_width):
+	* lib/arrows.h:
+	* lib/color.c: (color_convert):
+	* lib/dia_dirs.c: (dia_config_filename):
+	* lib/dia_xml.c: (xmlDiaParseFile), (data_type):
+	* lib/intl.c: (intl_get_language_list):
+	* lib/message.c: (message):
+	* lib/message.h:
+	* lib/paper.c: (get_default_paper):
+	* lib/plug-ins.c: (this_is_a_plugin), (dia_register_plugins):
+	* lib/widgets.c: (dia_file_selector_get_file):
+	* lib/widgets.h:
+	* objects/standard/image.c: (get_directory):
+
+	warningectomy.
+	
 2002-06-12  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* ChangeLog: Fixed bad UTF-8 mess.  Apologies.

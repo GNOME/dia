@@ -682,7 +682,6 @@ get_directory(const char *filename)
   char *cwd;
   char *directory;
   char *dirname;
-  int len;
   
   if (filename==NULL)
     return NULL;

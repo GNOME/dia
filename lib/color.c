@@ -41,8 +41,6 @@ color_init(void)
 void
 color_convert(Color *color, GdkColor *gdkcolor)
 {
-  int failed;
-  
   gdkcolor->red = color->red*65535;
   gdkcolor->green = color->green*65535;
   gdkcolor->blue = color->blue*65535;

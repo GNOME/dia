@@ -1042,10 +1042,11 @@ get_text_width(RendererGdk *renderer,
 #else
   /* length is in num glyphs, we need bytes here */
   int i;
-  gchar *p = text;
+  const gchar *p = text;
   for (i = 0; i < length; i++)
     p = g_utf8_next_char (p);
   /* GTKBUG? on win32 it takes utf-8 but not on X11? */
+  /* Investigate only after Pango's done */
   iwidth = gdk_text_width(renderer->gdk_font, text, p - text);
 #endif
 
