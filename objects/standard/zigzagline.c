@@ -185,8 +185,8 @@ zigzagline_check_orientation(ConnectionPoint *p1, ConnectionPoint *p2,
   horiz_dist = pos2->x-pos1->x;
   vert_dist = pos2->y-pos1->y;
 
-  if (vert_dist < 0.00000001) return TRUE;
-  if (horiz_dist < 0.00000001) return FALSE;
+  if (fabs(vert_dist) < 0.00000001) return TRUE;
+  if (fabs(horiz_dist) < 0.00000001) return FALSE;
 
   if (p1 == NULL) {
     dir1 = DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST;
@@ -198,6 +198,8 @@ zigzagline_check_orientation(ConnectionPoint *p1, ConnectionPoint *p2,
   } else {
     dir2 = p2->directions;
   }
+
+  printf("connect: horiz %f vert %f dir1 %d dir2 %d\n", horiz_dist, vert_dist, dir1, dir2);
 
   if (fabs(horiz_dist) > fabs(vert_dist)) {
     if (horiz_dist > 0) { /* West-to-east */
@@ -235,7 +237,8 @@ zigzagline_check_orientation(ConnectionPoint *p1, ConnectionPoint *p2,
 	return FALSE;
     }
   }
-
+  /* It's going to suck to be a zigzagline */
+  /* No good match found */
   return TRUE;
 }
 
@@ -257,8 +260,8 @@ zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
     /* The second connectionpoint is not updated yet, so we find it here */
     layer_find_closest_connectionpoint(dia_object_get_parent_layer((Object*)zigzagline), &cp2, &orth->points[3]);
     if (cp2 != NULL &&
-	(cp2->pos.x - orth->points[3].x < 0.00000001 ||
-	 cp2->pos.y - orth->points[3].y < 0.00000001))
+	(cp2->pos.x - orth->points[3].x > 0.00000001 ||
+	 cp2->pos.y - orth->points[3].y > 0.00000001))
 	cp2 = NULL;
     horizontal = zigzagline_check_orientation(orth->object.handles[0]->connected_to,
 					      cp2,

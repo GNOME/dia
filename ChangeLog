@@ -1,5 +1,11 @@
 2002-07-28  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* objects/standard/zigzagline.c (zigzagline_check_orientation): 
+	Fixing minor problems.
+
+	* objects/standard/ellipse.c (ellipse_update_data): 
+	Added direction hints.
+
 	* lib/diagramdata.c: 
 	* lib/object.c: 
 	* lib/object.h: 

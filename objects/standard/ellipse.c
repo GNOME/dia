@@ -334,6 +334,16 @@ ellipse_update_data(Ellipse *ellipse)
   ellipse->connections[7].pos.x = center.x + half_x;
   ellipse->connections[7].pos.y = center.y + half_y;
 
+  /* Update directions -- if the ellipse is very thin, these may not be good */
+  ellipse->connections[0].directions = DIR_NORTH|DIR_WEST;
+  ellipse->connections[1].directions = DIR_NORTH;
+  ellipse->connections[2].directions = DIR_NORTH|DIR_EAST;
+  ellipse->connections[3].directions = DIR_WEST;
+  ellipse->connections[4].directions = DIR_EAST;
+  ellipse->connections[5].directions = DIR_SOUTH|DIR_WEST;
+  ellipse->connections[6].directions = DIR_SOUTH;
+  ellipse->connections[7].directions = DIR_SOUTH|DIR_EAST;
+
   extra->border_trans = ellipse->border_width / 2.0;
   element_update_boundingbox(elem);
 
