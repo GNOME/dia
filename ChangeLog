@@ -1,3 +1,8 @@
+2003-01-23  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/message.c (gtk_message_internal): Better handling of destroy
+	event.
+
 2003-01-22  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/color_area.c (color_area_edit): 
