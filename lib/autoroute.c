@@ -49,38 +49,44 @@ static Point *autolayout_unnormalize_points(guint dir,
 					    Point *points,
 					    guint num_points);
 
-/* Calculate a 'pleasing' route between two connection points.
+/** Calculate a 'pleasing' route between two connection points.
  * If a good route is found, updates the given OrthConn with the values
  *   and returns TRUE.
  * Otherwise, the OrthConn is untouched, and the function returns FALSE.
  * Handles are not updated by this operation.
  */
 gboolean
-autoroute_layout_orthconn(OrthConn *conn)
+autoroute_layout_orthconn(OrthConn *conn, 
+			  ConnectionPoint *startconn, ConnectionPoint *endconn)
 {
   real min_badness = MAX_BADNESS;
   Point *best_layout = NULL;
   guint best_num_points = 0;
   int startdir, enddir;
-  Object *obj = (Object*)conn;
-  ConnectionPoint *from = obj->handles[0]->connected_to,
-    *to = obj->handles[1]->connected_to;
-  /* Don't do unconnected layout yet */
-  if (from == NULL || to == NULL) {
-    return FALSE;
-  }
+
+  int fromdir, todir;
+  Point frompos, topos;
+
+  frompos = conn->points[0];
+  topos = conn->points[conn->numpoints-1];
+  if (startconn != NULL) 
+    fromdir = startconn->directions;
+  else fromdir = DIR_NORTH|DIR_EAST|DIR_SOUTH|DIR_WEST;
+  if (endconn != NULL) 
+    todir = endconn->directions;
+  else todir = DIR_NORTH|DIR_EAST|DIR_SOUTH|DIR_WEST;
 
   for (startdir = DIR_NORTH; startdir <= DIR_WEST; startdir *= 2) {
     for (enddir = DIR_NORTH; enddir <= DIR_WEST; enddir *= 2) {
-      if ((from->directions & startdir) &&
-	  (to->directions & enddir)) {
+      if ((fromdir & startdir) &&
+	  (todir & enddir)) {
 	real this_badness;
 	Point *this_layout = NULL;
 	guint this_num_points;
 	guint normal_enddir;
 	Point endpoint;
 	normal_enddir = autolayout_normalize_points(startdir, enddir,
-						    from->pos, to->pos,
+						    frompos, topos,
 						    &endpoint);
 	if (normal_enddir == DIR_NORTH ) {
 	  this_layout = autoroute_layout_parallel(&endpoint,
@@ -100,7 +106,7 @@ autoroute_layout_orthconn(OrthConn *conn)
 		   this_badness, min_badness);
 	    min_badness = this_badness;
 	    if (best_layout != NULL) g_free(best_layout);
-	    best_layout = autolayout_unnormalize_points(startdir, from->pos,
+	    best_layout = autolayout_unnormalize_points(startdir, frompos,
 							this_layout, 
 							this_num_points);
 	    best_num_points = this_num_points;

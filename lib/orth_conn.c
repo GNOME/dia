@@ -156,12 +156,14 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
 {
   int n;
   int handle_nr;
-  
+  Object *obj = (Object *)orth;
+
   switch(handle->id) {
   case HANDLE_MOVE_STARTPOINT:
     orth->points[0] = *to;
     if (orth->autorouting &&
-	autoroute_layout_orthconn(orth))
+	autoroute_layout_orthconn(orth, handle->connected_to,
+				  obj->handles[1]->connected_to))
       break;
     switch (orth->orientation[0]) {
     case HORIZONTAL:
@@ -176,7 +178,8 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
     n = orth->numpoints - 1;
     orth->points[n] = *to;
     if (orth->autorouting &&
-	autoroute_layout_orthconn(orth))
+	autoroute_layout_orthconn(orth, obj->handles[0]->connected_to,
+				  handle->connected_to))
       break;
     switch (orth->orientation[n-1]) {
     case HORIZONTAL:
@@ -720,9 +723,11 @@ orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
 ObjectChange *
 orthconn_set_autorouting(OrthConn *conn, gboolean on)
 {
+  Object *obj = (Object *)conn;
   conn->autorouting = on;
   if (conn->autorouting)
-    autoroute_layout_orthconn(conn);
+    autoroute_layout_orthconn(conn, obj->handles[0]->connected_to,
+			      obj->handles[1]->connected_to);
   /* Make a change */
   return NULL;
 }

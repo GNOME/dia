@@ -1,3 +1,9 @@
+2003-04-19  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/orth_conn.c: 
+	* lib/autoroute.[ch] (autoroute_layout_orthconn): Handle
+	non-connected orthconns too.
+
 2003-04-18  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/orth_conn.h: 
