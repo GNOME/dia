@@ -77,8 +77,11 @@ int orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint);
 int orthconn_can_add_segment(OrthConn *orth, Point *clickedpoint);
 ObjectChange *orthconn_delete_segment(OrthConn *orth, Point *clickedpoint);
 ObjectChange *orthconn_add_segment(OrthConn *orth, Point *clickedpoint);
-ObjectChange *orthconn_set_autorouting(OrthConn *orth, gboolean on);
-
+ObjectChange *orthconn_toggle_autorouting_callback(Object *orth,
+						   Point *clicked,
+						   gpointer data);
+void orthconn_update_object_menu(OrthConn *orth, Point *clicked,
+				 DiaMenuItem *object_menu_items);
 /* base property stuff... */
 #define ORTHCONN_COMMON_PROPERTIES \
   OBJECT_COMMON_PROPERTIES, \
@@ -93,6 +96,10 @@ ObjectChange *orthconn_set_autorouting(OrthConn *orth, gboolean on);
   { "orth_orient", PROP_TYPE_ENUMARRAY, \
      offsetof(OrthConn,orientation), offsetof(OrthConn,numorient)}, \
   { "orth_autoroute", PROP_TYPE_BOOL, offsetof(OrthConn,autorouting)} \
+
+#define ORTHCONN_COMMON_MENUS \
+  { N_("Autorouting"), orthconn_toggle_autorouting_callback, NULL, \
+    DIAMENU_ACTIVE|DIAMENU_TOGGLE}
 
 #endif /* ORTH_CONN_H */
 

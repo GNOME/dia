@@ -28,9 +28,11 @@
 #include "diamenu.h"
 #include "handle.h"
 #include "diarenderer.h"
+#include "autoroute.h"
 
 static void place_handle_by_swapping(OrthConn *orth, 
                                      int index, Handle *handle);
+static ObjectChange *orthconn_set_autorouting(OrthConn *orth, gboolean on);
 
 enum change_type {
   TYPE_ADD_SEGMENT,
@@ -416,6 +418,8 @@ orthconn_init(OrthConn *orth, Point *startpoint)
   setup_endpoint_handle(orth->handles[2], HANDLE_MOVE_ENDPOINT);
   obj->handles[2] = orth->handles[2];
 
+  orth->autorouting = TRUE;
+
   /* Just so we have some position: */
   orth->points[0] = *startpoint;
   orth->points[1].x = startpoint->x;
@@ -483,6 +487,7 @@ orthconn_copy(OrthConn *from, OrthConn *to)
     to->points[i] = from->points[i];
   }
 
+  to->autorouting = from->autorouting;
   to->orientation = g_malloc0((to->numpoints-1)*sizeof(Orientation));
   to->numhandles = from->numhandles;
   to->handles = g_malloc0((to->numpoints-1)*sizeof(Handle *));
@@ -558,6 +563,9 @@ orthconn_save(OrthConn *orth, ObjectNode obj_node)
   for (i=0;i<orth->numpoints-1;i++) {
     data_add_enum(attr, orth->orientation[i]);
   }
+
+  if (!orth->autorouting)
+    data_add_boolean(new_attribute(obj_node, "autorouting"), FALSE);
 }
 
 void
@@ -598,6 +606,11 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node) /* NOTE: Does object_init() *
     orth->orientation[i] = data_enum(data);
     data = data_next(data);
   }
+
+  orth->autorouting = TRUE;
+  attr = object_find_attribute(obj_node, "autorouting");
+  if (attr != NULL)
+    orth->autorouting = data_boolean(attribute_first_data(attr));
 
   orth->handles = g_malloc0((orth->numpoints-1)*sizeof(Handle *));
 
@@ -720,7 +733,7 @@ orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
 /* Set autorouting on or off.  If setting on, try to autoroute and
  * return the changes from that.
  */
-ObjectChange *
+static ObjectChange *
 orthconn_set_autorouting(OrthConn *conn, gboolean on)
 {
   Object *obj = (Object *)conn;
@@ -1032,6 +1045,23 @@ midsegment_create_change(OrthConn *orth, enum change_type type,
   return (ObjectChange *)change;
 }
 
+ObjectChange *
+orthconn_toggle_autorouting_callback(Object *obj, Point *clicked, gpointer data)
+{
+  ObjectChange *change;
+  /* This is kinda hackish.  Since we can't see the menu item, we have to
+   * assume that we're right about toggling and just send !orth->autorouting.
+   */
+  change = orthconn_set_autorouting((OrthConn*)obj, 
+				    !((OrthConn*)obj)->autorouting);
+  orthconn_update_data((OrthConn *)obj);
+  return change;
+}
 
-
-
+void
+orthconn_update_object_menu(OrthConn *orth, Point *clicked,
+			    DiaMenuItem *object_menu_items)
+{
+  object_menu_items[0].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE|
+    (orth->autorouting?DIAMENU_TOGGLE_ON:0);
+}

@@ -373,9 +373,9 @@ orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer)
 
   renderer_ops->set_linewidth(renderer, linewidth);
   renderer_ops->draw_polyline_with_arrows(renderer, points, n,
-					   ORTHFLOW_WIDTH,
-					   render_color,
-					   &arrow, NULL); 
+					  ORTHFLOW_WIDTH,
+					  render_color,
+					  NULL, &arrow); 
 #if 0
   arrow_draw(renderer, 
 	     &points[n-1], &points[n-2],
@@ -467,7 +467,7 @@ orthflow_create(Point *startpoint,
 
   /*obj->handles[1] = orth->handles[2] ;*/
   *handle1 = obj->handles[0];
-  *handle2 = obj->handles[2];
+  *handle2 = obj->handles[1];
   return &orthflow->orth.object;
 }
 
@@ -631,7 +631,8 @@ static DiaMenuItem orthflow_menu_items[] = {
   { N_("Material"), orthflow_set_type_callback, (void*)ORTHFLOW_MATERIAL, 1 },
   { N_("Signal"), orthflow_set_type_callback, (void*)ORTHFLOW_SIGNAL, 1 },
   { N_("Add segment"), orthflow_segment_callback, (void*)1, 1 },
-  { N_("Delete segment"), orthflow_segment_callback, (void*)0, 1 }
+  { N_("Delete segment"), orthflow_segment_callback, (void*)0, 1 },
+  ORTHCONN_COMMON_MENUS,
 };
 
 static DiaMenu orthflow_menu = {
@@ -645,6 +646,8 @@ static DiaMenu *
 orthflow_get_object_menu(Orthflow *orthflow, Point *clickedpoint)
 {
   orthflow_menu_items[4].active = orthflow->orth.numpoints > 3;
+  orthconn_update_object_menu((OrthConn*)orthflow,
+			      clickedpoint, &orthflow_menu_items[5]);
   return &orthflow_menu;
 }
 

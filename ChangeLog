@@ -1,3 +1,35 @@
+2003-04-21  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* objects/GRAFCET/step.c: Don't copy defaults for name and id.
+
+	* lib/autoroute.c: Take badness into the layouters again, as some
+	of them know they can do things that are pretty but would be
+	counted as ugly by the default calculation.
+
+	* objects/UML/large_package.c: Shrink package name box when no
+	stereotype is present.
+
+	* lib/orth_conn.h (ORTHCONN_COMMON_MENUS): 
+	* lib/orth_conn.c: Added object menu item for autorouting.
+
+	* objects/FS/flow-ortho.c (orthflow_get_object_menu): 
+	Autorouting, plus set initial dragging handle to be the end, not
+	the middle.
+	(orthflow_draw): Flipped arrow place to be at the end, as
+	originally intended (got lost in arrow update).
+
+	* objects/standard/zigzagline.c (zigzagline_get_object_menu): 
+	* objects/UML/dependency.c (dependency_get_object_menu): 
+	* objects/UML/association.c (association_get_object_menu): 
+	* objects/UML/realizes.c (realizes_get_object_menu): 
+	* objects/SADT/arrow.c (sadtarrow_get_object_menu): 
+	* objects/GRAFCET/vector.c (arc_get_object_menu): 
+	* objects/ER/participation.c (participation_get_object_menu): 
+	* objects/EML/instantiation.c (instantiation_get_object_menu): 
+	* objects/UML/generalization.c (generalization_get_object_menu): 
+	* objects/EML/interaction-ortho.c (interaction_ortho_get_object_menu): 
+	Autorouting setup (currently disabled for SADT/arrow).
+	
 2003-04-19  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/autoroute.c: Removed printfs.

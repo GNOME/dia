@@ -436,6 +436,7 @@ static DiaMenuItem object_menu_items[] = {
     GINT_TO_POINTER(INST_MULTI), 1 },
   { N_("Add segment"), instantiation_add_segment_callback, NULL, 1 },
   { N_("Delete segment"), instantiation_delete_segment_callback, NULL, 1 },
+  ORTHCONN_COMMON_MENUS,
 };
 
 static DiaMenu object_menu = {
@@ -454,6 +455,7 @@ instantiation_get_object_menu(Instantiation *inst, Point *clickedpoint)
   /* Set entries sensitive/selected etc here */
   object_menu_items[2].active = orthconn_can_add_segment(orth, clickedpoint);
   object_menu_items[3].active = orthconn_can_delete_segment(orth, clickedpoint);
+  orthconn_update_object_menu(orth, clickedpoint, &object_menu_items[4]);
   return &object_menu;
 }
 

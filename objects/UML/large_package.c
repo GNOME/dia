@@ -242,7 +242,7 @@ largepackage_draw(LargePackage *pkg, DiaRenderer *renderer)
 
 
 
-  if (pkg->st_stereotype) {
+  if (pkg->st_stereotype && pkg->st_stereotype[0] != '\0') {
     renderer_ops->draw_string(renderer, pkg->st_stereotype, &p1,
 			       ALIGN_LEFT, &color_black);
   }
@@ -261,18 +261,22 @@ largepackage_update_data(LargePackage *pkg)
 
   pkg->stereotype = remove_stereotype_from_string(pkg->stereotype);
   if (!pkg->st_stereotype) {
-    pkg->st_stereotype =  string_to_stereotype(pkg->stereotype);
+    pkg->st_stereotype = string_to_stereotype(pkg->stereotype);
   }
   
+  pkg->topheight = LARGEPACKAGE_FONTHEIGHT + 0.1*2;
+
   pkg->topwidth = 2.0;
   if (pkg->name != NULL)
     pkg->topwidth = MAX(pkg->topwidth,
                         dia_font_string_width(pkg->name, pkg->font,
                                           LARGEPACKAGE_FONTHEIGHT)+2*0.1);
-  if (pkg->st_stereotype != NULL)
+  if (pkg->st_stereotype != NULL && pkg->st_stereotype[0] != '\0') {
     pkg->topwidth = MAX(pkg->topwidth,
                         dia_font_string_width(pkg->st_stereotype, pkg->font,
                                               LARGEPACKAGE_FONTHEIGHT)+2*0.1);
+    pkg->topheight += LARGEPACKAGE_FONTHEIGHT;
+  }
 
   if (elem->width < (pkg->topwidth + 0.2))
     elem->width = pkg->topwidth + 0.2;

@@ -346,6 +346,7 @@ generalization_delete_segment_callback(Object *obj, Point *clicked, gpointer dat
 static DiaMenuItem object_menu_items[] = {
   { N_("Add segment"), generalization_add_segment_callback, NULL, 1 },
   { N_("Delete segment"), generalization_delete_segment_callback, NULL, 1 },
+  ORTHCONN_COMMON_MENUS,
 };
 
 static DiaMenu object_menu = {
@@ -361,9 +362,12 @@ generalization_get_object_menu(Generalization *genlz, Point *clickedpoint)
   OrthConn *orth;
 
   orth = &genlz->orth;
+  
   /* Set entries sensitive/selected etc here */
   object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
   object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
+  orthconn_update_object_menu(orth, clickedpoint, &object_menu_items[2]);
+
   return &object_menu;
 }
 

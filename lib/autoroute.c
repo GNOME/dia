@@ -36,10 +36,13 @@
 
 static real calculate_badness(Point *ps, guint num_points);
 
-static Point* autoroute_layout_parallel(Point *to, guint *num_points);
-static Point* autoroute_layout_orthogonal(Point *to,
-					int enddir, guint *num_points);
-static Point* autoroute_layout_opposite(Point *to, guint *num_points);
+static real autoroute_layout_parallel(Point *to, 
+					guint *num_points, Point **points);
+static real autoroute_layout_orthogonal(Point *to,
+					  int enddir, 
+					  guint *num_points, Point **points);
+static real autoroute_layout_opposite(Point *to, 
+					guint *num_points, Point **points);
 
 static guint autolayout_normalize_points(guint startdir, guint enddir,
 					 Point start, Point end,
@@ -89,18 +92,20 @@ autoroute_layout_orthconn(OrthConn *conn,
 						    frompos, topos,
 						    &endpoint);
 	if (normal_enddir == DIR_NORTH ) {
-	  this_layout = autoroute_layout_parallel(&endpoint,
-						  &this_num_points);
+	  this_badness = autoroute_layout_parallel(&endpoint,
+						   &this_num_points,
+						   &this_layout);
 	} else if (normal_enddir == DIR_SOUTH) {
-	  this_layout = autoroute_layout_opposite(&endpoint, 
-						  &this_num_points);
+	  this_badness = autoroute_layout_opposite(&endpoint, 
+						   &this_num_points,
+						   &this_layout);
 	} else {
-	  this_layout = autoroute_layout_orthogonal(&endpoint,
-						    normal_enddir,
-						    &this_num_points);
+	  this_badness = autoroute_layout_orthogonal(&endpoint,
+						     normal_enddir,
+						     &this_num_points,
+						     &this_layout);
 	}
 	if (this_layout != NULL) {
-	  this_badness = calculate_badness(this_layout, this_num_points);
 	  if (this_badness-min_badness < -0.00001) {
 	    /*
 	    printf("Dir %d to %d badness %f < %f\n", startdir, enddir,
@@ -129,6 +134,19 @@ autoroute_layout_orthconn(OrthConn *conn,
   }
 }
 
+/** Returns the basic badness of a length */
+static real
+length_badness(real len)
+{
+  if (len < MIN_DIST) {
+    /* This should be zero at MIN_DIST and MAX_SMALL_BADNESS at 0 */
+    return 2*MAX_SMALL_BADNESS/(1.0+len/MIN_DIST) - MAX_SMALL_BADNESS;
+  } else {
+    return len-MIN_DIST;
+  }
+}
+
+/** Returns the accumulated badness of a layout */
 static real
 calculate_badness(Point *ps, guint num_points)
 {
@@ -138,33 +156,14 @@ calculate_badness(Point *ps, guint num_points)
   for (i = 0; i < num_points-1; i++) {
     real this_badness;
     real len = distance_point_point_manhattan(&ps[i], &ps[i+1]);
-    if (len < MIN_DIST) {
-      /* This should be zero at MIN_DIST and MAX_SMALL_BADNESS at 0 */
-      this_badness = 2*MAX_SMALL_BADNESS/(1.0+len/MIN_DIST)
-	-MAX_SMALL_BADNESS;
-      /* Special case:  Small kinks are ok in the middle. */
-      if (i > 0 && i < num_points-2) {
-	/* However, tight turns aren't */
-	if (fabs(ps[i].x - ps[i+1].x) > 0.0000001) {
-	  /* Vertical test */
-	  if ((ps[i].y-ps[i-1].y)*(ps[i+1].y-ps[i+2].y) < 0)
-	    this_badness /= 4;
-	} else {
-	  if ((ps[i].x-ps[i-1].x)*(ps[i+1].x-ps[i+2].x) < 0)
-	    this_badness /= 4;
-	}
-      }
-    } else {
-      this_badness = len-MIN_DIST;
-    }
-
+    this_badness = length_badness(len);
     badness += this_badness;
   }
   return badness;
 }
 
-static Point *
-autoroute_layout_parallel(Point *to, guint *num_points)
+static real
+autoroute_layout_parallel(Point *to, guint *num_points, Point **points)
 {
   Point *ps = NULL;
   if (fabs(to->x) > MIN_DIST) {
@@ -216,11 +215,13 @@ autoroute_layout_parallel(Point *to, guint *num_points)
     ps[4].y = top;
     ps[5] = *to;
   }
-  return ps;
+  *points = ps;
+  return calculate_badness(ps, *num_points);
 }
 
-static Point *
-autoroute_layout_orthogonal(Point *to, int enddir, guint *num_points)
+static real
+autoroute_layout_orthogonal(Point *to, int enddir, 
+			    guint *num_points, Point **points)
 {
   /* This one doesn't consider enddir yet, not more complex layouts. */
   Point *ps = NULL;
@@ -276,27 +277,34 @@ autoroute_layout_orthogonal(Point *to, int enddir, guint *num_points)
   /*
   printf("Doing orthogonal layout\n");
   */
-  
-  return ps;
+  *points = ps;
+  return calculate_badness(ps, *num_points);
 }
 
-static Point *
-autoroute_layout_opposite(Point *to,guint *num_points)
+static real
+autoroute_layout_opposite(Point *to, guint *num_points, Point **points)
 {
   Point *ps = NULL;
   if (to->y < -MIN_DIST) {
-    /* If we could have a two-point zig-zag line, it'd go here. */
-    real mid = to->y/2;
-    /*
-    printf("Doing opposite layout: Three-way\n");
-    */
     *num_points = 4;
     ps = g_new0(Point, *num_points);
-    /* points[0] is 0,0 */
-    ps[1].y = mid;
-    ps[2].x = to->x;
-    ps[2].y = mid;
-    ps[3] = *to;
+    if (fabs(to->x) < 0.00000001) {
+      ps[2] = ps[3] = *to;
+      *points = ps;
+      return length_badness(fabs(to->y))+2*EXTRA_SEGMENT_BADNESS;
+    } else {
+      real mid = to->y/2;
+      /*
+	printf("Doing opposite layout: Three-way\n");
+      */
+      /* points[0] is 0,0 */
+      ps[1].y = mid;
+      ps[2].x = to->x;
+      ps[2].y = mid;
+      ps[3] = *to;
+      *points = ps;
+      return 2*length_badness(fabs(mid))+2*EXTRA_SEGMENT_BADNESS;
+    }
   } else if (fabs(to->x) > 2*MIN_DIST) {
     real mid = to->x/2;
     /*
@@ -329,7 +337,8 @@ autoroute_layout_opposite(Point *to,guint *num_points)
     ps[4].y = to->y+MIN_DIST;
     ps[5] = *to;
   }
-  return ps;
+  *points = ps;
+  return calculate_badness(ps, *num_points);
 }
 
 static void

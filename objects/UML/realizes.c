@@ -339,6 +339,7 @@ realizes_delete_segment_callback(Object *obj, Point *clicked, gpointer data)
 static DiaMenuItem object_menu_items[] = {
   { N_("Add segment"), realizes_add_segment_callback, NULL, 1 },
   { N_("Delete segment"), realizes_delete_segment_callback, NULL, 1 },
+  ORTHCONN_COMMON_MENUS,
 };
 
 static DiaMenu object_menu = {
@@ -357,6 +358,7 @@ realizes_get_object_menu(Realizes *realize, Point *clickedpoint)
   /* Set entries sensitive/selected etc here */
   object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
   object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
+  orthconn_update_object_menu(orth, clickedpoint, &object_menu_items[2]);
   return &object_menu;
 }
 

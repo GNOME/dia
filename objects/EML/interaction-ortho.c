@@ -287,6 +287,7 @@ static DiaMenuItem object_menu_items[] = {
   { N_("Bidirectional"), interaction_ortho_set_type_callback,(gpointer) INTER_BIDIR, 1 },
   { N_("Add segment"), interaction_ortho_add_segment_callback, NULL, 1 },
   { N_("Delete segment"), interaction_ortho_delete_segment_callback, NULL, 1 },
+  ORTHCONN_COMMON_MENUS,
 };
 
 static DiaMenu object_menu = {
@@ -305,6 +306,7 @@ interaction_ortho_get_object_menu(InteractionOrtho*inter, Point *clickedpoint)
   /* Set entries sensitive/selected etc here */
   object_menu_items[2].active = orthconn_can_add_segment(orth, clickedpoint);
   object_menu_items[3].active = orthconn_can_delete_segment(orth, clickedpoint);
+  orthconn_update_object_menu(orth, clickedpoint, &object_menu_items[4]);
   return &object_menu;
 }
 

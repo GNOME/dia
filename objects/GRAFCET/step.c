@@ -152,9 +152,11 @@ PropEnumData step_style[] = {
 
 static PropDescription step_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  { "id", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_MERGE,
+  { "id", PROP_TYPE_STRING,
+    PROP_FLAG_VISIBLE|PROP_FLAG_NO_DEFAULTS|PROP_FLAG_DONT_MERGE,
     N_("Step name"),N_("The name of the step")},
-  { "type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
+  { "type", PROP_TYPE_ENUM, 
+    PROP_FLAG_VISIBLE|PROP_FLAG_NO_DEFAULTS|PROP_FLAG_DONT_MERGE,
     N_("Step type"),N_("The kind of step"),step_style},
   { "active", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Active"), N_("Shows a red dot to figure the step's activity")},
