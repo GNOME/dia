@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia v. 0.83\n"
-"POT-Creation-Date: 2001-01-08 00:37+0100\n"
-"PO-Revision-Date: 2001-01-08 00:40+0200\n"
+"POT-Creation-Date: 2001-01-22 00:58+0100\n"
+"PO-Revision-Date: 2001-01-22 10:40+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -168,7 +168,7 @@ msgstr "Luk"
 msgid "This object has no defaults."
 msgstr "Dette objekt har ingen standardindstillinger."
 
-#: app/dia_embedd.c:266
+#: app/dia_embedd.c:352
 msgid "Could not initialize Bonobo!"
 msgstr "Kunne ikke initialisere Bonobo!"
 
@@ -1424,6 +1424,33 @@ msgstr "Dette objekt har ingen indstillelige egenskaber."
 msgid "Encapsulated Postscript"
 msgstr "Encapsulated postscript"
 
+#. remove recent files if list get's too long
+#: app/recent_files.c:69
+msgid "/File/Plugins"
+msgstr "/Filer/Indstik"
+
+#: app/recent_files.c:75 app/recent_files.c:77 app/recent_files.c:102
+#: app/recent_files.c:104
+msgid "/File/Open Recent/"
+msgstr "/Filer/Åbn nylige/"
+
+#: app/recent_files.c:153
+msgid "Can't open history file for writing."
+msgstr "Kan ikke åbne historikfil for skriving."
+
+#: app/splash.c:50
+msgid "Loading ..."
+msgstr "Indlæser..."
+
+#: app/splash.c:67
+#, c-format
+msgid ""
+"Dia v %s\n"
+" by Alexander Larsson"
+msgstr ""
+"Dia version %s\n"
+" af Alexander Larsson"
+
 #: lib/bezier_conn.c:525
 msgid "Internal error: Setting corner type of endpoint of bezier"
 msgstr "Intern fejl: Sætter hjørnetype for slutpunkt af Bezier"
@@ -2088,11 +2115,14 @@ msgstr "Totalsum"
 msgid "Composition"
 msgstr "Komposition"
 
-#: objects/UML/class.c:96
+#: objects/UML/class.c:96 objects/UML/component.c:111
+#: objects/UML/small_package.c:111
 msgid "Name"
 msgstr "Navn"
 
-#: objects/UML/class.c:98 objects/UML/classicon.c:146 objects/UML/object.c:164
+#: objects/UML/class.c:98 objects/UML/classicon.c:146
+#: objects/UML/component.c:113 objects/UML/object.c:164
+#: objects/UML/small_package.c:113
 msgid "Stereotype"
 msgstr "Stereotype"
 
@@ -2351,6 +2381,10 @@ msgstr "Aktivt objekt"
 #: objects/UML/object.c:859
 msgid "multiple instance"
 msgstr "flere instanser"
+
+#: objects/UML/node.c:115
+msgid "Node name"
+msgstr "Knude-navn:"
 
 #: objects/UML/state.c:147
 msgid "State Type"
