@@ -1168,7 +1168,7 @@ font_get_psfontname(DiaFont *font)
   return fontprivate->fontname_ps;
 }
 
-/* Returns the height in cm */
+/* Returns the width in cm */
 real
 font_string_width(const char *string, DiaFont *font, real height)
 {
@@ -1181,8 +1181,9 @@ font_string_width(const char *string, DiaFont *font, real height)
   LC_DEBUG (fprintf(stderr, "font_string_width: %s %s %f\n", font->name, font->style, height));
   face = font_get_freetypefont(font, height*72/2.54);
   ft_string = freetype_load_string(string, face, strlen(string));
-  height_ratio = (face->height>>6)/height;
-  LC_DEBUG(fprintf(stderr, "result width is %f, height %f, face height %d, ratio %f\n", ft_string->width, height, (face->height>>6), height_ratio));
+  //  height_ratio = (face->height>>6)/height;
+  height_ratio = 72/2.54;
+  LC_DEBUG(fprintf(stderr, "result width is %f, height %f, face height %d, ratio %f, return %fcm\n", ft_string->width, height, (face->height>>6), height_ratio, ft_string->width/height_ratio));
   return ft_string->width/height_ratio;
 #else
   GdkFont *gdk_font;

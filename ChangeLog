@@ -1,3 +1,8 @@
+2002-03-02  Lars Clausen  <lrclause@C194282.chmpgn1.il.home.com>
+
+	* lib/font.c (font_string_width): Fixed font_string_width for
+	freetype.  BB is now almost right.
+
 2002-03-01  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* app/render_eps.h: 
