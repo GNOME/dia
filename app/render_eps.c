@@ -19,6 +19,7 @@
 #include <time.h>
 #include <math.h>
 #include <unistd.h>
+#include <locale.h>
 
 #include "config.h"
 #include "intl.h"
@@ -1121,11 +1122,14 @@ static void
 export_eps(DiagramData *data, const gchar *filename, const gchar *diafilename)
 {
   RendererEPS *renderer;
+  char *old_locale;
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   if ((renderer = create_eps_renderer(data, filename, diafilename))) {
     data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
     destroy_eps_renderer(renderer);
   }
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static const gchar *extensions[] = { "eps", "epsi", NULL };

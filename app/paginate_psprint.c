@@ -116,7 +116,9 @@ paginate_psprint(Diagram *dia, FILE *file)
   gfloat width, height;
   gfloat x, y, initx, inity;
   guint nobjs = 0;
+  char *old_locale;
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   rend = new_psprint_renderer(dia, file);
 
   /* the usable area of the page */
@@ -147,6 +149,8 @@ paginate_psprint(Diagram *dia, FILE *file)
     }
 
   destroy_eps_renderer(rend);
+
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static void

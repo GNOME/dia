@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 
 #include <tree.h>
 
@@ -31,7 +32,7 @@ object_find_attribute(ObjectNode obj_node,
 		      const char *attrname)
 {
   AttributeNode attr;
-  const char *name;
+  char *name;
 
   attr =  obj_node->childs;
   while (attr != NULL) {
@@ -53,7 +54,7 @@ composite_find_attribute(DataNode composite_node,
 			 const char *attrname)
 {
   AttributeNode attr;
-  const char *name;
+  char *name;
 
   attr =  composite_node->childs;
   while (attr != NULL) {
@@ -132,7 +133,7 @@ data_type(DataNode data)
 int
 data_int(DataNode data)
 {
-  const char *val;
+  char *val;
   int res;
   
   if (data_type(data)!=DATATYPE_INT) {
@@ -149,7 +150,7 @@ data_int(DataNode data)
 
 int data_enum(DataNode data)
 {
-  const char *val;
+  char *val;
   int res;
   
   if (data_type(data)!=DATATYPE_ENUM) {
@@ -167,7 +168,7 @@ int data_enum(DataNode data)
 real
 data_real(DataNode data)
 {
-  const char *val;
+  char *val;
   real res;
   
   if (data_type(data)!=DATATYPE_REAL) {
@@ -176,7 +177,7 @@ data_real(DataNode data)
   }
 
   val = xmlGetProp(data, "val");
-  res = atof(val);
+  res = g_strtod(val, NULL);
   if (val) free(val);
   
   return res;
@@ -185,7 +186,7 @@ data_real(DataNode data)
 int
 data_boolean(DataNode data)
 {
-  const char *val;
+  char *val;
   int res;
   
   if (data_type(data)!=DATATYPE_BOOLEAN) {
@@ -219,8 +220,8 @@ static int hex_digit(char c)
 void
 data_color(DataNode data, Color *col)
 {
-  const char *val;
-  int r,g,b;
+  char *val;
+  int r=0, g=0, b=0;
   
   if (data_type(data)!=DATATYPE_COLOR) {
     message_error("Taking color value of non-color node.");
@@ -248,7 +249,7 @@ data_color(DataNode data, Color *col)
 void
 data_point(DataNode data, Point *point)
 {
-  const char *val;
+  char *val;
   char *str;
   
   if (data_type(data)!=DATATYPE_POINT) {
@@ -257,7 +258,7 @@ data_point(DataNode data, Point *point)
   }
   
   val = xmlGetProp(data, "val");
-  point->x = strtod(val, &str);
+  point->x = g_strtod(val, &str);
   while ((*str != ',') && (*str!=0))
     str++;
   if (*str==0){
@@ -267,14 +268,14 @@ data_point(DataNode data, Point *point)
     return;
   }
     
-  point->y = strtod(str+1, NULL);
+  point->y = g_strtod(str+1, NULL);
   free(val);
 }
 
 void
 data_rectangle(DataNode data, Rectangle *rect)
 {
-  const char *val;
+  char *val;
   char *str;
   
   if (data_type(data)!=DATATYPE_RECTANGLE) {
@@ -284,7 +285,7 @@ data_rectangle(DataNode data, Rectangle *rect)
   
   val = xmlGetProp(data, "val");
   
-  rect->left = strtod(val, &str);
+  rect->left = g_strtod(val, &str);
   
   while ((*str != ',') && (*str!=0))
     str++;
@@ -295,7 +296,7 @@ data_rectangle(DataNode data, Rectangle *rect)
     return;
   }
     
-  rect->top = strtod(str+1, &str);
+  rect->top = g_strtod(str+1, &str);
 
   while ((*str != ';') && (*str!=0))
     str++;
@@ -306,7 +307,7 @@ data_rectangle(DataNode data, Rectangle *rect)
     return;
   }
 
-  rect->right = strtod(str+1, &str);
+  rect->right = g_strtod(str+1, &str);
 
   while ((*str != ',') && (*str!=0))
     str++;
@@ -317,7 +318,7 @@ data_rectangle(DataNode data, Rectangle *rect)
     return;
   }
 
-  rect->bottom = strtod(str+1, NULL);
+  rect->bottom = g_strtod(str+1, NULL);
   
   free(val);
 }
@@ -325,7 +326,7 @@ data_rectangle(DataNode data, Rectangle *rect)
 char *
 data_string(DataNode data)
 {
-  const char *val;
+  char *val;
   char *str, *p;
   int len;
   
@@ -394,7 +395,7 @@ data_string(DataNode data)
 Font *
 data_font(DataNode data)
 {
-  const char *name;
+  char *name;
   Font *font;
   
   if (data_type(data)!=DATATYPE_FONT) {
@@ -460,8 +461,11 @@ data_add_real(AttributeNode attr, real data)
 {
   DataNode data_node;
   char buffer[40+1]; /* Large enought? */
+  char *old_locale;
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buffer, 40, "%g", data);
+  setlocale(LC_NUMERIC, old_locale);
   
   data_node = xmlNewChild(attr, NULL, "real", NULL);
   xmlSetProp(data_node, "val", buffer);
@@ -516,8 +520,11 @@ data_add_point(AttributeNode attr, Point *point)
 {
   DataNode data_node;
   char buffer[80+1]; /* Large enought? */
+  char *old_locale;
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buffer, 80, "%g,%g", point->x, point->y);
+  setlocale(LC_NUMERIC, old_locale);
   
   data_node = xmlNewChild(attr, NULL, "point", NULL);
   xmlSetProp(data_node, "val", buffer);
@@ -528,10 +535,13 @@ data_add_rectangle(AttributeNode attr, Rectangle *rect)
 {
   DataNode data_node;
   char buffer[160+1]; /* Large enought? */
+  char *old_locale;
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   g_snprintf(buffer, 160, "%g,%g;%g,%g",
 	     rect->left, rect->top,
 	     rect->right, rect->bottom);
+  setlocale(LC_NUMERIC, old_locale);
   
   data_node = xmlNewChild(attr, NULL, "rectangle", NULL);
   xmlSetProp(data_node, "val", buffer);

@@ -23,6 +23,7 @@
 #include <time.h>
 #include <math.h>
 #include <unistd.h>
+#include <locale.h>
 
 #include <entities.h>
 
@@ -773,11 +774,14 @@ static void
 export_svg(DiagramData *data, const gchar *filename, const gchar *diafilename)
 {
   RendererSVG *renderer;
+  char *old_locale;
 
+  old_locale = setlocale(LC_NUMERIC, "C");
   if ((renderer = new_svg_renderer(data, filename))) {
     data_render(data, (Renderer *)renderer, NULL, NULL, NULL);
     destroy_svg_renderer(renderer);
   }
+  setlocale(LC_NUMERIC, old_locale);
 }
 
 static const gchar *extensions[] = { "svg", NULL };
