@@ -1,3 +1,8 @@
+2000-02-07  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/properties.c (create_dialog):
+	ref and sink no_properties_dialog.
+
 2000-02-07  James Henstridge  <james@daa.com.au>
 
 	* app/group.c (group_describe_props): new function.  Return the

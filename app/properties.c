@@ -84,6 +84,8 @@ static void create_dialog()
 
   no_properties_dialog = gtk_label_new(_("This object has no properties."));
   gtk_widget_show (no_properties_dialog);
+  gtk_object_ref(GTK_OBJECT(no_properties_dialog)); 
+  gtk_object_sink(GTK_OBJECT(no_properties_dialog));
 }
 
 static gint
