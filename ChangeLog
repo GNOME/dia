@@ -1,3 +1,12 @@
+2005-03-24  Lars Clausen  <lars@raeder.dk>
+
+	* objects/custom/custom_object.c (custom_create): 
+	* objects/custom/shape_info.h: 
+	* shapes/Assorted/square.shape: 
+	* objects/custom/shape_info.c (load_shape_info): 
+	* doc/shape.dtd: Added main point support to shapes, and an
+	example of how to use it.
+
 2005-03-21  Lars Clausen  <lars@raeder.dk>
 
 	* lib/autoroute.c (autoroute_layout_orthconn): Remember to

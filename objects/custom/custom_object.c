@@ -106,19 +106,19 @@ static CustomProperties default_properties;
 
 static real custom_distance_from(Custom *custom, Point *point);
 static void custom_select(Custom *custom, Point *clicked_point,
-		       DiaRenderer *interactive_renderer);
+			  DiaRenderer *interactive_renderer);
 static ObjectChange* custom_move_handle(Custom *custom, Handle *handle,
 					Point *to, ConnectionPoint *cp,
 					HandleMoveReason reason, 
-			    ModifierKeys modifiers);
+					ModifierKeys modifiers);
 static ObjectChange* custom_move(Custom *custom, Point *to);
 static void custom_draw(Custom *custom, DiaRenderer *renderer);
 static void custom_update_data(Custom *custom, AnchorShape h, AnchorShape v);
 static void custom_reposition_text(Custom *custom, GraphicElementText *text);
 static DiaObject *custom_create(Point *startpoint,
-			  void *user_data,
-			  Handle **handle1,
-			  Handle **handle2);
+				void *user_data,
+				Handle **handle1,
+				Handle **handle2);
 static void custom_destroy(Custom *custom);
 static DiaObject *custom_copy(Custom *custom);
 static DiaMenu *custom_get_object_menu(Custom *custom, Point *clickedpoint);
@@ -130,26 +130,26 @@ static void custom_set_props(Custom *custom, GPtrArray *props);
 static DiaObject *custom_load_using_properties(ObjectNode obj_node, int version, const char *filename);
 
 static ObjectTypeOps custom_type_ops =
-{
-  (CreateFunc) custom_create,
-  (LoadFunc)   custom_load_using_properties,
-  (SaveFunc)   object_save_using_properties,
-  (GetDefaultsFunc)   NULL,
-  (ApplyDefaultsFunc) NULL
-};
+  {
+    (CreateFunc) custom_create,
+    (LoadFunc)   custom_load_using_properties,
+    (SaveFunc)   object_save_using_properties,
+    (GetDefaultsFunc)   NULL,
+    (ApplyDefaultsFunc) NULL
+  };
 
 /* This looks like it could be static, but it can't because we key
    on it to determine if an DiaObjectType is a custom/SVG shape */
 
 G_MODULE_EXPORT 
 DiaObjectType custom_type =
-{
-  "Custom - Generic",  /* name */
-  0,                 /* version */
-  (char **) custom_xpm, /* pixmap */
+  {
+    "Custom - Generic",  /* name */
+    0,                 /* version */
+    (char **) custom_xpm, /* pixmap */
 
-  &custom_type_ops      /* ops */
-};
+    &custom_type_ops      /* ops */
+  };
 
 static ObjectOps custom_ops = {
   (DestroyFunc)         custom_destroy,
@@ -234,112 +234,112 @@ static PropOffset custom_offsets_text[] = {
 
 void custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
 {
-	xmlChar *str;
-	xmlNodePtr cur;
-	int n_props, offs = 0;
-	int i;
+  xmlChar *str;
+  xmlNodePtr cur;
+  int n_props, offs = 0;
+  int i;
 
-	/* count ext_attributes node items */
-	if (node)
+  /* count ext_attributes node items */
+  if (node)
+  {
+    for (i = 0, cur = node->xmlChildrenNode; cur != NULL; cur = cur->next)
+    {
+      if ((!xmlIsBlankNode(cur)) && (cur->type == XML_ELEMENT_NODE))
+	i++;
+    }
+    info->n_ext_attr = i;
+  }
+
+  /* create prop tables & initialize constant part */
+  if (info->has_text)
+  {
+    n_props = sizeof (custom_props_text) / sizeof (PropDescription);
+    info->props = g_new0 (PropDescription, n_props + info->n_ext_attr);
+    memcpy (info->props, custom_props_text, sizeof (custom_props_text));
+    info->prop_offsets = g_new0 (PropOffset, n_props + info->n_ext_attr);
+    memcpy (info->prop_offsets, custom_offsets_text, sizeof (custom_offsets_text));
+  }
+  else
+  {
+    n_props = sizeof (custom_props) / sizeof (PropDescription);
+    info->props = g_new0 (PropDescription, n_props + info->n_ext_attr);
+    memcpy (info->props, custom_props, sizeof (custom_props));
+    info->prop_offsets = g_new0 (PropOffset, n_props + info->n_ext_attr);
+    memcpy (info->prop_offsets, custom_offsets, sizeof (custom_offsets));
+  }
+
+  if (node)
+  {
+    offs = sizeof (Custom);
+    /* walk ext_attributes node ... */
+    for (i = n_props-1, node = node->xmlChildrenNode; node != NULL; node = node->next)
+    {
+      if (xmlIsBlankNode(node))
+	continue;
+      if (node->type != XML_ELEMENT_NODE)
+	continue;
+      if (!strcmp(node->name, "ext_attribute"))
+      {
+	gchar *pname, *ptype = 0;
+
+	str = xmlGetProp(node, "name");
+	if (!str)
+	  continue;
+	pname = g_strdup(str);
+	xmlFree(str);
+
+	str = xmlGetProp(node, "type");
+	if (!str)
 	{
-		for (i = 0, cur = node->xmlChildrenNode; cur != NULL; cur = cur->next)
-		{
-			if ((!xmlIsBlankNode(cur)) && (cur->type == XML_ELEMENT_NODE))
-				i++;
-		}
-		info->n_ext_attr = i;
+	  g_free (pname);
+	  continue;
 	}
+	ptype = g_strdup(str);
+	xmlFree(str);
 
-	/* create prop tables & initialize constant part */
-	if (info->has_text)
+	/* we got here, then fill an entry */
+	info->props[i].name = g_strdup_printf("custom:%s", pname);
+	info->props[i].type = ptype;
+	info->props[i].flags = PROP_FLAG_VISIBLE;
+
+	str = xmlGetProp(node, "description");
+	if (str)
 	{
-		n_props = sizeof (custom_props_text) / sizeof (PropDescription);
-		info->props = g_new0 (PropDescription, n_props + info->n_ext_attr);
-		memcpy (info->props, custom_props_text, sizeof (custom_props_text));
-		info->prop_offsets = g_new0 (PropOffset, n_props + info->n_ext_attr);
-		memcpy (info->prop_offsets, custom_offsets_text, sizeof (custom_offsets_text));
+	  g_free (pname);
+	  pname = g_strdup(str);
+	  xmlFree(str);
 	}
-	else
-	{
-		n_props = sizeof (custom_props) / sizeof (PropDescription);
-		info->props = g_new0 (PropDescription, n_props + info->n_ext_attr);
-		memcpy (info->props, custom_props, sizeof (custom_props));
-		info->prop_offsets = g_new0 (PropOffset, n_props + info->n_ext_attr);
-		memcpy (info->prop_offsets, custom_offsets, sizeof (custom_offsets));
-	}
+	info->props[i++].description = pname;
+      }
+    }
+  }
 
-	if (node)
-	{
-		offs = sizeof (Custom);
-		/* walk ext_attributes node ... */
-		for (i = n_props-1, node = node->xmlChildrenNode; node != NULL; node = node->next)
-		{
-			if (xmlIsBlankNode(node))
-				continue;
-			if (node->type != XML_ELEMENT_NODE)
-				continue;
-			if (!strcmp(node->name, "ext_attribute"))
-			{
-				gchar *pname, *ptype = 0;
+  prop_desc_list_calculate_quarks (info->props);
 
-				str = xmlGetProp(node, "name");
-				if (!str)
-					continue;
-				pname = g_strdup(str);
-				xmlFree(str);
-
-				str = xmlGetProp(node, "type");
-				if (!str)
-				{
-					g_free (pname);
-					continue;
-				}
-				ptype = g_strdup(str);
-				xmlFree(str);
-
-				/* we got here, then fill an entry */
-				info->props[i].name = g_strdup_printf("custom:%s", pname);
-				info->props[i].type = ptype;
-				info->props[i].flags = PROP_FLAG_VISIBLE;
-
-				str = xmlGetProp(node, "description");
-				if (str)
-				{
-					g_free (pname);
-					pname = g_strdup(str);
-					xmlFree(str);
-				}
-				info->props[i++].description = pname;
-			}
-		}
-	}
-
-	prop_desc_list_calculate_quarks (info->props);
-
-	/* 2nd pass after quarks & ops have been filled in */
-	for (i = n_props-1; i < n_props-1+info->n_ext_attr; i++)
-		if ((info->props[i].ops) && (info->props[i].ops->get_data_size))
-		{ /* if prop valid & supported */
-			int size;
-			info->prop_offsets[i].name = info->props[i].name;
-			info->prop_offsets[i].type = info->props[i].type;
-			info->prop_offsets[i].offset = offs;
-			/* FIXME:
-			 custom_object.c:328: warning: passing arg 1 of pointer to function 
-			 from incompatible pointer type
-			 We don't have a Property* here so there is not much we can do about.
-			 Maybe it even works cause the sizeof() in *_get_data_size can be
-			 calculated at compile time. Anyway, a mess ;) --hb
-			 */
-			size = info->props[i].ops->get_data_size (&info->props[i]);
-			info->ext_attr_size += size;
-			offs += size;
-		}
-		else
-		{
-			/* hope this is enough to have this prop ignored */
-			info->props[i].flags = PROP_FLAG_DONT_SAVE | PROP_FLAG_OPTIONAL;
-		}
+  /* 2nd pass after quarks & ops have been filled in */
+  for (i = n_props-1; i < n_props-1+info->n_ext_attr; i++)
+    if ((info->props[i].ops) && (info->props[i].ops->get_data_size))
+    { /* if prop valid & supported */
+      int size;
+      info->prop_offsets[i].name = info->props[i].name;
+      info->prop_offsets[i].type = info->props[i].type;
+      info->prop_offsets[i].offset = offs;
+      /* FIXME:
+	 custom_object.c:328: warning: passing arg 1 of pointer to function 
+	 from incompatible pointer type
+	 We don't have a Property* here so there is not much we can do about.
+	 Maybe it even works cause the sizeof() in *_get_data_size can be
+	 calculated at compile time. Anyway, a mess ;) --hb
+      */
+      size = info->props[i].ops->get_data_size (&info->props[i]);
+      info->ext_attr_size += size;
+      offs += size;
+    }
+    else
+    {
+      /* hope this is enough to have this prop ignored */
+      info->props[i].flags = PROP_FLAG_DONT_SAVE | PROP_FLAG_OPTIONAL;
+    }
 }
 
 static PropDescription *
@@ -542,7 +542,7 @@ custom_distance_from(Custom *custom, Point *point)
 
 static void
 custom_select(Custom *custom, Point *clicked_point,
-	   DiaRenderer *interactive_renderer)
+	      DiaRenderer *interactive_renderer)
 {
   if (custom->info->has_text) {
     text_set_cursor(custom->text, clicked_point, interactive_renderer);
@@ -626,199 +626,199 @@ get_colour(Custom *custom, Color *colour, gint32 c)
 static void
 custom_draw(Custom *custom, DiaRenderer *renderer)
 {
-    DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-    static GArray *arr = NULL, *barr = NULL;
-    Point p1, p2;
-    real coord;
-    int i;
-    GList *tmp;
-    Element *elem;
-    real cur_line = 1.0, cur_dash = 1.0;
-    LineCaps cur_caps = LINECAPS_BUTT;
-    LineJoin cur_join = LINEJOIN_MITER;
-    LineStyle cur_style = custom->line_style;
+  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
+  static GArray *arr = NULL, *barr = NULL;
+  Point p1, p2;
+  real coord;
+  int i;
+  GList *tmp;
+  Element *elem;
+  real cur_line = 1.0, cur_dash = 1.0;
+  LineCaps cur_caps = LINECAPS_BUTT;
+  LineJoin cur_join = LINEJOIN_MITER;
+  LineStyle cur_style = custom->line_style;
   
-    assert(custom != NULL);
-    assert(renderer != NULL);
+  assert(custom != NULL);
+  assert(renderer != NULL);
 
-    if (!arr)
-        arr = g_array_new(FALSE, FALSE, sizeof(Point));
-    if (!barr)
-        barr = g_array_new(FALSE, FALSE, sizeof(BezPoint));
+  if (!arr)
+    arr = g_array_new(FALSE, FALSE, sizeof(Point));
+  if (!barr)
+    barr = g_array_new(FALSE, FALSE, sizeof(BezPoint));
 
-    elem = &custom->element;
+  elem = &custom->element;
 
-    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-    renderer_ops->set_linewidth(renderer, custom->border_width);
-    renderer_ops->set_linestyle(renderer, cur_style);
-    renderer_ops->set_dashlength(renderer, custom->dashlength);
-    renderer_ops->set_linecaps(renderer, cur_caps);
-    renderer_ops->set_linejoin(renderer, cur_join);
+  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  renderer_ops->set_linewidth(renderer, custom->border_width);
+  renderer_ops->set_linestyle(renderer, cur_style);
+  renderer_ops->set_dashlength(renderer, custom->dashlength);
+  renderer_ops->set_linecaps(renderer, cur_caps);
+  renderer_ops->set_linejoin(renderer, cur_join);
 
-    for (tmp = custom->info->display_list; tmp; tmp = tmp->next) {
-        GraphicElement *el = tmp->data;
-        Color fg, bg;
+  for (tmp = custom->info->display_list; tmp; tmp = tmp->next) {
+    GraphicElement *el = tmp->data;
+    Color fg, bg;
 
-        if (el->any.s.line_width != cur_line) {
-            cur_line = el->any.s.line_width;
-            renderer_ops->set_linewidth(renderer,
-                                         custom->border_width*cur_line);
-        }
+    if (el->any.s.line_width != cur_line) {
+      cur_line = el->any.s.line_width;
+      renderer_ops->set_linewidth(renderer,
+				  custom->border_width*cur_line);
+    }
     if ((el->any.s.linecap == DIA_SVG_LINECAPS_DEFAULT && cur_caps != LINECAPS_BUTT) ||
-            el->any.s.linecap != cur_caps) {
+	el->any.s.linecap != cur_caps) {
       cur_caps = (el->any.s.linecap!=DIA_SVG_LINECAPS_DEFAULT) ?
-                el->any.s.linecap : LINECAPS_BUTT;
-            renderer_ops->set_linecaps(renderer, cur_caps);
-        }
+	el->any.s.linecap : LINECAPS_BUTT;
+      renderer_ops->set_linecaps(renderer, cur_caps);
+    }
     if ((el->any.s.linejoin==DIA_SVG_LINEJOIN_DEFAULT && cur_join!=LINEJOIN_MITER) ||
-            el->any.s.linejoin != cur_join) {
+	el->any.s.linejoin != cur_join) {
       cur_join = (el->any.s.linejoin!=DIA_SVG_LINEJOIN_DEFAULT) ?
-                el->any.s.linejoin : LINEJOIN_MITER;
-            renderer_ops->set_linejoin(renderer, cur_join);
-        }
+	el->any.s.linejoin : LINEJOIN_MITER;
+      renderer_ops->set_linejoin(renderer, cur_join);
+    }
     if ((el->any.s.linestyle == DIA_SVG_LINESTYLE_DEFAULT &&
-             cur_style != custom->line_style) ||
-            el->any.s.linestyle != cur_style) {
+	 cur_style != custom->line_style) ||
+	el->any.s.linestyle != cur_style) {
       cur_style = (el->any.s.linestyle!=DIA_SVG_LINESTYLE_DEFAULT) ?
-                el->any.s.linestyle : custom->line_style;
-            renderer_ops->set_linestyle(renderer, cur_style);
-        }
-        if (el->any.s.dashlength != cur_dash) {
-            cur_dash = el->any.s.dashlength;
-            renderer_ops->set_dashlength(renderer,
-                                          custom->dashlength*cur_dash);
-        }
+	el->any.s.linestyle : custom->line_style;
+      renderer_ops->set_linestyle(renderer, cur_style);
+    }
+    if (el->any.s.dashlength != cur_dash) {
+      cur_dash = el->any.s.dashlength;
+      renderer_ops->set_dashlength(renderer,
+				   custom->dashlength*cur_dash);
+    }
       
-        cur_line = el->any.s.line_width;
-        get_colour(custom, &fg, el->any.s.stroke);
-        get_colour(custom, &bg, el->any.s.fill);
-        switch (el->type) {
-            case GE_LINE:
-                transform_coord(custom, &el->line.p1, &p1);
-                transform_coord(custom, &el->line.p2, &p2);
+    cur_line = el->any.s.line_width;
+    get_colour(custom, &fg, el->any.s.stroke);
+    get_colour(custom, &bg, el->any.s.fill);
+    switch (el->type) {
+    case GE_LINE:
+      transform_coord(custom, &el->line.p1, &p1);
+      transform_coord(custom, &el->line.p2, &p2);
       if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
 	renderer_ops->draw_line(renderer, &p1, &p2, &fg);
-                break;
-            case GE_POLYLINE:
-                g_array_set_size(arr, el->polyline.npoints);
-                for (i = 0; i < el->polyline.npoints; i++)
-                    transform_coord(custom, &el->polyline.points[i],
-                                    &g_array_index(arr, Point, i));
+      break;
+    case GE_POLYLINE:
+      g_array_set_size(arr, el->polyline.npoints);
+      for (i = 0; i < el->polyline.npoints; i++)
+	transform_coord(custom, &el->polyline.points[i],
+			&g_array_index(arr, Point, i));
       if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
 	renderer_ops->draw_polyline(renderer,
-                                                 (Point *)arr->data, el->polyline.npoints,
-                                                 &fg);
-                break;
-            case GE_POLYGON:
-                g_array_set_size(arr, el->polygon.npoints);
-                for (i = 0; i < el->polygon.npoints; i++)
-                    transform_coord(custom, &el->polygon.points[i],
-                                    &g_array_index(arr, Point, i));
-                if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) 
-                    renderer_ops->fill_polygon(renderer,
-                                                (Point *)arr->data, el->polygon.npoints,
-                                                &bg);
-                if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-                    renderer_ops->draw_polygon(renderer,
-                                                (Point *)arr->data, el->polygon.npoints,
-                                                &fg);
-                break;
-            case GE_RECT:
-                transform_coord(custom, &el->rect.corner1, &p1);
-                transform_coord(custom, &el->rect.corner2, &p2);
-                if (p1.x > p2.x) {
-                    coord = p1.x;
-                    p1.x = p2.x;
-                    p2.x = coord;
-                }
-                if (p1.y > p2.y) {
-                    coord = p1.y;
-                    p1.y = p2.y;
-                    p2.y = coord;
-                }
-                if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
-                    renderer_ops->fill_rect(renderer, &p1, &p2, &bg);
-                if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-                    renderer_ops->draw_rect(renderer, &p1, &p2, &fg);
-                break;
-            case GE_TEXT:
-                custom_reposition_text(custom, &el->text);
-                text_draw(el->text.object, renderer);
-                text_set_position(el->text.object, &el->text.anchor);
-                break;
-            case GE_ELLIPSE:
-                transform_coord(custom, &el->ellipse.center, &p1);
-                if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
-                    renderer_ops->fill_ellipse(renderer, &p1,
-                                                el->ellipse.width * fabs(custom->xscale),
-                                                el->ellipse.height * fabs(custom->yscale),
-                                                &bg);
-                if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-                    renderer_ops->draw_ellipse(renderer, &p1,
-                                                el->ellipse.width * fabs(custom->xscale),
-                                                el->ellipse.height * fabs(custom->yscale),
-                                                &fg);
-                break;
-            case GE_IMAGE:
-                transform_coord(custom, &el->image.topleft, &p1);
-                renderer_ops->draw_image(renderer, &p1,
-                                         el->image.width * fabs(custom->xscale),
-                                         el->image.height * fabs(custom->yscale),
-                                         el->image.image);
-                break;
-            case GE_PATH:
-                g_array_set_size(barr, el->path.npoints);
-                for (i = 0; i < el->path.npoints; i++)
-                    switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
-                        case BEZ_CURVE_TO:
-                            transform_coord(custom, &el->path.points[i].p3,
-                                            &g_array_index(barr, BezPoint, i).p3);
-                            transform_coord(custom, &el->path.points[i].p2,
-                                            &g_array_index(barr, BezPoint, i).p2);
-                        case BEZ_MOVE_TO:
-                        case BEZ_LINE_TO:
-                            transform_coord(custom, &el->path.points[i].p1,
-                                            &g_array_index(barr, BezPoint, i).p1);
-                    }
-                if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-                    renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
-                                               el->path.npoints, &fg);
-                break;
-            case GE_SHAPE:
-                g_array_set_size(barr, el->path.npoints);
-                for (i = 0; i < el->path.npoints; i++)
-                    switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
-                        case BEZ_CURVE_TO:
-                            transform_coord(custom, &el->path.points[i].p3,
-                                            &g_array_index(barr, BezPoint, i).p3);
-                            transform_coord(custom, &el->path.points[i].p2,
-                                            &g_array_index(barr, BezPoint, i).p2);
-                        case BEZ_MOVE_TO:
-                        case BEZ_LINE_TO:
-                            transform_coord(custom, &el->path.points[i].p1,
-                                            &g_array_index(barr, BezPoint, i).p1);
-                    }
-                if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
-                    renderer_ops->fill_bezier(renderer, (BezPoint *)barr->data,
-                                               el->path.npoints, &bg);
-                if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-                    renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
-                                               el->path.npoints, &fg);
-                break;
-        }
+				    (Point *)arr->data, el->polyline.npoints,
+				    &fg);
+      break;
+    case GE_POLYGON:
+      g_array_set_size(arr, el->polygon.npoints);
+      for (i = 0; i < el->polygon.npoints; i++)
+	transform_coord(custom, &el->polygon.points[i],
+			&g_array_index(arr, Point, i));
+      if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) 
+	renderer_ops->fill_polygon(renderer,
+				   (Point *)arr->data, el->polygon.npoints,
+				   &bg);
+      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+	renderer_ops->draw_polygon(renderer,
+				   (Point *)arr->data, el->polygon.npoints,
+				   &fg);
+      break;
+    case GE_RECT:
+      transform_coord(custom, &el->rect.corner1, &p1);
+      transform_coord(custom, &el->rect.corner2, &p2);
+      if (p1.x > p2.x) {
+	coord = p1.x;
+	p1.x = p2.x;
+	p2.x = coord;
+      }
+      if (p1.y > p2.y) {
+	coord = p1.y;
+	p1.y = p2.y;
+	p2.y = coord;
+      }
+      if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
+	renderer_ops->fill_rect(renderer, &p1, &p2, &bg);
+      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+	renderer_ops->draw_rect(renderer, &p1, &p2, &fg);
+      break;
+    case GE_TEXT:
+      custom_reposition_text(custom, &el->text);
+      text_draw(el->text.object, renderer);
+      text_set_position(el->text.object, &el->text.anchor);
+      break;
+    case GE_ELLIPSE:
+      transform_coord(custom, &el->ellipse.center, &p1);
+      if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
+	renderer_ops->fill_ellipse(renderer, &p1,
+				   el->ellipse.width * fabs(custom->xscale),
+				   el->ellipse.height * fabs(custom->yscale),
+				   &bg);
+      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+	renderer_ops->draw_ellipse(renderer, &p1,
+				   el->ellipse.width * fabs(custom->xscale),
+				   el->ellipse.height * fabs(custom->yscale),
+				   &fg);
+      break;
+    case GE_IMAGE:
+      transform_coord(custom, &el->image.topleft, &p1);
+      renderer_ops->draw_image(renderer, &p1,
+			       el->image.width * fabs(custom->xscale),
+			       el->image.height * fabs(custom->yscale),
+			       el->image.image);
+      break;
+    case GE_PATH:
+      g_array_set_size(barr, el->path.npoints);
+      for (i = 0; i < el->path.npoints; i++)
+	switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
+	case BEZ_CURVE_TO:
+	  transform_coord(custom, &el->path.points[i].p3,
+			  &g_array_index(barr, BezPoint, i).p3);
+	  transform_coord(custom, &el->path.points[i].p2,
+			  &g_array_index(barr, BezPoint, i).p2);
+	case BEZ_MOVE_TO:
+	case BEZ_LINE_TO:
+	  transform_coord(custom, &el->path.points[i].p1,
+			  &g_array_index(barr, BezPoint, i).p1);
+	}
+      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+	renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
+				  el->path.npoints, &fg);
+      break;
+    case GE_SHAPE:
+      g_array_set_size(barr, el->path.npoints);
+      for (i = 0; i < el->path.npoints; i++)
+	switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
+	case BEZ_CURVE_TO:
+	  transform_coord(custom, &el->path.points[i].p3,
+			  &g_array_index(barr, BezPoint, i).p3);
+	  transform_coord(custom, &el->path.points[i].p2,
+			  &g_array_index(barr, BezPoint, i).p2);
+	case BEZ_MOVE_TO:
+	case BEZ_LINE_TO:
+	  transform_coord(custom, &el->path.points[i].p1,
+			  &g_array_index(barr, BezPoint, i).p1);
+	}
+      if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
+	renderer_ops->fill_bezier(renderer, (BezPoint *)barr->data,
+				  el->path.npoints, &bg);
+      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+	renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
+				  el->path.npoints, &fg);
+      break;
     }
+  }
 
-    if (custom->info->has_text) {
-            /*Rectangle tb;
+  if (custom->info->has_text) {
+    /*Rectangle tb;
     
-            if (renderer->is_interactive) {
-            transform_rect(custom, &custom->info->text_bounds, &tb);
-            p1.x = tb.left;  p1.y = tb.top;
-            p2.x = tb.right; p2.y = tb.bottom;
-            renderer_ops->draw_rect(renderer, &p1, &p2, &custom->border_color);
-            }*/
-        text_draw(custom->text, renderer);
-    }
+    if (renderer->is_interactive) {
+    transform_rect(custom, &custom->info->text_bounds, &tb);
+    p1.x = tb.left;  p1.y = tb.top;
+    p2.x = tb.right; p2.y = tb.bottom;
+    renderer_ops->draw_rect(renderer, &p1, &p2, &custom->border_color);
+    }*/
+    text_draw(custom->text, renderer);
+  }
 }
 
 
@@ -970,7 +970,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     else
       p.y = (tb.top + tb.bottom -
 	     custom->text->height * custom->text->numlines) / 2 +
-          dia_font_ascent(txs,custom->text->font, custom->text->height);
+	dia_font_ascent(txs,custom->text->font, custom->text->height);
     text_set_position(custom->text, &p);
     g_free(txs);
   }
@@ -1157,44 +1157,44 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 
 /* reposition the text element to the new text bounding box ... */
 void custom_reposition_text(Custom *custom, GraphicElementText *text) {
-    Element *elem = &custom->element;
-    Point p;
-    Rectangle tb;
+  Element *elem = &custom->element;
+  Point p;
+  Rectangle tb;
 
-    transform_rect(custom, &text->text_bounds, &tb);
-    switch (text->object->alignment) {
-    case ALIGN_LEFT:
-      p.x = tb.left;
-      break;
-    case ALIGN_RIGHT:
-      p.x = tb.right;
-      break;
-    case ALIGN_CENTER:
-      p.x = (tb.left + tb.right) / 2;
-      break;
-    }
-    /* align the text to be close to the shape ... */
+  transform_rect(custom, &text->text_bounds, &tb);
+  switch (text->object->alignment) {
+  case ALIGN_LEFT:
+    p.x = tb.left;
+    break;
+  case ALIGN_RIGHT:
+    p.x = tb.right;
+    break;
+  case ALIGN_CENTER:
+    p.x = (tb.left + tb.right) / 2;
+    break;
+  }
+  /* align the text to be close to the shape ... */
 
-    if ((tb.bottom+tb.top)/2 > elem->corner.y + elem->height)
-      p.y = tb.top +
-          dia_font_ascent(text->string,
-                          text->object->font, text->object->height);
-    else if ((tb.bottom+tb.top)/2 < elem->corner.y)
-      p.y = tb.bottom + text->object->height * (text->object->numlines - 1);
-    else
-      p.y = (tb.top + tb.bottom -
-	     text->object->height * text->object->numlines) / 2 +
-          dia_font_ascent(text->string,
-                          text->object->font, text->object->height);
-    text_set_position(text->object, &p);
-    return;
+  if ((tb.bottom+tb.top)/2 > elem->corner.y + elem->height)
+    p.y = tb.top +
+      dia_font_ascent(text->string,
+		      text->object->font, text->object->height);
+  else if ((tb.bottom+tb.top)/2 < elem->corner.y)
+    p.y = tb.bottom + text->object->height * (text->object->numlines - 1);
+  else
+    p.y = (tb.top + tb.bottom -
+	   text->object->height * text->object->numlines) / 2 +
+      dia_font_ascent(text->string,
+		      text->object->font, text->object->height);
+  text_set_position(text->object, &p);
+  return;
 }
 
 static DiaObject *
 custom_create(Point *startpoint,
-	   void *user_data,
-	   Handle **handle1,
-	   Handle **handle2)
+	      void *user_data,
+	      Handle **handle1,
+	      Handle **handle2)
 {
   Custom *custom;
   Element *elem;
@@ -1252,6 +1252,10 @@ custom_create(Point *startpoint,
     obj->connections[i] = &custom->connections[i];
     custom->connections[i].object = obj;
     custom->connections[i].connected = NULL;
+    custom->connections[i].flags = 0;
+    if (i == info->main_cp) {
+      custom->connections[i].flags = CP_FLAGS_MAIN;
+    }
   }
 
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
@@ -1276,24 +1280,24 @@ custom_destroy(Custom *custom)
    */
 #if 0
   for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
-       GraphicElement *el = tmp->data;
-       switch (el->type) {
-       case GE_TEXT: 
-           text_destroy(el->text.object);
-           break;
-       case GE_IMAGE: 
-           dia_image_release(el->image.image); 
-           break;
-       case GE_LINE :
-       case GE_POLYLINE :
-       case GE_POLYGON :
-       case GE_RECT :
-       case GE_ELLIPSE :
-       case GE_PATH :
-       case GE_SHAPE :
-	   /* no extra data/object to free with these */
-           break;
-       }
+    GraphicElement *el = tmp->data;
+    switch (el->type) {
+    case GE_TEXT: 
+      text_destroy(el->text.object);
+      break;
+    case GE_IMAGE: 
+      dia_image_release(el->image.image); 
+      break;
+    case GE_LINE :
+    case GE_POLYLINE :
+    case GE_POLYGON :
+    case GE_RECT :
+    case GE_ELLIPSE :
+    case GE_PATH :
+    case GE_SHAPE :
+      /* no extra data/object to free with these */
+      break;
+    }
   }
 #endif
   /* TODO: free allocated ext props (string, etc.) */
@@ -1349,6 +1353,7 @@ custom_copy(Custom *custom)
     newcustom->connections[i].pos = custom->connections[i].pos;
     newcustom->connections[i].directions = custom->connections[i].directions;
     newcustom->connections[i].last_pos = custom->connections[i].last_pos;
+    newcustom->connections[i].flags = custom->connections[i].flags;
   }
 
   return &newcustom->element.object;

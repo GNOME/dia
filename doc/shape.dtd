@@ -18,7 +18,8 @@
 <!ELEMENT point EMPTY >
 <!ATTLIST point
   x CDATA #REQUIRED
-  y CDATA #REQUIRED >
+  y CDATA #REQUIRED
+  main CDATA #IMPLIED >
 
 <!ELEMENT aspectratio EMPTY >
 <!ATTLIST aspectratio

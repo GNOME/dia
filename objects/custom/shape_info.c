@@ -489,6 +489,7 @@ load_shape_info(const gchar *filename)
   xmlNodePtr node, root, ext_node = NULL;
   ShapeInfo *info;
   char *tmp;
+  int i;
   
   if (!doc) {
     g_warning("parse error for %s", filename);
@@ -523,7 +524,9 @@ load_shape_info(const gchar *filename)
   info->shape_bounds.bottom = -DBL_MAX;
   info->shape_bounds.right = -DBL_MAX;
   info->aspect_type = SHAPE_ASPECT_FREE; 
+  info->main_cp = -1;
 
+  i = 0;
   for (node = root->xmlChildrenNode; node != NULL; node = node->next) {
     if (xmlIsBlankNode(node)) continue;
     if (node->type != XML_ELEMENT_NODE) continue;
@@ -561,7 +564,18 @@ load_shape_info(const gchar *filename)
 	    xmlFree(str);
 	  }
 	  g_array_append_val(arr, pt);
+	  str = xmlGetProp(pt_node, "main");
+	  if (str && str[0] != '\0') {
+	    if (info->main_cp != -1) {
+	      message_warning("More than one main connection point in %s.  Only the first one will be used.\n",
+			      info->name);
+	    } else {
+	      info->main_cp = i;
+	    }
+	    xmlFree(str);
+	  }
 	}
+	i++;
       }
       info->nconnections = arr->len;
       info->connections = (Point *)arr->data;
