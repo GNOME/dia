@@ -72,7 +72,6 @@ color_selection_delete (GtkWidget               *w,
 			GtkColorSelectionDialog *cs);
 static gint
 color_selection_destroy (GtkWidget               *w,
-			 GdkEvent                *event,
 			 GtkColorSelectionDialog *cs);
 static void
 color_selection_changed (GtkWidget *w,
@@ -263,7 +262,6 @@ color_selection_delete (GtkWidget               *w,
 
 static gint
 color_selection_destroy (GtkWidget               *w,
-			 GdkEvent                *event,
 			 GtkColorSelectionDialog *cs)
 {
   color_select = NULL;
@@ -330,8 +328,8 @@ color_area_edit (void)
 		      G_CALLBACK(color_selection_delete),
 			window);
     
-    g_signal_connect (G_OBJECT (window), "destroy_event",
-		      G_CALLBACK(color_selection_destroy),
+    gtk_signal_connect (GTK_OBJECT (window), "destroy",
+			GTK_SIGNAL_FUNC(color_selection_destroy),
 			window);
     
     g_signal_connect (

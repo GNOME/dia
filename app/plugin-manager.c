@@ -213,6 +213,8 @@ get_plugin_manager(void)
 		   G_CALLBACK(gtk_widget_hide), NULL);
   gtk_signal_connect(GTK_OBJECT(dialog), "delete_event",
 		     GTK_SIGNAL_FUNC(gtk_true), NULL);
+  gtk_signal_connect(GTK_OBJECT(dialog), "destroy",
+		     GTK_SIGNAL_FUNC(gtk_widget_destroyed), &dialog);
 
   scrolled_window = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_window), GTK_SHADOW_ETCHED_IN);

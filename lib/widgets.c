@@ -1217,6 +1217,10 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
 			(GtkSignalFunc) dia_file_selector_ok,
 			dialog);
     
+    gtk_signal_connect (GTK_OBJECT (fs->dialog), "destroy",
+			GTK_SIGNAL_FUNC (gtk_widget_destroyed),
+			&fs->dialog);
+    
     gtk_signal_connect_object(GTK_OBJECT (dialog->cancel_button), "clicked",
 			      (GtkSignalFunc) gtk_widget_hide,
 			      GTK_OBJECT(dialog));
