@@ -32,13 +32,15 @@
 #include "attributes.h"
 #include "arrows.h"
 
+#include "properties.h"
+
+#include "stereotype.h"
 #include "uml.h"
 
 #include "pixmaps/dependency.xpm"
 
 typedef struct _Dependency Dependency;
 typedef struct _DependencyState DependencyState;
-typedef struct _DependencyPropertiesDialog DependencyPropertiesDialog;
 
 struct _DependencyState {
   ObjectState obj_state;
@@ -60,16 +62,8 @@ struct _Dependency {
   char *name;
   char *stereotype; /* including << and >> */
 
-  DependencyPropertiesDialog* properties_dialog;
 };
 
-struct _DependencyPropertiesDialog {
-  GtkWidget *dialog;
-  
-  GtkEntry *name;
-  GtkEntry *stereotype;
-  GtkToggleButton *draw_arrow;
-};
 
 #define DEPENDENCY_WIDTH 0.1
 #define DEPENDENCY_ARROWLEN 0.8
@@ -92,8 +86,6 @@ static Object *dependency_create(Point *startpoint,
 				 Handle **handle2);
 static void dependency_destroy(Dependency *dep);
 static Object *dependency_copy(Dependency *dep);
-static GtkWidget *dependency_get_properties(Dependency *dep);
-static ObjectChange *dependency_apply_properties(Dependency *dep);
 static DiaMenu *dependency_get_object_menu(Dependency *dep,
 					   Point *clickedpoint);
 
@@ -105,6 +97,9 @@ static void dependency_save(Dependency *dep, ObjectNode obj_node,
 			    const char *filename);
 static Object *dependency_load(ObjectNode obj_node, int version,
 			       const char *filename);
+static PropDescription *dependency_describe_props(Dependency *dependency);
+static void dependency_get_props(Dependency * dependency, Property *props, guint nprops);
+static void dependency_set_props(Dependency * dependency, Property *props, guint nprops);
 
 static void dependency_update_data(Dependency *dep);
 
@@ -132,10 +127,98 @@ static ObjectOps dependency_ops = {
   (CopyFunc)            dependency_copy,
   (MoveFunc)            dependency_move,
   (MoveHandleFunc)      dependency_move_handle,
-  (GetPropertiesFunc)   dependency_get_properties,
-  (ApplyPropertiesFunc) dependency_apply_properties,
-  (ObjectMenuFunc)      dependency_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      dependency_get_object_menu,
+  (DescribePropsFunc)   dependency_describe_props,
+  (GetPropsFunc)        dependency_get_props,
+  (SetPropsFunc)        dependency_set_props
 };
+
+static PropDescription dependency_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Name:"), NULL, NULL },
+  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Stereotype:"), NULL, NULL },
+  { "show_arrow", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
+    N_("Show arrow:"), NULL, NULL },
+  PROP_DESC_END
+};
+
+static PropDescription *
+dependency_describe_props(Dependency *dependency)
+{
+  if (dependency_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(dependency_props);
+  return dependency_props;
+}
+
+static PropOffset dependency_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "name", PROP_TYPE_STRING, offsetof(Dependency, name) },
+  /*{ "stereotype", PROP_TYPE_STRING, offsetof(Dependency, stereotype) },*/
+  { "show_arrow", PROP_TYPE_BOOL, offsetof(Dependency, draw_arrow) },
+  { NULL, 0, 0 }
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "stereotype" }
+};
+
+static void
+dependency_get_props(Dependency * dependency, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets(&dependency->orth.object, 
+                                    dependency_offsets, props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      if (strlen(dependency->stereotype) != 0)
+	PROP_VALUE_STRING(props[i]) =
+	  stereotype_to_string(dependency->stereotype);
+      else
+	PROP_VALUE_STRING(props[i]) = strdup("");	
+    }
+  }
+
+}
+
+static void
+dependency_set_props(Dependency *dependency, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets(&dependency->orth.object, 
+                                     dependency_offsets, props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
+	quarks[i].q = g_quark_from_static_string(quarks[i].name);
+    
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_STRING) {
+	g_free(dependency->stereotype);
+	if (strlen(PROP_VALUE_STRING(props[i])) > 0)
+	  dependency->stereotype =
+	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
+	else 
+	  dependency->stereotype = strdup("");
+      }
+    }
+  }
+  dependency_update_data(dependency);
+}
 
 static real
 dependency_distance_from(Dependency *dep, Point *point)
@@ -198,7 +281,7 @@ dependency_draw(Dependency *dep, Renderer *renderer)
   renderer->ops->set_font(renderer, dep_font, DEPENDENCY_FONTHEIGHT);
   pos = dep->text_pos;
   
-  if (dep->stereotype != NULL) {
+  if (strlen(dep->stereotype) != 0) {
     renderer->ops->draw_string(renderer,
 			       dep->stereotype,
 			       &pos, dep->text_align,
@@ -207,7 +290,7 @@ dependency_draw(Dependency *dep, Renderer *renderer)
     pos.y += DEPENDENCY_FONTHEIGHT;
   }
   
-  if (dep->name != NULL) {
+  if (strlen(dep->name) != 0) {
     renderer->ops->draw_string(renderer,
 			       dep->name,
 			       &pos, dep->text_align,
@@ -229,6 +312,10 @@ dependency_update_data(Dependency *dep)
   
   orthconn_update_data(orth);
 
+  dep->text_width =
+    font_string_width(dep->name, dep_font, DEPENDENCY_FONTHEIGHT);
+  dep->text_width = MAX(dep->text_width,
+			font_string_width(dep->stereotype, dep_font, DEPENDENCY_FONTHEIGHT));
   
   extra->start_trans = 
     extra->start_long = 
@@ -344,10 +431,9 @@ dependency_create(Point *startpoint,
   orthconn_init(orth, startpoint);
 
   dep->draw_arrow = TRUE;
-  dep->name = NULL;
-  dep->stereotype = NULL;
+  dep->name = strdup("");
+  dep->stereotype = strdup("");
   dep->text_width = 0;
-  dep->properties_dialog = NULL;
 
   dependency_update_data(dep);
   
@@ -360,17 +446,9 @@ dependency_create(Point *startpoint,
 static void
 dependency_destroy(Dependency *dep)
 {
-  if (dep->name != NULL)
-    g_free(dep->name);
-
-  if (dep->stereotype != NULL)
-    g_free(dep->stereotype);
+  g_free(dep->name);
+  g_free(dep->stereotype);
   
-  if (dep->properties_dialog != NULL) {
-    gtk_widget_destroy(dep->properties_dialog->dialog);
-    g_free(dep->properties_dialog);
-  }
-
   orthconn_destroy(&dep->orth);
 }
 
@@ -389,11 +467,10 @@ dependency_copy(Dependency *dep)
 
   orthconn_copy(orth, neworth);
 
-  newdep->name = (dep->name != NULL)? strdup(dep->name):NULL;
-  newdep->stereotype = (dep->stereotype != NULL)? strdup(dep->stereotype):NULL;
+  newdep->name = strdup(dep->name);
+  newdep->stereotype = strdup(dep->stereotype);
   newdep->draw_arrow = dep->draw_arrow;
   newdep->text_width = dep->text_width;
-  newdep->properties_dialog = NULL;
   
   dependency_update_data(newdep);
   
@@ -429,16 +506,6 @@ dependency_set_state(Dependency *dep, DependencyState *state)
   g_free(dep->stereotype);
   dep->name = state->name;
   dep->stereotype = state->stereotype;
-  
-  dep->text_width = 0.0;
-  if (dep->name != NULL) {
-    dep->text_width =
-      font_string_width(dep->name, dep_font, DEPENDENCY_FONTHEIGHT);
-  }
-  if (dep->stereotype != NULL) {
-    dep->text_width = MAX(dep->text_width,
-			  font_string_width(dep->stereotype, dep_font, DEPENDENCY_FONTHEIGHT));
-  }
   
   dep->draw_arrow = state->draw_arrow;
 
@@ -490,175 +557,17 @@ dependency_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)
     dep->name = data_string(attribute_first_data(attr));
+  else
+    dep->name = strdup("");
   
   dep->stereotype = NULL;
   attr = object_find_attribute(obj_node, "stereotype");
   if (attr != NULL)
     dep->stereotype = data_string(attribute_first_data(attr));
-
-  dep->text_width = 0.0;
-
-  if (dep->name != NULL) {
-    dep->text_width =
-      font_string_width(dep->name, dep_font, DEPENDENCY_FONTHEIGHT);
-  }
-  if (dep->stereotype != NULL) {
-    dep->text_width = MAX(dep->text_width,
-			  font_string_width(dep->stereotype, dep_font, DEPENDENCY_FONTHEIGHT));
-  }
-
-  dep->properties_dialog = NULL;
-      
+  else
+    dep->stereotype = strdup("");
 
   dependency_update_data(dep);
 
   return &dep->orth.object;
 }
-
-
-static ObjectChange *
-dependency_apply_properties(Dependency *dep)
-{
-  DependencyPropertiesDialog *prop_dialog;
-  ObjectState *old_state;
-  char *str;
-
-  prop_dialog = dep->properties_dialog;
-
-  old_state = (ObjectState *)dependency_get_state(dep);
-
-  /* Read from dialog and put in object: */
-  if (dep->name != NULL)
-    g_free(dep->name);
-  str = gtk_entry_get_text(prop_dialog->name);
-  if (strlen(str) != 0)
-    dep->name = strdup(str);
-  else
-    dep->name = NULL;
-
-  if (dep->stereotype != NULL)
-    g_free(dep->stereotype);
-  
-  str = gtk_entry_get_text(prop_dialog->stereotype);
-  
-  if (strlen(str) != 0) {
-    dep->stereotype = g_malloc(sizeof(char)*strlen(str)+2+1);
-    dep->stereotype[0] = UML_STEREOTYPE_START;
-    dep->stereotype[1] = 0;
-    strcat(dep->stereotype, str);
-    dep->stereotype[strlen(str)+1] = UML_STEREOTYPE_END;
-    dep->stereotype[strlen(str)+2] = 0;
-  } else {
-    dep->stereotype = NULL;
-  }
-
-  dep->draw_arrow = prop_dialog->draw_arrow->active;
-
-  dep->text_width = 0.0;
-
-  if (dep->name != NULL) {
-    dep->text_width =
-      font_string_width(dep->name, dep_font, DEPENDENCY_FONTHEIGHT);
-  }
-  if (dep->stereotype != NULL) {
-    dep->text_width = MAX(dep->text_width,
-			  font_string_width(dep->stereotype, dep_font, DEPENDENCY_FONTHEIGHT));
-  }
-  
-  dependency_update_data(dep);
-  return new_object_state_change(&dep->orth.object, old_state, 
-				 (GetStateFunc)dependency_get_state,
-				 (SetStateFunc)dependency_set_state);
-}
-
-static void
-fill_in_dialog(Dependency *dep)
-{
-  DependencyPropertiesDialog *prop_dialog;
-  char *str;
-  
-  prop_dialog = dep->properties_dialog;
-
-  if (dep->name != NULL)
-    gtk_entry_set_text(prop_dialog->name, dep->name);
-  else 
-    gtk_entry_set_text(prop_dialog->name, "");
-  
-  
-  if (dep->stereotype != NULL) {
-    str = strdup(dep->stereotype);
-    strcpy(str, dep->stereotype+1);
-    str[strlen(str)-1] = 0;
-    gtk_entry_set_text(prop_dialog->stereotype, str);
-    g_free(str);
-  } else {
-    gtk_entry_set_text(prop_dialog->stereotype, "");
-  }
-
-  gtk_toggle_button_set_active(prop_dialog->draw_arrow, dep->draw_arrow);
-}
-
-static GtkWidget *
-dependency_get_properties(Dependency *dep)
-{
-  DependencyPropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *checkbox;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-
-  if (dep->properties_dialog == NULL) {
-
-    prop_dialog = g_new(DependencyPropertiesDialog, 1);
-    dep->properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Name:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->name = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
-    label = gtk_label_new(_("Stereotype:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->stereotype = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-    
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    checkbox = gtk_check_button_new_with_label(_("Show arrow:"));
-    prop_dialog->draw_arrow = GTK_TOGGLE_BUTTON( checkbox );
-    gtk_widget_show(checkbox);
-    gtk_widget_show(hbox);
-    gtk_box_pack_start (GTK_BOX (hbox),	checkbox, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-
-  }
-  
-  fill_in_dialog(dep);
-  gtk_widget_show (dep->properties_dialog->dialog);
-
-  return dep->properties_dialog->dialog;
-}
-
-
-
-

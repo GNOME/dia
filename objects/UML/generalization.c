@@ -31,6 +31,8 @@
 #include "render.h"
 #include "attributes.h"
 #include "arrows.h"
+#include "properties.h"
+#include "stereotype.h"
 
 #include "uml.h"
 
@@ -38,7 +40,6 @@
 
 typedef struct _Generalization Generalization;
 typedef struct _GeneralizationState GeneralizationState;
-typedef struct _GeneralizationPropertiesDialog GeneralizationPropertiesDialog;
 
 struct _GeneralizationState {
   ObjectState obj_state;
@@ -56,14 +57,6 @@ struct _Generalization {
   char *name;
   char *stereotype; /* including << and >> */
 
-  GeneralizationPropertiesDialog* properties_dialog;
-};
-
-struct _GeneralizationPropertiesDialog {
-  GtkWidget *dialog;
-  
-  GtkEntry *name;
-  GtkEntry *stereotype;
 };
 
 #define GENERALIZATION_WIDTH 0.1
@@ -85,14 +78,15 @@ static Object *generalization_create(Point *startpoint,
 				 Handle **handle2);
 static void generalization_destroy(Generalization *genlz);
 static Object *generalization_copy(Generalization *genlz);
-static GtkWidget *generalization_get_properties(Generalization *genlz);
-static ObjectChange *generalization_apply_properties(Generalization *genlz);
 static DiaMenu *generalization_get_object_menu(Generalization *genlz,
 						Point *clickedpoint);
 
 static GeneralizationState *generalization_get_state(Generalization *genlz);
 static void generalization_set_state(Generalization *genlz,
 				     GeneralizationState *state);
+static PropDescription *generalization_describe_props(Generalization *generalization);
+static void generalization_get_props(Generalization * generalization, Property *props, guint nprops);
+static void generalization_set_props(Generalization * generalization, Property *props, guint nprops);
 
 static void generalization_save(Generalization *genlz, ObjectNode obj_node,
 				const char *filename);
@@ -125,10 +119,95 @@ static ObjectOps generalization_ops = {
   (CopyFunc)            generalization_copy,
   (MoveFunc)            generalization_move,
   (MoveHandleFunc)      generalization_move_handle,
-  (GetPropertiesFunc)   generalization_get_properties,
-  (ApplyPropertiesFunc) generalization_apply_properties,
-  (ObjectMenuFunc)      generalization_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      generalization_get_object_menu,
+  (DescribePropsFunc)   generalization_describe_props,
+  (GetPropsFunc)        generalization_get_props,
+  (SetPropsFunc)        generalization_set_props
 };
+
+static PropDescription generalization_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Name:"), NULL, NULL },
+  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Stereotype:"), NULL, NULL },
+  PROP_DESC_END
+};
+
+static PropDescription *
+generalization_describe_props(Generalization *generalization)
+{
+  if (generalization_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(generalization_props);
+  return generalization_props;
+}
+
+static PropOffset generalization_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "name", PROP_TYPE_STRING, offsetof(Generalization, name) },
+  /*{ "stereotype", PROP_TYPE_STRING, offsetof(Generalization, stereotype) },*/
+  { NULL, 0, 0 }
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "stereotype" }
+};
+
+static void
+generalization_get_props(Generalization * generalization, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets(&generalization->orth.object, 
+                                    generalization_offsets, props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      if (strlen(generalization->stereotype) != 0)
+	PROP_VALUE_STRING(props[i]) =
+	  stereotype_to_string(generalization->stereotype);
+      else
+	PROP_VALUE_STRING(props[i]) = strdup("");	
+    }
+  }
+
+}
+
+static void
+generalization_set_props(Generalization *generalization, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets(&generalization->orth.object, 
+                                     generalization_offsets, props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
+	quarks[i].q = g_quark_from_static_string(quarks[i].name);
+    
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_STRING) {
+	g_free(generalization->stereotype);
+	if (strlen(PROP_VALUE_STRING(props[i])) > 0)
+	  generalization->stereotype =
+	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
+	else 
+	  generalization->stereotype = strdup("");
+      }
+    }
+  }
+  generalization_update_data(generalization);
+}
 
 static real
 generalization_distance_from(Generalization *genlz, Point *point)
@@ -216,16 +295,27 @@ generalization_update_data(Generalization *genlz)
   int num_segm, i;
   Point *points;
   Rectangle rect;
+  OrthConnBBExtras *extra;
   
   orthconn_update_data(orth);
   
-  orthconn_update_boundingbox(orth);
-  /* fix boundinggeneralization for linewidth and triangle: */
-  obj->bounding_box.top -= GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
-  obj->bounding_box.left -= GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
-  obj->bounding_box.bottom += GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
-  obj->bounding_box.right += GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
+  genlz->text_width = 0.0;
+
+  genlz->text_width =
+    font_string_width(genlz->name, genlz_font, GENERALIZATION_FONTHEIGHT);
+  genlz->text_width = MAX(genlz->text_width,
+			  font_string_width(genlz->stereotype, genlz_font, GENERALIZATION_FONTHEIGHT));
+
+  extra = &orth->extra_spacing;
   
+  extra->start_trans = GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
+  extra->start_long = 
+    extra->middle_trans = 
+    extra->end_trans = 
+    extra->end_long = GENERALIZATION_WIDTH/2.0;
+  
+  orthconn_update_boundingbox(orth);
+
   /* Calc text pos: */
   num_segm = genlz->orth.numpoints - 1;
   points = genlz->orth.points;
@@ -330,17 +420,9 @@ generalization_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
 
-  genlz->name = NULL;
-  genlz->stereotype = NULL;
-  genlz->text_width = 0;
-  genlz->properties_dialog = NULL;
+  genlz->name = strdup("");
+  genlz->stereotype = strdup("");
 
-  extra->start_trans = GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
-  extra->start_long = 
-    extra->middle_trans = 
-    extra->end_trans = 
-    extra->end_long = GENERALIZATION_WIDTH/2.0;
-  
   generalization_update_data(genlz);
   
   *handle1 = orth->handles[0];
@@ -353,11 +435,6 @@ static void
 generalization_destroy(Generalization *genlz)
 {
   orthconn_destroy(&genlz->orth);
-
-  if (genlz->properties_dialog != NULL) {
-    gtk_widget_destroy(genlz->properties_dialog->dialog);
-    g_free(genlz->properties_dialog);
-  }
 }
 
 static Object *
@@ -375,10 +452,9 @@ generalization_copy(Generalization *genlz)
 
   orthconn_copy(orth, neworth);
 
-  newgenlz->name = (genlz->name != NULL)? strdup(genlz->name):NULL;
-  newgenlz->stereotype = (genlz->stereotype != NULL)? strdup(genlz->stereotype):NULL;
+  newgenlz->name = strdup(genlz->name);
+  newgenlz->stereotype = strdup(genlz->stereotype);
   newgenlz->text_width = genlz->text_width;
-  newgenlz->properties_dialog = NULL;
   
   generalization_update_data(newgenlz);
   
@@ -413,16 +489,6 @@ generalization_set_state(Generalization *genlz, GeneralizationState *state)
   g_free(genlz->stereotype);
   genlz->name = state->name;
   genlz->stereotype = state->stereotype;
-  
-  genlz->text_width = 0.0;
-  if (genlz->name != NULL) {
-    genlz->text_width =
-      font_string_width(genlz->name, genlz_font, GENERALIZATION_FONTHEIGHT);
-  }
-  if (genlz->stereotype != NULL) {
-    genlz->text_width = MAX(genlz->text_width,
-			  font_string_width(genlz->stereotype, genlz_font, GENERALIZATION_FONTHEIGHT));
-  }
   
   g_free(state);
   
@@ -470,164 +536,17 @@ generalization_load(ObjectNode obj_node, int version,
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)
     genlz->name = data_string(attribute_first_data(attr));
-  
+  else
+    genlz->name = strdup("");
+
   genlz->stereotype = NULL;
   attr = object_find_attribute(obj_node, "stereotype");
   if (attr != NULL)
     genlz->stereotype = data_string(attribute_first_data(attr));
+  else
+    genlz->stereotype = strdup("");
 
-  genlz->text_width = 0.0;
-
-  genlz->properties_dialog = NULL;
-  
-  if (genlz->name != NULL) {
-    genlz->text_width =
-      font_string_width(genlz->name, genlz_font, GENERALIZATION_FONTHEIGHT);
-  }
-  if (genlz->stereotype != NULL) {
-    genlz->text_width = MAX(genlz->text_width,
-			  font_string_width(genlz->stereotype, genlz_font, GENERALIZATION_FONTHEIGHT));
-  }
-
-  extra->start_trans = GENERALIZATION_WIDTH/2.0 + GENERALIZATION_TRIANGLESIZE;
-  extra->start_long = 
-    extra->middle_trans = 
-    extra->end_trans = 
-    extra->end_long = GENERALIZATION_WIDTH/2.0;
-  
   generalization_update_data(genlz);
 
   return &genlz->orth.object;
 }
-
-static ObjectChange *
-generalization_apply_properties(Generalization *genlz)
-{
-  GeneralizationPropertiesDialog *prop_dialog;
-  ObjectState *old_state;
-  char *str;
-
-  prop_dialog = genlz->properties_dialog;
-
-  old_state = (ObjectState *)generalization_get_state(genlz);
-
-  /* Read from dialog and put in object: */
-  if (genlz->name != NULL)
-    g_free(genlz->name);
-  str = gtk_entry_get_text(prop_dialog->name);
-  if (strlen(str) != 0)
-    genlz->name = strdup(str);
-  else
-    genlz->name = NULL;
-
-  if (genlz->stereotype != NULL)
-    g_free(genlz->stereotype);
-  
-  str = gtk_entry_get_text(prop_dialog->stereotype);
-  
-  if (strlen(str) != 0) {
-    genlz->stereotype = g_malloc(sizeof(char)*strlen(str)+2+1);
-    genlz->stereotype[0] = UML_STEREOTYPE_START;
-    genlz->stereotype[1] = 0;
-    strcat(genlz->stereotype, str);
-    genlz->stereotype[strlen(str)+1] = UML_STEREOTYPE_END;
-    genlz->stereotype[strlen(str)+2] = 0;
-  } else {
-    genlz->stereotype = NULL;
-  }
-
-  genlz->text_width = 0.0;
-
-  if (genlz->name != NULL) {
-    genlz->text_width =
-      font_string_width(genlz->name, genlz_font, GENERALIZATION_FONTHEIGHT);
-  }
-  if (genlz->stereotype != NULL) {
-    genlz->text_width = MAX(genlz->text_width,
-			  font_string_width(genlz->stereotype, genlz_font, GENERALIZATION_FONTHEIGHT));
-  }
-  
-  generalization_update_data(genlz);
-  return new_object_state_change(&genlz->orth.object, old_state, 
-				 (GetStateFunc)generalization_get_state,
-				 (SetStateFunc)generalization_set_state);
-}
-
-static void
-fill_in_dialog(Generalization *genlz)
-{
-  GeneralizationPropertiesDialog *prop_dialog;
-  char *str;
-  
-  prop_dialog = genlz->properties_dialog;
-
-  if (genlz->name != NULL)
-    gtk_entry_set_text(prop_dialog->name, genlz->name);
-  else 
-    gtk_entry_set_text(prop_dialog->name, "");
-  
-  
-  if (genlz->stereotype != NULL) {
-    str = strdup(genlz->stereotype);
-    strcpy(str, genlz->stereotype+1);
-    str[strlen(str)-1] = 0;
-    gtk_entry_set_text(prop_dialog->stereotype, str);
-    g_free(str);
-  } else {
-    gtk_entry_set_text(prop_dialog->stereotype, "");
-  }
-}
-
-static GtkWidget *
-generalization_get_properties(Generalization *genlz)
-{
-  GeneralizationPropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-
-  if (genlz->properties_dialog == NULL) {
-
-    prop_dialog = g_new(GeneralizationPropertiesDialog, 1);
-    genlz->properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Name:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->name = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
-    label = gtk_label_new(_("Stereotype:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->stereotype = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-  }
-  
-  fill_in_dialog(genlz);
-  gtk_widget_show (genlz->properties_dialog->dialog);
-
-  return genlz->properties_dialog->dialog;
-}
-
-
-
-

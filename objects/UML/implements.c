@@ -30,12 +30,12 @@
 #include "connection.h"
 #include "render.h"
 #include "handle.h"
+#include "properties.h"
 
 #include "pixmaps/implements.xpm"
 
 typedef struct _Implements Implements;
 typedef struct _ImplementsState ImplementsState;
-typedef struct _ImplementsDialog ImplementsDialog;
 
 struct _ImplementsState {
   ObjectState obj_state;
@@ -57,13 +57,6 @@ struct _Implements {
   Point text_pos;
   real text_width;
 
-  ImplementsDialog *properties_dialog;
-};
-
-struct _ImplementsDialog {
-  GtkWidget *dialog;
-  
-  GtkEntry *text;
 };
   
 #define IMPLEMENTS_WIDTH 0.1
@@ -89,12 +82,13 @@ static real implements_distance_from(Implements *implements, Point *point);
 static void implements_update_data(Implements *implements);
 static void implements_destroy(Implements *implements);
 static Object *implements_copy(Implements *implements);
-static GtkWidget *implements_get_properties(Implements *implements);
-static ObjectChange *implements_apply_properties(Implements *implements);
 
 static ImplementsState *implements_get_state(Implements *implements);
 static void implements_set_state(Implements *implements,
 				 ImplementsState *state);
+static PropDescription *implements_describe_props(Implements *implements);
+static void implements_get_props(Implements * implements, Property *props, guint nprops);
+static void implements_set_props(Implements * implements, Property *props, guint nprops);
 
 static void implements_save(Implements *implements, ObjectNode obj_node,
 			    const char *filename);
@@ -125,10 +119,51 @@ static ObjectOps implements_ops = {
   (CopyFunc)            implements_copy,
   (MoveFunc)            implements_move,
   (MoveHandleFunc)      implements_move_handle,
-  (GetPropertiesFunc)   implements_get_properties,
-  (ApplyPropertiesFunc) implements_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   implements_describe_props,
+  (GetPropsFunc)        implements_get_props,
+  (SetPropsFunc)        implements_set_props
 };
+
+static PropDescription implements_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  { "interface", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Interface:"), NULL, NULL },
+  PROP_DESC_END
+};
+
+static PropDescription *
+implements_describe_props(Implements *implements)
+{
+  if (implements_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(implements_props);
+  return implements_props;
+}
+
+static PropOffset implements_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "interface", PROP_TYPE_STRING, offsetof(Implements, text) },
+  { NULL, 0, 0 }
+};
+
+static void
+implements_get_props(Implements * implements, Property *props, guint nprops)
+{
+  if (object_get_props_from_offsets(&implements->connection.object, 
+                                    implements_offsets, props, nprops))
+    return;
+}
+
+static void
+implements_set_props(Implements *implements, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets(&implements->connection.object, 
+                                     implements_offsets, props, nprops)) {
+  }
+  implements_update_data(implements);
+}
 
 static real
 implements_distance_from(Implements *implements, Point *point)
@@ -287,8 +322,6 @@ implements_create(Point *startpoint,
   implements->circle_handle.connected_to = NULL;
   obj->handles[3] = &implements->circle_handle;
 
-  implements->properties_dialog = NULL;
-  
   implements_update_data(implements);
 
   *handle1 = obj->handles[0];
@@ -302,11 +335,6 @@ implements_destroy(Implements *implements)
 {
   connection_destroy(&implements->connection);
   g_free(implements->text);
-
-  if (implements->properties_dialog != NULL) {
-    gtk_widget_destroy(implements->properties_dialog->dialog);
-    g_free(implements->properties_dialog);
-  }
 }
 
 static Object *
@@ -335,8 +363,6 @@ implements_copy(Implements *implements)
   newimplements->text = strdup(implements->text);
   newimplements->text_pos = implements->text_pos;
   newimplements->text_width = implements->text_width;
-
-  newimplements->properties_dialog = NULL;
 
   return &newimplements->connection.object;
 }
@@ -382,6 +408,9 @@ implements_update_data(Implements *implements)
   real len;
   Rectangle rect;
   
+  implements->text_width =
+    font_string_width(implements->text, implements_font,
+		      IMPLEMENTS_FONTHEIGHT);
 
   obj->position = conn->endpoints[0];
 
@@ -468,14 +497,12 @@ implements_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     implements->text = data_string(attribute_first_data(attr));
+  else
+    implements->text = strdup("");
 
   attr = object_find_attribute(obj_node, "text_pos");
   if (attr != NULL)
     data_point(attribute_first_data(attr), &implements->text_pos);
-
-  implements->text_width =
-      font_string_width(implements->text, implements_font,
-			IMPLEMENTS_FONTHEIGHT);
 
   implements->text_handle.id = HANDLE_MOVE_TEXT;
   implements->text_handle.type = HANDLE_MINOR_CONTROL;
@@ -489,83 +516,8 @@ implements_load(ObjectNode obj_node, int version, const char *filename)
   implements->circle_handle.connected_to = NULL;
   obj->handles[3] = &implements->circle_handle;
 
-  implements->properties_dialog = NULL;
-
-  
   implements_update_data(implements);
   
   return &implements->connection.object;
 }
 
-
-static ObjectChange *
-implements_apply_properties(Implements *implements)
-{
-  ImplementsDialog *prop_dialog;
-  ObjectState *old_state;
-
-  prop_dialog = implements->properties_dialog;
-
-  old_state = (ObjectState *)implements_get_state(implements);
-  
-  /* Read from dialog and put in object: */
-  g_free(implements->text);
-  implements->text = strdup(gtk_entry_get_text(prop_dialog->text));
-
-  implements->text_width =
-      font_string_width(implements->text, implements_font,
-			IMPLEMENTS_FONTHEIGHT);
-  
-  implements_update_data(implements);
-
-  return new_object_state_change(&implements->connection.object, old_state, 
-				 (GetStateFunc)implements_get_state,
-				 (SetStateFunc)implements_set_state);
-}
-
-static void
-fill_in_dialog(Implements *implements)
-{
-  ImplementsDialog *prop_dialog;
-  
-  prop_dialog = implements->properties_dialog;
-
-  gtk_entry_set_text(prop_dialog->text, implements->text);
-}
-
-static GtkWidget *
-implements_get_properties(Implements *implements)
-{
-  ImplementsDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-
-  if (implements->properties_dialog == NULL) {
-
-    prop_dialog = g_new(ImplementsDialog, 1);
-    implements->properties_dialog = prop_dialog;
-
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Interface:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->text = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-  }
-  fill_in_dialog(implements);
-  gtk_widget_show (implements->properties_dialog->dialog);
-
-  return implements->properties_dialog->dialog;
-}

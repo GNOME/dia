@@ -21,6 +21,8 @@
 
 #include "uml.h"
 
+char *string_to_bracketted(char *str, char *start_bracket, char *end_bracket);
+char *bracketted_to_string(char *bracketted, int bracket_len);
 char *string_to_stereotype(char *str);
 char *stereotype_to_string(char *stereotype);
 

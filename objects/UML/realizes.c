@@ -31,14 +31,14 @@
 #include "render.h"
 #include "attributes.h"
 #include "arrows.h"
-
+#include "properties.h"
+#include "stereotype.h"
 #include "uml.h"
 
 #include "pixmaps/realizes.xpm"
 
 typedef struct _Realizes Realizes;
 typedef struct _RealizesState RealizesState;
-typedef struct _RealizesPropertiesDialog RealizesPropertiesDialog;
 
 struct _RealizesState {
   ObjectState obj_state;
@@ -58,15 +58,8 @@ struct _Realizes {
   char *name;
   char *stereotype; /* including << and >> */
 
-  RealizesPropertiesDialog* properties_dialog;
 };
 
-struct _RealizesPropertiesDialog {
-  GtkWidget *dialog;
-  
-  GtkEntry *name;
-  GtkEntry *stereotype;
-};
 
 #define REALIZES_WIDTH 0.1
 #define REALIZES_TRIANGLESIZE 0.8
@@ -88,14 +81,15 @@ static Object *realizes_create(Point *startpoint,
 				 Handle **handle2);
 static void realizes_destroy(Realizes *realize);
 static Object *realizes_copy(Realizes *realize);
-static GtkWidget *realizes_get_properties(Realizes *realize);
-static ObjectChange *realizes_apply_properties(Realizes *realize);
 static DiaMenu *realizes_get_object_menu(Realizes *realize,
 					 Point *clickedpoint);
 
 static RealizesState *realizes_get_state(Realizes *realize);
 static void realizes_set_state(Realizes *realize,
 			       RealizesState *state);
+static PropDescription *realizes_describe_props(Realizes *realizes);
+static void realizes_get_props(Realizes * realizes, Property *props, guint nprops);
+static void realizes_set_props(Realizes * realizes, Property *props, guint nprops);
 
 static void realizes_save(Realizes *realize, ObjectNode obj_node,
 			  const char *filename);
@@ -128,10 +122,96 @@ static ObjectOps realizes_ops = {
   (CopyFunc)            realizes_copy,
   (MoveFunc)            realizes_move,
   (MoveHandleFunc)      realizes_move_handle,
-  (GetPropertiesFunc)   realizes_get_properties,
-  (ApplyPropertiesFunc) realizes_apply_properties,
-  (ObjectMenuFunc)      realizes_get_object_menu
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      realizes_get_object_menu,
+  (DescribePropsFunc)   realizes_describe_props,
+  (GetPropsFunc)        realizes_get_props,
+  (SetPropsFunc)        realizes_set_props
 };
+
+static PropDescription realizes_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Name:"), NULL, NULL },
+  { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Stereotype:"), NULL, NULL },
+  PROP_DESC_END
+};
+
+static PropDescription *
+realizes_describe_props(Realizes *realizes)
+{
+  if (realizes_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(realizes_props);
+  return realizes_props;
+}
+
+static PropOffset realizes_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  { "name", PROP_TYPE_STRING, offsetof(Realizes, name) },
+  /*{ "stereotype", PROP_TYPE_STRING, offsetof(Realizes, stereotype) },*/
+  { NULL, 0, 0 }
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "stereotype" }
+};
+
+static void
+realizes_get_props(Realizes * realizes, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets(&realizes->orth.object, 
+                                    realizes_offsets, props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      if (strlen(realizes->stereotype) != 0)
+	PROP_VALUE_STRING(props[i]) =
+	  stereotype_to_string(realizes->stereotype);
+      else
+	PROP_VALUE_STRING(props[i]) = strdup("");	
+    }
+  }
+
+}
+
+static void
+realizes_set_props(Realizes *realizes, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets(&realizes->orth.object, 
+                                     realizes_offsets, props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
+	quarks[i].q = g_quark_from_static_string(quarks[i].name);
+    
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_STRING) {
+	g_free(realizes->stereotype);
+	if (strlen(PROP_VALUE_STRING(props[i])) > 0)
+	  realizes->stereotype =
+	    string_to_stereotype(PROP_VALUE_STRING(props[i]));
+	else 
+	  realizes->stereotype = strdup("");
+      }
+    }
+  }
+  realizes_update_data(realizes);
+}
+
 
 static real
 realizes_distance_from(Realizes *realize, Point *point)
@@ -193,7 +273,7 @@ realizes_draw(Realizes *realize, Renderer *renderer)
   renderer->ops->set_font(renderer, realize_font, REALIZES_FONTHEIGHT);
   pos = realize->text_pos;
   
-  if (realize->stereotype != NULL) {
+  if (strlen(realize->stereotype) != 0) {
     renderer->ops->draw_string(renderer,
 			       realize->stereotype,
 			       &pos, realize->text_align,
@@ -202,7 +282,7 @@ realizes_draw(Realizes *realize, Renderer *renderer)
     pos.y += REALIZES_FONTHEIGHT;
   }
   
-  if (realize->name != NULL) {
+  if (strlen(realize->name) != 0) {
     renderer->ops->draw_string(renderer,
 			       realize->name,
 			       &pos, realize->text_align,
@@ -219,9 +299,25 @@ realizes_update_data(Realizes *realize)
   int num_segm, i;
   Point *points;
   Rectangle rect;
-  
+  OrthConnBBExtras *extra;
+
   orthconn_update_data(orth);
   
+  realize->text_width = 0.0;
+
+  realize->text_width =
+    font_string_width(realize->name, realize_font, REALIZES_FONTHEIGHT);
+  realize->text_width = MAX(realize->text_width,
+			    font_string_width(realize->stereotype, realize_font, REALIZES_FONTHEIGHT));
+
+  extra = &orth->extra_spacing;
+  
+  extra->start_trans = REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
+  extra->start_long = 
+    extra->middle_trans = 
+    extra->end_trans = 
+    extra->end_long = REALIZES_WIDTH/2.0;
+
   orthconn_update_boundingbox(orth);
   
   /* Calc text pos: */
@@ -328,10 +424,9 @@ realizes_create(Point *startpoint,
 
   orthconn_init(orth, startpoint);
   
-  realize->name = NULL;
-  realize->stereotype = NULL;
+  realize->name = strdup("");
+  realize->stereotype = strdup("");
   realize->text_width = 0;
-  realize->properties_dialog = NULL;
 
   extra->start_trans = REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
   extra->start_long = 
@@ -349,12 +444,9 @@ realizes_create(Point *startpoint,
 static void
 realizes_destroy(Realizes *realize)
 {
+  g_free(realize->name);
+  g_free(realize->stereotype);
   orthconn_destroy(&realize->orth);
-
-  if (realize->properties_dialog != NULL) {
-    gtk_widget_destroy(realize->properties_dialog->dialog);
-    g_free(realize->properties_dialog);
-  }
 }
 
 static Object *
@@ -370,10 +462,9 @@ realizes_copy(Realizes *realize)
 
   orthconn_copy(orth, neworth);
 
-  newrealize->name = (realize->name != NULL)? strdup(realize->name):NULL;
-  newrealize->stereotype = (realize->stereotype != NULL)? strdup(realize->stereotype):NULL;
+  newrealize->name = strdup(realize->name);
+  newrealize->stereotype = strdup(realize->stereotype);
   newrealize->text_width = realize->text_width;
-  newrealize->properties_dialog = NULL;
   
   realizes_update_data(newrealize);
   
@@ -408,16 +499,6 @@ realizes_set_state(Realizes *realize, RealizesState *state)
   g_free(realize->stereotype);
   realize->name = state->name;
   realize->stereotype = state->stereotype;
-  
-  realize->text_width = 0.0;
-  if (realize->name != NULL) {
-    realize->text_width =
-      font_string_width(realize->name, realize_font, REALIZES_FONTHEIGHT);
-  }
-  if (realize->stereotype != NULL) {
-    realize->text_width = MAX(realize->text_width,
-			  font_string_width(realize->stereotype, realize_font, REALIZES_FONTHEIGHT));
-  }
   
   g_free(state);
   
@@ -463,163 +544,20 @@ realizes_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)
     realize->name = data_string(attribute_first_data(attr));
+  else
+    realize->name = strdup("");
   
   realize->stereotype = NULL;
   attr = object_find_attribute(obj_node, "stereotype");
   if (attr != NULL)
     realize->stereotype = data_string(attribute_first_data(attr));
-  
+  else
+    realize->stereotype = strdup("");
+
   realize->text_width = 0.0;
 
-  realize->properties_dialog = NULL;
   
-  if (realize->name != NULL) {
-    realize->text_width =
-      font_string_width(realize->name, realize_font, REALIZES_FONTHEIGHT);
-  }
-  if (realize->stereotype != NULL) {
-    realize->text_width = MAX(realize->text_width,
-			  font_string_width(realize->stereotype, realize_font, REALIZES_FONTHEIGHT));
-  }
-
-  extra->start_trans = REALIZES_WIDTH/2.0 + REALIZES_TRIANGLESIZE;
-  extra->start_long = 
-    extra->middle_trans = 
-    extra->end_trans = 
-    extra->end_long = REALIZES_WIDTH/2.0;
-
   realizes_update_data(realize);
 
   return &realize->orth.object;
 }
-
-static ObjectChange *
-realizes_apply_properties(Realizes *realize)
-{
-  RealizesPropertiesDialog *prop_dialog;
-  ObjectState *old_state;
-  char *str;
-
-  prop_dialog = realize->properties_dialog;
-
-  old_state = (ObjectState *)realizes_get_state(realize);
-
-  /* Read from dialog and put in object: */
-  if (realize->name != NULL)
-    g_free(realize->name);
-  str = gtk_entry_get_text(prop_dialog->name);
-  if (strlen(str) != 0)
-    realize->name = strdup(str);
-  else
-    realize->name = NULL;
-
-  if (realize->stereotype != NULL)
-    g_free(realize->stereotype);
-  
-  str = gtk_entry_get_text(prop_dialog->stereotype);
-  
-  if (strlen(str) != 0) {
-    realize->stereotype = g_malloc(sizeof(char)*strlen(str)+2+1);
-    realize->stereotype[0] = UML_STEREOTYPE_START;
-    realize->stereotype[1] = 0;
-    strcat(realize->stereotype, str);
-    realize->stereotype[strlen(str)+1] = UML_STEREOTYPE_END;
-    realize->stereotype[strlen(str)+2] = 0;
-  } else {
-    realize->stereotype = NULL;
-  }
-
-  realize->text_width = 0.0;
-
-  if (realize->name != NULL) {
-    realize->text_width =
-      font_string_width(realize->name, realize_font, REALIZES_FONTHEIGHT);
-  }
-  if (realize->stereotype != NULL) {
-    realize->text_width = MAX(realize->text_width,
-			  font_string_width(realize->stereotype, realize_font, REALIZES_FONTHEIGHT));
-  }
-  
-  realizes_update_data(realize);
-  return new_object_state_change(&realize->orth.object, old_state, 
-				 (GetStateFunc)realizes_get_state,
-				 (SetStateFunc)realizes_set_state);
-}
-
-static void
-fill_in_dialog(Realizes *realize)
-{
-  RealizesPropertiesDialog *prop_dialog;
-  char *str;
-  
-  prop_dialog = realize->properties_dialog;
-
-  if (realize->name != NULL)
-    gtk_entry_set_text(prop_dialog->name, realize->name);
-  else 
-    gtk_entry_set_text(prop_dialog->name, "");
-  
-  
-  if (realize->stereotype != NULL) {
-    str = strdup(realize->stereotype);
-    strcpy(str, realize->stereotype+1);
-    str[strlen(str)-1] = 0;
-    gtk_entry_set_text(prop_dialog->stereotype, str);
-    g_free(str);
-  } else {
-    gtk_entry_set_text(prop_dialog->stereotype, "");
-  }
-}
-
-static GtkWidget *
-realizes_get_properties(Realizes *realize)
-{
-  RealizesPropertiesDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-
-  if (realize->properties_dialog == NULL) {
-
-    prop_dialog = g_new(RealizesPropertiesDialog, 1);
-    realize->properties_dialog = prop_dialog;
-    
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Name:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->name = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-
-    hbox = gtk_hbox_new(FALSE, 5);
-    gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
-    label = gtk_label_new(_("Stereotype:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->stereotype = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-  }
-  fill_in_dialog(realize);
-  gtk_widget_show (realize->properties_dialog->dialog);
-
-  return realize->properties_dialog->dialog;
-}
-
-
-
-

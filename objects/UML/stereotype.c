@@ -22,26 +22,39 @@
 #include "stereotype.h"
 
 char *
+string_to_bracketted(char *str, char *start_bracket, char *end_bracket) {
+  char *bracketted;
+
+  bracketted = g_malloc(sizeof(char)*strlen(str)+
+			2*strlen(start_bracket)+1);
+  strcpy(bracketted, start_bracket);
+  strcat(bracketted, str);
+  strcat(bracketted, end_bracket);
+
+  return bracketted;
+}
+
+char *
+bracketted_to_string(char *bracketted, int bracket_len) {
+  char *str;
+
+  str = strdup(bracketted);
+  strcpy(str, bracketted+bracket_len);
+  str[strlen(str)-bracket_len] = 0;
+
+  return str;
+}
+
+char uml_start_bracket[] = {(char)UML_STEREOTYPE_START, '\0'};
+char uml_end_bracket[] = {(char)UML_STEREOTYPE_END, '\0'};
+
+char *
 string_to_stereotype(char *str) {
-  char *stereotype;
-
-  stereotype = g_malloc(sizeof(char)*strlen(str)+2+1);
-  stereotype[0] = UML_STEREOTYPE_START;
-  stereotype[1] = 0;
-  strcat(stereotype, str);
-  stereotype[strlen(str)+1] = UML_STEREOTYPE_END;
-  stereotype[strlen(str)+2] = 0;
-
-  return stereotype;
+  return string_to_bracketted(str, uml_start_bracket, uml_end_bracket);
 }
 
 char *
 stereotype_to_string(char *stereotype) {
-  char *str;
-
-  str = strdup(stereotype);
-  strcpy(str, stereotype+1);
-  str[strlen(str)-1] = 0;
-
-  return str;
+  return bracketted_to_string(stereotype, 1);
 }
+

@@ -31,12 +31,13 @@
 #include "render.h"
 #include "handle.h"
 #include "arrows.h"
+#include "properties.h"
+#include "stereotype.h"
 
 #include "pixmaps/constraint.xpm"
 
 typedef struct _Constraint Constraint;
 typedef struct _ConstraintState ConstraintState;
-typedef struct _ConstraintDialog ConstraintDialog;
 
 struct _ConstraintState {
   ObjectState obj_state;
@@ -52,15 +53,8 @@ struct _Constraint {
   char *text;
   Point text_pos;
   real text_width;
-
-  ConstraintDialog *properties_dialog;
 };
 
-struct _ConstraintDialog {
-  GtkWidget *dialog;
-  
-  GtkEntry *text;
-};
   
 #define CONSTRAINT_WIDTH 0.1
 #define CONSTRAINT_DASHLEN 0.4
@@ -87,12 +81,13 @@ static real constraint_distance_from(Constraint *constraint, Point *point);
 static void constraint_update_data(Constraint *constraint);
 static void constraint_destroy(Constraint *constraint);
 static Object *constraint_copy(Constraint *constraint);
-static GtkWidget *constraint_get_properties(Constraint *constraint);
-static ObjectChange *constraint_apply_properties(Constraint *constraint);
 
 static ConstraintState *constraint_get_state(Constraint *constraint);
 static void constraint_set_state(Constraint *constraint,
 				 ConstraintState *state);
+static PropDescription *constraint_describe_props(Constraint *constraint);
+static void constraint_get_props(Constraint * constraint, Property *props, guint nprops);
+static void constraint_set_props(Constraint * constraint, Property *props, guint nprops);
 
 static void constraint_save(Constraint *constraint, ObjectNode obj_node,
 			    const char *filename);
@@ -122,10 +117,91 @@ static ObjectOps constraint_ops = {
   (CopyFunc)            constraint_copy,
   (MoveFunc)            constraint_move,
   (MoveHandleFunc)      constraint_move_handle,
-  (GetPropertiesFunc)   constraint_get_properties,
-  (ApplyPropertiesFunc) constraint_apply_properties,
-  (ObjectMenuFunc)      NULL
+  (GetPropertiesFunc)   object_create_props_dialog,
+  (ApplyPropertiesFunc) object_apply_props_from_dialog,
+  (ObjectMenuFunc)      NULL,
+  (DescribePropsFunc)   constraint_describe_props,
+  (GetPropsFunc)        constraint_get_props,
+  (SetPropsFunc)        constraint_set_props
 };
+
+static PropDescription constraint_props[] = {
+  OBJECT_COMMON_PROPERTIES,
+  { "constraint", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
+    N_("Constraint:"), NULL, NULL },
+  PROP_DESC_END
+};
+
+static PropDescription *
+constraint_describe_props(Constraint *constraint)
+{
+  if (constraint_props[0].quark == 0)
+    prop_desc_list_calculate_quarks(constraint_props);
+  return constraint_props;
+}
+
+static PropOffset constraint_offsets[] = {
+  OBJECT_COMMON_PROPERTIES_OFFSETS,
+  /*  { "constraint", PROP_TYPE_STRING, offsetof(Constraint, text) },*/
+  { NULL, 0, 0 }
+};
+
+static struct { const gchar *name; GQuark q; } quarks[] = {
+  { "constraint" }
+};
+
+static void
+constraint_get_props(Constraint * constraint, Property *props, guint nprops)
+{
+  guint i;
+
+  if (object_get_props_from_offsets(&constraint->connection.object, 
+                                    constraint_offsets, props, nprops))
+    return;
+  /* these props can't be handled as easily */
+  if (quarks[0].q == 0)
+    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
+      quarks[i].q = g_quark_from_static_string(quarks[i].name);
+  for (i = 0; i < nprops; i++) {
+    GQuark pquark = g_quark_from_string(props[i].name);
+
+    if (pquark == quarks[0].q) {
+      props[i].type = PROP_TYPE_STRING;
+      g_free(PROP_VALUE_STRING(props[i]));
+      if (strlen(constraint->text) != 0)
+	PROP_VALUE_STRING(props[i]) =
+	  bracketted_to_string(constraint->text, strlen("{"));
+      else
+	PROP_VALUE_STRING(props[i]) = strdup("");	
+    }
+  }
+}
+
+static void
+constraint_set_props(Constraint *constraint, Property *props, guint nprops)
+{
+  if (!object_set_props_from_offsets(&constraint->connection.object, 
+                                     constraint_offsets, props, nprops)) {
+    guint i;
+
+    if (quarks[0].q == 0)
+      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
+	quarks[i].q = g_quark_from_static_string(quarks[i].name);
+    
+    for (i = 0; i < nprops; i++) {
+      GQuark pquark = g_quark_from_string(props[i].name);
+      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_STRING) {
+	g_free(constraint->text);
+	if (strlen(PROP_VALUE_STRING(props[i])) > 0)
+	  constraint->text=
+	    string_to_bracketted(PROP_VALUE_STRING(props[i]), "{", "}");
+	else 
+	  constraint->text = strdup("{}");
+      }
+    }
+  }
+  constraint_update_data(constraint);
+}
 
 static real
 constraint_distance_from(Constraint *constraint, Point *point)
@@ -235,7 +311,6 @@ constraint_create(Point *startpoint,
 {
   Constraint *constraint;
   Connection *conn;
-  ConnectionBBExtras *extra;
   Object *obj;
   Point defaultlen = { 1.0, 1.0 };
 
@@ -250,7 +325,6 @@ constraint_create(Point *startpoint,
   point_add(&conn->endpoints[1], &defaultlen);
  
   obj = &conn->object;
-  extra = &conn->extra_spacing;
 
   obj->type = &constraint_type;
   obj->ops = &constraint_ops;
@@ -258,9 +332,6 @@ constraint_create(Point *startpoint,
   connection_init(conn, 3, 0);
 
   constraint->text = strdup("{}");
-  constraint->text_width =
-      font_string_width(constraint->text, constraint_font, CONSTRAINT_FONTHEIGHT);
-  constraint->text_width = 0.0;
   constraint->text_pos.x = 0.5*(conn->endpoints[0].x + conn->endpoints[1].x);
   constraint->text_pos.y = 0.5*(conn->endpoints[0].y + conn->endpoints[1].y);
 
@@ -269,13 +340,6 @@ constraint_create(Point *startpoint,
   constraint->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   constraint->text_handle.connected_to = NULL;
   obj->handles[2] = &constraint->text_handle;
-  
-  constraint->properties_dialog = NULL;
-  
-  extra->start_long = 
-    extra->start_trans = 
-    extra->end_long = CONSTRAINT_WIDTH/2.0;
-  extra->end_trans = MAX(CONSTRAINT_WIDTH,CONSTRAINT_ARROWLEN)/2.0;
   
   constraint_update_data(constraint);
 
@@ -292,10 +356,6 @@ constraint_destroy(Constraint *constraint)
 
   g_free(constraint->text);
 
-  if (constraint->properties_dialog != NULL) {
-    gtk_widget_destroy(constraint->properties_dialog->dialog);
-    g_free(constraint->properties_dialog);
-  }
 }
 
 static Object *
@@ -319,8 +379,6 @@ constraint_copy(Constraint *constraint)
   newconstraint->text = strdup(constraint->text);
   newconstraint->text_pos = constraint->text_pos;
   newconstraint->text_width = constraint->text_width;
-
-  newconstraint->properties_dialog = NULL;
 
   return &newconstraint->connection.object;
 }
@@ -349,11 +407,6 @@ constraint_set_state(Constraint *constraint, ConstraintState *state)
 {
   g_free(constraint->text);
   constraint->text = state->text;
-  constraint->text_width = 0.0;
-  if (constraint->text != NULL) {
-    constraint->text_width =
-      font_string_width(constraint->text, constraint_font, CONSTRAINT_FONTHEIGHT);
-  } 
   
   g_free(state);
   
@@ -367,14 +420,25 @@ constraint_update_data(Constraint *constraint)
   Connection *conn = &constraint->connection;
   Object *obj = &conn->object;
   Rectangle rect;
-  
+  ConnectionBBExtras *extra;
+
   obj->position = conn->endpoints[0];
 
+  constraint->text_width =
+    font_string_width(constraint->text, constraint_font, CONSTRAINT_FONTHEIGHT);
+  
   constraint->text_handle.pos = constraint->text_pos;
 
   connection_update_handles(conn);
 
   /* Boundingbox: */
+  extra = &conn->extra_spacing;
+
+  extra->start_long = 
+    extra->start_trans = 
+    extra->end_long = CONSTRAINT_WIDTH/2.0;
+  extra->end_trans = MAX(CONSTRAINT_WIDTH,CONSTRAINT_ARROWLEN)/2.0;
+  
   connection_update_boundingbox(conn);
 
   /* Add boundingbox for text: */
@@ -427,13 +491,12 @@ constraint_load(ObjectNode obj_node, int version, const char *filename)
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
     constraint->text = data_string(attribute_first_data(attr));
+  else
+    constraint->text = strdup("{}");
 
   attr = object_find_attribute(obj_node, "text_pos");
   if (attr != NULL)
     data_point(attribute_first_data(attr), &constraint->text_pos);
-
-  constraint->text_width =
-      font_string_width(constraint->text, constraint_font, CONSTRAINT_FONTHEIGHT);
 
   constraint->text_handle.id = HANDLE_MOVE_TEXT;
   constraint->text_handle.type = HANDLE_MINOR_CONTROL;
@@ -441,98 +504,7 @@ constraint_load(ObjectNode obj_node, int version, const char *filename)
   constraint->text_handle.connected_to = NULL;
   obj->handles[2] = &constraint->text_handle;
   
-  constraint->properties_dialog = NULL;
-
-  extra->start_long = 
-    extra->start_trans = 
-    extra->end_long = CONSTRAINT_WIDTH/2.0;
-  extra->end_trans = MAX(CONSTRAINT_WIDTH,CONSTRAINT_ARROWLEN)/2.0;
-  
   constraint_update_data(constraint);
   
   return &constraint->connection.object;
-}
-
-
-static ObjectChange *
-constraint_apply_properties(Constraint *constraint)
-{
-  ConstraintDialog *prop_dialog;
-  char *str;
-  ObjectState *old_state;
-  
-  prop_dialog = constraint->properties_dialog;
-
-  old_state = (ObjectState *)constraint_get_state(constraint);
-
-  /* Read from dialog and put in object: */
-  g_free(constraint->text);
-  str = strdup(gtk_entry_get_text(prop_dialog->text));
-  constraint->text = g_malloc(sizeof(char)*strlen(str)+2+1);
-  strcpy(constraint->text, "{");
-  strcat(constraint->text, str);
-  strcat(constraint->text, "}");
-    
-  constraint->text_width =
-      font_string_width(constraint->text, constraint_font,
-			CONSTRAINT_FONTHEIGHT);
-  
-  constraint_update_data(constraint);
-  return new_object_state_change(&constraint->connection.object, old_state, 
-				 (GetStateFunc)constraint_get_state,
-				 (SetStateFunc)constraint_set_state);
-
-}
-
-static void
-fill_in_dialog(Constraint *constraint)
-{
-  ConstraintDialog *prop_dialog;
-  char *str;
-    
-  prop_dialog = constraint->properties_dialog;
-
-  str = strdup(constraint->text);
-  strcpy(str, constraint->text+1);
-  str[strlen(str)-1] = 0;
-  gtk_entry_set_text(prop_dialog->text, str);
-  g_free(str);
-}
-
-static GtkWidget *
-constraint_get_properties(Constraint *constraint)
-{
-  ConstraintDialog *prop_dialog;
-  GtkWidget *dialog;
-  GtkWidget *entry;
-  GtkWidget *hbox;
-  GtkWidget *label;
-
-  if (constraint->properties_dialog == NULL) {
-
-    prop_dialog = g_new(ConstraintDialog, 1);
-    constraint->properties_dialog = prop_dialog;
-    
-    dialog = gtk_vbox_new(FALSE, 0);
-    gtk_object_ref(GTK_OBJECT(dialog));
-    gtk_object_sink(GTK_OBJECT(dialog));
-    prop_dialog->dialog = dialog;
-    
-    hbox = gtk_hbox_new(FALSE, 5);
-
-    label = gtk_label_new(_("Constraint:"));
-    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
-    entry = gtk_entry_new();
-    prop_dialog->text = GTK_ENTRY(entry);
-    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (label);
-    gtk_widget_show (entry);
-    gtk_box_pack_start (GTK_BOX (dialog), hbox, TRUE, TRUE, 0);
-    gtk_widget_show(hbox);
-  }
-  
-  fill_in_dialog(constraint);
-  gtk_widget_show (constraint->properties_dialog->dialog);
-
-  return constraint->properties_dialog->dialog;
 }
