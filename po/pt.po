@@ -1,15 +1,15 @@
 # dia's Portuguese Translation
-# Copyright (C) 2002 dia
+# Copyright (C) 2002, 2004 dia
 # Distributed under the same licence as the dia package
-# Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2002, 2003
+# Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2004
 # Pedro Morais <morais@kde.org>, 2000
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6\n"
 "Report-Msgid-Bugs-To: Duarte Loreto <happyguy_pt@hotmail.com>\n"
-"POT-Creation-Date: 2003-12-23 23:44+0000\n"
-"PO-Revision-Date: 2003-12-23 23:55+0000\n"
+"POT-Creation-Date: 2004-01-03 01:40+0000\n"
+"PO-Revision-Date: 2004-01-03 01:45+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -553,11 +553,11 @@ msgstr ""
 msgid "Diagram modified!"
 msgstr "Diagrama modificado!"
 
-#: app/display.c:991
+#: app/display.c:992
 msgid "<unnamed>"
 msgstr "<semnome>"
 
-#: app/display.c:993
+#: app/display.c:994
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -566,20 +566,20 @@ msgstr ""
 "O diagrama '%s'\n"
 "não foi gravado. Gravar as alterações agora?"
 
-#: app/display.c:1004
+#: app/display.c:1005
 msgid "Close Diagram"
 msgstr "Fechar Diagrama"
 
-#: app/display.c:1009
+#: app/display.c:1010
 msgid "Discard Changes"
 msgstr "Descartar Alterações"
 
 #: app/export_png.c:134 app/load_save.c:867 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
-#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
+#: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:816
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
 #: plug-ins/svg/render_svg.c:151 plug-ins/wpg/wpg.c:1065
-#: plug-ins/xfig/xfig-export.c:1087 plug-ins/xslt/xslt.c:85
+#: plug-ins/xfig/xfig-export.c:1086 plug-ins/xslt/xslt.c:85
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Incapaz de abrir ficheiro de entrada %s: %s\n"
@@ -692,25 +692,25 @@ msgstr "Exportar Diagrama"
 msgid "Export Options"
 msgstr "Opções de Exportação"
 
-#: app/interface.c:45
+#: app/interface.c:46
 msgid "Modify object(s)"
 msgstr "Modificar objecto(s)"
 
-#: app/interface.c:46 app/menus.c:221
+#: app/interface.c:47 app/menus.c:221
 msgid "Modify"
 msgstr "Modificar"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/interface.c:50 app/interface.c:51 app/menus.c:222
+#: app/interface.c:51 app/interface.c:52 app/menus.c:222
 #: objects/FS/function.c:975
 msgid "Magnify"
 msgstr "Ampliar"
 
-#: app/interface.c:55
+#: app/interface.c:56
 msgid "Scroll around the diagram"
 msgstr "Deslocar-se no diagrama"
 
-#: app/interface.c:56 app/menus.c:223
+#: app/interface.c:57 app/menus.c:223
 msgid "Scroll"
 msgstr "Deslocar"
 
@@ -718,7 +718,7 @@ msgstr "Deslocar"
 #. PROP_STD_TEXT_FONT,
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
-#: app/interface.c:60 app/interface.c:61 app/menus.c:224 lib/properties.c:77
+#: app/interface.c:61 app/interface.c:62 app/menus.c:224 lib/properties.c:77
 #: lib/properties.h:501 lib/properties.h:504 objects/UML/activity.c:124
 #: objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:121 objects/UML/component_feature.c:154
@@ -728,64 +728,68 @@ msgstr "Deslocar"
 msgid "Text"
 msgstr "Texto"
 
-#: app/interface.c:65 app/interface.c:66 app/menus.c:225
+#: app/interface.c:66 app/interface.c:67 app/menus.c:225
 msgid "Box"
 msgstr "Caixa"
 
-#: app/interface.c:70 app/interface.c:71 app/menus.c:226
+#: app/interface.c:71 app/interface.c:72 app/menus.c:226
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: app/interface.c:75 app/interface.c:76 app/menus.c:227
+#: app/interface.c:76 app/interface.c:77 app/menus.c:227
 msgid "Polygon"
 msgstr "Polígono"
 
-#: app/interface.c:80 app/interface.c:81 app/menus.c:228
+#: app/interface.c:81 app/interface.c:82 app/menus.c:228
 msgid "Beziergon"
 msgstr "Polígono Bezier"
 
-#: app/interface.c:85 app/interface.c:86 app/menus.c:230
+#: app/interface.c:86 app/interface.c:87 app/menus.c:230
 #: objects/standard/line.c:247
 msgid "Line"
 msgstr "Linha"
 
-#: app/interface.c:90 app/interface.c:91 app/menus.c:231
+#: app/interface.c:91 app/interface.c:92 app/menus.c:231
 msgid "Arc"
 msgstr "Arco"
 
-#: app/interface.c:95 app/interface.c:96 app/menus.c:232
+#: app/interface.c:96 app/interface.c:97 app/menus.c:232
 msgid "Zigzagline"
 msgstr "Linha em ZigZag"
 
-#: app/interface.c:100 app/interface.c:101 app/menus.c:233
+#: app/interface.c:101 app/interface.c:102 app/menus.c:233
 msgid "Polyline"
 msgstr "Polilinha"
 
-#: app/interface.c:105 app/interface.c:106 app/menus.c:234
+#: app/interface.c:106 app/interface.c:107 app/menus.c:234
 msgid "Bezierline"
 msgstr "Linha Bezier"
 
-#: app/interface.c:110 app/interface.c:111 app/menus.c:236
+#: app/interface.c:111 app/interface.c:112 app/menus.c:236
 msgid "Image"
 msgstr "Imagem"
 
-#: app/interface.c:373
+#: app/interface.c:375
 msgid "Diagram menu."
 msgstr "Menu diagramas."
 
-#: app/interface.c:482
+#: app/interface.c:413
+msgid "Pops up the Navigation window."
+msgstr "Abre a janela de Navegação."
+
+#: app/interface.c:493
 msgid "Zoom"
 msgstr "Zoom"
 
-#: app/interface.c:496
+#: app/interface.c:507
 msgid "Toggles snap-to-grid for this window."
 msgstr "Alterna ajustar à grelha nesta janela."
 
-#: app/interface.c:540
+#: app/interface.c:551
 msgid "NULL tooldata in tool_select_update"
 msgstr "dados de ferramenta NULOS em tool_select_update"
 
-#: app/interface.c:1023
+#: app/interface.c:1034
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double click to change "
@@ -795,7 +799,7 @@ msgstr ""
 "pretos e brancos repõem as cores por omissão. As setas trocam as cores. "
 "Duplo clique altera as cores."
 
-#: app/interface.c:1038
+#: app/interface.c:1049
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -804,7 +808,7 @@ msgstr ""
 "omissão para novos objectos. Duplo-clique define a largura de linha com "
 "maior precisão."
 
-#: app/interface.c:1070
+#: app/interface.c:1081
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details..."
@@ -812,7 +816,7 @@ msgstr ""
 "Estilo de seta no início de novas linhas. Clique para escolher uma seta ou "
 "defina parâmetros de setas com Detalhes..."
 
-#: app/interface.c:1075
+#: app/interface.c:1086
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details..."
@@ -820,7 +824,7 @@ msgstr ""
 "Estilo de linha para novas linhas. Clique para escolher um estilo de linha, "
 "ou defina parâmetros de estilo de linha com Detalhes..."
 
-#: app/interface.c:1080
+#: app/interface.c:1091
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details..."
@@ -828,7 +832,7 @@ msgstr ""
 "Estilo de seta no final de novas linhas. Clique para escolher uma seta ou "
 "defina parâmetros de setas com Detalhes..."
 
-#: app/interface.c:1188
+#: app/interface.c:1199
 msgid "Diagram Editor"
 msgstr "Editor de Diagramas"
 
@@ -1930,11 +1934,11 @@ msgstr "Propriedades do objecto:"
 msgid "<Toolbox>/File/Plugins..."
 msgstr "<CaixaFerramentas>/Ficheiro/Plugins..."
 
-#: app/recent_files.c:259
+#: app/recent_files.c:265
 msgid "<Toolbox>/File/Quit"
 msgstr "<CaixaFerramentas>/Ficheiro/_Sair"
 
-#: app/recent_files.c:295
+#: app/recent_files.c:301
 msgid "Can't open history file for writing."
 msgstr "Incapaz de abrir ficheiro de histórioco para escrita."
 
@@ -2630,7 +2634,7 @@ msgstr "Total:"
 
 #: objects/ER/participation.c:405 objects/FS/flow-ortho.c:644
 #: objects/GRAFCET/vector.c:311 objects/SADT/arrow.c:566
-#: objects/UML/association.c:747 objects/UML/component_feature.c:177
+#: objects/UML/association.c:747 objects/UML/component_feature.c:183
 #: objects/UML/dependency.c:365 objects/UML/generalization.c:361
 #: objects/UML/realizes.c:352 objects/standard/zigzagline.c:337
 msgid "Add segment"
@@ -2638,7 +2642,7 @@ msgstr "Adicionar segmento"
 
 #: objects/ER/participation.c:406 objects/FS/flow-ortho.c:645
 #: objects/GRAFCET/vector.c:312 objects/SADT/arrow.c:567
-#: objects/UML/association.c:748 objects/UML/component_feature.c:178
+#: objects/UML/association.c:748 objects/UML/component_feature.c:184
 #: objects/UML/dependency.c:366 objects/UML/generalization.c:362
 #: objects/UML/realizes.c:353 objects/standard/zigzagline.c:338
 msgid "Delete segment"
@@ -4194,19 +4198,19 @@ msgstr "Limite"
 msgid "Is object"
 msgstr "É objecto"
 
-#: objects/UML/component_feature.c:141 sheets/UML.sheet.in.h:14
+#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:14
 msgid "Facet"
 msgstr "Faceta"
 
-#: objects/UML/component_feature.c:142 sheets/UML.sheet.in.h:26
+#: objects/UML/component_feature.c:145 sheets/UML.sheet.in.h:26
 msgid "Receptacle"
 msgstr "Receptáculo"
 
-#: objects/UML/component_feature.c:143 sheets/UML.sheet.in.h:13
+#: objects/UML/component_feature.c:146 sheets/UML.sheet.in.h:13
 msgid "Event Source"
 msgstr "Origem Evento"
 
-#: objects/UML/component_feature.c:144 sheets/UML.sheet.in.h:12
+#: objects/UML/component_feature.c:147 sheets/UML.sheet.in.h:12
 msgid "Event Sink"
 msgstr "Destino Evento"
 
@@ -4600,7 +4604,7 @@ msgstr "Filtro de exportação HP Graphics Language"
 msgid "TeX Metapost export filter"
 msgstr "Filtro de exportação TeX Metapost"
 
-#: plug-ins/metapost/render_metapost.c:867
+#: plug-ins/metapost/render_metapost.c:876
 msgid "TeX Metapost macros"
 msgstr "Macros TeX Metapost"
 
@@ -4711,22 +4715,18 @@ msgstr "WPG"
 msgid "WordPerfect Graphics export filter"
 msgstr "Filtro de exportação WordPerfect Graphics"
 
-#: plug-ins/xfig/xfig-export.c:428
-msgid "Arrow type none -- shouldn't happen\n"
-msgstr "Tipo de seta 'nenhum' -- não deveria acontecer\n"
-
-#: plug-ins/xfig/xfig-export.c:442
+#: plug-ins/xfig/xfig-export.c:441
 #, c-format
 msgid "FIG format has no equivalent of arrow style %s, using simple arrow.\n"
 msgstr ""
 "Formato FIG não tem equivalente de estilo de seta %s, a utilizar seta "
 "simples.\n"
 
-#: plug-ins/xfig/xfig-export.c:463
+#: plug-ins/xfig/xfig-export.c:462
 msgid "No more user-definable colors - using black"
 msgstr "Mais nenhuma cor definível pelo utilizador - a utilizar preto"
 
-#: plug-ins/xfig/xfig-export.c:1136
+#: plug-ins/xfig/xfig-export.c:1135
 msgid "XFig format"
 msgstr "Formato XFig"
 
@@ -7190,6 +7190,9 @@ msgstr "Servidor de dados Sybase"
 #: sheets/sybase.sheet.in.h:8
 msgid "Sybase replication server"
 msgstr "Servidor de replicação Sybase"
+
+#~ msgid "Arrow type none -- shouldn't happen\n"
+#~ msgstr "Tipo de seta 'nenhum' -- não deveria acontecer\n"
 
 #~ msgid "%s error: can specify only one of -f or -o."
 #~ msgstr "erro %s: apenas pode ser especificado um de -f ou -o."
