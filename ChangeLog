@@ -1,3 +1,9 @@
+2000-11-18  Kevin Breit <battery841@mediaone.net>
+
+	* docs/en/dia-manual.sgml:
+        	Just some small changes I made.  Props to Greg LeBlanc on the
+                recommendations.
+
 2000-11-17  Alexander Larsson  <alla@lysator.liu.se>
 
 	* app/display.c:
