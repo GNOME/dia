@@ -247,8 +247,13 @@ group_update_data(Group *group)
     }
   }
 
-  group->object.position.x = group->object.bounding_box.left;
-  group->object.position.y = group->object.bounding_box.top;
+  obj = (Object *) group->objects->data;
+  
+  /* Move group by the point of the first object, otherwise a group
+     with all objects on grid might be moved off grid. */
+  group->object.position = obj->position;
+  /* group->object.position.x = group->object.bounding_box.left;
+    group->object.position.y = group->object.bounding_box.top; */
   
   group_update_handles(group);
 }

@@ -18,6 +18,7 @@ general:
 * Export to WMF.
 * Accelerators for buttons in the toolbar.
 * Fix the transitive selection
+* Add a cancel button to the properties dialog.
 
 functions:
 * undo, see event model later in this file.

@@ -1,3 +1,27 @@
+1999-03-09  Alexander Larsson  <alla@lysator.liu.se>
+
+	* app/commands.c:
+	Update extents when saving and exporting to postscript.
+	Fixes a bug with postscript bounding-box being wrong.
+
+	* app/defaults.c:
+	Changed border width from 5 to 2.
+
+	* app/group.c:
+	Move grouped objects by the move-point of the first object.
+	Fixes bug that made all objects in the group be off-grid
+	when moving the group, even though all objects was on-grid.
+
+	* app/layer_dialog.c:
+	Update extents when changing layer.
+
+1999-03-08  Alejandro Aguilar Sierra  <asierra@servidor.unam.mx>
+ 
+       * objects/UML/uml.c: 
+       * objects/UML/component.c: 
+       * objects/UML/pixmaps/component.xpm: 
+       Added the UML component object
+	
 1999-03-04  Seth Alves  <alves@hungry.com>
 
 	* objects/UML/generalization.c (generalization_create): avoid

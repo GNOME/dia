@@ -40,6 +40,7 @@ extern ObjectType usecase_type;
 extern ObjectType lifeline_type;
 extern ObjectType objet_type;
 extern ObjectType message_type;
+extern ObjectType component_type;
 
 void register_objects(void) {
   object_register_type(&umlclass_type);
@@ -56,7 +57,9 @@ void register_objects(void) {
   object_register_type(&usecase_type);
   object_register_type(&lifeline_type);
   object_register_type(&objet_type);
-  object_register_type(&message_type);
+  object_register_type(&message_type);  
+  object_register_type(&component_type);
+
 }
 
 extern SheetObject umlclass_sheetobj;
@@ -76,6 +79,7 @@ extern SheetObject usecase_sheetobj;
 extern SheetObject lifeline_sheetobj;
 extern SheetObject objet_sheetobj;
 extern SheetObject message_sheetobj;
+extern SheetObject component_sheetobj;
 
 int get_version(void) {
   return 0;
@@ -103,6 +107,7 @@ void register_sheets(void) {
   sheet_append_sheet_obj(sheet, &lifeline_sheetobj);
   sheet_append_sheet_obj(sheet, &objet_sheetobj);
   sheet_append_sheet_obj(sheet, &message_sheetobj);
+  sheet_append_sheet_obj(sheet, &component_sheetobj);
     
 
   register_sheet(sheet);

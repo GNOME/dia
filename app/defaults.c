@@ -43,7 +43,7 @@ static void create_dialog()
 			  "defaults_window", "Dia");
   gtk_window_set_policy (GTK_WINDOW (dialog),
 			 TRUE, TRUE, TRUE);
-  gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+  gtk_container_set_border_width (GTK_CONTAINER (dialog), 2);
 
   dialog_vbox = GTK_DIALOG (dialog)->vbox;
     

@@ -20,4 +20,5 @@ actor.lo
 message.lo
 lifeline.lo
 object.lo
+component.lo
 libuml_objects.la

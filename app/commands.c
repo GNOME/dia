@@ -148,6 +148,7 @@ file_save_callback(GtkWidget *widget, gpointer data)
   if (ddisp->diagram->unsaved) {
     file_save_as_callback(widget, data);
   } else {
+    diagram_update_extents(ddisp->diagram);
     diagram_save(ddisp->diagram, ddisp->diagram->filename);
   }
 }
@@ -235,6 +236,8 @@ file_save_as_dialog_ok_callback (GtkWidget        *w,
     }
   }
 
+  diagram_update_extents(dia);
+
   diagram_set_filename(dia, filename);
   diagram_save(dia, filename);
   
@@ -281,7 +284,9 @@ file_export_to_eps_dialog_ok_callback (GtkWidget        *w,
   struct stat stat_struct;
 
   dia = gtk_object_get_user_data(GTK_OBJECT(fs));
-  
+
+  diagram_update_extents(dia);
+
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs));
 
   if (stat(filename, &stat_struct)==0) {
