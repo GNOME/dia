@@ -3,12 +3,12 @@
         * objects/UML/class_dialog.c : fixed casts for usage
         of dia_color_selector_set_color()
         
-        * app/filedlg.c : pass absolute filenames to 
+        * app/filedlg.c : pass a valid filenames to 
         gtk_file_chooser_set_filename(), if we don't have a name
         don't call it at all. Gets rid of "libgnomevfs-CRITICAL **: 
         file gnome-vfs-utils.c: line 749 (gnome_vfs_get_uri_from_local_path): 
         assertion `local_full_path[0] == '/'' failed"
-
+        
 2004-11-06  Lars Clausen  <lars@raeder.dk>
 
 	* app/properties.c (create_dialog): 

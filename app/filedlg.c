@@ -217,11 +217,8 @@ file_open_callback(gpointer data, guint action, GtkWidget *widget)
 					  NULL);
     gtk_window_set_role(GTK_WINDOW(opendlg), "open_diagram");
     gtk_window_set_position(GTK_WINDOW(opendlg), GTK_WIN_POS_MOUSE);
-    if (dia && dia->filename) {
-      char *fname_temp = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
-      filename = dia_get_absolute_filename (fname_temp);
-      g_free (fname_temp);
-    }
+    if (dia && dia->filename)
+      filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
     if (filename != NULL) {
       gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(opendlg), filename);
       g_free(filename);
@@ -377,11 +374,8 @@ file_save_as_callback(gpointer data, guint action, GtkWidget *widget)
     if (GTK_WIDGET_VISIBLE(savedlg))
       return;
   }
-  if (dia && dia->filename) {
-    char *fname_temp = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
-    filename = dia_get_absolute_filename (fname_temp);
-    g_free (fname_temp);
-  }
+  if (dia && dia->filename)
+    filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
   if (filename != NULL) {
     gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(savedlg), filename);
     g_free(filename);
@@ -536,11 +530,8 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
 					    NULL);
     gtk_window_set_role(GTK_WINDOW(exportdlg), "export_diagram");
     gtk_window_set_position(GTK_WINDOW(exportdlg), GTK_WIN_POS_MOUSE);
-    if (dia && dia->filename) {
-      char *fname_temp = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
-      filename = dia_get_absolute_filename (fname_temp);
-      g_free (fname_temp);
-    }
+    if (dia && dia->filename)
+      filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
     if (filename != NULL) {
       gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), filename);
       g_free(filename);
@@ -585,11 +576,8 @@ file_export_callback(gpointer data, guint action, GtkWidget *widget)
   gtk_widget_set_sensitive(exportdlg, TRUE);
   if (GTK_WIDGET_VISIBLE(exportdlg))
     return;
-  if (dia && dia->filename) {
-    char *fname_temp = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
-    filename = dia_get_absolute_filename (fname_temp);
-    g_free (fname_temp);
-  }
+  if (dia && dia->filename)
+    filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
   if (filename != NULL) {
     gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(exportdlg), filename);
     g_free(filename);
