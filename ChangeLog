@@ -1,5 +1,10 @@
 2003-03-04  Lars Clausen  <lrclause@cs.uiuc.edu>
 
+	* configure.in: 
+	* NEWS: 
+	* dia.spec (Release): 
+	* doc/en/dia-manual.sgml: Upping to pre6.
+
 	* configure.in: Missing comma broke HAVE_IEEEFP_H test.
 
 	* app/lineprops_area.c (dia_arrow_chooser_new): Fixing bug

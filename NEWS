@@ -1,3 +1,15 @@
+dia-0.91-pre6:
+* Configure fix
+* Install of png fix.
+* Arrow selector menu fix.
+
+dia-0.91-pre5:
+* Better freetype lib check
+* DXF crash bug fix.
+* Sheet with all objects in samples.
+* Fix of multistringprop property widget, fixes chronogram crash bug.
+* Missing jumper icon added.
+
 dia-0.91-pre4:
 * Fixed lack of undo for moving objects.
 * Fixed lack of modified-ness for changing text.

@@ -493,7 +493,7 @@ dia_arrow_chooser_new(gboolean left, DiaChangeArrowCallback callback,
 			GINT_TO_POINTER(arrow_types[i].enum_value));
     gtk_tooltips_set_tip(tool_tips, mi, arrow_types[i].name, NULL);
     ar = dia_arrow_preview_new(arrow_types[i].enum_value, left);
-    ar = dia_arrow_preview_new(i, left);                                        
+
     gtk_container_add(GTK_CONTAINER(mi), ar);
     gtk_widget_show(ar);
     gtk_signal_connect(GTK_OBJECT(mi), "activate",
