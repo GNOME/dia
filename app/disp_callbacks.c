@@ -40,7 +40,6 @@
 #include "message.h"
 #include "intl.h"
 #include "magnify.h"
-#include "charconv.h"
 
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;
@@ -98,17 +97,17 @@ create_object_menu(DiaMenu *dia_menu)
   GtkWidget *menu_item;
 
   menu = gtk_menu_new();
-  gtk_menu_ensure_uline_accel_group (GTK_MENU (menu)) ;
+  //FIXME?: gtk_menu_ensure_uline_accel_group (GTK_MENU (menu)) ;
 
   if ( dia_menu->title ) {
     menu_item = gtk_menu_item_new_with_label(gettext(dia_menu->title));
     gtk_widget_set_sensitive(menu_item, FALSE);
-    gtk_menu_append(GTK_MENU(menu), menu_item);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     gtk_widget_show(menu_item);
   }
 
   menu_item = gtk_menu_item_new();
-  gtk_menu_append(GTK_MENU(menu), menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
   gtk_widget_show(menu_item);
 
   for (i=0;i<dia_menu->num_items;i++) {
@@ -118,7 +117,7 @@ create_object_menu(DiaMenu *dia_menu)
       menu_item = gtk_menu_item_new_with_label(gettext(label));
     else
       menu_item = gtk_menu_item_new();
-    gtk_menu_append(GTK_MENU(menu), menu_item);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
     gtk_widget_show(menu_item);
     dia_menu->items[i].app_data = menu_item;
     if ( dia_menu->items[i].callback ) {
@@ -195,7 +194,7 @@ popup_object_menu(DDisplay *ddisp, GdkEventButton *bevent)
       no_menu = gtk_menu_new();
 
       menu_item = gtk_menu_item_new_with_label(_("No object menu"));
-      gtk_menu_append(GTK_MENU(no_menu), menu_item);
+      gtk_menu_shell_append (GTK_MENU_SHELL (no_menu), menu_item);
       gtk_widget_show(menu_item);
       gtk_widget_set_sensitive(menu_item, FALSE);
     }
@@ -218,7 +217,7 @@ ddisplay_focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data)
   ddisp = (DDisplay *)data;
 
   GTK_WIDGET_SET_FLAGS(widget, GTK_HAS_FOCUS);
-  gtk_widget_draw_focus(widget);
+  //FIXME?: gtk_widget_draw_focus(widget);
 
 #ifdef USE_XIM
   if (gdk_im_ready () && ddisp->ic)
@@ -243,7 +242,7 @@ ddisplay_focus_out_event(GtkWidget *widget, GdkEventFocus *event,gpointer data)
   ddisp = (DDisplay *)data;
 
   GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
-  gtk_widget_draw_focus (widget);
+  //FIXME?: gtk_widget_draw_focus (widget);
 
 #ifdef USE_XIM
   gdk_im_end ();
@@ -253,79 +252,79 @@ ddisplay_focus_out_event(GtkWidget *widget, GdkEventFocus *event,gpointer data)
 }
 
 void
-ddisplay_realize (GtkWidget *widget, gpointer data)
+ddisplay_realize(GtkWidget *widget, gpointer data)
 {
-	DDisplay *ddisp;
+  DDisplay *ddisp;
 
-	g_return_if_fail(widget != NULL);
-	g_return_if_fail(data != NULL);
+  g_return_if_fail(widget != NULL);
+  g_return_if_fail(data != NULL);
 
-	ddisp = (DDisplay *)data;
+  ddisp = (DDisplay *)data;
 
 #ifdef USE_XIM
-	if (gdk_im_ready () && (ddisp->ic_attr = gdk_ic_attr_new ()) != NULL) {
-		gint width, height;
-		GdkColormap *colormap;
-		GdkEventMask mask;
-		GdkICAttr *attr = ddisp->ic_attr;
-		GdkICAttributesType attrmask = GDK_IC_ALL_REQ;
-		GdkIMStyle style;
-		GdkIMStyle supported_style =
-			GDK_IM_PREEDIT_NONE |
-			GDK_IM_PREEDIT_NOTHING |
-			GDK_IM_PREEDIT_POSITION |
-			GDK_IM_STATUS_NONE |
-			GDK_IM_STATUS_NOTHING;
+  if (gdk_im_ready() && (ddisp->ic_attr = gdk_ic_attr_new()) != NULL) {
+    gint width, height;
+    GdkColormap *colormap;
+    GdkEventMask mask;
+    GdkICAttr *attr = ddisp->ic_attr;
+    GdkICAttributesType attrmask = GDK_IC_ALL_REQ;
+    GdkIMStyle style;
+    GdkIMStyle supported_style =
+      GDK_IM_PREEDIT_NONE |
+      GDK_IM_PREEDIT_NOTHING |
+      GDK_IM_PREEDIT_POSITION |
+      GDK_IM_STATUS_NONE |
+      GDK_IM_STATUS_NOTHING;
 
-		if (widget->style && widget->style->font->type != GDK_FONT_FONTSET)
-			supported_style &= ~GDK_IM_PREEDIT_POSITION;
+    if (widget->style && widget->style->font->type != GDK_FONT_FONTSET)
+      supported_style &= ~GDK_IM_PREEDIT_POSITION;
 
-		attr->style = style = gdk_im_decide_style (supported_style);
-		attr->client_window = widget->window;
+    attr->style = style = gdk_im_decide_style(supported_style);
+    attr->client_window = widget->window;
 
-		if ((colormap = gtk_widget_get_colormap (widget)) !=
-		    gtk_widget_get_default_colormap ()) {
-			attrmask |= GDK_IC_PREEDIT_COLORMAP;
-			attr->preedit_colormap = colormap;
-		}
+    if ((colormap = gtk_widget_get_colormap(widget)) !=
+	gtk_widget_get_default_colormap()) {
+      attrmask |= GDK_IC_PREEDIT_COLORMAP;
+      attr->preedit_colormap = colormap;
+    }
 
-		attrmask |= GDK_IC_PREEDIT_FOREGROUND;
-		attrmask |= GDK_IC_PREEDIT_BACKGROUND;
-		attr->preedit_foreground = widget->style->fg[GTK_STATE_NORMAL];
-		attr->preedit_background = widget->style->base[GTK_STATE_NORMAL];
+    attrmask |= GDK_IC_PREEDIT_FOREGROUND;
+    attrmask |= GDK_IC_PREEDIT_BACKGROUND;
+    attr->preedit_foreground = widget->style->fg[GTK_STATE_NORMAL];
+    attr->preedit_background = widget->style->base[GTK_STATE_NORMAL];
 
 
-		switch (style & GDK_IM_PREEDIT_MASK) {
-		    case GDK_IM_PREEDIT_POSITION:
-			    if (widget->style &&
-				widget->style->font->type != GDK_FONT_FONTSET) {
-				    g_warning("over-the-spot style requires fontset");
-				    break;
-			    }
-			    gdk_window_get_size (widget->window, &width, &height);
+    switch (style & GDK_IM_PREEDIT_MASK) {
+    case GDK_IM_PREEDIT_POSITION:
+      if (ddisp->canvas->style &&
+	  ddisp->canvas->style->font->type != GDK_FONT_FONTSET) {
+	g_warning("over-the-spot style requires fontset");
+	break;
+      }
+      gdk_window_get_size(widget->window, &width, &height);
 
-			    attrmask |= GDK_IC_PREEDIT_POSITION_REQ;
-			    attr->spot_location.x = 0;
-			    attr->spot_location.y = 14;
-			    attr->preedit_area.x = 0;
-			    attr->preedit_area.y = 0;
-			    attr->preedit_area.width = width;
-			    attr->preedit_area.height = height;
-			    attr->preedit_fontset = widget->style->font;
-			    break;
-		}
-		ddisp->ic = gdk_ic_new (attr, attrmask);
-		if (ddisp->ic == NULL)
-			g_warning("could not create input context");
-		else {
-			mask = gdk_window_get_events (widget->window);
-			mask |= gdk_ic_get_events (ddisp->ic);
-			gdk_window_set_events (widget->window, mask);
+      attrmask |= GDK_IC_PREEDIT_POSITION_REQ;
+      attr->spot_location.x = 0;
+      attr->spot_location.y = 14;
+      attr->preedit_area.x = 0;
+      attr->preedit_area.y = 0;
+      attr->preedit_area.width = width;
+      attr->preedit_area.height = height;
+      attr->preedit_fontset = widget->style->font;
+      break;
+    }
+    ddisp->ic = gdk_ic_new(attr, attrmask);
+    if (ddisp->ic == NULL)
+      g_warning("could not create input context");
+    else {
+      mask = gdk_window_get_events (widget->window);
+      mask |= gdk_ic_get_events (ddisp->ic);
+      gdk_window_set_events (widget->window, mask);
 
-			if (GTK_WIDGET_HAS_FOCUS (widget))
-				gdk_im_begin (ddisp->ic, widget->window);
-		}
-	}
+      if (GTK_WIDGET_HAS_FOCUS(widget))
+	gdk_im_begin(ddisp->ic, widget->window);
+    }
+  }
 #endif
 }
 
@@ -357,27 +356,27 @@ ddisplay_size_allocate (GtkWidget *widget,
 			GtkAllocation *allocation,
 			gpointer data)
 {
-	DDisplay *ddisp;
+  DDisplay *ddisp;
 
-	g_return_if_fail (widget != NULL);
-	g_return_if_fail (allocation != NULL);
-	g_return_if_fail (data != NULL);
+  g_return_if_fail (widget != NULL);
+  g_return_if_fail (allocation != NULL);
+  g_return_if_fail (data != NULL);
 
-	widget->allocation = *allocation;
-	ddisp = (DDisplay *)data;
+  widget->allocation = *allocation;
+  ddisp = (DDisplay *)data;
 #ifdef USE_XIM
-	if (GTK_WIDGET_REALIZED (widget)) {
-		if (gdk_im_ready () && ddisp->ic &&
-		    (gdk_ic_get_style (ddisp->ic) & GDK_IM_PREEDIT_POSITION)) {
-			gint width, height;
+  if (GTK_WIDGET_REALIZED (widget)) {
+    if (gdk_im_ready () && ddisp->ic &&
+        (gdk_ic_get_style (ddisp->ic) & GDK_IM_PREEDIT_POSITION)) {
+      gint width, height;
 
-			gdk_window_get_size (widget, &width, &height);
-			ddisp->ic_attr->preedit_area.width = width;
-			ddisp->ic_attr->preedit_area.height = height;
-			gdk_ic_set_attr (ddisp->ic, ddisp->ic_attr,
-					 GDK_IC_PREEDIT_AREA);
-		}
-	}
+      gdk_window_get_size (widget, &width, &height);
+      ddisp->ic_attr->preedit_area.width = width;
+      ddisp->ic_attr->preedit_area.height = height;
+      gdk_ic_set_attr (ddisp->ic, ddisp->ic_attr,
+                       GDK_IC_PREEDIT_AREA);
+    }
+  }
 #endif
 }
 
@@ -453,7 +452,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
       break;
 
     case GDK_FOCUS_CHANGE:
-      display_set_active (ddisp);
+      display_set_active(ddisp);
       ddisplay_do_update_menu_sensitivity(ddisp);
       break;
       
@@ -590,19 +589,16 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	obj = focus->obj;
 	if (diagram_is_selected(ddisp->diagram, obj)) {
 	  ObjectChange *obj_change = NULL;
-	  utfchar *utf;
-	  int len = 0;
 	
 	  object_add_updates(obj, ddisp->diagram);
-#if defined (UNICODE_WORK_IN_PROGRESS) && !defined(GTK_TALKS_UTF8)
-	  utf = charconv_utf8_from_gtk_event_key (kevent->keyval, kevent->string);
-#else
-	  utf = g_strndup (kevent->string, kevent->length);
+#ifdef USE_XIM
+	  ddisplay_transform_coords(ddisp, obj->position.x, obj->position.y,
+				    &x, &y);
+	  set_input_dialog(ddisp, x, y);
 #endif
-	  if (utf != NULL) len = uni_strlen (utf, strlen (utf));
 	  modified = (focus->key_event)(focus, kevent->keyval,
-					utf, len, &obj_change);
-	  if (utf != NULL) g_free (utf);
+					kevent->string, kevent->length,
+					&obj_change);
 	  { /* Make sure object updates its data and its connected: */
 	    Point p = obj->position;
 	    (obj->ops->move)(obj,&p);  

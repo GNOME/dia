@@ -18,7 +18,7 @@ get_logo_pixmap (void)
   if (!logo) {
     gchar* datadir = dia_get_data_directory(""); 
     g_snprintf(str, sizeof(str), "%s/dia_logo.png", datadir);
-    logo = gdk_pixbuf_new_from_file(str);
+    logo = gdk_pixbuf_new_from_file(str, NULL);
     g_free(datadir);
   }
 
@@ -53,7 +53,7 @@ app_splash_init (const gchar* fname)
   gchar str[256];
   guint signal_id;
 
-  splash = gtk_window_new (GTK_WINDOW_DIALOG);
+  splash = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_wmclass (GTK_WINDOW (splash), "start_dialog", "Dia");
   gtk_window_set_title (GTK_WINDOW (splash), _("Loading ..."));
   gtk_window_set_policy (GTK_WINDOW (splash), FALSE, FALSE, FALSE);

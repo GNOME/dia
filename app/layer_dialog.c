@@ -296,45 +296,39 @@ dia_layer_deselect_callback(GtkWidget *widget, gpointer data)
 static void
 layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
 {
-	Layer *layer;
-	Diagram *dia;
-	GtkWidget *selected;
-	GList *list = NULL;
-	GtkWidget *layer_widget;
-	int pos;
-	utfchar *str;
+  Layer *layer;
+  Diagram *dia;
+  GtkWidget *selected;
+  GList *list = NULL;
+  GtkWidget *layer_widget;
+  int pos;
 
-	dia = layer_dialog->diagram;
+  dia = layer_dialog->diagram;
 
-	if (dia != NULL) {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-		str = charconv_local8_to_utf8 (_("New layer"));
-#else
-		str = g_strdup (_("New layer"));
-#endif
-		layer = new_layer (str);
+  if (dia != NULL) {
+    layer = new_layer(g_strdup(_("New layer")));
 
-		assert (GTK_LIST (layer_dialog->layer_list)->selection != NULL);
-		selected = GTK_LIST (layer_dialog->layer_list)->selection->data;
-		pos = gtk_list_child_position (GTK_LIST (layer_dialog->layer_list), selected);
+    assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
+    selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
+    pos = gtk_list_child_position(GTK_LIST(layer_dialog->layer_list), selected);
 
-		data_add_layer_at (dia->data, layer, dia->data->layers->len - pos);
+    data_add_layer_at(dia->data, layer, dia->data->layers->len - pos);
     
-		diagram_add_update_all (dia);
-		diagram_flush (dia);
+    diagram_add_update_all(dia);
+    diagram_flush(dia);
 
-		layer_widget = dia_layer_widget_new (dia, layer);
-		gtk_widget_show (layer_widget);
+    layer_widget = dia_layer_widget_new(dia, layer);
+    gtk_widget_show(layer_widget);
 
-		list = g_list_prepend (list, layer_widget);
+    list = g_list_prepend(list, layer_widget);
     
-		gtk_list_insert_items (GTK_LIST(layer_dialog->layer_list), list, pos);
+    gtk_list_insert_items(GTK_LIST(layer_dialog->layer_list), list, pos);
 
-		gtk_list_select_item (GTK_LIST(layer_dialog->layer_list), pos);
+    gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), pos);
 
-		undo_layer (dia, layer, TYPE_ADD_LAYER, dia->data->layers->len - pos);
-		undo_set_transactionpoint (dia->undo);
-	}
+    undo_layer(dia, layer, TYPE_ADD_LAYER, dia->data->layers->len - pos);
+    undo_set_transactionpoint(dia->undo);
+  }
 }
 
 static void
@@ -853,8 +847,9 @@ dia_layer_widget_get_type(void)
       sizeof (DiaLayerWidgetClass),
       (GtkClassInitFunc) dia_layer_widget_class_init,
       (GtkObjectInitFunc) dia_layer_widget_init,
-      (GtkArgSetFunc) NULL,
-      (GtkArgGetFunc) NULL
+      NULL,
+      NULL,
+      (GtkClassInitFunc) NULL,
     };
     
     dlw_type = gtk_type_unique (gtk_list_item_get_type (), &dlw_info);
@@ -886,15 +881,7 @@ dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer)
 void
 dia_layer_update_from_layer (DiaLayerWidget *widget)
 {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	gchar *str;
-
-	str = charconv_utf8_to_local8 (widget->layer->name);
-	gtk_label_set_text (GTK_LABEL (widget->label), str);
-	g_free (str);
-#else
-	gtk_label_set_text (GTK_LABEL (widget->label), widget->layer->name);
-#endif
+  gtk_label_set_text (GTK_LABEL (widget->label), widget->layer->name);
 }
 
 
@@ -905,29 +892,23 @@ dia_layer_update_from_layer (DiaLayerWidget *widget)
 static void
 edit_layer_ok_callback (GtkWidget *w, gpointer client_data)
 {
-	EditLayerDialog *dialog;
-	Layer *layer;
-	utfchar *utfstr;
+  EditLayerDialog *dialog;
+  Layer *layer;
   
-	dialog = (EditLayerDialog *) client_data;
-	layer = dialog->layer_widget->layer;
+  dialog = (EditLayerDialog *) client_data;
+  layer = dialog->layer_widget->layer;
 
-	g_free (layer->name);
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	utfstr = charconv_local8_to_utf8 (gtk_entry_get_text (GTK_ENTRY (dialog->name_entry)));
-#else
-	utfstr = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->name_entry)));
-#endif
-	layer->name = utfstr;
+  g_free (layer->name);
+  layer->name = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->name_entry)));
   
-	diagram_add_update_all (dialog->layer_widget->dia);
-	diagram_flush (dialog->layer_widget->dia);
+  diagram_add_update_all (dialog->layer_widget->dia);
+  diagram_flush (dialog->layer_widget->dia);
 
-	dia_layer_update_from_layer (dialog->layer_widget);
+  dia_layer_update_from_layer (dialog->layer_widget);
 
-	dialog->layer_widget->edit_dialog = NULL;
-	gtk_widget_destroy (dialog->dialog);
-	g_free (dialog);
+  dialog->layer_widget->edit_dialog = NULL;
+  gtk_widget_destroy (dialog->dialog);
+  g_free (dialog);
 }
 
 static void
@@ -957,74 +938,67 @@ edit_layer_delete_callback (GtkWidget *w,
 static void
 layer_dialog_edit_layer (DiaLayerWidget *layer_widget)
 {
-	EditLayerDialog *dialog;
-	GtkWidget *vbox;
-	GtkWidget *hbox;
-	GtkWidget *label;
-	GtkWidget *button;
-	gchar *str;
+  EditLayerDialog *dialog;
+  GtkWidget *vbox;
+  GtkWidget *hbox;
+  GtkWidget *label;
+  GtkWidget *button;
 
-	/*  the new dialog structure  */
-	dialog = (EditLayerDialog *) g_malloc (sizeof (EditLayerDialog));
-	dialog->layer_widget = layer_widget;
+  /*  the new dialog structure  */
+  dialog = (EditLayerDialog *) g_malloc (sizeof (EditLayerDialog));
+  dialog->layer_widget = layer_widget;
 
-	/*  the dialog  */
-	dialog->dialog = gtk_dialog_new ();
-	gtk_window_set_wmclass (GTK_WINDOW (dialog->dialog), "edit_layer_attrributes", "Dia");
-	gtk_window_set_title (GTK_WINDOW (dialog->dialog), _("Edit Layer Attributes"));
-	gtk_window_set_position (GTK_WINDOW (dialog->dialog), GTK_WIN_POS_MOUSE);
+  /*  the dialog  */
+  dialog->dialog = gtk_dialog_new ();
+  gtk_window_set_wmclass (GTK_WINDOW (dialog->dialog), "edit_layer_attrributes", "Dia");
+  gtk_window_set_title (GTK_WINDOW (dialog->dialog), _("Edit Layer Attributes"));
+  gtk_window_set_position (GTK_WINDOW (dialog->dialog), GTK_WIN_POS_MOUSE);
 
-	/*  handle the wm close signal */
-	gtk_signal_connect (GTK_OBJECT (dialog->dialog), "delete_event",
-			    GTK_SIGNAL_FUNC (edit_layer_delete_callback),
+  /*  handle the wm close signal */
+  gtk_signal_connect (GTK_OBJECT (dialog->dialog), "delete_event",
+		      GTK_SIGNAL_FUNC (edit_layer_delete_callback),
+		      dialog);
+
+  /*  the main vbox  */
+  vbox = gtk_vbox_new (FALSE, 1);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 2);
+  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->vbox), vbox, TRUE, TRUE, 0);
+
+  /*  the name entry hbox, label and entry  */
+  hbox = gtk_hbox_new (FALSE, 1);
+  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
+  label = gtk_label_new (_("Layer name:"));
+  gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+  gtk_widget_show (label);
+  dialog->name_entry = gtk_entry_new ();
+  gtk_box_pack_start (GTK_BOX (hbox), dialog->name_entry, TRUE, TRUE, 0);
+  gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), layer_widget->layer->name);
+  gtk_widget_show (dialog->name_entry);
+  gtk_widget_show (hbox);
+
+  button = gtk_button_new_with_label (_("OK"));
+  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
+		      button, TRUE, TRUE, 0);
+  gtk_signal_connect (GTK_OBJECT (button), "clicked",
+		      GTK_SIGNAL_FUNC(edit_layer_ok_callback),
+		      dialog);
+  gtk_widget_grab_default (button);
+  gtk_widget_show (button);
+
+  button = gtk_button_new_with_label (_("Cancel"));
+  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
+  gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
+		      button, TRUE, TRUE, 0);
+  gtk_signal_connect (GTK_OBJECT (button), "clicked",
+		      GTK_SIGNAL_FUNC(edit_layer_cancel_callback),
 			    dialog);
+  gtk_widget_show (button);
 
-	/*  the main vbox  */
-	vbox = gtk_vbox_new (FALSE, 1);
-	gtk_container_set_border_width (GTK_CONTAINER (vbox), 2);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->vbox), vbox, TRUE, TRUE, 0);
+  gtk_widget_show (vbox);
+  gtk_widget_show (dialog->dialog);
 
-	/*  the name entry hbox, label and entry  */
-	hbox = gtk_hbox_new (FALSE, 1);
-	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-	label = gtk_label_new (_("Layer name:"));
-	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-	gtk_widget_show (label);
-	dialog->name_entry = gtk_entry_new ();
-	gtk_box_pack_start (GTK_BOX (hbox), dialog->name_entry, TRUE, TRUE, 0);
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	str = charconv_utf8_to_local8 (layer_widget->layer->name);
-	gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), str);
-	g_free (str);
-#else
-	gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), layer_widget->layer->name);
-#endif
-	gtk_widget_show (dialog->name_entry);
-	gtk_widget_show (hbox);
-
-	button = gtk_button_new_with_label (_("OK"));
-	GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
-			    button, TRUE, TRUE, 0);
-	gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			    GTK_SIGNAL_FUNC(edit_layer_ok_callback),
-			    dialog);
-	gtk_widget_grab_default (button);
-	gtk_widget_show (button);
-
-	button = gtk_button_new_with_label (_("Cancel"));
-	GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog->dialog)->action_area), 
-			    button, TRUE, TRUE, 0);
-	gtk_signal_connect (GTK_OBJECT (button), "clicked",
-			    GTK_SIGNAL_FUNC(edit_layer_cancel_callback),
-			    dialog);
-	gtk_widget_show (button);
-
-	gtk_widget_show (vbox);
-	gtk_widget_show (dialog->dialog);
-
-	layer_widget->edit_dialog = dialog;
+  layer_widget->edit_dialog = dialog;
 }
 
 

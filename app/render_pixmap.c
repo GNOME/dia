@@ -86,7 +86,7 @@ static void fill_bezier(RendererPixmap *renderer,
 			int numpoints,
 			Color *color);
 static void draw_string(RendererPixmap *renderer,
-			const utfchar *text,
+			const gchar *text,
 			Point *pos, Alignment alignment,
 			Color *color);
 static void draw_image(RendererPixmap *renderer,
@@ -873,7 +873,7 @@ pixmap_freetype_copy_glyph(FT_GlyphSlot glyph, int pen_x, int pen_y,
 
 static void
 draw_string (RendererPixmap *renderer,
-	     const utfchar *text,
+	     const gchar *text,
 	     Point *pos, Alignment alignment,
 	     Color *color)
 {
@@ -924,27 +924,7 @@ draw_string (RendererPixmap *renderer,
   x = (int)pos->x+renderer->xoffset;
   y = (int)pos->y+renderer->yoffset;
 
-# ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  str = charconv_utf8_to_local8 (text);
-  length = strlen (str);
-  wcstr = g_new0 (GdkWChar, length + 1);
-  mbstr = g_strdup (str);
-  wclength = mbstowcs (wcstr, mbstr, length);
-  g_free (mbstr);
-
-  if (wclength > 0) {
-	  length = wclength;
-  } else {
-	  for (i = 0; i < length; i++) {
-		  wcstr[i] = (unsigned char) str[i];
-	  }
-  }
-  iwidth = gdk_text_width_wc (renderer->gdk_font, wcstr, length);
-
-  g_free (wcstr);
-# else
   iwidth = gdk_string_width(renderer->gdk_font, text);
-# endif /* GTK_DOESNT_TALK_UTF8_WE_DO */
 
   switch (alignment) {
   case ALIGN_LEFT:
@@ -960,16 +940,9 @@ draw_string (RendererPixmap *renderer,
   color_convert(color, &gdkcolor);
   gdk_gc_set_foreground(gc, &gdkcolor);
 
-# ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-  gdk_draw_string (renderer->pixmap,
-		   renderer->gdk_font, gc,
-		   x, y, str);
-  g_free (str);
-# else
   gdk_draw_string(renderer->pixmap,
 		  renderer->gdk_font, gc,
 		  x,y, text);
-#endif /* GTK_DOESNT_TALK_UTF8_WE_DO */
 #endif
 }
 

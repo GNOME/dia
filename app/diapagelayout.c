@@ -59,8 +59,9 @@ dia_page_layout_get_type(void)
       sizeof(DiaPageLayoutClass),
       (GtkClassInitFunc) dia_page_layout_class_init,
       (GtkObjectInitFunc) dia_page_layout_init,
-      (GtkArgSetFunc) NULL,
-      (GtkArgGetFunc) NULL
+      NULL,
+      NULL,
+      (GtkClassInitFunc) NULL,
     };
     pl_type = gtk_type_unique(gtk_table_get_type(), &pl_info);
   }
@@ -78,11 +79,13 @@ dia_page_layout_class_init(DiaPageLayoutClass *class)
   pl_signals[CHANGED] =
     gtk_signal_new("changed",
 		   GTK_RUN_FIRST,
-		   object_class->type,
+		   GTK_CLASS_TYPE (object_class),
 		   GTK_SIGNAL_OFFSET(DiaPageLayoutClass, changed),
 		   gtk_signal_default_marshaller,
 		   GTK_TYPE_NONE, 0);
+#if 0 /* FIXME ?*/
   gtk_object_class_add_signals(object_class, pl_signals, LAST_SIGNAL);
+#endif
 
   object_class->destroy = dia_page_layout_destroy;
 }
@@ -749,8 +752,10 @@ dia_page_layout_destroy(GtkObject *object)
 {
   DiaPageLayout *self = DIA_PAGE_LAYOUT(object);
 
-  if (self->gc)
+  if (self->gc) {
     gdk_gc_unref(self->gc);
+    self->gc = NULL;
+  }
 
   if (parent_class->destroy)
     (* parent_class->destroy)(object);

@@ -296,10 +296,11 @@ create_display_shell(DDisplay *ddisp,
   gtk_signal_connect (GTK_OBJECT (ddisp->shell), "unrealize",
                       GTK_SIGNAL_FUNC (ddisplay_unrealize),
 		      ddisp);
+/*FIXME?:
   gtk_signal_connect (GTK_OBJECT (ddisp->shell), "size_allocate",
 		      GTK_SIGNAL_FUNC (ddisplay_size_allocate),
 		      ddisp);
-
+*/
   /* Clipboard handling signals */
   gtk_signal_connect (GTK_OBJECT(ddisp->shell), "selection_get",
 		      GTK_SIGNAL_FUNC (get_selection_handler), NULL);
@@ -343,12 +344,12 @@ create_display_shell(DDisplay *ddisp,
 
   ddisp->hrule = gtk_hruler_new ();
   gtk_signal_connect_object (GTK_OBJECT (ddisp->shell), "motion_notify_event",
-                             (GtkSignalFunc) GTK_WIDGET_CLASS (GTK_OBJECT (ddisp->hrule)->klass)->motion_notify_event,
+                             (GtkSignalFunc) GTK_WIDGET_GET_CLASS (ddisp->hrule)->motion_notify_event,
                              GTK_OBJECT (ddisp->hrule));
 
   ddisp->vrule = gtk_vruler_new ();
   gtk_signal_connect_object (GTK_OBJECT (ddisp->shell), "motion_notify_event",
-                             (GtkSignalFunc) GTK_WIDGET_CLASS (GTK_OBJECT (ddisp->vrule)->klass)->motion_notify_event,
+                             (GtkSignalFunc) GTK_WIDGET_GET_CLASS (ddisp->vrule)->motion_notify_event,
                              GTK_OBJECT (ddisp->vrule));
 
   ddisp->hsb = gtk_hscrollbar_new (ddisp->hsbdata);
@@ -366,6 +367,8 @@ create_display_shell(DDisplay *ddisp,
 		      ddisp);
 
   ddisp->canvas = gtk_drawing_area_new ();
+  /* Dia's canvas does it' double buffering alone so switch off GTK's */
+  gtk_widget_set_double_buffered (ddisp->canvas, FALSE);
   gtk_drawing_area_size (GTK_DRAWING_AREA (ddisp->canvas), width, height);
   gtk_widget_set_events (ddisp->canvas, CANVAS_EVENT_MASK);
   GTK_WIDGET_SET_FLAGS (ddisp->canvas, GTK_CAN_FOCUS);
@@ -441,7 +444,11 @@ create_display_shell(DDisplay *ddisp,
   */
 #ifdef WITHOUT_ZOOM_COMBO
   ddisp->zoom_status = gtk_statusbar_new ();
+  gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (ddisp->zoom_status), FALSE);
+  /* GTKBUG?: the stausbar does not resize with it's text, do it here */
+  gtk_widget_set_size_request (ddisp->zoom_status, 100, -1);
   ddisp->modified_status = gtk_statusbar_new ();
+  gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (ddisp->modified_status), FALSE);
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->zoom_status,
 		      FALSE, FALSE, 0);
 #else
@@ -574,7 +581,6 @@ create_tools(GtkWidget *parent)
   GdkBitmap *mask;
   GtkStyle *style;
   char **pixmap_data;
-
   int i;
 
   for (i = 0; i < NUM_TOOLS; i++) {
@@ -609,7 +615,8 @@ create_tools(GtkWidget *parent)
     
     pixmapwidget = gtk_pixmap_new(pixmap, mask);
     
-    gtk_misc_set_padding(GTK_MISC(pixmapwidget), 4, 4);
+    /* GTKBUG:? padding changes */
+    gtk_misc_set_padding(GTK_MISC(pixmapwidget), 2, 2);
     
     gtk_container_add (GTK_CONTAINER (button), pixmapwidget);
     
@@ -664,7 +671,7 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
 				  GTK_POLICY_AUTOMATIC,
 				  GTK_POLICY_AUTOMATIC);
 
-  rows = (g_slist_length(sheet->objects) - 1) / COLUMNS + 1;
+  rows = ceil(g_slist_length(sheet->objects) / (double)COLUMNS);
   if (rows<1)
     rows = 1;
   
@@ -708,10 +715,8 @@ create_sheet_page(GtkWidget *parent, Sheet *sheet)
 
 
     gtk_container_add (GTK_CONTAINER (button), pixmapwidget);
-    gtk_wrap_box_pack(GTK_WRAP_BOX(table), button,
-		      FALSE, TRUE, FALSE, TRUE);
-    if (sheet_obj->line_break)
-      gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(table),button,TRUE);
+    gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(table), button,
+		      FALSE, TRUE, FALSE, sheet_obj->line_break);
 
     /* This is a Memory leak, these can't be freed.
        Doesn't matter much anyway... */
@@ -761,7 +766,7 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
   interface_current_sheet_name = sheet->name;
 
   /* set the aspect ratio on the wbox */
-  rows = (g_slist_length(sheet->objects) - 1) / COLUMNS + 1;
+  rows = ceil(g_slist_length(sheet->objects) / (double)COLUMNS);
   if (rows<1) rows = 1;
   gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(sheet_wbox),
 				COLUMNS * 1.0 / rows);
@@ -781,7 +786,7 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
     } else if (sheet_obj->pixmap_file != NULL) {
       GdkPixbuf *pixbuf;
 
-      pixbuf = gdk_pixbuf_new_from_file(sheet_obj->pixmap_file);
+      pixbuf = gdk_pixbuf_new_from_file(sheet_obj->pixmap_file, NULL);
       if (pixbuf != NULL) {
 	gdk_pixbuf_render_pixmap_and_mask(pixbuf, &pixmap, &mask, 1.0);
 	gdk_pixbuf_unref(pixbuf);
@@ -808,12 +813,9 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
     gtk_container_add (GTK_CONTAINER (button), pixmapwidget);
     gtk_widget_show(pixmapwidget);
 
-    gtk_wrap_box_pack(GTK_WRAP_BOX(sheet_wbox), button,
-		      FALSE, TRUE, FALSE, TRUE);
+    gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(sheet_wbox), button,
+		      FALSE, TRUE, FALSE, TRUE, sheet_obj->line_break);
     gtk_widget_show(button);
-    if (sheet_obj->line_break)
-      gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(sheet_wbox),
-					  button, TRUE);
 
     data = g_new(ToolButtonData, 1);
     data->type = CREATE_OBJECT_TOOL;
@@ -829,14 +831,8 @@ fill_sheet_wbox(GtkWidget *menu_item, Sheet *sheet)
 
     tool_setup_drag_source(button, data, pixmap, mask);
 
-#ifndef GTK_TALKS_UTF8
-    str = charconv_utf8_to_local8 (_(sheet_obj->description));
-    gtk_tooltips_set_tip (tool_tips, button, str, NULL);
-    g_free (str);
-#else
     gtk_tooltips_set_tip (tool_tips, button,
 			  gettext(sheet_obj->description), NULL);
-#endif
   }
 }
 
@@ -857,13 +853,7 @@ fill_sheet_menu(void)
     if (sheet->objects == NULL)
       continue;
 
-#ifndef GTK_TALKS_UTF8
-    str = charconv_utf8_to_local8 (_(sheet->name));
-    menuitem = gtk_menu_item_new_with_label (str);
-    g_free (str);
-#else
     menuitem = gtk_menu_item_new_with_label(gettext(sheet->name));
-#endif
     gtk_signal_connect(GTK_OBJECT(menuitem), "activate",
 		       GTK_SIGNAL_FUNC(fill_sheet_wbox), sheet);
     gtk_container_add(GTK_CONTAINER(sheet_menu), menuitem);
@@ -888,24 +878,21 @@ create_sheets(GtkWidget *parent)
   gtk_box_pack_start(GTK_BOX(label), separator, TRUE, TRUE, 3);
   gtk_widget_show(label);
 
-  gtk_wrap_box_pack (GTK_WRAP_BOX(parent), label, TRUE,TRUE, FALSE,FALSE);
-  gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), label, TRUE);
+  gtk_wrap_box_pack_wrapped (GTK_WRAP_BOX(parent), label, TRUE,TRUE, FALSE,FALSE, TRUE);
   gtk_widget_show(separator);
 
   sheet_option_menu = gtk_option_menu_new();
+  gtk_widget_set_usize(sheet_option_menu, 20, -1);
   sheet_menu = gtk_menu_new();
   gtk_option_menu_set_menu(GTK_OPTION_MENU(sheet_option_menu), sheet_menu);
-  gtk_wrap_box_pack(GTK_WRAP_BOX(parent), sheet_option_menu,
-		    TRUE, TRUE, FALSE, FALSE);
-  gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), sheet_option_menu,
-				      TRUE);
+  gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
+		    TRUE, TRUE, FALSE, FALSE, TRUE);
   gtk_widget_show(sheet_option_menu);
 
   swin = gtk_scrolled_window_new(NULL, NULL);
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swin),
 				 GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_wrap_box_pack(GTK_WRAP_BOX(parent), swin, TRUE, TRUE, TRUE, TRUE);
-  gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), swin, TRUE);
+  gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), swin, TRUE, TRUE, TRUE, TRUE, TRUE);
   gtk_widget_show(swin);
 
   sheet_wbox = gtk_hwrap_box_new(FALSE);
@@ -944,8 +931,7 @@ create_color_area (GtkWidget *parent)
 
   frame = gtk_frame_new (NULL);
   gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
-  gtk_wrap_box_pack(GTK_WRAP_BOX(parent), frame, TRUE, TRUE, FALSE, FALSE);
-  gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), frame, TRUE);
+  gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), frame, TRUE, TRUE, FALSE, FALSE, TRUE);
   gtk_widget_realize (frame);
 
   hbox = gtk_hbox_new (FALSE, 1);
@@ -1007,8 +993,7 @@ create_lineprops_area(GtkWidget *parent)
   GtkWidget *chooser;
 
   chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL);
-  gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE);
-  gtk_wrap_box_set_child_forced_break(GTK_WRAP_BOX(parent), chooser, TRUE);
+  gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE, TRUE);
   gtk_widget_show(chooser);
 
   chooser = dia_line_chooser_new(change_line_style, NULL);
@@ -1074,23 +1059,16 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
 
         pFrom = strstr((gchar *) data->data, "file:");
         while (pFrom) {
-#if !GLIB_CHECK_VERSION (2,0,0)
-          pFrom += 5; /* remove 'file:' */
-#else
           GError *error = NULL;
-#endif
+
           pTo = pFrom;
           while (*pTo != 0 && *pTo != 0xd && *pTo != 0xa) pTo ++;
           sPath = g_strndup(pFrom, pTo - pFrom);
 
-#if !GLIB_CHECK_VERSION (2,0,0)
-          diagram = diagram_load (sPath, NULL);
-#else
           /* format changed with Gtk+2.0, use conversion */
           pFrom = g_filename_from_uri (sPath, NULL, &error);
           diagram = diagram_load (pFrom, NULL);
           g_free (pFrom);
-#endif
           g_free(sPath);
 
           if (diagram != NULL) {
@@ -1127,7 +1105,7 @@ create_toolbox ()
 #endif
   gtk_window_set_wmclass (GTK_WINDOW (window), "toolbox_window",
 			  "Dia");
-  gtk_window_set_policy(GTK_WINDOW(window), FALSE, TRUE, FALSE);
+  gtk_window_set_policy(GTK_WINDOW(window), TRUE, TRUE, FALSE);
   gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
 
   gtk_signal_connect (GTK_OBJECT (window), "delete_event",
@@ -1182,7 +1160,7 @@ create_toolbox ()
   /* menus -- initialised afterwards, because initing the display menus
    * uses the tool buttons*/
   menus_get_toolbox_menubar(&menubar, &accel_group);
-  gtk_accel_group_attach (accel_group, GTK_OBJECT (window));
+  gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
 #ifdef GNOME
   gnome_app_set_menus(GNOME_APP(window), GTK_MENU_BAR(menubar));
 #else
@@ -1218,3 +1196,4 @@ interface_get_toolbox_shell(void)
 {
   return toolbox_shell;
 }
+

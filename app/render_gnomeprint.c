@@ -85,7 +85,7 @@ static void fill_bezier(RendererGPrint *renderer,
 			int numpoints,
 			Color *color);
 static void draw_string(RendererGPrint *renderer,
-			const utfchar *text,
+			const gchar *text,
 			Point *pos, Alignment alignment,
 			Color *color);
 static void draw_image(RendererGPrint *renderer,

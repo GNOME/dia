@@ -263,7 +263,11 @@ color_area_edit (void)
   if (! color_select) {
     window = color_select = gtk_color_selection_dialog_new(_("Select color"));
     color_select_active = 1;
-    
+
+    gtk_color_selection_set_has_palette (
+	GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (window)->colorsel),
+	TRUE);
+
     gtk_color_selection_set_update_policy(
         GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (window)->colorsel),
 	GTK_UPDATE_CONTINUOUS);

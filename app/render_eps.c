@@ -59,7 +59,6 @@
 #include "render_eps.h"
 #include "message.h"
 #include "diagramdata.h"
-#include "charconv.h" 
 #include "font.h"
 
 #ifdef HAVE_UNICODE
@@ -770,7 +769,7 @@ create_eps_renderer(DiagramData *data, const char *filename,
   
   scale = 28.346 * data->paper.scaling;
   
-  name = getlogin();
+  name = g_get_user_name();
   if (name==NULL)
     name = "a user";
   
@@ -841,7 +840,7 @@ new_psprint_renderer(Diagram *dia, FILE *file)
   
   time_now  = time(NULL);
 
-  name = getlogin();
+  name = g_get_user_name();
   if (name==NULL)
     name = "a user";
   
@@ -1327,7 +1326,7 @@ set_font(RendererEPS *renderer, DiaFont *font, real height)
 
 static void
 draw_string(RendererEPS *renderer,
-	    const utfchar *text,
+	    const gchar *text,
 	    Point *pos, Alignment alignment,
 	    Color *color)
 {

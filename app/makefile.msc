@@ -3,17 +3,17 @@ PRJ_TOP = ..
 PACKAGE = dia
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
-GDKPIXBUF = $(TOP)/dia-dev/gdk-pixbuf
+LIBART = $(TOP)/libart_lgpl
 
 PKG_CFLAGS = -FImsvc_recommended_pragmas.h \
-	-I.. $(GLIB_CFLAGS) $(DIRENT_CFLAGS) $(GTK_CFLAGS) \
-	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) -I$(GDKPIXBUF)\.. \
+	-I.. $(GLIB_CFLAGS) $(GTK2_CFLAGS) \
+	$(LIBXML2_CFLAGS) $(PNG_CFLAGS) \
 	-I$(PRJ_TOP)\lib -I$(LIBART)/.. -DHAVE_LIBART -DHAVE_LIBPNG \
 	-DWITHOUT_ZOOM_COMBO
 
-PKG_LINK = $(GTK_LIBS) $(GLIB_LIBS) $(DIRENT_LIBS) $(PNG_LIBS) \
-	$(LIBXML2_LIBS) $(GDKPIXBUF)\libgdk-pixbuf-0.lib \
-	$(PRJ_TOP)\lib\libdia.lib $(LIBART)\libart.lib \
+PKG_LINK = $(GTK2_LIBS) $(GLIB_LIBS) $(PNG_LIBS) \
+	$(LIBXML2_LIBS) \
+	$(PRJ_TOP)\lib\libdia.lib $(LIBART)\libart.lib
 
 OBJECTS = \
 	app_procs.obj \

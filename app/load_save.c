@@ -249,6 +249,11 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   Layer *layer;
   xmlNsPtr namespace;
   
+  if (g_file_test (filename, G_FILE_TEST_IS_DIR)) {
+    message_error(_("You must specify a file, not a directory.\n"));
+    return FALSE;
+  }
+
   fd = open(filename, O_RDONLY);
 
   if (fd==-1) {
@@ -256,12 +261,6 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
     return FALSE;
   }
 
-  fstat(fd, &stat_buf);
-  if (S_ISDIR(stat_buf.st_mode)) {
-    message_error(_("You must specify a file, not a directory.\n"));
-    return FALSE;
-  }
-  
   close(fd);
 
   doc = xmlDiaParseFile(filename);
@@ -422,7 +421,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
   objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
 
   while (layer_node != NULL) {
-    utfchar *name;
+    gchar *name;
     char *visible;
     
     if (xmlIsBlankNode(layer_node)) {
@@ -437,15 +436,7 @@ diagram_data_load(const char *filename, DiagramData *data, void* user_data)
 
     visible = (char *)xmlGetProp(layer_node, "visible");
 
-#ifndef UNICODE_WORK_IN_PROGRESS
-    { 
-      gchar *locname = charconv_utf8_to_local8(name);
-      layer = new_layer(locname);
-      g_free (locname);
-    }
-#else
     layer = new_layer(g_strdup(name));
-#endif
     if (name) xmlFree(name);
 
     layer->visible = FALSE;
@@ -707,14 +698,7 @@ diagram_data_save(DiagramData *data, const char *filename)
   for (i = 0; i < data->layers->len; i++) {
     layer_node = xmlNewChild(doc->xmlRootNode, name_space, "layer", NULL);
     layer = (Layer *) g_ptr_array_index(data->layers, i);
-#ifndef UNICODE_WORK_IN_PROGRESS
-    { gchar *layername = charconv_local8_to_utf8(layer->name);
-    xmlSetProp(layer_node, "name", layername);
-    g_free(layername);
-    }
-#else
     xmlSetProp(layer_node, "name", layer->name);
-#endif
 
     if (layer->visible)
       xmlSetProp(layer_node, "visible", "true");

@@ -19,7 +19,6 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
-#include <config.h>
 
 #include "gtkhwrapbox.h"
 #include <math.h>
@@ -124,55 +123,6 @@ get_child_requisition (GtkWrapBox     *wbox,
   else
     gtk_widget_get_child_requisition (child, child_requisition);
 }
-
-#if THIS_IS_PROBABLY_DEAD_CODE
-static void
-_gtk_hwrap_box_size_request (GtkWidget      *widget,
-			     GtkRequisition *requisition)
-{
-  GtkHWrapBox *this = GTK_HWRAP_BOX (widget);
-  GtkWrapBox *wbox = GTK_WRAP_BOX (widget);
-  GtkWrapBoxChild *child;
-  guint area = 0;
-  
-  g_return_if_fail (requisition != NULL);
-  
-  /*<h2v-off>*/
-  requisition->width = 0;
-  requisition->height = 0;
-  this->max_child_width = 0;
-  this->max_child_height = 0;
-  
-  for (child = wbox->children; child; child = child->next)
-    if (GTK_WIDGET_VISIBLE (child->widget))
-      {
-	GtkRequisition child_requisition;
-	
-	gtk_widget_size_request (child->widget, &child_requisition);
-	
-	area += child_requisition.width * child_requisition.height;
-	this->max_child_width = MAX (this->max_child_width, child_requisition.width);
-	this->max_child_height = MAX (this->max_child_height, child_requisition.height);
-      }
-  if (wbox->homogeneous)
-    area = this->max_child_width * this->max_child_height * wbox->n_children;
-  
-  if (area)
-    {
-      requisition->width = sqrt (area * wbox->aspect_ratio);
-      requisition->height = area / requisition->width;
-    }
-  else
-    {
-      requisition->width = 0;
-      requisition->height = 0;
-    }
-  
-  requisition->width += GTK_CONTAINER (wbox)->border_width * 2;
-  requisition->height += GTK_CONTAINER (wbox)->border_width * 2;
-  /*<h2v-on>*/
-}
-#endif
 
 static gfloat
 get_layout_size (GtkHWrapBox *this,
@@ -329,7 +279,7 @@ reverse_list_row_children (GtkWrapBox       *wbox,
 	    {
 	      get_child_requisition (wbox, child->widget, &child_requisition);
 	      if (width + wbox->hspacing + child_requisition.width > row_width ||
-		  child->forced_break)
+		  child->wrapped)
 		break;
 	      width += wbox->hspacing + child_requisition.width;
 	      *max_child_size = MAX (*max_child_size, child_requisition.height);
@@ -353,7 +303,8 @@ layout_row (GtkWrapBox    *wbox,
 	    gboolean       vexpand)
 {
   GSList *slist;
-  guint n_children = 0, n_expand_children = 0, have_expand_children = 0, total_width = 0;
+  guint n_children = 0, n_expand_children = 0, have_expand_children = 0;
+  gint total_width = 0;
   gfloat x, width, extra;
   GtkAllocation child_allocation;
   
@@ -639,7 +590,7 @@ gtk_hwrap_box_size_allocate (GtkWidget     *widget,
 {
   GtkWrapBox *wbox = GTK_WRAP_BOX (widget);
   GtkAllocation area;
-  guint border = GTK_CONTAINER (wbox)->border_width; /*<h2v-skip>*/
+  gint border = GTK_CONTAINER (wbox)->border_width; /*<h2v-skip>*/
   
   widget->allocation = *allocation;
   area.x = allocation->x + border;

@@ -68,8 +68,9 @@ dia_unit_spinner_get_type(void)
       sizeof(DiaUnitSpinnerClass),
       (GtkClassInitFunc) dia_unit_spinner_class_init,
       (GtkObjectInitFunc) dia_unit_spinner_init,
-      (GtkArgSetFunc) NULL,
-      (GtkArgGetFunc) NULL
+      NULL,
+      NULL,
+      (GtkClassInitFunc) NULL,
     };
     us_type = gtk_type_unique(gtk_spin_button_get_type(), &us_info);
   }
@@ -92,18 +93,18 @@ dia_unit_spinner_value_changed(GtkAdjustment *adjustment,
 static gint dia_unit_spinner_focus_out(GtkWidget *widget, GdkEventFocus *ev);
 static gint dia_unit_spinner_button_press(GtkWidget *widget,GdkEventButton*ev);
 static gint dia_unit_spinner_key_press(GtkWidget *widget, GdkEventKey *event);
-static void dia_unit_spinner_activate(GtkEditable *editable);
+static void dia_unit_spinner_activate(GtkEntry *editable);
 
 static void
 dia_unit_spinner_class_init(DiaUnitSpinnerClass *class)
 {
   GtkObjectClass *object_class;
   GtkWidgetClass *widget_class;
-  GtkEditableClass *editable_class;
+  GtkEntryClass  *editable_class;
 
   object_class = (GtkObjectClass *)class;
   widget_class = (GtkWidgetClass *)class;
-  editable_class = (GtkEditableClass *)class;
+  editable_class = (GtkEntryClass *)class;
 
   widget_class->focus_out_event    = dia_unit_spinner_focus_out;
   widget_class->button_press_event = dia_unit_spinner_button_press;
@@ -205,7 +206,7 @@ dia_unit_spinner_update(DiaUnitSpinner *self)
 static gint
 dia_unit_spinner_focus_out(GtkWidget *widget, GdkEventFocus *event)
 {
-  if (GTK_EDITABLE(widget)->editable)
+  if (GTK_ENTRY (widget)->editable)
     dia_unit_spinner_update(DIA_UNIT_SPINNER(widget));
   return GTK_WIDGET_CLASS(entry_class)->focus_out_event(widget, event);
 }
@@ -222,7 +223,7 @@ dia_unit_spinner_key_press(GtkWidget *widget, GdkEventKey *event)
 {
   gint key = event->keyval;
 
-  if (GTK_EDITABLE (widget)->editable &&
+  if (GTK_ENTRY (widget)->editable &&
       (key == GDK_Up || key == GDK_Down || 
        key == GDK_Page_Up || key == GDK_Page_Down))
     dia_unit_spinner_update (DIA_UNIT_SPINNER(widget));
@@ -230,7 +231,7 @@ dia_unit_spinner_key_press(GtkWidget *widget, GdkEventKey *event)
 }
 
 static void
-dia_unit_spinner_activate(GtkEditable *editable)
+dia_unit_spinner_activate(GtkEntry *editable)
 {
   if (editable->editable)
     dia_unit_spinner_update(DIA_UNIT_SPINNER(editable));

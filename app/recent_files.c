@@ -87,11 +87,7 @@ recent_file_menuitem_create(GtkWidget *menu,
 
 	basename = g_strdup(g_basename(filedata->filename));
 	basename = g_strdelimit(basename, "_", '\\');
-#if GLIB_CHECK_VERSION (1,3,0)
 	basename = g_strescape(basename, NULL);
-#else
-	basename = g_strescape(basename);
-#endif
 	basename = g_strdelimit(basename, "\\", '_');
 
 	label = g_strdup_printf("%d. %s", pos, basename);

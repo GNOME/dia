@@ -19,17 +19,14 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
+
 #ifndef __GTK_WRAP_BOX_H__
 #define __GTK_WRAP_BOX_H__
 
 
-#include <gdk/gdk.h>
 #include <gtk/gtkcontainer.h>
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 
 /* --- type macros --- */
@@ -38,7 +35,7 @@ extern "C" {
 #define GTK_WRAP_BOX_CLASS(klass)    (GTK_CHECK_CLASS_CAST ((klass), GTK_TYPE_WRAP_BOX, GtkWrapBoxClass))
 #define GTK_IS_WRAP_BOX(obj)	     (GTK_CHECK_TYPE ((obj), GTK_TYPE_WRAP_BOX))
 #define GTK_IS_WRAP_BOX_CLASS(klass) (GTK_CHECK_CLASS_TYPE ((klass), GTK_TYPE_WRAP_BOX))
-#define GTK_WRAP_BOX_GET_CLASS(obj)  (GTK_WRAP_BOX_CLASS (((GtkObject*) (obj))->klass))
+#define GTK_WRAP_BOX_GET_CLASS(obj)  (GTK_CHECK_GET_CLASS ((obj), GTK_TYPE_WRAP_BOX, GtkWrapBoxClass))
 
 
 /* --- typedefs --- */
@@ -78,7 +75,7 @@ struct _GtkWrapBoxChild
   guint      hfill : 1;
   guint      vexpand : 1;
   guint      vfill : 1;
-  guint      forced_break : 1;
+  guint      wrapped : 1;
   
   GtkWrapBoxChild *next;
 };
@@ -87,7 +84,7 @@ struct _GtkWrapBoxChild
 
 
 /* --- prototypes --- */
-GtkType	   gtk_wrap_box_get_type            (void);
+GtkType	   gtk_wrap_box_get_type            (void) G_GNUC_CONST;
 void	   gtk_wrap_box_set_homogeneous     (GtkWrapBox      *wbox,
 					     gboolean         homogeneous);
 void	   gtk_wrap_box_set_hspacing        (GtkWrapBox      *wbox,
@@ -106,6 +103,13 @@ void	   gtk_wrap_box_pack	            (GtkWrapBox      *wbox,
 					     gboolean         hfill,
 					     gboolean         vexpand,
 					     gboolean         vfill);
+void	   gtk_wrap_box_pack_wrapped        (GtkWrapBox      *wbox,
+					     GtkWidget       *child,
+					     gboolean         hexpand,
+					     gboolean         hfill,
+					     gboolean         vexpand,
+					     gboolean         vfill,
+					     gboolean         wrapped);
 void       gtk_wrap_box_reorder_child       (GtkWrapBox      *wbox,
 					     GtkWidget       *child,
 					     gint             position);
@@ -114,27 +118,19 @@ void       gtk_wrap_box_query_child_packing (GtkWrapBox      *wbox,
 					     gboolean        *hexpand,
 					     gboolean        *hfill,
 					     gboolean        *vexpand,
-					     gboolean        *vfill);
-void       gtk_wrap_box_query_child_forced_break (GtkWrapBox *wbox,
-						  GtkWidget  *child,
-						  gboolean   *forced_break);
+					     gboolean        *vfill,
+					     gboolean        *wrapped);
 void       gtk_wrap_box_set_child_packing   (GtkWrapBox      *wbox,
 					     GtkWidget       *child,
 					     gboolean         hexpand,
 					     gboolean         hfill,
 					     gboolean         vexpand,
-					     gboolean         vfill);
-void       gtk_wrap_box_set_child_forced_break (GtkWrapBox   *wbox,
-						GtkWidget    *child,
-						gboolean      forced_break);
+					     gboolean         vfill,
+					     gboolean         wrapped);
 guint*	   gtk_wrap_box_query_line_lengths  (GtkWrapBox	     *wbox,
 					     guint           *n_lines);
 
 
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
+G_END_DECLS
 
 #endif /* __GTK_WRAP_BOX_H__ */

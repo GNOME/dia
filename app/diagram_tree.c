@@ -115,6 +115,8 @@ button_press_callback(GtkCTree *tree, GdkEventButton *event,
       diagram_tree_menus_popup_menu(dtree->menus, menu, event->time);
     } else if (event->button == 1) {
       select_node(dtree, dtree->last, FALSE);
+      /* need to return FALSE to let gtk process it further */
+      return FALSE;
     }
   }
   return TRUE;
@@ -199,26 +201,19 @@ get_object_name(Object *object)
   gchar *result = NULL;
   g_assert(object);
   prop = object_prop_by_name(object, "name");
-  if (prop && ((StringProperty *)prop)->string_data) {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	  result = charconv_utf8_to_local8 (((StringProperty *)prop)->string_data);
-#else
-	  result = ((StringProperty *)prop)->string_data;
-#endif
-  } else {
+  if (prop) result = ((StringProperty *)prop)->string_data;
+  else {
     prop = object_prop_by_name(object, "text");
-    if (prop && ((TextProperty *)prop)->text_data) {
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	    result = charconv_utf8_to_local8 (((TextProperty *)prop)->text_data);
-#else
-	    result = ((TextProperty *)prop)->text_data;
-#endif
-    }
+    if (prop) result = ((TextProperty *)prop)->text_data;
   }
   if (!result) result = object->type->name;
 
   g_snprintf(BUFFER, SIZE, " %s", result);
   (void)g_strdelimit(BUFFER, "\n", ' ');
+
+  if (prop)
+    prop->ops->free(prop);
+
   return BUFFER;
 }
 

@@ -261,23 +261,28 @@ static GtkItemFactoryEntry toolbox_menu_items[] =
 {
   {N_("/_File"),               NULL,         NULL,       0,    "<Branch>" },
   {   "/File/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
-  {N_("/File/_New"),           "<control>N", file_new_callback,         0 },
-  {N_("/File/_Open"),          "<control>O", file_open_callback,        0 },
+  {N_("/File/_New"),           "<control>N", file_new_callback,         0,
+      "<StockItem>", GTK_STOCK_NEW },
+  {N_("/File/_Open"),          "<control>O", file_open_callback,        0,
+      "<StockItem>", GTK_STOCK_OPEN },
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/File/_Diagram tree"),  NULL,         diagtree_show_callback,    0,
    "<ToggleItem>" },
   {N_("/File/Sheets and Objects..."),
                                NULL,         sheets_dialog_show_callback, 0 },
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/File/_Preferences..."),NULL,         file_preferences_callback, 0 },
-  {N_("/File/P_lugins"),       NULL,         file_plugins_callback,     0 },
+ {N_("/File/_Preferences..."),NULL,         file_preferences_callback, 0,
+      "<StockItem>", GTK_STOCK_PREFERENCES },
+   {N_("/File/P_lugins"),       NULL,         file_plugins_callback,     0 },
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
     /* recent file list is dynamically inserted here */
   {N_("/File/---"),            NULL,         NULL,       0, "<Separator>" },
-  {N_("/File/_Quit"),          "<control>Q", file_quit_callback,        0 },
+  {N_("/File/_Quit"),          "<control>Q", file_quit_callback,        0,
+      "<StockItem>", GTK_STOCK_QUIT },
   {N_("/_Help"),               NULL,         NULL,       0,    "<Branch>" },
   {   "/Help/tearoff",         NULL,         NULL,       0,   "<Tearoff>" },
-  {N_("/Help/_Manual"),        "F1",         help_manual_callback,      0 },
+  {N_("/Help/_Manual"),        "F1",         help_manual_callback,      0,
+      "<StockItem>", GTK_STOCK_HELP },
   {N_("/Help/---"),            NULL,         NULL,       0, "<Separator>" },
   {N_("/Help/_About"),         NULL,         help_about_callback,       0 },
 };
@@ -291,40 +296,56 @@ static GtkItemFactoryEntry display_menu_items[] =
   {   "/tearoff",                 NULL,         NULL,         0, "<Tearoff>" },
   {N_("/_File"),                  NULL,         NULL,           0, "<Branch>"},
   {   "/File/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/File/_New"),              "<control>N", file_new_callback,          0},
-  {N_("/File/_Open"),             "<control>O", file_open_callback,         0},
-  {N_("/File/_Save"),             "<control>S", file_save_callback,         0},
-  {N_("/File/Save _As..."),       "<control>W", file_save_as_callback,      0},
+  {N_("/File/_New"),              "<control>N", file_new_callback,          0,
+      "<StockItem>", GTK_STOCK_NEW },
+  {N_("/File/_Open"),             "<control>O", file_open_callback,         0,
+      "<StockItem>", GTK_STOCK_OPEN },
+  {N_("/File/_Save"),             "<control>S", file_save_callback,         0,
+      "<StockItem>", GTK_STOCK_SAVE },
+  {N_("/File/Save _As..."),       "<control>W", file_save_as_callback,      0,
+      "<StockItem>", GTK_STOCK_SAVE_AS },
   {N_("/File/_Export..."),        NULL,         file_export_callback,       0},
   {N_("/File/---"),               NULL,         NULL,        0, "<Separator>"},
   {N_("/File/Page Set_up..."),    NULL,         file_pagesetup_callback,    0},
-  {N_("/File/_Print Diagram..."), "<control>P", file_print_callback,        0},
+  {N_("/File/_Print Diagram..."), "<control>P", file_print_callback,        0,
+      "<StockItem>", GTK_STOCK_PRINT },
   {N_("/File/---"),               NULL,         NULL,        0, "<Separator>"},
-  {N_("/File/_Close"),            NULL,         file_close_callback,        0},
+  {N_("/File/_Close"),            NULL,         file_close_callback,        0,
+      "<StockItem>", GTK_STOCK_CLOSE },
   {   "/File/---MRU",             NULL,         NULL,        0, "<Separator>"},
-  {N_("/File/_Quit"),              "<control>Q", file_quit_callback,        0},
+  {N_("/File/_Quit"),              "<control>Q", file_quit_callback,        0,
+      "<StockItem>", GTK_STOCK_QUIT},
   {N_("/_Edit"),                  NULL,         NULL,           0, "<Branch>"},
   {   "/Edit/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/Edit/_Copy"),             "<control>C", edit_copy_callback,         0},
-  {N_("/Edit/C_ut"),              "<control>X", edit_cut_callback,          0},
-  {N_("/Edit/_Paste"),            "<control>V", edit_paste_callback,        0},
-  {N_("/Edit/_Delete"),           "<control>D", edit_delete_callback,       0},
-  {N_("/Edit/_Undo"),             "<control>Z", edit_undo_callback,         0},
-  {N_("/Edit/_Redo"),             "<control>R", edit_redo_callback,         0},
+  {N_("/Edit/_Copy"),             "<control>C", edit_copy_callback,         0,
+      "<StockItem>", GTK_STOCK_COPY },
+  {N_("/Edit/C_ut"),              "<control>X", edit_cut_callback,          0,
+      "<StockItem>", GTK_STOCK_CUT },
+  {N_("/Edit/_Paste"),            "<control>V", edit_paste_callback,        0,
+      "<StockItem>", GTK_STOCK_PASTE },
+  {N_("/Edit/_Delete"),           "<control>D", edit_delete_callback,       0,
+      "<StockItem>", GTK_STOCK_DELETE },
+  {N_("/Edit/_Undo"),             "<control>Z", edit_undo_callback,         0,
+      "<StockItem>", GTK_STOCK_UNDO },
+  {N_("/Edit/_Redo"),             "<control>R", edit_redo_callback,         0,
+      "<StockItem>", GTK_STOCK_REDO },
   {N_("/Edit/Copy Text"),         NULL,         edit_copy_text_callback,    0},
   {N_("/Edit/Cut Text"),          NULL,         edit_cut_text_callback,     0},
   {N_("/Edit/Paste _Text"),       NULL,         edit_paste_text_callback,   0},
   {N_("/_View"),                  NULL,         NULL,           0, "<Branch>"},
   {   "/View/tearoff",            NULL,         NULL,         0, "<Tearoff>" },
-  {N_("/View/Zoom _In"),          NULL,          view_zoom_in_callback,     0},
-  {N_("/View/Zoom _Out"),         NULL,          view_zoom_out_callback,    0},
+  {N_("/View/Zoom _In"),          NULL,          view_zoom_in_callback,     0,
+      "<StockItem>", GTK_STOCK_ZOOM_IN },
+  {N_("/View/Zoom _Out"),         NULL,          view_zoom_out_callback,    0,
+      "<StockItem>", GTK_STOCK_ZOOM_OUT },
   {N_("/View/_Zoom"),             NULL,         NULL,           0, "<Branch>"},
   {   "/View/Zoom/tearoff",       NULL,         NULL,         0, "<Tearoff>" },
   {N_("/View/Zoom/400%"),         NULL,         view_zoom_set_callback,  4000},
   {N_("/View/Zoom/283%"),         NULL,         view_zoom_set_callback,  2828},
   {N_("/View/Zoom/200%"),         NULL,         view_zoom_set_callback,  2000},
   {N_("/View/Zoom/141%"),         NULL,         view_zoom_set_callback,  1414},
-  {N_("/View/Zoom/100%"),         "1",          view_zoom_set_callback,  1000},
+  {N_("/View/Zoom/100%"),         "1",          view_zoom_set_callback,  1000,
+      "<StockItem>", GTK_STOCK_ZOOM_100 },
   {N_("/View/Zoom/85%"),          NULL,         view_zoom_set_callback,   850},
   {N_("/View/Zoom/70.7%"),        NULL,         view_zoom_set_callback,   707},
   {N_("/View/Zoom/50%"),          NULL,         view_zoom_set_callback,   500},
@@ -589,7 +610,7 @@ save_accels(gpointer data)
 
   accelfilename = dia_config_filename("menurc");
   if (accelfilename) {
-    gtk_item_factory_dump_rc (accelfilename, NULL, TRUE);
+    gtk_accel_map_save (accelfilename);
     g_free (accelfilename);
   }
   return TRUE;
@@ -620,7 +641,7 @@ dia_menu_signal_connect_func (GnomeUIInfo *uiinfo, gchar *signal_name,
 {
     /* only connect the signal if uiinfo->moreinfo not NULL */
     /* otherwise it is non sens and generate extraneous warnings */
-    /* see bug 55047 <http:/*bugzilla.gnome.org/show_bug.cgi?id=55047> */
+    /* see bug 55047 <http://bugzilla.gnome.org/show_bug.cgi?id=55047> */
     if (uiinfo->moreinfo != NULL) {
         gtk_signal_connect (GTK_OBJECT(uiinfo->widget), signal_name,
                             GTK_SIGNAL_FUNC(dia_menu_signal_proxy), uiinfo);
@@ -737,20 +758,13 @@ menus_init(void)
 
   display_menus = gtk_item_factory_get_widget(display_item_factory,
 					      "<Display>");
+  gtk_menu_set_accel_path(GTK_MENU(display_menus), "<Display>/");
 #endif
 
   menus_set_tools_callback ("<Display>", NULL);
 
   gtk_menu_set_title(GTK_MENU(display_menus), _("Diagram Menu"));
   
-  accelfilename = dia_config_filename("menurc");
-  
-  if (accelfilename) {
-    gtk_item_factory_parse_rc(accelfilename);
-    g_free(accelfilename);
-  }
-  gtk_quit_add(1, save_accels, NULL);
-
   /* initialize callbacks from plug-ins */
   for (cblist = filter_get_callbacks(); cblist; cblist = cblist->next) {
     DiaCallbackFilter *cbf = cblist->data;
@@ -764,6 +778,16 @@ menus_init(void)
     gtk_signal_connect(GTK_OBJECT(newitem), "activate",
 		       GTK_SIGNAL_FUNC(plugin_callback), cbf);
   } /* for filter_callbacks */
+
+  /* load accelerators and prepare to later save them */
+  accelfilename = dia_config_filename("menurc");
+  
+  if (accelfilename) {
+    gtk_accel_map_load(accelfilename);
+    g_free(accelfilename);
+  }
+  gtk_quit_add(1, save_accels, NULL);
+
 }
 
 void

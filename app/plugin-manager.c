@@ -50,28 +50,14 @@ static void
 clist_select_row (GtkCList *clist, gint row, gint col, GdkEvent *event,
 		  PluginManager *pm)
 {
-	gchar *str;
-
 	pm->info = gtk_clist_get_row_data(clist, row);
 
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	str = charconv_utf8_to_local8 (dia_plugin_get_name (pm->info));
-	gtk_label_set_text (GTK_LABEL (pm->name_label), str);
-	g_free (str);
-#else
 	gtk_label_set_text (GTK_LABEL (pm->name_label),
 			    dia_plugin_get_name (pm->info));
-#endif
 	gtk_label_set_text( GTK_LABEL(pm->file_label),
 			    dia_plugin_get_filename (pm->info));
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-	str = charconv_utf8_to_local8 (dia_plugin_get_description (pm->info));
-	gtk_label_set_text (GTK_LABEL (pm->description_label), str);
-	g_free (str);
-#else
 	gtk_label_set_text (GTK_LABEL (pm->description_label),
 			    dia_plugin_get_description (pm->info));
-#endif
 	gtk_label_set_text (GTK_LABEL (pm->loaded_label),
 			    dia_plugin_is_loaded (pm->info) ? _("yes") : _("no"));
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (pm->autoload_cbutton),
@@ -272,16 +258,9 @@ get_plugin_manager(void)
     gint num;
     PluginInfo *info = tmp->data;
 
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-    row[0] = (gchar *)charconv_utf8_to_local8 (dia_plugin_get_name (info));
-#else
     row[0] = (gchar *)dia_plugin_get_name(info);
-#endif
     num = gtk_clist_append(GTK_CLIST(pm.list), row);
     gtk_clist_set_row_data(GTK_CLIST(pm.list), num, info);
-#ifdef GTK_DOESNT_TALK_UTF8_WE_DO
-    g_free (row[0]);
-#endif
   }
   gtk_widget_set_usize(pm.list->parent, 150, -1);
   /* setup callbacks */
