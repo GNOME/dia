@@ -15,113 +15,110 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-13 14:08+0100\n"
-"PO-Revision-Date: 2003-12-13 17:23+0100\n"
+"POT-Creation-Date: 2003-12-21 18:40+0100\n"
+"PO-Revision-Date: 2003-12-21 18:41+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
-"serrador@hispalinux.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"serrador@hispalinux.es>\n"
 "X-Generator: KBabel 1.0.2\n"
 
-#: app/app_procs.c:169
+#: app/app_procs.c:179
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s error: no se sabe cómo exportar a %s\n"
 
-#: app/app_procs.c:179
+#: app/app_procs.c:189
 #, c-format
 msgid "%s error: input and output file name is identical: %s"
-msgstr "%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
+msgstr ""
+"%s error: el nombre de los ficheros de entrada y salida es idéntico: %s"
 
-#: app/app_procs.c:187
+#: app/app_procs.c:197
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s error: se necesita un archivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:193
+#: app/app_procs.c:206
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:235
+#: app/app_procs.c:254
 #, c-format
 msgid "Can't find output format %s\n"
 msgstr "No se pudo encontrar el formato de salida %s\n"
 
 #. Translators:  The argument is a list of options, not to be translated
-#: app/app_procs.c:319
+#: app/app_procs.c:340
 #, c-format
 msgid "Export to file format and exit.  Supported formats are: %s"
-msgstr "Exportar al formato de archivo y salir. Los formatos soportados son: %s"
+msgstr ""
+"Exportar al formato de archivo y salir. Los formatos soportados son: %s"
 
 #. &export_file_name
-#: app/app_procs.c:328
+#: app/app_procs.c:349
 msgid "Export loaded file and exit"
 msgstr "Exportar archivo cargado y salir"
 
-#: app/app_procs.c:328 app/diaconv.c:94
+#: app/app_procs.c:349 app/diaconv.c:94
 msgid "OUTPUT"
 msgstr "SALIDA"
 
 #. &export_file_format
-#: app/app_procs.c:330
+#: app/app_procs.c:351
 msgid "FORMAT"
 msgstr "FORMATO"
 
-#: app/app_procs.c:333
+#: app/app_procs.c:354
+msgid "Export graphics size"
+msgstr "Tamaño del gráfico exportado"
+
+#: app/app_procs.c:354
+msgid "WxH"
+msgstr "AnchoxAlto"
+
+#: app/app_procs.c:356
 msgid "Don't show the splash screen"
 msgstr "No mostrar la pantalla de bienvenida"
 
-#: app/app_procs.c:335
+#: app/app_procs.c:358
 msgid "Display credits list and exit"
 msgstr "Mostrar la lista de créditos y salir"
 
-#: app/app_procs.c:337
+#: app/app_procs.c:360
 msgid "Display version and exit"
 msgstr "Mostrar la versión y salir"
 
-#: app/app_procs.c:339 app/diaconv.c:95
+#: app/app_procs.c:362 app/diaconv.c:95
 msgid "Show this help message"
 msgstr "Mostrar este mensaje de ayuda"
 
-#: app/app_procs.c:371
+#: app/app_procs.c:397
 msgid "Can't connect to session manager!\n"
 msgstr "¡No se puede conectar con el gestor de sesiones!\n"
 
-#: app/app_procs.c:386 app/diaconv.c:119
-msgid "[OPTION...] [FILE...]"
-msgstr "[OPCIÓN...] [ARCHIVO...]"
-
-#: app/app_procs.c:390 app/diaconv.c:126
-#, c-format
-msgid ""
-"Error on option %s: %s.\n"
-"Run '%s --help' to see a full list of available command line options.\n"
-msgstr ""
-"Error en la opción %s: %s.\n"
-"Ejecute '%s --help' para ver la lista completa de opciones de\n"
-"la línea de comandos.\n"
-
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:409
+#: app/app_procs.c:420
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Versión %s de Dia, compilada %s %s\n"
 
-#: app/app_procs.c:411
+#: app/app_procs.c:422
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Versión %s de Dia\n"
 
 # Como adjetivo creo que el plural es "estándar". FVD
-#: app/app_procs.c:491 app/app_procs.c:493 app/diaconv.c:199 app/diaconv.c:201
-msgid "Couldn't find standard objects when looking for object-libs, exiting...\n"
+#: app/app_procs.c:468 app/app_procs.c:470 app/diaconv.c:199 app/diaconv.c:201
+msgid ""
+"Couldn't find standard objects when looking for object-libs, exiting...\n"
 msgstr "No se encontraron objetos estándar en object-libs, saliendo...\n"
 
-#: app/app_procs.c:585
+#: app/app_procs.c:533
 msgid ""
 "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
 "describing how you can cause this message to appear.\n"
@@ -130,7 +127,7 @@ msgstr ""
 "describiendo cómo puede hacer que este mensaje aparezca.\n"
 
 #. no standard buttons
-#: app/app_procs.c:597
+#: app/app_procs.c:545
 msgid ""
 "Modified diagrams exist.\n"
 "Are you sure you want to quit Dia\n"
@@ -140,21 +137,21 @@ msgstr ""
 "¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: app/app_procs.c:601
+#: app/app_procs.c:549
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
 #. This printf seems to prevent a race condition with unrefs.
 #. Yuck.  -Lars
-#: app/app_procs.c:656
+#: app/app_procs.c:604
 msgid "Thank you for using Dia.\n"
 msgstr "Gracias por usar Dia.\n"
 
-#: app/app_procs.c:670 app/app_procs.c:677
+#: app/app_procs.c:618 app/app_procs.c:625
 msgid "Could not create per-user Dia config directory"
 msgstr "No se pudo crear el directorio de configuración de Dia para el usuario"
 
-#: app/app_procs.c:679
+#: app/app_procs.c:627
 msgid ""
 "Could not create per-user Dia config directory. Please make sure that the "
 "environment variable HOME points to an existing directory."
@@ -163,9 +160,23 @@ msgstr ""
 "favor, asegúrese de que la variable de entorno HOME apunta a un directorio "
 "existente."
 
-#: app/app_procs.c:701 app/diaconv.c:249
+#: app/app_procs.c:649 app/diaconv.c:249
 msgid "Objects and filters internal to dia"
 msgstr "Objetos y filtros internos para dia"
+
+#: app/app_procs.c:688 app/diaconv.c:119
+msgid "[OPTION...] [FILE...]"
+msgstr "[OPCIÓN...] [ARCHIVO...]"
+
+#: app/app_procs.c:692 app/diaconv.c:126
+#, c-format
+msgid ""
+"Error on option %s: %s.\n"
+"Run '%s --help' to see a full list of available command line options.\n"
+msgstr ""
+"Error en la opción %s: %s.\n"
+"Ejecute '%s --help' para ver la lista completa de opciones de\n"
+"la línea de comandos.\n"
 
 #: app/autosave.c:93
 msgid "Recovering autosaved diagrams"
@@ -470,8 +481,8 @@ msgstr "Árbol del diagrama"
 msgid "Ok"
 msgstr "Aceptar"
 
-#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:453
-#: app/lineprops_area.c:679 app/paginate_psprint.c:276
+#: app/dialogs.c:52 app/layer_dialog.c:1009 app/lineprops_area.c:455
+#: app/lineprops_area.c:681 app/paginate_psprint.c:276
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -577,7 +588,7 @@ msgstr "Cerrar el diagrama"
 msgid "Discard Changes"
 msgstr "Descartar los cambios"
 
-#: app/export_png.c:116 app/load_save.c:867 app/render_eps.c:103
+#: app/export_png.c:134 app/load_save.c:867 app/render_eps.c:103
 #: plug-ins/cgm/cgm.c:1157 plug-ins/dxf/dxf-export.c:505
 #: plug-ins/hpgl/hpgl.c:732 plug-ins/metapost/render_metapost.c:807
 #: plug-ins/pstricks/render_pstricks.c:800 plug-ins/shape/shape-export.c:135
@@ -587,37 +598,37 @@ msgstr "Descartar los cambios"
 msgid "Can't open output file %s: %s\n"
 msgstr "No se pudo abrir archivo de salida «%s»: %s\n"
 
-#: app/export_png.c:124
+#: app/export_png.c:142
 msgid "Could not create PNG write structure"
 msgstr "No se pudo crear estructura de escritura de PNG"
 
-#: app/export_png.c:133
+#: app/export_png.c:151
 msgid "Could not create PNG header info structure"
 msgstr "No se pudo crear estructura de información de cabecera de PNG"
 
-#: app/export_png.c:141
+#: app/export_png.c:159
 msgid "Error occurred while writing PNG"
 msgstr "Ocurrió un error mientras se escribía PNG"
 
 #. Create a dialog
-#: app/export_png.c:265
+#: app/export_png.c:299
 msgid "PNG Export Options"
 msgstr "Opciones de exportación PNG"
 
 #. Translators: Menu item Verb/Channel/Export
-#: app/export_png.c:266 objects/FS/function.c:685 objects/FS/function.c:687
+#: app/export_png.c:300 objects/FS/function.c:685 objects/FS/function.c:687
 msgid "Export"
 msgstr "Exportar"
 
-#: app/export_png.c:271
+#: app/export_png.c:305
 msgid "Image width:"
 msgstr "Ancho de la imagen:"
 
-#: app/export_png.c:274
+#: app/export_png.c:308
 msgid "Image height:"
 msgstr "Alto de la imagen:"
 
-#: app/export_png.c:319
+#: app/export_png.c:354
 msgid "Portable Network Graphics"
 msgstr "Portable Network Graphics"
 
@@ -725,7 +736,7 @@ msgstr "Desplazamiento"
 #. PROP_STD_TEXT_HEIGHT,
 #. PROP_STD_TEXT_COLOUR,
 #: app/interface.c:60 app/interface.c:61 app/menus.c:224 lib/properties.c:77
-#: lib/properties.h:499 lib/properties.h:502 objects/UML/activity.c:124
+#: lib/properties.h:501 lib/properties.h:504 objects/UML/activity.c:124
 #: objects/UML/actor.c:115 objects/UML/classicon.c:137
 #: objects/UML/component.c:121 objects/UML/component_feature.c:154
 #: objects/UML/node.c:120 objects/UML/note.c:114 objects/UML/object.c:142
@@ -882,24 +893,24 @@ msgstr "Editar atributos de capa"
 msgid "Layer name:"
 msgstr "Nombre de la capa:"
 
-#: app/layer_dialog.c:999 app/lineprops_area.c:444 app/lineprops_area.c:669
+#: app/layer_dialog.c:999 app/lineprops_area.c:446 app/lineprops_area.c:671
 #: app/paginate_psprint.c:268
 msgid "OK"
 msgstr "Aceptar"
 
-#: app/lineprops_area.c:429
+#: app/lineprops_area.c:431
 msgid "Arrow Properties"
 msgstr "Propiedades de la flecha"
 
-#: app/lineprops_area.c:505 app/lineprops_area.c:702
+#: app/lineprops_area.c:507 app/lineprops_area.c:704
 msgid "Details..."
 msgstr "Detalles..."
 
-#: app/lineprops_area.c:658
+#: app/lineprops_area.c:660
 msgid "Line Style Properties"
 msgstr "Propiedades de estilo de la línea"
 
-#: app/linewidth_area.c:239 lib/properties.h:475
+#: app/linewidth_area.c:239 lib/properties.h:477
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Ancho de línea"
@@ -1140,15 +1151,15 @@ msgstr "Transitivo"
 msgid "Same Type"
 msgstr "Mismo tipo"
 
-#: app/menus.c:181 lib/properties.c:62 lib/properties.h:463 lib/widgets.c:531
+#: app/menus.c:181 lib/properties.c:62 lib/properties.h:465 lib/widgets.c:531
 msgid "Left"
 msgstr "Izquierda"
 
-#: app/menus.c:182 lib/properties.c:63 lib/properties.h:464 lib/widgets.c:537
+#: app/menus.c:182 lib/properties.c:63 lib/properties.h:466 lib/widgets.c:537
 msgid "Center"
 msgstr "Centro"
 
-#: app/menus.c:183 lib/properties.c:64 lib/properties.h:465 lib/widgets.c:543
+#: app/menus.c:183 lib/properties.c:64 lib/properties.h:467 lib/widgets.c:543
 msgid "Right"
 msgstr "Derecha"
 
@@ -1902,12 +1913,12 @@ msgstr "Guardar tipos de objetos ocultos"
 msgid "Could not open `%s' for writing"
 msgstr "No se pudo abrir «%s» para escritura"
 
-#: app/preferences.c:586 lib/prop_inttypes.c:151
+#: app/preferences.c:586 lib/prop_inttypes.c:158
 msgid "Yes"
 msgstr "Sí"
 
-#: app/preferences.c:586 app/preferences.c:597 lib/prop_inttypes.c:153
-#: lib/prop_inttypes.c:179
+#: app/preferences.c:586 app/preferences.c:597 lib/prop_inttypes.c:160
+#: lib/prop_inttypes.c:186
 msgid "No"
 msgstr "No"
 
@@ -2268,50 +2279,54 @@ msgid "Blanked Dot"
 msgstr "Punto blanco"
 
 #: lib/arrows.c:53
-msgid "Double Hollow triangle"
+msgid "Double Hollow Triangle"
 msgstr "Triángulo doble hueco"
 
 #: lib/arrows.c:54
-msgid "Double Filled triangle"
+msgid "Double Filled Triangle"
 msgstr "Triángulo doble relleno"
 
 #: lib/arrows.c:55
+msgid "Filled Dot and Triangle"
+msgstr "Punto relleno y triángulo"
+
+#: lib/arrows.c:56
 msgid "Filled Box"
 msgstr "Caja rellena"
 
-#: lib/arrows.c:56
+#: lib/arrows.c:57
 msgid "Blanked Box"
 msgstr "Caja blanca"
 
-#: lib/arrows.c:57
+#: lib/arrows.c:58
 msgid "Slashed"
 msgstr "Con barras"
 
-#: lib/arrows.c:58
+#: lib/arrows.c:59
 msgid "Integral Symbol"
 msgstr "Símbolo de la integral"
 
-#: lib/arrows.c:59
+#: lib/arrows.c:60
 msgid "Crow Foot"
 msgstr "Filigrana"
 
-#: lib/arrows.c:60
+#: lib/arrows.c:61
 msgid "Cross"
 msgstr "Cruz"
 
-#: lib/arrows.c:61
+#: lib/arrows.c:62
 msgid "Filled Concave"
 msgstr "Cóncavo relleno"
 
-#: lib/arrows.c:62
+#: lib/arrows.c:63
 msgid "Blanked Concave"
 msgstr "Cóncavo vacío"
 
-#: lib/arrows.c:63
+#: lib/arrows.c:64
 msgid "Round"
 msgstr "Ronda"
 
-#: lib/arrows.c:64
+#: lib/arrows.c:65
 msgid "Open Round"
 msgstr "Ronda abierta"
 
@@ -2490,49 +2505,49 @@ msgstr ""
 "No se pudo abrir «%s»\n"
 "«%s»"
 
-#: lib/properties.c:71 lib/properties.h:478
+#: lib/properties.c:71 lib/properties.h:480
 msgid "Line colour"
 msgstr "Color de la línea"
 
-#: lib/properties.c:72 lib/properties.h:481
+#: lib/properties.c:72 lib/properties.h:483
 msgid "Line style"
 msgstr "Estilo de la línea"
 
-#: lib/properties.c:73 lib/properties.h:485
+#: lib/properties.c:73 lib/properties.h:487
 msgid "Fill colour"
 msgstr "Color de relleno"
 
-#: lib/properties.c:74 lib/properties.h:488
+#: lib/properties.c:74 lib/properties.h:490
 msgid "Draw background"
 msgstr "Dibujar fondo"
 
-#: lib/properties.c:75 lib/properties.h:492
+#: lib/properties.c:75 lib/properties.h:494
 msgid "Start arrow"
 msgstr "Flecha de inicio"
 
-#: lib/properties.c:76 lib/properties.h:495
+#: lib/properties.c:76 lib/properties.h:497
 msgid "End arrow"
 msgstr "Flecha de finalización"
 
-#: lib/properties.c:78 lib/properties.h:505
+#: lib/properties.c:78 lib/properties.h:507
 msgid "Text alignment"
 msgstr "Alineación del texto"
 
 # Creí que era Tipografía como en otros msgs. FVD
-#: lib/properties.c:79 lib/properties.h:508 objects/GRAFCET/condition.c:132
+#: lib/properties.c:79 lib/properties.h:510 objects/GRAFCET/condition.c:132
 #: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:142
 #: objects/UML/class_dialog.c:328 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164
 msgid "Font"
 msgstr "Fuente"
 
-#: lib/properties.c:80 lib/properties.h:511 objects/GRAFCET/condition.c:134
+#: lib/properties.c:80 lib/properties.h:513 objects/GRAFCET/condition.c:134
 #: objects/GRAFCET/step.c:167 objects/GRAFCET/transition.c:144
 #: objects/chronogram/chronoline.c:185 objects/chronogram/chronoref.c:166
 msgid "Font size"
 msgstr "Tamaño de la fuente"
 
-#: lib/properties.c:81 lib/properties.h:514 objects/GRAFCET/step.c:169
+#: lib/properties.c:81 lib/properties.h:516 objects/GRAFCET/step.c:169
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
 msgid "Text colour"
 msgstr "Color de texto"
@@ -3914,7 +3929,8 @@ msgstr "Identificador de actividad/dato"
 
 #: objects/SADT/box.c:145
 msgid "The identifier which appears in the lower right corner of the Box"
-msgstr "El identificador que se muestra en la esquina inferior derecha de la caja"
+msgstr ""
+"El identificador que se muestra en la esquina inferior derecha de la caja"
 
 #: objects/SADT/box.c:446 objects/standard/line.c:242
 msgid "Delete connection point"
@@ -4460,15 +4476,15 @@ msgid "Flip vertical"
 msgstr "Invertir vertical"
 
 # Quiza' si estas dos se diferencian so'lo en las mayu'sculas, deberi'amos respetarlas. FVD
-#: objects/custom/custom_object.c:1328
+#: objects/custom/custom_object.c:1384
 msgid "Flip Horizontal"
 msgstr "Invertir horizontal"
 
-#: objects/custom/custom_object.c:1329
+#: objects/custom/custom_object.c:1385
 msgid "Flip Vertical"
 msgstr "Invertir vertical"
 
-#: objects/custom/custom_object.c:1366
+#: objects/custom/custom_object.c:1422
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "No se puede abrir el archivo de icono %s para el tipo de objeto «%s»."
@@ -4718,7 +4734,8 @@ msgstr "el elemento raíz era «%s» -- se esperaba «svg»."
 
 #: plug-ins/svg/svg.c:37
 msgid "Scalable Vector Graphics import and export filters"
-msgstr "Filtro de importación y exportación de gráficos de vector escalables (SVG)"
+msgstr ""
+"Filtro de importación y exportación de gráficos de vector escalables (SVG)"
 
 #: plug-ins/wmf/wmf.cpp:1100
 msgid "Windows Meta File"
@@ -4766,7 +4783,8 @@ msgstr "Dia no admite patrones"
 
 #: plug-ins/xfig/xfig-import.c:500
 msgid "Triple-dotted lines are not supported by Dia, using double-dotted"
-msgstr "Dia no soporta las líneas triplemente punteadas, se utilizará doble punteado"
+msgstr ""
+"Dia no soporta las líneas triplemente punteadas, se utilizará doble punteado"
 
 #: plug-ins/xfig/xfig-import.c:504
 #, c-format
@@ -7409,4 +7427,3 @@ msgstr "Un servidor de replicación de sybase"
 
 #~ msgid "Could not load XSLT plugin; DIA_PLUGIN_PATH is not set."
 #~ msgstr "No se pudo cargar el plugin XSLT; DIA_PLUGIN_PATH no está fijada."
-
