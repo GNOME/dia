@@ -1,3 +1,8 @@
+2003-04-17  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* lib/Makefile.am (libdia_la_SOURCES): Added autoroute files.
+	* lib/autoroute.[ch]: Start of proper autorouting functionality.
+
 2003-04-10  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* lib/prop_widgets.c: Show labels on ListProp.

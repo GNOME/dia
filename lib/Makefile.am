@@ -123,7 +123,9 @@ libdia_la_SOURCES =  \
 		dia_svg.h \
 		dia_svg.c \
 		diagtkfontsel.c \
-		diagtkfontsel.h
+		diagtkfontsel.h \
+		autoroute.c \
+		autoroute.h
 
 #		charconv.c \
 #		charconv.h 
