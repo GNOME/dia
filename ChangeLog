@@ -1,3 +1,9 @@
+2003-01-28  Lars Clausen  <lrclause@cs.uiuc.edu>
+
+	* app/interface.c (create_display_shell): Fixed menu name for Show
+	Grid.  Thanks to Hubert Figuiere <hfiguiere@teaser.fr> for finding
+	this.
+
 2003-01-26  Lars Clausen  <lrclause@cs.uiuc.edu>
 
 	* app/defaults.c (defaults_show): Fixed defaults closing bug.

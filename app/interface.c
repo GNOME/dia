@@ -444,7 +444,7 @@ create_display_shell(DDisplay *ddisp,
     path = g_string_new (display);
     g_string_append (path,"/View/Show Rulers");
     ddisp->rulers       = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
-    g_string_append (g_string_assign(path, display),"/View/Visible Grid");
+    g_string_append (g_string_assign(path, display),"/View/Show Grid");
     ddisp->visible_grid = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
     g_string_append (g_string_assign(path, display),"/View/Snap To Grid");
     ddisp->snap_to_grid = menus_get_item_from_path(path->str, ddisp->mbar_item_factory);
