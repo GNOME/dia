@@ -92,9 +92,9 @@ static Object *chronoref_load(ObjectNode obj_node, int version,
                               const char *filename);
 static PropDescription *chronoref_describe_props(Chronoref *chronoref);
 static void chronoref_get_props(Chronoref *chronoref, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 static void chronoref_set_props(Chronoref *chronoref, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 
 
 
@@ -208,17 +208,17 @@ static PropOffset chronoref_offsets[] = {
 };
 
 static void
-chronoref_get_props(Chronoref *chronoref, Property *props, guint nprops)
+chronoref_get_props(Chronoref *chronoref, GPtrArray *props)
 {  
   object_get_props_from_offsets(&chronoref->element.object,
-                                chronoref_offsets,props,nprops);
+                                chronoref_offsets,props);
 }
 
 static void
-chronoref_set_props(Chronoref *chronoref, Property *props, guint nprops)
+chronoref_set_props(Chronoref *chronoref, GPtrArray *props)
 {
   object_set_props_from_offsets(&chronoref->element.object,
-                                chronoref_offsets,props,nprops);
+                                chronoref_offsets,props);
   chronoref_update_data(chronoref);
 }
 

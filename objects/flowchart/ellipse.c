@@ -66,6 +66,7 @@ struct _Ellipse {
   real dashlength;
 
   Text *text;
+  TextAttributes attrs;
   real padding;
 };
 
@@ -107,11 +108,10 @@ static Object *ellipse_create(Point *startpoint,
 			  Handle **handle1,
 			  Handle **handle2);
 static void ellipse_destroy(Ellipse *ellipse);
-static Object *ellipse_copy(Ellipse *ellipse);
 
 static PropDescription *ellipse_describe_props(Ellipse *ellipse);
-static void ellipse_get_props(Ellipse *ellipse, Property *props, guint nprops);
-static void ellipse_set_props(Ellipse *ellipse, Property *props, guint nprops);
+static void ellipse_get_props(Ellipse *ellipse, GPtrArray *props);
+static void ellipse_set_props(Ellipse *ellipse, GPtrArray *props);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
 static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename);
@@ -141,7 +141,7 @@ static ObjectOps ellipse_ops = {
   (DrawFunc)            ellipse_draw,
   (DistanceFunc)        ellipse_distance_from,
   (SelectFunc)          ellipse_select,
-  (CopyFunc)            ellipse_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            ellipse_move,
   (MoveHandleFunc)      ellipse_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -166,7 +166,7 @@ static PropDescription ellipse_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  PROP_STD_TEXT,
+  PROP_STD_SAVED_TEXT,
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
 };
@@ -188,73 +188,27 @@ static PropOffset ellipse_offsets[] = {
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Ellipse, line_style), offsetof(Ellipse, dashlength) },
   { "padding", PROP_TYPE_REAL, offsetof(Ellipse, padding) },
+  {"text",PROP_TYPE_TEXT,offsetof(Ellipse,text)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Ellipse,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(Ellipse,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Ellipse,attrs.color)},
   { NULL, 0, 0 },
 };
 
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" }
-};
-
 static void
-ellipse_get_props(Ellipse *ellipse, Property *props, guint nprops)
+ellipse_get_props(Ellipse *ellipse, GPtrArray *props)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&ellipse->element.object,
-                                    ellipse_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = ellipse->text->font;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = ellipse->text->height;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = ellipse->text->color;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(ellipse->text);
-    }
-  }
+  text_get_attributes(ellipse->text,&ellipse->attrs);
+  object_get_props_from_offsets(&ellipse->element.object,
+                                ellipse_offsets,props);
 }
 
 static void
-ellipse_set_props(Ellipse *ellipse, Property *props, guint nprops)
+ellipse_set_props(Ellipse *ellipse, GPtrArray *props)
 {
-  if (!object_set_props_from_offsets(&ellipse->element.object, 
-                                     ellipse_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-        quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
-        text_set_font(ellipse->text, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
-        text_set_height(ellipse->text, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
-        text_set_color(ellipse->text, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
-        text_set_string(ellipse->text, PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
+  object_set_props_from_offsets(&ellipse->element.object,
+                                ellipse_offsets,props);
+  apply_textattr_properties(props,ellipse->text,"text",&ellipse->attrs);
   ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
@@ -627,7 +581,8 @@ ellipse_create(Point *startpoint,
   p.y += elem->height / 2.0 + font_height / 2;
   ellipse->text = new_text("", font, font_height, &p, &ellipse->border_color,
 			   ALIGN_CENTER);
-
+  text_get_attributes(ellipse->text,&ellipse->attrs);
+ 
   element_init(elem, 8, 16);
 
   for (i=0;i<16;i++) {
@@ -649,43 +604,6 @@ ellipse_destroy(Ellipse *ellipse)
   text_destroy(ellipse->text);
 
   element_destroy(&ellipse->element);
-}
-
-static Object *
-ellipse_copy(Ellipse *ellipse)
-{
-  int i;
-  Ellipse *newellipse;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &ellipse->element;
-  
-  newellipse = g_malloc0(sizeof(Ellipse));
-  newelem = &newellipse->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-
-  newellipse->border_width = ellipse->border_width;
-  newellipse->border_color = ellipse->border_color;
-  newellipse->inner_color = ellipse->inner_color;
-  newellipse->show_background = ellipse->show_background;
-  newellipse->line_style = ellipse->line_style;
-  newellipse->dashlength = ellipse->dashlength;
-  newellipse->padding = ellipse->padding;
-
-  newellipse->text = text_copy(ellipse->text);
-  
-  for (i=0;i<16;i++) {
-    newobj->connections[i] = &newellipse->connections[i];
-    newellipse->connections[i].object = newobj;
-    newellipse->connections[i].connected = NULL;
-    newellipse->connections[i].pos = ellipse->connections[i].pos;
-    newellipse->connections[i].last_pos = ellipse->connections[i].last_pos;
-  }
-
-  return &newellipse->element.object;
 }
 
 static void

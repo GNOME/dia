@@ -95,8 +95,8 @@ static Object *message_load(ObjectNode obj_node, int version,
 			    const char *filename);
 
 static PropDescription *message_describe_props(Message *mes);
-static void message_get_props(Message * message, Property *props, guint nprops);
-static void message_set_props(Message *message, Property *props, guint nprops);
+static void message_get_props(Message * message, GPtrArray *props);
+static void message_set_props(Message *message, GPtrArray *props);
 
 static ObjectTypeOps message_type_ops =
 {
@@ -171,17 +171,17 @@ static PropOffset message_offsets[] = {
 };
 
 static void
-message_get_props(Message * message, Property *props, guint nprops)
+message_get_props(Message * message, GPtrArray *props)
 {
   object_get_props_from_offsets(&message->connection.object, 
-                                message_offsets, props, nprops);
+                                message_offsets, props);
 }
 
 static void
-message_set_props(Message *message, Property *props, guint nprops)
+message_set_props(Message *message, GPtrArray *props)
 {
   object_set_props_from_offsets(&message->connection.object, 
-                                message_offsets, props, nprops);
+                                message_offsets, props);
   message_update_data(message);
 }
 

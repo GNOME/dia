@@ -289,6 +289,33 @@ AC_C_CONST
 dnl Checks for library functions.
 AC_CHECK_FUNCS(select strcspn strdup strtol snprintf)
 
+dnl Set some variables we'll need for the UTF-8 transition.
+gtk_advancement=initial
+
+if $gtk_advancement=initial ; then
+   AC_DEFINE(GTK_DOESNT_SPEAK_UTF8_NEITHER_DO_WE,,
+          We haven't begun the transition yet)
+elif $gtk_advancement=dia_talks_utf8 ; then
+   AC_DEFINE(UNICODE_WORK_IN_PROGRESS,,Cyrille's work towards UTF-8)
+   AC_DEFINE(GTK_DOESNT_TALK_UTF8_WE_DO,,...)
+   AC_DEFINE(GTK_CHARSET_MISMATCH,,     
+             Mismatch between the charset dia uses and the charset GTK uses)
+elif $gtk_advancement=dia_under_win32 ; then
+   dnl please check this with Hans. I believe this is true -- CC
+   AC_DEFINE(GTK_TALKS_UTF8,,...)
+   AC_DEFINE(GTK_TALKS_UTF8_WE_DONT,,...)
+   AC_DEFINE(GTK_CHARSET_MISMATCH,,     
+             Mismatch between the charset dia uses and the charset GTK uses)
+elif $gtk_advancement=gtk2 ; then
+   AC_DEFINE(GTK_TALKS_UTF8,,...)
+   AC_DEFINE(UNICODE_WORK_IN_PROGRESS,,Cyrille's work towards UTF-8)
+   dnl the latter shouldn't appear anymore by then (manually compiled)
+fi
+
+dnl Solaris provides isinf() in -lsunmath and defines finite() in math.h
+  AC_CHECK_HEADERS(ieeefp.h sunmath.h)
+  AC_CHECK_LIB(sunmath,isinf)
+
 dnl Alpha needs -mieee or we get a segfault
 dnl This shouldn't be needed but is here until a real solution is found
 case "$host" in

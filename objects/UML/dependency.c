@@ -80,8 +80,8 @@ static DiaMenu *dependency_get_object_menu(Dependency *dep,
 static Object *dependency_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *dependency_describe_props(Dependency *dependency);
-static void dependency_get_props(Dependency * dependency, Property *props, guint nprops);
-static void dependency_set_props(Dependency * dependency, Property *props, guint nprops);
+static void dependency_get_props(Dependency * dependency, GPtrArray *props);
+static void dependency_set_props(Dependency * dependency, GPtrArray *props);
 
 static void dependency_update_data(Dependency *dep);
 
@@ -145,17 +145,17 @@ static PropOffset dependency_offsets[] = {
 };
 
 static void
-dependency_get_props(Dependency * dependency, Property *props, guint nprops)
+dependency_get_props(Dependency * dependency, GPtrArray *props)
 {
   object_get_props_from_offsets(&dependency->orth.object,
-                                dependency_offsets,props,nprops);
+                                dependency_offsets,props);
 }
 
 static void
-dependency_set_props(Dependency *dependency, Property *props, guint nprops)
+dependency_set_props(Dependency *dependency, GPtrArray *props)
 {
   object_set_props_from_offsets(&dependency->orth.object, 
-                                dependency_offsets, props, nprops);
+                                dependency_offsets, props);
   g_free(dependency->st_stereotype);
   dependency->st_stereotype = NULL;
   dependency_update_data(dependency);

@@ -1,9 +1,10 @@
 /* Dia -- a diagram creation/manipulation program -*- c -*-
  * Copyright (C) 1998 Alexander Larsson
  *
- * properties.h: property system for dia objects/shapes.
+ * Property system for dia objects/shapes.
  * Copyright (C) 2000 James Henstridge
  * Copyright (C) 2001 Cyrille Chepelov
+ * Major restructuration done in August 2001 by C. Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,10 +24,26 @@
 #ifndef LIB_PROPERTIES_H
 #define LIB_PROPERTIES_H
 
-#include <gtk/gtk.h>
+#ifndef WIDGET
+#ifdef GTK_WIDGET
+#define WIDGET GtkWidget
+#else
+#define WIDGET void
+#endif
+#endif 
+
+typedef struct _PropDescription PropDescription;
+typedef struct _Property Property;
+typedef struct _PropEventData PropEventData;
+typedef struct _PropDialog PropDialog;
+typedef struct _PropEventHandlerChain PropEventHandlerChain;
+typedef struct _PropWidgetAssoc PropWidgetAssoc;
+
 #ifdef HAVE_STDDEF_H
 #include <stddef.h>
 #endif
+
+#include <glib.h>
 
 #include "geometry.h"
 #include "render.h"
@@ -39,27 +56,36 @@
 #include "textattr.h"
 #include "charconv.h"
 
-#ifndef _prop_typedefs_defined
-#define _prop_typedefs_defined
-typedef struct _PropDescription PropDescription;
-typedef struct _Property Property;
-typedef struct _PropEventData PropEventData;
-typedef struct _PropDialogData PropDialogData;
-typedef struct _PropEventHandlerChain PropEventHandlerChain;
-#endif
 
-struct _PropDialogData {
-  Property *props; /* array of Property */
-  guint nprops; /* number of properties */
-  GtkWidget *dialog; /* widget of self */
-  GtkWidget **widgets; /* all these widgets */
+typedef gboolean (*PropDescToPropPredicate)(const PropDescription *pdesc);
+
+struct _PropWidgetAssoc {
+  Property *prop;
+  WIDGET *widget;
+};
+
+struct _PropDialog { /* This is to be treated as opaque ! */
+  WIDGET *widget; /* widget of self */
+
+  GPtrArray *props; /* of Property * */
+  GArray *prop_widgets; /* of PropWidgetAssoc. This is a "flat" listing of 
+                           properties and widgets (no nesting information is 
+                           kept here) */
   Object *obj_copy; /* if !NULL, a copy of the object which can be used 
                        as scratch. */
+  Object *orig_obj; /* The original object (do not touch !) */
+
+  GPtrArray *containers;
+  WIDGET *lastcont;
+  WIDGET *curtable;
+  guint currow;
 };
 
 struct _PropEventData {
-  PropDialogData *dialog;
-  guint index;   /* this property is dialog->props[index] */
+  PropDialog *dialog;
+  guint my_index; /* in dialog->propwidgets */
+  WIDGET *widget;
+  Property *self; 
 };
 
 typedef gboolean (*PropEventHandler) (Object *obj, Property *prop);
@@ -69,54 +95,117 @@ struct _PropEventHandlerChain {
   PropEventHandlerChain *chain;
 };
 
-typedef enum {
-  PROP_TYPE_INVALID = 0,
-  PROP_TYPE_CHAR,
-  PROP_TYPE_BOOL,
-  PROP_TYPE_INT,
-  PROP_TYPE_INTARRAY,
-  PROP_TYPE_ENUM,
-  PROP_TYPE_ENUMARRAY,
-  PROP_TYPE_HANDLEARRAY,
-  PROP_TYPE_REAL,
-  PROP_TYPE_MULTISTRING, /* same as _STRING but with (gint)extra_data lines */
-  PROP_TYPE_STRING,
-  PROP_TYPE_POINT,
-  PROP_TYPE_POINTARRAY,
-  PROP_TYPE_BEZPOINT,
-  PROP_TYPE_BEZPOINTARRAY,
-  PROP_TYPE_RECT,
-  PROP_TYPE_LINESTYLE,
-  PROP_TYPE_ARROW,
-  PROP_TYPE_COLOUR,
-  PROP_TYPE_FONT,
-  PROP_TYPE_FILE,
-  PROP_TYPE_ENDPOINTS,
-  PROP_TYPE_CONNPOINT_LINE,
-  PROP_TYPE_TEXT, /* can't be visible */
+/* PropertyType operations : */
 
-  /* pure widgets (eye candy): */
-  PROP_TYPE_STATIC, /* tooltip is used as a (potentially big) static label */
-  PROP_TYPE_NOTEBOOK_BEGIN,
-  PROP_TYPE_NOTEBOOK_END,
-  PROP_TYPE_NOTEBOOK_PAGE,
-  PROP_TYPE_MULTICOL_BEGIN,
-  PROP_TYPE_MULTICOL_END,
-  PROP_TYPE_MULTICOL_COLUMN,
-  PROP_TYPE_FRAME_BEGIN,
-  PROP_TYPE_FRAME_END,
+/* allocate a new, empty property. */
+typedef Property * (*PropertyType_New) (const PropDescription *pdesc,
+                                    PropDescToPropPredicate reason);
+/* free the property -- must skip NULL values. */
+typedef void (* PropertyType_Free)(Property *prop);
+/* Copy the data member of the property. -- must skip NULL values. */
+typedef Property *(* PropertyType_Copy)(Property *src);
+/* Create a widget capable of editing the property. Add it to the last container (or
+   add/remove container levels). */
+typedef WIDGET *(* PropertyType_GetWidget)(Property *prop,
+                                       PropDialog *dialog);
 
-  /* a pure widget with event capability (obviously): */
-  PROP_TYPE_BUTTON, /* tooltip is the button's label. 
-                       Put an empty description. */
-  PROP_LAST
-} PropType;
+/* Get the value of the property into the widget */
+typedef void (* PropertyType_ResetWidget)(const Property *prop, WIDGET *widget);
+/* Set the value of the property from the current value of the widget */
+typedef void (* PropertyType_SetFromWidget)(Property *prop, WIDGET *widget);
+/* load/save a property */
+typedef void (*PropertyType_Load)(Property *prop, AttributeNode attr, DataNode data);
+typedef void (*PropertyType_Save)(Property *prop, AttributeNode attr);
 
-#define PROP_IS_OTHER(ptype) ((ptype) >= PROP_LAST)
+/* If a property descriptor can be merged with another 
+   (DONT_MERGE has already been handled) */
+typedef gboolean (*PropertyType_CanMerge)(const PropDescription *pd1,const PropDescription *pd2);
+typedef void (*PropertyType_GetFromOffset)(const Property *prop,
+                                         void *base, guint offset, guint offset2);
+typedef void (*PropertyType_SetFromOffset)(Property *prop,
+                                         void *base, guint offset, guint offset2);
+
+typedef struct _PropertyOps PropertyOps; 
+
+struct _PropertyOps {
+  PropertyType_New  new_prop;
+  PropertyType_Free free;
+  PropertyType_Copy copy;
+  PropertyType_Load load;
+  PropertyType_Save save;
+  PropertyType_GetWidget get_widget;
+  PropertyType_ResetWidget reset_widget;
+  PropertyType_SetFromWidget set_from_widget;
+
+  PropertyType_CanMerge can_merge;
+  
+  PropertyType_GetFromOffset get_from_offset;
+  PropertyType_SetFromOffset set_from_offset;
+};
+
+typedef const gchar *PropertyType;
+
+/* Basic types (can be used as building blocks) : */
+#define PROP_TYPE_INVALID "invalid"
+#define PROP_TYPE_NOOP "noop"
+#define PROP_TYPE_UNIMPLEMENTED "unimplemented"
+
+/* Integral types : */
+#define PROP_TYPE_CHAR "char"
+#define PROP_TYPE_BOOL "bool"
+#define PROP_TYPE_INT "int"
+#define PROP_TYPE_INTARRAY "intarray"
+#define PROP_TYPE_ENUM "enum"
+#define PROP_TYPE_ENUMARRAY "enumarray"
+
+/* Text types : */
+#define PROP_TYPE_MULTISTRING "multistring" /* same as STRING but with 
+                                              (gint)extra_data lines*/
+#define PROP_TYPE_STRING "string"
+#define PROP_TYPE_FILE "file"
+#define PROP_TYPE_TEXT "text" /* can't be visible */
+
+/* Geometric types : */
+#define PROP_TYPE_REAL "real"
+#define PROP_TYPE_POINT "point"
+#define PROP_TYPE_POINTARRAY "pointarray"
+#define PROP_TYPE_BEZPOINT "bezpoint"
+#define PROP_TYPE_BEZPOINTARRAY "bezpointarray"
+#define PROP_TYPE_RECT "rect"
+#define PROP_TYPE_ENDPOINTS "endpoints"
+#define PROP_TYPE_CONNPOINT_LINE "connpoint_line"
+
+/* Attribute types : */
+#define PROP_TYPE_LINESTYLE "linestyle"
+#define PROP_TYPE_ARROW "arrow"
+#define PROP_TYPE_COLOUR "colour"
+#define PROP_TYPE_FONT "font"
+
+/* Widget types : */
+#define PROP_TYPE_STATIC "static" /* tooltip is used as a (potentially big) 
+                                      static label*/
+#define PROP_TYPE_BUTTON "button" /* tooltip is the button's label. 
+                                         Put an empty description. */
+#define PROP_TYPE_NOTEBOOK_BEGIN "nb_begin"
+#define PROP_TYPE_NOTEBOOK_END "nb_end"
+#define PROP_TYPE_NOTEBOOK_PAGE "nb_page"
+#define PROP_TYPE_MULTICOL_BEGIN "mc_begin"
+#define PROP_TYPE_MULTICOL_END "mc_end"
+#define PROP_TYPE_MULTICOL_COLUMN "mc_col"
+#define PROP_TYPE_FRAME_BEGIN "f_begin"
+#define PROP_TYPE_FRAME_END "f_end"
+#define PROP_TYPE_LIST "list" /* offset is a GPtrArray of (const gchar *).
+                                 offset2 is a gint, index of the 
+                                 active item, -1 if none active. */
+/* Special types : */
+#define PROP_TYPE_SARRAY "sarray"
+#define PROP_TYPE_DARRAY "darray"
+
+/* **************************************************************** */
 
 struct _PropDescription {
   const gchar *name;
-  PropType type;
+  PropertyType type;
   guint flags;
   const gchar *description;
   const gchar *tooltip;
@@ -137,6 +226,8 @@ struct _PropDescription {
 
   /* only used by dynamically constructed property descriptors (eg. groups) */ 
   PropEventHandlerChain chain_handler;
+
+  const PropertyOps *ops;      
 };
 
 #define PROP_FLAG_VISIBLE   0x0001
@@ -144,54 +235,6 @@ struct _PropDescription {
 #define PROP_FLAG_DONT_MERGE 0x0004 /* in case group properties are edited */
 
 #define PROP_DESC_END { NULL, 0, 0, NULL, NULL, NULL, 0 }
-
-struct _Property {
-  const gchar *name;
-  PropType type;
-  const PropDescription *descr;
-  gpointer extra_data;
-  PropEventData self;
-  PropEventHandler event_handler;
-  union {
-    unichar char_data;
-    gboolean bool_data;
-    gint int_data;
-    struct {
-      gint *vals;
-      guint nvals;
-    } intarray_data;
-    real real_data;
-    utfchar *string_data; /* malloc'd string owned by Property structure */
-    Point point_data;
-    struct {
-      Point *pts;
-      guint npts;
-    } ptarray_data;
-    BezPoint bpoint_data;
-    struct {
-      BezPoint *pts;
-      guint npts;
-    } bptarray_data;
-    Rectangle rect_data;
-    struct {
-      LineStyle style;
-      real dash;
-    } linestyle_data;
-    Arrow arrow_data;
-    Color colour_data;
-    DiaFont *font_data;
-    struct {
-      Point endpoints[2];
-    } endpoints_data;
-    gint connpoint_line_data;
-    struct {
-      utfchar *string; /* malloc'd string owned by Property structure */
-      TextAttributes attr;
-      gboolean enabled;
-    } text_data;
-    gpointer other_data;
-  } d;
-};
 
 /* extra data pointers for various property types */
 typedef struct _PropNumData PropNumData;
@@ -204,84 +247,69 @@ struct _PropEnumData {
   guint enumv;
 };
 
-#define PROP_VALUE_CHAR(prop)          ((prop).d.char_data)
-#define PROP_VALUE_BOOL(prop)          ((prop).d.bool_data)
-#define PROP_VALUE_INT(prop)           ((prop).d.int_data)
-#define PROP_VALUE_INTARRAY(prop)      ((prop).d.intarray_data)
-#define PROP_VALUE_ENUM(prop)          ((prop).d.int_data)
-#define PROP_VALUE_ENUMARRAY(prop)     ((prop).d.intarray_data)
-#define PROP_VALUE_REAL(prop)          ((prop).d.real_data)
-#define PROP_VALUE_STRING(prop)        ((prop).d.string_data)
-#define PROP_VALUE_POINT(prop)         ((prop).d.point_data)
-#define PROP_VALUE_POINTARRAY(prop)    ((prop).d.ptarray_data)
-#define PROP_VALUE_BEZPOINT(prop)      ((prop).d.bpoint_data)
-#define PROP_VALUE_BEZPOINTARRAY(prop) ((prop).d.bptarray_data)
-#define PROP_VALUE_RECT(prop)          ((prop).d.rect_data)
-#define PROP_VALUE_LINESTYLE(prop)     ((prop).d.linestyle_data)
-#define PROP_VALUE_ARROW(prop)         ((prop).d.arrow_data)
-#define PROP_VALUE_COLOUR(prop)        ((prop).d.colour_data)
-#define PROP_VALUE_FONT(prop)          ((prop).d.font_data)
-#define PROP_VALUE_FILE(prop)          ((prop).d.string_data)
-#define PROP_VALUE_OTHER(prop)         ((prop).d.other_data)
-#define PROP_VALUE_ENDPOINTS(prop)     ((prop).d.endpoints_data)
-#define PROP_VALUE_CONNPOINT_LINE(prop) ((prop).d.connpoint_line_data)
-#define PROP_VALUE_TEXT(prop)          ((prop).d.text_data)
+typedef gpointer (*NewRecordFunc)(void);
+typedef void (*FreeRecordFunc)(gpointer rec);
 
-/* Copy the data member of the property
- * If NULL, then just copy data member straight */
-typedef void (* PropType_Copy)(Property *dest, Property *src);
-/* free the data member of the property -- must handle NULL values
- * If NULL, don't do anything special to free value */
-typedef void (* PropType_Free)(Property *prop);
-/* Create a widget capable of editing the property */
-typedef GtkWidget *(* PropType_GetWidget)(const Property *prop);
-/* Get the value of the property into the widget */
-typedef void (* PropType_GetProp)(const Property *prop, GtkWidget *widget);
-/* Set the value of the property from the current value of the widget */
-typedef void (* PropType_SetProp)(Property *prop, GtkWidget *widget);
-/* load/save a property */
-typedef void (*PropType_Load)(Property *prop, ObjectNode obj_node);
-typedef void (*PropType_Save)(Property *prop, ObjectNode obj_node);
+typedef struct _PropDescCommonArrayExtra PropDescCommonArrayExtra;
+struct _PropDescCommonArrayExtra { /* don't use this directly. 
+                                      Use one of below */
+  PropDescription *record;
+  const gchar *composite_type; /* can be NULL. */ 
+};
 
-PropType prop_type_register(const gchar *name, PropType_Copy cfunc,
-			    PropType_Free ffunc, PropType_GetWidget wfunc,
-			    PropType_GetProp gfunc,
-                            PropType_SetProp sfunc,
-			    PropType_Load loadfunc, PropType_Save savefunc);
+typedef struct _PropDescDArrayExtra PropDescDArrayExtra;
+struct _PropDescDArrayExtra {
+  PropDescCommonArrayExtra common; /* must be first */
+  NewRecordFunc newrec;        
+  FreeRecordFunc freerec; 
+};
 
-G_INLINE_FUNC void prop_desc_list_calculate_quarks(PropDescription *plist);
-#ifdef G_CAN_INLINE
-G_INLINE_FUNC void
-prop_desc_list_calculate_quarks(PropDescription *plist)
-{
-  gint i = 0;
-  while (plist[i].name != NULL) {
-    if (plist[i].quark == 0)
-      plist[i].quark = g_quark_from_static_string(plist[i].name);
-    i++;
-  }
-}
-#endif
+typedef struct _PropDescSArrayExtra PropDescSArrayExtra;
+struct  _PropDescSArrayExtra {
+  PropDescCommonArrayExtra common; /* must be first */
+  guint element_size;  /* sizeof(record) */
+  guint array_len;
+};
 
+
+/* ******************* */
+/* The Property itself */
+/* ******************* */ 
+struct _Property {
+  const gchar *name;
+  GQuark name_quark; 
+  PropertyType type;
+  const PropDescription *descr;
+  gpointer extra_data;
+  PropEventData self;
+  PropEventHandler event_handler;
+  PropDescToPropPredicate reason; /* why has this property been created from
+                                     the pdesc ? */
+  guint experience;       /* flags PXP_.... */
+ 
+  const PropertyOps *ops;       /* points to common_prop_ops */
+  const PropertyOps *real_ops;  /* == descr->ops */
+};
+
+/* prop->experience flags */
+#define PXP_COPIED           0x00000001  /* has been copied */
+#define PXP_COPY             0x00000002  /* is a copy */
+#define PXP_GET_WIDGET       0x00000004
+#define PXP_RESET_WIDGET     0x00000008
+#define PXP_SET_FROM_WIDGET  0x00000010
+#define PXP_LOADED           0x00000020
+#define PXP_SAVED            0x00000040
+#define PXP_GFO              0x00000080
+#define PXP_SFO              0x00000100
+#define PXP_SHAMELESS        0xFFFFFFFF
+
+/* ***************************************************************** */
+/* Operations on property descriptors and property descriptor lists. */
+
+void prop_desc_list_calculate_quarks(PropDescription *plist);
 /* plist must have all quarks calculated in advance */
-G_INLINE_FUNC const PropDescription *
-prop_desc_list_find_prop(const PropDescription *plist, const gchar *name);
-#ifdef G_CAN_INLINE
-G_INLINE_FUNC const PropDescription *
-prop_desc_list_find_prop(const PropDescription *plist, const gchar *name)
-{
-  gint i = 0;
-  GQuark name_quark = g_quark_from_string(name);
-
-  while (plist[i].name != NULL) {
-    if (plist[i].quark == name_quark)
-      return &plist[i];
-    i++;
-  }
-  return NULL;
-}
-#endif
-
+const PropDescription *prop_desc_list_find_prop(const PropDescription *plist, 
+                                                const gchar *name);
 /* finds the real handler in case there are several levels of indirection */
 PropEventHandler prop_desc_find_real_handler(const PropDescription *pdesc);
 /* free a handler indirection list */
@@ -296,72 +324,41 @@ void prop_desc_insert_handler(PropDescription *pdesc,
 PropDescription *prop_desc_lists_union(GList *plists);
 PropDescription *prop_desc_lists_intersection(GList *plists);
 
-/* functions for manipulating an individual property structure */
-void       prop_copy(Property *dest, Property *src);
-void       prop_free(Property *prop);
-GtkWidget *prop_get_widget(const Property *prop); /* calls _reset_widget() */
-void       prop_reset_widget(const Property *prop, GtkWidget *widget);
-void       prop_set_from_widget(Property *prop, GtkWidget *widget);
-void       prop_load(Property *prop, ObjectNode obj_node);
-void       prop_save(Property *prop, ObjectNode obj_node);
 
-void       prop_list_free(Property *props, guint nprops);
+/* ********************************************* */
+/* Functions for dealing with the Type Registry  */
+void prop_type_register(PropertyType type, const PropertyOps *ops);
+const PropertyOps *prop_type_get_ops(PropertyType type);
 
-G_INLINE_FUNC Property *prop_list_from_matching_descs(
-		const PropDescription *plist, guint flags, guint *nprops);
-#ifdef G_CAN_INLINE
-G_INLINE_FUNC Property *
-prop_list_from_matching_descs(const PropDescription *plist, guint flags,
-			      guint *nprops)
-{
-  Property *ret;
-  guint count = 0, i;
+/* *********************************************************** */
+/* functions for manipulating a property array.                */
 
-  for (i = 0; plist[i].name != NULL; i++)
-    if ((plist[i].flags & flags) == flags)
-      count++;
+void       prop_list_free(GPtrArray *plist);
 
-  ret = g_new0(Property, count);
-  if (nprops) *nprops = count;
-  count = 0;
-  for (i = 0; plist[i].name != NULL; i++)
-    if ((plist[i].flags & flags) == flags) {
-      ret[count].name = plist[i].name;
-      ret[count].type = plist[i].type;
-      ret[count].extra_data = plist[i].extra_data;
-      count++;
-    }
-  return ret;
-}
-#endif
 
-G_INLINE_FUNC Property *prop_list_from_nonmatching_descs(
-		const PropDescription *plist, guint flags, guint *nprops);
-#ifdef G_CAN_INLINE
-G_INLINE_FUNC Property *
-prop_list_from_nonmatching_descs(const PropDescription *plist, guint flags,
-				 guint *nprops)
-{
-  Property *ret;
-  guint count = 0, i;
+/* copies the whole property structure, including the data. */
+GPtrArray *prop_list_copy(GPtrArray *plist);
+/* copies the whole property structure, excluding the data. */
+GPtrArray *prop_list_copy_empty(GPtrArray *plist);
+/* Appends copies of the properties in the second list to the first. */
+void prop_list_add_list (GPtrArray *props, const GPtrArray *ptoadd);
 
-  for (i = 0; plist[i].name != NULL; i++)
-    if ((plist[i].flags & flags) == 0)
-      count++;
+GPtrArray *prop_list_from_descs(const PropDescription *plist, 
+                                PropDescToPropPredicate pred);
+/* Create a new property of the required type, with the required name.
+   A PropDescription might be created on the fly. */
+Property *make_new_prop(const char *name, PropertyType type, guint flags);
 
-  ret = g_new0(Property, count);
-  if (nprops) *nprops = count;
-  count = 0;
-  for (i = 0; plist[i].name != NULL; i++)
-    if ((plist[i].flags & flags) == 0) {
-      ret[count].name = plist[i].name;
-      ret[count].type = plist[i].type;
-      ret[count].extra_data = plist[i].extra_data;
-      count++;
-    }
-  return ret;
-}
-#endif
+/* Some predicates: */
+gboolean pdtpp_true(const PropDescription *pdesc); /* always true */
+gboolean pdtpp_is_visible(const PropDescription *pdesc); 
+gboolean pdtpp_is_not_visible(const PropDescription *pdesc); 
+gboolean pdtpp_do_save(const PropDescription *pdesc); 
+gboolean pdtpp_do_not_save(const PropDescription *pdesc); 
+
+
+
+/* Offset to fields in objects */
 
 /* calculates the offset of a structure member within the structure */
 #ifndef offsetof
@@ -370,26 +367,36 @@ prop_list_from_nonmatching_descs(const PropDescription *plist, guint flags,
 typedef struct _PropOffset PropOffset;
 struct _PropOffset {
   const gchar *name;
-  PropType type;
+  PropertyType type;
   int offset;
   int offset2; /* maybe for point lists, etc */
   GQuark name_quark;
+  const PropertyOps *ops;
 };
 
-/* not guaranteed to handle all property types */
+/* ************************************************ */
+/* routines used by Objects or to deal with Objects */
+
+/* returns TRUE if this object can be handled (at least in part) through this
+   library. */
+gboolean object_complies_with_stdprop(const Object *obj);
+
+/* will do whatever is needed to make the PropDescription * list look good to 
+   the rest of the properties code. Can return NULL. */
+const PropDescription *object_get_prop_descriptions(const Object *obj);
+
 gboolean object_get_props_from_offsets(Object *obj, PropOffset *offsets,
-				       Property *props, guint nprops);
+				       GPtrArray *props);
 gboolean object_set_props_from_offsets(Object *obj, PropOffset *offsets,
-				       Property *props, guint nprops);
+				       GPtrArray *props);
 
 /* apply some properties and return a corresponding object change */
-ObjectChange *object_apply_props(Object *obj, Property *props, guint nprops);
+ObjectChange *object_apply_props(Object *obj, GPtrArray *props);
 
 /* standard properties dialogs that can be used for objects that
  * implement describe_props, get_props and set_props */
-GtkWidget    *object_create_props_dialog     (Object *obj);
-ObjectChange *object_apply_props_from_dialog (Object *obj, GtkWidget *table);
-const PropDescription *get_prop_descriptions(Object *obj);
+WIDGET *object_create_props_dialog     (Object *obj);
+ObjectChange *object_apply_props_from_dialog (Object *obj, WIDGET *dialog);
 
 /* standard way to load/save properties of an object */
 void          object_load_props(Object *obj, ObjectNode obj_node);
@@ -398,6 +405,12 @@ void          object_save_props(Object *obj, ObjectNode obj_node);
 /* standard way to copy the properties of an object into another (of the
    same type) */
 void          object_copy_props(Object *dest, Object *src);
+
+/* ************************************************************* */ 
+
+void stdprops_init(void);
+
+/* ************************************************************* */ 
 
 /* standard properties.  By using these, the intersection of the properties
  * of a number of objects should be greater, making setting properties on
@@ -453,6 +466,9 @@ extern PropEnumData prop_std_text_align_data[];
 
 #define PROP_STD_TEXT \
   { "text", PROP_TYPE_STRING, PROP_FLAG_DONT_SAVE, \
+    N_("Text"), NULL, NULL }
+#define PROP_STD_SAVED_TEXT \
+  { "text", PROP_TYPE_STRING, 0, \
     N_("Text"), NULL, NULL }
 #define PROP_STD_TEXT_ALIGNMENT \
   { "text_alignment", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, \

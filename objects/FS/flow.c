@@ -111,9 +111,9 @@ static Object *flow_load(ObjectNode obj_node, int version,
 			 const char *filename);
 static PropDescription *flow_describe_props(Flow *mes);
 static void
-flow_get_props(Flow * flow, Property *props, guint nprops);
+flow_get_props(Flow * flow, GPtrArray *props);
 static void
-flow_set_props(Flow * flow, Property *props, guint nprops);
+flow_set_props(Flow * flow, GPtrArray *props);
 static DiaMenu *flow_get_object_menu(Flow *flow, Point *clickedpoint) ;
 
 
@@ -180,17 +180,17 @@ static PropOffset flow_offsets[] = {
 };
 
 static void
-flow_get_props(Flow * flow, Property *props, guint nprops)
+flow_get_props(Flow * flow, GPtrArray *props)
 {
   object_get_props_from_offsets(&flow->connection.object, 
-                                flow_offsets, props, nprops);
+                                flow_offsets, props);
 }
 
 static void
-flow_set_props(Flow *flow, Property *props, guint nprops)
+flow_set_props(Flow *flow, GPtrArray *props)
 {
   object_set_props_from_offsets(&flow->connection.object, 
-                                flow_offsets, props, nprops);
+                                flow_offsets, props);
   flow_update_data(flow);
 }
 

@@ -542,7 +542,7 @@ static void convert_to_hex(float x, char *str)
 }
 
 void
-data_add_color(AttributeNode attr, Color *col)
+data_add_color(AttributeNode attr, const Color *col)
 {
   char buffer[1+6+1];
   DataNode data_node;
@@ -558,7 +558,7 @@ data_add_color(AttributeNode attr, Color *col)
 }
 
 void
-data_add_point(AttributeNode attr, Point *point)
+data_add_point(AttributeNode attr, const Point *point)
 {
   DataNode data_node;
   char buffer[80+1]; /* Large enought? */
@@ -573,10 +573,10 @@ data_add_point(AttributeNode attr, Point *point)
 }
 
 void
-data_add_rectangle(AttributeNode attr, Rectangle *rect)
+data_add_rectangle(AttributeNode attr, const Rectangle *rect)
 {
   DataNode data_node;
-  char buffer[160+1]; /* Large enought? */
+  char buffer[160+1]; /* Large enough? */
   char *old_locale;
 
   old_locale = setlocale(LC_NUMERIC, "C");
@@ -591,7 +591,7 @@ data_add_rectangle(AttributeNode attr, Rectangle *rect)
 }
 
 static int
-escaped_str_len(char *str)
+escaped_str_len(const char *str)
 {
   int len;
   char c;
@@ -619,7 +619,7 @@ escaped_str_len(char *str)
 }
 
 static void
-escape_string(char *buffer, char *str)
+escape_string(char *buffer, const char *str)
 {
   int len;
   char c;
@@ -654,7 +654,7 @@ escape_string(char *buffer, char *str)
 }
 
 void
-data_add_string(AttributeNode attr, char *str)
+data_add_string(AttributeNode attr, const char *str)
 {
   DataNode data_node;
   char *escaped_str;
@@ -676,7 +676,7 @@ data_add_string(AttributeNode attr, char *str)
 }
 
 void
-data_add_font(AttributeNode attr, DiaFont *font)
+data_add_font(AttributeNode attr, const DiaFont *font)
 {
   DataNode data_node;
  
@@ -685,7 +685,7 @@ data_add_font(AttributeNode attr, DiaFont *font)
 }
 
 DataNode
-data_add_composite(AttributeNode attr, char *type) 
+data_add_composite(AttributeNode attr, const char *type) 
 {
   /* type can be NULL */
   DataNode data_node;

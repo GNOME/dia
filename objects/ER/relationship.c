@@ -91,9 +91,9 @@ static Object *relationship_load(ObjectNode obj_node, int version,
 static PropDescription *
 relationship_describe_props(Relationship *relationship);
 static void
-relationship_get_props(Relationship *relationship, Property *props, guint nprops);
+relationship_get_props(Relationship *relationship, GPtrArray *props);
 static void
-relationship_set_props(Relationship *relationship, Property *props, guint nprops);
+relationship_set_props(Relationship *relationship, GPtrArray *props);
 
 static ObjectTypeOps relationship_type_ops =
 {
@@ -170,17 +170,17 @@ static PropOffset relationship_offsets[] = {
 
 
 static void
-relationship_get_props(Relationship *relationship, Property *props, guint nprops)
+relationship_get_props(Relationship *relationship, GPtrArray *props)
 {
   object_get_props_from_offsets(&relationship->element.object, 
-                                relationship_offsets, props, nprops);
+                                relationship_offsets, props);
 }
 
 static void
-relationship_set_props(Relationship *relationship, Property *props, guint nprops)
+relationship_set_props(Relationship *relationship, GPtrArray *props)
 {
   object_set_props_from_offsets(&relationship->element.object, 
-                                relationship_offsets, props, nprops);
+                                relationship_offsets, props);
   relationship_update_data(relationship);
 }
 

@@ -52,8 +52,8 @@ static void group_update_handles(Group *group);
 static void group_destroy(Group *group);
 static Object *group_copy(Group *group);
 static const PropDescription *group_describe_props(Group *group);
-static void group_get_props(Group *group, Property *props, guint nprops);
-static void group_set_props(Group *group, Property *props, guint nprops);
+static void group_get_props(Group *group, GPtrArray *props);
+static void group_set_props(Group *group, GPtrArray *props);
 
 static ObjectOps group_ops = {
   (DestroyFunc)         group_destroy,
@@ -398,13 +398,12 @@ group_describe_props(Group *group)
       const PropDescription *desc = NULL;
       Object *obj = tmp->data;
 
-      if (obj->ops->describe_props)
-	desc = obj->ops->describe_props(obj);
-      if (desc)
-	descs = g_list_append(descs, (gpointer)desc);
+      desc = object_get_prop_descriptions(obj);
+
+      if (desc) descs = g_list_append(descs, (gpointer)desc);
     }
     group->pdesc = prop_desc_lists_intersection(descs);
-    g_list_free(descs);
+    g_list_free(descs); /* XXX: haven't we got a leak here ? */
 
     if (group->pdesc != NULL) {
       /* hijack event delivery */
@@ -420,7 +419,7 @@ group_describe_props(Group *group)
 }
 
 static void
-group_get_props(Group *group, Property *props, guint nprops)
+group_get_props(Group *group, GPtrArray *props)
 {
   GList *tmp;
 
@@ -428,30 +427,21 @@ group_get_props(Group *group, Property *props, guint nprops)
     Object *obj = tmp->data;
 
     if (obj->ops->get_props) {
-      guint i;
-
-      obj->ops->get_props(obj, props, nprops);
-
-      /* Check to see if all props have been read.
-       * Alternate method is to just iterate over all objects. */
-      for (i = 0; i < nprops; i++)
-	if (props[i].type == PROP_TYPE_INVALID)
-	  break;
-      if (i == nprops)
-	break;
+      obj->ops->get_props(obj, props);
     }
   }
 }
 
 static void
-group_set_props(Group *group, Property *props, guint nprops)
+group_set_props(Group *group, GPtrArray *props)
 {
   GList *tmp;
 
   for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
     Object *obj = tmp->data;
 
-    if (obj->ops->set_props)
-      obj->ops->set_props(obj, props, nprops);
+    if (obj->ops->set_props) {
+      obj->ops->set_props(obj, props);
+    }
   }
 }

@@ -78,10 +78,8 @@ static void entity_destroy(Entity *entity);
 static Object *entity_copy(Entity *entity);
 static PropDescription *
 entity_describe_props(Entity *entity);
-static void
-entity_get_props(Entity *entity, Property *props, guint nprops);
-static void
-entity_set_props(Entity *entity, Property *props, guint nprops);
+static void entity_get_props(Entity *entity, GPtrArray *props);
+static void entity_set_props(Entity *entity, GPtrArray *props);
 
 static void entity_save(Entity *entity, ObjectNode obj_node,
 			const char *filename);
@@ -154,17 +152,17 @@ static PropOffset entity_offsets[] = {
 
 
 static void
-entity_get_props(Entity *entity, Property *props, guint nprops)
+entity_get_props(Entity *entity, GPtrArray *props)
 {
   object_get_props_from_offsets(&entity->element.object, 
-                                entity_offsets, props, nprops);
+                                entity_offsets, props);
 }
 
 static void
-entity_set_props(Entity *entity, Property *props, guint nprops)
+entity_set_props(Entity *entity, GPtrArray *props)
 {
   object_set_props_from_offsets(&entity->element.object, 
-                                entity_offsets, props, nprops);
+                                entity_offsets, props);
   entity_update_data(entity);
 }
 

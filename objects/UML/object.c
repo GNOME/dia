@@ -84,8 +84,8 @@ static void objet_destroy(Objet *ob);
 static Object *objet_load(ObjectNode obj_node, int version,
 			  const char *filename);
 static PropDescription *objet_describe_props(Objet *objet);
-static void objet_get_props(Objet *objet, Property *props, guint nprops);
-static void objet_set_props(Objet *objet, Property *props, guint nprops);
+static void objet_get_props(Objet *objet, GPtrArray *props);
+static void objet_set_props(Objet *objet, GPtrArray *props);
 static void objet_update_data(Objet *ob);
 
 static ObjectTypeOps objet_type_ops =
@@ -177,23 +177,21 @@ static PropOffset objet_offsets[] = {
 };
 
 static void
-objet_get_props(Objet * objet, Property *props, guint nprops)
+objet_get_props(Objet * objet, GPtrArray *props)
 {
   if (objet->attrib) g_free(objet->attrib);
   objet->attrib = text_get_string_copy(objet->attributes);
 
   object_get_props_from_offsets(&objet->element.object,
-                                objet_offsets,props,nprops);
+                                objet_offsets,props);
 }
 
 static void
-objet_set_props(Objet *objet, Property *props, guint nprops)
+objet_set_props(Objet *objet, GPtrArray *props)
 {
   object_set_props_from_offsets(&objet->element.object,
-                                objet_offsets,props,nprops);
-  apply_textstr_properties(props,nprops,
-                           objet->attributes,"attrib",
-                           objet->attrib);
+                                objet_offsets,props);
+  apply_textstr_properties(props,objet->attributes,"attrib",objet->attrib);
   g_free(objet->st_stereotype);
   objet->st_stereotype = NULL;
   objet_update_data(objet);

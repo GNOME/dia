@@ -96,8 +96,8 @@ static void box_destroy(Box *box);
 static Object *box_copy(Box *box);
 
 static PropDescription *box_describe_props(Box *box);
-static void box_get_props(Box *box, Property *props, guint nprops);
-static void box_set_props(Box *box, Property *props, guint nprops);
+static void box_get_props(Box *box, GPtrArray *props);
+static void box_set_props(Box *box, GPtrArray *props);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
 static Object *box_load(ObjectNode obj_node, int version, const char *filename);
@@ -175,17 +175,17 @@ static PropOffset box_offsets[] = {
 };
 
 static void
-box_get_props(Box *box, Property *props, guint nprops)
+box_get_props(Box *box, GPtrArray *props)
 {
   object_get_props_from_offsets(&box->element.object, 
-                                box_offsets, props, nprops);
+                                box_offsets, props);
 }
 
 static void
-box_set_props(Box *box, Property *props, guint nprops)
+box_set_props(Box *box, GPtrArray *props)
 {
   object_set_props_from_offsets(&box->element.object, 
-                                box_offsets, props, nprops);
+                                box_offsets, props);
   box_update_data(box);
 }
 

@@ -18,6 +18,7 @@
 #ifndef TEXT_H
 #define TEXT_H
 
+#include <glib.h>
 #include "textattr.h"
 #include "focus.h"
 #include "properties.h"
@@ -81,10 +82,10 @@ void text_set_attributes(Text *text, TextAttributes *attr);
 void data_add_text(AttributeNode attr, Text *text);
 Text *data_text(AttributeNode attr);
 
-gboolean apply_textattr_properties(Property *props, guint nprops,
+gboolean apply_textattr_properties(GPtrArray *props,
                                    Text *text, const gchar *textname,
                                    TextAttributes *attrs);
-gboolean apply_textstr_properties(Property *props, guint nprops,
+gboolean apply_textstr_properties(GPtrArray *props,
                                   Text *text, const gchar *textname,
                                   const gchar *str);
 #endif /* TEXT_H */

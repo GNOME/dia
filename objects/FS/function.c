@@ -94,9 +94,9 @@ static void function_update_data(Function *pkg);
 static DiaMenu *function_get_object_menu(Function *func, Point *clickedpoint) ;
 static PropDescription *function_describe_props(Function *mes);
 static void
-function_get_props(Function * function, Property *props, guint nprops);
+function_get_props(Function * function, GPtrArray *props);
 static void
-function_set_props(Function * function, Property *props, guint nprops);
+function_set_props(Function * function, GPtrArray *props);
 
 static ObjectTypeOps function_type_ops =
 {
@@ -156,17 +156,17 @@ static PropOffset function_offsets[] = {
 };
 
 static void
-function_get_props(Function * function, Property *props, guint nprops)
+function_get_props(Function * function, GPtrArray *props)
 {
   object_get_props_from_offsets(&function->element.object, 
-                                function_offsets, props, nprops);
+                                function_offsets, props);
 }
 
 static void
-function_set_props(Function *function, Property *props, guint nprops)
+function_set_props(Function *function, GPtrArray *props)
 {
   object_set_props_from_offsets(&function->element.object, 
-                                function_offsets, props, nprops);
+                                function_offsets, props);
   function_update_data(function);
 }
 

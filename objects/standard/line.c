@@ -68,8 +68,8 @@ static void line_destroy(Line *line);
 static Object *line_copy(Line *line);
 
 static PropDescription *line_describe_props(Line *line);
-static void line_get_props(Line *line, Property *props, guint nprops);
-static void line_set_props(Line *line, Property *props, guint nprops);
+static void line_get_props(Line *line, GPtrArray *props);
+static void line_set_props(Line *line, GPtrArray *props);
 
 static void line_save(Line *line, ObjectNode obj_node, const char *filename);
 static Object *line_load(ObjectNode obj_node, int version, const char *filename);
@@ -146,17 +146,17 @@ static PropOffset line_offsets[] = {
 };
 
 static void
-line_get_props(Line *line, Property *props, guint nprops)
+line_get_props(Line *line, GPtrArray *props)
 {
   object_get_props_from_offsets(&line->connection.object, 
-                                line_offsets, props, nprops);
+                                line_offsets, props);
 }
 
 static void
-line_set_props(Line *line, Property *props, guint nprops)
+line_set_props(Line *line, GPtrArray *props)
 {
   object_set_props_from_offsets(&line->connection.object, 
-                                line_offsets, props, nprops);
+                                line_offsets, props);
   line_update_data(line);
 }
 

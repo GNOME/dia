@@ -92,10 +92,8 @@ static Object *lifeline_load(ObjectNode obj_node, int version,
 			     const char *filename);
 static PropDescription *lifeline_describe_props(Lifeline *lifeline);
 
-static void lifeline_get_props(Lifeline * lifeline, Property *props, 
-			       guint nprops);
-static void lifeline_set_props(Lifeline * lifeline, Property *props,
-			       guint nprops);
+static void lifeline_get_props(Lifeline * lifeline, GPtrArray *props);
+static void lifeline_set_props(Lifeline * lifeline, GPtrArray *props);
 static DiaMenu *lifeline_get_object_menu(Lifeline *lifeline,
 					Point *clickedpoint);
 
@@ -169,17 +167,17 @@ static PropOffset lifeline_offsets[] = {
 };
 
 static void
-lifeline_get_props(Lifeline * lifeline, Property *props, guint nprops)
+lifeline_get_props(Lifeline * lifeline, GPtrArray *props)
 {
   object_get_props_from_offsets(&lifeline->connection.object, 
-                                lifeline_offsets, props, nprops);
+                                lifeline_offsets, props);
 }
 
 static void
-lifeline_set_props(Lifeline *lifeline, Property *props, guint nprops)
+lifeline_set_props(Lifeline *lifeline, GPtrArray *props)
 {
   object_set_props_from_offsets(&lifeline->connection.object, 
-                                lifeline_offsets, props, nprops);
+                                lifeline_offsets, props);
   lifeline_update_data(lifeline);
 }
 

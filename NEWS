@@ -20,11 +20,11 @@ dia-XXXX:  XX-XXX-2001
 
 * You need recent versions of the packages {jade, docbook,
   docbook-utils, docbook-dsssl, docbook-stylesheets,
-  cygnus-stylesheets, etc.} of the whole DocBook rendering system. The
-  exact names of the packages vary from system to system; this list is
-  only a starting point! If compiling the documentation fails, please
-  report on dia-list@gnome.org once you've found which packages to
-  install.
+  docbook-style-dsssl, gnome-doc-tools-2-0, cygnus-stylesheets, etc.}
+  of the whole DocBook rendering system. The exact names of the
+  packages vary from system to system; this list is only a starting
+  point! If compiling the documentation fails, please report on
+  dia-list@gnome.org once you've found which packages to install.
 
 * a few new shapes have been added.
 * crashes in the right-click menu have been nailed.

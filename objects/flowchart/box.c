@@ -66,6 +66,7 @@ struct _Box {
   real corner_radius;
 
   Text *text;
+  TextAttributes attrs;
   real padding;
 };
 
@@ -109,10 +110,9 @@ static Object *box_create(Point *startpoint,
 			  Handle **handle1,
 			  Handle **handle2);
 static void box_destroy(Box *box);
-static Object *box_copy(Box *box);
 static PropDescription *box_describe_props(Box *box);
-static void box_get_props(Box *box, Property *props, guint nprops);
-static void box_set_props(Box *box, Property *props, guint nprops);
+static void box_get_props(Box *box, GPtrArray *props);
+static void box_set_props(Box *box, GPtrArray *props);
 
 static void box_save(Box *box, ObjectNode obj_node, const char *filename);
 static Object *box_load(ObjectNode obj_node, int version, const char *filename);
@@ -142,7 +142,7 @@ static ObjectOps box_ops = {
   (DrawFunc)            box_draw,
   (DistanceFunc)        box_distance_from,
   (SelectFunc)          box_select,
-  (CopyFunc)            box_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            box_move,
   (MoveHandleFunc)      box_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -170,7 +170,7 @@ static PropDescription box_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  PROP_STD_TEXT,
+  PROP_STD_SAVED_TEXT,
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
 };
@@ -193,73 +193,27 @@ static PropOffset box_offsets[] = {
     offsetof(Box, line_style), offsetof(Box, dashlength) },
   { "corner_radius", PROP_TYPE_REAL, offsetof(Box, corner_radius) },
   { "padding", PROP_TYPE_REAL, offsetof(Box, padding) },
+  {"text",PROP_TYPE_TEXT,offsetof(Box,text)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Box,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(Box,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Box,attrs.color)},
   { NULL, 0, 0 },
 };
 
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" }
-};
-
 static void
-box_get_props(Box *box, Property *props, guint nprops)
+box_get_props(Box *box, GPtrArray *props)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&box->element.object, 
-                                    box_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = box->text->font;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = box->text->height;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = box->text->color;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(box->text);
-    }
-  }
+  text_get_attributes(box->text,&box->attrs);
+  object_get_props_from_offsets(&box->element.object,
+                                box_offsets,props);
 }
 
 static void
-box_set_props(Box *box, Property *props, guint nprops)
+box_set_props(Box *box, GPtrArray *props)
 {
-  if (!object_set_props_from_offsets(&box->element.object, 
-                                     box_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-	quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
-	text_set_font(box->text, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
-	text_set_height(box->text, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
-	text_set_color(box->text, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
-	text_set_string(box->text, PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
+  object_set_props_from_offsets(&box->element.object,
+                                box_offsets,props);
+  apply_textattr_properties(props,box->text,"text",&box->attrs);
   box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
@@ -743,6 +697,7 @@ box_create(Point *startpoint,
   p.y += elem->height / 2.0 + font_height / 2;
   box->text = new_text("", font, font_height, &p, &box->border_color,
 		       ALIGN_CENTER);
+  text_get_attributes(box->text,&box->attrs);
 
   element_init(elem, 8, 16);
 
@@ -767,44 +722,6 @@ box_destroy(Box *box)
   element_destroy(&box->element);
 }
 
-static Object *
-box_copy(Box *box)
-{
-  int i;
-  Box *newbox;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &box->element;
-  
-  newbox = g_malloc0(sizeof(Box));
-  newelem = &newbox->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-
-  newbox->border_width = box->border_width;
-  newbox->border_color = box->border_color;
-  newbox->inner_color = box->inner_color;
-  newbox->show_background = box->show_background;
-  newbox->line_style = box->line_style;
-  newbox->dashlength = box->dashlength;
-  newbox->corner_radius = box->corner_radius;
-  newbox->padding = box->padding;
-
-  newbox->text = text_copy(box->text);
-  
-  for (i=0;i<16;i++) {
-    newobj->connections[i] = &newbox->connections[i];
-    newbox->connections[i].object = newobj;
-    newbox->connections[i].connected = NULL;
-    newbox->connections[i].pos = box->connections[i].pos;
-    newbox->connections[i].last_pos = box->connections[i].last_pos;
-  }
-
-  return &newbox->element.object;
-}
-
 static void
 box_save(Box *box, ObjectNode obj_node, const char *filename)
 {
@@ -822,7 +739,8 @@ box_save(Box *box, ObjectNode obj_node, const char *filename)
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &box->inner_color);
   
-  data_add_boolean(new_attribute(obj_node, "show_background"), box->show_background);
+  data_add_boolean(new_attribute(obj_node, "show_background"), 
+                   box->show_background);
 
   if (box->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),

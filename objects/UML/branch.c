@@ -67,8 +67,8 @@ static Object *branch_load(ObjectNode obj_node, int version,
 			   const char *filename);
 
 static PropDescription *branch_describe_props(Branch *branch);
-static void branch_get_props(Branch *branch, Property *props, guint nprops);
-static void branch_set_props(Branch *branch, Property *props, guint nprops);
+static void branch_get_props(Branch *branch, GPtrArray *props);
+static void branch_set_props(Branch *branch, GPtrArray *props);
 
 static void branch_update_data(Branch *branch);
 
@@ -125,17 +125,17 @@ static PropOffset branch_offsets[] = {
 };
 
 static void
-branch_get_props(Branch * branch, Property *props, guint nprops)
+branch_get_props(Branch * branch, GPtrArray *props)
 {
   object_get_props_from_offsets(&branch->element.object, 
-                                branch_offsets, props, nprops);
+                                branch_offsets, props);
 }
 
 static void
-branch_set_props(Branch *branch, Property *props, guint nprops)
+branch_set_props(Branch *branch, GPtrArray *props)
 {
   object_set_props_from_offsets(&branch->element.object, 
-                                branch_offsets, props, nprops);
+                                branch_offsets, props);
   branch_update_data(branch);
 }
 

@@ -84,9 +84,9 @@ static Object *action_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *action_describe_props(Action *action);
 static void action_get_props(Action *action, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 static void action_set_props(Action *action, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 
 
 static ObjectTypeOps action_type_ops =
@@ -156,20 +156,19 @@ static PropOffset action_offsets[] = {
 };
 
 static void
-action_get_props(Action *action, Property *props, guint nprops)
+action_get_props(Action *action, GPtrArray *props)
 {  
   text_get_attributes(action->text,&action->attrs);
   object_get_props_from_offsets(&action->connection.object,
-                                action_offsets,props,nprops);
+                                action_offsets,props);
 }
 
 static void
-action_set_props(Action *action, Property *props, guint nprops)
+action_set_props(Action *action, GPtrArray *props)
 {
   object_set_props_from_offsets(&action->connection.object,
-                                action_offsets,props,nprops);
-  apply_textattr_properties(props,nprops,
-                            action->text,"text",&action->attrs);
+                                action_offsets,props);
+  apply_textattr_properties(props,action->text,"text",&action->attrs);
   action_update_data(action);
 }
 

@@ -92,8 +92,8 @@ static void ellipse_destroy(Ellipse *ellipse);
 static Object *ellipse_copy(Ellipse *ellipse);
 
 static PropDescription *ellipse_describe_props(Ellipse *ellipse);
-static void ellipse_get_props(Ellipse *ellipse, Property *props, guint nprops);
-static void ellipse_set_props(Ellipse *ellipse, Property *props, guint nprops);
+static void ellipse_get_props(Ellipse *ellipse, GPtrArray *props);
+static void ellipse_set_props(Ellipse *ellipse, GPtrArray *props);
 
 static void ellipse_save(Ellipse *ellipse, ObjectNode obj_node, const char *filename);
 static Object *ellipse_load(ObjectNode obj_node, int version, const char *filename);
@@ -166,17 +166,17 @@ static PropOffset ellipse_offsets[] = {
 };
 
 static void
-ellipse_get_props(Ellipse *ellipse, Property *props, guint nprops)
+ellipse_get_props(Ellipse *ellipse, GPtrArray *props)
 {
   object_get_props_from_offsets(&ellipse->element.object, 
-                                ellipse_offsets, props, nprops);
+                                ellipse_offsets, props);
 }
 
 static void
-ellipse_set_props(Ellipse *ellipse, Property *props, guint nprops)
+ellipse_set_props(Ellipse *ellipse, GPtrArray *props)
 {
   object_set_props_from_offsets(&ellipse->element.object, 
-                                ellipse_offsets, props, nprops);
+                                ellipse_offsets, props);
   ellipse_update_data(ellipse);
 }
 

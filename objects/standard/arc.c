@@ -78,8 +78,8 @@ static void arc_destroy(Arc *arc);
 static Object *arc_copy(Arc *arc);
 
 static PropDescription *arc_describe_props(Arc *arc);
-static void arc_get_props(Arc *arc, Property *props, guint nprops);
-static void arc_set_props(Arc *arc, Property *props, guint nprops);
+static void arc_get_props(Arc *arc, GPtrArray *props);
+static void arc_set_props(Arc *arc, GPtrArray *props);
 
 static void arc_save(Arc *arc, ObjectNode obj_node, const char *filename);
 static Object *arc_load(ObjectNode obj_node, int version, const char *filename);
@@ -157,17 +157,17 @@ static PropOffset arc_offsets[] = {
 };
 
 static void
-arc_get_props(Arc *arc, Property *props, guint nprops)
+arc_get_props(Arc *arc, GPtrArray *props)
 {
   object_get_props_from_offsets(&arc->connection.object, 
-                                arc_offsets, props, nprops);
+                                arc_offsets, props);
 }
 
 static void
-arc_set_props(Arc *arc, Property *props, guint nprops)
+arc_set_props(Arc *arc, GPtrArray *props)
 {
   object_set_props_from_offsets(&arc->connection.object, 
-                                arc_offsets, props, nprops);
+                                arc_offsets, props);
   arc_update_data(arc);
 }
 

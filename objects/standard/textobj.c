@@ -47,6 +47,7 @@ struct _Textobj {
   Handle text_handle;
 
   Text *text;
+  TextAttributes attrs;
 };
 
 typedef struct _TextobjProperties {
@@ -79,11 +80,10 @@ static Object *textobj_create(Point *startpoint,
 			      Handle **handle1,
 			      Handle **handle2);
 static void textobj_destroy(Textobj *textobj);
-static Object *textobj_copy(Textobj *textobj);
 
 static PropDescription *textobj_describe_props(Textobj *textobj);
-static void textobj_get_props(Textobj *textobj, Property *props, guint nprops);
-static void textobj_set_props(Textobj *textobj, Property *props, guint nprops);
+static void textobj_get_props(Textobj *textobj, GPtrArray *props);
+static void textobj_set_props(Textobj *textobj, GPtrArray *props);
 
 static void textobj_save(Textobj *textobj, ObjectNode obj_node,
 			 const char *filename);
@@ -117,7 +117,7 @@ static ObjectOps textobj_ops = {
   (DrawFunc)            textobj_draw,
   (DistanceFunc)        textobj_distance_from,
   (SelectFunc)          textobj_select,
-  (CopyFunc)            textobj_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            textobj_move,
   (MoveHandleFunc)      textobj_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -148,79 +148,26 @@ textobj_describe_props(Textobj *textobj)
 
 static PropOffset textobj_offsets[] = {
   OBJECT_COMMON_PROPERTIES_OFFSETS,
+  {"text",PROP_TYPE_TEXT,offsetof(Textobj,text)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Textobj,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(Textobj,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Textobj,attrs.color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Textobj,attrs.alignment)},
   { NULL, 0, 0 }
 };
 
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_alignment" },
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" }
-};
-
 static void
-textobj_get_props(Textobj *textobj, Property *props, guint nprops)
+textobj_get_props(Textobj *textobj, GPtrArray *props)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&textobj->object, textobj_offsets,
-				    props, nprops))
-    return;
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
- 
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_ENUM;
-      PROP_VALUE_ENUM(props[i]) = textobj->text->alignment;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = textobj->text->font;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = textobj->text->height;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = textobj->text->color;
-    } else if (pquark == quarks[4].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(textobj->text);
-    }
-  }
+  text_get_attributes(textobj->text,&textobj->attrs);
+  object_get_props_from_offsets(&textobj->object,textobj_offsets,props);
 }
 
 static void
-textobj_set_props(Textobj *textobj, Property *props, guint nprops)
+textobj_set_props(Textobj *textobj, GPtrArray *props)
 {
-  if (!object_set_props_from_offsets(&textobj->object, textobj_offsets,
-                                     props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-        quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_ENUM) {
-	text_set_alignment(textobj->text, PROP_VALUE_ENUM(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_FONT) {
-        text_set_font(textobj->text, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_REAL) {
-        text_set_height(textobj->text, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_COLOUR) {
-        text_set_color(textobj->text, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[4].q && props[i].type == PROP_TYPE_STRING) {
-        text_set_string(textobj->text, PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
+  object_set_props_from_offsets(&textobj->object,textobj_offsets,props);
+  apply_textattr_properties(props,textobj->text,"text",&textobj->attrs);
   textobj_update_data(textobj);
 }
 
@@ -383,7 +330,8 @@ textobj_create(Point *startpoint,
   attributes_get_default_font(&font, &font_height);
   textobj->text = new_text("", font, font_height,
 			   startpoint, &col, default_properties.alignment );
-  
+  text_get_attributes(textobj->text,&textobj->attrs);
+
   object_init(obj, 1, 0);
 
   obj->handles[0] = &textobj->text_handle;
@@ -404,29 +352,6 @@ textobj_destroy(Textobj *textobj)
 {
   text_destroy(textobj->text);
   object_destroy(&textobj->object);
-}
-
-static Object *
-textobj_copy(Textobj *textobj)
-{
-  Textobj *newtext;
-  Object *obj, *newobj;
-  
-  obj = &textobj->object;
-  
-  newtext = g_malloc0(sizeof(Textobj));
-  newobj = &newtext->object;
-
-  object_copy(obj, newobj);
-
-  newtext->text = text_copy(textobj->text);
-
-  newobj->handles[0] = &newtext->text_handle;
-  
-  newtext->text_handle = textobj->text_handle;
-  newtext->text_handle.connected_to = NULL;
-
-  return &newtext->object;
 }
 
 static void

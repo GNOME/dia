@@ -62,8 +62,8 @@ static Object *umlclass_load(ObjectNode obj_node, int version,
 			     const char *filename);
 
 static PropDescription *umlclass_describe_props(UMLClass *umlclass);
-static void umlclass_get_props(UMLClass *umlclass, Property *props, guint nprops);
-static void umlclass_set_props(UMLClass *umlclass, Property *props, guint nprops);
+static void umlclass_get_props(UMLClass *umlclass, GPtrArray *props);
+static void umlclass_set_props(UMLClass *umlclass, GPtrArray *props);
 
 static ObjectTypeOps umlclass_type_ops =
 {
@@ -151,17 +151,17 @@ static PropOffset umlclass_offsets[] = {
 };
 
 static void
-umlclass_get_props(UMLClass * umlclass, Property *props, guint nprops)
+umlclass_get_props(UMLClass * umlclass, GPtrArray *props)
 {
   object_get_props_from_offsets(&umlclass->element.object, 
-                                umlclass_offsets, props, nprops);
+                                umlclass_offsets, props);
 }
 
 static void
-umlclass_set_props(UMLClass *umlclass, Property *props, guint nprops)
+umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
 {
   object_set_props_from_offsets(&umlclass->element.object, umlclass_offsets,
-                                props, nprops);
+                                props);
   umlclass_update_data(umlclass);
 }
 

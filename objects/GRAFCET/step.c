@@ -104,9 +104,9 @@ static Object *step_load(ObjectNode obj_node, int version,
 			   const char *filename);
 static PropDescription *step_describe_props(Step *step);
 static void step_get_props(Step *step, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 static void step_set_props(Step *step, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 
 static ObjectTypeOps step_type_ops =
 {
@@ -193,17 +193,17 @@ static PropOffset step_offsets[] = {
 };
 
 static void
-step_get_props(Step *step, Property *props, guint nprops)
+step_get_props(Step *step, GPtrArray *props)
 {  
   object_get_props_from_offsets(&step->element.object,
-                                step_offsets,props,nprops);
+                                step_offsets,props);
 }
 
 static void
-step_set_props(Step *step, Property *props, guint nprops)
+step_set_props(Step *step, GPtrArray *props)
 {
   object_set_props_from_offsets(&step->element.object,
-                                step_offsets,props,nprops);
+                                step_offsets,props);
   step_been_renamed(step->id);
   step_update_data(step);
 }

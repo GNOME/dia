@@ -25,6 +25,7 @@
 
 #include <gdk/gdkkeysyms.h>
 
+#include "propinternals.h"
 #include "text.h"
 #include "message.h"
 
@@ -1056,23 +1057,15 @@ text_create_change(Text *text, enum change_type type,
 }
 
 gboolean 
-apply_textattr_properties(Property *props, guint nprops,
+apply_textattr_properties(GPtrArray *props,
                           Text *text, const gchar *textname,
                           TextAttributes *attrs)
 {
-  int i;
-  Property *textprop = NULL;
-  GQuark prop_quark = g_quark_from_string(textname);
+  TextProperty *textprop = 
+    (TextProperty *)find_prop_by_name_and_type(props,textname,PROP_TYPE_TEXT);
 
-  for (i=0;i<nprops;i++) {
-    if (!props[i].descr) continue;
-    if (props[i].descr->quark == prop_quark) {
-      textprop = &props[i];
-      break;
-    }
-  }
-
-  if ((!textprop) || (!PROP_VALUE_TEXT(*textprop).enabled)) {
+  if ((!textprop) || 
+      ((textprop->common.experience & (PXP_LOADED|PXP_SFO))==0 )) {
     /* most likely we're called after the dialog box has been applied */
     text_set_attributes(text,attrs);
     return TRUE; 
@@ -1081,23 +1074,15 @@ apply_textattr_properties(Property *props, guint nprops,
 }
 
 gboolean 
-apply_textstr_properties(Property *props, guint nprops,
+apply_textstr_properties(GPtrArray *props,
                          Text *text, const gchar *textname,
                          const gchar *str)
 {
-  int i;
-  Property *textprop = NULL;
-  GQuark prop_quark = g_quark_from_string(textname);
+  TextProperty *textprop = 
+    (TextProperty *)find_prop_by_name_and_type(props,textname,PROP_TYPE_TEXT);
 
-  for (i=0;i<nprops;i++) {
-    if (!props[i].descr) continue;
-    if (props[i].descr->quark == prop_quark) {
-      textprop = &props[i];
-      break;
-    }
-  }
-
-  if ((!textprop) || (!PROP_VALUE_TEXT(*textprop).enabled)) {
+  if ((!textprop) || 
+      ((textprop->common.experience & (PXP_LOADED|PXP_SFO))==0 )) {
     /* most likely we're called after the dialog box has been applied */
     text_set_string(text,str);
     return TRUE; 

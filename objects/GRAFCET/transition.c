@@ -93,9 +93,9 @@ static Object *transition_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *transition_describe_props(Transition *transition);
 static void transition_get_props(Transition *transition, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 static void transition_set_props(Transition *transition, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 
 static ObjectTypeOps transition_type_ops =
 {
@@ -169,17 +169,17 @@ static PropOffset transition_offsets[] = {
 };
 
 static void
-transition_get_props(Transition *transition, Property *props, guint nprops)
+transition_get_props(Transition *transition, GPtrArray *props)
 {  
   object_get_props_from_offsets(&transition->element.object,
-                                transition_offsets,props,nprops);
+                                transition_offsets,props);
 }
 
 static void
-transition_set_props(Transition *transition, Property *props, guint nprops)
+transition_set_props(Transition *transition, GPtrArray *props)
 {
   object_set_props_from_offsets(&transition->element.object,
-                                transition_offsets,props,nprops);
+                                transition_offsets,props);
 
   boolequation_set_value(transition->receptivity,transition->rcep_value);
   transition->receptivity->font = transition->rcep_font;

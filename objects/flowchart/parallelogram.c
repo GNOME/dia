@@ -67,6 +67,7 @@ struct _Pgram {
   real shear_angle, shear_grad;
 
   Text *text;
+  TextAttributes attrs;
   real padding;
 };
 
@@ -110,11 +111,10 @@ static Object *pgram_create(Point *startpoint,
 			  Handle **handle1,
 			  Handle **handle2);
 static void pgram_destroy(Pgram *pgram);
-static Object *pgram_copy(Pgram *pgram);
 
 static PropDescription *pgram_describe_props(Pgram *pgram);
-static void pgram_get_props(Pgram *pgram, Property *props, guint nprops);
-static void pgram_set_props(Pgram *pgram, Property *props, guint nprops);
+static void pgram_get_props(Pgram *pgram, GPtrArray *props);
+static void pgram_set_props(Pgram *pgram, GPtrArray *props);
 
 static void pgram_save(Pgram *pgram, ObjectNode obj_node, const char *filename);
 static Object *pgram_load(ObjectNode obj_node, int version, const char *filename);
@@ -144,7 +144,7 @@ static ObjectOps pgram_ops = {
   (DrawFunc)            pgram_draw,
   (DistanceFunc)        pgram_distance_from,
   (SelectFunc)          pgram_select,
-  (CopyFunc)            pgram_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            pgram_move,
   (MoveHandleFunc)      pgram_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -172,7 +172,7 @@ static PropDescription pgram_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  PROP_STD_TEXT,
+  PROP_STD_SAVED_TEXT,
   
   { NULL, 0, 0, NULL, NULL, NULL, 0}
 };
@@ -195,74 +195,27 @@ static PropOffset pgram_offsets[] = {
     offsetof(Pgram, line_style), offsetof(Pgram, dashlength) },
   { "shear_angle", PROP_TYPE_REAL, offsetof(Pgram, shear_angle) },
   { "padding", PROP_TYPE_REAL, offsetof(Pgram, padding) },
+  {"text",PROP_TYPE_TEXT,offsetof(Pgram,text)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Pgram,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(Pgram,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Pgram,attrs.color)},
   { NULL, 0, 0 },
 };
 
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" }
-};
-
 static void
-pgram_get_props(Pgram *pgram, Property *props, guint nprops)
+pgram_get_props(Pgram *pgram, GPtrArray *props)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&pgram->element.object, 
-                                    pgram_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = pgram->text->font;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = pgram->text->height;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = pgram->text->color;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(pgram->text);
-    }
-  }
+  text_get_attributes(pgram->text,&pgram->attrs);
+  object_get_props_from_offsets(&pgram->element.object,
+                                pgram_offsets,props);
 }
 
 static void
-pgram_set_props(Pgram *pgram, Property *props, guint nprops)
+pgram_set_props(Pgram *pgram, GPtrArray *props)
 {
-  if (!object_set_props_from_offsets(&pgram->element.object, 
-                                     pgram_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-        quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
-        text_set_font(pgram->text, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
-        text_set_height(pgram->text, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
-        text_set_color(pgram->text, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
-        text_set_string(pgram->text, PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
-  pgram->shear_grad = tan(M_PI/2.0 - M_PI/180.0 * pgram->shear_angle);
+  object_set_props_from_offsets(&pgram->element.object,
+                                pgram_offsets,props);
+  apply_textattr_properties(props,pgram->text,"text",&pgram->attrs);
   pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
@@ -710,6 +663,7 @@ pgram_create(Point *startpoint,
   p.y += elem->height / 2.0 + font_height / 2;
   pgram->text = new_text("", font, font_height, &p, &pgram->border_color,
 			 ALIGN_CENTER);
+  text_get_attributes(pgram->text,&pgram->attrs);
 
   element_init(elem, 8, 16);
 
@@ -732,45 +686,6 @@ pgram_destroy(Pgram *pgram)
   text_destroy(pgram->text);
 
   element_destroy(&pgram->element);
-}
-
-static Object *
-pgram_copy(Pgram *pgram)
-{
-  int i;
-  Pgram *newpgram;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &pgram->element;
-  
-  newpgram = g_malloc0(sizeof(Pgram));
-  newelem = &newpgram->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-
-  newpgram->border_width = pgram->border_width;
-  newpgram->border_color = pgram->border_color;
-  newpgram->inner_color = pgram->inner_color;
-  newpgram->show_background = pgram->show_background;
-  newpgram->line_style = pgram->line_style;
-  newpgram->dashlength = pgram->dashlength;
-  newpgram->shear_angle = pgram->shear_angle;
-  newpgram->shear_grad = pgram->shear_grad;
-  newpgram->padding = pgram->padding;
-
-  newpgram->text = text_copy(pgram->text);
-  
-  for (i=0;i<16;i++) {
-    newobj->connections[i] = &newpgram->connections[i];
-    newpgram->connections[i].object = newobj;
-    newpgram->connections[i].connected = NULL;
-    newpgram->connections[i].pos = pgram->connections[i].pos;
-    newpgram->connections[i].last_pos = pgram->connections[i].last_pos;
-  }
-
-  return &newpgram->element.object;
 }
 
 static void

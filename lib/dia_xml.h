@@ -71,12 +71,13 @@ void data_add_int(AttributeNode attr, int data);
 void data_add_enum(AttributeNode attr, int data);
 void data_add_real(AttributeNode attr, real data);
 void data_add_boolean(AttributeNode attr, int data);
-void data_add_color(AttributeNode attr, Color *col);
-void data_add_point(AttributeNode attr, Point *point);
-void data_add_rectangle(AttributeNode attr, Rectangle *rect);
-void data_add_string(AttributeNode attr, char *str);
-void data_add_font(AttributeNode attr, DiaFont *font);
-DataNode data_add_composite(AttributeNode attr, char *type); /* can be NULL */
+void data_add_color(AttributeNode attr, const Color *col);
+void data_add_point(AttributeNode attr, const Point *point);
+void data_add_rectangle(AttributeNode attr, const Rectangle *rect);
+void data_add_string(AttributeNode attr, const char *str);
+void data_add_font(AttributeNode attr, const DiaFont *font);
+DataNode data_add_composite(AttributeNode attr, 
+                            const char *type); /* can be NULL */
 
 #endif /* DIA_XML_H */
 

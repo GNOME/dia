@@ -1,3 +1,65 @@
+2001-08-13  Cyrille Chepelov  <chepelov@calixo.net>
+
+	* lib/properties.[ch]: split in a lot of pieces: 
+
+	* lib/prop_*.[ch] (NEW): all property types are now first-class
+	objects, inheriting from the original abstract Property type.
+	* lib/propdesc.c (NEW): property description handling routines
+	* lib/propoffsets.c (NEW): property offset handling routines
+	* lib/proplist.c (NEW): property list handling routines
+	* lib/propobject.c (NEW): property list <-> object routines
+	* lib/propregistry.c (NEW): holds the PropertyType-->PropertyOps
+	relations.
+	* lib/propinternals.h: prototypes for stuff not usually needed by 
+	the outside of StdProps.
+	* lib/Makefile.am: a lot of new files have been added...
+
+	THE ABOVE CHANGES ARE MAJOR CHANGES AND AFFECT THE WHOLE TREE, IN
+	BOTH INTERFACES AND RUN-TIME STABILITY.
+
+	* lib/plug-ins.h: bumped up DIA_PLUGIN_API_VERSION
+	
+	* lib/object.h: removed the incestuous relationship with
+	properties.h' contents. Now a Property list is a GPtrArray -->
+	object interface change !
+
+	* app/app_procs.c/app_init(): removed a disabled call to a
+	non-existent routine. Added a call to stdprops_init().
+	
+	* objects/Makefile.am: disabled the construction of EML. I'm not
+	touching these until a certain issue is solved (or this module
+	removed).
+	* app/group.c:	
+	* objects/**/*.c except objects/EML/*: adapted all stdprop-using 
+	objects to the interface changes.
+	
+	* app/disp_callbacks.c: killed a warning.
+	* lib/dia_xml.[ch]: sprinkled "const" modifiers. 
+
+	* app/commands.c: 
+	The macros PROP_VALUE_* have disappeared. Adapted to using the new 
+	interface.
+
+	* plug-ins/dxf/dxf-import.c: 
+	* plug-ins/xfig/xfig-import.c: 
+	PROP_VALUE_* macros have been removed. Converted to the new API.
+
+	* plug-ins/python/**/*: I gave up converting this; I can't
+	compile --with-python (problems with object.h defined both by us
+	and by Python). I'll gladly help whomever cares to fix it !
+	(or, fix it myself if someone tells me how to compile it).
+	
+	* configure.in: added the UNICODE-related progress defines.
+		
+	* configure.in:
+	* lib/geometry.h: On Solaris and perhaps other systems, finite()
+	is defined in ieeefp.h rather than in math.h. Patch from Andrew
+	Halper <ashalper@acm.org> with further modifications, isinf() is
+	provided by -lsunmath (sunmath.h).
+	
+	* lib/font.c: conditionally disabled Lars' debugging messages.
+	Bracketed the definition of DiaFontFamily with #ifdef HAVE_FREETYPE.
+	
 2001-08-11  Lars Clausen  <Lars R. Clausen <lrclause@cs.uiuc.edu>>
 
 	* lib/bezier_conn.h: 

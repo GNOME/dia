@@ -4,7 +4,8 @@ INCLUDES = \
 	-I$(GTK_CFLAGS) \
 	$(GNOME_CFLAGS) $(FREETYPE_CFLAGS) \
 	$(LIBART_CFLAGS) \
-	$(PYTHON_INCLUDES)
+	$(PYTHON_INCLUDES) \
+	$(XML_CFLAGS) $(UNICODE_CFLAGS) 
 
 if WITH_PYTHON
 libpython_plugin = libpython_plugin.la

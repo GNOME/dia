@@ -129,9 +129,9 @@ static GtkWidget *orthflow_get_defaults(void);
 static void orthflow_apply_defaults(void);
 static PropDescription *orthflow_describe_props(Orthflow *mes);
 static void
-orthflow_get_props(Orthflow * orthflow, Property *props, guint nprops);
+orthflow_get_props(Orthflow * orthflow, GPtrArray *props);
 static void
-orthflow_set_props(Orthflow * orthflow, Property *props, guint nprops);
+orthflow_set_props(Orthflow * orthflow, GPtrArray *props);
 static void orthflow_save(Orthflow *orthflow, ObjectNode obj_node,
 			  const char *filename);
 static Object *orthflow_load(ObjectNode obj_node, int version,
@@ -203,17 +203,17 @@ static PropOffset orthflow_offsets[] = {
 };
 
 static void
-orthflow_get_props(Orthflow * orthflow, Property *props, guint nprops)
+orthflow_get_props(Orthflow * orthflow, GPtrArray *props)
 {
   object_get_props_from_offsets(&orthflow->orth.object, 
-                                orthflow_offsets, props, nprops);
+                                orthflow_offsets, props);
 }
 
 static void
-orthflow_set_props(Orthflow *orthflow, Property *props, guint nprops)
+orthflow_set_props(Orthflow *orthflow, GPtrArray *props)
 {
   object_set_props_from_offsets(&orthflow->orth.object, 
-                                orthflow_offsets, props, nprops);
+                                orthflow_offsets, props);
   orthflow_update_data(orthflow);
 }
 

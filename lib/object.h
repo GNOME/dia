@@ -208,16 +208,6 @@ typedef GtkWidget *(*GetPropertiesFunc) (Object* obj);
 */
 typedef ObjectChange *(*ApplyPropertiesFunc) (Object* obj, GtkWidget *widget);
 
-/* properties interface functions */
-#ifndef _prop_typedefs_defined
-#define _prop_typedefs_defined
-typedef struct _PropDescription PropDescription;
-typedef struct _Property Property;
-typedef struct _PropEventData PropEventData;
-typedef struct _PropDialogData PropDialogData;
-typedef struct _PropEventHandlerChain PropEventHandlerChain;
-#endif
-
 /*
   This function is called to return a list of property
   descriptions the object supports.  The list should be
@@ -230,13 +220,13 @@ typedef const PropDescription *(* DescribePropsFunc) (Object *obj);
   (and type information) for a number of properties of
   the object.
 */
-typedef void (* GetPropsFunc) (Object *obj, Property *props, gint nprops);
+typedef void (* GetPropsFunc) (Object *obj, GPtrArray *props);
 
 /*
   This function is called to set the value of a number
   of properties of the object.
 */
-typedef void (* SetPropsFunc) (Object *obj, Property *props, gint nprops);
+typedef void (* SetPropsFunc) (Object *obj, GPtrArray *props);
 
 
 /*

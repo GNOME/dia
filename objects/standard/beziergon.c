@@ -87,10 +87,8 @@ static void beziergon_destroy(Beziergon *beziergon);
 static Object *beziergon_copy(Beziergon *beziergon);
 
 static PropDescription *beziergon_describe_props(Beziergon *beziergon);
-static void beziergon_get_props(Beziergon *beziergon, Property *props,
-				guint nprops);
-static void beziergon_set_props(Beziergon *beziergon, Property *props,
-				guint nprops);
+static void beziergon_get_props(Beziergon *beziergon, GPtrArray *props);
+static void beziergon_set_props(Beziergon *beziergon, GPtrArray *props);
 
 static void beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
 			  const char *filename);
@@ -169,24 +167,25 @@ static PropOffset beziergon_offsets[] = {
 };
 
 static void
-beziergon_get_props(Beziergon *beziergon, Property *props, guint nprops)
+beziergon_get_props(Beziergon *beziergon, GPtrArray *props)
 {
   object_get_props_from_offsets(&beziergon->bezier.object, beziergon_offsets,
-				props, nprops);
+				props);
 }
 
 static void
-beziergon_set_props(Beziergon *beziergon, Property *props, guint nprops)
+beziergon_set_props(Beziergon *beziergon, GPtrArray *props)
 {
   object_set_props_from_offsets(&beziergon->bezier.object, beziergon_offsets,
-				props, nprops);
+				props);
   beziergon_update_data(beziergon);
 }
 
 static void
 beziergon_apply_defaults(void)
 {
-  default_properties.show_background = gtk_toggle_button_get_active(beziergon_defaults_dialog->show_background);
+  default_properties.show_background = 
+    gtk_toggle_button_get_active(beziergon_defaults_dialog->show_background);
 }
 
 static void

@@ -71,8 +71,8 @@ static Object *node_load(ObjectNode obj_node, int version,
 				 const char *filename);
 
 static PropDescription *node_describe_props(Node *node);
-static void node_get_props(Node *node, Property *props, guint nprops);
-static void node_set_props(Node *node, Property *props, guint nprops);
+static void node_get_props(Node *node, GPtrArray *props);
+static void node_set_props(Node *node, GPtrArray *props);
 
 static void node_update_data(Node *node);
 
@@ -138,20 +138,19 @@ static PropOffset node_offsets[] = {
 };
 
 static void
-node_get_props(Node * node, Property *props, guint nprops)
+node_get_props(Node * node, GPtrArray *props)
 {
   text_get_attributes(node->name,&node->attrs);
   object_get_props_from_offsets(&node->element.object,
-                                node_offsets,props,nprops);
+                                node_offsets,props);
 }
 
 static void
-node_set_props(Node *node, Property *props, guint nprops)
+node_set_props(Node *node, GPtrArray *props)
 {
   object_set_props_from_offsets(&node->element.object,
-                                node_offsets,props,nprops);
-  apply_textattr_properties(props,nprops,
-                            node->name,"name",&node->attrs);
+                                node_offsets,props);
+  apply_textattr_properties(props,node->name,"name",&node->attrs);
   node_update_data(node);
 }
 

@@ -66,8 +66,8 @@ static Object *note_load(ObjectNode obj_node, int version,
 			 const char *filename);
 
 static PropDescription *note_describe_props(Note *note);
-static void note_get_props(Note *note, Property *props, guint nprops);
-static void note_set_props(Note *note, Property *props, guint nprops);
+static void note_get_props(Note *note, GPtrArray *props);
+static void note_set_props(Note *note, GPtrArray *props);
 
 static void note_update_data(Note *note);
 
@@ -130,19 +130,19 @@ static PropOffset note_offsets[] = {
 };
 
 static void
-note_get_props(Note * note, Property *props, guint nprops)
+note_get_props(Note * note, GPtrArray *props)
 {
   text_get_attributes(note->text,&note->attrs);
   object_get_props_from_offsets(&note->element.object,
-                                note_offsets,props,nprops);
+                                note_offsets,props);
 }
 
 static void
-note_set_props(Note *note, Property *props, guint nprops)
+note_set_props(Note *note, GPtrArray *props)
 {
   object_set_props_from_offsets(&note->element.object,
-                                note_offsets,props,nprops);
-  apply_textattr_properties(props,nprops,
+                                note_offsets,props);
+  apply_textattr_properties(props,
                             note->text,"text",&note->attrs);
   note_update_data(note);
 }

@@ -75,8 +75,8 @@ static void constraint_update_data(Constraint *constraint);
 static void constraint_destroy(Constraint *constraint);
 
 static PropDescription *constraint_describe_props(Constraint *constraint);
-static void constraint_get_props(Constraint * constraint, Property *props, guint nprops);
-static void constraint_set_props(Constraint * constraint, Property *props, guint nprops);
+static void constraint_get_props(Constraint * constraint, GPtrArray *props);
+static void constraint_set_props(Constraint * constraint, GPtrArray *props);
 
 static Object *constraint_load(ObjectNode obj_node, int version,
 			       const char *filename);
@@ -136,17 +136,17 @@ static PropOffset constraint_offsets[] = {
 };
 
 static void
-constraint_get_props(Constraint * constraint, Property *props, guint nprops)
+constraint_get_props(Constraint * constraint, GPtrArray *props)
 {
   object_get_props_from_offsets(&constraint->connection.object, 
-                                constraint_offsets, props, nprops);
+                                constraint_offsets, props);
 }
 
 static void
-constraint_set_props(Constraint *constraint, Property *props, guint nprops)
+constraint_set_props(Constraint *constraint, GPtrArray *props)
 {
   object_set_props_from_offsets(&constraint->connection.object, 
-                                constraint_offsets, props, nprops);
+                                constraint_offsets, props);
   g_free(constraint->brtext);
   constraint->brtext = NULL;
   constraint_update_data(constraint);

@@ -69,6 +69,7 @@ ShellExecuteA (long        hwnd,
 #include "message.h"
 #include "grid.h"
 #include "properties.h"
+#include "propinternals.h"
 #include "preferences.h"
 #include "layer_dialog.h"
 #include "connectionpoint_ops.h"
@@ -281,13 +282,33 @@ get_selection_handler(GtkWidget *widget, GtkSelectionData *selection,
   }
 }
 
+
+static PropDescription text_prop_singleton_desc[] = {
+    { "text", PROP_TYPE_STRING },
+    PROP_DESC_END};
+
+
+static void 
+make_text_prop_singleton(GPtrArray **props, StringProperty **prop) 
+{
+  *props = prop_list_from_descs(text_prop_singleton_desc,pdtpp_true);
+  g_assert((*props)->len == 1);
+
+  *prop = g_ptr_array_index((*props),0);
+  g_free((*prop)->string_data);
+  (*prop)->string_data = NULL;
+  (*prop)->num_lines = 0;
+}
+
+
 void
 edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
 {
   Focus *focus = active_focus();
   DDisplay *ddisp;
   Object *obj;
-  Property textprop;
+  GPtrArray *textprops;
+  StringProperty *prop;
 
   if ((focus == NULL) || (!focus->has_focus)) return;
 
@@ -298,21 +319,15 @@ edit_copy_text_callback(gpointer data, guint action, GtkWidget *widget)
   if (obj->ops->get_props == NULL) 
     return;
 
-  textprop.name = "text";
-  textprop.type = PROP_TYPE_INVALID;
-  PROP_VALUE_STRING(textprop) = NULL;
-
+  make_text_prop_singleton(&textprops,&prop);
   /* Get the first text property */
-  obj->ops->get_props(obj, &textprop, 1);
+  obj->ops->get_props(obj, textprops);
   
   if (current_clipboard) g_free(current_clipboard);
 
-  if (textprop.type != PROP_TYPE_STRING)
-    return;
+  current_clipboard = g_strdup(prop->string_data);
 
-  current_clipboard = g_strdup(PROP_VALUE_STRING(textprop));
-
-  prop_free(&textprop);
+  prop_list_free(textprops);
 
   gtk_selection_owner_set(GTK_WIDGET(ddisp->shell),
 			  GDK_SELECTION_PRIMARY,
@@ -329,7 +344,8 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
   DDisplay *ddisp;
   Object *obj;
   Text *text;
-  Property textprop;
+  GPtrArray *textprops;
+  StringProperty *prop;
   Change *change;
 
   if ((focus == NULL) || (!focus->has_focus)) return;
@@ -342,21 +358,15 @@ edit_cut_text_callback(gpointer data, guint action, GtkWidget *widget)
   if (obj->ops->get_props == NULL) 
     return;
 
-  textprop.name = "text";
-  textprop.type = PROP_TYPE_INVALID;
-  PROP_VALUE_STRING(textprop) = NULL;
-
+  make_text_prop_singleton(&textprops,&prop);
   /* Get the first text property */
-  obj->ops->get_props(obj, &textprop, 1);
+  obj->ops->get_props(obj, textprops);
   
   if (current_clipboard) g_free(current_clipboard);
 
-  if (textprop.type != PROP_TYPE_STRING)
-    return;
+  current_clipboard = g_strdup(prop->string_data);
 
-  current_clipboard = g_strdup(PROP_VALUE_STRING(textprop));
-
-  prop_free(&textprop);
+  prop_list_free(textprops);
 
   gtk_selection_owner_set(GTK_WIDGET(ddisp->shell),
 			  GDK_SELECTION_PRIMARY,

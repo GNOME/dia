@@ -101,9 +101,9 @@ static Object *chronoline_load(ObjectNode obj_node, int version,
                                const char *filename);
 static PropDescription *chronoline_describe_props(Chronoline *chronoline);
 static void chronoline_get_props(Chronoline *chronoline, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 static void chronoline_set_props(Chronoline *chronoline, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 
 static ObjectTypeOps chronoline_type_ops =
 {
@@ -229,17 +229,17 @@ static PropOffset chronoline_offsets[] = {
 };
 
 static void
-chronoline_get_props(Chronoline *chronoline, Property *props, guint nprops)
+chronoline_get_props(Chronoline *chronoline, GPtrArray *props)
 {  
   object_get_props_from_offsets(&chronoline->element.object,
-                                chronoline_offsets,props,nprops);
+                                chronoline_offsets,props);
 }
 
 static void
-chronoline_set_props(Chronoline *chronoline, Property *props, guint nprops)
+chronoline_set_props(Chronoline *chronoline, GPtrArray *props)
 {
   object_set_props_from_offsets(&chronoline->element.object,
-                                chronoline_offsets,props,nprops);
+                                chronoline_offsets,props);
   chronoline_update_data(chronoline);
 }
 

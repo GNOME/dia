@@ -74,8 +74,8 @@ static DiaMenu *realizes_get_object_menu(Realizes *realize,
 					 Point *clickedpoint);
 
 static PropDescription *realizes_describe_props(Realizes *realizes);
-static void realizes_get_props(Realizes * realizes, Property *props, guint nprops);
-static void realizes_set_props(Realizes * realizes, Property *props, guint nprops);
+static void realizes_get_props(Realizes * realizes, GPtrArray *props);
+static void realizes_set_props(Realizes * realizes, GPtrArray *props);
 
 static Object *realizes_load(ObjectNode obj_node, int version,
 			     const char *filename);
@@ -139,17 +139,17 @@ static PropOffset realizes_offsets[] = {
 };
 
 static void
-realizes_get_props(Realizes * realizes, Property *props, guint nprops)
+realizes_get_props(Realizes * realizes, GPtrArray *props)
 {
   object_get_props_from_offsets(&realizes->orth.object,
-                                realizes_offsets,props,nprops);
+                                realizes_offsets,props);
 }
 
 static void
-realizes_set_props(Realizes *realizes, Property *props, guint nprops)
+realizes_set_props(Realizes *realizes, GPtrArray *props)
 {
   object_set_props_from_offsets(&realizes->orth.object, 
-                                realizes_offsets, props, nprops);
+                                realizes_offsets, props);
   g_free(realizes->st_stereotype);
   realizes->st_stereotype = NULL;
   realizes_update_data(realizes);

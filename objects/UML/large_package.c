@@ -73,8 +73,8 @@ static void largepackage_destroy(LargePackage *pkg);
 static void largepackage_update_data(LargePackage *pkg);
 
 static PropDescription *largepackage_describe_props(LargePackage *largepackage);
-static void largepackage_get_props(LargePackage *largepackage, Property *props, guint nprops);
-static void largepackage_set_props(LargePackage *largepackage, Property *props, guint nprops);
+static void largepackage_get_props(LargePackage *largepackage, GPtrArray *props);
+static void largepackage_set_props(LargePackage *largepackage, GPtrArray *props);
 static Object *largepackage_load(ObjectNode obj_node, int version, 
                                  const char *filename);
 
@@ -136,17 +136,17 @@ static PropOffset largepackage_offsets[] = {
 };
 
 static void
-largepackage_get_props(LargePackage * largepackage, Property *props, guint nprops)
+largepackage_get_props(LargePackage * largepackage, GPtrArray *props)
 {
   object_get_props_from_offsets(&largepackage->element.object, 
-                                largepackage_offsets, props, nprops);
+                                largepackage_offsets, props);
 }
 
 static void
-largepackage_set_props(LargePackage *largepackage, Property *props, guint nprops)
+largepackage_set_props(LargePackage *largepackage, GPtrArray *props)
 {
   object_set_props_from_offsets(&largepackage->element.object, 
-                                largepackage_offsets, props, nprops);
+                                largepackage_offsets, props);
   g_free(largepackage->st_stereotype);
   largepackage->st_stereotype = NULL;
   largepackage_update_data(largepackage);

@@ -47,6 +47,7 @@
 #include "filter.h"
 #include "object.h"
 #include "properties.h"
+#include "propinternals.h"
 #include "../app/group.h"
 
 #include "../objects/standard/create.h"
@@ -73,7 +74,8 @@ fig_warn(int warning) {
 	warnings = g_malloc(sizeof(char*)*MAX_WARNING);
 	warnings[0] = _("Polygon import is not implemented yet");
 	warnings[1] = _("Patterns are not supported by Dia");
-	warnings[2] = _("Triple-dotted lines are not supported by Dia, using double-dotted");
+	warnings[2] = _("Triple-dotted lines are not supported by Dia, "
+                        "using double-dotted");
 	warnings[3] = _("Negative corner radius, negating");
 	warnings[4] = _("Spline import is not implemented yet");
     }
@@ -111,6 +113,10 @@ skip_comments(FILE *file) {
   return TRUE;
 }
 
+static PropDescription xfig_text_prop_descs[] = {
+    { "text", PROP_TYPE_STRING },
+    PROP_DESC_END};
+
 static Object *
 create_standard_text(real xpos, real ypos, char *text,
 		     DiagramData *dia) {
@@ -118,7 +124,8 @@ create_standard_text(real xpos, real ypos, char *text,
     Object *new_obj;
     Handle *h1, *h2;
     Point point;
-    Property props[4];
+    GPtrArray *props;
+    StringProperty *prop;
 
     point.x = xpos;
     point.y = ypos;
@@ -127,12 +134,45 @@ create_standard_text(real xpos, real ypos, char *text,
 				 &h1, &h2);
     /*   layer_add_object(dia->active_layer, new_obj); */
 
-    props[0].name = "text";
-    props[0].type = PROP_TYPE_STRING;
-    PROP_VALUE_STRING(props[0]) = text;
-    new_obj->ops->set_props(new_obj, props, 1);
+    props = prop_list_from_descs(xfig_text_prop_descs,pdtpp_true);
+    g_assert(props->len == 1);
 
+    prop = g_ptr_array_index(props,0);
+    g_free(prop->string_data);
+    prop->string_data = text;
+    prop->num_lines = 1;
+
+    new_obj->ops->set_props(new_obj, props);
+    prop_list_free(props);
+    
     return new_obj;
+}
+
+static PropDescription xfig_element_prop_descs[] = {
+    { "elem_corner", PROP_TYPE_POINT },
+    { "elem_width", PROP_TYPE_REAL },
+    { "elem_height", PROP_TYPE_REAL },
+    PROP_DESC_END};
+
+static GPtrArray *make_element_props(real xpos, real ypos,
+                                     real width, real height) 
+{
+    GPtrArray *props;
+    PointProperty *pprop;
+    RealProperty *rprop;
+
+    props = prop_list_from_descs(xfig_element_prop_descs,pdtpp_true);
+    g_assert(props->len == 3);
+    
+    pprop = g_ptr_array_index(props,0);
+    pprop->point_data.x = xpos;
+    pprop->point_data.y = ypos;
+    rprop = g_ptr_array_index(props,1);
+    rprop->real_data = width;
+    rprop = g_ptr_array_index(props,2);
+    rprop->real_data = height;
+    
+    return props;
 }
 
 static Object *
@@ -141,7 +181,8 @@ create_standard_ellipse(real xpos, real ypos, real width, real height,
     ObjectType *otype = object_get_type("Standard - Ellipse");
     Object *new_obj;
     Handle *h1, *h2;
-    Property props[4];
+    
+    GPtrArray *props;
     Point point;
 
     point.x = xpos;
@@ -151,18 +192,9 @@ create_standard_ellipse(real xpos, real ypos, real width, real height,
 				 &h1, &h2);
     /*   layer_add_object(dia->active_layer, new_obj); */
   
-    props[0].name = "elem_corner";
-    props[0].type = PROP_TYPE_POINT;
-    PROP_VALUE_POINT(props[0]).x = xpos;
-    PROP_VALUE_POINT(props[0]).y = ypos;
-    props[1].name = "elem_width";
-    props[1].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[1]) = width;
-    props[2].name = "elem_height";
-    props[2].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[2]) = height;
-
-    new_obj->ops->set_props(new_obj, props, 3);
+    props = make_element_props(xpos,ypos,width,height);
+    new_obj->ops->set_props(new_obj, props);
+    prop_list_free(props);
 
     return new_obj;
 }
@@ -175,7 +207,7 @@ create_standard_box(real xpos, real ypos, real width, real height,
   Object *new_obj;
   Handle *h1, *h2;
   Point point;
-  Property props[4];
+  GPtrArray *props;
 
   point.x = xpos;
   point.y = ypos;
@@ -184,18 +216,9 @@ create_standard_box(real xpos, real ypos, real width, real height,
 			       &h1, &h2);
   /*  layer_add_object(dia->active_layer, new_obj); */
   
-  props[0].name = "elem_corner";
-  props[0].type = PROP_TYPE_POINT;
-  PROP_VALUE_POINT(props[0]).x = xpos;
-  PROP_VALUE_POINT(props[0]).y = ypos;
-  props[1].name = "elem_width";
-  props[1].type = PROP_TYPE_REAL;
-  PROP_VALUE_REAL(props[1]) = width;
-  props[2].name = "elem_height";
-  props[2].type = PROP_TYPE_REAL;
-  PROP_VALUE_REAL(props[2]) = height;
-
-  new_obj->ops->set_props(new_obj, props, 3);
+  props = make_element_props(xpos,ypos,width,height);
+  new_obj->ops->set_props(new_obj, props);
+  prop_list_free(props);
 
   return new_obj;
 }
@@ -242,6 +265,11 @@ create_standard_polygon(int num_points,
     return new_obj;
 }
 
+
+static PropDescription xfig_arc_prop_descs[] = {
+    { "curve_distance", PROP_TYPE_REAL },
+    PROP_DESC_END};
+
 static Object *
 create_standard_arc(real x1, real y1, real x2, real y2,
 		    real radius, DiagramData *dia) {
@@ -249,7 +277,7 @@ create_standard_arc(real x1, real y1, real x2, real y2,
     Object *new_obj;
     Handle *h1, *h2;
     Point point;
-    Property props[4];
+    GPtrArray *props;
 
     point.x = x1;
     point.y = y1;
@@ -257,31 +285,20 @@ create_standard_arc(real x1, real y1, real x2, real y2,
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
     /*    layer_add_object(dia->active_layer, new_obj); */
-
     
-    /*
-    props[0].name = "elem_corner";
-    props[0].type = PROP_TYPE_POINT;
-    PROP_VALUE_POINT(props[0]).x = xpos;
-    PROP_VALUE_POINT(props[0]).y = ypos;
-    props[1].name = "elem_width";
-    props[1].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[1]) = width;
-    props[2].name = "elem_height";
-    props[2].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[2]) = height;
-    props[3].name = "image_file";
-    props[3].type = PROP_TYPE_FILE;
-    PROP_VALUE_FILE(props[3]) = file;
-    */
-    props[0].name = "curve_distance";
-    props[0].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[0]) = radius;
-
-    new_obj->ops->set_props(new_obj, props, 1);
+    props = prop_list_from_descs(xfig_arc_prop_descs,pdtpp_true);
+    g_assert(props->len == 1);
+    
+    ((RealProperty *)g_ptr_array_index(props,0))->real_data = radius;
+    new_obj->ops->set_props(new_obj, props);
+    prop_list_free(props);
 
     return new_obj;
 }
+
+static PropDescription xfig_file_prop_descs[] = {
+    { "image_file", PROP_TYPE_FILE },
+    PROP_DESC_END};
 
 static Object *
 create_standard_image(real xpos, real ypos, real width, real height,
@@ -290,7 +307,8 @@ create_standard_image(real xpos, real ypos, real width, real height,
     Object *new_obj;
     Handle *h1, *h2;
     Point point;
-    Property props[4];
+    GPtrArray *props;
+    StringProperty *sprop;
 
     point.x = xpos;
     point.y = ypos;
@@ -299,20 +317,18 @@ create_standard_image(real xpos, real ypos, real width, real height,
 				 &h1, &h2);
     /*    layer_add_object(dia->active_layer, new_obj); */
     
-    props[0].name = "elem_corner";
-    props[0].type = PROP_TYPE_POINT;
-    PROP_VALUE_POINT(props[0]).x = xpos;
-    PROP_VALUE_POINT(props[0]).y = ypos;
-    props[1].name = "elem_width";
-    props[1].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[1]) = width;
-    props[2].name = "elem_height";
-    props[2].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[2]) = height;
-    props[3].name = "image_file";
-    props[3].type = PROP_TYPE_FILE;
-    PROP_VALUE_FILE(props[3]) = file;
-    new_obj->ops->set_props(new_obj, props, 4);
+    props = make_element_props(xpos,ypos,width,height);
+    new_obj->ops->set_props(new_obj, props);
+    prop_list_free(props);
+
+
+    props = prop_list_from_descs(xfig_file_prop_descs,pdtpp_true);
+    g_assert(props->len == 1);    
+    sprop = g_ptr_array_index(props,0);
+    g_free(sprop->string_data);
+    sprop->string_data = g_strdup(file);
+    new_obj->ops->set_props(new_obj, props);
+    prop_list_free(props);
 
     return new_obj;
 }
@@ -362,6 +378,36 @@ fig_area_fill_color(int area_fill, int color_index) {
     return col;
 }
 
+
+
+static PropDescription xfig_simple_prop_descs_line[] = {
+    { "line_width", PROP_TYPE_REAL },
+    { "line_colour", PROP_TYPE_COLOUR },
+    PROP_DESC_END};
+
+static LineStyle 
+fig_line_style_to_dia(int line_style) 
+{
+    switch (line_style) {
+    case 0:
+        return LINESTYLE_SOLID;
+    case 1:
+        return LINESTYLE_DASHED;
+    case 2:
+	return LINESTYLE_DOTTED;
+    case 3:
+        return LINESTYLE_DASH_DOT;
+    case 4:
+        return LINESTYLE_DASH_DOT_DOT;
+    case 5:
+        fig_warn(WARNING_NO_TRIPLE_DOTS);
+        return LINESTYLE_DASH_DOT_DOT;
+    default:
+        message_error(_("Line style %d should not appear\n"), line_style);
+        return LINESTYLE_SOLID;
+    }
+}
+
 static void
 fig_simple_properties(Object *obj,
 		      int line_style,
@@ -369,60 +415,50 @@ fig_simple_properties(Object *obj,
 		      int pen_color,
 		      int fill_color,
 		      int area_fill) {
-    Property props[5];
-    int num_props = 0;
+    GPtrArray *props = prop_list_from_descs(xfig_simple_prop_descs_line,
+                                            pdtpp_true);
+    RealProperty *rprop;
+    ColorProperty *cprop;
 
-    num_props = 0;
+    g_assert(props->len == 2);
+    
+    rprop = g_ptr_array_index(props,0);
+    rprop->real_data = thickness/FIG_ALT_UNIT;
+    
+    cprop = g_ptr_array_index(props,1);
+    cprop->color_data = fig_color(pen_color);
+
+
     if (line_style != -1) {
-	props[num_props].name = "line_style";
-	props[num_props].type = PROP_TYPE_ENUM;
-	switch (line_style) {
-	case 0:
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_SOLID;
-	    break;
-	case 1:
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASHED;
-	    break;
-	case 2:
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DOTTED;
-	    break;
-	case 3:
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASH_DOT;
-	    break;
-	case 4:
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASH_DOT_DOT;
-	    break;
-	case 5:
-	    fig_warn(WARNING_NO_TRIPLE_DOTS);
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_DASH_DOT_DOT;
-	    break;
-	default:
-	    message_error(_("Line style %d should not appear\n"), line_style);
-	    PROP_VALUE_ENUM(props[num_props]) = LINESTYLE_SOLID;
-	}
-	num_props++;
-    }
-    props[num_props].name = "line_width";
-    props[num_props].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[num_props]) = thickness/FIG_ALT_UNIT;
-    num_props++;
-    props[num_props].name = "line_colour";
-    props[num_props].type = PROP_TYPE_COLOUR;
-    PROP_VALUE_COLOUR(props[num_props]) = fig_color(pen_color);
-    num_props++;
-    if (area_fill == -1) {
-	props[num_props].name = "show_background";
-	props[num_props].type = PROP_TYPE_BOOL;
-	PROP_VALUE_BOOL(props[num_props]) = FALSE;
-	num_props++;
-    } else {
-	props[num_props].name = "fill_colour";
-	props[num_props].type = PROP_TYPE_COLOUR;
-	PROP_VALUE_COLOUR(props[num_props]) = fig_area_fill_color(area_fill, fill_color);
-	num_props++;
+        LinestyleProperty *lsprop = 
+            (LinestyleProperty *)make_new_prop("line_style", 
+                                               PROP_TYPE_LINESTYLE,
+                                               PROP_FLAG_DONT_SAVE);
+        lsprop->dash = 1.0;
+        lsprop->style = fig_line_style_to_dia(line_style);
+
+        g_ptr_array_add(props,lsprop);
     }
 
-    obj->ops->set_props(obj, props, num_props);
+    if (area_fill == -1) {
+        BoolProperty *bprop = 
+            (BoolProperty *)make_new_prop("show_background",
+                                          PROP_TYPE_BOOL,PROP_FLAG_DONT_SAVE);
+        bprop->bool_data = FALSE;
+
+        g_ptr_array_add(props,bprop);
+    } else {
+        ColorProperty *cprop = 
+            (ColorProperty *)make_new_prop("fill_colour",
+                                           PROP_TYPE_COLOUR,
+                                           PROP_FLAG_DONT_SAVE);
+        cprop->color_data = fig_area_fill_color(area_fill, fill_color);
+
+        g_ptr_array_add(props,cprop);
+    }
+
+    obj->ops->set_props(obj, props);
+    prop_list_free(props);
 }
 
 static int
@@ -592,8 +628,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
      int backward_arrow;
      int npoints;
      Point *points;
-     Property props[5];
-     int num_props;
+     GPtrArray *props = g_ptr_array_new();
      Object *newobj = NULL;
      int flipped = 0;
      char *image_file = NULL;
@@ -641,21 +676,19 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
        return NULL;
      }
      
-     num_props = 0;
      switch (sub_type) {
-     case 4:
+     case 4: {
+         RealProperty *rprop = 
+             (RealProperty *)make_new_prop("corner_radius",
+                                           PROP_TYPE_REAL,PROP_FLAG_DONT_SAVE);
 	 if (radius < 0) {
 	     fig_warn(WARNING_NEGATIVE_CORNER_RADIUS);
-  	     props[0].name = "corner_radius";
-	     props[0].type = PROP_TYPE_REAL;
-	     PROP_VALUE_REAL(props[0]) = -radius/FIG_ALT_UNIT;
-	     num_props++;
+             rprop->real_data = -radius/FIG_ALT_UNIT;
 	 } else {
-	     props[0].name = "corner_radius";
-	     props[0].type = PROP_TYPE_REAL;
-	     PROP_VALUE_REAL(props[0]) = radius/FIG_ALT_UNIT;
-	     num_props++;
+             rprop->real_data = radius/FIG_ALT_UNIT;
 	 }
+         g_ptr_array_add(props,rprop);
+     }
 	 /* Notice fallthrough */
      case 2: /* box */
 	 if (points[0].x > points[2].x) {
@@ -671,7 +704,7 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
 	 newobj = create_standard_box(points[0].x, points[0].y,
 				      points[2].x-points[0].x,
 				      points[2].y-points[0].y, dia);
-	 newobj->ops->set_props(newobj, props, num_props);
+	 newobj->ops->set_props(newobj, props);
 	 break;
      case 5: /* imported-picture bounding-box) */
 	 newobj = create_standard_image(points[0].x, points[0].y,
@@ -690,6 +723,8 @@ fig_read_polyline(FILE *file, DiagramData *dia) {
        message_error(_("Unknown polyline subtype: %d\n"), sub_type);
        return NULL;
      }
+     prop_list_free(props);
+
      if (image_file != NULL)
 	 g_free(image_file);
 
@@ -792,10 +827,25 @@ fig_read_arc(FILE *file, DiagramData *dia) {
     return newobj;
 }
 
+static PropDescription xfig_text_descs[] = {
+    { "text_colour", PROP_TYPE_COLOUR },
+    { "text_alignment", PROP_TYPE_ENUM },
+    { "text_height", PROP_TYPE_REAL },
+    { "text_font", PROP_TYPE_FONT },
+    /* Can't do the angle */
+    /* Height and length are ignored */
+    /* Flags */
+    PROP_DESC_END
+};
+
 static Object *
 fig_read_text(FILE *file, DiagramData *dia) {
-    Property props[5];
-    int num_props = 0;
+    GPtrArray *props;
+    ColorProperty *cprop;
+    EnumProperty *eprop;
+    RealProperty *rprop;
+    FontProperty *fprop;
+
     Object *newobj = NULL;
     int sub_type;
     int color;
@@ -832,27 +882,21 @@ fig_read_text(FILE *file, DiagramData *dia) {
     newobj = create_standard_text(x/FIG_UNIT, y/FIG_UNIT, text_buf, dia);
     g_free(text_buf);
 
-    props[num_props].name = "text_colour";
-    props[num_props].type = PROP_TYPE_COLOUR;
-    PROP_VALUE_COLOUR(props[num_props]) = fig_color(color);
-    num_props++;
-    props[num_props].name = "text_alignment";
-    props[num_props].type = PROP_TYPE_ENUM;
-    PROP_VALUE_ENUM(props[num_props]) = sub_type;
-    num_props++;
-    props[num_props].name = "text_height";
-    props[num_props].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[num_props]) = font_size*2.54/72.0;
-    num_props++;
-    /* Can't do the angle */
-    /* Height and length are ignored */
-    /* Flags */
-    props[num_props].name = "text_font";
-    props[num_props].type = PROP_TYPE_FONT;
-    PROP_VALUE_FONT(props[num_props]) = font_getfont(fig_fonts[font]);
-    num_props++;
+    props = prop_list_from_descs(xfig_text_descs,pdtpp_true);
+    g_assert(props->len == 1);
 
-    newobj->ops->set_props(newobj, props, num_props);
+    cprop = g_ptr_array_index(props,0);
+    cprop->color_data = fig_color(color);
+    eprop = g_ptr_array_index(props,1);
+    eprop->enum_data = sub_type;
+    rprop = g_ptr_array_index(props,2);
+    rprop->real_data = font_size*2.54/72.0;
+    fprop = g_ptr_array_index(props,3);
+    fprop->font_data = font_getfont(fig_fonts[font]);
+
+    newobj->ops->set_props(newobj, props);
+    
+    prop_list_free(props);
 
     /* Depth field */
     if (compound_stack == NULL)

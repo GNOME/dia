@@ -118,8 +118,8 @@ static void image_destroy(Image *image);
 static Object *image_copy(Image *image);
 
 static PropDescription *image_describe_props(Image *image);
-static void image_get_props(Image *image, Property *props, guint nprops);
-static void image_set_props(Image *image, Property *props, guint nprops);
+static void image_get_props(Image *image, GPtrArray *props);
+static void image_set_props(Image *image, GPtrArray *props);
 
 static void image_save(Image *image, ObjectNode obj_node, const char *filename);
 static Object *image_load(ObjectNode obj_node, int version, const char *filename);
@@ -197,19 +197,17 @@ static PropOffset image_offsets[] = {
 };
 
 static void
-image_get_props(Image *image, Property *props, guint nprops)
+image_get_props(Image *image, GPtrArray *props)
 {
-  object_get_props_from_offsets(&image->element.object, 
-                                image_offsets, props, nprops);
+  object_get_props_from_offsets(&image->element.object, image_offsets, props);
 }
 
 static void
-image_set_props(Image *image, Property *props, guint nprops)
+image_set_props(Image *image, GPtrArray *props)
 {
   char *old_file = image->file ? g_strdup(image->file) : NULL;
 
-  object_set_props_from_offsets(&image->element.object, 
-                                image_offsets, props, nprops);
+  object_set_props_from_offsets(&image->element.object, image_offsets, props);
 
   /* handle changing the image. */
   if (strcmp(image->file, old_file) != 0) {

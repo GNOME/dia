@@ -25,7 +25,7 @@
 #include <glib.h>
 #include <gmodule.h>
 
-#define DIA_PLUGIN_API_VERSION 1
+#define DIA_PLUGIN_API_VERSION 2
 
 typedef struct _PluginInfo PluginInfo;
 

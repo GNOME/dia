@@ -75,9 +75,9 @@ static Object *vergent_load(ObjectNode obj_node, int version,
                             const char *filename);
 static PropDescription *vergent_describe_props(Vergent *vergent);
 static void vergent_get_props(Vergent *vergent, 
-                              Property *props, guint nprops);
+                              GPtrArray *props);
 static void vergent_set_props(Vergent *vergent, 
-                              Property *props, guint nprops);
+                              GPtrArray *props);
 
 static DiaMenu *vergent_get_object_menu(Vergent *vergent,
 					Point *clickedpoint);
@@ -153,17 +153,17 @@ static PropOffset vergent_offsets[] = {
 };
 
 static void
-vergent_get_props(Vergent *vergent, Property *props, guint nprops)
+vergent_get_props(Vergent *vergent, GPtrArray *props)
 {  
   object_get_props_from_offsets(&vergent->connection.object,
-                                vergent_offsets,props,nprops);
+                                vergent_offsets,props);
 }
 
 static void
-vergent_set_props(Vergent *vergent, Property *props, guint nprops)
+vergent_set_props(Vergent *vergent, GPtrArray *props)
 {
   object_set_props_from_offsets(&vergent->connection.object,
-                                vergent_offsets,props,nprops);  
+                                vergent_offsets,props);  
   vergent_update_data(vergent);
 }
 

@@ -90,9 +90,9 @@ static Object *sadtarrow_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *sadtarrow_describe_props(Sadtarrow *sadtarrow);
 static void sadtarrow_get_props(Sadtarrow *sadtarrow, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 static void sadtarrow_set_props(Sadtarrow *sadtarrow, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 
 
 static ObjectTypeOps sadtarrow_type_ops =
@@ -166,17 +166,17 @@ static PropOffset sadtarrow_offsets[] = {
 };
 
 static void
-sadtarrow_get_props(Sadtarrow *sadtarrow, Property *props, guint nprops)
+sadtarrow_get_props(Sadtarrow *sadtarrow, GPtrArray *props)
 {  
   object_get_props_from_offsets(&sadtarrow->orth.object,
-                                sadtarrow_offsets,props,nprops);
+                                sadtarrow_offsets,props);
 }
 
 static void
-sadtarrow_set_props(Sadtarrow *sadtarrow, Property *props, guint nprops)
+sadtarrow_set_props(Sadtarrow *sadtarrow, GPtrArray *props)
 {
   object_set_props_from_offsets(&sadtarrow->orth.object,
-                                sadtarrow_offsets,props,nprops);
+                                sadtarrow_offsets,props);
   sadtarrow_update_data(sadtarrow);
 }
 

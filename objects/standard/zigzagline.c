@@ -69,10 +69,8 @@ static DiaMenu *zigzagline_get_object_menu(Zigzagline *zigzagline,
 					   Point *clickedpoint);
 
 static PropDescription *zigzagline_describe_props(Zigzagline *zigzagline);
-static void zigzagline_get_props(Zigzagline *zigzagline, Property *props,
-				 guint nprops);
-static void zigzagline_set_props(Zigzagline *zigzagline, Property *props,
-				 guint nprops);
+static void zigzagline_get_props(Zigzagline *zigzagline, GPtrArray *props);
+static void zigzagline_set_props(Zigzagline *zigzagline, GPtrArray *props);
 
 static void zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 			    const char *filename);
@@ -148,17 +146,17 @@ static PropOffset zigzagline_offsets[] = {
 };
 
 static void
-zigzagline_get_props(Zigzagline *zigzagline, Property *props, guint nprops)
+zigzagline_get_props(Zigzagline *zigzagline, GPtrArray *props)
 {
   object_get_props_from_offsets(&zigzagline->orth.object, zigzagline_offsets,
-				props, nprops);
+				props);
 }
 
 static void
-zigzagline_set_props(Zigzagline *zigzagline, Property *props, guint nprops)
+zigzagline_set_props(Zigzagline *zigzagline, GPtrArray *props)
 {
   object_set_props_from_offsets(&zigzagline->orth.object, zigzagline_offsets,
-				props, nprops);
+				props);
   zigzagline_update_data(zigzagline);
 }
 

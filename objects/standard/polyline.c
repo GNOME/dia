@@ -68,10 +68,8 @@ static void polyline_destroy(Polyline *polyline);
 static Object *polyline_copy(Polyline *polyline);
 
 static PropDescription *polyline_describe_props(Polyline *polyline);
-static void polyline_get_props(Polyline *polyline, Property *props,
-			       guint nprops);
-static void polyline_set_props(Polyline *polyline, Property *props,
-			       guint nprops);
+static void polyline_get_props(Polyline *polyline, GPtrArray *props);
+static void polyline_set_props(Polyline *polyline, GPtrArray *props);
 
 static void polyline_save(Polyline *polyline, ObjectNode obj_node,
 			  const char *filename);
@@ -146,17 +144,17 @@ static PropOffset polyline_offsets[] = {
 };
 
 static void
-polyline_get_props(Polyline *polyline, Property *props, guint nprops)
+polyline_get_props(Polyline *polyline, GPtrArray *props)
 {
   object_get_props_from_offsets(&polyline->poly.object, polyline_offsets,
-				props, nprops);
+				props);
 }
 
 static void
-polyline_set_props(Polyline *polyline, Property *props, guint nprops)
+polyline_set_props(Polyline *polyline, GPtrArray *props)
 {
   object_set_props_from_offsets(&polyline->poly.object, polyline_offsets,
-				props, nprops);
+				props);
   polyline_update_data(polyline);
 }
 

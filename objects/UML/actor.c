@@ -67,8 +67,8 @@ static Object *actor_load(ObjectNode obj_node, int version,
 			  const char *filename);
 
 static PropDescription *actor_describe_props(Actor *actor);
-static void actor_get_props(Actor *actor, Property *props, guint nprops);
-static void actor_set_props(Actor *actor, Property *props, guint nprops);
+static void actor_get_props(Actor *actor, GPtrArray *props);
+static void actor_set_props(Actor *actor, GPtrArray *props);
 
 static void actor_update_data(Actor *actor);
 
@@ -131,20 +131,19 @@ static PropOffset actor_offsets[] = {
 };
 
 static void
-actor_get_props(Actor * actor, Property *props, guint nprops)
+actor_get_props(Actor * actor, GPtrArray *props)
 {
   text_get_attributes(actor->text,&actor->attrs);
   object_get_props_from_offsets(&actor->element.object,
-                                actor_offsets,props,nprops);
+                                actor_offsets,props);
 }
 
 static void
-actor_set_props(Actor *actor, Property *props, guint nprops)
+actor_set_props(Actor *actor, GPtrArray *props)
 {
   object_set_props_from_offsets(&actor->element.object,
-                                actor_offsets,props,nprops);
-  apply_textattr_properties(props,nprops,
-                            actor->text,"text",&actor->attrs);
+                                actor_offsets,props);
+  apply_textattr_properties(props,actor->text,"text",&actor->attrs);
   actor_update_data(actor);
 }
 

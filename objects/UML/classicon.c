@@ -79,8 +79,8 @@ static void classicon_destroy(Classicon *cicon);
 static Object *classicon_load(ObjectNode obj_node, int version,
 			      const char *filename);
 static PropDescription *classicon_describe_props(Classicon *classicon);
-static void classicon_get_props(Classicon *classicon, Property *props, guint nprops);
-static void classicon_set_props(Classicon *classicon, Property *props, guint nprops);
+static void classicon_get_props(Classicon *classicon, GPtrArray *props);
+static void classicon_set_props(Classicon *classicon, GPtrArray *props);
 static void classicon_update_data(Classicon *cicon);
 
 
@@ -157,20 +157,19 @@ static PropOffset classicon_offsets[] = {
 };
 
 static void
-classicon_get_props(Classicon * classicon, Property *props, guint nprops)
+classicon_get_props(Classicon * classicon, GPtrArray *props)
 {
   text_get_attributes(classicon->text,&classicon->attrs);
   object_get_props_from_offsets(&classicon->element.object,
-                                classicon_offsets,props,nprops);
+                                classicon_offsets,props);
 }
 
 static void
-classicon_set_props(Classicon *classicon, Property *props, guint nprops)
+classicon_set_props(Classicon *classicon, GPtrArray *props)
 {
   object_set_props_from_offsets(&classicon->element.object,
-                                classicon_offsets,props,nprops);
-  apply_textattr_properties(props,nprops,
-                            classicon->text,"text",&classicon->attrs);
+                                classicon_offsets,props);
+  apply_textattr_properties(props,classicon->text,"text",&classicon->attrs);
   classicon_update_data(classicon);
 }
 

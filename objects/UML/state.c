@@ -79,8 +79,8 @@ static void state_destroy(State *state);
 static Object *state_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static PropDescription *state_describe_props(State *state);
-static void state_get_props(State *state, Property *props, guint nprops);
-static void state_set_props(State *state, Property *props, guint nprops);
+static void state_get_props(State *state, GPtrArray *props);
+static void state_set_props(State *state, GPtrArray *props);
 static void state_update_data(State *state);
 
 void
@@ -156,20 +156,19 @@ static PropOffset state_offsets[] = {
 };
 
 static void
-state_get_props(State * state, Property *props, guint nprops)
+state_get_props(State * state, GPtrArray *props)
 {
   text_get_attributes(state->text,&state->attrs);
   object_get_props_from_offsets(&state->element.object,
-                                state_offsets,props,nprops);
+                                state_offsets,props);
 }
 
 static void
-state_set_props(State *state, Property *props, guint nprops)
+state_set_props(State *state, GPtrArray *props)
 {
   object_set_props_from_offsets(&state->element.object,
-                                state_offsets,props,nprops);
-  apply_textattr_properties(props,nprops,
-                            state->text,"text",&state->attrs);
+                                state_offsets,props);
+  apply_textattr_properties(props,state->text,"text",&state->attrs);
   state_update_data(state);
 }
 

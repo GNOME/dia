@@ -66,6 +66,7 @@ struct _Diamond {
   real dashlength;
 
   Text *text;
+  TextAttributes attrs;
   real padding;
 };
 
@@ -107,11 +108,10 @@ static Object *diamond_create(Point *startpoint,
 			  Handle **handle1,
 			  Handle **handle2);
 static void diamond_destroy(Diamond *diamond);
-static Object *diamond_copy(Diamond *diamond);
 
 static PropDescription *diamond_describe_props(Diamond *diamond);
-static void diamond_get_props(Diamond *diamond, Property *props, guint nprops);
-static void diamond_set_props(Diamond *diamond, Property *props, guint nprops);
+static void diamond_get_props(Diamond *diamond, GPtrArray *props);
+static void diamond_set_props(Diamond *diamond, GPtrArray *props);
 
 static void diamond_save(Diamond *diamond, ObjectNode obj_node, const char *filename);
 static Object *diamond_load(ObjectNode obj_node, int version, const char *filename);
@@ -141,7 +141,7 @@ static ObjectOps diamond_ops = {
   (DrawFunc)            diamond_draw,
   (DistanceFunc)        diamond_distance_from,
   (SelectFunc)          diamond_select,
-  (CopyFunc)            diamond_copy,
+  (CopyFunc)            object_copy_using_properties,
   (MoveFunc)            diamond_move,
   (MoveHandleFunc)      diamond_move_handle,
   (GetPropertiesFunc)   object_create_props_dialog,
@@ -188,74 +188,28 @@ static PropOffset diamond_offsets[] = {
   { "line_style", PROP_TYPE_LINESTYLE,
     offsetof(Diamond, line_style), offsetof(Diamond, dashlength) },
   { "padding", PROP_TYPE_REAL, offsetof(Diamond, padding) },
+  {"text",PROP_TYPE_TEXT,offsetof(Diamond,text)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Diamond,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(Diamond,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Diamond,attrs.color)},
   { NULL, 0, 0 },
 };
 
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" }
-};
-
 static void
-diamond_get_props(Diamond *diamond, Property *props, guint nprops)
+diamond_get_props(Diamond *diamond, GPtrArray *props)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&diamond->element.object, 
-                                    diamond_offsets, props, nprops))
-    return;
-  /* these props can't be handled as easily */
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = diamond->text->font;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = diamond->text->height;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = diamond->text->color;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(diamond->text);
-    }
-  }
+  text_get_attributes(diamond->text,&diamond->attrs);
+  object_get_props_from_offsets(&diamond->element.object,
+                                diamond_offsets,props);
 }
 
 static void
-diamond_set_props(Diamond *diamond, Property *props, guint nprops)
+diamond_set_props(Diamond *diamond, GPtrArray *props)
 {
-  if (!object_set_props_from_offsets(&diamond->element.object, 
-                                     diamond_offsets, props, nprops)) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-        quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_FONT) {
-        text_set_font(diamond->text, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_REAL) {
-        text_set_height(diamond->text, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_COLOUR) {
-        text_set_color(diamond->text, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_STRING) {
-        text_set_string(diamond->text, PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
-  diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  object_set_props_from_offsets(&diamond->element.object,
+                                diamond_offsets,props);
+  apply_textattr_properties(props,diamond->text,"text",&diamond->attrs);
+  diamond_update_data(diamond,ANCHOR_MIDDLE,ANCHOR_MIDDLE);
 }
 
 static void
@@ -647,6 +601,7 @@ diamond_create(Point *startpoint,
   p.y += elem->height / 2.0 + font_height / 2;
   diamond->text = new_text("", font, font_height, &p, &diamond->border_color,
 			   ALIGN_CENTER);
+  text_get_attributes(diamond->text,&diamond->attrs);
 
   element_init(elem, 8, 16);
 
@@ -671,42 +626,6 @@ diamond_destroy(Diamond *diamond)
   element_destroy(&diamond->element);
 }
 
-static Object *
-diamond_copy(Diamond *diamond)
-{
-  int i;
-  Diamond *newdiamond;
-  Element *elem, *newelem;
-  Object *newobj;
-  
-  elem = &diamond->element;
-  
-  newdiamond = g_malloc0(sizeof(Diamond));
-  newelem = &newdiamond->element;
-  newobj = &newelem->object;
-
-  element_copy(elem, newelem);
-
-  newdiamond->border_width = diamond->border_width;
-  newdiamond->border_color = diamond->border_color;
-  newdiamond->inner_color = diamond->inner_color;
-  newdiamond->show_background = diamond->show_background;
-  newdiamond->line_style = diamond->line_style;
-  newdiamond->dashlength = diamond->dashlength;
-  newdiamond->padding = diamond->padding;
-
-  newdiamond->text = text_copy(diamond->text);
-  
-  for (i=0;i<16;i++) {
-    newobj->connections[i] = &newdiamond->connections[i];
-    newdiamond->connections[i].object = newobj;
-    newdiamond->connections[i].connected = NULL;
-    newdiamond->connections[i].pos = diamond->connections[i].pos;
-    newdiamond->connections[i].last_pos = diamond->connections[i].last_pos;
-  }
-
-  return &newdiamond->element.object;
-}
 
 static void
 diamond_save(Diamond *diamond, ObjectNode obj_node, const char *filename)

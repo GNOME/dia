@@ -83,9 +83,9 @@ static Object *condition_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *condition_describe_props(Condition *condition);
 static void condition_get_props(Condition *condition, 
-                                Property *props, guint nprops);
+                                GPtrArray *props);
 static void condition_set_props(Condition *condition, 
-                                Property *props, guint nprops);
+                                GPtrArray *props);
 
 static ObjectTypeOps condition_type_ops =
 {
@@ -156,17 +156,17 @@ static PropOffset condition_offsets[] = {
 };
 
 static void
-condition_get_props(Condition *condition, Property *props, guint nprops)
+condition_get_props(Condition *condition, GPtrArray *props)
 {  
   object_get_props_from_offsets(&condition->connection.object,
-                                condition_offsets,props,nprops);
+                                condition_offsets,props);
 }
 
 static void
-condition_set_props(Condition *condition, Property *props, guint nprops)
+condition_set_props(Condition *condition, GPtrArray *props)
 {
   object_set_props_from_offsets(&condition->connection.object,
-                                condition_offsets,props,nprops);
+                                condition_offsets,props);
   
   boolequation_set_value(condition->cond,condition->cond_value);
   condition->cond->font = condition->cond_font;

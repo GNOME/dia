@@ -1,5 +1,30 @@
 ## Process this file with automake to produce Makefile.in
 
+stdprop_files = \
+	properties.h \
+	properties.c \
+	propinternals.h \
+	propdesc.c \
+	proplist.c \
+	propoffsets.c \
+	propobject.c \
+	prop_basic.c \
+	prop_basic.h \
+	prop_inttypes.c \
+	prop_inttypes.h \
+	prop_geomtypes.c \
+	prop_geomtypes.h \
+	prop_attr.c \
+	prop_attr.h \
+	prop_text.c \
+	prop_text.h \
+	prop_widgets.c \
+	prop_widgets.h \
+	prop_sdarray.c \
+	prop_sdarray.h \
+	propdialogs.c  \
+	propregistry.c 
+
 noinst_LIBRARIES =     libdia.a
 libdia_a_SOURCES =  \
 		diavar.h \
@@ -62,8 +87,7 @@ libdia_a_SOURCES =  \
 		filter.h \
 		connpoint_line.c \
 		connpoint_line.h \
-		properties.c \
-		properties.h \
+		$(stdprop_files) \
 		dia_dirs.c \
 		dia_dirs.h \
 		plug-ins.c \

@@ -84,6 +84,7 @@ struct _Custom {
   gboolean flip_h, flip_v;
 
   Text *text;
+  TextAttributes attrs;
   real padding;
 };
 
@@ -134,8 +135,8 @@ static Object *custom_copy(Custom *custom);
 static DiaMenu *custom_get_object_menu(Custom *custom, Point *clickedpoint);
 
 static PropDescription *custom_describe_props(Custom *custom);
-static void custom_get_props(Custom *custom, Property *props, guint nprops);
-static void custom_set_props(Custom *custom, Property *props, guint nprops);
+static void custom_get_props(Custom *custom, GPtrArray *props);
+static void custom_set_props(Custom *custom, GPtrArray *props);
 
 static void custom_save(Custom *custom, ObjectNode obj_node, const char *filename);
 static Object *custom_load(ObjectNode obj_node, int version, const char *filename);
@@ -189,6 +190,7 @@ static PropDescription custom_props[] = {
     N_("Flip vertical"), NULL, NULL },
   PROP_DESC_END
 };
+
 static PropDescription custom_props_text[] = {
   ELEMENT_COMMON_PROPERTIES,
   PROP_STD_LINE_WIDTH,
@@ -200,7 +202,7 @@ static PropDescription custom_props_text[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  PROP_STD_TEXT,
+  PROP_STD_SAVED_TEXT,
   { "flip_horizontal", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Flip horizontal"), NULL, NULL },
   { "flip_vertical", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
@@ -211,10 +213,6 @@ static PropDescription custom_props_text[] = {
 static PropDescription *
 custom_describe_props(Custom *custom)
 {
-  if (custom_props[0].quark == 0)
-    prop_desc_list_calculate_quarks(custom_props);
-  if (custom_props_text[0].quark == 0)
-    prop_desc_list_calculate_quarks(custom_props_text);
   if (custom->info->has_text)
     return custom_props_text;
   else
@@ -231,81 +229,30 @@ static PropOffset custom_offsets[] = {
     offsetof(Custom, line_style), offsetof(Custom, dashlength) },
   { "flip_horizontal", PROP_TYPE_BOOL, offsetof(Custom, flip_h) },
   { "flip_vertical", PROP_TYPE_BOOL, offsetof(Custom, flip_v) },
+  {"text",PROP_TYPE_TEXT,offsetof(Custom,text)},
+  {"text_font",PROP_TYPE_FONT,offsetof(Custom,attrs.font)},
+  {"text_height",PROP_TYPE_REAL,offsetof(Custom,attrs.height)},
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Custom,attrs.color)},
+  {"text_alignment",PROP_TYPE_ENUM,offsetof(Custom,attrs.alignment)},
   { NULL, 0, 0 }
 };
 
-static struct { const gchar *name; GQuark q; } quarks[] = {
-  { "text_alignment" },
-  { "text_font" },
-  { "text_height" },
-  { "text_colour" },
-  { "text" }
-};
-
 static void
-custom_get_props(Custom *custom, Property *props, guint nprops)
+custom_get_props(Custom *custom, GPtrArray *props)
 {
-  guint i;
-
-  if (object_get_props_from_offsets(&custom->element.object, 
-                                    custom_offsets, props, nprops) ||
-      !custom->info->has_text)
-    return;
-  if (quarks[0].q == 0)
-    for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-      quarks[i].q = g_quark_from_static_string(quarks[i].name);
- 
-  for (i = 0; i < nprops; i++) {
-    GQuark pquark = g_quark_from_string(props[i].name);
-
-    if (pquark == quarks[0].q) {
-      props[i].type = PROP_TYPE_ENUM;
-      PROP_VALUE_ENUM(props[i]) = custom->text->alignment;
-    } else if (pquark == quarks[1].q) {
-      props[i].type = PROP_TYPE_FONT;
-      PROP_VALUE_FONT(props[i]) = custom->text->font;
-    } else if (pquark == quarks[2].q) {
-      props[i].type = PROP_TYPE_REAL;
-      PROP_VALUE_REAL(props[i]) = custom->text->height;
-    } else if (pquark == quarks[3].q) {
-      props[i].type = PROP_TYPE_COLOUR;
-      PROP_VALUE_COLOUR(props[i]) = custom->text->color;
-    } else if (pquark == quarks[4].q) {
-      props[i].type = PROP_TYPE_STRING;
-      g_free(PROP_VALUE_STRING(props[i]));
-      PROP_VALUE_STRING(props[i]) = text_get_string_copy(custom->text);
-    }
-  }
+  if (custom->info->has_text)
+    text_get_attributes(custom->text,&custom->attrs);
+  object_get_props_from_offsets(&custom->element.object,
+                                custom_offsets,props);
 }
 
 static void
-custom_set_props(Custom *custom, Property *props, guint nprops)
+custom_set_props(Custom *custom, GPtrArray *props)
 {
-  if (!object_set_props_from_offsets(&custom->element.object, 
-                                     custom_offsets, props, nprops) &&
-      custom->info->has_text) {
-    guint i;
-
-    if (quarks[0].q == 0)
-      for (i = 0; i < sizeof(quarks)/sizeof(*quarks); i++)
-        quarks[i].q = g_quark_from_static_string(quarks[i].name);
-
-    for (i = 0; i < nprops; i++) {
-      GQuark pquark = g_quark_from_string(props[i].name);
-
-      if (pquark == quarks[0].q && props[i].type == PROP_TYPE_ENUM) {
-	text_set_alignment(custom->text, PROP_VALUE_ENUM(props[i]));
-      } else if (pquark == quarks[1].q && props[i].type == PROP_TYPE_FONT) {
-        text_set_font(custom->text, PROP_VALUE_FONT(props[i]));
-      } else if (pquark == quarks[2].q && props[i].type == PROP_TYPE_REAL) {
-        text_set_height(custom->text, PROP_VALUE_REAL(props[i]));
-      } else if (pquark == quarks[3].q && props[i].type == PROP_TYPE_COLOUR) {
-        text_set_color(custom->text, &PROP_VALUE_COLOUR(props[i]));
-      } else if (pquark == quarks[4].q && props[i].type == PROP_TYPE_STRING) {
-        text_set_string(custom->text, PROP_VALUE_STRING(props[i]));
-      }
-    }
-  }
+  object_set_props_from_offsets(&custom->element.object,
+                                custom_offsets,props);
+  if (custom->info->has_text)
+    apply_textattr_properties(props,custom->text,"text",&custom->attrs);
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 
@@ -1259,6 +1206,7 @@ custom_create(Point *startpoint,
     p.y += elem->height / 2.0 + font_height / 2;
     custom->text = new_text("", font, font_height, &p, &custom->border_color,
 			    default_properties.alignment);
+    text_get_attributes(custom->text,&custom->attrs);
   }
   for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
        GraphicElement *el = tmp->data;
@@ -1338,7 +1286,8 @@ custom_copy(Custom *custom)
 
   if (custom->info->has_text)
     newcustom->text = text_copy(custom->text);
-  
+  text_get_attributes(newcustom->text,&newcustom->attrs);
+
   newcustom->connections = g_new0(ConnectionPoint, custom->info->nconnections);
 
   for (i = 0; i < custom->info->nconnections; i++) {

@@ -71,10 +71,8 @@ static void bezierline_destroy(Bezierline *bezierline);
 static Object *bezierline_copy(Bezierline *bezierline);
 
 static PropDescription *bezierline_describe_props(Bezierline *bezierline);
-static void bezierline_get_props(Bezierline *bezierline,
-				 Property *props, guint nprops);
-static void bezierline_set_props(Bezierline *bezierline,
-				 Property *props, guint nprops);
+static void bezierline_get_props(Bezierline *bezierline, GPtrArray *props);
+static void bezierline_set_props(Bezierline *bezierline, GPtrArray *props);
 
 static void bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
 			  const char *filename);
@@ -151,17 +149,17 @@ static PropOffset bezierline_offsets[] = {
 };
 
 static void
-bezierline_get_props(Bezierline *bezierline, Property *props, guint nprops)
+bezierline_get_props(Bezierline *bezierline, GPtrArray *props)
 {
   object_get_props_from_offsets(&bezierline->bez.object, bezierline_offsets,
-				props, nprops);
+				props);
 }
 
 static void
-bezierline_set_props(Bezierline *bezierline, Property *props, guint nprops)
+bezierline_set_props(Bezierline *bezierline, GPtrArray *props)
 {
   object_set_props_from_offsets(&bezierline->bez.object, bezierline_offsets,
-				props, nprops);
+				props);
   bezierline_update_data(bezierline);
 }
 

@@ -69,9 +69,9 @@ static void participation_update_data(Participation *dep);
 static PropDescription *
 participation_describe_props(Participation *participation);
 static void
-participation_get_props(Participation *participation, Property *props, guint nprops);
+participation_get_props(Participation *participation, GPtrArray *props);
 static void
-participation_set_props(Participation *participation, Property *props, guint nprops);
+participation_set_props(Participation *participation, GPtrArray *props);
 static DiaMenu *participation_get_object_menu(Participation *participation,
 					      Point *clickedpoint);
 
@@ -130,17 +130,17 @@ static PropOffset participation_offsets[] = {
 
 
 static void
-participation_get_props(Participation *participation, Property *props, guint nprops)
+participation_get_props(Participation *participation, GPtrArray *props)
 {
   object_get_props_from_offsets(&participation->orth.object, 
-                                participation_offsets, props, nprops);
+                                participation_offsets, props);
 }
 
 static void
-participation_set_props(Participation *participation, Property *props, guint nprops)
+participation_set_props(Participation *participation, GPtrArray *props)
 {
   object_set_props_from_offsets(&participation->orth.object, 
-                                participation_offsets, props, nprops);
+                                participation_offsets, props);
   participation_update_data(participation);
 }
 

@@ -66,6 +66,11 @@
 #include "color.h"
 #include "message.h"
 
+
+#ifndef LARS_TRACE_MESSAGES
+#define fprintf(...) 
+#endif
+
 #define FONTCACHE_SIZE 17
 
 #define NUM_X11_FONTS 2
@@ -94,12 +99,14 @@ struct _FontPrivate {
   real ascent_ratio, descent_ratio;
 };
 
+#ifdef HAVE_FREETYPE
 typedef struct _DiaFontFamily DiaFontFamily;
 
 struct _DiaFontFamily {
   FreetypeFamily *freetype_family;
   GList *diafonts;
 };
+#endif
 
 typedef struct _FontData {
   char *fontname;

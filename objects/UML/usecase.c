@@ -80,10 +80,9 @@ static void usecase_destroy(Usecase *usecase);
 static Object *usecase_load(ObjectNode obj_node, int version,
 			    const char *filename);
 static void usecase_update_data(Usecase *usecase);
-static ObjectChange *usecase_apply_properties(Usecase *usecase, GtkWidget *widget);
 static PropDescription *usecase_describe_props(Usecase *usecase);
-static void usecase_get_props(Usecase *usecase, Property *props, guint nprops);
-static void usecase_set_props(Usecase *usecase, Property *props, guint nprops);
+static void usecase_get_props(Usecase *usecase, GPtrArray *props);
+static void usecase_set_props(Usecase *usecase, GPtrArray *props);
 
 static ObjectTypeOps usecase_type_ops =
 {
@@ -151,20 +150,19 @@ static PropOffset usecase_offsets[] = {
 };
 
 static void
-usecase_get_props(Usecase * usecase, Property *props, guint nprops)
+usecase_get_props(Usecase * usecase, GPtrArray *props)
 {
   text_get_attributes(usecase->text,&usecase->attrs);
   object_get_props_from_offsets(&usecase->element.object,
-                                usecase_offsets,props,nprops);
+                                usecase_offsets,props);
 }
 
 static void
-usecase_set_props(Usecase *usecase, Property *props, guint nprops)
+usecase_set_props(Usecase *usecase, GPtrArray *props)
 {
   object_set_props_from_offsets(&usecase->element.object,
-                                usecase_offsets,props,nprops);
-  apply_textattr_properties(props,nprops,
-                            usecase->text,"text",&usecase->attrs);
+                                usecase_offsets,props);
+  apply_textattr_properties(props,usecase->text,"text",&usecase->attrs);
   usecase_update_data(usecase);
 }
 

@@ -71,8 +71,8 @@ static Object *smallpackage_load(ObjectNode obj_node, int version,
 				 const char *filename);
 
 static PropDescription *smallpackage_describe_props(SmallPackage *smallpackage);
-static void smallpackage_get_props(SmallPackage *smallpackage, Property *props, guint nprops);
-static void smallpackage_set_props(SmallPackage *smallpackage, Property *props, guint nprops);
+static void smallpackage_get_props(SmallPackage *smallpackage, GPtrArray *props);
+static void smallpackage_set_props(SmallPackage *smallpackage, GPtrArray *props);
 
 static void smallpackage_update_data(SmallPackage *pkg);
 
@@ -139,21 +139,21 @@ static PropOffset smallpackage_offsets[] = {
 
 static void
 smallpackage_get_props(SmallPackage * smallpackage, 
-                       Property *props, guint nprops)
+                       GPtrArray *props)
 {
   text_get_attributes(smallpackage->text,&smallpackage->attrs);
   object_get_props_from_offsets(&smallpackage->element.object,
-                                smallpackage_offsets,props,nprops);
+                                smallpackage_offsets,props);
 }
 
 static void
 smallpackage_set_props(SmallPackage *smallpackage, 
-                       Property *props, guint nprops)
+                       GPtrArray *props)
 {
   object_set_props_from_offsets(&smallpackage->element.object, 
-                                smallpackage_offsets, props, nprops);
-  apply_textattr_properties(props,nprops,
-                            smallpackage->text,"text",&smallpackage->attrs);
+                                smallpackage_offsets, props);
+  apply_textattr_properties(props,smallpackage->text,
+                            "text",&smallpackage->attrs);
   g_free(smallpackage->st_stereotype);
   smallpackage->st_stereotype = NULL;
   smallpackage_update_data(smallpackage);

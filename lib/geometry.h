@@ -18,8 +18,23 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <glib.h>
 #include <math.h>
+
+/* Solaris 2.4, 2.6, probably 2.5.x, and possibly others prototype
+   finite() in ieeefp.h instead of math.h.  finite() might not be
+   available at all on some HP-UX configurations (in which case,
+   you're on your own). */
+#ifdef HAVE_IEEEFP_H
+#include <ieeefp.h>
+#endif
+#ifdef HAVE_SUNMATH_H
+#include <sunmath.h>
+#endif
 
 #ifdef _MSC_VER
    /* there are some things more in the gcc headers */
@@ -172,7 +187,7 @@ G_INLINE_FUNC void point_get_perp(Point *dst, const Point *src);
 G_INLINE_FUNC void
 point_get_perp(Point *dst, const Point *src)
 {
-  /* dst = the src vector, rotated 90<B0> counter clowkwise. src *must* be 
+  /* dst = the src vector, rotated 90deg counter clowkwise. src *must* be 
      normalized before. */
   dst->y = src->x;
   dst->x = -src->y;

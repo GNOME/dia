@@ -77,9 +77,9 @@ static Object *annotation_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *annotation_describe_props(Annotation *annotation);
 static void annotation_get_props(Annotation *annotation, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 static void annotation_set_props(Annotation *annotation, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 
 static ObjectTypeOps annotation_type_ops =
 {
@@ -119,11 +119,17 @@ static ObjectOps annotation_ops = {
 static gboolean 
 handle_btn1(Annotation *annotation, Property *prop) {
   Color col;
-  g_message("in handle_btn1 for object %p",annotation);
+  text_get_attributes(annotation->text,&annotation->attrs);
+  col = annotation->attrs.color;
+  /* g_message("in handle_btn1 for object %p col=%.2f:%.2f:%.2f",
+     annotation,col.red,col.green,col.blue); */
   col.red = (1.0*random())/RAND_MAX;
-  col.blue = (1.0*random())/RAND_MAX;
   col.green = (1.0*random())/RAND_MAX;
-  text_set_color(annotation->text,&col);
+  col.blue = (1.0*random())/RAND_MAX;
+  annotation->attrs.color = col;
+  text_set_attributes(annotation->text,&annotation->attrs);
+  /* g_message("end of handle_btn1 for object %p col=%.2f:%.2f:%.2f",
+     annotation,col.red,col.green,col.blue); */
   return TRUE;
 }
 #endif
@@ -131,7 +137,8 @@ handle_btn1(Annotation *annotation, Property *prop) {
 static PropDescription annotation_props[] = {
   CONNECTION_COMMON_PROPERTIES,
 #ifdef TEMPORARY_EVENT_TEST
-  {"btn1", PROP_TYPE_BUTTON, PROP_FLAG_VISIBLE, NULL, "Click Me !", NULL, 
+  {"btn1", PROP_TYPE_BUTTON, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, 
+   NULL, "Click Me !", NULL, 
    (PropEventHandler)handle_btn1},
 #endif
   { "text", PROP_TYPE_TEXT, 0,NULL,NULL},
@@ -164,20 +171,19 @@ static PropOffset annotation_offsets[] = {
 };
 
 static void
-annotation_get_props(Annotation *annotation, Property *props, guint nprops)
+annotation_get_props(Annotation *annotation, GPtrArray *props)
 {  
   text_get_attributes(annotation->text,&annotation->attrs);
   object_get_props_from_offsets(&annotation->connection.object,
-                                annotation_offsets,props,nprops);
+                                annotation_offsets,props);
 }
 
 static void
-annotation_set_props(Annotation *annotation, Property *props, guint nprops)
+annotation_set_props(Annotation *annotation, GPtrArray *props)
 {
   object_set_props_from_offsets(&annotation->connection.object,
-                                annotation_offsets,props,nprops);
-  apply_textattr_properties(props,nprops,
-                            annotation->text,"text",&annotation->attrs);
+                                annotation_offsets,props);
+  apply_textattr_properties(props,annotation->text,"text",&annotation->attrs);
   annotation_update_data(annotation);
 }
 

@@ -71,8 +71,8 @@ static Object *component_load(ObjectNode obj_node, int version,
 				 const char *filename);
 
 static PropDescription *component_describe_props(Component *component);
-static void component_get_props(Component *component, Property *props, guint nprops);
-static void component_set_props(Component *component, Property *props, guint nprops);
+static void component_get_props(Component *component, GPtrArray *props);
+static void component_set_props(Component *component, GPtrArray *props);
 
 static void component_update_data(Component *cmp);
 
@@ -139,20 +139,19 @@ static PropOffset component_offsets[] = {
 
 
 static void
-component_get_props(Component * component, Property *props, guint nprops)
+component_get_props(Component * component, GPtrArray *props)
 {
   text_get_attributes(component->text,&component->attrs);
   object_get_props_from_offsets(&component->element.object,
-                                component_offsets,props,nprops);
+                                component_offsets,props);
 }
 
 static void
-component_set_props(Component *component, Property *props, guint nprops)
+component_set_props(Component *component, GPtrArray *props)
 {
   object_set_props_from_offsets(&component->element.object, 
-                                component_offsets, props, nprops);
-  apply_textattr_properties(props,nprops,
-                            component->text,"text",&component->attrs);
+                                component_offsets, props);
+  apply_textattr_properties(props,component->text,"text",&component->attrs);
   g_free(component->st_stereotype);
   component->st_stereotype = NULL;
   component_update_data(component);

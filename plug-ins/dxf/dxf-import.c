@@ -38,6 +38,7 @@
 #include "filter.h"
 #include "object.h"
 #include "properties.h"
+#include "propinternals.h"
 
 static real coord_scale = 5.0;
 static real width_scale = 10.0;
@@ -96,6 +97,14 @@ LineStyle get_dia_linestyle_dxf(char *dxflinestyle) {
     return LINESTYLE_SOLID;
 }
 
+static PropDescription dxf_prop_descs[] = {
+    { "start_point", PROP_TYPE_POINT },
+    { "end_point", PROP_TYPE_POINT },
+    { "line_colour", PROP_TYPE_COLOUR },
+    { "line_width", PROP_TYPE_REAL },
+    { "line_style", PROP_TYPE_LINESTYLE},
+    PROP_DESC_END};
+
 /* reads a line entity from the dxf file and creates a line object in dia*/
 void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     int codedxf;
@@ -109,7 +118,8 @@ void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     
     Object *line_obj;
     Color line_colour = { 0.0, 0.0, 0.0 };
-    Property props[5];
+    GPtrArray *props;
+
     real line_width = 0.1;
     LineStyle style = LINESTYLE_SOLID;
     Layer *layer = NULL;
@@ -149,29 +159,37 @@ void read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
                                   &h1, &h2);
     layer_add_object(layer, line_obj);
 		
-    props[0].name = "start_point";
-    props[0].type = PROP_TYPE_POINT;
-    PROP_VALUE_POINT(props[0]).x = start.x;
-    PROP_VALUE_POINT(props[0]).y = start.y;
-    props[1].name = "end_point";
-    props[1].type = PROP_TYPE_POINT;
-    PROP_VALUE_POINT(props[1]).x = end.x;
-    PROP_VALUE_POINT(props[1]).y = end.y;
+    props = prop_list_from_descs(dxf_prop_descs,pdtpp_true);
+    g_assert(props->len == 5);
     
-    props[2].name = "line_colour";
-    props[2].type = PROP_TYPE_COLOUR;
-    PROP_VALUE_COLOUR(props[2]) = line_colour;
-    props[3].name = "line_width";
-    props[3].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[3]) = line_width;
-    props[4].name = "line_style";
-    props[4].type = PROP_TYPE_LINESTYLE;
-    PROP_VALUE_LINESTYLE(props[4]).style = style;
-    PROP_VALUE_LINESTYLE(props[4]).dash = 1.0;
+    ((PointProperty *)(g_ptr_array_index(props,0)))->point_data.x = start.x;
+    ((PointProperty *)(g_ptr_array_index(props,0)))->point_data.y = start.y;
+
+    ((PointProperty *)(g_ptr_array_index(props,1)))->point_data.x = end.x;
+    ((PointProperty *)(g_ptr_array_index(props,1)))->point_data.y = end.y;
     
-    line_obj->ops->set_props(line_obj, props, 
-                             sizeof(props)/sizeof(props[0]));
+
+    ((ColorProperty *)(g_ptr_array_index(props,2)))->color_data = 
+        line_colour;
+
+    ((RealProperty *)(g_ptr_array_index(props,3)))->real_data = line_width;
+
+    ((LinestyleProperty *)(g_ptr_array_index(props,4)))->style = style;
+    ((LinestyleProperty *)(g_ptr_array_index(props,4)))->dash = 1.0;
+
+    line_obj->ops->set_props(line_obj, props);
+
+    prop_list_free(props);
 }
+
+static PropDescription dxf_ellipse_prop_descs[] = {
+    { "elem_corner", PROP_TYPE_POINT },
+    { "elem_width", PROP_TYPE_REAL },
+    { "elem_height", PROP_TYPE_REAL },
+    { "line_colour", PROP_TYPE_COLOUR },
+    { "line_width", PROP_TYPE_REAL },
+    { "show_background", PROP_TYPE_BOOL},
+    PROP_DESC_END};
 
 /* reads a circle entity from the dxf file and creates a circle object in dia*/
 void read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
@@ -187,7 +205,13 @@ void read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     
     Object *ellipse_obj;
     Color line_colour = { 0.0, 0.0, 0.0 };
-    Property props[6];
+
+    PointProperty *ptprop;
+    RealProperty *rprop;
+    BoolProperty *bprop;
+    ColorProperty *cprop;
+    GPtrArray *props;
+
     real line_width = 0.1;
     Layer *layer = NULL;
     
@@ -225,29 +249,33 @@ void read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
                                      &h1, &h2);
     layer_add_object(layer, ellipse_obj);
 	
-    props[0].name = "elem_corner";
-    props[0].type = PROP_TYPE_POINT;
-    PROP_VALUE_POINT(props[0]).x = center.x;
-    PROP_VALUE_POINT(props[0]).y = center.y;
-    props[1].name = "elem_width";
-    props[1].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[1]) = radius * 2.0;
-    props[2].name = "elem_height";
-    props[2].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[2]) = radius * 2.0;
-    props[3].name = "line_colour";
-    props[3].type = PROP_TYPE_COLOUR;
-    PROP_VALUE_COLOUR(props[3]) = line_colour;
-    props[4].name = "line_width";
-    props[4].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[4]) = line_width;
-    props[5].name = "show_background";
-    props[5].type = PROP_TYPE_BOOL;
-    PROP_VALUE_BOOL(props[5]) = 0;
+    props = prop_list_from_descs(dxf_ellipse_prop_descs,pdtpp_true);
+    g_assert(props->len == 6);
+
+    ptprop = g_ptr_array_index(props,0);
+    ptprop->point_data = center;
+    rprop = g_ptr_array_index(props,1);
+    rprop->real_data = radius * 2.0;
+    rprop = g_ptr_array_index(props,2);
+    rprop->real_data = radius * 2.0;
+    cprop = g_ptr_array_index(props,3);
+    cprop->color_data = line_colour;
+    rprop = g_ptr_array_index(props,4);
+    rprop->real_data = line_width;
+    bprop = g_ptr_array_index(props,5);
+    bprop->bool_data = FALSE;
     
-    ellipse_obj->ops->set_props(ellipse_obj, props, 
-                                sizeof(props)/sizeof(props[0]));
+    ellipse_obj->ops->set_props(ellipse_obj, props);
+    prop_list_free(props);
 }
+
+static PropDescription dxf_arc_prop_descs[] = {
+    { "start_point", PROP_TYPE_POINT },
+    { "end_point", PROP_TYPE_POINT },
+    { "curve_distance", PROP_TYPE_REAL },
+    { "line_colour", PROP_TYPE_COLOUR },
+    { "line_width", PROP_TYPE_REAL },
+    PROP_DESC_END};
 
 /* reads a circle entity from the dxf file and creates a circle object in dia*/
 void read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
@@ -264,7 +292,12 @@ void read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
   
     Object *arc_obj;
     Color line_colour = { 0.0, 0.0, 0.0 };
-    Property props[5];
+
+    ColorProperty *cprop;
+    PointProperty *ptprop;
+    RealProperty *rprop;
+    GPtrArray *props;
+
     real line_width = 0.1;
     Layer *layer = NULL;
 		
@@ -319,26 +352,22 @@ void read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
                                      &h1, &h2);
     layer_add_object(layer, arc_obj);
     
-    props[0].name = "start_point";
-    props[0].type = PROP_TYPE_POINT;
-    PROP_VALUE_POINT(props[0]).x = start.x;
-    PROP_VALUE_POINT(props[0]).y = start.y;
-    props[1].name = "end_point";
-    props[1].type = PROP_TYPE_POINT;
-    PROP_VALUE_POINT(props[1]).x = end.x;
-    PROP_VALUE_POINT(props[1]).y = end.y;
-    props[2].name = "curve_distance";
-    props[2].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[2]) = curve_distance;
-    props[3].name = "line_colour";
-    props[3].type = PROP_TYPE_COLOUR;
-    PROP_VALUE_COLOUR(props[3]) = line_colour;
-    props[4].name = "line_width";
-    props[4].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[4]) = line_width;
+    props = prop_list_from_descs(dxf_arc_prop_descs,pdtpp_true);
+    g_assert(props->len == 5);
+
+    ptprop = g_ptr_array_index(props,0);
+    ptprop->point_data = start;
+    ptprop = g_ptr_array_index(props,1);
+    ptprop->point_data = end;
+    rprop = g_ptr_array_index(props,2);
+    rprop->real_data = curve_distance;
+    cprop = g_ptr_array_index(props,3);
+    cprop->color_data = line_colour;
+    rprop = g_ptr_array_index(props,4);
+    rprop->real_data = line_width;
     
-    arc_obj->ops->set_props(arc_obj, props, 
-                            sizeof(props)/sizeof(props[0]));
+    arc_obj->ops->set_props(arc_obj, props);
+    prop_list_free(props);
 }
 
 /* reads an ellipse entity from the dxf file and creates an ellipse object in dia*/
@@ -356,7 +385,12 @@ void read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     
     Object *ellipse_obj; 
     Color line_colour = { 0.0, 0.0, 0.0 };
-    Property props[6];
+    PointProperty *ptprop;
+    RealProperty *rprop;
+    BoolProperty *bprop;
+    ColorProperty *cprop;
+    GPtrArray *props;
+
     real line_width = 0.1;
     Layer *layer = NULL;
     
@@ -395,30 +429,34 @@ void read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia){
     ellipse_obj = otype->ops->create(&center, otype->default_user_data,
                                      &h1, &h2);
     layer_add_object(layer, ellipse_obj);
+        
+    props = prop_list_from_descs(dxf_ellipse_prop_descs,pdtpp_true);
+    g_assert(props->len == 6);
+
+    ptprop = g_ptr_array_index(props,0);
+    ptprop->point_data = center;
+    rprop = g_ptr_array_index(props,1);
+    rprop->real_data = width;
+    rprop = g_ptr_array_index(props,2);
+    rprop->real_data = width * ratio_width_height;
+    cprop = g_ptr_array_index(props,3);
+    cprop->color_data = line_colour;
+    rprop = g_ptr_array_index(props,4);
+    rprop->real_data = line_width;
+    bprop = g_ptr_array_index(props,5);
+    bprop->bool_data = FALSE;
     
-    props[0].name = "elem_corner";
-    props[0].type = PROP_TYPE_POINT;
-    PROP_VALUE_POINT(props[0]).x = center.x;
-    PROP_VALUE_POINT(props[0]).y = center.y;
-    props[1].name = "elem_width";
-    props[1].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[1]) = width;
-    props[2].name = "elem_height";
-    props[2].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[2]) = width * ratio_width_height;
-    props[3].name = "line_colour";
-    props[3].type = PROP_TYPE_COLOUR;
-    PROP_VALUE_COLOUR(props[3]) = line_colour;
-    props[4].name = "line_width";
-    props[4].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[4]) = line_width;
-    props[5].name = "show_background";
-    props[5].type = PROP_TYPE_BOOL;
-    PROP_VALUE_BOOL(props[5]) = 0;
-    
-    ellipse_obj->ops->set_props(ellipse_obj, props, 
-                                sizeof(props)/sizeof(props[0]));
+    ellipse_obj->ops->set_props(ellipse_obj, props);
+    prop_list_free(props);
 }
+
+static PropDescription dxf_text_prop_descs[] = {
+    { "text_alignment", PROP_TYPE_ENUM },
+    { "text_height", PROP_TYPE_REAL },
+    { "text", PROP_TYPE_STRING },
+    { "text_colour", PROP_TYPE_COLOUR },
+    { "text_font", PROP_TYPE_FONT },
+    PROP_DESC_END};
 
 void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
     int codedxf;
@@ -435,7 +473,14 @@ void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
     
     Object *text_obj;
     Color text_colour = { 0.0, 0.0, 0.0 };
-    Property props[5];
+
+    EnumProperty *eprop;
+    StringProperty *sprop;
+    ColorProperty *cprop;
+    FontProperty *fprop;
+    RealProperty *rprop;
+    GPtrArray *props;
+
     Layer *layer = NULL;
     
     old_locale = setlocale(LC_NUMERIC, "C");
@@ -476,24 +521,23 @@ void read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia) {
                                   &h1, &h2);
     layer_add_object(layer, text_obj);
     
-    props[0].name = "text_alignment";
-    props[0].type = PROP_TYPE_ENUM;
-    PROP_VALUE_ENUM(props[0]) = textalignment;
-    props[1].name = "text_height";
-    props[1].type = PROP_TYPE_REAL;
-    PROP_VALUE_REAL(props[1]) = height;
-    props[2].name = "text";
-    props[2].type = PROP_TYPE_STRING;
-    PROP_VALUE_STRING(props[2]) = textvalue;
-    props[3].name = "text_colour";
-    props[3].type = PROP_TYPE_COLOUR;
-    PROP_VALUE_COLOUR(props[3]) = text_colour;
-    props[4].name="text_font";
-    props[4].type = PROP_TYPE_FONT;
-    PROP_VALUE_FONT(props[4]) = font_getfont("Courier");
-  
-    text_obj->ops->set_props(text_obj, props, 
-                             sizeof(props)/sizeof(props[0]));
+    props = prop_list_from_descs(dxf_text_prop_descs,pdtpp_true);
+    g_assert(props->len == 6);
+
+    eprop = g_ptr_array_index(props,0);
+    eprop->enum_data = textalignment;
+    rprop = g_ptr_array_index(props,1);
+    rprop->real_data = height;
+    sprop = g_ptr_array_index(props,2);
+    g_free(sprop->string_data);
+    sprop->string_data = textvalue;
+    cprop = g_ptr_array_index(props,3);
+    cprop->color_data = text_colour;
+    fprop = g_ptr_array_index(props,4);
+    fprop->font_data = font_getfont("Courier");
+    
+    text_obj->ops->set_props(text_obj, props);
+    prop_list_free(props);
 }
 
 /* reads the layer table from the dxf file and creates the layers */

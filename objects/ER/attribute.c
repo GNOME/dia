@@ -100,9 +100,9 @@ static Object *attribute_copy(Attribute *attribute);
 static PropDescription *
 attribute_describe_props(Attribute *attribute);
 static void
-attribute_get_props(Attribute *attribute, Property *props, guint nprops);
+attribute_get_props(Attribute *attribute, GPtrArray *props);
 static void
-attribute_set_props(Attribute *attribute, Property *props, guint nprops);
+attribute_set_props(Attribute *attribute, GPtrArray *props);
 
 static void attribute_save(Attribute *attribute, ObjectNode obj_node,
 			   const char *filename);
@@ -184,17 +184,17 @@ static PropOffset attribute_offsets[] = {
 
 
 static void
-attribute_get_props(Attribute *attribute, Property *props, guint nprops)
+attribute_get_props(Attribute *attribute, GPtrArray *props)
 {
   object_get_props_from_offsets(&attribute->element.object, 
-                                attribute_offsets, props, nprops);
+                                attribute_offsets, props);
 }
 
 static void
-attribute_set_props(Attribute *attribute, Property *props, guint nprops)
+attribute_set_props(Attribute *attribute, GPtrArray *props)
 {
   object_set_props_from_offsets(&attribute->element.object, 
-                                attribute_offsets, props, nprops);
+                                attribute_offsets, props);
   attribute_update_data(attribute);
 }
 

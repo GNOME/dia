@@ -215,6 +215,8 @@ app_init (int argc, char **argv)
   xmlKeepBlanksDefault(0);
 #endif
 
+  stdprops_init();
+
   dia_image_init();
 
   gdk_rgb_init();
@@ -223,7 +225,6 @@ app_init (int argc, char **argv)
 
   if (!nosplash)
     app_splash_init("");
-  /*  enable_core_dumps(); */
 
   create_user_dirs();
 

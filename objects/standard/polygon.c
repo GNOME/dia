@@ -94,10 +94,8 @@ static void polygon_destroy(Polygon *polygon);
 static Object *polygon_copy(Polygon *polygon);
 
 static PropDescription *polygon_describe_props(Polygon *polygon);
-static void polygon_get_props(Polygon *polygon, Property *props,
-			       guint nprops);
-static void polygon_set_props(Polygon *polygon, Property *props,
-			       guint nprops);
+static void polygon_get_props(Polygon *polygon, GPtrArray *props);
+static void polygon_set_props(Polygon *polygon, GPtrArray *props);
 
 static void polygon_save(Polygon *polygon, ObjectNode obj_node,
 			  const char *filename);
@@ -175,24 +173,25 @@ static PropOffset polygon_offsets[] = {
 };
 
 static void
-polygon_get_props(Polygon *polygon, Property *props, guint nprops)
+polygon_get_props(Polygon *polygon, GPtrArray *props)
 {
   object_get_props_from_offsets(&polygon->poly.object, 
-                                polygon_offsets, props, nprops);
+                                polygon_offsets, props);
 }
 
 static void
-polygon_set_props(Polygon *polygon, Property *props, guint nprops)
+polygon_set_props(Polygon *polygon, GPtrArray *props)
 {
   object_set_props_from_offsets(&polygon->poly.object, 
-                                polygon_offsets, props, nprops);
+                                polygon_offsets, props);
   polygon_update_data(polygon);
 }
 
 static void
 polygon_apply_defaults()
 {
-  default_properties.show_background = gtk_toggle_button_get_active(polygon_defaults_dialog->show_background);
+  default_properties.show_background = 
+    gtk_toggle_button_get_active(polygon_defaults_dialog->show_background);
 }
 
 static void

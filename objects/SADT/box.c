@@ -92,10 +92,8 @@ static Object *sadtbox_load(ObjectNode obj_node, int version,
 static DiaMenu *sadtbox_get_object_menu(Box *box, Point *clickedpoint);
 
 static PropDescription *sadtbox_describe_props(Box *box);
-static void sadtbox_get_props(Box *box, 
-                                 Property *props, guint nprops);
-static void sadtbox_set_props(Box *box, 
-                                 Property *props, guint nprops);
+static void sadtbox_get_props(Box *box, GPtrArray *props);
+static void sadtbox_set_props(Box *box, GPtrArray *props);
 
 static ObjectTypeOps sadtbox_type_ops =
 {
@@ -178,20 +176,19 @@ static PropOffset box_offsets[] = {
 };
 
 static void
-sadtbox_get_props(Box *box, Property *props, guint nprops)
+sadtbox_get_props(Box *box, GPtrArray *props)
 {  
   text_get_attributes(box->text,&box->attrs);
   object_get_props_from_offsets(&box->element.object,
-                                box_offsets,props,nprops);
+                                box_offsets,props);
 }
 
 static void
-sadtbox_set_props(Box *box, Property *props, guint nprops)
+sadtbox_set_props(Box *box, GPtrArray *props)
 {
   object_set_props_from_offsets(&box->element.object,
-                                box_offsets,props,nprops);
-  apply_textattr_properties(props,nprops,
-                            box->text,"text",&box->attrs);
+                                box_offsets,props);
+  apply_textattr_properties(props,box->text,"text",&box->attrs);
   sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 }
 

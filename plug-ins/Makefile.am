@@ -1,4 +1,4 @@
 # Remember to also add subdirs in configure.in
-SUBDIRS = cgm pstricks dxf xfig hpgl wpg svg shape python
+SUBDIRS = cgm pstricks hpgl wpg svg shape dxf python xfig
 
 EXTRA_DIST = renderer.inc

@@ -73,8 +73,8 @@ static DiaMenu *generalization_get_object_menu(Generalization *genlz,
 						Point *clickedpoint);
 
 static PropDescription *generalization_describe_props(Generalization *generalization);
-static void generalization_get_props(Generalization * generalization, Property *props, guint nprops);
-static void generalization_set_props(Generalization * generalization, Property *props, guint nprops);
+static void generalization_get_props(Generalization * generalization, GPtrArray *props);
+static void generalization_set_props(Generalization * generalization, GPtrArray *props);
 
 static Object *generalization_load(ObjectNode obj_node, int version,
 				   const char *filename);
@@ -138,17 +138,17 @@ static PropOffset generalization_offsets[] = {
 };
 
 static void
-generalization_get_props(Generalization * generalization, Property *props, guint nprops)
+generalization_get_props(Generalization * generalization, GPtrArray *props)
 {
   object_get_props_from_offsets(&generalization->orth.object,
-                                generalization_offsets,props,nprops);
+                                generalization_offsets,props);
 }
 
 static void
-generalization_set_props(Generalization *generalization, Property *props, guint nprops)
+generalization_set_props(Generalization *generalization, GPtrArray *props)
 {
   object_set_props_from_offsets(&generalization->orth.object, 
-                                generalization_offsets, props, nprops);
+                                generalization_offsets, props);
   g_free(generalization->st_stereotype);
   generalization->st_stereotype = NULL;
   generalization_update_data(generalization);

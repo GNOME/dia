@@ -75,9 +75,9 @@ static Object *arc_load(ObjectNode obj_node, int version,
 			       const char *filename);
 static PropDescription *arc_describe_props(Arc *arc);
 static void arc_get_props(Arc *arc, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 static void arc_set_props(Arc *arc, 
-                                 Property *props, guint nprops);
+                                 GPtrArray *props);
 
 static ObjectTypeOps arc_type_ops =
 {
@@ -145,17 +145,17 @@ static PropOffset arc_offsets[] = {
 };
 
 static void
-arc_get_props(Arc *arc, Property *props, guint nprops)
+arc_get_props(Arc *arc, GPtrArray *props)
 {  
   object_get_props_from_offsets(&arc->orth.object,
-                                arc_offsets,props,nprops);
+                                arc_offsets,props);
 }
 
 static void
-arc_set_props(Arc *arc, Property *props, guint nprops)
+arc_set_props(Arc *arc, GPtrArray *props)
 {
   object_set_props_from_offsets(&arc->orth.object,
-                                arc_offsets,props,nprops);
+                                arc_offsets,props);
   arc_update_data(arc);
 }
 
@@ -177,10 +177,6 @@ static void
 arc_move_handle(Arc *arc, Handle *handle,
 		       Point *to, HandleMoveReason reason, ModifierKeys modifiers)
 {
-  assert(arc!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
-
   orthconn_move_handle(&arc->orth, handle, to, reason);
   arc_update_data(arc);
 }

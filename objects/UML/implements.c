@@ -75,8 +75,8 @@ static void implements_update_data(Implements *implements);
 static void implements_destroy(Implements *implements);
 
 static PropDescription *implements_describe_props(Implements *implements);
-static void implements_get_props(Implements * implements, Property *props, guint nprops);
-static void implements_set_props(Implements * implements, Property *props, guint nprops);
+static void implements_get_props(Implements * implements, GPtrArray *props);
+static void implements_set_props(Implements * implements, GPtrArray *props);
 
 static Object *implements_load(ObjectNode obj_node, int version,
 			       const char *filename);
@@ -141,17 +141,17 @@ static PropOffset implements_offsets[] = {
 };
 
 static void
-implements_get_props(Implements * implements, Property *props, guint nprops)
+implements_get_props(Implements * implements, GPtrArray *props)
 {
   object_get_props_from_offsets(&implements->connection.object, 
-                                implements_offsets, props, nprops);
+                                implements_offsets, props);
 }
 
 static void
-implements_set_props(Implements *implements, Property *props, guint nprops)
+implements_set_props(Implements *implements, GPtrArray *props)
 {
   object_set_props_from_offsets(&implements->connection.object, 
-                                implements_offsets, props, nprops);
+                                implements_offsets, props);
   implements_update_data(implements);
 }
 
