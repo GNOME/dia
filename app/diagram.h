@@ -94,7 +94,7 @@ void diagram_import_from_xfig(Diagram *dia, char *filename);
 
 int diagram_modified_exists(void);
 
-void diagram_redraw_all();
+void diagram_redraw_all(void);
 
 #endif /* DIAGRAM_H */
 

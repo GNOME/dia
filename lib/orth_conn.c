@@ -58,6 +58,8 @@ static ObjectChange *
 endsegment_create_change(OrthConn *orth, enum change_type type,
 			 int segment, Point *point,
 			 Handle *handle);
+static void 
+place_handle_by_swapping(OrthConn *orth, int index, Handle *handle);
 
 struct EndSegmentChange {
   ObjectChange obj_change;
@@ -424,7 +426,8 @@ orthconn_destroy(OrthConn *orth)
   g_free(orth->handles);
 }
 
-void place_handle_by_swapping(OrthConn *orth, int index, Handle *handle)
+static void 
+place_handle_by_swapping(OrthConn *orth, int index, Handle *handle)
 {
   Object *obj;
   Handle *tmp;

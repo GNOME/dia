@@ -13,6 +13,6 @@
   </connections>
   <textbox x1="0.15" y1="0.15" x2="0.85" y2="0.85"/>
   <svg:svg width="1" height="1">
-    <svg:circle cx="0.5"cy="0.5" r="0.5" style="fill: default"/>
+    <svg:circle cx="0.5" cy="0.5" r="0.5" style="fill: default"/>
   </svg:svg>
 </shape>

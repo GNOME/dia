@@ -39,8 +39,10 @@ message_internal(char *title, const char *fmt,
   GtkWidget *dialog_window = NULL;
   GtkWidget *vbox;
   GtkWidget *label;
+#ifndef GNOME
   GtkWidget *button;
   GtkWidget *bbox;
+#endif
 
   gint len;
 

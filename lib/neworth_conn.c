@@ -231,7 +231,8 @@ neworthconn_distance_from(NewOrthConn *orth, Point *point, real line_width)
   return dist;
 }
 
-void neworthconn_update_midpoints(NewOrthConn *orth)
+static void
+neworthconn_update_midpoints(NewOrthConn *orth)
 {
   int i;
   GSList *elem;

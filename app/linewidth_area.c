@@ -33,7 +33,7 @@
 #define AREA_WIDTH X_OFFSET(NUMLINES+1)
 #define AREA_HEIGHT 42
 
-static void linewidth_create_dialog();
+static void linewidth_create_dialog(void);
 
 static int active_linewidth = 2;
 static GdkGC *linewidth_area_gc = NULL;
@@ -193,11 +193,13 @@ linewidth_dialog_ok(GtkWidget *widget, gpointer data) {
 }
 
 static void
-linewidth_dialog_cancel(GtkWidget *widget, gpointer data) {
+linewidth_dialog_cancel(GtkWidget *widget, gpointer data)
+{
   gtk_widget_hide(linewidth_dialog);
 }
 
-static void linewidth_create_dialog()
+static void
+linewidth_create_dialog()
 {
   GtkWidget *button;
   GtkWidget *hbox;

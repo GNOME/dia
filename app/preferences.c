@@ -553,7 +553,9 @@ prefs_create_dialog(void)
 {
   GtkWidget *notebook_page;
   GtkWidget *label;
+#ifndef GNOME
   GtkWidget *button;
+#endif
   GtkWidget *dialog_vbox;
   GtkWidget *notebook;
   GtkWidget *table;

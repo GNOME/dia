@@ -34,6 +34,7 @@
 #include "menus.h"
 #include "message.h"
 #include "intl.h"
+#include "magnify.h"
 
 /* This contains the point that was clicked to get this menu */
 static Point object_menu_clicked_point;
@@ -371,7 +372,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
   switch (event->type)
     {
     case GDK_EXPOSE:
-      /*printf("GDK_EXPOSE\n");*/
       eevent = (GdkEventExpose *) event;
       ddisplay_add_display_area(ddisp,
 				eevent->area.x, eevent->area.y,
@@ -381,7 +381,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
       break;
 
     case GDK_CONFIGURE:
-      /*printf("GDK_CONFIGURE\n");*/
       if (ddisp->renderer != NULL) {
 	width = ddisp->renderer->pixel_width;
 	height = ddisp->renderer->pixel_height;
@@ -573,6 +572,11 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	  
 	  ddisplay_zoom(ddisp, &middle, M_SQRT1_2);
 	  break;
+	case GDK_Shift_L:
+	case GDK_Shift_R:
+	  if (active_tool->type == MAGNIFY_TOOL)
+	    set_zoom_out(active_tool);
+	  break;
 	default:
 	  return_val = FALSE;
 	}
@@ -582,11 +586,18 @@ ddisplay_canvas_events (GtkWidget *canvas,
     case GDK_KEY_RELEASE:
       kevent = (GdkEventKey *) event;
       state = kevent->state;
+      switch(kevent->keyval) {
+	case GDK_Shift_L:
+	case GDK_Shift_R:
+	  if (active_tool->type == MAGNIFY_TOOL)
+	    set_zoom_in(active_tool);
+	  break;
+	default:
+	  break;
+      }
       break;
-
       
     default:
-      /*printf("Got event of type %d\n", event->type);*/
       break;
     }
   
@@ -618,7 +629,6 @@ ddisplay_delete (GtkWidget *widget, GdkEvent  *event, gpointer data)
 {
   DDisplay *ddisp;
 
-  /*printf("delete\n");*/
   ddisp = (DDisplay *)data;
   
   ddisplay_close(ddisp);

@@ -48,7 +48,9 @@ static void
 create_diagram_properties_dialog(void)
 {
   GtkWidget *dialog_vbox;
+#ifndef GNOME
   GtkWidget *button = NULL;
+#endif
   GtkWidget *notebook;
   GtkWidget *table;
   GtkWidget *label;

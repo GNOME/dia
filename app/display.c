@@ -115,7 +115,7 @@ new_display(Diagram *dia)
   ddisp->autoscroll = TRUE;
 
   ddisp->aa_renderer = 0;
-  ddisp->renderer = (Renderer *)new_gdk_renderer(ddisp);;
+  ddisp->renderer = (Renderer *)new_gdk_renderer(ddisp);
   
   ddisp->update_areas = NULL;
   ddisp->display_areas = NULL;
@@ -739,8 +739,9 @@ ddisplay_close(DDisplay *ddisp)
   Diagram *dia;
   GtkWidget *dialog, *vbox;
   GtkWidget *label;
+#ifndef GNOME
   GtkWidget *button;
-  
+#endif
   dia = ddisp->diagram;
   
   if ( (dia->display_count > 1) ||
@@ -838,16 +839,16 @@ display_update_menu_state(DDisplay *ddisp)
 
   diagram_update_menu_sensitivity(dia);
 
-  gtk_check_menu_item_set_active((GtkToggleButton *) rulers,
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(rulers),
 				 GTK_WIDGET_VISIBLE (ddisp->hrule) ? 1 : 0); 
-  gtk_check_menu_item_set_active((GtkToggleButton *) visible_grid,
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(visible_grid),
 				 ddisp->grid.visible);
-  gtk_check_menu_item_set_active((GtkToggleButton *) snap_to_grid,
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(snap_to_grid),
 				 ddisp->grid.snap);
-  gtk_check_menu_item_set_active((GtkToggleButton *) show_cx_pts,
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(show_cx_pts),
 				 ddisp->show_cx_pts); 
 #ifdef HAVE_LIBART
-  gtk_check_menu_item_set_active((GtkToggleButton *) antialiased,
+  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(antialiased),
 				 ddisp->aa_renderer);
 #endif 
 }

@@ -349,7 +349,7 @@ static void
 init_x11_font(FontPrivate *font)
 {
   int i;
-  GdkFont *gdk_font;
+  GdkFont *gdk_font = NULL;
   int bufsize;
   char *buffer;
   char *x11_font;
@@ -594,7 +594,7 @@ suck_font (GdkFont *font)
 	GdkColor black, white;
 	GdkImage *image;
 	GdkGC *gc;
-	guchar *bitmap, *line;
+	guchar *line;
 	int width, height;
 	int black_pixel, pixel;
 

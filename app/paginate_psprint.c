@@ -60,7 +60,7 @@ print_page(DiagramData *data, RendererEPS *rend, Rectangle *bounds)
 {
   guint nobjs = 0;
   gfloat tmargin = data->paper.tmargin, bmargin = data->paper.bmargin;
-  gfloat lmargin = data->paper.lmargin, rmargin = data->paper.rmargin;
+  gfloat lmargin = data->paper.lmargin;
   gfloat scale = data->paper.scaling;
 
   /* count the number of objects in this region */

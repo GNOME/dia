@@ -168,7 +168,6 @@ void diagram_update_menu_sensitivity(Diagram *dia)
   static GtkWidget *align_v_b;
   static GtkWidget *align_v_e;
   static GtkWidget *align_v_a;
-  static GString *path;
   
   if (initialized==0) {
 #   ifdef GNOME

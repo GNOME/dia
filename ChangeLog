@@ -1,3 +1,33 @@
+2000-10-12  Fredrik Hallenberg  <hallon@lysator.liu.se>
+
+	* app/app_procs.c
+	* app/commands.c
+	* app/dia-props.c
+	* app/diagram.c
+	* app/diagram.h
+	* app/disp_callbacks.c
+	* app/display.c
+	* app/linewidth_area.c
+	* app/paginate_psprint.c
+	* app/preferences.c
+	* app/undo.c
+	* app/font.c
+	* app/message.c
+	* app/neworth_conn.c
+	* app/orth_conn.c
+	* objects/standard/box.c: various small changes to get rid of 
+	annoying warnings (eg faulty prototypes and unused variables)
+
+	* app/disp_callbacks.c
+	* app/cursor.h
+	* app/magnify.c
+	* app/magnify.h: update magnify tool icon when pressing/releasing
+	shift. I will try to make something more general so that similar
+	things can be used by other tools.
+
+	* shapes/SDL/inout.shape
+	* shapes/SDL/return.shape: fixed some typos
+
 2000-10-09  James Henstridge  <james@daa.com.au>
 
 	* objects/custom/shape_info.c (parse_path): apply patch from

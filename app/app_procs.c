@@ -126,7 +126,9 @@ app_init (int argc, char **argv)
   char *in_file_name = NULL;
   char *export_file_name = NULL;
 #ifdef HAVE_POPT
+#ifndef GNOME
   int rc;
+#endif
   poptContext poptCtx = NULL;
   struct poptOption options[] =
   {
@@ -139,7 +141,6 @@ app_init (int argc, char **argv)
     {(char *) NULL, '\0', 0, NULL, 0}
   };
 #endif
-  int i = 0;
 
   gtk_set_locale();
   setlocale(LC_NUMERIC, "C");
@@ -289,7 +290,9 @@ app_exit(void)
     GtkWidget *dialog;
     GtkWidget *vbox;
     GtkWidget *label;
+#ifndef GNOME
     GtkWidget *button;
+#endif
     int result = FALSE;
 
 #ifdef GNOME

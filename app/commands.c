@@ -570,7 +570,9 @@ void
 view_zoom_set_callback(GtkWidget *widget, gpointer data)
 {
   DDisplay *ddisp;
+#ifndef GNOME
   int percent;
+#endif
   real scale;
   Point middle;
   Rectangle *visible;

@@ -89,18 +89,6 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
 {
   intPoint tl, br;
 
-  if ((event->state & GDK_SHIFT_MASK) != 0) {
-    if (!tool->zoom_out) {
-      tool->zoom_out = TRUE;
-      ddisplay_set_all_cursor(get_cursor(CURSOR_ZOOM_OUT));
-    }
-  } else {
-    if (tool->zoom_out) {
-      tool->zoom_out = FALSE;
-      ddisplay_set_all_cursor(get_cursor(CURSOR_ZOOM_IN));
-    }
-  }
-
   if (tool->box_active) { 
     tool->moved = TRUE;
 
@@ -127,6 +115,20 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
     tool->oldx = event->x;
     tool->oldy = event->y;
   }
+}
+
+void
+set_zoom_out(Tool *tool)
+{
+  ((MagnifyTool *)tool)->zoom_out = TRUE;
+  ddisplay_set_all_cursor(get_cursor(CURSOR_ZOOM_OUT));
+}
+
+void
+set_zoom_in(Tool *tool)
+{
+  ((MagnifyTool *)tool)->zoom_out = FALSE;
+  ddisplay_set_all_cursor(get_cursor(CURSOR_ZOOM_IN));
 }
 
 Tool *

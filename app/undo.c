@@ -135,7 +135,7 @@ undo_push_change(UndoStack *stack, Change *change)
   stack->current_change = change;
 }
 
-void
+static void
 undo_delete_lowest_transaction(UndoStack *stack)
 {
   Change *change;

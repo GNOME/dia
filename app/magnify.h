@@ -37,5 +37,7 @@ struct _MagnifyTool {
 
 Tool *create_magnify_tool(void);
 void free_magnify_tool(Tool *tool);
+void set_zoom_out(Tool *tool);
+void set_zoom_in(Tool *tool);
 
 #endif /* MAGNIFY_H */
